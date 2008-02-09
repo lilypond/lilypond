@@ -156,7 +156,7 @@ must use this with dvips -h INPUT.psfonts'''),
     p.add_option ('-w', '--warranty',
                   help=_ ("show warranty and copyright"),
                   action='store_true')
-    p.add_option_group ('bugs',
+    p.add_option_group (_ ('Bugs'),
                         description=(_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))

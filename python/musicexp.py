@@ -794,12 +794,24 @@ class BeamEvent (SpanEvent):
 class PedalEvent (SpanEvent):
     def ly_expression (self):
         return {-1: '\\sustainDown',
+            0:'\\sustainUp\\sustainDown',
             1:'\\sustainUp'}.get (self.span_direction, '')
+
+class TextSpannerEvent (SpanEvent):
+    def ly_expression (self):
+        return {-1: '\\startTextSpan',
+            1:'\\stopTextSpan'}.get (self.span_direction, '')
+
+class BracketSpannerEvent (SpanEvent):
+    def ly_expression (self):
+        return {-1: '\\startGroup',
+            1:'\\stopGroup'}.get (self.span_direction, '')
+
 
 # type==-1 means octave up, type==-2 means octave down
 class OctaveShiftEvent (SpanEvent):
     def wait_for_note (self):
-        return False;
+        return False
     def set_span_type (self, type):
         self.span_type = {'up': 1, 'down': -1}.get (type, 0)
     def ly_octave_shift_indicator (self):
@@ -839,7 +851,7 @@ class ArpeggioEvent(Event):
         Event.__init__ (self)
         self.direction = 0
     def wait_for_note (self):
-        return True;
+        return True
     def ly_expression (self):
         # TODO: Use self.direction for up/down arpeggios
         return ('\\arpeggio')
@@ -873,16 +885,36 @@ class DynamicsEvent (Event):
     def __init__ (self):
         self.type = None
     def wait_for_note (self):
-        return True;
+        return True
     def ly_expression (self):
         if self.type:
             return '\%s' % self.type
         else:
-            return;
+            return
 
     def print_ly (self, printer):
         if self.type:
             printer.dump ("\\%s" % self.type)
+
+class MarkEvent (Event):
+    def __init__ (self, text="\\default"):
+        self.mark = text
+    def wait_for_note (self):
+        return False
+    def ly_contents (self):
+        if self.mark:
+            return '%s' % self.mark
+        else:
+            return "\"ERROR\""
+    def ly_expression (self):
+        return '\\mark %s' % self.ly_contents ()
+
+class MusicGlyphMarkEvent (MarkEvent):
+    def ly_contents (self):
+        if self.mark:
+            return '\\markup { \\musicglyph #"scripts.%s" }' % self.mark
+        else:
+            return ''
 
 
 class TextEvent (Event):
@@ -907,7 +939,7 @@ class ArticulationEvent (Event):
         self.type = None
         self.force_direction = None
     def wait_for_note (self):
-        return True;
+        return True
 
     def direction_mod (self):
         return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '')
