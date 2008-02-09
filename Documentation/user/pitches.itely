@@ -789,7 +789,6 @@ is done with the @code{\key} command:
 \key @var{pitch} @var{mode}
 @end example
 
-@funindex \minor
 @funindex \major
 @funindex \minor
 @funindex \ionian
@@ -800,6 +799,7 @@ is done with the @code{\key} command:
 @funindex \phrygian
 @funindex \dorian
 @cindex church modes
+@cindex modes
 
 Here, @var{mode} should be @code{\major} or @code{\minor} to get a
 key signature of @var{pitch}-major or @var{pitch}-minor,
@@ -870,6 +870,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 @seealso
 
 Music Glossary: @rglos{ottava}.
+@c FIXME? @rglos{15ma}, @rglos{8va}, @rglos{8ve}, @rgloss{octavation}
 
 Snippets: @lsrdir{Pitches,Pitches}.
 
@@ -882,6 +883,9 @@ Internals Reference: @internalsref{OttavaBracket}.
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
+@cindex transposing instrument
+@cindex MIDI
+@funindex \transposition
 
 When typesetting scores that involve transposing instruments, some
 parts can be typeset in a different pitch than the
@@ -956,8 +960,7 @@ c2 g
 
 @seealso
 
-Music Glossary: @rglos{concert pitch},
-@rglos{transposing instrument}.
+Music Glossary: @rglos{concert pitch}, @rglos{transposing instrument}.
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
@@ -966,8 +969,13 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 @node Automatic accidentals
 @subsubsection Automatic accidentals
-@cindex automatic accidentals
 
+@cindex automatic accidentals
+@cindex accidentals, automatic
+@cindex accidentals
+@cindex accidental style
+@cindex default accidental style
+@cindex accidental style, default
 @funindex set-accidental-style
 
 There are many different conventions on how to typeset
@@ -1181,6 +1189,8 @@ musicB = {
 @end lilypond
 
 @item modern
+@cindex accidentals, modern style
+@cindex modern style accidentals
 @funindex modern style accidentals
 
 This rule corresponds to the common practice in the twentieth
@@ -1239,6 +1249,11 @@ musicB = {
 @end lilypond
 
 @item modern-cautionary
+@cindex accidentals, modern cautionary style
+@cindex modern style accidentals
+@cindex modern style cautionary accidentals
+@cindex modern accidental style
+@cindex modern cautionary accidental style
 @funindex modern-cautionary
 
 This rule is similar to @code{modern}, but the @q{extra}
@@ -1296,6 +1311,10 @@ musicB = {
 @end lilypond
 
 @item modern-voice
+@cindex accidentals, multivoice
+@cindex accidentals, modern
+@cindex modern accidentals
+@cindex multivoice accidentals
 @funindex modern-voice
 
 This rule is used for multivoice accidentals to be read both by
