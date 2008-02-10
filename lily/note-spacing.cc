@@ -95,6 +95,8 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
   ideal = max (ideal, min_desired_space);
   stem_dir_correction (me, right_col, increment, &ideal, &min_desired_space);
 
+  /* TODO: grace notes look bad when things are stretched. Should we increase
+     their stretch strength? */
   Spring ret (max (0.0, ideal), min_dist);
   ret.set_inverse_compress_strength (max (0.0, ideal - min_desired_space));
   ret.set_inverse_stretch_strength (max (0.1, base_space - increment));
