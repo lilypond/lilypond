@@ -1195,7 +1195,7 @@ For example: a @code{Staff} context can contain many
 contain many @code{Staff} contexts.
 
 @quotation
-@image{context-example,5cm,,}
+@sourceimage{context-example,5cm,,}
 @end quotation
 
 Each context has the responsibility for enforcing some notation rules,

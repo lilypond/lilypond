@@ -124,6 +124,12 @@ def get_option_parser ():
                   action='append', dest='include_path',
                   default=[os.path.abspath (os.getcwd ())])
 
+    p.add_option ('--info-images-dir', help=_ ("format Texinfo output so that Info will "
+                                               "look for images of music in DIR"),
+                  metavar=_ ("DIR"),
+                  action='store', dest='info_images_dir',
+                  default='')
+
     p.add_option ('--left-padding', 
                   metavar=_ ("PAD"),
                   dest="padding_mm",
@@ -627,7 +633,7 @@ output = {
 
         OUTPUTIMAGE: r'''@noindent
 @ifinfo
-@image{%(base)s,,,%(alt)s,%(ext)s}
+@image{%(info_image_path)s,,,%(alt)s,%(ext)s}
 @end ifinfo
 @html
 <p>
@@ -1203,6 +1209,7 @@ class Lilypond_snippet (Snippet):
             # Specifying no extension is most robust.
             ext = ''
             alt = self.option_dict[ALT]
+            info_image_path = os.path.join (global_options.info_images_dir, base)
             str += output[TEXINFO][OUTPUTIMAGE] % vars ()
 
         base = self.basename ()

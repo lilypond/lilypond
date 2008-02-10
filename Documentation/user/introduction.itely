@@ -87,9 +87,8 @@ computer edition.
 @end ifnottex
 @end ifnotinfo
 @ifinfo
-@c workaround for makeinfo-4.6: line breaks and multi-column cookies
-@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png}
-@image{lily-flat-bw,,,png}
+@image{lilypond/henle-flat-bw,,,png} @image{lilypond/baer-flat-bw,,,png}
+@image{lilypond/lily-flat-bw,,,png}
 @end ifinfo
 
 @item @tab

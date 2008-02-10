@@ -23,7 +23,7 @@
 @ignore
 Distributions will want to install lilypond.info in postinstall, doing:
 
-    install-info --info-dir=/usr/share/info out/lilypond.info
+    install-info --info-dir=/usr/share/info out[-www]/lilypond.info
 
   * Prepend GNU for dir, must be unique.
 
@@ -38,16 +38,21 @@ Distributions will want to install lilypond.info in postinstall, doing:
 
 
 @c
-@c Info files are installed in subdirectories to allow images to be present. 
-@c 
-@dircategory LilyPond
+@c Info files are no longer installed in a subdirectory, images are
+@c expected to be found in lilypond/ subdirectory.
+@dircategory GNU LilyPond --- the music typesetter
 @direntry
-* LilyPond: (lilypond/lilypond).           The GNU music typesetter.
-* abc2ly: (lilypond/lilypond-program)Invoking abc2ly.          Importing ABC.      
-* convert-ly: (lilypond/lilypond-program)Invoking convert-ly.  Older LilyPond versions.
-* etf2ly: (lilypond/lilypond-program)Invoking etf2ly.          Importing Finale.
-* lilypond-book: (lilypond/lilypond-program)LilyPond-book.     Integrating text and music.
-* midi2ly: (lilypond/lilypond-program)Invoking midi2ly.        Importing MIDI.
+* LilyPond Learning Manual: (lilypond-learning).  Start here.
+* Music Glossary: (music-glossary).               For non-English users.
+* LilyPond: (lilypond).                           LilyPond Notation Reference.
+* LilyPond Internals Reference: (lilypond-internals).  Definitions for tweaking.
+* LilyPond Application Usage: (lilypond-program). Installing and running applications.
+* abc2ly: (lilypond-program)Invoking abc2ly.      Importing ABC.      
+* convert-ly: (lilypond-program)Updating files with convert-ly. Older LilyPond versions.
+* etf2ly: (lilypond-program)Invoking etf2ly.      Importing Finale.
+* lilypond-book: (lilypond-program)LilyPond-book. Integrating text and music.
+* midi2ly: (lilypond-program)Invoking midi2ly.    Importing MIDI.
+* musicxml2ly: (lilypond-program)Invoking musicxml2ly.  Importing MusicXML.
 @end direntry
 
 @c don't remove this comment.
