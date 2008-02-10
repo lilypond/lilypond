@@ -208,10 +208,14 @@ Appendices
 @node LilyPond command index
 @appendix LilyPond command index
 
+This index does blah blah blah.
+
 @printindex ky
 
 @node LilyPond index
 @appendix LilyPond index
+
+In contrast, this index does blaz blaz blaz.
 
 @printindex cp
 

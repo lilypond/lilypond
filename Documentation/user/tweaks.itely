@@ -2082,7 +2082,8 @@ should be used to move them.
 Let's now see how the properties in the previous section can
 help to resolve overlapping notation.
 
-@subheading @code{padding} property
+@c FIXME: formatting
+@subheading @code{padding}
 @cindex padding property
 
 The @code{padding} property can be set to increase
@@ -2119,7 +2120,7 @@ their @code{outside-staff-priority}, then that object and all
 objects outside it are moved.
  
 
-@subheading left-padding and right-padding properties
+@subheading @code{left-padding} and @code{right-padding}
 @cindex left-padding property
 @cindex right-padding property
 
