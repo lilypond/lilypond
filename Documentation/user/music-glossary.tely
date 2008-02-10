@@ -297,6 +297,7 @@ Languages in this order.
 * lilypond::                    
 * ligature::                    
 * line::                        
+* loco::                        
 * long appoggiatura::           
 * longa::                       
 * lyrics::                      
@@ -334,11 +335,11 @@ Languages in this order.
 * note head::                   
 * note names::                  
 * note value::                  
+* octavation::                      
 * octave sign::                 
 * octave::                      
 * ornament::                    
 * ossia::                       
-* ottava::                      
 * part::                        
 * pause::                       
 * pennant::                     
@@ -361,6 +362,7 @@ Languages in this order.
 * quadruplet::                  
 * quarter note::                
 * quarter rest::                
+* quarter tone::                
 * quintuplet::                  
 * rallentando::                 
 * relative key::                
@@ -1885,7 +1887,58 @@ DK: ?,
 S: ?,
 FI: ?.
 
-FIXME: this is a placeholder
+The pitch at which the piano and other nontransposing instruments play: such
+instruments are said to be @q{in C}.  The following list includes some (but not
+all) instruments that play in concert pitch:
+
+@itemize
+
+@item Woodwinds
+@itemize
+@item flute
+@item oboe
+@item bassoon
+@end itemize
+
+@item Brass
+@itemize
+@item alto trombone
+@item tenor trombone
+@item bass trombone
+@end itemize
+
+@item Strings
+@itemize
+@item violin
+@item viola
+@item violincello
+@end itemize
+
+@item piano
+
+@end itemize
+
+The trombones are a special case: although they are said to be @q{in F} (alto or
+bass) or @q{in B-flat} (tenor), this refers to their fundamental note, not to
+their parts' transposition.  (In fact, the trombones' parts are written at
+concert pitch with an appropriate clef -- alto, tenor or bass.)  This differs
+from other instruments @q{in F}, @q{in B-flat}, and so on, which are transposing
+instruments.
+
+Instruments that play @q{in C} but in a different octave than what is written
+are, technically speaking, @emph{transposing instruments}:
+
+@itemize
+
+@item piccolo (plays an octave higher)
+@item celesta (plays an octave higher)
+@item double-bass (plays an octave lower)
+
+@end itemize
+
+@seealso
+
+@ref{transposing instrument}.
 
 
 @node conjunct movement
@@ -3002,11 +3055,15 @@ example, a series of notes to be played on the G string would be
 indicated @samp{sul G}, another series to be played on the D string
 would be indicated @samp{sul D}, and so on.
 
+@item
+With an octave indication (also called @emph{octavation}, q.v.) to indicate that
+a passage is to be played higher or lower by the given number of octaves.
+
 @end itemize
 
 @seealso
 
-@ref{melisma}, @ref{sul G}, @ref{thorough bass}
+@ref{melisma}, @ref{sul G}, @ref{thorough bass}, @ref{octavation}.
 
 
 @node F
@@ -4020,6 +4077,26 @@ FI: viiva, nuottiviiva.
 @ref{staff}.
 
 
+@node loco
+@section loco
+
+ES: ?,
+I: loco,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[From Italian, @q{place}].  Instruction to play the following passage at the
+written pitch.  Cancels octavation (q.v.).
+
+@seealso
+
+@ref{octavation}.
+
+
 @node long appoggiatura
 @section long appoggiatura
 
@@ -4852,8 +4929,70 @@ dotted notes are also frequently used.
 @end lilypond
 
 
+@node octavation
+@section octavation
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+The use of a phrase or abbreviation with an extender line or bracket to indicate
+that a passage is to be played in a different octave:
+
+@itemize
+
+@item @samp{15ma}: play two octaves higher
+@item @samp{8va}: play one octave higher
+@item @samp{8vb}: play one octave lower
+@item @samp{8va} written below the passage: same as @samp{8vb}
+@item @samp{15vb}: play two octaves lower
+@item @samp{15va} written below the passage: same as @samp{15vb}
+
+@end itemize
+
+Another practice, which may be useful for longer passages, is to indicate the
+different octave with a phrase at the beginning (see below).  When the music
+returns to the written pitch, the octavation is cancelled with the word
+@emph{loco} (q.v.).
+
+To parallel the list above:
+
+@itemize
+
+@item @samp{15ma}: @emph{alla quindicesima (alta)}
+@item @samp{8va}: @emph{all'ottava} or @emph{ottava sopra}
+@item @samp{8vb}: @emph{ottava bassa}, @emph{ottava sotto}
+@item @samp{15vb}: @emph{alla quindicesima (bassa)}
+
+@end itemize
+
+@emph{Quindicesima} can be replaced with @emph{quindecima}, which is Latin.
+
+@seealso
+
+@ref{interval}, @ref{loco}, @ref{octave}.
+
+
 @node octave sign
 @section octave sign
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Putting 8 or 15 above or below the clef to indicate that the entire part is
+played in the indicated octave: a clef-wide octavation.  An octave sign can be
+applied to any clef, though it is most frequently used with the G and F clefs.
 
 @seealso
 
@@ -4872,9 +5011,14 @@ DK: oktav,
 S: oktav,
 FI: oktaavi.
 
+The interval of an octave, sometimes abbreviated @samp{8ve}.
+
+For uses like @emph{all'ottava} or @emph{8va} with an extender line or
+bracket, or @samp{loco} see octavation.
+
 @seealso
 
-@ref{ottava}, @ref{interval}.
+@ref{interval}, @ref{octavation}.
 
 
 @node ornament
@@ -4953,33 +5097,6 @@ FI: ossia, vaihtoehtoinen esitystapa.
 Ossia (otherwise) marks an alternative.  It is an added staff or piano
 score, usually only a few measures long, which presents another version
 of the music, for example for small hands.
-
-
-@node ottava
-@section ottava
-
-@c TODO: translations
-
-ES: ?,
-I: ottava,
-F: octave,
-DE: Oktavierung,
-NL: ?,
-DK: ?,
-S: ?,
-FI: ?.
-
-[From Italian] The interval of an octave, abbreviated 8va.
-
-@emph{All'ottava}, @emph{ottava alta}, @emph{ottava sopra}, or
-@emph{8va} written above a passage indicates that it should be played
-an octave higher than written. @emph{Ottava bassa}, @emph{ottava
-sotto}, or @emph{8va} written below a passage indicates that it should
-be played an octave lower than written.
-
-@seealso
-
-@ref{interval}.
 
 
 @node part
@@ -5350,6 +5467,25 @@ FI: neljännesosatauko.
 @seealso
 
 @ref{note value}.
+
+
+@node quarter tone
+@section quarter tone
+
+ES: ?,
+I: ?,
+F: quart de ton,
+D: Viertelton,
+NL: kwart toon,
+DK: ?,
+S: kvartston,
+FI: ?.
+
+An interval equal to half a semitone.
+
+@seealso
+
+@ref{interval}
 
 
 @node quintuplet
@@ -6516,7 +6652,27 @@ DK: ?,
 S: ?,
 FI: ?.
 
-FIXME: this is a placeholder
+Instruments whose notated pitch is different from their sounded pitch.  Except
+for those whose notated and sounding pitches differ by one or more octaves (to
+reduce the number of ledger lines needed), most such instruments are identified
+by the letter name of the pitch class of their fundamental.  The pitch class is
+the note that @emph{sounds} (disregarding the octave in which it sounds) when
+the instrument plays a notated C.
+
+For example: when played on the B-flat clarinet, the note middle C @emph{sounds}
+the B-flat one tone lower.  If played on the A clarinet, the same written
+note sounds the A (one and half tones -- a minor third -- lower).
+
+Not all transposing instruments include the pitch class in their name:
+
+@itemize
+@item English horn (in F)
+@item Alto flute (in G)
+@end itemize
+
+@seealso
+
+@ref{concert pitch}.
 
 
 @node transposition

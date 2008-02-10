@@ -316,8 +316,7 @@ cis
 @seealso
 
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}, @rglos{Pitch names}.
-@c FIXME: add @rglos{quarter-tone}
+@rglos{double flat}, @rglos{Pitch names}, @rglos{quarter-tone}.
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
 
@@ -869,8 +868,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 
 @seealso
 
-Music Glossary: @rglos{ottava}.
-@c FIXME? @rglos{15ma}, @rglos{8va}, @rglos{8ve}, @rgloss{octavation}
+Music Glossary: @rglos{octavation}.
 
 Snippets: @lsrdir{Pitches,Pitches}.
 
