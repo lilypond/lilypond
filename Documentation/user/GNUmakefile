@@ -21,12 +21,17 @@ HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
 
 # todo: add latex.
 PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
+# this prevents aux files from being reused for translated docs
+TEXI2PDF_FLAGS = --tidy
 
 INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
+ifeq ($(out),www)
+INFO_IMAGES_DIR = lilypond
+endif
+
 STEPMAKE_TEMPLATES=tex texinfo omf documentation
-#TEXI2DVI_FLAGS = -E
 OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
@@ -48,13 +53,27 @@ xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-inter
 ifeq ($(out),www)
 
 # This builds all .info targets with images, in out-www.
-# Viewawble with a recent Emacs, doing: M-x info out-www/lilypond.info
+# Viewable with a recent Emacs, doing: C-u C-h i out-www/lilypond.info
 
 # Cancel the special, non-image info generation rule that skips images:
 $(outdir)/%.info: $(outdir)/%.nexi
 
+# "makeinfo --info" MUST be able to read PNGs from CWD for info images
+# to work, hence lilypond/ -> $(outdir)/ symlink.
+# $(outdir)/lilypond/*.png symlinks are only needed to view
+# out-www/*.info with Emacs -- HTML docs no longer need these
+# symlinks, see replace_symlinks_urls in
+# buildscripts/add_html_footer.py.
+$(outdir)/%.info: lilypond
+lilypond: $(OUT_PNG_IMAGES)
+	rm -f lilypond
+	ln -s $(outdir) lilypond
+	mkdir -p $(outdir)/lilypond
+	find $(outdir)/lilypond/ -name '*'.png | xargs rm -f
+	(cd $(outdir)/lilypond/ ; ln -sf ../*.png . )
+
 local-install-info: info
-	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	-$(INSTALL) -d $(DESTDIR)$(infodir)
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 ## Can not have absolute symlinks because some binary packages build schemes
 ## install files in nonstandard root.  Best we can do is to notify the
@@ -67,25 +86,27 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo
 	@echo "For images in the INFO docs to work, do: "
 	@echo
-	@echo "    (cd $(package_infodir) && ln -sf ../../doc/lilypond/Documentation/user/*png .)"
+	@echo "    (cd $(infodir) && ln -sfT ../doc/lilypond/html/Documentation/user lilypond)"
 	@echo "or add something like that to the postinstall script."
 	@echo
 else # installing directly into standard /usr/...
-	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-learning.info
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-internals.info
+	-install-info --remove --info-dir=$(infodir) $(outdir)/music-glossary.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
-	(cd $(package_infodir) && ln -sf $(webdir)/Documentation/user/*png .)
+	cd $(infodir) && ln -sfT $(webdir)/Documentation/user lilypond
 endif # installing directly into standard /usr/...
 
 local-uninstall-WWW:
-	rm -f $(package_infodir)/*.png
+	rm -f $(infodir)/lilypond
 
 else # out!=www
 
 # Cancel the default info generation rule that generates images:
-$(outdir)/%.info: # $(outdir)/%.texi
+$(outdir)/%.info: $(outdir)/%.texi
 
 local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
@@ -106,10 +127,12 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo "and read the extra instructions."
 	@echo
 else # installing directly into standard /usr/...
-	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
+	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
 	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-learning.info
+	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-internals.info
+	-install-info --remove --info-dir=$(infodir) $(outdir)/music-glossary.info
 	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
 	@echo
 	@echo "***************************************************************"
@@ -128,12 +151,13 @@ local-uninstall-WWW: local-uninstall-info
 
 default:
 
+local-clean:
+	rm -f lilypond
 
 local-help: extra-local-help
 
 extra-local-help:
 	@echo -e "\
-  dvi         update dvi documents\n\
   info        update info pages\n\
   ps          update PostScript documents\n\
   xml	      update Docbook xml documentation\n\
@@ -145,82 +169,20 @@ $(outdir)/lilypond.texi: $(outdir)/lilypond-internals.texi
 $(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 
 #
-# The split user manual
+# Split manuals in HTML
 #
-$(outdir)/lilypond/index.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
-# we /might/ switch to texi2html if it can be fixed:
-#	echo "*************************************"
-#	echo $<
-#	cd $(outdir)
-#	texi2html --output=$(outdir)/lilypond --css-include=$(top-src-dir)/Documentation/texinfo.css $<
-	find $(outdir)/lilypond/ -name '*'.png -o -name '*'.ly | xargs rm -f
-# symbolic links to save space
-	(cd $(outdir)/lilypond/ ; ln -sf ../*.png ../*.ly . )
-
-#
-# One big page user manual
-#
-$(outdir)/lilypond-big-page.html: $(outdir)/lilypond.texi $(OUT_PNG_IMAGES)
-	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
-
-#
-# The split program usage
-#
-$(outdir)/lilypond-program/index.html: $(outdir)/lilypond-program.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond-program --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
-	find $(outdir)/lilypond-program/ -name '*'.png -o -name '*'.ly | xargs rm -f
-# symbolic links to save space
-	(cd $(outdir)/lilypond-program/ ; ln -sf ../*.png ../*.ly . )
-
-#
-# The Learning Manual
-#
-$(outdir)/lilypond-learning/index.html: $(outdir)/lilypond-learning.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(outdir) --output=$(outdir)/lilypond-learning --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
-	find $(outdir)/lilypond-learning/ -name '*'.png -o -name '*'.ly | xargs rm -f
-# symbolic links to save space
-	(cd $(outdir)/lilypond-learning/ ; ln -sf ../*.png ../*.ly . )
+$(outdir)/lilypond/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
+$(outdir)/lilypond-program/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
+$(outdir)/lilypond-learning/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
+$(outdir)/music-glossary/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
 
 
 #
-# One big page program usage
+# Manuals in one big HTML page
 #
-$(outdir)/lilypond-program-big-page.html: $(outdir)/lilypond-program.texi $(OUT_PNG_IMAGES)
-	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
-
-#
-# One big page learning manual
-#
-$(outdir)/lilypond-learning-big-page.html: $(outdir)/lilypond-learning.texi $(OUT_PNG_IMAGES)
-	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
-
-
-#
-# The split internals reference
-#
-$(outdir)/lilypond-internals/index.html: $(outdir)/lilypond-internals.texi
-	mkdir -p $(dir $@)
-	$(MAKEINFO) --output=$(outdir)/lilypond-internals --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
-
-#
-# One big page internals reference
-#
-$(outdir)/lilypond-internals-big-page.html: $(outdir)/lilypond-internals.texi
-	$(MAKEINFO) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
-
-#
-# The split glossary
-#
-$(outdir)/music-glossary/index.html: $(outdir)/music-glossary.texi
-	mkdir -p $(dir $@)
-	$(MAKEINFO) --output=$(outdir)/music-glossary --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
-	find $(outdir)/music-glossary/ -name '*'.png -o -name '*'.ly | xargs rm -f
-# symbolic links to save space
-	(cd $(outdir)/music-glossary/ ; ln -sf ../*.png ../*.ly . )
+$(outdir)/lilypond-big-page.html: $(OUT_PNG_IMAGES)
+$(outdir)/lilypond-program-big-page.html: $(OUT_PNG_IMAGES)
+$(outdir)/lilypond-learning-big-page.html: $(OUT_PNG_IMAGES)
 
 $(outdir)/lilypond.xml: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
@@ -230,11 +192,8 @@ $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internal
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --docbook $<
 
-$(outdir)/lilypond.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
-
-$(outdir)/lilypond-program.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
-
-$(outdir)/lilypond-learning.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
+$(outdir)/lilypond.pdf $(outdir)/lilypond-program.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
+$(outdir)/lilypond-learning.pdf $(outdir)/music-glossary.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
 
 $(outdir)/%.png: %.png
 	convert -depth 8 -geometry 50x50% $< $@
@@ -263,32 +222,13 @@ $(outdir)/source:
 	@rm -f $(@)
 	ln -sf ../../ $(@)
 
-$(outdir)/lilypond/source:
+$(outdir)/%/source:
 	@rm -f $(@)
-	mkdir -p $(outdir)/lilypond
-	ln -sf ../../../ $(@)
-
-$(outdir)/music-glossary/source:
-	@rm -f $(@)
-	mkdir -p $(outdir)/music-glossary
-	ln -sf ../../../ $(@)
-
-$(outdir)/lilypond-program/source:
-	@rm -f $(@)
-	mkdir -p $(outdir)/lilypond-program
-	ln -sf ../../../ $(@)
-
-$(outdir)/lilypond-learning/source:
-	@rm -f $(@)
-	mkdir -p $(outdir)/lilypond-learning
+	mkdir -p $(dir $@)
 	ln -sf ../../../ $(@)
 
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
- $(datafiles) $(PDF_FILES) $(source-links) info info-dir
-
-info-dir:
-	$(SHELL) $(buildscript-dir)/install-info-html.sh --dir=$(outdir) lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
-
+ $(datafiles) $(PDF_FILES) $(source-links) info
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
@@ -298,11 +238,9 @@ $(outdir)/%.bib: %.bib
 $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(top-src-dir)/mf
 
-$(outdir)/lilypond.texi: $(ITELY_FILES) $(ITEXI_FILES)
-$(outdir)/lilypond.nexi: $(ITELY_FILES) $(ITEXI_FILES)
+$(outdir)/lilypond.texi $(outdir)/lilypond-program.texi $(outdir)/lilypond-learning.texi: $(ITELY_FILES) $(ITEXI_FILES)
+$(outdir)/lilypond.nexi $(outdir)/lilypond-program.nexi $(outdir)/lilypond-learning.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
-# Prevent building music-glossary.texi from default target
-$(outdir)/music-glossary.nexi:
 
 # Rules for the automatically generated documentation
 

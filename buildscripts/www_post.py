@@ -17,19 +17,23 @@ outdir = os.path.normpath (outdir)
 doc_dirs = ['input', 'Documentation', outdir]
 target_pattern = os.path.join (outdir, '%s-root')
 
+# these redirection pages allow to go back to the documentation index
+# from HTML manuals/snippets page
 static_files = {
     os.path.join (outdir, 'index.html'):
-    '''<META HTTP-EQUIV="refresh" content="0;URL=Documentation/index.html">
+        '''<META HTTP-EQUIV="refresh" content="0;URL=Documentation/index.html">
 <html><body>Redirecting to the documentation index...</body></html>\n''',
     os.path.join (outdir, 'VERSION'):
-    package_version + '\n' }
+        package_version + '\n',
+    os.path.join ('input', 'lsr', outdir, 'index.html'):
+        '''<META HTTP-EQUIV="refresh" content="0;URL=../../index.html">
+<html><body>Redirecting to the documentation index...</body></html>\n'''
+    }
 
 import langdefs
 
-# ugly hack: the following overwrites HTML Info dir with a link to
-# the (more useful) documentation index
 for l in langdefs.LANGUAGES:
-    static_files[os.path.join ('Documentation/user', outdir, l.file_name ('index', '.html'))] = \
+    static_files[os.path.join ('Documentation', 'user', outdir, l.file_name ('index', '.html'))] = \
                                   '<META HTTP-EQUIV="refresh" content="0;URL=../' + l.file_name ('index', '.html') + \
                                   '">\n<html><body>Redirecting to the documentation index...</body></html>\n'
 
@@ -45,9 +49,9 @@ sys.stderr.write ("Mirrorring...\n")
 dirs, symlinks, files = mirrortree.walk_tree (
     tree_roots = doc_dirs,
     process_dirs = outdir,
-    exclude_dirs = '(^|/)(' + '|'.join ([l.code for l in langdefs.LANGUAGES]) + r'|po|out|\w*?-root)(/|$)',
+    exclude_dirs = '(^|/)(' + '|'.join ([l.code for l in langdefs.LANGUAGES]) + r'|po|out|.*?[.]t2d|\w*?-root)(/|$)',
     find_files = r'.*?\.(?:midi|html|pdf|png|txt|ly|signature)$|VERSION',
-    exclude_files = r'lily-[0-9a-f]+.*\.pdf')
+    exclude_files = r'lily-[0-9a-f]+.*\.(pdf|txt)')
 
 # actual mirrorring stuff
 html_files = []

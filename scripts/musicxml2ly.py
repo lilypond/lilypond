@@ -423,8 +423,8 @@ def rational_to_lily_duration (rational_len):
     d.duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (rational_len.denominator (), -1)
     d.factor = Rational (rational_len.numerator ())
     if d.duration_log < 0:
-        error_message ("Encountered rational duration with denominator %s, "
-                       "unable to convert to lilypond duration" %
+        error_message (_ ("Encountered rational duration with denominator %s, "
+                       "unable to convert to lilypond duration") %
                        rational_len.denominator ())
         # TODO: Test the above error message
         return None
@@ -644,7 +644,7 @@ class Marker (musicexp.Music):
         self.direction = 0
         self.event = None
     def print_ly (self, printer):
-        sys.stderr.write ("Encountered unprocessed marker %s\n" % self)
+        ly.stderr_write (_ ("Encountered unprocessed marker %s\n") % self)
         pass
     def ly_expression (self):
         return ""
@@ -737,7 +737,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     if func:
         ev = func()
     else:
-        error_message ('unknown span event %s' % mxl_event)
+        error_message (_ ('unknown span event %s') % mxl_event)
 
 
     type = mxl_event.get_type ()
@@ -747,7 +747,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     if span_direction != None:
         ev.span_direction = span_direction
     else:
-        error_message ('unknown span type %s for %s' % (type, name))
+        error_message (_ ('unknown span type %s for %s') % (type, name))
 
     ev.set_span_type (type)
     ev.line_type = getattr (mxl_event, 'line-type', 'solid')
@@ -1495,7 +1495,7 @@ def musicxml_voice_to_lily_voice (voice):
             continue
 
         if not n.__class__.__name__ == 'Note':
-            error_message ('not a Note or Attributes? %s' % n)
+            error_message (_ ('unexpected %s; expected %s or %s or %s') % (n, 'Note', 'Attributes', 'Barline'))
             continue
 
         rest = n.get_maybe_exist_typed_child (musicxml.Rest)
@@ -1573,7 +1573,7 @@ def musicxml_voice_to_lily_voice (voice):
                 if s.get_type () in ('start','stop')]
             if slurs:
                 if len (slurs) > 1:
-                    error_message ('more than 1 slur?')
+                    error_message (_ ('cannot have two simultaneous slurs'))
                 # record the slur status for the next note in the loop
                 if not grace:
                     if slurs[0].get_type () == 'start':
@@ -1694,7 +1694,7 @@ def musicxml_voice_to_lily_voice (voice):
     
     
     if len (modes_found) > 1:
-       error_message ('Too many modes found %s' % modes_found.keys ())
+       error_message (_ ('cannot simultaneously have more than one mode: %s') % modes_found.keys ())
        
     if options.relative:
         v = musicexp.RelativeMusic ()
@@ -1774,7 +1774,7 @@ def get_all_voices (parts):
 
         part_ly_voices = {}
         for n, v in name_voice.items ():
-            progress ("Converting to LilyPond expressions...")
+            progress (_ ("Converting to LilyPond expressions..."))
             # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
             part_ly_voices[n] = musicxml_voice_to_lily_voice (v)
 
@@ -1844,7 +1844,7 @@ Copyright (c) 2005--2008 by
                   type='string',
                   dest='output_name',
                   help=_ ("set output filename to FILE"))
-    p.add_option_group ('bugs',
+    p.add_option_group ( _('Bugs'),
                         description=(_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
@@ -1957,7 +1957,7 @@ def read_xml (io_object, use_lxml):
 def read_musicxml (filename, compressed, use_lxml):
     raw_string = None
     if compressed:
-        progress ("Input file %s is compressed, extracting raw MusicXML data" % filename)
+        progress (_ ("Input file %s is compressed, extracting raw MusicXML data") % filename)
         z = zipfile.ZipFile (filename, "r")
         container_xml = z.read ("META-INF/container.xml")
         if not container_xml:
@@ -1983,7 +1983,7 @@ def read_musicxml (filename, compressed, use_lxml):
 
 
 def convert (filename, options):
-    progress ("Reading MusicXML from %s ..." % filename)
+    progress (_ ("Reading MusicXML from %s ...") % filename)
     
     tree = read_musicxml (filename, options.compressed, options.use_lxml)
     parts = tree.get_typed_children (musicxml.Part)
@@ -2011,7 +2011,7 @@ def convert (filename, options):
     driver_ly_name = options.output_name + '.ly'
 
     printer = musicexp.Output_printer()
-    progress ("Output to `%s'" % defs_ly_name)
+    progress (_ ("Output to `%s'") % defs_ly_name)
     printer.set_file (codecs.open (defs_ly_name, 'wb', encoding='utf-8'))
 
     print_ly_preamble (printer, filename)
@@ -2025,7 +2025,7 @@ def convert (filename, options):
     printer.close ()
     
     
-    progress ("Output to `%s'" % driver_ly_name)
+    progress (_ ("Output to `%s'") % driver_ly_name)
     printer = musicexp.Output_printer()
     printer.set_file (codecs.open (driver_ly_name, 'wb', encoding='utf-8'))
     print_ly_preamble (printer, filename)
@@ -2068,7 +2068,7 @@ def main ():
     if filename and os.path.exists (filename):
         voices = convert (filename, options)
     else:
-        progress ("Unable to find input file %s" % args[0])
+        progress (_ ("Unable to find input file %s") % args[0])
 
 if __name__ == '__main__':
     main()
