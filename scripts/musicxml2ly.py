@@ -1793,7 +1793,7 @@ License and you are welcome to change it and/or distribute copies of it
 under certain conditions.  Invoke as `%s --warranty' for more
 information.""") % 'lilypond'
 + """
-Copyright (c) 2005--2007 by
+Copyright (c) 2005--2008 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>
@@ -1819,17 +1819,23 @@ Copyright (c) 2005--2007 by
     p.add_option ('-r', '--relative',
                   action = "store_true",
                   dest = "relative",
-                  help = _ ("Convert pitches in relative mode."))
+                  help = _ ("Convert pitches in relative mode. (Default)"))
+
+    p.add_option ('-a', '--absolute',
+                  action = "store_false",
+                  dest = "relative",
+                  help = _ ("Convert pitches in absolute mode."))
 
     p.add_option ('-l', '--language',
+                  metavar=_("LANG"),
                   action = "store",
-                  help = _ ("Use a different language file, e.g. 'deutsch' for deutsch.ly."))
+                  help = _ ("Use a different language file 'LANG.ly' and corresponding pitch names, e.g. 'deutsch' for deutsch.ly."))
 
-    p.add_option ('--no-articulation-directions', '--nd',
+    p.add_option ('--nd', '--no-articulation-directions', 
                   action = "store_false",
                   default = True,
                   dest = "convert_directions",
-                  help = _ ("Do not convert directions (^, _ or -) for articulations."))
+                  help = _ ("Do not convert directions (^, _ or -) for articulations, dynamics, etc."))
 
     p.add_option ('-o', '--output',
                   metavar=_ ("FILE"),
