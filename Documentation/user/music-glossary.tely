@@ -130,12 +130,12 @@ Copyright 1999--2007 by the authors
 
 Languages in this order.
 @itemize
+@item UK - British English (where it differs from American English)
 @item ES - Spanish
 @item I - Italian
 @item F - French
 @item D - German
 @item NL - Dutch
-@item UK - British English
 @item DK - Danish
 @item S - Swedish
 @item FI - Finnish
@@ -1195,6 +1195,7 @@ S: andningstecken,
 FI: hengitysmerkki.
 
 Indication of where to breathe in vocal and wind instrument parts.
+
 
 @node breve
 @section breve
@@ -2857,10 +2858,10 @@ FI: E, e.
 @node eighth note
 @section eighth note
 
+UK: quaver,
 ES: corchea,
 I: croma,
 F: croche,
-UK: quaver,
 D: Achtel, Achtelnote,
 NL: achtste noot,
 DK: ottendedelsnode,
@@ -2875,10 +2876,10 @@ FI: kahdeksasosanuotti.
 @node eighth rest
 @section eighth rest
 
+UK: quaver rest,
 ES: silencio de corchea,
 I: pausa di croma,
 F: demi-soupir,
-UK: quaver rest,
 D: Achtelpause,
 NL: achtste rust,
 DK: ottendedelspause,
@@ -3578,10 +3579,10 @@ usage.  In the standard usage of these countries, @samp{B} means
 @node half note
 @section half note
 
+UK: minim,
 ES: blanca,
 I: minima,
 F: blanche,
-UK: minim,
 D: Halbe, halbe Note,
 NL: halve noot,
 DK: halvnode,
@@ -3596,10 +3597,10 @@ FI: puolinuotti.
 @node half rest
 @section half rest
 
+UK: minim rest,
 ES: silencio de blanca,
 I: pausa di minima,
 F: demi-pause,
-UK: minim rest,
 D: halbe Pause,
 NL: halve, rust,
 DK: halvnodespause,
@@ -4025,10 +4026,10 @@ notes, unlike (b) @emph{leggiero} or @emph{non-legato}, (c)
 @node lilypond
 @section lilypond
 
+UK: lily pond,
 ES: estanque de nenúfares,
 I: stagno del giglio,
-F: étang de lis,
-UK: lily pond,
+F: étang de nénuphars, étang de nymphéas,
 D: Seerosenteich,
 NL: le@-lie@-vij@-ver,
 DK: liliedam,
@@ -4276,9 +4277,12 @@ mediant (variant tonic).
 @section melisma
 
 ES: melisma,
+I: ?,
 F: mélisme,
 D: Melisma,
 NL: melisma,
+DK: ?,
+S: ?,
 FI: melisma, laulettavan tavun sävelkuvio.
 
 A melisma (plural, from Greek: melismata) is a group of notes or tones
@@ -4289,6 +4293,15 @@ sung on one syllable, especially as applied to liturgical chant.
 @section melisma line
 
 @c TODO: add languages
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
 
 @seealso
 
@@ -4306,7 +4319,7 @@ sung on one syllable, especially as applied to liturgical chant.
 @node mensural notation
 @section mensural notation
 
-@c FIXME: add languages
+@c TODO: add languages
 
 ES: ?,
 I: ?,
@@ -4319,7 +4332,7 @@ FI: ?.
 
 @c TODO: add definition (inc. info on proportional notation)
 
-@c FIXME: add cross-references.
+@c TODO: add cross-references.
 
 
 @node meter
@@ -5436,10 +5449,10 @@ FI: kvartoli.
 @node quarter note
 @section quarter note
 
+UK: crotchet,
 ES: negra,
 I: semiminima, nera,
 F: noire,
-UK: crotchet,
 D: Viertel, Viertelnote,
 NL: kwartnoot,
 DK: fjerdedelsnode,
@@ -5454,10 +5467,10 @@ FI: neljännesosanuotti.
 @node quarter rest
 @section quarter rest
 
+UK: crotchet rest,
 ES: silencio de negra,
 I: pausa di semiminima,
 F: soupir,
-UK: crotchet rest,
 D: Viertelpause,
 NL: kwart rust,
 DK:@w{ }fjerdedelspause,
@@ -5876,7 +5889,6 @@ FI: korotusmerkki.
 ES: ?,
 I: ?,
 F: ?,
-UK: ?,
 D: ?,
 NL: ?,
 DK: ?,
@@ -5894,10 +5906,10 @@ that does not include triplet subdivision of the beat.
 @node sixteenth note
 @section sixteenth note
 
+UK: semiquaver,
 ES: semicorchea,
 I: semicroma,
 F: double croche,
-UK: semiquaver,
 D: Sechzehntel, Sechzehntelnote,
 NL: zes@-ti@-ende noot,
 DK: sekstendedelsnode,
@@ -5912,10 +5924,10 @@ FI: kuudestoistaosanuotti.
 @node sixteenth rest
 @section sixteenth rest
 
+UK: semiquaver rest,
 ES: silencio de semicorchea,
 I: pausa di semicroma,
 F: quart de soupir,
-UK: semiquaver rest,
 D: Sechzehntelpause,
 NL: zestiende rust,
 DK: sekstendedelspause,
@@ -5947,10 +5959,10 @@ FI: seksti.
 @node sixty-fourth note
 @section sixty-fourth note
 
+UK: hemidemisemiquaver,
 ES: semifusa,
 I: semibiscroma,
 F: quadruple croche,
-UK: hemidemisemiquaver,
 D: Vierundsechzigstel, Vierundsechzigstelnote,
 NL: vierenzestigste noot,
 DK: fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-no@-de,
@@ -5965,10 +5977,10 @@ FI: kuudeskymmenesneljäsosanuotti.
 @node sixty-fourth rest
 @section sixty-fourth rest
 
+UK: hemidemisemiquaver rest,
 ES: silencio de semifusa,
 I: pausa di semibiscroma,
 F: seizième de soupir,
-UK: hemidemisemiquaver rest,
 D: Vierundsechzigstelpause,
 NL: vierenzestigste rust,
 DK: fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-pau@-se,
@@ -6476,10 +6488,10 @@ FI: terssi.
 @node thirty-second note
 @section thirty-second note
 
+UK: demisemiquaver,
 ES: fusa,
 I: biscroma,
 F: triple croche,
-UK: demisemiquaver,
 D: Zweiunddreissigstel, Zweiunddreissigstelnote,
 NL: twee-endertig@-ste noot,
 DK: toogtredivtedelsnode,
@@ -6494,10 +6506,10 @@ FI: kolmanneskymmeneskahdesosanuotti.
 @node thirty-second rest
 @section thirty-second rest
 
+UK: demisemiquaver rest,
 ES: silencio de fusa,
 I: pausa di biscroma,
 F: huitième de soupir,
-UK: demisemiquaver rest,
 D: Zweiunddreissigstel@-pause,
 NL: 32e rust,
 DK: toogtredivtedelspause,
@@ -6963,10 +6975,10 @@ FI: tahdin heikko isku.
 @node whole note
 @section whole note
 
+UK: semibreve,
 ES: redonda,
 I: semibreve,
 F: ronde,
-UK: semibreve,
 D: Ganze, ganze Note,
 NL: hele noot,
 DK: helnode,
@@ -6981,10 +6993,10 @@ FI: kokonuotti.
 @node whole rest
 @section whole rest
 
+UK: semibreve rest,
 ES: silencio de redonda,
 I: pausa di semibreve,
 F: pause,
-UK: semibreve rest,
 D: ganze Pause, ganztaktige Pause,
 NL: hele rust,
 DK: helnodespause,
@@ -7034,139 +7046,183 @@ saxophone, and bassoon.
 @node Duration names notes and rests
 @chapter Duration names notes and rests
 
-@multitable @columnfractions .15 .26 .33 .26
+@multitable @columnfractions .07 .23 .23 .23 .24
 
 @headitem @strong{US}
-  @tab @strong{UK}
-  @tab @strong{I}
-  @tab @strong{F (note name / rest name)}
-@headitem
-  @tab @strong{D}
-  @tab @strong{NL}
-  @tab @strong{DK}
-@headitem
-  @tab @strong{S}
-  @tab @strong{FI}
-  @tab @strong{ES}
-
-@item @strong{longa}
-  @tab longa
-  @tab longa
-  @tab longa
-@item
-  @tab Longa
-  @tab longa
-  @tab longa
-@item
-  @tab longa
-  @tab longa
-  @tab longa
-
-@item @strong{breve}
+  @tab long
   @tab breve
+  @tab whole
+  @tab half
+@item @strong{UK}
+  @tab longa
   @tab breve
-  @tab brève / double-pause
-@item
-  @tab Brevis
-  @tab brevis
-  @tab brevis
-@item
-  @tab brevis
-  @tab brevis
-  @tab cuadrada
-
-@item @strong{whole}
-  @tab semi@-breve
-  @tab semi@-breve
-  @tab ronde / pause
-@item
-  @tab Ganze
-  @tab hele
-  @tab hel
-@item
-  @tab hel
-  @tab koko@-nuotti/@w{-tauko}
-  @tab redonda
-
-@item @strong{half}
+  @tab semibreve
   @tab minim
-  @tab minima
-  @tab blanche / demi-pause
-@item
-  @tab Halbe
-  @tab halve
-  @tab halv
-@item
-  @tab halv
-  @tab puoli@-nuotti/@w{-tauko}
+@item @strong{ES}
+  @tab longa
+  @tab cuadrada
+  @tab redonda
   @tab blanca
-
-@item @strong{quarter}
-  @tab crotchet
-  @tab semiminima
-  @tab noire / soupir
-@item
-  @tab Viertel
-  @tab kwart
-  @tab fjerdedel
-@item
-  @tab fjärdedel
-  @tab neljännesosa@-nuotti/@w{-tauko}
-  @tab negra
-
-@item @strong{eighth}
-  @tab quaver
-  @tab croma
-  @tab croche / demi-soupir
-@item
-  @tab Achtel
-  @tab achtste
-  @tab ottendedel
-@item
-  @tab åttondel
-  @tab kahdeksasosa@-nuotti/@w{-tauko}
-  @tab corchea
-
-@item @strong{sixteenth}
-  @tab semiquaver
-  @tab semicroma
-  @tab double croche / quart de soupir
-@item
-  @tab Sechzehntel
-  @tab zestiende
-  @tab sekstendedel
-@item
-  @tab sextondel
-  @tab kuudestoistaosa@-nuotti/@w{-tauko}
-  @tab semicorchea
-
-@item @strong{thirty-second}
-  @tab demisemiquaver
-  @tab biscroma
-  @tab triple croche / huitième de soupir
-@item
-  @tab Zweiunddreissigstel
-  @tab tweeendertigste
-  @tab toogtredivtedel
-@item
-  @tab trettiotvåondel
-  @tab kolmaskymme@-neskahdesosa@-nuotti/@w{-tauko}
-  @tab fusa
-
-@item @strong{sixty-fourth}
-  @tab hemidemisemiquaver
-  @tab semibiscroma
-  @tab quadruple croche / seizième de soupir
-@item
-  @tab Vierundsechzigstel
-  @tab vierenzestigste
-  @tab fireogtred@-sindstyvendedel
-@item
-  @tab sextiofjärdedel
-  @tab kuudeskymme@-nesneljäsosa@-nuotti/@w{-tauko}
-  @tab semifusa
+@item @strong{IT}
+  @tab longa
+  @tab breve
+  @tab semibreve
+  @tab minima
+@item @strong{FR}
+  @tab longa
+  @tab brève / double-pause
+  @tab ronde / pause
+  @tab blanche / demi-pause
+@item @strong{DE}
+  @tab Longa
+  @tab Brevis
+  @tab Ganze
+  @tab Halbe
+@item @strong{NL}
+  @tab longa
+  @tab brevis
+  @tab hele
+  @tab halve
+@item @strong{DK}
+  @tab longa
+  @tab brevis
+  @tab hel
+  @tab halv
+@item @strong{SE}
+  @tab longa
+  @tab brevis
+  @tab hel
+  @tab halv
+@item @strong{FI}
+  @tab longa
+  @tab brevis
+  @tab koko@-nuotti/@w{-tauko}
+  @tab puoli@-nuotti/@w{-tauko}
 
 @end multitable
+
+@multitable @columnfractions .07 .31 .31 .31
+
+@headitem @strong{US}
+  @tab quarter
+  @tab eighth
+  @tab sixteenth
+@item @strong{UK}
+  @tab crotchet
+  @tab quaver
+  @tab semiquaver
+@item @strong{ES}
+  @tab negra
+  @tab corchea
+  @tab semicorchea
+@item @strong{IT}
+  @tab semiminima
+  @tab croma
+  @tab semicroma
+@item @strong{FR}
+  @tab noire / soupir
+  @tab croche / demi-soupir
+  @tab double* croche / quart de soupir
+@item @strong{DE}
+  @tab Viertel
+  @tab Achtel
+  @tab Sechzehntel
+@item @strong{NL}
+  @tab kwart
+  @tab achtste
+  @tab zestiende
+@item @strong{DK}
+  @tab fjerdedel
+  @tab ottendedel
+  @tab sekstendedel
+@item @strong{SE}
+  @tab fjärdedel
+  @tab åttondel
+  @tab sextondel
+@item @strong{FI}
+  @tab neljännesosa@-nuotti/@w{-tauko}
+  @tab kahdeksasosa@-nuotti/@w{-tauko}
+  @tab kuudestoistaosa@-nuotti/@w{-tauko}
+
+@end multitable
+
+* About the French naming system: the word @emph{croche} refers to the
+note's "hook".  Therefore, from the eighth note on, the note names mean
+@q{hook}, @q{doubled hook}, @q{trebled hook}, and so on.
+
+The rest names are based on the @emph{soupir}, or quarter rest.  Subsequent
+rests are expressed as fractions thereof: half a @emph{soupir}, a quarter of
+a @emph{soupir}, and so on.
+
+@multitable @columnfractions .07 .46 .47
+
+@headitem @strong{US}
+  @tab thirty-second
+  @tab sixty-fourth
+@item @strong{UK}
+  @tab demisemiquaver
+  @tab hemidemisemiquaver
+@item @strong{ES}
+  @tab fusa*
+  @tab semifusa
+@item @strong{IT}
+  @tab biscroma
+  @tab semibiscroma
+@item @strong{FR} 
+  @tab triple croche / huitième de soupir
+  @tab quadruple croche / seizième de soupir
+@item @strong{DE} 
+  @tab Zweiunddreissigstel
+  @tab Vierundsechzigstel
+@item @strong{NL} 
+  @tab tweeendertigste
+  @tab vierenzestigste
+@item @strong{DK} 
+  @tab toogtredivtedel
+  @tab fireogtred@-sindstyvendedel
+@item @strong{SE} 
+  @tab trettiotvåondel
+  @tab sextiofjärdedel
+@item @strong{FI}
+  @tab kolmaskymme@-neskahdesosa@-nuotti/@w{-tauko}
+  @tab kuudeskymme@-nesneljäsosa@-nuotti/@w{-tauko}
+
+@end multitable
+
+@multitable @columnfractions .07 .46 .47
+
+@headitem @strong{US}  @tab one-hundred-twenty-eighth
+  @tab two-hundred-fifty-sixth@item @strong{UK}
+  @tab semihemidemisemiquaver or
+       quasihemidemisemiquaver  @tab demisemihemidemisemiquaver (?)
+@item @strong{IT}
+  @tab fusa*
+  @tab semifusa
+@item @strong{ES} 
+  @tab garrapatea  @tab semigarrapatea@item @strong{FR} 
+  @tab quintuple croche / trente-deuxième de soupir  @tab sextuple croche / soixante-quatrième de soupir@item @strong{DE} 
+  @tab Hundertundachtundzwanzigstel  @tab Zweihundertundsechsundfünfzigstel@item @strong{NL} 
+  @tab ?
+  @tab ?
+@item @strong{DK} 
+  @tab ?
+  @tab ?
+@item @strong{SE} 
+  @tab ?
+  @tab ?
+@item @strong{FI}
+  @tab ?
+  @tab ?
+
+@end multitable
+
+* The terms @emph{fusa} and @emph{semifusa}, which derive from mensural notation
+(q.v), are used as note durations by the Italians and the Spanish, but for notes
+of different durations.
+
+@seealso
+
+@ref{mensural notation}
 
 
 @node Pitch names
