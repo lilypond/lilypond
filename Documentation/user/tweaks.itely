@@ -13,10 +13,6 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
-TODO: This chapter is still under development and this version is
-not yet complete.  Don't translate yet!
-
-
 
 @menu
 * Tweaking basics::             
@@ -24,7 +20,6 @@ not yet complete.  Don't translate yet!
 * Appearance of objects::       
 * Placement of objects::        
 * Collisions of objects::       
-* Page layout::                 
 * Further tweaking::            
 @end menu
 
@@ -50,7 +45,7 @@ permit almost any desired appearance of the printed music to be
 achieved.
 
 In this section we cover the basic concepts required to understand
-tweaking.  Later we give a variety of potted commands which can
+tweaking.  Later we give a variety of ready-made commands which can
 simply be copied to obtain the same effect in your own scores, and
 at the same time we show how these commands may be constructed so 
 that you may learn how to develop your own tweaks.
@@ -81,10 +76,12 @@ constructed.  That @code{Staff} object then holds all the
 properties associated with that particular staff, for example, its
 name and its key signature, together with details of the engravers
 which have been assigned to operate within that staff's context.
-Similarly, there are @code{Voice} objects, @code{Score} objects,
-@code{Lyric} objects, and objects to represent bar lines,
- note heads, ties, dynamics, etc, each with their own set of
-properties.
+Similarly, there are objects to hold the properties of all other
+contexts, such as @code{Voice} objects, @code{Score} objects,
+@code{Lyrics} objects, as well as objects to represent all
+notational elements such as bar lines,
+note heads, ties, dynamics, etc.  Every object has its own set of
+property values.
 
 Some types of object are given special names.  Objects which
 represent items of notation on the printed output such as
@@ -134,9 +131,12 @@ verbatim.
 @headitem Object/property type           
   @tab Naming convention
   @tab Example
-@item Contexts, Layout Objects     
+@item Contexts
   @tab Aaaa or AaaaAaaaAaaa
-  @tab Staff, GrandStaff, 
+  @tab Staff, GrandStaff
+@item Layout Objects
+  @tab Aaaa or AaaaAaaaAaaa
+  @tab Slur, NoteHead
 @item Engravers
   @tab Aaaa_aaa_engraver
   @tab Clef_engraver, Note_heads_engraver
@@ -221,12 +221,12 @@ We mention it here for completeness, but for details see
 @c Maybe explain in a later iteration  -td
 
 The final tweaking command which is available is @code{\tweak}.
-It is not really a new command but a shorthand for an 
-@code{\override} command which must be used in a few special
-circumstances.  Again, we shall not discuss or use it here.  
-You may find the details in 
+This should be used to change the properties of objects which
+occur at the same musical moment, such as the notes within a
+chord.  Using @code{\override} would affect all the notes
+within a chord, whereas @code{\tweak} affects just the following
+item in the input stream.  You may find the details in
 @ruser{Objects connected to the input}.
-@c Maybe explain in a later iteration  -td
 
 @node The Internals Reference manual
 @section The Internals Reference manual
@@ -723,7 +723,21 @@ let us suppose the exercise is to supply the missing bar lines
 in a piece of music.  But the bar lines are normally inserted
 automatically.  How do we prevent them printing?
 
-As before, we go to the IR to find the layout object which prints
+Before we tackle this, let us remember that object properties
+are grouped in what are called @emph{interfaces} -- see
+@ref{Properties found in interfaces}.  This is simply to
+group together those properties that are commonly required
+together -- if one of them is required for an object, so are
+the others.  Some objects then need the properties in some
+interfaces, others need them from other interfaces.  The
+interfaces which contain the properties required by a 
+particular grob are listed in the IR at the bottom of the
+page describing that grob, and those properties may be
+viewed by looking at those interfaces.
+
+We explained how to find information about grobs in 
+@ref{Properties of layout objects}.  Using the same approach,
+we go to the IR to find the layout object which prints
 bar lines.  Going via @emph{Backend} and @emph{All layout objects}
 we find there
 is a layout object called @code{BarLine}.  Its properties include
@@ -1520,18 +1534,37 @@ and to a numerical value appropriate to each outside-staff object
 when the object is created.  The following table shows
 the default numerical values for some of the commonest
 outside-staff objects which are, by default, placed in the
-@code{Staff} Context.
+@code{Staff} or @code{Voice} contexts.
 
-@multitable @columnfractions .3 .3
-@headitem Layout Object           @tab Priority
-@item @code{DynamicLineSpanner}   @tab @code{ 250}
-@item @code{DynamicText}          @tab @code{ 250}
-@item @code{OttavaBracket}        @tab @code{ 400}
-@item @code{TextScript}           @tab @code{ 450}
-@item @code{TextSpanner}          @tab @code{ 350}
+@multitable @columnfractions .3 .3 .3
+@headitem Layout Object           
+  @tab Priority     
+  @tab Controls position of:
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Text over full-bar rests
+@item @code{TextScript}
+  @tab @code{450}
+  @tab Markup text
+@item @code{OttavaBracket}
+  @tab @code{400}
+  @tab Ottava brackets
+@item @code{TextSpanner}
+  @tab @code{350}
+  @tab Text spanners
+@item @code{DynamicLineSpanner}
+  @tab @code{250}
+  @tab All dynamic markings
+@item @code{VoltaBracketSpanner}
+  @tab @code{100}
+  @tab Volta brackets
+@item @code{TrillSpanner}
+  @tab @code{50}
+  @tab Spanning trills
 @end multitable
 
-Here is an example showing the default placement of these.
+Here is an example showing the default placement of some of
+these.
 
 @cindex text spanner
 @funindex \startTextSpan
@@ -1585,9 +1618,9 @@ given the following default @code{outside-staff-priority} values:
 
 @multitable @columnfractions .3 .3
 @headitem Layout Object           @tab Priority
-@item @code{BarNumber}            @tab @code{ 100}
-@item @code{MetronomeMark}        @tab @code{1000}
 @item @code{RehearsalMark}        @tab @code{1500}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{BarNumber}            @tab @code{ 100}
 @end multitable
 
 If the default values of @code{outside-staff-priority} does not
@@ -1596,7 +1629,8 @@ may be overridden.  Suppose we would
 like the ottava bracket to be placed below the text spanner in the
 example above.  All we need to do is to look up the priority of
 @code{OttavaBracket} in the IR or in the tables above, and reduce
-it to a value lower than that of a @code{TextSpanner}:
+it to a value lower than that of a @code{TextSpanner}, remembering
+that @code{OttavaBracket} is created in the @code{Staff} context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
@@ -1605,7 +1639,7 @@ it to a value lower than that of a @code{TextSpanner}:
 % Place dynamics above staff
 \dynamicUp
 %Place following Ottava Bracket below Text Spanners
-\once \override OttavaBracket #'outside-staff-priority = #340
+\once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
 #(set-octavation 1)
 c' \startTextSpan
@@ -1646,21 +1680,21 @@ Perhaps this is not so good.  What we would really like to do
 is to position all the annotation at the same distance above
 the staff?  To do this, we clearly
 will need to space the notes out horizontally to make more
-room for the text.  This is done using the @code{fatText}
+room for the text.  This is done using the @code{textLengthOn}
 command.
 
-@subheading \fatText
+@subheading \textLengthOn
 
-@funindex \fatText
+@funindex \textLengthOn
 @cindex notes, spreading out with text
 
 By default, text produced by markup takes up no horizontal space
-as far as laying out the music is concerned.  The @code{\fatText}
+as far as laying out the music is concerned.  The @code{\textLengthOn}
 command reverses this behaviour, causing the notes to be spaced
 out as far as is necessary to accommodate the text:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\fatText  % Cause notes to space out to accommodate text
+\textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
 c^"Text2"
 c^"Text3"
@@ -1668,9 +1702,9 @@ c^"Text4"
 @end lilypond  
 
 The command to revert to the default behaviour is 
-@code{\emptyText}.  Remember @code{\once} only works with
+@code{\textLengthOff}.  Remember @code{\once} only works with
 @code{\override}, @code{\set}, @code{\revert} or @code{unset},
-so cannot be used with @code{\fatText}.
+so cannot be used with @code{\textLengthOn}.
 
 Markup text will also avoid notes which project above the staff.
 If this is not desired, the automatic displacement upwards may
@@ -1693,7 +1727,7 @@ c''2
 R1
 % Turn off collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
-\fatText  % and turn on fatText
+\textLengthOn  % and turn on textLengthOn
 c,,2^"Long Text   "  % Spaces at end are honoured
 c''2
 @end lilypond
@@ -1734,7 +1768,7 @@ Should a similar situation arise in @q{real} music, it may
 be preferable to space out the notes
 a little further, so the dynamic markings can all fit at the
 same vertical distance from the staff.  We were able to do this
-for markup text by using the @code{\fatText} command, but there
+for markup text by using the @code{\textLengthOn} command, but there
 is no equivalent command for dynamic marks.  So we shall have to
 work out how to do this using @code{\override} commands.
 
@@ -1763,7 +1797,7 @@ These are properties of all grobs which support the
 
 By default, outside-staff objects are given a width of zero so
 that they may overlap in the horizontal direction.  This is done
-by by the trick of adding infinity to the leftmost extent and 
+by the trick of adding infinity to the leftmost extent and 
 minus infinity to the rightmost extent by setting the 
 @code{extra-spacing-width} to @code{'(+inf.0 . -inf.0)}.  So
 to ensure they do not overlap in the horizontal direction we
@@ -1908,16 +1942,19 @@ objects, this value is set by default to be around 1.0 or less
 @code{self-alignment-X}
 
 @cindex self-alignment-X property
-This property aligns the object to the left, to the right, or
-centers it with respect to the parent object's reference point.
-It may be used with all objects which support the
-@code{self-alignment-interface}.  In general these are objects
+This property can be used to align the object to the left, to 
+the right, or to center it with respect to the parent object's 
+reference point.  It may be used with all objects which support
+the @code{self-alignment-interface}.  In general these are objects
 that contain text.  The values are @code{LEFT}, @code{RIGHT}
-or @code{CENTER}.  The movement is limited by the length of the
-object.  Any numerical value between @code{-1} and @code{+1} may
-also be specified, where @code{-1} is left-aligned, @code{+1}
-is right-aligned, and numbers in between move the text
-progressively from left-aligned to right-aligned.
+or @code{CENTER}.  Alternatively, a numerical value between 
+@code{-1} and @code{+1} may be specified, where @code{-1} is 
+left-aligned, @code{+1} is right-aligned, and numbers in between 
+move the text progressively from left-aligned to right-aligned.
+Numerical values greater than @code{1} may be specified to move
+the text even further to the left, or less than @code{-1} to
+move the text even further to the right.  A change of @code{1}
+in the value corresponds to a movement of half the text's length.
 
 @item
 @code{extra-spacing-width}
@@ -2005,7 +2042,12 @@ This is most useful for manually adjusting the slope and height
 of beams, slurs, and tuplets.   It takes a pair of numbers
 giving the position of the left and right ends of the beam, slur,
 etc. relative to the center line of the staff.  Units are
-staff-spaces.
+staff-spaces.  Note, though, that slurs and phrasing slurs cannot
+be repositioned by arbitrarily large amounts.  LilyPond first
+generates a list of possible positions for the slur and by default
+finds the slur that @qq{looks best}.  If the @code{positions}
+property has been overridden the slur that is closest to the
+requested positions is selected from the list.
 @end table
 
 Objects do not all have all of these properties in general.
@@ -2040,7 +2082,8 @@ should be used to move them.
 Let's now see how the properties in the previous section can
 help to resolve overlapping notation.
 
-@subheading padding property
+@c FIXME: formatting
+@subheading @code{padding}
 @cindex padding property
 
 The @code{padding} property can be set to increase
@@ -2065,12 +2108,19 @@ d1
 @end lilypond
 
 Note in the second example how important it is to figure out what
-context handles a certain object.  Since the @code{MetronomeMark} object
+context handles a certain object.  Since the @code{MetronomeMark}
+object
 is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
 @ruser{Constructing a tweak}.
 
-@subheading left-padding and right-padding properties
+If the @code{padding} property of an object is increased when that
+object is in a stack of objects being positioned according to
+their @code{outside-staff-priority}, then that object and all 
+objects outside it are moved.
+ 
+
+@subheading @code{left-padding} and @code{right-padding}
 @cindex left-padding property
 @cindex right-padding property
 
@@ -2723,268 +2773,12 @@ lhMusic = \relative c' {
 @end lilypond
 
 
-@node Page layout
-@section Page layout
-
-@menu
-* Introduction to layout::      
-* Global sizes::                
-* Line breaks::                 
-* Page breaks::                 
-* Fitting music onto fewer pages::  
-@end menu
-
-@node Introduction to layout
-@subsection Introduction to layout
-
-The global paper layout is determined by three factors: 
-the page layout, the line breaks, and the spacing. These all 
-influence each other. The choice of spacing determines how 
-densely each system of music is set. This influences where line 
-breaks are chosen, and thus ultimately, how many pages a piece 
-of music takes.
-
-Settings which influence layout may be placed in two blocks.
-The @code{\paper @{...@}} block is placed outside any
-@code{\score @{...@}} blocks and contains settings that
-relate to the entire document.  The @code{\layout @{...@}}
-block is placed within a @code{\score @{...@}} block and
-contains settings for that particular score.  If you have
-only one @code{\score @{...@}} block the two have the same
-effect.  In general the commands shown in this section can
-be placed in either.
-
-Much more detail on the options for tweaking the laying out
-of music are contained in @ruser{Spacing issues}.
-
-@node Global sizes
-@subsection Global sizes
-
-TODO Check all these examples
-
-The default @strong{paper size} which LilyPond assumes in laying
-out the music is A4.  This may be changed in two ways:
-
-@example
-#(set-default-paper-size "a6")
-
-\paper @{
-#(set-paper-size "letter")
-@}
-@end example
-
-@noindent
-The first command sets the size of all pages. The second command
-sets the size of the pages to which the \paper block applies -- if
-the \paper block is at the top of the file, then it will apply
-to all pages.  Support for the following paper sizes is available:
-a6, a5, a4, a3, legal, letter, 11x17 (also known as tabloid).
-Setting the paper size automatically sets suitable margins and
-line length.
-
-If the symbol @code{landscape} is supplied as an argument to
-@code{set-default-paper-size}, the pages will be rotated by 90
-degrees, and wider line widths will be set correspondingly, e.g.
-
-@example
-#(set-default-paper-size "a6" 'landscape)
-@end example
-
-The default @strong{staff size} is set to 20 points.
-This may be changed in two ways:
-
-@example
-#(set-global-staff-size 14)
-
-\paper @{
-#(set-global-staff-size 16)
-@}
-@end example
-
-@noindent
-The first command sets the size in all pages. The second command
-sets the size in the pages to which the \paper block applies - if
-the \paper block is at the top of the file, then it will apply
-to all pages.  All the fonts are automatically scaled to suit
-the new value of the staff size.
-
-@node Line breaks
-@subsection Line breaks
-
-Line breaks are normally determined automatically. They are chosen
-so that lines look neither cramped nor loose, and consecutive
-lines have similar density.  Occasionally you might want to
-override the automatic breaks; you can do this by specifying
-@code{\break}. This will force a line break at this point.  However,
-line breaks can only occur at the end of @q{complete} bars, i.e.,
-where there are no notes or tuplets left @q{hanging} over the bar
-line.  If you want to have a line break where there is no bar line,
-you can force an invisible bar line by entering @code{\bar ""},
-although again there must be no notes left hanging over in any of
-the staves at this point, or it will be ignored.
-
-The opposite command, @code{\noBreak}, forbids a line break at the
-bar line where it is inserted.
-
-The most basic settings influencing line spacing are @code{indent}
-and @code{line-width}. They are set in the @code{\layout} block.
-They control the indentation of the first line of music, and the
-lengths of the lines.
-
-If @code{ragged-right} is set to true in the @code{\layout} block,
-then systems end at their natural horizontal length, instead of
-being spread horizontally to fill the whole line. This is useful
-for short fragments, and for checking how tight the natural
-spacing is.
-
-The option @code{ragged-last} is similar to @code{ragged-right},
-but affects only the last line of the piece.
-
-@example
-\layout @{
-indent = #0
-line-width = #150
-ragged-last = ##t
-@}
-@end example
-
-@node Page breaks
-@subsection Page breaks
-
-The default page breaking may be overriden by inserting 
-@code{\pageBreak} or @code{\noPageBreak} commands.
-These commands are analogous to the @code{\break} and 
-@code{\noBreak} commands discused above and force or forbid 
-a page-break at the point where they are inserted.
-Of course, the @code{\pageBreak} command also forces a line break.
-Like @code{\break}, the @code{\pageBreak} command is effective only
-at the end of a @q{complete} bar as defined above.  For more
-details see @ruser{Page breaking} and following sections.
-
-There are also analogous settings to @code{ragged-right} and
-@code{ragged-last} which have the same effect on vertical spacing:
-@code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
-@code{##t} the systems on all pages or just the last page
-respectively will not be justified vertically.
-
-For more details see @ruser{Vertical spacing}.
-
-@node Fitting music onto fewer pages
-@subsection Fitting music onto fewer pages
-
-Sometimes you can end up with one or two staves on a second
-(or third, or fourth...) page.  This is annoying, especially
-if you look at previous pages and it looks like there is plenty
-of room left on those.
-
-When investigating layout issues, @code{annotate-spacing} is
-an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ruser{Displaying spacing}, for more
-details.  From the output of @code{annotate-spacing}, we can
-see which margins we may wish to alter.
-
-Other than margins, there are a few other options to save space:
-
-@itemize
-@item
-You may tell LilyPond to place systems as close together as
-possible (to fit as many systems as possible onto a page), but
-then to space those systems out so that there is no blank
-space at the bottom of the page.
-
-@example
-\paper @{
-  between-system-padding = #0.1
-  between-system-space = #0.1
-  ragged-last-bottom = ##f
-  ragged-bottom = ##f
-@}
-@end example
-
-@item
-You may force the number of systems (i.e., if LilyPond wants
-to typeset some music with 11 systems, you could force it to
-use 10).
-
-@example
-\paper @{
-  system-count = #10
-@}
-@end example
-
-@item
-Avoid (or reduce) objects which increase the vertical size of
-a system.  For example, volta repeats (or alternate repeats)
-require extra space.  If these repeats are spread over two
-systems, they will take up more space than one system with
-the volta repeats and another system without.
-
-Another example is moving dynamics which @q{stick out} of
-a system, as in the second bar here:
-
-@lilypond[verbatim,quote,fragment,ragged-right,relative=1]
-e4 c g\f c
-\override DynamicText #'extra-offset = #'( -2.2 . 2.0)
-e4 c g\f c
-@end lilypond
-
-@item
-Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ruser{Changing horizontal spacing}, for more details.  Here's
-an example first showing the default behaviour:
-
-@lilypond[verbatim,quote,ragged-right]
-\score {
-  \relative c'' {
-    g4 e e2 |
-    f4 d d2 |
-    c4 d e f |
-    g4 g g2 |
-    g4 e e2 |
-  }
-}
-@end lilypond
-
-@noindent
-and now with @code{common-shortest-duration} increased from the
-value of @code{1/4} (a quarter note is the most common in this
-example) to @code{1/2}:
-
-@lilypond[verbatim,quote,ragged-right]
-\score {
-  \relative c'' {
-    g4 e e2 |
-    f4 d d2 |
-    c4 d e f |
-    g4 g g2 |
-    g4 e e2 |
-  }
-  \layout {
-    \context {
-      \Score
-      \override SpacingSpanner
-                #'common-shortest-duration = #(ly:make-moment 1 2)
-    }
-  }
-}
-@end lilypond
-
-@noindent
-Note that this override cannot be modified dynamically, so it must
-always be placed in a @code{\context@{..@}} block so that it applies
-to the whole score.
-
-TODO Add description of using \context in this way earlier if it is
-not already anywhere  -td
-
-@end itemize
-
-
 @node Further tweaking
 @section Further tweaking
 
 @menu
 * Other uses for tweaks::       
+* Using variables for tweaks::  
 * Other sources of information::  
 * Advanced tweaks with Scheme::  
 * Avoiding tweaks with slower processing::  
@@ -3094,6 +2888,10 @@ while the second (with no stencil) does not.
 
 @end itemize
 
+@node Using variables for tweaks
+@subsection Using variables for tweaks
+
+TODO Add section
 
 @node Other sources of information
 @subsection Other sources of information
@@ -3219,6 +3017,9 @@ In some cases (see issue 246), this must be done before
    ..
 }
 @end verbatim
+
+
+
 
 
 

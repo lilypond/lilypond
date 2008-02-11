@@ -29,7 +29,7 @@
 @end menu
 
 @node Articulations and ornamentations
-@unnumberedsubsubsec Articulations and ornamentations
+@subsubsection Articulations and ornamentations
 
 @cindex articulations
 @cindex scripts
@@ -134,7 +134,7 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Script},
 @internalsref{TextScript}.
@@ -147,7 +147,7 @@ MIDI rendering of the music.
 
 
 @node Dynamics
-@unnumberedsubsubsec Dynamics
+@subsubsection Dynamics
 
 @cindex dynamics
 @funindex \pppp
@@ -337,7 +337,7 @@ Music Glossary: @rglos{hairpin}, @rglos{crescendo},
 
 Learning Manual: @rlearning{Articulation and dynamics}.
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{DynamicText},
 @internalsref{Hairpin}.  Vertical positioning of these symbols is
@@ -355,7 +355,7 @@ handled by @internalsref{DynamicLineSpanner}.
 @end menu
 
 @node Slurs
-@unnumberedsubsubsec Slurs
+@subsubsection Slurs
 
 @cindex slurs
 
@@ -411,13 +411,13 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Slur}.
 
 
 @node Phrasing slurs
-@unnumberedsubsubsec Phrasing slurs
+@subsubsection Phrasing slurs
 
 @cindex phrasing slurs
 @cindex phrasing marks
@@ -452,13 +452,13 @@ You cannot have simultaneous phrasing slurs.
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{PhrasingSlur}.
 
 
 @node Breath marks
-@unnumberedsubsubsec Breath marks
+@subsubsection Breath marks
 
 Breath marks are entered using @code{\breathe}:
 
@@ -483,13 +483,13 @@ d4
 
 @seealso
 
-Snippets: @lsrdir{expressive}, @lsr{expressive,breathing-sign.ly}.
+Snippets: @lsrdir{Expressive,Expressive-marks}, @c @lsr{expressive,breathing-sign.ly}.
 
 Internals Reference: @internalsref{BreathingSign}.
 
 
 @node Falls and doits
-@unnumberedsubsubsec Falls and doits
+@subsubsection Falls and doits
 
 Falls and doits can be added to notes using the @code{\bendAfter}
 command,
@@ -510,7 +510,7 @@ c4-\bendAfter #-3
 @end menu
 
 @node Glissando
-@unnumberedsubsubsec Glissando
+@subsubsection Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -543,7 +543,7 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 Music Glossary: @rglos{falls}, @rglos{doits}.
 
-Snippets: @lsrdir{expressive}.
+Snippets: @lsrdir{Expressive,Expressive-marks}.
 
 @c FIXME: I need to figure out what's up with these.  -gp
 @c @lsr{expressive,glissando.ly},
@@ -559,7 +559,7 @@ supported.
 
 
 @node Arpeggio
-@unnumberedsubsubsec Arpeggio
+@subsubsection Arpeggio
 
 @cindex arpeggio
 @cindex broken chord
@@ -674,7 +674,7 @@ moved to the Staff context:
 
 Notation Reference: @ref{Ties}, for writing out arpeggios.
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Arpeggio},
 @internalsref{PianoStaff}.
@@ -688,7 +688,7 @@ time.
 
 
 @node Trills
-@unnumberedsubsubsec Trills
+@subsubsection Trills
 
 Short trills are printed with @code{\trill} like normal
 articulation; see @ref{Articulations and ornamentations}.
@@ -732,6 +732,6 @@ printed as a stemless note head in parentheses.
 
 @seealso
 
-Snippets: @lsrdir{expressive}
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{TrillSpanner}.

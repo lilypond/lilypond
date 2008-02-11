@@ -9,7 +9,10 @@
 
 <<
     \context Staff  { c' (c') c'( c') }
-    \context Lyrics \lyricmode { bla -- alb xxx -- yyy }
+    \context Lyrics \lyricmode {
+      \override Lyrics . LyricSpace #'minimum-distance = #5.0
+      a -- b x -- y
+    }
 >>
 
 

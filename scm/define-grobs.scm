@@ -88,7 +88,7 @@
     
     (Ambitus
      . (
-	(axes . (0 1))
+	(axes . (,X ,Y))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(space-alist . (
@@ -410,14 +410,14 @@
 			       staff-bar
 			       time-signature
 			       custos)))
-	(axes . (0))
+	(axes . (,X))
 	(meta . ((class . Item)
 		 (interfaces . (break-alignment-interface
 				axis-group-interface))))))
 
     (BreakAlignGroup
      . (
-	(axes . (0))
+	(axes . (,X))
 	(X-extent . ,ly:axis-group-interface::width)
 	(break-align-anchor . ,ly:break-aligned-interface::calc-average-anchor)
 	(break-visibility . ,ly:break-aligned-interface::calc-break-visibility)
@@ -518,6 +518,7 @@
 	;; todo: add X self alignment?
 	(baseline-skip . 2)
 	(side-axis . ,Y)
+	(avoid-slur . outside )
 	(font-series . bold)
 	(meta . ((class . Item)
 		 (interfaces . (text-script-interface
@@ -546,7 +547,7 @@
 
     (DotColumn
      . (
-	(axes . (0))
+	(axes . (,X))
 	(direction . ,RIGHT)
 	(positioning-done . ,ly:dot-column::calc-positioning-done) 
 	(X-extent . ,ly:axis-group-interface::width)
@@ -600,7 +601,7 @@
 				text-interface))))))
     (DynamicLineSpanner
      . (
-	(axes . (1))
+	(axes . (,Y))
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(staff-padding . 0.1)
 	(padding . 0.6)
@@ -1122,7 +1123,7 @@
     (NonMusicalPaperColumn
      . (
 	(allow-loose-spacing . #t)
-	(axes . (0))
+	(axes . (,X))
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(X-extent . ,ly:axis-group-interface::width)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
@@ -1143,7 +1144,7 @@
     
     (NoteCollision
      . (
-	(axes . (0 1))
+	(axes . (,X ,Y))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(positioning-done . ,ly:note-collision-interface::calc-positioning-done)
@@ -1153,7 +1154,7 @@
 
     (NoteColumn
      . (
-	(axes . (0 1))
+	(axes . (,X ,Y))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
@@ -1241,7 +1242,7 @@
 
     (PaperColumn
      . (
-	(axes . (0))
+	(axes . (,X))
 	(allow-loose-spacing . #t)
 	(before-line-breaking . ,ly:paper-column::before-line-breaking)
 	(horizontal-skylines . ,ly:separation-item::calc-skylines)
@@ -1500,7 +1501,7 @@
 
     (SostenutoPedalLineSpanner
      . (
-	(axes . (1))
+	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -1714,7 +1715,7 @@
 
     (SustainPedalLineSpanner
      . (
-	(axes . (1))
+	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -1730,7 +1731,7 @@
 
     (System
      . (
-	(axes . (0 1))
+	(axes . (,X ,Y))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
 	(vertical-skylines . ,ly:axis-group-interface::calc-skylines)
@@ -2061,7 +2062,7 @@
 
     (UnaCordaPedalLineSpanner
      . (
-	(axes . (1))
+	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
@@ -2086,7 +2087,7 @@
 
     (VerticalAlignment
      . (
-	(axes . (1))
+	(axes . (,Y))
 	(positioning-done . ,ly:align-interface::calc-positioning-done)
 	(after-line-breaking . ,ly:align-interface::stretch-after-break)
 	(Y-extent . ,ly:axis-group-interface::height)
@@ -2101,7 +2102,7 @@
 				axis-group-interface))))))
     (VerticalAxisGroup
      . (
-	(axes . (1))
+	(axes . (,Y))
 	(Y-offset . ,ly:hara-kiri-group-spanner::force-hara-kiri-callback)
 	(Y-extent . ,ly:hara-kiri-group-spanner::y-extent)
 	(X-extent . ,ly:axis-group-interface::width)
@@ -2135,7 +2136,7 @@
 
     (VoltaBracketSpanner
      . (	
-	(axes . (1))
+	(axes . (,Y))
 	(side-axis . ,Y)
 	(direction . ,UP)
 	(padding . 1)

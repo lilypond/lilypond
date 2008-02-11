@@ -30,7 +30,7 @@
 @end menu
 
 @node String number indications
-@unnumberedsubsubsec String number indications
+@subsubsection String number indications
 
 @cindex String numbers
 
@@ -45,11 +45,11 @@ with @code{\}@var{number},
 @seealso
 
 Internals Reference: @internalsref{StringNumber},
-@lsr{guitar/,string-number.ly}.
+@c @lsr{guitar/,string-number.ly}.
 
 
 @node Tablatures basic
-@unnumberedsubsubsec Tablatures basic
+@subsubsection Tablatures basic
 @cindex Tablatures basic
 
 Tablature notation is used for notating music for plucked string
@@ -136,7 +136,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 
 
 @node Non-guitar tablatures
-@unnumberedsubsubsec Non-guitar tablatures
+@subsubsection Non-guitar tablatures
 @cindex Non-guitar tablatures
 
 You can change the tuning of the strings.  A string tuning is given as
@@ -184,7 +184,7 @@ No guitar special effects have been implemented.
 
 
 @node Banjo tablatures
-@unnumberedsubsubsec Banjo tablatures
+@subsubsection Banjo tablatures
 @cindex Banjo tablatures
 
 LilyPond has basic support for five stringed banjo.  When making tablatures
@@ -223,7 +223,7 @@ The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
 
 
 @node Fret diagrams
-@unnumberedsubsubsec Fret diagrams
+@subsubsection Fret diagrams
 @cindex fret diagrams
 @cindex chord diagrams
 
@@ -268,11 +268,11 @@ Details about the property interface to fret diagrams are found at
 
 @seealso
 
-Examples: @lsrdir{guitar}
+Examples: @c @lsrdir{guitar}
 
 
 @node Right hand fingerings
-@unnumberedsubsubsec Right hand fingerings
+@subsubsection Right hand fingerings
 
 Right hand fingerings in chords can be entered using
 @code{@var{note}-\rightHandFinger @var{finger}}
@@ -328,7 +328,7 @@ Internals Reference: @internalsref{StrokeFinger}
 
 
 @node Other guitar issues
-@unnumberedsubsubsec Other guitar issues
+@subsubsection Other guitar issues
 
 This example demonstrates how to include guitar position and
 barring indications.

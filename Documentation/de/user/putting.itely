@@ -36,7 +36,7 @@ Cello notieren. In diesem Fall beginnen Sie mit
  @qq{Noten und Text} (für die Sopranstimme).
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -66,7 +66,7 @@ Jetzt wollen wir die Cellostimme hinzufügen. Schauen wir uns das
 @qq{Nur Noten}-Beispiel an:
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -106,7 +106,7 @@ Wir setzen hier auch ein paar andere Noten für das Cello.
 
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 sopranNoten = \relative c' @{
   \clef treble
   \key c \major
@@ -181,7 +181,7 @@ Unordnung geraden. Aber das ist einfach wieder hergestellt. Hier die
 vollständige Vorlage für Sopran und Cello:
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major

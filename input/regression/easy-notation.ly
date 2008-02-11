@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.38"
 
 \header {
     texidoc = " Easy-notation (or Ez-notation) prints names in note heads.
@@ -11,7 +11,7 @@ You also get ledger lines, of course."
 } 
 
 \relative {
-  \setEasyHeads
+  \easyHeadsOn
   f1 e
   f2 e
   f4 e

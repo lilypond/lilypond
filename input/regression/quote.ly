@@ -3,7 +3,7 @@
 
     texidoc = "With @code{\\quote}, fragments of previously entered
 music may be quoted. @code{quotedEventTypes} will determines what
-things are quoted. In this example, a 16th rests is not quoted, since
+things are quoted. In this example, a 16th rest is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
 
 }

@@ -21,7 +21,7 @@
 # version 2006/05/20 or later.                                         #
 ########################################################################
 
-our $VERSION = "2.4.3";   # mf2pt1 version number
+our $VERSION = "2.4.4";   # mf2pt1 version number
 require 5.6.1;            # I haven't tested mf2pt1 with older Perl versions
 
 use File::Basename;
@@ -340,9 +340,9 @@ sub assign_default (\$@)
     my $varptr = shift;        # Pointer to variable to define
     return if defined $$varptr && $$varptr ne "UNSPECIFIED";
     foreach my $val (@_) {
-	next if !defined $val;
-	$$varptr = $val;
-	return;
+        next if !defined $val;
+        $$varptr = $val;
+        return;
     }
 }
 
@@ -745,7 +745,7 @@ ENDTRAILER
 # commands also defined by Plain Metafont.
 my %opthash = ();
 GetOptions (\%opthash,
-	    "fontversion=s",       # font_version
+            "fontversion=s",       # font_version
             "comment=s",           # font_comment
             "family=s",            # font_family
             "weight=s",            # font_weight
@@ -759,7 +759,7 @@ GetOptions (\%opthash,
             "designsize=f",        # font_size (*)
             "encoding=s",          # font_coding_scheme (*)
             "rounding=f",
-	    "bpppix=f",
+            "bpppix=f",
             "ffscript=s",
             "h|help",
             "V|version") || pod2usage(2);
@@ -819,18 +819,18 @@ ENCODING:
 {
     if (-e $encoding) {
         # Filenames take precedence over built-in encodings.
-	my @enc_array;
+        my @enc_array;
         open (ENCFILE, "<$encoding") || die "${progname}: $! ($encoding)\n";
-	while (my $oneline = <ENCFILE>) {
-	    $oneline =~ s/\%.*$//;
-	    foreach my $word (split " ", $oneline) {		
-		push @enc_array, substr($word, 1) if substr($word, 0, 1) eq "/";
-	    }
-	}
+        while (my $oneline = <ENCFILE>) {
+            $oneline =~ s/\%.*$//;
+            foreach my $word (split " ", $oneline) {
+                push @enc_array, substr($word, 1) if substr($word, 0, 1) eq "/";
+            }
+        }
         close ENCFILE;
-	$encoding_name = substr (shift @enc_array, 1);
+        $encoding_name = substr (shift @enc_array, 1);
         $encoding = \@enc_array;
-	last ENCODING;
+        last ENCODING;
     }
     $encoding=\@standardencoding,  last ENCODING  if $encoding eq "standard";
     $encoding=\@isolatin1encoding, last ENCODING  if $encoding eq "isolatin1";

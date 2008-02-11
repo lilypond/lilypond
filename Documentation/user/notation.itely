@@ -28,6 +28,6 @@ This chapter explains how to create musical notation.
 @include repeats.itely
 @include simultaneous.itely
 @include staff.itely
-@include educational.itely
+@include editorial.itely
 @include text.itely
 

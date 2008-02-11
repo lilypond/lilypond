@@ -35,7 +35,7 @@ En este caso comenzaríamos con la plantilla @q{Notas y letra} (para la parte
 de soprano).
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 melodia = \relative c' @{
   \clef treble
   \key c \major
@@ -64,7 +64,7 @@ texto = \lyricmode @{
 Ahora queremos añadir una parte de violoncello.  Veamos el ejemplo @q{Sólo notas}:
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 melodia = \relative c' @{
   \clef treble
   \key c \major
@@ -100,7 +100,7 @@ se escriben normalmente en clave de Fa).  Asimismo, cambiaremos algunas
 notas del cello.
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 musicaSoprano = \relative c' @{
   \clef treble
   \key c \major
@@ -170,7 +170,7 @@ Esto parece un poco enrevesado; los márgenes están descuadrados.  Esto tiene
 fácil solución.  Presentamos aquí la plantilla completa para soprano y cello.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major

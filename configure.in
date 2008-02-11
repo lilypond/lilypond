@@ -175,11 +175,7 @@ STEPMAKE_GUILE(OPTIONAL)
 # perl for help2man.
 STEPMAKE_PERL(OPTIONAL)
 
-# New makeinfo for multi-page website docs Simply always require new
-# makeinfo should avoid bug reports; if people want to build lily
-# without the docs, they can find this comment and use an older
-# makeinfo--but hopefully won't report makeinfo problems.
-STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.8)
+STEPMAKE_PROGS(MAKEINFO, makeinfo, REQUIRED, 4.11)
 
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 

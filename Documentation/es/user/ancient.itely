@@ -172,7 +172,7 @@ los símbolos de alteración de la notación antigua.
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
 {
-  \fatText
+  \textLengthOn
   s^\markup {
     \column {
       "vaticana"
@@ -609,7 +609,7 @@ Los ejemplos siguientes muestran las diferencias que existen entre los estilos:
 
 @lilypond[ragged-right,fragment,relative=1,quote]
 {
-  \fatText
+  \textLengthOn
 
   \time 2/2
   c1^\markup { \hspace #-2.0 \typewriter default }

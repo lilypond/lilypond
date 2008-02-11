@@ -37,7 +37,7 @@ Two or more staves can be grouped vertically in a @code{GrandStaff}, a
 @end menu
 
 @node System start delimiters
-@unnumberedsubsubsec System start delimiters
+@subsubsection System start delimiters
 
 @cindex start of system
 @cindex staff, multiple
@@ -116,7 +116,7 @@ the command @code{\override Staff.BarLine #'transparent = ##t}
 
 Staff groups can be nested, using the context
 @code{InnerStaffGroup} or @code{InnerChoirStaff}; see
-@lsr{staff,staff-brackets.ly}
+@c @lsr{staff,staff-brackets.ly}
 @c snippet 137
 
 @commonprop
@@ -148,15 +148,14 @@ instantiated manually
 @c FIXME: Graham will deal with this.  -gp
 @c snippet 201
 To display a bracket even if there is only one staff, see
-@lsr{staff,display-bracket-with-only-one-staff-in-a
-system.ly}
+@c @lsr{staff,display-bracket-with-only-one-staff-in-a system.ly}
 
 @seealso
 
 Music Glossary: @rglos{brace}, @rglos{staff}, @rglos{staves}
 @rglos{bracket}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{ChoirStaff},
 @internalsref{GrandStaff}, @internalsref{StaffGroup},
@@ -166,7 +165,7 @@ Internals Reference: @internalsref{ChoirStaff},
 
 
 @node Staff symbol
-@unnumberedsubsubsec Staff symbol
+@subsubsection Staff symbol
 
 @cindex adjusting staff symbol
 
@@ -174,8 +173,8 @@ The layout object which draws the lines of a staff is called
 @code{staff symbol}.  The staff symbol may be tuned in the number,
 thickness and distance of lines, using properties.  This is
 demonstrated in the example files
-@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
-@lsr{staff,changing-the-staff-size.ly}.
+@c @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
+@c @lsr{staff,changing-the-staff-size.ly}.
 
 In addition, staves may be started and stopped at will.  This is
 done with @code{\startStaff} and @code{\stopStaff}.
@@ -238,14 +237,14 @@ In combination with Frenched staves, this may be used to typeset
 
 Music Glossary: @rglos{ossia}, @rglos{staff}, @rglos{Frenched staff}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{StaffSymbol},
 @internalsref{DrumStaff}.
 
 
 @node Hiding staves
-@unnumberedsubsubsec Hiding staves
+@subsubsection Hiding staves
 
 @cindex Frenched scores
 @cindex staves, hiding
@@ -316,7 +315,7 @@ You can make the staff lines invisible by removing the
 
 Notation Reference: @ref{Staff symbol}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{ChordNames},
 @internalsref{FiguredBass}, @internalsref{Lyrics},
@@ -333,7 +332,7 @@ Internals Reference: @internalsref{ChordNames},
 @end menu
 
 @node Metronome marks
-@unnumberedsubsubsec Metronome marks
+@subsubsection Metronome marks
 
 @cindex Tempo
 @cindex beats per minute
@@ -378,12 +377,11 @@ For more details, see @ref{Text markup}.
 @seealso
 
 Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
-@rglos{tempo indication}.
-@c FIXME : add @rglos{Mälzels Metronome}, @rglos{M.M.}, @rglos{tempo}?
+@rglos{tempo indication}, @rglos{metronome mark}.
 
 Notation Reference: @ref{Text markup}.
 
-Snippets: @lsrdir{staff}.
+Snippets: @lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
 output}.
@@ -405,7 +403,7 @@ place it further away from the staff.
 
 
 @node Instrument names
-@unnumberedsubsubsec Instrument names
+@subsubsection Instrument names
 
 @cindex instrument names
 @cindex instrument names, short
@@ -516,18 +514,19 @@ c1 c c c \break
 
 Notation Reference: @ref{Modifying context plug-ins}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{InstrumentName},
 @internalsref{PianoStaff}, @internalsref{Staff}.
 
 
 @node Quoting other voices
-@unnumberedsubsubsec Quoting other voices
+@subsubsection Quoting other voices
 
 @cindex cues
 @cindex quoting other voices
 @cindex fragments
+@cindex cue notes
 
 With quotations, fragments of other parts can be inserted into a
 part directly.  Before a part can be quoted, it must be marked
@@ -637,14 +636,19 @@ written entirely in lower-case letters: @code{\addquote}.
 
 Notation Reference: @ref{Instrument transpositions}.
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
 
 
 @node Formatting cue notes
-@unnumberedsubsubsec Formatting cue notes
+@subsubsection Formatting cue notes
 
+@cindex cues
+@cindex cue notes
+@cindex cue notes, formatting
+@cindex fragments
+@cindex quoting other voices 
 @cindex cues, formatting
 
 The previous section deals with inserting notes from another
@@ -658,7 +662,7 @@ The syntax is
 @end example
 
 This will insert notes from the part @var{name} into a
-@internalsref{Voice} called @code{cue}.  This happens
+@code{Voice} called @code{cue}.  This happens
 simultaneously with @var{music}, which usually is a rest.  When
 the cue notes start, the staff in effect becomes polyphonic for a
 moment.  The argument @var{updown} determines whether the cue
@@ -696,19 +700,20 @@ smaller = {
 @end lilypond
 
 
-Here are a couple of hints for successful cue notes
+Here are a couple of hints for successful cue notes:
 
 @itemize
 @item
 Cue notes have smaller font sizes.
 
 @item
-the cued part is marked with the instrument playing the cue.
+The cued part is marked with the instrument playing the cue.
 
 @item
-when the original part takes over again, this should be marked
+When the original part takes over again, this should be marked
 with the name of the original instrument.
 
+@item
 Any other changes introduced by the cued part should also be
 undone.  For example, if the cued instrument plays in a different
 clef, the original clef should be stated once again.
@@ -744,8 +749,8 @@ cbsn = \relative c, {
 
 @seealso
 
-Snippets: @lsrdir{staff}
+Snippets: @lsrdir{Staff,Staff-notation}.
 
-
+Internals Reference: @internalsref{Voice}.
 
 

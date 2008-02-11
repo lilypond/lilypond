@@ -38,19 +38,19 @@ Las cabezas @q{easy play} (fáciles de tocar) tienen el nombre de la nota (en in
 en la música para principiantes
 
 @lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
-  \setEasyHeads
+  \easyHeadsOn
   c'2 e'4 f' | g'1
 @end lilypond
 
-La orden @code{\setEasyHeads} sobreescribe los ajustes del objeto
+La orden @code{\easyHeadsOn} sobreescribe los ajustes del objeto
 @internalsref{NoteHead}.  Para que las letras sean legibles, se tienen que imprimir
 en un tamaño grande de la tipografía.  Para imprimir con un tamaño de tipografía mayor, consulte
 @ref{Setting the staff size}.
 
 @refcommands
 
-@funindex \setEasyHeads
-@code{\setEasyHeads}
+@funindex \easyHeadsOn
+@code{\easyHeadsOn}
 
 
 @node Shape note heads

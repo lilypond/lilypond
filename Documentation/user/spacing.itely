@@ -35,6 +35,7 @@ or stretched.
 * Breaks::                      
 * Vertical spacing::            
 * Horizontal spacing::          
+* Page layout MOVED FROM LM::   
 @end menu
 
 
@@ -563,7 +564,7 @@ The pairs
 * Page breaking::               
 * Optimal page breaking::       
 * Optimal page turning::        
-* Minimal page breaking::        
+* Minimal page breaking::       
 * Explicit breaks::             
 * Using an extra voice for breaks::  
 @end menu
@@ -618,7 +619,7 @@ A linebreaking configuration can be saved as a @code{.ly} file
 automatically.  This allows vertical alignments to be stretched to
 fit pages in a second formatting run.  This is fairly new and
 complicated.  More details are available in
-@lsrdir{spacing}
+@c @lsrdir{spacing}
 
 @refbugs
 
@@ -1039,8 +1040,8 @@ Internals: Vertical alignment of staves is handled by the
 specifying the vertical extent are described in connection with
 the @internalsref{Axis_group_engraver}.
 
-Example files: @lsr{spacing,page-spacing.ly},
-@lsr{spacing,alignment-vertical-spacing.ly}.
+Example files: @c @lsr{spacing,page-spacing.ly},
+@c @lsr{spacing,alignment-vertical-spacing.ly}.
 
 
 @node Vertical spacing between systems
@@ -2049,5 +2050,264 @@ These settings space grace notes strictly, extend tuplet brackets to
 mark both rhythmic start- and stop-points, and allow spanning elements
 to break across systems and pages.  See the respective parts of the manual
 for these related settings.
+
+
+
+@node Page layout MOVED FROM LM
+@section Page layout MOVED FROM LM
+
+@menu
+* Introduction to layout::      
+* Global sizes::                
+* Line breaks::                 
+* Page breaks::                 
+* Fitting music onto fewer pages::  
+@end menu
+
+@node Introduction to layout
+@subsection Introduction to layout
+
+The global paper layout is determined by three factors: 
+the page layout, the line breaks, and the spacing. These all 
+influence each other. The choice of spacing determines how 
+densely each system of music is set. This influences where line 
+breaks are chosen, and thus ultimately, how many pages a piece 
+of music takes.
+
+Settings which influence layout may be placed in two blocks.
+The @code{\paper @{...@}} block is placed outside any
+@code{\score @{...@}} blocks and contains settings that
+relate to the entire document.  The @code{\layout @{...@}}
+block is placed within a @code{\score @{...@}} block and
+contains settings for that particular score.  If you have
+only one @code{\score @{...@}} block the two have the same
+effect.  In general the commands shown in this section can
+be placed in either.
+
+Much more detail on the options for tweaking the laying out
+of music are contained in @ruser{Spacing issues}.
+
+@node Global sizes
+@subsection Global sizes
+
+TODO Check all these examples
+
+The default @strong{paper size} which LilyPond assumes in laying
+out the music is A4.  This may be changed in two ways:
+
+@example
+#(set-default-paper-size "a6")
+
+\paper @{
+#(set-paper-size "letter")
+@}
+@end example
+
+@noindent
+The first command sets the size of all pages. The second command
+sets the size of the pages to which the \paper block applies -- if
+the \paper block is at the top of the file, then it will apply
+to all pages.  Support for the following paper sizes is available:
+a6, a5, a4, a3, legal, letter, 11x17 (also known as tabloid).
+Setting the paper size automatically sets suitable margins and
+line length.
+
+If the symbol @code{landscape} is supplied as an argument to
+@code{set-default-paper-size}, the pages will be rotated by 90
+degrees, and wider line widths will be set correspondingly, e.g.
+
+@example
+#(set-default-paper-size "a6" 'landscape)
+@end example
+
+The default @strong{staff size} is set to 20 points.
+This may be changed in two ways:
+
+@example
+#(set-global-staff-size 14)
+
+\paper @{
+#(set-global-staff-size 16)
+@}
+@end example
+
+@noindent
+The first command sets the size in all pages. The second command
+sets the size in the pages to which the \paper block applies - if
+the \paper block is at the top of the file, then it will apply
+to all pages.  All the fonts are automatically scaled to suit
+the new value of the staff size.
+
+@node Line breaks
+@subsection Line breaks
+
+Line breaks are normally determined automatically. They are chosen
+so that lines look neither cramped nor loose, and consecutive
+lines have similar density.  Occasionally you might want to
+override the automatic breaks; you can do this by specifying
+@code{\break}. This will force a line break at this point.  However,
+line breaks can only occur at the end of @q{complete} bars, i.e.,
+where there are no notes or tuplets left @q{hanging} over the bar
+line.  If you want to have a line break where there is no bar line,
+you can force an invisible bar line by entering @code{\bar ""},
+although again there must be no notes left hanging over in any of
+the staves at this point, or it will be ignored.
+
+The opposite command, @code{\noBreak}, forbids a line break at the
+bar line where it is inserted.
+
+The most basic settings influencing line spacing are @code{indent}
+and @code{line-width}. They are set in the @code{\layout} block.
+They control the indentation of the first line of music, and the
+lengths of the lines.
+
+If @code{ragged-right} is set to true in the @code{\layout} block,
+then systems end at their natural horizontal length, instead of
+being spread horizontally to fill the whole line. This is useful
+for short fragments, and for checking how tight the natural
+spacing is.
+
+The option @code{ragged-last} is similar to @code{ragged-right},
+but affects only the last line of the piece.
+
+@example
+\layout @{
+indent = #0
+line-width = #150
+ragged-last = ##t
+@}
+@end example
+
+@node Page breaks
+@subsection Page breaks
+
+The default page breaking may be overriden by inserting 
+@code{\pageBreak} or @code{\noPageBreak} commands.
+These commands are analogous to the @code{\break} and 
+@code{\noBreak} commands discused above and force or forbid 
+a page-break at the point where they are inserted.
+Of course, the @code{\pageBreak} command also forces a line break.
+Like @code{\break}, the @code{\pageBreak} command is effective only
+at the end of a @q{complete} bar as defined above.  For more
+details see @ruser{Page breaking} and following sections.
+
+There are also analogous settings to @code{ragged-right} and
+@code{ragged-last} which have the same effect on vertical spacing:
+@code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
+@code{##t} the systems on all pages or just the last page
+respectively will not be justified vertically.
+
+For more details see @ruser{Vertical spacing}.
+
+@node Fitting music onto fewer pages
+@subsection Fitting music onto fewer pages
+
+Sometimes you can end up with one or two staves on a second
+(or third, or fourth...) page.  This is annoying, especially
+if you look at previous pages and it looks like there is plenty
+of room left on those.
+
+When investigating layout issues, @code{annotate-spacing} is
+an invaluable tool.  This command prints the values of various
+layout spacing commands; see @ruser{Displaying spacing}, for more
+details.  From the output of @code{annotate-spacing}, we can
+see which margins we may wish to alter.
+
+Other than margins, there are a few other options to save space:
+
+@itemize
+@item
+You may tell LilyPond to place systems as close together as
+possible (to fit as many systems as possible onto a page), but
+then to space those systems out so that there is no blank
+space at the bottom of the page.
+
+@example
+\paper @{
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+You may force the number of systems (i.e., if LilyPond wants
+to typeset some music with 11 systems, you could force it to
+use 10).
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Avoid (or reduce) objects which increase the vertical size of
+a system.  For example, volta repeats (or alternate repeats)
+require extra space.  If these repeats are spread over two
+systems, they will take up more space than one system with
+the volta repeats and another system without.
+
+Another example is moving dynamics which @q{stick out} of
+a system, as in the second bar here:
+
+@lilypond[verbatim,quote,fragment,ragged-right,relative=1]
+e4 c g\f c
+\override DynamicText #'extra-offset = #'( -2.2 . 2.0)
+e4 c g\f c
+@end lilypond
+
+@item
+Alter the horizontal spacing via @code{SpacingSpanner}.  See
+@ruser{Changing horizontal spacing}, for more details.  Here's
+an example first showing the default behaviour:
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \relative c'' {
+    g4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+}
+@end lilypond
+
+@noindent
+and now with @code{common-shortest-duration} increased from the
+value of @code{1/4} (a quarter note is the most common in this
+example) to @code{1/2}:
+
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  \relative c'' {
+    g4 e e2 |
+    f4 d d2 |
+    c4 d e f |
+    g4 g g2 |
+    g4 e e2 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'common-shortest-duration = #(ly:make-moment 1 2)
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Note that this override cannot be modified dynamically, so it must
+always be placed in a @code{\context@{..@}} block so that it applies
+to the whole score.
+
+TODO Add description of using \context in this way earlier if it is
+not already anywhere  -td
+
+@end itemize
+
 
 

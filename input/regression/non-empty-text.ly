@@ -1,5 +1,5 @@
 
-\version "2.10.0"
+\version "2.11.38"
 
 \header{
   texidoc=" By default, text is set with empty horizontal dimensions.  
@@ -11,11 +11,11 @@ to control the horizontal size of text.  " }
 }
 
 \relative c''{
-  %% \emptyText
+  %% \textLengthOff
   %% short for \override TextScript  #'no-spacing-rods = ##t
   c2_"very wide and long text" c | \break
   %% short for \override TextScript  #'no-spacing-rods = ##f
-  \fatText
+  \textLengthOn
   c_"very wide and long text" c
 }
 

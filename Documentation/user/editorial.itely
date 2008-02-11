@@ -32,7 +32,11 @@
 @end menu
 
 @node Selecting notation font size
-@unnumberedsubsubsec Selecting notation font size
+@subsubsection Selecting notation font size
+
+@cindex font size
+@cindex font size, selecting
+@cindex selecting font size
 
 The easiest method of setting the font size of any context is by
 setting the @code{fontSize} property.
@@ -48,6 +52,8 @@ g
 @noindent
 It does not change the size of variable symbols, such as beams or
 slurs.
+
+@cindex font size scaling
 
 Internally, the @code{fontSize} context property will cause the
 @code{font-size} property to be set in all layout objects.  The
@@ -67,14 +73,17 @@ c f
 g
 @end lilypond
 
+@cindex standard font size
+@cindex font size, standard
+
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
 @code{font-size} equals 0), depends on the standard staff height.
 For a 20pt staff, a 10pt font is selected.
 
-The @code{font-size} property can only be set on layout objects
-that use fonts.  These are the ones supporting the
-@internalsref{font-interface} layout interface.
+The @code{font-size} property can only be set on layout objects that
+use fonts.  These are the ones supporting the @code{font-interface}
+layout interface.
 
 @refcommands
 
@@ -87,9 +96,15 @@ The following commands set @code{fontSize} for the current voice:
 @funindex \normalsize
 @code{\normalsize}.
 
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
+Internals Reference: @internalsref{font-interface}.
+
 
 @node Fingering instructions
-@unnumberedsubsubsec Fingering instructions
+@subsubsection Fingering instructions
 
 @cindex fingering
 @cindex finger change
@@ -107,12 +122,18 @@ c4-1 c-2 c-3 c-4
 c^\markup { \finger "2 - 3" }
 @end lilypond
 
+@cindex thumb-script
+
+
 You can use the thumb-script to indicate that a note should be
 played with the thumb (e.g., in cello music)
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 <a_\thumb a'-3>8 <b_\thumb b'-3>
 @end lilypond
+
+@cindex fingering chords
+@cindex chords, fingering
 
 Fingerings for chords can also be added to individual notes of the
 chord by adding them after the pitches
@@ -145,14 +166,13 @@ instructions very close to note heads in monophonic music,
 
 @seealso
 
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
 Internals Reference: @internalsref{Fingering}.
-
-Examples: @lsr{expressive,fingering-chords.ly}
-
 
 
 @node Hidden notes
-@unnumberedsubsubsec Hidden notes
+@subsubsection Hidden notes
 
 @cindex Hidden notes
 @cindex Invisible notes
@@ -172,9 +192,20 @@ e4 f4
 g4 a
 @end lilypond
 
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
 
 @node Coloring objects
-@unnumberedsubsubsec Coloring objects
+@subsubsection Coloring objects
+
+@cindex colored objects
+@cindex colors
+@cindex coloring objects
+@cindex colored notes
+@cindex coloring notes
+@cindex notes, colored
 
 Individual objects may be assigned colors.  You may use the color
 names listed in the @ref{List of colors}.
@@ -187,6 +218,8 @@ d
 \override Stem #'color = #blue
 e
 @end lilypond
+
+@cindex x11-color
 
 The full range of colors defined for X11 can be accessed by using
 the Scheme function x11-color.  The function takes one argument
@@ -249,8 +282,10 @@ you can get exact RGB colors by specifying
 
 @seealso
 
-Appendix: @ref{List of colors}.
+Notation Reference: @ref{List of colors}, @ref{Objects connected to
+the input}.
 
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 @refbugs
 Not all x11 colors are distinguishable in a web browser.  For web
@@ -265,11 +300,12 @@ for details.
 
 
 @node Parentheses
-@unnumberedsubsubsec Parentheses
+@subsubsection Parentheses
 
 @cindex ghost notes
 @cindex notes, ghost
 @cindex notes, parenthesized
+@cindex parentheses
 
 Objects may be parenthesized by prefixing @code{\parenthesize} to
 the music event,
@@ -289,13 +325,19 @@ must be enclosed with @code{<>} as if it is a chord.
 < \parenthesize NOTE>
 @end example
 
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
 
 @node Stems
-@unnumberedsubsubsec Stems
+@subsubsection Stems
 
-Whenever a note is found, a @internalsref{Stem} object is created
-automatically.  For whole notes and rests, they are also created
-but made invisible.
+@cindex stem
+
+Whenever a note is found, a @code{Stem} object is created
+automatically.  For whole notes and rests, they are also created but
+made invisible.
 
 @refcommands
 
@@ -309,6 +351,11 @@ but made invisible.
 
 @commonprop
 
+@cindex stem, direction
+@cindex stem, up
+@cindex stem, down
+@cindex stem, neutral
+
 To change the direction of stems on the center line of the staff, use
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
@@ -318,6 +365,10 @@ a4 b c b
 \override Stem #'neutral-direction = #down
 a4 b c b
 @end lilypond
+
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Outside the staff
@@ -332,7 +383,7 @@ a4 b c b
 @end menu
 
 @node Balloon help
-@unnumberedsubsubsec Balloon help
+@subsubsection Balloon help
 
 Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
@@ -349,21 +400,23 @@ The following example demonstrates its use.
 @end lilypond
 
 @noindent
-There are two music functions, @code{balloonText} and
-@code{balloonGrobText}.  The latter takes the name of the grob to
-adorn, while the former may be used as an articulation on a note.
-The other arguments  are the offset and the text of the label.
+There are two music functions, @code{balloonGrobText} and
+@code{balloonText}; the former takes the name of the grob to adorn,
+while the latter may be used as an articulation on a note.  The other
+arguments are the offset and the text of the label.
 
 @cindex balloon
 @cindex notation, explaining
 
 @seealso
 
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
 Internals Reference: @internalsref{text-balloon-interface}.
 
 
 @node Grid lines
-@unnumberedsubsubsec Grid lines
+@subsubsection Grid lines
 
 Vertical lines can be drawn between staves synchronized with the
 notes.
@@ -402,14 +455,18 @@ notes.
 >>
 @end lilypond
 
-Examples: @lsrdir{education}
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Blank music sheet
-@unnumberedsubsubsec Blank music sheet
+@subsubsection Blank music sheet
 
-@cindex Sheet music, empty
-@cindex Staves, blank sheet
+@cindex sheet music, empty
+@cindex staves, blank sheet
+@cindex blank staff paper
+@cindex staff paper, blank
 
 A blank music sheet can be produced also by using invisible notes,
 and removing @code{Bar_number_engraver}.
@@ -436,20 +493,23 @@ emptymusic = {
 >>
 @end lilypond
 
+@seealso
+
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
 
 @node Analysis brackets
-@unnumberedsubsubsec Analysis brackets
+@subsubsection Analysis brackets
 
 @cindex brackets
 @cindex phrasing brackets
 @cindex musicological analysis
 @cindex note grouping bracket
 
-Brackets are used in musical analysis to indicate structure in
-musical pieces.  LilyPond supports a simple form of nested
-horizontal brackets.  To use this, add the
-@internalsref{Horizontal_bracket_engraver} to the
-@internalsref{Staff} context.  A bracket is started with
+Brackets are used in musical analysis to indicate structure in musical
+pieces.  LilyPond supports a simple form of nested horizontal
+brackets.  To use this, add the @code{Horizontal_bracket_engraver} to
+the @code{Staff} context.  A bracket is started with
 @code{\startGroup} and closed with @code{\stopGroup}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -468,6 +528,9 @@ horizontal brackets.  To use this, add the
 
 @seealso
 
-Internals Reference: @internalsref{HorizontalBracket}.
+Snippets: @lsrdir{Editorial,Editorial-annotations}.
+
+Internals Reference: @internalsref{HorizontalBracket},
+@internalsref{Horizontal_bracket_engraver}, @internalsref{Staff}.
 
 

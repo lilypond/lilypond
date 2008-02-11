@@ -4,7 +4,7 @@
 \header {
 
 texidoc=" Auto change piano staff switches voices between up
-and down staves automatically rests are switched along with the coming
+and down staves automatically; rests are switched along with the coming
 note. When central C is reached, staff is not yet switched (by default).
 
 "

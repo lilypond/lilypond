@@ -1,5 +1,5 @@
 
-\version "2.10.0"
+\version "2.11.38"
 
 \header{
 
@@ -9,7 +9,7 @@ have melismata either by setting a property melismaBusy, or by setting
 automaticMelismas (which will set melismas during slurs and ties).  If
 you want a different order than first Music, then Lyrics, you must
 precook a chord of staves/lyrics and label those.  Of course, the
-lyrics ignores any other rhythms in the piece."
+lyrics ignore any other rhythms in the piece."
 
 }
 
@@ -20,7 +20,7 @@ lyrics ignores any other rhythms in the piece."
 m = \relative c'' {
     \autoBeamOff
     g8( a)  r8 \times 2/3 { g'8( f e) } r8 \grace {  d16[ c b] } e4
-    \emptyText
+    \textLengthOff
     d8.^"melisma" 	\melisma c16
     \melismaEnd
     b

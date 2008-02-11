@@ -44,17 +44,17 @@ program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
 
 def warning (s):
-    sys.stderr.write (program_name + ": " + _ ("warning: %s") % s + '\n')
+    ly.stderr_write (program_name + ": " + _ ("warning: %s") % s + '\n')
 
 def error (s):
-    sys.stderr.write (program_name + ": " + _ ("error: %s") % s + '\n')
+    ly.stderr_write (program_name + ": " + _ ("error: %s") % s + '\n')
 
 def identify (port=sys.stderr):
-    port.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
+    ly.encoded_write (port, '%s (GNU LilyPond) %s\n' % (program_name, program_version))
 
 def warranty ():
     identify ()
-    sys.stdout.write ('''
+    ly.encoded_write (sys.stdout, '''
 Copyright (c) %s by
 
   Han-Wen Nienhuys
@@ -178,7 +178,7 @@ class UnknownVersion:
     pass
 
 def do_one_file (infile_name):
-    sys.stderr.write (_ ("Processing `%s\'... ") % infile_name)
+    ly.stderr_write (_ ("Processing `%s\'... ") % infile_name)
     sys.stderr.write ('\n')
 
     from_version = None

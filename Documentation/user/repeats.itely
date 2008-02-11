@@ -33,7 +33,7 @@ Blah blah
 
 
 @node Repeat syntax
-@unnumberedsubsubsec Repeat syntax
+@subsubsection Repeat syntax
 
 @cindex repeats
 
@@ -89,7 +89,7 @@ is assumed to be played more than once.
 
 
 @node Normal repeats
-@unnumberedsubsubsec Normal repeats
+@subsubsection Normal repeats
 
 @cindex volta
 @cindex prima volta
@@ -161,7 +161,7 @@ and brackets for the repeat are thus normally only printed over
 the topmost staff.  This can be adjusted by adding
 @code{Volta_engraver} to the Staff context where you want the
 brackets to appear; see @ref{Modifying context plug-ins} and
-@lsr{repeats,volta@/-multi@/-staff@/.ly}.
+@c @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 @lilypond[verbatim,ragged-right,quote]
 \score { <<
@@ -186,7 +186,7 @@ see @ref{Bar lines} for more information.
 
 @seealso
 
-Snippets: @lsrdir{repeats}
+Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic},
@@ -223,7 +223,7 @@ repeated.
 
 
 @node Manual repeat commands
-@unnumberedsubsubsec Manual repeat commands
+@subsubsection Manual repeat commands
 
 @funindex repeatCommands
 
@@ -267,7 +267,7 @@ c4 c4
 
 Notation Reference: @ref{Bar lines}.
 
-Snippets: @lsrdir{repeats}
+Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
@@ -283,7 +283,7 @@ and @internalsref{UnfoldedRepeatedMusic}.
 @end menu
 
 @node Tremolo repeats
-@unnumberedsubsubsec Tremolo repeats
+@subsubsection Tremolo repeats
 
 @cindex tremolo beams
 
@@ -346,13 +346,13 @@ Notation Reference: @ref{Tremolo repeats}.
 Internals Reference: @internalsref{Beam},
 @internalsref{StemTremolo}.
 
-Snippets: @lsrdir{repeats}
+Snippets: @lsrdir{Repeats,Repeats}
 
 Elsewhere: @internalsref{StemTremolo}.
 
 
 @node Measure repeats
-@unnumberedsubsubsec Measure repeats
+@subsubsection Measure repeats
 
 @cindex percent repeats
 @cindex measure repeats
@@ -396,7 +396,7 @@ R1
 
 @seealso
 
-Snippets: @lsrdir{repeats}
+Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{RepeatSlash},
 @internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},

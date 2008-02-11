@@ -519,11 +519,11 @@ class SequentialMusic (NestedMusic):
         value = None
         at = len( self.elements ) - 1
         while (at >= 0 and
-               not isinstance (self.elements[at], EventChord) and
+               not isinstance (self.elements[at], ChordEvent) and
                not isinstance (self.elements[at], BarLine)):
             at -= 1
 
-        if (at >= 0 and isinstance (self.elements[at], EventChord)):
+        if (at >= 0 and isinstance (self.elements[at], ChordEvent)):
             value = self.elements[at]
         return value
 
@@ -567,7 +567,7 @@ class RepeatedMusic:
             self.music = SequentialMusic ()
             self.music.elements = music
         else:
-            sys.stderr.write ("WARNING: Unable to set the music %s for the repeat %s" % (music, self))
+            sys.stderr.write (_ ("WARNING: Unable to set the music %s for the repeat %s" % (music, self)))
     def add_ending (self, music):
         self.endings.append (music)
     def print_ly (self, printer):
@@ -575,7 +575,7 @@ class RepeatedMusic:
         if self.music:
             self.music.print_ly (printer)
         else:
-            sys.stderr.write ("WARNING: Encountered repeat without body\n")
+            sys.stderr.write (_ ("WARNING: Encountered repeat without body\n"))
             printer.dump ('{}')
         if self.endings:
             printer.dump ('\\alternative {')
@@ -662,7 +662,7 @@ class Paper:
         printer.newline ()
 
 
-class EventChord (NestedMusic):
+class ChordEvent (NestedMusic):
     def __init__ (self):
         NestedMusic.__init__ (self)
         self.grace_elements = None
@@ -697,6 +697,10 @@ class EventChord (NestedMusic):
                 printer ('\\grace')
             # don't print newlines after the { and } braces
             self.grace_elements.print_ly (printer, False)
+        # Print all overrides and other settings needed by the 
+        # articulations/ornaments before the note
+        for e in other_events:
+            e.print_before_note (printer)
 
         if rest_events:
             rest_events[0].print_ly (printer)
@@ -718,6 +722,9 @@ class EventChord (NestedMusic):
         
         for e in other_events:
             e.print_ly (printer)
+
+        for e in other_events:
+            e.print_after_note (printer)
 
         self.print_comment (printer)
             
@@ -755,6 +762,19 @@ class BarLine (Music):
         return " | "
 
 class Event(Music):
+    def __init__ (self):
+        # strings to print before the note to which an event is attached.
+        # Ignored for notes etc.
+        self.before_note = None
+        self.after_note = None
+   # print something before the note to which an event is attached, e.g. overrides
+    def print_before_note (self, printer):
+        if self.before_note:
+            printer.dump (self.before_note)
+   # print something after the note to which an event is attached, e.g. resetting
+    def print_after_note (self, printer):
+        if self.after_note:
+            printer.dump (self.after_note)
     pass
 
 class SpanEvent (Event):
@@ -772,34 +792,45 @@ class SpanEvent (Event):
         self.span_type = type
 
 class SlurEvent (SpanEvent):
+    def print_before_note (self, printer):
+        command = {'dotted': '\\slurDotted', 
+                  'dashed' : '\\slurDashed'}.get (self.line_type, '')
+        if command and self.span_direction == -1:
+            printer.dump (command)
+    def print_after_note (self, printer):
+        # reset non-solid slur types!
+        command = {'dotted': '\\slurSolid', 
+                  'dashed' : '\\slurSolid'}.get (self.line_type, '')
+        if command and self.span_direction == -1:
+            printer.dump (command)
     def ly_expression (self):
-        before = ''
-        after = ''
-        # TODO: setting dashed/dotted line style does not work, because that
-        #       command needs to be written before the note, not when the
-        #       event is observed after the note!
-        #before = {'dotted': '\\slurDotted', 
-        #          'dashed' : '\\slurDashed'}.get (self.line_type, '')
-        #if before:
-            #after = '\\slurSolid'
-
-        return {-1: before + '(' + after,
-            1:')'}.get (self.span_direction, '')
+        return {-1: '(', 1:')'}.get (self.span_direction, '')
 
 class BeamEvent (SpanEvent):
     def ly_expression (self):
-        return {-1: '[',
-            1:']'}.get (self.span_direction, '')
+        return {-1: '[', 1:']'}.get (self.span_direction, '')
 
 class PedalEvent (SpanEvent):
     def ly_expression (self):
         return {-1: '\\sustainDown',
+            0:'\\sustainUp\\sustainDown',
             1:'\\sustainUp'}.get (self.span_direction, '')
+
+class TextSpannerEvent (SpanEvent):
+    def ly_expression (self):
+        return {-1: '\\startTextSpan',
+            1:'\\stopTextSpan'}.get (self.span_direction, '')
+
+class BracketSpannerEvent (SpanEvent):
+    def ly_expression (self):
+        return {-1: '\\startGroup',
+            1:'\\stopGroup'}.get (self.span_direction, '')
+
 
 # type==-1 means octave up, type==-2 means octave down
 class OctaveShiftEvent (SpanEvent):
     def wait_for_note (self):
-        return False;
+        return False
     def set_span_type (self, type):
         self.span_type = {'up': 1, 'down': -1}.get (type, 0)
     def ly_octave_shift_indicator (self):
@@ -824,24 +855,37 @@ class TrillSpanEvent (SpanEvent):
             1:'\\stopTrillSpan'}.get (self.span_direction, '')
 
 class GlissandoEvent (SpanEvent):
+    def print_before_note (self, printer):
+        if self.span_direction == -1:
+            style= {
+                "dashed" : "dashed-line",
+                "dotted" : "dotted-line",
+                "wavy"   : "zigzag" 
+            }. get (self.line_type, None)
+            if style:
+                printer.dump ("\once \override Glissando #'style = #'%s" % style)
     def ly_expression (self):
-        style = ''
-        # TODO: wavy-line glissandos don't work, becasue the style has to be
-        #       set before the note, at the \glissando it's already too late!
-        #if self.line_type == 'wavy':
-            #style = "\once\override Glissando #'style = #'zigzag"
-        # In lilypond, glissando is NOT a spanner, unlike MusicXML.
-        return {-1: style + '\\glissando',
+        return {-1: '\\glissando',
             1:''}.get (self.span_direction, '')
 
 class ArpeggioEvent(Event):
     def __init__ (self):
         Event.__init__ (self)
         self.direction = 0
+        self.non_arpeggiate = False
     def wait_for_note (self):
-        return True;
+        return True
+    def print_before_note (self, printer):
+        if self.non_arpeggiate:
+            printer.dump ("\\arpeggioBracket")
+        else:
+          dir = { -1: "\\arpeggioDown", 1: "\\arpeggioUp" }.get (self.direction, '')
+          if dir:
+              printer.dump (dir)
+    def print_after_note (self, printer):
+        if self.non_arpeggiate or self.direction:
+            printer.dump ("\\arpeggioNeutral")
     def ly_expression (self):
-        # TODO: Use self.direction for up/down arpeggios
         return ('\\arpeggio')
 
 
@@ -871,32 +915,45 @@ class HairpinEvent (SpanEvent):
 
 class DynamicsEvent (Event):
     def __init__ (self):
+        Event.__init__ (self)
         self.type = None
-        self.available_commands = [ "ppppp", "pppp", "ppp", "pp", "p", 
-                                    "mp", "mf", 
-                                    "f", "ff", "fff", "ffff", 
-                                    "fp", "sf", "sff", "sp", "spp", "sfz", "rfz" ];
     def wait_for_note (self):
-        return True;
+        return True
     def ly_expression (self):
-        if self.type == None:
-            return;
-        elif self.type in self.available_commands:
+        if self.type:
             return '\%s' % self.type
         else:
-            return '-\markup{ \dynamic %s }' % self.type
-        
-    def print_ly (self, printer):
-        if self.type == None:
             return
-        elif self.type in self.available_commands:
+
+    def print_ly (self, printer):
+        if self.type:
             printer.dump ("\\%s" % self.type)
+
+class MarkEvent (Event):
+    def __init__ (self, text="\\default"):
+        Event.__init__ (self)
+        self.mark = text
+    def wait_for_note (self):
+        return False
+    def ly_contents (self):
+        if self.mark:
+            return '%s' % self.mark
         else:
-            printer.dump ("-\\markup{ \\dynamic %s }" % self.type)
+            return "\"ERROR\""
+    def ly_expression (self):
+        return '\\mark %s' % self.ly_contents ()
+
+class MusicGlyphMarkEvent (MarkEvent):
+    def ly_contents (self):
+        if self.mark:
+            return '\\markup { \\musicglyph #"scripts.%s" }' % self.mark
+        else:
+            return ''
 
 
 class TextEvent (Event):
     def __init__ (self):
+        Event.__init__ (self)
         self.Text = None
         self.force_direction = None
         self.markup = ''
@@ -914,10 +971,11 @@ class TextEvent (Event):
 
 class ArticulationEvent (Event):
     def __init__ (self):
+        Event.__init__ (self)
         self.type = None
         self.force_direction = None
     def wait_for_note (self):
-        return True;
+        return True
 
     def direction_mod (self):
         return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '')
@@ -1178,7 +1236,7 @@ class MultiMeasureRest(Music):
   'elements
   (list (make-music (quote BarCheck))
         (make-music
-          'EventChord
+          'ChordEvent
           'elements
           (list (make-music
                   'MultiMeasureRestEvent
@@ -1366,7 +1424,7 @@ def test_pitch ():
 
 def test_printer ():
     def make_note ():
-        evc = EventChord()
+        evc = ChordEvent()
         n = NoteEvent()
         evc.append (n)
         return n
@@ -1396,21 +1454,21 @@ def test_printer ():
 def test_expr ():
     m = SequentialMusic()
     l = 2  
-    evc = EventChord()
+    evc = ChordEvent()
     n = NoteEvent()
     n.duration.duration_log = l
     n.pitch.step = 1
     evc.insert_around (None, n, 0)
     m.insert_around (None, evc, 0)
 
-    evc = EventChord()
+    evc = ChordEvent()
     n = NoteEvent()
     n.duration.duration_log = l
     n.pitch.step = 3
     evc.insert_around (None, n, 0)
     m.insert_around (None, evc, 0)
 
-    evc = EventChord()
+    evc = ChordEvent()
     n = NoteEvent()
     n.duration.duration_log = l
     n.pitch.step = 2 
@@ -1421,7 +1479,7 @@ def test_expr ():
     evc.type = 'treble'
     m.insert_around (None, evc, 0)
 
-    evc = EventChord()
+    evc = ChordEvent()
     tonic = Pitch ()
     tonic.step = 2
     tonic.alteration = -2

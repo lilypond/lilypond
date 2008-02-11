@@ -16,12 +16,12 @@ $(outdir)/%.tfm $(outdir)/%.log: %.mf
 # ugh . mf2pt1 is extremely broken, it pollutes CWD iso. creating a
 # temp dir.
 $(outdir)/%.pfb: %.mf $(outdir)/mf2pt1.mem
-	TMP=`mktemp -d $(outdir)/pfbtemp.XXXXXXXXX` ; \
-		( cd $$TMP ; \
-		ln -s ../mf2pt1.mem . ; \
-		MFINPUTS=../..:../:: $(PERL) ../../$(buildscript-dir)/mf2pt1.pl $(MF2PT1_OPTIONS) $< ) ; \
-		mv $$TMP/*pfb $(outdir) ; \
-		rm -rf $$TMP
+	TMP=`mktemp -d $(outdir)/pfbtemp.XXXXXXXXX` \
+	&& ( cd $$TMP \
+		&& ln -s ../mf2pt1.mem . \
+		&& MFINPUTS=$(top-src-dir)/mf:..:: $(PERL) $(top-src-dir)/buildscripts/mf2pt1.pl $(MF2PT1_OPTIONS) $< ) \
+	&& mv $$TMP/*pfb $(outdir); \
+	rm -rf $$TMP
 
-$(outdir)/mf2pt1.mem:
-	cd $(outdir) && mpost -progname=mpost -ini ../mf2pt1 \\dump
+$(outdir)/mf2pt1.mem: mf2pt1.mp
+	cd $(outdir) && mpost -progname=mpost -ini $(top-src-dir)/mf/mf2pt1.mp \\dump

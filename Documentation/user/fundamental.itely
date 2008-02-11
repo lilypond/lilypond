@@ -40,7 +40,7 @@ description of the input format, see @ruser{File structure}.
 A basic example of a lilypond input file is
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 \score @{
   @var{...compound music expression...}  % all the music goes here!
   \header @{ @}
@@ -131,9 +131,13 @@ MIDI output respectively.  They are described fully in the
 Notation Reference -- @ruser{Score layout} and
 @ruser{Creating MIDI files}.
 
-The @code{\book} command allows
-several @code{\score} blocks to be combined into one output.
-If there are several @code{\book} blocks each one produces a
+You may code multiple @code{\score} blocks.  Each will be
+treated as a separate score, but they will be all combined into
+a single output file.  A @code{\book} command is not necessary
+-- one will be implicitly created.  However, if you would like
+separate output files from one @code{.ly} file then the
+@code{\book} command should be used to separate the different
+sections: each @code{\book} block will produce a
 separate output file.  For details see @ruser{Multiple scores
 in a book}.
 
@@ -1084,6 +1088,7 @@ SopTwoLyrics = \lyricmode {
     >>
     \new Staff <<
       \new Voice = "SopTwo" {
+        \global
         \SopTwoMusic
       }
       \new Lyrics \lyricsto "SopTwo" {
@@ -1132,7 +1137,7 @@ VerseFour  = \lyricmode {
     >>
     \new Staff <<
       \clef "bass"
-      \new Voice = "Tenor" { \voiceOne \TenorMusic }
+      \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
       \new Voice = "Bass"  { \voiceTwo \BassMusic  }
     >>
   >>
@@ -1190,7 +1195,7 @@ For example: a @code{Staff} context can contain many
 contain many @code{Staff} contexts.
 
 @quotation
-@image{context-example,5cm,,}
+@sourceimage{context-example,5cm,,}
 @end quotation
 
 Each context has the responsibility for enforcing some notation rules,
@@ -1432,11 +1437,11 @@ because we omitted the context name.
 @lilypond[quote,verbatim,ragged-right]
 <<
   \new Staff \relative c'' {
-    \set Staff.instrumentName = "Soprano"
+    \set Staff.instrumentName = #"Soprano"
     c4 c
  }
   \new Staff \relative c' {
-  \set instrumentName = "Alto"  % Wrong!
+  \set instrumentName = #"Alto"  % Wrong!
   d4 d 
  }
 >>
@@ -1584,7 +1589,7 @@ engraver is removed from a context it can no longer produce its
 output.  This is a crude way of modifying the output, but it
 can sometimes be useful.
 
-@unnumberedsubsubsec Changing a single context
+@subsubsection Changing a single context
 
 To remove an engraver from a single context we use the
 @code{\with} command placed immediately after the context creation 
@@ -1665,7 +1670,7 @@ the notes in all the voices on that staff:
 >>
 @end lilypond
 
-@unnumberedsubsubsec Changing all contexts of the same type
+@subsubsection Changing all contexts of the same type
 
 The examples above show how to remove or add engravers to
 individual contexts.  It is also possible to remove or add 
@@ -1734,7 +1739,7 @@ cello.  In this case, we would start with @q{Notes and lyrics} (for the
 soprano part).
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -1762,7 +1767,7 @@ text = \lyricmode @{
 Now we want to add a cello part.  Let's look at the @q{Notes only} example:
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -1777,27 +1782,29 @@ melody = \relative c' @{
 @}
 @end example
 
-We don't need two @code{\version} commands.  We'll need the @code{melody}
-section.  We don't want two @code{\score} sections -- if we had two
-@code{\score}s, we'd get the two parts separately.  We want them together,
-as a duet.  Within the @code{\score} section, we don't need two
-@code{\layout} or @code{\midi}.
+We don't need two @code{\version} commands.  We'll need the 
+@code{melody} section.  We don't want two @code{\score} sections
+-- if we had two @code{\score}s, we'd get the two parts separately.
+We want them together, as a duet.  Within the @code{\score} 
+section, we don't need two @code{\layout} or @code{\midi}.
 
-If we simply cut and paste the @code{melody} section, we would end up with
-two @code{melody} sections.  So let's rename them.  We'll call the section
-for the soprano @code{sopranoMusic} and the section for the cello
-@code{celloMusic}.  While we're doing this, let's rename @code{text}
-to be @code{sopranoLyrics}.  Remember to rename both instances of all
-these names -- both the initial definition (the
+If we simply cut and paste the @code{melody} section, we would 
+end up with two @code{melody} definitions.  This would not generate
+an error, but the second one would be used for both melodies.
+So let's rename them to make them distinct.  We'll call the 
+section for the soprano @code{sopranoMusic} and the section for
+the cello @code{celloMusic}.  While we're doing this, let's rename
+@code{text} to be @code{sopranoLyrics}.  Remember to rename both
+instances of all these names -- both the initial definition (the
 @code{melody = \relative c' @{ } part) and the name's use (in the
 @code{\score} section).
 
-While we're doing this, let's change the cello part's staff -- celli
-normally use bass clef.  We'll also give the cello some different
-notes.
+While we're doing this, let's change the cello part's staff -- 
+celli normally use bass clef.  We'll also give the cello some 
+different notes.
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 sopranoMusic = \relative c' @{
   \clef treble
   \key c \major
@@ -1866,7 +1873,7 @@ This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.37"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
@@ -1914,7 +1921,7 @@ from Handel's Messiah:
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 global = { \key d \major \time 4/4 }
 sopMusic = \relative c'' {
   \clef "treble"
@@ -1925,7 +1932,7 @@ sopWords = \lyricmode {
 }
 altoMusic = \relative a' {
   \clef "treble"
-  r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
+  r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
 }
 altoWords = \sopWords
 tenorMusic = \relative c' {
@@ -2088,7 +2095,7 @@ Combining all these together and adding the music
 for the three bars of the example above gives:
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 global = { \key d \major \time 4/4 }
 sopMusic = \relative c'' {
   \clef "treble"
@@ -2186,7 +2193,7 @@ music definitions and one to define the time signature
 and key:
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 \header @{
   title = "Jesu, meine Freude"
   composer = "J S Bach"
@@ -2295,7 +2302,7 @@ may vary.  All that remains now
 is to add the music, and combine all the parts together.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.23"
+\version "2.11.38"
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"
@@ -2340,6 +2347,8 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
+
+
 
 
 

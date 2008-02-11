@@ -74,16 +74,15 @@ def exit (i):
         sys.exit (i)
 
 def identify ():
-    sys.stdout.write ('%s (GNU LilyPond) %s\n' % (program_name, program_version))
+    ly.encoded_write (sys.stdout, '%s (GNU LilyPond) %s\n' % (program_name, program_version))
 
-def progress (s):
-    sys.stderr.write (s)
+progress = ly.progress
 
 def warning (s):
-    sys.stderr.write (program_name + ": " + _ ("warning: %s") % s + '\n')
+    ly.stderr_write (program_name + ": " + _ ("warning: %s") % s + '\n')
 
 def error (s):
-    sys.stderr.write (program_name + ": " + _ ("error: %s") % s + '\n')
+    ly.stderr_write (program_name + ": " + _ ("error: %s") % s + '\n')
 
 def ps_page_count (ps_name):
     header = open (ps_name).read (1024)
@@ -94,7 +93,7 @@ def ps_page_count (ps_name):
 
 def warranty ():
     identify ()
-    sys.stdout.write ('''
+    ly.encoded_write (sys.stdout, '''
 %s
 
 %s
@@ -125,10 +124,16 @@ def get_option_parser ():
                   action='append', dest='include_path',
                   default=[os.path.abspath (os.getcwd ())])
 
+    p.add_option ('--info-images-dir', help=_ ("format Texinfo output so that Info will "
+                                               "look for images of music in DIR"),
+                  metavar=_ ("DIR"),
+                  action='store', dest='info_images_dir',
+                  default='')
+
     p.add_option ('--left-padding', 
-                  metavar=_("PAD"),
+                  metavar=_ ("PAD"),
                   dest="padding_mm",
-                  help="Pad left side of music to align music inspite of uneven bar numbers. (in mm)",
+                  help=_ ("pad left side of music to align music inspite of uneven bar numbers (in mm)"),
                   type="float",
                   default=3.0)
     
@@ -144,7 +149,7 @@ def get_option_parser ():
     p.add_option ('--pdf',
                   action="store_true",
                   dest="create_pdf",
-                  help=_ ("Create PDF files for use with PDFTeX"),
+                  help=_ ("create PDF files for use with PDFTeX"),
                   default=False)
     p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
                   help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
@@ -157,7 +162,7 @@ must use this with dvips -h INPUT.psfonts'''),
     p.add_option ('-w', '--warranty',
                   help=_ ("show warranty and copyright"),
                   action='store_true')
-    p.add_option_group ('bugs',
+    p.add_option_group (_ ('Bugs'),
                         description=(_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
@@ -628,7 +633,7 @@ output = {
 
         OUTPUTIMAGE: r'''@noindent
 @ifinfo
-@image{%(base)s,,,%(alt)s,%(ext)s}
+@image{%(info_image_path)s,,,%(alt)s,%(ext)s}
 @end ifinfo
 @html
 <p>
@@ -1204,6 +1209,7 @@ class Lilypond_snippet (Snippet):
             # Specifying no extension is most robust.
             ext = ''
             alt = self.option_dict[ALT]
+            info_image_path = os.path.join (global_options.info_images_dir, base)
             str += output[TEXINFO][OUTPUTIMAGE] % vars ()
 
         base = self.basename ()
@@ -1417,8 +1423,8 @@ def filter_pipe (input, cmd):
         exit_status = status >> 8
         error (_ ("`%s' failed (%d)") % (cmd, exit_status))
         error (_ ("The error log is as follows:"))
-        sys.stderr.write (error)
-        sys.stderr.write (stderr.read ())
+        ly.stderr_write (error)
+        ly.stderr_write (stderr.read ())
         exit (status)
 
     if global_options.verbose:

@@ -65,6 +65,9 @@ in LilyPond format to produce a file which can be printed and
 (optionally) a MIDI file which can be played.  The first example
 shows what a simple input text file looks like.
 
+To create sheet music, we write a text file that specifies the
+notation.  For example, if we write:
+
 @example
 @{
   c' e' g' e'
@@ -81,8 +84,8 @@ the result looks like this:
 }
 @end lilypond
 
-@warning{Every piece of LilyPond input needs to have
-@strong{@{ curly braces @}} placed around the input.  The braces
+@warning{Notes and lyrics in LilyPond input must always be
+surrounded by @strong{@{ curly braces @}}.  The braces
 should also be surrounded by a space unless they are at the
 beginning or end of a line to avoid ambiguities.  The braces may
 be omitted in some examples in this manual, but don't forget them
@@ -628,7 +631,7 @@ note's @notation{pitch}!  This is a feature that often causes
 confusion to newcomers, so let us explain it in more detail.
 
 LilyPond makes a sharp distinction between musical content and
-layout.  The alteration (@notation{flat}, @notation{natural} or
+layout.  The alteration (@notation{flat}, @notation{natural sign} or
 @notation{sharp}) of a note is part of the pitch, and is therefore
 musical content.  Whether an accidental (a @emph{printed} flat,
 natural or sharp sign) is printed in front of the corresponding
@@ -1036,9 +1039,9 @@ the input, not relative to the @code{c''} in the initial
 @subheading Simultaneous music expressions: single staff
 
 To determine the number of staves in a piece, LilyPond looks at
-the first expression.  If it is a single note, there is one staff;
-if there is a simultaneous expression, there is more than one
-staff.
+the beginning of the first expression.  If is a single note, there
+is one staff; if there is a simultaneous expression, there is more
+than one staff.
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -1157,10 +1160,12 @@ Notation Reference: @ruser{Piano music},
 
 Music Glossary: @rglos{chord}.
 
-@notation{Chords} can be made by surrounding pitches with single
-angle brackets.  Note that all the notes in a chord must have the
-same duration, and that duration is placed after the closing 
-bracket. 
+We saw earlier how notes can be combined into @notation{chords} by
+indicating they are simultaneous by enclosing them in double angle
+brackets.  However, the normal way of indicating a chord is to
+surround the pitches with @emph{single} angle brackets.  Note that
+all the notes in a chord must have the same duration, and that the
+duration is placed after the closing bracket.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>4 <c f a>2
@@ -1168,8 +1173,8 @@ r4 <c e g>4 <c f a>2
 
 Think of chords as almost equivalent to single notes:
 almost everything you can attach to a single note can be attached
-to a chord, and everything must go @emph{outside} the angle 
-brackets.  For example, you can combine markings like beams and 
+to a chord, and everything must go @emph{outside} the angle
+brackets.  For example, you can combine markings like beams and
 ties with chords.  They must be placed outside the angle brackets.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -1580,7 +1585,7 @@ The @code{\version} statement records the version of LilyPond that
 was used to write the file:
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 @end example
 
 @noindent
@@ -1602,7 +1607,7 @@ main music expression; the @code{\header} block is usually placed
 underneath the @ref{Version number}.
 
 @example
-\version "2.11.23"
+\version "2.11.38"
 \header @{
   title = "Symphony"
   composer = "Me"
@@ -1714,6 +1719,7 @@ reading it now, of course!  However, the rest of the Learning
 Manual assumes that you are familiar with LilyPond input.  You may
 wish to skim these chapters right now, and come back to them after
 you have more experience.
+
 
 
 

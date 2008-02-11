@@ -1,6 +1,6 @@
 % property-init.ly
 
-\version "2.10.0"
+\version "2.11.38"
 
 stemUp = \override Stem  #'direction = #UP
 stemDown = \override Stem  #'direction = #DOWN 
@@ -8,7 +8,7 @@ stemNeutral= \revert Stem #'direction
 
 slurUp = \override Slur  #'direction = #UP
 slurDown = \override Slur  #'direction = #DOWN
-slurNeutral = \revert Slur #'direction 
+slurNeutral = \revert Slur #'direction
 
 %% There's also dash, but setting dash period/length should be fixed.
 slurDashed = {
@@ -27,16 +27,16 @@ slurSolid = {
 
 phrasingSlurUp = \override PhrasingSlur  #'direction = #UP
 phrasingSlurDown = \override PhrasingSlur  #'direction = #DOWN
-phrasingSlurNeutral = \revert PhrasingSlur #'direction 
+phrasingSlurNeutral = \revert PhrasingSlur #'direction
 
 shiftOn = \override NoteColumn  #'horizontal-shift = #1
 shiftOnn = \override NoteColumn  #'horizontal-shift = #2
 shiftOnnn = \override NoteColumn  #'horizontal-shift = #3
-shiftOff = \revert NoteColumn #'horizontal-shift 
+shiftOff = \revert NoteColumn #'horizontal-shift
 
 tieUp = \override Tie  #'direction = #UP
 tieDown = \override Tie  #'direction = #DOWN
-tieNeutral = \revert Tie #'direction 
+tieNeutral = \revert Tie #'direction
 
 tieDashed = {
   \override Tie #'dash-period = #0.75
@@ -51,11 +51,18 @@ tieSolid = {
   \revert Tie #'dash-fraction
 }
 
-setEasyHeads = \sequential {
+easyHeadsOn = {
   \override NoteHead  #'stencil = #ly:note-head::brew-ez-stencil
   \override NoteHead #'font-size = #-7
   \override NoteHead #'font-family = #'sans
   \override NoteHead #'font-series = #'bold
+}
+
+easyHeadsOff = {
+  \revert NoteHead #'stencil
+  \revert NoteHead #'font-size
+  \revert NoteHead #'font-family
+  \revert NoteHead #'font-series
 }
 
 aikenHeads = \set shapeNoteStyles = ##(do re mi fa #f la ti)
@@ -154,11 +161,15 @@ endincipit =  \context Staff {
 autoBeamOff = \set autoBeaming = ##f
 autoBeamOn = \set autoBeaming = ##t
 
-fatText = { \override TextScript  #'extra-spacing-width = #'(0 . 0)
-            \override TextScript  #'infinite-spacing-height = ##t }
+textLengthOn = {
+  \override TextScript  #'extra-spacing-width = #'(0 . 0)
+  \override TextScript  #'infinite-spacing-height = ##t
+}
 
-emptyText = { \override TextScript  #'extra-spacing-width = #'(+inf.0 . -inf.0)
-              \override TextScript  #'infinite-spacing-height = ##f }
+textLengthOff = {
+  \override TextScript  #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override TextScript  #'infinite-spacing-height = ##f
+}
 
 showStaffSwitch = \set followVoice = ##t
 hideStaffSwitch = \set followVoice = ##f

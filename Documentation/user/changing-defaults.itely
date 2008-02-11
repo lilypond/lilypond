@@ -118,7 +118,7 @@ example: a @code{Staff} can contain many @code{Voice}s, and a
 @code{Score} can contain many @code{Staff} contexts.
 
 @quotation
-@image{context-example,5cm,,}
+@sourceimage{context-example,5cm,,}
 @end quotation
 
 Each context has the responsibility for enforcing some notation rules,

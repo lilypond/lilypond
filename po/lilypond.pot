@@ -1,13 +1,12 @@
 # Translation of LilyPond.
-# Copyright (C) 2007 Han-Wen Nienhuys, Jan Nieuwenhuizen
+# Copyright (C) 2008 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as lilypond package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.11.34\n"
+"Project-Id-Version: lilypond 2.11.38\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2007-10-04 17:07+0200\n"
+"POT-Creation-Date: 2008-01-30 10:02+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,6 +28,30 @@ msgstr ""
 msgid "%s has been replaced by %s"
 msgstr ""
 
+#: convertrules.py:96
+msgid "new \\header format"
+msgstr ""
+
+#: convertrules.py:130
+msgid "\\translator syntax"
+msgstr ""
+
+#: convertrules.py:381
+msgid "new \\notenames format"
+msgstr ""
+
+#: convertrules.py:401 convertrules.py:428
+msgid "new tremolo format"
+msgstr ""
+
+#: convertrules.py:541
+msgid "new \\textscript markup text"
+msgstr ""
+
+#: convertrules.py:1161
+msgid "cluster syntax"
+msgstr ""
+
 #: convertrules.py:2408
 msgid "LilyPond source must be UTF-8"
 msgstr ""
@@ -44,6 +67,34 @@ msgstr ""
 
 #: convertrules.py:2417
 msgid "Or save as UTF-8 in your editor"
+msgstr ""
+
+#: convertrules.py:2482
+msgid "auto beam settings"
+msgstr ""
+
+#: convertrules.py:2974
+msgid "edge-text settings for TextSpanner."
+msgstr ""
+
+#: convertrules.py:2975
+#, python-format
+msgid ""
+"Use\n"
+"\n"
+"%s"
+msgstr ""
+
+#: convertrules.py:3021
+msgid "all settings related to dashed lines.\n"
+msgstr ""
+
+#: convertrules.py:3022
+msgid "Use \\override ... #'style = #'line for solid lines and\n"
+msgstr ""
+
+#: convertrules.py:3023
+msgid "\t\\override ... #'style = #'dashed-line for dashed lines."
 msgstr ""
 
 #: fontextract.py:26
@@ -101,7 +152,7 @@ msgid "preserve ABC's notion of beams"
 msgstr ""
 
 #: abc2ly.py:1354 convert-ly.py:103 etf2ly.py:1192 lilypond-book.py:161
-#: midi2ly.py:900 musicxml2ly.py:975
+#: midi2ly.py:900 musicxml2ly.py:1682
 msgid "Report bugs via"
 msgstr ""
 
@@ -196,7 +247,7 @@ msgid ""
 "file."
 msgstr ""
 
-#: etf2ly.py:1185 midi2ly.py:875 musicxml2ly.py:968 main.cc:154 main.cc:159
+#: etf2ly.py:1185 midi2ly.py:875 musicxml2ly.py:1675 main.cc:154 main.cc:159
 msgid "FILE"
 msgstr ""
 
@@ -270,126 +321,126 @@ msgid ""
 "must use this with dvips -h INPUT.psfonts"
 msgstr ""
 
-#: lilypond-book.py:153 midi2ly.py:885 musicxml2ly.py:959 main.cc:162
+#: lilypond-book.py:153 midi2ly.py:885 musicxml2ly.py:1645 main.cc:162
 msgid "be verbose"
 msgstr ""
 
-#: lilypond-book.py:765
+#: lilypond-book.py:768
 #, python-format
 msgid "file not found: %s"
 msgstr ""
 
-#: lilypond-book.py:996
+#: lilypond-book.py:1002
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:999
+#: lilypond-book.py:1005
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr ""
 
-#: lilypond-book.py:1003
+#: lilypond-book.py:1009
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr ""
 
-#: lilypond-book.py:1006
+#: lilypond-book.py:1012
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr ""
 
-#: lilypond-book.py:1025
+#: lilypond-book.py:1031
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr ""
 
-#: lilypond-book.py:1379
+#: lilypond-book.py:1401
 #, python-format
 msgid "Opening filter `%s'"
 msgstr ""
 
-#: lilypond-book.py:1396
+#: lilypond-book.py:1418
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr ""
 
-#: lilypond-book.py:1397
+#: lilypond-book.py:1419
 msgid "The error log is as follows:"
 msgstr ""
 
-#: lilypond-book.py:1469
+#: lilypond-book.py:1491
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr ""
 
-#: lilypond-book.py:1580
+#: lilypond-book.py:1602
 msgid "Writing snippets..."
 msgstr ""
 
-#: lilypond-book.py:1585
+#: lilypond-book.py:1607
 msgid "Processing..."
 msgstr ""
 
-#: lilypond-book.py:1589
+#: lilypond-book.py:1611
 msgid "All snippets are up to date..."
 msgstr ""
 
-#: lilypond-book.py:1599
+#: lilypond-book.py:1621
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr ""
 
-#: lilypond-book.py:1610
+#: lilypond-book.py:1632
 #, python-format
 msgid "%s is up to date."
 msgstr ""
 
-#: lilypond-book.py:1616
+#: lilypond-book.py:1638
 #, python-format
 msgid "Writing `%s'..."
 msgstr ""
 
-#: lilypond-book.py:1671
+#: lilypond-book.py:1693
 msgid "Output would overwrite input file; use --output."
 msgstr ""
 
-#: lilypond-book.py:1675
+#: lilypond-book.py:1697
 #, python-format
 msgid "Reading %s..."
 msgstr ""
 
-#: lilypond-book.py:1694
+#: lilypond-book.py:1716
 msgid "Dissecting..."
 msgstr ""
 
-#: lilypond-book.py:1710
+#: lilypond-book.py:1732
 #, python-format
 msgid "Compiling %s..."
 msgstr ""
 
-#: lilypond-book.py:1719
+#: lilypond-book.py:1741
 #, python-format
 msgid "Processing include: %s"
 msgstr ""
 
-#: lilypond-book.py:1733
+#: lilypond-book.py:1755
 #, python-format
 msgid "Removing `%s'"
 msgstr ""
 
-#: lilypond-book.py:1766
+#: lilypond-book.py:1788
 msgid "option --psfonts not used"
 msgstr ""
 
-#: lilypond-book.py:1767
+#: lilypond-book.py:1789
 msgid "processing with dvips will have no fonts"
 msgstr ""
 
-#: lilypond-book.py:1770
+#: lilypond-book.py:1792
 msgid "DVIPS usage:"
 msgstr ""
 
-#: lilypond-book.py:1826
+#: lilypond-book.py:1848
 #, python-format
 msgid "Writing fonts to %s..."
 msgstr ""
@@ -411,7 +462,7 @@ msgstr ""
 msgid "%s output to `%s'..."
 msgstr ""
 
-#: midi2ly.py:860 musicxml2ly.py:955
+#: midi2ly.py:860 musicxml2ly.py:1641
 #, python-format
 msgid "Convert %s to LilyPond input."
 msgstr ""
@@ -464,11 +515,11 @@ msgstr ""
 msgid "no files specified on command line."
 msgstr ""
 
-#: musicxml2ly.py:943
-msgid "musicxml2ly FILE.xml"
+#: musicxml2ly.py:1628
+msgid "musicxml2ly [options] FILE.xml"
 msgstr ""
 
-#: musicxml2ly.py:946
+#: musicxml2ly.py:1631
 #, python-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -477,11 +528,27 @@ msgid ""
 "information."
 msgstr ""
 
-#: musicxml2ly.py:965
+#: musicxml2ly.py:1651
 msgid "Use lxml.etree; uses less memory and cpu time."
 msgstr ""
 
-#: musicxml2ly.py:973
+#: musicxml2ly.py:1657
+msgid "Input file is a zip-compressed MusicXML file."
+msgstr ""
+
+#: musicxml2ly.py:1662
+msgid "Convert pitches in relative mode."
+msgstr ""
+
+#: musicxml2ly.py:1666
+msgid "Use a different language file, e.g. 'deutsch' for deutsch.ly."
+msgstr ""
+
+#: musicxml2ly.py:1672
+msgid "Do not convert directions (^, _ or -) for articulations."
+msgstr ""
+
+#: musicxml2ly.py:1680
 msgid "set output filename to FILE"
 msgstr ""
 
@@ -505,7 +572,7 @@ msgstr ""
 msgid "invalid argument `%s' to option `%s'"
 msgstr ""
 
-#: warn.cc:68 grob.cc:565 input.cc:82
+#: warn.cc:68 grob.cc:566 input.cc:82
 #, c-format
 msgid "programming error: %s"
 msgstr ""
@@ -568,7 +635,7 @@ msgstr ""
 msgid "removing this vertical group"
 msgstr ""
 
-#: axis-group-interface.cc:531
+#: axis-group-interface.cc:524
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr ""
 
@@ -597,7 +664,7 @@ msgstr ""
 msgid "beam was started here"
 msgstr ""
 
-#: beam-quanting.cc:309
+#: beam-quanting.cc:307
 msgid "no feasible beam position"
 msgstr ""
 
@@ -605,7 +672,7 @@ msgstr ""
 msgid "removing beam with no stems"
 msgstr ""
 
-#: beam.cc:1039
+#: beam.cc:1069
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr ""
 
@@ -662,7 +729,7 @@ msgstr ""
 msgid "unknown cluster style `%s'"
 msgstr ""
 
-#: cluster.cc:135
+#: cluster.cc:147
 msgid "junking empty cluster"
 msgstr ""
 
@@ -724,23 +791,23 @@ msgstr ""
 msgid "dot `%s' not found"
 msgstr ""
 
-#: dynamic-engraver.cc:193
+#: dynamic-engraver.cc:192
 msgid "cannot find start of (de)crescendo"
 msgstr ""
 
-#: dynamic-engraver.cc:202
+#: dynamic-engraver.cc:201
 msgid "already have a decrescendo"
 msgstr ""
 
-#: dynamic-engraver.cc:204
+#: dynamic-engraver.cc:203
 msgid "already have a crescendo"
 msgstr ""
 
-#: dynamic-engraver.cc:207
+#: dynamic-engraver.cc:206
 msgid "cresc starts here"
 msgstr ""
 
-#: dynamic-engraver.cc:336
+#: dynamic-engraver.cc:335
 msgid "unterminated (de)crescendo"
 msgstr ""
 
@@ -757,12 +824,12 @@ msgstr ""
 msgid "Rebuilding FontConfig cache %s, this may take a while..."
 msgstr ""
 
-#: font-config.cc:55
+#: font-config.cc:57
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr ""
 
-#: font-config.cc:57
+#: font-config.cc:59
 #, c-format
 msgid "adding font directory: %s"
 msgstr ""
@@ -1192,11 +1259,11 @@ msgid "exception caught: %s"
 msgstr ""
 
 #. FIXME: constant error message.
-#: mark-engraver.cc:154
+#: mark-engraver.cc:129
 msgid "rehearsalMark must have integer value"
 msgstr ""
 
-#: mark-engraver.cc:160
+#: mark-engraver.cc:135
 msgid "mark label must be a markup object"
 msgstr ""
 
@@ -1348,17 +1415,27 @@ msgid "FT_Get_Glyph_Name () error: %s"
 msgstr ""
 
 #. find out the ideal number of pages
-#: optimal-page-breaking.cc:44
+#: optimal-page-breaking.cc:56
 msgid "Finding the ideal number of pages..."
 msgstr ""
 
-#: optimal-page-breaking.cc:59
+#: optimal-page-breaking.cc:71
 msgid "Fitting music on 1 page..."
 msgstr ""
 
-#: optimal-page-breaking.cc:61
+#: optimal-page-breaking.cc:73
+#, c-format
+msgid "Fitting music on %d pages..."
+msgstr ""
+
+#: optimal-page-breaking.cc:75
 #, c-format
 msgid "Fitting music on %d or %d pages..."
+msgstr ""
+
+#: optimal-page-breaking.cc:152 page-turn-page-breaking.cc:226
+#: paper-score.cc:146
+msgid "Drawing systems..."
 msgstr ""
 
 #: page-turn-page-breaking.cc:146
@@ -1375,10 +1452,6 @@ msgstr ""
 #: page-turn-page-breaking.cc:208
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
-msgstr ""
-
-#: page-turn-page-breaking.cc:226 paper-score.cc:146
-msgid "Drawing systems..."
 msgstr ""
 
 #: page-turn-page-breaking.cc:275
@@ -1471,7 +1544,7 @@ msgstr ""
 msgid "MIDI output to `%s'..."
 msgstr ""
 
-#: phrasing-slur-engraver.cc:131
+#: phrasing-slur-engraver.cc:139
 msgid "unterminated phrasing slur"
 msgstr ""
 
@@ -1636,7 +1709,7 @@ msgstr ""
 msgid "cannot end slur"
 msgstr ""
 
-#: slur.cc:359
+#: slur.cc:353
 #, c-format
 msgid "Ignoring grob for slur: %s. avoid-slur not set?"
 msgstr ""
@@ -1841,77 +1914,77 @@ msgstr ""
 msgid "have to be in Chord mode for chords"
 msgstr ""
 
-#: lexer.ll:177
+#: lexer.ll:179
 msgid "stray UTF-8 BOM encountered"
 msgstr ""
 
-#: lexer.ll:181
+#: lexer.ll:183
 msgid "Skipping UTF-8 BOM"
 msgstr ""
 
-#: lexer.ll:236
+#: lexer.ll:238
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr ""
 
-#: lexer.ll:253
+#: lexer.ll:255
 msgid "quoted string expected after \\version"
 msgstr ""
 
-#: lexer.ll:257
+#: lexer.ll:259
 msgid "quoted string expected after \\sourcefilename"
 msgstr ""
 
-#: lexer.ll:261
+#: lexer.ll:263
 msgid "integer expected after \\sourcefileline"
 msgstr ""
 
-#: lexer.ll:274
+#: lexer.ll:276
 msgid "EOF found inside a comment"
 msgstr ""
 
-#: lexer.ll:289
+#: lexer.ll:291
 msgid "\\maininput not allowed outside init files"
 msgstr ""
 
-#: lexer.ll:313
+#: lexer.ll:315
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr ""
 
 #. backup rule
-#: lexer.ll:322
+#: lexer.ll:324
 msgid "end quote missing"
 msgstr ""
 
-#: lexer.ll:467
+#: lexer.ll:469
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:580
+#: lexer.ll:582
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr ""
 
-#: lexer.ll:684
+#: lexer.ll:686
 #, c-format
 msgid "invalid character: `%c'"
 msgstr ""
 
-#: lexer.ll:799
+#: lexer.ll:801 lexer.ll:802
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr ""
 
-#: lexer.ll:905
+#: lexer.ll:907 lexer.ll:908
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr ""
 
-#: lexer.ll:906
+#: lexer.ll:908 lexer.ll:909
 msgid "consider updating the input with the convert-ly script"
 msgstr ""
 
-#: lexer.ll:912
+#: lexer.ll:914 lexer.ll:915
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
@@ -1958,11 +2031,11 @@ msgstr ""
 msgid "translator listens to nonexisting event class ~A"
 msgstr ""
 
-#: define-markup-commands.scm:280
+#: define-markup-commands.scm:296
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:1294
+#: define-markup-commands.scm:1310
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
@@ -2109,12 +2182,12 @@ msgstr ""
 msgid "old relative compatibility not used"
 msgstr ""
 
-#: lily.scm:185
+#: lily.scm:177
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr ""
 
-#: lily.scm:250
+#: lily.scm:242
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
@@ -2174,23 +2247,23 @@ msgstr ""
 msgid "expecting 2 elements for chord tremolo, found ~a"
 msgstr ""
 
-#: music-functions.scm:571
+#: music-functions.scm:564
 #, scheme-format
 msgid "music expected: ~S"
 msgstr ""
 
 #. FIXME: uncomprehensable message
-#: music-functions.scm:621
+#: music-functions.scm:614
 #, scheme-format
 msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
 msgstr ""
 
-#: music-functions.scm:771
+#: music-functions.scm:764
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr ""
 
-#: music-functions.scm:968
+#: music-functions.scm:961
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr ""
@@ -2234,12 +2307,12 @@ msgstr ""
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr ""
 
-#: parser-clef.scm:127
+#: parser-clef.scm:129
 #, scheme-format
 msgid "unknown clef type `~a'"
 msgstr ""
 
-#: parser-clef.scm:128
+#: parser-clef.scm:130
 #, scheme-format
 msgid "supported clefs: ~a"
 msgstr ""
