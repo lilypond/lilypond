@@ -1785,8 +1785,8 @@ def get_all_voices (parts):
 
 
 def option_parser ():
-    p = ly.get_option_parser(usage=_ ("musicxml2ly [options] FILE.xml"),
-                             version=('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
+    p = ly.get_option_parser (usage = _ ("musicxml2ly [options] FILE.xml"),
+                             version = ('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
                                       +
 _ ("""This program is free software.  It is covered by the GNU General Public
 License and you are welcome to change it and/or distribute copies of it
@@ -1798,17 +1798,17 @@ Copyright (c) 2005--2008 by
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>
 """),
-                             description=_ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n")
+                             description = _ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n")
     p.add_option ('-v', '--verbose',
-                  action="store_true",
-                  dest='verbose',
-                  help=_ ("be verbose"))
+                  action = "store_true",
+                  dest = 'verbose',
+                  help = _ ("be verbose"))
 
     p.add_option ('', '--lxml',
-                  action="store_true",
-                  default=False,
-                  dest="use_lxml",
-                  help=_ ("Use lxml.etree; uses less memory and cpu time."))
+                  action = "store_true",
+                  default = False,
+                  dest = "use_lxml",
+                  help = _ ("Use lxml.etree; uses less memory and cpu time."))
 
     p.add_option ('-z', '--compressed',
                   action = "store_true",
@@ -1818,6 +1818,7 @@ Copyright (c) 2005--2008 by
 
     p.add_option ('-r', '--relative',
                   action = "store_true",
+                  default = True,
                   dest = "relative",
                   help = _ ("Convert pitches in relative mode. (Default)"))
 
@@ -1827,7 +1828,7 @@ Copyright (c) 2005--2008 by
                   help = _ ("Convert pitches in absolute mode."))
 
     p.add_option ('-l', '--language',
-                  metavar=_("LANG"),
+                  metavar = _ ("LANG"),
                   action = "store",
                   help = _ ("Use a different language file 'LANG.ly' and corresponding pitch names, e.g. 'deutsch' for deutsch.ly."))
 
@@ -1838,14 +1839,14 @@ Copyright (c) 2005--2008 by
                   help = _ ("Do not convert directions (^, _ or -) for articulations, dynamics, etc."))
 
     p.add_option ('-o', '--output',
-                  metavar=_ ("FILE"),
-                  action="store",
-                  default=None,
-                  type='string',
-                  dest='output_name',
-                  help=_ ("set output filename to FILE"))
-    p.add_option_group ( _('Bugs'),
-                        description=(_ ("Report bugs via")
+                  metavar = _ ("FILE"),
+                  action = "store",
+                  default = None,
+                  type = 'string',
+                  dest = 'output_name',
+                  help = _ ("set output filename to FILE"))
+    p.add_option_group ( _ ('Bugs'),
+                        description = ( _ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p
