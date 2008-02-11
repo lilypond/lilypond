@@ -37,7 +37,7 @@ Two or more staves can be grouped vertically in a @code{GrandStaff}, a
 @end menu
 
 @node System start delimiters
-@unnumberedsubsubsec System start delimiters
+@subsubsection System start delimiters
 
 @cindex start of system
 @cindex staff, multiple
@@ -165,7 +165,7 @@ Internals Reference: @internalsref{ChoirStaff},
 
 
 @node Staff symbol
-@unnumberedsubsubsec Staff symbol
+@subsubsection Staff symbol
 
 @cindex adjusting staff symbol
 
@@ -244,7 +244,7 @@ Internals Reference: @internalsref{StaffSymbol},
 
 
 @node Hiding staves
-@unnumberedsubsubsec Hiding staves
+@subsubsection Hiding staves
 
 @cindex Frenched scores
 @cindex staves, hiding
@@ -332,7 +332,7 @@ Internals Reference: @internalsref{ChordNames},
 @end menu
 
 @node Metronome marks
-@unnumberedsubsubsec Metronome marks
+@subsubsection Metronome marks
 
 @cindex Tempo
 @cindex beats per minute
@@ -403,7 +403,7 @@ place it further away from the staff.
 
 
 @node Instrument names
-@unnumberedsubsubsec Instrument names
+@subsubsection Instrument names
 
 @cindex instrument names
 @cindex instrument names, short
@@ -521,7 +521,7 @@ Internals Reference: @internalsref{InstrumentName},
 
 
 @node Quoting other voices
-@unnumberedsubsubsec Quoting other voices
+@subsubsection Quoting other voices
 
 @cindex cues
 @cindex quoting other voices
@@ -642,7 +642,7 @@ Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
 
 
 @node Formatting cue notes
-@unnumberedsubsubsec Formatting cue notes
+@subsubsection Formatting cue notes
 
 @cindex cues
 @cindex cue notes

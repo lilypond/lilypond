@@ -33,7 +33,7 @@ Blah blah
 
 
 @node Repeat syntax
-@unnumberedsubsubsec Repeat syntax
+@subsubsection Repeat syntax
 
 @cindex repeats
 
@@ -89,7 +89,7 @@ is assumed to be played more than once.
 
 
 @node Normal repeats
-@unnumberedsubsubsec Normal repeats
+@subsubsection Normal repeats
 
 @cindex volta
 @cindex prima volta
@@ -223,7 +223,7 @@ repeated.
 
 
 @node Manual repeat commands
-@unnumberedsubsubsec Manual repeat commands
+@subsubsection Manual repeat commands
 
 @funindex repeatCommands
 
@@ -283,7 +283,7 @@ and @internalsref{UnfoldedRepeatedMusic}.
 @end menu
 
 @node Tremolo repeats
-@unnumberedsubsubsec Tremolo repeats
+@subsubsection Tremolo repeats
 
 @cindex tremolo beams
 
@@ -352,7 +352,7 @@ Elsewhere: @internalsref{StemTremolo}.
 
 
 @node Measure repeats
-@unnumberedsubsubsec Measure repeats
+@subsubsection Measure repeats
 
 @cindex percent repeats
 @cindex measure repeats

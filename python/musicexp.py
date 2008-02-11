@@ -567,7 +567,7 @@ class RepeatedMusic:
             self.music = SequentialMusic ()
             self.music.elements = music
         else:
-            sys.stderr.write ("WARNING: Unable to set the music %s for the repeat %s" % (music, self))
+            sys.stderr.write (_ ("WARNING: Unable to set the music %s for the repeat %s" % (music, self)))
     def add_ending (self, music):
         self.endings.append (music)
     def print_ly (self, printer):
@@ -575,7 +575,7 @@ class RepeatedMusic:
         if self.music:
             self.music.print_ly (printer)
         else:
-            sys.stderr.write ("WARNING: Encountered repeat without body\n")
+            sys.stderr.write (_ ("WARNING: Encountered repeat without body\n"))
             printer.dump ('{}')
         if self.endings:
             printer.dump ('\\alternative {')
@@ -794,12 +794,24 @@ class BeamEvent (SpanEvent):
 class PedalEvent (SpanEvent):
     def ly_expression (self):
         return {-1: '\\sustainDown',
+            0:'\\sustainUp\\sustainDown',
             1:'\\sustainUp'}.get (self.span_direction, '')
+
+class TextSpannerEvent (SpanEvent):
+    def ly_expression (self):
+        return {-1: '\\startTextSpan',
+            1:'\\stopTextSpan'}.get (self.span_direction, '')
+
+class BracketSpannerEvent (SpanEvent):
+    def ly_expression (self):
+        return {-1: '\\startGroup',
+            1:'\\stopGroup'}.get (self.span_direction, '')
+
 
 # type==-1 means octave up, type==-2 means octave down
 class OctaveShiftEvent (SpanEvent):
     def wait_for_note (self):
-        return False;
+        return False
     def set_span_type (self, type):
         self.span_type = {'up': 1, 'down': -1}.get (type, 0)
     def ly_octave_shift_indicator (self):
@@ -839,7 +851,7 @@ class ArpeggioEvent(Event):
         Event.__init__ (self)
         self.direction = 0
     def wait_for_note (self):
-        return True;
+        return True
     def ly_expression (self):
         # TODO: Use self.direction for up/down arpeggios
         return ('\\arpeggio')
@@ -872,27 +884,37 @@ class HairpinEvent (SpanEvent):
 class DynamicsEvent (Event):
     def __init__ (self):
         self.type = None
-        self.available_commands = [ "ppppp", "pppp", "ppp", "pp", "p", 
-                                    "mp", "mf", 
-                                    "f", "ff", "fff", "ffff", 
-                                    "fp", "sf", "sff", "sp", "spp", "sfz", "rfz" ];
     def wait_for_note (self):
-        return True;
+        return True
     def ly_expression (self):
-        if self.type == None:
-            return;
-        elif self.type in self.available_commands:
+        if self.type:
             return '\%s' % self.type
         else:
-            return '-\markup{ \dynamic %s }' % self.type
-        
-    def print_ly (self, printer):
-        if self.type == None:
             return
-        elif self.type in self.available_commands:
+
+    def print_ly (self, printer):
+        if self.type:
             printer.dump ("\\%s" % self.type)
+
+class MarkEvent (Event):
+    def __init__ (self, text="\\default"):
+        self.mark = text
+    def wait_for_note (self):
+        return False
+    def ly_contents (self):
+        if self.mark:
+            return '%s' % self.mark
         else:
-            printer.dump ("-\\markup{ \\dynamic %s }" % self.type)
+            return "\"ERROR\""
+    def ly_expression (self):
+        return '\\mark %s' % self.ly_contents ()
+
+class MusicGlyphMarkEvent (MarkEvent):
+    def ly_contents (self):
+        if self.mark:
+            return '\\markup { \\musicglyph #"scripts.%s" }' % self.mark
+        else:
+            return ''
 
 
 class TextEvent (Event):
@@ -917,7 +939,7 @@ class ArticulationEvent (Event):
         self.type = None
         self.force_direction = None
     def wait_for_note (self):
-        return True;
+        return True
 
     def direction_mod (self):
         return { 1: '^', -1: '_', 0: '-' }.get (self.force_direction, '')

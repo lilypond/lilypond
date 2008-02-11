@@ -31,7 +31,7 @@ than one voice on the same staff.
 @end menu
 
 @node Chorded notes
-@unnumberedsubsubsec Chorded notes
+@subsubsection Chorded notes
 
 @cindex Chords
 
@@ -62,7 +62,7 @@ accurately.  Use @code{<g a>8 <e a>8} instead.
 
 
 @node Clusters
-@unnumberedsubsubsec Clusters
+@subsubsection Clusters
 
 @cindex cluster
 
@@ -102,7 +102,7 @@ Examples: @c @lsr{contemporary,cluster@/.ly}.
 @end menu
 
 @node Collision resolution
-@unnumberedsubsubsec Collision resolution
+@subsubsection Collision resolution
 
 @cindex merging notes
 @cindex note collisions
@@ -270,7 +270,7 @@ cluster notation (see @ref{Clusters}).
 
 
 @node Automatic part combining
-@unnumberedsubsubsec Automatic part combining
+@subsubsection Automatic part combining
 @cindex automatic part combining
 @cindex part combiner
 @cindex combining parts
@@ -375,7 +375,7 @@ events in those will be ignored.
 
 
 @node Writing music in parallel
-@unnumberedsubsubsec Writing music in parallel
+@subsubsection Writing music in parallel
 
 @cindex Writing music in parallel
 @cindex Interleaved music

@@ -42,7 +42,7 @@ Dynamics are not centered, but workarounds do exist.  See the
 
 
 @node Automatic staff changes
-@unnumberedsubsubsec Automatic staff changes
+@subsubsection Automatic staff changes
 @cindex Automatic staff changes
 
 Voices can be made to switch automatically between the top and the bottom
@@ -101,7 +101,7 @@ quality output, staff switches should be specified manually.
 
 
 @node Manual staff switches
-@unnumberedsubsubsec Manual staff switches
+@subsubsection Manual staff switches
 
 @cindex manual staff switches
 @cindex staff switch, manual
@@ -139,7 +139,7 @@ and the @code{Voice} is inserted afterwards
 
 
 @node Pedals
-@unnumberedsubsubsec Pedals
+@subsubsection Pedals
 @cindex Pedals
 
 Pianos have pedals that alter the way sound is produced.  Generally, a
@@ -207,7 +207,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 Notation Reference: @ref{Ties} (laissez vibrer).
 
 @node Staff switch lines
-@unnumberedsubsubsec Staff switch lines
+@subsubsection Staff switch lines
 
 
 @cindex follow voice
@@ -245,7 +245,7 @@ Internals Reference: @internalsref{VoiceFollower}.
 
 
 @node Cross staff stems
-@unnumberedsubsubsec Cross staff stems
+@subsubsection Cross staff stems
 
 Chords that cross staves may be produced by increasing the length
 of the stem in the lower staff, so it reaches the stem in the upper

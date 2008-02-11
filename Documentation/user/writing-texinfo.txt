@@ -34,6 +34,8 @@ commands.
   to this scheme construct.  ie
     \set Staff.instrumentName = #"cello"
 
+* Examples should end with a complete bar if possible.
+
 * If possible, only write one bar per line.  The notes on each
   line should be an independent line -- tweaks should occur on
   their own line if possible.

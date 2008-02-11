@@ -203,6 +203,10 @@ Notation Reference: @ref{Octave checks}.
 Snippets: @lsrdir{Pitches,Pitches}.
 
 
+@funindex \transpose
+@funindex \chordmode
+@funindex \relative
+
 @refbugs
 
 The relative conversion will not affect @code{\transpose},
@@ -221,6 +225,10 @@ discouraged.
 @node Accidentals
 @subsubsection Accidentals
 
+@cindex accidental
+@cindex key signature
+@cindex clef
+
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
 signatures and clefs determine how this raw input is displayed.
@@ -230,13 +238,19 @@ see @rlearning{Accidentals and key signatures}.}
 
 @cindex note names, Dutch
 @cindex note names, default
+@cindex sharp
+@cindex flat
+@cindex double sharp
+@cindex sharp, double
+@cindex double flat
+@cindex flat, double
 
-A @notation{sharp} pitch is made by adding @code{is} to the name,
-and a @notation{flat} pitch by adding @code{es}.  As you might
-expect, a @notation{double sharp} or @notation{double flat} is
-made by adding @code{isis} or @code{eses}.  This syntax is derived
-from Dutch note naming conventions.  To use other names for
-accidentals, see @ref{Note names in other languages}.
+A @notation{sharp} pitch is made by adding @code{is} to the note name,
+and a @notation{flat} pitch by adding @code{es}.  As you might expect,
+a @notation{double sharp} or @notation{double flat} is made by adding
+@code{isis} or @code{eses}.  This syntax is derived from Dutch note
+naming conventions.  To use other names for accidentals, see
+@ref{Note names in other languages}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 ais1 aes aisis aeses
@@ -302,7 +316,7 @@ cis
 @seealso
 
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}, @rglos{Pitch names}.
+@rglos{double flat}, @rglos{Pitch names}, @rglos{quarter-tone}.
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
 
@@ -331,6 +345,7 @@ For example, to use English notes names, add @code{\include
 language files and the note names they define are:
 
 @cindex note names, other languages
+@cindex pitch names, other languages
 
 @smallexample
 @multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
@@ -398,7 +413,7 @@ languages, no special names have been defined yet.
 @multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ississ/-isis} {-ississ/-isis}
 @headitem Language
   @tab Note names
-  @tab semi- @tab semi- @tab sesqui- @tab sesqui-
+  @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 
 @item nederlands.ly
   @tab c d e f g a bes b
@@ -462,14 +477,13 @@ the octave correction.
 }
 @end lilypond
 
-The octave of pitches may also be checked with the
-@code{\octave}@tie{}@var{controlpitch} command.
-@var{controlpitch} is specified in absolute mode.  This checks
-that the interval between the previous note and the
-@var{controlpitch} is within a fourth (i.e. the normal calculation
-of relative mode).  If this check fails, a warning is printed, but
-the previous note is not changed.  Future notes are relative to
-the @var{controlpitch}.
+The octave of notes may also be checked with the
+@code{\octave}@tie{}@var{controlpitch} command.  @var{controlpitch} is
+specified in absolute mode.  This checks that the interval between the
+previous note and the @var{controlpitch} is within a fourth (i.e. the
+normal calculation of relative mode).  If this check fails, a warning
+is printed, but the previous note is not changed.  Future notes are
+relative to the @var{controlpitch}.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
@@ -480,7 +494,7 @@ the @var{controlpitch}.
 @end lilypond
 
 Compare the two bars below.  The first and third @code{\octave}
-check fail, but the second ones does not fail.
+check fail, but the second one does not fail.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
@@ -506,6 +520,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 @subsubsection Transpose
 
 @cindex transpose
+@cindex transposition
 @cindex transposition of pitches
 @funindex \transpose
 
@@ -613,7 +628,12 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{TransposedMusic}.
 
+@funindex \transpose
+@funindex \chordmode
+@funindex \relative
+
 @refbugs
+
 
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.
@@ -640,7 +660,6 @@ This section discusses how to alter the output of pitches.
 @subsubsection Clef
 
 @funindex \clef
-
 @cindex G clef
 @cindex C clef
 @cindex F clef
@@ -655,6 +674,23 @@ This section discusses how to alter the output of pitches.
 @cindex baritone clef
 @cindex varbaritone clef
 @cindex subbass clef
+@cindex clef
+@cindex ancient clef
+@cindex clef, ancient
+@cindex clef, G
+@cindex clef, C
+@cindex clef, F
+@cindex clef, treble
+@cindex clef, violin 
+@cindex clef, alto 
+@cindex clef, tenor
+@cindex clef, bass 
+@cindex clef, french 
+@cindex clef, soprano 
+@cindex clef, mezzosoprano 
+@cindex clef, baritone 
+@cindex clef, varbaritone 
+@cindex subbass clef, subbass 
 
 The clef is set with the @code{\clef} @var{clefname} command.
 Middle C is shown in every example.
@@ -695,6 +731,10 @@ c2 c
 @end lilypond
 
 Further supported clefs are described under @ref{Ancient clefs}.
+
+@cindex transposing clefs
+@cindex clef, transposing
+@cindex octave transposition
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
 transposed one octave down or up, respectively, and @code{_15} and
@@ -748,7 +788,6 @@ is done with the @code{\key} command:
 \key @var{pitch} @var{mode}
 @end example
 
-@funindex \minor
 @funindex \major
 @funindex \minor
 @funindex \ionian
@@ -759,6 +798,7 @@ is done with the @code{\key} command:
 @funindex \phrygian
 @funindex \dorian
 @cindex church modes
+@cindex modes
 
 Here, @var{mode} should be @code{\major} or @code{\minor} to get a
 key signature of @var{pitch}-major or @var{pitch}-minor,
@@ -828,7 +868,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 
 @seealso
 
-Music Glossary: @rglos{ottava}.
+Music Glossary: @rglos{octavation}.
 
 Snippets: @lsrdir{Pitches,Pitches}.
 
@@ -841,6 +881,9 @@ Internals Reference: @internalsref{OttavaBracket}.
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
+@cindex transposing instrument
+@cindex MIDI
+@funindex \transposition
 
 When typesetting scores that involve transposing instruments, some
 parts can be typeset in a different pitch than the
@@ -915,8 +958,7 @@ c2 g
 
 @seealso
 
-Music Glossary: @rglos{concert pitch},
-@rglos{transposing instrument}.
+Music Glossary: @rglos{concert pitch}, @rglos{transposing instrument}.
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
@@ -925,8 +967,13 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 @node Automatic accidentals
 @subsubsection Automatic accidentals
-@cindex automatic accidentals
 
+@cindex automatic accidentals
+@cindex accidentals, automatic
+@cindex accidentals
+@cindex accidental style
+@cindex default accidental style
+@cindex accidental style, default
 @funindex set-accidental-style
 
 There are many different conventions on how to typeset
@@ -1140,6 +1187,8 @@ musicB = {
 @end lilypond
 
 @item modern
+@cindex accidentals, modern style
+@cindex modern style accidentals
 @funindex modern style accidentals
 
 This rule corresponds to the common practice in the twentieth
@@ -1198,6 +1247,11 @@ musicB = {
 @end lilypond
 
 @item modern-cautionary
+@cindex accidentals, modern cautionary style
+@cindex modern style accidentals
+@cindex modern style cautionary accidentals
+@cindex modern accidental style
+@cindex modern cautionary accidental style
 @funindex modern-cautionary
 
 This rule is similar to @code{modern}, but the @q{extra}
@@ -1255,6 +1309,10 @@ musicB = {
 @end lilypond
 
 @item modern-voice
+@cindex accidentals, multivoice
+@cindex accidentals, modern
+@cindex modern accidentals
+@cindex multivoice accidentals
 @funindex modern-voice
 
 This rule is used for multivoice accidentals to be read both by
@@ -1696,7 +1754,7 @@ e d <c f\harmonic> <d a'\harmonic>
 @end lilypond
 
 @noindent
-To see all note head styles, please see @ref{Note head styles}.
+To see all note head styles, see @ref{Note head styles}.
 
 
 @seealso
