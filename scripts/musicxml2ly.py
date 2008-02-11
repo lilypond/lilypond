@@ -190,9 +190,9 @@ class PartGroupInfo:
     def add_end (self, g):
         self.end[getattr (g, 'number', "1")] = g
     def print_ly (self, printer):
-        error_message ("Unprocessed PartGroupInfo %s encountered" % self)
+        error_message (_ ("Unprocessed PartGroupInfo %s encountered") % self)
     def ly_expression (self):
-        error_message ("Unprocessed PartGroupInfo %s encountered" % self)
+        error_message (_ ("Unprocessed PartGroupInfo %s encountered") % self)
         return ''
 
 def staff_attributes_to_string_tunings (mxl_attr):
@@ -606,7 +606,7 @@ def musicxml_key_to_lily (attributes):
         start_pitch.step = n
         start_pitch.alteration = a
     except  KeyError:
-        error_message ('unknown mode %s' % mode)
+        error_message (_ ("unknown mode %s, expecting 'major' or 'minor'") % mode)
 
     fifth = musicexp.Pitch()
     fifth.step = 4
@@ -711,6 +711,7 @@ spanner_event_dict = {
     'glissando' : musicexp.GlissandoEvent,
     'octave-shift' : musicexp.OctaveShiftEvent,
     'pedal' : musicexp.PedalEvent,
+    'slide' : musicexp.GlissandoEvent,
     'slur' : musicexp.SlurEvent,
     'wavy-line' : musicexp.TrillSpanEvent,
     'wedge' : musicexp.HairpinEvent
@@ -758,7 +759,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     return ev
 
 def musicxml_direction_to_indicator (direction):
-    return { "above": 1, "upright": 1, "up":1, "below": -1, "downright": -1, "down": -1, "inverted": -1 }.get (direction, 0)
+    return { "above": 1, "upright": 1, "up": 1, "below": -1, "downright": -1, "down": -1, "inverted": -1 }.get (direction, 0)
 
 def musicxml_fermata_to_lily_event (mxl_event):
     ev = musicexp.ArticulationEvent ()
@@ -773,6 +774,12 @@ def musicxml_fermata_to_lily_event (mxl_event):
 
 def musicxml_arpeggiate_to_lily_event (mxl_event):
     ev = musicexp.ArpeggioEvent ()
+    ev.direction = musicxml_direction_to_indicator (getattr (mxl_event, 'direction', None))
+    return ev
+
+def musicxml_nonarpeggiate_to_lily_event (mxl_event):
+    ev = musicexp.ArpeggioEvent ()
+    ev.non_arpeggiate = True
     ev.direction = musicxml_direction_to_indicator (getattr (mxl_event, 'direction', None))
     return ev
 
@@ -1334,7 +1341,7 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
         
         if diff < Rational (0):
-            error_message ('Negative skip %s' % diff)
+            error_message (_ ('Negative skip %s') % diff)
             diff = Rational (0)
 
         if diff > Rational (0) and not (self.ignore_skips and moment == 0):
@@ -1601,7 +1608,14 @@ def musicxml_voice_to_lily_voice (voice):
                 if ev:
                     ev_chord.append (ev)
 
+            arpeggiate = notations.get_named_children ('non-arpeggiate')
+            for a in arpeggiate:
+                ev = musicxml_nonarpeggiate_to_lily_event (a)
+                if ev:
+                    ev_chord.append (ev)
+
             glissandos = notations.get_named_children ('glissando')
+            glissandos += notations.get_named_children ('slide')
             for a in glissandos:
                 ev = musicxml_spanner_to_lily_event (a)
                 if ev:
@@ -1893,7 +1907,7 @@ def update_score_setup (score_structure, part_list, voices):
         part_id = part_definition.id
         nv_dict = voices.get (part_id)
         if not nv_dict:
-            error_message ('unknown part in part-list: %s' % part_id)
+            error_message (_ ('unknown part in part-list: %s') % part_id)
             continue
 
         staves = reduce (lambda x,y: x+ y,

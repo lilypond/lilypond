@@ -776,6 +776,9 @@ class Pedal (Music_xml_spanner):
 class Glissando (Music_xml_spanner):
     pass
 
+class Slide (Music_xml_spanner):
+    pass
+
 class Octave_shift (Music_xml_spanner):
     # default is 8 for the octave-shift!
     def get_size (self):
@@ -898,6 +901,7 @@ class_dict = {
 	'pitch': Pitch,
 	'rest': Rest,
     'score-part': Score_part,
+        'slide': Slide,
 	'slur': Slur,
 	'staff': Staff,
         'syllabic': Syllabic,
