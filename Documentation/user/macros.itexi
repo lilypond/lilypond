@@ -108,6 +108,10 @@
 @c   **** Links and references ****
 
 @c usage: @lsr{ancient,Ancient-notation,custodes.ly}
+@ignore
+
+DEPRECATED
+
 @macro lsr{SECTION,DIR,TEXT}
 @ifhtml
 @uref{source/input/lsr/snippets/\DIR\.html#\TEXT\,@file{\SECTION\/\TEXT\}}
@@ -116,6 +120,7 @@
 @file{\SECTION\/\TEXT\}
 @end ifnothtml
 @end macro
+@end ignore
 
 @c usage: @lsrdir{ancient,Ancient-notation}
 @macro lsrdir{SECTION,DIR}
