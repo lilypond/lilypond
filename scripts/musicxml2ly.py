@@ -8,13 +8,13 @@ import string
 import codecs
 import zipfile
 import StringIO
-from gettext import gettext as _
 
 """
 @relocate-preamble@
 """
 
 import lilylib as ly
+_ = ly._
 
 import musicxml
 import musicexp
@@ -1800,7 +1800,14 @@ def get_all_voices (parts):
 
 def option_parser ():
     p = ly.get_option_parser (usage = _ ("musicxml2ly [options] FILE.xml"),
-                             version = ('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
+                             description = _ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n",
+                             add_help_option=False)
+
+    p.add_option("-h", "--help",
+                 action="help",
+                 help=_ ("show this help and exit"))
+
+    p.version = ('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
                                       +
 _ ("""This program is free software.  It is covered by the GNU General Public
 License and you are welcome to change it and/or distribute copies of it
@@ -1811,8 +1818,11 @@ Copyright (c) 2005--2008 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>
-"""),
-                             description = _ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n")
+""")
+    p.add_option("--version",
+                 action="version",
+                 help=_ ("show version number and exit"))
+
     p.add_option ('-v', '--verbose',
                   action = "store_true",
                   dest = 'verbose',
@@ -1822,35 +1832,35 @@ Copyright (c) 2005--2008 by
                   action = "store_true",
                   default = False,
                   dest = "use_lxml",
-                  help = _ ("Use lxml.etree; uses less memory and cpu time."))
+                  help = _ ("use lxml.etree; uses less memory and cpu time"))
 
     p.add_option ('-z', '--compressed',
                   action = "store_true",
                   dest = 'compressed',
                   default = False,
-                  help = _ ("Input file is a zip-compressed MusicXML file."))
+                  help = _ ("input file is a zip-compressed MusicXML file"))
 
     p.add_option ('-r', '--relative',
                   action = "store_true",
                   default = True,
                   dest = "relative",
-                  help = _ ("Convert pitches in relative mode. (Default)"))
+                  help = _ ("convert pitches in relative mode (default)"))
 
     p.add_option ('-a', '--absolute',
                   action = "store_false",
                   dest = "relative",
-                  help = _ ("Convert pitches in absolute mode."))
+                  help = _ ("convert pitches in absolute mode"))
 
     p.add_option ('-l', '--language',
                   metavar = _ ("LANG"),
                   action = "store",
-                  help = _ ("Use a different language file 'LANG.ly' and corresponding pitch names, e.g. 'deutsch' for deutsch.ly."))
+                  help = _ ("use a different language file 'LANG.ly' and corresponding pitch names, e.g. 'deutsch' for deutsch.ly"))
 
     p.add_option ('--nd', '--no-articulation-directions', 
                   action = "store_false",
                   default = True,
                   dest = "convert_directions",
-                  help = _ ("Do not convert directions (^, _ or -) for articulations, dynamics, etc."))
+                  help = _ ("do not convert directions (^, _ or -) for articulations, dynamics, etc."))
 
     p.add_option ('-o', '--output',
                   metavar = _ ("FILE"),
@@ -1859,8 +1869,8 @@ Copyright (c) 2005--2008 by
                   type = 'string',
                   dest = 'output_name',
                   help = _ ("set output filename to FILE"))
-    p.add_option_group ( _ ('Bugs'),
-                        description = ( _ ("Report bugs via")
+    p.add_option_group (ly.display_encode (_ ('Bugs')),
+                        description = (_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p

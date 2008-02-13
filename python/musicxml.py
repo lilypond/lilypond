@@ -5,6 +5,13 @@ from rational import *
 import re
 import sys
 import copy
+import lilylib
+
+_ = lilylib._
+
+def error (str):
+    ly.stderr_write ((_ ("error: %s") % str) + "\n")
+
 
 def escape_ly_output_string (input_string):
     return_string = input_string
@@ -262,7 +269,7 @@ class Attributes (Measure_element):
             else:
                 return (4, 4)
         except KeyError:
-            sys.stderr.write (_ ("error: requested time signature, but time sig is unknown\n"))
+            error (_ ("requested time signature, but time sig is unknown"))
             return (4, 4)
 
     # returns clef information in the form ("cleftype", position, octave-shift)
@@ -362,7 +369,7 @@ class Part_list (Music_xml_node):
         if instrument_name:
             return instrument_name
         else:
-            sys.stderr.write (_ ("Unable to find find instrument for ID=%s\n") % id)
+            lilylib.stderr_write (_ ("Unable to find find instrument for ID=%s\n") % id)
             return "Grand Piano"
 
 class Part_group (Music_xml_node):

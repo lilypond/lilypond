@@ -107,25 +107,31 @@ def warranty ():
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'lilypond-book',
-                              version="@TOPLEVEL_VERSION@",
-                              description=help_summary)
+                              description=help_summary,
+                              add_help_option=False)
 
     p.add_option ('-F', '--filter', metavar=_ ("FILTER"),
                   action="store",
                   dest="filter_cmd",
                   help=_ ("pipe snippets through FILTER [convert-ly -n -]"),
                   default=None)
+
     p.add_option ('-f', '--format',
                   help=_ ("use output format FORMAT (texi [default], texi-html, latex, html, docbook)"),
                   action='store')
-    
+
+    p.add_option("-h", "--help",
+                 action="help",
+                 help=_ ("show this help and exit"))
+
     p.add_option ("-I", '--include', help=_ ("add DIR to include path"),
                   metavar=_ ("DIR"),
                   action='append', dest='include_path',
                   default=[os.path.abspath (os.getcwd ())])
 
-    p.add_option ('--info-images-dir', help=_ ("format Texinfo output so that Info will "
-                                               "look for images of music in DIR"),
+    p.add_option ('--info-images-dir',
+                  help=_ ("format Texinfo output so that Info will "
+                          "look for images of music in DIR"),
                   metavar=_ ("DIR"),
                   action='store', dest='info_images_dir',
                   default='')
@@ -146,23 +152,32 @@ def get_option_parser ():
                   help = _ ("process ly_files using COMMAND FILE..."),
                   action='store', 
                   dest='process_cmd', default='lilypond -dbackend=eps')
+
     p.add_option ('--pdf',
                   action="store_true",
                   dest="create_pdf",
                   help=_ ("create PDF files for use with PDFTeX"),
                   default=False)
+
     p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
                   help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
 must use this with dvips -h INPUT.psfonts'''),
                   default=None)
+
     p.add_option ('-V', '--verbose', help=_ ("be verbose"),
                   action="store_true",
                   default=False,
                   dest="verbose")
+
+    p.version = "@TOPLEVEL_VERSION@"
+    p.add_option("--version",
+                 action="version",
+                 help=_ ("show version number and exit"))
+
     p.add_option ('-w', '--warranty',
                   help=_ ("show warranty and copyright"),
                   action='store_true')
-    p.add_option_group (_ ('Bugs'),
+    p.add_option_group (ly.display_encode (_ ('Bugs')),
                         description=(_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
