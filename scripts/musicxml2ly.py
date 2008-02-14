@@ -1256,11 +1256,11 @@ def musicxml_note_to_lily_main_event (n):
         if drum_type:
             event.drum_type = drum_type
         else:
-            n.message ("drum %s type unknown, please add to instrument_drumtype_dict" % n.instrument_name)
+            n.message (_ ("drum %s type unknown, please add to instrument_drumtype_dict" % n.instrument_name)
             event.drum_type = 'acousticsnare'
 
     else:
-        n.message ("cannot find suitable event")
+        n.message (_ ("cannot find suitable event"))
 
     if event:
 	event.duration = musicxml_duration_to_lily (n)
@@ -1477,7 +1477,7 @@ def musicxml_voice_to_lily_voice (voice):
                 voice_builder.jumpto (n._when)
             except NegativeSkip, neg:
                 voice_builder.correct_negative_skip (n._when)
-                n.message ("Negative skip? from %s to %s, diff %s" % (neg.here, neg.dest, neg.dest - neg.here))
+                n.message (_ ("Negative skip found: from %s to %s, difference is %s") % (neg.here, neg.dest, neg.dest - neg.here))
             
         if isinstance (n, musicxml.Attributes):
             if n.is_first () and n._measure_position == Rational (0):

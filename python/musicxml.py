@@ -51,7 +51,7 @@ class Xml_node:
 	return ''.join ([c.get_text () for c in self._children])
 
     def message (self, msg):
-        sys.stderr.write (msg+'\n')
+        lilylib.stderr_write (msg+'\n')
 
         p = self
         while p:
