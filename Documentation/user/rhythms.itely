@@ -168,15 +168,17 @@ tuplet is the triplet in which 3 notes have the length of 2, so
 the notes are 2/3 of their written length.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-g4 \times 2/3 {c4 c c} d4 d4
+a2 \times 2/3 {b4 b b}
+c4 c \times 2/3 {b4 a g}
+
 @end lilypond
 
-Tuplets may be nested; for example,
+Tuplets may be nested:
 
 @lilypond[fragment,ragged-right,verbatim,relative=2]
-\times 2/3 {
-  a4 a
-  \times 3/5 { a a a a a }
+\relative c'' {
+  \autoBeamOff
+  c4 \times 4/5 { f8 e f \times 2/3 {e[ f g] } } f4 |
 }
 @end lilypond
 
@@ -198,6 +200,12 @@ Tuplets may be nested; for example,
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
+@c when available
+@c @lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
+@c {Entering-several-tuplets-using-only-one-\times-command.ly}
+
+@ignore
+@c TODO Remove when snippet works ok
 @c Sent to Snippet 5 Feb 08
 The property @code{tupletSpannerDuration} specifies how long each
 bracket should last.  With this, you can make lots of tuplets
@@ -209,6 +217,7 @@ In the next example, there are two triplets shown, while
 \set tupletSpannerDuration = #(ly:make-moment 1 4)
 \times 2/3 { c8 c c c c c }
 @end lilypond
+@end ignore
 
 @noindent
 For more information about @code{make-moment}, see
@@ -246,7 +255,7 @@ removed from the @code{Voice context}.
 @funindex TupletBracket
 
 If nested tuplets do not begin at the same moment their
-appearance may be modified in the usual way with 
+appearance may be modified in the usual way with
 @code{\override} commands:
 
 @c NOTE Tuplet brackets collide if notes are high on staff
@@ -265,17 +274,17 @@ appearance may be modified in the usual way with
 
 However, if the nested tuplets begin at the same musical moment,
 @code{\override} commands cannot be applied to just one of them
--- they apply to both.  So to change the appearance of nested 
-tuplets beginning at the same musical moment individually, the 
-@code{\tweak} function must be used (see @ref{Objects connected 
+-- they apply to both.  So to change the appearance of nested
+tuplets beginning at the same musical moment individually, the
+@code{\tweak} function must be used (see @ref{Objects connected
 to the input}).  The @code{\tweak} function is applied to the
 following @code{\times} command as it appears in the input stream,
 and so can distinguish between separate @code{\times} commands
 even if their tuplets begin at the same musical moment.
 
-In this example, the @code{\tweak} command is used to specify 
-fraction text for the outer @code{TupletNumber} and denominator 
-text for the @code{TupletNumber} of the first of the three 
+In this example, the @code{\tweak} command is used to specify
+fraction text for the outer @code{TupletNumber} and denominator
+text for the @code{TupletNumber} of the first of the three
 inner tuplets.
 
 @c NOTE Tuplet brackets collide if notes are high on staff
@@ -297,7 +306,7 @@ together to specify @code{TupletBracket} direction.  The first
 tuplet above the staff.  The second @code{\tweak} positions the
 @code{TupletBracket} of the first of the three inner tuplets below
 the staff.  Note that the @code{\tweak} command needs to be used
-only for events that begin at the same music moment: the outer 
+only for events that begin at the same music moment: the outer
 tuplet and the first of the three inner tuplets.  To position the
 @code{TupletBracket}s of the second and third of the inner tuplets
 below the staff, we can use @code{\override} in the usual way.
@@ -322,12 +331,12 @@ below the staff, we can use @code{\override} in the usual way.
 @funindex tupletFullLength
 @funindex tupletFullLengthNote
 
-Tuplet brackets can be made to run to prefatory matter or the 
+Tuplet brackets can be made to run to prefatory matter or the
 next note.
 Default tuplet brackets end at the right edge of the final note
 of the tuplet; full-length tuplet brackets extend farther to the
 right, either to cover all the non-rhythmic notation up to the
-following note, or to cover only the whitespace before the next 
+following note, or to cover only the whitespace before the next
 item of notation, be that a clef, time signature, key signature,
 or another note.  The example shows how to switch tuplets to
 full length mode and how to modify what material they cover.
@@ -346,7 +355,7 @@ full length mode and how to modify what material they cover.
   \time 4/4
   \times 4/5 { c4 c1 }
   \time 3/4
-  c4 
+  c4
 }
 @end lilypond
 
@@ -357,17 +366,17 @@ full length mode and how to modify what material they cover.
 
 @code{\compressMusic} works similarly to \times, but does not
 create a tuplet bracket.  One application is in polymetric
-notation, as shown in the following example.  See 
+notation, as shown in the following example.  See
 @ref{Polymetric notation}.
 
-@c not added yet. -gp
+@c when available
 @c @lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
 @c {printing-music-with-different-time-signatures.ly}
 
 
 @seealso
 
-Music Glossary: @rglos{triplet}, @rglos{tuplet}, 
+Music Glossary: @rglos{triplet}, @rglos{tuplet},
 @rglos{polymetric}.
 
 Notation Reference: @ref{Time administration},
@@ -376,8 +385,12 @@ Notation Reference: @ref{Time administration},
 Snippets: @lsrdir{Rhythms,Rhythms}.
 
 Internals Reference: @internalsref{TupletBracket},
-@internalsref{TupletNumber}, and @internalsref{TimeScaledMusic}.
+@internalsref{TupletNumber}, @internalsref{TimeScaledMusic}.
 
+@refbugs
+
+Lines may be broken within a tuplet with @code{\bar "" \break},
+but the tuplet bracket does not correctly carry over.
 
 
 @node Scaling durations
@@ -402,7 +415,7 @@ b16*4 c4
 @end lilypond
 
 The duration of skip or spacing notes may also be modified by
-a multiplier.  This is useful for skipping many measures, e.g., 
+a multiplier.  This is useful for skipping many measures, e.g.,
 @code{s1*23}.
 
 @seealso
@@ -418,7 +431,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 @funindex ~
 
 A tie connects two adjacent note heads of the same pitch.  The tie
-in effect extends the length of a note. 
+in effect extends the length of a note.
 
 @warning{Ties should not be confused with @emph{slurs}, which
 indicate articulation, or @emph{phrasing slurs}, which indicate
@@ -468,7 +481,7 @@ have to repeat the tie.  This can be achieved with
 
 @lilypond[fragment,quote,ragged-right,relative=2,verbatim]
 \repeat volta 2 { c g <c e>2 ~ }
-\alternative {{ <c e>2. r4 } {<c e>2\repeatTie d4 c }} 
+\alternative {{ <c e>2. r4 } {<c e>2\repeatTie d4 c }}
 @end lilypond
 
 @cindex laissez vibrer
@@ -590,9 +603,9 @@ well-defined.  In these cases, a slur may be preferable.
 @subsection Writing rests
 
 @menu
-* Rests::                       
-* Skips::                       
-* Full measure rests::          
+* Rests::
+* Skips::
+* Full measure rests::
 @end menu
 
 @node Rests
@@ -2433,7 +2446,7 @@ Internals Reference: @internalsref{GraceMusic}.
 A multi-note beamed @emph{acciaccatura} is printed without a slash, 
 and looks exactly the same as a multi-note beamed
 @emph{appoggiatura}.
-@c TODO Add link to LSR snippet to add slash when available 
+@c TODO Add link to LSR snippet to add slash when available
 
 Grace note synchronization can also lead to surprises.  Staff
 notation, such as key signatures, bar lines, etc., are also
@@ -2576,6 +2589,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 
