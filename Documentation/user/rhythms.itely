@@ -500,7 +500,11 @@ be entered using @code{\laissezVibrer}:
 <c f g>\laissezVibrer
 @end lilypond
 
-The direction of a tie can be specified with @code{\tieUp} or
+The vertical placement of ties may be controlled; see
+@ref{Controlling direction}.
+
+@quotation
+DELETE THIS ?
 @code{\tieDown} (see example below).  @code{\tieNeutral} reverts
 to the default behaviour again.
 
@@ -511,21 +515,22 @@ convenient shorthand for forcing tie directions.  By adding
 @lilypond[relative=2,ragged-right,quote,verbatim,fragment]
 c4_~ c c^~ c)
 @end lilypond
+@end quotation
 
+@refcommands
 
-@seealso
-
-Music Glossary: @rglos{tie},
-@c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
-
-Snippets: @lsrdir{Rhythms,Rhythms}
-
-Internals Reference:
-@internalsref{LaissezVibrerTie}
-@internalsref{LaissezVibrerTieColumn}
-
-Example files:
-@c @lsr{connecting,laissez-vibrer-ties.ly}
+@funindex \tieUp
+@code{\tieUp},
+@funindex \tieDown
+@code{\tieDown},
+@funindex \tieNeutral
+@code{\tieNeutral},
+@funindex \tieDotted
+@code{\tieDotted},
+@funindex \tieDashed
+@code{\tieDashed},
+@funindex \tieSolid
+@code{\tieSolid}.
 
 
 @commonprop
@@ -559,24 +564,21 @@ direction (1=up, -1=down).
 @end lilypond
 
 
-@refcommands
-
-
-@funindex \tieUp
-@code{\tieUp},
-@funindex \tieDown
-@code{\tieDown},
-@funindex \tieNeutral
-@code{\tieNeutral},
-@funindex \tieDotted
-@code{\tieDotted},
-@funindex \tieDashed
-@code{\tieDashed},
-@funindex \tieSolid
-@code{\tieSolid}.
-
 
 @seealso
+
+Music Glossary: @rglos{tie},
+@c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
+
+Snippets: @lsrdir{Rhythms,Rhythms}
+
+Internals Reference:
+@internalsref{LaissezVibrerTie}
+@internalsref{LaissezVibrerTieColumn}
+
+Example files:
+@c @lsr{connecting,laissez-vibrer-ties.ly}
+
 
 
 

@@ -511,12 +511,12 @@ sections.
 @section Common syntax issues TODO name?
 
 @menu
-* Up and down::                 
+* Controlling direction::       
 * Distances and measurements MAYBE MOVE::  
 @end menu
 
-@node Up and down
-@subsection Up and down
+@node Controlling direction
+@subsection Controlling direction
 
 TODO: everything
 
@@ -536,6 +536,10 @@ Also cover
 #RIGHT.
 
 Maybe rename section to "directions".
+
+Also mention \override Foo #'direction = #'DOWN.
+
+also mention the typical \fooDown, \fooNeutral predefined commands.
 
 
 @node Distances and measurements MAYBE MOVE
