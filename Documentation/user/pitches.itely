@@ -244,6 +244,7 @@ see @rlearning{Accidentals and key signatures}.}
 @cindex sharp, double
 @cindex double flat
 @cindex flat, double
+@cindex natural sign
 
 A @notation{sharp} pitch is made by adding @code{is} to the note name,
 and a @notation{flat} pitch by adding @code{es}.  As you might expect,
@@ -1313,6 +1314,8 @@ musicB = {
 @cindex accidentals, modern
 @cindex modern accidentals
 @cindex multivoice accidentals
+@cindex accidental style, modern
+@cindex modern accidental style
 @funindex modern-voice
 
 This rule is used for multivoice accidentals to be read both by
@@ -1371,6 +1374,9 @@ musicB = {
 }
 @end lilypond
 
+@cindex accidental style, modern voice cautionary
+@cindex accidental style, cautionary, modern voice
+@cindex accidental style, voice, modern cautionary
 @funindex modern-voice-cautionary
 @item modern-voice-cautionary
 
@@ -1428,6 +1434,10 @@ musicB = {
 
 @item piano
 @funindex piano accidentals
+@cindex piano accidentals
+@cindex accidentals, piano
+@cindex piano accidental style
+@cindex accidental style, piano
 
 This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
@@ -1485,6 +1495,12 @@ musicB = {
 
 @item piano-cautionary
 @funindex #(set-accidental-style 'piano-cautionary)
+@cindex accidentals, piano cautionary
+@cindex cautionary accidentals, piano
+@cindex piano cautionary accidentals
+@cindex accidental style, piano cautionary
+@cindex cautionary accidental style, piano
+@cindex piano cautionary accidental style
 
 Same as @code{#(set-accidental-style 'piano)} but with the extra
 accidentals typeset as cautionaries.
@@ -1536,6 +1552,8 @@ musicB = {
 
 @item no-reset
 @funindex no-reset accidental style
+@cindex accidental style, no reset
+@cindex no reset accidental style
 
 This is the same as @code{default} but with accidentals lasting
 @q{forever} and not only within the same measure:
@@ -1588,6 +1606,8 @@ musicB = {
 
 @item forget
 @funindex forget accidental style
+@cindex forget accidental style
+@cindex accidental style, forget
 
 This is the opposite of @code{no-reset}: Accidentals are not
 remembered at all -- and hence all accidentals are typeset
