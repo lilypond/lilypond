@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: lilypond 2.11.39\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2008-02-13 21:41+0100\n"
+"POT-Creation-Date: 2008-02-14 15:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -847,9 +847,23 @@ msgstr ""
 msgid "unknown span type %s for %s"
 msgstr ""
 
+#: musicxml2ly.py:1259
+#, python-format
+msgid "drum %s type unknown, please add to instrument_drumtype_dict"
+msgstr ""
+
+#: musicxml2ly.py:1263
+msgid "cannot find suitable event"
+msgstr ""
+
 #: musicxml2ly.py:1346
 #, python-format
 msgid "Negative skip %s"
+msgstr ""
+
+#: musicxml2ly.py:1480
+#, python-format
+msgid "Negative skip found: from %s to %s, difference is %s"
 msgstr ""
 
 #: musicxml2ly.py:1505
