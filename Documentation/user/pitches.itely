@@ -1677,6 +1677,11 @@ Internals Reference: @internalsref{Accidental_engraver},
 @internalsref{PianoStaff}, @internalsref{Staff}.
 
 
+@cindex accidentals and simultaneous notes
+@cindex simultaneous notes and accidentals
+@cindex accidentals in chords
+@cindex chords, accidentals in
+
 @refbugs
 
 Simultaneous notes are considered to be entered in sequential
@@ -1691,7 +1696,11 @@ problematic notes.
 
 @node Ambitus
 @subsubsection Ambitus
+
 @cindex ambitus
+@cindex ambit
+@cindex range of pitches
+@cindex pitch range
 
 The term @notation{ambitus} or @notation{ambit} denotes a range of
 pitches for a given voice in a part of music.  It may also denote
@@ -1729,6 +1738,8 @@ printed if they are not part of the key signature.
 
 @seealso
 
+Music Glossary: @rglos{ambitus}.
+
 Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{Ambitus},
@@ -1757,6 +1768,17 @@ ambitus.
 @subsubsection Special note heads
 
 @cindex note heads, special
+@cindex note heads, cross
+@cindex note heads, diamond
+@cindex note heads, parlato
+@cindex note heads, harmonic
+@cindex note heads, guitar
+@cindex special note heads
+@cindex cross note heads
+@cindex diamond note heads
+@cindex parlato note heads
+@cindex harmonic note heads
+@cindex guitar note heads
 
 Different note heads are used by various instruments for various
 meanings -- crosses are used for @q{parlato} with vocalists,
@@ -1794,6 +1816,10 @@ Internals Reference: @internalsref{NoteHead},
 @cindex note heads, easy notation
 @cindex easy notation
 @cindex Hal Leonard
+@cindex beginners' music
+@cindex music, beginners'
+@cindex easy play note heads
+@cindex note heads, easy play
 
 The @q{easy play} note head includes a note name inside the head.
 It is used in music for beginners.
@@ -1834,6 +1860,11 @@ Internals Reference: @internalsref{NoteHead}.
 @subsubsection Shape note heads
 
 @cindex note heads, shape
+@cindex note heads, Aiken
+@cindex note heads, sacred harp
+@cindex shape notes
+@cindex Aiken shape note heads
+@cindex sacred harp note heads
 @funindex \key
 @funindex shapeNoteStyles
 @funindex \aikenHeads
