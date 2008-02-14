@@ -2,12 +2,19 @@ import inspect
 import sys
 import string
 import re
+import lilylib
+
+_ = lilylib._
 
 from rational import Rational
 
 # Store previously converted pitch for \relative conversion as a global state variable
 previous_pitch = None
 relative_pitches = False
+
+def warning (str):
+    ly.stderr_write ((_ ("warning: %s") % str) + "\n")
+
 
 def escape_instrument_string (input_string):
     retstring = string.replace (input_string, "\"", "\\\"")
@@ -567,7 +574,8 @@ class RepeatedMusic:
             self.music = SequentialMusic ()
             self.music.elements = music
         else:
-            sys.stderr.write (_ ("WARNING: Unable to set the music %s for the repeat %s" % (music, self)))
+            warning (_ ("unable to set the music %(music)s for the repeat %(repeat)s" % \
+                            {'music':music, 'repeat':self}))
     def add_ending (self, music):
         self.endings.append (music)
     def print_ly (self, printer):
@@ -575,7 +583,7 @@ class RepeatedMusic:
         if self.music:
             self.music.print_ly (printer)
         else:
-            sys.stderr.write (_ ("WARNING: Encountered repeat without body\n"))
+            warning (_ ("encountered repeat without body"))
             printer.dump ('{}')
         if self.endings:
             printer.dump ('\\alternative {')
