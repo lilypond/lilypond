@@ -18,7 +18,7 @@ That said, if you're trying to imitate old American song books, you may
 also want to try LilyPond's predefined note heads styles, through
 shortcut commands such as \\aikenHeads or \\sacredHarpHeads.
 
-This exemple shows different ways to obtain shape note heads, and
+This example shows different ways to obtain shape note heads, and
 demonstrates the ability to transpose a melody without losing the
 correspondance between harmonic functions and note heads styles.
 " }

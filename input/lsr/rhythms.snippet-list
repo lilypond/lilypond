@@ -2,6 +2,7 @@ altering-the-number-of-stems-in-a-beam.ly
 adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rythms..ly
 conducting-signs,-measure-grouping-signs.ly
 heavily-customized-polymetric-time-signatures.ly
+skips-in-lyric-mode.ly
 rhythmic-slashes.ly
 skips-in-lyric-mode-2.ly
 manually-controlling-beam-positions.ly
@@ -10,10 +11,11 @@ changing-time-signatures-inside-a-polymetric-section-using--compressmusic.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 making-an-object-invisible-with-the-transparent-property.ly
 automatic-beam-subdivisions.ly
+rest-styles.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
 controlling-tuplet-bracket-visibility.ly
 beam-across-line-breaks.ly
-skips-in-lyric-mode.ly
+printing-music-with-different-time-signatures.ly
 adding-drum-parts.ly
-rest-styles.ly
+entering-several-tuplets-using-only-one--times-command.ly
 compound-time-signatures.ly
