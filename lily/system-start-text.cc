@@ -45,7 +45,23 @@ System_start_text::get_stencil (Grob *me_grob)
       SCM align_y  = me_grob->get_property ("self-alignment-Y");
       if (scm_is_number (align_y))
 	p->align_to (Y_AXIS, robust_scm2double (align_y, 0.0));
-      return *p;
+
+      /* Horizontal alignment according to the self-alignment-X property
+       * and indent value. */
+      Output_def *layout = me_grob->layout ();
+      Real indent;
+      if (me->get_break_index () == 0)
+	indent = robust_scm2double (layout->c_variable ("indent"), 0);
+      else
+	indent = robust_scm2double (layout->c_variable ("short-indent"), 0);
+      Real align_x = robust_scm2double (me->get_property ("self-alignment-X"), 0);
+      Interval p_extent_x = p->extent (X_AXIS);
+      Interval padding (0.0, max (0.0, indent - p_extent_x.length ()));
+      Real right_padding = padding.length () - padding.linear_combination (align_x);
+      Box box (Interval (p_extent_x[LEFT], p_extent_x[RIGHT] + right_padding),
+	       p->extent (Y_AXIS));
+      Stencil *aligned_p = new Stencil (box, p->expr ());
+      return *aligned_p;
     }
   return Stencil ();
 }
@@ -101,4 +117,5 @@ ADD_INTERFACE (System_start_text,
 	       "text "
 	       "long-text "
 	       "self-alignment-Y "
+	       "self-alignment-X "
 	       );

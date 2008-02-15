@@ -820,6 +820,7 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(self-alignment-Y . ,CENTER)
+	(self-alignment-X . ,CENTER)
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-text-interface
 				side-position-interface
