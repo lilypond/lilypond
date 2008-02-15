@@ -287,7 +287,8 @@ Possible symbols for the @code{break-align-symbols} list are
 The text marks will, by default, be aligned with the middle of the
 notation object, but this can be changed by overriding the
 @code{break-align-anchor-alignment} and @code{break-align-anchor}
-properties for the appropriate grob.
+properties for the appropriate grob. For scores with multiple staves,
+this setting should be done for all the staves. 
 
 @lilypond[fragment,quote,ragged-right,verbatim]
 {
@@ -296,20 +297,20 @@ properties for the appropriate grob.
   \key cis \major
 
   % the RehearsalMark will be aligned with the left edge of the KeySignature
-  \once \override Staff.KeySignature #'break-align-anchor-alignment = #LEFT
+  \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
   \mark \default
   cis1
   \key ces \major
 
   % the RehearsalMark will be aligned with the right edge of the KeySignature
-  \once \override Staff.KeySignature #'break-align-anchor-alignment = #RIGHT
+  \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
   \mark \default
   ces1
   \key cis \major
 
   % the RehearsalMark will be aligned with the left edge of the KeySignature
   % and then shifted right by 2 units.
-  \once \override Staff.KeySignature #'break-align-anchor = #2
+  \once \override Score.KeySignature #'break-align-anchor = #2
   \mark \default
   ces1
 }
