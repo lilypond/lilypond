@@ -439,20 +439,20 @@ c''1
 
 @cindex instrument names, centering
 
-If you wish to center the instrument names, you must center all of
-them individually:
+As instrument names are centered by default, multi line names
+are better entered using @code{\center-align}:
 
 @lilypond[quote,verbatim,ragged-right]
 { <<
 \new Staff {
-  \set Staff.instrumentName = \markup {
-    \center-align { "Clarinetti"
-      \line { "in B" \smaller \flat } } }
+  \set Staff.instrumentName = \markup \center-align {
+    Clarinetti
+    \line { "in B" \smaller \flat }
+  }
   c''1
 }
 \new Staff {
-  \set Staff.instrumentName =
-       \markup{ \center-align { Vibraphone }}
+  \set Staff.instrumentName = "Vibraphone"
   c''1
 }
 >>
@@ -462,23 +462,9 @@ them individually:
 For longer instrument names, it may be useful to increase the
 @code{indent} setting in the @code{\layout} block.
 
-To center instrument names while leaving extra space to the right,
-
-@lilypond[quote,verbatim,ragged-right]
-\new StaffGroup \relative
-<<
-  \new Staff {
-    \set Staff.instrumentName =
-        \markup { \hcenter-in #10 "blabla" }
-    c1 c1
-  }
-  \new Staff {
-    \set Staff.instrumentName =
-         \markup { \hcenter-in #10 "blo" }
-    c1 c1
-  }
->>
-@end lilypond
+Short instrument names, printed before the systems following the first
+one, are also centered by default, in a space which width is given by
+the @code{short-indent} variable of the @code{\layout} block.
 
 To add instrument names to other contexts (such as
 @code{GrandStaff}, @code{ChoirStaff}, or @code{StaffGroup}), the
