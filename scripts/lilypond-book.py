@@ -29,13 +29,13 @@ TODO:
 '''
 
 import stat
-import string
 import tempfile
 import commands
 import os
 import sys
 import re
 import md5
+import operator
 
 """
 @relocate-preamble@
@@ -69,7 +69,7 @@ authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 ################################################################
 def exit (i):
     if global_options.verbose:
-        raise _ ('Exiting (%d)...') % i
+        raise Exception (_ ('Exiting (%d)...') % i)
     else:
         sys.exit (i)
 
@@ -88,7 +88,7 @@ def ps_page_count (ps_name):
     header = open (ps_name).read (1024)
     m = re.search ('\n%%Pages: ([0-9]+)', header)
     if m:
-        return string.atoi (m.group (1))
+        return int (m.group (1))
     return 0
 
 def warranty ():
@@ -779,14 +779,15 @@ def classic_lilypond_book_compatibility (key, value):
 
     return (None, None)
 
-def find_file (name):
+def find_file (name, raise_error=True):
     for i in global_options.include_path:
         full = os.path.join (i, name)
         if os.path.exists (full):
             return full
         
-    error (_ ("file not found: %s") % name + '\n')
-    exit (1)
+    if raise_error:
+        error (_ ("file not found: %s") % name + '\n')
+        exit (1)
     return ''
 
 def verbatim_html (s):
@@ -1006,7 +1007,7 @@ class Lilypond_snippet (Snippet):
                 option_list.append (key)
             else:
                 option_list.append (key + '=' + value)
-        option_string = string.join (option_list, ',')
+        option_string = ','.join (option_list)
 
         compose_dict = {}
         compose_types = [NOTES, PREAMBLE, LAYOUT, PAPER]
@@ -1062,14 +1063,10 @@ class Lilypond_snippet (Snippet):
         elif relative > 0:
             relative_quotes += "'" * relative
 
-        paper_string = string.join (compose_dict[PAPER],
-                      '\n  ') % override
-        layout_string = string.join (compose_dict[LAYOUT],
-                      '\n  ') % override
-        notes_string = string.join (compose_dict[NOTES],
-                      '\n  ') % vars ()
-        preamble_string = string.join (compose_dict[PREAMBLE],
-                       '\n  ') % override
+        paper_string = '\n  '.join (compose_dict[PAPER]) % override
+        layout_string = '\n  '.join (compose_dict[LAYOUT]) % override
+        notes_string = '\n  '.join (compose_dict[NOTES]) % vars ()
+        preamble_string = '\n  '.join (compose_dict[PREAMBLE]) % override
         padding_mm = global_options.padding_mm
         font_dump_setting = ''
         if FONTLOAD in self.option_dict:
@@ -1105,10 +1102,9 @@ class Lilypond_snippet (Snippet):
              
     def ly_is_outdated (self):
         base = self.basename ()
-        ly_file = base + '.ly'
-        tex_file = base + '.tex'
-        eps_file = base + '.eps'
-        systems_file = base + '-systems.tex'
+        ly_file = find_file (base + '.ly', raise_error=False)
+        tex_file = find_file (base + '.tex', raise_error=False)
+        systems_file = find_file (base + '-systems.tex', raise_error=False)
 
         if (os.path.exists (ly_file)
             and os.path.exists (systems_file)
@@ -1123,33 +1119,26 @@ class Lilypond_snippet (Snippet):
 
     def png_is_outdated (self):
         base = self.basename ()
-        # FIXME: refactor stupid OK stuff
-        ok = not self.ly_is_outdated ()
-        if global_options.format in (HTML, TEXINFO):
-            ok = ok and os.path.exists (base + '.eps')
-
-            page_count = 0
-            if ok:
-                page_count = ps_page_count (base + '.eps')
-
-            if page_count <= 1:
-                ok = ok and os.path.exists (base + '.png')
-             
-            elif page_count > 1:
-                for a in range (1, page_count + 1):
-                        ok = ok and os.path.exists (base + '-page%d.png' % a)
-                
-        return not ok
+        eps_file = find_file (base + '.eps', raise_error=False)
+        png_file = find_file (base + '.png', raise_error=False)
+        if not self.ly_is_outdated () and global_options.format in (HTML, TEXINFO):
+            if os.path.exists (eps_file):
+                page_count = ps_page_count (eps_file)
+                if page_count <= 1:
+                    return not os.path.exists (png_file)
+                else:
+                    return not reduce (operator.or_,
+                                       [find_file (base + '-page%d.png' % a, raise_error=False)
+                                        for a in range (1, page_count + 1)])
+        return True
     
     def texstr_is_outdated (self):
         if backend == 'ps':
             return 0
 
-        # FIXME: refactor stupid OK stuff
         base = self.basename ()
-        ok = self.ly_is_outdated ()
-        ok = ok and (os.path.exists (base + '.texstr'))
-        return not ok
+        return not (self.ly_is_outdated ()
+                    and find_file (base + '.texstr', raise_error=False))
 
     def filter_text (self):
         code = self.substring ('code')
@@ -1483,16 +1472,16 @@ def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
     # the --process=CMD switch is a bad idea
     # it is too generic for lilypond-book.
     if texstr_names:
-        my_system (string.join ([cmd, '--backend texstr',
-                                 'snippet-map.ly'] + texstr_names))
+        my_system (' '.join ([cmd, '--backend texstr',
+                              'snippet-map.ly'] + texstr_names))
         for l in texstr_names:
             my_system ('latex %s.texstr' % l)
 
     if ly_names:
         open ('snippet-names', 'wb').write ('\n'.join (['snippet-map.ly']
-                                                      + ly_names))
+                                                       + ly_names))
         
-        my_system (string.join ([cmd, 'snippet-names']))
+        my_system (' '.join ([cmd, 'snippet-names']))
 
 
 LATEX_INSPECTION_DOCUMENT = r'''
@@ -1648,7 +1637,7 @@ def write_if_updated (file_name, lines):
     try:
         f = open (file_name)
         oldstr = f.read ()
-        new_str = string.join (lines, '')
+        new_str = ''.join (lines)
         if oldstr == new_str:
             progress (_ ("%s is up to date.") % file_name)
             progress ('\n')
@@ -1837,7 +1826,7 @@ def main ():
                                       + ' --formats=%s --backend eps ' % formats)
 
     if global_options.process_cmd:
-        global_options.process_cmd += string.join ([(' -I %s' % ly.mkarg (p))
+        global_options.process_cmd += ' '.join ([(' -I %s' % ly.mkarg (p))
                               for p in global_options.include_path])
 
     if global_options.format in (TEXINFO, LATEX):
