@@ -1,20 +1,21 @@
 # Vietnamese translation for Lilypond.
-# Copyright © 2007 Free Software Foundation, Inc.
-# Clytie Siddall <clytie@riverland.net.au>, 2007
+# Copyright © 2008 Free Software Foundation, Inc.
+# This file is distributed under the same license as the lilypond-2.11.39 package.
+# Clytie Siddall <clytie@riverland.net.au>, 2007-2008.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.11.34\n"
+"Project-Id-Version: lilypond 2.11.39\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2007-10-04 17:07+0200\n"
-"PO-Revision-Date: 2007-10-06 22:34+0930\n"
+"POT-Creation-Date: 2008-02-14 15:55+0100\n"
+"PO-Revision-Date: 2008-02-15 20:55+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.7b1\n"
+"X-Generator: LocFactoryEditor 1.7b3\n"
 
 #: convertrules.py:12
 #, python-format
@@ -30,22 +31,368 @@ msgstr "Xem sổ tay để tìm chi tiết, và tự cập nhật."
 msgid "%s has been replaced by %s"
 msgstr "%s đã bị thay thế bằng %s"
 
-#: convertrules.py:2408
+#: convertrules.py:24 musicexp.py:16 convert-ly.py:47 lilypond-book.py:82
+#: warn.cc:48 input.cc:90
+#, c-format, python-format
+msgid "warning: %s"
+msgstr "cảnh báo : %s"
+
+#: convertrules.py:33 convertrules.py:103
+msgid "\\header { key = concat + with + operator }"
+msgstr "\\header (phần đầu) { khoá = nối_chuỗi + với + toán tử }"
+
+#: convertrules.py:48
+#, python-format
+msgid "deprecated %s"
+msgstr "bị phản đối %s"
+
+#: convertrules.py:61
+msgid "deprecated \\textstyle, new \\key syntax"
+msgstr "\\textstyle (kiểu dáng văn bản) bị phản đối, cú pháp \\key (khoá) mới"
+
+#: convertrules.py:80 convertrules.py:2124 convertrules.py:2337
+#: convertrules.py:2512 convertrules.py:2889
+msgid "bump version for release"
+msgstr "đụng mạnh phiên bản để phát hành"
+
+#: convertrules.py:99
+msgid "new \\header format"
+msgstr "định dạng \\header (phần đầu) mới"
+
+#: convertrules.py:133
+msgid "\\translator syntax"
+msgstr "cú pháp \\translator (dịch giả)"
+
+#: convertrules.py:211
+msgid "\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative"
+msgstr "\\repeat (lặp lại) SỐ âm nhạc xen kẽ -> \\repeat FOLDSTR âm nhạc xen kẽ"
+
+#: convertrules.py:254 convertrules.py:828 convertrules.py:1584
+#: convertrules.py:2685
+#, python-format
+msgid "deprecate %s"
+msgstr "phản đối %s"
+
+#: convertrules.py:361
+#, python-format
+msgid "deprecate %s "
+msgstr "phản đối %s "
+
+#: convertrules.py:384
+msgid "new \\notenames format"
+msgstr "định dạng \\notenames (tên ghi chú) mới"
+
+#: convertrules.py:404
+msgid "new tremolo format"
+msgstr "định dạng tiếng vê mới"
+
+#: convertrules.py:417
+msgid "Staff_margin_engraver deprecated, use Instrument_name_engraver"
+msgstr "Staff_margin_engraver bị phản đối nên dùng Instrument_name_engraver"
+
+#: convertrules.py:536
+msgid "change property definiton case (eg. onevoice -> oneVoice)"
+msgstr "chuyển đổi chữ hoa/thường của lời xác định thuộc tính (v.d. onevoice -> oneVoice)"
+
+#: convertrules.py:544
+msgid "new \\textscript markup text"
+msgstr "văn bản đánh dấu \\textscript (văn lệnh văn bản) mới"
+
+#: convertrules.py:638
+#, python-format
+msgid "identifier names: %s"
+msgstr "tên bộ nhận diện: %s"
+
+#: convertrules.py:679
+msgid "point-and-click argument changed to procedure."
+msgstr "đối số trỏ-và-nhấn-chuột đã thay đổi thành thủ tục."
+
+#: convertrules.py:739
+msgid "semicolons removed"
+msgstr "các dấu chấm phẩy bị gỡ bỏ"
+
+#. 40 ?
+#: convertrules.py:795
+#, python-format
+msgid "%s property names"
+msgstr "các tên thuộc tính %s"
+
+#: convertrules.py:865
+msgid "automaticMelismata turned on by default"
+msgstr "automaticMelismata được bật theo mặc định"
+
+#: convertrules.py:1131 convertrules.py:1893 convertrules.py:2166
+#: convertrules.py:2472
+#, python-format
+msgid "remove %s"
+msgstr "gỡ bỏ %s"
+
+#: convertrules.py:1164 convertrules.py:1173
+msgid "cluster syntax"
+msgstr "cú pháp chùm"
+
+#: convertrules.py:1182
+msgid "new Pedal style syntax"
+msgstr "cú pháp kiểu dáng bàn đạp mới"
+
+#: convertrules.py:1451
+msgid ""
+"New relative mode,\n"
+"Postfix articulations, new text markup syntax, new chord syntax."
+msgstr ""
+"Chế độ tương đối mới.\n"
+"Sự nối bằng khớp Postfix, cú pháp đánh dấu văn bản mới, cú pháp hợp âm mới."
+
+#: convertrules.py:1475
+msgid "Remove - before articulation"
+msgstr "Gỡ bỏ dấu trừ phía trước sự nối bằng khớp"
+
+#: convertrules.py:1515
+#, python-format
+msgid "%s misspelling"
+msgstr "Sai chính tả %s"
+
+#: convertrules.py:1521
+msgid "attempting automatic \\figures conversion.  Check results!"
+msgstr "đang thử tự động chuyển đổi các \\figures (hình). Hãy kiểm tra kết quả."
+
+#: convertrules.py:1550
+msgid "Swap < > and << >>"
+msgstr "Trao đổi < > với << >>"
+
+#: convertrules.py:1576
+msgid "Use Scheme code to construct arbitrary note events."
+msgstr "Dùng mã Scheme để cấu táo các dữ kiện ghi chú tùy ý."
+
+#: convertrules.py:1609
+#, python-format
+msgid ""
+"\\outputproperty found,\n"
+"Please hand-edit, using\n"
+"\n"
+"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)\n"
+"\n"
+"as a substitution text."
+msgstr ""
+"\\outputproperty (thuộc tính ra) đã tìm thấy,\n"
+"Bạn hãy tự chỉnh sửa, dùng\n"
+"\n"
+"  \\applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)\n"
+"\n"
+"như là chuỗi thay thế."
+
+#: convertrules.py:1623
+msgid ""
+"The alteration field of Scheme pitches was multiplied by 2\n"
+"to support quarter tone accidentals.  You must update the following constructs manually:\n"
+"\n"
+"* calls of ly:make-pitch and ly:pitch-alteration\n"
+"* keySignature settings made with \\property\n"
+msgstr ""
+"Trường sửa đổi của các độ cao giọng Scheme đã được nhân lên 2\n"
+"để hỗ trợ các dấu thăng giáng âm phần tư.\n"
+"Bạn cần phải tự cập nhật những bộ tạo dựng này:\n"
+"* lời gọi kiểu ly:make-pitch và ly:pitch-alteration\n"
+"* thiết lập keySignature (chìa khoá) được làm với \\property (thuộc tính)\n"
+
+#: convertrules.py:1633
+msgid ""
+"use symbolic constants for alterations,\n"
+"remove \\outputproperty, move ly:verbose into ly:get-option"
+msgstr ""
+"dùng các hằng số tượng trưng để sửa đổi,\n"
+"gỡ bỏ \\outputproperty (thuộc tính ra),\n"
+"chuyển ly:verbose vào ly:get-option"
+
+#: convertrules.py:1692
+msgid "removal of automaticMelismata; use melismaBusyProperties instead."
+msgstr "gỡ bỏ automaticMelismata; thay thế bằng melismaBusyProperties."
+
+#: convertrules.py:1807
+msgid "\\partcombine syntax change to \\newpartcombine"
+msgstr "cú pháp \\partcombine (kết hợp các phần) thay đổi thành \\newpartcombine"
+
+#: convertrules.py:1824
+msgid "Drums found. Enclose drum notes in \\drummode"
+msgstr "Tìm thấy cái trống. Bao bọc các nốt tiếng trống trong \\drummode (chế độ cái trống)"
+
+#: convertrules.py:1835 convertrules.py:1842 convertrules.py:1853
+#, python-format
+msgid ""
+"\n"
+"%s found. Check file manually!\n"
+msgstr ""
+"\n"
+"%s tìm thấy. Bạn hãy tự kiểm tra tập tin.\n"
+
+#: convertrules.py:1835
+msgid "Drum notation"
+msgstr "Kiểu ghi cái trống"
+
+#: convertrules.py:1863
+msgid ""
+"Drum notation changes, Removing \\chordmodifiers, \\notenames.\n"
+"Harmonic notes. Thread context removed. Lyrics context removed."
+msgstr ""
+"Kiểu ghi cái trống cứ thay đổi. Đang gỡ bỏ các:\n"
+" • \\chordmodifiers (bộ sửa đổi hợp âm)\n"
+" • \\notenames (tên nốt)\n"
+" • nốt hoà âm\n"
+" • ngữ cảnh nhánh\n"
+" • ngữ cảnh lời nhạc."
+
+#: convertrules.py:1924
+msgid "new syntax for property settings:"
+msgstr "cú pháp mới cho thiết lập thuộc tính:"
+
+#: convertrules.py:1957
+msgid "Property setting syntax in \\translator{ }"
+msgstr "Cú pháp thiết lập thuộc tính trong \\translator{ }"
+
+#: convertrules.py:1978
+#, python-format
+msgid "use %s"
+msgstr "sử dụng %s"
+
+#: convertrules.py:1995
+msgid "Scheme grob function renaming"
+msgstr "Thay tên hàm grob Scheme"
+
+#: convertrules.py:2008
+msgid "More Scheme function renaming"
+msgstr "Thay thêm tên hàm Scheme"
+
+#: convertrules.py:2140
+msgid ""
+"Page layout has been changed, using paper size and margins.\n"
+"textheight is no longer used.\n"
+msgstr ""
+"Bố trí trang đã thay đổi, dùng kích cỡ tờ giấy và các lề trang.\n"
+"textheight không còn được dùng lại.\n"
+
+#: convertrules.py:2259
+msgid ""
+"\\foo -> \\foomode (for chords, notes, etc.)\n"
+"fold \\new FooContext \\foomode into \\foo."
+msgstr ""
+"\\foo -> \\foomode (đối với các hợp âm, nốt v.v.)\n"
+"fold \\new FooContext \\foomode vào \\foo."
+
+#: convertrules.py:2285
+msgid ""
+"staff size should be changed at top-level\n"
+"with\n"
+"\n"
+"  #(set-global-staff-size <STAFF-HEIGHT-IN-POINT>)\n"
+"\n"
+msgstr ""
+"kích cỡ khuông nhạc nên được thay đổi ở cấp đầu, dùngl\n"
+"\n"
+"  #(set-global-staff-size <CHIỀU_CAO_KHUÔNG_NHẠC_THEO_ĐIỂM>)\n"
+"\n"
+
+#: convertrules.py:2320
+msgid "regularize other identifiers"
+msgstr "chính quy hoá các bộ nhận diện khác"
+
+#: convertrules.py:2411
 msgid "LilyPond source must be UTF-8"
 msgstr "Lilypond phải có mã nguồn UTF-8"
 
-#: convertrules.py:2411
+#: convertrules.py:2414
 msgid "Try the texstrings backend"
 msgstr "Hãy thử hậu phương texstrings"
 
-#: convertrules.py:2414
+#: convertrules.py:2417
 #, python-format
 msgid "Do something like: %s"
 msgstr "Làm gì như : %s"
 
-#: convertrules.py:2417
+#: convertrules.py:2420
 msgid "Or save as UTF-8 in your editor"
-msgstr "Hoặc lưu dạng UTF-8 trong bộ biên soạn"
+msgstr "Hoặc lưu dạng UTF-8 trong trình biên soạn"
+
+#: convertrules.py:2452
+msgid "\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click"
+msgstr "\\encoding: mã hoá lại khéo « latin1..utf-8 ». Gỡ bỏ « ly:point-and-click »"
+
+#: convertrules.py:2485
+msgid "auto beam settings"
+msgstr "thiết lập tự động vẽ nét ngang"
+
+#: convertrules.py:2487
+msgid ""
+"\n"
+"Auto beam settings must now specify each interesting moment in a measure\n"
+"explicitely; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.\n"
+msgstr ""
+"\n"
+"Thiết lập tự động vẽ nét ngang lúc này phải ghi rõ mỗi lát quan tâm\n"
+"theo một ô nhịp một cách dứt khoát: 1/4 không còn được nhân lên lại\n"
+"để cũng bao quát 1/2 và 3/4.\n"
+
+#: convertrules.py:2498
+msgid "warn about auto beam settings"
+msgstr "cảnh báo về thiết lập tự động vẽ nét ngang"
+
+#: convertrules.py:2624
+msgid "verticalAlignmentChildCallback has been deprecated"
+msgstr "verticalAlignmentChildCallback đã bị phản đối"
+
+#: convertrules.py:2652
+msgid "Remove callbacks property, deprecate XY-extent-callback."
+msgstr "Gỡ bỏ thuộc tính gọi ngược, phản đối XY-extent-callback."
+
+#: convertrules.py:2663
+msgid "Use grob closures iso. XY-offset-callbacks."
+msgstr "Dùng grob closures iso. XY-offset-callbacks."
+
+#: convertrules.py:2770
+msgid "foobar -> foo-bar for \\paper, \\layout"
+msgstr "foobar -> foo-bar đối với \\paper, \\layout"
+
+#: convertrules.py:2877
+msgid "deprecate \\tempo in \\midi"
+msgstr "phản đối \\tempo trong \\midi"
+
+#: convertrules.py:2912
+msgid "deprecate cautionary-style. Use AccidentalCautionary properties"
+msgstr "phản đối cautionary-style (kiểu dáng cẩn thận). Hãy dùng các thuộc tính AccidentalCautionary"
+
+#: convertrules.py:2941
+msgid "Rename accidental glyphs, use glyph-name-alist."
+msgstr "Thay tên các hình tượng dấu thăng giáng, dùng glyph-name-alist."
+
+#: convertrules.py:2973
+msgid "edge-text settings for TextSpanner."
+msgstr "Thiết lập edge-text (cạnh văn bản) đối với TextSpanner."
+
+#: convertrules.py:2974
+#, python-format
+msgid ""
+"Use\n"
+"\n"
+"%s"
+msgstr ""
+"Sử dụng\n"
+"\n"
+"%s"
+
+#: convertrules.py:3020
+msgid "all settings related to dashed lines.\n"
+msgstr "mọi thiết lập đều liên quan đến đường gạch gạch.\n"
+
+#: convertrules.py:3021
+msgid "Use \\override ... #'style = #'line for solid lines and\n"
+msgstr "Hãy dùng « \\override ... #'style = #'line » cho các đường đặc, và\n"
+
+#: convertrules.py:3022
+msgid "\t\\override ... #'style = #'dashed-line for dashed lines."
+msgstr "\t« \\override ... #'style = #'dashed-line » cho các đường gạch gạch."
+
+#: convertrules.py:3027
+msgid "Use #'style not #'dash-fraction to select solid/dashed lines."
+msgstr "Dùng « #'style not #'dash-fraction » để chọn các đường đặc/gạch-gạch."
 
 #: fontextract.py:26
 #, python-format
@@ -62,27 +409,56 @@ msgstr "Đã giải nén %s"
 msgid "Writing fonts to %s"
 msgstr "Đang ghi các phông vào %s"
 
-#: lilylib.py:85 lilylib.py:136
+#: lilylib.py:102 lilylib.py:153
 #, python-format
 msgid "Invoking `%s'"
 msgstr "Đang gọi « %s »"
 
-#: lilylib.py:87 lilylib.py:138
+#: lilylib.py:104 lilylib.py:155
 #, python-format
 msgid "Running %s..."
 msgstr "Đang chạy %s..."
 
-#: lilylib.py:203
+#: lilylib.py:220
 #, python-format
 msgid "Usage: %s"
 msgstr "Cách sử dụng: %s"
 
-#: abc2ly.py:1342 convert-ly.py:71 lilypond-book.py:110 midi2ly.py:858
+#: musicexp.py:577
+#, python-format
+msgid "unable to set the music %(music)s for the repeat %(repeat)s"
+msgstr "không thể đặt âm nhạc %(music)s cho lần lặp lại %(repeat)s"
+
+#: musicexp.py:586
+msgid "encountered repeat without body"
+msgstr "gặp lần lặp lại không có thân"
+
+#: musicxml.py:13 convert-ly.py:50 lilypond-book.py:85 warn.cc:54 input.cc:96
+#: input.cc:104
+#, c-format, python-format
+msgid "error: %s"
+msgstr "lỗi: %s"
+
+#: musicxml.py:272
+msgid "requested time signature, but time sig is unknown"
+msgstr "đã yêu cầu ký hiệu nhịp điệu, nhưng không rõ loại nhịp"
+
+#: musicxml.py:338
+#, python-format
+msgid "Encountered note at %s with %s duration (no <type> element):"
+msgstr "Gặp nốt ở %s với thời lượng %s (không có phần tử <type>):"
+
+#: musicxml.py:372
+#, python-format
+msgid "Unable to find find instrument for ID=%s\n"
+msgstr "Không tìm thấy phối nhạc cho ID=%s\n"
+
+#: abc2ly.py:1342 convert-ly.py:71 lilypond-book.py:109 midi2ly.py:849
 #, python-format
 msgid "%s [OPTION]... FILE"
 msgstr "%s [TÙY_CHỌN]... TẬP_TIN"
 
-#: abc2ly.py:1344
+#: abc2ly.py:1343
 #, python-format
 msgid ""
 "abc2ly converts ABC music files (see\n"
@@ -91,22 +467,37 @@ msgstr ""
 "abc2ly chuyển đổi tập tin âm nhạc kiểu ABC\n"
 "xem %s) sang kết nhập LilyPond."
 
-#: abc2ly.py:1348 etf2ly.py:1184 midi2ly.py:874
+#: abc2ly.py:1350 convert-ly.py:78 etf2ly.py:1190 lilypond-book.py:175
+#: midi2ly.py:885 musicxml2ly.py:1824 main.cc:161
+msgid "show version number and exit"
+msgstr "hiển thị số phiên bản rồi thoát"
+
+#: abc2ly.py:1354 convert-ly.py:82 etf2ly.py:1186 lilypond-book.py:125
+#: midi2ly.py:864 musicxml2ly.py:1808 main.cc:150
+msgid "show this help and exit"
+msgstr "hiển thị trợ giúp này rồi thoát"
+
+#: abc2ly.py:1356 etf2ly.py:1191 midi2ly.py:868
 msgid "write output to FILE"
 msgstr "xuất ra TẬP_TIN"
 
-#: abc2ly.py:1350
+#: abc2ly.py:1358
 msgid "be strict about succes"
 msgstr "chặt chẽ với thành công"
 
-#: abc2ly.py:1352
+#: abc2ly.py:1360
 msgid "preserve ABC's notion of beams"
 msgstr "bảo tồn ý kiến ABC về tia"
 
-#: abc2ly.py:1354 convert-ly.py:103 etf2ly.py:1192 lilypond-book.py:161
-#: midi2ly.py:900 musicxml2ly.py:975
+#: abc2ly.py:1361 convert-ly.py:111 etf2ly.py:1198 lilypond-book.py:180
+#: midi2ly.py:897 musicxml2ly.py:1872
+msgid "Bugs"
+msgstr "Lỗi"
+
+#: abc2ly.py:1362 convert-ly.py:112 etf2ly.py:1199 lilypond-book.py:181
+#: midi2ly.py:898 musicxml2ly.py:1873
 msgid "Report bugs via"
-msgstr "Thông báo lỗi cho"
+msgstr "Thông báo lỗi thông qua"
 
 #: convert-ly.py:32
 msgid ""
@@ -118,71 +509,61 @@ msgstr "Cập nhật kết nhập Lilypond lên phiên bản mới hơn. Mặc �
 msgid "Examples:"
 msgstr "Thí dụ :"
 
-#: convert-ly.py:47 lilypond-book.py:83 warn.cc:48 input.cc:90
-#, c-format, python-format
-msgid "warning: %s"
-msgstr "cảnh báo : %s"
-
-#: convert-ly.py:50 lilypond-book.py:86 warn.cc:54 input.cc:96 input.cc:104
-#, c-format, python-format
-msgid "error: %s"
-msgstr "lỗi: %s"
-
-#: convert-ly.py:66 etf2ly.py:1174 lilypond-book.py:106 midi2ly.py:87
+#: convert-ly.py:66 etf2ly.py:1174 lilypond-book.py:105 midi2ly.py:79
 msgid "Distributed under terms of the GNU General Public License."
 msgstr "Được phát hành với điều kiện của Giấy phép Công cộng GNU (GPL)"
 
-#: convert-ly.py:67 etf2ly.py:1175 lilypond-book.py:107 midi2ly.py:88
+#: convert-ly.py:67 etf2ly.py:1175 lilypond-book.py:106 midi2ly.py:80
 msgid "It comes with NO WARRANTY."
 msgstr "Nó KHÔNG BẢO HÀNH GÌ CẢ."
 
-#: convert-ly.py:77 convert-ly.py:97
+#: convert-ly.py:86 convert-ly.py:106
 msgid "VERSION"
 msgstr "PHIÊN BẢN"
 
-#: convert-ly.py:79
+#: convert-ly.py:88
 msgid "start from VERSION [default: \\version found in file]"
 msgstr "bắt đầu từ PHIÊN BẢN [mặc định: \\version được tìm trong tập tin]"
 
-#: convert-ly.py:82
+#: convert-ly.py:91
 msgid "edit in place"
 msgstr "sửa tại chỗ"
 
-#: convert-ly.py:85
+#: convert-ly.py:94
 msgid "do not add \\version command if missing"
 msgstr "không thêm lệnh \\version nếu còn thiếu"
 
-#: convert-ly.py:91
+#: convert-ly.py:100
 msgid "show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"
 msgstr "hiện quy tắc [mặc định: --from=0, --to=@TOPLEVEL_VERSION@]"
 
-#: convert-ly.py:96
+#: convert-ly.py:105
 msgid "convert to VERSION [default: @TOPLEVEL_VERSION@]"
 msgstr "chuyển đổi sang PHIÊN BẢN [mặc định: @TOPLEVEL_VERSION@]"
 
-#: convert-ly.py:144
+#: convert-ly.py:153
 msgid "Applying conversion: "
 msgstr "Đang áp dụng sự chuyển đổi: "
 
-#: convert-ly.py:157
+#: convert-ly.py:166
 msgid "Error while converting"
 msgstr "Gặp lỗi trong khi chuyển đổi"
 
-#: convert-ly.py:159
+#: convert-ly.py:168
 msgid "Stopping at last succesful rule"
 msgstr "Đang dừng ở quy tắc thành công cuối cùng"
 
-#: convert-ly.py:181
+#: convert-ly.py:190
 #, python-format
 msgid "Processing `%s'... "
 msgstr "Đang xử lý « %s »... "
 
-#: convert-ly.py:268 relocate.cc:362 source-file.cc:54
+#: convert-ly.py:277 relocate.cc:362 source-file.cc:54
 #, c-format, python-format
 msgid "cannot open file: `%s'"
 msgstr "không thể mở tập tin « %s »"
 
-#: convert-ly.py:275
+#: convert-ly.py:284
 #, python-format
 msgid "cannot determine version for `%s'.  Skipping"
 msgstr "không thể quyết định phiên bản cho « %s » nên bỏ qua"
@@ -192,7 +573,7 @@ msgstr "không thể quyết định phiên bản cho « %s » nên bỏ qua"
 msgid "%s [OPTION]... ETF-FILE"
 msgstr "%s [TÙY_CHỌN]... TẬP_TIN_ETF"
 
-#: etf2ly.py:1182
+#: etf2ly.py:1181
 msgid ""
 "Enigma Transport Format is a format used by Coda Music Technology's\n"
 "Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file."
@@ -201,11 +582,11 @@ msgstr ""
 "Finale của Coda Music Technology. etf2ly chuyển đổi một tập hợp con\n"
 "ETF sang một tập tin Lilypond sẵn sàng dùng."
 
-#: etf2ly.py:1185 midi2ly.py:875 musicxml2ly.py:968 main.cc:154 main.cc:159
+#: etf2ly.py:1192 midi2ly.py:869 musicxml2ly.py:1866 main.cc:154 main.cc:159
 msgid "FILE"
 msgstr "TẬP TIN"
 
-#: etf2ly.py:1187 lilypond-book.py:158 midi2ly.py:888 main.cc:163
+#: etf2ly.py:1194 lilypond-book.py:178 midi2ly.py:886 main.cc:163
 msgid "show warranty and copyright"
 msgstr "hiện bảo hành và tác quyền"
 
@@ -222,16 +603,16 @@ msgstr "SỔ"
 msgid "Exiting (%d)..."
 msgstr "Đang thoát (%d)..."
 
-#: lilypond-book.py:104
+#: lilypond-book.py:103
 #, python-format
 msgid "Copyright (c) %s by"
 msgstr "Tác quyền © năm %s của"
 
-#: lilypond-book.py:114
+#: lilypond-book.py:113
 msgid "FILTER"
 msgstr "LỌC"
 
-#: lilypond-book.py:117
+#: lilypond-book.py:116
 msgid "pipe snippets through FILTER [convert-ly -n -]"
 msgstr "gửi các đoạn qua ống dẫn cho bộ LỌC [convert-ly -n -]"
 
@@ -239,35 +620,43 @@ msgstr "gửi các đoạn qua ống dẫn cho bộ LỌC [convert-ly -n -]"
 msgid "use output format FORMAT (texi [default], texi-html, latex, html, docbook)"
 msgstr "dùng định dạng xuất ĐỊNH DẠNG (texi [mặc định], texi-html, latex, html, docbook)"
 
-#: lilypond-book.py:123
+#: lilypond-book.py:127
 msgid "add DIR to include path"
 msgstr "thêm THƯ_MỤC vào đường dẫn bao gồm"
 
-#: lilypond-book.py:124 lilypond-book.py:136 main.cc:153
+#: lilypond-book.py:128 lilypond-book.py:135 lilypond-book.py:147 main.cc:153
 msgid "DIR"
 msgstr "THƯ_MỤC"
 
-#: lilypond-book.py:129
-msgid "PAD"
-msgstr "PAD"
+#: lilypond-book.py:133
+msgid "format Texinfo output so that Info will look for images of music in DIR"
+msgstr "định dạng kết xuất Texinfo để mà Info sẽ tìm ảnh nhạc trong THƯ_MỤC"
 
-#: lilypond-book.py:135
+#: lilypond-book.py:140
+msgid "PAD"
+msgstr "ĐỆM"
+
+#: lilypond-book.py:142
+msgid "pad left side of music to align music inspite of uneven bar numbers (in mm)"
+msgstr "đệm bên trái của bản nhạc để sắp hàng nhạc, bất chấp các số thứ tự gạch nhịp (theo mili-mét)"
+
+#: lilypond-book.py:146
 msgid "write output to DIR"
 msgstr "xuất ra THƯ_MỤC"
 
-#: lilypond-book.py:140
+#: lilypond-book.py:151
 msgid "COMMAND"
 msgstr "LỆNH"
 
-#: lilypond-book.py:141
+#: lilypond-book.py:152
 msgid "process ly_files using COMMAND FILE..."
 msgstr "xử lý các tập tin ly_file dùng LỆNH TẬP TIN..."
 
-#: lilypond-book.py:147
-msgid "Create PDF files for use with PDFTeX"
-msgstr "Tạo tập tin PDF để sử dụng với PDFTeX"
+#: lilypond-book.py:159
+msgid "create PDF files for use with PDFTeX"
+msgstr "tạo tập tin PDF để sử dụng với PDFTeX"
 
-#: lilypond-book.py:150
+#: lilypond-book.py:163
 msgid ""
 "extract all PostScript fonts into INPUT.psfonts for LaTeX\n"
 "must use this with dvips -h INPUT.psfonts"
@@ -275,205 +664,272 @@ msgstr ""
 "giải nén các phông PostScript vào « INPUT.psfonts » cho LaTeX\n"
 "phải dùng nó với « dvips -h INPUT.psfonts »."
 
-#: lilypond-book.py:153 midi2ly.py:885 musicxml2ly.py:959 main.cc:162
+#: lilypond-book.py:167 midi2ly.py:879 musicxml2ly.py:1829 main.cc:162
 msgid "be verbose"
 msgstr "xuất chi tiết"
 
-#: lilypond-book.py:765
+#: lilypond-book.py:788
 #, python-format
 msgid "file not found: %s"
 msgstr "không tìm thấy tập tin: %s"
 
-#: lilypond-book.py:996
+#: lilypond-book.py:1022
 #, python-format
 msgid "deprecated ly-option used: %s=%s"
 msgstr "dùng tùy chọn ly-option bị phản đối: %s=%s"
 
-#: lilypond-book.py:999
+#: lilypond-book.py:1025
 #, python-format
 msgid "compatibility mode translation: %s=%s"
 msgstr "dịch chế độ khả năng tương thích: %s=%s"
 
-#: lilypond-book.py:1003
+#: lilypond-book.py:1029
 #, python-format
 msgid "deprecated ly-option used: %s"
 msgstr "dùng tùy chọn ly-option bị phản đối: %s"
 
-#: lilypond-book.py:1006
+#: lilypond-book.py:1032
 #, python-format
 msgid "compatibility mode translation: %s"
 msgstr "dịch chế độ khả năng tương thích: %s"
 
-#: lilypond-book.py:1025
+#: lilypond-book.py:1051
 #, python-format
 msgid "ignoring unknown ly option: %s"
 msgstr "đang bỏ qua tùy chọn ly lạ: %s"
 
-#: lilypond-book.py:1379
+#: lilypond-book.py:1422
 #, python-format
 msgid "Opening filter `%s'"
 msgstr "Đang mở bộ lọc « %s »"
 
-#: lilypond-book.py:1396
+#: lilypond-book.py:1439
 #, python-format
 msgid "`%s' failed (%d)"
 msgstr "« %s » bị lỗi (%d)"
 
-#: lilypond-book.py:1397
+#: lilypond-book.py:1440
 msgid "The error log is as follows:"
 msgstr "Bản ghi lỗi bên dưới:"
 
-#: lilypond-book.py:1469
+#: lilypond-book.py:1512
 msgid "cannot find \\begin{document} in LaTeX document"
 msgstr "không tìm thấy tài liệu bắt đầu « \\begin{document} » trong tài liệu LaTeX"
 
-#: lilypond-book.py:1580
+#: lilypond-book.py:1623
 msgid "Writing snippets..."
 msgstr "Đang ghi các đoạn..."
 
-#: lilypond-book.py:1585
+#: lilypond-book.py:1628
 msgid "Processing..."
 msgstr "Đang xử lý..."
 
-#: lilypond-book.py:1589
+#: lilypond-book.py:1632
 msgid "All snippets are up to date..."
 msgstr "Mọi đoạn là hiện thời..."
 
-#: lilypond-book.py:1599
+#: lilypond-book.py:1642
 #, python-format
 msgid "cannot determine format for: %s"
 msgstr "không thể xác định định dạng cho : %s"
 
-#: lilypond-book.py:1610
+#: lilypond-book.py:1653
 #, python-format
 msgid "%s is up to date."
 msgstr "%s là hiện thời."
 
-#: lilypond-book.py:1616
+#: lilypond-book.py:1659
 #, python-format
 msgid "Writing `%s'..."
 msgstr "Đang ghi « %s »..."
 
-#: lilypond-book.py:1671
+#: lilypond-book.py:1714
 msgid "Output would overwrite input file; use --output."
 msgstr "Kết xuất sẽ ghi đè lên tập tin nhập vào : dùng tùy chọn « --output »."
 
-#: lilypond-book.py:1675
+#: lilypond-book.py:1718
 #, python-format
 msgid "Reading %s..."
 msgstr "Đang đọc %s..."
 
-#: lilypond-book.py:1694
+#: lilypond-book.py:1737
 msgid "Dissecting..."
 msgstr "Đang phân chia..."
 
-#: lilypond-book.py:1710
+#: lilypond-book.py:1753
 #, python-format
 msgid "Compiling %s..."
 msgstr "Đang biên dịch %s..."
 
-#: lilypond-book.py:1719
+#: lilypond-book.py:1762
 #, python-format
 msgid "Processing include: %s"
 msgstr "Đang xử lý đồ bao gồm: %s"
 
-#: lilypond-book.py:1733
+#: lilypond-book.py:1776
 #, python-format
 msgid "Removing `%s'"
 msgstr "Đang gỡ bỏ « %s »"
 
-#: lilypond-book.py:1766
+#: lilypond-book.py:1809
 msgid "option --psfonts not used"
 msgstr "tùy chọn « --psfonts » không được dùng"
 
-#: lilypond-book.py:1767
+#: lilypond-book.py:1810
 msgid "processing with dvips will have no fonts"
 msgstr "xử lý với dvips thì không có phông"
 
-#: lilypond-book.py:1770
+#: lilypond-book.py:1813
 msgid "DVIPS usage:"
 msgstr "Cách sử dụng DVIPS:"
 
-#: lilypond-book.py:1826
+#: lilypond-book.py:1869
 #, python-format
 msgid "Writing fonts to %s..."
 msgstr "Đang ghi các phông vào %s..."
 
-#: midi2ly.py:95 lily-library.scm:615 lily-library.scm:624
+#: midi2ly.py:87 lily-library.scm:615 lily-library.scm:624
 msgid "warning: "
 msgstr "cảnh báo : "
 
-#: midi2ly.py:98 midi2ly.py:913
+#: midi2ly.py:90 midi2ly.py:911
 msgid "error: "
 msgstr "lỗi: "
 
-#: midi2ly.py:99
-msgid "Exiting ... "
+#: midi2ly.py:91
+msgid "Exiting... "
 msgstr "Đang thoát... "
 
-#: midi2ly.py:846
+#: midi2ly.py:837
 #, python-format
 msgid "%s output to `%s'..."
 msgstr "kết xuất %s vào « %s »..."
 
-#: midi2ly.py:860 musicxml2ly.py:955
+#: midi2ly.py:850 musicxml2ly.py:1803
 #, python-format
 msgid "Convert %s to LilyPond input."
 msgstr "Chuyển đổi %s sang kết nhập Lilypond."
 
-#: midi2ly.py:864
+#: midi2ly.py:855
 msgid "print absolute pitches"
 msgstr "in ra độ cao thấp tuyệt đối"
 
-#: midi2ly.py:866 midi2ly.py:878
+#: midi2ly.py:857 midi2ly.py:872
 msgid "DUR"
-msgstr "THỜI_GIAN"
+msgstr "THỜI_LƯỢNG"
 
-#: midi2ly.py:867
+#: midi2ly.py:858
 msgid "quantise note durations on DUR"
-msgstr "lượng tử hoá các thời gian nốt trong THỜI_GIAN"
+msgstr "lượng tử hoá các thời gian nốt trong THỜI_LƯỢNG"
 
-#: midi2ly.py:870
+#: midi2ly.py:861
 msgid "print explicit durations"
-msgstr "in ra các thời gian dứt khoát"
+msgstr "in ra các thời lượng dứt khoát"
 
-#: midi2ly.py:871
+#: midi2ly.py:865
 msgid "set key: ALT=+sharps|-flats; MINOR=1"
 msgstr "đặt khoá: ALT=+thăng|-giáng; THỨ=1"
 
-#: midi2ly.py:872
+#: midi2ly.py:866
 msgid "ALT[:MINOR]"
 msgstr "ALT[:THỨ]"
 
-#: midi2ly.py:877
+#: midi2ly.py:871
 msgid "quantise note starts on DUR"
-msgstr "lượng tử hoá sự bắt đầu nốt trong THỜI_GIAN"
+msgstr "lượng tử hoá sự bắt đầu nốt trong THỜI_LƯỢNG"
 
-#: midi2ly.py:880
+#: midi2ly.py:874
 msgid "DUR*NUM/DEN"
-msgstr "THỜI_GIAN*SỐ/MẬT_ĐỘ"
+msgstr "THỜI_LƯỢNG*SỐ/MẬT_ĐỘ"
 
-#: midi2ly.py:883
+#: midi2ly.py:877
 msgid "allow tuplet durations DUR*NUM/DEN"
-msgstr "cho phép thời gian nhiều nốt THỜI_GIAN*SỐ/MẬT_ĐỘ"
+msgstr "cho phép thời gian nhiều nốt THỜI_LƯỢNG*SỐ/MẬT_ĐỘ"
 
-#: midi2ly.py:891
+#: midi2ly.py:889
 msgid "treat every text as a lyric"
 msgstr "xử lý mọi văn bản là lời nhạc"
 
-#: midi2ly.py:894
+#: midi2ly.py:892
 msgid "Examples"
 msgstr "Ví dụ"
 
-#: midi2ly.py:914
+#: midi2ly.py:912
 msgid "no files specified on command line."
 msgstr "chưa xác định tập tin trên dòng lệnh."
 
-#: musicxml2ly.py:943
-msgid "musicxml2ly FILE.xml"
-msgstr "musicxml2ly TẬP_TIN.xml"
+#: musicxml2ly.py:193 musicxml2ly.py:195
+#, python-format
+msgid "Unprocessed PartGroupInfo %s encountered"
+msgstr "Gặp PartGroupInfo %s chưa được xử lý"
 
-#: musicxml2ly.py:946
+#: musicxml2ly.py:426
+#, python-format
+msgid "Encountered rational duration with denominator %s, unable to convert to lilypond duration"
+msgstr "Gặp thời lượng hợp lý hữu tỷ với mẫu số %s, không thể chuyển đổi sang thời lượng kiểu Lilypond"
+
+#: musicxml2ly.py:609
+#, python-format
+msgid "unknown mode %s, expecting 'major' or 'minor'"
+msgstr "không rõ chế độ %s, đợi « trưởng » hoặc « thứ »"
+
+#: musicxml2ly.py:647
+#, python-format
+msgid "Encountered unprocessed marker %s\n"
+msgstr "Gặp dấu vết chưa được xử lý %s\n"
+
+#: musicxml2ly.py:741
+#, python-format
+msgid "unknown span event %s"
+msgstr "không rõ dữ kiện nhịp cầu %s"
+
+#: musicxml2ly.py:751
+#, python-format
+msgid "unknown span type %s for %s"
+msgstr "không rõ kiểu nhịp cầu %s cho %s"
+
+#: musicxml2ly.py:1259
+#, python-format
+msgid "drum %s type unknown, please add to instrument_drumtype_dict"
+msgstr "không rõ kiểu cái trống %s, hãy thêm vào instrument_drumtype_dict"
+
+#: musicxml2ly.py:1263
+msgid "cannot find suitable event"
+msgstr "không tìm thấy dữ kiện thích hợp"
+
+#: musicxml2ly.py:1346
+#, python-format
+msgid "Negative skip %s"
+msgstr "Nhảy âm %s"
+
+#: musicxml2ly.py:1480
+#, python-format
+msgid "Negative skip found: from %s to %s, difference is %s"
+msgstr "Gặp nơi nhảy âm: từ %s đến %s, hiệu là %s"
+
+#: musicxml2ly.py:1505
+#, python-format
+msgid "unexpected %s; expected %s or %s or %s"
+msgstr "gặp %s bất thường; đợi %s hoặc %s hoặc %s"
+
+#: musicxml2ly.py:1583
+msgid "cannot have two simultaneous slurs"
+msgstr "không thể có hai dấu luyến âm đồng thời"
+
+#: musicxml2ly.py:1711
+#, python-format
+msgid "cannot simultaneously have more than one mode: %s"
+msgstr "không thể có nhiều chế độ đồng thời: %s"
+
+#: musicxml2ly.py:1791
+msgid "Converting to LilyPond expressions..."
+msgstr "Đang chuyển đổi sang biểu thức Lilypond..."
+
+#: musicxml2ly.py:1802
+msgid "musicxml2ly [options] FILE.xml"
+msgstr "musicxml2ly [tùy_chọn] TẬP_TIN.xml"
+
+#: musicxml2ly.py:1812
 #, python-format
 msgid ""
 "This program is free software.  It is covered by the GNU General Public\n"
@@ -481,17 +937,67 @@ msgid ""
 "under certain conditions.  Invoke as `%s --warranty' for more\n"
 "information."
 msgstr ""
-"Chương trình này là phần mềm tự do; bạn có thể phát hành lại nó và/hoặc sửa đổi nó với điều kiện của Giấy Phép Công Cộng GNU như được xuất bản bởi Tổ Chức Phần Mềm Tự Do; hoặc phiên bản 2 của Giấy Phép này, hoặc (tùy chọn) bất kỳ phiên bản sau nào.\n"
-"\n"
+"Chương trình này là phần mềm tự do. Nó được bao quát bởi\n"
+"Giấy Phép Công Cộng GNU thì cấp bạn có quyền sửa đổi nó\n"
+"và/hoặc phát hành bản sao của nó với các điều kiện được ghi rõ.\n"
 "Gọi lệnh « %s --warranty » để xem thêm thông tin."
 
-#: musicxml2ly.py:965
-msgid "Use lxml.etree; uses less memory and cpu time."
-msgstr "Hãy dùng « lxml.etree »; nó chiếm ít bộ nhớ và thời gian CPU hơn."
+#: musicxml2ly.py:1835
+msgid "use lxml.etree; uses less memory and cpu time"
+msgstr "dùng « lxml.etree »; nó chiếm ít bộ nhớ và thời gian CPU hơn"
 
-#: musicxml2ly.py:973
+#: musicxml2ly.py:1841
+msgid "input file is a zip-compressed MusicXML file"
+msgstr "tập tin nhập vào là một tập tin MusicXML đã nén ZIP"
+
+#: musicxml2ly.py:1847
+msgid "convert pitches in relative mode (default)"
+msgstr "chuyển đổi các độ cao giọng ở chế độ tương đối (mặc định)"
+
+#: musicxml2ly.py:1852
+msgid "convert pitches in absolute mode"
+msgstr "chuyển đổi các độ cao giọng ở chế độ tuyệt đối"
+
+#: musicxml2ly.py:1855
+msgid "LANG"
+msgstr "VIỆT"
+
+#: musicxml2ly.py:1857
+msgid "use a different language file 'LANG.ly' and corresponding pitch names, e.g. 'deutsch' for deutsch.ly"
+msgstr "dùng một tập tin ngôn ngữ khác « VIỆT/ly » và các tên độ cao giọng tương ứng, v.d. « việt » ngụ ý tiếng Việt cho « việt.ly »."
+
+#: musicxml2ly.py:1863
+msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
+msgstr "đừng chuyển đổi ký hiệu hướng dẫn (dấu mũ, dấu gạch dưới hoặc dấu gạch nối) cho các cách phát âm và biến cường."
+
+#: musicxml2ly.py:1871
 msgid "set output filename to FILE"
 msgstr "đặt tên tập tin xuất thành TẬP_TIN"
+
+#: musicxml2ly.py:1929
+#, python-format
+msgid "unknown part in part-list: %s"
+msgstr "không rõ phần trong part-list: %s"
+
+#: musicxml2ly.py:1985
+#, python-format
+msgid "Input file %s is compressed, extracting raw MusicXML data"
+msgstr "Tập tin nhập liệu %s đã được nén nên giải nén dữ liệu MusicXML thô"
+
+#: musicxml2ly.py:2011
+#, python-format
+msgid "Reading MusicXML from %s ..."
+msgstr "Đang đọc MusicXML từ %s..."
+
+#: musicxml2ly.py:2039 musicxml2ly.py:2053
+#, python-format
+msgid "Output to `%s'"
+msgstr "Xuất vào « %s »"
+
+#: musicxml2ly.py:2096
+#, python-format
+msgid "Unable to find input file %s"
+msgstr "Không tìm thấy tập tin nhập vào %s"
 
 #: getopt-long.cc:140
 #, c-format
@@ -513,7 +1019,7 @@ msgstr "không nhận ra tùy chọn « %s »"
 msgid "invalid argument `%s' to option `%s'"
 msgstr "đối số « %s » không hợp lệ đối với tùy chọn « %s »"
 
-#: warn.cc:68 grob.cc:565 input.cc:82
+#: warn.cc:68 grob.cc:566 input.cc:82
 #, c-format
 msgid "programming error: %s"
 msgstr "lỗi lập trình: %s"
@@ -576,7 +1082,7 @@ msgstr "có hai Axis_group_engravers không?"
 msgid "removing this vertical group"
 msgstr "đang gỡ bỏ nhóm dọc này"
 
-#: axis-group-interface.cc:531
+#: axis-group-interface.cc:524
 msgid "an outside-staff object should have a direction, defaulting to up"
 msgstr "đối tượng « outside-staff » nên có hướng nên dùng giá trị Lên"
 
@@ -605,7 +1111,7 @@ msgstr "cọng không vừa trong tia"
 msgid "beam was started here"
 msgstr "tia đã bắt đầu ở đây"
 
-#: beam-quanting.cc:309
+#: beam-quanting.cc:307
 msgid "no feasible beam position"
 msgstr "không có vị trí tia có ích"
 
@@ -613,7 +1119,7 @@ msgstr "không có vị trí tia có ích"
 msgid "removing beam with no stems"
 msgstr "đang gỡ bỏ tia không có cọng"
 
-#: beam.cc:1039
+#: beam.cc:1069
 msgid "no viable initial configuration found: may not find good beam slope"
 msgstr "không tìm thấy cấu hình đầu tiên có ích: có lẽ không tìm thấy dốc tia tốt"
 
@@ -670,7 +1176,7 @@ msgstr "không tìm thấy khoá « %s »"
 msgid "unknown cluster style `%s'"
 msgstr "kiểu dáng chùm lạ « %s »"
 
-#: cluster.cc:135
+#: cluster.cc:147
 msgid "junking empty cluster"
 msgstr "đang xoá chùm rỗng"
 
@@ -732,23 +1238,23 @@ msgstr "Hạng dữ kiện lạ %s"
 msgid "dot `%s' not found"
 msgstr "Không tìm thấy chấm « %s »"
 
-#: dynamic-engraver.cc:193
+#: dynamic-engraver.cc:192
 msgid "cannot find start of (de)crescendo"
 msgstr "không tìm thấy đầu của sự mạnh/nhẹ dần"
 
-#: dynamic-engraver.cc:202
+#: dynamic-engraver.cc:201
 msgid "already have a decrescendo"
 msgstr "đã có sự nhẹ dần"
 
-#: dynamic-engraver.cc:204
+#: dynamic-engraver.cc:203
 msgid "already have a crescendo"
 msgstr "đã có sự mạnh dần"
 
-#: dynamic-engraver.cc:207
+#: dynamic-engraver.cc:206
 msgid "cresc starts here"
 msgstr "sự mạnh dần bắt đầu ở đây"
 
-#: dynamic-engraver.cc:336
+#: dynamic-engraver.cc:335
 msgid "unterminated (de)crescendo"
 msgstr "sự mạnh/nhẹ dần chưa chấm dứt"
 
@@ -765,12 +1271,12 @@ msgstr "Đang sở khởi phần mềm cấu hình phông FontConfig..."
 msgid "Rebuilding FontConfig cache %s, this may take a while..."
 msgstr "Đang xây dựng lại bộ nhớ tạm FontConfig %s. Có thể hơi lâu..."
 
-#: font-config.cc:55
+#: font-config.cc:57
 #, c-format
 msgid "failed adding font directory: %s"
 msgstr "lỗi thêm thư mục phông: %s"
 
-#: font-config.cc:57
+#: font-config.cc:59
 #, c-format
 msgid "adding font directory: %s"
 msgstr "đang thêm thư mục phông: %s"
@@ -892,17 +1398,17 @@ msgstr "Không tìm thấy hình tượng cho sự sửa đổi: %s"
 msgid "alteration not found"
 msgstr "Không tìm thấy sự sửa đổi"
 
-#: ligature-engraver.cc:93
+#: ligature-bracket-engraver.cc:62 ligature-engraver.cc:93
 msgid "cannot find start of ligature"
 msgstr "không tìm thấy đầu của chữ ghép"
+
+#: ligature-bracket-engraver.cc:75 ligature-engraver.cc:120
+msgid "already have a ligature"
+msgstr "đã có chữ ghép"
 
 #: ligature-engraver.cc:98
 msgid "no right bound"
 msgstr "không có mép bên phải"
-
-#: ligature-engraver.cc:120
-msgid "already have a ligature"
-msgstr "đã có chữ ghép"
 
 #: ligature-engraver.cc:129
 msgid "no left bound"
@@ -1081,10 +1587,6 @@ msgstr "tạo ra PostScript"
 msgid "generate TeX (tex backend only)"
 msgstr "tạo ra TeX (chỉ hậu phương tex)"
 
-#: main.cc:150
-msgid "show this help and exit"
-msgstr "hiển thị trợ giúp này rồi thoát"
-
 #: main.cc:151
 msgid "FIELD"
 msgstr "TRƯỜNG"
@@ -1124,10 +1626,6 @@ msgstr "xuất ra TẬP TIN (hậu tố cũng được thêm)"
 #: main.cc:160
 msgid "relocate using directory of lilypond program"
 msgstr "định vị lại dùng thư mục của chương trình lilypond"
-
-#: main.cc:161
-msgid "show version number and exit"
-msgstr "hiển thị số phiên bản rồi thoát"
 
 #: main.cc:203
 #, c-format
@@ -1220,11 +1718,11 @@ msgid "exception caught: %s"
 msgstr "bắt ngoài lệ: %s"
 
 #. FIXME: constant error message.
-#: mark-engraver.cc:154
+#: mark-engraver.cc:129
 msgid "rehearsalMark must have integer value"
 msgstr "rehearsalMark (dấu sự diễn tập) phải có giá trị số nguyên"
 
-#: mark-engraver.cc:160
+#: mark-engraver.cc:135
 msgid "mark label must be a markup object"
 msgstr "nhãn dấu phải là đối tượng mã định dạng"
 
@@ -1382,18 +1880,28 @@ msgid "FT_Get_Glyph_Name () error: %s"
 msgstr "Lỗi FT_Get_Glyph_Name (): %s"
 
 #. find out the ideal number of pages
-#: optimal-page-breaking.cc:44
+#: optimal-page-breaking.cc:56
 msgid "Finding the ideal number of pages..."
 msgstr "Đang tìm tổng số trang thích hợp..."
 
-#: optimal-page-breaking.cc:59
+#: optimal-page-breaking.cc:71
 msgid "Fitting music on 1 page..."
 msgstr "Đang vừa âm nhạc khít 1 trang..."
 
-#: optimal-page-breaking.cc:61
+#: optimal-page-breaking.cc:73
+#, c-format
+msgid "Fitting music on %d pages..."
+msgstr "Đang vừa âm nhạc khít %d trang..."
+
+#: optimal-page-breaking.cc:75
 #, c-format
 msgid "Fitting music on %d or %d pages..."
-msgstr "Đang vừa âm nhạc khít %d hay %d trang..."
+msgstr "Đang vừa âm nhạc khít %d hoặc %d trang..."
+
+#: optimal-page-breaking.cc:152 page-turn-page-breaking.cc:226
+#: paper-score.cc:146
+msgid "Drawing systems..."
+msgstr "Hệ thống vẽ..."
 
 #: page-turn-page-breaking.cc:146
 #, c-format
@@ -1408,10 +1916,6 @@ msgstr "không thể vừa sự quay trang đầu trong một trang riêng lẻ.
 #, c-format
 msgid "Calculating page and line breaks (%d possible page breaks)..."
 msgstr "Đang tính các chỗ cần ngắt trang và dòng (%d chỗ ngắt trang có thể)..."
-
-#: page-turn-page-breaking.cc:226 paper-score.cc:146
-msgid "Drawing systems..."
-msgstr "Hệ thống vẽ..."
 
 #: page-turn-page-breaking.cc:275
 #, c-format
@@ -1503,7 +2007,7 @@ msgstr "đang ánh xạ lại mô-đun 16"
 msgid "MIDI output to `%s'..."
 msgstr "xuất MIDI ra « %s »..."
 
-#: phrasing-slur-engraver.cc:131
+#: phrasing-slur-engraver.cc:139
 msgid "unterminated phrasing slur"
 msgstr "dấu luyến âm phân nhịp chưa chấm dứt"
 
@@ -1670,7 +2174,7 @@ msgstr "dấu luyến âm chưa chấm dứt"
 msgid "cannot end slur"
 msgstr "không thể kết thúc dấu luyến âm"
 
-#: slur.cc:359
+#: slur.cc:353
 #, c-format
 msgid "Ignoring grob for slur: %s. avoid-slur not set?"
 msgstr "Đang bỏ qua grob cho dấu luyến âm: %s. Chưa đặt « avoid-slur » ?"
@@ -1707,12 +2211,12 @@ msgstr "có lẽ kết nhập vào nên xác định các giọng nói đối â
 msgid "weird stem size, check for narrow beams"
 msgstr "kích cỡ cọng lạ, hãy kiểm tra có tia hẹp không"
 
-#: stem.cc:623
+#: stem.cc:627
 #, c-format
 msgid "flag `%s' not found"
 msgstr "không tìm thấy cờ « %s »"
 
-#: stem.cc:634
+#: stem.cc:638
 #, c-format
 msgid "flag stroke `%s' not found"
 msgstr "không tìm thấy nét cờ « %s »"
@@ -1873,77 +2377,77 @@ msgstr "ghi nốt thì phải trong chế độ Nốt"
 msgid "have to be in Chord mode for chords"
 msgstr "ghi hợp âm thì phải trong chế độ Hợp âm"
 
-#: lexer.ll:177
+#: lexer.ll:179
 msgid "stray UTF-8 BOM encountered"
 msgstr "gặp UTF-8 BOM rải rác"
 
-#: lexer.ll:181
+#: lexer.ll:183
 msgid "Skipping UTF-8 BOM"
 msgstr "Bỏ qua UTF-8 BOM"
 
-#: lexer.ll:236
+#: lexer.ll:238
 #, c-format
 msgid "Renaming input to: `%s'"
 msgstr "Đang thay đổi tên kết nhập thành: « %s »"
 
-#: lexer.ll:253
+#: lexer.ll:255
 msgid "quoted string expected after \\version"
 msgstr "mong đợi chuỗi đã trích dẫn sau « \\version »"
 
-#: lexer.ll:257
+#: lexer.ll:259
 msgid "quoted string expected after \\sourcefilename"
 msgstr "mong đợi chuỗi đã trích dẫn sau « \\sourcefilename »"
 
-#: lexer.ll:261
+#: lexer.ll:263
 msgid "integer expected after \\sourcefileline"
 msgstr "mong đợi số nguyên sau « \\sourcefilename »"
 
-#: lexer.ll:274
+#: lexer.ll:276
 msgid "EOF found inside a comment"
 msgstr "Gặp kết thúc tập tin trong ghi chú"
 
-#: lexer.ll:289
+#: lexer.ll:291
 msgid "\\maininput not allowed outside init files"
 msgstr "không cho phép « \\maininput » bên ngoài tập tin sở khởi"
 
-#: lexer.ll:313
+#: lexer.ll:315
 #, c-format
 msgid "wrong or undefined identifier: `%s'"
 msgstr "bộ nhận diện sai hau không được xác định: « %s »"
 
 #. backup rule
-#: lexer.ll:322
+#: lexer.ll:324
 msgid "end quote missing"
 msgstr "thiếu dấu trích dẫn kết thúc"
 
-#: lexer.ll:467
+#: lexer.ll:469
 msgid "Brace found at end of lyric.  Did you forget a space?"
 msgstr "Gặp dấu ngoặc móc ở kết thúc lời nhạc. Bạn đã quên nhập vào dấu cách không?"
 
-#: lexer.ll:580
+#: lexer.ll:582
 msgid "Brace found at end of markup.  Did you forget a space?"
 msgstr "Gặp dấu ngoặc móc ở kết thúc mã định dạng. Bạn đã quên nhập vào dấu cách không?"
 
-#: lexer.ll:684
+#: lexer.ll:686
 #, c-format
 msgid "invalid character: `%c'"
 msgstr "ký tự không hợp lệ: « %c »"
 
-#: lexer.ll:799
+#: lexer.ll:801 lexer.ll:802
 #, c-format
 msgid "unknown escaped string: `\\%s'"
 msgstr "chuỗi đã thoát lạ: « \\%s »"
 
-#: lexer.ll:905
+#: lexer.ll:907 lexer.ll:908
 #, c-format
 msgid "file too old: %s (oldest supported: %s)"
 msgstr "tập tin quá cũ : %s (cũ nhất được hỗ trợ : %s)"
 
-#: lexer.ll:906
+#: lexer.ll:908 lexer.ll:909
 msgid "consider updating the input with the convert-ly script"
 msgstr "đề nghị bạn cập nhật kết nhập bằng văn lệnh « convert-ly »"
 
-#: lexer.ll:912
+#: lexer.ll:914 lexer.ll:915
 #, c-format
 msgid "program too old: %s (file requires: %s)"
 msgstr "chương trình quá cũ : %s (tập tin cần thiết: %s)"
@@ -1990,11 +2494,11 @@ msgstr "hạng dữ kiện ~A có vẻ là không dùng"
 msgid "translator listens to nonexisting event class ~A"
 msgstr "bộ dịch lắng nghe hạng dữ kiện không tồn tại ~A"
 
-#: define-markup-commands.scm:280
+#: define-markup-commands.scm:296
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr "không tìm thấy hệ thống trong mã định dạng « \\score », nó có khối « \\layout » không?"
 
-#: define-markup-commands.scm:1294
+#: define-markup-commands.scm:1310
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr "không phải chuỗi thời gian hợp lệ: ~a"
@@ -2152,12 +2656,12 @@ msgstr "không tìm thấy câu lệnh « \\version », hãy thêm ~a để tư�
 msgid "old relative compatibility not used"
 msgstr "không dùng khả năng tương thích tương đối cũ"
 
-#: lily.scm:185
+#: lily.scm:177
 #, scheme-format
 msgid "cannot find: ~A"
 msgstr "không tìm thấy: ~A"
 
-#: lily.scm:250
+#: lily.scm:242
 #, scheme-format
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr "sai kiểu cho đối số ~a. Mong đợi ~a, còn tìm ~s"
@@ -2219,23 +2723,23 @@ msgstr "Số đếm lại tiếng vẽ không hợp lệ: ~a"
 msgid "expecting 2 elements for chord tremolo, found ~a"
 msgstr "mong đợi 2 yếu tố cho sự vê hợp âm, còn tìm ~a"
 
-#: music-functions.scm:571
+#: music-functions.scm:564
 #, scheme-format
 msgid "music expected: ~S"
 msgstr "mong đợi âm nhạc: ~S"
 
 #. FIXME: uncomprehensable message
-#: music-functions.scm:621
+#: music-functions.scm:614
 #, scheme-format
 msgid "Bar check failed.  Expect to be at ~a, instead at ~a"
 msgstr "Lỗi kiểm tra gạch nhịp. Mong đợi ở ~a, còn ở ~a"
 
-#: music-functions.scm:771
+#: music-functions.scm:764
 #, scheme-format
 msgid "cannot find quoted music: `~S'"
 msgstr "không tìm thấy âm nhạc đã trích dẫn: « ~S »"
 
-#: music-functions.scm:968
+#: music-functions.scm:961
 #, scheme-format
 msgid "unknown accidental style: ~S"
 msgstr "kiểu dáng dấu thăng giáng bất thường lạ: ~S"
@@ -2279,12 +2783,12 @@ msgstr "Kích cỡ giấy lạ: ~a"
 msgid "Must use #(set-paper-size .. ) within \\paper { ... }"
 msgstr "Phải dùng #(set-paper-size .. ) bên trong \\paper { ... }"
 
-#: parser-clef.scm:127
+#: parser-clef.scm:129
 #, scheme-format
 msgid "unknown clef type `~a'"
 msgstr "kiểu khoá lạ « ~a »"
 
-#: parser-clef.scm:128
+#: parser-clef.scm:130
 #, scheme-format
 msgid "supported clefs: ~a"
 msgstr "các khoá đã hỗ trợ : ~a"
@@ -2298,9 +2802,3 @@ msgstr "~a đã thoát với trạng thái: ~S"
 #, scheme-format
 msgid "assertion failed: ~S"
 msgstr "lỗi khẳng định: ~S"
-
-#~ msgid "tried to calculate pure-height at a non-breakpoint"
-#~ msgstr "đã thử tính độ cao thuần ở chỗ không phải điểm ngắt"
-
-#~ msgid "crescendo too small"
-#~ msgstr "sự mạnh dần quá nhỏ"

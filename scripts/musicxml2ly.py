@@ -1256,7 +1256,7 @@ def musicxml_note_to_lily_main_event (n):
         if drum_type:
             event.drum_type = drum_type
         else:
-            n.message (_ ("drum %s type unknown, please add to instrument_drumtype_dict" % n.instrument_name)
+            n.message (_ ("drum %s type unknown, please add to instrument_drumtype_dict") % n.instrument_name)
             event.drum_type = 'acousticsnare'
 
     else:
