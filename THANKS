@@ -2,7 +2,6 @@ Release 2.11
 ************
 
 
-
 DEVELOPMENT TEAM
 
 Han-Wen Nienhuys   - Core development
@@ -24,6 +23,7 @@ Erlend Aasland
 
 
 GRAND DOCUMENTATION PROJECT
+
 Trevor Daniels     - main Rewriter
 Eyolf Østrem       - main Rewriter
 Kurt Kroon         - Glossary updates
@@ -35,6 +35,7 @@ Trevor Baca        - Inspirational Headwords
 
 TRANSLATORS
 
+Clytie Siddall
 Francisco Vila
 Jean-Charles Malahieude
 John Mandereau
@@ -111,6 +112,7 @@ William Oram
 Yota Moteuchi
 Zack Charter
 Zoltan Selyem
+
 
 
 Release 2.10
