@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1859194a9f46a8886166cafee0e450b39fc5a963
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,17 +9,18 @@
 @node Specialist notation
 @chapter Specialist notation
 
-This chapter explains how to create musical notation.
+Ce chapitre explique comment créer la notation musicale
+spécifique à certains intruments ou certaines époques.
 
 @menu
-* Vocal music:: a
-* Chords Blah:: b
-* Piano music:: c
-* Percussion:: d
-* Guitar:: e
+* Vocal music::
+* Chords::
+* Piano music::
+* Percussion::
+* Guitar::
 * Orchestral strings::
 * Bagpipes::
-* Ancient notation:: g
+* Ancient notation::
 @end menu
 
 @include vocal.itely

@@ -7,6 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Valentin Villenave
+@c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Guitar
 @section Guitar
@@ -15,13 +17,13 @@
 @cindex tablature de guitare
 
 @menu 
-* Guitar TODO::
+* Guitar sections::
 @end menu
 
-@node Guitar TODO
-@subsection Guitar TODO
+@node Guitar sections
+@subsection Guitar sections
 
-@menu 
+@menu
 * String number indications::
 * Tablatures basic::
 * Non-guitar tablatures::

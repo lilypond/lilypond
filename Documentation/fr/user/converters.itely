@@ -3,11 +3,11 @@
 @ignore
     Translation of GIT committish: 27af34a245b02a6b89c9af3becefcfe676b2e19d
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Jean-Charles Malahieude
 
 @node Converting from other formats
 @chapter Converting from other formats

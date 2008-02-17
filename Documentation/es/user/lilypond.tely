@@ -59,6 +59,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @omflanguage Spanish
 @end ignore
 
+@c Translators: Francisco Vila
 
 @ifhtml
 Este documento también está disponible como

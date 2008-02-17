@@ -1,8 +1,105 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+
+@node Text
+@section Text
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Writing text::
+* Text markup::
+* Special text concerns::
+@end menu 
+@node Writing text
+@subsection Writing text
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Overview of text entry::
+* Text scripts::
+* Text spanners::
+* Text marks::
+@end menu 
+@node Overview of text entry
+@subsubsection Overview of text entry
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Text scripts
+@subsubsection Text scripts
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Text spanners
+@subsubsection Text spanners
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Text marks
+@subsubsection Text marks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Text markup
+@subsection Text markup
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Text markup introduction::
+* Nested scores::
+* Page wrapping text::
+* Font selection::
+@end menu 
+@node Text markup introduction
+@subsubsection Text markup introduction
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Nested scores
+@subsubsection Nested scores
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Page wrapping text
+@subsubsection Page wrapping text
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Font selection
+@subsubsection Font selection
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Special text concerns
+@subsection Special text concerns
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* New dynamic marks::
+* Text and line spanners::
+@end menu 
+@node New dynamic marks
+@subsubsection New dynamic marks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Text and line spanners
+@subsubsection Text and line spanners
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.

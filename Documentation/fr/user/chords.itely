@@ -7,19 +7,29 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Valentin Villenave
+@c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Chords Blah
-@section Chords Blah
+@node Chords
+@section Chords
 
 Intro text.
 
 @menu 
-* TODO chords fix::
+* Chords sections::
 @end menu
 
-@node TODO chords fix
-@subsection TODO chords fix
+@node Chords sections
+@subsection Chords sections
 
+@c awkard bit of English docs (not reproduced here):
+@c "A lead sheet" is shovved in here from the tutorial,
+@c before "Introducing chord names".
+@menu
+* Introducing chord names::     
+* Chords mode::                 
+* Printing chord names::        
+@end menu
 
 
 @c  awkward name; awkward section name.

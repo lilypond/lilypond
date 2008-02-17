@@ -7,16 +7,18 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Valentin Villenave
+@c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Percussion
 @section Percussion
 
-@menu 
-* TODO percussion node fix::
+@menu
+* Percussion sections::
 @end menu
 
-@node TODO percussion node fix
-@subsection TODO percussion node fix
+@node Percussion sections
+@subsection Percussion sections
 
 La notation rythmique sert avant tout aux parties de percussions ou de
 batterie, mais on peut aussi s'en servir à des fins pédagogiques, pour

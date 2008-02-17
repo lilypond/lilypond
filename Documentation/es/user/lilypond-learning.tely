@@ -9,7 +9,6 @@
 @settitle GNU LilyPond Learning Manual
 @documentencoding UTF-8
 @documentlanguage es
-@c TRANSLATE ME
 
 @iftex
 @afourpaper
@@ -30,6 +29,7 @@
 @omflanguage Spanish
 @end ignore
 
+@c Translators: Francisco Vila
 
 @ifhtml
 Este documento también está disponible como

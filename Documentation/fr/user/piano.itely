@@ -7,16 +7,18 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Valentin Villenave
+@c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Piano music
 @section Piano music
 
 @menu 
-* TODO piano node fix::
+* Piano sections::
 @end menu
 
-@node TODO piano node fix
-@subsection TODO piano node fix
+@node Piano sections
+@subsection Piano sections
 
 Les systèmes de piano comprennent deux portées réunies par une accolade.
 Les portées sont largement autonomes, mais il arrive que des voix passent

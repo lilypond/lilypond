@@ -37,7 +37,7 @@
                                         (* incipit-width mm)
                                         (* indent 0.5))))
          (ly:output-def-set-variable! layout 'indent (- indent scaled-incipit-width))
-         (ly:output-def-set-variable! layout 'line-width scaled-incipit-width)
+         (ly:output-def-set-variable! layout 'line-width indent)
          (ly:output-def-set-variable! layout 'ragged-right #f)
          (ly:score-add-output-def! score layout)
          (set! (ly:grob-property grob 'long-text)
