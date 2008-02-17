@@ -16,10 +16,10 @@ This section explains how to include text (with various
 formatting) in your scores.
 
 @cindex Text, other languages
-To write accented and special text (such as characters from other
-languages), simply insert the characters directly into the
-lilypond file.  The file must be saved as UTF-8.  For more
-information, see @ref{Text encoding}.
+@warning{To write accented and special text (such as characters
+from other languages), simply insert the characters directly into
+the lilypond file.  The file must be saved as UTF-8.  For more
+information, see @ref{Text encoding}.}
 
 @menu
 * Writing text::                
@@ -94,28 +94,16 @@ Snippets: @lsrdir{Text,Text}
 @cindex non-empty texts
 
 It is possible to place arbitrary strings of text or @ref{Text
-markup}, above or below notes by using a string @code{c^"text"}.
-By default, these indications do not influence the note spacing,
-but by using the command @code{\textLengthOn}, the widths will be taken
-into account
+markup} with @var{note}@code{-"}@var{text}@code{"}.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-c4^"longtext" \textLengthOn c4_"longlongtext" c4
-@end lilypond
-
-@noindent
-To prevent text from influencing spacing, use @code{\textLengthOff}.
+INSERT EXAMPLE
 
 More complex formatting may also be added to a note by using the
-markup command,
+@code{\markup} command, as described in @ref{Text markup}.
 
 @lilypond[fragment,ragged-right,verbatim,quote]
 c'4^\markup { bla \bold bla }
 @end lilypond
-
-The @code{\markup} is described in more detail in @ref{Text
-markup}.
-
 
 @refcommands
 
@@ -126,7 +114,21 @@ markup}.
 
 
 @commonprop
+@c TODO: put this in the LSR. -vv
+By default, these indications do not influence the note spacing.
+However, by using the command @code{\textLengthOn}, the widths
+will be taken into account:
 
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c4^"this does not affect spacing" \textLengthOn c4_"whereas this does" c4
+@end lilypond
+
+@noindent
+After having used such a command, to go back to the default behavior
+and prevent text from influencing spacing, use @code{\textLengthOff}.
+
+
+@c TODO: LSR-ize this as well -vv
 Checking to make sure that text scripts and lyrics are within the
 margins is a relatively large computational task.  To speed up
 processing, lilypond does not perform such calculations by
@@ -151,14 +153,24 @@ Internals Reference: @internalsref{TextScript}.
 
 @cindex Text spanners
 
+@c TODO: merge these explanations with the ones below in 
+@c "Text and Line spanners" -vv
+
 Some performance indications, e.g., @i{rallentando} or
 @i{accelerando}, are written as text and are extended over many
 measures with dotted lines.  Such texts are created using text
 spanners; attach @code{\startTextSpan} and @code{\stopTextSpan} to
 the first and last notes of the spanner.
 
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c1
+\override TextSpanner #'bound-details #'left #'text = "faster" 
+c2\startTextSpan b c\stopTextSpan a
+@end lilypond
+
+@noindent
 The string to be printed, as well as the style, is set through
-object properties
+object properties. It can accept @code{\markup} blocks as well:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 c1
@@ -209,9 +221,16 @@ Internals Reference: @internalsref{TextSpanner}.
 @funindex \mark
 
 The @code{\mark} command is primarily used for @ref{Rehearsal
-marks}, but it can also be used to put signs like coda, segno, and
-fermata on a bar line.  Use @code{\markup} to access the
-appropriate symbol (symbols are listed in @ref{The Feta font}).
+marks}, but it can also be used to add text elements in a score:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c4\mark "text" c c c
+@end lilypond
+
+As it can contain a @code{\markup} object, the @code{\mark} command
+makes possible to put any text, but also signs like coda, segno, or
+fermata on a bar line.  The appropriate symbol has to be specified in
+the @code{\markup} block; these symbols are listed in @ref{The Feta font}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 c1 \mark \markup { \musicglyph #"scripts.ufermata" }
@@ -219,7 +238,7 @@ c1
 @end lilypond
 
 @noindent
-@code{\mark} is only typeset above the top stave of the score.  If
+@code{\mark} is only typeset above the top staff of the score.  If
 you specify the @code{\mark} command at a bar line, the resulting
 mark is placed above the bar line.  If you specify it in the
 middle of a bar, the resulting mark is positioned between notes.
@@ -230,11 +249,14 @@ of the next line.
 
 @c  IMO this is a bug; hopefully it'll be fixed soon, so I can
 @c  delete this sentence.   -gp
+@noindent
 If there is no next line, then the mark will not be printed at
 all.
 
 
 @commonprop
+
+@c TODO: to be LSR-ized stuff -vv
 
 To print the mark at the end of the current line, use
 
@@ -344,7 +366,9 @@ Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{RehearsalMark}.
 
-
+@c TODO: add this here? -vv
+@c @node Text marks
+@c @subsubsection Text marks
 
 @node Text markup
 @subsection Text markup
@@ -699,7 +723,8 @@ Snippets: @lsrdir{Text,Text}
 @node Special text concerns
 @subsection Special text concerns
 
-
+@c FIXME: this section is to be removed
+@c (see comments below) -vv
 
 @menu
 * New dynamic marks::           
@@ -708,6 +733,9 @@ Snippets: @lsrdir{Text,Text}
 
 @node New dynamic marks
 @subsubsection New dynamic marks
+
+@c FIXME: this whole section should be removed and put in
+@c "Writing text" -vv
 
 It is possible to print new dynamic marks or text that should be
 aligned with dynamics.  Use @code{make-dynamic-script} to create
@@ -749,6 +777,11 @@ Snippets: @lsrdir{Text,Text}
 
 @node Text and line spanners
 @subsubsection Text and line spanners
+
+@c FIXME: this whole section has to be removed.
+@c glissando stuff should go into Expressive marks;
+@c Text spanners should go into... Text spanners.
+@c (I'm on it) --vv
 
 Some performance indications, e.g., @i{rallentando} and
 @i{accelerando} and @i{trills} are written as text and are
