@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -20,6 +20,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Breaks::
 * Vertical spacing::
 * Horizontal spacing::
+* Page layout MOVED FROM LM::
 @end menu 
 @node Paper and pages
 @section Paper and pages
@@ -184,6 +185,43 @@ UNTRANSLATED NODE: IGNORE ME
 
 @node Proportional notation
 @subsection Proportional notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Page layout MOVED FROM LM
+@section Page layout MOVED FROM LM
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Introduction to layout::
+* Global sizes::
+* Line breaks::
+* Page breaks::
+* Fitting music onto fewer pages::
+@end menu 
+@node Introduction to layout
+@subsection Introduction to layout
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Global sizes
+@subsection Global sizes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Line breaks
+@subsection Line breaks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Page breaks
+@subsection Page breaks
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Fitting music onto fewer pages
+@subsection Fitting music onto fewer pages
 
 UNTRANSLATED NODE: IGNORE ME
 

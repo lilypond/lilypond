@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -16,6 +16,7 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Titles and headers::
 * MIDI output::
+* other midi::
 @end menu 
 @node Titles and headers
 @section Titles and headers
@@ -83,7 +84,12 @@ UNTRANSLATED NODE: IGNORE ME
 * Repeats and MIDI::
 @end menu 
 @node Repeats and MIDI
-@unnumberedsubsubsec Repeats and MIDI
+@subsubsection Repeats and MIDI
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node other midi
+@section other midi
 
 UNTRANSLATED NODE: IGNORE ME
 

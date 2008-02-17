@@ -7,6 +7,9 @@
    version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Ludovic Sardain
+@c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau, Jean-Charles Malahieude
+
 @node Working on LilyPond projects
 @chapter Working on LilyPond projects
 

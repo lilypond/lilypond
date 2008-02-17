@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -31,12 +31,12 @@ UNTRANSLATED NODE: IGNORE ME
 * Entering lyrics::
 @end menu 
 @node Setting simple songs
-@unnumberedsubsubsec Setting simple songs
+@subsubsection Setting simple songs
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Entering lyrics
-@unnumberedsubsubsec Entering lyrics
+@subsubsection Entering lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -53,27 +53,27 @@ UNTRANSLATED NODE: IGNORE ME
 * Extenders and hyphens::
 @end menu 
 @node Automatic syllable durations
-@unnumberedsubsubsec Automatic syllable durations
+@subsubsection Automatic syllable durations
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Another way of entering lyrics
-@unnumberedsubsubsec Another way of entering lyrics
+@subsubsection Another way of entering lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Assigning more than one syllable to a single note
-@unnumberedsubsubsec Assigning more than one syllable to a single note
+@subsubsection Assigning more than one syllable to a single note
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node More than one note on a single syllable
-@unnumberedsubsubsec More than one note on a single syllable
+@subsubsection More than one note on a single syllable
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Extenders and hyphens
-@unnumberedsubsubsec Extenders and hyphens
+@subsubsection Extenders and hyphens
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -86,7 +86,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Working with lyrics and variables::
 @end menu 
 @node Working with lyrics and variables
-@unnumberedsubsubsec Working with lyrics and variables
+@subsubsection Working with lyrics and variables
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -102,22 +102,22 @@ UNTRANSLATED NODE: IGNORE ME
 * Lyrics independent of notes::
 @end menu 
 @node Lyrics to multiple notes of a melisma
-@unnumberedsubsubsec Lyrics to multiple notes of a melisma
+@subsubsection Lyrics to multiple notes of a melisma
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Divisi lyrics
-@unnumberedsubsubsec Divisi lyrics
+@subsubsection Divisi lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Switching the melody associated with a lyrics line
-@unnumberedsubsubsec Switching the melody associated with a lyrics line
+@subsubsection Switching the melody associated with a lyrics line
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Lyrics independent of notes
-@unnumberedsubsubsec Lyrics independent of notes
+@subsubsection Lyrics independent of notes
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -130,7 +130,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Spacing lyrics::
 @end menu 
 @node Spacing lyrics
-@unnumberedsubsubsec Spacing lyrics
+@subsubsection Spacing lyrics
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -147,27 +147,27 @@ UNTRANSLATED NODE: IGNORE ME
 * Printing stanzas at the end in multiple columns ::
 @end menu 
 @node Adding stanza numbers 
-@unnumberedsubsubsec Adding stanza numbers 
+@subsubsection Adding stanza numbers 
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Adding dynamics marks
-@unnumberedsubsubsec Adding dynamics marks
+@subsubsection Adding dynamics marks
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Adding singer names
-@unnumberedsubsubsec Adding singer names
+@subsubsection Adding singer names
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Printing stanzas at the end 
-@unnumberedsubsubsec Printing stanzas at the end 
+@subsubsection Printing stanzas at the end 
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Printing stanzas at the end in multiple columns 
-@unnumberedsubsubsec Printing stanzas at the end in multiple columns 
+@subsubsection Printing stanzas at the end in multiple columns 
 
 UNTRANSLATED NODE: IGNORE ME
 

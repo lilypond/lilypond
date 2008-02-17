@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -27,7 +27,7 @@ UNTRANSLATED NODE: IGNORE ME
 @menu 
 * Introduction to the LilyPond file structure::
 * Score is a (single) compound musical expression::
-* Nesting Music Expressions::
+* Nesting music expressions::
 * On the un-nestedness of brackets and ties::
 @end menu 
 @node Introduction to the LilyPond file structure
@@ -40,8 +40,8 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Nesting Music Expressions
-@subsection Nesting Music Expressions
+@node Nesting music expressions
+@subsection Nesting music expressions
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -113,7 +113,9 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+@subsubsection Changing a single context
 @ 
+@subsubsection Changing all contexts of the same type
 @node Extending the templates
 @section Extending the templates
 

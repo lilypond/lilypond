@@ -1,0 +1,97 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node Editorial annotations
+@section Editorial annotations
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Inside the staff::
+* Outside the staff::
+@end menu 
+@node Inside the staff
+@subsection Inside the staff
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Selecting notation font size::
+* Fingering instructions::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
+@end menu 
+@node Selecting notation font size
+@subsubsection Selecting notation font size
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Fingering instructions
+@subsubsection Fingering instructions
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Hidden notes
+@subsubsection Hidden notes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Coloring objects
+@subsubsection Coloring objects
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Parentheses
+@subsubsection Parentheses
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Stems
+@subsubsection Stems
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Outside the staff
+@subsection Outside the staff
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu 
+* Balloon help::
+* Grid lines::
+* Blank music sheet::
+* Analysis brackets::
+@end menu 
+@node Balloon help
+@subsubsection Balloon help
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Grid lines
+@subsubsection Grid lines
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Blank music sheet
+@subsubsection Blank music sheet
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Analysis brackets
+@subsubsection Analysis brackets
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+-- SKELETON FILE --
+When you actually translate this file, please remove these lines as
+well as all `UNTRANSLATED NODE: IGNORE ME' lines.
