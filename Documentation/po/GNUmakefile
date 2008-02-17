@@ -11,11 +11,14 @@ DOC_PO_SOURCES = add_html_footer.py texi-gettext.py
 TELY_FILES = $(shell ls $(depth)/Documentation/user/lilypond*.tely)
 TELY_FILES += $(foreach l, $(LANGS), $(shell ls $(depth)/Documentation/$(l)/user/lilypond*.tely))
 
-messages: $(MO_FILES)
+messages: $(outdir)/messages
+
+$(outdir)/messages: $(MO_FILES)
 	for i in $(CATALOGS); do \
 	  mkdir -p $(doc-localedir)/$$i/LC_MESSAGES; \
 	  cp $(outdir)/$$i.mo $(doc-localedir)/$$i/LC_MESSAGES/$(DOMAIN).mo; \
 	done
+	touch $@
 
 po-update:
 	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -o texi.pot --gettext $(TELY_FILES:%.tely=../%.tely)
