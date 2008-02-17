@@ -647,8 +647,8 @@ examples are used for
 @itemize
 @item Bug reports
 @item Sending a help request to mailists
-@item Adding an example to the @uref{http://lsr@/.dsi@/.unimi@/.it/,LilyPond
-Snippet Repository}
+@item Adding an example to the @uref{http://lsr.dsi.unimi.it/,
+LilyPond Snippet Repository}
 @end itemize
 
 To construct an example which is as small as possible, the rule is

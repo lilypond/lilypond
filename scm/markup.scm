@@ -189,24 +189,26 @@ Use `markup*' in a \\notemode context."
   (cond ((and (pair? expr)
               (keyword? (car expr)))
          ;; expr === (#:COMMAND arg1 ...)
-         (let* ((command (symbol->string (keyword->symbol (car expr))))
-                (sig (markup-command-signature
-		      (car (lookup-markup-command command))))
-                (sig-len (length sig)))
-           (do ((i 0 (1+ i))
-                (args '() args)
-                (rest (cdr expr) rest))
-               ((>= i sig-len)
-                (values (cons (keyword->make-markup (car expr)) (reverse args)) rest))
-             (cond ((eqv? (list-ref sig i) markup-list?)
-                    ;; (car rest) is a markup list
-                    (set! args (cons `(list ,@(compile-all-markup-expressions (car rest))) args))
-                    (set! rest (cdr rest)))
-                   (else
-                    ;; pick up one arg in `rest'
-                    (receive (a r) (compile-markup-arg rest)
-                             (set! args (cons a args))
-                             (set! rest r)))))))
+         (let ((command (symbol->string (keyword->symbol (car expr)))))
+            (if (not (pair? (lookup-markup-command command)))
+                (ly:error (_ "Not a markup command: ~A") command))
+            (let* ((sig (markup-command-signature
+                         (car (lookup-markup-command command))))
+                   (sig-len (length sig)))
+              (do ((i 0 (1+ i))
+                   (args '() args)
+                   (rest (cdr expr) rest))
+                  ((>= i sig-len)
+                   (values (cons (keyword->make-markup (car expr)) (reverse args)) rest))
+                (cond ((eqv? (list-ref sig i) markup-list?)
+                       ;; (car rest) is a markup list
+                       (set! args (cons `(list ,@(compile-all-markup-expressions (car rest))) args))
+                       (set! rest (cdr rest)))
+                      (else
+                       ;; pick up one arg in `rest'
+                       (receive (a r) (compile-markup-arg rest)
+                         (set! args (cons a args))
+                         (set! rest r))))))))
         ((and (pair? expr)
               (pair? (car expr))
               (keyword? (caar expr)))
