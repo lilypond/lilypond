@@ -847,8 +847,8 @@ def convert_midi (in_file, out_file):
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'midi2ly',
-                 version="midi2ly (LilyPond) @TOPLEVEL_VERSION@",
-                 description=_ ("Convert %s to LilyPond input.") % 'MIDI')
+                 description=_ ("Convert %s to LilyPond input.") % 'MIDI',
+                 add_help_option=False)
 
     p.add_option ('-a', '--absolute-pitches',
            action='store_true',
@@ -859,6 +859,9 @@ def get_option_parser ():
     p.add_option ('-e', '--explicit-durations',
            action='store_true',
            help=_ ("print explicit durations"))
+    p.add_option("-h", "--help",
+                 action="help",
+                 help=_ ("show this help and exit"))
     p.add_option('-k', '--key', help=_ ("set key: ALT=+sharps|-flats; MINOR=1"),
           metavar=_ ("ALT[:MINOR]"),
           default='0'),
@@ -876,19 +879,22 @@ def get_option_parser ():
     p.add_option ('-V', '--verbose', help=_ ("be verbose"),
            action='store_true'
            ),
+    p.version = "midi2ly (LilyPond) @TOPLEVEL_VERSION@"
+    p.add_option("--version",
+                 action="version",
+                 help=_ ("show version number and exit"))
     p.add_option ('-w', '--warranty', help=_ ("show warranty and copyright"),
            action='store_true',
            ),
     p.add_option ('-x', '--text-lyrics', help=_ ("treat every text as a lyric"),
            action='store_true')
 
-# urg, Python 2.5 optparse is broken, it doesn't accept Unicode strings
-    p.add_option_group (_ ("Examples").encode (sys.stdout.encoding),
+    p.add_option_group (ly.display_encode (_ ("Examples")),
               description = r'''
   midi2ly --key=-2:1 --duration-quant=32 \
     --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
 ''')
-    p.add_option_group (_ ('Bugs').encode (sys.stdout.encoding),
+    p.add_option_group (ly.display_encode (_ ('Bugs')),
                         description=(_ ('Report bugs via')
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))

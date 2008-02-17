@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 5a2beb9fbe0e28ed499f0191d16f7e2a5d86dee1
+    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -73,11 +73,11 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* Up and down::
+* Controlling direction::
 * Distances and measurements MAYBE MOVE::
 @end menu 
-@node Up and down
-@subsection Up and down
+@node Controlling direction
+@subsection Controlling direction
 
 UNTRANSLATED NODE: IGNORE ME
 

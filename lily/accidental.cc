@@ -67,7 +67,7 @@ Accidental_interface::pure_height (SCM smob, SCM start_scm, SCM)
 
   if (to_boolean (me->get_property ("forced"))
       || !unsmob_grob (me->get_object ("tie"))
-      || rank != start + 1) /* we are in the middle of a line */
+      || rank == start + 1) /* we are at the start of a line */
     {
       Stencil *s = unsmob_stencil (get_stencil (me));
       if (s)

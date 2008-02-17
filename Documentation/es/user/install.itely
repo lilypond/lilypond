@@ -8,6 +8,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Francisco Vila
+
 @ifclear INSTALL
 @node Install
 @chapter Install

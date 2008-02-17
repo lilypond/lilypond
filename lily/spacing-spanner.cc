@@ -337,7 +337,16 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	    This is probably a waste of time in the case of polyphonic
 	    music.  */
 	  if (Note_spacing::has_interface (wish))
-	    springs.push_back (Note_spacing::get_spacing (wish, right_col, base_note_space, options->increment_));
+	    {
+	      Real inc = options->increment_;
+	      if (Grob *gsp = unsmob_grob (left_col->get_object ("grace-spacing")))
+		{
+		  Spacing_options grace_opts;
+		  grace_opts.init_from_grob (gsp);
+		  inc = grace_opts.increment_;
+		}
+	      springs.push_back (Note_spacing::get_spacing (wish, right_col, base_note_space, inc));
+	    }
 	}
 
       if (springs.empty ())

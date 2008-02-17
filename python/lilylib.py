@@ -59,6 +59,11 @@ underscore = _
 def encoded_write(f, s):
     f.write (s.encode (f.encoding or 'utf_8'))
 
+# ugh, Python 2.5 optparse requires Unicode strings in some argument
+# functions, and refuse them in some other places
+def display_encode (s):
+    return s.encode (sys.stderr.encoding or 'utf_8')
+
 def stderr_write (s):
     encoded_write (sys.stderr, s)
 

@@ -7,9 +7,11 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Valentin Villenave
+@c Translation checkers: Gilles Thibault
+
 @node Changing defaults
 @chapter Changing defaults
-
 
 LilyPond est conçu pour engendrer, par défaut, des partitions de la
 plus haute qualité.  Cependant, on peut parfois avoir à modifier cette

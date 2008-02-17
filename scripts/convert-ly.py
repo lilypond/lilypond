@@ -69,8 +69,17 @@ Copyright (c) %s by
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'convert-ly',
-                  version="@TOPLEVEL_VERSION@",
-                  description=help_summary)
+                  description=help_summary,
+                  add_help_option=False)
+
+    p.version="@TOPLEVEL_VERSION@"
+    p.add_option("--version",
+                 action="version",
+                 help=_ ("show version number and exit"))
+
+    p.add_option("-h", "--help",
+                 action="help",
+                 help=_ ("show this help and exit"))
 
     p.add_option ('-f', '--from', 
               action="store",
@@ -99,7 +108,7 @@ def get_option_parser ():
               dest="to_version",
               default='')
 
-    p.add_option_group ('bugs',
+    p.add_option_group (ly.display_encode (_ ('Bugs')),
                         description=(_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))

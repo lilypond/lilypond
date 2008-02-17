@@ -43,14 +43,40 @@ can be attached to a note using the syntax
 The possible values for @var{name} are listed in @ref{List of
 articulations}.
 
-Some of these articulations have shorthands for easier entry.  They
-are used by adding a dash and the character signifying
-the articulation to the note name.  The available shorthands and
-their output are:
+Some of these articulations have shorthands for easier entry.
+Shorthands are appended to the note name, and their syntax
+consists of a dash (@code{-}) followed by a symbol signifying the
+articulation.  The available shorthands are:
+
+@itemize
+@item
+@code{-^} (@notation{marcato})
+
+@item
+@code{-+} (@notation{stopped})
+
+@item
+@code{--} (@notation{tenuto})
+
+@item
+@code{-|} (@notation{staccatissimo})
+
+@item
+@code{->} (@notation{accent})
+
+@item
+@code{-.} (@notation{staccato})
+
+@item
+@code{-_} (@notation{portato})
+
+@end itemize
+
+and their corresponding output:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4-.  c--   c-+   c-|
-c->   c-^   c-_
+c4-^  c-+  c--  c-|
+c->   c-.  c-_
 @end lilypond
 
 The marks are automatically placed, but the direction can be
@@ -99,13 +125,15 @@ c\fermata c^\fermata c_\fermata
 
 @commonprop
 
-The meanings of the shorthands can be changed.  They are defined
-in @file{ly/@/script@/-init@/.ly}, where the variables
-@code{dashDot}, @code{dashDash}, @code{dashPlus}, @code{dashBar},
-@code{dashLarger}, @code{dashHat}, and @code{dashUnderscore}
-are associated with the default articulation marks.  If you want,
-e.g., @code{-+} to produce a trill instead of a "+", you can
-redefine the variable in your document:
+The shorthands are defined in @file{ly/@/script@/-init@/.ly},
+where the variables @code{dashHat}, @code{dashPlus},
+@code{dashDash}, @code{dashBar}, @code{dashLarger},
+@code{dashDot}, and @code{dashUnderscore} are assigned default
+values.  The default values for the shorthands can be modified.
+For example, to associate the @code{-+} (@code{dashPlus})
+shorthand with the @notation{trill} symbol instead of the default
+@notation{+} symbol, assign the value @code{trill} to the variable
+@code{dashPlus}:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' { c-+ }
@@ -118,7 +146,7 @@ The vertical ordering of scripts is controlled with the
 closer it will be put to the note.  In this example, the
 @code{TextScript} (the sharp symbol) first has the lowest
 priority, so it is put lowest in the first example.  In the
-second, the prall trill (the @code{Script}) has the
+second, the @notation{prall trill} (the @code{Script}) has the
 lowest, so it is on the inside.  When two objects have the same
 priority, the order in which they are entered decides which one
 comes first.
@@ -187,12 +215,13 @@ c_\spp c_\staccato^\ff
 @funindex \>
 @funindex \!
 
-A crescendo mark is started with @code{\<} and terminated with
-@code{\!} or an absolute dynamic.  A decrescendo is started with
-@code{\>} and is also terminated with @code{\!} or an absolute
-dynamic.  @code{\cr} and @code{\decr} may be used instead of
-@code{\<} and @code{\>}.  They can be engraved either using a
-graphical sign (a @q{hairpin}), or with textual signs.
+A @notation{crescendo} mark is started with @code{\<} and
+terminated with @code{\!} or an absolute dynamic.  A
+@notation{decrescendo} is started with @code{\>} and is also
+terminated with @code{\!} or an absolute dynamic.  @code{\cr} and
+@code{\decr} may be used instead of @code{\<} and @code{\>}.  They
+can be engraved either using a graphical sign (a @q{hairpin}), or
+with textual signs.
 
 Because these marks are bound to notes, you must use spacer notes
 if multiple marks are needed during one note.
@@ -483,7 +512,8 @@ d4
 
 @seealso
 
-Snippets: @lsrdir{Expressive,Expressive-marks}, @c @lsr{expressive,breathing-sign.ly}.
+Snippets: @lsrdir{Expressive,Expressive-marks},
+@c @lsr{expressive,breathing-sign.ly}.
 
 Internals Reference: @internalsref{BreathingSign}.
 

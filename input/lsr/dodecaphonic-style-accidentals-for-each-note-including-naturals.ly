@@ -6,7 +6,7 @@
   lsrtags = "pitches"
  texidoc = "
 In early XXth century works, starting with Schönberg, Berg and Webern
-(the \"second\" Viennese school), every pitch in the twelve- note scale
+(the \"second\" Viennese school), every pitch in the twelve-tone scale
 has to be regarded as equal, without any hierarchy such as the
 classical (tonal) degrees. Therefore, these composers print one
 accidental for each note, even at natural pitches, to emphasize their

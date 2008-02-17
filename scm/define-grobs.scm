@@ -820,6 +820,7 @@
 	(X-offset . ,ly:side-position-interface::x-aligned-side)
 	(direction . ,LEFT)
 	(self-alignment-Y . ,CENTER)
+	(self-alignment-X . ,CENTER)
 	(meta . ((class . Spanner)
 		 (interfaces . (system-start-text-interface
 				side-position-interface
@@ -1503,7 +1504,9 @@
      . (
 	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(outside-staff-priority . 1000)
 	(side-axis . ,Y)
 	(staff-padding . 1.0)
 	(padding . 1.2)
@@ -1716,7 +1719,9 @@
      . (
 	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(outside-staff-priority . 1000)
 	(side-axis . ,Y)
 	(padding . 1.2)
 	(staff-padding . 1.2)
@@ -2062,7 +2067,9 @@
      . (
 	(axes . (,Y))
 	(Y-extent . ,ly:axis-group-interface::height)
+	(X-extent . ,ly:axis-group-interface::width)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(outside-staff-priority . 1000)
 	(side-axis . ,Y)
 	(padding . 1.2)
 	(staff-padding . 1.2)

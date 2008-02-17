@@ -13,15 +13,11 @@
 This chapter discusses how to modify output.  LilyPond is extremely
 configurable; virtually every fragment of output may be changed.
 
-TODO: This chapter is still under development and this version is
-not yet complete.  Don't translate yet!
-
-
 
 @menu
 * Tweaking basics::             
 * The Internals Reference manual::  
-* Appearance of objects::       
+* Appearance of objects::
 * Placement of objects::        
 * Collisions of objects::       
 * Further tweaking::            
@@ -49,7 +45,7 @@ permit almost any desired appearance of the printed music to be
 achieved.
 
 In this section we cover the basic concepts required to understand
-tweaking.  Later we give a variety of potted commands which can
+tweaking.  Later we give a variety of ready-made commands which can
 simply be copied to obtain the same effect in your own scores, and
 at the same time we show how these commands may be constructed so 
 that you may learn how to develop your own tweaks.
@@ -80,10 +76,12 @@ constructed.  That @code{Staff} object then holds all the
 properties associated with that particular staff, for example, its
 name and its key signature, together with details of the engravers
 which have been assigned to operate within that staff's context.
-Similarly, there are @code{Voice} objects, @code{Score} objects,
-@code{Lyric} objects, and objects to represent bar lines,
- note heads, ties, dynamics, etc, each with their own set of
-properties.
+Similarly, there are objects to hold the properties of all other
+contexts, such as @code{Voice} objects, @code{Score} objects,
+@code{Lyrics} objects, as well as objects to represent all
+notational elements such as bar lines,
+note heads, ties, dynamics, etc.  Every object has its own set of
+property values.
 
 Some types of object are given special names.  Objects which
 represent items of notation on the printed output such as
@@ -133,9 +131,12 @@ verbatim.
 @headitem Object/property type           
   @tab Naming convention
   @tab Example
-@item Contexts, Layout Objects     
+@item Contexts
   @tab Aaaa or AaaaAaaaAaaa
-  @tab Staff, GrandStaff, 
+  @tab Staff, GrandStaff
+@item Layout Objects
+  @tab Aaaa or AaaaAaaaAaaa
+  @tab Slur, NoteHead
 @item Engravers
   @tab Aaaa_aaa_engraver
   @tab Clef_engraver, Note_heads_engraver
@@ -220,12 +221,12 @@ We mention it here for completeness, but for details see
 @c Maybe explain in a later iteration  -td
 
 The final tweaking command which is available is @code{\tweak}.
-It is not really a new command but a shorthand for an 
-@code{\override} command which must be used in a few special
-circumstances.  Again, we shall not discuss or use it here.  
-You may find the details in 
+This should be used to change the properties of objects which
+occur at the same musical moment, such as the notes within a
+chord.  Using @code{\override} would affect all the notes
+within a chord, whereas @code{\tweak} affects just the following
+item in the input stream.  You may find the details in
 @ruser{Objects connected to the input}.
-@c Maybe explain in a later iteration  -td
 
 @node The Internals Reference manual
 @section The Internals Reference manual
@@ -708,8 +709,8 @@ appearance of the printed music.
 
 @menu
 * Visibility and color of objects::  
-* Size of objects::             
-* Length and thickness of objects::  
+* Size of objects::
+* Length and thickness of objects::
 @end menu
 
 @node Visibility and color of objects
@@ -748,8 +749,6 @@ of these can affect the visibility of bar lines (and, of course,
 by extension, many other layout objects too.)  Let's consider
 each of these in turn.
 
-@c FIXME: is this what you meant?
-@c TODO Change all other headings like this
 @subheading stencil
 @cindex stencil property
 
@@ -1535,27 +1534,37 @@ and to a numerical value appropriate to each outside-staff object
 when the object is created.  The following table shows
 the default numerical values for some of the commonest
 outside-staff objects which are, by default, placed in the
-@code{Staff} Context.
+@code{Staff} or @code{Voice} contexts.
 
 @multitable @columnfractions .3 .3 .3
 @headitem Layout Object           
   @tab Priority     
   @tab Controls position of:
-@item @code{DynamicLineSpanner}   
-  @tab @code{ 250}  
-  @tab All dynamic markings
-@item @code{OttavaBracket}        
-  @tab @code{ 400}
-  @tab Ottava brackets
-@item @code{TextScript}           
-  @tab @code{ 450}
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Text over full-bar rests
+@item @code{TextScript}
+  @tab @code{450}
   @tab Markup text
-@item @code{TextSpanner}          
-  @tab @code{ 350}
+@item @code{OttavaBracket}
+  @tab @code{400}
+  @tab Ottava brackets
+@item @code{TextSpanner}
+  @tab @code{350}
   @tab Text spanners
+@item @code{DynamicLineSpanner}
+  @tab @code{250}
+  @tab All dynamic markings
+@item @code{VoltaBracketSpanner}
+  @tab @code{100}
+  @tab Volta brackets
+@item @code{TrillSpanner}
+  @tab @code{50}
+  @tab Spanning trills
 @end multitable
 
-Here is an example showing the default placement of these.
+Here is an example showing the default placement of some of
+these.
 
 @cindex text spanner
 @funindex \startTextSpan
@@ -1609,18 +1618,19 @@ given the following default @code{outside-staff-priority} values:
 
 @multitable @columnfractions .3 .3
 @headitem Layout Object           @tab Priority
-@item @code{BarNumber}            @tab @code{ 100}
-@item @code{MetronomeMark}        @tab @code{1000}
 @item @code{RehearsalMark}        @tab @code{1500}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{BarNumber}            @tab @code{ 100}
 @end multitable
 
-If the default values of @code{outside-staff-priority} does not
+If the default values of @code{outside-staff-priority} do not
 give you the placing you want, the priority of any of the objects
 may be overridden.  Suppose we would
 like the ottava bracket to be placed below the text spanner in the
 example above.  All we need to do is to look up the priority of
 @code{OttavaBracket} in the IR or in the tables above, and reduce
-it to a value lower than that of a @code{TextSpanner}:
+it to a value lower than that of a @code{TextSpanner}, remembering
+that @code{OttavaBracket} is created in the @code{Staff} context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
@@ -1629,7 +1639,7 @@ it to a value lower than that of a @code{TextSpanner}:
 % Place dynamics above staff
 \dynamicUp
 %Place following Ottava Bracket below Text Spanners
-\once \override OttavaBracket #'outside-staff-priority = #340
+\once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
 #(set-octavation 1)
 c' \startTextSpan
@@ -1932,16 +1942,19 @@ objects, this value is set by default to be around 1.0 or less
 @code{self-alignment-X}
 
 @cindex self-alignment-X property
-This property aligns the object to the left, to the right, or
-centers it with respect to the parent object's reference point.
-It may be used with all objects which support the
-@code{self-alignment-interface}.  In general these are objects
+This property can be used to align the object to the left, to 
+the right, or to center it with respect to the parent object's 
+reference point.  It may be used with all objects which support
+the @code{self-alignment-interface}.  In general these are objects
 that contain text.  The values are @code{LEFT}, @code{RIGHT}
-or @code{CENTER}.  The movement is limited by the length of the
-object.  Any numerical value between @code{-1} and @code{+1} may
-also be specified, where @code{-1} is left-aligned, @code{+1}
-is right-aligned, and numbers in between move the text
-progressively from left-aligned to right-aligned.
+or @code{CENTER}.  Alternatively, a numerical value between 
+@code{-1} and @code{+1} may be specified, where @code{-1} is 
+left-aligned, @code{+1} is right-aligned, and numbers in between 
+move the text progressively from left-aligned to right-aligned.
+Numerical values greater than @code{1} may be specified to move
+the text even further to the left, or less than @code{-1} to
+move the text even further to the right.  A change of @code{1}
+in the value corresponds to a movement of half the text's length.
 
 @item
 @code{extra-spacing-width}
@@ -2029,7 +2042,12 @@ This is most useful for manually adjusting the slope and height
 of beams, slurs, and tuplets.   It takes a pair of numbers
 giving the position of the left and right ends of the beam, slur,
 etc. relative to the center line of the staff.  Units are
-staff-spaces.
+staff-spaces.  Note, though, that slurs and phrasing slurs cannot
+be repositioned by arbitrarily large amounts.  LilyPond first
+generates a list of possible positions for the slur and by default
+finds the slur that @qq{looks best}.  If the @code{positions}
+property has been overridden the slur that is closest to the
+requested positions is selected from the list.
 @end table
 
 Objects do not all have all of these properties in general.
@@ -2064,7 +2082,8 @@ should be used to move them.
 Let's now see how the properties in the previous section can
 help to resolve overlapping notation.
 
-@subheading padding property
+@c FIXME: formatting
+@subheading @code{padding}
 @cindex padding property
 
 The @code{padding} property can be set to increase
@@ -2089,12 +2108,19 @@ d1
 @end lilypond
 
 Note in the second example how important it is to figure out what
-context handles a certain object.  Since the @code{MetronomeMark} object
+context handles a certain object.  Since the @code{MetronomeMark}
+object
 is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
 @ruser{Constructing a tweak}.
 
-@subheading left-padding and right-padding properties
+If the @code{padding} property of an object is increased when that
+object is in a stack of objects being positioned according to
+their @code{outside-staff-priority}, then that object and all 
+objects outside it are moved.
+ 
+
+@subheading @code{left-padding} and @code{right-padding}
 @cindex left-padding property
 @cindex right-padding property
 
@@ -2751,11 +2777,11 @@ lhMusic = \relative c' {
 @section Further tweaking
 
 @menu
-* Other uses for tweaks::       
-* Using variables for tweaks::  
-* Other sources of information::  
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
+* Other uses for tweaks::
+* Using variables for tweaks::
+* Other sources of information::
+* Advanced tweaks with Scheme::
+* Avoiding tweaks with slower processing::
 @end menu
 
 @node Other uses for tweaks
@@ -2763,23 +2789,21 @@ lhMusic = \relative c' {
 
 @itemize
 
-@cindex transparent property
+@cindex transparent property, use of
 @cindex objects, making invisible
 @cindex removing objects
 @cindex objects, removing
 @cindex hiding objects
 @cindex invisible objects
+@cindex tying notes across voices
 
 @item
-Setting the @code{transparent} property will cause an object 
-to be printed in @q{invisible ink}: the object is not printed, 
-but all its other behavior is retained.  The object still takes 
-up space, it takes part in collisions, and slurs, ties, and beams
-can be attached to it.
+@subheading Tying notes across voices
 
-The following example demonstrates how to connect different voices
-using ties.  Normally, ties only connect two notes in the same
-voice.  By introducing a tie in a different voice,
+The following example demonstrates how to connect notes in
+different voices using ties.  Normally, ties can be used to
+only to connect two notes in the same voice.  By introducing 
+a tie in a different voice,
 
 @lilypond[quote,fragment,relative=2]
 << {
@@ -2790,8 +2814,8 @@ voice.  By introducing a tie in a different voice,
 @end lilypond
 
 @noindent
-and blanking the first up-stem in that voice, the tie appears to cross
-voices:
+and blanking the first up-stem in that voice, the tie appears to 
+cross voices:
 
 @lilypond[quote,fragment,relative=2,verbatim]
 << {
@@ -2802,9 +2826,9 @@ voices:
 } >>
 @end lilypond
 
-To make sure that the just-blanked stem doesn't squeeze the tie too much,
-we also lengthen the stem, by setting the @code{length} to
-@code{8},
+To make sure that the just-blanked stem doesn't squeeze the tie 
+too much, we can also lengthen the stem, by setting the 
+@code{length} to @code{8},
 
 @lilypond[quote,fragment,relative=2,verbatim]
 << {
@@ -2816,9 +2840,12 @@ we also lengthen the stem, by setting the @code{length} to
 } >>
 @end lilypond
 
-@cindex stencil property
-
 @item
+@subheading Simulating a fermata
+
+@cindex stencil property, use of
+@cindex fermata, implementing in MIDI
+
 For outside-staff objects it is usually better to override the
 object's @code{stencil} property rather than its @code{transparent}
 property when you wish to remove it from the printed output.  
@@ -2850,6 +2877,7 @@ We show here the effect of the two methods:
     \tempo 4=120
     a a a a
   }
+  \layout { }
   \midi { }
 }
 @end lilypond
@@ -2865,42 +2893,172 @@ while the second (with no stencil) does not.
 @node Using variables for tweaks
 @subsection Using variables for tweaks
 
-TODO Add section
+Override commands are often long and tedious to type, and they
+have to be absolutely correct.  If the same overrides are to be
+used many times it may be worth defining variables to hold them.
+Suppose we wish to emphasize certain words in lyrics by printing
+them in bold italics.  The @code{\italic} and @code{\bold} 
+commands do not work within lyrics so we must instead use the 
+following @code{\override} and @code{\revert} commands:
+
+@example
+@code{\override Lyrics . LyricText #'font-shape = #'italic}
+@code{\override Lyrics . LyricText #'font-series = #'bold}
+
+@code{\revert Lyrics . LyricText #'font-shape}
+@code{\revert Lyrics . LyricText #'font-series}
+@end example
+
+These would be extremely tedious to enter if there were many words
+requiring emphasis.  So instead we define these as two variables,
+and use them as follows:
+
+@lilypond[quote,verbatim]
+emph = {
+  \override Lyrics . LyricText #'font-shape = #'italic
+  \override Lyrics . LyricText #'font-series = #'bold
+}
+norm = {
+  \revert Lyrics . LyricText #'font-shape
+  \revert Lyrics . LyricText #'font-series
+}
+
+global = { \time 4/4 \partial 4 \key c \major}
+SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+VerseOne   = \lyrics { E -- | ter -- nal \emph Fa -- ther, \norm | strong to save, }
+VerseTwo   = \lyricmode { O | \emph Christ, \norm whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { O | \emph Ho -- ly Spi -- rit, \norm | who didst brood }
+VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Sop"  { \voiceOne \global \SopMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Sop" { \VerseOne   }
+      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
+      \new Lyrics \lyricsto "Sop" { \VerseThree }
+      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+    >>
+  >>
+}
+@end lilypond
+
+
 
 @node Other sources of information
 @subsection Other sources of information
 
 The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered from
-looking at the internal LilyPond files.
-
-TODO Show example, then explain where to find ly/propert-ly.
-
-Some default settings (such as the definitions for
-@code{\header@{@}}s) are stored as @code{.ly} files.  Other
-settings (such as the definitions of markup commands) are
-stored as @code{.scm} (Scheme) files.  Further explanation is
-outside the scope of this manual; users should be warned that
-a substantial amount of technical knowledge or time is required
-to understand these files.
+looking at the internal LilyPond files.  To explore these, first
+find the directory appropriate to your system, as follows:
 
 @itemize
 
-@item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+@item Linux: 
+Navigate to 
+@file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 
 @item OSX:
+Navigate to
 @file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
-To access this, either @code{cd} into this directory from the
-Terminal, or control-click on the LilyPond application and select
-@q{Show Package Contents}.
+by either @code{cd}-ing into this directory from the
+Terminal, or control-clicking on the LilyPond application and 
+selecting @q{Show Package Contents}.
 
-@item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+@item Windows: 
+Using Windows Explorer, navigate to
+@file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
 
 @end itemize
 
-The @file{ly/} and @file{scm/} directories will be of
-particular interest.  Files such as @file{ly/property-init.ly} and
-@file{ly/declarations-init.ly} define all the common tweaks.
+Within this directory the two interesting subdirectories are
+
+@itemize
+
+@item @file{../ly/} - contains files in LilyPond format
+
+@item @file{../scm/} - contains files in Scheme format
+
+@end itemize
+
+Let's begin by looking at some files in @file{../ly/}.
+Open @file{../ly/property-init.ly} in a text editor.  The one
+you normally use for @code{.ly} files will be fine.  This file
+contains the definitions of all the standard LilyPond built-in
+commands -- like @code{\stemUp} and @code{\slurDotted}.  You will
+see that these are nothing more than definitions of variables
+containing one or a group of @code{\override} commands.  For
+example, @code{/tieDotted} is defined to be:
+
+@example
+tieDotted = @{
+  \override Tie #'dash-period = #0.75
+  \override Tie #'dash-fraction = #0.1
+@}
+@end example
+
+If you do not like the default values these built-in commands can
+be redefined easily, just like any other variable, at the
+head of your input file.
+
+These are the most useful files to be found in @file{../ly/}:
+
+@multitable @columnfractions .4 .6
+@headitem Filename
+  @tab Contents
+@item @file{../ly/engraver-init.ly}
+  @tab Definitions of engraver Contexts
+@item @file{../ly/paper-defaults.ly}
+  @tab Specifications of paper-related defaults
+@item @file{../ly/performer-init.ly}
+  @tab Definitions of performer Contexts
+@item @file{../ly/property-init.ly}
+  @tab Definitions of all common macros
+@end multitable
+
+Other settings (such as the definitions of markup commands) are
+stored as @code{.scm} (Scheme) files.  The Scheme programming
+language is used to provide a programmable interface into
+LilyPond internal operation.  Further explanation of these files
+is currently outside the scope of this manual, as a knowledge of
+the Scheme language is required.  Users should be warned that
+a substantial amount of technical knowledge or time is required
+to understand Scheme and these files.
+
+If you have this knowledge, the Scheme files which may be of
+interest are:
+
+@multitable @columnfractions .4 .6
+@headitem Filename
+  @tab Contents
+@item @file{../scm/auto-beam.scm}
+  @tab Sub-beaming defaults
+@item @file{../scm/define-grobs.scm}
+  @tab Default settings for grob properties
+@item @file{../scm/define-markup-commands.scm}
+  @tab Specify all markup commands
+@item @file{../scm/midi.scm}
+  @tab Default settings for MIDI output
+@item @file{../scm/output-lib.scm}
+  @tab Settings that affect appearance of frets, colors,
+       accidentals, bar lines, etc
+@item @file{../scm/parser-clef.scm}
+  @tab Definitions of supported clefs
+@item @file{../scm/script.scm}
+  @tab Default settings for articulations
+@end multitable
+
 
 
 @node Advanced tweaks with Scheme
@@ -2991,6 +3149,8 @@ In some cases (see issue 246), this must be done before
    ..
 }
 @end verbatim
+
+
 
 
 

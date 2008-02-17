@@ -18,31 +18,34 @@ class FatalConversionError:
     pass
 
 conversions = []
-error_file = sys.stderr 
+stderr_write = lilylib.stderr_write
+
+def warning (str):
+    stderr_write (_ ("warning: %s") % str)
 
 def conv(str):
     if re.search ('\\\\multi', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "\\multi")
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "\\multi")
+	stderr_write ('\n')
     return str
 
-conversions.append (((0,1,9), conv, '\\header { key = concat + with + operator }'))
+conversions.append (((0,1,9), conv, _ ('\\header { key = concat + with + operator }')))
 
 
 def conv (str):
     if re.search ('\\\\octave', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "\\octave")
-	error_file.write ('\n')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "\\octave")
+	stderr_write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
     #	raise FatalConversionError ()
 
     return str
 
 conversions.append ((
-	((0,1,19), conv, 'deprecated \\octave; cannot convert automatically')))
+	((0,1,19), conv, _ ('deprecated %s') % '\\octave')))
 
 
 
@@ -55,7 +58,7 @@ def conv (str):
     return str
 
 conversions.append ((
-	((0,1,20), conv, 'deprecated \\textstyle, new \\key syntax')))
+	((0,1,20), conv, _ ('deprecated \\textstyle, new \\key syntax'))))
 
 
 
@@ -74,7 +77,7 @@ def conv (str):
     return str
 
 conversions.append ((
-	((1,0,0), conv, '0.1.21 -> 1.0.0 ')))
+	((1,0,0), conv, _ ("bump version for release"))))
 
 
 
@@ -92,12 +95,12 @@ conversions.append ((
 
 def conv(str):
     if re.search ('\\\\header', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % _ ("new \\header format"))
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % _ ("new \\header format"))
+	stderr_write ('\n')
     return str
 
-conversions.append (((1,0,2), conv, '\\header { key = concat + with + operator }'))
+conversions.append (((1,0,2), conv, _ ('\\header { key = concat + with + operator }')))
 
 
 def conv(str):
@@ -126,9 +129,9 @@ conversions.append (((1,0,5), conv, 'ChoireStaff -> ChoirStaff'))
 
 def conv(str):
     if re.search ('[a-zA-Z]+ = *\\translator',str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % _ ("\\translator syntax"))
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % _ ("\\translator syntax"))
+	stderr_write ('\n')
     #	raise FatalConversionError ()
     return str
 
@@ -198,14 +201,14 @@ conversions.append (((1,0,16), conv, '\\type -> \\context, textstyle -> textStyl
 
 def conv(str):
     if re.search ('\\\\repeat',str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "\\repeat")
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "\\repeat")
+	stderr_write ('\n')
     #	raise FatalConversionError ()
     return str
 
 conversions.append (((1,0,18), conv,
-		     '\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative'))
+		     _ ('\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative')))
 
 
 def conv(str):
@@ -248,7 +251,7 @@ def conv(str):
     return str
 
 conversions.append (((1,1,52), conv,
-	'deprecate \\grouping'))
+	_ ('deprecate %s') % '\\grouping'))
 
 
 
@@ -348,14 +351,14 @@ conversions.append (((1,3,18), conv, 'staffLineLeading -> staffSpace'))
 
 def conv(str):
     if re.search ('\\\\repetitions',str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "\\repetitions")
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "\\repetitions")
+	stderr_write ('\n')
     #	raise FatalConversionError ()
     return str
 
 conversions.append (((1,3,23), conv,
-	'\\\\repetitions feature dropped'))
+	_ ('deprecate %s ') % '\\repetitions'))
 
 
 
@@ -377,9 +380,9 @@ def conv (str):
     str = re.sub ("\\\\musicalpitch *{([0-9 -]+)}",
 		  "\\\\musicalpitch #'(\\1)", str)
     if re.search ('\\\\notenames',str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % _ ("new \\notenames format"))
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % _ ("new \\notenames format"))
+	stderr_write ('\n')
     return str
 
 conversions.append (((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)'))
@@ -397,9 +400,9 @@ conversions.append (((1,3,39), conv, '\\key A ;  ->\\key a;'))
 
 def conv (str):
     if re.search ('\\[:',str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % _ ("new tremolo format"))
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % _ ("new tremolo format"))
+	stderr_write ('\n')
     return str
 
 conversions.append (((1,3,41), conv,
@@ -411,7 +414,7 @@ def conv (str):
     return str
 
 conversions.append (((1,3,42), conv,
-	'Staff_margin_engraver deprecated, use Instrument_name_engraver'))
+	_ ('Staff_margin_engraver deprecated, use Instrument_name_engraver')))
 
 
 def conv (str):
@@ -424,9 +427,9 @@ conversions.append (((1,3,49), conv,
 
 def conv (str):
     if re.search ('\\\\keysignature', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % _ ("new tremolo format"))
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % '\\keysignature')
+	stderr_write ('\n')
     return str
 
 
@@ -530,16 +533,16 @@ def conv (str):
     return str
 
 conversions.append (((1,3,93), conv,
-	'property definiton case (eg. onevoice -> oneVoice)'))
+	_ ('change property definiton case (eg. onevoice -> oneVoice)')))
 
 
 
 def conv (str):
     str = re.sub ('ChordNames*', 'ChordNames', str)
     if re.search ('\\\\textscript "[^"]* *"[^"]*"', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % _ ("new \\textscript markup text"))
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % _ ("new \\textscript markup text"))
+	stderr_write ('\n')
 
     str = re.sub ('\\textscript +("[^"]*")', '\\textscript #\\1', str)
 
@@ -632,7 +635,7 @@ def conv (str):
     str = re.sub ('\n([^ \t\n]+)[ \t]*= *', regularize_assignment, str)
     return str
 
-conversions.append (((1,3,117), conv, 'identifier names: $!foo_bar_123 -> xfooBarABC'))
+conversions.append (((1,3,117), conv, _ ('identifier names: %s') % '$!foo_bar_123 -> xfooBarABC'))
 
 
 
@@ -673,7 +676,7 @@ def conv (str):
     str = re.sub ('point-and-click +#t', 'point-and-click line-column-location', str)
     return str
 
-conversions.append (((1,3,138), conv, 'point-and-click argument changed to procedure.'))
+conversions.append (((1,3,138), conv, _ ('point-and-click argument changed to procedure.')))
 
 
 def conv (str):
@@ -733,7 +736,7 @@ def conv (str):
     str = re.sub ("([^ \t;#]);", "\\1", str)
 
     return str
-conversions.append (((1,3,146), conv, 'semicolons removed'))
+conversions.append (((1,3,146), conv, _('semicolons removed')))
 
 
 def conv (str):
@@ -789,7 +792,7 @@ def conv (str):
     return str
 
 # 40 ?
-conversions.append (((1,5,40), conv, 'breakAlignOrder property names'))
+conversions.append (((1,5,40), conv, _ ('%s property names') % 'breakAlignOrder'))
 
 
 
@@ -822,7 +825,7 @@ def conv (str):
     str = re.sub ('textNonEmpty *= *##f', "TextScript \\set #'no-spacing-rods = ##t", str)
     return str
 
-conversions.append (((1,5,58), conv, 'deprecate textNonEmpty'))
+conversions.append (((1,5,58), conv, _ ('deprecate %s') % 'textNonEmpty'))
 
 
 
@@ -852,14 +855,14 @@ conversions.append (((1,5,62), conv,
 def conv (str):
     if re.search (r'\addlyrics',str) \
 	   and re.search ('automaticMelismata', str)  == None:
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "automaticMelismata; turned on by default since 1.5.67.")
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "automaticMelismata; turned on by default since 1.5.67.")
+	stderr_write ('\n')
 	raise FatalConversionError ()
     return str
 
 conversions.append (((1,5,67), conv,
-		     'automaticMelismata turned on by default'))
+		     _ ('automaticMelismata turned on by default')))
 
 
 def conv (str):
@@ -1113,19 +1116,19 @@ conversions.append (((1,7,18), conv,
 
 def conv(str):
     if re.search( r'\\GraceContext', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "GraceContext")
-	error_file.write (FROM_TO \
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "GraceContext")
+	stderr_write (FROM_TO \
 			  % ("GraceContext", "#(add-to-grace-init .. )"))
-	error_file.write ('\n')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
 	raise FatalConversionError ()
 
     str = re.sub ('HaraKiriStaffContext', 'RemoveEmptyStaffContext', str)
     return str
 
-conversions.append (((1,7,19), conv,"remove GraceContext"))
+conversions.append (((1,7,19), conv, _ ("remove %s") % "GraceContext"))
 
 
 
@@ -1157,17 +1160,17 @@ conversions.append (((1,7,23), conv,"barNonAuto -> automaticBars"))
 
 def conv(str):
     if re.search( r'-(start|stop)Cluster', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % _ ("cluster syntax"))
-	error_file.write ('\n')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % _ ("cluster syntax"))
+	stderr_write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
 
 	raise FatalConversionError ()
 
     return str
 
-conversions.append (((1,7,24), conv,"cluster syntax"))
+conversions.append (((1,7,24), conv, _ ("cluster syntax")))
 
 
 def conv(str):
@@ -1176,7 +1179,7 @@ def conv(str):
     str = re.sub (r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\revert *#'pedal-type", '', str)
     return str
 
-conversions.append (((1,7,28), conv,"new Pedal style syntax"))
+conversions.append (((1,7,28), conv, _ ("new Pedal style syntax")))
 
 
 
@@ -1445,17 +1448,17 @@ def conv (str):
 
     return str
 
-conversions.append (((1,9,0), conv, """New relative mode,
-Postfix articulations, new text markup syntax, new chord syntax."""))
+conversions.append (((1,9,0), conv, _ ("""New relative mode,
+Postfix articulations, new text markup syntax, new chord syntax.""")))
 
 
 def conv (str):
     if re.search ("font-style",str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "font-style")
-	error_file.write ('\n')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "font-style")
+	stderr_write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
 
 	raise FatalConversionError ()
 
@@ -1469,7 +1472,7 @@ def conv (str):
     str = re.sub (r'@\\markup', r'-\\markup', str)
     return str
 
-conversions.append (((1,9,1), conv, """Remove - before articulation"""))
+conversions.append (((1,9,1), conv, _ ("""Remove - before articulation""")))
 
 def conv (str):
     str = re.sub ('ly:set-context-property',
@@ -1493,11 +1496,11 @@ def conv (str):
 		  'acciaccatura', str)
 
     if re.search ("context-spec-music", str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "context-spec-music")
-	error_file.write ('\n')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "context-spec-music")
+	stderr_write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
 
 	raise FatalConversionError ()
 
@@ -1509,12 +1512,13 @@ def conv (str):
     return str
 
 conversions.append (((1,9,3), conv,
-		     """\\acciaccatura misspelling, fingerHorizontalDirection -> fingeringOrientations"""))
+		     (_ ("%s misspelling") % "\\acciaccatura") + \
+                         ", fingerHorizontalDirection -> fingeringOrientations"))
 
 
 def conv (str):
     if re.search ('\\figures', str):
-	error_file.write ("Warning: attempting automatic \\figures conversion.  Check results!");
+	warning (_ ("attempting automatic \\figures conversion.  Check results!"));
 
 
     def figures_replace (m):
@@ -1543,7 +1547,7 @@ def conv (str):
 
     return str
 
-conversions.append (((1,9,4), conv, 'Swap < > and << >>'))
+conversions.append (((1,9,4), conv, _ ('Swap < > and << >>')))
 
 
 def conv (str):
@@ -1555,29 +1559,29 @@ conversions.append (((1,9,5), conv, 'HaraKiriVerticalGroup -> RemoveEmptyVertica
 
 def conv (str):
     if re.search ("ly:get-font", str) :
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "(ly:-get-font")
-	error_file.write ('\n')
-	error_file.write (FROM_TO \
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "(ly:-get-font")
+	stderr_write ('\n')
+	stderr_write (FROM_TO \
 			  % ("(ly:paper-get-font (ly:grob-get-paper foo) .. )",
 			     "(ly:paper-get-font (ly:grob-get-paper foo) .. )"))
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
 	raise FatalConversionError ()
 
     if re.search ("\\pitch *#", str) :
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "\\pitch")
-	error_file.write ('\n')
-	error_file.write ("Use Scheme code to construct arbitrary note events.")
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "\\pitch")
+	stderr_write ('\n')
+	stderr_write (_ ("Use Scheme code to construct arbitrary note events."))
+	stderr_write ('\n')
 
 	raise FatalConversionError ()
 
     return str
 
 
-conversions.append (((1,9,6), conv, 'ly:get-font deprecated.'))
+conversions.append (((1,9,6), conv, _ ('deprecate %s') % 'ly:get-font'))
 
 def conv (str):
     def sub_alteration (m):
@@ -1601,44 +1605,44 @@ def conv (str):
 
     m= re.search ("\\\\outputproperty #([^#]+)[\t\n ]*#'([^ ]+)", str)
     if m:
-	error_file.write (\
+	stderr_write (_ (\
 		r"""\outputproperty found,
 Please hand-edit, using
 
   \applyoutput #(outputproperty-compatibility %s '%s <GROB PROPERTY VALUE>)
 
-as a substitution text.""" % (m.group (1), m.group (2)) )
+as a substitution text.""") % (m.group (1), m.group (2)) )
 	raise FatalConversionError ()
 
     if re.search ("ly:(make-pitch|pitch-alteration)", str) \
 	   or re.search ("keySignature", str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "pitches")
-	error_file.write ('\n')
-	error_file.write (
-	    """The alteration field of Scheme pitches was multiplied by 2
-to support quarter tone accidentals.  You must update the following constructs by manually:
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "pitches")
+	stderr_write ('\n')
+	stderr_write (
+	    _ ("""The alteration field of Scheme pitches was multiplied by 2
+to support quarter tone accidentals.  You must update the following constructs manually:
 
 * calls of ly:make-pitch and ly:pitch-alteration
 * keySignature settings made with \property
-""")
+"""))
 	raise FatalConversionError ()
 
     return str
 conversions.append (((1,9,7), conv,
-		     '''use symbolic constants for alterations,
-remove \\outputproperty, move ly:verbose into ly:get-option'''))
+		     _ ('''use symbolic constants for alterations,
+remove \\outputproperty, move ly:verbose into ly:get-option''')))
 
 
 def conv (str):
     if re.search ("dash-length",str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "dash-length")
-	error_file.write ('\n')
-	error_file.write (FROM_TO % ("dash-length", "dash-fraction"))
-	error_file.write ('\n')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "dash-length")
+	stderr_write ('\n')
+	stderr_write (FROM_TO % ("dash-length", "dash-fraction"))
+	stderr_write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
 	raise FatalConversionError ()
     return str
 
@@ -1685,7 +1689,7 @@ def conv (str):
     str = re.sub (r"\\property ([a-zA-Z]+)\s*\.\s*automaticMelismata\s*=\s*##([ft])", func, str)
     return str
 
-conversions.append (((2,1,4), conv, """removal of automaticMelismata; use melismaBusyProperties instead."""))
+conversions.append (((2,1,4), conv, _ ("""removal of automaticMelismata; use melismaBusyProperties instead.""")))
 
 
 
@@ -1784,11 +1788,11 @@ conversions.append (((2,1,16), conv, """\\musicglyph #"accidentals-NUM" -> \\sha
 def conv (str):
 
     if re.search (r'\\partcombine', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "\\partcombine")
-	error_file.write ('\n')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "\\partcombine")
+	stderr_write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
 	raise FatalConversionError ()
 
     # this rule doesn't really work,
@@ -1800,7 +1804,7 @@ def conv (str):
 
     return str
 
-conversions.append (((2,1,17), conv, """\\partcombine syntax change to \\newpartcombine"""))
+conversions.append (((2,1,17), conv, _ ("\\partcombine syntax change to \\newpartcombine")))
 
 
 def conv (str):
@@ -1817,7 +1821,7 @@ conversions.append (((2,1,18), conv, """\\newpartcombine -> \\partcombine,
 
 def conv (str):
     if re.search ('include "drumpitch', str):
-	error_file.write ("Drums found. Enclose drum notes in \\drummode")
+	stderr_write (_ ("Drums found. Enclose drum notes in \\drummode"))
 
     str = re.sub (r'\\include "drumpitch-init.ly"','', str)
 
@@ -1828,14 +1832,14 @@ def conv (str):
 
 
     if re.search ('drums->paper', str):
-	error_file.write ("\nDrum notation found. Check file manually!")
+	stderr_write (_ ("\n%s found. Check file manually!\n") % _("Drum notation"))
 
     str = re.sub (r"""\\apply\s+#\(drums->paper\s+'([a-z]+)\)""",
 		  r"""\property DrumStaff.drumStyleTable = #\1-style""",
 		  str)
 
     if re.search ('Thread', str):
-	error_file.write ("\nThread found. Check file manually!\n");
+	stderr_write (_ ("\n%s found. Check file manually!\n") % "Thread");
 
     str = re.sub (r"""(\\once\s*)?\\property\s+Thread\s*\.\s*NoteHead\s*"""
 		  + r"""\\(set|override)\s*#'style\s*=\s*#'harmonic"""
@@ -1846,7 +1850,7 @@ def conv (str):
     str = re.sub (r"""Thread""", """Voice""", str)
 
     if re.search ('\bLyrics\b', str):
-	error_file.write ("\nLyrics found. Check file manually!\n");
+	stderr_write (_ ("\n%s found. Check file manually!\n") % "Lyrics");
 
     str = re.sub (r"""LyricsVoice""", r"""L@ricsVoice""", str)
     str = re.sub (r"""\bLyrics\b""", r"""LyricsVoice""", str)
@@ -1856,8 +1860,8 @@ def conv (str):
 
     return str
 
-conversions.append (((2,1,19), conv, """Drum notation changes, Removing \\chordmodifiers, \\notenames.
-Harmonic notes. Thread context removed. Lyrics context removed."""))
+conversions.append (((2,1,19), conv, _ ("""Drum notation changes, Removing \\chordmodifiers, \\notenames.
+Harmonic notes. Thread context removed. Lyrics context removed.""")))
 
 def conv (str):
     str = re.sub (r'nonevent-skip', 'skip-music', str)
@@ -1885,8 +1889,8 @@ brew_molecule -> print
 brew-new-markup-molecule -> Text_item::print
 LyricsVoice -> Lyrics
 tupletInvisible -> TupletBracket \set #'transparent
-Grob::preset_extent removed.
-""" ))
+%s.
+""" % (_ ("remove %s") % "Grob::preset_extent")))
 
 
 def conv (str):
@@ -1913,11 +1917,11 @@ def conv (str):
     str = re.sub ('Molecule', 'Stencil', str)
     return str
 
-conversions.append (((2,1,22), conv, """new syntax for property settings:
+conversions.append (((2,1,22), conv, """%s
 	\\set A.B = #C , \\unset A.B
 	\\override A.B #C = #D, \\revert A.B #C
 
-"""))
+""" % _ ("new syntax for property settings:")))
 
 def conv (str):
     def subst_in_trans (match):
@@ -1950,7 +1954,8 @@ def conv (str):
 
     return str
 
-conversions.append (((2,1,23), conv, """Property setting syntax in \\translator{ }"""))
+conversions.append (((2,1,23), conv, _ ("Property setting syntax in \\translator{ }")))
+
 def conv (str):
     str = re.sub (r'music-list\?', 'ly:music-list?', str)
     str = re.sub (r'\|\s*~', '~ |', str)
@@ -1967,11 +1972,11 @@ def conv (str):
     str = re.sub (r'ly:get-broken-into', 'ly:spanner-broken-into', str)
     str = re.sub (r'Melisma_engraver', 'Melisma_translator', str)
     if re.search ("ly:get-paper-variable", str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "ly:paper-get-variable")
-	error_file.write ('\n')
-	error_file.write ('use (ly:paper-lookup (ly:grob-paper ))')
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "ly:paper-get-variable")
+	stderr_write ('\n')
+	stderr_write (_ ('use %s') % '(ly:paper-lookup (ly:grob-paper ))')
+	stderr_write ('\n')
 	raise FatalConversionError ()
 
     str = re.sub (r'\\defaultAccidentals', "#(set-accidental-style 'default)", str)
@@ -1987,7 +1992,7 @@ def conv (str):
 
     return str
 
-conversions.append (((2,1,25), conv, """Scheme grob function renaming"""))
+conversions.append (((2,1,25), conv, _ ("Scheme grob function renaming")))
 
 
 def conv (str):
@@ -2000,11 +2005,11 @@ def conv (str):
 
     return str
 
-conversions.append (((2,1,26), conv, """More Scheme function renaming"""))
+conversions.append (((2,1,26), conv, _ ("More Scheme function renaming")))
 
 def conv (str):
     def subst (m):
-	g = string.atoi (m.group (2))
+	g = int (m.group (2))
 	o = g / 12
 	g -= o * 12
 	if g <  0:
@@ -2116,7 +2121,7 @@ def conv (str):
     return str
 
 conversions.append (((2, 2, 0), conv,
-		     '''clean up version. '''))
+		     _ ("bump version for release")))
 
 def conv (str):
     return re.sub (r'\\apply\b', r'\\applymusic', str)
@@ -2126,15 +2131,15 @@ conversions.append (((2, 3, 1), conv,
 
 def conv (str):
     if re.search ('textheight', str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "textheight")
-	error_file.write ('\n')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
-	error_file.write (
-"""Page layout has been changed, using paper size and margins.
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "textheight")
+	stderr_write ('\n')
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
+	stderr_write (
+_ ("""Page layout has been changed, using paper size and margins.
 textheight is no longer used.
-""")
+"""))
     str = re.sub (r'\\OrchestralScoreContext', '\\Score', str)
     def func(m):
 	if m.group(1) not in ['RemoveEmptyStaff',
@@ -2158,7 +2163,7 @@ def conv (str):
     return str
 
 conversions.append (((2, 3, 4), conv,
-		     '''remove \\notes'''))
+		     _ ('remove %s') % '\\notes'))
 
 
 
@@ -2194,7 +2199,7 @@ def conv (str):
     str = re.sub (r'\\addlyrics', r'\\oldaddlyrics', str)
     str = re.sub (r'\\newlyrics', r'\\addlyrics', str)
     if re.search (r"\\override\s*TextSpanner", str):
-	error_file.write ("\nWarning: TextSpanner has been split into DynamicTextSpanner and TextSpanner\n")
+	stderr_write ("\nWarning: TextSpanner has been split into DynamicTextSpanner and TextSpanner\n")
     return str
 
 conversions.append (((2, 3, 10), conv,
@@ -2251,8 +2256,8 @@ def conv (str):
     return str
 
 conversions.append (((2, 3, 16), conv,
-		     '''\\foo -> \\foomode (for chords, notes, etc.)
-fold \\new FooContext \\foomode into \\foo.'''))
+		     _ ('''\\foo -> \\foomode (for chords, notes, etc.)
+fold \\new FooContext \\foomode into \\foo.''')))
 
 def conv (str):
     str = re.sub (r'(slur|stem|phrasingSlur|tie|dynamic|dots|tuplet|arpeggio|)Both', r'\1Neutral', str)
@@ -2261,8 +2266,8 @@ def conv (str):
     return str
 
 conversions.append (((2, 3, 17), conv,
-		     '''\\foo -> \\foomode (for chords, notes, etc.)
-fold \\new FooContext \\foomode into \\foo.'''))
+		     '''slurBoth -> slurNeutral, stemBoth -> stemNeutral, etc.
+\\applymusic #(remove-tag 'foo) -> \\removeWithTag 'foo'''))
 
 
 def conv (str):
@@ -2277,12 +2282,12 @@ def conv (str):
     str = re.sub (r'\\paper', r'\\layout', str)
     str = re.sub (r'\\bookpaper', r'\\paper', str)
     if re.search ('paper-set-staff-size', str):
-	error_file.write ('''\nWarning: staff size should be changed at top-level
+	warning (_ ('''staff size should be changed at top-level
 with
 
   #(set-global-staff-size <STAFF-HEIGHT-IN-POINT>)
 
-''')
+'''))
 
 
     str = re.sub (r'#\(paper-set-staff-size', '%Use set-global-staff-size at toplevel\n% #(layout-set-staff-size', str)
@@ -2290,8 +2295,7 @@ with
     
 conversions.append (((2, 3, 22),
 		     conv,
-		     '''paper -> layout
- bookpaper -> paper''' ))
+		     '''paper -> layout, bookpaper -> paper''' ))
 
 
 def conv (str):
@@ -2313,7 +2317,7 @@ def conv (str):
 
 conversions.append (((2, 3, 24),
 		     conv,
-		     '''regularize other identifiers.'''))
+		     _ ('''regularize other identifiers''')))
 
 def conv (str):
     str = re.sub ('petrucci_c1', 'petrucci-c1', str)
@@ -2330,19 +2334,18 @@ def conv (str):
 
 conversions.append (((2, 4, 0),
 		     conv,
-		     ''))
+		     _ ("bump version for release")))
 
 
 def conv (str):
     str = re.sub (r'\\quote\s+"?([a-zA-Z0-9]+)"?\s+([0-9.*/]+)',
 		  r'\\quoteDuring #"\1" { \skip \2 }',
-		  str
-		  )
+		  str)
     return str
 
 conversions.append (((2, 5, 0),
 		     conv,
-		     ''))
+		     '\\quote -> \\quoteDuring'))
 
 
 def conv (str):
@@ -2402,20 +2405,20 @@ def conv (str):
 	if encoding == 'latin1':
 	    return match.group (2)
 
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % ("\\encoding: %s" % encoding))
-	error_file.write ('\n')
-	error_file.write (_ ("LilyPond source must be UTF-8"))
-	error_file.write ('\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % ("\\encoding: %s" % encoding))
+	stderr_write ('\n')
+	stderr_write (_ ("LilyPond source must be UTF-8"))
+	stderr_write ('\n')
 	if encoding == 'TeX':
-	    error_file.write (_ ("Try the texstrings backend"))
-	    error_file.write ('\n')
+	    stderr_write (_ ("Try the texstrings backend"))
+	    stderr_write ('\n')
 	else:
-	    error_file.write ( _("Do something like: %s") % \
+	    stderr_write ( _("Do something like: %s") % \
 			       ("recode %s..utf-8 FILE" % encoding))
-	    error_file.write ('\n')
-	error_file.write (_ ("Or save as UTF-8 in your editor"))
-	error_file.write ('\n')
+	    stderr_write ('\n')
+	stderr_write (_ ("Or save as UTF-8 in your editor"))
+	stderr_write ('\n')
 	raise FatalConversionError ()
 
 	return match.group (0)
@@ -2446,27 +2449,27 @@ def conv (str):
 
 conversions.append (((2, 5, 13),
 		     conv,
-		     '\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click'))
+		     _ ('\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click')))
 
 
 def conv (str):
     if re.search ("ly:stencil-set-extent!", str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "ly:stencil-set-extent!")
-	error_file.write ('\n')
-	error_file.write ('use (set! VAR (ly:make-stencil (ly:stencil-expr VAR) X-EXT Y-EXT))\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "ly:stencil-set-extent!")
+	stderr_write ('\n')
+	stderr_write ('use (set! VAR (ly:make-stencil (ly:stencil-expr VAR) X-EXT Y-EXT))\n')
 	raise FatalConversionError ()
     if re.search ("ly:stencil-align-to!", str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % "ly:stencil-align-to!")
-	error_file.write ('\n')
-	error_file.write ('use (set! VAR (ly:stencil-aligned-to VAR AXIS DIR))\n')
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % "ly:stencil-align-to!")
+	stderr_write ('\n')
+	stderr_write ('use (set! VAR (ly:stencil-aligned-to VAR AXIS DIR))\n')
 	raise FatalConversionError ()
     return str
 
 conversions.append (((2, 5, 17),
 		     conv,
-		     'ly:stencil-set-extent! removed'))
+		     _ ('remove %s') % 'ly:stencil-set-extent!'))
 
 def conv (str):
     str = re.sub (r"ly:warn\b", 'ly:warning', str)
@@ -2478,21 +2481,21 @@ conversions.append (((2, 5, 18),
 def conv (str):
     if re.search ("(override-|revert-)auto-beam-setting", str)\
        or re.search ("autoBeamSettings", str):
-	error_file.write ('\n')
-	error_file.write (NOT_SMART % _ ("auto beam settings"))
-	error_file.write ('\n')
-	error_file.write ('''
+	stderr_write ('\n')
+	stderr_write (NOT_SMART % _ ("auto beam settings"))
+	stderr_write ('\n')
+	stderr_write (_ ('''
 Auto beam settings must now specify each interesting moment in a measure
 explicitely; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.
-''')
-	error_file.write (UPDATE_MANUALLY)
-	error_file.write ('\n')
+'''))
+	stderr_write (UPDATE_MANUALLY)
+	stderr_write ('\n')
 	raise FatalConversionError ()
     return str
 
 conversions.append (((2, 5, 21),
 		     conv,
-		     'warn about auto beam settings'))
+		     _ ('warn about auto beam settings')))
 
 def conv (str):
     str = re.sub (r"unfoldrepeats", 'unfoldRepeats', str)
@@ -2500,16 +2503,13 @@ def conv (str):
     return str
 
 conversions.append (((2, 5, 25), conv,
-
-		     'unfoldrepeats -> unfoldRepeats,'
-		     + 'compressmusic -> compressMusic'))
+	     'unfoldrepeats -> unfoldRepeats, compressmusic -> compressMusic'))
 
 def conv (str):
     return str
 
 conversions.append (((2, 6, 0), conv,
-
-		     'dummy rule for 2.6')) 
+		     _ ("bump version for release")))
 
 
 
@@ -2547,7 +2547,7 @@ def conv (str):
     return str
 
 conversions.append (((2, 7, 4), conv,
-		     '''keyAccidentalOrder->keyAlterationOrder'''))
+		     '''keyAccidentalOrder -> keyAlterationOrder'''))
 
 
 
@@ -2563,7 +2563,7 @@ def conv (str):
     return str
 
 conversions.append (((2, 7, 6), conv,
-		     '''Performer_group_performer -> Performer_group, Engraver_group_engraver -> Engraver_group
+		     '''Performer_group_performer -> Performer_group, Engraver_group_engraver -> Engraver_group,
 inside-slur -> avoid-slur'''))
 
 
@@ -2617,15 +2617,15 @@ def conv (str):
 		subber, str)
 
     if re.search ('bar-size-procedure', str):
-	error_file.write (NOT_SMART % "bar-size-procedure")
+	stderr_write (NOT_SMART % "bar-size-procedure")
     if re.search ('space-function', str):
-	error_file.write (NOT_SMART % "space-function")
+	stderr_write (NOT_SMART % "space-function")
     if re.search ('verticalAlignmentChildCallback', str):
-	error_file.write ('verticalAlignmentChildCallback has been deprecated') 
+	stderr_write (_ ('verticalAlignmentChildCallback has been deprecated'))
     return str
 
 conversions.append (((2, 7, 13), conv,
-		     '''layout engine refactoring. [FIXME] '''))
+		     '''layout engine refactoring [FIXME]'''))
 
 
 
@@ -2649,18 +2649,18 @@ def conv (str):
     return str
 
 conversions.append (((2, 7, 14), conv,
-		     '''Remove callbacks property, deprecate XY-extent-callback. '''))
+		     _ ('Remove callbacks property, deprecate XY-extent-callback.')))
 
 
 def conv (str):
     if re.search ('[XY]-offset-callbacks', str):
-	error_file.write (NOT_SMART % "[XY]-offset-callbacks")
+	stderr_write (NOT_SMART % "[XY]-offset-callbacks")
     if re.search ('position-callbacks', str):
-	error_file.write (NOT_SMART % "position-callbacks")
+	stderr_write (NOT_SMART % "position-callbacks")
     return str
 
 conversions.append (((2, 7, 15), conv,
-		     '''Use grob closures iso. XY-offset-callbacks.'''))
+		     _ ('Use grob closures iso. XY-offset-callbacks.')))
 
 
 def conv (str):
@@ -2682,7 +2682,7 @@ def conv (str):
     return str
 
 conversions.append (((2, 7, 24), conv,
-		     """deprecate number-visibility""")) 
+		     _ ('deprecate %s') % 'number-visibility')) 
 
 def conv (str):
     str = re.sub (r"ly:spanner-get-bound", "ly:spanner-bound", str)
@@ -2767,7 +2767,7 @@ def conv (str):
     return str
 
 conversions.append (((2, 7, 32), conv,
-		     """foobar -> foo-bar for \paper, \layout"""))
+		     _ ("foobar -> foo-bar for \paper, \layout")))
 
 def conv (str):
     str = re.sub ('debug-beam-quanting', 'debug-beam-scoring', str)
@@ -2828,9 +2828,9 @@ def conv (str):
                   r"""\\override \g<context>TupletNumber #'text = #tuplet-number::calc-fraction-text""", str)
 
     if re.search ('tupletNumberFormatFunction', str):
-        error_file.write ("\n")
-	error_file.write ("tupletNumberFormatFunction has been removed. Use #'text property on TupletNumber")
-        error_file.write ("\n")
+        stderr_write ("\n")
+	stderr_write ("tupletNumberFormatFunction has been removed. Use #'text property on TupletNumber")
+        stderr_write ("\n")
         
     return str
 
@@ -2874,7 +2874,7 @@ def conv (str):
     str = re.sub (r'\\midi\s*{\s*\\tempo ([0-9]+)\s*([.]*)\s*=\s*([0-9]+)\s*}', sub_tempo, str)
     return str
 
-conversions.append (((2, 9, 16), conv, """deprecate \\tempo in \\midi"""))
+conversions.append (((2, 9, 16), conv, _ ("deprecate \\tempo in \\midi")))
 
 def conv (str):
     str = re.sub ('printfirst-page-number', 'print-first-page-number', str)
@@ -2886,7 +2886,7 @@ conversions.append (((2, 9, 19), conv, """printfirst-page-number -> print-first-
 def conv (str):
     return str
 
-conversions.append (((2, 10, 0), conv, """bump version for release"""))
+conversions.append (((2, 10, 0), conv, _ ("bump version for release")))
 
 
 def conv (str):
@@ -2909,7 +2909,7 @@ def conv (str):
     
     return str
 
-conversions.append (((2, 11, 5), conv, """deprecate cautionary-style. Use AccidentalCautionary properties"""))
+conversions.append (((2, 11, 5), conv, _ ("deprecate cautionary-style. Use AccidentalCautionary properties")))
 
                     
 
@@ -2938,7 +2938,7 @@ def conv (str):
                        'standard-alteration-glyph-name-alist')
     return str
 
-conversions.append (((2, 11, 6), conv, """Rename accidental glyphs, use glyph-name-alist."""))
+conversions.append (((2, 11, 6), conv, _ ("Rename accidental glyphs, use glyph-name-alist.")))
 
 
 def conv (str):
@@ -2948,13 +2948,12 @@ def conv (str):
                   r"\override Beam #'breakable", str)
     str = re.sub (r'addquote' , 'addQuote', str)
     if re.search ("Span_dynamic_performer", str):
-        error_file.write ("Span_dynamic_performer has been merged into Dynamic_performer")
+        stderr_write ("Span_dynamic_performer has been merged into Dynamic_performer")
 
     return str
 
 conversions.append (((2, 11, 10), conv, """allowBeamBreak -> Beam #'breakable = ##t
 addquote -> addQuote
-
 """))
 
 def conv (str):
@@ -2971,8 +2970,8 @@ def conv (str):
                   str)
 
     if re.search ('edge-text', str):
-	error_file.write (NOT_SMART % _ ("edge-text settings for TextSpanner."))
-	error_file.write (_ ("Use\n\n%s") %
+	stderr_write (NOT_SMART % _ ("edge-text settings for TextSpanner."))
+	stderr_write (_ ("Use\n\n%s") %
                           "\t\\override TextSpanner #'bound-details #'right #'text = <right-text>\n"
                           "\t\\override TextSpanner #'bound-details #'left #'text = <left-text>\n")
 
@@ -3018,13 +3017,14 @@ def conv (str):
                   r"scripts.caesura.curved", str)
 
     if re.search ('dash-fraction', str):
-	error_file.write (NOT_SMART % _ ("all settings related to dashed lines.\n"))
-	error_file.write (_ ("Use \\override ... #'style = #'line for solid lines and\n"))
-	error_file.write (_ ("\t\\override ... #'style = #'dashed-line for dashed lines."))
+	stderr_write (NOT_SMART % _ ("all settings related to dashed lines.\n"))
+	stderr_write (_ ("Use \\override ... #'style = #'line for solid lines and\n"))
+	stderr_write (_ ("\t\\override ... #'style = #'dashed-line for dashed lines."))
 
     return str
 
-conversions.append (((2, 11, 35), conv, """scripts.caesura -> scripts.caesura.curved. Use #'style not #'dash-fraction to select solid/dashed lines."""))
+conversions.append (((2, 11, 35), conv, """scripts.caesura -> scripts.caesura.curved.
+""" + _ ("Use #'style not #'dash-fraction to select solid/dashed lines.")))
 
 def conv (str):
     str = re.sub (r"setEasyHeads", r"easyHeadsOn", str)

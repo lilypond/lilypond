@@ -8,13 +8,13 @@ import string
 import codecs
 import zipfile
 import StringIO
-from gettext import gettext as _
 
 """
 @relocate-preamble@
 """
 
 import lilylib as ly
+_ = ly._
 
 import musicxml
 import musicexp
@@ -190,9 +190,9 @@ class PartGroupInfo:
     def add_end (self, g):
         self.end[getattr (g, 'number', "1")] = g
     def print_ly (self, printer):
-        error_message ("Unprocessed PartGroupInfo %s encountered" % self)
+        error_message (_ ("Unprocessed PartGroupInfo %s encountered") % self)
     def ly_expression (self):
-        error_message ("Unprocessed PartGroupInfo %s encountered" % self)
+        error_message (_ ("Unprocessed PartGroupInfo %s encountered") % self)
         return ''
 
 def staff_attributes_to_string_tunings (mxl_attr):
@@ -423,8 +423,8 @@ def rational_to_lily_duration (rational_len):
     d.duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (rational_len.denominator (), -1)
     d.factor = Rational (rational_len.numerator ())
     if d.duration_log < 0:
-        error_message ("Encountered rational duration with denominator %s, "
-                       "unable to convert to lilypond duration" %
+        error_message (_ ("Encountered rational duration with denominator %s, "
+                       "unable to convert to lilypond duration") %
                        rational_len.denominator ())
         # TODO: Test the above error message
         return None
@@ -606,7 +606,7 @@ def musicxml_key_to_lily (attributes):
         start_pitch.step = n
         start_pitch.alteration = a
     except  KeyError:
-        error_message ('unknown mode %s' % mode)
+        error_message (_ ("unknown mode %s, expecting 'major' or 'minor'") % mode)
 
     fifth = musicexp.Pitch()
     fifth.step = 4
@@ -644,7 +644,7 @@ class Marker (musicexp.Music):
         self.direction = 0
         self.event = None
     def print_ly (self, printer):
-        sys.stderr.write ("Encountered unprocessed marker %s\n" % self)
+        ly.stderr_write (_ ("Encountered unprocessed marker %s\n") % self)
         pass
     def ly_expression (self):
         return ""
@@ -705,12 +705,15 @@ def musicxml_barline_to_lily (barline):
     return retval.values ()
 
 spanner_event_dict = {
-    'slur' : musicexp.SlurEvent,
     'beam' : musicexp.BeamEvent,
+    'dashes' : musicexp.TextSpannerEvent,
+    'bracket' : musicexp.BracketSpannerEvent,
     'glissando' : musicexp.GlissandoEvent,
-    'pedal' : musicexp.PedalEvent,
-    'wavy-line' : musicexp.TrillSpanEvent,
     'octave-shift' : musicexp.OctaveShiftEvent,
+    'pedal' : musicexp.PedalEvent,
+    'slide' : musicexp.GlissandoEvent,
+    'slur' : musicexp.SlurEvent,
+    'wavy-line' : musicexp.TrillSpanEvent,
     'wedge' : musicexp.HairpinEvent
 }
 spanner_type_dict = {
@@ -720,6 +723,7 @@ spanner_type_dict = {
     'decreschendo': -1,
     'diminuendo': -1,
     'continue': 0,
+    'change': 0,
     'up': -1,
     'down': -1,
     'stop': 1,
@@ -734,7 +738,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     if func:
         ev = func()
     else:
-        error_message ('unknown span event %s' % mxl_event)
+        error_message (_ ('unknown span event %s') % mxl_event)
 
 
     type = mxl_event.get_type ()
@@ -744,7 +748,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     if span_direction != None:
         ev.span_direction = span_direction
     else:
-        error_message ('unknown span type %s for %s' % (type, name))
+        error_message (_ ('unknown span type %s for %s') % (type, name))
 
     ev.set_span_type (type)
     ev.line_type = getattr (mxl_event, 'line-type', 'solid')
@@ -755,7 +759,7 @@ def musicxml_spanner_to_lily_event (mxl_event):
     return ev
 
 def musicxml_direction_to_indicator (direction):
-    return { "above": 1, "upright": 1, "up":1, "below": -1, "downright": -1, "down": -1, "inverted": -1 }.get (direction, 0)
+    return { "above": 1, "upright": 1, "up": 1, "below": -1, "downright": -1, "down": -1, "inverted": -1 }.get (direction, 0)
 
 def musicxml_fermata_to_lily_event (mxl_event):
     ev = musicexp.ArticulationEvent ()
@@ -770,6 +774,12 @@ def musicxml_fermata_to_lily_event (mxl_event):
 
 def musicxml_arpeggiate_to_lily_event (mxl_event):
     ev = musicexp.ArpeggioEvent ()
+    ev.direction = musicxml_direction_to_indicator (getattr (mxl_event, 'direction', None))
+    return ev
+
+def musicxml_nonarpeggiate_to_lily_event (mxl_event):
+    ev = musicexp.ArpeggioEvent ()
+    ev.non_arpeggiate = True
     ev.direction = musicxml_direction_to_indicator (getattr (mxl_event, 'direction', None))
     return ev
 
@@ -943,7 +953,7 @@ def musicxml_dynamics_to_lily_event (dynentry):
         dynamicstext = dynamicsname
         dynamicsname = string.replace (dynamicsname, "-", "")
         additional_definitions[dynamicsname] = dynamicsname + \
-              "=#(make-dynamic-script \"" + dynamicstext + "\")"
+              " = #(make-dynamic-script \"" + dynamicstext + "\")"
         needed_additional_definitions.append (dynamicsname)
     event = musicexp.DynamicsEvent ()
     event.type = dynamicsname
@@ -1023,34 +1033,146 @@ def musicxml_words_to_lily_event (words):
     return event
 
 
-direction_spanners = [ 'octave-shift', 'pedal', 'wedge' ]
+# convert accordion-registration to lilypond.
+# Since lilypond does not have any built-in commands, we need to create
+# the markup commands manually and define our own variables.
+# Idea was taken from: http://lsr.dsi.unimi.it/LSR/Item?id=194
+def musicxml_accordion_to_markup (mxl_event):
+    commandname = "accReg"
+    command = ""
+
+    high = mxl_event.get_maybe_exist_named_child ('accordion-high')
+    if high:
+        commandname += "H"
+        command += """\\combine
+          \\raise #2.5 \\musicglyph #\"accordion.accDot\"
+          """
+    middle = mxl_event.get_maybe_exist_named_child ('accordion-middle')
+    if middle:
+        # By default, use one dot (when no or invalid content is given). The 
+        # MusicXML spec is quiet about this case...
+        txt = 1
+        try:
+          txt = string.atoi (middle.get_text ())
+        except ValueError:
+            pass
+        if txt == 3:
+            commandname += "MMM"
+            command += """\\combine
+          \\raise #1.5 \\musicglyph #\"accordion.accDot\"
+          \\combine
+          \\raise #1.5 \\translate #(cons 1 0) \\musicglyph #\"accordion.accDot\"
+          \\combine
+          \\raise #1.5 \\translate #(cons -1 0) \\musicglyph #\"accordion.accDot\"
+          """
+        elif txt == 2:
+            commandname += "MM"
+            command += """\\combine
+          \\raise #1.5 \\translate #(cons 0.5 0) \\musicglyph #\"accordion.accDot\"
+          \\combine
+          \\raise #1.5 \\translate #(cons -0.5 0) \\musicglyph #\"accordion.accDot\"
+          """
+        elif not txt <= 0:
+            commandname += "M"
+            command += """\\combine
+          \\raise #1.5 \\musicglyph #\"accordion.accDot\"
+          """
+    low = mxl_event.get_maybe_exist_named_child ('accordion-low')
+    if low:
+        commandname += "L"
+        command += """\\combine
+          \\raise #0.5 \musicglyph #\"accordion.accDot\"
+          """
+
+    command += "\musicglyph #\"accordion.accDiscant\""
+    command = "\\markup { \\normalsize %s }" % command
+    # Define the newly built command \accReg[H][MMM][L]
+    additional_definitions[commandname] = "%s = %s" % (commandname, command)
+    needed_additional_definitions.append (commandname)
+    return "\\%s" % commandname
+
+def musicxml_accordion_to_ly (mxl_event):
+    txt = musicxml_accordion_to_markup (mxl_event)
+    if txt:
+        ev = musicexp.MarkEvent (txt)
+        return ev
+    return
+
+
+def musicxml_rehearsal_to_ly_mark (mxl_event):
+    text = mxl_event.get_text ()
+    if not text:
+        return
+    # default is boxed rehearsal marks!
+    encl = "box"
+    if hasattr (mxl_event, 'enclosure'):
+        encl = {"none": None, "square": "box", "circle": "circle" }.get (mxl_event.enclosure, None)
+    if encl:
+        text = "\\%s { %s }" % (encl, text)
+    ev = musicexp.MarkEvent ("\\markup { %s }" % text)
+    return ev
+
+# translate directions into Events, possible values:
+#   -) string  (MarkEvent with that command)
+#   -) function (function(mxl_event) needs to return a full Event-derived object
+#   -) (class, name)  (like string, only that a different class than MarkEvent is used)
+directions_dict = {
+    'accordion-registration' : musicxml_accordion_to_ly,
+    'coda' : (musicexp.MusicGlyphMarkEvent, "coda"),
+#     'damp' : ???
+#     'damp-all' : ???
+#     'eyeglasses': ??????
+#     'harp-pedals' : 
+#     'image' : 
+#     'metronome' : 
+    'rehearsal' : musicxml_rehearsal_to_ly_mark,
+#     'scordatura' : 
+    'segno' : (musicexp.MusicGlyphMarkEvent, "segno"),
+    'words' : musicxml_words_to_lily_event,
+}
+directions_spanners = [ 'octave-shift', 'pedal', 'wedge', 'dashes', 'bracket' ]
 
 def musicxml_direction_to_lily (n):
     # TODO: Handle the <staff> element!
     res = []
+    # placement applies to all children!
+    dir = None
+    if hasattr (n, 'placement') and options.convert_directions:
+        dir = musicxml_direction_to_indicator (n.placement)
     dirtype_children = []
+    # TODO: The direction-type is used for grouping (e.g. dynamics with text), 
+    #       so we can't simply flatten them out!
     for dt in n.get_typed_children (musicxml.DirType):
         dirtype_children += dt.get_all_children ()
 
     for entry in dirtype_children:
+        # backets, dashes, octave shifts. pedal marks, hairpins etc. are spanners:
+        if entry.get_name() in directions_spanners:
+            event = musicxml_spanner_to_lily_event (entry)
+            if event:
+                res.append (event)
+            continue
+
+        # now treat all the "simple" ones, that can be translated using the dict
+        ev = None
+        tmp_tp = directions_dict.get (entry.get_name (), None)
+        if isinstance (tmp_tp, str): # string means MarkEvent
+            ev = musicexp.MarkEvent (tmp_tp)
+        elif isinstance (tmp_tp, tuple): # tuple means (EventClass, "text")
+            ev = tmp_tp[0] (tmp_tp[1])
+        elif tmp_tp:
+            ev = tmp_tp (entry)
+        if ev:
+            # TODO: set the correct direction! Unfortunately, \mark in ly does
+            #       not seem to support directions!
+            res.append (ev)
+            continue
 
         if entry.get_name () == "dynamics":
             for dynentry in entry.get_all_children ():
                 ev = musicxml_dynamics_to_lily_event (dynentry)
                 if ev:
                     res.append (ev)
-
-        if entry.get_name () == "words":
-            ev = musicxml_words_to_lily_event (entry)
-            if ev:
-                res.append (ev)
-
-        # octave shifts. pedal marks, hairpins etc. are spanners:
-        if entry.get_name() in direction_spanners:
-            event = musicxml_spanner_to_lily_event (entry)
-            if event:
-                res.append (event)
-
 
     return res
 
@@ -1134,11 +1256,11 @@ def musicxml_note_to_lily_main_event (n):
         if drum_type:
             event.drum_type = drum_type
         else:
-            n.message ("drum %s type unknown, please add to instrument_drumtype_dict" % n.instrument_name)
+            n.message (_ ("drum %s type unknown, please add to instrument_drumtype_dict") % n.instrument_name)
             event.drum_type = 'acousticsnare'
 
     else:
-        n.message ("cannot find suitable event")
+        n.message (_ ("cannot find suitable event"))
 
     if event:
 	event.duration = musicxml_duration_to_lily (n)
@@ -1221,7 +1343,7 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
         
         if diff < Rational (0):
-            error_message ('Negative skip %s' % diff)
+            error_message (_ ('Negative skip %s') % diff)
             diff = Rational (0)
 
         if diff > Rational (0) and not (self.ignore_skips and moment == 0):
@@ -1355,7 +1477,7 @@ def musicxml_voice_to_lily_voice (voice):
                 voice_builder.jumpto (n._when)
             except NegativeSkip, neg:
                 voice_builder.correct_negative_skip (n._when)
-                n.message ("Negative skip? from %s to %s, diff %s" % (neg.here, neg.dest, neg.dest - neg.here))
+                n.message (_ ("Negative skip found: from %s to %s, difference is %s") % (neg.here, neg.dest, neg.dest - neg.here))
             
         if isinstance (n, musicxml.Attributes):
             if n.is_first () and n._measure_position == Rational (0):
@@ -1380,7 +1502,7 @@ def musicxml_voice_to_lily_voice (voice):
             continue
 
         if not n.__class__.__name__ == 'Note':
-            error_message ('not a Note or Attributes? %s' % n)
+            error_message (_ ('unexpected %s; expected %s or %s or %s') % (n, 'Note', 'Attributes', 'Barline'))
             continue
 
         rest = n.get_maybe_exist_typed_child (musicxml.Rest)
@@ -1458,7 +1580,7 @@ def musicxml_voice_to_lily_voice (voice):
                 if s.get_type () in ('start','stop')]
             if slurs:
                 if len (slurs) > 1:
-                    error_message ('more than 1 slur?')
+                    error_message (_ ('cannot have two simultaneous slurs'))
                 # record the slur status for the next note in the loop
                 if not grace:
                     if slurs[0].get_type () == 'start':
@@ -1488,7 +1610,14 @@ def musicxml_voice_to_lily_voice (voice):
                 if ev:
                     ev_chord.append (ev)
 
+            arpeggiate = notations.get_named_children ('non-arpeggiate')
+            for a in arpeggiate:
+                ev = musicxml_nonarpeggiate_to_lily_event (a)
+                if ev:
+                    ev_chord.append (ev)
+
             glissandos = notations.get_named_children ('glissando')
+            glissandos += notations.get_named_children ('slide')
             for a in glissandos:
                 ev = musicxml_spanner_to_lily_event (a)
                 if ev:
@@ -1579,7 +1708,7 @@ def musicxml_voice_to_lily_voice (voice):
     
     
     if len (modes_found) > 1:
-       error_message ('Too many modes found %s' % modes_found.keys ())
+       error_message (_ ('cannot simultaneously have more than one mode: %s') % modes_found.keys ())
        
     if options.relative:
         v = musicexp.RelativeMusic ()
@@ -1659,7 +1788,7 @@ def get_all_voices (parts):
 
         part_ly_voices = {}
         for n, v in name_voice.items ():
-            progress ("Converting to LilyPond expressions...")
+            progress (_ ("Converting to LilyPond expressions..."))
             # musicxml_voice_to_lily_voice returns (lily_voice, {nr->lyrics, nr->lyrics})
             part_ly_voices[n] = musicxml_voice_to_lily_voice (v)
 
@@ -1670,61 +1799,78 @@ def get_all_voices (parts):
 
 
 def option_parser ():
-    p = ly.get_option_parser(usage=_ ("musicxml2ly [options] FILE.xml"),
-                             version=('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
+    p = ly.get_option_parser (usage = _ ("musicxml2ly [options] FILE.xml"),
+                             description = _ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n",
+                             add_help_option=False)
+
+    p.add_option("-h", "--help",
+                 action="help",
+                 help=_ ("show this help and exit"))
+
+    p.version = ('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
                                       +
 _ ("""This program is free software.  It is covered by the GNU General Public
 License and you are welcome to change it and/or distribute copies of it
 under certain conditions.  Invoke as `%s --warranty' for more
 information.""") % 'lilypond'
 + """
-Copyright (c) 2005--2007 by
+Copyright (c) 2005--2008 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>
-"""),
-                             description=_ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n")
+""")
+    p.add_option("--version",
+                 action="version",
+                 help=_ ("show version number and exit"))
+
     p.add_option ('-v', '--verbose',
-                  action="store_true",
-                  dest='verbose',
-                  help=_ ("be verbose"))
+                  action = "store_true",
+                  dest = 'verbose',
+                  help = _ ("be verbose"))
 
     p.add_option ('', '--lxml',
-                  action="store_true",
-                  default=False,
-                  dest="use_lxml",
-                  help=_ ("Use lxml.etree; uses less memory and cpu time."))
+                  action = "store_true",
+                  default = False,
+                  dest = "use_lxml",
+                  help = _ ("use lxml.etree; uses less memory and cpu time"))
 
     p.add_option ('-z', '--compressed',
                   action = "store_true",
                   dest = 'compressed',
                   default = False,
-                  help = _ ("Input file is a zip-compressed MusicXML file."))
+                  help = _ ("input file is a zip-compressed MusicXML file"))
 
     p.add_option ('-r', '--relative',
                   action = "store_true",
+                  default = True,
                   dest = "relative",
-                  help = _ ("Convert pitches in relative mode."))
+                  help = _ ("convert pitches in relative mode (default)"))
+
+    p.add_option ('-a', '--absolute',
+                  action = "store_false",
+                  dest = "relative",
+                  help = _ ("convert pitches in absolute mode"))
 
     p.add_option ('-l', '--language',
+                  metavar = _ ("LANG"),
                   action = "store",
-                  help = _ ("Use a different language file, e.g. 'deutsch' for deutsch.ly."))
+                  help = _ ("use a different language file 'LANG.ly' and corresponding pitch names, e.g. 'deutsch' for deutsch.ly"))
 
-    p.add_option ('--no-articulation-directions', '--nd',
+    p.add_option ('--nd', '--no-articulation-directions', 
                   action = "store_false",
                   default = True,
                   dest = "convert_directions",
-                  help = _ ("Do not convert directions (^, _ or -) for articulations."))
+                  help = _ ("do not convert directions (^, _ or -) for articulations, dynamics, etc."))
 
     p.add_option ('-o', '--output',
-                  metavar=_ ("FILE"),
-                  action="store",
-                  default=None,
-                  type='string',
-                  dest='output_name',
-                  help=_ ("set output filename to FILE"))
-    p.add_option_group ('bugs',
-                        description=(_ ("Report bugs via")
+                  metavar = _ ("FILE"),
+                  action = "store",
+                  default = None,
+                  type = 'string',
+                  dest = 'output_name',
+                  help = _ ("set output filename to FILE"))
+    p.add_option_group (ly.display_encode (_ ('Bugs')),
+                        description = (_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
     return p
@@ -1780,7 +1926,7 @@ def update_score_setup (score_structure, part_list, voices):
         part_id = part_definition.id
         nv_dict = voices.get (part_id)
         if not nv_dict:
-            error_message ('unknown part in part-list: %s' % part_id)
+            error_message (_ ('unknown part in part-list: %s') % part_id)
             continue
 
         staves = reduce (lambda x,y: x+ y,
@@ -1836,7 +1982,7 @@ def read_xml (io_object, use_lxml):
 def read_musicxml (filename, compressed, use_lxml):
     raw_string = None
     if compressed:
-        progress ("Input file %s is compressed, extracting raw MusicXML data" % filename)
+        progress (_ ("Input file %s is compressed, extracting raw MusicXML data") % filename)
         z = zipfile.ZipFile (filename, "r")
         container_xml = z.read ("META-INF/container.xml")
         if not container_xml:
@@ -1862,7 +2008,7 @@ def read_musicxml (filename, compressed, use_lxml):
 
 
 def convert (filename, options):
-    progress ("Reading MusicXML from %s ..." % filename)
+    progress (_ ("Reading MusicXML from %s ...") % filename)
     
     tree = read_musicxml (filename, options.compressed, options.use_lxml)
     parts = tree.get_typed_children (musicxml.Part)
@@ -1890,7 +2036,7 @@ def convert (filename, options):
     driver_ly_name = options.output_name + '.ly'
 
     printer = musicexp.Output_printer()
-    progress ("Output to `%s'" % defs_ly_name)
+    progress (_ ("Output to `%s'") % defs_ly_name)
     printer.set_file (codecs.open (defs_ly_name, 'wb', encoding='utf-8'))
 
     print_ly_preamble (printer, filename)
@@ -1904,7 +2050,7 @@ def convert (filename, options):
     printer.close ()
     
     
-    progress ("Output to `%s'" % driver_ly_name)
+    progress (_ ("Output to `%s'") % driver_ly_name)
     printer = musicexp.Output_printer()
     printer.set_file (codecs.open (driver_ly_name, 'wb', encoding='utf-8'))
     print_ly_preamble (printer, filename)
@@ -1947,7 +2093,7 @@ def main ():
     if filename and os.path.exists (filename):
         voices = convert (filename, options)
     else:
-        progress ("Unable to find input file %s" % args[0])
+        progress (_ ("Unable to find input file %s") % args[0])
 
 if __name__ == '__main__':
     main()

@@ -28,6 +28,8 @@
 @omflanguage French
 @end ignore
 
+@c Translators: John Mandereau
+
 @ifhtml
 Ce document est également disponible au format
 @uref{source/Documentation/user/lilypond-program.fr.pdf,PDF}.

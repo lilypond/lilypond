@@ -7,6 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Valentin Villenave
+@c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Orchestral strings
 @section Orchestral strings
@@ -14,15 +16,15 @@
 Cette section dispense des informations supplémentaires et utiles à
 l'écriture pour les cordes frottées.
 
-@menu 
-* Orchestral strings TODO::
+@menu
+* Orchestral strings sections::
 @end menu
 
 
-@node Orchestral strings TODO
-@subsection Orchestral strings TODO
+@node Orchestral strings sections
+@subsection Orchestral strings sections
 
-@menu 
+@menu
 * Artificial harmonics (strings)::
 @end menu
 

@@ -130,12 +130,12 @@ Copyright 1999--2007 by the authors
 
 Languages in this order.
 @itemize
+@item UK - British English (where it differs from American English)
 @item ES - Spanish
 @item I - Italian
 @item F - French
 @item D - German
 @item NL - Dutch
-@item UK - British English
 @item DK - Danish
 @item S - Swedish
 @item FI - Finnish
@@ -297,6 +297,7 @@ Languages in this order.
 * lilypond::                    
 * ligature::                    
 * line::                        
+* loco::                        
 * long appoggiatura::           
 * longa::                       
 * lyrics::                      
@@ -334,11 +335,11 @@ Languages in this order.
 * note head::                   
 * note names::                  
 * note value::                  
+* octavation::                      
 * octave sign::                 
 * octave::                      
 * ornament::                    
 * ossia::                       
-* ottava::                      
 * part::                        
 * pause::                       
 * pennant::                     
@@ -361,6 +362,7 @@ Languages in this order.
 * quadruplet::                  
 * quarter note::                
 * quarter rest::                
+* quarter tone::                
 * quintuplet::                  
 * rallentando::                 
 * relative key::                
@@ -1194,6 +1196,7 @@ FI: hengitysmerkki.
 
 Indication of where to breathe in vocal and wind instrument parts.
 
+
 @node breve
 @section breve
 
@@ -1885,7 +1888,58 @@ DK: ?,
 S: ?,
 FI: ?.
 
-FIXME: this is a placeholder
+The pitch at which the piano and other nontransposing instruments play: such
+instruments are said to be @q{in C}.  The following list includes some (but not
+all) instruments that play in concert pitch:
+
+@itemize
+
+@item Woodwinds
+@itemize
+@item flute
+@item oboe
+@item bassoon
+@end itemize
+
+@item Brass
+@itemize
+@item alto trombone
+@item tenor trombone
+@item bass trombone
+@end itemize
+
+@item Strings
+@itemize
+@item violin
+@item viola
+@item violincello
+@end itemize
+
+@item piano
+
+@end itemize
+
+The trombones are a special case: although they are said to be @q{in F} (alto or
+bass) or @q{in B-flat} (tenor), this refers to their fundamental note, not to
+their parts' transposition.  (In fact, the trombones' parts are written at
+concert pitch with an appropriate clef -- alto, tenor or bass.)  This differs
+from other instruments @q{in F}, @q{in B-flat}, and so on, which are transposing
+instruments.
+
+Instruments that play @q{in C} but in a different octave than what is written
+are, technically speaking, @emph{transposing instruments}:
+
+@itemize
+
+@item piccolo (plays an octave higher)
+@item celesta (plays an octave higher)
+@item double-bass (plays an octave lower)
+
+@end itemize
+
+@seealso
+
+@ref{transposing instrument}.
 
 
 @node conjunct movement
@@ -2804,10 +2858,10 @@ FI: E, e.
 @node eighth note
 @section eighth note
 
+UK: quaver,
 ES: corchea,
 I: croma,
 F: croche,
-UK: quaver,
 D: Achtel, Achtelnote,
 NL: achtste noot,
 DK: ottendedelsnode,
@@ -2822,10 +2876,10 @@ FI: kahdeksasosanuotti.
 @node eighth rest
 @section eighth rest
 
+UK: quaver rest,
 ES: silencio de corchea,
 I: pausa di croma,
 F: demi-soupir,
-UK: quaver rest,
 D: Achtelpause,
 NL: achtste rust,
 DK: ottendedelspause,
@@ -3002,11 +3056,15 @@ example, a series of notes to be played on the G string would be
 indicated @samp{sul G}, another series to be played on the D string
 would be indicated @samp{sul D}, and so on.
 
+@item
+With an octave indication (also called @emph{octavation}, q.v.) to indicate that
+a passage is to be played higher or lower by the given number of octaves.
+
 @end itemize
 
 @seealso
 
-@ref{melisma}, @ref{sul G}, @ref{thorough bass}
+@ref{melisma}, @ref{sul G}, @ref{thorough bass}, @ref{octavation}.
 
 
 @node F
@@ -3521,10 +3579,10 @@ usage.  In the standard usage of these countries, @samp{B} means
 @node half note
 @section half note
 
+UK: minim,
 ES: blanca,
 I: minima,
 F: blanche,
-UK: minim,
 D: Halbe, halbe Note,
 NL: halve noot,
 DK: halvnode,
@@ -3539,10 +3597,10 @@ FI: puolinuotti.
 @node half rest
 @section half rest
 
+UK: minim rest,
 ES: silencio de blanca,
 I: pausa di minima,
 F: demi-pause,
-UK: minim rest,
 D: halbe Pause,
 NL: halve, rust,
 DK: halvnodespause,
@@ -3968,10 +4026,10 @@ notes, unlike (b) @emph{leggiero} or @emph{non-legato}, (c)
 @node lilypond
 @section lilypond
 
+UK: lily pond,
 ES: estanque de nenúfares,
 I: stagno del giglio,
-F: étang de lis,
-UK: lily pond,
+F: étang de nénuphars, étang de nymphéas,
 D: Seerosenteich,
 NL: le@-lie@-vij@-ver,
 DK: liliedam,
@@ -4018,6 +4076,26 @@ FI: viiva, nuottiviiva.
 @seealso
 
 @ref{staff}.
+
+
+@node loco
+@section loco
+
+ES: ?,
+I: loco,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[From Italian, @q{place}].  Instruction to play the following passage at the
+written pitch.  Cancels octavation (q.v.).
+
+@seealso
+
+@ref{octavation}.
 
 
 @node long appoggiatura
@@ -4199,9 +4277,12 @@ mediant (variant tonic).
 @section melisma
 
 ES: melisma,
+I: ?,
 F: mélisme,
 D: Melisma,
 NL: melisma,
+DK: ?,
+S: ?,
 FI: melisma, laulettavan tavun sävelkuvio.
 
 A melisma (plural, from Greek: melismata) is a group of notes or tones
@@ -4212,6 +4293,15 @@ sung on one syllable, especially as applied to liturgical chant.
 @section melisma line
 
 @c TODO: add languages
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
 
 @seealso
 
@@ -4229,7 +4319,7 @@ sung on one syllable, especially as applied to liturgical chant.
 @node mensural notation
 @section mensural notation
 
-@c FIXME: add languages
+@c TODO: add languages
 
 ES: ?,
 I: ?,
@@ -4242,7 +4332,7 @@ FI: ?.
 
 @c TODO: add definition (inc. info on proportional notation)
 
-@c FIXME: add cross-references.
+@c TODO: add cross-references.
 
 
 @node meter
@@ -4852,8 +4942,70 @@ dotted notes are also frequently used.
 @end lilypond
 
 
+@node octavation
+@section octavation
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+The use of a phrase or abbreviation with an extender line or bracket to indicate
+that a passage is to be played in a different octave:
+
+@itemize
+
+@item @samp{15ma}: play two octaves higher
+@item @samp{8va}: play one octave higher
+@item @samp{8vb}: play one octave lower
+@item @samp{8va} written below the passage: same as @samp{8vb}
+@item @samp{15vb}: play two octaves lower
+@item @samp{15va} written below the passage: same as @samp{15vb}
+
+@end itemize
+
+Another practice, which may be useful for longer passages, is to indicate the
+different octave with a phrase at the beginning (see below).  When the music
+returns to the written pitch, the octavation is cancelled with the word
+@emph{loco} (q.v.).
+
+To parallel the list above:
+
+@itemize
+
+@item @samp{15ma}: @emph{alla quindicesima (alta)}
+@item @samp{8va}: @emph{all'ottava} or @emph{ottava sopra}
+@item @samp{8vb}: @emph{ottava bassa}, @emph{ottava sotto}
+@item @samp{15vb}: @emph{alla quindicesima (bassa)}
+
+@end itemize
+
+@emph{Quindicesima} can be replaced with @emph{quindecima}, which is Latin.
+
+@seealso
+
+@ref{interval}, @ref{loco}, @ref{octave}.
+
+
 @node octave sign
 @section octave sign
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Putting 8 or 15 above or below the clef to indicate that the entire part is
+played in the indicated octave: a clef-wide octavation.  An octave sign can be
+applied to any clef, though it is most frequently used with the G and F clefs.
 
 @seealso
 
@@ -4872,9 +5024,14 @@ DK: oktav,
 S: oktav,
 FI: oktaavi.
 
+The interval of an octave, sometimes abbreviated @samp{8ve}.
+
+For uses like @emph{all'ottava} or @emph{8va} with an extender line or
+bracket, or @samp{loco} see octavation.
+
 @seealso
 
-@ref{ottava}, @ref{interval}.
+@ref{interval}, @ref{octavation}.
 
 
 @node ornament
@@ -4953,33 +5110,6 @@ FI: ossia, vaihtoehtoinen esitystapa.
 Ossia (otherwise) marks an alternative.  It is an added staff or piano
 score, usually only a few measures long, which presents another version
 of the music, for example for small hands.
-
-
-@node ottava
-@section ottava
-
-@c TODO: translations
-
-ES: ?,
-I: ottava,
-F: octave,
-DE: Oktavierung,
-NL: ?,
-DK: ?,
-S: ?,
-FI: ?.
-
-[From Italian] The interval of an octave, abbreviated 8va.
-
-@emph{All'ottava}, @emph{ottava alta}, @emph{ottava sopra}, or
-@emph{8va} written above a passage indicates that it should be played
-an octave higher than written. @emph{Ottava bassa}, @emph{ottava
-sotto}, or @emph{8va} written below a passage indicates that it should
-be played an octave lower than written.
-
-@seealso
-
-@ref{interval}.
 
 
 @node part
@@ -5319,10 +5449,10 @@ FI: kvartoli.
 @node quarter note
 @section quarter note
 
+UK: crotchet,
 ES: negra,
 I: semiminima, nera,
 F: noire,
-UK: crotchet,
 D: Viertel, Viertelnote,
 NL: kwartnoot,
 DK: fjerdedelsnode,
@@ -5337,10 +5467,10 @@ FI: neljännesosanuotti.
 @node quarter rest
 @section quarter rest
 
+UK: crotchet rest,
 ES: silencio de negra,
 I: pausa di semiminima,
 F: soupir,
-UK: crotchet rest,
 D: Viertelpause,
 NL: kwart rust,
 DK:@w{ }fjerdedelspause,
@@ -5350,6 +5480,25 @@ FI: neljännesosatauko.
 @seealso
 
 @ref{note value}.
+
+
+@node quarter tone
+@section quarter tone
+
+ES: ?,
+I: ?,
+F: quart de ton,
+D: Viertelton,
+NL: kwart toon,
+DK: ?,
+S: kvartston,
+FI: ?.
+
+An interval equal to half a semitone.
+
+@seealso
+
+@ref{interval}
 
 
 @node quintuplet
@@ -5740,7 +5889,6 @@ FI: korotusmerkki.
 ES: ?,
 I: ?,
 F: ?,
-UK: ?,
 D: ?,
 NL: ?,
 DK: ?,
@@ -5758,10 +5906,10 @@ that does not include triplet subdivision of the beat.
 @node sixteenth note
 @section sixteenth note
 
+UK: semiquaver,
 ES: semicorchea,
 I: semicroma,
 F: double croche,
-UK: semiquaver,
 D: Sechzehntel, Sechzehntelnote,
 NL: zes@-ti@-ende noot,
 DK: sekstendedelsnode,
@@ -5776,10 +5924,10 @@ FI: kuudestoistaosanuotti.
 @node sixteenth rest
 @section sixteenth rest
 
+UK: semiquaver rest,
 ES: silencio de semicorchea,
 I: pausa di semicroma,
 F: quart de soupir,
-UK: semiquaver rest,
 D: Sechzehntelpause,
 NL: zestiende rust,
 DK: sekstendedelspause,
@@ -5811,10 +5959,10 @@ FI: seksti.
 @node sixty-fourth note
 @section sixty-fourth note
 
+UK: hemidemisemiquaver,
 ES: semifusa,
 I: semibiscroma,
 F: quadruple croche,
-UK: hemidemisemiquaver,
 D: Vierundsechzigstel, Vierundsechzigstelnote,
 NL: vierenzestigste noot,
 DK: fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-no@-de,
@@ -5829,10 +5977,10 @@ FI: kuudeskymmenesneljäsosanuotti.
 @node sixty-fourth rest
 @section sixty-fourth rest
 
+UK: hemidemisemiquaver rest,
 ES: silencio de semifusa,
 I: pausa di semibiscroma,
 F: seizième de soupir,
-UK: hemidemisemiquaver rest,
 D: Vierundsechzigstelpause,
 NL: vierenzestigste rust,
 DK: fi@-re@-og@-tred@-sinds@-ty@-ven@-de@-dels@-pau@-se,
@@ -6340,10 +6488,10 @@ FI: terssi.
 @node thirty-second note
 @section thirty-second note
 
+UK: demisemiquaver,
 ES: fusa,
 I: biscroma,
 F: triple croche,
-UK: demisemiquaver,
 D: Zweiunddreissigstel, Zweiunddreissigstelnote,
 NL: twee-endertig@-ste noot,
 DK: toogtredivtedelsnode,
@@ -6358,10 +6506,10 @@ FI: kolmanneskymmeneskahdesosanuotti.
 @node thirty-second rest
 @section thirty-second rest
 
+UK: demisemiquaver rest,
 ES: silencio de fusa,
 I: pausa di biscroma,
 F: huitième de soupir,
-UK: demisemiquaver rest,
 D: Zweiunddreissigstel@-pause,
 NL: 32e rust,
 DK: toogtredivtedelspause,
@@ -6516,7 +6664,27 @@ DK: ?,
 S: ?,
 FI: ?.
 
-FIXME: this is a placeholder
+Instruments whose notated pitch is different from their sounded pitch.  Except
+for those whose notated and sounding pitches differ by one or more octaves (to
+reduce the number of ledger lines needed), most such instruments are identified
+by the letter name of the pitch class of their fundamental.  The pitch class is
+the note that @emph{sounds} (disregarding the octave in which it sounds) when
+the instrument plays a notated C.
+
+For example: when played on the B-flat clarinet, the note middle C @emph{sounds}
+the B-flat one tone lower.  If played on the A clarinet, the same written
+note sounds the A (one and half tones -- a minor third -- lower).
+
+Not all transposing instruments include the pitch class in their name:
+
+@itemize
+@item English horn (in F)
+@item Alto flute (in G)
+@end itemize
+
+@seealso
+
+@ref{concert pitch}.
 
 
 @node transposition
@@ -6807,10 +6975,10 @@ FI: tahdin heikko isku.
 @node whole note
 @section whole note
 
+UK: semibreve,
 ES: redonda,
 I: semibreve,
 F: ronde,
-UK: semibreve,
 D: Ganze, ganze Note,
 NL: hele noot,
 DK: helnode,
@@ -6825,10 +6993,10 @@ FI: kokonuotti.
 @node whole rest
 @section whole rest
 
+UK: semibreve rest,
 ES: silencio de redonda,
 I: pausa di semibreve,
 F: pause,
-UK: semibreve rest,
 D: ganze Pause, ganztaktige Pause,
 NL: hele rust,
 DK: helnodespause,
@@ -6878,139 +7046,183 @@ saxophone, and bassoon.
 @node Duration names notes and rests
 @chapter Duration names notes and rests
 
-@multitable @columnfractions .15 .26 .33 .26
+@multitable @columnfractions .07 .23 .23 .23 .24
 
 @headitem @strong{US}
-  @tab @strong{UK}
-  @tab @strong{I}
-  @tab @strong{F (note name / rest name)}
-@headitem
-  @tab @strong{D}
-  @tab @strong{NL}
-  @tab @strong{DK}
-@headitem
-  @tab @strong{S}
-  @tab @strong{FI}
-  @tab @strong{ES}
-
-@item @strong{longa}
-  @tab longa
-  @tab longa
-  @tab longa
-@item
-  @tab Longa
-  @tab longa
-  @tab longa
-@item
-  @tab longa
-  @tab longa
-  @tab longa
-
-@item @strong{breve}
+  @tab long
   @tab breve
+  @tab whole
+  @tab half
+@item @strong{UK}
+  @tab longa
   @tab breve
-  @tab brève / double-pause
-@item
-  @tab Brevis
-  @tab brevis
-  @tab brevis
-@item
-  @tab brevis
-  @tab brevis
-  @tab cuadrada
-
-@item @strong{whole}
-  @tab semi@-breve
-  @tab semi@-breve
-  @tab ronde / pause
-@item
-  @tab Ganze
-  @tab hele
-  @tab hel
-@item
-  @tab hel
-  @tab koko@-nuotti/@w{-tauko}
-  @tab redonda
-
-@item @strong{half}
+  @tab semibreve
   @tab minim
-  @tab minima
-  @tab blanche / demi-pause
-@item
-  @tab Halbe
-  @tab halve
-  @tab halv
-@item
-  @tab halv
-  @tab puoli@-nuotti/@w{-tauko}
+@item @strong{ES}
+  @tab longa
+  @tab cuadrada
+  @tab redonda
   @tab blanca
-
-@item @strong{quarter}
-  @tab crotchet
-  @tab semiminima
-  @tab noire / soupir
-@item
-  @tab Viertel
-  @tab kwart
-  @tab fjerdedel
-@item
-  @tab fjärdedel
-  @tab neljännesosa@-nuotti/@w{-tauko}
-  @tab negra
-
-@item @strong{eighth}
-  @tab quaver
-  @tab croma
-  @tab croche / demi-soupir
-@item
-  @tab Achtel
-  @tab achtste
-  @tab ottendedel
-@item
-  @tab åttondel
-  @tab kahdeksasosa@-nuotti/@w{-tauko}
-  @tab corchea
-
-@item @strong{sixteenth}
-  @tab semiquaver
-  @tab semicroma
-  @tab double croche / quart de soupir
-@item
-  @tab Sechzehntel
-  @tab zestiende
-  @tab sekstendedel
-@item
-  @tab sextondel
-  @tab kuudestoistaosa@-nuotti/@w{-tauko}
-  @tab semicorchea
-
-@item @strong{thirty-second}
-  @tab demisemiquaver
-  @tab biscroma
-  @tab triple croche / huitième de soupir
-@item
-  @tab Zweiunddreissigstel
-  @tab tweeendertigste
-  @tab toogtredivtedel
-@item
-  @tab trettiotvåondel
-  @tab kolmaskymme@-neskahdesosa@-nuotti/@w{-tauko}
-  @tab fusa
-
-@item @strong{sixty-fourth}
-  @tab hemidemisemiquaver
-  @tab semibiscroma
-  @tab quadruple croche / seizième de soupir
-@item
-  @tab Vierundsechzigstel
-  @tab vierenzestigste
-  @tab fireogtred@-sindstyvendedel
-@item
-  @tab sextiofjärdedel
-  @tab kuudeskymme@-nesneljäsosa@-nuotti/@w{-tauko}
-  @tab semifusa
+@item @strong{IT}
+  @tab longa
+  @tab breve
+  @tab semibreve
+  @tab minima
+@item @strong{FR}
+  @tab longa
+  @tab brève / double-pause
+  @tab ronde / pause
+  @tab blanche / demi-pause
+@item @strong{DE}
+  @tab Longa
+  @tab Brevis
+  @tab Ganze
+  @tab Halbe
+@item @strong{NL}
+  @tab longa
+  @tab brevis
+  @tab hele
+  @tab halve
+@item @strong{DK}
+  @tab longa
+  @tab brevis
+  @tab hel
+  @tab halv
+@item @strong{SE}
+  @tab longa
+  @tab brevis
+  @tab hel
+  @tab halv
+@item @strong{FI}
+  @tab longa
+  @tab brevis
+  @tab koko@-nuotti/@w{-tauko}
+  @tab puoli@-nuotti/@w{-tauko}
 
 @end multitable
+
+@multitable @columnfractions .07 .31 .31 .31
+
+@headitem @strong{US}
+  @tab quarter
+  @tab eighth
+  @tab sixteenth
+@item @strong{UK}
+  @tab crotchet
+  @tab quaver
+  @tab semiquaver
+@item @strong{ES}
+  @tab negra
+  @tab corchea
+  @tab semicorchea
+@item @strong{IT}
+  @tab semiminima
+  @tab croma
+  @tab semicroma
+@item @strong{FR}
+  @tab noire / soupir
+  @tab croche / demi-soupir
+  @tab double* croche / quart de soupir
+@item @strong{DE}
+  @tab Viertel
+  @tab Achtel
+  @tab Sechzehntel
+@item @strong{NL}
+  @tab kwart
+  @tab achtste
+  @tab zestiende
+@item @strong{DK}
+  @tab fjerdedel
+  @tab ottendedel
+  @tab sekstendedel
+@item @strong{SE}
+  @tab fjärdedel
+  @tab åttondel
+  @tab sextondel
+@item @strong{FI}
+  @tab neljännesosa@-nuotti/@w{-tauko}
+  @tab kahdeksasosa@-nuotti/@w{-tauko}
+  @tab kuudestoistaosa@-nuotti/@w{-tauko}
+
+@end multitable
+
+* About the French naming system: the word @emph{croche} refers to the
+note's "hook".  Therefore, from the eighth note on, the note names mean
+@q{hook}, @q{doubled hook}, @q{trebled hook}, and so on.
+
+The rest names are based on the @emph{soupir}, or quarter rest.  Subsequent
+rests are expressed as fractions thereof: half a @emph{soupir}, a quarter of
+a @emph{soupir}, and so on.
+
+@multitable @columnfractions .07 .46 .47
+
+@headitem @strong{US}
+  @tab thirty-second
+  @tab sixty-fourth
+@item @strong{UK}
+  @tab demisemiquaver
+  @tab hemidemisemiquaver
+@item @strong{ES}
+  @tab fusa*
+  @tab semifusa
+@item @strong{IT}
+  @tab biscroma
+  @tab semibiscroma
+@item @strong{FR} 
+  @tab triple croche / huitième de soupir
+  @tab quadruple croche / seizième de soupir
+@item @strong{DE} 
+  @tab Zweiunddreissigstel
+  @tab Vierundsechzigstel
+@item @strong{NL} 
+  @tab tweeendertigste
+  @tab vierenzestigste
+@item @strong{DK} 
+  @tab toogtredivtedel
+  @tab fireogtred@-sindstyvendedel
+@item @strong{SE} 
+  @tab trettiotvåondel
+  @tab sextiofjärdedel
+@item @strong{FI}
+  @tab kolmaskymme@-neskahdesosa@-nuotti/@w{-tauko}
+  @tab kuudeskymme@-nesneljäsosa@-nuotti/@w{-tauko}
+
+@end multitable
+
+@multitable @columnfractions .07 .46 .47
+
+@headitem @strong{US}  @tab one-hundred-twenty-eighth
+  @tab two-hundred-fifty-sixth@item @strong{UK}
+  @tab semihemidemisemiquaver or
+       quasihemidemisemiquaver  @tab demisemihemidemisemiquaver (?)
+@item @strong{IT}
+  @tab fusa*
+  @tab semifusa
+@item @strong{ES} 
+  @tab garrapatea  @tab semigarrapatea@item @strong{FR} 
+  @tab quintuple croche / trente-deuxième de soupir  @tab sextuple croche / soixante-quatrième de soupir@item @strong{DE} 
+  @tab Hundertundachtundzwanzigstel  @tab Zweihundertundsechsundfünfzigstel@item @strong{NL} 
+  @tab ?
+  @tab ?
+@item @strong{DK} 
+  @tab ?
+  @tab ?
+@item @strong{SE} 
+  @tab ?
+  @tab ?
+@item @strong{FI}
+  @tab ?
+  @tab ?
+
+@end multitable
+
+* The terms @emph{fusa} and @emph{semifusa}, which derive from mensural notation
+(q.v), are used as note durations by the Italians and the Spanish, but for notes
+of different durations.
+
+@seealso
+
+@ref{mensural notation}
 
 
 @node Pitch names

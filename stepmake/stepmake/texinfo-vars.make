@@ -18,7 +18,7 @@ MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 # info stuff
 INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))
 INFO_INSTALL_COMMAND =$(if $(INFO_INSTALL_FILES),\
-	$(INSTALLPY) -d $(DESTDIR)$(package_infodir) ; \
-	$(MAKE) INSTALLATION_OUT_DIR=$(package_infodir) \
+	$(INSTALLPY) -d $(DESTDIR)$(infodir) ; \
+	$(MAKE) INSTALLATION_OUT_DIR=$(infodir) \
 		depth=$(depth) INSTALLATION_OUT_FILES="$(INFO_INSTALL_FILES)" \
 		-f $(stepdir)/install-out.sub.make,true)

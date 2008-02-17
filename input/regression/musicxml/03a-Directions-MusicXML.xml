@@ -4,9 +4,10 @@
 <score-partwise version="2.0">
   <movement-title>MusicXML directions (attached to staff)</movement-title>
   <identification/>
+  <defaults/>
   <part-list>
     <score-part id="P1">
-      <part-name></part-name>
+      <part-name print-object="no">MusicXML Part</part-name>
     </score-part>
   </part-list>
   <!--=========================================================-->
@@ -506,7 +507,7 @@
       </note>
       <direction>
         <direction-type>
-          <braclet type="stop" line-end="none"/>
+          <bracket type="stop" line-end="none"/>
         </direction-type>
       </direction>
       <note>
@@ -602,18 +603,34 @@
       <direction>
         <direction-type>
           <harp-pedals>
-              <pedal-tuning>
-                  <pedal-step>C</pedal-step>
-                  <pedal-alter>-1</pedal-alter>
-              </pedal-tuning>
-              <pedal-tuning>
-                  <pedal-step>E</pedal-step>
-                  <pedal-alter>1</pedal-alter>
-              </pedal-tuning>
-              <pedal-tuning>
-                  <pedal-step>A</pedal-step>
-                  <pedal-alter>0</pedal-alter>
-              </pedal-tuning>
+            <pedal-tuning>
+              <pedal-step>D</pedal-step>
+              <pedal-alter>0</pedal-alter>
+            </pedal-tuning>
+            <pedal-tuning>
+              <pedal-step>C</pedal-step>
+              <pedal-alter>-1</pedal-alter>
+            </pedal-tuning>
+            <pedal-tuning>
+              <pedal-step>B</pedal-step>
+              <pedal-alter>-1</pedal-alter>
+            </pedal-tuning>
+            <pedal-tuning>
+              <pedal-step>E</pedal-step>
+              <pedal-alter>0</pedal-alter>
+            </pedal-tuning>
+            <pedal-tuning>
+              <pedal-step>F</pedal-step>
+              <pedal-alter>0</pedal-alter>
+            </pedal-tuning>
+            <pedal-tuning>
+              <pedal-step>G</pedal-step>
+              <pedal-alter>1</pedal-alter>
+            </pedal-tuning>
+            <pedal-tuning>
+              <pedal-step>A</pedal-step>
+              <pedal-alter>-1</pedal-alter>
+            </pedal-tuning>
           </harp-pedals>
         </direction-type>
       </direction>
@@ -718,6 +735,8 @@
       <direction placement="below">
         <direction-type>
           <dynamics><ppp/></dynamics>
+        </direction-type>
+        <direction-type>
           <wedge type="crescendo"/>
         </direction-type>
         <offset>2</offset>
@@ -732,6 +751,8 @@
       <direction placement="below">
         <direction-type>
           <wedge type="stop"/>
+        </direction-type>
+        <direction-type>
           <dynamics><fff/></dynamics>
         </direction-type>
         <offset>2</offset>
@@ -741,7 +762,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <lyric number="1"><syllabic>begin</syllabic><text>to fff</text></lyric>
+        <lyric number="1"><syllabic>end</syllabic><text>to fff</text></lyric>
       </note>
       <note>
         <rest/>

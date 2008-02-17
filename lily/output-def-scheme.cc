@@ -54,6 +54,17 @@ LY_DEFINE (ly_output_def_parent, "ly:output-def-parent",
   return op->parent_ ? op->parent_->self_scm () : SCM_EOL;
 }
 
+LY_DEFINE (ly_output_def_set_variable_x, "ly:output-def-set-variable!",
+           3, 0, 0, (SCM def, SCM sym, SCM val),
+           "Set an output definition @var{def} variable @var{sym} to @var{val}.")
+{
+  LY_ASSERT_SMOB (Output_def, def, 1);
+  Output_def *output_def = unsmob_output_def (def);
+  LY_ASSERT_TYPE (ly_is_symbol, sym, 2);
+  output_def->set_variable (sym, val);
+  return SCM_UNSPECIFIED;
+}
+
 LY_DEFINE (ly_output_def_clone, "ly:output-def-clone",
 	   1, 0, 0, (SCM def),
 	   "Clone output definition @var{def}.")

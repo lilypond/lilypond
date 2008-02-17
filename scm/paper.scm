@@ -9,7 +9,7 @@
 		  '(pt mm cm in staff-height staff-space
 		       page-top-space
 		       between-system-space between-system-padding
-		       line-width indent paper-width paper-height horizontal-shift
+		       line-width indent short-indent paper-width paper-height horizontal-shift
 		       staff-space line-thickness ledgerline-thickness
 		       blot-diameter left-margin right-margin)))
 
@@ -115,6 +115,7 @@ size. SZ is in points"
 				     (ly:modules-lookup (list m) 'right-margin (* 10 mm))))
 
     (module-define! m 'indent (/ w 14))
+    (module-define! m 'short-indent (* 5 mm))
 
     ;; page layout - what to do with (printer specific!) margin settings?
 

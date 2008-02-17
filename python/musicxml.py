@@ -5,6 +5,13 @@ from rational import *
 import re
 import sys
 import copy
+import lilylib
+
+_ = lilylib._
+
+def error (str):
+    ly.stderr_write ((_ ("error: %s") % str) + "\n")
+
 
 def escape_ly_output_string (input_string):
     return_string = input_string
@@ -44,7 +51,7 @@ class Xml_node:
 	return ''.join ([c.get_text () for c in self._children])
 
     def message (self, msg):
-        sys.stderr.write (msg+'\n')
+        lilylib.stderr_write (msg+'\n')
 
         p = self
         while p:
@@ -262,7 +269,7 @@ class Attributes (Measure_element):
             else:
                 return (4, 4)
         except KeyError:
-            sys.stderr.write ('error: requested time signature, but time sig unknown\n')
+            error (_ ("requested time signature, but time sig is unknown"))
             return (4, 4)
 
     # returns clef information in the form ("cleftype", position, octave-shift)
@@ -328,7 +335,7 @@ class Note (Measure_element):
 	    # FIXME: is it ok to default to eight note for grace notes?
 	    return 3
         else:
-            self.message ("Encountered note at %s with %s duration (no <type> element):" % (self.start, self.duration) )
+            self.message (_ ("Encountered note at %s with %s duration (no <type> element):") % (self.start, self.duration) )
             return 0
 
     def get_factor (self):
@@ -362,7 +369,7 @@ class Part_list (Music_xml_node):
         if instrument_name:
             return instrument_name
         else:
-            sys.stderr.write ("Opps, couldn't find instrument for ID=%s\n" % id)
+            lilylib.stderr_write (_ ("Unable to find find instrument for ID=%s\n") % id)
             return "Grand Piano"
 
 class Part_group (Music_xml_node):
@@ -751,6 +758,12 @@ class Wedge (Music_xml_spanner):
 class Tuplet (Music_xml_spanner):
     pass
 
+class Bracket (Music_xml_spanner):
+    pass
+
+class Dashes (Music_xml_spanner):
+    pass
+
 class Slur (Music_xml_spanner):
     def get_type (self):
 	return self.type
@@ -768,6 +781,9 @@ class Pedal (Music_xml_spanner):
     pass
 
 class Glissando (Music_xml_spanner):
+    pass
+
+class Slide (Music_xml_spanner):
     pass
 
 class Octave_shift (Music_xml_spanner):
@@ -867,7 +883,9 @@ class_dict = {
         'bar-style': BarStyle,
 	'beam' : Beam,
         'bend' : Bend,
+        'bracket' : Bracket,
 	'chord': Chord,
+        'dashes' : Dashes,
 	'dot': Dot,
 	'direction': Direction,
         'direction-type': DirType,
@@ -890,6 +908,7 @@ class_dict = {
 	'pitch': Pitch,
 	'rest': Rest,
     'score-part': Score_part,
+        'slide': Slide,
 	'slur': Slur,
 	'staff': Staff,
         'syllabic': Syllabic,

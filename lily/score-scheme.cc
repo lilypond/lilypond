@@ -41,7 +41,17 @@ LY_DEFINE (ly_score_output_defs, "ly:score-output-defs",
   return scm_reverse_x (l, SCM_EOL);
 }
 
-
+LY_DEFINE (ly_score_add_output_def_x, "ly:score-add-output-def!",
+	   2, 0, 0, (SCM score, SCM def),
+	   "Add an output definition @var{def} to @var{score}.")
+{
+  LY_ASSERT_SMOB (Score, score, 1);
+  LY_ASSERT_SMOB (Output_def, def, 2);
+  Score *sc = unsmob_score (score);
+  Output_def *output_def = unsmob_output_def (def);
+  sc->add_output_def (output_def);
+  return SCM_UNSPECIFIED;
+}
 
 LY_DEFINE (ly_score_header, "ly:score-header",
 	   1, 0, 0, (SCM score),

@@ -263,7 +263,7 @@ without arguments,
 @example
 displayBarNum =
 #(define-music-function (parser location) ()
-   (if (eq? #t (ly:get-option display-bar-numbers))
+   (if (eq? #t (ly:get-option 'display-bar-numbers))
        #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
        #@{#@}))
 @end example

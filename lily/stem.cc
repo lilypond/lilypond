@@ -241,6 +241,7 @@ Stem::pure_height (SCM smob, SCM start, SCM end)
     return ly_interval2scm (iv);
 
   Real ss = Staff_symbol_referencer::staff_space (me);
+  Real rad = Staff_symbol_referencer::staff_radius (me);
 
   if (!to_boolean (me->get_property ("cross-staff")))
     {
@@ -255,12 +256,15 @@ Stem::pure_height (SCM smob, SCM start, SCM end)
 
       if (!hp.is_empty ())
 	iv.translate (hp[dir] * ss / 2);
-    }
 
-  /* at a minimum, make the pure-height cover the staff symbol */
-  Real rad = Staff_symbol_referencer::staff_radius (me);
-  iv.add_point (-rad * ss);
-  iv.add_point (rad * ss);
+      /* extend the stem (away from the head) to cover the staff */
+      if (dir == UP)
+	iv[UP] = max (iv[UP], rad * ss);
+      else
+	iv[DOWN] = min (iv[DOWN], -rad * ss);
+    }
+  else
+    iv = Interval (-rad * ss, rad * ss);
 
   return ly_interval2scm (iv);
 }

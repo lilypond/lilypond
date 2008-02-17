@@ -244,6 +244,7 @@ see @rlearning{Accidentals and key signatures}.}
 @cindex sharp, double
 @cindex double flat
 @cindex flat, double
+@cindex natural sign
 
 A @notation{sharp} pitch is made by adding @code{is} to the note name,
 and a @notation{flat} pitch by adding @code{es}.  As you might expect,
@@ -316,8 +317,7 @@ cis
 @seealso
 
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}, @rglos{Pitch names}.
-@c FIXME: add @rglos{quarter-tone}
+@rglos{double flat}, @rglos{Pitch names}, @rglos{quarter-tone}.
 
 Learning Manual: @rlearning{Accidentals and key signatures}.
 
@@ -789,7 +789,6 @@ is done with the @code{\key} command:
 \key @var{pitch} @var{mode}
 @end example
 
-@funindex \minor
 @funindex \major
 @funindex \minor
 @funindex \ionian
@@ -800,6 +799,7 @@ is done with the @code{\key} command:
 @funindex \phrygian
 @funindex \dorian
 @cindex church modes
+@cindex modes
 
 Here, @var{mode} should be @code{\major} or @code{\minor} to get a
 key signature of @var{pitch}-major or @var{pitch}-minor,
@@ -869,7 +869,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 
 @seealso
 
-Music Glossary: @rglos{ottava}.
+Music Glossary: @rglos{octavation}.
 
 Snippets: @lsrdir{Pitches,Pitches}.
 
@@ -882,6 +882,9 @@ Internals Reference: @internalsref{OttavaBracket}.
 
 @cindex transposition, MIDI
 @cindex transposition, instrument
+@cindex transposing instrument
+@cindex MIDI
+@funindex \transposition
 
 When typesetting scores that involve transposing instruments, some
 parts can be typeset in a different pitch than the
@@ -956,8 +959,7 @@ c2 g
 
 @seealso
 
-Music Glossary: @rglos{concert pitch},
-@rglos{transposing instrument}.
+Music Glossary: @rglos{concert pitch}, @rglos{transposing instrument}.
 
 Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
 
@@ -966,8 +968,13 @@ Snippets: @lsrdir{Pitches,Pitches}.
 
 @node Automatic accidentals
 @subsubsection Automatic accidentals
-@cindex automatic accidentals
 
+@cindex automatic accidentals
+@cindex accidentals, automatic
+@cindex accidentals
+@cindex accidental style
+@cindex default accidental style
+@cindex accidental style, default
 @funindex set-accidental-style
 
 There are many different conventions on how to typeset
@@ -1181,6 +1188,8 @@ musicB = {
 @end lilypond
 
 @item modern
+@cindex accidentals, modern style
+@cindex modern style accidentals
 @funindex modern style accidentals
 
 This rule corresponds to the common practice in the twentieth
@@ -1239,6 +1248,11 @@ musicB = {
 @end lilypond
 
 @item modern-cautionary
+@cindex accidentals, modern cautionary style
+@cindex modern style accidentals
+@cindex modern style cautionary accidentals
+@cindex modern accidental style
+@cindex modern cautionary accidental style
 @funindex modern-cautionary
 
 This rule is similar to @code{modern}, but the @q{extra}
@@ -1296,6 +1310,12 @@ musicB = {
 @end lilypond
 
 @item modern-voice
+@cindex accidentals, multivoice
+@cindex accidentals, modern
+@cindex modern accidentals
+@cindex multivoice accidentals
+@cindex accidental style, modern
+@cindex modern accidental style
 @funindex modern-voice
 
 This rule is used for multivoice accidentals to be read both by
@@ -1354,6 +1374,9 @@ musicB = {
 }
 @end lilypond
 
+@cindex accidental style, modern voice cautionary
+@cindex accidental style, cautionary, modern voice
+@cindex accidental style, voice, modern cautionary
 @funindex modern-voice-cautionary
 @item modern-voice-cautionary
 
@@ -1411,6 +1434,10 @@ musicB = {
 
 @item piano
 @funindex piano accidentals
+@cindex piano accidentals
+@cindex accidentals, piano
+@cindex piano accidental style
+@cindex accidental style, piano
 
 This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
@@ -1468,6 +1495,12 @@ musicB = {
 
 @item piano-cautionary
 @funindex #(set-accidental-style 'piano-cautionary)
+@cindex accidentals, piano cautionary
+@cindex cautionary accidentals, piano
+@cindex piano cautionary accidentals
+@cindex accidental style, piano cautionary
+@cindex cautionary accidental style, piano
+@cindex piano cautionary accidental style
 
 Same as @code{#(set-accidental-style 'piano)} but with the extra
 accidentals typeset as cautionaries.
@@ -1519,6 +1552,8 @@ musicB = {
 
 @item no-reset
 @funindex no-reset accidental style
+@cindex accidental style, no reset
+@cindex no reset accidental style
 
 This is the same as @code{default} but with accidentals lasting
 @q{forever} and not only within the same measure:
@@ -1571,6 +1606,8 @@ musicB = {
 
 @item forget
 @funindex forget accidental style
+@cindex forget accidental style
+@cindex accidental style, forget
 
 This is the opposite of @code{no-reset}: Accidentals are not
 remembered at all -- and hence all accidentals are typeset
@@ -1640,6 +1677,11 @@ Internals Reference: @internalsref{Accidental_engraver},
 @internalsref{PianoStaff}, @internalsref{Staff}.
 
 
+@cindex accidentals and simultaneous notes
+@cindex simultaneous notes and accidentals
+@cindex accidentals in chords
+@cindex chords, accidentals in
+
 @refbugs
 
 Simultaneous notes are considered to be entered in sequential
@@ -1654,7 +1696,11 @@ problematic notes.
 
 @node Ambitus
 @subsubsection Ambitus
+
 @cindex ambitus
+@cindex ambit
+@cindex range of pitches
+@cindex pitch range
 
 The term @notation{ambitus} or @notation{ambit} denotes a range of
 pitches for a given voice in a part of music.  It may also denote
@@ -1692,6 +1738,8 @@ printed if they are not part of the key signature.
 
 @seealso
 
+Music Glossary: @rglos{ambitus}.
+
 Snippets: @lsrdir{Pitches,Pitches}.
 
 Internals Reference: @internalsref{Ambitus},
@@ -1720,6 +1768,17 @@ ambitus.
 @subsubsection Special note heads
 
 @cindex note heads, special
+@cindex note heads, cross
+@cindex note heads, diamond
+@cindex note heads, parlato
+@cindex note heads, harmonic
+@cindex note heads, guitar
+@cindex special note heads
+@cindex cross note heads
+@cindex diamond note heads
+@cindex parlato note heads
+@cindex harmonic note heads
+@cindex guitar note heads
 
 Different note heads are used by various instruments for various
 meanings -- crosses are used for @q{parlato} with vocalists,
@@ -1757,6 +1816,10 @@ Internals Reference: @internalsref{NoteHead},
 @cindex note heads, easy notation
 @cindex easy notation
 @cindex Hal Leonard
+@cindex beginners' music
+@cindex music, beginners'
+@cindex easy play note heads
+@cindex note heads, easy play
 
 The @q{easy play} note head includes a note name inside the head.
 It is used in music for beginners.
@@ -1797,6 +1860,11 @@ Internals Reference: @internalsref{NoteHead}.
 @subsubsection Shape note heads
 
 @cindex note heads, shape
+@cindex note heads, Aiken
+@cindex note heads, sacred harp
+@cindex shape notes
+@cindex Aiken shape note heads
+@cindex sacred harp note heads
 @funindex \key
 @funindex shapeNoteStyles
 @funindex \aikenHeads
