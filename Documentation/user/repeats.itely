@@ -23,7 +23,9 @@ exist for repetitions.
 @node Writing repeats
 @subsection Writing repeats
 
-Blah blah
+This section discusses how to write repeats, including repeated
+sections of music enclosed within repeat bars, alternate repeat
+endings, tremolos, and beat or measure repeats.
 
 @menu
 * Repeat syntax::               
@@ -36,6 +38,8 @@ Blah blah
 @subsubsection Repeat syntax
 
 @cindex repeats
+@cindex repeat syntax
+@cindex syntax, repeat
 
 LilyPond has one syntactic construct for specifying different
 types of repeats.  The syntax is
@@ -48,6 +52,9 @@ where @var{repeabody} is a music expression.
 
 The following types of repetition are supported
 
+@cindex repeat volta
+@cindex volta
+
 @table @code
 @item volta
 The repeated music is not written out but enclosed in repeat bar
@@ -56,13 +63,23 @@ line is only printed at the end. Alternative endings (volte) are
 printed, left to right with brackets.  This is the standard
 notation for repeats with alternatives.
 
+@cindex repetitious music
+
 @item unfold
 The repeated music is fully written out, as many times as
 specified by @var{repeatcount}.  This is useful when
 entering repetitious music. 
 
+@cindex tremolo
+@cindex tremolo beams
+@cindex beams, tremolo
+
 @item tremolo
 Make tremolo beams.
+
+@cindex beat repeat
+@cindex measure repeat
+@cindex percent sign, for repeat
 
 @item percent
 Make beat or measure repeats.  These look like percent signs.
@@ -94,6 +111,8 @@ is assumed to be played more than once.
 @cindex volta
 @cindex prima volta
 @cindex seconda volta
+@cindex volta, prima
+@cindex volta, seconda
 @funindex \repeat
 
 Normal repeats, with or without alternate repeats:
@@ -107,7 +126,6 @@ Normal repeats, with or without alternate repeats:
   }
 c1
 @end lilypond
-
 Repeats with upbeats:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
