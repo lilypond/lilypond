@@ -128,7 +128,7 @@ You can use the thumb-script (e.g., in cello music)to indicate that a
 note should be played with the thumb. 
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
+<a_\thumb a'-3>2 <b_\thumb b'-3>
 @end lilypond
 
 @cindex fingering chords
@@ -182,11 +182,11 @@ Hidden (or invisible or transparent) notes can be useful in
 preparing theory or composition exercises.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
-c4 d4
+c4 d
 \hideNotes
-e4 f4
+e4 f
 \unHideNotes
-g4 a
+g a
 \hideNotes 
 b
 \unHideNotes
@@ -328,7 +328,7 @@ the music event,
   c
   \parenthesize d
   g
->4-\parenthesize -.
+>2-\parenthesize -.
 d g 
 <
   c
@@ -419,7 +419,7 @@ The following example demonstrates its use.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  <f-\balloonText #'(-2 . -2) \markup { "I'm a note head" }  >8
+  <a-\balloonText #'(-2 . -2) \markup { "I'm a note head" }  >8
 }
 @end lilypond
 
