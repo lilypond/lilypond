@@ -299,7 +299,10 @@ the input}.
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 @refbugs
-Not all x11 colors are distinguishable in a web browser i.e. a web browser might not display a difference between 'LimeGreen and 'ForestGreen.  For web use normal colors are recommended. (#blue, #green, #red) TODOgp
+Not all x11 colors are distinguishable in a web browser i.e. a web
+browser might not display a difference between 'LimeGreen and
+'ForestGreen.  For web use normal colors are recommended. (#blue,
+#green, #red)
 
 An x11 color is not necessarily exactly the same shade as a
 similarly named normal color.
@@ -327,8 +330,9 @@ the music event,
   g
 >4-\parenthesize -.
 d g 
-< c
-\parenthesize fis
+<
+  c
+  \parenthesize fis
 >
 @end lilypond
 
@@ -506,7 +510,9 @@ the @code{Staff} context.  A bracket is started with
   \layout {
     \context {
       \Staff \consists "Horizontal_bracket_engraver"
-}}}
+    }
+  }
+}
 @end lilypond
 
 @seealso
