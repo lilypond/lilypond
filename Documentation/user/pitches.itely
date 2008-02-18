@@ -1698,17 +1698,17 @@ problematic notes.
 @subsubsection Ambitus
 
 @cindex ambitus
-@cindex ambit
 @cindex range of pitches
 @cindex pitch range
 
-The term @notation{ambitus} or @notation{ambit} denotes a range of
+@c FIXME: square brackets for plural ?
+The term @notation{ambitus} (pl. ambitus) denotes a range of
 pitches for a given voice in a part of music.  It may also denote
 the pitch range that a musical instrument is capable of playing.
-Ambits are printed on vocal parts so that performers can easily
+Ambitus are printed on vocal parts so that performers can easily
 determine if it matches their capabilities.
 
-Ambits are denoted at the beginning of a piece near the initial
+Ambitus are denoted at the beginning of a piece near the initial
 clef.  The range is graphically specified by two note heads that
 represent the lowest and highest pitches.  Accidentals are only
 printed if they are not part of the key signature.
@@ -1892,10 +1892,14 @@ the base of the scale is determined by the @code{\key} command.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
 
+@noindent
+To see all note head styles, see @ref{Note head styles}.
 
 @seealso
 
 Snippets: @lsrdir{Pitches,Pitches}.
+
+Notation Reference: @ref{Note head styles}.
 
 
 @node Improvisation
