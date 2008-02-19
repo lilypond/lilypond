@@ -22,6 +22,11 @@ UNTRANSLATED NODE: IGNORE ME
 * Note head styles::
 * Overview of text markup commands::
 * Overview of text markup list commands::
+* List of articulations::       
+* All context properties::      
+* Layout properties::           
+* Identifiers::                 
+* Scheme functions::            
 @end menu 
 
 @node Chord name chart
@@ -107,3 +112,26 @@ Voici la liste exhaustive des symboles :
 
 @lilypondfile[ragged-right,quote]{script-chart.ly}
 
+
+@node All context properties
+@appendixsec All context properties
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Layout properties
+@appendixsec Layout properties
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Identifiers
+@appendixsec Identifiers
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Scheme functions
+@appendixsec Scheme functions
+
+UNTRANSLATED NODE: IGNORE ME

@@ -28,7 +28,6 @@ de noter ces reprises.
 * Repeat types::                
 * Repeat syntax::               
 * Manual repeat commands::      
-* Repeats and MIDI::            
 @end menu
 
 
@@ -262,51 +261,6 @@ Référence du programme : @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic},
 @internalsref{VoltaRepeatedMusic}, et
 @internalsref{UnfoldedRepeatedMusic}.
-
-
-@node Repeats and MIDI
-@unnumberedsubsubsec Repeats and MIDI
-
-@cindex reprises développées
-@funindex \unfoldRepeats
-
-Au prix de quelques réglages, les reprises de toutes sortes peuvent être
-rendues dans le fichier MIDI.  Il suffit pour cela de recourir à la
-fonction @code{\unfoldRepeats}, qui développe toutes les reprises.  En
-d'autre termes, @code{\unfoldRepeats} transforme toutes les reprises
-en reprises de type @code{unfold}.
-
-
-@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
-\unfoldRepeats {
-  \repeat tremolo 8 {c'32 e' }
-  \repeat percent 2 { c''8 d'' }
-  \repeat volta 2 {c'4 d' e' f'}
-  \alternative {
-    { g' a' a' g' }
-    {f' e' d' c' }
-  }
-}
-\bar "|."
-@end lilypond
-
-
-Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
-MIDI, il faut établir deux blocs @code{\score} : un pour le MIDI, avec
-des reprises explicites, et l'autre pour la partition, avec des reprises
-notées sous forme de barres de reprise, de trémolo ou de symboles de
-pourcentage.  Par exemple
-
-@example
-\score @{
- @var{..musique..}
- \layout @{ ..  @}
-@}
-\score @{
- \unfoldRepeats @var{..musique..}
- \midi @{ ..  @}
-@}
-@end example
 
 
 @node Other repeats

@@ -1,14 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
-
+    Translation of GIT committish: 3975a6210f49b40850e3f5101aad1ea4b09883f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c Translators: Jean-Charles Malahieude
+@c Translators: Valentin Villenave
+@c Translation checkers: Jean-Charles Malahieude
 
 @node Non-musical notation
 @chapter Non-musical notation
@@ -16,134 +16,10 @@
 UNTRANSLATED NODE: IGNORE ME
 
 @menu 
-* Input files::
 * Titles and headers::
 * MIDI output::
-* Displaying LilyPond notation::
-* Skipping corrected music::
-@end menu 
-
-@node Input files
-@section Input files
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* File structure::
-* A single music expression::
-* Multiple scores in a book::
-* Extracting fragments of notation::
-* Including LilyPond files::
-* Text encoding::
-* Different editions from one source::
+* other midi::
 @end menu
-
-@node File structure
-@subsection File structure
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node A single music expression
-@subsection A single music expression
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Multiple scores in a book
-@subsection Multiple scores in a book
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Including LilyPond files
-@subsection Including LilyPond files
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Text encoding
-@subsection Text encoding
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Different editions from one source
-@subsection Different editions from one source
-
-@funindex \tag
-@cindex tag
-
-La commande @code{\tag} affecte un nom à des expressions musicales.
-Les expressions ainsi balisées pourront être filtrées par la suite.
-Ce mécanisme permet d'obtenir différentes versions à partir d'une même
-source musicale. 
-
-Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
-l'une pour le conducteur, l'autre pour l'instrumentiste, et qui
-comportera les ornements. 
-
-@example
-c1
-<<
-  \tag #'partie <<
-    R1 \\
-    @{
-      \set fontSize = #-1
-      c4_"cue" f2 g4 @}
-  >>
-  \tag #'conducteur R1
->>
-c1
-@end example
-
-Ce principe peut s'appliquer aux articulations, textes, etc.  Il
-suffit de positionner 
-@example
--\tag #@var{votre-balise}
-@end example
-avant l'articulation, comme ici :
-@example
-c1-\tag #'part ^4
-@end example
-
-Ceci définira une note avec une indication de doigté conditionnelle.
-
-@cindex keepWithTag
-@cindex removeWithTag
-C'est grâce aux commandes @code{\keepWithTag} et @code{\removeWithTag}
-que vous filtrerez les expressions balisées.  Par exemple :
-@example
-<<
-  @var{de la musique}
-  \keepWithTag #'score @var{de la musique}
-  \keepWithTag #'part @var{de la musique}
->>
-@end example
-donnerait :
-
-@lilypondfile[ragged-right,quote]{tag-filter.ly}
-
-Les arguments de la commande @code{\tag} doivent être un symbole (tel
-que @code{#'score} ou @code{#'part}), suivi d'une expression musicale.
-Vous pouvez utiliser de multiples balises dans un morceau en
-saisissant plusieurs @code{\tag}.
-
-@example
-  \tag #'original-part \tag #'transposed-part @dots{}
-@end example
-
-
-@seealso
-
-Exemples : @lsr{parts,tag@/-filter@/.ly}
-
-
-@refbugs
-
-Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
-si vous imprimez une partition avec les deux sections balisées.
-
 
 @node Titles and headers
 @section Titles and headers
@@ -186,7 +62,9 @@ UNTRANSLATED NODE: IGNORE ME
 * Creating MIDI files::
 * MIDI block::
 * MIDI instrument names::
-@end menu 
+* What goes into the MIDI?  FIXME::
+@end menu
+
 @node Creating MIDI files
 @subsection Creating MIDI files
 
@@ -202,13 +80,62 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Displaying LilyPond notation
-@section Displaying LilyPond notation
+@node What goes into the MIDI?  FIXME
+@subsection What goes into the MIDI?  FIXME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Skipping corrected music
-@section Skipping corrected music
+@menu 
+* Repeats and MIDI::
+@end menu
+
+@node Repeats and MIDI
+@unnumberedsubsubsec Repeats and MIDI
+
+@cindex reprises développées
+@funindex \unfoldRepeats
+
+Au prix de quelques réglages, les reprises de toutes sortes peuvent être
+rendues dans le fichier MIDI.  Il suffit pour cela de recourir à la
+fonction @code{\unfoldRepeats}, qui développe toutes les reprises.  En
+d'autre termes, @code{\unfoldRepeats} transforme toutes les reprises
+en reprises de type @code{unfold}.
+
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+
+Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
+MIDI, il faut établir deux blocs @code{\score} : un pour le MIDI, avec
+des reprises explicites, et l'autre pour la partition, avec des reprises
+notées sous forme de barres de reprise, de trémolo ou de symboles de
+pourcentage.  Par exemple
+
+@example
+\score @{
+ @var{..musique..}
+ \layout @{ ..  @}
+@}
+\score @{
+ \unfoldRepeats @var{..musique..}
+ \midi @{ ..  @}
+@}
+@end example
+
+
+@node other midi
+@section other midi
 
 UNTRANSLATED NODE: IGNORE ME
 
