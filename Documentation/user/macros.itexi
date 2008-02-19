@@ -70,16 +70,14 @@
 
 @c   **** Headings in a doc subsection ****
 
-@c obsolete; being removed.
-@macro refcommands
+@macro predefined
 @noindent
 @subsubheading Predefined commands
 
 @end macro
 
-@macro commonprop
+@macro snippets
 @noindent
-@c @subsubheading Commonly tweaked properties
 @subsubheading Selected Snippets
 
 @end macro
@@ -91,12 +89,11 @@
 @indent
 @end macro
 
-@macro refbugs
+@macro knownissues
 @noindent
 @subsubheading Known issues and warnings
 
 @end macro
-
 
 @macro funindex {TEXT}
 @findex \TEXT\
@@ -106,21 +103,6 @@
 
 
 @c   **** Links and references ****
-
-@c usage: @lsr{ancient,Ancient-notation,custodes.ly}
-@ignore
-
-DEPRECATED
-
-@macro lsr{SECTION,DIR,TEXT}
-@ifhtml
-@uref{source/input/lsr/snippets/\DIR\.html#\TEXT\,@file{\SECTION\/\TEXT\}}
-@end ifhtml
-@ifnothtml
-@file{\SECTION\/\TEXT\}
-@end ifnothtml
-@end macro
-@end ignore
 
 @c usage: @lsrdir{ancient,Ancient-notation}
 @macro lsrdir{SECTION,DIR}

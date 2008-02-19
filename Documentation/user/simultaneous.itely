@@ -54,7 +54,7 @@ Notation Reference: @ref{Introducing chord names}.
 
 Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
 
-@refbugs
+@knownissues
 
 Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
 accurately.  Use @code{<g a>8 <e a>8} instead.
@@ -191,7 +191,7 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 
 
-@refcommands
+@predefined
 
 @funindex \oneVoice
 @code{\oneVoice},
@@ -257,7 +257,7 @@ collisions are @internalsref{NoteCollision} and
 @internalsref{RestCollision}.
 
 
-@refbugs
+@knownissues
 
 When using @code{merge-differently-headed} with an upstem eighth
 or a shorter note, and a downstem half note, the eighth note gets
@@ -357,7 +357,7 @@ Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
 
 Internals Reference: @internalsref{PartCombineMusic}, @internalsref{Voice}.
 
-@refbugs
+@knownissues
 
 When @code{printPartCombineTexts} is set, if the two voices play
 the same notes on and off, the part combiner may typeset @code{a2}

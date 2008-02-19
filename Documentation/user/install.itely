@@ -294,7 +294,7 @@ unstable Lily will fail to build the docs.
 You may build the manual ( Documentation/user/ ) without building all
 the input/* stuff.
 
-@refbugs
+@knownissues
 
 You may also need to create a script for @command{pngtopnm} and
 @code{pnmtopng}.  On Linux, I use this:

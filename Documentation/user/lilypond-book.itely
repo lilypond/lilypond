@@ -290,7 +290,7 @@ kpsewhich feta20.tex
 
 @end ignore
 
-@commonprop
+@snippets
 
 Sometimes it is useful to display music elements (such as ties and slurs)
 as if they continued after the end of the fragment.  This can be done by
@@ -865,7 +865,7 @@ Be verbose.
 Print version information.
 @end table
 
-@refbugs
+@knownissues
 
 The Texinfo command @code{@@pagesizes} is not interpreted.  Similarly,
 @LaTeX{} commands that change margins and line widths after the preamble

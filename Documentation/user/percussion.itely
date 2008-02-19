@@ -283,7 +283,7 @@ Init files: @file{ly/@/drumpitch@/-init@/.ly}.
 
 Internals Reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
-@refbugs
+@knownissues
 
 Because general MIDI does not contain rim shots, the sidestick is used
 for this purpose instead.

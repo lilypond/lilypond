@@ -34,7 +34,7 @@ by examining the simplest method, and gradually increase complexity.
 * More about stanzas::          
 @end menu
 
-@commonprop
+@snippets
 
 Checking to make sure that text scripts and lyrics are within the margins is
 a relatively large computational task.  To speed up processing, lilypond does
@@ -473,7 +473,7 @@ A complete example of a SATB score setup is in section
 @rlearning{Vocal ensembles}.
 
 
-@refcommands
+@predefined
 
 @code{\melisma}, @code{\melismaEnd}
 @funindex \melismaEnd
@@ -485,7 +485,7 @@ Internals Reference: @internalsref{Melisma_translator}.
 
 @c @lsr{vocal,lyric@/-combine.ly}.
 
-@refbugs
+@knownissues
 
 Melismata are not detected automatically, and extender lines must be
 inserted by hand.

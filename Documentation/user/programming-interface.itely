@@ -389,7 +389,7 @@ define some Scheme code in a macro (to be called later), use
 @end example
 
 
-@refbugs
+@knownissues
 
 Mixing Scheme and LilyPond variables is not possible with the
 @code{--safe} option.
@@ -895,7 +895,7 @@ useful when defining new markup commands (see
 @ref{New markup command definition}).
 
 
-@refbugs
+@knownissues
 
 The markup-list argument of commands such as @code{#:line},
 @code{#:center}, and @code{#:column} cannot be a variable or

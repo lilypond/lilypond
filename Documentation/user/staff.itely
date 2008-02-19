@@ -119,7 +119,7 @@ Staff groups can be nested, using the context
 @c @lsr{staff,staff-brackets.ly}
 @c snippet 137
 
-@commonprop
+@snippets
 
 More complex nesting can be accomplished using the property
 @code{systemStartDelimiterHierarchy}: 
@@ -354,7 +354,7 @@ the layout output, a metronome marking is printed
 @end lilypond
 
 
-@commonprop
+@snippets
 
 To change the tempo in the MIDI output without printing anything,
 make the metronome marking invisible @example \once \override
@@ -387,7 +387,7 @@ Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
 output}.
 
 
-@refbugs
+@knownissues
 
 Collisions are not checked.  If you have notes above the top line
 of the staff (or notes with articulations, slurs, text, etc), then
@@ -603,7 +603,7 @@ notes and rests of the quoted voice end up in the
 will quote notes (but no rests), together with scripts and
 dynamics.
 
-@refbugs
+@knownissues
 
 Only the contents of the first @code{Voice} occurring in an
 @code{\addQuote} command will be considered for quotation, so

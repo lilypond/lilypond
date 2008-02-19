@@ -23,7 +23,7 @@ WORKING
 
 I recommend working on one subsection at a time.  For each
 subsection,
-- check the mundane formatting.  Are the headings (@refcommands,
+- check the mundane formatting.  Are the headings (@predefined,
   @seealso, etc) in the right order?
 - add any appropriate index entries.
 - check the links in the @seealso section -- links to music
@@ -36,7 +36,7 @@ subsection,
 - check the examples and descriptions.  Do they still work?
   *Do not* assume that the existing text is accurate/complete;
   some of the manual is highly out of date.
-- is the material in the @refbugs  still accurate?
+- is the material in the @knownissues  still accurate?
 - process anything on the TODO list on the GDP web site.
 - can the examples be improved (made more explanatory), or is
   there any missing info?  (feel free to ask specific questions
@@ -55,7 +55,7 @@ TWEAKS
 In general, any \set or \override commands should go in the
 "select snippets" section, which means that they should go in LSR
 and not the .itely file.  For some cases, the command obviously
-belongs in the "main text" (ie not inside @refcommands or @seealso
+belongs in the "main text" (ie not inside @predefined or @seealso
 or whatever) -- instrument names are a good example of this.
   \set Staff.instrumentName = #"foo"
 On the other side of this,

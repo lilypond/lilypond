@@ -20,7 +20,7 @@ These are separate programs from lilypond itself, and are run
 on the command-line; see @ref{Command-line usage} for more information.
 
 
-@refbugs
+@knownissues
 We unfortunately do not have the resources to maintain these
 programs; please consider them @qq{as-is}.  Patches are appreciated, but
 bug reports will almost certainly not be resolved.
@@ -115,7 +115,7 @@ Treat every text as a lyric.
 @end table
 
 
-@refbugs
+@knownissues
 
 Overlapping notes in an arpeggio will not be correctly rendered.  The
 first note will be read and the others will be ignored.  Set them all
@@ -195,7 +195,7 @@ will cause the text following the @q{slyrics} keyword to be inserted
 into the current line of lyrics.
 
 
-@refbugs
+@knownissues
 
 The ABC standard is not very @q{standard}.  For extended features
 (e.g., polyphonic music) different conventions exist.
@@ -242,7 +242,7 @@ version information
 @end table
 
 
-@refbugs
+@knownissues
 
 The list of articulation scripts is incomplete.  Empty measures
 confuse @command{etf2ly}.  Sequences of grace notes are ended improperly.

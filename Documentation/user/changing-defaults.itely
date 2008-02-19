@@ -627,7 +627,7 @@ Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
 @internalsref{All layout objects}.
 
 
-@refbugs
+@knownissues
 
 The back-end is not very strict in type-checking object properties.
 Cyclic references in Scheme values for properties can cause hangs
@@ -683,7 +683,7 @@ will also work.
 
 
 
-@refbugs
+@knownissues
 
 It is not possible to collect context changes in a variable and apply
 them to a @code{\context} definition by referring to that variable.

@@ -98,7 +98,7 @@ frag = {
 @end lilypond
 
 
-@commonprop
+@snippets
 
 To print tablatures with stems down and horizontal beams,
 initialize the @code{TabStaff} with this code:
@@ -112,7 +112,7 @@ initialize the @code{TabStaff} with this code:
 
 Internals Reference: @internalsref{TabNoteHead}, @internalsref{TabStaff}, @internalsref{TabVoice}.
 
-@refbugs
+@knownissues
 
 Chords are not handled in a special way, and hence the automatic
 string selector may easily select the same string to two notes in a
@@ -177,7 +177,7 @@ The file @file{scm/@/output@/-lib@/.scm} contains the predefined string
 tunings.
 Internals Reference: @internalsref{Tab_note_heads_engraver}.
 
-@refbugs
+@knownissues
 
 No guitar special effects have been implemented.
 
@@ -291,7 +291,7 @@ short, for example @code{RH},
 @cindex fingerings, right hand, for guitar 
 @cindex right hand fingerings for guitar
  
-@commonprop
+@snippets
 
 You may exercise greater control over right handing fingerings by
 setting @code{strokeFingerOrientations},

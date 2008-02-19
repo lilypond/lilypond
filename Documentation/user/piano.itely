@@ -31,7 +31,7 @@ handle this cross-staffing behavior.  In this section we discuss the
 * Cross staff stems::           
 @end menu
 
-@refbugs
+@knownissues
 
 Dynamics are not centered, but workarounds do exist.  See the
 @q{piano centered dynamics} template in @rlearning{Piano templates}.
@@ -91,7 +91,7 @@ Internals Reference: @internalsref{AutoChangeMusic}.
 
 
 
-@refbugs
+@knownissues
 
 The staff switches may not end up in optimal places.  For high
 quality output, staff switches should be specified manually.
@@ -236,7 +236,7 @@ can be printed automatically.  This is switched on by setting
 
 Internals Reference: @internalsref{VoiceFollower}.
 
-@refcommands
+@predefined
 
 @funindex \showStaffSwitch
 @code{\showStaffSwitch},

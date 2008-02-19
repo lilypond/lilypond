@@ -486,7 +486,7 @@ beams, depending on which staff line it is printed.
 
 Notation Reference: see @ref{Clef}.
 
-@refbugs
+@knownissues
 
 The mensural g clef is mapped to the Petrucci g clef.
 
@@ -519,7 +519,7 @@ when typesetting the incipit of a transcribed piece of mensural
 music, the default flag style should be used.  There are no flags in
 Gregorian Chant notation.
 
-@refbugs
+@knownissues
 
 The attachment of ancient flags to stems is slightly off due to a
 change in early 2.3.x.
@@ -625,7 +625,7 @@ The following examples show the differences in style,
 This manual: @ref{Time signature}, gives a general introduction to
 the use of time signatures.
 
-@refbugs
+@knownissues
 
 Ratios of note durations do not change with the time signature.  For
 example, the ratio of 1 brevis = 3 semibrevis (tempus perfectum) must
@@ -683,7 +683,7 @@ designed for use with notation in Editio Vaticana style.
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 Some articulations are vertically placed too closely to the
 corresponding note heads.
@@ -798,7 +798,7 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@refcommands
+@predefined
 
 @funindex \virgula
 @code{\virgula},
@@ -855,7 +855,7 @@ are supported with certain limitations.
 
 
 
-@refbugs
+@knownissues
 
 Ligatures need special spacing that has not yet been implemented.  As
 a result, there is too much space between ligatures most of the time,
@@ -965,7 +965,7 @@ to the following
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 Horizontal spacing is poor.
 
@@ -1870,7 +1870,7 @@ note that you can say @code{\augmentum @{a g@}} as a shortcut for
 }
 @end lilypond
 
-@refcommands
+@predefined
 
 The following head prefixes are supported
 
@@ -1910,7 +1910,7 @@ respectively.
 @funindex \augmentum
 Use the unary music function @code{\augmentum} to add augmentum dots.
 
-@refbugs
+@knownissues
 
 When an @code{\augmentum} dot appears at the end of the last staff
 within a ligature, it is sometimes vertically placed wrong.  As a
@@ -2200,7 +2200,7 @@ automatically.
 @end lilypond
 
 
-@commonprop
+@snippets
 
 By default, this method produces figures above the notes.  To get
 figures below the notes, use
@@ -2210,7 +2210,7 @@ figures below the notes, use
 @end example
 
 
-@refbugs
+@knownissues
 
 When using figured bass above the staff with extender lines and
 @code{implicitBassFigures} the lines may become swapped around.

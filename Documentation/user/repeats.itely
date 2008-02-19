@@ -214,7 +214,7 @@ Internals Reference: @internalsref{VoltaBracket},
 @c Examples:
 
 
-@refbugs
+@knownissues
 
 @cindex repeat, ambiguous
 
@@ -350,7 +350,7 @@ c'2:8 c':32 | c': c': |
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 
 Tremolos entered with @q{@code{:}[@var{number}]} do not carry over

@@ -245,7 +245,7 @@ commands may be used to change various settings.
 
 
 
-@refbugs
+@knownissues
 
 Each step can only be present in a chord once.  The following
 simply produces the augmented chord, since @code{5+} is interpreted
@@ -411,7 +411,7 @@ chart}.  Turning on these styles is demonstrated in
 @cindex chords, jazz
 
 
-@refcommands
+@predefined
 
 @funindex \germanChords
 @code{\germanChords},
@@ -434,7 +434,7 @@ Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
 @file{scm/@/chord@/-entry@/.scm}.
 
 
-@refbugs
+@knownissues
 
 Chord names are determined solely from the list of pitches.  Chord
 inversions are not identified, and neither are added bass notes.  This

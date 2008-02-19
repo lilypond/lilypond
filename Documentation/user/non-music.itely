@@ -329,7 +329,7 @@ the markup have to be known before, so a gauge is used to decide these
 dimensions.  If the book has between 10 and 99 pages, it may be "00",
 ie. a two digit number.
 
-@refcommands
+@predefined
 
 @funindex \label
 @code{\label}
@@ -442,7 +442,7 @@ tocAct =
 
 Init files: @file{ly/@/toc@/-init@/.ly}.
 
-@refcommands
+@predefined
 
 @funindex \table-of-contents
 @code{\table-of-contents}
@@ -466,7 +466,7 @@ what was entered.  This is convenient for checking the music; octaves
 that are off or accidentals that were mistyped stand out very much
 when listening to the MIDI output.
 
-@refbugs
+@knownissues
 
 Many musically interesting effects, such as swing, articulation,
 slurring, etc., are not translated to midi.
@@ -564,7 +564,7 @@ in the @code{\midi@{@}} section.
 @end example
 
 
-@refbugs
+@knownissues
 
 Unterminated (de)crescendos will not render properly in the midi file,
 resulting in silent passages of music.  The workaround is to explicitly

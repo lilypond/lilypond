@@ -207,7 +207,7 @@ Snippets: @lsrdir{Pitches,Pitches}.
 @funindex \chordmode
 @funindex \relative
 
-@refbugs
+@knownissues
 
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.
@@ -309,7 +309,7 @@ cis
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {preventing-extra-naturals-from-being-automatically-added.ly}
@@ -328,7 +328,7 @@ Notation Reference: @ref{Automatic accidentals},
 Snippets: @lsrdir{Pitches,Pitches}.
 
 
-@refbugs
+@knownissues
 
 There are no generally accepted standards for denoting
 quarter-tone accidentals, so LilyPond's symbol does not conform to
@@ -615,7 +615,7 @@ For more information about transposing instruments,
 see @ref{Instrument transpositions}.
 
 
-@commonprop
+@snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
@@ -633,7 +633,7 @@ Internals Reference: @internalsref{TransposedMusic}.
 @funindex \chordmode
 @funindex \relative
 
-@refbugs
+@knownissues
 
 
 The relative conversion will not affect @code{\transpose},
@@ -752,7 +752,7 @@ c2 c
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {clefs-commonly-tweaked-properties.ly}
@@ -816,7 +816,7 @@ fis
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
@@ -861,7 +861,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 2@tie{}(for 15ma), and -2 (for 15ma bassa) as arguments.
 
 
-@commonprop
+@snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {ottava-text.ly}
@@ -1661,7 +1661,7 @@ musicB = {
 @end lilypond
 @end table
 
-@commonprop
+@snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
@@ -1682,7 +1682,7 @@ Internals Reference: @internalsref{Accidental_engraver},
 @cindex accidentals in chords
 @cindex chords, accidentals in
 
-@refbugs
+@knownissues
 
 Simultaneous notes are considered to be entered in sequential
 mode.  This means that in a chord the accidentals are typeset as
@@ -1701,7 +1701,6 @@ problematic notes.
 @cindex range of pitches
 @cindex pitch range
 
-@c FIXME: square brackets for plural ?
 The term @notation{ambitus} (pl. ambitus) denotes a range of
 pitches for a given voice in a part of music.  It may also denote
 the pitch range that a musical instrument is capable of playing.
@@ -1727,7 +1726,7 @@ printed if they are not part of the key signature.
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {adding-ambiti-per-voice.ly}
@@ -1748,7 +1747,7 @@ Internals Reference: @internalsref{Ambitus},
 @internalsref{Staff}, @internalsref{Voice}.
 
 
-@refbugs
+@knownissues
 
 There is no collision handling in the case of multiple per-voice
 ambitus.
@@ -1841,7 +1840,7 @@ The command @code{\easyHeadsOn} overrides settings for the
 in a large font size.  To print with a larger font, see @ref{Setting the
 staff size}.
 
-@refcommands
+@predefined
 
 @funindex \easyHeadsOn
 @funindex \easyHeadsOff
@@ -1887,7 +1886,7 @@ c,8 d4 e8 a2 g1
 Shapes are typeset according to the step in the scale, where
 the base of the scale is determined by the @code{\key} command.
 
-@commonprop
+@snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
@@ -1929,7 +1928,7 @@ rhythm.  Such note heads can be created:
 @end lilypond
 
 
-@refcommands
+@predefined
 
 @funindex \improvisationOn
 @funindex \improvisationOff

@@ -85,7 +85,7 @@ The @code{font-size} property can only be set on layout objects that
 use fonts.  These are the ones supporting the @code{font-interface}
 layout interface.
 
-@refcommands
+@predefined
 
 The following commands set @code{fontSize} for the current voice:
 
@@ -142,7 +142,7 @@ chord by adding them after the pitches.
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @code{fingeringOrientations} are used to control where the fingering
 numbers are placed.
@@ -193,7 +193,7 @@ b
 c
 @end lilypond
 
-@refcommands
+@predefined
 
 @code{\hideNotes}, @code{\unHideNotes}
 
@@ -286,7 +286,7 @@ the input}.
 
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
-@refbugs
+@knownissues
 Not all x11 colors are distinguishable in a web browser i.e. a web
 browser might not display a difference between 'LimeGreen and
 'ForestGreen.  For web use normal colors are recommended. (#blue,
@@ -352,7 +352,7 @@ Whenever a note is found, a @code{Stem} object is created
 automatically.  For whole notes and rests, they are also created but
 made invisible.
 
-@refcommands
+@predefined
 
 @funindex \stemUp
 @code{\stemUp},
@@ -362,7 +362,7 @@ made invisible.
 @code{\stemNeutral}.
 
 
-@commonprop
+@snippets
 
 @cindex stem, direction
 @cindex stem, up

@@ -105,7 +105,7 @@ More complex formatting may also be added to a note by using the
 c'4^\markup { bla \bold bla }
 @end lilypond
 
-@refcommands
+@predefined
 
 @funindex \textLengthOn
 @code{\textLengthOn},
@@ -113,7 +113,7 @@ c'4^\markup { bla \bold bla }
 @code{\textLengthOff}.
 
 
-@commonprop
+@snippets
 @c TODO: put this in the LSR. -vv
 By default, these indications do not influence the note spacing.
 However, by using the command @code{\textLengthOn}, the widths
@@ -185,7 +185,7 @@ c2\startTextSpan b c\stopTextSpan a
 c2\startTextSpan b c\stopTextSpan a
 @end lilypond
 
-@refcommands
+@predefined
 
 @funindex textSpannerUp
 @code{\textSpannerUp},
@@ -195,7 +195,7 @@ c2\startTextSpan b c\stopTextSpan a
 @code{\textSpannerNeutral}.
 
 
-@commonprop
+@snippets
 
 To print a solid line, use
 
@@ -254,7 +254,7 @@ If there is no next line, then the mark will not be printed at
 all.
 
 
-@commonprop
+@snippets
 
 @c TODO: to be LSR-ized stuff -vv
 
@@ -536,7 +536,7 @@ Internals Reference: @internalsref{TextScript}.
 Init files: @file{scm/@/new@/-markup@/.scm}.
 
 
-@refbugs
+@knownissues
 
 Kerning or generation of ligatures is only done when the @TeX{}
 backend is used.  In this case, LilyPond does not account for them
@@ -601,7 +601,7 @@ markup list command definition}.
 
 Snippets: @lsrdir{Text,Text}
 
-@refcommands
+@predefined
 
 @funindex \markuplines
 @code{\markuplines}

@@ -108,7 +108,7 @@ Optionally, notes can be spaced strictly proportionately to their
 duration.  For details of this and other settings which control
 proportional notation, see @ref{Proportional notation}.
 
-@refcommands
+@predefined
 
 Dots are normally moved up to avoid staff lines, except in
 polyphonic situations.  The following commands may be used to
@@ -138,7 +138,7 @@ Internals Reference: @internalsref{Dots},
 @internalsref{DotColumn}.
 
 
-@refbugs
+@knownissues
 
 @c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
@@ -182,7 +182,7 @@ Tuplets may be nested:
 }
 @end lilypond
 
-@refcommands
+@predefined
 
 @funindex \tupletUp
 @code{\tupletUp},
@@ -192,7 +192,7 @@ Tuplets may be nested:
 @code{\tupletNeutral}.
 
 
-@commonprop
+@snippets
 
 @cindex tuplet formatting
 @cindex triplet formatting
@@ -387,7 +387,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}.
 Internals Reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, @internalsref{TimeScaledMusic}.
 
-@refbugs
+@knownissues
 
 Lines may be broken within a tuplet with @code{\bar "" \break},
 but the tuplet bracket does not correctly carry over.
@@ -517,7 +517,7 @@ c4_~ c c^~ c)
 @end lilypond
 @end quotation
 
-@refcommands
+@predefined
 
 @funindex \tieUp
 @code{\tieUp},
@@ -533,7 +533,7 @@ c4_~ c c^~ c)
 @code{\tieSolid}.
 
 
-@commonprop
+@snippets
 
 Ties are sometimes used to write out arpeggios.  In this case, two
 tied notes need not be consecutive.  This can be achieved by
@@ -589,7 +589,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 Internals Reference: @internalsref{Tie}.
 
 
-@refbugs
+@knownissues
 
 Switching staves when a tie is active will not produce a slanted
 tie.
@@ -661,7 +661,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}.
 Internals Reference: @internalsref{Rest}.
 
 
-@refbugs
+@knownissues
 
 @c Deliberately duplicated in Durations and Rests.  -gp
 There is no fundamental limit to rest durations (both in terms of
@@ -879,7 +879,7 @@ default number, and @internalsref{MultiMeasureRestText} for user
 specified texts.
 
 
-@refbugs
+@knownissues
 
 If an attempt is made to use fingerings (e.g., 
 @code{R1*10-4}) to put numbers over multi-measure rests, the
@@ -925,7 +925,7 @@ The time signature is set with the @code{\time} command:
 \time 2/4 c2 \time 3/4 c2.
 @end lilypond
 
-@commonprop
+@snippets
 
 The symbol that is printed can be customized with the @code{style}
 property.  Setting it to @code{#'()} uses fraction style for 4/4
@@ -1015,7 +1015,7 @@ Internals Reference: @internalsref{TimeSignature}, and
 Examples: @c @lsr{contemporary,compound-time-signature.ly}.
 
 
-@refbugs
+@knownissues
 
 Automatic beaming does not use the measure grouping specified with
 @code{set-time-signature}.
@@ -1058,7 +1058,7 @@ that this is a negative number; @code{\partial 4} is internally
 translated to mean @qq{there is a quarter note left in the bar.}
 
 
-@refbugs
+@knownissues
 
 This command does not take into account grace notes at the start
 of the music.  When a piece starts with grace notes in the
@@ -1113,7 +1113,7 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
-@refbugs
+@knownissues
 
 LilyPond will only insert line breaks and page breaks at a
 bar line.  Unless the unmetered music ends before the end of the
@@ -1257,7 +1257,7 @@ staff, shown durations are multiplied by 3/5, so that 3/5 * 10/8 =
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 When using different time signatures in parallel, the spacing is
 aligned vertically, but bar lines distort the regular spacing.
@@ -1297,7 +1297,7 @@ If you want to allow line breaking on the bar lines where
 also remove @internalsref{Forbid_line_break_engraver}.
 
 
-@refbugs
+@knownissues
 
 Not all durations (especially those containing tuplets) can be
 represented exactly with normal notes and dots, but the engraver
@@ -1364,7 +1364,7 @@ c16 c8
 @end lilypond
 
 
-@commonprop
+@snippets
 
 Beaming patterns may be altered with the @code{beatGrouping} property,
 
@@ -1447,7 +1447,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 Internals Reference: @internalsref{Beam}.
 
 
-@refbugs
+@knownissues
 
 Automatically kneed cross-staff beams cannot be used together with
 hidden staves.  See @ref{Hiding staves}.
@@ -1621,7 +1621,7 @@ If beams are used to indicate melismata in songs, then automatic
 beaming should be switched off with @code{\autoBeamOff}.
 
 
-@refcommands
+@predefined
 
 @funindex \autoBeamOff
 @code{\autoBeamOff},
@@ -1629,7 +1629,7 @@ beaming should be switched off with @code{\autoBeamOff}.
 @code{\autoBeamOn}.
 
 
-@refbugs
+@knownissues
 
 If a score ends while an automatic beam has not been ended and is
 still accepting notes, this last beam will not be typeset at all.
@@ -1693,7 +1693,7 @@ the group as a whole.
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @node Feathered beams
 @subsubsection Feathered beams
@@ -1743,7 +1743,7 @@ the last four 32nd notes are at a constant tempo.
 The spacing in the printed output represents the 
 note durations only approximately, but the midi output is exact.
 
-@refbugs
+@knownissues
 
 The @code{\featherDurations} command only works with very short
 music snippets, and when numbers in the fraction are small.
@@ -1886,7 +1886,7 @@ connected between different staves of a @code{StaffGroup},
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @funindex whichBar
 @funindex defaultBarType
@@ -1933,7 +1933,7 @@ c1 c c c
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @funindex barNumberVisibility
 @cindex bar numbers, regular spacing
@@ -2052,7 +2052,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 Internals Reference: @internalsref{BarNumber}.
 
 
-@refbugs
+@knownissues
 
 Bar numbers may collide with the top of the
 @internalsref{StaffGroup} bracket, if there is one.  To solve
@@ -2406,7 +2406,7 @@ other situations by @code{\override Stem  #'stroke-style =
 #"grace"}.
 
 
-@commonprop
+@snippets
 
 Grace notes may be forced to use align with regular notes
 in other staves by setting @code{strict-grace-spacing} to
@@ -2443,7 +2443,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 Internals Reference: @internalsref{GraceMusic}.
 
 
-@refbugs
+@knownissues
 
 A multi-note beamed @emph{acciaccatura} is printed without a slash, 
 and looks exactly the same as a multi-note beamed

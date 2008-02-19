@@ -123,7 +123,7 @@ c\fermata c^\fermata c_\fermata
 @cindex varcoda
 
 
-@commonprop
+@snippets
 
 The shorthands are defined in @file{ly/@/script@/-init@/.ly},
 where the variables @code{dashHat}, @code{dashPlus},
@@ -168,7 +168,7 @@ Internals Reference: @internalsref{Script},
 @internalsref{TextScript}.
 
 
-@refbugs
+@knownissues
 
 These signs appear in the printed output but have no effect on the
 MIDI rendering of the music.
@@ -316,7 +316,7 @@ Vertical positioning of dynamics is handled by
 @internalsref{DynamicLineSpanner}.
 
 
-@refcommands
+@predefined
 
 @funindex \dynamicUp
 @code{\dynamicUp},
@@ -326,7 +326,7 @@ Vertical positioning of dynamics is handled by
 @code{\dynamicNeutral}.
 
 
-@commonprop
+@snippets
 
 Dynamics that occur at, begin on, or end on the same note will be
 vertically aligned.  If you want to ensure that dynamics are
@@ -411,7 +411,7 @@ Only one slur can be printed at once.  If you need to print a long
 slur over a few small slurs, please see @ref{Phrasing slurs}.
 
 
-@refcommands
+@predefined
 
 @funindex \slurUp
 @code{\slurUp},
@@ -427,7 +427,7 @@ slur over a few small slurs, please see @ref{Phrasing slurs}.
 @code{\slurSolid}.
 
 
-@commonprop
+@snippets
 
 Some composers write two slurs when they want legato chords.  This
 can be achieved in LilyPond by setting @code{doubleSlurs},
@@ -469,7 +469,7 @@ and@tie{}@code{^}.
 You cannot have simultaneous phrasing slurs.
 
 
-@refcommands
+@predefined
 
 @funindex \phrasingSlurUp
 @code{\phrasingSlurUp},
@@ -496,7 +496,7 @@ c'4 \breathe d4
 @end lilypond
 
 
-@commonprop
+@snippets
 
 The glyph of the breath mark can be tuned by overriding the
 @code{text} property of the @code{BreathingSign} layout object
@@ -555,7 +555,7 @@ c2\glissando c'
 c2\glissando c,
 @end lilypond
 
-@commonprop
+@snippets
 
 
 @lilypond[verbatim,quote,ragged-right]
@@ -582,7 +582,7 @@ Snippets: @lsrdir{Expressive,Expressive-marks}.
 Internals Reference: @internalsref{Glissando}.
 
 
-@refbugs
+@knownissues
 
 Printing text over the line (such as @emph{gliss.}) is not
 supported.
@@ -627,7 +627,7 @@ reverts to the arrow-less version:
 @end lilypond
 
 
-@refcommands
+@predefined
 
 @code{\arpeggio},
 @funindex \arpeggioUp
@@ -640,7 +640,7 @@ reverts to the arrow-less version:
 @code{\arpeggioBracket}.
 
 
-@commonprop
+@snippets
 
 In a @code{PianoStaff}, it is possible to let an arpeggio cross
 between the staves by setting the property
@@ -710,7 +710,7 @@ Internals Reference: @internalsref{Arpeggio},
 @internalsref{PianoStaff}.
 
 
-@refbugs
+@knownissues
 
 It is not possible to mix connected arpeggios and unconnected
 arpeggios in one @code{PianoStaff} at the same point in
@@ -752,7 +752,7 @@ The first argument is the main note.  The pitch of the second is
 printed as a stemless note head in parentheses.
 
 
-@refcommands
+@predefined
 
 @code{\startTrillSpan},
 @funindex \startTrillSpan

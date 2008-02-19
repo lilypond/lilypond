@@ -501,7 +501,7 @@ a piece of music with multiple @code{\tag} entries,
 Examples: @c @lsr{parts,tag@/-filter@/.ly}
 
 
-@refbugs
+@knownissues
 
 Multiple rests are not merged if you create the score with both tagged
 sections.

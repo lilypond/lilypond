@@ -295,7 +295,7 @@ result in the first page number remaining as is or being increased by one.
 @end quotation
 
 
-@commonprop
+@snippets
 
 The header and footer are created by the functions make-footer and
 make-header, defined in \paper.  The default implementations are in
@@ -369,7 +369,7 @@ how much space can be spent on a page, the latter creates the actual
 page given the system to put on it.
 
 
-@refbugs
+@knownissues
 
 The option right-margin is defined but doesn't set the right margin
 yet.  The value for the right margin has to be defined adjusting the
@@ -491,7 +491,7 @@ staves.  The sizes of individual staves are relative to the global size.
 This manual: @ref{Selecting notation font size}.
 
 
-@refbugs
+@knownissues
 
 @code{layout-set-staff-size} does not change the distance between the
 staff lines.
@@ -605,7 +605,7 @@ skips and repeated with @code{\repeat}:
 This makes the following 28 measures (assuming 4/4 time) be broken every
 4 measures, and only there.
 
-@refcommands
+@predefined
 
 @code{\break}, and @code{\noBreak}.
 @funindex \break
@@ -621,7 +621,7 @@ fit pages in a second formatting run.  This is fairly new and
 complicated.  More details are available in
 @c @lsrdir{spacing}
 
-@refbugs
+@knownissues
 
 Line breaks can only occur if there is a @q{proper} bar line.  A note
 which is hanging over a bar line is not proper, such as
@@ -680,7 +680,7 @@ The old page breaking algorithm is called
 @code{optimal-page-breaks}.  If you are having trouble with the new page
 breakers, you can enable the old one as a workaround.
 
-@refcommands
+@predefined
 
 @funindex \pageBreak
 @code{\pageBreak}
@@ -764,7 +764,7 @@ The page turning commands, @code{\pageTurn}, @code{\noPageTurn} and
 @code{\allowPageTurn}, may also be used at top-level, between scores and
 top-level markups.
 
-@refcommands
+@predefined
 
 @funindex \pageTurn
 @code{\pageTurn}
@@ -773,7 +773,7 @@ top-level markups.
 @funindex \allowPageTurn
 @code{\allowPageTurn}
 
-@refbugs
+@knownissues
 
 There should only be one @code{Page_turn_engraver} in a score.  If there is more
 than one, they will interfere with each other.
@@ -1547,7 +1547,7 @@ Internals: @internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
 @internalsref{SeparatingGroupSpanner}.
 
 
-@refbugs
+@knownissues
 
 There is no convenient mechanism to manually override spacing.  The
 following work-around may be used to insert extra space into a score.
@@ -1625,7 +1625,7 @@ than @code{1 16}.
 @end lilypond
 
 
-@commonprop
+@snippets
 
 By default, spacing in tuplets depends on various non-duration
 factors (such as accidentals, clef changes, etc).  To disregard
