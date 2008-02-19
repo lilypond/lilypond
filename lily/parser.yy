@@ -720,7 +720,7 @@ score_body:
 		$$->user_key_ = ly_scm2string ($2);
 	}
 	| score_body lilypond_header 	{
-		$$->header_ = $2;
+		$$->set_header ($2);
 	}
 	| score_body output_def {
 		if ($2->lookup_variable (ly_symbol2scm ("is-paper")) == SCM_BOOL_T)

@@ -59,7 +59,20 @@ LY_DEFINE (ly_score_header, "ly:score-header",
 {
   LY_ASSERT_SMOB (Score, score, 1);
   Score *sc = unsmob_score (score);
-  return sc->header_;
+  return sc->get_header ();
+}
+
+
+LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
+	   2, 0, 0, (SCM score, SCM module),
+	   "Set the score header.")
+{
+  LY_ASSERT_SMOB (Score, score, 1);
+  SCM_ASSERT_TYPE (ly_is_module (module), module, SCM_ARG2, __FUNCTION__,
+		   "module");
+  
+  Score *sc = unsmob_score (score);
+  return sc->get_header ();
 }
 
 
