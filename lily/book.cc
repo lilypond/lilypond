@@ -146,8 +146,8 @@ Book::process (Output_def *default_paper,
 		paper_book->add_performance (perf->self_scm ());
 	      else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
 		{
-		  if (ly_is_module (score->header_))
-		    paper_book->add_score (score->header_);
+		  if (ly_is_module (score->get_header ()))
+		    paper_book->add_score (score->get_header ());
 		  paper_book->add_score (pscore->self_scm ());
 		}
 

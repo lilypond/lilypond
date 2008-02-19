@@ -22,12 +22,12 @@ class Score
 
   SCM music_;
   SCM input_location_;
+  SCM header_;
 public:
   Input *origin() const;
  
   vector<Output_def*> defs_;
   string user_key_;
-  SCM header_;
   bool error_found_;
 
   Score ();
@@ -39,6 +39,8 @@ public:
   void add_output_def (Output_def *def);
   void set_music (SCM music);
   SCM book_rendering (Output_def *, Output_def *);
+  SCM get_header () const;
+  void set_header (SCM module);
 };
 
 DECLARE_UNSMOB (Score, score);

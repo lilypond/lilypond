@@ -193,3 +193,16 @@ Score::add_output_def (Output_def *def)
 {
   defs_.push_back (def);
 }
+
+SCM
+Score::get_header () const
+{
+  return header_;
+}
+
+void
+Score::set_header (SCM module)
+{
+  assert (ly_is_module (module));
+  header_ = module;
+}
