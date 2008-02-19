@@ -43,6 +43,8 @@ copyright = ('Jan Nieuwenhuizen <janneke@gnu.org>',
 program_name = os.path.basename (sys.argv[0])
 program_version = '@TOPLEVEL_VERSION@'
 
+error_file_write = ly.stderr_write
+
 def warning (s):
     ly.stderr_write (program_name + ": " + _ ("warning: %s") % s + '\n')
 
@@ -141,7 +143,7 @@ def show_rules (file, from_version, to_version):
     for x in convertrules.conversions:
         if (not from_version or x[0] > from_version) \
            and (not to_version or x[0] <= to_version):
-            file.write  ('%s: %s\n' % (tup_to_str (x[0]), x[2]))
+            ly.encoded_write  (file, '%s: %s\n' % (tup_to_str (x[0]), x[2]))
 
 def do_conversion (str, from_version, to_version):
     """Apply conversions from FROM_VERSION to TO_VERSION.  Return
@@ -149,24 +151,23 @@ tuple (LAST,STR), with the last succesful conversion and the resulting
 string."""
     conv_list = get_conversions (from_version, to_version)
 
-    if convertrules.error_file:
-        convertrules.error_file.write (_ ("Applying conversion: "))
+    error_file_write (_ ("Applying conversion: "))
         
     last_conversion = ()
     try:
         for x in conv_list:
-            convertrules.error_file.write (tup_to_str (x[0]))
+            error_file_write (tup_to_str (x[0]))
             if x != conv_list[-1]:
-                convertrules.error_file.write (', ')
+                error_file_write (', ')
             str = x[1] (str)
             last_conversion = x[0]
 
     except convertrules.FatalConversionError:
-        convertrules.error_file.write ('\n'
-                                       + _ ("Error while converting")
-                                       + '\n'
-                                       + _ ("Stopping at last succesful rule")
-                                       + '\n')
+        error_file_write ('\n'
+                          + _ ("Error while converting")
+                          + '\n'
+                          + _ ("Stopping at last succesful rule")
+                          + '\n')
 
     return (last_conversion, str)
 
@@ -223,7 +224,7 @@ def do_one_file (infile_name):
         elif not global_options.skip_version_add:
             result = newversion + '\n' + result
             
-        convertrules.error_file.write ('\n')            
+        error_file_write ('\n')            
     
         if global_options.edit:
             try:
