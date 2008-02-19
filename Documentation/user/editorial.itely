@@ -193,6 +193,10 @@ b
 c
 @end lilypond
 
+@refcommands
+
+@code{\hideNotes}, @code{\unHideNotes}
+
 @seealso
 
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
@@ -223,50 +227,34 @@ e
 @cindex x11-color
 
 The full range of colors defined for X11 can be accessed by using
-the Scheme function x11-color.  The function takes one argument
-that can be a symbol
+the Scheme function @code{x11-color}.  The function takes one
+argument; this can be a symbol in the form @var{'FooBar} or a
+string in the form @var{"FooBar"}.  The first form is quicker to
+write and is more efficient.  However, using the second form it is
+possible to access X11 colors by the multi-word form of its name.
 
-@example
-\override Beam #'color = #(x11-color 'MediumTurquoise)
-@end example
-
-or a string
-
-@example
-\override Beam #'color = #(x11-color "MediumTurquoise")
-@end example
-
-The first form is quicker to write and is more efficient.
-However, using the second form it is possible to access X11 colors
-by the multi-word form of its name
-
-@example
-\override Beam #'color = #(x11-color "medium turquoise")
-@end example
-
-If x11-color cannot make sense of the parameter then the color
+If @code{x11-color} cannot make sense of the parameter then the color
 returned defaults to black.  It should be obvious from the final
 score that something is wrong.
 
-This example illustrates the use of x11-color.  Notice that the
-stem color remains black after being set to (x11-color 'Boggle),
-which is deliberate nonsense.
+This example illustrates the use of @code{x11-color}.  Notice that
+the stem color remains black after being set to @code{(x11-color
+'Boggle)}, which is deliberate nonsense.
 
-@lilypond[quote,ragged-right,verbatim]
-{
-  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
-  }
-  \time 2/4
-  gis''8 a''
-  \override Beam #'color = #(x11-color "medium turquoise")
-  gis'' a''
-  \override NoteHead #'color = #(x11-color "LimeGreen")
-  gis'' a''
-  \override Stem #'color = #(x11-color 'Boggle)
-  gis'' a''
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\set Staff.instrumentName = \markup {
+  \with-color #(x11-color 'navy) "Clarinet"
 }
+gis4 a
+\override Beam #'color = #(x11-color "medium turquoise")
+gis a
+\override Accidental #'color = #(x11-color 'DarkRed)
+gis a
+\override NoteHead #'color = #(x11-color "LimeGreen")
+gis a
+\override Stem #'color = #(x11-color 'Boggle)
+b2 cis
 @end lilypond
 
 You can get exact RGB colors by specifying the rgb-color number.
