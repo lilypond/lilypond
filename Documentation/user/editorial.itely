@@ -41,12 +41,12 @@
 The easiest method of setting the font size of any context is by
 setting the @code{fontSize} property.
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
+@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
+c4
 \set fontSize = #-4
 c f
 \set fontSize = #3
-g
+g8 a
 @end lilypond
 
 @noindent
@@ -65,12 +65,12 @@ converts a @code{font-size} number to a scaling factor.  The
 @code{font-size} property can also be set directly, so that only
 certain layout objects are affected.
 
-@lilypond[quote,fragment,relative=1,verbatim]
-c8
+@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
+c4
 \override NoteHead #'font-size = #-4
 c f
 \override NoteHead #'font-size = #3
-g
+g8 a
 @end lilypond
 
 @cindex standard font size
@@ -128,7 +128,7 @@ You can use the thumb-script (e.g., in cello music)to indicate that a
 note should be played with the thumb. 
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
+<a_\thumb a'-3>2 <b_\thumb b'-3>
 @end lilypond
 
 @cindex fingering chords
@@ -175,7 +175,6 @@ Internals Reference: @internalsref{Fingering}.
 @cindex Hidden notes
 @cindex Invisible notes
 @cindex Transparent notes
-
 @funindex \hideNotes
 @funindex \unHideNotes
 
@@ -183,11 +182,15 @@ Hidden (or invisible or transparent) notes can be useful in
 preparing theory or composition exercises.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
-c4 d4
+c4 d
 \hideNotes
-e4 f4
+e4 f
 \unHideNotes
-g4 a
+g a
+\hideNotes 
+b
+\unHideNotes
+c
 @end lilypond
 
 @seealso
@@ -208,7 +211,7 @@ Snippets: @lsrdir{Editorial,Editorial-annotations}.
 Individual objects may be assigned colors.  You may use the color
 names listed in the @ref{List of colors}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \override NoteHead #'color = #red
 c4 c
 \override NoteHead #'color = #(x11-color 'LimeGreen)
@@ -266,17 +269,27 @@ which is deliberate nonsense.
 }
 @end lilypond
 
+You can get exact RGB colors by specifying the rgb-color number.
 
-TODO
-you can get exact RGB colors by specifying
+@lilypond[quote,ragged-right,verbatim]
+{
+  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+  \set Staff.instrumentName = \markup {
+    \with-color #(x11-color 'navy) "Clarinet"
+  }
+  \time 4/4
 
-% black
-\override Stem #'color = #(rgb-color 0 0 0)
-% white
-\override Stem #'color = #(rgb-color 1 1 1)
-% dark blue
-\override Stem #'color = #(rgb-color 0 0 0.5) 
-
+  %black
+  \override Stem #'color = #(rgb-color 0 0 0)
+  c4
+  % white
+  \override Stem #'color = #(rgb-color 1 1 1)
+  d
+  % dark blue
+  \override Stem #'color = #(rgb-color 0 0 0.5) 
+  e
+}
+@end lilypond
 
 @seealso
 
@@ -286,8 +299,10 @@ the input}.
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 @refbugs
-Not all x11 colors are distinguishable in a web browser.  For web
-use normal colors are recommended.
+Not all x11 colors are distinguishable in a web browser i.e. a web
+browser might not display a difference between 'LimeGreen and
+'ForestGreen.  For web use normal colors are recommended. (#blue,
+#green, #red)
 
 An x11 color is not necessarily exactly the same shade as a
 similarly named normal color.
@@ -313,7 +328,12 @@ the music event,
   c
   \parenthesize d
   g
->4-\parenthesize -.
+>2-\parenthesize -.
+d g 
+<
+  c
+  \parenthesize fis
+>
 @end lilypond
 
 This only functions inside chords, to parenthesize a single note it 
@@ -322,6 +342,13 @@ must be enclosed with @code{<>} as if it is a chord.
 @example
 < \parenthesize NOTE>
 @end example
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+c4
+<\parenthesize d>
+g
+<\parenthesize d>
+@end lilypond
 
 @seealso
 
@@ -376,7 +403,6 @@ Snippets: @lsrdir{Editorial,Editorial-annotations}.
 @menu
 * Balloon help::                
 * Grid lines::                  
-* Blank music sheet::           
 * Analysis brackets::           
 @end menu
 
@@ -393,11 +419,10 @@ The following example demonstrates its use.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  <f-\balloonText #'(-2 . -2) \markup { "I'm a note head" }  >8
+  <a-\balloonText #'(-2 . -2) \markup { "I'm a note head" }  >8
 }
 @end lilypond
 
-@noindent
 There are two music functions, @code{balloonGrobText} and
 @code{balloonText}; the former takes the name of the grob to adorn,
 while the latter may be used as an articulation on a note.  The other
@@ -458,42 +483,6 @@ notes.
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 
-@node Blank music sheet
-@subsubsection Blank music sheet
-
-@cindex sheet music, empty
-@cindex staves, blank sheet
-@cindex blank staff paper
-@cindex staff paper, blank
-
-A blank music sheet can be produced also by using invisible notes,
-and removing @code{Bar_number_engraver}.
-
-
-@lilypond[quote,verbatim]
-\layout{ indent = #0 }
-emptymusic = {
-  \repeat unfold 2 % Change this for more lines.
-  { s1\break }
-  \bar "|."
-}
-\new Score \with {
-  \override TimeSignature #'transparent = ##t
-% un-comment this line if desired
-%  \override Clef #'transparent = ##t
-  defaultBarType = #""
-  \remove Bar_number_engraver
-} <<
-
-% modify these to get the staves you want
-  \new Staff \emptymusic
-  \new TabStaff \emptymusic
->>
-@end lilypond
-
-@seealso
-
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Analysis brackets
@@ -521,7 +510,9 @@ the @code{Staff} context.  A bracket is started with
   \layout {
     \context {
       \Staff \consists "Horizontal_bracket_engraver"
-}}}
+    }
+  }
+}
 @end lilypond
 
 @seealso
@@ -530,5 +521,4 @@ Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference: @internalsref{HorizontalBracket},
 @internalsref{Horizontal_bracket_engraver}, @internalsref{Staff}.
-
 

@@ -17,7 +17,7 @@ configurable; virtually every fragment of output may be changed.
 @menu
 * Tweaking basics::             
 * The Internals Reference manual::  
-* Appearance of objects::
+* Appearance of objects::       
 * Placement of objects::        
 * Collisions of objects::       
 * Further tweaking::            
@@ -709,8 +709,8 @@ appearance of the printed music.
 
 @menu
 * Visibility and color of objects::  
-* Size of objects::
-* Length and thickness of objects::
+* Size of objects::             
+* Length and thickness of objects::  
 @end menu
 
 @node Visibility and color of objects
@@ -2082,8 +2082,7 @@ should be used to move them.
 Let's now see how the properties in the previous section can
 help to resolve overlapping notation.
 
-@c FIXME: formatting
-@subheading @code{padding}
+@subheading padding property
 @cindex padding property
 
 The @code{padding} property can be set to increase
@@ -2116,11 +2115,11 @@ is handled in the @code{Score} context, property changes in the
 
 If the @code{padding} property of an object is increased when that
 object is in a stack of objects being positioned according to
-their @code{outside-staff-priority}, then that object and all 
+their @code{outside-staff-priority}, then that object and all
 objects outside it are moved.
- 
 
-@subheading @code{left-padding} and @code{right-padding}
+
+@subheading left-padding and right-padding
 @cindex left-padding property
 @cindex right-padding property
 
@@ -2216,6 +2215,76 @@ f-5
 @end lilypond
 
 
+@subheading positions property
+@cindex positions property
+
+The @code{positions} property allows the position and slope of
+ tuplets, slurs, phrasing slurs and beams to be controlled
+manually.  Here's an example which has an ugly phrasing slur
+due to its trying to avoid the slur on the acciaccatura.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4  \acciaccatura e8\( d8 c ~c d c d\)
+@end lilypond
+
+@noindent
+We could simply move the phrasing slur above the notes, and this
+would be the preferred solution:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\phrasingSlurUp
+\acciaccatura e8\( d8 c ~c d c d\)
+@end lilypond
+
+@noindent
+but if there were some reason why this could not be done the
+other alternative would be to move the left end of the phrasing
+slur down a little using the @code{positions} property.  This
+also resolves the rather nasty shape.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\once \override PhrasingSlur #'positions = #'(-4 . -3)
+\acciaccatura
+e8\( d8 c ~c d c d\)
+@end lilypond
+
+Here's a further example taken from the opening of the left-hand
+staff of Chopin's Prelude Op 28 No. 2.  We see that the beam
+collides with the upper notes:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+\clef "bass"
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
+
+@noindent
+This can be resolved by manually moving both ends of the beam
+up from their position at 2 staff-spaces above the center line to,
+say, 3:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  \clef "bass"
+  <<
+    \override Beam #'positions = #'(3 . 3)
+    {b,8 ais, b, g,}
+  \\
+    {e, g e, g}
+  >>
+  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
+
+@noindent
+Note that the override continues to apply in the first voice of
+the second block of quavers, but not to any of the beams in the
+second voice.
+
 @subheading force-hshift property
 @cindex force-hshift property
 @c FIXME: formatting stuff  (ie not important right now IMO)
@@ -2268,76 +2337,6 @@ Here's the final result:
 }
 @end lilypond
 
-
-@subheading positions property
-@cindex positions property
-
-The @code{positions} property allows the position and slope of
- tuplets, slurs, phrasing slurs and beams to be controlled
-manually.  Here's an example which has an ugly phrasing slur
-due to its trying to avoid the slur on the acciaccatura.
-
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4  \acciaccatura e8\( d8 c ~c d c d\)
-@end lilypond
-
-@noindent
-We could simply move the phrasing slur above the notes, and this
-would be the preferred solution:
-
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\phrasingSlurUp
-\acciaccatura e8\( d8 c ~c d c d\)
-@end lilypond
-
-@noindent
-but if there were some reason why this could not be done the
-other alternative would be to move the left end of the phrasing
-slur down a little using the @code{positions} property.  This
-also resolves the rather nasty shape.
-
-@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
-r4
-\once \override PhrasingSlur #'positions = #'(-4 . -3)
-\acciaccatura
-e8\( d8 c ~c d c d\)
-@end lilypond
-
-Here's a further example taken from the opening of the left-hand
-staff of Chopin's Prelude Op 28 No. 2.  We see that the beam
-collides with the upper notes:
-
-@lilypond[quote,verbatim,fragment,ragged-right]
-{
-\clef "bass"
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
-<< {b,8 ais, b, g,} \\ {e, g e, g} >>
-}
-@end lilypond
-
-@noindent
-This can only be resolved by manually moving both ends of the beam
-up from their position at 2 staff-spaces above the center line to,
-say, 3:
-
-@lilypond[quote,verbatim,fragment,ragged-right]
-{
-  \clef "bass"
-  <<
-    \override Beam #'positions = #'(3 . 3)
-    {b,8 ais, b, g,}
-  \\
-    {e, g e, g}
-  >>
-  << {b,8 ais, b, g,} \\ {e, g e, g} >>
-}
-@end lilypond
-
-@noindent
-Note that the override continues to apply in the first voice of
-the second block of quavers, but not to any of the beams in the
-second voice.
 
 @node Real music example
 @subsection Real music example
@@ -2777,11 +2776,11 @@ lhMusic = \relative c' {
 @section Further tweaking
 
 @menu
-* Other uses for tweaks::
-* Using variables for tweaks::
-* Other sources of information::
-* Advanced tweaks with Scheme::
-* Avoiding tweaks with slower processing::
+* Other uses for tweaks::       
+* Using variables for tweaks::  
+* Other sources of information::  
+* Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
 @end menu
 
 @node Other uses for tweaks
@@ -2801,16 +2800,14 @@ lhMusic = \relative c' {
 @subheading Tying notes across voices
 
 The following example demonstrates how to connect notes in
-different voices using ties.  Normally, ties can be used to
-only to connect two notes in the same voice.  By introducing 
-a tie in a different voice,
+different voices using ties.  Normally, only two notes in the 
+same voice can be connected with ties.  By using two voices,
+with the tied notes in one of them
 
 @lilypond[quote,fragment,relative=2]
-<< {
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+<< { b8~ b8\noBeam } 
+\\ { b[ g8] } 
+>>
 @end lilypond
 
 @noindent
@@ -2818,26 +2815,30 @@ and blanking the first up-stem in that voice, the tie appears to
 cross voices:
 
 @lilypond[quote,fragment,relative=2,verbatim]
-<< {
-  \once \override Stem #'transparent = ##t
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+<< 
+  {
+    \once \override Stem #'transparent = ##t
+    b8~ b8\noBeam
+  } 
+\\ 
+  { b[ g8] }
+>>
 @end lilypond
 
 To make sure that the just-blanked stem doesn't squeeze the tie 
-too much, we can also lengthen the stem, by setting the 
+too much, we can lengthen the stem by setting the
 @code{length} to @code{8},
 
 @lilypond[quote,fragment,relative=2,verbatim]
-<< {
-  \once \override Stem #'transparent = ##t
-  \once \override Stem #'length = #8
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+<< 
+  {
+    \once \override Stem #'transparent = ##t
+    \once \override Stem #'length = #8
+    b8~ b8\noBeam
+  } 
+\\ 
+  { b[ g8] } 
+>>
 @end lilypond
 
 @item
@@ -2856,13 +2857,13 @@ it.
 
 For example, if we wished to change the metronome setting in order
 to simulate a fermata in the MIDI output we would not want the
-metronome marking to appear in the printed output, and we would
+metronome markings to appear in the printed output, and we would
 not want it to influence the spacing between the two systems or
 the spacing of the notes on the staff.  So setting its 
 @code{stencil} property to @code{#f} would be the best way.
 We show here the effect of the two methods:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,ragged-right]
 \score {
   \relative c'' {
     % Visible tempo marking
@@ -2959,24 +2960,27 @@ VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
 @subsection Other sources of information
 
 The Internals Reference documentation contains a lot of information
-about LilyPond, but even more information can be gathered from
+about LilyPond, but even more information can be gathered by
 looking at the internal LilyPond files.  To explore these, first
 find the directory appropriate to your system, as follows:
 
 @itemize
 
-@item Linux: 
+@item Linux
+
 Navigate to 
 @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 
-@item OSX:
+@item OSX
+
 Navigate to
-@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
+@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
 by either @code{cd}-ing into this directory from the
-Terminal, or control-clicking on the LilyPond application and 
+Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
 
-@item Windows: 
+@item Windows
+
 Using Windows Explorer, navigate to
 @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
 
@@ -2986,7 +2990,7 @@ Within this directory the two interesting subdirectories are
 
 @itemize
 
-@item @file{../ly/} - contains files in LilyPond format
+@item @file{../ly/ } - contains files in LilyPond format
 
 @item @file{../scm/} - contains files in Scheme format
 
@@ -2996,7 +3000,7 @@ Let's begin by looking at some files in @file{../ly/}.
 Open @file{../ly/property-init.ly} in a text editor.  The one
 you normally use for @code{.ly} files will be fine.  This file
 contains the definitions of all the standard LilyPond built-in
-commands -- like @code{\stemUp} and @code{\slurDotted}.  You will
+commands, such as @code{\stemUp} and @code{\slurDotted}.  You will
 see that these are nothing more than definitions of variables
 containing one or a group of @code{\override} commands.  For
 example, @code{/tieDotted} is defined to be:
@@ -3012,7 +3016,8 @@ If you do not like the default values these built-in commands can
 be redefined easily, just like any other variable, at the
 head of your input file.
 
-These are the most useful files to be found in @file{../ly/}:
+The following are the most useful files to be found in 
+@file{../ly/}:
 
 @multitable @columnfractions .4 .6
 @headitem Filename
@@ -3024,7 +3029,7 @@ These are the most useful files to be found in @file{../ly/}:
 @item @file{../ly/performer-init.ly}
   @tab Definitions of performer Contexts
 @item @file{../ly/property-init.ly}
-  @tab Definitions of all common macros
+  @tab Definitions of all common built-in commands
 @end multitable
 
 Other settings (such as the definitions of markup commands) are
@@ -3034,7 +3039,7 @@ LilyPond internal operation.  Further explanation of these files
 is currently outside the scope of this manual, as a knowledge of
 the Scheme language is required.  Users should be warned that
 a substantial amount of technical knowledge or time is required
-to understand Scheme and these files.
+to understand Scheme and these files (see @ref{Scheme tutorial}).
 
 If you have this knowledge, the Scheme files which may be of
 interest are:
@@ -3129,26 +3134,26 @@ pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 @subsection Avoiding tweaks with slower processing
 
 LilyPond can perform extra checks while it processes files.  These
-commands will take extra time, but the result may require fewer
-manual tweaks.
+checks will take extra time to perform, but fewer manual tweaks
+may be required to obtain an acceptable result.  If a text script
+or part of the lyrics extends over the margins these checks will
+compress that line of the score just enough to fit within the
+margins.
 
-@example
-%%  makes sure text scripts and lyrics are within the paper margins
-\override Score.PaperColumn #'keep-inside-line = ##t 
-\override Score.NonMusicalPaperColumn #'keep-inside-line = ##t
-@end example
-
-In some cases (see issue 246), this must be done before
-@code{\override} commands can be processed.
+To be effective under all circumstances these checks must be enabled
+by placing the overrides in a Score @code{\with} block, rather than 
+in-line in music, as follows:
 
 @verbatim
 \new Score \with {
-    \override PaperColumn #'keep-inside-line = ##t 
-    \override NonMusicalPaperColumn #'keep-inside-line = ##t
-  } {
+  % Makes sure text scripts and lyrics are within the paper margins
+  \override PaperColumn #'keep-inside-line = ##t
+  \override NonMusicalPaperColumn #'keep-inside-line = ##t
+} {
    ..
 }
 @end verbatim
+
 
 
 
