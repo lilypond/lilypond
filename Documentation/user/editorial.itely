@@ -233,13 +233,9 @@ string in the form @var{"FooBar"}.  The first form is quicker to
 write and is more efficient.  However, using the second form it is
 possible to access X11 colors by the multi-word form of its name.
 
-If @code{x11-color} cannot make sense of the parameter then the color
-returned defaults to black.  It should be obvious from the final
-score that something is wrong.
-
-This example illustrates the use of @code{x11-color}.  Notice that
-the stem color remains black after being set to @code{(x11-color
-'Boggle)}, which is deliberate nonsense.
+If @code{x11-color} cannot make sense of the parameter then the
+color returned defaults to black.  It should be obvious from the
+final score that something is wrong.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
@@ -253,6 +249,8 @@ gis a
 gis a
 \override NoteHead #'color = #(x11-color "LimeGreen")
 gis a
+
+% this is deliberate nonsense; note that the stems remain black
 \override Stem #'color = #(x11-color 'Boggle)
 b2 cis
 @end lilypond
