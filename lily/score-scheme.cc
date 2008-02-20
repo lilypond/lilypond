@@ -72,7 +72,8 @@ LY_DEFINE (ly_score_set_header_x, "ly:score-set-header!",
 		   "module");
   
   Score *sc = unsmob_score (score);
-  return sc->get_header ();
+  sc->set_header (module);
+  return SCM_UNSPECIFIED;
 }
 
 

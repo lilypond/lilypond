@@ -8,151 +8,16 @@
 
 @c Translators: Jean-Charles Malahieude
 
-@node Educational use
-@section Educational use
+@node Editorial annotations
+@section Editorial annotations
+
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+{editorial-headword.ly}
 
 @menu
-* Note heads::                  
 * Inside the staff::            
 * Outside the staff::           
 @end menu
-
-
-@node Note heads
-@subsection Note heads
-
-@menu
-* Easy notation note heads::    
-* Shape note heads::            
-* Improvisation::               
-* Special noteheads::           
-@end menu
-
-@node Easy Notation note heads
-@unnumberedsubsubsec Easy Notation note heads
-
-@cindex tête de note, apprentissage
-@cindex notation facile
-@cindex Hal Leonard
-
-Les notes @q{easy play} comportent le nom de la note à l'intérieur de
-la tête.  On l'utilise dans des partitions pour débutants.
-
-@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
-  \easyHeadsOn
-  c'2 e'4 f' | g'1
-@end lilypond
-
-La commande @code{\easyHeadsOn} remplace tous les réglages de l'objet
-@internalsref{NoteHead}.  L'impression doit être de plus grande
-taille, afin que les lettres soient lisibles.  Voir à ce propos
-@ref{Setting the staff size}.
-
-@refcommands
-
-@funindex \easyHeadsOn
-@code{\easyHeadsOn}
-
-
-@node Shape note heads
-@unnumberedsubsubsec Shape note heads
-
-@cindex tête de note, allure
-
-En notation profilée, le profil d'une tête de note correspond à la
-fonction harmonique de cette note dans la gamme.  Ce style de notation
-était très en vogue dans les recueils de chansons américains du XIXe
-siècle. 
-
-Des notes profilées sont produites après activation de
-@code{\aikenHeads} ou @code{\sacredHarpHeads}, selon le style.
-
-@lilypond[verbatim,relative=1,fragment]
-  \aikenHeads
-  c8 d4 e8 a2 g1
-  \sacredHarpHeads
-  c8 d4. e8 a2 g1
-@end lilypond
-
-Les profils sont déterminés par la hauteur dans la gamme, le premier
-degré étant défini par la commande @code{\key}. 
-
-@funindex \key
-@funindex shapeNoteStyles
-@funindex \aikenHeads
-@funindex \sacredHarpHeads
-
-Les notes profilées sont mises en œuvre par la propriété
-@code{shapeNoteStyles}, dont les valeurs sont constituées d'une liste
-de symboles.  Le n-ième élément indique le style à utiliser pour le
-n-ième degré de la gamme.  Toutes les combinaisons sont possibles :
-
-@lilypond[verbatim,relative=1,fragment]
-  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
-  c8 d4. e8 a2 g1
-@end lilypond
-
-
-@node Improvisation
-@unnumberedsubsubsec Improvisation
-
-L'improvisation peut quelquefois s'indiquer à l'aide de notes de forme
-allongée (@emph{slash}).  Ces têtes de notes sont créées  par
-l'adjonction du graveur @internalsref{Pitch_squash_engraver} au
-contexte @internalsref{Voice}, de telle sorte que la commande
-
-@example
-\set squashedPosition = #0
-\override NoteHead #'style = #'slash
-@end example
-
-@noindent
-active les notes penchées.
-
-Vous disposez des raccourcis @code{\improvisationOn} et son corollaire
-@code{\improvisationOff} pour cette séquence, comme l'illustre
-l'exemple ci dessous.
-
-@lilypond[verbatim,ragged-right,quote]
-\new Voice \with {
-  \consists Pitch_squash_engraver
-} \transpose c c' {
-  e8 e g a a16(bes)(a8) g \improvisationOn
-  e8
-  ~e2~e8 f4 fis8
-  ~fis2 \improvisationOff a16(bes) a8 g e
-}
-@end lilypond
-
-
-@node Special noteheads
-@unnumberedsubsubsec Special noteheads
-
-@cindex têtes de note, spéciales
-
-Certains instruments utilisent des têtes de note différentes à des
-fins spécifiques --- des croix pour le @q{parlato} des chanteurs ou les
-notes étouffées des guitares ; des losanges pour les harmoniques des
-cordes.  Il existe un raccourci (@code{\harmonic}) pour les notes en
-losange ; pour les autres styles de tête, il vous faudra jouer avec la
-propriété @code{NoteHead}.
-
-@lilypond[ragged-right,relative=1,fragment,verbatim,quote]
-c4 d
-\override NoteHead #'style = #'cross
-e f
-\revert NoteHead #'style
-e d <c f\harmonic> <d a'\harmonic>
-@end lilypond
-
-@noindent
-Pour une liste exhaustive des styles de tête de note, consultez 
-@ref{Note head styles}.
-
-
-@seealso
-
-Référence du programme : @internalsref{NoteHead}.
 
 
 @node Inside the staff
@@ -561,7 +426,7 @@ a4 b c b
 @end menu
 
 @node Balloon help
-@subsection Balloon help
+@subsubsection Balloon help
 
 Vous pouvez marquer et nommer des éléments de notation à l'aide de
 bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
@@ -593,7 +458,7 @@ Référence du programme : @internalsref{text-balloon-interface}.
 
 
 @node Grid lines
-@subsection Grid lines
+@subsubsection Grid lines
 
 Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
@@ -636,7 +501,7 @@ Exemples : @lsrdir{education}
 
 
 @node Blank music sheet
-@subsection Blank music sheet
+@subsubsection Blank music sheet
 
 @cindex Papier musique
 @cindex Portées, feuille blanche
