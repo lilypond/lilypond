@@ -1,8 +1,36 @@
 
 .SUFFIXES: .html .info .texi .texinfo
 
-$(outdir)/%.info: $(outdir)/%.texi
-# makeinfo MUST have PNGs in cwd for info images to work
+# "makeinfo --info" MUST be able to read PNGs from CWD for info images
+# to work, hence $(INFO_IMAGES_DIR) -> $(outdir)/ symlink.
+# $(outdir)/$(INFO_IMAGES_DIR)/*.png symlinks are only needed to view
+# out-www/*.info with Emacs -- HTML docs no longer need these
+# symlinks, see replace_symlinks_urls in
+# buildscripts/add_html_footer.py.
+
+ifneq ($(INFO_IMAGES_DIR),)
+
+# make dereferences symlinks, and $(INFO_IMAGES_DIR) is a symlink
+# to $(outdir), so we can't use directly $(INFO_IMAGES_DIR) as a
+# prerequisite, otherwise %.info are always outdated (because older
+# than $(outdir), hence this .dep file
+
+$(outdir)/%.info-images-dir.dep: $(outdir)/%.texi
+	rm -f $*
+	ln -s $(outdir) $*
+	mkdir -p $(outdir)/$*
+	find $(outdir)/$*/ -name '*'.png | xargs rm -f
+	(cd $(outdir)/$*/ ; ln -sf ../*.png . )
+	touch $@
+
+else
+
+$(outdir)/.info-images-dir.dep:
+	true
+
+endif
+
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi
