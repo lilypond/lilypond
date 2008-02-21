@@ -134,7 +134,7 @@ saisissant plusieurs @code{\tag}.
 Exemples : @lsr{parts,tag@/-filter@/.ly}
 
 
-@refbugs
+@knownissues
 
 Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
 si vous imprimez une partition avec les deux sections balisées.

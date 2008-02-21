@@ -289,7 +289,7 @@ Fichier d'initialisation : @file{ly/@/drumpitch@/-init@/.ly}.
 
 Référence du programme : @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
-@refbugs
+@knownissues
 
 La bibliothèque MIDI générale ne contient pas les @emph{rimshots} --- coups
 sur le bord de la caisse claire --- donc ils sont remplacés par des

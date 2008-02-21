@@ -286,7 +286,7 @@ Pour plus de détails, voir @ref{Text markup}.
 Référence du programme : @internalsref{MetronomeMark}.
 
 
-@refbugs
+@knownissues
 
 Les risques de collision ne sont pas vérifiés.  Dans le cas où il y
 aurait des notes au dessus de la portée ou d'autres objets
@@ -487,7 +487,7 @@ Définir
 reproduira les notes (mais pas les silences), ainsi que les scripts
 et nuances.
 
-@refbugs
+@knownissues
 
 Seul le contenu de la première @internalsref{Voice} rencontrée dans la
 partie marquée d'une commande @code{\addQuote} pourra être retenu. Par

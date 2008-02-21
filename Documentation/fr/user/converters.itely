@@ -23,7 +23,7 @@ Il s'agit de programmes distincts de lilypond qui se lancent en ligne
 de commande.  Pour plus de précisions, reportez-vous à @ref{Command-line
 usage}.
 
-@refbugs
+@knownissues
 
 Les développeurs ne sont malheureusement pas suffisament nombreux et
 disponibles pour maintenir à jour ces programmes, considérez-les donc
@@ -125,7 +125,7 @@ Interpréter le texte comme des paroles.
 @end table
 
 
-@refbugs
+@knownissues
 
 Le tuilage en arpège ne sera pas rendu correctement.  La première note
 sera lue et les suivantes ignorées.  Affectez-leur une durée unique et
@@ -207,7 +207,7 @@ De la même manière,
 placera le texte suivant le mot-clé @q{slyrics} dans une ligne de paroles.
 
 
-@refbugs
+@knownissues
 
 Le standard ABC n'est pas si @q{standard} que cela.  Pour des
 fonctionnalités étendues, comme la polyphonie, existent différentes
@@ -258,7 +258,7 @@ Afficher le numéro de version.
 @end table
 
 
-@refbugs
+@knownissues
 
 La liste des scripts d'articulation est incomplète.  Les mesures vides
 perturbent @command{etf2ly}.  Les séquences ne notes d'ornement ne se

@@ -122,7 +122,7 @@ comme suit :
 
 Référence du programme : @internalsref{TabStaff}, @internalsref{TabVoice}.
 
-@refbugs
+@knownissues
 
 Les accords ne subsissent ausun traitement particulier ; de ce fait, la
 sélection automatique des cordes peut attribuer une même corde pour deux
@@ -188,7 +188,7 @@ Vous trouverez une liste complète des jeux prédéfinis dans le fichier
 
 Référence du programme : @internalsref{Tab_note_heads_engraver}.
 
-@refbugs
+@knownissues
 
 Aucun effet spécial de guitare n'a été implémenté à ce jour.
 
