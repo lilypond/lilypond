@@ -198,7 +198,7 @@ ou modifiées.
 
 
 
-@refbugs
+@knownissues
 
 Aucun nom de note ne peut être indiqué deux fois dans un accord.  Ainsi, 
 dans l'accord suivant, seule la quinte augmentée est prise en compte,
@@ -373,7 +373,7 @@ pour la mise en œuvre de ces modèles.
 @cindex accords jazz, chiffrage
 
 
-@refcommands
+@predefined
 
 @funindex \germanChords
 @code{\germanChords},
@@ -394,7 +394,7 @@ Fichiers internes : @file{scm/@/chords@/-ignatzek@/.scm}, et
 @file{scm/@/chord@/-entry@/.scm}.
 
 
-@refbugs
+@knownissues
 
 Les chiffrages d'accords ne sont déterminés que par la succession des
 hauteurs de notes.  En d'autres termes, les accords inversés ne sont pas

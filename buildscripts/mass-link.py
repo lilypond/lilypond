@@ -58,7 +58,7 @@ destfiles = map (lambda f: os.path.join (dest_dir, insert_suffix (relative_path 
 
 def force_link (src,dest):
     if os.path.exists (dest):
-        os.system ('rm -rf ' + dest)
+        os.system ('rm -f ' + dest)
     link (src, dest)
 
 map (force_link, sourcefiles, destfiles)

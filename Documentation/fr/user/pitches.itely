@@ -190,7 +190,7 @@ ceseh ceh cih cisih
 
 Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 
-@refbugs
+@knownissues
 
 Il n'y a pas de standard universellement accepté pour noter le bémol et
 demi (qui abaisse la hauteur trois quarts de ton), le symbole de
@@ -491,7 +491,7 @@ Référence du programme : @internalsref{TransposedMusic}.
 Exemple : @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
 
-@refbugs
+@knownissues
 
 Si vous voulez utiliser en même temps @code{\transpose} et
 @code{\relative}, vous devez mettre @code{\transpose} en dehors de
@@ -710,7 +710,7 @@ d'octaviation en définissant @code{ottavation} après avoir fait appel
 Référence du programme : @internalsref{OttavaBracket}.
 
 
-@refbugs
+@knownissues
 
 @code{set-octavation} gère difficilement les changements de clé qui
 pourraient intervenir alors qu'elle est effective.
@@ -832,7 +832,7 @@ La commande @code{\easyHeadsOn} remplace tous les réglages de l'objet
 taille, afin que les lettres soient lisibles.  Voir à ce propos
 @ref{Setting the staff size}.
 
-@refcommands
+@predefined
 
 @funindex \easyHeadsOn
 @code{\easyHeadsOn}

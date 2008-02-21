@@ -190,7 +190,7 @@ voir @ref{Modifying context plug-ins} et
 @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 
-@refbugs
+@knownissues
 
 @cindex reprises ambigües
 
@@ -329,7 +329,7 @@ c'2:8 c':32 | c': c': |
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 Les trémolos entrés de cette manière ne sont pas rendus dans
 le fichier MIDI.

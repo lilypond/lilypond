@@ -78,7 +78,9 @@ for t in targets:
         os.link (f, strip_file_name[t] (f))
     for l in symlinks:
         p = mirrortree.new_link_path (os.path.normpath (os.readlink (l)), os.path.dirname (l), strip_re)
-        os.symlink (p, strip_file_name[t] (l))
+        dest = strip_file_name[t] (l)
+        if not os.path.exists (dest):
+            os.symlink (p, dest)
 
 # need this for content negotiation with documentation index
 if 'online' in targets:

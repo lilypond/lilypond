@@ -72,7 +72,7 @@ Référence du programme : @internalsref{ClusterSpanner},
 
 Exemples : @lsr{contemporary,cluster@/.ly}.
 
-@refbugs
+@knownissues
 
 Les expressions musicales du type @code{<< @{ g8 e8 @} a4 >>} ne
 seront pas imprimées de façon acceptable.  utilisez plutôt 
@@ -231,7 +231,7 @@ pour sortir le sol (@code{g}) de l'alignement, et
 @end lilypond
 
 
-@refcommands
+@predefined
 
 @funindex \oneVoice
 @code{\oneVoice},
@@ -280,7 +280,7 @@ collisions sont @internalsref{NoteCollision} et
 @internalsref{RestCollision}.
 
 
-@refbugs
+@knownissues
 
 Quand @code{merge-differently-headed} est utilisé avec une croche ou
 une valeur plus courte à hampe vers le haut, et une blanche hampe vers
@@ -377,7 +377,7 @@ sans effet sur les hauteurs de @var{musicexpr1} et @var{musicexpr2}.
 
 Référence du programme : @internalsref{PartCombineMusic}.
 
-@refbugs
+@knownissues
 
 Lorsque @code{printPartCombineTexts} est actif et que les deux voix
 jouent souvent les mêmes notes, le combinateur peut afficher @code{a2}
