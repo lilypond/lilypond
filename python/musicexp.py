@@ -835,7 +835,6 @@ class BracketSpannerEvent (SpanEvent):
             1:'\\stopGroup'}.get (self.span_direction, '')
 
 
-# type==-1 means octave up, type==-2 means octave down
 class OctaveShiftEvent (SpanEvent):
     def wait_for_note (self):
         return False
