@@ -81,7 +81,7 @@ La propriété @code{font-size} ne peut intervenir que pour les objets
 qui utilisent des polices, autrement dit ceux qui disposent de
 l'interface de rendu @internalsref{font-interface}.
 
-@refcommands
+@predefined
 
 Les commandes suivantes définissent @code{fontSize} pour la voix en
 cours :
@@ -251,7 +251,7 @@ L'exemple suivant illustre l'utilisation de la fonction
 Annexes : @ref{List of colors}.
 
 
-@refbugs
+@knownissues
 Les couleurs de X11 ne sont pas toutes perceptibles dans un navigateur
 internet.  Aussi nous vous recommandons, dans le cadre d'une
 présentation multimedia, d'utiliser des couleurs de base.
@@ -379,7 +379,7 @@ Référence du programme : @internalsref{Ambitus},
 Exemples :
 @lsr{vocal,ambitus@/.ly}.
 
-@refbugs
+@knownissues
 
 LilyPond ne gère pas les collisions entre plusieurs ambitus présents sur
 une même portée.
@@ -392,7 +392,7 @@ Dès qu'une note est rencontrée, un objet @internalsref{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
 créés, mais en mode invisible.
 
-@refcommands
+@predefined
 
 @funindex \stemUp
 @code{\stemUp},

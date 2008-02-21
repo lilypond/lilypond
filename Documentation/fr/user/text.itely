@@ -90,7 +90,7 @@ La commande @code{\markup} est décrite plus en détails dans la section
 @ref{Text markup}.
 
 
-@refcommands
+@predefined
 
 @funindex \textLengthOn
 @code{\textLengthOn},
@@ -280,7 +280,7 @@ c2\startTextSpan b c\stopTextSpan a
 c2\startTextSpan b c\stopTextSpan a
 @end lilypond
 
-@refcommands
+@predefined
 
 @funindex textSpannerUp
 @code{\textSpannerUp},
@@ -662,7 +662,7 @@ Référence du programme : @internalsref{TextScript}.
 Fichiers d'initialisation : @file{scm/@/new@/-markup@/.scm}.
 
 
-@refbugs
+@knownissues
 
 Le crénage ou la génération de ligatures ne sont accessibles que lors
 d'un retraitement par @TeX{}.  Dans ce cas, LilyPond n'en tient pas
@@ -732,7 +732,7 @@ se trouve dans @ref{Overview of text markup list commands}.
 Dans ce manuel : @ref{Overview of text markup list commands}, 
 @ref{New markup list command definition}.
 
-@refcommands
+@predefined
 
 @funindex \markuplines
 @code{\markuplines}

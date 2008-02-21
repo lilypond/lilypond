@@ -34,7 +34,7 @@ conçu pour gérer la notation spécifique au piano, notamment ces croisements.
 * Cross staff stems::           
 @end menu
 
-@refbugs
+@knownissues
 
 Les nuances ne sont pas centrées verticalement, mais il existe
 des astuces.  Voir à ce sujet le modèle @q{alignement des nuances au
@@ -94,7 +94,7 @@ Référence du programme : @internalsref{AutoChangeMusic}.
 
 
 
-@refbugs
+@knownissues
 
 Les changements de portée automatiques n'interviennent pas toujours à
 l'endroit le plus opportun.  Pour un résultat de meilleure qualité, il
@@ -245,7 +245,7 @@ automatiquement une ligne reliant les notes, en attribuant à la variable
 
 Référence du programme : @internalsref{VoiceFollower}.
 
-@refcommands
+@predefined
 
 @funindex \showStaffSwitch
 @code{\showStaffSwitch},

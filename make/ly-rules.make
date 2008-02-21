@@ -4,6 +4,8 @@
 $(outdir)/%.latex:  %.doc
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BINARY) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir)  $(LILYPOND_BOOK_FLAGS) $<
 
+ifeq ($(out),www)
+
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely
@@ -16,6 +18,8 @@ $(outdir)/%.texi: $(outdir)/%.tely
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.
 #	rm -f $<
 
+else # out != www
+
 # nexi: n[o-lilypond t]exi
 # for plain info doco: don't run lilypond
 $(outdir)/%.nexi: %.tely
@@ -25,6 +29,8 @@ $(outdir)/%.nexi: %.tely
 
 $(outdir)/%.info: $(outdir)/%.nexi
 	$(MAKEINFO) -I $(outdir) --output=$(outdir)/$(*F).info $<
+
+endif # out != www
 
 $(outdir)/%.html.omf: %.tely
 	$(call GENERATE_OMF,html)

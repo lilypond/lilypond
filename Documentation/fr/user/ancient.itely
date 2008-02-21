@@ -501,7 +501,7 @@ leur ligne de rattachement.
 
 Dans ce manuel : voir @ref{Clef}.
 
-@refbugs
+@knownissues
 
 La clé de sol mensurale est calquée sur celle de Petrucci.
 
@@ -534,7 +534,7 @@ conseillons donc, lorsque vous réalisez l'incipit d'une transcription,
 d'utiliser le style par défaut.  Les crochets n'existent pas en notation
 grégorienne.
 
-@refbugs
+@knownissues
 
 Les crochets anciens s'attachent aux hampes avec un léger décalage,
 suite à des modifications intervenues au début de la série 2.3.
@@ -641,7 +641,7 @@ Voici les différences entre les styles :
 Dans ce manuel : @ref{Time signature} expose les principes généraux sur
 l'utilisation des indications de métrique.
 
-@refbugs
+@knownissues
 
 Les équivalences de durées de note ne sont pas modifiées par un
 changement de métrique.  Par exemple, l'équivalence 1 brève pour 3
@@ -686,7 +686,7 @@ ancienne.  Elles sont spécifiquement destinées au style Editio Vaticana.
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 Certaines articulations sont verticalement trop proches de leurs têtes
 de note.
@@ -800,7 +800,7 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@refcommands
+@predefined
 
 @funindex \virgula
 @code{\virgula},
@@ -857,7 +857,7 @@ verrons plus loin.  Seules sont disponibles les ligatures mensurales
 blanches, avec quelques limitations.
 
 
-@refbugs
+@knownissues
 
 La gestion de l'espacement spécifique aux ligatures n'est à ce jour
 pas implémentée.  En conséquence, les ligatures sont trop espacées les
@@ -968,7 +968,7 @@ par le @internalsref{Mensural_ligature_engraver}, on obtient
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 L'espacement horizontal n'est pas des meilleurs.
 
@@ -1873,7 +1873,7 @@ c} ou @code{\augmentum @{\virga c@}}.  Par ailleurs, l'expression
 }
 @end lilypond
 
-@refcommands
+@predefined
 
 LilyPond dispose des préfixes suivants :
 
@@ -1915,7 +1915,7 @@ respectivement ascendante ou descendante.
 Utilisez la fonction musicale unaire @code{\augmentum} pour ajouter
 des points d'augmentum.
 
-@refbugs
+@knownissues
 
 Lorsqu'un @code{\augmentum} apparaît dans une ligature en fin de
 portée, son placement vertical peut être erroné.  Pour y remédier,
@@ -2217,7 +2217,7 @@ imprimer dessous, ajoutez
 @end example
 
 
-@refbugs
+@knownissues
 
 Si vous positionnez la basse chiffrée au dessus de la portée en ayant
 recours aux lignes d'extension et @code{implicitBassFigures}, les lignes

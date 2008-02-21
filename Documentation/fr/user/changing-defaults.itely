@@ -429,7 +429,7 @@ Référence du programme : @internalsref{Accidental_engraver},
 @internalsref{Accidental}, @internalsref{AccidentalSuggestion} et @internalsref{AccidentalPlacement}.
 
 
-@refbugs
+@knownissues
 
 Les notes simultanées sont considérées comme des évènements séquentiels.
 Ce qui implique que, dans un accord, les altérations accidentelles seront 
@@ -607,7 +607,7 @@ Si des ligatures sont utilisées dans les paroles d'une chanson (pour indiquer d
 les ligatures automatiques doivent être désactivées, avec @code{\autoBeamOff}.
 
 
-@refcommands
+@predefined
 
 @funindex \autoBeamOff
 @code{\autoBeamOff},
@@ -628,7 +628,7 @@ c8[^"(3+2)" c16 c8]
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 Si une partition se termine alors qu'une ligature automatique est restée inachevée,
 cette dernière ligature ne sera pas imprimée du tout.  C'est également valable dans
@@ -995,7 +995,7 @@ Référence du programme : @internalsref{OverrideProperty}, @internalsref{Revert
 @internalsref{All layout objects}.
 
 
-@refbugs
+@knownissues
 
 La sous-couche Scheme ne vérifie pas la saisie des propriétés de façon
 très stricte.  Des références cycliques dans des valeurs Scheme peuvent
@@ -1048,7 +1048,7 @@ les lignes suivantes produiront-elles le même effet.
 @end example
 
 
-@refbugs
+@knownissues
 
 Il est impossible de stocker des modifications de contexte dans un identificateur.
 

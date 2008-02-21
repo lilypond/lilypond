@@ -109,7 +109,7 @@ la même façon.
 a'4 b' c''4. b'8 a'4. b'4.. c''8.
 @end lilypond
 
-@refcommands
+@predefined
 
 Les points sont normalement haussés pour éviter les lignes de portées,
 sauf dans certaines polyphonies.  Les commandes suivantes peuvent être
@@ -164,7 +164,7 @@ Les nolets peuvent être imbriqués ; par exemple,
 }
 @end lilypond
 
-@refcommands
+@predefined
 
 @funindex \tupletUp
 @code{\tupletUp},
@@ -494,7 +494,7 @@ nombres, et @internalsref{MultiMeasureRestText} le texte ajouté par
 l'utilisateur. 
 
 
-@refbugs
+@knownissues
 
 Vous ne pouvez pas utiliser de doigtés (p.ex. @code{R1-4}) pour
 positionner des nombres au dessus d'un silence multi-mesures, ni
@@ -605,7 +605,7 @@ Référence du programme : @internalsref{TimeSignature} et
 Exemples : @lsr{contemporary,compound-time-signature.ly}.
 
 
-@refbugs
+@knownissues
 
 Le groupement automatique des ligatures n'utilise pas les groupements
 spécifiés par @code{set-time-signature}.
@@ -650,7 +650,7 @@ peut s'agir d'un nombre négatif ; @code{\partial 4} signifie, pour le
 programme : @qq{Dans cette mesure, il reste juste une noire}.
 
 
-@refbugs
+@knownissues
 
 Cette commande ne prend pas en compte les notes d'ornement ou
 appoggiatures au début de la musique. Lorsqu'un morceau commence par une
@@ -693,7 +693,7 @@ d4 e d c
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 LilyPond ne change de ligne ou de page qu'au niveau des barres de
 mesure.  Si votre musique non mesurée dure plus d'une ligne, il vous
@@ -855,7 +855,7 @@ multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.
 
 
 
-@refbugs
+@knownissues
 
 L'utilisation de métriques différentes en parallèle entraine un
 alignement vertical.  De ce fait, les barres de mesure ont tendance à
@@ -891,7 +891,7 @@ Si vous voulez permettre un saut de ligne aux barres de mesure où
 aussi enlever @internalsref{Forbid_line_break_engraver}.
 
 
-@refbugs
+@knownissues
 
 Bien que toutes les durées --- particulièrement celles contenant des
 nolets --- ne puissent pas être représentées exactement avec des notes
@@ -1019,7 +1019,7 @@ important entre des têtes de notes. Ce comportement peut être changé par
 l'intermédiaire de l'objet @code{auto-knee-gap}
 
 
-@refbugs
+@knownissues
 
 Les ligatures coudées à cheval sur deux portées ne peuvent être
 employées en même temps que des portées invisibles.  Voir
@@ -1045,7 +1045,7 @@ Les ligatures en soufflet s'obtiennent en définissant la propriété
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 La commande @code{\featherDurations} ne permet de traiter que de très
 courts extraits.
@@ -1260,7 +1260,7 @@ Référence du programme : @internalsref{BarNumber}.
 Exemples : @lsrdir{staff}
 
 
-@refbugs
+@knownissues
 
 Les numéros de mesure peuvent entrer en collision avec les crochets de
 @internalsref{StaffGroup}. La propriété @code{padding} --- décalage
@@ -1590,7 +1590,7 @@ Il est possible de forcer l'élasticité de l'espacement des notes d'agrément.
 Référence du programme : @internalsref{GraceMusic}.
 
 
-@refbugs
+@knownissues
 
 Une partition commençant par une expression @code{\grace} doit faire
 intervenir la commande @code{\new Voice}, sans quoi la note réelle et

@@ -43,7 +43,6 @@ export TEXINPUTS
 include $(depth)/make/stepmake.make
 
 info: $(INFO_FILES)
-
 	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
 	@echo export PYTHONPATH=$(PYTHONPATH)
 
@@ -54,23 +53,6 @@ ifeq ($(out),www)
 
 # This builds all .info targets with images, in out-www.
 # Viewable with a recent Emacs, doing: C-u C-h i out-www/lilypond.info
-
-# Cancel the special, non-image info generation rule that skips images:
-$(outdir)/%.info: $(outdir)/%.nexi
-
-# "makeinfo --info" MUST be able to read PNGs from CWD for info images
-# to work, hence lilypond/ -> $(outdir)/ symlink.
-# $(outdir)/lilypond/*.png symlinks are only needed to view
-# out-www/*.info with Emacs -- HTML docs no longer need these
-# symlinks, see replace_symlinks_urls in
-# buildscripts/add_html_footer.py.
-$(outdir)/%.info: lilypond
-lilypond: $(OUT_PNG_IMAGES)
-	rm -f lilypond
-	ln -s $(outdir) lilypond
-	mkdir -p $(outdir)/lilypond
-	find $(outdir)/lilypond/ -name '*'.png | xargs rm -f
-	(cd $(outdir)/lilypond/ ; ln -sf ../*.png . )
 
 local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
@@ -104,9 +86,6 @@ local-uninstall-WWW:
 	rm -f $(infodir)/lilypond
 
 else # out!=www
-
-# Cancel the default info generation rule that generates images:
-$(outdir)/%.info: $(outdir)/%.texi
 
 local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
@@ -152,7 +131,7 @@ local-uninstall-WWW: local-uninstall-info
 default:
 
 local-clean:
-	rm -f lilypond
+	rm -f $(INFO_IMAGES_DIR)
 
 local-help: extra-local-help
 
@@ -172,16 +151,13 @@ $(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 # Split manuals in HTML
 #
 $(outdir)/lilypond/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-$(outdir)/lilypond-program/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
 $(outdir)/lilypond-learning/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-$(outdir)/music-glossary/index.html: $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
 
 
 #
 # Manuals in one big HTML page
 #
 $(outdir)/lilypond-big-page.html: $(OUT_PNG_IMAGES)
-$(outdir)/lilypond-program-big-page.html: $(OUT_PNG_IMAGES)
 $(outdir)/lilypond-learning-big-page.html: $(OUT_PNG_IMAGES)
 
 $(outdir)/lilypond.xml: $(outdir)/lilypond.texi
@@ -192,8 +168,7 @@ $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internal
 	mkdir -p $(dir $@)
 	$(MAKEINFO) --output=$(outdir)/lilypond-internals --docbook $<
 
-$(outdir)/lilypond.pdf $(outdir)/lilypond-program.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
-$(outdir)/lilypond-learning.pdf $(outdir)/music-glossary.pdf: $(OUT_PDF_IMAGES) $(OUT_PNG_IMAGES)
+$(outdir)/lilypond.pdf $(outdir)/lilypond-learning.pdf: $(OUT_PDF_IMAGES)
 
 $(outdir)/%.png: %.png
 	convert -depth 8 -geometry 50x50% $< $@
@@ -238,8 +213,8 @@ $(outdir)/%.bib: %.bib
 $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(top-src-dir)/mf
 
-$(outdir)/lilypond.texi $(outdir)/lilypond-program.texi $(outdir)/lilypond-learning.texi: $(ITELY_FILES) $(ITEXI_FILES)
-$(outdir)/lilypond.nexi $(outdir)/lilypond-program.nexi $(outdir)/lilypond-learning.nexi: $(ITELY_FILES) $(ITEXI_FILES)
+$(outdir)/lilypond.texi $(outdir)/lilypond-program.texi $(outdir)/lilypond-learning.texi $(outdir)/music-glossary.texi: $(ITELY_FILES) $(ITEXI_FILES)
+$(outdir)/lilypond.nexi $(outdir)/lilypond-program.nexi $(outdir)/lilypond-learning.nexi $(outdir)/music-glossary.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
 
 # Rules for the automatically generated documentation
