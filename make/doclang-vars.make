@@ -2,8 +2,6 @@
 
 LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
 
-OUT_ITEXI_FILES = $(ITELY_FILES:%.itely=$(outdir)/%.itexi)
-
 DOCUMENTATION_INCLUDES = \
   -I $(top-src-dir)/Documentation/user \
   -I $(top-build-dir)/Documentation/user/$(outdir)
@@ -17,5 +15,9 @@ TEXI2PDF_FLAGS += --batch --tidy
 TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)
 
 TELY_FILES = $(call src-wildcard,*.tely)
+OUT_TEXI_FILES = $(TELY_FILES:%.tely=$(outdir)/%.texi)
 DEEP_HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%/index.html)
 PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
+
+ITELY_FILES := $(call src-wildcard,*.itely)
+ITEXI_FILES := $(call src-wildcard,*.itexi)
