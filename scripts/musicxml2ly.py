@@ -188,12 +188,12 @@ def extract_score_information (tree):
         # apply some compatibility mode, e.g. ignoring some features/tags
         # in those files
         software = ids.get_encoding_software_list ()
-        global conversion_settings
 
         # Case 1: "Sibelius 5.1" with the "Dolet 3.4 for Sibelius" plugin
         #         is missing all beam ends => ignore all beaming information
         if "Dolet 3.4 for Sibelius" in software:
             conversion_settings.ignore_beaming = True
+            progress (_ ("Encountered file created by Dolet 3.4 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
         # TODO: Check for other unsupported features
 
     return header
@@ -2028,8 +2028,11 @@ def read_musicxml (filename, compressed, use_lxml):
 
 def convert (filename, options):
     progress (_ ("Reading MusicXML from %s ...") % filename)
-    
+
     tree = read_musicxml (filename, options.compressed, options.use_lxml)
+    score_information = extract_score_information (tree)
+    layout_information = extract_layout_information (tree)
+
     parts = tree.get_typed_children (musicxml.Part)
     (voices, staff_info) = get_all_voices (parts)
 
@@ -2040,8 +2043,6 @@ def convert (filename, options):
         part_list = mxl_pl.get_named_children ("score-part")
 
     # score information is contained in the <work>, <identification> or <movement-title> tags
-    score_information = extract_score_information (tree)
-    layout_information = extract_layout_information (tree)
     update_score_setup (score_structure, part_list, voices)
 
     if not options.output_name:
