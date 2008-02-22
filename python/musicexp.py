@@ -669,6 +669,30 @@ class Paper:
         printer.dump ('}')
         printer.newline ()
 
+class Layout:
+    def __init__ (self):
+        self.context_dict = {}
+    def add_context (self, context):
+        if not self.context_dict.has_key (context):
+            self.context_dict[context] = []
+    def set_context_item (self, context, item):
+        self.add_context (context)
+        self.context_dict[context].append (item)
+    def print_ly (self, printer):
+        if self.context_dict.items ():
+            printer.dump ('\\layout {')
+            printer.newline ()
+            for (context, defs) in self.context_dict.items ():
+                printer.dump ('\\context { \\%s' % context)
+                printer.newline ()
+                for d in defs:
+                    printer.dump (d)
+                    printer.newline ()
+                printer.dump ('}')
+                printer.newline ()
+            printer.dump ('}')
+            printer.newline ()
+
 
 class ChordEvent (NestedMusic):
     def __init__ (self):

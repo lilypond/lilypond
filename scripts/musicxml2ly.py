@@ -29,6 +29,10 @@ class Conversion_Settings:
        self.ignore_beaming = False
 
 conversion_settings = Conversion_Settings ()
+# Use a global variable to store the setting needed inside a \layout block.
+# whenever we need to change a setting or add/remove an engraver, we can access 
+# this layout and add the corresponding settings
+layout_information = musicexp.Layout ()
 
 def progress (str):
     ly.stderr_write (str + '\n')
@@ -61,7 +65,7 @@ additional_definitions = {
 def round_to_two_digits (val):
     return round (val * 100) / 100
 
-def extract_layout_information (tree):
+def extract_paper_information (tree):
     paper = musicexp.Paper ()
     defaults = tree.get_maybe_exist_named_child ('defaults')
     if not defaults:
@@ -290,10 +294,10 @@ def staff_attributes_to_lily_staff (mxl_attr):
     return staff
 
 
-def extract_score_layout (part_list, staffinfo):
-    layout = musicexp.StaffGroup (None)
+def extract_score_structure (part_list, staffinfo):
+    structure = musicexp.StaffGroup (None)
     if not part_list:
-        return layout
+        return structure
 
     def read_score_part (el):
         if not isinstance (el, musicxml.Score_part):
@@ -418,8 +422,8 @@ def extract_score_layout (part_list, staffinfo):
     if len (staves) == 1:
         return staves[0]
     for i in staves:
-        layout.append_staff (i)
-    return layout
+        structure.append_staff (i)
+    return structure
 
 
 
@@ -1881,6 +1885,12 @@ Copyright (c) 2005--2008 by
                   dest = "convert_directions",
                   help = _ ("do not convert directions (^, _ or -) for articulations, dynamics, etc."))
 
+    p.add_option ('--no-beaming', 
+                  action = "store_false",
+                  default = True,
+                  dest = "convert_beaming",
+                  help = _ ("do not convert beaming information, use lilypond's automatic beaming instead"))
+
     p.add_option ('-o', '--output',
                   metavar = _ ("FILE"),
                   action = "store",
@@ -1968,6 +1978,11 @@ def update_score_setup (score_structure, part_list, voices):
             staves_info.append (format_staff_info (part_id, None, thisstaff_raw_voices))
         score_structure.set_part_information (part_id, staves_info)
 
+# Set global values in the \layout block, like auto-beaming etc.
+def update_layout_information ():
+    if not conversion_settings.ignore_beaming and layout_information:
+        layout_information.set_context_item ('Score', 'autoBeaming = ##f')
+
 def print_ly_preamble (printer, filename):
     printer.dump_version ()
     printer.print_verbatim ('%% automatically converted from %s\n' % filename)
@@ -2031,7 +2046,7 @@ def convert (filename, options):
 
     tree = read_musicxml (filename, options.compressed, options.use_lxml)
     score_information = extract_score_information (tree)
-    layout_information = extract_layout_information (tree)
+    paper_information = extract_paper_information (tree)
 
     parts = tree.get_typed_children (musicxml.Part)
     (voices, staff_info) = get_all_voices (parts)
@@ -2039,11 +2054,13 @@ def convert (filename, options):
     score_structure = None
     mxl_pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
     if mxl_pl:
-        score_structure = extract_score_layout (mxl_pl, staff_info)
+        score_structure = extract_score_structure (mxl_pl, staff_info)
         part_list = mxl_pl.get_named_children ("score-part")
 
     # score information is contained in the <work>, <identification> or <movement-title> tags
     update_score_setup (score_structure, part_list, voices)
+    # After the conversion, update the list of settings for the \layout block
+    update_layout_information ()
 
     if not options.output_name:
         options.output_name = os.path.basename (filename) 
@@ -2063,6 +2080,8 @@ def convert (filename, options):
     print_ly_additional_definitions (printer, filename)
     if score_information:
         score_information.print_ly (printer)
+    if paper_information:
+        paper_information.print_ly (printer)
     if layout_information:
         layout_information.print_ly (printer)
     print_voice_definitions (printer, part_list, voices)
@@ -2104,6 +2123,7 @@ def main ():
         musicexp.set_pitch_language (options.language)
         needed_additional_definitions.append (options.language)
         additional_definitions[options.language] = "\\include \"%s.ly\"\n" % options.language
+    conversion_settings.ignore_beaming = not options.convert_beaming
 
     # Allow the user to leave out the .xml or xml on the filename
     filename = get_existing_filename_with_extension (args[0], "xml")
