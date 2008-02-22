@@ -8,20 +8,21 @@ import re
 import sys
 
 verbose = 0
-lang = 'site'
+lang = 'C'
 C = lang
 
-def dir_lang (file, lang):
-    path_components = [lang] + file.split ('/')[1:]
+def dir_lang (file, lang, lang_dir_index):
+    path_components = file.split ('/')
+    path_components[lang_dir_index] = lang
     return os.path.join (*path_components)
 
 ##     Translation of GIT Commit: <hash>
-REVISION_RE = re.compile ('.*GIT [Cc]ommittish: ([a-f0-9]+)', re.DOTALL)
+REVISION_RE = re.compile ('GIT [Cc]ommittish: ([a-f0-9]+)')
 CVS_DIFF = 'git diff %(revision)s HEAD -- %(original)s | cat'
 
 def check_file (original, translated):
     s = open (translated).read ()
-    m = REVISION_RE.match (s)
+    m = REVISION_RE.search (s)
     if not m:
         sys.stderr.write ('error: ' + translated + \
                           ": no 'GIT committish: <hash>' found.\nPlease check " + \
@@ -35,19 +36,24 @@ def check_file (original, translated):
         sys.stderr.write ('running: ' + c)
     os.system (c)
 
-def do_file (file_name, langdefs):
+def do_file (file_name, lang_codes):
     if verbose:
         sys.stderr.write ('%s...\n' % file_name)
-    file_lang = file_name.split ('/')[0]
-    if file_lang in langdefs.LANGDICT.keys():
-        check_lang = file_lang
+    split_file_name = file_name.split ('/')
+    d1, d2 = split_file_name[0:2]
+    if d1 in lang_codes:
+        check_lang = d1
+        lang_dir_index = 0
+    elif d2 in lang_codes:
+        check_lang = d2
+        lang_dir_index = 1
     else:
         check_lang = lang
     if check_lang == C:
-        raise 'cannot determine language for: ' + file_name
+        raise Exception ('cannot determine language for ' + file_name)
     
-    original = dir_lang (file_name, '')
-    translated = dir_lang (file_name, check_lang)
+    original = dir_lang (file_name, '', lang_dir_index)
+    translated = file_name
     check_file (original, translated)
 
 def usage ():
@@ -86,7 +92,7 @@ def main ():
     import langdefs
 
     for i in files:
-        do_file (i, langdefs)
+        do_file (i, langdefs.LANGDICT.keys())
 
 if __name__ == '__main__':
     main ()
