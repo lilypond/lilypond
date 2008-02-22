@@ -179,6 +179,16 @@ class Identification (Xml_node):
         return self.get_encoding_information ('encoder')
     def get_encoding_description (self):
         return self.get_encoding_information ('encoding-description')
+    
+    def get_encoding_software_list (self):
+        enc = self.get_named_children ('encoding')
+        software = []
+        for e in enc:
+            softwares = e.get_named_children ('software')
+            for s in softwares:
+                software.append (s.get_text ())
+        return software
+
 
 
 class Duration (Music_xml_node):

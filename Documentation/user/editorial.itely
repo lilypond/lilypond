@@ -257,7 +257,7 @@ b2 cis
 
 You can get exact RGB colors by specifying the rgb-color number.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 {
   \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
   \set Staff.instrumentName = \markup {
@@ -285,13 +285,13 @@ the input}.
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
 @knownissues
-Not all x11 colors are distinguishable in a web browser i.e. a web
-browser might not display a difference between 'LimeGreen and
-'ForestGreen.  For web use normal colors are recommended. (#blue,
-#green, #red)
-
 An x11 color is not necessarily exactly the same shade as a
-similarly named normal color.
+similarly named normal color.  
+
+Not all x11 colors are distinguishable in a web browser i.e. a web browser
+might not display a difference between 'LimeGreen and 'ForestGreen.  For web
+use normal colors are recommended (i.e. #blue, #green, #red).
+
 
 Notes in a chord cannot be colored with @code{\override}; use
 @code{\tweak} instead.  See @ref{Objects connected to the input},
@@ -317,7 +317,7 @@ the music event,
 >2-\parenthesize -.
 d g 
 <
-  c
+  c,
   \parenthesize fis
 >
 @end lilypond

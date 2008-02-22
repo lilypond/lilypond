@@ -24,6 +24,12 @@ from rational import Rational
 # Store command-line options in a global variable, so we can access them everythwere
 options = None
 
+class Conversion_Settings:
+    def __init__(self):
+       self.ignore_beaming = False
+
+conversion_settings = Conversion_Settings ()
+
 def progress (str):
     ly.stderr_write (str + '\n')
     sys.stderr.flush ()
@@ -176,6 +182,19 @@ def extract_score_information (tree):
         set_if_exists ('encodingdate', ids.get_encoding_date ())
         set_if_exists ('encoder', ids.get_encoding_person ())
         set_if_exists ('encodingdescription', ids.get_encoding_description ())
+
+        # Finally, apply the required compatibility modes
+        # Some applications created wrong MusicXML files, so we need to 
+        # apply some compatibility mode, e.g. ignoring some features/tags
+        # in those files
+        software = ids.get_encoding_software_list ()
+
+        # Case 1: "Sibelius 5.1" with the "Dolet 3.4 for Sibelius" plugin
+        #         is missing all beam ends => ignore all beaming information
+        if "Dolet 3.4 for Sibelius" in software:
+            conversion_settings.ignore_beaming = True
+            progress (_ ("Encountered file created by Dolet 3.4 for Sibelius, containing wrong beaming information. All beaming information in the MusicXML file will be ignored"))
+        # TODO: Check for other unsupported features
 
     return header
 
@@ -1675,7 +1694,7 @@ def musicxml_voice_to_lily_voice (voice):
         mxl_beams = [b for b in n.get_named_children ('beam')
                      if (b.get_type () in ('begin', 'end')
                          and b.is_primary ())] 
-        if mxl_beams:
+        if mxl_beams and not conversion_settings.ignore_beaming:
             beam_ev = musicxml_spanner_to_lily_event (mxl_beams[0])
             if beam_ev:
                 ev_chord.append (beam_ev)
@@ -2009,8 +2028,11 @@ def read_musicxml (filename, compressed, use_lxml):
 
 def convert (filename, options):
     progress (_ ("Reading MusicXML from %s ...") % filename)
-    
+
     tree = read_musicxml (filename, options.compressed, options.use_lxml)
+    score_information = extract_score_information (tree)
+    layout_information = extract_layout_information (tree)
+
     parts = tree.get_typed_children (musicxml.Part)
     (voices, staff_info) = get_all_voices (parts)
 
@@ -2021,8 +2043,6 @@ def convert (filename, options):
         part_list = mxl_pl.get_named_children ("score-part")
 
     # score information is contained in the <work>, <identification> or <movement-title> tags
-    score_information = extract_score_information (tree)
-    layout_information = extract_layout_information (tree)
     update_score_setup (score_structure, part_list, voices)
 
     if not options.output_name:
