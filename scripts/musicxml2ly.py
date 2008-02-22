@@ -267,9 +267,9 @@ def staff_attributes_to_lily_staff (mxl_attr):
             clef_sign = {"percussion": "percussion", "TAB": "tab"}.get (sign.get_text (), None)
 
     lines = 5
-    details = attributes.get_maybe_exist_named_child ('staff-details')
-    if details:
-        staff_lines = details.get_maybe_exist_named_child ('staff-lines')
+    details = attributes.get_named_children ('staff-details')
+    for d in details:
+        staff_lines = d.get_maybe_exist_named_child ('staff-lines')
         if staff_lines:
             lines = string.atoi (staff_lines.get_text ())
 
