@@ -208,4 +208,79 @@ respectively,
 @end example
 
 
+@menu
+* Tweaking with Scheme::        
+@end menu
+
+@node Tweaking with Scheme
+@appendixsec Tweaking with Scheme
+
+We have seen how LilyPond output can be heavily modified using
+commands like
+@code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
+we have even more power if we use Scheme.  For a full explantion
+of this, see the @ref{Scheme tutorial}, and
+@ruser{Interfaces for programmers}.
+
+We can use Scheme to simply @code{\override} commands,
+
+TODO Find a simple example
+@c This isn't a valid example with skylining
+@c It works fine without padText  -td
+
+@ignore
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+#{
+  \once \override TextScript #'padding = #$padding
+#})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+@end ignore
+
+We can use it to create new commands:
+
+@c Check this is a valid example with skylining
+@c It is - 'padding still works
+
+@lilypond[quote,verbatim,ragged-right]
+tempoMark = #(define-music-function (parser location padding marktext)
+                                    (number? string?)
+#{
+  \once \override Score . RehearsalMark #'padding = $padding
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $marktext }
+#})
+
+\relative c'' {
+  c2 e
+  \tempoMark #3.0 #"Allegro"
+  g c
+}
+@end lilypond
+
+Even music expressions can be passed in:
+
+@lilypond[quote,verbatim,ragged-right]
+pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+#{
+  $x e8 a b $y b a e
+#})
+
+\relative c''{
+  \pattern c8 c8\f
+  \pattern {d16 dis} { ais16-> b\p }
+}
+@end lilypond
+
+
+
+
 

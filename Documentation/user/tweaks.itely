@@ -160,11 +160,18 @@ properties.
 @node Tweaking methods
 @subsection Tweaking methods
 
+@itemize
+@item @strong{override command}
+
+@cindex override command
+@funindex \override
+
 We have already met the commands @code{\set} and @code{\with},
 used to change the properties of @strong{contexts} and to remove
 and add @strong{engravers}, in
 @ref{Modifying context properties} and @ref{Adding
-and removing engravers}.  We now must meet one more command.
+and removing engravers}.  We now must meet one more important
+command.
 
 The command to change the properties of @strong{layout objects} is
 @code{\override}.  Because this command has to modify
@@ -182,7 +189,7 @@ The general syntax of this command is:
 
 @noindent
 This will set the property with the name @emph{layout_property}
-of the layout object with the name 
+of the layout object with the name
 @emph{layout_object}, which is a member of the @emph{context}
 context, to the value @emph{value}.
 
@@ -214,19 +221,82 @@ Again, just like @emph{context} in the @code{\override} command,
 @emph{context} is often not needed.  It will be omitted
 in many of the following examples.
 
-There is another form of the override command, 
+@item @strong{overrideProperty command}
+
+@cindex overrideProperty command
+@funindex \overrideProperty
+
+There is another form of the override command,
 @code{\overrideProperty}, which is occasionally required.
-We mention it here for completeness, but for details see 
+We mention it here for completeness, but for details see
 @ruser{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
+
+@item @strong{tweak command}
+
+@cindex tweak command
+@funindex \tweak
 
 The final tweaking command which is available is @code{\tweak}.
 This should be used to change the properties of objects which
 occur at the same musical moment, such as the notes within a
 chord.  Using @code{\override} would affect all the notes
 within a chord, whereas @code{\tweak} affects just the following
-item in the input stream.  You may find the details in
+item in the input stream.  
+
+Here's an example.  Suppose we wish to change the size of the 
+middle note (the E) in a C major chord.  Let's first see what
+@code{\once \override} would do:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+  <c e g>4
+  \once \override NoteHead #'font-size = #-3
+  <c e g>4
+@end lilypond
+
+We see the override affects @emph{all} the notes in the chord.
+This is because all the notes of a chord occur at the same
+@emph{musical moment}, and the action of @code{\once} is to
+apply the override to all layout objects of the type specified
+which occur at the same musical moment as the @code{\override}
+command itself.
+
+The @code{\tweak} command operates in a different way.  It acts
+on the immediately following item in the input stream.  However,
+it is effective only on objects which are created directly from
+the input stream, essentially note heads and articulations.
+(Objects such as stems and accidentals are created later and
+cannot be tweaked in this way).  Furthermore, when it is applied 
+to note heads these must be within a chord, i.e., within single 
+angle brackets, so to tweak a single note the @code{\tweak}
+command must be placed inside single angle brackets with the
+note.
+
+So to return to our example, the size of the middle note of
+a chord would be changed in this way:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+  <c e g>4
+  <c \tweak #'font-size #-3 e g>4
+@end lilypond
+
+Just one in a series of articulations can be modified with
+@code{\tweak}, as shown here:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+a ^Black
+  -\tweak #'color #red ^Red
+  -\tweak #'color #green _Green
+@end lilypond
+
+Note that the @code{\tweak} command must be preceded by an
+articulation mark as if it were an articulation itself.
+
+You can find more details of the @code{\tweak} command in
 @ruser{Objects connected to the input}.
+
+@end itemize
+
 
 @node The Internals Reference manual
 @section The Internals Reference manual
@@ -234,9 +304,9 @@ item in the input stream.  You may find the details in
 @cindex Internals Reference
 
 @menu
-* Properties of layout objects::  
-* Properties found in interfaces::  
-* Types of properties::         
+* Properties of layout objects::
+* Properties found in interfaces::
+* Types of properties::
 @end menu
 
 @node Properties of layout objects
@@ -2123,7 +2193,47 @@ objects outside it are moved.
 @cindex left-padding property
 @cindex right-padding property
 
-TODO Example showing the utility of these properties  -td
+The @code{right-padding} property affects the spacing between the
+accidental and the note to which it applies.  It is not often
+required, but the following example shows one situation where it
+is needed.  Suppose we wish to show a chord containing both
+a B-natural and a B-flat.  To avoid ambiguity we would like to
+precede the notes with both a natural and a flat sign.  Here
+are a few attempts to do this:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<b bes>
+<b! bes>
+<b? bes>
+@end lilypond
+
+None work, with the second two showing a bad collision between
+the two signs.
+
+One way of achieving this is to override the accidental stencil
+with a markup containing the natural and flat symbols in the
+order we would like, like this:
+
+@lilypond[quote,ragged-right,verbatim]
+naturalplusflat = \markup { \natural \flat }
+\relative c'' {
+  \once \override Accidental
+    #'stencil = #ly:text-interface::print
+  \once \override Accidental #'text = #naturalplusflat
+  \once \override Score.AccidentalPlacement #'right-padding = #1.5
+  <b bes>
+}
+@end lilypond
+
+@noindent
+This necessarily uses an override for the accidental stencil which
+will not be covered until later.  The stencil type must be a
+procedure, here changed to print the contents of the @code{text}
+property of @code{Accidental}, which itself is set to be a natural 
+sign followed by a flat sign.  These are then moved further away 
+from the note head by overriding @code{right-padding}.
+
+@noindent
 
 @subheading staff-padding property
 @cindex staff-padding property
@@ -2776,11 +2886,11 @@ lhMusic = \relative c' {
 @section Further tweaking
 
 @menu
-* Other uses for tweaks::       
-* Using variables for tweaks::  
-* Other sources of information::  
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
+* Other uses for tweaks::
+* Using variables for tweaks::
+* Other sources of information::
+* Avoiding tweaks with slower processing::
+* Advanced tweaks with Scheme::
 @end menu
 
 @node Other uses for tweaks
@@ -2800,44 +2910,44 @@ lhMusic = \relative c' {
 @subheading Tying notes across voices
 
 The following example demonstrates how to connect notes in
-different voices using ties.  Normally, only two notes in the 
+different voices using ties.  Normally, only two notes in the
 same voice can be connected with ties.  By using two voices,
 with the tied notes in one of them
 
 @lilypond[quote,fragment,relative=2]
-<< { b8~ b8\noBeam } 
-\\ { b[ g8] } 
+<< { b8~ b8\noBeam }
+\\ { b[ g8] }
 >>
 @end lilypond
 
 @noindent
-and blanking the first up-stem in that voice, the tie appears to 
+and blanking the first up-stem in that voice, the tie appears to
 cross voices:
 
 @lilypond[quote,fragment,relative=2,verbatim]
-<< 
+<<
   {
     \once \override Stem #'transparent = ##t
     b8~ b8\noBeam
-  } 
-\\ 
+  }
+\\
   { b[ g8] }
 >>
 @end lilypond
 
-To make sure that the just-blanked stem doesn't squeeze the tie 
+To make sure that the just-blanked stem doesn't squeeze the tie
 too much, we can lengthen the stem by setting the
 @code{length} to @code{8},
 
 @lilypond[quote,fragment,relative=2,verbatim]
-<< 
+<<
   {
     \once \override Stem #'transparent = ##t
     \once \override Stem #'length = #8
     b8~ b8\noBeam
-  } 
-\\ 
-  { b[ g8] } 
+  }
+\\
+  { b[ g8] }
 >>
 @end lilypond
 
@@ -2849,7 +2959,7 @@ too much, we can lengthen the stem by setting the
 
 For outside-staff objects it is usually better to override the
 object's @code{stencil} property rather than its @code{transparent}
-property when you wish to remove it from the printed output.  
+property when you wish to remove it from the printed output.
 Setting the @code{stencil} property of an object to @code{#f} will
 remove that object entirely from the printed output.  This means it
 has no effect on the placement of other objects placed relative to
@@ -2859,7 +2969,7 @@ For example, if we wished to change the metronome setting in order
 to simulate a fermata in the MIDI output we would not want the
 metronome markings to appear in the printed output, and we would
 not want it to influence the spacing between the two systems or
-the spacing of the notes on the staff.  So setting its 
+the spacing of the notes on the staff.  So setting its
 @code{stencil} property to @code{#f} would be the best way.
 We show here the effect of the two methods:
 
@@ -2898,8 +3008,8 @@ Override commands are often long and tedious to type, and they
 have to be absolutely correct.  If the same overrides are to be
 used many times it may be worth defining variables to hold them.
 Suppose we wish to emphasize certain words in lyrics by printing
-them in bold italics.  The @code{\italic} and @code{\bold} 
-commands do not work within lyrics so we must instead use the 
+them in bold italics.  The @code{\italic} and @code{\bold}
+commands do not work within lyrics so we must instead use the
 following @code{\override} and @code{\revert} commands:
 
 @example
@@ -2966,12 +3076,14 @@ find the directory appropriate to your system, as follows:
 
 @itemize
 
-@item Linux
+@item
+@subheading Linux
 
-Navigate to 
+Navigate to
 @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 
-@item OSX
+@item 
+@subheading OSX
 
 Navigate to
 @file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
@@ -2979,7 +3091,8 @@ by either @code{cd}-ing into this directory from the
 Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
 
-@item Windows
+@item 
+@subheading Windows
 
 Using Windows Explorer, navigate to
 @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
@@ -3066,70 +3179,6 @@ interest are:
 
 
 
-@node Advanced tweaks with Scheme
-@subsection Advanced tweaks with Scheme
-
-We have seen how LilyPond output can be heavily modified using
-commands like
-@code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
-we have even more power if we use Scheme.  For a full explantion
-of this, see the @ref{Scheme tutorial}, and
-@ruser{Interfaces for programmers}.
-
-We can use Scheme to simply @code{\override} commands,
-
-TODO Check this is a valid example with skylining
-
-@lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
-#{
-  \once \override TextScript #'padding = #$padding
-#})
-
-\relative c''' {
-  c4^"piu mosso" b a b
-  \padText #1.8
-  c4^"piu mosso" d e f
-  \padText #2.6
-  c4^"piu mosso" fis a g
-}
-@end lilypond
-
-We can use it to create new commands,
-
-TODO Check this is a valid example with skylining
-
-@lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function (parser location padding marktext)
-                                    (number? string?)
-#{
-  \once \override Score . RehearsalMark #'padding = $padding
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $marktext }
-#})
-
-\relative c'' {
-  c2 e
-  \tempoMark #3.0 #"Allegro"
-  g c
-}
-@end lilypond
-
-Even music expressions can be passed in.
-
-@lilypond[quote,verbatim,ragged-right]
-pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
-#{
-  $x e8 a b $y b a e
-#})
-
-\relative c''{
-  \pattern c8 c8\f
-  \pattern {d16 dis} { ais16-> b\p }
-}
-@end lilypond
-
-
 @node Avoiding tweaks with slower processing
 @subsection Avoiding tweaks with slower processing
 
@@ -3154,8 +3203,24 @@ in-line in music, as follows:
 }
 @end verbatim
 
+@node Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
 
+Although many things are possible with the @code{\override} and 
+@code{\tweak} commands, an even more powerful way of modifying 
+the action of LilyPond is available through a programmable 
+interface to the LilyPond internal operation.  Functions are
+provided which enable the user to incorporate Scheme code directly
+in the internal operation of LilyPond.  For example, it is 
+possible to parametrize an override command which is used often
+but with different values.
 
+As the use of these functions require code to be written in the 
+Scheme programming language, at least a basic knowledge of 
+programming in Scheme is required.  An introduction to this is
+provided in the @ref{Scheme tutorial}, and examples showing the
+use of these programmable interfaces can be found in
+@ref{Tweaking with Scheme}.
 
 
 
