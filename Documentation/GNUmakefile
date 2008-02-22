@@ -60,3 +60,7 @@ skeleton-update:
 snippet-update:
 	$(PYTHON) $(buildscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
 endif
+
+translation-status:
+	make -C po out=www messages
+	$(PYTHON) $(buildscript-dir)/translations-status.py $(buildscript-dir) po/out-www
