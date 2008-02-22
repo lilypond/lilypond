@@ -727,10 +727,15 @@ def musicxml_barline_to_lily (barline):
 
     return retval.values ()
 
+# Brackets need a special engraver added the Staff context!
+def musicxml_bracket_to_ly ():
+    layout_information.set_context_item ('Staff', '\consists "Horizontal_bracket_engraver"  % for \\startGroup and \\stopGroup brackets')
+    return musicexp.BracketSpannerEvent ()
+
 spanner_event_dict = {
     'beam' : musicexp.BeamEvent,
     'dashes' : musicexp.TextSpannerEvent,
-    'bracket' : musicexp.BracketSpannerEvent,
+    'bracket' : musicxml_bracket_to_ly,
     'glissando' : musicexp.GlissandoEvent,
     'octave-shift' : musicexp.OctaveShiftEvent,
     'pedal' : musicexp.PedalEvent,

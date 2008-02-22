@@ -677,7 +677,8 @@ class Layout:
             self.context_dict[context] = []
     def set_context_item (self, context, item):
         self.add_context (context)
-        self.context_dict[context].append (item)
+        if not item in self.context_dict[context]:
+            self.context_dict[context].append (item)
     def print_ly (self, printer):
         if self.context_dict.items ():
             printer.dump ('\\layout {')
