@@ -1454,6 +1454,7 @@ def musicxml_voice_to_lily_voice (voice):
     inside_slur = False
     is_tied = False
     is_chord = False
+    is_beamed = False
     ignore_lyrics = False
 
     current_staff = None
@@ -1551,7 +1552,8 @@ def musicxml_voice_to_lily_voice (voice):
         main_event = musicxml_note_to_lily_main_event (n)
         if main_event and not first_pitch:
             first_pitch = main_event.pitch
-        ignore_lyrics = inside_slur or is_tied or is_chord
+        # ignore lyrics for notes inside a slur, tie, chord or beam
+        ignore_lyrics = inside_slur or is_tied or is_chord or is_beamed
 
         if main_event and hasattr (main_event, 'drum_type') and main_event.drum_type:
             modes_found['drummode'] = True
@@ -1683,6 +1685,27 @@ def musicxml_voice_to_lily_voice (voice):
                     if ev:
                         ev_chord.append (ev)
 
+
+        mxl_beams = [b for b in n.get_named_children ('beam')
+                     if (b.get_type () in ('begin', 'end')
+                         and b.is_primary ())] 
+        if mxl_beams and not conversion_settings.ignore_beaming:
+            beam_ev = musicxml_spanner_to_lily_event (mxl_beams[0])
+            if beam_ev:
+                ev_chord.append (beam_ev)
+                if beam_ev.span_direction == -1: # beam and thus melisma starts here
+                    is_beamed = True
+                elif beam_ev.span_direction == 1: # beam and thus melisma ends here
+                    is_beamed = False
+            
+        if tuplet_event:
+            mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
+            frac = (1,1)
+            if mod:
+                frac = mod.get_fraction ()
+                
+            tuplet_events.append ((ev_chord, tuplet_event, frac))
+
         # Extract the lyrics
         if not rest and not ignore_lyrics:
             note_lyrics_processed = []
@@ -1698,23 +1721,6 @@ def musicxml_voice_to_lily_voice (voice):
             for lnr in lyrics.keys ():
                 if not lnr in note_lyrics_processed:
                     lyrics[lnr].append ("\skip4")
-
-
-        mxl_beams = [b for b in n.get_named_children ('beam')
-                     if (b.get_type () in ('begin', 'end')
-                         and b.is_primary ())] 
-        if mxl_beams and not conversion_settings.ignore_beaming:
-            beam_ev = musicxml_spanner_to_lily_event (mxl_beams[0])
-            if beam_ev:
-                ev_chord.append (beam_ev)
-            
-        if tuplet_event:
-            mod = n.get_maybe_exist_typed_child (musicxml.Time_modification)
-            frac = (1,1)
-            if mod:
-                frac = mod.get_fraction ()
-                
-            tuplet_events.append ((ev_chord, tuplet_event, frac))
 
     ## force trailing mm rests to be written out.   
     voice_builder.add_music (musicexp.ChordEvent (), Rational (0))
