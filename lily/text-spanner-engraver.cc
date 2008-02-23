@@ -10,6 +10,7 @@
 
 #include "international.hh"
 #include "note-column.hh"
+#include "pointer-group-interface.hh"
 #include "side-position-interface.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
@@ -23,6 +24,7 @@ public:
 protected:
   virtual void finalize ();
   DECLARE_TRANSLATOR_LISTENER (text_span);
+  DECLARE_ACKNOWLEDGER (note_column);
   void stop_translation_timestep ();
   void process_music ();
 
@@ -120,6 +122,21 @@ Text_spanner_engraver::finalize ()
       span_ = 0;
     }
 }
+
+
+void
+Text_spanner_engraver::acknowledge_note_column (Grob_info info)
+{
+  if (!span_)
+    return;
+
+  Pointer_group_interface::add_grob (span_,
+				     ly_symbol2scm ("note-columns"),
+				     info.grob());
+  add_bound_item (span_, info.grob ());
+}
+
+ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
 
 ADD_TRANSLATOR (Text_spanner_engraver,
 		/* doc */
