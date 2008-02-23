@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
+    Translation of GIT committish: 56ed249c9d5076f33515e36af54126ea5fb88783
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -20,15 +20,15 @@ se encuentran disponibles y explica la forma de hallar el botón exacto que se d
 un determinado efecto.
 
 
-@cindex Program reference
+@cindex Referencia de funcionamiento interno
 
 Los controles disponibles para los ajustes finos se describen en un documento
 separado, 
 @iftex
-el Manual de referencia del programa.
+el Manual de referencia de funcionamiento interno.
 @end iftex
 @ifnottex
-la @ref{Top,Referencia del programa,,lilypond-internals}.
+la @ref{Top,Referencia de funcionamiento interno,,lilypond-internals}.
 @end ifnottex
 Dicho manual
 relaciona todas las variables, funciones y opciones que se encuentran disponibles en
@@ -39,7 +39,7 @@ pero que también va incluido en el paquete de la documentación de LilyPond.
 
 Hay cuatro áreas en las que se pueden cambiar los valores por defecto:
 
-@itemize @bullet
+@itemize
 @item
 Notación automática: cambiar la creación automática de los elementos de
 notación.  Por ejemplo, cambiar las reglas de barrado de las figuras.
@@ -63,583 +63,14 @@ Internamente, LilyPond utiliza el lenguaje Scheme (un dialecto de LISP) para apo
 la infraestructura.  La sobreescritura de las decisiones de disposición da acceso efectivo a las interioridades
 del programa, lo que requiere código de Scheme como entrada.  Los elementos de Scheme
 se inauguran dentro de un archivo @code{.ly} con el símbolo de cuadradillo
-@code{#}.@footnote{@ref{Scheme tutorial} contiene un breve tutorial
+@code{#}.@footnote{@rlearning{Scheme tutorial} contiene un breve tutorial
 sobre la introducción de números, listas, cadenas y símbolos en Scheme.}
 
 
 @menu
-* Automatic notation::          
 * Interpretation contexts::     
 * The \override command::       
 @end menu
-
-
-@node Automatic notation
-@section Automatic notation
-
-Esta sección describe la manera de cambiar la forma en que se dibujan automáticamente las alteraciones accidentales y
-las barras de las figuras.
-
-@menu
-* Automatic accidentals::       
-* Setting automatic beam behavior::  
-@end menu
-
-@node Automatic accidentals
-@subsection Automatic accidentals
-@cindex Alteraciones accidentales automáticas
-
-Las reglas más usuales para tipografiar las alteraciones se han colocado en una
-función.  Esta función se invoca de la manera siguiente
-
-@funindex set-accidental-style
-@example
-#(set-accidental-style 'ESTILO)
-@end example
-
-@c TODO: check the context stuff below
-@c -does it *really* work?
-@c -the default contexts as specified in
-@c  scm/music-function.scm seem to be different -vv
-
-Opcionalmente la función puede tomar dos argumentos: el nombre del estilo de las
-alteraciones y un argumento opcional que denota el contexto que se desea
-cambiar:
-
-@example
-#(set-accidental-style 'ESTILO #('CONTEXTO#))
-@end example
-
-Si no se da ningún nombre de contexto, @code{Staff} (pentagrama) es el valor predeterminado,
-pero en lugar de esto puede aplicar el estilo de alteraciones a una sola
-voz (contexto @code{Voice}).
-
-Están contemplados los siguientes estilos de alteraciones:
-
-@table @code
-@item default
-Es el comportamiento de composición tipográfica por omisión.  Corresponde
-a la práctica común vigente en el s.XVIII: las alteraciones se
-recuerdan hasta el final del compás en que aparecen
-y sólo en la misma octava.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       %#(set-accidental-style 'default) 
-       \musicA }
-       \context Staff = "down"{
-	       %#(set-accidental-style 'default)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'default" }}}
-}
-@end lilypond
-
-@item voice
-El comportamiento normal es recordar las alteraciones al nivel del
-pentagrama.  Sin embargo, esta variable tipografía las alteraciones
-para cada voz individual.  Aparte de esto, la regla es similar a
-@code{default}.
-
-@example
- \new Staff <<
-        #(set-accidental-style 'voice)
-	@{ @dots{} @}
-	>>
-@end example
-
-Como resultado, las alteraciones de una voz no se cancelan en las otras voces,
-lo que a menudo produce un resultado no deseado: en el ejemplo que aparece a continuación,
-es difícil determinar si el segundo @samp{La} se debe tocar
-natural o sostenido.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'voice) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'voice)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'voice" }}}
-}
-@end lilypond
-
-La opción @code{voice} se debe utilizar siempre que las voces
-se vayan a leer independientemente por parte de músicos individuales.  Si el pentagrama se va a
-usar por parte de un único músico (p.ej. un director), entonces
-se deben utilizar los estilos
-@code{modern} o @code{modern-cautionary}.
-
-
-@item modern
-@funindex modern style accidentals
-Esta regla corresponde a la práctica común del s.XX.  Imprime
-las mismas alteraciones que @code{default}, pero las alteraciones temporales
-también se cancelan en octavas distintas.  Es más,
-dentro de la misma octava, también se cancelan dentro del compás siguiente:
-en el ejemplo que aparece a continuación, fíjese en los dos becuadros que aparecen
-en el segundo compás del pentagrama superior.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern" }}}
-}
-@end lilypond
-
-@item @code{modern-cautionary}
-@funindex modern-cautionary
-Esta regla es parecida a @code{modern}, pero las alteraciones @q{adicionales}
-(las que no se tipografían en el estilo @code{default}) se componen tipográficamente como alteraciones
-de cortesía o precaución.  Se imprimen en un tamaño reducido o, por omisión,
-con paréntesis (esto se puede establecer definiendo la propiedad @code{cautionary-style}
-del objeto @internalsref{AccidentalSuggestion}.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-cautionary" }}}
-}
-@end lilypond
-
-@funindex modern-voice
-@item modern-voice
-Esta regla se usa para alteraciones que afectan a varias voces y que se leerán tanto por parte de músicos
-que tocan una sola voz como por músicos que tocan todas las voces.  Las alteraciones
-se componen para cada voz, pero @emph{se cancelan} entre voces dentro del mismo
-pentagrama (@internalsref{Staff}).
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-voice) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-voice)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice" }}}
-}
-@end lilypond
-
-@funindex modern-voice-cautionary
-@item modern-voice-cautionary
-Esta regla es la misma que @code{modern-voice}, pero con las alteraciones
-adicionales (las que faltaban en el estilo @code{voice}) impresas
-como de precaución.  Incluso aunque todas las alteraciones impresas por el estilo
-@code{default} @emph{se imprimen} por esta variable,
-algunas de ellas se imprimen como de precaución.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-voice-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-voice-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice-cautionary" }}}
-}
-@end lilypond
-
-@item piano
-@funindex piano accidentals
-Este estilo de alteraciones tiene lugar dentro de un contexto de pentagramas de piano, GrandStaff. Sin embargo, tendrá
-que establecerlo explícitamente para @emph{cada uno} de los pentagramas individuales del grupo GrandStaff:
-
-@example
-\new GrandStaff @{ <<
-  \new Staff = "up" @{ <<
-    #(set-accidental-style 'piano)
-    @{ @dots{} @}
-  >> @}
-  \new Staff = "down"@{ <<
-    #(set-accidental-style 'piano)
-  @{ @dots{} @}
-  >> @}
->> @}
-@end example
-
-Esta regla refleja la práctica del s.XX de notación para el piano.  Su comportamiento es muy
-parecido al estilo @code{modern}, pero aquí las alteraciones también se cancelan
-entre pentagramas dentro del mismo grupo de piano @internalsref{GrandStaff} o
-@internalsref{PianoStaff}.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'piano) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'piano)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano" }}}
-}
-@end lilypond
-
-@item piano-cautionary
-@funindex #(set-accidental-style 'piano-cautionary)
-Igual que @code{#(set-accidental-style 'piano)} pero con las alteraciones adicionales
-tipografiadas como de precaución.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'piano-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'piano-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano-cautionary" }}}
-}
-@end lilypond
-
-@item no-reset
-@funindex no-reset accidental style
-Éste es igual que @code{default} pero con alteraciones que duran
-@q{para siempre} y no solamente hasta el siguiente compás:
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'no-reset) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'no-reset)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'no-reset" }}}
-}
-@end lilypond
-
-@item forget
-Es algo así como lo contrario de @code{no-reset}: las alteraciones
-no se recuerdan en absoluto.  De aquí que todas las alteraciones
-se componen tipográficamente como relativas a la armadura en vigor, sin que importe lo que haya aparecido en la música
-anterior
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'forget) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'forget)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'forget" }}}
-}
-@end lilypond
-@end table
-
-
-@seealso
-
-Referencia del programa: @internalsref{Accidental_engraver},
-@internalsref{Accidental}, @internalsref{AccidentalSuggestion} and @internalsref{AccidentalPlacement}.
-
-
-@refbugs
-
-Las notas simultáneas se considera que están introducidas en modo
-secuencial.  Esto significa que dentro de un acorde las alteraciones se componen como si
-las notas del acorde ocurriesen una a una, en el orden en que aparecen en el código del archivo
-de entrada.  Esto supone un problema cuando las alteraciones
-de un acorde dependen unas de otras,
-lo cual no sucede para el estilo de alteraciones por defecto.  El problema
-se puede solucionar insertando manualmente @code{!} y @code{?} para las notas
-problemáticas.
-
-
-@node Setting automatic beam behavior
-@subsection Setting automatic beam behavior
-
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
-@cindex barras automáticas, ajuste fino
-@cindex ajuste fino de las barras automáticas
-
-@c [TODO: use \applyContext]
-
-En compases normales, las barras de figura automáticas pueden comenzar en cualquier nota
-pero sólo pueden acabar en ciertas posiciones dentro del compás: las barras pueden acabar sobre un pulso
-o en duraciones especificadas por las propiedades que están dentro de
-@code{autoBeamSettings}.  Las propiedades de @code{autoBeamSettings}
-consisten en una lista de reglas sobre dónde pueden comenzar y acabar las barras.  Las
-reglas por defecto de @code{autoBeamSettings} están definidas en el archivo
-@file{scm/@/auto@/-beam@/.scm}.
-
-Para añadir una regla a la lista, utilice
-@example
-#(override-auto-beam-setting '(be p q n m) a b [contexto])
-@end example
-
-@itemize @bullet
-
-@item @code{be} es "begin" (comienzo) o "end" (final).
-
-@item @code{p/q} es la duración de la figura para la que quiere añadir
-una regla.  Se considera que una barra tiene la duración de su figura
-más breve.  Establezca el valor de @code{p} y @code{q} a un asterisco @code{'*'} para
-que se aplique a cualquier barra.
-
-@item @code{n/m} es la indicación de compás para la que se aplica
-esta regla.  Establezca el valor de @code{n} y @code{m} a un asterisco @code{'*'}
-para que la regla se aplique a cualquier compás.
-
-@item @code{a/b} es la posición dentro del compás en la que debe comenzar o terminar
-la barra.
-
-@item @code{contexto} es opcional, y especifica el contexto en el que
-se debe hacer el cambio.  El valor por defecto es @code{'Voice}.
-@code{#(score-override-auto-beam-setting '(A B C D) E F)} equivale a
-@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}.
-
-@end itemize
-
-Por ejemplo, si queremos que las barras automáticas siempre acaben sobre la primera
-negra del compás, escriba
-
-@example
-#(override-auto-beam-setting '(end * * * *) 1 4)
-@end example
-
-Puede forzar los ajustes para las barras de forma que sólo afecten a las barras cuya figura
-más breve sea una duración concreta
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\time 2/4
-#(override-auto-beam-setting '(end 1 16 * *) 1 16)
-a16 a a a a a a a |
-a32 a a a a16 a a a a a |
-#(override-auto-beam-setting '(end 1 32 * *) 1 16)
-a32 a a a a16 a a a a a |
-@end lilypond
-
-Puede forzar los ajustes del barrado para que sólo afecten a ciertas indicaciones
-de compás
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\time 5/8
-#(override-auto-beam-setting '(end * * 5 8) 2 8)
-c8 c d d d
-\time 4/4
-e8 e f f e e d d
-\time 5/8
-c8 c d d d
-@end lilypond
-
-También puede eliminar una regla de finalización de barra previamente establecida, usando
-
-@example
-#(revert-auto-beam-setting '(be p q n m) a b [contexto])
-@end example
-
-@noindent
-be, p, q, n, m, a, b y contexto significan lo mismo que antes.  Fíjese en que las
-reglas por defecto se describen en el archivo @file{scm/@/auto@/-beam@/.scm},
-por tanto podrá recuperar las reglas que no haya creado explícitamente.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\time 4/4
-a16 a a a a a a a a a a a a a a a
-#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
-a16 a a a a a a a a a a a a a a a
-@end lilypond
-
-La regla de una instrucción revert-auto-beam-setting debe corresponder exactamente con la
-regla original.  Esto es: no se tiene en cuenta ninguna expansión de comodines.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\time 1/4
-#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
-a16 a a a
-#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % this won't revert it!
-a a a a
-#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
-a a a a
-@end lilypond
-
-
-
-@c TODO:  old material -- not covered by above stuff, I think.
-Si las barras automáticas han de terminar sobre las negras de un compás de 5/4, especifique toas las
-terminaciones
-@example
-#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
-#(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
-#(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
-#(override-auto-beam-setting '(end * * * *) 5 4 'Staff)
-@dots{}
-@end example
-
-La misma sintaxis se puede usar para especificar los puntos de comienzo de las barras.  En este
-ejemplo, las barras automáticas sólo pueden terminar sobre una negra con puntillo
-@example
-#(override-auto-beam-setting '(end * * * *) 3 8)
-#(override-auto-beam-setting '(end * * * *) 1 2)
-#(override-auto-beam-setting '(end * * * *) 7 8)
-@end example
-En el compás de 4/4, esto significa que las barras automáticas sólo pueden terminar sobre
-3/8 y sobre el cuarto pulso del compás (después de haber transcurrido un 3/4, esto es, dos veces
-3/8).
-
-Si ocurre algún comportamiento inesperado de las barras, compruebe los ajustes del barrado automático
-por defecto en el archivo @file{scm/@/auto@/-beam@/.scm}
-en busca de un posible conflicto, ya que los finales de barra
-definidos en este lugar se seguirán aplicando encima de sus propias sobreescrituras. Cualesquiera
-finales no deseados dentro de los valores por defecto se deben contrarrestar específicamente para nuestro o nuestros
-propios compases.
-
-Por ejemplo, para tipografiar finales de barra de @code{(3 4 3 2)} corcheas en un 12/8, comience
-con
-
-@example
-%%% contrarrestar los valores por defecto en scm/auto-beam.scm respecto al compás de 12/8
-#(revert-auto-beam-setting '(end * * 12 8) 3 8)
-#(revert-auto-beam-setting '(end * * 12 8) 3 4)
-#(revert-auto-beam-setting '(end * * 12 8) 9 8)
-
-%%% nuestros nuevos valores
-#(override-auto-beam-setting '(end 1 8 12 8) 3 8)
-#(override-auto-beam-setting '(end 1 8 12 8) 7 8)
-#(override-auto-beam-setting '(end 1 8 12 8) 10 8)
-@end example
-
-@cindex automáticas, generación de las barras
-@cindex autobarrado
-@funindex autoBeaming
-@cindex letra
-
-Si se van a utilizar las barras para indicar los melismas de las canciones, entonces el barrado
-automático se debe desactivar con @code{\autoBeamOff}.
-
-
-@refcommands
-
-@funindex \autoBeamOff
-@code{\autoBeamOff},
-@funindex \autoBeamOn
-@code{\autoBeamOn}.
-
-@commonprop
-
-Los patrones de barrado se pueden alterar con la propiedad @code{beatGrouping},
-
-@lilypond[quote,verbatim,relative=2,fragment,ragged-right]
-\time 5/16
-\set beatGrouping = #'(2 3)
-c8[^"(2+3)" c16 c8]
-\set beatGrouping = #'(3 2)
-c8[^"(3+2)" c16 c8]
-@end lilypond
-
-
-@refbugs
-
-Si una partitura termina con una barra automática sin finalizar y que aún
-acepta más figuras, esta última barra no se imprimirá en absoluto.  Lo mismo vale para
-las voces polifónicas, introducidas con @code{<< @dots{} \\ @dots{}
->>}.  Si una voz polifónica termina mientras una barra automática aún
-acepta notas, entonces no aparece.
 
 
 @node Interpretation contexts
@@ -681,26 +112,26 @@ a un solo pentagrama, mientras que una barra divisoria debe estar sincronizada a
 de la partitura de arriba a abajo.
 
 Dentro de LilyPond, estas reglas y pequeñas porciones de información se agrupan en
-@emph{Contexts}.  Algunos ejemplos de contextos son @context{Voice} (Voz),
-@context{Staff} (Pauta o pentagrama) y @context{Score} (Partitura).  Los contextos son jerárquicos, por
-ejemplo: un @context{Staff} contener muchas @context{Voice}s, y una
-@context{Score} puede contener muchos contextos de @context{Staff}.
+@emph{Contexts}.  Algunos ejemplos de contextos son @code{Voice} (Voz),
+@code{Staff} (Pauta o pentagrama) y @code{Score} (Partitura).  Los contextos son jerárquicos, por
+ejemplo: un @code{Staff} contener muchas @code{Voice}s, y una
+@code{Score} puede contener muchos contextos de @code{Staff}.
 
 @quotation
-@image{context-example,5cm,,}
+@sourceimage{context-example,5cm,,}
 @end quotation
 
 Cada contexto asume la responsabilidad de imponer algunas reglas de notación,
 creando ciertos objetos de notación y manteniendo las propiedades
-asociadas.  Por ejemplo, el contexto @context{Voice} puede introducir una alteración
-accidental y entonces el contexto @context{Staff} mantiene la regla de mostrar o
+asociadas.  Por ejemplo, el contexto @code{Voice} puede introducir una alteración
+accidental y entonces el contexto @code{Staff} mantiene la regla de mostrar o
 suprimir la alteración para el resto del compás.  La
-sincronización de las líneas divisorias se gestiona dentro del contexto de la partitura, @context{Score}.
+sincronización de las líneas divisorias se gestiona dentro del contexto de la partitura, @code{Score}.
 
 Sin embargo, en algunas músicas posiblemente no queramos que las líneas divisorias estén
 sincronizada (pensemos en una partitura polimétrica en compases de 4/4 y de 3/4).  En tales casos,
-debemos modificar los ajustes por omisión de los contextos @context{Score}
-y @context{Staff}.
+debemos modificar los ajustes por omisión de los contextos @code{Score}
+y @code{Staff}.
 
 Para partituras muy sencillas, los contextos se crean implícitamente y no debemos
 preocuparnos por ellos.  Para piezas mayores, como por ejemplo cualquiera que tenga más de un pentagrama,
@@ -730,7 +161,7 @@ Para partituras que sólo tienen una voz y un pentagrama, los contextos se
 crean automáticamente.  Para partituras más complejas, es necesario crearlos
 a mano.  Existen tres instrucciones que hacen esto.
 
-@itemize @bullet
+@itemize
 
 @item
 La instrucción más fácil es @code{\new}, y es también la más rápida de escribir.
@@ -808,7 +239,7 @@ musica = @{ c4 c4 @}
 decoracion = @{ s4-. s4-> @}
 @end example
 
-se combinan enviando los dos al mismo contexto @context{Voice},
+se combinan enviando los dos al mismo contexto @code{Voice},
 
 @example
 <<
@@ -845,13 +276,13 @@ cualquier contexto del tipo @var{tipo}, sin importar qué nombre se le ha dado.
 Esta variante se usa con expresiones musicales que se pueden interpretar en
 varios niveles.  Por ejemplo, la instrucción @code{\applyOutput} (véase
 @ref{Running a function on all layout objects}).  Sin una instrucción
-@code{\context} explícita, normalmente se aplicaría a @context{Voice}
+@code{\context} explícita, normalmente se aplicaría a @code{Voice}
 
 @example
 \applyOutput #'@var{contexto} #@var{función}   % aplicar al contexto Voice
 @end example
 
-Para que se interprete dentro de los niveles de @context{Score} o @context{Staff}, utilice las siguientes
+Para que se interprete dentro de los niveles de @code{Score} o @code{Staff}, utilice las siguientes
 formas:
 
 @example
@@ -889,8 +320,8 @@ los silencios multicompás se comprimen.  El valor asignado es un objeto del len
 este caso, es @code{#t}, el valor booleano Verdadero.
 
 Si el argumento @var{contexto} se deja en blanco, entonces se utiliza el contexto actual más bajo
-(normalmente @context{ChordNames}, @context{Voice} o
-@context{Lyrics}).  En este ejemplo,
+(normalmente @code{ChordNames}, @code{Voice} o
+@code{Lyrics}).  En este ejemplo,
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c8 c c c
@@ -913,8 +344,8 @@ R1*2
 @end lilypond
 
 Los contextos son jerárquicos, de forma que si se especificó un contexto mayor, por
-ejemplo @context{Staff}, entonces el cambio también se aplicaría a todos los
-@context{Voice}s o contextos de voz en el pentagrama actual.  El cambio se aplica
+ejemplo @code{Staff}, entonces el cambio también se aplicaría a todos los
+@code{Voice}s o contextos de voz en el pentagrama actual.  El cambio se aplica
 @q{al vuelo}, mientras transcurre la música, de manera que el ajuste sólo afecta al segundo
 grupo de corcheas.
 
@@ -1120,7 +551,7 @@ La instrucción
 
 @noindent
 hace las plicas más gruesas (el valor por defecto es 1.3, tomando como unidad el grosor de las líneas del
-pentagrama).  Puesto que la orden especifica @context{Staff} como contexto, sólo se
+pentagrama).  Puesto que la orden especifica @code{Staff} como contexto, sólo se
 aplica al pentagrama en curso.  Otros pentagramas conservarán su apariencia visual
 normal.  Aquí podemos ver la orden en acción:
 
@@ -1133,11 +564,11 @@ c4
 @end lilypond
 
 La instrucción @code{\override} cambia la definición de la @code{Stem} (plica)
-dentro del pentagrama @context{Staff} en curso.  Después de que la orden se ha interpretado,
+dentro del pentagrama @code{Staff} en curso.  Después de que la orden se ha interpretado,
 todas las plicas quedan engrosadas.
 
 Análogo a @code{\set}, el argumento @var{contexto} se puede dejar en blanco,
-haciendo que se utilice el contexto por defecto, @context{Voice}.  Al añadir
+haciendo que se utilice el contexto por defecto, @code{Voice}.  Al añadir
 @code{\once} se aplicará el cambio solamente durante un paso de tiempo.
 
 @lilypond[quote,fragment,verbatim,relative=2]
@@ -1196,7 +627,7 @@ Funcionamiento interno: @internalsref{OverrideProperty}, @internalsref{RevertPro
 @internalsref{All layout objects}.
 
 
-@refbugs
+@knownissues
 
 El back-end o parte profunda del programa no es muy estricta cuando se trata de la comprobación de tipos de las propiedades de los objetos.
 Las referencias circulares en los valores de Scheme para las propiedades pueden causar cuelgues o
@@ -1252,7 +683,7 @@ también funciona.
 
 
 
-@refbugs
+@knownissues
 
 No es posible recolectar cambios de contexto en una variable y aplicarlos
 a una definición @code{\context} mediante la referencia a esa variable.
@@ -1276,12 +707,12 @@ llamar a @code{\RemoveemptyStaffContext}, es decir
 @node Defining new contexts
 @subsection Defining new contexts
 
-Los contextos específicos, como @context{Staff} y @code{Voice}, están construidos a base de
+Los contextos específicos, como @code{Staff} y @code{Voice}, están construidos a base de
 bloques sencillos.  Es posible crear nuevos tipos de
 contextos con combinaciones distintas de añadidos grabadores.
 
 El siguiente ejemplo muestra cómo construir un tipo diferente de contexto de
-@context{Voice} partiendo de cero.  Será parecido a
+@code{Voice} partiendo de cero.  Será parecido a
 @code{Voice}, pero imprime solamente cabezas centradas en forma de barra inclinada.  Se puede usar
 para indicar improvisación en piezas de jazz,
 
@@ -1329,9 +760,9 @@ En primer lugar es necesario definir un nombre para el nuevo contexto:
 \name ImproVoice
 @end example
 
-Debido a que es parecido al contexto @context{Voice}, queremos órdenes que funcionen sobre
-contextos de @context{Voice} (existentes) para que siga funcionando.  Esto se consigue dando al
-contexto nuevo un alias @context{Voice},
+Debido a que es parecido al contexto @code{Voice}, queremos órdenes que funcionen sobre
+contextos de @code{Voice} (existentes) para que siga funcionando.  Esto se consigue dando al
+contexto nuevo un alias @code{Voice},
 
 @example
 \alias Voice
@@ -1389,8 +820,8 @@ Al juntarlo todo, obtenemos
 @end example
 
 @funindex \accepts
-Los contextos dan lugar a jerarquías.  Queremos colgar el contexto @context{ImproVoice}
-bajo el contexto @context{Staff}, como simples @code{Voice}s normales.  Por tanto, modificamos
+Los contextos dan lugar a jerarquías.  Queremos colgar el contexto @code{ImproVoice}
+bajo el contexto @code{Staff}, como simples @code{Voice}s normales.  Por tanto, modificamos
 la definición de @code{Staff} con la instrucción
 @code{\accepts} (acepta),
 
@@ -1439,8 +870,10 @@ Así pues, la salida que aparece al comienzo de esta sub-sección se puede escri
 @subsection Aligning contexts
 
 Los contextos nuevos se pueden alinear por encima o por debajo de otros contextos existentes.  Esto
-podría ser de utilidad al preparar un pentagrama vocal (@ref{Vocal ensembles}) y
+podría ser de utilidad al preparar un pentagrama vocal (@rlearning{Vocal ensembles}) y
 un ossia,
+
+ARREGLAR: esta sección no funciona en PDF. (¿?)
 
 @cindex ossia
 @findex alignAboveContext
@@ -1465,8 +898,8 @@ ossia = { f4 f f f }
 
 Los grobs (objetos gráficos) VerticalAlignment y VerticalAxisGroup funcionan juntos.
 VerticalAxisGroup agrupa distintos objetos gráficos como Staff, Lyrics,
-etc. VerticalAlignment por su parte alinea verticalmente los diferentes objetos gráficos
-agrupados por VerticalAxisGroup. Normalmente hay solamente un
+etc.  VerticalAlignment por su parte alinea verticalmente los diferentes objetos gráficos
+agrupados por VerticalAxisGroup.  Normalmente hay solamente un
 VerticalAlignment por cada partitura, pero cada Staff, Lyrics, etc. tiene su propio
 VerticalAxisGroup. 
 
@@ -1512,7 +945,7 @@ Las instrucciones que cambian la salida generalmente tienen la forma
 Para construir este ajuste debemos primero averiguar estos datos:
 
 @itemize
-@item el contexto: aquí @context{Voice} (voz).
+@item el contexto: aquí @code{Voice} (voz).
 @item el objeto de presentación: aquí @code{Stem} (plica).
 @item la propiedad de presentación: aquí @code{thickness} (grosor).
 @item un valor: aquí @code{3.0}.
@@ -1561,7 +994,7 @@ Si hace una visita a la documentación en busca de instrucciones de digitación 
 @quotation
 @seealso
 
-Referencia del programa: @internalsref{Fingering}.
+Referencia de funcionamiento interno: @internalsref{Fingering}.
 
 @end quotation
 
@@ -1621,7 +1054,7 @@ Los objetos de digitación se crean por parte de: @internalsref{Fingering_engrav
 Siguiendo los enlaces relacionados dentro de la referencia del programa, podemos seguir el
 flujo de información dentro del programa:
 
-@itemize @bullet
+@itemize
 
 @item @internalsref{Fingering}:
 los objetos @internalsref{Fingering} se crean por parte de:
@@ -1685,7 +1118,7 @@ Cada objeto de presentación puede tener varias funciones como elemento notacion
 tipográfico.  Por ejemplo, el objeto de digitación Fingering tiene
 los siguientes aspectos
 
-@itemize @bullet
+@itemize
 @item
 Su tamaño es independiente del espaciado horizontal, al contrario de las ligaduras o las barras de las figuras.
 
@@ -1754,7 +1187,7 @@ mucho.  El archivo de inicialización (véase
 
 @noindent
 Como podemos ver, el objeto @code{Fingering} no es más que un montón de
-valores de variables, y la página web de la Referencia del programa
+valores de variables, y la página web de la Referencia de funcionamiento interno
 se genera directamente a partir de esta definición.
 
 
@@ -1814,7 +1247,7 @@ f
 @end lilypond
 
 
-En este caso, el contexto de este truco es @context{Voice}.  Este
+En este caso, el contexto de este truco es @code{Voice}.  Este
 hecho se puede deducir también a partir de la referencia del programa, ya que la página dedicada al
 añadido @internalsref{Fingering_engraver} dice
 
@@ -1848,7 +1281,7 @@ aplicar.
 Esta técnica sólo funciona para los objetos que están conectados directamente a
 un @internalsref{Event} (evento) del texto de entrada, por ejemplo
 
-@itemize @bullet
+@itemize
 @item cabezas de nota, producidas por chord-pitch (p. ej.: las notas de un acorde)
 @item signos de articulación, producidos por instrucciones de articulación
 @end itemize
@@ -1887,7 +1320,7 @@ F = \tweak #'font-size #-3 -\flageolet
 @noindent
 En otras palabras, @code{\tweak} no se comporta como una articulación en lo que respecta a la
 sintaxis; en concreto, no se puede adjuntar mediante
-@samp{^} y @samp{_}.
+@code{^} y @code{_}.
 
 Utilizando el lenguaje Scheme, se puede dar un rodeo a este problema.  La ruta hacia el resultado
 se da en @ref{Adding articulation to notes (example)},
@@ -1908,12 +1341,12 @@ F = #(let ((m (make-music 'ArticulationEvent
 
 @noindent
 Aquí las propiedades @code{tweaks} del objeto de flageolet
-@samp{m} (creado con @code{make-music}) se extraen con
+@code{m} (creado con @code{make-music}) se extraen con
 @code{ly:music-property}, un nuevo par clave-valor para cambiar el
 tamaño de la tipografía se antepone a la lista de propiedades con la función de Scheme
 @code{acons}, y el resultado finalmente se escribe
 de nuevo con @code{set!}.  El último elemento del bloque
-@code{let} es el valor devuelto, el propio @samp{m}.
+@code{let} es el valor devuelto, el propio @code{m}.
 
 
 @node \set versus \override
@@ -1933,7 +1366,7 @@ ver modificado su valor con el tiempo según se interpreta una pieza de música;
 Las propiedades de contexto se modifican con @code{\set}.
 
 Hay un tipo especial de propiedad de contexto: la descripción del
-elemento. Estas propiedades reciben nombres en @code{MayúsculasDeCamello}
+elemento.  Estas propiedades reciben nombres en @code{MayúsculasDeCamello}
 (comenzando en letra mayúscula).  Contienen los
 @q{ajustes por defecto} para dicho elemento gráfico como una lista
 asociativa.  Consulte @file{scm/@/define@/-grobs@/.scm}
@@ -1972,7 +1405,7 @@ pertinentes.  Al ser éste un cambio muy común, se creó la propiedad especial
 
 Hay ciertos tipos de ajustes difíciles.
 
-@itemize @bullet
+@itemize
 
 
 @item
@@ -1995,7 +1428,7 @@ presentación se han dividido sobre los diferentes sistemas o grupos de pentagra
 En el ejemplo siguiente, definimos un procedimiento
 @code{my-callback}.  Este procedimiento
 
-@itemize @bullet
+@itemize
 @item
 determina si hemos sido divididos en un salto de línea
 @item
