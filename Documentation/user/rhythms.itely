@@ -182,6 +182,10 @@ Tuplets may be nested:
 }
 @end lilypond
 
+Modifying nested tuplets which begin at the same musical moment
+must be done with @code{\tweak}.
+@c TODO Add link to LM section which deals with this.
+
 @predefined
 
 @funindex \tupletUp
@@ -200,9 +204,8 @@ Tuplets may be nested:
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
-@c when available
-@c @lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
-@c {Entering-several-tuplets-using-only-one-\times-command.ly}
+@lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
+{entering-several-tuplets-using-only-one--times-command.ly}
 
 @ignore
 @c TODO Remove when snippet works ok
@@ -245,6 +248,8 @@ Tuplets may extend over bar lines, but they will inhibit a
 line break unless the @code{Forbid_line_break_engraver} is
 removed from the @code{Voice context}.
 
+@c TODO Move to LM 4
+@ignore
 @subheading Modifying nested tuplets
 
 @cindex tuplets, nested
@@ -322,7 +327,16 @@ below the staff, we can use @code{\override} in the usual way.
    \times 2/3 { c8[ c8 c8] }
 }
 @end lilypond
+@end ignore
 
+@c TODO - tidy up
+@c Sent to Valentin for LSR (general list of Rhythm snippets) 22 Feb
+@c Maybe try referencing with:
+@c For example of modifying bracket length see @lsr{..}
+@c Index entries could then be added above this.
+@c Delete ignore block when available in LSR
+
+@ignore
 @subheading Modifying tuplet bracket length
 
 @cindex tuplet bracket length
@@ -358,8 +372,9 @@ full length mode and how to modify what material they cover.
   c4
 }
 @end lilypond
+@end ignore
 
-@subheading Compressing music
+@c Compressing music
 
 @cindex compressing music
 @funindex \compressMusic
@@ -369,9 +384,8 @@ create a tuplet bracket.  One application is in polymetric
 notation, as shown in the following example.  See
 @ref{Polymetric notation}.
 
-@c when available
-@c @lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
-@c {printing-music-with-different-time-signatures.ly}
+@lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
+{printing-music-with-different-time-signatures.ly}
 
 
 @seealso
@@ -2591,6 +2605,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 
