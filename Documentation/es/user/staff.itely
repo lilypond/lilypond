@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -266,7 +266,7 @@ Consulte @ref{Text markup} para ver más detalles.
 Referencia del programa: @internalsref{MetronomeMark}.
 
 
-@refbugs
+@knownissues
 
 No se comprueba la existencia de colisiones.  Si tenemos notas por encima de la línea superior del pentagrama
 (o notas con articulaciones, ligaduras, texto, etc), la indicación metronómica
@@ -460,7 +460,7 @@ Al establecer
 @noindent
 se citarán las notas (pero no los silencios), además de las inscripciones textuales y de dinámica.
 
-@refbugs
+@knownissues
 
 Sólo los contenidos de la primera @internalsref{Voice} que aparece dentro de una
 instrucción @code{\addQuote} se tendrán en consideración para su cita, así que

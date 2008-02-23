@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -497,7 +497,7 @@ dependiendo de la línea de la pauta en que se imprimían.
 
 En este manual: consulte @ref{Clef}.
 
-@refbugs
+@knownissues
 
 La clave mensural de Sol está reasignada a la clave de Sol de Petrucci.
 
@@ -530,7 +530,7 @@ cuando tipografíe el incipit de una pieza transcrita de música mensural,
 debe usar el estilo de corchete por defecto.  No existen corchetes en la notación
 del Canto Gregoriano.
 
-@refbugs
+@knownissues
 
 La unión de los corchetes antiguos a las plicas está ligeramente desviada a causa de un
 cambio en la antigua versión 2.3.x.
@@ -636,7 +636,7 @@ Los ejemplos siguientes muestran las diferencias que existen entre los estilos:
 En el presente manual: @ref{Time signature} ofrece una introducción general al
 uso de las indicaciones de compás.
 
-@refbugs
+@knownissues
 
 Las relaciones de duración de las notas no se modifican cuando cambia la indicación de compás.  Por
 ejemplo, la razón de 1 breve = 3 semibreves (tiempo perfecto) se debe
@@ -680,7 +680,7 @@ Editio Vaticana.
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 Ciertas articulaciones se colocan demasiado cerca verticalmente de las
 cabezas de nota correspondientes.
@@ -795,7 +795,7 @@ Por ello, @file{gregorian@/-init@/.ly} define también las instrucciones @code{\
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@refcommands
+@predefined
 
 @funindex \virgula
 @code{\virgula},
@@ -852,7 +852,7 @@ blancas con ciertas limitaciones.
 
 
 
-@refbugs
+@knownissues
 
 Las ligaduras necesitan un espaciado especial que aún no se ha desarrollado.  Como
 consecuencia, la mayor parte del tiempo existe una separación excesiva entre las ligaduras,
@@ -962,7 +962,7 @@ de la siguiente manera:
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 El espaciado horizontal es pobre.
 
@@ -1867,7 +1867,7 @@ también que puede escribir @code{\augmentum @{a g@}} como abreviatura de
 }
 @end lilypond
 
-@refcommands
+@predefined
 
 Están contemplados los siguientes prefijos de cabeza:
 
@@ -1907,7 +1907,7 @@ respectivamente.
 @funindex \augmentum
 Utilice la función musical unaria @code{\augmentum} para escribir puntos de aumentación.
 
-@refbugs
+@knownissues
 
 Cuando un punto @code{\augmentum} aparece al final de la última pauta
 dentro de una ligadura, a veces se sitúa verticalmente en un lugar equivocado.  Como solución
@@ -2185,7 +2185,7 @@ cifras por debajo de las notas, utilice
 @end example
 
 
-@refbugs
+@knownissues
 
 Al usar bajos figurados por encima del pentagrama con líneas de extensión y
 @code{implicitBassFigures}, las líneas podrían intercambiarse.

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -178,7 +178,7 @@ consulte @ref{Modifying context plug-ins} y
 @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 
-@refbugs
+@knownissues
 
 @cindex repetición ambigua
 
@@ -346,7 +346,7 @@ c'2:8 c':32 | c': c': |
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 Los trémolos escritos de esta forma no se trasladan a la salida MIDI.
 
