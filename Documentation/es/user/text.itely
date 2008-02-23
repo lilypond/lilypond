@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -631,7 +631,7 @@ Referencia del programa: @internalsref{TextScript}.
 Archivos de inicio: @file{scm/@/new@/-markup@/.scm}.
 
 
-@refbugs
+@knownissues
 
 El «kerning» y la generación de ligaduras de texto se hacen sólo cuando se usa el «backend» o fundamento de @TeX{}.
 En este caso, LilyPond no se encarga de ellos y así los textos

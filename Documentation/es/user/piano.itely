@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -33,7 +33,7 @@ manejar este comportamiento de cruce de pentagramas.  En esta sección trataremo
 * Cross staff stems::           
 @end menu
 
-@refbugs
+@knownissues
 
 Los matices no se colocan centrados, pero se pueden utilizar ciertas alternativas.  Consulte la
 plantilla @q{piano con matices centrados} que está en @ref{Piano templates}.
@@ -93,7 +93,7 @@ Referencia del programa: @internalsref{AutoChangeMusic}.
 
 
 
-@refbugs
+@knownissues
 
 Los cambios de pentagrama pueden no acabar en lugares óptimos.  Para conseguir
 una salida de alta calidad es mejor especificar manualmente los cambios de pentagrama.

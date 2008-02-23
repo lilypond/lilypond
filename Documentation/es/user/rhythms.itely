@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -477,7 +477,7 @@ por defecto, y @internalsref{MultiMeasureRestText} para los textos
 definidos por el usuario.
 
 
-@refbugs
+@knownissues
 
 No se pueden usar digitaciones (p.ej. @code{R1-4}) para poner números
 encima de los silencios multicompás.  Y la altura de los silencios multicompás (o
@@ -585,7 +585,7 @@ Referencia del programa: @internalsref{TimeSignature} y
 Ejemplos: @lsr{contemporary,compound-time-signature.ly}.
 
 
-@refbugs
+@knownissues
 
 EL barrado automático no utiliza la agrupación de compases especificada con
 @code{set-time-signature}.
@@ -628,7 +628,7 @@ Observe que es un número negativo; @code{\partial 4} se traduce internamente
 con el significado de @qq{queda un valor de negra en este compás}.
 
 
-@refbugs
+@knownissues
 
 Este comando no tiene en cuenta las notas de adorno al comienzo
 de la música.  Cuando una pieza comienza con notas de adorno en la anacrusa,
@@ -668,7 +668,7 @@ d4 e d c
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 LilyPond insertará saltos de línea y de página solamente en las barras de compás.
 A menos que la música sin compasear acabe antes del final de la línea del pentagrama,
@@ -716,7 +716,7 @@ que @internalsref{Completion_heads_engraver} divide las notas, debe
 eliminar también @internalsref{Forbid_line_break_engraver}.
 
 
-@refbugs
+@knownissues
 
 No todas las duraciones (sobre todo las que contienen grupos
 especiales) se pueden representar exactamente con notas normales y
@@ -841,7 +841,7 @@ detecta un desnivel muy grande entre las cabezas de las notas.
 Este comportamiento se puede ajustar a través del objeto @code{auto-knee-gap}.
 
 
-@refbugs
+@knownissues
 
 Las barras que cruzan pentagramas y reciben un ángulo automático no se
 pueden usar conjuntamente con los pentagramas ocultos.  Consulte @ref{Hiding staves}.
@@ -1057,7 +1057,7 @@ Referencia del programa: @internalsref{BarNumber}.
 Ejemplos: @lsrdir{staff}
 
 
-@refbugs
+@knownissues
 
 Los números de compás pueden colisionar con el corchete @internalsref{StaffGroup}, si hay uno
 en la parte de arriba.  Para solucionarlo, se puede usar la propiedad de relleno
@@ -1374,7 +1374,7 @@ Se puede forzar que las notas de adorno utilicen espaciado flotante,
 Referencia del programa: @internalsref{GraceMusic}.
 
 
-@refbugs
+@knownissues
 
 Una partitura que comienza con una expresión @code{\grace} requiere una declaración explícita
 @code{\new Voice} pues en caso contrario la nota principal y la de adorno

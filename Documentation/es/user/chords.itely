@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -191,7 +191,7 @@ de propiedades se pueden usar para modificar ciertos valores.
 
 
 
-@refbugs
+@knownissues
 
 Cada nota sólo se puede presentar una vez dentro del acorde.  Lo siguiente
 simplemente produce el acorde aumentado, ya que el @code{5+} se interpreta en
@@ -380,7 +380,7 @@ Archivos de inicio: @file{scm/@/chords@/-ignatzek@/.scm} y
 @file{scm/@/chord@/-entry@/.scm}.
 
 
-@refbugs
+@knownissues
 
 Los nombres de acorde se determinan exclusivamente a partir de la lista de notas.  No se identifican
 las inversiones de acorde ni las notas del bajo añadidas.  Esto puede

@@ -95,6 +95,11 @@
 
 @end macro
 
+@macro knownissues
+@noindent
+@subsubheading Advertencias y problemas conocidos
+
+@end macro
 
 @macro context{TEXT}
 @vindex \TEXT\

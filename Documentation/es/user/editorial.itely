@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -270,7 +270,7 @@ escrito a propósito.
 Apéndice: @ref{List of colors}.
 
 
-@refbugs
+@knownissues
 En un navegador de web, no todos los colores de x11 se distinguen entre sí.  Para su utilización en la
 web se recomiendan los colores normales.
 
@@ -393,7 +393,7 @@ Referencia del programa: @internalsref{Ambitus},
 Ejemplos:
 @lsr{vocal,ambitus@/.ly}.
 
-@refbugs
+@knownissues
 
 No se efectúa un tratamiento de las posibles colisiones en caso de varias indicaciones de ámbito
 simultáneas en distintas voces.
