@@ -47,7 +47,7 @@ La orden @code{\easyHeadsOn} sobreescribe los ajustes del objeto
 en un tamaño grande de la tipografía.  Para imprimir con un tamaño de tipografía mayor, consulte
 @ref{Setting the staff size}.
 
-@refcommands
+@predefined
 
 @funindex \easyHeadsOn
 @code{\easyHeadsOn}
@@ -406,7 +406,7 @@ Cuando se encuentra con una nota, se crea un objeto
 @internalsref{Stem} (plica) automáticamente.  Para las redondas y los
 silencios, también se crean pero se hacen invisibles.
 
-@refcommands
+@predefined
 
 @funindex \stemUp
 @code{\stemUp},

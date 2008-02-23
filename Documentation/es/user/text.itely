@@ -81,7 +81,7 @@ La instrucción @code{\markup} se describe con más detalle en
 @ref{Text markup}.
 
 
-@refcommands
+@predefined
 
 @funindex \textLengthOn
 @code{\textLengthOn},
@@ -265,7 +265,7 @@ c2\startTextSpan b c\stopTextSpan a
 c2\startTextSpan b c\stopTextSpan a
 @end lilypond
 
-@refcommands
+@predefined
 
 @funindex textSpannerUp
 @code{\textSpannerUp},
@@ -689,7 +689,7 @@ instrucciones incorporadas de lista de elementos de marcado se describen en
 En este manual: @ref{Overview of text markup list commands}, 
 @ref{New markup list command definition}.
 
-@refcommands
+@predefined
 
 @funindex \markuplines
 @code{\markuplines}

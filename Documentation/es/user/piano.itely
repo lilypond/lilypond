@@ -238,7 +238,7 @@ que conecte las notas.  Esto se activa estableciendo
 
 Referencia del programa: @internalsref{VoiceFollower}.
 
-@refcommands
+@predefined
 
 @funindex \showStaffSwitch
 @code{\showStaffSwitch},

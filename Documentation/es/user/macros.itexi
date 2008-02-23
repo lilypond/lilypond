@@ -83,13 +83,6 @@
 @end macro
 
 @c * Deprecated: not in English macros.itexi *
-@macro refcommands
-@noindent
-@subsubheading Instrucciones predefinidas
-
-@end macro
-
-@c * Deprecated: not in English macros.itexi *
 @macro commonprop
 @noindent
 @subsubheading Propiedades trucadas frecuentemente
@@ -101,13 +94,6 @@
 @subsubheading Véase también
 
 @indent
-@end macro
-
-@c * Deprecated: not in English macros.itexi *
-@macro refbugs
-@noindent
-@subsubheading Bugs
-
 @end macro
 
 @macro knownissues
@@ -277,17 +263,17 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-es}
+@ref{\TEXT\,,,lilypond-program}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-es}
+@ref{\TEXT\,,,lilypond}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning-es}
+@ref{\TEXT\,,,lilypond-learning}
 @end macro
 
 @end ifinfo

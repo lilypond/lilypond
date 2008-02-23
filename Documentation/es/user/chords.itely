@@ -357,7 +357,7 @@ chart}.  El resultado de la activación de estos estilos se muestra en
 @cindex acordes de jazz
 
 
-@refcommands
+@predefined
 
 @funindex \germanChords
 @code{\germanChords},

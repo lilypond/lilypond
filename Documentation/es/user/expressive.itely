@@ -276,7 +276,7 @@ evitar que se imprima esta línea, use
 @end example
 
 
-@refcommands
+@predefined
 
 @funindex \dynamicUp
 @code{\dynamicUp},
@@ -391,7 +391,7 @@ número indica la dirección (1 = hacia arriba, -1 = hacia abajo).
 @end lilypond
 
 
-@refcommands
+@predefined
 
 
 @funindex \tieUp
@@ -464,7 +464,7 @@ legato.  Esto se consigue en LilyPond mediante el establecimiento de @code{doubl
 @end lilypond
 
 
-@refcommands
+@predefined
 
 @funindex \slurUp
 @code{\slurUp},
@@ -507,7 +507,7 @@ como objetos diferentes.  Una @code{\slurUp} no tendrá ningún efecto sobre una
 No se pueden tener varias ligaduras de fraseo simultáneas.
 
 
-@refcommands
+@predefined
 
 @funindex \phrasingSlurUp
 @code{\phrasingSlurUp},
@@ -693,7 +693,7 @@ arpegio a los acordes en los dos pentagramas y establecer
 @c TODO: cross-voice arpeggio example?
 @c such an example is already in LSR -J.Mandereau
 
-@refcommands
+@predefined
 
 @code{\arpeggio},
 @funindex \arpeggioUp
@@ -749,7 +749,7 @@ El primer argumento es la nota principal.  La altura de la segunda se
 imprime como una cabeza de nota sin plica entre paréntesis.
 
 
-@refcommands
+@predefined
 
 @code{\startTrillSpan},
 @funindex \startTrillSpan

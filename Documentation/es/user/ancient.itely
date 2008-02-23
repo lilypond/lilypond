@@ -795,7 +795,7 @@ Por ello, @file{gregorian@/-init@/.ly} define también las instrucciones @code{\
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@refcommands
+@predefined
 
 @funindex \virgula
 @code{\virgula},
@@ -1867,7 +1867,7 @@ también que puede escribir @code{\augmentum @{a g@}} como abreviatura de
 }
 @end lilypond
 
-@refcommands
+@predefined
 
 Están contemplados los siguientes prefijos de cabeza:
 
