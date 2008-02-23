@@ -64,13 +64,16 @@ Trill_spanner_engraver::listen_trill_span (Stream_event *ev)
 void
 Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
 {
-  if (!span_)
-    return;
-
-  Pointer_group_interface::add_grob (span_,
-				     ly_symbol2scm ("note-columns"),
-				     info.grob());
-  add_bound_item (span_, info.grob ());
+  if (span_) {
+    Pointer_group_interface::add_grob (span_,
+				       ly_symbol2scm ("note-columns"),
+				       info.grob());
+    add_bound_item (span_, info.grob ());
+  } else if (finished_) {
+    Pointer_group_interface::add_grob (finished_, ly_symbol2scm ("note-columns"),
+				       info.grob());
+    add_bound_item (finished_, info.grob ());
+  }
 }
 
 void
