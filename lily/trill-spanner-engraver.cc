@@ -70,10 +70,8 @@ Trill_spanner_engraver::acknowledge_note_column (Grob_info info)
   Pointer_group_interface::add_grob (span_,
 				     ly_symbol2scm ("note-columns"),
 				     info.grob());
+  add_bound_item (span_, info.grob ());
 }
-
-ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
-
 
 void
 Trill_spanner_engraver::process_music ()
@@ -142,6 +140,8 @@ Trill_spanner_engraver::finalize ()
       typeset_all ();
     }
 }
+
+ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
 
 ADD_TRANSLATOR (Trill_spanner_engraver,
 		/* doc */ "Create trill spanner from an event.",
