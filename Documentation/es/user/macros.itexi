@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 02d2ef26f3a9fefa70eb70dd2c7e708a24b331e5
+    Translation of GIT committish: 9cbbaed46b1d551db77c37566ae23a4a5a44b5e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -213,7 +213,7 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-es}
+@ref{\TEXT\,,,lilypond-program}
 @end macro
 
 @macro ruser{TEXT}
@@ -223,7 +223,7 @@
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning-es}
+@ref{\TEXT\,,,lilypond-learning}
 @end macro
 
 @end ifclear
@@ -246,7 +246,7 @@
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-es}
+@ref{\TEXT\,,,lilypond-program}
 @end macro
 
 @macro ruser{TEXT}
@@ -256,7 +256,7 @@
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning-es}
+@ref{\TEXT\,,,lilypond-learning}
 @end macro
 
 @end ifdocbook
@@ -307,17 +307,17 @@
 @end macro
 
 @macro rprogram{TEXT}
-el manual de utilización del programa, @ref{\TEXT\,,,lilypond-program-es}
+el manual de utilización del programa, @ref{\TEXT\,,,lilypond-program.es}
 @c @internalsref{\TEXT\}
 @end macro
 
 @macro ruser{TEXT}
-el manual de referencia de la notación, @ref{\TEXT\,,,lilypond-es}
+el manual de referencia de la notación, @ref{\TEXT\,,,lilypond.es}
 @c @internalsref{\TEXT\}
 @end macro
 
 @macro rlearning{TEXT}
-el manual de aprendizaje, @ref{\TEXT\,,,lilypond-learning-es}
+el manual de aprendizaje, @ref{\TEXT\,,,lilypond-learning.es}
 @c @internalsref{\TEXT\}
 @end macro
 
