@@ -1641,6 +1641,11 @@ def write_if_updated (file_name, lines):
         if oldstr == new_str:
             progress (_ ("%s is up to date.") % file_name)
             progress ('\n')
+
+            # this prevents make from always rerunning lilypond-book:
+            # .texi target must be touched in order to be up to date
+            if global_options.format == 'texinfo':
+                os.utime (file_name, None)
             return
     except:
         pass
