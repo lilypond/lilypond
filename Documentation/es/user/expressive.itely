@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -119,7 +119,7 @@ a4^\prall^\markup { \sharp }
 Referencia del programa: @internalsref{Script}.
 
 
-@refbugs
+@knownissues
 
 Estos signos aparecen en la salida impresa pero no tienen ningún efecto sobre la
 representación de MIDI de la música.
@@ -276,7 +276,7 @@ evitar que se imprima esta línea, use
 @end example
 
 
-@refcommands
+@predefined
 
 @funindex \dynamicUp
 @code{\dynamicUp},
@@ -391,7 +391,7 @@ número indica la dirección (1 = hacia arriba, -1 = hacia abajo).
 @end lilypond
 
 
-@refcommands
+@predefined
 
 
 @funindex \tieUp
@@ -415,7 +415,7 @@ En el presente manual: @ref{Automatic note splitting}.
 Referencia del programa: @internalsref{Tie}.
 
 
-@refbugs
+@knownissues
 
 Un cambio de pentagrama cuando hay una ligadura activa no producirá una ligadura inclinada.
 
@@ -464,7 +464,7 @@ legato.  Esto se consigue en LilyPond mediante el establecimiento de @code{doubl
 @end lilypond
 
 
-@refcommands
+@predefined
 
 @funindex \slurUp
 @code{\slurUp},
@@ -507,7 +507,7 @@ como objetos diferentes.  Una @code{\slurUp} no tendrá ningún efecto sobre una
 No se pueden tener varias ligaduras de fraseo simultáneas.
 
 
-@refcommands
+@predefined
 
 @funindex \phrasingSlurUp
 @code{\phrasingSlurUp},
@@ -636,7 +636,7 @@ Archivos de ejemplo:
 @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
 
 
-@refbugs
+@knownissues
 
 La impresión de texto sobre la línea (como @emph{gliss.}) no está contemplada.
 
@@ -693,7 +693,7 @@ arpegio a los acordes en los dos pentagramas y establecer
 @c TODO: cross-voice arpeggio example?
 @c such an example is already in LSR -J.Mandereau
 
-@refcommands
+@predefined
 
 @code{\arpeggio},
 @funindex \arpeggioUp
@@ -713,7 +713,7 @@ Manual de notación: @ref{Ties}, para escribir arpegios explícitamente.
 Referencia del programa: @internalsref{Arpeggio}.
 
 
-@refbugs
+@knownissues
 
 No es posible mezclar arpegios conectados y no conectados en un
 @internalsref{PianoStaff} en el mismo instante de tiempo.
@@ -749,7 +749,7 @@ El primer argumento es la nota principal.  La altura de la segunda se
 imprime como una cabeza de nota sin plica entre paréntesis.
 
 
-@refcommands
+@predefined
 
 @code{\startTrillSpan},
 @funindex \startTrillSpan

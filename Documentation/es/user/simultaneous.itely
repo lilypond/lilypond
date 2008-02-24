@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -320,7 +320,7 @@ funciona correctamente.
 @end lilypond
 
 
-@refcommands
+@predefined
 
 @funindex \oneVoice
 @code{\oneVoice},
@@ -370,7 +370,7 @@ Referencia del programa: los objetos responsables de resolver las colisiones son
 @internalsref{NoteCollision} y @internalsref{RestCollision}.
 
 
-@refbugs
+@knownissues
 
 Cuando se emplea @code{merge-differently-headed} con una corchea (o una nota más corta)
 con la plica hacia arriba, y una blanca con la plica hacia abajo,
@@ -463,7 +463,7 @@ efecto sobre las notas de @var{expresión_musical_1} y @var{expresión_musical_2
 
 Referencia del programa: @internalsref{PartCombineMusic}.
 
-@refbugs
+@knownissues
 
 Si @code{printPartCombineTexts} está establecido, cuando las dos voces tocan y terminan las mismas notas,
 el combinador de partes puede tipografiar @code{a2} más

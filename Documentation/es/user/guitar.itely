@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -114,7 +114,7 @@ inicialice el @code{TabStaff} (pentagrama de tablatura) con el código siguiente
 
 Referencia del programa: @internalsref{TabStaff}, @internalsref{TabVoice}.
 
-@refbugs
+@knownissues
 
 Los acordes no se tratan de una manera especial, de aquí que el
 selector automático de cuerdas podría fácilmente seleccionar la misma cuerda para dos notas
@@ -179,7 +179,7 @@ El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones predefinidas
 de las cuerdas.
 Referencia del programa: @internalsref{Tab_note_heads_engraver}.
 
-@refbugs
+@knownissues
 
 No se ha implementado ningún efecto especial de guitarra.
 

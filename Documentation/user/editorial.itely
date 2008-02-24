@@ -234,8 +234,7 @@ write and is more efficient.  However, using the second form it is
 possible to access X11 colors by the multi-word form of its name.
 
 If @code{x11-color} cannot make sense of the parameter then the
-color returned defaults to black.  It should be obvious from the
-final score that something is wrong.
+color returned defaults to black. 
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
@@ -289,8 +288,8 @@ An x11 color is not necessarily exactly the same shade as a
 similarly named normal color.  
 
 Not all x11 colors are distinguishable in a web browser i.e. a web browser
-might not display a difference between 'LimeGreen and 'ForestGreen.  For web
-use normal colors are recommended (i.e. #blue, #green, #red).
+might not display a difference between 'LimeGreen and 'ForestGreen.  For 
+web use normal colors are recommended (i.e. #blue, #green, #red).
 
 
 Notes in a chord cannot be colored with @code{\override}; use
@@ -403,16 +402,19 @@ The following example demonstrates its use.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
-{
-  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  <a-\balloonText #'(-2 . -2) \markup { "I'm a note head" }  >8
-}
+     {
+      \time 2/4
+       \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+       a'8
+       <c' g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } 
+c''>4. 
+     }
 @end lilypond
 
 There are two music functions, @code{balloonGrobText} and
-@code{balloonText}; the former takes the name of the grob to adorn,
-while the latter may be used as an articulation on a note.  The other
-arguments are the offset and the text of the label.
+@code{balloonText};  The former is used like \once \override to 
+attach text to any grob, and the latter is used like \tweak, 
+typically within chords, to attach text to an individual note.
 
 @cindex balloon
 @cindex notation, explaining

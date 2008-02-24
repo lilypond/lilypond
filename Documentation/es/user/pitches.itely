@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -188,7 +188,7 @@ ceseh ceh cih cisih
 Los microtonos también se exportan al archivo MIDI.
 
 
-@refbugs
+@knownissues
 
 No existen estándares reconocidos ampliamente para denotar
 los bemoles de tres cuartos, de manera que los símbolos de LilyPond
@@ -481,7 +481,7 @@ Referencia del programa: @internalsref{TransposedMusic}.
 Ejemplo: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
 
-@refbugs
+@knownissues
 
 Si quiere usar al mismo tiempo @code{\transpose} y @code{\relative},
 debe escribir @code{\transpose} por fuera de @code{\relative}, porque
@@ -718,7 +718,7 @@ La función @code{set-octavation} también admite los valores -1 (para 8va bassa
 Referencia del programa: @internalsref{OttavaBracket}.
 
 
-@refbugs
+@knownissues
 
 @code{set-octavation} se confundirá cuando se produzcan cambios de clave
 en el interior de un corchete de octavación.

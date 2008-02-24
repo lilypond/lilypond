@@ -10,6 +10,8 @@
 @documentencoding UTF-8
 @documentlanguage en
 
+@include macros.itexi
+
 @iftex
 @afourpaper
 @c don't replace quotes with directed quotes
@@ -64,21 +66,7 @@ Free Documentation License''.
 
 @vskip 20pt
 
-@lilypond[ragged-right]
-\score {
-  \context Lyrics {
-    \override Score.RehearsalMark #'self-alignment-X = #LEFT
-    \override Score.RehearsalMark #'font-size = #-2
-    \mark #(ly:export (string-append
-      "(For LilyPond version " (lilypond-version) ")"))
-    s2
-  }
-  \layout {
-    indent = 0.0\pt
-  }
-}
-@end lilypond
-
+For LilyPond version @version{}
 @end titlepage
 
 @copying
@@ -114,10 +102,7 @@ Free Documentation License''.
 @top GNU LilyPond --- program usage
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the program usage manual for GNU LilyPond 2.11.x series.
-@ifhtml
-(See the bottom of this page for the exact version number).
-@end ifhtml
+This is the program usage manual for GNU LilyPond version @version{}.
 
 @cindex web site
 @cindex URL
@@ -142,8 +127,6 @@ Appendices
 
 @contents
 
-
-@include macros.itexi
 
 @include install.itely
 @include setup.itely
