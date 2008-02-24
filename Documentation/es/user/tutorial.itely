@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4d9a81ea05bea52229dd9045b9eceecd64dbe61d
+    Translation of GIT committish: 993fc5189dc039afd51a98df9b71adf59f2ab20f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1284,7 +1284,7 @@ La indicación @code{\version} deja registrado para qué versión de LilyPond se
 el archivo:  
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 @end example
 
 @noindent
@@ -1305,7 +1305,7 @@ principal; el bloque @code{\header} normalmente se sitúa por debajo del
 @ruser{Version number}.
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 \header @{
   title = "Symphony"
   composer = "Me"
