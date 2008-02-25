@@ -496,7 +496,12 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   commonx = common_refpoint_of_array (tuplets, commonx, Y_AXIS);
 
   Interval staff;
-  if (Grob *st = Staff_symbol_referencer::get_staff_symbol (me))
+  Grob *st = Staff_symbol_referencer::get_staff_symbol (me);
+
+  /* staff-padding doesn't work correctly on cross-staff tuplets
+     because it only considers one staff symbol. Until this works,
+     disable it. */
+  if (st && !to_boolean (me->get_property ("cross-staff")))
     {
       Real pad = robust_scm2double (me->get_property ("staff-padding"), -1.0);
       if  (pad >= 0.0)
@@ -516,8 +521,8 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   Real x0 = robust_relative_extent (lgr, commonx, X_AXIS)[LEFT];
   Real x1 = robust_relative_extent (rgr, commonx, X_AXIS)[RIGHT];
   bool follow_beam = par_beam
-    && ((get_grob_direction (par_beam) == dir)
-	|| to_boolean (par_beam->get_property ("knee")));
+    && get_grob_direction (par_beam) == dir
+    && ! to_boolean (par_beam->get_property ("knee"));
 
   vector<Offset> points;
   if (columns.size ()
@@ -535,9 +540,9 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
       Real ss = 0.5 * Staff_symbol_referencer::staff_space (me);
       Real lp = ss * robust_scm2double (stems[LEFT]->get_property ("stem-end-position"), 0.0)
-        + stems[LEFT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS) - my_offset;
+        + stems[LEFT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
       Real rp = ss * robust_scm2double (stems[RIGHT]->get_property ("stem-end-position"), 0.0)
-        + stems[RIGHT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS) - my_offset;
+        + stems[RIGHT]->get_parent (Y_AXIS)->relative_coordinate (commony, Y_AXIS);
 
       *dy = rp - lp;
       points.push_back (Offset (stems[LEFT]->relative_coordinate (commonx, X_AXIS) - x0, lp));
@@ -553,10 +558,11 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
       get_bounds (me, &left_col, &right_col);
       if (left_col && right_col)
 	{
-	  Interval rv = right_col->extent (commony, Y_AXIS);
-	  Interval lv = left_col->extent (commony, Y_AXIS);
+	  Interval rv = Note_column::cross_staff_extent (right_col, commony);
+	  Interval lv = Note_column::cross_staff_extent (left_col, commony);
 	  rv.unite (staff);
 	  lv.unite (staff);
+
 	  Real graphical_dy = rv[dir] - lv[dir];
 
 	  Slice ls = Note_column::head_positions_interval (left_col);
@@ -577,11 +583,10 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
 
       for (vsize i = 0; i < columns.size (); i++)
 	{
-	  Interval note_ext = columns[i]->extent (commony, Y_AXIS);
-	  Real notey = note_ext[dir] - my_offset;
-
+	  Interval note_ext = Note_column::cross_staff_extent (columns[i], commony);
 	  Real x = columns[i]->relative_coordinate (commonx, X_AXIS) - x0;
-	  points.push_back (Offset (x, notey));
+
+	  points.push_back (Offset (x, note_ext[dir]));
 	}
     }
 
@@ -634,7 +639,7 @@ Tuplet_bracket::calc_position_and_height (Grob *me_grob, Real *offset, Real *dy)
   for (vsize i = 0; i < points.size (); i++)
     {
       Real x = points[i][X_AXIS];
-      Real tuplety = (*dy) * x * factor;
+      Real tuplety = (*dy) * x * factor + my_offset;
 
       if (points[i][Y_AXIS] * dir > (*offset + tuplety) * dir)
 	*offset = points[i][Y_AXIS] - tuplety;
