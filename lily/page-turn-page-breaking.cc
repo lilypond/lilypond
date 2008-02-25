@@ -93,13 +93,13 @@ Page_turn_page_breaking::put_systems_on_pages (vsize start,
   return ret;
 }
 
-/* "final page" meaning the number of the final right-hand page,
-   which always has an odd page number */
+/* The number of pages taken up by a Break_node, including
+   the blank page if there is one */
 vsize
-Page_turn_page_breaking::final_page_num (Break_node const &b)
+Page_turn_page_breaking::total_page_count (Break_node const &b)
 {
   vsize end = b.first_page_number_ + b.page_count_;
-  return end - 1 + (end % 2);
+  return end - 1 + (end % 2) - b.first_page_number_;
 }
 
 extern bool debug_page_breaking_scoring;
@@ -160,7 +160,7 @@ Page_turn_page_breaking::calc_subproblem (vsize ending_breakpoint)
               if (isinf (cur.demerits_)
 		  || (cur.page_count_  + (p_num % 2) > 2
 		      && (!isinf (this_start_best.demerits_))
-		      && final_page_num (cur) > final_page_num (this_start_best)))
+		      && total_page_count (cur) > total_page_count (this_start_best)))
                 {
                   ok_page = false;
                   break;

@@ -52,7 +52,7 @@ protected:
 
   vector<Break_node> state_;
 
-  vsize final_page_num (Break_node const &b);
+  vsize total_page_count (Break_node const &b);
   Break_node put_systems_on_pages (vsize start,
 				   vsize end,
 				   vsize configuration,
