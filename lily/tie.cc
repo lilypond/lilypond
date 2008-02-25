@@ -269,18 +269,21 @@ Tie::print (SCM smob)
 		      line_thick);
 
 #if DEBUG_TIE_SCORING
-  SCM quant_score = me->get_property ("quant-score");
-
-  if (to_boolean (me->layout ()
-		  ->lookup_variable (ly_symbol2scm ("debug-tie-scoring")))
-      && scm_is_string (quant_score))
+  SCM annotation = me->get_property ("annotation");
+  if (!scm_is_string (annotation))
+    {
+      SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-tie-scoring"));
+      if (to_boolean (debug))
+	annotation = me->get_property ("quant-score");
+    }
+  if (scm_is_string (annotation))
     {
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
 
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
 				    (me->layout ()->self_scm (), properties,
-				     quant_score));
+				     annotation));
       tm.translate (Offset (b.control_[3][X_AXIS] + 0.5,
 			    b.control_[0][Y_AXIS] * 2));
       tm = tm.in_color (1, 0, 0);
@@ -302,6 +305,7 @@ ADD_INTERFACE (Tie,
 	       
 
 	       /* properties */
+	       "annotation "
 	       "avoid-slur " 	//  UGH.
 	       "control-points "
 	       "dash-fraction "

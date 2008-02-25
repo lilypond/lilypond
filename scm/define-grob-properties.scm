@@ -42,6 +42,7 @@ be created below this barline.")
      (alteration ,number? "Alteration numbers for accidental.")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
+     (annotation ,string? "Annotate a grob for debug purposes.")
      (arpeggio-direction ,ly:dir? "If set, put an arrow on the
 arpeggio squiggly line.")
      (arrow-length ,number? "Arrow length.")
@@ -731,7 +732,7 @@ entries @code{name} and @code{interfaces}.")
 did its job.  This ensures that a positioning is only done once.")
      (pure-Y-extent ,number-pair? "The estimated height of a system.")
 
-     (quant-score ,string? "The Beam quanting score -- can be stored for
+     (quant-score ,string? "The beam quanting score; stored for
 debugging.")
      (quantize-position ,boolean? "If set, a vertical alignment is aligned
 to be within staff spaces.")

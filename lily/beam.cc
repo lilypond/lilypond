@@ -561,9 +561,15 @@ Beam::print (SCM grob)
     }
 	 
 #if (DEBUG_BEAM_SCORING)
-  SCM quant_score = me->get_property ("quant-score");
-  SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"));
-  if (to_boolean (debug) && scm_is_string (quant_score))
+  SCM annotation = me->get_property ("annotation");
+  if (!scm_is_string (annotation))
+    {
+      SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-beam-scoring"));
+      if (to_boolean (debug))
+	annotation = me->get_property ("quant-score");
+    }
+  
+  if (scm_is_string (annotation))
     {
       extract_grob_set (me, "stems", stems);      
 
@@ -578,10 +584,13 @@ Beam::print (SCM grob)
       Direction stem_dir = stems.size () ? to_dir (stems[0]->get_property ("direction")) : UP;
 
       Stencil score = *unsmob_stencil (Text_interface::interpret_markup
-				    (me->layout ()->self_scm (), properties, quant_score));
+				    (me->layout ()->self_scm (), properties, annotation));
 
       if (!score.is_empty ())
-	the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0);
+	{
+	  score.translate_axis (me->relative_coordinate(commonx, X_AXIS), X_AXIS);
+	  the_beam.add_at_edge (Y_AXIS, stem_dir, score, 1.0);
+	}
     }
 #endif
 
@@ -1524,6 +1533,7 @@ ADD_INTERFACE (Beam,
 	       ,
 	       
 	       /* properties */
+	       "annotation "
 	       "auto-knee-gap "
 	       "beamed-stem-shorten "
 	       "beaming "

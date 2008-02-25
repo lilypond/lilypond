@@ -14,16 +14,26 @@
   ragged-right = ##t
 }
 
-\context Voice {
-  \relative c' {
-    e'4-. f-. g-. d-. c-. b-.
-    \stemDown
-    e,-. d-. c-. b-. a-. g-.    
+{
+  \new Voice \relative c'' { 
+    \voiceOne
+    g8-. a-. b-. c-. 
+    a-. b-. c-. d-. 
+    b8[-. a-. g b] 
+    e,-. f-. g-. a-. 
+    e-. g-. b-. d-.
   }
-  \relative c'' {
-    \stemUp		 
-    d-> c-> b-> a-> g-> f-> e-> d->
-    d'
-    d-. c-. b-. a-. g-. f-. e-. d-. 
-  }  
+  \context Voice {
+    \relative c' {
+      e'4-. f-. g-. d-. c-. b-.
+      \stemDown
+      e,-. d-. c-. b-. a-. g-.    
+    }
+    \relative c'' {
+      \stemUp		 
+      d-> c-> b-> a-> g-> f-> e-> d->
+      d'
+      d-. c-. b-. a-. g-. f-. e-. d-. 
+    }  
+  }
 }

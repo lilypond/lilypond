@@ -28,10 +28,8 @@
 	(begin
 	  (ly:warning (_ "Error in beam quanting.  Expected (~S,~S) found ~S.")
 		      want-l want-r posns)
-	  (set! (ly:grob-property beam 'quant-score)
-		(format "(~S,~S)" want-l want-r)))
-	(set! (ly:grob-property beam 'quant-score) ""))
-
+	  (set! (ly:grob-property beam 'annotation)
+		(format "(~S,~S)" want-l want-r))))
     posns
     ))
 
@@ -40,15 +38,13 @@
   "Check whether the slope of BEAM is correct wrt. COMPARISON."
   (let* ((slope-sign (- (cdr posns) (car posns)))
 	 (correct (comparison slope-sign 0)))
-
     (if (not correct)
 	(begin
 	  (ly:warning (_ "Error in beam quanting.  Expected ~S 0, found ~S.")
-		      (procedure-name comparison) "0" slope-sign)
-	  (set! (ly:grob-property beam 'quant-score)
+		      (procedure-name comparison) slope-sign)
+	  (set! (ly:grob-property beam 'annotation)
 		(format "~S 0" (procedure-name comparison))))
-
-	(set! (ly:grob-property beam 'quant-score) ""))
+	(set! (ly:grob-property beam 'annotation) ""))
     posns))
 
 

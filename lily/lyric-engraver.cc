@@ -83,6 +83,10 @@ get_voice_to_lyrics (Context *lyrics)
 
   if (scm_is_string (voice_name))
     nm = ly_scm2string (voice_name);
+  else if (nm == "")
+    {
+      return 0;
+    }
   else
     {
       ssize idx = nm.rfind ('-');
@@ -142,7 +146,7 @@ Lyric_engraver::stop_translation_timestep ()
   if (text_)
     {
       Context *voice = get_voice_to_lyrics (context ());
-
+ 
       if (voice)
 	{
 	  Grob *head = get_current_note_head (voice);

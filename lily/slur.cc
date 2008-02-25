@@ -130,15 +130,18 @@ Slur::print (SCM smob)
 		      line_thick);
 
 #if DEBUG_SLUR_SCORING
-  SCM quant_score = me->get_property ("quant-score");
-
-  if (to_boolean (me->layout ()
-		  ->lookup_variable (ly_symbol2scm ("debug-slur-scoring")))
-      && scm_is_string (quant_score))
+  SCM annotation = me->get_property ("annotation");
+  if (!scm_is_string (annotation))
+    {
+      SCM debug = me->layout ()->lookup_variable (ly_symbol2scm ("debug-slur-scoring"));
+      if (to_boolean (debug))
+	annotation = me->get_property ("quant-score");
+    }
+  
+  if (scm_is_string (annotation))
     {
       string str;
       SCM properties = Font_interface::text_font_alist_chain (me);
-
 
       if (!scm_is_number (me->get_property ("font-size")))
 	properties = scm_cons (scm_acons (ly_symbol2scm ("font-size"), scm_from_int (-6), SCM_EOL),
@@ -146,7 +149,7 @@ Slur::print (SCM smob)
       
       Stencil tm = *unsmob_stencil (Text_interface::interpret_markup
 				    (me->layout ()->self_scm (), properties,
-				     quant_score));
+				     annotation));
       a.add_at_edge (Y_AXIS, get_grob_direction (me), tm, 1.0);
     }
 #endif
@@ -388,6 +391,7 @@ ADD_INTERFACE (Slur,
 	       "A slur",
 	       
 	       /* properties */
+	       "annotation "
 	       "avoid-slur " 	/* UGH. */
 	       "control-points "
 	       "dash-fraction "
