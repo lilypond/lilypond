@@ -10,6 +10,8 @@
 @documentencoding UTF-8
 @documentlanguage es
 
+@include macros.itexi
+
 @iftex
 @afourpaper
 @c don't replace quotes with directed quotes
@@ -183,8 +185,6 @@ Apéndices
 
 @contents
 
-
-@include macros.itexi
 
 @include preface.itely
 @include introduction.itely

@@ -10,6 +10,8 @@
 @documentencoding UTF-8
 @documentlanguage en
 
+@include macros.itexi
+
 @iftex
 @afourpaper
 @c don't replace quotes with directed quotes
@@ -54,6 +56,23 @@ Este documento está disponible también en formato
 
 Copyright @copyright{} 1999--2007 por los autores
 
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traducción de la siguiente nota de copyright se ofrece como
+cortesía para las personas de habla no inglesa, pero únicamente la
+nota en inglés tiene validez legal.}
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
+o cualquier versión posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
+de Documentación Libre de GNU''.
+@end quotation
+
 @quotation
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1
@@ -72,6 +91,23 @@ Para LilyPond versión @version{}
 @copying
 Copyright @copyright{} 1999--2007 por los autores
 
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traducción de la siguiente nota de copyright se ofrece como
+cortesía para las personas de habla no inglesa, pero únicamente la
+nota en inglés tiene validez legal.}
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
+o cualquier versión posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
+de Documentación Libre de GNU''.
+@end quotation
+
 @quotation
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.1
@@ -86,6 +122,23 @@ Free Documentation License''.
 Este archivo es la documentación de la utilización del programa GNU LilyPond.
 
 Copyright 1999--2007 por los autores
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traducción de la siguiente nota de copyright se ofrece como
+cortesía para las personas de habla no inglesa, pero únicamente la
+nota en inglés tiene validez legal.}
+
+@quotation
+Se otorga permiso para copiar, distribuir y/o modificar este documento
+bajo los términos de la Licencia de Documentación Libre de GNU, versión 1.1
+o cualquier versión posterior publicada por la Free Software Foundation;
+sin ninguna de las secciones invariantes.
+Se incluye una copia de esta licencia dentro de la sección titulada ``Licencia
+de Documentación Libre de GNU''.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -127,8 +180,6 @@ Apéndices
 
 @contents
 
-
-@include macros.itexi
 
 @include install.itely
 @include setup.itely
