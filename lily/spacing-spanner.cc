@@ -339,7 +339,8 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	  if (Note_spacing::has_interface (wish))
 	    {
 	      Real inc = options->increment_;
-	      if (Grob *gsp = unsmob_grob (left_col->get_object ("grace-spacing")))
+	      Grob *gsp = unsmob_grob (left_col->get_object ("grace-spacing"));
+	      if (gsp && Paper_column::when_mom (left_col).grace_part_)
 		{
 		  Spacing_options grace_opts;
 		  grace_opts.init_from_grob (gsp);

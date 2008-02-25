@@ -7,15 +7,18 @@
 
 \version "2.10.0"
 
-\paper {
-  ragged-right = ##t
-  indent = 0
-}
-
-\relative c''
-{
-  \override Score.SpacingSpanner #'strict-note-spacing = ##t 
-  \set Score.proportionalNotationDuration = #(ly:make-moment 1 12)
-  c8[ \grace { c16[ c] } c8 c8 c8] 
-  c2 
-}  
+<<
+ \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+ \new Staff {
+    c'4
+    \afterGrace
+    c'4
+    { c'16[ c' c' c'] c'[ c' c' c'] }
+    c'4
+ }
+ \new Staff {
+    c'16[ c'16 c'16 c'16]
+    c'16[ c'16 c'16 c'16]
+    c'4
+ }
+>>
