@@ -35,16 +35,6 @@ Tuplet_number::print (SCM smob)
       return SCM_EOL;
     }
 
-  /*
-    Don't print if it doesn't span time.
-   */
-  if (robust_scm2moment (tuplet->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
-      == robust_scm2moment (tuplet->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0)))
-    {
-      me->suicide ();
-      return SCM_EOL;
-    }
-
   SCM stc_scm = Text_interface::print (smob);
   Stencil *stc = unsmob_stencil (stc_scm);
 

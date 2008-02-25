@@ -280,8 +280,12 @@ Tuplet_bracket::print (SCM smob)
   else if (bracket == ly_symbol2scm ("if-no-beam"))
     bracket_visibility = !par_beam;
   
+  /* Don't print a tuplet bracket if no control-points were calculated or the tuplet 
+     does not span any time, i.e. a single-note tuplet */
   SCM cpoints =  me->get_property ("control-points");
-  if (scm_ilength (cpoints) < 2)
+  if (scm_ilength (cpoints) < 2 ||
+      robust_scm2moment (me->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
+      == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0)))
     {
       me->suicide ();
       return SCM_EOL;
@@ -685,16 +689,6 @@ SCM
 Tuplet_bracket::calc_positions (SCM smob)
 {
   Spanner *me = unsmob_spanner (smob);
-
-  /*
-    Don't print if it doesn't span time.
-   */
-  if (robust_scm2moment (me->get_bound (LEFT)->get_column ()->get_property ("when"), Moment (0))
-      == robust_scm2moment (me->get_bound (RIGHT)->get_column ()->get_property ("when"), Moment (0)))
-    {
-      me->suicide ();
-      return SCM_EOL;
-    }
 
   Real dy = 0.0;
   Real offset = 0.0;
