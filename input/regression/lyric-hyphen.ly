@@ -7,13 +7,11 @@
     ragged-right= ##t
 }
 
-<<
-    \context Staff  { c' (c') c'( c') }
-    \context Lyrics \lyricmode {
-      \override Lyrics . LyricSpace #'minimum-distance = #5.0
-      a -- b x -- y
-    }
->>
+\new Voice { c' (c') c'( c') }
+\addlyrics {
+  \override Lyrics . LyricSpace #'minimum-distance = #5.0
+  a -- b x -- y
+}
 
 
 
