@@ -1952,7 +1952,10 @@
 				   (stencil-offset . (-0.5 . 0))
 				   (padding . 1.5)
 				   (attach-dir . ,CENTER)
-				   (anchor-alignment . ,CENTER)
+				   ;; this isn't CENTER because the trill glyph's origin
+				   ;; is not centered in its extent; to have the trill
+				   ;; spanner aligned the same as a trill, we need a slight offset
+				   (anchor-alignment . 0.15)
 				   ))
 			  (left-broken . ((end-on-note . #t)))
 			  (right . ((Y . 0)))
