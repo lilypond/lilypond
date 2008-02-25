@@ -1,5 +1,24 @@
+/* 
+  beam-concave.cc -- implement Concaveness for beams.
+  
+  source file of the GNU LilyPond music typesetter
+  
+  (c) 2004 Han-Wen Nienhuys <hanwen@lilypond.org>
+  
+*/
+
 /*
   Determine whether a beam is concave.
+
+  A beam is concave when the middle notes get closer to the
+  beam than the left and right edge notes.
+
+  This is determined in two ways: by looking at the positions of the
+  middle notes, or by looking at the deviation of the inside notes
+  compared to the line connecting first and last.
+
+  The tricky thing is what to do with beams with chords. There are no
+  real guidelines in this case.
 */
 
 #include "pointer-group-interface.hh"
@@ -118,7 +137,6 @@ Beam::calc_concaveness (SCM smob)
 	Hmmm.. wait, for the beams in the last measure of morgenlied,
 	this doesn't look so good. Let's try the heads farthest from
 	the beam.
-
       */
       Interval posns = Stem::head_positions (stems[i]);
 
@@ -128,7 +146,7 @@ Beam::calc_concaveness (SCM smob)
 
   Real concaveness = 0.0;
 
-  if (is_concave_single_notes (far_positions, beam_dir))
+  if (is_concave_single_notes (beam_dir == UP ? close_positions : far_positions, beam_dir))
     {
       concaveness = 10000;
     }
