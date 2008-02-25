@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9919203607214decd1775e05a36ecf8261e4a5a6
+    Translation of GIT committish: 993fc5189dc039afd51a98df9b71adf59f2ab20f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -65,22 +65,9 @@ Free Documentation License''.
 
 @vskip 20pt
 
-@lilypond[ragged-right]
-\score {
-  \context Lyrics {
-    \override Score.RehearsalMark #'self-alignment-X = #LEFT
-    \override Score.RehearsalMark #'font-size = #-2
-    \mark #(ly:export (string-append
-      "(For LilyPond version " (lilypond-version) ")"))
-    s2
-  }
-  \layout {
-    indent = 0.0\pt
-  }
-}
-@end lilypond
-
+Para LilyPond versión @version{}
 @end titlepage
+
 
 @copying
 Copyright @copyright{} 1999--2007 por los autores
@@ -115,10 +102,7 @@ Free Documentation License''.
 @top GNU LilyPond --- program usage
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-El presente documento es el manual de utilización del programa GNU LilyPond, serie 2.11.x.
-@ifhtml
-(Consulte el final de la presente página para ver el número exacto de la versión).
-@end ifhtml
+El presente documento es el manual de utilización del programa GNU LilyPond, versión @version{}.
 
 @cindex web site
 @cindex URL
