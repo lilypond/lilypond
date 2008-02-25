@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 7e040d362b174f596b1c458bd708defc69cdcc42
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -8,6 +8,9 @@
 
 @node Expressive marks
 @section Expressive marks
+
+@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
+{expressive-headword.ly}
 
 @menu
 * Attached to notes::           
@@ -21,14 +24,14 @@
 
 
 @menu
-* Articulations::               
+* Articulations and ornamentations::  
 * Dynamics::                    
 @end menu
 
-@node Articulations
-@unnumberedsubsubsec Articulations
+@node Articulations and ornamentations
+@subsubsection Articulations and ornamentations
 
-@cindex Articulaciones
+@cindex articulaciones
 @cindex guiones
 @cindex ornamentos
 
@@ -126,7 +129,7 @@ representación de MIDI de la música.
 
 
 @node Dynamics
-@unnumberedsubsubsec Dynamics
+@subsubsection Dynamics
 
 @cindex Dynamics
 @funindex \pppp
@@ -297,136 +300,16 @@ El posicionamiento vertical de estos símbolos se maneja por medio de
 @subsection Curves
 
 @menu
-* Ties::                        
 * Slurs::                       
 * Phrasing slurs::              
-* Laissez vibrer ties::         
 * Breath marks::                
 * Falls and doits::             
 @end menu
 
-@node Ties
-@unnumberedsubsubsec Ties
-
-@cindex ligadura de unión
-@funindex ~
-
-Una ligadura de unión conecta dos notas adyacentes de la misma altura.  La ligadura
-en efecto extiende la longitud de una nota.  No deben confundirse las ligaduras de unión con
-las ligaduras de expresión, que indican articulación, ni con las ligaduras de fraseo, que indican
-el fraseo musical.  Se introduce una ligadura de unión usando el símbolo de la tilde curva @samp{~}
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-e' ~ e' <c' e' g'> ~ <c' e' g'>
-@end lilypond
-
-Cuando se aplica una ligadura de unión a un acorde, se conectan todas las cabezas de las notas cuyas alturas coinciden.
-Si no coincide ningún par de cabezas, no se crea ninguna ligadura.  Los acordes
-se pueden ligar parcialmente colocando la ligadura dentro del acorde,
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-<c~ e g~ b> <c e g b>
-@end lilypond
-
-Una ligadura es simplemente una forma de extender la duración de una nota, parecida al
-puntillo.  El ejemplo siguiente muestra dos formas de escribir
-exactamente el mismo concepto:
-
-@lilypond[quote,fragment,ragged-right]
-\time 3/4 c'2. c'2 ~ c'4
-@end lilypond
-
-@noindent
-Se usan ligaduras de expresión bien cuando la nota atraviesa la barra
-de compás o bien cuando no se pueden usar puntillos para denotar el
-ritmo.  Cuando se usan ligaduras, las notas de mayor duración se deben alinear con las subdivisiones del compás, como
-
-@lilypond[fragment,quote,ragged-right]
-\relative {
-  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4
-}
-@end lilypond
-
-Si necesita unir muchas notas a través de las líneas divisorias, puede
-resultar más fácil utilizar la división automática de notas (vea
-@ref{Automatic note splitting}).  Este mecanismo divide las notas
-largas de forma automática y las liga a través de las barras de compás.
-
-@funindex \repeatTie
-
-Cuando la segunda vez de una repetición comienza con una nota ligada,
-es necesario repetir la ligadura.  Esto se puede conseguir mediante @code{\repeatTie},
-
-@lilypond[fragment,quote,ragged-right,relative=2]
-r <c e g>\repeatTie
-@end lilypond
-
-@cindex ligaduras de repetición
-@cindex corchetes de repetición de primera y segunda vez y ligaduras
-
-@commonprop
-
-A veces se usan ligaduras para escribir arpegios.  En este caso, dos notas ligadas no
-necesitan ser consecutivas.  Esto se puede conseguir estableciendo la propiedad @code{tieWaitForNote}
-(ligadura - esperar nota) al valor verdadero. La misma funcionalidad puede resultar útil,
-por ejemplo, para ligar un trémolo a un acorde.  Por ejemplo,
-
-@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
-\set tieWaitForNote = ##t
-\grace { c16[~ e~ g]~ } <c, e g>2
-\repeat tremolo 8 { c32~ c'~ } <c c,>1
-e8~ c~ a~ f~ <e' c a f>2
-@end lilypond
-
-Las ligaduras de pueden grabar manualmente modificando la propiedad
-@code{tie-configuration}.  El primer número indica la distancia desde
-el centro del pentagrama en espacios de pentagrama, y el segundo
-número indica la dirección (1 = hacia arriba, -1 = hacia abajo).
-
-@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
-<c e g>2~ <c e g> |
-\override TieColumn #'tie-configuration =
-  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
-<c e g>~ <c e g> |
-@end lilypond
-
-
-@predefined
-
-
-@funindex \tieUp
-@code{\tieUp},
-@funindex \tieDown
-@code{\tieDown},
-@funindex \tieNeutral
-@code{\tieNeutral},
-@funindex \tieDotted
-@code{\tieDotted},
-@funindex \tieDashed
-@code{\tieDashed},
-@funindex \tieSolid
-@code{\tieSolid}.
-
-
-@seealso
-
-En el presente manual: @ref{Automatic note splitting}.
-
-Referencia del programa: @internalsref{Tie}.
-
-
-@knownissues
-
-Un cambio de pentagrama cuando hay una ligadura activa no producirá una ligadura inclinada.
-
-Los cambios de clave o de octava durante una ligadura de unión no
-están bien definidos realmente.  En estos casos puede ser preferible una ligadura de expresión.
-
-
 @node Slurs
-@unnumberedsubsubsec Slurs
+@subsubsection Slurs
 
-@cindex Ligaduras de expresión
+@cindex ligaduras de expresión
 
 Una ligadura de expresión indica que las notas se deben tocar unidas o
 @emph{legato}.  Se escriben utilizando paréntesis
@@ -485,7 +368,7 @@ Referencia del programa: @internalsref{Slur}.
 
 
 @node Phrasing slurs
-@unnumberedsubsubsec Phrasing slurs
+@subsubsection Phrasing slurs
 
 @cindex ligaduras de fraseo
 @cindex marcas de fraseo
@@ -521,32 +404,8 @@ No se pueden tener varias ligaduras de fraseo simultáneas.
 
 Referencia del programa: @internalsref{PhrasingSlur}.
 
-
-@node Laissez vibrer ties
-@unnumberedsubsubsec Laissez vibrer ties
-@cindex Laissez vibrer
-@cindex Ligaduras laissez vibrer
-
-Las ligaduras L.v. (laissez vibrer, dejar vibrar) indican que las
-notas no se deben apagar al final.  Se usan en la notación para piano,
-arpa y otros instrumentos de cuerda y percusión.  Se pueden introducir escribiendo @code{\laissezVibrer},
-
-@lilypond[fragment,ragged-right,verbatim,relative=1]
-<c f g>\laissezVibrer
-@end lilypond
-
-@seealso
-
-Referencia del programa:
-@internalsref{LaissezVibrerTie}
-@internalsref{LaissezVibrerTieColumn}
-
-Archivos de ejemplo:
-@lsr{connecting,laissez-vibrer-ties.ly}
-
-
 @node Breath marks
-@unnumberedsubsubsec Breath marks
+@subsubsection Breath marks
 
 Las marcas de respiración se introducen usando @code{\breathe}
 
@@ -555,11 +414,12 @@ c'4 \breathe d4
 @end lilypond
 
 
-@commonprop
+@snippets
 
-El glifo de la marca de respiración se puede ajustar por medio de la sobreescritura de la propiedad
-@code{text} del objeto de presentación @code{BreathingSign} con cualquier texto de marcado.
-Por ejemplo,
+El glifo de la marca de respiración se puede ajustar por medio de la
+sobreescritura de la propiedad @code{text} del objeto de presentación
+@code{BreathingSign} con cualquier texto de marcado.  Por ejemplo,
+
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 c'4
 \override BreathingSign #'text
@@ -576,7 +436,7 @@ Ejemplos: @lsr{expressive,breathing-sign.ly}
 
 
 @node Falls and doits
-@unnumberedsubsubsec Falls and doits
+@subsubsection Falls and doits
 
 Se pueden expresar caídas y subidas de tono (falls y doits) añadidas a
 las notas mediante el comando @code{\bendAfter},
@@ -595,11 +455,10 @@ c4-\bendAfter #-3
 * Glissando::                   
 * Arpeggio::                    
 * Trills::                      
-* Analysis brackets::           
 @end menu
 
 @node Glissando
-@unnumberedsubsubsec Glissando
+@subsubsection Glissando
 
 @cindex Glissando
 @funindex \glissando
@@ -642,7 +501,7 @@ La impresión de texto sobre la línea (como @emph{gliss.}) no está contemplada
 
 
 @node Arpeggio
-@unnumberedsubsubsec Arpeggio
+@subsubsection Arpeggio
 
 @cindex Arpeggio
 @cindex acorde quebrado
@@ -720,7 +579,7 @@ No es posible mezclar arpegios conectados y no conectados en un
 
 
 @node Trills
-@unnumberedsubsubsec Trills
+@subsubsection Trills
 
 Los trinos cortos se imprimen como una articulación normal; consulte @ref{Articulations}.
 
@@ -759,38 +618,7 @@ imprime como una cabeza de nota sin plica entre paréntesis.
 
 @seealso
 
-Referencia del programa: @internalsref{TrillSpanner}.
+Fragmentos de código: @lsrdir{Expressive,Expressive-marks}
 
-
-@node Analysis brackets
-@unnumberedsubsubsec Analysis brackets
-@cindex corchetes
-@cindex fraseo, corchetes de
-@cindex musicológico, análisis
-@cindex notas, corchetes de agrupación de
-
-Los corchetes se usan en análisis musical para indicar las estructuras presentes en las piezas
-musicales.  LilyPond contempla una forma básica de corchetes horizontales anidados.
-Para usarlos, añada el grabador @internalsref{Horizontal_bracket_engraver}
-al contexto @internalsref{Staff}.  Un corchete se abre con
-@code{\startGroup} y se cierra con @code{\stopGroup}
-
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    c4\startGroup\startGroup
-    c4\stopGroup
-    c4\startGroup
-    c4\stopGroup\stopGroup
-  }
-  \layout {
-    \context {
-      \Staff \consists "Horizontal_bracket_engraver"
-}}}
-@end lilypond
-
-@seealso
-
-Referencia del programa: @internalsref{HorizontalBracket}.
-
+Referencia de funcionamiento interno: @internalsref{TrillSpanner}.
 
