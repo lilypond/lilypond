@@ -100,7 +100,7 @@ Line_spanner::calc_bound_info (SCM smob, Direction dir)
 	}
       
       details = scm_acons (ly_symbol2scm ("X"),
-			   scm_from_double (bound_grob->extent (commonx, X_AXIS)
+			   scm_from_double (robust_relative_extent (bound_grob, commonx, X_AXIS)
 					    .linear_combination (attach)),
 			   details);
     }
@@ -343,7 +343,7 @@ Line_spanner::print (SCM smob)
   line.translate (Offset (-me->relative_coordinate (commonx, X_AXIS),
 			  -me->relative_coordinate (my_common_y, Y_AXIS)));
 			  
-    
+
   return line.smobbed_copy ();
 }
 
