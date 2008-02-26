@@ -1433,7 +1433,7 @@ musicB = {
 @end lilypond
 
 @item piano
-@funindex piano accidentals
+@cindex piano accidentals
 @cindex piano accidentals
 @cindex accidentals, piano
 @cindex piano accidental style
