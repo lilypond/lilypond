@@ -17,6 +17,6 @@ number to 2 in order to avoid a bad page turn."
 
 \book {
   \score {
-    {\repeat unfold 30 {a b c d}}
+    {\repeat unfold 40 {a b c d}}
   }
 }

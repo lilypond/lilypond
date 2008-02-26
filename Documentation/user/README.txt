@@ -11,7 +11,7 @@ General policy: policy.txt
 convert-ly -e --from=... --to=... --no-version *.itely
 
 % to find the current version number,
-grep "version \"" fundamental.itely
+grep "version \"" tutorial.itely
 
 Please don't forget updating translated docs (in LANGS/user) too!
 

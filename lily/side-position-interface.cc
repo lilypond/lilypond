@@ -10,6 +10,7 @@
 
 #include <cmath>		// ceil.
 #include <algorithm>
+
 using namespace std;
 
 #include "directional-element-interface.hh"
@@ -251,7 +252,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 	      /* In case of a ledger lines, quantize even if we're outside the staff. */
 	      || (Note_head::has_interface (head)
 		  
-		  && abs (Staff_symbol_referencer::get_position (head)) > position))
+		  && abs (Staff_symbol_referencer::get_position (head)) > abs (position)))
 	    {
 	      o += (rounded - position) * 0.5 * ss;
 	      if (Staff_symbol_referencer::on_line (me, int (rounded)))

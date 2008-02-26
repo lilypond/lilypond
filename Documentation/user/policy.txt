@@ -45,8 +45,9 @@ material in the Learning Manual (particularly ``Fundamental
 Concepts''), so do not repeat that material in each section of
 this book.  Also watch out for common constructs, like ^ - _ for
 directions -- those are explained in NR 3.  In NR 1, you can
-mention that "dynamics (or whatever) may be placed above or below
-the staff, for details see @ref{Up and down}".
+write:
+Dynamics (or whatever) may be manually placed above or below the
+staff, for details see @ref{Controlling direction and placement}".
 
 Most tweaks should be added to LSR and not placed directly in the
 .itely file.  In some cases, tweaks may be placed in the main

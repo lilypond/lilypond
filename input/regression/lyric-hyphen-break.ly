@@ -20,15 +20,13 @@ they go past the first note. "
 
 
 <<
-  \new Staff \relative c'' {
+  \new Voice \relative c'' {
     \time 1/4 c16[ c c  c]
     \time 1/4
     c16[ c c c]
     \time 1/4
     r c16[ c c]
-
-  }
-  \new Lyrics \lyricmode {
+  } \addlyrics {
     bla16 -- bla -- bla -- bla --
     bla -- bla -- bla -- bla8 --
     bla16 -- bla -- bla 

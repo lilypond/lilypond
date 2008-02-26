@@ -73,7 +73,7 @@ templates contain @code{\version} information.  We
 highly recommend that you always include the @code{\version}, no matter
 how small your file is.  Speaking from personal experience, it's
 quite frustrating to try to remember which version of LilyPond you were
-using a few years ago.  @command{convert-ly} requires you to declare
+using a few years ago.  @code{convert-ly} requires you to declare
 which version of LilyPond you used.
 
 @item @strong{Include checks}: @ruser{Bar and barnumber checks},
@@ -536,7 +536,7 @@ file with @code{\include "../global.ly"}, which contains
 
 @example
 %%%   global.ly
-\version @w{"@version{}"}
+\version "2.11.38"
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-layout.ly"
