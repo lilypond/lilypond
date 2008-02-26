@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 609ee996e020875ab2bc94f64b71865c4b3cf7f3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -29,10 +29,11 @@ This section discusses rhythms, durations, and bars.
 * Augmentation dots::           
 * Tuplets::                     
 * Scaling durations::           
+* Ties::                        
 @end menu
 
 @node Durations
-@unnumberedsubsubsec Durations
+@subsubsection Durations
 
 @cindex duración
 @funindex \longa
@@ -91,7 +92,7 @@ anterior.  Por omisión, el valor de la primera nota es el de una negra.
 
 
 @node Augmentation dots
-@unnumberedsubsubsec Augmentation dots
+@subsubsection Augmentation dots
 
 @funindex .
 
@@ -121,7 +122,7 @@ Referencia del programa: @internalsref{Dots} y @internalsref{DotColumn}.
 
 
 @node Tuplets
-@unnumberedsubsubsec Tuplets
+@subsubsection Tuplets
 
 @cindex grupos especiales
 @cindex tresillos
@@ -269,7 +270,7 @@ Referencia del programa: @internalsref{TupletBracket},
 
 
 @node Scaling durations
-@unnumberedsubsubsec Scaling durations
+@subsubsection Scaling durations
 
 Es posible alterar la duración de las figuras en un factor @var{N/M}
 añadiendo @samp{*@var{N/M}} (o @samp{*@var{N}} si @var{M=1}).  Esto no
@@ -292,6 +293,125 @@ b16*4 c4
 En este manual: @ref{Tuplets}.
 
 
+@node Ties
+@subsubsection Ties
+
+@cindex ligadura de unión
+@funindex ~
+
+Una ligadura de unión conecta dos notas adyacentes de la misma altura.  La ligadura
+en efecto extiende la longitud de una nota.  No deben confundirse las ligaduras de unión con
+las ligaduras de expresión, que indican articulación, ni con las ligaduras de fraseo, que indican
+el fraseo musical.  Se introduce una ligadura de unión usando el símbolo de la tilde curva @samp{~}
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+e' ~ e' <c' e' g'> ~ <c' e' g'>
+@end lilypond
+
+Cuando se aplica una ligadura de unión a un acorde, se conectan todas las cabezas de las notas cuyas alturas coinciden.
+Si no coincide ningún par de cabezas, no se crea ninguna ligadura.  Los acordes
+se pueden ligar parcialmente colocando la ligadura dentro del acorde,
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+<c~ e g~ b> <c e g b>
+@end lilypond
+
+Una ligadura es simplemente una forma de extender la duración de una nota, parecida al
+puntillo.  El ejemplo siguiente muestra dos formas de escribir
+exactamente el mismo concepto:
+
+@lilypond[quote,fragment,ragged-right]
+\time 3/4 c'2. c'2 ~ c'4
+@end lilypond
+
+@noindent
+Se usan ligaduras de expresión bien cuando la nota atraviesa la barra
+de compás o bien cuando no se pueden usar puntillos para denotar el
+ritmo.  Cuando se usan ligaduras, las notas de mayor duración se deben alinear con las subdivisiones del compás, como
+
+@lilypond[fragment,quote,ragged-right]
+\relative {
+  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4
+}
+@end lilypond
+
+Si necesita unir muchas notas a través de las líneas divisorias, puede
+resultar más fácil utilizar la división automática de notas (vea
+@ref{Automatic note splitting}).  Este mecanismo divide las notas
+largas de forma automática y las liga a través de las barras de compás.
+
+@funindex \repeatTie
+
+Cuando la segunda vez de una repetición comienza con una nota ligada,
+es necesario repetir la ligadura.  Esto se puede conseguir mediante @code{\repeatTie},
+
+@lilypond[fragment,quote,ragged-right,relative=2]
+r <c e g>\repeatTie
+@end lilypond
+
+@cindex ligaduras de repetición
+@cindex corchetes de repetición de primera y segunda vez y ligaduras
+
+@commonprop
+
+A veces se usan ligaduras para escribir arpegios.  En este caso, dos notas ligadas no
+necesitan ser consecutivas.  Esto se puede conseguir estableciendo la propiedad @code{tieWaitForNote}
+(ligadura - esperar nota) al valor verdadero. La misma funcionalidad puede resultar útil,
+por ejemplo, para ligar un trémolo a un acorde.  Por ejemplo,
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+\set tieWaitForNote = ##t
+\grace { c16[~ e~ g]~ } <c, e g>2
+\repeat tremolo 8 { c32~ c'~ } <c c,>1
+e8~ c~ a~ f~ <e' c a f>2
+@end lilypond
+
+Las ligaduras de pueden grabar manualmente modificando la propiedad
+@code{tie-configuration}.  El primer número indica la distancia desde
+el centro del pentagrama en espacios de pentagrama, y el segundo
+número indica la dirección (1 = hacia arriba, -1 = hacia abajo).
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+<c e g>2~ <c e g> |
+\override TieColumn #'tie-configuration =
+  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+<c e g>~ <c e g> |
+@end lilypond
+
+
+@predefined
+
+
+@funindex \tieUp
+@code{\tieUp},
+@funindex \tieDown
+@code{\tieDown},
+@funindex \tieNeutral
+@code{\tieNeutral},
+@funindex \tieDotted
+@code{\tieDotted},
+@funindex \tieDashed
+@code{\tieDashed},
+@funindex \tieSolid
+@code{\tieSolid}.
+
+
+@seealso
+
+En el presente manual: @ref{Automatic note splitting}.
+
+Referencia del programa: @internalsref{Tie}.
+
+
+@knownissues
+
+Un cambio de pentagrama cuando hay una ligadura activa no producirá una ligadura inclinada.
+
+Los cambios de clave o de octava durante una ligadura de unión no
+están bien definidos realmente.  En estos casos puede ser preferible una ligadura de expresión.
+
+
+
 @node Writing rests
 @subsection Writing rests
 
@@ -302,7 +422,7 @@ En este manual: @ref{Tuplets}.
 @end menu
 
 @node Rests
-@unnumberedsubsubsec Rests
+@subsubsection Rests
 @cindex Silencios
 
 @funindex \rest
@@ -338,7 +458,7 @@ Referencia del programa: @internalsref{Rest}.
 
 
 @node Skips
-@unnumberedsubsubsec Skips
+@subsubsection Skips
 
 @cindex Desplazamiento
 @cindex Silencio invisible
@@ -383,7 +503,7 @@ Referencia del programa: @internalsref{SkipMusic}.
 
 
 @node Multi measure rests
-@unnumberedsubsubsec Multi measure rests
+@subsubsection Multi measure rests
 
 @cindex multicompás, silencios
 @cindex compás completo, silencios de
@@ -510,7 +630,7 @@ de los compases estará desactivada.
 @end menu
 
 @node Time signature
-@unnumberedsubsubsec Time signature
+@subsubsection Time signature
 
 @cindex Indicación de compás
 @cindex metro, medida
@@ -592,7 +712,7 @@ EL barrado automático no utiliza la agrupación de compases especificada con
 
 
 @node Upbeats
-@unnumberedsubsubsec Upbeats
+@subsubsection Upbeats
 
 @cindex anacrusa
 @cindex parte al alzar
@@ -647,7 +767,7 @@ desagradables.
 
 
 @node Unmetered music
-@unnumberedsubsubsec Unmetered music
+@subsubsection Unmetered music
 
 @cindex cadencia
 @funindex \cadenzaOn
@@ -684,13 +804,13 @@ para indicar dónde se pueden producir los saltos.
 
 
 @node Polymetric notation
-@unnumberedsubsubsec Polymetric notation
+@subsubsection Polymetric notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 
 @node Automatic note splitting
-@unnumberedsubsubsec Automatic note splitting
+@subsubsection Automatic note splitting
 
 Las notas largas se pueden convertir automáticamente en notas ligadas.
 Se hace mediante la sustitución del @internalsref{Note_heads_engraver}
@@ -741,7 +861,7 @@ Referencia del programa: @internalsref{Completion_heads_engraver}.
 @end menu
 
 @node Automatic beams
-@unnumberedsubsubsec Automatic beams
+@subsubsection Automatic beams
 
 LilyPond inserta las barras de corchea automáticamente
 
@@ -768,7 +888,7 @@ Referencia del programa: @internalsref{Beam}.
 
 
 @node Manual beams
-@unnumberedsubsubsec Manual beams
+@subsubsection Manual beams
 
 @cindex barras manuales
 @funindex ]
@@ -852,7 +972,7 @@ rodean las notas, como los textos y las alteraciones.
 
 
 @node Feathered beams
-@unnumberedsubsubsec Feathered beams
+@subsubsection Feathered beams
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -869,7 +989,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end menu
 
 @node Bar check
-@unnumberedsubsubsec Bar check
+@subsubsection Bar check
 
 @cindex Compás, comprobación de
 @funindex barCheckSynchronize
@@ -914,7 +1034,7 @@ pipeSymbol = \bar "||"
 
 
 @node Bar lines
-@unnumberedsubsubsec Bar lines
+@subsubsection Bar lines
 
 @cindex Barras de compás
 @funindex \bar
@@ -999,7 +1119,7 @@ Referencia del programa: @internalsref{BarLine} (creada al nivel de
 
 
 @node Bar numbers
-@unnumberedsubsubsec Bar numbers
+@subsubsection Bar numbers
 
 @cindex Compás, números de
 @cindex números de compás
@@ -1066,7 +1186,7 @@ colocar el número correctamente.
 
 
 @node Barnumber check
-@unnumberedsubsubsec Barnumber check
+@subsubsection Barnumber check
 
 Al copiar piezas musicales grandes puede servir de ayuda comprobar que
 el número de compás de LilyPond corresponde al original desde el que está copiando.
@@ -1082,7 +1202,7 @@ compás actual) no es 123 cuando se está procesando.
 
 
 @node Rehearsal marks
-@unnumberedsubsubsec Rehearsal marks
+@subsubsection Rehearsal marks
 
 @cindex Ensayo, letras de
 @funindex \mark
@@ -1196,7 +1316,7 @@ Ejemplos: @lsr{parts,rehearsal-mark-numbers.ly}
 @end menu
 
 @node Grace notes
-@unnumberedsubsubsec Grace notes
+@subsubsection Grace notes
 
 @funindex \grace
 @cindex ornamentos
@@ -1405,7 +1525,7 @@ yuxtaposición de secciones de adorno, y podría producir caídas u otros errore
 
 
 @node Aligning to cadenzas
-@unnumberedsubsubsec Aligning to cadenzas
+@subsubsection Aligning to cadenzas
 
 En un contexto orquestal, las cadenzas presentan un problema especial:
 al construir una partitura que tiene una cadenza, todos los demás instrumentos
@@ -1435,13 +1555,13 @@ cadenza = \relative c' {
 
 
 @node Time administration
-@unnumberedsubsubsec Time administration
+@subsubsection Time administration
 
 UNTRANSLATED NODE: IGNORE ME
 
 
 @node Proportional notation (introduction)
-@unnumberedsubsubsec Proportional notation (introduction)
+@subsubsection Proportional notation (introduction)
 
 UNTRANSLATED NODE: IGNORE ME
 
