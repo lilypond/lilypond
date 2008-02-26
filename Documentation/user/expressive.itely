@@ -38,69 +38,42 @@
 A variety of symbols can appear above and below notes to indicate
 different characteristics of the performance.  All these symbols
 can be attached to a note using the syntax
-@var{note}@code{\}@var{name}.
+@var{note}@tie{}@code{\}@var{name}.
+
+@c Add a LilyPond example here soon. -pm
 
 The possible values for @var{name} are listed in @ref{List of
 articulations}.
 
+@cindex marcato
+@cindex stopped
+@cindex tenuto
+@cindex staccatissimo
+@cindex accent
+@cindex staccato
+@cindex portato
+
 Some of these articulations have shorthands for easier entry.
 Shorthands are appended to the note name, and their syntax
-consists of a dash (@code{-}) followed by a symbol signifying the
-articulation.  The available shorthands are:
-
-@itemize
-@item
-@code{-^} (@notation{marcato})
-
-@item
-@code{-+} (@notation{stopped})
-
-@item
-@code{--} (@notation{tenuto})
-
-@item
-@code{-|} (@notation{staccatissimo})
-
-@item
-@code{->} (@notation{accent})
-
-@item
-@code{-.} (@notation{staccato})
-
-@item
-@code{-_} (@notation{portato})
-
-@end itemize
-
-and their corresponding output:
+consists of a dash (@tie{}@code{-}) followed by a symbol
+signifying the articulation.  Predefined shorthands exist for
+@notation{marcato}, @notation{stopped}, @notation{tenuto},
+@notation{staccatissimo}, @notation{accent}, @notation{staccato},
+and @notation{portato}.  Their corresponding output appears as
+follows:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c4-^  c-+  c--  c-|
 c->   c-.  c-_
 @end lilypond
 
-The marks are automatically placed, but the direction can be
-forced as well.  Like other pieces of LilyPond code,
-@code{_}@tie{}will place them below the staff, and@tie{}@code{^}
-will place them above.  This applies both to the shorthands and
-the fully named articulations.  For the shorthands, the dash
-itself should be omitted; the direction signs replace it:
+The marks are placed automatically by default (either above or
+below the note), but their positions can be manually @q{forced}
+above or below notes as well.  For details, see
+@ref{Controlling direction and placement}.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4^^ c4_^
-c\fermata c^\fermata c_\fermata
-@end lilypond
-
-
-@cindex accent
-@cindex marcato
-@cindex staccatissimo
 @cindex espressivo
 @cindex fermata
-@cindex stopped
-@cindex staccato
-@cindex portato
-@cindex tenuto
 @cindex upbow
 @cindex downbow
 @cindex foot marks
@@ -124,6 +97,8 @@ c\fermata c^\fermata c_\fermata
 
 
 @snippets
+
+@c Send these snippets to Valentin for the LSR.
 
 The shorthands are defined in @file{ly/@/script@/-init@/.ly},
 where the variables @code{dashHat}, @code{dashPlus},
@@ -161,6 +136,10 @@ a4^\prall^\markup { \sharp }
 
 
 @seealso
+
+Music Glossary: @rglos{marcato}, @rglos{stopped}, @rglos{tenuto},
+@rglos{staccatissimo}, @rglos{accent}, @rglos{staccato},
+@rglos{portato}.
 
 Snippets: @lsrdir{Expressive,Expressive-marks}
 
@@ -202,8 +181,8 @@ like @code{c4\ff}.  The available dynamic marks are @code{\ppppp},
 @code{\mf}, @code{\f}, @code{\ff}, @code{\fff}, @code{\ffff},
 @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp}, @code{\spp},
 @code{\sfz}, and @code{\rfz}.  The dynamic marks can be placed
-above or below the staff with@tie{}@code{_} and@tie{}@code{^},
-just like articulation marks.
+above or below the staff: For details, see
+@ref{Controlling direction and placement}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2\ppp c\mp
@@ -211,17 +190,20 @@ c\rfz c^\mf
 c_\spp c_\staccato^\ff
 @end lilypond
 
+@cindex hairpin
 @funindex \<
 @funindex \>
 @funindex \!
+@funindex \cr
+@funindex \decr
 
 A @notation{crescendo} mark is started with @code{\<} and
 terminated with @code{\!} or an absolute dynamic.  A
 @notation{decrescendo} is started with @code{\>} and is also
 terminated with @code{\!} or an absolute dynamic.  @code{\cr} and
 @code{\decr} may be used instead of @code{\<} and @code{\>}.  They
-can be engraved either using a graphical sign (a @q{hairpin}), or
-with textual signs.
+can be engraved either using a graphical sign (a
+@notation{hairpin}), or with textual signs.
 
 Because these marks are bound to notes, you must use spacer notes
 if multiple marks are needed during one note.
@@ -240,12 +222,11 @@ for example @code{minimum-length} in
 @end example
 
 @noindent
-A hairpin normally starts at the left edge of the beginning note
-and ends on the right edge of the ending note.  If the ending note
-falls on the downbeat, the hairpin ends on the immediately
-preceding bar line.  This may be modified by setting the
-@code{hairpinToBarline} property:
-@cindex hairpin
+A @notation{hairpin} normally starts at the left edge of the
+beginning note and ends on the right edge of the ending note.  If
+the ending note falls on the downbeat, the @notation{hairpin} ends
+on the immediately preceding bar line.  This may be modified by
+setting the @code{hairpinToBarline} property:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 e4\< e2. e1\!
@@ -254,6 +235,7 @@ e4\< e2. e1\!
 @end lilypond
 
 @cindex espressivo, articulation
+
 In some situations the @code{\espressivo} articulation mark may be
 suitable to indicate a crescendo and decrescendo on the one note:
 
@@ -276,12 +258,19 @@ c4\> c\< c2\!
 @cindex crescendo
 @cindex decrescendo
 @cindex diminuendo
+@funindex \setTextCresc
+@funindex \setTextDim
+@funindex \setTextDecresc
+@funindex \setHairpinCresc
+@funindex \setHairpinDim
+@funindex \setHairpinDecresc
 
 You can use text saying @emph{cresc.}, @emph{decr.}, or
-@emph{dim.} instead of hairpins with the commands \setTextCresc,
-\setTextDim, and \setTextDecresc.  The corresponding
-\setHairpinCresc, \setHairpinDim, and \setHairpinDecresc will
-revert to hairpins again:
+@emph{dim.} instead of hairpins with the commands
+@code{\setTextCresc}, @code{\setTextDim}, and
+@code{\setTextDecresc}.  The corresponding
+@code{\setHairpinCresc}, @code{\setHairpinDim}, and
+@code{\setHairpinDecresc} will revert to hairpins again:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \setTextCresc
@@ -388,7 +377,7 @@ handled by @internalsref{DynamicLineSpanner}.
 
 @cindex slurs
 
-A slur indicates that notes are to be played bound or
+A @notation{slur} indicates that notes are to be played bound or
 @emph{legato}.  They are entered using parentheses:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -398,17 +387,16 @@ f( g a) a8 b( a4 g2 f4)
 
 Just as with ties, the direction of a slur can be specified with
 @code{\slur@emph{DIR}}, where @code{@emph{DIR}} is either
-@code{Up}, @code{Down}, or @code{Neutral} (automatically
-selected).  The shorthands are also available: by
-adding@tie{}@code{_} or@tie{}@code{^} before the opening
-parentheses, the direction is also set.
+@code{Up}, @code{Down}, or @code{Neutral} (@code{Neutral} is the
+default).  The shorthands are also available: For details, see
+@ref{Controlling direction and placement}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c4_( c) c^( c)
 @end lilypond
 
-Only one slur can be printed at once.  If you need to print a long
-slur over a few small slurs, please see @ref{Phrasing slurs}.
+Using this method, only one slur can be printed at once.  To print
+a long slur over a few small slurs, see @ref{Phrasing slurs}.
 
 
 @predefined
@@ -440,6 +428,8 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 
 @seealso
 
+Music Glossary: @rglos{slur}
+
 Snippets: @lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Slur}.
@@ -450,6 +440,8 @@ Internals Reference: @internalsref{Slur}.
 
 @cindex phrasing slurs
 @cindex phrasing marks
+@funindex \(
+@funindex \)
 
 A phrasing slur (or phrasing mark) connects notes and is used to
 indicate a musical sentence.  It is written using @code{\(} and
@@ -463,8 +455,8 @@ Typographically, the phrasing slur behaves almost exactly like a
 normal slur.  However, they are treated as different objects.  A
 @code{\slurUp} will have no effect on a phrasing slur; instead,
 use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
-@code{\phrasingSlurNeutral}, or use the shorthands@tie{}@code{_}
-and@tie{}@code{^}.
+@code{\phrasingSlurNeutral}.  The shorthands work for phrasing
+slurs as well: For details, see @ref{Controlling direction and placement}.
 
 You cannot have simultaneous phrasing slurs.
 
@@ -483,11 +475,14 @@ You cannot have simultaneous phrasing slurs.
 
 Snippets: @lsrdir{Expressive,Expressive-marks}
 
-Internals Reference: @internalsref{PhrasingSlur}.
+Internals Reference: @internalsref{PhrasingSlur}
 
 
 @node Breath marks
 @subsubsection Breath marks
+
+@cindex breath marks
+@funindex \breathe
 
 Breath marks are entered using @code{\breathe}:
 
@@ -512,23 +507,35 @@ d4
 
 @seealso
 
-Snippets: @lsrdir{Expressive,Expressive-marks},
+Snippets: @lsrdir{Expressive,Expressive-marks}
 @c @lsr{expressive,breathing-sign.ly}.
 
-Internals Reference: @internalsref{BreathingSign}.
+Internals Reference: @internalsref{BreathingSign}
 
 
 @node Falls and doits
 @subsubsection Falls and doits
 
-Falls and doits can be added to notes using the @code{\bendAfter}
-command,
+@cindex falls
+@cindex doits
+@funindex \bendAfter
+
+@notation{Falls} and @notation{doits} can be added to notes using
+the @code{\bendAfter} command,
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \override Score.SpacingSpanner #'shortest-duration-space = #3.0
 c4-\bendAfter #+5
 c4-\bendAfter #-3
 @end lilypond
+
+
+@seealso
+
+Music Glossary: @rglos{falls}, @rglos{doits}.
+
+Snippets: @lsrdir{Expressive,Expressive-marks}
+
 
 @node Lines
 @subsection Lines
@@ -545,9 +552,10 @@ c4-\bendAfter #-3
 @cindex glissando
 @funindex \glissando
 
-A glissando is a smooth change in pitch.  It is denoted by a line
-or a wavy line between two notes.  It is requested by attaching
-@code{\glissando} to a note:
+A @notation{glissando} is a smooth change in pitch.  It is denoted
+by a line or a wavy line between two notes.  A
+@notation{glissando} is created by attaching @code{\glissando} to
+a note:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2\glissando c'
@@ -555,8 +563,8 @@ c2\glissando c'
 c2\glissando c,
 @end lilypond
 
-@snippets
 
+@snippets
 
 @lilypond[verbatim,quote,ragged-right]
 I = \once \override NoteColumn #'ignore-collision = ##t
@@ -568,18 +576,17 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 @end lilypond
 
 
-
 @seealso
 
-Music Glossary: @rglos{falls}, @rglos{doits}.
+Music Glossary: @rglos{glissando}
 
-Snippets: @lsrdir{Expressive,Expressive-marks}.
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 @c FIXME: I need to figure out what's up with these.  -gp
 @c @lsr{expressive,glissando.ly},
 @c @lsr{expressive,line-styles.ly}
 
-Internals Reference: @internalsref{Glissando}.
+Internals Reference: @internalsref{Glissando}
 
 
 @knownissues
@@ -595,15 +602,17 @@ supported.
 @cindex broken chord
 @funindex \arpeggio
 
-You can specify an arpeggio sign (also known as broken chord) on a
-chord by attaching an @code{\arpeggio} to the chord:
+You can specify an @notation{arpeggio} (also known as a
+@notation{broken chord}) on a chord by attaching an
+@code{\arpeggio} to the chord:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 <c e g c>\arpeggio
 @end lilypond
 
-A square bracket on the left is used to indicate that the chord
-should @emph{not} be arpeggiated:
+A square bracket on the left, denoted by @code{\arpeggioBracket},
+is used to indicate that the chord should @emph{not} be
+arpeggiated:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \arpeggioBracket
@@ -629,7 +638,6 @@ reverts to the arrow-less version:
 
 @predefined
 
-@code{\arpeggio},
 @funindex \arpeggioUp
 @code{\arpeggioUp},
 @funindex \arpeggioDown
@@ -702,6 +710,8 @@ moved to the Staff context:
 
 @seealso
 
+Music Glossary: @rglos{arpeggio}, @rglos{broken chord}.
+
 Notation Reference: @ref{Ties}, for writing out arpeggios.
 
 Snippets: @lsrdir{Expressive,Expressive-marks}
@@ -720,7 +730,10 @@ time.
 @node Trills
 @subsubsection Trills
 
-Short trills are printed with @code{\trill} like normal
+@cindex trills
+@funindex \trill
+
+Short @notation{trills} are printed with @code{\trill} like normal
 articulation; see @ref{Articulations and ornamentations}.
 
 Long running trills are made with @code{\startTrillSpan} and
@@ -738,8 +751,8 @@ c4
 @cindex pitched trills
 
 Trills that should be executed on an explicitly specified pitch
-can be typeset with the command @code{pitchedTrill}, and the
-syntax @code{\pitchedTrill} @var{mainnote}@code{\startTrillSpan}
+can be typeset with the command @code{\pitchedTrill}, and the
+syntax @code{\pitchedTrill} @var{mainnote} @code{\startTrillSpan}
 @var{trillnote} @var{endnote} @code{\stopTrillSpan}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=1]
@@ -762,6 +775,8 @@ printed as a stemless note head in parentheses.
 
 @seealso
 
+Music Glossary: @rglos{trill}
+
 Snippets: @lsrdir{Expressive,Expressive-marks}
 
-Internals Reference: @internalsref{TrillSpanner}.
+Internals Reference: @internalsref{TrillSpanner}

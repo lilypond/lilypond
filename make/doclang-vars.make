@@ -8,10 +8,10 @@ DOCUMENTATION_INCLUDES = \
 DOCUMENTATION_INCLUDES += $(foreach lang, $(LANGS), -I $(top-build-dir)/Documentation/$(lang)/user/$(outdir))
 
 LILYPOND_BOOK_INCLUDES += $(DOCUMENTATION_INCLUDES)
-MAKEINFO_FLAGS += --force --enable-encoding $(DOCUMENTATION_INCLUDES)
+MAKEINFO_FLAGS += --force --enable-encoding -D 'version $(TOPLEVEL_VERSION)' $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
-TEXI2PDF_FLAGS += --batch --tidy
+TEXI2PDF_FLAGS += --batch --tidy --command '@set version $(TOPLEVEL_VERSION)'
 TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)
 
 TELY_FILES = $(call src-wildcard,*.tely)

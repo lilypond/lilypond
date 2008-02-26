@@ -204,7 +204,7 @@ must be done with @code{\tweak}.
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
-@lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
+@lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
 @ignore
@@ -384,7 +384,7 @@ create a tuplet bracket.  One application is in polymetric
 notation, as shown in the following example.  See
 @ref{Polymetric notation}.
 
-@lilypondfile [ragged-right,line-width=16\cm,staffsize=14,quote]
+@lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
 {printing-music-with-different-time-signatures.ly}
 
 
@@ -515,7 +515,7 @@ be entered using @code{\laissezVibrer}:
 @end lilypond
 
 The vertical placement of ties may be controlled; see
-@ref{Controlling direction}.
+@ref{Controlling direction and placement}.
 
 @quotation
 DELETE THIS ?
@@ -2605,6 +2605,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 

@@ -953,7 +953,9 @@ def get_class (name):
 def lxml_demarshal_node (node):
     name = node.tag
 
-    if name is None:
+    # TODO: This is a nasty hack, but I couldn't find any other way to check
+    #       if the given node is a comment node (class _Comment):
+    if name is None or re.match (u"^<!--.*-->$", node.__repr__()):
         return None
     klass = get_class (name)
     py_node = klass()

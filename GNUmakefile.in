@@ -209,7 +209,7 @@ test:
 	$(MAKE) -C input/regression/musicxml out=test local-test
 
 test-baseline: 
-	@if  test -d .git ; then \
+	@if test -d .git ; then \
 		$(if $(shell git diff), echo "commit before base lining" && false,true) ; \
 	fi
 	$(MAKE) 

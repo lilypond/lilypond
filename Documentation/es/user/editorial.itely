@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: e5ddf62fed87ae3b1a0b28fa6842e10f39734fb7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,98 +9,14 @@
 @node Editorial annotations
 @section Editorial annotations
 
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+{editorial-headword.ly}
+
 @menu
-* Note heads::                  
 * Inside the staff::            
 * Outside the staff::           
 @end menu
 
-
-@node Note heads
-@subsection Note heads
-
-@menu
-* Easy notation note heads::    
-* Shape note heads::            
-* Improvisation::               
-* Special noteheads::           
-@end menu
-
-@node Easy Notation note heads
-@unnumberedsubsubsec Easy Notation note heads
-
-@cindex notas, cabezas de, estudio
-@cindex notas, cabezas de, notación simplificada
-@cindex simplificada, notación
-@cindex Hal Leonard
-
-Las cabezas @q{easy play} (fáciles de tocar) tienen el nombre de la nota (en inglés) dentro de la cabeza.  Se usa
-en la música para principiantes
-
-@lilypond[quote,ragged-right,verbatim,fragment,staffsize=26]
-  \easyHeadsOn
-  c'2 e'4 f' | g'1
-@end lilypond
-
-La orden @code{\easyHeadsOn} sobreescribe los ajustes del objeto
-@internalsref{NoteHead}.  Para que las letras sean legibles, se tienen que imprimir
-en un tamaño grande de la tipografía.  Para imprimir con un tamaño de tipografía mayor, consulte
-@ref{Setting the staff size}.
-
-@predefined
-
-@funindex \easyHeadsOn
-@code{\easyHeadsOn}
-
-
-@node Shape note heads
-@unnumberedsubsubsec Shape note heads
-
-@cindex notas, cabezas de, con formas
-
-En notación de cabezas con forma, la forma de la cabeza corresponde
-a la función armónica de una nota dentro de la escala. Esta notación se hizo popular
-en los libros americanos de canciones durante el s.XIX.
-
-Las cabezas con formas se pueden producir estableciendo @code{\aikenHeads} o
-@code{\sacredHarpHeads}, según el estilo deseado.
-
-@lilypond[verbatim,relative=1,fragment]
-  \aikenHeads
-  c8 d4 e8 a2 g1
-  \sacredHarpHeads
-  c8 d4. e8 a2 g1
-@end lilypond
-
-Las formas se determinan en función del grado de la escala, donde la tónica
-está determinada por la instrucción @code{\key}
-
-@funindex \key
-@funindex shapeNoteStyles
-@funindex \aikenHeads
-@funindex \sacredHarpHeads
-
-Las cabezas con formas están programadas a través de la propiedad @code{shapeNoteStyles}.
-Su valor es un vector de símbolos.  El elemento en el lugar k indica qué estilo
-usa el grado k de la escala.  Son posibles las combinaciones
-arbitrarias, p.ej.:
-
-@lilypond[verbatim,relative=1,fragment]
-  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
-  c8 d4. e8 a2 g1
-@end lilypond
-
-
-@node Improvisation
-@unnumberedsubsubsec Improvisation
-
-UNTRANSLATED NODE: IGNORE ME
-
-
-@node Special noteheads
-@unnumberedsubsubsec Special noteheads
-
-UNTRANSLATED NODE: IGNORE ME
 
 
 @node Inside the staff
@@ -113,7 +29,6 @@ UNTRANSLATED NODE: IGNORE ME
 * Hidden notes::                
 * Coloring objects::            
 * Parentheses::                 
-* Ambitus::                     
 * Stems::                       
 @end menu
 
@@ -176,34 +91,46 @@ de nota en música monofónica,
 
 @seealso
 
-Referencia del programa: @internalsref{Fingering}.
+Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
 
-Ejemplos: @lsr{expressive,fingering-chords.ly}
+Referencia de funcionamiento interno: @internalsref{Fingering}.
 
 
 @node Hidden notes
-@unnumberedsubsubsec Hidden notes
+@subsubsection Hidden notes
 
 @cindex ocultas, notas
 @cindex invisibles, notas
 @cindex transparentes, notas
-
 @funindex \hideNotes
 @funindex \unHideNotes
+
 Las notas ocultas (o invisibles, o transparentes) pueden ser de utilidad en la preparación de ejercicios
 de teoría o de composición.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
-c4 d4
+c4 d
 \hideNotes
-e4 f4
+e4 f
 \unHideNotes
-g4 a
+g a
+\hideNotes 
+b
+\unHideNotes
+c
 @end lilypond
+
+@predefined
+
+@code{\hideNotes}, @code{\unHideNotes}
+
+@seealso
+
+Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Coloring objects
-@unnumberedsubsubsec Coloring objects
+@subsubsection Coloring objects
 
 Se pueden asignar colores a los objetos individuales.  Podemos usar los nombres de color
 que se relacionan en la @ref{List of colors}.

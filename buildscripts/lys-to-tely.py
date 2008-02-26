@@ -80,6 +80,14 @@ for opt in options:
     else:
         raise Exception ('unknown option: ' + o)
 
+def shorten_file_name (n):
+    # ugh, regtests file names appear as full paths in GUB builds
+    # we try to do something here
+    b = os.path.basename (n)
+    if os.path.exists (b):
+        return b
+    return n
+
 def name2line (n):
     # UGR
     s = r"""
@@ -98,6 +106,7 @@ if files:
     name = os.path.basename (name)
     template = template % vars ()
 
+    files = map (shorten_file_name, files)
     files.sort ()
     s = "\n".join (map (name2line, files))
     s = template.replace (include_snippets, s, 1)
