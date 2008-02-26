@@ -1585,7 +1585,7 @@ The @code{\version} statement records the version of LilyPond that
 was used to write the file:
 
 @example
-\version @w{"@version{}"}
+\version "2.11.38"
 @end example
 
 @noindent
@@ -1607,7 +1607,7 @@ main music expression; the @code{\header} block is usually placed
 underneath the @ref{Version number}.
 
 @example
-\version @w{"@version{}"}
+\version "2.11.38"
 \header @{
   title = "Symphony"
   composer = "Me"

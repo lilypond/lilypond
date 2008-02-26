@@ -105,10 +105,9 @@ directory as this file.)
 Save the code above to a file called @file{lilybook.lytex}, then in a
 terminal run
 
-@c keep space after @version{} so TeX doesn't choke
 @example
 lilypond-book --output=out --pdf lilybook.lytex
-@emph{lilypond-book (GNU LilyPond) @version{} }
+@emph{lilypond-book (GNU LilyPond) 2.11.37}
 @emph{Reading lilybook.lytex...}
 @emph{..lots of stuff deleted..}
 @emph{Compiling lilybook.tex...}
