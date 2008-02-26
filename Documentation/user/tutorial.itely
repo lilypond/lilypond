@@ -260,7 +260,7 @@ to enter most melodies.  Let us see how this relative calculation
 works in practice.  Starting from a B, which is on the middle line
 in a treble clef, you can reach a C, D and E within 3 staff spaces
 going up, and an A, G and F within 3 staff spaces going down.  So
-if the note following a B is a C, D or F it will be assumed to be
+if the note following a B is a C, D or E it will be assumed to be
 above the B, and an A, G or F will be assumed to be below.
 
 @lilypond[verbatim,quote,ragged-right]
