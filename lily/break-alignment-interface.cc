@@ -281,7 +281,8 @@ Break_alignable_interface::self_align_callback (SCM grob)
 	{
 	  if (elements[i]->get_property ("break-align-symbol") == sym)
 	    {
-	      if (Item::break_visible (elements[i]))
+	      if (Item::break_visible (elements[i])
+		  && !elements[i]->extent (elements[i], X_AXIS).is_empty ())
 		{
 		  break_aligned_grob = i;
 		  goto found_break_aligned_grob; /* ugh. need to break out of 2 loops */

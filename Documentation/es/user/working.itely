@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
+    Translation of GIT committish: 993fc5189dc039afd51a98df9b71adf59f2ab20f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -537,7 +537,7 @@ Yo utilizo media docena de archivos de
 
 @example
 %%%   global.ly
-\version "2.11.38"
+\version @w{"@version{}"}
 #(ly:set-option 'point-and-click #f)
 \include "../iniciar/iniciar-definiciones.ly"
 \include "../iniciar/iniciar-disposicion.ly"

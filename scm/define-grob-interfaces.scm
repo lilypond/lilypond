@@ -159,11 +159,6 @@ interesting enough to maintain a hara-kiri staff."
  "A right hand finger instruction."
  '(digit-names))
 
-(ly:add-interface
- 'system-start-text-interface
- "A text at the beginning of a system."
- '(text long-text collapse-height style))
-
 ;;; todo: this is not typesetting info. Move to interpretation.
 (ly:add-interface
  'tablature-interface

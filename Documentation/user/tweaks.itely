@@ -160,8 +160,7 @@ properties.
 @node Tweaking methods
 @subsection Tweaking methods
 
-@itemize
-@item @strong{override command}
+@strong{\override command}
 
 @cindex override command
 @funindex \override
@@ -221,7 +220,7 @@ Again, just like @emph{context} in the @code{\override} command,
 @emph{context} is often not needed.  It will be omitted
 in many of the following examples.
 
-@item @strong{overrideProperty command}
+@strong{\overrideProperty command}
 
 @cindex overrideProperty command
 @funindex \overrideProperty
@@ -232,7 +231,7 @@ We mention it here for completeness, but for details see
 @ruser{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
 
-@item @strong{tweak command}
+@strong{\tweak command}
 
 @cindex tweak command
 @funindex \tweak
@@ -242,9 +241,9 @@ This should be used to change the properties of objects which
 occur at the same musical moment, such as the notes within a
 chord.  Using @code{\override} would affect all the notes
 within a chord, whereas @code{\tweak} affects just the following
-item in the input stream.  
+item in the input stream.
 
-Here's an example.  Suppose we wish to change the size of the 
+Here's an example.  Suppose we wish to change the size of the
 middle note (the E) in a C major chord.  Let's first see what
 @code{\once \override} would do:
 
@@ -266,8 +265,8 @@ on the immediately following item in the input stream.  However,
 it is effective only on objects which are created directly from
 the input stream, essentially note heads and articulations.
 (Objects such as stems and accidentals are created later and
-cannot be tweaked in this way).  Furthermore, when it is applied 
-to note heads these must be within a chord, i.e., within single 
+cannot be tweaked in this way).  Furthermore, when it is applied
+to note heads these must be within a chord, i.e., within single
 angle brackets, so to tweak a single note the @code{\tweak}
 command must be placed inside single angle brackets with the
 note.
@@ -280,8 +279,19 @@ a chord would be changed in this way:
   <c \tweak #'font-size #-3 e g>4
 @end lilypond
 
-Just one in a series of articulations can be modified with
-@code{\tweak}, as shown here:
+Note that the syntax of @code{\tweak} is different from that
+of the @code{\override} command.  Neither the context nor the
+layout object should be specified; in fact, it would generate
+an error to do so.  These are both implied by the following
+item in the input stream.  So the general syntax of the
+@code{\tweak} command is simply:
+
+@example
+\tweak #'@emph{layout_property} = #@emph{value}
+@end example
+
+A @code{\tweak} command can also be used to modify just one in
+a series of articulations, as shown here:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a ^Black
@@ -294,8 +304,6 @@ articulation mark as if it were an articulation itself.
 
 You can find more details of the @code{\tweak} command in
 @ruser{Objects connected to the input}.
-
-@end itemize
 
 
 @node The Internals Reference manual
@@ -2207,7 +2215,7 @@ are a few attempts to do this:
 <b? bes>
 @end lilypond
 
-None work, with the second two showing a bad collision between
+None work, with the second two showing bad collisions between
 the two signs.
 
 One way of achieving this is to override the accidental stencil
@@ -3074,16 +3082,12 @@ about LilyPond, but even more information can be gathered by
 looking at the internal LilyPond files.  To explore these, first
 find the directory appropriate to your system, as follows:
 
-@itemize
-
-@item
-@subheading Linux
+@strong{Linux}
 
 Navigate to
 @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 
-@item 
-@subheading OSX
+@strong{OSX}
 
 Navigate to
 @file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
@@ -3091,22 +3095,16 @@ by either @code{cd}-ing into this directory from the
 Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
 
-@item 
-@subheading Windows
+@strong{Windows}
 
 Using Windows Explorer, navigate to
 @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
 
-@end itemize
-
 Within this directory the two interesting subdirectories are
 
 @itemize
-
 @item @file{../ly/ } - contains files in LilyPond format
-
 @item @file{../scm/} - contains files in Scheme format
-
 @end itemize
 
 Let's begin by looking at some files in @file{../ly/}.
@@ -3129,7 +3127,7 @@ If you do not like the default values these built-in commands can
 be redefined easily, just like any other variable, at the
 head of your input file.
 
-The following are the most useful files to be found in 
+The following are the most useful files to be found in
 @file{../ly/}:
 
 @multitable @columnfractions .4 .6
@@ -3190,7 +3188,7 @@ compress that line of the score just enough to fit within the
 margins.
 
 To be effective under all circumstances these checks must be enabled
-by placing the overrides in a Score @code{\with} block, rather than 
+by placing the overrides in a Score @code{\with} block, rather than
 in-line in music, as follows:
 
 @verbatim
@@ -3206,21 +3204,60 @@ in-line in music, as follows:
 @node Advanced tweaks with Scheme
 @subsection Advanced tweaks with Scheme
 
-Although many things are possible with the @code{\override} and 
-@code{\tweak} commands, an even more powerful way of modifying 
-the action of LilyPond is available through a programmable 
-interface to the LilyPond internal operation.  Functions are
-provided which enable the user to incorporate Scheme code directly
-in the internal operation of LilyPond.  For example, it is 
-possible to parametrize an override command which is used often
-but with different values.
+Although many things are possible with the @code{\override} and
+@code{\tweak} commands, an even more powerful way of modifying
+the action of LilyPond is available through a programmable
+interface to the LilyPond internal operation.  Code written in
+the Scheme programming language can be incorporated directly in
+the internal operation of LilyPond.  Of course, at least a basic
+knowledge of programming in Scheme is required to do this, and an
+introduction is provided in the @ref{Scheme tutorial}.
 
-As the use of these functions require code to be written in the 
-Scheme programming language, at least a basic knowledge of 
-programming in Scheme is required.  An introduction to this is
-provided in the @ref{Scheme tutorial}, and examples showing the
-use of these programmable interfaces can be found in
-@ref{Tweaking with Scheme}.
+As an illustration of one of the many possibilities, instead of
+setting a property to a constant it can be set to a Scheme
+procedure which is then called whenever that property is accessed
+by LilyPond.  The property can then be set dynamically to a value
+determined by the procedure at the time it is called.  In this
+example we color the note head in accordance with its position on
+the staff.
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (color-notehead grob)
+  "Color the notehead according to its position on the staff."
+  (let ((mod-position (modulo (ly:grob-property grob 'staff-position) 7)))
+       (case mod-position  ; Set rainbow colors
+         ((1) (ly:grob-set-property! grob 'color (x11-color 'red)))
+         ((2) (ly:grob-set-property! grob 'color (x11-color 'orange)))
+         ((3) (ly:grob-set-property! grob 'color (x11-color 'yellow)))
+         ((4) (ly:grob-set-property! grob 'color (x11-color 'green)))
+         ((5) (ly:grob-set-property! grob 'color (x11-color 'blue)))
+         ((6) (ly:grob-set-property! grob 'color (x11-color 'purple)))
+         ((0) (ly:grob-set-property! grob 'color (x11-color 'violet)))
+       )
+  )
+)
+
+rainbow = {
+  % Override color so it is obtained from color-notehead Scheme function
+  \override NoteHead #'color = #color-notehead
+}
+
+\relative c' {
+  \rainbow {
+    c2 c' |
+    b4 g8 a b4 c |
+    c,2 a' |
+    g1 |
+  }
+}
+\addlyrics {
+  Some -- where o -- ver the Rain -- bow, way up high,
+}
+@end lilypond
+
+Further examples showing the use of these programmable interfaces
+can be found in @ref{Tweaking with Scheme}.
+
 
 
 

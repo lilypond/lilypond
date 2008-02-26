@@ -195,6 +195,20 @@ Note_column::arpeggio (Grob *me)
   return unsmob_grob (me->get_object ("arpeggio"));
 }
 
+/* If a note-column contains a cross-staff stem then
+   nc->extent (Y_AXIS, refp) will not consider the extent of the stem.
+   If you want the extent of the stem to be included (and you are safe
+   from any cross-staff issues) then call this function instead. */
+Interval
+Note_column::cross_staff_extent (Grob *me, Grob *refp)
+{
+  Interval iv = me->extent (refp, Y_AXIS);
+  if (Grob *s = get_stem (me))
+    iv.unite (s->extent (refp, Y_AXIS));
+
+  return iv;
+}
+
 ADD_INTERFACE (Note_column,
 	       "Stem and noteheads combined",
 
