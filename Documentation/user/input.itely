@@ -513,6 +513,7 @@ sections.
 @menu
 * Controlling direction and placement::  
 * Distances and measurements MAYBE MOVE::  
+* When to add a -::             
 @end menu
 
 @node Controlling direction and placement
@@ -550,7 +551,16 @@ DISCUSS after working on other sections.
 TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
 
 
+@node When to add a -
+@subsection When to add a -
 
+One of these works, the other doesn't.
+
+@verbatim
+\version "2.11.38"
+{ c'\mp\fermata\accent-\markup { "forcefully"} }
+% { c'\mp\fermata\accent\markup { "forcefully"} }
+@end verbatim
 
 
 @node Other stuffs TODO move?
