@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: e5ddf62fed87ae3b1a0b28fa6842e10f39734fb7
+    Translation of GIT committish: 98ae4afd530d6a059a81356119d8138ed25b2650
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -18,7 +18,6 @@
 @end menu
 
 
-
 @node Inside the staff
 @subsection Inside the staff
 
@@ -33,13 +32,13 @@
 @end menu
 
 @node Selecting notation font size
-@unnumberedsubsubsec Selecting notation font size
+@subsubsection Selecting notation font size
 
 UNTRANSLATED NODE: IGNORE ME
 
 
 @node Fingering instructions
-@unnumberedsubsubsec Fingering instructions
+@subsubsection Fingering instructions
 
 @cindex digitación
 @cindex cambio de dedo
@@ -132,6 +131,13 @@ Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
 @node Coloring objects
 @subsubsection Coloring objects
 
+@cindex coloreados, objetos
+@cindex colores
+@cindex colorear objects
+@cindex coloreadas, notas
+@cindex colorear notas
+@cindex notas, coloreadas
+
 Se pueden asignar colores a los objetos individuales.  Podemos usar los nombres de color
 que se relacionan en la @ref{List of colors}.
 
@@ -210,7 +216,7 @@ para ver más detalles.
 
 
 @node Parentheses
-@unnumberedsubsubsec Parentheses
+@subsubsection Parentheses
 
 @cindex fantasma, notas
 @cindex notas fantasma
@@ -234,100 +240,8 @@ Esto sólo funciona dentro de los acordes, incluso para notas sueltas
 @end example
 
 
-@node Ambitus
-@unnumberedsubsubsec Ambitus
-@cindex ambitus
-
-El término @emph{ambitus} o ámbito, denota el rango de notas que abarca una voz dada
-en una parte musical.  También puede denotar el margen de notas que es capaz de tocar
-un determinado instrumento musical.  Los ámbitos se imprimen en las partes vocales de tal manera que
-los intérpretes puedan determinar con facilidad si cumplen con sus propias posibilidades.
-
-Los ámbitos se presentan al comienzo de la pieza junto a la clave inicial.
-El rango se especifica gráficamente mediante dos cabezas de nota que representan a las
-notas inferior y superior.  Para imprimir el ámbito, añada el grabador
-@internalsref{Ambitus_engraver} al contexto @internalsref{Voice},
-por ejemplo
-
-@example
-\layout @{
-  \context @{
-    \Voice
-    \consists Ambitus_engraver
-  @}
-@}
-@end example
-
-Lo que da como resultado la siguiente salida:
-
-@lilypond[quote,ragged-right]
-\layout {
-  \context {
-    \Staff
-    \consists Ambitus_engraver
-  }
-}
-
-\relative \new Staff {
-  as'' c e2 cis,2
-}
-@end lilypond
-
-Si tiene varias voces en un pentagrama único y quiere tener una sola indicación de ámbito
-por pentagrama en lugar de una por cada voz, añada el grabador
-@internalsref{Ambitus_engraver} al contexto @internalsref{Staff}
-y no al contexto @internalsref{Voice}.  He aquí un ejemplo:
-
-@lilypond[verbatim,ragged-right,quote]
-\new Staff \with {
-  \consists "Ambitus_engraver"
-}
-<<
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c'' {
-    \override Ambitus #'X-offset = #-1.0
-    \voiceOne
-    c4 a d e f2
-  }
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c' {
-    \voiceTwo
-    es4 f g as b2
-  }
->>
-@end lilypond
-
-@noindent
-Este ejemplo utiliza una capacidad avanzada,
-
-@example
-\override Ambitus #'X-offset = #-1.0
-@end example
-
-@noindent
-Este código mueve el ámbito a la izquierda.  Se podría haber conseguido el mismo
-efecto con @code{extra-offset}, pero en tal caso el sistema de formateo no
-reservaría espacio para el objeto que se ha movido.
-
-@seealso
-
-Referencia del programa: @internalsref{Ambitus},
-@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
-@internalsref{AmbitusAccidental}.
-
-Ejemplos:
-@lsr{vocal,ambitus@/.ly}.
-
-@knownissues
-
-No se efectúa un tratamiento de las posibles colisiones en caso de varias indicaciones de ámbito
-simultáneas en distintas voces.
-
-
 @node Stems
-@unnumberedsubsubsec Stems
+@subsubsection Stems
 
 Cuando se encuentra con una nota, se crea un objeto
 @internalsref{Stem} (plica) automáticamente.  Para las redondas y los
@@ -367,7 +281,7 @@ a4 b c b
 @end menu
 
 @node Balloon help
-@unnumberedsubsubsec Balloon help
+@subsubsection Balloon help
 
 Los elementos de notación se pueden marcar y nombrar con la ayuda de un cartel o globo de ayuda
 rectangular.  El propósito principal de esta funcionalidad es la explicación de la notación.
@@ -397,7 +311,7 @@ Referencia del programa: @internalsref{text-balloon-interface}.
 
 
 @node Grid lines
-@unnumberedsubsubsec Grid lines
+@subsubsection Grid lines
 
 Se pueden dibujar líneas verticales, sincronizadas con las notas, entre
 pentagramas.
@@ -439,35 +353,40 @@ pentagramas.
 Ejemplos: @lsrdir{education}
 
 
-@node Blank music sheet
-@unnumberedsubsubsec Blank music sheet
+@node Analysis brackets
+@subsubsection Analysis brackets
 
-@cindex papel de música vacío
-@cindex Pentagramas, hoja en blanco
+@cindex corchetes
+@cindex fraseo, corchetes de
+@cindex musicológico, análisis
+@cindex notas, corchetes de agrupación de
 
-También se pueden producir hojas de papel de música en blanco utilizando notas invisibles y
-suprimiendo el grabador @code{Bar_number_engraver}.
+Los corchetes se usan en análisis musical para indicar las estructuras presentes en las piezas
+musicales.  LilyPond contempla una forma básica de corchetes horizontales anidados.
+Para usarlos, añada el grabador @internalsref{Horizontal_bracket_engraver}
+al contexto @internalsref{Staff}.  Un corchete se abre con
+@code{\startGroup} y se cierra con @code{\stopGroup}
 
-
-@lilypond[quote,verbatim]
-\layout{ indent = #0 }
-emptymusic = {
-  \repeat unfold 2 % Change this for more lines.
-  { s1\break }
-  \bar "|."
-}
-\new Score \with {
-  \override TimeSignature #'transparent = ##t
-% un-comment this line if desired
-%  \override Clef #'transparent = ##t
-  defaultBarType = #""
-  \remove Bar_number_engraver
-} <<
-
-% modify these to get the staves you want
-  \new Staff \emptymusic
-  \new TabStaff \emptymusic
->>
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    c4\startGroup\startGroup
+    c4\stopGroup
+    c4\startGroup
+    c4\stopGroup\stopGroup
+  }
+  \layout {
+    \context {
+      \Staff \consists "Horizontal_bracket_engraver"
+}}}
 @end lilypond
+
+@seealso
+
+Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
+
+Referencia de funcionamiento interno: @internalsref{HorizontalBracket},
+@internalsref{Horizontal_bracket_engraver}, @internalsref{Staff}.
+
 
 
