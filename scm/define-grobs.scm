@@ -2271,6 +2271,7 @@
 (define pure-functions
   (list
    parenthesize-elements
+   ly:rest::y-offset-callback
    ly:staff-symbol-referencer::callback
    ly:staff-symbol::height))
 
