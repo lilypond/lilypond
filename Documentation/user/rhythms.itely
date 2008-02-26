@@ -515,7 +515,7 @@ be entered using @code{\laissezVibrer}:
 @end lilypond
 
 The vertical placement of ties may be controlled; see
-@ref{Controlling direction}.
+@ref{Controlling direction and placement}.
 
 @quotation
 DELETE THIS ?

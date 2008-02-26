@@ -69,7 +69,8 @@ c->   c-.  c-_
 
 The marks are placed automatically by default (either above or
 below the note), but their positions can be manually @q{forced}
-@c above or below notes as well.  For details, see @ref{Up and down}.
+above or below notes as well.  For details, see
+@ref{Controlling direction and placement}.
 
 @cindex espressivo
 @cindex fermata
@@ -180,7 +181,8 @@ like @code{c4\ff}.  The available dynamic marks are @code{\ppppp},
 @code{\mf}, @code{\f}, @code{\ff}, @code{\fff}, @code{\ffff},
 @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp}, @code{\spp},
 @code{\sfz}, and @code{\rfz}.  The dynamic marks can be placed
-@c above or below the staff: For details, see @ref{Up and down}.
+above or below the staff: For details, see
+@ref{Controlling direction and placement}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2\ppp c\mp
@@ -387,7 +389,7 @@ Just as with ties, the direction of a slur can be specified with
 @code{\slur@emph{DIR}}, where @code{@emph{DIR}} is either
 @code{Up}, @code{Down}, or @code{Neutral} (@code{Neutral} is the
 default).  The shorthands are also available: For details, see
-@c @ref{Up and down}.
+@ref{Controlling direction and placement}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c4_( c) c^( c)
@@ -454,7 +456,7 @@ normal slur.  However, they are treated as different objects.  A
 @code{\slurUp} will have no effect on a phrasing slur; instead,
 use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
 @code{\phrasingSlurNeutral}.  The shorthands work for phrasing
-@c slurs as well: For details, see @ref{Up and down}.
+slurs as well: For details, see @ref{Controlling direction and placement}.
 
 You cannot have simultaneous phrasing slurs.
 

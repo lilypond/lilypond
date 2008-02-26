@@ -511,12 +511,12 @@ sections.
 @section Common syntax issues TODO name?
 
 @menu
-* Controlling direction::       
+* Controlling direction and placement::  
 * Distances and measurements MAYBE MOVE::  
 @end menu
 
-@node Controlling direction
-@subsection Controlling direction
+@node Controlling direction and placement
+@subsection Controlling direction and placement
 
 TODO: everything
 
