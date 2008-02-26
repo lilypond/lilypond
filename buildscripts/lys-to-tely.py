@@ -84,7 +84,7 @@ def shorten_file_name (n):
     # ugh, regtests file names appear as full paths in GUB builds
     # we try to do something here
     b = os.path.basename (n)
-    if os path.exists (b):
+    if os.path.exists (b):
         return b
     return n
 
