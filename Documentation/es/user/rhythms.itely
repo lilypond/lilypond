@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 609ee996e020875ab2bc94f64b71865c4b3cf7f3
+    Translation of GIT committish: f9251f6baccf426a9184b7947a85bbacc807a043
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,7 +9,10 @@
 @node Rhythms
 @section Rhythms
 
-This section discusses rhythms, durations, and bars.
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=14,quote]
+{rhythms-headword.ly}
+
+Esta sección trata de los ritmos, las duraciones y los compases.
 
 @menu
 * Writing rhythms::             
@@ -345,9 +348,37 @@ largas de forma automática y las liga a través de las barras de compás.
 Cuando la segunda vez de una repetición comienza con una nota ligada,
 es necesario repetir la ligadura.  Esto se puede conseguir mediante @code{\repeatTie},
 
-@lilypond[fragment,quote,ragged-right,relative=2]
-r <c e g>\repeatTie
+@lilypond[fragment,quote,ragged-right,relative=2,verbatim]
+\repeat volta 2 { c g <c e>2 ~ }
+\alternative {{ <c e>2. r4 } {<c e>2\repeatTie d4 c }}
 @end lilypond
+
+@cindex laissez vibrer
+@cindex ligaduras laissez vibrer
+
+Las ligaduras @notation{L.v.} (@notation{laissez vibrer}, dejar
+vibrar) indican que las notas no se deben apagar al final.  Se usan en
+la notación para piano, arpa y otros instrumentos de cuerda y
+percusión.  Se pueden introducir escribiendo @code{\laissezVibrer}:
+
+@lilypond[fragment,ragged-right,verbatim,relative=1]
+<c f g>\laissezVibrer
+@end lilypond
+
+Es posible controlar la colocación vertical de las ligaduras de unión;
+véase @ref{Controlling direction}.
+
+
+@seealso
+
+Referencia del programa:
+@internalsref{LaissezVibrerTie}
+@internalsref{LaissezVibrerTieColumn}
+
+Archivos de ejemplo:
+@lsr{connecting,laissez-vibrer-ties.ly}
+
+
 
 @cindex ligaduras de repetición
 @cindex corchetes de repetición de primera y segunda vez y ligaduras
@@ -366,10 +397,11 @@ por ejemplo, para ligar un trémolo a un acorde.  Por ejemplo,
 e8~ c~ a~ f~ <e' c a f>2
 @end lilypond
 
-Las ligaduras de pueden grabar manualmente modificando la propiedad
-@code{tie-configuration}.  El primer número indica la distancia desde
-el centro del pentagrama en espacios de pentagrama, y el segundo
-número indica la dirección (1 = hacia arriba, -1 = hacia abajo).
+Las ligaduras se pueden grabar manualmente modificando la propiedad
+@code{tie-configuration} del objeto @code{TieColumn}.  El primer
+número indica la distancia desde el centro del pentagrama en espacios
+de pentagrama, y el segundo número indica la dirección (1 = hacia
+arriba, -1 = hacia abajo).
 
 @lilypond[fragment,verbatim,relative=1,ragged-right,quote]
 <c e g>2~ <c e g> |
