@@ -153,7 +153,7 @@ rests from 128th to maxima (8 x whole) may be printed.
 @cindex triplets
 @funindex \times
 
-Tuplets are made out of a music expression by multiplying all
+Tuplets are made from a music expression by multiplying all the
 durations with a fraction:
 
 @example
@@ -164,7 +164,7 @@ durations with a fraction:
 The duration of @var{musicexpr} will be multiplied by the 
 fraction.  The fraction's denominator will be printed over or 
 under the notes, optionally with a bracket.  The most common 
-tuplet is the triplet in which 3 notes have the length of 2, so 
+tuplet is the triplet in which 3 notes have the duration of 2, so
 the notes are 2/3 of their written length.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -175,11 +175,9 @@ c4 c \times 2/3 {b4 a g}
 
 Tuplets may be nested:
 
-@lilypond[fragment,ragged-right,verbatim,relative=2]
-\relative c'' {
-  \autoBeamOff
-  c4 \times 4/5 { f8 e f \times 2/3 {e[ f g] } } f4 |
-}
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\autoBeamOff
+c4 \times 4/5 { f8 e f \times 2/3 {e[ f g] } } f4 |
 @end lilypond
 
 Modifying nested tuplets which begin at the same musical moment
@@ -206,21 +204,6 @@ must be done with @code{\tweak}.
 
 @lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
 {entering-several-tuplets-using-only-one--times-command.ly}
-
-@ignore
-@c TODO Remove when snippet works ok
-@c Sent to Snippet 5 Feb 08
-The property @code{tupletSpannerDuration} specifies how long each
-bracket should last.  With this, you can make lots of tuplets
-while typing @code{\times} only once, thus saving lots of typing.
-In the next example, there are two triplets shown, while
-@code{\times} was only used once.
-
-@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
-\set tupletSpannerDuration = #(ly:make-moment 1 4)
-\times 2/3 { c8 c c c c c }
-@end lilypond
-@end ignore
 
 @noindent
 For more information about @code{make-moment}, see
@@ -381,8 +364,7 @@ full length mode and how to modify what material they cover.
 
 @code{\compressMusic} works similarly to \times, but does not
 create a tuplet bracket.  One application is in polymetric
-notation, as shown in the following example.  See
-@ref{Polymetric notation}.
+notation, see @ref{Polymetric notation}.
 
 @lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
 {printing-music-with-different-time-signatures.ly}
@@ -2605,6 +2587,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 

@@ -424,7 +424,7 @@ the context.  Let's use a very large value for the thickness
 at first, so we can be sure the command is working.  We get:
 
 @example
-  \override Slur #'thickness = #5.0
+\override Slur #'thickness = #5.0
 @end example 
 
 Don't forget the @code{#'} preceding the
@@ -662,7 +662,7 @@ Ok, so the @code{\override} command we need to print the lyrics
 in italics should be
 
 @example
-  \override LyricText #'font-shape = #'italic
+\override LyricText #'font-shape = #'italic
 @end example
 
 @noindent
@@ -703,7 +703,7 @@ object name, as otherwise the two names are run together and
 the interpreter cannot recognise them.  So the command should be:
 
 @example
-  \override Lyrics . LyricText #'font-shape = #'italic
+\override Lyrics . LyricText #'font-shape = #'italic
 @end example
 
 @warning{In lyrics always leave whitespace between the final
@@ -3191,15 +3191,15 @@ To be effective under all circumstances these checks must be enabled
 by placing the overrides in a Score @code{\with} block, rather than
 in-line in music, as follows:
 
-@verbatim
-\new Score \with {
+@example
+\new Score \with @{
   % Makes sure text scripts and lyrics are within the paper margins
   \override PaperColumn #'keep-inside-line = ##t
   \override NonMusicalPaperColumn #'keep-inside-line = ##t
-} {
+@} @{
    ..
-}
-@end verbatim
+@}
+@end example
 
 @node Advanced tweaks with Scheme
 @subsection Advanced tweaks with Scheme
@@ -3225,33 +3225,29 @@ the staff.
 #(define (color-notehead grob)
   "Color the notehead according to its position on the staff."
   (let ((mod-position (modulo (ly:grob-property grob 'staff-position) 7)))
-       (case mod-position  ; Set rainbow colors
-         ((1) (ly:grob-set-property! grob 'color (x11-color 'red)))
-         ((2) (ly:grob-set-property! grob 'color (x11-color 'orange)))
-         ((3) (ly:grob-set-property! grob 'color (x11-color 'yellow)))
-         ((4) (ly:grob-set-property! grob 'color (x11-color 'green)))
-         ((5) (ly:grob-set-property! grob 'color (x11-color 'blue)))
-         ((6) (ly:grob-set-property! grob 'color (x11-color 'purple)))
-         ((0) (ly:grob-set-property! grob 'color (x11-color 'violet)))
-       )
+    (case mod-position
+      ;;   Return rainbow colors
+      ((1) (x11-color 'red    ))  ; for C
+      ((2) (x11-color 'orange ))  ; for D
+      ((3) (x11-color 'yellow ))  ; for E
+      ((4) (x11-color 'green  ))  ; for F
+      ((5) (x11-color 'blue   ))  ; for G
+      ((6) (x11-color 'purple ))  ; for A
+      ((0) (x11-color 'violet ))  ; for B
+    )
   )
 )
 
-rainbow = {
-  % Override color so it is obtained from color-notehead Scheme function
-  \override NoteHead #'color = #color-notehead
-}
-
 \relative c' {
-  \rainbow {
-    c2 c' |
-    b4 g8 a b4 c |
-    c,2 a' |
-    g1 |
-  }
+  % Arrange to obtain color from color-notehead procedure
+  \override NoteHead #'color = #color-notehead
+  c2 c' | 
+  b4 g8 a b4 c | 
+  c,2 a' | 
+  g1 |
 }
 \addlyrics {
-  Some -- where o -- ver the Rain -- bow, way up high,
+  Some -- where o -- ver the Rain -- bow way up high,
 }
 @end lilypond
 
