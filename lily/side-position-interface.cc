@@ -296,7 +296,9 @@ Side_position_interface::get_axis (Grob *me)
   if (scm_is_number (me->get_property ("side-axis")))
     return Axis (scm_to_int (me->get_property ("side-axis")));
   
-  me->programming_error ("side-axis not set.");
+  string msg = String_convert::form_string ("side-axis not set for grob %s.",
+					    me->name ().c_str ());
+  me->programming_error (msg);
   return NO_AXES;
 }
 
