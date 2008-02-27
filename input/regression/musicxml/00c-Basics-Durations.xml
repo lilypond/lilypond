@@ -21,7 +21,7 @@
           <mode>major</mode>
         </key>
         <time>
-          <beats>24</beats>
+          <beats>16</beats>
           <beat-type>4</beat-type>
         </time>
         <clef>
@@ -39,6 +39,9 @@
         <voice>1</voice>
         <type>longa</type>
       </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="2">
       <note>
         <pitch>
           <step>C</step>
@@ -48,9 +51,6 @@
         <voice>1</voice>
         <type>breve</type>
       </note>
-    </measure>
-    <!--=======================================================-->
-    <measure number="2">
       <note>
         <pitch>
           <step>C</step>
@@ -163,6 +163,12 @@
     </measure>
     <!--=======================================================-->
     <measure number="4">
+      <attributes>
+        <time>
+          <beats>24</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
       <note>
         <pitch>
           <step>C</step>
