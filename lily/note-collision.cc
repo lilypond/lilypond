@@ -575,7 +575,6 @@ ADD_INTERFACE (Note_collision_interface,
 	       "@code{force-hshift} and @code{horizontal-shift}.",
 
 	       /* properties */
-	       "ignore-collision "
 	       "merge-differently-dotted "
 	       "merge-differently-headed "
 	       "positioning-done ");
