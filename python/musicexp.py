@@ -2,9 +2,9 @@ import inspect
 import sys
 import string
 import re
-import lilylib
+import lilylib as ly
 
-_ = lilylib._
+_ = ly._
 
 from rational import Rational
 
@@ -155,8 +155,12 @@ class Duration:
     def ly_expression (self, factor = None):
         if not factor:
             factor = self.factor
-            
-        str = '%d%s' % (1 << self.duration_log, '.'*self.dots)
+
+        if self.duration_log < 0:
+            str = {-1: "\\breve", -2: "\\longa"}.get (self.duration_log, "1")
+        else:
+            str = '%d' % (1 << self.duration_log)
+        str += '.'*self.dots
 
         if factor <> Rational (1,1):
             if factor.denominator () <> 1:

@@ -1386,6 +1386,7 @@ class LilyPondVoiceBuilder:
                 else:
                     duration_factor = Rational (diff.numerator ())
             else:
+                # for skips of a whole or more, simply use s1*factor
                 duration_log = 0
                 duration_factor = diff
             skip.duration.duration_log = duration_log
