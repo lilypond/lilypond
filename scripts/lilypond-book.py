@@ -1244,7 +1244,7 @@ class Lilypond_snippet (Snippet):
         str = ''
         if PRINTFILENAME in self.option_dict:
             base = self.basename ()
-            filename = self.substring ('filename')
+            filename = os.path.basename (self.substring ('filename'))
             str = output[global_options.format][PRINTFILENAME] % vars ()
 
         return str

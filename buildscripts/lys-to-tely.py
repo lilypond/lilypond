@@ -85,11 +85,11 @@ def name2line (n):
     s = r"""
 @ifhtml
 @html
-<A NAME="%s"></A>
+<a name="%s"></a>
 @end html
 @end ifhtml
 
-@lilypondfile[%s]{%s}""" % (n, fragment_options, n)
+@lilypondfile[%s]{%s}""" % (os.path.basename (n), fragment_options, n)
     return s
 
 if files:
