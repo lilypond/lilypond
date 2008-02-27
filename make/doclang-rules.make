@@ -1,6 +1,3 @@
-# cancel the rule that generates .n[o lilypond images t]exi files
-$(outdir)/%.nexi: $(ITELY_FILES) $(ITEXI_FILES)
-
 $(outdir)/%/index.html: $(outdir)/%.texi
 	mkdir -p $(dir $@)
 	-$(MAKEINFO) -P $(outdir) --output=$(outdir)/$* --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
@@ -14,7 +11,7 @@ $(outdir)/%.pdftexi: $(outdir)/%.texi doc-po
 $(outdir)/%.pdf: $(outdir)/%.pdftexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) $(TEXINFO_PAPERSIZE_OPTION) $(notdir $*).pdftexi
 
-$(OUT_TEXI_FILES): $(ITELY_FILES)
+$(OUT_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES)
 
 $(DEEP_HTML_FILES) $(PDF_FILES): $(ITELY_FILES) $(ITEXI_FILES)
 
