@@ -817,7 +817,11 @@ Print a short help message.
 
 @item -I @var{dir}
 @itemx --include=@var{dir}
-Add @var{dir} to the include path.
+Add @var{dir} to the include path.  @command{lilypond-book} also looks
+for already compiled snippets in the include path, and does not write
+them back to the output directory, so in some cases it is necessary to
+invoke further processing commands such as @command{makeinfo} or
+@command{latex} with the same @code{-I @var{dir}} options.
 
 @item -o @var{dir}
 @itemx --output=@var{dir}
