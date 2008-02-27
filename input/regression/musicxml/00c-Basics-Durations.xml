@@ -306,6 +306,142 @@
         <beam number="4">end</beam>
         <beam number="5">end</beam>
       </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="6">
+      <attributes>
+        <time>
+          <beats>28</beats>
+          <beat-type>4</beat-type>
+        </time>
+      </attributes>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>1792</duration>
+        <voice>1</voice>
+        <type>longa</type>
+        <dot/>
+        <dot/>
+      </note>
+    </measure>
+    <!--=======================================================-->
+    <measure number="7">
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>896</duration>
+        <voice>1</voice>
+        <type>breve</type>
+        <dot/>
+        <dot/>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>448</duration>
+        <voice>1</voice>
+        <type>whole</type>
+        <dot/>
+        <dot/>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>224</duration>
+        <voice>1</voice>
+        <type>half</type>
+        <dot/>
+        <dot/>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>112</duration>
+        <voice>1</voice>
+        <type>quarter</type>
+        <dot/>
+        <dot/>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>56</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <dot/>
+        <dot/>
+        <beam number="1">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>28</duration>
+        <voice>1</voice>
+        <type>16th</type>
+        <dot/>
+        <dot/>
+        <beam number="1">continue</beam>
+        <beam number="2">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>14</duration>
+        <voice>1</voice>
+        <type>32nd</type>
+        <dot/>
+        <dot/>
+        <beam number="1">continue</beam>
+        <beam number="2">continue</beam>
+        <beam number="3">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>7</duration>
+        <voice>1</voice>
+        <type>64th</type>
+        <dot/>
+        <dot/>
+        <beam number="1">continue</beam>
+        <beam number="2">continue</beam>
+        <beam number="3">continue</beam>
+        <beam number="4">begin</beam>
+      </note>
+      <note>
+        <pitch>
+          <step>C</step>
+          <octave>5</octave>
+        </pitch>
+        <duration>7</duration>
+        <voice>1</voice>
+        <type>64th</type>
+        <dot/>
+        <dot/>
+        <beam number="1">end</beam>
+        <beam number="2">end</beam>
+        <beam number="3">end</beam>
+        <beam number="4">end</beam>
+      </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
       </barline>
