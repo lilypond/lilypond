@@ -704,7 +704,7 @@ pour soprano et violoncelle : dans ce cas l'on pourrait commencer par les
 @qq{notes et paroles}, pour la partie de soprano.
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -734,7 +734,7 @@ Maintenant, on veut ajouter une partie de violoncelle.
 Jetons un coup d'oeil sur l'exemple avec les notes seules :
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 melodie = \relative c' @{
   \clef treble
   \key c \major
@@ -772,7 +772,7 @@ Et puis, toujours tant qu'on y est, mettons le violoncelle en clé de Fa, comme
 le veut l'usage, et donnons-lui d'autres notes.
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 musiqueSoprano = \relative c' @{
   \clef treble
   \key c \major
