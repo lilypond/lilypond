@@ -10,6 +10,8 @@
 @settitle GNU LilyPond -- manuel de notation
 @documentencoding UTF-8
 
+@include macros.itexi
+
 @iftex
 @afourpaper
 @c don't replace quotes with directed quotes
@@ -19,7 +21,8 @@
 @end tex
 @end iftex
 
-@c @direntry has not been added yet, as Emacs and standalone Info have no i18n support -JM
+@c @direntry has not been added yet, as Emacs and standalone Info have
+@c no i18n support -JM
 
 @c don't remove this comment.
 @ignore
@@ -54,11 +57,11 @@ Ce document est également disponible au format
 @titlepage
 @title GNU LilyPond
 @subtitle Le système de gravure musicale
-@titlefont{Manuel de référence}
+@titlefont{Manuel de notation}
 @author L'équipe de développement de LilyPond
 
 
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2008 par les auteurs
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -87,28 +90,14 @@ Free Documentation License''.
 
 @vskip 20pt
 
-@lilypond[ragged-right]
-\score {
-    \context Lyrics {
-        \override Score.RehearsalMark #'self-alignment-X = #LEFT
-        \override Score.RehearsalMark #'font-size = #-2 
-        \mark #(ly:export (string-append
-             "(Pour LilyPond version " (lilypond-version) ")"))
-        s2
-     }
-     \layout {
-         indent = 0.0\pt
-     }
-}
-@end lilypond
-
+Pour LilyPond version @version{}
 @end titlepage
 
 
 @ifnottex
 Ce fichier documente GNU LilyPond.
 
-Copyright @copyright{} 1999--2007 par les auteurs
+Copyright @copyright{} 1999--2008 par les auteurs
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -142,10 +131,7 @@ Free Documentation License''.
 @top GNU LilyPond --- le système de gravure musicale
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Ce document est le manuel de référence de GNU LilyPond 2.11.x.
-@ifhtml
-(Allez au bas de la page pour voir le numéro de version exact).
-@end ifhtml
+Ce document est le manuel de notation de GNU LilyPond @version{}.
 
 @cindex web site
 @cindex URL
@@ -179,8 +165,6 @@ Annexes
 
 @contents
 
-
-@include macros.itexi
 
 @include notation.itely
 @include specialist.itely

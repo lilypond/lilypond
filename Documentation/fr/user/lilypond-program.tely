@@ -10,6 +10,8 @@
 @settitle GNU LilyPond -- utilisation du programme
 @documentencoding UTF-8
 
+@include macros.itexi
+
 @iftex
 @afourpaper
 @c don't replace quotes with directed quotes
@@ -52,11 +54,11 @@ Ce document est également disponible au format
 @titlepage
 @title GNU LilyPond
 @subtitle Le système de gravure musicale
-@titlefont{Utilisation du programme}
+@titlefont{Utilisation des programmes}
 @author L'équipe de développement de LilyPond
 
 
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2008 par les auteurs
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -85,28 +87,14 @@ Free Documentation License''.
 
 @vskip 20pt
 
-@lilypond[ragged-right]
-\score {
-    \context Lyrics {
-        \override Score.RehearsalMark #'self-alignment-X = #LEFT
-        \override Score.RehearsalMark #'font-size = #-2 
-        \mark #(ly:export (string-append
-             "(Pour LilyPond version " (lilypond-version) ")"))
-        s2
-     }
-     \layout {
-         indent = 0.0\pt
-     }
-}
-@end lilypond
-
+Pour LilyPond version @version{}
 @end titlepage
 
 
 @ifnottex
-Ce fichier documente l'utilisation du programme GNU LilyPond.
+Ce fichier documente GNU LilyPond.
 
-Copyright @copyright{} 1999--2007 par les auteurs
+Copyright @copyright{} 1999--2008 par les auteurs
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -137,13 +125,10 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- utilisation du programme
+@top GNU LilyPond --- utilisation des programmes
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Ce document est le manuel d'utilisation du programme pour GNU LilyPond 2.11.x.
-@ifhtml
-(Allez au bas de la page pour voir le numéro de version exact).
-@end ifhtml
+Ce document est le manuel d'utilisation des programmes pour GNU LilyPond @version{}.
 
 @cindex web site
 @cindex URL
@@ -156,7 +141,7 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 
 @menu
 * Install::                        installation, compilation.
-* Setup::                          utilisation de LilyPond avec d'autres programmes.
+* Setup::                          environnement de travail pour LilyPond.
 * Running LilyPond::               mode d'emploi.
 * LilyPond-book::                  intégration de texte et musique.
 * Converting from other formats::  conversion vers le format source lilypond.
@@ -170,8 +155,6 @@ Annexes
 
 @contents
 
-
-@include macros.itexi
 
 @include install.itely
 @include setup.itely

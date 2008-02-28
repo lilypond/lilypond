@@ -70,13 +70,13 @@ faciliter leur mise à jour.
 Voici quelques conseils qui peuvent vous éviter certains problèmes ou
 en résoudre d'autres.
 
-@itemize @bullet
+@itemize
 @item @strong{Ajoutez le numéro de version dans chaque fichier}.
 Notez que chaque fichier modèle contient une ligne @code{\version
 "2.11.32"}.  Nous vous conseillons fortement d'inclure cette ligne,
 même pour de petits fichiers.  Par expérience, il est très difficile
 de se rappeler quelle version de LilyPond on utilisait quelques
-années auparavant.  L'utilitaire @code{convert-ly} demande que vous
+années auparavant.  L'utilitaire @command{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
 @item @strong{Ajoutez des contrôles}: @ruser{Bar check}, @ruser{Octave
@@ -542,7 +542,7 @@ chaque fichier de musique par @code{\include "../global.ly"} qui contient :
 
 @example
 %%%   global.ly
-\version "2.11.38"
+\version @w{"@version{}"}
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-mise-en-page.ly"
@@ -560,14 +560,14 @@ plus faciles à lire et à écrire, ou permettent d'intégrer de nouvelles
 fonctionnalités.
 
 LilyPond est fourni avec un utilitaire qui facilite cette mise à
-jour : @code{convert-ly}.  Pour savoir comment utiliser ce programme,
+jour : @command{convert-ly}.  Pour savoir comment utiliser ce programme,
 voir @rprogram{Updating files with convert-ly}.
 
-Malheureusement, @code{convert-ly} ne peut pas réaliser toutes les
+Malheureusement, @command{convert-ly} ne peut pas réaliser toutes les
 modifications.  Il s'occupe des changements qui ne requièrent qu'une
 simple substitution de texte --- comme @code{raggedright} devenant
 @code{ragged-right} ---, les autres étant trop compliqués à effectuer.
-Les changements de syntaxe qui ne sont pas gérés par @code{convert-ly}
+Les changements de syntaxe qui ne sont pas gérés par @command{convert-ly}
 sont énumérés dans @rprogram{Updating files with convert-ly}.
 
 Par exemple, dans les versions 2.4 et antérieures de LilyPond,
