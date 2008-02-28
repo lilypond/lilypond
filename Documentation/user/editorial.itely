@@ -305,33 +305,20 @@ for details.
 @cindex parentheses
 
 Objects may be parenthesized by prefixing @code{\parenthesize} to
-the music event,
+the music event.  This only functions inside chords; to
+parenthesize a single note it must be enclosed with @code{<>} as
+if it is a chord.
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
-<
-  c
-  \parenthesize d
-  g
->2-\parenthesize -.
-d g 
-<
-  c,
-  \parenthesize fis
->
+c2 < \parenthesize d>
+<\parenthesize e> d
 @end lilypond
 
-This only functions inside chords, to parenthesize a single note it 
-must be enclosed with @code{<>} as if it is a chord.
-
-@example
-< \parenthesize NOTE>
-@end example
+Non-note objects may be parenthesized as well.
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
-c4
-<\parenthesize d>
-g
-<\parenthesize d>
+< c \parenthesize d g >2-\parenthesize -. d
+g < c, \parenthesize fis >
 @end lilypond
 
 @seealso
