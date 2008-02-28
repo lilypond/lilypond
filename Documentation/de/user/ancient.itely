@@ -509,7 +509,7 @@ der Schlüssel gesetzt wird.
 
 In diesem Handbuch: siehe @ref{Clef}.
 
-@refbugs
+@knownissues
 
 Der mensurale G-Schlüssel ist als Petrucci-G-schlüssel deklariert.
 
@@ -541,7 +541,7 @@ für das Incipit bei der Transkription mensuraler Musik der Standardstil
 benutzt werden. Für die Notation des Gregorianischen Chorals gibt es keine 
 Fähnchen.
 
-@refbugs
+@knownissues
 
 Die Positionierung der Fähnchen an den Hälsen ist leicht verschoben seit einer 
 Änderung in einer frühen 2.3.x-Version.
@@ -648,7 +648,7 @@ Im folgenden Beispiel sind die unterschiedlichen Stile dargestellt.
 In diesem Handbuch: @ref{Time signature} bietet eine allgemeine Übersicht über 
 den Einsatz von Taktangaben.
 
-@refbugs
+@knownissues
 
 Die Verhältnisse der Notenwerte ändern sich nicht, wenn die Taktart (Mensur) 
 gewechselt wird. Zum Beispiel muss das Verhältnis 1 brevis = 3 semibrevis
@@ -696,7 +696,7 @@ sie mit der Notation des Editio Vaticana-Stils verwendet werden können.
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 Einige Artikulationszeichen sind vertikal zu dich an den entsprechenden 
 Notenköpfen gesetzt.
@@ -810,7 +810,7 @@ sich in der Datei @file{gregorian@/-init@/.ly} auch eine Definition für
 
 @lilypondfile[quote,ragged-right]{divisiones.ly}
 
-@refcommands
+@predefined
 
 @funindex \virgula
 @code{\virgula},
@@ -866,7 +866,7 @@ Abschnitten erklärt wird. Nur weiße Mensuralligaturen sind unterstützt -- mit
 Einschränkungen.
 
 
-@refbugs
+@knownissues
 
 Ligaturen benötigen von klassischer Notation unterschiedliche Platzaufteilung, 
 was sie aber noch nicht können. Darum ist fast immer zu viel Platz zwischen 
@@ -977,7 +977,7 @@ wie folgt ausgegeben:
 }
 @end lilypond
 
-@refbugs
+@knownissues
 
 Die horizontale Positionierung ist sehr schlecht.
 
@@ -1884,7 +1884,7 @@ funktionieren beide Befehle. Es ist auch möglich, mit
 }
 @end lilypond
 
-@refcommands
+@predefined
 
 Folgende Notenpräfixe sind unterstützt:
 
@@ -1926,7 +1926,7 @@ fallende Melodielinie zu notieren.
 Die musikalische Funktion @code{\augmentum} muss benutzt werden, um 
 augmentum-Punkte hinzuzufügen.
 
-@refbugs
+@knownissues
 
 Wenn ein @code{\augmentum}-Punkt am Ende des letzten Systems innerhalb 
 einer Ligatur gesetzt wird, ist er vertikal etwas falsch positioniert. Als 
@@ -2218,7 +2218,7 @@ Befehl
 benutzt werden.
 
 
-@refbugs
+@knownissues
 
 Wenn Bassziffern über dem Notensystem mit Ergänzungslinien und
 @code{implicitBassFigures}  benutzt werden, kann es vorkommen, dass 

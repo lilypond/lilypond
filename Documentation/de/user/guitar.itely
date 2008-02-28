@@ -118,7 +118,7 @@ initialisiert werden:
 
 Programmreferenz: @internalsref{TabStaff}, @internalsref{TabVoice}.
 
-@refbugs
+@knownissues
 
 Akkorde werden nicht gesondert behandelt, sodass die Saitenauswahlfunktion 
 eventuell die selbe Saite für zwei Töne eines Akkordes auswählen kann.
@@ -185,7 +185,7 @@ In der Datei @file{scm/@/output@/-lib@/.scm} sind die Stimmungen
 definiert.
 Programmreferenz: @internalsref{Tab_note_heads_engraver}.
 
-@refbugs
+@knownissues
 
 Spezialeffekte für Gitarren sind noch nicht implementiert.
 
