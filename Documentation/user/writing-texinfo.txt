@@ -161,6 +161,19 @@ commands.
 
   Do not use @itemize @bullet.
 
+* To get LilyPond version, use @version{} (this does not work inside
+  LilyPond snippets).  If you write "@version{}" (enclosed with
+  quotes), or generally if @version{} is not followed by a space,
+  enclose it with
+
+   @w{ ... }
+
+  e.g.
+
+  @w{"@version{}"}
+
+  to prevent an ugly line break in PDF output.
+
 
 %%%%% SYNTAX SURVEY
 
