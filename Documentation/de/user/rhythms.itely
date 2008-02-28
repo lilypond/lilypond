@@ -107,7 +107,7 @@ ergeben eine doppelte Punktierung.
 a'4 b' c''4. b'8 a'4. b'4.. c''8.
 @end lilypond
 
-@refcommands
+@predefined
 
 Punkte werden normalerweise nach oben verschoben, damit sie die Notenlinien 
 nicht berühren. Das gilt aber nicht für mehrstimmige Passagen. Mit den 
@@ -161,7 +161,7 @@ Diese Brüche können auch ineinander geschachtelt werden, etwa so:
 }
 @end lilypond
 
-@refcommands
+@predefined
 
 @funindex \tupletUp
 @code{\tupletUp},
@@ -500,7 +500,7 @@ Programmreferenz: @internalsref{TimeSignature} und
 Beispiele: @lsr{contemporary,compound-time-signature.ly}.
 
 
-@refbugs
+@knownissues
 
 Automatische Balken richten sich nicht nach den Taktunterteilungen, die 
 mit @code{set-time-signature} erzeugt werden.
@@ -539,7 +539,7 @@ die darstellt, wie groß der Abstand zum Taktanfang ist. Deshalb ist
 sie eine negative Zahl; @code{\partial 4} wird also intern übersetzt 
 zu: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
-@refbugs
+@knownissues
 
 Dieser Befehl berücksichtigt keine Verzierungen/Vorschläge am Anfang der 
 Noten. Wenn ein Stück mit einem Vorschlag anfängt, muss der Befehl 
@@ -580,7 +580,7 @@ d4 e d c
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 LilyPond fügt Zeilen- und Seitenumbrüche nur an einer Taktlinie 
 ein. Wenn die Kadenz nicht vor einem Umbruch endet, müssen Sie 
@@ -631,7 +631,7 @@ den Formatierer  @internalsref{Forbid_line_break_engraver}  mit
 dem @code{\remove}-Befehl entfernen.
 
 
-@refbugs
+@knownissues
 
 Nicht alle Notenwerte (besonders wenn sie andere rhythmische 
 Aufteilungen beinhalten) können exakt durch normale Noten und 
@@ -761,7 +761,7 @@ wenn ein großer Abstand zwischen Notenköpfen gefunden wird. Die Größe
 des Wertes kann mit dem 
 @code{auto-knee-gap}-Objekt eingestellt werden.
 
-@refbugs
+@knownissues
 
 Automatisch erstellte Balken zwischen Systemen können nicht zusammen 
 mit automatisch versteckten Systemen verwendet werden. Siehe auch
@@ -1154,7 +1154,7 @@ zu werden.
 Programmreferenz: @internalsref{GraceMusic}.
 
 
-@refbugs
+@knownissues
 
 Eine Partitur, die mit einem @code{\grace}-Ausdruck beginnt, benötigt 
 eine explizit gesetzte neue Stimme (@code{\new Voice}), sonst werden 

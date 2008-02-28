@@ -189,7 +189,7 @@ System ausgegeben. Das kann verändert werden, indem
 @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 
-@refbugs
+@knownissues
 
 @cindex Wiederholung, mehrdeutig
 
@@ -364,7 +364,7 @@ c'2:8 c':32 | c': c': |
 @end lilypond
 
 
-@refbugs
+@knownissues
 
 Tremolos, die auf diese Weise notiert werden, werden nicht in die 
 MIDI-Datei aufgenommen.

@@ -207,7 +207,7 @@ Mikrotöne werden auch in die MIDI-Dateien geschrieben.
 
 
 
-@refbugs
+@knownissues
 
 Es gibt keine allgemein anerkannten Standards für die 
 Notation von Dreiviertelton-Erniedrigungszeichen. LilyPonds
@@ -521,7 +521,7 @@ Programmreferenz: @internalsref{TransposedMusic}.
 Beispiel: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
 
-@refbugs
+@knownissues
 
 Wenn Sie sowohl  @code{\transpose} als auch @code{\relative} 
 benutzen wollen, muss die @code{\transpose}-Umgebung sich 
