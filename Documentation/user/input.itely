@@ -16,6 +16,12 @@ rather than specific notation.
 FIXME: don't complain about anything in this chapter.  It's still
 under heavy development.
 
+FIXME: add comments
+@verbatim
+% %{
+@end verbatim
+to 3.1.
+
 @menu
 * Input files::                 
 * Common syntax issues TODO name?::  
