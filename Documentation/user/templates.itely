@@ -31,13 +31,13 @@ beautiful printed scores!
 
 @appendixsubsec Notes only
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
 {single-staff-template-with-only-notes.ly}
 
 
 @appendixsubsec Notes and lyrics
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
 {single-staff-template-with-notes-and-lyrics.ly}
 
 @appendixsubsec Notes and chords
