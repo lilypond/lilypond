@@ -6,11 +6,15 @@ STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 EXTRA_DIST_FILES += README $(call src-wildcard,*.snippet-list)
 
+ifneq ($(out),)
 MAIN_INFO_DOC = lilypond-snippets
 INFO_DOCS = lilypond-snippets
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 INFO_IMAGES_DIR = lilypond-snippets
 DEST_INFO_IMAGES_SUBDIR = input/lsr
+endif
+
+default:
 
 include $(depth)/make/stepmake.make
 
@@ -25,9 +29,11 @@ $(outdir)/lilypond-snippets.texi: $(GENERATED_ITELY_FILES)
 info: $(INFO_FILES)
 
 ifneq ($(out),www)
-# cancel install-info target
+# cancel install-info target and $(INFO_FILES) 'default' target
 # (there is no lilypond-snippets.info without images)
 local-install-info:
+
+$(INFO_FILES):
 	true
 endif
 

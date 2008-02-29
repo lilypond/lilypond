@@ -87,7 +87,7 @@ def build_pages_dict (filelist):
 def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
-splitted_docs_re = re.compile ('(input/lsr/out-www/snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
+splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
 
 snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
 
@@ -95,7 +95,7 @@ snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
 # This function avoids creating symlinks for splitted HTML manuals
 # Get rid of symlinks in GNUmakefile.in (local-WWW-post)
 # this also fixes missing PNGs only present in translated docs
-def _urls (s, prefix):
+def hack_urls (s, prefix):
     if splitted_docs_re.match (prefix):
         s = re.sub ('(href|src)="(lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
 
@@ -268,7 +268,7 @@ def add_html_footer (translation,
             in_f.close()
 
             s = re.sub ('%', '%%', s)
-            s = replace_symlinks_urls (s, prefix)
+            s = hack_urls (s, prefix)
             s = add_header (s)
 
             ### add footer

@@ -20,6 +20,11 @@ install-info: $(INFO_FILES)
 uninstall-info:
 	$(INFO_INSTALL_COMMAND) local-uninstall
 
+ifeq ($(INFO_FILES),)
+local-install-info:
+local-uninstall-info:
+
+else # $(INFO_FILES) non empty
 # There are two modes for info: with and without images.
 ifeq ($(out),www)
 
@@ -87,6 +92,7 @@ endif # installing into standard /usr/* root# installing into /usr/...
 
 endif # out!=www
 
+endif # $(INFO_FILES) non empty
 
 TEXINFO_ALL_MENUS_UPDATE_EL ='\
   (let ((error nil)\
