@@ -126,7 +126,7 @@ def get_option_parser ():
 
 
 def str_to_tuple (s):
-    return tuple ([int n for n in s.split ('.')])
+    return tuple ([int(n) for n in s.split ('.')])
 
 def tup_to_str (t):
     return '.'.join (['%s' % x for x in t])
@@ -143,8 +143,6 @@ def get_conversions (from_version, to_version):
     return filter (is_applicable, convertrules.conversions)
 
 def latest_version ():
-    if global_options.force_current_version:
-        return str_to_tuple (program_version)
     return convertrules.conversions[-1][0]
 
 def show_rules (file, from_version, to_version):
@@ -222,9 +220,11 @@ def do_one_file (infile_name):
 
 
     (last, result) = do_conversion (input, from_version, to_version)
-    infile.close ()
 
     if last:
+        if global_options.force_current_version and last == to_version:
+            last = str_to_tuple (program_version)
+
         newversion = r'\version "%s"' % tup_to_str (last)
         if lilypond_version_re.search (result):
             result = re.sub (lilypond_version_re_str,
