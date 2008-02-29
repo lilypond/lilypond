@@ -658,7 +658,7 @@ will be printed with a verbatim block like
 
 @item addversion
 (Only for Texinfo output.)  Prepend line @code{\version
-@@w{"@@version@{@}"}} to @code{verbatim} output.
+@@w@{"@@version@{@}"@}} to @code{verbatim} output.
 
 @item texidoc
 (Only for Texinfo output.)  If @command{lilypond} is called with the

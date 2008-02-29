@@ -515,7 +515,8 @@ simple_options = [
     VERBATIM,
     FONTLOAD,
     FILENAME,
-    ALT
+    ALT,
+    ADDVERSION
 ]
 
 ly_options = {
@@ -680,12 +681,14 @@ output = {
 ''',
 
         VERBATIM: r'''@exampleindent 0
-@verbatim
+%(version)s@verbatim
 %(verb)s@end verbatim
 ''',
 
-        ADDVERSION: r'''\version @w{"@version{}"}
-%(verb)s'''
+        ADDVERSION: r'''@example
+\version @w{"@version{}"}
+@end example
+'''
     },
 }
 
@@ -1263,12 +1266,11 @@ class Lilypond_snippet (Snippet):
 
         substr = ''
         if VERBATIM in self.option_dict:
-            verb = self.verb_ly ()
+            version = ''
             if ADDVERSION in self.option_dict:
-                verb = output[TEXINFO][ADDVERSION] % vars ()
-            substr += output[TEXINFO][VERBATIM] % vars ()
-            if not QUOTE in self.option_dict:
-                substr = output[TEXINFO][NOQUOTE] % {'str':substr}
+                version = output[TEXINFO][ADDVERSION]
+            verb = self.verb_ly ()
+            substr = output[TEXINFO][VERBATIM] % vars ()
         substr += self.output_info ()
         if LILYQUOTE in self.option_dict:
             substr = output[TEXINFO][QUOTE] % {'str':substr}
