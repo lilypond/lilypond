@@ -197,6 +197,7 @@ default_ly_options = { 'alt': "[image of music]" }
 #
 # Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
 #
+ADDVERSION = 'addversion'
 AFTER = 'after'
 BEFORE = 'before'
 DOCBOOK = 'docbook'
@@ -682,6 +683,9 @@ output = {
 @verbatim
 %(verb)s@end verbatim
 ''',
+
+        ADDVERSION: r'''\version @w{"@version{}"}
+%(verb)s'''
     },
 }
 
@@ -1260,6 +1264,8 @@ class Lilypond_snippet (Snippet):
         substr = ''
         if VERBATIM in self.option_dict:
             verb = self.verb_ly ()
+            if ADDVERSION in self.option_dict:
+                verb = output[TEXINFO][ADDVERSION] % vars ()
             substr += output[TEXINFO][VERBATIM] % vars ()
             if not QUOTE in self.option_dict:
                 substr = output[TEXINFO][NOQUOTE] % {'str':substr}

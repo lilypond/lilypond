@@ -656,6 +656,10 @@ will be printed with a verbatim block like
   f2 e
 @end example
 
+@item addversion
+(Only for Texinfo output.)  Prepend line @code{\version
+@@w{"@@version@{@}"}} to @code{verbatim} output.
+
 @item texidoc
 (Only for Texinfo output.)  If @command{lilypond} is called with the
 @option{--header=@/texidoc} option, and the file to be processed is
