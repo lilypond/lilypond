@@ -50,9 +50,9 @@ Copyright @copyright{} 1999--2007 by the authors
 
 @c TODO: multiple omfcreators?
 @ignore
-@omfcreator Christian Mondrup
+@omfcreator Christian Mondrup, Kurt Kroon
 @omfdescription Glossary of musical terms with translations
-@omftype user's guide
+@omftype glossary
 @omfcategory Applications|Publishing
 @omflanguage English
 @end ignore

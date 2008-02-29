@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 @setfilename lilypond.info
-@settitle GNU LilyPond user manual
+@settitle GNU LilyPond User Manual
 @documentencoding UTF-8
 @documentlanguage en
 
@@ -136,7 +136,7 @@ Free Documentation License''.
 @top GNU LilyPond --- The music typesetter
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the user manual for GNU LilyPond version @version{}.
+This is the User Manual for GNU LilyPond version @version{}.
 
 @cindex web site
 @cindex URL
