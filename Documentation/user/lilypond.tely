@@ -60,7 +60,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c don't remove this comment.
 @ignore
 @omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription User manual of the LilyPond music engraving system
+@omfdescription Notation Reference of the LilyPond music engraving system
 @omftype user manual
 @omfcategory Applications|Publishing
 @omflanguage English
@@ -84,7 +84,7 @@ This document is also available as a
 @titlepage
 @title LilyPond
 @subtitle The music typesetter
-@titlefont{User manual}
+@titlefont{Notation Reference}
 @author The LilyPond development team
 
 Copyright @copyright{} 1999--2007 by the authors
