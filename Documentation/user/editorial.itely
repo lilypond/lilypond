@@ -248,7 +248,6 @@ gis a
 gis a
 \override NoteHead #'color = #(x11-color "LimeGreen")
 gis a
-
 % this is deliberate nonsense; note that the stems remain black
 \override Stem #'color = #(x11-color 'Boggle)
 b2 cis
@@ -306,33 +305,20 @@ for details.
 @cindex parentheses
 
 Objects may be parenthesized by prefixing @code{\parenthesize} to
-the music event,
+the music event.  This only functions inside chords; to
+parenthesize a single note it must be enclosed with @code{<>} as
+if it is a chord.
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
-<
-  c
-  \parenthesize d
-  g
->2-\parenthesize -.
-d g 
-<
-  c,
-  \parenthesize fis
->
+c2 < \parenthesize d>
+<\parenthesize e> d
 @end lilypond
 
-This only functions inside chords, to parenthesize a single note it 
-must be enclosed with @code{<>} as if it is a chord.
-
-@example
-< \parenthesize NOTE>
-@end example
+Non-note objects may be parenthesized as well.
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
-c4
-<\parenthesize d>
-g
-<\parenthesize d>
+< c \parenthesize d g >2-\parenthesize -. d
+g < c, \parenthesize fis >
 @end lilypond
 
 @seealso
@@ -436,15 +422,19 @@ notes.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" %% sets of grid
+    \consists "Grid_point_engraver" 
+    % sets up grids
     gridInterval = #(ly:make-moment 1 4)
+    % this sets the grid interval to 1 quarternote (crotchet)
   }
 }
 
 \new Score \with {
   \consists "Grid_line_span_engraver"
-  %% centers grid lines  horizontally below note heads
+  %% centers grid lines  horizontally below note heads by default 
+  %the grid lines are aligned with the left side of the notehead
   \override NoteColumn #'X-offset = #-0.5
+  % this moves them to the right half a staff space
 }
 
 \new ChoirStaff <<
@@ -455,8 +445,9 @@ notes.
     }
   }
   \new Staff {
-    %% centers grid lines  vertically
     \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+    % by default the grid lines join the middle line of each staff,
+    % this moves them up one staff space
     \stemDown
     \clef bass
     \relative c {

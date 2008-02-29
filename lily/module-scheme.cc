@@ -14,7 +14,7 @@
 
 
 /*
-  If a variable in changed in SRC, we DEST doesn't see the
+  If a variable is changed in SRC, then DEST doesn't see the
   definitions.
 */
 
