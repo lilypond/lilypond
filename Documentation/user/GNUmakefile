@@ -24,11 +24,13 @@ PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
 # this prevents aux files from being reused for translated docs
 TEXI2PDF_FLAGS = --tidy
 
+MAIN_INFO_DOC = lilypond
 INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
 
 ifeq ($(out),www)
 INFO_IMAGES_DIR = lilypond
+DEST_INFO_IMAGES_SUBDIR = Documentation/user
 endif
 
 STEPMAKE_TEMPLATES=tex texinfo omf documentation
@@ -48,80 +50,6 @@ info: $(INFO_FILES)
 
 xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-internals.xml
 
-# There are two modes for info: with and without images.
-ifeq ($(out),www)
-
-# This builds all .info targets with images, in out-www.
-# Viewable with a recent Emacs, doing: C-u C-h i out-www/lilypond.info
-
-local-install-info: info
-	-$(INSTALL) -d $(DESTDIR)$(infodir)
-ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
-## Can not have absolute symlinks because some binary packages build schemes
-## install files in nonstandard root.  Best we can do is to notify the
-## builder or packager.
-	@echo
-	@echo "***************************************************************"
-	@echo "Please add or update the LilyPond direntries, do"
-	@echo
-	@echo "    install-info --info-dir=$(infodir) $(outdir)/lilypond.info"
-	@echo
-	@echo "For images in the INFO docs to work, do: "
-	@echo
-	@echo "    (cd $(infodir) && ln -sfT ../doc/lilypond/html/Documentation/user lilypond)"
-	@echo "or add something like that to the postinstall script."
-	@echo
-else # installing directly into standard /usr/...
-	-$(INSTALL) -d $(DESTDIR)$(infodir)
-	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
-	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
-	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-learning.info
-	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-internals.info
-	-install-info --remove --info-dir=$(infodir) $(outdir)/music-glossary.info
-	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
-	cd $(infodir) && ln -sfT $(webdir)/Documentation/user lilypond
-endif # installing directly into standard /usr/...
-
-local-uninstall-WWW:
-	rm -f $(infodir)/lilypond
-
-else # out!=www
-
-local-install-info: info
-	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
-ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
-## Can not have absolute symlinks because some binary packages build schemes
-## install files in nonstandard root.  Best we can do is to notify the
-## builder or packager.
-	@echo
-	@echo "***************************************************************"
-	@echo "Please add or update the LilyPond direntries, do"
-	@echo
-	@echo "    install-info --info-dir=$(infodir) out/lilypond.info"
-	@echo
-	@echo "For images in the INFO docs to work, do"
-	@echo
-	@echo "    make out=www install-info "
-	@echo
-	@echo "and read the extra instructions."
-	@echo
-else # installing directly into standard /usr/...
-	-$(INSTALL) -d $(DESTDIR)$(infodir)
-	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond.info
-	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-program.info
-	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-learning.info
-	-install-info --remove --info-dir=$(infodir) $(outdir)/lilypond-internals.info
-	-install-info --remove --info-dir=$(infodir) $(outdir)/music-glossary.info
-	install-info --info-dir=$(infodir) $(outdir)/lilypond.info
-	@echo
-	@echo "***************************************************************"
-	@echo "For images in the INFO docs to work, do"
-	@echo
-	@echo "    make out=www install-info "
-	@echo
-endif # installing into standard /usr/* root# installing into /usr/...
-
-endif # out!=www
 
 # All web targets, except info image symlinks and info docs are
 # installed in non-recursing target from TOP-SRC-DIR
@@ -191,7 +119,8 @@ DEEP_HTML_FILES =\
  $(outdir)/lilypond-learning/index.html
 
 # Symlinks to refer to external source documents from split and non-split HTML
-source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossary/source $(outdir)/lilypond-program/source $(outdir)/lilypond-learning/source
+source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossary/source \
+ $(outdir)/lilypond-program/source $(outdir)/lilypond-learning/source
 
 $(outdir)/source:
 	@rm -f $(@)

@@ -167,6 +167,10 @@
 @ref{\TEXT\,,,lilypond-learning-big-page}
 @end macro
 
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets-big-page}
+@end macro
+
 @end ifset
 
 
@@ -195,6 +199,10 @@
 @macro rlearning{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets}
 @end macro
 
 @end ifclear
@@ -230,6 +238,10 @@
 @ref{\TEXT\,,,lilypond-learning}
 @end macro
 
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets}
+@end macro
+
 @end ifdocbook
 
 
@@ -261,6 +273,10 @@
 @ref{\TEXT\,,,lilypond-learning}
 @end macro
 
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets}
+@end macro
+
 @end ifinfo
 
 
@@ -279,17 +295,18 @@
 
 @macro rprogram{TEXT}
 program usage manual, @ref{\TEXT\,,,lilypond-program}
-@c @internalsref{\TEXT\}
 @end macro
 
 @macro ruser{TEXT}
 notation reference, @ref{\TEXT\,,,lilypond}
-@c @internalsref{\TEXT\}
 @end macro
 
 @macro rlearning{TEXT}
 learning manual, @ref{\TEXT\,,,lilypond-learning}
-@c @internalsref{\TEXT\}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets}
 @end macro
 
 @end iftex

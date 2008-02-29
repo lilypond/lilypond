@@ -1245,19 +1245,12 @@ class Lilypond_snippet (Snippet):
         if PRINTFILENAME in self.option_dict:
             base = self.basename ()
             filename = os.path.basename (self.substring ('filename'))
-            str = output[global_options.format][PRINTFILENAME] % vars ()
+            str = output[format][PRINTFILENAME] % vars ()
 
         return str
 
     def output_texinfo (self):
-        str = ''
-        if self.output_print_filename (TEXINFO):
-            str += ('@html\n'
-                + self.output_print_filename (HTML)
-                + '\n@end html\n')
-            str += ('@tex\n'
-                + self.output_print_filename (LATEX)
-                + '\n@end tex\n')
+        str = self.output_print_filename (TEXINFO)
         base = self.basename ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'

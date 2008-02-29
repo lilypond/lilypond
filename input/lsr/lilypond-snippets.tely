@@ -1,5 +1,5 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
-@setfilename snippets.info
+@setfilename lilypond-snippets.info
 @settitle LilyPond snippets
 @documentencoding UTF-8
 @documentlanguage en
@@ -12,6 +12,11 @@
 \gdef\SETtxicodequotebacktick{Bla}
 @end tex
 @end iftex
+
+@dircategory GNU LilyPond --- the music typesetter
+@direntry
+* LilyPond Snippets: (lilypond-snippets)        Short tricks, tips, and examples.
+@end direntry
 
 @finalout
 
@@ -33,8 +38,8 @@ LSR web site and database, and the University of Milano for hosting LSR.
 Please note that this document is not an exact subset of LSR: some
 snippets come from @file{input/new} LilyPond sources directory, and
 snippets from LSR are converted through @command{convert-ly}, as LSR is
-based on a stable LilyPond version, and this document may be for a newer
-version (see below).
+based on a stable LilyPond version, and this document is for version
+@value{version}.
 
 Snippets are grouped by tags; tags listed in the table of contents match
 a section of LilyPond notation manual.  Snippets may have several tags,
@@ -43,20 +48,6 @@ and not all LSR tags may appear in this document.
 In the HTML version of this document, you can click on the file name
 or figure for each example to see the corresponding input file.
 
-@lilypond[ragged-right]
-\score {
-  \context Lyrics {
-    \override Score.RehearsalMark #'self-alignment-X = #LEFT
-    \override Score.RehearsalMark #'font-size = #-1
-    \mark #(ly:export (string-append
-      "This document is for LilyPond version " (lilypond-version) "."))
-    s2
-  }
-  \layout {
-    indent = 0.0\pt
-  }
-}
-@end lilypond
 @end titlepage
 
 @iftex
@@ -74,8 +65,7 @@ This document shows a selected set of LilyPond snippets from the
 Please note that it is not an exact subset of LSR: some snippets come
 from @file{input/new} LilyPond sources directory, and snippets from LSR
 are converted through @command{convert-ly}, as LSR is based on a stable
-LilyPond version, and this document may be for a newer version (see
-below).
+LilyPond version, and this document is for version @value{version}.
 
 Snippets are grouped by tags; tags listed in the table of contents match
 a section of LilyPond notation manual.  Snippets may have several tags,

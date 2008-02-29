@@ -81,7 +81,6 @@ for opt in options:
         raise Exception ('unknown option: ' + o)
 
 def name2line (n):
-    # UGR
     s = r"""
 @ifhtml
 @html
@@ -89,7 +88,8 @@ def name2line (n):
 @end html
 @end ifhtml
 
-@lilypondfile[%s]{%s}""" % (os.path.basename (n), fragment_options, n)
+@lilypondfile[%s]{%s}
+""" % (os.path.basename (n), fragment_options, n)
     return s
 
 if files:
