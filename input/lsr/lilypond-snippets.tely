@@ -15,7 +15,7 @@
 
 @dircategory GNU LilyPond --- the music typesetter
 @direntry
-* LilyPond Snippets: (lilypond-snippets)        Short tricks, tips, and examples.
+* LilyPond Snippets: (lilypond-snippets).       Short tricks, tips, and examples.
 @end direntry
 
 @finalout
