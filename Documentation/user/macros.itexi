@@ -6,8 +6,9 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@macro version
+@c FIXME: will deal with later.
 @c @value{version}
+@macro version
 2.11.41
 @end macro
 

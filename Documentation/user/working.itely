@@ -536,7 +536,7 @@ file with @code{\include "../global.ly"}, which contains
 
 @example
 %%%   global.ly
-\version "2.11.38"
+\version "@version{}"
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-layout.ly"
