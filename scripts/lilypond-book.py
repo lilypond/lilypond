@@ -197,6 +197,7 @@ default_ly_options = { 'alt': "[image of music]" }
 #
 # Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
 #
+ADDVERSION = 'addversion'
 AFTER = 'after'
 BEFORE = 'before'
 DOCBOOK = 'docbook'
@@ -514,7 +515,8 @@ simple_options = [
     VERBATIM,
     FONTLOAD,
     FILENAME,
-    ALT
+    ALT,
+    ADDVERSION
 ]
 
 ly_options = {
@@ -679,9 +681,14 @@ output = {
 ''',
 
         VERBATIM: r'''@exampleindent 0
-@verbatim
+%(version)s@verbatim
 %(verb)s@end verbatim
 ''',
+
+        ADDVERSION: r'''@example
+\version @w{"@version{}"}
+@end example
+'''
     },
 }
 
@@ -1244,20 +1251,13 @@ class Lilypond_snippet (Snippet):
         str = ''
         if PRINTFILENAME in self.option_dict:
             base = self.basename ()
-            filename = self.substring ('filename')
-            str = output[global_options.format][PRINTFILENAME] % vars ()
+            filename = os.path.basename (self.substring ('filename'))
+            str = output[format][PRINTFILENAME] % vars ()
 
         return str
 
     def output_texinfo (self):
-        str = ''
-        if self.output_print_filename (TEXINFO):
-            str += ('@html\n'
-                + self.output_print_filename (HTML)
-                + '\n@end html\n')
-            str += ('@tex\n'
-                + self.output_print_filename (LATEX)
-                + '\n@end tex\n')
+        str = self.output_print_filename (TEXINFO)
         base = self.basename ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
@@ -1266,10 +1266,11 @@ class Lilypond_snippet (Snippet):
 
         substr = ''
         if VERBATIM in self.option_dict:
+            version = ''
+            if ADDVERSION in self.option_dict:
+                version = output[TEXINFO][ADDVERSION]
             verb = self.verb_ly ()
-            substr += output[TEXINFO][VERBATIM] % vars ()
-            if not QUOTE in self.option_dict:
-                substr = output[TEXINFO][NOQUOTE] % {'str':substr}
+            substr = output[TEXINFO][VERBATIM] % vars ()
         substr += self.output_info ()
         if LILYQUOTE in self.option_dict:
             substr = output[TEXINFO][QUOTE] % {'str':substr}

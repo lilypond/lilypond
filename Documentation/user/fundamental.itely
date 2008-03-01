@@ -40,7 +40,7 @@ description of the input format, see @ruser{File structure}.
 A basic example of a lilypond input file is
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 \score @{
   @var{...compound music expression...}  % all the music goes here!
   \header @{ @}
@@ -1589,7 +1589,7 @@ engraver is removed from a context it can no longer produce its
 output.  This is a crude way of modifying the output, but it
 can sometimes be useful.
 
-@subsubsection Changing a single context
+@subsubheading Changing a single context
 
 To remove an engraver from a single context we use the
 @code{\with} command placed immediately after the context creation 
@@ -1670,7 +1670,7 @@ the notes in all the voices on that staff:
 >>
 @end lilypond
 
-@subsubsection Changing all contexts of the same type
+@subsubheading Changing all contexts of the same type
 
 The examples above show how to remove or add engravers to
 individual contexts.  It is also possible to remove or add 
@@ -1739,7 +1739,7 @@ cello.  In this case, we would start with @q{Notes and lyrics} (for the
 soprano part).
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -1767,7 +1767,7 @@ text = \lyricmode @{
 Now we want to add a cello part.  Let's look at the @q{Notes only} example:
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 melody = \relative c' @{
   \clef treble
   \key c \major
@@ -1804,7 +1804,7 @@ celli normally use bass clef.  We'll also give the cello some
 different notes.
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 sopranoMusic = \relative c' @{
   \clef treble
   \key c \major
@@ -1873,7 +1873,7 @@ This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.37"
+\version "2.11.38"
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
@@ -1921,7 +1921,6 @@ from Handel's Messiah:
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
-\version "2.11.38"
 global = { \key d \major \time 4/4 }
 sopMusic = \relative c'' {
   \clef "treble"
@@ -2193,7 +2192,7 @@ music definitions and one to define the time signature
 and key:
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 \header @{
   title = "Jesu, meine Freude"
   composer = "J S Bach"

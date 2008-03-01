@@ -87,15 +87,21 @@ def build_pages_dict (filelist):
 def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
-splitted_docs_re = re.compile ('(input/lsr/out-www/snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
+splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
 
-# On systems without symlinks (e.g. Windows), docs are not very usable
-# Get rid of symlinks references here
+snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
+
+## Windows does not support symlinks.
+# This function avoids creating symlinks for splitted HTML manuals
 # Get rid of symlinks in GNUmakefile.in (local-WWW-post)
 # this also fixes missing PNGs only present in translated docs
-def replace_symlinks_urls (s, prefix):
+def hack_urls (s, prefix):
     if splitted_docs_re.match (prefix):
         s = re.sub ('(href|src)="(lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
+
+    # fix Snippets xrefs ad hoc
+    s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
+
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):
         return s
@@ -262,7 +268,7 @@ def add_html_footer (translation,
             in_f.close()
 
             s = re.sub ('%', '%%', s)
-            s = replace_symlinks_urls (s, prefix)
+            s = hack_urls (s, prefix)
             s = add_header (s)
 
             ### add footer

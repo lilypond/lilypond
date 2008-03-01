@@ -216,6 +216,7 @@ ADD_INTERFACE (Note_column,
 	       "arpeggio "
 	       "force-hshift "
 	       "horizontal-shift "
+	       "ignore-collision "
 	       "note-heads "
 	       "rest "
 	       "rest-collision "

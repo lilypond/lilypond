@@ -117,7 +117,7 @@ a4^\prall^\markup { \sharp }
 Programmreferenz: @internalsref{Script}.
 
 
-@refbugs
+@knownissues
 
 Diese Zeichen erscheinen zwar im Druck, haben aber keine Auswirkung 
 auf die produzierte MIDI-Datei.
@@ -283,7 +283,7 @@ zu unterdrücken, kann der Befehl
 @noindent
 eingesetzt werden.
 
-@refcommands
+@predefined
 
 @funindex \dynamicUp
 @code{\dynamicUp},
@@ -408,7 +408,7 @@ die Richtung (1=nach oben, -1=nach unten).
 @end lilypond
 
 
-@refcommands
+@predefined
 
 
 @funindex \tieUp
@@ -432,7 +432,7 @@ Im Handbuch: @ref{Automatic note splitting}.
 Programmreferenz: @internalsref{Tie}.
 
 
-@refbugs
+@knownissues
 
 Der Wechsel zwischen Systemen bei aktiver Überbindung produziert keinen 
 gekrümmten Bogen.
@@ -485,7 +485,7 @@ markieren. Das kann in LilyPond erreicht werden, indem die Eigenschaft
 @end lilypond
 
 
-@refcommands
+@predefined
 
 @funindex \slurUp
 @code{\slurUp},
@@ -528,7 +528,7 @@ anstelle dessen muss
 Es können keine simultanen Phrasierungsbögen gesetzt werden.
 
 
-@refcommands
+@predefined
 
 @funindex \phrasingSlurUp
 @code{\phrasingSlurUp},
@@ -659,7 +659,7 @@ Beispiele:
 
 
 
-@refbugs
+@knownissues
 
 Text über der Linie (wie etwa @emph{gliss.}) wird nicht unterstützt.
 
@@ -717,7 +717,7 @@ Klaviersystem die Eigenschaft
 @c TODO: cross-voice arpeggio example?
 @c such an example is already in LSR -J.Mandereau
 
-@refcommands
+@predefined
 
 @code{\arpeggio},
 @funindex \arpeggioUp
@@ -737,7 +737,7 @@ Notationshandbuch: @ref{Ties}, um Arpeggios auszuschreiben.
 Programmreferenz: @internalsref{Arpeggio}.
 
 
-@refbugs
+@knownissues
 
 Es ist nicht möglich, Arpeggios zwischen Systemen und solche, die sich 
 nur auf ein System erstrecken, zum gleichen Zeitpunkt in einem 
@@ -776,7 +776,7 @@ Dabei ist das erste Argument die Hauptnote. Die zweite Note wird
 ohne Hals in Klammern gesetzt.
 
 
-@refcommands
+@predefined
 
 @code{\startTrillSpan},
 @funindex \startTrillSpan

@@ -12,7 +12,6 @@
 
 import os
 import sys
-import string
 import re
 
 """
@@ -92,19 +91,26 @@ def get_option_parser ():
     
     p.add_option ('-e', '--edit', help=_ ("edit in place"),
               action='store_true')
+
     p.add_option ('-n', '--no-version',
               help=_ ("do not add \\version command if missing"),
               action='store_true',
               dest='skip_version_add',
               default=False)
+
+    p.add_option ('-c', '--current-version',
+              help=_ ("force updating \\version number to %s") % program_version,
+              action='store_true',
+              dest='force_current_version',
+              default=False)
     
     p.add_option ("-s", '--show-rules',
-              help=_ ("show rules [default: --from=0, --to=@TOPLEVEL_VERSION@]"),
+              help=_ ("show rules [default: --from=0, --to=%s]") % program_version,
               dest='show_rules',
               action='store_true', default=False)
     
     p.add_option ('-t', '--to',
-              help=_ ("convert to VERSION [default: @TOPLEVEL_VERSION@]"),
+              help=_ ("convert to VERSION [default: %s]") % program_version,
               metavar=_ ('VERSION'),
               action='store',
               dest="to_version",
@@ -120,10 +126,10 @@ def get_option_parser ():
 
 
 def str_to_tuple (s):
-    return tuple (map (int, string.split (s, '.')))
+    return tuple ([int(n) for n in s.split ('.')])
 
 def tup_to_str (t):
-    return string.join (map (lambda x: '%s' % x, list (t)), '.')
+    return '.'.join (['%s' % x for x in t])
 
 def version_cmp (t1, t2):
     for x in [0, 1, 2]:
@@ -173,9 +179,8 @@ string."""
 
 
 
-def guess_lilypond_version (filename):
-    s = open (filename).read ()
-    m = lilypond_version_re.search (s)
+def guess_lilypond_version (input):
+    m = lilypond_version_re.search (input)
     if m:
         return m.group (1)
     else:
@@ -191,12 +196,19 @@ def do_one_file (infile_name):
     ly.stderr_write (_ ("Processing `%s\'... ") % infile_name)
     sys.stderr.write ('\n')
 
+    if infile_name:
+        infile = open (infile_name, 'r')
+        input = infile.read ()
+        infile.close ()
+    else:
+        input = sys.stdin.read ()
+
     from_version = None
     to_version = None
     if global_options.from_version:
         from_version = global_options.from_version
     else:
-        guess = guess_lilypond_version (infile_name)
+        guess = guess_lilypond_version (input)
         if not guess:
             raise UnknownVersion ()
         from_version = str_to_tuple (guess)
@@ -207,16 +219,12 @@ def do_one_file (infile_name):
         to_version = latest_version ()
 
 
-    if infile_name:
-        infile = open (infile_name, 'r')
-    else:
-        infile = sys.stdin
-
-
-    (last, result) = do_conversion (infile.read (), from_version, to_version)
-    infile.close ()
+    (last, result) = do_conversion (input, from_version, to_version)
 
     if last:
+        if global_options.force_current_version and last == to_version:
+            last = str_to_tuple (program_version)
+
         newversion = r'\version "%s"' % tup_to_str (last)
         if lilypond_version_re.search (result):
             result = re.sub (lilypond_version_re_str,

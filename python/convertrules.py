@@ -390,7 +390,7 @@ conversions.append (((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)'))
 
 def conv (str):
     def replace (match):
-	return '\\key %s;' % string.lower (match.group (1))
+	return '\\key %s;' % match.group (1).lower ()
 
     str = re.sub ("\\\\key ([^;]+);",  replace, str)
     return str
@@ -619,7 +619,7 @@ def regularize_id (str):
         elif x not in string.letters:
             x = 'x'
         elif x in string.lowercase and lastx == '_':
-            x = string.upper (x)
+            x = x.upper ()
         s = s + x
         lastx = x
     return s
@@ -991,7 +991,7 @@ def conv(str):
 	    'set-point-and-click!'
 	    ]
 
-    origre = r'\b(%s)' % string.join (changed, '|')
+    origre = r'\b(%s)' % '|'.join (changed)
 
     str = re.sub (origre, r'ly:\1',str)
     str = re.sub ('set-point-and-click!', 'set-point-and-click', str)
@@ -1034,7 +1034,7 @@ def conv(str):
 	     'sfz',
 	     ]
 
-    origstr = string.join (kws, '|')
+    origstr = '|'.join (kws)
     str = re.sub (r'([^_^-])\\(%s)\b' % origstr, r'\1-\\\2', str)
     return str
 conversions.append (((1,7,6), conv, 'note\\script -> note-\script'))
@@ -1296,9 +1296,8 @@ def sub_chord (m):
 
     ## end of while <>
 
-    suffix = string.join (slur_strs, '') + string.join (pslur_strs,
-							'') \
-	     + string.join (dyns, '')
+    suffix = ''.join (slur_strs) + ''.join (pslur_strs) \
+	     + ''.join (dyns)
 
     return '@STARTCHORD@%s@ENDCHORD@%s%s' % (str , dur_str, suffix)
 
@@ -1651,7 +1650,7 @@ conversions.append (((1,9,8), conv, """dash-length -> dash-fraction"""))
 
 def conv (str):
     def func(match):
-	return "#'font-size = #%d" % (2*string.atoi (match.group (1)))
+	return "#'font-size = #%d" % (2*int (match.group (1)))
 
     str =re.sub (r"#'font-relative-size\s*=\s*#\+?([0-9-]+)", func, str)
     str =re.sub (r"#'font-family\s*=\s*#'ancient",
@@ -1711,8 +1710,8 @@ def conv (str):
 
     def sub_note (match):
 	dur = ''
-	log = string.atoi (match.group (1))
-	dots = string.atoi (match.group (2))
+	log = int (match.group (1))
+	dots = int (match.group (2))
 
 	if log >= 0:
 	    dur = '%d' % (1 << log)

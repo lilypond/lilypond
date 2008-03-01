@@ -5,9 +5,9 @@ from rational import *
 import re
 import sys
 import copy
-import lilylib
+import lilylib as ly
 
-_ = lilylib._
+_ = ly._
 
 def error (str):
     ly.stderr_write ((_ ("error: %s") % str) + "\n")
@@ -51,7 +51,7 @@ class Xml_node:
 	return ''.join ([c.get_text () for c in self._children])
 
     def message (self, msg):
-        lilylib.stderr_write (msg+'\n')
+        ly.stderr_write (msg+'\n')
 
         p = self
         while p:
@@ -340,7 +340,7 @@ class Note (Measure_element):
                     'half': 1,
                     'whole': 0,
                     'breve': -1,
-                    'long': -2}.get (log, 0)
+                    'longa': -2}.get (log, 0)
 	elif self.get_maybe_exist_named_child (u'grace'):
 	    # FIXME: is it ok to default to eight note for grace notes?
 	    return 3
@@ -379,7 +379,7 @@ class Part_list (Music_xml_node):
         if instrument_name:
             return instrument_name
         else:
-            lilylib.stderr_write (_ ("Unable to find find instrument for ID=%s\n") % id)
+            ly.stderr_write (_ ("Unable to find find instrument for ID=%s\n") % id)
             return "Grand Piano"
 
 class Part_group (Music_xml_node):

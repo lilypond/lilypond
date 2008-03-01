@@ -3,7 +3,6 @@ import re
 import getopt
 import sys
 import os
-import string
 
 dsr_font_regex = re.compile ('%%DocumentSuppliedResources: font (.*)')
 begin_font_regex = re.compile ('%%BeginFont: (.*)')
@@ -66,7 +65,7 @@ def extract_fonts_from_file (extract_from_this, font_dict, filename):
 		in_font = 0
 
 		if curr_font_name in extract_from_this:
-		    font_dict[curr_font_name] = string.join (curr_font, '')
+		    font_dict[curr_font_name] = ''.join (curr_font)
 		    if verbose:
 			sys.stderr.write (_('Extracted %s')
 					  % curr_font_name + '\n')
@@ -79,7 +78,7 @@ def extract_fonts_from_file (extract_from_this, font_dict, filename):
 
 	if extract_from_this:
 	    sys.stderr.write ("Failed to extract %s from %s\n"
-			      % (string.join (extract_from_this, ', '), filename))
+			      % (', '.join (extract_from_this), filename))
 
 def write_extracted_fonts (output_file_name, font_dict):
     if verbose:

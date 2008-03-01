@@ -7,11 +7,13 @@ TEXINFO_SOURCES = $(TEXI_FILES)
 
 OUTTXT_FILES += $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.txt))
 
+TEXI2PDF_FLAGS += --command '@set version $(TOPLEVEL_VERSION)'
 GENERATE_OMF = $(PYTHON) $(buildscript-dir)/texi2omf.py --format $(1) --location $(webdir)/$(tree-dir)/out-www/$(notdir $(basename $@))  --version $(TOPLEVEL_VERSION) $< > $@
 
+TEXI2PDF_FLAGS += --command '@set version $(TOPLEVEL_VERSION)'
 TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 
-MAKEINFO_FLAGS = --enable-encoding
+MAKEINFO_FLAGS = --enable-encoding -D 'version $(TOPLEVEL_VERSION)'
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 

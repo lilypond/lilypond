@@ -210,7 +210,7 @@ um Pausen und Zwischenräume einzufügen. Mit Eigenschaftsbefehlen
 können verschiedene Einstellungen verändert werden.
 
 
-@refbugs
+@knownissues
 
 Jedes Intervall kann nur einmal in einem Akkord vorkommen. 
 Im folgenden Beispiel wird nur der erweiterte Akkord erstellt, 
@@ -395,7 +395,7 @@ wird in der Datei
 @cindex Akkorde, Jazz
 
 
-@refcommands
+@predefined
 
 @funindex \germanChords
 @code{\germanChords},
@@ -414,7 +414,7 @@ Init-Dateien: @file{scm/@/chords@/-ignatzek@/.scm} und
 @file{scm/@/chord@/-entry@/.scm}.
 
 
-@refbugs
+@knownissues
 
 Akkordsymbole werden nur von den Tonhöhenbezeichnungen bestimmt. 
 Akkordumkehrungen sind nicht definiert, noch werden Bassnoten 

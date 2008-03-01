@@ -1,274 +1,91 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: a7074882aac1078e15104577c36ac4b35ece0ae4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+
 @node Pitches
 @section Pitches
 
-This section discusses how to specify the pitch of notes.
+@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
+{pitches-headword.ly}
+
+En esta sección se discute cómo especificar la altura de las notas.
+Este proceso se compone de tres fases: entrada, modificación y salida.
 
 @menu
 * Writing pitches::             
 * Changing multiple pitches::   
 * Displaying pitches::          
+* Note heads::                  
 @end menu
 
 
 @node Writing pitches
 @subsection Writing pitches
 
-Into text.
+En esta sección se describe la manera de introducir la altura de las
+notas.  Esisten dos formas distintas de colocar las notas en su octava
+correspondiente: el modo absoluto y el relativo.  En casi todas las
+ocasiones, será más práctico el modo relativo.
 
 @menu
-* Normal pitches::              
+* Absolute octave entry::       
+* Relative octave entry::       
 * Accidentals::                 
-* Cautionary accidentals::      
-* Micro tones::                 
 * Note names in other languages::  
 @end menu
 
-@node Normal pitches
-@unnumberedsubsubsec Normal pitches
 
-@cindex Nombres de las notas
+@node Absolute octave entry
+@subsubsection Absolute octave entry
+
+@cindex nombres de las notas
 @cindex alturas
+@cindex absoluta
+@cindex absoluta, especificación, de la octava
 
-El nombre de una nota se especifica usando las letras minúsculas de la @code{a} a la @code{g}.
-Una escala ascendente de Do mayor se tipografía con
+El nombre de una nota se especifica usando las letras minúsculas de la
+@code{a} a la @code{g}.  Las notas cuyos nombres van desde @code{c}
+hasta @code{b} se imprimen en la octava inferior al Do central.
 
-@lilypond[quote,fragment,verbatim,ragged-right]
+@c NOTE: don't use c' here.
+@lilypond[verbatim,quote,ragged-right,fragment]
 \clef bass
-c d e f g a b c'
-@end lilypond
-
-El nombre de la nota @code{c} se tipografía una octava por debajo del Do central.
-
-@lilypond[quote,fragment,verbatim,ragged-right]
-\clef treble
-c1
-\clef bass
-c1
+c d e f
+g a b c
+d e f g
 @end lilypond
 
 @funindex '
 @funindex ,
 
-La especificación opcional de la octava tiene la forma de una serie de
-comillas simples o apóstrofes (@samp{'}) o bien una serie de comas
-(@samp{,}).  Cada @samp{'} eleva la altura una octava;
-cada @samp{,} baja la altura una octava.
+Se pueden especificar otras octavas mediante una comilla simple
+quote@tie{}(@code{'}) o una coma@tie{}(@code{,}) .
+Cada@tie{}@code{'} eleva la altura en una octava; cada@tie{}@code{,}
+baja la altura una octava.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[verbatim,quote,ragged-right,fragment]
 \clef treble
-c' c'' e' g d'' d' d c
+c' c'' e' g
+d'' d' d c
 \clef bass
-c, c,, e, g d,, d, d c
+c, c,, e, g
+d,, d, d c
 @end lilypond
-
-Se puede usar un método alternativo para declarar en qué octava grabar
-una nota; este método no requiere tantas especificaciones de octava
-(@code{'} y @code{,}).  Consulte
-@ref{Relative octaves}.
-
-
-@node Accidentals
-@unnumberedsubsubsec Accidentals
-
-@cindex nombres de las notas, holandés
-@cindex nombres de las notas, por omisión
-
-Un sostenido se forma añadiendo @code{-is} al final del nombre de la nota y
-un bemol se forma añadiendo @code{-es}.  Los dobles sostenidos y dobles bemoles
-se obtienen añadiendo @code{-isis} o @code{-eses} al nombre de la nota.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-a2 ais a aes
-a2 aisis a aeses
-@end lilypond
-
-@noindent
-Estos son los nombres de las notas en holandés.  En holandés, @code{aes} se contrae en
-@code{as}, pero las dos formas se aceptan.  De forma similar, se aceptan
-tanto @code{es} como @code{ees}
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-a2 as e es
-@end lilypond
-
-Un becuadro cancelará el efecto de una alteración accidental o de la armadura.
-Sin embargo, los becuadros no se codifican dentro de la sintaxis del nombre de la nota con un
-sufijo; una nota becuadro se muestra como un simple nombre de nota natural
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-a4 aes a2
-@end lilypond
-
-La entrada @code{d e f} se interpreta como @q{imprimir un Re natural,
-Mi natural y Fa natural}, independientemente de la armadura de la tonalidad.
-Para ver más información acerca de la distinción entre
-el contenido musical y la presentación de ese contenido, consulte
-@rlearning{Accidentals and key signatures}.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative]
-\key d \major
-d e f g
-d e fis g
-@end lilypond
-
-
-@commonprop
-
-De acuerdo con las reglas estándar del tipografiado, se imprime un signo de becuadro
-antes de un sostenido o un bemol siempre que una alteración anterior tiene que cancelarse.
-Para modificar este comportamiento, utilice
-@code{\set Staff.extraNatural = ##f}
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-ceses4 ces cis c
-\set Staff.extraNatural = ##f
-ceses4 ces cis c
-@end lilypond
-
 
 @seealso
 
-Referencia del programa: @internalsref{LedgerLineSpanner},
-@internalsref{NoteHead}.
+Music Glossary: @rglos{Pitch names}.
+
+Snippets: @lsrdir{Pitches,Pitches}.
 
 
-@node Cautionary accidentals
-@unnumberedsubsubsec Cautionary accidentals
-
-@cindex alteración recordatoria
-@cindex alteración de precaución
-@cindex alteración con paréntesis
-@cindex recordatoria, alteración
-@funindex ?
-@cindex precaución, alteración de
-@cindex paréntesis, alteración con
-@funindex !
-
-Normalmente las alteraciones accidentales se imprimen automáticamente, pero también puede
-imprimirlas manualmente.  Un alteración recordatoria
-se puede forzar añadiendo un signo de admiración @code{!}
-después de la altura de la nota.  Una alteración de precaución
-(o sea, una alteración entre paréntesis) se puede obtener añadiendo el
-signo de interrogación @samp{?} después del nombre de la nota.  Estas alteraciones adicionales
-se pueden usar también para producir notas con becuadro.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-cis cis cis! cis? c c? c! c
-@end lilypond
-
-
-@seealso
-
-La producción automática de alteraciones accidentales se puede ajustar de muchas formas.
-Para ver más información, consulte @ref{Automatic accidentals}.
-
-
-@node Micro tones
-@unnumberedsubsubsec Micro tones
-
-@cindex cuartos de tono
-@cindex semi-bemoles, semi-sostenidos
-
-Los medios bemoles y los medios sostenidos se forman añadiendo @code{-eh} y
-@code{-ih}; a continuación presentamos una serie de DOs cada vez más agudos
-
-@lilypond[verbatim,ragged-right,quote,relative=2,fragment]
-\set Staff.extraNatural = ##f
-ceseh ceh cih cisih
-@end lilypond
-
-Los microtonos también se exportan al archivo MIDI.
-
-
-@knownissues
-
-No existen estándares reconocidos ampliamente para denotar
-los bemoles de tres cuartos, de manera que los símbolos de LilyPond
-no se ajustan a ningún estándar.
-
-
-@node Note names in other languages
-@unnumberedsubsubsec Note names in other languages
-
-Existen conjuntos predefinidos de nombres de notas para algunos idiomas
-aparte del inglés.  Para usarlos, incluya el archivo de inicio
-específico del idioma.  Por ejemplo, añada @code{\include "english.ly"}
-al principio del archivo de entrada.  Los archivos de idioma disponibles
-y los nombres de las notas que definen son los siguientes:
-
-@c  Should this be made into a multitable?
-@cindex idiomas, nombres de las notas en otros
-@example
-                     Nombres de las notas      sostenido   bemol       doble        doble
-                                                                      sostenido     bemol
-
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es       -isis         -eses
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat  -ss/-x/       -ff/
-                                                                     -sharpsharp   -flatflat
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es       -isis         -eses
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es  -ississ/-isis -essess/-eses
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess      -ississ       -essess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd           -bb
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
-@end example
-
-@noindent
-Tenga en cuenta que en holandés, alemán, noruego y sueco, los bemoles
-del @samp{La} como por ejemplo @code{aes} y @code{aeses}
-se contraen normalmente como @code{as} y @code{ases} (o más frecuentemente
-como @code{asas}). Algunas veces se definen sólo estas contracciones
-en los archivos de idioma correspondientes (esto también se aplica a los
-sufijos para cuartos de tono que se ven más abajo).
-
-@noindent
-Algunas músicas utilizan microtonos cuyas alteraciones son fracciones
-de un sostenido o bemol @q{normales}.  Los nombres de nota para cuartos
-de tono que se definen en los distintos archivos de idioma se encuentran
-listados en la tabla siguiente.  Aquí los prefijos @q{semi-} y @q{sesqui-} significan
-@q{medio} y @q{uno y medio} respectivamente.  Para el noruego,
-sueco, catalán y español no se ha definido aún ningún nombre especial.
-@c What about Turkish Maquam music and similar microtonal systems?
-@c
-@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
-@c is actually misleading since the alteration is in fact one and a half
-@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
-
-@example
-                    Nombres de las notas       semi-      semi-  sesqui-    sesqui-
-                                               sostenido  bemol  sostenido  bemol
-
-nederlands.ly  c   d   e   f   g   a   bes b   -ih       -eh     -isih      -eseh
-english.ly     c   d   e   f   g   a   bf  b   -qs       -qf     -tqs       -tqf
-deutsch.ly     c   d   e   f   g   a   b   h   -ih       -eh     -isih      -eseh
-norsk.ly       c   d   e   f   g   a   b   h   
-svenska.ly     c   d   e   f   g   a   b   h   
-italiano.ly    do  re  mi  fa  sol la  sib si  -sd       -sb     -dsd       -bsb
-catalan.ly     do  re  mi  fa  sol la  sib si  
-espanol.ly     do  re  mi  fa  sol la  sib si  
-@end example
-
-
-@node Changing multiple pitches
-@subsection Changing multiple pitches
-
-@menu
-* Relative octaves::            
-* Octave check::                
-* Transpose::                   
-@end menu
-
-
-@node Relative octaves
-@unnumberedsubsubsec Relative octaves
+@node Relative octave entry
+@subsubsection Relative octave entry
 
 @cindex Relativo
 @cindex Relativas, especificación de octavas
@@ -344,10 +161,197 @@ el modo relativo dentro de música transportada, se debe escribir
 un @code{\relative} adicional dentro de @code{\transpose}.
 
 
-@node Octave check
-@unnumberedsubsubsec Octave check
+@node Accidentals
+@subsubsection Accidentals
 
-@cindex Comprobación de octava
+@cindex nombres de las notas, holandés
+@cindex nombres de las notas, por omisión
+
+Un sostenido se forma añadiendo @code{-is} al final del nombre de la nota y
+un bemol se forma añadiendo @code{-es}.  Los dobles sostenidos y dobles bemoles
+se obtienen añadiendo @code{-isis} o @code{-eses} al nombre de la nota.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a2 ais a aes
+a2 aisis a aeses
+@end lilypond
+
+@noindent
+Estos son los nombres de las notas en holandés.  En holandés, @code{aes} se contrae en
+@code{as}, pero las dos formas se aceptan.  De forma similar, se aceptan
+tanto @code{es} como @code{ees}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+a2 as e es
+@end lilypond
+
+Un becuadro cancelará el efecto de una alteración accidental o de la armadura.
+Sin embargo, los becuadros no se codifican dentro de la sintaxis del nombre de la nota con un
+sufijo; una nota becuadro se muestra como un simple nombre de nota natural
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a4 aes a2
+@end lilypond
+
+La entrada @code{d e f} se interpreta como @q{imprimir un Re natural,
+Mi natural y Fa natural}, independientemente de la armadura de la tonalidad.
+Para ver más información acerca de la distinción entre
+el contenido musical y la presentación de ese contenido, consulte
+@rlearning{Accidentals and key signatures}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+\key d \major
+d e f g
+d e fis g
+@end lilypond
+
+
+@commonprop
+
+De acuerdo con las reglas estándar del tipografiado, se imprime un signo de becuadro
+antes de un sostenido o un bemol siempre que una alteración anterior tiene que cancelarse.
+Para modificar este comportamiento, utilice
+@code{\set Staff.extraNatural = ##f}
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+ceses4 ces cis c
+\set Staff.extraNatural = ##f
+ceses4 ces cis c
+@end lilypond
+
+
+@seealso
+
+Referencia del programa: @internalsref{LedgerLineSpanner},
+@internalsref{NoteHead}.
+
+
+@cindex alteración recordatoria
+@cindex alteración de precaución
+@cindex alteración con paréntesis
+@cindex recordatoria, alteración
+@funindex ?
+@cindex precaución, alteración de
+@cindex paréntesis, alteración con
+@funindex !
+
+Normalmente las alteraciones accidentales se imprimen automáticamente, pero también puede
+imprimirlas manualmente.  Un alteración recordatoria
+se puede forzar añadiendo un signo de admiración @code{!}
+después de la altura de la nota.  Una alteración de precaución
+(o sea, una alteración entre paréntesis) se puede obtener añadiendo el
+signo de interrogación @samp{?} después del nombre de la nota.  Estas alteraciones adicionales
+se pueden usar también para producir notas con becuadro.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+cis cis cis! cis? c c? c! c
+@end lilypond
+
+
+@seealso
+
+La producción automática de alteraciones accidentales se puede ajustar de muchas formas.
+Para ver más información, consulte @ref{Automatic accidentals}.
+
+@cindex cuartos de tono
+@cindex semi-bemoles, semi-sostenidos
+
+Los medios bemoles y los medios sostenidos se forman añadiendo @code{-eh} y
+@code{-ih}; a continuación presentamos una serie de DOs cada vez más agudos
+
+@lilypond[verbatim,ragged-right,quote,relative=2,fragment]
+\set Staff.extraNatural = ##f
+ceseh ceh cih cisih
+@end lilypond
+
+Los microtonos también se exportan al archivo MIDI.
+
+
+@knownissues
+
+No existen estándares reconocidos ampliamente para denotar
+los bemoles de tres cuartos, de manera que los símbolos de LilyPond
+no se ajustan a ningún estándar.
+
+
+@node Note names in other languages
+@subsubsection Note names in other languages
+
+Existen conjuntos predefinidos de nombres de notas para algunos idiomas
+aparte del inglés.  Para usarlos, incluya el archivo de inicio
+específico del idioma.  Por ejemplo, añada @code{\include "english.ly"}
+al principio del archivo de entrada.  Los archivos de idioma disponibles
+y los nombres de las notas que definen son los siguientes:
+
+@c  Should this be made into a multitable?
+@cindex idiomas, nombres de las notas en otros
+@example
+                     Nombres de las notas      sostenido   bemol       doble        doble
+                                                                      sostenido     bemol
+
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es       -isis         -eses
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat  -ss/-x/       -ff/
+                                                                     -sharpsharp   -flatflat
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es       -isis         -eses
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es  -ississ/-isis -essess/-eses
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess      -ississ       -essess
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd           -bb
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
+@end example
+
+@noindent
+Tenga en cuenta que en holandés, alemán, noruego y sueco, los bemoles
+del @samp{La} como por ejemplo @code{aes} y @code{aeses}
+se contraen normalmente como @code{as} y @code{ases} (o más frecuentemente
+como @code{asas}). Algunas veces se definen sólo estas contracciones
+en los archivos de idioma correspondientes (esto también se aplica a los
+sufijos para cuartos de tono que se ven más abajo).
+
+@noindent
+Algunas músicas utilizan microtonos cuyas alteraciones son fracciones
+de un sostenido o bemol @q{normales}.  Los nombres de nota para cuartos
+de tono que se definen en los distintos archivos de idioma se encuentran
+listados en la tabla siguiente.  Aquí los prefijos @q{semi-} y @q{sesqui-} significan
+@q{medio} y @q{uno y medio} respectivamente.  Para el noruego,
+sueco, catalán y español no se ha definido aún ningún nombre especial.
+@c What about Turkish Maquam music and similar microtonal systems?
+@c
+@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
+@c is actually misleading since the alteration is in fact one and a half
+@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+
+@example
+                    Nombres de las notas       semi-      semi-  sesqui-    sesqui-
+                                               sostenido  bemol  sostenido  bemol
+
+nederlands.ly  c   d   e   f   g   a   bes b   -ih       -eh     -isih      -eseh
+english.ly     c   d   e   f   g   a   bf  b   -qs       -qf     -tqs       -tqf
+deutsch.ly     c   d   e   f   g   a   b   h   -ih       -eh     -isih      -eseh
+norsk.ly       c   d   e   f   g   a   b   h   
+svenska.ly     c   d   e   f   g   a   b   h   
+italiano.ly    do  re  mi  fa  sol la  sib si  -sd       -sb     -dsd       -bsb
+catalan.ly     do  re  mi  fa  sol la  sib si  
+espanol.ly     do  re  mi  fa  sol la  sib si  
+@end example
+
+
+@node Changing multiple pitches
+@subsection Changing multiple pitches
+
+@menu
+* Octave checks::               
+* Transpose::                   
+@end menu
+
+
+@node Octave checks
+@subsubsection Octave checks
+
+@cindex octava, comprobación de
+@cindex octava, corrección de
+@funindex =
+@funindex \octave
 
 Las comprobaciones de octava hacen que los errores de octava sean más
 fáciles de corregir: una nota puede venir seguida de @code{=}@var{comillas}
@@ -406,8 +410,12 @@ así que la comprobación se puede borrar sin que cambie la salida de la pieza.
 @end lilypond
 
 
+@seealso
+
+Snippets: @lsrdir{Pitches,Pitches}.
+
 @node Transpose
-@unnumberedsubsubsec Transpose
+@subsubsection Transpose
 
 @cindex Transposición
 @cindex Transposición de alturas
@@ -497,10 +505,12 @@ debe escribir @code{\transpose} por fuera de @code{\relative}, porque
 * Key signature::               
 * Ottava brackets::             
 * Instrument transpositions::   
+* Automatic accidentals::       
+* Ambitus::                     
 @end menu
 
 @node Clef
-@unnumberedsubsubsec Clef
+@subsubsection Clef
 
 @funindex \clef
 
@@ -542,7 +552,6 @@ clave de Do en 1ª
 @item @code{mezzosoprano} @tab
 clave de Do en 2ª
 @item @code{baritone} @tab
-clave de Do en 5ª
 @item @code{varbaritone} @tab
 clave de Fa en 3ª
 @item @code{subbass} @tab
@@ -604,7 +613,7 @@ Referencia del programa: @internalsref{Clef}.
 
 
 @node Key signature
-@unnumberedsubsubsec Key signature
+@subsubsection Key signature
 
 @cindex Armadura de la tonalidad
 @funindex \key
@@ -678,7 +687,7 @@ Referencia del programa: @internalsref{KeyCancellation},
 @internalsref{KeySignature}.
 
 @node Ottava brackets
-@unnumberedsubsubsec Ottava brackets
+@subsubsection Ottava brackets
 
 Los corchetes de @q{Ottava} introducen un trasporte adicional de una octava para el pentagrama.
 Se crean por medio de la invocación de la función
@@ -725,7 +734,7 @@ en el interior de un corchete de octavación.
 
 
 @node Instrument transpositions
-@unnumberedsubsubsec Instrument transpositions
+@subsubsection Instrument transpositions
 
 @cindex transposición de MIDI
 @cindex transposición instrumental
@@ -777,4 +786,236 @@ c'4^"en Re"
 c'4^"en Sol"
 ...
 @end example
+
+@node Automatic accidentals
+@subsubsection Automatic accidentals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ambitus
+@subsubsection Ambitus
+
+@cindex ambitus
+@cindex rango de alturas
+@cindex tesitura
+
+El término @emph{ambitus} o ámbito, denota el rango de notas que
+abarca una voz dada en una parte musical.  También puede denotar el
+margen de notas que es capaz de tocar un determinado instrumento
+musical.  Los ámbitos se imprimen en las partes vocales de tal manera
+que los intérpretes puedan determinar con facilidad si cumplen con sus
+propias posibilidades.
+
+Los ámbitos se presentan al comienzo de la pieza junto a la clave
+inicial.  El rango se especifica gráficamente mediante dos cabezas de
+nota que representan a las notas inferior y superior.  Sólo se
+imprimen alteraciones si no forman parte de la armadura de la
+tonalidad.
+
+@lilypond[verbatim,quote,ragged-right]
+\layout {
+  \context {
+    \Voice
+    \consists Ambitus_engraver
+  }
+}
+
+\relative c'' {
+  aes c e2 cis,2
+}
+@end lilypond
+
+Si tiene varias voces en un pentagrama único y quiere tener una sola indicación de ámbito
+por pentagrama en lugar de una por cada voz, añada el grabador
+@internalsref{Ambitus_engraver} al contexto @internalsref{Staff}
+y no al contexto @internalsref{Voice}.  He aquí un ejemplo:
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff \with {
+  \consists "Ambitus_engraver"
+}
+<<
+  \new Voice \with {
+    \remove "Ambitus_engraver"
+  } \relative c'' {
+    \override Ambitus #'X-offset = #-1.0
+    \voiceOne
+    c4 a d e f2
+  }
+  \new Voice \with {
+    \remove "Ambitus_engraver"
+  } \relative c' {
+    \voiceTwo
+    es4 f g as b2
+  }
+>>
+@end lilypond
+
+@noindent
+Este ejemplo utiliza una capacidad avanzada,
+
+@example
+\override Ambitus #'X-offset = #-1.0
+@end example
+
+@noindent
+Este código mueve el ámbito a la izquierda.  Se podría haber conseguido el mismo
+efecto con @code{extra-offset}, pero en tal caso el sistema de formateo no
+reservaría espacio para el objeto que se ha movido.
+
+@seealso
+
+Referencia del programa: @internalsref{Ambitus},
+@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
+@internalsref{AmbitusAccidental}.
+
+Ejemplos:
+@lsr{vocal,ambitus@/.ly}.
+
+@knownissues
+
+No se efectúa un tratamiento de las posibles colisiones en caso de varias indicaciones de ámbito
+simultáneas en distintas voces.
+
+@node Note heads
+@subsection Note heads
+
+@menu
+* Special note heads::          
+* Easy notation note heads::    
+* Shape note heads::            
+* Improvisation::               
+@end menu
+
+@node Special note heads
+@subsubsection Special note heads
+
+@cindex note heads, special
+@cindex note heads, cross
+@cindex note heads, diamond
+@cindex note heads, parlato
+@cindex note heads, harmonic
+@cindex note heads, guitar
+@cindex special note heads
+@cindex cross note heads
+@cindex diamond note heads
+@cindex parlato note heads
+@cindex harmonic note heads
+@cindex guitar note heads
+
+Different note heads are used by various instruments for various
+meanings -- crosses are used for @q{parlato} with vocalists,
+stopped notes on guitar; diamonds are used for harmonics on string
+instruments, etc.  There is a shorthand (@code{\harmonic}) for
+diamond shapes; the other note head styles are produced by
+tweaking the property:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+c4 d
+\override NoteHead #'style = #'cross
+e f
+\revert NoteHead #'style
+e d <c f\harmonic> <d a'\harmonic>
+@end lilypond
+
+@noindent
+To see all note head styles, see @ref{Note head styles}.
+
+
+@seealso
+
+Snippets: @lsrdir{Pitches,Pitches}.
+
+Notation Reference: @ref{Note head styles}.
+
+Internals Reference: @internalsref{NoteHead},
+@internalsref{LedgerLineSpanner}.
+
+@node Easy notation note heads
+@subsubsection Easy notation note heads
+
+@cindex notas, cabezas de, estudio
+@cindex notas, cabezas de, notación simplificada
+@cindex simplificada, notación
+@cindex Hal Leonard
+
+Las cabezas @q{easy play} (fáciles de tocar) tienen el nombre de la nota (en inglés) dentro de la cabeza.  Se usa
+en la música para principiantes
+
+@lilypond[verbatim,quote,ragged-right]
+#(set-global-staff-size 26)
+\relative c' {
+  \easyHeadsOn
+  c2 e4 f
+  g1
+  \easyHeadsOff
+  c,1
+}
+@end lilypond
+
+La orden @code{\easyHeadsOn} sobreescribe los ajustes del objeto
+@code{NoteHead}.  Estos ajustes se pueden deshacer mediante la
+isntrucción @code{\easyHeadsOff}. Para que las letras sean legibles,
+se tienen que imprimir en un tamaño grande de la tipografía.  Para
+imprimir con un tamaño de tipografía mayor, consulte @ref{Setting the
+staff size}.
+
+@predefined
+
+@funindex \easyHeadsOn
+@funindex \easyHeadsOff
+@code{\easyHeadsOn}, @code{\easyHeadsOff}
+
+
+@node Shape note heads
+@subsubsection Shape note heads
+
+@cindex notas, cabezas de, con formas
+@cindex notas, cabezas de, Aiken
+@cindex notas, cabezas de, sacred harp(?)
+@cindex formas, notas con
+@cindex Aiken, cabezas de nota con forma de
+@cindex sacred harp, cabezas de nota de
+@funindex \key
+@funindex shapeNoteStyles
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+
+En notación de cabezas con forma, la forma de la cabeza corresponde
+a la función armónica de una nota dentro de la escala. Esta notación se hizo popular
+en los libros americanos de canciones durante el s.XIX.
+
+Las cabezas con formas se pueden producir estableciendo @code{\aikenHeads} o
+@code{\sacredHarpHeads}, según el estilo deseado.
+
+@lilypond[verbatim,relative=1,fragment]
+  \aikenHeads
+  c8 d4 e8 a2 g1
+  \sacredHarpHeads
+  c8 d4. e8 a2 g1
+@end lilypond
+
+Las formas se determinan en función del grado de la escala, donde la tónica
+está determinada por la instrucción @code{\key}
+
+@funindex \key
+@funindex shapeNoteStyles
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+
+Las cabezas con formas están programadas a través de la propiedad @code{shapeNoteStyles}.
+Su valor es un vector de símbolos.  El elemento en el lugar k indica qué estilo
+usa el grado k de la escala.  Son posibles las combinaciones
+arbitrarias, p.ej.:
+
+@lilypond[verbatim,relative=1,fragment]
+  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
+  c8 d4. e8 a2 g1
+@end lilypond
+
+
+@node Improvisation
+@subsubsection Improvisation
+
+UNTRANSLATED NODE: IGNORE ME
 

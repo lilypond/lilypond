@@ -54,6 +54,7 @@ install-WWW:
 	rsync -rl $(outdir)/offline-root/ $(DESTDIR)$(webdir)
 	$(MAKE) -C Documentation/user local-install-WWW
 	$(MAKE) -C Documentation/user install-info
+	$(MAKE) -C input/lsr install-info
 
 install-help2man:
 	$(MAKE) -C scripts man install-help2man

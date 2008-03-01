@@ -5,8 +5,8 @@ USAGE: translations-status.py BUILDSCRIPT-DIR LOCALEDIR
 
   This script must be run from Documentation/
 
-  Reads template files translations.template.html
-and for each LANG in LANGUAGES LANG/translations.template.html
+  Reads template files translations.template.html.in
+and for each LANG in LANGUAGES LANG/translations.template.html.in
 
   Writes translations.html.in and for each LANG in LANGUAGES
 translations.LANG.html.in
@@ -17,6 +17,7 @@ import re
 import string
 import os
 import gettext
+import subprocess
 
 def progress (str):
     sys.stderr.write (str + '\n')
@@ -38,11 +39,17 @@ for l in langdefs.LANGUAGES:
         translation[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
 
 def read_pipe (command):
-    pipe = os.popen (command)
-    output = pipe.read ()
-    if pipe.close ():
+    child = subprocess.Popen (command,
+                              stdout = subprocess.PIPE,
+                              stderr = subprocess.PIPE,
+                              shell = True)
+    (output, error) = child.communicate ()
+    code = str (child.wait ())
+    if not child.stdout or child.stdout.close ():
         print "pipe failed: %(command)s" % locals ()
-    return output
+    if code != '0':
+        error = code + ' ' + error
+    return (output, error)
 
 comments_re = re.compile (r'^@ignore\n(.|\n)*?\n@end ignore$|@c .*?$', re.M)
 space_re = re.compile (r'\s+', re.M)
@@ -68,6 +75,7 @@ format_table = {
     'fully translated': {'color':'1fff1f', 'short':_doc ('yes'), 'long': _doc ('translated')},
     'up to date': {'short':_doc ('yes'), 'long':_doc ('up to date')},
     'outdated': {'short':_doc ('partially (%(p)d %%)'), 'long':_doc ('partially up-to-date (%(p)d %%)')},
+    'N/A': {'short':_doc ('N/A'), 'long':'', 'color':'d587ff' },
     'pre-GDP':_doc ('pre-GDP'),
     'post-GDP':_doc ('post-GDP')
 }
@@ -84,44 +92,42 @@ texi_level = {
     'appendix': ('l', 1)
 }
 
-appendix_number_trans = string.maketrans ('@ABCDEFGHIJKLMNOPQRSTUVWXY','ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+appendix_number_trans = string.maketrans ('@ABCDEFGHIJKLMNOPQRSTUVWXY',
+                                          'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
 
 class SectionNumber (object):
     def __init__ (self):
-        self.__current_number = [0]
-        self.__type = 'n'
+        self.__data = [[0,'u']]
 
     def __increase_last_index (self):
-        if isinstance (self.__current_number[-1], str):
-            self.__current_number[-1] = self.__current_number[-1].translate (appendix_number_trans)
-        else:
-            self.__current_number[-1] += 1
+        type = self.__data[-1][1]
+        if type == 'l':
+            self.__data[-1][0] = self.__data[-1][0].translate (appendix_number_trans)
+        elif type == 'n':
+            self.__data[-1][0] += 1
 
-    # ugh, current implementation is too naive:
-    # unnumbered stuff is really printed without number for @top only
     def format (self):
-        if self.__current_number == [0] or self.__type == 'u':
+        if self.__data[-1][1] == 'u':
             return ''
-        return '.'.join ([str (i) for i in self.__current_number[1:]]) + ' '
+        return '.'.join ([str (i[0]) for i in self.__data if i[1] != 'u']) + ' '
 
     def increase (self, (type, level)):
         if level == 0:
-            self.__current_number = [0]
-        while level + 1 < len (self.__current_number):
-            del self.__current_number[-1]
-        if level + 1 > len (self.__current_number):
-            self.__type = type
+            self.__data = [[0,'u']]
+        while level + 1 < len (self.__data):
+            del self.__data[-1]
+        if level + 1 > len (self.__data):
+            self.__data.append ([0, type])
             if type == 'l':
-                self.__current_number.append ('@')
-            else:
-                self.__current_number.append (0)
-
-        if type == self.__type:
+                self.__data[-1][0] = '@'
+        if type == self.__data[-1][1]:
             self.__increase_last_index ()
-        elif type == 'l' and level == 1:
-            self.__current_number[-1] = 'A'
         else:
-            self.__current_number[-1] = 1
+            self.__data[-1] = ([0, type])
+            if type == 'l':
+                self.__data[-1][0] = 'A'
+            elif type == 'n':
+                self.__data[-1][0] = 1
         return self.format ()
 
 
@@ -134,12 +140,6 @@ def percentage_color (percent):
     else:
         c = [hex (int ((3 * p - 2) * b + 3 * (1 - p) * a))[2:] for (a, b) in [(0xff, 0x1f), (0xff, 0xff), (0x3d, 0x1f)]]
     return ''.join (c)
-
-def line_word_count (tely_line):
-    if tely_line.startswith ('@'):
-        return 0
-    tely_line = comments_re.sub ('', tely_line)
-    return len (space_re.split (tely_line))
 
 def tely_word_count (tely_doc):
     '''
@@ -223,21 +223,26 @@ class TranslatedTelyDocument (TelyDocument):
                                   'the whole file against the original in English, then ' + \
                                   'fill in HEAD committish in the header.\n')
             sys.exit (1)
-        diff = read_pipe (diff_cmd % {'committish':m.group (1), 'original':masterdocument.filename}).splitlines ()
-        insertions = sum ([line_word_count (l[1:]) for l in diff if l.startswith ('+') and not l.startswith ('+++')])
-        deletions = sum ([line_word_count (l[1:]) for l in diff if l.startswith ('-') and not l.startswith ('---')])
-        outdateness_percentage = 50.0 * (deletions + insertions) / (master_total_word_count + 0.5 * (deletions - insertions))
-        self.uptodate_percentage = 100 - int (outdateness_percentage)
-        if self.uptodate_percentage > 100:
-            alternative = 50
-            progress ("%s: strange uptodateness percentage %d %%, setting to %d %%" \
-                          % (self.filename, self.uptodate_percentage, alternative))
-            self.uptodate_percentage = alternative
-        elif self.uptodate_percentage < 1:
-            alternative = 1
-            progress ("%s: strange uptodateness percentage %d %%, setting to %d %%" \
-                          % (self.filename, self.uptodate_percentage, alternative))
-            self.uptodate_percentage = alternative
+        (diff_string, error) = read_pipe (diff_cmd % {'committish':m.group (1), 'original':masterdocument.filename})
+        if error:
+            sys.stderr.write ('warning: %s: %s' % (self.filename, error))
+            self.uptodate_percentage = None
+        else:
+            diff = diff_string.splitlines ()
+            insertions = sum ([len (l) - 1 for l in diff if l.startswith ('+') and not l.startswith ('+++')])
+            deletions = sum ([len (l) - 1 for l in diff if l.startswith ('-') and not l.startswith ('---')])
+            outdateness_percentage = 50.0 * (deletions + insertions) / (masterdocument.size + 0.5 * (deletions - insertions))
+            self.uptodate_percentage = 100 - int (outdateness_percentage)
+            if self.uptodate_percentage > 100:
+                alternative = 50
+                progress ("%s: strange uptodateness percentage %d %%, setting to %d %%" \
+                              % (self.filename, self.uptodate_percentage, alternative))
+                self.uptodate_percentage = alternative
+            elif self.uptodate_percentage < 1:
+                alternative = 1
+                progress ("%s: strange uptodateness percentage %d %%, setting to %d %%" \
+                              % (self.filename, self.uptodate_percentage, alternative))
+                self.uptodate_percentage = alternative
 
     def completeness (self, formats=['long']):
         if isinstance (formats, str):
@@ -255,13 +260,15 @@ class TranslatedTelyDocument (TelyDocument):
         if isinstance (formats, str):
             formats = [formats]
         p = self.uptodate_percentage
-        if p == 100:
+        if p == None:
+            status = 'N/A'
+        elif p == 100:
             status = 'up to date'
         else:
             status = 'outdated'
         l = {}
         for f in formats:
-            if f == 'color':
+            if f == 'color' and p != None:
                 l['color'] = percentage_color (p)
             else:
                 l[f] = format_table[status][f] % locals ()
@@ -298,6 +305,7 @@ class MasterTelyDocument (TelyDocument):
     def __init__ (self, filename, parent_translations=dict ([(lang, None) for lang in langdefs.LANGDICT.keys()])):
         #print "init MasterTelyDocument %s" % filename
         TelyDocument.__init__ (self, filename)
+        self.size = len (self.contents)
         self.word_count = tely_word_count (self.contents)
         translations = dict ([(lang, os.path.join (lang, filename)) for lang in langdefs.LANGDICT.keys()])
         #print translations
@@ -338,11 +346,11 @@ class MasterTelyDocument (TelyDocument):
 
 progress ("Reading documents...")
 
-tely_files = read_pipe ("find -maxdepth 2 -name '*.tely'").splitlines ()
-master_docs = [MasterTelyDocument (filename) for filename in tely_files]
+tely_files = read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
+master_docs = [MasterTelyDocument (os.path.normpath (filename)) for filename in tely_files]
 master_docs = [doc for doc in master_docs if doc.translations]
 
-main_status_page = open ('translations.template.html').read ()
+main_status_page = open ('translations.template.html.in').read ()
 
 ## TODO
 #per_lang_status_pages = dict ([(l, open (os.path.join (l, 'translations.template.html')). read ())
@@ -351,7 +359,7 @@ main_status_page = open ('translations.template.html').read ()
 
 progress ("Generating status pages...")
 
-main_status_html = ' <p><i>Last updated %s</i></p>\n' % read_pipe ('LANG= date -u')
+main_status_html = ' <p><i>Last updated %s</i></p>\n' % read_pipe ('LANG= date -u')[0]
 main_status_html += '\n'.join ([doc.html_status () for doc in master_docs])
 
 html_re = re.compile ('<html>', re.I)
@@ -359,7 +367,7 @@ end_body_re = re.compile ('</body>', re.I)
 
 main_status_page = html_re.sub ('''<html>
 <!-- This page is automatically generated by translation-status.py from
-translations.template.html; DO NOT EDIT !-->''', main_status_page)
+translations.template.html.in; DO NOT EDIT !-->''', main_status_page)
 
 main_status_page = end_body_re.sub (main_status_html + '\n</body>', main_status_page)
 
