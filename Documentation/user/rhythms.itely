@@ -1899,7 +1899,8 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 @seealso
 
 Notation Reference: @ref{Line breaking}, @ref{Repeats},
-@ref{System start delimiters}.
+@c FIXME: node name changed, but is subject to further changes.
+@c @ref{System start delimiters}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
