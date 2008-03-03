@@ -1,6 +1,12 @@
 \version "2.11.38"
 \include "english.ly"
-
+#(set-global-staff-size 15)
+\paper{
+  ragged-right=##t
+  line-width=17\cm
+  indent=0\cm
+}
+  
 % NR 1.1 Pitches
 
 % L. v. Beethoven 
@@ -46,6 +52,7 @@
          |
          \clef treble
          <e' gs>4 %)
+         r4 r2
       }
 
       % RH Voice 2
@@ -76,6 +83,7 @@
          <a fs>2. )
          |
          s4
+         r4 r2
       }
 
    >>
@@ -122,6 +130,7 @@
       <b,! b,,!>1 ( \sustainUp
       |
       <e e,>4 )
+      r4 r2
    }
 
 >>

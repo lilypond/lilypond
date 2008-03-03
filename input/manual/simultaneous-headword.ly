@@ -1,6 +1,12 @@
 \version "2.11.38"
 \include "english.ly"
-
+#(set-global-staff-size 15)
+\paper{
+  ragged-right=##t
+  line-width=17\cm
+  indent=0\cm
+}
+ 
 % NR 1.5 Simultaneous notes
 
 % L. v. Beethoven, Op. 111
@@ -98,6 +104,7 @@
          \key ef \major
          c'''8. [
          cs'''8. \f ] \stopTrillSpan 
+         r8.
          
       }
 
@@ -279,6 +286,7 @@
       |
 
       \key ef \major
+      r8.
       r8.
       r8.
          
