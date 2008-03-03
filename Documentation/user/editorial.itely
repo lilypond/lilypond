@@ -245,10 +245,12 @@ If @code{x11-color} cannot make sense of the parameter then the
 color returned defaults to black. 
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
+
 gis8 a
 \override Beam #'color = #(x11-color "medium turquoise")
 gis a
@@ -259,12 +261,13 @@ gis a
 % this is deliberate nonsense; note that the stems remain black
 \override Stem #'color = #(x11-color 'Boggle)
 b2 cis
+
 @end lilypond
 
 You can get exact RGB colors by specifying the rgb-color number.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-{
+
   \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
   \set Staff.instrumentName = \markup {
     \with-color #(x11-color 'navy) "Clarinet"
@@ -279,7 +282,7 @@ You can get exact RGB colors by specifying the rgb-color number.
   % dark blue
   \override Stem #'color = #(rgb-color 0 0 0.5) 
   gis4 a
-}
+
 @end lilypond
 
 @seealso
@@ -397,10 +400,11 @@ The following example demonstrates its use.
      {
       \time 2/4
        \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-       a'8
-       <c' g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } 
-c''>4. 
+       a8
+       <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } 
+c>4. 
      }
+
 @end lilypond
 
 There are two music functions, @code{balloonGrobText} and
