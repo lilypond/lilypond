@@ -9,8 +9,7 @@
 @node Editorial annotations
 @section Editorial annotations
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-{editorial-headword.ly}
+@lilypondfile[quote]{editorial-headword.ly}
 
 This section discusses the various ways to change the appearance of 
 notes and add analysis or educational emphasis.

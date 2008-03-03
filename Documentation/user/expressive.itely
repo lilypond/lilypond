@@ -9,8 +9,7 @@
 @node Expressive marks
 @section Expressive marks
 
-@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
-{expressive-headword.ly}
+@lilypondfile[quote]{expressive-headword.ly}
 
 @menu
 * Attached to notes::           

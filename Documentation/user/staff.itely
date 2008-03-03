@@ -9,8 +9,7 @@
 @node Staff notation
 @section Staff notation
 
-@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
-{staff-headword.ly}
+@lilypondfile[quote]{staff-headword.ly}
 
 
 This section explains how to influence the staff appearance, 

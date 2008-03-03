@@ -9,8 +9,7 @@
 @node Repeats
 @section Repeats
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-{repeats-headword.ly}
+@lilypondfile[quote]{repeats-headword.ly}
 
 Repetition is a central concept in music, and multiple notations
 exist for repetitions.
