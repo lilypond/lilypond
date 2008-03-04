@@ -9,26 +9,17 @@ You may put the time signature in parentheses.
 " }
 % begin verbatim
 tsMarkup = \markup  {
-  \number {
-    \bracket \column { "2" "4" }
-  }
+ \override #'(baseline-skip . 2) \number {
+   \bracket \column { "2" "4" }
+ }
 }
 
 \score {
-  \relative c'' {
+ \relative c'' {
+ \override Staff.TimeSignature #'stencil = #ly:text-interface::print
+ \override Staff.TimeSignature   #'text = #tsMarkup
+ \time 2/4
 
-% FIXME: Gee, it doesn't work with 2.10 -vv
-
-%{
-
-  \override Staff.TimeSignature   #'print-function = #Text_interface::print
-  \override Staff.TimeSignature   #'text = #tsMarkup
-
-%}
-
-  \time 2/4
-
-    a4 b8 c |
-  }
+   a4 b8 c |
+ }
 }
-
