@@ -188,7 +188,9 @@ Rest::pure_height (SCM smob, SCM start, SCM end)
 }
 
 ADD_INTERFACE (Rest,
-	       "A rest symbol.",
+	       "A rest symbol."
+               "The property @code{style} can be @code{default},  "
+               "@code{mensural}, @code{neomensural} or @code{classical}.",
 
 	       /* properties */
 		  

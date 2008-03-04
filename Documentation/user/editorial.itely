@@ -9,8 +9,10 @@
 @node Editorial annotations
 @section Editorial annotations
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-{editorial-headword.ly}
+@lilypondfile[quote]{editorial-headword.ly}
+
+This section discusses the various ways to change the appearance of 
+notes and add analysis or educational emphasis.
 
 @menu
 * Inside the staff::            
@@ -21,6 +23,8 @@
 @node Inside the staff
 @subsection Inside the staff
 
+This section discusses how to add emphasis to elements that are 
+inside the staff.
 
 @menu
 * Selecting notation font size::  
@@ -111,6 +115,9 @@ Internals Reference: @internalsref{font-interface}.
 
 Fingering instructions can be entered using
 @var{note}-@var{digit}:
+
+Fingering instructions may be manually placed above or below the
+staff, see @ref{Controlling direction and placement}.
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 c4-1 d-2 f-4 e-3
@@ -237,11 +244,13 @@ If @code{x11-color} cannot make sense of the parameter then the
 color returned defaults to black. 
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
 }
-gis4 a
+
+gis8 a
 \override Beam #'color = #(x11-color "medium turquoise")
 gis a
 \override Accidental #'color = #(x11-color 'DarkRed)
@@ -251,28 +260,28 @@ gis a
 % this is deliberate nonsense; note that the stems remain black
 \override Stem #'color = #(x11-color 'Boggle)
 b2 cis
+
 @end lilypond
 
 You can get exact RGB colors by specifying the rgb-color number.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-{
+
   \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
   \set Staff.instrumentName = \markup {
     \with-color #(x11-color 'navy) "Clarinet"
   }
-  \time 4/4
-
+  
   %black
   \override Stem #'color = #(rgb-color 0 0 0)
-  c4
+  gis8 a
   % white
   \override Stem #'color = #(rgb-color 1 1 1)
-  d
+  gis8 a
   % dark blue
   \override Stem #'color = #(rgb-color 0 0 0.5) 
-  e
-}
+  gis4 a
+
 @end lilypond
 
 @seealso
@@ -292,8 +301,7 @@ web use normal colors are recommended (i.e. #blue, #green, #red).
 
 
 Notes in a chord cannot be colored with @code{\override}; use
-@code{\tweak} instead.  See @ref{Objects connected to the input},
-for details.
+@code{\tweak} instead, see @ref{Objects connected to the input}.
 
 
 @node Parentheses
@@ -311,14 +319,12 @@ if it is a chord.
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
 c2 < \parenthesize d>
-<\parenthesize e> d
 @end lilypond
 
 Non-note objects may be parenthesized as well.
 
 @lilypond[relative=2,fragment,verbatim,ragged-right]
-< c \parenthesize d g >2-\parenthesize -. d
-g < c, \parenthesize fis >
+< c d g >2-\parenthesize -. d
 @end lilypond
 
 @seealso
@@ -370,6 +376,8 @@ Snippets: @lsrdir{Editorial,Editorial-annotations}.
 @node Outside the staff
 @subsection Outside the staff
 
+This section discusses how to add emphasis to elements in the staff 
+from outside of the staff. 
 
 @menu
 * Balloon help::                
@@ -391,10 +399,11 @@ The following example demonstrates its use.
      {
       \time 2/4
        \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-       a'8
-       <c' g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } 
-c''>4. 
+       a8
+       <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } 
+c>4. 
      }
+
 @end lilypond
 
 There are two music functions, @code{balloonGrobText} and
@@ -431,8 +440,44 @@ notes.
 
 \new Score \with {
   \consists "Grid_line_span_engraver"
-  %% centers grid lines  horizontally below note heads by default 
-  %the grid lines are aligned with the left side of the notehead
+  %% by default this centers grid lines horizontally below and to the 
+  % left side of the notehead, the grid lines extend from 
+  % the middle lines of each staff
+}
+
+\new ChoirStaff <<
+  \new Staff {
+    \stemUp
+    \relative {
+      c'4. d8 e8 f g4
+    }
+  }
+  \new Staff {
+    \stemDown
+    \clef bass
+    \relative c {
+      c4  g'  f  e
+    }
+  }
+>>
+@end lilypond
+
+To change the grid lines use \override.
+
+
+@lilypond[ragged-right,quote,verbatim]
+\layout {
+  \context {
+    \Staff
+    \consists "Grid_point_engraver" 
+    % sets up grids
+       gridInterval = #(ly:make-moment 1 4)
+       % this sets the grid interval to 1 quarternote (crotchet)
+  }
+}
+
+\new Score \with {
+  \consists "Grid_line_span_engraver"
   \override NoteColumn #'X-offset = #-0.5
   % this moves them to the right half a staff space
 }
@@ -446,8 +491,7 @@ notes.
   }
   \new Staff {
     \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
-    % by default the grid lines join the middle line of each staff,
-    % this moves them up one staff space
+    % this moves them up one staff space from the default position
     \stemDown
     \clef bass
     \relative c {

@@ -10,8 +10,7 @@
 @node Pitches
 @section Pitches
 
-@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
-{pitches-headword.ly}
+@lilypondfile[quote]{pitches-headword.ly}
 
 This section discusses how to specify the pitch of notes.  There
 are three steps to this process: input, modification, and output.

@@ -12,27 +12,25 @@
 @lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
 {repeats-headword.ly}
 
-Repetition is a central concept in music, and multiple notations
-exist for repetitions.
+Repetition is a central concept in music, and multiple notations exist
+for repetitions.  This section discusses how to write repeats,
+including repeated sections of music enclosed within repeat bars,
+alternate repeat endings, a shortcut to writing repeated music that is
+not enclosed within repeat bars, repeated music one measure or less in
+length, and tremolos.
 
 @menu
-* Writing repeats::             
-* Other repeats::               
+* Types of repeats::            
+* Normal repeats::              
 @end menu
 
-@node Writing repeats
-@subsection Writing repeats
-
-This section discusses how to write repeats, including repeated
-sections of music enclosed within repeat bars, alternate repeat
-endings, tremolos, and beat or measure repeats.
+@node Types of repeats
+@subsection Kinds of repeats
 
 @menu
 * Repeat syntax::               
-* Normal repeats::              
-* Manual repeat commands::      
+* Repeats supported::           
 @end menu
-
 
 @node Repeat syntax
 @subsubsection Repeat syntax
@@ -41,14 +39,20 @@ endings, tremolos, and beat or measure repeats.
 @cindex repeat syntax
 @cindex syntax, repeat
 
-LilyPond has one syntactic construct for specifying different
-types of repeats.  The syntax is
+In LilyPond, repeats are formed using the following construction:
 
 @example
 \repeat @var{variant} @var{repeatcount} @var{repeatbody}
 @end example
 
-where @var{repeabody} is a music expression.
+where @var{repeatbody} is a music expression.
+
+@seealso
+
+Snippets: @lsrdir{Repeats,Repeats}.
+
+@node Repeats supported
+@subsubsection Repeats supported
 
 The following types of repetition are supported
 
@@ -70,13 +74,6 @@ The repeated music is fully written out, as many times as
 specified by @var{repeatcount}.  This is useful when
 entering repetitious music. 
 
-@cindex tremolo
-@cindex tremolo beams
-@cindex beams, tremolo
-
-@item tremolo
-Make tremolo beams.
-
 @cindex beat repeat
 @cindex measure repeat
 @cindex percent sign, for repeat
@@ -85,10 +82,19 @@ Make tremolo beams.
 Make beat or measure repeats.  These look like percent signs.
 Percent repeats must be declared within a @code{Voice} context.
 
+@cindex tremolo
+@cindex tremolo beams
+@cindex beams, tremolo
+
+@item tremolo
+Make tremolo beams.
+
 @end table
 
-Alternative endings are entered with 
+Alternative endings are entered with
+ 
 @funindex \alternative
+
 @example
 \alternative @{
   @var{alternative1}
@@ -105,8 +111,14 @@ less alternatives than @var{repeatcount}, the first alternative
 is assumed to be played more than once.
 
 
+@seealso
+
+Music Glossary: @rglos{volta}, @rglos{tremolo}.
+
+Snippets: @lsrdir{Repeats,Repeats}.
+
 @node Normal repeats
-@subsubsection Normal repeats
+@subsection Normal repeats
 
 @cindex volta
 @cindex prima volta
@@ -115,17 +127,46 @@ is assumed to be played more than once.
 @cindex volta, seconda
 @funindex \repeat
 
-Normal repeats, with or without alternate repeats:
+@menu
+* Simple repeats::              
+* Complex repeats::             
+* Manual repeat commands::      
+* Repetitious Music::           
+* Tremolo repeats::             
+* Measure repeats::             
+@end menu
+
+@node Simple repeats
+@subsubsection Simple repeats
+
+Normal repeats, without alternate endings:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \repeat volta 2 { c4 d e f }
-\repeat volta 2 { g f e d }
+\repeat volta 4 { g f e d }
+c1
+@end lilypond
+
+@seealso
+
+Snippets: @lsrdir{Repeats,Repeats}.
+
+@node Complex repeats
+@subsubsection Complex repeats
+
+
+Repeats with alternate endings:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\repeat volta 2 { c4 d e f }
   \alternative {
     { cis2 g' }
     { cis,2 b }
   }
 c1
 @end lilypond
+
+@noindent
 Repeats with upbeats:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -204,6 +245,8 @@ see @ref{Bar lines} for more information.
 
 @seealso
 
+Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
+
 Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
@@ -212,7 +255,7 @@ Internals Reference: @internalsref{VoltaBracket},
 @internalsref{UnfoldedRepeatedMusic}.
 
 @c Examples:
-
+@c FIXME: ?
 
 @knownissues
 
@@ -261,10 +304,10 @@ Print a @code{|:} bar line.
 Print a @code{:|} bar line.
 
 @item @code{(volta @var{text})}
-Print a volta bracket saying @var{text}.  The text can be
-specified as a text string or as a markup text, see @ref{Text
-markup}.  Do not forget to change the font, as the default number
-font does not contain alphabetic characters;
+Print a volta bracket saying @var{text}.  The text can be specified as
+a text string or as a markup text, see @ref{Text markup}.  Do not
+forget to change the font, as the default number font does not contain
+alphabetic characters;
 
 
 @item @code{(volta #f)}
@@ -283,22 +326,23 @@ c4 c4
 
 @seealso
 
-Notation Reference: @ref{Bar lines}.
+Notation Reference: @ref{Bar lines}, @ref{Text markup}.
 
 Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
-and @internalsref{UnfoldedRepeatedMusic}.
+@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic}, and
+@internalsref{UnfoldedRepeatedMusic}.
 
 
-@node Other repeats
-@subsection Other repeats
+@node Repetitious Music
+@subsubsection Repetitous music
 
-@menu
-* Tremolo repeats::             
-* Measure repeats::             
-@end menu
+@c FIXME: rewrite unfold section
+
+@seealso
+
+Snippets: @lsrdir{Repeats,Repeats}.
 
 @node Tremolo repeats
 @subsubsection Tremolo repeats
@@ -408,8 +452,6 @@ multi-measure rest with a different print function:
   = #ly:multi-measure-rest::percent
 R1
 @end lilypond
-
-
 
 
 @seealso

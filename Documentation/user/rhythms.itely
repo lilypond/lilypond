@@ -9,8 +9,7 @@
 @node Rhythms
 @section Rhythms
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=14,quote]
-{rhythms-headword.ly}
+@lilypondfile[quote]{rhythms-headword.ly}
 
 This section discusses rhythms, rests, durations, beaming and bars.
 
@@ -1899,7 +1898,8 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 @seealso
 
 Notation Reference: @ref{Line breaking}, @ref{Repeats},
-@ref{System start delimiters}.
+@c FIXME: node name changed, but is subject to further changes.
+@c @ref{System start delimiters}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
