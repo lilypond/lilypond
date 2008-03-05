@@ -282,7 +282,7 @@ Tuplet_bracket::print (SCM smob)
   
   /* Don't print a tuplet bracket and number if no control-points were calculated */
   SCM cpoints =  me->get_property ("control-points");
-  if (scm_ilength (cpoints) < 2 )
+  if (scm_ilength (cpoints) < 2)
     {
       me->suicide ();
       return SCM_EOL;
