@@ -1,6 +1,12 @@
 \version "2.11.38"
 \include "english.ly"
-
+#(set-global-staff-size 15)
+\paper{
+  ragged-right=##t
+  line-width=17\cm
+  indent=0\cm
+}
+ 
 % NR 1.7 Repeats
 
 % Beethoven, Op. 57

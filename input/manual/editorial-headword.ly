@@ -1,6 +1,12 @@
 \version "2.11.38"
 \include "english.ly"
-
+#(set-global-staff-size 15)
+\paper{
+  ragged-right=##t
+  line-width=17\cm
+  indent=0\cm
+}
+ 
 % NR 1.7 Editorial annotations
 
 % Beethoven, Op. 31, No. 3
@@ -46,18 +52,7 @@
       d'8-2 \staccato
       |
       c'4-3
-      r8
-      r16.
-      c'32-3 \pp
-      |
-      c'8-2
-      r16.
-      c'32
-      c'8
-      r16.
-      c'32
-      |
-      c'8
+      r4
    }
    
    % LH Staff
@@ -93,18 +88,7 @@
       d8-2 \staccato
       |
       c4-3
-      r8
-      r16.
-      c32-3
-      |
-      c8-2
-      r16.
-      c32
-      c8
-      r16.
-      c32
-      |
-      c8
+      r4
    }
 
 >>

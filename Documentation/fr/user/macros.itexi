@@ -6,6 +6,10 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@macro version
+@value{version}
+@end macro
+
 
 @c   ***** Displaying text *****
 
@@ -173,6 +177,7 @@
 @c WARNING: new @lsr macro in English docs takes 3 arguments
 @c and new @lsrdir takes two arguments
 
+@c obsolete
 @c usage: @lsr{ancient,custodes.ly}
 @macro lsr{DIR,TEXT}
 @ifhtml
@@ -183,6 +188,7 @@
 @end ifnothtml
 @end macro
 
+@c don't update until this macro is correctly set up in English docs
 @macro lsrdir{DIR}
 @ifhtml
 @uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
@@ -204,14 +210,6 @@
 
 @ifhtml
 @c ***** HTML *****
-
-@c makeinfo-4.7 encodes html names, which means that nodes that
-@c contain nonalphanum characters will be broken links on the website.
-@c @uref{../lilypond-internals/\TEXT\.html,\TEXT\}@c
-@c @inforef{} adds ``See'' to the sentence, which is annoying, but
-@c better than a broken link.
-@c @inforef{\TEXT\,,lilypond-internals}@c
-@c using @ref without punctuation is OK without for formats other than info
 
 @ifset bigpage
 

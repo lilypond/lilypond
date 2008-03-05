@@ -9,8 +9,7 @@
 @node Text
 @section Text
 
-@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
-{text-headword.ly}
+@lilypondfile[quote]{text-headword.ly}
 
 This section explains how to include text (with various
 formatting) in your scores.

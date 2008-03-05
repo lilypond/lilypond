@@ -10,6 +10,8 @@
 @documentencoding UTF-8
 
 
+@include macros.itexi
+
 @iftex
 @afourpaper
 @c don't replace quotes with directed quotes
@@ -85,25 +87,11 @@ Free Documentation License''.
 
 @vskip 20pt
 
-@lilypond[ragged-right]
-\score {
-  \context Lyrics {
-    \override Score.RehearsalMark #'self-alignment-X = #LEFT
-    \override Score.RehearsalMark #'font-size = #-2
-    \mark #(ly:export (string-append
-      "(For LilyPond version " (lilypond-version) ")"))
-    s2
-  }
-  \layout {
-    indent = 0.0\pt
-  }
-}
-@end lilypond
-
+Pour LilyPond version @version{}
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2008 par les auteurs
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -132,9 +120,25 @@ Free Documentation License''.
 @end copying
 
 @ifnottex
-This file documents GNU LilyPond program usage.
+Ce fichier documente GNU LilyPond.
 
-Copyright 1999--2007 by the authors
+Copyright @copyright{} 1999--2008 par les auteurs
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
+
+@emph{La traduction de la notice de droits d'auteur ci-dessous vise à
+faciliter sa compréhension par le lecteur non anglophone, mais seule la
+notice en anglais a valeur légale.}
+
+@quotation
+Vous avez le droit de copier, distribuer et/ou modifier ce document
+selon les termes de la Licence GNU de documentation libre, version 1.1
+ou tout autre version ultérieure publiée par la Free Software
+Foundation, ``sans aucune section invariante''.
+Une copie de la licence est fournie à la section ``Licence GNU de documentation libre''.
+@end quotation
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -151,10 +155,7 @@ Free Documentation License''.
 @top GNU LilyPond --- manuel d'initiation
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Ce document est le manuel d'initiation pour GNU LilyPond 2.11.x.
-@ifhtml
-(Allez au bas de la page pour voir le numéro de version exact).
-@end ifhtml
+Ce document est le manuel d'initiation pour GNU LilyPond @version{}.
 
 @cindex web site
 @cindex URL
@@ -182,8 +183,6 @@ Annexes
 
 @contents
 
-
-@include macros.itexi
 
 @include preface.itely
 @include introduction.itely

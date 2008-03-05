@@ -6,6 +6,16 @@ STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 EXTRA_DIST_FILES += README $(call src-wildcard,*.snippet-list)
 
+ifneq ($(out),)
+MAIN_INFO_DOC = lilypond-snippets
+INFO_DOCS = lilypond-snippets
+INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
+INFO_IMAGES_DIR = lilypond-snippets
+DEST_INFO_IMAGES_SUBDIR = input/lsr
+endif
+
+default:
+
 include $(depth)/make/stepmake.make
 
 IN_ITELY_FILES = $(call src-wildcard,*-intro.itely)
@@ -14,14 +24,27 @@ GENERATED_ITELY_FILES = $(IN_ITELY_FILES:%-intro.itely=$(outdir)/%.itely)
 $(outdir)/%.itely: %-intro.itely %.snippet-list
 	xargs $(PYTHON) $(buildscript-dir)/lys-to-tely.py -f printfilename,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 
-$(outdir)/snippets.texi: snippets.tely $(GENERATED_ITELY_FILES)
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BINARY) $(LILYPOND_BOOK_INCLUDES)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
+$(outdir)/lilypond-snippets.texi: $(GENERATED_ITELY_FILES)
 
-$(outdir)/snippets-big-page.html: $(outdir)/snippets.texi $(OUT_PNG_IMAGES)
-	$(MAKEINFO) -I$(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
+info: $(INFO_FILES)
 
-$(outdir)/snippets/index.html: $(outdir)/snippets.texi $(OUT_PNG_IMAGES) $(OUT_EPS_IMAGES)
-	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+ifneq ($(out),www)
+# cancel install-info target and $(INFO_FILES) 'default' target
+# (there is no lilypond-snippets.info without images)
+local-install-info:
 
-local-WWW: $(outdir)/snippets.pdf $(outdir)/snippets/index.html $(outdir)/snippets-big-page.html
+$(INFO_FILES):
+	true
+endif
+
+# All web targets, except info image symlinks and info docs are
+# installed in non-recursing target from TOP-SRC-DIR
+local-install-WWW: local-install-info
+local-uninstall-WWW: local-uninstall-info
+
+local-clean:
+	rm -f $(INFO_IMAGES_DIR)
+
+local-WWW: info $(outdir)/lilypond-snippets.pdf \
+  $(outdir)/lilypond-snippets/index.html \
+  $(outdir)/lilypond-snippets-big-page.html

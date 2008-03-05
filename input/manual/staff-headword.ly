@@ -1,6 +1,12 @@
 \version "2.11.38"
 \include "english.ly"
-
+#(set-global-staff-size 15)
+\paper{
+  ragged-right=##t
+  line-width=17\cm
+  indent=0\cm
+}
+ 
 % NR 1.6 Staff notation
 
 % L. v. Beethoven, Op. 106
@@ -157,7 +163,7 @@
       R1 * 3/4
 
       \bar "||"
-      \key d \major
+      %\key d \major
    }
 
    % LH
@@ -230,7 +236,7 @@
       R1 * 3/4
 
       \bar "||"
-      \key d \major
+      %\key d \major
    }
 
 >>

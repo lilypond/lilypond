@@ -119,7 +119,7 @@ Free Documentation License''.
 
 @c TRANSLATE ME
 @ifnottex
-This file documents GNU LilyPond program usage.
+Este archivo es la documentación sobre la utilización del programa GNU LilyPond.
 
 Copyright @copyright{} 1999--2007 por los autores
 
@@ -158,27 +158,26 @@ Free Documentation License''.
 
 Éste es el manual de aprendizaje de GNU LilyPond, versión @version{}.
 
-@cindex web site
+@cindex página web
 @cindex URL
 
-More information can be found at
-@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
-of this and other documentation.
+Encontrará más información en
+@uref{http://@/www@/.lilypond@/.org/}.  La página web contiene copias
+en línea de la presente y otras documentaciones.
 
 @menu
 * Preface::                        Prefacio.
 * Introduction::                   Qué, por qué y cómo.
 * Tutorial::                       Introducción en forma de tutorial.
-* Putting it all together::        Más explicaciones sobre conceptos de
-LilyPond.
-* Working on LilyPond projects::   Sobre la utilización en el mundo
-real.
-* Tweaking output::                Introducción a las modificaciones de
-la salida.
+* Fundamental concepts::           Conceptos básicos necesarios para leer el resto de este manual.
+* Tweaking output::                Introducción a las modificaciones de la salida.
+* Working on LilyPond projects::   Sobre la utilización en el mundo real.
 
 Apéndices
 
-* GNU Free Documentation License:: License of this document.
+* Templates::                      Plantillas listas para usar.
+* Scheme tutorial::                Programar dentro de LilyPond.
+* GNU Free Documentation License:: La licencia de este documento.
 * LilyPond index::
 @end menu
 @end ifnottex
@@ -190,9 +189,11 @@ Apéndices
 @include introduction.itely
 @include tutorial.itely
 @include putting.itely
-@include working.itely
 @include tweaks.itely
+@include working.itely
 
+@include templates.itely
+@include scheme-tutorial.itely
 @include fdl.itexi
 
 @node LilyPond index

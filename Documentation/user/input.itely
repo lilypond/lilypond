@@ -16,6 +16,12 @@ rather than specific notation.
 FIXME: don't complain about anything in this chapter.  It's still
 under heavy development.
 
+FIXME: add comments
+@verbatim
+% %{
+@end verbatim
+to 3.1.
+
 @menu
 * Input files::                 
 * Common syntax issues TODO name?::  
@@ -541,6 +547,11 @@ Maybe rename section to "directions".
 Also mention \override Foo #'direction = #'DOWN.
 
 also mention the typical \fooDown, \fooNeutral predefined commands.
+
+also mention that some directions are (without other tweaking)
+always up or always down (like dynamics or fermata), while other
+things can alternate between up or down based on the stem direction
+(like slurs or accents).
 
 
 @node Distances and measurements MAYBE MOVE

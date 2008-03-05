@@ -58,10 +58,10 @@ and constructing Tweaks.
 @node Objects and interfaces
 @subsection Objects and interfaces
 
-@cindex Objects
-@cindex Grobs
-@cindex Spanners
-@cindex Interfaces
+@cindex objects
+@cindex grobs
+@cindex spanners
+@cindex interfaces
 
 Tweaking involves modifying the internal operation and structures
 of the LilyPond program, so we must first introduce some terms
@@ -108,7 +108,7 @@ interpretation of the input file.  To simplify these internal
 operations these common actions and properties are grouped 
 together in an object called a @code{grob-interface}.  There
 are many other groupings of common properties like this, each 
-one given a name ending in @code{-interface}.  In total there
+one given a name ending in @code{interface}.  In total there
 are over 100 such interfaces.  We shall see later why this is
 of interest and use to the user.
 
@@ -169,8 +169,8 @@ We have already met the commands @code{\set} and @code{\with},
 used to change the properties of @strong{contexts} and to remove
 and add @strong{engravers}, in
 @ref{Modifying context properties} and @ref{Adding
-and removing engravers}.  We now must meet one more important
-command.
+and removing engravers}.  We now must meet some more important
+commands.
 
 The command to change the properties of @strong{layout objects} is
 @code{\override}.  Because this command has to modify
@@ -183,7 +183,8 @@ how this is done.
 The general syntax of this command is:
 
 @example
-\override @emph{context}.@emph{layout_object} #'@emph{layout_property} = #@emph{value}
+\override @emph{context}.@emph{layout_object} 
+  #'@emph{layout_property} = #@emph{value}
 @end example
 
 @noindent
@@ -198,12 +199,31 @@ level contexts, i.e., @code{Voice}, @code{ChordNames} or
 @code{Lyrics}, and we shall omit it in many of the following
 examples.  We shall see later when it must be specified.
 
+Later sections deal comprehensively with properties and their
+values, but to illustrate the format and use of these commands
+we shall use just a few simple properties and values which are
+easily understood.
+
 For now, don't worry about the @code{#'}, which must precede the
 layout property, and the @code{#}, which must precede the value.
 These must always be present in exactly this form.  This is the
 most common command used in tweaking, and most of the rest of
 this chapter will be directed to presenting examples of how it is
-used.
+used.  Here is a simple example to change the color of the
+note head:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\override NoteHead #'color = #red
+e f g
+\override NoteHead #'color = #green
+a b c
+@end lilypond
+
+@strong{\revert command}
+
+@cindex revert command
+@funindex \revert
 
 Once overridden, the property retains its new value until it is
 overridden again or a @code{\revert} command is encountered.
@@ -218,7 +238,35 @@ commands have been issued.
 
 Again, just like @emph{context} in the @code{\override} command,
 @emph{context} is often not needed.  It will be omitted
-in many of the following examples.
+in many of the following examples.  Here we revert the color
+of the note head to the default value for the final two notes:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\override NoteHead #'color = #red
+e f g
+\override NoteHead #'color = #green
+a
+\revert NoteHead #'color
+b c
+@end lilypond
+
+@strong{\once prefix}
+
+Both the @code{\override} and the @code{\set} commands may be
+prefixed by @code{\once}.  This causes the following
+@code{\override} or @code{\set} command to be effective only
+during the current musical moment before the property reverts
+back to its default value.  Using the same example, we can
+change the color of a single note like this:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\once \override NoteHead #'color = #red
+e f g
+\once \override NoteHead #'color = #green
+a b c
+@end lilypond
 
 @strong{\overrideProperty command}
 
@@ -250,7 +298,8 @@ middle note (the E) in a C major chord.  Let's first see what
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
   <c e g>4
   \once \override NoteHead #'font-size = #-3
-  <c e g>4
+  <c e g>
+  <c e g>
 @end lilypond
 
 We see the override affects @emph{all} the notes in the chord.
@@ -266,8 +315,8 @@ it is effective only on objects which are created directly from
 the input stream, essentially note heads and articulations.
 (Objects such as stems and accidentals are created later and
 cannot be tweaked in this way).  Furthermore, when it is applied
-to note heads these must be within a chord, i.e., within single
-angle brackets, so to tweak a single note the @code{\tweak}
+to note heads these @emph{must} be within a chord, i.e., within
+single angle brackets, so to tweak a single note the @code{\tweak}
 command must be placed inside single angle brackets with the
 note.
 
@@ -301,6 +350,27 @@ a ^Black
 
 Note that the @code{\tweak} command must be preceded by an
 articulation mark as if it were an articulation itself.
+
+The @code{\tweak} command must also be used to change the 
+appearance of one of a set of nested tuplets which begin at the 
+same musical moment.  In the following example, the long tuplet
+bracket and the first of the three short brackets begin at the
+same musical moment, so any @code{\override} command would apply
+to both of them.  In the example, @code{\tweak} is used to
+distinguish between them.  The first @code{\tweak} command
+specifies that the long tuplet bracket is to be placed above the
+notes and the second one specifies that the tuplet number is to be
+printed in red on the first short tuplet bracket.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\tweak #'direction #up
+\times 4/3 {
+  \tweak #'color #red
+  \times 2/3 { c8[ c8 c8] }
+  \times 2/3 { c8[ c8 c8] }
+  \times 2/3 { c8[ c8 c8] }
+}
+@end lilypond
 
 You can find more details of the @code{\tweak} command in
 @ruser{Objects connected to the input}.
@@ -519,10 +589,9 @@ repositioned as follows:
 @noindent
 Now only the first slur is made heavier.
 
-The @code{\once} command can also be used before @code{\set}
-and @code{\unset}, and before the command to be introduced
-in the following section -- @code{revert}.
- 
+The @code{\once} command can also be used before the @code{\set}
+command.
+
 @subheading Reverting
 
 @cindex revert
@@ -687,7 +756,7 @@ lyrics which it should affect, like this:
 @noindent
 and the lyrics are all printed in italics.
 
-@subheading Specifying context in lyric mode
+@subheading Specifying the context in lyric mode
 @cindex context, specifying in lyric mode
 
 In the case of lyrics, if you try specifying the context in the 

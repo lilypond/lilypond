@@ -247,11 +247,15 @@ Stem_tremolo::print (SCM grob)
 }
 
 ADD_INTERFACE (Stem_tremolo,
-	       "A beam slashing a stem to indicate a tremolo.",
+	       "A beam slashing a stem to indicate a tremolo. "
+               "The property @code{style} can be @code{default} or "
+               "@code{rectangle}.",
 
+               /* properties */
 	       "beam-thickness "
 	       "beam-width "
 	       "flag-count "
+	       "length-fraction "
 	       "stem "
                "style "
 	       "slope "

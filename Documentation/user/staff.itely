@@ -9,20 +9,16 @@
 @node Staff notation
 @section Staff notation
 
-@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
-{staff-headword.ly}
+@lilypondfile[quote]{staff-headword.ly}
 
-Notes, dynamic signs, rests, etc., are grouped with a set of horizontal
-lines, called a staff (plural @q{staves}).  In LilyPond, these
-lines are drawn using a separate layout object called @code{staff
-symbol}.
 
-Two or more staves can be grouped vertically in a @code{GrandStaff}, a
-@code{StaffGroup}, or a @code{ChoirStaff}.
-
+This section explains how to influence the staff appearance, 
+print scores with more than one staff, and 
+how to apply specific performance marks to single staves.
 
 @menu
 * Displaying staves::           
+* Modifying single staves::     
 * Writing parts::               
 @end menu
 
@@ -30,96 +26,254 @@ Two or more staves can be grouped vertically in a @code{GrandStaff}, a
 @node Displaying staves
 @subsection Displaying staves
 
+This section shows the different possibilities to create and group
+staves into groups, which can be marked in the beginning of each
+line with either a bracket or a brace.
+
 @menu
-* System start delimiters::     
-* Staff symbol::                
-* Hiding staves::               
+* Initiating new staves::       
+* Grouping staves::             
 @end menu
 
-@node System start delimiters
-@subsubsection System start delimiters
+@node Initiating new staves
+@subsubsection Initiating new staves
+
+@cindex new staff
+@cindex staff initiation
+@cindex staff, new
+
+The lines of a staff (pl. staves) are produced by a @code{staff symbol} 
+layout object.
+LilyPond ensures that all music is printed on staff lines so if you just
+type in some notes, the staff symbol is added automatically to the output.
+This is just a shortcut to make the program usage more easy, but in most
+cases where you want to print more complex music on more than on staff
+it is better to create the staff explicitly at the beginning of your
+music inside of the @code{\score} environment.
+
+With the command @code{\new Staff @{ ... @}} you actually call a new 
+Staff context that has already everything set up to the default 
+engraving rules. @ref{Creating contexts} explains how different contexts
+are called.
+
+Once a staff is instantiated it can be started or stopped at every point
+in the score. This is done with the commands @code{\startStaff} and 
+@code{\stopStaff}. How to use it is shown in @ref{Staff symbol}.
+
+Besides the default @code{Staff} context there are also
+specialized staff contexts for setting percussion, Guitar music,
+and ancient music.
+See @ref{Printing chord names}, @ref{Percussion staves}, 
+@ref{Tablatures basic}, @ref{Gregorian Chant contexts}, and
+@ref{Mensural contexts} for an explanation.
+
+@seealso
+
+Music Glossary: @rglos{staff}, @rglos{staves}.
+
+Notation Reference: @ref{Printing chord names}, @ref{Percussion staves}, 
+@ref{Tablatures basic}, @ref{Gregorian Chant contexts}, and
+@ref{Mensural contexts}.
+
+Snippets: @lsrdir{Staff,Staff-notation}.
+
+Internals Reference: @internalsref{Staff}.
+
+
+
+@node Grouping staves
+@subsubsection Grouping staves
 
 @cindex start of system
 @cindex staff, multiple
+@cindex staves, multiple
+@cindex system start delimiters
 @cindex bracket, vertical
 @cindex brace, vertical
 @cindex grand staff
+@cindex piano staff
 @cindex staff group
 @cindex staff, choir
+@cindex choir staff
 @cindex system
 
-Many scores consist of more than one staff.  These staves can be
-grouped in several different ways:
+LilyPond provides different types of contexts to group single staves 
+together. These contexts influence in the first place the appearance
+of the system start delimiter, but they have also influence on the
+behaviour of the bar lines.
+
 
 @itemize
-@item
-In a @code{GrandStaff}, the group is started with a brace
-at the left, and bar lines are connected between the staves. 
-
-@lilypond[verbatim,ragged-right,quote]
-\new GrandStaff
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-
-@item
-In a @code{StaffGroup}, the bar lines will be drawn through
-all the staves, but the group is started with a bracket.
-
-@lilypond[verbatim,ragged-right,quote]
-\new StaffGroup
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-
-@item
-In a @code{ChoirStaff}, the group is started with a
-bracket, but bar lines are not connected. 
-
-@lilypond[verbatim,ragged-right,quote]
-\new ChoirStaff
-\relative <<
-  \new Staff { c1 c }
-  \new Staff { c c }
->>
-@end lilypond
-
 @item
 If no context is specified, the default properties for the score
 will be used: the group is started with a vertical line, and the
 bar lines are not connected.  
 
 @lilypond[verbatim,ragged-right,quote]
-\relative <<
+\relative c'' { <<
   \new Staff { c1 c }
   \new Staff { c c }
->>
+>> }
 @end lilypond
+
+@item
+In a @code{StaffGroup}, the bar lines will be drawn through
+all the staves, and the group is started with a bracket.
+
+@lilypond[verbatim,ragged-right,quote]
+\new StaffGroup {
+  \relative c'' <<
+    \new Staff { c1 c }
+    \new Staff { c c }
+  >>
+}
+@end lilypond
+
+@item
+In a @code{ChoirStaff}, the group is 
+started with a bracket, but bar lines are not connected. 
+
+@lilypond[verbatim,ragged-right,quote]
+\new ChoirStaff {
+  \relative c'' <<
+    \new Staff { c1 c }
+    \new Staff { c c }
+  >>
+}
+@end lilypond
+
+@item
+In a @code{GrandStaff}, the group is started with a brace
+at the left, and bar lines are connected between the staves. 
+
+@lilypond[verbatim,ragged-right,quote]
+\new GrandStaff {
+  \relative c'' <<
+    \new Staff { c1 c }
+    \new Staff { c c }
+  >>
+}
+@end lilypond
+
+@item
+The @code{PianoStaff} behaves almost as the @code{GrandStaff} but is
+optimized for setting piano music.
+
+@lilypond[verbatim,ragged-right,quote]
+\new PianoStaff
+\relative c'' <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>> }
+@end lilypond
+
 @end itemize
 
-@cindex Mensurstriche layout
-@cindex Renaissance music
+According to classic engraver rules an orchestral score consists of
+staves connected only with a single line at the beginning of the system.
+In LilyPond this is produced grouping the @code{Staff} contexts with
+@code{<< ... >>}.
 
-In addition to these four staff group types, other groupings can
-be produced by changing various properties. E.g., the
-@q{Mensurstriche} layout common in Renaissance music, with
-bar lines running between but not through the staves, can be
-produced from a @code{StaffGroup} or @code{GrandStaff} context if
-the bar lines are made transparent in the @code{Staff} itself, with
-the command @code{\override Staff.BarLine #'transparent = ##t}
+Each instrument family is grouped inside of a @code{StaffGroup} with a 
+starting bracket. A group of same instruments or an instrument using
+more than one staff is grouped with braces in a @code{GrandStaff}.
+
+As the context names tell, @code{PianoStaff} is used for notating
+piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
+
+Here is an example of an orchestral score using groupings. Note that the
+instrument names are omited here, see @ref{Instrument names} how to set 
+them.
+
+@lilypond[verbatim,ragged-right,quote]
+\score{ \relative c' {
+<<
+  \new StaffGroup %the woodwinds group
+  <<
+    \new Staff { c1 c }
+    \new Staff { c c }
+    \new Staff { c c }
+  >>
+  \new StaffGroup %the brass group
+  <<
+    \new Staff { c c }
+    \new Staff { c c }
+    \new GrandStaff %the horns need a GrandStaff (same instrument)
+    <<
+      \new Staff { c c }
+      \new Staff {\clef bass c c }
+    >>
+  >>
+  \new ChoirStaff %for a vocal part
+  <<
+    \new Staff { c c }
+    \new Staff {\clef alto c c }
+    \new Staff {\clef bass c c }
+  >>
+  \new PianoStaff %for the piano
+  <<
+    \new Staff { c c }
+    \new Staff {\clef bass c c }
+  >>
+>>
+} }
+@end lilypond
+
+The different staff contexts are already nested in this example, as
+the @q{horn section} is contained both in a @code{StaffGroup} and a 
+@code{GrandStaff}.
 
 @cindex staff, nested
 
-Staff groups can be nested, using the context
-@code{InnerStaffGroup} or @code{InnerChoirStaff}; see
-@c @lsr{staff,staff-brackets.ly}
-@c snippet 137
+It is also possible to nest staves of the same type with the contexts
+@code{InnerStaffGroup} and @code{InnerChoirStaffGroup}. These behave like
+the corresponding normal staff groups but can only initiated inside of
+another staff context. Again LilyPond would add a normal @code{StaffGroup}
+to the output, if you would start a score with an @code{InnerStaffGroup}. 
+
+Note that @code{GrandStaff} and @code{PianoStaff} do not have any inner
+grouping contexts. They can both be inside an inner staff context, though.
+
+@c snippet staff-brackets.ly
+@lilypond[verbatim,ragged-right,quote]
+\score { 
+<<
+  \new StaffGroup << 
+  \new Staff {c' d' e' f'}
+  \new InnerStaffGroup <<
+   \new Staff {c' d' e' f'}
+   \new GrandStaff <<
+     \new Staff {c' d' e' f'}
+     \new Staff {c' d' e' f'}
+   >>
+  \new Staff {c' d' e' f'}
+  >>
+  \new ChoirStaff <<
+   \new Staff {c' d' e' f'}
+    \new InnerStaffGroup <<
+     \new Staff {c' d' e' f'}
+    >>
+   \new Staff {c' d' e' f'}
+  >>
+  >>
+  \new ChoirStaff << 
+   \new Staff {c' d' e' f'}
+   \new InnerChoirStaff <<
+    \new Staff {c' d' e' f'}
+    \new Staff {c' d' e' f'}
+   >>
+   \new Staff {c' d' e' f'}
+  >>
+>> }
+@end lilypond
+
 
 @snippets
+
+@c FIXME: not yet in master
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {nesting-staves.ly}
+
 
 More complex nesting can be accomplished using the property
 @code{systemStartDelimiterHierarchy}: 
@@ -145,24 +299,69 @@ and @internalsref{SystemStartBracket}.  A fourth delimiter,
 @code{systemStartSquare}, is also available, but must be
 instantiated manually
 
+
+
+@cindex mensurstriche layout
+@cindex renaissance music
+@cindex transcription of mensural music
+@cindex mensural music, transcription of
+
+
+@c FIXME: not yet in master
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {mensurstriche-layout.ly}
+
+Other groupings may be achieved by changing various properties.
+E.g., the
+@q{Mensurstriche} layout common in Renaissance music, with
+bar lines running between but not through the staves, can be
+produced from a @code{StaffGroup} or @code{GrandStaff} context if
+the bar lines are made transparent in the @code{Staff} itself:
+
+@lilypond[verbatim,ragged-right,quote]
+global = {\override Staff.BarLine #'transparent = ##t
+          s1 s
+          %the final bar line is not interupted
+          \once \override Staff.BarLine #'transparent = ##f
+          \bar "|."}
+\new StaffGroup
+\relative c'' <<
+  \new Staff {<< \global { c1 c } >>}
+  \new Staff {<< \global { c c } >>}
+>>
+@end lilypond
+
+
+
 @c FIXME: Graham will deal with this.  -gp
 @c snippet 201
 To display a bracket even if there is only one staff, see
-@c @lsr{staff,display-bracket-with-only-one-staff-in-a system.ly}
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {staff,display-bracket-with-only-one-staff-in-a system.ly}
 
 @seealso
 
-Music Glossary: @rglos{brace}, @rglos{staff}, @rglos{staves}
+Music Glossary: @rglos{brace}, 
 @rglos{bracket}.
 
 Snippets: @lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{ChoirStaff},
-@internalsref{GrandStaff}, @internalsref{StaffGroup},
+@internalsref{GrandStaff}, @internalsref{PianoStaff}, 
+@internalsref{StaffGroup},
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-@internalsref{SystemStartBracket},
-@internalsref{systemStartDelimiterHierarchy}.
+@internalsref{SystemStartBracket}, @internalsref{SystemStartSquare}.
 
+
+
+@node Modifying single staves
+@subsection Modifying single staves
+
+@menu
+* Staff symbol::                
+* Ossia staves::                
+* Hiding staves::               
+@end menu
 
 @node Staff symbol
 @subsubsection Staff symbol
@@ -188,6 +387,9 @@ b b
 \stopStaff \startStaff
 b b
 @end lilypond
+
+@node Ossia staves
+@subsubsection Ossia staves
 
 @cindex staves, Frenched
 @cindex ossia

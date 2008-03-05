@@ -82,6 +82,10 @@ for t in targets:
         if not os.path.exists (dest):
             os.symlink (p, dest)
 
+    ## ad-hoc renaming to make xrefs between PDFs work
+    os.rename (os.path.join (out_root, 'input/lsr/lilypond-snippets.pdf'),
+               os.path.join (out_root, 'Documentation/user/lilypond-snippets.pdf'))
+
 # need this for content negotiation with documentation index
 if 'online' in targets:
     f = open (os.path.join (target_pattern % 'online', 'Documentation/.htaccess'), 'w')

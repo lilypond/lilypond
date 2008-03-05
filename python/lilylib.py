@@ -11,7 +11,6 @@ import glob
 import os
 import re
 import shutil
-import string
 import sys
 import optparse
 
@@ -185,7 +184,7 @@ def strip_extension (f, ext):
 
 def search_exe_path (name):
     p = os.environ['PATH']
-    exe_paths = string.split (p, ':')
+    exe_paths = p.split (':')
     for e in exe_paths:
 	full = os.path.join (e, name)
 	if os.path.exists (full):

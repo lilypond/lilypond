@@ -35,7 +35,7 @@ das Klaviersystem und andere Eigenheiten der Pianonotation besprochen.
 * Cross staff stems::           
 @end menu
 
-@refbugs
+@knownissues
 
 Dynamische Zeichen werden nicht automatisch mittig notiert, aber 
 dafür gibt es Lösungen, vgl. die 
@@ -96,7 +96,7 @@ Im Handbuch: @ref{Manual staff switches}.
 
 Programmreferenz: @internalsref{AutoChangeMusic}.
  
-@refbugs
+@knownissues
 
 Der Systemwechsel wird nicht immer an der optimalen Stelle vorgenommen. 
 Für hohe Qualität muss der Wechsel mit der Hand eingegeben werden.
@@ -250,7 +250,7 @@ Stimmenverlaufs ausgegeben werden. Das wird erreicht, indem
 
 Programmreferenz: @internalsref{VoiceFollower}.
 
-@refcommands
+@predefined
 
 @funindex \showStaffSwitch
 @code{\showStaffSwitch},
