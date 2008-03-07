@@ -164,7 +164,7 @@ optimized for setting piano music.
 \relative c'' <<
   \new Staff { c1 c }
   \new Staff { c c }
->> }
+>>
 @end lilypond
 
 @end itemize
