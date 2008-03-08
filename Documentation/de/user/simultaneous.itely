@@ -340,7 +340,7 @@ Spalte zu rücken, und das Vereinigen funktioniert wie gewünscht.
 @end lilypond
 
 
-@refcommands
+@predefined
 
 @funindex \oneVoice
 @code{\oneVoice},
@@ -393,7 +393,7 @@ zuständig sind, sind
 @internalsref{NoteCollision} und @internalsref{RestCollision}.
 
 
-@refbugs
+@knownissues
 
 Wenn @code{merge-differently-headed} mit einer nach oben gerichteten 
 Achtel oder kleineren Note verwendet wird, und die nach unten gerichtete 

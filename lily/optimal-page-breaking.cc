@@ -65,7 +65,12 @@ Optimal_page_breaking::solve ()
 	min_sys_count -= best.systems_per_page_[page_count - 2];
     }
   else
-    best = space_systems_on_n_pages (0, page_count, first_page_num);
+    {
+      /* todo: the following line will spit out programming errors if the
+	 ideal line spacing doesn't fit on PAGE_COUNT pages */
+      best = space_systems_on_n_pages (0, page_count, first_page_num);
+      min_sys_count = page_count;
+    }
 
   if (page_count == 1)
     message (_ ("Fitting music on 1 page..."));
@@ -86,7 +91,7 @@ Optimal_page_breaking::solve ()
 	  vsize min_p_count = min_page_count (i, first_page_num);
 	  Page_spacing_result cur;
 
-	  if (min_p_count == page_count)
+	  if (min_p_count == page_count || scm_is_integer (forced_page_count))
 	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
 	  else
 	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num);

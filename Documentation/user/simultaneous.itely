@@ -9,8 +9,7 @@
 @node Simultaneous notes
 @section Simultaneous notes
 
-@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
-{simultaneous-headword.ly}
+@lilypondfile[quote]{simultaneous-headword.ly}
 
 Polyphony in music refers to having more than one voice occurring
 in a piece of music.  Polyphony in LilyPond refers to having more

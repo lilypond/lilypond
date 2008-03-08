@@ -32,7 +32,14 @@ LILYPOND_JOBS=$(if $(CPU_COUNT),-djob-count=$(CPU_COUNT),)
 LILYPOND_BOOK_LILYPOND_FLAGS=-dbackend=eps --formats=ps,png,pdf $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=$(ANTI_ALIAS_FACTOR)
 LILYPOND_BOOK_VERBOSE = --verbose
 LILYPOND_BOOK_INFO_IMAGES_DIR = $(if $(INFO_IMAGES_DIR),--info-images-dir=$(INFO_IMAGES_DIR),)
-LILYPOND_BOOK_FLAGS = --process="$(LILYPOND_BINARY) $(LILYPOND_BOOK_LILYPOND_FLAGS)" $(LILYPOND_BOOK_VERBOSE) $(LILYPOND_BOOK_INFO_IMAGES_DIR)
+LILYPOND_BOOK_FLAGS = $(LILYPOND_BOOK_VERBOSE) $(LILYPOND_BOOK_INFO_IMAGES_DIR)
+
+ifeq ($(out),)
+LILYPOND_BOOK_PROCESS = true
+else
+LILYPOND_BOOK_PROCESS = $(LILYPOND_BINARY)
+endif
+
 TEXINPUTS=$(top-src-dir)/tex/::
 export TEXINPUTS
 

@@ -50,9 +50,9 @@ Copyright @copyright{} 1999--2007 by the authors
 
 @c TODO: multiple omfcreators?
 @ignore
-@omfcreator Christian Mondrup
+@omfcreator Christian Mondrup, Kurt Kroon
 @omfdescription Glossary of musical terms with translations
-@omftype user's guide
+@omftype glossary
 @omfcategory Applications|Publishing
 @omflanguage English
 @end ignore
@@ -338,8 +338,9 @@ Languages in this order.
 * note names::                  
 * note value::                  
 * octavation::                      
-* octave sign::                 
 * octave::                      
+* octave marking::                      
+* octave sign::                 
 * ornament::                    
 * ossia::                       
 * part::                        
@@ -1235,7 +1236,7 @@ D: Brevis,
 NL: brevis,
 DK: brevis,
 S: brevis,
-FI: brevis.
+FI: brevis, kaksoiskokonuotti.
 
 Note value twice as long as a whole note.  Mainly used in pre-1650 music. 
 The shortest note value generally used in white mensural notation, hence the
@@ -1912,11 +1913,26 @@ DK: ?,
 S: ?,
 FI: ?.
 
+@enumerate
+
+@item
+A time signature that additively combines two or more unequal meters, e.g.
+"3/8 + 2/8" instead of "5/8". Sometimes called additive time signatures.
+@c  See
+@c @lsr{Rhythms/compound-time-signatures.ly}.
+
+@item
+A meter that includes a triplet subdivision within the beat: see
+@ref{compound meter}.
+
+@end enumerate
+
 @ref{compound meter}
 
 @seealso
 
 @ref{meter}.
+@c @lsr{Rhythms/compound-time-signatures.ly}
 
 
 @node concert pitch
@@ -5079,9 +5095,9 @@ I: all'ottava,
 F: octaviation,
 D: Oktavierung,
 NL: octaveren,
-DK: ?,
-S: ?,
-FI: ?.
+DK: oktavering,
+S: oktavering,
+FI: oktaavamerkintä.
 
 The use of a phrase or abbreviation with an extender line or bracket to indicate
 that a passage is to be played in a different octave:
@@ -5120,27 +5136,6 @@ To parallel the list above:
 @ref{interval}, @ref{loco}, @ref{octave}.
 
 
-@node octave sign
-@section octave sign
-
-ES: ?,
-I: ?,
-F: ?,
-D: ?,
-NL: ?,
-DK: ?,
-S: ?,
-FI: ?.
-
-Putting 8 or 15 above or below the clef to indicate that the entire part is
-played in the indicated octave: a clef-wide octavation.  An octave sign can be
-applied to any clef, though it is most frequently used with the G and F clefs.
-
-@seealso
-
-@ref{G clef}, @ref{F clef}.
-
-
 @node octave
 @section octave
 
@@ -5161,6 +5156,35 @@ bracket, or @samp{loco} see octavation.
 @seealso
 
 @ref{interval}, @ref{octavation}.
+
+
+@node octave marking
+@section octave marking
+
+@seealso
+
+@ref{octavation}.
+
+
+@node octave sign
+@section octave sign
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Putting 8 or 15 above or below the clef to indicate that the entire part is
+played in the indicated octave: a clef-wide octavation.  An octave sign can be
+applied to any clef, though it is most frequently used with the G and F clefs.
+
+@seealso
+
+@ref{G clef}, @ref{F clef}.
 
 
 @node ornament
@@ -7273,12 +7297,12 @@ saxophone, and bassoon.
   @tab longa
   @tab longapaus
   @tab brevis
-  @tab brevis(paus)
+  @tab brevispaus
 @item @strong{FI}
-  @tab longa
-  @tab longa
-  @tab brevis
-  @tab brevis
+  @tab longa-nuotti
+  @tab longa-tauko
+  @tab brevis-nuotti, kaksoiskokonuotti
+  @tab brevis-tauko, kaksoiskokotauko
 
 @end multitable
 
@@ -7603,8 +7627,8 @@ the lilypond-user discussion list.
   @tab honderdachtentwintigste rust
   @tab 128e noot
 @item @strong{DK} 
-  @tab ?
-  @tab ?
+  @tab hundredeotteogtyvendedelsnode
+  @tab hundredeotteogtyvendedelspause
   @tab -
 @item @strong{SE} 
   @tab hundratjugoåttondelsnot
@@ -7645,8 +7669,8 @@ the lilypond-user discussion list.
   @tab tweehonderdzesenvijftigste rust
   @tab 256e noot
 @item @strong{DK} 
-  @tab ?
-  @tab ?
+  @tab tohundredeseksoghalvtredsendedelsnode
+  @tab tohundredeseksoghalvtredsendedelspause
   @tab -
 @item @strong{SE}
   @tab tvåhundrafemtiosjättedelsnot

@@ -105,9 +105,10 @@ directory as this file.)
 Save the code above to a file called @file{lilybook.lytex}, then in a
 terminal run
 
+@c keep space after @version{} so TeX doesn't choke
 @example
 lilypond-book --output=out --pdf lilybook.lytex
-@emph{lilypond-book (GNU LilyPond) 2.11.37}
+@emph{lilypond-book (GNU LilyPond) @version{} }
 @emph{Reading lilybook.lytex...}
 @emph{..lots of stuff deleted..}
 @emph{Compiling lilybook.tex...}
@@ -655,6 +656,10 @@ will be printed with a verbatim block like
   f2 e
 @end example
 
+@item addversion
+(Only for Texinfo output.)  Prepend line @code{\version
+@@w@{"@@version@{@}"@}} to @code{verbatim} output.
+
 @item texidoc
 (Only for Texinfo output.)  If @command{lilypond} is called with the
 @option{--header=@/texidoc} option, and the file to be processed is
@@ -699,8 +704,9 @@ useful if you want to @code{quote} the music snippet but not the
 
 @item printfilename
 If a LilyPond input file is included with @code{\lilypondfile}, print
-the file name right before the music snippet.  For HTML output, this is
-a link.
+the file name right before the music snippet.  For HTML output, this
+is a link.  Only the base name of the file is printed, i.e. the
+directory part of the file path is stripped.
 
 @item fontload
 This option includes fonts in all of the generated EPS-files for this
@@ -816,7 +822,11 @@ Print a short help message.
 
 @item -I @var{dir}
 @itemx --include=@var{dir}
-Add @var{dir} to the include path.
+Add @var{dir} to the include path.  @command{lilypond-book} also looks
+for already compiled snippets in the include path, and does not write
+them back to the output directory, so in some cases it is necessary to
+invoke further processing commands such as @command{makeinfo} or
+@command{latex} with the same @code{-I @var{dir}} options.
 
 @item -o @var{dir}
 @itemx --output=@var{dir}

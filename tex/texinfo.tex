@@ -3,11 +3,11 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2007-09-03.05}
+\def\texinfoversion{2008-03-07.10}
 %
-% Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995, 2007,
+% Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
-% 2007 Free Software Foundation, Inc.
+% 2007, 2008 Free Software Foundation, Inc.
 %
 % This texinfo.tex file is free software: you can redistribute it and/or
 % modify it under the terms of the GNU General Public License as
@@ -97,6 +97,7 @@
 \let\ptexslash=\/
 \let\ptexstar=\*
 \let\ptext=\t
+\let\ptextop=\top
 
 % If this character appears in an error message or help string, it
 % starts a new line in the output.
@@ -916,15 +917,19 @@ where each line of input produces a line of output.}
   \temp
 }
 
-% @include file    insert text of that file as input.
+% @include FILE -- \input text of FILE.
 %
 \def\include{\parseargusing\filenamecatcodes\includezzz}
 \def\includezzz#1{%
   \pushthisfilestack
   \def\thisfile{#1}%
   {%
-    \makevalueexpandable
-    \def\temp{\input #1 }%
+    \makevalueexpandable  % we want to expand any @value in FILE.  
+    \turnoffactive        % and allow special characters in the expansion
+    \edef\temp{\noexpand\input #1 }%
+    %
+    % This trickery is to read FILE outside of a group, in case it makes
+    % definitions, etc.
     \expandafter
   }\temp
   \popthisfilestack
@@ -1642,11 +1647,17 @@ output) for that.)}
   }%
 }
 
-%
 % PDF CMaps.  See also LaTeX's t1.cmap.
 %
-% \cmapOT1
-\ifpdf
+% do nothing with this by default.
+\expandafter\let\csname cmapOT1\endcsname\gobble
+\expandafter\let\csname cmapOT1IT\endcsname\gobble
+\expandafter\let\csname cmapOT1TT\endcsname\gobble
+
+% if we are producing pdf, and we have \pdffontattr, then define cmaps.
+% (\pdffontattr was introduced many years ago, but people still run
+% older pdftex's; it's easy to conditionalize, so we do.)
+\ifpdf \ifx\pdffontattr\undefined \else
   \begingroup
     \catcode`\^^M=\active \def^^M{^^J}% Output line endings as the ^^J char.
     \catcode`\%=12 \immediate\pdfobj stream {%!PS-Adobe-3.0 Resource-CMap
@@ -1894,11 +1905,7 @@ end
   \expandafter\edef\csname cmapOT1TT\endcsname#1{%
     \pdffontattr#1{/ToUnicode \the\pdflastobj\space 0 R}%
   }%
-\else
-  \expandafter\let\csname cmapOT1\endcsname\gobble
-  \expandafter\let\csname cmapOT1IT\endcsname\gobble
-  \expandafter\let\csname cmapOT1TT\endcsname\gobble
-\fi
+\fi\fi
 
 
 % Set the font macro #1 to the font named #2, adding on the
@@ -1912,7 +1919,7 @@ end
 }
 % This is what gets called when #5 of \setfont is empty.
 \let\cmap\gobble
-
+% emacs-page end of cmaps
 
 % Use cm as the default font prefix.
 % To specify the font prefix, you must define \fontprefix
@@ -2558,6 +2565,13 @@ end
 \let\env=\code
 \let\command=\code
 
+% @clicksequence{File @click{} Open ...}
+\def\clicksequence#1{\begingroup #1\endgroup}
+
+% @clickstyle @arrow   (by default)
+\parseargdef\clickstyle{\def\click{#1}}
+\def\click{\arrow}
+
 % @uref (abbreviation for `urlref') takes an optional (comma-separated)
 % second argument specifying the text to display and an optional third
 % arg as text to display instead of (rather than in addition to) the url
@@ -2764,6 +2778,7 @@ end
 \chardef\quotedblright=`\"
 \chardef\quoteleft=`\`
 \chardef\quoteright=`\'
+
 
 \message{page headings,}
 
@@ -5649,14 +5664,15 @@ end
 
 % @point{}, @result{}, @expansion{}, @print{}, @equiv{}.
 %
-% Since these characters are used in examples, it should be an even number of
+% Since these characters are used in examples, they should be an even number of
 % \tt widths. Each \tt character is 1en, so two makes it 1em.
 %
 \def\point{$\star$}
-\def\result{\leavevmode\raise.15ex\hbox to 1em{\hfil$\Rightarrow$\hfil}}
-\def\expansion{\leavevmode\raise.1ex\hbox to 1em{\hfil$\mapsto$\hfil}}
+\def\arrow{\leavevmode\raise.05ex\hbox to 1em{\hfil$\rightarrow$\hfil}}
+\def\result{\leavevmode\raise.05ex\hbox to 1em{\hfil$\Rightarrow$\hfil}}
+\def\expansion{\leavevmode\hbox to 1em{\hfil$\mapsto$\hfil}}
 \def\print{\leavevmode\lower.1ex\hbox to 1em{\hfil$\dashv$\hfil}}
-\def\equiv{\leavevmode\lower.1ex\hbox to 1em{\hfil$\ptexequiv$\hfil}}
+\def\equiv{\leavevmode\hbox to 1em{\hfil$\ptexequiv$\hfil}}
 
 % The @error{} command.
 % Adapted from the TeXbook's \boxit.
@@ -5714,6 +5730,7 @@ end
   \let\/=\ptexslash
   \let\*=\ptexstar
   \let\t=\ptext
+  \expandafter \let\csname top\endcsname=\ptextop  % outer
   \let\frenchspacing=\plainfrenchspacing
   %
   \def\endldots{\mathinner{\ldots\ldots\ldots\ldots}}%

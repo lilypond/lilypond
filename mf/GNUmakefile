@@ -23,8 +23,7 @@ BRACES = a b c d e f g h i
 
 OTF_FILES = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.otf) \
 	    $(outdir)/aybabtu.otf
-PE_SCRIPTS = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.pe) \
-	     $(STAFF_SIZES:%=$(outdir)/emmentaler-%.dep)
+PE_SCRIPTS = $(STAFF_SIZES:%=$(outdir)/emmentaler-%.pe)
 OTF_TABLES = $(STAFF_SIZES:%=$(outdir)/feta%.otf-table) \
 	     $(BRACES:%=$(outdir)/feta-braces-%.otf-table)
 FETA_FONTS = $(FETA_MF_FILES:.mf=)
@@ -174,12 +173,11 @@ tree-regen:
 $(outdir)/%.lisp \
 $(outdir)/%.otf-gtable \
 $(outdir)/%.enc \
-$(outdir)/%.dep: $(outdir)/%.log
+$(outdir)/%.pe: $(outdir)/%.log
 	$(PYTHON) $(buildscript-dir)/mf-to-table.py \
 		  --global-lisp=$(outdir)/$(<F:.log=.otf-gtable) \
 		  --lisp=$(outdir)/$(<F:.log=.lisp) \
 		  --outdir=$(outdir) \
-		  --dep $(outdir)/$(<F:.log=.dep) \
 		  --enc $(outdir)/$(<F:.log=.enc) \
 		  $<
 

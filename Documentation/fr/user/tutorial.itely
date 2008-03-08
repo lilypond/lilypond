@@ -1377,7 +1377,7 @@ La déclaration @code{\version} stipule le numéro de la version de
 LilyPond pour laquelle le fichier a été écrit,
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 @end example
 
 @noindent

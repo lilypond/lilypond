@@ -1,6 +1,12 @@
 \version "2.11.38"
 \include "english.ly"
-
+#(set-global-staff-size 15)
+\paper{
+  ragged-right=##t
+  line-width=17\cm
+  indent=0\cm
+}
+ 
 % NR 1.3 Expressive marks
 
 % L. v. Beethoven, Op. 49 no. 1 
@@ -146,6 +152,7 @@
       |
 
       <d'' c'' a'>4 \fermata
+      r8 r4 r8
    }
 
    % LH Staff
@@ -251,6 +258,7 @@
       |
 
       <d' fs>4 \fermata
+      r8 r4 r8
    }
 
 >>

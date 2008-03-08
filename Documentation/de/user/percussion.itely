@@ -288,7 +288,7 @@ Init-Dateien: @file{ly/@/drumpitch@/-init@/.ly}.
 
 Programmreferenz: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
 
-@refbugs
+@knownissues
 
 Weil in den allgemeinen MIDI-Definitionen kein Rimshot enthalten ist, 
 wird sidestick für diesen Zweck benutzt.
