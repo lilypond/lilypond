@@ -26,7 +26,7 @@ $(outdir)/%.info-images-dir.dep: $(outdir)/%.texi
 else
 
 $(outdir)/.info-images-dir.dep:
-	true
+	touch $@
 
 endif
 

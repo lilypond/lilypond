@@ -834,6 +834,7 @@
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(staff-padding . 2)
 	(direction . ,UP)
+	(side-axis . ,Y)
 	(self-alignment-X . ,CENTER)
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface

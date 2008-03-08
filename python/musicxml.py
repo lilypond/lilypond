@@ -953,9 +953,8 @@ def get_class (name):
 def lxml_demarshal_node (node):
     name = node.tag
 
-    # TODO: This is a nasty hack, but I couldn't find any other way to check
-    #       if the given node is a comment node (class _Comment):
-    if name is None or re.match (u"^<!--.*-->$", node.__repr__()):
+    # Ignore comment nodes, which are also returned by the etree parser!
+    if name is None or node.__class__.__name__ == "_Comment":
         return None
     klass = get_class (name)
     py_node = klass()

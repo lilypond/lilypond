@@ -38,10 +38,6 @@ OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
-
-TEXINPUTS=$(top-src-dir)/tex::
-export TEXINPUTS
-
 include $(depth)/make/stepmake.make
 
 info: $(INFO_FILES)
@@ -73,7 +69,6 @@ extra-local-help:
 # Generic rule using % twice not possible?
 # $(outdir)/%/%.html: $(outdir)/%.texi
 $(outdir)/lilypond.texi: $(outdir)/lilypond-internals.texi
-$(outdir)/lilypond.nexi: $(outdir)/lilypond-internals.texi
 
 #
 # Split manuals in HTML
@@ -143,7 +138,6 @@ $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
 	$(MAKE) -C $(top-src-dir)/mf
 
 $(outdir)/lilypond.texi $(outdir)/lilypond-program.texi $(outdir)/lilypond-learning.texi $(outdir)/music-glossary.texi: $(ITELY_FILES) $(ITEXI_FILES)
-$(outdir)/lilypond.nexi $(outdir)/lilypond-program.nexi $(outdir)/lilypond-learning.nexi $(outdir)/music-glossary.nexi: $(ITELY_FILES) $(ITEXI_FILES)
 
 
 # Rules for the automatically generated documentation
@@ -152,10 +146,8 @@ $(outdir)/lilypond.nexi $(outdir)/lilypond-program.nexi $(outdir)/lilypond-learn
 # of lilypond-internals every time.  however, this triggers
 # compilation during install, which is a bad thing (tm).
 
-$(outdir)/lilypond-internals.nexi $(outdir)/lilypond-internals.texi: $(LILYPOND_BINARY)
+$(outdir)/lilypond-internals.texi: $(LILYPOND_BINARY)
 	cd $(outdir) && $(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation
-	rm -f $(outdir)/lilypond-internals.nexi
-	-ln $(outdir)/lilypond-internals.texi $(outdir)/lilypond-internals.nexi
 
 
 ## unused
