@@ -18,3 +18,4 @@ EXTRA_DIST_FILES +=$(TELY_FILES) $(LY_FILES) $(ITEXI_FILES) $(ITELY_FILES) $(ILY
 
 
 DVIPS_FLAGS= -h $(subst .pdf,.psfonts,$(subst .ps,.psfonts, $(notdir $@ )))
+

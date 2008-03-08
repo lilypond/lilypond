@@ -29,7 +29,7 @@ $(package-icon):
 
 
 do-top-doc:
-	-$(MAKE) -C Documentation/topdocs/ TO_TOP_FILES="$(TOPDOC_FILES)" make-txt-files 
+	-$(MAKE) -C Documentation/topdocs/ README_TOP_FILES="$(TOPDOC_FILES)" make-txt-files
 
 
 $(README_TXT_FILES): do-top-doc
