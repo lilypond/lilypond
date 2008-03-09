@@ -379,7 +379,7 @@ class Part_list (Music_xml_node):
         if instrument_name:
             return instrument_name
         else:
-            ly.stderr_write (_ ("Unable to find find instrument for ID=%s\n") % id)
+            ly.stderr_write (_ ("Unable to find instrument for ID=%s\n") % id)
             return "Grand Piano"
 
 class Part_group (Music_xml_node):
