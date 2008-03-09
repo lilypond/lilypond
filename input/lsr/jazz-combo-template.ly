@@ -264,4 +264,3 @@ music is within a \\transpose section.
          
            \midi { }
          }
-% begin verbatim
