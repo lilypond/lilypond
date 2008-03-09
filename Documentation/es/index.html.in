@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 60aab78a243fd94c15c01a9b2b84e5d484f1689b
+    Translation of GIT committish: 6c2367741cbadcf378539e2a8a14b019b4955002
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -48,10 +48,10 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="user/lilypond-learning/index.es.html">Tutorial</a>
+	    <a class="title" href="user/lilypond-learning/index.es.html">Manual de aprendizaje (MA)</a>
 	      <br>(comience por aquí)
 
-	   <li><a class="title" href="user/music-glossary/index.html">Glosario</a> multilingüe<br>
+	   <li><a class="title" href="user/music-glossary/index.html">Glosario musical (GM)</a> multilingüe <br>
 (en <a class="title" href="user/music-glossary-big-page.html">una sola página</a> ~ 1 Mb,
 en <a class="title" href="user/music-glossary.pdf">PDF</a>)
 
@@ -75,13 +75,13 @@ en <a class="title" href="user/music-glossary.pdf">PDF</a>)
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.es.html">Manual del usuario</a> [parcialmente traducido]<br>
+<a class="title" href="user/lilypond/index.es.html">Referencia de la notación (RN)</a> [parcialmente traducido]<br>
 (en <a class="title" href="user/lilypond-big-page.html">una sola página</a> [en inglés] ~ 4 Mb, <br>
 y en <a class="title" href="user/lilypond.es.pdf">PDF</a>)
      <br>(escribir música con LilyPond)
 
        <li>
- <a  class="title" href="user/lilypond-internals/index.html">Referencia del programa</a> [en inglés]<br>
+ <a  class="title" href="user/lilypond-internals/index.html">Referencia de funcionamiento interno (RFI)</a> [en inglés]<br>
  (en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb)
      <br>(definiciones para hacer trucos)
 	 
@@ -91,12 +91,14 @@ y en <a class="title" href="user/lilypond.es.pdf">PDF</a>)
           &nbsp;
 	  <ul>
               <li>
-	    <a class="title" href="user/lilypond-program/index.html">Instrucciones de manejo</a>
+	    <a class="title" href="user/lilypond-program/index.html">Utilización del programa (UP)</a>
 (en <a class="title" href="user/lilypond-program-big-page.html">una sola página</a>,
 en <a class="title" href="user/lilypond-program.pdf">PDF</a>)
 	    <br>(cómo instalar y ejecutar el programa)
 
-<li><a class="title" href="../input/lsr/collated-files.html">Fragmentos de código</a>
+<li><a class="title" href="../input/lsr/lilypond-snippets/index.html">Fragmentos de código</a>
+(en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">una sola página</a>,
+en <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
      <br>(Trucos breves, consejos y ejemplos)
 
 	</ul>
