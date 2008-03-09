@@ -19,7 +19,7 @@ The code for the chord example shown: @code{}
 " }
 % begin verbatim
 \header{
-  title = "Modify an individual notehead's size in a chord"
+  title = "Modifying an individual notehead's size in a chord"
 }
 
 Notes = \relative {

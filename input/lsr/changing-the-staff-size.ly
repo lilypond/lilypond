@@ -6,14 +6,14 @@
   lsrtags = "staff-notation, tweaks-and-overrides, paper-and-layout"
  texidoc = "
 In order to change staff sizes, both @code{staff-space} and
-@code{fontSize} must be scaled. 
+@code{fontSize} must be scaled.
+
+If you do not want to resize staves individually, the simplest way is
+to use @code{#(set-global-staff-size xx)}. 
 " }
 % begin verbatim
-{
+<<
   \new Staff \relative c'' { \dynamicDown c8 \ff c c c c c c c } 
-}
-
-{
   \new Staff \with {
     fontSize = #-3
     \override StaffSymbol #'staff-space = #(magstep -3)
@@ -22,5 +22,5 @@ In order to change staff sizes, both @code{staff-space} and
     \clef bass
     c8 c c c  c c c c
   }
-}
+>>
 
