@@ -77,6 +77,7 @@ to be played more than once.
 @menu
 * Normal repeats::              
 * Manual repeat marks::         
+* Written-out repeats::         
 @end menu
 
 @cindex volta
@@ -268,6 +269,14 @@ Snippets: @lsrdir{Repeats,Repeats}
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
 and @internalsref{UnfoldedRepeatedMusic}.
+
+
+@node Written-out repeats
+@subsubsection Written-out repeats
+
+unfold
+
+
 
 
 @node Short repeats
