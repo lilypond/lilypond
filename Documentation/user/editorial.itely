@@ -244,7 +244,6 @@ If @code{x11-color} cannot make sense of the parameter then the
 color returned defaults to black. 
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
@@ -260,28 +259,25 @@ gis a
 % this is deliberate nonsense; note that the stems remain black
 \override Stem #'color = #(x11-color 'Boggle)
 b2 cis
-
 @end lilypond
 
 You can get exact RGB colors by specifying the rgb-color number.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-
-  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
-  }
+\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\set Staff.instrumentName = \markup {
+  \with-color #(x11-color 'navy) "Clarinet"
+}
   
-  %black
-  \override Stem #'color = #(rgb-color 0 0 0)
-  gis8 a
-  % white
-  \override Stem #'color = #(rgb-color 1 1 1)
-  gis8 a
-  % dark blue
-  \override Stem #'color = #(rgb-color 0 0 0.5) 
-  gis4 a
-
+%black
+\override Stem #'color = #(rgb-color 0 0 0)
+gis8 a
+% white
+\override Stem #'color = #(rgb-color 1 1 1)
+gis8 a
+% dark blue
+\override Stem #'color = #(rgb-color 0 0 0.5) 
+gis4 a
 @end lilypond
 
 @seealso
@@ -317,13 +313,13 @@ the music event.  This only functions inside chords; to
 parenthesize a single note it must be enclosed with @code{<>} as
 if it is a chord.
 
-@lilypond[relative=2,fragment,verbatim,ragged-right]
+@lilypond[quote,relative=2,fragment,verbatim,ragged-right]
 c2 < \parenthesize d>
 @end lilypond
 
 Non-note objects may be parenthesized as well.
 
-@lilypond[relative=2,fragment,verbatim,ragged-right]
+@lilypond[quote,relative=2,fragment,verbatim,ragged-right]
 < c d g >2-\parenthesize -. d
 @end lilypond
 
@@ -396,14 +392,12 @@ The following example demonstrates its use.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
-     {
-      \time 2/4
-       \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-       a8
-       <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } 
-c>4. 
-     }
-
+{
+  \time 2/4
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  a8
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>4. 
+}
 @end lilypond
 
 There are two music functions, @code{balloonGrobText} and
@@ -427,7 +421,7 @@ Internals Reference: @internalsref{text-balloon-interface}.
 Vertical lines can be drawn between staves synchronized with the
 notes.
 
-@lilypond[ragged-right,quote,verbatim]
+@lilypond[quote,verbatim,ragged-right]
 \layout {
   \context {
     \Staff
@@ -465,7 +459,7 @@ notes.
 To change the grid lines use \override.
 
 
-@lilypond[ragged-right,quote,verbatim]
+@lilypond[quote,verbatim,ragged-right]
 \layout {
   \context {
     \Staff
@@ -522,19 +516,17 @@ brackets.  To use this, add the @code{Horizontal_bracket_engraver} to
 the @code{Staff} context.  A bracket is started with
 @code{\startGroup} and closed with @code{\stopGroup}.
 
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    c4\startGroup\startGroup
-    c4\stopGroup
-    c4\startGroup
-    c4\stopGroup\stopGroup
+@lilypond[quote,verbatim,ragged-right]
+\layout {
+  \context {
+    \Staff \consists "Horizontal_bracket_engraver"
   }
-  \layout {
-    \context {
-      \Staff \consists "Horizontal_bracket_engraver"
-    }
-  }
+}
+\relative c'' {
+  c4\startGroup\startGroup
+  c4\stopGroup
+  c4\startGroup
+  c4\stopGroup\stopGroup
 }
 @end lilypond
 
