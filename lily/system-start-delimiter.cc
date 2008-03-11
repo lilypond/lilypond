@@ -173,8 +173,32 @@ System_start_delimiter::staff_brace (Grob *me, Real y)
 }
 
 ADD_INTERFACE (System_start_delimiter,
-	       "The brace, bracket or bar in front of the system. "
-	       ,
+	       "The brace, bracket or bar in front of the system. The following "
+		"values for @code{style} are recognized:\n"
+		"\n"
+		"  @table @samp\n"
+		"    @item @code{bracket}\n"
+		"      A thick bracket, normally used to group similar\n"
+		"      instruments in a score.  Default for StaffGroup.\n"
+		"      SystemStartBracket use this style.\n"
+		"\n"
+		"    @item @code{brace}\n"
+		"      A \"piano style\" brace normally used for an instrument\n"
+		"      that use two staffs.  The default style for GrandStaff.\n"
+		"      SystemStartBrace use this style.\n"
+		"\n"
+		"    @item @code{bar-line}\n"
+		"      A simple line between the staffs in a score.  Default\n"
+		"      for staffs enclosed in << >>.\n"
+		"      SystemStartBar use this style.\n"
+		"\n"
+		"    @item @code{line-bracket}\n"
+		"      A simple square, normally used for subgrouping\n"
+		"      instruments in a score.\n"
+		"      SystemStartSquare use this style.\n"
+		"  @end table\n"
+		"\n"
+		"See also @file{input/regression/system-start-nesting.ly}. ",
 
 	       /* properties */
 	       "collapse-height "
