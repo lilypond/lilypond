@@ -172,6 +172,10 @@ c4 c \times 2/3 {b4 a g}
 
 @end lilypond
 
+The automatic placement of the tuplet bracket above or below the 
+notes may be overridden manually, for details see 
+@ref{Controlling direction and placement}.
+
 Tuplets may be nested:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -181,7 +185,33 @@ c4 \times 4/5 { f8 e f \times 2/3 {e[ f g] } } f4 |
 
 Modifying nested tuplets which begin at the same musical moment
 must be done with @code{\tweak}.
-@c TODO Add link to LM section which deals with this.
+
+@cindex compressing music
+@funindex \compressMusic
+
+Longer stretches of music may be compressed (without a tuplet
+bracket) with the @code{\compressMusic} command.  The syntax is
+
+@example
+\compressMusic #'(@emph{num} . @emph{den}) @{ @emph{music} @}
+@end example
+
+@noindent
+This will leave the appearance of @emph{music} unchanged but
+the internal duration of the notes will be multiplied by the
+fraction @emph{num}/@emph{den}:
+
+@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
+c8 c b b a a g g
+\compressMusic #'(2 . 3) {
+  c8 c c b b b a a a g g g
+}
+@end lilypond
+
+@noindent
+One application of @code{\compressMusic} is in polymetric 
+notation, see @ref{Polymetric notation}.
+
 
 @predefined
 
@@ -204,12 +234,10 @@ must be done with @code{\tweak}.
 @lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
-@noindent
-For more information about @code{make-moment}, see
-@ref{Time administration}.
-
 @funindex TupletNumber
 
+@c Sent to VV on 12 Feb - replace with @lilypondfile when available
+@c TODO and delete from here ...
 By default, only the numerator of the tuplet number
 is printed over the tuplet bracket, i.e. the denominator
 of the argument to the @code{\times} command.  Alternatively,
@@ -225,149 +253,36 @@ the tuplet number may be suppressed altogether.
 \times 2/3 { c8 c c }
 @end lilypond
 
-@c TODO Add snippet to show this
-Tuplets may extend over bar lines, but they will inhibit a
-line break unless the @code{Forbid_line_break_engraver} is
-removed from the @code{Voice context}.
+@c ... to here
 
-@c TODO Move to LM 4
-@ignore
-@subheading Modifying nested tuplets
 
-@cindex tuplets, nested
-@cindex triplets, nested
-@cindex bracket, tuplet
-@cindex tuplet bracket
-@cindex triplet bracket
-@funindex TupletBracket
+@c Sent to VV on 12 Feb - replace with @lilypondfile when available
+@c TODO and delete from here ...
+This artificial example shows how both manual and automatic line
+breaks may be permitted within a beamed tuplet. Note that such
+off-beat tuplets have to be beamed manually.
 
-If nested tuplets do not begin at the same moment their
-appearance may be modified in the usual way with
-@code{\override} commands:
-
-@c NOTE Tuplet brackets collide if notes are high on staff
-@c See issue 509
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\times 2/3 { c8[ c c]}
-\once \override TupletNumber #'text = #tuplet-number::calc-fraction-text
-\times 2/3 {
-  c[ c]
-  c[ c]
-  \once \override TupletNumber #'transparent = ##t
-  \times 2/3 { c8[ c c] }
-\times 2/3 { c8[ c c]}
+@lilypond[quote,ragged-right,verbatim]
+\relative c'' {
+  a8
+  \repeat unfold 8 {\times 2/3 { c[ b a]}}
+  % Insert a manual line break within a tuplet
+  \times 2/3 { c[ b \bar "" \break a]}
+  \repeat unfold 2 {\times 2/3 { c[ b a]}}
+  c8
+}
+\layout {
+  \context {
+    \Voice
+    % Permit line breaks within tuplets
+    \remove "Forbid_line_break_engraver"
+    % Allow beams to be broken at line breaks
+    \override Beam #'breakable = ##t
+  }
 }
 @end lilypond
 
-However, if the nested tuplets begin at the same musical moment,
-@code{\override} commands cannot be applied to just one of them
--- they apply to both.  So to change the appearance of nested
-tuplets beginning at the same musical moment individually, the
-@code{\tweak} function must be used (see @ref{Objects connected
-to the input}).  The @code{\tweak} function is applied to the
-following @code{\times} command as it appears in the input stream,
-and so can distinguish between separate @code{\times} commands
-even if their tuplets begin at the same musical moment.
-
-In this example, the @code{\tweak} command is used to specify
-fraction text for the outer @code{TupletNumber} and denominator
-text for the @code{TupletNumber} of the first of the three
-inner tuplets.
-
-@c NOTE Tuplet brackets collide if notes are high on staff
-@c so use relative=1 until this is fixed
-@c See issue 509
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\tweak #'text #tuplet-number::calc-fraction-text
-\times 4/3 {
-   \tweak #'text #tuplet-number::calc-denominator-text
-   \times 2/3 { c8[ c8 c8] }
-   \times 2/3 { c8[ c8 c8] }
-   \times 2/3 { c8[ c8 c8] }
-}
-@end lilypond
-
-In the next example, @code{\tweak} and @code{\override} work
-together to specify @code{TupletBracket} direction.  The first
-@code{\tweak} positions the @code{TupletBracket} of the outer
-tuplet above the staff.  The second @code{\tweak} positions the
-@code{TupletBracket} of the first of the three inner tuplets below
-the staff.  Note that the @code{\tweak} command needs to be used
-only for events that begin at the same music moment: the outer
-tuplet and the first of the three inner tuplets.  To position the
-@code{TupletBracket}s of the second and third of the inner tuplets
-below the staff, we can use @code{\override} in the usual way.
-
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\tweak #'text #tuplet-number::calc-fraction-text
-\tweak #'direction #up
-\times 4/3 {
-   \tweak #'direction #down
-   \times 2/3 { c8[ c8 c8] }
-   \override TupletBracket #'direction = #down
-   \times 2/3 { c8[ c8 c8] }
-   \times 2/3 { c8[ c8 c8] }
-}
-@end lilypond
-@end ignore
-
-@c TODO - tidy up
-@c Sent to Valentin for LSR (general list of Rhythm snippets) 22 Feb
-@c Maybe try referencing with:
-@c For example of modifying bracket length see @lsr{..}
-@c Index entries could then be added above this.
-@c Delete ignore block when available in LSR
-
-@ignore
-@subheading Modifying tuplet bracket length
-
-@cindex tuplet bracket length
-@cindex triplet bracket length
-@cindex bracket length, tuplets
-@funindex tupletFullLength
-@funindex tupletFullLengthNote
-
-Tuplet brackets can be made to run to prefatory matter or the
-next note.
-Default tuplet brackets end at the right edge of the final note
-of the tuplet; full-length tuplet brackets extend farther to the
-right, either to cover all the non-rhythmic notation up to the
-following note, or to cover only the whitespace before the next
-item of notation, be that a clef, time signature, key signature,
-or another note.  The example shows how to switch tuplets to
-full length mode and how to modify what material they cover.
-
-
-@lilypond[ragged-right,verbatim,quote]
-\new RhythmicStaff {
-  % Set tuplets to be extendable ..
-  \set tupletFullLength = ##t
-  % .. to cover all items up to the next note
-  \set tupletFullLengthNote = ##t
-  \time 2/4
-  \times 2/3 { c4 c c }
-  % .. or to cover just whitespace
-  \set tupletFullLengthNote = ##f
-  \time 4/4
-  \times 4/5 { c4 c1 }
-  \time 3/4
-  c4
-}
-@end lilypond
-@end ignore
-
-@c Compressing music
-
-@cindex compressing music
-@funindex \compressMusic
-
-@code{\compressMusic} works similarly to \times, but does not
-create a tuplet bracket.  One application is in polymetric
-notation, see @ref{Polymetric notation}.
-
-@lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
-{printing-music-with-different-time-signatures.ly}
-
+@c .. to here
 
 @seealso
 
@@ -381,11 +296,6 @@ Snippets: @lsrdir{Rhythms,Rhythms}.
 
 Internals Reference: @internalsref{TupletBracket},
 @internalsref{TupletNumber}, @internalsref{TimeScaledMusic}.
-
-@knownissues
-
-Lines may be broken within a tuplet with @code{\bar "" \break},
-but the tuplet bracket does not correctly carry over.
 
 
 @node Scaling durations
@@ -1128,6 +1038,10 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 @node Polymetric notation
 @subsubsection Polymetric notation
+
+@c TODO Work this example into the main text
+@c @lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
+@c {printing-music-with-different-time-signatures.ly}
 
 @cindex double time signatures
 @cindex signatures, polymetric
@@ -2587,6 +2501,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 
