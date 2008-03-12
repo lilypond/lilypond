@@ -361,5 +361,6 @@ ADD_INTERFACE (Line_spanner,
 	       "note-columns "
 	       "right-bound-info " 
 	       "thickness "
+	       "to-barline "
 	       );
 

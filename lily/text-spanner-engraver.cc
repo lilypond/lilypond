@@ -63,6 +63,7 @@ Text_spanner_engraver::process_music ()
       else
 	{
 	  finished_ = span_;
+	  announce_end_grob (finished_, SCM_EOL);
 	  span_ = 0;
 	  current_event_ = 0;
 	}
