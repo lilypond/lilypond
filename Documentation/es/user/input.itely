@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
+    Translation of GIT committish: 47348a04b57a0b63c40ae9debd95cfd717e03bb7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,25 +13,27 @@
 
 UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Input files::
-* Common syntax issues TODO name?::
-* Other stuffs TODO move?::
+@menu
+* Input files::                 
+* Common syntax issues TODO name?::  
+* Other stuffs TODO move?::     
 @end menu 
+
 @node Input files
 @section Input files
 
 UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* File structure::
-* A single music expression::
-* Multiple scores in a book::
-* Extracting fragments of notation::
-* Including LilyPond files::
-* Text encoding::
-* Different editions from one source::
+@menu
+* File structure::              
+* A single music expression::   
+* Multiple scores in a book::   
+* Extracting fragments of notation::  
+* Including LilyPond files::    
+* Text encoding::               
+* Different editions from one source::  
 @end menu 
+
 @node File structure
 @subsection File structure
 
@@ -72,12 +74,14 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Controlling direction::
-* Distances and measurements MAYBE MOVE::
+@menu
+* Controlling direction and placement::  
+* Distances and measurements MAYBE MOVE::  
+* When to add a -::             
 @end menu 
-@node Controlling direction
-@subsection Controlling direction
+
+@node Controlling direction and placement
+@subsection Controlling direction and placement
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -86,17 +90,22 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+@node When to add a -
+@subsection When to add a -
+
+UNTRANSLATED NODE: IGNORE ME
+
 @node Other stuffs TODO move?
 @section Other stuffs TODO move?
 
 UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Displaying LilyPond notation::
-* Skipping corrected music::
-* context list FIXME::
-* another thing FIXME::
-* Input modes FIXME::
+@menu
+* Displaying LilyPond notation::  
+* Skipping corrected music::    
+* context list FIXME::          
+* another thing FIXME::         
+* Input modes FIXME::           
 @end menu 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
