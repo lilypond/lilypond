@@ -93,9 +93,15 @@ Snippets: @lsrdir{Text,Text}
 @cindex non-empty texts
 
 It is possible to add arbitrary text indications with
-@var{note}@code{-"}@var{text}@code{"}. Such indications can be
-placed above or below the staff, using the simple syntax described
-in @ref{Controlling direction and placement}.
+@var{note}@code{-"}@var{text}@code{"}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+d8-"scherzando" e f g a4 f
+@end lilypond
+
+Text indications can be placed above or below the staff, using the
+simple syntax described in @ref{Controlling direction and
+placement}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^"pizz." e f g a4_"scherz." f
@@ -106,7 +112,7 @@ objects.  This syntax is actually a shorthand; more complex text
 formatting may be added to a note by explicitly using the
 @code{\markup} command, as described in @ref{Text markup}.
 
-@lilypond[fragment,ragged-right,verbatim,quote]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^\markup { \italic pizz. } e f g 
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
@@ -119,17 +125,20 @@ a4_\markup { \tiny scherz. \bold molto } f
 @code{\textLengthOff}.
 
 By default, text indications do not influence the note spacing.
-However, by using the command @code{\textLengthOn}, the widths
-will be taken into account: in the following example, the first
-text string does not affect spacing, whereas the second one does.
+However, their widths can be taken into account using the following
+syntax (the first command allows text to influence spacing, the
+second one goes back to the default behavior):
+
+@example
+\textLengthOn @var{note}@code{-"text"} \textLengthOff
+@end example
+
+In the following example, the first text string does not affect 
+spacing, whereas the second one does.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 @end lilypond
-
-@noindent
-After having used such a command, to go back to the default behavior
-and prevent text from influencing spacing, use @code{\textLengthOff}.
 
 
 @snippets
