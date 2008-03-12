@@ -94,17 +94,13 @@ Snippets: @lsrdir{Text,Text}
 
 It is possible to add arbitrary text indications with
 @var{note}@code{-"}@var{text}@code{"}.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-d8-"scherzando" e f g a4 f
-@end lilypond
-
-Text indications can be placed above or below the staff, using the
+Such indications can also be manually placed
+above or below the staff, using the
 simple syntax described in @ref{Controlling direction and
-placement}:
+placement}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-d8^"pizz." e f g a4_"scherz." f
+d8^"pizz." e f g a4-"scherz." f
 @end lilypond
 
 In LilyPond, such text strings are called @command{markup}
@@ -126,12 +122,13 @@ a4_\markup { \tiny scherz. \bold molto } f
 
 By default, text indications do not influence the note spacing.
 However, their widths can be taken into account using the following
-syntax (the first command allows text to influence spacing, the
-second one goes back to the default behavior):
+syntax:
 
-@example
-\textLengthOn @var{note}@code{-"text"} \textLengthOff
-@end example
+@example 
+\textLengthOn
+@var{note}@code{-"text"}
+\textLengthOff
+@end example 
 
 In the following example, the first text string does not affect 
 spacing, whereas the second one does.
