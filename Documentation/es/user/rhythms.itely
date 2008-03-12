@@ -9,8 +9,7 @@
 @node Rhythms
 @section Rhythms
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=14,quote]
-{rhythms-headword.ly}
+@lilypondfile[quote]{rhythms-headword.ly}
 
 Esta sección trata de los ritmos, las duraciones y los compases.
 
@@ -38,7 +37,9 @@ Esta sección trata de los ritmos, las duraciones y los compases.
 @node Durations
 @subsubsection Durations
 
-@cindex duración
+@cindex duración de las notas
+@cindex notas, duración de
+
 @funindex \longa
 @funindex \breve
 @funindex \maxima

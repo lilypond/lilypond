@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
+    Translation of GIT committish: f02e10cde760bb4981b73742f0fb5a867e1d3d33
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -351,6 +351,6 @@ guitarrista debe tocar una determinada nota o acorde, con sus dedos apenas
 tocando las cuerdas en lugar de pisarlas por completo.  Esto produce en el sonido un carácter
 percusivo y ruidoso, sin perder la altura de la nota
 original.  Su notación se realiza con cabezas en equis; se muestra
-en @ref{Special noteheads}.
+en @ref{Special note heads}.
 
 

@@ -1,29 +1,30 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
+    Translation of GIT committish: f02e10cde760bb4981b73742f0fb5a867e1d3d33
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-
 @node Piano music
 @section Piano music
 
-@menu 
-* TODO piano node fix::
-@end menu 
+@menu
+* Piano sections::              
+@end menu
 
-@node TODO piano node fix
-@subsection TODO piano node fix
+@node Piano sections
+@subsection Piano sections
 
-Los sistemas de piano son dos pentagramas normales agrupados mediante una llave.  Los pentagramas
-son hasta cierto punto independientes, pero a veces las voces pueden cruzarse entre los
-dos pentagramas.  También se utiliza esta notación para otros instrumentos de teclado y para el
-arpa.  El @internalsref{PianoStaff} está preparado especialmente para
-manejar este comportamiento de cruce de pentagramas.  En esta sección trataremos el
-@internalsref{PianoStaff} y alguna que otra peculiaridad pianística.
+Los sistemas de piano son dos pentagramas normales agrupados mediante
+una llave.  Los pentagramas son hasta cierto punto independientes,
+pero a veces las voces pueden cruzarse entre los dos pentagramas.
+También se utiliza esta notación para otros instrumentos de teclado y
+para el arpa.  El @internalsref{PianoStaff} está preparado
+especialmente para manejar este comportamiento de cruce de
+pentagramas.  En esta sección trataremos el @internalsref{PianoStaff}
+y alguna que otra peculiaridad pianística.
 
 @menu
 * Automatic staff changes::     
@@ -35,8 +36,9 @@ manejar este comportamiento de cruce de pentagramas.  En esta sección trataremo
 
 @knownissues
 
-Los matices no se colocan centrados, pero se pueden utilizar ciertas alternativas.  Consulte la
-plantilla @q{piano con matices centrados} que está en @ref{Piano templates}.
+Los matices no se colocan centrados, pero se pueden utilizar ciertas
+alternativas.  Consulte la plantilla @q{piano con matices centrados}
+que está en @rlearning{Piano templates}.
 
 @cindex plica de pentagrama cruzado
 @cindex pentagrama cruzado, plica de
@@ -47,8 +49,8 @@ plantilla @q{piano con matices centrados} que está en @ref{Piano templates}.
 @subsubsection Automatic staff changes
 @cindex Cambio automático de pentagrama
 
-Se puede hacer que las voces cambien automáticamente entre los pentagramas inferior y
-superior.  La sintaxis para conseguir esto es
+Se puede hacer que las voces cambien automáticamente entre los
+pentagramas inferior y superior.  La sintaxis para conseguir esto es
 
 @quotation
 @example
@@ -58,12 +60,13 @@ superior.  La sintaxis para conseguir esto es
 
 @noindent
 Esto creará dos pentagramas dentro del PianoStaff actual, llamados
-@code{up} (arriba) y @code{down} (abajo).  El pentagrama inferior estará en clave de Fa por
-omisión.
+@code{up} (arriba) y @code{down} (abajo).  El pentagrama inferior
+estará en clave de Fa por omisión.
 
-Una sección marcada @code{\relative} que se encuentra fuera de @code{\autochange} no tiene
-efecto sobre las notas de la @var{música}, por tanto, en caso necesario escriba
-@code{\relative} dentro de @code{\autochange}, como en
+Una sección marcada @code{\relative} que se encuentra fuera de
+@code{\autochange} no tiene efecto sobre las notas de la @var{música},
+por tanto, en caso necesario escriba @code{\relative} dentro de
+@code{\autochange}, como en
 
 @quotation
 @example
@@ -72,9 +75,10 @@ efecto sobre las notas de la @var{música}, por tanto, en caso necesario escriba
 @end quotation
 
 
-El cambiador automático hace el cambio basándose en la altura (el Do central es el punto
-de inflexión), y se adelanta saltando sobre los silencios para hacer cambios por
-adelantado.  He aquí un ejemplo práctico
+El cambiador automático hace el cambio basándose en la altura (el Do
+central es el punto de inflexión), y se adelanta saltando sobre los
+silencios para hacer cambios por adelantado.  He aquí un ejemplo
+práctico
 
 @lilypond[quote,verbatim,ragged-right]
 \new PianoStaff
@@ -95,8 +99,9 @@ Referencia del programa: @internalsref{AutoChangeMusic}.
 
 @knownissues
 
-Los cambios de pentagrama pueden no acabar en lugares óptimos.  Para conseguir
-una salida de alta calidad es mejor especificar manualmente los cambios de pentagrama.
+Los cambios de pentagrama pueden no acabar en lugares óptimos.  Para
+conseguir una salida de alta calidad es mejor especificar manualmente
+los cambios de pentagrama.
 
 
 @code{\autochange} no puede estar dentro de @code{\times}.
@@ -114,11 +119,12 @@ Las voces se pueden cambiar de pentagrama manualmente usando la instrucción
 @end example
 
 @noindent
-La cadena @var{nombre_del_pentagrama} es el nombre del pentagrama.  Cambia la
-voz actual de su pentagrama en curso al pentagrama de nombre
-@var{nombre_del_pentagrama}.  Por lo común @var{nombre_del_pentagrama} es @code{"up"} o
-@code{"down"}.  El @context{Staff} referido debe existir previamente, por ello
-normalmente la preparación de una partitura empezará por la preparación de los pentagramas,
+La cadena @var{nombre_del_pentagrama} es el nombre del pentagrama.
+Cambia la voz actual de su pentagrama en curso al pentagrama de nombre
+@var{nombre_del_pentagrama}.  Por lo común @var{nombre_del_pentagrama}
+es @code{"up"} o @code{"down"}.  El @context{Staff} referido debe
+existir previamente, por ello normalmente la preparación de una
+partitura empezará por la preparación de los pentagramas,
 
 @example
 <<
@@ -144,8 +150,9 @@ y la @context{Voice} se inserta con posterioridad
 @subsubsection Pedals
 @cindex Pedales
 
-El piano tiene pedales que alteran la forma en que se produce el sonido.  Generalmente un
-piano tiene tres pedales: derecho, una corda y tonal (en inglés: sustain, una corda y sostenuto).
+El piano tiene pedales que alteran la forma en que se produce el
+sonido.  Generalmente un piano tiene tres pedales: derecho, una corda
+y tonal (en inglés: sustain, una corda y sostenuto).
 
 
 Se puede expresar una instrucción de pedal de piano adjuntando
@@ -192,11 +199,11 @@ defecto.
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
 
-Para hacer un ajuste fino del aspecto de un corchete de pedal, se pueden modificar las propiedades
-@code{edge-width}, @code{edge-height} y @code{shorten-pair} de los
-objetos @code{PianoPedalBracket} (véase
-@internalsref{PianoPedalBracket} en la Referencia del programa).
-Por ejemplo, el corchete se puede extender hasta el borde derecho de la
+Para hacer un ajuste fino del aspecto de un corchete de pedal, se
+pueden modificar las propiedades @code{edge-width}, @code{edge-height}
+y @code{shorten-pair} de los objetos @code{PianoPedalBracket} (véase
+@internalsref{PianoPedalBracket} en la Referencia del programa).  Por
+ejemplo, el corchete se puede extender hasta el borde derecho de la
 cabeza de la nota
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -206,7 +213,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 @seealso
 
-En este manual: @ref{Laissez vibrer ties}.
+Referencia de la notación: @ref{Ties} (laissez vibrer).
 
 @node Staff switch lines
 @subsubsection Staff switch lines
@@ -236,7 +243,7 @@ que conecte las notas.  Esto se activa estableciendo
 
 @seealso
 
-Referencia del programa: @internalsref{VoiceFollower}.
+Referencia de funcionamiento interno: @internalsref{VoiceFollower}.
 
 @predefined
 

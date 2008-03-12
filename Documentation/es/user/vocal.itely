@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
+    Translation of GIT committish: f02e10cde760bb4981b73742f0fb5a867e1d3d33
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -481,7 +481,7 @@ behavior}) está desactivado.
 @cindex coral, partitura
 
 Hay un ejemplo completo de una disposición de partitura SATB en la sección
-@ref{Vocal ensembles}.
+@rlearning{Vocal ensembles}.
 
 
 @predefined
@@ -1065,6 +1065,6 @@ examples, and that might get them more involved in the docs.  -gp
 
 @q{Parlato} es texto hablado sin notas pero con ritmo; su notación se
 realiza mediante cabezas de nota en forma de cruz.  Esto queda demostrado en
-@ref{Special noteheads}.
+@ref{Special note heads}.
 
 

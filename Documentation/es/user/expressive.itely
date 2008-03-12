@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 7e040d362b174f596b1c458bd708defc69cdcc42
+    Translation of GIT committish: f02e10cde760bb4981b73742f0fb5a867e1d3d33
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -278,23 +278,18 @@ evitar que se imprima esta línea, use
 \override DynamicTextSpanner #'dash-period = #-1.0
 @end example
 
-
-@predefined
-
-@funindex \dynamicUp
-@code{\dynamicUp},
-@funindex \dynamicDown
-@code{\dynamicDown},
-@funindex \dynamicNeutral
-@code{\dynamicNeutral}.
-
-
 @seealso
 
-Referencia del programa: @internalsref{DynamicText}, @internalsref{Hairpin}.
-El posicionamiento vertical de estos símbolos se maneja por medio de
-@internalsref{DynamicLineSpanner}.
+Glosario musical: @rglos{hairpin}, @rglos{crescendo},
+@rglos{decrescendo}.
 
+Manual de aprendizaje: @rlearning{Articulation and dynamics}.
+
+Fragmentos de código: @lsrdir{Expressive,Expressive-marks}
+
+Referencia de funcionamiento interno: @internalsref{DynamicText},
+@internalsref{Hairpin}.  El posicionamiento vertical de estos símbolos
+se maneja por parte de @internalsref{DynamicLineSpanner}.
 
 @node Curves
 @subsection Curves
