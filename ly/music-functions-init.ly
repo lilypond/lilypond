@@ -144,7 +144,7 @@ breathe =
               'elements (list (make-music 'BreathingEvent))))
 
 bendAfter =
-#(define-music-function (parser location delta) (integer?)
+#(define-music-function (parser location delta) (real?)
 	      
   (make-music 'BendAfterEvent
    'delta-step delta))
