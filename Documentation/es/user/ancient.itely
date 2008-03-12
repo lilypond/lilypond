@@ -219,7 +219,7 @@ controlar a través de la propiedad @code{glyph-name-alist} del elemento gráfic
 
 @seealso
 
-En el presente manual: @ref{Pitches}, @ref{Cautionary accidentals} y
+En el presente manual: @ref{Pitches}, @ref{Accidentals} y
 @ref{Automatic accidentals} proporcionan una introducción general al uso de las
 alteraciones.  @ref{Key signature} ofrece una introducción general al uso de
 las armaduras de tonalidad.
