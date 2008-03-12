@@ -1,10 +1,7 @@
 
 \header {
-
-  texidoc = "Own markup commands may be defined by using the
-    @code{define-markup-command} scheme macro."
-
-
+  texidoc = "Users may define non-standard markup commands using
+the @code{define-markup-command} scheme macro."
 }
 
 

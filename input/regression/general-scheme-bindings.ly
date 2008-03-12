@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "This file tests various Scheme utiliity functions." 
+  texidoc = "This file tests various Scheme utility functions." 
 
 }
 

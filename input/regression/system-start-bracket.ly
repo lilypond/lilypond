@@ -1,9 +1,8 @@
 \version "2.10.0"
 \header {
-  texidoc =
-  "
-The piano brace should be shifted horizontally if it  is enclosed in a bracket.
-"
+  texidoc = "A piano context included within a staff group should
+cause the piano brace to be drawn to the left of the staff angle
+bracket."
 }
 
 \layout {ragged-right = ##t}
