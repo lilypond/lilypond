@@ -1,6 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: 98ae4afd530d6a059a81356119d8138ed25b2650
+    Translation of GIT committish: aae416a0211bad0bbed5c82b91d80a83d21e8054
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,8 +10,10 @@
 @node Editorial annotations
 @section Editorial annotations
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-{editorial-headword.ly}
+@lilypondfile[quote]{editorial-headword.ly}
+
+Esta sección trata de las diversas maneras de modificar el aspecto de
+las notas y de aplicar énfasis analítico o educativo.
 
 @menu
 * Inside the staff::            
@@ -21,6 +24,8 @@
 @node Inside the staff
 @subsection Inside the staff
 
+Esta sección trata sobre cómo aplicar énfasis a los elementos situados
+dentro del pentagrama.
 
 @menu
 * Selecting notation font size::  
@@ -34,8 +39,78 @@
 @node Selecting notation font size
 @subsubsection Selecting notation font size
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex fuente tipográfica, tamaño 
+@cindex fuente tipográfica, tamaño, seleccionar
+@cindex selección del tamaño de la fuente tipográfica
 
+El método más sencillo para establecer el tamaño de la tipografía de
+cualquier contexto es mediante el ajuste de la propiedad
+@code{fontSize}.
+
+@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
+c4
+\set fontSize = #-4
+c f
+\set fontSize = #3
+g8 a
+@end lilypond
+
+@noindent
+No modifica el tamaño de los símbolos variables como barras o
+ligaduras de expresión.
+
+@cindex fuente tipográfica, escalado del tamaño
+
+Internamente, la propiedad de contexto @code{fontSize} produce que se
+eestablezca el valor de la propiedad @code{font-size} en todos los
+objetos de presentación.  El valor de @code{font-size} es un número
+que indica el tamaño relativo al tamaño estándar para la altura
+vigente del pentagrama.  Cada paso hacia arriba es un incremento de un
+12% del tamaño de la fuente, aproximadamente.  Seis pasos son
+exactamente un factor de dos.  La función de Scheme @code{magstep}
+convierte un número de tamaño @code{font-size} a un factor de
+escalado.  La propiedad @code{font-size} también se puede establecer
+directamente, de forma que queden afectados solamente determinados
+objetos gráficos.
+
+@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
+c4
+\override NoteHead #'font-size = #-4
+c f
+\override NoteHead #'font-size = #3
+g8 a
+@end lilypond
+
+@cindex estándar, tamaño de la tipografía
+@cindex fuente tipográfica, tamaño estándar de
+
+Los cambios en el tamaño de la fuente se obtienen por medio del
+escalado del tamaño del diseño que se encuentra más cerca del tamaño
+deseado.  El tamaño estándar para la tipografía (para @code{font-size}
+igual a 0), depende de la altura estándar del pentagrama.  Para un
+pentagrama de 20 puntos, se selecciona una fuente de 10 puntos.
+
+La propiedad @code{font-size} sólo se puede establecer en objetos
+gráficos que utilicesn fuentes tipográficas.  Éstos son los que
+contemplan el interfaz de presentación @code{font-interface}.
+
+@predefined
+
+Las siguientes instrucciones establecen un valor de @code{fontSize}
+para la voz en curso:
+
+@funindex \tiny
+@code{\tiny},
+@funindex \small
+@code{\small},
+@funindex \normalsize
+@code{\normalsize}.
+
+@seealso
+
+Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
+
+Referencia de funcionamiento interno: @internalsref{font-interface}.
 
 @node Fingering instructions
 @subsubsection Fingering instructions
@@ -277,7 +352,7 @@ a4 b c b
 @menu
 * Balloon help::                
 * Grid lines::                  
-* Blank music sheet::           
+* Analysis brackets::           
 @end menu
 
 @node Balloon help
