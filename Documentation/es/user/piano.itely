@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -44,7 +44,7 @@ plantilla @q{piano con matices centrados} que está en @ref{Piano templates}.
 
 
 @node Automatic staff changes
-@unnumberedsubsubsec Automatic staff changes
+@subsubsection Automatic staff changes
 @cindex Cambio automático de pentagrama
 
 Se puede hacer que las voces cambien automáticamente entre los pentagramas inferior y
@@ -103,7 +103,7 @@ una salida de alta calidad es mejor especificar manualmente los cambios de penta
 
 
 @node Manual staff switches
-@unnumberedsubsubsec Manual staff switches
+@subsubsection Manual staff switches
 
 @cindex manual, cambio de pentagrama
 @cindex pentagrama, cambios manuales de
@@ -141,7 +141,7 @@ y la @context{Voice} se inserta con posterioridad
 
 
 @node Pedals
-@unnumberedsubsubsec Pedals
+@subsubsection Pedals
 @cindex Pedales
 
 El piano tiene pedales que alteran la forma en que se produce el sonido.  Generalmente un
@@ -209,7 +209,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 En este manual: @ref{Laissez vibrer ties}.
 
 @node Staff switch lines
-@unnumberedsubsubsec Staff switch lines
+@subsubsection Staff switch lines
 
 
 @cindex seguimiento de voz
@@ -247,7 +247,7 @@ Referencia del programa: @internalsref{VoiceFollower}.
 
 
 @node Cross staff stems
-@unnumberedsubsubsec Cross staff stems
+@subsubsection Cross staff stems
 
 Los acordes que cruzan pentagramas se pueden producir mediante el incremento de la longitud
 de la plica en el pentagrama inferior, de manera que alcance a la plica que está en el pentagrama

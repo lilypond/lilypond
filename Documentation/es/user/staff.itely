@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -27,7 +27,7 @@ staff = singular, staves = plural
 @end menu
 
 @node System start delimiters
-@unnumberedsubsubsec System start delimiters
+@subsubsection System start delimiters
 
 @cindex comienzo del sistema
 @cindex Pentagramas, varios
@@ -115,7 +115,7 @@ Los delimitadores del comienzo del sistema se pueden anidar muchas veces:
 
 
 @node Staff symbol
-@unnumberedsubsubsec Staff symbol
+@subsubsection Staff symbol
 
 @cindex ajuste del símbolo del pentagrama
 
@@ -162,7 +162,7 @@ Ejemplos: @lsrdir{staff}
 
 
 @node Hiding staves
-@unnumberedsubsubsec Hiding staves
+@subsubsection Hiding staves
 
 @cindex Francesa, partituras a la
 @cindex Ocultación de pentagramas
@@ -220,7 +220,7 @@ francesa.
 @end menu
 
 @node Metronome marks
-@unnumberedsubsubsec Metronome marks
+@subsubsection Metronome marks
 
 @cindex Tempo
 @cindex pulsos por minuto
@@ -280,7 +280,7 @@ más lejos del pentagrama.
 
 
 @node Instrument names
-@unnumberedsubsubsec Instrument names
+@subsubsection Instrument names
 
 En una partitura orquestal, los nombres de los instrumentos se imprimen en el lado izquierdo
 de los pentagramas.
@@ -382,7 +382,7 @@ Referencia del programa: @internalsref{InstrumentName}.
 
 
 @node Quoting other voices
-@unnumberedsubsubsec Quoting other voices
+@subsubsection Quoting other voices
 
 @cindex guías
 
@@ -482,7 +482,7 @@ Referencia del programa: @internalsref{QuoteMusic}.
 
 
 @node Formatting cue notes
-@unnumberedsubsubsec Formatting cue notes
+@subsubsection Formatting cue notes
 
 @cindex guía, formateo de las notas
 

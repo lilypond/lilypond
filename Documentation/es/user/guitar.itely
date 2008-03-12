@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -32,7 +32,7 @@
 @end menu
 
 @node String number indications
-@unnumberedsubsubsec String number indications
+@subsubsection String number indications
 
 @cindex Cuerda, número de la
 
@@ -51,7 +51,7 @@ Referencia del programa: @internalsref{StringNumber},
 
 
 @node Tablatures basic
-@unnumberedsubsubsec Tablatures basic
+@subsubsection Tablatures basic
 @cindex Tablatura, principios básicos
 
 La notación de tablatura se utiliza para la notación de música de instrumentos de cuerda
@@ -138,7 +138,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 
 
 @node Non-guitar tablatures
-@unnumberedsubsubsec Non-guitar tablatures
+@subsubsection Non-guitar tablatures
 @cindex Tablaturas para instr. distintos de la guitarra
 
 Puede cambiar la afinación de las cuerdas. Una afinación de cuerdas se da como
@@ -186,7 +186,7 @@ No se ha implementado ningún efecto especial de guitarra.
 
 
 @node Banjo tablatures
-@unnumberedsubsubsec Banjo tablatures
+@subsubsection Banjo tablatures
 @cindex Banjo, tablaturas de
 
 LilyPond contempla el banjo de cinco cuerdas de una manera básica.  Cuando haga tablaturas
@@ -225,7 +225,7 @@ El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones predefinidas
 
 
 @node Fret diagrams
-@unnumberedsubsubsec Fret diagrams
+@subsubsection Fret diagrams
 @cindex trastes, diagramas de
 @cindex acordes, diagramas de
 
@@ -274,7 +274,7 @@ Ejemplos: @lsrdir{guitar}
 
 
 @node Right hand fingerings
-@unnumberedsubsubsec Right hand fingerings
+@subsubsection Right hand fingerings
 
 Se pueden introducir las digitaciones de la mano derecha de los acordes, usando
 @code{@var{nota}-\rightHandFinger @var{dedo}}
@@ -330,7 +330,7 @@ Referencia del programa: @internalsref{StrokeFinger}
 
 
 @node Other guitar issues
-@unnumberedsubsubsec Other guitar issues
+@subsubsection Other guitar issues
 
 Este ejemplo muestra cómo incluir indicaciones de posición y cejilla
 de guitarra:

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -30,7 +30,7 @@ se puede utilizar para mostrar los valores rítmicos una melodía.
 
 
 @node Showing melody rhythms
-@unnumberedsubsubsec Showing melody rhythms
+@subsubsection Showing melody rhythms
 
 En ocasiones podría desear que se muestre sólo el ritmo de una melodía.  Esto
 se puede hacer con la pauta rítmica.  Todas las alturas de las notas en dicha pauta
@@ -49,7 +49,7 @@ Referencia del programa: @internalsref{RhythmicStaff}.
 
 
 @node Entering percussion
-@unnumberedsubsubsec Entering percussion
+@subsubsection Entering percussion
 
 @cindex percusión
 @cindex batería
@@ -75,7 +75,7 @@ La lista completa de nombre de instrumentos de percusión se encuentra en el arc
 Referencia del programa: @internalsref{note-event}.
 
 @node Percussion staves
-@unnumberedsubsubsec Percussion staves
+@subsubsection Percussion staves
 @cindex percusión
 @cindex batería
 
@@ -292,7 +292,7 @@ el golpe lateral de baqueta (sidestick) en su lugar.
 
 @c FIXME: check name -gp
 @node Ghost notes
-@unnumberedsubsubsec Ghost notes
+@subsubsection Ghost notes
 
 Las notas fantasma para la batería e instrumentos de percusión se pueden crear utilizando la instrucción
 @code{\parenthesize} detallada en @ref{Parentheses}.  Sin embargo,

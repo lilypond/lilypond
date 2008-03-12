@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -27,7 +27,7 @@ This section includes extra information for writing for bagpipes.
 @end menu
 
 @node Bagpipe definitions
-@unnumberedsubsubsec Bagpipe definitions
+@subsubsection Bagpipe definitions
 
 LilyPond contiene definiciones especiales para la música de gaita escocesa de las
 tierras altas; para usarlas, escriba
@@ -68,7 +68,7 @@ ligera.
 
 
 @node Bagpipe example
-@unnumberedsubsubsec Bagpipe example
+@subsubsection Bagpipe example
 
 La conocida melodía Amazing Grace tiene este aspecto en notación de
 gaita.

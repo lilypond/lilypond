@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -28,7 +28,7 @@ tipos de notación para las repeticiones.
 @end menu
 
 @node Repeat types
-@unnumberedsubsubsec Repeat types
+@subsubsection Repeat types
 
 @cindex repeticiones
 
@@ -59,7 +59,7 @@ la salida MIDI.  Las repeticiones de porcentaje se deben declarar dentro de un c
 
 
 @node Repeat syntax
-@unnumberedsubsubsec Repeat syntax
+@subsubsection Repeat syntax
 
 @cindex volta
 @cindex prima volta
@@ -205,7 +205,7 @@ Los corchetes de primera y segunda vez no se alinean verticalmente.
 
 
 @node Manual repeat commands
-@unnumberedsubsubsec Manual repeat commands
+@subsubsection Manual repeat commands
 
 @funindex repeatCommands
 
@@ -247,7 +247,7 @@ Referencia del programa: @internalsref{VoltaBracket},
 
 
 @node Repeats and MIDI
-@unnumberedsubsubsec Repeats and MIDI
+@subsubsection Repeats and MIDI
 
 @cindex expansión de repeticiones
 @funindex \unfoldRepeats
@@ -297,7 +297,7 @@ Por ejemplo,
 @end menu
 
 @node Tremolo repeats
-@unnumberedsubsubsec Tremolo repeats
+@subsubsection Tremolo repeats
 
 @cindex barras de trémolo
 
@@ -329,7 +329,7 @@ Referencia del programa: @internalsref{Beam}, @internalsref{StemTremolo}.
 
 
 @node Tremolo subdivisions
-@unnumberedsubsubsec Tremolo subdivisions
+@subsubsection Tremolo subdivisions
 
 @cindex marcas de trémolo
 @funindex tremoloFlags
@@ -359,7 +359,7 @@ En otros lugares: @internalsref{StemTremolo}.
 
 
 @node Measure repeats
-@unnumberedsubsubsec Measure repeats
+@subsubsection Measure repeats
 
 @cindex porcentaje, repeticiones de
 @cindex compás, repeticiones de

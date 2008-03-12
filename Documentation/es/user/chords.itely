@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -31,7 +31,7 @@ Intro text.
 @c  awkward name; awkward section name.
 @c  still, the Basic "chords" seems like a good name...  :(
 @node Introducing chord names
-@unnumberedsubsubsec Introducing chord names
+@subsubsection Introducing chord names
 @cindex acordes, nombres
 
 LilyPond tiene la capacidad de imprimir nombres de acordes.  Los acordes se pueden introducir
@@ -67,7 +67,7 @@ Tenga en cuenta que la duración de los acordes se debe especificar fuera de los
 
 
 @node Chords mode
-@unnumberedsubsubsec Chords mode
+@subsubsection Chords mode
 @cindex Acordes, modo de
 
 En el modo de acordes, se introducen conjuntos de notas o acordes con sus nombres usuales.
@@ -203,7 +203,7 @@ simplemente produce el acorde aumentado, ya que el @code{5+} se interpreta en
 
 
 @node Printing chord names
-@unnumberedsubsubsec Printing chord names
+@subsubsection Printing chord names
 
 @cindex impresión de los nombres de acorde
 @cindex acordes, nombres de
