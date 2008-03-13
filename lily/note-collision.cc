@@ -178,11 +178,13 @@ check_meshing_chords (Grob *me,
      make sure the dotted heads go to the right.  */
   bool stem_to_stem = false;
   if (full_collide)
-    if (Rhythmic_head::dot_count (head_up) > Rhythmic_head::dot_count (head_down))
-      shift_amount = 1;
-    else if (Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
-      stem_to_stem = true;
-
+    {
+      if (Rhythmic_head::dot_count (head_up) > Rhythmic_head::dot_count (head_down))
+	shift_amount = 1;
+      else if (Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
+	stem_to_stem = true;
+    }
+  
   if (merge_possible)
     {
       shift_amount = 0;
