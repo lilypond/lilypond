@@ -415,7 +415,7 @@ whether to put a page turn at this column.  Can be @code{force} or
 
 For slurs, this value selects which slur candidate
 to use; if extreme positions are requested, the closest one is taken.")
-
+     (prefer-dotted-right ,boolean? "For note collisions, prefer to shift dotted up-note to the right, rather than shifting just the dot.")
      (ratio ,number? "Parameter for slur shape.  The higher this
 number, the quicker the slur attains its @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no

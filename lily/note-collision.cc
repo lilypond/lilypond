@@ -279,12 +279,20 @@ check_meshing_chords (Grob *me,
     {
       Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
       if (!Staff_symbol_referencer::on_line (staff, ups[0]))
-	{
-	  Grob *d = unsmob_grob (head_up->get_object ("dot"));
-	  Grob *parent = d->get_parent (X_AXIS);
-	  if (Dot_column::has_interface (parent))
-	    Side_position_interface::add_support (parent, head_down);
-	}
+	/*
+	  TODO: consider junking the else body.
+	*/
+	if (to_boolean (me->get_property ("prefer-dotted-right")))
+	  {
+	    shift_amount = 0.5;
+	  }
+	else
+	  {
+	    Grob *d = unsmob_grob (head_up->get_object ("dot"));
+	    Grob *parent = d->get_parent (X_AXIS);
+	    if (Dot_column::has_interface (parent))
+	      Side_position_interface::add_support (parent, head_down);
+	  }
     }
 
   /* For full or close half collisions, the right hand head may
@@ -333,30 +341,30 @@ Note_collision_interface::calc_positioning_done (SCM smob)
   Grob *me = unsmob_grob (smob);
   me->set_property ("positioning-done", SCM_BOOL_T);
   
-  Drul_array<vector<Grob*> > cg = get_clash_groups (me);
+  Drul_array<vector<Grob*> > clash_groups = get_clash_groups (me);
 
   Direction d = UP;
   do
     {
-      for (vsize i = cg[d].size (); i--; )
+      for (vsize i = clash_groups[d].size (); i--; )
 	{
 	  /*
 	    Trigger positioning
 	   */
-	  cg[d][i]->extent (me, X_AXIS);
+	  clash_groups[d][i]->extent (me, X_AXIS);
 	}
     }
   while (flip (&d) != UP);
 
-  SCM autos (automatic_shift (me, cg));
+  SCM autos (automatic_shift (me, clash_groups));
   SCM hand (forced_shift (me));
 
   Real wid = 0.0;
   do
     {
-      if (cg[d].size ())
+      if (clash_groups[d].size ())
 	{
-	  Grob *h = cg[d][0];
+	  Grob *h = clash_groups[d][0];
 	  Grob *fh = Note_column::first_head (h);
 	  if (fh)
 	    wid = fh->extent (h, X_AXIS).length ();
@@ -579,4 +587,6 @@ ADD_INTERFACE (Note_collision_interface,
 	       /* properties */
 	       "merge-differently-dotted "
 	       "merge-differently-headed "
-	       "positioning-done ");
+	       "positioning-done "
+	       "prefer-dotted-right "
+	       );
