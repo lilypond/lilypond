@@ -409,13 +409,15 @@ at a column with a negative penalty.")
 whether to put a page turn at this column.  Can be @code{force} or
 @code{allow}.")
      (parenthesized ,boolean? "Parenthesize this grob.")
-     (positions ,number-pair? "Pair of staff coordinates @code{(@var{left}
-. @var{right})}, where both @var{left} and @var{right} are in
-@code{staff-space} units of the current staff.
+     (positions ,number-pair? "Pair of staff coordinates
+@code{(@var{left} . @var{right})}, where both @var{left} and
+@var{right} are in @code{staff-space} units of the current staff.
+For slurs, this value selects which slur candidate to use; if
+extreme positions are requested, the closest one is taken.")
+     (prefer-dotted-right ,boolean? "For note collisions, prefer to
+shift dotted up-note to the right, rather than shifting just the
+dot.")
 
-For slurs, this value selects which slur candidate
-to use; if extreme positions are requested, the closest one is taken.")
-     (prefer-dotted-right ,boolean? "For note collisions, prefer to shift dotted up-note to the right, rather than shifting just the dot.")
      (ratio ,number? "Parameter for slur shape.  The higher this
 number, the quicker the slur attains its @code{height-limit}.")
      (remove-empty ,boolean? "If set, remove group if it contains no
