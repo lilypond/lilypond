@@ -278,5 +278,6 @@ ADD_INTERFACE (Rest_collision,
 	       /* properties */
 	       "minimum-distance "
 	       "positioning-done "
-	       "elements");
+	       "elements "
+	       );
 

@@ -70,7 +70,8 @@ Balloon_interface::print (SCM smob)
 }
 
 ADD_INTERFACE (Balloon_interface,
-	       "A collection of routines to put text balloons around an object.",
+	       "A collection of routines to put text balloons around an "
+	       "object.",
 
 	       /* properties */
 	       "padding "

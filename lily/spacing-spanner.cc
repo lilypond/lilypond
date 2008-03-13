@@ -517,18 +517,20 @@ Spacing_spanner::breakable_column_spacing (Grob *me, Item *l, Item *r,
 }
 
 ADD_INTERFACE (Spacing_spanner,
-	       "The space taken by a note is dependent on its duration. Doubling a\n"
-	       "duration adds spacing-increment to the space. The most common shortest\n"
-	       "note gets @code{shortest-duration-space}. Notes that are even shorter are\n"
-	       "spaced proportonial to their duration.\n"
+	       "The space taken by a note is dependent on its duration.  "
+	       "Doubling a duration adds @code{spacing-increment} to the "
+	       "space.  The most common shortest note gets "
+	       "@code{shortest-duration-space}.  Notes that are even shorter "
+	       "are spaced proportonial to their duration.\n"
 	       "\n"
-	       "Typically, the increment is the width of a black note head.  In a\n"
-	       "piece with lots of 8th notes, and some 16th notes, the eighth note\n"
-	       "gets 2 note heads width (i.e. the space following a note is 1 note\n"
-	       "head width) A 16th note is followed by 0.5 note head width. The\n"
-	       "quarter note is followed by  3 NHW, the half by 4 NHW, etc.\n",
+	       "Typically, the increment is the width of a black note head.  "
+	       "In a piece with lots of 8th notes, and some 16th notes, the "
+	       "eighth note gets a 2@tie{}note heads width (i.e., the space "
+	       "following a note is a 1@tie{}note head width).  A 16th note "
+	       "is followed by 0.5 note head width.  The quarter note is "
+	       "followed by 3@tie{}NHW, the half by 4@tie{}NHW, etc.",
 
-	       
+	       /* properties */
 	       "average-spacing-wishes "
 	       "base-shortest-duration "
 	       "common-shortest-duration "
@@ -538,6 +540,5 @@ ADD_INTERFACE (Spacing_spanner,
 	       "strict-grace-spacing "
 	       "strict-note-spacing "
 	       "uniform-stretching "
-	       
 	       );
 

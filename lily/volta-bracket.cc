@@ -160,10 +160,11 @@ Volta_bracket_interface::add_bar (Grob *me, Item *b)
 }
 
 ADD_INTERFACE (Volta_bracket_interface,
-	       "Volta bracket with number",
+	       "Volta bracket with number.",
 
 	       /* properties */
 	       "bars "
 	       "thickness "
-	       "height");
+	       "height "
+	       );
 

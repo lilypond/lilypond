@@ -996,27 +996,30 @@ Stem::calc_cross_staff (SCM smob)
 
 /* FIXME:  Too many properties  */
 ADD_INTERFACE (Stem,
-	       "The stem represent the graphical stem.  "
-	       "In addition, it internally connects note heads, beams and"
-	       "tremolos. "
-	       "Rests and whole notes have invisible stems."
-
-	       "\n\nThe following properties may be set in the details list." 
+	       "The stem represents the graphical stem.  In addition, it "
+	       "internally connects note heads, beams, and tremolos.  Rests "
+	       "and whole notes have invisible stems.\n"
+	       "\n"
+	       "The following properties may be set in the @code{details} "
+	       "list.\n"
+	       "\n"
 	       "@table @code\n"
-	       "@item  beamed-lengths \n"
-	       "list of stem lengths given beam multiplicity. \n"
-	       "@item beamed-minimum-free-lengths \n"
-	       "list of normal minimum free stem lengths (chord to beams) given beam multiplicity.\n"
+	       "@item beamed-lengths\n"
+	       "  List of stem lengths given beam multiplicity.\n"
+	       "@item beamed-minimum-free-lengths\n"
+	       "  List of normal minimum free stem lengths (chord to beams) "
+	       "  given beam multiplicity.\n"
 	       "@item beamed-extreme-minimum-free-lengths\n"
-	       "list of extreme minimum free stem lengths (chord to beams) given beam multiplicity.\n"
+	       "  List of extreme minimum free stem lengths (chord to beams) "
+	       "  given beam multiplicity.\n"
 	       "@item lengths\n"
-	       "Default stem lengths. The list gives a length for each flag-count.\n"
+	       "  Default stem lengths.  The list gives a length for each "
+	       "  flag count.\n"
 	       "@item stem-shorten\n"
-	       "How much a stem in a forced direction "
-	       "should be shortened. The list gives an amount depending on the number "
-	       "of flags/beams."
-	       "@end table\n"
-	       ,
+	       "  How much a stem in a forced direction should be shortened.  "
+	       "  The list gives an amount depending on the number of flags "
+	       "  and beams.\n"
+	       "@end table\n",
 
 	       /* properties */
 	       "avoid-note-head "

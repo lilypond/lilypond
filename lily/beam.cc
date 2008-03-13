@@ -1523,14 +1523,12 @@ Beam::get_direction_beam_count (Grob *me, Direction d)
 }
 
 ADD_INTERFACE (Beam,
-
-	       "A beam. \n\n"
+	       "A beam.\n"
+	       "\n"
 	       "The @code{thickness} property is the weight of beams, "
-	       "measured in staffspace.  The @code{direction} "
-	       "property is not user-serviceable. Use "
-	       "the @code{direction} property of @code{Stem} instead. "
-
-	       ,
+	       "measured in staffspace.  The @code{direction} property is "
+	       "not user-serviceable.  Use the @code{direction} property "
+	       "of @code{Stem} instead.",
 	       
 	       /* properties */
 	       "annotation "

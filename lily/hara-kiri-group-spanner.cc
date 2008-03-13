@@ -154,10 +154,9 @@ Hara_kiri_group_spanner::add_interesting_item (Grob *me, Grob *n)
 }
 
 ADD_INTERFACE (Hara_kiri_group_spanner,
-	       "A group spanner that  keeps track of interesting items.  If it "
-	       "doesn't contain any after linebreaking, then it "
-	       "will remove itself and all its children.",
-
+	       "A group spanner that keeps track of interesting items.  If it "
+	       "doesn't contain any after line breaking, it removes itself "
+	       "and all its children.",
 
 	       /* properties */
 	       "items-worth-living "

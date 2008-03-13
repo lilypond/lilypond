@@ -354,5 +354,6 @@ ADD_INTERFACE (Multi_measure_rest,
 	       "thick-thickness "
 	       "use-breve-rest "
 	       "bound-padding "
-	       "minimum-length");
+	       "minimum-length "
+	       );
 

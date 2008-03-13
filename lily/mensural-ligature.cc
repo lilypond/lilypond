@@ -220,13 +220,14 @@ Mensural_ligature::print (SCM)
 }
 
 ADD_INTERFACE (Mensural_ligature,
-	       "A mensural ligature",
+	       "A mensural ligature.",
 
+	       /* properties */
 	       "delta-position "
 	       "flexa-width "
 	       "head-width "
 	       "join-right-amount "
 	       "primitive "
-	       "thickness"
+	       "thickness "
 	       );
 

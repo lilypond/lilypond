@@ -49,11 +49,10 @@ Rhythmic_head::duration_log (Grob *me)
 }
 
 ADD_INTERFACE (Rhythmic_head,
-
-	       "Note head or rest",
+	       "Note head or rest.",
 	       
+	       /* properties */
 	       "dot "
 	       "duration-log "
 	       "stem "
 	       );
-

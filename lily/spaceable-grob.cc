@@ -89,8 +89,7 @@ Spaceable_grob::get_spring (Grob *this_col, Grob *next_col)
 
 
 ADD_INTERFACE (Spaceable_grob,
-	       "A layout object that takes part in the spacing problem. ",
-	       
+	       "A layout object that takes part in the spacing problem.",
 
 	       /* properties */
 	       "allow-loose-spacing "
@@ -101,6 +100,5 @@ ADD_INTERFACE (Spaceable_grob,
 	       "minimum-distances "
 	       "right-neighbors "
 	       "spacing-wishes "
-
 	       );
 

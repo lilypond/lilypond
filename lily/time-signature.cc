@@ -121,28 +121,29 @@ Time_signature::numbered_time_signature (Grob *me, int num, int den)
 }
 
 ADD_INTERFACE (Time_signature,
-	       "A time signature, in different styles.\n"
-	       "  The following values for 'style are are recognized:\n"
+	       "A time signature, in different styles.  The following values "
+	       "for @code{style} are are recognized:\n"
 	       "\n"
-	       "    @table @samp\n"
-	       "      @item @code{C}\n"
-	       "        4/4 and 2/2 are typeset as C and struck C, respectively.  All\n"
-	       "        other time signatures are written with two digits.\n"
+	       "@table @code\n"
+	       "@item C\n"
+	       "  4/4 and 2/2 are typeset as C and struck C, respectively.  "
+	       "  All other time signatures are written with two digits.\n"
+	       "@item neomensural\n"
+	       "  2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are "
+	       "  typeset with neo-mensural style mensuration marks.  All "
+	       "  other time signatures are written with two digits.\n"
+	       "@item mensural\n"
+	       "  2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8, and 9/8 are "
+	       "  typeset with mensural style mensuration marks.  All other "
+	       "  time signatures are written with two digits.\n"
+	       "@item single-digit\n"
+	       "  All time signatures are typeset with a single digit, e.g., "
+	       "  3/2 is written as 3.\n"
+	       "@end table\n"
 	       "\n"
-	       "      @item @code{neomensural}\n"
-	       "        2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are\n"
-	       "        typeset with neo-mensural style mensuration marks.  All other time\n"
-	       "        signatures are written with two digits.\n"
-	       "\n"
-	       "      @item @code{mensural}\n"
-	       "        2/2, 3/2, 2/4, 3/4, 4/4, 6/4, 9/4, 4/8, 6/8 and 9/8 are\n"
-	       "        typeset with mensural style mensuration marks.  All other time\n"
-	       "        signatures are written with two digits.\n"
-	       "\n"
-	       "      @item @code{single-digit}\n"
-	       "        All time signatures are typeset with a single\n"
-	       "        digit, e.g. 3/2 is written as 3.\n"
-	       "    @end table\n"
-	       "\n"
-	       "See also the test-file @file{input/test/time.ly}.\n",
-	       "fraction style");
+	       "See also the test-file @file{input/test/time.ly}.",
+
+	       /* properties */
+	       "fraction "
+	       "style "
+	       );
