@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f02e10cde760bb4981b73742f0fb5a867e1d3d33
+    Translation of GIT committish: 3e613c9df8ffdba4e9b0603ca014703a2671a3ba
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,8 +9,7 @@
 @node Expressive marks
 @section Expressive marks
 
-@lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
-{expressive-headword.ly}
+@lilypondfile[quote]{expressive-headword.ly}
 
 @menu
 * Attached to notes::           
@@ -35,80 +34,121 @@
 @cindex guiones
 @cindex ornamentos
 
-Un amplio abanico de símbolos pueden aparecer encima o debajo de las notas
-para indicar distintas características de la ejecución.  Se adjuntan a una
-nota escribiendo un guión y el carácter que significa la articulación.
-Se muestran a continuación:
+Un amplio abanico de símbolos pueden aparecer encima o debajo de las
+notas para indicar distintas características de la ejecución.  Todos
+ellos se pueden adjuntar a una nota utilizando la sintaxis siguiente:
+@var{nota}@tie{}@code{\}@var{nombre}.
 
-@c @l ilypondfile[quote,ragged-right]{script-abbreviations.ly}
 
-Los significados de estas abreviaturas se pueden modificar.  Consulte
-@file{ly/@/script@/-init@/.ly} para ver ejemplos.
+@c Add a LilyPond example here soon. -pm
 
-La indicación se coloca automáticamente, pero la dirección (arriba o abajo)
-se puede también forzar.  Como otros fragmentos de código de LilyPond,
-@code{_} los situará por debajo del pentagrama, y @code{^} los colocará por encima.
+La lista de los posibles valores de @var{nombre} está en @ref{List of
+articulations}.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-c''4^^ c''4_^
-@end lilypond
-
-Se pueden añadir otros símbolos usando la sintaxis
-@var{nota}@code{\}@var{nombre}.  Una vez más, se puede forzar
-que aparezcan por encima o por debajo usando @code{^} y @code{_},
-por ejemplo
-
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-c\fermata c^\fermata c_\fermata
-@end lilypond
-
-@cindex acento
 @cindex marcato
+@cindex apagada
+@cindex tenuto
 @cindex staccatissimo
-@cindex espressivo
-@cindex fermata
-@cindex calderón
-@cindex apagado
+@cindex acento
+@cindex picado
 @cindex staccato
 @cindex portato
-@cindex tenuto
-@cindex arco arriba
+
+
+Algunas de estas articulaciones tienen abreviaturas que facilitan su
+escritura.  Las abreviaturas se escriben detrás del nombre de la nota,
+y su sintaxis consiste en un guión (@tie{}@code{-}) seguido de un
+símbolo que especifica la articulación.  Existen abreviaturas
+predefinidas para el @notation{marcato}, @notation{stopped} (nota
+apagada), @notation{tenuto}, @notation{staccatissimo},
+@notation{accent} (acento), @notation{staccato} (picado), y
+@notation{portato}.  La salida correspondiente a estas articulaciones
+aparece de la siguiente manera:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c4-^  c-+  c--  c-|
+c->   c-.  c-_
+@end lilypond
+
+La indicación se coloca automáticamente por encima o por debajo de la
+nota, pero la posición también se puede @q{forzar} manualmente para
+que esté encima o debajo.  Para ver más detalles, consulte
+@ref{Controlling direction and placement}.
+
+@cindex abierta, nota
+@cindex acento
+@cindex aflautados, tonos
+@cindex apagado
 @cindex arco abajo
-@cindex pedal, indicaciones de
-@cindex órgano, indicaciones de pedal de
-@cindex grupeto circular
-@cindex open
+@cindex arco arriba
+@cindex calderón
+@cindex coda
+@cindex downbow
+@cindex espressivo
+@cindex fermata
 @cindex flageolet
+@cindex foot marks
+@cindex grupeto
+@cindex grupeto circular
 @cindex grupeto circular invertido
-@cindex trino
+@cindex marcato
+@cindex mordent
+@cindex open
+@cindex pedal, indicaciones de
+@cindex portato
+@cindex prall
+@cindex prallmordent
+@cindex prallprall
+@cindex pulgar, indicación de
+@cindex reverseturn
+@cindex segno
 @cindex semitrino
 @cindex semitrino descendente
-@cindex prallprall
-@cindex prallmordent
-@cindex prall, up
-@cindex prall, down
+@cindex staccatissimo
+@cindex staccato
+@cindex stopped
+@cindex tapada, nota
+@cindex tenuto
 @cindex thumb marking
-@cindex segno
-@cindex coda
+@cindex trill
+@cindex trino
+@cindex turn
+@cindex upbow
 @cindex varcoda
-
-He aquí un cuadro que muestra todas las articulaciones disponibles:
-
-@lilypondfile[ragged-right,quote]{script-chart.ly}
+@cindex órgano, indicaciones de pedal de
 
 
-@commonprop
+@snippets
+
+@c Send these snippets to Valentin for the LSR.
+
+Las abreviaturas se encuentran definidas en el archivo
+@file{ly/@/script@/-init@/.ly}, en donde se asigna un valor
+predeterminado a las variables @code{dashHat}, @code{dashPlus},
+@code{dashDash}, @code{dashBar}, @code{dashLarger}, @code{dashDot} y
+@code{dashUnderscore}.  Los valores predeterminados de las
+abreviaturas se pueden modificar.  Por ejemplo, para asociar la
+abreviatura @code{-+} (@code{dashPlus}) con el símbolo
+@notation{trill} en lugar del símbolo predeterminado @notation{+},
+asigne el valor @code{trill} a la variable @code{dashPlus}:
+
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' { c-+ }
+dashPlus = "trill"
+\relative c'' { c-+ }
+@end lilypond
 
 El orden vertical de las articulaciones se controla con la propiedad
-@code{script-priority}.  Cuanto más bajo es esta número,
-más cerca de la nota se colocará.
-En este ejemplo el @internalsref{TextScript} (el símbolo de sostenido) tiene primero la
-prioridad más baja, así que se coloca en la parte más baja en el primer ejemplo.
-En el segundo, el semitrino (el @internalsref{Script}) tiene la prioridad más baja, por tanto
-se coloca en la parte interior.  Cuando dos objetos tienen la misma prioridad, el orden en que
-se escriben decide cuál de ellos va primero.
+@code{script-priority}.  Cuanto más bajo es esta número, más cerca de
+la nota se colocará.  En este ejemplo el @code{TextScript} (el símbolo
+de sostenido) tiene primero la prioridad más baja, así que se coloca
+en la parte más baja en el primer ejemplo.  En el segundo, el
+@notation{semitrino} (el @code{Script}) tiene la prioridad más baja,
+por tanto se coloca en el interior.  Cuando dos objetos tienen la
+misma prioridad, el orden en que se escriben decide cuál de ellos va
+primero.
 
-@lilypond[verbatim,relative=3,ragged-right,fragment,quote]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=3]
 \once \override TextScript #'script-priority = #-100
 a4^\prall^\markup { \sharp }
 
@@ -119,7 +159,14 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
-Referencia del programa: @internalsref{Script}.
+Glosario musical: @rglos{marcato}, @rglos{stopped}, @rglos{tenuto},
+@rglos{staccatissimo}, @rglos{accent}, @rglos{staccato},
+@rglos{portato}.
+
+Fragmentos de código: @lsrdir{Expressive,Expressive-marks}
+
+Referencia de funcionamiento interno: @internalsref{Script},
+@internalsref{TextScript}.
 
 
 @knownissues
