@@ -33,21 +33,21 @@ check_meshing_chords (Grob *me,
   if (!extents[UP].size () || ! extents[DOWN].size ())
     return;
 
-  Grob *cu = clash_groups[UP][0];
-  Grob *cd = clash_groups[DOWN][0];
+  Grob *clash_up = clash_groups[UP][0];
+  Grob *clash_down = clash_groups[DOWN][0];
 
   /* Every note column should have a stem, but avoid a crash. */
-  if (!Note_column::get_stem (cu) || !Note_column::get_stem (cd))
+  if (!Note_column::get_stem (clash_up) || !Note_column::get_stem (clash_down))
     return;
 
-  Drul_array<Grob*> stems (Note_column::get_stem (cd),
-			   Note_column::get_stem (cu));
+  Drul_array<Grob*> stems (Note_column::get_stem (clash_down),
+			   Note_column::get_stem (clash_up));
   
-  Grob *nu = Note_column::first_head (cu);
-  Grob *nd = Note_column::first_head (cd);
+  Grob *head_up = Note_column::first_head (clash_up);
+  Grob *head_down = Note_column::first_head (clash_down);
 
-  vector<int> ups = Stem::note_head_positions (Note_column::get_stem (cu));
-  vector<int> dps = Stem::note_head_positions (Note_column::get_stem (cd));
+  vector<int> ups = Stem::note_head_positions (Note_column::get_stem (clash_up));
+  vector<int> dps = Stem::note_head_positions (Note_column::get_stem (clash_down));
 
   /* Too far apart to collide.  */
   if (ups[0] > dps.back () + 1)
@@ -58,37 +58,37 @@ check_meshing_chords (Grob *me,
   bool merge_possible = (ups[0] >= dps[0]) && (ups.back () >= dps.back ());
 
   /* Do not merge notes typeset in different style. */
-  if (!ly_is_equal (nu->get_property ("style"),
-		    nd->get_property ("style")))
+  if (!ly_is_equal (head_up->get_property ("style"),
+		    head_down->get_property ("style")))
     merge_possible = false;
 
-  int upball_type = Rhythmic_head::duration_log (nu);
-  int dnball_type = Rhythmic_head::duration_log (nd);
+  int up_ball_type = Rhythmic_head::duration_log (head_up);
+  int down_ball_type = Rhythmic_head::duration_log (head_down);
 
   /* Do not merge whole notes (or longer, like breve, longa, maxima).  */
-  if (merge_possible && (upball_type <= 0 || dnball_type <= 0))
+  if (merge_possible && (up_ball_type <= 0 || down_ball_type <= 0))
     merge_possible = false;
 
   if (merge_possible
-      && Rhythmic_head::dot_count (nu) != Rhythmic_head::dot_count (nd)
+      && Rhythmic_head::dot_count (head_up) != Rhythmic_head::dot_count (head_down)
       && !to_boolean (me->get_property ("merge-differently-dotted")))
     merge_possible = false;
 
   /* Can only merge different heads if merge-differently-headed is
      set. */
   if (merge_possible
-      && upball_type != dnball_type
+      && up_ball_type != down_ball_type
       && !to_boolean (me->get_property ("merge-differently-headed")))
     merge_possible = false;
 
   if (merge_possible
-      && nu->get_property ("style") == ly_symbol2scm ("fa")
-      && nd->get_property ("style") == ly_symbol2scm ("fa"))
+      && head_up->get_property ("style") == ly_symbol2scm ("fa")
+      && head_down->get_property ("style") == ly_symbol2scm ("fa"))
     {
-      Interval uphead_size = nu->extent (nu, Y_AXIS);
+      Interval uphead_size = head_up->extent (head_up, Y_AXIS);
       Offset att =  Offset (0.0, -1.0);
-      nu->set_property ("stem-attachment", ly_offset2scm (att));
-      nu->set_property ("transparent", SCM_BOOL_T); 
+      head_up->set_property ("stem-attachment", ly_offset2scm (att));
+      head_up->set_property ("transparent", SCM_BOOL_T); 
     }
   
   /* Should never merge quarter and half notes, as this would make
@@ -178,9 +178,9 @@ check_meshing_chords (Grob *me,
      make sure the dotted heads go to the right.  */
   bool stem_to_stem = false;
   if (full_collide)
-    if (Rhythmic_head::dot_count (nu) > Rhythmic_head::dot_count (nd))
+    if (Rhythmic_head::dot_count (head_up) > Rhythmic_head::dot_count (head_down))
       shift_amount = 1;
-    else if (Rhythmic_head::dot_count (nu) < Rhythmic_head::dot_count (nd))
+    else if (Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
       stem_to_stem = true;
 
   if (merge_possible)
@@ -191,32 +191,32 @@ check_meshing_chords (Grob *me,
 	 or head with smallest amount of dots.  Note: when merging
 	 different heads, dots on the smaller one disappear. */
       Grob *wipe_ball = 0;
-      Grob *dot_wipe_head = nu;
+      Grob *dot_wipe_head = head_up;
 
-      if (upball_type == dnball_type)
+      if (up_ball_type == down_ball_type)
 	{
-	  if (Rhythmic_head::dot_count (nd) < Rhythmic_head::dot_count (nu))
+	  if (Rhythmic_head::dot_count (head_down) < Rhythmic_head::dot_count (head_up))
 	    {
-	      wipe_ball = nd;
-	      dot_wipe_head = nd;
+	      wipe_ball = head_down;
+	      dot_wipe_head = head_down;
 	    }
-	  else if (Rhythmic_head::dot_count (nd) > Rhythmic_head::dot_count (nu))
+	  else if (Rhythmic_head::dot_count (head_down) > Rhythmic_head::dot_count (head_up))
 	    {
-	      dot_wipe_head = nu;
-	      wipe_ball = nu;
+	      dot_wipe_head = head_up;
+	      wipe_ball = head_up;
 	    }
 	  else
-	    dot_wipe_head = nu;
+	    dot_wipe_head = head_up;
 	}
-      else if (dnball_type > upball_type)
+      else if (down_ball_type > up_ball_type)
 	{
-	  wipe_ball = nd;
-	  dot_wipe_head = nd;
+	  wipe_ball = head_down;
+	  dot_wipe_head = head_down;
 	}
-      else if (dnball_type < upball_type)
+      else if (down_ball_type < up_ball_type)
 	{
-	  wipe_ball = nu;
-	  dot_wipe_head = nu;
+	  wipe_ball = head_up;
+	  dot_wipe_head = head_up;
 	}
 
       if (dot_wipe_head)
@@ -242,7 +242,7 @@ check_meshing_chords (Grob *me,
     shift_amount *= 0.5;
 
   /* we're meshing.  */
-  else if (Rhythmic_head::dot_count (nu) || Rhythmic_head::dot_count (nd))
+  else if (Rhythmic_head::dot_count (head_up) || Rhythmic_head::dot_count (head_down))
     shift_amount *= 0.1;
   else
     shift_amount *= 0.17;
@@ -251,15 +251,15 @@ check_meshing_chords (Grob *me,
     
   */
   if (full_collide
-      && dnball_type * upball_type == 0)
+      && down_ball_type * up_ball_type == 0)
     {
-      if (upball_type == 0 && dnball_type == 1)
+      if (up_ball_type == 0 && down_ball_type == 1)
 	shift_amount *= 1.25;
-      else if (upball_type == 0 && dnball_type == 2)
+      else if (up_ball_type == 0 && down_ball_type == 2)
 	shift_amount *= 1.35;
-      else if (dnball_type == 0 && upball_type == 1)
+      else if (down_ball_type == 0 && up_ball_type == 1)
 	shift_amount *= 0.7;
-      else if (dnball_type == 0 && upball_type == 2)
+      else if (down_ball_type == 0 && up_ball_type == 2)
 	shift_amount *= 0.75;
     }
   
@@ -272,26 +272,26 @@ check_meshing_chords (Grob *me,
    * hasn't got any dots.
    */
   if (close_half_collide
-      && Rhythmic_head::dot_count (nu)
-      && !Rhythmic_head::dot_count (nd))
+      && Rhythmic_head::dot_count (head_up)
+      && !Rhythmic_head::dot_count (head_down))
     {
       Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
       if (!Staff_symbol_referencer::on_line (staff, ups[0]))
 	{
-	  Grob *d = unsmob_grob (nu->get_object ("dot"));
+	  Grob *d = unsmob_grob (head_up->get_object ("dot"));
 	  Grob *parent = d->get_parent (X_AXIS);
 	  if (Dot_column::has_interface (parent))
-	    Side_position_interface::add_support (parent, nd);
+	    Side_position_interface::add_support (parent, head_down);
 	}
     }
 
   /* For full or close half collisions, the right hand head may
      obscure dots.  Move dots to the right.  */
   if (abs (shift_amount) > 1e-6
-      && Rhythmic_head::dot_count (nd) > Rhythmic_head::dot_count (nu)
+      && Rhythmic_head::dot_count (head_down) > Rhythmic_head::dot_count (head_up)
       && (full_collide || close_half_collide))
     {
-      Grob *d = unsmob_grob (nd->get_object ("dot"));
+      Grob *d = unsmob_grob (head_down->get_object ("dot"));
       Grob *parent = d->get_parent (X_AXIS);
 
       /*
@@ -307,7 +307,7 @@ check_meshing_chords (Grob *me,
       */
       if (Dot_column::has_interface (parent))
 	{
-	  Grob *stem = unsmob_grob (nu->get_object ("stem"));
+	  Grob *stem = unsmob_grob (head_up->get_object ("stem"));
 	  extract_grob_set (stem, "note-heads", heads);
 	  for (vsize i = 0; i < heads.size (); i++)
 	    Side_position_interface::add_support (parent, heads[i]);
