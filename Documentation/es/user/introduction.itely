@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
+    Translation of GIT committish: e383a0fdd2e3001caccacf9d0a7d1f0806f3b94c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -540,7 +540,7 @@ es el contexto de notación de más alto nivel.
 
 @seealso
 
-Referencia del programa: @internalsref{Contexts}.
+Referencia de funcionamiento interno: @internalsref{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -696,91 +696,90 @@ mezclar música y texto dentro de los documentos, en algo muy sencillo.
 @node About this manual
 @section About this manual
 
-Hay dos manuales sobre LilyPond: el @emph{manual del usuario} (este mismo
-documento) y el de @emph{utilización del programa}.
+
+Hay cuatro manuales de LilyPond: el @emph{Manual de aprendizaje}, la
+@emph{Referencia de la notación}, el manual de @emph{Utilización del
+programa} y la @emph{Referencia de funcionamiento interno}.
 
 
-@subheading User manual
+@subheading Learning Manual (LM)
 
-El manual se divide en tres libros.
+Este libro explica cómo empezar a aprender LilyPond, así como algunos
+conceptos clave en términos sencillos.  Se recomienda leer estos
+capítulos de forma secuencial.
 
-@subsubheading Learning manual
-
-Este libro explica cómo empezar el aprendizaje de LilyPond, así como algunos
-conceptos clave en términos sencillos. Se recomienda leer estos capítulos
-secuencialmente.
-
-@itemize @bullet
+@itemize
 
 @item
 @ifhtml
 El
 @end ifhtml
 @emph{@ref{Tutorial}}
-da una amable introducción a la tipografía musical.  Los usuarios que se acercan
-por primera vez deben comenzar por aquí.
+da una amable introducción a la tipografía musical.  Los usuarios que
+se acercan por primera vez deben comenzar por aquí.
 
 @item
-@emph{@ref{Putting it all together}}
-explica algunos conceptos generales sobre el formato de los archivos de entrada de LilyPond.  Si
-no está seguro de dónde colocar un comando ¡lea este capítulo!
+@emph{@ref{Fundamental concepts}}
+explica algunos conceptos generales sobre el formato de los archivos
+de entrada de LilyPond.  Si no está seguro de dónde colocar un comando
+¡lea este capítulo!
 
 @item
 @emph{@ref{Working on LilyPond projects}}
-trata los usos prácticos de LilyPond y cómo evitar ciertos problemas bastante
-comunes.
+trata los usos prácticos de LilyPond y cómo evitar ciertos problemas
+bastante comunes.
 
 @item
 @emph{@ref{Tweaking output}}
-muestra la manera de cambiar el grabado por omisión que produce
+muestra la manera de cambiar el grabado predeterminado que produce
 LilyPond.
 
 @end itemize
 
 
-@subsubheading Notation reference
+@subheading Notation Reference (NR)
 
-Este libro explica todas las instrucciones de LilyPond que producen notación impresa.  Da
-por supuesto que el lector está familiarizado con los conceptos del manual
-de aprendizaje.
+Este libro explica todas las instrucciones de LilyPond que producen
+notación impresa.  Da por supuesto que el lector está familiarizado
+con los conceptos del manual de aprendizaje.
 
 @c  we need to completely rewrite this after GDP.  -gp
 @ignore
 @itemize @bullet
 
 @item
-@emph{@ref{Basic notation}}
+@emph{@r ef{Basic notation}}
 trata ciertos temas agrupados según las construcciones de notación.  Esta sección proporciona
 detalles sobre notación básica que probablemente serán de utilidad en casi cualquier
 proyecto de notación.
 
 @item
-@emph{@ref{Instrument-specific notation}}
+@emph{@r ef{Instrument-specific notation}}
 también trata los temas agrupados por construcciones de notación.  Esta sección proporciona
 detalles sobre notación especial que solamente será útil para ciertos
 grupos de instrumentos (o voces).
 
 @item
-@emph{@ref{Advanced notation}}
+@emph{@r ef{Advanced notation}}
 trata temas agrupados por construcciones de notación.  Esta sección proporciona
 detalles acerca de cierta notación complicada o poco usual.
 
 @item
-@emph{@ref{Changing defaults}}
+@emph{@r ef{Changing defaults}}
 explica cómo hacer un ajuste fino de la presentación.
 
 @item
-@emph{@ref{Non-musical notation}}
+@emph{@r ef{Non-musical notation}}
 trata la salida no musical como los títulos, piezas de varios movimientos,
 y sobre cómo elegir los instrumentos MIDI.
 
 @item
-@emph{@ref{Spacing issues}}
+@emph{@r ef{Spacing issues}}
 trata asuntos que afectan a la salida global, como la elección del
 tamaño del papel o la especificación de los saltos de página.
 
 @item
-@emph{@ref{Interfaces for programmers}}
+@emph{@r ef{Interfaces for programmers}}
 explica cómo crear funciones musicales.
 
 @end itemize
@@ -791,55 +790,56 @@ explica cómo crear funciones musicales.
 
 Este libro contiene unos útiles cuadros de referencia.
 
-@itemize @bullet
+@itemize
 @item
 @ifhtml
 La
 @end ifhtml
-@emph{@ref{Literature list}}
+@emph{@r ef{Literature list}}
 contiene un conjunto de libros de referencia muy útiles para aquellas personas que desean saber
 más sobre notación y grabado.
 
 @item
 El
-@emph{@ref{Scheme tutorial}}
+@emph{@r ef{Scheme tutorial}}
 presenta una breve introducción a Scheme, el lenguaje de programación
 que utilizan las funciones musicales.
 
 @item
-@emph{@ref{Notation manual tables}}
+@emph{@r ef{Notation manual tables}}
 son un conjunto de tablas que relacionan los nombres de los acordes, instrumentos MIDI,
 nombres de los colores y la tipografía Feta.
 
 @item
-@emph{@ref{Templates}}
+@emph{@r ef{Templates}}
 de piezas de LilyPond.  Sólo tiene que cortar y pegar una
 plantilla en un archivo de texto, escribir las notas y ¡ya está!
 
 @item
 La
-@emph{@ref{Cheat sheet}}
+@emph{@r ef{Cheat sheet}}
 es una referencia manejable de los comandos de LilyPond más comunes.
 
 @item
 El
-@emph{@ref{LilyPond command index}}
+@emph{@r ef{LilyPond command index}}
 es un índice de todos los @code{\commands} de LilyPond.
 
 @item
 El
-@emph{@ref{LilyPond index}}
+@emph{@r ef{LilyPond index}}
 es un índice completo.
 
 @end itemize
 
+@end ignore
 
-@subsubheading Program usage
+@subheading Program usage
 
 Este libro explica la manera de ejecutar el programa y cómo integrar
 la notación de LilyPond con otros programas.
 
-@itemize @bullet
+@itemize
 
 @item
 @emph{@rprogram{Install}}
@@ -875,7 +875,7 @@ música al formato @code{.ly}.
 
 Existen otras fuentes de información que pueden resultar muy útiles.
 
-@itemize @bullet
+@itemize
 @cindex frase idiomática
 @cindex jerga
 @cindex terminología
@@ -915,10 +915,10 @@ de LilyPond}.  Este sitio web también dispone de un manual de LilyPond en el qu
 @item
 La
 @iftex
-Referencia del programa
+Referencia de funcionamiento interno
 @end iftex
 @ifnottex
-@ref{Top,referencia del programa,,lilypond-internals}
+@ref{Top,Referencia de funcionamiento interno,,lilypond-internals}
 @end ifnottex
 es un conjunto de páginas HTML con una tupida red de enlaces cruzados, que documentan al detalle el
 meollo de todas y cada una de las clases, objetos y funciones de LilyPond.
@@ -969,7 +969,7 @@ se encuentran normalmente en el directorio @file{/usr/@/share/@/lilypond/}.
 @cindex ajustar la salida
 @cindex variables
 @cindex propiedades
-@cindex interioridades de lilypond
+@cindex funcionamiento interno de lilypond
 @cindex documentación interna
 @cindex Scheme
 @cindex extender lilypond
