@@ -124,15 +124,15 @@ internal_brew_primitive (Grob *me)
       return Lookup::blank (Box (Interval (0, 0), Interval (0, 0)));
     case MLP_LONGA: // mensural brevis head with right cauda
       out = Font_interface::get_default_font (me)->find_by_name
-	("noteheads.s-2mensural");
+	("noteheads.sM2mensural");
       break;
     case MLP_BREVIS: // mensural brevis head
       out = Font_interface::get_default_font (me)->find_by_name
-	("noteheads.s-1mensural");
+	("noteheads.sM1mensural");
       break;
     case MLP_MAXIMA: // should be mensural maxima head without stem
       out = Font_interface::get_default_font (me)->find_by_name
-	("noteheads.s-1neomensural");
+	("noteheads.sM1neomensural");
       break;
     case MLP_FLEXA:
       out = brew_flexa (me, delta_pitch, false, width, thickness);

@@ -275,7 +275,7 @@ Mensural_ligature_engraver::transform_heads (vector<Grob_info> primitives)
 	      // instead of number 6
 	      // the legth of the longa stem should be queried something like
 	      // Font_interface::get_default_font (ligature)->find_by_name
-	      //  ("noteheads.s-2mensural").extent (Y_AXIS).length ()
+	      //  ("noteheads.sM2mensural").extent (Y_AXIS).length ()
 	    }
 	  prev_primitive->set_property ("join-right-amount",
 					scm_from_int (delta_pitch));
@@ -313,12 +313,12 @@ Mensural_ligature_engraver::propagate_properties (Spanner *ligature,
 
   Real head_width
     = Font_interface::get_default_font (ligature)->
-    find_by_name ("noteheads.s-1mensural").extent (X_AXIS).length ();
+    find_by_name ("noteheads.sM1mensural").extent (X_AXIS).length ();
   Real flexa_width
     = robust_scm2double (ligature->get_property ("flexa-width"), 2);
   Real maxima_head_width
     = Font_interface::get_default_font (ligature)->
-    find_by_name ("noteheads.s-1neomensural").extent (X_AXIS).length ();
+    find_by_name ("noteheads.sM1neomensural").extent (X_AXIS).length ();
 
   flexa_width *= Staff_symbol_referencer::staff_space (ligature);
 
