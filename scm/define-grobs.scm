@@ -2292,6 +2292,7 @@
    ly:arpeggio::print
    ly:arpeggio::brew-chord-bracket
    ly:bar-line::print
+   ly:mensural-ligature::brew-ligature-primitive
    ly:note-head::print
    ly:dots::print
    ly:clef::print
