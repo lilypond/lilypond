@@ -96,7 +96,15 @@ Key_performer::listen_key_change (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Key_performer,
+		/* doc */
 		"",
+
+		/* create */
 		"",
+
+		/* read */
 		"",
-		"");
+
+		/* write */
+		""
+		);

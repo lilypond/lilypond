@@ -146,9 +146,8 @@ Instrument_name_engraver::stop_spanner ()
 ADD_ACKNOWLEDGER (Instrument_name_engraver, axis_group);
 
 ADD_TRANSLATOR (Instrument_name_engraver,
-
 		/* doc */
-		"Creates a system start text for instrument or vocal names.",
+		"Create a system start text for instrument or vocal names.",
 		
 		/* create */
 		"InstrumentName ",
@@ -158,7 +157,8 @@ ADD_TRANSLATOR (Instrument_name_engraver,
 		"shortInstrumentName "
 		"instrumentName "
 		"shortVocalName "
-		"vocalName "
-		,
+		"vocalName ",
 
-		/* write */ "");
+		/* write */
+		""
+		);

@@ -726,7 +726,16 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Vaticana_ligature_engraver, note_head);
 ADD_TRANSLATOR (Vaticana_ligature_engraver,
-		/* doc */ "Handles ligatures by glueing special ligature heads together.",
-		/* create */ "VaticanaLigature DotColumn",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Handle ligatures by glueing special ligature heads together.",
+
+		/* create */
+		"VaticanaLigature "
+		"DotColumn ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

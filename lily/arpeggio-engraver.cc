@@ -92,7 +92,15 @@ ADD_ACKNOWLEDGER (Arpeggio_engraver, stem);
 ADD_ACKNOWLEDGER (Arpeggio_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Arpeggio_engraver,
-		/* doc */ "Generate an Arpeggio symbol",
-		/* create */ "Arpeggio",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Generate an Arpeggio symbol.",
+
+		/* create */
+		"Arpeggio",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

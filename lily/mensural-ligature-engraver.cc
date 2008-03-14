@@ -418,7 +418,16 @@ ADD_ACKNOWLEDGER (Mensural_ligature_engraver, rest);
 ADD_ACKNOWLEDGER (Mensural_ligature_engraver, note_head);
 
 ADD_TRANSLATOR (Mensural_ligature_engraver,
-		/* doc */ "Handles Mensural_ligature_events by glueing special ligature heads together.",
-		/* create */ "MensuralLigature",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Handle @code{Mensural_ligature_events} by glueing special "
+		"ligature heads together.",
+
+		/* create */
+		"MensuralLigature ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

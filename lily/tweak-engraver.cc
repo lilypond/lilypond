@@ -40,8 +40,16 @@ Tweak_engraver::acknowledge_grob (Grob_info info)
 
 ADD_ACKNOWLEDGER (Tweak_engraver, grob);
 ADD_TRANSLATOR (Tweak_engraver,
-		/* doc */ "Read the @code{tweaks} property from the originating event, and set properties." ,
+		/* doc */
+		"Read the @code{tweaks} property from the originating event, "
+		"and set properties.",
 		
-		/* create */ "",
-		/* read */ "",
-		/* write */ "");
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

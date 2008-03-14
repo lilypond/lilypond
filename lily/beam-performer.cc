@@ -81,5 +81,17 @@ Beam_performer::listen_beam (Stream_event *ev)
     now_stop_ev_ = ev;
 }
 
-ADD_TRANSLATOR (Beam_performer, "", "", "", "");
+ADD_TRANSLATOR (Beam_performer,
+                /* doc */
+                "",
+
+                /* create */
+                "",
+
+                /* read */
+                "",
+
+                /* write */
+                ""
+                );
 

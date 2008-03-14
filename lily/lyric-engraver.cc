@@ -171,7 +171,14 @@ Lyric_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Lyric_engraver,
-		/* doc */ "",
-		/* create */ "LyricText",
-		/* read */ "lyricMelismaAlignment",
-		/* write */ "");
+		/* doc */
+		"Engrave text for lyrics.",
+
+		/* create */
+		"LyricText ",
+		/* read */
+		"lyricMelismaAlignment ",
+
+		/* write */
+		""
+		);

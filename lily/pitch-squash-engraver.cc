@@ -36,12 +36,17 @@ Pitch_squash_engraver::Pitch_squash_engraver ()
 ADD_ACKNOWLEDGER (Pitch_squash_engraver, note_head);
 ADD_TRANSLATOR (Pitch_squash_engraver,
 		/* doc */
-		"Set the vertical position of noteheads to "
-		"@code{squashedPosition}, if that "
-		"property is set. "
-		"This can be used to make  a single line staff "
-		"demonstrating the rhythm of a melody.",
+		"Set the vertical position of note heads to "
+		"@code{squashedPosition}, if that property is set.  This can "
+		"be used to make a single-line staff demonstrating the "
+		"rhythm of a melody.",
 
-		/* create */ "",
-		/* read */ "squashedPosition",
-		/* write */ "");
+		/* create */
+		"",
+
+		/* read */
+		"squashedPosition ",
+
+		/* write */
+		""
+		);

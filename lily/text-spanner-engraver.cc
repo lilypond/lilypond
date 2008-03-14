@@ -145,10 +145,13 @@ ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
 ADD_TRANSLATOR (Text_spanner_engraver,
 		/* doc */
 		"Create text spanner from an event.",
+
 		/* create */
 		"TextSpanner ",
+
 		/* read */
 		"",
+
 		/* write */
 		""
 		);

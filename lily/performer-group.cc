@@ -14,10 +14,18 @@
 #include "warn.hh"
 
 ADD_TRANSLATOR_GROUP (Performer_group,
-		      /* doc */ "",
-		      /* create */ "",
-		      /* read */ "",
-		      /* write */ "");
+		      /* doc */
+		      "",
+
+		      /* create */
+		      "",
+
+		      /* read */
+		      "",
+
+		      /* write */
+		      ""
+		      );
 
 void
 Performer_group::announce_element (Audio_element_info info)

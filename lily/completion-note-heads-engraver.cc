@@ -224,16 +224,21 @@ Completion_heads_engraver::Completion_heads_engraver ()
 }
 
 ADD_TRANSLATOR (Completion_heads_engraver,
-		/* doc */ "This engraver replaces "
-		"@code{Note_heads_engraver}. It plays some trickery to "
-		"break long notes and automatically tie them into the next measure.",
+		/* doc */
+		"This engraver replaces @code{Note_heads_engraver}.  It plays "
+		"some trickery to break long notes and automatically tie them "
+		"into the next measure.",
+
 		/* create */
 		"NoteHead "
 		"Dots "
-		"Tie",
+		"Tie ",
+
 		/* read */
 		"middleCPosition "
 		"measurePosition "
-		"measureLength",
+		"measureLength ",
 
-		/* write */ "");
+		/* write */
+		""
+		);

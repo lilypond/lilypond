@@ -68,7 +68,16 @@ Script_column_engraver::process_acknowledged ()
 
 ADD_ACKNOWLEDGER (Script_column_engraver, side_position);
 ADD_TRANSLATOR (Script_column_engraver,
-		/* doc */ "",
-		/* create */ "ScriptColumn",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Find potentially colliding scripts and put them into a "
+		"@code{ScriptColumn} object; that will fix the collisions.",
+
+		/* create */
+		"ScriptColumn ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

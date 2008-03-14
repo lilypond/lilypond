@@ -32,7 +32,15 @@ Swallow_performer::Swallow_performer ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Swallow_performer,
-		/* doc */ "",
-		/* create */ "",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"",
+
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

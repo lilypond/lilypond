@@ -81,10 +81,16 @@ Laissez_vibrer_engraver::acknowledge_note_head (Grob_info inf)
 
 ADD_ACKNOWLEDGER (Laissez_vibrer_engraver, note_head);
 ADD_TRANSLATOR (Laissez_vibrer_engraver, 
-		/* doc */ "Create Laissez vibrer items.",
+		/* doc */
+		"Create laissez vibrer items.",
 		
 		/* create */
 		"LaissezVibrerTie "
 		"LaissezVibrerTieColumn ",
-		/* read */ "",
-		/* write */ "");
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

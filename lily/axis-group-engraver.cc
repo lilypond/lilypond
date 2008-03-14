@@ -97,9 +97,16 @@ Axis_group_engraver::add_element (Grob *e)
 ADD_ACKNOWLEDGER (Axis_group_engraver, grob);
 
 ADD_TRANSLATOR (Axis_group_engraver,
-		/* doc */ "Group all objects created in this context in a VerticalAxisGroup spanner.",
-		/* create */ "VerticalAxisGroup",
+		/* doc */
+		"Group all objects created in this context in a "
+		"@code{VerticalAxisGroup} spanner.",
+
+		/* create */
+		"VerticalAxisGroup ",
+
 		/* read */
 		"currentCommandColumn ",
 
-		/* write */ "");
+		/* write */
+		""
+		);

@@ -34,9 +34,15 @@ Tab_staff_symbol_engraver::Tab_staff_symbol_engraver ()
 ADD_ACKNOWLEDGER (Tab_staff_symbol_engraver, staff_symbol);
 ADD_TRANSLATOR (Tab_staff_symbol_engraver,
 		/* doc */
-		"Create a staff-symbol, but look at "
-		"stringTunings for the number of lines. "
-		,
-		/* create */ "StaffSymbol",
-		/* read */ "stringTunings",
-		/* write */ "");
+		"Create a tablature staff symbol, but look at "
+		"@code{stringTunings} for the number of lines.",
+
+		/* create */
+		"StaffSymbol ",
+
+		/* read */
+		"stringTunings ",
+
+		/* write */
+		""
+		);

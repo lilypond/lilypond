@@ -113,7 +113,16 @@ Ledger_line_engraver::acknowledge_ledgered (Grob_info s)
 ADD_ACKNOWLEDGER (Ledger_line_engraver, ledgered);
 ADD_ACKNOWLEDGER (Ledger_line_engraver, staff_symbol);
 ADD_TRANSLATOR (Ledger_line_engraver,
-		"Creates the spanner to draw ledger lines, and notices objects that need ledger lines",
-		/* create */ "LedgerLineSpanner",
-		/* read */ "",
-		/* write */ "")
+		/* doc */
+		"Create the spanner to draw ledger lines, and notices "
+		"objects that need ledger lines.",
+
+		/* create */
+		"LedgerLineSpanner ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

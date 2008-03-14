@@ -252,10 +252,12 @@ Multi_measure_rest_engraver::finalize ()
 
 ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		/* doc */
-		"Engraves multi-measure rests that are produced with @code{R}.  Reads "
-		"@code{measurePosition} and @code{internalBarNumber} to determine what number to print "
-		"over the @ref{MultiMeasureRest}.  Reads @code{measureLength} to determine if it "
-		"should use a whole rest or a breve rest to represent 1 measure ",
+		"Engrave multi-measure rests that are produced with "
+		"@samp{R}.  It reads @code{measurePosition} and "
+		"@code{internalBarNumber} to determine what number to print "
+		"over the @ref{MultiMeasureRest}.  Reads @code{measureLength} "
+		"to determine whether it should use a whole rest or a breve "
+		"rest to represent one measure.",
 		
 		/* create */
 		"MultiMeasureRest "
@@ -270,4 +272,6 @@ ADD_TRANSLATOR (Multi_measure_rest_engraver,
 		"measurePosition "
 		"measureLength ",
 		
-		/* write */ "");
+		/* write */
+		""
+		);

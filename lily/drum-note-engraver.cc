@@ -135,10 +135,17 @@ ADD_ACKNOWLEDGER (Drum_notes_engraver, note_column);
 
 
 ADD_TRANSLATOR (Drum_notes_engraver,
-		/* doc */ "Generate noteheads.",
+		/* doc */
+		"Generate drum note heads.",
+
 		/* create */
 		"NoteHead "
-		"Script",
-		/* read */ "drumStyleTable",
-		/* write */ "");
+		"Script ",
+
+		/* read */
+		"drumStyleTable ",
+
+		/* write */
+		""
+		);
 

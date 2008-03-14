@@ -63,5 +63,16 @@ Lyric_performer::listen_lyric (Stream_event *event)
   events_.push_back (event);
 }
 
-ADD_TRANSLATOR (Lyric_performer, "", "",
-		"", "");
+ADD_TRANSLATOR (Lyric_performer,
+		/* doc */
+		"",
+
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

@@ -146,9 +146,15 @@ ADD_ACKNOWLEDGER (Separating_line_group_engraver, item);
 ADD_ACKNOWLEDGER (Separating_line_group_engraver, break_aligned);
 
 ADD_TRANSLATOR (Separating_line_group_engraver,
-		/* doc */ "Generates objects for computing spacing parameters.",
+		/* doc */
+		"Generate objects for computing spacing parameters.",
 
-		/* create */ "StaffSpacing",
-		/* read */ "createSpacing",
-		/* write */ "hasStaffSpacing"
+		/* create */
+		"StaffSpacing ",
+
+		/* read */
+		"createSpacing ",
+
+		/* write */
+		"hasStaffSpacing "
 		);

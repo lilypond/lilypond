@@ -482,15 +482,14 @@ Figured_bass_engraver::create_grobs ()
 
 ADD_TRANSLATOR (Figured_bass_engraver,
 		/* doc */
-
 		"Make figured bass numbers.",
+
 		/* create */
 		"BassFigure "
 		"BassFigureAlignment "
 		"BassFigureBracket "
 		"BassFigureContinuation "
-		"BassFigureLine "
-		,
+		"BassFigureLine ",
 
 		/* read */
 		"figuredBassAlterationDirection "
@@ -498,8 +497,8 @@ ADD_TRANSLATOR (Figured_bass_engraver,
 		"figuredBassFormatter "
 		"implicitBassFigures "
 		"useBassFigureExtenders "
-		"ignoreFiguredBassRest "
-		,
+		"ignoreFiguredBassRest ",
 
 		/* write */
-		"");
+		""
+		);

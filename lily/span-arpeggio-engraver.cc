@@ -103,7 +103,15 @@ Span_arpeggio_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Span_arpeggio_engraver, arpeggio);
 ADD_TRANSLATOR (Span_arpeggio_engraver,
-		/* doc */ "",
-		/* create */ "Arpeggio",
-		/* read */ "connectArpeggios",
-		/* write */ "");
+		/* doc */
+		"Make arpeggios that span multiple staves.",
+
+		/* create */
+		"Arpeggio ",
+
+		/* read */
+		"connectArpeggios ",
+
+		/* write */
+		""
+		);

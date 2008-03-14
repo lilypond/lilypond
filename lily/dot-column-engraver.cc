@@ -53,8 +53,16 @@ Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
 
 ADD_ACKNOWLEDGER (Dot_column_engraver, rhythmic_head);
 ADD_TRANSLATOR (Dot_column_engraver,
-		/* doc */ "Engraves dots on dotted notes shifted to the right of the note.\n"
-		"If omitted, then dots appear on top of the notes.",
-		/* create */ "DotColumn",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Engrave dots on dotted notes shifted to the right of the "
+		"note.  If omitted, then dots appear on top of the notes.",
+
+		/* create */
+		"DotColumn ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

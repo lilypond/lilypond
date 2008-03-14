@@ -83,7 +83,15 @@ Text_engraver::Text_engraver ()
 }
 
 ADD_TRANSLATOR (Text_engraver,
-		/* doc */ "Create text-scripts",
-		/* create */ "TextScript",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Create text scripts.",
+
+		/* create */
+		"TextScript ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

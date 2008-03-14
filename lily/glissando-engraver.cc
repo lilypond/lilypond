@@ -105,11 +105,15 @@ Glissando_engraver::finalize ()
 
 ADD_ACKNOWLEDGER (Glissando_engraver, rhythmic_head);
 ADD_TRANSLATOR (Glissando_engraver,
-		/* doc */ "",
+		/* doc */
+		"Engrave glissandi.",
+
 		/* create */
-		"Glissando",
+		"Glissando ",
 
 		/* read */
 		"",
 
-		/* write */ "");
+		/* write */
+		""
+		);

@@ -148,10 +148,12 @@ Tab_note_heads_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Tab_note_heads_engraver,
-		/* doc */ "Generate one or more tablature noteheads from event of type NoteEvent.",
+		/* doc */
+		"Generate one or more tablature noteheads from event of type "
+		"@code{NoteEvent}.",
+
 		/* create */
-		"TabNoteHead "
-		,
+		"TabNoteHead ",
 
 		/* read */
 		"middleCPosition "
@@ -161,5 +163,6 @@ ADD_TRANSLATOR (Tab_note_heads_engraver,
 		"highStringOne "
 		"stringOneTopmost ",
 
-		/* write */ "");
+		/* write */ ""
+		);
 

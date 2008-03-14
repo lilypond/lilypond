@@ -106,7 +106,15 @@ Grace_engraver::start_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Grace_engraver,
-		/* doc */ "Set font size and other properties for grace notes.",
-		/* create */ "",
-		/* read */ "graceSettings",
-		/* write */ "");
+		/* doc */
+		"Set font size and other properties for grace notes.",
+
+		/* create */
+		"",
+
+		/* read */
+		"graceSettings ",
+
+		/* write */
+		""
+		);

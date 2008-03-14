@@ -92,4 +92,15 @@ Drum_note_performer::listen_note (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Drum_note_performer,
-		"Play drum notes.", "", "", "");
+		/* doc */
+		"Play drum notes.",
+
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

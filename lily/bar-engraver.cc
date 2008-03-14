@@ -102,8 +102,17 @@ Bar_engraver::acknowledge_end_spanner (Grob_info gi)
 ADD_END_ACKNOWLEDGER (Bar_engraver, spanner);
 
 ADD_TRANSLATOR (Bar_engraver,
-		/* doc */ "Create barlines. This engraver is controlled through the "
-		"@code{whichBar} property. If it has no bar line to create, it will forbid a linebreak at this point",
-		/* create */ "BarLine",
-		/* read */ "whichBar",
-		/* write */ "forbidBreak");
+		/* doc */
+		"Create barlines.  This engraver is controlled through the "
+		"@code{whichBar} property.  If it has no bar line to create, "
+		"it will forbid a linebreak at this point.",
+
+		/* create */
+		"BarLine ",
+
+		/* read */
+		"whichBar ",
+
+		/* write */
+		"forbidBreak "
+		);

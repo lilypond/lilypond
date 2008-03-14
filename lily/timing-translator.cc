@@ -124,21 +124,23 @@ Timing_translator::start_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Timing_translator,
-		"This engraver adds the alias "
-		"@code{Timing} to its containing context."
-		"Responsible for synchronizing timing information from staves.  "
-		"Normally in @code{Score}.  In order to create polyrhythmic music, "
-		"this engraver should be removed from @code{Score} and placed in "
-		"@code{Staff}. "
-		"\n\nThis engraver adds the alias @code{Timing} to its containing context.",
+		/* doc */
+		"This engraver adds the alias @code{Timing} to its containing "
+		"context.  Responsible for synchronizing timing information "
+		"from staves.  Normally in @code{Score}.  In order to create "
+		"polyrhythmic music, this engraver should be removed from "
+		"@code{Score} and placed in @code{Staff}.",
 
+		/* create */
 		"",
 
+		/* read */
 		"internalBarNumber "
 		"currentBarNumber "
 		"measureLength "
 		"measurePosition ",
 
+		/* write */
 		"internalBarNumber "
 		"currentBarNumber "
 		"measurePosition "

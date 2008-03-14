@@ -85,7 +85,15 @@ Script_row_engraver::process_acknowledged ()
 ADD_ACKNOWLEDGER (Script_row_engraver, accidental_placement);
 ADD_ACKNOWLEDGER (Script_row_engraver, side_position);
 ADD_TRANSLATOR (Script_row_engraver,
-		/* doc */ "Determine order in horizontal side position elements. ",
-		/* create */ "ScriptRow ",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Determine order in horizontal side position elements.",
+
+		/* create */
+		"ScriptRow ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

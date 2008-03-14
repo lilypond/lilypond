@@ -22,10 +22,18 @@
 #include "audio-item.hh"
 
 ADD_TRANSLATOR_GROUP (Score_performer,
-		      /* doc */ "",
-		      /* create */ "",
-		      /* read */ "",
-		      /* write */ "");
+		      /* doc */
+		      "",
+
+		      /* create */
+		      "",
+
+		      /* read */
+		      "",
+
+		      /* write */
+		      ""
+		      );
 
 Score_performer::Score_performer ()
 {
