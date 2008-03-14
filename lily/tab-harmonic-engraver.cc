@@ -65,8 +65,8 @@ Tab_harmonic_engraver::acknowledge_note_head (Grob_info info)
 ADD_ACKNOWLEDGER (Tab_harmonic_engraver, note_head);
 ADD_TRANSLATOR (Tab_harmonic_engraver,
 		/* doc */
-		"In a tablature, parenthesize objects whose music cause has "
-		"the @code{parenthesize} property.",
+		"In a tablature, parenthesize objects whose music cause has"
+		" the @code{parenthesize} property.",
 		
 		/* create */
 		"HarmonicParenthesesItem ",

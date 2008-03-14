@@ -171,18 +171,18 @@ Score_engraver::typeset_all ()
 
 ADD_TRANSLATOR_GROUP (Score_engraver,
 		      /* doc */
-		      "The top-level engraver.  Takes care of generating "
-		      "columns and the complete system (i.e., "
-		      "@code{System}).\n"
+		      "The top-level engraver.  Takes care of generating"
+		      " columns and the complete system (i.e.,"
+		      " @code{System}).\n"
 		      "\n"
-		      "This engraver decides whether a column is breakable.  "
-		      "The default is that a column is always breakable.  "
-		      "However, every @code{Bar_engraver} that does not have "
-		      "a bar line at a certain point sets @code{forbidBreaks} "
-		      "to stop line breaks.  In practice, this means that you "
-		      "can make a break point by creating a bar line "
-		      "(assuming that there are no beams or notes that "
-		      "prevent a break point).",
+		      "This engraver decides whether a column is breakable."
+		      "  The default is that a column is always breakable."
+		      "  However, every @code{Bar_engraver} that does not have"
+		      " a bar line at a certain point sets @code{forbidBreaks}"
+		      " to stop line breaks.  In practice, this means that you"
+		      " can make a break point by creating a bar line"
+		      " (assuming that there are no beams or notes that"
+		      " prevent a break point).",
 
 		      /* create */
 		      "System ",

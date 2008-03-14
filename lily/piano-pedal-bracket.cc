@@ -90,8 +90,8 @@ Piano_pedal_bracket::print (SCM smob)
 }
 
 ADD_INTERFACE (Piano_pedal_bracket,
-	       "The bracket of the piano pedal.  It can be tuned through "
-	       "the regular bracket properties.",
+	       "The bracket of the piano pedal.  It can be tuned through"
+	       " the regular bracket properties.",
 
 	       /* properties */
 	       "bound-padding "

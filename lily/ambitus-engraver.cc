@@ -19,7 +19,7 @@
 #include "protected-scm.hh"
 #include "side-position-interface.hh"
 #include "separation-item.hh"
-#include "staff-symbol-referencer.hh" 
+#include "staff-symbol-referencer.hh"
 #include "stream-event.hh"
 
 #include "translator.icc"

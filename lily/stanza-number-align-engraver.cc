@@ -63,8 +63,8 @@ ADD_ACKNOWLEDGER (Stanza_number_align_engraver, stanza_number);
 
 ADD_TRANSLATOR (Stanza_number_align_engraver,
 		/* doc */
-		"This engraver ensures that stanza numbers are neatly "
-		"aligned.",
+		"This engraver ensures that stanza numbers are neatly"
+		" aligned.",
 
 		/* create */
 		"",

@@ -61,8 +61,8 @@ Grid_line_span_engraver::stop_translation_timestep ()
 ADD_ACKNOWLEDGER (Grid_line_span_engraver, grid_point);
 ADD_TRANSLATOR (Grid_line_span_engraver,
 		/* doc */
-		"This engraver makes cross-staff lines: It catches all normal "
-		"lines and draws a single span line across them.",
+		"This engraver makes cross-staff lines: It catches all normal"
+		" lines and draws a single span line across them.",
 
 		/* create */
 		"GridLine ",

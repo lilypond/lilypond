@@ -102,8 +102,8 @@ ADD_ACKNOWLEDGER (Part_combine_engraver, note_head);
 ADD_ACKNOWLEDGER (Part_combine_engraver, stem);
 ADD_TRANSLATOR (Part_combine_engraver,
 		/* doc */
-		"Part combine engraver for orchestral scores: Print markings "
-		"@q{a2}, @q{Solo}, @q{Solo II}, and @q{unisono}.",
+		"Part combine engraver for orchestral scores: Print markings"
+		" @q{a2}, @q{Solo}, @q{Solo II}, and @q{unisono}.",
 
 		/* create */
 		"CombineTextScript ",

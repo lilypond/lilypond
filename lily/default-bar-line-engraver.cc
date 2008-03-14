@@ -29,9 +29,9 @@ public:
 
 ADD_TRANSLATOR (Default_bar_line_engraver,
 		/* doc */
-		"This engraver determines what kind of automatic bar lines "
-		"should be produced, and sets @code{whichBar} accordingly.  "
-		"It should be at the same level as @ref{Timing_translator}.",
+		"This engraver determines what kind of automatic bar lines"
+		" should be produced, and sets @code{whichBar} accordingly."
+		"  It should be at the same level as @ref{Timing_translator}.",
 		
 		/* create */
 		"",

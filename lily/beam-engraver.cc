@@ -271,8 +271,8 @@ ADD_ACKNOWLEDGER (Beam_engraver, rest);
 
 ADD_TRANSLATOR (Beam_engraver,
 		/* doc */
-		"Handle @code{Beam} events by engraving beams.  If omitted, "
-		"then notes are printed with flags instead of beams.",
+		"Handle @code{Beam} events by engraving beams.  If omitted,"
+		" then notes are printed with flags instead of beams.",
 		
 		/* create */
 		"Beam ",
@@ -337,9 +337,9 @@ ADD_ACKNOWLEDGER (Grace_beam_engraver, rest);
 
 ADD_TRANSLATOR (Grace_beam_engraver,
 		/* doc */
-		"Handle @code{Beam} events by engraving beams.  If omitted, "
-		"then notes are printed with flags instead of beams.  Only "
-		"engraves beams when we are at grace points in time.",
+		"Handle @code{Beam} events by engraving beams.  If omitted,"
+		" then notes are printed with flags instead of beams.  Only"
+		" engraves beams when we are at grace points in time.",
 		
 		/* create */
 		"Beam ",

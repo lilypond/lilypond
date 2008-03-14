@@ -114,8 +114,8 @@ ADD_ACKNOWLEDGER (Ledger_line_engraver, ledgered);
 ADD_ACKNOWLEDGER (Ledger_line_engraver, staff_symbol);
 ADD_TRANSLATOR (Ledger_line_engraver,
 		/* doc */
-		"Create the spanner to draw ledger lines, and notices "
-		"objects that need ledger lines.",
+		"Create the spanner to draw ledger lines, and notices"
+		" objects that need ledger lines.",
 
 		/* create */
 		"LedgerLineSpanner ",

@@ -36,8 +36,8 @@ public:
 ADD_ACKNOWLEDGER (Horizontal_bracket_engraver, note_column);
 ADD_TRANSLATOR (Horizontal_bracket_engraver,
 		/* doc */
-		"Create horizontal brackets over notes for musical analysis "
-		"purposes.",
+		"Create horizontal brackets over notes for musical analysis"
+		" purposes.",
 
 		/* create */
 		"HorizontalBracket ",

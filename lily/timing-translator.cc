@@ -125,11 +125,11 @@ Timing_translator::start_translation_timestep ()
 
 ADD_TRANSLATOR (Timing_translator,
 		/* doc */
-		"This engraver adds the alias @code{Timing} to its containing "
-		"context.  Responsible for synchronizing timing information "
-		"from staves.  Normally in @code{Score}.  In order to create "
-		"polyrhythmic music, this engraver should be removed from "
-		"@code{Score} and placed in @code{Staff}.",
+		"This engraver adds the alias @code{Timing} to its containing"
+		" context.  Responsible for synchronizing timing information"
+		" from staves.  Normally in @code{Score}.  In order to create"
+		" polyrhythmic music, this engraver should be removed from"
+		" @code{Score} and placed in @code{Staff}.",
 
 		/* create */
 		"",

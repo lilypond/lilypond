@@ -98,8 +98,8 @@ ADD_ACKNOWLEDGER (Axis_group_engraver, grob);
 
 ADD_TRANSLATOR (Axis_group_engraver,
 		/* doc */
-		"Group all objects created in this context in a "
-		"@code{VerticalAxisGroup} spanner.",
+		"Group all objects created in this context in a"
+		" @code{VerticalAxisGroup} spanner.",
 
 		/* create */
 		"VerticalAxisGroup ",

@@ -48,8 +48,8 @@ Measure_grouping::print (SCM grob)
 }
 
 ADD_INTERFACE (Measure_grouping,
-	       "This object indicates groups of beats.  Valid choices for "
-	       "@code{style} are @code{bracket} and @code{triangle}.",
+	       "This object indicates groups of beats.  Valid choices for"
+	       " @code{style} are @code{bracket} and @code{triangle}.",
 
 	       /* properties */
 	       "thickness "

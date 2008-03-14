@@ -112,8 +112,8 @@ ADD_ACKNOWLEDGER (Ligature_bracket_engraver, note_column);
 
 ADD_TRANSLATOR (Ligature_bracket_engraver,
 		/* doc */
-		"Handle @code{Ligature_events} by engraving @code{Ligature} "
-		"brackets.",
+		"Handle @code{Ligature_events} by engraving @code{Ligature}"
+		" brackets.",
 
 		/* create */
 		"LigatureBracket ",

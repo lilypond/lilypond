@@ -141,10 +141,10 @@ ADD_ACKNOWLEDGER (Break_align_engraver, break_aligned);
 ADD_ACKNOWLEDGER (Break_align_engraver, break_alignable);
 ADD_TRANSLATOR (Break_align_engraver,
 		/* doc */
-		"Align grobs with corresponding @code{break-align-symbols} "
-		"into groups, and order the groups according to "
-		"@code{breakAlignOrder}.  The left edge of the alignment gets "
-		"a separate group, with a symbol @code{left-edge}.",
+		"Align grobs with corresponding @code{break-align-symbols}"
+		" into groups, and order the groups according to"
+		" @code{breakAlignOrder}.  The left edge of the alignment gets"
+		" a separate group, with a symbol @code{left-edge}.",
 
 		/* create */
 		"BreakAlignment "

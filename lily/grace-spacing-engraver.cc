@@ -70,8 +70,8 @@ Grace_spacing_engraver::stop_translation_timestep ()
 
 
 ADD_TRANSLATOR (Grace_spacing_engraver,
-		"Bookkeeping of shortest starting and playing notes in grace "
-		"note runs.",
+		"Bookkeeping of shortest starting and playing notes in grace"
+		" note runs.",
 
 		/* create */
 		"GraceSpacing ",

@@ -312,7 +312,7 @@ ADD_INTERFACE (Tie,
 	       "direction "
 	       "separation-item "
 	       "head-direction "
-	       "line-thickness " 
+	       "line-thickness "
 	       "quant-score "
 	       "staff-position "
 	       "thickness "

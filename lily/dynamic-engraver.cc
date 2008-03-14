@@ -439,10 +439,10 @@ ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
 
 ADD_TRANSLATOR (Dynamic_engraver,
 		/* doc */
-		"Create hairpins, dynamic texts, and their vertical "
-		"alignments.  The symbols are collected onto a "
-		"@code{DynamicLineSpanner} grob which takes care of vertical "
-		"positioning.",
+		"Create hairpins, dynamic texts, and their vertical"
+		" alignments.  The symbols are collected onto a"
+		" @code{DynamicLineSpanner} grob which takes care of vertical"
+		" positioning.",
 
 		/* create */
 		"DynamicLineSpanner "

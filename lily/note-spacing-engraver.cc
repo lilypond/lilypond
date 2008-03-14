@@ -131,8 +131,8 @@ ADD_ACKNOWLEDGER (Note_spacing_engraver, rhythmic_grob);
 
 ADD_TRANSLATOR (Note_spacing_engraver,
 		/* doc */
-		"Generate @code{NoteSpacing}, an object linking horizontal "
-		"lines for use in spacing.",
+		"Generate @code{NoteSpacing}, an object linking horizontal"
+		" lines for use in spacing.",
 
 		/* create */
 		"NoteSpacing ",

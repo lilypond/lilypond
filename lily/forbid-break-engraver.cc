@@ -49,8 +49,8 @@ Forbid_line_break_engraver::start_translation_timestep ()
 
 ADD_TRANSLATOR (Forbid_line_break_engraver,
 		/* doc */
-		"Forbid line breaks when note heads are still playing at some "
-		"point.",
+		"Forbid line breaks when note heads are still playing at some"
+		" point.",
 
 		/* create */
 		"",

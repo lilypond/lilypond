@@ -30,9 +30,9 @@ Swallow_engraver::Swallow_engraver ()
 
 ADD_TRANSLATOR (Swallow_engraver,
 		/* doc */
-		"This engraver swallows everything given to it silently.  "
-		"The purpose of this is to prevent spurious @q{event junked} "
-		"warnings.",
+		"This engraver swallows everything given to it silently."
+		"  The purpose of this is to prevent spurious @q{event junked}"
+		" warnings.",
 
 		/* create */
 		"",

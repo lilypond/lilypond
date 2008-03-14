@@ -84,8 +84,8 @@ ADD_ACKNOWLEDGER (Melody_engraver, slur);
 
 ADD_TRANSLATOR (Melody_engraver,
 		/* doc */
-		"Create information for context dependent typesetting "
-		"decisions.",
+		"Create information for context dependent typesetting"
+		" decisions.",
 
 		/* create */
 		"MelodyItem ",

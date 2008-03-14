@@ -121,12 +121,12 @@ ADD_ACKNOWLEDGER (Bar_number_engraver, break_alignment);
 
 ADD_TRANSLATOR (Bar_number_engraver,
 		/* doc */
-		"A bar number is created whenever @code{measurePosition} is "
-		"zero and when there is a bar line (i.e., when "
-		"@code{whichBar} is set).  It is put on top of all staves, "
-		"and appears only at the left side of the staff.  The staves "
-		"are taken from @code{stavesFound}, which is maintained by "
-		"@ref{Staff_collecting_engraver}.",
+		"A bar number is created whenever @code{measurePosition} is"
+		" zero and when there is a bar line (i.e., when"
+		" @code{whichBar} is set).  It is put on top of all staves,"
+		" and appears only at the left side of the staff.  The staves"
+		" are taken from @code{stavesFound}, which is maintained by"
+		" @ref{Staff_collecting_engraver}.",
 
 		/* create */
 		"BarNumber ",

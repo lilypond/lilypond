@@ -599,11 +599,11 @@ ADD_ACKNOWLEDGER (Accidental_engraver, note_column);
 
 ADD_TRANSLATOR (Accidental_engraver,
 		/* doc */
-		"Make accidentals.  "
-		"Catch note heads, ties and notices key-change events.  "
-		"This engraver usually lives at Staff level, but "
-		"reads the settings for Accidental at @code{Voice} level, "
-		"so you can @code{\\override} them at @code{Voice}.",
+		"Make accidentals."
+		"  Catch note heads, ties and notices key-change events."
+		"  This engraver usually lives at Staff level, but"
+		" reads the settings for Accidental at @code{Voice} level,"
+		" so you can @code{\\override} them at @code{Voice}.",
 
 		/* create */
 		"Accidental "

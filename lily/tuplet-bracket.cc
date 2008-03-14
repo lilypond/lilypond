@@ -767,11 +767,11 @@ Tuplet_bracket::calc_cross_staff (SCM smob)
 }
 
 ADD_INTERFACE (Tuplet_bracket,
-	       "A bracket with a number in the middle, used for tuplets.  "
-	       "When the bracket spans a line break, the value of "
-	       "@code{break-overshoot} determines how far it extends "
-	       "beyond the staff.  At a line break, the markups in the "
-	       "@code{edge-text} are printed at the edges.",
+	       "A bracket with a number in the middle, used for tuplets."
+	       "  When the bracket spans a line break, the value of"
+	       " @code{break-overshoot} determines how far it extends"
+	       " beyond the staff.  At a line break, the markups in the"
+	       " @code{edge-text} are printed at the edges.",
 
 	       /* properties */
 	       "bracket-flare "

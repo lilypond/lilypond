@@ -263,8 +263,8 @@ ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
 
 ADD_TRANSLATOR (Spacing_engraver,
 		/* doc */
-		"Make a @code{SpacingSpanner} and do bookkeeping of shortest "
-		"starting and playing notes.",
+		"Make a @code{SpacingSpanner} and do bookkeeping of shortest"
+		" starting and playing notes.",
 
 		/* create */
 		"SpacingSpanner ",

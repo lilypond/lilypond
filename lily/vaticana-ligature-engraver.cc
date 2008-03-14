@@ -239,8 +239,8 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
       if (glyph_name_scm == SCM_EOL)
 	{
 	  primitive->programming_error ("Vaticana_ligature:"
-					"undefined glyph-name -> "
-					"ignoring grob");
+					" undefined glyph-name ->"
+					" ignoring grob");
 	  continue;
 	}
       string glyph_name = ly_scm2string (glyph_name_scm);
@@ -254,8 +254,8 @@ Vaticana_ligature_engraver::align_heads (vector<Grob_info> primitives,
 	  else
 	    {
 	      primitive->programming_error ("Vaticana_ligature:"
-					    "delta-position undefined -> "
-					    "ignoring grob");
+					    " delta-position undefined ->"
+					    " ignoring grob");
 	      continue;
 	    }
 	}
@@ -484,8 +484,8 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
       else
 	{
 	  primitive->programming_error ("Vaticana_ligature:"
-					"delta-position undefined -> "
-					"ignoring grob");
+					" delta-position undefined ->"
+					" ignoring grob");
 	  continue;
 	}
 
@@ -607,8 +607,8 @@ Vaticana_ligature_engraver::transform_heads (Spanner *ligature,
 	else // (prev_delta_pitch == 0)
 	  {
 	    primitive->programming_error ("Vaticana_ligature:"
-					  "deminutum head must have different "
-					  "pitch -> ignoring grob");
+					  " deminutum head must have different"
+					  " pitch -> ignoring grob");
 	  }
       else if (prefix_set & (CAVUM | LINEA))
 	if ((prefix_set & CAVUM) && (prefix_set & LINEA))

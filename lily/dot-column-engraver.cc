@@ -11,7 +11,7 @@
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "translator.icc"
-#include "item.hh" 
+#include "item.hh"
 
 class Dot_column_engraver : public Engraver
 {
@@ -54,8 +54,8 @@ Dot_column_engraver::acknowledge_rhythmic_head (Grob_info info)
 ADD_ACKNOWLEDGER (Dot_column_engraver, rhythmic_head);
 ADD_TRANSLATOR (Dot_column_engraver,
 		/* doc */
-		"Engrave dots on dotted notes shifted to the right of the "
-		"note.  If omitted, then dots appear on top of the notes.",
+		"Engrave dots on dotted notes shifted to the right of the"
+		" note.  If omitted, then dots appear on top of the notes.",
 
 		/* create */
 		"DotColumn ",

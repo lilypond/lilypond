@@ -297,7 +297,7 @@ ADD_INTERFACE (Vaticana_ligature,
 
 	       /* properties */
 	       "glyph-name "
-	       "flexa-height " 
+	       "flexa-height "
 	       "flexa-width "
 	       "thickness "
 	       "add-cauda "

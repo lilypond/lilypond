@@ -154,8 +154,8 @@ Script_column::order_grobs (vector<Grob*> grobs)
 }
 
 ADD_INTERFACE (Script_column,
-	       "An interface that sorts scripts according to their "
-	       "@code{script-priority}.",
+	       "An interface that sorts scripts according to their"
+	       " @code{script-priority}.",
 	       
 	       /* properties */
 	       ""

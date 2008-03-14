@@ -53,8 +53,8 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
 ADD_ACKNOWLEDGER (Dots_engraver, rhythmic_head);
 
 ADD_TRANSLATOR (Dots_engraver,
-		"Create @ref{Dots} objects for "
-		"@ref{rhythmic-head-interface}s.",
+		"Create @ref{Dots} objects for"
+		" @ref{rhythmic-head-interface}s.",
 
 		/* create */
 		"Dots ",

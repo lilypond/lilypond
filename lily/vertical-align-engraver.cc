@@ -38,8 +38,8 @@ protected:
 ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
 ADD_TRANSLATOR (Vertical_align_engraver,
 		/* doc */
-		"Catch groups (staves, lyrics lines, etc.) and stack them "
-		"vertically.",
+		"Catch groups (staves, lyrics lines, etc.) and stack them"
+		" vertically.",
 
 		/* create */
 		"VerticalAlignment ",

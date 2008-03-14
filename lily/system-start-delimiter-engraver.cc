@@ -251,10 +251,10 @@ ADD_ACKNOWLEDGER (System_start_delimiter_engraver, system_start_text);
 
 ADD_TRANSLATOR (System_start_delimiter_engraver,
 		/* doc */
-		"Create a system start delimiter (i.e., a "
-		"@code{SystemStartBar}, @code{SystemStartBrace}, "
-		"@code{SystemStartBracket} or @code{SystemStartSquare} "
-		"spanner).",
+		"Create a system start delimiter (i.e., a"
+		" @code{SystemStartBar}, @code{SystemStartBrace},"
+		" @code{SystemStartBracket} or @code{SystemStartSquare}"
+		" spanner).",
 
 		/* create */
 		"SystemStartSquare "

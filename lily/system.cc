@@ -512,9 +512,9 @@ get_root_system (Grob *me)
 }
 
 ADD_INTERFACE (System,
-	       "This is the top-level object: Each object in a score "
-	       "ultimately has a @code{System} object as its X and "
-	       "Y@tie{}parent.",
+	       "This is the top-level object: Each object in a score"
+	       " ultimately has a @code{System} object as its X and"
+	       " Y@tie{}parent.",
 
 	       /* properties */
 	       "all-elements "

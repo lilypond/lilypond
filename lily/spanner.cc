@@ -424,12 +424,12 @@ Spanner::bounds_width (SCM grob)
 }
 
 ADD_INTERFACE (Spanner,
-	       "Some objects are horizontally spanned between objects.  For "
-	       "example, slurs, beams, ties, etc.  These grobs form a subtype "
-	       "called @code{Spanner}.  All spanners have two span points "
-	       "(these must be @code{Item} objects), one on the left and one "
-	       "on the right.  The left bound is also the X@tie{}reference "
-	       "point of the spanner.",
+	       "Some objects are horizontally spanned between objects.  For"
+	       " example, slurs, beams, ties, etc.  These grobs form a subtype"
+	       " called @code{Spanner}.  All spanners have two span points"
+	       " (these must be @code{Item} objects), one on the left and one"
+	       " on the right.  The left bound is also the X@tie{}reference"
+	       " point of the spanner.",
 
 	       /* properties */
 	       "minimum-length "

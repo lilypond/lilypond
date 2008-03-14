@@ -314,18 +314,18 @@ Paper_column::before_line_breaking (SCM grob)
 
 
 ADD_INTERFACE (Paper_column,
-	       "@code{Paper_column} objects form the top-most X@tie{}parents "
-	       "for items.  There are two types of columns: musical columns, "
-	       "where are attached to, and non-musical columns, where "
-	       "bar-lines, clefs, etc., are attached to.  The spacing engine "
-	       "determines the X@tie{}positions of these objects.\n"
+	       "@code{Paper_column} objects form the top-most X@tie{}parents"
+	       " for items.  There are two types of columns: musical columns,"
+	       " where are attached to, and non-musical columns, where"
+	       " bar-lines, clefs, etc., are attached to.  The spacing engine"
+	       " determines the X@tie{}positions of these objects.\n"
 	       "\n"
-	       "They are numbered, the first (leftmost) is column@tie{}0.  "
-	       "Numbering happens before line breaking, and columns are not "
-	       "renumbered after line breaking.  Since many columns go "
-	       "unused, you should only use the rank field to get ordering "
-	       "information.  Two adjacent columns may have non-adjacent "
-	       "numbers.",
+	       "They are numbered, the first (leftmost) is column@tie{}0."
+	       "  Numbering happens before line breaking, and columns are not"
+	       " renumbered after line breaking.  Since many columns go"
+	       " unused, you should only use the rank field to get ordering"
+	       " information.  Two adjacent columns may have non-adjacent"
+	       " numbers.",
 
 	       /* properties */
 	       "between-cols "

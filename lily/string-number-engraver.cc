@@ -36,10 +36,10 @@ String_number_engraver::String_number_engraver ()
 
 ADD_TRANSLATOR (String_number_engraver,
 		/* doc */
-		"Swallow string number events.  The purpose of this engraver "
-		"is to process tablatures for normal notation.  To provent "
-		"warnings for unprocessed string number events to obscure "
-		"real error messages, this engraver swallows them all.",
+		"Swallow string number events.  The purpose of this engraver"
+		" is to process tablatures for normal notation.  To provent"
+		" warnings for unprocessed string number events to obscure"
+		" real error messages, this engraver swallows them all.",
 
 		/* create */
 		"",
