@@ -71,7 +71,7 @@ Ambitus::print (SCM smob)
 ADD_INTERFACE (Ambitus,
 	       "The line between note heads for a pitch range.",
 
-	       /* props */
+	       /* properties */
 	       "join-heads "
 	       "note-heads "
 	       "thickness "

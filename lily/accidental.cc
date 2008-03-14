@@ -214,7 +214,7 @@ Accidental_interface::get_stencil (Grob *me)
 ADD_INTERFACE (Accidental_interface,
 	       "A single accidental.",
 	       
-	       /* props */
+	       /* properties */
 	       "alteration "
 	       "avoid-slur "
 	       "forced "
