@@ -5,8 +5,8 @@
 
   texidoc = "Automatic beaming works also in ternary time sigs. In
   this case, the 8th is a beat, so the 16ths are split into two
-  groups.  This can be avoided by overriding @code{beatLength} to be 3
-  8th notes."
+  groups.  This can be avoided by overriding @code{beatLength} to be
+  three 8th notes."
 
 }
 

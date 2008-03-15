@@ -210,7 +210,7 @@ Note_column::cross_staff_extent (Grob *me, Grob *refp)
 }
 
 ADD_INTERFACE (Note_column,
-	       "Stem and noteheads combined",
+	       "Stem and noteheads combined.",
 
 	       /* properties */
 	       "arpeggio "

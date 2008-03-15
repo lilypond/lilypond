@@ -35,11 +35,18 @@ String_number_engraver::String_number_engraver ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (String_number_engraver,
-		/* doc */ "Swallow string-number-events - the purpose of this engraver is to"
-		" process tab for normal notation. To provent warnings for unprocessed "
-		" string-number-event to obscure real error messages, this engraver "
-		" swallows them all.",
+		/* doc */
+		"Swallow string number events.  The purpose of this engraver"
+		" is to process tablatures for normal notation.  To provent"
+		" warnings for unprocessed string number events to obscure"
+		" real error messages, this engraver swallows them all.",
 
-		/* create */ "",
-		/* read */ "",
-		/* write */ "");
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

@@ -138,16 +138,21 @@ Chord_name_engraver::stop_translation_timestep ()
   which properties are read depend on the chord naming function active.
 */
 ADD_TRANSLATOR (Chord_name_engraver,
-		/* doc */ "Catch note-events "
-		"and generate the appropriate chordname.",
+		/* doc */
+		"Catch note events and generate the appropriate chordname.",
 
-		/* create */ "ChordName",
-		/* read */ "chordChanges "
+		/* create */
+		"ChordName ",
+
+		/* read */
+		"chordChanges "
 		"chordNameExceptions "
 		"chordNameFunction "
 		"chordNoteNamer "
 		"chordRootNamer "
 		"chordNameExceptions "
-		"majorSevenSymbol "
-		,
-		/* write */ "");
+		"majorSevenSymbol ",
+
+		/* write */
+		""
+		);

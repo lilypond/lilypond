@@ -107,8 +107,18 @@ Repeat_acknowledge_engraver::process_music ()
 }
 
 ADD_TRANSLATOR (Repeat_acknowledge_engraver,
-		/* doc */ "Acknowledge repeated music, and convert the contents of "
-		"repeatCommands ainto an appropriate setting for whichBar.",
-		/* create */ "",
-		/* read */ "repeatCommands whichBar",
-		/* write */ "");
+		/* doc */
+		"Acknowledge repeated music, and convert the contents of"
+		" @code{repeatCommands} into an appropriate setting for"
+		" @code{whichBar}.",
+
+		/* create */
+		"",
+
+		/* read */
+		"repeatCommands "
+		"whichBar ",
+
+		/* write */
+		""
+		);

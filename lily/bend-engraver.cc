@@ -111,7 +111,15 @@ Bend_engraver::process_music ()
 ADD_ACKNOWLEDGER (Bend_engraver, note_head);
 
 ADD_TRANSLATOR (Bend_engraver,
-		/* doc */ "Create fall spanners.",
-		/* create */ "BendAfter",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Create fall spanners.",
+
+		/* create */
+		"BendAfter ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

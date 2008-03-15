@@ -65,5 +65,16 @@ Control_track_performer::initialize ()
   add_text (Audio_text::TEXT, id_string);
 }
 
-ADD_TRANSLATOR (Control_track_performer, "", "",
-		"", "");
+ADD_TRANSLATOR (Control_track_performer,
+		/* doc */
+		"",
+
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

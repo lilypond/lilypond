@@ -256,9 +256,9 @@ Hairpin::print (SCM smob)
 }
 
 ADD_INTERFACE (Hairpin,
-	       "A hairpin crescendo/decrescendo.",
+	       "A hairpin crescendo or decrescendo.",
 
-	       /* props */
+	       /* properties */
 	       "adjacent-hairpins "
 	       "circled-tip "
 	       "bound-padding "

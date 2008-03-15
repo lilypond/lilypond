@@ -1,8 +1,8 @@
-%% regression test for fret diagram markups
-
 
 \version "2.10.0"
-
+\header {
+  texidoc = "Fret diagrams can be created with @code{\markup}."
+}
 \paper {
 
   %% stretch to prevent diagrams from colliding.

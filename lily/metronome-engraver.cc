@@ -94,18 +94,22 @@ Metronome_mark_engraver::process_music ()
 }
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
-		/* doc */ "Engrave metro nome marking. This delegates the formatting work "
-		"to the function in the metronomeMarkFormatter property. "
-		"The mark is put over all staves. "
-		"The staves are taken from the @code{stavesFound} property, "
-		"which is maintained by @code{@ref{Staff_collecting_engraver}}. ",
-		/* create */ "MetronomeMark",
+		/* doc */
+		"Engrave metronome marking.  This delegates the formatting"
+		" work to the function in the @code{metronomeMarkFormatter}"
+		" property.  The mark is put over all staves.  The staves are"
+		" taken from the @code{stavesFound} property, which is"
+		" maintained by @ref{Staff_collecting_engraver}.",
+
+		/* create */
+		"MetronomeMark ",
 
 		/* read */
 		"stavesFound "
 		"metronomeMarkFormatter "
 		"tempoUnitDuration "
-		"tempoUnitCount "
-		,
+		"tempoUnitCount ",
 
-		/* write */ "");
+		/* write */
+		""
+		);

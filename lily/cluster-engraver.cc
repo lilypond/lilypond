@@ -133,10 +133,16 @@ Cluster_spanner_engraver::acknowledge_note_column (Grob_info info)
 ADD_ACKNOWLEDGER (Cluster_spanner_engraver, note_column);
 ADD_TRANSLATOR (Cluster_spanner_engraver,
 		/* doc */
-		"Engraves a cluster using Spanner notation ",
+		"Engrave a cluster using @code{Spanner} notation.",
+
 		/* create */
 		"ClusterSpanner "
 		"ClusterSpannerBeacon ",
-		/* read */ 	"",
-		/* write */	"");
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);
 

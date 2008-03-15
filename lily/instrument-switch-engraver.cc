@@ -54,10 +54,15 @@ Instrument_switch_engraver::stop_translation_time_step ()
 }
 
 ADD_TRANSLATOR (Instrument_switch_engraver,
-	       "Create a cue text for taking instrument.",
+		/* doc */
+		"Create a cue text for taking instrument.",
 			
-	       "InstrumentSwitch ",
+		/* create */
+		"InstrumentSwitch ",
 
-	       "instrumentCueName",
+		/* read */
+		"instrumentCueName ",
 			
-	       "");
+		/* write */
+		""
+		);

@@ -64,10 +64,16 @@ Parenthesis_engraver::acknowledge_grob (Grob_info info)
 
 ADD_ACKNOWLEDGER (Parenthesis_engraver, grob);
 ADD_TRANSLATOR (Parenthesis_engraver,
-		/* doc */ "Parenthesize objects whose music cause has the @code{parenthesize} "
-		"property.",
+		/* doc */
+		"Parenthesize objects whose music cause has the"
+		" @code{parenthesize} property.",
 		
 		/* create */
 		"ParenthesesItem ",
-		/* read */ "",
-		/* write */ "");
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

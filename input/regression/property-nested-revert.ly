@@ -16,6 +16,8 @@ Scheme list syntax."
   f2 \glissando c
   \revert Glissando #'(bound-details right Y)
   f2 \glissando c
+  \revert Glissando #'(bound-details left Y)
+  f2 \glissando c
 }
 
 

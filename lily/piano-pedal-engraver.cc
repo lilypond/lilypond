@@ -493,7 +493,6 @@ Piano_pedal_engraver::typeset_all (Pedal_info *p)
 ADD_ACKNOWLEDGER (Piano_pedal_engraver, note_column);
 
 ADD_TRANSLATOR (Piano_pedal_engraver,
-
 		/* doc */
 		"Engrave piano pedal symbols and brackets.",
 
@@ -510,6 +509,8 @@ ADD_TRANSLATOR (Piano_pedal_engraver,
 		"pedalSustainStrings "
 		"pedalSustainStyle "
 		"pedalUnaCordaStrings "
-		"pedalUnaCordaStyle",
+		"pedalUnaCordaStyle ",
 		
-		/* write */ "");
+		/* write */
+		""
+		);

@@ -178,10 +178,18 @@ Engraver_group::Engraver_group ()
 #include "translator.icc"
 
 ADD_TRANSLATOR_GROUP (Engraver_group,
-		      /* doc */ "A group of engravers taken together",
-		      /* create */ "",
-		      /* read */ "",
-		      /* write */ "");
+		      /* doc */
+		      "A group of engravers taken together.",
+
+		      /* create */
+		      "",
+
+		      /* read */
+		      "",
+
+		      /* write */
+		      ""
+		      );
 
 void
 Engraver_group::derived_mark () const

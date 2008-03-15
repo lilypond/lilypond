@@ -402,22 +402,22 @@ centered, X==1 is at the right, X == -1 is at the left."
        ))
   
 (define-public alteration-hufnagel-glyph-name-alist
-   '((-1/2 . "accidentals.hufnagel-1")
+   '((-1/2 . "accidentals.hufnagelM1")
      (0 . "accidentals.vaticana0")
      (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-medicaea-glyph-name-alist
-   '((-1/2 . "accidentals.medicaea-1")
+   '((-1/2 . "accidentals.medicaeaM1")
      (0 . "accidentals.vaticana0")
      (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-vaticana-glyph-name-alist
-   '((-1/2 . "accidentals.vaticana-1")
+   '((-1/2 . "accidentals.vaticanaM1")
      (0 . "accidentals.vaticana0")
      (1/2 . "accidentals.mensural1")))
 
 (define-public alteration-mensural-glyph-name-alist
-   '((-1/2 . "accidentals.mensural-1")
+   '((-1/2 . "accidentals.mensuralM1")
      (0 . "accidentals.vaticana0")
      (1/2 . "accidentals.mensural1")))
 

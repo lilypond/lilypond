@@ -62,8 +62,16 @@ ADD_ACKNOWLEDGER (Stanza_number_align_engraver, lyric_syllable);
 ADD_ACKNOWLEDGER (Stanza_number_align_engraver, stanza_number);
 
 ADD_TRANSLATOR (Stanza_number_align_engraver,
-		"This engraver ensures that stanza numbers are neatly aligned. ",
+		/* doc */
+		"This engraver ensures that stanza numbers are neatly"
+		" aligned.",
+
+		/* create */
 		"",
+
+		/* read */
 		"",
+
+		/* write */
 		"");
 

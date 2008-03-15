@@ -351,6 +351,13 @@ a ^Black
 Note that the @code{\tweak} command must be preceded by an
 articulation mark as if it were an articulation itself.
 
+@cindex tuplets, nested
+@cindex triplets, nested
+@cindex bracket, tuplet
+@cindex tuplet bracket
+@cindex triplet bracket
+@funindex TupletBracket
+
 The @code{\tweak} command must also be used to change the 
 appearance of one of a set of nested tuplets which begin at the 
 same musical moment.  In the following example, the long tuplet
@@ -374,6 +381,25 @@ printed in red on the first short tuplet bracket.
 
 You can find more details of the @code{\tweak} command in
 @ruser{Objects connected to the input}.
+
+If nested tuplets do not begin at the same moment their
+appearance may be modified in the usual way with
+@code{\override} commands:
+
+@c NOTE Tuplet brackets collide if notes are high on staff
+@c See issue 509
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\times 2/3 { c8[ c c]}
+\once \override TupletNumber 
+  #'text = #tuplet-number::calc-fraction-text
+\times 2/3 {
+  c[ c]
+  c[ c]
+  \once \override TupletNumber #'transparent = ##t
+  \times 2/3 { c8[ c c] }
+\times 2/3 { c8[ c c]}
+}
+@end lilypond
 
 
 @node The Internals Reference manual

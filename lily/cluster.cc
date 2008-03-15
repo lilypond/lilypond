@@ -198,15 +198,17 @@ Cluster::print (SCM smob)
 }
 
 ADD_INTERFACE (Cluster,
-	       "A graphically drawn musical cluster. "
-	       "\n\n"
-	       "@code{padding} adds to the vertical extent of the shape (top and "
-	       "bottom). \n\n"
-	       "The property @code{style} controls the shape of cluster segments.  Valid values "
-	       "include @code{leftsided-stairs}, @code{rightsided-stairs}, @code{centered-stairs}, "
-	       "and @code{ramp}.\n",
+	       "A graphically drawn musical cluster.\n"
+	       "\n"
+	       "@code{padding} adds to the vertical extent of the shape (top"
+	       " and bottom).\n"
+	       "\n"
+	       "The property @code{style} controls the shape of cluster"
+	       " segments.  Valid values include @code{leftsided-stairs},"
+	       " @code{rightsided-stairs}, @code{centered-stairs}, and"
+	       " @code{ramp}.\n",
 
-	       /* props */
+	       /* properties */
 	       "style "
 	       "padding "
 	       "columns "
@@ -230,8 +232,10 @@ Cluster_beacon::height (SCM g)
 }
 
 ADD_INTERFACE (Cluster_beacon,
-	       "A place holder for the cluster spanner to determine the vertical "
-	       "extents of a cluster spanner at this X position.",
+	       "A place holder for the cluster spanner to determine the"
+	       " vertical extents of a cluster spanner at this"
+	       " X@tie{}position.",
 
 	       /* properties */
-	       "positions ");
+	       "positions "
+	       );

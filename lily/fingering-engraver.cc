@@ -147,8 +147,14 @@ ADD_ACKNOWLEDGER (Fingering_engraver, stem);
 
 ADD_TRANSLATOR (Fingering_engraver,
 		/* doc */
-		"Create fingering-scripts",
+		"Create fingering scripts.",
+
 		/* create */
-		"Fingering",
-		/* read */ "",
-		/* write */ "");
+		"Fingering ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

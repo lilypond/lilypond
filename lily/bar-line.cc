@@ -291,30 +291,26 @@ Bar_line::calc_anchor (SCM smob)
 }
 
 ADD_INTERFACE (Bar_line,
-
 	       "Bar line.\n"
 	       "\n"
-	       "Print a special bar symbol. It replaces the \n"
-	       "regular bar symbol with a special\n"
-	       "symbol.  The argument @var{bartype} is a string which specifies the\n"
-	       "kind of bar to print.  Options are @code{:|}, \n"
-	       "@code{|:}, @code{:|:},\n"
-	       "@code{||}, @code{|.},\n"
-	       "@code{.|}, and @code{.|.}. \n"
+	       "Print a special bar symbol.  It replaces the regular bar"
+	       " symbol with a special symbol.  The argument @var{bartype}"
+	       " is a string which specifies the kind of bar to print."
+	       "  Options are @code{:|}, @code{|:}, @code{:|:}, @code{||},"
+	       " @code{|.}, @code{.|}, and @code{.|.}.\n"
 	       "\n"
-	       "These produce, respectively, a right repeat, a left repeat, a double\n"
-	       "repeat, a double bar, a start bar, an end bar, and a thick double bar.\n"
-	       "In addition, there is an option @code{||:} which is equivalent to\n"
-	       "@code{|:} except at line breaks, where it produces a double bar (@code{||})\n"
-	       "at the end of the line and a repeat sign (@code{|:}) at the beginning\n"
-	       "of the new line."
-	       "If @var{bartype} is set to @code{empty} then nothing is printed,\n"
-	       "but a line break is allowed at that spot.\n"
-	       "\n\n"
-	       "@code{gap} is used for the gaps in dashed barlines."
-
-	       ,
-
+	       "These produce, respectively, a right repeat, a left repeat,"
+	       " a double repeat, a double bar, a start bar, an end bar, and"
+	       " a thick double bar.  In addition, there is an option"
+	       " @code{||:} which is equivalent to @code{|:} except at line"
+	       " breaks, where it produces a double bar (@code{||}) at the"
+	       " end of the line and a repeat sign (@code{|:}) at the"
+	       " beginning of the new line.\n"
+	       "\n"
+	       "If @var{bartype} is set to @code{empty} then nothing is"
+	       " printed, but a line break is allowed at that spot.\n"
+	       "\n"
+	       "@code{gap} is used for the gaps in dashed barlines.",
 
 	       /* properties */
 	       "allow-span-bar "

@@ -63,6 +63,7 @@ Text_spanner_engraver::process_music ()
       else
 	{
 	  finished_ = span_;
+	  announce_end_grob (finished_, SCM_EOL);
 	  span_ = 0;
 	  current_event_ = 0;
 	}
@@ -144,10 +145,13 @@ ADD_ACKNOWLEDGER (Text_spanner_engraver, note_column);
 ADD_TRANSLATOR (Text_spanner_engraver,
 		/* doc */
 		"Create text spanner from an event.",
+
 		/* create */
 		"TextSpanner ",
+
 		/* read */
 		"",
+
 		/* write */
 		""
 		);

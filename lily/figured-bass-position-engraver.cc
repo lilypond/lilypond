@@ -145,5 +145,8 @@ ADD_TRANSLATOR (Figured_bass_position_engraver,
 		"BassFigureAlignmentPositioning ",
 
 		/* read */
-		" ",
-		/* write */ "");
+		"",
+
+		/* write */
+		""
+		);

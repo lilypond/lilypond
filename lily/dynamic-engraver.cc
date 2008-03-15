@@ -178,10 +178,13 @@ Dynamic_engraver::process_music ()
 	  finished_cresc_ = cresc_;
 
 	  /* backwards compatibility with hairpinToBarline */
-	  bool use_bar = to_boolean (get_property ("hairpinToBarline"))
-	    && scm_is_string (get_property ("whichBar"));
+	  if (finished_cresc_->get_property ("to-barline") == SCM_EOL)
+	    {
+	      bool use_bar = to_boolean (get_property ("hairpinToBarline"))
+		&& scm_is_string (get_property ("whichBar"));
 
-	  finished_cresc_->set_property ("to-barline", scm_from_bool (use_bar));
+	      finished_cresc_->set_property ("to-barline", scm_from_bool (use_bar));
+	    }
 
 	  announce_end_grob (finished_cresc_, SCM_EOL);
 	  cresc_ = 0;
@@ -436,9 +439,10 @@ ADD_ACKNOWLEDGER (Dynamic_engraver, note_column);
 
 ADD_TRANSLATOR (Dynamic_engraver,
 		/* doc */
-		"This engraver creates hairpins, dynamic texts, and their vertical\n"
-		"alignments.  The symbols are collected onto a DynamicLineSpanner grob\n"
-		"which takes care of vertical positioning.  ",
+		"Create hairpins, dynamic texts, and their vertical"
+		" alignments.  The symbols are collected onto a"
+		" @code{DynamicLineSpanner} grob which takes care of vertical"
+		" positioning.",
 
 		/* create */
 		"DynamicLineSpanner "
@@ -447,5 +451,9 @@ ADD_TRANSLATOR (Dynamic_engraver,
 		"Hairpin "
 		"TextSpanner ",
 
-		/* read */ "",
-		/* write */ "");
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

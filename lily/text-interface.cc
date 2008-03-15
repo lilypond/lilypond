@@ -137,13 +137,15 @@ Text_interface::is_markup_list (SCM x)
 
 
 ADD_INTERFACE (Text_interface,
-	       "A scheme markup text, see @ruser{Text markup} and "
-	       "@ruser{New markup command definition}. "
-	       "\n\n"
-	       "There are two important commands: ly:text-interface::print, which is a "
-	       "grob callback, and ly:text-interface::interpret-markup ",
+	       "A Scheme markup text, see @ruser{Text markup} and"
+	       " @ruser{New markup command definition}.\n"
+	       "\n"
+	       "There are two important commands:"
+	       " @code{ly:text-interface::print}, which is a"
+	       " grob callback, and"
+	       " @code{ly:text-interface::interpret-markup}.",
 
-	       /* props */
+	       /* properties */
 	       "baseline-skip "
 	       "text "
 	       "word-space "

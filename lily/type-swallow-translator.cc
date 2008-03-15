@@ -34,18 +34,34 @@ Skip_event_swallow_translator::Skip_event_swallow_translator ()
 }
 
 ADD_TRANSLATOR (Skip_event_swallow_translator,
-		"Swallow \\skip.",
+		/* doc */
+		"Swallow @code{\\skip}.",
+
+		/* create */
 		"",
+
+		/* read */
 		"",
-		"");
+
+		/* write */
+		""
+		);
 
 Rest_swallow_translator::Rest_swallow_translator (){}
 
 ADD_TRANSLATOR (Rest_swallow_translator,
-		"Swallow rest",
+		/* doc */
+		"Swallow rest.",
+
+		/* create */
 		"",
+
+		/* read */
 		"",
-		"");
+
+		/* write */
+		""
+		);
 
 class Note_swallow_translator : public Translator
 {
@@ -61,9 +77,16 @@ Note_swallow_translator::Note_swallow_translator ()
 }
 
 ADD_TRANSLATOR (Note_swallow_translator,
-		"Swallow notes",
-		"",
+		/* doc */
+		"Swallow notes.",
+
+		/* create */
 		"",
 
-		"");
+		/* read */
+		"",
+
+		/* write */
+		""
+		);
 

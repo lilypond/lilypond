@@ -628,7 +628,6 @@ Axis_group_interface::print (SCM smob)
 }
 
 ADD_INTERFACE (Axis_group_interface,
-
 	       "An object that groups other layout objects.",
 
 	       /* properties */

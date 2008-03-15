@@ -30,14 +30,15 @@ specified by @var{repeatcount}.  This is useful when
 entering repetitious music. 
 
 @item percent
-Make beat or measure repeats.  These look like percent signs.
+Write beat or measure repeats.  These look like percent signs.
 Percent repeats must be declared within a @code{Voice} context.
 
 @item tremolo
-Make tremolo beams.
+Write tremolo beams.
 
 @end table
 
+@ignore
 LilyPond has one syntactic construct for specifying different
 types of repeats.  The syntax is
 
@@ -64,6 +65,7 @@ after a @code{\repeat volta} or @code{unfold} block, where each
 @var{alternative} is a music expression.  If you give fewer
 alternatives than @var{repeatcount}, the first alternative is assumed
 to be played more than once.
+@end ignore
 
 
 @menu
@@ -77,6 +79,7 @@ to be played more than once.
 @menu
 * Normal repeats::              
 * Manual repeat marks::         
+* Written-out repeats::         
 @end menu
 
 @cindex volta
@@ -89,12 +92,22 @@ to be played more than once.
 @node Normal repeats
 @subsubsection Normal repeats
 
-FIXME: this example needs to go by itself.
-@verbatim
-\repeat volta 2 { c4 d e f }
-@end verbatim
+The syntax for a simple repeat is
 
-Normal repeats, with or without alternate repeats:
+@example
+\repeat @var{variant} @var{repeatcount} @var{repeatbody}
+@end example
+
+where @var{repeabody} is a music expression.
+
+Normal repeats, without alternate endings:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\repeat volta 2 { c4 d e f }
+c1
+@end lilypond
+
+Normal repeats, with  alternate endings:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \repeat volta 2 { g f e d }
@@ -104,6 +117,8 @@ Normal repeats, with or without alternate repeats:
   }
 c1
 @end lilypond
+
+
 Repeats with upbeats:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -137,9 +152,9 @@ c1
 @end lilypond
 
 By default, the volta brackets will be drawn over all of the
-alternative music, but it is possible to shorten them by
-setting @code{voltaSpannerDuration}.  In the next example, the
-bracket only lasts one measure, which is a duration of 3/4.
+alternative music, but it is possible to shorten them by setting
+@code{voltaSpannerDuration}.  In the next example, the bracket only
+lasts one measure, which is a duration of 3/4.
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c''{
@@ -152,11 +167,11 @@ bracket only lasts one measure, which is a duration of 3/4.
 }
 @end lilypond
 
-The @code{Volta_engraver} by default resides in the Score context,
-and brackets for the repeat are thus normally only printed over
-the topmost staff.  This can be adjusted by adding
-@code{Volta_engraver} to the Staff context where you want the
-brackets to appear; see @ref{Modifying context plug-ins} and
+The @code{Volta_engraver} by default resides in the Score context, and
+brackets for the repeat are thus normally only printed over the
+topmost staff.  This can be adjusted by adding @code{Volta_engraver}
+to the Staff context where you want the brackets to appear; see
+@ref{Modifying context plug-ins} and
 @c @lsr{repeats,volta@/-multi@/-staff@/.ly}.
 
 @lilypond[verbatim,ragged-right,quote]
@@ -170,8 +185,8 @@ brackets to appear; see @ref{Modifying context plug-ins} and
 
 @c Is there a way to have a final bar ("|.") at the end of the
 @c previous line? Doesn't seem to be.
-If you want to start a repeat at the beginning of a line and have
-a double bar at the end of the previous line, use
+If you want to start a repeat at the beginning of a line and have a
+double bar at the end of the previous line, use
 
 @example
 @dots{} \bar "||:" \break 
@@ -181,6 +196,11 @@ a double bar at the end of the previous line, use
 see @ref{Bar lines} for more information.
 
 @seealso
+
+Music Glossary: @rglos{repeat};
+@c FIXME : add @rglos{volta} after glossary addition
+
+Notation Reference: @ref{Bar lines}; @ref{Modifying context plug-ins}.
 
 Snippets: @lsrdir{Repeats,Repeats}
 
@@ -210,11 +230,10 @@ is ambiguous, since it is is not clear to which @code{\repeat} the
 having the @code{\alternative} belong to the inner @code{\repeat}.
 For clarity, it is advisable to use braces in such situations.
 
-Timing information is not remembered at the start of an
-alternative, so after a repeat timing information must be reset by
-hand; for example, by setting @code{Score.measurePosition} or
-entering @code{\partial}.  Similarly, slurs or ties are also not
-repeated.
+Timing information is not remembered at the start of an alternative,
+so after a repeat timing information must be reset by hand; for
+example, by setting @code{Score.measurePosition} or entering
+@code{\partial}.  Similarly, slurs or ties are also not repeated.
 
 
 
@@ -268,6 +287,14 @@ Snippets: @lsrdir{Repeats,Repeats}
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
 and @internalsref{UnfoldedRepeatedMusic}.
+
+
+@node Written-out repeats
+@subsubsection Written-out repeats
+
+unfold
+
+
 
 
 @node Short repeats

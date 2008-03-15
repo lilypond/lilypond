@@ -68,10 +68,10 @@ Ambitus::print (SCM smob)
   return SCM_EOL;
 }
 
-ADD_INTERFACE (Ambitus ,
+ADD_INTERFACE (Ambitus,
 	       "The line between note heads for a pitch range.",
 
-	       /* props */
+	       /* properties */
 	       "join-heads "
 	       "note-heads "
 	       "thickness "

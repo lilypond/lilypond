@@ -1,10 +1,8 @@
 \header {
-
     texidoc = "Stem lengths for grace notes should be shorter than
 normal notes, if possible. They should never be longer, even if that
-would lead to beam quanting program. "
-	 
-    }
+would lead to beam quanting problems."
+}
 \version "2.10.0"
 
 \layout {

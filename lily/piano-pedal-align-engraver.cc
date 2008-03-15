@@ -251,7 +251,6 @@ ADD_END_ACKNOWLEDGER (Piano_pedal_align_engraver, piano_pedal_bracket);
 
 
 ADD_TRANSLATOR (Piano_pedal_align_engraver,
-
 		/* doc */
 		"Align piano pedal symbols and brackets.",
 
@@ -263,4 +262,6 @@ ADD_TRANSLATOR (Piano_pedal_align_engraver,
 		/* read */
 		"currentCommandColumn ",
 
-		/* write */ "");
+		/* write */
+		""
+		);

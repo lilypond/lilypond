@@ -42,8 +42,18 @@ private:
 
 #include "translator.icc"
 
-ADD_TRANSLATOR (Staff_performer, "", "",
-		"", "");
+ADD_TRANSLATOR (Staff_performer,
+		/* doc */
+		"",
+
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		"");
 
 Staff_performer::Staff_performer ()
 {

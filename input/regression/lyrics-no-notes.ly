@@ -1,12 +1,10 @@
 \header {
-  texidoc ="lyric syllables without note attachment are
-not centered; Centering may cause unintended effects when
-the papercolumn is very wide."
-  }
- 
-\layout{
-  ragged-right = ##t
+  texidoc ="Lyric syllables without note attachment are not
+centered.  Centering may cause unintended effects when the
+papercolumn is very  wide."
 }
+ 
+\layout{ ragged-right = ##t }
 
 \version "2.11.38"
 <<

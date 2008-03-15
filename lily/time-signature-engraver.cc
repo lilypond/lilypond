@@ -86,13 +86,17 @@ Time_signature_engraver::stop_translation_timestep ()
 #include "translator.icc"
 
 ADD_TRANSLATOR (Time_signature_engraver,
-		/* doc */ "Create a @ref{TimeSignature} whenever @code{timeSignatureFraction} changes",
+		/* doc */
+		"Create a @ref{TimeSignature} whenever"
+		" @code{timeSignatureFraction} changes.",
+
 		/* create */
 		"TimeSignature ",
 		
 		/* read */
 		"implicitTimeSignatureVisibility "
-		"timeSignatureFraction "
+		"timeSignatureFraction ",
 
-		,
-		/* write */ "");
+		/* write */
+		""
+		);

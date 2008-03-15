@@ -74,7 +74,15 @@ Stanza_number_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Stanza_number_engraver, lyric_syllable);
 ADD_TRANSLATOR (Stanza_number_engraver,
-		/* doc */ "",
-		/* create */ "StanzaNumber",
-		/* read */ "stanza",
-		/* write */ "");
+		/* doc */
+		"Engrave stanza numbers.",
+
+		/* create */
+		"StanzaNumber ",
+
+		/* read */
+		"stanza ",
+
+		/* write */
+		""
+		);

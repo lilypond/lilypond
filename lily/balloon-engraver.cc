@@ -80,8 +80,15 @@ Balloon_engraver::acknowledge_grob (Grob_info info)
 ADD_ACKNOWLEDGER (Balloon_engraver, grob);
   
 ADD_TRANSLATOR (Balloon_engraver,
-	       "Create balloon texts",
+	       /* doc */
+	       "Create balloon texts.",
+
+	       /* create */
 	       "BalloonTextItem ",
-	       /*read*/ "",
-	       /*write*/ ""
+
+	       /*read*/
+	       "",
+
+	       /*write*/
+	       ""
 	       );

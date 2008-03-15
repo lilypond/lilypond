@@ -95,7 +95,9 @@ Melody_spanner::add_stem (Grob *me, Grob *stem)
 ADD_INTERFACE (Melody_spanner,
 	       "Context dependent typesetting decisions.",
 
+	       /* properties */
 	       "stems "
-	       "neutral-direction ");
+	       "neutral-direction "
+	       );
 
   

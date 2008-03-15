@@ -129,12 +129,17 @@ Ottava_spanner_engraver::finalize ()
 ADD_ACKNOWLEDGER (Ottava_spanner_engraver, note_column);
 
 ADD_TRANSLATOR (Ottava_spanner_engraver,
-		/* doc */ "Create a text spanner when the ottavation property changes..",
-		/* create */ "OttavaBracket",
-		/* read */ "ottavation "
+		/* doc */
+		"Create a text spanner when the ottavation property changes.",
+
+		/* create */
+		"OttavaBracket ",
+
+		/* read */
+		"ottavation "
 		"originalMiddleCPosition "
-		"currentMusicalColumn "
+		"currentMusicalColumn ",
 		
-		,
-		
-		/* write */ "");
+		/* write */
+		""
+		);
