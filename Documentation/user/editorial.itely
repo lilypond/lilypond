@@ -42,57 +42,43 @@ inside the staff.
 @cindex font size, selecting
 @cindex selecting font size
 
-The font size of notation elements may be altered:
-@ignore
+The font size of notation elements may be altered.  It does not
+change the size of variable symbols, such as beams or slurs.
 
 @lilypond[quote,fragment,relative=2,verbatim,ragged-right]
-c8.->( d16 e4
+\huge
+c4.-> d8---3
 \large
-c8.->( d16 e4
+c4.-> d8---3
 \normalsize
-c8.->( d16 e4
+c4.-> d8---3
 \small
-c8.->( d16 e4
-\normalsize
-c8.->( d16 e4
+c4.-> d8---3
 \tiny
-c8.->( d16 e4
+c4.-> d8---3
+\normalsize
+c2
 @end lilypond
-@end ignore
-
-The easiest method of setting the font size of any context is by
-setting the @code{fontSize} property.
-
-@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
-c4
-\set fontSize = #-4
-c f
-\set fontSize = #3
-g8 a
-@end lilypond
-
-@noindent
-It does not change the size of variable symbols, such as beams or
-slurs.
 
 @cindex font size scaling
 
-Internally, the @code{fontSize} context property will cause the
-@code{font-size} property to be set in all layout objects.  The
-value of @code{font-size} is a number indicating the size relative
-to the standard size for the current staff height.  Each step up
-is an increase of approximately 12% of the font size.  Six steps
-is exactly a factor two.  The Scheme function @code{magstep}
-converts a @code{font-size} number to a scaling factor.  The
-@code{font-size} property can also be set directly, so that only
-certain layout objects are affected.
+Internally, this sets the @code{fontSize} property.  This in turns
+causes the @code{font-size} property to be set in all layout
+objects.  The value of @code{font-size} is a number indicating the
+size relative to the standard size for the current staff height.
+Each step up is an increase of approximately 12% of the font size.
+Six steps is exactly a factor two.  The Scheme function
+@code{magstep} converts a @code{font-size} number to a scaling
+factor.  The @code{font-size} property can also be set directly,
+so that only certain layout objects are affected.
 
 @lilypond[quote,fragment,relative=2,verbatim,ragged-right]
-c4
+\set fontSize = #3
+c4.-> d8---3
 \override NoteHead #'font-size = #-4
-c f
-\override NoteHead #'font-size = #3
-g8 a
+c4.-> d8---3
+\override Script #'font-size = #3
+c4.-> d8---3
 @end lilypond
 
 @cindex standard font size
@@ -103,20 +89,24 @@ closest to the desired size.  The standard font size (for
 @code{font-size} equals 0), depends on the standard staff height.
 For a 20pt staff, a 10pt font is selected.
 
-The @code{font-size} property can only be set on layout objects that
-use fonts.  These are the ones supporting the @code{font-interface}
-layout interface.
+The @code{font-size} property can only be set on layout objects
+that use fonts.  These are the ones supporting the
+@code{font-interface} layout interface.
 
 @predefined
-
-The following commands set @code{fontSize} for the current voice:
 
 @funindex \tiny
 @code{\tiny},
 @funindex \small
 @code{\small},
 @funindex \normalsize
-@code{\normalsize}.
+@code{\normalsize},
+@funindex \large
+@code{\large},
+@funindex \huge
+@code{\huge}.
+
+@snippets
 
 @seealso
 
