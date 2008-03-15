@@ -111,8 +111,19 @@ Note_performer::listen_note (Stream_event *ev)
   note_evs_.push_back (ev);
 }
 
-ADD_TRANSLATOR (Note_performer, "", "",
-		"", "");
+ADD_TRANSLATOR (Note_performer,
+		/* doc */
+		"",
+
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);
 
 Note_performer::Note_performer ()
 {

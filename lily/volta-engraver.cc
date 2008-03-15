@@ -181,7 +181,18 @@ Volta_engraver::stop_translation_timestep ()
 */
 ADD_ACKNOWLEDGER (Volta_engraver, bar_line);
 ADD_TRANSLATOR (Volta_engraver,
-		/* doc */ "Make volta brackets.",
-		/* create */ "VoltaBracket VoltaBracketSpanner",
-		/* read */ "repeatCommands voltaSpannerDuration stavesFound",
-		/* write */ "");
+		/* doc */
+		"Make volta brackets.",
+
+		/* create */
+		"VoltaBracket "
+		"VoltaBracketSpanner ",
+
+		/* read */
+		"repeatCommands "
+		"voltaSpannerDuration "
+		"stavesFound ",
+
+		/* write */
+		""
+		);

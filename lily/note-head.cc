@@ -143,7 +143,7 @@ Note_head::calc_stem_attachment (SCM smob)
 
 
 ADD_INTERFACE (Note_head,
-	       "Note head",
+	       "Note head.",
 
 	       /* properties */
 	       "note-names "

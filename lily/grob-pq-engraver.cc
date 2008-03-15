@@ -138,8 +138,16 @@ Grob_pq_engraver::start_translation_timestep ()
 #include "translator.icc"
 ADD_ACKNOWLEDGER (Grob_pq_engraver, grob);
 ADD_TRANSLATOR (Grob_pq_engraver,
+		/* doc */
+		"Administrate when certain grobs (e.g., note heads) stop"
+		" playing.",
 
-		/* doc */ "Administrate when certain grobs (eg. note heads) stop playing",
-		/* create */ "",
-		/* read */ "busyGrobs",
-		/* write */ "busyGrobs");
+		/* create */
+		"",
+
+		/* read */
+		"busyGrobs ",
+
+		/* write */
+		"busyGrobs "
+		);

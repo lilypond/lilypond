@@ -1149,6 +1149,7 @@
 	(axes . (,X ,Y))
 	(X-extent . ,ly:axis-group-interface::width)
 	(Y-extent . ,ly:axis-group-interface::height)
+	(prefer-dotted-right . #t)
 	(positioning-done . ,ly:note-collision-interface::calc-positioning-done)
 	(meta . ((class . Item)
 		 (interfaces . (note-collision-interface

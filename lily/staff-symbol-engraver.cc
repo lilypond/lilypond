@@ -148,8 +148,15 @@ Staff_symbol_engraver::acknowledge_grob (Grob_info s)
 ADD_ACKNOWLEDGER (Staff_symbol_engraver, grob);
 
 ADD_TRANSLATOR (Staff_symbol_engraver,
-		/* doc */ "Create the constellation of five (default) "
-		"staff lines.",
-		/* create */ "StaffSymbol",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Create the constellation of five (default) staff lines.",
+
+		/* create */
+		"StaffSymbol ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

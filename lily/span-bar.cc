@@ -212,10 +212,12 @@ Span_bar::calc_bar_size (SCM smob)
 }
 
 ADD_INTERFACE (Span_bar,
-	       "A bar line that spanned between other barlines. This interface is "
-	       " used for  bar lines that connect different staves.",
+	       "A bar line that is spanned between other barlines.  This"
+	       " interface is used for bar lines that connect different"
+	       " staves.",
 
 	       /* properties */
 	       "glyph-name "
-	       "elements");
+	       "elements "
+	       );
 

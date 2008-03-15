@@ -59,11 +59,11 @@ Dots::print (SCM d)
 }
 
 ADD_INTERFACE (Dots,
-	       "The dots to go with a notehead or rest."
-	       "@code{direction} sets the preferred direction to move in case of staff "
-	       "line collisions.  @code{style} defaults to undefined, which is "
-		"normal 19th/20th century traditional style.  Set @code{style} "
-		"to @code{vaticana} for ancient type dots. ",
+	       "The dots to go with a notehead or rest.  @code{direction}"
+	       " sets the preferred direction to move in case of staff line"
+	       " collisions.  @code{style} defaults to undefined, which is"
+	       " normal 19th/20th century traditional style.  Set"
+	       " @code{style} to @code{vaticana} for ancient type dots.",
 
 	       /* properties */
 	       "direction "

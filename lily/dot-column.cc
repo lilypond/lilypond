@@ -201,9 +201,8 @@ Dot_column::add_head (Grob *me, Grob *rh)
 }
 
 ADD_INTERFACE (Dot_column,
-	       
-	       "Groups dot objects so they form a column, and position dots so they do not "
-	       "clash with staff lines. ",
+	       "Group dot objects so they form a column, and position"
+	       " dots so they do not clash with staff lines.",
 
 	       /* properties */
 	       "dots "

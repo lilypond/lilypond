@@ -387,8 +387,7 @@ Slur::calc_cross_staff (SCM smob)
 }
 
 ADD_INTERFACE (Slur,
-	       
-	       "A slur",
+	       "A slur.",
 	       
 	       /* properties */
 	       "annotation "

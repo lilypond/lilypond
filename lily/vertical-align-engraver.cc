@@ -37,14 +37,20 @@ protected:
 
 ADD_ACKNOWLEDGER (Vertical_align_engraver, axis_group);
 ADD_TRANSLATOR (Vertical_align_engraver,
-		"Catch groups (staves, lyrics lines, etc.) and stack "
-		"them vertically.",
-		/* create */ "VerticalAlignment",
+		/* doc */
+		"Catch groups (staves, lyrics lines, etc.) and stack them"
+		" vertically.",
+
+		/* create */
+		"VerticalAlignment ",
+
 		/* read */
 		"alignAboveContext "
 		"alignBelowContext ",
 
-		/* write */ "");
+		/* write */
+		""
+		);
 
 Vertical_align_engraver::Vertical_align_engraver ()
 {

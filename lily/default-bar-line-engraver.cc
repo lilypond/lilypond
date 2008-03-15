@@ -28,13 +28,13 @@ public:
 #include "translator.icc"
 
 ADD_TRANSLATOR (Default_bar_line_engraver,
-		"This engraver determines what kind of automatic bar "
-		"lines should be produced, "
-		"and sets @code{whichBar} "
-		"accordingly. It should be at the same "
-		"level as @ref{Timing_translator}. ",
+		/* doc */
+		"This engraver determines what kind of automatic bar lines"
+		" should be produced, and sets @code{whichBar} accordingly."
+		"  It should be at the same level as @ref{Timing_translator}.",
 		
-		/* create */ "",
+		/* create */
+		"",
 
 		/* read */
 		"automaticBars "
@@ -44,7 +44,9 @@ ADD_TRANSLATOR (Default_bar_line_engraver,
 		"whichBar "
 		"measurePosition ",
 		
-		/* write */ "automaticBars");
+		/* write */
+		"automaticBars "
+		);
 
 Default_bar_line_engraver::Default_bar_line_engraver ()
 {

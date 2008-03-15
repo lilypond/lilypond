@@ -74,6 +74,16 @@ Tempo_performer::stop_translation_timestep ()
     }
 }
 
-ADD_TRANSLATOR (Tempo_performer, "", "",
+ADD_TRANSLATOR (Tempo_performer,
+		/* doc */
+		"",
+
+		/* create */
+		"",
+
+		/* read */
 		"tempoWholesPerMinute ",
-		"");
+
+		/* write */
+		""
+		);

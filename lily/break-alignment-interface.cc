@@ -366,37 +366,38 @@ Break_aligned_interface::calc_break_visibility (SCM smob)
 }
 
 ADD_INTERFACE (Break_alignable_interface,
-	       "Object that is aligned on a break aligment. ",
+	       "Object that is aligned on a break aligment.",
 
 	       /* properties */
 	       "break-align-symbols "
-	       )
-
-
+	       );
 
 ADD_INTERFACE (Break_aligned_interface,
 	       "Items that are aligned in prefatory matter.\n"
 	       "\n"
-	       "The spacing of these items is controlled by the @code{space-alist}\n"
-	       "property. It contains a list @code{break-align-symbol}s with a specification\n"
-	       "of the associated space. The space specification can be "
+	       "The spacing of these items is controlled by the"
+	       " @code{space-alist} property.  It contains a list"
+	       " @code{break-align-symbol}s with a specification of the"
+	       " associated space.  The space specification can be\n"
+	       "\n"
 	       "@table @code\n"
 	       "@item (minimum-space . @var{spc}))\n"
-	       "  Pad space until the distance is @var{spc}\n"
+	       "Pad space until the distance is @var{spc}.\n"
 	       "@item (fixed-space . @var{spc})\n"
-	       "  Set a fixed space\n"
+	       "Set a fixed space.\n"
 	       "@item (semi-fixed-space . @var{spc})\n"
-	       "  Set a space. Half of it is fixed and half is stretchable. \n"
-	       "(does not work at start of line. fixme)\n"
+	       "Set a space.  Half of it is fixed and half is stretchable."
+	       " (does not work at start of line. fixme)\n"
 	       "@item (extra-space . @var{spc})\n"
-	       "  Add @var{spc} amount of space.\n"
+	       "Add @var{spc} amount of space.\n"
 	       "@end table\n"
 	       "\n"
-	       "Special keys for the alist are @code{first-note} and @code{next-note}, signifying\n"
-	       "the first note on a line, and the next note halfway a line.\n"
+	       "Special keys for the alist are @code{first-note} and"
+	       " @code{next-note}, signifying the first note on a line, and"
+	       " the next note halfway a line.\n"
 	       "\n"
-	       "Rules for this spacing are much more complicated than this. \n"
-	       "See [Wanske] page 126 -- 134, [Ross] pg 143 -- 147\n",
+	       "Rules for this spacing are much more complicated than this."
+	       "  See [Wanske] page 126--134, [Ross] page 143--147.",
 
 	       /* properties */ 
 	       "break-align-anchor "
@@ -406,8 +407,10 @@ ADD_INTERFACE (Break_aligned_interface,
 	       );
 
 ADD_INTERFACE (Break_alignment_interface,
-	       "The object that performs break aligment. See @ref{break-aligned-interface}.",
+	       "The object that performs break aligment.  See"
+	       " @ref{break-aligned-interface}.",
 
 	       /* properties */
 	       "positioning-done "
-	       "break-align-orders");
+	       "break-align-orders "
+	       );

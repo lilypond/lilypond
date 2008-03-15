@@ -159,5 +159,16 @@ Piano_pedal_performer::listen_una_corda (Stream_event *r)
   info_alist_[UNA_CORDA].event_drul_[d] = r;
 }
 
-ADD_TRANSLATOR (Piano_pedal_performer, "", "",
-		"", "");
+ADD_TRANSLATOR (Piano_pedal_performer,
+		/* doc */
+		"",
+
+		/* create */
+		"",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

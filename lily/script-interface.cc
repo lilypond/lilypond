@@ -111,7 +111,7 @@ struct Text_script
 };
 
 ADD_INTERFACE (Text_script,
-	       "An object that is put above or below a note",
+	       "An object that is put above or below a note.",
 
 	       /* properties */
 	       "add-stem-support "
@@ -124,7 +124,9 @@ ADD_INTERFACE (Text_script,
   Hmm. Where should we put add-stem-support ?
 */
 ADD_INTERFACE (Script_interface,
-	       "An object that is put above or below a note",
+	       "An object that is put above or below a note.",
+
+	       /* properties */
 	       "add-stem-support "
 	       "avoid-slur "
 	       "positioning-done "

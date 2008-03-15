@@ -148,8 +148,15 @@ Trill_spanner_engraver::finalize ()
 ADD_ACKNOWLEDGER (Trill_spanner_engraver, note_column);
 
 ADD_TRANSLATOR (Trill_spanner_engraver,
-		/* doc */ "Create trill spanner from an event.",
+		/* doc */
+		"Create trill spanner from an event.",
+
 		/* create */
 		"TrillSpanner ",
-		/* read */ "",
-		/* write */ "");
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

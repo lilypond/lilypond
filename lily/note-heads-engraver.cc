@@ -112,9 +112,16 @@ Note_heads_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Note_heads_engraver,
-		/* doc */ "Generate noteheads.",
+		/* doc */
+		"Generate note heads.",
+
 		/* create */
 		"NoteHead ",
-		/* read */ "middleCPosition "
+
+		/* read */
+		"middleCPosition "
 		"staffLineLayoutFunction ",
-		/* write */ "");
+
+		/* write */
+		""
+		);

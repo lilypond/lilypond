@@ -66,10 +66,10 @@ Tuplet_number::calc_cross_staff (SCM smob)
 }
 
 ADD_INTERFACE (Tuplet_number,
-	       "The number for a bracket. "
-	       ,
+	       "The number for a bracket.",
 
 	       /* properties */
 	       "avoid-slur " 	// UGH.
-	       "bracket ");
+	       "bracket "
+	       );
 
