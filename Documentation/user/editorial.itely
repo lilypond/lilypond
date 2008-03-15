@@ -42,6 +42,24 @@ inside the staff.
 @cindex font size, selecting
 @cindex selecting font size
 
+The font size of notation elements may be altered:
+@ignore
+
+@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
+c8.->( d16 e4
+\large
+c8.->( d16 e4
+\normalsize
+c8.->( d16 e4
+\small
+c8.->( d16 e4
+\normalsize
+c8.->( d16 e4
+\tiny
+c8.->( d16 e4
+@end lilypond
+@end ignore
+
 The easiest method of setting the font size of any context is by
 setting the @code{fontSize} property.
 
@@ -116,8 +134,6 @@ Internals Reference: @internalsref{font-interface}.
 Fingering instructions can be entered using
 @var{note}-@var{digit}:
 
-Fingering instructions may be manually placed above or below the
-staff, see @ref{Controlling direction and placement}.
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 c4-1 d-2 f-4 e-3
@@ -148,6 +164,8 @@ chord by adding them after the pitches.
 < c-1 e-2 g-3 b-5 >2 < d-1 f-2 a-3 c-5 >
 @end lilypond
 
+Fingering instructions may be manually placed above or below the
+staff, see @ref{Controlling direction and placement}.
 
 @snippets
 
@@ -170,6 +188,7 @@ numbers are placed.
 @end lilypond
 
 @seealso
+@ref{Controlling direction and placement}
 
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
@@ -365,6 +384,7 @@ a4 b c b
 @end lilypond
 
 @seealso
+@ref{Controlling direction and placement}.
 
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
@@ -388,21 +408,18 @@ Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
 notation.
 
-The following example demonstrates its use.
-
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
-  \time 2/4
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>4. 
+  a4
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
 }
 @end lilypond
 
 There are two music functions, @code{balloonGrobText} and
-@code{balloonText};  The former is used like \once \override to 
-attach text to any grob, and the latter is used like \tweak, 
+@code{balloonText};  The former is used like @code{\once \override} to 
+attach text to any grob, and the latter is used like @code{ \tweak}, 
 typically within chords, to attach text to an individual note.
 
 @cindex balloon
@@ -441,55 +458,63 @@ notes.
 
 \new ChoirStaff <<
   \new Staff {
-    \stemUp
-    \relative {
-      c'4. d8 e8 f g4
+    \relative c'' {
+      \stemUp
+      c4. d8 e8 f g4
     }
   }
   \new Staff {
-    \stemDown
     \clef bass
     \relative c {
+      \stemDown
       c4  g'  f  e
     }
   }
 >>
 @end lilypond
 
+@snippets
+
 To change the grid lines use \override.
 
-
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim,ragged-right]  
 \layout {
   \context {
     \Staff
     \consists "Grid_point_engraver" 
     % sets up grids
-       gridInterval = #(ly:make-moment 1 4)
-       % this sets the grid interval to 1 quarternote (crotchet)
+    gridInterval = #(ly:make-moment 1 4)
+    % this sets the grid interval to 1 quarternote (crotchet)
   }
 }
-
+     
 \new Score \with {
   \consists "Grid_line_span_engraver"
   \override NoteColumn #'X-offset = #-0.5
   % this moves them to the right half a staff space
 }
-
+     
 \new ChoirStaff <<
-  \new Staff {
-    \stemUp
-    \relative {
-      c'4. d8 e8 f g4
-    }
+ \new Staff {
+   \relative c'' {
+     \stemUp
+     c'4. d8 e8 f g4
+   }
   }
   \new Staff {
-    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
-    % this moves them up one staff space from the default position
-    \stemDown
-    \clef bass
     \relative c {
-      c4  g'  f  e
+      \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+      % this moves them up one staff space from the default position
+      \stemDown
+      \clef bass
+      \once \override Score.GridLine #'thickness = #5.0
+       c4 
+       \once \override Score.GridLine #'thickness = #1.0
+       g' 
+       \once \override Score.GridLine #'thickness = #3.0
+       f  
+       \once \override Score.GridLine #'thickness = #5.0 
+       e
     }
   }
 >>
@@ -511,10 +536,21 @@ Snippets: @lsrdir{Editorial,Editorial-annotations}.
 @cindex note grouping bracket
 
 Brackets are used in musical analysis to indicate structure in musical
-pieces.  LilyPond supports a simple form of nested horizontal
-brackets.  To use this, add the @code{Horizontal_bracket_engraver} to
-the @code{Staff} context.  A bracket is started with
-@code{\startGroup} and closed with @code{\stopGroup}.
+pieces.  LilyPond supports a simple form of horizontal brackets.
+
+@lilypond[quote,verbatim,ragged-right]
+\layout {
+  \context {
+    \Staff \consists "Horizontal_bracket_engraver"
+  }
+}
+\relative c'' {
+  c2\startGroup
+  d\stopGroup
+}
+@end lilypond
+
+Analysis brackets may be nested.
 
 @lilypond[quote,verbatim,ragged-right]
 \layout {
@@ -524,9 +560,9 @@ the @code{Staff} context.  A bracket is started with
 }
 \relative c'' {
   c4\startGroup\startGroup
-  c4\stopGroup
-  c4\startGroup
-  c4\stopGroup\stopGroup
+  d4\stopGroup
+  e4\startGroup
+  d4\stopGroup\stopGroup
 }
 @end lilypond
 
