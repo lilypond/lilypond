@@ -20,23 +20,30 @@
 #include "stream-event.hh"
 #include "warn.hh"
 
-
-void
-Accidental_placement::add_accidental (Grob *me, Grob *a)
+static Pitch*
+accidental_pitch (Grob *acc)
 {
-  a->set_parent (me, X_AXIS);
-  a->set_property ("X-offset", Grob::x_parent_positioning_proc);
-  SCM cause = a->get_parent (Y_AXIS)->get_property ("cause");
+  SCM cause = acc->get_parent (Y_AXIS)->get_property ("cause");
 
   Stream_event *mcause = unsmob_stream_event (cause);
   if (!mcause)
     {
       programming_error ("note head has no event cause");
-      return;
+      return 0;
     }
 
-  Pitch *p = unsmob_pitch (mcause->get_property ("pitch"));
+  return unsmob_pitch (mcause->get_property ("pitch"));
+}
 
+void
+Accidental_placement::add_accidental (Grob *me, Grob *a)
+{
+  Pitch *p = accidental_pitch (a);
+  if (!p)
+    return;
+
+  a->set_parent (me, X_AXIS);
+  a->set_property ("X-offset", Grob::x_parent_positioning_proc);
   int n = p->get_notename ();
 
   SCM accs = me->get_object ("accidental-grobs");
@@ -110,22 +117,45 @@ Real ape_priority (Accidental_placement_entry const *a)
   return a->vertical_extent_[UP];
 }
 
-int ape_compare (Accidental_placement_entry *const &a,
-		 Accidental_placement_entry *const &b)
-{
-  return sign (ape_priority (a) - ape_priority (b));
-}
-
 bool ape_less (Accidental_placement_entry *const &a,
 	       Accidental_placement_entry *const &b)
 {
   return ape_priority (a) < ape_priority (b);
 }
 
-int ape_rcompare (Accidental_placement_entry *const &a,
-		  Accidental_placement_entry *const &b)
+/*
+  This function provides a method for sorting accidentals that belong to the
+  same note. The accidentals that this function considers to be "smallest"
+  will be placed to the left of the "larger" accidentals.
+
+  Naturals are the largest (so that they don't get confused with cancellation
+  naturals); apart from that, we order according to the alteration (so
+  double-flats are the smallest).
+
+  Precondition: the accidentals are attached to NoteHeads of the same note
+  name -- the octaves, however, may be different.
+*/
+static bool
+acc_less (Grob *const &a, Grob *const &b)
 {
-  return -sign (ape_priority (a) - ape_priority (b));
+  Pitch *p = accidental_pitch (a);
+  Pitch *q = accidental_pitch (b);
+
+  if (!p || !q)
+    {
+      programming_error ("these accidentals do not have a pitch");
+      return false;
+    }
+
+  if (p->get_octave () != q->get_octave ())
+    return p->get_octave () < q->get_octave ();
+
+  if (p->get_alteration () == Rational (0))
+    return false;
+  if (q->get_alteration () == Rational (0))
+    return true;
+
+  return p->get_alteration () < q->get_alteration ();
 }
 
 /*
@@ -185,14 +215,51 @@ static void
 set_ape_skylines (Accidental_placement_entry *ape,
 		  Grob **common)
 {
-  for (vsize i = ape->grobs_.size (); i--;)
+  vector<Grob*> accs (ape->grobs_);
+  vector_sort (accs, &acc_less);
+
+  /* We know that each accidental has the same note name and we assume that
+     accidentals in different octaves won't collide. If two or more
+     accidentals are in the same octave:
+     1) if they are the same accidental, print them in overstrike
+     2) otherwise, shift one to the left so they don't overlap. */
+  int last_octave = 0;
+  Real offset = 0;
+  Real last_offset = 0;
+  Rational last_alteration (0);
+  for (vsize i = accs.size (); i--;)
     {
-      Grob *a = ape->grobs_[i];
+      Grob *a = accs[i];
+      Pitch *p = accidental_pitch (a);
+
+      if (!p)
+	continue;
+
+      if (i == accs.size () - 1 || p->get_octave () != last_octave)
+	{
+	  last_offset = 0;
+	  offset = a->extent (a, X_AXIS)[LEFT] - 0.2;
+	}
+      else if (p->get_alteration () == last_alteration)
+	a->translate_axis (last_offset, X_AXIS);
+      else /* Our alteration is different from the last one */
+	{
+	  Real this_offset = offset - a->extent (a, X_AXIS)[RIGHT];
+	  a->translate_axis (this_offset, X_AXIS);
+
+	  /* FIXME: read the padding from the AccidentalPlacement grob */
+	  last_offset = this_offset;
+	  offset -= a->extent (a, X_AXIS).length () + 0.2;
+	}
+
       vector<Box> boxes = Accidental_interface::accurate_boxes (a, common);
       ape->extents_.insert (ape->extents_.end (), boxes.begin (), boxes.end ());
 
       for (vsize j = boxes.size (); j--;)
 	ape->vertical_extent_.unite (boxes[j][Y_AXIS]);
+
+      last_octave = p->get_octave ();
+      last_alteration = p->get_alteration ();
     }
   ape->left_skyline_ = Skyline (ape->extents_, 0, Y_AXIS, LEFT);
   ape->right_skyline_ = Skyline (ape->extents_, 0, Y_AXIS, RIGHT);
