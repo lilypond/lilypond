@@ -330,9 +330,66 @@ elemento de la misma capa comienza en la misma posición horizontal).
 @node Nesting music expressions
 @subsection Nesting music expressions
 
-UNTRANSLATED NODE: IGNORE ME
+No es esencial declarar todos los pentagramas al comienzo; se pueden
+crear temporalmente en cualquier momento.  Esto es de especial
+utilidad para crear secciones de ossia (véase @rglos{ossia}).  A
+continuación presentamos un ejemplo sencillo que muestra cómo
+introducir temporalmente un pentagrama nuevo mientras dura un
+fragmento de tras notas:
 
-@ 
+@lilypond[verbatim,quote,ragged-right]
+\new Staff {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8 
+    <<
+      { f c c }
+      \new Staff {
+        f8 f c
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Advierta que el tamaño de la clave es igual al que se imprime en un
+cambio de clave (ligemamente menor que la clave al principio de una
+línea).  Esto es normal para cualquier clave que se imprime en la
+mitad de una línea.
+
+La sección ossia se puede colocar encima del pentagrama de la manera
+siguiente:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Este ejemplo utiliza @code{\with}, que se explica en todo detalle más
+adelante.  Es un medio de modificar el comportamiento predeterminado
+de un solo pentagrama.  Aquí, dice que el pentagrama nuevo se debe
+colocar por encima del pentagrama llamado @qq{main} en vez de la
+posición predeterminada que seería por debajo.
+
+Los fragmentos de ossia se escriben a menudo sin clave y sin
+indicación de compás, y generalmente en un tipo más pequeño.  Esto
+necesitaría más instrucciones que aún no se han visto.  Véase
+@ref{Size of objects}
+
+ 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
