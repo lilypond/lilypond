@@ -353,7 +353,7 @@ class MasterTelyDocument (TelyDocument):
             s += '</table>\n<p></p>\n'
         return s
 
-    def text_status (self, numbering=SectionNumber (), colspec=[45,14]):
+    def text_status (self, numbering=SectionNumber (), colspec=[48,12]):
         if self.title == 'Untitled' or not self.translations:
             return ''
 
