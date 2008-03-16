@@ -69,13 +69,17 @@ skeleton_str = '-- SKELETON FILE --'
 diff_cmd = 'git diff --no-color %(committish)s HEAD -- %(original)s | cat'
 
 format_table = {
-    'not translated': {'color':'d0f0f8', 'short':_doc ('no'), 'long':_doc ('not translated')},
+    'not translated': {'color':'d0f0f8', 'short':_doc ('no'), 'abbr':'NT',
+                       'long':_doc ('not translated')},
     'partially translated': {'color':'dfef77', 'short':_doc ('partially (%(p)d %%)'),
-                             'long':_doc ('partially translated (%(p)d %%)')},
-    'fully translated': {'color':'1fff1f', 'short':_doc ('yes'), 'long': _doc ('translated')},
-    'up to date': {'short':_doc ('yes'), 'long':_doc ('up to date')},
-    'outdated': {'short':_doc ('partially (%(p)d %%)'), 'long':_doc ('partially up-to-date (%(p)d %%)')},
-    'N/A': {'short':_doc ('N/A'), 'long':'', 'color':'d587ff' },
+                             'abbr':'%(p)d%%', 'long':_doc ('partially translated (%(p)d %%)')},
+    'fully translated': {'color':'1fff1f', 'short':_doc ('yes'), 'abbr':'FT',
+                         'long': _doc ('translated')},
+    'up to date': {'short':_doc ('yes'), 'long':_doc ('up to date'), 'abbr':'100%%',
+                   'vague':_doc ('up to date')},
+    'outdated': {'short':_doc ('partially (%(p)d %%)'), 'abbr':'%(p)d%%',
+                 'vague':_doc ('partially up to date')},
+    'N/A': {'short':_doc ('N/A'), 'abbr':'N/A', 'color':'d587ff', 'vague':''},
     'pre-GDP':_doc ('pre-GDP'),
     'post-GDP':_doc ('post-GDP')
 }
@@ -287,14 +291,21 @@ class TranslatedTelyDocument (TelyDocument):
             if self.checkers:
                 s += '   <small>' + '<br>\n   '.join (self.checkers) + '</small><br>\n'
 
-        c = self.completeness (['long', 'color'])
+        c = self.completeness (['color', 'long'])
         s += '   <span style="background-color: #%(color)s">%(long)s</span><br>\n' % c
 
         if self.partially_translated:
-            u = self.uptodateness (['long', 'color'])
-            s += '   <span style="background-color: #%(color)s">%(long)s</span><br>\n' % u
+            u = self.uptodateness (['vague', 'color'])
+            s += '   <span style="background-color: #%(color)s">%(vague)s</span><br>\n' % u
 
         s += '  </td>\n'
+        return s
+
+    def text_status (self):
+        s = self.completeness ('abbr')['abbr'] + ' '
+
+        if self.partially_translated:
+            s += self.uptodateness ('abbr')['abbr'] + ' '
         return s
 
     def html_status (self):
@@ -303,12 +314,10 @@ class TranslatedTelyDocument (TelyDocument):
 
 class MasterTelyDocument (TelyDocument):
     def __init__ (self, filename, parent_translations=dict ([(lang, None) for lang in langdefs.LANGDICT.keys()])):
-        #print "init MasterTelyDocument %s" % filename
         TelyDocument.__init__ (self, filename)
         self.size = len (self.contents)
         self.word_count = tely_word_count (self.contents)
         translations = dict ([(lang, os.path.join (lang, filename)) for lang in langdefs.LANGDICT.keys()])
-        #print translations
         self.translations = dict ([(lang, TranslatedTelyDocument (translations[lang], self, parent_translations.get (lang)))
                                    for lang in langdefs.LANGDICT.keys() if os.path.exists (translations[lang])])
         if self.translations:
@@ -344,6 +353,31 @@ class MasterTelyDocument (TelyDocument):
             s += '</table>\n<p></p>\n'
         return s
 
+    def text_status (self, numbering=SectionNumber (), colspec=[45,14]):
+        if self.title == 'Untitled' or not self.translations:
+            return ''
+
+        s = ''
+        if self.level[1] == 0: # if self is a master document
+            s += (self.print_title (numbering) + ' ').ljust (colspec[0])
+            s += ''.join (['%s'.ljust (colspec[1]) % l for l in self.translations.keys ()])
+            s += '\n'
+            s += ('Section titles (%d)' % sum (self.word_count)).ljust (colspec[0])
+
+        else:
+            s = '%s (%d) ' \
+                % (self.print_title (numbering), sum (self.word_count))
+            s = s.ljust (colspec[0])
+
+        s += ''.join ([t.text_status ().ljust(colspec[1]) for t in self.translations.values ()])
+        s += '\n\n'
+        s += ''.join ([i.text_status (numbering) for i in self.includes])
+
+        if self.level[1] == 0:
+            s += '\n'
+        return s
+
+
 progress ("Reading documents...")
 
 tely_files = read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
@@ -359,7 +393,9 @@ main_status_page = open ('translations.template.html.in').read ()
 
 progress ("Generating status pages...")
 
-main_status_html = ' <p><i>Last updated %s</i></p>\n' % read_pipe ('LANG= date -u')[0]
+date_time = read_pipe ('LANG= date -u')[0]
+
+main_status_html = ' <p><i>Last updated %s</i></p>\n' % date_time
 main_status_html += '\n'.join ([doc.html_status () for doc in master_docs])
 
 html_re = re.compile ('<html>', re.I)
@@ -372,3 +408,16 @@ translations.template.html.in; DO NOT EDIT !-->''', main_status_page)
 main_status_page = end_body_re.sub (main_status_html + '\n</body>', main_status_page)
 
 open ('translations.html.in', 'w').write (main_status_page)
+
+main_status_txt = '''Documentation translations status
+Generated %s
+NT = not translated
+FT = fully translated
+
+''' % date_time
+
+main_status_txt += '\n'.join ([doc.text_status () for doc in master_docs])
+
+status_txt_file = 'out/translations-status.txt'
+progress ("Writing %s..." % status_txt_file)
+open (status_txt_file, 'w').write (main_status_txt)
