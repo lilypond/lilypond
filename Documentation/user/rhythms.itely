@@ -107,12 +107,11 @@ Optionally, notes can be spaced strictly proportionately to their
 duration.  For details of this and other settings which control
 proportional notation, see @ref{Proportional notation}.
 
-@predefined
-
 Dots are normally moved up to avoid staff lines, except in
-polyphonic situations.  The following commands may be used to
-force a particular direction manually, and to return to the
-default behaviour:
+polyphonic situations.  To force a particular direction manually, 
+see @ref{Controlling direction and placement}.
+
+@predefined
 
 @funindex \dotsUp
 @code{\dotsUp},
@@ -124,16 +123,25 @@ default behaviour:
 
 @seealso
 
-Music Glossary: @rglos{breve}, @rglos{longa}, @rglos{note value}
+Music Glossary: 
+@rglos{breve}, 
+@rglos{longa}, 
+@rglos{note value},
 @rglos{Duration names notes and rests}.
 
-Notation Reference: @ref{Automatic beams}, @ref{Ties},
-@ref{Writing rhythms}, @ref{Writing rests}, @ref{Vocal music},
-@ref{Ancient notation}, @ref{Proportional notation}.
+Notation Reference: 
+@ref{Automatic beams}, 
+@ref{Ties},
+@ref{Writing rhythms}, 
+@ref{Writing rests}, 
+@ref{Vocal music},
+@ref{Ancient notation}, 
+@ref{Proportional notation}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
-Internals Reference: @internalsref{Dots},
+Internals Reference: 
+@internalsref{Dots},
 @internalsref{DotColumn}.
 
 
@@ -186,32 +194,8 @@ c4 \times 4/5 { f8 e f \times 2/3 {e[ f g] } } f4 |
 Modifying nested tuplets which begin at the same musical moment
 must be done with @code{\tweak}.
 
-@cindex compressing music
-@funindex \compressMusic
-
-Longer stretches of music may be compressed (without a tuplet
-bracket) with the @code{\compressMusic} command.  The syntax is
-
-@example
-\compressMusic #'(@emph{num} . @emph{den}) @{ @emph{music} @}
-@end example
-
-@noindent
-This will leave the appearance of @emph{music} unchanged but
-the internal duration of the notes will be multiplied by the
-fraction @emph{num}/@emph{den}:
-
-@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
-c8 c b b a a g g
-\compressMusic #'(2 . 3) {
-  c8 c c b b b a a a g g g
-}
-@end lilypond
-
-@noindent
-One application of @code{\compressMusic} is in polymetric 
-notation, see @ref{Polymetric notation}.
-
+To modify the duration of notes without printing a tuplet bracket,
+see @ref{Scaling durations}.
 
 @predefined
 
@@ -286,36 +270,51 @@ off-beat tuplets have to be beamed manually.
 
 @seealso
 
-Music Glossary: @rglos{triplet}, @rglos{tuplet},
+Music Glossary: 
+@rglos{triplet}, 
+@rglos{tuplet},
 @rglos{polymetric}.
 
-Notation Reference: @ref{Time administration},
-@ref{Objects connected to the input}, @ref{Polymetric notation}.
+Notation Reference:
+@ref{Time administration},
+@ref{Scaling durations},
+@ref{Objects connected to the input},
+@ref{Polymetric notation}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}.
 
-Internals Reference: @internalsref{TupletBracket},
-@internalsref{TupletNumber}, @internalsref{TimeScaledMusic}.
+Internals Reference: 
+@internalsref{TupletBracket},
+@internalsref{TupletNumber}, 
+@internalsref{TimeScaledMusic}.
 
 
 @node Scaling durations
 @subsubsection Scaling durations
 
-You can alter the length of a duration by a fraction @var{N/M}
-by appending @code{*@var{N/M}} (or @code{*@var{N}} if @var{M=1}).
+@cindex scaling durations
+@cindex durations, scaling
+
+You can alter the duration of single notes, rests or chords by a
+fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if
+@code{M} is 1) to the duration.
 This will not affect the appearance of the notes or rests
 produced, but the altered duration will be used in calculating the
 position within the measure and setting the duration in the MIDI
-output.  Multiplying factors may be combined
-such as @code{*M*N}.
+output.  Multiplying factors may be combined such as @code{*L*M/N}.
 
 In the following example, the first three notes take up exactly
 two beats, but no triplet bracket is printed.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \time 2/4
+% Alter durations to triplets
 a4*2/3 gis4*2/3 a4*2/3
-a4 a4 a4*2
+% Normal durations
+a4 a4
+% Double the duration of chord
+<a d>4*2
+% Duration of quarter, appears like sixteeth
 b16*4 c4
 @end lilypond
 
@@ -323,9 +322,50 @@ The duration of skip or spacing notes may also be modified by
 a multiplier.  This is useful for skipping many measures, e.g.,
 @code{s1*23}.
 
+@cindex compressing music
+@funindex \compressMusic
+
+Longer stretches of music may be compressed by a fraction in 
+the same way, as if every note, chord or rest had the fraction 
+as a multiplier.  The general syntax of the command to do this
+is:
+
+@example
+\compressMusic #'(@emph{num} . @emph{den}) @{ @emph{music} @}
+@end example
+
+@noindent
+This will leave the appearance of @emph{music} unchanged but
+the internal duration of the notes will be multiplied by the
+fraction @emph{num}/@emph{den}.  The spaces around the dot
+are required.  Here is an example showing how music can be
+compressed and expanded:
+
+@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
+\time 2/4
+% Normal durations
+<c a>4 c8 a
+% Scale music by *2/3
+\compressMusic #'(2 . 3) {
+  <c a f>4. c8 a f
+}
+% Scale music by *2
+\compressMusic #'(2 . 1) {
+  <c' a>4 c8 b
+}
+@end lilypond
+
+@noindent
+One application of this command is in polymetric
+notation, see @ref{Polymetric notation}.
+
+
 @seealso
 
-Notation Reference: @ref{Tuplets}, @ref{Skips}, @ref{Polymetric notation}.
+Notation Reference:
+@ref{Tuplets},
+@ref{Skips},
+@ref{Polymetric notation}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
@@ -336,7 +376,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 @funindex ~
 
 A tie connects two adjacent note heads of the same pitch.  The tie
-in effect extends the length of a note.
+in effect extends the duration of a note.
 
 @warning{Ties should not be confused with @emph{slurs}, which
 indicate articulation, or @emph{phrasing slurs}, which indicate
@@ -362,13 +402,12 @@ used when note values cross larger subdivisions of the measure:
 @end lilypond
 
 If you need to tie a lot of notes across bar lines, it may be
-easier to use automatic note splitting (see @ref{Automatic note
-splitting}).  This mechanism automatically splits long notes, and
+easier to use automatic note splitting, see @ref{Automatic note
+splitting}.  This mechanism automatically splits long notes, and
 ties them across bar lines.
 
-@funindex \repeatTie
-@cindex repeating ties
-@cindex volta brackets and ties
+@cindex ties and chords
+@cindex chords and ties
 
 When a tie is applied to a chord, all note heads whose pitches
 match are connected.  When no note heads match, no ties will be
@@ -380,47 +419,54 @@ the chord.
 <c~ e g~ b> <c e g b>
 @end lilypond
 
+@funindex \repeatTie
+@cindex repeating ties
+@cindex ties, repeating
+@cindex volta brackets and ties
+@cindex ties and volta brackets
+
 When a second alternative of a repeat starts with a tied note, you
-have to repeat the tie.  This can be achieved with
-@code{\repeatTie},
+have to specify the repeated tie as follows:
 
 @lilypond[fragment,quote,ragged-right,relative=2,verbatim]
 \repeat volta 2 { c g <c e>2 ~ }
-\alternative {{ <c e>2. r4 } {<c e>2\repeatTie d4 c }}
+\alternative {
+  % Following note is tied normally in first alternative
+  { <c e>2. r4 }
+  % Following note has a repeated tie in second alternative
+  {<c e>2\repeatTie d4 c }}
 @end lilypond
 
 @cindex laissez vibrer
 @cindex ties, laissez vibrer
 @funindex \laissezVibrer
-@funindex \tieUp
-@funindex \tieDown
-@funindex \tieNeutral
 
 @notation{L.v.} ties (@notation{laissez vibrer}) indicate that
 notes must not be damped at the end.  It is used in notation for
 piano, harp and other string and percussion instruments.  They can
-be entered using @code{\laissezVibrer}:
+be entered as follows:
 
 @lilypond[fragment,ragged-right,verbatim,relative=1]
 <c f g>\laissezVibrer
 @end lilypond
 
-The vertical placement of ties may be controlled; see
+@cindex ties, placement
+@funindex \tieUp
+@funindex \tieDown
+@funindex \tieNeutral
+
+The vertical placement of ties may be controlled, see the
+predefined commands.  For details, see
 @ref{Controlling direction and placement}.
 
-@quotation
-DELETE THIS ?
-@code{\tieDown} (see example below).  @code{\tieNeutral} reverts
-to the default behaviour again.
+@cindex ties, appearance
+@funindex \tieDotted
+@funindex \tieDashed
+@funindex \tieSolid
 
-However, as with other music elements of this kind, there is a
-convenient shorthand for forcing tie directions.  By adding
-@code{_} or @code{^} before the tilde, the direction is also set:
+Solid, dotted or dashed ties may be specified, see predefined
+commands.
 
-@lilypond[relative=2,ragged-right,quote,verbatim,fragment]
-c4_~ c c^~ c)
-@end lilypond
-@end quotation
 
 @predefined
 
@@ -440,6 +486,7 @@ c4_~ c c^~ c)
 
 @snippets
 
+@c TODO Remove when snippet available - sent 15 Mar 08
 Ties are sometimes used to write out arpeggios.  In this case, two
 tied notes need not be consecutive.  This can be achieved by
 setting the @code{tieWaitForNote} property to true.  The same
@@ -455,6 +502,9 @@ e8~ c~ a~ f~ <e' c a f>2
 \tieUp c8~ a \tieDown \tieDotted g~ c g2
 @end lilypond
 
+@c end of section to be removed
+
+@c TODO Remove when snippet available - sent 15 Mar 08
 Ties may be engraved manually by changing the
 @code{tie-configuration} property of the @code{TieColumn} object.
 The first number indicates the distance from the center of the
@@ -468,30 +518,24 @@ direction (1=up, -1=down).
 <c e g>~ <c e g> |
 @end lilypond
 
+@c end of section to be removed
 
 
 @seealso
 
-Music Glossary: @rglos{tie},
-@c [TODO]add @rglos{laissez vibrer}. when there is a glossary entry.
+Music Glossary:
+@rglos{tie},
+@rglos{laissez vibrer}.
+
+Notation Reference: @ref{Automatic note splitting}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference:
 @internalsref{LaissezVibrerTie}
 @internalsref{LaissezVibrerTieColumn}
-
-Example files:
-@c @lsr{connecting,laissez-vibrer-ties.ly}
-
-
-
-
-Notation Reference: @ref{Automatic note splitting}.
-
-Snippets: @lsrdir{Rhythms,Rhythms}
-
-Internals Reference: @internalsref{Tie}.
+@internalsref{TieColumn}
+@internalsref{Tie}.
 
 
 @knownissues
@@ -2501,6 +2545,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 
