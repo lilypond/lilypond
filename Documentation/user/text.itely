@@ -113,13 +113,6 @@ d8^\markup { \italic pizz. } e f g
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
 
-@predefined
-
-@funindex \textLengthOn
-@code{\textLengthOn},
-@funindex \textLengthOff
-@code{\textLengthOff}.
-
 By default, text indications do not influence the note spacing.
 However, their widths can be taken into account:
 in the following example, the first text string does not affect 
@@ -128,6 +121,13 @@ spacing, whereas the second one does.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 @end lilypond
+
+@predefined
+
+@funindex \textLengthOn
+@code{\textLengthOn},
+@funindex \textLengthOff
+@code{\textLengthOff}.
 
 
 @seealso
@@ -160,15 +160,13 @@ default; to enable it, use
 
 Some performance indications, e.g., @i{rallentando} or
 @i{accelerando}, are written as text and are extended over many
-measures with dotted lines.  Such texts are created using text
-spanners; attach @code{\startTextSpan} and @code{\stopTextSpan} to
-the first and last notes of the spanner.
+measures with dotted lines; you can create such text spanners
+from one note to another by using the following syntax:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c2
 \override TextSpanner #'bound-details #'left #'text = "rit." 
-a4\startTextSpan c
-b2 e,\stopTextSpan
+b1\startTextSpan 
+e,\stopTextSpan
 @end lilypond
 
 @noindent
@@ -178,11 +176,10 @@ however, different formatting can be obtained using
 @code{\markup} blocks:
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-c2
 \override TextSpanner #'bound-details #'left #'text =
   \markup { \upright "rit." } 
-a4\startTextSpan c
-b2 e,\stopTextSpan
+b1\startTextSpan c
+e,\stopTextSpan
 @end lilypond
 
 @predefined
