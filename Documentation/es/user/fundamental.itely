@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 2990c6fb0d9c8db236c77de82c18479a0a9aa444
+    Translation of GIT committish: b2536bcafc5d0223496e6e8d0fb24289c092113f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -570,19 +570,19 @@ Traducción @expansion{} Contexto.
 @node Creating contexts
 @subsection Creating contexts
 
-Para partituras que sólo tienen una voz y un pentagrama, los contextos se
-crean automáticamente.  Para partituras más complejas, es necesario crearlos
-a mano.  Existen tres instrucciones que hacen esto.
+Sólo puede haber un contexto en el nivel más alto: el contexto de
+partitura @code{Score}.  Se crea con la instrucción @code{\score} o,
+en partituras sencillas, se crea automáticamente.
 
-@itemize
-
-@item
-La instrucción más fácil es @code{\new}, y es también la más rápida de escribir.
-Se antepone a una expresión musical, por ejemplo
+Para partituras que solamente tienen una voz y un pentagrama, podemos
+dejar que los contextos @code{Voice} y @code{Staff} se creen
+automáticamente, pero para partituras más complejas es necesario
+crearlos a mano.  La instrucción más simple que hace esto es
+@code{\new}.  Se antepone a una expresión musical, por ejemplo
 
 @funindex \new
-@cindex nuevos, contextos
-@cindex Contexto, creación de
+@cindex contextos nuevos
+@cindex nuevo, contexto
 
 @example
 \new @var{tipo} @var{expresión_musical}
@@ -590,120 +590,29 @@ Se antepone a una expresión musical, por ejemplo
 
 @noindent
 donde @var{tipo} es el nombre de un contexto (como @code{Staff} o
-@code{Voice}).  Esta instrucción crea un contexto nuevo, y empieza a
-interpretar la @var{expresión_musical} con él.
+@code{Voice}).  Esta instrucción crea un contexto nuevo, y comienza a
+interpretar la @var{expresión_musical} que está dentro de ese
+contexto.
 
-Una aplicación práctica de @code{\new} es una partitura con muchos pentagramas.
-Cada parte que debe ir en su propio pentagrama, va precedida de
-@code{\new Staff}.
+Observe que no hay ninguna instrucción @code{\new Score}; el contexto
+@code{Score} único en el nivel más alto se introduce con
+@code{\score}.
 
-@lilypond[quote,verbatim,relative=2,ragged-right,fragment]
-<<
-  \new Staff { c4 c }
-  \new Staff { d4 d }
->>
-@end lilypond
-
-La instrucción @code{\new} puede también dar nombre al contexto,
+La instrucción @code{\new} también puede otorgar un nombre
+identificativo al contexto para distinguirlo de otros contextos del
+mismo tipo:
 
 @example
-\new @var{tipo} = @var{identificador} @var{música}
-@end example
-Sin embargo, este nombre especificado por el usuario sólo se utiliza si no hay ya otro contexto
-anterior con el mismo nombre.
-
-
-@funindex \context
-
-@item
-Como @code{\new}, la instrucción @code{\context} también dirige una expresión musical
-a un objeto de contexto, pero da al contexto un nombre explícito.  La sintaxis
-es
-
-@example
-\context @var{tipo} = @var{identificador} @var{música}
+\new @var{tipo} = @var{identificador} @var{expresión_musical}
 @end example
 
-En esta forma, la instrucción buscará un contexto existente del @var{tipo} especificado
-que tenga el nombre @var{identificador}.  Si ese contexto aún no existe, se crea
-un contexto nuevo con el nombre especificado.  Esto es útil si nos vamos a referir
-más tarde al contexto.  Por ejemplo, cuando
-se escribe la letra, la melodía está dentro de un contexto con nombre
-
-@example
-\context Voice = "@b{tenor}" @var{música}
-@end example
-
-@noindent
-de forma que los textos se puedan alienar correctamente con sus notas,
-
-@example
-\new Lyrics \lyricsto "@b{tenor}" @var{letra}
-@end example
-
-@noindent
-
-Otro uso posible de los contextos con nombre es la fusión de dos expresiones musicales
-distintas en un solo contexto.  En el siguiente ejemplo,
-se introducen por separado las articulaciones y las notas,
-
-@example
-musica = @{ c4 c4 @}
-decoracion = @{ s4-. s4-> @}
-@end example
-
-se combinan enviando los dos al mismo contexto @code{Voice},
-
-@example
-<<
-  \new Staff \context Voice = "A" \musica
-  \context Voice = "A" \decoracion
->>
-@end example
-@lilypond[quote,ragged-right]
-music = { c4 c4 }
-arts = { s4-. s4-> }
-\relative c'' <<
-  \new Staff \context Voice = "A" \music
-  \context Voice = "A" \arts
->>
-@end lilypond
-
-Con este mecanismo, es posible definir un Urtext (una edición
-original), con la posibilidad de poner articulaciones distintas sobre las
-mismas notas.
-
-@cindex crear contextos
-
-@item
-La tercera instrucción para crear contextos es
-@example
-\context @var{tipo} @var{música}
-@end example
-
-
-@noindent
-Esto es similar a @code{\context} con @code{= @var{identificador}}, pero se corresponde con
-cualquier contexto del tipo @var{tipo}, sin importar qué nombre se le ha dado.
-
-Esta variante se usa con expresiones musicales que se pueden interpretar en
-varios niveles.  Por ejemplo, la instrucción @code{\applyOutput} (véase
-@ref{Running a function on all layout objects}).  Sin una instrucción
-@code{\context} explícita, normalmente se aplicaría a @code{Voice}
-
-@example
-\applyOutput #'@var{contexto} #@var{función}   % aplicar al contexto Voice
-@end example
-
-Para que se interprete dentro de los niveles de @code{Score} o @code{Staff}, utilice las siguientes
-formas:
-
-@example
-\applyOutput #'Score #@var{función}
-\applyOutput #'Staff #@var{función}
-@end example
-
-@end itemize
+Observe la distinción entre el nombre del tipo de contexto,
+@code{Staff}, @code{Voice}, etc., y el nombre identificativo de una
+instancia en particular de ese tipo, que puede ser cualquier secuencia
+de letras inventada por el usuario.  El nombre identificativo se
+utiliza para referirnos más tarde a esa instancia en particular de un
+contexto.  Hemos visto esto en la sección acerca de la letra, en
+@ref{Voices and vocals}.
 
 @node Engravers explained
 @subsection Engravers explained
