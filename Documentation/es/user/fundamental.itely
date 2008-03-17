@@ -393,7 +393,79 @@ necesitaría más instrucciones que aún no se han visto.  Véase
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
-UNTRANSLATED NODE: IGNORE ME
+
+En la escritura del archivo de entrada de LilyPond, hemos podido ver
+algunos tipos de paréntesis, llaves o ángulos de distintos tipos.
+Éstos obedecen a distintas reglas que al principio pueden resultar
+confusas.  Antes de explicar estas reglas, demos un repaso a las
+distintas clases de corchetes, llaves y paréntesis.
+
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .3 .7
+@headitem Tipo de paréntesis
+  @tab Función
+@item @code{@{ .. @}}
+  @tab Encierra un fragmento secuencial de música
+@item @code{< .. >}
+  @tab Encierra las notas de un acorde
+@item @code{<< .. >>}
+  @tab Encierra secciones concurrentes o simultáneas
+@item @code{( .. )}
+  @tab Marca el comienzo y el final de una ligadura de expresión
+@item @code{\( .. \)}
+  @tab Marca el comienzo y el final de una ligadura de fraseo
+@item @code{[ .. ]}
+  @tab Marca el comienzo y el final de un barrado manual
+@end multitable
+
+A las anteriores, debemos añadir otras construcciones que generan
+líneas entre o a través de las notas: las ligaduras de unión (marcadas
+con una tilde curva, @code{~}), los grupos especiales que se escriben
+como @code{\times x/y @{..@}}, y las notas de adorno, que se escriben
+como @code{\grace@{..@}}.
+
+Fuera de LilyPond, el uso convencional de los paréntesis y otros
+corchetes requiere que los distintos tipos se encuentren anidados
+correctamente, como en: @code{<< [ @{ ( .. ) @} ] >>}, de manera que
+los paréntesis que se cierran deben encontrarse en el orden
+exactamente opuesto al de los paréntesis que se abren.  Esto
+@strong{es} un requisito para los tres tipos de paréntesis que se
+describen mediante la parabla @q{Encierra} en la tabla anterior: se
+deben anidar correctamente.  Sin embargo, el resto de las llaves y
+corchetes, que se encuentran descritos por la palabra @q{Marca} en la
+misma tabla anterior, @strong{no} tienen por qué anidarse
+estrictamente con ninguno de los otros paréntesis.  De hecho, éstos no
+son paréntesis en el sentido de que encierran algo: simplemente son
+marcadores que indican dónde empieza o finaliza algo.
+
+Asíi pues, por ejemplo, una ligadura de fraseo puede dar comienzo
+antes de una barra insertada manualmente, y acabar antes de que acabe
+la barra (algo que quizá no sea muy musical, pero es posible):
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+ { g8\( a b[ c b\) a] }
+@end lilypond
+
+En general, los distintos tipos de corchete, y los implicados en
+grupos especiiales, ligaduras de unión y notas de adorno, se pueden
+mezclar con total libertad.  Este ejemplo muestra una barra que se
+extiende hacia el interior de un grupo de valoración especial (línea
+1), una ligadura de expresión que se prolonga hasta el interior de un
+grupo especial (línea 2), una barra y una ligadura de expresión que se
+prolongan hasta el interior de un grupo especial, una ligadura de
+unión que atraviesa dos grupos especiales, y una ligadura de fraseo
+que sale del interior de un grupo especial (líneas 3 y 4).
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  r16[ g16 \times 2/3 {r16 e'8] }
+  g16( a \times 2/3 {b d) e' }
+  g8[( a \times 2/3 {b d') e'~]}
+  \times 4/5 {e'32\( a b d' e'} a'4.\)
+}
+@end lilypond
+
 
 @node Voices contain music
 @section Voices contain music
@@ -405,6 +477,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Explicitly instantiating voices::  
 * Voices and vocals::           
 @end menu 
+
 @node I'm hearing Voices
 @subsection I'm hearing Voices
 
