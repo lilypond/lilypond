@@ -1,7 +1,7 @@
 ;;;; document-translation.scm -- Functions for engraver documentation
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;;                 Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -21,7 +21,7 @@
 (define (engraver-doc-string engraver in-which-contexts)
   (let* ((propsr (cdr (assoc 'properties-read (ly:translator-description engraver))))
 	 (propsw (cdr (assoc 'properties-written (ly:translator-description engraver))))
-	 (accepted  (cdr (assoc 'events-accepted (ly:translator-description engraver)))) 
+	 (accepted  (cdr (assoc 'events-accepted (ly:translator-description engraver))))
 	 (name-sym  (ly:translator-name engraver))
 	 (name-str (symbol->string name-sym))
 	 (desc (cdr (assoc 'description (ly:translator-description engraver))))
@@ -48,18 +48,18 @@
 	   (map (lambda (x) (property->texi 'translation x '())) propsr)
 	   #t))
 	 "")
-     
+
      (if (null? propsw)
 	 ""
 	 (string-append
-	  "Properties (write)" 
+	  "Properties (write)"
 	  (description-list->texi
 	   (map (lambda (x) (property->texi 'translation x '())) propsw)
 	   #t)))
      (if  (null? grobs)
 	  ""
 	  (string-append
-	   "\n\nThis engraver creates the following layout objects:\n\n"
+	   "\n\nThis engraver creates the following layout object(s):\n\n"
 	   (human-listify (map ref-ify (uniq-list (sort grobs string<?))))
 	   "."))
 
@@ -82,12 +82,19 @@
 			     (if (member name-sym consists)
 				 (list context)
 				 '())))
-			 context-description-alist))))
+			 context-description-alist)))
+		(context-list (human-listify (map ref-ify
+						  (sort
+						   (map symbol->string contexts)
+						   string<?)))))
 	   (string-append
-	    "@code{" name-str "} is part of contexts: "
-	    (human-listify (map ref-ify
-				(sort
-				 (map symbol->string contexts) string<?)))))
+	    "@code{" name-str "} "
+	    (if (equal? context-list "none")
+		"is not part of any context"
+		(string-append
+		 "is part of the following context(s): "
+		 context-list))
+	    "."))
 	 ""))))
 
 ;; First level Engraver description
@@ -104,12 +111,12 @@
  (ly:get-all-translators))
 
 (define (find-engraver-by-name name)
-  "NAME is a symbol." 
+  "NAME is a symbol."
   (hash-ref name->engraver-table name #f))
 
 (define (document-engraver-by-name name)
   "NAME is a symbol."
-  
+
   (let* ((eg (find-engraver-by-name name)))
 
     (cons (string-append "@code{" (ref-ify (symbol->string name)) "}")
@@ -140,7 +147,7 @@
 	      context-sym
 	      (scm->texi (car args))))
      )))
-     
+
 
 (define (context-doc context-desc)
   (let* ((name-sym (cdr (assoc 'context-name context-desc)))
@@ -149,7 +156,7 @@
 	 (desc-handle (assoc 'description context-desc))
 	 (desc (if (and  (pair? desc-handle) (string? (cdr desc-handle)))
 		   (cdr desc-handle) "(not documented)"))
-	 
+	
 	 (accepts (cdr (assoc 'accepts context-desc)))
 	 (consists (cdr (assoc 'consists context-desc)))
 	 (props (cdr (assoc 'property-ops context-desc)))
@@ -159,7 +166,7 @@
     (make <texi-node>
       #:name name
       #:text
-      (string-append 
+      (string-append
        desc
        (if (pair? aliases)
 	   (string-append
@@ -168,7 +175,7 @@
 	    ".")
 	   "")
 
-       "\n\nThis context creates the following layout objects:\n\n"
+       "\n\nThis context creates the following layout object(s):\n\n"
        (human-listify (uniq-list (sort grob-refs string<?)))
        "."
 
@@ -183,7 +190,7 @@
 		  str
 		  "@end itemize\n")))
 	   "")
-       
+
        (if (null? accepts)
 	   "\n\nThis context is a `bottom' context; it cannot contain other contexts."
 	   (string-append
@@ -192,11 +199,11 @@
 	    " can contain\n"
 	    (human-listify (map ref-ify (map symbol->string accepts)))
 	    "."))
-       
+
        (if (null? consists)
 	   ""
 	   (string-append
-	    "\n\nThis context is built from the following engravers:"
+	    "\n\nThis context is built from the following engraver(s):"
 	    (description-list->texi
 	     (map document-engraver-by-name consists)
 	     #t)))))))
@@ -241,8 +248,8 @@
 
 (define (all-engravers-doc)
   (make <texi-node>
-    #:name "Engravers"
-    #:desc "All separate engravers."
+    #:name "Engravers and Performers"
+    #:desc "All separate engravers and performers."
     #:text "See @ruser{Modifying context plug-ins}."
     #:children
     (map engraver-doc all-engravers-list)))
