@@ -73,7 +73,8 @@
 
 
 (define (description-list->texi items-alist quote?)
-  "Document ITEMS-ALIST in a table; entries contain (item-label . string-to-use)."
+  "Document ITEMS-ALIST in a table; entries contain (item-label .
+string-to-use).  If QUOTE? is #t, embed table in a @quotation environment."
   (string-append
    "\n"
    (if quote? "@quotation\n" "")
