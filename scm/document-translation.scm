@@ -45,7 +45,8 @@
 	 (string-append
 	  "Properties (read)"
 	  (description-list->texi
-	   (map (lambda (x) (property->texi 'translation x '())) propsr)))
+	   (map (lambda (x) (property->texi 'translation x '())) propsr)
+	   #t))
 	 "")
      
      (if (null? propsw)
@@ -53,7 +54,8 @@
 	 (string-append
 	  "Properties (write)" 
 	  (description-list->texi
-	   (map (lambda (x) (property->texi 'translation x '())) propsw))))
+	   (map (lambda (x) (property->texi 'translation x '())) propsw)
+	   #t)))
      (if  (null? grobs)
 	  ""
 	  (string-append
@@ -195,7 +197,9 @@
 	   ""
 	   (string-append
 	    "\n\nThis context is built from the following engravers:"
-	    (description-list->texi (map document-engraver-by-name consists))))))))
+	    (description-list->texi
+	     (map document-engraver-by-name consists)
+	     #t)))))))
 
 (define (engraver-grobs grav)
   (let* ((eg (if (symbol? grav)
@@ -250,7 +254,7 @@
 	  (map
 	   (lambda (x) (property->texi 'translation  x '()))
 	   sortedsyms))
-	 (texi (description-list->texi propdescs)))
+	 (texi (description-list->texi propdescs #f)))
     texi))
 
 (define (translation-doc-node)

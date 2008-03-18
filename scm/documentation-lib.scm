@@ -66,25 +66,22 @@
 		      (5 . "@unnumberedsubsubsec")))))
 
 (define (one-item->texi label-desc-pair)
-  "Document one (LABEL . DESC); return empty string if LABEL is empty string. 
-"
+  "Document one (LABEL . DESC); return empty string if LABEL is empty string."
   (if (eq? (car label-desc-pair) "")
       ""
       (string-append "\n@item " (car label-desc-pair) "\n" (cdr label-desc-pair))))
 
 
-(define (description-list->texi items-alist)
-  "Document ITEMS-ALIST in a table. entries contain (item-label
-. string-to-use)
-"
+(define (description-list->texi items-alist quote?)
+  "Document ITEMS-ALIST in a table; entries contain (item-label . string-to-use)."
   (string-append
    "\n"
-   "@quotation\n"
+   (if quote? "@quotation\n" "")
    "@table @asis\n"
    (apply string-append (map one-item->texi items-alist))
    "\n"
    "@end table\n"
-   "@end quotation\n"))
+   (if quote? "@end quotation\n" "")))
 
 (define (texi-menu items-alist)
   "Generate what is between @menu and @end menu."
@@ -106,7 +103,8 @@
      "\n@ignore\n"
      "\n@ifhtml\n"
      (description-list->texi (map (lambda (x) (cons (ref-ify (car x)) (cdr x)))
-				  items-alist))
+				  items-alist)
+			     #t)
      "\n@end ifhtml\n"
      "\n@end ignore\n")))
 

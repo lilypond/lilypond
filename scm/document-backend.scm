@@ -26,13 +26,13 @@
      (if (pair? uprops)
 	 (string-append
 	  "\n\n@unnumberedsubsubsec User settable properties:\n"
-	  (description-list->texi user-propdocs))
+	  (description-list->texi user-propdocs #t))
 	 "")
 
      (if (pair? iprops)
 	 (string-append
 	  "\n\n@unnumberedsubsubsec Internal properties:\n"
-	  (description-list->texi internal-propdocs))
+	  (description-list->texi internal-propdocs #t))
 	 ""))))
 
 (define iface->grob-table (make-vector 61 '()))
@@ -74,7 +74,8 @@
 
     (description-list->texi
      (map (lambda (y) (property->texi 'backend y alist))
-	  uprops))))
+	  uprops)
+     #t)))
 
 (define (grob-doc description)
   "Given a property alist DESCRIPTION, make a documentation
@@ -155,7 +156,7 @@ node."
   (let* ((ps (sort (map symbol->string lst) string<?))
 	 (descs (map (lambda (prop)
 		       (property->texi 'backend (string->symbol prop) '())) ps))
-	 (texi (description-list->texi descs)))
+	 (texi (description-list->texi descs #f)))
     texi))
 
 ;;(dump-node (grob-doc (cdadr all-grob-descriptions)) (current-output-port) 0 )

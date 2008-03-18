@@ -14,7 +14,7 @@
 	   (descs (map (lambda (prop)
 			 (property->texi 'music (string->symbol prop)))
 		       ps))
-	   (texi (description-list->texi descs)))
+	   (texi (description-list->texi descs #f)))
       texi)))
 
 (define music-types->names (make-vector 61 '()))
@@ -94,7 +94,8 @@
      (description-list->texi
       (map
        (lambda (x) (property->texi 'music x props))
-       (map car props))))))
+       (map car props))
+      #t))))
 
 (define (music-object-doc obj)
   (make <texi-node>
