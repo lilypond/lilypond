@@ -107,17 +107,21 @@ Optionally, notes can be spaced strictly proportionately to their
 duration.  For details of this and other settings which control
 proportional notation, see @ref{Proportional notation}.
 
+@funindex \dotsUp
+@funindex \dotsDown
+@funindex \dotsNeutral
+
 Dots are normally moved up to avoid staff lines, except in
-polyphonic situations.  To force a particular direction manually, 
+polyphonic situations.  To force a particular direction manually,
 see @ref{Controlling direction and placement}.
 
 @predefined
 
-@funindex \dotsUp
+@code{\breve},
+@code{\longa},
+@code{\maxima},
 @code{\dotsUp},
-@funindex \dotsDown
 @code{\dotsDown},
-@funindex \dotsNeutral
 @code{\dotsNeutral}.
 
 
@@ -164,11 +168,11 @@ Tuplets are made from a music expression by multiplying all the
 durations with a fraction:
 
 @example
-\times @var{fraction} @var{musicexpr}
+\times @var{fraction} @{ @var{music} @}
 @end example
 
 @noindent
-The duration of @var{musicexpr} will be multiplied by the 
+The duration of @var{music} will be multiplied by the
 fraction.  The fraction's denominator will be printed over or 
 under the notes, optionally with a bracket.  The most common 
 tuplet is the triplet in which 3 notes have the duration of 2, so
@@ -180,9 +184,13 @@ c4 c \times 2/3 {b4 a g}
 
 @end lilypond
 
-The automatic placement of the tuplet bracket above or below the 
-notes may be overridden manually, for details see 
-@ref{Controlling direction and placement}.
+@funindex \tupletUp
+@funindex \tupletDown
+@funindex \tupletNeutral
+
+The automatic placement of the tuplet bracket above or below the
+notes may be overridden manually with predefined commands, for
+details see @ref{Controlling direction and placement}.
 
 Tuplets may be nested:
 
@@ -199,11 +207,8 @@ see @ref{Scaling durations}.
 
 @predefined
 
-@funindex \tupletUp
 @code{\tupletUp},
-@funindex \tupletDown
 @code{\tupletDown},
-@funindex \tupletNeutral
 @code{\tupletNeutral}.
 
 
@@ -431,9 +436,9 @@ have to specify the repeated tie as follows:
 @lilypond[fragment,quote,ragged-right,relative=2,verbatim]
 \repeat volta 2 { c g <c e>2 ~ }
 \alternative {
-  % Following note is tied normally in first alternative
+  % First alternative: following note is tied normally
   { <c e>2. r4 }
-  % Following note has a repeated tie in second alternative
+  % Second alternative: following note has a repeated tie
   {<c e>2\repeatTie d4 c }}
 @end lilypond
 
@@ -455,8 +460,8 @@ be entered as follows:
 @funindex \tieDown
 @funindex \tieNeutral
 
-The vertical placement of ties may be controlled, see the
-predefined commands.  For details, see
+The vertical placement of ties may be controlled, see
+Predefined commands, or for details, see
 @ref{Controlling direction and placement}.
 
 @cindex ties, appearance
@@ -464,24 +469,19 @@ predefined commands.  For details, see
 @funindex \tieDashed
 @funindex \tieSolid
 
-Solid, dotted or dashed ties may be specified, see predefined
+Solid, dotted or dashed ties may be specified, see Predefined
 commands.
 
 
 @predefined
 
-@funindex \tieUp
 @code{\tieUp},
-@funindex \tieDown
 @code{\tieDown},
-@funindex \tieNeutral
 @code{\tieNeutral},
-@funindex \tieDotted
 @code{\tieDotted},
-@funindex \tieDashed
 @code{\tieDashed},
-@funindex \tieSolid
-@code{\tieSolid}.
+@code{\tieSolid},
+@code{\repeatTie}.
 
 
 @snippets
@@ -532,9 +532,9 @@ Notation Reference: @ref{Automatic note splitting}.
 Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference:
-@internalsref{LaissezVibrerTie}
-@internalsref{LaissezVibrerTieColumn}
-@internalsref{TieColumn}
+@internalsref{LaissezVibrerTie},
+@internalsref{LaissezVibrerTieColumn},
+@internalsref{TieColumn},
 @internalsref{Tie}.
 
 
@@ -572,23 +572,30 @@ well-defined.  In these cases, a slur may be preferable.
 @funindex \longa
 @funindex \breve
 
-Rests are entered like notes with the note name @code{r}:
+Rests are entered like notes with the note name @code{r};
+longer rests with the predefined commands shown:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
 @lilypond[fragment,quote,ragged-right,verbatim]
 \new Staff {
+  % These two lines are just to prettify this example
   \time 16/1
   \override Staff.TimeSignature #'stencil = ##f
+  % Print a maxima rest, equal to four breves
   r\maxima
-  r\longa r\breve r1 r2
-  r4 r8 r16 r32 r64
+  % Print a longa rest, equal to two breves
+  r\longa
+  % Print a breve rest
+  r\breve
+  r1 r2 r4 r8 r16 r32 r64
 }
 @end lilypond
 
-Whole measure rests, centered in middle of the measure, must be entered as
-multi-measure rests.  They can be used for a single measure as well as
-many measures and are discussed in @ref{Full measure rests}.
+Whole measure rests, centered in middle of the measure, must be
+entered as multi-measure rests.  They can be used for a single
+measure as well as many measures and are discussed in
+@ref{Full measure rests}.
 
 To explicitly specify a rest's vertical position, write a note
 followed by @code{\rest}.  A rest will be placed in the position
@@ -600,14 +607,25 @@ formatter will leave these rests alone.
 a4\rest d4\rest
 @end lilypond
 
+@predefined
+
+@code{\rest},
+@code{\maxima},
+@code{\longa},
+@code{\breve}.
+
+@snippets
+@lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
+{rest-styles.ly}
+
 
 @seealso
 
-Notation Reference: @ref{Full measure rests}.
+Notation Reference: @ref{Full measure rests}
 
-Snippets: @lsrdir{Rhythms,Rhythms}.
+Snippets: @lsrdir{Rhythms,Rhythms}
 
-Internals Reference: @internalsref{Rest}.
+Internals Reference: @internalsref{Rest}
 
 
 @knownissues
@@ -622,22 +640,29 @@ are rests from 128th to maxima (8 x whole).
 
 @cindex skip
 @cindex invisible rest
-@cindex space note
+@cindex rest, invisible
+@cindex spacer note
+
 @funindex \skip
 @funindex s
 
-An invisible rest (also called a @q{skip}) can be entered like a
-note with note name @code{s} or with @code{\skip @var{duration}}
+An invisible rest (also called a @q{skip rest}) can be entered like a
+note with note name @code{s} or with the predefined skip command
+followed by the required duration, as shown here:
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-a4 a4 s4 a4 \skip 1 a4
+% Skip the third beat in the first bar
+a4 a4 s4 a4
+% Use predefined command to skip a whole note (bar)
+\skip 1
+a2 a2
 @end lilypond
 
 @cindex lyrics, skip
 
 The @code{s} syntax is only available in note mode and chord mode.
 In other situations, for example, when entering lyrics, one must
-use the @code{\skip} command:
+use the predefined skip command:
 
 @lilypond[quote,ragged-right,verbatim,relative=2]
 <<
@@ -646,29 +671,36 @@ use the @code{\skip} command:
 >>
 @end lilypond
 
-The skip command is merely an empty musical placeholder.  It does
-not produce any output, not even transparent output.
+The @code{s} skip rest implicitly causes @code{Staff} and
+@code{Voice} contexts to be created if none exist, just
+like notes and rests do.  These in turn cause a staff with default
+clef and time signature to be printed, with if necessary, barlines.
+For example, the following results in a complete staff with three
+short empty bars:
 
-The @code{s} skip command does create @internalsref{Staff} and
-@internalsref{Voice} when necessary, similar to note and rest
-commands.  For example, the following results in an empty staff.
-
-@lilypond[quote,verbatim]
-{ s4 }
+@lilypond[quote,verbatim,fragment,ragged-right]
+{ s1 s s }
 @end lilypond
-@c with ragged-right, the staff lines are cut BEFORE the time
-@c signature, which makes for a VERY empty staff
 
-@c The fragment @code{@{ \skip 4 @} } would produce an empty page.
-@c Misleading -- it doesn't produce anything, not even an empty page.
-@c Ppl who want to make empty sheets will see this and wonder what's
-@c happening.  -eo
+However, the predefined skip command behaves differently: it is
+merely an empty musical placeholder.  It does not create any 
+contexts and does not cause anything to be printed, not even 
+transparently.  On its own it does not even print an
+empty page:
+
+@example
+% This is valid input, but does nothing
+@{ \skip 1 @}
+@end example
+
+@predefined
+@code{\skip}
 
 @seealso
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
-Internals Reference: @internalsref{SkipMusic}.
+Internals Reference: @internalsref{SkipMusic}
 
 
 @node Full measure rests
@@ -681,10 +713,10 @@ Internals Reference: @internalsref{SkipMusic}.
 @cindex whole rest for a full measure
 @funindex R
 
-Rests for one or more full measures are entered using @code{R}
-followed by a duration (see @ref{Durations}).  The duration should
+Rests for one or more full measures are entered using @code{R}, in
+uppercase, followed by a duration.  The duration should
 correspond to an integral number of measures, otherwise a barcheck
-warning is printed.  A @rglos{multi-measure rest} is used 
+warning is printed.  A multi-measure rest is used
 principally to indicate that a part in a multi-part score should 
 be silent:
 
@@ -696,19 +728,21 @@ R1*4
 b2^"Tutti" b4 a4
 @end lilypond
 
-A multi-measure rest can be expanded in the printed score
-to show all the rest measures explicitly, or, as above, it can be 
-condensed to a single measure
-containing a multi-measure rest symbol, with the number of
-measures of rest printed above the measure.  This expansion
-is controlled by the property @code{Score.skipBars}.  If this is
-set to true, empty measures will be condensed to a single measure.
+By default, a multi-measure rest is expanded in the printed score
+to show all the rest measures explicitly, or, as above, it can be
+condensed to a single measure containing a multi-measure rest 
+symbol, with the number of measures of rest printed above the 
+measure.  This expansion is controlled by the property 
+@code{Score.skipBars}.  If this is set to true, empty measures 
+will be condensed to a single measure:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\time 4/4 r1 | R1 | R1*2 | 
-\time 2/4 R2 | 
+% Default behaviour
+\time 4/4 r1 | R1 | R1*2 |
+\time 2/4 R2 |
 \time 4/4
-\set Score.skipBars = ##t 
+% Rest bars condensed to a single bar
+\set Score.skipBars = ##t
 R1*17 | R1*4 |
 @end lilypond
 
@@ -732,34 +766,16 @@ An @code{R} spanning a single measure is printed as either a whole
 or breve rest, centered in the measure, regardless of the time
 signature.
 
-@cindex church rest
-@cindex rest, church
-@cindex kirchenpausen 
-
-If there are 10 or fewer measures of rest, LilyPond prints
-a series of longa and breve rests (called in German 
-Kirchenpausen - @q{church rests}) within the staff and
-prints a simple line otherwise.  This default number of 10
-may be changed by overriding 
-@code{MultiMeasureRest.expand-limit}.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\set Score.skipBars = ##t
-R1*2 | R1*5 | R1*9
-\override MultiMeasureRest #'expand-limit = 3
-R1*2 | R1*5 | R1*9
-@end lilypond
-
-Note that unlike ordinary rests, the vertical position on the
-staff of the multi-measure rest symbol of either form cannot be
-changed.
 
 @cindex text on multi-measure rest
+@cindex multi-measure rest, attaching text
 @cindex script on multi-measure rest
+@cindex multi-measure rest, script
 @cindex fermata on multi-measure rest
+@cindex multi-measure rest, attaching fermata
 
 Text can be added to multi-measure rests by using the
-@var{note}-@code{markup} syntax described in @ref{Text markup}.
+@var{note} - @code{\markup} syntax described in @ref{Text markup}.
 The variable @code{\fermataMarkup} is provided for adding
 fermatas.
 
@@ -770,16 +786,18 @@ R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
 @end lilypond
 
-@warning{Text attached to a multi-measure rest is created 
+@warning{Text attached to a multi-measure rest is created
 by @code{MultiMeasureRestText}, not
 @code{TextScript}.  Overrides must be directed to the correct
 object, or they will be ignored.  See the following example.}
 
 @lilypond[quote,ragged-right,verbatim,fragment]
+% This fails, as the wrong object name is specified
 \override TextScript #'padding = #5
-R1^"low"
+R1^"wrong"
+% This is correct and works
 \override MultiMeasureRestText #'padding = #5
-R1^"high"
+R1^"right"
 @end lilypond
 
 Text attached to a multi-measure rest will be centered above or
@@ -814,18 +832,89 @@ left-aligned, as shown in the second bar above.  If the shorter
 text of two marks is short enough to fit it will be placed
 alongside and to the left of the bar count numeral.
 
+@predefined
+@code{\textLengthOn},
+@code{\textLengthOff},
+@code{\fermataMarkup}
+
+@snippets
+
+@cindex church rest
+@cindex rest, church
+@cindex kirchenpausen
+
+@c TODO Send as snippet "changing form of multi-measure rests"
+If there are 10 or fewer measures of rest, LilyPond prints
+a series of longa and breve rests (called in German
+Kirchenpausen - church rests) within the staff and
+prints a simple line otherwise.  This default number of 10
+may be changed by an override:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\set Score.skipBars = ##t
+R1*2 | R1*5 | R1*9
+\override MultiMeasureRest #'expand-limit = 3
+R1*2 | R1*5 | R1*9
+@end lilypond
+@c TODO End of snippet "changing form of multi-measure rests"
+
+@cindex multi-measure rests, positioning
+@cindex positioning multi-measure rests
+
+@c TODO Send as snippet "positioning multi-measure rests"
+Note that, unlike ordinary rests, there is no predefined command
+to change the vertical position on the staff of a multi-measure
+rest symbol of either form by attaching it to a note.  However,
+in polyphonic music multi-measure rests in odd-numbered and
+even-numbered voices are vertically separated.  The positioning
+of multi-measure rests can be controlled as follows:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+% Multi-measure rests by default are set under the 2nd line
+R1
+% They can be moved with an override
+\override MultiMeasureRest #'staff-position = #-2
+R1
+% A value of 0 is the default position; 
+% the following trick moves the rest to the center line
+\override MultiMeasureRest #'staff-position = #-0.01
+R1
+% Multimeasure rests in odd-numbered voices are under the top line
+<< {R1} \\ {a1} >>
+% Multi-measure rests in even-numbered voices are under the bottom line
+<< {c1} \\ {R1} >>
+% They remain separated even in empty bars
+<< {R1} \\ {R1} >>
+% This brings them together even though there are two voices
+\set Score.skipBars = ##t
+<<
+  \revert MultiMeasureRest #'staff-position
+  {R1*3}
+\\
+  \revert MultiMeasureRest #'staff-position
+  {R1*3}
+>>
+@end lilypond
+@c End snippet "positioning multi-measure rests"
+
 @seealso
 
-Notation Reference: @ref{Durations}, @ref{Text},
-@ref{Text markup}, @ref{Text scripts}.
+Music Glossary:
+@rglos{multi-measure rest},
+@rglos{church rests}.
+
+Notation Reference: 
+@ref{Durations}, 
+@ref{Text},
+@ref{Text markup}, 
+@ref{Text scripts}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
-Internals Reference: @internalsref{MultiMeasureRest}.
-
-The layout object @internalsref{MultiMeasureRestNumber} is for the
-default number, and @internalsref{MultiMeasureRestText} for user
-specified texts.
+Internals Reference: 
+@internalsref{MultiMeasureRest},
+@internalsref{MultiMeasureRestNumber},
+@internalsref{MultiMeasureRestText}.
 
 
 @knownissues
@@ -837,9 +926,10 @@ numeral (10).
 
 @cindex condensing rests
 
-There is no way to automatically condense multiple rests into a
-single multi-measure rest.  Multi-measure rests do not take part
-in rest collisions.
+There is no way to automatically condense multiple ordinary rests 
+into a single multi-measure rest.
+
+Multi-measure rests do not take part in rest collisions.
 
 Be careful when entering multi-measure rests followed by whole
 notes.  The following will enter two notes lasting four measures
@@ -2545,6 +2635,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}
+
 
 
 

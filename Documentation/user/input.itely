@@ -26,6 +26,7 @@ to 3.1.
 * Input files::                 
 * Common syntax issues TODO name?::  
 * Other stuffs TODO move?::     
+* add to a Tweaks chapter::     
 @end menu
 
 
@@ -851,6 +852,19 @@ http://lists.gnu.org/archive/html/lilypond-user/2006-11/msg00061.html
 \drums
 \fretmode ?
 
+
+
+@node add to a Tweaks chapter
+@section add to a Tweaks chapter
+
+@menu
+* Line styles::        
+@end menu
+
+@node Line styles
+@subsection Line styles
+
+Valentin: write stuff here.
 
 
 

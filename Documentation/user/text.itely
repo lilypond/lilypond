@@ -113,42 +113,21 @@ d8^\markup { \italic pizz. } e f g
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
 
-@predefined
-
-@funindex \textLengthOn
-@code{\textLengthOn},
-@funindex \textLengthOff
-@code{\textLengthOff}.
-
 By default, text indications do not influence the note spacing.
-However, their widths can be taken into account using the following
-syntax:
-
-@example 
-\textLengthOn
-@var{note}@code{-"text"}
-\textLengthOff
-@end example 
-
-In the following example, the first text string does not affect 
+However, their widths can be taken into account:
+in the following example, the first text string does not affect 
 spacing, whereas the second one does.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 @end lilypond
 
+@predefined
 
-@snippets
-
-@c FIXME: add an example and LSR-ize this? -vv
-Checking to make sure that text scripts and lyrics are within the
-margins is a relatively large computational task.  To speed up
-processing, lilypond does not perform such calculations by
-default; to enable it, use
-
-@example
-\override Score.PaperColumn #'keep-inside-line = ##t
-@end example
+@funindex \textLengthOn
+@code{\textLengthOn},
+@funindex \textLengthOff
+@code{\textLengthOff}.
 
 
 @seealso
@@ -158,6 +137,17 @@ Notation Reference: @ref{Text markup}.
 Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextScript}.
+
+@knownissues
+
+Checking to make sure that text scripts and lyrics are within the
+margins is a relatively large computational task.  To speed up
+processing, lilypond does not perform such calculations by
+default; to enable it, use
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
 
 
 @node Text spanners
@@ -170,31 +160,26 @@ Internals Reference: @internalsref{TextScript}.
 
 Some performance indications, e.g., @i{rallentando} or
 @i{accelerando}, are written as text and are extended over many
-measures with dotted lines.  Such texts are created using text
-spanners; attach @code{\startTextSpan} and @code{\stopTextSpan} to
-the first and last notes of the spanner.
+measures with dotted lines; you can create such text spanners
+from one note to another by using the following syntax:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c1
-\override TextSpanner #'bound-details #'left #'text = "faster" 
-c2\startTextSpan b c\stopTextSpan a
+\override TextSpanner #'bound-details #'left #'text = "rit." 
+b1\startTextSpan 
+e,\stopTextSpan
 @end lilypond
 
 @noindent
-The string to be printed, as well as the style, is set through
-object properties. It can accept @code{\markup} blocks as well:
+The string to be printed is set through
+object properties. By default, it is printed in italic characters;
+however, different formatting can be obtained using
+@code{\markup} blocks:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-c1
-\textSpannerDown
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \override TextSpanner #'bound-details #'left #'text =
-  \markup { \upright "rall" } 
-c2\startTextSpan b c\stopTextSpan a
-\break
-\textSpannerUp
-\override TextSpanner #'bound-details #'left #'text =
-  \markup { \italic "rit" } 
-c2\startTextSpan b c\stopTextSpan a
+  \markup { \upright "rit." } 
+b1\startTextSpan c
+e,\stopTextSpan
 @end lilypond
 
 @predefined
@@ -205,6 +190,12 @@ c2\startTextSpan b c\stopTextSpan a
 @code{\textSpannerDown},
 @funindex textSpannerNeutral
 @code{\textSpannerNeutral}.
+
+@c TODO: Document Line Styles? -vv
+@ignore
+The line style, as well as the text string, can be defined as an
+object property, as described in @ref{Line Styles}.
+@end ignore
 
 
 @snippets
