@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: b2536bcafc5d0223496e6e8d0fb24289c092113f
+    Translation of GIT committish: bea70d053e3e279c3fbb18cbce52d995ce04fec7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -617,7 +617,82 @@ contexto.  Hemos visto esto en la sección acerca de la letra, en
 @node Engravers explained
 @subsection Engravers explained
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex grabadores
+
+Todas y cada una de las marcas de la salida impresa de una partitura
+hecha con LiilyPond está producida por un @code{Engraver} (grabador).
+Así, tenemos un grabador para imprimir pentagramas, otro para imprimir
+las cabezas de las notas, otro para las plicas, otro para las barras,
+etc, etc.  ¡En total hay más de 120 grabadores!  Afortunadamente, para
+la mayor parte de las partituras no es necesario conocer más que
+algunos, y para partituras sencillas no tenemos que saber nada de
+ninguno de ellos.
+
+Los grabadores residen y operan dentro de Contextos.  Los grabadores
+como el grabador de la indicación metronómica,
+@code{Metronome_mark_engraver}, cuya acción y resultado se aplica a la
+partitura como un todo, operan en el contexto del nivel más alto: el
+contexto de partitura @code{Score}.
+
+El grabador de la clave @code{Clef_engraver} y el de la armadura
+@code{Key_engraver} se encuentran probablemente en todos los contextos
+de pentagrama (Staff), pues los distintos pentagramas podrían requerir
+diferentes claves y armaduras.
+
+El grabador de las cabezas de nota @code{Note_heads_engraver} y el de
+las plicas @code{Stem_engraver} viven en cada uno de los contextos de
+voz @code{Voice}, el contexto de nivel más bajo de todos.
+
+Cada grabador procesa los objetos particulares asociados con su
+función, y mantiene las propiedades que están relacionadas con dicha
+función.  Estas propiedades, como las que están asociadas con los
+contextos, se pueden modificar para cambiar el funcionamiento del
+grabador o el aspecto de esos elementos en la partitura impresa.
+   
+Todos los grabadores tienen nombres compuestos de varias palabras que
+describen su función.  Sólo está en mayúsculas la inicial de la
+primera palabra, y el resto se le une mediante guiones bajos.  Así, el
+grabador @code{Staff_symbol_engraver} es responsable de la creación de
+las líneas del pentagrama, y el @code{Clef_engraver} determina y
+establece la altura o el punto de referencia sobre el pentagrama
+dibujando un símbolo de clave.
+
+A continuación presentamos algunos de los grabadores más comunes,
+junto a su función.  Podrá comprobar que es fácil adivinar la función
+a partir del nombre (en inglés), y viceversa.
+
+@multitable @columnfractions .3 .7 
+@headitem Grabador
+  @tab Función
+@item Accidental_engraver
+  @tab Hace las alteraciones accidentales, de precaución y de sugerencia.
+@item Beam_engraver
+  @tab Graba las barras
+@item Clef_engraver
+  @tab Graba las claves
+@item Dynamic_engraver
+  @tab Crea reguladores e indicaciones dinámicas textuales
+@item Key_engraver
+  @tab Crea la armadura de la tonalidad
+@item Metronome_mark_engraver
+  @tab Graba la indicación metronómica
+@item Note_heads_engraver
+  @tab Graba la cabeza de las notas
+@item Rest_engraver
+  @tab Graba los silencios
+@item Staff_symbol_engraver
+  @tab Graba las cinco líneas (de forma predeterminada) del pentagrama
+@item Stem_engraver
+  @tab Crea las plicas y los trémolos de una sola plica
+@item Time_signature_engraver
+  @tab Crea las indicaciones de compás
+@end multitable
+
+@smallspace
+
+Más adelante veremos cómo la salida de LilyPond se puede cambiar
+mediante la modificación del funcionamiento de los Grabadores.
+  
 
 @node Modifying context properties
 @subsection Modifying context properties
@@ -745,11 +820,141 @@ Traducción @expansion{} propiedades de contexto ajustables.
 @node Adding and removing engravers
 @subsection Adding and removing engravers
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Grabadores, adición
+@cindex Grabadores, eliminación
 
-@subsubsection Changing a single context
-@ 
-@subsubsection Changing all contexts of the same type
+@funindex \consists
+@funindex \remove
+
+Hemos visto que cada uno de los contextos contiene varios grabadores,
+cada uno de los cuales a su vez es responsable de la producción de una
+fracción particular del resultado impreso, como líneas divisorias,
+pentagramas, cabezas, plicas, etc.  Si un grabador es eliminado de un
+contexto, ya no podrá producir su salida impresa.  Es una forma algo
+radical de modificar la salida, pero a veces puede ser útil.
+
+@subsubheading Changing a single context
+
+Para eliminar un grabador de un contexto único, usamos la instrucción
+@code{\with} situada inmediatamente después de la instrucción que crea
+el contexto, como en la sección anterior.
+
+Como ilustración, repitamos un ejemplo extraído de la sección anterior
+con las líneas del pentagrama eliminadas.  Recuerde que las líneas del
+pentagrama están dibujadas por el grabador Staff_symbol_engraver.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+  \remove Staff_symbol_engraver
+}
+\relative c' {
+  c4 
+  \set fontSize = #-4  % make note heads smaller
+  d e
+  \set fontSize = #2.5  % make note heads larger
+  f g
+  \unset fontSize  % return to original size
+  a b
+}
+@end lilypond
+
+@cindex ámbito, grabador del
+
+Los grabadores también se pueden añadir a los contextos individuales
+La instrucción que lo hace es
+
+@code{\consists @emph{Nombre_del_grabador}},
+
+situada dentro de un bloque @code{\with}.  Ciertas partituras vocales
+tienen una indicación de @rglos{ambitus} situada al principio del
+pentagrama para indicar el ámbito de notas en dicho pentagrama.  El
+ambitus se produce por parte del grabador @code{Ambitus_engraver}, que
+normalmente no está incluido en ningún contexto.  Si lo añadimos al
+contexto @code{Voice}, calcula el rango a partir de esa única voz:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff <<
+  \new Voice \with {
+    \consists Ambitus_engraver
+  }
+  \relative c'' { 
+    \voiceOne
+    c a b g 
+  }
+  \new Voice
+  \relative c' {
+    \voiceTwo
+    c e d f
+  }
+>>
+@end lilypond
+
+@noindent
+pero si añadimos el grabador de Ambitus al contexto de @code{Staff},
+calcula el rango a partir de todas las notas en todas las voces de ese
+pentagrama:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+    \consists Ambitus_engraver
+  }
+  <<
+  \new Voice
+  \relative c'' { 
+    \voiceOne
+    c a b g 
+  }
+  \new Voice
+  \relative c' {
+    \voiceTwo
+    c e d f
+  }
+>>
+@end lilypond
+
+@subsubheading Changing all contexts of the same type
+
+Los ejemplos anteriores muestran la manera de eliminar o añadir
+grabadores a los contextos individuales.  También es posible eliminar
+o añadir grabadores a todos los contextos de un tipo específico,
+situando las instrucciones en el contexto correspondiente dentro de un
+bloque @code{\layout}.  Por ejemplo, si queremos mostrar los rangos de
+tesitura para todos los pentagramas de una partitura de cuatro pautas,
+podemos escribir
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new Staff <<
+      \relative c'' { c a b g }
+    >>
+    \new Staff <<
+      \relative c' { c a b g }
+    >>
+    \new Staff <<
+      \clef "G_8"
+      \relative c' { c a b g }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \relative c { c a b g }
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \consists Ambitus_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Los valores predeterminados de las propiedades de los contextos
+también se pueden establecer para todos los contextos de un tipo en
+particular incluyendo la instrucción @code{\set} dentro de un bloque
+@code{\context} de la misma forma.
+
 @node Extending the templates
 @section Extending the templates
 
