@@ -1,7 +1,7 @@
 ;;;; backend-documentation-lib.scm -- Functions for backend documentation
 ;;;;
 ;;;; source file of the GNU LilyPond music typesetter
-;;;; 
+;;;;
 ;;;; (c) 2000--2007 Han-Wen Nienhuys <hanwen@xs4all.nl>
 ;;;; Jan Nieuwenhuizen <janneke@gnu.org>
 
@@ -26,13 +26,13 @@
      (if (pair? uprops)
 	 (string-append
 	  "\n\n@unnumberedsubsubsec User settable properties:\n"
-	  (description-list->texi user-propdocs))
+	  (description-list->texi user-propdocs #t))
 	 "")
 
      (if (pair? iprops)
 	 (string-append
 	  "\n\n@unnumberedsubsubsec Internal properties:\n"
-	  (description-list->texi internal-propdocs))
+	  (description-list->texi internal-propdocs #t))
 	 ""))))
 
 (define iface->grob-table (make-vector 61 '()))
@@ -53,19 +53,26 @@
 
 ;; First level Interface description
 (define (interface-doc interface)
-  (let ((name (symbol->string (car interface))))
+  (let* ((name (symbol->string (car interface)))
+	 (interface-list (human-listify
+			  (map ref-ify
+			       (sort
+				(map symbol->string
+				     (hashq-ref iface->grob-table
+						(car interface)
+						'()))
+				string<?)))))
     (make <texi-node>
       #:name name
       #:text (string-append
 	      (interface-doc-string (cdr interface) '())
 	      "\n\n"
-	      "This grob interface is used in the following graphical objects: "
-	      (human-listify
-	       (map ref-ify
-		    (sort 
-		     (map symbol->string
-			  (hashq-ref iface->grob-table (car interface) '()))
-		     string<?)))
+	      "This grob interface "
+	      (if (equal? interface-list "none")
+		  "is not used in any graphical object"
+		  (string-append
+		   "is used in the following graphical object(s): "
+		   interface-list))
 	      "."))))
 
 (define (grob-alist->texi alist)
@@ -74,7 +81,8 @@
 
     (description-list->texi
      (map (lambda (y) (property->texi 'backend y alist))
-	  uprops))))
+	  uprops)
+     #t)))
 
 (define (grob-doc description)
   "Given a property alist DESCRIPTION, make a documentation
@@ -91,21 +99,32 @@ node."
 			      (ly:error (_ "pair expected in doc ~s") name)))
 			(reverse ifaces)))
 	 (engravers (filter
-		     (lambda (x) (engraver-makes-grob? name x)) all-engravers-list))
+		     (lambda (x) (engraver-makes-grob? name x))
+		     all-engravers-list))
 	 (namestr (symbol->string name))
-	 (engraver-names (map symbol->string (map ly:translator-name engravers))))
+	 (engraver-names (map symbol->string
+			      (map ly:translator-name engravers)))
+	 (engraver-list (human-listify
+			 (map ref-ify
+			      (map engraver-name engraver-names)))))
 
     (make <texi-node>
       #:name namestr
       #:text
       (string-append
-       namestr " objects are created by: "
-       (human-listify (map ref-ify
-			   (map engraver-name engraver-names)))
+       namestr " objects "
+       (if (equal? engraver-list "none")
+	   "are not created by any engraver"
+	   (string-append
+	    "are created by: "
+	    engraver-list))
+       "."
+
        "\n\nStandard settings: \n\n"
        (grob-alist->texi description)
-       "\n\nThis object supports the following interfaces: \n"
-       (human-listify ifacedoc)))))
+       "\n\nThis object supports the following interface(s): \n"
+       (human-listify ifacedoc)
+       "."))))
 
 (define (all-grobs-doc)
   (make <texi-node>
@@ -155,7 +174,7 @@ node."
   (let* ((ps (sort (map symbol->string lst) string<?))
 	 (descs (map (lambda (prop)
 		       (property->texi 'backend (string->symbol prop) '())) ps))
-	 (texi (description-list->texi descs)))
+	 (texi (description-list->texi descs #f)))
     texi))
 
 ;;(dump-node (grob-doc (cdadr all-grob-descriptions)) (current-output-port) 0 )
