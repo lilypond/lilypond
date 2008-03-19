@@ -820,11 +820,141 @@ Traducción @expansion{} propiedades de contexto ajustables.
 @node Adding and removing engravers
 @subsection Adding and removing engravers
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Grabadores, adición
+@cindex Grabadores, eliminación
 
-@subsubsection Changing a single context
-@ 
-@subsubsection Changing all contexts of the same type
+@funindex \consists
+@funindex \remove
+
+Hemos visto que cada uno de los contextos contiene varios grabadores,
+cada uno de los cuales a su vez es responsable de la producción de una
+fracción particular del resultado impreso, como líneas divisorias,
+pentagramas, cabezas, plicas, etc.  Si un grabador es eliminado de un
+contexto, ya no podrá producir su salida impresa.  Es una forma algo
+radical de modificar la salida, pero a veces puede ser útil.
+
+@subsubheading Changing a single context
+
+Para eliminar un grabador de un contexto único, usamos la instrucción
+@code{\with} situada inmediatamente después de la instrucción que crea
+el contexto, como en la sección anterior.
+
+Como ilustración, repitamos un ejemplo extraído de la sección anterior
+con las líneas del pentagrama eliminadas.  Recuerde que las líneas del
+pentagrama están dibujadas por el grabador Staff_symbol_engraver.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+  \remove Staff_symbol_engraver
+}
+\relative c' {
+  c4 
+  \set fontSize = #-4  % make note heads smaller
+  d e
+  \set fontSize = #2.5  % make note heads larger
+  f g
+  \unset fontSize  % return to original size
+  a b
+}
+@end lilypond
+
+@cindex ámbito, grabador del
+
+Los grabadores también se pueden añadir a los contextos individuales
+La instrucción que lo hace es
+
+@code{\consists @emph{Nombre_del_grabador}},
+
+situada dentro de un bloque @code{\with}.  Ciertas partituras vocales
+tienen una indicación de @rglos{ambitus} situada al principio del
+pentagrama para indicar el ámbito de notas en dicho pentagrama.  El
+ambitus se produce por parte del grabador @code{Ambitus_engraver}, que
+normalmente no está incluido en ningún contexto.  Si lo añadimos al
+contexto @code{Voice}, calcula el rango a partir de esa única voz:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff <<
+  \new Voice \with {
+    \consists Ambitus_engraver
+  }
+  \relative c'' { 
+    \voiceOne
+    c a b g 
+  }
+  \new Voice
+  \relative c' {
+    \voiceTwo
+    c e d f
+  }
+>>
+@end lilypond
+
+@noindent
+pero si añadimos el grabador de Ambitus al contexto de @code{Staff},
+calcula el rango a partir de todas las notas en todas las voces de ese
+pentagrama:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff \with {
+    \consists Ambitus_engraver
+  }
+  <<
+  \new Voice
+  \relative c'' { 
+    \voiceOne
+    c a b g 
+  }
+  \new Voice
+  \relative c' {
+    \voiceTwo
+    c e d f
+  }
+>>
+@end lilypond
+
+@subsubheading Changing all contexts of the same type
+
+Los ejemplos anteriores muestran la manera de eliminar o añadir
+grabadores a los contextos individuales.  También es posible eliminar
+o añadir grabadores a todos los contextos de un tipo específico,
+situando las instrucciones en el contexto correspondiente dentro de un
+bloque @code{\layout}.  Por ejemplo, si queremos mostrar los rangos de
+tesitura para todos los pentagramas de una partitura de cuatro pautas,
+podemos escribir
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  <<
+    \new Staff <<
+      \relative c'' { c a b g }
+    >>
+    \new Staff <<
+      \relative c' { c a b g }
+    >>
+    \new Staff <<
+      \clef "G_8"
+      \relative c' { c a b g }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \relative c { c a b g }
+    >>
+  >>
+  \layout {
+    \context {
+      \Staff
+      \consists Ambitus_engraver
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Los valores predeterminados de las propiedades de los contextos
+también se pueden establecer para todos los contextos de un tipo en
+particular incluyendo la instrucción @code{\set} dentro de un bloque
+@code{\context} de la misma forma.
+
 @node Extending the templates
 @section Extending the templates
 
