@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: b2536bcafc5d0223496e6e8d0fb24289c092113f
+    Translation of GIT committish: bea70d053e3e279c3fbb18cbce52d995ce04fec7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -617,7 +617,82 @@ contexto.  Hemos visto esto en la sección acerca de la letra, en
 @node Engravers explained
 @subsection Engravers explained
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex grabadores
+
+Todas y cada una de las marcas de la salida impresa de una partitura
+hecha con LiilyPond está producida por un @code{Engraver} (grabador).
+Así, tenemos un grabador para imprimir pentagramas, otro para imprimir
+las cabezas de las notas, otro para las plicas, otro para las barras,
+etc, etc.  ¡En total hay más de 120 grabadores!  Afortunadamente, para
+la mayor parte de las partituras no es necesario conocer más que
+algunos, y para partituras sencillas no tenemos que saber nada de
+ninguno de ellos.
+
+Los grabadores residen y operan dentro de Contextos.  Los grabadores
+como el grabador de la indicación metronómica,
+@code{Metronome_mark_engraver}, cuya acción y resultado se aplica a la
+partitura como un todo, operan en el contexto del nivel más alto: el
+contexto de partitura @code{Score}.
+
+El grabador de la clave @code{Clef_engraver} y el de la armadura
+@code{Key_engraver} se encuentran probablemente en todos los contextos
+de pentagrama (Staff), pues los distintos pentagramas podrían requerir
+diferentes claves y armaduras.
+
+El grabador de las cabezas de nota @code{Note_heads_engraver} y el de
+las plicas @code{Stem_engraver} viven en cada uno de los contextos de
+voz @code{Voice}, el contexto de nivel más bajo de todos.
+
+Cada grabador procesa los objetos particulares asociados con su
+función, y mantiene las propiedades que están relacionadas con dicha
+función.  Estas propiedades, como las que están asociadas con los
+contextos, se pueden modificar para cambiar el funcionamiento del
+grabador o el aspecto de esos elementos en la partitura impresa.
+   
+Todos los grabadores tienen nombres compuestos de varias palabras que
+describen su función.  Sólo está en mayúsculas la inicial de la
+primera palabra, y el resto se le une mediante guiones bajos.  Así, el
+grabador @code{Staff_symbol_engraver} es responsable de la creación de
+las líneas del pentagrama, y el @code{Clef_engraver} determina y
+establece la altura o el punto de referencia sobre el pentagrama
+dibujando un símbolo de clave.
+
+A continuación presentamos algunos de los grabadores más comunes,
+junto a su función.  Podrá comprobar que es fácil adivinar la función
+a partir del nombre (en inglés), y viceversa.
+
+@multitable @columnfractions .3 .7 
+@headitem Grabador
+  @tab Función
+@item Accidental_engraver
+  @tab Hace las alteraciones accidentales, de precaución y de sugerencia.
+@item Beam_engraver
+  @tab Graba las barras
+@item Clef_engraver
+  @tab Graba las claves
+@item Dynamic_engraver
+  @tab Crea reguladores e indicaciones dinámicas textuales
+@item Key_engraver
+  @tab Crea la armadura de la tonalidad
+@item Metronome_mark_engraver
+  @tab Graba la indicación metronómica
+@item Note_heads_engraver
+  @tab Graba la cabeza de las notas
+@item Rest_engraver
+  @tab Graba los silencios
+@item Staff_symbol_engraver
+  @tab Graba las cinco líneas (de forma predeterminada) del pentagrama
+@item Stem_engraver
+  @tab Crea las plicas y los trémolos de una sola plica
+@item Time_signature_engraver
+  @tab Crea las indicaciones de compás
+@end multitable
+
+@smallspace
+
+Más adelante veremos cómo la salida de LilyPond se puede cambiar
+mediante la modificación del funcionamiento de los Grabadores.
+  
 
 @node Modifying context properties
 @subsection Modifying context properties
