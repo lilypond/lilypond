@@ -697,125 +697,226 @@ mediante la modificación del funcionamiento de los Grabadores.
 @node Modifying context properties
 @subsection Modifying context properties
 
-@cindex properties
+@cindex contexto, propiedades de
 @funindex \set
-@cindex changing properties
-
-Cada contexto puede tener diferentes @emph{propiedades} o variables contenidas
-en dicho contexto.  Se pueden cambiar mientras se desarrolla la fase de interpretación.
-Esto se consigue insertando la instrucción @code{\set} en la música,
-
-@example
-\set @var{contexto}.@var{propiedad} = #@var{valor}
-@end example
-
-Por ejemplo,
-@lilypond[quote,verbatim,relative=2,fragment]
-R1*2
-\set Score.skipBars = ##t
-R1*2
-@end lilypond
-
-Esta instrucción hace que se salten los compases que no tienen ninguna nota.  El resultado es que
-los silencios multicompás se comprimen.  El valor asignado es un objeto del lenguaje Scheme.  En
-este caso, es @code{#t}, el valor booleano Verdadero.
-
-Si el argumento @var{contexto} se deja en blanco, entonces se utiliza el contexto actual más bajo
-(normalmente @code{ChordNames}, @code{Voice} o
-@code{Lyrics}).  En este ejemplo,
-
-@lilypond[quote,verbatim,relative=2,fragment]
-c8 c c c
-\set autoBeaming = ##f
-c8 c c c
-@end lilypond
-
-@noindent
-el argumento @var{contexto} para la instrucción @code{\set} está omitido, por tanto
-el barrado automático está desactivado en la @internalsref{Voice} (voz) actual.  Fíjese en que
-el contexto más bajo no siempre contiene la propiedad que quiere
-cambiar. Por ejemplo, si intenta establecer la propiedad @code{skipBars}
-(del contexto más bajo, en este caso @code{Voice}) no se producirá ningún
-efecto.
-
-@lilypond[quote,verbatim,relative=2,fragment]
-R1*2
-\set skipBars = ##t
-R1*2
-@end lilypond
-
-Los contextos son jerárquicos, de forma que si se especificó un contexto mayor, por
-ejemplo @code{Staff}, entonces el cambio también se aplicaría a todos los
-@code{Voice}s o contextos de voz en el pentagrama actual.  El cambio se aplica
-@q{al vuelo}, mientras transcurre la música, de manera que el ajuste sólo afecta al segundo
-grupo de corcheas.
-
 @funindex \unset
 
-También existe una instrucción @code{\unset},
+Los contextos se responsabilizan de mantener los valores de un cierto
+número de @emph{properties} de contexto.  Muchas de ellas se pueden
+cambiar para influir en la interpretación del código de entrada y
+cambiar así la apariencia de la salida impresa.  Se modifican mediante
+la instrucción @code{\set}.  Esta instrucción toma la forma siguiente:
+
 @example
-\unset @var{contexto}.@var{propiedad}
+\set @emph{NombreDelContexto}.@emph{nombreDeLaPropiedad} = #@emph{valor}
 @end example
+
+Donde el @emph{NombreDelContexto} es normalmente @code{Score},
+@code{Staff} o @code{Voice}.  Se puede omitir, en cuyo caso se supone
+que es @code{Voice}.
+
+Los nombres de las propiedades de contexto consisten en palabras
+unidas sin ningún guión o barra baja, y donde todas las palabras
+excepto la primera empiezan en mayúscula.  A continuación podemos ver
+algunos ejemplos de nombres de propiedades utilizadas con frecuencia.
+Hay muchas más que las que se muestran aquí.
+
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .25 .15 .45 .15
+@headitem nombreDeLaPropiedad
+  @tab Tipo
+  @tab Función
+  @tab Valor de ejemplo
+@item extraNatural
+  @tab Booleano
+  @tab Se es verdadero, poner becuadros adicionales antes de las alteraciones
+  @tab @code{#t}, @code{#f}
+@item currentBarNumber
+  @tab Entero
+  @tab Ajustar el número del compás actual
+  @tab @code{50}
+@item doubleSlurs
+  @tab Booleano
+  @tab Si es verdadero, imprimir ligaduras de expresión por encima y por debajo de las notas
+  @tab @code{#t}, @code{#f}
+@item instrumentName
+  @tab Texto
+  @tab Establecer el nombre del pentagrama, situado a la izquierda
+  @tab @code{"Cello I"}
+@item fontSize
+  @tab Real
+  @tab Aumentar o disminuir el tamaño de la fuente tipográfica
+  @tab @code{2.4}
+@item stanza
+  @tab Texto
+  @tab Establecer el texto que se imprime antes del comienzo de una estrofa
+  @tab @code{"2"}
+@end multitable
 
 @noindent
-que quita la definición de la @var{propiedad}.  Esta instrucción quita
-la definición solamente si está establecida dentro del @var{contexto} especificado, por lo que
+donde un valor Booleano es verdadero (@code{#t}, True) o falso
+(@code{#f}, False), un Entero es un número entero positivo, un número
+Real es un número decimal positivo o negativo, y el texto se encierra
+entre comillas dobles.  Observe la aparición de signos de cuadradillo,
+(@code{#}), en dos lugares diferentes: como parte del valor Booleano
+antes de la @code{t} o la @code{f}, y antes del @emph{valor} dentro de
+la sentencia @code{\set}.  Así pues, cuando se está escribiendo un
+valor Booleano, hay que escribir dos signos de cuadradillo, por
+ejemplo: @code{##t}.
 
-@example
-\set Staff.autoBeaming = ##f
-@end example
+Antes de poder establecer cualquiera de estas propiedades, tenemos que
+saber en qué contexto operan.  A veces es algo obvio, pero en
+ocasiones puede ser algo enrevesado.  Si especificamos un contexto
+equivocado, no se produce ningún mensaje de error, pero el
+funcionamiento esperado no tendrá lugar.  Por ejemplo, la propiedad
+@code{instrumentName} (nombre del instrumento) vive claramente dentro
+del contexto de Staff, puesto que es el pentagrama el que debe ser
+nombrado.  En este ejemplo, el primer pentagrama resulta etiquetado,
+pero no el segundo, porque hemos omitido el nombre del contexto.
 
-@noindent
-introduce un ajuste de propiedad en el nivel del contexto @code{Staff}.  El ajuste también se aplica
-a la @code{Voice} actual.  Sin embargo,
-
-@example
-\unset Voice.autoBeaming
-@end example
-
-@noindent
-no tiene ningún efecto.  Para cancelar este ajuste, el @code{\unset}
-se debe especificar en el mismo nivel que el @code{\set} original.  En
-otras palabras, deshacer el efecto de @code{Staff.autoBeaming = ##f}
-requiere
-@example
-\unset Staff.autoBeaming
-@end example
-
-Igual que @code{\set}, el argumento @var{contexto} no tiene que especificarse para un contexto
-que está en la parte más baja, por lo que las dos instrucciones
-
-@example
-\set Voice.autoBeaming = ##t
-\set autoBeaming = ##t
-@end example
-
-@noindent
-son equivalentes.
-
-
-@cindex \once
-Los ajustes que se quieren aplicar a un paso de tiempo único se pueden escribir
-con @code{\once}, por ejemplo en
-
-@lilypond[quote,verbatim,relative=2,fragment]
-c4
-\once \set fontSize = #4.7
-c4
-c4
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    \set Staff.instrumentName = #"Soprano"
+    c4 c
+ }
+  \new Staff \relative c' {
+  \set instrumentName = #"Alto"  % Wrong!
+  d4 d 
+ }
+>>
 @end lilypond
 
-la propiedad @code{fontSize} pierde su valor automáticamente después de la segunda
-nota.
+Recuerde que el nombre del contexto predeterminado es Voice, así que
+la segunda instrucción @code{\set} establece la propiedad
+@code{instrumentName} del contexto Voice a @qq{Alto}, pero como
+LilyPond no busca esta propiedad en el contexto @code{Voice}, no se
+realiza ninguna acción.  Esto no es un error, y no se registra ningún
+mensaje en el archivo de errores Log.
 
-En la referencia del programa hay una descripción detallada de todas las propiedades de contexto disponibles,
-véase
-@ifhtml
-@internalsref{Tunable context properties}.
-@end ifhtml
-@ifnothtml
-Traducción @expansion{} propiedades de contexto ajustables.
-@end ifnothtml
+De forma parecida, si el nombre de la propiedad se escribe con alguna
+falta, no se produce ningún mensaje de error, y claramente la acción
+esperada no puede tener lugar.  De hecho, se puede establecer
+cualquier @q{property} (ficticia) usando cualquier nombre que queramos
+en cualquier contexto que exista, mediante el uso de la instrucción
+@code{\set}.  Pero si el nombre no es conocido para LilyPond, no
+producirá ninguna acción.  Esta es una de las razones por las que es
+muy recomendable ussar un editor que sea sensible al contexto y con
+resaltado de la sintaxis para la edición de archivos de LilyPond, como
+por ejemplo Vim, Jedit, ConTEXT o Emacs, ya que los nombres de
+propiedades desconocidas se resaltarán de forma distinta.
+
+La propiedad @code{instrumentName} tendrá efecto solamente si se
+establece dentro del contexto @code{Staff}, pero algunas propiedades
+se pueden establecer en más de un contexto.  Por ejemplo, la propiedad
+@code{extraNatural} está establecida por defecto al valor ##t
+(verdadero) para todos los pentagramas.  Si se establece a ##f (falso)
+en un contexto de @code{Staff} determinado, se aplicará solamente a
+las alteraciones de ese pentagrama.  Si se establece a falso en el
+contexto de la partitura, @code{Score}, se aplicará a todos los
+pentagramas.
+
+Así, esto desactivará los becuadros adicionales en un pentagrama:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    ais4 aes
+ }
+  \new Staff \relative c'' {
+    \set Staff.extraNatural = ##f
+    ais4 aes
+ }
+>>
+@end lilypond
+
+@noindent
+y esto los desactivará en todos los pentagramas:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff \relative c'' {
+    ais4 aes
+ }
+  \new Staff \relative c'' {
+    \set Score.extraNatural = ##f
+    ais4 aes
+ }
+>>
+@end lilypond
+
+El valor de cada propiedad establecido de esta forma se puede devolver
+a su valor original con la instrucción @code{\unset}.
+ 
+Las instrucciones @code{\set} y @code{\unset} pueden aparecer en
+cualquier lugar del archivo de entrada y tendrán efecto a partir del
+tiempo en que se encuentran y hasta el final de la partitura o hasta
+que la propiedad se establezca de nuevo mediante @code{\set} o
+@code{\unset}.  Probemos a modificar el tamaño de la fuente
+tipográfica, lo que afecta al tamaño de las cabezas de las notas
+(entre otras cosas) varias veces.  El cambio se toma a partir del
+valor predeterminado, no el valor en curso.
+
+@lilypond[quote,verbatim,ragged-right,relative=1,fragment]
+c4 
+% make note heads smaller
+\set fontSize = #-4
+d e
+% make note heads larger
+\set fontSize = #2.5
+f g
+% return to original size
+\unset fontSize
+a b
+@end lilypond
+
+Hemos podido ver cómo establecer los valores de diversos tipos de
+propiedad diferentes.  Observe que los números enteros y reales van
+siempre precedidos de un símbolo de cuadradillo, @code{#}, mientras
+que un valor booleano verdadero o falso se especifica mediante ##t y
+##f, con dos cuadradillos.  Una propiedad de texto se debe encerrar
+entre comillas dobles, como antes, aunque veremos más adelante que el
+texto realmente se peude especificar de una dorma mucho más general
+utilizando la potentísima instrucción @code{markup}.
+
+
+@funindex \with
+
+Las propiedades de contexto también se pueden establecer en el momento
+en que se crea el contexto.  A veces esta forma de establecer el valor
+de una propiedad es mucho más clara, si ha de quedar fijo durante todo
+el tiempo que dure el contexto.  Cuando se crea un contexto con una
+instrucción @code{\new} puede ir inmediatamente seguido de un bloque
+@code{\with @{ .. @}} en el que se establecen los valores de las
+propiedades.  Por ejemplo, si queremos suprimir la impresión de
+becuadros adicionales para toda la duración de un pentagrama, podemos
+escribir:
+
+@example
+\new Staff \with @{ extraNatural = ##f @}
+@end example
+
+@noindent
+de la siguiente forma:
+
+@lilypond[quote,verbatim,ragged-right]
+<<
+  \new Staff
+  \relative c'' {
+    gis ges aes ais
+  }
+  \new Staff \with { extraNatural = ##f }
+  \relative c'' {
+    gis ges aes ais
+  }
+>>
+@end lilypond
+
+Efectivamente, esto sobreescribe el valor predeterminado de la
+propiedad.  Aún se puede modificar dinámicamente utilizando
+@code{\set} y devolverlo a su (nuevo) valor predeterminado con
+@code{\unset}.
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
