@@ -113,13 +113,6 @@ d8^\markup { \italic pizz. } e f g
 a4_\markup { \tiny scherz. \bold molto } f
 @end lilypond
 
-@predefined
-
-@funindex \textLengthOn
-@code{\textLengthOn},
-@funindex \textLengthOff
-@code{\textLengthOff}.
-
 By default, text indications do not influence the note spacing.
 However, their widths can be taken into account:
 in the following example, the first text string does not affect 
@@ -128,6 +121,13 @@ spacing, whereas the second one does.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 @end lilypond
+
+@predefined
+
+@funindex \textLengthOn
+@code{\textLengthOn},
+@funindex \textLengthOff
+@code{\textLengthOff}.
 
 
 @seealso
@@ -160,29 +160,26 @@ default; to enable it, use
 
 Some performance indications, e.g., @i{rallentando} or
 @i{accelerando}, are written as text and are extended over many
-measures with dotted lines.  Such texts are created using text
-spanners; attach @code{\startTextSpan} and @code{\stopTextSpan} to
-the first and last notes of the spanner.
+measures with dotted lines; you can create such text spanners
+from one note to another by using the following syntax:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c2
 \override TextSpanner #'bound-details #'left #'text = "rit." 
-a4\startTextSpan c
-b2 e,\stopTextSpan
+b1\startTextSpan 
+e,\stopTextSpan
 @end lilypond
 
 @noindent
 The string to be printed is set through
-object properties. By default, it is printed in italic characters;
-however, different formatting can be obtained using
+object properties. By default it is printed in italic characters,
+but different formatting can be obtained using
 @code{\markup} blocks:
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-c2
 \override TextSpanner #'bound-details #'left #'text =
   \markup { \upright "rit." } 
-a4\startTextSpan c
-b2 e,\stopTextSpan
+b1\startTextSpan c
+e,\stopTextSpan
 @end lilypond
 
 @predefined
@@ -194,20 +191,8 @@ b2 e,\stopTextSpan
 @funindex textSpannerNeutral
 @code{\textSpannerNeutral}.
 
-@c TODO: Document Line Styles? -vv
-@ignore
 The line style, as well as the text string, can be defined as an
-object property, as described in @ref{Line Styles}.
-@end ignore
-
-
-@snippets
-
-To print a solid line, use
-
-@example
-\override TextSpanner #'style = #'line
-@end example
+object property, as described in @ref{Line styles}.
 
 
 @seealso
@@ -226,17 +211,16 @@ Internals Reference: @internalsref{TextSpanner}.
 @cindex bar lines, symbols on
 @funindex \mark
 
-The @code{\mark} command is primarily used for @ref{Rehearsal
-marks}, but it can also be used to add text elements in a score:
+Various text elements can be added to a score using
+the syntax described in @ref{Rehearsal marks}:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4\mark "text" c c c
+c4\mark "dolce" c c c
 @end lilypond
 
-As it can contain a @code{\markup} object, the @code{\mark} command
-makes possible to put any text, but also signs like coda, segno, or
-fermata on a bar line.  The appropriate symbol has to be specified in
-the @code{\markup} block; these symbols are listed in @ref{The Feta font}.
+This syntax makes possible to put any text on a bar line, but also
+signs like coda, segno, or fermata, by specifying  the appropriate
+symbol name.  These symbols are listed in @ref{The Feta font}.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 c1 \mark \markup { \musicglyph #"scripts.ufermata" }
@@ -244,20 +228,17 @@ c1
 @end lilypond
 
 @noindent
-@code{\mark} is only typeset above the top staff of the score.  If
-you specify the @code{\mark} command at a bar line, the resulting
-mark is placed above the bar line.  If you specify it in the
-middle of a bar, the resulting mark is positioned between notes.
-If it is specified before the beginning of a score line, it is
-placed before the first note of the line.  Finally, if the mark
-occurs at a line break, the mark will be printed at the beginning
-of the next line.
+Such objects are only typeset above the top staff of the score; they
+can be placed above the bar line or between notes, depending on whether
+you specify it at the end or the middle of a bar. When specified at the
+beginning of a score or at a line break, the mark will be printed at
+the beginning of the line (the next line, in case of a line break).
 
-@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
-@c  delete this sentence.   -gp
-@noindent
-If there is no next line, then the mark will not be printed at
-all.
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+\mark "dolce" c1
+c\mark "assai" \break
+c c
+@end lilypond
 
 
 @snippets
@@ -371,6 +352,14 @@ staff, you may alter this to print them on every staff,
 Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{RehearsalMark}.
+
+@knownissues
+@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
+@c  delete this sentence.   -gp
+
+If a mark is entered at the end of the last bar of the score (where
+there is no next line), then the mark will not be printed at
+all.
 
 @c TODO: add this here? -vv
 @c @node Text marks

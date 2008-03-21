@@ -385,26 +385,33 @@ Axis_group_interface::calc_pure_elts_and_common (Grob *me)
   return common;
 }
 
+SCM
+Axis_group_interface::calc_common (Grob *me, Axis axis)
+{
+  extract_grob_set (me, "elements", elts);
+  Grob *common = common_refpoint_of_array (elts, me, axis);
+  if (!common)
+    {
+      me->programming_error ("No common parent found in calc_common axis.");
+      return SCM_EOL;
+    }
+  
+  return common->self_scm ();
+}
+
+
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_x_common, 1);
 SCM
 Axis_group_interface::calc_x_common (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
-
-  extract_grob_set (me, "elements", elts);
-  Grob *common = common_refpoint_of_array (elts, me, X_AXIS);
-  return common->self_scm ();
+  return calc_common (unsmob_grob (grob), X_AXIS);
 }
 
 MAKE_SCHEME_CALLBACK (Axis_group_interface, calc_y_common, 1);
 SCM
 Axis_group_interface::calc_y_common (SCM grob)
 {
-  Grob *me = unsmob_grob (grob);
-
-  extract_grob_set (me, "elements", elts);
-  Grob *common = common_refpoint_of_array (elts, me, Y_AXIS);
-  return common->self_scm ();
+  return calc_common (unsmob_grob (grob), Y_AXIS);
 }
 
 Interval

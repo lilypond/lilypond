@@ -46,7 +46,7 @@ types of repeats.  The syntax is
 \repeat @var{variant} @var{repeatcount} @var{repeatbody}
 @end example
 
-where @var{repeabody} is a music expression.
+where @var{repeatbody} is a music expression.
 
 
 Alternative endings are entered with 
@@ -98,16 +98,17 @@ The syntax for a simple repeat is
 \repeat @var{variant} @var{repeatcount} @var{repeatbody}
 @end example
 
-where @var{repeabody} is a music expression.
+where @var{repeatbody} is a music expression.
 
-Normal repeats, without alternate endings:
+Normal repeats without alternate endings:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \repeat volta 2 { c4 d e f }
-c1
+c2 d
+\repeat volta 2 { d4 e f g }
 @end lilypond
 
-Normal repeats, with  alternate endings:
+Normal repeats with  alternate endings:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \repeat volta 2 { g f e d }
@@ -123,7 +124,8 @@ Repeats with upbeats:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
-  \partial 4 e |
+  \partial 4
+  e |
   \repeat volta 4 { c2 d2 | e2 f2 | }
   \alternative { { g4 g g e } { a a a a | b2. } }
 }
@@ -156,15 +158,13 @@ alternative music, but it is possible to shorten them by setting
 @code{voltaSpannerDuration}.  In the next example, the bracket only
 lasts one measure, which is a duration of 3/4.
 
-@lilypond[verbatim,ragged-right,quote]
-\relative c''{
-  \time 3/4
-  c c c
-  \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
-  \repeat volta 5 { d d d }
-  \alternative { { e e e f f f }
-  { g g g } }
-}
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 3/4
+c c c
+\set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
+\repeat volta 5 { d d d }
+\alternative { { e e e f f f }
+{ g g g } }
 @end lilypond
 
 The @code{Volta_engraver} by default resides in the Score context, and
@@ -188,25 +188,25 @@ to the Staff context where you want the brackets to appear; see
 If you want to start a repeat at the beginning of a line and have a
 double bar at the end of the previous line, use
 
-@example
-@dots{} \bar "||:" \break 
-\repeat volta 2 @{ @dots{} 
-@end example
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c4 c c c
+\bar "||:" \break 
+\repeat volta 2 { c4 d e f }   
+@end lilypond
 
 see @ref{Bar lines} for more information.
 
 @seealso
 
-Music Glossary: @rglos{repeat};
+Music Glossary: @rglos{repeat}.
 @c FIXME : add @rglos{volta} after glossary addition
 
-Notation Reference: @ref{Bar lines}; @ref{Modifying context plug-ins}.
+Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
 Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic}, and
+@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}.
 
 @c Examples:

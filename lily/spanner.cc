@@ -191,7 +191,7 @@ Spanner::set_bound (Direction d, Grob *s)
   Item *i = dynamic_cast<Item *> (s);
   if (!i)
     {
-      programming_error ("must have Item for spanner bound");
+      programming_error ("must have Item for spanner bound of " + name());
       return;
     }
 

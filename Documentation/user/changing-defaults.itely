@@ -429,7 +429,7 @@ elements.  For example, the @code{Voice} context contains a
 
 For a full a description of each plug-in, see
 @ifhtml
-@internalsref{Engravers}.
+@internalsref{Engravers and Performers}.
 @end ifhtml
 @ifnothtml
 Internals Reference @expansion{} Translation @expansion{} Engravers.
