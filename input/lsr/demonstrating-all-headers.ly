@@ -25,7 +25,7 @@ texidoc = "All header fields with special meanings."
   source = "urtext"
 
 }
-% begin verbatim
+
 
 \score {
   \relative c'' { c1 c1 c1 c1 }
@@ -48,4 +48,4 @@ texidoc = "All header fields with special meanings."
 	copyright = "localcopyright"
 	}
 }
-% begin verbatim
+

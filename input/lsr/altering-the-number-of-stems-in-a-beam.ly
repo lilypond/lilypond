@@ -5,7 +5,7 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
  texidoc = "
-You can alter the number of stems in a beam.  In this example, two sets
+You can alter the number of stems in a beam. In this example, two sets
 of four 32nds are joined, as if they were 8th notes.
 
 
@@ -16,8 +16,8 @@ of four 32nds are joined, as if they were 8th notes.
   #(override-auto-beam-setting '(end * * * *)  1 4)
   f32 g a b b a g f
 
-  f32 g a 
-  \set stemRightBeamCount = #1  b
+  f32 g a
+  \set stemRightBeamCount = #1 b
   \set stemLeftBeamCount = #1 b
   a g f
 }

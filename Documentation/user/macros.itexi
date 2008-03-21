@@ -6,8 +6,9 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c @value{version}
 @macro version
-@value{version}
+2.11.41
 @end macro
 
 @c   ***** Displaying text *****
@@ -26,6 +27,12 @@
 @end macro
 
 @macro warning{TEXT}
+@ifhtml
+@cartouche
+@b{Note:} \TEXT\
+@end cartouche
+@end ifhtml
+@ifnothtml
 @quotation
 @quotation
 @cartouche
@@ -33,6 +40,7 @@
 @end cartouche
 @end quotation
 @end quotation
+@end ifnothtml
 @end macro
 
 @ifnotinfo

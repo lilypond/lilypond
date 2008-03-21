@@ -18,9 +18,9 @@ controlling-tuplet-bracket-visibility.ly
 caesura-railtracks-with-fermata.ly
 rhythmic-slashes.ly
 changing-the-staff-size.ly
+changing-a-single-notes-size-in-a-chord.ly
 coloring-objects.ly
 clefs-commonly-tweaked-properties.ly
 vertically-aligning-ossias-and-lyrics.ly
 changing-properties-for-individual-grobs.ly
-changing-an-individual-notes-size-in-a-chord.ly
 nesting-staves.ly

@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use, text, vocal-music"
+  lsrtags = "text, vocal-music"
  texidoc = "
 To format single lyrics syllables, you can simply use \\markup @{ ....
 @} on these lyrics!
@@ -13,7 +13,7 @@ To format single lyrics syllables, you can simply use \\markup @{ ....
 \header {
   title = "Markup can be used inside lyrics!" 
 }
-% begin verbatim
+
 melody = \relative c'' { c4 c c c  }
 lyr = \lyricmode { 
   Lyrics \markup { \italic can } \markup {\with-color #red contain } 

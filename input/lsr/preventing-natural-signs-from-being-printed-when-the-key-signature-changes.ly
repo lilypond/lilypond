@@ -7,8 +7,8 @@
  texidoc = "
 When the key signature changes, natural signs are automatically printed
 to cancel any accidentals from previous key signatures. This may be
-altered by setting to \"false\" the printKeyCancellation property in
-the Staff context.
+altered by setting to \"false\" the @code{printKeyCancellation}
+property in the @code{Staff} context. 
 " }
 % begin verbatim
 \relative {

@@ -37,7 +37,7 @@ The default font families for text can be overridden with
       sans: foo \bold bla \italic bar \italic \bold baz
     }
   }
-  c'^\markup {
+  c'2^\markup {
     \override #'(font-family . typewriter)
     {
       mono: foo \bold bla \italic bar \italic \bold baz

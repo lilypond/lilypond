@@ -28,9 +28,9 @@ qbeam={
   	#(override-auto-beam-setting '(end 1 8 * *) 3 4 'Staff) 
  	}
 % other macros	
-timeFractionstyle={ \override Staff.TimeSignature #'style = #'()}
-textn = ^\markup{ without the macro }
-texty = ^\markup{ with the macro }
+timeFractionstyle = { \override Staff.TimeSignature #'style = #'() }
+textn = ^\markup { without the macro }
+texty = ^\markup { with the macro }
 
 \score {
  << 
@@ -51,5 +51,4 @@ texty = ^\markup{ with the macro }
 		 }
 	 >>	 
  >>
-\layout{ raggedright = ##t }
 }
