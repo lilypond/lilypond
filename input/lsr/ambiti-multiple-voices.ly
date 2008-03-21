@@ -8,7 +8,7 @@
 If you have multiple voices in a single staff and you want a single
 ambitus per staff rather than per voice, add the
 @code{Ambitus_engraver} to the @code{Staff} context rather than to the
-@code{Voice} context.
+@code{Voice} context. 
 " }
 % begin verbatim
 \new Staff \with {

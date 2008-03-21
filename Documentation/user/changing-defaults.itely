@@ -70,6 +70,7 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 @menu
 * Interpretation contexts::     
 * The \override command::       
+* Discussion of specific tweaks::  
 @end menu
 
 
@@ -1489,3 +1490,28 @@ Note, however, that @code{\override}, applied to
 expected within @code{\context} blocks.
 
 @end itemize
+
+
+
+
+
+
+@node Discussion of specific tweaks
+@section Discussion of specific tweaks
+
+@menu
+* Line styles::                 
+* Controlling visibility of objects::  
+@end menu
+
+@node Line styles
+@subsection Line styles
+
+Valentin: write stuff here.
+
+
+@node Controlling visibility of objects
+@subsection Controlling visibility of objects
+
+stuff about #'break-visibility
+

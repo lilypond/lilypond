@@ -5,8 +5,9 @@
 \header {
   lsrtags = "rhythms, vocal-music"
  texidoc = "
-Although you can't use `s' in lyric mode (it's taken to be a literal s,
-not a space) you can use either \"\" or _.
+Although you can't use @code{s} in @code{\\lyricmode} (it's taken to be
+a literal \"s\", not a space) you can use either @code{\"\"} or
+@code{_}.
 
 So for example:
 " }

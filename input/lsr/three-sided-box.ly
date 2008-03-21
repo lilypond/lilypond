@@ -43,6 +43,6 @@ thickness and padding around the markup."
 % Test it:
 
 \relative c'{ 
-  c^\markup{ \NWS-box ABCD }
+  c2^\markup{ \NWS-box ABCD }
   c^\markup{\NWS-box \note #"4" #1.0 } 
 }

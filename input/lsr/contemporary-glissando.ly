@@ -20,4 +20,4 @@ Use a glissando without final note. Contemporary glissando !
 \addlyrics { unHideNotes cadenzaOff, skip_and_\bar \skip 4  }
 \layout{raggedright = ##t}
 \header { tagline="" }
-% begin verbatim
+
