@@ -11,7 +11,7 @@ has to be regarded as equal, without any hierarchy such as the
 classical (tonal) degrees. Therefore, these composers print one
 accidental for each note, even at natural pitches, to emphasize their
 new approach to music theory and language. This snippet shows how to
-achieve such notation rules with LilyPond.
+achieve such notation rules with LilyPond. 
 " }
 % begin verbatim
 webernAccidentals = {
@@ -23,7 +23,7 @@ webernAccidentals = {
 }
 
 \layout {
-  \context { \Staff \remove Key_engraver }
+  \context { \Staff \remove "Key_engraver" }
 }
 \score {
   {

@@ -6,9 +6,9 @@
   lsrtags = "rhythms"
  texidoc = "
 This example shows how to specify how long each of the tuplets
-contained within the bracket after @code{\\times} should last.  Many
-consecutive tuplets can then be contained within a single @code{\\times
-@{ ... @}}, thus saving typing.
+contained within the brackets after @code{\\times} should last. Many
+consecutive tuplets can then be placed within a single @code{\\times @{
+... @}} expression, thus saving typing.
 
 In the example, two triplets are shown, while @code{\\times} was
 entered only once.

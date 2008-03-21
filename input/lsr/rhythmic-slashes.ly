@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "rhythms, editorial-and-educational-use, tweaks-and-overrides"
+  lsrtags = "rhythms, tweaks-and-overrides"
  texidoc = "
 In \"simple\" lead-sheets, sometimes no actual notes are written,
 instead only \"rhythmic patterns\" and chords above the measures are

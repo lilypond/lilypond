@@ -14,7 +14,7 @@ the @code{Staff} context the @code{Time_signature_engraver}, the
 \header {
   tagline = ""
 }
-% begin verbatim
+
 #(set-global-staff-size 20)
 
 \score {

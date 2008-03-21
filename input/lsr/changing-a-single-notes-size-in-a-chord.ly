@@ -18,14 +18,6 @@ notehead).
 The code for the chord example shown: @code{} 
 " }
 % begin verbatim
-\header{
-  title = "Modifying an individual notehead's size in a chord"
-}
-
-Notes = \relative {
+\relative {
   <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1^\markup{A tiny e}_\markup{A big c}
-}
-
-\score{
-  \Notes
 }

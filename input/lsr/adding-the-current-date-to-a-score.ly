@@ -33,7 +33,7 @@ date = #(strftime "%d-%m-%Y" (localtime (current-time)))
   title = "Including the date!"
   subtitle = \date
 }
-% begin verbatim
+
 \score {
   \relative c'' {
     c4 c c c

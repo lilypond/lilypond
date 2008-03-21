@@ -1,6 +1,6 @@
-applying-noteheads-styles-depending-on-the-step-of-the-scale.ly
-creating-a-sequence-of-notes-on-various-pitches.ly
 makam.ly
+ambiti-multiple-voices.ly
+applying-notehead-styles-depending-on-the-step-of-the-scale.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
 ottava-text.ly
 preventing-extra-naturals-from-being-automatically-added.ly
@@ -10,5 +10,5 @@ adding-ambiti-per-voice.ly
 clefs-commonly-tweaked-properties.ly
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
-ambiti-multiple-voices.ly
+creating-a-sequence-of-notes-on-various-pitches.ly
 non-traditional-key-signatures.ly

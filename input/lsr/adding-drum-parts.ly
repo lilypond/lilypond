@@ -6,10 +6,10 @@
   lsrtags = "rhythms, percussion"
  texidoc = "
 LilyPond makes drums input quite easy, with powerful pre-configured
-tools such as the \\drummode function and the DrumStaff context:  drums
-are placed to their own staff positions (with a special clef symbol)
-and have note heads according to the drum. You can easily attach an
-extra symbol to the drum, and restrict the number of lines.
+tools such as the @code{\\drummode} function and the @code{DrumStaff}
+context: drums are placed at their own staff positions (with a special
+clef symbol) and have noteheads according to the drum. You can easily
+attach an extra symbol to the drum, and restrict the number of lines. 
 " }
 % begin verbatim
 drh = \drummode { cymc4.^"crash" hhc16^"h.h." hh \repeat "unfold" 5 {hhc8 hho hhc8 hh16 hh} hhc4 r4 r2 }
@@ -35,14 +35,11 @@ timb = \drummode { \repeat "unfold" 2 {timh4 ssh timl8 ssh r timh r4 ssh8 timl r
     >>
   }
   \layout {}
-
   \midi {
     \context {
       \Score
       tempoWholesPerMinute = #(ly:make-moment 120 4)
       }
     }
-
-
 }
 

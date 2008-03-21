@@ -18,7 +18,7 @@ melodie = { \tempo 4 = 150 \basemelodie }
   title = "Demo of all midi sounds"
   arranger = "Myself"
 }
-% begin verbatim
+
 \score { 
   \new Staff <<
     \new Voice { \melodie 

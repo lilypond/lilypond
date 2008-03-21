@@ -6,11 +6,11 @@
   lsrtags = "rhythms"
  texidoc = "
 The Scheme function @code{set-time-signature}, in combination with the
-Measure grouping engraver,  it will create MeasureGrouping signs.  Such
-signs ease reading rhythmically complex modern music.  In the following
-example, the 9/8 measure is subdivided in 2, 2, 2 and 3.  This is
-passed to @code{set-time-signature} as the third argument @code{(2 2 2
-3)}
+@code{Measure_grouping_engraver}, creates measure grouping signs. Such
+signs ease reading rhythmically complex modern music. In the following
+example, the 9/8 measure is subdivided into 2, 2, 2 and 3 beats. This
+is passed to @code{set-time-signature} as the third argument @code{(2 2
+2 3)}.
 
 
 " }
