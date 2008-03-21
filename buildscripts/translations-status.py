@@ -7,9 +7,10 @@ USAGE: translations-status.py BUILDSCRIPT-DIR LOCALEDIR
 
   Reads template files translations.template.html.in
 and for each LANG in LANGUAGES LANG/translations.template.html.in
-
   Writes translations.html.in and for each LANG in LANGUAGES
 translations.LANG.html.in
+  Writes out/translations-status.txt
+  Updates word counts in TRANSLATION
 """
 
 import sys
@@ -144,6 +145,24 @@ def percentage_color (percent):
     else:
         c = [hex (int ((3 * p - 2) * b + 3 * (1 - p) * a))[2:] for (a, b) in [(0xff, 0x1f), (0xff, 0xff), (0x3d, 0x1f)]]
     return ''.join (c)
+
+
+def update_word_count (text, filename, word_count):
+    return re.sub (r'(?m)^(\d+) *' + filename,
+                   str (word_count).ljust (6) + filename,
+                   text)
+
+po_msgid_re = re.compile (r'^msgid "(.*?)"(?:\n"(.*?)")*', re.M)
+
+def po_word_count (po_content):
+    s = ' '.join ([''.join (t) for t in po_msgid_re.findall (po_content)])
+    return len (space_re.split (s))
+
+sgml_tag_re = re.compile (r'<.*?>', re.S)
+
+def sgml_word_count (sgml_doc):
+    s = sgml_tag_re.sub ('', sgml_doc)
+    return len (space_re.split (s))
 
 def tely_word_count (tely_doc):
     '''
@@ -325,9 +344,11 @@ class MasterTelyDocument (TelyDocument):
         else:
             self.includes = []
 
-    # TODO
-    def print_wc_priority (self):
-        return
+    def update_word_counts (self, s):
+        s = update_word_count (s, self.filename, sum (self.word_count))
+        for i in self.includes:
+            s = i.update_word_counts (s)
+        return s
 
     def html_status (self, numbering=SectionNumber ()):
         if self.title == 'Untitled' or not self.translations:
@@ -378,6 +399,15 @@ class MasterTelyDocument (TelyDocument):
         return s
 
 
+update_category_word_counts_re = re.compile (r'(?ms)^-(\d+)-(.*?\n)\d+ *total')
+
+counts_re = re.compile (r'(?m)^(\d+) ')
+
+def update_category_word_counts_sub (m):
+    return '-' + m.group (1) + '-' + m.group (2) + \
+        str (sum ([int (c) for c in counts_re.findall (m.group (2))])).ljust (6) + 'total'
+
+
 progress ("Reading documents...")
 
 tely_files = read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
@@ -421,3 +451,27 @@ main_status_txt += '\n'.join ([doc.text_status () for doc in master_docs])
 status_txt_file = 'out/translations-status.txt'
 progress ("Writing %s..." % status_txt_file)
 open (status_txt_file, 'w').write (main_status_txt)
+
+translation_instructions_file = 'TRANSLATION'
+progress ("Updating %s..." % translation_instructions_file)
+translation_instructions = open (translation_instructions_file).read ()
+
+for doc in master_docs:
+    translation_instructions = doc.update_word_counts (translation_instructions)
+
+for html_file in re.findall (r'(?m)^\d+ *(\S+?\.html\S*?)(?: |$)', translation_instructions):
+    word_count = sgml_word_count (open (html_file).read ())
+    translation_instructions = update_word_count (translation_instructions,
+                                                  html_file,
+                                                  word_count)
+
+for po_file in re.findall (r'(?m)^\d+ *(\S+?\.po\S*?)(?: |$)', translation_instructions):
+    word_count = po_word_count (open (po_file).read ())
+    translation_instructions = update_word_count (translation_instructions,
+                                                  po_file,
+                                                  word_count)
+
+translation_instructions = update_category_word_counts_re.sub (update_category_word_counts_sub,
+                                                               translation_instructions)
+
+open (translation_instructions_file, 'w').write (translation_instructions)
