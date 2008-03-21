@@ -27,11 +27,11 @@
 @end macro
 
 @macro warning{TEXT}
-@html
+@ifhtml
 @cartouche
 @b{Note:} \TEXT\
 @end cartouche
-@end html
+@end ifhtml
 @ifnothtml
 @quotation
 @quotation
