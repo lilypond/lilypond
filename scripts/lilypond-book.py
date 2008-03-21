@@ -590,7 +590,7 @@ output = {
  <a href="%(base)s.ly">''',
 
         OUTPUT: r'''
-  <img align="center" valign="center"
+  <img align="middle" 
     border="0" src="%(image)s" alt="%(alt)s">''',
 
         PRINTFILENAME: '<p><tt><a href="%(base)s.ly">%(filename)s</a></tt></p>',
@@ -655,7 +655,7 @@ output = {
 @html
 <p>
  <a href="%(base)s.ly">
-  <img align="center" valign="center"
+  <img align="middle"
     border="0" src="%(image)s" alt="%(alt)s">
  </a>
 </p>
