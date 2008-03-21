@@ -33,11 +33,13 @@ endif
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
+
+# TODO: Pass -D bigpage to texi2html
 $(outdir)/%-big-page.html: $(outdir)/%.texi
-	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
+	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_LANG) $< 
 
 $(outdir)/%.html: $(outdir)/%.texi
-	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
+	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_LANG) $<
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
@@ -50,7 +52,7 @@ $(outdir)/%.ps.gz.omf: %.texi
 
 $(outdir)/%/index.html: $(outdir)/%.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) -I $(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) $(TEXI2HTML_LANG) --split=section $<
 
 $(outdir)/%.pdf: $(outdir)/%.texi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
