@@ -183,6 +183,13 @@ textLengthOff = {
 showStaffSwitch = \set followVoice = ##t
 hideStaffSwitch = \set followVoice = ##f
 
+expandFullBarRests = {
+  \set Score.skipBars = ##f
+}
+
+compressFullBarRests = {
+  \set Score.skipBars = ##t
+}
 
 
 % For drawing vertical chord brackets with \arpeggio
