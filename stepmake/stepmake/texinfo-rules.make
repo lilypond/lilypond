@@ -30,16 +30,30 @@ $(outdir)/.info-images-dir.dep:
 
 endif
 
+# Settings for texi2html:
+ifneq ($(ISOLANG),) 
+TEXI2HTML_LANG = --lang=$ISOLANG
+endif
+TEXI2HTML_FLAGS += --init-file=$(top-src-dir)/lilypond-texi2html.init --css-ref=lilypond.css $(DOCUMENTATION_INCLUDES)
+TEXI2HTML = $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) $(TEXI2HTML_LANG)
+
+
+
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
 
+$(outdir)/%/index.html: $(outdir)/%.texi
+	mkdir -p $(dir $@)
+	$(TEXI2HTML) --I=$(outdir) --output=$@ --split=section $<
+#	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --split=section $<
+
 # TODO: Pass -D bigpage to texi2html
 $(outdir)/%-big-page.html: $(outdir)/%.texi
-	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_LANG) $< 
+	$(TEXI2HTML) --I=$(outdir) --output=$@ $< 
 
 $(outdir)/%.html: $(outdir)/%.texi
-	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_LANG) $<
+	$(TEXI2HTML) --I=$(outdir) --output=$@ $<
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
@@ -49,10 +63,6 @@ $(outdir)/%.pdf.omf: %.texi
 
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
-
-$(outdir)/%/index.html: $(outdir)/%.texi
-	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) $(TEXI2HTML_LANG) --split=section $<
 
 $(outdir)/%.pdf: $(outdir)/%.texi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
