@@ -886,7 +886,7 @@ class Snippet (Chunk):
     def __repr__ (self):
         return `self.__class__` + ' type = ' + self.type
 
-class Include_snippet (Snippet):
+class IncludeSnippet (Snippet):
     def processed_filename (self):
         f = self.substring ('filename')
         return os.path.splitext (f)[0] + format2ext[global_options.format]
@@ -897,7 +897,7 @@ class Include_snippet (Snippet):
 
         return re.sub (f, self.processed_filename (), s)
 
-class Lilypond_snippet (Snippet):
+class LilypondSnippet (Snippet):
     def __init__ (self, type, match, format, line_number):
         Snippet.__init__ (self, type, match, format, line_number)
         os = match.group ('options')
@@ -1158,7 +1158,7 @@ class Lilypond_snippet (Snippet):
         return output[self.format][FILTER] % d
 
     def replacement_text (self):
-        func = Lilypond_snippet.__dict__['output_' + self.format]
+        func = LilypondSnippet.__dict__['output_' + self.format]
         return func (self)
 
     def get_images (self):
@@ -1291,9 +1291,9 @@ class Lilypond_snippet (Snippet):
 re_begin_verbatim = re.compile (r'\s+%.*?begin verbatim.*\n*', re.M)
 re_end_verbatim = re.compile (r'\s+%.*?end verbatim.*$', re.M)
 
-class Lilypond_file_snippet (Lilypond_snippet):
+class LilypondFileSnippet (LilypondSnippet):
     def __init__ (self, type, match, format, line_number):
-        Lilypond_snippet.__init__ (self, type, match, format, line_number)
+        LilypondSnippet.__init__ (self, type, match, format, line_number)
         self.contents = open (find_file (self.substring ('filename'))).read ()
 
     def verb_ly (self):
@@ -1309,10 +1309,10 @@ class Lilypond_file_snippet (Lilypond_snippet):
 
 
 snippet_type_to_class = {
-    'lilypond_file': Lilypond_file_snippet,
-    'lilypond_block': Lilypond_snippet,
-    'lilypond': Lilypond_snippet,
-    'include': Include_snippet,
+    'lilypond_file': LilypondFileSnippet,
+    'lilypond_block': LilypondSnippet,
+    'lilypond': LilypondSnippet,
+    'include': IncludeSnippet,
 }
 
 def find_linestarts (s):
@@ -1450,12 +1450,12 @@ def is_derived_class (cl, baseclass):
 
 def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
     ly_names = filter (lambda x: x,
-                       map (Lilypond_snippet.basename, ly_snippets))
+                       map (LilypondSnippet.basename, ly_snippets))
     texstr_names = filter (lambda x: x,
-                           map (Lilypond_snippet.basename, texstr_snippets))
+                           map (LilypondSnippet.basename, texstr_snippets))
     
     png_names = filter (lambda x: x,
-                        map (Lilypond_snippet.basename, png_snippets))
+                        map (LilypondSnippet.basename, png_snippets))
 
     status = 0
     def my_system (cmd):
@@ -1573,7 +1573,7 @@ format2ext = {
     DOCBOOK: '.xml'
 }
 
-class Compile_error:
+class CompileError(Exception):
     pass
 
 def write_file_map (lys, name):
@@ -1592,26 +1592,26 @@ def write_file_map (lys, name):
 
 def do_process_cmd (chunks, input_name):
     all_lys = filter (lambda x: is_derived_class (x.__class__,
-                           Lilypond_snippet),
+                           LilypondSnippet),
                       chunks)
 
     write_file_map (all_lys, input_name)
     ly_outdated = filter (lambda x: is_derived_class (x.__class__,
-                                                      Lilypond_snippet)
+                                                      LilypondSnippet)
                           and x.ly_is_outdated (), chunks)
     texstr_outdated = filter (lambda x: is_derived_class (x.__class__,
-                                                          Lilypond_snippet)
+                                                          LilypondSnippet)
                               and x.texstr_is_outdated (),
                               chunks)
     png_outdated = filter (lambda x: is_derived_class (x.__class__,
-                                                        Lilypond_snippet)
+                                                        LilypondSnippet)
                            and x.png_is_outdated (),
                            chunks)
 
     outdated = png_outdated + texstr_outdated + ly_outdated
     
     progress (_ ("Writing snippets..."))
-    map (Lilypond_snippet.write_ly, ly_outdated)
+    map (LilypondSnippet.write_ly, ly_outdated)
     progress ('\n')
 
     if outdated:
@@ -1758,17 +1758,17 @@ def do_file (input_filename):
 
         include_chunks = map (process_include,
                    filter (lambda x: is_derived_class (x.__class__,
-                                     Include_snippet),
+                                     IncludeSnippet),
                        chunks))
 
 
         return chunks + reduce (lambda x,y: x + y, include_chunks, [])
         
-    except Compile_error:
+    except CompileError:
         os.chdir (original_dir)
         progress (_ ("Removing `%s'") % output_filename)
         progress ('\n')
-        raise Compile_error
+        raise CompileError
 
 def do_options ():
 
@@ -1848,25 +1848,24 @@ def main ():
     global_options.process_cmd += " -dread-file-list "
 
     identify ()
-
     try:
         chunks = do_file (file)
         if global_options.psfonts:
             fontextract.verbose = global_options.verbose
-            snippet_chunks = filter (lambda x: is_derived_class (x.__class__,
-                                       Lilypond_snippet),
-                        chunks)
+            snippet_chunks = filter (
+                lambda x: is_derived_class (x.__class__, LilypondSnippet),
+                chunks)
 
             psfonts_file = basename + '.psfonts' 
             if not global_options.verbose:
                 progress (_ ("Writing fonts to %s...") % psfonts_file)
-            fontextract.extract_fonts (psfonts_file,
-                         [x.basename() + '.eps'
-                          for x in snippet_chunks])
+            fontextract.extract_fonts (
+                psfonts_file,
+                [x.basename() + '.eps' for x in snippet_chunks])
             if not global_options.verbose:
                 progress ('\n')
             
-    except Compile_error:
+    except CompileError:
         exit (1)
 
     psfonts_warning (global_options, basename)
