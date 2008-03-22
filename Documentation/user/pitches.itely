@@ -1889,8 +1889,9 @@ the base of the scale is determined by the @code{\key} command.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
+@c fixme
+@c @lil ypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
 
 @noindent
 To see all note head styles, see @ref{Note head styles}.
