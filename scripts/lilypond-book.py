@@ -1173,8 +1173,7 @@ class LilypondSnippet (Snippet):
             for number in range(1, system_count + 1):
                 systemfile = '%s-%d' % (base, number)
                 require_file (systemfile + '.eps')
-                if 'pdf' in self.format:
-                    require_file (systemfile + '.pdf')
+                consider_file (systemfile + '.pdf')
         except Missing:
             return None
         
