@@ -63,7 +63,7 @@ _ ("Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document
 ''' % {'BOOK': _ ("BOOK")})
 
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
-      'Han-Wen Nienhuys <hanwen@xs4all.nl>')
+           'Han-Wen Nienhuys <hanwen@xs4all.nl>')
 
 ################################################################
 def exit (i):
@@ -100,9 +100,9 @@ def warranty ():
 %s
 %s
 ''' % ( _ ('Copyright (c) %s by') % '2001--2007',
-    ' '.join (authors),
-   _ ("Distributed under terms of the GNU General Public License."),
-   _ ("It comes with NO WARRANTY.")))
+        ' '.join (authors),
+        _ ("Distributed under terms of the GNU General Public License."),
+        _ ("It comes with NO WARRANTY.")))
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'lilypond-book',
@@ -183,9 +183,9 @@ must use this with dvips -h INPUT.psfonts'''),
                   help=_ ("show warranty and copyright"),
                   action='store_true')
     p.add_option_group (ly.display_encode (_ ('Bugs')),
-                        description=(_ ("Report bugs via")
-                                     + ''' http://post.gmane.org/post.php'''
-                                     '''?group=gmane.comp.gnu.lilypond.bugs\n'''))
+                        description=(
+        _ ("Report bugs via")
+        + ' http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n'))
     return p
 
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')
@@ -807,26 +807,14 @@ def verbatim_html (s):
            re.sub ('<', '&lt;',
                re.sub ('&', '&amp;', s)))
 
-def split_options (option_string):
-    if option_string:
-        if global_options.format == HTML:
-            options = re.findall('[\w\.-:]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|\S+))?',option_string)
-            for i in range(len(options)):
-                options[i] = re.sub('^([^=]+=\s*)(?P<q>["\'])(.*)(?P=q)','\g<1>\g<3>',options[i])
-            return options
-        else:
-            return re.split (format_res[global_options.format]['option_sep'],
-                    option_string)
-    return []
 
-def set_default_options (source):
-    global default_ly_options
-    if not default_ly_options.has_key (LINE_WIDTH):
-        if global_options.format == LATEX:
+def set_default_options (source, default_ly_options, format):
+    if LINE_WIDTH not in default_ly_options:
+        if format == LATEX:
             textwidth = get_latex_textwidth (source)
             default_ly_options[LINE_WIDTH] = '%.0f\\pt' % textwidth
-        elif global_options.format == TEXINFO:
-            for (k, v) in texinfo_line_widths.items ():
+        elif format == TEXINFO:
+            for regex in texinfo_line_widths:
                 # FIXME: @layout is usually not in
                 # chunk #0:
                 #
@@ -835,8 +823,8 @@ def set_default_options (source):
                 # Bluntly search first K items of
                 # source.
                 # s = chunks[0].replacement_text ()
-                if re.search (k, source[:1024]):
-                    default_ly_options[LINE_WIDTH] = v
+                if re.search (regex, source[:1024]):
+                    default_ly_options[LINE_WIDTH] = texinfo_line_widths[regex]
                     break
 
 class Chunk:
@@ -894,7 +882,7 @@ class Snippet (Chunk):
 class IncludeSnippet (Snippet):
     def processed_filename (self):
         f = self.substring ('filename')
-        return os.path.splitext (f)[0] + format2ext[global_options.format]
+        return os.path.splitext (f)[0] + format2ext[self.format]
 
     def replacement_text (self):
         s = self.match.group ('match')
@@ -922,21 +910,35 @@ class LilypondSnippet (Snippet):
             return self.compose_ly (s)
         return ''
 
+    @staticmethod
+    def split_options (option_string):
+        if option_string:
+            if self.format == HTML:
+                options = re.findall('[\w\.-:]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|\S+))?',
+                                     option_string)
+                options = [re.sub('^([^=]+=\s*)(?P<q>["\'])(.*)(?P=q)', '\g<1>\g<3>', opt)
+                           for opt in options]
+                return options
+            else:
+                return re.split (format_res[self.format]['option_sep'],
+                                 option_string)
+        return []
+
     def do_options (self, option_string, type):
         self.option_dict = {}
 
         options = split_options (option_string)
 
-        for i in options:
-            if '=' in i:
-                (key, value) = re.split ('\s*=\s*', i)
+        for option in options:
+            if '=' in option:
+                (key, value) = re.split ('\s*=\s*', option)
                 self.option_dict[key] = value
             else:
-                if i in no_options.keys ():
-                    if no_options[i] in self.option_dict.keys ():
-                        del self.option_dict[no_options[i]]
+                if option in no_options:
+                    if no_options[option] in self.option_dict:
+                        del self.option_dict[no_options[option]]
                 else:
-                    self.option_dict[i] = None
+                    self.option_dict[option] = None
 
         has_line_width = self.option_dict.has_key (LINE_WIDTH)
         no_line_width_value = 0
@@ -946,39 +948,39 @@ class LilypondSnippet (Snippet):
             no_line_width_value = 1
             del self.option_dict[LINE_WIDTH]
 
-        for i in default_ly_options.keys ():
-            if i not in self.option_dict.keys ():
-                self.option_dict[i] = default_ly_options[i]
+        for k in default_ly_options:
+            if k not in self.option_dict:
+                self.option_dict[k] = default_ly_options[k]
 
         if not has_line_width:
-            if type == 'lilypond' or FRAGMENT in self.option_dict.keys ():
+            if type == 'lilypond' or FRAGMENT in self.option_dict:
                 self.option_dict[RAGGED_RIGHT] = None
 
             if type == 'lilypond':
-                if LINE_WIDTH in self.option_dict.keys ():
+                if LINE_WIDTH in self.option_dict:
                     del self.option_dict[LINE_WIDTH]
             else:
-                if RAGGED_RIGHT in self.option_dict.keys ():
-                    if LINE_WIDTH in self.option_dict.keys ():
+                if RAGGED_RIGHT in self.option_dict:
+                    if LINE_WIDTH in self.option_dict:
                         del self.option_dict[LINE_WIDTH]
 
-            if QUOTE in self.option_dict.keys () or type == 'lilypond':
-                if LINE_WIDTH in self.option_dict.keys ():
+            if QUOTE in self.option_dict or type == 'lilypond':
+                if LINE_WIDTH in self.option_dict:
                     del self.option_dict[LINE_WIDTH]
 
-        if not INDENT in self.option_dict.keys ():
+        if not INDENT in self.option_dict:
             self.option_dict[INDENT] = '0\\mm'
 
         # The QUOTE pattern from ly_options only emits the `line-width'
         # keyword.
-        if has_line_width and QUOTE in self.option_dict.keys ():
+        if has_line_width and QUOTE in self.option_dict:
             if no_line_width_value:
                 del self.option_dict[LINE_WIDTH]
             else:
                 del self.option_dict[QUOTE]
 
     def compose_ly (self, code):
-        if FRAGMENT in self.option_dict.keys ():
+        if FRAGMENT in self.option_dict:
             body = FRAGMENT_LY
         else:
             body = FULL_LY
@@ -1063,7 +1065,7 @@ class LilypondSnippet (Snippet):
                 warning (_ ("ignoring unknown ly option: %s") % key)
 
         # URGS
-        if RELATIVE in override.keys () and override[RELATIVE]:
+        if RELATIVE in override and override[RELATIVE]:
             relative = int (override[RELATIVE])
 
         relative_quotes = ''
@@ -1136,10 +1138,8 @@ class LilypondSnippet (Snippet):
         """
         base = os.path.basename(self.basename())
         result = set()
-        for required in [
-                         base + '.ly',
-                         base + '.txt',
-            ]:
+        for required in [base + '.ly',
+                         base + '.txt']:
             result.add (required)
         
         def consider_file (name):
@@ -1158,8 +1158,8 @@ class LilypondSnippet (Snippet):
             if page_count <= 1:
                 consider_file (base + '.png')
             else:
-                for a in range (1, page_count + 1):
-                    consider_file (base + '-page%d.png' % a)
+                for page in range (1, page_count + 1):
+                    consider_file (base + '-page%d.png' % page)
 
         if (base + '-systems.count') in result:
             system_count = int(file (self.basename () + '-systems.count').read())
@@ -1203,14 +1203,14 @@ class LilypondSnippet (Snippet):
         if self.ly_is_outdated ():
             return True
         
-        if (global_options.format in (HTML, TEXINFO)
+        if (self.format in (HTML, TEXINFO)
             and os.path.exists (eps_file)):
             page_count = ps_page_count (eps_file)
             if page_count <= 1:
                 return not os.path.exists (png_file)
             else:
-                for a in range (1, page_count + 1):
-                    if not find_file (base + '-page%d.png' % a,
+                for page in range (1, page_count + 1):
+                    if not find_file (base + '-page%d.png' % page,
                                       raise_error=False):
                         return True
                 
@@ -1246,8 +1246,9 @@ class LilypondSnippet (Snippet):
                  or (os.stat (multiple)[stat.ST_MTIME]
                      > os.stat (single)[stat.ST_MTIME]))):
             count = ps_page_count ('%(base)s.eps' % vars ())
-            images = ['%s-page%d.png' % (base, a) for a in range (1, count+1)]
+            images = ['%s-page%d.png' % (base, page) for page in range (1, count+1)]
             images = tuple (images)
+            
         return images
 
     def output_docbook (self):
@@ -1269,7 +1270,7 @@ class LilypondSnippet (Snippet):
     def output_html (self):
         str = ''
         base = self.basename ()
-        if global_options.format == HTML:
+        if self.format == HTML:
             str += self.output_print_filename (HTML)
             if VERBATIM in self.option_dict:
                 verb = verbatim_html (self.verb_ly ())
@@ -1298,13 +1299,13 @@ class LilypondSnippet (Snippet):
             str += output[TEXINFO][OUTPUTIMAGE] % vars ()
 
         base = self.basename ()
-        str += output[global_options.format][OUTPUT] % vars ()
+        str += output[self.format][OUTPUT] % vars ()
         return str
 
     def output_latex (self):
         str = ''
         base = self.basename ()
-        if global_options.format == LATEX:
+        if self.format == LATEX:
             str += self.output_print_filename (LATEX)
             if VERBATIM in self.option_dict:
                 verb = self.verb_ly ()
@@ -1405,16 +1406,16 @@ def find_linestarts (s):
     nls.append (len (s))
     return nls
 
-def find_toplevel_snippets (s, types):
+def find_toplevel_snippets (input_string, format, types):
     res = {}
-    for i in types:
-        res[i] = ly.re.compile (snippet_res[global_options.format][i])
+    for t in types:
+        res[t] = ly.re.compile (snippet_res[format][t])
 
     snippets = []
     index = 0
     found = dict ([(t, None) for t in types])
 
-    line_starts = find_linestarts (s)
+    line_starts = find_linestarts (input_string)
     line_start_idx = 0
     # We want to search for multiple regexes, without searching
     # the string multiple times for one regex.
@@ -1430,14 +1431,13 @@ def find_toplevel_snippets (s, types):
             if not found[type] or found[type][0] < index:
                 found[type] = None
                 
-                m = res[type].search (s[index:endex])
+                m = res[type].search (input_string[index:endex])
                 if not m:
                     continue
 
-                cl = Snippet
-                if snippet_type_to_class.has_key (type):
-                    cl = snippet_type_to_class[type]
-
+                klass = Snippet
+                if type in snippet_type_to_class:
+                    klass = snippet_type_to_class[type]
 
                 start = index + m.start ('match')
                 line_number = line_start_idx
@@ -1445,7 +1445,7 @@ def find_toplevel_snippets (s, types):
                     line_number += 1
 
                 line_number += 1
-                snip = cl (type, m, global_options.format, line_number)
+                snip = klass (type, m, format, line_number)
 
                 found[type] = (start, snip)
 
@@ -1467,14 +1467,14 @@ def find_toplevel_snippets (s, types):
                 endex = found[first][0]
 
         if not first:
-            snippets.append (Substring (s, index, len (s), line_start_idx))
+            snippets.append (Substring (input_string, index, len (s), line_start_idx))
             break
 
         while (start > line_starts[line_start_idx+1]):
             line_start_idx += 1
 
         (start, snip) = found[first]
-        snippets.append (Substring (s, index, start, line_start_idx + 1))
+        snippets.append (Substring (input_string, index, start, line_start_idx + 1))
         snippets.append (snip)
         found[first] = None
         index = start + len (snip.match.group ('match'))
@@ -1526,26 +1526,27 @@ def system_in_directory (cmd, directory):
     os.chdir (current)
     
 
-def process_snippets (cmd, snippets):
+def process_snippets (cmd, snippets,
+                      format, lily_output_dir):
     """Run cmd on all of the .ly files from snippets."""
 
     if not snippets:
         return
     
-    if global_options.format in (HTML, TEXINFO) and '--formats' not in cmd:
+    if format in (HTML, TEXINFO) and '--formats' not in cmd:
         cmd += ' --formats=png '
-    elif global_options.format in (DOCBOOK) and '--formats' not in cmd:
+    elif format in (DOCBOOK) and '--formats' not in cmd:
         cmd += ' --formats=png,pdf '
 
     checksum = snippet_list_checksum (snippets)
     contents = '\n'.join (['snippet-map-%d.ly' % checksum] 
                           + [snip.basename() for snip in snippets])
-    name = os.path.join (global_options.lily_output_dir,
+    name = os.path.join (lily_output_dir,
                          'snippet-names-%d' % checksum)
     file (name, 'wb').write (contents)
 
     system_in_directory (' '.join ([cmd, name]),
-                         global_options.lily_output_dir)
+                         lily_output_dir)
             
         
 ###
@@ -1634,19 +1635,16 @@ def write_file_map (lys, name):
     snippet_map = file (os.path.join (
         global_options.lily_output_dir,
         'snippet-map-%d.ly' % snippet_list_checksum (lys)), 'w')
+
     snippet_map.write ("""
 #(define version-seen #t)
 #(define output-empty-score-list #f)
-#(ly:add-file-name-alist '(
-""")
-    
-    for ly in lys:
-        snippet_map.write ('("%s.ly" . "%s")\n'
-                           % (ly.basename (), name))
+#(ly:add-file-name-alist '(%s
+    ))\n
+""" % '\n'.join('("%s.ly" . "%s")\n' % (ly.basename (), name)
+                for ly in lys))
 
-    snippet_map.write ('))\n')
-
-def do_process_cmd (chunks, input_name):
+def do_process_cmd (chunks, input_name, options):
     snippets = [c for c in chunks if isinstance (c, LilypondSnippet)]
     outdated = [c for c in snippets
                 if (c.ly_is_outdated () or c.png_is_outdated ())]
@@ -1660,17 +1658,18 @@ def do_process_cmd (chunks, input_name):
     if outdated:
         progress (_ ("Processing..."))
         progress ('\n')
-        process_snippets (global_options.process_cmd, outdated)
+        process_snippets (options.process_cmd, outdated,
+                          options.format, options.lily_output_dir)
 
     else:
         progress (_ ("All snippets are up to date..."))
 
-    if global_options.lily_output_dir != global_options.output_dir:
-        output_files = set(os.listdir(global_options.lily_output_dir))
+    if options.lily_output_dir != options.output_dir:
+        output_files = set(os.listdir(options.lily_output_dir))
         for snippet in snippets:
-            snippet.link_all_output_files (global_options.lily_output_dir,
+            snippet.link_all_output_files (options.lily_output_dir,
                                            output_files,
-                                           global_options.output_dir)
+                                           options.output_dir)
 
     progress ('\n')
 
@@ -1693,7 +1692,7 @@ ext2format = {
 def guess_format (input_filename):
     format = None
     e = os.path.splitext (input_filename)[1]
-    if e in ext2format.keys ():
+    if e in ext2format:
         # FIXME
         format = ext2format[e]
     else:
@@ -1781,7 +1780,7 @@ def do_file (input_filename):
         source = in_handle.read ()
         progress ('\n')
 
-        set_default_options (source)
+        set_default_options (source, default_ly_options, global_options.format)
 
 
         # FIXME: Containing blocks must be first, see
@@ -1797,7 +1796,7 @@ def do_file (input_filename):
             'lilypond',
         )
         progress (_ ("Dissecting..."))
-        chunks = find_toplevel_snippets (source, snippet_types)
+        chunks = find_toplevel_snippets (source, global_options.format, snippet_types)
 
         if global_options.format == LATEX:
             for c in chunks:
@@ -1811,7 +1810,7 @@ def do_file (input_filename):
             write_if_updated (output_filename,
                      [c.filter_text () for c in chunks])
         elif global_options.process_cmd:
-            do_process_cmd (chunks, input_fullname)
+            do_process_cmd (chunks, input_fullname, global_options)
             progress (_ ("Compiling %s...") % output_filename)
             progress ('\n')
             write_if_updated (output_filename,
@@ -1876,7 +1875,7 @@ def main ():
 
     if global_options.process_cmd:
         global_options.process_cmd += ' '.join ([(' -I %s' % ly.mkarg (p))
-                              for p in global_options.include_path])
+                                                 for p in global_options.include_path])
 
     if global_options.format in (TEXINFO, LATEX):
         ## prevent PDF from being switched on by default.
