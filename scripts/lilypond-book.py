@@ -28,14 +28,13 @@ TODO:
 
 '''
 
-import stat
-import tempfile
 import commands
-import os
-import sys
-import re
 import md5
-import operator
+import os
+import re
+import stat
+import sys
+import tempfile
 
 """
 @relocate-preamble@
@@ -85,7 +84,7 @@ def error (s):
     ly.stderr_write (program_name + ": " + _ ("error: %s") % s + '\n')
 
 def ps_page_count (ps_name):
-    header = open (ps_name).read (1024)
+    header = file (ps_name).read (1024)
     m = re.search ('\n%%Pages: ([0-9]+)', header)
     if m:
         return int (m.group (1))
@@ -148,10 +147,16 @@ def get_option_parser ():
                   action='store', dest='output_name',
                   default='')
     
+    p.add_option ('--lily-output-dir',
+                  help=_ ("write lily-XXX files to DIR, link into --output dir."),
+                  metavar=_ ("DIR"),
+                  action='store', dest='lily_output_dir',
+                  default=None)
+    
     p.add_option ('-P', '--process', metavar=_ ("COMMAND"),
                   help = _ ("process ly_files using COMMAND FILE..."),
                   action='store', 
-                  dest='process_cmd', default='lilypond -dbackend=eps')
+                  dest='process_cmd', default='')
 
     p.add_option ('--pdf',
                   action="store_true",
@@ -819,8 +824,7 @@ def set_default_options (source):
     if not default_ly_options.has_key (LINE_WIDTH):
         if global_options.format == LATEX:
             textwidth = get_latex_textwidth (source)
-            default_ly_options[LINE_WIDTH] = \
-             '''%.0f\\pt''' % textwidth
+            default_ly_options[LINE_WIDTH] = '%.0f\\pt' % textwidth
         elif global_options.format == TEXINFO:
             for (k, v) in texinfo_line_widths.items ():
                 # FIXME: @layout is usually not in
@@ -843,15 +847,16 @@ class Chunk:
         return self.replacement_text ()
 
     def ly_is_outdated (self):
-        return 0
+        return False
 
     def png_is_outdated (self):
-        return 0
+        return False
 
     def is_plain (self):
         return False
     
 class Substring (Chunk):
+    """A string that does not require extra memory."""
     def __init__ (self, source, start, end, line_number):
         self.source = source
         self.start = start
@@ -872,7 +877,7 @@ class Snippet (Chunk):
     def __init__ (self, type, match, format, line_number):
         self.type = type
         self.match = match
-        self.hash = 0
+        self.checksum = 0
         self.option_dict = {}
         self.format = format
         self.line_number = line_number
@@ -1022,23 +1027,22 @@ class LilypondSnippet (Snippet):
             compose_dict[a] = []
 
         for (key, value) in self.option_dict.items ():
-            (c_key, c_value) = \
-             classic_lilypond_book_compatibility (key, value)
+            (c_key, c_value) = classic_lilypond_book_compatibility (key, value)
             if c_key:
                 if c_value:
-                    warning \
-                     (_ ("deprecated ly-option used: %s=%s" \
-                      % (key, value)))
-                    warning \
-                     (_ ("compatibility mode translation: %s=%s" \
-                      % (c_key, c_value)))
+                    warning (
+                        _ ("deprecated ly-option used: %s=%s"
+                           % (key, value)))
+                    warning (
+                        _ ("compatibility mode translation: %s=%s"
+                           % (c_key, c_value)))
                 else:
-                    warning \
-                     (_ ("deprecated ly-option used: %s" \
-                      % key))
-                    warning \
-                     (_ ("compatibility mode translation: %s" \
-                      % c_key))
+                    warning (
+                        _ ("deprecated ly-option used: %s"
+                           % key))
+                    warning (
+                        _ ("compatibility mode translation: %s"
+                           % c_key))
 
                 (key, value) = (c_key, c_value)
 
@@ -1083,26 +1087,31 @@ class LilypondSnippet (Snippet):
         d.update (locals())
         return (PREAMBLE_LY + body) % d
 
-    def get_hash (self):
-        if not self.hash:
+    def get_checksum (self):
+        if not self.checksum:
             hash = md5.md5 (self.relevant_contents (self.full_ly ()))
 
             ## let's not create too long names.
-            self.hash = hash.hexdigest ()[:10]
+            self.checksum = hash.hexdigest ()[:10]
             
-        return self.hash
+        return self.checksum
 
     def basename (self):
         if FILENAME in self.option_dict:
             return self.option_dict[FILENAME]
-        if global_options.use_hash:
-            return 'lily-%s' % self.get_hash ()
-        raise 'to be done'
+
+        cs = self.get_checksum ()
+
+        # TODO: use xx/xxxxx directory layout.
+        name = 'lily-%s' % (cs[:2], cs[2:])
+        if global_options.lily_output_dir:
+            name = os.path.join (global_options.lily_output_dir, name)
+        return name
 
     def write_ly (self):
-        outf = open (self.basename () + '.ly', 'w')
-        outf.write (self.full_ly ())
-        open (self.basename () + '.txt', 'w').write ('image of music')
+        out = file (self.basename () + '.ly', 'w')
+        out.write (self.full_ly ())
+        file (self.basename () + '.txt', 'w').write ('image of music')
 
     def relevant_contents (self, ly):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
@@ -1113,43 +1122,54 @@ class LilypondSnippet (Snippet):
         tex_file = find_file (base + '.tex', raise_error=False)
         systems_file = find_file (base + '-systems.tex', raise_error=False)
 
-        if (os.path.exists (ly_file)
-            and os.path.exists (systems_file)
-            and os.stat (systems_file)[stat.ST_SIZE]
-            and re.match ('% eof', open (systems_file).readlines ()[-1])
-            and (global_options.use_hash or FILENAME in self.option_dict)
-            and (self.relevant_contents (self.full_ly ())
-                 == self.relevant_contents (open (ly_file).read ()))):
-            return None
+        if (not os.path.exists (ly_file)
+            or not os.path.exists (systems_file)):
+            return True
 
-        return self
+        lines = file (systems_file).readlines ()
+        if not lines:
+            return True
+
+        if not re.match ('% eof', lines[-1]):
+            return true
+        
+        # and FILENAME in self.option_dict
+        #huh?
+
+        if (self.relevant_contents (self.full_ly ())
+            != self.relevant_contents (file (ly_file).read ())):
+            return True
+        
+        return False
 
     def png_is_outdated (self):
         base = self.basename ()
         eps_file = find_file (base + '.eps', raise_error=False)
         png_file = find_file (base + '.png', raise_error=False)
-        if not self.ly_is_outdated () and global_options.format in (HTML, TEXINFO):
-            if os.path.exists (eps_file):
-                page_count = ps_page_count (eps_file)
-                if page_count <= 1:
-                    return not os.path.exists (png_file)
-                else:
-                    return not reduce (operator.or_,
-                                       [find_file (base + '-page%d.png' % a, raise_error=False)
-                                        for a in range (1, page_count + 1)])
-        return True
+        if self.ly_is_outdated ():
+            return True
+        
+        if (global_options.format in (HTML, TEXINFO)
+            and os.path.exists (eps_file)):
+            page_count = ps_page_count (eps_file)
+            if page_count <= 1:
+                return not os.path.exists (png_file)
+            else:
+                for a in range (1, page_count + 1):
+                    if not find_file (base + '-page%d.png' % a,
+                                      raise_error=False):
+                        return True
+                
+        return False
     
-    def texstr_is_outdated (self):
-        if backend == 'ps':
-            return 0
-
-        base = self.basename ()
-        return not (self.ly_is_outdated ()
-                    and find_file (base + '.texstr', raise_error=False))
-
     def filter_text (self):
+        """Run snippet bodies through a command (say: convert-ly).
+
+        This functionality is rarely used, and this code must have bitrot.
+        """
+        
         code = self.substring ('code')
-        s = run_filter (code)
+        s = filter_pipe (code, global_options.filter_cmd)
         d = {
             'code': s,
             'options': self.match.group ('options')
@@ -1163,14 +1183,14 @@ class LilypondSnippet (Snippet):
 
     def get_images (self):
         base = self.basename ()
-        # URGUGHUGHUGUGH
+
         single = '%(base)s.png' % vars ()
         multiple = '%(base)s-page1.png' % vars ()
         images = (single,)
-        if os.path.exists (multiple) \
-         and (not os.path.exists (single) \
-            or (os.stat (multiple)[stat.ST_MTIME] \
-              > os.stat (single)[stat.ST_MTIME])):
+        if (os.path.exists (multiple) 
+            and (not os.path.exists (single)
+                 or (os.stat (multiple)[stat.ST_MTIME]
+                     > os.stat (single)[stat.ST_MTIME]))):
             count = ps_page_count ('%(base)s.eps' % vars ())
             images = ['%s-page%d.png' % (base, a) for a in range (1, count+1)]
             images = tuple (images)
@@ -1294,7 +1314,7 @@ re_end_verbatim = re.compile (r'\s+%.*?end verbatim.*$', re.M)
 class LilypondFileSnippet (LilypondSnippet):
     def __init__ (self, type, match, format, line_number):
         LilypondSnippet.__init__ (self, type, match, format, line_number)
-        self.contents = open (find_file (self.substring ('filename'))).read ()
+        self.contents = file (find_file (self.substring ('filename'))).read ()
 
     def verb_ly (self):
         s = self.contents
@@ -1375,9 +1395,9 @@ def find_toplevel_snippets (s, types):
 
                 found[type] = (start, snip)
 
-            if found[type] \
-             and (not first \
-                or found[type][0] < found[first][0]):
+            if (found[type] 
+                and (not first 
+                     or found[type][0] < found[first][0])):
                 first = type
 
                 # FIXME.
@@ -1408,6 +1428,8 @@ def find_toplevel_snippets (s, types):
     return snippets
 
 def filter_pipe (input, cmd):
+    """Pass input through cmd, and return the result."""
+    
     if global_options.verbose:
         progress (_ ("Opening filter `%s'") % cmd)
 
@@ -1437,54 +1459,41 @@ def filter_pipe (input, cmd):
 
     return output
 
-def run_filter (s):
-    return filter_pipe (s, global_options.filter_cmd)
+def system_in_directory (cmd, directory):
+    """Execute a command in a different directory.
 
-def is_derived_class (cl, baseclass):
-    if cl == baseclass:
-        return 1
-    for b in cl.__bases__:
-        if is_derived_class (b, baseclass):
-            return 1
-    return 0
-
-def process_snippets (cmd, ly_snippets, texstr_snippets, png_snippets):
-    ly_names = filter (lambda x: x,
-                       map (LilypondSnippet.basename, ly_snippets))
-    texstr_names = filter (lambda x: x,
-                           map (LilypondSnippet.basename, texstr_snippets))
+    Because of win32 compatibility, we can't simply use subprocess.
+    """
     
-    png_names = filter (lambda x: x,
-                        map (LilypondSnippet.basename, png_snippets))
+    current = os.getcwd()
+    os.chdir (directory)
+    ly.system(cmd, be_verbose=global_options.verbose, 
+              progress_p=1)
+    os.chdir (current)
+    
 
-    status = 0
-    def my_system (cmd):
-        status = ly.system (cmd,
-                            be_verbose=global_options.verbose, 
-                            progress_p=1)
-
+def process_snippets (cmd, snippets):
+    """Run cmd on all of the .ly files from snippets."""
+    if not snippets:
+        return
+    
     if global_options.format in (HTML, TEXINFO) and '--formats' not in cmd:
         cmd += ' --formats=png '
     elif global_options.format in (DOCBOOK) and '--formats' not in cmd:
         cmd += ' --formats=png,pdf '
 
-        
-    # UGH
-    # the --process=CMD switch is a bad idea
-    # it is too generic for lilypond-book.
-    if texstr_names:
-        my_system (' '.join ([cmd, '--backend texstr',
-                              'snippet-map.ly'] + texstr_names))
-        for l in texstr_names:
-            my_system ('latex %s.texstr' % l)
+    checksum = snippet_list_checksum (snippets)
+    contents = '\n'.join (['snippet-map-%d.ly' % checksum] 
+                          + [snip.basename() for snip in snippets])
+    name = os.path.join (global_options.lily_output_dir,
+                         'snippet-names-%d' % checksum)
+    file (name, 'wb').write (contents)
 
-    if ly_names:
-        open ('snippet-names', 'wb').write ('\n'.join (['snippet-map.ly']
-                                                       + ly_names))
-        
-        my_system (' '.join ([cmd, 'snippet-names']))
+    system_in_directory (' '.join ([cmd, name]),
+                         global_options.lily_output_dir)
 
-
+###
+# Retrieve dimensions from LaTeX
 LATEX_INSPECTION_DOCUMENT = r'''
 \nonstopmode
 %(preamble)s
@@ -1516,7 +1525,7 @@ def get_latex_textwidth (source):
     tmp_handle.close ()
     
     ly.system ('latex %s' % tmpfile, be_verbose=global_options.verbose)
-    parameter_string = open (logfile).read()
+    parameter_string = file (logfile).read()
     
     os.unlink (tmpfile)
     os.unlink (logfile)
@@ -1549,9 +1558,59 @@ def modify_preamble (chunk):
                + r"\\begin{document}",
                str)
         chunk.override_text = str 
-        
-    
 
+
+format2ext = {
+    HTML: '.html',
+    # TEXINFO: '.texinfo',
+    TEXINFO: '.texi',
+    LATEX: '.tex',
+    DOCBOOK: '.xml'
+}
+
+class CompileError(Exception):
+    pass
+
+def snippet_list_checksum (snippets):
+    return hash (' '.join([l.basename() for l in snippets]))
+
+def write_file_map (lys, name):
+    snippet_map = file (os.path.join (
+        global_options.lily_output_dir,
+        'snippet-map-%d.ly' % snippet_list_checksum (lys)), 'w')
+    snippet_map.write ("""
+#(define version-seen #t)
+#(define output-empty-score-list #f)
+#(ly:add-file-name-alist '(
+""")
+    
+    for ly in lys:
+        snippet_map.write ('("%s.ly" . "%s")\n'
+                           % (ly.basename (), name))
+
+    snippet_map.write ('))\n')
+
+def do_process_cmd (chunks, input_name):
+    outdated = [c for c in chunks
+                if (isinstance (c, LilypondSnippet)
+                    and (c.ly_is_outdated () or c.png_is_outdated ()))]
+    write_file_map (outdated, input_name)    
+    progress (_ ("Writing snippets..."))
+    for snippet in outdated:
+        snippet.write_ly()
+    progress ('\n')
+
+    if outdated:
+        progress (_ ("Processing..."))
+        progress ('\n')
+        process_snippets (global_options.process_cmd, outdated)
+    else:
+        progress (_ ("All snippets are up to date..."))
+    progress ('\n')
+
+
+###
+# Format guessing data
 ext2format = {
     '.html': HTML,
     '.itely': TEXINFO,
@@ -1565,63 +1624,6 @@ ext2format = {
     '.lyxml': DOCBOOK
 }
 
-format2ext = {
-    HTML: '.html',
-    # TEXINFO: '.texinfo',
-    TEXINFO: '.texi',
-    LATEX: '.tex',
-    DOCBOOK: '.xml'
-}
-
-class CompileError(Exception):
-    pass
-
-def write_file_map (lys, name):
-    snippet_map = open ('snippet-map.ly', 'w')
-    snippet_map.write ("""
-#(define version-seen #t)
-#(define output-empty-score-list #f)
-#(ly:add-file-name-alist '(
-""")
-    for ly in lys:
-        snippet_map.write ('("%s.ly" . "%s")\n'
-                 % (ly.basename (),
-                   name))
-
-    snippet_map.write ('))\n')
-
-def do_process_cmd (chunks, input_name):
-    all_lys = filter (lambda x: is_derived_class (x.__class__,
-                           LilypondSnippet),
-                      chunks)
-
-    write_file_map (all_lys, input_name)
-    ly_outdated = filter (lambda x: is_derived_class (x.__class__,
-                                                      LilypondSnippet)
-                          and x.ly_is_outdated (), chunks)
-    texstr_outdated = filter (lambda x: is_derived_class (x.__class__,
-                                                          LilypondSnippet)
-                              and x.texstr_is_outdated (),
-                              chunks)
-    png_outdated = filter (lambda x: is_derived_class (x.__class__,
-                                                        LilypondSnippet)
-                           and x.png_is_outdated (),
-                           chunks)
-
-    outdated = png_outdated + texstr_outdated + ly_outdated
-    
-    progress (_ ("Writing snippets..."))
-    map (LilypondSnippet.write_ly, ly_outdated)
-    progress ('\n')
-
-    if outdated:
-        progress (_ ("Processing..."))
-        progress ('\n')
-        process_snippets (global_options.process_cmd, ly_outdated, texstr_outdated, png_outdated)
-    else:
-        progress (_ ("All snippets are up to date..."))
-    progress ('\n')
-
 def guess_format (input_filename):
     format = None
     e = os.path.splitext (input_filename)[1]
@@ -1629,14 +1631,14 @@ def guess_format (input_filename):
         # FIXME
         format = ext2format[e]
     else:
-        error (_ ("cannot determine format for: %s" \
-              % input_filename))
+        error (_ ("cannot determine format for: %s"
+                  % input_filename))
         exit (1)
     return format
 
 def write_if_updated (file_name, lines):
     try:
-        f = open (file_name)
+        f = file (file_name)
         oldstr = f.read ()
         new_str = ''.join (lines)
         if oldstr == new_str:
@@ -1650,8 +1652,9 @@ def write_if_updated (file_name, lines):
         pass
 
     progress (_ ("Writing `%s'...") % file_name)
-    open (file_name, 'w').writelines (lines)
+    file (file_name, 'w').writelines (lines)
     progress ('\n')
+
 
 def note_input_file (name, inputs=[]):
     ## hack: inputs is mutable!
@@ -1680,13 +1683,13 @@ def do_file (input_filename):
             input_fullname = find_file (input_filename)
 
         note_input_file (input_fullname)
-        in_handle = open (input_fullname)
+        in_handle = file (input_fullname)
 
     if input_filename == '-':
         input_base = 'stdin'
     else:
-        input_base = os.path.basename \
-                     (os.path.splitext (input_filename)[0])
+        input_base = os.path.basename (
+            os.path.splitext (input_filename)[0])
 
     # Only default to stdout when filtering.
     if global_options.output_name == '-' or (not global_options.output_name and global_options.filter_cmd):
@@ -1757,12 +1760,10 @@ def do_file (input_filename):
             return do_file (name)
 
         include_chunks = map (process_include,
-                   filter (lambda x: is_derived_class (x.__class__,
-                                     IncludeSnippet),
+                   filter (lambda x: isinstance (x, IncludeSnippet),
                        chunks))
 
-
-        return chunks + reduce (lambda x,y: x + y, include_chunks, [])
+        return chunks + reduce (lambda x, y: x + y, include_chunks, [])
         
     except CompileError:
         os.chdir (original_dir)
@@ -1771,7 +1772,6 @@ def do_file (input_filename):
         raise CompileError
 
 def do_options ():
-
     global global_options
 
     opt_parser = get_option_parser()
@@ -1779,7 +1779,6 @@ def do_options ():
 
     if global_options.format in ('texi-html', 'texi'):
         global_options.format = TEXINFO
-    global_options.use_hash = True
 
     global_options.include_path =  map (os.path.abspath, global_options.include_path)
     
@@ -1812,9 +1811,7 @@ def main ():
     # FIXME: 85 lines of `main' macramee??
     files = do_options ()
 
-    file = files[0]
-
-    basename = os.path.splitext (file)[0]
+    basename = os.path.splitext (files[0])[0]
     basename = os.path.split (basename)[1]
     
     if not global_options.format:
@@ -1824,10 +1821,9 @@ def main ():
     if global_options.format in (TEXINFO, HTML, DOCBOOK):
         formats += ',png'
 
-        
     if global_options.process_cmd == '':
         global_options.process_cmd = (lilypond_binary 
-                                      + ' --formats=%s --backend eps ' % formats)
+                                      + ' --formats=%s -dbackend=eps ' % formats)
 
     if global_options.process_cmd:
         global_options.process_cmd += ' '.join ([(' -I %s' % ly.mkarg (p))
@@ -1847,13 +1843,21 @@ def main ():
         
     global_options.process_cmd += " -dread-file-list "
 
+    if global_options.lily_output_dir:
+        global_options.lily_output_dir = os.path.abspath(global_options.lily_output_dir)
+        if not os.path.isdir (global_options.lily_output_dir):
+            os.makedirs (global_options.lily_output_dir)
+    else:
+        global_options.lily_output_dir = os.path.abspath(global_options.output_name)
+        
+
     identify ()
     try:
-        chunks = do_file (file)
+        chunks = do_file (files[0])
         if global_options.psfonts:
             fontextract.verbose = global_options.verbose
             snippet_chunks = filter (
-                lambda x: is_derived_class (x.__class__, LilypondSnippet),
+                lambda x: isinstance (x, LilypondSnippet),
                 chunks)
 
             psfonts_file = basename + '.psfonts' 
@@ -1873,14 +1877,15 @@ def main ():
     inputs = note_input_file ('')
     inputs.pop ()
 
-    base_file_name = os.path.splitext (os.path.basename (file))[0]
+    base_file_name = os.path.splitext (os.path.basename (files[0]))[0]
     dep_file = os.path.join (global_options.output_name, base_file_name + '.dep')
     final_output_file = os.path.join (global_options.output_name,
                      base_file_name
                      + '.%s' % global_options.format)
     
     os.chdir (original_dir)
-    open (dep_file, 'w').write ('%s: %s' % (final_output_file, ' '.join (inputs)))
+    file (dep_file, 'w').write ('%s: %s'
+                                % (final_output_file, ' '.join (inputs)))
 
 if __name__ == '__main__':
     main ()
