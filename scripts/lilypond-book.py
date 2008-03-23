@@ -144,7 +144,7 @@ def get_option_parser ():
     
     p.add_option ("-o", '--output', help=_ ("write output to DIR"),
                   metavar=_ ("DIR"),
-                  action='store', dest='output_name',
+                  action='store', dest='output_dir',
                   default='')
     
     p.add_option ('--lily-output-dir',
@@ -1103,7 +1103,7 @@ class LilypondSnippet (Snippet):
         cs = self.get_checksum ()
 
         # TODO: use xx/xxxxx directory layout.
-        name = 'lily-%s' % cs
+        name = 'lily-%s' % cs[:10]
         if global_options.lily_output_dir:
             name = os.path.join (global_options.lily_output_dir, name)
         return name
@@ -1115,6 +1115,61 @@ class LilypondSnippet (Snippet):
 
     def relevant_contents (self, ly):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
+
+    def link_all_output_files (self, output_dir, output_dir_files, destination):
+        existing = self.all_output_files (output_dir_files)
+        for name in existing:
+            try:
+                os.unlink (os.path.join (destination, name))
+            except OSError:
+                pass
+
+            src = os.path.join (output_dir, name)
+            dst = os.path.join (destination, name)
+            print src, dst
+            os.link (src, dst)
+
+        
+    def all_output_files (self, output_dir_files):
+        """Return all files generated in lily_output_dir.
+
+        output_dir_files is the list of files in the output directory.
+        """
+        base = os.path.basename(self.basename())
+        result = set()
+        for required in [
+                         base + '.ly',
+                         base + '.txt',
+            ]:
+            result.add (required)
+        
+        def consider_file (name):
+            if name in output_dir_files:
+                result.add (name)
+
+        map (consider_file, [base + '.tex',
+                             base + '.eps',
+                             base + '-systems.count',
+                             base + '-systems.texi',
+                             base + '-systems.tex',
+                             base + '-systems.pdftexi'])
+
+        if base + '.eps' in result:
+            page_count = ps_page_count (self.basename() + '.eps')
+            if page_count <= 1:
+                consider_file (base + '.png')
+            else:
+                for a in range (1, page_count + 1):
+                    consider_file (base + '-page%d.png' % a)
+
+        if (base + '-systems.count') in result:
+            system_count = int(file (self.basename () + '-systems.count').read())
+            for number in range(1, system_count + 1):
+                systemfile = '%s-%d' % (base, number)
+                consider_file (systemfile + '.eps')
+                consider_file (systemfile + '.pdf')
+        
+        return result
              
     def ly_is_outdated (self):
         base = self.basename ()
@@ -1474,6 +1529,7 @@ def system_in_directory (cmd, directory):
 
 def process_snippets (cmd, snippets):
     """Run cmd on all of the .ly files from snippets."""
+
     if not snippets:
         return
     
@@ -1491,7 +1547,8 @@ def process_snippets (cmd, snippets):
 
     system_in_directory (' '.join ([cmd, name]),
                          global_options.lily_output_dir)
-
+            
+        
 ###
 # Retrieve dimensions from LaTeX
 LATEX_INSPECTION_DOCUMENT = r'''
@@ -1591,9 +1648,10 @@ def write_file_map (lys, name):
     snippet_map.write ('))\n')
 
 def do_process_cmd (chunks, input_name):
-    outdated = [c for c in chunks
-                if (isinstance (c, LilypondSnippet)
-                    and (c.ly_is_outdated () or c.png_is_outdated ()))]
+    snippets = [c for c in chunks if isinstance (c, LilypondSnippet)]
+    outdated = [c for c in snippets
+                if (c.ly_is_outdated () or c.png_is_outdated ())]
+    
     write_file_map (outdated, input_name)    
     progress (_ ("Writing snippets..."))
     for snippet in outdated:
@@ -1604,8 +1662,17 @@ def do_process_cmd (chunks, input_name):
         progress (_ ("Processing..."))
         progress ('\n')
         process_snippets (global_options.process_cmd, outdated)
+
     else:
         progress (_ ("All snippets are up to date..."))
+
+    if global_options.lily_output_dir != global_options.output_dir:
+        output_files = set(os.listdir(global_options.lily_output_dir))
+        for snippet in snippets:
+            snippet.link_all_output_files (global_options.lily_output_dir,
+                                           output_files,
+                                           global_options.output_dir)
+
     progress ('\n')
 
 
@@ -1691,24 +1758,25 @@ def do_file (input_filename):
         input_base = os.path.basename (
             os.path.splitext (input_filename)[0])
 
-    # Only default to stdout when filtering.
-    if global_options.output_name == '-' or (not global_options.output_name and global_options.filter_cmd):
-        output_filename = '-'
-        output_file = sys.stdout
+    # don't complain when global_options.output_dir is existing
+    if not global_options.output_dir:
+        global_options.output_dir = os.getcwd()
     else:
-        # don't complain when global_options.output_name is existing
-        output_filename = input_base + format2ext[global_options.format]
-        if global_options.output_name:
-            if not os.path.isdir (global_options.output_name):
-                os.mkdir (global_options.output_name, 0777)
-            os.chdir (global_options.output_name)
-        else: 
-            if (os.path.exists (input_filename) 
-                and os.path.exists (output_filename) 
-                and samefile (output_filename, input_fullname)):
-             error (
-             _ ("Output would overwrite input file; use --output."))
-             exit (2)
+        global_options.output_dir = os.path.abspath(global_options.output_dir)
+        
+        if not os.path.isdir (global_options.output_dir):
+            os.mkdir (global_options.output_dir, 0777)
+        os.chdir (global_options.output_dir)
+
+    output_filename = os.path.join(global_options.output_dir,
+                                   input_base + format2ext[global_options.format])
+    print output_filename
+    if (os.path.exists (input_filename) 
+        and os.path.exists (output_filename) 
+        and samefile (output_filename, input_fullname)):
+     error (
+     _ ("Output would overwrite input file; use --output."))
+     exit (2)
 
     try:
         progress (_ ("Reading %s...") % input_fullname)
@@ -1776,7 +1844,6 @@ def do_options ():
 
     opt_parser = get_option_parser()
     (global_options, args) = opt_parser.parse_args ()
-
     if global_options.format in ('texi-html', 'texi'):
         global_options.format = TEXINFO
 
@@ -1790,22 +1857,6 @@ def do_options ():
         exit (2)
         
     return args
-
-def psfonts_warning (options, basename):
-    if options.format in (TEXINFO, LATEX):
-        psfonts_file = os.path.join (options.output_name, basename + '.psfonts')
-        output = os.path.join (options.output_name, basename +  '.dvi' )
-
-        if not options.create_pdf:
-            if not options.psfonts:
-                warning (_ ("option --psfonts not used"))
-                warning (_ ("processing with dvips will have no fonts"))
-            else:
-                progress ('\n')
-                progress (_ ("DVIPS usage:"))
-                progress ('\n')
-                progress ("    dvips -h %(psfonts_file)s %(output)s" % vars ())
-                progress ('\n')
 
 def main ():
     # FIXME: 85 lines of `main' macramee??
@@ -1848,38 +1899,21 @@ def main ():
         if not os.path.isdir (global_options.lily_output_dir):
             os.makedirs (global_options.lily_output_dir)
     else:
-        global_options.lily_output_dir = os.path.abspath(global_options.output_name)
+        global_options.lily_output_dir = os.path.abspath(global_options.output_dir)
         
 
     identify ()
     try:
         chunks = do_file (files[0])
-        if global_options.psfonts:
-            fontextract.verbose = global_options.verbose
-            snippet_chunks = filter (
-                lambda x: isinstance (x, LilypondSnippet),
-                chunks)
-
-            psfonts_file = basename + '.psfonts' 
-            if not global_options.verbose:
-                progress (_ ("Writing fonts to %s...") % psfonts_file)
-            fontextract.extract_fonts (
-                psfonts_file,
-                [x.basename() + '.eps' for x in snippet_chunks])
-            if not global_options.verbose:
-                progress ('\n')
-            
     except CompileError:
         exit (1)
-
-    psfonts_warning (global_options, basename)
 
     inputs = note_input_file ('')
     inputs.pop ()
 
     base_file_name = os.path.splitext (os.path.basename (files[0]))[0]
-    dep_file = os.path.join (global_options.output_name, base_file_name + '.dep')
-    final_output_file = os.path.join (global_options.output_name,
+    dep_file = os.path.join (global_options.output_dir, base_file_name + '.dep')
+    final_output_file = os.path.join (global_options.output_dir,
                      base_file_name
                      + '.%s' % global_options.format)
     

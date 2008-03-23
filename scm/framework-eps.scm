@@ -94,6 +94,7 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 	 
 	 (tex-system-port (open-output-string))
 	 (texi-system-port (open-output-string))
+	 (count-system-port (open-output-string))
 	 (widened-stencils (widen-left-stencil-edges stencils))
 	 (counted-systems  (count-list widened-stencils))
 	 (eps-files (map dump-counted-stencil  counted-systems))
@@ -123,13 +124,14 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
     
     (display "@c eof." texi-system-port)
     (display "% eof. " tex-system-port)
-    
+    (display (format "~a" (length stencils)) count-system-port)
     (dump-infinite-stack-EPS stencils)
     (postprocess-output book framework-eps-module
 			(format "~a.eps" basename) (ly:output-formats))
 
     (write-file texi-system-port "texi")
     (write-file tex-system-port "tex")
+    (write-file count-system-port "count")
     ))
 
 
