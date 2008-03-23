@@ -30,7 +30,7 @@ txt-to-html:
 po-update:
 	make -C po po-update
 
-all-translations-update: po-update
+all-translations-update: po-update translation-status
 	$(foreach lang, $(LANGS), make ISOLANG=$(lang) skeleton-update snippet-update &&) true
 
 ifneq ($(ISOLANG),)
@@ -43,7 +43,7 @@ new-lang:
 	cp fr/GNUmakefile $(ISOLANG)
 	cp fr/user/GNUmakefile $(ISOLANG)/user
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/user/GNUmakefile
-	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond.tely
+	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond-learning.tely
 	mv $(outdir)/*.*tely $(ISOLANG)/user
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
@@ -58,6 +58,7 @@ skeleton-update:
 
 snippet-update:
 	$(PYTHON) $(buildscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
+
 endif
 
 check-translation:

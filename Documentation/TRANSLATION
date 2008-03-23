@@ -155,7 +155,7 @@ Please follow all these instructions with care to ensure quality work.
 
 All files should be encoded in UTF-8.
 
-* USER MANUAL
+* LEARNING MANUAL AND OTHER TEXINFO DOCUMENTATION
 
 Any title which comes with one of the following commands must not be
 translated directly in the Texinfo source
@@ -232,11 +232,11 @@ lilypond-devel@gnu.org.
 
 * REFERENCE NOTATION AND PROGRAM USAGE MANUAL
 
-Copy user/lilypond.tely (or user/lilypond-program.tely) into
-<MY-LANGUAGE>/user, then translate this file and run skeleton-update
-(see UPDATE A TRANSLATION below).  Your are now ready to translate
-notation reference (program usage manual, respectively) exactly like
-the learning manual.
+Copy user/lilypond.tely (or user/lilypond-program.tely, respectively)
+into <MY-LANGUAGE>/user, then translate this file and run
+skeleton-update (see UPDATE A TRANSLATION below).  Your are now ready
+to translate notation reference (program usage manual, respectively)
+exactly like the learning manual.
 
 
 * DOCUMENTATION INDEX index.html.in
