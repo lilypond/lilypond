@@ -311,7 +311,7 @@ Referencia de funcionamiento interno:
 @subsubsection Scaling durations
 
 Es posible alterar la duración de las figuras, silencios o acordes en
-un factor @code{N/M} añadiendo @code{*{N/M}} (o @code{*{N}} si
+un factor @code{N/M} añadiendo @code{*N/M} (o @code{*N} si
 @code{M} es 1) a la duración.  Esto no afectará a la apariencia de las
 notas o silencios que se producen, pero la duración alterada se usará
 para calcular la posición dentro del compás y para establecer la
