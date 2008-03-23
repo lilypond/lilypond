@@ -206,6 +206,7 @@ FILTER = 'filter'
 FRAGMENT = 'fragment'
 HTML = 'html'
 INDENT = 'indent'
+LANG = 'lang'
 LATEX = 'latex'
 LAYOUT = 'layout'
 LINE_WIDTH = 'line-width'
@@ -512,6 +513,7 @@ simple_options = [
     NOINDENT,
     PRINTFILENAME,
     TEXIDOC,
+    LANG,
     VERBATIM,
     FONTLOAD,
     FILENAME,
@@ -814,6 +816,8 @@ def split_options (option_string):
                     option_string)
     return []
 
+texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
+
 def set_default_options (source):
     global default_ly_options
     if not default_ly_options.has_key (LINE_WIDTH):
@@ -822,6 +826,11 @@ def set_default_options (source):
             default_ly_options[LINE_WIDTH] = \
              '''%.0f\\pt''' % textwidth
         elif global_options.format == TEXINFO:
+            m = texinfo_lang_re.search (source)
+            if m and not m.group (1).startswith ('en'):
+                default_ly_options[LANG] = m.group (1)
+            else:
+                default_ly_options[LANG] = ''
             for (k, v) in texinfo_line_widths.items ():
                 # FIXME: @layout is usually not in
                 # chunk #0:
@@ -1261,7 +1270,10 @@ class Lilypond_snippet (Snippet):
         base = self.basename ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
-            if os.path.exists (texidoc):
+            translated_texidoc = texidoc + default_ly_options[LANG]
+            if os.path.exists (translated_texidoc):
+                str += '@include %(translated_texidoc)s\n\n' % vars ()
+            elif os.path.exists (texidoc):
                 str += '@include %(texidoc)s\n\n' % vars ()
 
         substr = ''
@@ -1756,13 +1768,10 @@ def do_file (input_filename):
             progress ('\n')
             return do_file (name)
 
-        include_chunks = map (process_include,
-                   filter (lambda x: is_derived_class (x.__class__,
-                                     Include_snippet),
-                       chunks))
+        include_chunks = [process_include (c) for c in chunks
+                          if is_derived_class (c.__class__, Include_snippet)]
 
-
-        return chunks + reduce (lambda x,y: x + y, include_chunks, [])
+        return chunks + reduce (operator.add, include_chunks, [])
         
     except Compile_error:
         os.chdir (original_dir)

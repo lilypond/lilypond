@@ -1,6 +1,6 @@
 depth = ..
 
-SUBDIRS = regression tutorial mutopia manual lsr new 
+SUBDIRS = regression tutorial mutopia manual lsr new texidocs
 
 examples = typography-demo les-nereides wilhelmus proportional bach-schenker cary
 
