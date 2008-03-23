@@ -12,7 +12,7 @@ even-numbered voices are vertically separated.  The positioning
 of multi-measure rests can be controlled as follows:
  "}
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\relative c'' {
 % Multi-measure rests by default are set under the 2nd line
 R1
 % They can be moved with an override
@@ -37,5 +37,5 @@ R1
   \revert MultiMeasureRest #'staff-position
   {R1*3}
 >>
-@end lilypond
+}
 

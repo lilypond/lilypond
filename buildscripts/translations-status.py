@@ -18,7 +18,6 @@ import re
 import string
 import os
 import gettext
-import subprocess
 
 def progress (str):
     sys.stderr.write (str + '\n')
@@ -32,6 +31,7 @@ _doc = lambda s: s
 
 sys.path.append (buildscript_dir)
 import langdefs
+import buildlib
 
 # load gettext messages catalogs
 translation = {}
@@ -39,18 +39,6 @@ for l in langdefs.LANGUAGES:
     if l.enabled and l.code != 'en':
         translation[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
 
-def read_pipe (command):
-    child = subprocess.Popen (command,
-                              stdout = subprocess.PIPE,
-                              stderr = subprocess.PIPE,
-                              shell = True)
-    (output, error) = child.communicate ()
-    code = str (child.wait ())
-    if not child.stdout or child.stdout.close ():
-        print "pipe failed: %(command)s" % locals ()
-    if code != '0':
-        error = code + ' ' + error
-    return (output, error)
 
 comments_re = re.compile (r'^@ignore\n(.|\n)*?\n@end ignore$|@c .*?$', re.M)
 space_re = re.compile (r'\s+', re.M)
@@ -59,15 +47,12 @@ node_re = re.compile ('^@node .*?$', re.M)
 title_re = re.compile ('^@(top|chapter|(?:sub){0,2}section|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?) (.*?)$', re.M)
 include_re = re.compile ('^@include (.*?)$', re.M)
 
-committish_re = re.compile ('GIT [Cc]ommittish: ([a-f0-9]+)')
 translators_re = re.compile (r'^@c\s+Translators\s*:\s*(.*?)$', re.M | re.I)
 checkers_re = re.compile (r'^@c\s+Translation\s*checkers\s*:\s*(.*?)$', re.M | re.I)
 status_re = re.compile (r'^@c\s+Translation\s*status\s*:\s*(.*?)$', re.M | re.I)
 post_gdp_re = re.compile ('post.GDP', re.I)
 untranslated_node_str = 'UNTRANSLATED NODE: IGNORE ME'
 skeleton_str = '-- SKELETON FILE --'
-
-diff_cmd = 'git diff --no-color %(committish)s HEAD -- %(original)s | cat'
 
 format_table = {
     'not translated': {'color':'d0f0f8', 'short':_doc ('no'), 'abbr':'NT',
@@ -239,14 +224,7 @@ class TranslatedTelyDocument (TelyDocument):
         self.translation_percentage = 100 * translation_word_count / master_total_word_count
 
         ## calculate how much the file is outdated
-        m = committish_re.search (self.contents)
-        if not m:
-            sys.stderr.write ('error: ' + filename + \
-                                  ": no 'GIT committish: <hash>' found.\nPlease check " + \
-                                  'the whole file against the original in English, then ' + \
-                                  'fill in HEAD committish in the header.\n')
-            sys.exit (1)
-        (diff_string, error) = read_pipe (diff_cmd % {'committish':m.group (1), 'original':masterdocument.filename})
+        (diff_string, error) = buildlib.check_translated_doc (masterdocument.filename, self.contents)
         if error:
             sys.stderr.write ('warning: %s: %s' % (self.filename, error))
             self.uptodate_percentage = None
@@ -410,7 +388,7 @@ def update_category_word_counts_sub (m):
 
 progress ("Reading documents...")
 
-tely_files = read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
+tely_files = buildlib.read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
 master_docs = [MasterTelyDocument (os.path.normpath (filename)) for filename in tely_files]
 master_docs = [doc for doc in master_docs if doc.translations]
 
@@ -423,7 +401,7 @@ main_status_page = open ('translations.template.html.in').read ()
 
 progress ("Generating status pages...")
 
-date_time = read_pipe ('LANG= date -u')[0]
+date_time = buildlib.read_pipe ('LANG= date -u')[0]
 
 main_status_html = ' <p><i>Last updated %s</i></p>\n' % date_time
 main_status_html += '\n'.join ([doc.html_status () for doc in master_docs])

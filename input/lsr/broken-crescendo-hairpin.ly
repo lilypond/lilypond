@@ -21,7 +21,7 @@ Make sure to put the Hairpin in a lower layer than the Text Markup to
 actually draw the rectangle above the hairpin. 
 " }
 % begin verbatim
-% Version specific to 2.10; fails under 2.11 -np
+% Version specific to 2.10; fails under 2.11 due to rest position -np
 
 \score
 {

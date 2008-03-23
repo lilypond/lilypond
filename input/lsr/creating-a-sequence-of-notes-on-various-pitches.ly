@@ -52,12 +52,10 @@ rhythm = #(define-music-function (parser location note) (ly:music?)
           ))))
 
 \score {
-   \new Staff {
-       \time 5/4
-
-       \rhythm c'
-       \rhythm c''
-       \rhythm g
-   }
+  \new Staff {
+    \time 5/4
+    \rhythm c'
+    \rhythm c''
+    \rhythm g
+  }
 }
-

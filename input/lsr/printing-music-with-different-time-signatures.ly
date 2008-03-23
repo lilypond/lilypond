@@ -6,13 +6,11 @@
   lsrtags = "rhythms, percussion"
  texidoc = "
 In the following snippet, two parts have a completely different time
-signature, and yet keep synchronized.
-
-This can be achieved with the \\compressMusic command, as demonstrated
-here.
-
-The barlines can't be printed at the Score level anymore, so you have
-to remove the Barline_engraver and put it in the Staff context.
+signature, and yet keep synchronized. This can be achieved with the
+@code{\\compressMusic} command, as demonstrated here. The barlines
+can't be printed at the @code{Score} level anymore, so you have to
+remove the @code{Barline_engraver} and put it in the @code{Staff}
+context. 
 " }
 % begin verbatim
 % Thanks to Adam James Wilson for this snippet

@@ -211,6 +211,7 @@ FILTER = 'filter'
 FRAGMENT = 'fragment'
 HTML = 'html'
 INDENT = 'indent'
+LANG = 'lang'
 LATEX = 'latex'
 LAYOUT = 'layout'
 LINE_WIDTH = 'line-width'
@@ -517,6 +518,7 @@ simple_options = [
     NOINDENT,
     PRINTFILENAME,
     TEXIDOC,
+    LANG,
     VERBATIM,
     FONTLOAD,
     FILENAME,
@@ -808,12 +810,18 @@ def verbatim_html (s):
                re.sub ('&', '&amp;', s)))
 
 
+texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
 def set_default_options (source, default_ly_options, format):
     if LINE_WIDTH not in default_ly_options:
         if format == LATEX:
             textwidth = get_latex_textwidth (source)
             default_ly_options[LINE_WIDTH] = '%.0f\\pt' % textwidth
         elif format == TEXINFO:
+            m = texinfo_lang_re.search (source)
+            if m and not m.group (1).startswith ('en'):
+                default_ly_options[LANG] = m.group (1)
+            else:
+                default_ly_options[LANG] = ''
             for regex in texinfo_line_widths:
                 # FIXME: @layout is usually not in
                 # chunk #0:
@@ -1302,7 +1310,10 @@ class LilypondSnippet (Snippet):
         base = self.basename ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
-            if os.path.exists (texidoc):
+            translated_texidoc = texidoc + default_ly_options[LANG]
+            if os.path.exists (translated_texidoc):
+                str += '@include %(translated_texidoc)s\n\n' % vars ()
+            elif os.path.exists (texidoc):
                 str += '@include %(texidoc)s\n\n' % vars ()
 
         substr = ''
@@ -1793,8 +1804,8 @@ def do_file (input_filename):
             return do_file (name)
 
         include_chunks = map (process_include,
-                   filter (lambda x: isinstance (x, IncludeSnippet),
-                       chunks))
+                              filter (lambda x: isinstance (x, IncludeSnippet),
+                                      chunks))
 
         return chunks + reduce (lambda x, y: x + y, include_chunks, [])
         

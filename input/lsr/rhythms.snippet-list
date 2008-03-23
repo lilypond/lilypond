@@ -7,6 +7,7 @@ skips-in-lyric-mode-2.ly
 chant-or-psalms-notation.ly
 controlling-tuplet-bracket-visibility.ly
 heavily-customized-polymetric-time-signatures.ly
+positioning-multi--measure-rests.ly
 using-ties-with-arpeggios.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
 compound-time-signatures.ly
@@ -17,6 +18,7 @@ making-an-object-invisible-with-the-transparent-property.ly
 changing-the-tuplet-number.ly
 entering-several-tuplets-using-only-one--times-command.ly
 conducting-signs,-measure-grouping-signs.ly
+changing-form-of-multi--measure-rests.ly
 rhythmic-slashes.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 permitting-line-breaks-within-beamed-tuplets.ly
