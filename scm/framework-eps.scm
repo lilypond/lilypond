@@ -131,6 +131,9 @@ stencil, so LaTeX includegraphics doesn't fuck up the alignment."
 
     (write-file texi-system-port "texi")
     (write-file tex-system-port "tex")
+
+    ;; do this as the last action so we know the rest is complete if
+    ;; this file is present.
     (write-file count-system-port "count")
     ))
 

@@ -910,8 +910,7 @@ class LilypondSnippet (Snippet):
             return self.compose_ly (s)
         return ''
 
-    @staticmethod
-    def split_options (option_string):
+    def split_options (self, option_string):
         if option_string:
             if self.format == HTML:
                 options = re.findall('[\w\.-:]+(?:\s*=\s*(?:"[^"]*"|\'[^\']*\'|\S+))?',
@@ -927,7 +926,7 @@ class LilypondSnippet (Snippet):
     def do_options (self, option_string, type):
         self.option_dict = {}
 
-        options = split_options (option_string)
+        options = self.split_options (option_string)
 
         for option in options:
             if '=' in option:
@@ -1132,82 +1131,57 @@ class LilypondSnippet (Snippet):
 
         
     def all_output_files (self, output_dir_files):
-        """Return all files generated in lily_output_dir.
+        """Return all files generated in lily_output_dir, a set.
 
         output_dir_files is the list of files in the output directory.
         """
-        base = os.path.basename(self.basename())
-        result = set()
-        for required in [base + '.ly',
-                         base + '.txt']:
-            result.add (required)
+        class Missing(Exception):
+            pass
         
+        result = set()
+        base = os.path.basename(self.basename())
         def consider_file (name):
             if name in output_dir_files:
                 result.add (name)
 
-        map (consider_file, [base + '.tex',
-                             base + '.eps',
-                             base + '-systems.count',
-                             base + '-systems.texi',
-                             base + '-systems.tex',
-                             base + '-systems.pdftexi'])
+        def require_file (name):
+            if name not in output_dir_files:
+                raise Missing
+            result.add (name)
 
-        if base + '.eps' in result:
-            page_count = ps_page_count (self.basename() + '.eps')
-            if page_count <= 1:
-                consider_file (base + '.png')
-            else:
-                for page in range (1, page_count + 1):
-                    consider_file (base + '-page%d.png' % page)
+        try:
+            for required in [base + '.ly',
+                             base + '.txt',
+                             base + '-systems.count']:
+                require_file (required)
 
-        if (base + '-systems.count') in result:
+            map (consider_file, [base + '.tex',
+                                 base + '.eps',
+                                 base + '-systems.texi',
+                                 base + '-systems.tex',
+                                 base + '-systems.pdftexi'])
+
+            if base + '.eps' in result and self.format in (HTML, TEXINFO):
+                page_count = ps_page_count (self.basename() + '.eps')
+                if page_count <= 1:
+                    require_file (base + '.png')
+                else:
+                    for page in range (1, page_count + 1):
+                        require_file (base + '-page%d.png' % page)
+
             system_count = int(file (self.basename () + '-systems.count').read())
             for number in range(1, system_count + 1):
                 systemfile = '%s-%d' % (base, number)
-                consider_file (systemfile + '.eps')
-                consider_file (systemfile + '.pdf')
+                require_file (systemfile + '.eps')
+                if 'pdf' in self.format:
+                    require_file (systemfile + '.pdf')
+        except Missing:
+            return None
         
         return result
-             
-    def ly_is_outdated (self):
-        base = self.basename ()
-        ly_file = find_file (base + '.ly', raise_error=False)
-        tex_file = find_file (base + '.tex', raise_error=False)
-        systems_file = find_file (base + '-systems.tex', raise_error=False)
-
-        if (not os.path.exists (ly_file)
-            or not os.path.exists (systems_file)):
-            return True
-
-        lines = file (systems_file).readlines ()
-        if not lines:
-            return True
-
-        if not re.match ('% eof', lines[-1]):
-            return true
-        
-        return False
-
-    def png_is_outdated (self):
-        base = self.basename ()
-        eps_file = find_file (base + '.eps', raise_error=False)
-        png_file = find_file (base + '.png', raise_error=False)
-        if self.ly_is_outdated ():
-            return True
-        
-        if (self.format in (HTML, TEXINFO)
-            and os.path.exists (eps_file)):
-            page_count = ps_page_count (eps_file)
-            if page_count <= 1:
-                return not os.path.exists (png_file)
-            else:
-                for page in range (1, page_count + 1):
-                    if not find_file (base + '-page%d.png' % page,
-                                      raise_error=False):
-                        return True
-                
-        return False
+    
+    def is_outdated (self, current_files):
+        return self.all_output_files (current_files) is None
     
     def filter_text (self):
         """Run snippet bodies through a command (say: convert-ly).
@@ -1460,7 +1434,7 @@ def find_toplevel_snippets (input_string, format, types):
                 endex = found[first][0]
 
         if not first:
-            snippets.append (Substring (input_string, index, len (s), line_start_idx))
+            snippets.append (Substring (input_string, index, len (input_string), line_start_idx))
             break
 
         while (start > line_starts[line_start_idx+1]):
@@ -1639,8 +1613,10 @@ def write_file_map (lys, name):
 
 def do_process_cmd (chunks, input_name, options):
     snippets = [c for c in chunks if isinstance (c, LilypondSnippet)]
-    outdated = [c for c in snippets
-                if (c.ly_is_outdated () or c.png_is_outdated ())]
+
+
+    output_files = set(os.listdir(options.lily_output_dir))
+    outdated = [c for c in snippets if c.is_outdated (output_files)]
     
     write_file_map (outdated, input_name)    
     progress (_ ("Writing snippets..."))
