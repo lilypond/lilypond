@@ -49,8 +49,7 @@ new-lang:
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in buildscripts/langdefs.py  ***"
 
-check-translation:
-	find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(ISOLANG)/index.html.in
+CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??')
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
@@ -60,6 +59,12 @@ skeleton-update:
 snippet-update:
 	$(PYTHON) $(buildscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
 endif
+
+check-translation:
+	$(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(CHECKED_FILES)
+
+update-translation:
+	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(buildscript-dir) $(CHECKED_FILES)
 
 translation-status:
 	make -C po out=www messages
