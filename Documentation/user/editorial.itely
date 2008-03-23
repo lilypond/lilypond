@@ -77,7 +77,9 @@ so that only certain layout objects are affected.
 c4.-> d8---3
 \override NoteHead #'font-size = #-4
 c4.-> d8---3
-\override Script #'font-size = #3
+\override Script #'font-size = #2
+c4.-> d8---3
+\override Stem #'font-size = #-5
 c4.-> d8---3
 @end lilypond
 
