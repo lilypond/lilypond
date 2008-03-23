@@ -12,13 +12,13 @@ placed after the starting note and its duration, not before. Similarly,
 the right square bracket should directly follow the note which is to be
 at the end of the requested beaming, even if this note happens to be
 inside a tuplet section. This snippet demonstrates how to combine
-manual beaming, manual slurs, ties, and phrasing slurs with tuplet
-sections (enclosed with curly braces). 
+manual beaming, manual slurs, ties and phrasing slurs with tuplet
+sections (enclosed within curly braces). 
 " }
 % begin verbatim
 {
-  r16[ g16 \times 2/3 {r16 e'8] }
-  g16( a \times 2/3 {b d e') }
-  g8[( a \times 2/3 {b d') e'~]}
-  \times 4/5 {e'32\( a b d' e'} a'4.\)
+  r16[ g16 \times 2/3 { r16 e'8] }
+  g16( a \times 2/3 { b d e') }
+  g8[( a \times 2/3 { b d') e']~ }
+  \times 4/5 { e'32\( a b d' e' } a'4.\)
 }

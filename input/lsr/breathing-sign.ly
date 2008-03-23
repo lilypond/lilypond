@@ -6,7 +6,7 @@
   lsrtags = "expressive-marks"
  texidoc = "
 Breathing signs are available in different tastes: commas (default),
-ticks, vees and `railroad tracks' (caesura).
+ticks, vees and \"railroad tracks\" (caesura).
 " }
 % begin verbatim
 {

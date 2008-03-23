@@ -5,18 +5,19 @@
 \header {
   lsrtags = "pitches, editorial-and-educational-use"
  texidoc = "
-The shapeNoteStyles property gives you the ability to define various
-notehead styles for each step of the scale (as defined by the key
-signature or the \"tonic\" property). This property requires a set of
-symbols, which can be purely arbitrary (geometrical expressions such as
-triangle, cross, xcircle etc. are allowed) or based on old American
-engraving tradition (you can use some latin note names as well). That
-said, if you're trying to imitate old American song books, you may also
-want to try LilyPond's predefined notehead styles, through shortcut
-commands such as \\aikenHeads or \\sacredHarpHeads. This example shows
-different ways to obtain shape noteheads, and demonstrates the ability
-to transpose a melody without losing the correspondence between
-harmonic functions and notehead styles. 
+The @code{shapeNoteStyles} property gives you the ability to define
+various notehead styles for each step of the scale (as defined by the
+key signature or the \"tonic\" property). This property requires a set
+of symbols, which can be purely arbitrary (geometrical expressions such
+as @code{triangle}, @code{cross}, @code{xcircle} etc. are allowed) or
+based on old American engraving tradition (you can use some latin note
+names as well). That said, if you're trying to imitate old American
+song books, you may also want to try LilyPond's predefined notehead
+styles, through shortcut commands such as @code{\\aikenHeads} or
+@code{\\sacredHarpHeads}. This example shows different ways to obtain
+shape noteheads, and demonstrates the ability to transpose a melody
+without losing the correspondence between harmonic functions and
+notehead styles. 
 " }
 % begin verbatim
 fragment = {
