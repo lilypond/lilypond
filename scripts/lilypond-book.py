@@ -1103,7 +1103,7 @@ class LilypondSnippet (Snippet):
         cs = self.get_checksum ()
 
         # TODO: use xx/xxxxx directory layout.
-        name = 'lily-%s' % (cs[:2], cs[2:])
+        name = 'lily-%s' % cs
         if global_options.lily_output_dir:
             name = os.path.join (global_options.lily_output_dir, name)
         return name
