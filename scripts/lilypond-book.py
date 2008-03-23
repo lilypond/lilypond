@@ -1378,7 +1378,7 @@ def find_linestarts (s):
 def find_toplevel_snippets (input_string, format, types):
     res = {}
     for t in types:
-        res[t] = ly.re.compile (snippet_res[format][t])
+        res[t] = re.compile (snippet_res[format][t])
 
     snippets = []
     index = 0
