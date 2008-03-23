@@ -841,9 +841,6 @@ class Chunk:
     def filter_text (self):
         return self.replacement_text ()
 
-    def is_outdated (self):
-        return False
-
     def is_plain (self):
         return False
     
@@ -1036,18 +1033,14 @@ class LilypondSnippet (Snippet):
             if c_key:
                 if c_value:
                     warning (
-                        _ ("deprecated ly-option used: %s=%s"
-                           % (key, value)))
+                        _ ("deprecated ly-option used: %s=%s") % (key, value))
                     warning (
-                        _ ("compatibility mode translation: %s=%s"
-                           % (c_key, c_value)))
+                        _ ("compatibility mode translation: %s=%s") % (c_key, c_value))
                 else:
                     warning (
-                        _ ("deprecated ly-option used: %s"
-                           % key))
+                        _ ("deprecated ly-option used: %s") % key)
                     warning (
-                        _ ("compatibility mode translation: %s"
-                           % c_key))
+                        _ ("compatibility mode translation: %s") % c_key)
 
                 (key, value) = (c_key, c_value)
 
@@ -1109,20 +1102,21 @@ class LilypondSnippet (Snippet):
 
         # TODO: use xx/xxxxx directory layout.
         name = 'lily-%s' % cs[:10]
-        if global_options.lily_output_dir:
-            name = os.path.join (global_options.lily_output_dir, name)
         return name
 
     def write_ly (self):
-        out = file (self.basename () + '.ly', 'w')
+        base = self.basename ()
+        path = os.path.join (global_options.lily_output_dir, base)
+
+        out = file (path + '.ly', 'w')
         out.write (self.full_ly ())
-        file (self.basename () + '.txt', 'w').write ('image of music')
+        file (path + '.txt', 'w').write ('image of music')
 
     def relevant_contents (self, ly):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
 
     def link_all_output_files (self, output_dir, output_dir_files, destination):
-        existing = self.all_output_files (output_dir_files)
+        existing = self.all_output_files (output_dir, output_dir_files)
         for name in existing:
             try:
                 os.unlink (os.path.join (destination, name))
@@ -1134,7 +1128,7 @@ class LilypondSnippet (Snippet):
             os.link (src, dst)
 
         
-    def all_output_files (self, output_dir_files):
+    def all_output_files (self, output_dir, output_dir_files):
         """Return all files generated in lily_output_dir, a set.
 
         output_dir_files is the list of files in the output directory.
@@ -1143,7 +1137,8 @@ class LilypondSnippet (Snippet):
             pass
         
         result = set()
-        base = os.path.basename(self.basename())
+        base = self.basename()
+        full = os.path.join (output_dir, base)
         def consider_file (name):
             if name in output_dir_files:
                 result.add (name)
@@ -1161,19 +1156,20 @@ class LilypondSnippet (Snippet):
 
             map (consider_file, [base + '.tex',
                                  base + '.eps',
+                                 base + '.texidoc',
                                  base + '-systems.texi',
                                  base + '-systems.tex',
                                  base + '-systems.pdftexi'])
 
             if base + '.eps' in result and self.format in (HTML, TEXINFO):
-                page_count = ps_page_count (self.basename() + '.eps')
+                page_count = ps_page_count (full + '.eps')
                 if page_count <= 1:
                     require_file (base + '.png')
                 else:
                     for page in range (1, page_count + 1):
                         require_file (base + '-page%d.png' % page)
 
-            system_count = int(file (self.basename () + '-systems.count').read())
+            system_count = int(file (full + '-systems.count').read())
             for number in range(1, system_count + 1):
                 systemfile = '%s-%d' % (base, number)
                 require_file (systemfile + '.eps')
@@ -1183,8 +1179,8 @@ class LilypondSnippet (Snippet):
         
         return result
     
-    def is_outdated (self, current_files):
-        return self.all_output_files (current_files) is None
+    def is_outdated (self, output_dir, current_files):
+        return self.all_output_files (output_dir, current_files) is None
     
     def filter_text (self):
         """Run snippet bodies through a command (say: convert-ly).
@@ -1622,7 +1618,7 @@ def do_process_cmd (chunks, input_name, options):
 
 
     output_files = set(os.listdir(options.lily_output_dir))
-    outdated = [c for c in snippets if c.is_outdated (output_files)]
+    outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
     
     write_file_map (outdated, input_name)    
     progress (_ ("Writing snippets..."))
