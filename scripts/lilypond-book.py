@@ -28,7 +28,6 @@ TODO:
 
 '''
 
-import commands
 import md5
 import os
 import re
@@ -842,10 +841,7 @@ class Chunk:
     def filter_text (self):
         return self.replacement_text ()
 
-    def ly_is_outdated (self):
-        return False
-
-    def png_is_outdated (self):
+    def is_outdated (self):
         return False
 
     def is_plain (self):
