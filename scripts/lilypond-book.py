@@ -1187,13 +1187,6 @@ class LilypondSnippet (Snippet):
         if not re.match ('% eof', lines[-1]):
             return true
         
-        # and FILENAME in self.option_dict
-        #huh?
-
-        if (self.relevant_contents (self.full_ly ())
-            != self.relevant_contents (file (ly_file).read ())):
-            return True
-        
         return False
 
     def png_is_outdated (self):
