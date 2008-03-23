@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 338edaf1ad2b64605dcdeadb37b4cf17f98fc81a
+    Translation of GIT committish: 0204d415337bf74ae8626f396e6ea3cc5669c8f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -281,7 +281,7 @@ y se le pueden adjuntar ligaduras de unión o de expresión y barras de corchea.
 @cindex quitar objetos
 @cindex ocultar objetos
 @cindex objetos invisibles
-El ejemplo siguientes demuestra cómo conectar distintas voces
+El ejemplo siguiente demuestra cómo conectar distintas voces
 utilizando ligaduras.  Normalmente las ligaduras sólo unen dos notas de la misma voz.
 Al introducir una ligadura en una voz distinta,
 
@@ -332,6 +332,11 @@ propiedades son diferentes; por ejemplo, el grosor de las barras de corchea
 se mide en espacios de pentagrama.  Para más información, consulte la porción
 correspondiente de la referencia del programa.
 
+
+@node Size of objects
+@subsection Size of objects
+
+UNTRANSLATED NODE: IGNORE ME
 
 @node Default files
 @section Default files

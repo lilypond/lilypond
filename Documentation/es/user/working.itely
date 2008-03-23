@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 993fc5189dc039afd51a98df9b71adf59f2ab20f
+    Translation of GIT committish: 0204d415337bf74ae8626f396e6ea3cc5669c8f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -18,7 +18,7 @@ que lea este capítulo.
 
 @menu
 * Suggestions for writing LilyPond files::  
-* Saving typing with identifiers and functions::  
+* Saving typing with variables and functions::  
 * Style sheets::                
 * Updating old files::          
 * Troubleshooting (taking it all apart)::  
@@ -110,7 +110,7 @@ e identificadores.  Si especifica @code{c4 d e} al principio de una frase
 si reelabora la música más tarde.
 
 @item @strong{Separe los trucos} de las definiciones musicales.  Consulte
-@ruser{Saving typing with identifiers and functions} y
+@ruser{Saving typing with variables and functions} y
 @ruser{Style sheets}.
 
 @end itemize
@@ -187,8 +187,8 @@ g4\fthenp c'8. e16
 @end itemize
 
 
-@node Saving typing with identifiers and functions
-@section Saving typing with identifiers and functions
+@node Saving typing with variables and functions
+@section Saving typing with variables and functions
 
 @cindex variables
 @cindex identificadores

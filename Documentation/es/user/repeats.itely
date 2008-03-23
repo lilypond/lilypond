@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: c5677b3c765e9d811991525fc8e04366c72e34d0
+    Translation of GIT committish: 0204d415337bf74ae8626f396e6ea3cc5669c8f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -372,7 +372,7 @@ Referencia del programa: @internalsref{RepeatSlash},
 @cindex barras de trémolo
 
 Para colocar marcas de trémolo entre las notas, use @code{\repeat} con
-el estilo @code(tremolo) (trémolo):
+el estilo @code{tremolo} (trémolo):
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
