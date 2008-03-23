@@ -11,10 +11,10 @@ prints a simple line otherwise.  This default number of 10
 may be changed by an override:
 "}
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c'' {
 \compressFullBarRests
 R1*2 | R1*5 | R1*9
 \override MultiMeasureRest #'expand-limit = 3
 R1*2 | R1*5 | R1*9
-@end lilypond
+}
 
