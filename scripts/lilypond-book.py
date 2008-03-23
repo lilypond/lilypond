@@ -1126,7 +1126,6 @@ class LilypondSnippet (Snippet):
 
             src = os.path.join (output_dir, name)
             dst = os.path.join (destination, name)
-            print src, dst
             os.link (src, dst)
 
         
@@ -1770,7 +1769,6 @@ def do_file (input_filename):
 
     output_filename = os.path.join(global_options.output_dir,
                                    input_base + format2ext[global_options.format])
-    print output_filename
     if (os.path.exists (input_filename) 
         and os.path.exists (output_filename) 
         and samefile (output_filename, input_fullname)):
