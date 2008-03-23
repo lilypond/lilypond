@@ -12,7 +12,11 @@
 @node Pitches
 @section Pitches
 
-This section discusses how to specify the pitch of notes.
+@lilypondfile[quote]{pitches-headword.ly}
+
+Cette section détaille la façon d'indiquer les hauteurs de notes, sous
+trois aspects : la saisie des hauteurs, la modification des hauteurs
+et les options de gravure.
 
 @menu
 * Writing pitches::             
@@ -25,7 +29,7 @@ This section discusses how to specify the pitch of notes.
 @node Writing pitches
 @subsection Writing pitches
 
-Intro text.
+Cette section
 
 @menu
 * Normal pitches::              
@@ -124,19 +128,10 @@ d e fis g
 @end lilypond
 
 
-@commonprop
+@snippets
 
-En accord avec les règles standards de l'écriture musicale, on imprime
-un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
-altération précédente.  Pour modifier ce comportement, spécifiez
-@code{\set Staff.extraNatural = ##f}
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-ceses4 ces cis c
-\set Staff.extraNatural = ##f
-ceses4 ces cis c
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{preventing-extra-naturals-from-being-automatically-added.ly}
 
 @seealso
 

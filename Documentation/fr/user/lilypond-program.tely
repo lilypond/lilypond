@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: a8a6ce84e2b7d1bdda6d3cad2f15e6c380edad11
+    Translation of GIT committish: 6a56196b4b7dc895e7be90159f3b0fb94650fb9b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -24,7 +24,7 @@
 @c don't remove this comment.
 @ignore
 @omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription User manual of the LilyPond music engraving system
+@omfdescription Program Usage of the LilyPond music engraving system
 @omftype user manual
 @omfcategory Applications|Publishing
 @omflanguage French
