@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0204d415337bf74ae8626f396e6ea3cc5669c8f2
+    Translation of GIT committish: a78148743803f342e4701dc09608962ccfcb759e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -332,6 +332,10 @@ propiedades son diferentes; por ejemplo, el grosor de las barras de corchea
 se mide en espacios de pentagrama.  Para más información, consulte la porción
 correspondiente de la referencia del programa.
 
+
+@menu
+* Size of objects::             
+@end menu
 
 @node Size of objects
 @subsection Size of objects
