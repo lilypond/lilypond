@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: c1fd7a47f134fa956c935d16215c4b7b911c1572
+    Translation of GIT committish: d3081b92dcfcce31ce268de6ceb640930eb270ef
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,6 +13,20 @@
 Este capítulo trata de cómo modificar la salida.  LilyPond es extremadamente
 configurable; prácticamente todos los fragmentos de la salida se pueden cambiar.
 
+
+@menu
+* Tweaking basics::             
+* Moving objects::              
+* Fixing overlapping notation::  
+* Common tweaks::               
+* Default files::               
+* Fitting music onto fewer pages::  
+* Advanced tweaks with Scheme::  
+* Avoiding tweaks with slower processing::  
+@end menu
+
+@node Tweaking basics
+@section Tweaking basics
 
 @menu
 * Introduction to tweaks::      
