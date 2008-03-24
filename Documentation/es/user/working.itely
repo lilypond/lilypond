@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0204d415337bf74ae8626f396e6ea3cc5669c8f2
+    Translation of GIT committish: 8f4d2068a0c7698ac66797b874b25a427b0d0f27
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -18,11 +18,8 @@ que lea este capítulo.
 
 @menu
 * Suggestions for writing LilyPond files::  
-* Saving typing with variables and functions::  
-* Style sheets::                
-* Updating old files::          
-* Troubleshooting (taking it all apart)::  
-* Minimal examples::            
+* When things don't work::      
+* Scores and parts::            
 @end menu
 
 
@@ -59,6 +56,8 @@ más fáciles (o más difíciles) de actualizar.
 * General suggestions::         
 * Typesetting existing music::  
 * Large projects::              
+* Saving typing with variables and functions::  
+* Style sheets::                
 @end menu
 
 
@@ -188,7 +187,7 @@ g4\fthenp c'8. e16
 
 
 @node Saving typing with variables and functions
-@section Saving typing with variables and functions
+@subsection Saving typing with variables and functions
 
 @cindex variables
 @cindex identificadores
@@ -292,7 +291,7 @@ en lugar de tener que hacer cambios en cada uno de los archivos @code{.ly}.
 
 
 @node Style sheets
-@section Style sheets
+@subsection Style sheets
 
 La salida que produce LilyPond se puede modificar profundamente; consulte
 @ruser{Tweaking output} para leer detalles sobre este asunto.  Pero ¿qué ocurre si tiene muchos
@@ -545,9 +544,17 @@ Yo utilizo media docena de archivos de
 \include "../iniciar/iniciar-papel.ly"
 @end example
 
+@node When things don't work
+@section When things don't work
+
+@menu
+* Updating old files::          
+* Troubleshooting (taking it all apart)::  
+* Minimal examples::            
+@end menu
 
 @node Updating old files
-@section Updating old files
+@subsection Updating old files
 
 La sintaxis de la entrada de LilyPond cambia de manera ocasional.  A medida que el propio
 LilyPond mejora, la sintaxis (el lenguaje de la entrada) se modifica en consonancia.  A
@@ -566,8 +573,8 @@ se relacionan en @rprogram{Updating files with convert-ly}.
 
 Por ejemplo, en la versión 2.4 y anteriores de LilyPond,
 los acentos y las letras no inglesas se introducían utilizando
-LaTeX: por ejemplo, @samp{No\"el} (que significa @q{Navidad} en francés).
-En LilyPond 2.6 y siguientes, el carácter especial @samp{ë}
+LaTeX: por ejemplo, @code{No\"el} (que significa @q{Navidad} en francés).
+En LilyPond 2.6 y siguientes, el carácter especial @code{ë}
 debe introducirse directamente en el archivo de LilyPond como un carácter UTF-8.
 @code{convert-ly} no puede cambiar todos los caracteres especiales
 de LaTeX a caracteres de UTF-8; tendrá que actualizar manualmente
@@ -575,7 +582,7 @@ sus archivos de LilyPond antiguos.
 
 
 @node Troubleshooting (taking it all apart)
-@section Troubleshooting (taking it all apart)
+@subsection Troubleshooting (taking it all apart)
 
 Antes o después escribirá un archivo que LilyPond no podrá compilar.
 Los mensajes que LilyPond proporciona pueden ayudarle a encontrar el
@@ -630,7 +637,7 @@ Otra técnica de depuración muy útil es la construcción de
 
 
 @node Minimal examples
-@section Minimal examples
+@subsection Minimal examples
 
 Un ejemplo mínimo es un ejemplo tan pequeño como sea posible.  Estos
 ejemplos son mucho más fáciles de comprender que los ejemplos largos.  Los ejemplos
@@ -668,3 +675,123 @@ del ejemplo.
 @end itemize
 
 
+@node Scores and parts
+@section Scores and parts
+
+En música orquestal, todas las notas se imprimen dos veces.  Una vez
+en las particellas para los músicos, y otra para la partitura del director.
+Los identificadores se pueden usar para evitar la duplicación del trabajo.
+La música se escribe una vez y se almacena en una variable.
+El contenido de dicha variable se usa después para generar tanto la particella como la partitura del director.
+
+Es muy conveniente definir las notas en un archivo especial.  Por
+ejemplo, supongamos que el archivo @file{trompa.ly} contiene la
+siguiente parte de un dúo para trompa y fagot:
+
+@example
+notasTrompa = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
+
+@noindent
+Luego se hace una particella escribiendo en un archivo lo siguiente
+
+@example
+\include "trompa.ly"
+\header @{
+  instrument = "Trompa en Fa"
+@}
+
+@{
+ \transpose f c' \notasTrompa
+@}
+@end example
+
+La línea
+
+@example
+\include "trompa.ly"
+@end example
+
+@noindent
+sustituye el contenido de @file{trompa.ly} en esta posición dentro del
+archivo, así que @code{notasTrompa} se define con posterioridad.  El comando
+@code{\transpose f@tie{}c'} indica que el argumento constituido por
+@code{\notasTrompa} se debe transponer una quinta hacia arriba.  Lo que suena como
+@code{f} se escribe como @code{c'}, lo que corresponde con el tono de afinación de
+una trompa normal en@tie{}Fa.  La transposición se puede ver en la
+siguiente salida
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+En piezas para conjunto, con frecuencia una de las voces no suena durante muchos compases.
+Esto queda denotado por un silencio especial, el silencio multicompás.
+Se introduce con una @code{R} mayúscula seguida de una duración
+(@code{1}@tie{}en el caso de la redonda, @code{2}@tie{}en el caso de una blanca,
+etc.).  Multiplicando la duración se pueden construir
+silencios más largos.  Por ejemplo, este silencio ocupa
+3@tie{}compases de 2/4
+
+@example
+R2*3
+@end example
+
+Cuando se imprime la particella tienen que comprimirse los silencios
+multicompás.  Esto se hace estableciendo una variable en tiempo de ejecución
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+Este comando establece el valor de la propiedad @code{skipBars} en el
+contexto de @code{Score} a verdadero (@code{##t}).  Anteponiendo el silencio y
+esta opción a la música anterior, llegamos al siguiente resultado
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+
+Esta partitura se hace combinando toda la música junta.  Suponiendo
+que la otra voz se encuentra dentro de @code{notasFagot} en el archivo
+@file{fagot.ly}, la partitura se hace con
+
+@example
+\include "fagot.ly"
+\include "trompa.ly"
+
+<<
+  \new Staff \notasTrompa
+  \new Staff \notasFagot
+>>
+@end example
+
+@noindent
+lo que nos lleva a
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
