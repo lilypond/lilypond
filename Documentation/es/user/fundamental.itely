@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: bea70d053e3e279c3fbb18cbce52d995ce04fec7
+    Translation of GIT committish: 89bcad47a1888f517753b72a605f2bf6748582eb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1059,22 +1059,35 @@ particular incluyendo la instrucción @code{\set} dentro de un bloque
 @node Extending the templates
 @section Extending the templates
 
-Ha leído el tutorial y ahora sabe escribir música.  Pero ¿cómo puede poner
-los pentagramas que quiere?  Las plantillas están muy bien, pero ¿qué ocurre
-si quiere algo que no está en una de ellas?
+Ha leído el tutorial y ahora sabe escribir música.  Pero ¿cómo puede
+poner los pentagramas que quiere?  Las plantillas están muy bien, pero
+¿qué ocurre si quiere algo que no está en una de ellas?  Bien, puede
+encontrar montañas de plantillas (véase @ref{Templates}) que le pueden
+servir como punto de partida.  Pero ¿y si quiere algo que no está
+contemplado aquí? Continúe leyendo.
 
-Para empezar, tome la plantilla que le parezca más parecida a aquello que quiere
-conseguir.  Digamos que quiere escribir algo para soprano y cello.
-En este caso comenzaríamos con la plantilla @q{Notas y letra} (para la parte
-de soprano).
+
+@menu
+* Soprano and cello::           
+* Four-part SATB vocal score::  
+* Building a score from scratch::  
+@end menu
+
+@node Soprano and cello
+@subsection Soprano and cello
+
+
+Para empezar, tome la plantilla que le parezca más parecida a aquello
+que quiere conseguir.  Digamos que quiere escribir algo para soprano y
+cello.  En este caso comenzaríamos con la plantilla @q{Notas y letra}
+(para la parte de soprano).
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 melodia = \relative c' @{
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 @}
 
@@ -1082,64 +1095,65 @@ texto = \lyricmode @{
   Aaa Bee Cee Dee
 @}
 
-\score@{
+\score @{
   <<
     \new Voice = "uno" @{
       \autoBeamOff
       \melodia
     @}
-    \new Lyrics \lyricsto "uno" \text
+    \new Lyrics \lyricsto "uno" \texto
   >>
   \layout @{ @}
   \midi @{ @}
 @}
 @end example
 
-Ahora queremos añadir una parte de violoncello.  Veamos el ejemplo @q{Sólo notas}:
+Ahora queremos añadir una parte de violoncello.  Veamos el ejemplo
+@q{Sólo notas}:
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 melodia = \relative c' @{
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 @}
 
 \score @{
-\new Staff \melody
-\layout @{ @}
-\midi @{ @}
+  \new Staff \melodia
+  \layout @{ @}
+  \midi @{ @}
 @}
 @end example
 
-No necesitamos dos comandos @code{\version}.  Vamos a necesitar la sección @code{melodia}.
-No queremos dos secciones @code{\score} (si tuviésemos dos @code{\score}s, acabaríamos con las dos particellas por separado.
-Queremos las dos juntas, como un dúo.
-Dentro de la sección @code{\score}, no nos hacen falta dos 
-@code{\layout} ni dos @code{\midi}.
+No necesitamos dos comandos @code{\version}.  Vamos a necesitar la
+sección @code{melodia}.  No queremos dos secciones @code{\score} (si
+tuviésemos dos @code{\score}s, acabaríamos con las dos particellas por
+separado.  Queremos las dos juntas, como un dúo.  Dentro de la sección
+@code{\score}, no nos hacen falta dos @code{\layout} ni dos
+@code{\midi}.
 
-Si nos limitásemos a copiar y pegar la sección @code{melodia}, acabaríamos con dos
-secciones @code{melodia} separadas, así que vamos a cambiarles el nombre.  Llamaremos
-@code{musicaSoprano} a la sección de la soprano y @code{musicaCello} a la sección del violoncello.
-Al mismo tiempo cambiaremos el nombre de @code{texto}
-a @code{letraSoprano}.  Recuerde cambiar el nombre a las dos apariciones de todos estos
-nombres -- tanto la definición inicial (la
-parte @code{melodia = relative c' @{ }) --
-como el uso de ese nombre (en la sección @code{\score}).
+Si nos limitásemos a copiar y pegar la sección @code{melodia},
+acabaríamos con dos secciones @code{melodia} separadas, así que vamos
+a cambiarles el nombre.  Llamaremos @code{musicaSoprano} a la sección
+de la soprano y @code{musicaCello} a la sección del violoncello.  Al
+mismo tiempo cambiaremos el nombre de @code{texto} a
+@code{letraSoprano}.  Recuerde cambiar el nombre a las dos apariciones
+de todos estos nombres -- tanto la definición inicial (la parte
+@code{melodia = relative c' @{ }) -- como el uso de ese nombre (en la
+sección @code{\score}).
 
-También aprovecharemos para cambiar el pentagrama de la parte del cello (los violoncellos
-se escriben normalmente en clave de Fa).  Asimismo, cambiaremos algunas
-notas del cello.
+También aprovecharemos para cambiar el pentagrama de la parte del
+cello (los violoncellos se escriben normalmente en clave de Fa).
+Asimismo, cambiaremos algunas notas del cello.
 
 @example
-\version "2.11.38"
+\version @w{"@version{}"}
 musicaSoprano = \relative c' @{
   \clef treble
   \key c \major
   \time 4/4
-
   a4 b c d
 @}
 
@@ -1168,19 +1182,21 @@ musicaCello = \relative c @{
 @}
 @end example
 
-Esto tiene una pinta prometedora, pero la parte del cello no sale en la partitura
-(no la hemos puesto en la sección @code{\score}).  Si queremos que la parte
-del cello aparezca debajo de la de soprano, tenemos que añadir
+Esto tiene una apariencia prometedora, pero la parte del cello no sale
+en la partitura (no la hemos puesto en la sección @code{\score}).  Si
+queremos que la parte del cello aparezca debajo de la de soprano,
+tenemos que añadir
 
 @example
 \new Staff \musicaCello
 @end example
 
 @noindent
-justo debajo de todo lo de la soprano.  También tenemos que poner @code{<<} y
-@code{>>} antes y después de la música -- lo que  indica a LilyPond que hay
-más de una cosa (en este caso, @code{Staff}) sucediendo al mismo tiempo -- .  La
-@code{\score} se parecerá ahora a esto
+justo debajo de todo lo de la soprano.  También tenemos que poner
+@code{<<} y @code{>>} antes y después de la música -- lo que indica a
+LilyPond que hay más de una cosa (en este caso, @code{Staff})
+sucediendo al mismo tiempo -- .  La @code{\score} se parecerá ahora a
+esto
 
 @example
 \score@{
@@ -1200,8 +1216,9 @@ más de una cosa (en este caso, @code{Staff}) sucediendo al mismo tiempo -- .  L
 @end example
 
 @noindent
-Esto parece un poco enrevesado; los márgenes están descuadrados.  Esto tiene
-fácil solución.  Presentamos aquí la plantilla completa para soprano y cello.
+Esto parece un poco enrevesado; los márgenes están descuadrados.  Esto
+tiene fácil solución.  Presentamos aquí la plantilla completa para
+soprano y cello.
 
 @lilypond[quote,verbatim,ragged-right]
 \version "2.11.38"
@@ -1241,27 +1258,438 @@ celloMusic = \relative c {
 }
 @end lilypond
 
-@menu
-* Soprano and cello::           
-* Four-part SATB vocal score::  
-* Building a score from scratch::  
-@end menu 
-@node Soprano and cello
-@subsection Soprano and cello
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Four-part SATB vocal score
 @subsection Four-part SATB vocal score
 
-UNTRANSLATED NODE: IGNORE ME
+La mayor parte de las partituras vocales escritas para coro mixto a
+cuatro voces con acompañamiento orquestal, como el «Elías» de
+Mendelssohn o el «Mesías» de Haendel, tienen la música coral y la
+letra en cuatro pentagramas para S, A, T y B, respectivamente, con una
+reducción de piano del acompañamiento de orquesta, por debajo. He aquí
+un ejemplo del «Mesías» de Haendel:
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+global = { \key d \major \time 4/4 }
+sopMusic = \relative c'' {
+  \clef "treble"
+  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+}
+sopWords = \lyricmode {
+  Wor -- thy is the lamb that was slain
+}
+altoMusic = \relative a' {
+  \clef "treble"
+  r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
+}
+altoWords = \sopWords
+tenorMusic = \relative c' {
+  \clef "G_8"
+  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+}
+tenorWords = \sopWords
+bassMusic = \relative c' {
+  \clef "bass"
+  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+}
+bassWords = \sopWords
+upper = \relative a' {
+  \clef "treble"
+  \global
+  r4 <a d fis>2 <a e' a>4 |
+  <d fis d'>4. <d fis d'>8 <a d a'>2 |
+  <g cis g'>4 <a d fis> <a cis e>2 |
+}
+lower = \relative c, {
+  \clef "bass"
+  \global
+  <d d'>4 <d d'>2 <cis cis'>4 |
+  <b b'>4. <b' b'>8 <fis fis'>2 |
+  <e e'>4 <d d'> <a' a'>2 |
+}
+
+\score {
+  <<  % combine ChoirStaff and PianoStaff in parallel
+    \new ChoirStaff <<
+      \new Staff = "sopranos" <<
+        \set Staff.instrumentName = "Soprano"
+        \new Voice = "sopranos" { \global \sopMusic }
+      >>
+      \new Lyrics \lyricsto "sopranos" { \sopWords }
+      \new Staff = "altos" <<
+        \set Staff.instrumentName = "Alto"
+        \new Voice = "altos" { \global \altoMusic }
+      >>
+      \new Lyrics \lyricsto "altos" { \altoWords }
+      \new Staff = "tenors" <<
+        \set Staff.instrumentName = "Tenor"
+        \new Voice = "tenors" { \global \tenorMusic }
+      >>
+      \new Lyrics \lyricsto "tenors" { \tenorWords }
+      \new Staff = "basses" <<
+        \set Staff.instrumentName = "Bass"
+        \new Voice = "basses" { \global \bassMusic }
+      >>
+      \new Lyrics \lyricsto "basses" { \bassWords }
+    >>  % end ChoirStaff
+
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = "Piano  "
+      \new Staff = "upper" \upper
+      \new Staff = "lower" \lower
+    >>
+  >>
+}
+@end lilypond
+
+Ninguna de las plantillas proporciona esta disposición con exactitud.
+La más parecida es @q{partitura vocal SATB y reducción de piano
+automática}, pero necesitamos cambiar la disposición y añadir un
+acompañamiento de piano que no esté derviado automáticamente de las
+partes vocales.  Las variables que contienen la música y la letra de
+las partes vocales es adecuada, pero tendremos que añadir variables
+para la reducción de piano.
+
+El orden en que aparecen los contextos en el ChoirStaff de la
+plantilla no se corresponde con el orden de la partitura vocal que
+hemos mostrado más arriba.  Tenemos que reordenarlas para que haya
+cuatro pentagramas con la letra escrita directamente bajo las notas de
+cada parte.  Todas las voces deben ser @code{\voiceOne}, que es la
+predeterminada, para que las instrucciones @code{\voiceXXX} se puedan
+eliminar.  También tenemos que especificar la clave de tenor (clave de
+sol octava baja) en las partes de tenor.  Aún no hemos encontrado la
+forma en que la letra se especifica en la plantilla, así que tenemos
+que utilizar el método que nos resulta familiar.  También tenemos que
+escribir los nombres de cada pentagrama.
+
+Al hacerlo así obtenemos el ChoirStaff siguiente:
+
+@example
+    \new ChoirStaff <<
+      \new Staff = "sopranos" <<
+        \set Staff.instrumentName = "Soprano"
+        \new Voice = "sopranos" @{ \global \musicaSoprano @}
+      >>
+      \new Lyrics \lyricsto "sopranos" @{ \latraSoprano @}
+      \new Staff = "altos" <<
+        \set Staff.instrumentName = "Alto"
+        \new Voice = "altos" @{ \global \musicaAlto @}
+      >>
+      \new Lyrics \lyricsto "altos" @{ \letraAlto @}
+      \new Staff = "tenores" <<
+        \set Staff.instrumentName = "Tenor"
+        \new Voice = "tenores" @{ \global \musicaTenor @}
+      >>
+      \new Lyrics \lyricsto "tenors" @{ \letraTenor @}
+      \new Staff = "bajos" <<
+        \set Staff.instrumentName = "Bass"
+        \new Voice = "bajos" @{ \global \musicaBajo @}
+      >>
+      \new Lyrics \lyricsto "basses" @{ \letraBajo @}
+    >>  % fin del ChoirStaff
+@end example
+
+A continuación debemos trabajar sobre la parte de piano.  Es fácil:
+tan sólo hay que sacar la parte de piano de la plantilla de @q{Piano
+solista}:
+
+@example
+\new PianoStaff <<
+  \set PianoStaff.instrumentName = "Piano  "
+  \new Staff = "superior" \superior
+  \new Staff = "inferior" \inferior
+>>
+@end example
+
+y escribir las definiciones de variable para @code{superior} e
+@code{inferior}.
+
+Los grupos ChoirStaff y PianoStaff se deben combinar utilizando
+ángulos dobles, ya queremos apilarlos unos sobre otros:
+
+@example
+<<  % combinar los grupos ChoirStaff y PianoStaff uno sobre el otro
+  \new ChoirStaff <<
+    \new Staff = "sopranos" <<
+      \new Voice = "sopranos" @{ \global \musicaSoprano @}
+    >>
+    \new Lyrics \lyricsto "sopranos" @{ \letraSoprano @}
+    \new Staff = "altos" <<
+      \new Voice = "altos" @{ \global \musicaAlto @}
+    >>
+    \new Lyrics \lyricsto "altos" @{ \letraAlto @}
+    \new Staff = "tenores" <<
+      \clef "G_8"  % clave de tenor
+      \new Voice = "tenores" @{ \global \musicaTenor @}
+    >>
+    \new Lyrics \lyricsto "tenores" @{ \letraTenor @}
+    \new Staff = "bajos" <<
+      \clef "bass"
+      \new Voice = "bajos" @{ \global \musicaBajo @}
+    >>
+    \new Lyrics \lyricsto "bajos" @{ \letraBajo @}   
+  >>  % fin del ChoirStaff
+
+  \new PianoStaff <<
+    \set PianoStaff.instrumentName = "Piano  "
+    \new Staff = "upper" \upper
+    \new Staff = "lower" \lower
+  >>
+>>
+@end example
+
+Al combinar todo esto junto y escribir la música de los tres compases
+del ejemplo anterior, obtenemos:
+
+@lilypond[quote,verbatim,ragged-right]
+\version "2.11.38"
+global = { \key d \major \time 4/4 }
+sopMusic = \relative c'' {
+  \clef "treble"
+  r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
+}
+sopWords = \lyricmode {
+  Wor -- thy is the lamb that was slain
+}
+altoMusic = \relative a' {
+  \clef "treble"
+  r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
+}
+altoWords = \sopWords
+tenorMusic = \relative c' {
+  \clef "G_8"
+  r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
+}
+tenorWords = \sopWords
+bassMusic = \relative c' {
+  \clef "bass"
+  r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
+}
+bassWords = \sopWords
+upper = \relative a' {
+  \clef "treble"
+  \global
+  r4 <a d fis>2 <a e' a>4 |
+  <d fis d'>4. <d fis d'>8 <a d a'>2 |
+  <g cis g'>4 <a d fis> <a cis e>2 |
+}
+lower = \relative c, {
+  \clef "bass"
+  \global
+  <d d'>4 <d d'>2 <cis cis'>4 |
+  <b b'>4. <b' b'>8 <fis fis'>2 |
+  <e e'>4 <d d'> <a' a'>2 |
+}
+
+\score {
+  <<  % combine ChoirStaff and PianoStaff in parallel
+    \new ChoirStaff <<
+      \new Staff = "sopranos" <<
+        \set Staff.instrumentName = "Soprano"
+        \new Voice = "sopranos" { \global \sopMusic }
+      >>
+      \new Lyrics \lyricsto "sopranos" { \sopWords }
+      \new Staff = "altos" <<
+        \set Staff.instrumentName = "Alto"
+        \new Voice = "altos" { \global \altoMusic }
+      >>
+      \new Lyrics \lyricsto "altos" { \altoWords }
+      \new Staff = "tenors" <<
+        \set Staff.instrumentName = "Tenor"
+        \new Voice = "tenors" { \global \tenorMusic }
+      >>
+      \new Lyrics \lyricsto "tenors" { \tenorWords }
+      \new Staff = "basses" <<
+        \set Staff.instrumentName = "Bass"
+        \new Voice = "basses" { \global \bassMusic }
+      >>
+      \new Lyrics \lyricsto "basses" { \bassWords }
+    >>  % end ChoirStaff
+
+    \new PianoStaff <<
+      \set PianoStaff.instrumentName = "Piano  "
+      \new Staff = "upper" \upper
+      \new Staff = "lower" \lower
+    >>
+  >>
+}
+@end lilypond
+  
 
 @node Building a score from scratch
 @subsection Building a score from scratch
 
-UNTRANSLATED NODE: IGNORE ME
+Después de adquirir algo de soltura en la escritura del código de
+LilyPond, se dará cuenta de que es más fácil construir completamente
+una partitura partiendo de cero, que modificar una plantilla.  También
+puede desarrollar su propio estilo de forma que se adapte al tipo de
+música que le apetezca.  Veamos a continuación cómo confeccionar una
+partitura para un preludio de órgano, como ejemplo.
 
+Comenzamos con una sección para el encabezamiento.  Aquí es donde van
+el título, nombre del compositor, etc., después van las definiciones
+de las variables, y finalmente el bloque de partitura.  Comencemos a
+verlas por encima y más tarde completaremos los detalles.
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+Utilizaremos los dos primeros compases del peludio de Bach basado en
+@emph{Jesu, meine Freude}, que está escrito para órgano con dos
+manuales y pedal.  Tiene estos dos compases de música al final de la
+sección.  La parte del manual superior tiene dos voces, y el inferior
+y el pedal, una voz cada uno.  Así pues, necesitamos cuatro
+definiciones para la música y una más para definir el compás y la
+tonalidad:
+
+@example
+\version @w{"@version{}"}
+\header @{
+  title = "Jesu, meine Freude"
+  composer = "J S Bach"
+@}
+TimeKey = @{ \time 4/4 \key c \minor @}
+MusicaManualUnoVozUno = @{s1@}
+MusicaManualUnoVozDos = @{s1@}
+MusicaManualDos = @{s1@}
+MusicaPedal = @{s1@}
+
+\score @{
+@}
+@end example
+
+Por el momento hemos escrito tan sólo una nota espaciadora, @code{s1},
+en lugar de la música de verdad.  La añadiremos más adelante.
+
+A continuación veamos qué va en el bloque de partitura.
+Sencillamente, reflejaremos la estructura de pentagramas que deseemos.
+La música de órgano se escribe por lo general en tres pentagramas, uno
+para cada uno de los manuales y otro para el pedal.  Los pentagramas
+de los manuales se abarcan con una llave, así que los incluiremos en
+un grupo PianoStaff.  La primera parte de manual tiene dos voces, y la
+segunda sólo una.
+
+@example
+  \new PianoStaff <<
+    \new Staff = "ManualUno" <<
+      \new Voice @{ \MusicaManualUnoVozUno @}
+      \new Voice @{ \MusicaManualUnoVozDos @}
+    >>  % fun del contexto de Staff ManualUno
+    \new Staff = "ManualDos" <<
+      \new Voice @{ \MusicaManualDos @}
+    >>  % fin del contexto de Staff ManualDos
+  >>  % fin del contexto de PianoStaff
+@end example
+
+Después, tenemos que añadir un pentagrama para el órgano de pedal.
+Esto va por debajo del PianoStaff, pero debe ser simultáneo con él,
+por lo que escribimos dobles ángulos rodeando a los dos.  Si esto se
+nos olvida, se producirá un error en el archivo log de registro.  ¡Es
+un error muy común que cometerá antes o después!  Intente copiar el
+ejemplo final que aparece al final de la sección, borre los dobles
+ángulos y procese el archivo para ver qué error produce.
+
+@example
+<<  % el grupo PianoStaff y el pentagrama de Pedal son simultáneos
+  \new PianoStaff <<
+    \new Staff = "ManualUno" <<
+      \new Voice @{ \MusicaManualUnoVozUno @}
+      \new Voice @{ \MusicaManualUnoVozDos @}
+    >>  % fin del contexto de Staff ManualUno
+    \new Staff = "ManualDos" <<
+      \new Voice @{ \MusicaManualDos @}
+    >>  % fin del contexto de Staff ManualDos
+  >>  % fin del contexto de PianoStaff
+  \new Staff = "OrganoPedal" <<
+    \new Voice @{ \MusicaOrganoPedal @}
+  >>
+>>
+@end example
+
+No es estrictamente necesario utilizar la construcción simultánea
+@code{<< >>} para el pentagrama del manual dos y el pentagrama del
+órgano de pedal, ya que contienen una única expresión, pero no hace
+daño y es una buena costumbre utilizar siempre dobles ángulos después
+de @code{\new Staff} cuando hay varias voces.
+
+Añadamos esta estructura al bloque de partitura, y ajustemos el
+sangrado de los márgenes.  También escribimos las claves
+correspondientes, nos aseguramos de que las plicas de la segunda voz
+apuntan hacia abajo mediante @code{\voiceTwo} y escribimos el compás y
+la tonalidad en cada uno de los pentagramas usando nuestra variable
+previamente definida @code{\TimeKey}.
+
+@example
+\score @{
+  <<  % el grupo PianoStaff y el pentagrama de Pedal son simultáneos
+    \new PianoStaff <<
+      \new Staff = "ManualUno" <<
+        \TimeKey  % establecer compás y tonalidad
+        \clef "treble"
+        \new Voice @{ \MusicaManualUnoVozUno @}
+        \new Voice @{ \voiceTwo \MusicaManualUnoVozDos @}
+      >>  % fin del contexto de Staff ManualUno
+      \new Staff = "ManualDos" <<
+        \TimeKey
+        \clef "bass"
+        \new Voice @{ \MusicaManualDos @}
+      >>  % fin del contexto de Staff ManualDos
+    >>  % fin del contexto de PianoStaff
+    \new Staff = "OrganoPedal" <<
+      \TimeKey
+      \clef "bass"
+      \new Voice @{ \MusicaOrganoPedal @}
+    >>  % fin del pentagrama de OrganoPedal
+  >>
+@}  % end Score context
+@end example
+
+Con esto se completa la estructura.  Toda música para órgano de tres
+pentagramas tendrá una estructura similar, aunque el número de voces
+puede variar.  Todo lo que nos queda es añadir la música, y combinar
+todas las partes.
+
+@lilypond[quote,verbatim,ragged-right]
+\version "2.11.38"
+\header {
+  title = "Jesu, meine Freude"
+  composer = "J S Bach"
+}
+TimeKey = { \time 4/4 \key c \minor }
+ManualOneVoiceOneMusic = \relative g' {
+  g4 g f ees | d2 c2 |
+}
+ManualOneVoiceTwoMusic = \relative c' {
+  ees16 d ees8~ ees16 f ees s c8 d~ d c~ |
+  c c4 b8 c8. g16 c b c d |
+}
+ManualTwoMusic = \relative c' {
+  c16 b c8~ c16 b c g a8 g~ g16 g aes ees |
+  f ees f d g aes g f ees d e8~ ees16 f ees d |
+}
+PedalOrganMusic = \relative c {
+  r8 c16 d ees d ees8~ ees16 a, b g c b c8 |
+  r16 g ees f g f g8 c,2 |
+  }
+
+\score {
+  <<  % PianoStaff and Pedal Staff must be simultaneous
+    \new PianoStaff <<
+      \new Staff = "ManualOne" <<
+        \TimeKey  % set time signature and key
+        \clef "treble"
+        \new Voice { \ManualOneVoiceOneMusic }
+        \new Voice { \voiceTwo \ManualOneVoiceTwoMusic }
+      >>  % end ManualOne Staff context
+      \new Staff = "ManualTwo" <<
+        \TimeKey
+        \clef "bass"
+        \new Voice { \ManualTwoMusic }
+      >>  % end ManualTwo Staff context
+    >>  % end PianoStaff context
+    \new Staff = "PedalOrgan" <<
+      \TimeKey
+      \clef "bass"
+      \new Voice { \PedalOrganMusic }
+    >>  % end PedalOrgan Staff
+  >>
+}  % end Score context
+@end lilypond
+
