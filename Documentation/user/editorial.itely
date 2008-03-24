@@ -77,7 +77,9 @@ so that only certain layout objects are affected.
 c4.-> d8---3
 \override NoteHead #'font-size = #-4
 c4.-> d8---3
-\override Script #'font-size = #3
+\override Script #'font-size = #2
+c4.-> d8---3
+\override Stem #'font-size = #-5
 c4.-> d8---3
 @end lilypond
 
@@ -432,19 +434,19 @@ notes.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" 
     % sets up grids
-    gridInterval = #(ly:make-moment 1 4)
+    \consists "Grid_point_engraver" 
     % this sets the grid interval to 1 quarternote (crotchet)
-  }
+    gridInterval = #(ly:make-moment 1 4)
+      }
 }
 
 \new Score \with {
-  \consists "Grid_line_span_engraver"
   %% by default this centers grid lines horizontally below and to the 
   % left side of the notehead, the grid lines extend from 
   % the middle lines of each staff
-}
+  \consists "Grid_line_span_engraver"
+  }
 
 \new ChoirStaff <<
   \new Staff {
@@ -472,17 +474,15 @@ To change the grid lines use \override.
   \context {
     \Staff
     \consists "Grid_point_engraver" 
-    % sets up grids
-    gridInterval = #(ly:make-moment 1 4)
-    % this sets the grid interval to 1 quarternote (crotchet)
-  }
+      gridInterval = #(ly:make-moment 1 4)
+    }
 }
      
 \new Score \with {
   \consists "Grid_line_span_engraver"
-  \override NoteColumn #'X-offset = #-0.5
   % this moves them to the right half a staff space
-}
+  \override NoteColumn #'X-offset = #-0.5
+  }
      
 \new ChoirStaff <<
  \new Staff {
@@ -493,8 +493,8 @@ To change the grid lines use \override.
   }
   \new Staff {
     \relative c {
-      \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
       % this moves them up one staff space from the default position
+      \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
       \stemDown
       \clef bass
       \once \override Score.GridLine #'thickness = #5.0

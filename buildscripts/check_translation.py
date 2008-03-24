@@ -2,9 +2,7 @@
 
 import __main__
 import optparse
-import gettext
 import os
-import re
 import sys
 
 verbose = 0
@@ -16,27 +14,7 @@ def dir_lang (file, lang, lang_dir_index):
     path_components[lang_dir_index] = lang
     return os.path.join (*path_components)
 
-##     Translation of GIT Commit: <hash>
-REVISION_RE = re.compile ('GIT [Cc]ommittish: ([a-f0-9]+)')
-CVS_DIFF = 'git diff %(revision)s HEAD -- %(original)s | cat'
-
-def check_file (original, translated):
-    s = open (translated).read ()
-    m = REVISION_RE.search (s)
-    if not m:
-        sys.stderr.write ('error: ' + translated + \
-                          ": no 'GIT committish: <hash>' found.\nPlease check " + \
-                          'the whole file against the original in English, then ' + \
-                          'fill in HEAD committish in the header.\n')
-        sys.exit (1)
-    revision = m.group (1)
-
-    c = CVS_DIFF % vars ()
-    if verbose:
-        sys.stderr.write ('running: ' + c)
-    os.system (c)
-
-def do_file (file_name, lang_codes):
+def do_file (file_name, lang_codes, buildlib):
     if verbose:
         sys.stderr.write ('%s...\n' % file_name)
     split_file_name = file_name.split ('/')
@@ -53,19 +31,35 @@ def do_file (file_name, lang_codes):
         raise Exception ('cannot determine language for ' + file_name)
     
     original = dir_lang (file_name, '', lang_dir_index)
-    translated = file_name
-    check_file (original, translated)
+    translated_contents = open (file_name).read ()
+    (diff_string, error) = buildlib.check_translated_doc (original, translated_contents, color=not update_mode)
+
+    if error:
+            sys.stderr.write ('warning: %s: %s' % (file_name, error))
+
+    if update_mode:
+        if error or len (diff_string) >= os.path.getsize (original):
+            buildlib.read_pipe (text_editor + ' ' + file_name + ' ' + original)
+        elif diff_string:
+            diff_file = original + '.diff'
+            f = open (diff_file, 'w')
+            f.write (diff_string)
+            f.close ()
+            buildlib.read_pipe (text_editor + ' ' + file_name + ' ' + diff_file)
+            os.remove (diff_file)
+    else:
+        sys.stdout.write (diff_string)
 
 def usage ():
     sys.stdout.write (r'''
 Usage:
-check-translation [--language=LANG] [--verbose] BUILDSCRIPT-DIR FILE...
+check-translation [--language=LANG] [--verbose] [--update] BUILDSCRIPT-DIR FILE...
 
 This script is licensed under the GNU GPL.
 ''')
 
 def do_options ():
-    global lang, verbose
+    global lang, verbose, update_mode
 
     p = optparse.OptionParser (usage="check-translation [--language=LANG] [--verbose] FILE...",
                                description="This script is licensed under the GNU GPL.")
@@ -78,21 +72,35 @@ def do_options ():
                   default=False,
                   dest="verbose",
                   help="the GIT directory to merge.")
+    p.add_option ('-u', "--update",
+                  action='store_true',
+                  default=False,
+                  dest='update_mode',
+                  help='call $EDITOR to update the translation')
     
     (options, files) = p.parse_args ()
     verbose = options.verbose
     lang = options.language
+    update_mode = options.update_mode
     
     return (files[0], files[1:])
 
 def main ():
+    global update_mode, text_editor
+
     import_path, files = do_options ()
+    if 'EDITOR' in os.environ.keys ():
+        text_editor = os.environ['EDITOR']
+    else:
+        update_mode = False
     
     sys.path.append (import_path)
     import langdefs
+    import buildlib
+    buildlib.verbose = verbose
 
     for i in files:
-        do_file (i, langdefs.LANGDICT.keys())
+        do_file (i, langdefs.LANGDICT.keys(), buildlib)
 
 if __name__ == '__main__':
     main ()

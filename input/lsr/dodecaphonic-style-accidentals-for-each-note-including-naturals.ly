@@ -5,8 +5,8 @@
 \header {
   lsrtags = "pitches"
  texidoc = "
-In early XXth century works, starting with Schönberg, Berg and Webern
-(the \"second\" Viennese school), every pitch in the twelve-tone scale
+In early 20th century works, starting with Schönberg, Berg and Webern
+(the \"Second\" Viennese school), every pitch in the twelve-tone scale
 has to be regarded as equal, without any hierarchy such as the
 classical (tonal) degrees. Therefore, these composers print one
 accidental for each note, even at natural pitches, to emphasize their
@@ -15,21 +15,21 @@ achieve such notation rules with LilyPond.
 " }
 % begin verbatim
 webernAccidentals = {
-    % the 5s are just "a value different from any accidental"
-    \set Staff.keySignature = #'((0 . 5) (1 . 5) (2 . 5) (3 . 5)
-                                 (4 . 5) (5 . 5) (6 . 5))
-    \set Staff.extraNatural = ##f
-    #(set-accidental-style 'forget)
+  % the 5s are just "a value different from any accidental"
+  \set Staff.keySignature = #'((0 . 5) (1 . 5) (2 . 5) (3 . 5)
+                               (4 . 5) (5 . 5) (6 . 5))
+  \set Staff.extraNatural = ##f
+  #(set-accidental-style 'forget)
 }
 
-\layout {
-  \context { \Staff \remove "Key_engraver" }
-}
 \score {
   {
     \webernAccidentals
     c' dis' cis' cis'
     c' dis' cis' cis'
     c' c' dis' des'
+  }
+  \layout {
+    \context { \Staff \remove "Key_engraver" }
   }
 }

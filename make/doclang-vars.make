@@ -5,7 +5,7 @@ LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
 DOCUMENTATION_INCLUDES = \
   -I $(top-src-dir)/Documentation/user \
   -I $(top-build-dir)/Documentation/user/$(outdir)
-DOCUMENTATION_INCLUDES += $(foreach lang, $(LANGS), -I $(top-build-dir)/Documentation/$(lang)/user/$(outdir))
+DOCUMENTATION_INCLUDES += $(foreach lang,$(LANGS), -I $(top-build-dir)/Documentation/$(lang)/user/$(outdir))
 
 LILYPOND_BOOK_INCLUDES += $(DOCUMENTATION_INCLUDES)
 MAKEINFO_FLAGS += --force --enable-encoding -D 'version $(TOPLEVEL_VERSION)' $(DOCUMENTATION_INCLUDES)

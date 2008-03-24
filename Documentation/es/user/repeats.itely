@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 751ee13b75db49706f1d9ef34455f16ff11818f1
+    Translation of GIT committish: 0204d415337bf74ae8626f396e6ea3cc5669c8f2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -37,10 +37,11 @@ semejante a un signo de porcentaje.  Las repeticiones de porcentaje se
 deben declarar dentro de un contexto @code{Voice}.
 
 @item tremolo (trémolo)
-Hacen barras de trémolo.
+Hacer barras de trémolo.
 
 @end table
 
+@ignore
 LilyPond tiene una construcción sintáctica para especificar distintos
 tipos de repetición.  La sintaxis es
 
@@ -68,7 +69,7 @@ después de un bloque @code{\repeat volta} o @code{unfold}, donde cada
 alternativas que las que se especifican en
 @var{número_de_repeticiones}, se supondrá que la primera alternativa
 se interpreta más de una vez.
-
+@end ignore
 
 @menu
 * Writing long repeats::        
@@ -81,6 +82,7 @@ se interpreta más de una vez.
 @menu
 * Normal repeats::              
 * Manual repeat marks::         
+* Written-out repeats::         
 @end menu
 
 @cindex volta
@@ -94,12 +96,23 @@ se interpreta más de una vez.
 @node Normal repeats
 @subsubsection Normal repeats
 
-FIXME: this example needs to go by itself.
-@verbatim
-\repeat volta 2 { c4 d e f }
-@end verbatim
+La sintaxis de una repetición simple es
 
-Repeticiones normales, con finales alternativos o sin ellos:
+@example
+\repeat @var{variante} @var{número_de_repeticiones} @var{cuerpo_de_la_repetición}
+@end example
+
+donde @var{cuerpo_de_la_repetición} es una expresión musical.
+
+Repeticiones normales sin finales alternativos:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\repeat volta 2 { c4 d e f }
+c2 d
+\repeat volta 2 { d4 e f g }
+@end lilypond
+
+Repeticiones normales con primera y segunda vez:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \repeat volta 2 { g f e d }
@@ -109,11 +122,14 @@ Repeticiones normales, con finales alternativos o sin ellos:
   }
 c1
 @end lilypond
+
+
 Repeticiones con anacrusa:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
-  \partial 4 e |
+  \partial 4
+  e |
   \repeat volta 4 { c2 d2 | e2 f2 | }
   \alternative { { g4 g g e } { a a a a | b2. } }
 }
@@ -147,15 +163,13 @@ es posible acortar los corchetes de primera y segunda vez
 estableciendo @code{voltaSpannerDuration}.  En el ejemplo siguiente,
 el corchete sólo dura un compás, lo que supone una duración de 3/4.
 
-@lilypond[verbatim,ragged-right,quote]
-\relative c''{
-  \time 3/4
-  c c c
-  \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
-  \repeat volta 5 { d d d }
-  \alternative { { e e e f f f }
-  { g g g } }
-}
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 3/4
+c c c
+\set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
+\repeat volta 5 { d d d }
+\alternative { { e e e f f f }
+{ g g g } }
 @end lilypond
 
 El grabador @code{Volta_engraver} reside de manera predeterminada
@@ -179,26 +193,29 @@ Staff en que queremos que aparezcan los corchetes; véase
 @c previous line? Doesn't seem to be.
 Si quiere comenzar una repetición al principio de una línea y tiene una
 doble barra al final de la línea anterior, utilice
-@example
-@dots{} \bar "||:" \break 
-\repeat volta 2 @{ @dots{} 
-@end example
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c4 c c c
+\bar "||:" \break 
+\repeat volta 2 { c4 d e f }   
+@end lilypond
 
 consulte @ref{Bar lines} para ver más información.
 
 @seealso
 
+Glosario musical: @rglos{repeat}.
+@c FIXME : add @rglos{volta} after glossary addition
+
+Referencia de la notación: @ref{Bar lines}, @ref{Modifying context plug-ins}.
+
 Fragmentos de código: @lsrdir{Repeats,Repeats}
 
 Referencia de funcionamiento interno: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic} y
+@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}.
 
 @c Ejemplos:
-
-@lsr{repeats,volta@/-multi@/-staff@/.ly}.
-
 
 @knownissues
 
@@ -281,6 +298,14 @@ Referencia del programa: @internalsref{VoltaBracket},
 @internalsref{UnfoldedRepeatedMusic}.
 
 
+@node Written-out repeats
+@subsubsection Written-out repeats
+
+unfold
+
+
+
+
 @node Short repeats
 @subsection Short repeats
 
@@ -347,7 +372,7 @@ Referencia del programa: @internalsref{RepeatSlash},
 @cindex barras de trémolo
 
 Para colocar marcas de trémolo entre las notas, use @code{\repeat} con
-el estilo @code(tremolo) (trémolo):
+el estilo @code{tremolo} (trémolo):
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
