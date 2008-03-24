@@ -1648,7 +1648,13 @@ def musicxml_voice_to_lily_voice (voice):
                 ev = musicxml_spanner_to_lily_event (a)
                 if ev:
                     ev_chord.append (ev)
-                
+
+            # accidental-marks are direct children of <notation>!
+            for a in notations.get_named_children ('accidental-mark'):
+                ev = musicxml_articulation_to_lily_event (a)
+                if ev:
+                    ev_chord.append (ev)
+
             # Articulations can contain the following child elements:
             #         accent | strong-accent | staccato | tenuto |
             #         detached-legato | staccatissimo | spiccato |
