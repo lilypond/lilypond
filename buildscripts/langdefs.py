@@ -34,7 +34,7 @@ class LanguageDef:
 
 site = LanguageDef ('en', 'English', webext='')
 
-html_page_body = re.compile ('</?body>', re.M | re.I)
+html_page_body = re.compile ('</?body.*>', re.M | re.I)
 french_html_typo_rules = ((' :', '&nbsp;:'),
                           (' ;', '&nbsp;;'),
                           (' ?', '&thinsp;?'),
