@@ -859,9 +859,17 @@ class TextSpannerEvent (SpanEvent):
             1:'\\stopTextSpan'}.get (self.span_direction, '')
 
 class BracketSpannerEvent (SpanEvent):
+    # Ligature brackets use prefix-notation!!!
+    def print_before_note (self, printer):
+        if self.span_direction == -1:
+            printer.dump ('\[')
+    # the the bracket after the last note
+    def print_after_note (self, printer):
+        if self.span_direction == 1:
+            printer.dump ('\]')
+    # we're printing everything in print_(before|after)_note...
     def ly_expression (self):
-        return {-1: '\\startGroup',
-            1:'\\stopGroup'}.get (self.span_direction, '')
+        return '';
 
 
 class OctaveShiftEvent (SpanEvent):
