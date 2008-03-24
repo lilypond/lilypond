@@ -5,9 +5,9 @@
 \header {
   lsrtags = "editorial-and-educational-use, text"
  texidoc = "
-The \\whiteout command underlays a white box under a markup. Since
-staff lines are in a lower layer than most other grobs, this white box
-will not overlap any other grob.
+The @code{\\whiteout} command underlays a white box under a markup.
+Since staff lines are in a lower layer than most other grobs, this
+white box will not overlap any other grob. 
 " }
 % begin verbatim
 {

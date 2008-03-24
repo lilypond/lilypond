@@ -30,7 +30,7 @@ txt-to-html:
 po-update:
 	make -C po po-update
 
-all-translations-update: po-update
+all-translations-update: po-update translation-status
 	$(foreach lang, $(LANGS), make ISOLANG=$(lang) skeleton-update snippet-update &&) true
 
 ifneq ($(ISOLANG),)
@@ -43,14 +43,13 @@ new-lang:
 	cp fr/GNUmakefile $(ISOLANG)
 	cp fr/user/GNUmakefile $(ISOLANG)/user
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/user/GNUmakefile
-	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond.tely
+	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond-learning.tely
 	mv $(outdir)/*.*tely $(ISOLANG)/user
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
 	@echo "***  Please add a language definition for $(ISOLANG) in buildscripts/langdefs.py  ***"
 
-check-translation:
-	find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??' | xargs $(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(ISOLANG)/index.html.in
+CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??')
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
@@ -59,7 +58,14 @@ skeleton-update:
 
 snippet-update:
 	$(PYTHON) $(buildscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
+
 endif
+
+check-translation:
+	$(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(CHECKED_FILES)
+
+update-translation:
+	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(buildscript-dir) $(CHECKED_FILES)
 
 translation-status:
 	make -C po out=www messages

@@ -7,14 +7,12 @@
  texidoc = "
 Although you can't use @code{s} in @code{\\lyricmode} (it's taken to be
 a literal \"s\", not a space) you can use either @code{\"\"} or
-@code{_}.
-
-So for example:
+@code{_} .So for example: 
 " }
 % begin verbatim
 << 
- \relative c'' { a4 b c d }
- \new Lyrics \lyricmode { a4   _2  gap4 }
+  \relative c'' { a4 b c d }
+  \new Lyrics \lyricmode { a4 _2 gap4 }
 >>
 
 

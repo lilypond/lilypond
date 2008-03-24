@@ -15,11 +15,12 @@ rest-styles.ly
 creating-text-spanners.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
 controlling-tuplet-bracket-visibility.ly
+positioning-multi--measure-rests.ly
 caesura-railtracks-with-fermata.ly
+changing-form-of-multi--measure-rests.ly
 rhythmic-slashes.ly
 changing-the-staff-size.ly
 changing-a-single-notes-size-in-a-chord.ly
-coloring-objects.ly
 clefs-commonly-tweaked-properties.ly
 vertically-aligning-ossias-and-lyrics.ly
 changing-properties-for-individual-grobs.ly

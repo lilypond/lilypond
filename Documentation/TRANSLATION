@@ -87,8 +87,8 @@ Word counts (excluding lilypond snippets) are given for each file.
 5593  user/tutorial.itely
 23    user/dedication.itely
 216   index.html.in
-1954  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
-8182  total
+2022  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
+8250  total
 
 In addition, user/macros.itexi may be translated in case typographic
 rules used in this file are different in your language.
@@ -129,14 +129,14 @@ rules used in this file are different in your language.
 66    user/strings.itely
 242   user/bagpipes.itely
 4289  user/ancient.itely
-2502  user/input.itely -- Input syntax
+2458  user/input.itely -- Input syntax
 2164  user/non-music.itely -- Non-musical notation
 8399  user/spacing.itely -- Spacing issues
-5107  user/changing-defaults.itely -- Changing defaults
+5149  user/changing-defaults.itely -- Changing defaults
 4547  user/programming-interface.itely -- Interfaces for programmers
 935   user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-53641 total
+53639 total
 
 -5- Application usage
 2917  user/lilypond-book.itely -- LilyPond-book
@@ -155,7 +155,7 @@ Please follow all these instructions with care to ensure quality work.
 
 All files should be encoded in UTF-8.
 
-* USER MANUAL
+* LEARNING MANUAL AND OTHER TEXINFO DOCUMENTATION
 
 Any title which comes with one of the following commands must not be
 translated directly in the Texinfo source
@@ -202,6 +202,22 @@ Otherwise the music snippet would be reset to the same contents as the
 English version at next 'make snippet-update' run (see UPDATING A
 TRANSLATION below).
 
+When you encounter
+
+  @lilypondfile[<number of fragment options>,texidoc]{FILENAME.ly}
+
+in the source, open input/lsr/FILENAME.ly, translate the texidoc
+string it contains, enclose it with 'texidoc<MY-LANGUAGE> = "' and
+'"', and write it into input/texidocs/FILENAME.texidoc -- please keep
+possibly existing translations in other languages!  For instance,
+input/texidocs/FILENAME.texidoc may contain
+
+texidoces = "
+Spanish translation blah
+"
+texidocde = "German translation foo
+"
+
 
 @example blocs need not be verbatim copies, e.g. variable names,
 file names and comments should be translated.
@@ -214,12 +230,13 @@ please ask the Translation meister and/or the Documentation Editor on
 lilypond-devel@gnu.org.
 
 
-* PROGRAM USAGE MANUAL
+* REFERENCE NOTATION AND PROGRAM USAGE MANUAL
 
-Copy user/lilypond-program.tely into <MY-LANGUAGE>/user, then
-translate this file and run skeleton-update (see UPDATE A TRANSLATION
-below).  Your are now ready to translate program usage manual exactly
-like the user manual.
+Copy user/lilypond.tely (or user/lilypond-program.tely, respectively)
+into <MY-LANGUAGE>/user, then translate this file and run
+skeleton-update (see UPDATE A TRANSLATION below).  Your are now ready
+to translate notation reference (program usage manual, respectively)
+exactly like the learning manual.
 
 
 * DOCUMENTATION INDEX index.html.in
@@ -237,13 +254,44 @@ replace 'make' with 'make -C Documentation') and run
     make ISOLANG=<MY_LANGUAGE> check-translation
 
 This presents a diff of the original files since the most recent
-revision of the translation.  To check a single file, run
+revision of the translation.  To check a single file, cd into
+Documentation and run
 
-    python buildscripts/check_translation.py buildscripts Documentation/<MY-LANGUAGE>/user/foo.itely
+    make CHECKED_FILES=<MY-LANGUAGE>/user/foo.itely check-translation
 
+
+Small tip: to see only which files need to be updated, do
+
+    make ISOLANG=<MY_LANGUAGE> check-translation | grep 'diff --git'
+
+
+Global state of the translation is recorded in
+Documentation/translations.html.in, which is used to generate
+Translations status page.  To update that page, do from Documentation/
+
+    make translation-status
+
+This will also leave out/translations-status.txt, which contains
+up-to-dateness percentages for each translated file.
 
 
 UPDATE A TRANSLATION
+
+Instead of running check-translation, you can run update-translation,
+which will run your favorite text editor to update files.  First, make
+sure environment variable EDITOR is set to a text editor command, then
+run from Documentation
+
+    make ISOLANG=<MY-LANGUAGE> update-translation
+
+or to update a single file
+
+    make CHECKED_FILES=<MY-LANGUAGE>/user/foo.itely update-translation
+
+For each file to be udpated, update-translation will open your text
+editor with this file and a diff of the file in English; if the diff
+cannot be generated or is bigger than the file in English itself, the
+full file in English will be opened instead.
 
 Texinfo skeleton files, i.e. .itely files not yet translated,
 containing only the Texinfo structure can be updated automatically:
@@ -302,3 +350,5 @@ before calling texi2pdf
 and documentation in other languages
 * update-snippets.py -- synchronize ly snippets with those from
 English docs
+* translations-status.py -- update translations status pages and word
+counts in the file you are reading
