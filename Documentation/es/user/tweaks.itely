@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: a78148743803f342e4701dc09608962ccfcb759e
+    Translation of GIT committish: c5a0ac92e560d0600b2c614490f2da8d8f51c0e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,14 +15,93 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 
 
 @menu
-* Moving objects::              
-* Fixing overlapping notation::  
-* Common tweaks::               
-* Default files::               
-* Fitting music onto fewer pages::  
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
+* Introduction to tweaks::      
+* Objects and interfaces::      
 @end menu
+
+@node Introduction to tweaks
+@subsection Introduction to tweaks
+
+El @q{Trucaje} es un término de LilyPond que denota los diversos
+métodos que el usuario tiene a su disposición para modificar el
+proceso de interpretación del archivo de entrada y cambiar la
+apariencia de la salida impresa.  Algunos trucos son muy fáciles de
+usar; otros son más complejos.  Pero en su conjunto, los métodos de
+trucaje disponibles posibilitan conseguir casi cualquier apariencia
+que deseemos en la música impresa.
+
+En esta sección vamos a estudiar los conceptos básicos que se
+necesitan para comprender el trucaje.  Más tarde daremos un amplio
+abanico de instrucciones listas para usar, que podrá simplemente
+copiar para obtener el mismo efecto en sus partituras, y al mismo
+tiempo mostraremos la forma de construir dichas instrucciones para que
+pueda aprender cómo desarrollar sus propios trucos.
+
+Antes de comenzar con este capítulo, quizá quiera echar un vistazo a
+la sección @ref{Contexts and engravers}, pues los Contextos, los
+Grabadores y las Propiedades que se contienen en ellos son
+fundamentales para comprender y construir los trucos.
+
+@node Objects and interfaces
+@subsection Objects and interfaces
+
+@cindex objetos
+@cindex grobs
+@cindex selectores
+@cindex interfaces
+
+El trucaje consiste en modificar el funcionamiento y estructura
+interna del programa LilyPond, por lo que en primer lugar
+introduciremos algunos términos que se usan para describir dichas
+operaciones y estructuras internas.
+
+El término @q{Objeto} es un término genérico que se usa para referirse
+a la multitud de estructuras internas que LilyPond construye durante
+el procesado de un archivo de entrada.  Así, cuando se encuentra una
+instrucción como @code{\new Staff}, se construye un objeto nuevo del
+tipo @code{Staff}.  Entonces, este objeto @code{Staff} contiene todas
+las propiedades asociadas con ese pentagrama en particular, por
+ejemplo, su nombre y su armadura, además de otros detalles de los
+grabadores que se han asignado para que operen dentro del contexto del
+pentagrama.  De forma similar, hay objetos que guardan las propieades
+de todos los demás contextos, como objetos de @code{Voice}, objetos de
+@code{Score}, objetos de @code{Lyrics}, así como objetos que
+representan todos los elementos notacionales como líneas divisorias,
+cabezas de las notas, ligaduras, indicaciones dinámicas, etc.  Cada
+objeto tiene su propio conjunto de valores de propiedad.
+
+Ciertos tipos de objetos reciben nombres especiales.  Los objetos que
+representan elementos de notación sobre la salida impresa como cabezas
+de notas, plicas, ligaduras de expresión y de unión, digitaciones,
+claves, etc. reciben el nombre de @q{Objetos de presentación}, a
+menudo conocidos como @q{Objetos gráficos}, o abreviadamente
+@q{Grobs}.  Aún son objetos en el sentido genérico que hemos
+mencionado, y también todos ellos tienen propiedades asociadas, como
+su posición, tamaño, color,etc.
+
+Ciertos objetos de presentación son aún más especializados.  Las
+ligaduras de fraseo, los reguladores, las indicaciones de octava alta
+y baja, y muchos otros objetos gráficos no están situados en un solo
+lugar: tienen un punto de inicio, un punto de final, y quizá otras
+propiedades relacionadas con su forma.  Los objetos con una forma
+extendida como estos, reciben el nombre de «Objetos de extensión» o
+@q{Spanners}.
+
+Aún falta por explicar qué son los @q{Interfaces}.  Muchos objetos,
+incluso aunque son bastante diferentes, comparten funcionalidades que
+se deben procesar de la misma manera.  Por ejemplo, todos los objetos
+gráficos tienen un color, un tamaño, una posición, etc., y todas estas
+propiedades se procesan de la misma forma durante la interpretación
+del archivo de entrada por parte de LilyPond.  Para simplificar estas
+operaciones internas, estas acciones t propiedades comunes se agrupan
+en un objeto llamado @code{grob-interface}, interface de grob.  Hay
+muchas otras agrupaciones de propiedades comunes como ésta, y cada
+unoa recibe un nombre que acaba en @code{interface}.  En total hay más
+de 100 interfaces de éstos.  Veremos más adelante porqué esto es del
+interés y de utilidad para el usuario.
+
+Estos son, en fin, los términos principales relativos a los objetos
+que vamos a utilizar en este capítulo.
 
 
 @node Moving objects
