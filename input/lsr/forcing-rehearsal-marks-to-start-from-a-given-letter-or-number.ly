@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "rhythms, editorial-and-educational-use"
+  lsrtags = "rhythms"
  texidoc = "
 This snippet demonstrates how to obtain automatic ordered rehearsal
 marks, but from the letter or number you want.

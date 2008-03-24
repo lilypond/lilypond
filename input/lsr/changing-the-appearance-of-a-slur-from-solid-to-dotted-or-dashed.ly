@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "expressive-marks, editorial-and-educational-use"
+  lsrtags = "expressive-marks"
  texidoc = "
 The appearance of slurs may be changed from solid to dotted or dashed.
 
