@@ -1,14 +1,12 @@
+ifneq "$(ISOLANG)" ""
+TEXI2HTML_LANG=--lang=$(ISOLANG)
+endif
+
 $(outdir)/%/index.html: $(outdir)/%.texi
 	mkdir -p $(dir $@)
-	ifneq "$(ISOLANG)" ""
-		TEXI2HTML_LANG=--lang=$(ISOLANG)
-	endif
 	-$(TEXI2HTML) --I=$(outdir) --output=$(outdir)/$* --split=section $(TEXI2HTML_LANG) $<
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi
-	ifneq "$(ISOLANG)" ""
-		TEXI2HTML_LANG=--lang=$(ISOLANG)
-	endif
 	-$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_LANG) $< 
 
 $(outdir)/%.pdftexi: $(outdir)/%.texi doc-po
