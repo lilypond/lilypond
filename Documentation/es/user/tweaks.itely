@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: c5a0ac92e560d0600b2c614490f2da8d8f51c0e3
+    Translation of GIT committish: c1fd7a47f134fa956c935d16215c4b7b911c1572
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -17,6 +17,7 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 @menu
 * Introduction to tweaks::      
 * Objects and interfaces::      
+* Naming conventions of objects and properties::  
 @end menu
 
 @node Introduction to tweaks
@@ -102,6 +103,47 @@ interés y de utilidad para el usuario.
 
 Estos son, en fin, los términos principales relativos a los objetos
 que vamos a utilizar en este capítulo.
+
+@node Naming conventions of objects and properties
+@subsection Naming conventions of objects and properties
+
+Ya hemos visto ciertas convenciones de nomenclatura de objetos, en la
+sección @ref{Contexts and engravers}.  En este lugar, para más fácil
+referencia, presentamos una lista de los tipos de objetos y
+propiedades más comunes, junto con las convenciones según las cuales
+reciben su nombre, y un par de ejemplos de nombres reales.  Hemos
+utilizado una «A» mayúscula para denotar cualquier carácter alfabético
+en mayúsculas, y «aaa» para cualquier número de caracteres alfabéticos
+en minúscula.  Otros caracteres se utilizan literalmente como están.
+
+@multitable @columnfractions .33 .33 .33
+@headitem Objeto o tipo de propiedad
+  @tab Comnvención de nomenclatura
+  @tab Ejemplo
+@item Contextos
+  @tab Aaaa o AaaaAaaaAaaa
+  @tab Staff, GrandStaff
+@item Objetos de presentación
+  @tab Aaaa o AaaaAaaaAaaa
+  @tab Slur, NoteHead
+@item Grabadores
+  @tab Aaaa_aaa_engraver
+  @tab Clef_engraver, Note_heads_engraver
+@item Interfaces
+  @tab aaa-aaa-interface
+  @tab grob-interface, break-aligned-interface 
+@item Propiedades de contextos
+  @tab aaa o aaaAaaaAaaa
+  @tab alignAboveContext, skipBars
+@item Propiedades de objetos de presentación
+  @tab aaa o aaa-aaa-aaa
+  @tab direction, beam-thickness
+@end multitable
+
+Como podremos ver en breve, las propiedades de distintos tipos de
+objeto se modifican por parte de diferentes instrucciones; así pues,
+es útil poder reconocer el tipo de objeto a partir de sus nombres de
+propiedad.
 
 
 @node Moving objects
