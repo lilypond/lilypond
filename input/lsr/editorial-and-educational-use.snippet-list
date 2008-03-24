@@ -1,10 +1,9 @@
 creating-blank-staves.ly
-forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
-changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
-coloring-objects.ly
-changing-the-default-text-font-family.ly
+default-direction-of-stems-on-the-center-line-of-the-staff.ly
 changing-a-single-notes-size-in-a-chord.ly
-three-sided-box.ly
-clefs-commonly-tweaked-properties.ly
+grid-lines-emphasizing-rhythms-and-notes-synchronization.ly
+controlling-the-placement-of-chord-fingerings.ly
+allowing-fingerings-to-be-printed-inside-the-staff.ly
 blanking-staff-lines-using-the--whiteout-command.ly
 applying-notehead-styles-depending-on-the-step-of-the-scale.ly
+grid-lines-changing-their-appearance.ly

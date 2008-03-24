@@ -21,6 +21,6 @@ manually to prevent collisions.
     \consists "Ambitus_engraver"
   } \relative c' {
     \voiceTwo
-	es4 f g as b1
+    es4 f g as b1
   }
 >>

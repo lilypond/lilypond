@@ -4,6 +4,13 @@
 
 \header {
   lsrtags = "pitches"
+
+  texidocfr = "
+En accord avec les règles standards de l'écriture musicale, on grave
+un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
+altération précédente.  Pour modifier ce comportement, assignez la propriété
+@code{extraNatural} du contexte @code{Staff} à la valeur @code{##f} (faux).
+"
  texidoc = "
 In accordance with standard typesetting rules, a natural sign is
 printed before a sharp or flat if a previous accidental on the same

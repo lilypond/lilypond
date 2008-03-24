@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use, text, tweaks-and-overrides"
+  lsrtags = "text, tweaks-and-overrides"
  texidoc = "
 The default font families for text can be overridden with
 @code{make-pango-font-tree}. 
