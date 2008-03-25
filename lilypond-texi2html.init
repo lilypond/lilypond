@@ -247,7 +247,7 @@ sub get_navigation_text
   } elsif ( ($button eq 'Forward') or ($button eq 'FastForward') ) {
     $text = "&nbsp;" . $Texi2HTML::NODE{$button} . $text;
   } elsif ( $button eq 'Up' ) {
-    $text = "&nbsp;Up:&nbsp;" . $Texi2HTML::NODE{$button} . "&nbsp;";
+    $text = "&nbsp;".$text.":&nbsp;" . $Texi2HTML::NODE{$button} . "&nbsp;";
   }
   return $text;
 }
@@ -319,14 +319,13 @@ sub lilypond_print_navigation
                   print $fh "" .
                         &$anchor('',
                                     $Texi2HTML::HREF{$button_href},
-                                    $$text,
+                                    get_navigation_text($$text),
                                     $anchor_attributes
-                                   ) 
-                                    ;
+                                   );
                 }
                 else
                 {
-                  print $fh $$text;
+                  print $fh get_navigation_text($$text);
                 }
             }
         }
@@ -367,7 +366,7 @@ sub lilypond_print_navigation
                     '[' .
                         &$anchor('',
                                     $Texi2HTML::HREF{$button},
-                                    $NAVIGATION_TEXT{$button},
+                                    get_navigation_text ($button),
                                     $btitle
                                    ) .
                                        ']';
@@ -381,7 +380,7 @@ sub lilypond_print_navigation
                                           $PASSIVE_ICONS{$button},
                                           $Texi2HTML::SIMPLE_TEXT{$button}) :
 
-                                              "[" . $NAVIGATION_TEXT{$button} . "]";
+                                              "[" . get_navigation_text($button) . "]";
         }
         print $fh "</td>\n" if $vertical;
         print $fh "</tr>\n" if $vertical;
