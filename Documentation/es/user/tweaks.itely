@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6b5fd28e72c07de1c2275a6025137237e5e756d9
+    Translation of GIT committish: 8713b2d59884a2043803584b7b9a3b0bdf719ae6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -133,7 +133,7 @@ en minúscula.  Otros caracteres se utilizan literalmente como están.
 
 @multitable @columnfractions .33 .33 .33
 @headitem Objeto o tipo de propiedad
-  @tab Comnvención de nomenclatura
+  @tab Convención de nomenclatura
   @tab Ejemplo
 @item Contextos
   @tab Aaaa o AaaaAaaaAaaa
@@ -163,7 +163,7 @@ propiedad.
 @node Tweaking methods
 @subsection Tweaking methods
 
-@strong{\override command}
+@strong{La instrucción \override}
 
 @cindex override, instrucción
 @funindex \override
@@ -222,7 +222,7 @@ e f g
 a b c
 @end lilypond
 
-@strong{la instrucción \revert}
+@strong{La instrucción \revert}
 
 @cindex revert, instrucción
 @funindex \revert
@@ -254,7 +254,7 @@ a
 b c
 @end lilypond
 
-@strong{prefijo \once}
+@strong{El prefijo \once}
 
 Tanto la instrucción @code{\override} como @code{\set} se pueden
 preceder por @code{\once}.  Esto ocasiona que la siguiente instrucción
@@ -271,7 +271,7 @@ e f g
 a b c
 @end lilypond
 
-@strong{la instrucción \overrideProperty}
+@strong{La instrucción \overrideProperty}
 
 @cindex overrideProperty, instrucción
 @funindex \overrideProperty
@@ -282,7 +282,7 @@ mencionamos aquí con un propósito de exhaustividad, pero para ver más
 detalles consulte @ruser{Difficult tweaks}.
 @c Maybe explain in a later iteration  -td
 
-@strong{la instrucción \tweak}
+@strong{La instrucción \tweak}
 
 @cindex tweak, instrucción
 @funindex \tweak
