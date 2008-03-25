@@ -191,6 +191,10 @@ compressFullBarRests = {
   \set Score.skipBars = ##t
 }
 
+numericTimeSignature = {
+  \override Staff.TimeSignature #'style = #'()
+}
+
 
 % For drawing vertical chord brackets with \arpeggio
 % This is a shorthand for the value of the print-function property 
