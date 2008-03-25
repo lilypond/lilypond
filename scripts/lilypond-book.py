@@ -1122,9 +1122,9 @@ class LilypondSnippet (Snippet):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
 
     def link_all_output_files (self, output_dir, output_dir_files, destination):
-        existing = self.all_output_files (output_dir, output_dir_files)
-        if existing is None:
-            print '\nMissing', self.basename()
+        existing, missing = self.all_output_files (output_dir, output_dir_files)
+        if missing:
+            print '\nMissing', missing
             raise CompileError(self.basename())
         for name in existing:
             try:
@@ -1142,65 +1142,61 @@ class LilypondSnippet (Snippet):
 
         output_dir_files is the list of files in the output directory.
         """
-        class Missing(Exception):
-            pass
-        
-        result = set()
+        result = set ()
+        missing = set ()
         base = self.basename()
         full = os.path.join (output_dir, base)
         def consider_file (name):
             if name in output_dir_files:
                 result.add (name)
-
+             
         def require_file (name):
-            if name not in output_dir_files:
-                raise Missing
-            result.add (name)
+            if name in output_dir_files:
+                result.add (name)
+            else:
+                missing.add (name)
 
         skip_lily = global_options.skip_lilypond_run
-        try:
-            for required in [base + '.ly',
-                             base + '.txt']:
-                require_file (required)
-            if not skip_lily:
-                require_file (base + '-systems.count')
-                
-            map (consider_file, [base + '.tex',
-                                 base + '.eps',
-                                 base + '.texidoc',
-                                 base + '-systems.texi',
-                                 base + '-systems.tex',
-                                 base + '-systems.pdftexi'])
+        for required in [base + '.ly',
+                         base + '.txt']:
+            require_file (required)
+        if not skip_lily:
+            require_file (base + '-systems.count')
 
-            if base + '.eps' in result and self.format in (HTML, TEXINFO):
-                page_count = ps_page_count (full + '.eps')
-                if page_count <= 1:
-                    require_file (base + '.png')
-                else:
-                    for page in range (1, page_count + 1):
-                        require_file (base + '-page%d.png' % page)
-             
-            system_count = 0
-            if not skip_lily:
-                system_count = int(file (full + '-systems.count').read())
-            for number in range(1, system_count + 1):
-                systemfile = '%s-%d' % (base, number)
-                require_file (systemfile + '.eps')
-                consider_file (systemfile + '.pdf')
-        except Missing:
-            return None
+        map (consider_file, [base + '.tex',
+                             base + '.eps',
+                             base + '.texidoc',
+                             base + '-systems.texi',
+                             base + '-systems.tex',
+                             base + '-systems.pdftexi'])
+
+        if base + '.eps' in result and self.format in (HTML, TEXINFO):
+            page_count = ps_page_count (full + '.eps')
+            if page_count <= 1:
+                require_file (base + '.png')
+            else:
+                for page in range (1, page_count + 1):
+                    require_file (base + '-page%d.png' % page)
+
+        system_count = 0
+        if not skip_lily:
+            system_count = int(file (full + '-systems.count').read())
+        for number in range(1, system_count + 1):
+            systemfile = '%s-%d' % (base, number)
+            require_file (systemfile + '.eps')
+            consider_file (systemfile + '.pdf')
         
-        return result
+        return (result, missing)
     
     def is_outdated (self, output_dir, current_files):
-        return self.all_output_files (output_dir, current_files) is None
+        found, missing = self.all_output_files (output_dir, current_files)
+        return missing
     
     def filter_text (self):
         """Run snippet bodies through a command (say: convert-ly).
 
         This functionality is rarely used, and this code must have bitrot.
         """
-        
         code = self.substring ('code')
         s = filter_pipe (code, global_options.filter_cmd)
         d = {
