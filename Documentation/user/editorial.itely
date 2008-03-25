@@ -180,7 +180,8 @@ numbers are placed.
 @end lilypond
 
 @seealso
-@ref{Controlling direction and placement}
+
+Notation Reference: @ref{Controlling direction and placement}
 
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
@@ -376,7 +377,7 @@ a4 b c b
 @end lilypond
 
 @seealso
-@ref{Controlling direction and placement}.
+Notation Reference: @ref{Controlling direction and placement}.
 
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
@@ -404,7 +405,9 @@ notation.
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a4
+  a8 
+  \balloonGrobText #'Rest #' (-4 . -4) \markup { "I'm a rest" }
+  r
   <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
 }
 @end lilypond
