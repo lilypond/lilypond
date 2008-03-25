@@ -50,7 +50,13 @@ sub split_at_numbered_sections($$$)
   } else {
     # derive the name of the anchor (i.e. the part after # in the links!), 
     # don't use texi2html's SECx.x default!
-    my $anchor = $$element{texi};
+    my $anchor = main::remove_texi($$element{texi});
+    my $trof = $$element{translationof};
+    if ($trof) {
+      print "We have a translationof: $trof\n";
+      print Dumper($element);
+#       $anchor = $trof;
+    }
     $anchor =~ tr/\ ?:'/-/d;
     $$element{id} = $anchor;
     # Numbered sections will get a filename Section_1.1.2, unnumbered sections will use 
@@ -69,6 +75,34 @@ sub split_at_numbered_sections($$$)
   }
 
   return;
+}
+
+
+# Print a link in a menu. Since we split at sections, but still want access keys, 
+# we have to duplicate this function here :-((((
+sub lilypond_menu_link($$$$$$)
+{
+    my $entry = shift;
+    my $state = shift;
+    my $href = shift;
+    my $node = shift;
+    my $name = shift;
+    my $ending = shift;
+    if (($entry eq '') or $NODE_NAME_IN_MENU or $state->{'preformatted'})
+    {
+        $name .= ':' if ($name ne '');
+        $entry = "$MENU_SYMBOL$name$node";
+    }
+    $menu_entry_index++;
+    my $accesskey;
+    $accesskey = "accesskey=\"$menu_entry_index\"" if ($USE_ACCESSKEY and ($menu_entry_index < 10));
+    $entry = &$anchor ('', $href, $entry, $accesskey) if (defined($href));
+    return $entry if ($SIMPLE_MENU); 
+    if ($state->{'preformatted'})
+    {
+        return '<tr><td>' . main::do_preformatted($entry . $ending, $state);
+    }
+    return "<tr><td align=\"left\" valign=\"top\">$entry</td><td>&nbsp;&nbsp;</td>";
 }
 
 
@@ -287,10 +321,20 @@ sub lilypond_print_navigation
             {             # use given text
                 if ($Texi2HTML::HREF{$button_href})
                 {
+                  my $anchor_attributes = '';
+                  if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button_href})) and ($BUTTONS_ACCESSKEY{$button_href} ne ''))
+                  {
+                      $anchor_attributes = "accesskey=\"$BUTTONS_ACCESSKEY{$button_href}\"";
+                  }
+                  if ($USE_REL_REV and (defined($BUTTONS_REL{$button_href})) and ($BUTTONS_REL{$button_href} ne ''))
+                  {
+                      $anchor_attributes .= " rel=\"$BUTTONS_REL{$button_href}\"";
+                  }
                   print $fh "" .
                         &$anchor('',
                                     $Texi2HTML::HREF{$button_href},
-                                    $$text
+                                    $$text,
+                                    $anchor_attributes
                                    ) 
                                     ;
                 }
@@ -312,6 +356,14 @@ sub lilypond_print_navigation
         {                       # button is active
             my $btitle = $BUTTONS_GOTO{$button} ?
                 'title="' . $BUTTONS_GOTO{$button} . '"' : '';
+            if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button})) and ($BUTTONS_ACCESSKEY{$button} ne ''))
+            {
+                $btitle .= " accesskey=\"$BUTTONS_ACCESSKEY{$button}\"";
+            }
+            if ($USE_REL_REV and (defined($BUTTONS_REL{$button})) and ($BUTTONS_REL{$button} ne ''))
+            {
+                $btitle .= " rel=\"$BUTTONS_REL{$button}\"";
+            }
             if ($ICONS && $ACTIVE_ICONS{$button})
             {                   # use icon
                 print $fh '' .
@@ -329,7 +381,7 @@ sub lilypond_print_navigation
                     '[' .
                         &$anchor('',
                                     $Texi2HTML::HREF{$button},
-                                    get_navigation_text($button),
+                                    $NAVIGATION_TEXT{$button},
                                     $btitle
                                    ) .
                                        ']';
@@ -343,7 +395,7 @@ sub lilypond_print_navigation
                                           $PASSIVE_ICONS{$button},
                                           $Texi2HTML::SIMPLE_TEXT{$button}) :
 
-                                              "[" . get_navigation_text($button) . "]";
+                                              "[" . $NAVIGATION_TEXT{$button} . "]";
         }
         print $fh "</td>\n" if $vertical;
         print $fh "</tr>\n" if $vertical;
@@ -397,14 +449,61 @@ sub lilypond_print_navigation
     );
 
 # $Texi2HTML::Config::SPLIT = 'section';
-$Texi2HTML::Config::PREFIX = 'lilypond';
-# $Texi2HTML::Config::FRAMES = 1;
 @Texi2HTML::Config::CSS_REFS = ("lilypond.css");
+$Texi2HTML::Config::USE_ACCESSKEY = 1;
+$Texi2HTML::Config::USE_LINKS = 1;
+$Texi2HTML::Config::USE_REL_REV = 1;
 $Texi2HTML::Config::element_file_name = \&split_at_numbered_sections;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot = \&print_lilypond_page_foot;
 $Texi2HTML::Config::print_navigation = \&lilypond_print_navigation;
 $Texi2HTML::Config::external_ref = \&lilypond_external_ref;
+$Texi2HTML::Config::menu_link = \&lilypond_menu_link;
+
+
+# For split pages, use index(.lang).html as start page!
+if ($Texi2HTML::Config::SPLIT == 'section') {
+  my $lng = $Texi2HTML::THISDOC{'current_lang'};
+  if ($lng and ($lng ne "en")) {
+    $Texi2HTML::Config::TOP_FILE = 'index.'.$lng.'.html';
+  } else {
+    $Texi2HTML::Config::TOP_FILE = 'index.html';
+  }
+}
+
+
+
+# Try to make use of @translationof to generate files according to the original
+# English section title...
+sub lilypond_unknown($$$$$)
+{
+    my $macro = shift;
+    my $line = shift;
+    my $pass = shift;
+    my $stack = shift;
+    my $state = shift;
+    
+    if ($pass == 1 and $macro eq "translationof") {
+      if (ref($state->{'element'})=='HASH') {
+        $state->{'element'}->{'translationof'} = $line;
+      }
+      print "UNKNOWN: macro:$macro, line:$line, pass:$pass, stack:$stack, state:$state\n";
+      print Dumper($stack);
+      print Dumper($state);
+    }
+    if ($pass == 2 and $macro eq "translationof") {
+#       if (ref($state->{'element'})=='HASH') {
+# #         $state->{'element'}->{'translationonf'} = $line;
+#       }
+      print "UNKNOWN: macro:$macro, line:$line, pass:$pass, stack:$stack, state:$state\n";
+      print Dumper($stack);
+      print Dumper($state);
+      return ($line, 0, undef, undef);
+    } else {
+      return t2h_default_unknown($macro, $line, $pass, $stack, $state);
+    }
+}
+$Texi2HTML::Config::unknown                  = \&lilypond_unknown;
 
 
 
