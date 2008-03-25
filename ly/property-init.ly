@@ -195,6 +195,10 @@ numericTimeSignature = {
   \override Staff.TimeSignature #'style = #'()
 }
 
+defaultTimeSignature = {
+  \revert Staff.TimeSignature #'style
+}
+
 
 % For drawing vertical chord brackets with \arpeggio
 % This is a shorthand for the value of the print-function property 
