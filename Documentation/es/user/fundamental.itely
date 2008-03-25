@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 89bcad47a1888f517753b72a605f2bf6748582eb
+    Translation of GIT committish: 20eecf22357df6461cdbe3e2e39943fb2fec072a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -470,7 +470,10 @@ que sale del interior de un grupo especial (líneas 3 y 4).
 @node Voices contain music
 @section Voices contain music
 
-UNTRANSLATED NODE: IGNORE ME
+Igual que los cantantes, LilyPond necesita voces para cantar.  En
+realidad, la música para cualquier instrumento de una partitura está
+siempre contenida dentro de una voz --el concepto de LilyPond más
+fundamental de todos--.
 
 @menu
 * I'm hearing Voices::          
@@ -481,7 +484,334 @@ UNTRANSLATED NODE: IGNORE ME
 @node I'm hearing Voices
 @subsection I'm hearing Voices
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex polifonía
+@cindex capas
+@cindex Voice (voz), contexto de
+
+De las capas más profundas de una partitura de LilyPond, las más bajas
+y más fundamentales reciben el nombre de @q{Voice contexts}
+(«contextos de voz») o, abreviadamente, @q{Voices} («voces»).  Las
+voces reciben a veces el nombre de @q{layers} («capas») en otros
+programas de edición de partituras.
+
+De hechho, una capa o contexto de voz es la única que puede contener
+música.  Si un contexto de voz no se declara explícitamente, se crea
+uno de forma automática, como vimos al comienzo de este capítulo.
+Ciertos instrumentos como el oboe solamente pueden tocar una nota cada
+vez.  La música escrita para estos instrumentos es monofónica y
+solamente requiere una voz única.  Los instrumentos que pueden tocar
+más de una nota a la vez, como el piano, con frecuencia necesitarán
+varias voces para codificar las distintas notas y ritmos concurrentes
+que son capaces de tocar.
+
+Una sola voz puede contener muchas notas dentro de un acorde, por
+supuesto; entonces ¿cuándo, exactamente, se necesitan varias voces?
+En primer lugar observe este ejemplo de cuatro acordes:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+\key g \major
+<d g>4 <d fis> <d a'> <d g>
+@end lilypond
+
+Esto se puede expresar utilizand sólo símbolos de acorde con ángulos
+simples, @code{< ... >}, y para este propósito tan sólo se necesita
+una voz.  Pero suponga que el Fa sostenido fuese realmente una corchea
+seguida de un Sol corchea, una nota de paso que conduce al La.  Ahora
+tenemos dos notas que empiezan en el mismo momento pero tienen
+distintas duraciones: la negra Re, y la corchea Fa sostenido. ¿Cómo se
+codifica esto? No se pueden escribir como un acorde porque todas las
+notas de un acorde deben tener la misma duración.  Y no se pueden
+escribir como dos notas separadas porque tienen que empezar en el
+mismo momento.  Aquí es donde se necesitan dos voces.
+
+Veamos cómo se hace esto dentro de la sintaxis de entrada de LilyPond.
+
+@funindex << \\ >>
+@funindex \\
+
+La forma más fácil de introducir fragmentos con maś de una voz en un
+solo pentagrama es escribir cada voz como una secuencia (con
+@code{@{...@}}), y combinarlas simultáneamente con ángulos dobles,
+@code{<<...>>}.  Los fragmentos también se deben separar mediante una
+doble barra invertida, @code{\\}, para situarlos en voces separadas.
+Sin esto, las notas irían a una sola voz, lo que normalmente producirá
+errores.  Esta técnica se adapta especialmente bien a piezas de música
+que son mayormente monofónicas pero ocasionalmente tienen cortas
+secciones de polifonía.
+
+He aquí cómo dividimos los acordes anteriore en dos voces y añadimos
+la nota de paso y la ligadura:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key g \major
+%    Voice "1"                  Voice "2"
+<< { g4 fis8( g) a4 g }    \\ { d4 d d d }  >> |
+@end lilypond
+
+Observe cómo las plicas de la segunda voz ahora se dirigen hacia
+abajo.
+
+A continuación veamos otro ejemplo sencillo:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key d \minor
+%    Voice "1"             Voice "2"
+<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
+<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
+<< { a2. r4 }         \\ { fis2. s4 }       >> |
+@end lilypond
+
+No es necesario usar una construcción @code{<< \\ >>} distinta para
+cada compás. Para música que tenga unas pocas notas en cada compás,
+esta disposición podría facilitar la legibilidad del código, pero si
+hay muchas notas en cada compás podría ser mejor dividirlo en dos
+voces separadas, de la siguiente manera:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2] \key d
+\minor << { % Voice "1" r4 g g4. a8 | bes4 bes c bes | a2. r4 | } \\ {
+% Voice "2" d,2 d4 g | g4 g g8( a) g4 | fis2. s4 | } >>
+@end lilypond
+
+
+Este ejemplo tiene sólo dos voces, pero la misma construcción se puede
+usar para codificar tres o más voces mediante la adición de maś
+separadores de barra invertida.
+
+Los contextos de voz llevan los nombres de @code{"1"}, @code{"2"},
+etc.  En cada uno de estos contextos, la dirección vertical de las
+ligaduras, plicas, matices dinámicos, etc., se ajusta de la forma
+correcta.
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  % Main voice
+  c16 d e f
+  %    Voice "1"     Voice "2"                 Voice "3"
+  << { g4 f e } \\ { r8 e4 d c8 ~ } >> |
+  << { d2 e2 }  \\ { c8 b16 a b8 g ~ g2 } \\ { s4 b4 c2 } >> |
+}
+@end lilypond
+
+Todas estas voces están separadas de la voz principal que contiene las
+notas justo por fuera de la construcción @code{<< .. >>}.  Le
+llamaremos a esto la @emph{construcción simultánea}.  Las ligaduras
+(de prolongación y de expresión) solamente pueden conectar notas que
+estén dentro de la misma voz, luego las ligaduras no pueden entrar o
+salir de una construcción simultánea.  A la inversa, las voces
+paraleleas de construcciones simultáneas distintas sobre el mismo
+pentagrama, son la misma voz.  Otras propiedades relativas a las voces
+también conllevan construcciones simultáneas.  A continuación vemos el
+mismo ejemplo, con colores y cabezas distintos para cada voz.  Observe
+que los cambios en una voz no afectan a otras voces, pero persisten
+más tarde dentro de la misma voz.  Observe tambiénn que las notas
+ligadas se pueden dividir entre las mismas voces de dos
+construcciones, como se indica aquí en la voz de triángulos azules.
+
+@lilypond[quote,verbatim]
+\new Staff \relative c' {
+  % Main voice
+  c16 d e f
+  << % Bar 1
+    {
+      \voiceOneStyle
+      g4 f e
+    }
+  \\
+    {
+      \voiceTwoStyle
+      r8 e4 d c8 ~
+    }
+  >>
+  << % Bar 2
+     % Voice 1 continues
+    { d2 e2 }
+  \\
+     % Voice 2 continues
+    { c8 b16 a b8 g ~ g2 }
+  \\
+    {
+      \voiceThreeStyle
+      s4 b4 c2
+    }
+  >>
+}
+@end lilypond
+
+Las instrucciones @code{\voiceXXXStyle} están pensadas principalmente
+para usarlas en documentos educativos como este mismo.  Modifican el
+color de la cabeza, la plica y las barras, y el estilo de la cabeza,
+de forma que las voces se puedan distinguir fácilmente.  La voz uno
+está establecida a rombos rojos, la voz dos a triángulos azules, la
+voz tres a círculos verdes con aspas, y la voz cuatro (que no se
+utiliza aquí) a aspas color magenta.  Veremos más adelante cómo el
+usuario puede crear instrucciones como éstas.  Véase @ref{Visibility
+and color of objects}.
+
+La polifonía no cambia la relación de las notas dentro de un bloque
+@code{\relative @{ @}}.  La altura de cada nota aún se calcula con
+relación a la nota que le precede inmediatamente, o a la primera nota
+del acrode precedente.  Así, en
+
+@example
+\relative c' @{ notaA << < notaB notaC > \\ notaD >> notaE @}
+@end example
+
+@noindent
+@code{notaB} es relativa a @code{notaA}                      @*
+@code{notaC} es relativa a @code{notaB}, no a @code{notaA};   @*
+@code{notaD} es relativa a @code{notaB}, no a @code{notaA} ni a
+@code{notaC}.                                                 @*
+@code{notaE} es relativa a @code{notaD}, no a @code{notaA}
+
+Una forma alternativa, que podría ser más clara si las notas en las
+voces están muy separadas, es colocar una instrucción @code{\relative}
+al principio de cada voz:
+
+@example
+\relative c' @{ notaA ... @}
+<<
+  \relative c'' @{ < notaB notaC > ... @}
+\\
+  \relative g' @{ notaD ... @}
+>>
+\relative c' @{ notaE ... @}
+@end example
+
+Finalmente, analicemos las voces en una pieza de música más compleja.
+He aquí las notas de los dos primeros compases del segundo de los Dos
+Nocturnos de Chopin, Op 32.  Este ejemplo se utilizará en fases
+posteriores dentro del presente capítulo y el siguiente, para ilustrar
+varias técnicas para producir notación, y por tanto le pedimos que
+ignore por ahora cualquier cosa en el código subyacente que le parezca
+misteriorso y tan sólo se concentre en la música y las voces (todas
+las complicaciones se explicarán en secciones posteriores).
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  << % Voice one
+    { c2 aes4. bes8 }
+  \\ % Voice two
+    { aes2 f4 fes }
+  \\ % No voice three
+  \\ % Voice four
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+Con frecuencia, la dirección de las plicas se utiiliza para indicar la
+continuidad de dos líneas melódicas simultáneas.  Aquí, todas las
+plicas de las notas agudas se dirigen hacia arriba y las de las notas
+graves hacia abajo.  Ésta es la primera indicación de que se requiere
+más de una voz.
+
+Pero la necesidad real de varias voces aflora cuando hay notas que
+comienzan en el mismo tiempo pero tienen distintas duraciones.
+Observe las notas que comienzan en la tercera parte del primer compás.
+El La bemol es una negra con puntillo, el Fa es una negra y el Re
+bemol es una blanca.  Estas notas nos e pueden escribir como un acorde
+porque todas las ntoas de un acorde deben tener la misma duración.
+Tampoco se pueden escribir como notas secuenciales, pues deben
+comenzar al mismo tiempo.  Esta sección del compás requiere tres
+voces, y la práctica común sería escribir todo el compás como tres
+voces como se muestra abajo, donde hemos usado distintas cabezas y
+colores para las tres voces.  Una vez más, el código que subyace a
+este ejemplo se explicará más tarde, así pues ignore todo lo que no
+entienda.
+
+@c The following should appear as music without code
+@c The three voice styles should be defined in -init
+@lilypond[quote,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { % Voice one
+      \voiceOneStyle
+      c2 aes4. bes8 
+    }
+  \\  % Voice two
+    { \voiceTwoStyle
+      aes2 f4 fes 
+    }
+  \\  % No Voice three (we want stems down)
+  \\  % Voice four
+    { \voiceThreeStyle
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2 
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+
+Vamos a intentar codificar esta música partiendo de cero.  Como
+veremos, esto se topa con ciertas dificultades. Comenzamos tal y como
+hemos aprendido, usando la construcción @code{<< \\ >>} para
+introducir la música del primer compás en tres voces:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
+  >>
+  <c ees aes c>1
+}
+@end lilypond
+
+@cindex plica abajo
+@cindex plica arriba
+
+Las direcciones de las plicas se asignan automáticamente de forma que
+las voces de numeración impar reciben las plicas hacia arriba y las de
+numeración par hacia abajo.  Las plicas de las voces 1 y 2 están
+correctas, pero las plicas de la voz 3 debería ir hacia abajo en este
+fragmentoo en particular.  Podemos corregir esto simplemente
+olvidándonos de la voz tres y situando la música en la voz cuatro:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  << % Voice one
+    { c2 aes4. bes8 }
+  \\ % Voice two
+    { aes2 f4 fes   }
+  \\ % Omit Voice three
+  \\ % Voice four
+    { <ees c>2 des2 }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+Vemos que esto arregla la dirección de la plica, pero presenta un
+problema que se encuentra a veces con varias voces: las plicas de las
+notas en una voz pueden colisionar con las cabezas de otras voces.  Al
+disponer las notas, LilyPond permite que las notas o acordes de dos
+voces ocupen la misma columna vertical de notas teniendo en cuenta que
+las plicas están en direcciones opuestas, pero las notas de la tercera
+y cuarta voces se desplazan si es necesario para evitar la colisión
+entre las cabezas.  Esto funciona bien por lo general, pero en este
+ejemplo claramente las notas de la voz inferior no están bien
+colocadas de forma predeterminada.  LilyPond proporciona diversas
+maneras de ajustar la colocación horizontal de las notas.  Aún no
+estamos preparados para ver cómo corregir esto, así que dejaremos este
+problema aparcado hasta una sección posterior (véase la propiedad
+force-hshift en @ref{Fixing overlapping notation} )
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
