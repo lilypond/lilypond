@@ -146,6 +146,18 @@ def get_option_parser ():
                   action='store', dest='output_dir',
                   default='')
     
+    p.add_option ('--skip-lily-check',
+                  help=_ ("do not fail if no lilypond output is found."),
+                  metavar=_ ("DIR"),
+                  action='store_true', dest='skip_lilypond_run',
+                  default=False)
+
+    p.add_option ('--skip-png-check',
+                  help=_ ("do not fail if no PNG images are found for EPS files"),
+                  metavar=_ ("DIR"),
+                  action='store_true', dest='skip_png_check',
+                  default=False)
+    
     p.add_option ('--lily-output-dir',
                   help=_ ("write lily-XXX files to DIR, link into --output dir."),
                   metavar=_ ("DIR"),
@@ -1116,7 +1128,10 @@ class LilypondSnippet (Snippet):
         return re.sub (r'\\(version|sourcefileline|sourcefilename)[^\n]*\n', '', ly)
 
     def link_all_output_files (self, output_dir, output_dir_files, destination):
-        existing = self.all_output_files (output_dir, output_dir_files)
+        existing, missing = self.all_output_files (output_dir, output_dir_files)
+        if missing:
+            print '\nMissing', missing
+            raise CompileError(self.basename())
         for name in existing:
             try:
                 os.unlink (os.path.join (destination, name))
@@ -1133,61 +1148,64 @@ class LilypondSnippet (Snippet):
 
         output_dir_files is the list of files in the output directory.
         """
-        class Missing(Exception):
-            pass
-        
-        result = set()
+        result = set ()
+        missing = set ()
         base = self.basename()
         full = os.path.join (output_dir, base)
         def consider_file (name):
             if name in output_dir_files:
                 result.add (name)
-
+             
         def require_file (name):
-            if name not in output_dir_files:
-                raise Missing
-            result.add (name)
+            if name in output_dir_files:
+                result.add (name)
+            else:
+                missing.add (name)
 
-        try:
-            for required in [base + '.ly',
-                             base + '.txt',
-                             base + '-systems.count']:
-                require_file (required)
+        # UGH - junk global_options
+        skip_lily = global_options.skip_lilypond_run
+        for required in [base + '.ly',
+                         base + '.txt']:
+            require_file (required)
+        if not skip_lily:
+            require_file (base + '-systems.count')
 
-            map (consider_file, [base + '.tex',
-                                 base + '.eps',
-                                 base + '.texidoc',
-                                 base + '-systems.texi',
-                                 base + '-systems.tex',
-                                 base + '-systems.pdftexi'])
+        map (consider_file, [base + '.tex',
+                             base + '.eps',
+                             base + '.texidoc',
+                             base + '-systems.texi',
+                             base + '-systems.tex',
+                             base + '-systems.pdftexi'])
 
-            if base + '.eps' in result and self.format in (HTML, TEXINFO):
-                page_count = ps_page_count (full + '.eps')
-                if page_count <= 1:
-                    require_file (base + '.png')
-                else:
-                    for page in range (1, page_count + 1):
-                        require_file (base + '-page%d.png' % page)
+        # UGH - junk global_options
+        if (base + '.eps' in result and self.format in (HTML, TEXINFO)
+            and not global_options.skip_png_check):
+            page_count = ps_page_count (full + '.eps')
+            if page_count <= 1:
+                require_file (base + '.png')
+            else:
+                for page in range (1, page_count + 1):
+                    require_file (base + '-page%d.png' % page)
 
+        system_count = 0
+        if not skip_lily and not missing:
             system_count = int(file (full + '-systems.count').read())
-            for number in range(1, system_count + 1):
-                systemfile = '%s-%d' % (base, number)
-                require_file (systemfile + '.eps')
-                consider_file (systemfile + '.pdf')
-        except Missing:
-            return None
+        for number in range(1, system_count + 1):
+            systemfile = '%s-%d' % (base, number)
+            require_file (systemfile + '.eps')
+            consider_file (systemfile + '.pdf')
         
-        return result
+        return (result, missing)
     
     def is_outdated (self, output_dir, current_files):
-        return self.all_output_files (output_dir, current_files) is None
+        found, missing = self.all_output_files (output_dir, current_files)
+        return missing
     
     def filter_text (self):
         """Run snippet bodies through a command (say: convert-ly).
 
         This functionality is rarely used, and this code must have bitrot.
         """
-        
         code = self.substring ('code')
         s = filter_pipe (code, global_options.filter_cmd)
         d = {
@@ -1378,7 +1396,7 @@ def find_linestarts (s):
 def find_toplevel_snippets (input_string, format, types):
     res = {}
     for t in types:
-        res[t] = ly.re.compile (snippet_res[format][t])
+        res[t] = re.compile (snippet_res[format][t])
 
     snippets = []
     index = 0

@@ -39,9 +39,8 @@ global _;_=ly._
 
 output_name = ''
 LINE_BELL = 60
-scale_steps = [0,2,4,5,7,9,11]
+scale_steps = [0, 2, 4, 5, 7, 9, 11]
 global_options = None
-
 
 clocks_per_1 = 1536
 clocks_per_4 = 0
@@ -98,7 +97,6 @@ def strip_extension (f, ext):
     if e == ext:
         e = ''
     return p + e
-
 
 
 class Duration:

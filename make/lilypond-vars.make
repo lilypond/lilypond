@@ -37,8 +37,12 @@ LILYPOND_BOOK_FLAGS = $(LILYPOND_BOOK_VERBOSE) $(LILYPOND_BOOK_INFO_IMAGES_DIR)
 
 ifeq ($(out),)
 LILYPOND_BOOK_PROCESS = true
+LILYPOND_BOOK_FLAGS += --no-lily-run
 else
 LILYPOND_BOOK_PROCESS = $(LILYPOND_BINARY)
+endif
+ifeq ($(out),test)
+LILYPOND_BOOK_FLAGS += --skip-png-check
 endif
 
 TEXINPUTS=$(top-src-dir)/tex/::
