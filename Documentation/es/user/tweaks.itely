@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d3081b92dcfcce31ce268de6ceb640930eb270ef
+    Translation of GIT committish: 6b5fd28e72c07de1c2275a6025137237e5e756d9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -32,6 +32,7 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 * Introduction to tweaks::      
 * Objects and interfaces::      
 * Naming conventions of objects and properties::  
+* Tweaking methods::            
 @end menu
 
 @node Introduction to tweaks
@@ -158,6 +159,251 @@ Como podremos ver en breve, las propiedades de distintos tipos de
 objeto se modifican por parte de diferentes instrucciones; así pues,
 es útil poder reconocer el tipo de objeto a partir de sus nombres de
 propiedad.
+
+@node Tweaking methods
+@subsection Tweaking methods
+
+@strong{\override command}
+
+@cindex override, instrucción
+@funindex \override
+
+Ya hemos visto las instrucciones @code{\set} y @code{\with}, que se
+usan para cambiar las propiedades de los @strong{contextos} y para
+quitar y poner @strong{grabadores}, en @ref{Modifying context
+properties} y @ref{Adding and removing engravers}.  Ahora debemos
+examinar algunas instrucciones importantes más.
+
+La instrucción que cambia las propiedades de los @strong{objetos de
+presentación} es @code{\override}.  Puesto que esta instrucción debe
+modificar propiedades internas que se encuentran en un lugar profundo
+dentro de LilyPond, su sintaxis no es tan simple como la del resto de
+las instrucciones que hemos visto hasta ahora.  Tiene que saber
+exactamente qué propiedad de qué objeto y en qué contexto se debe
+modificar, y cuál debe ser su nuevo valor.  Veamos cómo se hace.
+
+La sintaxis genérica de esta instrucción es:
+
+@example
+\override @emph{contexto}.@emph{objeto_de_presentación} 
+  #'@emph{propiedad_de_presentación} = #@emph{valor}
+@end example
+
+@noindent
+Esto establecerá la propiedad de nombre
+@emph{propiedad_de_presentación} del objeto de presentación con el
+nombre @emph{objeto_de_presentación}, que es miembro del contexto
+@emph{contexto}, al valor @emph{valor}.
+
+El @emph{contexto} se puede omitir (y normalmente así es) cuando el
+contexto requerido se encuentra implicado sin ambigüedad y es uno de
+los contextos del nivel más bajo, es decir: @code{Voice},
+@code{ChordNames} o @code{Lyrics}, y lo omitiremos en muchos de los
+ejemplos siguientes.  Veremos más tarde cuándo se debe especificar.
+
+Las últimas secciones tratan de forma exhaustiva las propiedades y sus
+valores, pero para ilustrar el formato y utilización de estas
+iinstrucciones usaremos sólo unas cuantas propiedades y valores
+sencillos que sean fáciles de entender.
+
+Por ahora no se preocupe por el @code{#'}, que debe anteponerse a la
+propiedad de presentación, y el @code{#}, que debe preceder al valor.
+Deben estar presentes siempre y de esa forma exacta.  Es la
+instrucción de uso más común dentro del trucaje, y durante la mayor
+parte del resto de este capítulo presentaremos ejemplos de cómo se
+usa.  A continuación hay un ejemplo sencillo para cambiar el color de
+una cabeza:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\override NoteHead #'color = #red
+e f g
+\override NoteHead #'color = #green
+a b c
+@end lilypond
+
+@strong{la instrucción \revert}
+
+@cindex revert, instrucción
+@funindex \revert
+
+Una vez sobreescrita, la proopiedad retiene su nuevo valor hasta que
+se sobreescribe de nuevo o se encuentra una instrucción
+@code{\revert}.  La instrucción @code{\revert} tiene la siguiente
+sintaxis y ocasiona que el valor de la propiedad se devuelva a su
+valor predeterminado original; observe que no es a su valor previo si
+se han utilizado varias instrucciones @code{\override}.
+
+@example
+\revert @emph{contexto}.@emph{objeto_de_presentación} #'@emph{propiedad_de_presentación}
+@end example
+
+Una vez más, igual que @emph{contexto} dentro de la instrucción
+@code{\override}, con frecuencia no es necesario especificar el
+@emph{contexto}.  Se omitirá en muchos de los ejemplos siguientes.
+Aquí devolvemos el color de la cabeza al valor predeterminado para las
+dos últimas notas:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\override NoteHead #'color = #red
+e f g
+\override NoteHead #'color = #green
+a
+\revert NoteHead #'color
+b c
+@end lilypond
+
+@strong{prefijo \once}
+
+Tanto la instrucción @code{\override} como @code{\set} se pueden
+preceder por @code{\once}.  Esto ocasiona que la siguiente instrucción
+@code{\override} o @code{\set} sea efectiva solamente durante el
+tiempo musical en curso y antes de que la propiedad vuelva a tener
+otra vez su valor predeterminado.  Utilizando el mismo ejemplo,
+podemos cambiar el color de una sola nota de la siguiente manera:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\once \override NoteHead #'color = #red
+e f g
+\once \override NoteHead #'color = #green
+a b c
+@end lilypond
+
+@strong{la instrucción \overrideProperty}
+
+@cindex overrideProperty, instrucción
+@funindex \overrideProperty
+
+Hay otra forma para la instrucción de sobreescritura,
+@code{\overrideProperty}, que ocasionalmente es necesaria.  La
+mencionamos aquí con un propósito de exhaustividad, pero para ver más
+detalles consulte @ruser{Difficult tweaks}.
+@c Maybe explain in a later iteration  -td
+
+@strong{la instrucción \tweak}
+
+@cindex tweak, instrucción
+@funindex \tweak
+
+La última instrucción de trucaje que está disponible es @code{\tweak}.
+Se debe utilizar para cambiar las propiedades de objetos que suceden
+en el mismo momento musical, como las notas de un acorde.  El uso de
+@code{\override} para la sobreescritura afectaría a todas las notas
+del acorde, mientras que @code{\tweak} afecta solamente al siguiente
+elemento del flujo de entrada.
+
+He aquí un ejemplo.  Suponga que queremos cambiar el tamaño de la nota
+intermedia (el Mi) en un acorde de Do mayor.  En primer lugar, veamos
+lo que haría @code{\once \override}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+  <c e g>4
+  \once \override NoteHead #'font-size = #-3
+  <c e g>
+  <c e g>
+@end lilypond
+
+Vemos que la sobreescritura con override afecta a @emph{todas} las
+notas del acorde.  Esto es así porque todas las notas de un acorde
+ocurren en el mismo @emph{momento musical}, y la acción de
+@code{\once} es aplicar la sobreescritura a todos los oobjetos de
+presentación del tipo especificado que ocurren en el mismo momento
+musical que la propia instrucción de sobreescritura @code{\override}.
+
+LA instrucción @code{\tweak} opera de una forma distinta.  Actúa sobre
+el elemento inmediatamente siguiente dentro del flujjo de entrada.
+Sin embargo, es efectivo solamente sobre objetos que se crean
+directamente a partir del flujo de entrada, en esencia las cabezas y
+las articulaciones (los objetos como las plicas y las alteraciones se
+crean con posterioridad y no se pueden trucar de esta forma).  Es más,
+cuando se aplica a las cabezas de las notas, éstas @emph{deben} estar
+dentro de un acorde, es decir, dentro de ángulos simples, así que para
+trucar una sola nota la instrucción @code{\tweak} se debe colocar
+dentro de ángulos simples junto con la nota.
+
+Así pues, volviendo a nuestro ejemplo, el tamaño de la nota intermedia
+se cambiaría de la siguiente forma:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+  <c e g>4
+  <c \tweak #'font-size #-3 e g>4
+@end lilypond
+
+Observe que la sintaxis de @code{\tweak} es diferente de la de la
+instrucción @code{\override}.  Ni el contexto ni el objeto de
+presentación se deben especificar; de hecho, generaría un error
+hacerlo.  Los dos están implícitos por el siguiente elemento del flujo
+de entrada.  Así que la sintaxis genérica de la instrucción
+@code{\tweak} es, simmplemente:
+
+@example
+\tweak #'@emph{propiedad_de_presentación} = #@emph{valor}
+@end example
+
+Una instrucción @code{\tweak} también se puede usar para modificar
+sólo una de una serie de articulaciones, como se muestra aquí:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+a ^Black
+  -\tweak #'color #red ^Red
+  -\tweak #'color #green _Green
+@end lilypond
+
+Observe que la instrucción @code{\tweak} debe venir precedida de una
+marca de articulación como si ella misma fuera una articulación.
+
+@cindex grupos especiales anidados
+@cindex tresillos anidados
+@cindex corchete del grupo especial
+@cindex grupo especial, corchete de
+@cindex tresillo, corchete de
+@funindex TupletBracket
+
+La instrucción @code{\tweak} también se debe usar para cambiar la
+apariencia de uno solo de un conjunto de grupos especiales anidados
+que comiencen en el mismo instante musical.  En el siguiente ejemplo,
+el corchete del tresillo largo y el primero de los tres corchetes
+cortos empiezan en el mismo momento musical, y por ello cualquier
+instrucción @code{\override} se aplicaría a los dos.  En el ejemplo se
+usa @code{\tweak} para distinguir entre ellos.  La primera instrucción
+@code{\tweak} especifica que el corchete del tresillo largo se debe
+colocar por encima de las notas y el segundo especifica que el número
+del tresillo se debe imprimir en rojo sobre el corchete del primer
+tresillo corto.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\tweak #'direction #up
+\times 4/3 {
+  \tweak #'color #red
+  \times 2/3 { c8[ c8 c8] }
+  \times 2/3 { c8[ c8 c8] }
+  \times 2/3 { c8[ c8 c8] }
+}
+@end lilypond
+
+Encontrará más detalles de la instrucción @code{\tweak} en
+@ruser{Objects connected to the input}.
+
+Si los grupos anidados no comienzan en el mismo momento, su apariencia
+se puede modificar de la forma usual mediante instrucciones
+@code{\override}:
+
+@c NOTE Tuplet brackets collide if notes are high on staff
+@c See issue 509
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\times 2/3 { c8[ c c]}
+\once \override TupletNumber 
+  #'text = #tuplet-number::calc-fraction-text
+\times 2/3 {
+  c[ c]
+  c[ c]
+  \once \override TupletNumber #'transparent = ##t
+  \times 2/3 { c8[ c c] }
+\times 2/3 { c8[ c c]}
+}
+@end lilypond
 
 
 @node Moving objects
