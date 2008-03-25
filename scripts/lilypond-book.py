@@ -146,6 +146,12 @@ def get_option_parser ():
                   action='store', dest='output_dir',
                   default='')
     
+    p.add_option ('--no-lily-run',
+                  help=_ ("do not fail if no lilypond output is found."),
+                  metavar=_ ("DIR"),
+                  action='store_true', dest='skip_lilypond_run',
+                  default=False)
+    
     p.add_option ('--lily-output-dir',
                   help=_ ("write lily-XXX files to DIR, link into --output dir."),
                   metavar=_ ("DIR"),
@@ -1117,6 +1123,9 @@ class LilypondSnippet (Snippet):
 
     def link_all_output_files (self, output_dir, output_dir_files, destination):
         existing = self.all_output_files (output_dir, output_dir_files)
+        if existing is None:
+            print '\nMissing', self.basename()
+            raise CompileError(self.basename())
         for name in existing:
             try:
                 os.unlink (os.path.join (destination, name))
@@ -1148,12 +1157,14 @@ class LilypondSnippet (Snippet):
                 raise Missing
             result.add (name)
 
+        skip_lily = global_options.skip_lilypond_run
         try:
             for required in [base + '.ly',
-                             base + '.txt',
-                             base + '-systems.count']:
+                             base + '.txt']:
                 require_file (required)
-
+            if not skip_lily:
+                require_file (base + '-systems.count')
+                
             map (consider_file, [base + '.tex',
                                  base + '.eps',
                                  base + '.texidoc',
@@ -1168,8 +1179,10 @@ class LilypondSnippet (Snippet):
                 else:
                     for page in range (1, page_count + 1):
                         require_file (base + '-page%d.png' % page)
-
-            system_count = int(file (full + '-systems.count').read())
+             
+            system_count = 0
+            if not skip_lily:
+                system_count = int(file (full + '-systems.count').read())
             for number in range(1, system_count + 1):
                 systemfile = '%s-%d' % (base, number)
                 require_file (systemfile + '.eps')
