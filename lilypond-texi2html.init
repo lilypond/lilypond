@@ -33,9 +33,6 @@ sub split_at_numbered_sections($$$)
   my $type = shift;
   my $docu_name = shift;
   my $docu_ext = $Texi2HTML::Config::EXTENSION;
-  if ( $Texi2HTML::THISDOC{'current_lang'} ) {
-    $docu_ext = $Texi2HTML::THISDOC{'current_lang'} . "." . $docu_ext;
-  }
 
 #   if ($$element{number} eq "1.1") {
 #     print_element_info ($element);
@@ -43,19 +40,13 @@ sub split_at_numbered_sections($$$)
 
   # TOC, footer, about etc. are called with undefined $element and $type == "toc"|"stoc"|"foot"|"about"
   if ($type eq "toc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
-    my $filename = "lilypond_$type";
-    $filename .= ".$docu_ext" if (defined($docu_ext));
-#     print "Standard file of type $type\n";
-    return $filename;
+    return;
   } else {
     # derive the name of the anchor (i.e. the part after # in the links!), 
     # don't use texi2html's SECx.x default!
     my $anchor = main::remove_texi($$element{texi});
-    my $trof = $$element{translationof};
-    if ($trof) {
-      print "We have a translationof: $trof\n";
-      print Dumper($element);
-#       $anchor = $trof;
+    if ($$element{translationof}) {
+      $anchor = main::remove_texi($$element{translationof});
     }
     $anchor =~ tr/\ ?:'/-/d;
     $$element{id} = $anchor;
@@ -227,11 +218,6 @@ sub print_lilypond_page_foot($)
   my @lines = @this_page_toc;
   if (not @lines) {
     print "We have no toc lines, generate generic ones for main::element_top::\n";
-#     print Dumper( $main::element_top );
-#     print Dumper( $main::section_top );
-#     print Dumper( $main::node_top );
-#     @lines = lilypond_generate_page_toc_body( $main::element_top );
-#     @lines = lilypond_generate_page_toc_body($Texi2HTML::THIS_ELEMENT);
     @lines = @$Texi2HTML::TOC_LINES;
   }
   if (@lines) {
@@ -471,6 +457,11 @@ if ($Texi2HTML::Config::SPLIT == 'section') {
   }
 }
 
+if ($Texi2HTML::THISDOC{'current_lang'}) {
+  $Texi2HTML::Config::EXTENSION = $Texi2HTML::THISDOC{'current_lang'} . "." . 
+        $docu_ext = $Texi2HTML::Config::EXTENSION;;
+}
+
 
 
 # Try to make use of @translationof to generate files according to the original
@@ -485,11 +476,12 @@ sub lilypond_unknown($$$$$)
     
     if ($pass == 1 and $macro eq "translationof") {
       if (ref($state->{'element'})=='HASH') {
-        $state->{'element'}->{'translationof'} = $line;
+        $state->{'element'}->{'translationof'} = main::normalise_space($line);
       }
       print "UNKNOWN: macro:$macro, line:$line, pass:$pass, stack:$stack, state:$state\n";
       print Dumper($stack);
       print Dumper($state);
+      return ('', true, undef, undef);
     }
     if ($pass == 2 and $macro eq "translationof") {
 #       if (ref($state->{'element'})=='HASH') {
