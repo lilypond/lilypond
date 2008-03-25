@@ -12,33 +12,33 @@ using the @code{\\override} command.
 \layout {
  \context {
    \Staff
-   \consists "Grid_point_engraver"
    % sets up grids
-   gridInterval = #(ly:make-moment 1 4)
+   \consists "Grid_point_engraver"
    % this sets the grid interval to 1 quarternote (crotchet)
- }
+   gridInterval = #(ly:make-moment 1 4)
+  }
 }
 
 \new Score \with {
  \consists "Grid_line_span_engraver"
- \override NoteColumn #'X-offset = #-0.5
  % this moves them to the right half a staff space
+ \override NoteColumn #'X-offset = #-0.5
 }
 
 \new ChoirStaff <<
- \new Staff {
-  \relative c'' {
-    \stemUp
-    c'4. d8 e8 f g4
+  \new Staff {
+    \relative c'' {
+      \stemUp
+      c'4. d8 e8 f g4
+    }
   }
- }
- \new Staff {
-   \relative c {
-     \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
-     % this moves them up one staff space from the default position
-     \stemDown
-     \clef bass
-     \once \override Score.GridLine #'thickness = #5.0
+  \new Staff {
+    \relative c {
+      % this moves them up one staff space from the default position
+      \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+      \stemDown
+      \clef bass
+      \once \override Score.GridLine #'thickness = #5.0
       c4
       \once \override Score.GridLine #'thickness = #1.0
       g'
@@ -46,6 +46,6 @@ using the @code{\\override} command.
       f
       \once \override Score.GridLine #'thickness = #5.0
       e
-   }
- }
+    }
+  }
 >>

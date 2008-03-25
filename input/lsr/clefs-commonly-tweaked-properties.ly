@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "pitches, staff-notation, editorial-and-educational-use, tweaks-and-overrides"
+  lsrtags = "pitches, staff-notation, tweaks-and-overrides"
  texidoc = "
 The command @code{\\clef \"treble_8\"} is equivalent to setting
 @code{clefGlyph}, @code{clefPosition} (which controls the Y-position of
