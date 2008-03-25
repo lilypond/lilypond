@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 20eecf22357df6461cdbe3e2e39943fb2fec072a
+    Translation of GIT committish: fcd451dec075ff249c63303a0e94c138fe7b6490
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -816,7 +816,219 @@ force-hshift en @ref{Fixing overlapping notation} )
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
-UNTRANSLATED NODE: IGNORE ME
+
+@funindex \voiceOne
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
+
+Los contextos de voz también se pueden crear manualmente dentro de un
+bloque @code{<< >>} para crear música polifónica, utilizando
+@code{\voiceOne} ... @code{\voiceFour} para indicar las direcciones
+requeridas de plicas, ligaduras, etc.  En partituras más largas, este
+método es más claro porque permite que las voces estén separadas y
+reciban nombres más descriptivos.
+
+Concretamente, la construcción @code{<< \\ >>} que usamos en la
+sección previa:
+
+@example
+\new Staff @{
+  \relative c' @{
+    << @{ e4 f g a @} \\ @{ c,4 d e f @} >>
+  @}
+@}
+@end example
+
+@noindent
+equivale a
+
+@example
+\new Staff <<
+  \new Voice = "1" @{ \voiceOne \relative c' @{ e4 f g a @} @}
+  \new Voice = "2" @{ \voiceTwo \relative c' @{ c4 d e f @} @}
+>>
+@end example
+
+Los dos ejemplos anteriores producirán:
+
+@c The following example should not display the code
+@lilypond[ragged-right,quote]
+\new Staff <<
+  \new Voice = "1" { \voiceOne \relative c' { e4 f g a } }
+  \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
+>>
+@end lilypond
+
+Las instrucciones @code{\voiceXXX} establecen la dirección de las
+plicas, ligaduras de expresión, ligaduras de prolongación,
+articulaciones, anotaciones de texto, puntillos y digitaciones.
+@code{\voiceOne} y @code{\voiceThree} hacen que estos objetos apunten
+hacia arriba, mientras que @code{\voiceTwo} y @code{\voiceFour} los
+hacen apuntar hacia abajo.  Estas instrucciones también producen un
+desplazamientoo horizontal para cada voz cuando es necesario para
+evitar choques entre las cabezas.  La instrucción @code{\oneVoice}
+devuelve los ajustes de nuevo a los valores normales para una sola
+voz.
+
+Veamos en algunos ejemplos sencillos exactamente qué efecto tienen
+@code{\oneVoice}, @code{\voiceOne} y @code{voiceTwo} sobre el marcado,
+las ligaduras de unión y de expresión y las indicaciones de dinámica:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  % Default behaviour or behaviour after \oneVoice
+  c d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceOne
+  c d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c, d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceTwo
+  c d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c, d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+Una expresión que aparece directamente dentro de @code{<< >>}
+pertenece a la voz principal (pero, observe, @strong{no} dentro de una
+construcción @code{<< \\ >>}).  Esto es útilo cuando aparecen voces
+nuevas mientras la voz principal está sonando.  A continuación podemos
+ver una realización más correcta del ejemplo de la sección anterior.
+Las notas rojas en forma de rombo muestran que la melodía principal
+está ahora dentro de un contexto de una sola voz, haciendo que se
+pueda trazar una ligadura por encima de ellas.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \voiceOneStyle
+  % The following notes are monophonic
+  c16^( d e f
+  % Start simultaneous section of three voices
+  <<
+    % Continue the main voice in parallel
+    { g4 f e | d2 e2) }
+    % Initiate second voice
+    \new Voice {
+      % Set stems, etc, down
+      \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+    }
+    % Initiate third voice
+    \new Voice {
+      % Set stems, etc, up
+      \voiceThree
+      s2. | s4 b4 c2
+    }
+  >>
+}
+@end lilypond
+
+@cindex anidado de expresiones musicales
+@cindex anidado de construcciones simultáneas
+
+Seon posibles construcciones polifónicas anidadas más profundamente, y
+si una voz aparece sólo brevemente podría haber una forma más natural
+de tipografiar la música.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  <<
+    { g4 f e | d2 e2) }
+    \new Voice {
+      \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice {
+          \voiceThree
+          s4 b4 c2
+        }
+      >>
+    }
+  >>
+}
+@end lilypond
+
+
+Este método de anida voces nuevas brevemente es útil cuando sólo hay
+secciones polifónicas pequeñas, pero cuando todo el pentagrama es muy
+plifónico podría ser más claro usar varias voces todo el tiempo,
+usando notas espaciadoras para pasar por encima de las secciones en
+que una voz está en silencio, como aquí:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' <<
+  % Initiate first voice
+  \new Voice {
+    \voiceOne
+    c16^( d e f g4 f e | d2 e2) |
+  }
+  % Initiate second voice
+  \new Voice {
+    % set stems, etc down
+    \voiceTwo
+    s4 r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 |
+  }
+  % Initiate third voice
+  \new Voice {
+    % set stems, etc up
+    \voiceThree
+    s1 | s4 b4 c2 |
+  }
+>>
+@end lilypond
+
+@cindex columna de notas
+@cindex desplazamiento, instrucciones de
+@funindex \shiftOff
+@funindex \shiftOn
+@funindex \shiftOnn
+@funindex \shiftOnnn
+
+Las notas cercanas de un acorde, o las notas que se producen al mismo
+tiempo en distintas voces, se disponen en dos (y ocasionalmente más)
+columnas para evitar el solapamiento de las cabezas.  Reciben el
+nombre de columnas de notas.  Hay columnas distintas para cada voz, y
+el desplazamiento especificado en curso dependiente de la voz se
+applica a la columna de la nota si en caso contgrario se produjese una
+colisión.  Esto se puede ver en el ejemplo anterior. En el compás 2 el
+Do en la voz dos está desplazado a la derecha respecto del Re de la
+voz uno, y en el último acorde el Do de la voz tres también está
+desplazado a la derecha respecto de las otras notas.
+
+Las instrucciones @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}
+y @code{\shiftOff} especifican el grado en que se deben desplazar las
+ntoas y acordes de la voz si en caso contrariio ocurriese una
+colisión.  De forma predeterminada, las voces exteriores (normalmente
+las voces uno y dos) llecan especificado @code{\shiftOff}, mientras
+que las voces interiores (tres y cuatro) tienen @code{\shiftOn}
+especificado.  Cuando se aplica un desplazamiento, las voces uno y
+tres se desplazan hacia la derecha y las voces dos y cuatro se
+desplazan hacia la izquierda.
+
+@code{\shiftOnn} y @code{\shiftOnnn} definen niveles adicionales de
+desplazamiento que se peuden especificar temporalmente para resolver
+colisiones en situaciones complejas (véase @ref{Real music example}).
+
+Una columna de notas puede contener s´olo una nota (o acorde) de una
+voz con las plicas hacia arriba y una not (o acorde) de una voz con
+las plicas hacia abajo.  Si las notas de dos voces que tienen las
+plicas en la misma dirección se sitúan en la misma posición y las dos
+voces no tienen ningún desplazamiento o llevan especificado el mismo
+desplazamiento, se producirá el mensaje de error @qq{Chocan demasiadas
+columnas de notas}.
 
 @node Voices and vocals
 @subsection Voices and vocals
