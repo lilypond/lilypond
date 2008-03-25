@@ -108,8 +108,6 @@ that use fonts.  These are the ones supporting the
 @funindex \huge
 @code{\huge}.
 
-@snippets
-
 @seealso
 
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
@@ -126,12 +124,11 @@ Internals Reference: @internalsref{font-interface}.
 Fingering instructions can be entered using
 @var{note}-@var{digit}:
 
-
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 c4-1 d-2 f-4 e-3
 @end lilypond
 
-Use markup texts for finger changes. 
+Markup texts may be used for finger changes. 
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
@@ -161,23 +158,9 @@ staff, see @ref{Controlling direction and placement}.
 
 @snippets
 
-@code{fingeringOrientations} are used to control where the fingering
-numbers are placed.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{controlling-the-placement-of-chord-fingerings.ly}
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-\set fingeringOrientations = #'(left)
-<c-1 e-3 a-5 > 4
-\set fingeringOrientations = #'(down)
-<c-1 e-3 a-5 > 
-\set fingeringOrientations = #'(right)
-<c-1 e-3 a-5 > 
-\set fingeringOrientations = #'(up)
-<c-1 e-3 a-5 > 
-\set fingeringOrientations = #'(left down)
-<c-1 e-3 a-5 > 2
-\set fingeringOrientations = #'(up right down)
-<c-1 e-3 a-5 >
-@end lilypond
 
 @seealso
 
@@ -366,15 +349,8 @@ made invisible.
 @cindex stem, down
 @cindex stem, neutral
 
-To change the direction of stems on the center line of the staff, use
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @seealso
 Notation Reference: @ref{Controlling direction and placement}.
@@ -470,48 +446,9 @@ notes.
 
 @snippets
 
-To change the grid lines use \override.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{grid-lines-changing-their-appearance.ly}
 
-@lilypond[quote,verbatim,ragged-right]  
-\layout {
-  \context {
-    \Staff
-    \consists "Grid_point_engraver" 
-      gridInterval = #(ly:make-moment 1 4)
-    }
-}
-     
-\new Score \with {
-  \consists "Grid_line_span_engraver"
-  % this moves them to the right half a staff space
-  \override NoteColumn #'X-offset = #-0.5
-  }
-     
-\new ChoirStaff <<
- \new Staff {
-   \relative c'' {
-     \stemUp
-     c'4. d8 e8 f g4
-   }
-  }
-  \new Staff {
-    \relative c {
-      % this moves them up one staff space from the default position
-      \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
-      \stemDown
-      \clef bass
-      \once \override Score.GridLine #'thickness = #5.0
-       c4 
-       \once \override Score.GridLine #'thickness = #1.0
-       g' 
-       \once \override Score.GridLine #'thickness = #3.0
-       f  
-       \once \override Score.GridLine #'thickness = #5.0 
-       e
-    }
-  }
->>
-@end lilypond
 
 @seealso
 
