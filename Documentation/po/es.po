@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-23 16:29+0100\n"
-"PO-Revision-Date: 2008-03-23 22:37+0100\n"
+"PO-Revision-Date: 2008-03-25 18:45+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -4802,7 +4802,7 @@ msgstr "Alteraciones de la Musica Ficta"
 #. @node in ../../../Documentation/de/user/ancient.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/ancient.itely
 msgid "Figured bass"
-msgstr "Bajo figurado"
+msgstr "Bajo cifrado"
 
 #. @node in ../../../Documentation/user/input.itely
 #. @chapter in ../../../Documentation/user/input.itely
