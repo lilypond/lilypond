@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 8713b2d59884a2043803584b7b9a3b0bdf719ae6
+    Translation of GIT committish: 13290c3922962e4538d3acaf1f7abe14fce6bbff
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -16,6 +16,7 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 
 @menu
 * Tweaking basics::             
+* The Internals Reference manual::  
 * Moving objects::              
 * Fixing overlapping notation::  
 * Common tweaks::               
@@ -404,6 +405,488 @@ se puede modificar de la forma usual mediante instrucciones
 \times 2/3 { c8[ c c]}
 }
 @end lilypond
+
+@node The Internals Reference manual
+@section The Internals Reference manual
+
+@cindex Internals Reference
+
+@menu
+* Properties of layout objects::  
+* Properties found in interfaces::  
+* Types of properties::         
+@end menu
+
+@node Properties of layout objects
+@subsection Properties of layout objects
+
+@cindex propiedades de los objetos de presentación
+@cindex propiedades de los grobs
+@cindex grobs, propiedades de
+@cindex presentación, propiedades de los objetos de
+
+Suponga que tiene una partitura con una ligadura de expresión que para
+su gusto es demasiado fina y quiere trazarla un poco más gruesa. ¿Cómo
+debe proceder?  Ya sabe, por las afirmaciones anteriores acerca de la
+flexibilidad de LilyPond, que tal posibilidad existe, y seguramente
+piensa que una cierta instrucción de sobreescritura @code{\override}
+será necesaria.  Pero ¿existe una propiedad de grosor para las
+ligaduras? y, si la hay, ¿cómo se puede modificar?  Aquí es donde
+interviene el Manual de Funcionamiento Interno.  Contiene toda la
+información que puede necesitar para construir ésta y todas las demás
+instrucciones @code{\override}, de sobreescritura.
+
+Una advertencia antes de dirigir nuestra mirada a la referencia de
+funcionamiento interno.  Éste es un documento de @strong{referencia},
+lo que significa que hay pocas o ninguna explicación en él: su
+propósito es presentar la información de forma precisa y concisa.  Por
+tanto, podrá parecerle desalentador a primera vista.  ¡No se preocupe!
+La guía y las explicaciones que presentamos aquí le permitirán extraer
+la información de la referencia de funcionamiento interno por sí mismo
+con tan sólo algo de práctica.
+
+@cindex sobreescritura, ejemplo de
+@cindex Referencia de Funcionamiento Interno, ejemplo de utilización
+
+Utilicemos un ejemplo concreto con un sencillo fragmento de música
+real:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8 b[( g]) g | 
+    g[( e]) e d[( f]) a | 
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion 
+  }
+}
+@end lilypond 
+
+Suponga ahora que decidimos que nos gustan las ligaduras algo más
+gruesas.  ¿Es posible?  La ligadura es, ciertamente, un objeto de
+presentación, así que la cuestión es @q{¿Hay una propiedad
+perteneciente a las ligaduras de expresión que controle su grosor?}
+Para responder a esta pregunta debemos mirar el manual de Referencia
+de Funcionamiento Interno, abreviadamente RFI@footnote{@strong{IR}
+(Internals Reference) en inglés}.
+
+El RFI de la versión de LilyPond que está usando se puede encontrar en
+la página web de LilyPond en @uref{http://lilypond.org}.  Vaya a la
+página de la documentación y siga el enlace Manual de Referencia de
+Funcionamiento Interno (RFI).  Para nuestros propósitos pedagógicos
+sería mejor que utilizase la versión html, no la @q{en una sola
+página} ni el PDF.  Para que los siguientes párrafos tengan algún
+sentido deberá consultarlo realmente al tiempo que lee.
+
+@c Link names in English as these pages are not yet translated
+Bajo el encabezamiento @strong{Top} podrá ver cinco enlaces.
+Seleccione el enlace @emph{Backend}, que es donde se encuentra la
+información sobre los objetos de presentación.  Una vez allí, bajo el
+encabezamiento @strong{Backend}, siga el enlace @emph{All layout
+objects}.  La página que aparece relaciona todos los objetos de
+presentación que se usan en su versión de LilyPond, en orden
+alfabético.  Siga el enlace Slur (ligadura de expresión), y aparecerán
+relacionadas las propiedades de las ligaduras de expresión o Slurs.
+
+(Una forma alternativa de encontrar esta página es a partir de la
+Referencia de la Notación.  En una de las páginas que tratan de las
+ligaduras de expresión podrá encontrar un enlace al manual de
+referencia del funcioonamiento interno.  Este enlace le llevará
+directamente a esta página, aunque con frecuencia es más fácil ir
+directamente al RFI y buscar allí.)
+
+Esta página sobre las ligaduras de expresión dentro del manual RFI nos
+dice en primer lugar que los objetos Slur se crean por el grabador
+Slur_engraver.  A continuación relaciona los ajustes estándar.
+Observe que @strong{no} están en orden alfabético.  Navegue hacia
+abajo buscando una propiedad que pudiera controlar el grosor de las
+ligaduras, y encontrará
+
+@example
+@code{thickness} (number)
+     @code{1.2}
+     Line thickness, generally measured in @code{line-thickness}
+@end example
+
+Esto promete ser una buena opción para cambiar el grosor.  Nos dice
+que el valor de @code{thickness} es un simple @emph{número}, que el
+valor predeterminado es 1.2, y que las unidades están dentro de otra
+propiedad llamada @code{line-thickness}.
+
+Como dijimos con anterioridad, existen entre pocas y ninguna
+explicación en el RFI, pero ya tenemos información suficiente para
+probar a cambiar el grosor de la ligadura.  Vemos que el nombre del
+objeto de presentación es @code{Slur}, que el nombre de la propiedad
+que debemos cambiar es @code{thickness} y que el nuevo valor debe ser
+un número algo más grande que 1.2 si queremos hacer las ligaduras más
+gruesas.
+
+Ahora podemos construir la instrucción de sobreescritura
+@code{\override} simplemente mediante la sustitución de los valores
+que hemos encontrado para los nombres, omitiendo el contexto.
+Usaremos un valor muy grande para el grosor al principio, para estar
+seguros de que la instrucción está funcionando.  Obtenemos lo
+siguiente:
+
+@example
+\override Slur #'thickness = #5.0
+@end example 
+
+¡No olvide el @code{#'} antes del nombre de la propiedad y @code{#}
+antes del valor nuevo!
+
+La pregunta final es @q{¿Dónde se debe colocar esta instrucción?}
+Aunque nos falta seguridad y estamos todavía aprendiendo, la mejor
+respuesta es: @q{Dentro de la música, antes de la primera ligadura y
+cerca de ella.}  Hagámoslo así:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    % Increase thickness of all following slurs from 1.2 to 5.0
+    \override Slur #'thickness = #5.0
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion 
+  }
+}
+@end lilypond 
+
+@noindent
+y podemos ver que la ligadura, es sin duda, más pesada.
+
+Así pues, ésta es la forma básica de construir instrucciones
+@code{\override} o de sobreescritura.  Existen unas cuantas
+complicaciones más con las que nos encontraremos en secciones
+posteriores, pero ahora conoce todos los principios esenciales que
+necesita para hacerlo por sí mismo (aunque aún necesita algo de
+práctica).  La cual vendrá proporcionada por los ejemplos que vienen a
+continuación.
+
+@subheading Finding the context
+@cindex contexto, encontrar
+
+Pero en primer lugar ¿qué habría pasado si hubiésemos tenido que
+especificar el contexto? ¿Cuál sería?  Podemos suponer que las
+ligaduras están en el contexto de Voz, por estar claramente asociados
+de manera estrecha con las líneas individuales de música, pero
+¿podemos estar seguros?  Para averiguarlo, vayamos de nuevo al inicio
+de la página del RFI que describe las ligaduras (Slur), donde dice
+@q{Slur objects are created by: Slur engraver} («Los objetos de
+ligadura de expresión se crean por: el grabador Slur»).  Así pues, las
+ligaduras de expresión se crean en cualquier contexto en el que se
+encuentre el grabador @code{Slur_engraver}.  Siga el enlace a la
+página del grabador @code{Slur_engraver}.  Al final del todo, dice que
+el grabador @code{Slur_engraver} es parte de cinco contextos de voz,
+incluido el contexto de voz estándar, @code{Voice}, por lo que nuestra
+suposición era acertada.  Y a causa de que @code{Voice} es uno de los
+contextos de más bajo nivel que se encuentra implícito sin ambigüedad
+por el hecho de que estamos escribiendo notas, podemos omitirlo en
+este lugar concreto.
+
+@subheading Overriding once only
+
+@cindex sobreescritura por una sola vez
+@cindex once override
+@funindex \once
+
+Como puede ver, @emph{todas} las ligaduras son más gruesas en el
+último ejemplo.  Pero ¿y si quisiéramos que solamente la primera
+ligadura fuese más gruesa?  Esto se consigue con la instrucción o
+prefijo @code{\once}.  Colocado inmediatamente antes de la instrucción
+@code{\override} ocasiona que solamente cambie la ligadura que
+comienza en la nota @strong{inmediata siguiente}.  Si la nota
+inmediata siguiente no da inicio a una ligadura, la instrucción no
+tiene niingún efecto en absoluto: no se recuerda hasta que se
+encuentre alguna ligadura, sino que simplemente se ignora.  Así pues,
+la instrucción que lleva @code{\once} se debe reposicionar de la forma
+siguiente:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8
+    % Increase thickness of immediately following slur only
+    \once \override Slur #'thickness = #5.0
+    b[( g]) g | 
+    g[( e]) e d[( f]) a | 
+    a g 
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion 
+  }
+}
+@end lilypond 
+
+@noindent
+Hemos hecho que ahora solamente la primera ligadura sea más gruesa.
+
+La instrucción o prefijo @code{\once} también se puede usar antes de
+la instrucción @code{\set}.
+
+@subheading Reverting
+
+@cindex revert
+@cindex predeterminadas, devolver a las propiedades
+@funindex \revert
+
+Finalmente ¿y si quisiéramos que solamente las dos primeras ligaduras
+fuesen más gruesas?  En fin; podríamos usar dos instrucciones, cada
+una de ellas precedida por el prefijo @code{\once}, situadas
+inmediatamente antes de cada una de las notas en que comienzan las
+ligaduras:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8
+    % Increase thickness of immediately following slur only
+    \once \override Slur #'thickness = #5.0
+    b[( g]) g |
+    % Increase thickness of immediately following slur only
+    \once \override Slur #'thickness = #5.0
+    g[( e]) e d[( f]) a | 
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion 
+  }
+}
+@end lilypond 
+
+@noindent
+o podríamos omitir la instrucción prefija @code{\once} y utilizar la
+instrucción @code{\revert} (restablecer) para devolver la propiedad
+del grosor, @code{thickness}, a su valor predeterminado después de la
+segunda ligadura:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8
+    % Increase thickness of all following slurs from 1.2 to 5.0
+    \override Slur #'thickness = #5.0
+    b[( g]) g |
+    g[( e]) 
+    % Revert thickness of all following slurs to default of 1.2
+    \revert Slur #'thickness
+    e d[( f]) a | 
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion 
+  }
+}
+@end lilypond
+
+@noindent
+la instrucción @code{\revert} se puede utilizar para devolver
+cualquier propiedad que se haya cambiado con @code{\override} a su
+valor predeterminado.  Puede utilizar el método que mejor se adapte a
+aquello que quere hacer.
+
+Así finaliza nuestra introducción al manual de RFI, y el método básico
+de trucaje.  A continuación, en las últimas secciones de este capítulo
+encontrará varios ejemplos, en parte para introducirle en algunas de
+las posibilidades adicionales del manual RFI, y en parte para
+proporcionarle más práctica en cómo extraer información de él.  Estos
+ejemplos irán conteniendo cada vez menos palabras de guía y
+explicación.
+
+@node Properties found in interfaces
+@subsection Properties found in interfaces
+
+@cindex propiedades de los interfaces
+@cindex interfaces, propiedades
+
+Suponga ahora que queremos imprimir la letra de la canción en cursiva.
+¿Qué forma de instrucción @code{\override} necesitamos para hacerlo?
+En primer lugar miramos en la página del RFI que relaciona todos los
+objetos, @q{All layout objects}, como antes, y buscamos un objeto que
+pueda conteolar la letra de la canción.  Encontramos @code{LyricText},
+que parece adecuado.  Al seguir este enlace se presentan las
+propiedades ajustables para el texto de la letra.  Estos incluyen
+@code{font-series} y @code{font-size}, pero nada que pudiera aplicar
+una forma cursiva.  Esto es porque la propiedad de la forma es común a
+todos los objetos de fuente tipográfica, y por tanto, en vez de
+incluirlo en cada uno de los objetos de preesentación, se agrupa junto
+con otras propiedades comunes similares y se deposita en un
+@strong{Interface}, el interface de las fuentes tipográficas
+@code{font-interface}.
+
+Por tanto, ahora necesitamos aprender cómo encontrar las propiedades
+de los interfaces, y descubrir qué objetos usan estas propiedades de
+interface.
+
+Mire de nuevo la página del RFI que decribe a LyricText.  Al final de
+la página hay una lista de enlaces (en las versiones de html del RFI)
+a los interfaces que LyricText contempla.  La lista tiene siete
+elementos, entre ellos @code{font-interface}.  Al seguir este enlace
+llegamos a las propiedades asociadas con este interface, que también
+son propiedades de todos los objetos que lo llevan, entre ellos
+LyricText.
+
+Ahora vemos todas las propiedades ajustables por el usuario que
+controlan las tipografías, entre ellas @code{font-shape(symbol)},
+donde @code{symbol} se puede establecer a @code{upright} (recta),
+@code{italics} (cursiva)o @code{caps} (mayúsculas pequeñas).
+
+Observará que @code{font-series} y @code{font-size} también se
+encuentran aquí relacionadas.  Esto inmediatamente hace que surja la
+pregunta: ¿Por qué están las propiedades comunes de tipografía
+@code{font-series} y @code{font-size} relacionadas bajo
+@code{LyricText} así como bajo el interface @code{font-interface} pero
+@code{font-shape} no lo está?  La respuesta es que @code{font-series}
+y @code{font-size} se cambian a partir de sus valores predeterminados
+globales cuando se crea un objeto @code{LyricText}, pero
+@code{font-shape} no lo hace.  Entonces los elementos de la lista
+@code{LyricText} le dicen los valores para esas dos propiedades que
+son de aplicación para @code{LyricText}.  Otros objetos que contemplan
+@code{font-interface} establecerán dichas propiedades de forma
+diferente cuando se crean.
+
+Veamos si ahora podemos construir la instrucción @code{\override} para
+cambiar la letra a cursiva.  El objeto es @code{LyricText}, la
+propiedad es @code{font-shape} y el valor es @code{italic}.  Igual que
+antes, omitiremos el contexto.
+
+Como nota aparte, aunque una nota importante, observe que a causa de
+que los valores de @code{font-shape} son símbolos, deben ir precedidos
+de un apóstrofe, @code{'}.  Esa es la razón por la que se necesitan
+apóstrofes antes de @code{thickness} en el ejemplo anterior y en
+@code{font-shape}.  Los dos son también símbolos.  Los símbolos son
+nombres especiales que son conocidos por LilyPond internamente.
+Algunos de ellos son nombres de propiedades, como @code{thickness} o
+@code{font-shape}, otros son en efecto valores especiales que se les
+puede dar a las propiedades, como @code{italic}.  Observe la
+distincion entre esto y las cadenas de texto arbitrarias, que
+aparecerían entrecomilladas como @code{"a text string"}.
+
+De acuerdo, entonces la instrucción @code{\override} que necesitamos
+para imprimir la letra en cursiva sería
+
+@example
+\override LyricText #'font-shape = #'italic
+@end example
+
+@noindent
+y debe colocarse justo delante de, y cerca de, la letra a la que debe
+afectar, como esto:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    \override LyricText #'font-shape = #'italic
+    The man who feels love's sweet e -- mo -- tion 
+  }
+}
+@end lilypond
+
+@noindent
+y toda la letra se imprime en cursiva.
+
+@subheading Specifying the context in lyric mode
+@cindex contexto, especificación en modo letra
+
+En el caso de la letra, si intenta especificar el contexto en el
+formato que acabamnos de dar, la instrucción no funcionará.  Una
+sílaba escrita en el modo letra, «lyricmode» temina en un espacio, un
+salto de línea o un dígito.  Cualquier otro carácter se incluye como
+parte de la sílaba.  Por esta razón, un espacio o salto de línea debe
+aparecer antes del último símbolo @code{@}} para evitar que se incluya
+como parte de la sílaba final.  De forma similar, se deben insertar
+espacios antes y después del punto, @q{.}, separando el nombre del
+contexto del nombre del objeto, pues en caso contrario los dos nombres
+se juntarán y el intérprete no podrá reconocerlos.  Así pues, la
+instrucción será:
+
+@example
+\override Lyrics . LyricText #'font-shape = #'italic
+@end example
+
+@warning{Dentro de la letra, deje siempre espacios entre la sílaba
+final y la llave de cierre.}
+
+@warning{En las sobreescrituras con override dentro de la letra,
+escriba siempre espacios antes y después del punto que separa el
+nombre del contexto y el nombre del objeto.}
+
+@node Types of properties
+@subsection Types of properties
+
+@cindex propiedades, tipos de
+
+Hasta ahora hemos visto dos tipos de propiedad:: @code{número} y
+@code{símbolo}.  Para que sea válido, el valor que se da a una
+propiedad debe ser del tipo correcto y obedecer las reglas de dicho
+tipo.  El tipo de la propiedad se muestra siempre entre paréntesis
+después del nombre de la propiedad en el RFI.  He aquí una lista de
+los tipos que podrá necesitar, junto con las reglas de dicho tipo, y
+algunos ejemplos.  Debe escribir siempre un símbolo de almohadilla,
+@code{#}, por supuesto, delante de estos valores cuando se introducen
+en la instrucción @code{\override}.
+
+@multitable @columnfractions .2 .45 .35
+@headitem Tipo de propiedad
+  @tab Reglas
+  @tab Ejemplos
+@item Booleano
+  @tab Verdadero o Falso, representado por #t o #f
+  @tab @code{#t}, @code{#f}
+@item Dimensión (en espacios de pentagrama)
+  @tab Un número decimal positivo (en unidades de espacios de pentagrama)
+  @tab @code{2.5}, @code{0.34}
+@item Dirección
+  @tab Una constante válida de dirección o su equivalente numérico
+  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP},
+       @code{1}, @code{-1}
+@item Entero
+  @tab Un número entero positivo
+  @tab @code{3}, @code{1}
+@item Lista
+  @tab Un conjunto de elementos entre paréntesis separados por espacios y precedido de un apóstrofe
+  @tab @code{'(left-edge staff-bar)}, @code{'(1)},
+       @code{'(1.0 0.25 0.5)}
+@item Marcado
+  @tab Cualquier elemento válido de marcado de texto
+  @tab @code{\markup @{ \italic "cresc." @}}
+@item Momento
+  @tab Una fracción de redonda construida con la función make-moment
+  @tab @code{(ly:make-moment 1 4)},
+       @code{(ly:make-moment 3 8)}
+@item Número
+  @tab Cualquier valor decimal positivo o negativo
+  @tab @code{3.5}, @code{-2.45}
+@item Pareja (de números)
+  @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofe
+  @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
+@item Símbolo
+  @tab Cualquiera del conjunto de símbolos premitidos para esa propiedad, precedido de un apóstrofe
+  @tab @code{'italic}, @code{'inside}
+@item Desconocido
+  @tab Un procedimiento o @code{#f} (para no producir ninguna acción)
+  @tab @code{bend::print}, @code{ly:text-interface::print},
+       @code{#f}
+@item Vector
+  @tab Una lista de tres elementos encerrados entre paréntesis y precedida de una almohadilla, @code{#}.
+  @tab @code{#(#t #t #f)}
+@end multitable
 
 
 @node Moving objects
