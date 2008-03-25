@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: fcd451dec075ff249c63303a0e94c138fe7b6490
+    Translation of GIT committish: b0a1d7fa5e1b8371a0d1f1ed1dfd3fc9bc4881d2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1033,12 +1033,132 @@ columnas de notas}.
 @node Voices and vocals
 @subsection Voices and vocals
 
-UNTRANSLATED NODE: IGNORE ME
+
+La música vocal presenta una dificultad especial: tenemos que combinar
+dos expresiones, a saber, las notas y la letra.
+
+Ya ha visto la instrucción @code{\addlyrics@{@}}, que maneja bien
+partituras sencillas.  Sin embargo esta técnica es algo limitada.
+Para música de mayor complejidad, tenemos que introducir la letra en
+un contexto @code{Lyrics} utilizando @code{\new Lyrics} y enlazar
+explícitamente la letra y las notas mediante @code{\lyricsto@{@}},
+usando el nombre asignado a la voz.
+
+@lilypond[quote,verbatim,fragment]
+<<
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+  \new Lyrics \lyricsto "one" {
+    No more let sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+El barrado automático que LilyPond usa de forma predeterminada
+funciona bien para la música instrumental, pero no ten bien para
+música con letra, donde o bien el barrado no se necesita en absoluto,
+o bien se utiliza para indicar los melismaas de la letra.  En el
+ejemplo anterior hemos utilizado la instrucción @code{\autoBeamOff}
+para desactivar el barrado automático.
+
+Ahora vamos a reutilizar el ejemplo anterior de «Judas Macabeo» para
+ilustrar esta técnica más flexible.  Primero la reescribiremos para
+que use variables de manera que la música y la letra se pueda separar
+de la estructura de pentagramas.  También introduciremos una llave de
+grupo de ChoirStaff.  La letra en sí se debe introducir con
+@code{\lyricmode} para estar seguros de que se interpreta como letra y
+no como música.
+
+@lilypond[quote,verbatim]
+global = { \time 6/8 \partial 8 \key f \major}
+SopOneMusic = \relative c'' {
+  c8 | c([ bes)] a a([ g)] f | f'4. b, | c4.~ c4 }
+SopTwoMusic = \relative c' {
+  r8 | r4. r4 c8 | a'([ g)] f f([ e)] d | e([ d)] c bes' }
+SopOneLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, __ }
+SopTwoLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "SopOne" {
+        \global
+        \SopOneMusic
+      }
+      \new Lyrics \lyricsto "SopOne" {
+        \SopOneLyrics
+      }
+    >>
+    \new Staff <<
+      \new Voice = "SopTwo" {
+        \global
+        \SopTwoMusic
+      }
+      \new Lyrics \lyricsto "SopTwo" {
+        \SopTwoLyrics
+      }
+    >>
+  >>
+}
+@end lilypond
+
+Ésta es la estructura básica de todas las partituras vocales.  Se
+pueden añadir más pentagramas según se necesite, se pueden añadir más
+voces a los pentagramas y más estrofas a la letra, y las variables que
+contienen la música se pueden colocar fácilmente en archivos separados
+cuando se hagan demasiado largos.
+
+A continuación podemos ver un ejemplo final de la primera línea de un
+himno con cuatro estrofas, para coro SATB.  En este caso la letra de
+las cuatro partes es la misma.
+
+@lilypond[quote,verbatim]
+TimeKey = { \time 4/4 \partial 4 \key c \major}
+SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+VerseOne   = \lyricmode { 
+  E -- | ter -- nal fa -- ther, | strong to save, }
+VerseTwo   = \lyricmode { 
+  O | Christ, whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { 
+  O | Ho -- ly Spi -- rit, | who didst brood }
+VerseFour  = \lyricmode { 
+  O | Tri -- ni -- ty of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Sop"  { \voiceOne \TimeKey \SopMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Sop" { \VerseOne   }
+      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
+      \new Lyrics \lyricsto "Sop" { \VerseThree }
+      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+    >>
+  >>
+}
+@end lilypond
 
 @node Contexts and engravers
 @section Contexts and engravers
 
-UNTRANSLATED NODE: IGNORE ME
+Los contextos y grabadores se han mencionado de manera informal en
+secciones anteriore; ahora tan sólo vamos a ver estos conceptos con
+más detalle, pues son importantes en el ajuste fino de la salida de
+LilyPond.
 
 @menu
 * Contexts explained::          
