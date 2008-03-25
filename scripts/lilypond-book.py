@@ -146,10 +146,16 @@ def get_option_parser ():
                   action='store', dest='output_dir',
                   default='')
     
-    p.add_option ('--no-lily-run',
+    p.add_option ('--skip-lily-check',
                   help=_ ("do not fail if no lilypond output is found."),
                   metavar=_ ("DIR"),
                   action='store_true', dest='skip_lilypond_run',
+                  default=False)
+
+    p.add_option ('--skip-png-check',
+                  help=_ ("do not fail if no PNG images are found for EPS files"),
+                  metavar=_ ("DIR"),
+                  action='store_true', dest='skip_png_check',
                   default=False)
     
     p.add_option ('--lily-output-dir',
@@ -1156,6 +1162,7 @@ class LilypondSnippet (Snippet):
             else:
                 missing.add (name)
 
+        # UGH - junk global_options
         skip_lily = global_options.skip_lilypond_run
         for required in [base + '.ly',
                          base + '.txt']:
@@ -1170,7 +1177,9 @@ class LilypondSnippet (Snippet):
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
 
-        if base + '.eps' in result and self.format in (HTML, TEXINFO):
+        # UGH - junk global_options
+        if (base + '.eps' in result and self.format in (HTML, TEXINFO)
+            and not global_options.skip_png_check):
             page_count = ps_page_count (full + '.eps')
             if page_count <= 1:
                 require_file (base + '.png')
@@ -1179,7 +1188,7 @@ class LilypondSnippet (Snippet):
                     require_file (base + '-page%d.png' % page)
 
         system_count = 0
-        if not skip_lily:
+        if not skip_lily and not missing:
             system_count = int(file (full + '-systems.count').read())
         for number in range(1, system_count + 1):
             systemfile = '%s-%d' % (base, number)
