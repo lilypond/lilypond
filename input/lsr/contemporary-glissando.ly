@@ -5,19 +5,17 @@
 \header {
   lsrtags = "expressive-marks"
  texidoc = "
-Use a glissando without final note. Contemporary glissando !
+Use a glissando without final note. Contemporary glissando!
 " }
 % begin verbatim
 \relative c'' {
-    \override Glissando #'style = #'zigzag
-     \time 3/4
-     c4 c
-	 \cadenzaOn  c\glissando \hideNotes c,, \unHideNotes \cadenzaOff
-	 \bar "|"
-	 }
+  \time 3/4
+  \override Glissando #'style = #'zigzag
+  c4 c
+  \cadenzaOn  c\glissando \hideNotes c,, \unHideNotes \cadenzaOff
+  \bar "|"
+}
 
 \addlyrics { Use cadenzaOn glissando hideNotes }
-\addlyrics { unHideNotes cadenzaOff, skip_and_\bar \skip 4  }
-\layout{raggedright = ##t}
-\header { tagline="" }
+\addlyrics { unHideNotes cadenzaOff, skip_and_\bar \skip 4 }
 

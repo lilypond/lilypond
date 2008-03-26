@@ -16,22 +16,16 @@ modify what material they cover.
 " }
 % begin verbatim
 \new RhythmicStaff {
-
-      % Set tuplets to be extendable ..
-
-   \set tupletFullLength = ##t
-
-      % .. to cover all items up to the next note
-
-   \set tupletFullLengthNote = ##t
-   \time 2/4
-   \times 2/3 { c4 c c }
-
-      % .. or to cover just whitespace
-
-   \set tupletFullLengthNote = ##f
-   \time 4/4
-   \times 4/5 { c4 c1 }
-   \time 3/4
-   c4
+  % Set tuplets to be extendable...
+  \set tupletFullLength = ##t
+  % ...to cover all items up to the next note
+  \set tupletFullLengthNote = ##t
+  \time 2/4
+  \times 2/3 { c4 c c }
+  % ...or to cover just whitespace
+  \set tupletFullLengthNote = ##f
+  \time 4/4
+  \times 4/5 { c4 c1 }
+  \time 3/4
+  c4
 }

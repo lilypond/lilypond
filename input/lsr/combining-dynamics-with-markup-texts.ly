@@ -6,18 +6,16 @@
   lsrtags = "expressive-marks, text"
  texidoc = "
 Some dynamics may involve text indications (such as \"più forte\",
-\"piano subito\", etc.). They can be produced using a \\markup bloc.
+\"piano subito\", etc.). They can be produced using a @code{\\markup}
+block.
 " }
 % begin verbatim
-\layout{ragged-right = ##t}
+\layout { ragged-right = ##t }
 
-piuf =	\markup {  \italic "molto" \dynamic "f" }
+piuf = \markup { \italic "più" \dynamic "f" }
 
-\relative c''{
+\relative c'' {
+  c2
   c-\piuf
-  c
-  c2\< c2\!
-  
-  c2\< c2\!
 }
 
