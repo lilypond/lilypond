@@ -34,7 +34,7 @@ endif
 ifneq ($(ISOLANG),) 
 TEXI2HTML_LANG = --lang=$ISOLANG
 endif
-TEXI2HTML_FLAGS += --init-file=$(top-src-dir)/lilypond-texi2html.init --css-ref=lilypond.css $(DOCUMENTATION_INCLUDES)
+TEXI2HTML_FLAGS += --css-ref=lilypond.css $(DOCUMENTATION_INCLUDES)
 TEXI2HTML = $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) $(TEXI2HTML_LANG)
 
 
@@ -45,15 +45,14 @@ $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.
 
 $(outdir)/%/index.html: $(outdir)/%.texi
 	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(outdir) --output=$@ --split=section $<
-#	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --split=section $<
+	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=init --split=section $(TEXI2HTML_INIT) $<
 
 # TODO: Pass -D bigpage to texi2html
 $(outdir)/%-big-page.html: $(outdir)/%.texi
-	$(TEXI2HTML) --I=$(outdir) --output=$@ $< 
+	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $< 
 
 $(outdir)/%.html: $(outdir)/%.texi
-	$(TEXI2HTML) --I=$(outdir) --output=$@ $<
+	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)

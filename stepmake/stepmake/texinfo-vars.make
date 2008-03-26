@@ -16,6 +16,7 @@ MAKEINFO_FLAGS = --enable-encoding -D 'version $(TOPLEVEL_VERSION)'
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
 TEXI2HTML_FLAGS = 
+TEXI2HTML_INIT = --init-file=$(top-src-dir)/lilypond-texi2html.init
 TEXI2HTML = LANG= $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS)
 
 # info stuff
