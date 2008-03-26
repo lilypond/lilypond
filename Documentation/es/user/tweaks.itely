@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 13290c3922962e4538d3acaf1f7abe14fce6bbff
+    Translation of GIT committish: 2f036270de7077d87ffc4b204e7a0618f59e86f6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -17,13 +17,14 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 @menu
 * Tweaking basics::             
 * The Internals Reference manual::  
+* Appearance of objects::       
 * Moving objects::              
 * Fixing overlapping notation::  
 * Common tweaks::               
 * Default files::               
 * Fitting music onto fewer pages::  
-* Advanced tweaks with Scheme::  
 * Avoiding tweaks with slower processing::  
+* Advanced tweaks with Scheme::  
 @end menu
 
 @node Tweaking basics
@@ -888,13 +889,552 @@ en la instrucción @code{\override}.
   @tab @code{#(#t #t #f)}
 @end multitable
 
+@node Appearance of objects
+@section Appearance of objects
+
+Ahora vamos a poner en práctica lo que hemos aprendido con unos
+cuantos ejemplos que muestran cómo se pueden usar los trucos para
+cambiar el aspecto de la música impresa.
+
+@menu
+* Visibility and color of objects::  
+* Size of objects::             
+* Length and thickness of objects::  
+@end menu
+
+@node Visibility and color of objects
+@subsection Visibility and color of objects
+
+Dentro de un uso educativo de la música, podríamos desear imprimir una
+partitura con ciertos elementos omitidos como ejercicio para el
+alumno, a quien se le pide que los complete.  A la manera de ejemplo
+sencillo, supongamos que el ejercicio es escribir las líneas
+divisorias que faltan en un fragmento musical.  Pero las líneas
+divisorias normalmente se insertan automáticamente. ¿Cómo hacemos para
+que no se impriman?
+
+Antes de enredarnos con esto, recordemos que las propiedades de los
+objetos se agrupan en lo que hemos llamado @emph{interfaces} (véase
+@ref{Properties found in interfaces}).  Esto es simplemente agrupar
+las propiedades que normalmente se necesitan juntas: si una de ellas
+se necesita para un objeto, también las otras.  Así, ciertos objetos
+necesitan las propiedades de algunos interfaces, otros necesitan las
+de otros interfaces.  Los interfaces que contienen las propiedades que
+un determinado grob necesita se ecuentran relacionadas en el manual
+RFI al final de la página que describe dicho grob, y esas propiedades
+se pueden ver mirando dichos interfaces.
+
+Hemos explicado cómo encontrar información sobre los grobs en
+@ref{Properties of layout objects}.  Usando el mismo enfoque, vamos al
+RFI para biscar el objeto de presentación que imprime las líneas
+divisorias.  A través del enlace @emph{Backend} y @emph{All layout
+objects} encontramos que hay un objeto de presentación llamado
+@code{BarLine}.  Entre sus propiedades se encuentran dos que controlan
+la visibilidad: @code{break-visibility} y @code{stencil}.  Las líneas
+divisorias también contemplan un número de interfaces, entre ellos el
+@code{grob-interface}, donde podemos encontrar las propiedades
+@code{transparent} y @code{color}.  Todas ellas pueden afectar la
+visibilidad de las barras de compás (y, por supuesto, por extensión,
+tambén la de muchos otros objetos de presentación).  Vamos a
+considerar cada uno de ellos por orden.
+
+@subheading stencil
+@cindex stencil (sello), propiedad
+
+Esta propiedad controla la apariencia de las barras de compás mediante
+la especificación del símbolo (o «glifo») que se debe imprimir.  Igual
+que como otras muchas propiedades, se puede establecer de forma que no
+imprima nada ajustando su valor a @code{#f}.  Vamos a probarlo, como
+antes, omitiendo el Contexto implícito, @code{Voice}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override BarLine #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Las barras de compás todavía se imprimen.  ¿Qué es lo que está mal?
+Vuelva al RFI y mire de nuevo la página que ofrece las propiedades del
+objeto BarLine.  Al principio de la página dice @qq{Barline objects
+are created by: Bar_engraver} (los objetos Barline se crean por el
+grabador Bar_engraver).  Vaya a la página del grabador
+@code{Bar_engraver} siguiendo el enlace.  Al final da una lista de
+contextos en los que el grabador de líneas divisorias opera.  Todos
+ellos son del tipo @code{Staff}, y así la razón de que la instrucción
+@code{\override} no funcionara como esperábamos, es porque
+@code{Barline} no se encuentra en el contexto predeterminado
+@code{Voice}.  Si el contexto se especifica mal, la instrucción
+simplemente no funciona.  No se produce ningún mensaje de error, y no
+se registra nada en el archivo log de registro.  Vamos a intentar
+corregirlo escribiendo el contexto correcto:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Ahora las barras de compás han desaparecido.
+
+@subheading break-visibility
+
+@cindex break-visibility property
+
+Vemos en las propiedades de @code{BarLine} que aparecen en el RFI que
+la propiedad @code{break-visibility} requiere un vector de tres
+valores booleanos.  Controlan respectivamente si las barras de compás
+se imprimen al final de una línea, en mitad de una línea, y al
+principio de las líneas.  Para nuestro ejemplo, queremos que todas las
+barras de compás se supriman, por lo que el valor que necesitamos es
+@code{#(#f #f #f)}.  Vamos a probarlo, recordando incluir el contexto
+de @code{Staff}.  Observa también que al escribir este valor tenemos
+dos símbolos de almohadilla antes del paréntesis de apertura.  Se
+necesita uno como parte del valor para introducir un vector, y se
+necesita otro más, como siempre, para precered el propio valor dentro
+de la instrucción @code{\override}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'break-visibility = ##(#f #f #f)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Y podemos ver que esto también quita todas las líneas divisorias.
+
+@subheading transparent
+@cindex transparente, propiedad
+
+En la relación de propiedades que se especifican en la página del
+@code{grob-interface} del RFI podemos ver que la propiedad
+@code{transparent} es un valor booleano.  Esto se debe establecer a
+@code{#t} para hacer que el grob sea transparente.  En el ejemplo
+siguiente vamos a hacer que la indicación de compás, y no las líneas
+divisorias, sea transparente.  Para hacerlo tenemos que buscar el
+nombre del grob de la indicación de compás.  Volviendo a la página
+@q{All layout objects} del RFI, buscamos las propiedades del objeto de
+presentación @code{TimeSignature}.  Se produce por parte del grabador
+@code{Time_signature_engraver} que como puede comprobar vive dentro
+del contexto de @code{Staff} y también contempla el interface
+@code{grob-interface}.  Así pues, la instrucción que hace transparente
+a la indicación de compás es:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature #'transparent = ##t
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+El compás ya no está, pero esta instrucción deja una separación en el
+lugar donde antes estaba la indicación de compás.  Quizá esto es lo
+que queremos para un ejercicio en que el alumno deba escribirlo, pero
+en otras circunstancias esta separación podría no ser deseable.  En
+vez de eso, para quitarla, el stencil o «sello» de la indicación de
+compás se debe establecer al valor @code{#f}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+y la diferencia es obvia: al establecer el sello al valor @code{#f}
+quitamos el objeto por completo; al hacer el objeto @code{transparent}
+lo dejamos donde está, pero lo hacemos invisible.
+
+@subheading color
+@cindex color, propiedad
+
+PAra finalizar, podríamos hacer invisibles las barras de compás
+pintándolas de color blanco.  El interface @code{grob-interface}
+especifica que la propiedad del color es una lista, pero no hay
+ninguna explicación sobre lo que debe ir en esa lista.  La lista que
+requiere es realmente una lista de valores en unidades internas, pero
+para evitar tener que saber cuáles son, se ofrecen varias vías para la
+especificación de los colores.  La primera forma es utilizar uno de
+los colores @q{normales} que están relacionados en la primera tabla de
+la @ruser{List of colors}.  Para poner las líneas divisorias de color
+blanco, escribimos:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #white
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+y de nuevo podemos comprobar que las barras de compás no son visibles.
+Observe que @emph{white} no viene precedido de un apóstrofe: no es un
+símbolo, sino una @emph{función}.  Cuando se invoca, proporciona la
+lista de valores internos que se requieren para establecer el color a
+blanco.  Los otros colores de la lista normal también son funciones.
+Para convencerse de que esto funciona, quizá quiera cambiar el color a
+una de las otras funciones de la lista.
+
+@cindex colores de X11
+@cindex X11, colores de
+
+La segunda forma de cambiar el color es utilizar la lista de nombres
+de colores de X11 que aparecen en la segunda lista de @ruser{List of
+colors}.  Sin embargo, éstos deben ir precedidos de otra función, que
+convierte los nombres de colores de X11 en la lista de valores
+internos, @code{x11-color}, de la siguiente manera:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #(x11-color 'white)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Observe que en este caso la función @code{x11-color} toma un símbolo
+como argumento, así que el símbolo debe ir precedido de un apóstrofe y
+los dos deben ir entre paréntesis.
+
+@cindex rgb, colores
+@cindex color, rgb
+
+Aún hay una tercera función, que convierte valores RGB en colores
+internos: la función @code{rgb-color}.  Toma tres argumentos que dan
+las intensidades de rojo, verde y azul.  Cada uno de ellos puede tomar
+valores entre 0 y 1.  Por lo tanto, para establecer el color a rojo el
+valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
+@code{(rgb-color 1 1 1)}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #(rgb-color 1 1 1)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Finalmente, existe también una escala de grises como parte del
+conjunto de colores de X11.  Varían desde el negro, @code{'grey0'},
+hsta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar esto
+estableciendo todos los objetos de presentación de nuestro ejemplo a
+varias gradaciones de gris:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
+  \override Staff.TimeSignature #'color = #(x11-color 'grey60)
+  \override Staff.Clef          #'color = #(x11-color 'grey60)
+  \override Voice.NoteHead      #'color = #(x11-color 'grey85)
+  \override Voice.Stem          #'color = #(x11-color 'grey85)
+  \override Staff.BarLine       #'color = #(x11-color 'grey10)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Observe los contextos asociados con cada uno de los objetos de
+presentación.  Es importante que estén correctamente escritos, o las
+instrucciones ¡no funcionarán!  Recuerde que el contexto es aquel en
+que se encuentra el grabador correspondiente.  El contesto
+predeterminado para los grabadores puede encontrarse empezando por el
+objeto de presentación, de ahí al grabador que lo produce, y en la
+página del grabador del RFI aparece en qué contexto se puede encontrar
+normalmente el grabador.
+
+
+@node Size of objects
+@subsection Size of objects
+
+Empezaremos examinando de nuevo un ejemplo anterior (véase
+@ref{Nesting music expressions}) que nos mostraba cómo introducir un
+pentagrama temporal, como en un @rglos{ossia}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+       \relative g' {
+         r4 g8 g c4 c8 d |
+         e4 r8
+         <<
+           { f c c }
+           \new Staff \with {
+             alignAboveContext = "main" }
+           { f8 f c }
+         >>
+         r4 |
+       }
+     }
+@end lilypond
+
+Los fragmentos de Ossia se escriben normalmente sin clave ni compás, y
+por lo normal se imprimen más pequeños que el pentagrama principal.
+Ya sabemos cómo quitar la clave y el compás: simplemente establecemos
+el sello de cada uno de ellos a @code{#f}, como sigue:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" 
+      }
+      {
+        \override Staff.Clef #'stencil = ##f
+        \override Staff.TimeSignature #'stencil = ##f
+        { f8 f c }
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+donde el par de llaves adicional después de la cláusula @code{\with}
+es necesario para asegurar que la sobreescritura encerrada y la música
+se aplican al pentagrama de ossia.
+
+Pero ¿cuál es la diferencia entre modificar el contexto de pentagrama
+usando @code{\with} y modificar los sellos de clave y de compás con
+\override?  La diferencia principal es que los cambios que se realizan
+enuna cláusula @code{\with} se hacen en el momento en que se crea el
+contexto, y permanecen activos como valores @strong{predeterminados}
+durante toda la duración de dicho contexto, mientras que las
+instrucciones @code{\set} o @code{\override} incluidas dentro de la
+música son dinámicas: hacen cambios sincronizados con un punto
+concreto de la música.  Si los cambios se deshacen o se devuelven
+mediante @code{\unset} o @code{\revert} volverán a su valor
+predeterminado que será el establecido en la cláusula @code{\with}, o
+si no se ha establecido ninguno en este lugar, los valores
+predeterminados normales.
+
+Ciertas propiedades de contexto se pueden modificar solamente dentro
+de cláusulas @code{\with}.  Son aquellas propiedades que no se pueden
+cambiar después de que el contexto se ha creado.
+@code{alignAboveContext} y su compañero, @code{alignBelowContext}, son
+dos de tales propiedades: una vez que el pentagrama se ha creado, su
+alineación está decidida y no tendría sentido intentar cambiarla más
+tarde.
+
+Los valores predeterminados de las propiedades de los objetos de
+presentación también se pueden establever dentro de cláusulas
+@code{\with}.  Simplemente utilice la instrucción @code{\override}
+normal dejando aparte el nombre del contextom ya que está definido sin
+ambigüedad como el contexto que la cláusula @code{\with} está
+modificando.  De hecho, se producirá un error si se especifica un
+contexto en este lugar.
+
+Así pues, podemos reemplazar el ejemplo anterior con
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" 
+        % Don't print clefs in this staff
+        \override Clef #'stencil = ##f
+        % Don't print time signatures in this staff
+        \override TimeSignature #'stencil = ##f
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Finalmente llegamos a la forma de cambiar el tamaño de los objetos de
+presentación.
+
+Ciertos objetos de presentación se crean como glifos sacados de una
+fuente tipográfica.  Entre ellos se encuentran las cabezas,
+alteraciones, elementos de marcado, claves, indicaciones de compás,
+indicaciones dinámicas y la letra de las canciones.  Su tamaño se
+cambia mediante la modificación de la propiedad @code{font-size}, como
+veremos en breve.  Otros objetos de presentación como ligaduras de
+unión y de expresión (en general, objetos de extensión) se trazan
+individualmente, por lo que no hay un tamaño de tipografía
+@code{font-size} asociado a ellos.  Estos objetos generalmente derivan
+su tamaño de los objetos a los que están adosados, y por ello
+normalmente no hay necesidad de cambiarles el tamaño manualmente.  Aún
+otras propiedades como la longitud de las plicas y las barras de
+compás, el grosor de las barras de corchea y otras líneas, y la
+separación de las líneas del pentagrama se deben modificar de otras
+formas especiales.
+
+Volviendo al ejemplo del ossia, vamos a cambiar en primer lugar el
+tamaño de la tipografía.  Podemos hacerlo de dos formas.  Podemos
+cambiar el tamaño de las tipografías de cada uno de los tipos de
+objeto como las cabezas (@code{NoteHead}s) con instrucciones como
+
+@example
+\override NoteHead #'font-size = #-2
+@end example
+
+o podemos cambiar el tamaño de todas las tipografías estableciendo una
+propiedad especial, @code{fontSize}, utilizando @code{\set}, o
+mediante su inclusión dentro de una cláusula @code{\with} (pero sin el
+@code{\set}).
+
+@example
+\set fontSize = #-2
+@end example
+
+Los dos enunciados producirían una reducción del tamaño de la
+tipografía en dos pasos a partir de su valor previo, donde cada paso
+reduce o aumenta el tamaño aproximadamente en un 12%.
+
+Vamos a probarlo en nuestro ejemplo del ossia:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" 
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        % Reduce all font sizes by ~24%
+        fontSize = #-2
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Aún no está demasiado bien.  Las cabezas y los corchetes de las notas
+son más pequeños, pero las plicas son demasiado largas en proporción,
+y las líneas del pentagrama están demasiado separadas entre sí.  Se
+debe reducir su escala en proporción a la reducción de la tipografía.
+El siguiente apartado trata sobre cómo se hace esto.
+
+@node Length and thickness of objects
+@subsection Length and thickness of objects
+
+@cindex distancias
+@cindex grosor
+@cindex longitud
+@cindex magstep
+@cindex tamaño, cambiar
+@cindex plica, cambiar la longitud
+@cindex pentagrama, cambiar la separación de las líneas
+
+Las distancias y longitudes en LilyPond se miden generalmente en
+espacios de pentagrama, la distancia entre líneas adyacentes de la
+pauta (o de manera ocasional medios espacios), mientras que la mayoría
+de las propiedades de @code{thickness} (grosor) se miden en unidades
+de una propiedad interna llamada @code{line-thickness.}  Por ejemplo,
+de forma predeterminada, a las líneas de los reguladores se les da un
+grosor de 1 unidad de @code{line-thickness}, mientras que el
+@code{thickness} de una plica es 1.3.  Observe sin embargo que ciertas
+propiedades de grosor son diferentes; por ejemplo, el grosor de las
+barras de corchea se mide en espacios de pentagrama.
+
+Entonces ¿cómo se tienen que escalar las longitudes en proporción al
+tamaño de la tipografía?  Se puede hacer con la ayuda de una función
+especial que se llama @code{magstep}, pensada especialmente para este
+propósito.  Toma un argumento, el cambio de tamaño de la tipografía
+(#-2 en nuestro ejemplo) y devuelve un factor de escalado adecuado
+para reducir otros objetos en la misma proporción.  Se usa de la
+siguiente forma:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main" 
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        fontSize = #-2
+        % Reduce stem length and line spacing to match
+        \override StaffSymbol #'staff-space = #(magstep -2)
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Puesto que la longitud de las plicas y muchas otras propiedades
+relacionadas con la longitudse calculan siempre con relación al valor
+de la propiedad @code{staff-space}, su longitud también ve reducida su
+escala automáticamente.  Observe que esto afecta solamente a la escala
+vertical del ossia: la escala horizontal se determina por medio de la
+disposición de la música principal con el objeto de mantenerse en
+sincronía con ella, de forma que no resulte afectada por ninguno de
+estos cambios de tamaño.  Por supuesto, si la escala de toda la música
+principal se cambiase de esta forma, entonces el espaciado horizontal
+se vería afectado.  Trataremos de esto más tarde en la sección sobre
+la disposición.
+
+Esto, en fin, completa la creación de un ossia.  Los tamaños y
+longitudes del resto de los objetos se pueden modificar de manera
+análoga.
+
+Para cambios de escala pequeños, como en el ejemplo de arriba, el
+grosor de las diversas líneas dibujadas como divisorias, barras de
+corchea, reguladores, ligaduras, etc, no requieren normalmente ningún
+ajuste global.  Si el grosor de cualquier objeto de presentación en
+particular necesita ajustarse, se puede hacer mejor mediante la
+sobreescritura de su propiedad @code{thickness}.  Anteriormente
+mostramos un ejemplo de cambio de grosor en las ligaduras, en
+@ref{Properties of layout objects}.  El grosor de todos los objetos
+trazados (es decir, aquellos que no se producen a partir de una
+tipografía) se pueden cambiar de la misma forma.
 
 @node Moving objects
 @section Moving objects
 
-Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos
-elementos de notación se pueden superponer, lo que es una lástima,
-pero en casi todos los casos se resuelve fácilmente.
+Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos elementos
+de notación se pueden superponer, lo que es una lástima, pero en casi
+todos los casos se resuelve fácilmente.
 
 @c  FIXME: find a better example for 5.1 Moving Objects.  -gp
 @c  yes, I want this TODO to be visible to end-users.  It's better
@@ -1197,14 +1737,6 @@ se mide en espacios de pentagrama.  Para más información, consulte la porción
 correspondiente de la referencia del programa.
 
 
-@menu
-* Size of objects::             
-@end menu
-
-@node Size of objects
-@subsection Size of objects
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Default files
 @section Default files
@@ -1326,6 +1858,17 @@ Altere el espaciado horizontal por medio de @code{SpacingSpanner}.  Consulte
 
 @end itemize
 
+@node Avoiding tweaks with slower processing
+@section Avoiding tweaks with slower processing
+
+LilyPond puede llevar a cabo comprobaciones adicionales al tiempo que
+procesa los archivos.  Estos comandos consumen tiempo, pero el
+resultado puede necesitar menos trucos manuales.
+
+@example
+%%  asegura que las marcas de texto y letras de las canciones se encuentran dentro de los márgenes de la página
+\override Score.PaperColumn #'keep-inside-line = ##t 
+@end example
 
 @node Advanced tweaks with Scheme
 @section Advanced tweaks with Scheme
@@ -1387,17 +1930,6 @@ pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 @end lilypond
 
 
-@node Avoiding tweaks with slower processing
-@section Avoiding tweaks with slower processing
-
-LilyPond puede llevar a cabo comprobaciones adicionales al tiempo que
-procesa los archivos.  Estos comandos consumen tiempo, pero el
-resultado puede necesitar menos trucos manuales.
-
-@example
-%%  asegura que las marcas de texto y letras de las canciones se encuentran dentro de los márgenes de la página
-\override Score.PaperColumn #'keep-inside-line = ##t 
-@end example
 
 
 
