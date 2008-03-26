@@ -28,6 +28,7 @@
 
 #include "translator.icc"
 
+#include <string.h>
 
 /*
   TODO:
