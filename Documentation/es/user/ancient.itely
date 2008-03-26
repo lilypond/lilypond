@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
+    Translation of GIT committish: d619d9858609c54377a0652eaa7cb843b103742d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,7 +19,7 @@
 
 El tratamiento de la notación antigua incluye posibilidades orientadas a la notación mensural
 y de Canto Gregoriano.  También se contempla de forma limitada la notación del
-bajo figurado.
+bajo cifrado.
 
 Muchos objetos gráficos ofrecen una propiedad @code{style}, consulte
 @itemize
@@ -2019,7 +2019,7 @@ Referencia del programa: el grabador @internalsref{Accidental_engraver} y el obj
 @c TODO: musicological blurb about FB
 
 
-LilyPond contempla el bajo figurado
+LilyPond contempla el bajo cifrado
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 <<
@@ -2032,7 +2032,7 @@ LilyPond contempla el bajo figurado
 >>
 @end lilypond
 
-El soporte para el bajo figurado consta de dos partes: hay un modo de entrada,
+El soporte para el bajo cifrado consta de dos partes: hay un modo de entrada,
 que se inicia mediante @code{\figuremode}, en el que puede escribir las cifras del bajo
 como números, y hay un contexto llamado @internalsref{FiguredBass} que se ocupa
 de crear los objetos @internalsref{BassFigure} (cifras del bajo).
@@ -2141,7 +2141,7 @@ dirección del signo más establecida en @code{figuredBassPlusDirection}
 @end lilypond
 
 
-Aunque posiblemente la forma en que está contemplado el bajo figurado se parece superficialmente a los
+Aunque posiblemente la forma en que está contemplado el bajo cifrado se parece superficialmente a los
 acordes, es mucho más simple.  El modo @code{\figuremode} sencillamente
 almacena los números, y el contexto @internalsref{FiguredBass} los imprime
 tal y como se han escrito.  No hay ninguna conversión a alturas de nota ni se reproduce ninguna realización
@@ -2152,7 +2152,7 @@ propiedades de los elementos de marcado textual para sobreescribir los detalles 
 espaciado vertical de las cifras se puede establecer con @code{baseline-skip}.
 
 
-El bajo figurado también se puede añadir a contextos @code{Staff} (de pauta)
+El bajo cifrado también se puede añadir a contextos @code{Staff} (de pauta)
 directamente.  En este caso, su posición vertical se ajusta de
 forma automática.
 
@@ -2187,7 +2187,7 @@ cifras por debajo de las notas, utilice
 
 @knownissues
 
-Al usar bajos figurados por encima del pentagrama con líneas de extensión y
+Al usar bajos cifrados por encima del pentagrama con líneas de extensión y
 @code{implicitBassFigures}, las líneas podrían intercambiarse.
 Es imposible mantener el orden de forma consistente cuando varias cifras
 tienen líneas de extensión que se superponen.  Para evitar este problema, utilice

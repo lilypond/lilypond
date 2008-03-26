@@ -5,5 +5,6 @@ ancient-notation-template----modern-transcription-of-mensural-music.ly
 ancient-fonts.ly
 ancient-time-signatures.ly
 custodes.ly
+mensurstriche-layout-bar-lines-between-the-staves.ly
 ancient-notation-template----modern-transcription-of-gregorian-music.ly
 rest-styles.ly

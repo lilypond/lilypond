@@ -22,6 +22,7 @@
 #include <algorithm>   /* find, reverse, sort */
 #include <functional>  /* unary_function */
 #include <cassert>
+#include <string>
 
 using namespace std;
 
