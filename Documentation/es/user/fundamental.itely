@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: b0a1d7fa5e1b8371a0d1f1ed1dfd3fc9bc4881d2
+    Translation of GIT committish: f3931bc47046b82216dba42a5f0e46c48b598045
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1402,7 +1402,7 @@ Hay muchas más que las que se muestran aquí.
   @tab Valor de ejemplo
 @item extraNatural
   @tab Booleano
-  @tab Se es verdadero, poner becuadros adicionales antes de las alteraciones
+  @tab Si es verdadero, poner becuadros adicionales antes de las alteraciones
   @tab @code{#t}, @code{#f}
 @item currentBarNumber
   @tab Entero
