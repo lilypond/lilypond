@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 09959774607dd319f60a75ab1927981d7707feee
+    Translation of GIT committish: 1292d70ff6fa2d24e71fd7b9ac118359eef21794
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -18,7 +18,8 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 * Tweaking basics::             
 * The Internals Reference manual::  
 * Appearance of objects::       
-* Collisions of objects::
+* Placement of objects::        
+* Collisions of objects::       
 * Common tweaks::               
 * Default files::               
 * Fitting music onto fewer pages::  
@@ -147,7 +148,7 @@ en minúscula.  Otros caracteres se utilizan literalmente como están.
   @tab Clef_engraver, Note_heads_engraver
 @item Interfaces
   @tab aaa-aaa-interface
-  @tab grob-interface, break-aligned-interface 
+  @tab grob-interface, break-aligned-interface
 @item Propiedades de contextos
   @tab aaa o aaaAaaaAaaa
   @tab alignAboveContext, skipBars
@@ -186,7 +187,7 @@ modificar, y cuál debe ser su nuevo valor.  Veamos cómo se hace.
 La sintaxis genérica de esta instrucción es:
 
 @example
-\override @emph{contexto}.@emph{objeto_de_presentación} 
+\override @emph{contexto}.@emph{objeto_de_presentación}
   #'@emph{propiedad_de_presentación} = #@emph{valor}
 @end example
 
@@ -395,7 +396,7 @@ se puede modificar de la forma usual mediante instrucciones
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c]}
-\once \override TupletNumber 
+\once \override TupletNumber
   #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
   c[ c]
@@ -455,15 +456,15 @@ real:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g | 
-    g[( e]) e d[( f]) a | 
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 Suponga ahora que decidimos que nos gustan las ligaduras algo más
 gruesas.  ¿Es posible?  La ligadura es, ciertamente, un objeto de
@@ -533,7 +534,7 @@ siguiente:
 
 @example
 \override Slur #'thickness = #5.0
-@end example 
+@end example
 
 ¡No olvide el @code{#'} antes del nombre de la propiedad y @code{#}
 antes del valor nuevo!
@@ -554,10 +555,10 @@ cerca de ella.}  Hagámoslo así:
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 y podemos ver que la ligadura, es sin duda, más pesada.
@@ -616,15 +617,15 @@ siguiente:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g | 
-    g[( e]) e d[( f]) a | 
-    a g 
+    b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 Hemos hecho que ahora solamente la primera ligadura sea más gruesa.
@@ -654,14 +655,14 @@ ligaduras:
     b[( g]) g |
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a | 
+    g[( e]) e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 o podríamos omitir la instrucción prefija @code{\once} y utilizar la
@@ -677,14 +678,14 @@ segunda ligadura:
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
     b[( g]) g |
-    g[( e]) 
+    g[( e])
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a | 
+    e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond
@@ -793,7 +794,7 @@ afectar, como esto:
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond
@@ -1207,7 +1208,7 @@ el sello de cada uno de ellos a @code{#f}, como sigue:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main" 
+        alignAboveContext = "main"
       }
       {
         \override Staff.Clef #'stencil = ##f
@@ -1265,7 +1266,7 @@ Así pues, podemos reemplazar el ejemplo anterior con
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main" 
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \override Clef #'stencil = ##f
         % Don't print time signatures in this staff
@@ -1329,7 +1330,7 @@ Vamos a probarlo en nuestro ejemplo del ossia:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main" 
+        alignAboveContext = "main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         % Reduce all font sizes by ~24%
@@ -1386,7 +1387,7 @@ siguiente forma:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main" 
+        alignAboveContext = "main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         fontSize = #-2
@@ -1429,13 +1430,634 @@ trazados (es decir, aquellos que no se producen a partir de una
 tipografía) se pueden cambiar de la misma forma.
 
 
+@node Placement of objects
+@section Placement of objects
+
+@menu
+* Automatic behaviour::         
+* Within-staff objects::        
+* Outside staff objects::       
+@end menu
+
+
+@node Automatic behaviour
+@subsection Automatic behaviour
+
+Hay ciertos objetos en notación musical que pertenecen al pentagrama y
+otros cuyo lugar se sitúa fuera del pentagrama.  Reciben el nombre de
+objetos dentro-del-pentagrama y objetos fuera-del-pentagrama,
+respectivamente.
+
+Los objetos dentro-del-pentagrama son los que se sitúan sobre la
+pauta: cabezas, plicas, alteraciones, etc.  Sus posiciones normalmente
+se fijan por la propia música; se posicionan verticalmente sobre
+líneas específicas del pentagrama o están unidos a otros objetos
+posicionados de esta forma.  Las colisiones entre cabezas, plicas y
+alteraciones en acordes de notas muy juntas, normalmente se evitan
+automáticamente.  Hay instrucciones y sobreescrituras que pueden
+modificar este comportamiento automático, como veremos en breve.
+
+Entre los objetos que pertenecen al exterior de la pauta se encuentran
+cosas como las marcas de ensayo, las marcas de texto y las de
+dinámica.  La regla de LilyPond para la colocación vertical de los
+objetos fuera-de-pentagrama es colocarlos tan cerca del pentagrama
+como sea posible, pero no tan cerca como para que puedan chocar con
+algún otro objeto.  LilyPond utiliza la propiedad
+@code{outside-staff-priority} para determinar el orden en que se deben
+situar los objetos, como veremos ahora.
+
+En primer lugar, LilyPond sitúa todos los objetos
+dentro-del-pentagrama.  Después ordena los objetos
+fuera-del-pentagrama de acuerdo con su prioridad
+@code{outside-staff-priority}.  Los objetos fuera-del-pentagrama se
+toman de uno en uno, comenzando por el que tiene la prioridad
+@code{outside-staff-priority} más baja, y se sitúan de forma que no
+colisionen con ningún objeto que se haya colocado ya. Esto es, si dos
+grobs fuera-del-pentagrama compiten por el mismo espacio, el que tiene
+la prioridad @code{outside-staff-priority} más baja se colocará más
+cerca del pentagrama.  Si dos objetos tienen la misma
+@code{outside-staff-priority}, el que se ha encontrado primero se
+situará más cerca de la pauta.
+
+En el siguiente ejemplo, todos los textos de marcado tienen la misma
+prioridad (pues no se ha establecido explícitamente).  Observe que
+@q{Text3} se posiciona de nuevo automáticamente cerca del pentagrama,
+acomodado por debajo de @q{Text2}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+Los pentagramas también se posicionan, de forma predeterminada, tan
+cerca unos de otros como sea posible (sujeto a una separación mínima).
+Si las notas se proyectan muy lejos en dirección a un pentagrama
+adyacente, forzarán a alejarse a los pentagramas sólo si en caso
+contrario fuese a ocurrir un solapamiento de la notación.  El ejemplo
+siguiente muestra esta acomodación @q{nestling} de las notas sobre
+pentagramas adyacentes:
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff {
+    \relative c' { c a, }
+  }
+  \new Staff {
+    \relative c'''' { c a, }
+  }
+>>
+@end lilypond
+
+
+@node Within-staff objects
+@subsection Within-staff objects
+
+Ya hemos visto cómo las instrucciones @code{\voiceXXX} affectan a la
+dirección de las ligaduras de expresión y de unión, digitaciones y
+todo lo demás que dependa de la dirección de las plicas.  Cuando se
+escribe música polifónica, estas instrucciones son esenciales para que
+puedan distinguirse varias líneas melódicas entrelazadas.  Pero
+ocasionalmente puede ser necesario sobreescribir este comportamiento
+automático.  Se puede hacer por secciones de música completas o
+incluso para una nota individual.  La propiedad que controla este
+comportamiento es la propiedad de @code{direction} (dirección) de cada
+objeto de presentación.  En primer lugar explicaremos qué hace esto, y
+lueco introduciremos algunas instrucciones listas para usar que le
+evitarán tener que codificar sobreescrituras explícitas para las
+modificaciones más comunes.
+
+Algunos objetos de presentación como las ligaduras se curvan hacia
+arriba o hacia abajo; otros como las plicas y los corchetes también se
+mueven a la derecha o a la izquierda cuando apuntan hacia arriba o
+hacia abajo.  Esto se controla automáticamente cuando está establecida
+la propiedad @code{direction}.
+
+El ejemplo siguiente muestra en el compás 1 el comportamiento
+predeterminado de las plicas, con las de las notas agudas apuntando
+hacia abajo y las graves hacia arriba, seguidas de cuatro notas con
+todas las plicas forzadas hacia abajo, cuatro notas con las plicas
+forzadas hacia arriba, y por último cuatro notas devueltas al
+comportamiento predeterminado.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+a4 g c a
+\override Stem #'direction = #DOWN
+a g c a
+\override Stem #'direction = #UP
+a g c a
+\revert Stem #'direction
+a g c a
+@end lilypond
+
+Aquí utilizamos las constantes @code{DOWN} (abajo) y @code{UP}
+(arriba).  Éstos tienen los valores @code{-1} y @code{+1}
+respectivamente, y dichos valores numéricos también se pueden usar
+directamente.  El valor @code{0} también se puede usar en algunos
+casos.  Se trata simplemente con el significado de @code{UP} para las
+plicas, pero para algunos objetos tiene el significado de
+@q{centrado}.  Existe una constante @code{CENTER} que tiene el valor
+@code{0}.
+
+Sin embargo, estas sobreescrituras no se usan muy a menudo porque
+están disponibles instrucciones predefinidas equivalentes más
+sencillas.  Aquí podemos ver una tabla de las más comunes.  Se
+menciona el significado de cada una allí donde no es obvio.
+
+@multitable @columnfractions .2 .2 .2 .4
+@headitem Abajo o Izquierda
+  @tab Arriba o Derecha
+  @tab Anular
+  @tab Efecto
+@item @code{\arpeggioDown}
+  @tab @code{\arpeggioUp}
+  @tab @code{\arpeggioNeutral}
+  @tab La flecha está abajo, arriba o no hay flecha
+@item @code{\dotsDown}
+  @tab @code{\dotsUp}
+  @tab @code{\dotsNeutral}
+  @tab Dirección del desplazamiento para evitar las líneas del pentagrama
+@item @code{\dynamicDown}
+  @tab @code{\dynamicUp}
+  @tab @code{\dynamicNeutral}
+  @tab
+@item @code{\phrasingSlurDown}
+  @tab @code{\phrasingSlurUp}
+  @tab @code{\phrasingSlurNeutral}
+  @tab Nota: diferente de las instrucciones de ligaduras de expresión
+@item @code{\slurDown}
+  @tab @code{\slurUp}
+  @tab @code{\slurNeutral}
+  @tab
+@item @code{\stemDown}
+  @tab @code{\stemUp}
+  @tab @code{\stemNeutral}
+  @tab
+@item @code{\textSpannerDown}
+  @tab @code{\textSpannerUp}
+  @tab @code{\textSpannerNeutral}
+  @tab El texto introducido como objeto de extensión está debajo o encima del pentagrama
+@item @code{\tieDown}
+  @tab @code{\tieUp}
+  @tab @code{\tieNeutral}
+  @tab
+@item @code{\tupletDown}
+  @tab @code{\tupletUp}
+  @tab @code{\tupletNeutral}
+  @tab Los grupos especiales están debajo o encima de las notas
+@end multitable
+
+Observe que estas instrucciones predefinidas @strong{no} pueden ir
+precedidas de @code{\once}.  Si quiere limitar el efecto a una sola
+nota, deberá elegir entre usar la instrucción @code{\once \override}
+equivalente, o usar la instrucción predefinida, seguida después de la
+nota afectada por la instrucción @code{\xxxNeutral} correspondiente.
+
+@subheading Fingering
+@cindex digitación, colocación
+
+La colocación de las digitaciones también resulta afectada por el
+valor de su propiedad @code{direction}, pero existen instrucciones
+especiales que permiten controlar las digitaciones de notas
+individuales, situando la digitación encima, debajo, a la izquierda o
+a la derecha de cada nota.
+
+En primer lugar, he aquí el efecto de @code{direction} sobre las
+digitaciones; el primer compás muestra el comportamiento
+predeterminado, y después el efecto de especificar @code{DOWN} y
+@code{UP}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c-5 a-3 f-1 c'-5
+\override Fingering #'direction = #DOWN
+c-5 a-3 f-1 c'-5
+\override Fingering #'direction = #UP
+c-5 a-3 f-1 c'-5
+@end lilypond
+
+Así es como se controla la digitación sobre notas aisladas, pero la
+propiedad @code{direction} se ignora para los acordes.  En su lugar,
+de forma predeterminada las digitaciones se colocan automáticamente
+encima y debajo de las notas del acorde, como se muestra aquí:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<c-5 g-3>
+<c-5 g-3 e-2>
+<c-5 g-3 e-2 c-1>
+@end lilypond
+
+Es posible tener un mayor control sobre la situación exacta de las
+digitaciones mediante la utilización de la instrucción @code{\set
+fingeringOrientations}.  El formato de esta instrucción es
+
+@example
+@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+@end example
+
+@noindent
+se utiliza @code{\set} porque @code{fingeringOrientations} es una
+propiedad del contexto @code{Voice}, creado y usado por el grabador
+@code{New_fingering_engraver}.
+
+La propiedad se puede establecer al valor de una lista de entre uno y
+tres valores.  Controla si las digitaciones se pueden colocar por
+encima (si @code{up} aparece en la lista), por debajo (si aparece
+@code{down}), a la izquierda (si aparece @code{left}) o a la derecha
+(si aparece @code{right}).  A la inversa, si una colocación no está en
+la lista, no se sitúa ninguna digitación en dicho lugar.  LilyPond
+coma estas restricciones y se trabaja la mejor colocación para la
+digitación de las notas de los acordes que siguen.  Observe que
+@code{left} y @code{right} son mutuamente excluyentes: las
+digitaciones pueden situarse en un lado o en el otro, no en los dos.
+
+Para controlar la colocación de la digitacion de una sola nota usando
+esta instrucción es necesario escribirla como un acorde de una sola
+nota encerrándola entre ángulos simples.
+
+Aquí podemos ver algunos ejemplos:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond
+
+@noindent
+Si la digitación parece un poco superpoblada, se puede reducir el
+tamaño @code{font-size}.  El valor predeterminado puede verse en el
+objeto @code{Fingering} del RFI que es @code{-5}, así que probaremos
+@code{-7}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\override Fingering #'font-size = #-7
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond
+
+@node Outside staff objects
+@subsection Outside staff objects
+
+Los objetos fuera-del-pentagrama se colocan automáticamente para
+evitar las colisiones.  Los objetos que tienen el valor más bajo de la
+propiedad @code{outside-staff-priority} se sitúan más cerca del
+pentagrama, y entonces otros objetos fuera-del-pentagrama se elevan
+tanto como sea necesario para evitar la colisión.  La prioridad
+@code{outside-staff-priority} se defina en el @code{grob-interface} y
+así es una propiedad de todos los objetos de presentación.  De forma
+predeterminada se establece a @code{#f} para todos los objetos
+dentro-del-pentagrama, y a un valor numérico adecuado a cada objeto
+fuera-del-pentagrama cuando se crea el objeto.  La tabla siguiente
+presenta los valores numéricos predeterminados para algunos de los
+objetos fuera-del-pentagrama que están inicialmente dentro de los
+contextos @code{Staff} o @code{Voice}.
+
+@multitable @columnfractions .3 .3 .3
+@headitem Objeto de presentación
+  @tab Prioridad
+  @tab Controla la posición de:
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Texto sobre silencios de compás completo
+@item @code{TextScript}
+  @tab @code{450}
+  @tab Elementos de marcado de texto
+@item @code{OttavaBracket}
+  @tab @code{400}
+  @tab Corchetes de octava alta y baja
+@item @code{TextSpanner}
+  @tab @code{350}
+  @tab Objetos de extensión de texto
+@item @code{DynamicLineSpanner}
+  @tab @code{250}
+  @tab Todas las indicaciones dinámicas
+@item @code{VoltaBracketSpanner}
+  @tab @code{100}
+  @tab Corchetes de primera y segunda vez
+@item @code{TrillSpanner}
+  @tab @code{50}
+  @tab Trinos mantenidos
+@end multitable
+
+He aquí un ejemplo que muestra la situación predeterminada de algunos
+de ellos.
+
+@cindex texto, extensiones de
+@funindex \startTextSpan
+@funindex \stopTextSpan
+@cindex octava alta y baja, corchete de
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+% Start Ottava Bracket
+#(set-octavation 1)
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+#(set-octavation 0)
+c, c c c
+@end lilypond
+
+Este ejemplo también muestra cómo crear textos con extensión (Text
+Spanners) : textos con líneas extensoras por encima de una sección de
+música.  El extensor abarca desde la instrucción @code{\startTextSpan}
+hasta la instrucción @code{\stopTextSpan}, y el formado del texto se
+define por medio de la instrucción @code{\override TextSpanner}.  Para
+ver más detalles, consulte @ruser{Text spanners}.
+
+También muestra la manera de crear corchetes de octava alta y baja.
+
+Observe que los números de compás, las indicaciones metronómicas y las
+mercas de ensayo no se muestran. De forma predeterminada, se crean
+dentro del contexto @code{Score} y su prioridad
+@code{outside-staff-priority} se ignora con relación a los objetos de
+presentación que se crean dentro del contexto @code{Staff}.  Si quiere
+colocar los números de compás, indicaciones metronómicas o llamadas de
+ensayo en concordancia con el valor de su
+@code{outside-staff-priority}, los grabadores
+@code{Bar_number_engraver}, @code{Metronome_mark_engraver} o
+@code{Mark_engraver} respectivamente se deben eliminar del contexto
+@code{Score} y colocarlos en el contexto @code{Staff} del nivel
+superior.  Si se hace así, estas marcas obtendrán los siguientes
+valores predeterminados de @code{outside-staff-priority}:
+
+@multitable @columnfractions .3 .3
+@headitem Objeto de presentación           @tab Prioridad
+@item @code{RehearsalMark}        @tab @code{1500}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{BarNumber}            @tab @code{ 100}
+@end multitable
+
+Si los valores predeterminados de @code{outside-staff-priority} no le
+ofrecen las colocaciones deseadas se puede sobreescribir la prioridad
+de cualquiera de los objetos.  Suponga que quisiéramos que el corchete
+de octava estuviera situado por debajo del elemento extensor de texto
+en el ejemplo de arriba.  Todo lo que debemos hacer es localizar la
+prioridad de @code{OttavaBracket} en el RFI o en las tablas
+anteriores, y reducirlo a un valor inferior al de @code{TextSpanner},
+recordando que @code{OttavaBracket} se crea dentro del contexto de
+@code{Staff}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+%Place following Ottava Bracket below Text Spanners
+\once \override Staff.OttavaBracket #'outside-staff-priority = #340
+% Start Ottava Bracket
+#(set-octavation 1)
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+#(set-octavation 0)
+c, c c c
+@end lilypond
+
+Los cambios en @code{outside-staff-priority} también se pueden emplear
+para controlar la situación vertical de los objetos individuales,
+aunque los resultados pueden no siempre ser deseables.  Suponga que
+quiere que @qq{Text3} se sitúe por encima de @qq{Text4} en el ejemplo
+bajo el epígrafe Comportamiento Automático de más arriba (véase
+@ref{Automatic behaviour}).  Todo lo que debemos hacer es localizar la
+prioridad de @code{TextScript} en el RFI o en las tablas de arriba, y
+aumentar la prioridad de @qq{Text3} hasta un valor superior:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+\once \override TextScript #'outside-staff-priority = #500
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+Esto, ciertamente, eleva a @qq{Text3} por encima de @qq{Text4} pero
+también lo eleva por encima de @qq{Text2}, y @qq{Text4} ahora se
+desploma hacia abajo.  Quizá no sea tan buena idea.  ¿Y si lo que
+realmente queremos hacer es posicionar todas las anotaciones a la
+misma distancia por encima del pentagrama?  Para hacerlo, vamos a
+necesitar claramente espaciar las notas en sentido horizontal para
+hacer sitio para el texto.  Estoo se hace empleando la instrucción
+@code{textLengthOn}.
+
+@subheading \textLengthOn
+
+@funindex \textLengthOn
+@cindex notas, espaciar junto al texto
+
+De forma predeterminada, el texto producido mediante marcado no ocupa
+ningún espacio horizontal en cuanto se refiere a la disposición de la
+música.  La instrucción @code{\textLengthOn} invierte este
+comportamiento, ocasionando que las notas resulten tan espaciadas como
+sea necesario para acomodar el texto:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\textLengthOn  % Cause notes to space out to accommodate text
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+La instrucción para volver al comportamiento predeterminado es
+@code{\textLengthOff}.  Recuerde que @code{\once} funciona solamente
+con @code{\override}, @code{\set}, @code{\revert} o @code{unset}, así
+que no se puede usar con @code{\textLengthOn}.
+
+El texto de marcado también evita las notas que se proyectan por
+encima del pentagrama.  Si esto no es lo que deseamos, el
+desplazamiento automático hacia arriba se puede desactivar mediante el
+establecimiento de la prioridad a @code{#f}.  He aquí un ejemplo que
+muestra cómo el texto de marcado interactúa con tales notas.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+% This markup is short enough to fit without collision
+c2^"Tex"
+c''2
+R1
+% This is too long to fit, so it is displaced upwards
+c,,2^"Text"
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+c,,2^"Long Text   "
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+\textLengthOn  % and turn on textLengthOn
+c,,2^"Long Text   "  % Spaces at end are honoured
+c''2
+@end lilypond
+
+
+@subheading Dynamics
+
+Las indicaciones de matiz dinámico normalmente se colocarán por debajo
+del pentagrama, pero se pueden posicionar por encima con la
+instrucción @code{dynamicUp}.  Se situarán verticalmente respecto a la
+nota a la que van adosadas, y flotarán por debajo (o por encima) de
+todos los objetos dentro-del-pentagrama tales como ligaduras de fraseo
+y números de compás.  Esto puede ofrecer resultados bastante
+aceptables, como muestra este ejemplo:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\clef "bass"
+\key aes \major
+\time 9/8
+\dynamicUp
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+ees,2.~\)\mf ees4 r8 |
+@end lilypond
+
+Sin embargo, si las notas y sus indicaciones dinámicas adosadas están
+muy cerca, la colocación automática evitará las colisiones desplazando
+las marcas dinámicas posteriores más lejos, aunque este puede no ser
+el lugar óptimo, como muestra el siguiente ejemplo más bien
+artificial:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Si se presentara una situación similar en música @q{real}, podría ser
+preferible espaciar las notas un poco más entre sí, de forma que todas
+las marcas dinámicas puedan caber a la misma distancia vertical desde
+el pentagrama.  Hemos sido capaces de hacer esto para el texto de
+marcado utilizando la instrucción @code{\textLengthOn}, pero no existe
+una instrucción equivalente para las indicaciones de matiz dinámico.
+Por tanto, tendremos que averiguar cómo hacerlo utilizando
+instrucciones @code{\override}.
+
+@subheading Grob sizing
+
+@cindex grob, cambio de tamaño de un
+@cindex escala de los grobs
+@cindex @code{X-offset}
+@cindex @code{Y-offset}
+@cindex @code{X-extent}
+@cindex @code{Y-extent}
+
+En primer lugar debemos aprender cómo se especifica el tamaño de los
+grobs.  Todos los grobs tienen un punto de referencia definido dentro
+de ellos que se usa para colocarlos respecto a su objeto padre.
+Entonces, este punto del grob se posiciona a una distancia horizontal,
+@code{X-offset}, y una distancia vertical, @code{Y-offset}, a partir
+de su padre.  La dimensión horizontal del objeto viene dada por una
+pareja de números, @code{X-extent}, que dice dónde están los límites
+izquierdo y derecho respecto del punto de referencia.  La amplitud
+vertical se define de forma similar mediante una pareja de números,
+@code{Y-extent}.  Éstas son propiedades de todos los grobs que
+contemplan el @code{grob-interface}.
+
+@cindex @code{extra-spacing-width}
+
+De forma predeterminada, los objetos fuera-del-pentagrama reciben una
+anchura cero, de manera que pueden solaparse en la dirección
+horizontal.  Esto se hace mediante el truco de añadir una cantidad
+infinita a la dimensión más a la izquierda y menos infinito a la
+dimensión más a la derecha estableciendo el valor de
+@code{extra-spacing-width} a @code{'(+inf.0 . -inf.0)}.  Así, para
+asegurar que no se superponen en la dirección horizontal tendremos que
+sobreescribir este valor de @code{extra-spacing-width} a @code{'(0
+. 0)} de forma que el verdadero ancho se presente.  Esta es la
+instrucción que lo hace para las indicaciones dinámicas:
+
+@example
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+@end example
+
+@noindent
+Veamos si funciona en nuestro ejemplo anterior:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Bueno, ciertamente ha hecho que las marcas dinámicas ya no estén
+desplazadas, pero aún quedan dos problemas.  Las marcas tendrían que
+separarse un poco más entre sí, y sería mejor si todas estuvieran a la
+misma distancia del pentagrama.  Podemos resolver el primer problema
+fácilmente.  En vez de hacer cero la anchura
+@code{extra-spacing-width}, podemos añadirle algo más.  Las unidades
+son el espacio entre dos líneas de pentagrama, así que al mover el
+límite izquierdo media unidad a la izquierda y el límite derecho media
+unidad hacia la derecha, deberíamos conseguirlo:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 staff space
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Esto tiene un mejor aspecto, pero quizá habríamos preferido que las
+indicaciones de dinámica estuvieran alineadas sobre la misma línea de
+base en lugar de ir hacia arriba y hacia abajo con las notas.  La
+propiedad que lo hace es @code{staff-padding} (relleno de pentagrama)
+que se estudia en la sección siguiente.
+
+
 @node Collisions of objects
 @section Collisions of objects
 
 @menu
-* Moving objects::
-* Fixing overlapping notation::
-* Real music example::
+* Moving objects::              
+* Fixing overlapping notation::  
+* Real music example::          
 @end menu
 
 @node Moving objects
@@ -1477,14 +2099,14 @@ e4^\markup{ \italic ritenuto } g b e
 Esto tiene un mejor aspecto, pero no es suficiente.  Después de probar
 con algunos valores, creemos que 2.3 es el mejor número en este caso. Sin embargo
 esta cantidad es el mero resultado del ensayo y error y de mi gusto personal
-acerca de la notación.  Pruebe el ejemplo anterior con 2.3... pero también con otros valores 
+acerca de la notación.  Pruebe el ejemplo anterior con 2.3... pero también con otros valores
 mayores (y menores).  ¿Cuál cree que queda mejor?
 
 La propiedad @code{staff-padding} (relleno de pentagrama) está estrechamente relacionada.
 @code{padding} controla la cantidad de espacio mínima entre un objeto y el objeto más cercano
 (generalmente la nota o las líneas del pentagrama);
 @code{staff-padding} controla la cantidad mínima de espacio entre un
-objeto y el pentagrama.  Ello supone una sutil diferencia, pero podrá 
+objeto y el pentagrama.  Ello supone una sutil diferencia, pero podrá
 observar el comportamiento a continuación.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -1819,7 +2441,7 @@ al final de la página.
 
 @item
 Puede forzar el número de sistemas (es decir, si LilyPond quiere
-tipografiar la música con 11 sistemas, puede forzarlo 
+tipografiar la música con 11 sistemas, puede forzarlo
 para que use 10).
 
 @example
@@ -1880,7 +2502,7 @@ resultado puede necesitar menos trucos manuales.
 
 @example
 %%  asegura que las marcas de texto y letras de las canciones se encuentran dentro de los márgenes de la página
-\override Score.PaperColumn #'keep-inside-line = ##t 
+\override Score.PaperColumn #'keep-inside-line = ##t
 @end example
 
 @node Advanced tweaks with Scheme
