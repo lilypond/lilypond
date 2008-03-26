@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2f036270de7077d87ffc4b204e7a0618f59e86f6
+    Translation of GIT committish: 09959774607dd319f60a75ab1927981d7707feee
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -18,8 +18,7 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 * Tweaking basics::             
 * The Internals Reference manual::  
 * Appearance of objects::       
-* Moving objects::              
-* Fixing overlapping notation::  
+* Collisions of objects::
 * Common tweaks::               
 * Default files::               
 * Fitting music onto fewer pages::  
@@ -1429,8 +1428,18 @@ mostramos un ejemplo de cambio de grosor en las ligaduras, en
 trazados (es decir, aquellos que no se producen a partir de una
 tipografía) se pueden cambiar de la misma forma.
 
+
+@node Collisions of objects
+@section Collisions of objects
+
+@menu
+* Moving objects::
+* Fixing overlapping notation::
+* Real music example::
+@end menu
+
 @node Moving objects
-@section Moving objects
+@subsection Moving objects
 
 Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos elementos
 de notación se pueden superponer, lo que es una lástima, pero en casi
@@ -1565,7 +1574,7 @@ En el presente manual: @ruser{The \override command}, @ruser{Common tweaks}.
 
 
 @node Fixing overlapping notation
-@section Fixing overlapping notation
+@subsection Fixing overlapping notation
 
 En @ruser{Moving objects}, pudimos ver cómo mover un objeto @code{TextScript}.
 El mismo mecanismo se puede usar para mover otros tipos de
@@ -1606,6 +1615,10 @@ de los objetos más comunes.
 @item Llamadas de ensayo o marcas de texto      @tab @code{RehearsalMark}
 @end multitable
 
+@node Real music example
+@subsection Real music example
+
+UNTRANSLATED NODE: IGNORE ME
 
 @node Common tweaks
 @section Common tweaks
