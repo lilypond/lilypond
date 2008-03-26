@@ -5,11 +5,11 @@
 \header {
   lsrtags = "repeats"
  texidoc = "
-The @code{Volta_engraver} by default resides in the Score context, and
-brackets for the repeat are thus normally only printed over the topmost
-staff.  This can be adjusted by adding @code{Volta_engraver} to the
-Staff context where you want the brackets to appear; see also the
-\"Volta multi staff\" snippet.
+The @code{Volta_engraver} by default resides in the @code{Score}
+context, and brackets for the repeat are thus normally only printed
+over the topmost staff. This can be adjusted by adding the
+@code{Volta_engraver} to the @code{Staff} context where you want the
+brackets to appear; see also the \"Volta multi staff\" snippet.
 " }
 % begin verbatim
 <<
