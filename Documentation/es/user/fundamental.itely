@@ -567,9 +567,19 @@ esta disposición podría facilitar la legibilidad del código, pero si
 hay muchas notas en cada compás podría ser mejor dividirlo en dos
 voces separadas, de la siguiente manera:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2] \key d
-\minor << { % Voice "1" r4 g g4. a8 | bes4 bes c bes | a2. r4 | } \\ {
-% Voice "2" d,2 d4 g | g4 g g8( a) g4 | fis2. s4 | } >>
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key d \minor
+<< {
+  % Voice "1"
+  r4 g g4. a8 |
+  bes4 bes c bes |
+  a2. r4 |
+} \\ {
+  % Voice "2"
+  d,2 d4 g |
+  g4 g g8( a) g4 |
+  fis2. s4 |
+} >>
 @end lilypond
 
 
