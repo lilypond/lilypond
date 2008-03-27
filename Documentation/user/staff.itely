@@ -157,11 +157,11 @@ behaviour of the bar lines.
 
 Each staff group context sets the property
 @code{systemStartDelimiter} to one of the values
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-and @internalsref{SystemStartBracket}.  A fourth delimiter,
+@code{SystemStartBar}, @code{SystemStartBrace},
+and @code{SystemStartBracket}.  A fourth delimiter,
 @code{systemStartSquare}, is also available, but must be
-instantiated manually.  The usage of this last delimiter is shown in the
-snippet section in @ref{Deeper nested staff groups}.
+instantiated manually.  The usage of this last delimiter is shown further
+down in the snippet section.
 
 
 @itemize
@@ -246,10 +246,12 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 
 @snippets
 
+@c FIXME: not yet in master
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {use-sqare-bracket-at-the-start-of-a-staff-group.ly}
+
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {display-bracket-with-only-one-staff-in-a-system.ly}
-@c snippet 201
-@c need this additional line: \override Score.SystemStartBar #'collapse-height = #1
 
 @cindex mensurstriche layout
 @cindex renaissance music
@@ -270,8 +272,7 @@ Snippets: @lsrdir{Staff,Staff-notation}
 Internals Reference: @internalsref{ChoirStaff},
 @internalsref{GrandStaff}, @internalsref{StaffGroup},
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-@internalsref{SystemStartBracket}.
-
+@internalsref{SystemStartBracket}, and @internalsref{systemStartSquare}.
 
 
 @node Deeper nested staff groups
@@ -290,10 +291,15 @@ Here is an example of an orchestral score using groupings and nesting
 of these groupings.  Note that the instrument names are omited from the
 source code, see @ref{Instrument names} how to set them.
 
-
 @cindex staff, nested
 @cindex staves, nested
 @cindex nesting of staves
+@cindex system start delimiters, nested
+@cindex nested staff brackets
+@cindex brackets, nesting of
+@cindex braces, nesting of
+@cindex inner staff group
+@cindex inner choir staff group
 
 
 @example
