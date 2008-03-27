@@ -721,7 +721,7 @@ Now we see all the user-settable properties which control fonts,
 including @code{font-shape(symbol)}, where @code{symbol} can be
 set to @code{upright}, @code{italics} or @code{caps}.
 
-You will notice that that @code{font-series} and @code{font-size}
+You will notice that @code{font-series} and @code{font-size}
 are also listed there.
 This immediately raises the question: Why are the common font
 properties @code{font-series} and @code{font-size} listed under
