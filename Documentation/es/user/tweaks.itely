@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2d57278342a30b2e51a0f2c961f8a57a2134225e
+    Translation of GIT committish: f27651dc2096055709bbe79753e2fa9f2ec4523e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2502,10 +2502,445 @@ Presentamos a continuación el resultado final:
 }
 @end lilypond
 
+
 @node Real music example
 @subsection Real music example
 
-UNTRANSLATED NODE: IGNORE ME
+Finalizaremos esta sección sobre los trucos mostrando los pasos que se
+deben tomar para tratar con un ejemplo complicado que necesita varios
+trucos para producir el resultado deseado.  El ejemplo se ha escogido
+deliberadamente para ilustrar el uso de la Referencia de la Notación
+para resolver problemas de notación poco comunes.  No es
+representativo de un proceso de grabado más usual, por lo que ¡le
+recomendamos que no deje que estas dificultades le desanimen!
+¡Afortunadamente, las dificultadoes como éstas no son muy comunes!
+
+El ejemplo está extraído de la Primera Balada de Chopin, Op. 23,
+compases 6 al 9, la transición entre el Lento inicial y el Moderato.
+Presentamos en primer lugar el aspecto que queremos que tenga el
+resultado, pero para evitar complicar demasiado el ejemplo hemos
+quitado las indicaciones dinámicas, las digitaciones y el pedal.
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+rhMusic = \relative c'' {
+  r2
+  c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  bes2.^\markup {\bold "Moderato"} r8
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Reposition the c2 to the right of the merged note
+    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    % Move the c2 out of the main note column so the merge will work
+    \shiftOnn c2}
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+  \\
+    {s4 fis4.}
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Observamos en primer lugar que la parte de la mano derecha del tercer
+compás requiere cuatro voces.  Son las cinco corcheas unidas por una
+barra, la nota Do ligada, el Re blanca que se funde con el Re corchea,
+y el Fa sostenido negra con puntillo, que también está fundida con la
+corchea de su misma altura.  Todo lo demás está en una sola voz, así
+que lo más fácil es introducir estas cuatro voces temporalmente en el
+momento en que se necesiten.  Si ha olvidado cómo hacerlo, lea
+@ref{I'm hearing Voices}.  Vamos a comenzar introduciendo las notas
+como dos variables y disponiendo la estructura de pentagramas en un
+bloque score, y veremos qúe produce LilyPond de forma predeterminada:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4. g8 |
+  bes1~ |
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8 d fis bes a | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2 |
+  <d g, d>1 |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Todas las notas son correctas, pero el aspecto está lejos de ser
+satisfactorio.  La ligadura de unión choca con el cambio de compás, el
+barrado del tercer compás es incorrecto, las notas no se funden
+correctamente, y faltan algunos elementos de notación.  En primer
+lugar trataremos con lo más fácil.  Podemos corregir el barrado de las
+corcheas insertando una barra manualmente, y podemos añadir fácilmente
+la ligadura de expresión de la mano izquierda y la ligadura de fraseo
+de la mano derecha, pues todo ello se estudió en el Tutorial.  Al
+hacerlo así obtenemos:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  bes1~ |
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1) |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+El primer compás ahora es correcto.  El segundo compás contiene un
+arpegio y acaba en una doble barra.  ¿Cómo los hacemos, pues no han
+sido mencionados en este Manual de Aprendizaje?  Aquí es donde tenemos
+que volver e la Referencia de la Notación.  Buscando la palabra
+@q{arpegio} y @q{línea divisoria} en el índice nos puestra rápidamente
+que un arpegio se hace añadiendo @code{\arpeggio} a un acorde, y la
+doble barra se produce por medio de la instrucción @code{\bar "||"}.
+Esto podemos hacerlo fácilmente.  A continuación tenemos que corregir
+la colisión entre la ligadura de unión y la indicación de compás.
+Esto se hace mejor moviendo la ligadura hacia arriba.  Estudiamos cómo
+mover objetos anteriormente en @ref{Moving objects}, donde dice que
+los objetos que están situados de forma relativa al pentagrama se
+pueden mover sobreescribiendo su propiedad @code{staff-position}, que
+se especifica en unidades de medio espacio de pentagrama respecto de
+la línea central del pentagrama.  Así pues, la sobreescritura
+siguiente colocada justo antes de la primera nota ligada subirá la
+ligadura 3.5 medios espacios de pentagrama por encima de la línea
+central:
+
+@code{\once \override Tie #'staff-position = #3.5}
+
+This completes bar two, giving:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Vayamos ahora al tercer compás y comienzo de la sección Moderato.  El
+tutorial nos enseñó cómo escribir texto en negrita mediante la
+instrucción @code{\markup}, por lo que añadir @q{Moderato} en engrita
+es fácil.  Pero ahora ¿cómo fundimos notas que están en distintas
+voces?  El índice de la Referencia de laa Notación no mencina la
+mezcla de notas, pero una búsqueda de texto por la palabra @q{fusión}
+o @q{mezcla} nos lleva rápidamente a las sobreescrituras necesarias
+para mezclar o fusionar notas con distinta cabeza y con o sin puntillo
+en @ruser{Collision Resolution}.  En nuestro ejemplo tenemos que
+fusionar ambos tipos de nota en el transcurso de la sección polifónica
+del compás 3; por tanto, en virtud de la información que aparece en la
+Referencia de la Notación, escribimos
+
+@example
+\override Staff.NoteCollision #'merge-differently-headed = ##t
+\override Staff.NoteCollision #'merge-differently-dotted = ##t
+@end example
+
+@noindent
+al principio de la sección, y
+
+@example
+\revert Staff.NoteCollision #'merge-differently-headed
+\revert Staff.NoteCollision #'merge-differently-dotted
+@end example
+
+@noindent
+al final, dando como resultado:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted  
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Estas sobreescrituras han fundido los dos Fa sostenido, pero no los
+dos Re.  ¿Por qué no?  La respuesta está en la misma sección de la
+Referencia de la Notación: las notas que se fusionan deben tener las
+plicas en direcciones opuestas y dos notas no se pueden fusionar bien
+si hay una tercera nota en la misma columna.  Aquí los dos Re tienen
+las plicas hacia arriba y hay una tercera nota: el Do.  Sabemos cómo
+cambiar la dirección de la plica usando @code{\stemDown}, y la
+Referencia de la Notación también explica cómo mover el Do: aplicar un
+desplazamiento usando una de las instrucciones @code{\shift}.  Pero
+¿cuál?  El Do está en la voz dos que tiene desactivado el
+desplazamiento, y los dos Re están en las voces uno y tres, que tienen
+el desplazamiento desactivado y activado, respectivamente.  Por ello
+tenemos que desplazar el Do un nivel más todavía, usando
+@code{\shiftOnn} para evitar que interfiera con los dos Re.  Al
+aplicar estos cambios obtenemos:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Move the c2 out of the main note column so the merge will work
+    {c,8~ \shiftOnn c2 | }
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Ya casi está.  Solamente quedan dos problemas: la plica hacia abajo
+sobre el Re fusionado no tendría que estar ahí, y el Do estaría mejor
+colocado a la derecha de los Re.  Sabemos cómo hacer las dos cosas a
+partir de trucos anteriores: hacemos la plica transparente, y movemos
+el Do con la propiedad @code{force-hshift}.  Aquí tenemos el resultado
+final:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2
+  c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Reposition the c2 to the right of the merged note
+    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    % Move the c2 out of the main note column so the merge will work
+    \shiftOnn c2}
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+  \\
+    {s4 fis4.}
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
 
 @node Common tweaks
 @section Common tweaks
