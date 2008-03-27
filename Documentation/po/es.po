@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-23 16:29+0100\n"
-"PO-Revision-Date: 2008-03-27 12:54+0100\n"
+"POT-Creation-Date: 2008-03-27 12:58+0100\n"
+"PO-Revision-Date: 2008-03-27 13:02+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: es\n"
 "MIME-Version: 1.0\n"
@@ -783,6 +783,7 @@ msgstr "digitaciones"
 #. @node in ../../../Documentation/fr/user/expressive.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/expressive.itely
 #. @subheading in ../../../Documentation/es/user/tutorial.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/expressive.itely
 #. @subsubsection in ../../../Documentation/es/user/expressive.itely
 #. @subheading in ../../../Documentation/de/user/tutorial.itely
@@ -1217,6 +1218,7 @@ msgstr "Anidado de expresiones musicales"
 #. @rglos in ../../../Documentation/user/tweaks.itely
 #. @rglos in ../../../Documentation/user/staff.itely
 #. @rglos in ../../../Documentation/es/user/fundamental.itely
+#. @rglos in ../../../Documentation/es/user/tweaks.itely
 msgid "ossia"
 msgstr "ossia"
 
@@ -1434,89 +1436,119 @@ msgstr "Trucar la salida"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Tweaking basics"
 msgstr "Elementos de trucaje"
 
 #  ?? FVD
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Introduction to tweaks"
 msgstr "Introducción al trucaje"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Objects and interfaces"
 msgstr "Objetos e interfaces"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Naming conventions of objects and properties"
 msgstr "Convenciones de nombres de objetos y propiedades"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Tweaking methods"
 msgstr "Métodos de trucaje"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "The Internals Reference manual"
 msgstr "Manual de referencia de funcionamiento interno"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Properties of layout objects"
 msgstr "Propiedades de los objetos de presentación"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Finding the context"
 msgstr "Búsqueda del contexto"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Overriding once only"
 msgstr "Sobreescritura por una sola vez"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Reverting"
 msgstr "Recuperación del ajuste"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Properties found in interfaces"
 msgstr "Propiedades de los interfaces"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Specifying the context in lyric mode"
 msgstr "Especificación del contexto en modo letra"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Types of properties"
 msgstr "Tipos de propiedades"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Appearance of objects"
 msgstr "Apariencia de los objetos"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Visibility and color of objects"
 msgstr "Visibilidad y color de los objetos"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "stencil"
 msgstr "sello"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "break-visibility"
 msgstr "break-visibility (visibilidad en el salto)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "transparent"
 msgstr "transparente"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "color"
 msgstr "color"
 
@@ -1529,43 +1561,58 @@ msgstr "Tamaño de los objetos"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Length and thickness of objects"
 msgstr "Longitud y grosor de los objetos"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Placement of objects"
 msgstr "Colocación de los objetos"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Automatic behaviour"
 msgstr "Comportamiento automático"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Within-staff objects"
 msgstr "Objetos interiores al pentagrama"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Fingering"
 msgstr "Digitaciones"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Outside staff objects"
 msgstr "Objetos fuera del pentagrama"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "\\textLengthOn"
 msgstr "\\textLengthOn"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Grob sizing"
 msgstr "Escalado de un «Grob»"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Collisions of objects"
 msgstr "Colisiones de objetos"
 
@@ -1574,7 +1621,7 @@ msgstr "Colisiones de objetos"
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Moving objects"
@@ -1585,46 +1632,56 @@ msgstr "Mover objetos"
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Fixing overlapping notation"
 msgstr "Arreglar notación con superposiciones"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "padding property"
 msgstr "la propiedad padding (relleno)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "left-padding and right-padding"
 msgstr "left-padding y right-padding (relleno por la izquierda y por la derecha)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "staff-padding property"
 msgstr "la propiedad staff-padding (relleno de pentagrama)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "self-alignment-X property"
 msgstr "la propiedad self-alignment-X (auto-alineación en X)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "staff-position property"
 msgstr "la propiedad staff-position (posición en el pentagrama)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "extra-offset property"
 msgstr "la propiedad extra-offset (desplazamiento adicional)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "positions property"
 msgstr "la propiedad positions (posiciones)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "force-hshift property"
 msgstr "la propiedad force-hshift (forzar desplazamiento horizontal)"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Real music example"
 msgstr "Ejemplos reales de música"
 
@@ -1736,7 +1793,7 @@ msgstr "Proyectos grandes"
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
 msgid "Saving typing with variables and functions"
 msgstr "Ahorrar tecleo mediante variables y funciones"
 
@@ -1745,7 +1802,7 @@ msgstr "Ahorrar tecleo mediante variables y funciones"
 #. @node in ../../../Documentation/fr/user/working.itely
 #. @section in ../../../Documentation/fr/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
 #. @section in ../../../Documentation/de/user/working.itely
 msgid "Style sheets"
@@ -1753,6 +1810,8 @@ msgstr "Hojas de estilo"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
+#. @node in ../../../Documentation/es/user/working.itely
+#. @section in ../../../Documentation/es/user/working.itely
 msgid "When things don't work"
 msgstr "Cuando las cosas no van"
 
@@ -1761,7 +1820,7 @@ msgstr "Cuando las cosas no van"
 #. @node in ../../../Documentation/fr/user/working.itely
 #. @section in ../../../Documentation/fr/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
 #. @section in ../../../Documentation/de/user/working.itely
 msgid "Updating old files"
@@ -1772,7 +1831,7 @@ msgstr "Actualizar archivos antiguos"
 #. @node in ../../../Documentation/fr/user/working.itely
 #. @section in ../../../Documentation/fr/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
 #. @section in ../../../Documentation/de/user/working.itely
 msgid "Troubleshooting (taking it all apart)"
@@ -1783,7 +1842,7 @@ msgstr "Resolución de problemas (tomar cada parte por separado)"
 #. @node in ../../../Documentation/fr/user/working.itely
 #. @section in ../../../Documentation/fr/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
 #. @section in ../../../Documentation/de/user/working.itely
 msgid "Minimal examples"
@@ -1791,6 +1850,8 @@ msgstr "Ejemplos mínimos"
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
+#. @node in ../../../Documentation/es/user/working.itely
+#. @section in ../../../Documentation/es/user/working.itely
 msgid "Scores and parts"
 msgstr "Partituras y particellas"
 
@@ -2031,6 +2092,8 @@ msgstr "Tutorial de Scheme"
 
 #. @node in ../../../Documentation/user/scheme-tutorial.itely
 #. @appendixsec in ../../../Documentation/user/scheme-tutorial.itely
+#. @node in ../../../Documentation/es/user/scheme-tutorial.itely
+#. @appendixsec in ../../../Documentation/es/user/scheme-tutorial.itely
 msgid "Tweaking with Scheme"
 msgstr "Trucos con Scheme"
 
@@ -3585,8 +3648,8 @@ msgstr "Impresión de los pentagramas"
 
 #. @node in ../../../Documentation/user/staff.itely
 #. @subsubsection in ../../../Documentation/user/staff.itely
-msgid "Initiating new staves"
-msgstr "Preparar pentagramas nuevos"
+msgid "Instantiating new staves"
+msgstr "Crear instancias de pentagramas nuevos"
 
 #. @rglos in ../../../Documentation/user/staff.itely
 msgid "staff"
@@ -3604,6 +3667,11 @@ msgstr "Agrupar pentagramas"
 #. @rglos in ../../../Documentation/user/staff.itely
 msgid "bracket"
 msgstr "llave o corchete"
+
+#. @node in ../../../Documentation/user/staff.itely
+#. @subsubsection in ../../../Documentation/user/staff.itely
+msgid "Deeper nested staff groups"
+msgstr "Grupos de pentagramas más complejos"
 
 #. @node in ../../../Documentation/user/staff.itely
 #. @subsection in ../../../Documentation/user/staff.itely
