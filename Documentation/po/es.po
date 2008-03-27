@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-23 16:29+0100\n"
-"PO-Revision-Date: 2008-03-25 18:45+0100\n"
+"PO-Revision-Date: 2008-03-27 12:54+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
-"Language-Team: Español <traductores@es.gnome.org>\n"
+"Language-Team: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1593,35 +1593,35 @@ msgstr "Arreglar notación con superposiciones"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 msgid "padding property"
-msgstr "propiedad de relleno"
+msgstr "la propiedad padding (relleno)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 msgid "left-padding and right-padding"
-msgstr "relleno por la izquierda y por la derecha"
+msgstr "left-padding y right-padding (relleno por la izquierda y por la derecha)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 msgid "staff-padding property"
-msgstr "propiedad staff-padding"
+msgstr "la propiedad staff-padding (relleno de pentagrama)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 msgid "self-alignment-X property"
-msgstr "propiedad self-alignment-X"
+msgstr "la propiedad self-alignment-X (auto-alineación en X)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 msgid "staff-position property"
-msgstr "propiedad staff-position"
+msgstr "la propiedad staff-position (posición en el pentagrama)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 msgid "extra-offset property"
-msgstr "propiedad extra-offset"
+msgstr "la propiedad extra-offset (desplazamiento adicional)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 msgid "positions property"
-msgstr "propiedad positions"
+msgstr "la propiedad positions (posiciones)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 msgid "force-hshift property"
-msgstr "propiedad force-hshift"
+msgstr "la propiedad force-hshift (forzar desplazamiento horizontal)"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
