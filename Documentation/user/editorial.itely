@@ -322,6 +322,10 @@ Non-note objects may be parenthesized as well.
 
 Snippets: @lsrdir{Editorial,Editorial-annotations}.
 
+@knownissues
+
+Rests cannot be parenthesized.
+
 
 @node Stems
 @subsubsection Stems
@@ -421,7 +425,7 @@ notes.
 }
 
 \new Score \with {
-  %% by default this centers grid lines horizontally below and to the 
+  % by default this centers grid lines horizontally below and to the 
   % left side of the notehead, the grid lines extend from 
   % the middle lines of each staff
   \consists "Grid_line_span_engraver"
