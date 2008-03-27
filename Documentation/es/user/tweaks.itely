@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1292d70ff6fa2d24e71fd7b9ac118359eef21794
+    Translation of GIT committish: 2d57278342a30b2e51a0f2c961f8a57a2134225e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2195,47 +2195,312 @@ c4^"piu mosso" d e f
 En el presente manual: @ruser{The \override command}, @ruser{Common tweaks}.
 
 
+
 @node Fixing overlapping notation
 @subsection Fixing overlapping notation
 
-En @ruser{Moving objects}, pudimos ver cómo mover un objeto @code{TextScript}.
-El mismo mecanismo se puede usar para mover otros tipos de
-objetos; simplemente sustituya @code{TextScript} con el nombre de
-otro objeto.
+Veamos ahora cómo pueden ser de ayuda las propiedades que hemos visto
+en la sección anterior, para resolver problemas de notación que se
+superpone.
 
-Para encontrar el nombre del objeto, consulte la sección @q{@strong{véase también}} al
-final de la página relevante dentro de la documentación.  Por ejemplo, al
-final de @ruser{Dynamics}, vemos
+@subheading padding property
+@cindex relleno, propiedad
+@cindex padding, propiedad
 
-@quotation
-@seealso
+La propiedad @code{padding} se puede ajustar para aumentar (o
+disminuir) la distancia entre símbolos impresos encima o debajo de las
+notas.
 
-Referencia del programa: @internalsref{DynamicText}, @internalsref{Hairpin}.
-La posición vertical de estos símbolos se maneja por medio de
-@internalsref{DynamicLineSpanner}.
-@end quotation
+@lilypond[quote,fragment,relative=1,verbatim]
+c2\fermata
+\override Script #'padding = #3
+b2\fermata
+@end lilypond
+
+@lilypond[quote,fragment,relative=1,verbatim]
+% This will not work, see below:
+\override MetronomeMark #'padding = #3
+\tempo 4=120
+c1
+% This works:
+\override Score.MetronomeMark #'padding = #3
+\tempo 4=80
+d1
+@end lilypond
+
+Observe en el segundo ejemplo la gran importancia que tiene saber qué
+contexto maneja un determinado objeto.  Puesto que el objeto
+@code{MetronomeMark} se maneja dentro del contexto @code{Score}, los
+cambios de propiedades en el contexto @code{Voice} pasarán
+inadvertidos.  Para ver más detalles, consulte @ruser{Constructing a
+tweak}.
+
+Si la propiedad de relleno @code{padding} de un objetp se incrementa
+cuando dicho objeto se encuentra en una pila de objetos que se están
+colocando de acuerdo a su prioridad @code{outside-staff-priority},
+entonces ese objeto se moverá, y también todos los que están por fuera
+de él.
+
+
+@subheading left-padding and right-padding
+@cindex left-padding, propiedad
+@cindex right-padding, propiedad
+
+La propiedad @code{right-padding} afecta al espaciado entre la
+alteración y la nota a que se aplica.  Normalmente no es necesaria,
+pero el ejemplo siguiente muestra una situación en la que sí se
+necesita.  Suponga que queremos presentar un acorde que contiene un Si
+natural y un Si bemol.  Para evitar la ambigüedad querríamos preceder
+las notas con un becuadro y un bemol.  Aquí vienen varios intentos de
+hacerlo así:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<b bes>
+<b! bes>
+<b? bes>
+@end lilypond
+
+Ninguno de ellos funciona y el segundo además presenta una fea
+colisión entre las dos alteraciones.
+
+Una forma de conseguirlo es sobreescribir el sello de la alteración
+con un elemento de marcado que contenga los símbolos de becuadro y
+bemol en el orden que nos gustaría que estuvieran, así:
+
+@lilypond[quote,ragged-right,verbatim]
+naturalplusflat = \markup { \natural \flat }
+\relative c'' {
+  \once \override Accidental
+    #'stencil = #ly:text-interface::print
+  \once \override Accidental #'text = #naturalplusflat
+  \once \override Score.AccidentalPlacement #'right-padding = #1.5
+  <b bes>
+}
+@end lilypond
 
 @noindent
-Así que para mover expresiones dinámicas verticalmente, usamos
+Esto utiliza necesariamente una sobreescritura para el sello de la
+alteración que no se estudiará hasta más adelante.  El tipo de sello
+debe ser un procedimiento, aquí modificado para que imprima el
+contenido de la propiedad @code{text} del objeto @code{Accidental},
+que a su vez está establecido como un signo de becuadro seguido de un
+bemol.  Entonces el conjunto se puede separar de la cabeza de la nota
+sobreescribiendo @code{right-padding}.
 
-@example
-\override DynamicLineSpanner #'padding = #2.0
-@end example
+@noindent
 
-No podemos listar todos y cada uno de los objetos, pero presentamos a continuación una lista
-de los objetos más comunes.
+@subheading staff-padding property
+@cindex staff-padding, propiedad
 
-@multitable @columnfractions .33 .66
-@headitem Tipo de objeto                        @tab Nombre del objeto
-@item Expresiones dinámicas (verticalmente)     @tab @code{DynamicLineSpanner}
-@item Expresiones dinámicas (horizontalmente)   @tab @code{DynamicText}
-@item Ligaduras de unión                        @tab @code{Tie}
-@item Ligaduras de expresión                    @tab @code{Slur}
-@item Articulaciones                            @tab @code{Script}
-@item Digitaciones                              @tab @code{Fingering}
-@item Texto, p.ej. @code{^"text"}               @tab @code{TextScript}
-@item Llamadas de ensayo o marcas de texto      @tab @code{RehearsalMark}
-@end multitable
+@code{staff-padding} se puede usar para alinear objetos como matices
+dinámicos a lo largo de una línea de base a una altura fija sobre el
+pentagrama, en lugar de hacerlo a una altura que dependa de la
+posición de la nota a la que están adosados.  No es una propiedad de
+@code{DynamicText} sino de @code{DynamicLineSpanner}.  Esto es así
+porque la línea de base debe aplicarse por igual a @strong{todas} las
+dinámicas, entre ellas las que se han creado como objetos de
+extensión.  Así que ésta es la forma de alinear las indicaciones de
+matiz en el ejemplo de la sección anterior:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 unit
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+% Align dynamics to a base line 2 units above staff
+\override DynamicLineSpanner #'staff-padding = #2
+a4\f b\mf c\mp b\p
+@end lilypond
+
+
+@subheading self-alignment-X property
+@cindex self-alignment-X, propiedad
+
+El ejemplo siguiente muestra cómo esto puede resolver la colisión
+entre un objeto de digitación de cuerda y la plica de una nota
+mediante el alineamiento del límite derecho con el punto de referencia
+de la nota «padre»:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+\voiceOne
+< a \2 >
+\once \override StringNumber #'self-alignment-X = #RIGHT
+< a \2 >
+@end lilypond
+
+@subheading staff-position property
+@cindex staff-position, propiedad
+
+Los silencios multi-compás en una voz pueden chocar con las notas en
+otra voz.  Puesto que estos silencios se tipografían centrados entre
+las barras de compás se necesitaría bastante esfuerzo para que
+LilyPond averigüara qué otras notas podrína chocar con él, ya que
+actualmente todo el manejo de colisiones entre notas y silencios se
+hace solamente para notas y silencios que ocurren al mismo tiempo.  He
+aquí un ejemplo de colisión de este tipo:
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<< {c c c c} \\ {R1} >>
+@end lilypond
+
+La mejor solución aquí es mover el silencio multi-compás hacia abajo,
+pues el silencio está en la voz dos.  El ajuste predeterminado para
+@code{\voiceTwo} (es decir, en la segunda voz de una construcción
+@code{<<@{...@} \\ @{...@}>>}) es que @code{staff-position} tenga el
+valor -4 para MultiMeasureRest, así que tenemos que bajarlo, digamos,
+cuatro semi-espacios de pentagrama, al valor @code{-8}.
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<<
+  {c c c c}
+\\
+  \override MultiMeasureRest #'staff-position = #-8
+  {R1}
+>>
+@end lilypond
+
+Esto es mejor que utilizar, por ejemplo, @code{extra-offset}, porque
+la línea adicional por encima del silencio se inserta automáticamente.
+
+@subheading extra-offset property
+@cindex extra-offset, propiedad
+
+La propiedad @code{extra-offset} da un completo control sobre el
+posicionamiento de un objeto tanto vertical como horizontalmente.
+
+En el ejemplo siguiente, la segunda digitación se desplaza ligeramente
+a la izquierda, y 1.8 espacios de pentagrama hacia abajo:
+
+@lilypond[quote,fragment,relative=1,verbatim]
+\stemUp
+f-5
+\once \override Fingering
+    #'extra-offset = #'(-0.3 . -1.8)
+f-5
+@end lilypond
+
+
+@subheading positions property
+@cindex positions, propiedad
+
+La porpiedad @code{positions} permite controlar manualmente la
+posición e inclinación de los tresillos, ligaduras de expresión y de
+fraseo, y barras de corchea.  He aquí un ejemplo que tiene una fea
+ligadura de fraseo debido a que intenta evitar la ligadura de
+expresión que está sobre la acciaccatura.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4  \acciaccatura e8\( d8 c ~c d c d\)
+@end lilypond
+
+@noindent
+Simplemente podemos mover la ligadura de fraseo por encima de las
+notas, y de hecho ésta será la solución preferida:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\phrasingSlurUp
+\acciaccatura e8\( d8 c ~c d c d\)
+@end lilypond
+
+@noindent
+pero si por algún motivo no pudiéramos hacerlo, la otra alternativa
+sería mover el extremo izquierdo de la ligadura de fraseo un poco
+hacia abajo usando la propiedad @code{positions}.  Esto también
+resuelve la forma algo indecente de la ligadura.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\once \override PhrasingSlur #'positions = #'(-4 . -3)
+\acciaccatura
+e8\( d8 c ~c d c d\)
+@end lilypond
+
+Presentamos un ejemplo más extraído del comienzo del pentagrama de la
+mano izquierda del preludio de Chopin Op 28 No. 2.  vemos que la barra
+choca con las notas superiores:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+\clef "bass"
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
+
+@noindent
+Esto se puede resolver manualmente elevando los dos extremos de la
+barra desde su posición a dos espacios de pentagrama sobre la línea
+central hasta, digamos, 3 espacios:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  \clef "bass"
+  <<
+    \override Beam #'positions = #'(3 . 3)
+    {b,8 ais, b, g,}
+  \\
+    {e, g e, g}
+  >>
+  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
+
+@noindent
+Observe que la sobreescritura sigue aplicándose en la primera voz del
+segundo bloque de corcheas, pero no a ninguna de las barras de la
+segunda voz.
+
+@subheading force-hshift property
+@cindex force-hshift, propiedad
+@c FIXME: formatting stuff  (ie not important right now IMO)
+@c @a nchor Chopin finally corrected TODOgp
+
+Ahora podremos ver cómo aplicar las correcciones finales al ejemplo de
+Chopin que presentamos al final de @ref{I'm hearing Voices}, que
+dejamos con este aspecto:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      <ees c>2
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+Las dos notas inferiores del primer acorde (es decir, las que están en
+al tercera voz) no deberían separarse de la colmna de notas de las dos
+notas agudas.  Para corregir esto, establecemos el valor de
+@code{force-hshift} (que es una propiedad de @code{NoteColumn}) de
+esas notas a cero.  La nota más grave del segundo acorde se sitúa
+mejor justo a la derecha de las más agudas.  Lo conseguimos
+estableciendo el valor de @code{force-hshift} de esta nota a 0.5, o
+sea, la anchura de media cabeza de nota a la derecha de la columna de
+las notas agudas.
+
+Presentamos a continuación el resultado final:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      \once \override NoteColumn #'force-hshift = #0 <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5 des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
 
 @node Real music example
 @subsection Real music example
