@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f27651dc2096055709bbe79753e2fa9f2ec4523e
+    Translation of GIT committish: 2ff9265a797df75fcc4f33c173924fc8bb03d947
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -20,11 +20,7 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 * Appearance of objects::       
 * Placement of objects::        
 * Collisions of objects::       
-* Common tweaks::               
-* Default files::               
-* Fitting music onto fewer pages::  
-* Avoiding tweaks with slower processing::  
-* Advanced tweaks with Scheme::  
+* Further tweaking::            
 @end menu
 
 @node Tweaking basics
@@ -2382,7 +2378,7 @@ f-5
 @subheading positions property
 @cindex positions, propiedad
 
-La porpiedad @code{positions} permite controlar manualmente la
+La propiedad @code{positions} permite controlar manualmente la
 posición e inclinación de los tresillos, ligaduras de expresión y de
 fraseo, y barras de corchea.  He aquí un ejemplo que tiene una fea
 ligadura de fraseo debido a que intenta evitar la ligadura de
@@ -2942,259 +2938,303 @@ lhMusic = \relative c' {
 @end lilypond
 
 
-@node Common tweaks
-@section Common tweaks
+@node Further tweaking
+@section Further tweaking
 
-Algunas sustituciones son tan comunes que se proporcionan comandos preestablecidos
-como atajos, como @code{\slurUp} (ligadura hacia arriba) y @code{\stemDown} (plica hacia abajo).  Estos
-comandos se describen dentro de la Referencia de Notación bajo las secciones
-correspondientes.
+@menu
+* Other uses for tweaks::       
+* Using variables for tweaks::  
+* Other sources of information::  
+* Avoiding tweaks with slower processing::  
+* Advanced tweaks with Scheme::  
+@end menu
 
-La lista completa de modificaciones disponibles para cada tipo de
-objeto (como ligaduras o barras de corchea) están documentadas en la Referencia del
-Programa.  Sin embargo, muchos objetos de la presentación comparten propiedades que se pueden
-usar para aplicar trucos genéricos.
+@node Other uses for tweaks
+@subsection Other uses for tweaks
 
-@itemize @bullet
+@itemize
 
-@cindex relleno
-
-@item
-La propiedad @code{padding} (relleno) se puede establecer de forma que incremente
-(o disminuya) la distancia entre símbolos que se imprimen encima
-o debajo de las notas.  Se aplica a todos los objetos con
-@code{side-position-interface}.
-
-@lilypond[quote,fragment,relative=1,verbatim]
-c2\fermata
-\override Script #'padding = #3
-b2\fermata
-@end lilypond
-
-@lilypond[quote,fragment,relative=1,verbatim]
-% This will not work, see below:
-\override MetronomeMark #'padding = #3
-\tempo 4=120
-c1
-% This works:
-\override Score.MetronomeMark #'padding = #3
-\tempo 4=80
-d1
-@end lilypond
-
-Observe en el segundo ejemplo cuán importante es determinar qué contexto
-maneja un objeto determinado.  Debido a que el objeto @code{MetronomeMark} (indicación metronómica)
-se maneja en el contexto @code{Score}, los cambios de propiedades dentro del
-contexto @code{Voice} no se tendrán en cuenta.  Para ver más detalles, consulte
-@ruser{Constructing a tweak}.
-
-@cindex extra-offset (desplazamiento adicional)
-
-@item
-La propiedad @code{extra-offset} mueve objetos en la salida;
-requiere una pareja de números.  El primer número
-controla el movimiento horizontal, un número positivo moverá
-el objeto hacia la derecha.  El segundo número controla el movimiento
-vertical; un número positivo lo desplazará hacia arriba.  La
-propiedad @code{extra-offset} es una funcionalidad de bajo nivel: el motor
-de formateo es completamente olvidadizo respecto de estos desplazamientos.
-
-En el ejemplo siguiente, la segunda digitación se desplaza un poco hacia
-la izquierda y 1.8 espacios de pentagrama hacia abajo:
-
-@lilypond[quote,fragment,relative=1,verbatim]
-\stemUp
-f-5
-\once \override Fingering
-    #'extra-offset = #'(-0.3 . -1.8)
-f-5
-@end lilypond
-
-@item
-El establecimiento de la propiedad @code{transparent} provocará que un objeto se imprima
-con @q{tinta invisible}: el objeto no se imprime, pero se conserva todo el resto
-de su comportamiento.  El objeto aún ocupa un espacio, toma parte en las colisiones,
-y se le pueden adjuntar ligaduras de unión o de expresión y barras de corchea.
-
-@cindex objetos transparentes
-@cindex quitar objetos
+@cindex transparent, uso de la propiedad
+@cindex objetos, hace invisibles
+@cindex eliminar objetos
+@cindex objetos, eliminar
 @cindex ocultar objetos
-@cindex objetos invisibles
-El ejemplo siguiente demuestra cómo conectar distintas voces
-utilizando ligaduras.  Normalmente las ligaduras sólo unen dos notas de la misma voz.
-Al introducir una ligadura en una voz distinta,
+@cindex invisibles, objetos
+@cindex ligar notas entre voces distintas
+
+@item
+@subheading Tying notes across voices
+
+El ejemplo siguiente muestra cómo conectar notas que están en
+distintas voces utilizando ligaudras de unión.  Normalmente sólo se
+pueden conectar mediante ligaduras de unión dos notas que estén en la
+misma voz.  Usando dos voces, con las notas ligadas en una de ellas:
 
 @lilypond[quote,fragment,relative=2]
-<< {
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+<< { b8~ b8\noBeam }
+\\ { b[ g8] }
+>>
 @end lilypond
 
 @noindent
-y suprimiendo la primera plica hacia arriba en dicha voz, la ligadura parece cruzarse de una
-voz a otra:
-
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<< {
-  \once \override Stem #'transparent = ##t
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
-@end lilypond
-
-Para asegurarse de que la plica que hemos suprimido no aprieta demasiado a la
-ligadura, también alargamos la plica, estableciendo su @code{length} (longitud) a
-@code{8},
+y borrando la primera plica hacia arriba en esa voz, da la impresión
+de que la ligadura se cruza entre las voces:
 
 @lilypond[quote,fragment,relative=2,verbatim]
-<< {
-  \once \override Stem #'transparent = ##t
-  \once \override Stem #'length = #8
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+<<
+  {
+    \once \override Stem #'transparent = ##t
+    b8~ b8\noBeam
+  }
+\\
+  { b[ g8] }
+>>
 @end lilypond
 
-@end itemize
+Para estar seguros de que la plica que acabamos de borrar no aprieta
+demasiado a la ligadura, podemos alargar la plica estableciendo su
+valor de longitud @code{length} a @code{8},
 
-@cindex Trucos, distancias
-@cindex Distancias
-
-Las distancias en LilyPond se miden en espacios de pentagrama, mientras que
-las propiedades de grosor se miden en grosores de líneas de pentagrama.  Algunas
-propiedades son diferentes; por ejemplo, el grosor de las barras de corchea
-se mide en espacios de pentagrama.  Para más información, consulte la porción
-correspondiente de la referencia del programa.
-
-
-
-@node Default files
-@section Default files
-
-La documentación de la Referencia del Programa contiene una gran cantidad de información
-sobre LilyPond, pero más información aún se puede obtener a partir de la observación
-de los archivos internos de LilyPond.
-
-Algunos ajustes por omisión como las definiciones de las
-@code{\header@{@}}s (encabezamientos) están almacenados en archivos @code{.ly}.
-Otros ajustes como las definiciones de los comandos de marcado se almacenan
-como archivos @code{.scm} (de Scheme).  Cae fuera del ámbito de presente manual
-cualquier explicación más profunda; los usuarios están advertidos de que se necesita
-una considerable cantidad de conocimientos técnicos
-para comprender estos archivos.
-
-@itemize @bullet
-
-@item Linux: @file{@var{directorio_de_instalación}/lilypond/usr/share/lilypond/current/}
-
-@item OSX:
-@file{@var{carpeta_de_instalación}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
-Para llegar aquí, o bien entre con @code{cd} en este directorio desde el
-Terminal, o haga control-clic sobre la aplicación LilyPond y elija
-@q{Mostrar el Contenido del Paquete}.
-
-@item Windows: @file{@var{carpeta_de_instalación}/LilyPond/usr/share/lilypond/current/}
-
-@end itemize
-
-Los directorios @file{ly/} y @file{scm/} son de especial interés.
-Archivos como @file{ly/property-init.ly} y
-@file{ly/declarations-init.ly} definen todos los trucos comunes.
-
-
-@node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
-
-A veces puede acabar con uno o dos pentagramas en una segunda página
-(o tercera, o cuarta...).  Es fastidioso sobre todo si observa las
-páginas anteriores y parece haber
-espacio suficiente en ellas.
-
-Al investigar asuntos relacionados con la presentación, la herramienta
-@code{annotate-spacing} (anotar el espaciado) no tiene precio.
-Este comando imprime los valores de algunos comandos de espaciado;
-consulte @ruser{Displaying spacing} para ver más detalles.  A partir de
-la salida de de @code{annotate-spacing}, podemos ver qué márgenes podríamos desear alterar.
-
-Aparte de los márgenes, existen otras opciones para ahorrar espacio:
-
-@itemize
-@item
-Puede indicarle a LilyPond que coloque los sistemas tan juntos como sea
-posible (para que quepan tantos sistemas como sea posible sobre una página),
-pero luego separar estos sistemas para que no haya ningún espacio vacío
-al final de la página.
-
-@example
-\paper @{
-  between-system-padding = #0.1
-  between-system-space = #0.1
-  ragged-last-bottom = ##f
-  ragged-bottom = ##f
-@}
-@end example
-
-@item
-Puede forzar el número de sistemas (es decir, si LilyPond quiere
-tipografiar la música con 11 sistemas, puede forzarlo
-para que use 10).
-
-@example
-\paper @{
-  system-count = #10
-@}
-@end example
-
-@item
-Evite (o reduzca) el uso de objetos que aumenten el tamaño
-vertical de un sistema.  Por ejemplo, las repeticiones con
-primera y segunda vez necesitan espacio adicional.  Si
-estas repeticiones abarcan dos sistemas, ocuparán más espacio
-que un solo sistema con las repeticiones y otro sistema sin ellas.
-
-Otro ejemplo es desplazar las expresiones dinámicas que se
-@q{asoman por encima} de un sistema.
-
-@lilypond[verbatim,quote,fragment]
-\relative c' {
-  e4 c g\f c
-  \override DynamicLineSpanner #'padding = #-1.8
-  \override DynamicText #'extra-offset = #'( -2.1 . 0)
-  e4 c g\f c
-}
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \once \override Stem #'transparent = ##t
+    \once \override Stem #'length = #8
+    b8~ b8\noBeam
+  }
+\\
+  { b[ g8] }
+>>
 @end lilypond
 
 @item
-Altere el espaciado horizontal por medio de @code{SpacingSpanner}.  Consulte
-@ruser{Changing horizontal spacing} para ver más detalles.
+@subheading Simulating a fermata
 
-@lilypond[verbatim,quote]
+@cindex sello, uso de la propiedad
+@cindex fermata, realización en MIDI
+
+Para los objetos fuera-del-pentagrama, normalmente es mejor
+sobreescribir la propiedad @code{stencil} («sello») del objeto que su
+propiedad @code{transparent} cuando desee quitarlos de la salida
+impresa.  Mediante el establecimiento de la propiedad @code{stencil}
+de un objeto al valor @code{#f} podemos quitar el objeto por completo
+de la salida impresa.  Esto significa que no tiene efecto sobre la
+colocación de otros objetos que pudieran colocarse en relación a él.
+
+Por ejemplo, si quisiéramos cambiar la indicación metronómica con el
+propósito de simular un calderón en la salida MIDI, seguramente no
+querríamos que la indicación metronómica apareciese en la salida
+impresa, y no querríamos influir sobre la separación entre los dos
+sistemas o entre las notas del pentagrama.  Por lo tanto, establecer
+su propiedad @code{stencil} al valor @code{#f} sería la mejor manera.
+Mostramos aquí el efecto de los dos métodos:
+
+@lilypond[quote,verbatim,ragged-right]
 \score {
   \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    % Visible tempo marking
+    \tempo 4=120
+    a4 a a
+    \once \override Score.MetronomeMark #'transparent = ##t
+    % Invisible tempo marking to lengthen fermata note in MIDI
+    \tempo 4=80
+    a\fermata
+    \once \override Score.MetronomeMark #'stencil = ##f
+    % Invisible tempo marking to restore tempo in MIDI
+    \tempo 4=120
+    a a a a
   }
-  \layout {
-    \context {
-      \Score
-      \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
-    }
-  }
+  \layout { }
+  \midi { }
 }
 @end lilypond
 
+@noindent
+Ambos métodos quitan la indicación metronómica de la salida impresa, y
+los dos afectan al tempo del MIDI tal y como queríamos, pero la
+primera indicación de metrónomo (la transparente) aún influye sobre la
+separación de las notas, mientras que la segunda (sin «sello») no
+influye.
+
 @end itemize
 
+@node Using variables for tweaks
+@subsection Using variables for tweaks
+
+Las instrucciones de sobreescritura son con frecuencia largas y
+tediosas de escribir, y se tienen que escribir de forma absolutamente
+correcta.  Si las mismas sobreescrituras se van a utilizar muchas
+veces, podría merecer la pena definir variables para guardarlas.
+Suponga que queremos realzar ciertas palabras de la letra de una
+canción imprimiéndolas en cursiva y negrita.  Las instrucciones
+@code{\italic} y @code{\bold} no funcionan dentro de la letra de las
+canciones, así que tenemos de usar en su lugar las siguientes
+instrucciones @code{\override} y @code{\revert}:
+
+@example
+@code{\override Lyrics . LyricText #'font-shape = #'italic}
+@code{\override Lyrics . LyricText #'font-series = #'bold}
+
+@code{\revert Lyrics . LyricText #'font-shape}
+@code{\revert Lyrics . LyricText #'font-series}
+@end example
+
+Estas instrucciones serían extremadamente tediosas de escribir si
+hubiera muchas palabras que quisiéramos subrayar.  Entonces, en vez de
+esto las definimos como dos variables, y las usamos de la siguiente
+forma:
+
+@lilypond[quote,verbatim]
+emph = {
+  \override Lyrics . LyricText #'font-shape = #'italic
+  \override Lyrics . LyricText #'font-series = #'bold
+}
+norm = {
+  \revert Lyrics . LyricText #'font-shape
+  \revert Lyrics . LyricText #'font-series
+}
+
+global = { \time 4/4 \partial 4 \key c \major}
+SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+VerseOne   = \lyrics { E -- | ter -- nal \emph Fa -- ther, \norm | strong to save, }
+VerseTwo   = \lyricmode { O | \emph Christ, \norm whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { O | \emph Ho -- ly Spi -- rit, \norm | who didst brood }
+VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Sop"  { \voiceOne \global \SopMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Sop" { \VerseOne   }
+      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
+      \new Lyrics \lyricsto "Sop" { \VerseThree }
+      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+    >>
+  >>
+}
+@end lilypond
+
+
+
+@node Other sources of information
+@subsection Other sources of information
+
+La documentación del manual de Referencia de Funcionamiento Interno
+contiene montañas de información sobre LilyPond, pero se puede obtener
+más información aún leyendo los archivos internos de LilyPond.  Para
+echarles un vistazo, en primer lugar busque la carpeta correspondiente
+a su sistema, de la siguiente forma:
+
+@strong{Linux}
+
+Diríjase a
+@file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+
+@strong{OSX}
+
+Diríjase a
+@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+bien haciendo @code{cd} hacia este directorio desde el Terminal, o
+bien manteniendo pulsada la tecla de Control y haciendo click sobre la
+aplicación de LilyPond, y allí eligiendo @q{Mostrar el contenido del
+paquete}.
+
+@strong{Windows}
+
+Mediante el Explorador de Windows, diríjase a
+@file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+
+Dentro de esta carpeta, las dos subcarpetas interesantes son
+
+@itemize
+@item @file{../ly/ } - contains files in LilyPond format
+@item @file{../scm/} - contains files in Scheme format
+@end itemize
+
+Vamos a comenzar observando algunos archivos que están en
+@file{../ly/}.  Abra @file{../ly/property-init.ly} con un editor de
+textos.  El mismo que usaría normalmente para los archivos @code{.ly}
+servirá perfectamente.  Este archivo contiene las definiciones de
+todas las instrucciones incorporadas como estándar dentro de LilyPond,
+como por ejemplo @code{\stemUp} y @code{\slurDotted}.  Podrá ver que
+no son nada más que definiciones de variables que contienen una o
+varias instrucciones @code{\override}.  Por ejemplo, @code{/tieDotted}
+está definido de tal forma que su valor es:
+
+@example
+tieDotted = @{
+  \override Tie #'dash-period = #0.75
+  \override Tie #'dash-fraction = #0.1
+@}
+@end example
+
+Si no le gustan los valores predeterminados, estas instrucciones
+incorporadas se pueden redefinir con facilidad como cualquier otra
+variable, al principio de su archivo de código de entrada.
+
+Los siguientes son los archivos más útiles que se encuentran en
+@file{../ly/}:
+
+@multitable @columnfractions .4 .6
+@headitem Archivo
+  @tab Contenido
+@item @file{../ly/engraver-init.ly}
+  @tab Definiciones de Contextos de grabadores
+@item @file{../ly/paper-defaults.ly}
+  @tab especificaciones de valores predeterminados relacionados con el papel
+@item @file{../ly/performer-init.ly}
+  @tab Definiciones de Contextos de interpretación
+@item @file{../ly/property-init.ly}
+  @tab Definiciones de todas las instrucciones incorporadas que son comunes
+@end multitable
+
+Otros ajustes (como las definiciones de las instrucciones de marcado)
+se almacenan como archivos @code{.scm} (de Scheme).  El lenguaje de
+programación Scheme se utiliza para proporcionar un interfaz
+programable en el funcionamiento interno de LilyPond.  Cualquier
+explicación adicional sobre estos archivos se encuentra por el momento
+fuera del ámbito de este manual, porque se requieren conocimientos del
+lenguaje Scheme.  Se advierte a los usuarios que se necesita una
+importante cantidad de conocimientos técnicos o de tiempo para
+comprender el lenguaje Scheme y estos archivos (véase @ref{Scheme
+tutorial}).
+
+Si ya tiene estos conocimientos, los archivos de Scheme que pueden
+interesarle son:
+
+@multitable @columnfractions .4 .6
+@headitem Archivo
+  @tab Contenido
+@item @file{../scm/auto-beam.scm}
+  @tab Valores predeteminados de sub-barrado
+@item @file{../scm/define-grobs.scm}
+  @tab valores predeterminados de las propiedades de grobs
+@item @file{../scm/define-markup-commands.scm}
+  @tab Especificar todas las instrucciones de marcado
+@item @file{../scm/midi.scm}
+  @tab Ajustes predeterminados para la salida MIDI
+@item @file{../scm/output-lib.scm}
+  @tab Ajustes que afectan al aspecto de los trastes, colores, alteraciones, lineas divisorias, etc.
+@item @file{../scm/parser-clef.scm}
+  @tab Definiciones de las claves contempladas
+@item @file{../scm/script.scm}
+  @tab Ajustes predeterminados para las articulaciones
+@end multitable
+
+
+
 @node Avoiding tweaks with slower processing
-@section Avoiding tweaks with slower processing
+@subsection Avoiding tweaks with slower processing
 
 LilyPond puede llevar a cabo comprobaciones adicionales al tiempo que
 procesa los archivos.  Estos comandos consumen tiempo, pero el
@@ -3206,7 +3246,7 @@ resultado puede necesitar menos trucos manuales.
 @end example
 
 @node Advanced tweaks with Scheme
-@section Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
 
 Hemos visto cómo la salida de LilyPond se puede modificar de manera muy profunda utilizando
 comandos como
