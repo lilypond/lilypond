@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2ff9265a797df75fcc4f33c173924fc8bb03d947
+    Translation of GIT committish: a34c05adfcc1e0976250ffefd34d4eb73daecab1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2060,136 +2060,236 @@ que se estudia en la sección siguiente.
 @subsection Moving objects
 
 Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos elementos
-de notación se pueden superponer, lo que es una lástima, pero en casi
-todos los casos se resuelve fácilmente.
+de notación se pueden superponer, lo que es una lástima, pero en
+realidad es bastante poco frecuente.  Normalmente la necesidad de
+mover objetos es por claridad o razones estéticas: el aspecto es mejor
+con un poco más o un poco menos de espacio de separación.
 
-@c  FIXME: find a better example for 5.1 Moving Objects.  -gp
-@c  yes, I want this TODO to be visible to end-users.  It's better
-@c  than having nothing at all.
-HACER: con las nuevas funcionalidades de espaciado en la versión 2.12, estos ejemplos específicos
-ya no son de relevancia.  Sin embargo siguen demostrando las poderosas funcionalidades de lilypond,
-así que quedan aquí hasta que alguien elabore unos ejemplos mejores.
+Existen tres enfoques principales que llevan a la resolución de
+superposiciones en la notaciónThere are three main main approaches to
+resolving overlapping notation.  Se deben considerar en el siguiente
+orden:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@enumerate
+@item
+La @strong{dirección} de uno de los objetos que se superponen se puede
+cambiar usando las instrucciones predefinidas que están relacionadas
+arriba para los objetos dentro-del-pentagrama (véase @ref{Within-staff
+objects}).  Se pueden recolocar fácilmente las plicas, ligaduras de
+expresión y de unión, barras de corchea, indicaciones dinámicas, texto
+y grupos de valoración especial de esta forma.  La limitación es que
+sólo tiene la posibilidad de elegir entre dos posiciones, y podría ser
+que ninguna de ellas sea la adecuada.
 
-@cindex padding
+@item
+Las @strong{propiedades del objeto}, que LilyPond usa cuando está
+colocando los objetos de presentación, se pueden modificar usando la
+instrucción de sobreescritura @code{\override}.  Las ventadas de hacer
+cambios a este tipo de propiedad son: a) que algún otro objeto se
+moverá automáticamente si es necesario, para dejarle sitio, y b) una
+única sobreescritura se puede aplicar a todas las instancias del mismo
+tipo de objeto.  Entre tales propiedades se encuentran:
+@itemize
 
-La solución más fácil es aumentar la distancia entre el objeto
-(texto en este caso, pero muy bien podrían ser digitaciones o dinámicas)
-y la nota.  En LilyPond, esto se llama la propiedad
-@code{padding} (relleno); se mide en espacios de pentagrama.  Para la mayor
-parte de los objetos, este valor ronda la cantidad de 1.0 o menos (varía dependiendo del
-objeto). Queremos aumentarlo, así que probaremos el valor 1.5
+@item
+@code{direction} (dirección)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'padding = #1.5
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+Ya se ha estudiado con cierto detalle: véase @ref{Within-staff
+objects}.
 
-Esto tiene un mejor aspecto, pero no es suficiente.  Después de probar
-con algunos valores, creemos que 2.3 es el mejor número en este caso. Sin embargo
-esta cantidad es el mero resultado del ensayo y error y de mi gusto personal
-acerca de la notación.  Pruebe el ejemplo anterior con 2.3... pero también con otros valores
-mayores (y menores).  ¿Cuál cree que queda mejor?
+@item
+@code{padding} (relleno), @code{left-padding} (relleno por la
+izquierda), @code{right-padding} (relleno por la derecha),
+@code{staff-padding} (relleno de pentagrama)
 
-La propiedad @code{staff-padding} (relleno de pentagrama) está estrechamente relacionada.
-@code{padding} controla la cantidad de espacio mínima entre un objeto y el objeto más cercano
-(generalmente la nota o las líneas del pentagrama);
-@code{staff-padding} controla la cantidad mínima de espacio entre un
-objeto y el pentagrama.  Ello supone una sutil diferencia, pero podrá
-observar el comportamiento a continuación.
+@cindex left-padding, propiedad
+@cindex padding, propiedad
+@cindex right-padding, propiedad
+@cindex staff-padding, propiedad
+Según un objeto se está colocando, el valor de su propiedad de relleno
+@code{padding} especifica el espacio intermedio que se debe dejar
+entre él mismo y el límite más próximo del objeto contra el que se
+está colocando.  Observe que es el valor de @code{padding} del objeto
+@strong{que se está colocando} el que se usa; el valor de
+@code{padding} del objeto que ya está colocado se ignora.  Los
+espacios intermedios especificados mediante @code{padding} se pueden
+aplicar a todos los objetos que contemplan el interface
+@code{side-position-interface}.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-\break
-c'4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-@end lilypond
+En lugar de con @code{padding}, la colocación de los grupos de
+alteraciones se controla con @code{left-padding} y
+@code{right-padding}.  Eestas propiedades se encontrarán en el objeto
+@code{AccidentalPlacement} que, observe, vive dentro del contexto de
+@strong{staff}.  Como las alteraciones accidentales siempre se
+posicionan según las cabezas de las notas y a su izquierda, solamente
+tiene algún efecto la propiedad de relleno por la derecha
+@code{right-padding}.
 
-@cindex desplazamiento adicional
+La propiedad @code{staff-padding} está estrechamente relacionada con
+la propiedad @code{padding}: @code{padding} controla la separación
+mínima entre cualquier objeto que contemple el interface
+@code{side-position-interface} y el objeto más cercano (generalmente
+la nota o las líneas del pentagrama); @code{staff-padding} se aplica
+sólo a los objetos que siempre se sitúan fuera del pentagrama:
+controla la separación mínima entre dicho objeto y el pentagrama.
+Observe que @code{staff-padding} no tiene ningún efecto sobre objetos
+que se posicionan respecto a la nota en vez de hacerlo respecto al
+pentagrama, incluso aunque puede ser sobreescrito sin error por tales
+objetos: simplemente se ignora.
 
-Otra solución nos proporciona un control absoluto sobre la situación del objeto: podemos
-moverlo horizontal o verticalmente.  Se hace con la propiedad
-@code{extra-offset} (desplazamiento adicional).  Es ligeramente más complicado y puede
-causar otros problemas.  Cuando movemos objetos con @code{extra-offset},
-el movimiento se hace después de que LilyPond haya colocado todos los demás objetos.
-Esto significa
-que el resultado podría entrar en conflicto con otros objetos.
+Para descubrir qué propiedad de relleno se necesita para el objeto que
+quiere recolocar, debe volver al manual de RFI y buscar las
+propiedades del objeto.  Tenga cuidado porque las propiedades de
+relleno podrían no estar en el objeto más obvio, así que busque en los
+objetos que puedan tener alguna relación con él.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+Todos los valores de relleno se miden en espacios del pentagrama.
+Para la mayor parte de los objetos el valor se establece de forma
+predeterminada en aproximadamente 1.0 o menos (varía con cada objeto).
+Se puede sobreescribir si se necesita una separación intermedia mayor
+(o menor).
 
-Con @code{extra-offset}, el primer número controla el movimiento
-horizontal (negativo hacia la izquierda); el segundo número controla el movimiento
-vertical (positivo hacia arriba).  Después de algunos ensayos, hemos decidido que los siguientes valores
-son apropiados
+@item
+@code{self-alignment-X} (Auto-alineamiento en el eje X)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@cindex self-alignment-X, propiedad
+Esta propiedad se puede usar para alinear el objeto a la izquierda, a
+la derecha, o centrarlo con respecto al punto de referencia del objeto
+«padre».  Se puede usar con todos los objetos que contemplan el
+interfaceIt may be used with all objects which support the
+@code{self-alignment-interface}.  En general son objetos que contienen
+texto.  Los valores son @code{LEFT}, @code{RIGHT} o @code{CENTER}.  De
+forma alternativa se puede especificar un valor numérico entre
+@code{-1} y @code{+1}, donde @code{-1} es alineado por la izquierda,
+@code{+1} es alineado por la derecha, y los números intermedios mueven
+el texto progresivamente desde alinado por la izquierda hasta alineado
+por la derecha.  Se pueden especificar valores numéricos mayores de
+@code{1} para mover el texto incluso más lejos hacia la izquierda, o
+menos de @code{-1} para alejarlo más hacia la derecha.  Un cambio en
+@code{1} en el valor corresponde a un movimiento de la mitad de la
+longitud total del propio texto.
 
-@noindent
-Una vez más, estos números son simplemente el resultado de algunos experimentos y
-de observar la salida.  Quizá prefiera que el texto se encuentre algo más arriba,
-o a la izquierda, o en cualquier dirección.  ¡Pruébelo y observe el resultado!
+@item
+@code{extra-spacing-width} (anchura de separación adicional)
 
-Una advertencia final: en esta sección hemos usado
+@cindex extra-spacing-width, propiedad
+Esta propiedad está disponible para todos los objetos que contemplan
+el interface @code{item-interface}.  Toma dos números, el primero se
+suma al límite izquierdo y el segundo se suma al límite derecho.  Los
+números negativos desplazan el límite a la izquierda y los positivos a
+la derecha, por lo que para ensanchar un objeto el primer número debe
+ser negativo y el segundo positivo.  Observe que no todos los objetos
+ostentan los dos números.  Por ejemplo, el objeto @code{Accidental}
+(alteración) sólo toma nota del primer número (el borde izquierdo).
 
-@example
-\once \override TextScript @dots{}
-@end example
+@item
+@code{staff-position} (posición de pentagrama)
 
-Esto altera la presentación del texto para la nota siguiente.  Si la nota no
-tiene ningún texto, este truco no hace nada (y @strong{no} se queda esperando al
-siguiente fragmento de texto).  Para cambiar el comportamiento permanentemente a partir
-del comando, omita el @code{\once}.  Para detener este truco, use
-@code{\revert} (revertir).  Todo esto se explica en profundidad en
-@ruser{The \override command}.
+@cindex staff-position, propiedad
+@code{staff-position} es una propiedad del interface
+@code{staff-symbol-referencer-interface}, que está contemplado por los
+objetos que se colocan con relación al pentgrama.  Especifica la
+posición vertical del objeto con relación a la tercera línea del
+pentagrama en medios espacios de pentagrama.  Ees útil en la
+resolución de colisiones entre objetos de presentación como silencios
+multi-compás, ligaduras de unión y notas en distintas voces.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b
-\once \override TextScript #'padding = #4.6
-  a4 b
-c4^"piu mosso" d e f
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\break
-\override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\revert TextScript #'padding
-c4^"piu mosso" d e f
-@end lilypond
+@item
+@code{force-hshift} (forzar desplazamiento horizontal)
 
-@seealso
+@cindex force-hshift, propiedad
 
-En el presente manual: @ruser{The \override command}, @ruser{Common tweaks}.
+Las notas muy juntas de un acorde, o aquellas que ocurren al mismo
+tiempo en voces distintas, se disponen en dos (y ocasionalmente más)
+columnas para evitar la superposición de las cabezas.  Éstas reciben
+el nombre de columnas de notas, y se crea un objeto llamado
+@code{NoteColumn} para disponer las notas en dicha columna.
 
+La propiedad @code{force-hshift} es una propiedad de una
+@code{NoteColumn} (realmente lo es del interface
+@code{note-column-interface}).  Modificarlo permite mover una columna
+de notas en unidades adecuadas a una columna de notas, por ejemplo la
+anchura de la cabeza de la nota de la primera voz.  Se debe usar en
+situaciones complejas donde las instrucciones @code{\shiftOn} normales
+(véase @ref{Explicitly instantiating voices}) no resuelven el
+conflicto entre las notas.  Es preferible a la propiedad
+@code{extra-offset} para este propósito porque no hay necesidad de
+averiguar la distancia en espacios de pentagrama, y mover las notas
+dentro o fuera de una @code{NoteColumn} afecta a otras acciones como a
+la fusión entre cabezas de nota.
+
+@end itemize
+
+En general no todos los objetos tienen todas estas propiedades.  Es
+encesario ir al manual RFI para buscar qué propiedades se encuentran
+disponibles para el objeto en cuestión.
+
+@item
+Finalmente, cuando todo lo demás falla, los objetos se pueden
+reposicionar manualmente con relación a la tercera línea del
+pentagrama verticalmente, o desplazándolas una cierta distancia a una
+nueva posición.  Las desventajas son que los valores correctos para el
+reposicionamiento se deben adivinar, a menudo por ensayo y error, para
+cada objeto indvidual y, puesto que el movimiento se hace después de
+que LilyPond ha colocado todos los demás objetos es usuario es
+responsable de evitar cualquier colisión que pudiera producirse.  Pero
+la dificultar principal con este enfoque es que los valores de
+reposicionado podrían tener que ser vueltos a calcular si la música se
+modifica más tarde.  Las propiedades que se pueden usar para este tipo
+de posicionamiento manual son:
+
+@table @code
+@item extra-offset (desplazamiento adicional)
+@cindex extra-offset, propiedad
+Esta propiedad se aplica a cualquier objeto de presentación que
+contemple el @code{grob-interface}.  Toma una pareja de números que
+especifican el desplazamiento adicional en las direcciones horizontal
+y vertical.  Los números negativos mueven el objeto a la isquierda o
+hacia abajo.  Las unidades son espacios de pentagrama.  El
+desplazamiento adicional se hace después de que la composición
+tipográfica de los objetos ha terminado, así que un objeto puede ser
+reposicionado a cualquier lugar sin afectar a ninguna otra cosa.
+
+@item positions (posiciones)
+@cindex positions, propiedad
+Ésta es de la mayor utilidad para ajustar manualmente la inclinación y
+la altura de las barras de corchea, ligaduras de expresión y corchetes
+de grupos de valoración especial.  Toma una pareja de números que dan
+la posición de los extremos izquierdo y derecho de la barra, ligadura,
+etc. con relacion a la tercera línea del pentagrama.  Las unidades son
+espacios de pentagrama.  Observe, sin embargo, que las ligaduras de
+expresión y de fraseo no se pueden reposicionar en cantidades
+arbitrariamente grandes.  LilyPond en primer lugar genera una lista de
+posiciones posibles para la ligadura y de forma predeterminada
+encuentra la ligadura que tiene @qq{mejor aspecto}.  Si la porpiedad
+@code{positions} se ha sobreescrito, la ligadura que está más cerca de
+las posiciones que se han solicitado, se selecciona de la lista.
+@end table
+
+En general no todos los objetos tienen todas estas propiedades.  Es
+encesario ir al manual RFI para buscar qué propiedades se encuentran
+disponibles para el objeto en cuestión.
+
+@end enumerate
+
+Aquí presentamos una lista de los objetos que es más probable que
+estén implicados en colisiones, con el nombre del objeto que habría
+que buscar en el RFI para descubrir qué propiedades se deben usar para
+moverlos.
+
+@multitable @columnfractions .5 .5
+@headitem Tipo de objeto           @tab Nombre del objeto
+@item Articulaciones            @tab @code{Script}
+@item Barras                    @tab @code{Beam}
+@item Dinámica (verticalmente)  @tab @code{DynamicLineSpanner}
+@item Dynamica (horizontalmente)   @tab @code{DynamicText}
+@item Digitaciones                @tab @code{Fingering}
+@item Llamadas de ensayo y textuales   @tab @code{RehearsalMark}
+@item Ligaduras de expresión    @tab @code{Slur}
+@item Texto, por ejemplo @code{^"texto"}  @tab @code{TextScript}
+@item Ligaduras de unión        @tab @code{Tie}
+@item Grupos de valoración especial @tab @code{TupletBracket}
+@end multitable
 
 
 @node Fixing overlapping notation
