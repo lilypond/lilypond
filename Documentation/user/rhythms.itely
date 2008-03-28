@@ -48,7 +48,7 @@ Durations are entered as their reciprocal values.  For example, a
 quarter note is entered using a @code{4} (since it is a 1/4 note),
 and a half note is entered using a @code{2} (since it is a 1/2
 note).  For notes longer than a whole you must use the
-@code{\longa} (a double breve) and @code{\breve} commands.  
+@code{\longa} (a double breve) and @code{\breve} commands.
 Durations as short as 64th notes may be specified.  Shorter values
 are possible, but only as beamed notes.
 
@@ -112,14 +112,13 @@ proportional notation, see @ref{Proportional notation}.
 @funindex \dotsNeutral
 
 Dots are normally moved up to avoid staff lines, except in
-polyphonic situations.  To force a particular direction manually,
+polyphonic situations.  Predefined commands are available to 
+force a particular direction manually, for details
 see @ref{Controlling direction and placement}.
 
 @predefined
 
-@code{\breve},
-@code{\longa},
-@code{\maxima},
+@code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
 @code{\dotsNeutral}.
@@ -127,24 +126,24 @@ see @ref{Controlling direction and placement}.
 
 @seealso
 
-Music Glossary: 
-@rglos{breve}, 
-@rglos{longa}, 
+Music Glossary:
+@rglos{breve},
+@rglos{longa},
 @rglos{note value},
 @rglos{Duration names notes and rests}.
 
-Notation Reference: 
-@ref{Automatic beams}, 
+Notation Reference:
+@ref{Automatic beams},
 @ref{Ties},
-@ref{Writing rhythms}, 
-@ref{Writing rests}, 
+@ref{Writing rhythms},
+@ref{Writing rests},
 @ref{Vocal music},
-@ref{Ancient notation}, 
+@ref{Ancient notation},
 @ref{Proportional notation}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets: @lsrdir{Rhythms,Rhythms}.
 
-Internals Reference: 
+Internals Reference:
 @internalsref{Dots},
 @internalsref{DotColumn}.
 
@@ -173,8 +172,8 @@ durations with a fraction:
 
 @noindent
 The duration of @var{music} will be multiplied by the
-fraction.  The fraction's denominator will be printed over or 
-under the notes, optionally with a bracket.  The most common 
+fraction.  The fraction's denominator will be printed over or
+under the notes, optionally with a bracket.  The most common
 tuplet is the triplet in which 3 notes have the duration of 2, so
 the notes are 2/3 of their written length.
 
@@ -220,65 +219,25 @@ see @ref{Scaling durations}.
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
-@lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
 @funindex TupletNumber
 
-@c Sent to VV on 12 Feb - replace with @lilypondfile when available
-@c TODO and delete from here ...
-By default, only the numerator of the tuplet number
-is printed over the tuplet bracket, i.e. the denominator
-of the argument to the @code{\times} command.  Alternatively,
-@var{num}:@var{den} of the tuplet number may be printed, or
-the tuplet number may be suppressed altogether.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{changing-the-tuplet-number.ly}
 
-
-@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
-\times 2/3 { c8 c c } \times 2/3 { c8 c c }
-\override TupletNumber #'text = #tuplet-number::calc-fraction-text
-\times 2/3 { c8 c c }
-\override TupletNumber #'transparent = ##t
-\times 2/3 { c8 c c }
-@end lilypond
-
-@c ... to here
-
-
-@c Sent to VV on 12 Feb - replace with @lilypondfile when available
-@c TODO and delete from here ...
-This artificial example shows how both manual and automatic line
-breaks may be permitted within a beamed tuplet. Note that such
-off-beat tuplets have to be beamed manually.
-
-@lilypond[quote,ragged-right,verbatim]
-\relative c'' {
-  a8
-  \repeat unfold 8 {\times 2/3 { c[ b a]}}
-  % Insert a manual line break within a tuplet
-  \times 2/3 { c[ b \bar "" \break a]}
-  \repeat unfold 2 {\times 2/3 { c[ b a]}}
-  c8
-}
-\layout {
-  \context {
-    \Voice
-    % Permit line breaks within tuplets
-    \remove "Forbid_line_break_engraver"
-    % Allow beams to be broken at line breaks
-    \override Beam #'breakable = ##t
-  }
-}
-@end lilypond
-
-@c .. to here
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{permitting-line-breaks-within-beamed-tuplets.ly}
 
 @seealso
 
-Music Glossary: 
-@rglos{triplet}, 
+Music Glossary:
+@rglos{triplet},
 @rglos{tuplet},
 @rglos{polymetric}.
+
+Learning Manual: @rlearning{Tweaking methods}.
 
 Notation Reference:
 @ref{Time administration},
@@ -288,10 +247,17 @@ Notation Reference:
 
 Snippets: @lsrdir{Rhythms,Rhythms}.
 
-Internals Reference: 
+Internals Reference:
 @internalsref{TupletBracket},
-@internalsref{TupletNumber}, 
+@internalsref{TupletNumber},
 @internalsref{TimeScaledMusic}.
+
+@knownissues
+@cindex grace notes within tuplet brackets
+When the very first note on a staff is a grace note followed by a
+tuplet the grace note must be placed before the @code{\times}
+command to avoid errors.  Anywhere else, grace notes may be
+placed within tuplet brackets.
 
 
 @node Scaling durations
@@ -299,6 +265,8 @@ Internals Reference:
 
 @cindex scaling durations
 @cindex durations, scaling
+
+TODO Change \compressMusic to \scaleDurations when implemented.
 
 You can alter the duration of single notes, rests or chords by a
 fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if
@@ -330,8 +298,8 @@ a multiplier.  This is useful for skipping many measures, e.g.,
 @cindex compressing music
 @funindex \compressMusic
 
-Longer stretches of music may be compressed by a fraction in 
-the same way, as if every note, chord or rest had the fraction 
+Longer stretches of music may be compressed by a fraction in
+the same way, as if every note, chord or rest had the fraction
 as a multiplier.  The general syntax of the command to do this
 is:
 
@@ -374,6 +342,7 @@ Notation Reference:
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
+
 @node Ties
 @subsubsection Ties
 
@@ -385,7 +354,7 @@ in effect extends the duration of a note.
 
 @warning{Ties should not be confused with @emph{slurs}, which
 indicate articulation, or @emph{phrasing slurs}, which indicate
-musical phrasing. A tie is just a way of extending a note
+musical phrasing.  A tie is just a way of extending a note
 duration, similar to the augmentation dot.}
 
 A tie is entered using the tilde symbol @code{~}
@@ -480,45 +449,16 @@ commands.
 @code{\tieNeutral},
 @code{\tieDotted},
 @code{\tieDashed},
-@code{\tieSolid},
-@code{\repeatTie}.
+@code{\tieSolid}.
 
 
 @snippets
 
-@c TODO Remove when snippet available - sent 15 Mar 08
-Ties are sometimes used to write out arpeggios.  In this case, two
-tied notes need not be consecutive.  This can be achieved by
-setting the @code{tieWaitForNote} property to true.  The same
-feature is also useful, for example, to tie a tremolo to a chord,
-but in principle, it can also be used for ordinary, consecutive
-notes:
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{using-ties-with-arpeggios.ly}
 
-@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
-\set tieWaitForNote = ##t
-\grace { c16[~ e~ g]~ } <c, e g>2
-\repeat tremolo 8 { c32~ c'~ } <c c,>1
-e8~ c~ a~ f~ <e' c a f>2
-\tieUp c8~ a \tieDown \tieDotted g~ c g2
-@end lilypond
-
-@c end of section to be removed
-
-@c TODO Remove when snippet available - sent 15 Mar 08
-Ties may be engraved manually by changing the
-@code{tie-configuration} property of the @code{TieColumn} object.
-The first number indicates the distance from the center of the
-staff in staff-spaces, and the second number indicates the
-direction (1=up, -1=down).
-
-@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
-<c e g>2~ <c e g> |
-\override TieColumn #'tie-configuration =
-  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
-<c e g>~ <c e g> |
-@end lilypond
-
-@c end of section to be removed
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{engraving-ties-manually.ly}
 
 
 @seealso
@@ -554,9 +494,9 @@ well-defined.  In these cases, a slur may be preferable.
 @subsection Writing rests
 
 @menu
-* Rests::
-* Skips::
-* Full measure rests::
+* Rests::                       
+* Skips::                       
+* Full measure rests::          
 @end menu
 
 @node Rests
@@ -592,8 +532,8 @@ longer rests with the predefined commands shown:
 }
 @end lilypond
 
-Whole measure rests, centered in middle of the measure, must be
-entered as multi-measure rests.  They can be used for a single
+Whole measure rests, centered in the middle of the measure, must
+be entered as multi-measure rests.  They can be used for a single
 measure as well as many measures and are discussed in
 @ref{Full measure rests}.
 
@@ -607,15 +547,9 @@ formatter will leave these rests alone.
 a4\rest d4\rest
 @end lilypond
 
-@predefined
-
-@code{\rest},
-@code{\maxima},
-@code{\longa},
-@code{\breve}.
-
 @snippets
-@lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {rest-styles.ly}
 
 
@@ -653,7 +587,7 @@ followed by the required duration, as shown here:
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 % Skip the third beat in the first bar
 a4 a4 s4 a4
-% Use predefined command to skip a whole note (bar)
+% Use skip command to skip a whole note (bar)
 \skip 1
 a2 a2
 @end lilypond
@@ -693,9 +627,6 @@ empty page:
 @{ \skip 1 @}
 @end example
 
-@predefined
-@code{\skip}
-
 @seealso
 
 Snippets: @lsrdir{Rhythms,Rhythms}
@@ -706,59 +637,63 @@ Internals Reference: @internalsref{SkipMusic}
 @node Full measure rests
 @subsubsection Full measure rests
 
-@cindex multi measure rests
-@cindex full measure rests
-@cindex rest, multi measure
-@cindex rest, full measure
+@cindex multi-measure rests
+@cindex full-measure rests
+@cindex rest, multi-measure
+@cindex rest, full-measure
 @cindex whole rest for a full measure
 @funindex R
 
-Rests for one or more full measures are entered using @code{R}, in
-uppercase, followed by a duration.  The duration should
-correspond to an integral number of measures, otherwise a barcheck
-warning is printed.  A multi-measure rest is used
-principally to indicate that a part in a multi-part score should 
-be silent:
+Rests for one or more full measures are entered like notes with
+the note name uppercase @code{R}:
 
 @lilypond[quote,fragment,verbatim,relative=2]
-\set Score.skipBars = ##t
+% Rest bars contracted to single bar
+\compressFullBarRests
 R1*4
 R1*24
 R1*4
 b2^"Tutti" b4 a4
 @end lilypond
 
-By default, a multi-measure rest is expanded in the printed score
-to show all the rest measures explicitly, or, as above, it can be
-condensed to a single measure containing a multi-measure rest 
-symbol, with the number of measures of rest printed above the 
-measure.  This expansion is controlled by the property 
-@code{Score.skipBars}.  If this is set to true, empty measures 
-will be condensed to a single measure:
+@funindex \expandFullBarRests
+@funindex \compressFullBarRests
+@cindex multi-meaure rest, expanding
+@cindex multi-measure rest, contracting
+
+By default a multi-measure rest is expanded in the printed score
+to show all the rest measures explicitly or (as in the example
+above) it can be contracted to a single measure containing a
+multi-measure rest symbol, with the number of measures of rest
+printed above the measure:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 % Default behaviour
-\time 4/4 r1 | R1 | R1*2 |
+\time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
 \time 4/4
-% Rest bars condensed to a single bar
-\set Score.skipBars = ##t
-R1*17 | R1*4 |
+% Rest bars contracted to single bar
+\compressFullBarRests
+r1 | R1*17 | R1*4 |
+% Rest bars expanded
+\expandFullBarRests
+\time 3/4
+R2.*2 |
 @end lilypond
 
-The @code{1} in @code{R1} is similar to the duration notation 
+The @code{1} in @code{R1} is similar to the duration notation
 used for notes and is the length of a measure in 2/2 or 4/4 time.
 The duration in a multi-measure rest must always be an integral
 number of measure-lengths, so in other time signatures augmentation
 dots or fractions must be used:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\set Score.skipBars = ##t
+\compressFullBarRests
 \time 3/4
 R2. | R2.*2
 \time 13/8
 R1*13/8 | R1*13/8*12 |
-\time 10/8 
+\time 10/8
 R4*5*4 |
 @end lilypond
 
@@ -775,12 +710,12 @@ signature.
 @cindex multi-measure rest, attaching fermata
 
 Text can be added to multi-measure rests by using the
-@var{note} - @code{\markup} syntax described in @ref{Text markup}.
-The variable @code{\fermataMarkup} is provided for adding
-fermatas.
+@var{note} - @code{\markup} syntax described in
+@ref{Text markup}.  The predefined command @code{\fermataMarkup}
+is provided for adding fermatas.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
-\set Score.skipBars = ##t
+\compressFullBarRests
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
@@ -803,13 +738,14 @@ R1^"right"
 Text attached to a multi-measure rest will be centered above or
 below it.  Long text attached in this way does not cause the
 measure to expand, and may collide with text in adjacent measures.
-Long text is better attached to a zero-length skip note preceding
-the rest, preceded by @code{\textLengthOn} (turn off again with
-@code{\textLengthOff}), since this will cause the measure to expand to
-accommodate the length of the text:
+This behaviour may be changed with the predefined command
+@code{\textLengthOn}, which will cause following bars to expand
+as necessary to accommodate text.  @code{\textLengthOff} returns
+to the default behaviour.  To left-align text within a bar attach
+it to a zero-length skip note preceding the rest.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\set Score.skipBars = ##t
+\compressFullBarRests
 \textLengthOn
 s1*0^\markup {[MAJOR GENERAL]}
 R1*19
@@ -823,7 +759,7 @@ c4^\markup {CHORUS} d f c
 @noindent
 Text attached to a skip note in this way is left-aligned to the
 position where the note would be placed in the bar, and placed
-above the bar count numeral, but because the bar length is
+above the bar count numeral, but if the bar length is
 determined by the length of the text, the text will appear to be
 centered.  If two (or more) texts are
 attached to skip notes in a bar the bar length is determined by
@@ -835,7 +771,9 @@ alongside and to the left of the bar count numeral.
 @predefined
 @code{\textLengthOn},
 @code{\textLengthOff},
-@code{\fermataMarkup}
+@code{\fermataMarkup},
+@code{\compressFullBarRests},
+@code{\expandFullBarRests}.
 
 @snippets
 
@@ -843,59 +781,14 @@ alongside and to the left of the bar count numeral.
 @cindex rest, church
 @cindex kirchenpausen
 
-@c TODO Send as snippet "changing form of multi-measure rests"
-If there are 10 or fewer measures of rest, LilyPond prints
-a series of longa and breve rests (called in German
-Kirchenpausen - church rests) within the staff and
-prints a simple line otherwise.  This default number of 10
-may be changed by an override:
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\set Score.skipBars = ##t
-R1*2 | R1*5 | R1*9
-\override MultiMeasureRest #'expand-limit = 3
-R1*2 | R1*5 | R1*9
-@end lilypond
-@c TODO End of snippet "changing form of multi-measure rests"
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{changing-form-of-multi--measure-rests.ly}
 
 @cindex multi-measure rests, positioning
 @cindex positioning multi-measure rests
 
-@c TODO Send as snippet "positioning multi-measure rests"
-Note that, unlike ordinary rests, there is no predefined command
-to change the vertical position on the staff of a multi-measure
-rest symbol of either form by attaching it to a note.  However,
-in polyphonic music multi-measure rests in odd-numbered and
-even-numbered voices are vertically separated.  The positioning
-of multi-measure rests can be controlled as follows:
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-% Multi-measure rests by default are set under the 2nd line
-R1
-% They can be moved with an override
-\override MultiMeasureRest #'staff-position = #-2
-R1
-% A value of 0 is the default position; 
-% the following trick moves the rest to the center line
-\override MultiMeasureRest #'staff-position = #-0.01
-R1
-% Multimeasure rests in odd-numbered voices are under the top line
-<< {R1} \\ {a1} >>
-% Multi-measure rests in even-numbered voices are under the bottom line
-<< {c1} \\ {R1} >>
-% They remain separated even in empty bars
-<< {R1} \\ {R1} >>
-% This brings them together even though there are two voices
-\set Score.skipBars = ##t
-<<
-  \revert MultiMeasureRest #'staff-position
-  {R1*3}
-\\
-  \revert MultiMeasureRest #'staff-position
-  {R1*3}
->>
-@end lilypond
-@c End snippet "positioning multi-measure rests"
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{positioning-multi--measure-rests.ly}
 
 @seealso
 
@@ -903,15 +796,15 @@ Music Glossary:
 @rglos{multi-measure rest},
 @rglos{church rests}.
 
-Notation Reference: 
-@ref{Durations}, 
+Notation Reference:
+@ref{Durations},
 @ref{Text},
-@ref{Text markup}, 
+@ref{Text markup},
 @ref{Text scripts}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
-Internals Reference: 
+Internals Reference:
 @internalsref{MultiMeasureRest},
 @internalsref{MultiMeasureRestNumber},
 @internalsref{MultiMeasureRestText}.
@@ -919,15 +812,18 @@ Internals Reference:
 
 @knownissues
 
-If an attempt is made to use fingerings (e.g., 
+If an attempt is made to use fingerings (e.g.,
 @code{R1*10-4}) to put numbers over multi-measure rests, the
-fingering numeral (4) may collide with the bar counter 
-numeral (10).  
+fingering numeral (4) may collide with the bar counter
+numeral (10).
 
 @cindex condensing rests
+@cindex rests, condensing ordinary
 
-There is no way to automatically condense multiple ordinary rests 
+There is no way to automatically condense multiple ordinary rests
 into a single multi-measure rest.
+
+@cindex rests, collisions of
 
 Multi-measure rests do not take part in rest collisions.
 
@@ -958,73 +854,84 @@ R1*4 cis cis
 @cindex meter
 @funindex \time
 
-The time signature is set with the @code{\time} command:
+The time signature is set as follows:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\time 2/4 c2 \time 3/4 c2.
+\time 2/4 c2
+\time 3/4 c2.
 @end lilypond
+
+@cindex Time signature, visibility of
+
+Time signatures by default are printed at the start of every line
+and whenever the time signature changes.  If a change takes place
+at the end of a line a warning time signature sign is printed 
+there.  This default behaviour may be changed, see 
+@ref{Controlling visibility of objects}.
+
+@funindex \numericTimeSignature
+@funindex \defaultTimeSignature
+@cindex time signature style
+
+The symbol that is printed in 2/2 and 4/4 time can be customized
+to use a numeric style:
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+% Default style
+\time 4/4 c1
+\time 2/2 c1
+% Change to numeric style
+\numericTimeSignature
+\time 4/4 c1
+\time 2/2 c1
+% Revert to default style
+\defaultTimeSignature
+\time 4/4 c1
+\time 2/2 c1
+@end lilypond
+
+
+Ancient time signatures are covered in
+@ref{Ancient time signatures}.
+
+@predefined
+
+@code{\numericTimeSignature},
+@code{\defaultTimeSignature}.
 
 @snippets
 
-The symbol that is printed can be customized with the @code{style}
-property.  Setting it to @code{#'()} uses fraction style for 4/4
-and 2/2 time,
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-\time 4/4 c1
-\time 2/2 c1
-\override Staff.TimeSignature #'style = #'()
-\time 4/4 c1
-\time 2/2 c1
-@end lilypond
-
-A time signature symbol is normally printed whenever the time
-signature changes.  If this takes place at the end of a line a
-warning time signature sign is printed at the end of the line and
-again at the start of a new line.  This default behaviour can be
-modified by setting the value of the @code{break-visibility}
-property.  This takes three values which may be set to @code{#t}
-or @code{#f} to specify whether the corresponding time signature
-is visible or not.  The order of the three values is @code{end of
-line visible}, @code{middle of line visible}, @code{beginning of
-line visible}.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-% Do not print any time signatures at end of line
-\override Staff.TimeSignature #'break-visibility = ##(#f #t #t)
-\time 4/4 c1
-\time 3/4 c2.
-% Do not print the following 9/8 time signature
-\once \override Staff.TimeSignature #'break-visibility = ##(#t #f #t)
-\time 9/8 c4. c c
-\time 2/2 c1
-\break
-\time 9/8 c4. c c
-\time 12/8 c2. c2.
-@end lilypond
-
-There are many more options for its layout.  See @ref{Ancient time
-signatures}, for more examples.
-
+@c TODO Send as snippet called "setting measure and beat lengths"
+@c      when example is added
 @code{\time} sets the properties @code{timeSignatureFraction},
 @code{beatLength}, and @code{measureLength} in the @code{Timing}
-context, which is normally aliased to @internalsref{Score}.  The
-property @code{measureLength} determines where bar lines should be
-inserted, and how automatic beams should be generated.  Changing
-the value of @code{timeSignatureFraction} also causes the symbol
-to be printed.
+context, which is normally aliased to @code{Score}.  Changing the
+value of @code{timeSignatureFraction} causes the new time
+signature symbol to be printed without changing the other
+properties.  The property @code{measureLength} determines where
+bar lines should be inserted and, with @code{beatLength}, how
+automatic beams should be generated.
+
+TODO Add example of using beatLength.
+@c beatLength is broken - see bug 511
+
+@c End of snippet
 
 @cindex measure groupings
- 
-More options are available through the Scheme function
-@code{set-time-signature}, which takes three arguments: the number
-of beats, the beat length, and the internal grouping of beats in
-the measure.  If the @internalsref{Measure_grouping_engraver} is
-included, the function will also create
-@internalsref{MeasureGrouping} signs.  Such signs ease reading
-rhythmically complex modern music.  In the following example, the
-9/8 measure is subdivided in 2, 2, 2 and 3.  This is passed to
-@code{set-time-signature} as the third argument @code{(2 2 2 3)}:
+@cindex beats, grouping
+@cindex grouping beats
+@cindex measure sub-grouping
+
+@c TODO Sent as snippet called "grouping beats" 25 Mar 08
+Options to group beats within a bar are available through the
+Scheme function @code{set-time-signature}, which takes three
+arguments: the number of beats, the beat length, and the internal
+grouping of beats in the measure.  If the
+@internalsref{Measure_grouping_engraver} is included, the function
+will also create @internalsref{MeasureGrouping} signs.  Such signs
+ease reading rhythmically complex modern music.  In the example,
+the 9/8 measure is subdivided in 2, 2, 2 and 3.  This is passed to
+@code{set-time-signature} as the third argument: @code{'(2 2 2 3)}:
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -1042,16 +949,30 @@ rhythmically complex modern music.  In the following example, the
   }
 }
 @end lilypond
+@c TODO End of snippet called "grouping beats"
+
+@cindex compound time signatures
+@cindex time signature, compound
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{compound-time-signatures.ly}
 
 
 @seealso
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Music Glossary:
+@rglos{time signature}
 
-Internals Reference: @internalsref{TimeSignature}, and
+Notation Reference:
+@ruser{Ancient time signatures},
+@ruser{Time administration}.
+
+Snippets:
+@lsrdir{Rhythms,Rhythms}
+
+Internals Reference:
+@internalsref{TimeSignature},
 @internalsref{Timing_translator}.
-
-Examples: @c @lsr{contemporary,compound-time-signature.ly}.
 
 
 @knownissues
@@ -1068,40 +989,56 @@ Automatic beaming does not use the measure grouping specified with
 @cindex partial measure
 @cindex measure, partial
 @cindex pickup measure
-@cindex shorten measures
+@cindex measure, change length
+@cindex measurePosition
 @funindex \partial
 
-Partial or pickup measures, such as an anacrusis or upbeat, are
+Partial or pick-up measures, such as an anacrusis or upbeat, are
 entered using the @code{\partial} command, with the syntax
 
 @example
-\partial @var{duration}
+\partial @var{duration} @emph{notes}
 @end example
 
-where @code{duration} is the rhythmic length to be added before
-the next measure:
+where @code{duration} is the rhythmic length of the @emph{notes}
+which are to be placed before the first complete measure:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\partial 16*5 c16 cis d dis e | a2. c,4 | b2
+\partial 16*5 c16 cis d dis e |
+a2. c,4 |
+b2
 @end lilypond
 
 Internally, this is translated into
 
 @example
-\set Timing.measurePosition = -@var{length of duration}
+\set Timing.measurePosition = -@var{duration}
 @end example
 
 The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.  Note
-that this is a negative number; @code{\partial 4} is internally
-translated to mean @qq{there is a quarter note left in the bar.}
+that this is set to a negative number by the @code{\partial}
+command: i.e., @code{\partial 4} is internally translated to
+@code{-4}, meaning @qq{there is a quarter note left in the bar.}
 
+
+@seealso
+
+Music Glossary: @rglos{anacrusis}
+
+Notation Reference: @ref{Grace notes}
+
+Snippets: @lsrdir{Rhythms,Rhythms}
+
+Internal Reference: @internalsref{Timing_translator}
 
 @knownissues
 
+@cindex grace notes, in anacruses
+
 This command does not take into account grace notes at the start
-of the music.  When a piece starts with grace notes in the
-pickup, then the @code{\partial} should follow the grace notes:
+of the music.  If the pick-up starts with one or more grace
+notes, then the @code{\partial} should follow the grace note(s):
 
 @lilypond[verbatim,quote,ragged-right,relative,fragment]
 \grace f16
@@ -1110,25 +1047,25 @@ g4
 a2 g2
 @end lilypond
 
-@code{\partial} is only intended to be used at the beginning of a
-piece.  If you use it after the beginning, some odd warnings may
-occur.
-
-@seealso
-
-Snippets: @lsrdir{Rhythms,Rhythms}
+The @code{\partial} command is intended to be used only at the
+beginning of a piece.  If you use it after the beginning, some
+odd warnings may occur.
 
 @node Unmetered music
 @subsubsection Unmetered music
 
-@cindex cadenza
 @funindex \cadenzaOn
 @funindex \cadenzaOff
+@cindex bar lines, turning off
+@cindex bar numbering, turning off
+@cindex cadenza
+@cindex unmetered music
 
 Bar lines and bar numbers are calculated automatically.  For
 unmetered music (cadenzas, for example), this is not desirable.
-To turn off automatic bar lines and bar numbers, use the commands
-@code{\cadenzaOn} and @code{\cadenzaOff}.
+To turn off automatic bar lines and bar numbers, use the command
+@code{\cadenzaOn}, and use @code{\cadenzaOff} to turn them on
+again.
 
 @lilypond[verbatim,quote,ragged-right,relative=2,fragment]
 c4 d e d
@@ -1143,7 +1080,8 @@ Bar numbering is resumed at the end of the cadenza as if the
 cadenza were not there:
 
 @lilypond[verbatim,quote,ragged-right,relative=2,fragment]
-\override Score.BarNumber #'break-visibility = ##( #t #t #t )
+% Show all bar numbers
+\override Score.BarNumber #'break-visibility = #all-visible
 c4 d e d
 \cadenzaOn
 c4 c d8 d d f4 g4.
@@ -1152,9 +1090,22 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
+@predefined
+
+@code{\cadenzaOn},
+@code{\cadenzaOff}.
+
+@seealso
+
+Music Glossary: @rglos{cadenza}
+
+Notation Reference: @ref{Controlling visibility of objects}
+
+Snippets: @lsrdir{Rhythms,Rhythms}
+
 @knownissues
 
-LilyPond will only insert line breaks and page breaks at a
+LilyPond will insert line breaks and page breaks only at a
 bar line.  Unless the unmetered music ends before the end of the
 staff line, you will need to insert invisible bar lines with
 
@@ -1165,36 +1116,24 @@ staff line, you will need to insert invisible bar lines with
 @noindent
 to indicate where breaks can occur.
 
-@seealso
-
-Snippets: @lsrdir{Rhythms,Rhythms}
-
 
 @node Polymetric notation
 @subsubsection Polymetric notation
-
-@c TODO Work this example into the main text
-@c @lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
-@c {printing-music-with-different-time-signatures.ly}
 
 @cindex double time signatures
 @cindex signatures, polymetric
 @cindex polymetric signatures
 @cindex meter, polymetric
 
-Music Glossary:
-@rglos{polymetric}
-@rglos{polymetric time signature}
-@rglos{meter}
+@strong{Alternating time signatures}
 
-Double time signatures are not supported explicitly, but they can
-be faked.  In the next example, the markup for the time signature
-is created with a markup text.  This markup text is inserted in
-the @internalsref{TimeSignature} grob.  See also
-@c @lsr{contemporary,compound-time-signature}.
+Regularly alternating double time signatures are not supported
+explicitly, but they can be faked.  In the next example, the
+double time signature is created with markup text, while the
+real time signature is set in the usual way with @code{\time}.
 
 @lilypond[verbatim,ragged-right]
-% create 2/4 + 5/8
+% Create 9/8 split into 2/4 + 5/8
 tsMarkup = \markup {
   \override #'(baseline-skip . 2) \number {
     \column { "2" "4" }
@@ -1207,14 +1146,56 @@ tsMarkup = \markup {
   \override Staff.TimeSignature #'stencil =
     #ly:text-interface::print
   \override Staff.TimeSignature #'text = #tsMarkup
-  \time 3/2
+  \time 9/8
+  c'2 \bar ":" c'4 c'4.
   c'2 \bar ":" c'4 c'4.
 }
 @end lilypond
 
-Each staff can also have its own time signature.  This is done by
-moving the @internalsref{Timing_translator} to the
-@internalsref{Staff} context.
+@strong{Staves with different time signatures, equal bar lengths}
+
+This notation can be created by setting a common time signature
+for each staff but replacing the symbol manually by setting
+@code{timeSignatureFraction} to the desired fraction and scaling
+the printed durations in each staff to the common time
+signature.  This done with @code{\compressMusic}, which
+is used in a similar way to @code{\times}, but does not create
+a tuplet bracket, see @ref{Scaling durations}.
+
+In this example, music with the time signatures of 3/4, 9/8, and
+10/8 are used in parallel.  In the second staff, shown durations
+are multiplied by 2/3, as 2/3 * 9/8 = 3/4, and in the third
+staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c' { <<
+  \new Staff {
+    \time 3/4
+    c4 c c |
+    c c c |
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(9 . 8)
+    \compressMusic #'(2 . 3)
+      \repeat unfold 6 { c8[ c c] }
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(10 . 8)
+    \compressMusic #'(3 . 5) {
+      \repeat unfold 2 { c8[ c c] }
+      \repeat unfold 2 { c8[ c] } |
+      c4. c4. \times 2/3 { c8 c c } c4
+    }
+  }
+>> }
+@end lilypond
+
+@strong{Staves with different time signatures, unequal bar lengths}
+
+Each staff can be given its own independent time signature by
+moving the Timing_translator to the Staff context.
 
 @lilypond[quote,verbatim,ragged-right]
 \layout {
@@ -1229,7 +1210,8 @@ moving the @internalsref{Timing_translator} to the
     \consists "Default_bar_line_engraver"
   }
 }
-%Now, each staff has its own time signature.
+
+% Now each staff has its own time signature.
 
 \relative c' <<
   \new Staff {
@@ -1248,96 +1230,76 @@ moving the @internalsref{Timing_translator} to the
 @end lilypond
 
 
-A different form of polymetric notation is where note lengths have
-different values across staves, but the measures are all the same 
-length.
+@seealso
 
-This notation can be created by setting a common time signature
-for each staff but replacing it manually using
-@code{timeSignatureFraction} to the desired fraction.  Then the
-printed durations in each staff are scaled to the common time
-signature.  The latter is done with @code{\compressMusic}, which
-is used in a similar way to @code{\times}, but does not create 
-a tuplet bracket.  The syntax is 
+Music Glossary:
+@rglos{polymetric},
+@rglos{polymetric time signature},
+@rglos{meter}.
 
-@funindex \compressMusic
+Notation Reference: @ref{Scaling durations}
 
-@example 
-\compressMusic 
-#'(@var{numerator} . @var{denominator}) @var{musicexpr} 
-@end example
+Snippets:
+@lsrdir{Rhythms,Rhythms}
+@c Is this still permitted?
+@c @lsr{contemporary,compound-time-signature}
 
-
-
-In this example, music with the time signatures of 3/4, 9/8, and
-10/8 are used in parallel.  In the second staff, shown durations
-are multiplied by 2/3, so that 2/3 * 9/8 = 3/4, and in the third
-staff, shown durations are multiplied by 3/5, so that 3/5 * 10/8 =
-3/4.
-
-@lilypond[quote,ragged-right,verbatim,fragment]
-\relative c' { <<
-  \new Staff {
-    \time 3/4
-    c4 c c | c c c |
-  }
-  \new Staff {
-    \time 3/4
-    \set Staff.timeSignatureFraction = #'(9 . 8)
-    \compressMusic #'(2 . 3)
-      \repeat unfold 6 { c8[ c c] }
-  }
-  \new Staff {
-    \time 3/4
-    \set Staff.timeSignatureFraction = #'(10 . 8)
-    \compressMusic #'(3 . 5) {
-      \repeat unfold 2 { c8[ c c] }
-      \repeat unfold 2 { c8[ c] }
-      | c4. c4. \times 2/3 { c8 c c } c4
-    }
-  }
->> }
-@end lilypond
-
+Internals Reference:
+@internalsref{TimeSignature},
+@internalsref{Timing-translator},
+@internalsref{Staff}.
 
 @knownissues
 
 When using different time signatures in parallel, the spacing is
 aligned vertically, but bar lines distort the regular spacing.
 
-@seealso
-
-Snippets: @lsrdir{Rhythms,Rhythms}, @c @lsr{contemporary,compound-time-signature}.
-
-Internals Reference: @internalsref{TimeSignature}, @internalsref{Timing-translator}, @internalsref{Staff}.
-
 
 @node Automatic note splitting
 @subsubsection Automatic note splitting
 
+@cindex notes, splitting
+@cindex splitting notes
+
 Long notes which overrun bar lines can be converted automatically
 to tied notes.  This is done by replacing the
-@internalsref{Note_heads_engraver} by the
-@internalsref{Completion_heads_engraver}.  In the following
-examples, notes crossing the bar line are split and tied.
+@code{Note_heads_engraver} by the
+@code{Completion_heads_engraver}.  In the following
+example, notes crossing the bar lines are split and tied.
 
-@lilypond[quote,fragment,verbatim,relative=1,line-width=12\cm]
+@lilypond[quote,fragment,verbatim,relative=1,ragged-right]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
-} {
-  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2
 }
+
+{c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2}
 @end lilypond
 
 This engraver splits all running notes at the bar line, and
 inserts ties.  One of its uses is to debug complex scores: if the
-measures are not entirely filled, then the ties exactly show how
+measures are not entirely filled, then the ties show exactly how
 much each measure is off.
 
-If you want to allow line breaking on the bar lines where
-@internalsref{Completion_heads_engraver} splits notes, you must
-also remove @internalsref{Forbid_line_break_engraver}.
+To allow line breaking on the bar lines where the
+@code{Completion_heads_engraver} has inserted a split note, remove
+the @code{Forbid_line_break_engraver} too.
+
+
+@seealso
+
+Music Glossary: @rglos{tie}
+
+Learning Manual:
+@rlearning{Engravers explained},
+@rlearning{Adding and removing engravers}.
+
+Snippets: @lsrdir{Rhythms,Rhythms}
+
+Internals Reference:
+@internalsref{Note_heads_engraver},
+@internalsref{Completion_heads_engraver},
+@internalsref{Forbid_line_break_engraver}.
 
 
 @knownissues
@@ -1346,20 +1308,8 @@ Not all durations (especially those containing tuplets) can be
 represented exactly with normal notes and dots, but the engraver
 will not insert tuplets.
 
-@code{Completion_heads_engraver} only affects notes; it does not
+The @code{Completion_heads_engraver} only affects notes; it does not
 split rests.
-
-
-@seealso
-
-Snippets: @lsrdir{Rhythms,Rhythms}
-
-Internals Reference: @internalsref{Note_heads_engraver},
-@internalsref{Completion_heads_engraver},
-@internalsref{Forbid_line_break_engraver}.
-
-
-
 
 
 @node Beams
@@ -1953,7 +1903,7 @@ Snippets: @lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across
-staves), @internalsref{Timing_translator} (for Timing 
+staves), @internalsref{Timing_translator} (for Timing
 properties).
 
 
