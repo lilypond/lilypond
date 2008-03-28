@@ -2079,7 +2079,7 @@ stacked one above the other:
       \clef "bass"
       \new Voice = "basses" @{ \global \bassMusic @}
     >>
-    \new Lyrics \lyricsto "basses" @{ bassWords @}   
+    \new Lyrics \lyricsto "basses" @{ \bassWords @}
   >>  % end ChoirStaff
 
   \new PianoStaff <<
