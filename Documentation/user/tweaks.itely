@@ -2034,7 +2034,7 @@ rather rare.  Usually the need to move objects is for clarity or
 aesthetic reasons -- they would look better with a little more
 or a little less space around them.
 
-There are three main main approaches to resolving overlapping
+There are three main approaches to resolving overlapping
 notation.  They should be considered in the following order:
 
 @enumerate
