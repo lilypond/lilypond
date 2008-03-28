@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-27 12:58+0100\n"
+"POT-Creation-Date: 2008-03-28 18:07+0100\n"
 "PO-Revision-Date: 2008-03-27 13:02+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: es\n"
@@ -1646,7 +1646,8 @@ msgstr "la propiedad padding (relleno)"
 #. @subheading in ../../../Documentation/user/tweaks.itely
 #. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "left-padding and right-padding"
-msgstr "left-padding y right-padding (relleno por la izquierda y por la derecha)"
+msgstr ""
+"left-padding y right-padding (relleno por la izquierda y por la derecha)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 #. @subheading in ../../../Documentation/es/user/tweaks.itely
@@ -1687,29 +1688,39 @@ msgstr "Ejemplos reales de música"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Further tweaking"
 msgstr "Trucajes adicionales"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Other uses for tweaks"
 msgstr "Otras aplicaciones de los trucos"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Tying notes across voices"
 msgstr "Ligar notas entre voces distintas"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Simulating a fermata"
 msgstr "Simulación de una fermata"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Using variables for tweaks"
 msgstr "Uso de variables para los trucos"
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Other sources of information"
 msgstr "Otras fuentes de información"
 
@@ -1718,7 +1729,7 @@ msgstr "Otras fuentes de información"
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Avoiding tweaks with slower processing"
@@ -1729,7 +1740,7 @@ msgstr "Evitar los trucos con un proceso ralentizado"
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Advanced tweaks with Scheme"
@@ -5592,8 +5603,6 @@ msgstr "Saltos de página"
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/fr/user/spacing.itely
 #. @subsection in ../../../Documentation/fr/user/spacing.itely
-#. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/spacing.itely
 #. @subsection in ../../../Documentation/es/user/spacing.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
@@ -6358,8 +6367,6 @@ msgstr "Organizar las piezas mediante identificadores"
 
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
-#. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Common tweaks"
@@ -6367,8 +6374,6 @@ msgstr "Trucos comunes"
 
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
-#. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Default files"
@@ -6773,4 +6778,3 @@ msgstr "Notas al pie"
 # this is the same translation that babel LaTex package uses . FVD
 msgid "Table of Contents"
 msgstr "Índice general"
-
