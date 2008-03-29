@@ -8,7 +8,7 @@
 
 @c @value{version}
 @macro version
-2.11.41
+2.11.43
 @end macro
 
 @c   ***** Displaying text *****

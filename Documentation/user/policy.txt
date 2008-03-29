@@ -88,22 +88,40 @@ main docs
 * You _must_ include a @seealso.  The order of items inside the
   @seealso section is
 
-    Music Glossary: @rglos{foo}, @rglos{bar}.
+    Music Glossary:
+    @rglos{foo},
+    @rglos{bar}.
 
-    Learning Manual: @rlearning{baz}, @rlearning{foozle}
+    Learning Manual:
+    @rlearning{baz},
+    @rlearning{foozle}
 
-    Notation Reference: @ruser{faazle}, @ruser{boo}.
+    Notation Reference:
+    @ruser{faazle},
+    @ruser{boo}.
 
-    Application Usage: @rprogram{blah}.
+    Application Usage:
+    @rprogram{blah}.
 
-    Installed Files: @file{path/to/dir/blahz}.
+    Installed Files:
+    @file{path/to/dir/blahz}.
 
-    Snippets: @lsrdir{section}, @lsr{specific/example-name.ly}.
-      (if there is only one entry, omit a final period.  If there
-       are multiple entries, separate them by commas, do not
-       include an `and', and end with a period.)
+    Snippets:
+    @lsrdir{section},
+    @lsr{specific/example-name.ly}.
 
-    Internals Reference: @internalsref{fazzle}, @internalsref{booar}.
+    Internals Reference:
+    @internalsref{fazzle},
+    @internalsref{booar}.
+
+      If there are multiple entries, separate them by commas
+      but do not include an `and'.
+
+      Always end with a period.
+
+      Place each link on a new line as above; this makes it much
+      easier to add or remove links.  In the output, they
+      appear on a single line.
 
   ("Snippets" is REQUIRED; the others are optional)
 
