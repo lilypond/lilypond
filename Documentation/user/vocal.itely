@@ -510,7 +510,7 @@ Centered hyphens are entered as @samp{ -- } between syllables of a same word
 will be centered between the syllables, and its length will be adjusted
 depending on the space between the syllables.
 
-In tighly engraved music, hyphens can be removed.  Whether this
+In tightly engraved music, hyphens can be removed.  Whether this
 happens can be controlled with the @code{minimum-distance} (minimum
 distance between two syllables) and the @code{minimum-length}
 (threshold below which hyphens are removed).
@@ -906,7 +906,7 @@ These numbers are put just before the start of the first syllable.
 @subsubsection Adding dynamics marks
 
 Stanzas differing in loudness may be indicated by putting a
-dynamics mark before each stanza.  In Lilypond, everthing coming in
+dynamics mark before each stanza.  In Lilypond, everything coming in
 front of a stanza goes into the @code{StanzaNumber} object; dynamics marks
 are no different.  For technical reasons, you have to set the stanza
 outside @code{\lyricmode}:

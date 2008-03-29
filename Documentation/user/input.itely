@@ -305,7 +305,7 @@ It is possible to quote small fragments of a large score directly from
 the output.  This can be compared to clipping a piece of a paper score
 with scissors.
 
-This is done by definining the measures that need to be cut out
+This is done by defining the measures that need to be cut out
 separately.  For example, including the following definition
 
 
@@ -527,7 +527,7 @@ sections.
 
 TODO: everything
 
-By default, lilypnod does a pretty jazz'n job of picking
+By default, lilypond does a pretty jazz'n job of picking
 directions.  But in some cases, it may be desirable to force a
 direction.
 
@@ -672,7 +672,7 @@ I do think that a list like this, with the main contexts and a
 brief
 description of  what they do (perhaps also with a note about what
 default
-behaviour is associated with each of them, but this may be
+behavior is associated with each of them, but this may be
 unmanageable),
 should be there, and then we could simply list the remaining ones
 without

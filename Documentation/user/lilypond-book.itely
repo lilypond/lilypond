@@ -635,8 +635,8 @@ If @code{verbatim} is used in a @code{lilypondfile} command, it is
 possible to enclose verbatim only a part of the source file.  If the
 source file contain a comment containing @samp{begin verbatim} (without
 quotes), quoting the source in the verbatim block will start after the
-last occurence of such a comment; similarly, quoting the source verbatim
-will stop just before the first occurence of a comment containing
+last occurrence of such a comment; similarly, quoting the source verbatim
+will stop just before the first occurrence of a comment containing
 @samp{end verbatim}, it there is any.  In the following source file
 example, the music will be interpreted in relative mode, but the
 verbatim quote will not show the @code{relative} block, i.e.
@@ -843,7 +843,7 @@ cd out
 @end example
 
 @itemx --left-padding=@var{amount}
-Pad EPS boxes by this much. @var{amount} is measured in milimeters,
+Pad EPS boxes by this much. @var{amount} is measured in millimeters,
 and is 3.0 by default.  This option should be used if the lines of
 music stick out of the right margin.
 

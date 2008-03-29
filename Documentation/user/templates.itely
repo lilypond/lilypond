@@ -14,7 +14,7 @@ This section of the manual contains templates with the LilyPond score
 already set up for you.  Just add notes, run LilyPond, and enjoy
 beautiful printed scores!
 
-@c bad node name for ancient notation to avoid confict
+@c bad node name for ancient notation to avoid conflict
 @menu
 * Single staff::                
 * Piano templates::             
@@ -108,7 +108,7 @@ beautiful printed scores!
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 
-@c bad node name to avoid node name confict
+@c bad node name to avoid node name conflict
 @node Ancient notation templates
 @appendixsec Ancient notation templates
 

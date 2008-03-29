@@ -287,7 +287,7 @@ a4*2/3 gis4*2/3 a4*2/3
 a4 a4
 % Double the duration of chord
 <a d>4*2
-% Duration of quarter, appears like sixteeth
+% Duration of quarter, appears like sixteenth
 b16*4 c4
 @end lilypond
 
@@ -658,7 +658,7 @@ b2^"Tutti" b4 a4
 
 @funindex \expandFullBarRests
 @funindex \compressFullBarRests
-@cindex multi-meaure rest, expanding
+@cindex multi-measure rest, expanding
 @cindex multi-measure rest, contracting
 
 By default a multi-measure rest is expanded in the printed score
@@ -668,7 +668,7 @@ multi-measure rest symbol, with the number of measures of rest
 printed above the measure:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-% Default behaviour
+% Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
 \time 4/4
@@ -738,10 +738,10 @@ R1^"right"
 Text attached to a multi-measure rest will be centered above or
 below it.  Long text attached in this way does not cause the
 measure to expand, and may collide with text in adjacent measures.
-This behaviour may be changed with the predefined command
+This behavior may be changed with the predefined command
 @code{\textLengthOn}, which will cause following bars to expand
 as necessary to accommodate text.  @code{\textLengthOff} returns
-to the default behaviour.  To left-align text within a bar attach
+to the default behavior.  To left-align text within a bar attach
 it to a zero-length skip note preceding the rest.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -866,7 +866,7 @@ The time signature is set as follows:
 Time signatures by default are printed at the start of every line
 and whenever the time signature changes.  If a change takes place
 at the end of a line a warning time signature sign is printed 
-there.  This default behaviour may be changed, see 
+there.  This default behavior may be changed, see 
 @ref{Controlling visibility of objects}.
 
 @funindex \numericTimeSignature
@@ -1371,7 +1371,7 @@ c8[^"(3+2)" c16 c8]
 
 The beams of consecutive 16th (or shorter) notes are, by default,
 not sub-divided.  That is, the three (or more) beams stretch
-unbroken over entire groups of notes.  This behaviour can
+unbroken over entire groups of notes.  This behavior can
 be modified to sub-divide the beams into sub-groups by setting 
 the property @code{subdivideBeams}.  When set, multiple beams 
 will be sub-divided at intervals defined by the current value of
@@ -1583,7 +1583,7 @@ In 4/4 time signature, this means that automatic beams could end only on
 3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
 3/8, has passed within the measure).
 
-If any unexpected beam behaviour occurs, check the default automatic beam
+If any unexpected beam behavior occurs, check the default automatic beam
 settings in @file{scm/@/auto@/-beam@/.scm}
 for possible interference, because the beam
 endings defined there will still apply on top of your own overrides.  Any
@@ -1673,7 +1673,7 @@ setting the properties @code{stemLeftBeamCount} and
 draw on the left and right side, respectively, of the next note.
 If either property is set, its value will be used only once, and
 then it is erased.  In this example, the last @code{f} is printed
-with only one beam on the left side, i.e. the eigth-note beam of
+with only one beam on the left side, i.e. the eighth-note beam of
 the group as a whole.
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
@@ -1840,7 +1840,7 @@ f1 \bar "|:" g \bar ":|:" a \bar ":|" b
 @cindex repeats
 
 Although the bar line types signifying repeats may be inserted
-manually they do not in themselves cause LilyPond to recognise
+manually they do not in themselves cause LilyPond to recognize
 a repeated section.  Such repeated sections are better entered
 using the various repeat commands (see @ref{Repeats}), which
 automatically print the appropriate bar lines.
@@ -1933,7 +1933,7 @@ c1 c c c
 @cindex bar numbers, regular spacing
 
 Bar numbers can be typeset at regular intervals instead of just at
-the beginning of every line.  To do this the default behaviour
+the beginning of every line.  To do this the default behavior
 must be overridden to permit bar numbers to be printed at places
 other than the start of a line.  This is controlled by the
 @code{break-visibility} property of @code{BarNumber}.  This takes
@@ -2014,7 +2014,7 @@ bar line:
 % Print a bar number every 2nd bar
 \set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
 c1 c1
-% Centre-align bar numbers
+% Center-align bar numbers
 \override Score.BarNumber #'self-alignment-X = #0
 c1 c1
 % Right-align bar numbers

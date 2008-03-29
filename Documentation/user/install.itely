@@ -209,7 +209,7 @@ make out=www web-install
 
 It is also possible to build a documentation tree in
 @file{out-www/online-root/}, with special processing, so it can be used
-on a website with content negociation for automatic language selection;
+on a website with content negotiation for automatic language selection;
 this can be achieved by issuing
 
 @example

@@ -46,7 +46,7 @@ line with either a bracket or a brace.
 @cindex staff, single
 @cindex drum staff
 @cindex percussion staff
-@cindex Gregorian transciption staff
+@cindex Gregorian transcription staff
 @cindex rhythmic staff
 @cindex tabstaff
 @cindex tablature
@@ -97,7 +97,7 @@ is preserved.  See @ref{Showing melody rhythms}.
 @end lilypond
 
 @item
-@code{TabStaff} creates by default a tabulature with six strings in 
+@code{TabStaff} creates by default a tablature with six strings in 
 standard guitar tuning.  See @ref{Tablatures basic}.
 @lilypond[verbatim,ragged-right,quote]
 \relative c'' {
@@ -153,7 +153,7 @@ Internals Reference: @internalsref{Staff}, @internalsref{DrumStaff},
 LilyPond provides different types of contexts to group single staves 
 together.  These contexts influence in the first place the appearance
 of the system start delimiter, but they have also influence on the
-behaviour of the bar lines.
+behavior of the bar lines.
 
 Each staff group context sets the property
 @code{systemStartDelimiter} to one of the values
@@ -248,7 +248,7 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 
 @c FIXME: not yet in master
 @c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {use-sqare-bracket-at-the-start-of-a-staff-group.ly}
+@c {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {display-bracket-with-only-one-staff-in-a-system.ly}
@@ -288,7 +288,7 @@ grouping contexts.  They can both be inside any other staff context,
 including inner staff groups, though.
 
 Here is an example of an orchestral score using groupings and nesting
-of these groupings.  Note that the instrument names are omited from the
+of these groupings.  Note that the instrument names are omitted from the
 source code, see @ref{Instrument names} how to set them.
 
 @cindex staff, nested

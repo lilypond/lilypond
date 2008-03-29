@@ -493,7 +493,7 @@ The next example shows a practical application.  Bar lines and time
 signatures are normally synchronized across the score.  This is done
 by the @code{Timing_translator} and @code{Default_bar_line_engraver}.
 This plug-in keeps an administration of time signature, location
-within the measure, etc.  By moving thes engraver from @code{Score} to
+within the measure, etc.  By moving these engraver from @code{Score} to
 @code{Staff} context, we can have a score where each staff has its own
 time signature.
 
@@ -870,11 +870,11 @@ Then the output at the start of this subsection can be entered as
 @node Aligning contexts
 @subsection Aligning contexts
 
-New contexts may be aligned above or below exisiting contexts.  This
+New contexts may be aligned above or below existing contexts.  This
 could be useful in setting up a vocal staff (@rlearning{Vocal ensembles}) and
 in ossia,
 
-FIXME: this section doens't work in pdf.  (?)
+FIXME: this section doesn't work in pdf.  (?)
 
 @cindex ossia
 @findex alignAboveContext
@@ -1360,7 +1360,7 @@ properties.
 
 Contexts can have properties, which are usually named in
 @code{studlyCaps}.  They mostly control the translation from
-music to notatino, eg. @code{localKeySignature} (for determining
+music to notation, eg. @code{localKeySignature} (for determining
 whether to print accidentals), @code{measurePosition} (for
 determining when to print a bar line).  Context properties can
 change value over time while interpreting a piece of music;
@@ -1389,7 +1389,7 @@ is more or less equivalent to
 \set @var{context}.@var{name} #'@var{property} = #(cons (cons '@var{property} @var{value}) <previous value of @var{context})
 @end example
 
-The value of @code{context} (the alist) is used to initalize
+The value of @code{context} (the alist) is used to initialize
 the properties of individual grobs.  Grobs also have
 properties, named in Scheme style, with
 @code{dashed-words}.  The values of grob properties change
