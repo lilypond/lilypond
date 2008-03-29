@@ -2180,10 +2180,6 @@ merging note heads.
 
 @end itemize
 
-Objects do not all have all of these properties in general.
-It is necessary to go to the IR to look up which properties
-are available for the object in question.
-
 @item
 Finally, when all else fails, objects may be manually repositioned
 relative to the staff center line vertically, or by
@@ -2223,11 +2219,11 @@ property has been overridden the slur that is closest to the
 requested positions is selected from the list.
 @end table
 
-Objects do not all have all of these properties in general.
+@end enumerate
+
+A particular object may not have all of these properties.
 It is necessary to go to the IR to look up which properties
 are available for the object in question.
-
-@end enumerate
 
 Here is a list of the objects which are most likely to be
 involved in collisions, together with the name of the object which
@@ -3348,6 +3344,7 @@ the staff.
 
 Further examples showing the use of these programmable interfaces
 can be found in @ref{Tweaking with Scheme}.
+
 
 
 
