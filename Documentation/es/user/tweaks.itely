@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 51a67e04531e570289aeb4f7600fc8f98281fd2c
+    Translation of GIT committish: bb02d2367c31a7799508cc3afd60aabb2b59999d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -329,8 +329,8 @@ se cambiaría de la siguiente forma:
   <c \tweak #'font-size #-3 e g>4
 @end lilypond
 
-Observe que la sintaxis de @code{\tweak} es diferente de la de la
-instrucción @code{\override}.  Ni el contexto ni el objeto de
+Observe que la sintaxis de @code{\tweak} no es igual que la de
+@code{\override}.  Ni el contexto ni el objeto de
 presentación se deben especificar; de hecho, generaría un error
 hacerlo.  Los dos están implícitos por el siguiente elemento del flujo
 de entrada.  Así que la sintaxis genérica de la instrucción
