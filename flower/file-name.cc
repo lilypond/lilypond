@@ -12,6 +12,7 @@
 #include <cstdio>
 #include <cerrno>
 #include <unistd.h>
+#include <limits.h>
 
 using namespace std;
 

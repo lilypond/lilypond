@@ -727,15 +727,10 @@ def musicxml_barline_to_lily (barline):
 
     return retval.values ()
 
-# Brackets need a special engraver added the Staff context!
-def musicxml_bracket_to_ly ():
-    layout_information.set_context_item ('Staff', '\consists "Horizontal_bracket_engraver"  % for \\startGroup and \\stopGroup brackets')
-    return musicexp.BracketSpannerEvent ()
-
 spanner_event_dict = {
     'beam' : musicexp.BeamEvent,
     'dashes' : musicexp.TextSpannerEvent,
-    'bracket' : musicxml_bracket_to_ly,
+    'bracket' : musicexp.BracketSpannerEvent,
     'glissando' : musicexp.GlissandoEvent,
     'octave-shift' : musicexp.OctaveShiftEvent,
     'pedal' : musicexp.PedalEvent,
@@ -1653,7 +1648,13 @@ def musicxml_voice_to_lily_voice (voice):
                 ev = musicxml_spanner_to_lily_event (a)
                 if ev:
                     ev_chord.append (ev)
-                
+
+            # accidental-marks are direct children of <notation>!
+            for a in notations.get_named_children ('accidental-mark'):
+                ev = musicxml_articulation_to_lily_event (a)
+                if ev:
+                    ev_chord.append (ev)
+
             # Articulations can contain the following child elements:
             #         accent | strong-accent | staccato | tenuto |
             #         detached-legato | staccatissimo | spiccato |

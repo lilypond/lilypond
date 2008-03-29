@@ -5,17 +5,17 @@
 \header {
   lsrtags = "expressive-marks"
  texidoc = "
-To make the \\flageolet circle smaller you can use the following scheme
-code (found in the Lilypond-user-archive)
+To make the @code{\\flageolet} circle smaller you can use the following
+Scheme code. 
 " }
 % begin verbatim
-F = #(let ((m (make-music 'ArticulationEvent
+smallFlageolet = #(let ((m (make-music 'ArticulationEvent
                           'articulation-type "flageolet")))
        (set! (ly:music-property m 'tweaks)
              (acons 'font-size -3
                     (ly:music-property m 'tweaks)))
        m)
 
-\relative c'' { d4^\flageolet_\markup {"orginal \flageolet "} d4_\flageolet
-  c4^\F_\markup {smaller } c4_\F 
+\relative c'' { d4^\flageolet_\markup { default size } d4_\flageolet
+  c4^\smallFlageolet_\markup { smaller } c4_\smallFlageolet 
 }

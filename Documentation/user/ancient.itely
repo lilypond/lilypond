@@ -123,7 +123,7 @@ Stems are centered on the note heads.  This style is particularly
 useful when transcribing mensural music, e.g., for the incipit.  The
 @code{mensural} style produces note heads that mimic the look of note
 heads in historic printings of the 16th century.  Finally, the
-@code{petrucci} style also mimicks historic printings, but uses bigger
+@code{petrucci} style also mimics historic printings, but uses bigger
 note heads.
 
 The following example demonstrates the @code{neomensural} style

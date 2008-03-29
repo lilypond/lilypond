@@ -575,7 +575,7 @@ Thus this is just a wishlist, placed here for reference.
  Doesn't always convert figured bass correctly, specifically things like {<
 >}.  Mats' comment on working around this:
    To be able to run convert-ly
-   on it, I first replaced all occurencies of '{<' to some dummy like '{#'
+   on it, I first replaced all occurrences of '{<' to some dummy like '{#'
    and similarly I replaced '>}' with '&}'.  After the conversion, I could
    then change back from '{ #' to '{ <' and from '& }' to '> }'.
  Doesn't convert all text markup correctly.  In the old markup syntax,
@@ -625,7 +625,7 @@ converted.
 @cindex reporting bugs
 
 If you have input that results in a crash or an erroneous output, then
-that is a bug.  There is a list of current bugs on our google bug tracker,
+that is a bug.  There is a list of current bugs on our Google bug tracker,
 
 @uref{http://code.google.com/p/lilypond/issues/list}
 

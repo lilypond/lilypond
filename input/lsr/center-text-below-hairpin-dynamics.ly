@@ -5,11 +5,10 @@
 \header {
   lsrtags = "expressive-marks, text"
  texidoc = "
-This example provides a function to typeset hairpin (de)crescendo with
-some additional text below it, such as \"molto\" or \"poco\". 
-
-The example also illustrates how to use modify the way an object
-normally is printed, using some Scheme code.  
+This example provides a function to typeset a hairpin (de)crescendo
+with some additional text below it, such as \"molto\" or \"poco\".The
+example also illustrates how to modify the way an object is normally
+printed, using some Scheme code.  
 " }
 % begin verbatim
 hairpinWithCenteredText = #(define-music-function
@@ -27,8 +26,8 @@ hairpinWithCenteredText = #(define-music-function
 #})
 
 
-hairpinMolto = \hairpinWithCenteredText \markup {\italic "molto"}
-hairpinMore  = \hairpinWithCenteredText \markup {\bigger "moltissimo"}
+hairpinMolto = \hairpinWithCenteredText \markup { \italic "molto" }
+hairpinMore  = \hairpinWithCenteredText \markup { \bigger "moltissimo" }
 
 \new Staff {
    \hairpinMolto c'2\< c'2\f

@@ -35,7 +35,7 @@ highland bagpipe; to use them, add
 @end example
 
 @noindent
-at the top of your input file.  This lets you add the special gracenotes
+at the top of your input file.  This lets you add the special grace notes
 common to bagpipe music with short commands.  For example, you could
 write @code{\taor} instead of
 

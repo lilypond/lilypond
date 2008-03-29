@@ -5,12 +5,12 @@
 \header {
   lsrtags = "rhythms, percussion"
  texidoc = "
-Though the set-time-signature thing was not the most essential here, it
-has been included to show the beat of this piece (which is a template
-of a real balkan song!).
+Though the polymetric time signature shown was not the most essential
+item here, it has been included to show the beat of this piece (which
+is the template of a real Balkan song!).
 " }
 % begin verbatim
-#(define (compound-time one two three four five six seven eight nine ten
+#(define (set-time-signature one two three four five six seven eight nine ten
 eleven num)
  (markup #:override '(baseline-skip . 0) #:number
   (#:line ((#:column (one num)) #:vcenter "+" (#:column (two num))
@@ -26,7 +26,7 @@ melody =
        \set Staff.instrumentName = "Bb Sop."
        \key g \major \time 25/8
      \override Staff.TimeSignature #'stencil = #ly:text-interface::print
- \override Staff.TimeSignature #'text = #(compound-time "3" "2" "2" "3"
+ \override Staff.TimeSignature #'text = #(set-time-signature "3" "2" "2" "3"
 "2" "2" "2" "2 " "3" "2" "2" "8" )
        \set Staff.beatGrouping = #'(3 2 2 3 2 2 2 2 3 2 2)
        #(override-auto-beam-setting '(end * * 25 8) 3 8)

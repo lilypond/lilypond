@@ -120,7 +120,7 @@
 @c usage: @lsr{ancient,Ancient-notation,custodes.ly}
 @macro lsr{SECTION,DIR,TEXT}
 @ifhtml
-@uref{source/input/lsr/snippets/\DIR\.html#\TEXT\,@file{\SECTION\/\TEXT\}}
+@uref{source/input/lsr/lilypond-snippets/\DIR\.html#\TEXT\,@file{\SECTION\/\TEXT\}}
 @end ifhtml
 @ifnothtml
 @file{\SECTION\/\TEXT\}
@@ -130,7 +130,7 @@
 @c usage: @lsrdir{ancient,Ancient-notation}
 @macro lsrdir{SECTION,DIR}
 @ifhtml
-@uref{source/input/lsr/snippets/\DIR\.html,\SECTION\}
+@uref{source/input/lsr/lilypond-snippets/\DIR\.html,\SECTION\}
 @end ifhtml
 @ifnothtml
 \DIR\

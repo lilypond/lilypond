@@ -47,7 +47,7 @@ MIDI (Music Instrument Digital Interface) is a standard for digital
 instruments: it specifies cabling, a serial protocol and a file
 format.  The MIDI file format is a de facto standard format for
 exporting music from other programs, so this capability may come in
-useful when importing files from a program that has a convertor for a
+useful when importing files from a program that has a converter for a
 direct format.
 
 @command{midi2ly} converts tracks into @internalsref{Staff} and

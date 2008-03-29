@@ -5,76 +5,56 @@
 \header {
   lsrtags = "simultaneous-notes, text"
  texidoc = "
-The part combiner tool ( \\partcombine command ) allows you to combine
-different parts on a same Staff. You can choose whether you want or
-don't want to add texts such as \"solo\" or \"a2\", by defining the
-printPartCombineTexts property.
+The part combiner tool ( @code{\\partcombine} command ) allows you to
+combine different parts on the same staff. Text directions such as
+\"solo\" or \"a2\" are added by default; to remove them, simply set the
+property @code{printPartCombineTexts} to \"false\". For vocal scores
+(hymns), there is no need to add \"solo\"/\"a2\" texts, so they should
+be switched off. However, you'd better not use it if there are any
+solos, as they won't be indicated. In such cases, you may simply want
+to use standard LilyPond polyphony. This snippet presents the three
+ways two parts can be printed on a same staff: standard polyphony,
+@code{\\partcombine} whitout texts, and @code{\\partcombine} with texts.
 
-For vocal scores (hymns), there is no need to add \"solo\"/\"a2\"
-texts, so they should be switched off. However, you'd better not use it
-if there are any solos, as they won't be indicated. In such cases, you
-may simply want to use standard LilyPond polyphony.
-
-This snippet presents the three ways two parts can be printed on a same
-staff : standard polyphony, \\partcombine whitout texts, and
-\\partcombine with texts.
 
 
 " }
 % begin verbatim
-musicUp = {
+musicUp = \relative c'' {
   \time 4/4
-  \relative c'' {
-    a4 c4.(g8) a4 |
-    g4 e' g,( a8 b) | 
-    c b a2.
+  a4 c4.( g8) a4 |
+  g4 e' g,( a8 b) |
+  c b a2.
+}
+
+musicDown = \relative c'' {
+  g4 e4.( d8) c4 |
+  r2 g'4( f8 e) |
+  d2 \stemDown a
+}
+
+\score {
+  <<
+    <<
+    \new Staff {
+      \set Staff.instrumentName = "Standard polyphony  "
+      << \musicUp  \\ \musicDown >>
+    }
+    \new Staff \with { printPartCombineTexts = ##f } {
+      \set Staff.instrumentName = "PartCombine without texts  "
+      \partcombine \musicUp \musicDown
+    }
+    \new Staff {
+      \set Staff.instrumentName = "PartCombine with texts  "
+      \partcombine \musicUp \musicDown
+    }
+    >>
+  >>
+  \layout {
+    indent = 6.0\cm
+    \context {
+      \Score
+      \override SystemStartBar #'collapse-height = #30
+    }
   }
 }
-
-musicDown = {
-  \relative c'' {
-    g4 e4.(d8) c4 |
-    r2 g'4( f8 e) |
-    d2 a
-  }
-}
-
-\score{
-  \new Staff {
-    \set Staff.instrumentName = "Standard polyphony  "
-    << \musicUp  \\ \musicDown >>
-}
-
-  \layout{ 
-    indent = 6.0\cm 
-  }
-}
-
-\score{
-	\context Staff {
-			\set Staff.instrumentName = "PartCombine without texts  "
-			\partcombine \musicUp \musicDown
-	}
-	\layout{
-		indent = 6.0\cm
-		\context {
-			\Voice
-			printPartCombineTexts = ##f
-		}
-	}
-}
-
-\score{
-	\context Staff {
-			\set Staff.instrumentName = "PartCombine with texts  "
-			\partcombine \musicUp \musicDown
-	}
-	\layout{
-		indent = 6.0\cm
-		\context {
-			\Voice
-			printPartCombineTexts = ##t
-		}
-	}
-}
-

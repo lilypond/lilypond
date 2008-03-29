@@ -14,7 +14,7 @@
 #endif
 
 #include <libguile.h>
-
+#include <string.h>
 
 /*
   Hack for various MacOS incarnations.

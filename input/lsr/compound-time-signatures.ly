@@ -15,15 +15,17 @@ database.)
 " }
 % begin verbatim
 #(define (compound-time one two num)
-  (markup #:override '(baseline-skip . 0) #:number 
-   (#:line ((#:column (one num)) #:vcenter "+" (#:column (two num))))))
-
+  (markup #:override '(baseline-skip . 0) #:number
+   (#:line ((#:column (one num)) #:vcenter "+" (#:column (two num))))
+  ))
 
 \relative {
-  %% compound time signature hack
-  \time 5/8
+  % compound time signature hack
   \override Staff.TimeSignature #'stencil = #ly:text-interface::print
-  \override Staff.TimeSignature #'text = #(compound-time "2" "3" "8" )
+  \override Staff.TimeSignature #'text = #( compound-time "2" "3" "8" )
+  \time 5/8
   #(override-auto-beam-setting '(end 1 8 5 8) 1 4)
-  c8 d e fis gis | c fis, gis e d | c8 d e4  gis8
+  c8 d e fis gis |
+  c fis, gis e d |
+  c8 d e4  gis8
 }

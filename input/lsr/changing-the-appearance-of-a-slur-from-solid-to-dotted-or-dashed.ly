@@ -3,14 +3,14 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "expressive-marks"
+  lsrtags = "expressive-marks, editorial-and-educational-use"
  texidoc = "
 The appearance of slurs may be changed from solid to dotted or dashed.
 
 
 " }
 % begin verbatim
-\relative c'{
+\relative c' {
   c( d e  c) |
   \slurDotted
   c( d e  c) |

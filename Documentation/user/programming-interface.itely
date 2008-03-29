@@ -1144,7 +1144,7 @@ is not found, the default value is @code{2}.  Then, a list of justified
 lines is made using the @code{make-justified-lines-markup-list}
 function, which is related to the @code{\justified-lines}
 built-in markup list command.  An horizontal space is added at the
-begining using the @code{make-hspace-markup} function.  Finally, the
+beginning using the @code{make-hspace-markup} function.  Finally, the
 markup list is interpreted using the @code{interpret-markup-list}
 function.
 

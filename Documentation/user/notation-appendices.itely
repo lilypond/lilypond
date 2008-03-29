@@ -110,9 +110,9 @@ darkcyan    darkmagenta    darkyellow
 
 X color names come several variants:
 
-Any name that is spelled as a single word with capitalisation
+Any name that is spelled as a single word with capitalization
 (e.g. @q{LightSlateBlue}) can also be spelled as space separated
-words without capitalisation (e.g. @q{light slate blue}).
+words without capitalization (e.g. @q{light slate blue}).
 
 The word @q{grey} can always be spelled @q{gray} (e.g. @q{DarkSlateGray}).
 
