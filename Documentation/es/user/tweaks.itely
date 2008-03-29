@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 46b75aa1573a52189f4350a0a705c79eb39441f7
+    Translation of GIT committish: 51a67e04531e570289aeb4f7600fc8f98281fd2c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2220,10 +2220,6 @@ la fusión entre cabezas de nota.
 
 @end itemize
 
-En general no todos los objetos tienen todas estas propiedades.  Es
-encesario ir al manual RFI para buscar qué propiedades se encuentran
-disponibles para el objeto en cuestión.
-
 @item
 Finalmente, cuando todo lo demás falla, los objetos se pueden
 reposicionar manualmente con relación a la tercera línea del
@@ -2266,11 +2262,12 @@ encuentra la ligadura que tiene @qq{mejor aspecto}.  Si la porpiedad
 las posiciones que se han solicitado, se selecciona de la lista.
 @end table
 
-En general no todos los objetos tienen todas estas propiedades.  Es
-encesario ir al manual RFI para buscar qué propiedades se encuentran
+@end enumerate
+
+Un objeto en particular podría no tener todas estas propiedades.  Es
+necesario ir al manual RFI para buscar qué propiedades se encuentran
 disponibles para el objeto en cuestión.
 
-@end enumerate
 
 Aquí presentamos una lista de los objetos que es más probable que
 estén implicados en colisiones, con el nombre del objeto que habría
