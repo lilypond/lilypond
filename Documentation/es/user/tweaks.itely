@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: a34c05adfcc1e0976250ffefd34d4eb73daecab1
+    Translation of GIT committish: 46b75aa1573a52189f4350a0a705c79eb39441f7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -478,7 +478,7 @@ sería mejor que utilizase la versión html, no la @q{en una sola
 página} ni el PDF.  Para que los siguientes párrafos tengan algún
 sentido deberá consultarlo realmente al tiempo que lee.
 
-@c Link names in English as these pages are not yet translated
+@c Link names in English as those pages are not yet translated. FV
 Bajo el encabezamiento @strong{Top} podrá ver cinco enlaces.
 Seleccione el enlace @emph{Backend}, que es donde se encuentra la
 información sobre los objetos de presentación.  Una vez allí, bajo el
@@ -3338,73 +3338,77 @@ interesarle son:
 
 LilyPond puede llevar a cabo comprobaciones adicionales al tiempo que
 procesa los archivos.  Estos comandos consumen tiempo, pero el
-resultado puede necesitar menos trucos manuales.
+resultado puede necesitar menos trucos manuales para obtener un
+resultado aceptable.  Si una inscripción de texto o parte de la letra
+se sale de los márgenes, estas comprobaciones comprimirán dicha línea
+en la medida justa como para que encaje dentro de los márgenes.
+
+Para que sean efectivos bajo cualquier circunstancia, estas
+comprobaciones deben habilitarse colocando las instrucciones de
+sobreescritura dentro del bloque @code{\with} dentro de un Score, y no
+en línea con la música, de la forma siguiente:
+
 
 @example
-%%  asegura que las marcas de texto y letras de las canciones se encuentran dentro de los márgenes de la página
-\override Score.PaperColumn #'keep-inside-line = ##t
+\new Score \with @{
+  %  asegura que las marcas de texto y letras de las canciones se encuentran dentro de los márgenes de la página
+  \override PaperColumn #'keep-inside-line = ##t
+  \override NonMusicalPaperColumn #'keep-inside-line = ##t
+@} @{
+   ..
+@}
 @end example
 
 @node Advanced tweaks with Scheme
 @subsection Advanced tweaks with Scheme
 
-Hemos visto cómo la salida de LilyPond se puede modificar de manera muy profunda utilizando
-comandos como
-@code{\override TextScript #'extra-offset = ( 1 . -1)}.  Pero
-tenemos un potencial incluso mayor si utilizamos Scheme.  Para ver una explicación completa
-de esto, consulte el @ruser{Scheme tutorial} e
-@ruser{Interfaces for programmers}.
+Aunque es posible hacer muchas cosas con las instrucciones
+@code{\override} y @code{\tweak} , tenemos una forma incluso más
+poderosa de modificar el funcionamiento de LilyPond, a través de un
+interface programable hacia las operaciones internas de LilyPond.  Se
+puede incorporar código escrito en el lenguaje de programación Scheme,
+directamente en el mecanismo de funcionamiento de LilyPond.  Por
+supuesto, para hacer esto se necesitan al menos unos conocimientos
+básicos de programación en Scheme, y damos una introducción en el
+@ref{Scheme tutorial}.
 
-Podemos usar Scheme simplemente para sobreponer (@code{\override}) comandos,
+Como ejemplo que liustra una de las muchas posibilidades, en lugar de
+dar a una propiedad un valor constante, se puede establecer al
+resultado de un procedimiento de Scheme que se invoca cada vez que
+LilyPond accede a esta propiedad.  La propiedad se puede establecer
+dinámicamente a un valor determinado por el procedimiento en el
+momento en que se invoca.  En este ejemplo damos a las cabezas de las
+notas un color que depende de su posición dentro del pentagrama.
 
 @lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
-#{
-  \once \override TextScript #'padding = #$padding
-#})
+#(define (color-notehead grob)
+  "Color the notehead according to its position on the staff."
+  (let ((mod-position (modulo (ly:grob-property grob 'staff-position) 7)))
+    (case mod-position
+      ;;   Return rainbow colors
+      ((1) (x11-color 'red    ))  ; for C
+      ((2) (x11-color 'orange ))  ; for D
+      ((3) (x11-color 'yellow ))  ; for E
+      ((4) (x11-color 'green  ))  ; for F
+      ((5) (x11-color 'blue   ))  ; for G
+      ((6) (x11-color 'purple ))  ; for A
+      ((0) (x11-color 'violet ))  ; for B
+    )
+  )
+)
 
-\relative c''' {
-  c4^"piu mosso" b a b
-  \padText #1.8
-  c4^"piu mosso" d e f
-  \padText #2.6
-  c4^"piu mosso" fis a g
+\relative c' {
+  % Arrange to obtain color from color-notehead procedure
+  \override NoteHead #'color = #color-notehead
+  c2 c' | 
+  b4 g8 a b4 c | 
+  c,2 a' | 
+  g1 |
+}
+\addlyrics {
+  Some -- where o -- ver the Rain -- bow way up high,
 }
 @end lilypond
 
-Podemos usarlo para crear comandos nuevos,
-
-@lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function (parser location padding marktext)
-                                    (number? string?)
-#{
-  \once \override Score . RehearsalMark #'padding = $padding
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $marktext }
-#})
-
-\relative c'' {
-  c2 e
-  \tempoMark #3.0 #"Allegro"
-  g c
-}
-@end lilypond
-
-E incluso se le pueden pasar expresiones musicales.
-
-@lilypond[quote,verbatim,ragged-right]
-pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
-#{
-  $x e8 a b $y b a e
-#})
-
-\relative c''{
-  \pattern c8 c8\f
-  \pattern {d16 dis} { ais16-> b\p }
-}
-@end lilypond
-
-
-
-
-
+Se pueden encontrar ejemplos adicionales que muestran la utilización
+de estos interfaces programables, en @ref{Tweaking with Scheme}.
