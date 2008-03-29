@@ -15,8 +15,8 @@ played.
 
 fragment = \relative c' {
   c4 f4 <e d'>4
-  <g a>8 <e a> a4 c2 <d b>4 e4 
-  c4
+  <g a>8 <e a> a4 c2 <d b>4
+  e2 c2
 }
 
 <<

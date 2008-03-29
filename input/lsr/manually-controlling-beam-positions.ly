@@ -13,11 +13,12 @@ Beam positions may be controlled manually, by overriding the
 " }
 % begin verbatim
 \relative c {
+  \time 2/4
   % from upper staffline (position 4) to centre (position 0)
   \override Beam  #'positions = #'(2 . 0)
-  c'8[ c]
+  c'8 c
   % from centre to one above centre (position 2)
   \override Beam  #'positions = #'(0 . 1)
-  c[ c]
+  c c
 }
 
