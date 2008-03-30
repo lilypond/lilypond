@@ -36,7 +36,7 @@ inside the staff.
 @end menu
 
 @node Selecting notation font size
-@subsubsection Selecting notation font size
+@unnumberedsubsubsec Selecting notation font size
 
 @cindex font size
 @cindex font size, selecting
@@ -110,13 +110,15 @@ that use fonts.  These are the ones supporting the
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Internals Reference: @internalsref{font-interface}.
+Internals Reference:
+@internalsref{font-interface}.
 
 
 @node Fingering instructions
-@subsubsection Fingering instructions
+@unnumberedsubsubsec Fingering instructions
 
 @cindex fingering
 @cindex finger change
@@ -164,15 +166,18 @@ staff, see @ref{Controlling direction and placement}.
 
 @seealso
 
-Notation Reference: @ref{Controlling direction and placement}
+Notation Reference:
+@ref{Controlling direction and placement}
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Internals Reference: @internalsref{Fingering}.
+Internals Reference:
+@internalsref{Fingering}.
 
 
 @node Hidden notes
-@subsubsection Hidden notes
+@unnumberedsubsubsec Hidden notes
 
 @cindex Hidden notes
 @cindex Invisible notes
@@ -201,11 +206,12 @@ c
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Coloring objects
-@subsubsection Coloring objects
+@unnumberedsubsubsec Coloring objects
 
 @cindex colored objects
 @cindex colors
@@ -277,10 +283,12 @@ gis4 a
 
 @seealso
 
-Notation Reference: @ref{List of colors}, @ref{Objects connected to
+Notation Reference:
+@ref{List of colors}, @ref{Objects connected to
 the input}.
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 @knownissues
 An x11 color is not necessarily exactly the same shade as a
@@ -296,7 +304,7 @@ Notes in a chord cannot be colored with @code{\override}; use
 
 
 @node Parentheses
-@subsubsection Parentheses
+@unnumberedsubsubsec Parentheses
 
 @cindex ghost notes
 @cindex notes, ghost
@@ -307,6 +315,9 @@ Objects may be parenthesized by prefixing @code{\parenthesize} to
 the music event.  This only functions inside chords; to
 parenthesize a single note it must be enclosed with @code{<>} as
 if it is a chord.
+
+FIXME: after 2.11.44 is out,
+@c \parenthesize c4-. \parenthesize r4 \parenthesize <c e g>4->
 
 @lilypond[quote,relative=2,fragment,verbatim,ragged-right]
 c2 < \parenthesize d>
@@ -320,7 +331,8 @@ Non-note objects may be parenthesized as well.
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 @knownissues
 
@@ -328,7 +340,7 @@ Rests cannot be parenthesized.
 
 
 @node Stems
-@subsubsection Stems
+@unnumberedsubsubsec Stems
 
 @cindex stem
 
@@ -357,9 +369,11 @@ made invisible.
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @seealso
-Notation Reference: @ref{Controlling direction and placement}.
+Notation Reference:
+@ref{Controlling direction and placement}.
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Outside the staff
@@ -375,7 +389,7 @@ from outside of the staff.
 @end menu
 
 @node Balloon help
-@subsubsection Balloon help
+@unnumberedsubsubsec Balloon help
 
 Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
@@ -402,13 +416,15 @@ typically within chords, to attach text to an individual note.
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Internals Reference: @internalsref{text-balloon-interface}.
+Internals Reference:
+@internalsref{text-balloon-interface}.
 
 
 @node Grid lines
-@subsubsection Grid lines
+@unnumberedsubsubsec Grid lines
 
 Vertical lines can be drawn between staves synchronized with the
 notes.
@@ -456,13 +472,14 @@ notes.
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 
 
 
 @node Analysis brackets
-@subsubsection Analysis brackets
+@unnumberedsubsubsec Analysis brackets
 
 @cindex brackets
 @cindex phrasing brackets
@@ -502,8 +519,11 @@ Analysis brackets may be nested.
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Internals Reference: @internalsref{HorizontalBracket},
-@internalsref{Horizontal_bracket_engraver}, @internalsref{Staff}.
+Internals Reference:
+@internalsref{HorizontalBracket},
+@internalsref{Horizontal_bracket_engraver},
+@internalsref{Staff}.
 

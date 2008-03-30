@@ -34,6 +34,11 @@ commands.
   to this scheme construct.  ie
     \set Staff.instrumentName = #"cello"
 
+* All engravers should have double-quotes around them:
+    \consists "Spans_arpeggio_engraver"
+  Again, LilyPond does not strictly require this, but it is a
+  useful standard to follow.
+
 * Examples should end with a complete bar if possible.
 
 * If possible, only write one bar per line.  The notes on each

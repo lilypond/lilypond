@@ -1628,8 +1628,8 @@ def write_file_map (lys, name):
 #(define output-empty-score-list #f)
 #(ly:add-file-name-alist '(%s
     ))\n
-""" % '\n'.join('("%s.ly" . "%s")\n' % (ly.basename (), name)
-                for ly in lys))
+""" % '\n'.join(['("%s.ly" . "%s")\n' % (ly.basename (), name)
+                 for ly in lys]))
 
 def do_process_cmd (chunks, input_name, options):
     snippets = [c for c in chunks if isinstance (c, LilypondSnippet)]

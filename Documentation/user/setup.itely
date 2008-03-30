@@ -36,7 +36,7 @@ operating systems.
 @subsection MacOS X on the command-line
 
 The scripts (such as lilypond-book, convert-ly, abc2ly, and even
-lilypond itself) are included inside MacOS X .app.  They can be run from
+lilypond itself) are included inside the .app file for MacOS@tie{}X.  They can be run from
 the command line by invoking them directly, e.g.
 
 @example
@@ -158,7 +158,7 @@ set runtimepath+=/usr/local/share/lilypond/$@{LILYPOND_VERSION@}/vim/
 @end example
 
 @noindent
-where $@{LILYPOND_VERSION@} is your lilypond version.  If Lilypond was not
+where $@{LILYPOND_VERSION@} is your LilyPond version.  If LilyPond was not
 installed in @file{/usr/local/}, then change this path accordingly.
 
 
@@ -178,7 +178,7 @@ installation instructions, visit
 @subsection TexShop
 
 The @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}
-editor for Mac OS X can be extended to run LilyPond, lilypond-book and
+editor for MacOS@tie{}X can be extended to run LilyPond, lilypond-book and
 convert-ly from within the editor, using the extensions available at 
 @uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.
 
@@ -213,8 +213,8 @@ To make this chain work, you should configure your PDF viewer to
 follow hyperlinks using the @file{lilypond-invoke-editor} script
 supplied with LilyPond.
 
-For Xpdf on Unix, the following should be present in
-@file{xpdfrc}@footnote{On unix, this file is found either in
+For Xpdf on UNIX, the following should be present in
+@file{xpdfrc}@footnote{On UNIX, this file is found either in
 @file{/etc/xpdfrc} or as @file{.xpdfrc} in your home directory.}
 
 @example

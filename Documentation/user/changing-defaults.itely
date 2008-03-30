@@ -968,7 +968,7 @@ properties.  To tweak those, use commands in the form
 
 For many properties, regardless of the data type of the property, setting the
 property to false ( @code{##f} ) will result in turning it off, causing
-Lilypond to ignore that property entirely.  This is particularly useful for
+LilyPond to ignore that property entirely.  This is particularly useful for
 turning off grob properties which may otherwise be causing problems.
 
 We demonstrate how to glean this information from the notation manual
@@ -1507,7 +1507,160 @@ expected within @code{\context} blocks.
 @node Line styles
 @subsection Line styles
 
-Valentin: write stuff here.
+@c TODO: split the following explanations between expressive marks and
+@c text-related stuff. Perhaps create a new subsection named
+@c "Spanner limits", "Spanner boundaries"? -vv
+
+Some performance indications, e.g., @i{rallentando} and
+@i{accelerando} and @i{trills} are written as text and are
+extended over many measures with lines, sometimes dotted or wavy.
+
+These all use the same routines as the glissando for drawing the
+texts and the lines, and tuning their behavior is therefore also
+done in the same way.  It is done with a spanner, and the routine
+responsible for drawing the spanners is
+@code{ly:line-interface::print}.  This routine determines the
+exact location of the two @i{span points} and draws a line in
+between, in the style requested.
+
+Here is an example of the different line styles available, and how
+to tune them.
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+d2 \glissando d'2
+\once \override Glissando #'style = #'dashed-line
+d,2 \glissando d'2
+\override Glissando #'style = #'dotted-line
+d,2 \glissando d'2
+\override Glissando #'style = #'zigzag
+d,2 \glissando d'2
+\override Glissando #'style = #'trill
+d,2 \glissando d'2
+@end lilypond
+
+The information that determines the end-points is computed
+on-the-fly for every graphic object, but it is possible to
+override these. 
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+e2 \glissando f
+\once \override Glissando #'bound-details #'right #'Y = #-2
+e2 \glissando f
+@end lilypond
+
+The @code{Glissando} object, like any other using the
+@code{ly:line-interface::print} routine, carries a nested
+association list.  In the above statement, the value for @code{Y}
+is set to @code{-2} for the association list corresponding to the
+right end point.  Of course, it is also possible to adjust the
+left side with @code{left} instead of @code{right}.
+
+If @code{Y} is not set, the value is computed from the vertical
+position of right attachment point of the spanner. 
+
+In case of a line break, the values for the span-points are
+extended with contents of the @code{left-broken} and
+@code{right-broken} sublists, for example
+
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+\override Glissando #'breakable = ##T 
+\override Glissando #'bound-details #'right-broken #'Y = #-3
+c1 \glissando \break
+f1
+@end lilypond
+
+The following properties can be used for the
+
+@table @code
+@item Y
+This sets the Y-coordinate of the end point, in staff space.  By
+default, it is the center of the bound object, so for a glissando
+it points to the vertical center of the note head.
+
+For horizontal spanners, such as text spanner and trill spanners,
+it is hardcoded to 0.
+
+@item attach-dir
+This determines where the line starts and ends in X-direction,
+relative to the bound object.  So, a value of @code{-1} (or
+@code{LEFT}) makes the line start/end at the left side of the note
+head it is attached to.
+
+@item X
+This is the absolute coordinate of the end point.  It is usually
+computed on the fly, and there is little use in overriding it. 
+
+@item stencil
+Line spanners may have symbols at the beginning or end, which is
+contained in this sub-property.  This is for internal use, it is
+recommended to use @code{text}.
+
+@item text
+This is a markup that is evaluated to yield stencil.  It is used
+to put @i{cresc.} and @i{tr} on horizontal spanners.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override TextSpanner #'bound-details #'left #'text
+   = \markup { \small \bold Slower }
+c2\startTextSpan b c a\stopTextSpan
+@end lilypond
+
+@item stencil-align-dir-y
+@item stencil-offset
+Without setting this, the stencil is simply put there at the
+end-point, as defined by the @code{X} and @code{Y} sub properties.
+Setting either @code{stencil-align-dir-y} or @code{stencil-offset}
+will move the symbol at the edge relative to the end point of the
+line
+
+@lilypond[relative=1,fragment,verbatim]
+\override TextSpanner #'bound-details
+  #'left #'stencil-align-dir-y = #DOWN
+\override TextSpanner #'bound-details
+  #'right #'stencil-align-dir-y = #UP
+
+\override TextSpanner #'bound-details
+  #'left #'text = #"gggg"
+\override TextSpanner #'bound-details
+  #'right #'text = #"hhhh"
+c4^\startTextSpan c c c \stopTextSpan
+@end lilypond
+
+@item arrow
+Setting this sub property to @code{#t} produce an arrowhead at the
+end of the line.
+
+@item padding
+This sub property controls the space between the specified
+end-point of the line and the actual end.  Without padding, a
+glissando would start and end in the center of each note head.
+
+@end table
+
+FIXME: should this be in NR 3?
+
+The music function \endSpanners terminates spanners and hairpins
+after exactly one note.
+
+@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+\endSpanners
+c2 \startTextSpan c2
+c2 \< c2
+@end lilypond
+
+When using \endSpanners it is not necessary to close
+\startTextSpan with \stopTextSpan, nor is it necessary to close
+hairpins with \!.
+
+
+
+@seealso
+
+Internals Reference: @internalsref{TextSpanner},
+@internalsref{Glissando}, @internalsref{VoiceFollower},
+@internalsref{TrillSpanner},
+@internalsref{line-spanner-interface}.
+
 
 
 @node Controlling visibility of objects
