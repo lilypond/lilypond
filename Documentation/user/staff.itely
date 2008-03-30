@@ -56,7 +56,7 @@ layout object.  Staves are created with the @code{\new} or
 @code{\context} commands.  For an explanation on these commands,
 see @ref{Creating contexts}.
 
-There are different predefined staff contexts available in Lilypond:
+There are different predefined staff contexts available in LilyPond:
 
 @itemize
 @item

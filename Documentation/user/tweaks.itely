@@ -3178,7 +3178,7 @@ find the directory appropriate to your system, as follows:
 Navigate to
 @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 
-@strong{OSX}
+@strong{MacOS X}
 
 Navigate to
 @file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}

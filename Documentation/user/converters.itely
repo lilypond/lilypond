@@ -16,7 +16,7 @@ There are other tools that produce LilyPond input, for example GUI
 sequencers and XML converters.  Refer to the
 @uref{http://@/lilypond@/.org,website} for more details.
 
-These are separate programs from lilypond itself, and are run
+These are separate programs from @command{lilypond} itself, and are run
 on the command-line; see @ref{Command-line usage} for more information.
 
 

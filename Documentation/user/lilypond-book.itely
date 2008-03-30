@@ -295,7 +295,7 @@ kpsewhich feta20.tex
 
 Sometimes it is useful to display music elements (such as ties and slurs)
 as if they continued after the end of the fragment.  This can be done by
-breaking the staff and suppressing inclusion of the rest of the lilypond
+breaking the staff and suppressing inclusion of the rest of the LilyPond
 output.
 
 In @LaTeX{}, define @code{\betweenLilyPondSystem} in such a way that
@@ -952,10 +952,10 @@ LilyPond notation can be added to OpenOffice.org with
 To insert LilyPond output in other programs, use @code{lilypond}
 instead of @code{lilypond-book}.  Each example must be created
 individually and added to the document; consult the documentation for
-that program.  Most programs will be able to insert lilypond output in
+that program.  Most programs will be able to insert LilyPond output in
 @file{PNG}, @file{EPS}, or @file{PDF} formats.
 
-To reduce the white space around your lilypond score, use
+To reduce the white space around your LilyPond score, use
 the following options
 
 @example

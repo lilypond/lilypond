@@ -110,7 +110,7 @@ For information on packaging, see @uref{http://lilypond.org/devel}.
 
 @unnumberedsubsubsec Compilation
 
-In addition to the packages needed for running Lilypond (see below), you
+In addition to the packages needed for running LilyPond (see below), you
 need the following extra packages for building.
 
 When installing a binary package FOO, you may need to install the
@@ -177,7 +177,7 @@ or lyrics.
 
 You can view the documentation online at
 @uref{http://lilypond.org/doc/}, but you can also build it locally.
-This process requires a successful compile of lilypond, and some
+This process requires a successful compile of LilyPond, and some
 additional tools and packages
 
 @itemize
@@ -274,7 +274,7 @@ make conf=prof install
 @node Building documentation without compiling LilyPond
 @subsection Building documentation without compiling LilyPond
 
-The documentation can be built locally without compiling lilypond from
+The documentation can be built locally without compiling LilyPond from
 scratch.
 
 From a fresh git checkout, do
@@ -304,7 +304,7 @@ export LD_LIBRARY_PATH=/usr/lib
 exec /usr/bin/pngtopnm "$@"
 @end verbatim
 
-On OSX, I use this:
+On MacOS@tie{}X, I use this:
 
 @verbatim
 export DYLD_LIBRARY_PATH=/sw/lib
@@ -317,7 +317,7 @@ writing a script like this:
 
 @verbatim
 ### run from Documentation/user/
-#  possibly required on OSX and/or old texinfo
+#  possibly required on OS X and/or old texinfo
 # ulimit -n 4096
 if [ -e out-www/lilypond.texi ]; then rm out-www/lilypond.* ; fi;
 if [ -e out-www/lilypond-program.texi ]; then rm
@@ -437,7 +437,7 @@ for your hierarchy.)
 
 @unnumberedsubsubsec International fonts
 
-On MacOs X, all fonts are installed by default.  However, finding all
+On MacOS@tie{}X, all fonts are installed by default.  However, finding all
 system fonts requires a bit of configuration; see
 @uref{http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00472.html,
 this post} on the @code{lilypond-user} mailing list.

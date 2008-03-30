@@ -17,7 +17,7 @@ formatting) in your scores.
 @cindex Text, other languages
 @warning{To write accented and special text (such as characters
 from other languages), simply insert the characters directly into
-the lilypond file.  The file must be saved as UTF-8.  For more
+the LilyPond file.  The file must be saved as UTF-8.  For more
 information, see @ref{Text encoding}.}
 
 @menu
@@ -142,7 +142,7 @@ Internals Reference: @internalsref{TextScript}.
 
 Checking to make sure that text scripts and lyrics are within the
 margins is a relatively large computational task.  To speed up
-processing, lilypond does not perform such calculations by
+processing, LilyPond does not perform such calculations by
 default; to enable it, use
 
 @example
@@ -399,7 +399,7 @@ See @ref{Overview of text markup commands}, for a list of all
 commands.
 
 @code{\markup} is primarily used for @internalsref{TextScript}s,
-but it can also be used anywhere text is called in lilypond
+but it can also be used anywhere text is called in LilyPond
 
 @lilypond[quote,verbatim]
 \header{ title = \markup{ \bold { foo \italic { bar! } } } }

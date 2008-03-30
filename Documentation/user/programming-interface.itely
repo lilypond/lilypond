@@ -269,7 +269,7 @@ displayBarNum =
 @end example
 
 To actually display bar numbers where this function is called,
-invoke lilypond with
+invoke @command{lilypond} with
 
 @example
 lilypond -d display-bar-numbers FILENAME.ly

@@ -968,7 +968,7 @@ properties.  To tweak those, use commands in the form
 
 For many properties, regardless of the data type of the property, setting the
 property to false ( @code{##f} ) will result in turning it off, causing
-Lilypond to ignore that property entirely.  This is particularly useful for
+LilyPond to ignore that property entirely.  This is particularly useful for
 turning off grob properties which may otherwise be causing problems.
 
 We demonstrate how to glean this information from the notation manual
