@@ -1107,9 +1107,6 @@ class LilypondSnippet (Snippet):
         return self.checksum
 
     def basename (self):
-        if FILENAME in self.option_dict:
-            return self.option_dict[FILENAME]
-
         cs = self.get_checksum ()
 
         # TODO: use xx/xxxxx directory layout.

@@ -71,7 +71,7 @@
   
 (define-public (postscript->pdf paper-width paper-height name)
   (let* ((pdf-name (string-append
-		    (basename (basename name ".ps") ".eps")
+		    (dir-basename name ".ps" ".eps")
 		    ".pdf"))
 	 (is-eps (string-match "\\.eps$" name))
 	 (paper-size-string (if is-eps
@@ -121,12 +121,11 @@
 (use-modules (scm ps-to-png))
 
 (define-public (postscript->png resolution paper-width paper-height name)
-    ;; Do not try to guess the name of the png file,
-    ;; GS produces PNG files like BASE-page%d.png.
-    ;;(ly:message (_ "Converting to `~a'...")
-    ;;	    (string-append (basename name ".ps") "-page1.png" )))
   (let* ((verbose (ly:get-option 'verbose))
 	 (rename-page-1 #f))
+
+    ;; Do not try to guess the name of the png file,
+    ;; GS produces PNG files like BASE-page%d.png.
     (ly:message (_ "Converting to ~a...") "PNG")
     (make-ps-images name
 		    #:resolution resolution

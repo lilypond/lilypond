@@ -491,6 +491,11 @@ found."
   (string-append (ly:number->string (car c)) " "
 		 (ly:number->string (cdr c))))
 
+(define-public (dir-basename file . rest)
+  "Strip suffixes in REST, but leave directory component for FILE."
+  (define (inverse-basename x y) (basename y x))
+  (simple-format #f "~a/~a" (dirname file)
+		 (fold inverse-basename file rest)))
 
 (define-public (write-me message x)
   "Return X.  Display MESSAGE and write X.  Handy for debugging,

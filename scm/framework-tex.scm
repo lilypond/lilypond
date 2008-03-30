@@ -296,7 +296,7 @@
 	 (output-scale (ly:output-def-lookup defs 'output-scale)))
     (postscript->pdf (* paper-width output-scale (/ (ly:bp 1)))
 		     (* paper-height output-scale (/ (ly:bp 1)))
-		     (string-append (basename name ".tex") ".ps"))))
+		     (string-append (dir-basename name ".tex") ".ps"))))
 
 (define-public (convert-to-png book name)
   (let* ((defs (ly:paper-book-paper book))
@@ -312,14 +312,14 @@
      (* paper-width output-scale (/ (ly:bp 1)))
      (* paper-height output-scale (/ (ly:bp 1)))
 
-     (string-append (basename name ".tex") ".ps"))))
+     (string-append (dir-basename name ".tex") ".ps"))))
 
 (define-public (convert-to-ps book name)
   (let* ((paper (ly:paper-book-paper book))
 	 (preview? (string-contains name ".preview"))
 	 (papersizename (ly:output-def-lookup paper 'papersizename))
 	 (landscape? (eq? #t (ly:output-def-lookup paper 'landscape)))
-	 (base (basename name ".tex"))
+	 (base (dir-basename name ".tex"))
 	 (ps-name (format "~a.ps"  base ".ps"))
 	 (cmd (string-append "dvips"
 			     (if preview?
@@ -352,7 +352,7 @@
 	    #f " *%.*\n?"
 	    (ly:kpathsea-expand-variable "extra_mem_top")
 	    'pre "" 'post)))
-	 (base (basename name ".tex"))
+	 (base (dir-basename name ".tex"))
 	 (cmd (format
 	       #f "latex \\\\nonstopmode \\\\input '~a'" name)))
 
