@@ -28,6 +28,7 @@ TODO:
 
 '''
 
+import glob
 import md5
 import os
 import re
@@ -1108,15 +1109,15 @@ class LilypondSnippet (Snippet):
 
     def basename (self):
         cs = self.get_checksum ()
-
-        # TODO: use xx/xxxxx directory layout.
-        name = 'lily-%s' % cs[:10]
+        name = '%s/lily-%s' % (cs[:2], cs[2:10])
         return name
 
     def write_ly (self):
         base = self.basename ()
         path = os.path.join (global_options.lily_output_dir, base)
-
+        directory = os.path.split(path)[0]
+        if not os.path.isdir (directory):
+            os.makedirs (directory)
         out = file (path + '.ly', 'w')
         out.write (self.full_ly ())
         file (path + '.txt', 'w').write ('image of music')
@@ -1137,6 +1138,9 @@ class LilypondSnippet (Snippet):
 
             src = os.path.join (output_dir, name)
             dst = os.path.join (destination, name)
+            dst_path = os.path.split(dst)[0]
+            if not os.path.isdir (dst_path):
+                os.makedirs (dst_path)
             os.link (src, dst)
 
         
@@ -1524,9 +1528,9 @@ def process_snippets (cmd, snippets,
 
     checksum = snippet_list_checksum (snippets)
     contents = '\n'.join (['snippet-map-%d.ly' % checksum] 
-                          + [snip.basename() for snip in snippets])
+                          + [snip.basename() + '.ly' for snip in snippets])
     name = os.path.join (lily_output_dir,
-                         'snippet-names-%d' % checksum)
+                         'snippet-names-%d.ly' % checksum)
     file (name, 'wb').write (contents)
 
     system_in_directory (' '.join ([cmd, name]),
@@ -1628,11 +1632,23 @@ def write_file_map (lys, name):
 """ % '\n'.join(['("%s.ly" . "%s")\n' % (ly.basename (), name)
                  for ly in lys]))
 
+def split_output_files(directory):
+    """Returns directory entries in DIRECTORY/XX/ , where XX are hex digits.
+
+    Return value is a set of strings.
+    """
+    files = set ()
+    for subdir in glob.glob (os.path.join (directory, '[a-f0-9][a-f0-9]')):
+        base_subdir = os.path.split (subdir)[1]
+        sub_files = [os.path.join (base_subdir, name)
+                     for name in os.listdir (subdir)]
+        files = files.union (sub_files)
+    return files
+
 def do_process_cmd (chunks, input_name, options):
     snippets = [c for c in chunks if isinstance (c, LilypondSnippet)]
 
-
-    output_files = set(os.listdir(options.lily_output_dir))
+    output_files = split_output_files (options.lily_output_dir)
     outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
     
     write_file_map (outdated, input_name)    
@@ -1651,7 +1667,7 @@ def do_process_cmd (chunks, input_name, options):
         progress (_ ("All snippets are up to date..."))
 
     if options.lily_output_dir != options.output_dir:
-        output_files = set(os.listdir(options.lily_output_dir))
+        output_files = split_output_files (options.lily_output_dir)
         for snippet in snippets:
             snippet.link_all_output_files (options.lily_output_dir,
                                            output_files,
@@ -1875,7 +1891,7 @@ def main ():
     if global_options.padding_mm:
         global_options.process_cmd += " -deps-box-padding=%f " % global_options.padding_mm
         
-    global_options.process_cmd += " -dread-file-list "
+    global_options.process_cmd += " -dread-file-list -dno-strip-output-dir"
 
     if global_options.lily_output_dir:
         global_options.lily_output_dir = os.path.abspath(global_options.lily_output_dir)
