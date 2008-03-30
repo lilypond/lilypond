@@ -5,41 +5,38 @@
 \header {
   lsrtags = "expressive-marks, text, tweaks-and-overrides"
  texidoc = "
-The <code>\\startTextSpan</code> and <code>\\stopTextSpan</code>
-commands give you the ability to create text spanners as easily as
-pedals indications or octavations. Override some properties of the
-<code>TextSpanner</code> object to modify its output.
+The @code{\\startTextSpan} and @code{\\stopTextSpan} commands give you
+the ability to create text spanners as easily as pedal indications or
+octavations. Override some properties of the @code{TextSpanner} object
+to modify its output.
 " }
 % begin verbatim
-\relative c''{
-    \override TextSpanner  #'edge-text = #'("bla" . "blu")
-    a \startTextSpan
-    b c 
-    a \stopTextSpan
-
-    \override TextSpanner  #'dash-period = #2
-    \override TextSpanner  #'dash-fraction = #0.0
-    a \startTextSpan
-    b c 
-    a \stopTextSpan
-
-    \revert TextSpanner #'style
-    \override TextSpanner  #'style = #'dashed-line \override TextSpanner #'bound-details #'left #'text = \markup { \draw-line #'(0 . 1) }
+\relative c'' {
+  \override TextSpanner  #'edge-text = #'("bla" . "blu")
+  a \startTextSpan
+  b c
+  a \stopTextSpan
+  
+  \override TextSpanner  #'dash-period = #2
+  \override TextSpanner  #'dash-fraction = #0.0
+  a \startTextSpan
+  b c
+  a \stopTextSpan
+  
+  \revert TextSpanner #'style
+  \override TextSpanner  #'style = #'dashed-line \override TextSpanner #'bound-details #'left #'text = \markup { \draw-line #'(0 . 1) }
  \override TextSpanner #'bound-details #'right #'text = \markup { \draw-line #'(0 . -2) }
 
-    a \startTextSpan
-    b c 
-    a \stopTextSpan
-
-
-    \set Staff.middleCPosition = #-13
-
-    \override TextSpanner  #'dash-period = #10
-    \override TextSpanner  #'dash-fraction = #.5
-    \override TextSpanner  #'thickness = #10
-    a \startTextSpan
-    b c 
-    a \stopTextSpan
-    \set Staff.middleCPosition = #-6	
+  a \startTextSpan
+  b c
+  a \stopTextSpan
+  
+  \set Staff.middleCPosition = #-13
+  \override TextSpanner  #'dash-period = #10
+  \override TextSpanner  #'dash-fraction = #0.5
+  \override TextSpanner  #'thickness = #10
+  a \startTextSpan
+  b c
+  a \stopTextSpan
+  \set Staff.middleCPosition = #-6
 }
-

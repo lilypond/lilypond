@@ -330,7 +330,7 @@ The exceptions list should be encoded as
 @end example
 
 To get this information into @code{chordNameExceptions} takes a little
-manoeuvring.  The following code transforms @code{chExceptionMusic}
+maneuvering.  The following code transforms @code{chExceptionMusic}
 (which is a sequential music) into a list of exceptions.
 @example
 (sequential-music-to-chord-exceptions chExceptionMusic #t)

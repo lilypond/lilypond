@@ -10,20 +10,20 @@ may be permitted to within a beamed tuplet. Note that such off-beat
 tuplets have to be beamed manually.
 " }
 % begin verbatim
-\relative c'' {
- a8
- \repeat unfold 8 {\times 2/3 { c[ b a]}}
- % Insert a manual line break within a tuplet
- \times 2/3 { c[ b \bar "" \break a]}
- \repeat unfold 2 {\times 2/3 { c[ b a]}}
- c8
-}
 \layout {
- \context {
-   \Voice
-   % Permit line breaks within tuplets
-   \remove "Forbid_line_break_engraver"
-   % Allow beams to be broken at line breaks
-   \override Beam #'breakable = ##t
- }
+  \context {
+    \Voice
+    % Permit line breaks within tuplets
+    \remove "Forbid_line_break_engraver"
+    % Allow beams to be broken at line breaks
+    \override Beam #'breakable = ##t
+  }
+}
+\relative c'' {
+  a8
+  \repeat unfold 8 { \times 2/3 { c[ b a] } }
+  % Insert a manual line break within a tuplet
+  \times 2/3 { c[ b \bar "" \break a] }
+  \repeat unfold 2 { \times 2/3 { c[ b a] } }
+  c8
 }

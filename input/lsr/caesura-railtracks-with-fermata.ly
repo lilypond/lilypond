@@ -12,19 +12,16 @@ and a fermata.
 " }
 % begin verbatim
 {
-  \context Voice {
-    c''2.
-    % use some scheme code to construct the symbol
-    \override BreathingSign #'text = #(markup #:line 
-                                  (#:musicglyph "scripts.caesura.curved"
-                                   #:translate (cons -1.75 1.6) 
-                                   #:musicglyph "scripts.ufermata"
-                                  ))
-    \breathe c''4
-    % set the breathe mark back to normal
-    \revert BreathingSign #'text
-    c''2. \breathe c''4
-    \bar "|."
+  c''2.
+  % construct the symbol
+  \override BreathingSign #'text = \markup {
+    \line {
+      \musicglyph #"scripts.caesura.curved" \translate #'(-1.75 . 1.6) \musicglyph #"scripts.ufermata"
+    }
   }
+  \breathe c''4
+  % set the breathe mark back to normal
+  \revert BreathingSign #'text
+  c''2. \breathe c''4
+  \bar "|."
 }
-

@@ -16,12 +16,12 @@ ambitus per staff rather than per voice, add the
   }
 <<
   \new Voice \relative c'' {
-      \voiceOne
-      c4 a d e f1
-    }
+    \voiceOne
+    c4 a d e f1
+  }
   \new Voice \relative c' {
-      \voiceTwo
-      es4 f g as b1
-    }
+    \voiceTwo
+    es4 f g as b1
+  }
 >>
 

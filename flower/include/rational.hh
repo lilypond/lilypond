@@ -10,6 +10,7 @@
 #define RATIONAL_HH
 
 #include "std-string.hh"
+#include <limits.h>
 
 /**
    Rational numbers.  Included is support for + and - infinity.

@@ -14,7 +14,7 @@
 @node Non-musical notation
 @chapter Non-musical notation
 
-This section deals with general lilypond issues, rather than
+This section deals with general LilyPond issues, rather than
 specific notation.
 
 @menu
@@ -292,7 +292,7 @@ composer flush right on a single line.
 
 A particular place of a score can be marked using the @code{\label}
 command, either at top-level or inside music.  This label can then be
-refered to in a markup, to get the number of the page where the marked
+referred to in a markup, to get the number of the page where the marked
 point is placed, using the @code{\page-ref} markup command.
 
 @lilypond[verbatim,line-width=11.0\cm]
@@ -322,7 +322,7 @@ is not known;
 @end enumerate
 
 The reason why a gauge is needed is that, at the time markups are
-interpreted, the page breaking has not yet occured, so the page numbers
+interpreted, the page breaking has not yet occurred, so the page numbers
 are not yet known.  To work around this issue, the actual markup
 interpretation is delayed to a later time; however, the dimensions of
 the markup have to be known before, so a gauge is used to decide these
@@ -377,14 +377,14 @@ number.  These variables may be changed by the user:
     \fill-line { \null "Table des matières" \null }
     \hspace #1
   }
-  %% use larfer font size
+  %% use larger font size
   tocItemMarkup = \markup \large \fill-line {
     \fromproperty #'toc:text \fromproperty #'toc:page
   }
 }
 @end verbatim
 
-Note how the toc element text and page number are refered to in
+Note how the toc element text and page number are referred to in
 the @code{tocItemMarkup} definition.
 
 New commands and markups may also be defined to build more elaborated

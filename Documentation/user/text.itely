@@ -17,7 +17,7 @@ formatting) in your scores.
 @cindex Text, other languages
 @warning{To write accented and special text (such as characters
 from other languages), simply insert the characters directly into
-the lilypond file.  The file must be saved as UTF-8.  For more
+the LilyPond file.  The file must be saved as UTF-8.  For more
 information, see @ref{Text encoding}.}
 
 @menu
@@ -142,7 +142,7 @@ Internals Reference: @internalsref{TextScript}.
 
 Checking to make sure that text scripts and lyrics are within the
 margins is a relatively large computational task.  To speed up
-processing, lilypond does not perform such calculations by
+processing, LilyPond does not perform such calculations by
 default; to enable it, use
 
 @example
@@ -263,66 +263,66 @@ c1 c c c4 c c c
 \mark "D.S. al Fine "
 @end lilypond
 
-Text marks may be aligned with notation objects other than bar
-lines,
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-\relative {
-  c1
-  \key cis \major
-  \clef alto
-  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
-  \mark "on key"
-  cis
-  \key ces \major
-  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
-  \clef treble
-  \mark "on clef"
-  ces
-  \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
-  \key d \minor
-  \clef tenor
-  \time 3/4
-  \mark "on time"
-  c
-}
-@end lilypond
-
-Possible symbols for the @code{break-align-symbols} list are
-@code{ambitus}, @code{breathing-sign}, @code{clef}, @code{custos},
+If specified, text marks may be aligned with notation objects
+other than bar lines.  These objects include @code{ambitus},
+@code{breathing-sign}, @code{clef}, @code{custos},
 @code{staff-bar}, @code{left-edge}, @code{key-cancellation},
 @code{key-signature}, and @code{time-signature}.
 
-The text marks will, by default, be aligned with the middle of the
-notation object, but this can be changed by overriding the
-@code{break-align-anchor-alignment} and @code{break-align-anchor}
-properties for the appropriate grob. For scores with multiple staves,
-this setting should be done for all the staves. 
 
-@lilypond[fragment,quote,ragged-right,verbatim]
-{
+In such cases, text marks will be, by default, horizontally centered
+above the object. However, this can be changed, as demonstrated
+on the second line of this example (in a score with multiple staves,
+this setting should be done for all the staves).
+
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=1]
+  e1
+  
+  % the RehearsalMark will be centered above the Clef
+  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
+  \key a \major
+  \clef treble
+  \mark "↓"
+  e
+  
+  % the RehearsalMark will be centered above the TimeSignature
+  \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+  \key a \major
+  \clef treble
+  \time 3/4
+  \mark "↓"
+  e2.
+  
+  % the RehearsalMark will be centered above the KeySignature
   \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
-  c1
-  \key cis \major
+  \key a \major
+  \clef treble
+  \time 4/4
+  \mark "↓"
+  e1
 
+  \break
+  e
+  
   % the RehearsalMark will be aligned with the left edge of the KeySignature
   \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
-  \mark \default
-  cis1
-  \key ces \major
-
+  \mark "↓"
+  \key a \major
+  e
+  
   % the RehearsalMark will be aligned with the right edge of the KeySignature
   \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
-  \mark \default
-  ces1
-  \key cis \major
-
+  \key a \major
+  \mark "↓"
+  e
+  
   % the RehearsalMark will be aligned with the left edge of the KeySignature
-  % and then shifted right by 2 units.
-  \once \override Score.KeySignature #'break-align-anchor = #2
-  \mark \default
-  ces1
-}
+  % and then shifted right by 1 unit.
+  \once \override Score.KeySignature #'break-align-anchor = #1
+  \key a \major
+  \mark "↓"
+  e1
 @end lilypond
 
 Although text marks are normally only printed above the topmost
@@ -399,7 +399,7 @@ See @ref{Overview of text markup commands}, for a list of all
 commands.
 
 @code{\markup} is primarily used for @internalsref{TextScript}s,
-but it can also be used anywhere text is called in lilypond
+but it can also be used anywhere text is called in LilyPond
 
 @lilypond[quote,verbatim]
 \header{ title = \markup{ \bold { foo \italic { bar! } } } }
@@ -723,7 +723,6 @@ Snippets: @lsrdir{Text,Text}
 
 @menu
 * New dynamic marks::           
-* Text and line spanners::      
 @end menu
 
 @node New dynamic marks
@@ -768,181 +767,5 @@ boxf = \markup{ \bracket { \dynamic f } }
 @seealso
 
 Snippets: @lsrdir{Text,Text}
-
-
-@node Text and line spanners
-@subsubsection Text and line spanners
-
-@c FIXME: this whole section has to be removed.
-@c glissando stuff should go into Expressive marks;
-@c Text spanners should go into... Text spanners.
-@c (I'm on it) --vv
-
-Some performance indications, e.g., @i{rallentando} and
-@i{accelerando} and @i{trills} are written as text and are
-extended over many measures with lines, sometimes dotted or wavy.
-
-These all use the same routines as the glissando for drawing the
-texts and the lines, and tuning their behavior is therefore also
-done in the same way.  It is done with a spanner, and the routine
-responsible for drawing the spanners is
-@code{ly:line-interface::print}.  This routine determines the
-exact location of the two @i{span points} and draws a line in
-between, in the style requested.
-
-Here is an example of the different line styles available, and how
-to tune them.
-
-@lilypond[relative=2,ragged-right,verbatim,fragment]
-d2 \glissando d'2
-\once \override Glissando #'style = #'dashed-line
-d,2 \glissando d'2
-\override Glissando #'style = #'dotted-line
-d,2 \glissando d'2
-\override Glissando #'style = #'zigzag
-d,2 \glissando d'2
-\override Glissando #'style = #'trill
-d,2 \glissando d'2
-@end lilypond
-
-The information that determines the end-points is computed
-on-the-fly for every graphic object, but it is possible to
-override these. 
-
-@lilypond[relative=2,ragged-right,verbatim,fragment]
-e2 \glissando f
-\once \override Glissando #'bound-details #'right #'Y = #-2
-e2 \glissando f
-@end lilypond
-
-The @code{Glissando} object, like any other using the
-@code{ly:line-interface::print} routine, carries a nested
-association list.  In the above statement, the value for @code{Y}
-is set to @code{-2} for the association list corresponding to the
-right end point.  Of course, it is also possible to adjust the
-left side with @code{left} instead of @code{right}.
-
-If @code{Y} is not set, the value is computed from the vertical
-position of right attachment point of the spanner. 
-
-In case of a line break, the values for the span-points are
-extended with contents of the @code{left-broken} and
-@code{right-broken} sublists, for example
-
-@lilypond[relative=2,ragged-right,verbatim,fragment]
-\override Glissando #'breakable = ##T 
-\override Glissando #'bound-details #'right-broken #'Y = #-3
-c1 \glissando \break
-f1
-@end lilypond
-
-The following properties can be used for the
-
-@table @code
-@item Y
-This sets the Y-coordinate of the end point, in staff space.  By
-default, it is the center of the bound object, so for a glissando
-it points to the vertical center of the note head.
-
-For horizontal spanners, such as text spanner and trill spanners,
-it is hardcoded to 0.
-
-@item attach-dir
-This determines where the line starts and ends in X-direction,
-relative to the bound object.  So, a value of @code{-1} (or
-@code{LEFT}) makes the line start/end at the left side of the note
-head it is attached to.
-
-@item X
-This is the absolute coordinate of the end point.  It is usually
-computed on the fly, and there is little use in overriding it. 
-
-@item stencil
-Line spanners may have symbols at the beginning or end, which is
-contained in this sub-property.  This is for internal use, it is
-recommended to use @code{text}.
-
-@item text
-This is a markup that is evaluated to yield stencil.  It is used
-to put @i{cresc.} and @i{tr} on horizontal spanners.
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\override TextSpanner #'bound-details #'left #'text
-   = \markup { \small \bold Slower }
-c2\startTextSpan b c a\stopTextSpan
-@end lilypond
-
-@item stencil-align-dir-y
-@item stencil-offset
-Without setting this, the stencil is simply put there at the
-end-point, as defined by the @code{X} and @code{Y} sub properties.
-Setting either @code{stencil-align-dir-y} or @code{stencil-offset}
-will move the symbol at the edge relative to the end point of the
-line
-
-@lilypond[relative=1,fragment,verbatim]
-\override TextSpanner #'bound-details
-  #'left #'stencil-align-dir-y = #DOWN
-\override TextSpanner #'bound-details
-  #'right #'stencil-align-dir-y = #UP
-
-\override TextSpanner #'bound-details
-  #'left #'text = #"gggg"
-\override TextSpanner #'bound-details
-  #'right #'text = #"hhhh"
-c4^\startTextSpan c c c \stopTextSpan
-@end lilypond
-
-@item arrow
-Setting this sub property to @code{#t} produce an arrowhead at the
-end of the line.
-
-@item padding
-This sub property controls the space between the specified
-end-point of the line and the actual end.  Without padding, a
-glissando would start and end in the center of each note head.
-
-@end table
-
-TODO: add this somewhere
-
-@verbatim
-\new Staff {
-  \override TextSpanner #'bound-details #'left-broken #'text = ##f
-   \override TextSpanner #'bound-details #'left #'text = \markup {
-"start" }
-   c'1 \startTextSpan \break
-   c'1
-   c'1 \stopTextSpan
-}
-@end verbatim
-
-
-The music function \endSpanners terminates spanners and hairpins
-after exactly one note.
-
-@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
-\endSpanners
-c2 \startTextSpan c2
-c2 \< c2
-@end lilypond
-
-When using \endSpanners it is not necessary to close
-\startTextSpan with \stopTextSpan, nor is it necessary to close
-hairpins with \!.
-
-
-
-@seealso
-
-Snippets: @lsrdir{Text,Text}
-
-Internals Reference: @internalsref{TextSpanner},
-@internalsref{Glissando}, @internalsref{VoiceFollower},
-@internalsref{TrillSpanner},
-@internalsref{line-spanner-interface}.
-
-
-
 
 

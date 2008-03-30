@@ -92,13 +92,15 @@ to be played more than once.
 @node Normal repeats
 @subsubsection Normal repeats
 
-The syntax for a simple repeat is
+The syntax for a normal repeat is
 
 @example
 \repeat @var{variant} @var{repeatcount} @var{repeatbody}
 @end example
 
-where @var{repeatbody} is a music expression.
+where @var{variant} is @qq{volta} and @var{repeatbody} is a music
+expression.  Alternate endings can be produced using
+@code{\alternative}.
 
 Normal repeats without alternate endings:
 
@@ -108,7 +110,7 @@ c2 d
 \repeat volta 2 { d4 e f g }
 @end lilypond
 
-Normal repeats with  alternate endings:
+Normal repeats with alternate endings:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \repeat volta 2 { g f e d }
@@ -153,40 +155,20 @@ c1
 \alternative { {f2 d} {f\repeatTie f,} }
 @end lilypond
 
-By default, the volta brackets will be drawn over all of the
-alternative music, but it is possible to shorten them by setting
-@code{voltaSpannerDuration}.  In the next example, the bracket only
-lasts one measure, which is a duration of 3/4.
+@snippets
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\time 3/4
-c c c
-\set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
-\repeat volta 5 { d d d }
-\alternative { { e e e f f f }
-{ g g g } }
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{shortening-volta-brackets.ly}
 
-The @code{Volta_engraver} by default resides in the Score context, and
-brackets for the repeat are thus normally only printed over the
-topmost staff.  This can be adjusted by adding @code{Volta_engraver}
-to the Staff context where you want the brackets to appear; see
-@ref{Modifying context plug-ins} and
-@c @lsr{repeats,volta@/-multi@/-staff@/.ly}.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{adding-volta-brackets-to-additional-staves.ly}
 
-@lilypond[verbatim,ragged-right,quote]
-\score { <<
-  \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }
-  \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }
-  \new Staff \with { \consists Volta_engraver } { c'2 g' e' a' }
-  \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }
- >> }
-@end lilypond
 
 @c Is there a way to have a final bar ("|.") at the end of the
 @c previous line? Doesn't seem to be.
 If you want to start a repeat at the beginning of a line and have a
-double bar at the end of the previous line, use
+double bar at the end of the previous line, use @code{\bar}. See
+@ref{Bar lines} for more information.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c4 c c c
@@ -194,7 +176,6 @@ c4 c c c
 \repeat volta 2 { c4 d e f }   
 @end lilypond
 
-see @ref{Bar lines} for more information.
 
 @seealso
 
@@ -203,7 +184,7 @@ Music Glossary: @rglos{repeat}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
-Snippets: @lsrdir{Repeats,Repeats}
+Snippets: @lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
@@ -258,10 +239,10 @@ Print a @code{|:} bar line.
 Print a @code{:|} bar line.
 
 @item @code{(volta @var{text})}
-Print a volta bracket saying @var{text}.  The text can be
-specified as a text string or as a markup text, see @ref{Text
-markup}.  Do not forget to change the font, as the default number
-font does not contain alphabetic characters;
+Print a volta bracket saying @var{text}.  The text can be specified as
+a text string or as a markup text, see @ref{Text markup}.  Do not
+forget to change the font, as the default number font does not contain
+alphabetic characters;
 
 
 @item @code{(volta #f)}

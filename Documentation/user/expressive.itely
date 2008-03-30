@@ -342,7 +342,7 @@ To change this behavior, use
 
 Text style dynamic changes (such as @notation{cresc.} and
 @notation{dim.}) are printed with a dashed line showing their
-extent.  To surpress printing this line, use
+extent.  To suppress printing this line, use
 
 @example
 \override DynamicTextSpanner #'dash-period = #-1.0

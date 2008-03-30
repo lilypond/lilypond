@@ -18,10 +18,8 @@ marks, but from the letter or number you want.
   c1 \mark \default
   c1 \mark \default
   c1 \mark \default
-
-\break
-
-  \set Score.markFormatter = #format-mark-numbers 
+  \break
+  \set Score.markFormatter = #format-mark-numbers
   c1 \mark #1
   c1 \mark \default
   c1 \mark \default
