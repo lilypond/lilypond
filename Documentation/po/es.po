@@ -9,9 +9,9 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-03-28 18:07+0100\n"
-"PO-Revision-Date: 2008-03-27 13:02+0100\n"
+"PO-Revision-Date: 2008-03-30 17:19+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
-"Language-Team: es\n"
+"Language-Team: Español <lilypond.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -117,7 +117,7 @@ msgstr "Índice de LilyPond"
 #. @subsubheading in ../../../Documentation/fr/user/macros.itexi
 #. @subsubheading in ../../../Documentation/de/user/macros.itexi
 msgid "Predefined commands"
-msgstr "Comandos predefinidos"
+msgstr "Instrucciones predefinidas"
 
 #. @subsubheading in ../../../Documentation/user/macros.itexi
 #. @subsubheading in ../../../Documentation/fr/user/macros.itexi
@@ -840,7 +840,7 @@ msgstr "Barras automáticas y manuales"
 #. @node in ../../../Documentation/de/user/tutorial.itely
 #. @subsection in ../../../Documentation/de/user/tutorial.itely
 msgid "Advanced rhythmic commands"
-msgstr "Comandos rítmicos avanzados"
+msgstr "Instrucciones rítmicas avanzadas"
 
 #. @subheading in ../../../Documentation/user/tutorial.itely
 #. @subheading in ../../../Documentation/fr/user/tutorial.itely
@@ -1646,8 +1646,7 @@ msgstr "la propiedad padding (relleno)"
 #. @subheading in ../../../Documentation/user/tweaks.itely
 #. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "left-padding and right-padding"
-msgstr ""
-"left-padding y right-padding (relleno por la izquierda y por la derecha)"
+msgstr "left-padding y right-padding (relleno por la izquierda y por la derecha)"
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
 #. @subheading in ../../../Documentation/es/user/tweaks.itely
@@ -2791,7 +2790,7 @@ msgstr "GNU LilyPond: el tipografiador de música"
 #. @node in ../../../Documentation/de/user/lilypond.tely
 #. @appendix in ../../../Documentation/de/user/lilypond.tely
 msgid "LilyPond command index"
-msgstr "Índice de comandos de LilyPond"
+msgstr "Índice de instrucciones de LilyPond"
 
 #. @node in ../../../Documentation/user/notation.itely
 #. @chapter in ../../../Documentation/user/notation.itely
@@ -5716,14 +5715,14 @@ msgstr "Agrupación vertical de objetos gráficos"
 #. @node in ../../../Documentation/es/user/changing-defaults.itely
 #. @node in ../../../Documentation/de/user/changing-defaults.itely
 msgid "The \\override command"
-msgstr "El comando \\override"
+msgstr "La instrucción \\override"
 
 #. @section in ../../../Documentation/user/changing-defaults.itely
 #. @section in ../../../Documentation/fr/user/changing-defaults.itely
 #. @section in ../../../Documentation/es/user/changing-defaults.itely
 #. @section in ../../../Documentation/de/user/changing-defaults.itely
 msgid "The @code{\\override} command"
-msgstr "El comando @code{\\override}"
+msgstr "La instrucción @code{\\override}"
 
 #  ?? FVD
 #. @node in ../../../Documentation/user/changing-defaults.itely
@@ -6067,7 +6066,7 @@ msgstr "Cómo funciona internamente el marcado"
 #. @node in ../../../Documentation/de/user/programming-interface.itely
 #. @subsection in ../../../Documentation/de/user/programming-interface.itely
 msgid "New markup command definition"
-msgstr "Definición de un comando nuevo de marcado"
+msgstr "Definición de una instrucción de marcado nueva"
 
 #. @node in ../../../Documentation/user/programming-interface.itely
 #. @subsection in ../../../Documentation/user/programming-interface.itely
@@ -6243,7 +6242,7 @@ msgstr "Estilos de cabezas de nota"
 #. @node in ../../../Documentation/es/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
 msgid "Overview of text markup commands"
-msgstr "Panorámica de los comandos de marcado de texto"
+msgstr "Panorámica de las instrucciones de marcado de texto"
 
 #. @node in ../../../Documentation/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
@@ -6252,7 +6251,7 @@ msgstr "Panorámica de los comandos de marcado de texto"
 #. @node in ../../../Documentation/es/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
 msgid "Overview of text markup list commands"
-msgstr "Panorámica de los comandos de listas de marcado de texto"
+msgstr "Panorámica de las instrucciones de listas de marcado de texto"
 
 #. @node in ../../../Documentation/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
@@ -6503,7 +6502,7 @@ msgstr "Sintaxis de las repeticiones"
 #. @node in ../../../Documentation/de/user/repeats.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
 msgid "Manual repeat commands"
-msgstr "Comandos de repetición manual"
+msgstr "Instrucciones de repetición manual"
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @subsection in ../../../Documentation/fr/user/repeats.itely
@@ -6778,3 +6777,4 @@ msgstr "Notas al pie"
 # this is the same translation that babel LaTex package uses . FVD
 msgid "Table of Contents"
 msgstr "Índice general"
+

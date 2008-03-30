@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: bb02d2367c31a7799508cc3afd60aabb2b59999d
+    Translation of GIT committish: 03184badb3c2378e1ab3eec6ee62a6bdc0609082
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -77,7 +77,7 @@ tipo @code{Staff}.  Entonces, este objeto @code{Staff} contiene todas
 las propiedades asociadas con ese pentagrama en particular, por
 ejemplo, su nombre y su armadura, además de otros detalles de los
 grabadores que se han asignado para que operen dentro del contexto del
-pentagrama.  De forma similar, hay objetos que guardan las propieades
+pentagrama.  De forma similar, hay objetos que guardan las propiedades
 de todos los demás contextos, como objetos de @code{Voice}, objetos de
 @code{Score}, objetos de @code{Lyrics}, así como objetos que
 representan todos los elementos notacionales como líneas divisorias,
@@ -107,10 +107,10 @@ se deben procesar de la misma manera.  Por ejemplo, todos los objetos
 gráficos tienen un color, un tamaño, una posición, etc., y todas estas
 propiedades se procesan de la misma forma durante la interpretación
 del archivo de entrada por parte de LilyPond.  Para simplificar estas
-operaciones internas, estas acciones t propiedades comunes se agrupan
+operaciones internas, estas acciones y propiedades comunes se agrupan
 en un objeto llamado @code{grob-interface}, interface de grob.  Hay
 muchas otras agrupaciones de propiedades comunes como ésta, y cada
-unoa recibe un nombre que acaba en @code{interface}.  En total hay más
+una recibe un nombre que acaba en @code{interface}.  En total hay más
 de 100 interfaces de éstos.  Veremos más adelante porqué esto es del
 interés y de utilidad para el usuario.
 
@@ -201,7 +201,7 @@ ejemplos siguientes.  Veremos más tarde cuándo se debe especificar.
 
 Las últimas secciones tratan de forma exhaustiva las propiedades y sus
 valores, pero para ilustrar el formato y utilización de estas
-iinstrucciones usaremos sólo unas cuantas propiedades y valores
+instrucciones usaremos sólo unas cuantas propiedades y valores
 sencillos que sean fáciles de entender.
 
 Por ahora no se preocupe por el @code{#'}, que debe anteponerse a la
@@ -225,7 +225,7 @@ a b c
 @cindex revert, instrucción
 @funindex \revert
 
-Una vez sobreescrita, la proopiedad retiene su nuevo valor hasta que
+Una vez sobreescrita, la propiedad retiene su nuevo valor hasta que
 se sobreescribe de nuevo o se encuentra una instrucción
 @code{\revert}.  La instrucción @code{\revert} tiene la siguiente
 sintaxis y ocasiona que el valor de la propiedad se devuelva a su
@@ -306,12 +306,12 @@ lo que haría @code{\once \override}:
 Vemos que la sobreescritura con override afecta a @emph{todas} las
 notas del acorde.  Esto es así porque todas las notas de un acorde
 ocurren en el mismo @emph{momento musical}, y la acción de
-@code{\once} es aplicar la sobreescritura a todos los oobjetos de
+@code{\once} es aplicar la sobreescritura a todos los objetos de
 presentación del tipo especificado que ocurren en el mismo momento
 musical que la propia instrucción de sobreescritura @code{\override}.
 
 LA instrucción @code{\tweak} opera de una forma distinta.  Actúa sobre
-el elemento inmediatamente siguiente dentro del flujjo de entrada.
+el elemento inmediatamente siguiente dentro del flujo de entrada.
 Sin embargo, es efectivo solamente sobre objetos que se crean
 directamente a partir del flujo de entrada, en esencia las cabezas y
 las articulaciones (los objetos como las plicas y las alteraciones se
@@ -334,7 +334,7 @@ Observe que la sintaxis de @code{\tweak} no es igual que la de
 presentación se deben especificar; de hecho, generaría un error
 hacerlo.  Los dos están implícitos por el siguiente elemento del flujo
 de entrada.  Así que la sintaxis genérica de la instrucción
-@code{\tweak} es, simmplemente:
+@code{\tweak} es, simplemente:
 
 @example
 \tweak #'@emph{propiedad_de_presentación} = #@emph{valor}
@@ -491,7 +491,7 @@ relacionadas las propiedades de las ligaduras de expresión o Slurs.
 (Una forma alternativa de encontrar esta página es a partir de la
 Referencia de la Notación.  En una de las páginas que tratan de las
 ligaduras de expresión podrá encontrar un enlace al manual de
-referencia del funcioonamiento interno.  Este enlace le llevará
+referencia del funcionamiento interno.  Este enlace le llevará
 directamente a esta página, aunque con frecuencia es más fácil ir
 directamente al RFI y buscar allí.)
 
@@ -601,7 +601,7 @@ prefijo @code{\once}.  Colocado inmediatamente antes de la instrucción
 @code{\override} ocasiona que solamente cambie la ligadura que
 comienza en la nota @strong{inmediata siguiente}.  Si la nota
 inmediata siguiente no da inicio a una ligadura, la instrucción no
-tiene niingún efecto en absoluto: no se recuerda hasta que se
+tiene ningún efecto en absoluto: no se recuerda hasta que se
 encuentre alguna ligadura, sino que simplemente se ignora.  Así pues,
 la instrucción que lleva @code{\once} se debe reposicionar de la forma
 siguiente:
@@ -690,7 +690,7 @@ segunda ligadura:
 la instrucción @code{\revert} se puede utilizar para devolver
 cualquier propiedad que se haya cambiado con @code{\override} a su
 valor predeterminado.  Puede utilizar el método que mejor se adapte a
-aquello que quere hacer.
+aquello que quiere hacer.
 
 Así finaliza nuestra introducción al manual de RFI, y el método básico
 de trucaje.  A continuación, en las últimas secciones de este capítulo
@@ -710,13 +710,13 @@ Suponga ahora que queremos imprimir la letra de la canción en cursiva.
 ¿Qué forma de instrucción @code{\override} necesitamos para hacerlo?
 En primer lugar miramos en la página del RFI que relaciona todos los
 objetos, @q{All layout objects}, como antes, y buscamos un objeto que
-pueda conteolar la letra de la canción.  Encontramos @code{LyricText},
+pueda controlar la letra de la canción.  Encontramos @code{LyricText},
 que parece adecuado.  Al seguir este enlace se presentan las
 propiedades ajustables para el texto de la letra.  Estos incluyen
 @code{font-series} y @code{font-size}, pero nada que pudiera aplicar
 una forma cursiva.  Esto es porque la propiedad de la forma es común a
 todos los objetos de fuente tipográfica, y por tanto, en vez de
-incluirlo en cada uno de los objetos de preesentación, se agrupa junto
+incluirlo en cada uno de los objetos de presentación, se agrupa junto
 con otras propiedades comunes similares y se deposita en un
 @strong{Interface}, el interface de las fuentes tipográficas
 @code{font-interface}.
@@ -725,7 +725,7 @@ Por tanto, ahora necesitamos aprender cómo encontrar las propiedades
 de los interfaces, y descubrir qué objetos usan estas propiedades de
 interface.
 
-Mire de nuevo la página del RFI que decribe a LyricText.  Al final de
+Mire de nuevo la página del RFI que describe a LyricText.  Al final de
 la página hay una lista de enlaces (en las versiones de html del RFI)
 a los interfaces que LyricText contempla.  La lista tiene siete
 elementos, entre ellos @code{font-interface}.  Al seguir este enlace
@@ -766,7 +766,7 @@ nombres especiales que son conocidos por LilyPond internamente.
 Algunos de ellos son nombres de propiedades, como @code{thickness} o
 @code{font-shape}, otros son en efecto valores especiales que se les
 puede dar a las propiedades, como @code{italic}.  Observe la
-distincion entre esto y las cadenas de texto arbitrarias, que
+distinción entre esto y las cadenas de texto arbitrarias, que
 aparecerían entrecomilladas como @code{"a text string"}.
 
 De acuerdo, entonces la instrucción @code{\override} que necesitamos
@@ -802,8 +802,8 @@ y toda la letra se imprime en cursiva.
 @cindex contexto, especificación en modo letra
 
 En el caso de la letra, si intenta especificar el contexto en el
-formato que acabamnos de dar, la instrucción no funcionará.  Una
-sílaba escrita en el modo letra, «lyricmode» temina en un espacio, un
+formato que acabamos de dar, la instrucción no funcionará.  Una
+sílaba escrita en el modo letra, «lyricmode» termina en un espacio, un
 salto de línea o un dígito.  Cualquier otro carácter se incluye como
 parte de la sílaba.  Por esta razón, un espacio o salto de línea debe
 aparecer antes del último símbolo @code{@}} para evitar que se incluya
@@ -874,7 +874,7 @@ en la instrucción @code{\override}.
   @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofe
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Símbolo
-  @tab Cualquiera del conjunto de símbolos premitidos para esa propiedad, precedido de un apóstrofe
+  @tab Cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofe
   @tab @code{'italic}, @code{'inside}
 @item Desconocido
   @tab Un procedimiento o @code{#f} (para no producir ninguna acción)
@@ -916,13 +916,13 @@ las propiedades que normalmente se necesitan juntas: si una de ellas
 se necesita para un objeto, también las otras.  Así, ciertos objetos
 necesitan las propiedades de algunos interfaces, otros necesitan las
 de otros interfaces.  Los interfaces que contienen las propiedades que
-un determinado grob necesita se ecuentran relacionadas en el manual
+un determinado grob necesita se encuentran relacionadas en el manual
 RFI al final de la página que describe dicho grob, y esas propiedades
 se pueden ver mirando dichos interfaces.
 
 Hemos explicado cómo encontrar información sobre los grobs en
 @ref{Properties of layout objects}.  Usando el mismo enfoque, vamos al
-RFI para biscar el objeto de presentación que imprime las líneas
+RFI para buscar el objeto de presentación que imprime las líneas
 divisorias.  A través del enlace @emph{Backend} y @emph{All layout
 objects} encontramos que hay un objeto de presentación llamado
 @code{BarLine}.  Entre sus propiedades se encuentran dos que controlan
@@ -931,7 +931,7 @@ divisorias también contemplan un número de interfaces, entre ellos el
 @code{grob-interface}, donde podemos encontrar las propiedades
 @code{transparent} y @code{color}.  Todas ellas pueden afectar la
 visibilidad de las barras de compás (y, por supuesto, por extensión,
-tambén la de muchos otros objetos de presentación).  Vamos a
+también la de muchos otros objetos de presentación).  Vamos a
 considerar cada uno de ellos por orden.
 
 @subheading stencil
@@ -994,7 +994,7 @@ barras de compás se supriman, por lo que el valor que necesitamos es
 de @code{Staff}.  Observa también que al escribir este valor tenemos
 dos símbolos de almohadilla antes del paréntesis de apertura.  Se
 necesita uno como parte del valor para introducir un vector, y se
-necesita otro más, como siempre, para precered el propio valor dentro
+necesita otro más, como siempre, para preceder el propio valor dentro
 de la instrucción @code{\override}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -1062,7 +1062,7 @@ lo dejamos donde está, pero lo hacemos invisible.
 @subheading color
 @cindex color, propiedad
 
-PAra finalizar, podríamos hacer invisibles las barras de compás
+Para finalizar, podríamos hacer invisibles las barras de compás
 pintándolas de color blanco.  El interface @code{grob-interface}
 especifica que la propiedad del color es una lista, pero no hay
 ninguna explicación sobre lo que debe ir en esa lista.  La lista que
@@ -1138,7 +1138,7 @@ valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
 
 Finalmente, existe también una escala de grises como parte del
 conjunto de colores de X11.  Varían desde el negro, @code{'grey0'},
-hsta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar esto
+hasta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar esto
 estableciendo todos los objetos de presentación de nuestro ejemplo a
 varias gradaciones de gris:
 
@@ -1225,7 +1225,7 @@ se aplican al pentagrama de ossia.
 Pero ¿cuál es la diferencia entre modificar el contexto de pentagrama
 usando @code{\with} y modificar los sellos de clave y de compás con
 \override?  La diferencia principal es que los cambios que se realizan
-enuna cláusula @code{\with} se hacen en el momento en que se crea el
+en una cláusula @code{\with} se hacen en el momento en que se crea el
 contexto, y permanecen activos como valores @strong{predeterminados}
 durante toda la duración de dicho contexto, mientras que las
 instrucciones @code{\set} o @code{\override} incluidas dentro de la
@@ -1245,9 +1245,9 @@ alineación está decidida y no tendría sentido intentar cambiarla más
 tarde.
 
 Los valores predeterminados de las propiedades de los objetos de
-presentación también se pueden establever dentro de cláusulas
+presentación también se pueden establecer dentro de cláusulas
 @code{\with}.  Simplemente utilice la instrucción @code{\override}
-normal dejando aparte el nombre del contextom ya que está definido sin
+normal dejando aparte el nombre del contexto, ya que está definido sin
 ambigüedad como el contexto que la cláusula @code{\with} está
 modificando.  De hecho, se producirá un error si se especifica un
 contexto en este lugar.
@@ -1399,7 +1399,7 @@ siguiente forma:
 
 @noindent
 Puesto que la longitud de las plicas y muchas otras propiedades
-relacionadas con la longitudse calculan siempre con relación al valor
+relacionadas con la longitudes calculan siempre con relación al valor
 de la propiedad @code{staff-space}, su longitud también ve reducida su
 escala automáticamente.  Observe que esto afecta solamente a la escala
 vertical del ossia: la escala horizontal se determina por medio de la
@@ -1520,7 +1520,7 @@ automático.  Se puede hacer por secciones de música completas o
 incluso para una nota individual.  La propiedad que controla este
 comportamiento es la propiedad de @code{direction} (dirección) de cada
 objeto de presentación.  En primer lugar explicaremos qué hace esto, y
-lueco introduciremos algunas instrucciones listas para usar que le
+luego introduciremos algunas instrucciones listas para usar que le
 evitarán tener que codificar sobreescrituras explícitas para las
 modificaciones más comunes.
 
@@ -1667,7 +1667,7 @@ digitación de las notas de los acordes que siguen.  Observe que
 @code{left} y @code{right} son mutuamente excluyentes: las
 digitaciones pueden situarse en un lado o en el otro, no en los dos.
 
-Para controlar la colocación de la digitacion de una sola nota usando
+Para controlar la colocación de la digitación de una sola nota usando
 esta instrucción es necesario escribirla como un acorde de una sola
 nota encerrándola entre ángulos simples.
 
@@ -1879,7 +1879,7 @@ desploma hacia abajo.  Quizá no sea tan buena idea.  ¿Y si lo que
 realmente queremos hacer es posicionar todas las anotaciones a la
 misma distancia por encima del pentagrama?  Para hacerlo, vamos a
 necesitar claramente espaciar las notas en sentido horizontal para
-hacer sitio para el texto.  Estoo se hace empleando la instrucción
+hacer sitio para el texto.  Esto se hace empleando la instrucción
 @code{textLengthOn}.
 
 @subheading \textLengthOn
@@ -2066,8 +2066,7 @@ mover objetos es por claridad o razones estéticas: el aspecto es mejor
 con un poco más o un poco menos de espacio de separación.
 
 Existen tres enfoques principales que llevan a la resolución de
-superposiciones en la notaciónThere are three main main approaches to
-resolving overlapping notation.  Se deben considerar en el siguiente
+superposiciones en la notación.  Se deben considerar en el siguiente
 orden:
 
 @enumerate
@@ -2118,7 +2117,7 @@ aplicar a todos los objetos que contemplan el interface
 
 En lugar de con @code{padding}, la colocación de los grupos de
 alteraciones se controla con @code{left-padding} y
-@code{right-padding}.  Eestas propiedades se encontrarán en el objeto
+@code{right-padding}.  Estas propiedades se encontrarán en el objeto
 @code{AccidentalPlacement} que, observe, vive dentro del contexto de
 @strong{staff}.  Como las alteraciones accidentales siempre se
 posicionan según las cabezas de las notas y a su izquierda, solamente
@@ -2156,13 +2155,13 @@ Se puede sobreescribir si se necesita una separación intermedia mayor
 Esta propiedad se puede usar para alinear el objeto a la izquierda, a
 la derecha, o centrarlo con respecto al punto de referencia del objeto
 «padre».  Se puede usar con todos los objetos que contemplan el
-interfaceIt may be used with all objects which support the
+interface
 @code{self-alignment-interface}.  En general son objetos que contienen
 texto.  Los valores son @code{LEFT}, @code{RIGHT} o @code{CENTER}.  De
 forma alternativa se puede especificar un valor numérico entre
 @code{-1} y @code{+1}, donde @code{-1} es alineado por la izquierda,
 @code{+1} es alineado por la derecha, y los números intermedios mueven
-el texto progresivamente desde alinado por la izquierda hasta alineado
+el texto progresivamente desde alineado por la izquierda hasta alineado
 por la derecha.  Se pueden especificar valores numéricos mayores de
 @code{1} para mover el texto incluso más lejos hacia la izquierda, o
 menos de @code{-1} para alejarlo más hacia la derecha.  Un cambio en
@@ -2188,9 +2187,9 @@ ostentan los dos números.  Por ejemplo, el objeto @code{Accidental}
 @cindex staff-position, propiedad
 @code{staff-position} es una propiedad del interface
 @code{staff-symbol-referencer-interface}, que está contemplado por los
-objetos que se colocan con relación al pentgrama.  Especifica la
+objetos que se colocan con relación al pentagrama.  Especifica la
 posición vertical del objeto con relación a la tercera línea del
-pentagrama en medios espacios de pentagrama.  Ees útil en la
+pentagrama en medios espacios de pentagrama.  Es útil en la
 resolución de colisiones entre objetos de presentación como silencios
 multi-compás, ligaduras de unión y notas en distintas voces.
 
@@ -2226,7 +2225,7 @@ reposicionar manualmente con relación a la tercera línea del
 pentagrama verticalmente, o desplazándolas una cierta distancia a una
 nueva posición.  Las desventajas son que los valores correctos para el
 reposicionamiento se deben adivinar, a menudo por ensayo y error, para
-cada objeto indvidual y, puesto que el movimiento se hace después de
+cada objeto individual y, puesto que el movimiento se hace después de
 que LilyPond ha colocado todos los demás objetos es usuario es
 responsable de evitar cualquier colisión que pudiera producirse.  Pero
 la dificultar principal con este enfoque es que los valores de
@@ -2240,7 +2239,7 @@ de posicionamiento manual son:
 Esta propiedad se aplica a cualquier objeto de presentación que
 contemple el @code{grob-interface}.  Toma una pareja de números que
 especifican el desplazamiento adicional en las direcciones horizontal
-y vertical.  Los números negativos mueven el objeto a la isquierda o
+y vertical.  Los números negativos mueven el objeto a la izquierda o
 hacia abajo.  Las unidades son espacios de pentagrama.  El
 desplazamiento adicional se hace después de que la composición
 tipográfica de los objetos ha terminado, así que un objeto puede ser
@@ -2252,12 +2251,12 @@ reposicionado a cualquier lugar sin afectar a ninguna otra cosa.
 la altura de las barras de corchea, ligaduras de expresión y corchetes
 de grupos de valoración especial.  Toma una pareja de números que dan
 la posición de los extremos izquierdo y derecho de la barra, ligadura,
-etc. con relacion a la tercera línea del pentagrama.  Las unidades son
+etc. con relación a la tercera línea del pentagrama.  Las unidades son
 espacios de pentagrama.  Observe, sin embargo, que las ligaduras de
 expresión y de fraseo no se pueden reposicionar en cantidades
 arbitrariamente grandes.  LilyPond en primer lugar genera una lista de
 posiciones posibles para la ligadura y de forma predeterminada
-encuentra la ligadura que tiene @qq{mejor aspecto}.  Si la porpiedad
+encuentra la ligadura que tiene @qq{mejor aspecto}.  Si la propiedad
 @code{positions} se ha sobreescrito, la ligadura que está más cerca de
 las posiciones que se han solicitado, se selecciona de la lista.
 @end table
@@ -2279,7 +2278,7 @@ moverlos.
 @item Articulaciones            @tab @code{Script}
 @item Barras                    @tab @code{Beam}
 @item Dinámica (verticalmente)  @tab @code{DynamicLineSpanner}
-@item Dynamica (horizontalmente)   @tab @code{DynamicText}
+@item Dinámica (horizontalmente)   @tab @code{DynamicText}
 @item Digitaciones                @tab @code{Fingering}
 @item Llamadas de ensayo y textuales   @tab @code{RehearsalMark}
 @item Ligaduras de expresión    @tab @code{Slur}
@@ -2328,7 +2327,7 @@ cambios de propiedades en el contexto @code{Voice} pasarán
 inadvertidos.  Para ver más detalles, consulte @ruser{Constructing a
 tweak}.
 
-Si la propiedad de relleno @code{padding} de un objetp se incrementa
+Si la propiedad de relleno @code{padding} de un objeto se incrementa
 cuando dicho objeto se encuentra en una pila de objetos que se están
 colocando de acuerdo a su prioridad @code{outside-staff-priority},
 entonces ese objeto se moverá, y también todos los que están por fuera
@@ -2426,7 +2425,7 @@ de la nota «padre»:
 Los silencios multi-compás en una voz pueden chocar con las notas en
 otra voz.  Puesto que estos silencios se tipografían centrados entre
 las barras de compás se necesitaría bastante esfuerzo para que
-LilyPond averigüara qué otras notas podrína chocar con él, ya que
+LilyPond averiguara qué otras notas podrían chocar con él, ya que
 actualmente todo el manejo de colisiones entre notas y silencios se
 hace solamente para notas y silencios que ocurren al mismo tiempo.  He
 aquí un ejemplo de colisión de este tipo:
@@ -2569,7 +2568,7 @@ dejamos con este aspecto:
 
 @noindent
 Las dos notas inferiores del primer acorde (es decir, las que están en
-al tercera voz) no deberían separarse de la colmna de notas de las dos
+al tercera voz) no deberían separarse de la columna de notas de las dos
 notas agudas.  Para corregir esto, establecemos el valor de
 @code{force-hshift} (que es una propiedad de @code{NoteColumn}) de
 esas notas a cero.  La nota más grave del segundo acorde se sitúa
@@ -2606,7 +2605,7 @@ deliberadamente para ilustrar el uso de la Referencia de la Notación
 para resolver problemas de notación poco comunes.  No es
 representativo de un proceso de grabado más usual, por lo que ¡le
 recomendamos que no deje que estas dificultades le desanimen!
-¡Afortunadamente, las dificultadoes como éstas no son muy comunes!
+¡Afortunadamente, las dificultades como éstas no son muy comunes!
 
 El ejemplo está extraído de la Primera Balada de Chopin, Op. 23,
 compases 6 al 9, la transición entre el Lento inicial y el Moderato.
@@ -2675,7 +2674,7 @@ que lo más fácil es introducir estas cuatro voces temporalmente en el
 momento en que se necesiten.  Si ha olvidado cómo hacerlo, lea
 @ref{I'm hearing Voices}.  Vamos a comenzar introduciendo las notas
 como dos variables y disponiendo la estructura de pentagramas en un
-bloque score, y veremos qúe produce LilyPond de forma predeterminada:
+bloque score, y veremos qué produce LilyPond de forma predeterminada:
 
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
@@ -2773,7 +2772,7 @@ El primer compás ahora es correcto.  El segundo compás contiene un
 arpegio y acaba en una doble barra.  ¿Cómo los hacemos, pues no han
 sido mencionados en este Manual de Aprendizaje?  Aquí es donde tenemos
 que volver e la Referencia de la Notación.  Buscando la palabra
-@q{arpegio} y @q{línea divisoria} en el índice nos puestra rápidamente
+@q{arpegio} y @q{línea divisoria} en el índice nos muestra rápidamente
 que un arpegio se hace añadiendo @code{\arpeggio} a un acorde, y la
 doble barra se produce por medio de la instrucción @code{\bar "||"}.
 Esto podemos hacerlo fácilmente.  A continuación tenemos que corregir
@@ -2790,7 +2789,7 @@ central:
 
 @code{\once \override Tie #'staff-position = #3.5}
 
-This completes bar two, giving:
+Con esto se completa el compás dos, dando como resultado:
 
 @lilypond[quote,verbatim,ragged-right]
 rhMusic = \relative c'' {
@@ -2837,9 +2836,9 @@ lhMusic = \relative c' {
 
 Vayamos ahora al tercer compás y comienzo de la sección Moderato.  El
 tutorial nos enseñó cómo escribir texto en negrita mediante la
-instrucción @code{\markup}, por lo que añadir @q{Moderato} en engrita
+instrucción @code{\markup}, por lo que añadir @q{Moderato} en negrita
 es fácil.  Pero ahora ¿cómo fundimos notas que están en distintas
-voces?  El índice de la Referencia de laa Notación no mencina la
+voces?  El índice de la Referencia de la Notación no menciona la
 mezcla de notas, pero una búsqueda de texto por la palabra @q{fusión}
 o @q{mezcla} nos lleva rápidamente a las sobreescrituras necesarias
 para mezclar o fusionar notas con distinta cabeza y con o sin puntillo
@@ -3063,7 +3062,7 @@ lhMusic = \relative c' {
 @subheading Tying notes across voices
 
 El ejemplo siguiente muestra cómo conectar notas que están en
-distintas voces utilizando ligaudras de unión.  Normalmente sólo se
+distintas voces utilizando ligaduras de unión.  Normalmente sólo se
 pueden conectar mediante ligaduras de unión dos notas que estén en la
 misma voz.  Usando dos voces, con las notas ligadas en una de ellas:
 
@@ -3237,7 +3236,7 @@ a su sistema, de la siguiente forma:
 Diríjase a
 @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 
-@strong{OSX}
+@strong{Mac OS X}
 
 Diríjase a
 @file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
@@ -3254,8 +3253,8 @@ Mediante el Explorador de Windows, diríjase a
 Dentro de esta carpeta, las dos subcarpetas interesantes son
 
 @itemize
-@item @file{../ly/ } - contains files in LilyPond format
-@item @file{../scm/} - contains files in Scheme format
+@item @file{../ly/ } - contiene archivos en formato LilyPond
+@item @file{../scm/} - contiene archivos en formato Scheme
 @end itemize
 
 Vamos a comenzar observando algunos archivos que están en
@@ -3313,7 +3312,7 @@ interesarle son:
 @headitem Archivo
   @tab Contenido
 @item @file{../scm/auto-beam.scm}
-  @tab Valores predeteminados de sub-barrado
+  @tab Valores predeterminados de sub-barrado
 @item @file{../scm/define-grobs.scm}
   @tab valores predeterminados de las propiedades de grobs
 @item @file{../scm/define-markup-commands.scm}
@@ -3334,7 +3333,7 @@ interesarle son:
 @subsection Avoiding tweaks with slower processing
 
 LilyPond puede llevar a cabo comprobaciones adicionales al tiempo que
-procesa los archivos.  Estos comandos consumen tiempo, pero el
+procesa los archivos.  Estas instrucciones consumen tiempo, pero el
 resultado puede necesitar menos trucos manuales para obtener un
 resultado aceptable.  Si una inscripción de texto o parte de la letra
 se sale de los márgenes, estas comprobaciones comprimirán dicha línea
@@ -3369,7 +3368,7 @@ supuesto, para hacer esto se necesitan al menos unos conocimientos
 básicos de programación en Scheme, y damos una introducción en el
 @ref{Scheme tutorial}.
 
-Como ejemplo que liustra una de las muchas posibilidades, en lugar de
+Como ejemplo que ilustra una de las muchas posibilidades, en lugar de
 dar a una propiedad un valor constante, se puede establecer al
 resultado de un procedimiento de Scheme que se invoca cada vez que
 LilyPond accede a esta propiedad.  La propiedad se puede establecer
