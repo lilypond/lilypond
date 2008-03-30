@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 03184badb3c2378e1ab3eec6ee62a6bdc0609082
+    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -162,7 +162,7 @@ cierta información acerca de lo que LilyPond ha hecho con el
 archivo. Si se produce algún error, examine este archivo de registro.
 
 
-@subsubheading Unix
+@subsubheading UNIX
 
 Cree un archivo de texto con el nombre @file{prueba.ly} y escriba en él:
 

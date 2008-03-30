@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 03184badb3c2378e1ab3eec6ee62a6bdc0609082
+    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -22,7 +22,7 @@ unas hermosas partituras impresas!
 * Vocal ensembles::             
 * Ancient notation templates::  
 * Jazz combo::                  
-* Lilypond-book templates::     
+* lilypond-book templates::     
 @end menu
 
 
@@ -1484,11 +1484,11 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 @end ignore
 
 
-@node Lilypond-book templates
-@appendixsec Lilypond-book templates
+@node lilypond-book templates
+@appendixsec lilypond-book templates
 
 Estas plantillas se usan para @code{lilypond-book}.  Si no está familiarizado con este
-programa, consulte @rprogram{LilyPond-book}.
+programa, consulte @rprogram{lilypond-book}.
 
 @appendixsubsec LaTeX
 
@@ -1541,3 +1541,57 @@ d4 c b a
 @@bye
 @end example
 
+
+@appendixsubsec xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%xetex specific stuff
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%Esto puede estar en blanco si no vamos a usar  pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Aquí podemos insertar todos los paquetes que pdftex también entiende
+\usepackage[spanish,ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{Un breve documento con LilyPond y xelatex}
+\maketitle
+
+Las instrucciones \textbf{font} normales dentro del \emph{text}
+funcionan, porque \textsf{están contempladas por \LaTeX{} y XeteX.}
+Si quiere usar instrucciones específicas como \verb+\XeTeX+, debe
+incluirlas también dentro de un entorno \verb+\ifxetex+. Puede usar
+esto para imprimir la instrucción \ifxetex \XeTeX{} \else XeTeX \fi
+que no es conocida para el \LaTeX normal.
+
+Dentro del texto normal puede usar fácilmente instrucciones de
+LilyPond, como ésta:
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+etcétera.
+
+Las tipografías de los fragmentos establecidas con LilyPond se tendrán
+que ajustar desde dentro del fragmento. Para esto debe leer el manual
+UA en cuanto a cómo usar lilypond-book.
+
+\selectlanguage{ngerman}
+Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
+anderen
+seltsamen Zeichen: __ ______, wenn sie von der Schriftart
+unterst__tzt werden.
+\end{document}
+@end verbatim

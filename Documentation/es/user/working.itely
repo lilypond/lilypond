@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 03184badb3c2378e1ab3eec6ee62a6bdc0609082
+    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -26,30 +26,33 @@ que lea este capítulo.
 @node Suggestions for writing LilyPond files
 @section Suggestions for writing LilyPond files
 
-En este momento está preparado para comenzar a escribir archivos de LilyPond más grandes -- no sólo los
-pequeños ejemplos que aparecen en el tutorial, sino piezas completas --. Pero ¿cómo debe proceder
-para hacerlo?
+En este momento está preparado para comenzar a escribir archivos de
+LilyPond más grandes -- no sólo los pequeños ejemplos que aparecen en
+el tutorial, sino piezas completas --. Pero ¿cómo debe proceder para
+hacerlo?
 
-En la medida en que LilyPond entienda sus archivos y produzca la salida que usted
-pretendía, realmente no importa mucho qué aspecto tengan sus archivos.  Sin embargo
-existen algunas otras cosas a tener en cuenta cuando se escriben archivos de LilyPond.
+En la medida en que LilyPond entienda sus archivos y produzca la
+salida que usted pretendía, realmente no importa mucho qué aspecto
+tengan sus archivos.  Sin embargo existen algunas otras cosas a tener
+en cuenta cuando se escriben archivos de LilyPond.
 
 @itemize @bullet
 @item ¿Qué ocurre si comete un fallo?  La estructura de un archivo
-lilypond puede hacer que ciertos errores se hagan más fáciles (o más difíciles) de encontrar.
+de LilyPond puede hacer que ciertos errores se hagan más fáciles (o
+más difíciles) de encontrar.
 
 @item ¿Qué ocurre si quiere compartir sus archivos con otras personas?
-De hecho, ¿y si quiere alterar sus propios archivos después de algunos años?
-Algunos archivos de lilypond se comprenden a primera vista;
-otros pueden tenerle rascándose la cabeza
-durante una hora.
+De hecho, ¿y si quiere alterar sus propios archivos después de algunos
+años?  Algunos archivos de LilyPond se comprenden a primera vista;
+otros pueden tenerle rascándose la cabeza durante una hora.
 
-@item ¿Qué ocurre si quiere actualizar su archivo de lilypond para poderlo usar con
-una versión más reciente del programa?  La sintaxis de la entrada se modifica
-de forma ocasional según lilypond se va perfeccionando.  Casi todos los cambios se pueden
-hacer de forma automática con @code{convert-ly}, pero algunos podrían necesitar de una
-ayuda manual.  Los archivos de LilyPond se pueden estructurar para que sean
-más fáciles (o más difíciles) de actualizar.
+@item ¿Qué ocurre si quiere actualizar su archivo de LilyPond para poderlo usar con
+una versión más reciente del programa?  La sintaxis de la entrada se
+modifica de forma ocasional según LilyPond se va perfeccionando.  Casi
+todos los cambios se pueden hacer de forma automática con
+@code{convert-ly}, pero algunos podrían necesitar de una ayuda manual.
+Los archivos de LilyPond se pueden estructurar para que sean más
+fáciles (o más difíciles) de actualizar.
 @end itemize
 
 @menu
@@ -146,7 +149,7 @@ más oportuno.
 @subsection Large projects
 
 Al trabajar en proyecto grande se hace esencial tener una estructura clara
-en los archivos de lilypond.
+en los archivos de LilyPond
 
 @itemize @bullet
 
