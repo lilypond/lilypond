@@ -161,7 +161,7 @@ c1
 {shortening-volta-brackets.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{adding-volta-brackets-to-extra-staves.ly}
+{adding-volta-brackets-to-additional-staves.ly}
 
 
 @c Is there a way to have a final bar ("|.") at the end of the
