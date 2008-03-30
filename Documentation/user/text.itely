@@ -723,7 +723,6 @@ Snippets: @lsrdir{Text,Text}
 
 @menu
 * New dynamic marks::           
-* Text and line spanners::      
 @end menu
 
 @node New dynamic marks
