@@ -1934,6 +1934,12 @@ c,8 d4 e8 a2 g1
 Shapes are typeset according to the step in the scale, where
 the base of the scale is determined by the @code{\key} command.
 
+@predefined
+
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+@code{\aikenHeads}, @code{\sacredHarpHeads}
+
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
