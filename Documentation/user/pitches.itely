@@ -235,6 +235,7 @@ discouraged.
 @cindex key signature
 @cindex clef
 
+@c duplicated in Key signature and Accidentals
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
 signatures and clefs determine how this raw input is displayed.
@@ -796,6 +797,7 @@ Internals Reference:
 @cindex key signature
 @funindex \key
 
+@c duplicated in Key signature and Accidentals
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
 signatures and clefs determine how this raw input is displayed.
