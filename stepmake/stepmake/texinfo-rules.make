@@ -46,13 +46,16 @@ $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.
 $(outdir)/%/index.html: $(outdir)/%.texi
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
+	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
 # TODO: Pass -D bigpage to texi2html
 $(outdir)/%-big-page.html: $(outdir)/%.texi
 	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $< 
+	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
 $(outdir)/%.html: $(outdir)/%.texi
 	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
+	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
