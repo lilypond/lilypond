@@ -204,17 +204,17 @@ commands.
 @q{} - Single quotes. Used for `vague' terms.
 @qq{} - Double quotes.  Used for actual quotes ("he said").
 
-@warning{}: produces a "Note: " box.  Use for important
-      messages.
-
 @tie{} - Variables or numbers which consist of a single character
   (probably followed by a punctuation mark) should be tied
   properly, either to the previous or the next word.  Example:
     "The letter@tie{}@q{I} is skipped"
 
 @var - Use for variables.
-@warning{} - produces a "Note: " box.
-  Any `\' used inside this must be written as `\\'.
+@warning{} - produces a "Note: " box. Use for important messages.
+
+@bs - Generates a backslash inside @warning.
+    Any `\' used inside @warning (and @q or @qq) must be written as `@bs{}' 
+    (texinfo would also allow \\, but this breaks with PDF output).
 
 
 
