@@ -192,7 +192,7 @@ e,\stopTextSpan
 @code{\textSpannerNeutral}.
 
 The line style, as well as the text string, can be defined as an
-object property, as described in @ref{Line styles}.
+object property. This syntax is described in @ref{Line styles}.
 
 
 @seealso
@@ -379,8 +379,13 @@ all.
 @cindex markup text
 @cindex typeset text
 
-Use @code{\markup} to typeset text.  Commands are entered with the
-backslash @code{\}.  To enter @code{\} and @code{#}, use double
+A @code{\markup} block is used to typeset text with an extensible syntax,
+called @q{markup mode}.
+Specific commands can be entered in this mode, using the
+backslash @code{\} character.
+@c TODO: move the following sentence (and add an example?) -vv
+To @emph{print} such characters as
+@code{\} and @code{#} in the output, use double
 quotation marks.
 
 @lilypond[quote,verbatim,fragment,relative=1]
@@ -391,11 +396,11 @@ c1_\markup { "\special {weird} #characters" }
 @end lilypond
 
 @noindent
-See @ref{Overview of text markup commands}, for a list of all
-commands.
+An exhaustive list of @code{\markup}-specific commands can be found in
+@ref{Text markup commands}.
 
-@code{\markup} is primarily used for @internalsref{TextScript}s,
-but it can also be used anywhere text is called in LilyPond
+@code{\markup} blocks can be used anywhere text is called,
+and not only for @internalsref{TextScript}s objects.
 
 @lilypond[quote,verbatim]
 \header{ title = \markup{ \bold { foo \italic { bar! } } } }
@@ -417,8 +422,10 @@ but it can also be used anywhere text is called in LilyPond
 }
 @end lilypond
 
-A @code{\markup} command can also be placed on its own, away from
-any @code{\score} block, see @ref{Multiple scores in a book}.
+A @code{\markup} block can also be printed on its own at the top-level
+of the input file, away from
+any @code{\score} block. This syntax is described in
+@ref{Multiple scores in a book}.
 
 @lilypond[quote,ragged-right,verbatim]
 \markup{ Here is some text. }
@@ -426,15 +433,15 @@ any @code{\score} block, see @ref{Multiple scores in a book}.
 
 @cindex font switching
 
-The markup in the example demonstrates font switching commands.
-The command @code{\bold} and @code{\italic} apply to the first
-following word only; to apply a command to more than one word,
-enclose the words with braces,
+Some font switching commands are demonstrated here. Such commands
+apply only to the first following word; several words may be affected
+by enclosing them in braces.
 
 @example
 \markup @{ \bold @{ hi there @} @}
 @end example
 
+@c TODO: remove the following line and example? -vv
 @noindent
 For clarity, you can also do this for single arguments, e.g.,
 
@@ -442,11 +449,10 @@ For clarity, you can also do this for single arguments, e.g.,
 \markup @{ is \italic @{ anyone @} home @}
 @end example
 
-In markup mode you can compose expressions, similar to
+The markup mode can be used to compose expressions, similar to
 mathematical expressions, XML documents, and music expressions.
-You can stack expressions grouped vertically with the command
-@code{\column}.  Similarly, @code{\center-align} aligns texts by
-their center lines:
+Such expressions can be vertically stacked, horizontally centered, 
+or aligned in different ways:
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { \column { a bbbb \line { c d } } }
@@ -454,18 +460,14 @@ c1^\markup { \center-align { a bbbb c } }
 c1^\markup { \line { a b c } }
 @end lilypond
 
-Lists with no previous command are not kept distinct.  The
-expression
+Lists with no previous command are not kept distinct.  In
+the following example, the two @code{\markup} expressions
+are equivalent:
+
+@c TODO: merge these two examples in a @lilypond example -vv
 
 @example
 \center-align @{ @{ a b @} @{ c d @} @}
-@end example
-
-@noindent
-
-is equivalent to
-
-@example
 \center-align @{ a b c d @}
 @end example
 
@@ -513,12 +515,12 @@ c'4^\markup{ \hspace #0 \raise #1.5 raised }
 Some situations (such as dynamic marks) have preset font-related
 properties.  If you are creating text in such situations, it is
 advisable to cancel those properties with @code{normal-text}.  See
-@ref{Overview of text markup commands}, for more details.
+@ref{Text markup commands}, for more details.
 
 
 @seealso
 
-This manual: @ref{Overview of text markup commands}.
+This manual: @ref{Text markup commands}.
 
 Snippets: @lsrdir{Text,Text}
 
@@ -583,11 +585,11 @@ of text that can spread over multiple pages:
 @code{\markuplines} accepts a list of markup, that is either the
 result of a markup list command, or a list of markups or of markup
 lists.  The built-in markup list commands are described in
-@ref{Overview of text markup list commands}.
+@ref{Text markup list commands}.
 
 @seealso
 
-This manual: @ref{Overview of text markup list commands}, @ref{New
+This manual: @ref{Text markup list commands}, @ref{New
 markup list command definition}.
 
 Snippets: @lsrdir{Text,Text}
@@ -735,7 +737,7 @@ characters @code{f,m,p,r,s} and @code{z}.
 Some situations (such as dynamic marks) have preset font-related
 properties.  If you are creating text in such situations, it is
 advisable to cancel those properties with @code{normal-text}.  See
-@ref{Overview of text markup commands}, for more details.
+@ref{Text markup commands}, for more details.
 
 @cindex make-dynamic-script
 
