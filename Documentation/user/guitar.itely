@@ -259,7 +259,7 @@ following example
 There are three different fret-diagram markup interfaces: standard, terse,
 and verbose.  The three interfaces produce equivalent markups, but have
 varying amounts of information in the markup string.  Details about the
-markup interfaces are found at @ref{Overview of text markup commands}.
+markup interfaces are found at @ref{Text markup commands}.
 
 You can set a number of graphical properties according to your preference.
 Details about the property interface to fret diagrams are found at

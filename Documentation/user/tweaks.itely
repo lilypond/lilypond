@@ -91,9 +91,9 @@ represent items of notation on the printed output such as
 above, and so they too all have properties associated with them,
 such as their position, size, color, etc.
 
-Some layout objects are still more specialised.  Phrasing slurs,
-crescendo hairpins, ottavo marks, and many other grobs are not
-localised in a single place -- they have a starting point, an
+Some layout objects are still more specialized.  Phrasing slurs,
+crescendo hairpins, ottava marks, and many other grobs are not
+localized in a single place -- they have a starting point, an
 ending point, and maybe other properties concerned with their
 shape.  Objects with an extended shape like these are called
 @q{Spanners}.
@@ -122,7 +122,7 @@ We met some object naming conventions previously, in
 @ref{Contexts and engravers}.  Here for reference is a list
 of the most common object and property types together with 
 the conventions for naming them and a couple of examples of 
-some real names.  We have used A to stand for any capitalised
+some real names.  We have used A to stand for any capitalized
 alphabetic character and aaa to stand for any number of
 lower-case alphabetic characters.  Other characters are used
 verbatim. 
@@ -153,7 +153,7 @@ verbatim.
 
 As we shall see shortly, the properties of different types of 
 object are modified by different commands, so it is useful to
-be able to recognise the type of object from the names of its
+be able to recognize the type of object from the names of its
 properties.
 
 
@@ -721,7 +721,7 @@ Now we see all the user-settable properties which control fonts,
 including @code{font-shape(symbol)}, where @code{symbol} can be
 set to @code{upright}, @code{italics} or @code{caps}.
 
-You will notice that that @code{font-series} and @code{font-size}
+You will notice that @code{font-series} and @code{font-size}
 are also listed there.
 This immediately raises the question: Why are the common font
 properties @code{font-series} and @code{font-size} listed under
@@ -733,7 +733,7 @@ is created, but @code{font-shape} is not.  The entries in
 @code{LyricText} then tell you the values for those two
 properties which apply to @code{LyricText}.  Other objects
 which support @code{font-interface} will set these
-properties diferently when they are created.
+properties differently when they are created.
 
 Let's see if we can now construct the @code{\override} command
 to change the lyrics to italics.  The object is @code{LyricText},
@@ -750,7 +750,7 @@ Symbols are special names which are known internally to
 LilyPond.  Some of them are the names of properties,
 like @code{thickness} or @code{font-shape}, others are in
 effect special values that can be given to properties, like
-@code{italic}.  Note the distinction from arbitary
+@code{italic}.  Note the distinction from arbitrary
 text strings, which would appear as @code{"a text string"}.
 
 Ok, so the @code{\override} command we need to print the lyrics
@@ -795,7 +795,7 @@ included as part of the final syllable.  Similarly,
 spaces must be inserted before and after the
 period or dot, @q{.}, separating the context name from the
 object name, as otherwise the two names are run together and
-the interpreter cannot recognise them.  So the command should be:
+the interpreter cannot recognize them.  So the command should be:
 
 @example
 \override Lyrics . LyricText #'font-shape = #'italic
@@ -1058,7 +1058,7 @@ explanation of what that list should be.  The list it
 requires is actually a list of values in internal units,
 but, to avoid having to know what these are, several ways
 are provided to specify colors.  The first way is to use one
-of the @q{normal} colours listed in the first table in
+of the @q{normal} colors listed in the first table in
 @ruser{List of colors}.  To set the bar lines to white
 we write:
 
@@ -1209,7 +1209,7 @@ we simply set the stencil of each to @code{#f}, as follows:
 
 @noindent
 where the extra pair of braces after the @code{\with} clause are
-required to ensure the enclosed overrrides and music are applied
+required to ensure the enclosed overrides and music are applied
 to the ossia staff.
 
 But what is the difference between modifying the staff context by 
@@ -1219,7 +1219,7 @@ changes made in a @code{\with} clause are made at the time the
 context is created, and remain in force as the @strong{default}
 values for the duration of that context, whereas
 @code{\set} or @code{\override} commands embedded in the
-music are dynamic -- they make changes synchronised with
+music are dynamic -- they make changes synchronized with
 a particular point in the music.  If changes are unset or
 reverted using @code{\unset} or @code{\revert} they return to
 their default values, which will be the ones set in the 
@@ -1387,7 +1387,7 @@ are always calculated relative to the
 value of the @code{staff-space} property these are automatically
 scaled down in length too.  Note that this affects only the
 vertical scale of the ossia -- the horizontal scale is determined
-by the layout of the main music in order to remain synchronised 
+by the layout of the main music in order to remain synchronized 
 with it, so it is not affected by any of these changes in size.
 Of course, if the scale of all the main music were changed in this
 way then the horizontal spacing would be affected.  This is 
@@ -1411,14 +1411,14 @@ from a font) may be changed in the same way.
 @section Placement of objects
 
 @menu
-* Automatic behaviour::         
+* Automatic behavior::         
 * Within-staff objects::        
 * Outside staff objects::       
 @end menu
 
 
-@node Automatic behaviour
-@subsection Automatic behaviour
+@node Automatic behavior
+@subsection Automatic behavior
 
 There are some objects in musical notation that belong to
 the staff and there are other objects that should be 
@@ -1432,7 +1432,7 @@ vertically positioned on specific lines of the staff or are
 tied to other objects that are so positioned.  Collisions of
 note heads, stems and accidentals in closely set chords are
 normally avoided automatically.  There are commands and
-overrides which can modify this automatic behaviour, as we
+overrides which can modify this automatic behavior, as we
 shall shortly see.
 
 Objects belonging outside the staff include things such as
@@ -1456,7 +1456,7 @@ closer to the staff.  If two objects have the same
 placed closer to the staff.
 
 In the following example all the markup texts have the same 
-priority (since it is not explicity set).  Note that @q{Text3}
+priority (since it is not explicitly set).  Note that @q{Text3}
 is automatically positioned close to the staff again, nestling
 under @q{Text2}.
 
@@ -1495,9 +1495,9 @@ everything else which depends on the direction of the stems.
 These commands are essential when writing polyphonic music to
 permit interweaving melodic lines to be distinguished.
 But occasionally it may be necessary to override this automatic
-behaviour.  This can be done for whole sections of music or even
+behavior.  This can be done for whole sections of music or even
 for an individual note.  The property which controls this
-behaviour is the @code{direction} property of each layout object.
+behavior is the @code{direction} property of each layout object.
 We first explain what this does, and then introduce a number of
 ready-made commands which avoid your having to code explicit
 overrides for the more common modifications.
@@ -1507,12 +1507,12 @@ either up or down; others like stems and flags also move to
 right or left when they point up or down.  This is controlled
 automatically when @code{direction} is set.
 
-The following example shows in bar 1 the default behaviour of 
+The following example shows in bar 1 the default behavior of 
 stems, 
 with those on high notes pointing down and those on low notes
 pointing up, followed by four notes with all stems forced down, 
 four notes with all stems forced up, and finally four notes
-reverted back to the default behaviour.
+reverted back to the default behavior.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a
@@ -1639,7 +1639,7 @@ It controls whether fingerings may be placed above (if
 to the left (if @code{left} appears, or to the right
 (if @code{right} appears).  Conversely, if a location is not
 listed, no fingering is placed there.  LilyPond takes these 
-contraints and works out the best placement for the fingering
+constraints and works out the best placement for the fingering
 of the notes of the following chords.  Note that @code{left} and
 @code{right} are mutually exclusive -- fingering may be placed
 only on one side or the other, not both.
@@ -1834,7 +1834,7 @@ Changing the @code{outside-staff-priority} can also be used to
 control the vertical placement of individual objects, although
 the results may not always be desirable.  Suppose we would
 like @qq{Text3} to be placed above @qq{Text4} in the example
-under Automatic behaviour, above (see @ref{Automatic behaviour}).
+under Automatic behavior, above (see @ref{Automatic behavior}).
 All we need to do is to look up the priority of @code{TextScript}
 in the IR or in the tables above, and increase the priority of
 @qq{Text3} to a higher value:
@@ -1863,7 +1863,7 @@ command.
 
 By default, text produced by markup takes up no horizontal space
 as far as laying out the music is concerned.  The @code{\textLengthOn}
-command reverses this behaviour, causing the notes to be spaced
+command reverses this behavior, causing the notes to be spaced
 out as far as is necessary to accommodate the text:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
@@ -1874,7 +1874,7 @@ c^"Text3"
 c^"Text4"
 @end lilypond  
 
-The command to revert to the default behaviour is 
+The command to revert to the default behavior is 
 @code{\textLengthOff}.  Remember @code{\once} only works with
 @code{\override}, @code{\set}, @code{\revert} or @code{unset},
 so cannot be used with @code{\textLengthOn}.
@@ -1901,7 +1901,7 @@ R1
 % Turn off collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
 \textLengthOn  % and turn on textLengthOn
-c,,2^"Long Text   "  % Spaces at end are honoured
+c,,2^"Long Text   "  % Spaces at end are honored
 c''2
 @end lilypond
 
@@ -2034,7 +2034,7 @@ rather rare.  Usually the need to move objects is for clarity or
 aesthetic reasons -- they would look better with a little more
 or a little less space around them.
 
-There are three main main approaches to resolving overlapping
+There are three main approaches to resolving overlapping
 notation.  They should be considered in the following order:
 
 @enumerate
@@ -2138,7 +2138,7 @@ This property is available for all objects which support the
 to the leftmost extent and the second is added to the rightmost
 extent.  Negative numbers move the edge to the left, positive to
 the right, so to widen an object the first number must be negative,
-the second positive.  Note that not all objects honour both
+the second positive.  Note that not all objects honor both
 numbers.  For example, the @code{Accidental} object only takes
 notice of the first (left edge) number.
 
@@ -2159,7 +2159,7 @@ and notes in different voices.
 
 @cindex force-hshift property
 
-Closely spaced notes in a chord, or notes occuring at the same
+Closely spaced notes in a chord, or notes occurring at the same
 time in different voices, are arranged in two, occasionally more,
 columns to prevent the note heads overlapping.  These are called
 note columns, and an object called @code{NoteColumn} is created
@@ -2180,13 +2180,9 @@ merging note heads.
 
 @end itemize
 
-Objects do not all have all of these properties in general.
-It is necessary to go to the IR to look up which properties
-are available for the object in question.
-
 @item
 Finally, when all else fails, objects may be manually repositioned
-relative to the staff center line verically, or by
+relative to the staff center line vertically, or by
 displacing them by any distance to a new position.  The
 disadvantages are that the correct values for the repositioning
 have to be worked out, often by trial and error, for every object
@@ -2223,11 +2219,11 @@ property has been overridden the slur that is closest to the
 requested positions is selected from the list.
 @end table
 
-Objects do not all have all of these properties in general.
+@end enumerate
+
+A particular object may not have all of these properties.
 It is necessary to go to the IR to look up which properties
 are available for the object in question.
-
-@end enumerate
 
 Here is a list of the objects which are most likely to be
 involved in collisions, together with the name of the object which
@@ -2562,7 +2558,7 @@ problems with notation.  It is not representative of more usual
 engraving process, so please do not let these difficulties put 
 you off!  Fortunately, difficulties like these are not very common!
 
-The example is from Chopin's Première Ballade, Op. 23, bars 6 to
+The example is from Chopin's PremiÃ¨re Ballade, Op. 23, bars 6 to
 9, the transition from the opening Lento to Moderato.
 Here, first, is what we want the output to look like, but to avoid
 over-complicating the example too much we have left out the
@@ -2875,7 +2871,7 @@ using one of the @code{\shift} commands.  But which one?
 The C is in voice two which has shift off, and the two D's are in
 voices one and three, which have shift off and shift on,
 respectively.  So we have to shift the C a further level still
-using @code{\shiftOnn} to avoid it interferring with the two D's.  
+using @code{\shiftOnn} to avoid it interfering with the two D's.  
 Applying these changes gives:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -3182,7 +3178,7 @@ find the directory appropriate to your system, as follows:
 Navigate to
 @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
 
-@strong{OSX}
+@strong{MacOS X}
 
 Navigate to
 @file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
@@ -3348,6 +3344,7 @@ the staff.
 
 Further examples showing the use of these programmable interfaces
 can be found in @ref{Tweaking with Scheme}.
+
 
 
 

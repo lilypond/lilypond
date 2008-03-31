@@ -721,7 +721,7 @@ users should start here.
 
 @item
 @emph{@ref{Fundamental concepts}},
-explains some general concepts about the lilypond file format.  If
+explains some general concepts about the LilyPond file format.  If
 you are not certain where to place a command, read this chapter!
 
 @item
@@ -961,7 +961,7 @@ initialization and example files.  Throughout this manual, we refer to
 input files relative to the top-directory of the source archive.  For
 example, @file{input/@/lsr/@/dirname/@/bla@/.ly} may refer to the file
 @file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  On binary
-packages for the Unix platform, the documentation and examples can
+packages for the UNIX platform, the documentation and examples can
 typically be found somewhere below
 @file{/usr/@/share/@/doc/@/lilypond/}.  Initialization files, for
 example @file{scm/@/lily@/.scm}, or @file{ly/@/engraver@/-init@/.ly},
@@ -973,7 +973,7 @@ are usually found in the directory @file{/usr/@/share/@/lilypond/}.
 @cindex lilypond-internals
 @cindex internal documentation
 @cindex Scheme
-@cindex extending lilypond
+@cindex extending LilyPond
 @cindex index
 
 Finally, this and all other manuals, are available online both as PDF

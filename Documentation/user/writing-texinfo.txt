@@ -34,6 +34,11 @@ commands.
   to this scheme construct.  ie
     \set Staff.instrumentName = #"cello"
 
+* All engravers should have double-quotes around them:
+    \consists "Spans_arpeggio_engraver"
+  Again, LilyPond does not strictly require this, but it is a
+  useful standard to follow.
+
 * Examples should end with a complete bar if possible.
 
 * If possible, only write one bar per line.  The notes on each
@@ -199,17 +204,17 @@ commands.
 @q{} - Single quotes. Used for `vague' terms.
 @qq{} - Double quotes.  Used for actual quotes ("he said").
 
-@warning{}: produces a "Note: " box.  Use for important
-      messages.
-
 @tie{} - Variables or numbers which consist of a single character
   (probably followed by a punctuation mark) should be tied
   properly, either to the previous or the next word.  Example:
     "The letter@tie{}@q{I} is skipped"
 
 @var - Use for variables.
-@warning{} - produces a "Note: " box.
-  Any `\' used inside this must be written as `\\'.
+@warning{} - produces a "Note: " box. Use for important messages.
+
+@bs - Generates a backslash inside @warning.
+    Any `\' used inside @warning (and @q or @qq) must be written as `@bs{}' 
+    (texinfo would also allow \\, but this breaks with PDF output).
 
 
 

@@ -8,14 +8,16 @@
 
 @c @value{version}
 @macro version
-2.11.41
+2.11.43
 @end macro
 
 @c   ***** Displaying text *****
 
 @c we need this since @q{\} doesn't work with makeinfo 4.8 --
-@c say @q{@value{backslash}} instead
-@set backslash \
+@c say @q{@bs{}} instead
+@macro bs
+\\
+@end macro
 
 @c to get decent quotes in `foo' and ``foo''
 @macro q{TEXT}
@@ -120,7 +122,7 @@
 @c usage: @lsr{ancient,Ancient-notation,custodes.ly}
 @macro lsr{SECTION,DIR,TEXT}
 @ifhtml
-@uref{source/input/lsr/snippets/\DIR\.html#\TEXT\,@file{\SECTION\/\TEXT\}}
+@uref{source/input/lsr/lilypond-snippets/\DIR\.html#\TEXT\,@file{\SECTION\/\TEXT\}}
 @end ifhtml
 @ifnothtml
 @file{\SECTION\/\TEXT\}
@@ -130,7 +132,7 @@
 @c usage: @lsrdir{ancient,Ancient-notation}
 @macro lsrdir{SECTION,DIR}
 @ifhtml
-@uref{source/input/lsr/snippets/\DIR\.html,\SECTION\}
+@uref{source/input/lsr/lilypond-snippets/\DIR\.html,\SECTION\}
 @end ifhtml
 @ifnothtml
 \DIR\
@@ -152,31 +154,31 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page}
+@ref{\TEXT\,,,lilypond-internals-big-page,Internals Reference}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary-big-page}
+@ref{\TEXT\,,,music-glossary-big-page,Music Glossary}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-big-page}
+@ref{\TEXT\,,,lilypond-program-big-page,Application Usage}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-big-page}
+@ref{\TEXT\,,,lilypond-big-page,Notation Reference}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning-big-page}
+@ref{\TEXT\,,,lilypond-learning-big-page,Learning Manual}
 @end macro
 
 @macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets-big-page}
+@ref{\TEXT\,,,lilypond-snippets-big-page,Snippets}
 @end macro
 
 @end ifset
@@ -186,31 +188,31 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals}
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Application Usage}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets}
+@ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
 @end ifclear
@@ -223,31 +225,31 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals}
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Application Usage}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets}
+@ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
 @end ifdocbook
@@ -258,31 +260,31 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,lilypond-internals}
+@inforef{\TEXT\,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,music-glossary}
+@inforef{\TEXT\,,music-glossary,Music Glossary}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Application Usage}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets}
+@ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
 @end ifinfo
@@ -298,23 +300,23 @@
 
 @macro rglos {TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rprogram{TEXT}
-program usage manual, @ref{\TEXT\,,,lilypond-program}
+program usage manual, @ref{\TEXT\,,,lilypond-program,Application Usage}
 @end macro
 
 @macro ruser{TEXT}
-notation reference, @ref{\TEXT\,,,lilypond}
+notation reference, @ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
 @macro rlearning{TEXT}
-learning manual, @ref{\TEXT\,,,lilypond-learning}
+learning manual, @ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets}
+@ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
 @end iftex

@@ -8,7 +8,7 @@
 Ties may be engraved manually by changing the @code{tie-configuration}
 property of the @code{TieColumn} object. The first number indicates the
 distance from the center of the staff in staff-spaces, and the second
-number indicates the direction (1=up, -1=down).
+number indicates the direction (1 = up, -1 = down).
 " }
 % begin verbatim
 \relative c' {

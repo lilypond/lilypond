@@ -5,39 +5,49 @@
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
  texidoc = "
-If there is only one staff in one of the staff types ChoirStaff,
-InnerChoirStaff, InnerStaffGroup and StaffGroup, the bracket won't be
-displayed as standard behaviour. This can be changed with:
+If there is only one staff in one of the staff types @code{ChoirStaff},
+@code{InnerChoirStaff}, @code{InnerStaffGroup} or @code{StaffGroup},
+the bracket and the starting bar line will not be displayed as standard
+behaviour. This can be changed with:
 
 
 @code{\\override [staffcontext].SystemStartBracket #'collapse-height =
 #1}
+ and
+
+@code{\\override [staffcontext].SystemStartBar #'collapse-height = #1}
 
 
 This applies to all staff contexts with
 @code{systemStartDelimiter}-property set to @code{'SystemStartBracket}.
 
 
+
 For staff contexts with @code{'SystemStartBrace}, such as
-@code{PianoStaff}, this tweaking can be used as well. 
+@code{PianoStaff}, this tweaking can be used as well.
+
+
+
 " }
 % begin verbatim
 \score {
-  \new StaffGroup << 
-    % Must be one lower than your actual amount off staff lines
-    \override StaffGroup.SystemStartBracket #'collapse-height = #4 
-    \new Staff { 
-      c'4 d' e' f' 
-    }
-  >> 
-  } 
-  {
-  \new PianoStaff << 
-    \override PianoStaff.SystemStartBrace #'collapse-height = #4 
-    \new Staff { 
-      c'4 d' e' f' 
-    }
-  >> 
+\new StaffGroup <<
+   % Must be lower than your actual amount off staff lines
+   \override StaffGroup.SystemStartBracket #'collapse-height = #1
+   \override Score.SystemStartBar #'collapse-height = #1
+   \new Staff {
+     c'4 d' e' f'
+   }
+ >>
+ }
+ {
+ \new PianoStaff <<
+   \override PianoStaff.SystemStartBrace #'collapse-height = #1
+   \override Score.SystemStartBar #'collapse-height = #1
+   \new Staff {
+     c'4 d' e' f'
+   }
+ >>
   } 
   \layout { 
     ragged-right = ##t 

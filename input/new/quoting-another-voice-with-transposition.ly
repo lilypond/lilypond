@@ -3,36 +3,33 @@
   doctitle = "Quoting another voice with transposition"
   lsrtags = "pitches,staff-notation"
   texidoc = "Quotations take into account the transposition of both
-source and target.  In this example, all instruments play sounding
-central C, the target is a instrument in F.  The target part may be
-@code{\\transpose}d.  In this case, all the pitches (including the
-quoted ones) will transposed as well."
+source and target. In this example, all instruments play sounding
+middle C; the target is an instrument in F. The target part may be
+transposed using @code{\\transpose}. In this case, all the pitches (including the
+quoted ones) are transposed."
 }
 
-\addQuote clarinet  {
-    \transposition bes
-    d'16 d'16 d'8 
-    d'16 d'16 d'8 
-    d'16 d'16 d'8 
-    d'16 d'16 d'8 
+\addQuote clarinet {
+  \transposition bes
+  \repeat unfold 8 { d'16 d'16 d'8 }
 }
 
-\addQuote sax  {
-    \transposition es'
-    a8 a a a a a  a a 
+\addQuote sax {
+  \transposition es'
+  \repeat unfold 16 { a8 }
 }
 
 quoteTest = {
-    \transposition f  % french horn
-    
-    g'4
-    << \quoteDuring #"clarinet" { \skip 4 } s4^"clar" >> 
-    << \quoteDuring #"sax" { \skip 4 } s4^"sax" >> 
+  % french horn
+  \transposition f
+  g'4
+  << \quoteDuring #"clarinet" { \skip 4 } s4^"clar." >>
+  << \quoteDuring #"sax" { \skip 4 } s4^"sax." >>
+  g'4
 }
 
-<< \quoteTest
-   \new Staff
-   << \transpose c' d' \quoteTest
-     s4_"up 1 tone"
-  >>
->>
+{
+  \set Staff.instrumentName = \markup \center-align { "Horn" "in F" }
+  \quoteTest
+  \transpose c' d' << \quoteTest s4_"up a tone" >>
+}

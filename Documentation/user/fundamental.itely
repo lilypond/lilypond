@@ -37,7 +37,7 @@ description of the input format, see @ruser{File structure}.
 @node Introduction to the LilyPond file structure
 @subsection Introduction to the LilyPond file structure
 
-A basic example of a lilypond input file is
+A basic example of a LilyPond input file is
 
 @example
 \version @w{"@version{}"}
@@ -346,7 +346,7 @@ three notes:
 @noindent
 Note that the size of the clef is the same as a clef printed
 following a clef change -- slightly smaller than the clef
-at the begining of the line.  This is usual for clefs printed
+at the beginning of the line.  This is usual for clefs printed
 in the middle of a line.
 
 The ossia section may be placed above the staff
@@ -369,7 +369,7 @@ as follows:
 @end lilypond
 
 This example uses @code{\with}, which will be explained more 
-fully later.  It is a means of modifying the default behaviour
+fully later.  It is a means of modifying the default behavior
 of a single Staff.  Here it says that the new staff should be 
 placed above the staff called @qq{main} instead of the default 
 position which is below.
@@ -568,7 +568,7 @@ separately, like this:
 @end lilypond
 
 
-This example has just two voices, but the same contruct may be
+This example has just two voices, but the same construct may be
 used to encode three or more voices by adding more back-slash
 separators.
 
@@ -671,7 +671,7 @@ command at the start of each voice:
 \relative c' @{ noteE ... @}
 @end example
 
-Let us finally analyse the voices in a more complex piece of 
+Let us finally analyze the voices in a more complex piece of 
 music.  Here are
 the notes from the first two bars of the second of Chopin's
 Deux Nocturnes, Op 32.  This example will be used at later
@@ -872,7 +872,7 @@ markup, ties, slurs, and dynamics:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'{
-  % Default behaviour or behaviour after \oneVoice
+  % Default behavior or behavior after \oneVoice
   c d8 ~ d e4 ( f g a ) b-> c
 }
 @end lilypond
@@ -992,7 +992,7 @@ as here:
 @funindex \shiftOnn
 @funindex \shiftOnnn
 
-Closely spaced notes in a chord, or notes occuring at the same
+Closely spaced notes in a chord, or notes occurring at the same
 time in different voices, are arranged in two, occasionally more,
 columns to prevent the note heads overlapping.  These are called
 note columns.  There are separate columns for each voice, and 
@@ -1188,7 +1188,7 @@ Within LilyPond, these rules and bits of information are grouped
 in @emph{Contexts}.  We have already met the 
 @code{Voice} context. 
 Others are the @code{Staff} and @code{Score} contexts.  
-Contexts are hierarchical to reflect the heirarchical nature of 
+Contexts are hierarchical to reflect the hierarchical nature of 
 a musical score.  
 For example: a @code{Staff} context can contain many 
 @code{Voice} contexts, and a @code{Score} context can 
@@ -1227,7 +1227,7 @@ are also alternative staff and voice contexts, and contexts for
 lyrics, percussion, fret boards, figured bass, etc.
 
 The names of all context types are formed from one or more
-words, each word being capitalised and joined immediately to the 
+words, each word being capitalized and joined immediately to the 
 preceding word with no hyphen or underscore, e.g., 
 @code{GregorianTranscriptionStaff}.
 
@@ -1312,7 +1312,7 @@ operation of the engraver or the appearance of those elements
 in the printed score.
    
 Engravers all have compound names formed from words which
-describe their function.  Just the first word is capitalised, 
+describe their function.  Just the first word is capitalized, 
 and the remainder are joined to it with underscores.  Thus
 the @code{Staff_symbol_engraver} is responsible for creating the
 lines of the staff, the @code{Clef_engraver} determines and sets
@@ -1344,7 +1344,7 @@ the name, or vice versa.
 @item Staff_symbol_engraver
   @tab Engraves the five (by default) lines of the staff
 @item Stem_engraver
-  @tab Creates stems and single-stem tremulos
+  @tab Creates stems and single-stem tremolos
 @item Time_signature_engraver
   @tab Creates time signatures
 @end multitable
@@ -1676,7 +1676,7 @@ The examples above show how to remove or add engravers to
 individual contexts.  It is also possible to remove or add 
 engravers to every context of a specific type by placing the
 commands in the appropriate context in a @code{\layout}
-block.  For example, If we wanted to show ambiti for every
+block.  For example, if we wanted to show an ambitus for every
 staff in a four-staff score we could write
 
 @lilypond[quote,verbatim,ragged-right]
@@ -2079,7 +2079,7 @@ stacked one above the other:
       \clef "bass"
       \new Voice = "basses" @{ \global \bassMusic @}
     >>
-    \new Lyrics \lyricsto "basses" @{ bassWords @}   
+    \new Lyrics \lyricsto "basses" @{ \bassWords @}
   >>  % end ChoirStaff
 
   \new PianoStaff <<
