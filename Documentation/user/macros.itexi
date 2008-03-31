@@ -14,8 +14,10 @@
 @c   ***** Displaying text *****
 
 @c we need this since @q{\} doesn't work with makeinfo 4.8 --
-@c say @q{@value{backslash}} instead
-@set backslash \
+@c say @q{@bs{}} instead
+@macro bs
+\\
+@end macro
 
 @c to get decent quotes in `foo' and ``foo''
 @macro q{TEXT}
