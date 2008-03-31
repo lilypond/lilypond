@@ -1112,7 +1112,7 @@ to the @code{interpret-markup} function, with the @code{layout} and
 
 Note: there is now an internal command @code{\smallCaps} which can
 be used to set text in small caps.  See
-@ref{Overview of text markup commands}, for details.
+@ref{Text markup commands}, for details.
 
 
 @node New markup list command definition
