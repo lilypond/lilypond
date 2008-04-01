@@ -24,10 +24,9 @@ public:
 
 
 ADD_INTERFACE (Enclosing_bracket,
-	      
 	      "Brackets alongside bass figures.",
 	      
-	      /* props */
+	      /* properties */
 	      "bracket-flare "
 	      "edge-height "
 	      "elements "

@@ -77,7 +77,15 @@ Rest_engraver::listen_rest (Stream_event *ev)
 }
 
 ADD_TRANSLATOR (Rest_engraver,
-		/* doc */ "",
-		/* create */ "Rest ",
-		/* read */ "middleCPosition",
-		/* write */ "");
+		/* doc */
+		"Engrave rests.",
+
+		/* create */
+		"Rest ",
+
+		/* read */
+		"middleCPosition ",
+
+		/* write */
+		""
+		);

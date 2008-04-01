@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: e5ddf62fed87ae3b1a0b28fa6842e10f39734fb7
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -80,7 +80,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end menu
 
 @node Basic polyphony
-@unnumberedsubsubsec Basic polyphony
+@subsubsection Basic polyphony
 
 @cindex polyphony
 
@@ -158,7 +158,7 @@ relativa a la nota inmediatamente anterior.
 
 
 @node Explicitly instantiating voices
-@unnumberedsubsubsec Explicitly instantiating voices
+@subsubsection Explicitly instantiating voices
 
 Los contextos de @internalsref{Voice} también se pueden instanciar manualmente
 dentro de un bloque @code{<< >>} para crear música polifónica, usando
@@ -277,7 +277,7 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 
 @node Collision Resolution
-@unnumberedsubsubsec Collision Resolution
+@subsubsection Collision Resolution
 
 Normalmente las cabezas de nota con un número de puntillos diferente
 no se mezclan en una sola, pero cuando se le da un valor verdadero a
@@ -402,7 +402,7 @@ notación especial de racimos (ver @ref{Clusters}).
 
 
 @node Automatic part combining
-@unnumberedsubsubsec Automatic part combining
+@subsubsection Automatic part combining
 @cindex particellas, combinación automática
 @cindex particellas, combinador de
 
@@ -500,7 +500,7 @@ se ignorarán.
 
 
 @node Writing music in parallel
-@unnumberedsubsubsec Writing music in parallel
+@subsubsection Writing music in parallel
 
 @cindex Escribir música en paralelo
 @cindex Música intercalada

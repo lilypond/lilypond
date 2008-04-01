@@ -218,7 +218,7 @@ respectively,
 We have seen how LilyPond output can be heavily modified using
 commands like
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  But
-we have even more power if we use Scheme.  For a full explantion
+we have even more power if we use Scheme.  For a full explanation
 of this, see the @ref{Scheme tutorial}, and
 @ruser{Interfaces for programmers}.
 

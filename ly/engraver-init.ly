@@ -596,7 +596,9 @@ automatically when an output definition (a @code{\score} or
     (Voice Beam thickness 0.384)
     (Voice Beam length-fraction 0.8)
     (Voice Accidental font-size -4)
+    (Voice AccidentalCautionary font-size -4)
     (Voice Slur direction ,DOWN)
+    (Voice Script font-size -3)
   )
 
   keepAliveInterfaces = #'(

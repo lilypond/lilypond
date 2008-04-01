@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "rhythms, editorial-and-educational-use"
+  lsrtags = "rhythms"
  texidoc = "
 This snippet demonstrates how to obtain automatic ordered rehearsal
 marks, but from the letter or number you want.
@@ -18,10 +18,8 @@ marks, but from the letter or number you want.
   c1 \mark \default
   c1 \mark \default
   c1 \mark \default
-
-\break
-
-  \set Score.markFormatter = #format-mark-numbers 
+  \break
+  \set Score.markFormatter = #format-mark-numbers
   c1 \mark #1
   c1 \mark \default
   c1 \mark \default

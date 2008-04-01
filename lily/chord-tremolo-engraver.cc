@@ -146,7 +146,15 @@ Chord_tremolo_engraver::acknowledge_stem (Grob_info info)
 
 ADD_ACKNOWLEDGER (Chord_tremolo_engraver, stem);
 ADD_TRANSLATOR (Chord_tremolo_engraver,
-		/* doc */ "Generates beams for tremolo repeats.",
-		/* create */ "Beam",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Generate beams for tremolo repeats.",
+
+		/* create */
+		"Beam ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

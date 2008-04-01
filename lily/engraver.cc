@@ -167,8 +167,16 @@ Engraver::internal_make_spanner (SCM x, SCM cause, char const *name, char const 
 #include "translator.icc"
 
 ADD_TRANSLATOR (Engraver,
-		"Base class for engravers. Does nothing, so it is not used.",
+		/* doc */
+		"Base class for engravers.  Does nothing, so it is not used.",
+
+		/* create */
 		"",
+
+		/* read */
 		"",
-		"");
+
+		/* write */
+		""
+		);
 

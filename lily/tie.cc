@@ -300,10 +300,8 @@ Tie::print (SCM smob)
 }
 
 ADD_INTERFACE (Tie,
-	       "A horizontal curve connecting two noteheads. \n\n"
-	       ,
+	       "A horizontal curve connecting two noteheads.",
 	       
-
 	       /* properties */
 	       "annotation "
 	       "avoid-slur " 	//  UGH.
@@ -314,11 +312,10 @@ ADD_INTERFACE (Tie,
 	       "direction "
 	       "separation-item "
 	       "head-direction "
-	       "line-thickness " 
+	       "line-thickness "
 	       "quant-score "
 	       "staff-position "
 	       "thickness "
-
 	       );
 
 

@@ -21,7 +21,7 @@
 
 
 ADD_INTERFACE (Semi_tie_column,
-	      "The interface for a column of l.v. ties.",
+	      "The interface for a column of l.v. (laissez vibrer) ties.",
 
 	      /* properties */
 	      "positioning-done "

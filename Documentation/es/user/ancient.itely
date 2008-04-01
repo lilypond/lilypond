@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: d619d9858609c54377a0652eaa7cb843b103742d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,10 +19,10 @@
 
 El tratamiento de la notación antigua incluye posibilidades orientadas a la notación mensural
 y de Canto Gregoriano.  También se contempla de forma limitada la notación del
-bajo figurado.
+bajo cifrado.
 
 Muchos objetos gráficos ofrecen una propiedad @code{style}, consulte
-@itemize @bullet
+@itemize
 @item
 @ref{Ancient note heads},
 @item
@@ -43,10 +43,10 @@ sin necesidad de introducir ningún concepto notacional
 nuevo.
 
 Además de los signos de articulación estándar que se describen en la sección
-@ref{Articulations}, se ofrecen signos de articulación específicos para la notación
+@ref{Articulations and ornamentations}, se ofrecen signos de articulación específicos para la notación
 antigua.
 
-@itemize @bullet
+@itemize
 @item
 @ref{Ancient articulations}
 @end itemize
@@ -56,7 +56,7 @@ en términos de cambiar simplemente una propiedad de estilo de un objeto gráfic
 símbolos de articulación.  Ciertos conceptos notacionales se introducen específicamente para
 la notación antigua,
 
-@itemize @bullet
+@itemize
 @item
 @ref{Custodes},
 @item
@@ -71,22 +71,22 @@ manera de personalizar un contexto, puede echarles un vistazo a los contextos
 predefinidos.  Úselos para preparar contextos de voz y de pentagrama específicos de un estilo,
 y luego pase directamente a introducir las notas,
 
-@itemize @bullet
+@itemize
 @item
 @ref{Gregorian Chant contexts},
 @item
 @ref{Mensural contexts}.
 @end itemize
 
-Se contempla de forma limitada la notación del bajo figurado que apareció en el
+Se contempla de forma limitada la notación del bajo cifrado que apareció en el
 período barroco.
 
-@itemize @bullet
+@itemize
 @item
 @ref{Figured bass}
 @end itemize
 
-Aquí puede ver de forma resumida todos los apartados relacionados:
+@c Aquí puede ver de forma resumida todos los apartados relacionados:
 
 @menu
 * Ancient TODO::                
@@ -118,7 +118,7 @@ Aquí puede ver de forma resumida todos los apartados relacionados:
 
 
 @node Ancient note heads
-@unnumberedsubsubsec Ancient note heads
+@subsubsection Ancient note heads
 
 @cindex cabezas de nota antiguas
 
@@ -160,7 +160,7 @@ de las ligaduras.
 
 
 @node Ancient accidentals
-@unnumberedsubsubsec Ancient accidentals
+@subsubsection Ancient accidentals
 
 @cindex alteraciones accidentales
 
@@ -219,7 +219,7 @@ controlar a través de la propiedad @code{glyph-name-alist} del elemento gráfic
 
 @seealso
 
-En el presente manual: @ref{Pitches}, @ref{Cautionary accidentals} y
+En el presente manual: @ref{Pitches}, @ref{Accidentals} y
 @ref{Automatic accidentals} proporcionan una introducción general al uso de las
 alteraciones.  @ref{Key signature} ofrece una introducción general al uso de
 las armaduras de tonalidad.
@@ -229,7 +229,7 @@ Referencia del programa: @internalsref{KeySignature}.
 Ejemplos: @lsrdir{ancient}
 
 @node Ancient rests
-@unnumberedsubsubsec Ancient rests
+@subsubsection Ancient rests
 
 @cindex silencios antiguos
 
@@ -265,7 +265,7 @@ silencios.
 
 
 @node Ancient clefs
-@unnumberedsubsubsec Ancient clefs
+@subsubsection Ancient clefs
 
 @cindex claves
 
@@ -504,7 +504,7 @@ La clave mensural de Sol está reasignada a la clave de Sol de Petrucci.
 
 
 @node Ancient flags
-@unnumberedsubsubsec Ancient flags
+@subsubsection Ancient flags
 
 @cindex corchetes
 
@@ -542,7 +542,7 @@ avanzadas de la notación clásica (que, de todas formas, por lo común se encue
 notación mensural).
 
 @node Ancient time signatures
-@unnumberedsubsubsec Ancient time signatures
+@subsubsection Ancient time signatures
 
 @cindex compás, indicación de
 
@@ -655,12 +655,12 @@ El símbolo @code{old6/8alt} (alternativo al símbolo de 6/8) no se puede
 seleccionar directamente con @code{\time}.  En su lugar, utilice un elemento de marcado @code{\markup}.
 
 @node Ancient articulations
-@unnumberedsubsubsec Ancient articulations
+@subsubsection Ancient articulations
 
 @cindex articulaciones
 
 Además de los signos de articulación estándar que se hallan descritos en la sección
-@ref{Articulations}, se proveen signos de articulación para la notación
+@ref{Articulations and ornamentations}, se proveen signos de articulación para la notación
 antigua.  Éstos están pensados específicamente para utilizarlos con la notación del estilo
 Editio Vaticana.
 
@@ -689,7 +689,7 @@ La línea episemática no se muestra en muchos casos.  Si se presenta,
 el extremo derecho de la línea episemática se encuentra a menudo demasiado lejos hacia la derecha.
 
 @node Custodes
-@unnumberedsubsubsec Custodes
+@subsubsection Custodes
 
 @cindex custos
 @cindex custodias
@@ -769,7 +769,7 @@ Ejemplos:
 
 
 @node Divisiones
-@unnumberedsubsubsec Divisiones
+@subsubsection Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -820,7 +820,7 @@ Ejemplos: @lsr{expressive,breathing-sign.ly}.
 
 
 @node Ligatures
-@unnumberedsubsubsec Ligatures
+@subsubsection Ligatures
 
 @cindex Ligaduras
 
@@ -878,7 +878,7 @@ que causa el mismo efecto y se supone que es lo bastante estable.
 @end menu
 
 @node White mensural ligatures
-@unnumberedsubsubsec White mensural ligatures
+@subsubsection White mensural ligatures
 
 @cindex ligaduras mensurales
 @cindex ligaduras mensurales blancas
@@ -967,7 +967,7 @@ de la siguiente manera:
 El espaciado horizontal es pobre.
 
 @node Gregorian square neumes ligatures
-@unnumberedsubsubsec Gregorian square neumes ligatures
+@subsubsection Gregorian square neumes ligatures
 
 @cindex ligaduras de neumas cuadrados
 @cindex ligaduras gregorianas de neumas cuadrados
@@ -1919,7 +1919,7 @@ función musical unaria, de forma que @code{\augmentum} pudiera entremezclarse
 con los prefijos de cabeza en un orden arbitrario.
 
 @node Gregorian Chant contexts
-@unnumberedsubsubsec Gregorian Chant contexts
+@subsubsection Gregorian Chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -1953,7 +1953,7 @@ como lo demuestra el siguiente fragmento
 
 
 @node Mensural contexts
-@unnumberedsubsubsec Mensural contexts
+@subsubsection Mensural contexts
 
 @cindex MensuralVoiceContext
 @cindex MensuralStaffContext
@@ -1985,7 +1985,7 @@ escribir el canto, como lo demuestra el siguiente fragmento
 @end lilypond
 
 @node Musica ficta accidentals
-@unnumberedsubsubsec Musica ficta accidentals
+@subsubsection Musica ficta accidentals
 
 En la música europea de hasta aprox. 1600, se esperaba de los cantantes que
 alterasen cromáticamente ciertas notas de acuerdo con su propia iniciativa. Esto recibe el nombre
@@ -2012,14 +2012,14 @@ Referencia del programa: el grabador @internalsref{Accidental_engraver} y el obj
 @internalsref{AccidentalSuggestion}.
 
 @node Figured bass
-@unnumberedsubsubsec Figured bass
+@subsubsection Figured bass
 
 @cindex Bajo continuo
 
 @c TODO: musicological blurb about FB
 
 
-LilyPond contempla el bajo figurado
+LilyPond contempla el bajo cifrado
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 <<
@@ -2032,7 +2032,7 @@ LilyPond contempla el bajo figurado
 >>
 @end lilypond
 
-El soporte para el bajo figurado consta de dos partes: hay un modo de entrada,
+El soporte para el bajo cifrado consta de dos partes: hay un modo de entrada,
 que se inicia mediante @code{\figuremode}, en el que puede escribir las cifras del bajo
 como números, y hay un contexto llamado @internalsref{FiguredBass} que se ocupa
 de crear los objetos @internalsref{BassFigure} (cifras del bajo).
@@ -2141,7 +2141,7 @@ dirección del signo más establecida en @code{figuredBassPlusDirection}
 @end lilypond
 
 
-Aunque posiblemente la forma en que está contemplado el bajo figurado se parece superficialmente a los
+Aunque posiblemente la forma en que está contemplado el bajo cifrado se parece superficialmente a los
 acordes, es mucho más simple.  El modo @code{\figuremode} sencillamente
 almacena los números, y el contexto @internalsref{FiguredBass} los imprime
 tal y como se han escrito.  No hay ninguna conversión a alturas de nota ni se reproduce ninguna realización
@@ -2152,7 +2152,7 @@ propiedades de los elementos de marcado textual para sobreescribir los detalles 
 espaciado vertical de las cifras se puede establecer con @code{baseline-skip}.
 
 
-El bajo figurado también se puede añadir a contextos @code{Staff} (de pauta)
+El bajo cifrado también se puede añadir a contextos @code{Staff} (de pauta)
 directamente.  En este caso, su posición vertical se ajusta de
 forma automática.
 
@@ -2187,7 +2187,7 @@ cifras por debajo de las notas, utilice
 
 @knownissues
 
-Al usar bajos figurados por encima del pentagrama con líneas de extensión y
+Al usar bajos cifrados por encima del pentagrama con líneas de extensión y
 @code{implicitBassFigures}, las líneas podrían intercambiarse.
 Es imposible mantener el orden de forma consistente cuando varias cifras
 tienen líneas de extensión que se superponen.  Para evitar este problema, utilice

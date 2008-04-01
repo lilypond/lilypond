@@ -7,17 +7,22 @@
  texidoc = "
 In order to make parts of a crescendo hairpin invisible, the following
 method is used: A white rectangle is drawn on top of the respective
-part of the crescendo hairpin, making it invisible. the rectangle is
-defined as postscript code within a text markup. In order to fine tune
-the position and size of the markup, the number preceding the
-\"setgray\" in the postscript definition can be set to a value <1
-making it grey. The two numbes before the \"scale\" in the postscript
-code are responsible for the width and height of the rectangle, the two
-numbers before the \"translate\" change the x- and y-origin of the
-rectangle.  Make sure to put the Hairpin in a lower layer than the Text
-Markup to actually draw the rectangle above the hairpin. 
+part of the crescendo hairpin, making it invisible. The rectangle is
+defined as postscript code within a text markup.
+
+In order to fine-tune the position and size of the markup, the number
+preceding the \"setgray\" in the postscript definition can be set to a
+value <1 making it grey. The two numbes before the \"scale\" in the
+postscript code are responsible for the width and height of the
+rectangle, the two numbers before the \"translate\" change the x- and
+y-origin of the rectangle. 
+
+Make sure to put the Hairpin in a lower layer than the Text Markup to
+actually draw the rectangle above the hairpin. 
 " }
 % begin verbatim
+% Version specific to 2.10; fails under 2.11 due to rest position -np
+
 \score
 {
     \relative c' {

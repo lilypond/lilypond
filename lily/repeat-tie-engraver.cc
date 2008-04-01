@@ -81,10 +81,16 @@ Repeat_tie_engraver::acknowledge_note_head (Grob_info inf)
 
 ADD_ACKNOWLEDGER (Repeat_tie_engraver, note_head);
 ADD_TRANSLATOR (Repeat_tie_engraver, 
-		/* doc */ "Create repeat ties.",
+		/* doc */
+		"Create repeat ties.",
 		
 		/* create */
 		"RepeatTie "
 		"RepeatTieColumn ",
-		/* read */ "",
-		/* write */ "");
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

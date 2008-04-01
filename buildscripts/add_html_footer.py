@@ -69,7 +69,7 @@ html_re = re.compile ('(.*?)(?:[.]([^/.]*))?[.]html$')
 pages_dict = {}
 
 def build_pages_dict (filelist):
-    """Build dictionnary of available translations of each page"""
+    """Build dictionary of available translations of each page"""
     global pages_dict
     for f in filelist:
         m = html_re.match (f)

@@ -7,9 +7,10 @@ USAGE: translations-status.py BUILDSCRIPT-DIR LOCALEDIR
 
   Reads template files translations.template.html.in
 and for each LANG in LANGUAGES LANG/translations.template.html.in
-
   Writes translations.html.in and for each LANG in LANGUAGES
 translations.LANG.html.in
+  Writes out/translations-status.txt
+  Updates word counts in TRANSLATION
 """
 
 import sys
@@ -17,7 +18,6 @@ import re
 import string
 import os
 import gettext
-import subprocess
 
 def progress (str):
     sys.stderr.write (str + '\n')
@@ -31,6 +31,7 @@ _doc = lambda s: s
 
 sys.path.append (buildscript_dir)
 import langdefs
+import buildlib
 
 # load gettext messages catalogs
 translation = {}
@@ -38,18 +39,6 @@ for l in langdefs.LANGUAGES:
     if l.enabled and l.code != 'en':
         translation[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
 
-def read_pipe (command):
-    child = subprocess.Popen (command,
-                              stdout = subprocess.PIPE,
-                              stderr = subprocess.PIPE,
-                              shell = True)
-    (output, error) = child.communicate ()
-    code = str (child.wait ())
-    if not child.stdout or child.stdout.close ():
-        print "pipe failed: %(command)s" % locals ()
-    if code != '0':
-        error = code + ' ' + error
-    return (output, error)
 
 comments_re = re.compile (r'^@ignore\n(.|\n)*?\n@end ignore$|@c .*?$', re.M)
 space_re = re.compile (r'\s+', re.M)
@@ -58,7 +47,6 @@ node_re = re.compile ('^@node .*?$', re.M)
 title_re = re.compile ('^@(top|chapter|(?:sub){0,2}section|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?) (.*?)$', re.M)
 include_re = re.compile ('^@include (.*?)$', re.M)
 
-committish_re = re.compile ('GIT [Cc]ommittish: ([a-f0-9]+)')
 translators_re = re.compile (r'^@c\s+Translators\s*:\s*(.*?)$', re.M | re.I)
 checkers_re = re.compile (r'^@c\s+Translation\s*checkers\s*:\s*(.*?)$', re.M | re.I)
 status_re = re.compile (r'^@c\s+Translation\s*status\s*:\s*(.*?)$', re.M | re.I)
@@ -66,16 +54,18 @@ post_gdp_re = re.compile ('post.GDP', re.I)
 untranslated_node_str = 'UNTRANSLATED NODE: IGNORE ME'
 skeleton_str = '-- SKELETON FILE --'
 
-diff_cmd = 'git diff --no-color %(committish)s HEAD -- %(original)s | cat'
-
 format_table = {
-    'not translated': {'color':'d0f0f8', 'short':_doc ('no'), 'long':_doc ('not translated')},
+    'not translated': {'color':'d0f0f8', 'short':_doc ('no'), 'abbr':'NT',
+                       'long':_doc ('not translated')},
     'partially translated': {'color':'dfef77', 'short':_doc ('partially (%(p)d %%)'),
-                             'long':_doc ('partially translated (%(p)d %%)')},
-    'fully translated': {'color':'1fff1f', 'short':_doc ('yes'), 'long': _doc ('translated')},
-    'up to date': {'short':_doc ('yes'), 'long':_doc ('up to date')},
-    'outdated': {'short':_doc ('partially (%(p)d %%)'), 'long':_doc ('partially up-to-date (%(p)d %%)')},
-    'N/A': {'short':_doc ('N/A'), 'long':'', 'color':'d587ff' },
+                             'abbr':'%(p)d%%', 'long':_doc ('partially translated (%(p)d %%)')},
+    'fully translated': {'color':'1fff1f', 'short':_doc ('yes'), 'abbr':'FT',
+                         'long': _doc ('translated')},
+    'up to date': {'short':_doc ('yes'), 'long':_doc ('up to date'), 'abbr':'100%%',
+                   'vague':_doc ('up to date')},
+    'outdated': {'short':_doc ('partially (%(p)d %%)'), 'abbr':'%(p)d%%',
+                 'vague':_doc ('partially up to date')},
+    'N/A': {'short':_doc ('N/A'), 'abbr':'N/A', 'color':'d587ff', 'vague':''},
     'pre-GDP':_doc ('pre-GDP'),
     'post-GDP':_doc ('post-GDP')
 }
@@ -140,6 +130,24 @@ def percentage_color (percent):
     else:
         c = [hex (int ((3 * p - 2) * b + 3 * (1 - p) * a))[2:] for (a, b) in [(0xff, 0x1f), (0xff, 0xff), (0x3d, 0x1f)]]
     return ''.join (c)
+
+
+def update_word_count (text, filename, word_count):
+    return re.sub (r'(?m)^(\d+) *' + filename,
+                   str (word_count).ljust (6) + filename,
+                   text)
+
+po_msgid_re = re.compile (r'^msgid "(.*?)"(?:\n"(.*?)")*', re.M)
+
+def po_word_count (po_content):
+    s = ' '.join ([''.join (t) for t in po_msgid_re.findall (po_content)])
+    return len (space_re.split (s))
+
+sgml_tag_re = re.compile (r'<.*?>', re.S)
+
+def sgml_word_count (sgml_doc):
+    s = sgml_tag_re.sub ('', sgml_doc)
+    return len (space_re.split (s))
 
 def tely_word_count (tely_doc):
     '''
@@ -216,14 +224,7 @@ class TranslatedTelyDocument (TelyDocument):
         self.translation_percentage = 100 * translation_word_count / master_total_word_count
 
         ## calculate how much the file is outdated
-        m = committish_re.search (self.contents)
-        if not m:
-            sys.stderr.write ('error: ' + filename + \
-                                  ": no 'GIT committish: <hash>' found.\nPlease check " + \
-                                  'the whole file against the original in English, then ' + \
-                                  'fill in HEAD committish in the header.\n')
-            sys.exit (1)
-        (diff_string, error) = read_pipe (diff_cmd % {'committish':m.group (1), 'original':masterdocument.filename})
+        (diff_string, error) = buildlib.check_translated_doc (masterdocument.filename, self.contents)
         if error:
             sys.stderr.write ('warning: %s: %s' % (self.filename, error))
             self.uptodate_percentage = None
@@ -287,14 +288,21 @@ class TranslatedTelyDocument (TelyDocument):
             if self.checkers:
                 s += '   <small>' + '<br>\n   '.join (self.checkers) + '</small><br>\n'
 
-        c = self.completeness (['long', 'color'])
+        c = self.completeness (['color', 'long'])
         s += '   <span style="background-color: #%(color)s">%(long)s</span><br>\n' % c
 
         if self.partially_translated:
-            u = self.uptodateness (['long', 'color'])
-            s += '   <span style="background-color: #%(color)s">%(long)s</span><br>\n' % u
+            u = self.uptodateness (['vague', 'color'])
+            s += '   <span style="background-color: #%(color)s">%(vague)s</span><br>\n' % u
 
         s += '  </td>\n'
+        return s
+
+    def text_status (self):
+        s = self.completeness ('abbr')['abbr'] + ' '
+
+        if self.partially_translated:
+            s += self.uptodateness ('abbr')['abbr'] + ' '
         return s
 
     def html_status (self):
@@ -303,12 +311,10 @@ class TranslatedTelyDocument (TelyDocument):
 
 class MasterTelyDocument (TelyDocument):
     def __init__ (self, filename, parent_translations=dict ([(lang, None) for lang in langdefs.LANGDICT.keys()])):
-        #print "init MasterTelyDocument %s" % filename
         TelyDocument.__init__ (self, filename)
         self.size = len (self.contents)
         self.word_count = tely_word_count (self.contents)
         translations = dict ([(lang, os.path.join (lang, filename)) for lang in langdefs.LANGDICT.keys()])
-        #print translations
         self.translations = dict ([(lang, TranslatedTelyDocument (translations[lang], self, parent_translations.get (lang)))
                                    for lang in langdefs.LANGDICT.keys() if os.path.exists (translations[lang])])
         if self.translations:
@@ -316,9 +322,11 @@ class MasterTelyDocument (TelyDocument):
         else:
             self.includes = []
 
-    # TODO
-    def print_wc_priority (self):
-        return
+    def update_word_counts (self, s):
+        s = update_word_count (s, self.filename, sum (self.word_count))
+        for i in self.includes:
+            s = i.update_word_counts (s)
+        return s
 
     def html_status (self, numbering=SectionNumber ()):
         if self.title == 'Untitled' or not self.translations:
@@ -344,9 +352,43 @@ class MasterTelyDocument (TelyDocument):
             s += '</table>\n<p></p>\n'
         return s
 
+    def text_status (self, numbering=SectionNumber (), colspec=[48,12]):
+        if self.title == 'Untitled' or not self.translations:
+            return ''
+
+        s = ''
+        if self.level[1] == 0: # if self is a master document
+            s += (self.print_title (numbering) + ' ').ljust (colspec[0])
+            s += ''.join (['%s'.ljust (colspec[1]) % l for l in self.translations.keys ()])
+            s += '\n'
+            s += ('Section titles (%d)' % sum (self.word_count)).ljust (colspec[0])
+
+        else:
+            s = '%s (%d) ' \
+                % (self.print_title (numbering), sum (self.word_count))
+            s = s.ljust (colspec[0])
+
+        s += ''.join ([t.text_status ().ljust(colspec[1]) for t in self.translations.values ()])
+        s += '\n\n'
+        s += ''.join ([i.text_status (numbering) for i in self.includes])
+
+        if self.level[1] == 0:
+            s += '\n'
+        return s
+
+
+update_category_word_counts_re = re.compile (r'(?ms)^-(\d+)-(.*?\n)\d+ *total')
+
+counts_re = re.compile (r'(?m)^(\d+) ')
+
+def update_category_word_counts_sub (m):
+    return '-' + m.group (1) + '-' + m.group (2) + \
+        str (sum ([int (c) for c in counts_re.findall (m.group (2))])).ljust (6) + 'total'
+
+
 progress ("Reading documents...")
 
-tely_files = read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
+tely_files = buildlib.read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
 master_docs = [MasterTelyDocument (os.path.normpath (filename)) for filename in tely_files]
 master_docs = [doc for doc in master_docs if doc.translations]
 
@@ -359,7 +401,9 @@ main_status_page = open ('translations.template.html.in').read ()
 
 progress ("Generating status pages...")
 
-main_status_html = ' <p><i>Last updated %s</i></p>\n' % read_pipe ('LANG= date -u')[0]
+date_time = buildlib.read_pipe ('LANG= date -u')[0]
+
+main_status_html = ' <p><i>Last updated %s</i></p>\n' % date_time
 main_status_html += '\n'.join ([doc.html_status () for doc in master_docs])
 
 html_re = re.compile ('<html>', re.I)
@@ -372,3 +416,40 @@ translations.template.html.in; DO NOT EDIT !-->''', main_status_page)
 main_status_page = end_body_re.sub (main_status_html + '\n</body>', main_status_page)
 
 open ('translations.html.in', 'w').write (main_status_page)
+
+main_status_txt = '''Documentation translations status
+Generated %s
+NT = not translated
+FT = fully translated
+
+''' % date_time
+
+main_status_txt += '\n'.join ([doc.text_status () for doc in master_docs])
+
+status_txt_file = 'out/translations-status.txt'
+progress ("Writing %s..." % status_txt_file)
+open (status_txt_file, 'w').write (main_status_txt)
+
+translation_instructions_file = 'TRANSLATION'
+progress ("Updating %s..." % translation_instructions_file)
+translation_instructions = open (translation_instructions_file).read ()
+
+for doc in master_docs:
+    translation_instructions = doc.update_word_counts (translation_instructions)
+
+for html_file in re.findall (r'(?m)^\d+ *(\S+?\.html\S*?)(?: |$)', translation_instructions):
+    word_count = sgml_word_count (open (html_file).read ())
+    translation_instructions = update_word_count (translation_instructions,
+                                                  html_file,
+                                                  word_count)
+
+for po_file in re.findall (r'(?m)^\d+ *(\S+?\.po\S*?)(?: |$)', translation_instructions):
+    word_count = po_word_count (open (po_file).read ())
+    translation_instructions = update_word_count (translation_instructions,
+                                                  po_file,
+                                                  word_count)
+
+translation_instructions = update_category_word_counts_re.sub (update_category_word_counts_sub,
+                                                               translation_instructions)
+
+open (translation_instructions_file, 'w').write (translation_instructions)

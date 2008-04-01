@@ -52,7 +52,15 @@ Font_size_engraver::acknowledge_font (Grob_info gi)
 
 ADD_ACKNOWLEDGER (Font_size_engraver, font);
 ADD_TRANSLATOR (Font_size_engraver,
-		/* doc */ "Puts fontSize into font-size grob property.",
-		/* create */ "",
-		/* read */ "fontSize",
-		/* write */ "");
+		/* doc */
+		"Put @code{fontSize} into @code{font-size} grob property.",
+
+		/* create */
+		"",
+
+		/* read */
+		"fontSize ",
+
+		/* write */
+		""
+		);

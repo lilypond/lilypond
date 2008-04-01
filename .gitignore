@@ -64,6 +64,7 @@ configure
 gcstat*.scm
 lily-[0-9a-f][0-9a-f][0-9a-f]*
 nohup.out
+out
 out-cov
 out-scons
 out-test

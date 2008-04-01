@@ -16,7 +16,7 @@ There are other tools that produce LilyPond input, for example GUI
 sequencers and XML converters.  Refer to the
 @uref{http://@/lilypond@/.org,website} for more details.
 
-These are separate programs from lilypond itself, and are run
+These are separate programs from @command{lilypond} itself, and are run
 on the command-line; see @ref{Command-line usage} for more information.
 
 
@@ -47,7 +47,7 @@ MIDI (Music Instrument Digital Interface) is a standard for digital
 instruments: it specifies cabling, a serial protocol and a file
 format.  The MIDI file format is a de facto standard format for
 exporting music from other programs, so this capability may come in
-useful when importing files from a program that has a convertor for a
+useful when importing files from a program that has a converter for a
 direct format.
 
 @command{midi2ly} converts tracks into @internalsref{Staff} and

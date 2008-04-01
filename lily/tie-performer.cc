@@ -110,7 +110,15 @@ Tie_performer::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Tie_performer,
-		/* doc */ "Generate ties between noteheads of equal pitch.",
-		/* create */ "",
-		/* read */ "tieMelismaBusy",
-		/* write */ "");
+		/* doc */
+		"Generate ties between note heads of equal pitch.",
+
+		/* create */
+		"",
+
+		/* read */
+		"tieMelismaBusy",
+
+		/* write */
+		""
+		);

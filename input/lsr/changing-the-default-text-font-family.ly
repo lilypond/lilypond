@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use, text, tweaks-and-overrides"
+  lsrtags = "text, tweaks-and-overrides"
  texidoc = "
 The default font families for text can be overridden with
 @code{make-pango-font-tree}. 
@@ -37,7 +37,7 @@ The default font families for text can be overridden with
       sans: foo \bold bla \italic bar \italic \bold baz
     }
   }
-  c'^\markup {
+  c'2^\markup {
     \override #'(font-family . typewriter)
     {
       mono: foo \bold bla \italic bar \italic \bold baz

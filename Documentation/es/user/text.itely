@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 459d5b872a370b53f61e747784fb56cf23f56e4b
+    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -52,7 +52,7 @@ c'4^\markup { bla \bold bla }
 @end menu
 
 @node Text scripts
-@unnumberedsubsubsec Text scripts
+@subsubsection Text scripts
 
 @cindex Texto, inscripciones de
 @cindex texto, elementos no vacíos de
@@ -108,7 +108,7 @@ Referencia del programa: @internalsref{TextScript}.
 
 
 @node Text and line spanners
-@unnumberedsubsubsec Text and line spanners
+@subsubsection Text and line spanners
 
 Ciertas indicaciones de ejecución, p.ej., @i{rallentando},
 @i{accelerando} y los @i{trinos} se escriben como texto y se extienden
@@ -239,7 +239,7 @@ Ejemplos: @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
 
 
 @node Text spanners
-@unnumberedsubsubsec Text spanners
+@subsubsection Text spanners
 
 @cindex Texto, objetos de extensión de
 
@@ -290,7 +290,7 @@ Referencia del programa: @internalsref{TextSpanner}.
 
 
 @node Text marks
-@unnumberedsubsubsec Text marks
+@subsubsection Text marks
 
 @cindex coda sobre la línea divisoria
 @cindex segno sobre la línea divisoria
@@ -433,7 +433,7 @@ Referencia del programa: @internalsref{RehearsalMark}.
 
 
 @node New dynamic marks
-@unnumberedsubsubsec New dynamic marks
+@subsubsection New dynamic marks
 
 Es posible imprimir nuevas indicaciones de dinámica o texto que debe ir alineado
 con ellas.  Utilice @code{make-dynamic-script} para crear estas
@@ -481,7 +481,7 @@ boxf = \markup{ \bracket { \dynamic f } }
 @end menu
 
 @node Text markup introduction
-@unnumberedsubsubsec Text markup introduction
+@subsubsection Text markup introduction
 
 @cindex marcado
 @cindex texto, marcado de
@@ -641,7 +641,7 @@ Los errores de sintaxis para el modo de marcado son confusos.
 
 
 @node Nested scores
-@unnumberedsubsubsec Nested scores
+@subsubsection Nested scores
 
 Es posible anidar música dentro de los elementos de marcado, añadiendo un bloque @code{\score}
 a una expresión de marcado.  Dicha partitura debe contener un bloque
@@ -660,7 +660,7 @@ a una expresión de marcado.  Dicha partitura debe contener un bloque
 @end lilypond
 
 @node Page wrapping text
-@unnumberedsubsubsec Page wrapping text
+@subsubsection Page wrapping text
 Dondequiera que se utilice @code{\markup} para escribir un bloque de texto que no se deba dividir,
 se puede usar @code{\markuplines} en el nivel superior del código para introducir líneas de texto
 que se pueden extender sobre varias páginas:
@@ -695,7 +695,7 @@ En este manual: @ref{Overview of text markup list commands},
 @code{\markuplines}
 
 @node Font selection
-@unnumberedsubsubsec Font selection
+@subsubsection Font selection
 
 @cindex fuente tipográfica, selección de la
 @cindex fuente tipográfica, ampliación

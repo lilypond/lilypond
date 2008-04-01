@@ -262,13 +262,18 @@ ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (Spacing_engraver, rhythmic_grob);
 
 ADD_TRANSLATOR (Spacing_engraver,
-		"make a SpacingSpanner and do "
-		"bookkeeping of shortest starting and playing notes  ",
+		/* doc */
+		"Make a @code{SpacingSpanner} and do bookkeeping of shortest"
+		" starting and playing notes.",
 
-		/* create */ "SpacingSpanner",
+		/* create */
+		"SpacingSpanner ",
+
 		/* read */
 		"currentMusicalColumn "
 		"currentCommandColumn "
-		"proportionalNotationDuration",
+		"proportionalNotationDuration ",
 		
-		/* write */ "");
+		/* write */
+		""
+		);

@@ -47,8 +47,15 @@ ADD_ACKNOWLEDGER (Staff_collecting_engraver, staff_symbol);
 ADD_END_ACKNOWLEDGER (Staff_collecting_engraver, staff_symbol);
 
 ADD_TRANSLATOR (Staff_collecting_engraver,
-		/* doc */ "Maintain the stavesFound variable",
+		/* doc */
+		"Maintain the @code{stavesFound} variable.",
 
-		/* create */ "",
-		/* read */ "stavesFound",
-		/* write */ "stavesFound");
+		/* create */
+		"",
+
+		/* read */
+		"stavesFound ",
+
+		/* write */
+		"stavesFound "
+		);

@@ -133,12 +133,16 @@ Tuplet_engraver::process_music ()
 	    }
 	  else if (!bracket->get_bound (RIGHT))
 	    {
-	      bracket->set_bound (RIGHT,
-				  bracket->get_bound (LEFT));
-	      number->set_bound (RIGHT,
-				 stopped_tuplets_[i].bracket_->get_bound (LEFT));
-	    }
-	  
+	      if (bracket->get_bound (LEFT))
+		{
+		  bracket->set_bound (RIGHT,
+				      bracket->get_bound (LEFT));
+		  number->set_bound (RIGHT,
+				     stopped_tuplets_[i].bracket_->get_bound (LEFT));
+		}
+	      else
+		programming_error ("stopped tuplet bracket has left nor right bound.");
+	    }	  
 	  // todo: scrap last_tuplets_, use stopped_tuplets_ only.
 	  // clear stopped_tuplets_ at start_translation_timestep
 	  last_tuplets_.push_back (bracket);
@@ -219,14 +223,17 @@ Tuplet_engraver::Tuplet_engraver ()
 
 ADD_ACKNOWLEDGER (Tuplet_engraver, note_column);
 ADD_TRANSLATOR (Tuplet_engraver,
-
 		/* doc */
 		"Catch tuplet events and generate appropriate bracket.",
 		
 		/* create */
 		"TupletBracket "
 		"TupletNumber ",
+
 		/* read */
 		"tupletFullLength "
 		"tupletFullLengthNote ",
-		/* write */ "");
+
+		/* write */
+		""
+		);

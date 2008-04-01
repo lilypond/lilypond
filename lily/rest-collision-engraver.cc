@@ -67,7 +67,15 @@ Rest_collision_engraver::stop_translation_timestep ()
 
 ADD_ACKNOWLEDGER (Rest_collision_engraver, note_column);
 ADD_TRANSLATOR (Rest_collision_engraver,
-		/* doc */ "Handles collisions of rests.",
-		/* create */ "RestCollision",
-		/* read */ "",
-		/* write */ "");
+		/* doc */
+		"Handle collisions of rests.",
+
+		/* create */
+		"RestCollision ",
+
+		/* read */
+		"",
+
+		/* write */
+		""
+		);

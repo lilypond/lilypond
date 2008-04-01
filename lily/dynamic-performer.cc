@@ -192,14 +192,19 @@ Dynamic_performer::listen_absolute_dynamic (Stream_event *r)
 }
 
 ADD_TRANSLATOR (Dynamic_performer,
-		/* doc */ 		 "",
-		/* create */ "",
+		/* doc */
+		"",
+
+		/* create */
+		"",
 
 		/* read */
 		"dynamicAbsoluteVolumeFunction "
 		"instrumentEqualizer "
 		"midiMaximumVolume "
 		"midiMinimumVolume "
-		"midiInstrument "
-		,
-		/*writes*/"");
+		"midiInstrument ",
+
+		/* write */
+		""
+		);

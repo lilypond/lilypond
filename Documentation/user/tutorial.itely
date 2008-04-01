@@ -153,7 +153,7 @@ also produces a @file{.log} file that contains some information on
 what LilyPond has done to the file.  If any errors occur, please
 examine this file.
 
-@subsubheading Unix
+@subsubheading UNIX
 
 Create a text file called @file{test.ly} and enter:
 
@@ -1030,10 +1030,9 @@ different amount of space.  LilyPond does not care how much (or
 little) space there is at the beginning of a line, but indenting
 LilyPond code like this makes it much easier for humans to read.
 
-@c FIXME: number of backslashes?!  works in html but not pdf.
 @warning{each note is relative to the previous note in
 the input, not relative to the @code{c''} in the initial
-@code{\\relative} command.}
+@code{@bs{}relative} command.}
 
 
 @subheading Simultaneous music expressions: single staff
@@ -1090,7 +1089,7 @@ expression, so @math{-(4+5)} is a bigger expression.
 
 Time signatures entered in one staff affects all other staves by
 default.  On the other hand, the key signature of one staff does
-@emph{not} affect other staves.  This different default behaviour
+@emph{not} affect other staves.  This different default behavior
 is because scores with transposing instruments are more common
 than polyrhythmic scores.
 

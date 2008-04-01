@@ -36,45 +36,51 @@ inside the staff.
 @end menu
 
 @node Selecting notation font size
-@subsubsection Selecting notation font size
+@unnumberedsubsubsec Selecting notation font size
 
 @cindex font size
 @cindex font size, selecting
 @cindex selecting font size
 
-The easiest method of setting the font size of any context is by
-setting the @code{fontSize} property.
+The font size of notation elements may be altered.  It does not
+change the size of variable symbols, such as beams or slurs.
 
 @lilypond[quote,fragment,relative=2,verbatim,ragged-right]
-c4
-\set fontSize = #-4
-c f
-\set fontSize = #3
-g8 a
+\huge
+c4.-> d8---3
+\large
+c4.-> d8---3
+\normalsize
+c4.-> d8---3
+\small
+c4.-> d8---3
+\tiny
+c4.-> d8---3
+\normalsize
+c2
 @end lilypond
-
-@noindent
-It does not change the size of variable symbols, such as beams or
-slurs.
 
 @cindex font size scaling
 
-Internally, the @code{fontSize} context property will cause the
-@code{font-size} property to be set in all layout objects.  The
-value of @code{font-size} is a number indicating the size relative
-to the standard size for the current staff height.  Each step up
-is an increase of approximately 12% of the font size.  Six steps
-is exactly a factor two.  The Scheme function @code{magstep}
-converts a @code{font-size} number to a scaling factor.  The
-@code{font-size} property can also be set directly, so that only
-certain layout objects are affected.
+Internally, this sets the @code{fontSize} property.  This in turns
+causes the @code{font-size} property to be set in all layout
+objects.  The value of @code{font-size} is a number indicating the
+size relative to the standard size for the current staff height.
+Each step up is an increase of approximately 12% of the font size.
+Six steps is exactly a factor two.  The Scheme function
+@code{magstep} converts a @code{font-size} number to a scaling
+factor.  The @code{font-size} property can also be set directly,
+so that only certain layout objects are affected.
 
 @lilypond[quote,fragment,relative=2,verbatim,ragged-right]
-c4
+\set fontSize = #3
+c4.-> d8---3
 \override NoteHead #'font-size = #-4
-c f
-\override NoteHead #'font-size = #3
-g8 a
+c4.-> d8---3
+\override Script #'font-size = #2
+c4.-> d8---3
+\override Stem #'font-size = #-5
+c4.-> d8---3
 @end lilypond
 
 @cindex standard font size
@@ -85,30 +91,34 @@ closest to the desired size.  The standard font size (for
 @code{font-size} equals 0), depends on the standard staff height.
 For a 20pt staff, a 10pt font is selected.
 
-The @code{font-size} property can only be set on layout objects that
-use fonts.  These are the ones supporting the @code{font-interface}
-layout interface.
+The @code{font-size} property can only be set on layout objects
+that use fonts.  These are the ones supporting the
+@code{font-interface} layout interface.
 
 @predefined
-
-The following commands set @code{fontSize} for the current voice:
 
 @funindex \tiny
 @code{\tiny},
 @funindex \small
 @code{\small},
 @funindex \normalsize
-@code{\normalsize}.
+@code{\normalsize},
+@funindex \large
+@code{\large},
+@funindex \huge
+@code{\huge}.
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Internals Reference: @internalsref{font-interface}.
+Internals Reference:
+@internalsref{font-interface}.
 
 
 @node Fingering instructions
-@subsubsection Fingering instructions
+@unnumberedsubsubsec Fingering instructions
 
 @cindex fingering
 @cindex finger change
@@ -116,14 +126,11 @@ Internals Reference: @internalsref{font-interface}.
 Fingering instructions can be entered using
 @var{note}-@var{digit}:
 
-Fingering instructions may be manually placed above or below the
-staff, see @ref{Controlling direction and placement}.
-
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 c4-1 d-2 f-4 e-3
 @end lilypond
 
-Use markup texts for finger changes. 
+Markup texts may be used for finger changes. 
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
@@ -148,36 +155,29 @@ chord by adding them after the pitches.
 < c-1 e-2 g-3 b-5 >2 < d-1 f-2 a-3 c-5 >
 @end lilypond
 
+Fingering instructions may be manually placed above or below the
+staff, see @ref{Controlling direction and placement}.
 
 @snippets
 
-@code{fingeringOrientations} are used to control where the fingering
-numbers are placed.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{controlling-the-placement-of-chord-fingerings.ly}
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-\set fingeringOrientations = #'(left)
-<c-1 e-3 a-5 > 4
-\set fingeringOrientations = #'(down)
-<c-1 e-3 a-5 > 
-\set fingeringOrientations = #'(right)
-<c-1 e-3 a-5 > 
-\set fingeringOrientations = #'(up)
-<c-1 e-3 a-5 > 
-\set fingeringOrientations = #'(left down)
-<c-1 e-3 a-5 > 2
-\set fingeringOrientations = #'(up right down)
-<c-1 e-3 a-5 >
-@end lilypond
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Notation Reference:
+@ref{Controlling direction and placement}
 
-Internals Reference: @internalsref{Fingering}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
+
+Internals Reference:
+@internalsref{Fingering}.
 
 
 @node Hidden notes
-@subsubsection Hidden notes
+@unnumberedsubsubsec Hidden notes
 
 @cindex Hidden notes
 @cindex Invisible notes
@@ -206,11 +206,12 @@ c
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Coloring objects
-@subsubsection Coloring objects
+@unnumberedsubsubsec Coloring objects
 
 @cindex colored objects
 @cindex colors
@@ -282,10 +283,12 @@ gis4 a
 
 @seealso
 
-Notation Reference: @ref{List of colors}, @ref{Objects connected to
+Notation Reference:
+@ref{List of colors}, @ref{Objects connected to
 the input}.
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 @knownissues
 An x11 color is not necessarily exactly the same shade as a
@@ -301,7 +304,7 @@ Notes in a chord cannot be colored with @code{\override}; use
 
 
 @node Parentheses
-@subsubsection Parentheses
+@unnumberedsubsubsec Parentheses
 
 @cindex ghost notes
 @cindex notes, ghost
@@ -312,6 +315,9 @@ Objects may be parenthesized by prefixing @code{\parenthesize} to
 the music event.  This only functions inside chords; to
 parenthesize a single note it must be enclosed with @code{<>} as
 if it is a chord.
+
+FIXME: after 2.11.44 is out,
+@c \parenthesize c4-. \parenthesize r4 \parenthesize <c e g>4->
 
 @lilypond[quote,relative=2,fragment,verbatim,ragged-right]
 c2 < \parenthesize d>
@@ -325,11 +331,16 @@ Non-note objects may be parenthesized as well.
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
+
+@knownissues
+
+Rests cannot be parenthesized.
 
 
 @node Stems
-@subsubsection Stems
+@unnumberedsubsubsec Stems
 
 @cindex stem
 
@@ -354,19 +365,15 @@ made invisible.
 @cindex stem, down
 @cindex stem, neutral
 
-To change the direction of stems on the center line of the staff, use
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @seealso
+Notation Reference:
+@ref{Controlling direction and placement}.
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 
 @node Outside the staff
@@ -382,27 +389,26 @@ from outside of the staff.
 @end menu
 
 @node Balloon help
-@subsubsection Balloon help
+@unnumberedsubsubsec Balloon help
 
 Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
 notation.
 
-The following example demonstrates its use.
-
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
-  \time 2/4
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  a8
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>4. 
+  a8 
+  \balloonGrobText #'Rest #' (-4 . -4) \markup { "I'm a rest" }
+  r
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
 }
 @end lilypond
 
 There are two music functions, @code{balloonGrobText} and
-@code{balloonText};  The former is used like \once \override to 
-attach text to any grob, and the latter is used like \tweak, 
+@code{balloonText};  The former is used like @code{\once \override} to 
+attach text to any grob, and the latter is used like @code{ \tweak}, 
 typically within chords, to attach text to an individual note.
 
 @cindex balloon
@@ -410,13 +416,15 @@ typically within chords, to attach text to an individual note.
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Internals Reference: @internalsref{text-balloon-interface}.
+Internals Reference:
+@internalsref{text-balloon-interface}.
 
 
 @node Grid lines
-@subsubsection Grid lines
+@unnumberedsubsubsec Grid lines
 
 Vertical lines can be drawn between staves synchronized with the
 notes.
@@ -425,85 +433,53 @@ notes.
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" 
     % sets up grids
-    gridInterval = #(ly:make-moment 1 4)
+    \consists "Grid_point_engraver" 
     % this sets the grid interval to 1 quarternote (crotchet)
-  }
+    gridInterval = #(ly:make-moment 1 4)
+      }
 }
 
 \new Score \with {
-  \consists "Grid_line_span_engraver"
-  %% by default this centers grid lines horizontally below and to the 
+  % by default this centers grid lines horizontally below and to the 
   % left side of the notehead, the grid lines extend from 
   % the middle lines of each staff
-}
-
-\new ChoirStaff <<
-  \new Staff {
-    \stemUp
-    \relative {
-      c'4. d8 e8 f g4
-    }
-  }
-  \new Staff {
-    \stemDown
-    \clef bass
-    \relative c {
-      c4  g'  f  e
-    }
-  }
->>
-@end lilypond
-
-To change the grid lines use \override.
-
-
-@lilypond[quote,verbatim,ragged-right]
-\layout {
-  \context {
-    \Staff
-    \consists "Grid_point_engraver" 
-    % sets up grids
-       gridInterval = #(ly:make-moment 1 4)
-       % this sets the grid interval to 1 quarternote (crotchet)
-  }
-}
-
-\new Score \with {
   \consists "Grid_line_span_engraver"
-  \override NoteColumn #'X-offset = #-0.5
-  % this moves them to the right half a staff space
-}
+  }
 
 \new ChoirStaff <<
   \new Staff {
-    \stemUp
-    \relative {
-      c'4. d8 e8 f g4
+    \relative c'' {
+      \stemUp
+      c4. d8 e8 f g4
     }
   }
   \new Staff {
-    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
-    % this moves them up one staff space from the default position
-    \stemDown
     \clef bass
     \relative c {
+      \stemDown
       c4  g'  f  e
     }
   }
 >>
 @end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{grid-lines-changing-their-appearance.ly}
+
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
 
 
 
 @node Analysis brackets
-@subsubsection Analysis brackets
+@unnumberedsubsubsec Analysis brackets
 
 @cindex brackets
 @cindex phrasing brackets
@@ -511,10 +487,21 @@ Snippets: @lsrdir{Editorial,Editorial-annotations}.
 @cindex note grouping bracket
 
 Brackets are used in musical analysis to indicate structure in musical
-pieces.  LilyPond supports a simple form of nested horizontal
-brackets.  To use this, add the @code{Horizontal_bracket_engraver} to
-the @code{Staff} context.  A bracket is started with
-@code{\startGroup} and closed with @code{\stopGroup}.
+pieces.  LilyPond supports a simple form of horizontal brackets.
+
+@lilypond[quote,verbatim,ragged-right]
+\layout {
+  \context {
+    \Staff \consists "Horizontal_bracket_engraver"
+  }
+}
+\relative c'' {
+  c2\startGroup
+  d\stopGroup
+}
+@end lilypond
+
+Analysis brackets may be nested.
 
 @lilypond[quote,verbatim,ragged-right]
 \layout {
@@ -524,16 +511,19 @@ the @code{Staff} context.  A bracket is started with
 }
 \relative c'' {
   c4\startGroup\startGroup
-  c4\stopGroup
-  c4\startGroup
-  c4\stopGroup\stopGroup
+  d4\stopGroup
+  e4\startGroup
+  d4\stopGroup\stopGroup
 }
 @end lilypond
 
 @seealso
 
-Snippets: @lsrdir{Editorial,Editorial-annotations}.
+Snippets:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Internals Reference: @internalsref{HorizontalBracket},
-@internalsref{Horizontal_bracket_engraver}, @internalsref{Staff}.
+Internals Reference:
+@internalsref{HorizontalBracket},
+@internalsref{Horizontal_bracket_engraver},
+@internalsref{Staff}.
 

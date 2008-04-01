@@ -123,7 +123,7 @@ Stems are centered on the note heads.  This style is particularly
 useful when transcribing mensural music, e.g., for the incipit.  The
 @code{mensural} style produces note heads that mimic the look of note
 heads in historic printings of the 16th century.  Finally, the
-@code{petrucci} style also mimicks historic printings, but uses bigger
+@code{petrucci} style also mimics historic printings, but uses bigger
 note heads.
 
 The following example demonstrates the @code{neomensural} style
@@ -2085,7 +2085,7 @@ diminished fifths and sevenths can be obtained with @code{5/} and @code{7/}.
 
 Spaces may be inserted by using @code{_}.  Brackets are
 introduced with @code{[} and @code{]}.  You can also include text
-strings and text markups, see @ref{Overview of text markup commands}.
+strings and text markups, see @ref{Text markup commands}.
 
 @example
 < [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >

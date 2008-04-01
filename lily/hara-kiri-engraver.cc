@@ -79,9 +79,18 @@ Hara_kiri_engraver::acknowledge_grob (Grob_info i)
 
 ADD_ACKNOWLEDGER (Hara_kiri_engraver, grob);
 ADD_TRANSLATOR (Hara_kiri_engraver,
-		/* doc */ "Like Axis_group_engraver, but make a hara-kiri spanner, and add "
-		"interesting items (ie. note heads, lyric syllables and normal rests) ",
-		/* create */ "VerticalAxisGroup",
-		/* read */ "keepAliveInterfaces",
-		/* write */ "");
+		/* doc */
+		"Like @code{Axis_group_engraver}, but make a hara-kiri"
+		" spanner, and add interesting items (i.e., note heads, lyric"
+		" syllables, and normal rests).",
+
+		/* create */
+		"VerticalAxisGroup ",
+
+		/* read */
+		"keepAliveInterfaces ",
+
+		/* write */
+		""
+		);
 

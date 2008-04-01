@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use"
+  lsrtags = "rhythms, text"
  texidoc = "
 This example shows how to add a markup command to get a three sided box
 around some text (or other markup).
@@ -42,7 +42,7 @@ thickness and padding around the markup."
 
 % Test it:
 
-\relative c'{ 
-  c^\markup{ \NWS-box ABCD }
-  c^\markup{\NWS-box \note #"4" #1.0 } 
+\relative c' { 
+  c2^\markup { \NWS-box ABCD }
+  c^\markup { \NWS-box \note #"4" #1.0 } 
 }

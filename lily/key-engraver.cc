@@ -208,8 +208,11 @@ ADD_ACKNOWLEDGER (Key_engraver, clef);
 ADD_ACKNOWLEDGER (Key_engraver, bar_line);
 
 ADD_TRANSLATOR (Key_engraver,
-		/* doc */ "",
-		/* create */ "KeySignature",
+		/* doc */
+		"Engrave a key signature.",
+
+		/* create */
+		"KeySignature ",
 		
 		/* read */
 		"createKeyOnClefChange "
@@ -218,10 +221,10 @@ ADD_TRANSLATOR (Key_engraver,
 		"keyAlterationOrder "
 		"keySignature "
 		"lastKeySignature "
-		"printKeyCancellation "
-		,
+		"printKeyCancellation ",
 		
 		/* write */
 		"keySignature "
 		"lastKeySignature "
-		"tonic ")
+		"tonic "
+		);

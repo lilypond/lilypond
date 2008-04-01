@@ -10,6 +10,7 @@
 #include <cstdio>
 using namespace std;
 
+#include <string.h>
 #include "std-string.hh"
 #include "lily-proto.hh"
 

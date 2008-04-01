@@ -476,7 +476,16 @@ parenthesize =
 #(define-music-function (parser loc arg) (ly:music?)
    (_i "Tag @var{arg} to be parenthesized.")
 
-   (set! (ly:music-property arg 'parenthesize) #t)
+   (if (memq 'event-chord (ly:music-property arg 'types))
+     ; arg is an EventChord -> set the parenthesize property on all child notes and rests
+     (map
+       (lambda (ev)
+         (if (or (memq 'note-event (ly:music-property ev 'types))
+                 (memq 'rest-event (ly:music-property ev 'types)))
+           (set! (ly:music-property ev 'parenthesize) #t)))
+       (ly:music-property arg 'elements))
+     ; No chord, simply set property for this expression:
+     (set! (ly:music-property arg 'parenthesize) #t))
    arg)
 
 %% for lambda*

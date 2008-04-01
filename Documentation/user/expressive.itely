@@ -24,6 +24,7 @@
 @menu
 * Articulations and ornamentations::  
 * Dynamics::                    
+* New dynamic marks::           
 @end menu
 
 @node Articulations and ornamentations
@@ -342,7 +343,7 @@ To change this behavior, use
 
 Text style dynamic changes (such as @notation{cresc.} and
 @notation{dim.}) are printed with a dashed line showing their
-extent.  To surpress printing this line, use
+extent.  To suppress printing this line, use
 
 @example
 \override DynamicTextSpanner #'dash-period = #-1.0
@@ -362,6 +363,47 @@ Snippets: @lsrdir{Expressive,Expressive-marks}
 Internals Reference: @internalsref{DynamicText},
 @internalsref{Hairpin}.  Vertical positioning of these symbols is
 handled by @internalsref{DynamicLineSpanner}.
+
+
+@node New dynamic marks
+@subsubsection New dynamic marks
+
+It is possible to print new dynamic marks or text that should be
+aligned with dynamics.  Use @code{make-dynamic-script} to create
+these marks.  Note that the dynamic font only contains the
+characters @code{f,m,p,r,s} and @code{z}.
+
+Some situations (such as dynamic marks) have preset font-related
+properties.  If you are creating text in such situations, it is
+advisable to cancel those properties with @code{normal-text}.  See
+@ref{Text markup commands}, for more details.
+
+@cindex make-dynamic-script
+
+@lilypond[quote,verbatim,ragged-right]
+sfzp = #(make-dynamic-script "sfzp")
+\relative c' {
+  c4 c c\sfzp c
+}
+@end lilypond
+
+@cindex Dynamics, editorial
+@cindex Dynamics, parenthesis
+
+It is also possible to print dynamics in round parenthesis or
+square brackets.  These are often used for adding editorial
+dynamics.
+
+@lilypond[quote,verbatim,ragged-right]
+rndf = \markup{ \center-align {\line { \bold{\italic (}
+  \dynamic f \bold{\italic )} }} }
+boxf = \markup{ \bracket { \dynamic f } }
+{ c'1_\rndf c'1_\boxf }
+@end lilypond
+
+@seealso
+
+Snippets: @lsrdir{Expressive,Expressive-marks}
 
 
 @node Curves

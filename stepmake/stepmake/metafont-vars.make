@@ -8,6 +8,6 @@ DVI_FILES += $(MF_DVI_FILES)
 TFM_FILES += $(MF_TFM_FILES)
 
 MF2PT1_OPTIONS=--rounding=0.0001 \
-               --family=$(<:%.mf=%) \
-               --fullname=$(<:%.mf=%) \
-               --name=$(<:%.mf=%)
+               --family=$(notdir $(<:%.mf=%)) \
+               --fullname=$(notdir $(<:%.mf=%)) \
+               --name=$(notdir $(<:%.mf=%))

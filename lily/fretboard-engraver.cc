@@ -85,16 +85,20 @@ Fretboard_engraver::stop_translation_timestep ()
 }
 
 ADD_TRANSLATOR (Fretboard_engraver,
-		/* doc */ "Generate one or more tablature noteheads from event of type NoteEvent.",
+		/* doc */
+		"Generate one or more tablature noteheads from event of type"
+		" @code{NoteEvent}.",
+
 		/* create */
-		"FretBoard "
-		,
+		"FretBoard ",
 
 		/* read */
 		"stringTunings "
 		"minimumFret "
 		"tablatureFormat "
-		"highStringOne "
-		,
-		/* write */ "");
+		"highStringOne ",
+
+		/* write */
+		""
+		);
 

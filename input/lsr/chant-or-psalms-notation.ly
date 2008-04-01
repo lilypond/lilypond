@@ -9,20 +9,19 @@ This form of notation is used for the chant of the Psalms, where verses
 aren't always the same length.
 " }
 % begin verbatim
-stemon = { \override Staff.Stem #'transparent = ##f }
-stemoff = { \override Staff.Stem #'transparent = ##t }
+stemOn = { \override Staff.Stem #'transparent = ##f }
+stemOff = { \override Staff.Stem #'transparent = ##t }
 
 \score {
-\new Staff \with {\remove "Time_signature_engraver" }
-{
-	\key g \minor
-	\set Score.timing = ##f
-	\stemoff a'\breve bes'4 g'4
-	\stemon a'2 \bar "||"
-	\stemoff a'\breve g'4 a'4
-	\stemon f'2 \bar "||"
-	\stemoff a'\breve^\markup { \italic flexe }
-	\stemon g'2 \bar "||"
-}
-\layout { raggedright = ##t}
+  \new Staff \with { \remove "Time_signature_engraver" }
+  {
+    \key g \minor
+    \set Score.timing = ##f
+    \stemOff a'\breve bes'4 g'4
+    \stemOn a'2 \bar "||"
+    \stemOff a'\breve g'4 a'4
+    \stemOn f'2 \bar "||"
+    \stemOff a'\breve^\markup { \italic flexe }
+    \stemOn g'2 \bar "||"
+  }
 }

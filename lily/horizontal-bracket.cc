@@ -121,7 +121,7 @@ Horizontal_bracket::print (SCM smob)
 ADD_INTERFACE (Horizontal_bracket,
 	       "A horizontal bracket encompassing notes.",
 
-	       /* props */		  
+	       /* properties */		  
 	       "bracket-flare "
 	       "columns "
 	       "edge-height "

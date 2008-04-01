@@ -345,20 +345,22 @@ ADD_ACKNOWLEDGER (New_fingering_engraver, rhythmic_head);
 ADD_ACKNOWLEDGER (New_fingering_engraver, stem);
 
 ADD_TRANSLATOR (New_fingering_engraver,
-		/* doc */ "Create fingering-scripts for notes in a new chord.  "
-		"This engraver is ill-named, since it "
-		"also takes care of articulations and harmonic note heads",
+		/* doc */
+		"Create fingering scripts for notes in a new chord.  This"
+		" engraver is ill-named, since it also takes care of"
+		" articulations and harmonic note heads.",
+
 		/* create */
 		"Fingering "
 		"StringNumber "
 		"StrokeFinger "
-		"Script "
-		,
+		"Script ",
+
 		/* read */
-		
 		"fingeringOrientations "
 		"strokeFingerOrientations "
-		"stringNumberOrientations "
-		,
+		"stringNumberOrientations ",
 		
-		/* write */ "");
+		/* write */
+		""
+		);

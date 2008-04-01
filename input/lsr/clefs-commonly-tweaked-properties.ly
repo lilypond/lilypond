@@ -3,11 +3,11 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "pitches, staff-notation, editorial-and-educational-use, tweaks-and-overrides"
+  lsrtags = "pitches, staff-notation, tweaks-and-overrides"
  texidoc = "
 The command @code{\\clef \"treble_8\"} is equivalent to setting
-@code{clefGlyph}, @code{clefPosition} (which controls the Y position of
-the clef), @code{middleCPosition} and @code{clefOctavation}.  A clef is
+@code{clefGlyph}, @code{clefPosition} (which controls the Y-position of
+the clef), @code{middleCPosition} and @code{clefOctavation}. A clef is
 printed when any of these properties are changed.
 
 
@@ -16,18 +16,17 @@ octavation, does not in itself change the position of subsequent notes
 on the staff: the position of middle C must also be specified to do
 this. The positional parameters are relative to the staff centre line,
 positive numbers displacing upwards, counting 1 for each line and
-space. The clefOctavation value would normally be set to 7, -7, 15 or
--15, but other values are not invalid.
+space. The @code{clefOctavation} value would normally be set to 7, -7,
+15 or -15, but other values are valid.
 
 
 When a clef change takes place at a line break the new clef symbol is
 printed at both the end of the previous line and the beginning of the
 new line by default. If the warning clef at the end of the previous
-line is not required it can be suppressed by setting the
-explicitClefVisibility Staff property to the value 
+line is not required it can be suppressed by setting the @code{Staff}
+property @code{explicitClefVisibility} to the value
 @code{end-of-line-invisible}. The default behaviour can be recovered
 with  @code{\\unset Staff.explicitClefVisibility}.
-
 
 The following examples show the possibilities when setting these
 properties manually. On the first line, the manual changes preserve the
@@ -59,11 +58,10 @@ line, they do not.
   \set Staff.clefOctavation = #0
   \set Staff.middleCPosition = #-4
   c' \break
-  
-  
+
   % The following clef changes do not preserve
   % the normal relationship between notes and clefs:
-  
+
   \set Staff.clefGlyph = #"clefs.F"
   \set Staff.clefPosition = #2
   c'
@@ -78,7 +76,7 @@ line, they do not.
   c'
   
   % Here we go back to the normal clef:
-  
+
   \set Staff.middleCPosition = #4
   c'
 }

@@ -139,17 +139,21 @@ Mark_engraver::process_music ()
 ADD_ACKNOWLEDGER (Mark_engraver, break_alignment);
 
 ADD_TRANSLATOR (Mark_engraver,
-		/* doc */ "This engraver will create RehearsalMark objects. "
-		"It puts them on top of all staves (which is taken from "
-		"the property @code{stavesFound}). If moving this engraver "
-		"to a different context, "
-		"@ref{Staff_collecting_engraver} must move along, otherwise all marks"
-		"end up on the same Y-location",
+		/* doc */
+		"Create @code{RehearsalMark} objects.  It puts them on top of"
+		" all staves (which is taken from the property"
+		" @code{stavesFound}).  If moving this engraver to a different"
+		" context, @ref{Staff_collecting_engraver} must move along,"
+		" otherwise all marks end up on the same Y@tie{}location.",
 		
-		/* create */ "RehearsalMark",
+		/* create */
+		"RehearsalMark ",
+
 		/* read */
 		"markFormatter "
 		"rehearsalMark "
 		"stavesFound ",
 		
-		/* write */ "");
+		/* write */
+		""
+		);

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 993fc5189dc039afd51a98df9b71adf59f2ab20f
+    Translation of GIT committish: aae416a0211bad0bbed5c82b91d80a83d21e8054
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -25,7 +25,7 @@
 @c don't remove this comment.
 @ignore
 @omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription User manual of the LilyPond music engraving system
+@omfdescription Learning Manual of the LilyPond music engraving system
 @omftype program usage
 @omfcategory Applications|Publishing
 @omflanguage Spanish
@@ -50,7 +50,7 @@ Este documento también está disponible como
 @titlepage
 @title LilyPond
 @subtitle El tipografiador de música
-@titlefont{Learning Manual}
+@titlefont{Manual de aprendizaje}
 @author El equipo de desarrollo de LilyPond
 
 
@@ -188,7 +188,7 @@ Apéndices
 @include preface.itely
 @include introduction.itely
 @include tutorial.itely
-@include putting.itely
+@include fundamental.itely
 @include tweaks.itely
 @include working.itely
 

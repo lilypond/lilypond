@@ -39,7 +39,7 @@ Please note that this document is not an exact subset of LSR: some
 snippets come from @file{input/new} LilyPond sources directory, and
 snippets from LSR are converted through @command{convert-ly}, as LSR is
 based on a stable LilyPond version, and this document is for version
-@value{version}.
+@c @value{version}.
 
 Snippets are grouped by tags; tags listed in the table of contents match
 a section of LilyPond notation manual.  Snippets may have several tags,

@@ -3,34 +3,32 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "staff-notation, editorial-and-educational-use"
+  lsrtags = "staff-notation"
  texidoc = "
-The \\markup command is quite versatile. In this snippet, it contains a
-\\score bloc instead of texts or marks.
+The @code{\\markup} command is quite versatile. In this snippet, it
+contains a @code{\\score} block instead of texts or marks.
 " }
 % begin verbatim
 tuning = \markup {
-    \score {
-	\new Staff \with {
-	    \remove Time_signature_engraver
-	} {
-	    \clef bass  <c, g, d g>1
-	}
-	\layout { ragged-right = ##t }
+  \score {
+    \new Staff \with { \remove Time_signature_engraver }
+    {
+      \clef bass  <c, g, d g>1
     }
+    \layout { ragged-right = ##t }
+  }
 }
-
 
 \header {
-    title = "Solo Cello Suites"
-    subtitle = "Suite IV"
-    subsubtitle = \markup { "Originalstimmung:" \tuning }
+  title = "Solo Cello Suites"
+  subtitle = "Suite IV"
+  subsubtitle = \markup { "Originalstimmung:" \general-align #Y #CENTER \tuning }
 }
-% begin verbatim
+
 \relative {
-    \time 4/8
-    \times 2/3 { c'8 d e } \times 2/3 {c d e}
-    \times 2/3 { c8 d e } \times 2/3 {c d e}
-    g8 a8 g8 a 
-    g8 a8 g8 a 
+  \time 4/8
+  \times 2/3 { c'8 d e } \times 2/3 { c d e }
+  \times 2/3 { c8 d e } \times 2/3 { c d e }
+  g8 a8 g8 a
+  g8 a8 g8 a
 }

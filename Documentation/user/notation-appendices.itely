@@ -16,8 +16,8 @@
 * List of colors::              
 * The Feta font::               
 * Note head styles::            
-* Overview of text markup commands::  
-* Overview of text markup list commands::  
+* Text markup commands::        
+* Text markup list commands::   
 * List of articulations::       
 * All context properties::      
 * Layout properties::           
@@ -110,9 +110,9 @@ darkcyan    darkmagenta    darkyellow
 
 X color names come several variants:
 
-Any name that is spelled as a single word with capitalisation
+Any name that is spelled as a single word with capitalization
 (e.g. @q{LightSlateBlue}) can also be spelled as space separated
-words without capitalisation (e.g. @q{light slate blue}).
+words without capitalization (e.g. @q{light slate blue}).
 
 The word @q{grey} can always be spelled @q{gray} (e.g. @q{DarkSlateGray}).
 
@@ -211,15 +211,15 @@ The following styles may be used for note heads.
 @lilypondfile[noindent]{note-head-style.ly}
 
 
-@node Overview of text markup commands
-@appendixsec Overview of text markup commands
+@node Text markup commands
+@appendixsec Text markup commands
 
 The following commands can all be used inside @code{\markup @{ @}}.
 
 @include markup-commands.tely
 
-@node Overview of text markup list commands
-@appendixsec Overview of text markup list commands
+@node Text markup list commands
+@appendixsec Text markup list commands
 
 The following commands can all be used with @code{\markuplines}.
 

@@ -279,9 +279,16 @@ Tie_engraver::typeset_tie (Grob *her)
 
 ADD_ACKNOWLEDGER (Tie_engraver, note_head);
 ADD_TRANSLATOR (Tie_engraver,
-		/* doc */ "Generate ties between noteheads of equal pitch.",
+		/* doc */
+		"Generate ties between note heads of equal pitch.",
+
 		/* create */
 		"Tie "
 		"TieColumn ",
-		/* read */ "tieWaitForNote",
-		/* write */ "tieMelismaBusy");
+
+		/* read */
+		"tieWaitForNote ",
+
+		/* write */
+		"tieMelismaBusy "
+		);

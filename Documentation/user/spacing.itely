@@ -654,7 +654,7 @@ lines.  This behavior can be changed by setting
 @node Page breaking
 @subsection Page breaking
 
-The default page breaking may be overriden by inserting
+The default page breaking may be overridden by inserting
 @code{\pageBreak} or @code{\noPageBreak} commands.  These commands are
 analogous to @code{\break} and @code{\noBreak}.  They should be
 inserted at a bar line.  These commands force and forbid a page-break
@@ -785,7 +785,7 @@ than one, they will interfere with each other.
 
 The @code{ly:minimal-breaking} function performs minimal computations to
 calculate the page breaking: it fills a page with as many systems as
-possible before moving to the next one.  Thus, it may be prefered for
+possible before moving to the next one.  Thus, it may be preferred for
 scores with many pages, where the other page breaking functions could be
 too slow or memory demanding, or a lot of texts.  It is enabled using:
 
@@ -806,9 +806,9 @@ commands.  There are two commands to override this behavior:
 \override NonMusicalPaperColumn #'page-break-permission = ##f
 @end example
 
-When @code{line-break-permission} is overriden to false, Lily will insert
+When @code{line-break-permission} is overridden to false, Lily will insert
 line breaks at explicit @code{\break} commands and nowhere else.  When
-@code{page-break-permission} is overriden to false, Lily will insert
+@code{page-break-permission} is overridden to false, Lily will insert
 page breaks at explicit @code{\pageBreak} commands and nowhere else.
 
 @lilypond[quote,verbatim]
@@ -1059,7 +1059,7 @@ Space between systems are controlled by four @code{\paper} variables,
 @end example
 
 When only a couple of flat systems are placed on a page, the resulting
-vertical spacing may be non-eleguant: one system at the top of the page,
+vertical spacing may be non-elegant: one system at the top of the page,
 and the other at the bottom, with a huge gap between them.  To avoid this
 situation, the space added between the systems can be limited.  This
 feature is activated by setting to @code{#t} the
@@ -1320,7 +1320,7 @@ stretched according to the data in the page layout file.
 The @code{ragged-bottom} property adds space between systems, while
 the two-pass technique adds space between staves inside a system.
 
-To allow this behaviour, a @code{tweak-key} variable has to be set in
+To allow this behavior, a @code{tweak-key} variable has to be set in
 each score @code{\layout} block, and the tweaks included in each score
 music, using the @code{\scoreTweak} music function.
 
@@ -1418,7 +1418,7 @@ c^"This text is placed close to the previous text"
 TODO: this example doesn't work any more ?
 
 By default, outside-staff objects are placed without regard to
-their horizontal distance from the previously-posititioned grobs.  This
+their horizontal distance from the previously-positioned grobs.  This
 can lead to situations in which objects are placed very close to each
 other horizontally.  Setting @code{outside-staff-horizontal-padding}
 causes an object to be offset vertically so that such a situation
@@ -1456,7 +1456,7 @@ c''2
 @subsection Horizontal spacing overview
 
 The spacing engine translates differences in durations into stretchable
-distances (@q{springs}) of differring lengths.  Longer durations get
+distances (@q{springs}) of differing lengths.  Longer durations get
 more space, shorter durations get less.  The shortest durations get a
 fixed amount of space (which is controlled by
 @code{shortest-duration-space} in the @internalsref{SpacingSpanner}
@@ -1717,7 +1717,7 @@ in which each note consumes an amount of horizontal space exactly
 equivalent to its rhythmic duration.  This type of proportional spacing
 is comparable to horizontal spacing on top of graph paper.  Some late
 20th- and early 21st-century scores use proportional notation to
-clarify complex rhythmic relationships or to faciliate the placement
+clarify complex rhythmic relationships or to facilitate the placement
 of timelines or other graphics directly in the score.
 
 LilyPond supports five different settings for proportional notation,
@@ -1787,7 +1787,7 @@ The @code{proportionalNotationDuration} setting is a context setting that
 lives in @code{Score}.  Recall that context settings appear in one of
 three locations in our input file -- in a @code{\with} block, in a
 @code{\context} block, or directly in music entry
-preceeded by the @code{\set} command.  As with all
+preceded by the @code{\set} command.  As with all
 context settings, users can pick which of the three different
 locations they would like to set @code{proportionalNotationDuration}.
 
@@ -1987,7 +1987,7 @@ reduces this space to zero.
 @end lilypond
 
 Nonmusical elements like time signatures, key signatures, clefs and
-accidentals are problemmatic in proportional notation.  None of these
+accidentals are problematic in proportional notation.  None of these
 elements has rhythmic duration.  But all of these elements consume
 horizontal space.  Different proportional scores approach these
 problems differently.
@@ -2181,10 +2181,10 @@ ragged-last = ##t
 @node Page breaks
 @subsection Page breaks
 
-The default page breaking may be overriden by inserting 
+The default page breaking may be overridden by inserting 
 @code{\pageBreak} or @code{\noPageBreak} commands.
 These commands are analogous to the @code{\break} and 
-@code{\noBreak} commands discused above and force or forbid 
+@code{\noBreak} commands discussed above and force or forbid 
 a page-break at the point where they are inserted.
 Of course, the @code{\pageBreak} command also forces a line break.
 Like @code{\break}, the @code{\pageBreak} command is effective only
@@ -2261,7 +2261,7 @@ e4 c g\f c
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  See
 @ruser{Changing horizontal spacing}, for more details.  Here's
-an example first showing the default behaviour:
+an example first showing the default behavior:
 
 @lilypond[verbatim,quote,ragged-right]
 \score {

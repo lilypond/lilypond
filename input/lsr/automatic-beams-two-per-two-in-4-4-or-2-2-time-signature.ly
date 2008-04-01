@@ -5,51 +5,46 @@
 \header {
   lsrtags = "rhythms"
  texidoc = "
-In time signature 2/2 or 4/4 the beam are  @code{         _____        
- _   _  Default | | | | I want | | | |. } Use a \"macro\" with
-#(override-auto-beam-setting '.....
-
-
-
+In a simple time signature of 2/2 or 4/4, 8th notes are beamed by
+default as two sets of four. Using a macro which overrides the
+autobeaming behaviour, this snippet changes the beaming to quarter note
+beats. 
 " }
 % begin verbatim
 % Automatic beams two per two in 4/4 or 2/2 time signature
-%	     _____
+%            _____
 % Default   | | | | 
-%	     _   _
+%	           _   _
 % I want    | | | |
 
-% The good way adapted from David Bobrof
+% The good way adapted from David Bobroff
 
 % macro for beamed two per two in 2/2 and 4/4 time signature
-qbeam={  
- 	#(override-auto-beam-setting '(end 1 8 * *) 1 4 'Staff)
- 	#(override-auto-beam-setting '(end 1 8 * *) 2 4 'Staff)
-  	#(override-auto-beam-setting '(end 1 8 * *) 3 4 'Staff) 
- 	}
-% other macros	
-timeFractionstyle={ \override Staff.TimeSignature #'style = #'()}
-textn = ^\markup{ without the macro }
-texty = ^\markup{ with the macro }
+qbeam= {
+  #(override-auto-beam-setting '(end 1 8 * *) 1 4 'Staff)
+  #(override-auto-beam-setting '(end 1 8 * *) 2 4 'Staff)
+  #(override-auto-beam-setting '(end 1 8 * *) 3 4 'Staff)
+}
 
 \score {
- << 
-	\new Staff << \relative c'' {  
-		\timeFractionstyle
-		\time 4/4
-		 g8\textn g g g   g g g g   g g g g4  g8 g g
-		 }
-		>>
-		
-	%Use the macro 	
-	
-	\new Staff << \relative c'' {  
-		\timeFractionstyle
-		\time 4/4
-		\qbeam
-		g8\texty g g g   g g g g  g g g g4  g8 g g 
-		 }
-	 >>	 
- >>
-\layout{ raggedright = ##t }
+  <<
+    \new Staff \relative c'' {
+      \time 4/4
+      g8^\markup { without the macro } g g g g g g g |
+      g g g g4 g8 g g |
+    }
+  	%Use the macro
+    \new Staff \relative c'' {
+      \time 4/4
+      \qbeam
+      g8^\markup { with the macro } g g g g g g g |
+      g g g g4 g8 g g |
+    }
+  >>
+  \layout {
+    \context {
+      \Staff
+      \override TimeSignature #'style = #'()
+    }
+  }
 }

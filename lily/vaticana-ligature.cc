@@ -293,11 +293,11 @@ Vaticana_ligature::print (SCM)
 }
 
 ADD_INTERFACE (Vaticana_ligature,
-	       "A vaticana style gregorian ligature",
+	       "A vaticana style Gregorian ligature.",
 
 	       /* properties */
 	       "glyph-name "
-	       "flexa-height " 
+	       "flexa-height "
 	       "flexa-width "
 	       "thickness "
 	       "add-cauda "

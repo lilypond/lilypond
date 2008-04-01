@@ -50,7 +50,7 @@ A pitch name is specified using lowercase letters@tie{}@code{a}
 through@tie{}@code{g}.  The note names @code{c} to @code{b} are
 engraved in the octave below middle C.
 
-@c NOTE: don't use c' here.
+@c don't use c' here.
 @lilypond[verbatim,quote,ragged-right,fragment]
 \clef bass
 c d e f
@@ -77,9 +77,11 @@ d,, d, d c
 
 @seealso
 
-Music Glossary: @rglos{Pitch names}.
+Music Glossary:
+@rglos{Pitch names}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
 
 @node Relative octave entry
@@ -195,11 +197,16 @@ that each interval contains.
 
 @seealso
 
-Music Glossary: @rglos{fifth}, @rglos{interval}, @rglos{Pitch names}.
+Music Glossary:
+@rglos{fifth},
+@rglos{interval},
+@rglos{Pitch names}.
 
-Notation Reference: @ref{Octave checks}.
+Notation Reference:
+@ref{Octave checks}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
 
 @funindex \transpose
@@ -213,7 +220,7 @@ The relative conversion will not affect @code{\transpose},
 To use relative mode within transposed music, an additional
 @code{\relative} must be placed inside @code{\transpose}.
 
-@c NOTE: DEPRECATED
+@c DEPRECATED
 If no @var{startpitch} is specified for @code{\relative},
 then@tie{}@code{c'} is assumed.  However, this is a deprecated
 option and may disappear in future versions, so its use is
@@ -228,6 +235,7 @@ discouraged.
 @cindex key signature
 @cindex clef
 
+@c duplicated in Key signature and Accidentals
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
 signatures and clefs determine how this raw input is displayed.
@@ -315,16 +323,24 @@ cis
 
 @seealso
 
-Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
-@rglos{double flat}, @rglos{Pitch names}, @rglos{quarter-tone}.
+Music Glossary:
+@rglos{sharp},
+@rglos{flat},
+@rglos{double sharp},
+@rglos{double flat},
+@rglos{Pitch names},
+@rglos{quarter-tone}.
 
-Learning Manual: @rlearning{Accidentals and key signatures}.
+Learning Manual:
+@rlearning{Accidentals and key signatures}.
 
-Notation Reference: @ref{Automatic accidentals},
+Notation Reference:
+@ref{Automatic accidentals},
 @ref{Musica ficta accidentals},
 @ref{Note names in other languages}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
 
 @knownissues
@@ -436,9 +452,11 @@ languages, no special names have been defined yet.
 
 @seealso
 
-Music Glossary: @rglos{Pitch names}.
+Music Glossary:
+@rglos{Pitch names}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
 
 @node Changing multiple pitches
@@ -513,7 +531,8 @@ check fail, but the second one does not fail.
 
 @seealso
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
 
 @node Transpose
@@ -622,11 +641,14 @@ see @ref{Instrument transpositions}.
 
 @seealso
 
-Notation Reference: @ref{Instrument transpositions}.
+Notation Reference:
+@ref{Instrument transpositions}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Internals Reference: @internalsref{TransposedMusic}.
+Internals Reference:
+@internalsref{TransposedMusic}.
 
 @funindex \transpose
 @funindex \chordmode
@@ -759,11 +781,14 @@ c2 c
 
 @seealso
 
-Notation Reference: @ref{Ancient clefs}.
+Notation Reference:
+@ref{Ancient clefs}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Internals Reference: @internalsref{Clef}.
+Internals Reference:
+@internalsref{Clef}.
 
 
 @node Key signature
@@ -772,6 +797,7 @@ Internals Reference: @internalsref{Clef}.
 @cindex key signature
 @funindex \key
 
+@c duplicated in Key signature and Accidentals
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
 signatures and clefs determine how this raw input is displayed.
@@ -803,7 +829,7 @@ is done with the @code{\key} command:
 Here, @var{mode} should be @code{\major} or @code{\minor} to get a
 key signature of @var{pitch}-major or @var{pitch}-minor,
 respectively.  You may also use the standard mode names, also
-called @q{church modes}: @code{\ionian}, @code{\dorian},
+called @notation{church modes}: @code{\ionian}, @code{\dorian},
 @code{\phrygian}, @code{\lydian}, @code{\mixolydian},
 @code{\aeolian}, and @code{\locrian}.
 
@@ -826,13 +852,18 @@ fis
 
 @seealso
 
-Music Glossary: @rglos{church mode}, @rglos{scordatura}.
+Music Glossary:
+@rglos{church mode},
+@rglos{scordatura}.
 
-Learning Manual: @rlearning{Accidentals and key signatures}.
+Learning Manual:
+@rlearning{Accidentals and key signatures}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Internals Reference: @internalsref{KeyCancellation},
+Internals Reference:
+@internalsref{KeyCancellation},
 @internalsref{KeySignature}, @internalsref{Key_engraver}.
 
 
@@ -868,11 +899,14 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 
 @seealso
 
-Music Glossary: @rglos{octavation}.
+Music Glossary:
+@rglos{octavation}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Internals Reference: @internalsref{OttavaBracket}.
+Internals Reference:
+@internalsref{OttavaBracket}.
 
 
 
@@ -958,11 +992,15 @@ c2 g
 
 @seealso
 
-Music Glossary: @rglos{concert pitch}, @rglos{transposing instrument}.
+Music Glossary:
+@rglos{concert pitch},
+@rglos{transposing instrument}.
 
-Notation Reference: @ref{Quoting other voices}, @ref{Transpose}.
+Notation Reference:
+@ref{Quoting other voices}, @ref{Transpose}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
 
 @node Automatic accidentals
@@ -1068,7 +1106,7 @@ both staves.
 @end example
 
 
-@c NOTE: don't use verbatim in this table.
+@c don't use verbatim in this table.
 @table @code
 @item default
 This is the default typesetting behavior.  It corresponds to
@@ -1668,9 +1706,11 @@ musicB = {
 
 @seealso
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Internals Reference: @internalsref{Accidental_engraver},
+Internals Reference:
+@internalsref{Accidental_engraver},
 @internalsref{Accidental}, @internalsref{AccidentalSuggestion},
 @internalsref{AccidentalPlacement}, @internalsref{GrandStaff} and
 @internalsref{PianoStaff}, @internalsref{Staff}.
@@ -1736,11 +1776,14 @@ printed if they are not part of the key signature.
 
 @seealso
 
-Music Glossary: @rglos{ambitus}.
+Music Glossary:
+@rglos{ambitus}.
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Internals Reference: @internalsref{Ambitus},
+Internals Reference:
+@internalsref{Ambitus},
 @internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
 @internalsref{AmbitusAccidental}, @internalsref{Ambitus_engraver},
 @internalsref{Staff}, @internalsref{Voice}.
@@ -1801,11 +1844,14 @@ To see all note head styles, see @ref{Note head styles}.
 
 @seealso
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Notation Reference: @ref{Note head styles}.
+Notation Reference:
+@ref{Note head styles}.
 
-Internals Reference: @internalsref{NoteHead},
+Internals Reference:
+@internalsref{NoteHead},
 @internalsref{LedgerLineSpanner}.
 
 
@@ -1849,11 +1895,14 @@ staff size}.
 
 @seealso
 
-Notation Reference: @ref{Setting the staff size}.
+Notation Reference:
+@ref{Setting the staff size}.
 
-Snippets: @lsrdir{Pitches,Pitches},
+Snippets:
+@lsrdir{Pitches,Pitches},
 
-Internals Reference: @internalsref{NoteHead}.
+Internals Reference:
+@internalsref{NoteHead}.
 
 
 @node Shape note heads
@@ -1887,19 +1936,27 @@ c,8 d4 e8 a2 g1
 Shapes are typeset according to the step in the scale, where
 the base of the scale is determined by the @code{\key} command.
 
+@predefined
+
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+@code{\aikenHeads}, @code{\sacredHarpHeads}
+
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{applying-noteheads-styles-depending-on-the-step-of-the-scale.ly}
+{applying-notehead-styles-depending-on-the-step-of-the-scale.ly}
 
 @noindent
 To see all note head styles, see @ref{Note head styles}.
 
 @seealso
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Notation Reference: @ref{Note head styles}.
+Notation Reference:
+@ref{Note head styles}.
 
 
 @node Improvisation
@@ -1938,9 +1995,11 @@ rhythm.  Such note heads can be created:
 
 @seealso
 
-Snippets: @lsrdir{Pitches,Pitches}.
+Snippets:
+@lsrdir{Pitches,Pitches}.
 
-Internals Reference: @internalsref{Pitch_squash_engraver},
+Internals Reference:
+@internalsref{Pitch_squash_engraver},
 @internalsref{Voice}.
 
 

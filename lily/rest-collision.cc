@@ -272,11 +272,12 @@ Rest_collision::calc_positioning_done (SCM smob)
 }
 
 ADD_INTERFACE (Rest_collision,
-	       "Move around ordinary rests (not multi-measure-rests) to avoid "
-	       "conflicts.",
+	       "Move around ordinary rests (not multi-measure-rests) to avoid"
+	       " conflicts.",
 
 	       /* properties */
 	       "minimum-distance "
 	       "positioning-done "
-	       "elements");
+	       "elements "
+	       );
 

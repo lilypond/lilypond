@@ -139,16 +139,25 @@ voiceNeutralStyle = {
 }
 
 	
-tiny = 
-\set fontSize = #-2
+tiny = {
+  \set fontSize = #-2
+}
 
-small = 
-\set fontSize = #-1
+small = {
+  \set fontSize = #-1
+}
 
 normalsize = {
   \set fontSize = #0
 }
 
+large = {
+  \set fontSize = #1
+}
+
+huge = {
+  \set fontSize = #2
+}
 
 %% End the incipit and print a ``normal line start''.
 endincipit =  \context Staff {
@@ -174,6 +183,21 @@ textLengthOff = {
 showStaffSwitch = \set followVoice = ##t
 hideStaffSwitch = \set followVoice = ##f
 
+expandFullBarRests = {
+  \set Score.skipBars = ##f
+}
+
+compressFullBarRests = {
+  \set Score.skipBars = ##t
+}
+
+numericTimeSignature = {
+  \override Staff.TimeSignature #'style = #'()
+}
+
+defaultTimeSignature = {
+  \revert Staff.TimeSignature #'style
+}
 
 
 % For drawing vertical chord brackets with \arpeggio

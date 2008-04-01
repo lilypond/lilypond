@@ -66,9 +66,8 @@ Output_property_engraver::Output_property_engraver ()
 
 ADD_ACKNOWLEDGER (Output_property_engraver, grob);
 ADD_TRANSLATOR (Output_property_engraver,
-
 		/* doc */
-		"Apply a procedure to any grob acknowledged. ",
+		"Apply a procedure to any grob acknowledged.",
 		
 		/* create */
 		"",
@@ -77,4 +76,5 @@ ADD_TRANSLATOR (Output_property_engraver,
 		"",
 		
 		/* write */
-		"");
+		""
+		);
