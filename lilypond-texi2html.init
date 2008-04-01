@@ -19,6 +19,50 @@ sub print_element_info($)
 }
 
 
+# Convert a given node name to its proper file name (normalization as explained
+# in the texinfo manual:
+# http://www.gnu.org/software/texinfo/manual/texinfo/html_node/HTML-Xref-Node-Name-Expansion.html
+sub texinfo_file_name($)
+{
+  my $str = shift;
+  # File name normalization by texinfo:
+  # 1/2: letters and numbers are left unchanged
+  # 3/4: multiple, leading and trailing whitespace is removed
+  $str = main::normalise_space($str);
+  # 5/6: all remaining spaces are converted to '-', all other 7- or 8-bit 
+  #      chars are replaced by _xxxx (xxxx=ascii character code)
+  my @chars = split(//, $str);
+  my $str = '';
+  foreach my $char (@chars) {
+    if ( $char == ' ' ) { # space -> '-'
+      $str .= '-';
+    } elsif ( ('0' le $char and $char le '9' ) or
+              ('A' le $char and $char le 'Z' ) or
+              ('a' le $char and $char le 'z' ) ) { # number or letter
+      $str .= $char;
+    } else {
+      my $ccode = ord($char);
+      my $addstr;
+      if ( ord($char)<= 0xFFFF ) {
+        $addstr = sprintf("_%4x", $ccode);
+      } else {
+        $addstr = sprintf("__%6x", $ccode);
+      }
+      # padding is done by spaces, replace by '0'
+      $addstr =~ s/\ /0/g;
+      $str .= $addstr;
+    }
+  }
+  # 7: if name begins with number, prepend 't_g' (so it starts with a letter)
+  if ($str =~ /^[0-9]/) {
+    $str = 't_g' . $str;
+  }
+  # DONE
+  return $str
+}
+
+
+
 # This function makes sure that files are only generated for numbered sections,
 # but not for unnumbered ones. It is called after texi2html has done its own
 # splitting and simply returns the filename for the node given as first argument
@@ -48,8 +92,8 @@ sub split_at_numbered_sections($$$)
     if ($$element{translationof}) {
       $anchor = main::remove_texi($$element{translationof});
     }
-    # FIXME: Use the same file name normalization as makeinfo does!!!
-    $anchor =~ tr/\ ?:'\\\(\)/-/d;
+    # normalize to the same file name as texinfo
+    $anchor = texinfo_file_name($anchor);
     $$element{id} = $anchor;
     # Numbered sections will get a filename Section_1.1.2, unnumbered sections will use 
     # the file name of the previous numbered section:
@@ -449,18 +493,18 @@ $Texi2HTML::Config::menu_link = \&lilypond_menu_link;
 
 # For split pages, use index(.lang).html as start page!
 if ($Texi2HTML::Config::SPLIT == 'section') {
-  my $lng = $Texi2HTML::THISDOC{'current_lang'};
-  if ($lng and ($lng ne "en")) {
-    $Texi2HTML::Config::TOP_FILE = 'index.'.$lng.'.html';
-  } else {
+#   my $lng = $Texi2HTML::THISDOC{'current_lang'};
+#   if ($lng and ($lng ne "en")) {
+#     $Texi2HTML::Config::TOP_FILE = 'index.'.$lng.'.html';
+#   } else {
     $Texi2HTML::Config::TOP_FILE = 'index.html';
-  }
+#   }
 }
 
-if ($Texi2HTML::THISDOC{'current_lang'}) {
-  $Texi2HTML::Config::EXTENSION = $Texi2HTML::THISDOC{'current_lang'} . "." . 
-        $docu_ext = $Texi2HTML::Config::EXTENSION;;
-}
+# if ($Texi2HTML::THISDOC{'current_lang'}) {
+#   $Texi2HTML::Config::EXTENSION = $Texi2HTML::THISDOC{'current_lang'} . "." . 
+#         $docu_ext = $Texi2HTML::Config::EXTENSION;;
+# }
 
 
 
