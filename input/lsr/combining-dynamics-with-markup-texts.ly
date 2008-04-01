@@ -5,17 +5,13 @@
 \header {
   lsrtags = "expressive-marks, text"
  texidoc = "
-Some dynamics may involve text indications (such as \"più forte\",
-\"piano subito\", etc.). They can be produced using a @code{\\markup}
-block.
+Some dynamics may involve text indications (such as \"più forte\" or
+\"piano subito\"). They can be produced using a @code{\\markup} block.
 " }
 % begin verbatim
-\layout { ragged-right = ##t }
-
-piuf = \markup { \italic "più" \dynamic "f" }
+piuF = \markup { \italic "più" \dynamic "f" }
 
 \relative c'' {
-  c2
-  c-\piuf
+  c2 c-\piuF
 }
 

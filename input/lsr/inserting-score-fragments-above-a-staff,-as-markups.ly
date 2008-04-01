@@ -11,7 +11,7 @@ contains a @code{\\score} block instead of texts or marks.
 % begin verbatim
 tuning = \markup {
   \score {
-    \new Staff \with { \remove Time_signature_engraver }
+    \new Staff \with { \remove "Time_signature_engraver" }
     {
       \clef bass  <c, g, d g>1
     }

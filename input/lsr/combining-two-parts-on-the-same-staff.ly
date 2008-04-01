@@ -14,7 +14,7 @@ be switched off. However, you'd better not use it if there are any
 solos, as they won't be indicated. In such cases, you may simply want
 to use standard LilyPond polyphony. This snippet presents the three
 ways two parts can be printed on a same staff: standard polyphony,
-@code{\\partcombine} whitout texts, and @code{\\partcombine} with texts.
+@code{\\partcombine} without texts, and @code{\\partcombine} with texts.
 
 
 

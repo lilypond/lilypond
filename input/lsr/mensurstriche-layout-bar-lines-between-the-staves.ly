@@ -11,13 +11,16 @@ a @code{ChoirStaff}. The bar line on staves is blanked out with an
 @code{\\override} command.
 " }
 % begin verbatim
-global = {\override Staff.BarLine #'transparent = ##t
-          s1 s
-          %the final bar line is not interupted
-          \once \override Staff.BarLine #'transparent = ##f
-          \bar "|."}
-\new StaffGroup
-\relative c'' <<
-  \new Staff {<< \global { c1 c } >>}
-  \new Staff {<< \global { c c } >>}
->>
+global = {
+  \override Staff.BarLine #'transparent = ##t
+  s1 s
+  % the final bar line is not interrupted
+  \revert Staff.BarLine #'transparent
+  \bar "|."
+}
+\new StaffGroup \relative c'' {
+  <<
+    \new Staff { << \global { c1 c } >> }
+    \new Staff { << \global { c c } >> }
+  >>
+}

@@ -7,7 +7,7 @@
  texidoc = "
 If you want to place an exiting segno sign and add text like \"D.S. al
 Coda\" next to it where usually the staff lines are you can use this
-snippet. The coda will resume in a new line. Theres a variation
+snippet. The coda will resume in a new line. There is a variation
 documented in this snippet, where the coda will remain on the same
 line.
 " }

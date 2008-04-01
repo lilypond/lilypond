@@ -10,25 +10,14 @@ of  a piece.
 " }
 % begin verbatim
 \score {
-	<<
-		\new Staff \relative c''{ c1 c c c c }
-		\new StaffGroup \relative c''{ 
-			\new Staff 
-			c1 c
-			<< c1 \new Staff { c1 } >>
-			c
-		}
-	>>
-  	\layout {
-		
-		\context{
-			\Score
-
-		}
-	}
+  <<
+    \new Staff \relative c'' { c1 c c c c }
+    \new StaffGroup \relative c'' {
+      \new Staff {
+        c1 c
+        << c1 \new Staff { \once \override Staff.TimeSignature #'stencil = ##f c1 } >>
+        c
+      }
+    }
+  >>
 }
-
-
-
-
-

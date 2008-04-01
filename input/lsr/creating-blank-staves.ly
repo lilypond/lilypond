@@ -11,10 +11,6 @@ the @code{Staff} context the @code{Time_signature_engraver}, the
 @code{Clef_engraver} and the @code{Bar_engraver}. 
 " }
 % begin verbatim
-\header {
-  tagline = ""
-}
-
 #(set-global-staff-size 20)
 
 \score {
@@ -25,22 +21,22 @@ the @code{Staff} context the @code{Time_signature_engraver}, the
     indent = 0\in
     \context {
       \Staff
-      \remove Time_signature_engraver
-      \remove Clef_engraver
-      \remove Bar_engraver
+      \remove "Time_signature_engraver"
+      \remove "Clef_engraver"
+      \remove "Bar_engraver"
     }
     \context {
       \Score
-      \remove Bar_number_engraver
+      \remove "Bar_number_engraver"
     }
   }
 }
 
 \paper {
   #(set-paper-size "letter")
-  raggedlastbottom = ##f
-  linewidth = 7.5\in
-  leftmargin = 0.5\in
-  bottommargin = 0.25\in
-  topmargin = 0.25\in
+  ragged-last-bottom = ##f
+  line-width = 7.5\in
+  left-margin = 0.5\in
+  bottom-margin = 0.25\in
+  top-margin = 0.25\in
 }

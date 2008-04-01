@@ -5,11 +5,11 @@
 \header {
   lsrtags = "pitches"
  texidoc = "
-This Scheme-based snippet allows you to generate 24 random notes (or as
-many as you want), based on the current time (or any randomish number
-you might wish to specify instead, so you can obtain the same random
-notes each time): i.e. to get different random notes patterns, just
-change this number.
+This Scheme-based snippet generates 24 random notes (or as many as
+required), based on the current time (or any randomish number you might
+wish to specify instead, so you can obtain the same random notes each
+time): i.e., to get different random notes patterns, just change this
+number.
 " }
 % begin verbatim
 \score {

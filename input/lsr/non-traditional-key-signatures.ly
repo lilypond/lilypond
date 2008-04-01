@@ -8,8 +8,8 @@
 The commonly used @code{\\key} command sets the @code{keySignature}
 property, in the @code{Staff} context.
 
-However, non-standard key signatures can be specified by setting this
-property directly. The format of this command is a list:
+For non-standard key signatures, you can set this property directly.
+The format of this command is a list:
 
 @code{ \\set Staff.keySignature = #`(((octave . step) . alter) ((octave
 . step) . alter) ...) } where, for each element in the list,
@@ -30,6 +30,7 @@ whole-tone scale:
 % begin verbatim
 \relative c' {
   \set Staff.keySignature = #`(((0 .  3) . ,SHARP) ((0 . 5) . ,FLAT) ((0 . 6) . ,FLAT))
-  c d e fis aes bes c2
+  c4 d e fis
+  aes bes c2
 }
 
