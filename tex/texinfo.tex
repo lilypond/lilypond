@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2008-03-17.10}
+\def\texinfoversion{2008-03-31.10}
 %
 % Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -1367,8 +1367,11 @@ output) for that.)}
           \openin 1 #1.jpeg \ifeof 1
             \openin 1 #1.JPG \ifeof 1
               \openin 1 #1.pdf \ifeof 1
-                \errhelp = \nopdfimagehelp
-                \errmessage{Could not find image file #1 for pdf}%
+                \openin 1 #1.PDF \ifeof 1
+                  \errhelp = \nopdfimagehelp
+                  \errmessage{Could not find image file #1 for pdf}%
+                \else \gdef\pdfimgext{PDF}%
+                \fi
               \else \gdef\pdfimgext{pdf}%
               \fi
             \else \gdef\pdfimgext{JPG}%
@@ -1382,7 +1385,7 @@ output) for that.)}
       \closein 1
     \endgroup
     %
-    % without \immediate, pdftex seg faults when the same image is
+    % without \immediate, ancient pdftex seg faults when the same image is
     % included twice.  (Version 3.14159-pre-1.0-unofficial-20010704.)
     \ifnum\pdftexversion < 14
       \immediate\pdfimage
@@ -7437,14 +7440,18 @@ end
   % If the image is by itself, center it.
   \ifvmode
     \imagevmodetrue
-    \nobreak\bigskip
+    \nobreak\medskip
     % Usually we'll have text after the image which will insert
     % \parskip glue, so insert it here too to equalize the space
     % above and below.
     \nobreak\vskip\parskip
     \nobreak
-    \line\bgroup
   \fi
+  %
+  % Leave vertical mode so that indentation from an enclosing
+  % environment such as @quotation is respected.  On the other hand, if
+  % it's at the top level, we don't want the normal paragraph indentation.
+  \noindent
   %
   % Output the image.
   \ifpdf
@@ -7456,7 +7463,7 @@ end
     \epsfbox{#1.eps}%
   \fi
   %
-  \ifimagevmode \egroup \bigbreak \fi  % space after the image
+  \ifimagevmode \medskip \fi  % space after the standalone image
 \endgroup}
 
 
