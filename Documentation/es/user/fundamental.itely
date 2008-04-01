@@ -431,7 +431,7 @@ correctamente, como en: @code{<< [ @{ ( .. ) @} ] >>}, de manera que
 los paréntesis que se cierran deben encontrarse en el orden
 exactamente opuesto al de los paréntesis que se abren.  Esto
 @strong{es} un requisito para los tres tipos de paréntesis que se
-describen mediante la palabra @a{Encierra} en la tabla anterior: se
+describen mediante la palabra @q{Encierra} en la tabla anterior: se
 deben anidar correctamente.  Sin embargo, el resto de las llaves y
 corchetes, que se encuentran descritos por la palabra @q{Marca} en la
 misma tabla anterior, @strong{no} tienen por qué anidarse
