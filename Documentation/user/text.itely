@@ -270,8 +270,8 @@ other than bar lines.  These objects include @code{ambitus},
 @code{key-signature}, and @code{time-signature}.
 
 
-In such cases, text marks will be, by default, horizontally centered
-above the object. However, this can be changed, as demonstrated
+In such cases, text marks will be horizontally centered
+above the object. However this can be changed, as demonstrated
 on the second line of this example (in a score with multiple staves,
 this setting should be done for all the staves).
 
@@ -326,7 +326,7 @@ this setting should be done for all the staves).
 @end lilypond
 
 Although text marks are normally only printed above the topmost
-staff, you may alter this to print them on every staff,
+staff, you may alter this to print them on every staff:
 
 @lilypond[quote,ragged-right,verbatim,relative=2]
 {
@@ -360,10 +360,6 @@ Internals Reference: @internalsref{RehearsalMark}.
 If a mark is entered at the end of the last bar of the score (where
 there is no next line), then the mark will not be printed at
 all.
-
-@c TODO: add this here? -vv
-@c @node Text marks
-@c @subsubsection Text marks
 
 @node Text markup
 @subsection Text markup
