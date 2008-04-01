@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: b0a1d7fa5e1b8371a0d1f1ed1dfd3fc9bc4881d2
+    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -47,7 +47,7 @@ entrada, consulte @ruser{File structure}.
 @node Introduction to the LilyPond file structure
 @subsection Introduction to the LilyPond file structure
 
-Un ejemplo básico de archivo de entrada de lilypond es el siguiente:
+Un ejemplo básico de archivo de entrada de LilyPond es el siguiente:
 
 @example
 \version @w{"@version{}"}
@@ -130,10 +130,10 @@ cosas, tales como
 @end example
 
 @noindent
-Hay personas que ponen algunos de estos comandos fuera del
-bloque @code{\score} (por ejemplo, @code{\header} se
-sitúa con frecuencia por encima del @code{\score}.  Es tan sólo
-otra abreviatura que LilyPond acepta.
+Hay personas que ponen algunas de estas instrucciones fuera del bloque
+@code{\score} (por ejemplo, @code{\header} se sitúa con frecuencia por
+encima del @code{\score}.  Es tan sólo otra abreviatura que LilyPond
+acepta.
 
 Dos instrucciones más que no hemos visto aún son @code{\layout @{ @}}
 y @code{\midi @{@}}.  Si aparecen tal y como se muestran aquí, hacen
@@ -355,7 +355,7 @@ fragmento de tras notas:
 
 @noindent
 Advierta que el tamaño de la clave es igual al que se imprime en un
-cambio de clave (ligemamente menor que la clave al principio de una
+cambio de clave (ligeramente menor que la clave al principio de una
 línea).  Esto es normal para cualquier clave que se imprime en la
 mitad de una línea.
 
@@ -382,7 +382,7 @@ Este ejemplo utiliza @code{\with}, que se explica en todo detalle más
 adelante.  Es un medio de modificar el comportamiento predeterminado
 de un solo pentagrama.  Aquí, dice que el pentagrama nuevo se debe
 colocar por encima del pentagrama llamado @qq{main} en vez de la
-posición predeterminada que seería por debajo.
+posición predeterminada que sería por debajo.
 
 Los fragmentos de ossia se escriben a menudo sin clave y sin
 indicación de compás, y generalmente en un tipo más pequeño.  Esto
@@ -431,7 +431,7 @@ correctamente, como en: @code{<< [ @{ ( .. ) @} ] >>}, de manera que
 los paréntesis que se cierran deben encontrarse en el orden
 exactamente opuesto al de los paréntesis que se abren.  Esto
 @strong{es} un requisito para los tres tipos de paréntesis que se
-describen mediante la parabla @q{Encierra} en la tabla anterior: se
+describen mediante la palabra @a{Encierra} en la tabla anterior: se
 deben anidar correctamente.  Sin embargo, el resto de las llaves y
 corchetes, que se encuentran descritos por la palabra @q{Marca} en la
 misma tabla anterior, @strong{no} tienen por qué anidarse
@@ -439,7 +439,7 @@ estrictamente con ninguno de los otros paréntesis.  De hecho, éstos no
 son paréntesis en el sentido de que encierran algo: simplemente son
 marcadores que indican dónde empieza o finaliza algo.
 
-Asíi pues, por ejemplo, una ligadura de fraseo puede dar comienzo
+Así pues, por ejemplo, una ligadura de fraseo puede dar comienzo
 antes de una barra insertada manualmente, y acabar antes de que acabe
 la barra (algo que quizá no sea muy musical, pero es posible):
 
@@ -448,7 +448,7 @@ la barra (algo que quizá no sea muy musical, pero es posible):
 @end lilypond
 
 En general, los distintos tipos de corchete, y los implicados en
-grupos especiiales, ligaduras de unión y notas de adorno, se pueden
+grupos especiales, ligaduras de unión y notas de adorno, se pueden
 mezclar con total libertad.  Este ejemplo muestra una barra que se
 extiende hacia el interior de un grupo de valoración especial (línea
 1), una ligadura de expresión que se prolonga hasta el interior de un
@@ -494,7 +494,7 @@ y más fundamentales reciben el nombre de @q{Voice contexts}
 voces reciben a veces el nombre de @q{layers} («capas») en otros
 programas de edición de partituras.
 
-De hechho, una capa o contexto de voz es la única que puede contener
+De hecho, una capa o contexto de voz es la única que puede contener
 música.  Si un contexto de voz no se declara explícitamente, se crea
 uno de forma automática, como vimos al comienzo de este capítulo.
 Ciertos instrumentos como el oboe solamente pueden tocar una nota cada
@@ -513,7 +513,7 @@ En primer lugar observe este ejemplo de cuatro acordes:
 <d g>4 <d fis> <d a'> <d g>
 @end lilypond
 
-Esto se puede expresar utilizand sólo símbolos de acorde con ángulos
+Esto se puede expresar utilizando sólo símbolos de acorde con ángulos
 simples, @code{< ... >}, y para este propósito tan sólo se necesita
 una voz.  Pero suponga que el Fa sostenido fuese realmente una corchea
 seguida de un Sol corchea, una nota de paso que conduce al La.  Ahora
@@ -529,7 +529,7 @@ Veamos cómo se hace esto dentro de la sintaxis de entrada de LilyPond.
 @funindex << \\ >>
 @funindex \\
 
-La forma más fácil de introducir fragmentos con maś de una voz en un
+La forma más fácil de introducir fragmentos con más de una voz en un
 solo pentagrama es escribir cada voz como una secuencia (con
 @code{@{...@}}), y combinarlas simultáneamente con ángulos dobles,
 @code{<<...>>}.  Los fragmentos también se deben separar mediante una
@@ -539,7 +539,7 @@ errores.  Esta técnica se adapta especialmente bien a piezas de música
 que son mayormente monofónicas pero ocasionalmente tienen cortas
 secciones de polifonía.
 
-He aquí cómo dividimos los acordes anteriore en dos voces y añadimos
+He aquí cómo dividimos los acordes anteriores en dos voces y añadimos
 la nota de paso y la ligadura:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
@@ -584,7 +584,7 @@ voces separadas, de la siguiente manera:
 
 
 Este ejemplo tiene sólo dos voces, pero la misma construcción se puede
-usar para codificar tres o más voces mediante la adición de maś
+usar para codificar tres o más voces mediante la adición de más
 separadores de barra invertida.
 
 Los contextos de voz llevan los nombres de @code{"1"}, @code{"2"},
@@ -608,12 +608,12 @@ llamaremos a esto la @emph{construcción simultánea}.  Las ligaduras
 (de prolongación y de expresión) solamente pueden conectar notas que
 estén dentro de la misma voz, luego las ligaduras no pueden entrar o
 salir de una construcción simultánea.  A la inversa, las voces
-paraleleas de construcciones simultáneas distintas sobre el mismo
+paralelas de construcciones simultáneas distintas sobre el mismo
 pentagrama, son la misma voz.  Otras propiedades relativas a las voces
 también conllevan construcciones simultáneas.  A continuación vemos el
 mismo ejemplo, con colores y cabezas distintos para cada voz.  Observe
 que los cambios en una voz no afectan a otras voces, pero persisten
-más tarde dentro de la misma voz.  Observe tambiénn que las notas
+más tarde dentro de la misma voz.  Observe también que las notas
 ligadas se pueden dividir entre las mismas voces de dos
 construcciones, como se indica aquí en la voz de triángulos azules.
 
@@ -660,7 +660,7 @@ and color of objects}.
 La polifonía no cambia la relación de las notas dentro de un bloque
 @code{\relative @{ @}}.  La altura de cada nota aún se calcula con
 relación a la nota que le precede inmediatamente, o a la primera nota
-del acrode precedente.  Así, en
+del acorde precedente.  Así, en
 
 @example
 \relative c' @{ notaA << < notaB notaC > \\ notaD >> notaE @}
@@ -693,7 +693,7 @@ Nocturnos de Chopin, Op 32.  Este ejemplo se utilizará en fases
 posteriores dentro del presente capítulo y el siguiente, para ilustrar
 varias técnicas para producir notación, y por tanto le pedimos que
 ignore por ahora cualquier cosa en el código subyacente que le parezca
-misteriorso y tan sólo se concentre en la música y las voces (todas
+misterioso y tan sólo se concentre en la música y las voces (todas
 las complicaciones se explicarán en secciones posteriores).
 
 @c The following should appear as music without code
@@ -718,7 +718,7 @@ las complicaciones se explicarán en secciones posteriores).
 }
 @end lilypond
 
-Con frecuencia, la dirección de las plicas se utiiliza para indicar la
+Con frecuencia, la dirección de las plicas se utiliza para indicar la
 continuidad de dos líneas melódicas simultáneas.  Aquí, todas las
 plicas de las notas agudas se dirigen hacia arriba y las de las notas
 graves hacia abajo.  Ésta es la primera indicación de que se requiere
@@ -729,7 +729,7 @@ comienzan en el mismo tiempo pero tienen distintas duraciones.
 Observe las notas que comienzan en la tercera parte del primer compás.
 El La bemol es una negra con puntillo, el Fa es una negra y el Re
 bemol es una blanca.  Estas notas nos e pueden escribir como un acorde
-porque todas las ntoas de un acorde deben tener la misma duración.
+porque todas las notas de un acorde deben tener la misma duración.
 Tampoco se pueden escribir como notas secuenciales, pues deben
 comenzar al mismo tiempo.  Esta sección del compás requiere tres
 voces, y la práctica común sería escribir todo el compás como tres
@@ -789,7 +789,7 @@ Las direcciones de las plicas se asignan automáticamente de forma que
 las voces de numeración impar reciben las plicas hacia arriba y las de
 numeración par hacia abajo.  Las plicas de las voces 1 y 2 están
 correctas, pero las plicas de la voz 3 debería ir hacia abajo en este
-fragmentoo en particular.  Podemos corregir esto simplemente
+fragmento en particular.  Podemos corregir esto simplemente
 olvidándonos de la voz tres y situando la música en la voz cuatro:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
@@ -876,7 +876,7 @@ articulaciones, anotaciones de texto, puntillos y digitaciones.
 @code{\voiceOne} y @code{\voiceThree} hacen que estos objetos apunten
 hacia arriba, mientras que @code{\voiceTwo} y @code{\voiceFour} los
 hacen apuntar hacia abajo.  Estas instrucciones también producen un
-desplazamientoo horizontal para cada voz cuando es necesario para
+desplazamiento horizontal para cada voz cuando es necesario para
 evitar choques entre las cabezas.  La instrucción @code{\oneVoice}
 devuelve los ajustes de nuevo a los valores normales para una sola
 voz.
@@ -912,7 +912,7 @@ las ligaduras de unión y de expresión y las indicaciones de dinámica:
 
 Una expresión que aparece directamente dentro de @code{<< >>}
 pertenece a la voz principal (pero, observe, @strong{no} dentro de una
-construcción @code{<< \\ >>}).  Esto es útilo cuando aparecen voces
+construcción @code{<< \\ >>}).  Esto es útil cuando aparecen voces
 nuevas mientras la voz principal está sonando.  A continuación podemos
 ver una realización más correcta del ejemplo de la sección anterior.
 Las notas rojas en forma de rombo muestran que la melodía principal
@@ -947,7 +947,7 @@ pueda trazar una ligadura por encima de ellas.
 @cindex anidado de expresiones musicales
 @cindex anidado de construcciones simultáneas
 
-Seon posibles construcciones polifónicas anidadas más profundamente, y
+Son posibles construcciones polifónicas anidadas más profundamente, y
 si una voz aparece sólo brevemente podría haber una forma más natural
 de tipografiar la música.
 
@@ -974,7 +974,7 @@ de tipografiar la música.
 
 Este método de anida voces nuevas brevemente es útil cuando sólo hay
 secciones polifónicas pequeñas, pero cuando todo el pentagrama es muy
-plifónico podría ser más claro usar varias voces todo el tiempo,
+polifónico podría ser más claro usar varias voces todo el tiempo,
 usando notas espaciadoras para pasar por encima de las secciones en
 que una voz está en silencio, como aquí:
 
@@ -1012,7 +1012,7 @@ tiempo en distintas voces, se disponen en dos (y ocasionalmente más)
 columnas para evitar el solapamiento de las cabezas.  Reciben el
 nombre de columnas de notas.  Hay columnas distintas para cada voz, y
 el desplazamiento especificado en curso dependiente de la voz se
-applica a la columna de la nota si en caso contgrario se produjese una
+aplica a la columna de la nota si en caso contrario se produjese una
 colisión.  Esto se puede ver en el ejemplo anterior. En el compás 2 el
 Do en la voz dos está desplazado a la derecha respecto del Re de la
 voz uno, y en el último acorde el Do de la voz tres también está
@@ -1020,19 +1020,19 @@ desplazado a la derecha respecto de las otras notas.
 
 Las instrucciones @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}
 y @code{\shiftOff} especifican el grado en que se deben desplazar las
-ntoas y acordes de la voz si en caso contrariio ocurriese una
+notas y acordes de la voz si en caso contrario ocurriese una
 colisión.  De forma predeterminada, las voces exteriores (normalmente
-las voces uno y dos) llecan especificado @code{\shiftOff}, mientras
+las voces uno y dos) llevan especificado @code{\shiftOff}, mientras
 que las voces interiores (tres y cuatro) tienen @code{\shiftOn}
 especificado.  Cuando se aplica un desplazamiento, las voces uno y
 tres se desplazan hacia la derecha y las voces dos y cuatro se
 desplazan hacia la izquierda.
 
 @code{\shiftOnn} y @code{\shiftOnnn} definen niveles adicionales de
-desplazamiento que se peuden especificar temporalmente para resolver
+desplazamiento que se pueden especificar temporalmente para resolver
 colisiones en situaciones complejas (véase @ref{Real music example}).
 
-Una columna de notas puede contener s´olo una nota (o acorde) de una
+Una columna de notas puede contener sólo una nota (o acorde) de una
 voz con las plicas hacia arriba y una not (o acorde) de una voz con
 las plicas hacia abajo.  Si las notas de dos voces que tienen las
 plicas en la misma dirección se sitúan en la misma posición y las dos
@@ -1070,7 +1070,7 @@ usando el nombre asignado a la voz.
 El barrado automático que LilyPond usa de forma predeterminada
 funciona bien para la música instrumental, pero no ten bien para
 música con letra, donde o bien el barrado no se necesita en absoluto,
-o bien se utiliza para indicar los melismaas de la letra.  En el
+o bien se utiliza para indicar los melismas de la letra.  En el
 ejemplo anterior hemos utilizado la instrucción @code{\autoBeamOff}
 para desactivar el barrado automático.
 
@@ -1166,7 +1166,7 @@ VerseFour  = \lyricmode {
 @section Contexts and engravers
 
 Los contextos y grabadores se han mencionado de manera informal en
-secciones anteriore; ahora tan sólo vamos a ver estos conceptos con
+secciones anteriores; ahora tan sólo vamos a ver estos conceptos con
 más detalle, pues son importantes en el ajuste fino de la salida de
 LilyPond.
 
@@ -1292,7 +1292,7 @@ contexto.  Hemos visto esto en la sección acerca de la letra, en
 @cindex grabadores
 
 Todas y cada una de las marcas de la salida impresa de una partitura
-hecha con LiilyPond está producida por un @code{Engraver} (grabador).
+hecha con LilyPond está producida por un @code{Engraver} (grabador).
 Así, tenemos un grabador para imprimir pentagramas, otro para imprimir
 las cabezas de las notas, otro para las plicas, otro para las barras,
 etc, etc.  ¡En total hay más de 120 grabadores!  Afortunadamente, para
@@ -1402,7 +1402,7 @@ Hay muchas más que las que se muestran aquí.
   @tab Valor de ejemplo
 @item extraNatural
   @tab Booleano
-  @tab Se es verdadero, poner becuadros adicionales antes de las alteraciones
+  @tab Si es verdadero, poner becuadros adicionales antes de las alteraciones
   @tab @code{#t}, @code{#f}
 @item currentBarNumber
   @tab Entero
@@ -1474,7 +1474,7 @@ cualquier @q{property} (ficticia) usando cualquier nombre que queramos
 en cualquier contexto que exista, mediante el uso de la instrucción
 @code{\set}.  Pero si el nombre no es conocido para LilyPond, no
 producirá ninguna acción.  Esta es una de las razones por las que es
-muy recomendable ussar un editor que sea sensible al contexto y con
+muy recomendable usar un editor que sea sensible al contexto y con
 resaltado de la sintaxis para la edición de archivos de LilyPond, como
 por ejemplo Vim, Jedit, ConTEXT o Emacs, ya que los nombres de
 propiedades desconocidas se resaltarán de forma distinta.
@@ -1549,7 +1549,7 @@ siempre precedidos de un símbolo de cuadradillo, @code{#}, mientras
 que un valor booleano verdadero o falso se especifica mediante ##t y
 ##f, con dos cuadradillos.  Una propiedad de texto se debe encerrar
 entre comillas dobles, como antes, aunque veremos más adelante que el
-texto realmente se peude especificar de una dorma mucho más general
+texto realmente se puede especificar de una forma mucho más general
 utilizando la potentísima instrucción @code{markup}.
 
 
@@ -1799,11 +1799,11 @@ melodia = \relative c' @{
 @}
 @end example
 
-No necesitamos dos comandos @code{\version}.  Vamos a necesitar la
-sección @code{melodia}.  No queremos dos secciones @code{\score} (si
-tuviésemos dos @code{\score}s, acabaríamos con las dos particellas por
-separado.  Queremos las dos juntas, como un dúo.  Dentro de la sección
-@code{\score}, no nos hacen falta dos @code{\layout} ni dos
+No necesitamos dos instrucciones @code{\version}.  Vamos a necesitar
+la sección @code{melodia}.  No queremos dos secciones @code{\score}
+(si tuviésemos dos @code{\score}s, acabaríamos con las dos particellas
+por separado.  Queremos las dos juntas, como un dúo.  Dentro de la
+sección @code{\score}, no nos hacen falta dos @code{\layout} ni dos
 @code{\midi}.
 
 Si nos limitásemos a copiar y pegar la sección @code{melodia},
@@ -2203,7 +2203,7 @@ el título, nombre del compositor, etc., después van las definiciones
 de las variables, y finalmente el bloque de partitura.  Comencemos a
 verlas por encima y más tarde completaremos los detalles.
 
-Utilizaremos los dos primeros compases del peludio de Bach basado en
+Utilizaremos los dos primeros compases del preludio de Bach basado en
 @emph{Jesu, meine Freude}, que está escrito para órgano con dos
 manuales y pedal.  Tiene estos dos compases de música al final de la
 sección.  La parte del manual superior tiene dos voces, y el inferior
@@ -2243,7 +2243,7 @@ segunda sólo una.
     \new Staff = "ManualUno" <<
       \new Voice @{ \MusicaManualUnoVozUno @}
       \new Voice @{ \MusicaManualUnoVozDos @}
-    >>  % fun del contexto de Staff ManualUno
+    >>  % fin del contexto de Staff ManualUno
     \new Staff = "ManualDos" <<
       \new Voice @{ \MusicaManualDos @}
     >>  % fin del contexto de Staff ManualDos
