@@ -48,7 +48,8 @@ sub split_at_numbered_sections($$$)
     if ($$element{translationof}) {
       $anchor = main::remove_texi($$element{translationof});
     }
-    $anchor =~ tr/\ ?:'/-/d;
+    # FIXME: Use the same file name normalization as makeinfo does!!!
+    $anchor =~ tr/\ ?:'\\\(\)/-/d;
     $$element{id} = $anchor;
     # Numbered sections will get a filename Section_1.1.2, unnumbered sections will use 
     # the file name of the previous numbered section:
