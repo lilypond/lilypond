@@ -490,7 +490,8 @@ commands, tagged expressions can be filtered.  For example,
 @end example
 would yield
 
-@lilypondfile[ragged-right,quote]{tag-filter.ly}
+@c FIXME: broken
+@c @lilypondfile[ragged-right,quote]{tag-filter.ly}
 
 The arguments of the @code{\tag} command should be a symbol
 (such as @code{#'score} or @code{#'part}), followed by a
