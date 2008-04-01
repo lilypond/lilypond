@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
+    Translation of GIT committish: d0333749421c9695907a4da61a6e1cd7eafcb726
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,8 +13,10 @@
 @c   ***** Displaying text *****
 
 @c we need this since @q{\} doesn't work with makeinfo 4.8 --
-@c say @q{@value{backslash}} instead
-@set backslash \
+@c say @q{@bs{}} instead
+@macro bs
+\\
+@end macro
 
 @c to get decent quotes in `foo' and ``foo''
 @macro q{TEXT}

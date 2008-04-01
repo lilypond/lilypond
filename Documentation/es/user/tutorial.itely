@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
+    Translation of GIT committish: d0333749421c9695907a4da61a6e1cd7eafcb726
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -86,7 +86,7 @@ el resultado tiene este aspecto:
 }
 @end lilypond
 
-@warning{La música y la letra escrita en el código de entrada de
+@warning{la música y la letra escrita en el código de entrada de
 LilyPond tiene que ir siempre entre @strong{@{ llaves @}}.  Las llaves
 deberían también estar rodeadas por espacios a no ser que se
 encuentren al principio o al final de una línea, para evitar
@@ -115,7 +115,7 @@ Tenga en cuenta que están disponibles varios otros editores de texto
 con un mejor apoyo a la edición de texto de LilyPond.  Para ver más
 información, consulte @rprogram{Text editor support}.
 
-@warning{La primera vez que ejecute LilyPond, tardará un minuto o dos
+@warning{la primera vez que ejecute LilyPond, tardará un minuto o dos
 porque todas las tipografías del sistema han de ser analizadas
 previamente.  ¡Después de esto, LilyPond será mucho más rápido!}
 
@@ -683,9 +683,9 @@ de acuerdo a reglas diferentes.
 @quotation
 @table @asis
 @item Alteraciones accidentales
-ver @ruser{Accidentals} y @ruser{Automatic accidentals}.
+véase @ruser{Accidentals} y @ruser{Automatic accidentals}.
 @item Armadura de la tonalidad
-ver @ruser{Key signature}.
+véase @ruser{Key signature}.
 @end table
 @end quotation
 
@@ -695,8 +695,8 @@ ver @ruser{Key signature}.
 
 @cindex ligaduras de unión
 @subheading Ties
-Una @rglos{tie} se crea adjuntando un carácter tilde @samp{~} a la primera
-nota ligada
+Una @rglos{tie} se crea adjuntando un carácter de tilde curva @samp{~} a la primera
+nota ligada:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 g4~ g c2~
@@ -745,11 +745,11 @@ c2~( c8 fis fis4 ~ fis2 g2)
 @quotation
 @table @asis
 @item Ligaduras de unión
-ver @ruser{Ties}.
+véase @ruser{Ties}.
 @item Ligaduras de expresión
-ver @ruser{Slurs}.
+véase @ruser{Slurs}.
 @item Ligaduras de fraseo
-ver @ruser{Phrasing slurs}.
+véase @ruser{Phrasing slurs}.
 @end table
 @end quotation
 
@@ -811,11 +811,11 @@ c2\< c2\ff\> c2 c2\!
 @quotation
 @table @asis
 @item Articulaciones
-ver @ruser{Articulations}.
+véase @ruser{Articulations}.
 @item Digitaciones
-ver @ruser{Fingering instructions}.
+véase @ruser{Fingering instructions}.
 @item Matices
-ver @ruser{Dynamics}.
+véase @ruser{Dynamics}.
 @end table
 @end quotation
 
@@ -867,9 +867,9 @@ a8[ ais] d[ ees r d] a b
 @quotation
 @table @asis
 @item Barras automáticas
-ver @ruser{Automatic beams}.
+véase @ruser{Automatic beams}.
 @item Barras manuales
-ver @ruser{Manual beams}.
+véase @ruser{Manual beams}.
 @end table
 @end quotation
 
@@ -925,11 +925,11 @@ c2 \acciaccatura b16 c2
 @quotation
 @table @asis
 @item Notas de adorno
-ver @ruser{Grace notes},
+véase @ruser{Grace notes},
 @item Grupos especiales
-ver @ruser{Tuplets},
+véase @ruser{Tuplets},
 @item Anacrusas
-ver @ruser{Partial measures}.
+véase @ruser{Partial measures}.
 @end table
 @end quotation
 
@@ -1008,6 +1008,8 @@ para músicas complejas como las partituras polifónicas.
 
 @subheading Simultaneous music expressions: multiple staves
 
+Glosario musical: @rglos{polyphony}.
+
 Esta técnica es muy útil para la música polifónica.  Para introducir música
 con más voces o con más pentagramas, lo que hacemos es combinar varias expresiones en
 paralelo.  Para indicar que dos voces se deben interpretar al mismo tiempo,
@@ -1031,9 +1033,9 @@ distinto.  A LilyPond no le importa cuánto (o cuán poco) espacio haya
 al comienzo de una línea, pero el establecimiento de márgenes distintos dentro del código de LilyPond, de esta forma, lo
 hace mucho más fácil de leer por nosotros los seres humanos.
 
-@strong{Advertencia}: cada nota se entiende relativa a la
-nota anterior de la entrada, no relativa a la @code{c''} dentro de la
-instrucción inicial @code{\relative}.
+@warning{cada nota se entiende relativa a la nota anterior de la
+entrada, no relativa a la @code{c''} dentro de la instrucción inicial
+@code{@bs{}\relative}.}
 
 
 @subheading Simultaneous music expressions: single staff
@@ -1223,7 +1225,7 @@ Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 
 @seealso
 @quotation
-Ver @ruser{Basic polyphony}.
+Véase @ruser{Basic polyphony}.
 @end quotation
 
 
@@ -1695,7 +1697,7 @@ archivos de LilyPond generados por ordenador.
 @subsection After the tutorial
 
 Después de terminar el tutorial, quizá debería probar a escribir una o
-dos piezas.  Comience con una de las @ref{Templates} y añada algunas
+dos piezas.  Comience con una de las plantillas del @ref{Templates} y añada algunas
 notas.  Si necesita un tipo de notación que no ha sido tratada en el
 tutorial, eche un vistazo a la Referencia de Notación, empezando por
 @ruser{Basic notation}.  Si quiere escribir música para un conjunto
