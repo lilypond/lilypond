@@ -339,6 +339,7 @@ Languages in this order.
 * note value::                  
 * octavation::                      
 * octave::                      
+* octave mark::                      
 * octave marking::                      
 * octave sign::                 
 * ornament::                    
@@ -442,6 +443,7 @@ Languages in this order.
 * unison::                      
 * upbeat::                      
 * voice::                       
+* volta::                       
 * weak beat::                   
 * whole note::                  
 * whole rest::                  
@@ -882,7 +884,7 @@ I: intervallo ascendente,
 F: intervalle ascendant,
 D: steigendes Intervall,
 NL: stijgend interval,
-DK:@w{ }stigende interval,
+DK: stigende interval,
 S: stigande intervall,
 FI: nouseva intervalli.
 
@@ -941,7 +943,7 @@ FI: käsinkirjoitettu nuotti.
 
 @itemize
 
-@item A manuscript in the composer's own hand.
+@item A manuscript written in the composer's own hand.
 
 @item Music prepared for photoreproduction by freehand drawing, with
 the aid of a straightedge ruler and T-square only, which attempts to
@@ -1399,14 +1401,13 @@ DK: akkord,
 S: ackord,
 FI: sointu.
 
-Three or more tones sounding simultaneously.  In traditional European
-music the base chord is a @emph{triad} consisting of 2@w{ }thirds. 
-@emph{Major} (major + minor @ref{third}) as well as @emph{minor}
-(minor + major third) chords may be extended with more thirds. 
-Four-tone @emph{seventh chords} and five-tone @emph{ninth} major
-chords are most often used as dominants (@ref{functional harmony}).  A
-special case is chords having no third above the lower notes to define
-their quality as major or minor.  Such chords are denoted open chords
+Three or more tones sounding simultaneously.  In traditional European music the
+base chord is a @emph{triad} consisting of 2@w{ }thirds. @emph{Major} (major +
+minor @ref{third}) as well as @emph{minor} (minor + major third) chords may be
+extended with more thirds. Four-tone @emph{seventh chords} and five-tone
+@emph{ninth} major chords are most often used as dominants (@ref{functional
+harmony}).  A special case is chords having no third above the lower notes to
+define their quality as major or minor: such chords are called @q{open chords}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -1916,23 +1917,41 @@ FI: ?.
 @enumerate
 
 @item
-A time signature that additively combines two or more unequal meters, e.g.
-"3/8 + 2/8" instead of "5/8". Sometimes called additive time signatures.
-@c  See
-@c @lsr{Rhythms/compound-time-signatures.ly}.
-
-@item
 A meter that includes a triplet subdivision within the beat: see
 @ref{compound meter}.
 
-@end enumerate
+@item
+A time signature that additively combines two or more unequal meters, e.g.
+"3/8 + 2/8" instead of "5/8".  Sometimes called additive time signatures.
 
-@ref{compound meter}
+@lilypond[fragment,line-width=13.0\cm]
+#(define (compound-time grob one two three num)
+  (interpret-markup
+   (ly:grob-layout grob)
+   '(((baseline-skip . 2)
+      (word-space . 1.5)
+      (font-family . number)))
+   (markup
+    #:line ( #:column (one) "+" #:column (two num) "+" #:column (three)))))
+
+  \relative c' {
+    \key f \major
+    #(set-time-signature 8 8 '(3 2 3))
+    \override Staff.TimeSignature  #'stencil
+      = #(lambda (grob) (compound-time grob "3" "2" "3" "8"))
+    #(override-auto-beam-setting '(end 1 8 8 8) 3 8)
+    #(override-auto-beam-setting '(end 1 8 8 8) 5 8)
+    \set Staff.beatGrouping = #'(3 2 3)
+
+   c8 d e f4 d8 c bes | c4 g'8 e c f4. \bar "||"
+  }
+@end lilypond
+
+@end enumerate
 
 @seealso
 
-@ref{meter}.
-@c @lsr{Rhythms/compound-time-signatures.ly}
+@ref{compound meter}, @ref{meter}.
 
 
 @node concert pitch
@@ -3145,36 +3164,33 @@ Dictionary}.
 @item
 In figured (or thorough) bass to indicate that:
 
-	@itemize
+@itemize
 
-	@item The extended note should be held through a change in
-		harmony, when applied to one figure --OR--
+@item The extended note should be held through a change in harmony, when applied
+to one figure --OR--
+@item The chord thus represented should be held above a moving bass line, when
+applied to more than one figure.
+@item These uses were not completely standardized, and some composers used a
+single extender line to indicate the latter case.
 
-	@item The chord thus represented should be held above a moving
-		bass line, when applied to more than one figure.
-
-	@item These uses were not completely standardized, and some
-		composers used a single extender line to indicate the
-		latter case.
-
-	@end itemize
+@end itemize
 
 @item
-In string music to indicate that all notes in the passage thus
-indicated should be played on the same string.  On the violin, for
-example, a series of notes to be played on the G string would be
-indicated @samp{sul G}, another series to be played on the D string
-would be indicated @samp{sul D}, and so on.
+In string music to indicate that all notes in the passage thus indicated should
+be played on the same string.  On the violin, for example, a series of notes to
+be played on the G string would be indicated @samp{sul G}, another series to be
+played on the D string would be indicated @samp{sul D}, and so on.
 
 @item
-With an octave indication (also called @emph{octavation}, q.v.) to indicate that
-a passage is to be played higher or lower by the given number of octaves.
+With an octave mark to indicate that a passage is to be played higher or lower
+by the given number of octaves.
 
 @end itemize
 
 @seealso
 
-@ref{melisma}, @ref{sul G}, @ref{thorough bass}, @ref{octavation}.
+@ref{melisma}, @ref{sul G}, @ref{thorough bass}, @ref{octave mark}, @ref{octave
+marking}.
 
 
 @node F
@@ -4229,11 +4245,11 @@ S: ?,
 FI: ?.
 
 [From Italian, @q{place}].  Instruction to play the following passage at the
-written pitch.  Cancels octavation (q.v.).
+written pitch.  Cancels octave mark (q.v.).
 
 @seealso
 
-@ref{octavation}.
+@ref{octave mark}, @ref{octave marking}.
 
 
 @node long appoggiatura
@@ -4468,11 +4484,33 @@ DK: ?,
 S: ?,
 FI: ?.
 
-The system of music notation that was first developed in the mid-13th
-century, and which forms the basis of modern musical notation.  From its
-creation by Franco of Cologne until the 15th century,
+A system of duration notation whose principles were first established in the
+mid-13th century, and that (with various changes) remained in use until about
+1600.  As such, it forms the basis of the notation of rhythms in Western musical
+notation.
 
-@c TODO: add definition (inc. info on proportional notation)
+Franco of Cologne (ca. 1250) is credited with the first systematic explanation
+of the notation's principles, so the notation of this earliest period is called
+@q{Franconian}.  Franco's system made use of three note values -- long, breve,
+and semibreve -- each of which was normally equivalent to three of the next
+lower note value. 
+
+Then, in the first half of the 14th century, Philippe de Vitry and Jehan de Murs
+added several note values (the minim, semiminim and fusa) and extended Franco's
+principles to govern the relationship between these values.  They also put the
+duple division of note values on an equal footing with the earlier (preferred)
+triple division.
+
+TODO: continue description of French and Italian black notation, and the
+relationship betwixt them.
+
+@b{White or void mensural notation}
+
+In the 15th century, hollow (or void) notes began to substitute for the earlier
+solid black ones, which were then free to assume the function of red (or
+colored) notes in the earlier notation.  ...
+
+TODO: add to definition (including summary info on proportional notation)
 
 @seealso
 
@@ -4492,79 +4530,74 @@ DK: taktart,
 S: taktart,
 FI: aika-arvo.
 
-The basic pattern of @ref{note value}s and @ref{accent}s that remains
-unaltered throughout a composition or a section of it. Meters can be
-@emph{duple} or @emph{triple} depending on how the beat is grouped in
-the composition (or in sections thereof):
+The pattern of note values and accents in a composition or a section thereof.
+There are a couple ways to classify @q{traditional} meter (i.e. not polymeter):
+by grouping beats and by subdividing the primary beat.
+
+@b{By grouping beats}:
 
 @itemize
 
-@item In duple meters, the beat recurs in groups of two.
+  @item @b{duple}: groups of two.
+  @item @b{triple}: groups of three.
+  @item @b{quadruple}: groups of four.  A special case of duple meter.
+  @item @b{quintuple}: groups of five beats.
+  @item @b{sextuple} meter: groups of six.  A special case of:
 
-@item In triple meters, the beat recurs in groups of three.
+    @itemize
+
+      @item duple meter, subdivided in three; or
+      @item triple meter, subdivided in two.
+
+    @end itemize
+
+  @item @b{septuple} meter: groups of seven.
+  @item and so on.
 
 @end itemize
 
-Other recurrence patterns are possible:
+Other than triple meter and its subdivided variants (see below), meters that
+feature odd groupings of beats (e.g. quintuple or septuple meter) are not
+frequently used prior to the 20th Century.
+
+@b{By subdividing the primary beat}:
 
 @itemize
 
-@item Quadruple meter: groups of four.  A special case of duple meter.
+  @item simple: groups of two.
 
-@item Quintuple meter: groups of five
+    @itemize
 
-@item Sextuple meter: groups of six.  A special case of:
+      @item duple: 2/2, 2/4, 2/8
+      @item triple: 3/2, 3/4, 3/8
+      @item quadruple: 4/2, 4/4 (also called common time), 4/8
 
-@itemize
-@item Duple meter, subdivided in three (less frequent); or
-@item Triple meter, subdivided in two (more frequent).
-@end itemize
+    @end itemize
 
-@item Septuple meter: groups of seven.
+  @item compound: groups of three.
 
-@item etc.
+    @itemize
 
-@end itemize
+      @item duple: 6/8
+      @item triple: 9/8
+      @item quadruple: 12/8
 
-Other than quadruple and sextuple meters, these other recurrence
-patterns were not frequently used prior to the 20th Century.
-
-In addition to classification by primary beat grouping, meters can be further
-classified by how the primary beat is subdivided: if in two, the meter is
-@emph{simple}; if in three, the meter is @emph{compound}.
-
-@itemize
-
-@item Simple meter
-
-@itemize
-@item duple: 2/2, 2/4, 2/8
-@item triple: 3/2, 3/4, 3/8
-@item quadruple: 4/2, 4/4 (also called common time), 4/8
-@end itemize
-
-@item Compound meter
-
-@itemize
-@item duple: 6/8
-@item triple: 9/8
-@item quadruple: 12/8
-@end itemize
+    @end itemize	
 
 @end itemize
 
-Time signatures are placed at the beginning of a composition (or
-section) to indicate the meter.  For instance, a piece written in
-simple triple meter with a beat on each quarter note has a time
-signature of 3/4.
+Time signatures are placed at the beginning of a composition (or section) to
+indicate the meter.  For instance, a piece written in simple triple meter with a
+beat on each quarter note is conventionally written with a time signature of
+3/4.  Here are some combinations of the two classifications above:
 
-Simple duple meter:
+Simple duple meter (F.J. Haydn, 1732-1809; or a Croatian folk tune):
 
 @lilypond[fragment,line-width=13.0\cm]
 \relative c'' {
   \time 2/4
-  \key c \major
-  c4. d8 | e4 d | f e | d8 b c4 \bar "||"}
+  \key g \major
+  g8. a16 b8 a | c b a16( fis) g8 | e' d c b | a2 \bar "||"}
 @end lilypond
 
 Simple triple meter:
@@ -4628,9 +4661,13 @@ Compound quadruple meter (P. Yon, 1886-1943):
   \bar "||"}
 @end lilypond
 
+@b{@q{Monometer} vs Polymeter}
+
+TODO: add information from discussion on lilypond-user related to polymeter.
+
 @seealso
 
-@ref{hemiola}, @ref{time signature}
+@ref{accent}, @ref{hemiola}, @ref{note value}, @ref{time signature}
 
 
 @node metronome
@@ -5090,50 +5127,9 @@ dotted notes are also frequently used.
 @node octavation
 @section octavation
 
-ES: a la octava,
-I: all'ottava,
-F: octaviation,
-D: Oktavierung,
-NL: octaveren,
-DK: oktavering,
-S: oktavering,
-FI: oktaavamerkintä.
-
-The use of a phrase or abbreviation with an extender line or bracket to indicate
-that a passage is to be played in a different octave:
-
-@itemize
-
-@item @samp{15ma}: play two octaves higher
-@item @samp{8va}: play one octave higher
-@item @samp{8vb}: play one octave lower
-@item @samp{8va} written below the passage: same as @samp{8vb}
-@item @samp{15vb}: play two octaves lower
-@item @samp{15va} written below the passage: same as @samp{15vb}
-
-@end itemize
-
-Another practice, which may be useful for longer passages, is to indicate the
-different octave with a phrase at the beginning (see below).  When the music
-returns to the written pitch, the octavation is cancelled with the word
-@emph{loco} (q.v.).
-
-To parallel the list above:
-
-@itemize
-
-@item @samp{15ma}: @emph{alla quindicesima (alta)}
-@item @samp{8va}: @emph{all'ottava} or @emph{ottava sopra}
-@item @samp{8vb}: @emph{ottava bassa}, @emph{ottava sotto}
-@item @samp{15vb}: @emph{alla quindicesima (bassa)}
-
-@end itemize
-
-@emph{Quindicesima} can be replaced with @emph{quindecima}, which is Latin.
-
 @seealso
 
-@ref{interval}, @ref{loco}, @ref{octave}.
+@ref{octave marking}.
 
 
 @node octave
@@ -5151,23 +5147,15 @@ FI: oktaavi.
 The interval of an octave, sometimes abbreviated @samp{8ve}.
 
 For uses like @emph{all'ottava} or @emph{8va} with an extender line or
-bracket, or @samp{loco} see octavation.
+bracket, or @samp{loco} see octave marking.
 
 @seealso
 
-@ref{interval}, @ref{octavation}.
+@ref{interval}, @ref{octave marking}.
 
 
-@node octave marking
-@section octave marking
-
-@seealso
-
-@ref{octavation}.
-
-
-@node octave sign
-@section octave sign
+@node octave mark
+@section octave mark
 
 ES: ?,
 I: ?,
@@ -5176,15 +5164,81 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: oktaavamerkki.
 
-Putting 8 or 15 above or below the clef to indicate that the entire part is
-played in the indicated octave: a clef-wide octavation.  An octave sign can be
-applied to any clef, though it is most frequently used with the G and F clefs.
+The phrase, abbreviation, or other mark used (with or without an extender line
+or bracket) to indicate that the music is to be played in a different octave:
+
+@itemize
+
+@item @samp{15ma}: play two octaves higher
+@item @samp{8va}: play one octave higher
+@item @samp{8vb}: play one octave lower
+@item @samp{8va} (written below the passage): same as @samp{8vb}
+@item @samp{15vb}: play two octaves lower
+@item @samp{15va} (written below the passage): same as @samp{15vb}
+
+@end itemize
+
+For longer passages, it may be more practical to mark the octave change at the
+beginning with a phrase (see the list below for examples), but without a bracket
+or extender line.  Then, when the music returns to the written pitch, the octave
+change is cancelled with the word @emph{loco} (q.v.).
+
+To parallel the list above:
+
+@itemize
+
+@item @samp{15ma}: @emph{alla quindicesima (alta)}
+@item @samp{8va}: @emph{all'ottava} or @emph{ottava sopra}
+@item @samp{8vb}: @emph{ottava bassa}, @emph{ottava sotto}
+@item @samp{15vb}: @emph{alla quindicesima (bassa)}
+
+@end itemize
+
+In the phrases above, @emph{quindicesima} is sometimes replaced with
+@emph{quindecima}, which is Latin.
+
+Finally, the music on an entire staff can be marked to be played in a different
+octave by putting an 8 or 15 above or below the clef at the beginning.  This
+octave mark can be applied to any clef, but it is most frequently used with the
+G and F clefs.
 
 @seealso
 
-@ref{G clef}, @ref{F clef}.
+@ref{F clef}, @ref{G clef}, @ref{loco}, @ref{octave marking}.
+
+
+@node octave marking
+@section octave marking
+
+ES: a la octava,
+I: all'ottava,
+F: octaviation,
+D: Oktavierung,
+NL: octaveren,
+DK: oktavering,
+S: oktavering,
+FI: oktaavamerkintä.
+
+The practice of marking music -- an entire staff, a passage, etc. -- to indicate
+that it is to be played in a different octave.  If applied to the clef at the
+beginning of the staff, all music on that staff is to played at the indicated
+octave.
+
+For a list of the specific marks used, see @ref{octave mark}.
+
+@seealso
+
+@ref{interval}, @ref{loco}, @ref{octave}, @ref{octave mark}.
+
+
+@node octave sign
+@section octave sign
+
+@seealso
+
+@ref{octave mark}.
 
 
 @node ornament
@@ -5420,6 +5474,23 @@ DK: tonehøjde,
 S: tonhöjd,
 FI: sävelkorkeus.
 
+@enumerate
+
+@item The perceived quality of a sound that is primarily a function of its
+fundamental frequency.
+
+@item [FR. ton; DE. Ton; ES. tono] Any point on the continuum of musical pitch.
+
+@item [FR. diapason; DE. Kammerton, Stimmung; ES. diapasón] The standardized
+association of a particular frequency with a particular pitch name, e.g., c' =
+256 Hz.
+
+@end enumerate
+
+@seealso
+
+@ref{Pitch names}.
+
 
 @node pizzicato
 @section pizzicato
@@ -5433,8 +5504,8 @@ DK: pizzicato,
 S: pizzicato,
 FI: pizzicato, näppäillen.
 
-Abbr. @emph{pizz}. Play by plucking the strings. (Technique for
-stringed instruments.)
+A technique for stringed instruments, abbr. @emph{pizz}.  To play by plucking
+the strings.
 
 
 @node polymeter
@@ -5474,8 +5545,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-Using two or more metric frameworks simultaneously or in regular
-alternation
+Using two or more metric frameworks simultaneously or in alternation.
 
 @seealso
 
@@ -5494,7 +5564,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-Time signature indicating regularly alternating polymetric time.
+A time signature that indicates regularly alternating polymetric time.
 
 @seealso
 
@@ -5555,10 +5625,10 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[From Latin @emph{proportio}]  In mensural notation, a ratio that
-expresses the relationship between the note values that follow with
-those that precede; or between the note values of a passage and an
-assumed @q{normal} relationship of note values to the metrical pulse.
+[From Latin @emph{proportio}]  In mensural notation, a ratio that expresses the
+relationship between the note values that follow with those that precede; or
+between the note values of a passage and the @q{normal} relationship of note
+values to the metrical pulse.
 
 @c TODO: add an example or two.  O => 4/3, and its modern equivalent
 
@@ -7139,12 +7209,44 @@ FI: ääni, lauluääni.
 
 @itemize
 
-@item Human voices: @ref{soprano}, @ref{mezzo-soprano}, @ref{contralto},
-@ref{tenor}, @ref{baritone}, @ref{bass}.
+@item Human voices:
+
+@itemize
+
+@item @ref{soprano}
+
+@item @ref{mezzo-soprano}
+
+@item @ref{contralto}
+
+@item @ref{tenor}
+
+@item @ref{baritone}
+
+@item @ref{bass}
+
+@end itemize
 
 @item A melodic layer or part of a polyphonic composition.
 
 @end itemize
+
+
+@node volta
+@section volta
+
+ES: ?,
+I: volta,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[From Italian, @q{time} (instance, not duration)].  An ending, such as a first
+or second ending.  LilyPond extends this idea to any number, and allows any text
+(not just a number) -- to serve as the @q{volta} text.
 
 
 @node weak beat
@@ -7248,58 +7350,47 @@ saxophone, and bassoon.
 
 @multitable @columnfractions .12 .22 .22 .22 .22
 
-@headitem lang.
-  @tab note name
+@headitem Lang. @tab note name
   @tab rest name
   @tab note name
   @tab rest name
-@item @strong{US}
-  @tab long
+@item @strong{US} @tab long
   @tab long rest
   @tab breve
   @tab breve rest
-@item @strong{UK}
-  @tab longa
+@item @strong{UK} @tab longa
   @tab longa rest
   @tab breve
   @tab breve rest
-@item @strong{ES}
-  @tab longa
+@item @strong{ES} @tab longa
   @tab silencio de longa
   @tab cuadrada
   @tab silencio de cuadrada
-@item @strong{IT}
-  @tab longa
+@item @strong{IT} @tab longa
   @tab pausa di longa
   @tab breve
   @tab pausa di breve
-@item @strong{FR}
-  @tab longa
+@item @strong{FR} @tab longa
   @tab quadruple-pause
   @tab brève
   @tab double-pause
-@item @strong{DE}
-  @tab Longa
+@item @strong{DE} @tab Longa
   @tab longa Pause
   @tab Brevis
   @tab brevis Pause
-@item @strong{NL}
-  @tab longa
+@item @strong{NL} @tab longa
   @tab longa rust
   @tab brevis
   @tab brevis rust
-@item @strong{DK}
-  @tab longa
+@item @strong{DK} @tab longa
   @tab longanodespause
   @tab brevis
   @tab brevis(nodes)pause
-@item @strong{SE}
-  @tab longa
+@item @strong{SE} @tab longa
   @tab longapaus
   @tab brevis
   @tab brevispaus
-@item @strong{FI}
-  @tab longa-nuotti
+@item @strong{FI} @tab longa-nuotti
   @tab longa-tauko
   @tab brevis-nuotti, kaksoiskokonuotti
   @tab brevis-tauko, kaksoiskokotauko
@@ -7308,58 +7399,47 @@ saxophone, and bassoon.
 
 @multitable @columnfractions .12 .22 .22 .22 .22
 
-@headitem lang.
-  @tab note name
+@headitem Lang. @tab note name
   @tab rest name
   @tab note name
   @tab rest name
-@item @strong{US}
-  @tab whole note
+@item @strong{US} @tab whole note
   @tab whole rest
   @tab half note
   @tab half rest
-@item @strong{UK}
-  @tab semibreve
+@item @strong{UK} @tab semibreve
   @tab semibreve rest
   @tab minim
   @tab minim rest
-@item @strong{ES}
-  @tab redonda
+@item @strong{ES} @tab redonda
   @tab silencio de redonda
   @tab blanca
   @tab silencio de blanca
-@item @strong{IT}
-  @tab semibreve
+@item @strong{IT} @tab semibreve
   @tab pause di semibreve
   @tab minima
   @tab pausa di minima
-@item @strong{FR}
-  @tab ronde
+@item @strong{FR} @tab ronde
   @tab pause
   @tab blanche
   @tab demi-pause
-@item @strong{DE}
-  @tab ganze Note
+@item @strong{DE} @tab ganze Note
   @tab ganze Pause
   @tab halbe Note
   @tab halbe Pause
-@item @strong{NL}
-  @tab hele noot
+@item @strong{NL} @tab hele noot
   @tab hele rust
   @tab halve noot
   @tab halve rust
-@item @strong{DK}
-  @tab helnode
+@item @strong{DK} @tab helnode
   @tab helnodespause
   @tab halvnode
   @tab halvnodespause
-@item @strong{SE}
-  @tab helnot
+@item @strong{SE} @tab helnot
   @tab helpaus
   @tab halvnot
   @tab halvpaus
-@item @strong{FI}
-  @tab kokonuotti
+@item @strong{FI} @tab kokonuotti
   @tab kokotauko
   @tab puolinuotti
   @tab puolitauko
@@ -7368,58 +7448,47 @@ saxophone, and bassoon.
 
 @multitable @columnfractions .12 .22 .22 .22 .22
 
-@headitem lang.
-  @tab note name
+@headitem Lang. @tab note name
   @tab rest name
   @tab note name
   @tab rest name
-@item @strong{US}
-  @tab quarter note
+@item @strong{US} @tab quarter note
   @tab quarter rest
   @tab eighth note
   @tab eighth rest
-@item @strong{UK}
-  @tab crotchet
+@item @strong{UK} @tab crotchet
   @tab crotchet rest
   @tab quaver
   @tab quaver rest
-@item @strong{ES}
-  @tab negra
+@item @strong{ES} @tab negra
   @tab silencio de negra
   @tab corchea
   @tab silencio de corchea
-@item @strong{IT}
-  @tab semiminima, nera
+@item @strong{IT} @tab semiminima, nera
   @tab pausa di semiminima, pausa di nera
   @tab croma
   @tab pausa di croma
-@item @strong{FR}
-  @tab noire
+@item @strong{FR} @tab noire
   @tab soupir*
   @tab croche*
   @tab demi-soupir
-@item @strong{DE}
-  @tab Viertelnote
+@item @strong{DE} @tab Viertelnote
   @tab Viertelpause
   @tab Achtelnote
   @tab Achtelpause
-@item @strong{NL}
-  @tab kwartnoot
+@item @strong{NL} @tab kwartnoot
   @tab kwartrust
   @tab achtste noot
   @tab achtste rust
-@item @strong{DK}
-  @tab fjerdedelsnode
+@item @strong{DK} @tab fjerdedelsnode
   @tab fjerdedelspause
   @tab ottendedelsnode
   @tab ottendedelspause
-@item @strong{SE}
-  @tab fjärdedelsnot
+@item @strong{SE} @tab fjärdedelsnot
   @tab fjärdedelspaus
   @tab åttondelsnot
   @tab åttondelspaus
-@item @strong{FI}
-  @tab neljäsosanuotti
+@item @strong{FI} @tab neljäsosanuotti
   @tab neljäsosatauko
   @tab kahdeksasosanuotti
   @tab kahdeksasosatauko
@@ -7452,48 +7521,37 @@ the lilypond-user discussion list.
 
 @multitable @columnfractions .10 .35 .35 .20
 
-@headitem Lang.
-  @tab Note name
+@headitem Lang. @tab Note name
   @tab Rest name
   @tab Abbr.
-@item @strong{US}
-  @tab sixteenth note
+@item @strong{US} @tab sixteenth note
   @tab sixteenth rest
   @tab 16th note
-@item @strong{UK}
-  @tab semiquaver
+@item @strong{UK} @tab semiquaver
   @tab semiquaver rest
   @tab -
-@item @strong{ES}
-  @tab semicorchea
+@item @strong{ES} @tab semicorchea
   @tab silencio de semicorchea
   @tab -
-@item @strong{IT}
-  @tab semicroma
+@item @strong{IT} @tab semicroma
   @tab pausa di semicroma
   @tab -
-@item @strong{FR}
-  @tab double croche
+@item @strong{FR} @tab double croche
   @tab quart de soupir
   @tab -
-@item @strong{DE}
-  @tab Sechzehntelnote
+@item @strong{DE} @tab Sechzehntelnote
   @tab Sechzehntelpause
   @tab 16tel-Note
-@item @strong{NL}
-  @tab zestiende noot
+@item @strong{NL} @tab zestiende noot
   @tab zestiende rust
   @tab 16e noot
-@item @strong{DK}
-  @tab sekstendedelsnode
+@item @strong{DK} @tab sekstendedelsnode
   @tab sekstendedelspause
   @tab -
-@item @strong{SE}
-  @tab sextondelsnot
+@item @strong{SE} @tab sextondelsnot
   @tab sextondelspaus
   @tab -
-@item @strong{FI}
-  @tab kuudestoistaosanuotti
+@item @strong{FI} @tab kuudestoistaosanuotti
   @tab kuudestoistaosatauko
   @tab 16-osanuotti
 
@@ -7501,48 +7559,37 @@ the lilypond-user discussion list.
 
 @multitable @columnfractions .10 .35 .35 .20
 
-@headitem Lang.
-  @tab Note name
+@headitem Lang. @tab Note name
   @tab Rest name
   @tab Abbr.
-@item @strong{US}
-  @tab thirty-second note
+@item @strong{US} @tab thirty-second note
   @tab thirty-second rest
   @tab 32nd note
-@item @strong{UK}
-  @tab demisemiquaver
+@item @strong{UK} @tab demisemiquaver
   @tab demisemiquaver rest
   @tab -
-@item @strong{ES}
-  @tab fusa
+@item @strong{ES} @tab fusa
   @tab silencio de fusa
   @tab -
-@item @strong{IT}
-  @tab biscroma
+@item @strong{IT} @tab biscroma
   @tab pausa di biscroma
   @tab -
-@item @strong{FR}
-  @tab triple croche
+@item @strong{FR} @tab triple croche
   @tab huitième de soupir
   @tab -
-@item @strong{DE}
-  @tab Zweiunddreißigstelnote
+@item @strong{DE} @tab Zweiunddreißigstelnote
   @tab Zweiunddreißigstelpause
   @tab 32tel-Note
-@item @strong{NL}
-  @tab tweeendertigste noot
+@item @strong{NL} @tab tweeendertigste noot
   @tab tweeendertigste rust
   @tab 32e noot
-@item @strong{DK}
-  @tab toogtredivtedelsnode
+@item @strong{DK} @tab toogtredivtedelsnode
   @tab toogtredivtedelspause
   @tab -
-@item @strong{SE}
-  @tab trettiotvåondelsnot
+@item @strong{SE} @tab trettiotvåondelsnot
   @tab trettiotvåondelspaus
   @tab -
-@item @strong{FI}
-  @tab kolmaskymmeneskahdesosanuotti
+@item @strong{FI} @tab kolmaskymmeneskahdesosanuotti
   @tab kolmaskymmeneskahdesosatauko
   @tab 32-osanuotti
 
@@ -7550,48 +7597,37 @@ the lilypond-user discussion list.
 
 @multitable @columnfractions .10 .35 .35 .20
 
-@headitem Lang.
-  @tab Note name
+@headitem Lang. @tab Note name
   @tab Rest name
   @tab Abbr.
-@item @strong{US}
-  @tab sixty-fourth note
+@item @strong{US} @tab sixty-fourth note
   @tab sixty-fourth rest
   @tab 64th note
-@item @strong{UK}
-  @tab hemidemisemiquaver
+@item @strong{UK} @tab hemidemisemiquaver
   @tab hemidemisemiquaver rest
   @tab -
-@item @strong{ES}
-  @tab semifusa
+@item @strong{ES} @tab semifusa
   @tab silencio de semifusa
   @tab -
-@item @strong{IT}
-  @tab semibiscroma
+@item @strong{IT} @tab semibiscroma
   @tab pausa di semibiscroma
   @tab -
-@item @strong{FR}
-  @tab quadruple croche
+@item @strong{FR} @tab quadruple croche
   @tab seizième de soupir
   @tab -
-@item @strong{DE}
-  @tab Vierundsechzigstelnote
+@item @strong{DE} @tab Vierundsechzigstelnote
   @tab Vierundsechzigstelpause
   @tab 64tel-Note
-@item @strong{NL} 
-  @tab vierenzestigste noot
+@item @strong{NL} @tab vierenzestigste noot
   @tab vierenzestigste rust
   @tab 64e noot
-@item @strong{DK} 
-  @tab fireogtredsindstyvendedelsnode
+@item @strong{DK} @tab fireogtredsindstyvendedelsnode
   @tab fireogtredsindstyvendedelspause
   @tab -
-@item @strong{SE} 
-  @tab sextiofjärdedelsnot
+@item @strong{SE} @tab sextiofjärdedelsnot
   @tab sextiofjärdedelspaus
   @tab -
-@item @strong{FI}
-  @tab kuudeskymmenesneljäsosanuotti
+@item @strong{FI} @tab kuudeskymmenesneljäsosanuotti
   @tab kuudeskymmenesneljäsosatauko
   @tab 64-osanuotti
 
@@ -7599,43 +7635,34 @@ the lilypond-user discussion list.
 
 @multitable @columnfractions .10 .35 .35 .20
 
-@headitem Lang.
-  @tab Note name
+@headitem Lang. @tab Note name
   @tab Rest name
   @tab Abbr.
-@item @strong{US}
-  @tab one-hundred-twenty-eighth note
+@item @strong{US} @tab one-hundred-twenty-eighth note
   @tab one-hundred-twenty-eighth rest
   @tab 128th note
-@item @strong{UK}
-  @tab semihemidemisemiquaver
+@item @strong{UK} @tab semihemidemisemiquaver
   @tab semihemidemisemiquaver rest
   @tab -
-@item @strong{ES}
-  @tab garrapatea  @tab silencio de garrapatea  @tab -
-@item @strong{IT}
-  @tab fusa
+@item @strong{ES} @tab garrapatea
+  @tab silencio de garrapatea
+  @tab -
+@item @strong{IT} @tab fusa
   @tab pausa di fusa
   @tab -
-@item @strong{FR}
-  @tab quintuple croche
+@item @strong{FR} @tab quintuple croche
   @tab trente-deuxième de soupir  @tab -
-@item @strong{DE}
-  @tab Hundertundachtundzwanzigstel  @tab Hundertundachtundzwanzigstel  @tab 128tel-Note
-@item @strong{NL} 
-  @tab honderdachtentwintigste noot
+@item @strong{DE} @tab Hundertundachtundzwanzigstel  @tab Hundertundachtundzwanzigstel  @tab 128tel-Note
+@item @strong{NL} @tab honderdachtentwintigste noot
   @tab honderdachtentwintigste rust
   @tab 128e noot
-@item @strong{DK} 
-  @tab hundredeotteogtyvendedelsnode
+@item @strong{DK} @tab hundredeotteogtyvendedelsnode
   @tab hundredeotteogtyvendedelspause
   @tab -
-@item @strong{SE} 
-  @tab hundratjugoåttondelsnot
+@item @strong{SE} @tab hundratjugoåttondelsnot
   @tab hundratjugoåttondelspaus
   @tab -
-@item @strong{FI}
-  @tab sadaskahdeskymmeneskahdeksasosanuotti
+@item @strong{FI} @tab sadaskahdeskymmeneskahdeksasosanuotti
   @tab sadaskahdeskymmeneskahdeksasosatauko
   @tab 128-osanuotti
 
@@ -7643,41 +7670,30 @@ the lilypond-user discussion list.
 
 @multitable @columnfractions .10 .35 .35 .20
 
-@headitem Lang.
-  @tab Note name
+@headitem Lang. @tab Note name
   @tab Rest name
   @tab Abbr.
-@item @strong{US}
-  @tab two-hundred-fifty-sixth  @tab two-hundred-fifty-sixth  @tab 256th note
-@item @strong{UK}
-  @tab demisemihemidemisemiquaver
+@item @strong{US} @tab two-hundred-fifty-sixth  @tab 256th note
+@item @strong{UK} @tab demisemihemidemisemiquaver
   @tab demisemihemidemisemiquaver rest
   @tab -
-@item @strong{ES} 
-  @tab semigarrapatea  @tab silencio de semigarrapatea  @tab -
-@item @strong{IT}
-  @tab semifusa
+@item @strong{ES} @tab semigarrapatea  @tab silencio de semigarrapatea  @tab -
+@item @strong{IT} @tab semifusa
   @tab pausa di semifusa
   @tab -
-@item @strong{FR} 
-  @tab sextuple croche
+@item @strong{FR} @tab sextuple croche
   @tab soixante-quatrième de soupir  @tab -
-@item @strong{DE} 
-  @tab Zweihundertundsechsundfünfzigstelnote  @tab Zweihundertundsechsundfünfzigstel  @tab 256tel-Note
-@item @strong{NL} 
-  @tab tweehonderdzesenvijftigste noot
+@item @strong{DE} @tab Zweihundertundsechsundfünfzigstelnote  @tab Zweihundertundsechsundfünfzigstel  @tab 256tel-Note
+@item @strong{NL} @tab tweehonderdzesenvijftigste noot
   @tab tweehonderdzesenvijftigste rust
   @tab 256e noot
-@item @strong{DK} 
-  @tab tohundredeseksoghalvtredsendedelsnode
+@item @strong{DK} @tab tohundredeseksoghalvtredsendedelsnode
   @tab tohundredeseksoghalvtredsendedelspause
   @tab -
-@item @strong{SE}
-  @tab tvåhundrafemtiosjättedelsnot
+@item @strong{SE} @tab tvåhundrafemtiosjättedelsnot
   @tab tvåhundrafemtiosjättedelspaus
   @tab -
-@item @strong{FI}
-  @tab kahdessadasviideskymmeneskuudesosanuotti
+@item @strong{FI} @tab kahdessadasviideskymmeneskuudesosanuotti
   @tab kahdessadasviideskymmeneskuudesosatauko
   @tab 256-osanuotti
 
@@ -7700,62 +7716,45 @@ the lilypond-user discussion list.
 @headitem EN
   @tab ES @tab I @tab F @tab D
   @tab NL @tab DK @tab S @tab FI
-@item @strong{c}
-  @tab do @tab do @tab ut @tab C
+@item @strong{c} @tab do @tab do @tab ut @tab C
   @tab c @tab c @tab c @tab c
-@item @strong{c-sharp}
-  @tab do sostenido @tab do diesis @tab ut dièse @tab Cis
+@item @strong{c-sharp} @tab do sostenido @tab do diesis @tab ut dièse @tab Cis
   @tab cis @tab cis @tab ciss @tab cis
-@item @strong{d-flat}
-  @tab re bemol @tab re bemolle @tab ré bémol @tab Des
+@item @strong{d-flat} @tab re bemol @tab re bemolle @tab ré bémol @tab Des
   @tab des @tab des @tab dess @tab des
-@item @strong{d}
-  @tab re @tab re @tab ré @tab D
+@item @strong{d} @tab re @tab re @tab ré @tab D
   @tab d @tab d @tab d @tab d
-@item @strong{d-sharp}
-  @tab re sostenido @tab re diesis @tab re dièse @tab Dis
+@item @strong{d-sharp} @tab re sostenido @tab re diesis @tab re dièse @tab Dis
   @tab dis @tab dis @tab diss @tab dis
-@item @strong{e-flat}
-  @tab mi bemol @tab mi bemolle @tab mi bémol @tab Es
+@item @strong{e-flat} @tab mi bemol @tab mi bemolle @tab mi bémol @tab Es
   @tab es @tab es @tab ess @tab es
-@item @strong{e}
-  @tab mi @tab mi @tab mi @tab E
+@item @strong{e} @tab mi @tab mi @tab mi @tab E
   @tab e @tab e @tab e @tab e
 @item @strong{f-flat} = e
   @tab fa bemol @tab fa bemolle @tab fa bémol @tab Fes
   @tab fes @tab fes @tab fess @tab fes
-@item @strong{f}
-  @tab fa @tab fa @tab fa @tab F
+@item @strong{f} @tab fa @tab fa @tab fa @tab F
   @tab f @tab f @tab f @tab f
 @item @strong{e-sharp} = f
   @tab mi sostenido @tab mi diesis @tab mi dièse @tab Eis
   @tab eis @tab eis @tab eiss @tab eis
-@item @strong{f-sharp}
-  @tab fa sostenido @tab fa diesis @tab fa dièse @tab Fis
+@item @strong{f-sharp} @tab fa sostenido @tab fa diesis @tab fa dièse @tab Fis
   @tab fis @tab fis @tab fiss @tab fis
-@item @strong{g-flat}
-  @tab sol bemol @tab sol bemolle @tab sol bémol @tab Ges
+@item @strong{g-flat} @tab sol bemol @tab sol bemolle @tab sol bémol @tab Ges
   @tab ges @tab ges @tab gess @tab ges
-@item @strong{g}
-  @tab sol @tab sol @tab sol @tab G
+@item @strong{g} @tab sol @tab sol @tab sol @tab G
   @tab g @tab g @tab g @tab g
-@item @strong{g-sharp}
-  @tab sol sostenido @tab sol diesis @tab sol dièse @tab Gis
+@item @strong{g-sharp} @tab sol sostenido @tab sol diesis @tab sol dièse @tab Gis
   @tab gis @tab gis @tab giss @tab gis
-@item @strong{a-flat}
-  @tab la bemol @tab la bemolle @tab la bémol @tab As
+@item @strong{a-flat} @tab la bemol @tab la bemolle @tab la bémol @tab As
   @tab as @tab as @tab ass @tab as
-@item @strong{a}
-  @tab la @tab la @tab la @tab A
+@item @strong{a} @tab la @tab la @tab la @tab A
   @tab a @tab a @tab a @tab a
-@item @strong{a-sharp}
-  @tab la sostenido @tab la diesis @tab la dièse @tab Ais
+@item @strong{a-sharp} @tab la sostenido @tab la diesis @tab la dièse @tab Ais
   @tab ais @tab ais @tab aiss @tab ais
-@item @strong{b-flat}
-  @tab si bemol @tab si bemolle @tab si bémol @tab B
+@item @strong{b-flat} @tab si bemol @tab si bemolle @tab si bémol @tab B
   @tab bes @tab b @tab b @tab b
-@item @strong{b}
-  @tab si @tab si @tab si @tab H
+@item @strong{b} @tab si @tab si @tab si @tab H
   @tab b @tab h @tab h @tab h
 @end multitable
 
