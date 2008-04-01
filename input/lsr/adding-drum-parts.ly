@@ -8,7 +8,7 @@
 LilyPond makes drums input quite easy, with powerful pre-configured
 tools such as the @code{\\drummode} function and the @code{DrumStaff}
 context: drums are placed at their own staff positions (with a special
-clef symbol) and have noteheads according to the drum. You can easily
+clef symbol) and have note heads according to the drum. You can easily
 attach an extra symbol to the drum, and restrict the number of lines. 
 " }
 % begin verbatim

@@ -6,10 +6,9 @@
   lsrtags = "pitches, text"
  texidoc = "
 Internally, the @code{set-octavation} function sets the properties
-@code{ottavation} (e.g., to @code{\"8va\"} or @code{\"8vb\"}) and
-@code{middleCPosition}. To override the text of the bracket, set
-@code{ottavation} after invoking @code{set-octavation}, like in the
-following example.
+@code{ottavation} (for example, to @code{\"8va\"} or @code{\"8vb\"})
+and @code{middleCPosition}. To override the text of the bracket, set
+@code{ottavation} after invoking @code{set-octavation}.
 
 
 " }

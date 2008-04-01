@@ -7,13 +7,13 @@
  texidoc = "
 When writing a figured bass, here's a way to specify if you want your
 figures to be placed above or below the bass notes, by defining the
-BassFigureAlignmentPositioning #'direction property (exclusively in a
-Staff context). Choices are #UP (or #1), #CENTER (or #0) and #DOWN (or
-#-1).
+@code{BassFigureAlignmentPositioning #'direction} property (exclusively
+in a @code{Staff} context). Choices are @code{#UP} (or @code{#1}),
+@code{#CENTER} (or @code{#0}) and @code{#DOWN} (or @code{#-1}).
 
 As you can see here, this property can be changed as many times as you
-wish. Use \\once \\override if you dont want the tweak to apply to the
-whole score.
+wish. Use @code{\\once \\override} if you don't want the tweak to apply
+to the whole score. 
 " }
 % begin verbatim
 bass = { \clef bass g4 b, c d e d8 c d2}

@@ -8,7 +8,7 @@
 If there is only one staff in one of the staff types @code{ChoirStaff},
 @code{InnerChoirStaff}, @code{InnerStaffGroup} or @code{StaffGroup},
 the bracket and the starting bar line will not be displayed as standard
-behaviour. This can be changed with:
+behavior. This can be changed with:
 
 
 @code{\\override [staffcontext].SystemStartBracket #'collapse-height =
@@ -30,26 +30,28 @@ For staff contexts with @code{'SystemStartBrace}, such as
 
 " }
 % begin verbatim
-\score {
-\new StaffGroup <<
-   % Must be lower than your actual amount off staff lines
-   \override StaffGroup.SystemStartBracket #'collapse-height = #1
-   \override Score.SystemStartBar #'collapse-height = #1
-   \new Staff {
-     c'4 d' e' f'
-   }
- >>
- }
- {
- \new PianoStaff <<
-   \override PianoStaff.SystemStartBrace #'collapse-height = #1
-   \override Score.SystemStartBar #'collapse-height = #1
-   \new Staff {
-     c'4 d' e' f'
-   }
- >>
-  } 
-  \layout { 
-    ragged-right = ##t 
-    indent = 0\cm
+\layout {
+  ragged-right = ##t
+  indent = 0\cm
+}
+\book {
+  \score {
+    \new StaffGroup <<
+      % Must be lower than your actual amount off staff lines
+      \override StaffGroup.SystemStartBracket #'collapse-height = #1
+      \override Score.SystemStartBar #'collapse-height = #1
+      \new Staff {
+        c'4 d' e' f'
+      }
+    >>
   }
+  \score {
+    \new PianoStaff <<
+      \override PianoStaff.SystemStartBrace #'collapse-height = #1
+      \override Score.SystemStartBar #'collapse-height = #1
+      \new Staff {
+        c'4 d' e' f'
+      }
+    >>
+  }
+}

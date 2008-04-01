@@ -6,7 +6,7 @@
   lsrtags = "editorial-and-educational-use, spacing"
  texidoc = "
 By default, fingering numbers will be printed outside the staff.
-However, this behavior can be cancelled.
+However, this behavior can be canceled.
 " }
 % begin verbatim
 \relative c' {
