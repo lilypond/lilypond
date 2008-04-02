@@ -242,15 +242,14 @@ c c
 
 @snippets
 
-@c FIXME: uncomment these when they have been added to git.
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {printing-marks-at-the-end-of-a-line-or-a-score.ly}
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{printing-marks-at-the-end-of-a-line-or-a-score.ly}
 
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {aligning-marks-with-various-notation-objects.ly}
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{aligning-marks-with-various-notation-objects.ly}
 
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {printing-marks-on-every-staff.ly}
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{printing-marks-on-every-staff.ly}
 
 @seealso
 
