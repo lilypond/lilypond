@@ -1270,6 +1270,58 @@ class StaffChange (Music):
         else:
             return ''
 
+class FiguredBassNote (Music):
+    def __init__ (self):
+        Music.__init__ (self)
+        self.number = ''
+        self.prefix = ''
+        self.suffix = ''
+    def set_prefix (self, prefix):
+        self.prefix = prefix
+    def set_suffix (self, suffix):
+        self.prefix = suffix
+    def set_number (self, number):
+        self.number = number
+    def ly_expression (self):
+        res = ''
+        if self.number:
+            res += self.number
+        else:
+            res += '_'
+        if self.prefix:
+            res += self.prefix
+        if self.suffix:
+            res += self.suffix
+        return res
+
+
+class FiguredBassEvent (NestedMusic):
+    def __init__ (self):
+        NestedMusic.__init__ (self)
+        self.duration = None
+        self.real_duration = 0
+        self.parentheses = False
+        return
+    def set_duration (self, dur):
+        self.duration = dur
+    def set_parentheses (self, par):
+        self.parentheses = par
+    def set_real_duration (self, dur):
+        self.real_duration = dur
+
+    def print_ly (self, printer):
+        figured_bass_events = [e for e in self.elements if
+               isinstance (e, FiguredBassNote)]
+        if figured_bass_events:
+          notes = []
+          for x in figured_bass_events:
+              notes.append (x.ly_expression ())
+          contents = string.join (notes)
+          if self.parentheses:
+              contents = '[%]' % contents
+          printer ('<%s>' % contents)
+          self.duration.print_ly (printer)
+
 
 class MultiMeasureRest(Music):
 
