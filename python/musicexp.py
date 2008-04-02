@@ -1318,7 +1318,7 @@ class FiguredBassEvent (NestedMusic):
               notes.append (x.ly_expression ())
           contents = string.join (notes)
           if self.parentheses:
-              contents = '[%]' % contents
+              contents = '[%s]' % contents
           printer ('<%s>' % contents)
           self.duration.print_ly (printer)
 

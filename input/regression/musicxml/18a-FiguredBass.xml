@@ -67,8 +67,8 @@
         <dot/>
         <stem>up</stem>
       </note>
-      <figured-bass>
-        <figure parentheses="yes"><figure-number>6</figure-number></figure>
+      <figured-bass parentheses="yes">
+        <figure><figure-number>6</figure-number></figure>
         <duration>2</duration>
       </figured-bass>
       <note>
