@@ -1440,7 +1440,7 @@ class Staff (StaffGroup):
             printer.newline ()
             n = 0
             nr_voices = len (voices)
-            for [v, lyrics] in voices:
+            for [v, lyrics, figuredbass] in voices:
                 n += 1
                 voice_count_text = ''
                 if nr_voices > 1:
@@ -1452,6 +1452,8 @@ class Staff (StaffGroup):
                 for l in lyrics:
                     printer ('\\new Lyrics \\lyricsto "%s" \\%s' % (v,l))
                     printer.newline()
+                if figuredbass:
+                    printer ('\context FiguredBass = "%s" \\%s' % (figuredbass, figuredbass))
             printer ('>>')
 
     def print_ly (self, printer):

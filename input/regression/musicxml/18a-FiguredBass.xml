@@ -3,9 +3,7 @@
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise version="1.1">
   <movement-title>Figured Bass</movement-title>
-  <identification>
-    <creator type="composer">Reinhold Kainhofer</creator>
-  </identification>
+  <identification/>
   <part-list>
     <score-part id="P1">
       <part-name>MusicXML Part</part-name>
@@ -59,8 +57,6 @@
         <figure><figure-number>1</figure-number><prefix>sharp</prefix></figure>
         <figure><figure-number>3</figure-number><prefix>flat</prefix></figure>
         <figure><figure-number>5</figure-number><prefix>natural</prefix></figure>
-        <figure><figure-number>7</figure-number><suffix>slash</suffix></figure>
-        <figure><figure-number>9</figure-number><prefix>flat</prefix><suffix>slash</suffix></figure>
         <duration>6</duration>
       </figured-bass>
       <note>
@@ -80,6 +76,19 @@
         <duration>2</duration>
         <voice>1</voice>
         <type>16th</type>
+        <stem>up</stem>
+      </note>
+      <figured-bass>
+        <figure><figure-number>5</figure-number><suffix>slash</suffix></figure>
+        <figure><figure-number>127</figure-number><prefix>flat</prefix><suffix>slash</suffix></figure>
+        <duration>8</duration>
+      </figured-bass>
+      <note>
+        <pitch><step>G</step><octave>4</octave></pitch>
+        <duration>8</duration>
+        <voice>1</voice>
+        <type>eighth</type>
+        <dot/>
         <stem>up</stem>
       </note>
       <figured-bass>

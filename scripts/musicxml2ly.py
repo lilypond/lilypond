@@ -1484,6 +1484,7 @@ class LilyPondVoiceBuilder:
 
 class VoiceData:
     def __init__ (self):
+        self.voicename = None
         self.voicedata = None
         self.ly_voice = None
         self.figured_bass = None
@@ -2015,8 +2016,8 @@ def music_xml_lyrics_name_to_lily_name (part_id, name, lyricsnr):
     str = "Part%sVoice%sLyrics%s" % (part_id, name, lyricsnr)
     return musicxml_id_to_lily (str) 
 
-def music_xml_figuredbass_name_to_lily_name (part_id, name):
-    str = "Part%sVoice%sFiguredBass" % (part_id, name)
+def music_xml_figuredbass_name_to_lily_name (part_id, voicename):
+    str = "Part%sVoice%sFiguredBass" % (part_id, voicename)
     return musicxml_id_to_lily (str) 
 
 def print_voice_definitions (printer, part_list, voices):
@@ -2046,19 +2047,22 @@ def uniq_list (l):
 # format the information about the staff in the form 
 #     [staffid,
 #         [
-#            [voiceid1, [lyricsid11, lyricsid12,...] ...],
-#            [voiceid2, [lyricsid21, lyricsid22,...] ...],
+#            [voiceid1, [lyricsid11, lyricsid12,...], figuredbassid1],
+#            [voiceid2, [lyricsid21, lyricsid22,...], figuredbassid2],
 #            ...
 #         ]
 #     ]
-# raw_voices is of the form [(voicename, lyricsids)*]
+# raw_voices is of the form [(voicename, lyricsids, havefiguredbass)*]
 def format_staff_info (part_id, staff_id, raw_voices):
     voices = []
-    for (v, lyricsids) in raw_voices:
+    for (v, lyricsids, figured_bass) in raw_voices:
         voice_name = music_xml_voice_name_to_lily_name (part_id, v)
         voice_lyrics = [music_xml_lyrics_name_to_lily_name (part_id, v, l)
                    for l in lyricsids]
-        voices.append ([voice_name, voice_lyrics])
+        figured_bass_name = ''
+        if figured_bass:
+            figured_bass_name = music_xml_figuredbass_name_to_lily_name (part_id, v)
+        voices.append ([voice_name, voice_lyrics, figured_bass_name])
     return [staff_id, voices]
 
 def update_score_setup (score_structure, part_list, voices):
@@ -2080,12 +2084,12 @@ def update_score_setup (score_structure, part_list, voices):
             staves = uniq_list (staves)
             staves.sort ()
             for s in staves:
-                thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
+                thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass) 
                     for (voice_name, voice) in nv_dict.items ()
                     if voice.voicedata._start_staff == s]
                 staves_info.append (format_staff_info (part_id, s, thisstaff_raw_voices))
         else:
-            thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
+            thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass) 
                 for (voice_name, voice) in nv_dict.items ()]
             staves_info.append (format_staff_info (part_id, None, thisstaff_raw_voices))
         score_structure.set_part_information (part_id, staves_info)
