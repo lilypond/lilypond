@@ -34,24 +34,24 @@ For staff contexts with @code{'SystemStartBrace}, such as
   ragged-right = ##t
   indent = 0\cm
 }
-\book {
-  \score {
-    \new StaffGroup <<
-      % Must be lower than your actual amount off staff lines
-      \override StaffGroup.SystemStartBracket #'collapse-height = #1
-      \override Score.SystemStartBar #'collapse-height = #1
-      \new Staff {
-        c'4 d' e' f'
-      }
-    >>
-  }
-  \score {
-    \new PianoStaff <<
-      \override PianoStaff.SystemStartBrace #'collapse-height = #1
-      \override Score.SystemStartBar #'collapse-height = #1
-      \new Staff {
-        c'4 d' e' f'
-      }
-    >>
-  }
+
+\score {
+  \new StaffGroup <<
+    % Must be lower than your actual amount off staff lines
+    \override StaffGroup.SystemStartBracket #'collapse-height = #1
+    \override Score.SystemStartBar #'collapse-height = #1
+    \new Staff {
+      c'4 d' e' f'
+    }
+  >>
+}
+
+\score {
+  \new PianoStaff <<
+    \override PianoStaff.SystemStartBrace #'collapse-height = #1
+    \override Score.SystemStartBar #'collapse-height = #1
+    \new Staff {
+      c'4 d' e' f'
+    }
+  >>
 }

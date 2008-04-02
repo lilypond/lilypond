@@ -8,31 +8,24 @@
 Custodes may be engraved in various styles.
 " }
 % begin verbatim
-\layout {
-  \context {
-    \Staff
-    \consists Custos_engraver
-  }
-  ragged-right = ##t
+\layout { ragged-right = ##t }
+
+\new Staff \with { \consists "Custos_engraver" } \relative c' {
+  \override Staff.Custos #'neutral-position = #4
+  
+  \override Staff.Custos #'style = #'hufnagel
+  c1^"hufnagel" \break
+  <d a' f'>
+  
+  \override Staff.Custos #'style = #'medicaea
+  c^"medicaea" \break
+  <d a' f'>
+  
+  \override Staff.Custos #'style = #'vaticana
+  c^"vaticana" \break
+  <d a' f'>
+  
+  \override Staff.Custos #'style = #'mensural
+  c^"mensural" \break
+  <d a' f'>
 }
-
-{
-  \override Staff.Custos  #'neutral-position = #4
-
-  \override Staff.Custos  #'style = #'hufnagel
-  c'1^"hufnagel"
-  \break < d' a' f''>1
-
-  \override Staff.Custos  #'style = #'medicaea
-  c'1^"medicaea"
-  \break < d' a' f''>1
-
-  \override Staff.Custos  #'style = #'vaticana
-  c'1^"vaticana"
-  \break < d' a' f''>1
-
-  \override Staff.Custos  #'style = #'mensural
-  c'1^"mensural"
-  \break < d' a' f''>1
-}
-
