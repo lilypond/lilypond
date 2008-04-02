@@ -445,7 +445,6 @@ def rational_to_lily_duration (rational_len):
 
     rational_len.normalize_self ()
     d_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (rational_len.denominator (), -1)
-    print "d_log: %s, rational_len: %s\n" % (d_log, rational_len)
 
     # Duration of the form 1/2^n or 3/2^n can be converted to a simple lilypond duration
     if (d_log >= 0 and rational_len.numerator() in (1,3,5,7) ):
@@ -1255,9 +1254,8 @@ def musicxml_figured_bass_note_to_lily (n):
     prefix = n.get_maybe_exist_named_child ('prefix')
     if prefix:
         res.set_prefix (suffix_dict.get (prefix.get_text (), ""))
-    fnumber = n.get_maybe_exist_typed_child ('figure-number')
+    fnumber = n.get_maybe_exist_named_child ('figure-number')
     if fnumber:
-        print "figure-number: %s, text: %s" % (fnumber, fnumber.get_text ())
         res.set_number (fnumber.get_text ())
     suffix = n.get_maybe_exist_named_child ('suffix')
     if suffix:
@@ -1285,13 +1283,11 @@ def musicxml_figured_bass_to_lily (n):
     if dur:
         # TODO: implement duration (given in base steps!)
         # apply the duration to res
-        print "duration: %s, divisions: %s"  % (dur.get_text(), n._divisions)
         length = Rational(int(dur.get_text()), n._divisions)*Rational(1,4)
         res.set_real_duration (length)
         duration = rational_to_lily_duration (length)
         if duration:
             res.set_duration (duration)
-            print "Converted to duration: %s" % duration.ly_expression ()
     if hasattr (n, 'parentheses') and n.parentheses == "yes":
         res.set_parentheses (True)
     return res
@@ -1565,7 +1561,6 @@ def musicxml_voice_to_lily_voice (voice):
         
         if isinstance (n, musicxml.FiguredBass):
             a = musicxml_figured_bass_to_lily (n)
-            print "Figured bass element: %s\n" % a
             if a:
                 pending_figured_bass.append (a)
             continue
@@ -1852,18 +1847,8 @@ def musicxml_voice_to_lily_voice (voice):
         v = musicexp.ModeChangingMusicWrapper()
         v.mode = 'figuremode'
         v.element = fbass_music
-        
-        #printer = musicexp.Output_printer()
-        #debug_file = "debug.out"
-        #progress (_ ("FiguredBass debug output to `%s'") % debug_file)
-        #printer.set_file (codecs.open (debug_file, 'wb', encoding='utf-8'))
-        #v.print_ly( printer )
-        #printer.close ()
-
         return_value.figured_bass = v
     
-    
-    print figured_bass_builder.elements
     return return_value
 
 def musicxml_id_to_lily (id):
