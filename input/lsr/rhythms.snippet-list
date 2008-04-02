@@ -15,6 +15,7 @@ altering-the-number-of-stems-in-a-beam.ly
 modifying-tuplet-bracket-length.ly
 changing-time-signatures-inside-a-polymetric-section-using--compressmusic.ly
 making-an-object-invisible-with-the-transparent-property.ly
+automatic-beam-subdivisions.ly
 changing-the-tuplet-number.ly
 entering-several-tuplets-using-only-one--times-command.ly
 conducting-signs,-measure-grouping-signs.ly

@@ -6,31 +6,27 @@
   lsrtags = "expressive-marks, text"
  texidoc = "
 This example provides a function to typeset a hairpin (de)crescendo
-with some additional text below it, such as \"molto\" or \"poco\".The
+with some additional text below it, such as \"molto\" or \"poco\". The
 example also illustrates how to modify the way an object is normally
 printed, using some Scheme code.  
 " }
 % begin verbatim
-hairpinWithCenteredText = #(define-music-function
-                          (parser location text) (markup?)
+hairpinWithCenteredText = #(define-music-function (parser location text) (markup?)
 #{
-\override Voice.Hairpin #'stencil = #(lambda (grob)
- (ly:stencil-aligned-to
-  (ly:stencil-combine-at-edge
-   (ly:stencil-aligned-to (ly:hairpin::print grob) X CENTER)
-   Y
-   DOWN
-   (ly:stencil-aligned-to (ly:text-interface::print grob) X CENTER))
-  X LEFT))
-\override Voice.Hairpin #'text = $text
+  \override Voice.Hairpin #'stencil = #(lambda (grob)
+  (ly:stencil-aligned-to
+   (ly:stencil-combine-at-edge
+    (ly:stencil-aligned-to (ly:hairpin::print grob) X CENTER)
+    Y DOWN
+    (ly:stencil-aligned-to (ly:text-interface::print grob) X CENTER))
+   X LEFT))
+  \override Voice.Hairpin #'text = $text
 #})
 
-
 hairpinMolto = \hairpinWithCenteredText \markup { \italic "molto" }
-hairpinMore  = \hairpinWithCenteredText \markup { \bigger "moltissimo" }
+hairpinMore = \hairpinWithCenteredText \markup { \bigger "moltissimo" }
 
-\new Staff {
-   \hairpinMolto c'2\< c'2\f
-   \hairpinMore  c'2\< c'2\f
+{
+  \hairpinMolto c'2\< c'2\f
+  \hairpinMore  c'2\< c'2\f
 }
-

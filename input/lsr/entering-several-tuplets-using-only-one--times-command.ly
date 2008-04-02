@@ -5,10 +5,10 @@
 \header {
   lsrtags = "rhythms"
  texidoc = "
-This example shows how to specify how long each of the tuplets
-contained within the brackets after @code{\\times} should last. Many
-consecutive tuplets can then be placed within a single @code{\\times @{
-... @}} expression, thus saving typing.
+The property @code{tupletSpannerDuration} sets how long each of the
+tuplets contained within the brackets after @code{\\times} should last.
+Many consecutive tuplets can then be placed within a single
+@code{\\times} expression, thus saving typing.
 
 In the example, two triplets are shown, while @code{\\times} was
 entered only once.
@@ -19,6 +19,7 @@ administration\".
 " }
 % begin verbatim
 \relative {
+  \time 2/4
   \set tupletSpannerDuration = #(ly:make-moment 1 4)
   \times 2/3 { c8 c c c c c }
 }

@@ -15,6 +15,6 @@ brackets to appear; see also the \"Volta multi staff\" snippet.
 <<
   \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }
   \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }
-  \new Staff \with { \consists Volta_engraver } { c'2 g' e' a' }
+  \new Staff \with { \consists "Volta_engraver" } { c'2 g' e' a' }
   \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }
- >>
+>>

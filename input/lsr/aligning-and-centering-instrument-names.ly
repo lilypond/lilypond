@@ -7,49 +7,47 @@
  texidoc = "
 Instrument names are generally printed at the left side of the staves.
 To align the names of several different intruments, you can put them in
-a \\markup block and use one of the following possibilites:
-
+a @code{\\markup} block and use one of the following possibilites:
 
 * 
-    Right-aligned instrument names: this is LilyPond's default behavior
+    Right-aligned instrument names: this is the default behavior
   
 * 
-    Center-aligned instrument names: with the \\hcenter-in #n syntax, you
-    can place the instrument names inside a padded box (n being the width
+    Center-aligned instrument names: with the @code{\\hcenter-in #n}
+command, you
+    can place the instrument names inside a padded box (@code{n} being the
+width
     of the box)
   
 * 
     Left-aligned instrument names: you have to print the names on top of an
-    empty box, using the \\combine command
-    with a \\hspace #n object.
+    empty box, using the @code{\\combine} command
+    with an @code{\\hspace #n} object.
   
 
 " }
 % begin verbatim
-\paper{ 
-  indent = #0 
+\paper {
+  indent = #0
   left-margin = #30
   line-width = #160
 }
 
-\new StaffGroup \relative
-<<
+\new StaffGroup \relative <<
   \new Staff {
-    \set Staff.instrumentName = "blabla"
-    c1^"default" c1 \break 
-    \set Staff.instrumentName = \markup { \hcenter-in #10 "blabla" }
-    c1^"centered" c1 \break 
-    \set Staff.instrumentName = \markup {\combine \hspace #8 "blabla" }
-    c1^"left-aligned" c1 
-    
+    \set Staff.instrumentName = "Piccolo"
+    c1^"default" c \break
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "Piccolo" }
+    c1^"centered" c \break
+    \set Staff.instrumentName = \markup { \combine \hspace #8 "Piccolo" }
+    c1^"left-aligned" c
   } 
   \new Staff {
-    \set Staff.instrumentName = "blo"
-    c1 c1 \break 
-    \set Staff.instrumentName = \markup { \hcenter-in #10 "blo" }
-    c1 c1 \break 
-    \set Staff.instrumentName = \markup {\combine \hspace #8 "blo" }
-    c1 c1 
-  } 
-  
+    \set Staff.instrumentName = "Flute"
+    c1 c \break
+    \set Staff.instrumentName = \markup { \hcenter-in #10 "Flute" }
+    c1 c \break
+    \set Staff.instrumentName = \markup { \combine \hspace #8 "Flute" }
+    c1 c
+  }
 >>
