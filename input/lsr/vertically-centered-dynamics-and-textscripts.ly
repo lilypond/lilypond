@@ -5,34 +5,25 @@
 \header {
   lsrtags = "tweaks-and-overrides, spacing"
  texidoc = "
-By setting the Y-extent property to a fixed value (here -1.5 . 1.5), we
-force LilyPond to align every elements of the DynamicLineSpanner (text
-elements and dynamics) to a common reference point, regardless to the
-actual extent of these objects. This way, every element will be
-vertically centered, for a nicer output (you can compare the first and
-the second line in this example; the trick is only applied on the
-second line).
+By setting the @code{Y-extent} property to a fixed value, all
+@code{DynamicLineSpanner} objects (hairpins and dynamic texts) are
+aligned to a common reference point, regardless of their actual extent.
+This way, every element will be vertically centered, for a nicer output
+(you can compare the first and the second line in this example; the
+trick is only applied on the second line).
 
 The same idea is used to align the text scripts along their baseline.
 " }
 % begin verbatim
-\paper { indent = 0 line-width = 5\in }
-
-music = \relative c''
-{
-   c2\p^\markup { "gorgeous" } c\f^\markup { "fantastic" }
-   c4\p c \f \> c c \! \p
+music = \relative c'' {
+  c2\p^\markup { "gorgeous" } c\f^\markup { "fantastic" }
+  c4\p c\f\> c c\!\p
 }
 
-\score
 {
-   {
-       \music \break
-
-       \override DynamicLineSpanner #'staff-padding = #2.0
-       \override DynamicLineSpanner #'Y-extent = #'(-1.5 . 1.5)
-       \override TextScript #'Y-extent = #'(-1.5 . 1.5)
-       \music
-   }
+  \music \break
+  \override DynamicLineSpanner #'staff-padding = #2.0
+  \override DynamicLineSpanner #'Y-extent = #'(-1.5 . 1.5)
+  \override TextScript #'Y-extent = #'(-1.5 . 1.5)
+  \music
 }
-

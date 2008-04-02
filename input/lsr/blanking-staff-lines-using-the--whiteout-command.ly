@@ -10,7 +10,7 @@ Since staff lines are in a lower layer than most other grobs, this
 white box will not overlap any other grob. 
 " }
 % begin verbatim
-{
+\relative {
   \override TextScript #'extra-offset = #'(2 . 4)
-  c'2-\markup  { \whiteout \pad-markup #0.5 foo } c
+  c2-\markup  { \whiteout \pad-markup #0.5 "middle C" } c
 } 

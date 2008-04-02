@@ -15,7 +15,7 @@ specified in @code{beatLength}).
     << {
       \voiceOne
       \set subdivideBeams = ##t
-      b'32[ a g f c' b a g b^"subdivision enabled" a g f c' b a g]
+      b'32[ a g f c' b a g b^"subdivide beams" a g f c' b a g]
       \oneVoice
     }
     \new Voice {

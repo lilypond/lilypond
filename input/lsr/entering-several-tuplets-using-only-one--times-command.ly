@@ -8,7 +8,7 @@
 The property @code{tupletSpannerDuration} sets how long each of the
 tuplets contained within the brackets after @code{\\times} should last.
 Many consecutive tuplets can then be placed within a single
-@code{\\times @{ ... @}} expression, thus saving typing.
+@code{\\times} expression, thus saving typing.
 
 In the example, two triplets are shown, while @code{\\times} was
 entered only once.
