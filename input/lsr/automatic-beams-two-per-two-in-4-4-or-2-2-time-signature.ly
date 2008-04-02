@@ -7,15 +7,15 @@
  texidoc = "
 In a simple time signature of 2/2 or 4/4, 8th notes are beamed by
 default as two sets of four. Using a macro which overrides the
-autobeaming behaviour, this snippet changes the beaming to quarter note
+autobeaming behavior, this snippet changes the beaming to quarter note
 beats. 
 " }
 % begin verbatim
 % Automatic beams two per two in 4/4 or 2/2 time signature
-%            _____
-% Default   | | | | 
-%	           _   _
-% I want    | | | |
+%              _____
+% Default     | | | |
+%              _   _
+% Required    | | | |
 
 % The good way adapted from David Bobroff
 
@@ -33,7 +33,7 @@ qbeam= {
       g8^\markup { without the macro } g g g g g g g |
       g g g g4 g8 g g |
     }
-  	%Use the macro
+    %Use the macro
     \new Staff \relative c'' {
       \time 4/4
       \qbeam

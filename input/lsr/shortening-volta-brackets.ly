@@ -16,7 +16,8 @@ lasts one measure, which is a duration of 3/4.
   c c c
   \set Score.voltaSpannerDuration = #(ly:make-moment 3 4)
   \repeat volta 5 { d d d }
-    \alternative { { e e e f f f }
-    { g g g } 
+  \alternative {
+    { e e e f f f }
+    { g g g }
   }
 }

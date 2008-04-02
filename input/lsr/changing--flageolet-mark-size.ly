@@ -16,6 +16,7 @@ smallFlageolet = #(let ((m (make-music 'ArticulationEvent
                     (ly:music-property m 'tweaks)))
        m)
 
-\relative c'' { d4^\flageolet_\markup { default size } d4_\flageolet
-  c4^\smallFlageolet_\markup { smaller } c4_\smallFlageolet 
+\relative c'' {
+  d4^\flageolet_\markup { default size } d4_\flageolet
+  c4^\smallFlageolet_\markup { smaller } c4_\smallFlageolet
 }

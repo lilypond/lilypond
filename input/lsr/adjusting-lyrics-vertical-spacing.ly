@@ -5,31 +5,22 @@
 \header {
   lsrtags = "text, vocal-music, spacing"
  texidoc = "
-This snippets shows you how to bring the lyrics line closer to the
-Staff.
+This snippet shows you how to bring the lyrics line closer to the
+staff.
 " }
 % begin verbatim
 % Default layout:
-\score{
-  <<
-    \new Staff \new Voice = m \relative c'{ c4 d e f g f e d c1}
-    \new Lyrics \lyricsto m {aa aa aa aa aa aa aa aa aa }
-  >>
-}
+<<
+  \new Staff \new Voice = melody \relative c '{ c4 d e f g f e d c1 }
+  \new Lyrics \lyricsto melody { aa aa aa aa aa aa aa aa aa }
+>>
 
-% Reducing the minimum space below the Staff and above the Lyrics:
-
-\score {
-  <<
-    \new Staff \with {
-      \override VerticalAxisGroup #'minimum-Y-extent = #'(-1. 4)}
-    \new Voice = m \relative c'{ c4 d e f g f e d c1 }
-    \new Lyrics \with {
-      \override VerticalAxisGroup #'minimum-Y-extent = #'(-1.2 . 1)}
-    \lyricsto m {aa aa aa aa aa aa aa aa aa }
-  >>
-
-  \header {
-    tagline = ""
-  }
-}
+% Reducing the minimum space below the staff and above the lyrics:
+<<
+  \new Staff \with {
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 4) }
+  \new Voice = melody \relative c' { c4 d e f g f e d c1 }
+  \new Lyrics \with {
+    \override VerticalAxisGroup #'minimum-Y-extent = #'(-1.2 . 1) }
+  \lyricsto melody { aa aa aa aa aa aa aa aa aa }
+>>

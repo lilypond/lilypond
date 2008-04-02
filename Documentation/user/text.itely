@@ -126,7 +126,7 @@ d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 @funindex \textLengthOn
 @code{\textLengthOn},
 @funindex \textLengthOff
-@code{\textLengthOff}.
+@code{\textLengthOff}
 
 
 @seealso
@@ -154,12 +154,11 @@ default; to enable it, use
 
 @cindex Text spanners
 
-@c TODO: merge these explanations with the ones below in 
-@c "Text and Line spanners" -vv
-
 Some performance indications, e.g., @i{rallentando} or
 @i{accelerando}, are written as text and are extended over many
-measures with dotted lines; you can create such text spanners
+measures with dotted lines.
+
+Such objects, called @q{spanners}, may be created
 from one note to another by using the following syntax:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -181,6 +180,9 @@ b1\startTextSpan c
 e,\stopTextSpan
 @end lilypond
 
+The line style, as well as the text string, can be defined as an
+object property. This syntax is described in @ref{Line styles}.
+
 @predefined
 
 @funindex textSpannerUp
@@ -188,11 +190,7 @@ e,\stopTextSpan
 @funindex textSpannerDown
 @code{\textSpannerDown},
 @funindex textSpannerNeutral
-@code{\textSpannerNeutral}.
-
-The line style, as well as the text string, can be defined as an
-object property. This syntax is described in @ref{Line styles}.
-
+@code{\textSpannerNeutral}
 
 @seealso
 
@@ -217,9 +215,11 @@ the syntax described in @ref{Rehearsal marks}:
 c4\mark "dolce" c c c
 @end lilypond
 
-This syntax makes possible to put any text on a bar line, but also
-signs like coda, segno, or fermata, by specifying  the appropriate
-symbol name.  These symbols are listed in @ref{The Feta font}.
+This syntax makes possible to put any text on a bar line;
+more complex text formatting may be added using a @code{\markup}
+block, as described in @ref{Text markup}.  This can be used to print
+signs like coda, segno or fermata, by specifying the appropriate
+symbol name:
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 c1 \mark \markup { \musicglyph #"scripts.ufermata" }
@@ -242,109 +242,14 @@ c c
 
 @snippets
 
-@c TODO: to be LSR-ized stuff -vv
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{printing-marks-at-the-end-of-a-line-or-a-score.ly}
 
-To print the mark at the end of the current line, use
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{aligning-marks-with-various-notation-objects.ly}
 
-@example
-\override Score.RehearsalMark
-  #'break-visibility = #begin-of-line-invisible
-@end example
-
-@code{\mark} is often useful for adding text to the end of bar.
-In such cases, changing the @code{#'self-alignment} is very useful
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-\override Score.RehearsalMark
-  #'break-visibility = #begin-of-line-invisible
-c1 c c c4 c c c
-\once \override Score.RehearsalMark #'self-alignment-X = #right
-\mark "D.S. al Fine "
-@end lilypond
-
-If specified, text marks may be aligned with notation objects
-other than bar lines.  These objects include @code{ambitus},
-@code{breathing-sign}, @code{clef}, @code{custos},
-@code{staff-bar}, @code{left-edge}, @code{key-cancellation},
-@code{key-signature}, and @code{time-signature}.
-
-
-In such cases, text marks will be horizontally centered
-above the object. However this can be changed, as demonstrated
-on the second line of this example (in a score with multiple staves,
-this setting should be done for all the staves).
-
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=1]
-  e1
-  
-  % the RehearsalMark will be centered above the Clef
-  \override Score.RehearsalMark #'break-align-symbols = #'(clef)
-  \key a \major
-  \clef treble
-  \mark "↓"
-  e
-  
-  % the RehearsalMark will be centered above the TimeSignature
-  \override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
-  \key a \major
-  \clef treble
-  \time 3/4
-  \mark "↓"
-  e2.
-  
-  % the RehearsalMark will be centered above the KeySignature
-  \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
-  \key a \major
-  \clef treble
-  \time 4/4
-  \mark "↓"
-  e1
-
-  \break
-  e
-  
-  % the RehearsalMark will be aligned with the left edge of the KeySignature
-  \once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
-  \mark "↓"
-  \key a \major
-  e
-  
-  % the RehearsalMark will be aligned with the right edge of the KeySignature
-  \once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
-  \key a \major
-  \mark "↓"
-  e
-  
-  % the RehearsalMark will be aligned with the left edge of the KeySignature
-  % and then shifted right by 1 unit.
-  \once \override Score.KeySignature #'break-align-anchor = #1
-  \key a \major
-  \mark "↓"
-  e1
-@end lilypond
-
-Although text marks are normally only printed above the topmost
-staff, you may alter this to print them on every staff:
-
-@lilypond[quote,ragged-right,verbatim,relative=2]
-{
-  \new Score \with {
-    \remove "Mark_engraver"
-  }
-  <<
-    \new Staff \with {
-      \consists "Mark_engraver"
-    }
-    { c''1 \mark "foo" c'' }
-    \new Staff \with {
-      \consists "Mark_engraver"
-    }
-    { c'1 \mark "foo" c' }
-  >>
-}
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{printing-marks-on-every-staff.ly}
 
 @seealso
 
@@ -355,6 +260,7 @@ Internals Reference: @internalsref{RehearsalMark}.
 @knownissues
 @c  IMO this is a bug; hopefully it'll be fixed soon, so I can
 @c  delete this sentence.   -gp
+@c  A workaround is suggested in the first @snippets item -vv
 
 If a mark is entered at the end of the last bar of the score (where
 there is no next line), then the mark will not be printed at

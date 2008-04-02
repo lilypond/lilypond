@@ -5,12 +5,15 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers, breaks"
  texidoc = "
-When adding a new Staff at a line break, LilyPond will unfortunately
+When adding a new staff at a line break, LilyPond will unfortunately
 add some extra space at the end of the line before the break (to fit in
 a key signature change, which  will never be printed anyway). The
-workaround is to add a setting of Staff.explicitKeySignatureVisibility
-as is shown in the example. In version 2.10 and earlier, you have to do
-a similar setting for the time signatures, see the example. 
+workaround is to add a setting of
+@code{Staff.explicitKeySignatureVisibility} as is shown in the example.
+In version 2.10 and earlier, you have to do a similar setting for the
+time signatures, see the example.
+
+
 " }
 % begin verbatim
 \score {
@@ -21,6 +24,7 @@ a similar setting for the time signatures, see the example.
     << { c1 c }
        \new Staff { 
          \key f \major
+         \once \override Staff.TimeSignature #'stencil = ##f
          c1 c 
        } 
     >>
@@ -30,7 +34,8 @@ a similar setting for the time signatures, see the example.
          \once \set Staff.explicitKeySignatureVisibility = #end-of-line-invisible 
          %The next line is not needed in 2.11.x or later:
          \once \override Staff.TimeSignature #'break-visibility = #end-of-line-invisible 
-        \key f \major
+         \key f \major
+         \once \override Staff.TimeSignature #'stencil = ##f
          c1 c 
        } 
     >>

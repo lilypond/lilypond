@@ -5,12 +5,12 @@
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
  texidoc = "
-The default behaviour of tuplet-bracket visibility is to print a
-bracket unless there is a beam of the same length as the tuplet. To
-control the visibility of tuplet brackets, you can set the property
-@code{TupletBracket #'bracket-visibility} to either @code{##t} (always
-print a bracket), @code{##f} (never print a bracket) or
-@code{#'if-no-beam} (only print a bracket if there is no beam). 
+The default behavior of tuplet-bracket visibility is to print a bracket
+unless there is a beam of the same length as the tuplet. To control the
+visibility of tuplet brackets, set the property @code{TupletBracket
+#'bracket-visibility} to either @code{##t} (always print a bracket),
+@code{##f} (never print a bracket) or @code{#'if-no-beam} (only print a
+bracket if there is no beam). 
 " }
 % begin verbatim
 mus = \relative c'' {

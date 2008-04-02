@@ -24,8 +24,6 @@ parenF = #(make-dynamic-script (markup #:line (#:normal-text #:italic
            #:fontsize 2 "(" #:hspace -0.8 #:dynamic "f" #:normal-text #:italic
            #:fontsize 2 ")"
           )))
-
-\score {
-  { c''\parenF c'' c'' \dynamicUp c''\parenF }
+{
+  c''4\parenF c'' c'' \dynamicUp c''\parenF
 }
-
