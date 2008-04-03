@@ -5,23 +5,23 @@
 \header {
   lsrtags = "text, vocal-music"
  texidoc = "
-To format single lyrics syllables, you can simply use \\markup @{ ....
-@} on these lyrics!
+To format individual syllables in lyrics, use @code{\\markup @{ ....
+@}} on these lyrics.
 " }
 % begin verbatim
 % Tip taken from http://lists.gnu.org/archive/html/lilypond-user/2007-12/msg00215.html
 \header {
-  title = "Markup can be used inside lyrics!" 
+  title = "Markup can be used inside lyrics!"
 }
 
-melody = \relative c'' { c4 c c c  }
-lyr = \lyricmode { 
-  Lyrics \markup { \italic can } \markup {\with-color #red contain } 
-  \markup {\fontsize #8 \bold "Markup!" } 
+mel = \relative c'' { c4 c c c }
+lyr = \lyricmode {
+  Lyrics \markup { \italic "can" } \markup {\with-color #red "contain" }
+  \markup {\fontsize #8 \bold "Markup!" }
 }
 
-\context Staff << 
-  \context Voice = "mel" << \melody >>
-  \context Lyrics \lyricsto "mel" \lyr
+<<
+  \context Voice = melody \mel
+  \context Lyrics \lyricsto melody \lyr
 >>
 

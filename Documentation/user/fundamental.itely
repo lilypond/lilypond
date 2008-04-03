@@ -37,7 +37,7 @@ description of the input format, see @ruser{File structure}.
 @node Introduction to the LilyPond file structure
 @subsection Introduction to the LilyPond file structure
 
-A basic example of a lilypond input file is
+A basic example of a LilyPond input file is
 
 @example
 \version @w{"@version{}"}

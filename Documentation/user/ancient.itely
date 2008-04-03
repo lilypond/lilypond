@@ -2085,7 +2085,7 @@ diminished fifths and sevenths can be obtained with @code{5/} and @code{7/}.
 
 Spaces may be inserted by using @code{_}.  Brackets are
 introduced with @code{[} and @code{]}.  You can also include text
-strings and text markups, see @ref{Overview of text markup commands}.
+strings and text markups, see @ref{Text markup commands}.
 
 @example
 < [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >

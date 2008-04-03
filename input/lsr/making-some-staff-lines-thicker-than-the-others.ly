@@ -8,13 +8,11 @@
 For pedagogical purposes, you may want to make one staff line thicker
 (e.g. the middle line, to emphasize the line of the G clef). This can
 be achieved by adding extra lines very close to the line you want to
-make thicker, using the #'line-positions property in the StaffSymbol
-context.
+make thicker, using the @code{'line-positions} property of the
+@code{StaffSymbol} object. 
 " }
 % begin verbatim
-\score {
-     \new Staff{
-     \override Staff.StaffSymbol #'line-positions =#'(-4 -2 -0.2 0 0.2 2 4 )
-         d'4 e' f' g'
-     }
+{
+  \override Staff.StaffSymbol #'line-positions = #'(-4 -2 -0.2 0 0.2 2 4)
+  d'4 e' f' g'
 }

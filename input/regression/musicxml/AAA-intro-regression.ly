@@ -29,9 +29,9 @@ The files are categorized by their first two digits with the following meaning:
 @itemize
 @item 00 ... Basics: Pitches, durations, rests, clefs, keys, time sigs, ties, etc.
 @item 01 ... Chords
-@item 02 ... Articulations, Ornaments, Technicals, Texts
-@item 03 ... Dynamics (single symbols, not spanners like hairpins)
-@item 04 ... Spanners (hairpins, octave shifts, trills, etc.)
+@item 02 ... MusicXML notations and articulations (articulations, ornaments, technicals, text markup)
+@item 03 ... MusicXML directions (dynamics; single symbols, not spanners like hairpins)
+@item 04 ... Spanners (hairpin, octave shift, trill, glissando, etc.)
 @item 05 ... Header information (title, composer, poet, etc.)
 @item 06 ... Lyrics
 @item 08 ... Multiple parts (staves)
@@ -42,8 +42,10 @@ The files are categorized by their first two digits with the following meaning:
 @item 14 ... Multi-staff parts (one voice on multiple staves, e.g. PianoStaff)
 @item 15 ... Percussion
 @item 17 ... Guitar notation: Chord names, Fretboards, Tablature notation
+@item 18 ... Figured bass
 @item 19 ... Page layout: font/paper size, margins, spacing
-@item 20 ... 
+@item 20 ... Compressed MusicXML files
+@item 99 ... Compatibility modes with broken MusicXML exporters (i.e. ignore beams for Sibelius 5)
 @end itemize
 ")
 

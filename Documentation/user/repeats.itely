@@ -95,12 +95,11 @@ to be played more than once.
 The syntax for a normal repeat is
 
 @example
-\repeat @var{variant} @var{repeatcount} @var{repeatbody}
+\repeat volta @var{repeatcount} @var{repeatbody}
 @end example
 
-where @var{variant} is @qq{volta} and @var{repeatbody} is a music
-expression.  Alternate endings can be produced using
-@code{\alternative}.
+where @var{repeatbody} is a music expression.  Alternate endings can
+be produced using @code{\alternative}.
 
 Normal repeats without alternate endings:
 
@@ -161,14 +160,14 @@ c1
 {shortening-volta-brackets.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{adding-volta-brackets-to-extra-staves.ly}
+{adding-volta-brackets-to-additional-staves.ly}
 
 
 @c Is there a way to have a final bar ("|.") at the end of the
 @c previous line? Doesn't seem to be.
 If you want to start a repeat at the beginning of a line and have a
-double bar at the end of the previous line, use @code{\bar}. See
-@ref{Bar lines} for more information.
+double bar at the end of the previous line, use @code{\bar}. For more
+information, see @ref{Bar lines}.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c4 c c c
@@ -179,8 +178,7 @@ c4 c c c
 
 @seealso
 
-Music Glossary: @rglos{repeat}.
-@c FIXME : add @rglos{volta} after glossary addition
+Music Glossary: @rglos{repeat}, @rglos{volta}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
@@ -189,9 +187,6 @@ Snippets: @lsrdir{Repeats,Repeats}.
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}.
-
-@c Examples:
-
 
 @knownissues
 
@@ -261,22 +256,55 @@ c4 c4
 
 @seealso
 
-Notation Reference: @ref{Bar lines}.
+Notation Reference: @ref{Bar lines}, @ref{Text markup}.
 
 Snippets: @lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
-and @internalsref{UnfoldedRepeatedMusic}.
+@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic}.
 
 
 @node Written-out repeats
 @subsubsection Written-out repeats
 
-unfold
+@cindex written-out repeats
+@cindex repetitious music
+@cindex repeats, written-out
 
+By using the @code{unfold} command, repeats can be used to simplify
+the writing out of repetitious music. The syntax is
 
+@example
+\repeat unfold @var{repeatcount} @var{repeatbody}
+@end example
 
+Unfold repeats can be made with or without alternate endings. Unfold
+repeats without alternate endings:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c1
+\repeat unfold 2 { c4 d e f }
+c1
+@end lilypond
+
+Unfold repeats with alternate endings:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c1
+\repeat unfold 2 { g f e d }
+  \alternative {
+    { cis2 g' }
+    { cis,2 b }
+  }
+c1
+@end lilypond
+
+@seealso
+
+Snippets: @lsrdir{Repeats,Repeats}.
+
+Internals Reference: @internalsref{RepeatedMusic},
+@internalsref{UnfoldedRepeatedMusic}.
 
 @node Short repeats
 @subsection Short repeats

@@ -15,7 +15,7 @@ Rests may be used in various styles.
   indent = 0.0
   \context {
     \Staff
-    \remove Time_signature_engraver
+    \remove "Time_signature_engraver"
   }
 }
 

@@ -316,6 +316,9 @@ the music event.  This only functions inside chords; to
 parenthesize a single note it must be enclosed with @code{<>} as
 if it is a chord.
 
+FIXME: after 2.11.44 is out,
+@c \parenthesize c4-. \parenthesize r4 \parenthesize <c e g>4->
+
 @lilypond[quote,relative=2,fragment,verbatim,ragged-right]
 c2 < \parenthesize d>
 @end lilypond

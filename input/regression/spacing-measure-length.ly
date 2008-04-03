@@ -1,6 +1,6 @@
 \header {
 
-  texidoc = "Horizontal spacing is bounded by of the current measure length.
+  texidoc = "Horizontal spacing is bounded by the current measure length.
 This means that the 3/8 setting does not affect the whole rest spacing." 
 
 }

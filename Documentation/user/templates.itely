@@ -22,7 +22,7 @@ beautiful printed scores!
 * Vocal ensembles::             
 * Ancient notation templates::  
 * Jazz combo::                  
-* Lilypond-book templates::     
+* lilypond-book templates::     
 @end menu
 
 
@@ -199,11 +199,11 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 @end ignore
 
 
-@node Lilypond-book templates
-@appendixsec Lilypond-book templates
+@node lilypond-book templates
+@appendixsec lilypond-book templates
 
 These templates are for use with @code{lilypond-book}.  If you're not familiar
-with this program, please refer to @rprogram{LilyPond-book}.
+with this program, please refer to @rprogram{lilypond-book}.
 
 @appendixsubsec LaTeX
 
@@ -279,7 +279,7 @@ d4 c b a
 \usepackage{graphicx}
 
 \begin{document}
-\title{A short document with lilypond and xelatex}
+\title{A short document with LilyPond and xelatex}
 \maketitle
 
 Normal \textbf{font} commands inside the \emph{text} work,
@@ -289,7 +289,7 @@ should include them again in a \verb+\ifxetex+ environment.
 You can use this to print the \ifxetex \XeTeX{} command \else
 XeTeX command \fi which is not known to normal \LaTeX .
 
-In normal text you can easily use lilypond commands, like this:
+In normal text you can easily use LilyPond commands, like this:
 
 \begin{lilypond}
 {a2 b c'8 c' c' c'}
@@ -298,7 +298,7 @@ In normal text you can easily use lilypond commands, like this:
 \noindent
 and so on.
 
-The fonts of snippets set with lilypond will have to be set from
+The fonts of snippets set with LilyPond will have to be set from
 inside 
 of the snippet. For this you should read the AU on how to use
 lilypond-book.

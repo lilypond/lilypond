@@ -10,7 +10,7 @@
 @node Input syntax
 @chapter Input syntax
 
-This section deals with general lilypond input syntax issues,
+This section deals with general LilyPond input syntax issues,
 rather than specific notation.
 
 FIXME: don't complain about anything in this chapter.  It's still
@@ -331,7 +331,7 @@ In order to use this feature, LilyPond must be invoked with
 @code{-dclip-systems}.  The clips are output as EPS files, and are
 converted to PDF and PNG if these formats are switched on as well.
 
-For more information on output formats, see @rprogram{Invoking lilypond}.
+For more information on output formats, see @rprogram{Invoking LilyPond}.
 
 @seealso
 
@@ -359,7 +359,7 @@ together the individual instrument files.
 
 The initialization of LilyPond is done in a number of files that are
 included by default when you start the program, normally transparent to the
-user.  Run lilypond --verbose to see a list of paths and files that Lily
+user.  Run @code{lilypond --verbose} to see a list of paths and files that Lily
 finds.
 
 Files placed in directory @file{PATH/TO/share/lilypond/VERSION/ly/} (where
@@ -371,7 +371,7 @@ available to \include from directories in the search path specified as an
 option when invoking @code{lilypond --include=DIR} which adds DIR to the
 search path.
 
-The @code{\include} statement can use full path information, but with the Unix
+The @code{\include} statement can use full path information, but with the UNIX
 convention @code{/} rather than the DOS/Windows @code{\}.  For example,
 if @file{stuff.ly} is located one directory higher than the current working
 directory, use
@@ -490,7 +490,8 @@ commands, tagged expressions can be filtered.  For example,
 @end example
 would yield
 
-@lilypondfile[ragged-right,quote]{tag-filter.ly}
+@c FIXME: broken
+@c @lilypondfile[ragged-right,quote]{tag-filter.ly}
 
 The arguments of the @code{\tag} command should be a symbol
 (such as @code{#'score} or @code{#'part}), followed by a
@@ -527,7 +528,7 @@ sections.
 
 TODO: everything
 
-By default, lilypond does a pretty jazz'n job of picking
+By default, LilyPond does a pretty jazz'n job of picking
 directions.  But in some cases, it may be desirable to force a
 direction.
 

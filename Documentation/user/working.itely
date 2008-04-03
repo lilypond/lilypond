@@ -32,23 +32,23 @@ go about doing it?
 
 As long as LilyPond can understand your files and produces the output
 that you want, it doesn't matter what your files look like.  However,
-there are a few other things to consider when writing lilypond files.
+there are a few other things to consider when writing LilyPond files.
 
 @itemize
-@item What if you make a mistake?  The structure of a lilypond
+@item What if you make a mistake?  The structure of a LilyPond
 file can make certain errors easier (or harder) to find.
 
 @item What if you want to share your files with somebody
 else?  In fact, what if you want to alter your own files in
-a few years?  Some lilypond files are understandable at
+a few years?  Some LilyPond files are understandable at
 first glance; other files may leave you scratching your head
 for an hour.
 
-@item What if you want to upgrade your lilypond file for use
-with a later version of lilypond?  The input syntax changes
-occasionally as lilypond improves.  Most changes can be
+@item What if you want to upgrade your LilyPond file for use
+with a later version of LilyPond?  The input syntax changes
+occasionally as LilyPond improves.  Most changes can be
 done automatically with @code{convert-ly}, but some changes
-might require manual assistance.  Lilypond files can be
+might require manual assistance.  LilyPond files can be
 structured in order to be easier (or harder) to update.
 @end itemize
 

@@ -5,7 +5,7 @@
 \header {
   lsrtags = "pitches, staff-notation, vocal-music"
  texidoc = "
-Ambits can be added per voice. In this case, the ambitus must be moved
+Ambitus can be added per voice. In this case, the ambitus must be moved
 manually to prevent collisions. 
 " }
 % begin verbatim

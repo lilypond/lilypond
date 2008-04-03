@@ -39,8 +39,8 @@ as @code{midi2ly}) which are only available on the command-line.
 
 By @q{command-line}, we mean the command line in the operating system.
 Windows users might be more familiar with the terms @q{DOS shell} or
-@q{command shell}; OSX users might be more familiar with the terms
-@q{terminal} or @q{console}.  OSX users should also consult @ref{MacOS X
+@q{command shell}; MacOS@tie{}X users might be more familiar with the terms
+@q{terminal} or @q{console}.  They should also consult @ref{MacOS X
 on the command-line}.
 
 Describing how to use this part of an operating system is outside the
@@ -56,7 +56,7 @@ if you are unfamiliar with the command-line.
 @cindex switches
 
 
-The @code{lilypond} executable may be called as follows from the command line.
+The @command{lilypond} executable may be called as follows from the command line.
 
 @example
 lilypond [@var{option}]@dots{} @var{file}@dots{}
@@ -232,7 +232,7 @@ This mode is used by default by lilypond-book.
 @cindex SVG (Scalable Vector Graphics)
   You need a SVG viewer which supports embedded fonts, or a SVG
   viewer which is able to replace the embedded fonts with OTF fonts.
-  Under Unix, you may use @uref{http://www.inkscape.org,Inkscape}
+  Under UNIX, you may use @uref{http://www.inkscape.org,Inkscape}
   (version 0.42 or later), after copying the OTF fonts in directory
   @file{PATH/TO/share/lilypond/VERSION/fonts/otf/} to @file{~/.fonts/}.
 @item scm
@@ -294,19 +294,19 @@ Generate PDF.  This implies @code{--ps}.
 
 
 @item -j,--jail=@var{user},@var{group},@var{jail},@var{dir}
-Run LilyPond in a chroot jail.
+Run @command{lilypond} in a chroot jail.
 
 The @code{--jail} option provides a more flexible alternative to
 @code{--safe} when LilyPond formatting is available through a web
 server or whenever LilyPond executes externally provided
 sources.
 
-The @code{--jail} option works by changing the root of LilyPond to
+The @code{--jail} option works by changing the root of @command{lilypond} to
 @var{jail} just before starting the actual compilation process.  The user
 and group are then changed to match those provided, and the current
 directory is changed to @var{dir}.  This setup guarantees that it is not
 possible (at least in theory) to escape from the jail.  Note that for
-@code{--jail} to work LilyPond must be run as root, which is usually
+@code{--jail} to work @command{lilypond} must be run as root, which is usually
 accomplished in a safe way using @command{sudo}.
 
 Setting up a jail is a slightly delicate matter, as we must be sure that
@@ -371,7 +371,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @cindex LANG
 @cindex LILYPOND_DATADIR
 
-@code{Lilypond} recognizes the following environment variables:
+@command{lilypond} recognizes the following environment variables:
 @table @code
 @item LILYPOND_DATADIR
 This specifies a directory where locale messages and
@@ -485,7 +485,7 @@ convert-ly -e myfile.ly
 @end example
 
 @noindent
-MacOS X users may execute this command under the menu entry
+MacOS@tie{}X users may execute this command under the menu entry
 @code{Compile > Update syntax}.
 
 If there are no changes to myfile.ly and file called myfile.ly.NEW
@@ -510,7 +510,7 @@ convert-ly --from=... --to=... -s
 @end example
 
 To upgrade many files at once, combine @code{convert-ly} with
-standard unix commands.  This example will upgrade all @code{.ly}
+standard UNIX commands.  This example will upgrade all @code{.ly}
 files in the current directory
 
 @example
@@ -559,7 +559,7 @@ Print usage help.
 @subsection Problems with @code{convert-ly}
 
 Not all language changes are handled.  Only one output option can be
-specified.  Automatically updating scheme and lilypond scheme
+specified.  Automatically updating scheme and LilyPond scheme
 interfaces is quite unlikely; be prepared to tweak scheme code
 manually.
 
