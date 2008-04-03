@@ -38,13 +38,18 @@ class Rational(object):
            raise TypeError('denominator must have integer type')
        if not denominator:
            raise ZeroDivisionError('rational construction')
-       # Store the fraction in reduced form as _n/_d
-       factor = _gcf(numerator, denominator)
-       self._n = numerator // factor
-       self._d = denominator // factor
+       self._d = denominator
+       self._n = numerator
+       self.normalize_self()
+    # Cancel the fraction to reduced form
+    def normalize_self(self):
+       factor = _gcf(self._n, self._d)
+       self._n = self._n // factor
+       self._d = self._d // factor
        if self._d < 0:
            self._n = -self._n
            self._d = -self._d
+
     def numerator(self):
 	return self._n
 
