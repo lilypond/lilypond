@@ -34,7 +34,7 @@ sub texinfo_file_name($)
   my @chars = split(//, $str);
   my $str = '';
   foreach my $char (@chars) {
-    if ( $char == ' ' ) { # space -> '-'
+    if ( $char eq ' ' ) { # space -> '-'
       $str .= '-';
     } elsif ( ('0' le $char and $char le '9' ) or
               ('A' le $char and $char le 'Z' ) or
