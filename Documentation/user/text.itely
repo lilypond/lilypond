@@ -14,6 +14,7 @@
 This section explains how to include text (with various
 formatting) in your scores.
 
+
 @cindex Text, other languages
 @warning{To write accented and special text (such as characters
 from other languages), simply insert the characters directly into
@@ -29,59 +30,11 @@ information, see @ref{Text encoding}.}
 @node Writing text
 @subsection Writing text
 
-@menu
-* Overview of text entry::      
+@menu     
 * Text scripts::                
 * Text spanners::               
 * Text marks::                  
 @end menu
-
-@node Overview of text entry
-@subsubsection Overview of text entry
-
-There are four ways to add text to scores:
-
-@itemize
-@item
-@ref{Text scripts}: blah blah
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4^"text" c c c
-@end lilypond
-
-@item
-@ref{Text spanners}: blah blah
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c1
-\override TextSpanner #'bound-details #'left #'text =
-  \markup { \upright "rall" } 
-c2\startTextSpan b c\stopTextSpan a
-@end lilypond
-
-@item
-@ref{Text marks}: blah blah
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4\mark "foo" c c c
-@end lilypond
-
-@item
-@ref{Vocal music}: blah blah, not in this section.
-
-@lilypond[verbatim,quote,ragged-right]
-<<
-  \relative c'' { c4 c c c }
-  \addlyrics { one two three four }
->>
-@end lilypond
-
-@end itemize
-
-@seealso
-
-Snippets: @lsrdir{Text,Text}
-
 
 
 @node Text scripts
