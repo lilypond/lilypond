@@ -776,7 +776,7 @@ c2 c
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{clefs-commonly-tweaked-properties.ly}
+{tweaking-clef-properties.ly}
 
 
 @seealso
