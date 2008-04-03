@@ -426,7 +426,6 @@ def extract_score_structure (part_list, staffinfo):
     return structure
 
 
-
 def musicxml_duration_to_lily (mxl_note):
     d = musicexp.Duration ()
     # if the note has no Type child, then that method spits out a warning and 
@@ -443,16 +442,26 @@ def musicxml_duration_to_lily (mxl_note):
 
 def rational_to_lily_duration (rational_len):
     d = musicexp.Duration ()
-    d.duration_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (rational_len.denominator (), -1)
-    d.factor = Rational (rational_len.numerator ())
-    if d.duration_log < 0:
+
+    rational_len.normalize_self ()
+    d_log = {1: 0, 2: 1, 4:2, 8:3, 16:4, 32:5, 64:6, 128:7, 256:8, 512:9}.get (rational_len.denominator (), -1)
+
+    # Duration of the form 1/2^n or 3/2^n can be converted to a simple lilypond duration
+    if (d_log >= 0 and rational_len.numerator() in (1,3,5,7) ):
+        # account for the dots!
+        d.dots = (rational_len.numerator()-1)/2
+        d.duration_log = d_log - d.dots
+    elif (d_log >= 0):
+        d.duration_log = d_log
+        d.factor = Rational (rational_len.numerator ())
+    else:
         error_message (_ ("Encountered rational duration with denominator %s, "
                        "unable to convert to lilypond duration") %
                        rational_len.denominator ())
         # TODO: Test the above error message
         return None
-    else:
-        return d
+
+    return d
 
 def musicxml_partial_to_lily (partial_len):
     if partial_len > 0:
@@ -1233,6 +1242,56 @@ def musicxml_harmony_to_lily (n):
 
     return res
 
+def musicxml_figured_bass_note_to_lily (n):
+    res = musicexp.FiguredBassNote ()
+    suffix_dict = { 'sharp' : "+", 
+                    'flat' : "-", 
+                    'natural' : "!", 
+                    'double-sharp' : "++", 
+                    'flat-flat' : "--", 
+                    'sharp-sharp' : "++", 
+                    'slash' : "/" }
+    prefix = n.get_maybe_exist_named_child ('prefix')
+    if prefix:
+        res.set_prefix (suffix_dict.get (prefix.get_text (), ""))
+    fnumber = n.get_maybe_exist_named_child ('figure-number')
+    if fnumber:
+        res.set_number (fnumber.get_text ())
+    suffix = n.get_maybe_exist_named_child ('suffix')
+    if suffix:
+        res.set_suffix (suffix_dict.get (suffix.get_text (), ""))
+    if n.get_maybe_exist_named_child ('extend'):
+        # TODO: Implement extender lines (unfortunately, in lilypond you have 
+        #       to use \set useBassFigureExtenders = ##t, which turns them on
+        #       globally, while MusicXML has a property for each note...
+        #       I'm not sure there is a proper way to implement this cleanly
+        #n.extend
+        pass
+    return res
+
+
+
+def musicxml_figured_bass_to_lily (n):
+    if not isinstance (n, musicxml.FiguredBass):
+        return
+    res = musicexp.FiguredBassEvent ()
+    for i in n.get_named_children ('figure'):
+        note = musicxml_figured_bass_note_to_lily (i)
+        if note:
+            res.append (note)
+    dur = n.get_maybe_exist_named_child ('duration')
+    if dur:
+        # TODO: implement duration (given in base steps!)
+        # apply the duration to res
+        length = Rational(int(dur.get_text()), n._divisions)*Rational(1,4)
+        res.set_real_duration (length)
+        duration = rational_to_lily_duration (length)
+        if duration:
+            res.set_duration (duration)
+    if hasattr (n, 'parentheses') and n.parentheses == "yes":
+        res.set_parentheses (True)
+    return res
+
 instrument_drumtype_dict = {
     'Acoustic Snare Drum': 'acousticsnare',
     'Side Stick': 'sidestick',
@@ -1425,8 +1484,10 @@ class LilyPondVoiceBuilder:
 
 class VoiceData:
     def __init__ (self):
+        self.voicename = None
         self.voicedata = None
         self.ly_voice = None
+        self.figured_bass = None
         self.lyrics_dict = {}
         self.lyrics_order = []
 
@@ -1454,6 +1515,8 @@ def musicxml_voice_to_lily_voice (voice):
     ignore_lyrics = False
 
     current_staff = None
+    
+    pending_figured_bass = []
 
     # Make sure that the keys in the dict don't get reordered, since
     # we need the correct ordering of the lyrics stanzas! By default,
@@ -1462,7 +1525,8 @@ def musicxml_voice_to_lily_voice (voice):
     for k in return_value.lyrics_order:
         lyrics[k] = []
 
-    voice_builder = LilyPondVoiceBuilder()
+    voice_builder = LilyPondVoiceBuilder ()
+    figured_bass_builder = LilyPondVoiceBuilder ()
 
     for n in voice._elements:
         if n.get_name () == 'forward':
@@ -1494,6 +1558,12 @@ def musicxml_voice_to_lily_voice (voice):
                     voice_builder.add_dynamics (a)
                 else:
                     voice_builder.add_command (a)
+            continue
+        
+        if isinstance (n, musicxml.FiguredBass):
+            a = musicxml_figured_bass_to_lily (n)
+            if a:
+                pending_figured_bass.append (a)
             continue
 
         is_chord = n.get_maybe_exist_named_child ('chord')
@@ -1584,6 +1654,18 @@ def musicxml_voice_to_lily_voice (voice):
             if voice_builder.current_duration () == 0 and n._duration > 0:
                 voice_builder.set_duration (n._duration)
         
+        # if we have a figured bass, set its voice builder to the correct position
+        # and insert the pending figures
+        if pending_figured_bass:
+          try:
+              figured_bass_builder.jumpto (n._when)
+          except NegativeSkip, neg:
+              pass
+          for fb in pending_figured_bass:
+              figured_bass_builder.add_music (fb, fb.real_duration)
+          pending_figured_bass = []
+
+
         notations_children = n.get_typed_children (musicxml.Notations)
         tuplet_event = None
         span_events = []
@@ -1759,6 +1841,15 @@ def musicxml_voice_to_lily_voice (voice):
         v.mode = mode
         return_value.ly_voice = v
     
+    # create \figuremode { figured bass elements }
+    if figured_bass_builder.elements:
+        fbass_music = musicexp.SequentialMusic ()
+        fbass_music.elements = figured_bass_builder.elements
+        v = musicexp.ModeChangingMusicWrapper()
+        v.mode = 'figuremode'
+        v.element = fbass_music
+        return_value.figured_bass = v
+    
     return return_value
 
 def musicxml_id_to_lily (id):
@@ -1925,6 +2016,10 @@ def music_xml_lyrics_name_to_lily_name (part_id, name, lyricsnr):
     str = "Part%sVoice%sLyrics%s" % (part_id, name, lyricsnr)
     return musicxml_id_to_lily (str) 
 
+def music_xml_figuredbass_name_to_lily_name (part_id, voicename):
+    str = "Part%sVoice%sFiguredBass" % (part_id, voicename)
+    return musicxml_id_to_lily (str) 
+
 def print_voice_definitions (printer, part_list, voices):
     for part in part_list:
         part_id = part.id
@@ -1936,8 +2031,13 @@ def print_voice_definitions (printer, part_list, voices):
             printer.newline()
             for l in voice.lyrics_order:
                 lname = music_xml_lyrics_name_to_lily_name (part_id, name, l)
-                printer.dump ('%s = ' %lname )
+                printer.dump ('%s = ' % lname )
                 voice.lyrics_dict[l].print_ly (printer)
+                printer.newline()
+            if voice.figured_bass:
+                fbname = music_xml_figuredbass_name_to_lily_name (part_id, name)
+                printer.dump ('%s = ' % fbname )
+                voice.figured_bass.print_ly (printer)
                 printer.newline()
 
 
@@ -1947,19 +2047,22 @@ def uniq_list (l):
 # format the information about the staff in the form 
 #     [staffid,
 #         [
-#            [voiceid1, [lyricsid11, lyricsid12,...] ...],
-#            [voiceid2, [lyricsid21, lyricsid22,...] ...],
+#            [voiceid1, [lyricsid11, lyricsid12,...], figuredbassid1],
+#            [voiceid2, [lyricsid21, lyricsid22,...], figuredbassid2],
 #            ...
 #         ]
 #     ]
-# raw_voices is of the form [(voicename, lyricsids)*]
+# raw_voices is of the form [(voicename, lyricsids, havefiguredbass)*]
 def format_staff_info (part_id, staff_id, raw_voices):
     voices = []
-    for (v, lyricsids) in raw_voices:
+    for (v, lyricsids, figured_bass) in raw_voices:
         voice_name = music_xml_voice_name_to_lily_name (part_id, v)
         voice_lyrics = [music_xml_lyrics_name_to_lily_name (part_id, v, l)
                    for l in lyricsids]
-        voices.append ([voice_name, voice_lyrics])
+        figured_bass_name = ''
+        if figured_bass:
+            figured_bass_name = music_xml_figuredbass_name_to_lily_name (part_id, v)
+        voices.append ([voice_name, voice_lyrics, figured_bass_name])
     return [staff_id, voices]
 
 def update_score_setup (score_structure, part_list, voices):
@@ -1981,12 +2084,12 @@ def update_score_setup (score_structure, part_list, voices):
             staves = uniq_list (staves)
             staves.sort ()
             for s in staves:
-                thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
+                thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass) 
                     for (voice_name, voice) in nv_dict.items ()
                     if voice.voicedata._start_staff == s]
                 staves_info.append (format_staff_info (part_id, s, thisstaff_raw_voices))
         else:
-            thisstaff_raw_voices = [(voice_name, voice.lyrics_order) 
+            thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass) 
                 for (voice_name, voice) in nv_dict.items ()]
             staves_info.append (format_staff_info (part_id, None, thisstaff_raw_voices))
         score_structure.set_part_information (part_id, staves_info)
