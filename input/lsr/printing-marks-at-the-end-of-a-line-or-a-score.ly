@@ -11,16 +11,18 @@ mark has to be added at the end of a score -- when there is no next
 line.
 
 In such cases, the right end of the mark has to be aligned with the
-final barline, as demonstrated on the second line of this example. 
+final bar line, as demonstrated on the second line of this example. 
 " }
 % begin verbatim
 \relative c'' {  
   \override Score.RehearsalMark  #'break-visibility = #begin-of-line-invisible
-  g2 c d, a'
+  g2 c
+  d, a'
   \mark \default
   \break
   
   \override Score.RehearsalMark #'self-alignment-X = #right
-  g b, c1  \bar "||"
+  g b,
+  c1 \bar "||"
   \mark "D.C. al Fine"
 }
