@@ -73,12 +73,12 @@
 @c ***** HTML *****
 
 @macro ruser{NAME}
-@ref{\\NAME\\,,,lilypond}
+@ref{\\NAME\\,,,lilypond,Notation Reference}
 @cindex \\NAME\\
 @end macro
 
 @macro glossaryref{NAME}
-@ref{\\NAME\\,,,music-glossary}
+@ref{\\NAME\\,,,music-glossary,Music Glossary}
 @cindex \\NAME\\
 @end macro
 
