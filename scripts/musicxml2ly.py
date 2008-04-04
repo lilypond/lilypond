@@ -1945,7 +1945,7 @@ def get_all_voices (parts):
 
 def option_parser ():
     p = ly.get_option_parser (usage = _ ("musicxml2ly [options] FILE.xml"),
-                             description = _ ("Convert %s to LilyPond input.") % 'MusicXML' + "\n",
+                             description = _ ("Convert MusicXML from FILE.xml to LilyPond input. If the given filename is -, musicxml2ly reads from the command line.") + "\n",
                              add_help_option=False)
 
     p.add_option("-h", "--help",
@@ -2019,7 +2019,7 @@ Copyright (c) 2005--2008 by
                   default = None,
                   type = 'string',
                   dest = 'output_name',
-                  help = _ ("set output filename to FILE"))
+                  help = _ ("set output filename to FILE, stdout if -"))
     p.add_option_group (ly.display_encode (_ ('Bugs')),
                         description = (_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
@@ -2150,8 +2150,12 @@ def read_xml (io_object, use_lxml):
 def read_musicxml (filename, compressed, use_lxml):
     raw_string = None
     if compressed:
-        progress (_ ("Input file %s is compressed, extracting raw MusicXML data") % filename)
-        z = zipfile.ZipFile (filename, "r")
+        if filename == "-":
+             progress (_ ("Input is compressed, extracting raw MusicXML data from stdin") )
+             z = zipfile.ZipFile (sys.stdin)
+        else:
+            progress (_ ("Input file %s is compressed, extracting raw MusicXML data") % filename)
+            z = zipfile.ZipFile (filename, "r")
         container_xml = z.read ("META-INF/container.xml")
         if not container_xml:
             return None
@@ -2168,15 +2172,21 @@ def read_musicxml (filename, compressed, use_lxml):
         if mxml_file:
             raw_string = z.read (mxml_file)
 
-    io_object = filename
     if raw_string:
         io_object = StringIO.StringIO (raw_string)
+    elif filename == "-":
+        io_object = sys.stdin
+    else:
+        io_object = filename
 
     return read_xml (io_object, use_lxml)
 
 
 def convert (filename, options):
-    progress (_ ("Reading MusicXML from %s ...") % filename)
+    if filename == "-":
+        progress (_ ("Reading MusicXML from Standard input ...") )
+    else:
+        progress (_ ("Reading MusicXML from %s ...") % filename)
 
     tree = read_musicxml (filename, options.compressed, options.use_lxml)
     score_information = extract_score_information (tree)
@@ -2203,13 +2213,19 @@ def convert (filename, options):
         options.output_name = os.path.splitext (options.output_name)[0]
 
 
-    defs_ly_name = options.output_name + '-defs.ly'
-    driver_ly_name = options.output_name + '.ly'
+    #defs_ly_name = options.output_name + '-defs.ly'
+    if (options.output_name == "-"):
+      output_ly_name = 'Standard output'
+    else:
+      output_ly_name = options.output_name + '.ly'
 
+    progress (_ ("Output to `%s'") % output_ly_name)
     printer = musicexp.Output_printer()
-    progress (_ ("Output to `%s'") % defs_ly_name)
-    printer.set_file (codecs.open (defs_ly_name, 'wb', encoding='utf-8'))
-
+    #progress (_ ("Output to `%s'") % defs_ly_name)
+    if (options.output_name == "-"):
+      printer.set_file (codecs.getwriter ("utf-8")(sys.stdout))
+    else:
+      printer.set_file (codecs.open (output_ly_name, 'wb', encoding='utf-8'))
     print_ly_preamble (printer, filename)
     print_ly_additional_definitions (printer, filename)
     if score_information:
@@ -2220,14 +2236,9 @@ def convert (filename, options):
         layout_information.print_ly (printer)
     print_voice_definitions (printer, part_list, voices)
     
-    printer.close ()
-    
-    
-    progress (_ ("Output to `%s'") % driver_ly_name)
-    printer = musicexp.Output_printer()
-    printer.set_file (codecs.open (driver_ly_name, 'wb', encoding='utf-8'))
-    print_ly_preamble (printer, filename)
-    printer.dump (r'\include "%s"' % os.path.basename (defs_ly_name))
+    printer.newline ()
+    printer.dump ("% The score definition")
+    printer.newline ()
     score_structure.print_ly (printer)
     printer.newline ()
 
@@ -2260,11 +2271,14 @@ def main ():
     conversion_settings.ignore_beaming = not options.convert_beaming
 
     # Allow the user to leave out the .xml or xml on the filename
-    filename = get_existing_filename_with_extension (args[0], "xml")
-    if not filename:
-        filename = get_existing_filename_with_extension (args[0], "mxl")
-        options.compressed = True
-    if filename and os.path.exists (filename):
+    if args[0]=="-": # Read from stdin
+        filename="-"
+    else:
+        filename = get_existing_filename_with_extension (args[0], "xml")
+        if not filename:
+            filename = get_existing_filename_with_extension (args[0], "mxl")
+            options.compressed = True
+    if filename and (filename == "-" or os.path.exists (filename)):
         voices = convert (filename, options)
     else:
         progress (_ ("Unable to find input file %s") % args[0])
