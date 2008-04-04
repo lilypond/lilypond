@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 0184e537d7eda6265b92fe20f3565de0f0411869
+    Translation of GIT committish: 1de1bd7dd269ff09fc7566c2e240555347f52b65
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -94,11 +94,11 @@ Las opciones se escriben entre corchetes.
 \end{lilypond}
 
 Los ejemplos grandes se pueden grabar en archivos separados e
-introducirse con with \verb+\lilypondfile+.
+introducirse con \verb+\lilypondfile+.
 
 \lilypondfile[quote,noindent]{screech-boink.ly}
 
-(Si es necesario, sustituya screech-boink.ly po cualquier archivo .ly
+(Si es necesario, sustituya screech-boink.ly por cualquier archivo .ly
 situado en el mismo directorio que este archivo.)
 
 \end{document}
@@ -241,7 +241,7 @@ produce
 
 @noindent
 Por el momento no es posible incluir llaves @code{@{} o @code{@}}
-dentro de @code{\lilypond@{@}}, asíi que esta instrucción solamente es
+dentro de @code{\lilypond@{@}}, así que esta instrucción solamente es
 útil con la opción @code{fragment}.
 
 El ancho predeterminado de las líneas de música se ajusta mediante el
@@ -335,7 +335,7 @@ sustituya el @q{2} por el número de sistemas que quiere en la salida:
 
 Recuerde que la definición de @code{\betweenLilyPondSystem} es
 efectiva hasta que @TeX{} abandona el grupo actual (como el entorno
-@LaTeX{}) oo se sobreescribe por otra definición (lo que casi siempre
+@LaTeX{}) o se sobreescribe por otra definición (lo que casi siempre
 es por el resto del documento).  Para reponer la definición, escriba
 
 @example
@@ -485,11 +485,11 @@ elementos estándar de DocBook.
 
 @subheading Common conventions
 
-Para insertar todoa clase de fragmentos utilizamos los elementos
+Para insertar toda clase de fragmentos utilizamos los elementos
 @code{mediaobject} y @code{inlinemediaobject}, de forma que nuestros
-fragmentos puedan ser formateados een línea o no en línea.  Las
+fragmentos puedan ser formateados en línea o no en línea.  Las
 opciones de formateo del fragmento se escriben siempre dentro de la
-popiedad @code{role} del elemento más interno (véanse las secciones
+propiedad @code{role} del elemento más interno (véanse las secciones
 siguientes).  Las etiquetas se eligen de forma que permitan a los
 editores de DocBook formatear el contenido satisfactoriamente.  Los
 archivos de DocBook que se van a procesar con @command{lilypond-book}
@@ -643,7 +643,7 @@ al fragmento musical.
 Usar el modo de octava relativa.  De forma predeterminada, las notas
 se especifican con relación al Do@tie{}central.  El argumento entero
 opcional especifica la octava de la nota inicial, donde el valor
-predeteminado @code{1} es el Do central.
+predeterminado @code{1} es el Do central.
 @end table
 
 LilyPond utiliza también @command{lilypond-book} para producir su
@@ -678,7 +678,7 @@ el modo relativo, pero la cita preformateada no presentará el bloque
 @end example
 
 @noindent
-se imprimirá como un bloque preformateadp como
+se imprimirá como un bloque preformateado como
 
 @example
   c4 e2 g4
@@ -690,7 +690,7 @@ se imprimirá como un bloque preformateadp como
 @@w@{"@@version@{@}"@}} a la salida de @code{verbatim}.
 
 @item texidoc
-(Sólloo para la salida de Texinfo.)  Si se llama a @command{lilypond}
+(Sólo para la salida de Texinfo.)  Si se llama a @command{lilypond}
 con la opción @option{--header=@/texidoc}, y el archivo que se procesa
 se llama @file{fulanito@/.ly}, crea un archivo
 @file{fulanito@/.texidoc} si existe un campo @code{texidoc} dentro del
@@ -744,7 +744,7 @@ Sólo se imprime el nombre base del archivo, es decir, se elimina la
 parte del directorio de la ruta del archivo.
 
 @item fontload
-Esta opción inluye las fuentes tipográficas en todos los archivos EPS
+Esta opción incluye las fuentes tipográficas en todos los archivos EPS
 generados para este fragmento.  Se debe usar si el fragmento usa
 cualquier tipografía que LaTeX no es capaz de encontrar por sí solo.
 
@@ -813,7 +813,7 @@ recuerde añadir @code{-t landscape} a las opciones de @command{dvips}.
 @subsubheading Texinfo
 
 Para producir un documento de Texinfo (en cualquier formato de
-salida), siga el procedimento normal para Texinfo, esto es: o bien
+salida), siga el procedimiento normal para Texinfo, esto es: o bien
 llame a @command{texi2pdf} o a @command{texi2dvi} o a
 @command{makeinfo}, según el formato de la salida que quiera crear.
 @ifinfo
@@ -848,7 +848,7 @@ version, the format @code{texi-html} must be used instead.
 
 @item -F @var{filtro}
 @itemx --filter=@var{filtro}
-Conducir los grafmentos a través de @var{filter} por medio de una
+Conducir los fragmentos a través de @var{filter} por medio de una
 tubería.  @code{lilypond-book} no obedecerá --filter y --process al
 mismo tiempo.  Por ejemplo,
 
@@ -892,7 +892,7 @@ derecho.
 
 El ancho de los sistemas que están muy ajustados dentro de su
 rectángulo puede variar, debido a los elementos de notación que están
-pegados al margen izquierdo, como los numeros de compás y el nombre
+pegados al margen izquierdo, como los números de compás y el nombre
 del instrumento.  Esta opción acorta todas las líneas y las mueve a la
 derecha en la misma medida.
 
@@ -900,7 +900,7 @@ derecha en la misma medida.
 @item -P @var{proceso}
 @itemx --process=@var{instrucción}
 Procesar los fragmentos de LilyPond utilizando @var{instrucción}.  La
-instrucción predeteminada es @code{lilypond}.  @code{lilypond-book} no
+instrucción predeterminada es @code{lilypond}.  @code{lilypond-book} no
 obedecerá a @code{--filter} y a @code{--process} al mismo tiempo.
 
 @item --pdf
@@ -941,7 +941,7 @@ salida basándose en la extensión del nombre del archivo de entrada.
 
 @quotation
 @multitable @columnfractions .2 .5
-@item @strong{extensió} @tab @strong{formato de salida}
+@item @strong{extensión} @tab @strong{formato de salida}
 @item
 @item @file{.html} @tab HTML
 @item @file{.itely} @tab Texinfo
