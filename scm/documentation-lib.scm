@@ -59,8 +59,8 @@
   (cdr (assoc level '(
 		      ;; Hmm, texinfo doesn't have ``part''
 		      (0 . "@top")
-		      (1 . "@unnumbered")
-		      (2 . "@unnumberedsec")
+		      (1 . "@chapter")
+		      (2 . "@section")
 		      (3 . "@unnumberedsubsec")
 		      (4 . "@unnumberedsubsubsec")
 		      (5 . "@unnumberedsubsubsec")))))
