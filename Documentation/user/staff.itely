@@ -627,7 +627,7 @@ c4^\markup {
 @end lilypond
 
 @noindent
-For more details, see @ref{Text markup}.
+For more details, see @ref{Formatting text}.
 
 
 @seealso
@@ -635,7 +635,7 @@ For more details, see @ref{Text markup}.
 Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
 @rglos{tempo indication}, @rglos{metronome mark}.
 
-Notation Reference: @ref{Text markup}.
+Notation Reference: @ref{Formatting text}.
 
 Snippets: @lsrdir{Staff,Staff-notation}.
 
