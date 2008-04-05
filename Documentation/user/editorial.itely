@@ -173,6 +173,10 @@ Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference:
+@internalsref{FingeringEvent},
+@internalsref{fingering-event},
+@internalsref{Fingering_engraver},
+@internalsref{New_fingering_engraver},
 @internalsref{Fingering}.
 
 
@@ -208,6 +212,10 @@ c
 
 Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
+
+Internals Reference:
+@internalsref{Note_spacing_engraver},
+@internalsref{NoteSpacing}.
 
 
 @node Coloring objects
@@ -334,8 +342,14 @@ Non-note objects may be parenthesized as well.
 Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
+Internals Reference:
+@internalsref{Parenthesis_engraver},
+@internalsref{ParenthesesItem},
+@internalsref{parentheses-interface}.
+
 @knownissues
 
+@c FIXME: is this still relevant? -vv
 Rests cannot be parenthesized.
 
 
@@ -374,6 +388,11 @@ Notation Reference:
 
 Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
+
+Internals Reference:
+@internalsref{Stem_engraver},
+@internalsref{Stem},
+@internalsref{stem-interface}.
 
 
 @node Outside the staff
@@ -420,7 +439,9 @@ Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference:
-@internalsref{text-balloon-interface}.
+@internalsref{Balloon_engraver},
+@internalsref{BalloonTextItem},
+@internalsref{balloon-interface}.
 
 
 @node Grid lines
@@ -475,7 +496,13 @@ notes.
 Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
-
+Internals Reference:
+@internalsref{Grid_line_span_engraver},
+@internalsref{Grid_point_engraver},
+@internalsref{GridLine},
+@internalsref{GridPoint},
+@internalsref{grid-line-interface},
+@internalsref{grid-point-interface}.
 
 
 @node Analysis brackets
@@ -523,7 +550,8 @@ Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference:
-@internalsref{HorizontalBracket},
 @internalsref{Horizontal_bracket_engraver},
+@internalsref{HorizontalBracket},
+@internalsref{horizontal-bracket-interface},
 @internalsref{Staff}.
 
