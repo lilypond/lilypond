@@ -1162,6 +1162,57 @@ def musicxml_eyeglasses_to_ly (mxl_event):
     needed_additional_definitions.append ("eyeglasses")
     return musicexp.MarkEvent ("\\eyeglasses")
 
+def next_non_hash_index (lst, pos):
+    pos += 1
+    while pos < len (lst) and isinstance (lst[pos], musicxml.Hash_text):
+        pos += 1
+    return pos
+
+def musicxml_metronome_to_ly (mxl_event):
+    children = mxl_event.get_all_children ()
+    if not children:
+        return
+
+    index = -1
+    index = next_non_hash_index (children, index)
+    if isinstance (children[index], musicxml.BeatUnit): 
+        # first form of metronome-mark, using unit and beats/min or other unit
+        ev = musicexp.TempoMark ()
+        if hasattr (mxl_event, 'parentheses'):
+            ev.set_parentheses (mxl_event.parentheses == "yes")
+
+        d = musicexp.Duration ()
+        d.duration_log = musicxml.musicxml_duration_to_log (children[index].get_text ())
+        index = next_non_hash_index (children, index)
+        if isinstance (children[index], musicxml.BeatUnitDot):
+            d.dots = 1
+            index = next_non_hash_index (children, index)
+        ev.set_base_duration (d)
+        if isinstance (children[index], musicxml.BeatUnit):
+            # Form "note = newnote"
+            newd = musicexp.Duration ()
+            newd.duration_log = musicxml.musicxml_duration_to_log (children[index].get_text ())
+            index = next_non_hash_index (children, index)
+            if isinstance (children[index], musicxml.BeatUnitDot):
+                newd.dots = 1
+                index = next_non_hash_index (children, index)
+            ev.set_new_duration (newd)
+        elif isinstance (children[index], musicxml.PerMinute):
+            # Form "note = bpm"
+            try:
+                beats = int (children[index].get_text ())
+                ev.set_beats_per_minute (beats)
+            except ValueError:
+                pass
+        else:
+            error_message (_ ("Unknown metronome mark, ignoring"))
+            return
+        return ev
+    else:
+        #TODO: Implement the other (more complex) way for tempo marks!
+        error_message (_ ("Metronome marks with complex relations (<metronome-note> in MusicXML) are not yet implemented."))
+        return
+
 # translate directions into Events, possible values:
 #   -) string  (MarkEvent with that command)
 #   -) function (function(mxl_event) needs to return a full Event-derived object
@@ -1172,11 +1223,11 @@ directions_dict = {
 #     'damp' : ???
 #     'damp-all' : ???
     'eyeglasses': musicxml_eyeglasses_to_ly,
-#     'harp-pedals' : 
-#     'image' : 
-#     'metronome' : 
+#     'harp-pedals' : ???
+#     'image' : ???
+    'metronome' : musicxml_metronome_to_ly,
     'rehearsal' : musicxml_rehearsal_to_ly_mark,
-#     'scordatura' : 
+#     'scordatura' : ???
     'segno' : (musicexp.MusicGlyphMarkEvent, "segno"),
     'words' : musicxml_words_to_lily_event,
 }
@@ -1299,7 +1350,6 @@ def musicxml_figured_bass_to_lily (n):
             res.append (note)
     dur = n.get_maybe_exist_named_child ('duration')
     if dur:
-        # TODO: implement duration (given in base steps!)
         # apply the duration to res
         length = Rational(int(dur.get_text()), n._divisions)*Rational(1,4)
         res.set_real_duration (length)
