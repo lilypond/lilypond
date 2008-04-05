@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: b9526773cf95ca29e3d3352c524718fc8e91c599
+    Translation of GIT committish: da006143c0f2d621c51a0f1892ee25d4257b1eb3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -21,6 +21,10 @@
 * Overview of text markup commands::  
 * Overview of text markup list commands::  
 * List of articulations::       
+* All context properties::      
+* Layout properties::           
+* Identifiers::                 
+* Scheme functions::            
 @end menu
 
 
@@ -93,8 +97,8 @@ cello                     lead 6 (voice)
 
 La sintaxis para el uso de colores se encuentra detallada en @ref{Coloring objects}.
 
-@cindex Lista de colores
-@cindex Colores, lista de
+@cindex lista de colores
+@cindex colores, lista de
 
 @verbatim
 black       white          red         green
@@ -191,7 +195,7 @@ donde N es un número entre 0 y 100.
 @appendixsec The Feta font
 
 @cindex Feta, tipografía
-@cindex Tipografía Feta
+@cindex tipografía Feta
 
 Los símbolos siguientes están disponibles en la tipografía Emmentaler y es posible acceder a ellos
 directamente utilizando elementos de marcado textual como @code{g^\markup @{
@@ -212,52 +216,86 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 @node Overview of text markup commands
 @appendixsec Overview of text markup commands
 
-Todas las siguientes órdenes se pueden usar dentro de @code{\markup @{ @}}.
+Todas las instrucciones siguientes se pueden usar dentro de @code{\markup @{ @}}.
 
 @include markup-commands.tely
 
 @node Overview of text markup list commands
 @appendixsec Overview of text markup list commands
 
-Todos las siguientes instrucciones se puede utilizar con @code{\markuplines}.
+Todas las instrucciones siguientes se pueden utilizar con @code{\markuplines}.
 
 @include markup-list-commands.tely
 
 @node List of articulations
 @appendixsec List of articulations
 
+@cindex accent
 @cindex acento
-@cindex marcato
-@cindex staccatissimo
+@cindex apagado
+@cindex arco abajo
+@cindex arco arriba
+@cindex calderón
+@cindex coda
+@cindex downbow
 @cindex espressivo
 @cindex fermata
-@cindex calderón
-@cindex apagado
-@cindex staccato
-@cindex portato
-@cindex tenuto
-@cindex arco arriba
-@cindex arco abajo
-@cindex pedal, indicaciones de
-@cindex órgano, indicaciones de pedal de
-@cindex grupeto circular
-@cindex open
 @cindex flageolet
+@cindex foot marks
+@cindex grupeto circular
 @cindex grupeto circular invertido
-@cindex trino
+@cindex marcato
+@cindex mordent
+@cindex open
+@cindex organ pedal marks
+@cindex pedal, indicaciones de
+@cindex portato
+@cindex prall
+@cindex prallmordent
+@cindex prallprall
+@cindex reverseturn
+@cindex segno
 @cindex semitrino
 @cindex semitrino descendente
-@cindex prallprall
-@cindex prallmordent
-@cindex prall, up
-@cindex prall, down
+@cindex staccatissimo
+@cindex staccato
+@cindex stopped
+@cindex tenuto
 @cindex thumb marking
-@cindex segno
-@cindex coda
+@cindex trill
+@cindex trino
+@cindex turn
+@cindex upbow
 @cindex varcoda
+@cindex órgano, indicaciones de pedal de
 
 He aquí un cuadro que muestra todas las articulaciones disponibles:
 
 @lilypondfile[ragged-right,quote]{script-chart.ly}
 
+
+
+
+@node All context properties
+@appendixsec All context properties
+
+@include context-properties.tely
+
+
+@node Layout properties
+@appendixsec Layout properties
+
+@include layout-properties.tely
+
+
+@node Identifiers
+@appendixsec Identifiers
+
+@include identifiers.tely
+
+
+@node Scheme functions
+@appendixsec Scheme functions
+
+@include scheme-functions.tely
 
