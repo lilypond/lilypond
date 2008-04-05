@@ -8,6 +8,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 
 @node Literature list
 @appendix Literature list

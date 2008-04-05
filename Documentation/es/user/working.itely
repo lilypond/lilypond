@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: e1c119e97fca9bce4bb8749e56bf2952598589f6
+    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.38"
 
 @node Working on LilyPond projects
 @chapter Working on LilyPond projects
@@ -26,30 +28,33 @@ que lea este capítulo.
 @node Suggestions for writing LilyPond files
 @section Suggestions for writing LilyPond files
 
-En este momento está preparado para comenzar a escribir archivos de LilyPond más grandes -- no sólo los
-pequeños ejemplos que aparecen en el tutorial, sino piezas completas --. Pero ¿cómo debe proceder
-para hacerlo?
+En este momento está preparado para comenzar a escribir archivos de
+LilyPond más grandes -- no sólo los pequeños ejemplos que aparecen en
+el tutorial, sino piezas completas --. Pero ¿cómo debe proceder para
+hacerlo?
 
-En la medida en que LilyPond entienda sus archivos y produzca la salida que usted
-pretendía, realmente no importa mucho qué aspecto tengan sus archivos.  Sin embargo
-existen algunas otras cosas a tener en cuenta cuando se escriben archivos de LilyPond.
+En la medida en que LilyPond entienda sus archivos y produzca la
+salida que usted pretendía, realmente no importa mucho qué aspecto
+tengan sus archivos.  Sin embargo existen algunas otras cosas a tener
+en cuenta cuando se escriben archivos de LilyPond.
 
 @itemize @bullet
 @item ¿Qué ocurre si comete un fallo?  La estructura de un archivo
-lilypond puede hacer que ciertos errores se hagan más fáciles (o más difíciles) de encontrar.
+de LilyPond puede hacer que ciertos errores se hagan más fáciles (o
+más difíciles) de encontrar.
 
 @item ¿Qué ocurre si quiere compartir sus archivos con otras personas?
-De hecho, ¿y si quiere alterar sus propios archivos después de algunos años?
-Algunos archivos de lilypond se comprenden a primera vista;
-otros pueden tenerle rascándose la cabeza
-durante una hora.
+De hecho, ¿y si quiere alterar sus propios archivos después de algunos
+años?  Algunos archivos de LilyPond se comprenden a primera vista;
+otros pueden tenerle rascándose la cabeza durante una hora.
 
-@item ¿Qué ocurre si quiere actualizar su archivo de lilypond para poderlo usar con
-una versión más reciente del programa?  La sintaxis de la entrada se modifica
-de forma ocasional según lilypond se va perfeccionando.  Casi todos los cambios se pueden
-hacer de forma automática con @code{convert-ly}, pero algunos podrían necesitar de una
-ayuda manual.  Los archivos de LilyPond se pueden estructurar para que sean
-más fáciles (o más difíciles) de actualizar.
+@item ¿Qué ocurre si quiere actualizar su archivo de LilyPond para poderlo usar con
+una versión más reciente del programa?  La sintaxis de la entrada se
+modifica de forma ocasional según LilyPond se va perfeccionando.  Casi
+todos los cambios se pueden hacer de forma automática con
+@code{convert-ly}, pero algunos podrían necesitar de una ayuda manual.
+Los archivos de LilyPond se pueden estructurar para que sean más
+fáciles (o más difíciles) de actualizar.
 @end itemize
 
 @menu
@@ -126,10 +131,10 @@ de música ya impresa),
 @itemize @bullet
 
 @item Introduzca un sistema del manuscrito (la copia física) cada vez (pero mantenga
-la práctica de escribir un compás por línea de texto), y
-compruebe cada sistema cuando lo haya terminado.  Puede usar el comando
-@code{showLastLength} para acelerar el proceso -- ver
-@ruser{Skipping corrected music} -- .
+la práctica de escribir un compás por línea de texto), y compruebe
+cada sistema cuando lo haya terminado.  Puede usar la instrucción
+@code{showLastLength} para acelerar el proceso -- ver @ruser{Skipping
+corrected music} -- .
 
 @item Defina @code{mBreak = @{ \break @}} e inserte @code{\mBreak}
 dentro del archivo de entrada donde el manuscrito tenga un saldo de línea.  De esta forma
@@ -146,7 +151,7 @@ más oportuno.
 @subsection Large projects
 
 Al trabajar en proyecto grande se hace esencial tener una estructura clara
-en los archivos de lilypond.
+en los archivos de LilyPond
 
 @itemize @bullet
 
@@ -172,15 +177,15 @@ g4 c'8. e16
 
 @item @strong{Separe los trucos de las definiciones musicales}.
 Ya se mencionó con anterioridad, pero para proyectos grandes es vital.
-Quizá tengamos que cambiar la definición de @code{fthenp}, pero en ese
+Quizá tengamos que cambiar la definición de @code{fluegop}, pero en ese
 caso sólo lo tendremos que hacer una vez, y aún podremos evitar tocar
 nada dentro de @code{violin}.
 
 @example
-fthenp = _\markup@{
+fluegop = _\markup@{
   \dynamic f \italic \small @{ 2nd @} \hspace #0.1 \dynamic p @}
 violin = \relative c'' @{
-g4\fthenp c'8. e16
+g4\fluegop c'8. e16
 @}
 @end example
 
@@ -218,7 +223,7 @@ violin = \new Staff { \fragA \fragA \fragB \fragA }
 @end lilypond
 
 Sin embargo también puede usar estos identificadores (que también se conocen como
-variables, macros o comandos definidos por el usuario) para hacer trucos:
+variables, macros o instrucciones definidas por el usuario) para hacer trucos:
 
 @lilypond[quote,verbatim,ragged-right]
 dolce = \markup{ \italic \bold dolce }
@@ -671,7 +676,7 @@ En resumen, el objetivo de un ejemplo mínimo es que sea fácil de leer:
 @itemize
 @item Evite usar notas, tonalidades o compases demasiado complicados, a no ser que quiera
 demostrar algo sobre el comportamiento de estos elementos precisamente.
-@item No use comandos @code{\override} a no ser que ése sea el propósito
+@item No use instrucciones @code{\override} a no ser que ése sea el propósito
 del ejemplo.
 @end itemize
 
@@ -718,12 +723,12 @@ La línea
 
 @noindent
 sustituye el contenido de @file{trompa.ly} en esta posición dentro del
-archivo, así que @code{notasTrompa} se define con posterioridad.  El comando
-@code{\transpose f@tie{}c'} indica que el argumento constituido por
-@code{\notasTrompa} se debe transponer una quinta hacia arriba.  Lo que suena como
-@code{f} se escribe como @code{c'}, lo que corresponde con el tono de afinación de
-una trompa normal en@tie{}Fa.  La transposición se puede ver en la
-siguiente salida
+archivo, así que @code{notasTrompa} se define con posterioridad.  La
+instrucción @code{\transpose f@tie{}c'} indica que el argumento
+constituido por @code{\notasTrompa} se debe transponer una quinta
+hacia arriba.  Lo que suena como @code{f} se escribe como @code{c'},
+lo que corresponde con el tono de afinación de una trompa normal
+en@tie{}Fa.  La transposición se puede ver en la siguiente salida
 
 @lilypond[quote,ragged-right]
 \transpose f c' \relative c {
@@ -752,7 +757,7 @@ multicompás.  Esto se hace estableciendo una variable en tiempo de ejecución
 @end example
 
 @noindent
-Este comando establece el valor de la propiedad @code{skipBars} en el
+Esta instrucción establece el valor de la propiedad @code{skipBars} en el
 contexto de @code{Score} a verdadero (@code{##t}).  Anteponiendo el silencio y
 esta opción a la música anterior, llegamos al siguiente resultado
 

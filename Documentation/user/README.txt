@@ -8,14 +8,8 @@ General policy: policy.txt
 
 
 %%%%% UPDATING DOCS
-convert-ly -e --from=... --to=... --no-version *.itely
+cd into Documentation and run
 
-% to find the current version number,
-grep "version \"" fundamental.itely
+find -name '*.itely' | xargs convert-ly -e
 
-Please don't forget updating translated docs (in LANGS/user) too!
-
-%  (nobody ever remembers to update this file, so I've stopped
-%  trying to record it here)
-
-
+(This also updates translated docs.)

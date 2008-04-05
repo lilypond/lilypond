@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 13290c3922962e4538d3acaf1f7abe14fce6bbff
+    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.38"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -17,13 +19,10 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 @menu
 * Tweaking basics::             
 * The Internals Reference manual::  
-* Moving objects::              
-* Fixing overlapping notation::  
-* Common tweaks::               
-* Default files::               
-* Fitting music onto fewer pages::  
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
+* Appearance of objects::       
+* Placement of objects::        
+* Collisions of objects::       
+* Further tweaking::            
 @end menu
 
 @node Tweaking basics
@@ -80,7 +79,7 @@ tipo @code{Staff}.  Entonces, este objeto @code{Staff} contiene todas
 las propiedades asociadas con ese pentagrama en particular, por
 ejemplo, su nombre y su armadura, además de otros detalles de los
 grabadores que se han asignado para que operen dentro del contexto del
-pentagrama.  De forma similar, hay objetos que guardan las propieades
+pentagrama.  De forma similar, hay objetos que guardan las propiedades
 de todos los demás contextos, como objetos de @code{Voice}, objetos de
 @code{Score}, objetos de @code{Lyrics}, así como objetos que
 representan todos los elementos notacionales como líneas divisorias,
@@ -110,10 +109,10 @@ se deben procesar de la misma manera.  Por ejemplo, todos los objetos
 gráficos tienen un color, un tamaño, una posición, etc., y todas estas
 propiedades se procesan de la misma forma durante la interpretación
 del archivo de entrada por parte de LilyPond.  Para simplificar estas
-operaciones internas, estas acciones t propiedades comunes se agrupan
+operaciones internas, estas acciones y propiedades comunes se agrupan
 en un objeto llamado @code{grob-interface}, interface de grob.  Hay
 muchas otras agrupaciones de propiedades comunes como ésta, y cada
-unoa recibe un nombre que acaba en @code{interface}.  En total hay más
+una recibe un nombre que acaba en @code{interface}.  En total hay más
 de 100 interfaces de éstos.  Veremos más adelante porqué esto es del
 interés y de utilidad para el usuario.
 
@@ -147,7 +146,7 @@ en minúscula.  Otros caracteres se utilizan literalmente como están.
   @tab Clef_engraver, Note_heads_engraver
 @item Interfaces
   @tab aaa-aaa-interface
-  @tab grob-interface, break-aligned-interface 
+  @tab grob-interface, break-aligned-interface
 @item Propiedades de contextos
   @tab aaa o aaaAaaaAaaa
   @tab alignAboveContext, skipBars
@@ -186,7 +185,7 @@ modificar, y cuál debe ser su nuevo valor.  Veamos cómo se hace.
 La sintaxis genérica de esta instrucción es:
 
 @example
-\override @emph{contexto}.@emph{objeto_de_presentación} 
+\override @emph{contexto}.@emph{objeto_de_presentación}
   #'@emph{propiedad_de_presentación} = #@emph{valor}
 @end example
 
@@ -204,7 +203,7 @@ ejemplos siguientes.  Veremos más tarde cuándo se debe especificar.
 
 Las últimas secciones tratan de forma exhaustiva las propiedades y sus
 valores, pero para ilustrar el formato y utilización de estas
-iinstrucciones usaremos sólo unas cuantas propiedades y valores
+instrucciones usaremos sólo unas cuantas propiedades y valores
 sencillos que sean fáciles de entender.
 
 Por ahora no se preocupe por el @code{#'}, que debe anteponerse a la
@@ -228,7 +227,7 @@ a b c
 @cindex revert, instrucción
 @funindex \revert
 
-Una vez sobreescrita, la proopiedad retiene su nuevo valor hasta que
+Una vez sobreescrita, la propiedad retiene su nuevo valor hasta que
 se sobreescribe de nuevo o se encuentra una instrucción
 @code{\revert}.  La instrucción @code{\revert} tiene la siguiente
 sintaxis y ocasiona que el valor de la propiedad se devuelva a su
@@ -309,12 +308,12 @@ lo que haría @code{\once \override}:
 Vemos que la sobreescritura con override afecta a @emph{todas} las
 notas del acorde.  Esto es así porque todas las notas de un acorde
 ocurren en el mismo @emph{momento musical}, y la acción de
-@code{\once} es aplicar la sobreescritura a todos los oobjetos de
+@code{\once} es aplicar la sobreescritura a todos los objetos de
 presentación del tipo especificado que ocurren en el mismo momento
 musical que la propia instrucción de sobreescritura @code{\override}.
 
 LA instrucción @code{\tweak} opera de una forma distinta.  Actúa sobre
-el elemento inmediatamente siguiente dentro del flujjo de entrada.
+el elemento inmediatamente siguiente dentro del flujo de entrada.
 Sin embargo, es efectivo solamente sobre objetos que se crean
 directamente a partir del flujo de entrada, en esencia las cabezas y
 las articulaciones (los objetos como las plicas y las alteraciones se
@@ -332,12 +331,12 @@ se cambiaría de la siguiente forma:
   <c \tweak #'font-size #-3 e g>4
 @end lilypond
 
-Observe que la sintaxis de @code{\tweak} es diferente de la de la
-instrucción @code{\override}.  Ni el contexto ni el objeto de
+Observe que la sintaxis de @code{\tweak} no es igual que la de
+@code{\override}.  Ni el contexto ni el objeto de
 presentación se deben especificar; de hecho, generaría un error
 hacerlo.  Los dos están implícitos por el siguiente elemento del flujo
 de entrada.  Así que la sintaxis genérica de la instrucción
-@code{\tweak} es, simmplemente:
+@code{\tweak} es, simplemente:
 
 @example
 \tweak #'@emph{propiedad_de_presentación} = #@emph{valor}
@@ -395,7 +394,7 @@ se puede modificar de la forma usual mediante instrucciones
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c]}
-\once \override TupletNumber 
+\once \override TupletNumber
   #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
   c[ c]
@@ -455,15 +454,15 @@ real:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g | 
-    g[( e]) e d[( f]) a | 
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 Suponga ahora que decidimos que nos gustan las ligaduras algo más
 gruesas.  ¿Es posible?  La ligadura es, ciertamente, un objeto de
@@ -481,7 +480,7 @@ sería mejor que utilizase la versión html, no la @q{en una sola
 página} ni el PDF.  Para que los siguientes párrafos tengan algún
 sentido deberá consultarlo realmente al tiempo que lee.
 
-@c Link names in English as these pages are not yet translated
+@c Link names in English as those pages are not yet translated. FV
 Bajo el encabezamiento @strong{Top} podrá ver cinco enlaces.
 Seleccione el enlace @emph{Backend}, que es donde se encuentra la
 información sobre los objetos de presentación.  Una vez allí, bajo el
@@ -494,7 +493,7 @@ relacionadas las propiedades de las ligaduras de expresión o Slurs.
 (Una forma alternativa de encontrar esta página es a partir de la
 Referencia de la Notación.  En una de las páginas que tratan de las
 ligaduras de expresión podrá encontrar un enlace al manual de
-referencia del funcioonamiento interno.  Este enlace le llevará
+referencia del funcionamiento interno.  Este enlace le llevará
 directamente a esta página, aunque con frecuencia es más fácil ir
 directamente al RFI y buscar allí.)
 
@@ -533,7 +532,7 @@ siguiente:
 
 @example
 \override Slur #'thickness = #5.0
-@end example 
+@end example
 
 ¡No olvide el @code{#'} antes del nombre de la propiedad y @code{#}
 antes del valor nuevo!
@@ -554,10 +553,10 @@ cerca de ella.}  Hagámoslo así:
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 y podemos ver que la ligadura, es sin duda, más pesada.
@@ -604,7 +603,7 @@ prefijo @code{\once}.  Colocado inmediatamente antes de la instrucción
 @code{\override} ocasiona que solamente cambie la ligadura que
 comienza en la nota @strong{inmediata siguiente}.  Si la nota
 inmediata siguiente no da inicio a una ligadura, la instrucción no
-tiene niingún efecto en absoluto: no se recuerda hasta que se
+tiene ningún efecto en absoluto: no se recuerda hasta que se
 encuentre alguna ligadura, sino que simplemente se ignora.  Así pues,
 la instrucción que lleva @code{\once} se debe reposicionar de la forma
 siguiente:
@@ -616,15 +615,15 @@ siguiente:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g | 
-    g[( e]) e d[( f]) a | 
-    a g 
+    b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 Hemos hecho que ahora solamente la primera ligadura sea más gruesa.
@@ -654,14 +653,14 @@ ligaduras:
     b[( g]) g |
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a | 
+    g[( e]) e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
-@end lilypond 
+@end lilypond
 
 @noindent
 o podríamos omitir la instrucción prefija @code{\once} y utilizar la
@@ -677,14 +676,14 @@ segunda ligadura:
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
     b[( g]) g |
-    g[( e]) 
+    g[( e])
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a | 
+    e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond
@@ -693,7 +692,7 @@ segunda ligadura:
 la instrucción @code{\revert} se puede utilizar para devolver
 cualquier propiedad que se haya cambiado con @code{\override} a su
 valor predeterminado.  Puede utilizar el método que mejor se adapte a
-aquello que quere hacer.
+aquello que quiere hacer.
 
 Así finaliza nuestra introducción al manual de RFI, y el método básico
 de trucaje.  A continuación, en las últimas secciones de este capítulo
@@ -713,13 +712,13 @@ Suponga ahora que queremos imprimir la letra de la canción en cursiva.
 ¿Qué forma de instrucción @code{\override} necesitamos para hacerlo?
 En primer lugar miramos en la página del RFI que relaciona todos los
 objetos, @q{All layout objects}, como antes, y buscamos un objeto que
-pueda conteolar la letra de la canción.  Encontramos @code{LyricText},
+pueda controlar la letra de la canción.  Encontramos @code{LyricText},
 que parece adecuado.  Al seguir este enlace se presentan las
 propiedades ajustables para el texto de la letra.  Estos incluyen
 @code{font-series} y @code{font-size}, pero nada que pudiera aplicar
 una forma cursiva.  Esto es porque la propiedad de la forma es común a
 todos los objetos de fuente tipográfica, y por tanto, en vez de
-incluirlo en cada uno de los objetos de preesentación, se agrupa junto
+incluirlo en cada uno de los objetos de presentación, se agrupa junto
 con otras propiedades comunes similares y se deposita en un
 @strong{Interface}, el interface de las fuentes tipográficas
 @code{font-interface}.
@@ -728,7 +727,7 @@ Por tanto, ahora necesitamos aprender cómo encontrar las propiedades
 de los interfaces, y descubrir qué objetos usan estas propiedades de
 interface.
 
-Mire de nuevo la página del RFI que decribe a LyricText.  Al final de
+Mire de nuevo la página del RFI que describe a LyricText.  Al final de
 la página hay una lista de enlaces (en las versiones de html del RFI)
 a los interfaces que LyricText contempla.  La lista tiene siete
 elementos, entre ellos @code{font-interface}.  Al seguir este enlace
@@ -769,7 +768,7 @@ nombres especiales que son conocidos por LilyPond internamente.
 Algunos de ellos son nombres de propiedades, como @code{thickness} o
 @code{font-shape}, otros son en efecto valores especiales que se les
 puede dar a las propiedades, como @code{italic}.  Observe la
-distincion entre esto y las cadenas de texto arbitrarias, que
+distinción entre esto y las cadenas de texto arbitrarias, que
 aparecerían entrecomilladas como @code{"a text string"}.
 
 De acuerdo, entonces la instrucción @code{\override} que necesitamos
@@ -793,7 +792,7 @@ afectar, como esto:
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond
@@ -805,8 +804,8 @@ y toda la letra se imprime en cursiva.
 @cindex contexto, especificación en modo letra
 
 En el caso de la letra, si intenta especificar el contexto en el
-formato que acabamnos de dar, la instrucción no funcionará.  Una
-sílaba escrita en el modo letra, «lyricmode» temina en un espacio, un
+formato que acabamos de dar, la instrucción no funcionará.  Una
+sílaba escrita en el modo letra, «lyricmode» termina en un espacio, un
 salto de línea o un dígito.  Cualquier otro carácter se incluye como
 parte de la sílaba.  Por esta razón, un espacio o salto de línea debe
 aparecer antes del último símbolo @code{@}} para evitar que se incluya
@@ -877,7 +876,7 @@ en la instrucción @code{\override}.
   @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofe
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Símbolo
-  @tab Cualquiera del conjunto de símbolos premitidos para esa propiedad, precedido de un apóstrofe
+  @tab Cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofe
   @tab @code{'italic}, @code{'inside}
 @item Desconocido
   @tab Un procedimiento o @code{#f} (para no producir ninguna acción)
@@ -888,207 +887,1423 @@ en la instrucción @code{\override}.
   @tab @code{#(#t #t #f)}
 @end multitable
 
+@node Appearance of objects
+@section Appearance of objects
+
+Ahora vamos a poner en práctica lo que hemos aprendido con unos
+cuantos ejemplos que muestran cómo se pueden usar los trucos para
+cambiar el aspecto de la música impresa.
+
+@menu
+* Visibility and color of objects::  
+* Size of objects::             
+* Length and thickness of objects::  
+@end menu
+
+@node Visibility and color of objects
+@subsection Visibility and color of objects
+
+Dentro de un uso educativo de la música, podríamos desear imprimir una
+partitura con ciertos elementos omitidos como ejercicio para el
+alumno, a quien se le pide que los complete.  A la manera de ejemplo
+sencillo, supongamos que el ejercicio es escribir las líneas
+divisorias que faltan en un fragmento musical.  Pero las líneas
+divisorias normalmente se insertan automáticamente. ¿Cómo hacemos para
+que no se impriman?
+
+Antes de enredarnos con esto, recordemos que las propiedades de los
+objetos se agrupan en lo que hemos llamado @emph{interfaces} (véase
+@ref{Properties found in interfaces}).  Esto es simplemente agrupar
+las propiedades que normalmente se necesitan juntas: si una de ellas
+se necesita para un objeto, también las otras.  Así, ciertos objetos
+necesitan las propiedades de algunos interfaces, otros necesitan las
+de otros interfaces.  Los interfaces que contienen las propiedades que
+un determinado grob necesita se encuentran relacionadas en el manual
+RFI al final de la página que describe dicho grob, y esas propiedades
+se pueden ver mirando dichos interfaces.
+
+Hemos explicado cómo encontrar información sobre los grobs en
+@ref{Properties of layout objects}.  Usando el mismo enfoque, vamos al
+RFI para buscar el objeto de presentación que imprime las líneas
+divisorias.  A través del enlace @emph{Backend} y @emph{All layout
+objects} encontramos que hay un objeto de presentación llamado
+@code{BarLine}.  Entre sus propiedades se encuentran dos que controlan
+la visibilidad: @code{break-visibility} y @code{stencil}.  Las líneas
+divisorias también contemplan un número de interfaces, entre ellos el
+@code{grob-interface}, donde podemos encontrar las propiedades
+@code{transparent} y @code{color}.  Todas ellas pueden afectar la
+visibilidad de las barras de compás (y, por supuesto, por extensión,
+también la de muchos otros objetos de presentación).  Vamos a
+considerar cada uno de ellos por orden.
+
+@subheading stencil
+@cindex stencil (sello), propiedad
+
+Esta propiedad controla la apariencia de las barras de compás mediante
+la especificación del símbolo (o «glifo») que se debe imprimir.  Igual
+que como otras muchas propiedades, se puede establecer de forma que no
+imprima nada ajustando su valor a @code{#f}.  Vamos a probarlo, como
+antes, omitiendo el Contexto implícito, @code{Voice}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override BarLine #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Las barras de compás todavía se imprimen.  ¿Qué es lo que está mal?
+Vuelva al RFI y mire de nuevo la página que ofrece las propiedades del
+objeto BarLine.  Al principio de la página dice @qq{Barline objects
+are created by: Bar_engraver} (los objetos Barline se crean por el
+grabador Bar_engraver).  Vaya a la página del grabador
+@code{Bar_engraver} siguiendo el enlace.  Al final da una lista de
+contextos en los que el grabador de líneas divisorias opera.  Todos
+ellos son del tipo @code{Staff}, y así la razón de que la instrucción
+@code{\override} no funcionara como esperábamos, es porque
+@code{Barline} no se encuentra en el contexto predeterminado
+@code{Voice}.  Si el contexto se especifica mal, la instrucción
+simplemente no funciona.  No se produce ningún mensaje de error, y no
+se registra nada en el archivo log de registro.  Vamos a intentar
+corregirlo escribiendo el contexto correcto:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Ahora las barras de compás han desaparecido.
+
+@subheading break-visibility
+
+@cindex break-visibility property
+
+Vemos en las propiedades de @code{BarLine} que aparecen en el RFI que
+la propiedad @code{break-visibility} requiere un vector de tres
+valores booleanos.  Controlan respectivamente si las barras de compás
+se imprimen al final de una línea, en mitad de una línea, y al
+principio de las líneas.  Para nuestro ejemplo, queremos que todas las
+barras de compás se supriman, por lo que el valor que necesitamos es
+@code{#(#f #f #f)}.  Vamos a probarlo, recordando incluir el contexto
+de @code{Staff}.  Observa también que al escribir este valor tenemos
+dos símbolos de almohadilla antes del paréntesis de apertura.  Se
+necesita uno como parte del valor para introducir un vector, y se
+necesita otro más, como siempre, para preceder el propio valor dentro
+de la instrucción @code{\override}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'break-visibility = ##(#f #f #f)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Y podemos ver que esto también quita todas las líneas divisorias.
+
+@subheading transparent
+@cindex transparente, propiedad
+
+En la relación de propiedades que se especifican en la página del
+@code{grob-interface} del RFI podemos ver que la propiedad
+@code{transparent} es un valor booleano.  Esto se debe establecer a
+@code{#t} para hacer que el grob sea transparente.  En el ejemplo
+siguiente vamos a hacer que la indicación de compás, y no las líneas
+divisorias, sea transparente.  Para hacerlo tenemos que buscar el
+nombre del grob de la indicación de compás.  Volviendo a la página
+@q{All layout objects} del RFI, buscamos las propiedades del objeto de
+presentación @code{TimeSignature}.  Se produce por parte del grabador
+@code{Time_signature_engraver} que como puede comprobar vive dentro
+del contexto de @code{Staff} y también contempla el interface
+@code{grob-interface}.  Así pues, la instrucción que hace transparente
+a la indicación de compás es:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature #'transparent = ##t
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+El compás ya no está, pero esta instrucción deja una separación en el
+lugar donde antes estaba la indicación de compás.  Quizá esto es lo
+que queremos para un ejercicio en que el alumno deba escribirlo, pero
+en otras circunstancias esta separación podría no ser deseable.  En
+vez de eso, para quitarla, el stencil o «sello» de la indicación de
+compás se debe establecer al valor @code{#f}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+y la diferencia es obvia: al establecer el sello al valor @code{#f}
+quitamos el objeto por completo; al hacer el objeto @code{transparent}
+lo dejamos donde está, pero lo hacemos invisible.
+
+@subheading color
+@cindex color, propiedad
+
+Para finalizar, podríamos hacer invisibles las barras de compás
+pintándolas de color blanco.  El interface @code{grob-interface}
+especifica que la propiedad del color es una lista, pero no hay
+ninguna explicación sobre lo que debe ir en esa lista.  La lista que
+requiere es realmente una lista de valores en unidades internas, pero
+para evitar tener que saber cuáles son, se ofrecen varias vías para la
+especificación de los colores.  La primera forma es utilizar uno de
+los colores @q{normales} que están relacionados en la primera tabla de
+la @ruser{List of colors}.  Para poner las líneas divisorias de color
+blanco, escribimos:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #white
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+y de nuevo podemos comprobar que las barras de compás no son visibles.
+Observe que @emph{white} no viene precedido de un apóstrofe: no es un
+símbolo, sino una @emph{función}.  Cuando se invoca, proporciona la
+lista de valores internos que se requieren para establecer el color a
+blanco.  Los otros colores de la lista normal también son funciones.
+Para convencerse de que esto funciona, quizá quiera cambiar el color a
+una de las otras funciones de la lista.
+
+@cindex colores de X11
+@cindex X11, colores de
+
+La segunda forma de cambiar el color es utilizar la lista de nombres
+de colores de X11 que aparecen en la segunda lista de @ruser{List of
+colors}.  Sin embargo, éstos deben ir precedidos de otra función, que
+convierte los nombres de colores de X11 en la lista de valores
+internos, @code{x11-color}, de la siguiente manera:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #(x11-color 'white)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Observe que en este caso la función @code{x11-color} toma un símbolo
+como argumento, así que el símbolo debe ir precedido de un apóstrofe y
+los dos deben ir entre paréntesis.
+
+@cindex rgb, colores
+@cindex color, rgb
+
+Aún hay una tercera función, que convierte valores RGB en colores
+internos: la función @code{rgb-color}.  Toma tres argumentos que dan
+las intensidades de rojo, verde y azul.  Cada uno de ellos puede tomar
+valores entre 0 y 1.  Por lo tanto, para establecer el color a rojo el
+valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
+@code{(rgb-color 1 1 1)}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #(rgb-color 1 1 1)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Finalmente, existe también una escala de grises como parte del
+conjunto de colores de X11.  Varían desde el negro, @code{'grey0'},
+hasta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar esto
+estableciendo todos los objetos de presentación de nuestro ejemplo a
+varias gradaciones de gris:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
+  \override Staff.TimeSignature #'color = #(x11-color 'grey60)
+  \override Staff.Clef          #'color = #(x11-color 'grey60)
+  \override Voice.NoteHead      #'color = #(x11-color 'grey85)
+  \override Voice.Stem          #'color = #(x11-color 'grey85)
+  \override Staff.BarLine       #'color = #(x11-color 'grey10)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Observe los contextos asociados con cada uno de los objetos de
+presentación.  Es importante que estén correctamente escritos, o las
+instrucciones ¡no funcionarán!  Recuerde que el contexto es aquel en
+que se encuentra el grabador correspondiente.  El contesto
+predeterminado para los grabadores puede encontrarse empezando por el
+objeto de presentación, de ahí al grabador que lo produce, y en la
+página del grabador del RFI aparece en qué contexto se puede encontrar
+normalmente el grabador.
+
+
+@node Size of objects
+@subsection Size of objects
+
+Empezaremos examinando de nuevo un ejemplo anterior (véase
+@ref{Nesting music expressions}) que nos mostraba cómo introducir un
+pentagrama temporal, como en un @rglos{ossia}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+       \relative g' {
+         r4 g8 g c4 c8 d |
+         e4 r8
+         <<
+           { f c c }
+           \new Staff \with {
+             alignAboveContext = "main" }
+           { f8 f c }
+         >>
+         r4 |
+       }
+     }
+@end lilypond
+
+Los fragmentos de Ossia se escriben normalmente sin clave ni compás, y
+por lo normal se imprimen más pequeños que el pentagrama principal.
+Ya sabemos cómo quitar la clave y el compás: simplemente establecemos
+el sello de cada uno de ellos a @code{#f}, como sigue:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+      }
+      {
+        \override Staff.Clef #'stencil = ##f
+        \override Staff.TimeSignature #'stencil = ##f
+        { f8 f c }
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+donde el par de llaves adicional después de la cláusula @code{\with}
+es necesario para asegurar que la sobreescritura encerrada y la música
+se aplican al pentagrama de ossia.
+
+Pero ¿cuál es la diferencia entre modificar el contexto de pentagrama
+usando @code{\with} y modificar los sellos de clave y de compás con
+\override?  La diferencia principal es que los cambios que se realizan
+en una cláusula @code{\with} se hacen en el momento en que se crea el
+contexto, y permanecen activos como valores @strong{predeterminados}
+durante toda la duración de dicho contexto, mientras que las
+instrucciones @code{\set} o @code{\override} incluidas dentro de la
+música son dinámicas: hacen cambios sincronizados con un punto
+concreto de la música.  Si los cambios se deshacen o se devuelven
+mediante @code{\unset} o @code{\revert} volverán a su valor
+predeterminado que será el establecido en la cláusula @code{\with}, o
+si no se ha establecido ninguno en este lugar, los valores
+predeterminados normales.
+
+Ciertas propiedades de contexto se pueden modificar solamente dentro
+de cláusulas @code{\with}.  Son aquellas propiedades que no se pueden
+cambiar después de que el contexto se ha creado.
+@code{alignAboveContext} y su compañero, @code{alignBelowContext}, son
+dos de tales propiedades: una vez que el pentagrama se ha creado, su
+alineación está decidida y no tendría sentido intentar cambiarla más
+tarde.
+
+Los valores predeterminados de las propiedades de los objetos de
+presentación también se pueden establecer dentro de cláusulas
+@code{\with}.  Simplemente utilice la instrucción @code{\override}
+normal dejando aparte el nombre del contexto, ya que está definido sin
+ambigüedad como el contexto que la cláusula @code{\with} está
+modificando.  De hecho, se producirá un error si se especifica un
+contexto en este lugar.
+
+Así pues, podemos reemplazar el ejemplo anterior con
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        % Don't print clefs in this staff
+        \override Clef #'stencil = ##f
+        % Don't print time signatures in this staff
+        \override TimeSignature #'stencil = ##f
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Finalmente llegamos a la forma de cambiar el tamaño de los objetos de
+presentación.
+
+Ciertos objetos de presentación se crean como glifos sacados de una
+fuente tipográfica.  Entre ellos se encuentran las cabezas,
+alteraciones, elementos de marcado, claves, indicaciones de compás,
+indicaciones dinámicas y la letra de las canciones.  Su tamaño se
+cambia mediante la modificación de la propiedad @code{font-size}, como
+veremos en breve.  Otros objetos de presentación como ligaduras de
+unión y de expresión (en general, objetos de extensión) se trazan
+individualmente, por lo que no hay un tamaño de tipografía
+@code{font-size} asociado a ellos.  Estos objetos generalmente derivan
+su tamaño de los objetos a los que están adosados, y por ello
+normalmente no hay necesidad de cambiarles el tamaño manualmente.  Aún
+otras propiedades como la longitud de las plicas y las barras de
+compás, el grosor de las barras de corchea y otras líneas, y la
+separación de las líneas del pentagrama se deben modificar de otras
+formas especiales.
+
+Volviendo al ejemplo del ossia, vamos a cambiar en primer lugar el
+tamaño de la tipografía.  Podemos hacerlo de dos formas.  Podemos
+cambiar el tamaño de las tipografías de cada uno de los tipos de
+objeto como las cabezas (@code{NoteHead}s) con instrucciones como
+
+@example
+\override NoteHead #'font-size = #-2
+@end example
+
+o podemos cambiar el tamaño de todas las tipografías estableciendo una
+propiedad especial, @code{fontSize}, utilizando @code{\set}, o
+mediante su inclusión dentro de una cláusula @code{\with} (pero sin el
+@code{\set}).
+
+@example
+\set fontSize = #-2
+@end example
+
+Los dos enunciados producirían una reducción del tamaño de la
+tipografía en dos pasos a partir de su valor previo, donde cada paso
+reduce o aumenta el tamaño aproximadamente en un 12%.
+
+Vamos a probarlo en nuestro ejemplo del ossia:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        % Reduce all font sizes by ~24%
+        fontSize = #-2
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Aún no está demasiado bien.  Las cabezas y los corchetes de las notas
+son más pequeños, pero las plicas son demasiado largas en proporción,
+y las líneas del pentagrama están demasiado separadas entre sí.  Se
+debe reducir su escala en proporción a la reducción de la tipografía.
+El siguiente apartado trata sobre cómo se hace esto.
+
+@node Length and thickness of objects
+@subsection Length and thickness of objects
+
+@cindex distancias
+@cindex grosor
+@cindex longitud
+@cindex magstep
+@cindex tamaño, cambiar
+@cindex plica, cambiar la longitud
+@cindex pentagrama, cambiar la separación de las líneas
+
+Las distancias y longitudes en LilyPond se miden generalmente en
+espacios de pentagrama, la distancia entre líneas adyacentes de la
+pauta (o de manera ocasional medios espacios), mientras que la mayoría
+de las propiedades de @code{thickness} (grosor) se miden en unidades
+de una propiedad interna llamada @code{line-thickness.}  Por ejemplo,
+de forma predeterminada, a las líneas de los reguladores se les da un
+grosor de 1 unidad de @code{line-thickness}, mientras que el
+@code{thickness} de una plica es 1.3.  Observe sin embargo que ciertas
+propiedades de grosor son diferentes; por ejemplo, el grosor de las
+barras de corchea se mide en espacios de pentagrama.
+
+Entonces ¿cómo se tienen que escalar las longitudes en proporción al
+tamaño de la tipografía?  Se puede hacer con la ayuda de una función
+especial que se llama @code{magstep}, pensada especialmente para este
+propósito.  Toma un argumento, el cambio de tamaño de la tipografía
+(#-2 en nuestro ejemplo) y devuelve un factor de escalado adecuado
+para reducir otros objetos en la misma proporción.  Se usa de la
+siguiente forma:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        fontSize = #-2
+        % Reduce stem length and line spacing to match
+        \override StaffSymbol #'staff-space = #(magstep -2)
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Puesto que la longitud de las plicas y muchas otras propiedades
+relacionadas con la longitudes calculan siempre con relación al valor
+de la propiedad @code{staff-space}, su longitud también ve reducida su
+escala automáticamente.  Observe que esto afecta solamente a la escala
+vertical del ossia: la escala horizontal se determina por medio de la
+disposición de la música principal con el objeto de mantenerse en
+sincronía con ella, de forma que no resulte afectada por ninguno de
+estos cambios de tamaño.  Por supuesto, si la escala de toda la música
+principal se cambiase de esta forma, entonces el espaciado horizontal
+se vería afectado.  Trataremos de esto más tarde en la sección sobre
+la disposición.
+
+Esto, en fin, completa la creación de un ossia.  Los tamaños y
+longitudes del resto de los objetos se pueden modificar de manera
+análoga.
+
+Para cambios de escala pequeños, como en el ejemplo de arriba, el
+grosor de las diversas líneas dibujadas como divisorias, barras de
+corchea, reguladores, ligaduras, etc, no requieren normalmente ningún
+ajuste global.  Si el grosor de cualquier objeto de presentación en
+particular necesita ajustarse, se puede hacer mejor mediante la
+sobreescritura de su propiedad @code{thickness}.  Anteriormente
+mostramos un ejemplo de cambio de grosor en las ligaduras, en
+@ref{Properties of layout objects}.  El grosor de todos los objetos
+trazados (es decir, aquellos que no se producen a partir de una
+tipografía) se pueden cambiar de la misma forma.
+
+
+@node Placement of objects
+@section Placement of objects
+
+@menu
+* Automatic behaviour::         
+* Within-staff objects::        
+* Outside staff objects::       
+@end menu
+
+
+@node Automatic behaviour
+@subsection Automatic behaviour
+
+Hay ciertos objetos en notación musical que pertenecen al pentagrama y
+otros cuyo lugar se sitúa fuera del pentagrama.  Reciben el nombre de
+objetos dentro-del-pentagrama y objetos fuera-del-pentagrama,
+respectivamente.
+
+Los objetos dentro-del-pentagrama son los que se sitúan sobre la
+pauta: cabezas, plicas, alteraciones, etc.  Sus posiciones normalmente
+se fijan por la propia música; se posicionan verticalmente sobre
+líneas específicas del pentagrama o están unidos a otros objetos
+posicionados de esta forma.  Las colisiones entre cabezas, plicas y
+alteraciones en acordes de notas muy juntas, normalmente se evitan
+automáticamente.  Hay instrucciones y sobreescrituras que pueden
+modificar este comportamiento automático, como veremos en breve.
+
+Entre los objetos que pertenecen al exterior de la pauta se encuentran
+cosas como las marcas de ensayo, las marcas de texto y las de
+dinámica.  La regla de LilyPond para la colocación vertical de los
+objetos fuera-de-pentagrama es colocarlos tan cerca del pentagrama
+como sea posible, pero no tan cerca como para que puedan chocar con
+algún otro objeto.  LilyPond utiliza la propiedad
+@code{outside-staff-priority} para determinar el orden en que se deben
+situar los objetos, como veremos ahora.
+
+En primer lugar, LilyPond sitúa todos los objetos
+dentro-del-pentagrama.  Después ordena los objetos
+fuera-del-pentagrama de acuerdo con su prioridad
+@code{outside-staff-priority}.  Los objetos fuera-del-pentagrama se
+toman de uno en uno, comenzando por el que tiene la prioridad
+@code{outside-staff-priority} más baja, y se sitúan de forma que no
+colisionen con ningún objeto que se haya colocado ya. Esto es, si dos
+grobs fuera-del-pentagrama compiten por el mismo espacio, el que tiene
+la prioridad @code{outside-staff-priority} más baja se colocará más
+cerca del pentagrama.  Si dos objetos tienen la misma
+@code{outside-staff-priority}, el que se ha encontrado primero se
+situará más cerca de la pauta.
+
+En el siguiente ejemplo, todos los textos de marcado tienen la misma
+prioridad (pues no se ha establecido explícitamente).  Observe que
+@q{Text3} se posiciona de nuevo automáticamente cerca del pentagrama,
+acomodado por debajo de @q{Text2}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+Los pentagramas también se posicionan, de forma predeterminada, tan
+cerca unos de otros como sea posible (sujeto a una separación mínima).
+Si las notas se proyectan muy lejos en dirección a un pentagrama
+adyacente, forzarán a alejarse a los pentagramas sólo si en caso
+contrario fuese a ocurrir un solapamiento de la notación.  El ejemplo
+siguiente muestra esta acomodación @q{nestling} de las notas sobre
+pentagramas adyacentes:
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff {
+    \relative c' { c a, }
+  }
+  \new Staff {
+    \relative c'''' { c a, }
+  }
+>>
+@end lilypond
+
+
+@node Within-staff objects
+@subsection Within-staff objects
+
+Ya hemos visto cómo las instrucciones @code{\voiceXXX} affectan a la
+dirección de las ligaduras de expresión y de unión, digitaciones y
+todo lo demás que dependa de la dirección de las plicas.  Cuando se
+escribe música polifónica, estas instrucciones son esenciales para que
+puedan distinguirse varias líneas melódicas entrelazadas.  Pero
+ocasionalmente puede ser necesario sobreescribir este comportamiento
+automático.  Se puede hacer por secciones de música completas o
+incluso para una nota individual.  La propiedad que controla este
+comportamiento es la propiedad de @code{direction} (dirección) de cada
+objeto de presentación.  En primer lugar explicaremos qué hace esto, y
+luego introduciremos algunas instrucciones listas para usar que le
+evitarán tener que codificar sobreescrituras explícitas para las
+modificaciones más comunes.
+
+Algunos objetos de presentación como las ligaduras se curvan hacia
+arriba o hacia abajo; otros como las plicas y los corchetes también se
+mueven a la derecha o a la izquierda cuando apuntan hacia arriba o
+hacia abajo.  Esto se controla automáticamente cuando está establecida
+la propiedad @code{direction}.
+
+El ejemplo siguiente muestra en el compás 1 el comportamiento
+predeterminado de las plicas, con las de las notas agudas apuntando
+hacia abajo y las graves hacia arriba, seguidas de cuatro notas con
+todas las plicas forzadas hacia abajo, cuatro notas con las plicas
+forzadas hacia arriba, y por último cuatro notas devueltas al
+comportamiento predeterminado.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+a4 g c a
+\override Stem #'direction = #DOWN
+a g c a
+\override Stem #'direction = #UP
+a g c a
+\revert Stem #'direction
+a g c a
+@end lilypond
+
+Aquí utilizamos las constantes @code{DOWN} (abajo) y @code{UP}
+(arriba).  Éstos tienen los valores @code{-1} y @code{+1}
+respectivamente, y dichos valores numéricos también se pueden usar
+directamente.  El valor @code{0} también se puede usar en algunos
+casos.  Se trata simplemente con el significado de @code{UP} para las
+plicas, pero para algunos objetos tiene el significado de
+@q{centrado}.  Existe una constante @code{CENTER} que tiene el valor
+@code{0}.
+
+Sin embargo, estas sobreescrituras no se usan muy a menudo porque
+están disponibles instrucciones predefinidas equivalentes más
+sencillas.  Aquí podemos ver una tabla de las más comunes.  Se
+menciona el significado de cada una allí donde no es obvio.
+
+@multitable @columnfractions .2 .2 .2 .4
+@headitem Abajo o Izquierda
+  @tab Arriba o Derecha
+  @tab Anular
+  @tab Efecto
+@item @code{\arpeggioDown}
+  @tab @code{\arpeggioUp}
+  @tab @code{\arpeggioNeutral}
+  @tab La flecha está abajo, arriba o no hay flecha
+@item @code{\dotsDown}
+  @tab @code{\dotsUp}
+  @tab @code{\dotsNeutral}
+  @tab Dirección del desplazamiento para evitar las líneas del pentagrama
+@item @code{\dynamicDown}
+  @tab @code{\dynamicUp}
+  @tab @code{\dynamicNeutral}
+  @tab
+@item @code{\phrasingSlurDown}
+  @tab @code{\phrasingSlurUp}
+  @tab @code{\phrasingSlurNeutral}
+  @tab Nota: diferente de las instrucciones de ligaduras de expresión
+@item @code{\slurDown}
+  @tab @code{\slurUp}
+  @tab @code{\slurNeutral}
+  @tab
+@item @code{\stemDown}
+  @tab @code{\stemUp}
+  @tab @code{\stemNeutral}
+  @tab
+@item @code{\textSpannerDown}
+  @tab @code{\textSpannerUp}
+  @tab @code{\textSpannerNeutral}
+  @tab El texto introducido como objeto de extensión está debajo o encima del pentagrama
+@item @code{\tieDown}
+  @tab @code{\tieUp}
+  @tab @code{\tieNeutral}
+  @tab
+@item @code{\tupletDown}
+  @tab @code{\tupletUp}
+  @tab @code{\tupletNeutral}
+  @tab Los grupos especiales están debajo o encima de las notas
+@end multitable
+
+Observe que estas instrucciones predefinidas @strong{no} pueden ir
+precedidas de @code{\once}.  Si quiere limitar el efecto a una sola
+nota, deberá elegir entre usar la instrucción @code{\once \override}
+equivalente, o usar la instrucción predefinida, seguida después de la
+nota afectada por la instrucción @code{\xxxNeutral} correspondiente.
+
+@subheading Fingering
+@cindex digitación, colocación
+
+La colocación de las digitaciones también resulta afectada por el
+valor de su propiedad @code{direction}, pero existen instrucciones
+especiales que permiten controlar las digitaciones de notas
+individuales, situando la digitación encima, debajo, a la izquierda o
+a la derecha de cada nota.
+
+En primer lugar, he aquí el efecto de @code{direction} sobre las
+digitaciones; el primer compás muestra el comportamiento
+predeterminado, y después el efecto de especificar @code{DOWN} y
+@code{UP}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c-5 a-3 f-1 c'-5
+\override Fingering #'direction = #DOWN
+c-5 a-3 f-1 c'-5
+\override Fingering #'direction = #UP
+c-5 a-3 f-1 c'-5
+@end lilypond
+
+Así es como se controla la digitación sobre notas aisladas, pero la
+propiedad @code{direction} se ignora para los acordes.  En su lugar,
+de forma predeterminada las digitaciones se colocan automáticamente
+encima y debajo de las notas del acorde, como se muestra aquí:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<c-5 g-3>
+<c-5 g-3 e-2>
+<c-5 g-3 e-2 c-1>
+@end lilypond
+
+Es posible tener un mayor control sobre la situación exacta de las
+digitaciones mediante la utilización de la instrucción @code{\set
+fingeringOrientations}.  El formato de esta instrucción es
+
+@example
+@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+@end example
+
+@noindent
+se utiliza @code{\set} porque @code{fingeringOrientations} es una
+propiedad del contexto @code{Voice}, creado y usado por el grabador
+@code{New_fingering_engraver}.
+
+La propiedad se puede establecer al valor de una lista de entre uno y
+tres valores.  Controla si las digitaciones se pueden colocar por
+encima (si @code{up} aparece en la lista), por debajo (si aparece
+@code{down}), a la izquierda (si aparece @code{left}) o a la derecha
+(si aparece @code{right}).  A la inversa, si una colocación no está en
+la lista, no se sitúa ninguna digitación en dicho lugar.  LilyPond
+coma estas restricciones y se trabaja la mejor colocación para la
+digitación de las notas de los acordes que siguen.  Observe que
+@code{left} y @code{right} son mutuamente excluyentes: las
+digitaciones pueden situarse en un lado o en el otro, no en los dos.
+
+Para controlar la colocación de la digitación de una sola nota usando
+esta instrucción es necesario escribirla como un acorde de una sola
+nota encerrándola entre ángulos simples.
+
+Aquí podemos ver algunos ejemplos:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond
+
+@noindent
+Si la digitación parece un poco superpoblada, se puede reducir el
+tamaño @code{font-size}.  El valor predeterminado puede verse en el
+objeto @code{Fingering} del RFI que es @code{-5}, así que probaremos
+@code{-7}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\override Fingering #'font-size = #-7
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond
+
+@node Outside staff objects
+@subsection Outside staff objects
+
+Los objetos fuera-del-pentagrama se colocan automáticamente para
+evitar las colisiones.  Los objetos que tienen el valor más bajo de la
+propiedad @code{outside-staff-priority} se sitúan más cerca del
+pentagrama, y entonces otros objetos fuera-del-pentagrama se elevan
+tanto como sea necesario para evitar la colisión.  La prioridad
+@code{outside-staff-priority} se defina en el @code{grob-interface} y
+así es una propiedad de todos los objetos de presentación.  De forma
+predeterminada se establece a @code{#f} para todos los objetos
+dentro-del-pentagrama, y a un valor numérico adecuado a cada objeto
+fuera-del-pentagrama cuando se crea el objeto.  La tabla siguiente
+presenta los valores numéricos predeterminados para algunos de los
+objetos fuera-del-pentagrama que están inicialmente dentro de los
+contextos @code{Staff} o @code{Voice}.
+
+@multitable @columnfractions .3 .3 .3
+@headitem Objeto de presentación
+  @tab Prioridad
+  @tab Controla la posición de:
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Texto sobre silencios de compás completo
+@item @code{TextScript}
+  @tab @code{450}
+  @tab Elementos de marcado de texto
+@item @code{OttavaBracket}
+  @tab @code{400}
+  @tab Corchetes de octava alta y baja
+@item @code{TextSpanner}
+  @tab @code{350}
+  @tab Objetos de extensión de texto
+@item @code{DynamicLineSpanner}
+  @tab @code{250}
+  @tab Todas las indicaciones dinámicas
+@item @code{VoltaBracketSpanner}
+  @tab @code{100}
+  @tab Corchetes de primera y segunda vez
+@item @code{TrillSpanner}
+  @tab @code{50}
+  @tab Trinos mantenidos
+@end multitable
+
+He aquí un ejemplo que muestra la situación predeterminada de algunos
+de ellos.
+
+@cindex texto, extensiones de
+@funindex \startTextSpan
+@funindex \stopTextSpan
+@cindex octava alta y baja, corchete de
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+% Start Ottava Bracket
+#(set-octavation 1)
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+#(set-octavation 0)
+c, c c c
+@end lilypond
+
+Este ejemplo también muestra cómo crear textos con extensión (Text
+Spanners) : textos con líneas extensoras por encima de una sección de
+música.  El extensor abarca desde la instrucción @code{\startTextSpan}
+hasta la instrucción @code{\stopTextSpan}, y el formado del texto se
+define por medio de la instrucción @code{\override TextSpanner}.  Para
+ver más detalles, consulte @ruser{Text spanners}.
+
+También muestra la manera de crear corchetes de octava alta y baja.
+
+Observe que los números de compás, las indicaciones metronómicas y las
+mercas de ensayo no se muestran. De forma predeterminada, se crean
+dentro del contexto @code{Score} y su prioridad
+@code{outside-staff-priority} se ignora con relación a los objetos de
+presentación que se crean dentro del contexto @code{Staff}.  Si quiere
+colocar los números de compás, indicaciones metronómicas o llamadas de
+ensayo en concordancia con el valor de su
+@code{outside-staff-priority}, los grabadores
+@code{Bar_number_engraver}, @code{Metronome_mark_engraver} o
+@code{Mark_engraver} respectivamente se deben eliminar del contexto
+@code{Score} y colocarlos en el contexto @code{Staff} del nivel
+superior.  Si se hace así, estas marcas obtendrán los siguientes
+valores predeterminados de @code{outside-staff-priority}:
+
+@multitable @columnfractions .3 .3
+@headitem Objeto de presentación           @tab Prioridad
+@item @code{RehearsalMark}        @tab @code{1500}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{BarNumber}            @tab @code{ 100}
+@end multitable
+
+Si los valores predeterminados de @code{outside-staff-priority} no le
+ofrecen las colocaciones deseadas se puede sobreescribir la prioridad
+de cualquiera de los objetos.  Suponga que quisiéramos que el corchete
+de octava estuviera situado por debajo del elemento extensor de texto
+en el ejemplo de arriba.  Todo lo que debemos hacer es localizar la
+prioridad de @code{OttavaBracket} en el RFI o en las tablas
+anteriores, y reducirlo a un valor inferior al de @code{TextSpanner},
+recordando que @code{OttavaBracket} se crea dentro del contexto de
+@code{Staff}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+%Place following Ottava Bracket below Text Spanners
+\once \override Staff.OttavaBracket #'outside-staff-priority = #340
+% Start Ottava Bracket
+#(set-octavation 1)
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+#(set-octavation 0)
+c, c c c
+@end lilypond
+
+Los cambios en @code{outside-staff-priority} también se pueden emplear
+para controlar la situación vertical de los objetos individuales,
+aunque los resultados pueden no siempre ser deseables.  Suponga que
+quiere que @qq{Text3} se sitúe por encima de @qq{Text4} en el ejemplo
+bajo el epígrafe Comportamiento Automático de más arriba (véase
+@ref{Automatic behaviour}).  Todo lo que debemos hacer es localizar la
+prioridad de @code{TextScript} en el RFI o en las tablas de arriba, y
+aumentar la prioridad de @qq{Text3} hasta un valor superior:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+\once \override TextScript #'outside-staff-priority = #500
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+Esto, ciertamente, eleva a @qq{Text3} por encima de @qq{Text4} pero
+también lo eleva por encima de @qq{Text2}, y @qq{Text4} ahora se
+desploma hacia abajo.  Quizá no sea tan buena idea.  ¿Y si lo que
+realmente queremos hacer es posicionar todas las anotaciones a la
+misma distancia por encima del pentagrama?  Para hacerlo, vamos a
+necesitar claramente espaciar las notas en sentido horizontal para
+hacer sitio para el texto.  Esto se hace empleando la instrucción
+@code{textLengthOn}.
+
+@subheading \textLengthOn
+
+@funindex \textLengthOn
+@cindex notas, espaciar junto al texto
+
+De forma predeterminada, el texto producido mediante marcado no ocupa
+ningún espacio horizontal en cuanto se refiere a la disposición de la
+música.  La instrucción @code{\textLengthOn} invierte este
+comportamiento, ocasionando que las notas resulten tan espaciadas como
+sea necesario para acomodar el texto:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\textLengthOn  % Cause notes to space out to accommodate text
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+La instrucción para volver al comportamiento predeterminado es
+@code{\textLengthOff}.  Recuerde que @code{\once} funciona solamente
+con @code{\override}, @code{\set}, @code{\revert} o @code{unset}, así
+que no se puede usar con @code{\textLengthOn}.
+
+El texto de marcado también evita las notas que se proyectan por
+encima del pentagrama.  Si esto no es lo que deseamos, el
+desplazamiento automático hacia arriba se puede desactivar mediante el
+establecimiento de la prioridad a @code{#f}.  He aquí un ejemplo que
+muestra cómo el texto de marcado interactúa con tales notas.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+% This markup is short enough to fit without collision
+c2^"Tex"
+c''2
+R1
+% This is too long to fit, so it is displaced upwards
+c,,2^"Text"
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+c,,2^"Long Text   "
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+\textLengthOn  % and turn on textLengthOn
+c,,2^"Long Text   "  % Spaces at end are honoured
+c''2
+@end lilypond
+
+
+@subheading Dynamics
+
+Las indicaciones de matiz dinámico normalmente se colocarán por debajo
+del pentagrama, pero se pueden posicionar por encima con la
+instrucción @code{dynamicUp}.  Se situarán verticalmente respecto a la
+nota a la que van adosadas, y flotarán por debajo (o por encima) de
+todos los objetos dentro-del-pentagrama tales como ligaduras de fraseo
+y números de compás.  Esto puede ofrecer resultados bastante
+aceptables, como muestra este ejemplo:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\clef "bass"
+\key aes \major
+\time 9/8
+\dynamicUp
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+ees,2.~\)\mf ees4 r8 |
+@end lilypond
+
+Sin embargo, si las notas y sus indicaciones dinámicas adosadas están
+muy cerca, la colocación automática evitará las colisiones desplazando
+las marcas dinámicas posteriores más lejos, aunque este puede no ser
+el lugar óptimo, como muestra el siguiente ejemplo más bien
+artificial:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Si se presentara una situación similar en música @q{real}, podría ser
+preferible espaciar las notas un poco más entre sí, de forma que todas
+las marcas dinámicas puedan caber a la misma distancia vertical desde
+el pentagrama.  Hemos sido capaces de hacer esto para el texto de
+marcado utilizando la instrucción @code{\textLengthOn}, pero no existe
+una instrucción equivalente para las indicaciones de matiz dinámico.
+Por tanto, tendremos que averiguar cómo hacerlo utilizando
+instrucciones @code{\override}.
+
+@subheading Grob sizing
+
+@cindex grob, cambio de tamaño de un
+@cindex escala de los grobs
+@cindex @code{X-offset}
+@cindex @code{Y-offset}
+@cindex @code{X-extent}
+@cindex @code{Y-extent}
+
+En primer lugar debemos aprender cómo se especifica el tamaño de los
+grobs.  Todos los grobs tienen un punto de referencia definido dentro
+de ellos que se usa para colocarlos respecto a su objeto padre.
+Entonces, este punto del grob se posiciona a una distancia horizontal,
+@code{X-offset}, y una distancia vertical, @code{Y-offset}, a partir
+de su padre.  La dimensión horizontal del objeto viene dada por una
+pareja de números, @code{X-extent}, que dice dónde están los límites
+izquierdo y derecho respecto del punto de referencia.  La amplitud
+vertical se define de forma similar mediante una pareja de números,
+@code{Y-extent}.  Éstas son propiedades de todos los grobs que
+contemplan el @code{grob-interface}.
+
+@cindex @code{extra-spacing-width}
+
+De forma predeterminada, los objetos fuera-del-pentagrama reciben una
+anchura cero, de manera que pueden solaparse en la dirección
+horizontal.  Esto se hace mediante el truco de añadir una cantidad
+infinita a la dimensión más a la izquierda y menos infinito a la
+dimensión más a la derecha estableciendo el valor de
+@code{extra-spacing-width} a @code{'(+inf.0 . -inf.0)}.  Así, para
+asegurar que no se superponen en la dirección horizontal tendremos que
+sobreescribir este valor de @code{extra-spacing-width} a @code{'(0
+. 0)} de forma que el verdadero ancho se presente.  Esta es la
+instrucción que lo hace para las indicaciones dinámicas:
+
+@example
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+@end example
+
+@noindent
+Veamos si funciona en nuestro ejemplo anterior:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Bueno, ciertamente ha hecho que las marcas dinámicas ya no estén
+desplazadas, pero aún quedan dos problemas.  Las marcas tendrían que
+separarse un poco más entre sí, y sería mejor si todas estuvieran a la
+misma distancia del pentagrama.  Podemos resolver el primer problema
+fácilmente.  En vez de hacer cero la anchura
+@code{extra-spacing-width}, podemos añadirle algo más.  Las unidades
+son el espacio entre dos líneas de pentagrama, así que al mover el
+límite izquierdo media unidad a la izquierda y el límite derecho media
+unidad hacia la derecha, deberíamos conseguirlo:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 staff space
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Esto tiene un mejor aspecto, pero quizá habríamos preferido que las
+indicaciones de dinámica estuvieran alineadas sobre la misma línea de
+base en lugar de ir hacia arriba y hacia abajo con las notas.  La
+propiedad que lo hace es @code{staff-padding} (relleno de pentagrama)
+que se estudia en la sección siguiente.
+
+
+@node Collisions of objects
+@section Collisions of objects
+
+@menu
+* Moving objects::              
+* Fixing overlapping notation::  
+* Real music example::          
+@end menu
 
 @node Moving objects
-@section Moving objects
+@subsection Moving objects
 
-Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos
-elementos de notación se pueden superponer, lo que es una lástima,
-pero en casi todos los casos se resuelve fácilmente.
+Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos elementos
+de notación se pueden superponer, lo que es una lástima, pero en
+realidad es bastante poco frecuente.  Normalmente la necesidad de
+mover objetos es por claridad o razones estéticas: el aspecto es mejor
+con un poco más o un poco menos de espacio de separación.
 
-@c  FIXME: find a better example for 5.1 Moving Objects.  -gp
-@c  yes, I want this TODO to be visible to end-users.  It's better
-@c  than having nothing at all.
-HACER: con las nuevas funcionalidades de espaciado en la versión 2.12, estos ejemplos específicos
-ya no son de relevancia.  Sin embargo siguen demostrando las poderosas funcionalidades de lilypond,
-así que quedan aquí hasta que alguien elabore unos ejemplos mejores.
+Existen tres enfoques principales que llevan a la resolución de
+superposiciones en la notación.  Se deben considerar en el siguiente
+orden:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@enumerate
+@item
+La @strong{dirección} de uno de los objetos que se superponen se puede
+cambiar usando las instrucciones predefinidas que están relacionadas
+arriba para los objetos dentro-del-pentagrama (véase @ref{Within-staff
+objects}).  Se pueden recolocar fácilmente las plicas, ligaduras de
+expresión y de unión, barras de corchea, indicaciones dinámicas, texto
+y grupos de valoración especial de esta forma.  La limitación es que
+sólo tiene la posibilidad de elegir entre dos posiciones, y podría ser
+que ninguna de ellas sea la adecuada.
 
-@cindex padding
+@item
+Las @strong{propiedades del objeto}, que LilyPond usa cuando está
+colocando los objetos de presentación, se pueden modificar usando la
+instrucción de sobreescritura @code{\override}.  Las ventadas de hacer
+cambios a este tipo de propiedad son: a) que algún otro objeto se
+moverá automáticamente si es necesario, para dejarle sitio, y b) una
+única sobreescritura se puede aplicar a todas las instancias del mismo
+tipo de objeto.  Entre tales propiedades se encuentran:
+@itemize
 
-La solución más fácil es aumentar la distancia entre el objeto
-(texto en este caso, pero muy bien podrían ser digitaciones o dinámicas)
-y la nota.  En LilyPond, esto se llama la propiedad
-@code{padding} (relleno); se mide en espacios de pentagrama.  Para la mayor
-parte de los objetos, este valor ronda la cantidad de 1.0 o menos (varía dependiendo del
-objeto). Queremos aumentarlo, así que probaremos el valor 1.5
+@item
+@code{direction} (dirección)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'padding = #1.5
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+Ya se ha estudiado con cierto detalle: véase @ref{Within-staff
+objects}.
 
-Esto tiene un mejor aspecto, pero no es suficiente.  Después de probar
-con algunos valores, creemos que 2.3 es el mejor número en este caso. Sin embargo
-esta cantidad es el mero resultado del ensayo y error y de mi gusto personal
-acerca de la notación.  Pruebe el ejemplo anterior con 2.3... pero también con otros valores 
-mayores (y menores).  ¿Cuál cree que queda mejor?
+@item
+@code{padding} (relleno), @code{left-padding} (relleno por la
+izquierda), @code{right-padding} (relleno por la derecha),
+@code{staff-padding} (relleno de pentagrama)
 
-La propiedad @code{staff-padding} (relleno de pentagrama) está estrechamente relacionada.
-@code{padding} controla la cantidad de espacio mínima entre un objeto y el objeto más cercano
-(generalmente la nota o las líneas del pentagrama);
-@code{staff-padding} controla la cantidad mínima de espacio entre un
-objeto y el pentagrama.  Ello supone una sutil diferencia, pero podrá 
-observar el comportamiento a continuación.
+@cindex left-padding, propiedad
+@cindex padding, propiedad
+@cindex right-padding, propiedad
+@cindex staff-padding, propiedad
+Según un objeto se está colocando, el valor de su propiedad de relleno
+@code{padding} especifica el espacio intermedio que se debe dejar
+entre él mismo y el límite más próximo del objeto contra el que se
+está colocando.  Observe que es el valor de @code{padding} del objeto
+@strong{que se está colocando} el que se usa; el valor de
+@code{padding} del objeto que ya está colocado se ignora.  Los
+espacios intermedios especificados mediante @code{padding} se pueden
+aplicar a todos los objetos que contemplan el interface
+@code{side-position-interface}.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-\break
-c'4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-@end lilypond
+En lugar de con @code{padding}, la colocación de los grupos de
+alteraciones se controla con @code{left-padding} y
+@code{right-padding}.  Estas propiedades se encontrarán en el objeto
+@code{AccidentalPlacement} que, observe, vive dentro del contexto de
+@strong{staff}.  Como las alteraciones accidentales siempre se
+posicionan según las cabezas de las notas y a su izquierda, solamente
+tiene algún efecto la propiedad de relleno por la derecha
+@code{right-padding}.
 
-@cindex desplazamiento adicional
+La propiedad @code{staff-padding} está estrechamente relacionada con
+la propiedad @code{padding}: @code{padding} controla la separación
+mínima entre cualquier objeto que contemple el interface
+@code{side-position-interface} y el objeto más cercano (generalmente
+la nota o las líneas del pentagrama); @code{staff-padding} se aplica
+sólo a los objetos que siempre se sitúan fuera del pentagrama:
+controla la separación mínima entre dicho objeto y el pentagrama.
+Observe que @code{staff-padding} no tiene ningún efecto sobre objetos
+que se posicionan respecto a la nota en vez de hacerlo respecto al
+pentagrama, incluso aunque puede ser sobreescrito sin error por tales
+objetos: simplemente se ignora.
 
-Otra solución nos proporciona un control absoluto sobre la situación del objeto: podemos
-moverlo horizontal o verticalmente.  Se hace con la propiedad
-@code{extra-offset} (desplazamiento adicional).  Es ligeramente más complicado y puede
-causar otros problemas.  Cuando movemos objetos con @code{extra-offset},
-el movimiento se hace después de que LilyPond haya colocado todos los demás objetos.
-Esto significa
-que el resultado podría entrar en conflicto con otros objetos.
+Para descubrir qué propiedad de relleno se necesita para el objeto que
+quiere recolocar, debe volver al manual de RFI y buscar las
+propiedades del objeto.  Tenga cuidado porque las propiedades de
+relleno podrían no estar en el objeto más obvio, así que busque en los
+objetos que puedan tener alguna relación con él.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+Todos los valores de relleno se miden en espacios del pentagrama.
+Para la mayor parte de los objetos el valor se establece de forma
+predeterminada en aproximadamente 1.0 o menos (varía con cada objeto).
+Se puede sobreescribir si se necesita una separación intermedia mayor
+(o menor).
 
-Con @code{extra-offset}, el primer número controla el movimiento
-horizontal (negativo hacia la izquierda); el segundo número controla el movimiento
-vertical (positivo hacia arriba).  Después de algunos ensayos, hemos decidido que los siguientes valores
-son apropiados
+@item
+@code{self-alignment-X} (Auto-alineamiento en el eje X)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@cindex self-alignment-X, propiedad
+Esta propiedad se puede usar para alinear el objeto a la izquierda, a
+la derecha, o centrarlo con respecto al punto de referencia del objeto
+«padre».  Se puede usar con todos los objetos que contemplan el
+interface
+@code{self-alignment-interface}.  En general son objetos que contienen
+texto.  Los valores son @code{LEFT}, @code{RIGHT} o @code{CENTER}.  De
+forma alternativa se puede especificar un valor numérico entre
+@code{-1} y @code{+1}, donde @code{-1} es alineado por la izquierda,
+@code{+1} es alineado por la derecha, y los números intermedios mueven
+el texto progresivamente desde alineado por la izquierda hasta alineado
+por la derecha.  Se pueden especificar valores numéricos mayores de
+@code{1} para mover el texto incluso más lejos hacia la izquierda, o
+menos de @code{-1} para alejarlo más hacia la derecha.  Un cambio en
+@code{1} en el valor corresponde a un movimiento de la mitad de la
+longitud total del propio texto.
 
-@noindent
-Una vez más, estos números son simplemente el resultado de algunos experimentos y
-de observar la salida.  Quizá prefiera que el texto se encuentre algo más arriba,
-o a la izquierda, o en cualquier dirección.  ¡Pruébelo y observe el resultado!
+@item
+@code{extra-spacing-width} (anchura de separación adicional)
 
-Una advertencia final: en esta sección hemos usado
+@cindex extra-spacing-width, propiedad
+Esta propiedad está disponible para todos los objetos que contemplan
+el interface @code{item-interface}.  Toma dos números, el primero se
+suma al límite izquierdo y el segundo se suma al límite derecho.  Los
+números negativos desplazan el límite a la izquierda y los positivos a
+la derecha, por lo que para ensanchar un objeto el primer número debe
+ser negativo y el segundo positivo.  Observe que no todos los objetos
+ostentan los dos números.  Por ejemplo, el objeto @code{Accidental}
+(alteración) sólo toma nota del primer número (el borde izquierdo).
 
-@example
-\once \override TextScript @dots{}
-@end example
+@item
+@code{staff-position} (posición de pentagrama)
 
-Esto altera la presentación del texto para la nota siguiente.  Si la nota no
-tiene ningún texto, este truco no hace nada (y @strong{no} se queda esperando al
-siguiente fragmento de texto).  Para cambiar el comportamiento permanentemente a partir
-del comando, omita el @code{\once}.  Para detener este truco, use
-@code{\revert} (revertir).  Todo esto se explica en profundidad en
-@ruser{The \override command}.
+@cindex staff-position, propiedad
+@code{staff-position} es una propiedad del interface
+@code{staff-symbol-referencer-interface}, que está contemplado por los
+objetos que se colocan con relación al pentagrama.  Especifica la
+posición vertical del objeto con relación a la tercera línea del
+pentagrama en medios espacios de pentagrama.  Es útil en la
+resolución de colisiones entre objetos de presentación como silencios
+multi-compás, ligaduras de unión y notas en distintas voces.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b
-\once \override TextScript #'padding = #4.6
-  a4 b
-c4^"piu mosso" d e f
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\break
-\override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\revert TextScript #'padding
-c4^"piu mosso" d e f
-@end lilypond
+@item
+@code{force-hshift} (forzar desplazamiento horizontal)
 
-@seealso
+@cindex force-hshift, propiedad
 
-En el presente manual: @ruser{The \override command}, @ruser{Common tweaks}.
+Las notas muy juntas de un acorde, o aquellas que ocurren al mismo
+tiempo en voces distintas, se disponen en dos (y ocasionalmente más)
+columnas para evitar la superposición de las cabezas.  Éstas reciben
+el nombre de columnas de notas, y se crea un objeto llamado
+@code{NoteColumn} para disponer las notas en dicha columna.
+
+La propiedad @code{force-hshift} es una propiedad de una
+@code{NoteColumn} (realmente lo es del interface
+@code{note-column-interface}).  Modificarlo permite mover una columna
+de notas en unidades adecuadas a una columna de notas, por ejemplo la
+anchura de la cabeza de la nota de la primera voz.  Se debe usar en
+situaciones complejas donde las instrucciones @code{\shiftOn} normales
+(véase @ref{Explicitly instantiating voices}) no resuelven el
+conflicto entre las notas.  Es preferible a la propiedad
+@code{extra-offset} para este propósito porque no hay necesidad de
+averiguar la distancia en espacios de pentagrama, y mover las notas
+dentro o fuera de una @code{NoteColumn} afecta a otras acciones como a
+la fusión entre cabezas de nota.
+
+@end itemize
+
+@item
+Finalmente, cuando todo lo demás falla, los objetos se pueden
+reposicionar manualmente con relación a la tercera línea del
+pentagrama verticalmente, o desplazándolas una cierta distancia a una
+nueva posición.  Las desventajas son que los valores correctos para el
+reposicionamiento se deben adivinar, a menudo por ensayo y error, para
+cada objeto individual y, puesto que el movimiento se hace después de
+que LilyPond ha colocado todos los demás objetos es usuario es
+responsable de evitar cualquier colisión que pudiera producirse.  Pero
+la dificultar principal con este enfoque es que los valores de
+reposicionado podrían tener que ser vueltos a calcular si la música se
+modifica más tarde.  Las propiedades que se pueden usar para este tipo
+de posicionamiento manual son:
+
+@table @code
+@item extra-offset (desplazamiento adicional)
+@cindex extra-offset, propiedad
+Esta propiedad se aplica a cualquier objeto de presentación que
+contemple el @code{grob-interface}.  Toma una pareja de números que
+especifican el desplazamiento adicional en las direcciones horizontal
+y vertical.  Los números negativos mueven el objeto a la izquierda o
+hacia abajo.  Las unidades son espacios de pentagrama.  El
+desplazamiento adicional se hace después de que la composición
+tipográfica de los objetos ha terminado, así que un objeto puede ser
+reposicionado a cualquier lugar sin afectar a ninguna otra cosa.
+
+@item positions (posiciones)
+@cindex positions, propiedad
+Ésta es de la mayor utilidad para ajustar manualmente la inclinación y
+la altura de las barras de corchea, ligaduras de expresión y corchetes
+de grupos de valoración especial.  Toma una pareja de números que dan
+la posición de los extremos izquierdo y derecho de la barra, ligadura,
+etc. con relación a la tercera línea del pentagrama.  Las unidades son
+espacios de pentagrama.  Observe, sin embargo, que las ligaduras de
+expresión y de fraseo no se pueden reposicionar en cantidades
+arbitrariamente grandes.  LilyPond en primer lugar genera una lista de
+posiciones posibles para la ligadura y de forma predeterminada
+encuentra la ligadura que tiene @qq{mejor aspecto}.  Si la propiedad
+@code{positions} se ha sobreescrito, la ligadura que está más cerca de
+las posiciones que se han solicitado, se selecciona de la lista.
+@end table
+
+@end enumerate
+
+Un objeto en particular podría no tener todas estas propiedades.  Es
+necesario ir al manual RFI para buscar qué propiedades se encuentran
+disponibles para el objeto en cuestión.
 
 
-@node Fixing overlapping notation
-@section Fixing overlapping notation
+Aquí presentamos una lista de los objetos que es más probable que
+estén implicados en colisiones, con el nombre del objeto que habría
+que buscar en el RFI para descubrir qué propiedades se deben usar para
+moverlos.
 
-En @ruser{Moving objects}, pudimos ver cómo mover un objeto @code{TextScript}.
-El mismo mecanismo se puede usar para mover otros tipos de
-objetos; simplemente sustituya @code{TextScript} con el nombre de
-otro objeto.
-
-Para encontrar el nombre del objeto, consulte la sección @q{@strong{véase también}} al
-final de la página relevante dentro de la documentación.  Por ejemplo, al
-final de @ruser{Dynamics}, vemos
-
-@quotation
-@seealso
-
-Referencia del programa: @internalsref{DynamicText}, @internalsref{Hairpin}.
-La posición vertical de estos símbolos se maneja por medio de
-@internalsref{DynamicLineSpanner}.
-@end quotation
-
-@noindent
-Así que para mover expresiones dinámicas verticalmente, usamos
-
-@example
-\override DynamicLineSpanner #'padding = #2.0
-@end example
-
-No podemos listar todos y cada uno de los objetos, pero presentamos a continuación una lista
-de los objetos más comunes.
-
-@multitable @columnfractions .33 .66
-@headitem Tipo de objeto                        @tab Nombre del objeto
-@item Expresiones dinámicas (verticalmente)     @tab @code{DynamicLineSpanner}
-@item Expresiones dinámicas (horizontalmente)   @tab @code{DynamicText}
-@item Ligaduras de unión                        @tab @code{Tie}
-@item Ligaduras de expresión                    @tab @code{Slur}
-@item Articulaciones                            @tab @code{Script}
-@item Digitaciones                              @tab @code{Fingering}
-@item Texto, p.ej. @code{^"text"}               @tab @code{TextScript}
-@item Llamadas de ensayo o marcas de texto      @tab @code{RehearsalMark}
+@multitable @columnfractions .5 .5
+@headitem Tipo de objeto           @tab Nombre del objeto
+@item Articulaciones            @tab @code{Script}
+@item Barras                    @tab @code{Beam}
+@item Dinámica (verticalmente)  @tab @code{DynamicLineSpanner}
+@item Dinámica (horizontalmente)   @tab @code{DynamicText}
+@item Digitaciones                @tab @code{Fingering}
+@item Llamadas de ensayo y textuales   @tab @code{RehearsalMark}
+@item Ligaduras de expresión    @tab @code{Slur}
+@item Texto, por ejemplo @code{^"texto"}  @tab @code{TextScript}
+@item Ligaduras de unión        @tab @code{Tie}
+@item Grupos de valoración especial @tab @code{TupletBracket}
 @end multitable
 
 
-@node Common tweaks
-@section Common tweaks
+@node Fixing overlapping notation
+@subsection Fixing overlapping notation
 
-Algunas sustituciones son tan comunes que se proporcionan comandos preestablecidos
-como atajos, como @code{\slurUp} (ligadura hacia arriba) y @code{\stemDown} (plica hacia abajo).  Estos
-comandos se describen dentro de la Referencia de Notación bajo las secciones
-correspondientes.
+Veamos ahora cómo pueden ser de ayuda las propiedades que hemos visto
+en la sección anterior, para resolver problemas de notación que se
+superpone.
 
-La lista completa de modificaciones disponibles para cada tipo de
-objeto (como ligaduras o barras de corchea) están documentadas en la Referencia del
-Programa.  Sin embargo, muchos objetos de la presentación comparten propiedades que se pueden
-usar para aplicar trucos genéricos.
+@subheading padding property
+@cindex relleno, propiedad
+@cindex padding, propiedad
 
-@itemize @bullet
-
-@cindex relleno
-
-@item
-La propiedad @code{padding} (relleno) se puede establecer de forma que incremente
-(o disminuya) la distancia entre símbolos que se imprimen encima
-o debajo de las notas.  Se aplica a todos los objetos con
-@code{side-position-interface}.
+La propiedad @code{padding} se puede ajustar para aumentar (o
+disminuir) la distancia entre símbolos impresos encima o debajo de las
+notas.
 
 @lilypond[quote,fragment,relative=1,verbatim]
 c2\fermata
@@ -1107,25 +2322,147 @@ c1
 d1
 @end lilypond
 
-Observe en el segundo ejemplo cuán importante es determinar qué contexto
-maneja un objeto determinado.  Debido a que el objeto @code{MetronomeMark} (indicación metronómica)
-se maneja en el contexto @code{Score}, los cambios de propiedades dentro del
-contexto @code{Voice} no se tendrán en cuenta.  Para ver más detalles, consulte
-@ruser{Constructing a tweak}.
+Observe en el segundo ejemplo la gran importancia que tiene saber qué
+contexto maneja un determinado objeto.  Puesto que el objeto
+@code{MetronomeMark} se maneja dentro del contexto @code{Score}, los
+cambios de propiedades en el contexto @code{Voice} pasarán
+inadvertidos.  Para ver más detalles, consulte @ruser{Constructing a
+tweak}.
 
-@cindex extra-offset (desplazamiento adicional)
+Si la propiedad de relleno @code{padding} de un objeto se incrementa
+cuando dicho objeto se encuentra en una pila de objetos que se están
+colocando de acuerdo a su prioridad @code{outside-staff-priority},
+entonces ese objeto se moverá, y también todos los que están por fuera
+de él.
 
-@item
-La propiedad @code{extra-offset} mueve objetos en la salida;
-requiere una pareja de números.  El primer número
-controla el movimiento horizontal, un número positivo moverá
-el objeto hacia la derecha.  El segundo número controla el movimiento
-vertical; un número positivo lo desplazará hacia arriba.  La
-propiedad @code{extra-offset} es una funcionalidad de bajo nivel: el motor
-de formateo es completamente olvidadizo respecto de estos desplazamientos.
 
-En el ejemplo siguiente, la segunda digitación se desplaza un poco hacia
-la izquierda y 1.8 espacios de pentagrama hacia abajo:
+@subheading left-padding and right-padding
+@cindex left-padding, propiedad
+@cindex right-padding, propiedad
+
+La propiedad @code{right-padding} afecta al espaciado entre la
+alteración y la nota a que se aplica.  Normalmente no es necesaria,
+pero el ejemplo siguiente muestra una situación en la que sí se
+necesita.  Suponga que queremos presentar un acorde que contiene un Si
+natural y un Si bemol.  Para evitar la ambigüedad querríamos preceder
+las notas con un becuadro y un bemol.  Aquí vienen varios intentos de
+hacerlo así:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<b bes>
+<b! bes>
+<b? bes>
+@end lilypond
+
+Ninguno de ellos funciona y el segundo además presenta una fea
+colisión entre las dos alteraciones.
+
+Una forma de conseguirlo es sobreescribir el sello de la alteración
+con un elemento de marcado que contenga los símbolos de becuadro y
+bemol en el orden que nos gustaría que estuvieran, así:
+
+@lilypond[quote,ragged-right,verbatim]
+naturalplusflat = \markup { \natural \flat }
+\relative c'' {
+  \once \override Accidental
+    #'stencil = #ly:text-interface::print
+  \once \override Accidental #'text = #naturalplusflat
+  \once \override Score.AccidentalPlacement #'right-padding = #1.5
+  <b bes>
+}
+@end lilypond
+
+@noindent
+Esto utiliza necesariamente una sobreescritura para el sello de la
+alteración que no se estudiará hasta más adelante.  El tipo de sello
+debe ser un procedimiento, aquí modificado para que imprima el
+contenido de la propiedad @code{text} del objeto @code{Accidental},
+que a su vez está establecido como un signo de becuadro seguido de un
+bemol.  Entonces el conjunto se puede separar de la cabeza de la nota
+sobreescribiendo @code{right-padding}.
+
+@noindent
+
+@subheading staff-padding property
+@cindex staff-padding, propiedad
+
+@code{staff-padding} se puede usar para alinear objetos como matices
+dinámicos a lo largo de una línea de base a una altura fija sobre el
+pentagrama, en lugar de hacerlo a una altura que dependa de la
+posición de la nota a la que están adosados.  No es una propiedad de
+@code{DynamicText} sino de @code{DynamicLineSpanner}.  Esto es así
+porque la línea de base debe aplicarse por igual a @strong{todas} las
+dinámicas, entre ellas las que se han creado como objetos de
+extensión.  Así que ésta es la forma de alinear las indicaciones de
+matiz en el ejemplo de la sección anterior:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 unit
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+% Align dynamics to a base line 2 units above staff
+\override DynamicLineSpanner #'staff-padding = #2
+a4\f b\mf c\mp b\p
+@end lilypond
+
+
+@subheading self-alignment-X property
+@cindex self-alignment-X, propiedad
+
+El ejemplo siguiente muestra cómo esto puede resolver la colisión
+entre un objeto de digitación de cuerda y la plica de una nota
+mediante el alineamiento del límite derecho con el punto de referencia
+de la nota «padre»:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+\voiceOne
+< a \2 >
+\once \override StringNumber #'self-alignment-X = #RIGHT
+< a \2 >
+@end lilypond
+
+@subheading staff-position property
+@cindex staff-position, propiedad
+
+Los silencios multi-compás en una voz pueden chocar con las notas en
+otra voz.  Puesto que estos silencios se tipografían centrados entre
+las barras de compás se necesitaría bastante esfuerzo para que
+LilyPond averiguara qué otras notas podrían chocar con él, ya que
+actualmente todo el manejo de colisiones entre notas y silencios se
+hace solamente para notas y silencios que ocurren al mismo tiempo.  He
+aquí un ejemplo de colisión de este tipo:
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<< {c c c c} \\ {R1} >>
+@end lilypond
+
+La mejor solución aquí es mover el silencio multi-compás hacia abajo,
+pues el silencio está en la voz dos.  El ajuste predeterminado para
+@code{\voiceTwo} (es decir, en la segunda voz de una construcción
+@code{<<@{...@} \\ @{...@}>>}) es que @code{staff-position} tenga el
+valor -4 para MultiMeasureRest, así que tenemos que bajarlo, digamos,
+cuatro semi-espacios de pentagrama, al valor @code{-8}.
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<<
+  {c c c c}
+\\
+  \override MultiMeasureRest #'staff-position = #-8
+  {R1}
+>>
+@end lilypond
+
+Esto es mejor que utilizar, por ejemplo, @code{extra-offset}, porque
+la línea adicional por encima del silencio se inserta automáticamente.
+
+@subheading extra-offset property
+@cindex extra-offset, propiedad
+
+La propiedad @code{extra-offset} da un completo control sobre el
+posicionamiento de un objeto tanto vertical como horizontalmente.
+
+En el ejemplo siguiente, la segunda digitación se desplaza ligeramente
+a la izquierda, y 1.8 espacios de pentagrama hacia abajo:
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
@@ -1135,269 +2472,941 @@ f-5
 f-5
 @end lilypond
 
-@item
-El establecimiento de la propiedad @code{transparent} provocará que un objeto se imprima
-con @q{tinta invisible}: el objeto no se imprime, pero se conserva todo el resto
-de su comportamiento.  El objeto aún ocupa un espacio, toma parte en las colisiones,
-y se le pueden adjuntar ligaduras de unión o de expresión y barras de corchea.
 
-@cindex objetos transparentes
-@cindex quitar objetos
-@cindex ocultar objetos
-@cindex objetos invisibles
-El ejemplo siguiente demuestra cómo conectar distintas voces
-utilizando ligaduras.  Normalmente las ligaduras sólo unen dos notas de la misma voz.
-Al introducir una ligadura en una voz distinta,
+@subheading positions property
+@cindex positions, propiedad
 
-@lilypond[quote,fragment,relative=2]
-<< {
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+La propiedad @code{positions} permite controlar manualmente la
+posición e inclinación de los tresillos, ligaduras de expresión y de
+fraseo, y barras de corchea.  He aquí un ejemplo que tiene una fea
+ligadura de fraseo debido a que intenta evitar la ligadura de
+expresión que está sobre la acciaccatura.
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4  \acciaccatura e8\( d8 c ~c d c d\)
 @end lilypond
 
 @noindent
-y suprimiendo la primera plica hacia arriba en dicha voz, la ligadura parece cruzarse de una
-voz a otra:
+Simplemente podemos mover la ligadura de fraseo por encima de las
+notas, y de hecho ésta será la solución preferida:
 
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<< {
-  \once \override Stem #'transparent = ##t
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\phrasingSlurUp
+\acciaccatura e8\( d8 c ~c d c d\)
 @end lilypond
 
-Para asegurarse de que la plica que hemos suprimido no aprieta demasiado a la
-ligadura, también alargamos la plica, estableciendo su @code{length} (longitud) a
-@code{8},
+@noindent
+pero si por algún motivo no pudiéramos hacerlo, la otra alternativa
+sería mover el extremo izquierdo de la ligadura de fraseo un poco
+hacia abajo usando la propiedad @code{positions}.  Esto también
+resuelve la forma algo indecente de la ligadura.
 
-@lilypond[quote,fragment,relative=2,verbatim]
-<< {
-  \once \override Stem #'transparent = ##t
-  \once \override Stem #'length = #8
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\once \override PhrasingSlur #'positions = #'(-4 . -3)
+\acciaccatura
+e8\( d8 c ~c d c d\)
 @end lilypond
 
-@end itemize
+Presentamos un ejemplo más extraído del comienzo del pentagrama de la
+mano izquierda del preludio de Chopin Op 28 No. 2.  vemos que la barra
+choca con las notas superiores:
 
-@cindex Trucos, distancias
-@cindex Distancias
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+\clef "bass"
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
 
-Las distancias en LilyPond se miden en espacios de pentagrama, mientras que
-las propiedades de grosor se miden en grosores de líneas de pentagrama.  Algunas
-propiedades son diferentes; por ejemplo, el grosor de las barras de corchea
-se mide en espacios de pentagrama.  Para más información, consulte la porción
-correspondiente de la referencia del programa.
+@noindent
+Esto se puede resolver manualmente elevando los dos extremos de la
+barra desde su posición a dos espacios de pentagrama sobre la línea
+central hasta, digamos, 3 espacios:
 
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  \clef "bass"
+  <<
+    \override Beam #'positions = #'(3 . 3)
+    {b,8 ais, b, g,}
+  \\
+    {e, g e, g}
+  >>
+  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
+
+@noindent
+Observe que la sobreescritura sigue aplicándose en la primera voz del
+segundo bloque de corcheas, pero no a ninguna de las barras de la
+segunda voz.
+
+@subheading force-hshift property
+@cindex force-hshift, propiedad
+@c FIXME: formatting stuff  (ie not important right now IMO)
+@c @a nchor Chopin finally corrected TODOgp
+
+Ahora podremos ver cómo aplicar las correcciones finales al ejemplo de
+Chopin que presentamos al final de @ref{I'm hearing Voices}, que
+dejamos con este aspecto:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      <ees c>2
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+Las dos notas inferiores del primer acorde (es decir, las que están en
+al tercera voz) no deberían separarse de la columna de notas de las dos
+notas agudas.  Para corregir esto, establecemos el valor de
+@code{force-hshift} (que es una propiedad de @code{NoteColumn}) de
+esas notas a cero.  La nota más grave del segundo acorde se sitúa
+mejor justo a la derecha de las más agudas.  Lo conseguimos
+estableciendo el valor de @code{force-hshift} de esta nota a 0.5, o
+sea, la anchura de media cabeza de nota a la derecha de la columna de
+las notas agudas.
+
+Presentamos a continuación el resultado final:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      \once \override NoteColumn #'force-hshift = #0 <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5 des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+
+@node Real music example
+@subsection Real music example
+
+Finalizaremos esta sección sobre los trucos mostrando los pasos que se
+deben tomar para tratar con un ejemplo complicado que necesita varios
+trucos para producir el resultado deseado.  El ejemplo se ha escogido
+deliberadamente para ilustrar el uso de la Referencia de la Notación
+para resolver problemas de notación poco comunes.  No es
+representativo de un proceso de grabado más usual, por lo que ¡le
+recomendamos que no deje que estas dificultades le desanimen!
+¡Afortunadamente, las dificultades como éstas no son muy comunes!
+
+El ejemplo está extraído de la Primera Balada de Chopin, Op. 23,
+compases 6 al 9, la transición entre el Lento inicial y el Moderato.
+Presentamos en primer lugar el aspecto que queremos que tenga el
+resultado, pero para evitar complicar demasiado el ejemplo hemos
+quitado las indicaciones dinámicas, las digitaciones y el pedal.
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+rhMusic = \relative c'' {
+  r2
+  c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  bes2.^\markup {\bold "Moderato"} r8
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Reposition the c2 to the right of the merged note
+    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    % Move the c2 out of the main note column so the merge will work
+    \shiftOnn c2}
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+  \\
+    {s4 fis4.}
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Observamos en primer lugar que la parte de la mano derecha del tercer
+compás requiere cuatro voces.  Son las cinco corcheas unidas por una
+barra, la nota Do ligada, el Re blanca que se funde con el Re corchea,
+y el Fa sostenido negra con puntillo, que también está fundida con la
+corchea de su misma altura.  Todo lo demás está en una sola voz, así
+que lo más fácil es introducir estas cuatro voces temporalmente en el
+momento en que se necesiten.  Si ha olvidado cómo hacerlo, lea
+@ref{I'm hearing Voices}.  Vamos a comenzar introduciendo las notas
+como dos variables y disponiendo la estructura de pentagramas en un
+bloque score, y veremos qué produce LilyPond de forma predeterminada:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4. g8 |
+  bes1~ |
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8 d fis bes a | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2 |
+  <d g, d>1 |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Todas las notas son correctas, pero el aspecto está lejos de ser
+satisfactorio.  La ligadura de unión choca con el cambio de compás, el
+barrado del tercer compás es incorrecto, las notas no se funden
+correctamente, y faltan algunos elementos de notación.  En primer
+lugar trataremos con lo más fácil.  Podemos corregir el barrado de las
+corcheas insertando una barra manualmente, y podemos añadir fácilmente
+la ligadura de expresión de la mano izquierda y la ligadura de fraseo
+de la mano derecha, pues todo ello se estudió en el Tutorial.  Al
+hacerlo así obtenemos:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  bes1~ |
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1) |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+El primer compás ahora es correcto.  El segundo compás contiene un
+arpegio y acaba en una doble barra.  ¿Cómo los hacemos, pues no han
+sido mencionados en este Manual de Aprendizaje?  Aquí es donde tenemos
+que volver e la Referencia de la Notación.  Buscando la palabra
+@q{arpegio} y @q{línea divisoria} en el índice nos muestra rápidamente
+que un arpegio se hace añadiendo @code{\arpeggio} a un acorde, y la
+doble barra se produce por medio de la instrucción @code{\bar "||"}.
+Esto podemos hacerlo fácilmente.  A continuación tenemos que corregir
+la colisión entre la ligadura de unión y la indicación de compás.
+Esto se hace mejor moviendo la ligadura hacia arriba.  Estudiamos cómo
+mover objetos anteriormente en @ref{Moving objects}, donde dice que
+los objetos que están situados de forma relativa al pentagrama se
+pueden mover sobreescribiendo su propiedad @code{staff-position}, que
+se especifica en unidades de medio espacio de pentagrama respecto de
+la línea central del pentagrama.  Así pues, la sobreescritura
+siguiente colocada justo antes de la primera nota ligada subirá la
+ligadura 3.5 medios espacios de pentagrama por encima de la línea
+central:
+
+@code{\once \override Tie #'staff-position = #3.5}
+
+Con esto se completa el compás dos, dando como resultado:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Vayamos ahora al tercer compás y comienzo de la sección Moderato.  El
+tutorial nos enseñó cómo escribir texto en negrita mediante la
+instrucción @code{\markup}, por lo que añadir @q{Moderato} en negrita
+es fácil.  Pero ahora ¿cómo fundimos notas que están en distintas
+voces?  El índice de la Referencia de la Notación no menciona la
+mezcla de notas, pero una búsqueda de texto por la palabra @q{fusión}
+o @q{mezcla} nos lleva rápidamente a las sobreescrituras necesarias
+para mezclar o fusionar notas con distinta cabeza y con o sin puntillo
+en @ruser{Collision Resolution}.  En nuestro ejemplo tenemos que
+fusionar ambos tipos de nota en el transcurso de la sección polifónica
+del compás 3; por tanto, en virtud de la información que aparece en la
+Referencia de la Notación, escribimos
+
+@example
+\override Staff.NoteCollision #'merge-differently-headed = ##t
+\override Staff.NoteCollision #'merge-differently-dotted = ##t
+@end example
+
+@noindent
+al principio de la sección, y
+
+@example
+\revert Staff.NoteCollision #'merge-differently-headed
+\revert Staff.NoteCollision #'merge-differently-dotted
+@end example
+
+@noindent
+al final, dando como resultado:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted  
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Estas sobreescrituras han fundido los dos Fa sostenido, pero no los
+dos Re.  ¿Por qué no?  La respuesta está en la misma sección de la
+Referencia de la Notación: las notas que se fusionan deben tener las
+plicas en direcciones opuestas y dos notas no se pueden fusionar bien
+si hay una tercera nota en la misma columna.  Aquí los dos Re tienen
+las plicas hacia arriba y hay una tercera nota: el Do.  Sabemos cómo
+cambiar la dirección de la plica usando @code{\stemDown}, y la
+Referencia de la Notación también explica cómo mover el Do: aplicar un
+desplazamiento usando una de las instrucciones @code{\shift}.  Pero
+¿cuál?  El Do está en la voz dos que tiene desactivado el
+desplazamiento, y los dos Re están en las voces uno y tres, que tienen
+el desplazamiento desactivado y activado, respectivamente.  Por ello
+tenemos que desplazar el Do un nivel más todavía, usando
+@code{\shiftOnn} para evitar que interfiera con los dos Re.  Al
+aplicar estos cambios obtenemos:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Move the c2 out of the main note column so the merge will work
+    {c,8~ \shiftOnn c2 | }
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Ya casi está.  Solamente quedan dos problemas: la plica hacia abajo
+sobre el Re fusionado no tendría que estar ahí, y el Do estaría mejor
+colocado a la derecha de los Re.  Sabemos cómo hacer las dos cosas a
+partir de trucos anteriores: hacemos la plica transparente, y movemos
+el Do con la propiedad @code{force-hshift}.  Aquí tenemos el resultado
+final:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2
+  c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Reposition the c2 to the right of the merged note
+    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    % Move the c2 out of the main note column so the merge will work
+    \shiftOnn c2}
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+  \\
+    {s4 fis4.}
+  >>
+  \revert Staff.NoteCollision #'merge-differently-headed
+  \revert Staff.NoteCollision #'merge-differently-dotted
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+
+@node Further tweaking
+@section Further tweaking
 
 @menu
-* Size of objects::             
+* Other uses for tweaks::       
+* Using variables for tweaks::  
+* Other sources of information::  
+* Avoiding tweaks with slower processing::  
+* Advanced tweaks with Scheme::  
 @end menu
 
-@node Size of objects
-@subsection Size of objects
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Default files
-@section Default files
-
-La documentación de la Referencia del Programa contiene una gran cantidad de información
-sobre LilyPond, pero más información aún se puede obtener a partir de la observación
-de los archivos internos de LilyPond.
-
-Algunos ajustes por omisión como las definiciones de las
-@code{\header@{@}}s (encabezamientos) están almacenados en archivos @code{.ly}.
-Otros ajustes como las definiciones de los comandos de marcado se almacenan
-como archivos @code{.scm} (de Scheme).  Cae fuera del ámbito de presente manual
-cualquier explicación más profunda; los usuarios están advertidos de que se necesita
-una considerable cantidad de conocimientos técnicos
-para comprender estos archivos.
-
-@itemize @bullet
-
-@item Linux: @file{@var{directorio_de_instalación}/lilypond/usr/share/lilypond/current/}
-
-@item OSX:
-@file{@var{carpeta_de_instalación}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
-Para llegar aquí, o bien entre con @code{cd} en este directorio desde el
-Terminal, o haga control-clic sobre la aplicación LilyPond y elija
-@q{Mostrar el Contenido del Paquete}.
-
-@item Windows: @file{@var{carpeta_de_instalación}/LilyPond/usr/share/lilypond/current/}
-
-@end itemize
-
-Los directorios @file{ly/} y @file{scm/} son de especial interés.
-Archivos como @file{ly/property-init.ly} y
-@file{ly/declarations-init.ly} definen todos los trucos comunes.
-
-
-@node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
-
-A veces puede acabar con uno o dos pentagramas en una segunda página
-(o tercera, o cuarta...).  Es fastidioso sobre todo si observa las
-páginas anteriores y parece haber
-espacio suficiente en ellas.
-
-Al investigar asuntos relacionados con la presentación, la herramienta
-@code{annotate-spacing} (anotar el espaciado) no tiene precio.
-Este comando imprime los valores de algunos comandos de espaciado;
-consulte @ruser{Displaying spacing} para ver más detalles.  A partir de
-la salida de de @code{annotate-spacing}, podemos ver qué márgenes podríamos desear alterar.
-
-Aparte de los márgenes, existen otras opciones para ahorrar espacio:
+@node Other uses for tweaks
+@subsection Other uses for tweaks
 
 @itemize
-@item
-Puede indicarle a LilyPond que coloque los sistemas tan juntos como sea
-posible (para que quepan tantos sistemas como sea posible sobre una página),
-pero luego separar estos sistemas para que no haya ningún espacio vacío
-al final de la página.
 
-@example
-\paper @{
-  between-system-padding = #0.1
-  between-system-space = #0.1
-  ragged-last-bottom = ##f
-  ragged-bottom = ##f
-@}
-@end example
+@cindex transparent, uso de la propiedad
+@cindex objetos, hace invisibles
+@cindex eliminar objetos
+@cindex objetos, eliminar
+@cindex ocultar objetos
+@cindex invisibles, objetos
+@cindex ligar notas entre voces distintas
 
 @item
-Puede forzar el número de sistemas (es decir, si LilyPond quiere
-tipografiar la música con 11 sistemas, puede forzarlo 
-para que use 10).
+@subheading Tying notes across voices
 
-@example
-\paper @{
-  system-count = #10
-@}
-@end example
+El ejemplo siguiente muestra cómo conectar notas que están en
+distintas voces utilizando ligaduras de unión.  Normalmente sólo se
+pueden conectar mediante ligaduras de unión dos notas que estén en la
+misma voz.  Usando dos voces, con las notas ligadas en una de ellas:
 
-@item
-Evite (o reduzca) el uso de objetos que aumenten el tamaño
-vertical de un sistema.  Por ejemplo, las repeticiones con
-primera y segunda vez necesitan espacio adicional.  Si
-estas repeticiones abarcan dos sistemas, ocuparán más espacio
-que un solo sistema con las repeticiones y otro sistema sin ellas.
+@lilypond[quote,fragment,relative=2]
+<< { b8~ b8\noBeam }
+\\ { b[ g8] }
+>>
+@end lilypond
 
-Otro ejemplo es desplazar las expresiones dinámicas que se
-@q{asoman por encima} de un sistema.
+@noindent
+y borrando la primera plica hacia arriba en esa voz, da la impresión
+de que la ligadura se cruza entre las voces:
 
-@lilypond[verbatim,quote,fragment]
-\relative c' {
-  e4 c g\f c
-  \override DynamicLineSpanner #'padding = #-1.8
-  \override DynamicText #'extra-offset = #'( -2.1 . 0)
-  e4 c g\f c
-}
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \once \override Stem #'transparent = ##t
+    b8~ b8\noBeam
+  }
+\\
+  { b[ g8] }
+>>
+@end lilypond
+
+Para estar seguros de que la plica que acabamos de borrar no aprieta
+demasiado a la ligadura, podemos alargar la plica estableciendo su
+valor de longitud @code{length} a @code{8},
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \once \override Stem #'transparent = ##t
+    \once \override Stem #'length = #8
+    b8~ b8\noBeam
+  }
+\\
+  { b[ g8] }
+>>
 @end lilypond
 
 @item
-Altere el espaciado horizontal por medio de @code{SpacingSpanner}.  Consulte
-@ruser{Changing horizontal spacing} para ver más detalles.
+@subheading Simulating a fermata
 
-@lilypond[verbatim,quote]
+@cindex sello, uso de la propiedad
+@cindex fermata, realización en MIDI
+
+Para los objetos fuera-del-pentagrama, normalmente es mejor
+sobreescribir la propiedad @code{stencil} («sello») del objeto que su
+propiedad @code{transparent} cuando desee quitarlos de la salida
+impresa.  Mediante el establecimiento de la propiedad @code{stencil}
+de un objeto al valor @code{#f} podemos quitar el objeto por completo
+de la salida impresa.  Esto significa que no tiene efecto sobre la
+colocación de otros objetos que pudieran colocarse en relación a él.
+
+Por ejemplo, si quisiéramos cambiar la indicación metronómica con el
+propósito de simular un calderón en la salida MIDI, seguramente no
+querríamos que la indicación metronómica apareciese en la salida
+impresa, y no querríamos influir sobre la separación entre los dos
+sistemas o entre las notas del pentagrama.  Por lo tanto, establecer
+su propiedad @code{stencil} al valor @code{#f} sería la mejor manera.
+Mostramos aquí el efecto de los dos métodos:
+
+@lilypond[quote,verbatim,ragged-right]
 \score {
   \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    % Visible tempo marking
+    \tempo 4=120
+    a4 a a
+    \once \override Score.MetronomeMark #'transparent = ##t
+    % Invisible tempo marking to lengthen fermata note in MIDI
+    \tempo 4=80
+    a\fermata
+    \once \override Score.MetronomeMark #'stencil = ##f
+    % Invisible tempo marking to restore tempo in MIDI
+    \tempo 4=120
+    a a a a
   }
-  \layout {
-    \context {
-      \Score
-      \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
-    }
-  }
+  \layout { }
+  \midi { }
 }
 @end lilypond
+
+@noindent
+Ambos métodos quitan la indicación metronómica de la salida impresa, y
+los dos afectan al tempo del MIDI tal y como queríamos, pero la
+primera indicación de metrónomo (la transparente) aún influye sobre la
+separación de las notas, mientras que la segunda (sin «sello») no
+influye.
 
 @end itemize
 
+@node Using variables for tweaks
+@subsection Using variables for tweaks
 
-@node Advanced tweaks with Scheme
-@section Advanced tweaks with Scheme
+Las instrucciones de sobreescritura son con frecuencia largas y
+tediosas de escribir, y se tienen que escribir de forma absolutamente
+correcta.  Si las mismas sobreescrituras se van a utilizar muchas
+veces, podría merecer la pena definir variables para guardarlas.
+Suponga que queremos realzar ciertas palabras de la letra de una
+canción imprimiéndolas en cursiva y negrita.  Las instrucciones
+@code{\italic} y @code{\bold} no funcionan dentro de la letra de las
+canciones, así que tenemos de usar en su lugar las siguientes
+instrucciones @code{\override} y @code{\revert}:
 
-Hemos visto cómo la salida de LilyPond se puede modificar de manera muy profunda utilizando
-comandos como
-@code{\override TextScript #'extra-offset = ( 1 . -1)}.  Pero
-tenemos un potencial incluso mayor si utilizamos Scheme.  Para ver una explicación completa
-de esto, consulte el @ruser{Scheme tutorial} e
-@ruser{Interfaces for programmers}.
+@example
+@code{\override Lyrics . LyricText #'font-shape = #'italic}
+@code{\override Lyrics . LyricText #'font-series = #'bold}
 
-Podemos usar Scheme simplemente para sobreponer (@code{\override}) comandos,
+@code{\revert Lyrics . LyricText #'font-shape}
+@code{\revert Lyrics . LyricText #'font-series}
+@end example
 
-@lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
-#{
-  \once \override TextScript #'padding = #$padding
-#})
+Estas instrucciones serían extremadamente tediosas de escribir si
+hubiera muchas palabras que quisiéramos subrayar.  Entonces, en vez de
+esto las definimos como dos variables, y las usamos de la siguiente
+forma:
 
-\relative c''' {
-  c4^"piu mosso" b a b
-  \padText #1.8
-  c4^"piu mosso" d e f
-  \padText #2.6
-  c4^"piu mosso" fis a g
+@lilypond[quote,verbatim]
+emph = {
+  \override Lyrics . LyricText #'font-shape = #'italic
+  \override Lyrics . LyricText #'font-series = #'bold
+}
+norm = {
+  \revert Lyrics . LyricText #'font-shape
+  \revert Lyrics . LyricText #'font-series
+}
+
+global = { \time 4/4 \partial 4 \key c \major}
+SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+VerseOne   = \lyrics { E -- | ter -- nal \emph Fa -- ther, \norm | strong to save, }
+VerseTwo   = \lyricmode { O | \emph Christ, \norm whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { O | \emph Ho -- ly Spi -- rit, \norm | who didst brood }
+VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Sop"  { \voiceOne \global \SopMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Sop" { \VerseOne   }
+      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
+      \new Lyrics \lyricsto "Sop" { \VerseThree }
+      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+    >>
+  >>
 }
 @end lilypond
 
-Podemos usarlo para crear comandos nuevos,
 
-@lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function (parser location padding marktext)
-                                    (number? string?)
-#{
-  \once \override Score . RehearsalMark #'padding = $padding
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $marktext }
-#})
 
-\relative c'' {
-  c2 e
-  \tempoMark #3.0 #"Allegro"
-  g c
-}
-@end lilypond
+@node Other sources of information
+@subsection Other sources of information
 
-E incluso se le pueden pasar expresiones musicales.
+La documentación del manual de Referencia de Funcionamiento Interno
+contiene montañas de información sobre LilyPond, pero se puede obtener
+más información aún leyendo los archivos internos de LilyPond.  Para
+echarles un vistazo, en primer lugar busque la carpeta correspondiente
+a su sistema, de la siguiente forma:
 
-@lilypond[quote,verbatim,ragged-right]
-pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
-#{
-  $x e8 a b $y b a e
-#})
+@strong{Linux}
 
-\relative c''{
-  \pattern c8 c8\f
-  \pattern {d16 dis} { ais16-> b\p }
-}
-@end lilypond
+Diríjase a
+@file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+
+@strong{MacOS X}
+
+Diríjase a
+@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+bien haciendo @code{cd} hacia este directorio desde el Terminal, o
+bien manteniendo pulsada la tecla de Control y haciendo click sobre la
+aplicación de LilyPond, y allí eligiendo @q{Mostrar el contenido del
+paquete}.
+
+@strong{Windows}
+
+Mediante el Explorador de Windows, diríjase a
+@file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+
+Dentro de esta carpeta, las dos subcarpetas interesantes son
+
+@itemize
+@item @file{../ly/ } - contiene archivos en formato LilyPond
+@item @file{../scm/} - contiene archivos en formato Scheme
+@end itemize
+
+Vamos a comenzar observando algunos archivos que están en
+@file{../ly/}.  Abra @file{../ly/property-init.ly} con un editor de
+textos.  El mismo que usaría normalmente para los archivos @code{.ly}
+servirá perfectamente.  Este archivo contiene las definiciones de
+todas las instrucciones incorporadas como estándar dentro de LilyPond,
+como por ejemplo @code{\stemUp} y @code{\slurDotted}.  Podrá ver que
+no son nada más que definiciones de variables que contienen una o
+varias instrucciones @code{\override}.  Por ejemplo, @code{/tieDotted}
+está definido de tal forma que su valor es:
+
+@example
+tieDotted = @{
+  \override Tie #'dash-period = #0.75
+  \override Tie #'dash-fraction = #0.1
+@}
+@end example
+
+Si no le gustan los valores predeterminados, estas instrucciones
+incorporadas se pueden redefinir con facilidad como cualquier otra
+variable, al principio de su archivo de código de entrada.
+
+Los siguientes son los archivos más útiles que se encuentran en
+@file{../ly/}:
+
+@multitable @columnfractions .4 .6
+@headitem Archivo
+  @tab Contenido
+@item @file{../ly/engraver-init.ly}
+  @tab Definiciones de Contextos de grabadores
+@item @file{../ly/paper-defaults.ly}
+  @tab especificaciones de valores predeterminados relacionados con el papel
+@item @file{../ly/performer-init.ly}
+  @tab Definiciones de Contextos de interpretación
+@item @file{../ly/property-init.ly}
+  @tab Definiciones de todas las instrucciones incorporadas que son comunes
+@end multitable
+
+Otros ajustes (como las definiciones de las instrucciones de marcado)
+se almacenan como archivos @code{.scm} (de Scheme).  El lenguaje de
+programación Scheme se utiliza para proporcionar un interfaz
+programable en el funcionamiento interno de LilyPond.  Cualquier
+explicación adicional sobre estos archivos se encuentra por el momento
+fuera del ámbito de este manual, porque se requieren conocimientos del
+lenguaje Scheme.  Se advierte a los usuarios que se necesita una
+importante cantidad de conocimientos técnicos o de tiempo para
+comprender el lenguaje Scheme y estos archivos (véase @ref{Scheme
+tutorial}).
+
+Si ya tiene estos conocimientos, los archivos de Scheme que pueden
+interesarle son:
+
+@multitable @columnfractions .4 .6
+@headitem Archivo
+  @tab Contenido
+@item @file{../scm/auto-beam.scm}
+  @tab Valores predeterminados de sub-barrado
+@item @file{../scm/define-grobs.scm}
+  @tab valores predeterminados de las propiedades de grobs
+@item @file{../scm/define-markup-commands.scm}
+  @tab Especificar todas las instrucciones de marcado
+@item @file{../scm/midi.scm}
+  @tab Ajustes predeterminados para la salida MIDI
+@item @file{../scm/output-lib.scm}
+  @tab Ajustes que afectan al aspecto de los trastes, colores, alteraciones, lineas divisorias, etc.
+@item @file{../scm/parser-clef.scm}
+  @tab Definiciones de las claves contempladas
+@item @file{../scm/script.scm}
+  @tab Ajustes predeterminados para las articulaciones
+@end multitable
+
 
 
 @node Avoiding tweaks with slower processing
-@section Avoiding tweaks with slower processing
+@subsection Avoiding tweaks with slower processing
 
 LilyPond puede llevar a cabo comprobaciones adicionales al tiempo que
-procesa los archivos.  Estos comandos consumen tiempo, pero el
-resultado puede necesitar menos trucos manuales.
+procesa los archivos.  Estas instrucciones consumen tiempo, pero el
+resultado puede necesitar menos trucos manuales para obtener un
+resultado aceptable.  Si una inscripción de texto o parte de la letra
+se sale de los márgenes, estas comprobaciones comprimirán dicha línea
+en la medida justa como para que encaje dentro de los márgenes.
+
+Para que sean efectivos bajo cualquier circunstancia, estas
+comprobaciones deben habilitarse colocando las instrucciones de
+sobreescritura dentro del bloque @code{\with} dentro de un Score, y no
+en línea con la música, de la forma siguiente:
+
 
 @example
-%%  asegura que las marcas de texto y letras de las canciones se encuentran dentro de los márgenes de la página
-\override Score.PaperColumn #'keep-inside-line = ##t 
+\new Score \with @{
+  %  asegura que las marcas de texto y letras de las canciones se encuentran dentro de los márgenes de la página
+  \override PaperColumn #'keep-inside-line = ##t
+  \override NonMusicalPaperColumn #'keep-inside-line = ##t
+@} @{
+   ..
+@}
 @end example
 
+@node Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
 
+Aunque es posible hacer muchas cosas con las instrucciones
+@code{\override} y @code{\tweak} , tenemos una forma incluso más
+poderosa de modificar el funcionamiento de LilyPond, a través de un
+interface programable hacia las operaciones internas de LilyPond.  Se
+puede incorporar código escrito en el lenguaje de programación Scheme,
+directamente en el mecanismo de funcionamiento de LilyPond.  Por
+supuesto, para hacer esto se necesitan al menos unos conocimientos
+básicos de programación en Scheme, y damos una introducción en el
+@ref{Scheme tutorial}.
 
+Como ejemplo que ilustra una de las muchas posibilidades, en lugar de
+dar a una propiedad un valor constante, se puede establecer al
+resultado de un procedimiento de Scheme que se invoca cada vez que
+LilyPond accede a esta propiedad.  La propiedad se puede establecer
+dinámicamente a un valor determinado por el procedimiento en el
+momento en que se invoca.  En este ejemplo damos a las cabezas de las
+notas un color que depende de su posición dentro del pentagrama.
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (color-notehead grob)
+  "Color the notehead according to its position on the staff."
+  (let ((mod-position (modulo (ly:grob-property grob 'staff-position) 7)))
+    (case mod-position
+      ;;   Return rainbow colors
+      ((1) (x11-color 'red    ))  ; for C
+      ((2) (x11-color 'orange ))  ; for D
+      ((3) (x11-color 'yellow ))  ; for E
+      ((4) (x11-color 'green  ))  ; for F
+      ((5) (x11-color 'blue   ))  ; for G
+      ((6) (x11-color 'purple ))  ; for A
+      ((0) (x11-color 'violet ))  ; for B
+    )
+  )
+)
+
+\relative c' {
+  % Arrange to obtain color from color-notehead procedure
+  \override NoteHead #'color = #color-notehead
+  c2 c' | 
+  b4 g8 a b4 c | 
+  c,2 a' | 
+  g1 |
+}
+\addlyrics {
+  Some -- where o -- ver the Rain -- bow way up high,
+}
+@end lilypond
+
+Se pueden encontrar ejemplos adicionales que muestran la utilización
+de estos interfaces programables, en @ref{Tweaking with Scheme}.

@@ -1,10 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1859194a9f46a8886166cafee0e450b39fc5a963
+    Translation of GIT committish: 0184e537d7eda6265b92fe20f3565de0f0411869
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.38"
 
 @node Musical notation
 @chapter Musical notation
