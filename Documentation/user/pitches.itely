@@ -208,6 +208,9 @@ Notation Reference:
 Snippets:
 @lsrdir{Pitches,Pitches}.
 
+Internals Reference:
+@internalsref{RelativeOctaveMusic}.
+
 
 @funindex \transpose
 @funindex \chordmode
@@ -235,6 +238,7 @@ discouraged.
 @cindex key signature
 @cindex clef
 
+@c duplicated in Key signature and Accidentals
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
 signatures and clefs determine how this raw input is displayed.
@@ -340,6 +344,12 @@ Notation Reference:
 
 Snippets:
 @lsrdir{Pitches,Pitches}.
+
+Internals Reference:
+@internalsref{Accidental_engraver}, 
+@internalsref{Accidental},
+@internalsref{AccidentalCautionary},
+@internalsref{accidental-interface}.
 
 
 @knownissues
@@ -497,7 +507,7 @@ the octave correction.
 The octave of notes may also be checked with the
 @code{\octave}@tie{}@var{controlpitch} command.  @var{controlpitch} is
 specified in absolute mode.  This checks that the interval between the
-previous note and the @var{controlpitch} is within a fourth (i.e. the
+previous note and the @var{controlpitch} is within a fourth (i.e., the
 normal calculation of relative mode).  If this check fails, a warning
 is printed, but the previous note is not changed.  Future notes are
 relative to the @var{controlpitch}.
@@ -511,7 +521,7 @@ relative to the @var{controlpitch}.
 @end lilypond
 
 Compare the two bars below.  The first and third @code{\octave}
-check fail, but the second one does not fail.
+checks fail, but the second one does not fail.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
@@ -532,6 +542,9 @@ check fail, but the second one does not fail.
 
 Snippets:
 @lsrdir{Pitches,Pitches}.
+
+Internals Reference:
+@internalsref{RelativeOctaveCheck}.
 
 
 @node Transpose
@@ -569,7 +582,7 @@ automatically transposed as well.
 }
 @end lilypond
 
-If a part written in C (normal concert pitch) is to be played on
+If a part written in C (normal @notation{concert pitch}) is to be played on
 the A clarinet (for which an A is notated as a C and thus sounds a
 minor third lower than notated), the appropriate part will be
 produced with:
@@ -759,7 +772,7 @@ Further supported clefs are described under @ref{Ancient clefs}.
 
 By adding @code{_8} or @code{^8} to the clef name, the clef is
 transposed one octave down or up, respectively, and @code{_15} and
-@code{^15} transposes by two octaves.  The argument @var{clefname}
+@code{^15} transpose by two octaves.  The argument @var{clefname}
 must be enclosed in quotes when it contains underscores or digits.
 
 @cindex choral tenor clef
@@ -775,7 +788,7 @@ c2 c
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{clefs-commonly-tweaked-properties.ly}
+{tweaking-clef-properties.ly}
 
 
 @seealso
@@ -787,7 +800,10 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
-@internalsref{Clef}.
+@internalsref{Clef_engraver},
+@internalsref{Clef},
+@internalsref{OctavateEight},
+@internalsref{clef-interface}.
 
 
 @node Key signature
@@ -796,6 +812,7 @@ Internals Reference:
 @cindex key signature
 @funindex \key
 
+@c duplicated in Key signature and Accidentals
 @warning{New users are sometimes confused about accidentals and
 key signatures.  In LilyPond, note names are the raw input; key
 signatures and clefs determine how this raw input is displayed.
@@ -861,8 +878,13 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
+@internalsref{KeyChangeEvent},
+@internalsref{Key_engraver},
+@internalsref{Key_performer},
 @internalsref{KeyCancellation},
-@internalsref{KeySignature}, @internalsref{Key_engraver}.
+@internalsref{KeySignature},
+@internalsref{key-cancellation-interface},
+@internalsref{key-signature-interface}.
 
 
 @node Ottava brackets
@@ -904,7 +926,9 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
-@internalsref{OttavaBracket}.
+@internalsref{Ottava_spanner_engraver},
+@internalsref{OttavaBracket},
+@internalsref{ottava-bracket-interface}.
 
 
 
@@ -948,7 +972,7 @@ playing in unison.
   \new Staff = "Vln" {
     \relative c'' {
       \set Staff.instrumentName = "Vln"
-      \set Staff.midiInstrument="violin"
+      \set Staff.midiInstrument = "violin"
       % strictly speaking not necessary, but a good reminder
       \transposition c'
 
@@ -958,8 +982,8 @@ playing in unison.
   }
   \new Staff = "clarinet" {
     \relative c'' {
-      \set Staff.instrumentName = \markup {Cl (B\flat)}
-      \set Staff.midiInstrument="clarinet"
+      \set Staff.instrumentName = \markup { Cl (B\flat) }
+      \set Staff.midiInstrument = "clarinet"
       \transposition bes
 
       % not concert pitch
@@ -980,7 +1004,8 @@ clarinet.
 \transposition a
 c d e f
 \textLengthOn
-r1^\markup{Switch to B\flat clarinet}
+s1*0^\markup { Switch to B\flat clarinet }
+R1
 
 \key bes \major
 \transposition bes
@@ -1109,7 +1134,7 @@ both staves.
 @item default
 This is the default typesetting behavior.  It corresponds to
 eighteenth-century common practice: accidentals are remembered to
-the end of the measure in which they occur and only on their own
+the end of the measure in which they occur and only in their own
 octave.  Thus, in the example below, no natural signs are printed
 before the@tie{}@code{b} in the second measure or the
 last@tie{}@code{c}:
@@ -1161,7 +1186,7 @@ musicB = {
 @end lilypond
 
 @item voice
-The normal behavior is to remember the accidentals on Staff-level.
+The normal behavior is to remember the accidentals at @code{Staff}-level.
 In this style, however, accidentals are typeset individually for
 each voice.  Apart from that, the rule is similar to
 @code{default}.
@@ -1477,8 +1502,8 @@ musicB = {
 This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
 accidentals also get canceled across the staves in the same
-GrandStaff or PianoStaff, hence all the cancellations of the final
-notes.
+@code{GrandStaff} or @code{PianoStaff}, hence all the cancellations
+of the final notes.
 
 This accidental style applies to the current @code{GrandStaff} or
 @code{PianoStaff} by default.
@@ -1646,7 +1671,7 @@ musicB = {
 
 This is the opposite of @code{no-reset}: Accidentals are not
 remembered at all -- and hence all accidentals are typeset
-relative to the key signature, regardless of what was before in
+relative to the key signature, regardless of what came before in
 the music:
 
 @lilypond[quote,ragged-right]
@@ -1708,10 +1733,14 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
+@internalsref{Accidental},
 @internalsref{Accidental_engraver},
-@internalsref{Accidental}, @internalsref{AccidentalSuggestion},
-@internalsref{AccidentalPlacement}, @internalsref{GrandStaff} and
-@internalsref{PianoStaff}, @internalsref{Staff}.
+@internalsref{GrandStaff} and
+@internalsref{PianoStaff},
+@internalsref{Staff},
+@internalsref{AccidentalSuggestion},
+@internalsref{AccidentalPlacement},
+@internalsref{accidental-suggestion-interface}.
 
 
 @cindex accidentals and simultaneous notes
@@ -1753,12 +1782,13 @@ printed if they are not part of the key signature.
 \layout {
   \context {
     \Voice
-    \consists Ambitus_engraver
+    \consists "Ambitus_engraver"
   }
 }
 
 \relative c'' {
-  aes c e2 cis,2
+  aes c e2
+  cis,1
 }
 @end lilypond
 
@@ -1766,10 +1796,10 @@ printed if they are not part of the key signature.
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{adding-ambiti-per-voice.ly}
+{adding-ambitus-per-voice.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{ambiti-multiple-voices.ly}
+{ambitus-with-multiple-voices.ly}
 
 
 @seealso
@@ -1781,10 +1811,14 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
+@internalsref{Ambitus_engraver},
+@internalsref{Voice},
+@internalsref{Staff},
 @internalsref{Ambitus},
-@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
-@internalsref{AmbitusAccidental}, @internalsref{Ambitus_engraver},
-@internalsref{Staff}, @internalsref{Voice}.
+@internalsref{AmbitusAccidental},
+@internalsref{AmbitusLine},
+@internalsref{AmbitusNoteHead},
+@internalsref{ambitus-interface}. 
 
 
 @knownissues
@@ -1849,8 +1883,13 @@ Notation Reference:
 @ref{Note head styles}.
 
 Internals Reference:
+@internalsref{note-event},
+@internalsref{Note_heads_engraver},
+@internalsref{Ledger_line_engraver},
 @internalsref{NoteHead},
-@internalsref{LedgerLineSpanner}.
+@internalsref{LedgerLineSpanner},
+@internalsref{note-head-interface},
+@internalsref{ledger-line-spanner-interface}.
 
 
 @node Easy notation note heads
@@ -1897,10 +1936,13 @@ Notation Reference:
 @ref{Setting the staff size}.
 
 Snippets:
-@lsrdir{Pitches,Pitches},
+@lsrdir{Pitches,Pitches}.
 
 Internals Reference:
-@internalsref{NoteHead}.
+@internalsref{note-event},
+@internalsref{Note_heads_engraver},
+@internalsref{NoteHead},
+@internalsref{note-head-interface}.
 
 
 @node Shape note heads
@@ -1926,18 +1968,26 @@ Shape note heads can be produced by setting @code{\aikenHeads} or
 
 @lilypond[verbatim,fragment,quote,ragged-right,relative=1]
 \aikenHeads
-c8 d4 e8 a2 g1
+c8 d4 e8 a2
+g1
 \sacredHarpHeads
-c,8 d4 e8 a2 g1
+c,8 d4 e8 a2
+g1
 @end lilypond
 
 Shapes are typeset according to the step in the scale, where
 the base of the scale is determined by the @code{\key} command.
 
+@predefined
+
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+@code{\aikenHeads}, @code{\sacredHarpHeads}
+
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{applying-notehead-styles-depending-on-the-step-of-the-scale.ly}
+{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 @noindent
 To see all note head styles, see @ref{Note head styles}.
@@ -1949,6 +1999,12 @@ Snippets:
 
 Notation Reference:
 @ref{Note head styles}.
+
+Internals Reference:
+@internalsref{note-event},
+@internalsref{Note_heads_engraver},
+@internalsref{NoteHead},
+@internalsref{note-head-interface}.
 
 
 @node Improvisation
@@ -1965,15 +2021,15 @@ rhythm.  Such note heads can be created:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Voice \with {
-  \consists Pitch_squash_engraver
+  \consists "Pitch_squash_engraver"
 } \transpose c c' {
   e8 e g a a16( bes) a8 g
   \improvisationOn
-  e8
-  ~e2~e8 f4 fis8
-  ~fis2
+  e8 ~
+  e2 ~ e8 f4 f8 ~
+  f2
   \improvisationOff
-  a16(bes) a8 g e
+  a16( bes) a8 g e
 }
 @end lilypond
 
@@ -1992,6 +2048,7 @@ Snippets:
 
 Internals Reference:
 @internalsref{Pitch_squash_engraver},
-@internalsref{Voice}.
+@internalsref{Voice},
+@internalsref{RhythmicStaff}.
 
 

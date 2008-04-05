@@ -159,7 +159,7 @@ dump_file_list ('lsr-unsafe.txt', unsafe)
 sys.stderr.write ('''
 
 Unsafe files printed in lsr-unsafe.txt: CHECK MANUALLY!
-  git add input/lsr
+  git add input/lsr/*.ly
   xargs git-diff HEAD < lsr-unsafe.txt
 
 ''')

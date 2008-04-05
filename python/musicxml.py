@@ -529,6 +529,12 @@ class Part (Music_xml_node):
                 measure_position = Rational (0)
 
             for n in m.get_all_children ():
+                # figured bass has a duration, but applies to the next note
+                # and should not change the current measure position!
+                if isinstance (n, FiguredBass):
+                    n._divisions = factor.denominator ()
+                    continue
+
                 if isinstance (n, Hash_text):
                     continue
 		dur = Rational (0)
@@ -656,7 +662,8 @@ class Part (Music_xml_node):
 
 	    if not (voice_id or isinstance (n, Attributes) or
                     isinstance (n, Direction) or isinstance (n, Partial) or
-                    isinstance (n, Barline) or isinstance (n, Harmony) ):
+                    isinstance (n, Barline) or isinstance (n, Harmony) or
+                    isinstance (n, FiguredBass) ):
 		continue
 
 	    if isinstance (n, Attributes) and not start_attr:
@@ -688,9 +695,9 @@ class Part (Music_xml_node):
                     voices[v].add_element (n)
                 continue
 
-            if isinstance (n, Harmony):
-                # store the harmony element until we encounter the next note
-                # and assign it only to that one voice.
+            if isinstance (n, Harmony) or isinstance (n, FiguredBass):
+                # store the harmony or figured bass element until we encounter 
+                # the next note and assign it only to that one voice.
                 assign_to_next_note.append (n)
                 continue
 
@@ -880,6 +887,10 @@ class Frame_Note (Music_xml_node):
         else:
             return ''
 
+class FiguredBass (Music_xml_node):
+    pass
+
+
 
 ## need this, not all classes are instantiated
 ## for every input file. Only add those classes, that are either directly
@@ -902,6 +913,7 @@ class_dict = {
 	'duration': Duration,
         'frame': Frame,
         'frame-note': Frame_Note,
+        'figured-bass': FiguredBass,
         'glissando': Glissando,
 	'grace': Grace,
         'harmony': Harmony,

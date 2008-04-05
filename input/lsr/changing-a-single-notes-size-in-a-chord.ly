@@ -5,8 +5,9 @@
 \header {
   lsrtags = "simultaneous-notes, editorial-and-educational-use, tweaks-and-overrides"
  texidoc = "
-Individual noteheads in a chord can be modified with the @code{\\tweak}
-command inside a chord, by altering the @code{'font-size} property.
+Individual note heads in a chord can be modified with the
+@code{\\tweak} command inside a chord, by altering the
+@code{'font-size} property.
 
 
 Inside the chord (within the brackets @code{< >}), before the note to
@@ -18,8 +19,7 @@ notehead).
 The code for the chord example shown: @code{} 
 " }
 % begin verbatim
+\layout { ragged-right = ##t }
 \relative {
   <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1^\markup { A tiny e }_\markup { A big c }
 }
-\layout { ragged-right = ##t }
-

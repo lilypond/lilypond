@@ -178,8 +178,8 @@ tuplet is the triplet in which 3 notes have the duration of 2, so
 the notes are 2/3 of their written length.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-a2 \times 2/3 {b4 b b}
-c4 c \times 2/3 {b4 a g}
+a2 \times 2/3 { b4 b b }
+c4 c \times 2/3 { b4 a g }
 
 @end lilypond
 
@@ -195,7 +195,7 @@ Tuplets may be nested:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \autoBeamOff
-c4 \times 4/5 { f8 e f \times 2/3 {e[ f g] } } f4 |
+c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4 |
 @end lilypond
 
 Modifying nested tuplets which begin at the same musical moment
@@ -370,12 +370,13 @@ dots cannot be used to denote the rhythm.  Ties should also be
 used when note values cross larger subdivisions of the measure:
 
 @lilypond[fragment,quote,ragged-right]
-\relative {
-  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4
+\relative c' {
+  r8 c8 ~ c2 r4 |
+  r8^"not" c2 ~ c8 r4
 }
 @end lilypond
 
-If you need to tie a lot of notes across bar lines, it may be
+If you need to tie many notes across bar lines, it may be
 easier to use automatic note splitting, see @ref{Automatic note
 splitting}.  This mechanism automatically splits long notes, and
 ties them across bar lines.
@@ -389,7 +390,7 @@ created.  Chords may be partially tied by placing the tie inside
 the chord.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
- <c e g> ~ <c e g>
+<c e g> ~ <c e g>
 <c~ e g~ b> <c e g b>
 @end lilypond
 
@@ -408,7 +409,7 @@ have to specify the repeated tie as follows:
   % First alternative: following note is tied normally
   { <c e>2. r4 }
   % Second alternative: following note has a repeated tie
-  {<c e>2\repeatTie d4 c }}
+  { <c e>2\repeatTie d4 c } }
 @end lilypond
 
 @cindex laissez vibrer
@@ -420,7 +421,7 @@ notes must not be damped at the end.  It is used in notation for
 piano, harp and other string and percussion instruments.  They can
 be entered as follows:
 
-@lilypond[fragment,ragged-right,verbatim,relative=1]
+@lilypond[fragment,quote,ragged-right,verbatim,relative=1]
 <c f g>\laissezVibrer
 @end lilypond
 
@@ -585,9 +586,9 @@ note with note name @code{s} or with the predefined skip command
 followed by the required duration, as shown here:
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-% Skip the third beat in the first bar
+% Skip the third beat in the first measure
 a4 a4 s4 a4
-% Use skip command to skip a whole note (bar)
+% Use skip command to skip a whole note (measure)
 \skip 1
 a2 a2
 @end lilypond
@@ -608,9 +609,9 @@ use the predefined skip command:
 The @code{s} skip rest implicitly causes @code{Staff} and
 @code{Voice} contexts to be created if none exist, just
 like notes and rests do.  These in turn cause a staff with default
-clef and time signature to be printed, with if necessary, barlines.
+clef and time signature to be printed, with bar lines if necessary.
 For example, the following results in a complete staff with three
-short empty bars:
+short empty measures:
 
 @lilypond[quote,verbatim,fragment,ragged-right]
 { s1 s s }
@@ -672,10 +673,10 @@ printed above the measure:
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
 \time 4/4
-% Rest bars contracted to single bar
+% Rest measures contracted to single measure
 \compressFullBarRests
 r1 | R1*17 | R1*4 |
-% Rest bars expanded
+% Rest measures expanded
 \expandFullBarRests
 \time 3/4
 R2.*2 |
@@ -711,7 +712,7 @@ signature.
 
 Text can be added to multi-measure rests by using the
 @var{note} - @code{\markup} syntax described in
-@ref{Text markup}.  The predefined command @code{\fermataMarkup}
+@ref{Formatting text}.  The predefined command @code{\fermataMarkup}
 is provided for adding fermatas.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
@@ -747,26 +748,26 @@ it to a zero-length skip note preceding the rest.
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \compressFullBarRests
 \textLengthOn
-s1*0^\markup {[MAJOR GENERAL]}
+s1*0^\markup { [MAJOR GENERAL] }
 R1*19
-s1*0^\markup {[MABEL] }
-s1*0_\markup {\italic {Cue: ... it is yours}}
+s1*0^\markup { [MABEL] }
+s1*0_\markup { \italic { Cue: ... it is yours } }
 R1*30
 \textLengthOff
-c4^\markup {CHORUS} d f c
+c4^\markup { CHORUS } d f c
 @end lilypond
 
 @noindent
 Text attached to a skip note in this way is left-aligned to the
-position where the note would be placed in the bar, and placed
-above the bar count numeral, but if the bar length is
+position where the note would be placed in the measure, and placed
+above the measure count numeral, but if the measure length is
 determined by the length of the text, the text will appear to be
 centered.  If two (or more) texts are
-attached to skip notes in a bar the bar length is determined by
+attached to skip notes in a measure the measure length is determined by
 the longer text, and the shorter text is then clearly
-left-aligned, as shown in the second bar above.  If the shorter
+left-aligned, as shown in the second measure above.  If the shorter
 text of two marks is short enough to fit it will be placed
-alongside and to the left of the bar count numeral.
+alongside and to the left of the measure count numeral.
 
 @predefined
 @code{\textLengthOn},
@@ -799,7 +800,7 @@ Music Glossary:
 Notation Reference:
 @ref{Durations},
 @ref{Text},
-@ref{Text markup},
+@ref{Formatting text},
 @ref{Text scripts}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
@@ -1019,7 +1020,7 @@ The property @code{measurePosition} contains a rational number
 indicating how much of the measure has passed at this point.  Note
 that this is set to a negative number by the @code{\partial}
 command: i.e., @code{\partial 4} is internally translated to
-@code{-4}, meaning @qq{there is a quarter note left in the bar.}
+@code{-4}, meaning @qq{there is a quarter note left in the measure.}
 
 
 @seealso
@@ -1152,7 +1153,7 @@ tsMarkup = \markup {
 }
 @end lilypond
 
-@strong{Staves with different time signatures, equal bar lengths}
+@strong{Staves with different time signatures, equal measure lengths}
 
 This notation can be created by setting a common time signature
 for each staff but replacing the symbol manually by setting
@@ -1195,7 +1196,7 @@ staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
 @strong{Staves with different time signatures, unequal bar lengths}
 
 Each staff can be given its own independent time signature by
-moving the Timing_translator to the Staff context.
+moving the @code{Timing_translator} to the @code{Staff} context.
 
 @lilypond[quote,verbatim,ragged-right]
 \layout {
@@ -1216,15 +1217,21 @@ moving the Timing_translator to the Staff context.
 \relative c' <<
   \new Staff {
     \time 3/4
-    c4 c c | c c c |
+    c4 c c |
+    c c c |
   }
   \new Staff {
     \time 2/4
-    c4 c | c c | c c
+    c4 c |
+    c c |
+    c c |
   }
   \new Staff {
     \time 3/8
-    c4. c8 c c c4. c8 c c
+    c4. |
+    c8 c c |
+    c4. |
+    c8 c c |
   }
 >>
 @end lilypond
@@ -1273,7 +1280,7 @@ example, notes crossing the bar lines are split and tied.
   \consists "Completion_heads_engraver"
 }
 
-{c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2}
+{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
 @end lilypond
 
 This engraver splits all running notes at the bar line, and
@@ -1408,7 +1415,7 @@ property: @code{\override Beam #'breakable = ##t}.
 
 @lilypond[ragged-right,relative=2,fragment,verbatim,quote]
 \override Beam #'breakable = ##t
-c8 \repeat unfold 15 {c[ c] } c
+c8 \repeat unfold 15 { c[ c] } c
 @end lilypond
 
 @cindex beams and line breaks
@@ -1535,7 +1542,8 @@ You can also remove a previously set beam-ending rule by using
 @end example
 
 @noindent
-be, p, q, n, m, a, b and context are the same as above.  Note that the
+@code{be}, @code{p}, @code{q}, @code{n}, @code{m}, @code{a},
+@code{b} and @code{context} are the same as above.  Note that the
 default rules are specified in @file{scm/@/auto@/-beam@/.scm},
 so you can revert rules that you did not explicitly create.
 
@@ -1546,8 +1554,9 @@ a16 a a a a a a a a a a a a a a a
 a16 a a a a a a a a a a a a a a a
 @end lilypond
 
-The rule in a revert-auto-beam-setting statement must exactly match the
-original rule.  That is, no wildcard expansion is taken into account.
+The rule in a @code{revert-auto-beam-setting} statement must exactly
+match the original rule.  That is, no wildcard expansion is taken into
+account.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 1/4
@@ -1673,7 +1682,7 @@ setting the properties @code{stemLeftBeamCount} and
 draw on the left and right side, respectively, of the next note.
 If either property is set, its value will be used only once, and
 then it is erased.  In this example, the last @code{f} is printed
-with only one beam on the left side, i.e. the eighth-note beam of
+with only one beam on the left side, i.e., the eighth-note beam of
 the group as a whole.
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
@@ -1699,7 +1708,7 @@ should be played at an increasing (or decreasing) tempo, without
 changing the overall tempo of the piece.  The extent of the 
 feathered beam must be indicated manually using @code{[} and
 @code{]}, and the beam feathering is turned on by specifying a 
-direction to the Beam property @code{grow-direction}.
+direction to the @code{Beam} property @code{grow-direction}.
 
 If the placement of the notes and the sound in the MIDI output
 is to reflect the ritardando or accelerando indicated by the
@@ -1782,20 +1791,20 @@ e4 d c2 \bar "|."
 @warning{An incorrect duration can lead to poorly formatted
 music.}
  
-It is not invalid if the final note in a bar does not 
+It is not invalid if the final note in a measure does not 
 end on the automatically entered bar line: the note is assumed 
-to carry over into the next bar.  But if a long sequence
-of such carry-over bars appears the music can appear compressed
+to carry over into the next measure.  But if a long sequence
+of such carry-over measures appears the music can appear compressed
 or even flowing off the page.  This is because automatic line
-breaks happen only at the end of complete bars, i.e. where 
-the end of a note coincides with the end of a bar.
+breaks happen only at the end of complete measures, i.e., where 
+the end of a note coincides with the end of a measure.
 
 @cindex line breaks
 @cindex bar lines, invisible
 @cindex measure lines, invisible
 
 Line breaks are also permitted at manually inserted bar lines
-even within incomplete bars.  To allow a line break without 
+even within incomplete measures.  To allow a line break without 
 printing a bar line, use
 
 @example
@@ -1809,10 +1818,10 @@ counter is not increased.  To force a line break see
 @ref{Line breaking}.
 
 This and other special bar lines may be inserted manually at any
-point.  When they coincide with the end of a bar they replace
+point.  When they coincide with the end of a measure they replace
 the simple bar line which would have been inserted there 
 automatically.  When they do not coincide
-with the end of a bar the specified bar line is inserted at that
+with the end of a measure the specified bar line is inserted at that
 point in the printed output.  Such insertions do not affect
 the calculation and placement of subsequent automatic bar lines.  
 
@@ -1956,14 +1965,14 @@ c c c c
 @c  and moved into the Snippets.  -gp
 
 @noindent
-and here the bar numbers are printed every two bars
+and here the bar numbers are printed every two measures
 except at the end of the line:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
 \override Score.BarNumber #'break-visibility = ##(#f #t #t)
 \set Score.currentBarNumber = #11
 \bar ""  % Permit first bar number to be printed
-% Print a bar number every 2nd bar
+% Print a bar number every second measure
 \set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
 c1 c c c c
 \break
@@ -2002,7 +2011,7 @@ of specifying @code{#(#f #t #t)} for @code{break-visibility}.
 
 Bar numbers by default are left-aligned to their parent object.
 This is usually the left edge of a line or, if numbers are printed
-within a line, the left bar line of the bar.  The numbers may also
+within a line, the left bar line of the measure.  The numbers may also
 be positioned directly on the bar line or right-aligned to the 
 bar line:
 
@@ -2011,7 +2020,7 @@ bar line:
 \override Score.BarNumber #'break-visibility = ##(#t #t #t)
 % Increase the size of the bar number by 2
 \override Score.BarNumber #'font-size = #2
-% Print a bar number every 2nd bar
+% Print a bar number every second measure
 \set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
 c1 c1
 % Center-align bar numbers
@@ -2022,8 +2031,8 @@ c1 c1
 c1 c1
 @end lilypond
 
-Bar numbers can be removed entirely by removing the Bar number
-engraver from the score context.
+Bar numbers can be removed entirely by removing the
+@code{Bar_number_engraver} from the @code{Score} context.
 
 @lilypond[verbatim,ragged-right,quote]
 \layout {
@@ -2240,13 +2249,13 @@ See @ref{The Feta font}, for a list of symbols which may be
 printed with @code{\musicglyph}.
 
 For common tweaks to the positioning of rehearsal marks, see
-@ref{Text marks}.
+@ref{Formatting text}.
 
 @seealso
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
-This manual: @ref{The Feta font}, @ref{Text marks}.
+This manual: @ref{The Feta font}, @ref{Formatting text}.
 
 Internals Reference: @internalsref{RehearsalMark}.
 
@@ -2323,13 +2332,13 @@ If you want to end a note with a grace, use the @code{\afterGrace}
 command.  It takes two arguments: the main note, and the grace
 notes following the main note.
 
-@lilypond[ragged-right, verbatim,relative=2,fragment]
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 c1 \afterGrace d1 { c16[ d] } c4
 @end lilypond
 
 This will put the grace notes after a @q{space} lasting 3/4 of the
 length of the main note.  The fraction 3/4 can be changed by
-setting @code{afterGraceFraction}, ie.
+setting @code{afterGraceFraction}, i.e.,
 
 @example
 #(define afterGraceFraction (cons 7 8))
@@ -2350,7 +2359,7 @@ The same effect can be achieved manually by doing
 
 @noindent
 By adjusting the duration of the skip note (here it is a
-half-note), the space between the main-note and the grace
+half-note), the space between the main note and the grace
 may be adjusted.
 
 A @code{\grace} music expression will introduce special
@@ -2481,8 +2490,8 @@ cadenza, otherwise they will start too soon or too late.
 
 A solution to this problem is to use the functions
 @code{mmrest-of-length} and @code{skip-of-length}.  These Scheme
-functions take a piece of music as argument, and generate a multi-rest
-or @code{\skip}, exactly as long as the piece.  The use of
+functions take a piece of music as argument, and generate a multi-measure
+rest or @code{\skip}, exactly as long as the piece.  The use of
 @code{mmrest-of-length} is demonstrated in the following example.
 
 @lilypond[verbatim,ragged-right,quote]

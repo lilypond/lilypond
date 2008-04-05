@@ -258,8 +258,6 @@ multiple voices on the same staff."
 
   \description "A voice on a percussion staff."
   \remove "Arpeggio_engraver"
-  \consists "Multi_measure_rest_engraver"
-  \consists "Text_spanner_engraver"
   \consists "Grob_pq_engraver"
 
   \remove "Note_head_line_engraver"
@@ -272,7 +270,6 @@ multiple voices on the same staff."
   \remove "Fingering_engraver"
 
   \remove "Cluster_spanner_engraver"
-  \consists "Tuplet_engraver"
 
   \consists "Skip_event_swallow_translator"
 }

@@ -14,8 +14,8 @@ printed when any of these properties are changed.
 Note that changing the glyph, the position of the clef, or the
 octavation, does not in itself change the position of subsequent notes
 on the staff: the position of middle C must also be specified to do
-this. The positional parameters are relative to the staff centre line,
-positive numbers displacing upwards, counting 1 for each line and
+this. The positional parameters are relative to the staff center line,
+positive numbers displacing upwards, counting one for each line and
 space. The @code{clefOctavation} value would normally be set to 7, -7,
 15 or -15, but other values are valid.
 
@@ -25,7 +25,7 @@ printed at both the end of the previous line and the beginning of the
 new line by default. If the warning clef at the end of the previous
 line is not required it can be suppressed by setting the @code{Staff}
 property @code{explicitClefVisibility} to the value
-@code{end-of-line-invisible}. The default behaviour can be recovered
+@code{end-of-line-invisible}. The default behavior can be recovered
 with  @code{\\unset Staff.explicitClefVisibility}.
 
 The following examples show the possibilities when setting these
@@ -77,6 +77,6 @@ line, they do not.
   
   % Here we go back to the normal clef:
 
-  \set Staff.middleCPosition = #4
+  \set Staff.middleCPosition = #0
   c'
 }

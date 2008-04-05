@@ -9,15 +9,15 @@ To add fingerings to tablatures, you can use a combination of
 @code{\\markup} and @code{\\finger}. 
 " }
 % begin verbatim
-one = \markup{ \finger "1" }
-two = \markup{ \finger "2" }
-threetwo = \markup{ \column {\finger "3" \finger "2"} }
-threefour = \markup{ \column {\finger "3" \finger "4"} }
+one = \markup { \finger "1" }
+two = \markup { \finger "2" }
+threeTwo = \markup { \column { \finger "3" \finger "2" } }
+threeFour = \markup { \column { \finger "3" \finger "4" } }
 
 \score {      
   \context TabStaff {
     \stemUp
-    e8\4^\one b\2 < e, g\3 e'\1 >^>[ b\2 e\4] 
-    < a\3 fis'\1 >^>^\threetwo[ b\2 e\4]
+    e8\4^\one b\2 <e, g\3 e'\1>^>[ b\2 e\4] 
+    <a\3 fis'\1>^>^\threeTwo[ b\2 e\4]
   }
 }
