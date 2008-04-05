@@ -14,6 +14,10 @@
     <measure number="1">
       <attributes>
         <divisions>1</divisions>
+        <key>
+          <fifths>-11</fifths>
+          <mode>major</mode>
+        </key>
         <time symbol="common">
           <beats>2</beats>
           <beat-type>4</beat-type>
@@ -22,10 +26,6 @@
           <sign>G</sign>
           <line>2</line>
         </clef>
-        <key>
-          <fifths>-11</fifths>
-          <mode>major</mode>
-        </key>
       </attributes>
       <note>
         <pitch>
