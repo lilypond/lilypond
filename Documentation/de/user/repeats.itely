@@ -15,22 +15,21 @@ Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine
 ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
 
 @menu
-* Writing repeats::             
-* Other repeats::               
+* Writing long repeats::        
+* Short repeats::               
 @end menu
 
-@node Writing repeats
-@subsection Writing repeats
+@node Writing long repeats
+@subsection Writing long repeats
 
 @menu
 * Repeat types::                
 * Repeat syntax::               
 * Manual repeat commands::      
-* Repeats and MIDI::            
 @end menu
 
 @node Repeat types
-@unnumberedsubsubsec Repeat types
+@subsubsection Repeat types
 
 @cindex Wiederholungen
 
@@ -64,7 +63,7 @@ berücksichtigt. Diese Wiederholungen müssen innerhalb eines Stimmen
 
 
 @node Repeat syntax
-@unnumberedsubsubsec Repeat syntax
+@subsubsection Repeat syntax
 
 @cindex Klammer, Wiederholung
 @cindex Volta
@@ -219,7 +218,7 @@ Bindebögen nicht wiederholt.
 
 
 @node Manual repeat commands
-@unnumberedsubsubsec Manual repeat commands
+@subsubsection Manual repeat commands
 
 @funindex repeatCommands
 
@@ -262,125 +261,17 @@ Programmreferenz: @internalsref{VoltaBracket},
 @internalsref{UnfoldedRepeatedMusic}.
 
 
-@node Repeats and MIDI
-@unnumberedsubsubsec Repeats and MIDI
-
-@cindex Erweiterung von Wiederholungen
-@funindex \unfoldRepeats
-
-Mit ein bisschen Anpassung können alle Wiederholungstypen 
-auch in der MIDI-Datei wiedergegeben werden. Das wird erreicht 
-durch die @code{\unfoldRepeats}-Funktion. Hiermit werden alle 
-Wiederholungen, welcher Art auch immer, in notengetreue Wiederholungen 
-umgewandelt, die Noten werden also wiederholt ausgegeben.
-
-@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
-\unfoldRepeats {
-  \repeat tremolo 8 {c'32 e' }
-  \repeat percent 2 { c''8 d'' }
-  \repeat volta 2 {c'4 d' e' f'}
-  \alternative {
-    { g' a' a' g' }
-    {f' e' d' c' }
-  }
-}
-\bar "|."
-@end lilypond
-
-Wenn man eine Partitur schreibt, die diesen @code{\unfoldRepeats}-Befehl 
-für die MIDI-Ausgabe benutzt, muss man zwei @code{\score}-Umgebungen 
-schreiben: eine für die MIDI-Ausgabe, wo die Wiederholungen ausgeschrieben 
-werden, und eine für die gedruckte Notation, in der Klammern, Tremolo und 
-Prozent-Wiederholungen benutzt werden. Zum Beispiel:
-
-@example
-\score @{
-  @var{..music..}
-  \layout @{ .. @}
-@}
-\score @{
-  \unfoldRepeats @var{..music..}
-  \midi @{ .. @}
-@}
-@end example
-
-
-@node Other repeats
-@subsection Other repeats
+@node Short repeats
+@subsection Short repeats
 
 @menu
+* Percent repeats::             
 * Tremolo repeats::             
 * Tremolo subdivisions::        
-* Measure repeats::             
 @end menu
 
-@node Tremolo repeats
-@unnumberedsubsubsec Tremolo repeats
-
-@cindex Tremolobalken
-
-Um Tremolozeichen zwischen den Noten zu setzen, kann der 
-Wiederholungstyp @code{tremolo} benutzt werden.
-
-@lilypond[quote,verbatim,ragged-right]
-\new Voice \relative c' {
-  \repeat tremolo 8 { c16 d16 }
-  \repeat tremolo 4 { c16 d16 }
-  \repeat tremolo 2 { c16 d16 }
-}
-@end lilypond
-
-Tremolozeichen können auch einer einzelnen Noten hinzugefügt werden. In 
-diesem Fall darf die Note nicht von Klammern eingefasst sein.
-
-@lilypond[quote,verbatim,ragged-right]
-\repeat tremolo 4 c'16
-@end lilypond
-
-Ähnliche Darstellung wird erreicht durch eine innere Tremolountereilung, 
-die im Abschnitt @ref{Tremolo subdivisions} beschrieben wird.
-
-
-@seealso
-
-Im Handbuch: @ref{Tremolo subdivisions}, @ref{Repeats}.
-
-Programmreferenz: @internalsref{Beam}, @internalsref{StemTremolo}.
-
-
-@node Tremolo subdivisions
-@unnumberedsubsubsec Tremolo subdivisions
-
-@cindex Tremolozeichen
-@funindex tremoloFlags
-
-Tremolozeichen können einer einzelnen Noten hinzugefügt werden, indem 
-an sie die Zeichen @code{:}[@var{Anzahl}] angefügt werden. Die Anzahl 
-bezeichnet die Dauer der einzelnen Noten, und ihr Mindestwert ist 8. 
-Mit der Zahl 8 erhält man eine Linie durch den Notenhals. Wenn die 
-Anzahl ausgelassen wird, wird der letzte benutzte Wert (in der 
-Funktion @code{tremoloFlags} gespeichert) eingesetzt.
-
-@lilypond[quote,ragged-right,verbatim,fragment]
-c'2:8 c':32 | c': c': |
-@end lilypond
-
-
-@knownissues
-
-Tremolos, die auf diese Weise notiert werden, werden nicht in die 
-MIDI-Datei aufgenommen.
-
-
-@seealso
-
-Im Handbuch: @ref{Tremolo repeats}.
-
-Programmreferenz: @internalsref{StemTremolo}.
-
-
-@node Measure repeats
-@unnumberedsubsubsec Measure repeats
+@node Percent repeats
+@subsubsection Percent repeats
 
 @cindex Prozent-Wiederholungen
 @cindex Taktweise Wiederholungen
@@ -428,4 +319,68 @@ Programmreferenz: @internalsref{RepeatSlash},
 @internalsref{PercentRepeatedMusic}.
 
 
+
+@node Tremolo repeats
+@subsubsection Tremolo repeats
+
+@cindex Tremolobalken
+
+Um Tremolozeichen zwischen den Noten zu setzen, kann der 
+Wiederholungstyp @code{tremolo} benutzt werden.
+
+@lilypond[quote,verbatim,ragged-right]
+\new Voice \relative c' {
+  \repeat tremolo 8 { c16 d16 }
+  \repeat tremolo 4 { c16 d16 }
+  \repeat tremolo 2 { c16 d16 }
+}
+@end lilypond
+
+Tremolozeichen können auch einer einzelnen Noten hinzugefügt werden. In 
+diesem Fall darf die Note nicht von Klammern eingefasst sein.
+
+@lilypond[quote,verbatim,ragged-right]
+\repeat tremolo 4 c'16
+@end lilypond
+
+Ähnliche Darstellung wird erreicht durch eine innere Tremolountereilung, 
+die im Abschnitt @ref{Tremolo subdivisions} beschrieben wird.
+
+
+@seealso
+
+Im Handbuch: @ref{Tremolo subdivisions}, @ref{Repeats}.
+
+Programmreferenz: @internalsref{Beam}, @internalsref{StemTremolo}.
+
+
+@node Tremolo subdivisions
+@subsubsection Tremolo subdivisions
+
+@cindex Tremolozeichen
+@funindex tremoloFlags
+
+Tremolozeichen können einer einzelnen Noten hinzugefügt werden, indem 
+an sie die Zeichen @code{:}[@var{Anzahl}] angefügt werden. Die Anzahl 
+bezeichnet die Dauer der einzelnen Noten, und ihr Mindestwert ist 8. 
+Mit der Zahl 8 erhält man eine Linie durch den Notenhals. Wenn die 
+Anzahl ausgelassen wird, wird der letzte benutzte Wert (in der 
+Funktion @code{tremoloFlags} gespeichert) eingesetzt.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+c'2:8 c':32 | c': c': |
+@end lilypond
+
+
+@knownissues
+
+Tremolos, die auf diese Weise notiert werden, werden nicht in die 
+MIDI-Datei aufgenommen.
+
+
+@seealso
+
+Im Handbuch: @ref{Tremolo repeats}.
+
+Programmreferenz: @internalsref{StemTremolo}.
 

@@ -621,7 +621,6 @@ c4-\bendAfter #-3
 * Glissando::                   
 * Arpeggio::                    
 * Trills::                      
-* Analysis brackets::           
 @end menu
 
 @node Glissando
@@ -789,11 +788,5 @@ ohne Hals in Klammern gesetzt.
 @seealso
 
 Programmreferenz: @internalsref{TrillSpanner}.
-
-
-@node Analysis brackets
-@unnumberedsubsubsec Analysis brackets
-
-UNTRANSLATED NODE: IGNORE ME
 
 
