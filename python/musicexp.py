@@ -152,12 +152,16 @@ class Duration:
                              self.factor.denominator ())
 
 
-    def ly_expression (self, factor = None):
+    def ly_expression (self, factor = None, scheme_mode = False):
         if not factor:
             factor = self.factor
 
         if self.duration_log < 0:
-            str = {-1: "\\breve", -2: "\\longa"}.get (self.duration_log, "1")
+            if scheme_mode:
+                longer_dict = {-1: "breve", -2: "longa"}
+            else:
+                longer_dict = {-1: "\\breve", -2: "\\longa"}
+            str = longer_dict.get (self.duration_log, "1")
         else:
             str = '%d' % (1 << self.duration_log)
         str += '.'*self.dots
@@ -1269,6 +1273,56 @@ class StaffChange (Music):
             return "\\change Staff=\"%s\"" % self.staff
         else:
             return ''
+
+
+class TempoMark (Music):
+    def __init__ (self):
+        Music.__init__ (self)
+        self.baseduration = None
+        self.newduration = None
+        self.beats = None
+        self.parentheses = False
+    def set_base_duration (self, dur):
+        self.baseduration = dur
+    def set_new_duration (self, dur):
+        self.newduration = dur
+    def set_beats_per_minute (self, beats):
+        self.beats = beats
+    def set_parentheses (self, parentheses):
+        self.parentheses = parentheses
+    def wait_for_note (self):
+        return False
+    def duration_to_markup (self, dur):
+        if dur:
+            # Generate the markup to print the note, use scheme mode for 
+            # ly_expression to get longa and not \longa (which causes an error)
+            return "\\general-align #Y #DOWN \\smaller \\note #\"%s\" #UP" % dur.ly_expression(None, True)
+        else:
+            return ''
+    def tempo_markup_template (self):
+        return "\\mark\\markup { \\fontsize #-2 \\line { %s } }"
+    def ly_expression (self):
+        res = ''
+        if not self.baseduration:
+            return res
+        if self.beats:
+            if self.parentheses:
+                dm = self.duration_to_markup (self.baseduration)
+                contents = "\"(\" %s = %s \")\"" % (dm, self.beats)
+                res += self.tempo_markup_template() % contents
+            else:
+                res += "\\tempo %s=%s" % (self.baseduration.ly_expression(), self.beats)
+        elif self.newduration:
+            dm = self.duration_to_markup (self.baseduration)
+            ndm = self.duration_to_markup (self.newduration)
+            if self.parentheses:
+                contents = "\"(\" %s = %s \")\"" % (dm, ndm)
+            else:
+                contents = " %s = %s " % (dm, ndm)
+            res += self.tempo_markup_template() % contents
+        else:
+            return ''
+        return res
 
 class FiguredBassNote (Music):
     def __init__ (self):

@@ -6,11 +6,11 @@ alterations = [-1, 0, 1]
 def print_measure (nr, fifth, mode, atts = "", final = ""):
     print """    <measure number="%s">
       <attributes>
-%s        <key>
+        <key>
           <fifths>%s</fifths>
           <mode>%s</mode>
         </key>
-      </attributes>
+%s      </attributes>
       <note>
         <pitch>
           <step>C</step>
@@ -20,7 +20,7 @@ def print_measure (nr, fifth, mode, atts = "", final = ""):
         <voice>1</voice>
         <type>half</type>
       </note>
-%s    </measure>""" % (nr, atts,  fifth, mode, final)
+%s    </measure>""" % (nr, fifth, mode, atts, final)
 
 first_atts = """        <divisions>1</divisions>
         <time symbol="common">

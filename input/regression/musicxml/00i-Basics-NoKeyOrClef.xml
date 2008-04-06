@@ -4,11 +4,11 @@
 	<work><work-title>No key or clef given</work-title></work> 
 	<identification/>
 	<part-list>
-		<score-part id="0">
+		<score-part id="P0">
 			<part-name></part-name>
 		</score-part>
 	</part-list>
-	<part id="0">
+	<part id="P0">
 		<measure number="1">
 			<attributes>
 				<divisions>1</divisions>
