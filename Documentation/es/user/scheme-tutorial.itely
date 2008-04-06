@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 442e889ce5bd4f250270b992a1b105ed7fc078db
+    Translation of GIT committish: 03184badb3c2378e1ab3eec6ee62a6bdc0609082
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.38"
 
 
 @node Scheme tutorial
@@ -70,7 +72,7 @@ Los saltos de línea t las barras invertidas se escapan mediante
 
 
 En un archivo de música, los fragmentos de código de Scheme se
-esecriben con el signo de almohadilla @code{#}.  Así, los ejemplos
+escriben con el signo de almohadilla @code{#}.  Así, los ejemplos
 anteriores traducidos a LilyPond son:
 
 @example
@@ -150,12 +152,12 @@ internas, por ejemplo
 \override Stem #'thickness = #2.6
 @end example
 
-Esta isntrucción ajusta el aspecto de las plicas.  El valor @code{2.6}
+Esta instrucción ajusta el aspecto de las plicas.  El valor @code{2.6}
 se pone dentro de la variable @code{thickness} de un objeto
 @code{Stem}.  @code{thickness} se mide a partir del grosor de las
 líneas del pentagrama, y así estas plicas serán @code{2.6} veces el
 grosor de las líneas del pentagrama.  Esto hace que las plicas sean
-casi el doble de gruesas de lo normal.  Para distinguir entr las
+casi el doble de gruesas de lo normal.  Para distinguir entre las
 variables que se definen en los archivos de entrada (como
 @code{veintiCuatro} en el ejemplo anterior) y las variables de los
 objetos internos, llamaremos a las últimas @q{propiedades} y a las
@@ -171,8 +173,8 @@ tamaños de los objetos (intervalos con un punto izquierdo y otro
 derecho) se introducen como @code{parejas}.  Una pareja@footnote{En la
 terminología de Scheme, la pareja se llama @code{cons}, y sus dos
 elementos se llaman @code{car} y @code{cdr} respectivamente.}  se
-introduce como @code{(first . second)} y, como los símbolos, se deben
-preceder de un apóstrofe,
+introduce como @code{(primero . segundo)} y, como los símbolos, se deben
+preceder de un apóstrofe:
 
 @example
 \override TextScript #'extra-offset = #'(1 . 2)
@@ -181,7 +183,7 @@ preceder de un apóstrofe,
 Esto asigna la pareja (1, 2) a la propiedad @code{extra-offset} del
 objeto TextScript.  Estos números se miden en espacios de pentagrama,
 y así esta instrucción mueve el objeto un espacio de pentagrama a la
-derecha, y dos especios hacia arriba.
+derecha, y dos espacios hacia arriba.
 
 Los dos elementos de una pareja pueden ser valores arbitrarios, por
 ejemplo
@@ -230,7 +232,7 @@ Hemos visto cómo la salida de LilyPond se puede modificar
 profundamente usando instrucciones como @code{\override TextScript
 #'extra-offset = ( 1 . -1)}.  Pero tenemos incluso mucho más poder si
 utilizamos Scheme.  Para ver una explicación completa de esto,
-consulteel @ref{Scheme tutorial}, y @ruser{Interfaces for
+consulte el @ref{Scheme tutorial}, y @ruser{Interfaces for
 programmers}.
 
 Podemos usar Scheme simplemente para sobreescribir instrucciones con

@@ -7,6 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @node Working on LilyPond projects
 @chapter Working on LilyPond projects
 
@@ -19,16 +21,14 @@ zu lesen.
 
 @menu
 * Suggestions for writing LilyPond files::  
-* Saving typing with identifiers and functions::  
-* Style sheets::                
-* Updating old files::          
-* Troubleshooting (taking it all apart)::  
-* Minimal examples::            
+* When things don't work::      
+* Scores and parts::            
 @end menu
 
 
 @node Suggestions for writing LilyPond files
 @section Suggestions for writing LilyPond files
+
 Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben -- 
 nicht 
 nur die kleinen Beispiele aus der Übung, sondern ganze Stücke.
@@ -61,6 +61,8 @@ strukturiert werden, damit sie einfacher aktualisierbar sind.
 * General suggestions::         
 * Typesetting existing music::  
 * Large projects::              
+* Saving typing with variables and functions::  
+* Style sheets::                
 @end menu
 
 
@@ -197,8 +199,8 @@ g4\fdannp c'8. e16
 @end itemize
 
 
-@node Saving typing with identifiers and functions
-@section Saving typing with identifiers and functions
+@node Saving typing with variables and functions
+@subsection Saving typing with variables and functions
 
 @cindex Variable
 @cindex Bezeichner
@@ -303,7 +305,7 @@ verändert werden, wenn sich die Syntax ändert. Alle Verwendungen
 des Befehles beziehen sich dann auf die neue Definition.
 
 @node Style sheets
-@section Style sheets
+@subsection Style sheets
 
 Die Ausgabe, die LilyPond erstellt, kann sehr start modifiziert 
 werden, siehe @ruser{Tweaking output} für Einzelheiten. Aber wie 
@@ -565,8 +567,17 @@ für meine Projekte. Jede Notationsdatei fängt an mit
 @end example
 
 
+@node When things don't work
+@section When things don't work
+
+@menu
+* Updating old files::          
+* Troubleshooting (taking it all apart)::  
+* Minimal examples::            
+@end menu
+
 @node Updating old files
-@section Updating old files
+@subsection Updating old files
 
 Die Syntax von LilyPond verändert sich ab und zu. Wenn LilyPond 
 besser wird, muss auch die Syntax (Eingabesprache) entsprechend 
@@ -596,7 +607,7 @@ verändern, das muss manuell vorgenommen werden.
 
 
 @node Troubleshooting (taking it all apart)
-@section Troubleshooting (taking it all apart)
+@subsection Troubleshooting (taking it all apart)
 
 Früher oder später werden Sie in die Lage kommen, 
 dass LilyPond Ihre Datei nicht kompilieren will. Die 
@@ -657,7 +668,7 @@ Eine andere nützliche Technik zur Problemlösung ist es,
 
 
 @node Minimal examples
-@section Minimal examples
+@subsection Minimal examples
 
 Ein Minimalbeispiel ist eine Beispieldatei, die so klein wie 
 möglich ist. Diese Beispiele sind sehr viel einfacher zu 
@@ -697,4 +708,141 @@ etwas demonstrieren.
 Zweck des Beispieles sind.
 @end itemize
 
+
+@node Scores and parts
+@section Scores and parts
+
+Orchesternoten werden alle zweimal gesetzt. Erstens als Stimmen für 
+die Musiker, und dann als große Partitur für den Dirigenten. Mit 
+Variablen 
+kann hier doppelte Arbeit erspart werden. Die Musik muss nur einmal 
+eingegeben werden und wird in einer Variable abgelegt. Der Inhalt 
+dieser 
+Variable wird dann benutzt, um sowohl die Stimme als auch die Partitur 
+zu erstellen.
+
+Es bietet sich an, die Noten in eigenen Dateien zu speichern. Sagen wir 
+beispielsweise, dass in der Datei @file{Horn-Noten.ly} die folgenden 
+Noten eines Duetts für Horn und Fagott gespeichert sind:
+
+@example
+HornNoten = \relative c @{
+  \time 2/4
+  r4 f8 a cis4 f e d
+@}
+@end example
+
+@noindent
+Daraus wird dann eine eigene Stimme gemacht, indem folgende Datei 
+erstellt 
+wird:
+
+@example
+\include "Horn-Noten.ly"
+\header @{
+  instrument = "Horn in F"
+@}
+
+@{
+ \transpose f c' \HornNoten
+@}
+@end example
+
+Die Zeile
+
+@example
+\include "Horn-Noten.ly"
+@end example
+
+@noindent
+setzt den Inhalt der Datei @file{Horn-Noten.ly} an die Stelle des 
+Befehls in die aktuelle Datei. Damit besteht also eine Definition 
+für @code{HornNoten}, so dass die Variable verwendet werden kann. 
+Der Befehl @code{\transpose f@tie{}c'} zeigt an, dass das Argument, 
+also @code{\HornNoten}, um eine Quinte nach oben transponiert wird.
+Klingendes @q{f} wird also als @code{c'} notiert. Das entspricht 
+der Notation eines Waldhorn in F. Die Transposition zeigt die folgende 
+Ausgabe:
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+In Musik für mehrere Instrumente kommt es oft vor, dass eine Stimme 
+für mehrere Takte nicht spielt. Das wird mit einer besonderen Pause 
+angezeigt, dem Pausenzeichen für mehrere Takte (engl. multi-measure 
+rest). Sie wird mit dem @emph{großen} Buchstaben @samp{R} eingegeben, 
+gefolgt von einer Dauer (@code{1}@tie{}für eine Ganze, @code{2}@tie{}
+für eine Halbe usw.). Indem man die Dauer multipliziert, können längere  
+Pausen erstellt werden. Z. B. dauert diese Pause drei Takte eines 
+2/4-Taktes:
+
+@example
+R2*3
+@end example
+
+Wenn die Stimme gedruckt wird, müssen diese Pausen zusammengezogen 
+werden. 
+Das wird durch eine Variable erreicht:
+
+@example
+\set Score.skipBars = ##t
+@end example
+
+@noindent
+Dieser Befehl setzt die Eigenschaft des @code{skipBars} (@qq{überspringe 
+Takte}) auf wahr (@code{##t}).  Wenn diese Option und die Pause 
+zu der Musik des Beispiels gesetzt wird, erhält man folgendes Ergebnis:
+
+@lilypond[quote,ragged-right]
+\transpose f c' \relative c {
+  \time 2/4
+  \set Score.skipBars = ##t
+  R2*3
+  r4 f8 a cis4 f e d
+}
+@end lilypond
+
+Die Partitur wird erstellt, indem alle Noten zusammengesetzt werden. 
+Angenommen, die andere Stimme trägt den Namen @code{FagottNoten} 
+ und ist in der Datei @file{Fagott-Noten.ly} gespeichert. Die
+Partitur sieht dann folgendermaßen aus:
+
+@example
+\include "Fagott-Noten.ly"
+\include "Horn-Noten.ly"
+
+<<
+  \new Staff \HornNoten
+  \new Staff \FagottNoten
+>>
+@end example
+
+@noindent
+Und mit LilyPond übersetzt:
+
+@lilypond[quote,ragged-right]
+\relative c <<
+  \new Staff {
+    \time 2/4 R2*3
+    r4 f8 a cis4 f e d
+  }
+  \new Staff {
+    \clef bass
+    r4 d,8 f | gis4 c | b bes |
+    a8 e f4 | g d | gis f
+  }
+>>
+@end lilypond
+
+Tiefer gehende Information darüber, wie Stimmauszüge und Partituren 
+erstellt werden, finden sich im Notationshandbuch, siehe 
+@ruser{Orchestral music}.
+
+Das Setzen der Variablen, die das Verhalten von LilyPond beeinflussen 
+(@q{properties}), wird im Kapitel
+@ruser{Changing context properties on the fly} besprochen.
 

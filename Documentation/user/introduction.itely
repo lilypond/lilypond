@@ -7,6 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @node Introduction
 @chapter Introduction
 
@@ -834,6 +836,7 @@ is a complete index.
 @end itemize
 
 @end ignore
+
 
 @subheading Program usage
 

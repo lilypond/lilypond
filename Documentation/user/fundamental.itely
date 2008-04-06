@@ -1,5 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.11.38"
 
 @node Fundamental concepts
 @chapter Fundamental concepts
@@ -1872,8 +1880,7 @@ at once.  The @code{\score} looks like this now
 This looks a bit messy; the indentation is messed up now.  That is
 easily fixed.  Here's the complete soprano and cello template.
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+@lilypond[quote,verbatim,ragged-right,addversion]
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
@@ -2093,8 +2100,7 @@ stacked one above the other:
 Combining all these together and adding the music
 for the three bars of the example above gives:
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+@lilypond[quote,verbatim,ragged-right,addversion]
 global = { \key d \major \time 4/4 }
 sopMusic = \relative c'' {
   \clef "treble"
@@ -2300,8 +2306,7 @@ will have a similar structure, although the number of voices
 may vary.  All that remains now 
 is to add the music, and combine all the parts together.
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+@lilypond[quote,verbatim,ragged-right,addversion]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

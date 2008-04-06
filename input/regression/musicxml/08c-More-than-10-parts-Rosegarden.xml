@@ -9,165 +9,165 @@
 		</encoding>
 	</identification> 
 	<part-list>
-		<score-part id="0">
+		<score-part id="P0">
 			<part-name></part-name>
-			<score-instrument id="#1">
+			<score-instrument id="I1">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#1">
+			<midi-instrument id="I1">
 				<midi-channel>1</midi-channel>
 				<midi-program>1</midi-program>
 			</midi-instrument>
 		</score-part>
-		<score-part id="1">
+		<score-part id="P1">
 			<part-name></part-name>
-			<score-instrument id="#2">
+			<score-instrument id="I2">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#2">
+			<midi-instrument id="I2">
 				<midi-channel>2</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="2">
+		<score-part id="P2">
 			<part-name></part-name>
-			<score-instrument id="#3">
+			<score-instrument id="I3">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#3">
+			<midi-instrument id="I3">
 				<midi-channel>3</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="3">
+		<score-part id="P3">
 			<part-name></part-name>
-			<score-instrument id="#4">
+			<score-instrument id="I4">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#4">
+			<midi-instrument id="I4">
 				<midi-channel>4</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="4">
+		<score-part id="P4">
 			<part-name></part-name>
-			<score-instrument id="#5">
+			<score-instrument id="I5">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#5">
+			<midi-instrument id="I5">
 				<midi-channel>5</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="5">
+		<score-part id="P5">
 			<part-name></part-name>
-			<score-instrument id="#6">
+			<score-instrument id="I6">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#6">
+			<midi-instrument id="I6">
 				<midi-channel>6</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="6">
+		<score-part id="P6">
 			<part-name></part-name>
-			<score-instrument id="#7">
+			<score-instrument id="I7">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#7">
+			<midi-instrument id="I7">
 				<midi-channel>7</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="7">
+		<score-part id="P7">
 			<part-name></part-name>
-			<score-instrument id="#8">
+			<score-instrument id="I8">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#8">
+			<midi-instrument id="I8">
 				<midi-channel>8</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="8">
+		<score-part id="P8">
 			<part-name></part-name>
-			<score-instrument id="#9">
+			<score-instrument id="I9">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#9">
+			<midi-instrument id="I9">
 				<midi-channel>9</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="9">
+		<score-part id="P9">
 			<part-name></part-name>
-			<score-instrument id="#10[D]">
+			<score-instrument id="I10">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#10[D]">
+			<midi-instrument id="I10">
 				<midi-channel>10</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="10">
+		<score-part id="P10">
 			<part-name></part-name>
-			<score-instrument id="#11">
+			<score-instrument id="I11">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#11">
+			<midi-instrument id="I11">
 				<midi-channel>11</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="11">
+		<score-part id="P11">
 			<part-name></part-name>
-			<score-instrument id="#12">
+			<score-instrument id="I12">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#12">
+			<midi-instrument id="I12">
 				<midi-channel>12</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="12">
+		<score-part id="P12">
 			<part-name></part-name>
-			<score-instrument id="#13">
+			<score-instrument id="I13">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#13">
+			<midi-instrument id="I13">
 				<midi-channel>13</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="13">
+		<score-part id="P13">
 			<part-name></part-name>
-			<score-instrument id="#14">
+			<score-instrument id="I14">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#14">
+			<midi-instrument id="I14">
 				<midi-channel>14</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="14">
+		<score-part id="P14">
 			<part-name></part-name>
-			<score-instrument id="#15">
+			<score-instrument id="I15">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#15">
+			<midi-instrument id="I15">
 				<midi-channel>15</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="15">
+		<score-part id="P15">
 			<part-name></part-name>
-			<score-instrument id="#16">
+			<score-instrument id="I16">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#16">
+			<midi-instrument id="I16">
 				<midi-channel>16</midi-channel>
 			</midi-instrument>
 		</score-part>
-		<score-part id="16">
+		<score-part id="P16">
 			<part-name></part-name>
 		</score-part>
-		<score-part id="17">
+		<score-part id="P17">
 			<part-name></part-name>
 		</score-part>
-		<score-part id="18">
+		<score-part id="P18">
 			<part-name></part-name>
 		</score-part>
-		<score-part id="19">
+		<score-part id="P19">
 			<part-name></part-name>
 		</score-part>
 	</part-list>
-	<part id="0">
+	<part id="P0">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -188,7 +188,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="1">
+	<part id="P1">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -209,7 +209,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="2">
+	<part id="P2">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -230,7 +230,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="3">
+	<part id="P3">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -251,7 +251,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="4">
+	<part id="P4">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -272,7 +272,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="5">
+	<part id="P5">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -293,7 +293,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="6">
+	<part id="P6">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -314,7 +314,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="7">
+	<part id="P7">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -335,7 +335,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="8">
+	<part id="P8">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -356,7 +356,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="9">
+	<part id="P9">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -377,7 +377,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="10">
+	<part id="P10">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -398,7 +398,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="11">
+	<part id="P11">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -419,7 +419,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="12">
+	<part id="P12">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -440,7 +440,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="13">
+	<part id="P13">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -461,7 +461,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="14">
+	<part id="P14">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -482,7 +482,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="15">
+	<part id="P15">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -503,7 +503,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="16">
+	<part id="P16">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -524,7 +524,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="17">
+	<part id="P17">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -545,7 +545,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="18">
+	<part id="P18">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>
@@ -566,7 +566,7 @@
 			</note>
 		</measure>
 	</part>
-	<part id="19">
+	<part id="P19">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>

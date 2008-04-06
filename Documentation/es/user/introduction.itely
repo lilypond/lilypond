@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: e383a0fdd2e3001caccacf9d0a7d1f0806f3b94c
+    Translation of GIT committish: 03184badb3c2378e1ab3eec6ee62a6bdc0609082
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.38"
 
 @node Introduction
 @chapter Introduction
@@ -719,10 +721,9 @@ da una amable introducción a la tipografía musical.  Los usuarios que
 se acercan por primera vez deben comenzar por aquí.
 
 @item
-@emph{@ref{Fundamental concepts}}
-explica algunos conceptos generales sobre el formato de los archivos
-de entrada de LilyPond.  Si no está seguro de dónde colocar un comando
-¡lea este capítulo!
+@emph{@ref{Fundamental concepts}} explica algunos conceptos generales
+sobre el formato de los archivos de entrada de LilyPond.  Si no está
+seguro de dónde colocar una instrucción ¡lea este capítulo!
 
 @item
 @emph{@ref{Working on LilyPond projects}}
@@ -818,7 +819,7 @@ plantilla en un archivo de texto, escribir las notas y ¡ya está!
 @item
 La
 @emph{@r ef{Cheat sheet}}
-es una referencia manejable de los comandos de LilyPond más comunes.
+es una referencia manejable de las instrucciones de LilyPond más comunes.
 
 @item
 El

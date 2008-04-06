@@ -91,6 +91,7 @@
         <dot/>
         <stem>up</stem>
       </note>
+      <!-- Check how well the application handles an empty element (invalid MusicXML!) -->
       <figured-bass>
       </figured-bass>
       <note>
