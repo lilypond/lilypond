@@ -6,6 +6,7 @@ package Texi2HTML::Config;
 my $lastfilename;
 my $docnr = 0;
 my $page_toc_depth = 2;
+my @default_toc = [];
 
 use Data::Dumper;
 $Data::Dumper::Maxdepth = 2;
@@ -114,34 +115,6 @@ sub split_at_numbered_sections($$$)
 }
 
 
-# Print a link in a menu. Since we split at sections, but still want access keys, 
-# we have to duplicate this function here :-((((
-sub lilypond_menu_link($$$$$$)
-{
-    my $entry = shift;
-    my $state = shift;
-    my $href = shift;
-    my $node = shift;
-    my $name = shift;
-    my $ending = shift;
-    if (($entry eq '') or $NODE_NAME_IN_MENU or $state->{'preformatted'})
-    {
-        $name .= ':' if ($name ne '');
-        $entry = "$MENU_SYMBOL$name$node";
-    }
-    $menu_entry_index++;
-    my $accesskey;
-    $accesskey = "accesskey=\"$menu_entry_index\"" if ($USE_ACCESSKEY and ($menu_entry_index < 10));
-    $entry = &$anchor ('', $href, $entry, $accesskey) if (defined($href));
-    return $entry if ($SIMPLE_MENU); 
-    if ($state->{'preformatted'})
-    {
-        return '<tr><td>' . main::do_preformatted($entry . $ending, $state);
-    }
-    return "<tr><td align=\"left\" valign=\"top\">$entry</td><td>&nbsp;&nbsp;</td>";
-}
-
-
 # The default formatting of external refs returns e.g. 
 # "(lilypond-internals)Timing_translator", while we simply want "Timing_translator".
 # Solution: Remove all (...) from the file_and_node argument before calling
@@ -244,6 +217,14 @@ sub lilypond_print_element_header
   return T2H_DEFAULT_print_element_header( $fh, $first_in_page, $previous_is_top);
 }
 
+sub lilypond_toc_body($)
+{
+    my $elements_list = shift;
+    # Generate a default TOC for pages without THIS_ELEMENT
+    @default_toc = lilypond_generate_page_toc_body(@$elements_list[0]);
+    return T2H_GPL_toc_body($elements_list);
+}
+
 
 
 
@@ -258,13 +239,9 @@ sub lilypond_print_element_header
 sub print_lilypond_page_foot($)
 {
   my $fh = shift;
-#   my @lines = @{$Texi2HTML::OVERVIEW};
-#   my $lines = $Texi2HTML::TOC_LINES;
   my @lines = @this_page_toc;
-  if (not @lines) {
-    print "We have no toc lines, generate generic ones for main::element_top::\n";
-    @lines = @$Texi2HTML::TOC_LINES;
-  }
+  # use default TOC if no custom lines have been generated
+  @lines = @default_toc if (not @lines);
   if (@lines) {
     print $fh "<div id=\"tocframe\">";
     print $fh '<h4> ' . $Texi2HTML::NAME{'Contents'}  . "</h4>\n";
@@ -276,7 +253,6 @@ sub print_lilypond_page_foot($)
   }
   T2H_DEFAULT_print_page_foot($fh);
 }
-
 
 
 
@@ -479,16 +455,16 @@ sub lilypond_print_navigation
     );
 
 # $Texi2HTML::Config::SPLIT = 'section';
-@Texi2HTML::Config::CSS_REFS = ("lilypond.css");
+@Texi2HTML::Config::CSS_REFS      = ("lilypond.css");
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
-$Texi2HTML::Config::USE_LINKS = 1;
-$Texi2HTML::Config::USE_REL_REV = 1;
-$Texi2HTML::Config::element_file_name = \&split_at_numbered_sections;
+$Texi2HTML::Config::USE_LINKS     = 1;
+$Texi2HTML::Config::USE_REL_REV   = 1;
+$Texi2HTML::Config::element_file_name    = \&split_at_numbered_sections;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
-$Texi2HTML::Config::print_page_foot = \&print_lilypond_page_foot;
-$Texi2HTML::Config::print_navigation = \&lilypond_print_navigation;
-$Texi2HTML::Config::external_ref = \&lilypond_external_ref;
-$Texi2HTML::Config::menu_link = \&lilypond_menu_link;
+$Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
+$Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
+$Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
+$Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
 
 
 # For split pages, use index(.lang).html as start page!
