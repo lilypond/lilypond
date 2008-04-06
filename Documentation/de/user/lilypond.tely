@@ -10,6 +10,8 @@
 @documentencoding UTF-8
 @documentlanguage de
 
+@include macros.itexi
+
 @iftex
 @afourpaper
 @c don't replace quotes with directed quotes
@@ -116,21 +118,7 @@ Free Documentation License''.
 
 @vskip 20pt
 
-@lilypond[ragged-right]
-\score {
-  \context Lyrics {
-    \override Score.RehearsalMark #'self-alignment-X = #LEFT
-    \override Score.RehearsalMark #'font-size = #-2
-    \mark #(ly:export (string-append
-      "(For LilyPond version " (lilypond-version) ")"))
-    s2
-  }
-  \layout {
-    indent = 0.0\pt
-  }
-}
-@end lilypond
-
+Für LilyPond Version @version{}
 @end titlepage
 
 @copying
@@ -202,10 +190,7 @@ Free Documentation License''.
 @top GNU LilyPond -- Das Notationsprogramm
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Das ist das Benutzerhandbuch für GNU LilyPond Version 2.11.x
-@ifhtml
-(Siehe Ende der Seite für die genaue Versionsnummer).
-@end ifhtml
+Das ist das Benutzerhandbuch für GNU LilyPond Version @version{}.
 
 @cindex Internetseite
 @cindex URL
@@ -218,10 +203,8 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 
 @menu
 * Musical notation::               Allgemeine Notation von Musik.
-* Specialist notation::            Notation, die nur für spezielle Zwecke 
-    eingesetzt wird.
-* Input syntax::                   Allgemeine Information über die 
-    Quelledateien von LilyPond.
+* Specialist notation::            Notation, die nur für spezielle Zwecke eingesetzt wird.
+* Input syntax::                   Allgemeine Information über die Quelledateien von LilyPond.
 * Non-musical notation::           Alles, was nicht Musiknotation ist.
 * Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
 * Changing defaults::              Das Notenbild verfeinern.
@@ -240,8 +223,6 @@ Anhänge
 
 @contents
 
-
-@include macros.itexi
 
 @include notation.itely
 @include specialist.itely
