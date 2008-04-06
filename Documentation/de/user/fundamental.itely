@@ -7,29 +7,146 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 
 @node Fundamental concepts
 @chapter Fundamental concepts
 
-UNTRANSLATED NODE: IGNORE ME
+Dieses Kapitel behandelt das allgemeine Konzept von LilyPond
+und wie man  @code{\score}-Blöcke erstellt.
 
 @menu 
 * How LilyPond files work::
 * Voices contain music::
 * Contexts and engravers::
 * Extending the templates::
-@end menu 
+@end menu
+
 @node How LilyPond files work
 @section How LilyPond files work
 
-UNTRANSLATED NODE: IGNORE ME
+Das LilyPond Eingabeformat hat eine ziemlich freie Form, so dass 
+für erfahrene Benutzer viel Freiheit besteht, die Struktur ihrer 
+Quelldateien anzulegen. Für Neulinge kann diese Flexibilität aber 
+erst einmal verwirrend sein. In diesem Kapitel soll darum ein Teil 
+dieser Strukturen dargestellt werden, vieles aber zur Vereinfachung 
+auch weggelassen werden. Für eine komplette Beschreibung des Eingabeformats 
+siehe @ruser{File structure}.
 
-@menu 
+Die meisten Beispiele in diesem Handbuch sind kleine Schnipsel, wie 
+etwa dieser:
+
+@example
+c4 a b c
+@end example
+
+Wie hoffentlich bekannt ist, lässt sich solch ein Schnipsel nicht 
+in dieser Form übersetzen. Diese Beispiele sind also nur Kurzformen 
+von wirklichen Beispielen. Sie müssen wenigstens zusätzlich in 
+geschweifte Klammern gesetzt werden.
+
+@example
+@{
+  c4 a b c
+@}
+@end example
+
+Die meisten Beispiele benutzen auch den @code{\relative c'}-Befehl. 
+Der ist nicht nötig, um die Dateien zu übersetzen, aber in den meisten 
+Fällen sieht der Notensatz seltsam aus, wenn man den Befehl 
+weglässt.
+
+@lilypond[quote,fragment,ragged-right,verbatim]
+\relative c'' {
+  c4 a b c
+}
+@end lilypond
+
+Jetzt kommt noch eine Ebene dazu: LilyPond-Code in der obigen Form 
+ist in Wirklichkeit auch wieder eine Abkürzung. Auch wenn man so 
+Dateien schreiben kann und sie auch korrekt gesetzt werden, heißt 
+der wirkliche Code, der hier gemeint ist, eigentlich:
+
+@example
+\score @{
+  \relative c'' @{
+    c4 a b c
+  @}
+@}
+@end example
+
+Eine Partitur (@code{\score}) muss immer mit einem musikalischen Ausdruck 
+beginnen. Das ist letztendlich alle Musik, angefangen bei einer 
+einzelnen
+Note bis hin zu einer riesigen Partitur mit vielen Notensystemen 
+(bezeichnet durch @code{GrandStaff}):
+
+@example
+@{
+  \new GrandStaff <<
+    hier die gesamte Partitur 
+  >>
+@}
+@end example
+
+@noindent
+Da sich alles innerhalb der geschweiften Klammern @code{@{ ... @}} 
+befindet, wird es wie ein einziger musikalischer Ausdruck behandelt.
+
+
+Ein @code{\score} auch andere Dinge enthalten, wie etwa
+
+@example
+\score @{
+  @{ c'4 a b c' @}
+  \layout @{ @}
+  \midi @{ @}
+  \header @{ @}
+@}
+@end example
+
+@noindent
+Viele setzen einige dieser Befehle außerhalb des 
+@code{\score}-Blocks, zum Beispiel wird der @code{\header} 
+sehr oft oberhalb der  @code{\score}-Umgebung gesetzt. Das 
+funktioniert genauso gut.
+
+@cindex Variablen
+@cindex Bezeichner
+
+Eine gute Möglichkeit zur Vereinfachung sind selbst definierte Variablen. 
+Alle Vorlagen verwenden diese Möglichkeit.
+
+@example
+melodie = \relative c' @{
+  c4 a b c
+@}
+
+\score @{
+  @{ \melodie @}
+@}
+@end example
+
+Wenn LilyPond diese Datei analysiert, nimmt es den Inhalt
+von @code{melodie} (alles, was nach dem Gleichheitszeichen
+kommt) und fügt ihn immer dann ein, wenn ein @code{\melodie} 
+vorkommt. Die Namen sind frei wählbar, die Variable kann genauso
+gut  @code{melodie}, @code{GLOBAL},
+@code{rechteHandklavier}, oder @code{foofoobarbaz} heißen. Für mehr
+Information siehe
+@ruser{Saving typing with identifiers and functions}.
+
+Eine komplette Definition des Eingabeformats findet sich
+im Kapitel @ruser{File structure}.
+
+@menu
 * Introduction to the LilyPond file structure::
 * Score is a (single) compound musical expression::
 * Nesting music expressions::
 * On the un-nestedness of brackets and ties::
-@end menu 
+@end menu
+
 @node Introduction to the LilyPond file structure
 @subsection Introduction to the LilyPond file structure
 
@@ -38,7 +155,145 @@ UNTRANSLATED NODE: IGNORE ME
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
 
-UNTRANSLATED NODE: IGNORE ME
+Im vorigen Kapitel, @ruser{How LilyPond files work}, 
+wurde die allgemeine Struktur einer LilyPond-Quelldatei 
+beschrieben. Aber anscheinend haben wir die wichtigste 
+Frage ausgelassen, nämlich wie man herausfindet, was nach 
+dem @code{\score} geschrieben werden soll.
+
+In Wirklichkeit ist das aber gar kein Geheimnis. Diese 
+Zeile ist die Antwort:
+
+
+@quotation
+@emph{Eine Partitur fängt immer mit @code{\score} an, gefolgt 
+von einem einzelnen musikalischen Ausdruck.}
+@end quotation
+
+@noindent
+Vielleicht wollen Sie noch einmal 
+@ruser{Music expressions explained} überfliegen. In diesem
+Kapitel wurde gezeigt, wie sich große musikalische Ausdrücke 
+aus kleinen Teilen zusammensetzen. Noten können zu Akkorden 
+verbunden werden usw. Jetzt gehen wir aber in die andere Richtung 
+und betrachten, wie sich ein großer musikalischer Ausdruck 
+zerlegen lässt.
+
+@example
+\score @{
+  @{   % diese Klammer startet den großen mus. Ausdruck
+    \new GrandStaff <<
+      hier eine ganze Wagner-Oper einfügen
+    >>
+  @}   % diese Klammer beendet den Ausdruck
+  \layout @{ @}
+@}
+@end example
+
+Eine Wagner-Oper ist mindestens doppelt so lang wie dieses Handbuch,
+beschränken wir uns also auf einen Sänger und Klavier. Wir brauchen 
+keine Orchesterpartitur (@code{GrandStaff}) dafür, darum lassen wir 
+den Befehl weg. Wir brauchen aber einen Sänger und ein Klavier.
+
+@example
+\score @{
+  @{
+    <<
+      \new Staff = "Sänger" <<
+      >>
+      \new PianoStaff = Klavier <<
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+Zur Erinnerung: mit @code{<<} und @code{>>} werden Noten gleichzeitig
+gesetzt; wir wollen ja auch Klavier- und Sängerstimme gleichzeitig 
+haben.
+
+@example
+\score @{
+  @{
+    <<
+      \new Staff = "Sänger" <<
+        \new Voice = "vocal" @{ @}
+      >>
+      \new Lyrics \lyricsto vocal \new Lyrics @{ @}
+      \new PianoStaff = "piano" <<
+        \new Staff = "upper" @{ @}
+        \new Staff = "lower" @{ @}
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+Jetzt haben wir viel mehr Details. Wir haben ein System (engl. staff) 
+für einen Sänger, in dem sich wieder eine Stimme (engl. voice) 
+befindet. @code{Voice} bedeutet für LilyPond eine Stimme (sowohl 
+gesungen als auch gespielt) und evtl. zusätzlich einen Text. Zusätzlich 
+werden zwei Notensysteme für das Klavier mit dem Befehl @code{\new 
+PianoStaff} gesetzt. @code{PianoStaff} bezeichnet die Piano-Umgebung (etwa 
+durchgehende Taktstriche und die geschweifte Klammer am Anfang), in der 
+dann wiederum zwei eigene Systeme ("upper" für die rechte Hand und 
+"lower" 
+für die linke) erstellt werden.
+
+Jetzt könnte man in diese Umgebung Noten einfügen. Innerhalb der 
+geschweiften 
+Klammern neben @code{\new Voice = vocal} könnte man
+
+
+@example
+\relative c'' @{
+  a4 b c d
+@}
+@end example
+
+@noindent schreiben. Aber wenn man seine Datei so direkt schreibt, wird 
+der @code{\score}-Abschnitt sehr lang und es wird ziemlich schwer zu 
+verstehen, wie alles zusammenhängt. Darum bietet es sich an, Bezeichner 
+(oder Variablen) zu verwenden.
+
+
+@example
+melodie = @{ @}
+text = @{ @}
+upper = @{ @}
+lower = @{ @}
+\score @{
+  @{
+    <<
+      \new Staff = "Sänger" <<
+        \new Voice = "vocal" @{ \melodie @}
+      >>
+      \new Lyrics \lyricsto vocal \new Lyrics @{ \text @}
+      \new PianoStaff = "piano" <<
+        \new Staff = "upper" @{ \upper @}
+        \new Staff = "lower" @{ \lower @}
+      >>
+    >>
+  @}
+  \layout @{ @}
+@}
+@end example
+
+@noindent
+Nochmal: der Bezeichner kann aller möglicher Text sein. Die 
+Einschränkungen sind in
+@ruser{File structure} genau aufgelistet.
+
+Beim Schreiben (oder Lesen) einer @code{\score}-Umgebung 
+sollte man langsam und sorgfältig vorgehen. Am besten fängt 
+man mit dem größten Gebilde an und definiert dann die darin 
+enthaltenen kleineren der Reihe nach. Es hilft auch, sehr 
+genau mit den Einzügen zu sein, so dass jede Zeile, die 
+der gleichen Ebene angehört, wirklich horizontal an der 
+gleichen Stelle beginnt.
+
 
 @node Nesting music expressions
 @subsection Nesting music expressions
@@ -87,7 +342,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Engravers explained::
 * Modifying context properties::
 * Adding and removing engravers::
-@end menu 
+@end menu
+
 @node Contexts explained
 @subsection Contexts explained
 
@@ -113,9 +369,6 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@subsubsection Changing a single context
-@ 
-@subsubsection Changing all contexts of the same type
 @node Extending the templates
 @section Extending the templates
 
@@ -125,7 +378,8 @@ UNTRANSLATED NODE: IGNORE ME
 * Soprano and cello::
 * Four-part SATB vocal score::
 * Building a score from scratch::
-@end menu 
+@end menu
+
 @node Soprano and cello
 @subsection Soprano and cello
 
@@ -141,7 +395,3 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.

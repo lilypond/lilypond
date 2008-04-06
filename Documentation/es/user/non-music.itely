@@ -7,6 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
 @c to automatically fill in these menus before saving changes

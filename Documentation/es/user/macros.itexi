@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9cbbaed46b1d551db77c37566ae23a4a5a44b5e4
+    Translation of GIT committish: d0333749421c9695907a4da61a6e1cd7eafcb726
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,8 +13,10 @@
 @c   ***** Displaying text *****
 
 @c we need this since @q{\} doesn't work with makeinfo 4.8 --
-@c say @q{@value{backslash}} instead
-@set backslash \
+@c say @q{@bs{}} instead
+@macro bs
+\\
+@end macro
 
 @c to get decent quotes in `foo' and ``foo''
 @macro q{TEXT}
@@ -162,27 +164,31 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page}
+@ref{\TEXT\,,,lilypond-internals-big-page,Referencia de Funcionamiento Interno}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary-big-page}
+@ref{\TEXT\,,,music-glossary-big-page,Glosario Musical}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-big-page}
+@ref{\TEXT\,,,lilypond-program-big-page,Utilización del Programa}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-big-page}
+@ref{\TEXT\,,,lilypond-big-page,Referencia de la Notación}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning-big-page}
+@ref{\TEXT\,,,lilypond-learning-big-page,Manual de Aprendizaje}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets-big-page,Fragmentos de código}
 @end macro
 
 @end ifset
@@ -192,27 +198,31 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals}
+@ref{\TEXT\,,,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Glosario Musical}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Utilización del Programa}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Referencia de la Notación}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Manual de Aprendizaje}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Fragmentos de código}
 @end macro
 
 @end ifclear
@@ -225,28 +235,34 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals}
+@ref{\TEXT\,,,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Glosario Musical}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Utilización del Programa}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Referencia de la Notación}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Manual de Aprendizaje}
 @end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Fragmentos de código}
+@end macro
+
+
 
 @end ifdocbook
 
@@ -256,28 +272,34 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,lilypond-internals}
+@inforef{\TEXT\,,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,music-glossary}
+@inforef{\TEXT\,,music-glossary,Glosario Musical}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Utilización del Programa}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Referencia de la Notación}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Manual de Aprendizaje}
 @end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Fragmentos de código}
+@end macro
+
+
 
 @end ifinfo
 
@@ -292,23 +314,29 @@
 
 @macro rglos {TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Glosario Musical}
 @end macro
 
 @macro rprogram{TEXT}
-el manual de utilización del programa, @ref{\TEXT\,,,lilypond-program.es}
+el manual de utilización del programa, @ref{\TEXT\,,,lilypond-program.es,Utilización del Programa}
 @c @internalsref{\TEXT\}
 @end macro
 
 @macro ruser{TEXT}
-el manual de referencia de la notación, @ref{\TEXT\,,,lilypond.es}
+el manual de referencia de la notación, @ref{\TEXT\,,,lilypond.es,Referencia de la Notación}
 @c @internalsref{\TEXT\}
 @end macro
 
 @macro rlearning{TEXT}
-el manual de aprendizaje, @ref{\TEXT\,,,lilypond-learning.es}
+el manual de aprendizaje, @ref{\TEXT\,,,lilypond-learning.es,Manual de Aprendizaje}
 @c @internalsref{\TEXT\}
 @end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Fragmentos de código}
+@end macro
+
+
 
 @end iftex
 

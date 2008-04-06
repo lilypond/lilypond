@@ -6,6 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @node Text
 @section Text
 
@@ -13,6 +15,11 @@
 
 This section explains how to include text (with various
 formatting) in your scores.
+
+@noindent
+Some text elements that are not dealt with here are discussed in other
+specific sections: @ref{Vocal music}, @ref{Titles and headers}.
+
 
 @cindex Text, other languages
 @warning{To write accented and special text (such as characters
@@ -22,66 +29,19 @@ information, see @ref{Text encoding}.}
 
 @menu
 * Writing text::                
-* Text markup::                 
+* Formatting text::                 
 @end menu
 
 
 @node Writing text
 @subsection Writing text
 
-@menu
-* Overview of text entry::      
+@menu     
 * Text scripts::                
 * Text spanners::               
 * Text marks::                  
+* Separate text::                  
 @end menu
-
-@node Overview of text entry
-@subsubsection Overview of text entry
-
-There are four ways to add text to scores:
-
-@itemize
-@item
-@ref{Text scripts}: blah blah
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4^"text" c c c
-@end lilypond
-
-@item
-@ref{Text spanners}: blah blah
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c1
-\override TextSpanner #'bound-details #'left #'text =
-  \markup { \upright "rall" } 
-c2\startTextSpan b c\stopTextSpan a
-@end lilypond
-
-@item
-@ref{Text marks}: blah blah
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4\mark "foo" c c c
-@end lilypond
-
-@item
-@ref{Vocal music}: blah blah, not in this section.
-
-@lilypond[verbatim,quote,ragged-right]
-<<
-  \relative c'' { c4 c c c }
-  \addlyrics { one two three four }
->>
-@end lilypond
-
-@end itemize
-
-@seealso
-
-Snippets: @lsrdir{Text,Text}
-
 
 
 @node Text scripts
@@ -91,8 +51,8 @@ Snippets: @lsrdir{Text,Text}
 @cindex text items, non-empty
 @cindex non-empty texts
 
-It is possible to add arbitrary text indications with
-@var{note}@code{-"}@var{text}@code{"}.
+It is possible to add arbitrary text indications
+to a score, as demonstrated in the following example.
 Such indications can also be manually placed
 above or below the staff, using the
 simple syntax described in @ref{Controlling direction and
@@ -104,8 +64,8 @@ d8^"pizz." e f g a4-"scherz." f
 
 In LilyPond, such text strings are called @command{markup}
 objects.  This syntax is actually a shorthand; more complex text
-formatting may be added to a note by explicitly using the
-@code{\markup} command, as described in @ref{Text markup}.
+formatting may be added to a note by explicitly using a
+@code{\markup} block, as described in @ref{Formatting text}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 d8^\markup { \italic pizz. } e f g 
@@ -131,7 +91,8 @@ d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 
 @seealso
 
-Notation Reference: @ref{Text markup}.
+Notation Reference: @ref{Formatting text},
+@ref{Controlling direction and placement}.
 
 Snippets: @lsrdir{Text,Text}
 
@@ -194,6 +155,8 @@ object property. This syntax is described in @ref{Line styles}.
 
 @seealso
 
+Notation Reference: @ref{Line styles}.
+
 Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextSpanner}.
@@ -217,7 +180,7 @@ c4\mark "dolce" c c c
 
 This syntax makes possible to put any text on a bar line;
 more complex text formatting may be added using a @code{\markup}
-block, as described in @ref{Text markup}.  This can be used to print
+block, as described in @ref{Formatting text}.  This can be used to print
 signs like coda, segno or fermata, by specifying the appropriate
 symbol name:
 
@@ -253,6 +216,9 @@ c c
 
 @seealso
 
+Notation Reference: @ref{Rehearsal marks},
+@ref{Formatting text}, @ref{The Feta font}.
+
 Snippets: @lsrdir{Text,Text}
 
 Internals Reference: @internalsref{RehearsalMark}.
@@ -266,8 +232,81 @@ If a mark is entered at the end of the last bar of the score (where
 there is no next line), then the mark will not be printed at
 all.
 
-@node Text markup
-@subsection Text markup
+@node Separate text
+@subsubsection Separate text
+
+@cindex separate text
+@cindex standalone text
+@cindex top-level text
+@cindex text, standalone
+@funindex \markup
+
+A @code{\markup} block can exist by itself, outside of any
+any @code{\score} block.  This syntax is called a @q{top-level
+expression}, and is described in @code{File structure}.
+
+@c TODO: turn this into a @lilypond example
+
+@example
+\markup @{
+  @var{..}
+@}
+@end example
+
+@noindent
+This allows to print text separately
+from the music, which is particularly 
+useful when the input file contains
+several music pieces, as described in
+@ref{Multiple scores in a book}.
+
+@example
+\score @{
+  @var{..}
+@}
+\markup @{
+  @var{..}
+@}
+\score @{
+  @var{..}
+@}
+@end example
+
+Using a specific syntax, text blocks can be spread
+over multiple pages, making possible to print
+text documents or books -- and therefore to
+use LilyPond as a word processor.  This syntax is described in
+@ref{Page wrapping text}.
+
+@ignore
+@snippets
+
+TODO: add convenient snippets, e.g.
+"Inserting large plain text sections"
+(this requires the LSR to be updated) -vv
+@end ignore
+
+@seealso
+
+Notation Reference: @code{Formatting text},
+@code{File structure}, 
+@ref{Multiple scores in a book},
+@ref{Page wrapping text}.
+
+Snippets: @lsrdir{Text,Text}.
+
+Internals Reference: @internalsref{TextScript}.
+
+@predefined
+
+@funindex \markup
+@code{\markup},
+@funindex \markuplines
+@code{\markuplines}
+
+
+@node Formatting text
+@subsection Formatting text
 
 @menu
 * Text markup introduction::    

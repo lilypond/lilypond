@@ -6,6 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @node Rhythms
 @section Rhythms
 
@@ -712,7 +714,7 @@ signature.
 
 Text can be added to multi-measure rests by using the
 @var{note} - @code{\markup} syntax described in
-@ref{Text markup}.  The predefined command @code{\fermataMarkup}
+@ref{Formatting text}.  The predefined command @code{\fermataMarkup}
 is provided for adding fermatas.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
@@ -800,7 +802,7 @@ Music Glossary:
 Notation Reference:
 @ref{Durations},
 @ref{Text},
-@ref{Text markup},
+@ref{Formatting text},
 @ref{Text scripts}.
 
 Snippets: @lsrdir{Rhythms,Rhythms}
@@ -2249,13 +2251,13 @@ See @ref{The Feta font}, for a list of symbols which may be
 printed with @code{\musicglyph}.
 
 For common tweaks to the positioning of rehearsal marks, see
-@ref{Text marks}.
+@ref{Formatting text}.
 
 @seealso
 
 Snippets: @lsrdir{Rhythms,Rhythms}
 
-This manual: @ref{The Feta font}, @ref{Text marks}.
+This manual: @ref{The Feta font}, @ref{Formatting text}.
 
 Internals Reference: @internalsref{RehearsalMark}.
 

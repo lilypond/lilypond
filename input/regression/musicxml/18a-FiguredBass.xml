@@ -54,9 +54,9 @@
         <stem>up</stem>
       </note>
       <figured-bass>
-        <figure><figure-number>1</figure-number><prefix>sharp</prefix></figure>
-        <figure><figure-number>3</figure-number><prefix>flat</prefix></figure>
-        <figure><figure-number>5</figure-number><prefix>natural</prefix></figure>
+        <figure><prefix>sharp</prefix><figure-number>1</figure-number></figure>
+        <figure><prefix>flat</prefix><figure-number>3</figure-number></figure>
+        <figure><prefix>natural</prefix><figure-number>5</figure-number></figure>
         <duration>6</duration>
       </figured-bass>
       <note>
@@ -80,7 +80,7 @@
       </note>
       <figured-bass>
         <figure><figure-number>5</figure-number><suffix>slash</suffix></figure>
-        <figure><figure-number>127</figure-number><prefix>flat</prefix><suffix>slash</suffix></figure>
+        <figure><prefix>flat</prefix><figure-number>127</figure-number><suffix>slash</suffix></figure>
         <duration>8</duration>
       </figured-bass>
       <note>
@@ -91,6 +91,7 @@
         <dot/>
         <stem>up</stem>
       </note>
+      <!-- Check how well the application handles an empty element (invalid MusicXML!) -->
       <figured-bass>
       </figured-bass>
       <note>

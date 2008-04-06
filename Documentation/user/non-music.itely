@@ -7,6 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
 @c to automatically fill in these menus before saving changes
@@ -111,7 +113,7 @@ Centered at the bottom of the last page.
 @end table
 
 Here is a demonstration of the fields available.  Note that you
-may use any @ref{Text markup}, commands in the header.
+may use any @ref{Formatting text}, commands in the header.
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
 \paper {

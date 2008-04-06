@@ -6,48 +6,15 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @node Editorial annotations
 @section Editorial annotations
 
 @menu
-* Note heads::                  
 * Inside the staff::            
 * Outside the staff::           
 @end menu
-
-
-@node Note heads
-@subsection Note heads
-
-@menu
-* Easy notation note heads::    
-* Shape note heads::            
-* Improvisation::               
-* Special noteheads::           
-@end menu
-
-@node Easy Notation note heads
-@unnumberedsubsubsec Easy Notation note heads
-
-UNTRANSLATED NODE: IGNORE ME
-
-
-@node Shape note heads
-@unnumberedsubsubsec Shape note heads
-
-UNTRANSLATED NODE: IGNORE ME
-
-
-@node Improvisation
-@unnumberedsubsubsec Improvisation
-
-UNTRANSLATED NODE: IGNORE ME
-
-
-@node Special noteheads
-@unnumberedsubsubsec Special noteheads
-
-UNTRANSLATED NODE: IGNORE ME
 
 
 @node Inside the staff
@@ -60,7 +27,6 @@ UNTRANSLATED NODE: IGNORE ME
 * Hidden notes::                
 * Coloring objects::            
 * Parentheses::                 
-* Ambitus::                     
 * Stems::                       
 @end menu
 
@@ -148,12 +114,6 @@ UNTRANSLATED NODE: IGNORE ME
 UNTRANSLATED NODE: IGNORE ME
 
 
-@node Ambitus
-@unnumberedsubsubsec Ambitus
-
-UNTRANSLATED NODE: IGNORE ME
-
-
 @node Stems
 @unnumberedsubsubsec Stems
 
@@ -194,24 +154,22 @@ a4 b c b
 @menu
 * Balloon help::                
 * Grid lines::                  
-* Blank music sheet::           
+* Analysis brackets::           
 @end menu
 
 @node Balloon help
-@subsection Balloon help
+@unnumberedsubsubsec Balloon help
 
 UNTRANSLATED NODE: IGNORE ME
 
 
 @node Grid lines
-@subsection Grid lines
+@unnumberedsubsubsec Grid lines
 
 UNTRANSLATED NODE: IGNORE ME
 
 
-@node Blank music sheet
-@subsection Blank music sheet
+@node Analysis brackets
+@unnumberedsubsubsec Analysis brackets
 
 UNTRANSLATED NODE: IGNORE ME
-
-

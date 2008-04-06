@@ -27,10 +27,6 @@
     <measure number="1">
       <attributes>
         <divisions>4</divisions>
-        <clef>
-          <sign>G</sign>
-          <line>2</line>
-        </clef>
         <key>
           <fifths>0</fifths>
         </key>
@@ -38,6 +34,10 @@
           <beats>3</beats>
           <beat-type>4</beat-type>
         </time>
+        <clef>
+          <sign>G</sign>
+          <line>2</line>
+        </clef>
       </attributes>
       <note>
         <pitch>

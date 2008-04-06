@@ -21,6 +21,22 @@ def escape_ly_output_string (input_string):
     return return_string
 
 
+def musicxml_duration_to_log (dur):
+    return  {'256th': 8,
+             '128th': 7,
+             '64th': 6,
+             '32nd': 5,
+             '16th': 4,
+             'eighth': 3,
+             'quarter': 2,
+             'half': 1,
+             'whole': 0,
+             'breve': -1,
+             'longa': -2,
+             'long': -2}.get (dur, 0)
+
+
+
 class Xml_node:
     def __init__ (self):
 	self._children = []
@@ -330,17 +346,7 @@ class Note (Measure_element):
 
         if ch:
             log = ch.get_text ().strip()
-            return {'256th': 8,
-                    '128th': 7,
-                    '64th': 6,
-                    '32nd': 5,
-                    '16th': 4,
-                    'eighth': 3,
-                    'quarter': 2,
-                    'half': 1,
-                    'whole': 0,
-                    'breve': -1,
-                    'longa': -2}.get (log, 0)
+            return musicxml_duration_to_log (log)
 	elif self.get_maybe_exist_named_child (u'grace'):
 	    # FIXME: is it ok to default to eight note for grace notes?
 	    return 3
@@ -890,6 +896,15 @@ class Frame_Note (Music_xml_node):
 class FiguredBass (Music_xml_node):
     pass
 
+class BeatUnit (Music_xml_node):
+    pass
+
+class BeatUnitDot (Music_xml_node):
+    pass
+
+class PerMinute (Music_xml_node):
+    pass
+
 
 
 ## need this, not all classes are instantiated
@@ -903,6 +918,8 @@ class_dict = {
         'barline': Barline,
         'bar-style': BarStyle,
 	'beam' : Beam,
+        'beat-unit': BeatUnit,
+        'beat-unit-dot': BeatUnitDot,
         'bend' : Bend,
         'bracket' : Bracket,
 	'chord': Chord,
@@ -927,6 +944,7 @@ class_dict = {
     'part-group': Part_group,
 	'part-list': Part_list,
         'pedal': Pedal,
+        'per-minute': PerMinute,
 	'pitch': Pitch,
 	'rest': Rest,
     'score-part': Score_part,

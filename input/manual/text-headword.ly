@@ -179,7 +179,7 @@
       \once \override TextScript #'padding = #2
       af16 \sustainDown
       ^ \markup \italic { non staccato }
-      _ \markup \italic { molto \dynamic p, sempre tranquillo
+      _ \markup \italic { molto \concat {\dynamic {p},} sempre tranquillo
          ed egualmente, non rubato }
       <ef' c'>16
       <ef' c'>16

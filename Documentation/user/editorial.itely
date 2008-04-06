@@ -6,6 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @node Editorial annotations
 @section Editorial annotations
 
@@ -173,6 +175,10 @@ Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference:
+@internalsref{FingeringEvent},
+@internalsref{fingering-event},
+@internalsref{Fingering_engraver},
+@internalsref{New_fingering_engraver},
 @internalsref{Fingering}.
 
 
@@ -208,6 +214,10 @@ c
 
 Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
+
+Internals Reference:
+@internalsref{Note_spacing_engraver},
+@internalsref{NoteSpacing}.
 
 
 @node Coloring objects
@@ -312,21 +322,19 @@ Notes in a chord cannot be colored with @code{\override}; use
 @cindex parentheses
 
 Objects may be parenthesized by prefixing @code{\parenthesize} to
-the music event.  This only functions inside chords; to
-parenthesize a single note it must be enclosed with @code{<>} as
-if it is a chord.
-
-FIXME: after 2.11.44 is out,
-@c \parenthesize c4-. \parenthesize r4 \parenthesize <c e g>4->
+the music event.  When applied to a chord, it parenthesizes every
+note.
 
 @lilypond[quote,relative=2,fragment,verbatim,ragged-right]
-c2 < \parenthesize d>
+c2 \parenthesize d
+c2 \parenthesize <c e g>
 @end lilypond
 
 Non-note objects may be parenthesized as well.
 
 @lilypond[quote,relative=2,fragment,verbatim,ragged-right]
-< c d g >2-\parenthesize -. d
+c2-\parenthesize -. d
+c2 \parenthesize r
 @end lilypond
 
 @seealso
@@ -334,9 +342,10 @@ Non-note objects may be parenthesized as well.
 Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
-@knownissues
-
-Rests cannot be parenthesized.
+Internals Reference:
+@internalsref{Parenthesis_engraver},
+@internalsref{ParenthesesItem},
+@internalsref{parentheses-interface}.
 
 
 @node Stems
@@ -374,6 +383,11 @@ Notation Reference:
 
 Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
+
+Internals Reference:
+@internalsref{Stem_engraver},
+@internalsref{Stem},
+@internalsref{stem-interface}.
 
 
 @node Outside the staff
@@ -420,7 +434,9 @@ Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference:
-@internalsref{text-balloon-interface}.
+@internalsref{Balloon_engraver},
+@internalsref{BalloonTextItem},
+@internalsref{balloon-interface}.
 
 
 @node Grid lines
@@ -475,7 +491,13 @@ notes.
 Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
-
+Internals Reference:
+@internalsref{Grid_line_span_engraver},
+@internalsref{Grid_point_engraver},
+@internalsref{GridLine},
+@internalsref{GridPoint},
+@internalsref{grid-line-interface},
+@internalsref{grid-point-interface}.
 
 
 @node Analysis brackets
@@ -523,7 +545,8 @@ Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference:
-@internalsref{HorizontalBracket},
 @internalsref{Horizontal_bracket_engraver},
+@internalsref{HorizontalBracket},
+@internalsref{horizontal-bracket-interface},
 @internalsref{Staff}.
 

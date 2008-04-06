@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d9b4bfc69674eb4ed7b8c6eaa0b646f00eae6c8d
+    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -82,11 +82,50 @@ UNTRANSLATED NODE: IGNORE ME
 
 @menu 
 * Repeats and MIDI::
-@end menu 
+@end menu
+
 @node Repeats and MIDI
 @subsubsection Repeats and MIDI
 
-UNTRANSLATED NODE: IGNORE ME
+@cindex Erweiterung von Wiederholungen
+@funindex \unfoldRepeats
+
+Mit ein bisschen Anpassung können alle Wiederholungstypen 
+auch in der MIDI-Datei wiedergegeben werden. Das wird erreicht 
+durch die @code{\unfoldRepeats}-Funktion. Hiermit werden alle 
+Wiederholungen, welcher Art auch immer, in notengetreue Wiederholungen 
+umgewandelt, die Noten werden also wiederholt ausgegeben.
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+Wenn man eine Partitur schreibt, die diesen @code{\unfoldRepeats}-Befehl 
+für die MIDI-Ausgabe benutzt, muss man zwei @code{\score}-Umgebungen 
+schreiben: eine für die MIDI-Ausgabe, wo die Wiederholungen ausgeschrieben 
+werden, und eine für die gedruckte Notation, in der Klammern, Tremolo und 
+Prozent-Wiederholungen benutzt werden. Zum Beispiel:
+
+@example
+\score @{
+  @var{..music..}
+  \layout @{ .. @}
+@}
+\score @{
+  \unfoldRepeats @var{..music..}
+  \midi @{ .. @}
+@}
+@end example
+
 
 @node other midi
 @section other midi

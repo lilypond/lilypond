@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 35ad19e0e1bcd393d45de90abe1295c16e91190b
+    Translation of GIT committish: b9526773cf95ca29e3d3352c524718fc8e91c599
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.38"
 
 @node Setup
 @chapter Setup

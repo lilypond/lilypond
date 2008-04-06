@@ -6,6 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 
 @node Pitches
 @section Pitches
@@ -208,6 +210,9 @@ Notation Reference:
 Snippets:
 @lsrdir{Pitches,Pitches}.
 
+Internals Reference:
+@internalsref{RelativeOctaveMusic}.
+
 
 @funindex \transpose
 @funindex \chordmode
@@ -341,6 +346,12 @@ Notation Reference:
 
 Snippets:
 @lsrdir{Pitches,Pitches}.
+
+Internals Reference:
+@internalsref{Accidental_engraver}, 
+@internalsref{Accidental},
+@internalsref{AccidentalCautionary},
+@internalsref{accidental-interface}.
 
 
 @knownissues
@@ -533,6 +544,9 @@ checks fail, but the second one does not fail.
 
 Snippets:
 @lsrdir{Pitches,Pitches}.
+
+Internals Reference:
+@internalsref{RelativeOctaveCheck}.
 
 
 @node Transpose
@@ -788,7 +802,10 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
-@internalsref{Clef}.
+@internalsref{Clef_engraver},
+@internalsref{Clef},
+@internalsref{OctavateEight},
+@internalsref{clef-interface}.
 
 
 @node Key signature
@@ -863,8 +880,13 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
+@internalsref{KeyChangeEvent},
+@internalsref{Key_engraver},
+@internalsref{Key_performer},
 @internalsref{KeyCancellation},
-@internalsref{KeySignature}, @internalsref{Key_engraver}.
+@internalsref{KeySignature},
+@internalsref{key-cancellation-interface},
+@internalsref{key-signature-interface}.
 
 
 @node Ottava brackets
@@ -906,7 +928,9 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
-@internalsref{OttavaBracket}.
+@internalsref{Ottava_spanner_engraver},
+@internalsref{OttavaBracket},
+@internalsref{ottava-bracket-interface}.
 
 
 
@@ -1711,10 +1735,14 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
+@internalsref{Accidental},
 @internalsref{Accidental_engraver},
-@internalsref{Accidental}, @internalsref{AccidentalSuggestion},
-@internalsref{AccidentalPlacement}, @internalsref{GrandStaff} and
-@internalsref{PianoStaff}, @internalsref{Staff}.
+@internalsref{GrandStaff} and
+@internalsref{PianoStaff},
+@internalsref{Staff},
+@internalsref{AccidentalSuggestion},
+@internalsref{AccidentalPlacement},
+@internalsref{accidental-suggestion-interface}.
 
 
 @cindex accidentals and simultaneous notes
@@ -1785,10 +1813,14 @@ Snippets:
 @lsrdir{Pitches,Pitches}.
 
 Internals Reference:
+@internalsref{Ambitus_engraver},
+@internalsref{Voice},
+@internalsref{Staff},
 @internalsref{Ambitus},
-@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
-@internalsref{AmbitusAccidental}, @internalsref{Ambitus_engraver},
-@internalsref{Staff}, @internalsref{Voice}.
+@internalsref{AmbitusAccidental},
+@internalsref{AmbitusLine},
+@internalsref{AmbitusNoteHead},
+@internalsref{ambitus-interface}. 
 
 
 @knownissues
@@ -1853,8 +1885,13 @@ Notation Reference:
 @ref{Note head styles}.
 
 Internals Reference:
+@internalsref{note-event},
+@internalsref{Note_heads_engraver},
+@internalsref{Ledger_line_engraver},
 @internalsref{NoteHead},
-@internalsref{LedgerLineSpanner}.
+@internalsref{LedgerLineSpanner},
+@internalsref{note-head-interface},
+@internalsref{ledger-line-spanner-interface}.
 
 
 @node Easy notation note heads
@@ -1901,10 +1938,13 @@ Notation Reference:
 @ref{Setting the staff size}.
 
 Snippets:
-@lsrdir{Pitches,Pitches},
+@lsrdir{Pitches,Pitches}.
 
 Internals Reference:
-@internalsref{NoteHead}.
+@internalsref{note-event},
+@internalsref{Note_heads_engraver},
+@internalsref{NoteHead},
+@internalsref{note-head-interface}.
 
 
 @node Shape note heads
@@ -1962,6 +2002,12 @@ Snippets:
 Notation Reference:
 @ref{Note head styles}.
 
+Internals Reference:
+@internalsref{note-event},
+@internalsref{Note_heads_engraver},
+@internalsref{NoteHead},
+@internalsref{note-head-interface}.
+
 
 @node Improvisation
 @unnumberedsubsubsec Improvisation
@@ -2004,6 +2050,7 @@ Snippets:
 
 Internals Reference:
 @internalsref{Pitch_squash_engraver},
-@internalsref{Voice}.
+@internalsref{Voice},
+@internalsref{RhythmicStaff}.
 
 
