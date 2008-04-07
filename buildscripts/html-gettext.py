@@ -88,7 +88,7 @@ for filename in args[3:]:
 	page = re.sub (r'<title>([^<]*?) - ([^<]*?)</title>', title_gettext, page)
 	# ugh
 	page = re.sub (r'(?ms)<a ((?:rel="\w+")? ?(?:accesskey="[^"]+?")? ?(?:name=".*?")? ?)(href=".+?">)(<code>)?(Appendix )?([A-Z\d.]+ |)(.+?)(?(3)</code>)</a>:?', a_href_gettext, page)
-	page = re.sub (r'<h(\d)( class="\w+"|)>(Appendix |)([A-Z\d.]+ |)?([^<]+)</h\1>', h_gettext, page)
+	page = re.sub (r'<h(\d)( class="\w+"|)>\s*(Appendix |)([A-Z\d.]+ |)?([^<]*[^< ])\s*</h\1>', h_gettext, page)
 	page = re.sub (r'<a href="(\.\./(?:music-glossary|lilypond-program/)?(?:.+?))">(.+?)</a>', crossmanual_ref_gettext, page)
 	# this is necessary for entries not translated by a_href_gettext
 	page = re.sub (r'<a href="(.+?)">(.+?)</a>', crossmanual_ref_gettext, page)
