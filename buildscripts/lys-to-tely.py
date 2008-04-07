@@ -17,9 +17,7 @@ program_name = 'lys-to-tely'
 
 include_snippets = '@lysnippets'
 fragment_options = 'printfilename,texidoc'
-
-def help ():
-    sys.stdout.write (r"""Usage: %(program_name)s [OPTIONS]... LY-FILE...
+help_text = r"""Usage: %(program_name)s [OPTIONS]... LY-FILE...
 Construct tely doc from LY-FILEs.
 
 Options:
@@ -32,7 +30,10 @@ Options:
    instead of standard template; TEMPLATE should contain a command
    '%(include_snippets)s' to tell where to insert LY-FILEs.  When this
    option is used, NAME and TITLE are ignored.
-""" % vars ())
+"""
+
+def help (text):
+    sys.stdout.write ( text)
     sys.exit (0)
 
 (options, files) = getopt.getopt (sys.argv[1:], 'f:hn:t:',
@@ -68,7 +69,10 @@ for opt in options:
     o = opt[0]
     a = opt[1]
     if o == '-h' or o == '--help':
-        help ()
+        # We can't use vars () inside a function, as that only contains all 
+        # local variables and none of the global variables! Thus we have to 
+        # generate the help text here and pass it to the function...
+        help (help_text % vars ())
     elif o == '-n' or o == '--name':
         name = a
     elif o == '-t' or o == '--title':
