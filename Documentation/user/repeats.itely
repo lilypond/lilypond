@@ -33,7 +33,7 @@ entering repetitious music.
 
 @item percent
 These are beat or measure repeats.  They look like percent signs.
-Percent repeats must be declared within a @c@strong{}ode{Voice} context.
+Percent repeats must be declared within a @code{Voice} context.
 
 @item tremolo
 This is used to write tremolo beams.
