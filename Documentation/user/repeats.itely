@@ -237,7 +237,7 @@ Print a @code{:|} bar line.
 
 @item @code{(volta @var{text})}
 Print a volta bracket saying @var{text}.  The text can be specified as
-a text string or as a markup text, see @ref{Text markup}.  Do not
+a text string or as a markup text, see @ref{Formatting text}.  Do not
 forget to change the font, as the default number font does not contain
 alphabetic characters;
 
