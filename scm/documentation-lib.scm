@@ -61,7 +61,7 @@
 		      (0 . "@top")
 		      (1 . "@chapter")
 		      (2 . "@section")
-		      (3 . "@subsec")
+		      (3 . "@subsection")
 		      (4 . "@unnumberedsubsubsec")
 		      (5 . "@unnumberedsubsubsec")))))
 
