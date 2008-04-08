@@ -53,7 +53,7 @@ Befehl @code{\taor}, anstatt
 @noindent zu schreiben.
 
 @code{bagpipe.ly} enthält außerdem Definitionen für Tonhöhen von 
-Dudelsacknoten in bestimmten Oktoven, so dass man sich nicht mehr um
+Dudelsacknoten in bestimmten Oktaven, so dass man sich nicht mehr um
 @code{\relative} oder @code{\transpose} kümmern muss.
 
 @lilypond[ragged-right,verbatim,quote,notime]
@@ -61,7 +61,7 @@ Dudelsacknoten in bestimmten Oktoven, so dass man sich nicht mehr um
 { \grg G4 \grg a \grg b \grg c \grg d \grg e \grg f \grA g A }
 @end lilypond
 
-Musik für den Dudelsack wird dem Namen nach in D-dur
+Musik für den Dudelsack wird dem Namen nach in D-Dur
  geschrieben (auch wenn das eigentlich nicht stimmt). Weil 
  das aber die einzige Tonart ist, die benutzt werden kann, werden 
  die Vorzeichen meistens nicht geschrieben. Damit das funktioniert, 
