@@ -127,7 +127,7 @@ to a single duration and add phrase markings or pedal indicators.
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
-@uref{http://@/www.@/recordarde@/.com/xml@/.html,MusicXML} is an XML dialect
+@uref{http://@/www.@/recordare@/.com/xml@/.html,MusicXML} is an XML dialect
 for representing music notation.
 
 @command{musicxml2ly} extracts the notes from part-wise MusicXML
