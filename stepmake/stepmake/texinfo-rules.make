@@ -48,9 +48,8 @@ $(outdir)/%/index.html: $(outdir)/%.texi
 	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
-# TODO: Pass -D bigpage to texi2html
 $(outdir)/%-big-page.html: $(outdir)/%.texi
-	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $< 
+	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $< 
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
 $(outdir)/%.html: $(outdir)/%.texi
