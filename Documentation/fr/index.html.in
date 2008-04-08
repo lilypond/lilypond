@@ -94,9 +94,9 @@
 		href="user/lilypond-program-big-page.html">page unique en anglais</a>, ou
 	    <a class="title" href="user/lilypond-program.fr.pdf">au format PDF</a>)
  	      <br>&mdash; installation et exécution des programmes
-	    <li><a class="title" href="../input/lsr/snippets/index.html">Exemples de code</a>
-(en <a class="title" href="../input/lsr/snippets-big-page.html">une seule grande page</a>,
-au format <a class="title" href="../input/lsr/snippets.pdf">PDF</a>)
+	    <li><a class="title" href="../input/lsr/lilypond-snippets/index.html">Exemples de code</a>
+(en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">une seule grande page</a>,
+au format <a class="title" href="../input/lsr/lilypond-snippets.pdf">PDF</a>)
 	      <br>&mdash; petits trucs, astuces et exemples
 	  </ul>
 	  </td>
