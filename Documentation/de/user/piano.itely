@@ -7,6 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 
 @node Piano music
 @section Piano music
@@ -39,7 +41,7 @@ das Klaviersystem und andere Eigenheiten der Pianonotation besprochen.
 
 Dynamische Zeichen werden nicht automatisch mittig notiert, aber 
 dafür gibt es Lösungen, vgl. die 
-@q{piano centered dynamics}-Vorlage in @ref{Piano templates}.
+@q{piano centered dynamics}-Vorlage in @rlearning{Piano templates}.
 
 @cindex Hälse über zwei Systeme
 @cindex System querende Hälse

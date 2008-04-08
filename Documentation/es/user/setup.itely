@@ -1,11 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 35ad19e0e1bcd393d45de90abe1295c16e91190b
+    Translation of GIT committish: b258483467822a7fee6ec2d060e67e209e456582
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
+
+@c \version "2.11.38"
 
 @node Setup
 @chapter Setup
@@ -209,7 +211,7 @@ Cuando esta funcionalidad está activada, LilyPond añade hiper-enlaces al archi
 PDF. Estos hiper-enlaces se envían al navegador de web, que a su vez abre un
 editor de texto con el cursor situado en el lugar correcto.
 
-Para conseguir que esta cadena funciones, tendrá que configurar el visor de PDF de forma que
+Para conseguir que esta cadena funcione, tendrá que configurar el visor de PDF de forma que
 siga los hiper-enlaces usando el guión @file{lilypond-invoke-editor} proporcionado
 con LilyPond.
 

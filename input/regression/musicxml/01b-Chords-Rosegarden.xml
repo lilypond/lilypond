@@ -9,18 +9,18 @@
 		</encoding>
 	</identification> 
 	<part-list>
-		<score-part id="0">
+		<score-part id="P0">
 			<part-name>Chord test</part-name>
-			<score-instrument id="#1">
+			<score-instrument id="I1">
 				<instrument-name>0</instrument-name>
 			</score-instrument>
-			<midi-instrument id="#1">
+			<midi-instrument id="I1">
 				<midi-channel>1</midi-channel>
 				<midi-program>1</midi-program>
 			</midi-instrument>
 		</score-part>
 	</part-list>
-	<part id="0">
+	<part id="P0">
 		<measure number="1">
 			<attributes>
 				<divisions>960</divisions>

@@ -6,6 +6,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @node Text
 @section Text
 
@@ -13,13 +15,10 @@
 
 This section explains how to include text (with various
 formatting) in your scores.
-Some text elements that are not dealt with here are discussed in other
-specific sections:
 
-@itemize
-@item @ref{Vocal music}
-@item @ref{Titles and headers}
-@end itemize
+@noindent
+Some text elements that are not dealt with here are discussed in other
+specific sections: @ref{Vocal music}, @ref{Titles and headers}.
 
 
 @cindex Text, other languages
@@ -52,8 +51,8 @@ information, see @ref{Text encoding}.}
 @cindex text items, non-empty
 @cindex non-empty texts
 
-It is possible to add arbitrary text indications with
-@var{note}@code{-"}@var{text}@code{"}.
+It is possible to add arbitrary text indications
+to a score, as demonstrated in the following example.
 Such indications can also be manually placed
 above or below the staff, using the
 simple syntax described in @ref{Controlling direction and
@@ -218,7 +217,7 @@ c c
 @seealso
 
 Notation Reference: @ref{Rehearsal marks},
-@ref{Formatting text}.
+@ref{Formatting text}, @ref{The Feta font}.
 
 Snippets: @lsrdir{Text,Text}
 
@@ -250,10 +249,6 @@ expression}, and is described in @code{File structure}.
 
 @example
 \markup @{
-  @var{..}
-@}
-
-\score @{
   @var{..}
 @}
 @end example

@@ -7,6 +7,8 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.38"
+
 @ignore
 Tutorial guidelines:
 - unless you have a really good reason, use either
@@ -33,11 +35,11 @@ werden können.
 
 
 @menu
-* First steps::
-* Single staff notation::
-* Multiple notes at once::
-* Songs::
-* Final touches::
+* First steps::                 
+* Single staff notation::       
+* Multiple notes at once::      
+* Songs::                       
+* Final touches::               
 @end menu
 
 
@@ -48,10 +50,10 @@ In diesem Abschnitt werden die Grundlagen zur Benutzung
 des Programmes erklärt.
 
 @menu
-* Compiling a file::
-* Simple notation::
-* Working on text files::
-* How to read the manual::
+* Compiling a file::            
+* Simple notation::             
+* Working on text files::       
+* How to read the manual::      
 @end menu
 
 
@@ -164,9 +166,9 @@ Erstellen Sie eine Text-Datei mit dem Namen @file{test.ly} und
 geben Sie folgenden Text ein:
 
 @example
-{
+@{
   c' e' g' e'
-}
+@}
 @end example
 
 Um die Datei zu bearbeiten, geben sie an der Konsole
@@ -978,11 +980,11 @@ in einem Stück. Polyphonie bzw. Mehrstimmigkeit heißt für LilyPond allerdings
 das Vorkommen von mehr als einer Stimme pro System.
 
 @menu
-* Music expressions explained::
-* Multiple staves::
-* Piano staves::
-* Combining notes into chords::
-* Single staff polyphony::
+* Music expressions explained::  
+* Multiple staves::             
+* Staff groups::                
+* Combining notes into chords::  
+* Single staff polyphony::      
 @end menu
 
 
@@ -1317,7 +1319,7 @@ gezeigt.
 @menu
 * Setting simple songs::        
 * Aligning lyrics to a melody::  
-* Lyrics to multiple staves::
+* Lyrics to multiple staves::   
 @end menu
 
 
@@ -1418,7 +1420,7 @@ betroffenen Noten zu notieren:
 @end lilypond
 
 Hier wurde auch noch die Balkenlänge manuell gesetzt (mit den 
-eckigen Klammern {code{[ ]}, damit die Balkenlänge der 
+eckigen Klammern @code{[ ]}, damit die Balkenlänge der 
 üblichen Notationsweise für Gesang entspricht (siehe 
 @ref{Automatic and manual beams}).
 
@@ -1575,7 +1577,7 @@ Gleichzeitig dient es als Einleitung zum Rest des Handbuches.
 * Version number::              
 * Adding titles::               
 * Absolute note names::         
-* After the tutorial::    
+* After the tutorial::          
 @end menu
 
 

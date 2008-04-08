@@ -8,7 +8,7 @@
 # symlinks, see replace_symlinks_urls in
 # buildscripts/add_html_footer.py.
 
-ifneq ($(INFO_IMAGES_DIR),)
+ifneq ($(INFO_IMAGES_DIR),'')
 
 # make dereferences symlinks, and $(INFO_IMAGES_DIR) is a symlink
 # to $(outdir), so we can't use directly $(INFO_IMAGES_DIR) as a
