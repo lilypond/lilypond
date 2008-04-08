@@ -3340,13 +3340,12 @@ the staff.
   g1 |
 }
 \addlyrics {
-  Some -- where o -- ver the Rain -- bow way up high,
+  Some -- where o -- ver the Rain -- bow, way up high,
 }
 @end lilypond
 
 Further examples showing the use of these programmable interfaces
 can be found in @ref{Tweaking with Scheme}.
-
 
 
 

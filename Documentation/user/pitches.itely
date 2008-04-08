@@ -106,8 +106,8 @@ octave.
 @end example
 
 In relative mode, each note is assumed to be as close to the
-previous note as possible.  This means that the octave of pitches
-in @var{musicexpr} is calculated as follows:
+previous note as possible.  This means that the octave of each
+pitch inside @var{musicexpr} is calculated as follows:
 
 @itemize
 @item
@@ -282,7 +282,7 @@ a4 aes a2
 @cindex semi-flats, semi-sharps
 
 Quarter tones may be added; the following is a series of Cs with
-increasing pitches
+increasing pitches:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 ceseh1 ces ceh c cih cis cisih
@@ -493,7 +493,7 @@ Octave checks make such errors easier to find by displaying a
 warning and correcting the octave if a note is found in an
 unexpected octave.
 
-To check the octave of a specific note, specify the absolute
+To check the octave of a note, specify the absolute
 octave after the @code{=}@tie{}symbol.  This example will generate
 a warning (and change the pitch) because the second note is the
 absolute octave @code{d''} instead of @code{d'} as indicated by
@@ -1031,12 +1031,12 @@ Snippets:
 @node Automatic accidentals
 @unnumberedsubsubsec Automatic accidentals
 
-@cindex automatic accidentals
-@cindex accidentals, automatic
-@cindex accidentals
 @cindex accidental style
-@cindex default accidental style
 @cindex accidental style, default
+@cindex accidentals
+@cindex accidentals, automatic
+@cindex automatic accidentals
+@cindex default accidental style
 @funindex set-accidental-style
 
 There are many different conventions on how to typeset
@@ -1311,10 +1311,10 @@ musicB = {
 
 @item modern-cautionary
 @cindex accidentals, modern cautionary style
-@cindex modern style accidentals
-@cindex modern style cautionary accidentals
 @cindex modern accidental style
 @cindex modern cautionary accidental style
+@cindex modern style accidentals
+@cindex modern style cautionary accidentals
 @funindex modern-cautionary
 
 This rule is similar to @code{modern}, but the @q{extra}
@@ -1372,12 +1372,12 @@ musicB = {
 @end lilypond
 
 @item modern-voice
-@cindex accidentals, multivoice
+@cindex accidental style, modern
 @cindex accidentals, modern
+@cindex accidentals, multivoice
+@cindex modern accidental style
 @cindex modern accidentals
 @cindex multivoice accidentals
-@cindex accidental style, modern
-@cindex modern accidental style
 @funindex modern-voice
 
 This rule is used for multivoice accidentals to be read both by
@@ -1436,8 +1436,8 @@ musicB = {
 }
 @end lilypond
 
-@cindex accidental style, modern voice cautionary
 @cindex accidental style, cautionary, modern voice
+@cindex accidental style, modern voice cautionary
 @cindex accidental style, voice, modern cautionary
 @funindex modern-voice-cautionary
 @item modern-voice-cautionary
@@ -1495,11 +1495,10 @@ musicB = {
 @end lilypond
 
 @item piano
-@cindex piano accidentals
-@cindex piano accidentals
+@cindex accidental style, piano
 @cindex accidentals, piano
 @cindex piano accidental style
-@cindex accidental style, piano
+@cindex piano accidentals
 
 This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
@@ -1820,7 +1819,7 @@ Internals Reference:
 @internalsref{AmbitusAccidental},
 @internalsref{AmbitusLine},
 @internalsref{AmbitusNoteHead},
-@internalsref{ambitus-interface}. 
+@internalsref{ambitus-interface}.
 
 
 @knownissues
