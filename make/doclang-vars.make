@@ -2,6 +2,9 @@
 
 LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
 
+SOURCE_PNG_IMAGES=$(shell ls $(top-src-dir)/Documentation/user/*.png)
+OUT_PNG_IMAGES=$(SOURCE_PNG_IMAGES:$(top-src-dir)/Documentation/user/%.png=$(outdir)/%.png) $(outdir)/context-example.png
+
 DOCUMENTATION_INCLUDES = \
   -I $(top-src-dir)/Documentation/user \
   -I $(top-build-dir)/Documentation/user/$(outdir)
@@ -10,9 +13,10 @@ LILYPOND_BOOK_INCLUDES += $(DOCUMENTATION_INCLUDES)
 MAKEINFO_FLAGS += --force --enable-encoding -D 'version $(TOPLEVEL_VERSION)' $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
-TEXI2HTML_FLAGS = 
-TEXI2HTML_INIT = --init-file=$(top-src-dir)/lilypond-texi2html.init
-TEXI2HTML = LANG= $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS)
+TEXI2HTML_LANG=--lang=$(ISOLANG)
+TEXI2HTML_INIT= --init-file=$(top-src-dir)/lilypond-texi2html.init
+TEXI2HTML_FLAGS += $(TEXI2HTML_LANG) $(TEXI2HTML_INIT)
+TEXI2HTML = LANG= $(TEXI2HTML_PROGRAM)
 
 TEXI2PDF_FLAGS += --batch --tidy --command '@set version $(TOPLEVEL_VERSION)'
 TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)

@@ -1,14 +1,10 @@
-ifneq "$(ISOLANG)" ""
-TEXI2HTML_LANG=--lang=$(ISOLANG)
-endif
-
-$(outdir)/%/index.html: $(outdir)/%.texi
+$(outdir)/%/index.html: $(outdir)/%.texi $(OUT_PNG_IMAGES)
 	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_LANG) $(TEXI2HTML_INIT) $<
+	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$(dir $@) --prefix=index --split=section $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi
-	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_LANG) $(TEXI2HTML_INIT) $< 
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(OUT_PNG_IMAGES)
+	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$@ $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
 $(outdir)/%.pdftexi: $(outdir)/%.texi doc-po
@@ -16,6 +12,9 @@ $(outdir)/%.pdftexi: $(outdir)/%.texi doc-po
 
 $(outdir)/%.pdf: $(outdir)/%.pdftexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) $(TEXINFO_PAPERSIZE_OPTION) $(notdir $*).pdftexi
+
+$(outdir)/%.png: $(top-build-dir)/Documentation/user/$(outdir)/%.png
+	ln -f $< $@
 
 $(OUT_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES)
 
