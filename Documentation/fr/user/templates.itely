@@ -22,7 +22,7 @@ UNTRANSLATED NODE: IGNORE ME
 * Vocal ensembles::
 * Ancient notation templates::
 * Jazz combo::
-* Lilypond-book templates::
+* lilypond-book templates::
 @end menu 
 @node Single staff
 @appendixsec Single staff
@@ -69,8 +69,8 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-@node Lilypond-book templates
-@appendixsec Lilypond-book templates
+@node lilypond-book templates
+@appendixsec lilypond-book templates
 
 UNTRANSLATED NODE: IGNORE ME
 

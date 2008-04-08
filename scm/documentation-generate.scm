@@ -72,6 +72,22 @@
 @ifhtml
 @c ***** HTML *****
 
+@ifset bigpage
+
+@macro ruser{TEXT}
+@ref{\\TEXT\\,,,lilypond-big-page,Notation Reference}
+@cindex \\TEXT\\
+@end macro
+
+@macro glossaryref{TEXT}
+@vindex \\TEXT\\
+@ref{\\TEXT\\,,,music-glossary-big-page,Music Glossary}
+@end macro
+
+@end ifset
+
+@ifclear bigpage
+
 @macro ruser{NAME}
 @ref{\\NAME\\,,,lilypond}
 @cindex \\NAME\\
@@ -81,6 +97,8 @@
 @ref{\\NAME\\,,,music-glossary}
 @cindex \\NAME\\
 @end macro
+
+@end ifclear
 
 @macro inputfileref{DIR,NAME}
 @uref{source/\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
