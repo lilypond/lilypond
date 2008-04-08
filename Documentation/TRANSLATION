@@ -7,7 +7,7 @@ The sources live in a GIT repository.  Git 1.5.x is required, and
 latest version available on your platform is always recommended.  To
 get a fresh version of LilyPond sources run
 
-    mkdir lily ; cd lily ; git init-db ; mkdir .git/refs/remotes/origin
+    mkdir lily ; cd lily ; git init-db ; mkdir .git/remotes
 
 then write the two following lines to a text file named .git/remotes/trans
 
