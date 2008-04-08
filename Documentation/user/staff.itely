@@ -170,7 +170,8 @@ down in the snippet section.
 @item
 If no context is specified, the default properties for the score
 will be used: the group is started with a vertical line, and the
-bar lines are not connected.  
+bar lines are not connected.  The name of the beginning bar line 
+grob is @code{SystemStartBar}.  
 
 @lilypond[verbatim,ragged-right,quote]
 \relative c'' <<
@@ -220,7 +221,8 @@ at the left, and bar lines are connected between the staves.
 
 @item
 The @code{PianoStaff} behaves almost as the @code{GrandStaff} but is
-optimized for setting piano music.
+optimized for setting piano music. In particular it supports the printing
+of an instrument name directly, see @ref{Instrument names}.
 
 @lilypond[verbatim,ragged-right,quote]
 \new PianoStaff {
@@ -248,9 +250,8 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 
 @snippets
 
-@c FIXME: not yet in master
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {use-square-bracket-at-the-start-of-a-staff-group.ly}
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{use-square-bracket-at-the-start-of-a-staff-group.ly}
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {display-bracket-with-only-one-staff-in-a-system.ly}
@@ -267,7 +268,7 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 @seealso
 
 Music Glossary: @rglos{brace}, 
-@rglos{bracket}.
+@rglos{bracket}, @rglos{grand staff}.
 
 Snippets: @lsrdir{Staff,Staff-notation}
 
@@ -401,6 +402,10 @@ Internals Reference: @internalsref{SystemStartBar},
 @node Modifying single staves
 @subsection Modifying single staves
 
+This section explains how to change specific attributes of one 
+staff like the staff lines, starting and stopping of staves, sizing
+of staves, and setting ossia sections.
+
 @menu
 * Staff symbol::   
 * Ossia staves::             
@@ -412,32 +417,155 @@ Internals Reference: @internalsref{SystemStartBar},
 
 @cindex adjusting staff symbol
 @cindex drawing staff symbol
+@cindex staff symbol, setting of
 @cindex stop staff lines
 @cindex start staff lines
 @cindex staff lines, amount of
 @cindex staff line, thickness of
 @cindex amount of staff lines
 @cindex thickness of staff lines
+@cindex ledger lines, setting
+@cindex setting of ledger lines
+@cindex spacing of ledger lines
 
 The layout object which draws the lines of a staff is called
-@code{staff symbol}.  The staff symbol may be tuned in the number,
-thickness and distance of lines, using properties.  This is
-demonstrated in the example files
-@c @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} and
-@c @lsr{staff,changing-the-staff-size.ly}.
+@code{staff symbol}.  The staff symbol may be tuned in number,
+thickness and distance of lines, using properties.  It may also
+be started and stopped at every point in the score.
 
-In addition, staves may be started and stopped at will.  This is
-done with @code{\startStaff} and @code{\stopStaff}.
+@itemize
+@item
+Changing the number of staff lines is done by overriding 
+@code{line-count}.  You may need to adjust the clef position
+and the position of the middle C to fit to the new staff.  For
+an explanation, see the snippet section in @ref{Displaying pitches}.
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff {
+  \override Staff.StaffSymbol  #'line-count = #3
+  d d d d
+}
+@end lilypond
+
+@item
+The placement and amount of the staff lines can also set totally 
+manually by defining their positions explicitly.  The middle
+of the staff has the value of 0, each half staff space up and down
+adds an integer.  The default values are 4 2 0 -2 -4.  Bar lines
+are drawn according to the calculated width of the system, but
+they are always centered.  As the
+example shows, the positions of the notes are not influenced
+by the position of the staff lines.
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff \with {
+  \override StaffSymbol #' line-positions = #' ( 7 3 0 -4 -6 -7 )
+  }{
+  a e' f' b' d''
+}
+@end lilypond
+
+@item
+The staff line thickness can be set by overriding the @code{thickness}
+property.  Note that it gets applied also to ledger lines and stems, 
+since they depend on the staff line thickness.  The argument of 
+@code{thickness} is a factor of @code{line-thickness} which defaults
+to the normal staff line thickness.
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff \with {
+  \override StaffSymbol #'thickness = #3
+  }{
+  d d d d
+}
+@end lilypond
+
+@item
+The thickness of the ledger lines can also be set independent of the
+settings for staff lines.  The setting is calculated from a pair of
+values which will be added for the final thickness.  The first value 
+is the staff line thickness multiplied by a factor, the second is
+the staff space multiplied by a factor.  In the example the ledger
+lines get their thickness from one staff line thickness plus 1/5 
+staff space, so they are heavier than a normal staff line.
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff \with {
+  \override StaffSymbol #'  ledger-line-thickness = #' ( 1 . 0.2 ) }
+  {
+  d d d d
+}
+@end lilypond
+
+@item
+The distance of the stafflines can be changed with the 
+@code{staff-space} property. Its argument is the amount
+of staff spaces that should be inserted between the lines.
+The default value is 1. Setting the distance has
+influence on the staff lines as well as on ledger lines.
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff \with {
+  \override StaffSymbol #' staff-space  = #1.5
+  }{
+  a b c' d'
+}
+@end lilypond
+
+@item
+The length of the staff line can also be adjusted
+manually.  The unit is one staff space.  Spacing 
+of the objects inside the staff does not get influenced 
+by this setting.
+
+@lilypond[verbatim,ragged-right,quote]
+\new Staff \with {
+  \override StaffSymbol #' width = #23
+  }{
+  a e' f' b' d''
+}
+@end lilypond
+
+@end itemize
+
+These properties can only be set before instantiating the staff symbol.
+But it is possible to start and stop staves in the middle of a score,
+so each new setting will be applied to the newly instantiated staff.
 
 @lilypond[verbatim,relative=2,fragment]
 b4 b
+%Set here the overrides for the staff 
 \override Staff.StaffSymbol #'line-count = 2
 \stopStaff \startStaff
 b b
+%Revert to the default
 \revert Staff.StaffSymbol #'line-count
 \stopStaff \startStaff
 b b
 @end lilypond
+ 
+@predefined
+
+@code{\stopStaff}, @code{\startStaff}
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{making-some-staff-lines-thicker-than-the-others.ly}
+
+@seealso
+
+Glossary: @rglos{line}, @rglos{ledger line}, @rglos{staff}.
+
+Internals Reference: @internalsref{StaffSymbol}.
+
+@knownissues
+
+When setting staff lines manually, bar lines are
+always drawn centered on the position 0, so the
+maximum distance of the bar lines in either direction 
+must be equal.
+
 
 @node Ossia staves
 @subsubsection Ossia staves
@@ -445,6 +573,24 @@ b b
 @cindex staves, Frenched
 @cindex ossia
 @cindex Frenched staves
+
+Tweaking the staff object allows to resize the staff:
+
+@lilypond[verbatim,ragged-right,quote]
+  \new Staff \with {
+    fontSize = #-3
+    \override StaffSymbol #'staff-space = #(magstep -3)
+    \override StaffSymbol #'thickness = # (magstep -3)
+  }
+  {
+    \clef bass
+    c8 c c c  c c c c
+  }
+@end lilypond
+
+@noindent
+This involves shrinking the staff spaces, the staff lines and
+the font size. See @ref{Setting the staff size}.
 
 In combination with Frenched staves, this may be used to typeset
 @emph{ossia} sections.  An example is shown here
