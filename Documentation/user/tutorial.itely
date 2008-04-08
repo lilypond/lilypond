@@ -713,7 +713,7 @@ d4( c16) cis( d e c cis d) e( d4)
 @cindex phrasing slurs
 @subheading Phrasing slurs
 
-Music Glossary: @rglos{slurs}, @rglos{phrasing}.
+Music Glossary: @rglos{slur}, @rglos{phrasing}.
 
 Slurs to indicate longer @notation{phrasing} can be entered with
 @code{\(} and @code{\)}.  You can have both @notation{slurs}
