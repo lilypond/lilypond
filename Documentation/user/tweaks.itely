@@ -3273,7 +3273,7 @@ interest are:
 @node Avoiding tweaks with slower processing
 @subsection Avoiding tweaks with slower processing
 
-LilyPond can perform extra checks while it processes files.  These
+LilyPond can perform extra checks while it processes input files.  These
 checks will take extra time to perform, but fewer manual tweaks
 may be required to obtain an acceptable result.  If a text script
 or part of the lyrics extends over the margins these checks will
