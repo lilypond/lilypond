@@ -11,16 +11,17 @@
 @node Specialist notation
 @chapter Specialist notation
 
-This chapter explains how to create musical notation.
+This chapter explains how to create musical notation for specific
+types of instrument or in specific styles.
 
 @menu
 * Vocal music::
-* Chords::
-* Piano music::
+* Keyboard instruments::
+* Unfretted string instruments::
+* Fretted string instruments::
 * Percussion::
-* Guitar::
-* Orchestral strings::
-* Bagpipes::
+* Wind instruments::
+* Chord notation
 * Ancient notation::
 @end menu
 
