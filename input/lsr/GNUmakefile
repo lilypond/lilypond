@@ -59,4 +59,4 @@ local-clean:
 local-WWW: info $(outdir)/lilypond-snippets.pdf \
   $(outdir)/lilypond-snippets/index.html \
   $(outdir)/lilypond-snippets-big-page.html \
-  source-links
+  $(source-links)
