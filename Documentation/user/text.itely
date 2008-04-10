@@ -14,7 +14,7 @@
 @lilypondfile[quote]{text-headword.ly}
 
 This section explains how to include text (with various
-formatting) in your scores.
+formatting) in music scores.
 
 @noindent
 Some text elements that are not dealt with here are discussed in other
@@ -36,6 +36,8 @@ information, see @ref{Text encoding}.}
 
 @node Writing text
 @subsection Writing text
+
+This section introduces different ways of adding text to a score.
 
 @menu
 * Text scripts::                
@@ -308,6 +310,9 @@ Internals Reference: @internalsref{TextScript}.
 
 @node Formatting text
 @subsection Formatting text
+
+This section presents basic and advanced text formatting,
+using the @code{\markup} mode specific syntax.
 
 @menu
 * Text markup introduction::    
