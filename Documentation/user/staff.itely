@@ -173,12 +173,10 @@ In a @code{StaffGroup}, the bar lines will be drawn through
 all the staves, and the group is started with a bracket.
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative=2]
-\new StaffGroup {
-  <<
-    \new Staff { c1 c }
-    \new Staff { c c }
-  >>
-}
+\new StaffGroup <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
 @end lilypond
 
 @item
@@ -186,12 +184,10 @@ In a @code{ChoirStaff}, the group is
 started with a bracket, but bar lines are not connected. 
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative=2]
-\new ChoirStaff {
-  <<
-    \new Staff { c1 c }
-    \new Staff { c c }
-  >>
-}
+\new ChoirStaff <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
 @end lilypond
 
 @item
@@ -199,12 +195,10 @@ In a @code{GrandStaff}, the group is started with a brace
 at the left, and bar lines are connected between the staves. 
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative=2]
-\new GrandStaff {
-  <<
-    \new Staff { c1 c }
-    \new Staff { c c }
-  >>
-}
+\new GrandStaff <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
 @end lilypond
 
 @item
@@ -213,12 +207,10 @@ optimized for setting piano music. In particular it supports the printing
 of an instrument name directly, see @ref{Instrument names}.
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative=2]
-\new PianoStaff {
-  <<
-    \new Staff { c1 c }
-    \new Staff { c c }
-  >>
-}
+\new PianoStaff <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
 @end lilypond
 
 @end itemize
