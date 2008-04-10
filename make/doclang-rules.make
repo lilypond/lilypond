@@ -1,10 +1,10 @@
 $(outdir)/%/index.html: $(outdir)/%.texi $(OUT_PNG_IMAGES)
 	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$(dir $@) --prefix=index --split=section $<
+	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(OUT_PNG_IMAGES)
-	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$@ $<
+	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
 $(outdir)/%.pdftexi: $(outdir)/%.texi doc-po
