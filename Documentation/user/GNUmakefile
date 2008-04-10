@@ -119,12 +119,12 @@ source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossa
 
 $(outdir)/source:
 	@rm -f $(@)
-	ln -sf ../../ $(@)
+	ln -sf $(depth) $(@)
 
 $(outdir)/%/source:
 	@rm -f $(@)
 	mkdir -p $(dir $@)
-	ln -sf ../../../ $(@)
+	ln -sf $(depth)/.. $(@)
 
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
  $(datafiles) $(PDF_FILES) $(source-links) info
