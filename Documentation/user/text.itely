@@ -29,18 +29,19 @@ information, see @ref{Text encoding}.}
 
 @menu
 * Writing text::                
-* Formatting text::                 
+* Formatting text::             
+* Fonts::                       
 @end menu
 
 
 @node Writing text
 @subsection Writing text
 
-@menu     
+@menu
 * Text scripts::                
 * Text spanners::               
 * Text marks::                  
-* Separate text::                  
+* Separate text::               
 @end menu
 
 
@@ -276,7 +277,7 @@ Using a specific syntax, text blocks can be spread
 over multiple pages, making possible to print
 text documents or books -- and therefore to
 use LilyPond as a word processor.  This syntax is described in
-@ref{Page wrapping text}.
+@ref{Multi-pages markup}.
 
 @ignore
 @snippets
@@ -291,7 +292,7 @@ TODO: add convenient snippets, e.g.
 Notation Reference: @code{Formatting text},
 @code{File structure}, 
 @ref{Multiple scores in a book},
-@ref{Page wrapping text}.
+@ref{Multi-pages markup}.
 
 Snippets: @lsrdir{Text,Text}.
 
@@ -310,9 +311,11 @@ Internals Reference: @internalsref{TextScript}.
 
 @menu
 * Text markup introduction::    
-* Nested scores::               
-* Page wrapping text::          
-* Font selection::              
+* Common markup commands::      
+* Text alignment::              
+* Graphic notation inside markup::  
+* Music notation inside markup::  
+* Multi-pages markup::          
 @end menu
 
 @node Text markup introduction
@@ -481,9 +484,23 @@ so texts will be spaced slightly too wide.
 
 Syntax errors for markup mode are confusing.
 
+@node Common markup commands
+@subsubsection Common markup commands
 
-@node Nested scores
-@subsubsection Nested scores
+TODO: everything
+
+@node Text alignment
+@subsubsection Text alignment
+
+TODO: everything
+
+@node Graphic notation inside markup
+@subsubsection Graphic notation inside markup
+
+TODO: everything
+
+@node Music notation inside markup
+@subsubsection Music notation inside markup
 
 It is possible to nest music inside markups, by adding a
 @code{\score} block to a markup expression.  Such a score must
@@ -505,8 +522,8 @@ contain a @code{\layout} block.
 
 Snippets: @lsrdir{Text,Text}
 
-@node Page wrapping text
-@subsubsection Page wrapping text
+@node Multi-pages markup
+@subsubsection Multi-pages markup
 
 Whereas @code{\markup} is used to enter a non-breakable block of
 text, @code{\markuplines} can be used at top-level to enter lines
@@ -543,8 +560,53 @@ Snippets: @lsrdir{Text,Text}
 @funindex \markuplines
 @code{\markuplines}
 
-@node Font selection
-@subsubsection Font selection
+
+
+@c TODO: move the following subsubsec into NR3 -vv
+@c maybe.  -gp
+@node Fonts
+@subsection Fonts
+
+@menu
+* Entire document fonts::       
+* Single entry fonts::          
+@end menu
+
+@node Entire document fonts
+@subsubsection Entire document fonts
+
+It is also possible to change the default font family for the
+entire document.  This is done by calling the
+@code{make-pango-font-tree} from within the @code{\paper} block.
+The function takes names for the font families to use for roman,
+sans serif and monospaced text.  For example,
+
+@cindex font families, setting
+@cindex Pango
+
+
+@lilypond[verbatim]
+\paper  {
+  myStaffSize = #20
+
+  #(define fonts
+    (make-pango-font-tree "Times New Roman"
+                          "Nimbus Sans"
+                          "Luxi Mono"
+                           (/ myStaffSize 20)))
+}
+
+{
+  c'^\markup { roman: foo \sans bla \typewriter bar }
+}
+@end lilypond
+
+@c we don't do Helvetica / Courier, since GS incorrectly loads
+@c Apple TTF fonts
+
+
+@node Single entry fonts
+@subsubsection Single entry fonts
 
 @cindex font selection
 @cindex font magnification
@@ -620,35 +682,6 @@ property.  The resulting size is taken relative to the
 @cindex font size
 @cindex font magnification
 
-
-It is also possible to change the default font family for the
-entire document.  This is done by calling the
-@code{make-pango-font-tree} from within the @code{\paper} block.
-The function takes names for the font families to use for roman,
-sans serif and monospaced text.  For example,
-
-@cindex font families, setting
-@cindex Pango
-
-
-@lilypond[verbatim]
-\paper  {
-  myStaffSize = #20
-
-  #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans"
-                          "Luxi Mono"
-                           (/ myStaffSize 20)))
-}
-
-{
-  c'^\markup { roman: foo \sans bla \typewriter bar }
-}
-@end lilypond
-
-@c we don't do Helvetica / Courier, since GS incorrectly loads
-@c Apple TTF fonts
 
 
 
