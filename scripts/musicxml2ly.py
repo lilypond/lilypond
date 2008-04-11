@@ -1842,6 +1842,8 @@ def musicxml_voice_to_lily_voice (voice):
                 dur = fb.real_duration
                 if not dur:
                     dur = ev_chord.get_length ()
+                if not fb.duration:
+                    fb.duration = ev_chord.get_duration ()
                 figured_bass_builder.add_music (fb, dur)
             pending_figured_bass = []
         
