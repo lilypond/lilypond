@@ -21,17 +21,17 @@ types of instrument or in specific styles.
 * Fretted string instruments::
 * Percussion::
 * Wind instruments::
-* Chord notation
+* Chord notation::
 * Ancient notation::
 @end menu
 
 @include vocal.itely
 @include chords.itely
-@include piano.itely
+@include keyboards.itely
 @include percussion.itely
-@include guitar.itely
-@include strings.itely
-@include bagpipes.itely
+@include fretted-strings.itely
+@include unfretted-strings.itely
+@include wind.itely
 @include ancient.itely
 
 
