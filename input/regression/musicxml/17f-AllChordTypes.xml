@@ -2,7 +2,7 @@
 <!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN"
                                 "http://www.musicxml.org/dtds/partwise.dtd">
 <score-partwise>
-  <movement-title>All MusicXM chord names/types</movement-title>
+  <movement-title>All MusicXML chord names/types with &lt;root&gt;</movement-title>
   <identification/>
   <part-list>
     <score-part id="P1">
