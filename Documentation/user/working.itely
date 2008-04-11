@@ -19,38 +19,39 @@ this chapter.
 
 
 @menu
-* Suggestions for writing LilyPond files::  
+* Suggestions for writing LilyPond input files::  
 * When things don't work::      
 * Scores and parts::            
 @end menu
 
 
-@node Suggestions for writing LilyPond files
-@section Suggestions for writing LilyPond files
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
 
-Now you're ready to begin writing larger LilyPond files -- not just the
-little examples in the tutorial, but whole pieces.  But how should you
-go about doing it?
+Now you're ready to begin writing larger LilyPond input files -- 
+not just the little examples in the tutorial, but whole pieces.
+But how should you go about doing it?
 
-As long as LilyPond can understand your files and produces the output
-that you want, it doesn't matter what your files look like.  However,
-there are a few other things to consider when writing LilyPond files.
+As long as LilyPond can understand your input files and produce
+the output that you want, it doesn't matter what your input files
+look like.  However, there are a few other things to consider when
+writing LilyPond input files.
 
 @itemize
 @item What if you make a mistake?  The structure of a LilyPond
 file can make certain errors easier (or harder) to find.
 
-@item What if you want to share your files with somebody
-else?  In fact, what if you want to alter your own files in
-a few years?  Some LilyPond files are understandable at
-first glance; other files may leave you scratching your head
+@item What if you want to share your input files with somebody
+else?  In fact, what if you want to alter your own input files in
+a few years?  Some LilyPond input files are understandable at
+first glance; others may leave you scratching your head
 for an hour.
 
 @item What if you want to upgrade your LilyPond file for use
 with a later version of LilyPond?  The input syntax changes
 occasionally as LilyPond improves.  Most changes can be
 done automatically with @code{convert-ly}, but some changes
-might require manual assistance.  LilyPond files can be
+might require manual assistance.  LilyPond input files can be
 structured in order to be easier (or harder) to update.
 @end itemize
 
@@ -89,10 +90,10 @@ complex music, perhaps every bar.
 either in the music
 itself or in the output you desire, it's often good to write only one bar
 per line.  Saving screen space by cramming eight bars per line just isn't
-worth it if you have to @q{debug} your files.
+worth it if you have to @q{debug} your input files.
 
-@item @strong{Comment your files}.  Use either bar numbers (every so often)
-or
+@item @strong{Comment your input files}.  Use either bar numbers 
+(every so often) or
 references to musical themes (@q{second theme in violins,} @q{fourth
 variation,} etc.).  You may not need comments when you're writing the piece
 for the first time, but if you want to go back to change something two or
@@ -146,7 +147,7 @@ best.
 @subsection Large projects
 
 When working on a large project, having a clear structure to your
-lilypond files becomes vital.
+lilypond input files becomes vital.
 
 @itemize
 
@@ -285,9 +286,9 @@ padText =
 @end lilypond
 
 Using variables is also a good way to reduce work if the
-LilyPond input syntax changes (see @ref{Updating old files}).  If
+LilyPond input syntax changes (see @ref{Updating old input files}).  If
 you have a single definition (such as @code{\dolce}) for all your
-files (see @ref{Style sheets}), then if the syntax changes, you
+input files (see @ref{Style sheets}), then if the syntax changes, you
 only need to update your single @code{\dolce} definition,
 instead of making changes throughout every @code{.ly} file.
 
@@ -297,7 +298,7 @@ instead of making changes throughout every @code{.ly} file.
 
 The output that LilyPond produces can be heavily modified; see
 @ref{Tweaking output}, for details.  But what if you have many
-files that you want to apply your tweaks to?  Or what if you
+input files that you want to apply your tweaks to?  Or what if you
 simply want to separate your tweaks from the actual music?  This
 is quite easy to do.
 
@@ -329,7 +330,7 @@ do something about the @code{mpdolce} and @code{tempoMark}
 definitions.  They produce the output we desire, but we might want
 to use them in another piece.  We could simply copy-and-paste them
 at the top of every file, but that's an annoyance.  It also leaves
-those definitions in our music files, and I personally find all
+those definitions in our input files, and I personally find all
 the @code{#()} somewhat ugly.  Let's hide them in another file:
 
 @example
@@ -551,13 +552,13 @@ file with @code{\include "../global.ly"}, which contains
 @section When things don't work
 
 @menu
-* Updating old files::          
+* Updating old input files::          
 * Troubleshooting (taking it all apart)::  
 * Minimal examples::            
 @end menu
 
-@node Updating old files
-@subsection Updating old files
+@node Updating old input files
+@subsection Updating old input files
 
 The LilyPond input syntax occasionally changes.  As LilyPond itself
 improves, the syntax (input language) is modified accordingly.  Sometimes
@@ -581,7 +582,7 @@ letters were entered using LaTeX -- for example,
 @code{ë} must be entered directly into the LilyPond file as an
 UTF-8 character.  @code{convert-ly} cannot change all the LaTeX
 special characters into UTF-8 characters; you must manually update
-your old LilyPond files.
+your old LilyPond input files.
 
 
 @node Troubleshooting (taking it all apart)

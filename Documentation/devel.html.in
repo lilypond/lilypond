@@ -79,13 +79,13 @@
     </td><td class="right-column">
           &nbsp;
 	<ul>
-	    <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation/user/README.txt;hb=master">Documentation Readme</a>
+	    <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation%2Fuser%2FREADME.txt;hb=master">Documentation Readme</a>
 	      <br>(for documentation editors)
             <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web">lilypond.org Readme</a>
 and <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=TRANSLATION;hb=web">Translation</a>
               <br>(how to translate and build lilypond.org website)
             <li>
-	      <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation/TRANSLATION;hb=lilypond/translation">Documentation translation</a>
+	      <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation%2FTRANSLATION;hb=lilypond%2Ftranslation">Documentation translation</a>
 	      <br>(how to translate documentation)
 	</ul>
 	</td>
