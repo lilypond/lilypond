@@ -722,7 +722,7 @@ class ChordEvent (NestedMusic):
 
     def get_duration (self):
         note_events = [e for e in self.elements if
-               isinstance (e, NoteEvent)]
+               isinstance (e, NoteEvent) or isinstance (e, RestEvent)]
         if note_events:
             return note_events[0].duration
         else:
