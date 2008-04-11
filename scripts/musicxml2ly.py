@@ -1308,6 +1308,86 @@ def musicxml_harmony_to_lily (n):
         ev = musicxml_frame_to_lily_event (f)
         if ev:
             res.append (ev)
+    return res
+
+
+def musicxml_chordroot_to_lily (mxl_root):
+    r = musicexp.ChordRoot ()
+    r.alteration = mxl_root.get_alteration ()
+    r.step = musicxml_step_to_lily (mxl_root.get_step ())
+    return r
+
+chordkind_dict = {
+    'major': '',
+    'minor': 'm',
+    'augmented': 'aug',
+    'diminished': 'dim',
+        # Sevenths:
+    'dominant': '7',
+    'major-seventh': 'maj',
+    'minor-seventh': 'm7',
+    'diminished-seventh': 'dim7',
+    'augmented-seventh': 'aug7',
+    #'half-diminished': '???', (diminished triad, minor seventh)
+    #'major-minor': '???', (minor triad, major seventh)
+        # Sixths:
+    'major-sixth': '6',
+    'minor-sixth': 'm6',
+        # Ninths:
+    'dominant-ninth': '9',
+    'major-ninth': 'maj9',
+    'minor-ninth': 'm9',
+        # 11ths (usually as the basis for alteration):
+    'dominant-11th': '11',
+    'major-11th': 'maj11',
+    'minor-11th': 'm11',
+        # 13ths (usually as the basis for alteration):
+    'dominant-13th': '13',
+    'major-13th': 'maj13',
+    'minor-13th': 'm13',
+        # Suspended:
+    'suspended-second': 'sus2',
+    'suspended-fourth': 'sus4',
+        # Functional sixths:
+    #'Neapolitan': '???',
+    #'Italian': '???',
+    #'French': '???',
+    #'German': '???',
+        # Other:
+    #'pedal': '???',(pedal-point bass)
+    #'power': '???',(perfect fifth)
+    #'Tristan': '???',
+    #'other': '',
+    'none': '',
+}
+
+def musicxml_chordkind_to_lily (kind):
+    res = chordkind_dict.get (kind, None)
+    if not res:
+        error_message (_ ("Unable to convert chord type %s to lilypond.") % kind)
+    return res
+
+def musicxml_harmony_to_lily_chordname (n):
+    res = []
+    root = n.get_maybe_exist_named_child ('root')
+    if root:
+        ev = musicexp.ChordNameEvent ()
+        ev.root = musicxml_chordroot_to_lily (root)
+        kind = n.get_maybe_exist_named_child ('kind')
+        if kind:
+            ev.kind = musicxml_chordkind_to_lily (kind.get_text ())
+        #TODO: convert the user-symbols attribute: 
+            #major: a triangle, like Unicode 25B3
+            #minor: -, like Unicode 002D
+            #augmented: +, like Unicode 002B
+            #diminished: (degree), like Unicode 00B0
+            #half-diminished: (o with slash), like Unicode 00F8
+        # TODO: Convert the inversion and bass children
+        for deg in n.get_named_children ('degree'):
+            # TODO: Convert the added/removed degrees to lilypond
+            pass
+        if ev and ev.root:
+            res.append (ev)
 
     return res
 
@@ -1556,6 +1636,7 @@ class VoiceData:
         self.voicedata = None
         self.ly_voice = None
         self.figured_bass = None
+        self.chordnames = None
         self.lyrics_dict = {}
         self.lyrics_order = []
 
@@ -1585,6 +1666,7 @@ def musicxml_voice_to_lily_voice (voice):
     current_staff = None
     
     pending_figured_bass = []
+    pending_chordnames = []
 
     # Make sure that the keys in the dict don't get reordered, since
     # we need the correct ordering of the lyrics stanzas! By default,
@@ -1595,6 +1677,7 @@ def musicxml_voice_to_lily_voice (voice):
 
     voice_builder = LilyPondVoiceBuilder ()
     figured_bass_builder = LilyPondVoiceBuilder ()
+    chordnames_builder = LilyPondVoiceBuilder ()
 
     for n in voice._elements:
         if n.get_name () == 'forward':
@@ -1626,8 +1709,10 @@ def musicxml_voice_to_lily_voice (voice):
                     voice_builder.add_dynamics (a)
                 else:
                     voice_builder.add_command (a)
+            for a in musicxml_harmony_to_lily_chordname (n):
+                pending_chordnames.append (a)
             continue
-        
+
         if isinstance (n, musicxml.FiguredBass):
             a = musicxml_figured_bass_to_lily (n)
             if a:
@@ -1650,6 +1735,8 @@ def musicxml_voice_to_lily_voice (voice):
                     number = 0
                 if number > 0:
                     voice_builder.add_bar_check (number)
+                    figured_bass_builder.add_bar_check (number)
+                    chordnames_builder.add_bar_check (number)
 
             for a in musicxml_attributes_to_lily (n):
                 voice_builder.add_command (a)
@@ -1725,13 +1812,28 @@ def musicxml_voice_to_lily_voice (voice):
         # if we have a figured bass, set its voice builder to the correct position
         # and insert the pending figures
         if pending_figured_bass:
-          try:
-              figured_bass_builder.jumpto (n._when)
-          except NegativeSkip, neg:
-              pass
-          for fb in pending_figured_bass:
-              figured_bass_builder.add_music (fb, fb.real_duration)
-          pending_figured_bass = []
+            try:
+                figured_bass_builder.jumpto (n._when)
+            except NegativeSkip, neg:
+                pass
+            for fb in pending_figured_bass:
+                # if a duration is given, use that, otherwise the one of the note
+                dur = fb.real_duration
+                if not dur:
+                    dur = ev_chord.get_length ()
+                figured_bass_builder.add_music (fb, dur)
+            pending_figured_bass = []
+        
+        if pending_chordnames:
+            try:
+                chordnames_builder.jumpto (n._when)
+            except NegativeSkip, neg:
+                pass
+            for cn in pending_chordnames:
+                # Assign the duration of the EventChord
+                cn.duration = ev_chord.get_duration ()
+                chordnames_builder.add_music (cn, ev_chord.get_length ())
+            pending_chordnames = []
 
 
         notations_children = n.get_typed_children (musicxml.Notations)
@@ -1918,6 +2020,15 @@ def musicxml_voice_to_lily_voice (voice):
         v.element = fbass_music
         return_value.figured_bass = v
     
+    # create \chordmode { chords }
+    if chordnames_builder.elements:
+        cname_music = musicexp.SequentialMusic ()
+        cname_music.elements = chordnames_builder.elements
+        v = musicexp.ModeChangingMusicWrapper()
+        v.mode = 'chordmode'
+        v.element = cname_music
+        return_value.chordnames = v
+    
     return return_value
 
 def musicxml_id_to_lily (id):
@@ -2088,6 +2199,10 @@ def music_xml_figuredbass_name_to_lily_name (part_id, voicename):
     str = "Part%sVoice%sFiguredBass" % (part_id, voicename)
     return musicxml_id_to_lily (str) 
 
+def music_xml_chordnames_name_to_lily_name (part_id, voicename):
+    str = "Part%sVoice%sChords" % (part_id, voicename)
+    return musicxml_id_to_lily (str) 
+
 def print_voice_definitions (printer, part_list, voices):
     for part in part_list:
         part_id = part.id
@@ -2097,6 +2212,11 @@ def print_voice_definitions (printer, part_list, voices):
             printer.dump ('%s = ' % k)
             voice.ly_voice.print_ly (printer)
             printer.newline()
+            if voice.chordnames:
+                cnname = music_xml_chordnames_name_to_lily_name (part_id, name)
+                printer.dump ('%s = ' % cnname )
+                voice.chordnames.print_ly (printer)
+                printer.newline()
             for l in voice.lyrics_order:
                 lname = music_xml_lyrics_name_to_lily_name (part_id, name, l)
                 printer.dump ('%s = ' % lname )
@@ -2123,14 +2243,17 @@ def uniq_list (l):
 # raw_voices is of the form [(voicename, lyricsids, havefiguredbass)*]
 def format_staff_info (part_id, staff_id, raw_voices):
     voices = []
-    for (v, lyricsids, figured_bass) in raw_voices:
+    for (v, lyricsids, figured_bass, chordnames) in raw_voices:
         voice_name = music_xml_voice_name_to_lily_name (part_id, v)
         voice_lyrics = [music_xml_lyrics_name_to_lily_name (part_id, v, l)
                    for l in lyricsids]
         figured_bass_name = ''
         if figured_bass:
             figured_bass_name = music_xml_figuredbass_name_to_lily_name (part_id, v)
-        voices.append ([voice_name, voice_lyrics, figured_bass_name])
+        chordnames_name = ''
+        if chordnames:
+            chordnames_name = music_xml_chordnames_name_to_lily_name (part_id, v)
+        voices.append ([voice_name, voice_lyrics, figured_bass_name, chordnames_name])
     return [staff_id, voices]
 
 def update_score_setup (score_structure, part_list, voices):
@@ -2152,12 +2275,12 @@ def update_score_setup (score_structure, part_list, voices):
             staves = uniq_list (staves)
             staves.sort ()
             for s in staves:
-                thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass) 
+                thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass, voice.chordnames) 
                     for (voice_name, voice) in nv_dict.items ()
                     if voice.voicedata._start_staff == s]
                 staves_info.append (format_staff_info (part_id, s, thisstaff_raw_voices))
         else:
-            thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass) 
+            thisstaff_raw_voices = [(voice_name, voice.lyrics_order, voice.figured_bass, voice.chordnames) 
                 for (voice_name, voice) in nv_dict.items ()]
             staves_info.append (format_staff_info (part_id, None, thisstaff_raw_voices))
         score_structure.set_part_information (part_id, staves_info)

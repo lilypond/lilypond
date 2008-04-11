@@ -872,6 +872,17 @@ class Words (Music_xml_node):
 class Harmony (Music_xml_node):
     pass
 
+class Root (Music_xml_node):
+    def get_step (self):
+        ch = self.get_unique_typed_child (get_class (u'root-step'))
+        return ch.get_text ().strip ()
+    def get_alteration (self):
+        ch = self.get_maybe_exist_typed_child (get_class (u'root-alter'))
+        alter = 0
+        if ch:
+            alter = int (ch.get_text ().strip ())
+        return alter
+
 class Frame (Music_xml_node):
     def get_frets (self):
         return self.get_named_child_value_number ('frame-frets', 4)
@@ -879,6 +890,7 @@ class Frame (Music_xml_node):
         return self.get_named_child_value_number ('frame-strings', 6)
     def get_first_fret (self):
         return self.get_named_child_value_number ('first-fret', 1)
+
 class Frame_Note (Music_xml_node):
     def get_string (self):
         return self.get_named_child_value_number ('string', 1)
@@ -947,7 +959,8 @@ class_dict = {
         'per-minute': PerMinute,
 	'pitch': Pitch,
 	'rest': Rest,
-    'score-part': Score_part,
+        'root': Root,
+        'score-part': Score_part,
         'slide': Slide,
 	'slur': Slur,
 	'staff': Staff,

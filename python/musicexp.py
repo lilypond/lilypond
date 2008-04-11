@@ -719,7 +719,15 @@ class ChordEvent (NestedMusic):
         for e in self.elements:
             l = max(l, e.get_length())
         return l
-    
+
+    def get_duration (self):
+        note_events = [e for e in self.elements if
+               isinstance (e, NoteEvent)]
+        if note_events:
+            return note_events[0].duration
+        else:
+            return None
+
     def print_ly (self, printer):
         note_events = [e for e in self.elements if
                isinstance (e, NoteEvent)]
@@ -757,7 +765,9 @@ class ChordEvent (NestedMusic):
                     basepitch = previous_pitch
             printer ('<%s>' % string.join (pitches))
             previous_pitch = basepitch
-            note_events[0].duration.print_ly (printer)
+            duration = self.get_duration ()
+            if duration:
+                duration.print_ly (printer)
         else:
             pass
         
@@ -1088,6 +1098,33 @@ class FretEvent (MarkupEvent):
             return "%s\\markup { \\fret-diagram #\"%s\" }" % (self.direction_mod (), val)
         else:
             return ''
+
+class ChordRoot:
+    def __init__ (self):
+        self.alteration = 0
+        self.step = 0
+    def __repr__(self):
+        return self.ly_expression()
+    def ly_expression (self): 
+        return pitch_generating_function (self)
+
+class ChordNameEvent (Event):
+    def __init__ (self):
+        Event.__init__ (self)
+        self.root = None
+        self.kind = None
+        self.duration = None
+    def ly_expression (self):
+        if not self.root:
+            return ''
+        value = self.root.ly_expression ()
+        if self.duration:
+            value += self.duration.ly_expression ()
+        if self.kind:
+            value += ":"
+            value += self.kind
+        return value
+
 
 class TremoloEvent (ArticulationEvent):
     def __init__ (self):
@@ -1494,8 +1531,10 @@ class Staff (StaffGroup):
             printer.newline ()
             n = 0
             nr_voices = len (voices)
-            for [v, lyrics, figuredbass] in voices:
+            for [v, lyrics, figuredbass, chordnames] in voices:
                 n += 1
+                if chordnames:
+                    printer ('\context ChordNames = "%s" \\%s' % (chordnames, chordnames))
                 voice_count_text = ''
                 if nr_voices > 1:
                     voice_count_text = {1: ' \\voiceOne', 2: ' \\voiceTwo',
