@@ -1311,14 +1311,14 @@ def musicxml_harmony_to_lily (n):
     return res
 
 
-def musicxml_chordroot_to_lily (mxl_root):
-    r = musicexp.ChordRoot ()
-    r.alteration = mxl_root.get_alteration ()
-    r.step = musicxml_step_to_lily (mxl_root.get_step ())
+def musicxml_chordpitch_to_lily (mxl_cpitch):
+    r = musicexp.ChordPitch ()
+    r.alteration = mxl_cpitch.get_alteration ()
+    r.step = musicxml_step_to_lily (mxl_cpitch.get_step ())
     return r
 
 chordkind_dict = {
-    'major': '',
+    'major': '5',
     'minor': 'm',
     'augmented': 'aug',
     'diminished': 'dim',
@@ -1357,7 +1357,7 @@ chordkind_dict = {
     #'pedal': '???',(pedal-point bass)
     #'power': '???',(perfect fifth)
     #'Tristan': '???',
-    #'other': '',
+    'other': '1',
     'none': None,
 }
 
@@ -1373,20 +1373,31 @@ def musicxml_harmony_to_lily_chordname (n):
     root = n.get_maybe_exist_named_child ('root')
     if root:
         ev = musicexp.ChordNameEvent ()
-        ev.root = musicxml_chordroot_to_lily (root)
+        ev.root = musicxml_chordpitch_to_lily (root)
         kind = n.get_maybe_exist_named_child ('kind')
         if kind:
             ev.kind = musicxml_chordkind_to_lily (kind.get_text ())
+            if not ev.kind:
+                return res
+        bass = n.get_maybe_exist_named_child ('bass')
+        if bass:
+            ev.bass = musicxml_chordpitch_to_lily (bass)
+        inversion = n.get_maybe_exist_named_child ('inversion')
+        if inversion:
+            # TODO: Lilypond does not support inversions, does it?
+            pass
+        for deg in n.get_named_children ('degree'):
+            d = musicexp.ChordModification ()
+            d.type = deg.get_type ()
+            d.step = deg.get_value ()
+            d.alteration = deg.get_alter ()
+            ev.add_modification (d)
         #TODO: convert the user-symbols attribute: 
             #major: a triangle, like Unicode 25B3
             #minor: -, like Unicode 002D
             #augmented: +, like Unicode 002B
             #diminished: (degree), like Unicode 00B0
             #half-diminished: (o with slash), like Unicode 00F8
-        # TODO: Convert the inversion and bass children
-        for deg in n.get_named_children ('degree'):
-            # TODO: Convert the added/removed degrees to lilypond
-            pass
         if ev and ev.root:
             res.append (ev)
 
