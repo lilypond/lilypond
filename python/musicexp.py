@@ -1524,6 +1524,12 @@ class Staff (StaffGroup):
             sub_staff_type = self.stafftype
 
         for [staff_id, voices] in self.part_information:
+            # Chord names need to come before the staff itself!
+            for [v, lyrics, figuredbass, chordnames] in voices:
+                if chordnames:
+                    printer ('\context ChordNames = "%s" \\%s' % (chordnames, chordnames))
+
+            # now comes the real staff definition:
             if staff_id:
                 printer ('\\context %s = "%s" << ' % (sub_staff_type, staff_id))
             else:
@@ -1533,8 +1539,6 @@ class Staff (StaffGroup):
             nr_voices = len (voices)
             for [v, lyrics, figuredbass, chordnames] in voices:
                 n += 1
-                if chordnames:
-                    printer ('\context ChordNames = "%s" \\%s' % (chordnames, chordnames))
                 voice_count_text = ''
                 if nr_voices > 1:
                     voice_count_text = {1: ' \\voiceOne', 2: ' \\voiceTwo',
