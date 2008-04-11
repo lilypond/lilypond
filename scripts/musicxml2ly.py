@@ -1358,12 +1358,13 @@ chordkind_dict = {
     #'power': '???',(perfect fifth)
     #'Tristan': '???',
     #'other': '',
-    'none': '',
+    'none': None,
 }
 
 def musicxml_chordkind_to_lily (kind):
     res = chordkind_dict.get (kind, None)
-    if not res:
+    # Check for None, since a major chord is converted to ''
+    if res == None:
         error_message (_ ("Unable to convert chord type %s to lilypond.") % kind)
     return res
 
@@ -1512,6 +1513,7 @@ class LilyPondVoiceBuilder:
         self.begin_moment = Rational (0)
         self.pending_multibar = Rational (0)
         self.ignore_skips = False
+        self.has_relevant_elements = False
 
     def _insert_multibar (self):
         r = musicexp.MultiMeasureRest ()
@@ -1536,6 +1538,7 @@ class LilyPondVoiceBuilder:
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
 
+        self.has_relevant_elements = True
         self.elements.append (music)
         self.begin_moment = self.end_moment
         self.set_duration (duration)
@@ -1551,6 +1554,7 @@ class LilyPondVoiceBuilder:
         assert isinstance (command, musicexp.Music)
         if self.pending_multibar > Rational (0):
             self._insert_multibar ()
+        self.has_relevant_elements = True
         self.elements.append (command)
     def add_barline (self, barline):
         # TODO: Implement merging of default barline and custom bar line
@@ -1564,9 +1568,13 @@ class LilyPondVoiceBuilder:
         self.pending_dynamics.append (dynamic)
 
     def add_bar_check (self, number):
+        # re/store has_relevant_elements, so that a barline alone does not
+        # trigger output for figured bass, chord names
+        has_relevant = self.has_relevant_elements
         b = musicexp.BarLine ()
         b.bar_number = number
         self.add_barline (b)
+        self.has_relevant_elements = has_relevant
 
     def jumpto (self, moment):
         current_end = self.end_moment + self.pending_multibar
@@ -1769,6 +1777,8 @@ def musicxml_voice_to_lily_voice (voice):
                 num = 0
             if num > 0:
                 voice_builder.add_bar_check (num)
+                figured_bass_builder.add_bar_check (num)
+                chordnames_builder.add_bar_check (num)
 
         main_event = musicxml_note_to_lily_main_event (n)
         if main_event and not first_pitch:
@@ -2012,7 +2022,7 @@ def musicxml_voice_to_lily_voice (voice):
         return_value.ly_voice = v
     
     # create \figuremode { figured bass elements }
-    if figured_bass_builder.elements:
+    if figured_bass_builder.has_relevant_elements:
         fbass_music = musicexp.SequentialMusic ()
         fbass_music.elements = figured_bass_builder.elements
         v = musicexp.ModeChangingMusicWrapper()
@@ -2021,7 +2031,7 @@ def musicxml_voice_to_lily_voice (voice):
         return_value.figured_bass = v
     
     # create \chordmode { chords }
-    if chordnames_builder.elements:
+    if chordnames_builder.has_relevant_elements:
         cname_music = musicexp.SequentialMusic ()
         cname_music.elements = chordnames_builder.elements
         v = musicexp.ModeChangingMusicWrapper()
