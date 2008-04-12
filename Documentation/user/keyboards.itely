@@ -138,7 +138,7 @@ advance.  Here is a practical example
 
 @seealso
 
-Notation Reference: @ref{Manual staff switches}.
+@c Notation Reference: @ref{Manual staff switches}.
 
 Internals Reference: @internalsref{AutoChangeMusic}.
 
