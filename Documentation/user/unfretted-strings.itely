@@ -10,23 +10,41 @@
 
 @node Unfretted string instruments
 @section Unfretted string instruments
-@c@node Orchestral strings
-@c@section Orchestral strings
 
-This section includes extra information for writing for orchestral
-strings.
+This section includes extra information for writing for unfretted
+string instruments.
+
+@ignore
+The subsection on Bowed instruments is commmented out
+until we have something to say about them -td
+@end ignore
 
 @menu
-* Orchestral strings sections::  
+* Common notation for unfretted strings::
+@c * Bowed instruments::
+* Plucked instruments::
 @end menu
 
-
-
-@node Orchestral strings sections
-@subsection Orchestral strings sections
+@node Common notation for unfretted strings
+@subsection Common notation for unfretted strings
 
 @menu
-* Artificial harmonics (strings)::  
+* References for unfretted strings::
+@end menu
+
+@node References for unfretted strings
+@subsubsection References for unfretted strings
+
+@c TODO Add refs to fingerings, \thumb, bowings, harmonics
+TBC
+
+@ignore
+
+@node Bowed instruments
+@subsection Bowed instruments
+
+@menu
+* Artificial harmonics (strings)::
 @end menu
 
 @node Artificial harmonics (strings)
@@ -41,5 +59,17 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 <c g'\harmonic>4
 @end lilypond
 
+@end ignore
 
+@node Plucked instruments
+@subsection Plucked instruments
 
+@menu
+* Harp::
+@end menu
+
+@node Harp
+@subsubsection Harp
+
+@c TODO add \sacredHarpHeads, expanded or ref?
+TBC
