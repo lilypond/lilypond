@@ -861,7 +861,7 @@ section explains how to upgrade input files from previous versions of
 LilyPond.
 
 @item
-@emph{@rprogram{LilyPond-book}},
+@emph{@rprogram{lilypond-book}},
 explains the details behind creating
 documents with in-line music examples, like this manual.
 
@@ -905,7 +905,7 @@ advisable to consult the glossary.
 @item
 The
 @ifhtml
-@uref{source/input/lsr/snippets/index.html,Snippets}
+@uref{source/input/lsr/lilypond-snippets/index.html,Snippets}
 @end ifhtml
 @ifnothtml
 Snippets

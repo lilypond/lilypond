@@ -8,8 +8,10 @@
 
 @c \version "2.11.38"
 
-@node Piano music
-@section Piano music
+@node Keyboard instruments
+@section Keyboard instruments
+@c@node Piano music
+@c@section Piano music
 
 @menu
 * Piano sections::              

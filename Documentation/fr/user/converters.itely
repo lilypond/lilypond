@@ -137,7 +137,7 @@ ajoutez une indication de phrasé ou de pédale.
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
-@uref{http://@/www.@/recordarde@/.com/xml@/.html,MusicXML} est un
+@uref{http://@/www.@/recordare@/.com/xml@/.html,MusicXML} est un
 dialecte XML pour représenter la notation musicale.
 
 @command{musicxml2ly} extrait des notes à partir de fichiers MusicXML,

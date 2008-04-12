@@ -18,15 +18,15 @@ concepts and techniques required to produce equally beautiful
 but more complex scores.
 
 @menu
-* How LilyPond files work::     
+* How LilyPond input files work::     
 * Voices contain music::        
 * Contexts and engravers::      
 * Extending the templates::     
 @end menu
 
 
-@node How LilyPond files work
-@section How LilyPond files work
+@node How LilyPond input files work
+@section How LilyPond input files work
 
 The LilyPond input format is quite free-form, giving experienced
 users a lot of flexibility to structure their files however they
@@ -191,7 +191,7 @@ For a complete definition of the input format, see
 @cindex Music expression, compound
 
 We saw the general organization of LilyPond input files in the
-previous section, @ref{How LilyPond files work}.  But we seemed to
+previous section, @ref{How LilyPond input files work}.  But we seemed to
 skip over the most important part: how do we figure out what to
 write after @code{\score}?
 
@@ -1470,15 +1470,15 @@ name you like in any context that exists by using the
 known to LilyPond it will not cause any action to be taken.
 This is one of the reasons why it is highly recommended to
 use a context-sensitive editor with syntax highlighting for
-editing LilyPond files, such as Vim, Jedit, ConTEXT or Emacs,
+editing LilyPond input files, such as Vim, Jedit, ConTEXT or Emacs,
 since unknown property names will be highlighted differently.
 
 The @code{instrumentName} property will take effect only
 if it is set in the @code{Staff} context, but
 some properties can be set in more than one context.
 For example, the property @code{extraNatural} is by
-default set to ##t (true) for all staves.  
-If it is set to ##f (false) in one particular @code{Staff} 
+default set to ##t (true) for all staves.
+If it is set to ##f (false) in one particular @code{Staff}
 context it applies just to the accidentals on that staff.
 If it is set to false in the @code{Score} context
 it applies to all staves.
