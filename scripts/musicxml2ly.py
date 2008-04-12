@@ -1328,8 +1328,8 @@ chordkind_dict = {
     'minor-seventh': 'm7',
     'diminished-seventh': 'dim7',
     'augmented-seventh': 'aug7',
-    #'half-diminished': '???', (diminished triad, minor seventh)
-    #'major-minor': '???', (minor triad, major seventh)
+    'half-diminished': 'dim5m7',
+    'major-minor': '7m5',
         # Sixths:
     'major-sixth': '6',
     'minor-sixth': 'm6',
@@ -1342,13 +1342,14 @@ chordkind_dict = {
     'major-11th': 'maj11',
     'minor-11th': 'm11',
         # 13ths (usually as the basis for alteration):
-    'dominant-13th': '13',
-    'major-13th': 'maj13',
+    'dominant-13th': '13.11',
+    'major-13th': 'maj13.11',
     'minor-13th': 'm13',
         # Suspended:
     'suspended-second': 'sus2',
     'suspended-fourth': 'sus4',
         # Functional sixths:
+    # TODO
     #'Neapolitan': '???',
     #'Italian': '???',
     #'French': '???',
