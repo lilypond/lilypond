@@ -494,7 +494,6 @@
         <kind>major</kind>
         <bass>
           <bass-step>C</bass-step>
-          <bass-alter>1</bass-alter>
         </bass>
       </harmony>
       <note>
@@ -511,7 +510,8 @@
         </root>
         <kind>major</kind>
         <bass>
-          <bass-step>C</bass-step>
+          <bass-step>D</bass-step>
+          <bass-alter>1</bass-alter>
         </bass>
       </harmony>
       <note>
@@ -519,7 +519,7 @@
         <duration>1</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <lyric number="1"><text>G/C</text></lyric>
+        <lyric number="1"><text>G#/D#</text></lyric>
       </note>
       <harmony>
         <root>
