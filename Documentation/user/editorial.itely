@@ -58,8 +58,8 @@ c4.-> d8---3
 c4.-> d8---3
 \tiny
 c4.-> d8---3
-\normalsize
-c2
+\teeny
+c4.-> d8---3
 @end lilypond
 
 @cindex font size scaling
@@ -99,6 +99,8 @@ that use fonts.  These are the ones supporting the
 
 @predefined
 
+@funindex \teeny
+@code{\teeny},
 @funindex \tiny
 @code{\tiny},
 @funindex \small

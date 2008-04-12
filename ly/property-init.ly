@@ -138,7 +138,10 @@ voiceNeutralStyle = {
   \revert Beam #'color
 }
 
-	
+teeny = {
+  \set fontSize = #-3
+}
+
 tiny = {
   \set fontSize = #-2
 }
