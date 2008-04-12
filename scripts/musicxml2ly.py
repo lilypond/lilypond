@@ -1311,25 +1311,25 @@ def musicxml_harmony_to_lily (n):
     return res
 
 
-def musicxml_chordroot_to_lily (mxl_root):
-    r = musicexp.ChordRoot ()
-    r.alteration = mxl_root.get_alteration ()
-    r.step = musicxml_step_to_lily (mxl_root.get_step ())
+def musicxml_chordpitch_to_lily (mxl_cpitch):
+    r = musicexp.ChordPitch ()
+    r.alteration = mxl_cpitch.get_alteration ()
+    r.step = musicxml_step_to_lily (mxl_cpitch.get_step ())
     return r
 
 chordkind_dict = {
-    'major': '',
-    'minor': 'm',
-    'augmented': 'aug',
-    'diminished': 'dim',
+    'major': '5',
+    'minor': 'm5',
+    'augmented': 'aug5',
+    'diminished': 'dim5',
         # Sevenths:
     'dominant': '7',
-    'major-seventh': 'maj',
+    'major-seventh': 'maj7',
     'minor-seventh': 'm7',
     'diminished-seventh': 'dim7',
     'augmented-seventh': 'aug7',
-    #'half-diminished': '???', (diminished triad, minor seventh)
-    #'major-minor': '???', (minor triad, major seventh)
+    'half-diminished': 'dim5m7',
+    'major-minor': '7m5',
         # Sixths:
     'major-sixth': '6',
     'minor-sixth': 'm6',
@@ -1342,13 +1342,14 @@ chordkind_dict = {
     'major-11th': 'maj11',
     'minor-11th': 'm11',
         # 13ths (usually as the basis for alteration):
-    'dominant-13th': '13',
-    'major-13th': 'maj13',
+    'dominant-13th': '13.11',
+    'major-13th': 'maj13.11',
     'minor-13th': 'm13',
         # Suspended:
     'suspended-second': 'sus2',
     'suspended-fourth': 'sus4',
         # Functional sixths:
+    # TODO
     #'Neapolitan': '???',
     #'Italian': '???',
     #'French': '???',
@@ -1357,7 +1358,7 @@ chordkind_dict = {
     #'pedal': '???',(pedal-point bass)
     #'power': '???',(perfect fifth)
     #'Tristan': '???',
-    #'other': '',
+    'other': '1',
     'none': None,
 }
 
@@ -1373,20 +1374,31 @@ def musicxml_harmony_to_lily_chordname (n):
     root = n.get_maybe_exist_named_child ('root')
     if root:
         ev = musicexp.ChordNameEvent ()
-        ev.root = musicxml_chordroot_to_lily (root)
+        ev.root = musicxml_chordpitch_to_lily (root)
         kind = n.get_maybe_exist_named_child ('kind')
         if kind:
             ev.kind = musicxml_chordkind_to_lily (kind.get_text ())
+            if not ev.kind:
+                return res
+        bass = n.get_maybe_exist_named_child ('bass')
+        if bass:
+            ev.bass = musicxml_chordpitch_to_lily (bass)
+        inversion = n.get_maybe_exist_named_child ('inversion')
+        if inversion:
+            # TODO: Lilypond does not support inversions, does it?
+            pass
+        for deg in n.get_named_children ('degree'):
+            d = musicexp.ChordModification ()
+            d.type = deg.get_type ()
+            d.step = deg.get_value ()
+            d.alteration = deg.get_alter ()
+            ev.add_modification (d)
         #TODO: convert the user-symbols attribute: 
             #major: a triangle, like Unicode 25B3
             #minor: -, like Unicode 002D
             #augmented: +, like Unicode 002B
             #diminished: (degree), like Unicode 00B0
             #half-diminished: (o with slash), like Unicode 00F8
-        # TODO: Convert the inversion and bass children
-        for deg in n.get_named_children ('degree'):
-            # TODO: Convert the added/removed degrees to lilypond
-            pass
         if ev and ev.root:
             res.append (ev)
 
@@ -1831,6 +1843,8 @@ def musicxml_voice_to_lily_voice (voice):
                 dur = fb.real_duration
                 if not dur:
                     dur = ev_chord.get_length ()
+                if not fb.duration:
+                    fb.duration = ev_chord.get_duration ()
                 figured_bass_builder.add_music (fb, dur)
             pending_figured_bass = []
         

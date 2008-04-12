@@ -872,16 +872,47 @@ class Words (Music_xml_node):
 class Harmony (Music_xml_node):
     pass
 
-class Root (Music_xml_node):
+class ChordPitch (Music_xml_node):
+    def step_class_name (self):
+        return u'root-step'
+    def alter_class_name (self):
+        return u'root-alter'
     def get_step (self):
-        ch = self.get_unique_typed_child (get_class (u'root-step'))
+        ch = self.get_unique_typed_child (get_class (self.step_class_name ()))
         return ch.get_text ().strip ()
     def get_alteration (self):
-        ch = self.get_maybe_exist_typed_child (get_class (u'root-alter'))
+        ch = self.get_maybe_exist_typed_child (get_class (self.alter_class_name ()))
         alter = 0
         if ch:
             alter = int (ch.get_text ().strip ())
         return alter
+
+class Root (ChordPitch):
+    pass
+
+class Bass (ChordPitch):
+    def step_class_name (self):
+        return u'bass-step'
+    def alter_class_name (self):
+        return u'bass-alter'
+
+class ChordModification (Music_xml_node):
+    def get_type (self):
+        ch = self.get_maybe_exist_typed_child (get_class (u'degree-type'))
+        return {'add': 1, 'alter': 1, 'subtract': -1}.get (ch.get_text ().strip (), 0)
+    def get_value (self):
+        ch = self.get_maybe_exist_typed_child (get_class (u'degree-value'))
+        value = 0
+        if ch:
+            value = int (ch.get_text ().strip ())
+        return value
+    def get_alter (self):
+        ch = self.get_maybe_exist_typed_child (get_class (u'degree-alter'))
+        value = 0
+        if ch:
+            value = int (ch.get_text ().strip ())
+        return value
+
 
 class Frame (Music_xml_node):
     def get_frets (self):
@@ -929,6 +960,7 @@ class_dict = {
 	'attributes': Attributes,
         'barline': Barline,
         'bar-style': BarStyle,
+        'bass': Bass,
 	'beam' : Beam,
         'beat-unit': BeatUnit,
         'beat-unit-dot': BeatUnitDot,
@@ -936,6 +968,7 @@ class_dict = {
         'bracket' : Bracket,
 	'chord': Chord,
         'dashes' : Dashes,
+        'degree' : ChordModification,
 	'dot': Dot,
 	'direction': Direction,
         'direction-type': DirType,
