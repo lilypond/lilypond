@@ -1319,12 +1319,12 @@ def musicxml_chordpitch_to_lily (mxl_cpitch):
 
 chordkind_dict = {
     'major': '5',
-    'minor': 'm',
-    'augmented': 'aug',
-    'diminished': 'dim',
+    'minor': 'm5',
+    'augmented': 'aug5',
+    'diminished': 'dim5',
         # Sevenths:
     'dominant': '7',
-    'major-seventh': 'maj',
+    'major-seventh': 'maj7',
     'minor-seventh': 'm7',
     'diminished-seventh': 'dim7',
     'augmented-seventh': 'aug7',
