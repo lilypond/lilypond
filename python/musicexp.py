@@ -1149,7 +1149,7 @@ class ChordNameEvent (Event):
             if m.type == -1:
               value += m.ly_expression ()
         if self.bass:
-            value += "/%s" % self.bass.ly_expression ()
+            value += "/+%s" % self.bass.ly_expression ()
         return value
 
 
