@@ -26,12 +26,12 @@ types of instrument or in specific styles.
 @end menu
 
 @include vocal.itely
-@include chords.itely
 @include keyboards.itely
-@include percussion.itely
-@include fretted-strings.itely
 @include unfretted-strings.itely
+@include fretted-strings.itely
+@include percussion.itely
 @include wind.itely
+@include chords.itely
 @include ancient.itely
 
 
