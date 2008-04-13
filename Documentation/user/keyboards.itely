@@ -10,30 +10,42 @@
 
 @node Keyboard instruments
 @section Keyboard instruments
-@c@node Piano music
-@c@section Piano music
 
 @menu
-* Piano sections::              
+* Common notation for keyboards::
+* Piano::
+* Accordion::
 @end menu
 
-@node Piano sections
-@subsection Piano sections
+@node Common notation for keyboards
+@subsection Common notation for keyboards
 
-Piano staves are two normal staves coupled with a brace.  The staves
+@menu
+* References for keyboards::
+* The piano staff::
+* Changing staff manually::
+* Changing staff automatically::
+* Staff-change lines::
+* Cross-staff stems::
+@end menu
+
+@node References for keyboards
+@subsubsection References for keyboards
+
+@c TODO add refs
+TBC
+
+@node The piano staff
+@subsubsection The piano staff
+
+Keyboard instruments are usually notated with Piano staves.
+These are two normal staves coupled with a brace.  The staves
 are largely independent, but sometimes voices can cross between the
 two staves.  The same notation is also used for harps and other key
 instruments.  The @internalsref{PianoStaff} is especially built to
 handle this cross-staffing behavior.  In this section we discuss the
 @internalsref{PianoStaff} and some other pianistic peculiarities.
 
-@menu
-* Automatic staff changes::     
-* Manual staff switches::       
-* Pedals::                      
-* Staff switch lines::          
-* Cross staff stems::           
-@end menu
 
 @knownissues
 
@@ -44,9 +56,46 @@ Dynamics are not centered, but workarounds do exist.  See the
 @cindex stem, cross staff
 @cindex distance between staves in piano music
 
+@node Changing staff manually
+@subsubsection Changing staff manually
 
-@node Automatic staff changes
-@subsubsection Automatic staff changes
+@cindex manual staff switches
+@cindex staff switch, manual
+
+Voices can be switched between staves manually, using the command
+@example
+\change Staff = @var{staffname} @var{music}
+@end example
+
+@noindent
+The string @var{staffname} is the name of the staff.  It switches the
+current voice from its current staff to the Staff called
+@var{staffname}.  Typically @var{staffname} is @code{"up"} or
+@code{"down"}.  The @code{Staff} referred to must already exist, so
+usually the setup for a score will start with a setup of the staves,
+
+@example
+<<
+  \new Staff = "up" @{
+    \skip 1 * 10  % @emph{keep staff alive}
+    @}
+  \new Staff = "down" @{
+    \skip 1 * 10  % @emph{idem}
+    @}
+>>
+@end example
+
+
+and the @code{Voice} is inserted afterwards
+
+@example
+\context Staff = down
+  \new Voice @{ @dots{} \change Staff = up @dots{} @}
+@end example
+
+
+@node Changing staff automatically
+@subsubsection Changing staff automatically
 @cindex Automatic staff changes
 
 Voices can be made to switch automatically between the top and the bottom
@@ -89,7 +138,7 @@ advance.  Here is a practical example
 
 @seealso
 
-Notation Reference: @ref{Manual staff switches}.
+@c Notation Reference: @ref{Manual staff switches}.
 
 Internals Reference: @internalsref{AutoChangeMusic}.
 
@@ -103,47 +152,79 @@ quality output, staff switches should be specified manually.
 
 @code{\autochange} cannot be inside @code{\times}.
 
+@node Staff-change lines
+@subsubsection Staff-change lines
 
-@node Manual staff switches
-@subsubsection Manual staff switches
 
-@cindex manual staff switches
-@cindex staff switch, manual
+@cindex follow voice
+@cindex staff switching
+@cindex cross staff
 
-Voices can be switched between staves manually, using the command
-@example
-\change Staff = @var{staffname} @var{music}
-@end example
+@funindex followVoice
 
-@noindent
-The string @var{staffname} is the name of the staff.  It switches the
-current voice from its current staff to the Staff called
-@var{staffname}.  Typically @var{staffname} is @code{"up"} or
-@code{"down"}.  The @code{Staff} referred to must already exist, so
-usually the setup for a score will start with a setup of the staves,
+Whenever a voice switches to another staff, a line connecting the notes
+can be printed automatically.  This is switched on by setting
+@code{followVoice} to true
 
-@example
-<<
-  \new Staff = "up" @{
-    \skip 1 * 10  % @emph{keep staff alive}
-    @}
-  \new Staff = "down" @{
-    \skip 1 * 10  % @emph{idem}
-    @}
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \new Staff="one" {
+    \set followVoice = ##t
+    c1
+    \change Staff=two
+    b2 a
+  }
+  \new Staff="two" { \clef bass \skip 1*2 }
 >>
-@end example
+@end lilypond
 
+@seealso
 
-and the @code{Voice} is inserted afterwards
+Internals Reference: @internalsref{VoiceFollower}.
 
-@example
-\context Staff = down
-  \new Voice @{ @dots{} \change Staff = up @dots{} @}
-@end example
+@predefined
 
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
 
-@node Pedals
-@subsubsection Pedals
+@node Cross-staff stems
+@subsubsection Cross-staff stems
+
+Chords that cross staves may be produced by increasing the length
+of the stem in the lower staff, so it reaches the stem in the upper
+staff, or vice versa.
+
+@lilypond[ragged-right,verbatim,quote]
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
+noFlag = \once \override Stem #'flag-style = #'no-flag
+\new PianoStaff <<
+  \new Staff {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
+
+@node Piano
+@subsection Piano
+
+@menu
+* Piano pedals::
+@end menu
+
+@node Piano pedals
+@subsubsection Piano pedals
 @cindex Pedals
 
 Pianos have pedals that alter the way sound is produced.  Generally, a
@@ -210,70 +291,19 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 Notation Reference: @ref{Ties} (laissez vibrer).
 
-@node Staff switch lines
-@subsubsection Staff switch lines
+@node Accordion
+@subsection Accordion
 
+@menu
+* Discant symbols::
+@end menu
 
-@cindex follow voice
-@cindex staff switching
-@cindex cross staff
+@node Discant symbols
+@subsubsection Discant symbols
 
-@funindex followVoice
+@c TODO Add text from -user and lsr 194
+TBC
 
-Whenever a voice switches to another staff, a line connecting the notes
-can be printed automatically.  This is switched on by setting
-@code{followVoice} to true
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new PianoStaff <<
-  \new Staff="one" {
-    \set followVoice = ##t
-    c1
-    \change Staff=two
-    b2 a
-  }
-  \new Staff="two" { \clef bass \skip 1*2 }
->>
-@end lilypond
-
-@seealso
-
-Internals Reference: @internalsref{VoiceFollower}.
-
-@predefined
-
-@funindex \showStaffSwitch
-@code{\showStaffSwitch},
-@funindex \hideStaffSwitch
-@code{\hideStaffSwitch}.
-
-
-@node Cross staff stems
-@subsubsection Cross staff stems
-
-Chords that cross staves may be produced by increasing the length
-of the stem in the lower staff, so it reaches the stem in the upper
-staff, or vice versa.
-
-@lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
-\new PianoStaff <<
-  \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
-  }
-  \new Staff {
-    \clef bass
-    a4 a8
-  }
->>
-@end lilypond
 
 
 
