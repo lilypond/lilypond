@@ -10,7 +10,7 @@ LILYPOND_BOOK_INCLUDES += $(DOCUMENTATION_INCLUDES)
 MAKEINFO_FLAGS += --force --enable-encoding -D 'version $(TOPLEVEL_VERSION)' $(DOCUMENTATION_INCLUDES)
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
-TEXI2PDF_FLAGS += --batch --tidy --command '@set version $(TOPLEVEL_VERSION)'
+TEXI2PDF_FLAGS += --batch --command '@set version $(TOPLEVEL_VERSION)'
 TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)
 
 TELY_FILES = $(call src-wildcard,*.tely)
