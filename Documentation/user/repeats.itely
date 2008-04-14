@@ -332,7 +332,7 @@ syntax is
 
 @example
 @code{\repeat percent @var{number} @var{repeatbody}}
-@end expample
+@end example
 
 where @var{repeatbody} is a music expression. 
 

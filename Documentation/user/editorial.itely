@@ -40,12 +40,14 @@ inside the staff.
 @node Selecting notation font size
 @unnumberedsubsubsec Selecting notation font size
 
-@cindex font size
-@cindex font size, selecting
-@cindex selecting font size
+@cindex font size (notation)
+@cindex selecting font size (notation)
 
 The font size of notation elements may be altered.  It does not
 change the size of variable symbols, such as beams or slurs.
+
+@warning{For @strong{text} font sizes, see
+@ref{Common markup commands}.}
 
 @lilypond[quote,fragment,relative=2,verbatim,ragged-right]
 \huge
@@ -62,7 +64,7 @@ c4.-> d8---3
 c4.-> d8---3
 @end lilypond
 
-@cindex font size scaling
+@cindex font size (notation) scaling
 
 Internally, this sets the @code{fontSize} property.  This in turn
 causes the @code{font-size} property to be set in all layout
@@ -85,8 +87,8 @@ c4.-> d8---3
 c4.-> d8---3
 @end lilypond
 
-@cindex standard font size
-@cindex font size, standard
+@cindex standard font size (notation)
+@cindex font size (notation), standard
 
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
@@ -118,6 +120,8 @@ Snippets:
 @lsrdir{Editorial,Editorial-annotations}.
 
 Internals Reference:
+@internalsref{fontSize},
+@internalsref{font-size},
 @internalsref{font-interface}.
 
 
