@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "editorial-and-educational-use"
- texidoc = "
+
+  texidoc = "
 Regular vertical lines can be drawn between staves to show notes
 synchronization; however, in case of monophonic music, you may want to
 make the second stave invisible, and make the lines shorter like in
 this snippet.
-" }
-% begin verbatim
+
+"
+  doctitle = "Grid lines: emphasizing rhythms and notes synchronization"
+} % begin verbatim
 %% sets of grid
 \layout {
  \context {

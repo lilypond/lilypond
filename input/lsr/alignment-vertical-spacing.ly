@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "tweaks-and-overrides, paper-and-layout, spacing"
- texidoc = "
+
+  texidoc = "
 By setting properties in @code{NonMusicalPaperColumn}, vertical spacing
 of alignments can be adjusted per system.
 
@@ -17,8 +18,10 @@ stretched vertically.
 For technical reasons, @code{\\overrideProperty} has to be used for
 setting properties on individual objects. @code{\\override} in a
 @code{\\context} block may still be used for global overrides. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Alignment vertical spacing"
+} % begin verbatim
 #(set-global-staff-size 13)
 
 \relative c''

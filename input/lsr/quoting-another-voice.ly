@@ -9,8 +9,8 @@
 music may be quoted. @code{quotedEventTypes} will determines what
 things are quoted.  In this example, a 16th rest is not quoted, since
 @code{rest-event} is not in @code{quotedEventTypes}."
-}
-% begin verbatim
+} % begin verbatim
+
 quoteMe = \relative c' { fis4 r16  a8.-> b4-\ff c }
 
 \addQuote quoteMe \quoteMe 

@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "rhythms"
- texidoc = "
+
+  texidoc = "
 This artificial example shows how both manual and automatic line breaks
 may be permitted to within a beamed tuplet. Note that such off-beat
 tuplets have to be beamed manually.
-" }
-% begin verbatim
+
+"
+  doctitle = "Permitting line breaks within beamed tuplets"
+} % begin verbatim
 \layout {
   \context {
     \Voice

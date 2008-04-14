@@ -9,8 +9,8 @@
 Many piano scores have the dynamics centered between the two staves.
 This requires a bit of tweaking to implement, but since the template is
 right here, you don't have to do the tweaking yourself.
-" }
-% begin verbatim
+" } % begin verbatim
+
 upper = \relative c'' {
   \clef treble
   \key c \major

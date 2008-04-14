@@ -9,8 +9,8 @@
 The @code{print-function} can be overridden to draw a box around an
 arbitrary grob.  
 "
-}
-% begin verbatim
+} % begin verbatim
+
 \relative c'' {
   \override TextScript  #'stencil =
   #(make-stencil-boxer 0.1 0.3 ly:text-interface::print)

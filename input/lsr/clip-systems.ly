@@ -21,8 +21,8 @@ The result will be files named
 @item Regions can span multiple systems. In this case, multiple EPS files are generated.
 @end itemize
 "
-}
-% begin verbatim
+} % begin verbatim
+
 #(ly:set-option 'clip-systems)
 
 #(set! output-count 1)

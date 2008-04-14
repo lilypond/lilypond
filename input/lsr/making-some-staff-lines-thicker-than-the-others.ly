@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "staff-notation, editorial-and-educational-use"
- texidoc = "
+
+  texidoc = "
 For pedagogical purposes, you may want to make one staff line thicker
 (e.g. the middle line, to emphasize the line of the G clef). This can
 be achieved by adding extra lines very close to the line you want to
 make thicker, using the @code{'line-positions} property of the
 @code{StaffSymbol} object. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Making some staff lines thicker than the others"
+} % begin verbatim
 {
   \override Staff.StaffSymbol #'line-positions = #'(-4 -2 -0.2 0 0.2 2 4)
   d'4 e' f' g'

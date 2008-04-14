@@ -11,8 +11,8 @@ a series of longa and breve rests (called in German
 \"Kirchenpausen\" - church rests) within the staff and
 prints a simple line otherwise.  This default number of ten
 may be changed by an override:
-"}
-% begin verbatim
+"} % begin verbatim
+
 \relative c'' {
   \compressFullBarRests
   R1*2 | R1*5 | R1*9

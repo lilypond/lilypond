@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "template"
- texidoc = "
+
+  texidoc = "
 A template to write score for a diatonic accordion.
 
 - There is a horizontal staff indicating if the accordion   must be
@@ -46,8 +47,10 @@ according tabulatur representation.
 
 This snippet comes with a useful optional macro for the jEdit text
 editor.
-" }
-% begin verbatim
+
+"
+  doctitle = "Score for diatonic accordion"
+} % begin verbatim
 % Created on Sat Aug 17 2007 by ak
 
 verse= \lyricmode { Wie gross bist du! Wie gross bist du! }

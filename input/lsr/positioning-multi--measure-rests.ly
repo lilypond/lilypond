@@ -12,8 +12,8 @@ rest symbol of either form by attaching it to a note.  However,
 in polyphonic music multi-measure rests in odd-numbered and
 even-numbered voices are vertically separated.  The positioning
 of multi-measure rests can be controlled as follows:
- "}
-% begin verbatim
+ "} % begin verbatim
+
 \relative c'' {
   % Multi-measure rests by default are set under the second line
   R1

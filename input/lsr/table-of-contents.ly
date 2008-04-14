@@ -8,8 +8,8 @@
   texidoc = "A table of contents is included using
 @code{\\markuplines \\table-of-contents}. The TOC items are added with
 the @code{\\tocItem} command."
-}
-% begin verbatim
+} % begin verbatim
+
 #(set-default-paper-size "a6")
 
 \book {

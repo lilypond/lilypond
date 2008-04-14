@@ -4,20 +4,23 @@
 
 \header {
   lsrtags = "staff-notation, contexts-and-engravers, breaks"
- texidoc = "
-When adding a new staff at a line break, LilyPond will unfortunately
-add some extra space at the end of the line before the break (to fit in
+
+  texidoc = "
+When adding a new staff at a line break, some extra space is
+unfortunately added at the end of the line before the break (to fit in
 a key signature change, which  will never be printed anyway). The
 workaround is to add a setting of
 @code{Staff.explicitKeySignatureVisibility} as is shown in the example.
-In version 2.10 and earlier, you have to do a similar setting for the
-time signatures, see the example.
+In versions 2.10 and earlier, a similar setting for the time signatures
+is also required (see the example).
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Adding an extra staff at a line break"
+} % begin verbatim
 \score {
-  \new StaffGroup \relative c''{ 
+  \new StaffGroup \relative c'' { 
     \new Staff 
     \key f \major
     c1 c^"Unwanted extra space" \break 

@@ -8,13 +8,13 @@
   texidoc = "
 The @code{\circle} command allows you to draw circles around various objects,
 for example fingering indications. However, some objects require
-specific tweaks: rehearsal marks depend on the @code{Score.markFormatter}
+specific tweaks: rehearsal marks depend on the @code{Score.markFormatter} % begin verbatim
 context, bar numbers on the @code{Score.BarNumber} context, and so on.
 
 You can tweak the printing of your circles by setting some properties
 such as @code{#'thickness}, @code{#'circle-padding} or @code{#'font-size}.
 " }
-% begin verbatim
+
 \relative c'{
 c1
 \set Score.markFormatter

@@ -6,8 +6,8 @@
   doctitle = "Line arrows"
   lsrtags = "expressive-marks"
   texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
-}
-% begin verbatim
+} % begin verbatim
+
 \relative c'' {
   \override TextSpanner #'bound-padding = #1.0
   \override TextSpanner #'dash-fraction = #'()

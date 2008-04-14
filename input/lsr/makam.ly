@@ -7,8 +7,8 @@
   lsrtags = "pitches"
   texidoc = "Makam is a type of melody from Turkey using 1/9th-tone
   microtonal alterations."
-}
-% begin verbatim
+} % begin verbatim
+
 % Define 1/9 alterations.
 
 #(define-public KOMA 1/9)

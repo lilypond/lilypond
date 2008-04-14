@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 A caesura is sometimes denoted with a double \"railtracks\" breath mark
 with a fermata sign positioned over the top of the railtracks. This
 snippet should present an optically pleasing combination of railtracks
 and a fermata.
-" }
-% begin verbatim
+
+"
+  doctitle = "Caesura ("railtracks") with fermata"
+} % begin verbatim
 {
   c''2.
   % construct the symbol

@@ -20,7 +20,7 @@ y-origin of the rectangle.
 
 Make sure to put the hairpin in a lower layer than the text markup to
 actually draw the rectangle above the hairpin. 
-" }
+" } % begin verbatim
 
 \score {
   \relative c' {

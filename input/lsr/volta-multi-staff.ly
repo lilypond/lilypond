@@ -7,8 +7,8 @@
   lsrtags = "repeats,staff-notation"
   texidoc = "By adding @code{Volta_engraver}, repeat brackets
 can be put over staves other than the topmost one in a score."
-}
-% begin verbatim
+} % begin verbatim
+
 vmus = \relative c'' {
   \repeat volta 2 c1 \alternative { d e } 
 } 

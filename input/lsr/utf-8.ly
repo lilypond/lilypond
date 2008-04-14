@@ -30,8 +30,8 @@ will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
 
 "
   
-}
-% begin verbatim
+} % begin verbatim
+
 % end verbatim - this comment is a hack to prevent texinfo.tex
 % from choking on non-European UTF-8 subsets
 % Cyrillic font

@@ -12,8 +12,8 @@ case, the following rules apply:
 C flat (-> B), F flat (-> E) and B sharp (-> C)\".
 
 In this manner, the most natural enharmonic notes are chosen.
-"}
-% begin verbatim
+"} % begin verbatim
+
 #(define  (naturalize-pitch p)
   (let* ((o (ly:pitch-octave p))
          (a (* 4 (ly:pitch-alteration p))) 

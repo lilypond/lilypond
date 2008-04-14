@@ -7,8 +7,8 @@
   lsrtags = "spacing"
   texidoc = "Page labels may be placed inside music or at top-level,
 and refered to in markups."
-}
-% begin verbatim
+} % begin verbatim
+
 #(set-default-paper-size "a6")
 
 #(define-markup-command (toc-line layout props label text) (symbol? markup?)

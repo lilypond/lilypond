@@ -17,7 +17,7 @@ Normally, ties only connect two notes in the same voice.  By
 introducing a tie in a different voice, and blanking the first up-stem
 in that voice, the tie appears to cross voices.  To prevent the blanked stem's
 flag from interfering with tie positioning, the stem is extended.
-" }
+" } % begin verbatim
 
 \relative c'' {
   \time 2/4

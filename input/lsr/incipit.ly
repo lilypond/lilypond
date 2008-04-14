@@ -6,8 +6,8 @@
   lsrtags = "staff-notation,Ancient notation"
   texidoc = "Incipits can be added using the instrument name grob, but
 keeping separate the instrument name definition and the incipit definition."
-}
-% begin verbatim
+} % begin verbatim
+
 incipit =
 #(define-music-function (parser location incipit-music) (ly:music?)
   #{
