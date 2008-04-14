@@ -1637,13 +1637,13 @@ def split_output_files(directory):
 
     Return value is a set of strings.
     """
-    files = set ()
+    files = []
     for subdir in glob.glob (os.path.join (directory, '[a-f0-9][a-f0-9]')):
         base_subdir = os.path.split (subdir)[1]
         sub_files = [os.path.join (base_subdir, name)
                      for name in os.listdir (subdir)]
-        files = files.union (sub_files)
-    return files
+        files += sub_files
+    return set (files)
 
 def do_process_cmd (chunks, input_name, options):
     snippets = [c for c in chunks if isinstance (c, LilypondSnippet)]
