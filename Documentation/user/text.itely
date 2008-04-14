@@ -675,7 +675,7 @@ Some other notation objects blah blah
 \tied-lyric
 \markalphabet
 \markletter
-@TODO: add \text here? -vv
+@c TODO: add \text here? -vv
 
 Any musical symbol can be printed
 
