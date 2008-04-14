@@ -10,28 +10,33 @@
 
 @node Fretted string instruments
 @section Fretted string instruments
-@c @node Guitar
-@c @section Guitar
 
 @cindex tablature
 @cindex guitar tablature
 
 @menu
-* Guitar sections::             
+* Common notation for fretted strings::
+* Guitar::
+* Banjo::
 @end menu
 
-@node Guitar sections
-@subsection Guitar sections
+@node Common notation for fretted strings
+@subsection Common notation for fretted strings
 
 @menu
-* String number indications::   
-* Tablatures basic::            
-* Non-guitar tablatures::       
-* Banjo tablatures::            
-* Fret diagrams::               
-* Right hand fingerings::       
-* Other guitar issues::         
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagrams::
+* Right hand fingerings::
 @end menu
+
+@node References for fretted strings
+@subsubsection References for fretted strings
+
+@c TODO Add refs
+TBC
 
 @node String number indications
 @subsubsection String number indications
@@ -52,9 +57,10 @@ Internals Reference: @internalsref{StringNumber},
 @c @lsr{guitar/,string-number.ly}.
 
 
-@node Tablatures basic
-@subsubsection Tablatures basic
-@cindex Tablatures basic
+@node Default tablatures
+@subsubsection Default tablatures
+@cindex Tablatures, basic
+@cindex Tablatures, default
 
 Tablature notation is used for notating music for plucked string
 instruments.  Pitches are not denoted with note heads, but by
@@ -139,9 +145,9 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 @end lilypond
 
 
-@node Non-guitar tablatures
-@subsubsection Non-guitar tablatures
-@cindex Non-guitar tablatures
+@node Custom tablatures
+@subsubsection Custom tablatures
+@cindex Tablatures, custom
 
 You can change the tuning of the strings.  A string tuning is given as
 a Scheme list with one integer number for each string, the number
@@ -185,45 +191,6 @@ Internals Reference: @internalsref{Tab_note_heads_engraver}.
 
 No guitar special effects have been implemented.
 
-
-
-@node Banjo tablatures
-@subsubsection Banjo tablatures
-@cindex Banjo tablatures
-
-LilyPond has basic support for five stringed banjo.  When making tablatures
-for five stringed banjo, use the banjo tablature format function to get
-correct
-fret numbers for the fifth string:
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\new TabStaff <<
-  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
-  \set TabStaff.stringTunings = #banjo-open-g-tuning
-  {
-    \stemDown
-    g8 d' g'\5 a b g e d' |
-    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
-    g4
-  }
->>
-@end lilypond
-
-A number of common tunings for banjo are predefined in LilyPond:
-@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
-@code{banjo-open-d-tuning} (aDF#AD) and @code{banjo-open-dm-tuning}
-(aDFAD).
-
-These tunings may be converted to four string banjo tunings using the
-@code{four-string-banjo} function:
-
-@example
-\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
-@end example
-
-@seealso
-
-The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
 
 
 @node Fret diagrams
@@ -292,9 +259,9 @@ short, for example @code{RH},
 #(define RH rightHandFinger)
 @end example
 
-@cindex fingerings, right hand, for guitar 
+@cindex fingerings, right hand, for guitar
 @cindex right hand fingerings for guitar
- 
+
 @snippets
 
 You may exercise greater control over right handing fingerings by
@@ -319,9 +286,9 @@ The letters used for the fingerings are contained in the property
 #(define RH rightHandFinger)
 {
   \set strokeFingerOrientations = #'(right)
-  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@") 
+  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@")
   <c-\RH #5 >4
-  <c-\RH "@">4  
+  <c-\RH "@">4
 }
 @end lilypond
 
@@ -330,9 +297,22 @@ The letters used for the fingerings are contained in the property
 Internals Reference: @internalsref{StrokeFinger}
 
 
+@node Guitar
+@subsection Guitar
 
-@node Other guitar issues
-@subsubsection Other guitar issues
+@menu
+* Guitar tablatures::
+* Indicating position and barring::
+@end menu
+
+@node Guitar tablatures
+@subsubsection Guitar tablatures
+
+@c TODO Add text
+TBC
+
+@node Indicating position and barring
+@subsubsection Indicating position and barring
 
 This example demonstrates how to include guitar position and
 barring indications.
@@ -355,5 +335,50 @@ percussive noise-like sound that still maintains part of the original
 pitch.  It is notated with cross note heads; this is
 demonstrated in @ref{Special note heads}.
 
+
+@node Banjo
+@subsection Banjo
+
+@menu Banjo tablatures
+* Banjo tablatures::
+@end menu
+
+@node Banjo tablatures
+@subsubsection Banjo tablatures
+@cindex Banjo tablatures
+
+LilyPond has basic support for five stringed banjo.  When making tablatures
+for five stringed banjo, use the banjo tablature format function to get
+correct
+fret numbers for the fifth string:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff <<
+  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
+  \set TabStaff.stringTunings = #banjo-open-g-tuning
+  {
+    \stemDown
+    g8 d' g'\5 a b g e d' |
+    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+    g4
+  }
+>>
+@end lilypond
+
+A number of common tunings for banjo are predefined in LilyPond:
+@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
+@code{banjo-open-d-tuning} (aDF#AD) and @code{banjo-open-dm-tuning}
+(aDFAD).
+
+These tunings may be converted to four string banjo tunings using the
+@code{four-string-banjo} function:
+
+@example
+\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
+@end example
+
+@seealso
+
+The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
 
 
