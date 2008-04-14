@@ -848,7 +848,7 @@ R1*4 cis cis
 * Unmetered music::             
 * Polymetric notation::         
 * Automatic note splitting::    
-* Showing melodic rhythms::     
+* Showing melody rhythms::     
 @end menu
 
 @node Time signature
@@ -1322,8 +1322,8 @@ The @code{Completion_heads_engraver} only affects notes; it does not
 split rests.
 
 
-@node Showing melodic rhythms
-@subsubsection Showing melodic rhythms
+@node Showing melody rhythms
+@subsubsection Showing melody rhythms
 
 TODO
 
