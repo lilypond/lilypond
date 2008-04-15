@@ -38,9 +38,9 @@ für Wahr ist @code{#t} und für Falsch @code{#f}.
 @funindex ##f
 
 @item Zahlen
-Zahlen werden wie üblich eingegeben, @code{1} ist die (integre) 
+Zahlen werden wie üblich eingegeben, @code{1} ist die (ganze) 
 Zahl Eins, während @code{-1.5} ist eine Gleitkommazahl (also 
-eine nicht-integre).
+eine nicht-ganze).
 
 @item Zeichenketten
 Zeichenketten werden in doppelte Anführungszeichen gesetzt:
@@ -87,7 +87,7 @@ einer LilyPond-Datei stehen, darum wird immer die Raute verwendet.
 
 Scheme kann verwendet werden, um Berechnungen durchzuführen. Es 
 verwendet eine @emph{Präfix}-Syntax. Um 1 und@tie{}2 zu addieren, muss 
-man @code{(+ 1 2)} schreiben, und nicht @math{1+2}, wie in tranditioneller
+man @code{(+ 1 2)} schreiben, und nicht @math{1+2}, wie in traditioneller
 Mathematik.
 
 @lisp
@@ -154,8 +154,8 @@ internen Variable zugewiesen werden, wie etwa
 
 Diese Anweisung verändert die Erscheinung der Notenhälse. Der Wert 
 @code{2.6} wird der Variable @code{thickness} (Dicke) eines 
-@code{Stem}-(Hals)-Ojektes gleichgesetzt. 
-@code{thickness} wird realtiv zu den Notenlinien errechnet, in diesem 
+@code{Stem}-(Hals)-Objektes gleichgesetzt. 
+@code{thickness} wird relativ zu den Notenlinien errechnet, in diesem 
 Fall sind die Hälse also 2,6 mal so dick wie die Notenlinien. Dadurch 
 werden Hälse fast zweimal so dick dargestellt, wie sie normalerweise sind. 
 Um zwischen Variablen zu unterscheiden, die in den Quelldateien direkt 
@@ -185,7 +185,7 @@ des TextScript-Objektes verknüpft. Diese Zahlen werden in
 Systembreiten  gemessen, so dass der Befehl das Objekt eine Systembreite 
 nach rechts verschiebt und zwei Breiten nach oben.
 
-Die zwei Elemente eines Paares können von arbiträrem Inhalt sein, etwa
+Die zwei Elemente eines Paares können von beliebigem Inhalt sein, etwa
 
 @example
 #'(1 . 2)

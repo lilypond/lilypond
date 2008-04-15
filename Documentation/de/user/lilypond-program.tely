@@ -55,7 +55,7 @@ verfügbar.
 @author Das LilyPond-Entwicklerteam
 
 
-Copyright @copyright{} 1999--2007 bei den Authoren
+Copyright @copyright{} 1999--2007 bei den Autoren
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -71,7 +71,7 @@ GNU Free Documentation Lizenz (Version 1.1 oder
 spätere, von der Free Software Foundation publizierte Versionen, ohne 
 Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
-zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
 @end quotation
 
@@ -90,7 +90,7 @@ Für LilyPond Version @version{}
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2007 bei den Authoren
+Copyright @copyright{} 1999--2007 bei den Autoren
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -106,7 +106,7 @@ GNU Free Documentation Lizenz (Version 1.1 oder
 spätere, von der Free Software Foundation publizierte Versionen, ohne 
 Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
-zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
 @end quotation
 
@@ -123,7 +123,7 @@ Free Documentation License''.
 @ifnottex
 Diese Datei dokumentiert die Programmbenutzung von GNU LilyPond.
 
-Copyright 1999--2007 bei den Authoren
+Copyright 1999--2007 bei den Autoren
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -139,7 +139,7 @@ GNU Free Documentation Lizenz (Version 1.1 oder
 spätere, von der Free Software Foundation publizierte Versionen, ohne
 Invariante Abschnitte), 
 zu kopieren, verbreiten und/oder
-zu verändern. Eie Kopie der Lizenz ist im Abschnitt ``GNU
+zu verändern. Eine Kopie der Lizenz ist im Abschnitt ``GNU
 Free Documentation License'' angefügt.
 @end quotation
 
