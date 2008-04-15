@@ -26,7 +26,7 @@ of multi-measure rests can be controlled as follows:
   << { R1 } \\ { a1 } >>
   % Multi-measure rests in even-numbered voices are under the bottom line
   << { c1 } \\ { R1 } >>
-  % They remain separated even in empty bars
+  % They remain separated even in empty measures
   << { R1 } \\ { R1 } >>
   % This brings them together even though there are two voices
   \compressFullBarRests
