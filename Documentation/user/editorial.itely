@@ -191,9 +191,9 @@ Internals Reference:
 @node Hidden notes
 @unnumberedsubsubsec Hidden notes
 
-@cindex Hidden notes
-@cindex Invisible notes
-@cindex Transparent notes
+@cindex hidden notes
+@cindex invisible notes
+@cindex transparent notes
 @funindex \hideNotes
 @funindex \unHideNotes
 
