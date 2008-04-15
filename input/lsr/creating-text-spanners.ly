@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "expressive-marks, text, tweaks-and-overrides"
- texidoc = "
-The @code{\\startTextSpan} and @code{\\stopTextSpan} commands give you
-the ability to create text spanners as easily as pedal indications or
+
+  texidoc = "
+The @code{\\startTextSpan} and @code{\\stopTextSpan} commands allow the
+creation of text spanners as easily as pedal indications or
 octavations. Override some properties of the @code{TextSpanner} object
 to modify its output.
-" }
-% begin verbatim
+
+"
+  doctitle = "Creating text spanners"
+} % begin verbatim
 \relative c'' {
   \override TextSpanner  #'edge-text = #'("bla" . "blu")
   a \startTextSpan

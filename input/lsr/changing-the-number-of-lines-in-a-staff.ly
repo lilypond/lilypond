@@ -4,32 +4,34 @@
 
 \header {
   lsrtags = "staff-notation"
- texidoc = "
-The number of lines in a staff may changed by overriding
-@code{line-count} in the properties of @code{StaffSymbol}.
+
+  texidoc = "
+The number of lines in a staff may changed by overriding the
+@code{StaffSymbol} property @code{line-count}.
 
 
-" }
-% begin verbatim
+
+
+"
+  doctitle = "Changing the number of lines in a staff"
+} % begin verbatim
 upper = \relative c'' {
   c1 d e f
 }
 
 lower = \relative c {
+  \clef bass
   c1 b a g
 }
 
 \score {
   \context PianoStaff <<
-    \new Staff <<
+    \new Staff {
       \upper
-    >>  
-    \new Staff  {
-	\override Staff.StaffSymbol  #'line-count = #4 
-        \clef bass
-        \lower
+    }
+    \new Staff {
+      \override Staff.StaffSymbol #'line-count = #4 
+      \lower
     }
   >>
-
 }
-

@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "rhythms, text"
- texidoc = "
+
+  texidoc = "
 This example shows how to add a markup command to get a three sided box
 around some text (or other markup).
-" }
-% begin verbatim
+
+"
+  doctitle = "Three-sided box"
+} % begin verbatim
 % New command to add a three sided box, with sides north, west and south
 % Based on the box-stencil command defined in scm/stencil.scm
 % Note that you use ";" to comment a line in Scheme

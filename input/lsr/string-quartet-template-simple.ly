@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "strings, template"
- texidoc = "
+
+  texidoc = "
 This template demonstrates a simple string quartet. It also uses a
 \\global section for time and key signatures
-" }
-% begin verbatim
+
+"
+  doctitle = "String quartet template (simple)"
+} % begin verbatim
 global= {
            \time 4/4
            \key c \major

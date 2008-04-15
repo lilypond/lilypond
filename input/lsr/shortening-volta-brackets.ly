@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "repeats"
- texidoc = "
+
+  texidoc = "
 By default, the volta brackets will be drawn over all of the
 alternative music, but it is possible to shorten them by setting
 @code{voltaSpannerDuration}.  In the next example, the bracket only
 lasts one measure, which is a duration of 3/4. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Shortening volta brackets"
+} % begin verbatim
 \relative c'' {
   \time 3/4
   c c c

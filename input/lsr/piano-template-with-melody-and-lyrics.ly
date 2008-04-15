@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "vocal-music, piano-music, template"
- texidoc = "
+
+  texidoc = "
 Here is a typical song format: one staff with the melody and lyrics,
 with piano accompaniment underneath. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Piano template with melody and lyrics"
+} % begin verbatim
 melody = \relative c'' {
   \clef treble
   \key c \major

@@ -4,15 +4,19 @@
 
 \header {
   lsrtags = "rhythms, breaks"
- texidoc = "
-By default, beams can't be printed across line breaks. Here's a way to
-force the line break, by setting the @code{#'breakable} property. See
-also in the manual the \"Line Breaking\" and \"Manual beams\" sections.
 
-" }
-% begin verbatim
-\layout { ragged-right= ##t }
+  texidoc = "
+By default, beams can't be printed across line breaks. This behavior
+can be overridden by setting the @code{breakable} property. See also in
+the manual the \"Line breaking\" and \"Manual beams\" sections. 
+
+"
+  doctitle = "Beams across line breaks"
+} % begin verbatim
+\layout { ragged-right = ##t }
 \relative c'' {
   \override Score.Beam #'breakable = ##t
-  \time 3/16 c16[ d e \break f] 
+  \time 3/16
+  c16[ d e \break
+  f] r r 
 }

@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "expressive-marks"
- texidoc = "
-To make the @code{\\flageolet} circle smaller you can use the following
-Scheme code. 
-" }
-% begin verbatim
+
+  texidoc = "
+To make the @code{\\flageolet} circle smaller use the following Scheme
+function. 
+
+"
+  doctitle = "Changing \flageolet mark size"
+} % begin verbatim
 smallFlageolet = #(let ((m (make-music 'ArticulationEvent
                           'articulation-type "flageolet")))
        (set! (ly:music-property m 'tweaks)

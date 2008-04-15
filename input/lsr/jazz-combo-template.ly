@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "piano-music, percussion, guitar, template"
- texidoc = "
+
+  texidoc = "
 This is quite an advanced template, for a jazz ensemble. Note that all
 instruments are notated in \\key c \\major. This refers to the key in
 concert pitch; LilyPond will automatically transpose the key if the
 music is within a \\transpose section.
-" }
-% begin verbatim
+
+"
+  doctitle = "Jazz combo template"
+} % begin verbatim
 \header {
            title = "Song"
            subtitle = "(tune)"

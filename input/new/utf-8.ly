@@ -19,15 +19,13 @@ Debian GNU/Linux
 %} 
 
 \header {
-  doctitle = "UTF-8"
   lsrtags = "text"
   texidoc = "Various scripts may be used for texts (like titles and
 lyrics) introduced by entering them in UTF-8 encoding, and using a
 Pango based backend.  Depending on the fonts installed, this fragment
 will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
-
 "
-  
+  doctitle = "UTF-8"
 }
 
 % end verbatim - this comment is a hack to prevent texinfo.tex

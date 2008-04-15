@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "simultaneous-notes, chords, piano-music"
- texidoc = "
+
+  texidoc = "
 Clusters are a device to denote that a complete range of notes is to be
 played.
-" }
-% begin verbatim
+
+"
+  doctitle = "Clusters"
+} % begin verbatim
 \layout {
   ragged-right = ##t 
 }

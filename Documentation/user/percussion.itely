@@ -12,22 +12,35 @@
 @section Percussion
 
 @menu
-* Percussion sections::         
+* Common notation for percussion::
 @end menu
 
-@node Percussion sections
-@subsection Percussion sections
+@node Common notation for percussion
+@subsection Common notation for percussion
 
 Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
 
 @menu
-* Showing melody rhythms::      
-* Entering percussion::         
-* Percussion staves::           
-* Ghost notes::                 
+* References for percussion::
+* Basic percussion notation::
+* Percussion staves::
+* Ghost notes::
 @end menu
 
+@node References for percussion
+@subsubsection References for percussion
+
+@c TODO Add refs
+TBC
+
+@ignore
+TODO This section needs splitting.
+     The part showing the rhythm of a melody should be moved to
+     1.2.3 Displaying rhythms, but the example should be changed
+     to omit the drum roll.
+     A better example of drum rolls should be devised and placed in
+     Basic percussion notation. -td
 
 @node Showing melody rhythms
 @subsubsection Showing melody rhythms
@@ -47,9 +60,11 @@ staff are squashed, and the staff itself has a single line
 
 Internals Reference: @internalsref{RhythmicStaff}.
 
+@end ignore
 
-@node Entering percussion
-@subsubsection Entering percussion
+
+@node Basic percussion notation
+@subsubsection Basic percussion notation
 
 @cindex percussion
 @cindex drums

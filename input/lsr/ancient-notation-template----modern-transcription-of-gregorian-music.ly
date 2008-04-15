@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "ancient-notation, template"
- texidoc = "
+
+  texidoc = "
 This example demonstrates how to do modern transcription of Gregorian
 music. Gregorian music has no measure, no stems; it uses only half and
 quarter noteheads, and special marks, indicating rests of different
 length.
-" }
-% begin verbatim
+
+"
+  doctitle = "Ancient notation template -- modern transcription of gregorian music"
+} % begin verbatim
 \include "gregorian-init.ly"
 
          chant = \relative c' {

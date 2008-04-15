@@ -27,7 +27,7 @@ wenn er auf Sie zutrifft.
 @node Setup for specific Operating Systems
 @section Setup for specific Operating Systems
 
-Dieser Abschnitt erklärt zusätzliche Einstellungen für bestimmte Betriebsysteme.
+Dieser Abschnitt erklärt zusätzliche Einstellungen für bestimmte Betriebssysteme.
 
 @menu
 * MacOS X on the command-line::  
@@ -85,7 +85,7 @@ export PATH=$PATH:~/bin
 @noindent
 beinhaltet. Die Datei muss mit einer Leerzeile enden.
 
-Beachten Sie, dass @var{Pfad/zu} überlicherweise @code{/Applications/} ist.
+Beachten Sie, dass @var{Pfad/zu} üblicherweise @code{/Applications/} ist.
 
 
 @node Text editor support
@@ -112,7 +112,7 @@ Verschiedene Texteditoren haben Unterstützung für LilyPond.
 @subsection Emacs mode
 
 Emacs hat einen LilyPond-Modus (@file{lilypond-mode}), eine Datei, die 
-die Verfollständigung von Befehlen, Einrückungen, für LilyPond spezifische 
+die Vervollständigung von Befehlen, Einrückungen, für LilyPond spezifische 
 Klammerschließungen und die Markierung der Syntax beherrscht. 
 Zusätzlich stehen noch praktische Tastaturkombinationen zum
 Programmaufruf und zum Nachschlagen in den Handbüchern zur 
@@ -215,7 +215,7 @@ ausführt.
 Point and click erlaubt es, die Noten in der Quelldatei zu finden, indem man sie 
 im PDF anklickt. Das erleichtert es, fehlerhafte Stellen zu finden.
 
-Wenn diese Funktionalität aktiv ist, fügt LilyPond hyperlinks zum PDF hinzu. 
+Wenn diese Funktionalität aktiv ist, fügt LilyPond Hyperlinks zum PDF hinzu. 
 Diese werden dann bei einem Klick zum Browser geschickt, der wiederum 
 einen Texteditor mit dem Cursor an der richtigen Stelle öffnet.
 
@@ -254,7 +254,7 @@ gvim --remote +:@var{line}:norm@var{char} @var{file}
 @end example
 @end table
 
-Die Umgebunsvariable @code{LYEDITOR} wird verwendet, um dieses zu 
+Die Umgebungsvariable @code{LYEDITOR} wird verwendet, um dieses zu 
 überschreiben. Sie enthält den Befehl, um den Editor aufzurufen, wobei
 die Variablen @code{%(file)s},
 @code{%(column)s}, @code{%(line)s} mit der Datei, Spalte und Zeile 

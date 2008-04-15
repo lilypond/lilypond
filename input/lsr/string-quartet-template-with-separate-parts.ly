@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "strings, template"
- texidoc = "
+
+  texidoc = "
 The \"String quartet template\" snippet produces a nice string quartet,
 but what if you needed to print parts? This new template demonstrates
 how to use the \\tag feature to easily split a piece into individual
@@ -17,8 +18,10 @@ vla.ly, and vlc.ly – produce the appropiate part.
 
 
 Do not forget to remove specified comments when using separate files! 
-" }
-% begin verbatim
+
+"
+  doctitle = "String quartet template with separate parts"
+} % begin verbatim
 %%%%% piece.ly
 %%%%% (This is the global definitions file)
 

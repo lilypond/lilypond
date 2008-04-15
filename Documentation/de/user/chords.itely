@@ -107,7 +107,7 @@ Eine Ausnahme ist @code{c:13}, weil hier die 11 ausgelassen wird.
 
 @cindex Grundton eines Akkordes
 @cindex Additionen in Akkorden
-@cindex Subtration in Akkorden
+@cindex Subtraktion in Akkorden
 @cindex Hinzufügen von Tönen in Akkorden
 @cindex Entfernen von Tönen aus Akkorden
 
@@ -290,12 +290,12 @@ angezeigt werden.
 Die Standardeinstellungen für die Symbole entsprechen den Konventionen 
 im Jazz, wie sie von Klaus Ignatzek (siehe @ref{Literature list}). 
 vorgeschlagen wurden. Mit den folgenden Befehlen könne aber 
-Anpssungen vorgenommen werden:
+Anpassungen vorgenommen werden:
 
 @table @code
 @funindex chordNameExceptions
 @item chordNameExceptions
-Das ist eine Liste, die alle Akkorder aufführt, die angewöhnliche 
+Das ist eine Liste, die alle Akkorde aufführt, die ungewöhnliche 
 Form haben.
 
 Die Liste muss nach dem Schema 
@@ -338,7 +338,7 @@ Siehe auch
 @item chordNameSeparator
 Verschiedene Teile eines Akkordsymboles werden normalerweise 
 durch einen Schrägstrich markiert. Indem @code{chordNameSeparator} 
-ein anderer Wert zugewiesen wird, kann das Ausehen des Trenners 
+ein anderer Wert zugewiesen wird, kann das Aussehen des Trenners 
 verändert werden, z. B.:
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new ChordNames \chordmode {

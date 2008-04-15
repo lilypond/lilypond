@@ -4,15 +4,18 @@
 
 \header {
   lsrtags = "chords"
- texidoc = "
+
+  texidoc = "
 The english naming of chords (default) can be changed to german 
 (@code{\\germanChords} replaces B and Bes to H and B) or semi-german 
 (@code{\\semiGermanChords} replaces B and Bes to H and Bb).
 
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Changing the chord names to German or semi-German notation"
+} % begin verbatim
 music = \chordmode {
   c1/c cis/cis
   b/b bis/bis bes/bes

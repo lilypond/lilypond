@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "ancient-notation, template"
- texidoc = "
+
+  texidoc = "
 When transcribing mensural music, an incipit at the beginning of the
 piece is useful to indicate the original key and tempo. While today
 musicians are used to bar lines in order to faster recognize rhythmic
@@ -12,8 +13,10 @@ patterns, bar lines were not yet invented during the period of mensural
 music; in fact, the meter often changed after every few notes. As a
 compromise, bar lines are often printed between the staves rather than
 on the staves. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Ancient notation template -- modern transcription of mensural music"
+} % begin verbatim
 global = {
   \set Score.skipBars = ##t
 

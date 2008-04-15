@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "expressive-marks, editorial-and-educational-use"
- texidoc = "
+
+  texidoc = "
 The appearance of slurs may be changed from solid to dotted or dashed.
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Changing the appearance of a slur from solid to dotted or dashed"
+} % begin verbatim
 \relative c' {
   c( d e  c) |
   \slurDotted
