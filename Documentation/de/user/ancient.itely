@@ -44,7 +44,7 @@ zur Verfügung, siehe
 @end itemize
 
 Indem eine dieser grob- (graph. Obj.)-Eigenschaften verändert wird, 
-ändert sich auch die Erscheindung der grafischen Objekte zu einem 
+ändert sich auch die Erscheinung der grafischen Objekte zu einem 
 bestimmten Notationsstil, ohne dass neue Notationskonzepte 
 bemüht werden müssen.
 
@@ -136,7 +136,7 @@ einen der Werte @code{baroque}, @code{neomensural}, @code{mensural} oder
 sich vom Standard (@code{default}) nur in sofern, als eine viereckige Form für 
 die Brevis (@code{\breve}) benutzt wird. Der @code{neomensural}-Stil 
 unterscheidet sich vom barocken Stil darin, dass hier rhomboide Notenköpfe für 
-ganze Noten und kleinere Notenwerte eingesetzt ewrden. Hälse werden über oder 
+ganze Noten und kleinere Notenwerte eingesetzt werden. Hälse werden über oder 
 unter den Notenköpfen zentriert. Dieser Stil ist vor allem dann sinnvoll, wenn 
 mensurale Musik transkribiert werden soll, etwa für ein Incipit. Der
 mensurale (@code{mensural}) Stil erstellt Notenköpfe, die das Aussehen 
@@ -219,7 +219,7 @@ und Versetzungszeichen für die Alte Musik ausgewählt werden.
 
 Wie zu sehen ist, werden nicht alle Versetzungszeichen von jedem Stil 
 unterstützt. Wenn versucht wird, ein Versetzungszeichen zu notieren, 
-das von einem bestimmten Stil nicht untersützt wird, wechselt LilyPond zu einem 
+das von einem bestimmten Stil nicht unterstützt wird, wechselt LilyPond zu einem 
 anderen Stil, wie in dem Beispiel @lsr{ancient,ancient-accidentals.ly}
 demonstriert wird.
 
@@ -513,7 +513,7 @@ In diesem Handbuch: siehe @ref{Clef}.
 
 @knownissues
 
-Der mensurale G-Schlüssel ist als Petrucci-G-schlüssel deklariert.
+Der mensurale G-Schlüssel ist als Petrucci-G-Schlüssel deklariert.
 
 
 
@@ -562,7 +562,7 @@ eingesetzt werden.
 @cindex Taktart, Alte Musik
 @cindex Mensur
 
-LilyPond besitzt grundlegende Untersützung für mensurale Taktangaben. Die 
+LilyPond besitzt grundlegende Unterstützung für mensurale Taktangaben. Die 
 Symbole sind starr verknüpft mit bestimmten Brüchen. Darum müssen die Werte 
 @code{n} und @code{m} der folgenden Tabelle in den Befehl 
 @code{\time n/m} eingesetzt werden, um die entsprechenden Symbole zu erhalten.
@@ -875,7 +875,7 @@ was sie aber noch nicht können. Darum ist fast immer zu viel Platz zwischen
 Ligaturen und Zeilenumbrüche sind ungenügend. Text lässt sich auch nicht 
 richtig an Ligaturen ausrichten.
 
-Akzidenzien dürfen nicht innerhalb von einer Ligatur gedruckt werden, sondern 
+Akzidentien dürfen nicht innerhalb von einer Ligatur gedruckt werden, sondern 
 müssen gesammelt und vor der Ligatur ausgegeben werden.
 
 Die Syntax verwendet immer noch den verworfenen Infix-Stil (@code{\[ 
@@ -988,7 +988,7 @@ Die horizontale Positionierung ist sehr schlecht.
 
 @cindex Quadratische Neumenligaturen
 @cindex Gregorianische quadratische Neumenligaturen
-@cindex Ligaturen der quadratischen Neumennoation
+@cindex Ligaturen der quadratischen Neumennotation
 
 Beschränkte Unterstützung für gregorianische Quadratneumen-Ligaturen 
 (nach dem Stil der Editio Vaticana) ist vorhanden. Die wichtigsten 

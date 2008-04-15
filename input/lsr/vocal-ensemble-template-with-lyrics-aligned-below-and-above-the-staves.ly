@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "text, vocal-music, contexts-and-engravers, template"
- texidoc = "
+
+  texidoc = "
 This template is basically the same as the simple \"Vocal ensemble\"
 template, with the exception that here all the lyrics lines are placed
 using @code{alignAboveContext} and @code{alignBelowContext}.
-" }
-% begin verbatim
+
+"
+  doctitle = "Vocal ensemble template with lyrics aligned below and above the staves"
+} % begin verbatim
 global = {
   \key c \major
   \time 4/4

@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "rhythms, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 In \"simple\" lead-sheets, sometimes no actual notes are written,
 instead only \"rhythmic patterns\" and chords above the measures are
 notated giving the structure of a song. Such a feature is for example
@@ -16,8 +17,10 @@ example shows two solutions to this problem, by redefining ordinary
 rests to be printed as slashes. (If the duration of each beat is not a
 quarter note, replace the @code{r4} in the definitions with a rest of
 the appropriate duration). 
-" }
-% begin verbatim
+
+"
+  doctitle = "Rhythmic slashes"
+} % begin verbatim
 % Macro to print single slash
 rs = {
   \once \override Rest #'stencil = #ly:percent-repeat-item-interface::beat-slash

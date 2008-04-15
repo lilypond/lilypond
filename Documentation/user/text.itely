@@ -14,7 +14,7 @@
 @lilypondfile[quote]{text-headword.ly}
 
 This section explains how to include text (with various
-formatting) in your scores.
+formatting) in music scores.
 
 @noindent
 Some text elements that are not dealt with here are discussed in other
@@ -29,18 +29,21 @@ information, see @ref{Text encoding}.}
 
 @menu
 * Writing text::                
-* Formatting text::                 
+* Formatting text::             
+* Fonts::                       
 @end menu
 
 
 @node Writing text
 @subsection Writing text
 
-@menu     
+This section introduces different ways of adding text to a score.
+
+@menu
 * Text scripts::                
 * Text spanners::               
 * Text marks::                  
-* Separate text::                  
+* Separate text::               
 @end menu
 
 
@@ -242,16 +245,14 @@ all.
 @funindex \markup
 
 A @code{\markup} block can exist by itself, outside of any
-any @code{\score} block.  This syntax is called a @q{top-level
-expression}, and is described in @code{File structure}.
+any @code{\score} block, as a @qq{top-level
+expression}.  This syntax is described in @ref{File structure}.
 
-@c TODO: turn this into a @lilypond example
-
-@example
-\markup @{
-  @var{..}
-@}
-@end example
+@lilypond[quote,ragged-right,verbatim]
+\markup {
+  Tomorrow, and tomorrow, and tomorrow...
+}
+@end lilypond
 
 @noindent
 This allows to print text separately
@@ -260,30 +261,28 @@ useful when the input file contains
 several music pieces, as described in
 @ref{Multiple scores in a book}.
 
-@example
-\score @{
-  @var{..}
-@}
-\markup @{
-  @var{..}
-@}
-\score @{
-  @var{..}
-@}
-@end example
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  c'1
+}
+\markup {
+  Tomorrow, and tomorrow, and tomorrow...
+}
+\score {
+  c'1
+}
+@end lilypond
 
 Using a specific syntax, text blocks can be spread
 over multiple pages, making possible to print
 text documents or books -- and therefore to
 use LilyPond as a word processor.  This syntax is described in
-@ref{Page wrapping text}.
+@ref{Multi-page markup}.
 
 @ignore
 @snippets
 
-TODO: add convenient snippets, e.g.
-"Inserting large plain text sections"
-(this requires the LSR to be updated) -vv
+TODO: add convenient snippets in input/new -vv
 @end ignore
 
 @seealso
@@ -291,7 +290,7 @@ TODO: add convenient snippets, e.g.
 Notation Reference: @code{Formatting text},
 @code{File structure}, 
 @ref{Multiple scores in a book},
-@ref{Page wrapping text}.
+@ref{Multi-page markup}.
 
 Snippets: @lsrdir{Text,Text}.
 
@@ -308,11 +307,16 @@ Internals Reference: @internalsref{TextScript}.
 @node Formatting text
 @subsection Formatting text
 
+This section presents basic and advanced text formatting,
+using the @code{\markup} mode specific syntax.
+
 @menu
 * Text markup introduction::    
-* Nested scores::               
-* Page wrapping text::          
-* Font selection::              
+* Common markup commands::      
+* Text alignment::              
+* Graphic notation inside markup::  
+* Music notation inside markup::  
+* Multi-page markup::          
 @end menu
 
 @node Text markup introduction
@@ -343,8 +347,6 @@ c1_\markup { "\special {weird} #characters" }
 An exhaustive list of @code{\markup}-specific commands can be found in
 @ref{Text markup commands}.
 
-@code{\markup} blocks can be used anywhere text is called,
-and not only for @internalsref{TextScript}s objects.
 
 @lilypond[quote,verbatim]
 \header{ title = \markup{ \bold { foo \italic { bar! } } } }
@@ -366,14 +368,7 @@ and not only for @internalsref{TextScript}s objects.
 }
 @end lilypond
 
-A @code{\markup} block can also be printed on its own at the top-level
-of the input file, away from
-any @code{\score} block. This syntax is described in
-@ref{Multiple scores in a book}.
 
-@lilypond[quote,ragged-right,verbatim]
-\markup{ Here is some text. }
-@end lilypond
 
 @cindex font switching
 
@@ -461,6 +456,41 @@ properties.  If you are creating text in such situations, it is
 advisable to cancel those properties with @code{normal-text}.  See
 @ref{Text markup commands}, for more details.
 
+@ignore
+TODO: here are some commands that could be described here.
+I'm putting them in bulk, prior to working on this section. -vv
+
+\simple
+
+\char
+\fraction
+
+\combine
+\concat
+\put-adjacent
+
+
+\page-ref (see also "Table of contents")
+\fromproperty
+\verbatim-file
+\with-url
+
+\on-the-fly 
+\override
+
+
+\null
+\hspace
+
+\lower
+\raise 
+\translate 
+\translate-scaled
+\rotate
+\transparent
+\whiteout
+
+@end ignore
 
 @seealso
 
@@ -481,13 +511,186 @@ so texts will be spaced slightly too wide.
 
 Syntax errors for markup mode are confusing.
 
+@node Common markup commands
+@subsubsection Common markup commands
 
-@node Nested scores
-@subsubsection Nested scores
+Some basic formatting can be used blah blah
 
-It is possible to nest music inside markups, by adding a
-@code{\score} block to a markup expression.  Such a score must
-contain a @code{\layout} block.
+\italic 
+\upright
+\bold 
+\medium	
+\underline
+	
+
+@c TODO: what's the difference between the following commands? -vv
+\smallCaps	
+\caps 
+\fontCaps
+
+
+Some alternate font families can easily be selected:
+
+\sans
+\typewriter
+\roman
+\number (only for numbers, such as fingerings and time signatures)
+@c TODO: add \slashed-digit here? -vv
+
+The size can be blah blah blah
+
+\fontsize
+
+Some predefined font sizes can be used blah blah
+
+\teeny
+\tiny
+\small	
+\normalsize
+\large
+\huge
+
+Some shorcuts allow to change the font size relatively to its previous value 
+
+\smaller
+\bigger
+\larger
+
+\magnify
+
+Text may be printed as subscript or superscript:
+
+\sub 
+\super
+
+To obtain subscripts or superscripts in a normal text size, use
+\normal-size-sub
+\normal-size-super
+
+All these settings (except the size) can be reverted to the default font:
+
+\normal-text 
+
+
+@node Text alignment
+@subsubsection Text alignment
+
+Alignment basics:
+\left-align
+\center-align
+\right-align
+
+Horizontal alignment:
+\hcenter
+\general-align
+\halign 
+
+
+Vertical alignment: 
+\vcenter
+\column 
+\dir-column 
+
+Building a "large" markup:
+
+\line
+
+\fill-line
+
+\hcenter-in
+	
+\pad-around
+\pad-markup
+\pad-to-box
+\pad-x
+	
+Alignment inside a "large" markup:
+
+\justify-field 
+\justify
+\justify-string
+
+\wordwrap-field
+\wordwrap
+\wordwrap-string
+
+@node Graphic notation inside markup
+@subsubsection Graphic notation inside markup
+Graphics around text:
+\box
+\circle
+
+\bracket
+\hbracket
+
+"Standalone" graphics:
+
+\arrow-head
+\draw-line
+\draw-circle
+\filled-box
+\triangle
+\strut
+
+\with-color
+
+
+Advanced graphics:
+\stencil
+
+\postscript
+\epsfile
+
+\with-dimensions
+
+@node Music notation inside markup
+@subsubsection Music notation inside markup
+
+Notes can be printed in markup mode blah blah:
+
+\note	
+\note-by-number
+
+Accidental symbols can be obtained easily:
+
+\doubleflat
+\sesquiflat
+\flat
+\semiflat
+\natural
+\semisharp
+\sharp
+\sesquisharp
+\doublesharp
+
+Some other notation objects blah blah
+
+\beam
+\finger
+\dynamic
+\tied-lyric
+\markalphabet
+\markletter
+@c TODO: add \text here? -vv
+
+Any musical symbol can be printed
+
+\musicglyph
+@c TODO: add \lookup here? -vv
+
+
+The markup mode has support for fret diagrams:
+
+\fret-diagram 
+\fret-diagram-terse
+\fret-diagram-verbose
+
+An entire @code{\score} block can even be nested in a @code{\markup}
+block.  In such a case, the @code{\score} must contain a @code{\layout} block.
+
+
+\score
+
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -505,8 +708,8 @@ contain a @code{\layout} block.
 
 Snippets: @lsrdir{Text,Text}
 
-@node Page wrapping text
-@subsubsection Page wrapping text
+@node Multi-page markup
+@subsubsection Multi-page markup
 
 Whereas @code{\markup} is used to enter a non-breakable block of
 text, @code{\markuplines} can be used at top-level to enter lines
@@ -543,8 +746,53 @@ Snippets: @lsrdir{Text,Text}
 @funindex \markuplines
 @code{\markuplines}
 
-@node Font selection
-@subsubsection Font selection
+
+
+@c TODO: move the following subsubsec into NR3 -vv
+@c maybe.  -gp
+@node Fonts
+@subsection Fonts
+
+@menu
+* Entire document fonts::       
+* Single entry fonts::          
+@end menu
+
+@node Entire document fonts
+@subsubsection Entire document fonts
+
+It is also possible to change the default font family for the
+entire document.  This is done by calling the
+@code{make-pango-font-tree} from within the @code{\paper} block.
+The function takes names for the font families to use for roman,
+sans serif and monospaced text.  For example,
+
+@cindex font families, setting
+@cindex Pango
+
+
+@lilypond[verbatim]
+\paper  {
+  myStaffSize = #20
+
+  #(define fonts
+    (make-pango-font-tree "Times New Roman"
+                          "Nimbus Sans"
+                          "Luxi Mono"
+                           (/ myStaffSize 20)))
+}
+
+{
+  c'^\markup { roman: foo \sans bla \typewriter bar }
+}
+@end lilypond
+
+@c we don't do Helvetica / Courier, since GS incorrectly loads
+@c Apple TTF fonts
+
+
+@node Single entry fonts
+@subsubsection Single entry fonts
 
 @cindex font selection
 @cindex font magnification
@@ -620,35 +868,6 @@ property.  The resulting size is taken relative to the
 @cindex font size
 @cindex font magnification
 
-
-It is also possible to change the default font family for the
-entire document.  This is done by calling the
-@code{make-pango-font-tree} from within the @code{\paper} block.
-The function takes names for the font families to use for roman,
-sans serif and monospaced text.  For example,
-
-@cindex font families, setting
-@cindex Pango
-
-
-@lilypond[verbatim]
-\paper  {
-  myStaffSize = #20
-
-  #(define fonts
-    (make-pango-font-tree "Times New Roman"
-                          "Nimbus Sans"
-                          "Luxi Mono"
-                           (/ myStaffSize 20)))
-}
-
-{
-  c'^\markup { roman: foo \sans bla \typewriter bar }
-}
-@end lilypond
-
-@c we don't do Helvetica / Courier, since GS incorrectly loads
-@c Apple TTF fonts
 
 
 

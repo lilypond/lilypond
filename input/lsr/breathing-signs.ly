@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "expressive-marks"
- texidoc = "
+
+  texidoc = "
 Breathing signs are available in different tastes: commas (default),
 ticks, vees and \"railroad tracks\" (caesura).
-" }
-% begin verbatim
+
+"
+  doctitle = "Breathing signs"
+} % begin verbatim
 \new Staff \relative c'' {
   \key es \major
   \time 3/4

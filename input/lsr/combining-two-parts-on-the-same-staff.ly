@@ -4,22 +4,28 @@
 
 \header {
   lsrtags = "simultaneous-notes, text"
- texidoc = "
-The part combiner tool ( @code{\\partcombine} command ) allows you to
-combine different parts on the same staff. Text directions such as
-\"solo\" or \"a2\" are added by default; to remove them, simply set the
-property @code{printPartCombineTexts} to \"false\". For vocal scores
-(hymns), there is no need to add \"solo\"/\"a2\" texts, so they should
-be switched off. However, you'd better not use it if there are any
-solos, as they won't be indicated. In such cases, you may simply want
-to use standard LilyPond polyphony. This snippet presents the three
-ways two parts can be printed on a same staff: standard polyphony,
-@code{\\partcombine} without texts, and @code{\\partcombine} with texts.
+
+  texidoc = "
+The part combiner tool ( @code{\\partcombine} command ) allows the
+combination of several different parts on the same staff. Text
+directions such as \"solo\" or \"a2\" are added by default; to remove
+them, simply set the property @code{printPartCombineTexts} to
+\"false\". For vocal scores (hymns), there is no need to add
+\"solo\"/\"a2\" texts, so they should be switched off. However, it
+might be better not to use it if there are any solos, as they won't be
+indicated. In such cases, standard polyphonic notation may be
+preferable.
+
+This snippet presents the three ways two parts can be printed on a same
+staff: standard polyphony, @code{\\partcombine} without texts, and
+@code{\\partcombine} with texts.
 
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Combining two parts on the same staff"
+} % begin verbatim
 musicUp = \relative c'' {
   \time 4/4
   a4 c4.( g8) a4 |

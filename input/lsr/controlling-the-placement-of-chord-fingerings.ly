@@ -4,21 +4,24 @@
 
 \header {
   lsrtags = "editorial-and-educational-use, chords, piano-music"
- texidoc = "
+
+  texidoc = "
 The placement of fingering numbers can be controlled precisely.
-" }
-% begin verbatim
-\relative c'{
+
+"
+  doctitle = "Controlling the placement of chord fingerings"
+} % begin verbatim
+\relative c' {
   \set fingeringOrientations = #'(left)
-  <c-1 e-3 a-5 > 4
+  <c-1 e-3 a-5>4
   \set fingeringOrientations = #'(down)
-  <c-1 e-3 a-5 >
+  <c-1 e-3 a-5>
   \set fingeringOrientations = #'(right)
-  <c-1 e-3 a-5 >
+  <c-1 e-3 a-5>
   \set fingeringOrientations = #'(up)
-  <c-1 e-3 a-5 >
+  <c-1 e-3 a-5>
   \set fingeringOrientations = #'(left down)
-  <c-1 e-3 a-5 > 2
+  <c-1 e-3 a-5>2
   \set fingeringOrientations = #'(up right down)
-  <c-1 e-3 a-5 >
+  <c-1 e-3 a-5>
 }

@@ -18,7 +18,7 @@ TEXI2HTML_LANG=--lang=$(ISOLANG)
 TEXI2HTML_FLAGS += $(TEXI2HTML_LANG)
 TEXI2HTML = LANG= $(TEXI2HTML_PROGRAM)
 
-TEXI2PDF_FLAGS += --batch --tidy --command '@set version $(TOPLEVEL_VERSION)'
+TEXI2PDF_FLAGS += --batch --command '@set version $(TOPLEVEL_VERSION)'
 TEXI2PDF_FLAGS += $(DOCUMENTATION_INCLUDES)
 
 TELY_FILES = $(call src-wildcard,*.tely)

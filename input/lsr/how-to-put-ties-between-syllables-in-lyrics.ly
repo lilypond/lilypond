@@ -4,10 +4,13 @@
 
 \header {
   lsrtags = "text, vocal-music"
- texidoc = "
+
+  texidoc = "
 This can be achieved by separating those syllables by tildes.  
-" }
-% begin verbatim
+
+"
+  doctitle = "How to put ties between syllables in lyrics"
+} % begin verbatim
 \lyrics {
   wa~o~a 
 }

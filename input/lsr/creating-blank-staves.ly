@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "staff-notation, editorial-and-educational-use, contexts-and-engravers, paper-and-layout"
- texidoc = "
-To create blank staves, you must generate empty measures, removing also
-from the @code{Score} context the @code{Bar_number_engraver}, and from
-the @code{Staff} context the @code{Time_signature_engraver}, the
-@code{Clef_engraver} and the @code{Bar_engraver}. 
-" }
-% begin verbatim
+
+  texidoc = "
+To create blank staves, generate empty measures then remove the
+@code{Bar_number_engraver} from the @code{Score} context, and the
+@code{Time_signature_engraver}, @code{Clef_engraver} and
+@code{Bar_engraver} from the @code{Staff} context. 
+
+"
+  doctitle = "Creating blank staves"
+} % begin verbatim
 #(set-global-staff-size 20)
 
 \score {

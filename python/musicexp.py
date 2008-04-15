@@ -719,7 +719,15 @@ class ChordEvent (NestedMusic):
         for e in self.elements:
             l = max(l, e.get_length())
         return l
-    
+
+    def get_duration (self):
+        note_events = [e for e in self.elements if
+               isinstance (e, NoteEvent) or isinstance (e, RestEvent)]
+        if note_events:
+            return note_events[0].duration
+        else:
+            return None
+
     def print_ly (self, printer):
         note_events = [e for e in self.elements if
                isinstance (e, NoteEvent)]
@@ -757,7 +765,9 @@ class ChordEvent (NestedMusic):
                     basepitch = previous_pitch
             printer ('<%s>' % string.join (pitches))
             previous_pitch = basepitch
-            note_events[0].duration.print_ly (printer)
+            duration = self.get_duration ()
+            if duration:
+                duration.print_ly (printer)
         else:
             pass
         
@@ -1088,6 +1098,60 @@ class FretEvent (MarkupEvent):
             return "%s\\markup { \\fret-diagram #\"%s\" }" % (self.direction_mod (), val)
         else:
             return ''
+
+class ChordPitch:
+    def __init__ (self):
+        self.alteration = 0
+        self.step = 0
+    def __repr__(self):
+        return self.ly_expression()
+    def ly_expression (self): 
+        return pitch_generating_function (self)
+
+class ChordModification:
+    def __init__ (self):
+        self.alteration = 0
+        self.step = 0
+        self.type = 0
+    def ly_expression (self):
+        if self.type:
+            val = {1: ".", -1: "^" }.get (self.type, "")
+            val += "%s" % self.step
+            val += {1: "+", -1: "-"}.get (self.alteration, "")
+            return val
+        else:
+            return ''
+
+class ChordNameEvent (Event):
+    def __init__ (self):
+        Event.__init__ (self)
+        self.root = None
+        self.kind = None
+        self.duration = None
+        self.modifications = []
+        self.bass = None
+    def add_modification (self, mod):
+        self.modifications.append (mod)
+    def ly_expression (self):
+        if not self.root:
+            return ''
+        value = self.root.ly_expression ()
+        if self.duration:
+            value += self.duration.ly_expression ()
+        if self.kind:
+            value += ":"
+            value += self.kind
+        # First print all additions/changes, and only afterwards all subtractions
+        for m in self.modifications:
+            if m.type == 1:
+              value += m.ly_expression ()
+        for m in self.modifications:
+            if m.type == -1:
+              value += m.ly_expression ()
+        if self.bass:
+            value += "/+%s" % self.bass.ly_expression ()
+        return value
+
 
 class TremoloEvent (ArticulationEvent):
     def __init__ (self):
@@ -1487,6 +1551,12 @@ class Staff (StaffGroup):
             sub_staff_type = self.stafftype
 
         for [staff_id, voices] in self.part_information:
+            # Chord names need to come before the staff itself!
+            for [v, lyrics, figuredbass, chordnames] in voices:
+                if chordnames:
+                    printer ('\context ChordNames = "%s" \\%s' % (chordnames, chordnames))
+
+            # now comes the real staff definition:
             if staff_id:
                 printer ('\\context %s = "%s" << ' % (sub_staff_type, staff_id))
             else:
@@ -1494,7 +1564,7 @@ class Staff (StaffGroup):
             printer.newline ()
             n = 0
             nr_voices = len (voices)
-            for [v, lyrics, figuredbass] in voices:
+            for [v, lyrics, figuredbass, chordnames] in voices:
                 n += 1
                 voice_count_text = ''
                 if nr_voices > 1:

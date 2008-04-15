@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "text, piano-music, template"
- texidoc = "
+
+  texidoc = "
 Instead of having a full staff for the melody and lyrics, you can place
 the lyrics between the piano staff (and omit the separate melody
 staff).
-" }
-% begin verbatim
+
+"
+  doctitle = "Piano template with centered lyrics"
+} % begin verbatim
 upper = \relative c'' {
   \clef treble
   \key c \major

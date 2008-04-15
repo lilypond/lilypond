@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "vocal-music, template"
- texidoc = "
+
+  texidoc = "
 Here is a standard four-part SATB vocal score. With larger ensembles,
 it's often useful to include a section which is included in all parts.
 For example, the time signature and key signatures are almost always
 the same for all parts. Like in the \"Hymn\" template, the four voices
 are regrouped on only two staves.
-" }
-% begin verbatim
+
+"
+  doctitle = "Vocal ensemble template"
+} % begin verbatim
 global = {
             \key c \major
             \time 4/4

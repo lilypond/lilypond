@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "tweaks-and-overrides, spacing"
- texidoc = "
+
+  texidoc = "
 If @code{strict-note-spacing} is set spacing of notes is not influenced
 by bars or clefs part way along the system. Rather, they are put just
 before the note that occurs at the same time. This may cause
 collisions. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Proportional strict notespacing"
+} % begin verbatim
 \paper {
   ragged-right = ##t
   indent = 0

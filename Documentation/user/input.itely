@@ -335,10 +335,6 @@ converted to PDF and PNG if these formats are switched on as well.
 
 For more information on output formats, see @rprogram{Invoking LilyPond}.
 
-@seealso
-
-Examples: @c @lsr{non-notation,clip-systems.ly}
-
 
 @node Including LilyPond files
 @subsection Including LilyPond files
@@ -435,11 +431,6 @@ To use a Unicode escape sequence, use
 @end example
 
 
-@seealso
-
-@c @lsr{text,utf-8.ly}
-
-
 @node Different editions from one source
 @subsection Different editions from one source
 
@@ -503,11 +494,6 @@ a piece of music with multiple @code{\tag} entries,
 @example
   \tag #'original-part \tag #'transposed-part @dots{}
 @end example
-
-
-@seealso
-
-Examples: @c @lsr{parts,tag@/-filter@/.ly}
 
 
 @knownissues

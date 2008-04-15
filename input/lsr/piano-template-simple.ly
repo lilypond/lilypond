@@ -4,10 +4,13 @@
 
 \header {
   lsrtags = "piano-music, template"
- texidoc = "
+
+  texidoc = "
 Here is a simple piano staff with some notes.
-" }
-% begin verbatim
+
+"
+  doctitle = "Piano template (simple)"
+} % begin verbatim
 upper = \relative c'' {
   \clef treble
   \key c \major

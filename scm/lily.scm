@@ -74,6 +74,7 @@ on errors, and print a stack trace.")
 
     (safe #f "Run safely")
     (strict-infinity-checking #f "If yes, crash on encountering Inf/NaN.")
+    (strip-output-dir #t "If yes, strip directories from input files.")
     (separate-log-files #f "Output to FILE.log per file.")
     (trace-memory-frequency #f "Record Scheme cell usage this many times per second, and dump to file.")
     (trace-scheme-coverage #f "Record coverage of Scheme files") 
@@ -410,7 +411,7 @@ The syntax is the same as `define*-public'."
 
 (define (dump-profile base last this)
   (let*
-      ((outname (format "~a.profile" (basename base ".ly")))
+      ((outname (format "~a.profile" (dir-basename base ".ly")))
        (diff (map (lambda (y) (apply - y)) (zip this last))))
     
     (ly:progress "\nWriting timing to ~a..." outname)
@@ -559,7 +560,6 @@ The syntax is the same as `define*-public'."
 (define-public (lilypond-main files)
   "Entry point for LilyPond."
 
-
   (eval-string (ly:command-line-code))
 
   (if (ly:get-option 'help)
@@ -682,7 +682,7 @@ The syntax is the same as `define*-public'."
 	   ((start-measurements (if do-measurements
 				    (profile-measurements)
 				    #f))
-	    (base (basename x ".ly"))
+	    (base (dir-basename x ".ly"))
 	    (all-settings (ly:all-options)))
 
 	 (if separate-logs
@@ -741,7 +741,7 @@ The syntax is the same as `define*-public'."
       (gui-no-files-handler))
 
   (if (not (string? (ly:get-option 'log-file)))
-      (let* ((base (basename (car files) ".ly"))
+      (let* ((base (dir-basename (car files) ".ly"))
 	     (log-name (string-append base ".log")))
 	(if (not (ly:get-option 'gui))
 	    (ly:message (_ "Redirecting output to ~a...") log-name))

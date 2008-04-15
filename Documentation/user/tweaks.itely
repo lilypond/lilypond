@@ -2997,8 +2997,6 @@ lhMusic = \relative c' {
 @node Other uses for tweaks
 @subsection Other uses for tweaks
 
-@itemize
-
 @cindex transparent property, use of
 @cindex objects, making invisible
 @cindex removing objects
@@ -3007,7 +3005,6 @@ lhMusic = \relative c' {
 @cindex invisible objects
 @cindex tying notes across voices
 
-@item
 @subheading Tying notes across voices
 
 The following example demonstrates how to connect notes in
@@ -3052,7 +3049,6 @@ too much, we can lengthen the stem by setting the
 >>
 @end lilypond
 
-@item
 @subheading Simulating a fermata
 
 @cindex stencil property, use of
@@ -3099,8 +3095,6 @@ Both methods remove the metronome mark from the printed output,
 and both affect the MIDI timing as required, but the first
 (transparent) metronome mark still influences the note spacing
 while the second (with no stencil) does not.
-
-@end itemize
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
@@ -3273,7 +3267,7 @@ interest are:
 @node Avoiding tweaks with slower processing
 @subsection Avoiding tweaks with slower processing
 
-LilyPond can perform extra checks while it processes files.  These
+LilyPond can perform extra checks while it processes input files.  These
 checks will take extra time to perform, but fewer manual tweaks
 may be required to obtain an acceptable result.  If a text script
 or part of the lyrics extends over the margins these checks will

@@ -44,14 +44,12 @@
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
       </note>
       <note>
         <pitch><step>G</step><octave>4</octave></pitch>
         <duration>4</duration>
         <voice>1</voice>
         <type>eighth</type>
-        <stem>up</stem>
       </note>
       <figured-bass>
         <figure><prefix>sharp</prefix><figure-number>1</figure-number></figure>
@@ -65,18 +63,15 @@
         <voice>1</voice>
         <type>eighth</type>
         <dot/>
-        <stem>up</stem>
       </note>
       <figured-bass parentheses="yes">
         <figure><figure-number>6</figure-number></figure>
-        <duration>2</duration>
       </figured-bass>
       <note>
         <pitch><step>G</step><octave>4</octave></pitch>
         <duration>2</duration>
         <voice>1</voice>
         <type>16th</type>
-        <stem>up</stem>
       </note>
       <figured-bass>
         <figure><figure-number>5</figure-number><suffix>slash</suffix></figure>
@@ -89,7 +84,6 @@
         <voice>1</voice>
         <type>eighth</type>
         <dot/>
-        <stem>up</stem>
       </note>
       <!-- Check how well the application handles an empty element (invalid MusicXML!) -->
       <figured-bass>
@@ -99,7 +93,6 @@
         <duration>8</duration>
         <voice>1</voice>
         <type>quarter</type>
-        <stem>up</stem>
       </note>
       <barline location="right">
         <bar-style>light-heavy</bar-style>
