@@ -245,11 +245,13 @@ all.
 @funindex \markup
 
 A @code{\markup} block can exist by itself, outside of any
-any @code{\score} block.  This syntax is called a @q{top-level
-expression}, and is described in @code{File structure}.
+any @code{\score} block, as a @qq{top-level
+expression}.  This syntax is described in @ref{File structure}.
 
 @lilypond[quote,ragged-right,verbatim]
-\markup{ hello }
+\markup {
+  Tomorrow, and tomorrow, and tomorrow...
+}
 @end lilypond
 
 @noindent
@@ -259,30 +261,28 @@ useful when the input file contains
 several music pieces, as described in
 @ref{Multiple scores in a book}.
 
-@example
-\score @{
-  @var{..}
-@}
-\markup @{
-  @var{..}
-@}
-\score @{
-  @var{..}
-@}
-@end example
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  c'1
+}
+\markup {
+  Tomorrow, and tomorrow, and tomorrow...
+}
+\score {
+  c'1
+}
+@end lilypond
 
 Using a specific syntax, text blocks can be spread
 over multiple pages, making possible to print
 text documents or books -- and therefore to
 use LilyPond as a word processor.  This syntax is described in
-@ref{Multi-pages markup}.
+@ref{Multi-page markup}.
 
 @ignore
 @snippets
 
-TODO: add convenient snippets, e.g.
-"Inserting large plain text sections"
-(this requires the LSR to be updated) -vv
+TODO: add convenient snippets in input/new -vv
 @end ignore
 
 @seealso
@@ -290,7 +290,7 @@ TODO: add convenient snippets, e.g.
 Notation Reference: @code{Formatting text},
 @code{File structure}, 
 @ref{Multiple scores in a book},
-@ref{Multi-pages markup}.
+@ref{Multi-page markup}.
 
 Snippets: @lsrdir{Text,Text}.
 
@@ -316,7 +316,7 @@ using the @code{\markup} mode specific syntax.
 * Text alignment::              
 * Graphic notation inside markup::  
 * Music notation inside markup::  
-* Multi-pages markup::          
+* Multi-page markup::          
 @end menu
 
 @node Text markup introduction
@@ -708,8 +708,8 @@ block.  In such a case, the @code{\score} must contain a @code{\layout} block.
 
 Snippets: @lsrdir{Text,Text}
 
-@node Multi-pages markup
-@subsubsection Multi-pages markup
+@node Multi-page markup
+@subsubsection Multi-page markup
 
 Whereas @code{\markup} is used to enter a non-breakable block of
 text, @code{\markuplines} can be used at top-level to enter lines
