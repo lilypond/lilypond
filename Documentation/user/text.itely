@@ -248,13 +248,9 @@ A @code{\markup} block can exist by itself, outside of any
 any @code{\score} block.  This syntax is called a @q{top-level
 expression}, and is described in @code{File structure}.
 
-@c TODO: turn this into a @lilypond example
-
-@example
-\markup @{
-  @var{..}
-@}
-@end example
+@lilypond[quote,ragged-right,verbatim]
+\markup{ hello }
+@end lilypond
 
 @noindent
 This allows to print text separately
