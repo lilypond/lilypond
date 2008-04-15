@@ -861,7 +861,7 @@ armadura se hace con la instrucción @code{\key}:
 Aquí, @var{tipo} debe ser @code{\major} o @code{\minor} para obtener
 la tonalidad @var{nota} mayor o @var{nota} menor, respectivamente.
 También puede usar los nombres estándar de modo (también conocidos
-como @notaion{modos eclesiásticos}): @code{\ionian} (jónico),
+como @notation{modos eclesiásticos}): @code{\ionian} (jónico),
 @code{\dorian} (dórico), @code{\phrygian} (frigio), @code{\lydian}
 (lidio), @code{\mixolydian} (mixolidio), @code{\aeolian} (eolio) y
 @code{\locrian} (locrio).
