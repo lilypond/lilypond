@@ -1,7 +1,6 @@
 \version "2.11.38"
 
 \header {
-  doctitle = "Broken crescendo hairpin"
   lsrtags = "expressive-marks"
   texidoc = "
 In order to make parts of a crescendo hairpin invisible, the following
@@ -18,7 +17,9 @@ y-origin of the rectangle.
 
 Make sure to put the hairpin in a lower layer than the text markup to
 actually draw the rectangle above the hairpin. 
-" }
+"
+  doctitle = "Broken crescendo hairpin"
+}
 
 \score {
   \relative c' {

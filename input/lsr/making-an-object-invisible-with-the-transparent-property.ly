@@ -3,7 +3,6 @@
 \version "2.11.38"
 \layout { ragged-right = ##t }
 \header {
-  doctitle = "Making an object invisible with the transparent property"
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
 Setting the @code{transparent} property will cause an object to be
@@ -17,7 +16,9 @@ Normally, ties only connect two notes in the same voice.  By
 introducing a tie in a different voice, and blanking the first up-stem
 in that voice, the tie appears to cross voices.  To prevent the blanked stem's
 flag from interfering with tie positioning, the stem is extended.
-" } % begin verbatim
+"
+  doctitle = "Making an object invisible with the transparent property"
+} % begin verbatim
 
 \relative c'' {
   \time 2/4

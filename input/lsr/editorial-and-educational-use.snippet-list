@@ -8,5 +8,5 @@ changing-a-single-notes-size-in-a-chord.ly
 controlling-the-placement-of-chord-fingerings.ly
 allowing-fingerings-to-be-printed-inside-the-staff.ly
 blanking-staff-lines-using-the--whiteout-command.ly
-grid-lines;-emphasizing-rhythms-and-notes-synchronization.ly
-grid-lines;-changing-their-appearance.ly
+grid-lines-emphasizing-rhythms-and-notes-synchronization.ly
+grid-lines-changing-their-appearance.ly

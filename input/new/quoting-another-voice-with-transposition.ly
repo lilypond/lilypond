@@ -1,12 +1,12 @@
 \version "2.11.10"
 \header {
-  doctitle = "Quoting another voice with transposition"
   lsrtags = "pitches,staff-notation"
   texidoc = "Quotations take into account the transposition of both
 source and target. In this example, all instruments play sounding
 middle C; the target is an instrument in F. The target part may be
 transposed using @code{\\transpose}. In this case, all the pitches (including the
 quoted ones) are transposed."
+  doctitle = "Quoting another voice with transposition"
 }
 
 \addQuote clarinet {

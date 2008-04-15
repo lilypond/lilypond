@@ -3,10 +3,10 @@
 \version "2.11.38"
 \layout { ragged-right= ##t }
 \header {
-  doctitle = "Page label"
   lsrtags = "spacing"
   texidoc = "Page labels may be placed inside music or at top-level,
 and refered to in markups."
+  doctitle = "Page label"
 } % begin verbatim
 
 #(set-default-paper-size "a6")

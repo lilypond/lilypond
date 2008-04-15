@@ -12,7 +12,7 @@ snippet should present an optically pleasing combination of railtracks
 and a fermata.
 
 "
-  doctitle = "Caesura ("railtracks") with fermata"
+  doctitle = "Caesura (\"railtracks\") with fermata"
 } % begin verbatim
 {
   c''2.
