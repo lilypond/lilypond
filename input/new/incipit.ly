@@ -1,9 +1,9 @@
 \version "2.11.39"
 \header {
-  doctitle = "Incipit"
-  lsrtags = "staff-notation,Ancient notation"
+  lsrtags = "staff-notation,ancient-notation"
   texidoc = "Incipits can be added using the instrument name grob, but
 keeping separate the instrument name definition and the incipit definition."
+  doctitle = "Incipit"
 }
 
 incipit =

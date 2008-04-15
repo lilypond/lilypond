@@ -1,11 +1,11 @@
 \version "2.11.26"
 \layout { ragged-right= ##t }
 \header {
-  doctitle = "Table of contents"
   lsrtags = "paper-and-layout"
   texidoc = "A table of contents is included using
 @code{\\markuplines \\table-of-contents}. The TOC items are added with
 the @code{\\tocItem} command."
+  doctitle = "Table of contents"
 }
 
 #(set-default-paper-size "a6")

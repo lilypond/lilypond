@@ -3,14 +3,14 @@
 \version "2.11.38"
 \layout { ragged-right= ##t }
 \header {
-  doctitle = "Using the @code{\tweak} command to tweak individual grobs"
   lsrtags = "tweaks-and-overrides"
   texidoc = "
 With the @code{\tweak} command, you can tune every grob directly. Here
 are some examples of available tweaks.
 "
-}
-% begin verbatim
+  doctitle = "Using the @code{\tweak} command to tweak individual grobs"
+} % begin verbatim
+
 {
   \set fingeringOrientations = #'(right)
   <

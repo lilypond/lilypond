@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "guitar"
- texidoc = "
+
+  texidoc = "
 To add fingerings to tablatures, you can use a combination of
 @code{\\markup} and @code{\\finger}. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Adding fingerings to tablatures"
+} % begin verbatim
 one = \markup { \finger "1" }
 two = \markup { \finger "2" }
 threeTwo = \markup { \column { \finger "3" \finger "2" } }

@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "rhythms, ancient-notation, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 Rests may be used in various styles.
 
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Rest styles"
+} % begin verbatim
 \layout {
   indent = 0.0
   \context {

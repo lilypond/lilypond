@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "text, vocal-music, spacing"
- texidoc = "
+
+  texidoc = "
 This snippet shows you how to bring the lyrics line closer to the
 staff.
-" }
-% begin verbatim
+
+"
+  doctitle = "Adjusting lyrics vertical spacing"
+} % begin verbatim
 % Default layout:
 <<
   \new Staff \new Voice = melody \relative c '{ c4 d e f g f e d c1 }

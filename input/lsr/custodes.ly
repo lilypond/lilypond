@@ -4,10 +4,13 @@
 
 \header {
   lsrtags = "ancient-notation, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 Custodes may be engraved in various styles.
-" }
-% begin verbatim
+
+"
+  doctitle = "Custodes"
+} % begin verbatim
 \layout { ragged-right = ##t }
 
 \new Staff \with { \consists "Custos_engraver" } \relative c' {

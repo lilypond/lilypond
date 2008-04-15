@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "ancient-notation, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 As a workaround to get real incipits which are independent from the
 main score these are included as a markup into the field normally used
 for the instrument name. As for now lyrics can only be added as a
 direct markup. It doesn't unfortunately conform with the spacing of the
 main lyrics.
-" }
-% begin verbatim
+
+"
+  doctitle = "Transcription of Ancient music with incipit"
+} % begin verbatim
 global = {
   \set Score.skipBars = ##t
   \key g \major

@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "ancient-notation"
- texidoc = "
+
+  texidoc = "
 Time signatures may also be engraved in an old style.
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Ancient time signatures"
+} % begin verbatim
 \score {
    { 
     \override Staff.TimeSignature  #'style = #'neomensural

@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "rhythms"
- texidoc = "
+
+  texidoc = "
 Tuplet brackets can be made to run to prefatory matter or the next
 note. Default tuplet brackets end at the right edge of the final note
 of the tuplet; full-length tuplet brackets extend farther to the right,
@@ -13,8 +14,10 @@ or to cover only the whitespace before the next item of notation, be
 that a clef, time signature, key signature, or another note.  The
 example shows how to switch tuplets to full length mode and how to
 modify what material they cover.
-" }
-% begin verbatim
+
+"
+  doctitle = "Modifying tuplet bracket length"
+} % begin verbatim
 \new RhythmicStaff {
   % Set tuplets to be extendable...
   \set tupletFullLength = ##t

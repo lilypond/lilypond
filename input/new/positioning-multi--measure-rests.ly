@@ -1,7 +1,6 @@
 \version "2.11.42"
 \layout { ragged-right = ##t }
 \header {
-  doctitle = "Positioning multi-measure rests"
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
 Unlike ordinary rests, there is no predefined command
@@ -10,7 +9,9 @@ rest symbol of either form by attaching it to a note.  However,
 in polyphonic music multi-measure rests in odd-numbered and
 even-numbered voices are vertically separated.  The positioning
 of multi-measure rests can be controlled as follows:
- "}
+ "
+  doctitle = "Positioning multi-measure rests"
+}
 
 \relative c'' {
   % Multi-measure rests by default are set under the second line

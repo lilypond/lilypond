@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "repeats, breaks"
- texidoc = "
+
+  texidoc = "
 If you want to place an exiting segno sign and add text like \"D.S. al
 Coda\" next to it where usually the staff lines are you can use this
 snippet. The coda will resume in a new line. There is a variation
 documented in this snippet, where the coda will remain on the same
 line.
-" }
-% begin verbatim
+
+"
+  doctitle = "Positioning segno and coda (with line break)"
+} % begin verbatim
 { 
   \clef treble
   \key g \major
@@ -68,8 +71,10 @@ line.
         % text and symbols center-aligned
         % ===============================
         % Move text to the desired position and tweak spacing for optimum text alignment
-        \once \override TextScript #'extra-offset = #'( 8 . -5.5 )
+        %\once \override TextScript #'extra-offset = #'( 8 . -5.5 )
         \once \override TextScript #'word-space = #1.5
+        \once \override TextScript #'X-offset = #8
+        \once \override TextScript #'Y-offset = #1.5
         | s1*0^\markup { \center-align { "D.S. al Coda" \line { \musicglyph #"scripts.coda" \musicglyph #"scripts.tenuto" \musicglyph #"scripts.coda"} } }
         
         % Increasing the unfold counter will expand the staff-free space

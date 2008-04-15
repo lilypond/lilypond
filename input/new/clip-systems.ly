@@ -1,7 +1,6 @@
 \version "2.10.0"
 \layout { ragged-right= ##t }
 \header {
-  doctitle = "Clip systems"
   lsrtags = "paper-and-layout"  % a new tag like "Mixing text and music" or
 % "Special output" might be more adequate -jm
   texidoc = "
@@ -19,6 +18,7 @@ The result will be files named
 @item Regions can span multiple systems. In this case, multiple EPS files are generated.
 @end itemize
 "
+  doctitle = "Clip systems"
 }
 
 #(ly:set-option 'clip-systems)

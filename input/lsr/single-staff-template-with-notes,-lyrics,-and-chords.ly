@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "vocal-music, chords, template"
- texidoc = "
+
+  texidoc = "
 This template allows you to prepare a song with melody, words, and
 chords. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Single staff template with notes, lyrics, and chords"
+} % begin verbatim
 melody = \relative c' {
   \clef treble
   \key c \major

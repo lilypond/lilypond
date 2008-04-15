@@ -4,54 +4,41 @@
 
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 If there is only one staff in one of the staff types @code{ChoirStaff},
 @code{InnerChoirStaff}, @code{InnerStaffGroup} or @code{StaffGroup},
 the bracket and the starting bar line will not be displayed as standard
-behavior. This can be changed with:
+behavior.  This can be changed by overriding the relevant properties,
+as demonstrated in this example.
 
+Note that in some contexts such as @code{PianoStaff} where the systems
+begin with a brace instead of a bracket, another property has to be
+set, as shown on the second system in the example. 
 
-@code{\\override [staffcontext].SystemStartBracket #'collapse-height =
-#1}
- and
-
-@code{\\override [staffcontext].SystemStartBar #'collapse-height = #1}
-
-
-This applies to all staff contexts with
-@code{systemStartDelimiter}-property set to @code{'SystemStartBracket}.
-
-
-
-For staff contexts with @code{'SystemStartBrace}, such as
-@code{PianoStaff}, this tweaking can be used as well.
-
-
-
-" }
-% begin verbatim
-\layout {
-  ragged-right = ##t
-  indent = 0\cm
-}
-
-\score {
-  \new StaffGroup <<
-    % Must be lower than your actual amount off staff lines
+"
+  doctitle = "Display bracket with only one staff in a system"
+} % begin verbatim
+\markup \column {
+  \score {
+    \new StaffGroup <<
+    % Must be lower than your actual amount of staff lines
     \override StaffGroup.SystemStartBracket #'collapse-height = #1
     \override Score.SystemStartBar #'collapse-height = #1
     \new Staff {
-      c'4 d' e' f'
+      c'1
     }
-  >>
-}
-
-\score {
-  \new PianoStaff <<
+    >>
+    \layout {ragged-right = ##t}
+  }
+  \score {
+    \new PianoStaff <<
     \override PianoStaff.SystemStartBrace #'collapse-height = #1
     \override Score.SystemStartBar #'collapse-height = #1
     \new Staff {
-      c'4 d' e' f'
+      c'
     }
-  >>
-}
+    >> 
+    \layout {ragged-right = ##t}
+  }
+} 

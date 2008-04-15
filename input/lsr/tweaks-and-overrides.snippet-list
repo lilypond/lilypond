@@ -1,5 +1,5 @@
 display-bracket-with-only-one-staff-in-a-system.ly
-rhythmic-slashes.ly
+time-signature-in-parentheses.ly
 changing-the-default-text-font-family.ly
 drawing-boxes-around-grobs.ly
 manually-controlling-beam-positions.ly
@@ -24,6 +24,6 @@ drawing-circles-around-various-objects.ly
 creating-text-spanners.ly
 caesura-railtracks-with-fermata.ly
 changing-form-of-multi--measure-rests.ly
-time-signature-in-parentheses.ly
+rhythmic-slashes.ly
 changing-a-single-notes-size-in-a-chord.ly
 nesting-staves.ly

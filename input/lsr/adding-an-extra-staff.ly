@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "staff-notation, contexts-and-engravers"
- texidoc = "
-You can add (possibly temporarily) an extra staff after the beginning
-of  a piece.  
-" }
-% begin verbatim
+
+  texidoc = "
+An extra staff can be added (possibly temporarily) after the start of a
+piece.  
+
+"
+  doctitle = "Adding an extra staff"
+} % begin verbatim
 \score {
   <<
     \new Staff \relative c'' { c1 c c c c }
