@@ -212,8 +212,20 @@ b
 c
 @end lilypond
 
+Notation objects which are attached to invisible notes are still
+visible.
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+c4( d)
+\hideNotes
+e4(\p f)->
+@end lilypond
+
+
 @predefined
 
+@funindex \hideNotes
+@funindex \unHideNotes
 @code{\hideNotes}, @code{\unHideNotes}
 
 @seealso
@@ -330,12 +342,13 @@ Notes in a chord cannot be colored with @code{\override}; use
 @cindex parentheses
 
 Objects may be parenthesized by prefixing @code{\parenthesize} to
-the music event.  When applied to a chord, it parenthesizes every
-note.
+the music event.  When prefixed to a chord, it parenthesizes every
+note.  Individual notes inside a chord may also be parenthesized.
 
 @lilypond[quote,relative=2,fragment,verbatim,ragged-right]
 c2 \parenthesize d
 c2 \parenthesize <c e g>
+c2 <c \parenthesize e g>
 @end lilypond
 
 Non-note objects may be parenthesized as well.
@@ -354,6 +367,12 @@ Internals Reference:
 @internalsref{Parenthesis_engraver},
 @internalsref{ParenthesesItem},
 @internalsref{parentheses-interface}.
+
+@knownissues
+
+Parenthesizing a chord prints parentheses around each individual
+note, instead of a single large parenthesis around the entire
+chord.
 
 
 @node Stems
@@ -428,13 +447,19 @@ notation.
 }
 @end lilypond
 
+@cindex balloon
+@cindex notation, explaining
+
 There are two music functions, @code{balloonGrobText} and
 @code{balloonText};  the former is used like @code{\once \override} to 
 attach text to any grob, and the latter is used like @code{\tweak}, 
 typically within chords, to attach text to an individual note.
 
-@cindex balloon
-@cindex notation, explaining
+@predefined
+
+@funindex ballonLengthOn
+@funindex ballonLengthOff
+@code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
 
@@ -520,7 +545,7 @@ pieces.  Simple horizontal brackets are supported.
 @lilypond[quote,verbatim,ragged-right]
 \layout {
   \context {
-    \Staff
+    \Voice
     \consists "Horizontal_bracket_engraver"
   }
 }
@@ -535,7 +560,7 @@ Analysis brackets may be nested.
 @lilypond[quote,verbatim,ragged-right]
 \layout {
   \context {
-    \Staff
+    \Voice
     \consists "Horizontal_bracket_engraver"
   }
 }
