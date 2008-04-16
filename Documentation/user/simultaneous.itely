@@ -44,14 +44,13 @@ articulations, just like simple notes:
 <c e g>4 <c>8
 @end lilypond
 
-For more information about chords, see @ref{Introducing chord
-names}.
+For more information about chords, see @ref{Modern chords}.
 
 @seealso
 
 Music Glossary: @rglos{chord}.
 
-Notation Reference: @ref{Introducing chord names}.
+Notation Reference: @ref{Modern chords}.
 
 Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
 
