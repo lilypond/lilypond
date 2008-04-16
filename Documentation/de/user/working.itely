@@ -46,14 +46,14 @@ Fehler zu finden.
 
 @item Was ist, wenn Sie Ihre Dateien mit jemandem austauschen 
 wollen? Oder Ihre Dateien nach einige Jahren noch einmal überarbeiten 
-wollen? Manche LilyPond-Dateien vesteht man auf den ersten Blick, 
+wollen? Manche LilyPond-Dateien versteht man auf den ersten Blick, 
 über anderen muss man eine Stunde grübeln, um die Struktur zu ahnen.
 
 @item Was ist, wenn sie Ihre Dateien auf eine neuere LilyPond-Version 
 aktualisieren wollen? Die Syntax der Eingabesprache verändert sich 
-allmählich mit Verbesserungen im Programm. Die meisten Verändernungen 
+allmählich mit Verbesserungen im Programm. Die meisten Veränderungen 
 können automatisch durch @code{convert-ly} gelöst werden, aber 
-bestimmte Änderungen brauchen Hanbarbeit. LilyPond-Dateien können 
+bestimmte Änderungen brauchen Handarbeit. LilyPond-Dateien können 
 strukturiert werden, damit sie einfacher aktualisierbar sind.
 @end itemize
 
@@ -75,7 +75,7 @@ Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
 @item @strong{Schreiben Sie immer mit @code{\version} die 
 Versionsnummer 
 in jede Datei}. Beachten Sie, dass in allen Vorlagen die Versionsnummer  
-@code{\version "2.11.38"} eingetragen ist. Es empfielt sich, in alle 
+@code{\version "2.11.38"} eingetragen ist. Es empfiehlt sich, in alle 
 Dateien, unabhängig von ihrer Größe, den @code{\version}-Befehl 
 einzufügen. Persönliche Erfahrung hat gezeigt, dass es ziemlich 
 frustrierend sein kann zu erinnern, welche Programmversion man etwa 
@@ -94,7 +94,7 @@ komplexer Musik sollte man sie vielleicht in jeden Takt einfügen.
 @item @strong{Ein Takt pro Textzeile}. Wenn irgendetwas kompliziertes 
 vorkommt, entweder in der Musik selber oder in der Anpassung der 
 Ausgabe,
-empfielt es sich oft, nur einen Takt pro Zeile zu schreiben. 
+empfiehlt es sich oft, nur einen Takt pro Zeile zu schreiben. 
 Bildschirmplatz zu sparen, indem Sie acht Takte in eine Zeile zwängen, 
 hilft nicht weiter, wenn Sie ihre Datei @qq{debuggen} müssen.
 
@@ -148,7 +148,7 @@ Zeile mit den ursprünglichen Noten zu vergleichen. Wenn Sie die
 Partitur fertig gestellt haben, könne Sie  @code{mBreak = @{ @}}, 
 also leer definieren, um diese manuellen Zeilenumbrüche zu entfernen. 
 Damit kann dann LilyPond selber entscheiden, wohin es passende 
-Zeilenumbrüche plaziert.
+Zeilenumbrüche platziert.
 
 @end itemize
 
@@ -307,7 +307,7 @@ des Befehles beziehen sich dann auf die neue Definition.
 @node Style sheets
 @subsection Style sheets
 
-Die Ausgabe, die LilyPond erstellt, kann sehr start modifiziert 
+Die Ausgabe, die LilyPond erstellt, kann sehr stark modifiziert 
 werden, siehe @ruser{Tweaking output} für Einzelheiten. Aber wie 
 kann man diese Änderungen auf eine ganze Serie von Dateien 
 anwenden? Oder die Einstellungen von den Noten trennen? Das 
@@ -337,12 +337,12 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 
 Es treten einige Probleme mit überlappenden Symbolen auf. Sie 
 werden beseitigt mit den Tricks aus dem Kapitel @ruser{Moving objects}.
-Aber auch die @code{mpdolce} und @code{tempoMark}-Defintiionen 
+Aber auch die @code{mpdolce} und @code{tempoMark}-Definitionen 
 können verbessert werden. Sie produzieren das Ergebnis, das 
 gewünscht ist, aber es wäre schön, sie auch in anderen Stücken 
 verwenden zu können. Man könnte sie natürlich einfach kopieren 
 und in die anderen Dateien einfügen, aber das ist lästig. Die 
-Defintionen verbleiben auch in der Notendatei und diese @code{#()} 
+Definitionen verbleiben auch in der Notendatei und diese @code{#()} 
 sehen nicht wirklich schön aus. Sie sollen in einer anderen 
 Datei versteckt werden:
 
@@ -470,8 +470,8 @@ Das sieht schon besser aus! Aber angenommen Sie möchten dieses
 Stück jetzt veröffentlichen. Ihr Kompositionsprofessor mag 
 die @qq{C}-Taktangaben nicht, aber Sie finden sie irgendwie 
 schöner. Also kopieren Sie die Datei @file{definitions.ly} nach 
-@file{web-publish.ly} und veränderen diese. Weil die Noten 
-in einer PDF-Datei auf dem Bilschirm angezeigt werden sollen, 
+@file{web-publish.ly} und verändern diese. Weil die Noten 
+in einer PDF-Datei auf dem Bildschirm angezeigt werden sollen, 
 bietet es sich auch an, die gesamte Ausgabe zu vergrößern.
 
 @example
@@ -551,7 +551,7 @@ Der Anfang der @file{music.ly}-Datei würde dann so aussehen:
 
 Durch diese Herangehensweise kann auch bei der Erstellung 
 von nur einer Ausgabeversion Arbeit gespart werden. Ich 
-benutze ein halbes Dutzent verschidener Stilvorlagen 
+benutze ein halbes Dutzend verschiedener Stilvorlagen 
 für meine Projekte. Jede Notationsdatei fängt an mit 
 @code{\include "../global.ly"}, welches folgenden Inhalt hat:
 
@@ -616,7 +616,7 @@ gibt, können Ihnen helfen, den Fehler zu finden, aber
 in vielen Fällen müssen Sie nach der Fehlerquelle 
 auf die Suche gehen.
 
-Die besten Hilfmittel sind in diesem Fall das Zeilen- 
+Die besten Hilfsmittel sind in diesem Fall das Zeilen- 
 und Blockkommentar (angezeigt durch @code{%} bzw. 
 @code{%@{ ... %@}}). Wenn Sie nicht bestimmen können, 
 wo sich das Problem befindet, beginnen Sie damit, große 

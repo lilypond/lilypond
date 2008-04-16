@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "expressive-marks"
- texidoc = "
+
+  texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses
 objects in parentheses. The associated grob is
 @code{Score.ParenthesesItem}. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Adding parentheses around an expressive mark or chordal note"
+} % begin verbatim
 \relative {
   c2-\parenthesize ->
   \override ParenthesesItem #'padding = #0.1

@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "staff-notation, contexts-and-engravers, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 The property @code{systemStartDelimiterHierarchy} can be used to make
 more complex nested staff groups. The command @code{\\set
 StaffGroup.systemStartDelimiterHierarchy} takes an alphabetical list of
@@ -15,8 +16,10 @@ omitted, but the first bracket takes always the complete number of
 staves. The possibilities are @code{SystemStartBar},
 @code{SystemStartBracket}, @code{SystemStartBrace}, and
 @code{SystemStartSquare}.
-" }
-% begin verbatim
+
+"
+  doctitle = "Nesting staves"
+} % begin verbatim
 \new StaffGroup
 \relative c'' <<
   \set StaffGroup.systemStartDelimiterHierarchy

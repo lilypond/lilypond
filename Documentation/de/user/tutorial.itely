@@ -284,10 +284,10 @@ Oktave der ersten Tonhöhe verändert werden:
 @end lilypond
 
 Der relative Modus kann zunächst verwirrend erscheinen, aber es ist die 
-einfachste Art, die meisten Melodien zu notieren. Schaun wir uns an, 
+einfachste Art, die meisten Melodien zu notieren. Schauen wir uns an, 
 wie diese relative Berechnung in der Praxis funktioniert. Wenn wir mit 
 einem H beginnen (@code{b} in der LilyPond-Syntax), welches sich auf der 
-mittleren Linie im Violinschlüssel begindet, können wir C, D und E 
+mittleren Linie im Violinschlüssel befindet, können wir C, D und E 
 aufwärts notieren, und A, G und F unter dem H. Wenn also die Note, die 
 auf das H folgt, ein C, D oder E ist, setzt LilyPond es oberhalb des 
 Hs, wenn es ein A, G oder F ist, wird es darunter gesetzt.
@@ -354,7 +354,7 @@ verwendet. Für die erste Note ist eine Viertel als Standard definiert.
 
 Um @notation{punktierte Noten} zu erzeugen, wird einfach ein Punkt 
 @code{.} hinter die Notendauer geschrieben. Die Dauer einer 
-punktierten Note muss explizit, also inclusive der Nummer, 
+punktierten Note muss explizit, also inklusive der Nummer, 
 angegeben werden.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -1025,7 +1025,7 @@ musikalischer Ausdruck.
 Die Anordnung von Ausrücken funktioniert ähnlich wie mathematische
 Gleichungen. Eine längere Gleichung entsteht durch die
 Kombination kleinerer Gleichungen. Solche Gleichungen
-werderden auch Ausdruck genannt und ihre Definition ist
+werden auch Ausdruck genannt und ihre Definition ist
 rekursiv, sodass beliebig komplexe und lange Ausdrücke
 erstellt werden können. So etwa hier:
 
@@ -1044,7 +1044,7 @@ jeder Ausdruck in dem folgenden (größeren) enthalten ist. Die
 einfachsten Ausdrücke sind Zahlen, und größere werden durch die
 Kombination von Ausdrücken mit Hilfe von Operatoren (wie @q{+},
 @q{*} und @q{/}) sowie Klammern. Genauso wie mathematische
-Ausdrücke könen auch musikalische Ausdrücke beliebig tief verschachtelt
+Ausdrücke können auch musikalische Ausdrücke beliebig tief verschachtelt
 werden. Das wird benötigt für komplexe Musik mit vielen Stimmen.
 
 
@@ -1055,7 +1055,7 @@ Glossar: @rglos{polyphony}.
 
 Mit dieser Technik kann @notation{polyphone} Musik gesetzt werden.
 Musikalische
-Ausdrücke werden einfach paralell kombiniert, damit sie gleichzeitig
+Ausdrücke werden einfach parallel kombiniert, damit sie gleichzeitig
 als eigene Stimmen in dem gleichen Notensystem gesetzt werden. Um
 anzuzeigen, dass an dieser Stelle gleichzeitige Noten gesetzt werden,
 muss nur ein Kombinationszeichen eingefügt werden. Parallel werden
@@ -1075,7 +1075,7 @@ musikalische Ausdrücke kombiniert, indem man sie mit @code{<<} und
 
 Es ist noch zu bemerken, dass wir hier für jede Ebene innerhalb der
 Quelldatei eine andere Einrückung geschrieben haben. Für LilyPond
-spielt es keine Rolle, wieviel Leerzeichen am Anfang einer Zeile sind,
+spielt es keine Rolle, wie viele Leerzeichen am Anfang einer Zeile sind,
 aber für Menschen ist es eine große Hilfe, sofort zu sehen, welche
 Teile des Quelltextes zusammen gehören.
 
@@ -1360,7 +1360,7 @@ wird eingegeben, indem jede Silbe durch ein Leerzeichen getrennt wird.
 >>
 @end lilypond
 
-Sowohl die Noten als auch der Text sind jeweil in geschweifte 
+Sowohl die Noten als auch der Text sind jeweils in geschweifte 
 Klammern eingefasst, und der gesamte Ausdruck ist zwischen 
 @code{<< ... >>} positioniert. Damit wird garantiert, dass 
 Text und Noten gleichzeitig gesetzt werden.
@@ -1425,7 +1425,7 @@ eckigen Klammern @code{[ ]}, damit die Balkenlänge der
 @ref{Automatic and manual beams}).
 
 Alternativ kann das Melisma auch im Text angezeigt werden, indem
-für jede Note, die übersrpungen werden soll, ein Unterstrich
+für jede Note, die übersprungen werden soll, ein Unterstrich
 @code{_} im Text geschrieben wird:
 
 @lilypond[verbatim,quote,ragged-right]
@@ -1466,7 +1466,7 @@ aus Purcells Dido and Æneas:
 @end lilypond
 
 Keins der bisherigen Beispiele hat bisher Wörter benutzt, die länger
-als eine Silbe waren. Solche Wörter werden üblichweise auf die
+als eine Silbe waren. Solche Wörter werden üblicherweise auf die
 Noten aufgeteilt, eine Silbe pro Note, mit Bindestrichen zwischen 
 den Silben. Diese Silben werden durch zwei Minuszeichen notiert und
 von LilyPond als ein zentrierter Bindestrich zwischen den Silben 
@@ -1494,7 +1494,7 @@ zeigt, mit denen Text an den Noten ausgerichtet werden kann:
 Einige Texte, besonders in italienischer Sprache, brauchen das 
 Gegenteil: mehr als eine Silbe muss zu einer einzelnen Note 
 gesetzt werden. Das ist möglich, indem die Silben durch einen 
-einzlnen Unterstrich @code{_} zusammengekoppelt werden. Dazwischen
+einzelnen Unterstrich @code{_} zusammengekoppelt werden. Dazwischen
 dürfen sich keine Leerzeichen befinden, oder indem man die 
 relevanten Silben in Anführungszeichen @code{"} setzt.
 Hier ein Beispiel aus dem Figaro von Rossini, wo die Silbe 
@@ -1584,7 +1584,7 @@ Gleichzeitig dient es als Einleitung zum Rest des Handbuches.
 @node Organizing pieces with variables
 @subsection Organizing pieces with variables
 
-Wenn alle die Elemente, die angesprochen wurden, zu großeren Dateien
+Wenn alle die Elemente, die angesprochen wurden, zu größeren Dateien
 zusammengefügt werden, werden auch die musikalischen Ausdrücke sehr
 viel größer. In polyphonen Dateien mit vielen Systemen kann das
 sehr chaotisch aussehen. Das Chaos kann aber deutlich reduziert werden,

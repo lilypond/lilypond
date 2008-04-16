@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "chords, ancient-notation, contexts-and-engravers"
- texidoc = "
+
+  texidoc = "
 When writing a figured bass, here's a way to specify if you want your
 figures to be placed above or below the bass notes, by defining the
 @code{BassFigureAlignmentPositioning #'direction} property (exclusively
@@ -14,8 +15,10 @@ in a @code{Staff} context). Choices are @code{#UP} (or @code{#1}),
 As you can see here, this property can be changed as many times as you
 wish. Use @code{\\once \\override} if you don't want the tweak to apply
 to the whole score. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Adding a figured bass above or below the notes"
+} % begin verbatim
 bass = { \clef bass g4 b, c d e d8 c d2}
 continuo = \figuremode {
          < _ >4 < 6 >8   

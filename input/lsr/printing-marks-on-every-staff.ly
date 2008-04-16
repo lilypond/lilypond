@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "text"
- texidoc = "
+
+  texidoc = "
 Although text marks are normally only printed above the topmost staff,
 they may also be printed on every staff.
-" }
-% begin verbatim
+
+"
+  doctitle = "Printing marks on every staff"
+} % begin verbatim
 {
   \new Score \with {
     \remove "Mark_engraver"

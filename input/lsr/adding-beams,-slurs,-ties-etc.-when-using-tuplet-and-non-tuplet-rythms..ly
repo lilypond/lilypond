@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "rhythms, expressive-marks"
- texidoc = "
+
+  texidoc = "
 LilyPond syntax can involve many unusual placements for parentheses,
 brackets etc., which might sometimes have to be interleaved. For
 example, when entering a manual beam, the left square bracket has to be
@@ -14,8 +15,10 @@ at the end of the requested beaming, even if this note happens to be
 inside a tuplet section. This snippet demonstrates how to combine
 manual beaming, manual slurs, ties and phrasing slurs with tuplet
 sections (enclosed within curly braces). 
-" }
-% begin verbatim
+
+"
+  doctitle = "Adding beams, slurs, ties etc. when using tuplet and non-tuplet rythms."
+} % begin verbatim
 {
   r16[ g16 \times 2/3 { r16 e'8] }
   g16( a \times 2/3 { b d e') }

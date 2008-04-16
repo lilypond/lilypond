@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "staff-notation"
- texidoc = "
+
+  texidoc = "
 The @code{\\markup} command is quite versatile. In this snippet, it
 contains a @code{\\score} block instead of texts or marks.
-" }
-% begin verbatim
+
+"
+  doctitle = "Inserting score fragments above a staff, as markups"
+} % begin verbatim
 tuning = \markup {
   \score {
     \new Staff \with { \remove "Time_signature_engraver" }

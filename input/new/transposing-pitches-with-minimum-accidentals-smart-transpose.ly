@@ -1,8 +1,7 @@
 \version "2.11.33"
 \header {
-  doctitle = "Transposing music with minimum accidentals"
   lsrtags = "pitches"
- texidoc = "This example uses some Scheme code to enforce enharmonic modifications for
+  texidoc = "This example uses some Scheme code to enforce enharmonic modifications for
 notes in order to have the minimum number of accidentals. In this
 case, the following rules apply:
 
@@ -25,7 +24,9 @@ F flat -> E
 @end itemize
 
 In this manner, the most natural enharmonic notes are chosen.
-"}
+"
+  doctitle = "Transposing music with minimum accidentals"
+}
 
 #(define  (naturalize-pitch p)
   (let* ((o (ly:pitch-octave p))

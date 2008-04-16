@@ -52,10 +52,10 @@ unconverted = []
 notags_files = []
 
 # mark the section that will be printed verbatim by lilypond-book
-end_header_re = re.compile ('(\\header {.+?(?:"\\s*|\\s+)}\n)\n', re.M | re.S)
+end_header_re = re.compile ('(\\header {.+?doctitle = ".+?})\n', re.M | re.S)
 
 def mark_verbatim_section (ly_code):
-	return end_header_re.sub ('\\1% begin verbatim\n', ly_code, 1)
+	return end_header_re.sub ('\\1 % begin verbatim\n', ly_code, 1)
 
 begin_header_re = re.compile ('\\header\\s*{', re.M)
 

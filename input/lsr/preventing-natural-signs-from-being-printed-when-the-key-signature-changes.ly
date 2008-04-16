@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "pitches"
- texidoc = "
+
+  texidoc = "
 When the key signature changes, natural signs are automatically printed
 to cancel any accidentals from previous key signatures. This may be
-altered by setting to \"false\" the @code{printKeyCancellation}
+prevented by setting to \"false\" the @code{printKeyCancellation}
 property in the @code{Staff} context. 
-" }
-% begin verbatim
-\relative {
+
+"
+  doctitle = "Preventing natural signs from being printed when the key signature changes"
+} % begin verbatim
+\relative c' {
   \key d \major
   a b cis d
   \key g \minor

@@ -4,17 +4,20 @@
 
 \header {
   lsrtags = "editorial-and-educational-use"
- texidoc = "
-Grid lines can look differently, by modifying some of their properties
-using the @code{\\override} command.
-" }
-% begin verbatim
+
+  texidoc = "
+The appearance of grid lines can be changed by overriding some of their
+properties.
+
+"
+  doctitle = "Grid lines: changing their appearance"
+} % begin verbatim
 \layout {
  \context {
    \Staff
-   % sets up grids
+   % set up grids
    \consists "Grid_point_engraver"
-   % this sets the grid interval to 1 quarternote (crotchet)
+   % set the grid interval to one quarter note
    gridInterval = #(ly:make-moment 1 4)
   }
 }
@@ -35,7 +38,7 @@ using the @code{\\override} command.
   \new Staff {
     \relative c {
       % this moves them up one staff space from the default position
-      \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
+      \override Score.GridLine #'extra-offset = #'(0.0 . 1.0)
       \stemDown
       \clef bass
       \once \override Score.GridLine #'thickness = #5.0

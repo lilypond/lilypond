@@ -4,16 +4,18 @@
 
 \header {
   lsrtags = "pitches"
- texidoc = "
+
+  texidoc = "
 This Scheme-based snippet generates 24 random notes (or as many as
-required), based on the current time (or any randomish number you might
-wish to specify instead, so you can obtain the same random notes each
-time): i.e., to get different random notes patterns, just change this
-number.
-" }
-% begin verbatim
+required), based on the current time (or any randomish number specified
+instead, in order to obtain the same random notes each time): i.e., to
+get different random note patterns, just change this number.
+
+"
+  doctitle = "Generating random notes"
+} % begin verbatim
 \score {
-{ #(let ((random-state (seed->random-state (current-time))))
+  { #(let ((random-state (seed->random-state (current-time))))
     (ly:export
      (make-music 'SequentialMusic 'elements
       (map (lambda x
@@ -25,5 +27,5 @@ number.
                                       (remainder idx 7)
                                       0))))))
        (make-list 24)))))
-   }
+  }
 }

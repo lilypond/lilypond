@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "staff-notation, ancient-notation, contexts-and-engravers, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 The mensurstriche-layout where the bar lines do not show on the staves
 but between staves can be achieved with a @code{StaffGroup} instead of
 a @code{ChoirStaff}. The bar line on staves is blanked out with an
 @code{\\override} command.
-" }
-% begin verbatim
+
+"
+  doctitle = "Mensurstriche layout (bar lines between the staves)"
+} % begin verbatim
 global = {
   \override Staff.BarLine #'transparent = ##t
   s1 s

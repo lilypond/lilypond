@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "expressive-marks"
- texidoc = "
+
+  texidoc = "
 A contemporary glissando without a final note can be typeset using a
 hidden note and cadenza timing.
-" }
-% begin verbatim
+
+"
+  doctitle = "Contemporary glissando"
+} % begin verbatim
 \relative c'' {
   \time 3/4
   \override Glissando #'style = #'zigzag

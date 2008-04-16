@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "ancient-notation"
- texidoc = "
+
+  texidoc = "
 Here are shown many (all?) of the symbols that are included in
 LilyPond's support of ancient notation.
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Ancient fonts"
+} % begin verbatim
 upperStaff = \context GregorianStaff = "upperStaff" <<
   \context GregorianVoice <<
     \set Score.timing = ##f

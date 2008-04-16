@@ -89,7 +89,7 @@ benötigt. Siehe auch
 @cindex Notenbezeichnungen, Standard
 @cindex Vorzeichen, Deutsch
 @cindex Versetzungszeichen
-@cindex Akzidenzen
+@cindex Akzidentien
 
 Ein Kreuz wird eingegeben, indem man @code{-is} an die 
 Notenbezeichnung hängt, ein b durch @code{-es}. Doppelkreuze 
@@ -138,7 +138,7 @@ d e fis g
 @commonprop
 
 Den Satzregeln für den Notensatz folgend wird ein Auflösungszeichen 
-dann ausgegeben, wenn eine vorhergehende Akzidenz rückgängig 
+dann ausgegeben, wenn ein vorhergehendes Versetzungszeichen rückgängig 
 gemacht werden soll. Um dieses Verhalten zu ändern, muss 
 @code{\set Staff.extraNatural = ##f} eingesetzt werden.
 

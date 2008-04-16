@@ -11,15 +11,18 @@ un bécarre avant un dièse ou un bémol si on a besoin d'annuler une
 altération précédente.  Pour modifier ce comportement, assignez la propriété
 @code{extraNatural} du contexte @code{Staff} à la valeur @code{##f} (faux).
 "
- texidoc = "
+
+  texidoc = "
 In accordance with standard typesetting rules, a natural sign is
 printed before a sharp or flat if a previous accidental on the same
 note needs to be canceled.  To change this behavior, set the
 @code{extraNatural} property to \"false\" in the @code{Staff} context.
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Preventing extra naturals from being automatically added"
+} % begin verbatim
 \relative {
   aeses'4 aes ais a
   \set Staff.extraNatural = ##f

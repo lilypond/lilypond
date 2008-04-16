@@ -3,7 +3,6 @@
 \version "2.11.42"
 \layout { ragged-right = ##t }
 \header {
-  doctitle = "Positioning multi-measure rests"
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
 Unlike ordinary rests, there is no predefined command
@@ -12,8 +11,10 @@ rest symbol of either form by attaching it to a note.  However,
 in polyphonic music multi-measure rests in odd-numbered and
 even-numbered voices are vertically separated.  The positioning
 of multi-measure rests can be controlled as follows:
- "}
-% begin verbatim
+ "
+  doctitle = "Positioning multi-measure rests"
+} % begin verbatim
+
 \relative c'' {
   % Multi-measure rests by default are set under the second line
   R1
@@ -28,7 +29,7 @@ of multi-measure rests can be controlled as follows:
   << { R1 } \\ { a1 } >>
   % Multi-measure rests in even-numbered voices are under the bottom line
   << { c1 } \\ { R1 } >>
-  % They remain separated even in empty bars
+  % They remain separated even in empty measures
   << { R1 } \\ { R1 } >>
   % This brings them together even though there are two voices
   \compressFullBarRests

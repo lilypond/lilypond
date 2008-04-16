@@ -1,12 +1,12 @@
 \version "2.11.23"
 \layout { ragged-right= ##t }
 \header {
-  doctitle = "Drawing boxes around grobs"
   lsrtags = "tweaks-and-overrides"
   texidoc = "
 The @code{print-function} can be overridden to draw a box around an
 arbitrary grob.  
 "
+  doctitle = "Drawing boxes around grobs"
 }
 
 \relative c'' {

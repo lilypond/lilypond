@@ -1,9 +1,9 @@
 \version "2.10.0"
 \layout { ragged-right= ##t }
 \header {
-  doctitle = "Line arrows"
   lsrtags = "expressive-marks"
   texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
+  doctitle = "Line arrows"
 }
 
 \relative c'' {

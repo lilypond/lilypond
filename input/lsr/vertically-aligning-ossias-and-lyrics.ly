@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "vocal-music, tweaks-and-overrides, spacing"
- texidoc = "
+
+  texidoc = "
 This snippet shows of to use the @code{alignBelowContext} and
 @code{alignAboveContext} properties, which may be needed for text
 elements (e.g. lyrics) positioning, but also for musical contents such
 as ossias.
-" }
-% begin verbatim
+
+"
+  doctitle = "Vertically aligning ossias and lyrics"
+} % begin verbatim
 \paper {
   ragged-right = ##t
 }
