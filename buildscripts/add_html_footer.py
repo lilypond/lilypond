@@ -97,7 +97,7 @@ snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
 # this also fixes missing PNGs only present in translated docs
 def hack_urls (s, prefix):
     if splitted_docs_re.match (prefix):
-        s = re.sub ('(href|src)="(lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
+        s = re.sub ('(href|src)="(../lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
 
     # fix Snippets xrefs ad hoc
     s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
