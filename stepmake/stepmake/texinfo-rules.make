@@ -8,7 +8,7 @@
 # symlinks, see replace_symlinks_urls in
 # buildscripts/add_html_footer.py.
 
-ifneq ($(INFO_IMAGES_DIR),'')
+ifneq ($(INFO_IMAGES_DIR),)
 
 # make dereferences symlinks, and $(INFO_IMAGES_DIR) is a symlink
 # to $(outdir), so we can't use directly $(INFO_IMAGES_DIR) as a
@@ -30,29 +30,20 @@ $(outdir)/.info-images-dir.dep:
 
 endif
 
-# Settings for texi2html:
-ifneq ($(ISOLANG),) 
-TEXI2HTML_LANG = --lang=$ISOLANG
-endif
-TEXI2HTML_FLAGS += --css-ref=lilypond.css $(DOCUMENTATION_INCLUDES)
-TEXI2HTML = $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) $(TEXI2HTML_LANG)
-
-
-
-$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.texi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
 
-$(outdir)/%/index.html: $(outdir)/%.texi
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.texi
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.texi
 	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $< 
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
-$(outdir)/%.html: $(outdir)/%.texi
+$(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.texi
 	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
@@ -65,15 +56,18 @@ $(outdir)/%.pdf.omf: %.texi
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
 
-$(outdir)/%.pdf: $(outdir)/%.texi
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.texi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
-$(outdir)/%.txt: $(outdir)/%.texi
+$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.texi
 	$(MAKEINFO) -I $(src-dir) -I $(outdir) --no-split --no-headers --output $@ $<
 
 $(outdir)/%.texi: %.texi
 	rm -f $@
 	cp $< $@
 
-
+$(outdir)/version.%: $(top-src-dir)/VERSION
+	echo '@macro version'> $@
+	echo $(TOPLEVEL_VERSION)>> $@
+	echo '@end macro'>> $@
 
