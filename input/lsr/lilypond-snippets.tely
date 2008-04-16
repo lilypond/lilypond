@@ -90,11 +90,10 @@ Musical notation
 Specialist notation
 * Vocal music::
 * Chords::
-* Piano::
+* Keyboards::
 * Percussion::
-* Guitar::
-* Strings::
-@c * Bagpipes::
+* Fretted strings::
+* Unfretted strings::
 * Ancient notation::
 
 Other collections
@@ -122,12 +121,11 @@ Other collections
 
 @include vocal-music.itely
 @include chords.itely
-@include piano-music.itely
+@include keyboards.itely
 @include percussion.itely
-@include guitar.itely
-@include strings.itely
-@c ignore empty section
-@c @include bagpipes.itely
+@include fretted-strings.itely
+@include unfretted-strings.itely
+@c @include winds.itely
 @include ancient-notation.itely
 
 @include contexts-and-engravers.itely
