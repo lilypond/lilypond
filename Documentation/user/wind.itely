@@ -10,22 +10,39 @@
 
 @node Wind instruments
 @section Wind instruments
-@c @node Bagpipes
-@c @section Bagpipes
 
 This section includes extra information for writing for bagpipes.
 
 @menu
-* Bagpipe sections::            
+* Common notation::
+* Bagpipes::
 @end menu
 
-
-@node Bagpipe sections
-@subsection Bagpipe sections
+@node Common notation
+@subsection Common notation
 
 @menu
-* Bagpipe definitions::         
-* Bagpipe example::             
+* References for wind instruments::
+* Half-holes::
+@end menu
+
+@node References for wind instruments
+@subsubsection References for wind instruments
+
+@c TODO Add refs
+TBC
+
+@node Half-holes
+@subsubsection Half-holes
+@c TODO Add text; search -user
+TBC
+
+@node Bagpipes
+@subsection Bagpipes
+
+@menu
+* Bagpipe definitions::
+* Bagpipe example::
 @end menu
 
 @node Bagpipe definitions
