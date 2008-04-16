@@ -24,7 +24,7 @@ GENERATED_ITELY_FILES = $(IN_ITELY_FILES:%-intro.itely=$(outdir)/%.itely)
 $(outdir)/%.itely: %-intro.itely %.snippet-list
 	xargs $(PYTHON) $(buildscript-dir)/lys-to-tely.py -f printfilename,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 
-$(outdir)/lilypond-snippets.texi: $(GENERATED_ITELY_FILES)
+$(outdir)/lilypond-snippets.texi: $(GENERATED_ITELY_FILES) $(LY_FILES)
 
 info: $(INFO_FILES)
 
