@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "text, paper-and-layout, titles"
- texidoc = "
+
+  texidoc = "
 Instrument names are generally printed at the left side of the staves.
 To align the names of several different intruments, you can put them in
 a @code{\\markup} block and use one of the following possibilites:
@@ -25,8 +26,10 @@ width
     with an @code{\\hspace #n} object.
   
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Aligning and centering instrument names"
+} % begin verbatim
 \paper {
   indent = #0
   left-margin = #30

@@ -53,8 +53,7 @@ line with either a bracket or a brace.
 @cindex tabstaff
 @cindex tablature
 
-The lines of a staff (pl. staves) are produced by the @code{staff symbol} 
-layout object.  Staves are created with the @code{\new} or
+Staves (sg. staff) are created with the @code{\new} or
 @code{\context} commands.  For an explanation on these commands,
 see @ref{Creating contexts}.
 
@@ -63,48 +62,46 @@ There are different predefined staff contexts available in LilyPond:
 @itemize
 @item
 The default is @code{Staff}:
-@lilypond[verbatim,ragged-right,quote]
-\relative c'' {
-  \new Staff { c d e f }
-}
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+\new Staff { c d e f }
 @end lilypond
 
 @item
 @code{DrumStaff} creates a five line staff set up for a typical drum set.
 It uses different names for each instrument.  The instrument names have to
 be set using the @code{drummode}.  See @ref{Percussion staves}.
+
 @lilypond[verbatim,ragged-right,quote]
 \new DrumStaff { 
   \drummode { cymc hh ss tomh }
 }
 @end lilypond
 
+@c FIXME: remove when mentioned in NR 2.8
 @item
 @code{GregorianTranscriptionStaff} sets up a staff to notate modern
 Gregorian chant.  It does not show bar lines.
-@lilypond[verbatim,ragged-right,quote]
-\relative c'' {
-  \new GregorianTranscriptionStaff { c d e f }
-}
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+\new GregorianTranscriptionStaff { c d e f }
 @end lilypond
 
 @item
 @code{RhythmicStaff} can be used to show the rhythm of some music.  The
 notes are printed on one line regardless of their pitch, but the duration
 is preserved.  See @ref{Showing melody rhythms}.
-@lilypond[verbatim,ragged-right,quote]
-\relative c'' {
-  \new RhythmicStaff { c d e f }
-}
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+\new RhythmicStaff { c d e f }
 @end lilypond
 
 @item
 @code{TabStaff} creates by default a tablature with six strings in 
-standard guitar tuning.  See @ref{Tablatures basic}.
-@lilypond[verbatim,ragged-right,quote]
-\relative c'' {
-  \new TabStaff { c d e f }
-}
+standard guitar tuning.  See @ref{Guitar tablatures}.
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+\new TabStaff { c d e f }
 @end lilypond
 
 @end itemize
@@ -124,7 +121,7 @@ in the score.  This is done with the commands @code{\startStaff} and
 Music Glossary: @rglos{staff}, @rglos{staves}.
 
 Notation Reference: @ref{Percussion staves}, 
-@ref{Tablatures basic}, @ref{Gregorian Chant contexts}, and
+@ref{Guitar tablatures}, @ref{Gregorian Chant contexts},
 @ref{Mensural contexts}.
 
 Snippets: @lsrdir{Staff,Staff-notation}.
@@ -132,7 +129,7 @@ Snippets: @lsrdir{Staff,Staff-notation}.
 Internals Reference: @internalsref{Staff}, @internalsref{DrumStaff},
 @internalsref{GregorianTranscriptionStaff}, @internalsref{RhythmicStaff},
 @internalsref{TabStaff}, @internalsref{MensuralStaff},
-@internalsref{VaticanaStaff}.
+@internalsref{VaticanaStaff}, @internalsref{StaffSymbol}.
 
 
 
@@ -157,15 +154,6 @@ together.  These contexts influence in the first place the appearance
 of the system start delimiter, but they have also influence on the
 behavior of the bar lines.
 
-Each staff group context sets the property
-@code{systemStartDelimiter} to one of the values
-@code{SystemStartBar}, @code{SystemStartBrace},
-and @code{SystemStartBracket}.  A fourth delimiter,
-@code{systemStartSquare}, is also available, but must be
-instantiated manually.  The usage of this last delimiter is shown further
-down in the snippet section.
-
-
 @itemize
 @item
 If no context is specified, the default properties for the score
@@ -173,8 +161,8 @@ will be used: the group is started with a vertical line, and the
 bar lines are not connected.  The name of the beginning bar line 
 grob is @code{SystemStartBar}.  
 
-@lilypond[verbatim,ragged-right,quote]
-\relative c'' <<
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+<<
   \new Staff { c1 c }
   \new Staff { c c }
 >>
@@ -184,39 +172,33 @@ grob is @code{SystemStartBar}.
 In a @code{StaffGroup}, the bar lines will be drawn through
 all the staves, and the group is started with a bracket.
 
-@lilypond[verbatim,ragged-right,quote]
-\new StaffGroup {
-  \relative c'' <<
-    \new Staff { c1 c }
-    \new Staff { c c }
-  >>
-}
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+\new StaffGroup <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
 @end lilypond
 
 @item
 In a @code{ChoirStaff}, the group is 
 started with a bracket, but bar lines are not connected. 
 
-@lilypond[verbatim,ragged-right,quote]
-\new ChoirStaff {
-  \relative c'' <<
-    \new Staff { c1 c }
-    \new Staff { c c }
-  >>
-}
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+\new ChoirStaff <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
 @end lilypond
 
 @item
 In a @code{GrandStaff}, the group is started with a brace
 at the left, and bar lines are connected between the staves. 
 
-@lilypond[verbatim,ragged-right,quote]
-\new GrandStaff {
-  \relative c'' <<
-    \new Staff { c1 c }
-    \new Staff { c c }
-  >>
-}
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+\new GrandStaff <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
 @end lilypond
 
 @item
@@ -224,16 +206,22 @@ The @code{PianoStaff} behaves almost as the @code{GrandStaff} but is
 optimized for setting piano music. In particular it supports the printing
 of an instrument name directly, see @ref{Instrument names}.
 
-@lilypond[verbatim,ragged-right,quote]
-\new PianoStaff {
-  \relative c'' <<
-    \new Staff { c1 c }
-    \new Staff { c c }
-  >>
-}
+@lilypond[verbatim,ragged-right,quote,fragment,relative=2]
+\new PianoStaff <<
+  \new Staff { c1 c }
+  \new Staff { c c }
+>>
 @end lilypond
 
 @end itemize
+
+Each staff group context sets the property
+@code{systemStartDelimiter} to one of the values
+@code{SystemStartBar}, @code{SystemStartBrace},
+and @code{SystemStartBracket}.  A fourth delimiter,
+@code{systemStartSquare}, is also available, but must be
+instantiated manually.  The usage of this last delimiter is shown further
+down in the snippet section.
 
 According to classic engraver rules an orchestral score consists of
 staves connected only with a single line at the beginning of the system. 
@@ -263,7 +251,7 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
-
+@c FIXME: move to NR 2.8.x when sectioning is ready
 
 @seealso
 
@@ -272,10 +260,11 @@ Music Glossary: @rglos{brace},
 
 Snippets: @lsrdir{Staff,Staff-notation}
 
-Internals Reference: @internalsref{ChoirStaff},
-@internalsref{GrandStaff}, @internalsref{StaffGroup},
+Internals Reference: @internalsref{Staff}, @internalsref{ChoirStaff},
+@internalsref{GrandStaff}, @internalsref{PianoStaff}, 
+@internalsref{StaffGroup}, @internalsref{systemStartDelimiter},
 @internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-@internalsref{SystemStartBracket}, and @internalsref{systemStartSquare}.
+@internalsref{SystemStartBracket}, @internalsref{systemStartSquare}.
 
 
 @node Deeper nested staff groups
@@ -292,7 +281,7 @@ including inner staff groups, though.
 
 Here is an example of an orchestral score using groupings and nesting
 of these groupings.  Note that the instrument names are omitted from the
-source code, see @ref{Instrument names} how to set them.
+source code, for instructions how to set them see @ref{Instrument names}.
 
 @cindex staff, nested
 @cindex staves, nested
@@ -393,7 +382,10 @@ source code, see @ref{Instrument names} how to set them.
 
 @seealso
 
-Internals Reference: @internalsref{SystemStartBar}, 
+Snippets: @lsrdir{Staff,Staff-notation}
+
+Internals Reference: @internalsref{InnerChoirStaffGroup}, 
+@internalsref{InnerStaffGroup}, @internalsref{SystemStartBar}, 
 @internalsref{SystemStartBrace}, @internalsref{SystemStartBracket},
 @internalsref{systemStartDelimiterHierarchy}.
 
@@ -421,12 +413,14 @@ of staves, and setting ossia sections.
 @cindex stop staff lines
 @cindex start staff lines
 @cindex staff lines, amount of
+@cindex staff lines, number of
 @cindex staff line, thickness of
 @cindex amount of staff lines
 @cindex thickness of staff lines
 @cindex ledger lines, setting
 @cindex setting of ledger lines
 @cindex spacing of ledger lines
+@cindex number of staff lines
 
 The layout object which draws the lines of a staff is called
 @code{staff symbol}.  The staff symbol may be tuned in number,
@@ -570,9 +564,11 @@ must be equal.
 @node Ossia staves
 @subsubsection Ossia staves
 
-@cindex staves, Frenched
+@cindex staff, Frenched
 @cindex ossia
 @cindex Frenched staves
+@cindex staff, resizing of
+@cindex resizing of staves
 
 Tweaking the staff object allows to resize the staff:
 
@@ -590,18 +586,23 @@ Tweaking the staff object allows to resize the staff:
 
 @noindent
 This involves shrinking the staff spaces, the staff lines and
-the font size. See @ref{Setting the staff size}.
+the font size by the factor 3.  You find a more precise explanation
+in @ref{Setting the staff size}.
 
-In combination with Frenched staves, this may be used to typeset
-@emph{ossia} sections.  An example is shown here
+The @emph{ossia} section in the next example are just put parallel
+to the main staff with @code{<<} and @code{>>} brackets.  The @emph{ossia}
+staff is stopped and started explicitely and white space is inserted 
+with the @code{\skip} command.
 
 @lilypond[verbatim,relative=2,quote]
 <<
   \new Staff \with
   {
+    %No time signature in the ossia staff
     \remove "Time_signature_engraver"
-    fontSize = #-2
-    \override StaffSymbol #'staff-space = #(magstep -2)
+    fontSize = #-3
+    \override StaffSymbol #'staff-space = #(magstep -3)
+    \override StaffSymbol #'thickness = # (magstep -3)
     firstClef = ##f
   }
   \relative c'' {
@@ -618,19 +619,13 @@ In combination with Frenched staves, this may be used to typeset
     \startStaff
     f8 d g4 
   }
-  \new Staff  \relative
-  {
+  \new Staff  \relative c'' {
     \time 2/4
     c4 c g' g a a g2
   }
-
 >>
 @end lilypond
 
-@cindex staff lines, setting number of
-@cindex staff lines, setting thickness of
-@cindex thickness of staff lines, setting
-@cindex number of staff lines, setting
 
 @snippets
 
@@ -641,52 +636,45 @@ In combination with Frenched staves, this may be used to typeset
 
 Music Glossary: @rglos{ossia}, @rglos{staff}, @rglos{Frenched staff}.
 
-Snippets: @lsrdir{Staff,Staff-notation}
+Snippets: @lsrdir{Staff,Staff-notation}.
 
-Internals Reference: @internalsref{StaffSymbol},
-@internalsref{DrumStaff}.
+Internals Reference: @internalsref{StaffSymbol}.
 
 
 @node Hiding staves
 @subsubsection Hiding staves
 
 @cindex Frenched scores
-@cindex staves, hiding
-@cindex staves, empty 
+@cindex staff, hiding
+@cindex staff, empty 
+@cindex hiding of staves
+@cindex empty staves
+@cindex Frenched staves
 
 In orchestral scores, staff lines that only have rests are usually
 removed; this saves some space.  This style is called @q{French
-Score}.  For @code{Lyrics}, @code{ChordNames} and
-@code{FiguredBass}, this is switched on by default.  When
+Score}.  For the @code{Lyrics}, @code{ChordNames}, and
+@code{FiguredBass} contexts, this is switched on by default.  When
 the lines of these contexts turn out empty after the line-breaking
 process, they are removed.
 
-For normal staves, a specialized @code{Staff} context is
-available, which does the same: staves containing nothing (or only
-multi-measure rests) are removed.  The context definition is
-stored in @code{\RemoveEmptyStaffContext} variable.  Observe how
-the second staff in this example disappears in the second line
+For normal staves this behaviour is called
+with the @code{\RemoveEmptyStaffContext} command.  It is set
+in the @code{\layout} block.  As a result staves containing 
+nothing or whole mesure rests are removed after a line break.
 
 @lilypond[quote,ragged-right,verbatim]
 \layout {
   \context { \RemoveEmptyStaffContext }
 }
-
-{
-  \relative c' <<
+\relative c'' {
+  <<
     \new Staff { e4 f g a \break c1 }
     \new Staff { c4 d e f \break R1 }
-  >>
+  >>  
 }
 @end lilypond
 
-The first system shows all staves in full.  If empty staves should
-be removed from the first system too, set @code{remove-first} to
-true in @code{VerticalAxisGroup}.
-
-@example
-\override Score.VerticalAxisGroup #'remove-first = ##t
-@end example
 
 To remove other types of contexts, use
 @code{\AncientRemoveEmptyStaffContext} or
@@ -696,8 +684,7 @@ To remove other types of contexts, use
 
 Another application of the @code{\RemoveEmptyStaffContext} is to
 make ossia sections, i.e., alternative melodies on a separate
-piece of staff, with help of a Frenched staff.  See @ref{Staff
-symbol}. 
+piece of staff, with help of a Frenched staff.  See @ref{Ossia staves}. 
 
 You can make the staff lines invisible by removing the
 @code{Staff_symbol_engraver} from the @code{Staff} context.
@@ -714,6 +701,53 @@ You can make the staff lines invisible by removing the
   }
 }
 @end lilypond
+
+@snippets
+
+The first empty staff can also be removed from the score with a 
+setting in the @code{VerticalAxisGroup} property.  This can be done 
+globally inside the @code{\layout} block, or locally inside the 
+specific staff that should be removed. In the latter case, 
+you have to specify the context (@code{Staff} applies only to the 
+current staff) in front of the property.
+
+The lower staff of the second staff group is not removed, 
+because the setting applies only to the specific staff inside 
+of which it is written.
+
+@lilypond[quote,ragged-right,verbatim,relative=2]
+\layout {
+  \context { 
+    \RemoveEmptyStaffContext 
+    %To use the setting globally, uncomment the following line:
+    %\override VerticalAxisGroup #'remove-first = ##t
+  }
+}
+\new StaffGroup
+  \relative c'' <<
+    \new Staff {    
+      e4 f g a \break c1 }
+    \new Staff {
+      %To use the setting globally, comment this line, uncomment the line above
+      \override Staff.VerticalAxisGroup #'remove-first = ##t
+      R1 \break R1 }
+  >>
+\new StaffGroup
+  <<
+    \new Staff { e4 f g a \break c1 }
+    \new Staff { R \break R1 }
+  >>
+@end lilypond
+
+@c FIXME not yet in master
+@c lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {remove-the-first-empy-line.ly}
+
+@predefined
+
+@code{\RemoveEmptyStaffContext},
+@code{\AncientRemoveEmptyStaffContext},
+@code{\RemoveEmptyRhythmicStaffContext},
 
 @seealso
 

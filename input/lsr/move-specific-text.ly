@@ -3,12 +3,13 @@
 \version "2.11.38"
 % possible rename to scheme- or something like that.  -gp
 \header {
-  doctitle = "Move specific text"
   lsrtags = "tweaks-and-overrides"
   texidoc = "@cindex Scheme Move Text
 Objects of the same type, like text, can be moved around by using some Scheme code.
-" }
-% begin verbatim
+"
+  doctitle = "Move specific text"
+} % begin verbatim
+
 #(define (make-text-checker text)
    (lambda (grob) (equal? text (ly:grob-property grob 'text))))
 

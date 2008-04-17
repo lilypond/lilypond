@@ -90,8 +90,7 @@ Lily_parser::parse_file (string init, string name, string out_name)
     try_load_text_metrics (out_name);
 
   // TODO: use $parser 
-  lexer_->set_identifier (ly_symbol2scm ("parser"),
-			  self_scm ());
+  lexer_->set_identifier (ly_symbol2scm ("parser"), self_scm ());
   output_basename_ = out_name;
 
   lexer_->main_input_name_ = name;

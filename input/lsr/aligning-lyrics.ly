@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "text, vocal-music"
- texidoc = "
+
+  texidoc = "
 You can specify different horizontal alignment for your lyrics, by
 overriding the @code{self-alignment-X} property of the @code{LyricText}
 object. @code{#-1} is left, @code{#0} is center and @code{#1} is right;
 however, you can use @code{#LEFT}, @code{#CENTER} and @code{#RIGHT} as
 well. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Aligning lyrics"
+} % begin verbatim
 \relative c'' {
   c1 c c
 }

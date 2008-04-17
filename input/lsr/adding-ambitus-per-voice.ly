@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "pitches, staff-notation, vocal-music"
- texidoc = "
+
+  texidoc = "
 Ambitus can be added per voice. In this case, the ambitus must be moved
 manually to prevent collisions. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Adding ambitus per voice"
+} % begin verbatim
 \new Staff <<
   \new Voice \with {
     \consists "Ambitus_engraver"

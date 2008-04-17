@@ -54,20 +54,21 @@ This section gives a basic introduction to working with LilyPond.
 @menu
 * Compiling a file::            
 * Simple notation::             
-* Working on text files::       
-* How to read the manual::      
+* Working on input files::
+* How to read the manual::
 @end menu
 
 
 @node Compiling a file
 @subsection Compiling a file
 
-@qq{Compiling} is the term used for processing an input text file
+@qq{Compiling} is the term used for processing an input file
 in LilyPond format to produce a file which can be printed and
-(optionally) a MIDI file which can be played.  The first example
-shows what a simple input text file looks like.
+(optionally) a MIDI file which can be played.  LilyPond input
+files are simple text files.  The first example
+shows what a simple input file looks like.
 
-To create sheet music, we write a text file that specifies the
+To create sheet music, we write an input file that specifies the
 notation.  For example, if we write:
 
 @example
@@ -412,8 +413,8 @@ Notation Reference: @ruser{Writing pitches},
 @ruser{Time signature}, @ruser{Clef}.
 
 
-@node Working on text files
-@subsection Working on text files
+@node Working on input files
+@subsection Working on input files
 
 LilyPond input files are similar to source files in many common
 programming languages.  They are case sensitive, and white-space
@@ -514,7 +515,7 @@ comments:
 @subsection How to read the manual
 
 LilyPond input must be surrounded by @{ @} marks or a
-@code{\relative c'' @{ ... @}}, as we saw in @ref{Working on text
+@code{\relative c'' @{ ... @}}, as we saw in @ref{Working on input
 files}.  For the rest of this manual, most examples will omit
 this.  To replicate the examples, you may copy and paste the
 displayed input but you @strong{must} add the @code{\relative c''
@@ -561,7 +562,7 @@ cut-&-pastable section} to the bottom of the file.
 
 
 There are more tips for constructing input files in
-@ref{Suggestions for writing LilyPond files}.  But it might be
+@ref{Suggestions for writing LilyPond input files}.  But it might be
 best to read through the rest of the tutorial first.
 
 

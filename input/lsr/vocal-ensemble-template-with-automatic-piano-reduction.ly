@@ -4,15 +4,18 @@
 
 \header {
   lsrtags = "vocal-music, piano-music, template"
- texidoc = "
+
+  texidoc = "
 This template adds an automatic piano reduction to the standard SATB
 vocal score demonstrated in \"Vocal ensemble template\". This
 demonstrates one of the strengths of LilyPond – you can use a music
 definition more than once. If you make any changes to the vocal notes
 (say, tenorMusic), then the changes will also apply to the piano
 reduction.
-" }
-% begin verbatim
+
+"
+  doctitle = "Vocal ensemble template with automatic piano reduction"
+} % begin verbatim
 global = {
             \key c \major
             \time 4/4

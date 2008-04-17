@@ -209,7 +209,7 @@ Dadurch werden unnötige Seitenumbrüche vermieden, sodass man
 nicht so oft blättern muss.
 
 Dies sind die Anforderungen der Typographie: Das Layout sollte
-schön sein -- nicht aus Selbszweck, sondern um dem Leser zu helfen. Für 
+schön sein -- nicht aus Selbstzweck, sondern um dem Leser zu helfen. Für 
 Aufführungsmaterial ist das umso wichtiger, denn Musiker haben eine begrenzte
 Aufmerksamkeit. Je weniger Mühe nötig ist, die Noten zu erfassen, desto mehr
 Zeit bleibt für die Gestaltung der eigentlichen Musik. Das heißt: Gute 
@@ -561,9 +561,9 @@ müssen also gruppiert werden. Die Köpfe, Hälse, Bögen usw. werden
 in einer Gruppe mit dem Namen @qq{Voice context} (Stimmenkontext) 
 zusammengefasst, die engraver für den Schlüssel, die Vorzeichen, 
 Taktstriche usw. dagegen in einer Gruppe mit dem Namen @qq{Staff context} 
-(Systemkontext). Im Falle von Polyphonie hat ein Staff context dann also 
-mehr als nur einen Voice context. Auf gleiche Weise können auch mehrere Staff
- contexte in einen großen Score context (Partiturkontext) eingebunden werden.
+(Systemkontext). Im Falle von Polyphonie hat ein Staff-Kontext dann also 
+mehr als nur einen Voice-Kontext. Auf gleiche Weise können auch mehrere Staff-Kontexte
+in einen großen Score-Kontext (Partiturkontext) eingebunden werden.
 
 @seealso
 
@@ -663,7 +663,7 @@ von LilyPond ist also klar und ohne Zweideutigkeiten definiert.
 
 Die Benutzerschnittstelle und die Syntax werden als erstes vom Benutzer 
 wahrgenommen. Teilweise sind sie eine Frage des Geschmackes und werden viel
-disskutiert. Auch wenn Geschmacksfragen ihre Berechtigung 
+diskutiert. Auch wenn Geschmacksfragen ihre Berechtigung 
 haben, sind sie nicht sehr produktiv. Im großen Rahmen von LilyPond 
 spielt die Eingabe-Syntax nur eine geringe Rolle, denn eine logische 
 Syntax zu schreiben ist einfach, guten Formatierungscode aber sehr viel 
@@ -731,7 +731,7 @@ Das Handbuch ist in drei Bücher geteilt.
 
 In diesem Buch wird erklärt, wie man das Programm LilyPond erlernt; mit 
 einfachen Begriffen werden einige Schlüsselkonzepte erklärt. Die Kapitel 
-sollten hintereinander gelsen werden.
+sollten hintereinander gelesen werden.
 
 @c we need to completely rewrite this once GDP is finished.  -gp
 @ignore
@@ -864,7 +864,7 @@ kann.
 
 @item
 @emph{@rprogram{Install}},
-erklärt wie LilyPond installiert wird (inclusive Kompilation, wenn es 
+erklärt wie LilyPond installiert wird (inklusive Kompilation, wenn es 
 nötig sein sollte).
 
 @item
@@ -875,7 +875,7 @@ Texteditoren.
 
 @item
 @emph{@rprogram{Running LilyPond}},
-zeigt, wie LilyPond und seine Hilfprogramme gestartet werden. Zusätzlich 
+zeigt, wie LilyPond und seine Hilfsprogramme gestartet werden. Zusätzlich 
 wird hier erklärt, wie Quelldateien von alten LilyPond-Versionen aktualisiert 
 werden können.
 

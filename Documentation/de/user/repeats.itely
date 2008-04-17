@@ -343,7 +343,7 @@ diesem Fall darf die Note nicht von Klammern eingefasst sein.
 \repeat tremolo 4 c'16
 @end lilypond
 
-Ähnliche Darstellung wird erreicht durch eine innere Tremolountereilung, 
+Ähnliche Darstellung wird erreicht durch eine innere Tremolounterteilung, 
 die im Abschnitt @ref{Tremolo subdivisions} beschrieben wird.
 
 

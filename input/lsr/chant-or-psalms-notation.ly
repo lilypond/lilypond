@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers"
- texidoc = "
+
+  texidoc = "
 This form of notation is used for the chant of the Psalms, where verses
 aren't always the same length.
-" }
-% begin verbatim
+
+"
+  doctitle = "Chant or psalms notation"
+} % begin verbatim
 stemOn = { \override Staff.Stem #'transparent = ##f }
 stemOff = { \override Staff.Stem #'transparent = ##t }
 

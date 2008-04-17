@@ -53,8 +53,6 @@ AC_SUBST(LINK_GXX_STATICALLY)
 # must come before any header checks
 STEPMAKE_COMPILE
 
-# os.path.realpath() requires python 2.2 and unix
-STEPMAKE_PYTHON(REQUIRED, 2.2)
 AC_CHECK_PROG(FCMATCH, fc-match, fc-match)
 AC_MSG_CHECKING([New Century Schoolbook PFB files])
 AC_SUBST(NCSB_SOURCE_FILES)

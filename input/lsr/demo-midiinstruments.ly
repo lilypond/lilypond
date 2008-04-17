@@ -4,13 +4,16 @@
 
 \header {
   lsrtags = "vocal-music, piano-music, strings, midi"
- texidoc = "
+
+  texidoc = "
 Problem: How to know which @code{midiInstrument} would be best for your
 composition?Solution: A LilyPond demo file.
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Demo MidiInstruments"
+} % begin verbatim
 \header {
   title = "Demo of all midi sounds"
   arranger = "Myself "

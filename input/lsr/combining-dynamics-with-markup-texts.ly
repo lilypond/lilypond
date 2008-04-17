@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "expressive-marks, text"
- texidoc = "
+
+  texidoc = "
 Some dynamics may involve text indications (such as \"più forte\" or
 \"piano subito\"). They can be produced using a @code{\\markup} block.
-" }
-% begin verbatim
+
+"
+  doctitle = "Combining dynamics with markup texts"
+} % begin verbatim
 piuF = \markup { \italic "più" \dynamic "f" }
 
 \relative c'' {
-  c2 c-\piuF
+  c2\f c-\piuF
 }
 

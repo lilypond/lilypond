@@ -6,10 +6,11 @@ When adding a file to this directory, please start the file with
 
 \version "2.x.y"
 \header {
-  doctitle = "Snippet title"
-  lsrtags = "rhythms,expressive-marks" % use existing LSR tags other than
-% 'docs'; see makelsr.py for the list of tags used to sort snippets.
-  texidoc = "This code demonstrates ..." % this will be formated by Texinfo
+  lsrtags = "rhythms,expressive-marks"  % use existing LSR tags other than
+%   'docs'; see makelsr.py for the list of tags used to sort snippets.
+  texidoc = "This code demonstrates ..."  % this will be formated by Texinfo
+  doctitle = "Snippet title"  % please put this at the end so that
+    the '% begin verbatim' mark is added correctly by makelsr.py.
 }
 
 

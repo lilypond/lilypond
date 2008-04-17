@@ -4,13 +4,17 @@
 
 \header {
   lsrtags = "rhythms, percussion"
- texidoc = "
+
+  texidoc = "
 In the following snippet, two parts have a completely different time
-signature, yet remain synchronized. The bar lines can't be printed at
-the @code{Score} level anymore, so you have to remove the
-@code{Barline_engraver} and put it in the @code{Staff} context. 
-" }
-% begin verbatim
+signature, yet remain synchronized. The bar lines can no longer be
+printed at the @code{Score} level; to allow independent bar lines in
+each part, the @code{Barline_engraver} is moved from the @code{Score}
+context to the @code{Staff} context. 
+
+"
+  doctitle = "Printing music with different time signatures"
+} % begin verbatim
 % Thanks to Adam James Wilson for this snippet
 
 \paper {

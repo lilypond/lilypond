@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "rhythms, vocal-music"
- texidoc = "
-Although you can't use @code{s} in @code{\\lyricmode} (it's taken to be
-a literal \"s\", not a space) you can use either @code{\"\"} or
-@code{_}So for example: 
-" }
-% begin verbatim
+
+  texidoc = "
+Although @code{s} skips cannot be used in @code{\\lyricmode} (it is
+taken to be a literal \"s\", not a space), double quotes (@code{\"\"})
+or underscores (@code{_}) are available.So for example: 
+
+"
+  doctitle = "Skips in lyric mode (2)"
+} % begin verbatim
 <<
   \relative c'' { a4 b c d }
   \new Lyrics \lyricmode { a4 "" _ gap }

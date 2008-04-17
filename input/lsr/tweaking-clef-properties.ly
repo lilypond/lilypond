@@ -4,15 +4,17 @@
 
 \header {
   lsrtags = "pitches, staff-notation, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 The command @code{\\clef \"treble_8\"} is equivalent to setting
-@code{clefGlyph}, @code{clefPosition} (which controls the Y-position of
-the clef), @code{middleCPosition} and @code{clefOctavation}. A clef is
-printed when any of these properties are changed.
+@code{clefGlyph}, @code{clefPosition} (which controls the vertical
+position of the clef), @code{middleCPosition} and
+@code{clefOctavation}. A clef is printed when any of the properties
+except @code{middleCPosition} are changed.
 
 
 Note that changing the glyph, the position of the clef, or the
-octavation, does not in itself change the position of subsequent notes
+octavation does not in itself change the position of subsequent notes
 on the staff: the position of middle C must also be specified to do
 this. The positional parameters are relative to the staff center line,
 positive numbers displacing upwards, counting one for each line and
@@ -32,8 +34,10 @@ The following examples show the possibilities when setting these
 properties manually. On the first line, the manual changes preserve the
 standard relative positioning of clefs and notes, whereas on the second
 line, they do not. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Tweaking clef properties"
+} % begin verbatim
 {
   % The default treble clef
   c'1

@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "vocal-music, template"
- texidoc = "
+
+  texidoc = "
 This small template demonstrates a simple melody with lyrics. Cut and
 paste, add notes, then words for the lyrics. This example turns off
 automatic beaming, which is common for vocal parts. If you want to use
 automatic beaming, you'll have to change or comment out the relevant
 line.
-" }
-% begin verbatim
+
+"
+  doctitle = "Single staff template with notes and lyrics"
+} % begin verbatim
 melody = \relative c' {
             \clef treble
             \key c \major

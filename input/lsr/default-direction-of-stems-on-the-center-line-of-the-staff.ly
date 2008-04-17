@@ -4,11 +4,14 @@
 
 \header {
   lsrtags = "editorial-and-educational-use"
- texidoc = "
-The direction of stems on the center line of the staff can be changed,
-as demonstrated in this example. 
-" }
-% begin verbatim
+
+  texidoc = "
+The default direction of stems on the center line of the staff is set
+by the @code{Stem} property @code{neutral-direction}.
+
+"
+  doctitle = "Default direction of stems on the center line of the staff"
+} % begin verbatim
 \relative c'' {
   a b c b
   \override Stem #'neutral-direction = #up

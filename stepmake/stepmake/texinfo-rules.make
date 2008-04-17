@@ -8,27 +8,20 @@
 # symlinks, see replace_symlinks_urls in
 # buildscripts/add_html_footer.py.
 
-ifneq ($(INFO_IMAGES_DIR),)
-
 # make dereferences symlinks, and $(INFO_IMAGES_DIR) is a symlink
 # to $(outdir), so we can't use directly $(INFO_IMAGES_DIR) as a
 # prerequisite, otherwise %.info are always outdated (because older
 # than $(outdir), hence this .dep file
 
-$(outdir)/%.info-images-dir.dep: $(outdir)/%.texi
-	rm -f $*
-	ln -s $(outdir) $*
-	mkdir -p $(outdir)/$*
-	find $(outdir)/$*/ -name '*'.png | xargs rm -f
-	(cd $(outdir)/$*/ ; ln -sf ../*.png . )
-	touch $@
-
-else
-
-$(outdir)/.info-images-dir.dep:
-	touch $@
-
+$(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep: $(INFO_DOCS:%=$(outdir)/%.texi)
+ifneq ($(INFO_IMAGES_DIR),)
+	rm -f $(INFO_IMAGES_DIR)
+	ln -s $(outdir) $(INFO_IMAGES_DIR)
+	mkdir -p $(outdir)/$(INFO_IMAGES_DIR)
+	rm -f $(outdir)/$(INFO_IMAGES_DIR)/[a-f0-9][a-f0-9]
+	cd $(outdir)/$(INFO_IMAGES_DIR) && $(PYTHON) $(top-src-dir)/buildscripts/mass-link.py symbolic .. . [a-f0-9][a-f0-9]
 endif
+	touch $@
 
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.texi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<

@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "titles"
- texidoc = "
+
+  texidoc = "
 I often find it useful to include a date on printed music, so that I
 can see if I'm using the latest version, or tell someone else that he
 should only use the version after a certain date. A simple solution is
@@ -22,8 +23,10 @@ The solution is to use two scheme functions called @code{strftime} and
 solution, you can format the date just as you like it by adapting the
 @code{\"%d-%m-%Y\"} string. See the Guile documentation for more
 details on this format string: Formatting Calendar Time. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Adding the current date to a score"
+} % begin verbatim
 \version "2.11.38"
 % first, define a variable to hold the formatted date:
 date = #(strftime "%d-%m-%Y" (localtime (current-time)))

@@ -848,6 +848,7 @@ R1*4 cis cis
 * Unmetered music::             
 * Polymetric notation::         
 * Automatic note splitting::    
+* Showing melody rhythms::     
 @end menu
 
 @node Time signature
@@ -1319,6 +1320,12 @@ will not insert tuplets.
 
 The @code{Completion_heads_engraver} only affects notes; it does not
 split rests.
+
+
+@node Showing melody rhythms
+@subsubsection Showing melody rhythms
+
+TODO
 
 
 @node Beams

@@ -51,31 +51,25 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 
   out_file_name.ext_ = "";
   out_file_name.root_ = "";
-  out_file_name.dir_ = "";
-
+  if (ly_get_option (ly_symbol2scm ("gui")) != SCM_BOOL_T
+      && ly_get_option (ly_symbol2scm ("strip-output-dir")) == SCM_BOOL_T) {
+    out_file_name.dir_ = "";
+  }
+  
   /* When running from gui, generate output in .ly source directory.  */
-  if (output_name_global.empty ()
-      && ly_get_option (ly_symbol2scm ("gui")) == SCM_BOOL_T)
+  string output_name = output_name_global;
+  if (!output_name.empty ())
     {
-      File_name f (file);
-      f.base_ = "";
-      f.ext_ = "";
-      output_name_global = f.to_string ();
-    }
-
-  if (!output_name_global.empty ())
-    {
-      
       /* Interpret --output=DIR to mean --output=DIR/BASE.  */
       string dir;
-      if (is_dir (output_name_global))
+      if (is_dir (output_name))
 	{
-	  dir = output_name_global;
-	  output_name_global = "";
+	  dir = output_name;
+	  output_name = "";
 	}
       else
 	{
-	  File_name out (output_name_global);
+	  File_name out (output_name);
 	  if (is_dir (out.dir_part ()))
 	    {
 	      dir = out.dir_part ();
@@ -91,7 +85,7 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
 	  chdir (dir.c_str ());
 	}
       else
-	out_file_name = File_name (output_name_global);
+	out_file_name = File_name (output_name);
     }
 
   string init;
@@ -101,7 +95,6 @@ LY_DEFINE (ly_parse_file, "ly:parse-file",
     init = "init.ly";
 
   string out_file = out_file_name.to_string ();
-
   if (init.length () && global_path.find (init).empty ())
     {
       warning (_f ("cannot find init file: `%s'", init));

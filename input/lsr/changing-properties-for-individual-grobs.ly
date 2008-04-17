@@ -4,14 +4,17 @@
 
 \header {
   lsrtags = "tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 The @code{\\applyOutput} command gives you the ability to tune any
 layout object, in any context. It requires a Scheme function with three
 arguments; advanced users can write it quite easily, whereas new users
 may want to use pre-defined functions such as this snippet, or the
 example in the manual.
-" }
-% begin verbatim
+
+"
+  doctitle = "Changing properties for individual grobs"
+} % begin verbatim
 % ****************************************************************
 % ly snippet:
 % ****************************************************************
