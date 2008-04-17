@@ -46,7 +46,7 @@ inside the staff.
 The font size of notation elements may be altered.  It does not
 change the size of variable symbols, such as beams or slurs.
 
-@warning{For @strong{text} font sizes, see
+@warning{For font sizes of text, see
 @ref{Common markup commands}.}
 
 @lilypond[quote,fragment,relative=2,verbatim,ragged-right]
@@ -299,13 +299,10 @@ Exact RGB colors can be specified using the Scheme function
   \with-color #(x11-color 'navy) "Clarinet"
 }
   
-% black
 \override Stem #'color = #(rgb-color 0 0 0)
 gis8 a
-% white
 \override Stem #'color = #(rgb-color 1 1 1)
 gis8 a
-% dark blue
 \override Stem #'color = #(rgb-color 0 0 0.5) 
 gis4 a
 @end lilypond
@@ -455,6 +452,23 @@ There are two music functions, @code{balloonGrobText} and
 attach text to any grob, and the latter is used like @code{\tweak}, 
 typically within chords, to attach text to an individual note.
 
+Balloon text normally influences note spacing, but this can be
+altered:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonLengthOff
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  a8 
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
+  r
+  \balloonLengthOn
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+}
+@end lilypond
+
+
 @predefined
 
 @funindex ballonLengthOn
@@ -478,20 +492,23 @@ Internals Reference:
 Vertical lines can be drawn between staves synchronized with the
 notes.
 
+The @code{Grid_point_engraver} must be used to create the end
+points of the lines, while the @code{Grid_line_span_engraver} must
+be used to actually draw the lines.  By default this centers grid
+lines horizontally below and to the left side of each note head.
+Grid lines extend from the middle lines of each staff.  The
+@code{gridInterval} must specify the duration between the grid
+lines.
+
 @lilypond[quote,verbatim,ragged-right]
 \layout {
   \context {
     \Staff
-    % set up grids
     \consists "Grid_point_engraver" 
-    % set the grid interval to one quarter note
     gridInterval = #(ly:make-moment 1 4)
   }
   \context {
     \Score
-    % by default this centers grid lines horizontally below
-    % and to the left side of the note head, the grid lines
-    % extending from the middle lines of each staff
     \consists "Grid_line_span_engraver"
   }
 }

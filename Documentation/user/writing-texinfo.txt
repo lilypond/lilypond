@@ -105,6 +105,9 @@ commands.
 
 * Use two spaces after a period.
 
+* In examples of syntax, use @var{musicexpr} for a music
+  expression.
+
 * Variables or numbers which consist of a single character
   (probably followed by a punctuation mark) should be tied
   properly, either to the previous or the next word.  Example:
