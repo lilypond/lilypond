@@ -81,6 +81,8 @@ check_meshing_chords (Grob *me,
       && !to_boolean (me->get_property ("merge-differently-headed")))
     merge_possible = false;
 
+  /* what's this for? In particular, why do we check merge_possible when we
+     haven't finished determining it yet? --jneem */
   if (merge_possible
       && head_up->get_property ("style") == ly_symbol2scm ("fa")
       && head_down->get_property ("style") == ly_symbol2scm ("fa"))
