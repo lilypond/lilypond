@@ -17,6 +17,25 @@
 @cindex Petrucci
 @cindex mensural
 
+@menu
+* Introduction to ancient notation::
+* Alternative note signs::
+* Additional note signs::
+* Pre-defined contexts::
+* Transcribing ancient music::
+* Editorial markings::
+@end menu
+
+@node Introduction to ancient notation
+@subsection Introduction to ancient notation
+
+@menu
+* Ancient notation supported::
+@end menu
+
+@node Ancient notation supported
+@subsubsection Ancient notation supported
+
 Support for ancient notation includes features for mensural notation
 and Gregorian Chant notation.  There is also limited support for
 figured bass notation, see @ref{Figured bass}.
@@ -88,23 +107,16 @@ up during the baroque period.
 
 @c Here are all subtopics at a glance:
 
-@menu
-* Alternative note signs for ancient music::
-* Additional note signs for ancient music::
-* Pre-defined contexts::
-* Musica ficta accidentals::
-@end menu
-
-@node Alternative note signs for ancient music
-@subsection Alternative note signs for ancient music
+@node Alternative note signs
+@subsection Alternative note signs
 
 @menu
-* Ancient note heads::          
-* Ancient accidentals::         
-* Ancient rests::               
-* Ancient clefs::               
-* Ancient flags::               
-* Ancient time signatures::     
+* Ancient note heads::
+* Ancient accidentals::
+* Ancient rests::
+* Ancient clefs::
+* Ancient flags::
+* Ancient time signatures::
 @end menu
 
 @node Ancient note heads
@@ -157,7 +169,7 @@ engravers work.
 
 Use the @code{glyph-name-alist} property of grob
 @internalsref{Accidental} and @internalsref{KeySignature} to select
-ancient accidentals. 
+ancient accidentals.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -645,16 +657,16 @@ The @code{old6/8alt} symbol (an alternate symbol for 6/8) is not
 addressable with @code{\time}.  Use a @code{\markup} instead
 
 
-@node Additional note signs for ancient music
-@subsection Additional note signs for ancient music
+@node Additional note signs
+@subsection Additional note signs
 
 @menu
-* Ancient articulations::       
-* Custodes::                    
-* Divisiones::                  
-* Ligatures::                   
-* White mensural ligatures::    
-* Gregorian square neumes ligatures::  
+* Ancient articulations::
+* Custodes::
+* Divisiones::
+* Ligatures::
+* White mensural ligatures::
+* Gregorian square neumes ligatures::
 @end menu
 
 
@@ -877,8 +889,8 @@ function
 with the same effect and is believed to be stable.
 
 @menu
-* White mensural ligatures::    
-* Gregorian square neumes ligatures::  
+* White mensural ligatures::
+* Gregorian square neumes ligatures::
 @end menu
 
 @node White mensural ligatures
@@ -1927,8 +1939,8 @@ with head prefixes in arbitrary order.
 @subsection Pre-defined contexts
 
 @menu
-* Gregorian Chant contexts::    
-* Mensural contexts::           
+* Gregorian Chant contexts::
+* Mensural contexts::
 @end menu
 
 
@@ -1999,8 +2011,60 @@ demonstrates
 }
 @end lilypond
 
-@node Musica ficta accidentals
-@subsection Musica ficta accidentals
+@node Transcribing ancient music
+@subsection Transcribing ancient music
+
+@menu
+* Ancient and modern from one source::
+* Incipits::
+* Mensurstriche layout::
+* Transcribing Gregorian chant::
+@end menu
+
+
+@node Ancient and modern from one source
+@subsubsection Ancient and modern from one source
+
+@c TODO Add text
+@c Here among others the snippets about reducing note length
+TBC
+
+
+@node Incipits
+@subsubsection Incipits
+
+@c TODO Add text
+@c clefs, mensuration signs etc from lsr and -user
+TBC
+
+
+@node Mensurstriche layout
+@subsubsection Mensurstriche layout
+
+@c TODO Add text
+@c from lsr and -user
+TBC
+
+
+@node Transcribing Gregorian chant
+@subsubsection Transcribing Gregorian chant
+
+@c TODO Add text
+@c extract from 1.6.1.1
+TBC
+
+
+@node Editorial markings
+@subsection Editorial markings
+
+@menu
+* Annotational accidentals::
+* Baroque rhythmic notation::
+@end menu
+
+
+@node Annotational accidentals
+@subsubsection Annotational accidentals
 
 In European music from before about 1600, singers were often
 expected to chromatically alter notes at their own initiative.
@@ -2038,3 +2102,9 @@ Internals Reference: @internalsref{Accidental_engraver} engraver and
 the @internalsref{AccidentalSuggestion} object.
 
 
+@node Baroque rhythmic notation
+@subsubsection Baroque rhythmic notation
+
+@c TODO Add text
+@c try Till Rettig
+TBC

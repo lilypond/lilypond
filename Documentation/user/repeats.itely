@@ -184,7 +184,8 @@ Music Glossary: @rglos{repeat}, @rglos{volta}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
@@ -260,7 +261,8 @@ c4 c4
 
 Notation Reference: @ref{Bar lines}, @ref{Formatting text}.
 
-Snippets: @lsrdir{Repeats,Repeats}
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic}.
@@ -304,7 +306,8 @@ c1
 
 @seealso
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{RepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}.
@@ -366,7 +369,8 @@ R1
 
 @seealso
 
-Snippets: @lsrdir{Repeats,Repeats}
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{RepeatSlash},
 @internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
@@ -438,7 +442,8 @@ Notation Reference: @ref{Tremolo repeats}.
 Internals Reference: @internalsref{Beam},
 @internalsref{StemTremolo}.
 
-Snippets: @lsrdir{Repeats,Repeats}
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Elsewhere: @internalsref{StemTremolo}.
 

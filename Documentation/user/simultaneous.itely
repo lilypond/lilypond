@@ -52,7 +52,8 @@ Music Glossary: @rglos{chord}.
 
 Notation Reference: @ref{Modern chords}.
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 
 @knownissues
 
@@ -82,7 +83,8 @@ clusters.
 
 @seealso
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 
 Internals Reference: @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
@@ -250,7 +252,8 @@ override typesetting decisions.
 
 @seealso
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 
 Internals Reference: the objects responsible for resolving
 collisions are @internalsref{NoteCollision} and
@@ -353,7 +356,8 @@ has no effect on the pitches of @var{musicexpr1} and
 
 Music Glossary: @rglos{a due}.
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 
 Internals Reference: @internalsref{PartCombineMusic}, @internalsref{Voice}.
 
@@ -444,5 +448,6 @@ music = {
 
 @seealso
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 

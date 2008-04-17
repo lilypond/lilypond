@@ -147,7 +147,8 @@ a4^\prall^\markup { \sharp }
 Music Glossary: @rglos{tenuto}, @rglos{accent}, @rglos{staccato},
 @rglos{portato}.
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Script},
 @internalsref{TextScript}.
@@ -360,7 +361,8 @@ Music Glossary: @rglos{crescendo}, @rglos{decrescendo}.
 
 Learning Manual: @rlearning{Articulation and dynamics}.
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{DynamicText},
 @internalsref{Hairpin}.  Vertical positioning of these symbols is
@@ -405,7 +407,8 @@ boxf = \markup{ \bracket { \dynamic f } }
 
 @seealso
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 
 @node Curves
@@ -476,7 +479,8 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 
 Music Glossary: @rglos{slur}
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Slur}.
 
@@ -520,7 +524,8 @@ You cannot have simultaneous phrasing slurs.
 
 @seealso
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{PhrasingSlur}
 
@@ -555,7 +560,8 @@ d4
 
 @seealso
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 @c @lsr{expressive,breathing-sign.ly}.
 
 Internals Reference: @internalsref{BreathingSign}
@@ -601,7 +607,8 @@ c4-\bendAfter #-3
 @c TODO: add falls and doits to glossary.
 @c Music Glossary: @rglos{falls}, @rglos{doits}.
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 
 @node Lines
@@ -647,7 +654,8 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 Music Glossary: @rglos{glissando}
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 @c FIXME: I need to figure out what's up with these.  -gp
 @c @lsr{expressive,glissando.ly},
@@ -784,7 +792,8 @@ Music Glossary: @rglos{arpeggio}
 
 Notation Reference: @ref{Ties}, for writing out arpeggios.
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{Arpeggio},
 @internalsref{PianoStaff}.
@@ -851,6 +860,7 @@ printed as a stemless note head in parentheses.
 
 Music Glossary: @rglos{trill}
 
-Snippets: @lsrdir{Expressive,Expressive-marks}
+Snippets:
+@lsrdir{Expressive,Expressive-marks}
 
 Internals Reference: @internalsref{TrillSpanner}
