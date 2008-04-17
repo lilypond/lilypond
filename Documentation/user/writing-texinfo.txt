@@ -70,6 +70,12 @@ commands.
   in print.  Please create a smaller example.  (the smaller
   example does not need to be minimal, however)
 
+* Specify durations for at least the first note of every bar.
+
+* If you only have one bar per line, omit bar checks.  If you
+  put more than one bar per line (not recommended), then include
+  bar checks.
+
 * If you want to work on an example outside of the manual (for
   easier/faster processing), use this header:
 
