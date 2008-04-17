@@ -97,7 +97,8 @@ d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 Notation Reference: @ref{Formatting text},
 @ref{Controlling direction and placement}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextScript}.
 
@@ -160,7 +161,8 @@ object property. This syntax is described in @ref{Line styles}.
 
 Notation Reference: @ref{Line styles}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextSpanner}.
 
@@ -222,7 +224,8 @@ c c
 Notation Reference: @ref{Rehearsal marks},
 @ref{Formatting text}, @ref{The Feta font}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{RehearsalMark}.
 
@@ -292,7 +295,8 @@ Notation Reference: @code{Formatting text},
 @ref{Multiple scores in a book},
 @ref{Multi-page markup}.
 
-Snippets: @lsrdir{Text,Text}.
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextScript}.
 
@@ -496,7 +500,8 @@ I'm putting them in bulk, prior to working on this section. -vv
 
 This manual: @ref{Text markup commands}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextScript}.
 
@@ -706,7 +711,8 @@ block.  In such a case, the @code{\score} must contain a @code{\layout} block.
 
 @seealso
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 @node Multi-page markup
 @subsubsection Multi-page markup
@@ -739,7 +745,8 @@ lists.  The built-in markup list commands are described in
 This manual: @ref{Text markup list commands}, @ref{New
 markup list command definition}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 @predefined
 
@@ -873,6 +880,7 @@ property.  The resulting size is taken relative to the
 
 @seealso
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 
