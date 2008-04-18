@@ -26,13 +26,13 @@ Intro text.
 @c  awkward name; awkward section name.
 @c  still, the Basic "chords" seems like a good name...  :(
 @menu
-* Introducing chord names::     
+* Entering chord names::     
 * Chords mode::                 
 * Printing chord names::        
 @end menu
 
-@node Introducing chord names
-@unnumberedsubsubsec Introducing chord names
+@node Entering chord names
+@unnumberedsubsubsec Entering chord names
 @cindex Akkordbezeichnungen
 
 LilyPond bringt Unterstützung zur Ausgabe von Akkordsymbolen 
