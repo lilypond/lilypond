@@ -132,8 +132,8 @@ install guile-devel or guile-dev or libguile-dev too.
 
 @item @uref{ftp://ftp.gnu.org/gnu/texinfo/,Texinfo} (version 4.11 or newer).
 
-@item @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 4.x or
-newer). 
+@item @uref{http://gcc.gnu.org/, The GNU c++ compiler} (version 3.4 or
+newer.  4.x is strongly recommended).
 
 @item @uref{http://www.python.org,Python} (version 2.4 or newer)
 
