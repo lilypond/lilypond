@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 56ed249c9d5076f33515e36af54126ea5fb88783
+    Translation of GIT committish: 2c2b739a8f4c1998ffb6423d1d73350426ec59be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -718,6 +718,7 @@ El siguiente ejemplo muestra cómo construir un tipo diferente de contexto de
 @code{Voice}, pero imprime solamente cabezas centradas en forma de barra inclinada.  Se puede usar
 para indicar improvisación en piezas de jazz,
 
+@c KEEP LY
 @lilypond[quote,ragged-right]
 \layout { \context {
   \name ImproVoice
@@ -736,7 +737,7 @@ para indicar improvisación en piezas de jazz,
 
 \relative c'' {
   a4 d8 bes8 \new ImproVoice { c4^"ad lib" c
-   c4 c^"undress" c_"while playing :)" c }
+   c4 c^"desvístete" c_"mientras juegas :)" c }
   a1
 }
 @end lilypond
@@ -1444,13 +1445,14 @@ si es así, establece @code{extra-offset}.
 Este procedimiento se instala dentro de @internalsref{Tie} (ligadura de unión), de forma que la última parte
 de la ligadura dividida se traslada hacia arriba.
 
+@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 #(define (my-callback grob)
   (let* (
-         ; have we been split?
+         ; ¿el objeto se ha dividido?
          (orig (ly:grob-original grob))
 
-         ; if yes, get the split pieces (our siblings)
+         ; si es así, tomar las piezas divididas (siblings)
          (siblings (if (ly:grob? orig)
                      (ly:spanner-broken-into orig) '() )))
 

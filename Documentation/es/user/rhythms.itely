@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0204d415337bf74ae8626f396e6ea3cc5669c8f2
+    Translation of GIT committish: 2c2b739a8f4c1998ffb6423d1d73350426ec59be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,7 +13,7 @@
 
 @lilypondfile[quote]{rhythms-headword.ly}
 
-Esta sección trata de los ritmos, las duraciones y los compases.
+Esta sección trata de los ritmos, los silencios, las duraciones, las barras      y los compases.
 
 @menu
 * Writing rhythms::             
@@ -50,10 +50,10 @@ se introducen como sus valores recíprocos respecto de la redonda.  Por
 ejemplo, una negra se escribe usando un @code{4} (puesto que es 1/4 de
 redonda), mientras que una blanca se escribe con un @code{2} (por ser
 1/2 de redonda).  Para notas mayores de la redonda se deben usar los
-comandos @code{\longa} y @code{\breve}. Se pueden especificar
-duraciones tan cortas como la semifusa (con el número 64).  Son
-posibles valores más cortos, pero sólo como notas unidas por una
-barra.
+comandos @code{\longa} (que es una breve doble) y @code{\breve}. Se
+pueden especificar duraciones tan cortas como la semifusa (con el
+número 64).  Son posibles valores más cortos, pero sólo como notas
+unidas por una barra.
 
 @c Two 64th notes are needed to obtain beams
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
@@ -93,26 +93,25 @@ a a a2 a a4 a a1 a
 
 @funindex .
 
-Para obtener duraciones de notas con puntillo, simplemente escriba un
-punto (@code{.}) después del número.  Las notas con doble puntillo se
+Para obtener duraciones de notas con puntillo, escriba un punto
+(@code{.}) después del número.  Las notas con doble puntillo se
 especifican escribiendo dos puntos, y así sucesivamente.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 a4 b c4. b8 a4. b4.. c8.
 @end lilypond
 
-
-Ciertas duraciones no se pueden representar solamente con duraciones
-binarias y puntillos; sólo se pueden representar ligando dos o más
-notas.  Para ver más detalles, consulte @ref{Ties}.
+Ciertas duraciones no se pueden representar sólo con duraciones
+binarias y puntillos; la única forma de representarlas es ligando dos
+o más notas.  Para ver más detalles, consulte @ref{Ties}.
 
 Para ver de qué manera se pueden especificar las duraciones de las
 sílabas de la letra y cómo alinear la letra a las notas, consulte
 @ref{Vocal music}.
 
 Opcionalmente se pueden espaciar las notas de forma estrictamente
-proporcional a su duración.  Para ver más detalles sobre este y otros
-ajustes que controlan la notación proporcional, consulte
+proporcional a sus duraciones.  Para ver más detalles sobre este y
+otros ajustes que controlan la notación proporcional, consulte
 @ref{Proportional notation}.
 
 @funindex \dotsUp
@@ -127,9 +126,7 @@ direction and placement}.
 
 @predefined
 
-@code{\breve},
-@code{\longa},
-@code{\maxima},
+@code{\autoBeamOff},
 @code{\dotsUp},
 @code{\dotsDown},
 @code{\dotsNeutral}.
@@ -152,7 +149,8 @@ Referencia de la notación:
 @ref{Ancient notation}, 
 @ref{Proportional notation}.
 
-Fragmentos de código: @lsrdir{Rhythms,Rhythms}
+Fragmentos de código:
+@lsrdir{Rhythms,Rhythms}.
 
 Referencia de funcionamiento interno:
 @internalsref{Dots},
@@ -204,7 +202,7 @@ por debajo de las notas se puede sobreescribir manualmente mediante
 instrucciones predefinidas, para ver más detalles consulte
 @ref{Controlling direction and placement}.
 
-Los grupos pueden anidarse unos dentro de otros, por ejemplo
+Los grupos pueden anidarse unos dentro de otros:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \autoBeamOff
@@ -212,7 +210,7 @@ c4 \times 4/5 { f8 e f \times 2/3 {e[ f g] } } f4 |
 @end lilypond
 
 La modificación de los grupos especiales anidados que comienzan en el
-mismo instante musical se puede hacer con @code{\tweak}.
+mismo instante musical se debe hacer con @code{\tweak}.
 
 Para modificar la duración de las notas sin imprimir un corchete de
 grupo especial, véase @ref{Scaling durations}.
@@ -226,74 +224,32 @@ grupo especial, véase @ref{Scaling durations}.
 
 @snippets
 
-@cindex formateo de los grupos especiales
-@cindex grupos especiales, formateo de
-@cindex tresillos, formateo de
-
+@cindex tuplet formatting
+@cindex triplet formatting
 
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
-@lilypondfile [verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
 @funindex TupletNumber
 
-@c Sent to VV on 12 Feb - replace with @lilypondfile when available
-@c TODO and delete from here ...
-De forma predeterminada, sólo se imprime el numerador del grupo
-especial sobre el corchete, es decir, el denominador del argumento de
-la instrucción @code{\times}.  De forma alternativa se puede imprimir
-@var{numerador}:@var{denominador} del número de grupo, o se puede
-eliminar el número por completo.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{changing-the-tuplet-number.ly}
 
-
-@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
-\times 2/3 { c8 c c } \times 2/3 { c8 c c }
-\override TupletNumber #'text = #tuplet-number::calc-fraction-text
-\times 2/3 { c8 c c }
-\override TupletNumber #'transparent = ##t
-\times 2/3 { c8 c c }
-@end lilypond
-
-@c ... to here
-
-
-@c Sent to VV on 12 Feb - replace with @lilypondfile when available
-@c TODO and delete from here ...
-Este ejemplo artificial muestra cómo tanto los saltos de línea
-manuales como los automáticos están permitidos dentro de un grupo
-especial con barras.  Observe que estos grupos fuera de pulso se
-tienen que barrar a mano.
-
-@lilypond[quote,ragged-right,verbatim]
-\relative c'' {
-  a8
-  \repeat unfold 8 {\times 2/3 { c[ b a]}}
-  % Insert a manual line break within a tuplet
-  \times 2/3 { c[ b \bar "" \break a]}
-  \repeat unfold 2 {\times 2/3 { c[ b a]}}
-  c8
-}
-\layout {
-  \context {
-    \Voice
-    % Permit line breaks within tuplets
-    \remove "Forbid_line_break_engraver"
-    % Allow beams to be broken at line breaks
-    \override Beam #'breakable = ##t
-  }
-}
-@end lilypond
-
-@c .. to here
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{permitting-line-breaks-within-beamed-tuplets.ly}
 
 @seealso
 
 Glosario musical:
-@rglos{triplet}, 
+@rglos{triplet},
 @rglos{tuplet},
 @rglos{polymetric}.
+
+Manual de aprendizaje:
+@rlearning{Tweaking methods}.
 
 Referencia de la notación:
 @ref{Time administration},
@@ -301,24 +257,36 @@ Referencia de la notación:
 @ref{Objects connected to the input},
 @ref{Polymetric notation}.
 
-Fragmentos de código: @lsrdir{Rhythms,Rhythms}.
+Fragmentos de código:
+@lsrdir{Rhythms,Rhythms}.
 
 Referencia de funcionamiento interno:
 @internalsref{TupletBracket},
-@internalsref{TupletNumber}, 
+@internalsref{TupletNumber},
 @internalsref{TimeScaledMusic}.
+
+@knownissues
+@cindex adorno, notas de, dentro de corchetes de grupo especial
+Cuando la primera nota de un pentagrama es una nota de adorno (un
+mordente de una nota) seguida de un grupo de valoración especial, la
+nota de adorno se debe situar antes de la instrucción @code{\times}
+para evitar errores.  En cualquier otro lugar, las notas de adorno sí
+se pueden colocar dentro de los corchetes de grupo especial.
 
 
 @node Scaling durations
 @subsubsection Scaling durations
 
+@cindex scaling durations
+@cindex durations, scaling
+
 Es posible alterar la duración de las figuras, silencios o acordes en
-un factor @code{N/M} añadiendo @code{*N/M} (o @code{*N} si
-@code{M} es 1) a la duración.  Esto no afectará a la apariencia de las
-notas o silencios que se producen, pero la duración alterada se usará
-para calcular la posición dentro del compás y para establecer la
-duración en la salida MIDI.  Los factores de multiplicación se pueden
-combinar en la forma @code{*L*M/N}.
+un factor @code{N/M} añadiendo @code{*N/M} (o @code{*N} si @code{M} es
+1) a la duración.  Esto no afectará a la apariencia de las notas o
+silencios que se producen, pero la duración alterada se usará para
+calcular la posición dentro del compás y para establecer la duración
+en la salida MIDI.  Los factores de multiplicación se pueden combinar
+en la forma @code{*L*M/N}.
 
 En el siguiente ejemplo las tres primeras notas duran exactamente dos
 partes, pero no se imprime ningún corchete de tresillo.
@@ -384,7 +352,8 @@ Referencia de la notación:
 @ref{Skips},
 @ref{Polymetric notation}.
 
-Fragmentos de código: @lsrdir{Rhythms,Rhythms}
+Fragmentos de código:
+@lsrdir{Rhythms,Rhythms}.
 
 
 
@@ -416,9 +385,10 @@ compás o bien cuando no se pueden usar puntillos para denotar el
 ritmo.  También se deben usar ligaduras cuando las notas atraviesan
 subdivisiones del compás de mayor duración:
 
+@c KEEP LY
 @lilypond[fragment,quote,ragged-right]
 \relative {
-  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4
+  r8^"sí" c8 ~ c2 r4 | r8^"no" c2 ~ c8 r4
 }
 @end lilypond
 
@@ -545,9 +515,11 @@ Glosario musical:
 @rglos{tie},
 @rglos{laissez vibrer}.
 
-Referencia de la notación: @ref{Automatic note splitting}.
+Referencia de la notación:
+@ref{Automatic note splitting}.
 
-Fragmentos de código: @lsrdir{Rhythms,Rhythms}
+Fragmentos de código:
+@lsrdir{Rhythms,Rhythms}.
 
 Referencia de funcionamiento interno:
 @internalsref{LaissezVibrerTie},
@@ -611,7 +583,8 @@ porque el formateador automático de colisiones de silencios se olvidará de ell
 
 @seealso
 
-Referencia del programa: @internalsref{Rest}.
+Referencia de funcionamiento interno:
+@internalsref{Rest}.
 
 
 @node Skips
@@ -656,7 +629,8 @@ El fragmento @code{@{ \skip 4 @} } produciría una página vacía.
 
 @seealso
 
-Referencia del programa: @internalsref{SkipMusic}.
+Referencia de funcionamiento interno:
+@internalsref{SkipMusic}.
 
 
 @node Full measure rests
@@ -746,7 +720,8 @@ R1*4
 
 @seealso
 
-Referencia del programa: @internalsref{MultiMeasureRestMusicGroup},
+Referencia de funcionamiento interno:
+@internalsref{MultiMeasureRestMusicGroup},
 @internalsref{MultiMeasureRest}.
 
 El objeto de presentación @internalsref{MultiMeasureRestNumber} es para el número
@@ -856,7 +831,8 @@ se subdivide en 2, 2, 2 y 3.  Esto se pasa a
 
 @seealso
 
-Referencia del programa: @internalsref{TimeSignature} y
+Referencia de funcionamiento interno:
+@internalsref{TimeSignature},
 @internalsref{Timing_translator}.
 
 Ejemplos: @lsr{contemporary,compound-time-signature.ly}.
@@ -1005,7 +981,8 @@ silencios.
 
 @seealso
 
-Referencia del programa: @internalsref{Completion_heads_engraver}.
+Referencia de funcionamiento interno:
+@internalsref{Completion_heads_engraver}.
 
 
 @node Beams
@@ -1042,7 +1019,8 @@ que lleven una barra
 
 @seealso
 
-Referencia del programa: @internalsref{Beam}.
+Referencia de funcionamiento interno:
+@internalsref{Beam}.
 
 @node Setting automatic beam behavior
 @subsubsection Setting automatic beam behavior
@@ -1274,10 +1252,13 @@ Consulte @ref{Repeats}.
 
 @seealso
 
-En este manual: @ref{Repeats}, @ref{System start delimiters}.
+Referencia de la notación:
+@ref{Repeats},
+@ref{System start delimiters}.
 
-Referencia del programa: @internalsref{BarLine} (creada al nivel de
-@internalsref{Staff} (pentagrama)), @internalsref{SpanBar} (a través de los pentagramas).
+Referencia de funcionamiento interno:
+@internalsref{BarLine} (creada al nivel de @internalsref{Staff} (pentagrama)),
+@internalsref{SpanBar} (a través de los pentagramas).
 
 
 @node Bar numbers
@@ -1334,7 +1315,8 @@ c4 c c c
 
 @seealso
 
-Referencia del programa: @internalsref{BarNumber}.
+Referencia de funcionamiento interno:
+@internalsref{BarNumber}.
 
 Ejemplos: @lsrdir{staff}
 
@@ -1454,9 +1436,11 @@ Para ver formas comunes de trucar la colocación de las marcas de ensayo, consul
 
 @seealso
 
-En este manual: @ref{Text marks}.
+Referencia de la notación:
+@ref{Text marks}.
 
-Referencia del programa: @internalsref{RehearsalMark}.
+Referencia de funcionamiento interno:
+@internalsref{RehearsalMark}.
 
 Archivos de inicio: @file{scm/@/translation@/-functions@/.scm} contiene la definición
 de @code{format-mark-numbers} y de
@@ -1653,7 +1637,8 @@ Se puede forzar que las notas de adorno utilicen espaciado flotante,
 
 @seealso
 
-Referencia del programa: @internalsref{GraceMusic}.
+Referencia de funcionamiento interno:
+@internalsref{GraceMusic}.
 
 
 @knownissues
