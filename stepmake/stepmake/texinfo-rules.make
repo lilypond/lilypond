@@ -23,20 +23,20 @@ ifneq ($(INFO_IMAGES_DIR),)
 endif
 	touch $@
 
-$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.texi
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $< 
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
 
-$(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
@@ -49,10 +49,10 @@ $(outdir)/%.pdf.omf: %.texi
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
 
-$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
-$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(src-dir) -I $(outdir) --no-split --no-headers --output $@ $<
 
 $(outdir)/%.texi: %.texi
