@@ -26,7 +26,6 @@ endif
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.texi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
-
 $(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.texi
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
@@ -35,6 +34,7 @@ $(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.texi
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.texi
 	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $< 
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
+
 
 $(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.texi
 	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<

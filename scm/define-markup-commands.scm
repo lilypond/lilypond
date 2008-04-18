@@ -19,14 +19,16 @@
 (define-public empty-stencil (ly:make-stencil '() '(1 . -1) '(1 . -1)))
 (define-public point-stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; geometric shapes
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-builtin-markup-command (draw-line layout props dest)
   (number-pair?)
-  "A simple line.  Uses the @code{thickness} property."
+  "
+@cindex drawing lines within text
+
+A simple line.  Uses the @code{thickness} property."
   (let*
       ((th (*
 	    (ly:output-def-lookup layout 'line-thickness)
@@ -46,12 +48,26 @@
 
 (define-builtin-markup-command (draw-circle layout props radius thickness fill)
   (number? number? boolean?)
-  "A circle of radius @var{radius}, thickness @var{thickness} and
-optionally filled."
+  "
+@cindex drawing circles within text
+
+A circle of radius @var{radius}, thickness @var{thickness} and
+optionally filled.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\draw-circle #2 #0.5 ##f \\hspace #2 \\draw-circle #2 #0 ##t }
+@end lilypond"
   (make-circle-stencil radius thickness fill))
 
 (define-builtin-markup-command (triangle layout props filled) (boolean?)
-  "A triangle, either filled or empty."
+  "
+@cindex drawing triangles within text
+
+A triangle, either filled or empty.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\triangle ##f \\triangle ##t }
+@end lilypond"
   (let*
       ((th (chain-assoc-get 'thickness props  0.1))
        (size (chain-assoc-get 'font-size props 0))
@@ -72,7 +88,10 @@ optionally filled."
      )))
 
 (define-builtin-markup-command (circle layout props arg) (markup?)
-  "Draw a circle around @var{arg}.  Use @code{thickness},
+  "
+@cindex circling text
+
+Draw a circle around @var{arg}.  Use @code{thickness},
 @code{circle-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup."
   
@@ -87,8 +106,18 @@ thickness and padding around the markup."
     (circle-stencil m th pad)))
 
 (define-builtin-markup-command (with-url layout props url arg) (string? markup?)
-  "Add a link to URL @var{url} around @var{arg}.  This only works in
-the PDF backend."
+  "
+@cindex inserting URL links into text
+
+Add a link to URL @var{url} around @var{arg}.  This only works in
+the PDF backend.
+@lilypond[verbatim,fragment]
+\\markup {
+  \\with-url #\"http://lilypond.org/web/\" {
+    LilyPond ... \\italic \"music notation for everyone\"
+  }
+}
+@end lilypond"
   (let* ((stil (interpret-markup layout props arg))
 	 (xextent (ly:stencil-extent stil X))
 	 (yextent (ly:stencil-extent stil Y))
@@ -97,10 +126,12 @@ the PDF backend."
 
     (ly:stencil-add (ly:make-stencil url-expr xextent yextent) stil)))
 
-
 (define-builtin-markup-command (beam layout props width slope thickness)
   (number? number? number?)
-  "Create a beam with the specified parameters."
+  "
+@cindex drawing beams within text
+
+Create a beam with the specified parameters."
   (let* ((y (* slope width))
 	 (yext (cons (min 0 y) (max 0 y)))
 	 (half (/ thickness 2)))
@@ -118,7 +149,10 @@ the PDF backend."
 	   (+ half (cdr yext))))))
 
 (define-builtin-markup-command (underline layout props arg) (markup?)
-  "Underline @var{arg}.  Looks at @code{thickness} to determine line
+  "
+@cindex underlining text
+
+Underline @var{arg}.  Looks at @code{thickness} to determine line
 thickness and y offset."
   (let* ((thick (*
 	      (ly:output-def-lookup layout 'line-thickness)
@@ -134,10 +168,12 @@ thickness and y offset."
 	 (ly:stencil-add markup line)))
 
 (define-builtin-markup-command (box layout props arg) (markup?)
-  "Draw a box round @var{arg}.  Looks at @code{thickness},
+  "
+@cindex enclosing text within a box
+
+Draw a box round @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup."
-  
+thickness and padding around the markup."  
   (let* ((th (*
 	      (ly:output-def-lookup layout 'line-thickness)
 	      (chain-assoc-get 'thickness props 1)))
@@ -149,7 +185,11 @@ thickness and padding around the markup."
 
 (define-builtin-markup-command (filled-box layout props xext yext blot)
   (number-pair? number-pair? number?)
-  "Draw a box with rounded corners of dimensions @var{xext} and
+  "
+@cindex drawing solid boxes within text
+@cindex drawing boxes with rounded corners
+
+Draw a box with rounded corners of dimensions @var{xext} and
 @var{yext}.  For example,
 @verbatim
 \\filled-box #'(-.3 . 1.8) #'(-.3 . 1.8) #0
@@ -161,18 +201,26 @@ circle of diameter@tie{}0 (i.e. sharp corners)."
    xext yext blot))
 
 (define-builtin-markup-command (rotate layout props ang arg) (number? markup?)
-  "Rotate object with @var{ang} degrees around its center."
+  "
+@cindex rotating text
+
+Rotate object with @var{ang} degrees around its center."
   (let* ((stil (interpret-markup layout props arg)))
     (ly:stencil-rotate stil ang 0 0)))
 
-
 (define-builtin-markup-command (whiteout layout props arg) (markup?)
-  "Provide a white underground for @var{arg}."
+  "
+@cindex adding a white background to text
+
+Provide a white background for @var{arg}."
   (stencil-whiteout (interpret-markup layout props arg)))
 
 (define-builtin-markup-command (pad-markup layout props padding arg) (number? markup?)
-  "Add space around a markup object."
+  "
+@cindex padding text
+@cindex putting space around text
 
+Add space around a markup object."
   (let*
       ((stil (interpret-markup layout props arg))
        (xext (ly:stencil-extent stil X))
@@ -187,19 +235,23 @@ circle of diameter@tie{}0 (i.e. sharp corners)."
 ;; space
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;FIXME: is this working? 
 (define-builtin-markup-command (strut layout props) ()
-  "Create a box of the same height as the space in the current font."
+  "
+@cindex creating vertical spaces in text
+
+Create a box of the same height as the space in the current font."
   (let ((m (ly:text-interface::interpret-markup layout props " ")))
     (ly:make-stencil (ly:stencil-expr m)
-		     '(1000 . -1000)
+		     '(0 . 0)
 		     (ly:stencil-extent m X)
 		     )))
 
-
 ;; todo: fix negative space
 (define-builtin-markup-command (hspace layout props amount) (number?)
-  "This produces a invisible object taking horizontal space.  For example,
+  "
+@cindex creating horizontal spaces in text
+
+This produces a invisible object taking horizontal space.  For example,
 
 @example 
 \\markup @{ A \\hspace #2.0 B @} 
@@ -218,7 +270,10 @@ normally inserted before elements on a line."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-builtin-markup-command (stencil layout props stil) (ly:stencil?)
-  "Use a stencil as markup."
+  "
+@cindex importing stencils into text
+
+Use a stencil as markup."
   stil)
 
 (define bbox-regexp
@@ -237,23 +292,26 @@ normally inserted before elements on a line."
 	#f)))
 
 (define-builtin-markup-command (epsfile layout props axis size file-name) (number? number? string?)
-  "Inline an EPS image.  The image is scaled along @var{axis} to
-@var{size}."
+  "
+@cindex inlining an Encapsulated PostScript image
 
+Inline an EPS image.  The image is scaled along @var{axis} to
+@var{size}."
   (if (ly:get-option 'safe)
       (interpret-markup layout props "not allowed in safe")
       (eps-file->stencil axis size file-name)
       ))
 
 (define-builtin-markup-command (postscript layout props str) (string?)
-  "This inserts @var{str} directly into the output as a PostScript
+  "
+@cindex inserting PostScript directly into text
+
+This inserts @var{str} directly into the output as a PostScript
 command string.  Due to technicalities of the output backends,
 different scales should be used for the @TeX{} and PostScript backend,
 selected with @code{-f}. 
 
 For the @TeX{} backend, the following string prints a rotated text
-
-@cindex rotated text
 
 @example
 0 0 moveto /ecrm10 findfont 
@@ -271,7 +329,6 @@ gsave /ecrm10 findfont
  10.0 output-scale div 
  scalefont setfont 90 rotate (hello) show grestore 
 @end example"
-
   ;; FIXME
   (ly:make-stencil
    (list 'embedded-ps
@@ -284,9 +341,11 @@ grestore
 		 str))
    '(0 . 0) '(0 . 0)))
 
-
 (define-builtin-markup-command (score layout props score) (ly:score?)
-  "Inline an image of music."
+  "
+@cindex inserting music into text
+
+Inline an image of music."
   (let* ((output (ly:score-embedded-format score layout)))
 
     (if (ly:music-output? output)
@@ -297,23 +356,29 @@ grestore
 	  empty-stencil))))
 
 (define-builtin-markup-command (null layout props) ()
-  "An empty markup with extents of a single point."
+  "
+@cindex creating empty text objects
 
+An empty markup with extents of a single point."
   point-stencil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; basic formatting.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
-
 (define-builtin-markup-command (simple layout props str) (string?)
-  "A simple text string; @code{\\markup @{ foo @}} is equivalent with
+  "
+@cindex simple text strings
+
+A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}."
   (interpret-markup layout props str))
 
 (define-builtin-markup-command (tied-lyric layout props str) (string?)
-  "Like simple-markup, but use tie characters for @q{~} tilde symbols."
+  "
+@cindex simple text strings with tie characters
+
+Like simple-markup, but use tie characters for @q{~} tilde symbols."
   (if (string-contains str "~")
       (let*
 	  ((parts (string-split str #\~))
@@ -342,8 +407,7 @@ grestore
 	padding = line-width/(word-count - 1) - (length(a) + length(b))/2
 	The first and last padding have to be calculated specially using the
 	whole length of the first or last text.
-	Return a list of paddings.
-"
+	Return a list of paddings."
   (cond
    ((null? text-widths) '())
    
@@ -431,19 +495,21 @@ determines the space between each markup in @var{args}."
        )
 
     (if (= text-dir LEFT)
-	(set! stencils (reverse stencils)))
-    
+	(set! stencils (reverse stencils)))    
 
     (stack-stencil-line
      space
      (remove ly:stencil-empty? stencils))))
 
 (define-builtin-markup-command (concat layout props args) (markup-list?)
-  "Concatenate @var{args} in a horizontal line, without spaces inbetween.
+  "
+@cindex concatenating text
+@cindex ligatures in text
+
+Concatenate @var{args} in a horizontal line, without spaces inbetween.
 Strings and simple markups are concatenated on the input level, allowing
 ligatures.  For example, @code{\\concat @{ \"f\" \\simple #\"i\" @}} is
 equivalent to @code{\"fi\"}."
-
   (define (concat-string-args arg-list)
     (fold-right (lambda (arg result-list)
                   (let ((result (if (pair? result-list)
@@ -464,10 +530,8 @@ equivalent to @code{\"fi\"}."
 					  (concat-string-args args)))))
 
 (define (wordwrap-stencils stencils
-			   justify base-space line-width text-dir)
-  
-  "Perform simple wordwrap, return stencil of each line."
-  
+			   justify base-space line-width text-dir)  
+  "Perform simple wordwrap, return stencil of each line."  
   (define space (if justify
 		    
 		    ;; justify only stretches lines.
@@ -540,7 +604,6 @@ equivalent to @code{\"fi\"}."
 
       ))
 
-
 (define (wordwrap-markups layout props args justify)
   (let*
       ((prop-line-width (chain-assoc-get 'line-width props #f))
@@ -554,7 +617,10 @@ equivalent to @code{\"fi\"}."
                        text-dir)))
 
 (define-builtin-markup-command (justify layout props args) (markup-list?)
-  "Like wordwrap, but with lines stretched to justify the margins.
+  "
+@cindex justifying text
+
+Like wordwrap, but with lines stretched to justify the margins.
 Use @code{\\override #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces."
   (stack-lines DOWN 0.0 (chain-assoc-get 'baseline-skip props)
@@ -600,7 +666,6 @@ the line width, where @var{X} is the number of staff spaces."
 
     (stack-lines DOWN 0.0 baseline-skip (apply append para-lines))))
 
-
 (define-builtin-markup-command (wordwrap-string layout props arg) (string?)
   "Wordwrap a string.  Paragraphs may be separated with double newlines."
   (wordwrap-string layout props  #f arg))
@@ -609,14 +674,13 @@ the line width, where @var{X} is the number of staff spaces."
   "Justify a string.  Paragraphs may be separated with double newlines"
   (wordwrap-string layout props #t arg))
 
-
 (define-builtin-markup-command (wordwrap-field layout props symbol) (symbol?)
   "Wordwrap the data which has been assigned to @var{symbol}."
   (let* ((m (chain-assoc-get symbol props)))
     (if (string? m)
      (interpret-markup layout props
       (list wordwrap-string-markup m))
-     (ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
+     empty-stencil)))
 
 (define-builtin-markup-command (justify-field layout props symbol) (symbol?)
   "Justify the data which has been assigned to @var{symbol}."
@@ -624,12 +688,13 @@ the line width, where @var{X} is the number of staff spaces."
     (if (string? m)
      (interpret-markup layout props
       (list justify-string-markup m))
-     (ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
-
-
+     empty-stencil)))
 
 (define-builtin-markup-command (combine layout props m1 m2) (markup? markup?)
-  "Print two markups on top of each other."
+  "
+@cindex merging text
+
+Print two markups on top of each other."
   (let* ((s1 (interpret-markup layout props m1))
 	 (s2 (interpret-markup layout props m2)))
     (ly:stencil-add s1 s2)))
@@ -638,21 +703,24 @@ the line width, where @var{X} is the number of staff spaces."
 ;; TODO: should extract baseline-skip from each argument somehow..
 ;; 
 (define-builtin-markup-command (column layout props args) (markup-list?)
-  "Stack the markups in @var{args} vertically.  The property
-@code{baseline-skip} determines the space between each markup in @var{args}."
+  "
+@cindex stacking text in a column
 
+Stack the markups in @var{args} vertically.  The property
+@code{baseline-skip} determines the space between each markup in @var{args}."
   (let*
       ((arg-stencils (interpret-markup-list layout props args))
        (skip (chain-assoc-get 'baseline-skip props)))
-
     
     (stack-lines
      -1 0.0 skip
      (remove ly:stencil-empty? arg-stencils))))
 
-
 (define-builtin-markup-command (dir-column layout props args) (markup-list?)
-  "Make a column of args, going up or down, depending on the setting
+  "
+@cindex changing direction of text columns
+
+Make a column of args, going up or down, depending on the setting
 of the @code{#'direction} layout property."
   (let* ((dir (chain-assoc-get 'direction props)))
     (stack-lines
@@ -662,56 +730,75 @@ of the @code{#'direction} layout property."
      (interpret-markup-list layout props args))))
 
 (define-builtin-markup-command (center-align layout props args) (markup-list?)
-  "Put @code{args} in a centered column."
+  "
+@cindex centering a column of text
+
+Put @code{args} in a centered column."
   (let* ((mols (interpret-markup-list layout props args))
          (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
     
     (stack-lines -1 0.0 (chain-assoc-get 'baseline-skip props) cmols)))
 
 (define-builtin-markup-command (vcenter layout props arg) (markup?)
-  "Align @code{arg} to its Y@tie{}center."
+  "
+@cindex vertically centering text
+
+Align @code{arg} to its Y@tie{}center."
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-aligned-to mol Y CENTER)))
 
 (define-builtin-markup-command (hcenter layout props arg) (markup?)
-  "Align @code{arg} to its X@tie{}center."
+  "
+@cindex horizontally centering text
+
+Align @code{arg} to its X@tie{}center."
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-aligned-to mol X CENTER)))
 
 (define-builtin-markup-command (right-align layout props arg) (markup?)
-  "Align @var{arg} on its right edge."
+  "
+@cindex right aligning text
+
+Align @var{arg} on its right edge."
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X RIGHT)))
 
 (define-builtin-markup-command (left-align layout props arg) (markup?)
-  "Align @var{arg} on its left edge."
+  "
+@cindex left aligning text
+
+Align @var{arg} on its left edge."
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X LEFT)))
 
 (define-builtin-markup-command (general-align layout props axis dir arg)  (integer? number? markup?)
-  "Align @var{arg} in @var{axis} direction to the @var{dir} side."
+  "
+@cindex controlling general text alignment
+
+Align @var{arg} in @var{axis} direction to the @var{dir} side."
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m axis dir)))
 
 (define-builtin-markup-command (halign layout props dir arg) (number? markup?)
-  "Set horizontal alignment.  If @var{dir} is @code{-1}, then it is
+  "
+@cindex setting horizontal text alignment
+
+Set horizontal alignment.  If @var{dir} is @code{-1}, then it is
 left-aligned, while @code{+1} is right.  Values inbetween interpolate
 alignment accordingly."
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X dir)))
 
-
-
 (define-builtin-markup-command (with-dimensions layout props x y arg) (number-pair? number-pair? markup?)
-  "Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
-  
+  "
+@cindex setting extent of text objects
+
+Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."  
   (let* ((m (interpret-markup layout props arg)))
     (ly:make-stencil (ly:stencil-expr m) x y)))
 
-
 (define-builtin-markup-command (pad-around layout props amount arg) (number? markup?)
-  "Add padding @var{amount} all around @var{arg}."
-  
+  "Add padding @var{amount} all around @var{arg}."  
   (let*
       ((m (interpret-markup layout props arg))
        (x (ly:stencil-extent m X))
@@ -723,9 +810,11 @@ alignment accordingly."
 		     (interval-widen y amount))
    ))
 
-
 (define-builtin-markup-command (pad-x layout props amount arg) (number? markup?)
-  "Add padding @var{amount} around @var{arg} in the X@tie{}direction."
+  "
+@cindex padding text horizontally
+
+Add padding @var{amount} around @var{arg} in the X@tie{}direction."
   (let*
       ((m (interpret-markup layout props arg))
        (x (ly:stencil-extent m X))
@@ -736,7 +825,6 @@ alignment accordingly."
 		     (interval-widen x amount)
 		     y)
    ))
-
 
 (define-builtin-markup-command (put-adjacent layout props arg1 axis dir arg2) (markup? integer? ly:dir?  markup?)
   "Put @var{arg2} next to @var{arg1}, without moving @var{arg1}."
@@ -752,12 +840,9 @@ alignment accordingly."
       ((m (interpret-markup layout props arg))
        (x (ly:stencil-extent m X))
        (y (ly:stencil-extent m Y)))
-    
-
-    
+      
     (ly:make-stencil ""
 		     x y)))
-
 
 (define-builtin-markup-command (pad-to-box layout props x-ext y-ext arg)
   (number-pair? number-pair? markup?)
@@ -784,7 +869,6 @@ alignment accordingly."
 		     '(0 . 0)
 		     (make-hcenter-markup arg))))
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -796,8 +880,7 @@ returns an empty markup."
   (let* ((m (chain-assoc-get symbol props)))
     (if (markup? m)
 	(interpret-markup layout props m)
-	(ly:make-stencil '()  '(1 . -1) '(1 . -1)))))
-
+	empty-stencil)))
 
 (define-builtin-markup-command (on-the-fly layout props procedure arg) (symbol? markup?)
   "Apply the @var{procedure} markup command to @var{arg}.
@@ -808,10 +891,11 @@ returns an empty markup."
 			  (list markup?))
     (interpret-markup layout props (list anonymous-with-signature arg))))
 
-
-
 (define-builtin-markup-command (override layout props new-prop arg) (pair? markup?)
-  "Add the first argument in to the property list.  Properties may be
+  "
+@cindex overriding properties within text markup
+
+Add the first argument in to the property list.  Properties may be
 any sort of property supported by @internalsref{font-interface} and
 @internalsref{text-interface}, for example
 
@@ -843,7 +927,6 @@ any sort of property supported by @internalsref{font-interface} and
 ;; fonts.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 (define-builtin-markup-command (bigger layout props arg) (markup?)
   "Increase the font size relative to current setting."
   (interpret-markup layout props
@@ -862,7 +945,6 @@ any sort of property supported by @internalsref{font-interface} and
                     (cons '((font-size . -5) (font-encoding . fetaNumber)) props)
                     arg))
 
-
 (define-builtin-markup-command (fontsize layout props increment arg) (number? markup?)
   "Add @var{increment} to the font-size.  Adjust baseline skip accordingly."
 
@@ -875,7 +957,10 @@ any sort of property supported by @internalsref{font-interface} and
     (interpret-markup layout (cons entries props) arg)))
 
 (define-builtin-markup-command (magnify layout props sz arg) (number? markup?)
-  "Set the font magnification for its argument.  In the following
+  "
+@cindex magnifying text
+
+Set the font magnification for its argument.  In the following
 example, the middle@tie{}A is 10% larger:
 
 @example
@@ -974,7 +1059,6 @@ Note: @code{\\smallCaps} does not support accented characters."
 	(make-small-caps (string->list text) (list) #f (list))
 	text)))
 
-
 (define-builtin-markup-command (caps layout props arg) (markup?)
   "Emit @var{arg} as small caps."
   (interpret-markup layout props (make-smallCaps-markup arg)))
@@ -993,7 +1077,6 @@ done in a different font.  The recommended font for this is bold and italic."
   ;; ugh - latin1
   (interpret-markup layout (prepend-alist-chain 'font-encoding 'latin1 props)
 		    arg))
-
 
 (define-builtin-markup-command (italic layout props arg) (markup?)
   "Use italic @code{font-shape} for @var{arg}."
@@ -1029,57 +1112,91 @@ normal text font, no matter what font was used earlier."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-builtin-markup-command (doublesharp layout props) ()
-  "Draw a double sharp symbol."
-
+  "Draw a double sharp symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\doublesharp }
+@end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (sesquisharp layout props) ()
-  "Draw a 3/2 sharp symbol."
-  (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))
-					 
+  "Draw a 3/2 sharp symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\sesquisharp }
+@end lilypond"
+  (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))					 
 
 (define-builtin-markup-command (sharp layout props) ()
-  "Draw a sharp symbol."
+  "Draw a sharp symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\sharp }
+@end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1/2 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (semisharp layout props) ()
-  "Draw a semi sharp symbol."
+  "Draw a semi sharp symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\semisharp }
+@end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1/4 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (natural layout props) ()
-  "Draw a natural symbol."
+  "Draw a natural symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\natural }
+@end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 0 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (semiflat layout props) ()
-  "Draw a semiflat."
+  "Draw a semiflat symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\semiflat }
+@end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1/4 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (flat layout props) ()
-  "Draw a flat symbol."
+  "Draw a flat symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\flat }
+@end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1/2 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (sesquiflat layout props) ()
-  "Draw a 3/2 flat symbol."
+  "Draw a 3/2 flat symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\sesquiflat }
+@end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -3/4 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (doubleflat layout props) ()
-  "Draw a double flat symbol."
+  "Draw a double flat symbol.
+@c
+@lilypond[verbatim,fragment]
+\\markup { \\doubleflat }
+@end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1 standard-alteration-glyph-name-alist ""))))
 
 (define-builtin-markup-command (with-color layout props color arg) (color? markup?)
-  "Draw @var{arg} in color specified by @var{color}."
+  "
+@cindex coloring text
 
+Draw @var{arg} in color specified by @var{color}."
   (let* ((stil (interpret-markup layout props arg)))
 
     (ly:make-stencil (list 'color color (ly:stencil-expr stil))
 		     (ly:stencil-extent stil X)
 		     (ly:stencil-extent stil Y))))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; glyphs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
 
 (define-builtin-markup-command (arrow-head layout props axis direction filled)
   (integer? ly:dir? boolean?)
@@ -1115,7 +1232,6 @@ the possible glyphs."
 (define-builtin-markup-command (char layout props num) (integer?)
   "Produce a single character.  For example, @code{\\char #65} produces the 
 letter @q{A}."
-
   (ly:text-interface::interpret-markup layout props (ly:wide-char->utf-8 num)))
 
 (define number->mark-letter-vector (make-vector 25 #\A))
@@ -1152,10 +1268,11 @@ and continue with double letters."
    (ly:text-interface::interpret-markup layout props
      (number->markletter-string number->mark-alphabet-vector num)))
 
-
-
 (define-builtin-markup-command (slashed-digit layout props num) (integer?)
-  "A feta number, with slash.  This is for use in the context of
+  "
+@cindex slashed digits
+
+A feta number, with slash.  This is for use in the context of
 figured bass notation."
   (let*
       ((mag (magstep (chain-assoc-get 'font-size props 0)))
@@ -1204,18 +1321,19 @@ figured bass notation."
 	
 	(ly:warning "invalid number for slashed digit ~a" num))
 
-
     number-stencil))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-
 ;; TODO: better syntax.
 
 (define-builtin-markup-command (note-by-number layout props log dot-count dir) (number? number? number?)
-  "Construct a note symbol, with stem.  By using fractional values for
+  "
+@cindex notes within text by log and dot-count
+
+Construct a note symbol, with stem.  By using fractional values for
 @var{dir}, you can obtain longer or shorter stems."
 
   (define (get-glyph-name-candidates dir log style)
@@ -1310,27 +1428,35 @@ figured bass notation."
         (ly:error (_ "not a valid duration string: ~a") duration-string))))
 
 (define-builtin-markup-command (note layout props duration dir) (string? number?)
-  "This produces a note with a stem pointing in @var{dir} direction, with
+  "
+@cindex notes within text by string
+
+This produces a note with a stem pointing in @var{dir} direction, with
 the @var{duration} for the note head type and augmentation dots.  For
 example, @code{\\note #\"4.\" #-0.75} creates a dotted quarter note, with
 a shortened down stem."
   (let ((parsed (parse-simple-duration duration)))
     (note-by-number-markup layout props (car parsed) (cadr parsed) dir)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; translating.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-builtin-markup-command (lower layout props amount arg) (number? markup?)
-  "Lower @var{arg} by the distance @var{amount}.
+  "
+@cindex lowering text
+
+Lower @var{arg} by the distance @var{amount}.
 A negative @var{amount} indicates raising; see also @code{\\raise}."
   (ly:stencil-translate-axis (interpret-markup layout props arg)
 			     (- amount) Y))
 
-
 (define-builtin-markup-command (translate-scaled layout props offset arg) (number-pair? markup?)
-  "Translate @var{arg} by @var{offset}, scaling the offset by the
+  "
+@cindex translating text
+@cindex scaling text
+
+Translate @var{arg} by @var{offset}, scaling the offset by the
 @code{font-size}."
   (let*
       ((factor (magstep (chain-assoc-get 'font-size props 0)))
@@ -1341,12 +1467,12 @@ A negative @var{amount} indicates raising; see also @code{\\raise}."
 			scaled)))
 
 (define-builtin-markup-command (raise layout props amount arg) (number? markup?)
-  "Raise @var{arg} by the distance @var{amount}.
+  "
+@cindex raising text
+  
+Raise @var{arg} by the distance @var{amount}.
 A negative @var{amount} indicates lowering, see also @code{\\lower}.
-@c
-@lilypond[verbatim,fragment,relative=1]
-c1^\\markup { C \\small \\raise #1.0 \\bold { \"9/7+\" } }
-@end lilypond
+
 The argument to @code{\\raise} is the vertical displacement amount,
 measured in (global) staff spaces.  @code{\\raise} and @code{\\super}
 raise objects in relation to their surrounding markups.
@@ -1355,11 +1481,18 @@ If the text object itself is positioned above or below the staff, then
 @code{\\raise} cannot be used to move it, since the mechanism that
 positions it next to the staff cancels any shift made with
 @code{\\raise}.  For vertical positioning, use the @code{padding}
-and/or @code{extra-offset} properties."
+and/or @code{extra-offset} properties.
+@c
+@lilypond[verbatim,fragment]
+\\markup { C \\small \\raise #1.0 \\bold { \"9/7+\" } }
+@end lilypond"
   (ly:stencil-translate-axis (interpret-markup layout props arg) amount Y))
 
 (define-builtin-markup-command (fraction layout props arg1 arg2) (markup? markup?)
-  "Make a fraction of two markups."
+  "
+@cindex creating text fractions
+
+Make a fraction of two markups."
   (let* ((m1 (interpret-markup layout props arg1))
          (m2 (interpret-markup layout props arg2))
          (factor (magstep (chain-assoc-get 'font-size props 0)))
@@ -1383,25 +1516,23 @@ and/or @code{extra-offset} properties."
       (ly:stencil-translate-axis stack offset Y))))
 
 (define-builtin-markup-command (normal-size-super layout props arg) (markup?)
-  "Set @var{arg} in superscript with a normal font size."
+  "
+@cindex setting superscript in standard font size
+
+Set @var{arg} in superscript with a normal font size."
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
    (* 0.5 (chain-assoc-get 'baseline-skip props)) Y))
 
 (define-builtin-markup-command (super layout props arg) (markup?)
-  "
-@cindex raising text
-@cindex lowering text
-@cindex moving text
-@cindex translating text
-
-@cindex @code{\\super}
+  "  
+@cindex superscript text
 
 Raising and lowering texts can be done with @code{\\super} and
 @code{\\sub}:
 @c
-@lilypond[verbatim,fragment,relative=1]
-c1^\\markup { E \"=\" \\concat { \"mc\" \\super \"2\" } }
+@lilypond[verbatim,fragment]
+\\markup { E \"=\" \\concat { \"mc\" \\super \"2\" } }
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup
@@ -1412,7 +1543,10 @@ c1^\\markup { E \"=\" \\concat { \"mc\" \\super \"2\" } }
    Y))
 
 (define-builtin-markup-command (translate layout props offset arg) (number-pair? markup?)
-  "This translates an object.  Its first argument is a cons of numbers.
+  "
+@cindex translating text
+  
+This translates an object.  Its first argument is a cons of numbers.
 
 @example
 A \\translate #(cons 2 -3) @{ B C @} D
@@ -1426,7 +1560,10 @@ that."
 			offset))
 
 (define-builtin-markup-command (sub layout props arg) (markup?)
-  "Set @var{arg} in subscript."
+  "
+@cindex subscript text
+
+Set @var{arg} in subscript."
   (ly:stencil-translate-axis
    (interpret-markup
     layout
@@ -1436,7 +1573,10 @@ that."
    Y))
 
 (define-builtin-markup-command (normal-size-sub layout props arg) (markup?)
-  "Set @var{arg} in subscript, in a normal font size."
+  "
+@cindex setting subscript in standard font size
+
+Set @var{arg} in subscript, in a normal font size."
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
    (* -0.5 (chain-assoc-get 'baseline-skip props))
@@ -1447,13 +1587,19 @@ that."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-builtin-markup-command (hbracket layout props arg) (markup?)
-  "Draw horizontal brackets around @var{arg}."  
+  "
+@cindex placing horizontal brackets around text
+  
+Draw horizontal brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m X th (* 2.5 th) th)))
 
 (define-builtin-markup-command (bracket layout props arg) (markup?)
-  "Draw vertical brackets around @var{arg}."  
+  "
+@cindex placing vertical brackets around text
+  
+Draw vertical brackets around @var{arg}."  
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))
@@ -1464,7 +1610,10 @@ that."
 
 (define-builtin-markup-command (page-ref layout props label gauge default)
   (symbol? markup? markup?)
-  "Reference to a page number. @var{label} is the label set on the referenced
+  "
+@cindex referencing page numbers in text
+
+Reference to a page number. @var{label} is the label set on the referenced
 page (using the @code{\\label} command), @var{gauge} a markup used to estimate
 the maximum width of the page number, and @var{default} the value to display
 when @var{label} is not found."
@@ -1485,7 +1634,6 @@ when @var{label} is not found."
 				    (markup #:concat (#:hspace gap page-markup)))))))
      x-ext
      y-ext)))
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Markup list commands
@@ -1494,13 +1642,16 @@ when @var{label} is not found."
 (define-public (space-lines baseline-skip lines)
   (map (lambda (line)
 	 (stack-lines DOWN 0.0 (/ baseline-skip 2.0)
-		      (list (ly:make-stencil "" (cons 0 0) (cons 0 0))
+		      (list point-stencil
 			    line
-			    (ly:make-stencil "" (cons 0 0) (cons 0 0)))))
+			    point-stencil)))
        lines))
 
 (define-builtin-markup-list-command (justified-lines layout props args) (markup-list?)
-  "Like @code{\\justify}, but return a list of lines instead of a single markup.
+  "
+@cindex justifying lines of text
+
+Like @code{\\justify}, but return a list of lines instead of a single markup.
 Use @code{\\override-lines #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces."
   (space-lines (chain-assoc-get 'baseline-skip props)

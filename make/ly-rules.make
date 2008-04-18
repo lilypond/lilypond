@@ -20,7 +20,6 @@ $(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi
 # DON'T REMOVE SOURCE FILES, otherwise the .TEXI ALWAYS OUT OF DATE.
 #	rm -f $<
 
-
 $(outdir)/%.html.omf: %.tely
 	$(call GENERATE_OMF,html)
 

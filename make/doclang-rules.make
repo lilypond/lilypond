@@ -7,7 +7,7 @@ $(outdir)/%-big-page.html: $(outdir)/%.texi $(OUT_PNG_IMAGES) $(outdir)/version.
 	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
 
-$(outdir)/%.pdftexi: $(outdir)/%.texi doc-po
+$(outdir)/%.pdftexi: $(outdir)/%.texi doc-po $(outdir)/version.texi
 	$(PYTHON) $(buildscript-dir)/texi-gettext.py $(buildscript-dir) $(top-build-dir)/Documentation/po/$(outdir) $(ISOLANG) $<
 
 $(outdir)/%.pdf: $(outdir)/%.pdftexi $(outdir)/version.texi

@@ -34,7 +34,7 @@ than one voice on the same staff.
 @node Chorded notes
 @subsubsection Chorded notes
 
-@cindex Chords
+@cindex chords
 
 A chord is formed by a enclosing a set of pitches between @code{<}
 and @code{>}.  A chord may be followed by a duration, and a set of
@@ -44,16 +44,18 @@ articulations, just like simple notes:
 <c e g>4 <c>8
 @end lilypond
 
-For more information about chords, see @ref{Introducing chord
-names}.
+For more information about chords, see @ref{Modern chords}.
 
 @seealso
 
-Music Glossary: @rglos{chord}.
+Music Glossary:
+@rglos{chord}.
 
-Notation Reference: @ref{Introducing chord names}.
+Notation Reference:
+@ref{Modern chords}.
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 
 @knownissues
 
@@ -83,9 +85,11 @@ clusters.
 
 @seealso
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 
-Internals Reference: @internalsref{ClusterSpanner},
+Internals Reference:
+@internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
 @internalsref{Cluster_spanner_engraver}.
 
@@ -251,10 +255,12 @@ override typesetting decisions.
 
 @seealso
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 
-Internals Reference: the objects responsible for resolving
-collisions are @internalsref{NoteCollision} and
+Internals Reference: the objects responsible for resolving collisions
+are
+@internalsref{NoteCollision} and
 @internalsref{RestCollision}.
 
 
@@ -352,11 +358,15 @@ has no effect on the pitches of @var{musicexpr1} and
 
 @seealso
 
-Music Glossary: @rglos{a due}.
+Music Glossary:
+@rglos{a due}.
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}.
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 
-Internals Reference: @internalsref{PartCombineMusic}, @internalsref{Voice}.
+Internals Reference:
+@internalsref{PartCombineMusic},
+@internalsref{Voice}.
 
 @knownissues
 
@@ -445,5 +455,6 @@ music = {
 
 @seealso
 
-Snippets: @lsrdir{Simultaneous,Simultaneous-notes}
+Snippets:
+@lsrdir{Simultaneous,Simultaneous-notes}
 

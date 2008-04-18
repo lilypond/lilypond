@@ -94,6 +94,7 @@ def source_links_replace (m, source_val):
 splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
 
 snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
+# TODO: master has ../lily- !
 src_href_re = re.compile ('(href|src)="(lily-.*?|.*?[.]png)"')
 source_link_re = re.compile ('href="source/(.*?)"')
 

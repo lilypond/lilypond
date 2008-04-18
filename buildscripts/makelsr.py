@@ -28,8 +28,9 @@ TAGS.extend (['pitches', 'rhythms', 'expressive-marks',
 'repeats', 'simultaneous-notes', 'staff-notation',
 'editorial-and-educational-use', 'text'])
 # NR 2
-TAGS.extend (['vocal-music', 'chords', 'piano-music',
-'percussion', 'guitar', 'strings', 'bagpipes', 'ancient-notation'])
+TAGS.extend (['vocal-music', 'chords', 'keyboards',
+'percussion', 'fretted-strings', 'unfretted-strings', 'ancient-notation' # ,'winds'
+])
 
 # other
 TAGS.extend (['contexts-and-engravers', 'tweaks-and-overrides',
