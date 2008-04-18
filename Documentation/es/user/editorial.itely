@@ -424,14 +424,15 @@ Los elementos de notación se pueden marcar y nombrar con la ayuda de
 un cartel o globo de ayuda rectangular.  El propósito principal de
 esta funcionalidad es la explicación de la notación.
 
+@c KEEP LY
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
-  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "Soy una plica" }
   a8
-  \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "Soy un silencio" }
   r
-  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2.
+  <c, g'-\balloonText #'(-2 . -2) \markup { "Soy una cabeza" } c>2.
 }
 @end lilypond
 
@@ -462,20 +463,21 @@ Referencia de funcionamiento interno:
 Se pueden dibujar líneas verticales entre los pentagramas
 sincronizadas con las notas.
 
+@c KEEP LY
 @lilypond[quote,verbatim,ragged-right]
 \layout {
   \context {
     \Staff
-    % set up grids
+    % preparar la rejilla:
     \consists "Grid_point_engraver"
-    % set the grid interval to one quarter note
+    % ajustar el intervalo de la cuadrícula a una negra:
     gridInterval = #(ly:make-moment 1 4)
   }
   \context {
     \Score
-    % by default this centers grid lines horizontally below
-    % and to the left side of the note head, the grid lines
-    % extending from the middle lines of each staff
+    % por omisión las líneas de rejilla están centradas horizontalmente
+    % debajo y a la izquierda de la cabeza; las líneas parten de la tercera
+    % línea del pentagrama
     \consists "Grid_line_span_engraver"
   }
 }
