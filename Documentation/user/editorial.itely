@@ -92,7 +92,7 @@ c4.-> d8---3
 
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
-@code{font-size = #0}), depends on the standard staff height.
+@code{font-size = #0}) depends on the standard staff height.
 For a 20pt staff, a 10pt font is selected.
 
 The @code{font-size} property can only be set on layout objects
@@ -146,8 +146,8 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 
 @cindex thumb-script
 
-You can use the thumb-script (e.g., in cello music) to indicate that a 
-note should be played with the thumb. 
+A thumb-script can be added (e.g., in cello music) to indicate
+that a note should be played with the thumb. 
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 <a_\thumb a'-3>2 <b_\thumb b'-3>
@@ -218,7 +218,7 @@ visible.
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 c4( d)
 \hideNotes
-e4(\p f)->
+e4(\p f)--
 @end lilypond
 
 
@@ -471,8 +471,8 @@ altered:
 
 @predefined
 
-@funindex ballonLengthOn
-@funindex ballonLengthOff
+@funindex balloonLengthOn
+@funindex balloonLengthOff
 @code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
