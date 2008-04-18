@@ -12,7 +12,7 @@ since staff lines are in a lower layer than most other grobs.  "
   ragged-right = ##t
 }
 
-{
+\relative c'' {
   \override TextScript #'extra-offset = #'(2 . 4)
-  c'4-\markup  { \whiteout \pad-markup #0.5 foo } c
+  c4-\markup  { \whiteout \pad-markup #0.5 foo } c
 } 
