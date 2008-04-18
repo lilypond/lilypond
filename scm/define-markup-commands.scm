@@ -54,7 +54,7 @@ A simple line.  Uses the @code{thickness} property."
 A circle of radius @var{radius}, thickness @var{thickness} and
 optionally filled.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\draw-circle #2 #0.5 ##f \\hspace #2 \\draw-circle #2 #0 ##t }
 @end lilypond"
   (make-circle-stencil radius thickness fill))
@@ -65,7 +65,7 @@ optionally filled.
 
 A triangle, either filled or empty.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\triangle ##f \\triangle ##t }
 @end lilypond"
   (let*
@@ -111,7 +111,7 @@ thickness and padding around the markup."
 
 Add a link to URL @var{url} around @var{arg}.  This only works in
 the PDF backend.
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup {
   \\with-url #\"http://lilypond.org/web/\" {
     LilyPond ... \\italic \"music notation for everyone\"
@@ -1114,7 +1114,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (doublesharp layout props) ()
   "Draw a double sharp symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\doublesharp }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1 standard-alteration-glyph-name-alist ""))))
@@ -1122,7 +1122,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (sesquisharp layout props) ()
   "Draw a 3/2 sharp symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\sesquisharp }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))					 
@@ -1130,7 +1130,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (sharp layout props) ()
   "Draw a sharp symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\sharp }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1/2 standard-alteration-glyph-name-alist ""))))
@@ -1138,7 +1138,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (semisharp layout props) ()
   "Draw a semi sharp symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\semisharp }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1/4 standard-alteration-glyph-name-alist ""))))
@@ -1146,7 +1146,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (natural layout props) ()
   "Draw a natural symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\natural }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 0 standard-alteration-glyph-name-alist ""))))
@@ -1154,7 +1154,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (semiflat layout props) ()
   "Draw a semiflat symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\semiflat }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1/4 standard-alteration-glyph-name-alist ""))))
@@ -1162,7 +1162,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (flat layout props) ()
   "Draw a flat symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\flat }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1/2 standard-alteration-glyph-name-alist ""))))
@@ -1170,7 +1170,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (sesquiflat layout props) ()
   "Draw a 3/2 flat symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\sesquiflat }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -3/4 standard-alteration-glyph-name-alist ""))))
@@ -1178,7 +1178,7 @@ normal text font, no matter what font was used earlier."
 (define-builtin-markup-command (doubleflat layout props) ()
   "Draw a double flat symbol.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { \\doubleflat }
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1 standard-alteration-glyph-name-alist ""))))
@@ -1483,7 +1483,7 @@ positions it next to the staff cancels any shift made with
 @code{\\raise}.  For vertical positioning, use the @code{padding}
 and/or @code{extra-offset} properties.
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { C \\small \\raise #1.0 \\bold { \"9/7+\" } }
 @end lilypond"
   (ly:stencil-translate-axis (interpret-markup layout props arg) amount Y))
@@ -1531,7 +1531,7 @@ Set @var{arg} in superscript with a normal font size."
 Raising and lowering texts can be done with @code{\\super} and
 @code{\\sub}:
 @c
-@lilypond[verbatim,fragment]
+@lilypond[verbatim,quote]
 \\markup { E \"=\" \\concat { \"mc\" \\super \"2\" } }
 @end lilypond"
   (ly:stencil-translate-axis
