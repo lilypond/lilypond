@@ -7,15 +7,20 @@
   Han-Wen Nienhuys <hanwen@xs4all.nl>
 */
 
+#if GCC_MAJOR < 4
+#define _GLIBCXX_HAVE_MBSTATE_T
+#include <wchar.h>
+#endif /* GCC_MAJOR < 4 */
+
 #include "source-file.hh"
 
 #include "config.hh"
 
 #if HAVE_UTF8_WCHAR_H
 #include <utf8/wchar.h>  /* mbrtowc */
-#else
+#else /* !HAVE_UTF8_WCHAR_H */
 #include <cwchar> /* mbrtowc */
-#endif
+#endif /* HAVE_UTF8_WCHAR_H */
 
 #include <cstdio>
 
