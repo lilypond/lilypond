@@ -23,13 +23,13 @@ ifneq ($(INFO_IMAGES_DIR),)
 endif
 	touch $@
 
-$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.texi
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
 
-$(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
 
 $(outdir)/%.html.omf: %.texi
@@ -41,14 +41,14 @@ $(outdir)/%.pdf.omf: %.texi
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I $(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 
-$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
-$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.texi
+$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(src-dir) -I $(outdir) --no-split --no-headers --output $@ $<
 
 $(outdir)/%.texi: %.texi
