@@ -135,6 +135,12 @@ def get_option_parser ():
                   action='store', dest='info_images_dir',
                   default='')
 
+    p.add_option ('--latex',
+                  help=_ ("Run executable PROG instead of latex"),
+                  metavar=_ ("PROG"),
+                  action='store', dest='latex_program',
+                  default='latex')
+
     p.add_option ('--left-padding', 
                   metavar=_ ("PAD"),
                   dest="padding_mm",
@@ -1569,7 +1575,8 @@ def get_latex_textwidth (source):
     tmp_handle.write (latex_document)
     tmp_handle.close ()
     
-    ly.system ('latex %s' % tmpfile, be_verbose=global_options.verbose)
+    ly.system ('%s %s' % (global_options.latex_program, tmpfile),
+               be_verbose=global_options.verbose)
     parameter_string = file (logfile).read()
     
     os.unlink (tmpfile)
