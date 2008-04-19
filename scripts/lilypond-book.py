@@ -211,6 +211,8 @@ global_options = None
 
 default_ly_options = { 'alt': "[image of music]" }
 
+document_language = ''
+
 #
 # Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
 #
@@ -824,6 +826,7 @@ def verbatim_html (s):
 
 texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
 def set_default_options (source, default_ly_options, format):
+    global document_language
     if LINE_WIDTH not in default_ly_options:
         if format == LATEX:
             textwidth = get_latex_textwidth (source)
@@ -831,9 +834,9 @@ def set_default_options (source, default_ly_options, format):
         elif format == TEXINFO:
             m = texinfo_lang_re.search (source)
             if m and not m.group (1).startswith ('en'):
-                default_ly_options[LANG] = m.group (1)
+                document_language = m.group (1)
             else:
-                default_ly_options[LANG] = ''
+                document_language = ''
             for regex in texinfo_line_widths:
                 # FIXME: @layout is usually not in
                 # chunk #0:
@@ -1321,7 +1324,7 @@ class LilypondSnippet (Snippet):
         base = self.basename ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
-            translated_texidoc = texidoc + default_ly_options[LANG]
+            translated_texidoc = texidoc + document_language
             if os.path.exists (translated_texidoc):
                 str += '@include %(translated_texidoc)s\n\n' % vars ()
             elif os.path.exists (texidoc):
