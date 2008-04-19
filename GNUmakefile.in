@@ -30,6 +30,8 @@ INSTALLATION_FILES=$(config_make) VERSION
 # bootstrap stepmake:
 #
 STEPMAKE_TEMPLATES=toplevel po install
+LOCALSTEPMAKE_TEMPLATES=lilypond
+
 include $(depth)/make/stepmake.make
 
 
@@ -85,7 +87,7 @@ local-WWW-post:
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html input/
 	find $(outdir) -name '*-root' | xargs rm -rf
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(buildscript-dir) $(top-build-dir)/Documentation/po/$(outdir) $(outdir) "$(WEB_TARGETS)"
+	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(buildscript-dir) $(outdir) "$(WEB_TARGETS)"
 	find $(outdir)/offline-root -type l -delete
 
 

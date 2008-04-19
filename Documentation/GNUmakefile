@@ -1,7 +1,7 @@
 depth = ..
 
 NAME = documentation
-LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
+LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 SUBDIRS=user bibliography pictures topdocs misc po $(LANGS)
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly

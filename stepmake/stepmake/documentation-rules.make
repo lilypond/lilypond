@@ -13,5 +13,3 @@ $(outdir)/%.png: %.xpm
 $(outdir)/%.txt: $(outdir)/%.1
 	troff -man -Tascii $< | grotty -b -u -o > $@
 
-include $(stepdir)/texinfo-rules.make
-

@@ -135,6 +135,12 @@ def get_option_parser ():
                   action='store', dest='info_images_dir',
                   default='')
 
+    p.add_option ('--latex',
+                  help=_ ("Run executable PROG instead of latex"),
+                  metavar=_ ("PROG"),
+                  action='store', dest='latex_program',
+                  default='latex')
+
     p.add_option ('--left-padding', 
                   metavar=_ ("PAD"),
                   dest="padding_mm",
@@ -210,6 +216,8 @@ global_options = None
 
 
 default_ly_options = { 'alt': "[image of music]" }
+
+document_language = ''
 
 #
 # Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
@@ -824,6 +832,7 @@ def verbatim_html (s):
 
 texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
 def set_default_options (source, default_ly_options, format):
+    global document_language
     if LINE_WIDTH not in default_ly_options:
         if format == LATEX:
             textwidth = get_latex_textwidth (source)
@@ -831,9 +840,9 @@ def set_default_options (source, default_ly_options, format):
         elif format == TEXINFO:
             m = texinfo_lang_re.search (source)
             if m and not m.group (1).startswith ('en'):
-                default_ly_options[LANG] = m.group (1)
+                document_language = m.group (1)
             else:
-                default_ly_options[LANG] = ''
+                document_language = ''
             for regex in texinfo_line_widths:
                 # FIXME: @layout is usually not in
                 # chunk #0:
@@ -1321,7 +1330,7 @@ class LilypondSnippet (Snippet):
         base = self.basename ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
-            translated_texidoc = texidoc + default_ly_options[LANG]
+            translated_texidoc = texidoc + document_language
             if os.path.exists (translated_texidoc):
                 str += '@include %(translated_texidoc)s\n\n' % vars ()
             elif os.path.exists (texidoc):
@@ -1569,7 +1578,8 @@ def get_latex_textwidth (source):
     tmp_handle.write (latex_document)
     tmp_handle.close ()
     
-    ly.system ('latex %s' % tmpfile, be_verbose=global_options.verbose)
+    ly.system ('%s %s' % (global_options.latex_program, tmpfile),
+               be_verbose=global_options.verbose)
     parameter_string = file (logfile).read()
     
     os.unlink (tmpfile)

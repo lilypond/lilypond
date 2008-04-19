@@ -66,6 +66,10 @@ which scares away people.
 @end ignore
 
 @item
+@command{lilypond-book} can run any program instead of @command{latex}
+to guess the line width, thanks to @code{--latex} command line option.
+
+@item
 @code{\setEasyHeads} has been renamed to @code{\easyHeadsOn}, and a new
 command @code{\easyHeadsOff} reverts note heads to normal heads.
 
