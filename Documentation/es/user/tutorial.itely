@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d0333749421c9695907a4da61a6e1cd7eafcb726
+    Translation of GIT committish: 2c2b739a8f4c1998ffb6423d1d73350426ec59be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -262,8 +262,9 @@ Añadiendo (o eliminando) comillas simples @code{'} o comas @code{,} de
 la instrucción @code{\relative c' @{}, podemos cambiar la octava de
 inicio:
 
+@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
-\relative c'' {  % one octave above middle C
+\relative c'' {  % Una octava por encima del Do central
   e c a c
 }
 @end lilypond
@@ -278,14 +279,15 @@ tanto, si la nota siguiente a Si es Do, Re o Mi se supondrá que está
 por encima del Si, mientras que La, Sol o Fa se entenderán situados
 por debajo.
 
+@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
-  b c  % c is 1 staff space up, so is the c above
-  b d  % d is 2 up or 5 down, so is the d above
-  b e  % e is 3 up or 4 down, so is the e above
-  b a  % a is 6 up or 1 down, so is the a below
-  b g  % g is 5 up or 2 down, so is the g below
-  b f  % f is 4 up or 3 down, so is the f below
+  b c  % el Do está un espacio por encima: es el Do agudo
+  b d  % el Re está 2 por encima ó 5 por debajo: es el Re agudo
+  b e  % el Mi está 3 por encima ó 4 por debajo: es el Mi agudo
+  b a  % el La está 6 por arriba ó 1 por debajo: es el La grave
+  b g  % el Sol está 5 por encima ó 2 por debajo: es el Sol grave
+  b f  % el Fa está 4 por encima ó 3 por debajo: es el Fa grave
 }
 @end lilypond
 
@@ -569,9 +571,10 @@ que se utilizó para generar esa imagen.
 Pruébelo sobre esta imagen:
 
 @c no verbatim here
+@c KEEP LY
 @lilypond[quote,ragged-right]
 \relative c'' {
-  c-\markup { \bold \huge { Click here.  } }
+  c-\markup { \bold \huge { Haga clic aquí.  } }
 }
 @end lilypond
 
@@ -1542,12 +1545,13 @@ cualquier lugar, una vez que han sido definidas.  Incluso se pueden
 usar dentro de la definición de otra variable, proporcionando una vía
 para acortar el código si una sección musical se repite muchas veces.
 
+@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
-tripletA = \times 2/3 { c,8 e g }
-barA = { \tripletA \tripletA \tripletA \tripletA }
+tresilloA = \times 2/3 { c,8 e g }
+compasA = { \tresilloA \tresilloA \tresilloA \tresilloA }
 
 \relative c'' {
- \barA \barA
+ \compasA \compasA
 }
 @end lilypond
 

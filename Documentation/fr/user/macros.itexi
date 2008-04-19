@@ -6,10 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@macro version
-@value{version}
-@end macro
-
+@include version.itexi
 
 @c   ***** Displaying text *****
 
@@ -215,27 +212,27 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page}
+@ref{\TEXT\,,,lilypond-internals-big-page,Référence des propriétés internes}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary-big-page}
+@ref{\TEXT\,,,music-glossary-big-page,Glossaire}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-big-page}
+@ref{\TEXT\,,,lilypond-program-big-page,Manuel d'utilisation du programme}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-big-page}
+@ref{\TEXT\,,,lilypond-big-page,Manuel de notation}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning-big-page}
+@ref{\TEXT\,,,lilypond-learning-big-page,Manuel d'initiation}
 @end macro
 
 @end ifset
@@ -245,27 +242,27 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals}
+@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Glossaire}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Manuel d'utilisation du programme}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Manuel de notation}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
 @end macro
 
 @end ifclear
@@ -278,27 +275,27 @@
 
 @macro internalsref{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals}
+@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
 @end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Glossaire}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Manuel d'utilisation du programme}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Manuel de notation}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
 @end macro
 
 @end ifdocbook
@@ -309,27 +306,27 @@
 
 @macro internalsref{NAME}
 @vindex \NAME\
-@inforef{\NAME\,,lilypond-internals}
+@inforef{\NAME\,,lilypond-internals,Référence des propriétés internes}
 @end macro
 
 @macro rglos{NAME}
 @vindex \NAME\
-@inforef{\NAME\,,music-glossary}
+@inforef{\NAME\,,music-glossary,Glossaire}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program}
+@ref{\TEXT\,,,lilypond-program,Manuel d'utilisation du programme}
 @end macro
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond}
+@ref{\TEXT\,,,lilypond,Manuel de notation}
 @end macro
 
 @macro rlearning{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning}
+@ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
 @end macro
 
 @end ifinfo
@@ -345,19 +342,19 @@
 
 @macro rglos {TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary}
+@ref{\TEXT\,,,music-glossary,Glossaire}
 @end macro
 
 @macro rprogram{TEXT}
-@emph{Manuel d'utilisation du programme, }@ref{\TEXT\,,,lilypond-program.fr}
+@ref{\TEXT\,,,lilypond-program.fr,Manuel d'utilisation du programme}
 @end macro
 
 @macro ruser{TEXT}
-@emph{Manuel de notation, }@ref{\TEXT\,,,lilypond.fr}
+@ref{\TEXT\,,,lilypond.fr,Manuel de notation}
 @end macro
 
 @macro rlearning{TEXT}
-@emph{Manuel d'initiation, }@ref{\TEXT\,,,lilypond-learning.fr}
+@ref{\TEXT\,,,lilypond-learning.fr,Manuel d'initiation}
 @end macro
 
 @end iftex
