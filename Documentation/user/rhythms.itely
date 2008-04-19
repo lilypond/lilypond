@@ -1335,7 +1335,17 @@ split rests.
 @node Showing melody rhythms
 @subsubsection Showing melody rhythms
 
-TODO
+Sometimes you might want to show only the rhythm of a melody.  This
+can be done with the rhythmic staff.  All pitches of notes on such a
+staff are squashed, and the staff itself has a single line
+
+@c TODO Devise a more realistic example, perhaps with lyrics -td
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  c4 e8 f g2 | r4 g r2 | g1 | r1 |
+}
+@end lilypond
 
 
 @node Beams
