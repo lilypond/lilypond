@@ -1,6 +1,7 @@
 depth = ../..
 
 STEPMAKE_TEMPLATES=podir
+LOCALSTEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make
 

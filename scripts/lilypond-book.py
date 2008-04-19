@@ -42,6 +42,7 @@ import tempfile
 
 import lilylib as ly
 import fontextract
+import langdefs
 global _;_=ly._
 
 
@@ -829,6 +830,27 @@ def verbatim_html (s):
            re.sub ('<', '&lt;',
                re.sub ('&', '&amp;', s)))
 
+ly_var_def_re = re.compile (r'^([a-zA-Z]+)[\t ]*=', re.M)
+ly_comment_re = re.compile (r'(%+[\t ]*)(.*)$', re.M)
+
+def ly_comment_gettext (t, m):
+    return m.group (1) + t (m.group (2))
+
+def verb_ly_gettext (s):
+    if not document_language:
+        return s
+    try:
+        t = langdefs.translation[document_language]
+    except:
+        return s
+
+    s = ly_comment_re.sub (lambda m: ly_comment_gettext (t, m), s)
+    
+    for v in ly_var_def_re.findall (s):
+        s = re.sub (r"(?m)(^|[' \\#])%s([^a-zA-Z])" % v,
+                    "\\1" + t (v) + "\\2",
+                    s)
+    return s
 
 texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
 def set_default_options (source, default_ly_options, format):
@@ -920,7 +942,7 @@ class LilypondSnippet (Snippet):
         self.do_options (os, self.type)
 
     def verb_ly (self):
-        return self.substring ('code')
+        return verb_ly_gettext (self.substring ('code'))
 
     def ly (self):
         contents = self.substring ('code')
@@ -1372,7 +1394,7 @@ class LilypondFileSnippet (LilypondSnippet):
         s = self.contents
         s = re_begin_verbatim.split (s)[-1]
         s = re_end_verbatim.split (s)[0]
-        return s
+        return verb_ly_gettext (s)
 
     def ly (self):
         name = self.substring ('filename')
