@@ -4,13 +4,15 @@
 
 \header {
   lsrtags = "pitches, vocal-music"
- texidoc = "
-If you have multiple voices in a single staff and you want a single
-ambitus per staff rather than per voice, add the
-@code{Ambitus_engraver} to the @code{Staff} context rather than to the
-@code{Voice} context. 
-" }
-% begin verbatim
+
+  texidoc = "
+Adding the @code{Ambitus_engraver} to the @code{Staff} context create a
+single ambitus per staff, even in the case of staves with multiple
+voices. 
+
+"
+  doctitle = "Ambitus with multiple voices"
+} % begin verbatim
 \new Staff \with {
   \consists "Ambitus_engraver"
   }

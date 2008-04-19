@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-03-23 16:29+0100\n"
+"POT-Creation-Date: 2008-04-16 23:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,10 +305,8 @@ msgid "Windows"
 msgstr ""
 
 #. @subsubheading in ../../../Documentation/user/tutorial.itely
-#. @subsubheading in ../../../Documentation/fr/user/tutorial.itely
 #. @subsubheading in ../../../Documentation/es/user/tutorial.itely
-#. @subsubheading in ../../../Documentation/de/user/tutorial.itely
-msgid "Unix"
+msgid "UNIX"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tutorial.itely
@@ -347,6 +345,7 @@ msgstr ""
 #. @rglos in ../../../Documentation/user/pitches.itely
 #. @rglos in ../../../Documentation/fr/user/tutorial.itely
 #. @rglos in ../../../Documentation/es/user/tutorial.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
 msgid "interval"
 msgstr ""
@@ -462,6 +461,7 @@ msgid "Time signature"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
+#. @rglos in ../../../Documentation/user/rhythms.itely
 #. @rglos in ../../../Documentation/fr/user/tutorial.itely
 #. @rglos in ../../../Documentation/es/user/tutorial.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
@@ -476,7 +476,7 @@ msgstr ""
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @subheading in ../../../Documentation/es/user/tutorial.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @subheading in ../../../Documentation/de/user/tutorial.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
@@ -498,13 +498,7 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/tutorial.itely
 #. @subsection in ../../../Documentation/user/tutorial.itely
-#. @node in ../../../Documentation/fr/user/tutorial.itely
-#. @subsection in ../../../Documentation/fr/user/tutorial.itely
-#. @node in ../../../Documentation/es/user/tutorial.itely
-#. @subsection in ../../../Documentation/es/user/tutorial.itely
-#. @node in ../../../Documentation/de/user/tutorial.itely
-#. @subsection in ../../../Documentation/de/user/tutorial.itely
-msgid "Working on text files"
+msgid "Working on input files"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tutorial.itely
@@ -554,7 +548,7 @@ msgstr ""
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @subheading in ../../../Documentation/es/user/tutorial.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @subheading in ../../../Documentation/de/user/tutorial.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
@@ -565,6 +559,7 @@ msgstr ""
 #. @rglos in ../../../Documentation/user/pitches.itely
 #. @rglos in ../../../Documentation/fr/user/tutorial.itely
 #. @rglos in ../../../Documentation/es/user/tutorial.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
 msgid "sharp"
 msgstr ""
@@ -573,6 +568,7 @@ msgstr ""
 #. @rglos in ../../../Documentation/user/pitches.itely
 #. @rglos in ../../../Documentation/fr/user/tutorial.itely
 #. @rglos in ../../../Documentation/es/user/tutorial.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
 msgid "flat"
 msgstr ""
@@ -580,6 +576,7 @@ msgstr ""
 #. @rglos in ../../../Documentation/user/tutorial.itely
 #. @rglos in ../../../Documentation/user/pitches.itely
 #. @rglos in ../../../Documentation/es/user/tutorial.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
 msgid "double sharp"
 msgstr ""
@@ -587,6 +584,7 @@ msgstr ""
 #. @rglos in ../../../Documentation/user/tutorial.itely
 #. @rglos in ../../../Documentation/user/pitches.itely
 #. @rglos in ../../../Documentation/es/user/tutorial.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
 msgid "double flat"
 msgstr ""
@@ -711,10 +709,6 @@ msgid "Phrasing slurs"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
-msgid "slurs"
-msgstr ""
-
-#. @rglos in ../../../Documentation/user/tutorial.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
 msgid "phrasing"
 msgstr ""
@@ -775,6 +769,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/expressive.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/expressive.itely
 #. @subheading in ../../../Documentation/es/user/tutorial.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/expressive.itely
 #. @subsubsection in ../../../Documentation/es/user/expressive.itely
 #. @subheading in ../../../Documentation/de/user/tutorial.itely
@@ -841,6 +836,7 @@ msgid "Partial measure"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
+#. @rglos in ../../../Documentation/user/rhythms.itely
 #. @rglos in ../../../Documentation/fr/user/tutorial.itely
 #. @rglos in ../../../Documentation/es/user/tutorial.itely
 msgid "anacrusis"
@@ -944,6 +940,7 @@ msgid "Simultaneous music expressions: multiple staves"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/tutorial.itely
+#. @rglos in ../../../Documentation/es/user/tutorial.itely
 #. @rglos in ../../../Documentation/de/user/tutorial.itely
 msgid "polyphony"
 msgstr ""
@@ -1161,15 +1158,7 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/fundamental.itely
 #. @section in ../../../Documentation/user/fundamental.itely
-#. @node in ../../../Documentation/fr/user/fundamental.itely
-#. @section in ../../../Documentation/fr/user/fundamental.itely
-#. @node in ../../../Documentation/es/user/fundamental.itely
-#. @section in ../../../Documentation/es/user/fundamental.itely
-#. @node in ../../../Documentation/de/user/putting.itely
-#. @section in ../../../Documentation/de/user/putting.itely
-#. @node in ../../../Documentation/de/user/fundamental.itely
-#. @section in ../../../Documentation/de/user/fundamental.itely
-msgid "How LilyPond files work"
+msgid "How LilyPond input files work"
 msgstr ""
 
 #. @node in ../../../Documentation/user/fundamental.itely
@@ -1209,6 +1198,7 @@ msgstr ""
 #. @rglos in ../../../Documentation/user/tweaks.itely
 #. @rglos in ../../../Documentation/user/staff.itely
 #. @rglos in ../../../Documentation/es/user/fundamental.itely
+#. @rglos in ../../../Documentation/es/user/tweaks.itely
 msgid "ossia"
 msgstr ""
 
@@ -1351,19 +1341,18 @@ msgstr ""
 
 #. @subsubheading in ../../../Documentation/user/fundamental.itely
 #. @subsubheading in ../../../Documentation/es/user/fundamental.itely
-#. @subsubsection in ../../../Documentation/de/user/fundamental.itely
 msgid "Changing a single context"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/fundamental.itely
 #. @rglos in ../../../Documentation/user/pitches.itely
 #. @rglos in ../../../Documentation/es/user/fundamental.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 msgid "ambitus"
 msgstr ""
 
 #. @subsubheading in ../../../Documentation/user/fundamental.itely
 #. @subsubheading in ../../../Documentation/es/user/fundamental.itely
-#. @subsubsection in ../../../Documentation/de/user/fundamental.itely
 msgid "Changing all contexts of the same type"
 msgstr ""
 
@@ -1373,8 +1362,6 @@ msgstr ""
 #. @section in ../../../Documentation/fr/user/fundamental.itely
 #. @node in ../../../Documentation/es/user/fundamental.itely
 #. @section in ../../../Documentation/es/user/fundamental.itely
-#. @node in ../../../Documentation/de/user/putting.itely
-#. @section in ../../../Documentation/de/user/putting.itely
 #. @node in ../../../Documentation/de/user/fundamental.itely
 #. @section in ../../../Documentation/de/user/fundamental.itely
 msgid "Extending the templates"
@@ -1426,88 +1413,118 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Tweaking basics"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Introduction to tweaks"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Objects and interfaces"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Naming conventions of objects and properties"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Tweaking methods"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "The Internals Reference manual"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Properties of layout objects"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Finding the context"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Overriding once only"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Reverting"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Properties found in interfaces"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Specifying the context in lyric mode"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Types of properties"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Appearance of objects"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Visibility and color of objects"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "stencil"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "break-visibility"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "transparent"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "color"
 msgstr ""
 
@@ -1520,43 +1537,56 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Length and thickness of objects"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Placement of objects"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
-msgid "Automatic behaviour"
+msgid "Automatic behavior"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Within-staff objects"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Fingering"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Outside staff objects"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "\\textLengthOn"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Grob sizing"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Collisions of objects"
 msgstr ""
 
@@ -1565,7 +1595,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Moving objects"
@@ -1576,74 +1606,94 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Fixing overlapping notation"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "padding property"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "left-padding and right-padding"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "staff-padding property"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "self-alignment-X property"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "staff-position property"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "extra-offset property"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "positions property"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "force-hshift property"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Real music example"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @section in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @section in ../../../Documentation/es/user/tweaks.itely
 msgid "Further tweaking"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Other uses for tweaks"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Tying notes across voices"
 msgstr ""
 
 #. @subheading in ../../../Documentation/user/tweaks.itely
+#. @subheading in ../../../Documentation/es/user/tweaks.itely
 msgid "Simulating a fermata"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Using variables for tweaks"
 msgstr ""
 
 #. @node in ../../../Documentation/user/tweaks.itely
 #. @subsection in ../../../Documentation/user/tweaks.itely
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 msgid "Other sources of information"
 msgstr ""
 
@@ -1652,7 +1702,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Avoiding tweaks with slower processing"
@@ -1663,7 +1713,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Advanced tweaks with Scheme"
@@ -1682,13 +1732,7 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
-#. @node in ../../../Documentation/fr/user/working.itely
-#. @section in ../../../Documentation/fr/user/working.itely
-#. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
-#. @node in ../../../Documentation/de/user/working.itely
-#. @section in ../../../Documentation/de/user/working.itely
-msgid "Suggestions for writing LilyPond files"
+msgid "Suggestions for writing LilyPond input files"
 msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
@@ -1726,62 +1770,72 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
+#. @node in ../../../Documentation/fr/user/working.itely
+#. @subsection in ../../../Documentation/fr/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
+#. @node in ../../../Documentation/de/user/working.itely
+#. @subsection in ../../../Documentation/de/user/working.itely
 msgid "Saving typing with variables and functions"
 msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
 #. @node in ../../../Documentation/fr/user/working.itely
-#. @section in ../../../Documentation/fr/user/working.itely
+#. @subsection in ../../../Documentation/fr/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
-#. @section in ../../../Documentation/de/user/working.itely
+#. @subsection in ../../../Documentation/de/user/working.itely
 msgid "Style sheets"
 msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
+#. @node in ../../../Documentation/fr/user/working.itely
+#. @section in ../../../Documentation/fr/user/working.itely
+#. @node in ../../../Documentation/es/user/working.itely
+#. @section in ../../../Documentation/es/user/working.itely
+#. @node in ../../../Documentation/de/user/working.itely
+#. @section in ../../../Documentation/de/user/working.itely
 msgid "When things don't work"
 msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
-#. @node in ../../../Documentation/fr/user/working.itely
-#. @section in ../../../Documentation/fr/user/working.itely
-#. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
-#. @node in ../../../Documentation/de/user/working.itely
-#. @section in ../../../Documentation/de/user/working.itely
-msgid "Updating old files"
+msgid "Updating old input files"
 msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
 #. @node in ../../../Documentation/fr/user/working.itely
-#. @section in ../../../Documentation/fr/user/working.itely
+#. @subsection in ../../../Documentation/fr/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
-#. @section in ../../../Documentation/de/user/working.itely
+#. @subsection in ../../../Documentation/de/user/working.itely
 msgid "Troubleshooting (taking it all apart)"
 msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
 #. @subsection in ../../../Documentation/user/working.itely
 #. @node in ../../../Documentation/fr/user/working.itely
-#. @section in ../../../Documentation/fr/user/working.itely
+#. @subsection in ../../../Documentation/fr/user/working.itely
 #. @node in ../../../Documentation/es/user/working.itely
-#. @section in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
-#. @section in ../../../Documentation/de/user/working.itely
+#. @subsection in ../../../Documentation/de/user/working.itely
 msgid "Minimal examples"
 msgstr ""
 
 #. @node in ../../../Documentation/user/working.itely
 #. @section in ../../../Documentation/user/working.itely
+#. @node in ../../../Documentation/fr/user/working.itely
+#. @section in ../../../Documentation/fr/user/working.itely
+#. @node in ../../../Documentation/es/user/working.itely
+#. @section in ../../../Documentation/es/user/working.itely
+#. @node in ../../../Documentation/de/user/working.itely
+#. @section in ../../../Documentation/de/user/working.itely
 msgid "Scores and parts"
 msgstr ""
 
@@ -1970,9 +2024,7 @@ msgstr ""
 #. @appendixsec in ../../../Documentation/fr/user/templates.itely
 #. @node in ../../../Documentation/es/user/templates.itely
 #. @appendixsec in ../../../Documentation/es/user/templates.itely
-#. @node in ../../../Documentation/de/user/templates.itely
-#. @appendixsec in ../../../Documentation/de/user/templates.itely
-msgid "Lilypond-book templates"
+msgid "lilypond-book templates"
 msgstr ""
 
 #. @appendixsubsec in ../../../Documentation/user/templates.itely
@@ -2006,6 +2058,7 @@ msgid "Texinfo"
 msgstr ""
 
 #. @appendixsubsec in ../../../Documentation/user/templates.itely
+#. @appendixsubsec in ../../../Documentation/es/user/templates.itely
 msgid "xelatex"
 msgstr ""
 
@@ -2022,6 +2075,8 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/scheme-tutorial.itely
 #. @appendixsec in ../../../Documentation/user/scheme-tutorial.itely
+#. @node in ../../../Documentation/es/user/scheme-tutorial.itely
+#. @appendixsec in ../../../Documentation/es/user/scheme-tutorial.itely
 msgid "Tweaking with Scheme"
 msgstr ""
 
@@ -2735,23 +2790,24 @@ msgstr ""
 #. @node in ../../../Documentation/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Absolute octave entry"
 msgstr ""
 
 #. @node in ../../../Documentation/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Relative octave entry"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/pitches.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 msgid "fifth"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/pitches.itely
-msgid "quarter-tone"
+msgid "quarter tone"
 msgstr ""
 
 #. @node in ../../../Documentation/user/pitches.itely
@@ -2759,7 +2815,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
 msgid "Note names in other languages"
@@ -2779,7 +2835,7 @@ msgstr ""
 #. @node in ../../../Documentation/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Octave checks"
 msgstr ""
 
@@ -2788,7 +2844,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
 msgid "Transpose"
@@ -2810,17 +2866,19 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
 msgid "Key signature"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/pitches.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 msgid "church mode"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/pitches.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 msgid "scordatura"
 msgstr ""
 
@@ -2829,13 +2887,14 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
 msgid "Ottava brackets"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/pitches.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 msgid "octavation"
 msgstr ""
 
@@ -2844,17 +2903,19 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 #. @node in ../../../Documentation/de/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/pitches.itely
 msgid "Instrument transpositions"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/pitches.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 msgid "concert pitch"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/pitches.itely
+#. @rglos in ../../../Documentation/es/user/pitches.itely
 msgid "transposing instrument"
 msgstr ""
 
@@ -2863,7 +2924,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/fr/user/changing-defaults.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Automatic accidentals"
 msgstr ""
 
@@ -2872,9 +2933,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
-#. @node in ../../../Documentation/de/user/editorial.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Ambitus"
 msgstr ""
 
@@ -2884,8 +2943,6 @@ msgstr ""
 #. @subsection in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
 #. @subsection in ../../../Documentation/es/user/pitches.itely
-#. @node in ../../../Documentation/de/user/editorial.itely
-#. @subsection in ../../../Documentation/de/user/editorial.itely
 msgid "Note heads"
 msgstr ""
 
@@ -2894,7 +2951,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Special note heads"
 msgstr ""
 
@@ -2903,7 +2960,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Easy notation note heads"
 msgstr ""
 
@@ -2912,9 +2969,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
-#. @node in ../../../Documentation/de/user/editorial.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Shape note heads"
 msgstr ""
 
@@ -2923,9 +2978,7 @@ msgstr ""
 #. @node in ../../../Documentation/fr/user/pitches.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/pitches.itely
 #. @node in ../../../Documentation/es/user/pitches.itely
-#. @subsubsection in ../../../Documentation/es/user/pitches.itely
-#. @node in ../../../Documentation/de/user/editorial.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/es/user/pitches.itely
 msgid "Improvisation"
 msgstr ""
 
@@ -3073,6 +3126,10 @@ msgstr ""
 msgid "Unmetered music"
 msgstr ""
 
+#. @rglos in ../../../Documentation/user/rhythms.itely
+msgid "cadenza"
+msgstr ""
+
 #. @node in ../../../Documentation/user/rhythms.itely
 #. @subsubsection in ../../../Documentation/user/rhythms.itely
 #. @node in ../../../Documentation/fr/user/rhythms.itely
@@ -3101,6 +3158,19 @@ msgstr ""
 #. @node in ../../../Documentation/de/user/rhythms.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/rhythms.itely
 msgid "Automatic note splitting"
+msgstr ""
+
+#. @node in ../../../Documentation/user/rhythms.itely
+#. @subsubsection in ../../../Documentation/user/rhythms.itely
+#. @node in ../../../Documentation/user/percussion.itely
+#. @subsubsection in ../../../Documentation/user/percussion.itely
+#. @node in ../../../Documentation/fr/user/percussion.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/percussion.itely
+#. @node in ../../../Documentation/es/user/percussion.itely
+#. @subsubsection in ../../../Documentation/es/user/percussion.itely
+#. @node in ../../../Documentation/de/user/percussion.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/percussion.itely
+msgid "Showing melody rhythms"
 msgstr ""
 
 #. @node in ../../../Documentation/user/rhythms.itely
@@ -3288,6 +3358,15 @@ msgid "portato"
 msgstr ""
 
 #. @node in ../../../Documentation/user/expressive.itely
+#. @subsubsection in ../../../Documentation/user/expressive.itely
+#. @node in ../../../Documentation/fr/user/text.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
+#. @node in ../../../Documentation/es/user/text.itely
+#. @subsubsection in ../../../Documentation/es/user/text.itely
+msgid "New dynamic marks"
+msgstr ""
+
+#. @node in ../../../Documentation/user/expressive.itely
 #. @subsection in ../../../Documentation/user/expressive.itely
 #. @node in ../../../Documentation/fr/user/expressive.itely
 #. @subsection in ../../../Documentation/fr/user/expressive.itely
@@ -3401,6 +3480,8 @@ msgstr ""
 #. @subsection in ../../../Documentation/user/repeats.itely
 #. @node in ../../../Documentation/es/user/repeats.itely
 #. @subsection in ../../../Documentation/es/user/repeats.itely
+#. @node in ../../../Documentation/de/user/repeats.itely
+#. @subsection in ../../../Documentation/de/user/repeats.itely
 msgid "Writing long repeats"
 msgstr ""
 
@@ -3439,6 +3520,8 @@ msgstr ""
 #. @subsection in ../../../Documentation/user/repeats.itely
 #. @node in ../../../Documentation/es/user/repeats.itely
 #. @subsection in ../../../Documentation/es/user/repeats.itely
+#. @node in ../../../Documentation/de/user/repeats.itely
+#. @subsection in ../../../Documentation/de/user/repeats.itely
 msgid "Short repeats"
 msgstr ""
 
@@ -3446,6 +3529,8 @@ msgstr ""
 #. @subsubsection in ../../../Documentation/user/repeats.itely
 #. @node in ../../../Documentation/es/user/repeats.itely
 #. @subsubsection in ../../../Documentation/es/user/repeats.itely
+#. @node in ../../../Documentation/de/user/repeats.itely
+#. @subsubsection in ../../../Documentation/de/user/repeats.itely
 msgid "Percent repeats"
 msgstr ""
 
@@ -3456,7 +3541,7 @@ msgstr ""
 #. @node in ../../../Documentation/es/user/repeats.itely
 #. @subsubsection in ../../../Documentation/es/user/repeats.itely
 #. @node in ../../../Documentation/de/user/repeats.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
+#. @subsubsection in ../../../Documentation/de/user/repeats.itely
 msgid "Tremolo repeats"
 msgstr ""
 
@@ -3568,7 +3653,7 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/staff.itely
 #. @subsubsection in ../../../Documentation/user/staff.itely
-msgid "Initiating new staves"
+msgid "Instantiating new staves"
 msgstr ""
 
 #. @rglos in ../../../Documentation/user/staff.itely
@@ -3588,6 +3673,15 @@ msgstr ""
 msgid "bracket"
 msgstr ""
 
+#. @rglos in ../../../Documentation/user/staff.itely
+msgid "grand staff"
+msgstr ""
+
+#. @node in ../../../Documentation/user/staff.itely
+#. @subsubsection in ../../../Documentation/user/staff.itely
+msgid "Deeper nested staff groups"
+msgstr ""
+
 #. @node in ../../../Documentation/user/staff.itely
 #. @subsection in ../../../Documentation/user/staff.itely
 msgid "Modifying single staves"
@@ -3602,6 +3696,14 @@ msgstr ""
 #. @node in ../../../Documentation/de/user/staff.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/staff.itely
 msgid "Staff symbol"
+msgstr ""
+
+#. @rglos in ../../../Documentation/user/staff.itely
+msgid "line"
+msgstr ""
+
+#. @rglos in ../../../Documentation/user/staff.itely
+msgid "ledger line"
 msgstr ""
 
 #. @node in ../../../Documentation/user/staff.itely
@@ -3718,7 +3820,7 @@ msgid "Inside the staff"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
@@ -3729,7 +3831,7 @@ msgid "Selecting notation font size"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
@@ -3740,7 +3842,7 @@ msgid "Fingering instructions"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
@@ -3751,7 +3853,7 @@ msgid "Hidden notes"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
@@ -3762,7 +3864,7 @@ msgid "Coloring objects"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
@@ -3773,7 +3875,7 @@ msgid "Parentheses"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
@@ -3795,35 +3897,35 @@ msgid "Outside the staff"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @subsubsection in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
 #. @subsubsection in ../../../Documentation/es/user/editorial.itely
 #. @node in ../../../Documentation/de/user/editorial.itely
-#. @subsection in ../../../Documentation/de/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/editorial.itely
 msgid "Balloon help"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @subsubsection in ../../../Documentation/fr/user/editorial.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
 #. @subsubsection in ../../../Documentation/es/user/editorial.itely
 #. @node in ../../../Documentation/de/user/editorial.itely
-#. @subsection in ../../../Documentation/de/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/editorial.itely
 msgid "Grid lines"
 msgstr ""
 
 #. @node in ../../../Documentation/user/editorial.itely
-#. @subsubsection in ../../../Documentation/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/user/editorial.itely
 #. @node in ../../../Documentation/fr/user/expressive.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/expressive.itely
 #. @node in ../../../Documentation/es/user/editorial.itely
 #. @subsubsection in ../../../Documentation/es/user/editorial.itely
-#. @node in ../../../Documentation/de/user/expressive.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/expressive.itely
+#. @node in ../../../Documentation/de/user/editorial.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/editorial.itely
 msgid "Analysis brackets"
 msgstr ""
 
@@ -3847,13 +3949,6 @@ msgstr ""
 #. @node in ../../../Documentation/de/user/text.itely
 #. @subsection in ../../../Documentation/de/user/text.itely
 msgid "Writing text"
-msgstr ""
-
-#. @node in ../../../Documentation/user/text.itely
-#. @subsubsection in ../../../Documentation/user/text.itely
-#. @node in ../../../Documentation/de/user/text.itely
-#. @subsubsection in ../../../Documentation/de/user/text.itely
-msgid "Overview of text entry"
 msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
@@ -3890,14 +3985,17 @@ msgid "Text marks"
 msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
+#. @subsubsection in ../../../Documentation/user/text.itely
+#. @node in ../../../Documentation/de/user/text.itely
+#. @subsubsection in ../../../Documentation/de/user/text.itely
+msgid "Separate text"
+msgstr ""
+
+#. @node in ../../../Documentation/user/text.itely
 #. @subsection in ../../../Documentation/user/text.itely
-#. @node in ../../../Documentation/fr/user/text.itely
-#. @subsection in ../../../Documentation/fr/user/text.itely
-#. @node in ../../../Documentation/es/user/text.itely
-#. @subsection in ../../../Documentation/es/user/text.itely
 #. @node in ../../../Documentation/de/user/text.itely
 #. @subsection in ../../../Documentation/de/user/text.itely
-msgid "Text markup"
+msgid "Formatting text"
 msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
@@ -3913,64 +4011,42 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
 #. @subsubsection in ../../../Documentation/user/text.itely
-#. @node in ../../../Documentation/fr/user/text.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
-#. @node in ../../../Documentation/es/user/text.itely
-#. @subsubsection in ../../../Documentation/es/user/text.itely
-#. @node in ../../../Documentation/de/user/text.itely
-#. @subsubsection in ../../../Documentation/de/user/text.itely
-msgid "Nested scores"
+msgid "Common markup commands"
 msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
 #. @subsubsection in ../../../Documentation/user/text.itely
-#. @node in ../../../Documentation/fr/user/text.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
-#. @node in ../../../Documentation/es/user/text.itely
-#. @subsubsection in ../../../Documentation/es/user/text.itely
-#. @node in ../../../Documentation/de/user/text.itely
-#. @subsubsection in ../../../Documentation/de/user/text.itely
-msgid "Page wrapping text"
+msgid "Text alignment"
 msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
 #. @subsubsection in ../../../Documentation/user/text.itely
-#. @node in ../../../Documentation/fr/user/text.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
-#. @node in ../../../Documentation/es/user/text.itely
-#. @subsubsection in ../../../Documentation/es/user/text.itely
-#. @node in ../../../Documentation/de/user/text.itely
-#. @subsubsection in ../../../Documentation/de/user/text.itely
-msgid "Font selection"
+msgid "Graphic notation inside markup"
+msgstr ""
+
+#. @node in ../../../Documentation/user/text.itely
+#. @subsubsection in ../../../Documentation/user/text.itely
+msgid "Music notation inside markup"
+msgstr ""
+
+#. @node in ../../../Documentation/user/text.itely
+#. @subsubsection in ../../../Documentation/user/text.itely
+msgid "Multi-page markup"
 msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
 #. @subsection in ../../../Documentation/user/text.itely
-#. @node in ../../../Documentation/de/user/text.itely
-#. @subsection in ../../../Documentation/de/user/text.itely
-msgid "Special text concerns"
+msgid "Fonts"
 msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
 #. @subsubsection in ../../../Documentation/user/text.itely
-#. @node in ../../../Documentation/fr/user/text.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
-#. @node in ../../../Documentation/es/user/text.itely
-#. @subsubsection in ../../../Documentation/es/user/text.itely
-#. @node in ../../../Documentation/de/user/text.itely
-#. @subsubsection in ../../../Documentation/de/user/text.itely
-msgid "New dynamic marks"
+msgid "Entire document fonts"
 msgstr ""
 
 #. @node in ../../../Documentation/user/text.itely
 #. @subsubsection in ../../../Documentation/user/text.itely
-#. @node in ../../../Documentation/fr/user/text.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
-#. @node in ../../../Documentation/es/user/text.itely
-#. @subsubsection in ../../../Documentation/es/user/text.itely
-#. @node in ../../../Documentation/de/user/text.itely
-#. @subsubsection in ../../../Documentation/de/user/text.itely
-msgid "Text and line spanners"
+msgid "Single entry fonts"
 msgstr ""
 
 #. @node in ../../../Documentation/user/specialist.itely
@@ -3997,11 +4073,12 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsection in ../../../Documentation/de/user/vocal.itely
-msgid "Simple lyrics"
+msgid "Common notation for vocals"
+msgstr ""
+
+#. @node in ../../../Documentation/user/vocal.itely
+#. @subsubsection in ../../../Documentation/user/vocal.itely
+msgid "References for vocal music"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
@@ -4017,6 +4094,15 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsubsection in ../../../Documentation/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "Working with lyrics and variables"
+msgstr ""
+
+#. @node in ../../../Documentation/user/vocal.itely
+#. @subsubsection in ../../../Documentation/user/vocal.itely
 #. @node in ../../../Documentation/fr/user/vocal.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
 #. @node in ../../../Documentation/es/user/vocal.itely
@@ -4028,35 +4114,22 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/fr/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "Another way of entering lyrics"
+msgid "Manual syllable durations"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/fr/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "Assigning more than one syllable to a single note"
+msgid "Multiple syllables to one note"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/fr/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "More than one note on a single syllable"
+msgid "Multiple notes to one syllable"
+msgstr ""
+
+#. @node in ../../../Documentation/user/vocal.itely
+#. @subsubsection in ../../../Documentation/user/vocal.itely
+msgid "Skipping notes"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
@@ -4071,43 +4144,13 @@ msgid "Extenders and hyphens"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
-#. @subsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsection in ../../../Documentation/de/user/vocal.itely
-msgid "Vocals and variables"
-msgstr ""
-
-#. @node in ../../../Documentation/user/vocal.itely
 #. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "Working with lyrics and variables"
+msgid "Lyrics and repeats"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/fr/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsection in ../../../Documentation/de/user/vocal.itely
-msgid "Flexibility in placement"
-msgstr ""
-
-#. @node in ../../../Documentation/user/vocal.itely
-#. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/fr/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "Lyrics to multiple notes of a melisma"
+msgid "Placement of lyrics"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
@@ -4129,49 +4172,27 @@ msgstr ""
 #. @subsubsection in ../../../Documentation/es/user/vocal.itely
 #. @node in ../../../Documentation/de/user/vocal.itely
 #. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "Switching the melody associated with a lyrics line"
-msgstr ""
-
-#. @node in ../../../Documentation/user/vocal.itely
-#. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/fr/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
 msgid "Lyrics independent of notes"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
-#. @subsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsection in ../../../Documentation/de/user/vocal.itely
-msgid "Spacing vocals"
+#. @subsubsection in ../../../Documentation/user/vocal.itely
+msgid "Chants"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/fr/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "Spacing lyrics"
+msgid "Spacing out syllables"
+msgstr ""
+
+#. @node in ../../../Documentation/user/vocal.itely
+#. @subsubsection in ../../../Documentation/user/vocal.itely
+msgid "Centering lyrics between staves"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsection in ../../../Documentation/user/vocal.itely
-#. @node in ../../../Documentation/fr/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsection in ../../../Documentation/de/user/vocal.itely
-msgid "More about stanzas"
+msgid "Stanzas"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
@@ -4186,22 +4207,25 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "Adding dynamics marks"
+msgid "Adding dynamics marks to stanzas"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
 #. @subsubsection in ../../../Documentation/user/vocal.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
-#. @node in ../../../Documentation/es/user/vocal.itely
-#. @subsubsection in ../../../Documentation/es/user/vocal.itely
-#. @node in ../../../Documentation/de/user/vocal.itely
-#. @subsubsection in ../../../Documentation/de/user/vocal.itely
-msgid "Adding singer names"
+msgid "Adding singers' names to stanzas"
+msgstr ""
+
+#. @node in ../../../Documentation/user/vocal.itely
+#. @subsubsection in ../../../Documentation/user/vocal.itely
+msgid "Stanzas with different rhythms"
+msgstr ""
+
+#. @subsubheading in ../../../Documentation/user/vocal.itely
+msgid "Ignoring melismata"
+msgstr ""
+
+#. @subsubheading in ../../../Documentation/user/vocal.itely
+msgid "Switching to an alternative melody"
 msgstr ""
 
 #. @node in ../../../Documentation/user/vocal.itely
@@ -4224,135 +4248,200 @@ msgstr ""
 msgid "Printing stanzas at the end in multiple columns"
 msgstr ""
 
-#. @node in ../../../Documentation/user/chords.itely
-#. @section in ../../../Documentation/user/chords.itely
-#. @node in ../../../Documentation/fr/user/chords.itely
-#. @section in ../../../Documentation/fr/user/chords.itely
-#. @node in ../../../Documentation/de/user/simultaneous.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/simultaneous.itely
-msgid "Chords"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @section in ../../../Documentation/user/keyboards.itely
+msgid "Keyboard instruments"
 msgstr ""
 
-#. @node in ../../../Documentation/user/chords.itely
-#. @subsection in ../../../Documentation/user/chords.itely
-#. @node in ../../../Documentation/fr/user/chords.itely
-#. @subsection in ../../../Documentation/fr/user/chords.itely
-msgid "Chords sections"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsection in ../../../Documentation/user/keyboards.itely
+msgid "Common notation for keyboards"
 msgstr ""
 
-#. @node in ../../../Documentation/user/chords.itely
-#. @subsubsection in ../../../Documentation/user/chords.itely
-#. @node in ../../../Documentation/fr/user/tutorial.itely
-#. @subsection in ../../../Documentation/fr/user/tutorial.itely
-msgid "A lead sheet"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsubsection in ../../../Documentation/user/keyboards.itely
+msgid "References for keyboards"
 msgstr ""
 
-#. @node in ../../../Documentation/user/chords.itely
-#. @subsubsection in ../../../Documentation/user/chords.itely
-#. @node in ../../../Documentation/fr/user/chords.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/chords.itely
-#. @node in ../../../Documentation/es/user/chords.itely
-#. @subsubsection in ../../../Documentation/es/user/chords.itely
-#. @node in ../../../Documentation/de/user/chords.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/chords.itely
-msgid "Introducing chord names"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsubsection in ../../../Documentation/user/keyboards.itely
+msgid "The piano staff"
 msgstr ""
 
-#. @node in ../../../Documentation/user/chords.itely
-#. @subsubsection in ../../../Documentation/user/chords.itely
-#. @node in ../../../Documentation/fr/user/chords.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/chords.itely
-#. @node in ../../../Documentation/es/user/chords.itely
-#. @subsubsection in ../../../Documentation/es/user/chords.itely
-#. @node in ../../../Documentation/de/user/chords.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/chords.itely
-msgid "Chords mode"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsubsection in ../../../Documentation/user/keyboards.itely
+msgid "Changing staff manually"
 msgstr ""
 
-#. @node in ../../../Documentation/user/chords.itely
-#. @subsubsection in ../../../Documentation/user/chords.itely
-#. @node in ../../../Documentation/fr/user/chords.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/chords.itely
-#. @node in ../../../Documentation/es/user/chords.itely
-#. @subsubsection in ../../../Documentation/es/user/chords.itely
-#. @node in ../../../Documentation/de/user/chords.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/chords.itely
-msgid "Printing chord names"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsubsection in ../../../Documentation/user/keyboards.itely
+msgid "Changing staff automatically"
 msgstr ""
 
-#. @node in ../../../Documentation/user/piano.itely
-#. @section in ../../../Documentation/user/piano.itely
-#. @node in ../../../Documentation/fr/user/piano.itely
-#. @section in ../../../Documentation/fr/user/piano.itely
-#. @node in ../../../Documentation/es/user/piano.itely
-#. @section in ../../../Documentation/es/user/piano.itely
-#. @node in ../../../Documentation/de/user/piano.itely
-#. @section in ../../../Documentation/de/user/piano.itely
-msgid "Piano music"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsubsection in ../../../Documentation/user/keyboards.itely
+msgid "Staff-change lines"
 msgstr ""
 
-#. @node in ../../../Documentation/user/piano.itely
-#. @subsection in ../../../Documentation/user/piano.itely
-#. @node in ../../../Documentation/fr/user/piano.itely
-#. @subsection in ../../../Documentation/fr/user/piano.itely
-#. @node in ../../../Documentation/es/user/piano.itely
-#. @subsection in ../../../Documentation/es/user/piano.itely
-msgid "Piano sections"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsubsection in ../../../Documentation/user/keyboards.itely
+msgid "Cross-staff stems"
 msgstr ""
 
-#. @node in ../../../Documentation/user/piano.itely
-#. @subsubsection in ../../../Documentation/user/piano.itely
-#. @node in ../../../Documentation/fr/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
-#. @node in ../../../Documentation/es/user/piano.itely
-#. @subsubsection in ../../../Documentation/es/user/piano.itely
-#. @node in ../../../Documentation/de/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
-msgid "Automatic staff changes"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsection in ../../../Documentation/user/keyboards.itely
+msgid "Piano"
 msgstr ""
 
-#. @node in ../../../Documentation/user/piano.itely
-#. @subsubsection in ../../../Documentation/user/piano.itely
-#. @node in ../../../Documentation/fr/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
-#. @node in ../../../Documentation/es/user/piano.itely
-#. @subsubsection in ../../../Documentation/es/user/piano.itely
-#. @node in ../../../Documentation/de/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
-msgid "Manual staff switches"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsubsection in ../../../Documentation/user/keyboards.itely
+msgid "Piano pedals"
 msgstr ""
 
-#. @node in ../../../Documentation/user/piano.itely
-#. @subsubsection in ../../../Documentation/user/piano.itely
-#. @node in ../../../Documentation/fr/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
-#. @node in ../../../Documentation/es/user/piano.itely
-#. @subsubsection in ../../../Documentation/es/user/piano.itely
-#. @node in ../../../Documentation/de/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
-msgid "Pedals"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsection in ../../../Documentation/user/keyboards.itely
+msgid "Accordion"
 msgstr ""
 
-#. @node in ../../../Documentation/user/piano.itely
-#. @subsubsection in ../../../Documentation/user/piano.itely
-#. @node in ../../../Documentation/fr/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
-#. @node in ../../../Documentation/es/user/piano.itely
-#. @subsubsection in ../../../Documentation/es/user/piano.itely
-#. @node in ../../../Documentation/de/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
-msgid "Staff switch lines"
+#. @node in ../../../Documentation/user/keyboards.itely
+#. @subsubsection in ../../../Documentation/user/keyboards.itely
+msgid "Discant symbols"
 msgstr ""
 
-#. @node in ../../../Documentation/user/piano.itely
-#. @subsubsection in ../../../Documentation/user/piano.itely
-#. @node in ../../../Documentation/fr/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
-#. @node in ../../../Documentation/es/user/piano.itely
-#. @subsubsection in ../../../Documentation/es/user/piano.itely
-#. @node in ../../../Documentation/de/user/piano.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
-msgid "Cross staff stems"
+#. @node in ../../../Documentation/user/unfretted-strings.itely
+#. @section in ../../../Documentation/user/unfretted-strings.itely
+msgid "Unfretted string instruments"
+msgstr ""
+
+#. @node in ../../../Documentation/user/unfretted-strings.itely
+#. @subsection in ../../../Documentation/user/unfretted-strings.itely
+msgid "Common notation for unfretted strings"
+msgstr ""
+
+#. @node in ../../../Documentation/user/unfretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/unfretted-strings.itely
+msgid "References for unfretted strings"
+msgstr ""
+
+#. @node in ../../../Documentation/user/unfretted-strings.itely
+#. @subsection in ../../../Documentation/user/unfretted-strings.itely
+msgid "Bowed instruments"
+msgstr ""
+
+#. @node in ../../../Documentation/user/unfretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/unfretted-strings.itely
+#. @node in ../../../Documentation/fr/user/strings.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/strings.itely
+#. @node in ../../../Documentation/es/user/strings.itely
+#. @subsubsection in ../../../Documentation/es/user/strings.itely
+#. @node in ../../../Documentation/de/user/strings.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/strings.itely
+msgid "Artificial harmonics (strings)"
+msgstr ""
+
+#. @node in ../../../Documentation/user/unfretted-strings.itely
+#. @subsection in ../../../Documentation/user/unfretted-strings.itely
+msgid "Plucked instruments"
+msgstr ""
+
+#. @node in ../../../Documentation/user/unfretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/unfretted-strings.itely
+msgid "Harp"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @section in ../../../Documentation/user/fretted-strings.itely
+msgid "Fretted string instruments"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsection in ../../../Documentation/user/fretted-strings.itely
+msgid "Common notation for fretted strings"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+msgid "References for fretted strings"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
+#. @node in ../../../Documentation/es/user/guitar.itely
+#. @subsubsection in ../../../Documentation/es/user/guitar.itely
+#. @node in ../../../Documentation/de/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
+msgid "String number indications"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+msgid "Default tablatures"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+msgid "Custom tablatures"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
+#. @node in ../../../Documentation/es/user/guitar.itely
+#. @subsubsection in ../../../Documentation/es/user/guitar.itely
+#. @node in ../../../Documentation/de/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
+msgid "Fret diagrams"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
+#. @node in ../../../Documentation/es/user/guitar.itely
+#. @subsubsection in ../../../Documentation/es/user/guitar.itely
+#. @node in ../../../Documentation/de/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
+msgid "Right hand fingerings"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsection in ../../../Documentation/user/fretted-strings.itely
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @section in ../../../Documentation/fr/user/guitar.itely
+#. @node in ../../../Documentation/es/user/guitar.itely
+#. @section in ../../../Documentation/es/user/guitar.itely
+#. @node in ../../../Documentation/de/user/guitar.itely
+#. @section in ../../../Documentation/de/user/guitar.itely
+msgid "Guitar"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+msgid "Guitar tablatures"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+msgid "Indicating position and barring"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsection in ../../../Documentation/user/fretted-strings.itely
+msgid "Banjo"
+msgstr ""
+
+#. @node in ../../../Documentation/user/fretted-strings.itely
+#. @subsubsection in ../../../Documentation/user/fretted-strings.itely
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
+#. @node in ../../../Documentation/es/user/guitar.itely
+#. @subsubsection in ../../../Documentation/es/user/guitar.itely
+#. @node in ../../../Documentation/de/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
+msgid "Banjo tablatures"
 msgstr ""
 
 #. @node in ../../../Documentation/user/percussion.itely
@@ -4368,31 +4457,17 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/percussion.itely
 #. @subsection in ../../../Documentation/user/percussion.itely
-#. @node in ../../../Documentation/fr/user/percussion.itely
-#. @subsection in ../../../Documentation/fr/user/percussion.itely
-msgid "Percussion sections"
+msgid "Common notation for percussion"
 msgstr ""
 
 #. @node in ../../../Documentation/user/percussion.itely
 #. @subsubsection in ../../../Documentation/user/percussion.itely
-#. @node in ../../../Documentation/fr/user/percussion.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/percussion.itely
-#. @node in ../../../Documentation/es/user/percussion.itely
-#. @subsubsection in ../../../Documentation/es/user/percussion.itely
-#. @node in ../../../Documentation/de/user/percussion.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/percussion.itely
-msgid "Showing melody rhythms"
+msgid "References for percussion"
 msgstr ""
 
 #. @node in ../../../Documentation/user/percussion.itely
 #. @subsubsection in ../../../Documentation/user/percussion.itely
-#. @node in ../../../Documentation/fr/user/percussion.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/percussion.itely
-#. @node in ../../../Documentation/es/user/percussion.itely
-#. @subsubsection in ../../../Documentation/es/user/percussion.itely
-#. @node in ../../../Documentation/de/user/percussion.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/percussion.itely
-msgid "Entering percussion"
+msgid "Basic percussion notation"
 msgstr ""
 
 #. @node in ../../../Documentation/user/percussion.itely
@@ -4417,132 +4492,28 @@ msgstr ""
 msgid "Ghost notes"
 msgstr ""
 
-#. @node in ../../../Documentation/user/guitar.itely
-#. @section in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @section in ../../../Documentation/fr/user/guitar.itely
-#. @node in ../../../Documentation/es/user/guitar.itely
-#. @section in ../../../Documentation/es/user/guitar.itely
-#. @node in ../../../Documentation/de/user/guitar.itely
-#. @section in ../../../Documentation/de/user/guitar.itely
-msgid "Guitar"
+#. @node in ../../../Documentation/user/wind.itely
+#. @section in ../../../Documentation/user/wind.itely
+msgid "Wind instruments"
 msgstr ""
 
-#. @node in ../../../Documentation/user/guitar.itely
-#. @subsection in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @subsection in ../../../Documentation/fr/user/guitar.itely
-msgid "Guitar sections"
+#. @node in ../../../Documentation/user/wind.itely
+#. @subsection in ../../../Documentation/user/wind.itely
+msgid "Common notation"
 msgstr ""
 
-#. @node in ../../../Documentation/user/guitar.itely
-#. @subsubsection in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
-#. @node in ../../../Documentation/es/user/guitar.itely
-#. @subsubsection in ../../../Documentation/es/user/guitar.itely
-#. @node in ../../../Documentation/de/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
-msgid "String number indications"
+#. @node in ../../../Documentation/user/wind.itely
+#. @subsubsection in ../../../Documentation/user/wind.itely
+msgid "References for wind instruments"
 msgstr ""
 
-#. @node in ../../../Documentation/user/guitar.itely
-#. @subsubsection in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
-#. @node in ../../../Documentation/es/user/guitar.itely
-#. @subsubsection in ../../../Documentation/es/user/guitar.itely
-#. @node in ../../../Documentation/de/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
-msgid "Tablatures basic"
+#. @node in ../../../Documentation/user/wind.itely
+#. @subsubsection in ../../../Documentation/user/wind.itely
+msgid "Half-holes"
 msgstr ""
 
-#. @node in ../../../Documentation/user/guitar.itely
-#. @subsubsection in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
-#. @node in ../../../Documentation/es/user/guitar.itely
-#. @subsubsection in ../../../Documentation/es/user/guitar.itely
-#. @node in ../../../Documentation/de/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
-msgid "Non-guitar tablatures"
-msgstr ""
-
-#. @node in ../../../Documentation/user/guitar.itely
-#. @subsubsection in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
-#. @node in ../../../Documentation/es/user/guitar.itely
-#. @subsubsection in ../../../Documentation/es/user/guitar.itely
-#. @node in ../../../Documentation/de/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
-msgid "Banjo tablatures"
-msgstr ""
-
-#. @node in ../../../Documentation/user/guitar.itely
-#. @subsubsection in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
-#. @node in ../../../Documentation/es/user/guitar.itely
-#. @subsubsection in ../../../Documentation/es/user/guitar.itely
-#. @node in ../../../Documentation/de/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
-msgid "Fret diagrams"
-msgstr ""
-
-#. @node in ../../../Documentation/user/guitar.itely
-#. @subsubsection in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
-#. @node in ../../../Documentation/es/user/guitar.itely
-#. @subsubsection in ../../../Documentation/es/user/guitar.itely
-#. @node in ../../../Documentation/de/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
-msgid "Right hand fingerings"
-msgstr ""
-
-#. @node in ../../../Documentation/user/guitar.itely
-#. @subsubsection in ../../../Documentation/user/guitar.itely
-#. @node in ../../../Documentation/fr/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
-#. @node in ../../../Documentation/es/user/guitar.itely
-#. @subsubsection in ../../../Documentation/es/user/guitar.itely
-#. @node in ../../../Documentation/de/user/guitar.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
-msgid "Other guitar issues"
-msgstr ""
-
-#. @node in ../../../Documentation/user/strings.itely
-#. @section in ../../../Documentation/user/strings.itely
-#. @node in ../../../Documentation/fr/user/strings.itely
-#. @section in ../../../Documentation/fr/user/strings.itely
-#. @node in ../../../Documentation/es/user/strings.itely
-#. @section in ../../../Documentation/es/user/strings.itely
-#. @node in ../../../Documentation/de/user/strings.itely
-#. @section in ../../../Documentation/de/user/strings.itely
-msgid "Orchestral strings"
-msgstr ""
-
-#. @node in ../../../Documentation/user/strings.itely
-#. @subsection in ../../../Documentation/user/strings.itely
-#. @node in ../../../Documentation/fr/user/strings.itely
-#. @subsection in ../../../Documentation/fr/user/strings.itely
-msgid "Orchestral strings sections"
-msgstr ""
-
-#. @node in ../../../Documentation/user/strings.itely
-#. @subsubsection in ../../../Documentation/user/strings.itely
-#. @node in ../../../Documentation/fr/user/strings.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/strings.itely
-#. @node in ../../../Documentation/es/user/strings.itely
-#. @subsubsection in ../../../Documentation/es/user/strings.itely
-#. @node in ../../../Documentation/de/user/strings.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/strings.itely
-msgid "Artificial harmonics (strings)"
-msgstr ""
-
-#. @node in ../../../Documentation/user/bagpipes.itely
-#. @section in ../../../Documentation/user/bagpipes.itely
+#. @node in ../../../Documentation/user/wind.itely
+#. @subsection in ../../../Documentation/user/wind.itely
 #. @node in ../../../Documentation/fr/user/bagpipes.itely
 #. @section in ../../../Documentation/fr/user/bagpipes.itely
 #. @node in ../../../Documentation/es/user/bagpipes.itely
@@ -4552,13 +4523,8 @@ msgstr ""
 msgid "Bagpipes"
 msgstr ""
 
-#. @node in ../../../Documentation/user/bagpipes.itely
-#. @subsection in ../../../Documentation/user/bagpipes.itely
-msgid "Bagpipe sections"
-msgstr ""
-
-#. @node in ../../../Documentation/user/bagpipes.itely
-#. @subsubsection in ../../../Documentation/user/bagpipes.itely
+#. @node in ../../../Documentation/user/wind.itely
+#. @subsubsection in ../../../Documentation/user/wind.itely
 #. @node in ../../../Documentation/fr/user/bagpipes.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/bagpipes.itely
 #. @node in ../../../Documentation/es/user/bagpipes.itely
@@ -4568,8 +4534,8 @@ msgstr ""
 msgid "Bagpipe definitions"
 msgstr ""
 
-#. @node in ../../../Documentation/user/bagpipes.itely
-#. @subsubsection in ../../../Documentation/user/bagpipes.itely
+#. @node in ../../../Documentation/user/wind.itely
+#. @subsubsection in ../../../Documentation/user/wind.itely
 #. @node in ../../../Documentation/fr/user/bagpipes.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/bagpipes.itely
 #. @node in ../../../Documentation/es/user/bagpipes.itely
@@ -4577,6 +4543,73 @@ msgstr ""
 #. @node in ../../../Documentation/de/user/bagpipes.itely
 #. @unnumberedsubsubsec in ../../../Documentation/de/user/bagpipes.itely
 msgid "Bagpipe example"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @section in ../../../Documentation/user/chords.itely
+msgid "Chord notation"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsection in ../../../Documentation/user/chords.itely
+msgid "Modern chords"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsubsection in ../../../Documentation/user/chords.itely
+msgid "Chord modes"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsubsection in ../../../Documentation/user/chords.itely
+msgid "Entering chord names"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsubsection in ../../../Documentation/user/chords.itely
+msgid "Building chords"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsubsection in ../../../Documentation/user/chords.itely
+msgid "Lead sheets"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsubsection in ../../../Documentation/user/chords.itely
+#. @node in ../../../Documentation/fr/user/chords.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/chords.itely
+#. @node in ../../../Documentation/es/user/chords.itely
+#. @subsubsection in ../../../Documentation/es/user/chords.itely
+#. @node in ../../../Documentation/de/user/chords.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/chords.itely
+msgid "Printing chord names"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsection in ../../../Documentation/user/chords.itely
+#. @node in ../../../Documentation/fr/user/ancient.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/ancient.itely
+#. @node in ../../../Documentation/es/user/ancient.itely
+#. @subsubsection in ../../../Documentation/es/user/ancient.itely
+#. @node in ../../../Documentation/de/user/ancient.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/ancient.itely
+msgid "Figured bass"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsubsection in ../../../Documentation/user/chords.itely
+msgid "Introduction to figured bass"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsubsection in ../../../Documentation/user/chords.itely
+msgid "Entering figures"
+msgstr ""
+
+#. @node in ../../../Documentation/user/chords.itely
+#. @subsubsection in ../../../Documentation/user/chords.itely
+msgid "Repeated figures"
 msgstr ""
 
 #. @node in ../../../Documentation/user/ancient.itely
@@ -4770,17 +4803,6 @@ msgstr ""
 msgid "Musica ficta accidentals"
 msgstr ""
 
-#. @node in ../../../Documentation/user/ancient.itely
-#. @subsection in ../../../Documentation/user/ancient.itely
-#. @node in ../../../Documentation/fr/user/ancient.itely
-#. @unnumberedsubsubsec in ../../../Documentation/fr/user/ancient.itely
-#. @node in ../../../Documentation/es/user/ancient.itely
-#. @subsubsection in ../../../Documentation/es/user/ancient.itely
-#. @node in ../../../Documentation/de/user/ancient.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/ancient.itely
-msgid "Figured bass"
-msgstr ""
-
 #. @node in ../../../Documentation/user/input.itely
 #. @chapter in ../../../Documentation/user/input.itely
 #. @node in ../../../Documentation/fr/user/input.itely
@@ -4895,6 +4917,8 @@ msgstr ""
 #. @subsection in ../../../Documentation/user/input.itely
 #. @node in ../../../Documentation/es/user/input.itely
 #. @subsection in ../../../Documentation/es/user/input.itely
+#. @node in ../../../Documentation/de/user/input.itely
+#. @subsection in ../../../Documentation/de/user/input.itely
 msgid "Controlling direction and placement"
 msgstr ""
 
@@ -4913,6 +4937,8 @@ msgstr ""
 #. @subsection in ../../../Documentation/user/input.itely
 #. @node in ../../../Documentation/es/user/input.itely
 #. @subsection in ../../../Documentation/es/user/input.itely
+#. @node in ../../../Documentation/de/user/input.itely
+#. @subsection in ../../../Documentation/de/user/input.itely
 msgid "When to add a -"
 msgstr ""
 
@@ -5109,8 +5135,6 @@ msgstr ""
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/non-music.itely
 #. @node in ../../../Documentation/es/user/non-music.itely
 #. @subsubsection in ../../../Documentation/es/user/non-music.itely
-#. @node in ../../../Documentation/de/user/repeats.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
 #. @node in ../../../Documentation/de/user/non-music.itely
 #. @subsubsection in ../../../Documentation/de/user/non-music.itely
 msgid "Repeats and MIDI"
@@ -5499,8 +5523,6 @@ msgstr ""
 #. @section in ../../../Documentation/fr/user/tweaks.itely
 #. @node in ../../../Documentation/fr/user/spacing.itely
 #. @subsection in ../../../Documentation/fr/user/spacing.itely
-#. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/es/user/spacing.itely
 #. @subsection in ../../../Documentation/es/user/spacing.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
@@ -5719,16 +5741,22 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @section in ../../../Documentation/user/changing-defaults.itely
+#. @node in ../../../Documentation/de/user/changing-defaults.itely
+#. @section in ../../../Documentation/de/user/changing-defaults.itely
 msgid "Discussion of specific tweaks"
 msgstr ""
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
+#. @node in ../../../Documentation/de/user/changing-defaults.itely
+#. @subsection in ../../../Documentation/de/user/changing-defaults.itely
 msgid "Line styles"
 msgstr ""
 
 #. @node in ../../../Documentation/user/changing-defaults.itely
 #. @subsection in ../../../Documentation/user/changing-defaults.itely
+#. @node in ../../../Documentation/de/user/changing-defaults.itely
+#. @subsection in ../../../Documentation/de/user/changing-defaults.itely
 msgid "Controlling visibility of objects"
 msgstr ""
 
@@ -6132,20 +6160,12 @@ msgstr ""
 
 #. @node in ../../../Documentation/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
-#. @node in ../../../Documentation/fr/user/notation-appendices.itely
-#. @appendixsec in ../../../Documentation/fr/user/notation-appendices.itely
-#. @node in ../../../Documentation/es/user/notation-appendices.itely
-#. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
-msgid "Overview of text markup commands"
+msgid "Text markup commands"
 msgstr ""
 
 #. @node in ../../../Documentation/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
-#. @node in ../../../Documentation/fr/user/notation-appendices.itely
-#. @appendixsec in ../../../Documentation/fr/user/notation-appendices.itely
-#. @node in ../../../Documentation/es/user/notation-appendices.itely
-#. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
-msgid "Overview of text markup list commands"
+msgid "Text markup list commands"
 msgstr ""
 
 #. @node in ../../../Documentation/user/notation-appendices.itely
@@ -6161,6 +6181,8 @@ msgstr ""
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
 #. @node in ../../../Documentation/fr/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/fr/user/notation-appendices.itely
+#. @node in ../../../Documentation/es/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
 msgid "All context properties"
 msgstr ""
 
@@ -6168,6 +6190,8 @@ msgstr ""
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
 #. @node in ../../../Documentation/fr/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/fr/user/notation-appendices.itely
+#. @node in ../../../Documentation/es/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
 msgid "Layout properties"
 msgstr ""
 
@@ -6175,6 +6199,8 @@ msgstr ""
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
 #. @node in ../../../Documentation/fr/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/fr/user/notation-appendices.itely
+#. @node in ../../../Documentation/es/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
 msgid "Identifiers"
 msgstr ""
 
@@ -6182,6 +6208,8 @@ msgstr ""
 #. @appendixsec in ../../../Documentation/user/notation-appendices.itely
 #. @node in ../../../Documentation/fr/user/notation-appendices.itely
 #. @appendixsec in ../../../Documentation/fr/user/notation-appendices.itely
+#. @node in ../../../Documentation/es/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
 msgid "Scheme functions"
 msgstr ""
 
@@ -6229,8 +6257,22 @@ msgstr ""
 msgid "Autre documentation"
 msgstr ""
 
+#. @subsubheading in ../../../Documentation/fr/user/tutorial.itely
+#. @subsubheading in ../../../Documentation/de/user/tutorial.itely
+msgid "Unix"
+msgstr ""
+
 #. @rglos in ../../../Documentation/fr/user/tutorial.itely
 msgid "fourth"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/tutorial.itely
+#. @subsection in ../../../Documentation/fr/user/tutorial.itely
+#. @node in ../../../Documentation/es/user/tutorial.itely
+#. @subsection in ../../../Documentation/es/user/tutorial.itely
+#. @node in ../../../Documentation/de/user/tutorial.itely
+#. @subsection in ../../../Documentation/de/user/tutorial.itely
+msgid "Working on text files"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/tutorial.itely
@@ -6255,13 +6297,25 @@ msgstr ""
 
 #. @node in ../../../Documentation/fr/user/tutorial.itely
 #. @subsection in ../../../Documentation/fr/user/tutorial.itely
+msgid "A lead sheet"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/tutorial.itely
+#. @subsection in ../../../Documentation/fr/user/tutorial.itely
 msgid "Organizing pieces with identifiers"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/fundamental.itely
+#. @section in ../../../Documentation/fr/user/fundamental.itely
+#. @node in ../../../Documentation/es/user/fundamental.itely
+#. @section in ../../../Documentation/es/user/fundamental.itely
+#. @node in ../../../Documentation/de/user/fundamental.itely
+#. @section in ../../../Documentation/de/user/fundamental.itely
+msgid "How LilyPond files work"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
-#. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Common tweaks"
@@ -6269,8 +6323,6 @@ msgstr ""
 
 #. @node in ../../../Documentation/fr/user/tweaks.itely
 #. @section in ../../../Documentation/fr/user/tweaks.itely
-#. @node in ../../../Documentation/es/user/tweaks.itely
-#. @section in ../../../Documentation/es/user/tweaks.itely
 #. @node in ../../../Documentation/de/user/tweaks.itely
 #. @section in ../../../Documentation/de/user/tweaks.itely
 msgid "Default files"
@@ -6278,9 +6330,20 @@ msgstr ""
 
 #. @node in ../../../Documentation/fr/user/working.itely
 #. @section in ../../../Documentation/fr/user/working.itely
+#. @node in ../../../Documentation/es/user/working.itely
+#. @section in ../../../Documentation/es/user/working.itely
 #. @node in ../../../Documentation/de/user/working.itely
 #. @section in ../../../Documentation/de/user/working.itely
-msgid "Saving typing with identifiers and functions"
+msgid "Suggestions for writing LilyPond files"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/working.itely
+#. @subsection in ../../../Documentation/fr/user/working.itely
+#. @node in ../../../Documentation/es/user/working.itely
+#. @subsection in ../../../Documentation/es/user/working.itely
+#. @node in ../../../Documentation/de/user/working.itely
+#. @subsection in ../../../Documentation/de/user/working.itely
+msgid "Updating old files"
 msgstr ""
 
 #. @top in ../../../Documentation/fr/user/lilypond-program.tely
@@ -6376,50 +6439,44 @@ msgstr ""
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @subsection in ../../../Documentation/fr/user/repeats.itely
-#. @node in ../../../Documentation/de/user/repeats.itely
-#. @subsection in ../../../Documentation/de/user/repeats.itely
 msgid "Writing repeats"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/repeats.itely
 #. @node in ../../../Documentation/de/user/repeats.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
+#. @subsubsection in ../../../Documentation/de/user/repeats.itely
 msgid "Repeat types"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/repeats.itely
 #. @node in ../../../Documentation/de/user/repeats.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
+#. @subsubsection in ../../../Documentation/de/user/repeats.itely
 msgid "Repeat syntax"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/repeats.itely
 #. @node in ../../../Documentation/de/user/repeats.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
+#. @subsubsection in ../../../Documentation/de/user/repeats.itely
 msgid "Manual repeat commands"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @subsection in ../../../Documentation/fr/user/repeats.itely
-#. @node in ../../../Documentation/de/user/repeats.itely
-#. @subsection in ../../../Documentation/de/user/repeats.itely
 msgid "Other repeats"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/repeats.itely
 #. @node in ../../../Documentation/de/user/repeats.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
+#. @subsubsection in ../../../Documentation/de/user/repeats.itely
 msgid "Tremolo subdivisions"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/repeats.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/repeats.itely
-#. @node in ../../../Documentation/de/user/repeats.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/repeats.itely
 msgid "Measure repeats"
 msgstr ""
 
@@ -6452,9 +6509,48 @@ msgstr ""
 
 #. @node in ../../../Documentation/fr/user/editorial.itely
 #. @subsubsection in ../../../Documentation/fr/user/editorial.itely
-#. @node in ../../../Documentation/de/user/editorial.itely
-#. @subsection in ../../../Documentation/de/user/editorial.itely
 msgid "Blank music sheet"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/text.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
+#. @node in ../../../Documentation/es/user/text.itely
+#. @subsubsection in ../../../Documentation/es/user/text.itely
+msgid "Text and line spanners"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/text.itely
+#. @subsection in ../../../Documentation/fr/user/text.itely
+#. @node in ../../../Documentation/es/user/text.itely
+#. @subsection in ../../../Documentation/es/user/text.itely
+msgid "Text markup"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/text.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
+#. @node in ../../../Documentation/es/user/text.itely
+#. @subsubsection in ../../../Documentation/es/user/text.itely
+#. @node in ../../../Documentation/de/user/text.itely
+#. @subsubsection in ../../../Documentation/de/user/text.itely
+msgid "Nested scores"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/text.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
+#. @node in ../../../Documentation/es/user/text.itely
+#. @subsubsection in ../../../Documentation/es/user/text.itely
+#. @node in ../../../Documentation/de/user/text.itely
+#. @subsubsection in ../../../Documentation/de/user/text.itely
+msgid "Page wrapping text"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/text.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/text.itely
+#. @node in ../../../Documentation/es/user/text.itely
+#. @subsubsection in ../../../Documentation/es/user/text.itely
+#. @node in ../../../Documentation/de/user/text.itely
+#. @subsubsection in ../../../Documentation/de/user/text.itely
+msgid "Font selection"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/vocal.itely
@@ -6464,12 +6560,251 @@ msgstr ""
 
 #. @node in ../../../Documentation/fr/user/vocal.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "Another way of entering lyrics"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/vocal.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "Assigning more than one syllable to a single note"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/vocal.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "More than one note on a single syllable"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/vocal.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
 msgid "Working with lyrics and identifiers"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/vocal.itely
 #. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsection in ../../../Documentation/de/user/vocal.itely
+msgid "Flexibility in placement"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/vocal.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "Lyrics to multiple notes of a melisma"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/vocal.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "Switching the melody associated with a lyrics line"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/vocal.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "Spacing lyrics"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/vocal.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsection in ../../../Documentation/de/user/vocal.itely
+msgid "More about stanzas"
+msgstr ""
+
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "Adding dynamics marks"
+msgstr ""
+
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsubsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsubsection in ../../../Documentation/de/user/vocal.itely
+msgid "Adding singer names"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/vocal.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/vocal.itely
 msgid "Other vocal issues"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/chords.itely
+#. @section in ../../../Documentation/fr/user/chords.itely
+#. @node in ../../../Documentation/de/user/simultaneous.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/simultaneous.itely
+msgid "Chords"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/chords.itely
+#. @subsection in ../../../Documentation/fr/user/chords.itely
+msgid "Chords sections"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/chords.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/chords.itely
+#. @node in ../../../Documentation/es/user/chords.itely
+#. @subsubsection in ../../../Documentation/es/user/chords.itely
+#. @node in ../../../Documentation/de/user/chords.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/chords.itely
+msgid "Introducing chord names"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/chords.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/chords.itely
+#. @node in ../../../Documentation/es/user/chords.itely
+#. @subsubsection in ../../../Documentation/es/user/chords.itely
+#. @node in ../../../Documentation/de/user/chords.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/chords.itely
+msgid "Chords mode"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/piano.itely
+#. @section in ../../../Documentation/fr/user/piano.itely
+#. @node in ../../../Documentation/es/user/piano.itely
+#. @section in ../../../Documentation/es/user/piano.itely
+#. @node in ../../../Documentation/de/user/piano.itely
+#. @section in ../../../Documentation/de/user/piano.itely
+msgid "Piano music"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/piano.itely
+#. @subsection in ../../../Documentation/fr/user/piano.itely
+#. @node in ../../../Documentation/es/user/piano.itely
+#. @subsection in ../../../Documentation/es/user/piano.itely
+msgid "Piano sections"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
+#. @node in ../../../Documentation/es/user/piano.itely
+#. @subsubsection in ../../../Documentation/es/user/piano.itely
+#. @node in ../../../Documentation/de/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
+msgid "Automatic staff changes"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
+#. @node in ../../../Documentation/es/user/piano.itely
+#. @subsubsection in ../../../Documentation/es/user/piano.itely
+#. @node in ../../../Documentation/de/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
+msgid "Manual staff switches"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
+#. @node in ../../../Documentation/es/user/piano.itely
+#. @subsubsection in ../../../Documentation/es/user/piano.itely
+#. @node in ../../../Documentation/de/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
+msgid "Pedals"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
+#. @node in ../../../Documentation/es/user/piano.itely
+#. @subsubsection in ../../../Documentation/es/user/piano.itely
+#. @node in ../../../Documentation/de/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
+msgid "Staff switch lines"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/piano.itely
+#. @node in ../../../Documentation/es/user/piano.itely
+#. @subsubsection in ../../../Documentation/es/user/piano.itely
+#. @node in ../../../Documentation/de/user/piano.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/piano.itely
+msgid "Cross staff stems"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/percussion.itely
+#. @subsection in ../../../Documentation/fr/user/percussion.itely
+msgid "Percussion sections"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/percussion.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/percussion.itely
+#. @node in ../../../Documentation/es/user/percussion.itely
+#. @subsubsection in ../../../Documentation/es/user/percussion.itely
+#. @node in ../../../Documentation/de/user/percussion.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/percussion.itely
+msgid "Entering percussion"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @subsection in ../../../Documentation/fr/user/guitar.itely
+msgid "Guitar sections"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
+#. @node in ../../../Documentation/es/user/guitar.itely
+#. @subsubsection in ../../../Documentation/es/user/guitar.itely
+#. @node in ../../../Documentation/de/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
+msgid "Tablatures basic"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
+#. @node in ../../../Documentation/es/user/guitar.itely
+#. @subsubsection in ../../../Documentation/es/user/guitar.itely
+#. @node in ../../../Documentation/de/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
+msgid "Non-guitar tablatures"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/fr/user/guitar.itely
+#. @node in ../../../Documentation/es/user/guitar.itely
+#. @subsubsection in ../../../Documentation/es/user/guitar.itely
+#. @node in ../../../Documentation/de/user/guitar.itely
+#. @unnumberedsubsubsec in ../../../Documentation/de/user/guitar.itely
+msgid "Other guitar issues"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/strings.itely
+#. @section in ../../../Documentation/fr/user/strings.itely
+#. @node in ../../../Documentation/es/user/strings.itely
+#. @section in ../../../Documentation/es/user/strings.itely
+#. @node in ../../../Documentation/de/user/strings.itely
+#. @section in ../../../Documentation/de/user/strings.itely
+msgid "Orchestral strings"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/strings.itely
+#. @subsection in ../../../Documentation/fr/user/strings.itely
+msgid "Orchestral strings sections"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/bagpipes.itely
@@ -6492,14 +6827,26 @@ msgstr ""
 
 #. @node in ../../../Documentation/fr/user/input.itely
 #. @subsection in ../../../Documentation/fr/user/input.itely
-#. @node in ../../../Documentation/de/user/input.itely
-#. @subsection in ../../../Documentation/de/user/input.itely
 msgid "Controlling direction"
 msgstr ""
 
 #. @node in ../../../Documentation/fr/user/changing-defaults.itely
 #. @section in ../../../Documentation/fr/user/changing-defaults.itely
 msgid "Automatic notation"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/fr/user/notation-appendices.itely
+#. @node in ../../../Documentation/es/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
+msgid "Overview of text markup commands"
+msgstr ""
+
+#. @node in ../../../Documentation/fr/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/fr/user/notation-appendices.itely
+#. @node in ../../../Documentation/es/user/notation-appendices.itely
+#. @appendixsec in ../../../Documentation/es/user/notation-appendices.itely
+msgid "Overview of text markup list commands"
 msgstr ""
 
 #. @subsubheading in ../../../Documentation/es/user/macros.itexi
@@ -6534,8 +6881,17 @@ msgstr ""
 msgid "negra"
 msgstr ""
 
+#. @node in ../../../Documentation/es/user/tweaks.itely
+#. @subsection in ../../../Documentation/es/user/tweaks.itely
+msgid "Automatic behaviour"
+msgstr ""
+
 #. @top in ../../../Documentation/es/user/lilypond.tely
 msgid "GNU LilyPond --- El tipografiador de música"
+msgstr ""
+
+#. @rglos in ../../../Documentation/es/user/pitches.itely
+msgid "quarter-tone"
 msgstr ""
 
 #. @rglos in ../../../Documentation/es/user/expressive.itely
@@ -6556,6 +6912,27 @@ msgstr ""
 
 #. @rglos in ../../../Documentation/es/user/expressive.itely
 msgid "broken chord"
+msgstr ""
+
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsection in ../../../Documentation/de/user/vocal.itely
+msgid "Simple lyrics"
+msgstr ""
+
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsection in ../../../Documentation/de/user/vocal.itely
+msgid "Vocals and variables"
+msgstr ""
+
+#. @node in ../../../Documentation/es/user/vocal.itely
+#. @subsection in ../../../Documentation/es/user/vocal.itely
+#. @node in ../../../Documentation/de/user/vocal.itely
+#. @subsection in ../../../Documentation/de/user/vocal.itely
+msgid "Spacing vocals"
 msgstr ""
 
 #. @node in ../../../Documentation/es/user/chords.itely
@@ -6617,19 +6994,9 @@ msgstr ""
 msgid "acciacccatura"
 msgstr ""
 
-#. @node in ../../../Documentation/de/user/putting.itely
-#. @chapter in ../../../Documentation/de/user/putting.itely
-msgid "Putting it all together"
-msgstr ""
-
-#. @node in ../../../Documentation/de/user/putting.itely
-#. @section in ../../../Documentation/de/user/putting.itely
-msgid "Score is a single musical expression"
-msgstr ""
-
-#. @node in ../../../Documentation/de/user/putting.itely
-#. @section in ../../../Documentation/de/user/putting.itely
-msgid "An orchestral part"
+#. @node in ../../../Documentation/de/user/templates.itely
+#. @appendixsec in ../../../Documentation/de/user/templates.itely
+msgid "Lilypond-book templates"
 msgstr ""
 
 #. @top in ../../../Documentation/de/user/lilypond-program.tely
@@ -6638,16 +7005,6 @@ msgstr ""
 
 #. @top in ../../../Documentation/de/user/lilypond.tely
 msgid "GNU LilyPond -- Das Notationsprogramm"
-msgstr ""
-
-#. @node in ../../../Documentation/de/user/editorial.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/editorial.itely
-msgid "Easy Notation note heads"
-msgstr ""
-
-#. @node in ../../../Documentation/de/user/editorial.itely
-#. @unnumberedsubsubsec in ../../../Documentation/de/user/editorial.itely
-msgid "Special noteheads"
 msgstr ""
 
 #. @node in ../../../Documentation/de/user/piano.itely

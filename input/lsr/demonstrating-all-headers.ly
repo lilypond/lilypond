@@ -4,10 +4,13 @@
 
 \header {
   lsrtags = "text, paper-and-layout, titles"
- texidoc = "
+
+  texidoc = "
 A demonstration of all headers.
-" }
-% begin verbatim
+
+"
+  doctitle = "Demonstrating all headers"
+} % begin verbatim
 \header {
   copyright = "copyright"
   title = "title"

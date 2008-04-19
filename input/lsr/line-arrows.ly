@@ -3,11 +3,11 @@
 \version "2.11.38"
 \layout { ragged-right= ##t }
 \header {
-  doctitle = "Line arrows"
   lsrtags = "expressive-marks"
   texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
-}
-% begin verbatim
+  doctitle = "Line arrows"
+} % begin verbatim
+
 \relative c'' {
   \override TextSpanner #'bound-padding = #1.0
   \override TextSpanner #'dash-fraction = #'()

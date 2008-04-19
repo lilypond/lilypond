@@ -4,22 +4,27 @@
 
 \header {
   lsrtags = "pitches, editorial-and-educational-use"
- texidoc = "
-The @code{shapeNoteStyles} property gives you the ability to define
-various note head styles for each step of the scale (as defined by the
-key signature or the \"tonic\" property). This property requires a set
-of symbols, which can be purely arbitrary (geometrical expressions such
-as @code{triangle}, @code{cross}, @code{xcircle} etc. are allowed) or
-based on old American engraving tradition (you can use some latin note
-names as well). That said, if you're trying to imitate old American
-song books, you may also want to try LilyPond's predefined note head
-styles, through shortcut commands such as @code{\\aikenHeads} or
-@code{\\sacredHarpHeads}. This example shows different ways to obtain
-shape note heads, and demonstrates the ability to transpose a melody
-without losing the correspondence between harmonic functions and note
-head styles. 
-" }
-% begin verbatim
+
+  texidoc = "
+The @code{shapeNoteStyles} property can be used to define various note
+head styles for each step of the scale (as set by the key signature or
+the \"tonic\" property). This property requires a set of symbols, which
+can be purely arbitrary (geometrical expressions such as
+@code{triangle}, @code{cross}, and @code{xcircle} are allowed) or based
+on old American engraving tradition (some latin note names are also
+allowed).
+
+That said, to imitate old American song books, there are several
+predefined note head styles available through shortcut commands such as
+@code{\\aikenHeads} or @code{\\sacredHarpHeads}.
+
+This example shows different ways to obtain shape note heads, and
+demonstrates the ability to transpose a melody without losing the
+correspondence between harmonic functions and note head styles. 
+
+"
+  doctitle = "Applying note head styles depending on the step of the scale"
+} % begin verbatim
 fragment = {
   \key c \major
   c2 d e f g a b c

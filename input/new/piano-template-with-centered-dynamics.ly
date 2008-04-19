@@ -1,13 +1,14 @@
 \version "2.11.35"
 
 \header {
-  doctitle = "Piano template with centered dynamics"
-  lsrtags = "expressive-marks,piano-music,template"
+  lsrtags = "expressive-marks,keyboards,template"
   texidoc = "
 Many piano scores have the dynamics centered between the two staves.
 This requires a bit of tweaking to implement, but since the template is
 right here, you don't have to do the tweaking yourself.
-" }
+"
+  doctitle = "Piano template with centered dynamics"
+}
 
 upper = \relative c'' {
   \clef treble

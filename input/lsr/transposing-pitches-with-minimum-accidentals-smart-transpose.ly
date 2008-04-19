@@ -2,18 +2,34 @@
 %% This file is in the public domain.
 \version "2.11.38"
 \header {
-  doctitle = "Transposing music with minimum accidentals"
   lsrtags = "pitches"
- texidoc = "There is a way to enforce enharmonic modifications for
+  texidoc = "This example uses some Scheme code to enforce enharmonic modifications for
 notes in order to have the minimum number of accidentals. In this
 case, the following rules apply:
 
-\"Double accidentals should be removed, as well as E sharp (-> F),
-C flat (-> B), F flat (-> E) and B sharp (-> C)\".
+@itemize
+@item
+Double accidentals should be removed
+
+@item
+B sharp -> C
+
+@item
+E sharp -> F
+
+@item
+C flat -> B
+
+@item
+F flat -> E
+
+@end itemize
 
 In this manner, the most natural enharmonic notes are chosen.
-"}
-% begin verbatim
+"
+  doctitle = "Transposing music with minimum accidentals"
+} % begin verbatim
+
 #(define  (naturalize-pitch p)
   (let* ((o (ly:pitch-octave p))
          (a (* 4 (ly:pitch-alteration p))) 

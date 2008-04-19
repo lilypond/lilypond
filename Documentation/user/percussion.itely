@@ -12,44 +12,36 @@
 @section Percussion
 
 @menu
-* Percussion sections::         
+* Common notation for percussion::
 @end menu
 
-@node Percussion sections
-@subsection Percussion sections
+@node Common notation for percussion
+@subsection Common notation for percussion
 
 Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
 
 @menu
-* Showing melody rhythms::      
-* Entering percussion::         
-* Percussion staves::           
-* Ghost notes::                 
+* References for percussion::
+* Basic percussion notation::
+* Percussion staves::
+* Ghost notes::
 @end menu
 
+@node References for percussion
+@subsubsection References for percussion
 
-@node Showing melody rhythms
-@subsubsection Showing melody rhythms
+@c TODO Add refs
+TBC
 
-Sometimes you might want to show only the rhythm of a melody.  This
-can be done with the rhythmic staff.  All pitches of notes on such a
-staff are squashed, and the staff itself has a single line
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new RhythmicStaff {
-  \time 4/4
-  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
-}
-@end lilypond
 
 @seealso
 
 Internals Reference: @internalsref{RhythmicStaff}.
 
 
-@node Entering percussion
-@subsubsection Entering percussion
+@node Basic percussion notation
+@subsubsection Basic percussion notation
 
 @cindex percussion
 @cindex drums
@@ -57,8 +49,10 @@ Internals Reference: @internalsref{RhythmicStaff}.
 
 Percussion notes may be entered in @code{\drummode} mode, which is
 similar to the standard mode for entering notes.  Each piece of
-percussion has a full name and an abbreviated name, and both can be used
-in input files
+percussion has a full name and an abbreviated name, and both can
+be used in input files.  The simplest way to enter percussion notes
+is to use the @code{\drums} command, which creates the correct
+context and entry mode for percussion:
 
 @lilypond[quote,ragged-right,verbatim]
 \drums {
@@ -66,9 +60,44 @@ in input files
 }
 @end lilypond
 
+This is shorthand for
+
+@lilypond[quote,ragged-right,verbatim]
+\new DrumStaff
+\drummode {
+  hihat hh bassdrum bd
+}
+@end lilypond
+
+
 The complete list of drum names is in the init file
 @file{ly/@/drumpitch@/-init@/.ly}.
 @c TODO: properly document this.
+
+Drum rolls are indicated with three slashes across the stem.
+For quarter notes or longer the three slashes are shown explicitly,
+eighth notes are shown with two slashes (the beam being the third),
+and drum rolls shorter than eighths have one stem slash to
+supplement the beams.  This is achieved with the tremolo notation,
+@code{:32}, see @ref{Tremolo repeats}.  Here's an example of
+some snare rolls:
+
+@lilypond[quote,ragged-right,verbatim]
+\new DrumStaff
+\drummode {
+  \time 2/4
+  sn16 sn8 sn16 sn8 sn8:32~ |
+  sn8 sn8 sn4:32~ |
+  sn4 sn8 sn16 sn16 |
+  sn4 r4 |
+}
+@end lilypond
+
+Sticking can be indicated by placing @code{^"R"} or @code{^"L"}
+after the note.  The @code{staff-padding} property may be
+overridden to achieve a pleasing baseline.
+
+@c TODO Add example of sticking
 
 @seealso
 

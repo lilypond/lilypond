@@ -28,8 +28,9 @@ TAGS.extend (['pitches', 'rhythms', 'expressive-marks',
 'repeats', 'simultaneous-notes', 'staff-notation',
 'editorial-and-educational-use', 'text'])
 # NR 2
-TAGS.extend (['vocal-music', 'chords', 'piano-music',
-'percussion', 'guitar', 'strings', 'bagpipes', 'ancient-notation'])
+TAGS.extend (['vocal-music', 'chords', 'keyboards',
+'percussion', 'fretted-strings', 'unfretted-strings', 'ancient-notation' # ,'winds'
+])
 
 # other
 TAGS.extend (['contexts-and-engravers', 'tweaks-and-overrides',
@@ -52,10 +53,10 @@ unconverted = []
 notags_files = []
 
 # mark the section that will be printed verbatim by lilypond-book
-end_header_re = re.compile ('(\\header {.+?(?:"\\s*|\\s+)}\n)\n', re.M | re.S)
+end_header_re = re.compile ('(\\header {.+?doctitle = ".+?})\n', re.M | re.S)
 
 def mark_verbatim_section (ly_code):
-	return end_header_re.sub ('\\1% begin verbatim\n', ly_code, 1)
+	return end_header_re.sub ('\\1 % begin verbatim\n', ly_code, 1)
 
 begin_header_re = re.compile ('\\header\\s*{', re.M)
 

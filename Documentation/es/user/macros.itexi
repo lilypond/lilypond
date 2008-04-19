@@ -6,9 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@macro version
-@value{version}
-@end macro
+@include version.itexi
 
 @c   ***** Displaying text *****
 
@@ -318,24 +316,20 @@
 @end macro
 
 @macro rprogram{TEXT}
-el manual de utilización del programa, @ref{\TEXT\,,,lilypond-program.es,Utilización del Programa}
-@c @internalsref{\TEXT\}
+@ref{\TEXT\,,,lilypond-program.es,Utilización del Programa}
 @end macro
 
 @macro ruser{TEXT}
-el manual de referencia de la notación, @ref{\TEXT\,,,lilypond.es,Referencia de la Notación}
-@c @internalsref{\TEXT\}
+@ref{\TEXT\,,,lilypond.es,Referencia de la Notación}
 @end macro
 
 @macro rlearning{TEXT}
-el manual de aprendizaje, @ref{\TEXT\,,,lilypond-learning.es,Manual de Aprendizaje}
-@c @internalsref{\TEXT\}
+@ref{\TEXT\,,,lilypond-learning.es,Manual de Aprendizaje}
 @end macro
 
 @macro rlsr{TEXT}
 @ref{\TEXT\,,,lilypond-snippets,Fragmentos de código}
 @end macro
-
 
 
 @end iftex

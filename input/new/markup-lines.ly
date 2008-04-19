@@ -1,10 +1,10 @@
 \version "2.11.25"
 
 \header {
-  doctitle = "Markup lines"
   lsrtags = "text"
   texidoc = "Text that can spread over pages is entered with the
 @code{\\markuplines} command."
+  doctitle = "Markup lines"
 }
 
 #(set-default-paper-size "a6")

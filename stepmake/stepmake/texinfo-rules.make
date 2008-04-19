@@ -8,35 +8,28 @@
 # symlinks, see replace_symlinks_urls in
 # buildscripts/add_html_footer.py.
 
-ifneq ($(INFO_IMAGES_DIR),'')
-
 # make dereferences symlinks, and $(INFO_IMAGES_DIR) is a symlink
 # to $(outdir), so we can't use directly $(INFO_IMAGES_DIR) as a
 # prerequisite, otherwise %.info are always outdated (because older
 # than $(outdir), hence this .dep file
 
-$(outdir)/%.info-images-dir.dep: $(outdir)/%.texi
-	rm -f $*
-	ln -s $(outdir) $*
-	mkdir -p $(outdir)/$*
-	find $(outdir)/$*/ -name '*'.png | xargs rm -f
-	(cd $(outdir)/$*/ ; ln -sf ../*.png . )
-	touch $@
-
-else
-
-$(outdir)/.info-images-dir.dep:
-	touch $@
-
+$(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep: $(INFO_DOCS:%=$(outdir)/%.texi)
+ifneq ($(INFO_IMAGES_DIR),)
+	rm -f $(INFO_IMAGES_DIR)
+	ln -s $(outdir) $(INFO_IMAGES_DIR)
+	mkdir -p $(outdir)/$(INFO_IMAGES_DIR)
+	rm -f $(outdir)/$(INFO_IMAGES_DIR)/[a-f0-9][a-f0-9]
+	cd $(outdir)/$(INFO_IMAGES_DIR) && $(PYTHON) $(top-src-dir)/buildscripts/mass-link.py symbolic .. . [a-f0-9][a-f0-9]
 endif
+	touch $@
 
-$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
 
-$(outdir)/%.html: $(outdir)/%.texi
+$(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
 
 $(outdir)/%.html.omf: %.texi
@@ -48,19 +41,22 @@ $(outdir)/%.pdf.omf: %.texi
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
 
-$(outdir)/%/index.html: $(outdir)/%.texi
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
 	mkdir -p $(dir $@)
 	$(MAKEINFO) -I $(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 
-$(outdir)/%.pdf: $(outdir)/%.texi
+$(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
-$(outdir)/%.txt: $(outdir)/%.texi
+$(outdir)/%.txt: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(src-dir) -I $(outdir) --no-split --no-headers --output $@ $<
 
 $(outdir)/%.texi: %.texi
 	rm -f $@
 	cp $< $@
 
-
+$(outdir)/version.%: $(top-src-dir)/VERSION
+	echo '@macro version'> $@
+	echo $(TOPLEVEL_VERSION)>> $@
+	echo '@end macro'>> $@
 

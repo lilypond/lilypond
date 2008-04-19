@@ -28,6 +28,7 @@ TODO:
 
 '''
 
+import glob
 import md5
 import os
 import re
@@ -134,6 +135,12 @@ def get_option_parser ():
                   action='store', dest='info_images_dir',
                   default='')
 
+    p.add_option ('--latex',
+                  help=_ ("Run executable PROG instead of latex"),
+                  metavar=_ ("PROG"),
+                  action='store', dest='latex_program',
+                  default='latex')
+
     p.add_option ('--left-padding', 
                   metavar=_ ("PAD"),
                   dest="padding_mm",
@@ -209,6 +216,8 @@ global_options = None
 
 
 default_ly_options = { 'alt': "[image of music]" }
+
+document_language = ''
 
 #
 # Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
@@ -823,6 +832,7 @@ def verbatim_html (s):
 
 texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
 def set_default_options (source, default_ly_options, format):
+    global document_language
     if LINE_WIDTH not in default_ly_options:
         if format == LATEX:
             textwidth = get_latex_textwidth (source)
@@ -830,9 +840,9 @@ def set_default_options (source, default_ly_options, format):
         elif format == TEXINFO:
             m = texinfo_lang_re.search (source)
             if m and not m.group (1).startswith ('en'):
-                default_ly_options[LANG] = m.group (1)
+                document_language = m.group (1)
             else:
-                default_ly_options[LANG] = ''
+                document_language = ''
             for regex in texinfo_line_widths:
                 # FIXME: @layout is usually not in
                 # chunk #0:
@@ -1107,19 +1117,16 @@ class LilypondSnippet (Snippet):
         return self.checksum
 
     def basename (self):
-        if FILENAME in self.option_dict:
-            return self.option_dict[FILENAME]
-
         cs = self.get_checksum ()
-
-        # TODO: use xx/xxxxx directory layout.
-        name = 'lily-%s' % cs[:10]
+        name = '%s/lily-%s' % (cs[:2], cs[2:10])
         return name
 
     def write_ly (self):
         base = self.basename ()
         path = os.path.join (global_options.lily_output_dir, base)
-
+        directory = os.path.split(path)[0]
+        if not os.path.isdir (directory):
+            os.makedirs (directory)
         out = file (path + '.ly', 'w')
         out.write (self.full_ly ())
         file (path + '.txt', 'w').write ('image of music')
@@ -1140,6 +1147,9 @@ class LilypondSnippet (Snippet):
 
             src = os.path.join (output_dir, name)
             dst = os.path.join (destination, name)
+            dst_path = os.path.split(dst)[0]
+            if not os.path.isdir (dst_path):
+                os.makedirs (dst_path)
             os.link (src, dst)
 
         
@@ -1320,7 +1330,7 @@ class LilypondSnippet (Snippet):
         base = self.basename ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
-            translated_texidoc = texidoc + default_ly_options[LANG]
+            translated_texidoc = texidoc + document_language
             if os.path.exists (translated_texidoc):
                 str += '@include %(translated_texidoc)s\n\n' % vars ()
             elif os.path.exists (texidoc):
@@ -1527,9 +1537,9 @@ def process_snippets (cmd, snippets,
 
     checksum = snippet_list_checksum (snippets)
     contents = '\n'.join (['snippet-map-%d.ly' % checksum] 
-                          + [snip.basename() for snip in snippets])
+                          + [snip.basename() + '.ly' for snip in snippets])
     name = os.path.join (lily_output_dir,
-                         'snippet-names-%d' % checksum)
+                         'snippet-names-%d.ly' % checksum)
     file (name, 'wb').write (contents)
 
     system_in_directory (' '.join ([cmd, name]),
@@ -1568,7 +1578,8 @@ def get_latex_textwidth (source):
     tmp_handle.write (latex_document)
     tmp_handle.close ()
     
-    ly.system ('latex %s' % tmpfile, be_verbose=global_options.verbose)
+    ly.system ('%s %s' % (global_options.latex_program, tmpfile),
+               be_verbose=global_options.verbose)
     parameter_string = file (logfile).read()
     
     os.unlink (tmpfile)
@@ -1631,11 +1642,23 @@ def write_file_map (lys, name):
 """ % '\n'.join(['("%s.ly" . "%s")\n' % (ly.basename (), name)
                  for ly in lys]))
 
+def split_output_files(directory):
+    """Returns directory entries in DIRECTORY/XX/ , where XX are hex digits.
+
+    Return value is a set of strings.
+    """
+    files = []
+    for subdir in glob.glob (os.path.join (directory, '[a-f0-9][a-f0-9]')):
+        base_subdir = os.path.split (subdir)[1]
+        sub_files = [os.path.join (base_subdir, name)
+                     for name in os.listdir (subdir)]
+        files += sub_files
+    return set (files)
+
 def do_process_cmd (chunks, input_name, options):
     snippets = [c for c in chunks if isinstance (c, LilypondSnippet)]
 
-
-    output_files = set(os.listdir(options.lily_output_dir))
+    output_files = split_output_files (options.lily_output_dir)
     outdated = [c for c in snippets if c.is_outdated (options.lily_output_dir, output_files)]
     
     write_file_map (outdated, input_name)    
@@ -1654,7 +1677,7 @@ def do_process_cmd (chunks, input_name, options):
         progress (_ ("All snippets are up to date..."))
 
     if options.lily_output_dir != options.output_dir:
-        output_files = set(os.listdir(options.lily_output_dir))
+        output_files = split_output_files (options.lily_output_dir)
         for snippet in snippets:
             snippet.link_all_output_files (options.lily_output_dir,
                                            output_files,
@@ -1878,7 +1901,7 @@ def main ():
     if global_options.padding_mm:
         global_options.process_cmd += " -deps-box-padding=%f " % global_options.padding_mm
         
-    global_options.process_cmd += " -dread-file-list "
+    global_options.process_cmd += " -dread-file-list -dno-strip-output-dir"
 
     if global_options.lily_output_dir:
         global_options.lily_output_dir = os.path.abspath(global_options.lily_output_dir)

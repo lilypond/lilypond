@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "expressive-marks, text"
- texidoc = "
+
+  texidoc = "
 Although the easiest way to add parentheses to a dynamic mark is to use
 a @code{\\markup} block, this method has a downside: the created
 objects will behave like text markups, and not like dynamics.
@@ -16,14 +17,16 @@ be regarded as a dynamic, and therefore will remain compatible with
 commands such as @code{\\dynamicUp} or @code{\\dynamicDown}.
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Creating \"real\" parenthesized dynamics"
+} % begin verbatim
 \paper { ragged-right = ##t }
 
 parenF = #(make-dynamic-script (markup #:line (#:normal-text #:italic
-           #:fontsize 2 "(" #:hspace -0.8 #:dynamic "f" #:normal-text #:italic
-           #:fontsize 2 ")"
+           #:fontsize 2 "(" #:hspace -0.8 #:dynamic "f" #:normal-text
+           #:italic #:fontsize 2 ")"
           )))
-{
-  c''4\parenF c'' c'' \dynamicUp c''\parenF
+\relative c'' {
+  c4\parenF c c \dynamicUp c\parenF
 }

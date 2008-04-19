@@ -6,10 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c @value{version}
-@macro version
-2.11.43
-@end macro
+@include version.itexi
 
 @c   ***** Displaying text *****
 

@@ -98,7 +98,7 @@ is preserved.  See @ref{Showing melody rhythms}.
 
 @item
 @code{TabStaff} creates by default a tablature with six strings in 
-standard guitar tuning.  See @ref{Tablatures basic}.
+standard guitar tuning.  See @ref{Guitar tablatures}.
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative=2]
 \new TabStaff { c d e f }
@@ -121,10 +121,11 @@ in the score.  This is done with the commands @code{\startStaff} and
 Music Glossary: @rglos{staff}, @rglos{staves}.
 
 Notation Reference: @ref{Percussion staves}, 
-@ref{Tablatures basic}, @ref{Gregorian Chant contexts},
+@ref{Guitar tablatures}, @ref{Gregorian Chant contexts},
 @ref{Mensural contexts}.
 
-Snippets: @lsrdir{Staff,Staff-notation}.
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{Staff}, @internalsref{DrumStaff},
 @internalsref{GregorianTranscriptionStaff}, @internalsref{RhythmicStaff},
@@ -258,7 +259,8 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 Music Glossary: @rglos{brace}, 
 @rglos{bracket}, @rglos{grand staff}.
 
-Snippets: @lsrdir{Staff,Staff-notation}
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{Staff}, @internalsref{ChoirStaff},
 @internalsref{GrandStaff}, @internalsref{PianoStaff}, 
@@ -382,7 +384,8 @@ source code, for instructions how to set them see @ref{Instrument names}.
 
 @seealso
 
-Snippets: @lsrdir{Staff,Staff-notation}
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{InnerChoirStaffGroup}, 
 @internalsref{InnerStaffGroup}, @internalsref{SystemStartBar}, 
@@ -636,7 +639,8 @@ with the @code{\skip} command.
 
 Music Glossary: @rglos{ossia}, @rglos{staff}, @rglos{Frenched staff}.
 
-Snippets: @lsrdir{Staff,Staff-notation}.
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{StaffSymbol}.
 
@@ -753,7 +757,8 @@ of which it is written.
 
 Notation Reference: @ref{Staff symbol}.
 
-Snippets: @lsrdir{Staff,Staff-notation}
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{ChordNames},
 @internalsref{FiguredBass}, @internalsref{Lyrics},
@@ -819,7 +824,8 @@ Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
 
 Notation Reference: @ref{Formatting text}.
 
-Snippets: @lsrdir{Staff,Staff-notation}.
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
 output}.
@@ -938,7 +944,8 @@ c1 c c c \break
 
 Notation Reference: @ref{Modifying context plug-ins}.
 
-Snippets: @lsrdir{Staff,Staff-notation}
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{InstrumentName},
 @internalsref{PianoStaff}, @internalsref{Staff}.
@@ -1060,7 +1067,8 @@ written entirely in lower-case letters: @code{\addquote}.
 
 Notation Reference: @ref{Instrument transpositions}.
 
-Snippets: @lsrdir{Staff,Staff-notation}
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
 
@@ -1173,7 +1181,8 @@ cbsn = \relative c, {
 
 @seealso
 
-Snippets: @lsrdir{Staff,Staff-notation}.
+Snippets:
+@lsrdir{Staff,Staff-notation}
 
 Internals Reference: @internalsref{Voice}.
 

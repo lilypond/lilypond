@@ -1,7 +1,7 @@
 #!@PYTHON@
 # html-gettext.py
 
-# USAGE:  html-gettext.py [-o OUTDIR] BUILDSCRIPT-DIR LOCALEDIR LANG FILES
+# USAGE:  html-gettext.py [-o OUTDIR] LANG FILES
 #
 # -o OUTDIR specifies that output files should be written in OUTDIR
 #    rather than be overwritten
@@ -11,22 +11,20 @@ import sys
 import re
 import os
 import getopt
-import gettext
+
+import langdefs
 
 optlist, args = getopt.getopt(sys.argv[1:],'o:')
-buildscript_dir, localedir, lang = args[0:3]
+lang = args[0]
+files = args [1:]
 
 outdir = '.'
 for x in optlist:
 	if x[0] == '-o':
 		outdir = x[1]
 
-sys.path.append (buildscript_dir)
-import langdefs
-
 double_punct_char_separator = langdefs.LANGDICT[lang].double_punct_char_sep
-t = gettext.translation('lilypond-doc', localedir, [lang])
-my_gettext = t.gettext
+my_gettext = langdefs.translation[lang]
 
 html_codes = ((' -- ', ' &ndash; '),
 	      (' --- ', ' &mdash; '))
@@ -80,7 +78,7 @@ def h_gettext (m):
 def crossmanual_ref_gettext (m):
 	return '<a href="' + m.group(1) + '">' + _(m.group(2)) + '</a>'
 
-for filename in args[3:]:
+for filename in files:
 	f = open (filename, 'r')
 	page = f.read ()
 	f.close()

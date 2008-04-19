@@ -21,8 +21,6 @@ HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
 
 # todo: add latex.
 PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
-# this prevents aux files from being reused for translated docs
-TEXI2PDF_FLAGS = --tidy
 
 MAIN_INFO_DOC = lilypond
 INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
@@ -119,12 +117,12 @@ source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossa
 
 $(outdir)/source:
 	@rm -f $(@)
-	ln -sf ../../ $(@)
+	ln -sf $(depth) $(@)
 
 $(outdir)/%/source:
 	@rm -f $(@)
 	mkdir -p $(dir $@)
-	ln -sf ../../../ $(@)
+	ln -sf $(depth)/.. $(@)
 
 local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
  $(datafiles) $(PDF_FILES) $(source-links) info

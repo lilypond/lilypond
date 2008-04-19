@@ -143,7 +143,8 @@ Notation Reference:
 @ref{Ancient notation},
 @ref{Proportional notation}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}.
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference:
 @internalsref{Dots},
@@ -247,7 +248,8 @@ Notation Reference:
 @ref{Objects connected to the input},
 @ref{Polymetric notation}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}.
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference:
 @internalsref{TupletBracket},
@@ -342,7 +344,8 @@ Notation Reference:
 @ref{Skips},
 @ref{Polymetric notation}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 
 @node Ties
@@ -472,7 +475,8 @@ Music Glossary:
 
 Notation Reference: @ref{Automatic note splitting}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference:
 @internalsref{LaissezVibrerTie},
@@ -560,7 +564,8 @@ a4\rest d4\rest
 
 Notation Reference: @ref{Full measure rests}
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Rest}
 
@@ -632,7 +637,8 @@ empty page:
 
 @seealso
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{SkipMusic}
 
@@ -805,7 +811,8 @@ Notation Reference:
 @ref{Formatting text},
 @ref{Text scripts}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference:
 @internalsref{MultiMeasureRest},
@@ -848,6 +855,7 @@ R1*4 cis cis
 * Unmetered music::             
 * Polymetric notation::         
 * Automatic note splitting::    
+* Showing melody rhythms::     
 @end menu
 
 @node Time signature
@@ -1031,7 +1039,8 @@ Music Glossary: @rglos{anacrusis}
 
 Notation Reference: @ref{Grace notes}
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internal Reference: @internalsref{Timing_translator}
 
@@ -1104,7 +1113,8 @@ Music Glossary: @rglos{cadenza}
 
 Notation Reference: @ref{Controlling visibility of objects}
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 @knownissues
 
@@ -1303,7 +1313,8 @@ Learning Manual:
 @rlearning{Engravers explained},
 @rlearning{Adding and removing engravers}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference:
 @internalsref{Note_heads_engraver},
@@ -1319,6 +1330,22 @@ will not insert tuplets.
 
 The @code{Completion_heads_engraver} only affects notes; it does not
 split rests.
+
+
+@node Showing melody rhythms
+@subsubsection Showing melody rhythms
+
+Sometimes you might want to show only the rhythm of a melody.  This
+can be done with the rhythmic staff.  All pitches of notes on such a
+staff are squashed, and the staff itself has a single line
+
+@c TODO Devise a more realistic example, perhaps with lyrics -td
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  c4 e8 f g2 | r4 g r2 | g1 | r1 |
+}
+@end lilypond
 
 
 @node Beams
@@ -1444,7 +1471,8 @@ f8 f''8 f8 f''8
 
 Notation Reference: @ref{Manual beams}, @ref{Setting automatic beam behavior}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Beam}.
 
@@ -1643,7 +1671,8 @@ automatic beam is still accepting notes, it is not typeset.
 
 @seealso
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 
 @node Manual beams
@@ -1754,7 +1783,8 @@ music snippets, and when numbers in the fraction are small.
 
 @seealso
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 
 
@@ -1910,7 +1940,8 @@ Notation Reference: @ref{Line breaking}, @ref{Repeats},
 @c FIXME: node name changed, but is subject to further changes.
 @c @ref{System start delimiters}.
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{BarLine} (created at
 @internalsref{Staff} level), @internalsref{SpanBar} (across
@@ -2052,7 +2083,8 @@ Bar numbers can be removed entirely by removing the
 
 @seealso
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{BarNumber}.
 
@@ -2149,7 +2181,8 @@ when it is processed.
 
 @seealso
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 
 @node Rehearsal marks
@@ -2255,7 +2288,8 @@ For common tweaks to the positioning of rehearsal marks, see
 
 @seealso
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 This manual: @ref{The Feta font}, @ref{Formatting text}.
 
@@ -2443,7 +2477,8 @@ Music Glossary:
 @rglos{acciaccatura},
 @rglos{appoggiatura}
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{GraceMusic}.
 
@@ -2513,7 +2548,8 @@ cadenza = \relative c' {
 
 @seealso
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 
 @node Time administration
@@ -2592,7 +2628,8 @@ notes.
 
 This manual: @ref{Bar numbers}, @ref{Unmetered music}
 
-Snippets: @lsrdir{Rhythms,Rhythms}
+Snippets:
+@lsrdir{Rhythms,Rhythms}
 
 Internals Reference: @internalsref{Timing_translator},
 @internalsref{Score}

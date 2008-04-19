@@ -79,7 +79,7 @@ benutzt werden.
 @end example
 @end quotation
 
-Der Wechsel wird automatisch besierend auf der Tonhöhe der Note 
+Der Wechsel wird automatisch basierend auf der Tonhöhe der Note 
 vorgenommen (als Wechselpunkt gilt das eingestrichene C). Dabei 
 wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 
@@ -103,7 +103,7 @@ Programmreferenz: @internalsref{AutoChangeMusic}.
 Der Systemwechsel wird nicht immer an der optimalen Stelle vorgenommen. 
 Für hohe Qualität muss der Wechsel mit der Hand eingegeben werden.
 
-@code{\autochange} kann sich nicht innerhalb einer @code{\times}-Umbegung 
+@code{\autochange} kann sich nicht innerhalb einer @code{\times}-Umgebung 
 befinden.
 
 @node Manual staff switches
@@ -125,7 +125,7 @@ System zu dem System mit der @var{Systembezeichnung} gewechselt.
 Üblicherweise ist die Systembezeichnung @code{"up"} oder
 @code{"down"}.  Dieses System (@context{Staff}), auf das verweisen wird, 
 muss auch wirklich existieren, weshalb die Aufstellung eines Klaviersystems 
-dann überlicherweise damit beginnt, die Systeme zu benennen. Hierbei können 
+dann üblicherweise damit beginnt, die Systeme zu benennen. Hierbei können 
 natürlich beliebige Namen vergeben werden.
 
 @example
@@ -198,7 +198,7 @@ b g \sustainUp a \sustainDown \bar "|."
 @end lilypond
 
 Die Einstellungen für linkes @c ?
-und mittleres Pedal ist überlicherweise ein @code{#'text}-Stil. Für das 
+und mittleres Pedal ist üblicherweise ein @code{#'text}-Stil. Für das 
 mittlere Pedal ist der gemischte Stil voreingestellt.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
@@ -209,7 +209,7 @@ Die Erscheinung der Pedal-Klammer kann mit den Eigenschaften
 @code{edge-width}, @code{edge-height} und @code{shorten-pair} des
 @code{PianoPedalBracket}-Objekts verändert werden (siehe 
 @internalsref{PianoPedalBracket} in der Programmreferenz). Zum 
-Beispiel kann die Klammer bis zum rechten Einde eines Notenkopfes 
+Beispiel kann die Klammer bis zum rechten Ende eines Notenkopfes 
 verlängert werden.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]

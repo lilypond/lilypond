@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "rhythms"
- texidoc = "
+
+  texidoc = "
 Beams can be subdivided automatically. By setting the property
 @code{subdivideBeams}, beams are subdivided at beat positions (as
 specified in @code{beatLength}). 
-" }
-% begin verbatim
+
+"
+  doctitle = "Automatic beam subdivisions"
+} % begin verbatim
 \score {
   \new Staff \relative {
     << {

@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "rhythms"
- texidoc = "
+
+  texidoc = "
 The property @code{tupletSpannerDuration} sets how long each of the
 tuplets contained within the brackets after @code{\\times} should last.
 Many consecutive tuplets can then be placed within a single
@@ -16,9 +17,11 @@ entered only once.
 
 For more information about @code{make-moment}, see \"Time
 administration\". 
-" }
-% begin verbatim
-\relative {
+
+"
+  doctitle = "Entering several tuplets using only one \times command"
+} % begin verbatim
+\relative c' {
   \time 2/4
   \set tupletSpannerDuration = #(ly:make-moment 1 4)
   \times 2/3 { c8 c c c c c }

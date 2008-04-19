@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "contexts-and-engravers"
- texidoc = "
+
+  texidoc = "
 The notation problem, creating a certain symbol, is handled by plugins.
 Each plugin is called an Engraver. In this example, engravers are
 switched on one by one, in the following order:
@@ -35,8 +36,10 @@ context.
 
 You may only see the first example in this document; please download
 this snippet and run it from your own computer. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Engravers one-by-one"
+} % begin verbatim
 %% sample music
 topVoice =  \relative c' {
   \key d\major

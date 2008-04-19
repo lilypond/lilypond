@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "staff-notation, contexts-and-engravers"
- texidoc = "
+
+  texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by
 setting it explicitly in a @code{StaffGroup} or @code{ChoirStaffGroup}
 context. 
-" }
-% begin verbatim
+
+"
+  doctitle = "Use square bracket at the start of a staff group"
+} % begin verbatim
 \score {
   \new StaffGroup { << 
   \set StaffGroup.systemStartDelimiter = #'SystemStartSquare

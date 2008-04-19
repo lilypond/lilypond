@@ -48,6 +48,8 @@ endif
 TEXINPUTS=$(top-src-dir)/tex/::
 export TEXINPUTS
 
+export LYDOC_LOCALEDIR:= $(top-build-dir)/Documentation/po/out-www
+
 #texi-html for www only:
 LILYPOND_BOOK_FORMAT=$(if $(subst out-www,,$(notdir $(outdir))),texi,texi-html)
 LY2DVI = $(LILYPOND_BINARY)

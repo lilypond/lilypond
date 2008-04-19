@@ -97,7 +97,7 @@ snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
 # this also fixes missing PNGs only present in translated docs
 def hack_urls (s, prefix):
     if splitted_docs_re.match (prefix):
-        s = re.sub ('(href|src)="(lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
+        s = re.sub ('(href|src)="(../lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
 
     # fix Snippets xrefs ad hoc
     s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
@@ -231,15 +231,13 @@ def add_menu (page_flavors, prefix, available, target, translation):
     return page_flavors
 
 
-def add_html_footer (translation,
-                     package_name = '',
+def add_html_footer (package_name = '',
                      package_version = '',
                      target = 'offline',
                      name_filter = lambda s: s):
     """Add header, footer to a number of HTML files
 
     Arguments:
-     translation               gettext translations dictionary, with language codes as keys
      package_name=NAME         set package_name to NAME
      package_version=VERSION   set package version to VERSION
      targets=offline|online    set page processing depending on the target
@@ -248,6 +246,7 @@ def add_html_footer (translation,
             negotiation
      name_filter               a HTML file name filter
     """
+    translation = langdefs.translation
     localtime = time.strftime ('%c %Z', time.localtime (time.time ()))
 
     if re.search ("http://", mail_address):

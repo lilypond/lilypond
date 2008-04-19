@@ -3,12 +3,12 @@
 \version "2.11.38"
 
 \header {
-  doctitle = "Markup lines"
   lsrtags = "text"
   texidoc = "Text that can spread over pages is entered with the
 @code{\\markuplines} command."
-}
-% begin verbatim
+  doctitle = "Markup lines"
+} % begin verbatim
+
 #(set-default-paper-size "a6")
 
 #(define-markup-list-command (paragraph layout props args) (markup-list?)

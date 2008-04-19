@@ -4,7 +4,8 @@
 
 \header {
   lsrtags = "text"
- texidoc = "
+
+  texidoc = "
 If specified, text marks may be aligned with notation objects other
 than bar lines.  These objects include @code{ambitus},
 @code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
@@ -19,8 +20,10 @@ of this example (in a score with multiple staves, this setting should
 be done for all the staves).
 
 
-" }
-% begin verbatim
+
+"
+  doctitle = "Aligning marks with various notation objects"
+} % begin verbatim
 \relative c' {
   e1
   

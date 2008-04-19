@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "template"
- texidoc = "
+
+  texidoc = "
 This very simple template gives you a staff with notes, suitable for a
 solo instrument or a melodic fragment. Cut and paste this into a file,
 add notes, and you're finished! 
-" }
-% begin verbatim
+
+"
+  doctitle = "Single staff template with only notes"
+} % begin verbatim
 melody = \relative c' {
             \clef treble
             \key c \major

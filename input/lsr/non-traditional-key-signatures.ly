@@ -4,12 +4,13 @@
 
 \header {
   lsrtags = "pitches, staff-notation"
- texidoc = "
+
+  texidoc = "
 The commonly used @code{\\key} command sets the @code{keySignature}
 property, in the @code{Staff} context.
 
-For non-standard key signatures, you can set this property directly.
-The format of this command is a list:
+To create non-standard key signatures, set this property directly. The
+format of this command is a list:
 
 @code{ \\set Staff.keySignature = #`(((octave . step) . alter) ((octave
 . step) . alter) ...) } where, for each element in the list,
@@ -19,15 +20,17 @@ C and 6 means B), and @code{alter} is @code{,SHARP ,FLAT ,DOUBLE-SHARP}
 etc. (Note the leading comma.)
 
 
-However, for each item in the list, you can also use the alternative
-format @code{(step . alter)}, which specifies that the same alteration
-should hold in all octaves.
+Alternatively, for each item in the list, using the more concise format
+@code{(step . alter)} specifies that the same alteration should hold in
+all octaves.
 
 
 Here is an example of a possible key signature for generating a
 whole-tone scale: 
-" }
-% begin verbatim
+
+"
+  doctitle = "Non-traditional key signatures"
+} % begin verbatim
 \relative c' {
   \set Staff.keySignature = #`(((0 .  3) . ,SHARP) ((0 . 5) . ,FLAT) ((0 . 6) . ,FLAT))
   c4 d e fis

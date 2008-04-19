@@ -202,7 +202,7 @@ benutzt werden. Es ist nicht genügend Platz, um jedes Objekt aufzulisten,
 aber die gebräuchlichsten finden sich hier:
 
 @multitable @columnfractions .33 .66
-@headitem Objekttyp           @tab Objektbzeichnung
+@headitem Objekttyp           @tab Objektbezeichnung
 @item Dynamikzeichen (vertikal)     @tab @code{DynamicLineSpanner}
 @item Dynamikzeichen (horizontal)   @tab @code{DynamicText}
 @item Bindebögen                      @tab @code{Tie}
@@ -375,7 +375,7 @@ Kenntnis und sehr viel Zeit  erfordert, diese Dateien zu verstehen.
 @file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
 Um diese Ordner anzuschauen, wechseln Sie entweder mit @code{cd} im Terminal 
 zu der Adresse oder klicken Sie mit der rechten Maustaste auf das LilyPond-Symbol 
-und wählen Sie @q{Schow Package Contents}.
+und wählen Sie @q{Show Package Contents}.
 
 @item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
 

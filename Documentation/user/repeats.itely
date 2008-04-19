@@ -45,10 +45,10 @@ LilyPond has one syntactic construct for specifying different
 types of repeats.  The syntax is
 
 @example
-\repeat @var{variant} @var{repeatcount} @var{repeatbody}
+\repeat @var{variant} @var{repeatcount} @var{musicexpr}
 @end example
 
-where @var{repeatbody} is a music expression.
+where @var{musicexpr} is a music expression.
 
 
 Alternative endings are entered with 
@@ -97,10 +97,10 @@ to be played more than once.
 The syntax for a normal repeat is
 
 @example
-\repeat volta @var{repeatcount} @var{repeatbody}
+\repeat volta @var{repeatcount} @var{musicexpr}
 @end example
 
-where @var{repeatbody} is a music expression.  Alternate endings can
+where @var{musicexpr} is a music expression.  Alternate endings can
 be produced using @code{\alternative}.
 
 Normal repeats without alternate endings:
@@ -184,7 +184,8 @@ Music Glossary: @rglos{repeat}, @rglos{volta}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
@@ -248,9 +249,9 @@ Stop a running volta bracket.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c4
-  \set Score.repeatCommands = #'((volta "93") end-repeat)
+\set Score.repeatCommands = #'((volta "93") end-repeat)
 c4 b4
-  \set Score.repeatCommands = #'((volta #f))
+\set Score.repeatCommands = #'((volta #f))
 d4 e4
 @end lilypond
 
@@ -260,7 +261,8 @@ d4 e4
 
 Notation Reference: @ref{Bar lines}, @ref{Formatting text}.
 
-Snippets: @lsrdir{Repeats,Repeats}
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic}.
@@ -274,14 +276,15 @@ Internals Reference: @internalsref{VoltaBracket},
 @cindex repeats, written-out
 
 By using the @code{unfold} command, repeats can be used to simplify
-the writing out of repetitious music. The syntax is
+the writing out of repetitious music.  The syntax is
 
 @example
-\repeat unfold @var{repeatcount} @var{repeatbody}
+\repeat unfold @var{repeatcount} @var{musicexpr}
 @end example
 
-Unfold repeats can be made with or without alternate endings. Unfold
-repeats without alternate endings:
+where @var{musicexpr} is a music expression.  Unfold repeats can be
+made with or without alternate endings.  Unfold repeats without
+alternate endings:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c1
@@ -303,7 +306,8 @@ c1
 
 @seealso
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{RepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}.
@@ -322,12 +326,18 @@ Internals Reference: @internalsref{RepeatedMusic},
 @cindex percent repeats
 @cindex measure repeats
 
-A note pattern can be repeated with the @code{\repeat percent
-@var{number}} syntax.  The music is printed once, and the pattern
-is replaced with a special sign.  Patterns of one and two measures
-are replaced by percent-like signs, patterns that divide the
-measure length are replaced by slashes.  Percent repeats must be
-declared within a @code{Voice} context.
+Repeated short patterns of notes are also supported.  The music is
+printed once, and the pattern is replaced with a special sign.
+Patterns of one and two measures are replaced by percent-like signs,
+patterns that are shorter than onee measure are replaced by slashes.
+Percent repeats must be declared within a @code{Voice} context.  The
+syntax is
+
+@example
+@code{\repeat percent @var{number} @var{musicexpr}}
+@end example
+
+where @var{musicexpr} is a music expression. 
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
@@ -360,7 +370,8 @@ R1
 
 @seealso
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Internals Reference: @internalsref{RepeatSlash},
 @internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
@@ -396,7 +407,7 @@ braced expression multiplied by the number of repeats:
 notated as two whole notes joined by tremolo beams. 
 
 There are two ways to put tremolo marks on a single note.  The
-@code{\repeat tremolo} syntax can be used even here, in which case
+@code{\repeat tremolo} syntax is also used here, in which case
 the note should not be surrounded by braces:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -432,7 +443,8 @@ Notation Reference: @ref{Tremolo repeats}.
 Internals Reference: @internalsref{Beam},
 @internalsref{StemTremolo}.
 
-Snippets: @lsrdir{Repeats,Repeats}
+Snippets:
+@lsrdir{Repeats,Repeats}
 
 Elsewhere: @internalsref{StemTremolo}.
 

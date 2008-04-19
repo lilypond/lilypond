@@ -4,10 +4,13 @@
 
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides"
- texidoc = "
+
+  texidoc = "
 You may put the time signature in parentheses.
-" }
-% begin verbatim
+
+"
+  doctitle = "Time signature in parentheses"
+} % begin verbatim
 tsMarkup = \markup  {
  \override #'(baseline-skip . 2) \number {
    \bracket \column { "2" "4" }

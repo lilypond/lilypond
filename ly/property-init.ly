@@ -183,6 +183,17 @@ textLengthOff = {
   \override TextScript  #'infinite-spacing-height = ##f
 }
 
+balloonLengthOn = {
+  \override BalloonTextItem #'extra-spacing-width = #'(0 . 0)
+  \override BalloonTextItem #'infinite-spacing-height = ##t
+}
+
+balloonLengthOff = {
+  \override BalloonTextItem #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \override BalloonTextItem #'infinite-spacing-height = ##f
+}
+
+
 showStaffSwitch = \set followVoice = ##t
 hideStaffSwitch = \set followVoice = ##f
 

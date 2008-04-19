@@ -4,12 +4,15 @@
 
 \header {
   lsrtags = "rhythms, vocal-music"
- texidoc = "
+
+  texidoc = "
 The @code{s} syntax for skips is only available in note mode and chord
-mode. In other situations, for example, when entering lyrics, you
-should use the @code{\\skip} command. 
-" }
-% begin verbatim
+mode. In other situations, for example, when entering lyrics, using the
+@code{\\skip} command is recommended. 
+
+"
+  doctitle = "Skips in lyric mode"
+} % begin verbatim
 <<
   \relative { a'1 a }
   \new Lyrics \lyricmode { \skip 1 bla1 }

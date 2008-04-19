@@ -97,7 +97,8 @@ d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 Notation Reference: @ref{Formatting text},
 @ref{Controlling direction and placement}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextScript}.
 
@@ -121,9 +122,8 @@ default; to enable it, use
 Some performance indications, e.g., @i{rallentando} or
 @i{accelerando}, are written as text and are extended over many
 measures with dotted lines.
-
 Such objects, called @q{spanners}, may be created
-from one note to another by using the following syntax:
+from one note to another using the following syntax:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \override TextSpanner #'bound-details #'left #'text = "rit." 
@@ -133,9 +133,9 @@ e,\stopTextSpan
 
 @noindent
 The string to be printed is set through
-object properties. By default it is printed in italic characters,
+object properties.  By default it is printed in italic characters,
 but different formatting can be obtained using
-@code{\markup} blocks:
+@code{\markup} blocks, as described in @ref{Formatting text}.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \override TextSpanner #'bound-details #'left #'text =
@@ -145,7 +145,7 @@ e,\stopTextSpan
 @end lilypond
 
 The line style, as well as the text string, can be defined as an
-object property. This syntax is described in @ref{Line styles}.
+object property.  This syntax is described in @ref{Line styles}.
 
 @predefined
 
@@ -160,7 +160,8 @@ object property. This syntax is described in @ref{Line styles}.
 
 Notation Reference: @ref{Line styles}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextSpanner}.
 
@@ -178,7 +179,7 @@ Various text elements can be added to a score using
 the syntax described in @ref{Rehearsal marks}:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4\mark "dolce" c c c
+c4\mark "Allegro" c c c
 @end lilypond
 
 This syntax makes possible to put any text on a bar line;
@@ -193,14 +194,14 @@ c1
 @end lilypond
 
 @noindent
-Such objects are only typeset above the top staff of the score; they
-can be placed above the bar line or between notes, depending on whether
-you specify it at the end or the middle of a bar. When specified at the
-beginning of a score or at a line break, the mark will be printed at
+Such objects are only typeset above the top staff of the score; depending on
+whether they are specified at the end or the middle of a bar, they 
+can be placed above the bar line or between notes.  When specified at the
+beginning of a score or at a line break, marks will be printed at
 the beginning of the line (the next line, in case of a line break).
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-\mark "dolce" c1
+\mark "Allegro" c1
 c\mark "assai" \break
 c c
 @end lilypond
@@ -222,7 +223,8 @@ c c
 Notation Reference: @ref{Rehearsal marks},
 @ref{Formatting text}, @ref{The Feta font}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{RehearsalMark}.
 
@@ -245,16 +247,14 @@ all.
 @funindex \markup
 
 A @code{\markup} block can exist by itself, outside of any
-any @code{\score} block.  This syntax is called a @q{top-level
-expression}, and is described in @code{File structure}.
+any @code{\score} block, as a @qq{top-level
+expression}.  This syntax is described in @ref{File structure}.
 
-@c TODO: turn this into a @lilypond example
-
-@example
-\markup @{
-  @var{..}
-@}
-@end example
+@lilypond[quote,ragged-right,verbatim]
+\markup {
+  Tomorrow, and tomorrow, and tomorrow...
+}
+@end lilypond
 
 @noindent
 This allows to print text separately
@@ -263,42 +263,23 @@ useful when the input file contains
 several music pieces, as described in
 @ref{Multiple scores in a book}.
 
-@example
-\score @{
-  @var{..}
-@}
-\markup @{
-  @var{..}
-@}
-\score @{
-  @var{..}
-@}
-@end example
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  c'1
+}
+\markup {
+  Tomorrow, and tomorrow, and tomorrow...
+}
+\score {
+  c'1
+}
+@end lilypond
 
 Using a specific syntax, text blocks can be spread
 over multiple pages, making possible to print
 text documents or books -- and therefore to
 use LilyPond as a word processor.  This syntax is described in
-@ref{Multi-pages markup}.
-
-@ignore
-@snippets
-
-TODO: add convenient snippets, e.g.
-"Inserting large plain text sections"
-(this requires the LSR to be updated) -vv
-@end ignore
-
-@seealso
-
-Notation Reference: @code{Formatting text},
-@code{File structure}, 
-@ref{Multiple scores in a book},
-@ref{Multi-pages markup}.
-
-Snippets: @lsrdir{Text,Text}.
-
-Internals Reference: @internalsref{TextScript}.
+@ref{Multi-page markup}.
 
 @predefined
 
@@ -306,6 +287,24 @@ Internals Reference: @internalsref{TextScript}.
 @code{\markup},
 @funindex \markuplines
 @code{\markuplines}
+
+@ignore
+@snippets
+
+TODO: add convenient snippets in input/new -vv
+@end ignore
+
+@seealso
+
+Notation Reference: @ref{Formatting text},
+@ref{File structure}, 
+@ref{Multiple scores in a book},
+@ref{Multi-page markup}.
+
+Snippets:
+@lsrdir{Text,Text}
+
+Internals Reference: @internalsref{TextScript}.
 
 
 @node Formatting text
@@ -320,7 +319,7 @@ using the @code{\markup} mode specific syntax.
 * Text alignment::              
 * Graphic notation inside markup::  
 * Music notation inside markup::  
-* Multi-pages markup::          
+* Multi-page markup::          
 @end menu
 
 @node Text markup introduction
@@ -332,7 +331,7 @@ using the @code{\markup} mode specific syntax.
 @cindex typeset text
 
 A @code{\markup} block is used to typeset text with an extensible syntax,
-called @q{markup mode}.
+called @qq{markup mode}.
 Specific commands can be entered in this mode, using the
 backslash @code{\} character.
 @c TODO: move the following sentence (and add an example?) -vv
@@ -351,8 +350,6 @@ c1_\markup { "\special {weird} #characters" }
 An exhaustive list of @code{\markup}-specific commands can be found in
 @ref{Text markup commands}.
 
-@code{\markup} blocks can be used anywhere text is called,
-and not only for @internalsref{TextScript}s objects.
 
 @lilypond[quote,verbatim]
 \header{ title = \markup{ \bold { foo \italic { bar! } } } }
@@ -374,14 +371,7 @@ and not only for @internalsref{TextScript}s objects.
 }
 @end lilypond
 
-A @code{\markup} block can also be printed on its own at the top-level
-of the input file, away from
-any @code{\score} block. This syntax is described in
-@ref{Multiple scores in a book}.
 
-@lilypond[quote,ragged-right,verbatim]
-\markup{ Here is some text. }
-@end lilypond
 
 @cindex font switching
 
@@ -469,12 +459,48 @@ properties.  If you are creating text in such situations, it is
 advisable to cancel those properties with @code{normal-text}.  See
 @ref{Text markup commands}, for more details.
 
+@ignore
+TODO: here are some commands that could be described here.
+I'm putting them in bulk, prior to working on this section. -vv
+
+\simple
+
+\char
+\fraction
+
+\combine
+\concat
+\put-adjacent
+
+
+\page-ref (see also "Table of contents")
+\fromproperty
+\verbatim-file
+\with-url
+
+\on-the-fly 
+\override
+
+
+\null
+\hspace
+
+\lower
+\raise 
+\translate 
+\translate-scaled
+\rotate
+\transparent
+\whiteout
+
+@end ignore
 
 @seealso
 
 This manual: @ref{Text markup commands}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 Internals Reference: @internalsref{TextScript}.
 
@@ -492,24 +518,183 @@ Syntax errors for markup mode are confusing.
 @node Common markup commands
 @subsubsection Common markup commands
 
-TODO: everything
+Some basic formatting can be used blah blah
+
+\italic 
+\upright
+\bold 
+\medium	
+\underline
+	
+
+@c TODO: what's the difference between the following commands? -vv
+\smallCaps	
+\caps 
+\fontCaps
+
+
+Some alternate font families can easily be selected:
+
+\sans
+\typewriter
+\roman
+\number (only for numbers, such as fingerings and time signatures)
+@c TODO: add \slashed-digit here? -vv
+
+The size can be blah blah blah
+
+\fontsize
+
+Some predefined font sizes can be used blah blah
+
+\teeny
+\tiny
+\small	
+\normalsize
+\large
+\huge
+
+Some shorcuts allow to change the font size relatively to its previous value 
+
+\smaller
+\bigger
+\larger
+
+\magnify
+
+Text may be printed as subscript or superscript:
+
+\sub 
+\super
+
+To obtain subscripts or superscripts in a normal text size, use
+\normal-size-sub
+\normal-size-super
+
+All these settings (except the size) can be reverted to the default font:
+
+\normal-text 
+
 
 @node Text alignment
 @subsubsection Text alignment
 
-TODO: everything
+Alignment basics:
+\left-align
+\center-align
+\right-align
+
+Horizontal alignment:
+\hcenter
+\general-align
+\halign 
+
+
+Vertical alignment: 
+\vcenter
+\column 
+\dir-column 
+
+Building a "large" markup:
+
+\line
+
+\fill-line
+
+\hcenter-in
+	
+\pad-around
+\pad-markup
+\pad-to-box
+\pad-x
+	
+Alignment inside a "large" markup:
+
+\justify-field 
+\justify
+\justify-string
+
+\wordwrap-field
+\wordwrap
+\wordwrap-string
 
 @node Graphic notation inside markup
 @subsubsection Graphic notation inside markup
+Graphics around text:
+\box
+\circle
 
-TODO: everything
+\bracket
+\hbracket
+
+"Standalone" graphics:
+
+\arrow-head
+\draw-line
+\draw-circle
+\filled-box
+\triangle
+\strut
+
+\with-color
+
+
+Advanced graphics:
+\stencil
+
+\postscript
+\epsfile
+
+\with-dimensions
 
 @node Music notation inside markup
 @subsubsection Music notation inside markup
 
-It is possible to nest music inside markups, by adding a
-@code{\score} block to a markup expression.  Such a score must
-contain a @code{\layout} block.
+Notes can be printed in markup mode blah blah:
+
+\note	
+\note-by-number
+
+Accidental symbols can be obtained easily:
+
+\doubleflat
+\sesquiflat
+\flat
+\semiflat
+\natural
+\semisharp
+\sharp
+\sesquisharp
+\doublesharp
+
+Some other notation objects blah blah
+
+\beam
+\finger
+\dynamic
+\tied-lyric
+\markalphabet
+\markletter
+@c TODO: add \text here? -vv
+
+Any musical symbol can be printed
+
+\musicglyph
+@c TODO: add \lookup here? -vv
+
+
+The markup mode has support for fret diagrams:
+
+\fret-diagram 
+\fret-diagram-terse
+\fret-diagram-verbose
+
+An entire @code{\score} block can even be nested in a @code{\markup}
+block.  In such a case, the @code{\score} must contain a @code{\layout} block.
+
+
+\score
+
 
 @lilypond[quote,verbatim,ragged-right]
 \relative {
@@ -525,10 +710,11 @@ contain a @code{\layout} block.
 
 @seealso
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
-@node Multi-pages markup
-@subsubsection Multi-pages markup
+@node Multi-page markup
+@subsubsection Multi-page markup
 
 Whereas @code{\markup} is used to enter a non-breakable block of
 text, @code{\markuplines} can be used at top-level to enter lines
@@ -558,7 +744,8 @@ lists.  The built-in markup list commands are described in
 This manual: @ref{Text markup list commands}, @ref{New
 markup list command definition}.
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 @predefined
 
@@ -692,6 +879,7 @@ property.  The resulting size is taken relative to the
 
 @seealso
 
-Snippets: @lsrdir{Text,Text}
+Snippets:
+@lsrdir{Text,Text}
 
 

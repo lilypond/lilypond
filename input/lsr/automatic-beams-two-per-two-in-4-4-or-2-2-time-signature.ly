@@ -4,13 +4,17 @@
 
 \header {
   lsrtags = "rhythms"
- texidoc = "
+
+  texidoc = "
 In a simple time signature of 2/2 or 4/4, 8th notes are beamed by
-default as two sets of four. Using a macro which overrides the
-autobeaming behavior, this snippet changes the beaming to quarter note
-beats. 
-" }
-% begin verbatim
+default as two sets of four.
+
+Using a macro which overrides the autobeaming behavior, this snippet
+changes the beaming to quarter note beats. 
+
+"
+  doctitle = "Automatic beams two per two in 4/4 or 2/2 time signature"
+} % begin verbatim
 % Automatic beams two per two in 4/4 or 2/2 time signature
 %              _____
 % Default     | | | |
@@ -20,7 +24,7 @@ beats.
 % The good way adapted from David Bobroff
 
 % macro for beamed two per two in 2/2 and 4/4 time signature
-qbeam= {
+qBeam = {
   #(override-auto-beam-setting '(end 1 8 * *) 1 4 'Staff)
   #(override-auto-beam-setting '(end 1 8 * *) 2 4 'Staff)
   #(override-auto-beam-setting '(end 1 8 * *) 3 4 'Staff)
@@ -36,7 +40,7 @@ qbeam= {
     %Use the macro
     \new Staff \relative c'' {
       \time 4/4
-      \qbeam
+      \qBeam
       g8^\markup { with the macro } g g g g g g g |
       g g g g4 g8 g g |
     }
