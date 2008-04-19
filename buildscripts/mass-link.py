@@ -54,7 +54,10 @@ def relative_path (f):
         return f
     return f[len (source_dir) + 1:]
 
-destfiles = map (lambda f: os.path.join (dest_dir, insert_suffix (relative_path (f))), sourcefiles)
+destfiles = [os.path.join (dest_dir, insert_suffix (relative_path (f))) for f in sourcefiles]
+
+destdirs = set ([os.path.dirname (dest) for dest in destfiles])
+[os.makedirs (d) for d in destdirs if not os.path.exists (d)]
 
 def force_link (src,dest):
     if os.path.exists (dest):

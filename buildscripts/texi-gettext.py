@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # texi-gettext.py
 
-# USAGE:  texi-gettext.py [-o OUTDIR] BUILDSCRIPT-DIR LOCALEDIR LANG FILES
+# USAGE:  texi-gettext.py [-o OUTDIR] LANG FILES
 #
 # -o OUTDIR specifies that output files should rather be written in OUTDIR
 #
@@ -13,24 +13,22 @@ import sys
 import re
 import os
 import getopt
-import gettext
+
+import langdefs
 
 optlist, args = getopt.getopt (sys.argv[1:],'o:')
-buildscript_dir, localedir, lang = args[0:3]
+lang = args[0]
+files = args[1:]
 
 outdir = '.'
 for x in optlist:
 	if x[0] == '-o':
 		outdir = x[1]
 
-sys.path.append (buildscript_dir)
-import langdefs
-
 double_punct_char_separator = langdefs.LANGDICT[lang].double_punct_char_sep
-t = gettext.translation('lilypond-doc', localedir, [lang])
-_doc = t.gettext
+_doc = langdefs.translation[lang]
 
-include_re = re.compile (r'@include ((?!lily-).*?)\.texi$', re.M)
+include_re = re.compile (r'@include ((?!../lily-).*?)\.texi$', re.M)
 whitespaces = re.compile (r'\s+')
 ref_re = re.compile (r'(?ms)@(rglos|ruser|rprogram|ref)(\{)(.*?)(\})')
 node_section_re = re.compile (r'@(node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading)( )(.*?)(\n)')
@@ -75,5 +73,5 @@ well as all `UNTRANSLATED NODE: IGNORE ME' lines.""", '')
 		if os.path.exists (p):
 			process_file (p)
 
-for filename in args[3:]:
+for filename in files:
 	process_file (filename)

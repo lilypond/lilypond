@@ -62,3 +62,18 @@ else:
     LANGDICT = {}
     for l in LANGUAGES:
         LANGDICT[l.code] = l
+
+    try:
+        import gettext
+        import os
+
+        translation = {}
+        for l in LANGUAGES:
+            if l.enabled and l.code != 'en':
+                t = gettext.translation('lilypond-doc',
+                                        os.environ['LYDOC_LOCALEDIR'],
+                                        [l.code])
+                translation[l.code] = t.gettext
+    except:
+        sys.stderr.write ('URGUHIU\n')
+        translation = dict ([(l.code, lambda x: x) for l in LANGUAGES])
