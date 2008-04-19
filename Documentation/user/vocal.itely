@@ -761,6 +761,21 @@ layout.
 }
 @end lilypond
 
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{aligning-lyrics.ly}
+
+@c TODO Create and add lsr example of lyricMelismaAlignment
+@c It's used like this to center-align all lyric syllables,
+@c even when notes are tied. -td
+
+@ignore
+\layout
+{
+     \context { \Score lyricMelismaAlignment = #0 }
+}
+@end ignore
+
 @node Centering lyrics between staves
 @subsubsection Centering lyrics between staves
 
@@ -802,6 +817,30 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
 @noindent
 These numbers are put just before the start of the first syllable.
 
+@c TODO Create and add snippet to show how two lines of a
+@c stanza can be grouped together, along these lines: 
+@c (might need improving a bit) -td
+
+@ignore
+leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
+#"brace105" }
+
+stanzaOneOne = {
+  \set stanza = \markup { "1. " \leftbrace }
+  \lyricmode { Child, you're mine and I love you.
+    Lend thine ear to what I say.
+    ...
+  }
+}
+
+stanzaOneThree =  {
+%  \set stanza = \markup { "   "}
+  \lyricmode { Child, I have no great -- er joy
+    Than to have you walk in truth.
+...
+  }
+}
+@end ignore
 
 @node Adding dynamics marks to stanzas
 @subsubsection Adding dynamics marks to stanzas
