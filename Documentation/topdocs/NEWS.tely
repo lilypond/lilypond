@@ -66,6 +66,10 @@ which scares away people.
 @end ignore
 
 @item
+Enclosing text within boxes with rounded corners is now possible,
+using the @code{rounded-box} command.
+
+@item
 @command{lilypond-book} can run any program instead of @command{latex}
 to guess the line width, thanks to @code{--latex} command line option.
 
