@@ -101,7 +101,7 @@ inline bool ly_is_equal (SCM x, SCM y)
 }
 
 inline bool ly_scm2bool (SCM x) { return SCM_NFALSEP (x); }
-inline char ly_scm2char (SCM x) { return SCM_CHAR (x); }
+inline char ly_scm2char (SCM x) { return (char)SCM_CHAR (x); }
 inline SCM ly_bool2scm (bool x) { return SCM_BOOL (x); }
 
 inline SCM ly_append2 (SCM x1, SCM x2)

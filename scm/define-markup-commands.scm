@@ -200,6 +200,24 @@ circle of diameter@tie{}0 (i.e. sharp corners)."
   (ly:round-filled-box
    xext yext blot))
 
+(define-builtin-markup-command (rounded-box layout props arg) (markup?)
+  "@cindex enclosing text in a bow with rounded corners
+   @cindex drawing boxes with rounded corners around text
+Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
+@code{box-padding} and @code{font-size} properties to determine line
+thickness and padding around the markup; the @code{corner-radius} property
+makes possible to define another shape for the corners (default is 1)." 
+  (let* ((th (*
+	      (ly:output-def-lookup layout 'line-thickness)
+	      (chain-assoc-get 'thickness props 1)))
+         (rad (chain-assoc-get 'corner-radius props 1))
+	 (size (chain-assoc-get 'font-size props 0))
+	 (pad (* (magstep size)
+		 (chain-assoc-get 'box-padding props 0.5)))
+	 (m (interpret-markup layout props arg)))
+    (ly:stencil-add (rounded-box-stencil m th pad rad)
+    m)))
+
 (define-builtin-markup-command (rotate layout props ang arg) (number? markup?)
   "
 @cindex rotating text
