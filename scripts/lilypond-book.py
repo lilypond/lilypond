@@ -1205,6 +1205,7 @@ class LilypondSnippet (Snippet):
         map (consider_file, [base + '.tex',
                              base + '.eps',
                              base + '.texidoc',
+                             base + '.texidoc' + document_language,
                              base + '-systems.texi',
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
