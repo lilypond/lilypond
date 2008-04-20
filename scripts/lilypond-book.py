@@ -1747,8 +1747,13 @@ def write_if_updated (file_name, lines):
             # this prevents make from always rerunning lilypond-book:
             # output file must be touched in order to be up to date
             os.utime (file_name, None)
+            return
     except:
         pass
+
+    output_dir = os.path.dirname (file_name)
+    if not os.path.exists (output_dir):
+        os.makedirs (output_dir)
 
     progress (_ ("Writing `%s'...") % file_name)
     file (file_name, 'w').writelines (lines)
@@ -1768,7 +1773,7 @@ def samefile (f1, f2):
         f2 = re.sub ("//*", "/", f2)
         return f1 == f2
 
-def do_file (input_filename):
+def do_file (input_filename, included=False):
     # Ugh.
     if not input_filename or input_filename == '-':
         in_handle = sys.stdin
@@ -1786,6 +1791,8 @@ def do_file (input_filename):
 
     if input_filename == '-':
         input_base = 'stdin'
+    elif included:
+        input_base = os.path.splitext (input_filename)[0]
     else:
         input_base = os.path.basename (
             os.path.splitext (input_filename)[0])
@@ -1856,7 +1863,7 @@ def do_file (input_filename):
             name = snippet.substring ('filename')
             progress (_ ("Processing include: %s") % name)
             progress ('\n')
-            return do_file (name)
+            return do_file (name, included=True)
 
         include_chunks = map (process_include,
                               filter (lambda x: isinstance (x, IncludeSnippet),
