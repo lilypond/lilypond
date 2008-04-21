@@ -90,7 +90,7 @@ main docs
 
     Music Glossary:
     @rglos{foo},
-    @rglos{bar}.
+    @rglos{bar}
 
     Learning Manual:
     @rlearning{baz},
@@ -98,26 +98,26 @@ main docs
 
     Notation Reference:
     @ruser{faazle},
-    @ruser{boo}.
+    @ruser{boo}
 
     Application Usage:
-    @rprogram{blah}.
+    @rprogram{blah}
 
     Installed Files:
-    @file{path/to/dir/blahz}.
+    @file{path/to/dir/blahz}
 
     Snippets:
     @lsrdir{section},
-    @lsr{specific/example-name.ly}.
+    @lsr{specific/example-name.ly}
 
     Internals Reference:
     @internalsref{fazzle},
-    @internalsref{booar}.
+    @internalsref{booar}
 
       If there are multiple entries, separate them by commas
       but do not include an `and'.
 
-      Always end with a period.
+      Do not use use any periods.
 
       Place each link on a new line as above; this makes it much
       easier to add or remove links.  In the output, they

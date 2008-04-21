@@ -80,7 +80,7 @@ d,, d, d c
 @seealso
 
 Music Glossary:
-@rglos{Pitch names}.
+@rglos{Pitch names}
 
 Snippets:
 @lsrdir{Pitches,Pitches}.
@@ -966,9 +966,7 @@ concert pitch.
 Here are a few notes for violin and B-flat clarinet where the
 parts have been entered using the notes and key as they appear in
 each part of the conductor's score.  The two instruments are
-playing in unison.  Adding the @code{\transposition c'} to the
-violin part is not strictly necessary, but it is a useful
-reminder.
+playing in unison.
 
 @lilypond[verbatim,quote,ragged-right]
 \new GrandStaff <<
@@ -976,6 +974,7 @@ reminder.
     \relative c'' {
       \set Staff.instrumentName = "Vln"
       \set Staff.midiInstrument = "violin"
+      % not strictly necessary, but a good reminder
       \transposition c'
 
       \key c \major
