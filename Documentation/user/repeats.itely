@@ -348,7 +348,7 @@ where @var{musicexpr} is a music expression.
 @end lilypond
 
 Measure repeats of more than two measures get a counter if you
-switch on the @code{countPercentRepeats}. property:
+switch on the @code{countPercentRepeats} property:
 
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
 \new Voice {
