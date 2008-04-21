@@ -602,8 +602,10 @@ c'4 d'8
 @noindent
 eine Viertel c' und eine Achtel d', wie in diesem Beispiel:
 
-@lilypond[quote,fragment]
-c'4 d'8
+@lilypond[quote]
+{
+  c'4 d'8
+}
 @end lilypond
 
 In kleinem Rahmen ist diese Syntax sehr einfach zu benutzen. In 
@@ -679,8 +681,11 @@ Programm kann nun dank vieler harter Arbeitsstunden benutzt werden,
 um sinnvolle Aufgaben zu erledigen. Die einfachste ist dabei der 
 Notendruck.
 
-@lilypond[quote,relative=1,fragment]
-\time 2/4 c4 c g'4 g a4 a g2
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
 @end lilypond
 
 @noindent
