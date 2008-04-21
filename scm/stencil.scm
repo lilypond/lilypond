@@ -138,13 +138,12 @@ encloses the contents.
    (ideal-blot (min blot (/ min-ext 2)))
    (ideal-thickness (min thickness (/ min-ext 2)))
 	 (outer (ly:round-filled-box
-		   (interval-widen xext ideal-thickness) 
-       (interval-widen yext ideal-thickness) 
-            ideal-blot))
-	 (inner (ly:make-stencil (list 'color (x11-color 'white) (ly:stencil-expr (ly:round-filled-box 
-       (cons (+ (car xext) ideal-thickness) (- (cdr xext) ideal-thickness)) 
-       (cons (+ (car yext) ideal-thickness) (- (cdr yext) ideal-thickness)) 
-            (- ideal-blot (* ideal-thickness 2))))))))
+            (interval-widen xext ideal-thickness) 
+            (interval-widen yext ideal-thickness) 
+               ideal-blot))
+	 (inner (ly:make-stencil (list 'color (x11-color 'white) 
+            (ly:stencil-expr (ly:round-filled-box 
+               xext yext (- ideal-blot ideal-thickness)))))))
     (set! stencil (ly:stencil-add outer inner))
     stencil))
 

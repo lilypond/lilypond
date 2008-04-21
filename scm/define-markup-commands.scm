@@ -209,7 +209,7 @@ thickness and padding around the markup; the @code{corner-radius} property
 makes possible to define another shape for the corners (default is 1).
 
 @lilypond[quote,verbatim,fragment,relative=2]
-c^\markup{ \rounded-box Overtura }
+c^\\markup{ \\rounded-box Overtura }
 c,8. c16 c4 r
 @end lilypond" 
   (let* ((th (*
