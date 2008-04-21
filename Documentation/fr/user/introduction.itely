@@ -615,8 +615,10 @@ c'4 d'8
 @noindent
 c'est-à-dire un do central noire et, juste au-dessus un ré croche
 
-@lilypond[quote,fragment]
-c'4 d'8
+@lilypond[quote]
+{
+  c'4 d'8
+}
 @end lilypond
 
 Sur une échelle microscopique, une telle syntaxe est facile à
@@ -697,8 +699,11 @@ tout ce dur labeur, le programme peut maintenant être utilisé pour
 accomplir des travaux utiles.  L'application la plus simple est
 d'imprimer des notes :
 
-@lilypond[quote,relative=1,fragment]
-\time 2/4 c4 c g'4 g a4 a g2
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
 @end lilypond
 
 @noindent
