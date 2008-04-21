@@ -2035,6 +2035,8 @@ TBC
 
 @c TODO Add text
 @c clefs, mensuration signs etc from lsr and -user
+@c use snippet Transcription-of-ancient-music-with-incipit
+
 TBC
 
 
@@ -2107,4 +2109,16 @@ the @internalsref{AccidentalSuggestion} object.
 
 @c TODO Add text
 @c try Till Rettig
+@c Add example of white noteheads:
+@c In the french baroque some composers used white noteheads in slow pieces,
+@c mainly in 3/2-time.  A quarter looks there like a eighth with a white 
+@c notehead.  (Franz-Rudolf Kuhnen)
+
+@c TODO Add example of this:
+@c I was referring to e.g. notated a8. a16, which should, if I
+@c remember correctly, be interpreted more like a8.. a32 (in the french
+@c style). The editor might want to show that rythmic figure above the
+@c staff as an hint to performers. (Karl Hammer)
+
+
 TBC
