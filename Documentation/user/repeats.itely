@@ -185,7 +185,7 @@ Music Glossary: @rglos{repeat}, @rglos{volta}.
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
 Snippets:
-@lsrdir{Repeats,Repeats}
+@lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
@@ -262,7 +262,7 @@ d4 e4
 Notation Reference: @ref{Bar lines}, @ref{Formatting text}.
 
 Snippets:
-@lsrdir{Repeats,Repeats}
+@lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic}.
@@ -307,7 +307,7 @@ c1
 @seealso
 
 Snippets:
-@lsrdir{Repeats,Repeats}
+@lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{RepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}.
@@ -348,7 +348,7 @@ where @var{musicexpr} is a music expression.
 @end lilypond
 
 Measure repeats of more than two measures get a counter if you
-switch on the @code{countPercentRepeats} property:
+switch on the @code{countPercentRepeats}. property:
 
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
 \new Voice {
@@ -371,7 +371,7 @@ R1
 @seealso
 
 Snippets:
-@lsrdir{Repeats,Repeats}
+@lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{RepeatSlash},
 @internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
@@ -444,11 +444,7 @@ Internals Reference: @internalsref{Beam},
 @internalsref{StemTremolo}.
 
 Snippets:
-@lsrdir{Repeats,Repeats}
+@lsrdir{Repeats,Repeats}.
 
 Elsewhere: @internalsref{StemTremolo}.
-
-
-
-
 

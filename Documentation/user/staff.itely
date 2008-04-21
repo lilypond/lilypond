@@ -125,7 +125,7 @@ Notation Reference: @ref{Percussion staves},
 @ref{Mensural contexts}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{Staff}, @internalsref{DrumStaff},
 @internalsref{GregorianTranscriptionStaff}, @internalsref{RhythmicStaff},
@@ -260,7 +260,7 @@ Music Glossary: @rglos{brace},
 @rglos{bracket}, @rglos{grand staff}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{Staff}, @internalsref{ChoirStaff},
 @internalsref{GrandStaff}, @internalsref{PianoStaff}, 
@@ -385,7 +385,7 @@ source code, for instructions how to set them see @ref{Instrument names}.
 @seealso
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{InnerChoirStaffGroup}, 
 @internalsref{InnerStaffGroup}, @internalsref{SystemStartBar}, 
@@ -640,7 +640,7 @@ with the @code{\skip} command.
 Music Glossary: @rglos{ossia}, @rglos{staff}, @rglos{Frenched staff}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{StaffSymbol}.
 
@@ -758,7 +758,7 @@ of which it is written.
 Notation Reference: @ref{Staff symbol}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{ChordNames},
 @internalsref{FiguredBass}, @internalsref{Lyrics},
@@ -825,7 +825,7 @@ Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
 Notation Reference: @ref{Formatting text}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
 output}.
@@ -945,7 +945,7 @@ c1 c c c \break
 Notation Reference: @ref{Modifying context plug-ins}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{InstrumentName},
 @internalsref{PianoStaff}, @internalsref{Staff}.
@@ -1068,7 +1068,7 @@ written entirely in lower-case letters: @code{\addquote}.
 Notation Reference: @ref{Instrument transpositions}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
 
@@ -1182,7 +1182,7 @@ cbsn = \relative c, {
 @seealso
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@lsrdir{Staff,Staff-notation}.
 
 Internals Reference: @internalsref{Voice}.
 

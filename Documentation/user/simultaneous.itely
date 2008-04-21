@@ -55,7 +55,7 @@ Notation Reference:
 @ref{Modern chords}.
 
 Snippets:
-@lsrdir{Simultaneous,Simultaneous-notes}
+@lsrdir{Simultaneous,Simultaneous-notes}.
 
 @knownissues
 
@@ -86,7 +86,7 @@ clusters.
 @seealso
 
 Snippets:
-@lsrdir{Simultaneous,Simultaneous-notes}
+@lsrdir{Simultaneous,Simultaneous-notes}.
 
 Internals Reference:
 @internalsref{ClusterSpanner},
@@ -256,7 +256,7 @@ override typesetting decisions.
 @seealso
 
 Snippets:
-@lsrdir{Simultaneous,Simultaneous-notes}
+@lsrdir{Simultaneous,Simultaneous-notes}.
 
 Internals Reference: the objects responsible for resolving collisions
 are
@@ -362,7 +362,7 @@ Music Glossary:
 @rglos{a due}.
 
 Snippets:
-@lsrdir{Simultaneous,Simultaneous-notes}
+@lsrdir{Simultaneous,Simultaneous-notes}.
 
 Internals Reference:
 @internalsref{PartCombineMusic},
@@ -456,5 +456,5 @@ music = {
 @seealso
 
 Snippets:
-@lsrdir{Simultaneous,Simultaneous-notes}
+@lsrdir{Simultaneous,Simultaneous-notes}.
 

@@ -72,6 +72,8 @@ commands.
 
 * Specify durations for at least the first note of every bar.
 
+* If possible, end with a complete bar.
+
 * If you only have one bar per line, omit bar checks.  If you
   put more than one bar per line (not recommended), then include
   bar checks.
