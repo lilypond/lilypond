@@ -287,6 +287,14 @@ of the note head
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
 
+@noindent
+Note that overrides must be placed before the note at which the 
+pedal bracket starts.
+
+@c TODO Check relative positions of the sustain pedal and
+@c      dynamics are correct (they collided in 2.11.44).
+@c      Give example showing this.
+
 @seealso
 
 Notation Reference: @ref{Ties} (laissez vibrer).

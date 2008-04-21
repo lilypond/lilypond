@@ -152,6 +152,10 @@ this grob looks as a continued break.")
      (control-points ,list? "List of offsets (number pairs) that form
 control points for the tie, slur, or bracket shape.  For B@'eziers,
 this should list the control points of a third-order B@'ezier curve.")
+     (corner-radius ,number? "The diameter of a blot, in rounded
+boxes. If set to #0, the corners will we completely sharp; default is
+#1. If set to a too big value, it will be ignored and the shortest
+edges of the box will be drawn as semicircles."
 
      (damping ,number? "Amount of beam slope damping.")
      (dash-fraction ,number? "Size of the dashes, relative to

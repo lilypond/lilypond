@@ -206,7 +206,12 @@ circle of diameter@tie{}0 (i.e. sharp corners)."
 Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup; the @code{corner-radius} property
-makes possible to define another shape for the corners (default is 1)." 
+makes possible to define another shape for the corners (default is 1).
+
+@lilypond[quote,verbatim,fragment,relative=2]
+c^\\markup{ \\rounded-box Overtura }
+c,8. c16 c4 r
+@end lilypond" 
   (let* ((th (*
 	      (ly:output-def-lookup layout 'line-thickness)
 	      (chain-assoc-get 'thickness props 1)))

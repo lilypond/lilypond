@@ -300,6 +300,10 @@ Internals Reference: @internalsref{StrokeFinger}
 @node Guitar
 @subsection Guitar
 
+@c TODO Make a snippet based on
+@c http://www.nabble.com/Creating-a-nice-formatted-Chords-%2B-Lyrics-layout-for-guitar-players-to13829430.html
+@c and include it somewhere -td
+
 @menu
 * Guitar tablatures::
 * Indicating position and barring::
