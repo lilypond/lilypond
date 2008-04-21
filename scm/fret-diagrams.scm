@@ -256,8 +256,8 @@ Line thickness is given by @var{th}, fret & string spacing by
 (define (draw-xo layout props string-count fret-range size xo-list orientation)
 "Put open and mute string indications on diagram, as contained in @var{xo-list}."
     (let* ((fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
-           (xo-font-mag (* size (chain-assoc-get 'xo-font-magnification props 0.5)))
-;           (xo-font-mag (* size 0.5))
+           (xo-font-mag (chain-assoc-get 'xo-font-magnification props 0.5))
+;           (xo-font-mag 0.5)
 ;           (xo-horizontal-offset (* size (chain-assoc-get 'xo-horizontal-offset props -0.35)))
            (xo-horizontal-offset (* size -0.35))
            (mypair (car xo-list))

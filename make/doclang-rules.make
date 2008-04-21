@@ -16,6 +16,10 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo $(TOPLEVEL_VERSION)>> $@
 	echo '@end macro'>> $@
 
+# This makes sure lilypond-doc gettext domain has been compiled
+# before lilypond-book runs
+%.tely: doc-po
+
 $(OUT_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES)
 
 $(DEEP_HTML_FILES) $(PDF_FILES): $(ITELY_FILES) $(ITEXI_FILES)

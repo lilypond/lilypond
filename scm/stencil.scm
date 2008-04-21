@@ -129,6 +129,19 @@ encloses the contents.
 			    (interval-center x-ext)
 			    (interval-center y-ext))))))
 
+(define-public (rounded-box-stencil stencil thickness padding blot)
+   "Add a rounded box around STENCIL, producing a new stencil."  
+
+  (let* ((xext (interval-widen (ly:stencil-extent stencil 0) padding))
+	 (yext (interval-widen (ly:stencil-extent stencil 1) padding))
+	 (outer (ly:round-filled-box
+		  (interval-widen xext thickness) (interval-widen yext thickness) blot))
+	 (inner (ly:make-stencil (list 'color (x11-color 'white) (ly:stencil-expr (ly:round-filled-box 
+       (cons (+ (car xext) thickness) (- (cdr xext) thickness)) 
+       (cons (+ (car yext) thickness) (- (cdr yext) thickness)) (* blot 0.8)))))))
+    (set! stencil (ly:stencil-add outer inner))
+    stencil))
+
 
 (define-public (fontify-text font-metric text)
   "Set TEXT with font FONT-METRIC, returning a stencil."

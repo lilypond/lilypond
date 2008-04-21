@@ -15,6 +15,8 @@ else
 export LILYPOND_BINARY=$(LILYPOND_EXTERNAL_BINARY)
 endif
 
+LANGS=$(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
+
 export PYTHONPATH:=$(top-build-dir)/python/$(outconfbase):$(PYTHONPATH)
 
 the-script-dir=$(wildcard $(script-dir))
@@ -29,8 +31,20 @@ LILYPOND_BOOK_INCLUDES = -I $(src-dir)/ -I $(outdir) -I $(input-dir) -I $(input-
 ## override from cmd line to speed up. 
 ANTI_ALIAS_FACTOR=2
 LILYPOND_JOBS=$(if $(CPU_COUNT),-djob-count=$(CPU_COUNT),)
-LANG_TEXIDOC_FLAG=$(if $(ISOLANG),--header=texidoc$(ISOLANG),)
-LILYPOND_BOOK_LILYPOND_FLAGS=-dbackend=eps --formats=ps,png,pdf $(LILYPOND_JOBS) -dinclude-eps-fonts -dgs-load-fonts --header=texidoc $(LANG_TEXIDOC_FLAG) -I $(top-src-dir)/input/manual -dcheck-internal-types -ddump-signatures -danti-alias-factor=$(ANTI_ALIAS_FACTOR)
+LANG_TEXIDOC_FLAGS:=$(foreach lang,$(LANGS),--header=texidoc$(lang))
+
+LILYPOND_BOOK_LILYPOND_FLAGS=-dbackend=eps \
+--formats=ps,png,pdf \
+$(LILYPOND_JOBS) \
+-dinclude-eps-fonts \
+-dgs-load-fonts \
+--header=texidoc \
+$(LANG_TEXIDOC_FLAGS) \
+-I $(top-src-dir)/input/manual \
+-dcheck-internal-types \
+-ddump-signatures \
+-danti-alias-factor=$(ANTI_ALIAS_FACTOR)
+
 LILYPOND_BOOK_VERBOSE = --verbose
 LILYPOND_BOOK_INFO_IMAGES_DIR = $(if $(INFO_IMAGES_DIR),--info-images-dir=$(INFO_IMAGES_DIR),)
 LILYPOND_BOOK_FLAGS = $(LILYPOND_BOOK_VERBOSE) $(LILYPOND_BOOK_INFO_IMAGES_DIR)

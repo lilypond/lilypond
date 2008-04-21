@@ -724,8 +724,8 @@ Cette étiquette vient s'insérer dans l'objet graphique (@emph{grob})
 
 
 @lilypond[verbatim,ragged-right]
-% create 2/4 + 5/8
-tsMarkup =\markup {
+% Create 9/8 split into 2/4 + 5/8
+tsMarkup = \markup {
   \override #'(baseline-skip . 2) \number {
     \column { "2" "4" }
     \vcenter "+"
@@ -734,9 +734,11 @@ tsMarkup =\markup {
 }
 
 {
-  \override Staff.TimeSignature #'stencil = #ly:text-interface::print
+  \override Staff.TimeSignature #'stencil =
+    #ly:text-interface::print
   \override Staff.TimeSignature #'text = #tsMarkup
-  \time 3/2
+  \time 9/8
+  c'2 \bar ":" c'4 c'4.
   c'2 \bar ":" c'4 c'4.
 }
 @end lilypond

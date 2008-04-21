@@ -42,6 +42,7 @@ import tempfile
 
 import lilylib as ly
 import fontextract
+import langdefs
 global _;_=ly._
 
 
@@ -829,6 +830,27 @@ def verbatim_html (s):
            re.sub ('<', '&lt;',
                re.sub ('&', '&amp;', s)))
 
+ly_var_def_re = re.compile (r'^([a-zA-Z]+)[\t ]*=', re.M)
+ly_comment_re = re.compile (r'(%+[\t ]*)(.*)$', re.M)
+
+def ly_comment_gettext (t, m):
+    return m.group (1) + t (m.group (2))
+
+def verb_ly_gettext (s):
+    if not document_language:
+        return s
+    try:
+        t = langdefs.translation[document_language]
+    except:
+        return s
+
+    s = ly_comment_re.sub (lambda m: ly_comment_gettext (t, m), s)
+    
+    for v in ly_var_def_re.findall (s):
+        s = re.sub (r"(?m)(^|[' \\#])%s([^a-zA-Z])" % v,
+                    "\\1" + t (v) + "\\2",
+                    s)
+    return s
 
 texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
 def set_default_options (source, default_ly_options, format):
@@ -920,7 +942,7 @@ class LilypondSnippet (Snippet):
         self.do_options (os, self.type)
 
     def verb_ly (self):
-        return self.substring ('code')
+        return verb_ly_gettext (self.substring ('code'))
 
     def ly (self):
         contents = self.substring ('code')
@@ -1183,6 +1205,7 @@ class LilypondSnippet (Snippet):
         map (consider_file, [base + '.tex',
                              base + '.eps',
                              base + '.texidoc',
+                             base + '.texidoc' + document_language,
                              base + '-systems.texi',
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
@@ -1372,7 +1395,7 @@ class LilypondFileSnippet (LilypondSnippet):
         s = self.contents
         s = re_begin_verbatim.split (s)[-1]
         s = re_end_verbatim.split (s)[0]
-        return s
+        return verb_ly_gettext (s)
 
     def ly (self):
         name = self.substring ('filename')
@@ -1725,8 +1748,13 @@ def write_if_updated (file_name, lines):
             # this prevents make from always rerunning lilypond-book:
             # output file must be touched in order to be up to date
             os.utime (file_name, None)
+            return
     except:
         pass
+
+    output_dir = os.path.dirname (file_name)
+    if not os.path.exists (output_dir):
+        os.makedirs (output_dir)
 
     progress (_ ("Writing `%s'...") % file_name)
     file (file_name, 'w').writelines (lines)
@@ -1746,7 +1774,7 @@ def samefile (f1, f2):
         f2 = re.sub ("//*", "/", f2)
         return f1 == f2
 
-def do_file (input_filename):
+def do_file (input_filename, included=False):
     # Ugh.
     if not input_filename or input_filename == '-':
         in_handle = sys.stdin
@@ -1764,6 +1792,8 @@ def do_file (input_filename):
 
     if input_filename == '-':
         input_base = 'stdin'
+    elif included:
+        input_base = os.path.splitext (input_filename)[0]
     else:
         input_base = os.path.basename (
             os.path.splitext (input_filename)[0])
@@ -1834,7 +1864,7 @@ def do_file (input_filename):
             name = snippet.substring ('filename')
             progress (_ ("Processing include: %s") % name)
             progress ('\n')
-            return do_file (name)
+            return do_file (name, included=True)
 
         include_chunks = map (process_include,
                               filter (lambda x: isinstance (x, IncludeSnippet),
