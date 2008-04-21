@@ -6,6 +6,7 @@ Documentation i18n module
 """
 
 import re
+import sys
 
 def lang_file_name (p, langext, ext):
     if langext != '':
