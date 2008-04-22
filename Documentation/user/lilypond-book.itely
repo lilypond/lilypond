@@ -725,9 +725,6 @@ extensions: @file{.tex}, @file{.texi}, @file{.html} or @file{.xml},
 depending on the output format.  All of @file{.tex}, @file{.texi} and
 @file{.xml} files need further processing.
 
-@command{lilypond-book} can also create a @file{.psfonts} file, which is
-required by @command{dvips} to produce PostScript and PDF files.
-
 @subheading Format-specific instructions
 
 @subsubheading @LaTeX{}
@@ -757,9 +754,9 @@ To produce PDF output via @LaTeX{}/@command{dvips}/@command{ps2pdf}, you
 should do
 
 @example
-lilypond-book --psfonts yourfile.lytex
+lilypond-book yourfile.lytex
 latex yourfile.tex
-dvips -o -h yourfile.psfonts -Ppdf yourfile.dvi
+dvips -Ppdf yourfile.dvi
 ps2pdf yourfile.ps
 @end example
 
@@ -768,7 +765,7 @@ The @file{.dvi} file created by this process will not contain
  note heads.  This is normal; if you follow the instructions, they
 will be included in the @file{.ps} and @file{.pdf} files.
 
-Running @command{dvips} will produce some warnings about fonts; these
+Running @command{dvips} may produce some warnings about fonts; these
 are harmless and may be ignored.  If you are running @command{latex} in
 twocolumn mode, remember to add @code{-t landscape} to the
 @command{dvips} options.
@@ -833,7 +830,7 @@ invoke further processing commands such as @command{makeinfo} or
 @itemx --output=@var{dir}
 Place generated files in directory @var{dir}.  Running
 @command{lilypond-book} generates lots of small files that LilyPond will
-process.  To avoid all that garbage in the source directory use the
+process.  To avoid all that garbage in the source directory, use the
 @option{--output} command line option, and change to that directory
 before running @command{latex} or @command{makeinfo}.
 
@@ -842,6 +839,28 @@ lilypond-book --output=out yourfile.lytex
 cd out
 ...
 @end example
+
+@itemx --skip-lily-check
+Do not fail if no lilypond output is found.  It is used for LilyPond
+Info documentation without images.
+
+@itemx --skip-png-check
+Do not fail if no PNG images are found for EPS files.  It is used for
+LilyPond Info documentation without images.
+
+@itemx --lily-output-dir=@var{dir}
+Write lily-XXX files to directory @var{dir}, link into @code{--output}
+directory.  Use this option to save building time for documents in
+different directories which share a lot of identical snippets.
+
+@itemx --info-images-dir=@var{dir}
+Format Texinfo output so that Info will look for images of music in
+@var{dir}.
+
+@itemx --latex-program=@var{prog}
+Run executable @command{prog} instead of @command{latex}.  This is
+useful if your document is processed with @command{xelatex}, for
+example.
 
 @itemx --left-padding=@var{amount}
 Pad EPS boxes by this much. @var{amount} is measured in millimeters,
@@ -862,10 +881,6 @@ Process LilyPond snippets using @var{command}.  The default command is
 
 @item --pdf
 Create PDF files for use with PDFLaTeX.
-
-@itemx --psfonts
-Extract all PostScript fonts into @file{@var{file}.psfonts} for dvips.
-This is necessary for @command{dvips -h @var{file}.psfonts}.
 
 @item -V
 @itemx --verbose
