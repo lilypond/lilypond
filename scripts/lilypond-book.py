@@ -183,11 +183,6 @@ def get_option_parser ():
                   help=_ ("create PDF files for use with PDFTeX"),
                   default=False)
 
-    p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
-                  help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
-must use this with dvips -h INPUT.psfonts'''),
-                  default=None)
-
     p.add_option ('-V', '--verbose', help=_ ("be verbose"),
                   action="store_true",
                   default=False,
