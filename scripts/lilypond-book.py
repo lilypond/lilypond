@@ -136,7 +136,7 @@ def get_option_parser ():
                   action='store', dest='info_images_dir',
                   default='')
 
-    p.add_option ('--latex',
+    p.add_option ('--latex-program',
                   help=_ ("Run executable PROG instead of latex"),
                   metavar=_ ("PROG"),
                   action='store', dest='latex_program',
