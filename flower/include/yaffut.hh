@@ -9,7 +9,9 @@
 #include <cxxabi.h>
 
 #include <cmath>
+#include <cstring>
 #include <iostream>
+#include <limits>
 #include <map>
 #include <memory>
 #include <sstream>
