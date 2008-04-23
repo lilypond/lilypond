@@ -11,6 +11,31 @@
 @node Vocal music
 @section Vocal music
 
+TODO
+CLARIFY
+http://code.google.com/p/lilypond/issues/detail?id=248
+http://code.google.com/p/lilypond/issues/detail?id=329
+
+
+
+> I think the issue here is that changing the associatedVoice
+> happens one step
+> later than expected.  I could be wrong, but I don't think this
+> is obviously
+> documented.
+
+If you read section "Switching the melody associated with a lyrics
+line"
+it indeed says "Again, the command must be one syllable too
+early,..."!
+One problem with the current formulation is that the "Again"
+refers to what's described 2 subsections earlier in "Lyrics to
+multiple notes of a melisma", which isn't obvious unless you have
+read all the sections
+sequentially.
+
+
+
 Since LilyPond input files are text, there are two issues to
 consider when working with vocal music:
 
