@@ -7,6 +7,7 @@ Documentation i18n module
 
 import re
 import sys
+import os
 
 def lang_file_name (p, langext, ext):
     if langext != '':
@@ -66,7 +67,6 @@ else:
 
     try:
         import gettext
-        import os
 
         translation = {}
         for l in LANGUAGES:
@@ -76,5 +76,6 @@ else:
                                         [l.code])
                 translation[l.code] = t.gettext
     except:
-        sys.stderr.write ('langdefs.py: warning: lilypond-doc gettext domain not found.\n')
+        if os.environ.has_key ('LYDOC_LOCALEDIR'):
+            sys.stderr.write ('langdefs.py: warning: lilypond-doc gettext domain not found.\n')
         translation = dict ([(l.code, lambda x: x) for l in LANGUAGES])

@@ -128,6 +128,37 @@ Note that the duration of chords must be specified outside the
 <c e g>2
 @end example
 
+@c TODO Generate snippet based on the following
+@c      and add explanation -td
+
+Custom chord names may be generated:
+
+@lilypond[quote,ragged-right,verbatim,ragged-right]
+FGGChordNames = {
+  <c e g b d'>1-\markup { \super "maj9" }
+  <c e g a d'>1-\markup { \super "6(add9)" }
+}
+chExceptions = #(append
+(sequential-music-to-chord-exceptions
+FGGChordNames #t) ignatzekExceptions)
+
+chordStuff = \chordmode
+{
+% standard names
+g1:maj9
+g1:6.9
+% names with FGG's custom exceptions
+\set chordNameExceptions = #chExceptions
+g1:maj9
+g1:6.9
+}
+
+\score
+{
+\new ChordNames \chordStuff
+}
+@end lilypond
+
 @node Building chords
 @subsubsection Building chords
 

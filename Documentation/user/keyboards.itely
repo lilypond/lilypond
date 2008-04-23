@@ -11,6 +11,22 @@
 @node Keyboard instruments
 @section Keyboard instruments
 
+TODO
+My suggestion is this: in section 7.1.1 and/or 7.1.2 of the
+manual,
+about staff switching, add a sentence or two plus a simple example
+showing how the beams are handled automatically if you enter notes
+that
+require beaming (i.e. 8ths or shorter).  Anyone coming from Finale
+will
+be looking for "cross-staff beaming" instead of staff switching.
+If I
+had seen an example of notes switching staves, beamed together
+like
+that, I would have known immediately that that was what I was
+looking for.
+
+
 @menu
 * Common notation for keyboards::
 * Piano::
@@ -286,6 +302,14 @@ of the note head
 \override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
 c\sostenutoDown d e c, f g a\sostenutoUp
 @end lilypond
+
+@noindent
+Note that overrides must be placed before the note at which the 
+pedal bracket starts.
+
+@c TODO Check relative positions of the sustain pedal and
+@c      dynamics are correct (they collided in 2.11.44).
+@c      Give example showing this.
 
 @seealso
 
