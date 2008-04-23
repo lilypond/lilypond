@@ -1414,7 +1414,7 @@ Construct a note symbol, with stem.  By using fractional values for
 					  (string-append "flags."
 							 (if (> dir 0) "u" "d")
 							 (number->string log)))
-                       (cons (+ (car attach-off) (/ stem-thickness 2)) stemy)))))
+                       (cons (car attach-off) stemy)))))
 
     (if (and dots flaggl (> dir 0))
 	(set! dots (ly:stencil-translate-axis dots 0.35 X)))
