@@ -1,5 +1,7 @@
 #include "file-path.hh"
 
+#include <limits.h>
+
 #include "yaffut.hh"
 #include "config.hh"
 

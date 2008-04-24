@@ -136,8 +136,8 @@ def get_option_parser ():
                   action='store', dest='info_images_dir',
                   default='')
 
-    p.add_option ('--latex',
-                  help=_ ("Run executable PROG instead of latex"),
+    p.add_option ('--latex-program',
+                  help=_ ("run executable PROG instead of latex"),
                   metavar=_ ("PROG"),
                   action='store', dest='latex_program',
                   default='latex')
@@ -182,11 +182,6 @@ def get_option_parser ():
                   dest="create_pdf",
                   help=_ ("create PDF files for use with PDFTeX"),
                   default=False)
-
-    p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
-                  help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
-must use this with dvips -h INPUT.psfonts'''),
-                  default=None)
 
     p.add_option ('-V', '--verbose', help=_ ("be verbose"),
                   action="store_true",

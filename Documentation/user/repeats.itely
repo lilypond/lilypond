@@ -114,7 +114,7 @@ c2 d
 Normal repeats with alternate endings:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\repeat volta 2 { g f e d }
+\repeat volta 2 { g4 f e d }
   \alternative {
     { cis2 g' }
     { cis,2 b }
@@ -129,8 +129,11 @@ Repeats with upbeats:
 \new Staff {
   \partial 4
   e |
-  \repeat volta 4 { c2 d2 | e2 f2 | }
-  \alternative { { g4 g g e } { a a a a | b2. } }
+  \repeat volta 4 { c2 d | e2 f | }
+  \alternative {
+    { g4 g g e }
+    { a4 a a a | b2. }
+  }
 }
 @end lilypond
 
@@ -140,8 +143,11 @@ or
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
   \partial 4 
-  \repeat volta 4 { e | c2 d2 | e2 f2 | }
-  \alternative { { \partial 4*3 g4 g g } { a a a a | b2. } }
+  \repeat volta 4 { e4 | c2 d | e2 f | }
+  \alternative {
+    { \partial 4*3 g4 g g }
+    { a4 a a a | b2. }
+  }
 }
 @end lilypond
 
@@ -153,7 +159,10 @@ Ties may be added to a second ending:
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 c1
 \repeat volta 2 {c4 d e f ~ }
-\alternative { {f2 d} {f\repeatTie f,} }
+\alternative {
+  {f2 d}
+  {f2\repeatTie f,}
+}
 @end lilypond
 
 @snippets
@@ -184,8 +193,7 @@ Music Glossary: @rglos{repeat}, @rglos{volta}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
-Snippets:
-@lsrdir{Repeats,Repeats}.
+Snippets: @lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
@@ -250,9 +258,9 @@ Stop a running volta bracket.
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c4
 \set Score.repeatCommands = #'((volta "93") end-repeat)
-c4 b4
+c4 b
 \set Score.repeatCommands = #'((volta #f))
-d4 e4
+d4 e
 @end lilypond
 
 @c FIXME: improve visibility of bar lines link?
@@ -261,8 +269,7 @@ d4 e4
 
 Notation Reference: @ref{Bar lines}, @ref{Formatting text}.
 
-Snippets:
-@lsrdir{Repeats,Repeats}.
+Snippets: @lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{VoltaBracket},
 @internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic}.
@@ -306,8 +313,7 @@ c1
 
 @seealso
 
-Snippets:
-@lsrdir{Repeats,Repeats}.
+Snippets: @lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{RepeatedMusic},
 @internalsref{UnfoldedRepeatedMusic}.
@@ -342,8 +348,8 @@ where @var{musicexpr} is a music expression.
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
   \repeat percent 4 { c4 }
-  \repeat percent 2 { b4 a4 g4 f4 }
-  \repeat percent 2 { c2 es2 f4 fis4 g4 c4 }
+  \repeat percent 2 { b4 a g f }
+  \repeat percent 2 { c2 es | f4 fis g c | }
 }
 @end lilypond
 
@@ -370,8 +376,7 @@ R1
 
 @seealso
 
-Snippets:
-@lsrdir{Repeats,Repeats}.
+Snippets: @lsrdir{Repeats,Repeats}.
 
 Internals Reference: @internalsref{RepeatSlash},
 @internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
@@ -389,9 +394,9 @@ tremolo style:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Voice \relative c' {
-  \repeat tremolo 8 { c16 d16 }
-  \repeat tremolo 4 { c16 d16 }
-  \repeat tremolo 2 { c16 d16 }
+  \repeat tremolo 8 { c16 d }
+  \repeat tremolo 4 { c16 d }
+  \repeat tremolo 2 { c16 d }
 }
 @end lilypond
 
@@ -440,11 +445,13 @@ into the MIDI output.
 
 Notation Reference: @ref{Tremolo repeats}.
 
-Internals Reference: @internalsref{Beam},
-@internalsref{StemTremolo}.
+Internals Reference: @internalsref{Beam}, @internalsref{StemTremolo}.
 
-Snippets:
-@lsrdir{Repeats,Repeats}.
+Snippets: @lsrdir{Repeats,Repeats}.
 
 Elsewhere: @internalsref{StemTremolo}.
+
+
+
+
 

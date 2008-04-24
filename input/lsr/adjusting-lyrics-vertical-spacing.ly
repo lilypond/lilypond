@@ -16,10 +16,8 @@ staff.
 <<
   \new Staff \new Voice = melody \relative c '{ c4 d e f g f e d c1 }
   \new Lyrics \lyricsto melody { aa aa aa aa aa aa aa aa aa }
->>
 
 % Reducing the minimum space below the staff and above the lyrics:
-<<
   \new Staff \with {
     \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 4) }
   \new Voice = melody \relative c' { c4 d e f g f e d c1 }

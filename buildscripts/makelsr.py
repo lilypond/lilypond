@@ -29,7 +29,8 @@ TAGS.extend (['pitches', 'rhythms', 'expressive-marks',
 'editorial-and-educational-use', 'text'])
 # NR 2
 TAGS.extend (['vocal-music', 'chords', 'keyboards',
-'percussion', 'fretted-strings', 'unfretted-strings', 'ancient-notation' # ,'winds'
+'percussion', 'fretted-strings', 'unfretted-strings',
+'ancient-notation', 'winds'
 ])
 
 # other

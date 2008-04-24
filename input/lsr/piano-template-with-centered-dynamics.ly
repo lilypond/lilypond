@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "expressive-marks,piano-music,template"
+  lsrtags = "expressive-marks,keyboards,template"
   texidoc = "
 Many piano scores have the dynamics centered between the two staves.
 This requires a bit of tweaking to implement, but since the template is

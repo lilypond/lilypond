@@ -94,7 +94,7 @@ main docs
 
     Learning Manual:
     @rlearning{baz},
-    @rlearning{foozle}
+    @rlearning{foozle}.
 
     Notation Reference:
     @ruser{faazle},

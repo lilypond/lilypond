@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "expressive-marks"
+  lsrtags = "winds"
 
   texidoc = "
 Breathing signs are available in different tastes: commas (default),
