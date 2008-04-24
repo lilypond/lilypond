@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "vocal-music, piano-music, template"
+  lsrtags = "vocal-music, template"
 
   texidoc = "
 This template adds an automatic piano reduction to the standard SATB
