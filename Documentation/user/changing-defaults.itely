@@ -488,8 +488,8 @@ example which removes @code{Time_signature_engraver} and
 In the second staff there are no time signature or clef symbols.  This
 is a rather crude method of making objects disappear since it will affect
 the entire staff.  This method also influences the spacing, which may or
-may not be desirable.  A more
-sophisticated method of blanking objects is shown in @rlearning{Common tweaks}.
+may not be desirable.  More sophisticated methods of blanking objects
+are shown in @rlearning{Visibility and color of objects}.
 
 The next example shows a practical application.  Bar lines and time
 signatures are normally synchronized across the score.  This is done
@@ -1163,7 +1163,7 @@ can be modified.
 
 We have been talking of @emph{the} @code{Fingering} object, but actually it
 does not amount to much.  The initialization file (see
-@rlearning{Default files})
+@rlearning{Other sources of information})
 @file{scm/@/define@/-grobs@/.scm} shows the soul of the @q{object},
 
 @example

@@ -2793,7 +2793,7 @@ But how do we merge notes in different voices together?  The
 index in the Notation Reference does not mention merging,
 but a search of the text for @q{merge} quickly leads us to
 the overrides for merging differently headed and differently
-dotted notes in @ruser{Collision Resolution}.  In our
+dotted notes in @ruser{Collision resolution}.  In our
 example we need to merge both types of note for the duration
 of the polyphonic section in bar 3, so using the information
 in the Notation Reference we add
