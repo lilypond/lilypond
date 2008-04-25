@@ -995,7 +995,7 @@ If you visit the documentation on fingering instructions (in
 @ref{Fingering instructions}), you will notice:
 
 @quotation
-@seealso
+@strong{See also}
 
 Internals Reference: @internalsref{Fingering}.
 
