@@ -702,7 +702,7 @@ Stem::print (SCM smob)
   if (!lh && stemlet && !beam)
     return SCM_EOL;
 
-  if (robust_scm2int (lh->get_property ("duration-log"), 0) < 1) 
+  if (lh && robust_scm2int (lh->get_property ("duration-log"), 0) < 1) 
     return SCM_EOL;
 
   if (is_invisible (me))
