@@ -566,6 +566,15 @@ add_grobs_of_one_priority (Skyline_pair *const skylines,
     }
 }
 
+// TODO: it is tricky to correctly handle skyline placement of cross-staff grobs.
+// For example, cross-staff beams cannot be formatted until the distance between
+// staves is known and therefore any grobs that depend on the beam cannot be placed
+// until the skylines are known. On the other hand, the distance between staves should
+// really depend on position of the cross-staff grobs that lie between them.
+// Currently, we just leave cross-staff grobs out of the
+// skyline altogether, but this could mean that staves are placed so close together
+// that there is no room for the cross-staff grob. It also means, of course, that
+// we don't get the benefits of skyline placement for cross-staff grobs.
 Skyline_pair
 Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
 {
@@ -581,13 +590,17 @@ Axis_group_interface::skyline_spacing (Grob *me, vector<Grob*> elements)
   Skyline_pair skylines;
   for (i = 0; i < elements.size ()
   	 && !scm_is_number (elements[i]->get_property ("outside-staff-priority")); i++)
-    add_boxes (elements[i], x_common, y_common, &boxes, &skylines);
+    if (!to_boolean (elements[i]->get_property ("cross-staff")))
+      add_boxes (elements[i], x_common, y_common, &boxes, &skylines);
 
   SCM padding_scm = me->get_property ("skyline-horizontal-padding");
   Real padding = robust_scm2double (padding_scm, 0.1);
   skylines.merge (Skyline_pair (boxes, padding, X_AXIS));
   for (; i < elements.size (); i++)
     {
+      if (to_boolean (elements[i]->get_property ("cross-staff")))
+	continue;
+
       SCM priority = elements[i]->get_property ("outside-staff-priority");
       vector<Grob*> current_elts;
       current_elts.push_back (elements[i]);

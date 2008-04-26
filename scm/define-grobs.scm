@@ -702,6 +702,7 @@
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
 	(positioning-done . ,ly:script-interface::calc-positioning-done)
+	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
 
 	(text . ,fingering::calc-text) 
 	(font-encoding . fetaNumber)

@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "strings, template"
+  lsrtags = "template"
 
   texidoc = "
 The \"String quartet template\" snippet produces a nice string quartet,

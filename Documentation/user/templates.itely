@@ -205,7 +205,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 @appendixsec lilypond-book templates
 
 These templates are for use with @code{lilypond-book}.  If you're not familiar
-with this program, please refer to @rprogram{lilypond-book}.
+with this program, please refer to @rprogram{LilyPond-book}.
 
 @appendixsubsec LaTeX
 

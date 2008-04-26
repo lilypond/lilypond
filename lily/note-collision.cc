@@ -81,16 +81,6 @@ check_meshing_chords (Grob *me,
       && !to_boolean (me->get_property ("merge-differently-headed")))
     merge_possible = false;
 
-  if (merge_possible
-      && head_up->get_property ("style") == ly_symbol2scm ("fa")
-      && head_down->get_property ("style") == ly_symbol2scm ("fa"))
-    {
-      Interval uphead_size = head_up->extent (head_up, Y_AXIS);
-      Offset att =  Offset (0.0, -1.0);
-      head_up->set_property ("stem-attachment", ly_offset2scm (att));
-      head_up->set_property ("transparent", SCM_BOOL_T); 
-    }
-  
   /* Should never merge quarter and half notes, as this would make
      them indistinguishable.  */
   if (merge_possible
@@ -183,6 +173,20 @@ check_meshing_chords (Grob *me,
 	shift_amount = 1;
       else if (Rhythmic_head::dot_count (head_up) < Rhythmic_head::dot_count (head_down))
 	stem_to_stem = true;
+    }
+
+  /* The solfa is a triangle, which is inverted depending on stem
+     direction. In case of a collision, one of them should be removed,
+     so the resulting note does not look like a block.
+  */
+  if (merge_possible
+      && head_up->get_property ("style") == ly_symbol2scm ("fa")
+      && head_down->get_property ("style") == ly_symbol2scm ("fa"))
+    {
+      Interval uphead_size = head_up->extent (head_up, Y_AXIS);
+      Offset att = Offset (0.0, -1.0);
+      head_up->set_property ("stem-attachment", ly_offset2scm (att));
+      head_up->set_property ("transparent", SCM_BOOL_T); 
     }
   
   if (merge_possible)

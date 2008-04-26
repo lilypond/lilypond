@@ -35,13 +35,16 @@ than one voice on the same staff.
 @subsubsection Chorded notes
 
 @cindex chords
+@cindex brackets, angle
+@funindex <
+@funindex >
 
-A chord is formed by a enclosing a set of pitches between @code{<}
-and @code{>}.  A chord may be followed by a duration, and a set of
+A chord is formed by a enclosing a set of pitches between @code{<} and
+@code{>}.  A chord may be followed by a duration and/or a set of
 articulations, just like simple notes:
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
-<c e g>4 <c>8
+<c e g>1 <c e g>->
 @end lilypond
 
 For more information about chords, see @ref{Modern chords}.
@@ -50,6 +53,9 @@ For more information about chords, see @ref{Modern chords}.
 
 Music Glossary:
 @rglos{chord}.
+
+Learning Manual:
+@rlearning{Combining notes into chords}.
 
 Notation Reference:
 @ref{Modern chords}.
@@ -63,27 +69,29 @@ Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
 accurately.  Use @code{<g a>8 <e a>8} instead.
 
 
-
 @node Clusters
 @subsubsection Clusters
 
 @cindex cluster
+@funindex \makeClusters
 
-A cluster indicates a continuous range of pitches to be played.
-They can be denoted as the envelope of a set of notes.  They are
-entered by applying the function @code{makeClusters} to a sequence
-of chords, e.g.,
+A cluster indicates a continuous range of pitches to be played.  They
+can be denoted as the envelope of a set of notes.  They are entered by
+applying the function @code{\makeClusters} to a sequence of chords,
+e.g.,
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-\makeClusters { <c e > <b f'> }
+\makeClusters { <g b>2 <c g'> }
 @end lilypond
 
 Ordinary notes and clusters can be put together in the same staff,
 even simultaneously.  In such a case no attempt is made to
-automatically avoid collisions between ordinary notes and
-clusters.
+automatically avoid collisions between ordinary notes and clusters.
 
 @seealso
+
+Music Glossary:
+@rglos{cluster}.
 
 Snippets:
 @lsrdir{Simultaneous,Simultaneous-notes}.
@@ -93,9 +101,16 @@ Internals Reference:
 @internalsref{ClusterSpannerBeacon},
 @internalsref{Cluster_spanner_engraver}.
 
-Examples: @c @lsr{contemporary,cluster@/.ly}.
+@c Examples: @lsr{contemporary,cluster@/.ly}.
 
+@knownissues
 
+Clusters only look good if they span at least two chords; otherwise
+they appear too narrow.
+
+Clusters do not have a stem and can not indicate durations by
+themselves.  Separate clusters would need a separating rest between
+them.
 
 @node Multiple voices
 @subsection Multiple voices
