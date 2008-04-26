@@ -246,9 +246,9 @@ Print a @code{:|} bar line.
 
 @item @code{(volta @var{text})}
 Print a volta bracket saying @var{text}.  The text can be specified as
-a text string or as a markup text, see @ref{Formatting text}.  Do not
+a text string or as a markup text; see @ref{Formatting text}.  Do not
 forget to change the font, as the default number font does not contain
-alphabetic characters;
+alphabetic characters.
 
 
 @item @code{(volta #f)}
@@ -290,8 +290,9 @@ the writing out of repetitious music.  The syntax is
 @end example
 
 where @var{musicexpr} is a music expression.  Unfold repeats can be
-made with or without alternate endings.  Unfold repeats without
-alternate endings:
+made with or without alternate endings.
+
+Unfold repeats without alternate endings:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c1
@@ -335,7 +336,7 @@ Internals Reference: @internalsref{RepeatedMusic},
 Repeated short patterns of notes are also supported.  The music is
 printed once, and the pattern is replaced with a special sign.
 Patterns of one and two measures are replaced by percent-like signs,
-patterns that are shorter than onee measure are replaced by slashes.
+patterns that are shorter than one measure are replaced by slashes.
 Percent repeats must be declared within a @code{Voice} context.  The
 syntax is
 
@@ -443,13 +444,15 @@ into the MIDI output.
 
 @seealso
 
+Music Glossary: @rglos{tremolo}.
+
 Notation Reference: @ref{Tremolo repeats}.
 
 Internals Reference: @internalsref{Beam}, @internalsref{StemTremolo}.
 
 Snippets: @lsrdir{Repeats,Repeats}.
 
-Elsewhere: @internalsref{StemTremolo}.
+
 
 
 
