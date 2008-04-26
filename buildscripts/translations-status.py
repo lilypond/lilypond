@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!/usr/bin/env python
 
 """
 USAGE: translations-status.py BUILDSCRIPT-DIR LOCALEDIR
@@ -310,13 +310,13 @@ class TranslatedTelyDocument (TelyDocument):
         return ''
 
 class MasterTelyDocument (TelyDocument):
-    def __init__ (self, filename, parent_translations=dict ([(lang, None) for lang in langdefs.LANGDICT.keys()])):
+    def __init__ (self, filename, parent_translations=dict ([(lang, None) for lang in langdefs.LANGDICT])):
         TelyDocument.__init__ (self, filename)
         self.size = len (self.contents)
         self.word_count = tely_word_count (self.contents)
-        translations = dict ([(lang, os.path.join (lang, filename)) for lang in langdefs.LANGDICT.keys()])
+        translations = dict ([(lang, os.path.join (lang, filename)) for lang in langdefs.LANGDICT])
         self.translations = dict ([(lang, TranslatedTelyDocument (translations[lang], self, parent_translations.get (lang)))
-                                   for lang in langdefs.LANGDICT.keys() if os.path.exists (translations[lang])])
+                                   for lang in langdefs.LANGDICT if os.path.exists (translations[lang])])
         if self.translations:
             self.includes = [MasterTelyDocument (f, self.translations) for f in self.included_files]
         else:
@@ -335,7 +335,7 @@ class MasterTelyDocument (TelyDocument):
             s = '''<table align="center" border="2">
  <tr align="center">
   <th>%s</th>''' % self.print_title (numbering)
-            s += ''.join (['  <th>%s</th>\n' % l for l in self.translations.keys ()])
+            s += ''.join (['  <th>%s</th>\n' % l for l in self.translations])
             s += ' </tr>\n'
             s += ' <tr align="left">\n  <td>Section titles<br>(%d)</td>\n' \
                 % sum (self.word_count)
@@ -359,7 +359,7 @@ class MasterTelyDocument (TelyDocument):
         s = ''
         if self.level[1] == 0: # if self is a master document
             s += (self.print_title (numbering) + ' ').ljust (colspec[0])
-            s += ''.join (['%s'.ljust (colspec[1]) % l for l in self.translations.keys ()])
+            s += ''.join (['%s'.ljust (colspec[1]) % l for l in self.translations])
             s += '\n'
             s += ('Section titles (%d)' % sum (self.word_count)).ljust (colspec[0])
 
@@ -396,7 +396,7 @@ main_status_page = open ('translations.template.html.in').read ()
 
 ## TODO
 #per_lang_status_pages = dict ([(l, open (os.path.join (l, 'translations.template.html')). read ())
-#                               for l in langdefs.LANGDICT.keys ()
+#                               for l in langdefs.LANGDICT
 #                               if langdefs.LANGDICT[l].enabled])
 
 progress ("Generating status pages...")

@@ -1,4 +1,4 @@
-#!@PYTHON@
+#!/usr/bin/env python
 
 import __main__
 import optparse
@@ -35,7 +35,7 @@ def do_file (file_name, lang_codes, buildlib):
     (diff_string, error) = buildlib.check_translated_doc (original, translated_contents, color=not update_mode)
 
     if error:
-            sys.stderr.write ('warning: %s: %s' % (file_name, error))
+        sys.stderr.write ('warning: %s: %s' % (file_name, error))
 
     if update_mode:
         if error or len (diff_string) >= os.path.getsize (original):
@@ -89,7 +89,7 @@ def main ():
     global update_mode, text_editor
 
     import_path, files = do_options ()
-    if 'EDITOR' in os.environ.keys ():
+    if 'EDITOR' in os.environ:
         text_editor = os.environ['EDITOR']
     else:
         update_mode = False
@@ -100,7 +100,7 @@ def main ():
     buildlib.verbose = verbose
 
     for i in files:
-        do_file (i, langdefs.LANGDICT.keys(), buildlib)
+        do_file (i, langdefs.LANGDICT.keys (), buildlib)
 
 if __name__ == '__main__':
     main ()

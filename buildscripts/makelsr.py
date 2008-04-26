@@ -103,7 +103,7 @@ def read_source_with_dirs (src):
 		srcdir = os.path.join (src, tag)
 		l[tag] = set (map (os.path.basename, glob.glob (os.path.join (srcdir, '*.ly'))))
 		for f in l[tag]:
-			if f in s.keys ():
+			if f in s:
 				s[f][1].append (tag)
 			else:
 				s[f] = (srcdir, [tag])
