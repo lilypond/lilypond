@@ -79,8 +79,8 @@ quite frustrating to try to remember which version of LilyPond you were
 using a few years ago.  @command{convert-ly} requires you to declare
 which version of LilyPond you used.
 
-@item @strong{Include checks}: @ruser{Bar and barnumber checks},
-@ruser{Octave check}.  If you include checks every so often, then
+@item @strong{Include checks}: @ruser{Bar and bar number checks},
+@ruser{Octave checks}.  If you include checks every so often, then
 if you make a mistake, you can pinpoint it quicker.  How often is
 @q{every so often}?  It depends on the complexity of the music.
 For very simple music, perhaps just once or twice.  For very
