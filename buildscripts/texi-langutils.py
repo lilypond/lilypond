@@ -64,7 +64,7 @@ texinfo_re = re.compile (r"^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2
 ly_string_re = re.compile (r'^([a-zA-Z]+)[\t ]*=|%+[\t ]*(.*)$')
 verbatim_ly_re = re.compile (r'@lilypond\[.*?verbatim')
 
-def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, output_file=None):
+def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, output_file=None, scan_ly=False):
     try:
         f = open (texifilename, 'r')
         texifile = f.read ()
@@ -73,7 +73,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
         includes = []
 
         # process ly var names and comments
-        if output_file:
+        if output_file and scan_ly:
             lines = texifile.splitlines ()
             i = 0
             in_verb_ly_block = False
@@ -116,7 +116,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                         if item[2] == 'node':
                             node_trigger = True
                     elif item[2] == 'include':
-                        includes.append(item[3])
+                        includes.append (item[3])
             g.write (end_blurb)
             g.close ()
 
@@ -129,12 +129,13 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                     output_file.write ('# @rglos in ' + printedfilename + '\n_(r"' + item[3] + '")\n')
                 else:
                     output_file.write ('# @' + item[0] + ' in ' + printedfilename + '\n_(r"' + item[1].strip () + '")\n')
+
         if process_includes:
             dir = os.path.dirname (texifilename)
             for item in includes:
-                process_texi (os.path.join (dir, item.strip ()), i_blurb, n_blurb, write_skeleton, topfile, output_file)
+                process_texi (os.path.join (dir, item.strip ()), i_blurb, n_blurb, write_skeleton, topfile, output_file, scan_ly)
     except IOError, (errno, strerror):
-        print "I/O error(%s): %s: %s" % (errno, texifilename, strerror)
+        sys.stderr.write ("I/O error(%s): %s: %s" % (errno, texifilename, strerror))
 
 
 if intro_blurb != '':
@@ -146,11 +147,16 @@ if make_gettext:
     node_list = open (node_list_filename, 'w')
     node_list.write ('# -*- coding: utf-8 -*-\n')
     for texi_file in texi_files:
-        process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, os.path.basename (texi_file), node_list)
+        # Urgly: scan ly comments and variable names only in English doco
+        is_english_doc = 'Documentation/user' in texi_file
+        process_texi (texi_file, intro_blurb, node_blurb, make_skeleton,
+                      os.path.basename (texi_file), node_list,
+                      scan_ly=is_english_doc)
     for word in ('Up:', 'Next:', 'Previous:', 'Appendix ', 'Footnotes', 'Table of Contents'):
         node_list.write ('_(r"' + word + '")\n')
     node_list.close ()
     os.system ('xgettext -c -L Python --no-location -o ' + output_file + ' ' + node_list_filename)
 else:
     for texi_file in texi_files:
-        process_texi (texi_file, intro_blurb, node_blurb, make_skeleton, os.path.basename (texi_file))
+        process_texi (texi_file, intro_blurb, node_blurb, make_skeleton,
+                      os.path.basename (texi_file))
