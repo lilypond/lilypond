@@ -1,38 +1,27 @@
 #!@PYTHON@
 
-
-###
-# FIXME: coding standards!
-###
-
 # Created 01 September 2003 by Heikki Junes.
+# Rewritten by John Mandereau
+
 # Generates lilypond-words.el for (X)Emacs and lilypond-words[.vim] for Vim.
 
-import string
 import re
 import sys
+import getopt
 
-kw = []
-rw = []
-notes = []
+keywords = []
+reserved_words = []
+note_names = []
 
 # keywords not otherwise found
-for line in ['include','maininput','version']:
-  kw = kw + [line]
+keywords += ['include', 'maininput', 'version']
 
 # the main keywords
-F = open('lily/lily-lexer.cc', 'r')
-for line in F.readlines():
-  m = re.search(r"(\s*{\")(.*)(\",\s*.*},\s*\n)",line)
-  if m:
-    kw = kw + [m.group(2)]
+s = open ('lily/lily-lexer.cc', 'r').read ()
+keywords += [w for w in re.findall (r"\s*{\"(.+)\",\s*.*},\s*\n", s)]
 
-# keywords in markup
-F = open('scm/markup.scm', 'r')
-for line in F.readlines():
-  m = re.search(r"^(\s*\(cons\s*)([a-z-]*)(-markup)",line)
-  if m:
-    kw = kw + [m.group(2)]
+s = open ('scm/markup.scm', 'r').read ()
+keywords += [w for w in re.findall (r"(?m)^\s*\(cons\s*([a-z-]+)-markup", s)]
 
 # identifiers and keywords
 for name in ['ly/chord-modifiers-init.ly',
@@ -45,24 +34,11 @@ for name in ['ly/chord-modifiers-init.ly',
              'ly/property-init.ly',
              'ly/scale-definitions-init.ly',
              'ly/script-init.ly',
-             'ly/spanners-init.ly']:
-  F = open(name, 'r')
-  for line in F.readlines():
-    m = re.search(r"^([a-zA-Z]+)(\s*=)",line)
-    if m:
-      kw = kw + [m.group(1)]
-
-# more identifiers
-for name in ['ly/declarations-init.ly',
+             'ly/spanners-init.ly',
              'ly/declarations-init.ly',
-             'ly/params-init.ly',
-             ]:
-  F = open(name, 'r')
-  for line in F.readlines():
-    m = re.search(r"^(\s*)([a-zA-Z]+)(\s*=)",line)
-    if m:
-      kw = kw + [m.group(2)]
-  F.close()
+             'ly/params-init.ly']:
+    s = open (name, 'r').read ()
+    keywords += [w for w in re.findall (r"(?m)^\s*([a-zA-Z]+)\s*=", s)]
 
 # note names
 for name in ['ly/catalan.ly',
@@ -76,123 +52,97 @@ for name in ['ly/catalan.ly',
              'ly/portugues.ly',
              'ly/suomi.ly',
              'ly/svenska.ly',
-             'ly/vlaams.ly',
-             ]:
-  F = open(name, 'r')
-  for line in F.readlines():
-    m = re.search(r"^(\s*\()([a-z]+)([^l]+ly:make-pitch)",line)
-    if m:
-      notes = notes + ['' + m.group(2)]
-
+             'ly/vlaams.ly']:
+    s = open (name, 'r').read ()
+    note_names += [n for n in re.findall (r"(?m)^\s*\(([a-z]+)[^l]+ly:make-pitch", s)]
 
 # reserved words
 for name in ['ly/engraver-init.ly',
              'ly/performer-init.ly']:
-  f = open(name, 'r')
-  for line in f.readlines():
-      for pattern in [r"^(\s*.consists\s+\")([a-zA-Z_]+)(\")",
-                      r"([\\]name\s+[\"]?)([a-zA-Z_]+)([\"]?)",
-                      r"(\s+)([a-zA-Z_]+)(\s*[\\]((set)|(override)))"]:
-          m = re.search(pattern,line)
-          if m:
-              rw = rw + ['' + m.group(2)]
+    s = open (name, 'r').read ()
+    for pattern in [r"(?m)^\s*.consists\s+\"([a-zA-Z_]+)\"",
+                    r"[\\]name\s+[\"]?([a-zA-Z_]+)[\"]?",
+                    r"\s+([a-zA-Z_]+)\s*\\(?:set|override)"]:
+        reserved_words += [w for w in re.findall (pattern, s)]
 
-# the output file
-outdir = '.';
-suffix = ['skip','skip','skip'];
-outs  = ['','',''];
-for s in sys.argv[1:]:
-  if s == '--words':
-    suffix[0] = '';
-  if s == '--el':
-    suffix[1] = '.el';
-  if s == '--vim':
-    suffix[2] = '.vim';
-  m = re.search(r"(--dir=)(\S*)",s)
-  if m:
-    outdir = m.group(2)
+keywords = list (set (keywords)).sort ()
+keywords.reverse ()
 
-if '' in suffix:
-  outs[0] = open(outdir+'/lilypond-words'+suffix[0], 'w')
-if '.el' in suffix:
-  outs[1] = open(outdir+'/lilypond-words'+suffix[1], 'w')
-if '.vim' in suffix:
-  outs[2] = open(outdir+'/lilypond-words'+suffix[2], 'w')
+reserved_words = list (set (reserved_words)).sort ()
+reserved_words.reverse ()
 
-# alphabetically ordered words
-kw.sort()
-kw.reverse()
-prevline = ''
-if '.vim' in suffix:
- outs[2].write('syn match lilyKeyword \"[-_^]\\?\\\\\\(');
-for line in kw:
-  if line != prevline:
-    if '' in suffix:
-        outs[0].write('\\\\' + line + '\n')
-    if '.el' in suffix:
-        outs[1].write('\\\\' + line + '\n')
-    if '.vim' in suffix:
-        outs[2].write(line + '\\|')
-  prevline = line
-if '.vim' in suffix:
-  outs[2].write('n\\)\\(\\A\\|\\n\\)\"me=e-1\n')
+note_names = list (set (note_names)).sort ()
+note_names.reverse()
 
-rw.sort()
-rw.reverse()
-prevline = ''
-if '.vim' in suffix:
-  outs[2].write('syn match lilyReservedWord \"\\(\\A\\|\\n\\)\\(')
-for line in rw:
-  if line != prevline:
-    if '' in suffix:
-      outs[0].write(line + '\n')
-    if '.el' in suffix:
-      outs[1].write(line + '\n')
-    if '.vim' in suffix:
-        outs[2].write(line + '\\|')
-  prevline = line
-if '.vim' in suffix:
-  outs[2].write('Score\\)\\(\\A\\|\\n\\)\"ms=s+1,me=e-1\n')
 
-notes.sort()
-notes.reverse()
-prevline = ''
-if '.vim' in suffix:
-  outs[2].write('syn match lilyNote \"\\<\\(\\(\\(');
-for line in notes:
-  if line != prevline:
-    if '' in suffix:
-      outs[0].write(line + '\n')
-    if '.el' in suffix:
-      outs[1].write(line + '\n')
-    if '.vim' in suffix:
-        outs[2].write(line + '\\|')
-  prevline = line
-if '.vim' in suffix:
-  outs[2].write('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')
+# output
+outdir = ''
+out_words = False
+out_el = False
+out_vim = False
 
-# the menu in lilypond-mode.el
-for line in ['/( - _ /) -',
-             '/[ - _ /] -',
-             '< - _ > -',
-             '<< - _ >> -',
-             '///( - _ ///) -',
-             '///[ - _ ///] -',
-             '///< - _ ///! -',
-             '///> - _ ///! -',
-             '//center - / << _ >> -',
-             '//column - / << _ >> -',
-             '//context/ Staff/ = - % { _ } -',
-             '//context/ Voice/ = - % { _ } -',
-             '//markup - { _ } -',
-             '//notes - { _ } -',
-             '//relative - % { _ } -',
-             '//score - { //n /? //simultaneous { //n _ //n } /! //n //paper {  } //n /? //midi {  } //n /! } //n -',
-             '//simultaneous - { _ } -',
-             '//sustainDown - _ //sustainUp -',
-             '//times - % { _ } -',
-             '//transpose - % { _ } -',
-             ]:
-  # urg. escape char '/' is replaced with '\\' which python writes as a '\'.
-  if '.el' in suffix:
-    outs[1].write(string.join(string.split(line,'/'),'\\') + '\n')
+options = getopt.getopt (sys.argv[1:],
+  '', ['words', 'el', 'vim', 'dir='])[0]
+
+for (o, a) in options:
+    if o == '--words':
+        out_words = True
+    elif o == '--el':
+        out_el = True
+    elif o == '--vim':
+        out_vim = True
+    elif o == '--dir':
+        outdir = a
+
+if out_words or out_el:
+    outstring = ''.join (['\\\\' + w + '\n' for w in keywords])
+    outstring += ''.join ([w + '\n' for w in reserved_words])
+    outstring += ''.join ([w + '\n' for w in note_names])
+
+if out_words:
+    f = open (os.path.join (outdir, 'lilypond-words'), 'w')
+    f.write (outstring)
+
+if out_el:
+    f = open (os.path.join (outdir, 'lilypond-words.el'), 'w')
+    f.write (outstring)
+
+    # the menu in lilypond-mode.el
+    # for easier typing of this list, replace '/' with '\' below
+    # when writing to file
+    elisp_menu = ['/( - _ /) -',
+                  '/[ - _ /] -',
+                  '< - _ > -',
+                  '<< - _ >> -',
+                  '///( - _ ///) -',
+                  '///[ - _ ///] -',
+                  '///< - _ ///! -',
+                  '///> - _ ///! -',
+                  '//center - / << _ >> -',
+                  '//column - / << _ >> -',
+                  '//context/ Staff/ = - % { _ } -',
+                  '//context/ Voice/ = - % { _ } -',
+                  '//markup - { _ } -',
+                  '//notes - { _ } -',
+                  '//relative - % { _ } -',
+                  '//score - { //n /? //simultaneous { //n _ //n } /! //n //paper {  } //n /? //midi {  } //n /! } //n -',
+                  '//simultaneous - { _ } -',
+                  '//sustainDown - _ //sustainUp -',
+                  '//times - % { _ } -',
+                  '//transpose - % { _ } -',
+                  '']
+    f.write ('\n'.join ([line.replace ('/', '\\') for line in elisp_menu]))
+
+if out_vim:
+    f = open (os.path.join (outdir, 'lilypond-words.vim'), 'w')
+    f.write ('syn match lilyKeyword \"[-_^]\\?\\\\\\(')
+    f.write (''.join ([w + '\\|' for w in keywords]))
+    f.write ('n\\)\\(\\A\\|\\n\\)\"me=e-1\n')
+
+    f.write ('syn match lilyReservedWord \"\\(\\A\\|\\n\\)\\(')
+    f.write (''.join ([w + '\\|' for w in reserved_words]))
+    f.write ('Score\\)\\(\\A\\|\\n\\)\"ms=s+1,me=e-1\n')
+
+    f.write ('syn match lilyNote \"\\<\\(\\(\\(')
+    f.write (''.join ([w + '\\|' for w in note_names]))
+    f.write ('a\\)\\([,\']\\)\\{,4}\\([?!]\\)\\?\\)\\|s\\|r\\)\\(\\(128\\|64\\|32\\|16\\|8\\|4\\|2\\|1\\|\\\\breve\\|\\\\longa\\|\\\\maxima\\)[.]\\{,8}\\)\\?\\(\\A\\|\\n\\)\"me=e-1\n')

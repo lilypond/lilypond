@@ -3,7 +3,6 @@ import sys
 import getopt
 import re 
 import os
-import string
 
 (options, files) = \
  getopt.getopt (sys.argv[1:],
@@ -89,7 +88,7 @@ Generate("%(filename)s-%(design_size)d.svg");
     for s in subfonts:
         ns.append ('%s' % (s % vars()))
         
-    subfonts_str = string.join (ns)
+    subfonts_str = ' '.join (ns)
     
     open (os.path.join (outdir, '%(filename)s-%(design_size)d.subfonts' % vars()), 'w').write (subfonts_str)
 

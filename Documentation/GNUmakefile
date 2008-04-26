@@ -69,4 +69,4 @@ update-translation:
 
 translation-status:
 	make -C po out=www messages
-	$(PYTHON) $(buildscript-dir)/translations-status.py $(buildscript-dir) po/out-www
+	$(PYTHON) $(buildscript-dir)/translations-status.py $(buildscript-dir)

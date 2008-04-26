@@ -9,7 +9,6 @@
 import os
 import sys
 import getopt
-import string
 import re
 import time
 
@@ -41,7 +40,7 @@ class Char_metric:
 font_family = 'feta'
 
 def parse_logfile (fn):
-    (autolines, deps) = read_log_file (fn)
+    autolines, deps = read_log_file (fn)
     charmetrics = []
     
     global_info = {
@@ -50,7 +49,7 @@ def parse_logfile (fn):
     group = ''
 
     for l in autolines:
-        tags = string.split (l, '@:')
+        tags = l.split ('@:')
         if tags[0] == 'group':
             group = tags[1]
         elif tags[0] == 'puorg':
@@ -63,13 +62,13 @@ def parse_logfile (fn):
             m = {
                 'description': tags[1],
                 'name': name,
-                'code': string.atoi (tags[2]),
-                'breapth': string.atof (tags[3]),
-                'width': string.atof (tags[4]),
-                'depth': string.atof (tags[5]),
-                'height': string.atof (tags[6]),
-                'wx': string.atof (tags[7]),
-                'wy': string.atof (tags[8]),
+                'code': int (tags[2]),
+                'breapth': float (tags[3]),
+                'width': float (tags[4]),
+                'depth': float (tags[5]),
+                'height': float (tags[6]),
+                'wx': float (tags[7]),
+                'wy': float (tags[8]),
             }
             charmetrics.append (m)
         elif tags[0] == 'font':
@@ -84,11 +83,10 @@ def parse_logfile (fn):
             encoding = re.sub (' ','-', tags[5])
             tags = tags[:-1]
             name = tags[1:]
-            global_info['design_size'] = string.atof (tags[4])
-            global_info['FontName'] = string.join (name, '-')
-            global_info['FullName'] = string.join (name,' ')
-            global_info['FamilyName'] = string.join (name[1:-1],
-                                '-')
+            global_info['design_size'] = float (tags[4])
+            global_info['FontName'] = '-'.join (name)
+            global_info['FullName'] = ' '.join (name)
+            global_info['FamilyName'] = '-'.join (name[1:-1])
             if 1:
                 global_info['Weight'] = tags[4]
             else: # testing
@@ -103,8 +101,6 @@ def parse_logfile (fn):
             global_info[tags[1]] = tags[2];
             
     return (global_info, charmetrics, deps)
-
-
 
 
 

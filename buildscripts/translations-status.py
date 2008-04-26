@@ -19,25 +19,22 @@ import string
 import os
 import gettext
 
+import langdefs
+
 def progress (str):
     sys.stderr.write (str + '\n')
 
 progress ("translations-status.py")
 
 buildscript_dir = sys.argv[1]
-localedir = sys.argv[2]
 
 _doc = lambda s: s
 
 sys.path.append (buildscript_dir)
-import langdefs
 import buildlib
 
 # load gettext messages catalogs
-translation = {}
-for l in langdefs.LANGUAGES:
-    if l.enabled and l.code != 'en':
-        translation[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
+translation = langdefs.translation
 
 
 comments_re = re.compile (r'^@ignore\n(.|\n)*?\n@end ignore$|@c .*?$', re.M)
