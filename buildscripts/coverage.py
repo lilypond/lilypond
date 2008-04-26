@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/usr/bin/python
+
 import os
 import glob
 import re
