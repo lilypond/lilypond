@@ -108,7 +108,7 @@ c-clean:
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
-web-clean:
+web-clean: snippets-clean
 	$(MAKE) out=www clean
 	$(MAKE) $(tree-share-prefix)/lilypond-force
 
@@ -234,6 +234,8 @@ test-redo:
 	done
 	$(MAKE) check
 
-test-clean:
+test-clean: snippets-clean
 	$(MAKE) -C input/regression/ out=test clean
 
+snippets-clean:
+	rm -rf out/lybook-db
