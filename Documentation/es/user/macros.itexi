@@ -331,8 +331,29 @@
 @ref{\TEXT\,,,lilypond-snippets,Fragmentos de código}
 @end macro
 
-
 @end iftex
 
 
-@c EOF
+@c Commands specific to translated docs
+
+@iftex
+@macro translationof{TEXT}
+@tex
+\gdef\translationof{\TEXT\}
+@end tex
+@end macro
+@end iftex
+
+@ifinfo
+@macro
+@macro translationof{TEXT}
+@set translationof{\TEXT\}
+@end macro
+@end ifinfo
+
+@c TODO when @translationof is used in translated docs
+@c see if it's feasible to say @value{translationof}
+@macro englishref
+Esta sección aún no está traducida; consulte el manual en inglés.
+@end macro
+

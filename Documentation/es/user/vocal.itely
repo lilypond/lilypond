@@ -587,7 +587,7 @@ se deben insertar a mano.
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 
@@ -630,7 +630,7 @@ Referencia de funcionamiento interno: @internalsref{LyricExtender},
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 
@@ -730,7 +730,7 @@ lyr = \lyricmode { I like my cat! }
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 
@@ -784,7 +784,7 @@ completa, establezca la propiedad dentro del @q{layout} o disposición.
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 

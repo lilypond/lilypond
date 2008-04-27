@@ -576,7 +576,7 @@ alors prolonger vous-même les syllabes concernées.
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 @node Extenders and hyphens
@@ -617,7 +617,7 @@ Référence du programme : @internalsref{LyricExtender},
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 @node Placement of lyrics
@@ -715,7 +715,7 @@ lyr = \lyricmode { I like my cat! }
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 @node Spacing out syllables
@@ -768,7 +768,7 @@ dans le bloc @code{\layout}.
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 

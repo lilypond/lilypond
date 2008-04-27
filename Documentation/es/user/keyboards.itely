@@ -34,7 +34,7 @@
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 @node The piano staff
@@ -317,6 +317,6 @@ Referencia de la notación: @ref{Ties} (laissez vibrer).
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 

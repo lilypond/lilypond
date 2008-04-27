@@ -38,7 +38,7 @@
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 @node The piano staff
@@ -327,5 +327,5 @@ Im Handbuch: @ref{Laissez vibrer ties}
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml

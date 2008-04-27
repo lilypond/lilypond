@@ -40,7 +40,7 @@
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
 
 @node The piano staff
@@ -320,5 +320,5 @@ Dans ce manuel : @ref{Ties} @qq{laissez vibrer}.
 UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 @ifnothtml
-@englishNR
+@englishref
 @end ifnothtml
