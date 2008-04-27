@@ -1137,7 +1137,7 @@ Currently, the available combinations of arguments (after the standard
 
 @noindent
 In the above table, @var{scm} represents native Scheme data types like
-@q{number} oder @q{string}.
+@q{number} or @q{string}.
 
 As an example, it is not possible to use a markup command @code{foo} with
 four arguments defined as
