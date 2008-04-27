@@ -9,24 +9,15 @@
 
 @c \version "2.11.38"
 
-@node Piano music
-@section Piano music
+@node Keyboard instruments
+@section Keyboard instruments
 
 @menu
 * Piano sections::              
 @end menu
 
-@node Piano sections
-@subsection Piano sections
-
-Los sistemas de piano son dos pentagramas normales agrupados mediante
-una llave.  Los pentagramas son hasta cierto punto independientes,
-pero a veces las voces pueden cruzarse entre los dos pentagramas.
-También se utiliza esta notación para otros instrumentos de teclado y
-para el arpa.  El @internalsref{PianoStaff} está preparado
-especialmente para manejar este comportamiento de cruce de
-pentagramas.  En esta sección trataremos el @internalsref{PianoStaff}
-y alguna que otra peculiaridad pianística.
+@node Common notation for keyboards
+@subsection Common notation for keyboards
 
 @menu
 * Automatic staff changes::     
@@ -36,19 +27,76 @@ y alguna que otra peculiaridad pianística.
 * Cross staff stems::           
 @end menu
 
+@node References for keyboards
+@subsubsection References for keyboards
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+@ifnothtml
+@englishNR
+@end ifnothtml
+
+@node The piano staff
+@subsubsection The piano staff
+
+Los sistemas de piano son dos pentagramas normales agrupados mediante
+una llave.  Los pentagramas son hasta cierto punto independientes,
+pero a veces las voces pueden cruzarse entre los dos pentagramas.
+También se utiliza esta notación para otros instrumentos de teclado y
+para el arpa.  El @code{PianoStaff} está preparado
+especialmente para manejar este comportamiento de cruce de
+pentagramas.  En esta sección trataremos el @code{PianoStaff}
+y alguna que otra peculiaridad pianística.
+
 @knownissues
 
 Los matices no se colocan centrados, pero se pueden utilizar ciertas
 alternativas.  Consulte la plantilla @q{piano con matices centrados}
 que está en @rlearning{Piano templates}.
 
-@cindex plica de pentagrama cruzado
-@cindex pentagrama cruzado, plica de
-@cindex distancia entre pentagramas en música de piano
+
+@node Changing staff manually
+@subsubsection Changing staff manually
+
+@cindex manual, cambio de pentagrama
+@cindex pentagrama, cambios manuales de
+
+Las voces se pueden cambiar de pentagrama manualmente usando la instrucción
+@example
+\change Staff = @var{nombre_del_pentagrama} @var{música}
+@end example
+
+@noindent
+La cadena @var{nombre_del_pentagrama} es el nombre del pentagrama.
+Cambia la voz actual de su pentagrama en curso al pentagrama de nombre
+@var{nombre_del_pentagrama}.  Por lo común @var{nombre_del_pentagrama}
+es @code{"up"} o @code{"down"}.  El @context{Staff} referido debe
+existir previamente, por ello normalmente la preparación de una
+partitura empezará por la preparación de los pentagramas,
+
+@example
+<<
+  \new Staff = "up" @{
+    \skip 1 * 10  % @emph{mantener vivo el pentagrama}
+    @}
+  \new Staff = "down" @{
+    \skip 1 * 10  % @emph{ídem}
+    @}
+>>
+@end example
 
 
-@node Automatic staff changes
-@subsubsection Automatic staff changes
+y la @context{Voice} se inserta con posterioridad
+
+@example
+\context Staff = down
+  \new Voice @{ @dots{} \change Staff = up @dots{} @}
+@end example
+
+
+@node Changing staff automatically
+@subsubsection Changing staff automatically
 @cindex Cambio automático de pentagrama
 
 Se puede hacer que las voces cambien automáticamente entre los
@@ -109,47 +157,84 @@ los cambios de pentagrama.
 @code{\autochange} no puede estar dentro de @code{\times}.
 
 
-@node Manual staff switches
-@subsubsection Manual staff switches
+@node Staff-change lines
+@subsubsection Staff-change lines
 
-@cindex manual, cambio de pentagrama
-@cindex pentagrama, cambios manuales de
+@cindex seguimiento de voz
+@cindex pentagrama, cambio
+@cindex cruce de pentagramas
 
-Las voces se pueden cambiar de pentagrama manualmente usando la instrucción
-@example
-\change Staff = @var{nombre_del_pentagrama} @var{música}
-@end example
+@funindex followVoice
 
-@noindent
-La cadena @var{nombre_del_pentagrama} es el nombre del pentagrama.
-Cambia la voz actual de su pentagrama en curso al pentagrama de nombre
-@var{nombre_del_pentagrama}.  Por lo común @var{nombre_del_pentagrama}
-es @code{"up"} o @code{"down"}.  El @context{Staff} referido debe
-existir previamente, por ello normalmente la preparación de una
-partitura empezará por la preparación de los pentagramas,
+Cuando una voz cambia a otro pentagrama, se puede imprimir automáticamente una línea
+que conecte las notas.  Esto se activa estableciendo
+@code{followVoice} a verdadero
 
-@example
-<<
-  \new Staff = "up" @{
-    \skip 1 * 10  % @emph{mantener vivo el pentagrama}
-    @}
-  \new Staff = "down" @{
-    \skip 1 * 10  % @emph{ídem}
-    @}
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \new Staff="one" {
+    \set followVoice = ##t
+    c1
+    \change Staff=two
+    b2 a
+  }
+  \new Staff="two" { \clef bass \skip 1*2 }
 >>
-@end example
+@end lilypond
+
+@seealso
+
+Referencia de funcionamiento interno: @internalsref{VoiceFollower}.
+
+@predefined
+
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
 
 
-y la @context{Voice} se inserta con posterioridad
+@node Cross-staff stems
+@subsubsection Cross-staff stems
 
-@example
-\context Staff = down
-  \new Voice @{ @dots{} \change Staff = up @dots{} @}
-@end example
+@cindex plica de pentagrama cruzado
+@cindex pentagrama cruzado, plica de
+@cindex distancia entre pentagramas en música de piano
+
+Los acordes que cruzan pentagramas se pueden producir mediante el incremento de la longitud
+de la plica en el pentagrama inferior, de manera que alcance a la plica que está en el pentagrama
+superior, y viceversa.
+
+@lilypond[ragged-right,verbatim,quote]
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
+noFlag = \once \override Stem #'flag-style = #'no-flag
+\new PianoStaff <<
+  \new Staff {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
 
 
-@node Pedals
-@subsubsection Pedals
+@node Piano
+@subsection Piano
+
+@menu
+* Piano pedals::
+@end menu
+
+@node Piano pedals
+@subsubsection Piano pedals
 @cindex Pedales
 
 El piano tiene pedales que alteran la forma en que se produce el
@@ -217,69 +302,21 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 Referencia de la notación: @ref{Ties} (laissez vibrer).
 
-@node Staff switch lines
-@subsubsection Staff switch lines
 
+@node Accordion
+@subsection Accordion
 
-@cindex seguimiento de voz
-@cindex pentagrama, cambio
-@cindex cruce de pentagramas
+@menu
+* Discant symbols::
+@end menu
 
-@funindex followVoice
+@node Discant symbols
+@subsubsection Discant symbols
 
-Cuando una voz cambia a otro pentagrama, se puede imprimir automáticamente una línea
-que conecte las notas.  Esto se activa estableciendo
-@code{followVoice} a verdadero
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new PianoStaff <<
-  \new Staff="one" {
-    \set followVoice = ##t
-    c1
-    \change Staff=two
-    b2 a
-  }
-  \new Staff="two" { \clef bass \skip 1*2 }
->>
-@end lilypond
-
-@seealso
-
-Referencia de funcionamiento interno: @internalsref{VoiceFollower}.
-
-@predefined
-
-@funindex \showStaffSwitch
-@code{\showStaffSwitch},
-@funindex \hideStaffSwitch
-@code{\hideStaffSwitch}.
-
-
-@node Cross staff stems
-@subsubsection Cross staff stems
-
-Los acordes que cruzan pentagramas se pueden producir mediante el incremento de la longitud
-de la plica en el pentagrama inferior, de manera que alcance a la plica que está en el pentagrama
-superior, y viceversa.
-
-@lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
-\new PianoStaff <<
-  \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
-  }
-  \new Staff {
-    \clef bass
-    a4 a8
-  }
->>
-@end lilypond
-
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+@ifnothtml
+@englishNR
+@end ifnothtml
 

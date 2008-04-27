@@ -12,10 +12,8 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Chords
-@section Chords
-
-Intro text.
+@node Chord notation
+@section Chord notation
 
 @menu 
 * Chords sections::

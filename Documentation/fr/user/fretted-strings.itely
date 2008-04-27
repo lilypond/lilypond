@@ -12,13 +12,13 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Guitar
-@section Guitar
+@node Fretted string instruments
+@section Fretted string instruments
 
 @cindex tablature
 @cindex tablature de guitare
 
-@menu 
+@menu
 * Guitar sections::
 @end menu
 

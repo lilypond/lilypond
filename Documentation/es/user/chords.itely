@@ -10,10 +10,8 @@
 @c \version "2.11.38"
 
 
-@node Chords Blah
-@section Chords Blah
-
-Intro text.
+@node Chord notation
+@section Chord notation
 
 @menu 
 * TODO chords fix::
