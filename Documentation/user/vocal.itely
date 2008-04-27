@@ -1041,7 +1041,7 @@ The underlay is switched back to the starting situation by assigning
 
 
 @node Printing stanzas at the end
-@subsubsection Printing stanzas at the end 
+@subsubsection Printing stanzas at the end
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -1085,8 +1085,8 @@ its fleece was white as snow.
 @end lilypond
 
 
-@node Printing stanzas at the end in multiple columns 
-@subsubsection Printing stanzas at the end in multiple columns 
+@node Printing stanzas at the end in multiple columns
+@subsubsection Printing stanzas at the end in multiple columns
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page.  An outdented verse number often

@@ -89,7 +89,7 @@ Keyboard instruments are usually notated with Piano staves.  These
 are two or more normal staves coupled with a brace.  The same
 notation is also used for harps and other key instruments.  Organ
 music is normally written with two staves inside a
-@internalsref{PianoStaff} group and third, normal staff for the
+@code{PianoStaff} group and third, normal staff for the
 pedals.
 
 The staves in keyboard music are largely independent, but sometimes
@@ -229,7 +229,6 @@ quality output, staff switches should be specified manually.
 @node Staff-change lines
 @subsubsection Staff-change lines
 
-
 @cindex follow voice
 @cindex staff switching
 @cindex cross-staff
@@ -262,6 +261,7 @@ Internals Reference: @internalsref{VoiceFollower}.
 @code{\showStaffSwitch},
 @funindex \hideStaffSwitch
 @code{\hideStaffSwitch}.
+
 
 @node Cross-staff stems
 @subsubsection Cross-staff stems
