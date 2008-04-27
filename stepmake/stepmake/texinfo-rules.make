@@ -60,3 +60,4 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo $(TOPLEVEL_VERSION)>> $@
 	echo '@end macro'>> $@
 
+.SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi
