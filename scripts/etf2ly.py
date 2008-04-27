@@ -30,7 +30,6 @@ import __main__
 import getopt
 import sys
 import re
-import string
 import os
 
 program_name = sys.argv[0]
@@ -268,7 +267,7 @@ class Slur:
             if not cs or not ce:
                 raise IndexError
             
-            cs.note_suffix = '-(' + cs.note_suffix 
+            cs.note_suffix = '-(' + cs.note_suffix
             ce.note_suffix = ce.note_suffix + '-)'
             
         except IndexError:
@@ -572,7 +571,7 @@ class Staff:
                     if g.bracket == 'start':
                         strs.append ('"0."')
 
-                    str = string.join (map (lambda x: '(volta %s)' % x, strs))
+                    str = ' '.join (['(volta %s)' % x for x in strs])
                     
                     e = e + ' \\set Score.repeatCommands =  #\'(%s) ' % str
 
@@ -811,7 +810,7 @@ Return: (value, rest-of-STR)
             str = str[1:]
 
         
-        return (string.atol (hex, 16), str)
+        return (long (hex, 16), str)
     elif str[0] == '"':
         str = str[1:]
         s = ''
@@ -826,7 +825,7 @@ Return: (value, rest-of-STR)
             dec = dec  + str[0]
             str = str[1:]
             
-        return (string.atoi (dec), str)
+        return (int (dec), str)
     else:
         sys.stderr.write ("cannot convert `%s'\n" % str)
         return (None, str)
@@ -845,10 +844,10 @@ def parse_etf_file (fn, tag_dict):
     f = open (fn)
     
     gulp = re.sub ('[\n\r]+', '\n',  f.read ())
-    ls = string.split (gulp, '\n^')
+    ls = gulp.split ('\n^')
 
     etf_file_dict = {}
-    for k in tag_dict.keys (): 
+    for k in tag_dict:
         etf_file_dict[k] = {}
 
     last_tag = None
@@ -860,7 +859,7 @@ def parse_etf_file (fn, tag_dict):
         if m and tag_dict.has_key (m.group (1)):
             tag = m.group (1)
 
-            indices = tuple (map (string.atoi, string.split (m.group (2), ',')))
+            indices = tuple ([int (s) for s in m.group (2).split (',')])
             content = l[m.end (2)+1:]
 
 
@@ -1141,7 +1140,7 @@ class Etf_file:
             
         if staffs:
             str += '\\version "2.3.25"\n'
-            str = str + '<<\n  %s\n>> } ' % string.join (staffs)
+            str = str + '<<\n  %s\n>> } ' % ' '.join (staffs)
             
         return str
 

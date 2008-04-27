@@ -1,6 +1,6 @@
 #!@TARGET_PYTHON@
 #
-# msdi2ly.py -- LilyPond midi import script
+# midi2ly.py -- LilyPond midi import script
 # 
 # source file of the GNU LilyPond music typesetter
 #
@@ -22,7 +22,6 @@ TODO:
 '''
 
 import os
-import string
 import sys
 
 """
@@ -87,7 +86,7 @@ def warning (s):
         
 def error (s):
     progress (_ ("error: ") + s)
-    raise _ ("Exiting... ")
+    raise Exception (_ ("Exiting... "))
 
 def system (cmd, ignore_error = 0):
     return ly.system (cmd, ignore_error=ignore_error)
@@ -482,12 +481,12 @@ def events_on_channel (channel):
         # all include ALL_NOTES_OFF
         elif e[1][0] >= midi.ALL_SOUND_OFF \
           and e[1][0] <= midi.POLY_MODE_ON:
-            for i in pitches.keys ():
+            for i in pitches:
                 end_note (pitches, notes, t, i)
                 
         elif e[1][0] == midi.META_EVENT:
             if e[1][1] == midi.END_OF_TRACK:
-                for i in pitches.keys ():
+                for i in pitches:
                     end_note (pitches, notes, t, i)
                 break
 
@@ -671,10 +670,10 @@ def dump_channel (thread, skip):
     for ch in chs: 
         t = ch[0]
 
-        i = string.rfind (lines[-1], '\n') + 1
+        i = lines[-1].rfind ('\n') + 1
         if len (lines[-1][i:]) > LINE_BELL:
             lines.append ('')
-            
+
         if t - last_t > 0:
             lines[-1] = lines[-1] + dump_skip (skip, t-last_t)
         elif t - last_t < 0:
@@ -697,7 +696,7 @@ def dump_channel (thread, skip):
                               last_t, bar_count)
         lines[-1] = lines[-1] + s
 
-    return string.join (lines, '\n  ') + '\n'
+    return '\n  '.join (lines) + '\n'
 
 def track_name (i):
     return 'track%c' % (i + ord ('A'))
@@ -917,7 +916,7 @@ def do_options ():
         warranty ()
         sys.exit (0)
     if 1:
-        (alterations, minor) = map (int, string.split (options.key + ':0', ':'))[0:2]
+        (alterations, minor) = map (int, (options.key + ':0').split (':'))[0:2]
         sharps = 0
         flats = 0
         if alterations >= 0:

@@ -58,6 +58,7 @@
 
 #TODO:
 #
+# * coding style
 # * lilylib
 # * GNU style messages:  warning:FILE:LINE:
 # * l10n
@@ -72,7 +73,6 @@ import __main__
 import getopt
 import sys
 import re
-import string
 import os
 
 program_name = sys.argv[0]
@@ -117,7 +117,7 @@ def error (msg):
     sys.stderr.write (msg)
     if global_options.strict:
         sys.exit (1)
-    
+
 
 def alphabet (i):
     return chr (i + ord('A'))
@@ -211,7 +211,7 @@ def dump_slyrics (outf):
     ks.sort ()
     for k in ks:
         if re.match('[1-9]', k):
-            m = alphabet(string.atoi(k))
+            m = alphabet (int (k))
         else:
             m = k
         for i in range (len(slyrics[voice_idx_dict[k]])):
@@ -226,7 +226,7 @@ def dump_voices (outf):
     ks.sort ()
     for k in ks:
         if re.match ('[1-9]', k):
-            m = alphabet(string.atoi(k))
+            m = alphabet (int (k))
         else:
             m = k
         outf.write ("\nvoice%s =  {" % m)
@@ -245,19 +245,19 @@ def try_parse_q(a):
     global midi_specs
     #assume that Q takes the form "Q:1/4=120"
     #There are other possibilities, but they are deprecated
-    if string.count(a, '/') == 1:
-        array=string.split(a,'/')
+    if a.count ('/') == 1:
+        array = a.split('/')
         numerator=array[0]
         if int(numerator) != 1:
             sys.stderr.write("abc2ly: Warning, unable to translate a Q specification with a numerator of %s: %s\n" % (numerator, a))
-        array2=string.split(array[1],'=')
+        array2 = array[1].split ('=')
         denominator=array2[0]
         perminute=array2[1]
-        duration=str(string.atoi(denominator)/string.atoi(numerator))
-        midi_specs=string.join(["    \n\t\t\context {\n\t\t \Score tempoWholesPerMinute = #(ly:make-moment ", perminute, " ", duration, ")\n\t\t }\n"])
+        duration = str (int (denominator) / int (numerator))
+        midi_specs = ' '.join(["    \n\t\t\context {\n\t\t \Score tempoWholesPerMinute = #(ly:make-moment ", perminute, " ", duration, ")\n\t\t }\n"])
     else:
         sys.stderr.write("abc2ly: Warning, unable to parse Q specification: %s\n" % a)
-    
+
 def dump_score (outf):
     outf.write (r"""
 
@@ -269,7 +269,7 @@ def dump_score (outf):
     ks.sort ()
     for k in  ks:
         if re.match('[1-9]', k):
-            m = alphabet (string.atoi(k))
+            m = alphabet (int (k))
         else:
             m = k
         if k == 'default' and len (voice_idx_dict) > 1:
@@ -284,7 +284,7 @@ def dump_score (outf):
         for lyrics in slyrics [voice_idx_dict[k]]:
             outf.write ("\n\t\\addlyrics { \n")
             if re.match('[1-9]',k):
-                m = alphabet (string.atoi(k))
+                m = alphabet (int (k))
             else:
                 m = k
 
@@ -301,14 +301,14 @@ def set_default_length (s):
     global length_specified
     m =  re.search ('1/([0-9]+)', s)
     if m:
-        __main__.default_len = string.atoi ( m.group (1))
+        __main__.default_len = int ( m.group (1))
         length_specified = 1
 
 def set_default_len_from_time_sig (s):
     m =  re.search ('([0-9]+)/([0-9]+)', s)
     if m:
-        n = string.atoi (m.group (1))
-        d = string.atoi (m.group (2))
+        n = int (m.group (1))
+        d = int (m.group (2))
         if (n * 1.0 )/(d * 1.0) <  0.75:
             __main__.default_len =  16
         else:
@@ -407,7 +407,7 @@ key_lookup = {         # abc to lilypond key mode names
 def lily_key (k):
     orig = "" + k
     # UGR
-    k = string.lower (k)
+    k = k.lower ()
     key = k[0]
     #UGH
     k = k[1:]
@@ -465,7 +465,7 @@ key_shift = { # semitone shifts for key mode names
     'dorian' :        -2        
 }
 def compute_key (k):
-    k = string.lower (k)
+    k = k.lower ()
     intkey = (ord (k[0]) - ord('a') + 5) % 7
     intkeyacc =0
     k = k[1:]
@@ -497,7 +497,7 @@ def compute_key (k):
         accseq = map (lambda x: (3*x + 3 ) % 7, range (1, key_count + 1))
     else:
         error ("Huh?")
-        raise "Huh"
+        raise Exception ("Huh")
     
     key_table = [0] * 7
     for a in accseq:
@@ -521,7 +521,7 @@ def try_parse_tuplet_begin (str, state):
         dig = str[1]
         str = str[2:]
         prev_tuplet_state = state.parsing_tuplet
-        state.parsing_tuplet = string.atoi (dig[0])
+        state.parsing_tuplet = int (dig[0])
         if prev_tuplet_state:
             voices_append ("}")                
         voices_append ("\\times %s {" % tup_lookup[dig])
@@ -540,7 +540,7 @@ def header_append (key, a):
         header [key] = s + a
 
 def wordwrap(a, v):
-    linelen = len (v) - string.rfind(v, '\n')
+    linelen = len (v) - v.rfind ('\n')
     if linelen + len (a) > 80:
         v = v + '\n'
     return v + a + ' '
@@ -763,7 +763,7 @@ def parse_num (str):
 
     n = None
     if durstr:
-        n  =string.atoi (durstr) 
+        n = int (durstr)
     return (str,n)
 
 
@@ -900,7 +900,7 @@ def try_parse_articulation (str, state):
         
     # s7m2 input doesnt care about spaces
     if re.match('[ \t]*\(', str):
-        str = string.lstrip (str)
+        str = str.lstrip ()
 
     slur_begin =0
     while str[:1] =='(' and str[1] not in DIGITS:
@@ -928,9 +928,9 @@ def get_bar_acc(note, octave, state):
         return(UNDEF)
 
 def clear_bar_acc(state):
-    for k in state.in_acc.keys():
+    for k in state.in_acc:
         del state.in_acc[k]
-    
+
 
 # if we are parsing a beam, close it off
 def close_beam_state(state):
@@ -961,7 +961,7 @@ def try_parse_note (str, parser_state):
 
     octave = parser_state.base_octave
     if str[0] in "ABCDEFG":
-        str = string.lower (str[0]) + str[1:]
+        str = str[0].lower () + str[1:]
         octave = octave - 1
 
 
@@ -989,7 +989,7 @@ def try_parse_note (str, parser_state):
     (str, num,den,current_dots) = parse_duration (str, parser_state)
 
     if re.match('[ \t]*\)', str):
-        str = string.lstrip (str)
+        str = str.lstrip ()
     
     slur_end =0
     while str[:1] ==')':
@@ -1261,11 +1261,11 @@ def try_parse_comment (str):
             if 'nobarlines' in str:
                 nobarlines = 1
         elif str[0:3] == '%LY':
-            p = string.find(str, 'voices')
+            p = str.find ('voices')
             if (p > -1):
                 voices_append(str[p+7:])
                 voices_append("\n")
-            p = string.find(str, 'slyrics')
+            p = str.find ('slyrics')
             if (p > -1):
                 slyrics_append(str[p+8:])
             
