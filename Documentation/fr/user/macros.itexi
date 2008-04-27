@@ -45,10 +45,9 @@
 @end html
 @end macro
 
-@c FIXME: hack unbreakable thin spaces
 @macro qq{TEXT}
 @html
-&laquo;&nbsp;\TEXT\&nbsp;&raquo;
+&laquo;<font size="-4">&nbsp;</font>\TEXT\<font size="-4">&nbsp;</font>&raquo;
 @end html
 @end macro
 @end ifhtml
@@ -61,10 +60,9 @@
 @end xml
 @end macro
 
-@c FIXME: hack unbreakable thin spaces
 @macro qq{TEXT}
 @xml
-&laquo;&nbsp;\TEXT\&nbsp;&raquo;
+&laquo;<font size="-4">&nbsp;</font>\TEXT\<font size="-4">&nbsp;</font>&raquo;
 @end xml
 @end macro
 @end ifdocbook
