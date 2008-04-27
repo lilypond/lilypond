@@ -38,6 +38,7 @@ than one voice on the same staff.
 @cindex brackets, angle
 @funindex <
 @funindex >
+@funindex <...>
 
 A chord is formed by a enclosing a set of pitches between @code{<} and
 @code{>}.  A chord may be followed by a duration and/or a set of

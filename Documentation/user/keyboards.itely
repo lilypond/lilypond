@@ -8,24 +8,18 @@
 
 @c \version "2.11.38"
 
+@c Andrew's TODO List
+@c references - started
+@c piano staff - started
+@c manual changes - started
+@c automatic changes
+@c staff-chagne lines
+@c cross-staff stems
+@c pedals
+@c discant symbols
+
 @node Keyboard instruments
 @section Keyboard instruments
-
-TODO
-My suggestion is this: in section 7.1.1 and/or 7.1.2 of the
-manual,
-about staff switching, add a sentence or two plus a simple example
-showing how the beams are handled automatically if you enter notes
-that
-require beaming (i.e. 8ths or shorter).  Anyone coming from Finale
-will
-be looking for "cross-staff beaming" instead of staff switching.
-If I
-had seen an example of notes switching staves, beamed together
-like
-that, I would have known immediately that that was what I was
-looking for.
-
 
 @menu
 * Common notation for keyboards::
@@ -48,70 +42,135 @@ looking for.
 @node References for keyboards
 @subsubsection References for keyboards
 
-@c TODO add refs
-TBC
+Keyboard music can be written in parallel with
+@ref{Writing music in parallel}.
+Fingerings are indicated with @ref{Fingering instructions}.
+Organ pedal indications are inserted as articulations, see
+@ref{List of articulations}.
+Vertical grid lines can be shown with @ref{Grid lines}.
+Keyboard music often contains @notation{Laissez vibrer} ties as well as
+ties on arpeggios and tremelos, described in @ref{Ties}.
+Arpeggios can be placed across multiple voices and staves with
+@ref{Arpeggio}.
+Tremelo marks are created with @ref{Tremolo repeats}.
+
+Several of the tweaks that can occur in keyboard music are
+demonstrated in @rlearning{Real music example}.  Hidden notes can
+be used to produce ties that cross voices, as shown
+@rlearning{Other uses for tweaks}.
+
+@snippets
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {creating-slurs-across-voices.ly}
+
+@seealso
+
+Learning Manual:
+@rlearning{Real music example},
+@rlearning{Other uses for tweaks}.
+
+Notation Reference:
+@ref{Writing music in parallel},
+@ref{Fingering instructions},
+@ref{Grid lines},
+@ref{Ties},
+@ref{Arpeggio},
+@ref{Tremolo repeats}.
+@ref{List of articulations}
+
+Snippets:
+@c @lsrdir{Keyboard instruments}.
+
 
 @node The piano staff
 @subsubsection The piano staff
 
-Keyboard instruments are usually notated with Piano staves.
-These are two or more normal staves coupled with a brace.  The staves
-are largely independent, but sometimes voices can cross between the
-two staves.  The same notation is also used for harps and other key
-instruments.  The @internalsref{PianoStaff} is especially built to
-handle this cross-staffing behavior.  In this section we discuss the
-@internalsref{PianoStaff} and some other pianistic peculiarities.
+Keyboard instruments are usually notated with Piano staves.  These
+are two or more normal staves coupled with a brace.  The same
+notation is also used for harps and other key instruments.  Organ
+music is normally written with two staves inside a
+@internalsref{PianoStaff} group and third, normal staff for the
+pedals.
+
+The staves in keyboard music are largely independent, but sometimes
+voices can cross between the two staves.  In this section we discuss
+some notation techniques particular to keyboard music.
+
+@seealso
+Notation Reference:
+@ruser{Grouping staves},
+@ruser{Instrument Names}.
+
+Internals Reference:
+@internalsref{PianoStaff}.
 
 @knownissues
-
 Dynamics are not centered, but workarounds do exist.  See the
 @q{piano centered dynamics} template in @rlearning{Piano templates}.
-
-@cindex cross staff stem
-@cindex stem, cross staff
-@cindex distance between staves in piano music
 
 @node Changing staff manually
 @subsubsection Changing staff manually
 
-@cindex manual staff switches
-@cindex staff switch, manual
+@cindex changing staff manually
+@cindex manual staff changes
+@cindex staff changes, manual
+@cindex cross-staff notes
+@cindex notes, cross-staff
+@cindex cross-staff beams
+@cindex beams, cross-staff
+@funindex \change
 
 Voices can be switched between staves manually, using the command
 @example
-\change Staff = @var{staffname} @var{music}
+\change Staff = @var{staffname}
 @end example
 
 @noindent
 The string @var{staffname} is the name of the staff.  It switches the
 current voice from its current staff to the Staff called
-@var{staffname}.  Typically @var{staffname} is @code{"up"} or
-@code{"down"}.  The @code{Staff} referred to must already exist, so
-usually the setup for a score will start with a setup of the staves,
+@var{staffname}.  Typical values for @var{staffname} are @code{"up"}
+and @code{"down"}, or @code{"RH"} and @code{"LH"}.
 
-@example
-<<
-  \new Staff = "up" @{
-    \skip 1 * 10  % @emph{keep staff alive}
-    @}
-  \new Staff = "down" @{
-    \skip 1 * 10  % @emph{idem}
-    @}
+Cross-staff notes are beamed automatically:
+
+@lilypond[verbatim,quote,ragged-right]
+upStaff = \change Staff = up
+downStaff = \change Staff = down
+\new PianoStaff <<
+  \new Staff = "up" {
+    <e' c'>8 \downStaff g fis g \upStaff
+    <g'' c''>8 \downStaff e dis e \upStaff
+  }
+  \new Staff = "down" {
+    \clef "bass"
+    s1 % keep the context alive
+  }
 >>
-@end example
+@end lilypond
 
+If the beaming needs to be tweaked, make any changes to the stem
+directions first. The beam positions are then measured from the center
+of the staff that is closest to the beam. For a simple example of beam
+tweaking, see @rlearning{Fixing overlapping notation}.
 
-and the @code{Voice} is inserted afterwards
+@seealso
+Learning Manual:
+@rlearning{Fixing overlapping notation}.
 
-@example
-\context Staff = down
-  \new Voice @{ @dots{} \change Staff = up @dots{} @}
-@end example
+Notation Reference:
+@ruser{Stems},
+@ruser{Automatic beams}.
 
+Snippets:
+@c @lsrdir{Keyboard instruments}.
+
+Internals Reference:
+@internalsref{Beam}.
 
 @node Changing staff automatically
 @subsubsection Changing staff automatically
-@cindex Automatic staff changes
+@cindex automatic staff changes
+@cindex staff changes, automatic
 
 Voices can be made to switch automatically between the top and the bottom
 staff.  The syntax for this is
@@ -153,7 +212,7 @@ advance.  Here is a practical example
 
 @seealso
 
-@c Notation Reference: @ref{Manual staff switches}.
+Notation Reference: @ref{Changing staff manually}.
 
 Internals Reference: @internalsref{AutoChangeMusic}.
 
@@ -173,7 +232,7 @@ quality output, staff switches should be specified manually.
 
 @cindex follow voice
 @cindex staff switching
-@cindex cross staff
+@cindex cross-staff
 
 @funindex followVoice
 
@@ -326,8 +385,3 @@ Notation Reference: @ref{Ties} (laissez vibrer).
 
 @c TODO Add text from -user and lsr 194
 TBC
-
-
-
-
-

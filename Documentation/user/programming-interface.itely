@@ -1116,13 +1116,59 @@ Note: there is now an internal command @code{\smallCaps} which can
 be used to set text in small caps.  See
 @ref{Text markup commands}, for details.
 
+@knownissues
+
+Currently, the available combinations of arguments (after the standard
+@var{layout} and @var{props} arguments) to a markup command defined with
+@code{define-markup-command} are limited as follows.
+
+@table @asis
+@item (no argument)
+@itemx @var{list}
+@itemx @var{markup}
+@itemx @var{markup markup}
+@itemx @var{scm}
+@itemx @var{scm markup}
+@itemx @var{scm scm}
+@itemx @var{scm scm markup}
+@itemx @var{scm markup markup}
+@itemx @var{scm scm scm}
+@end table
+
+@noindent
+In the above table, @var{scm} represents native Scheme data types like
+@q{number} oder @q{string}.
+
+As an example, it is not possible to use a markup command @code{foo} with
+four arguments defined as
+
+@example
+#(define-markup-command (foo layout props
+                         num1    str1    num2    str2)
+                        (number? string? number? string?)
+  ...)
+@end example
+
+@noindent
+If you apply it as, say,
+
+@example
+\markup \foo #1 #"bar" #2 #"baz"
+@end example
+
+@cindex Scheme signature
+@cindex signature, Scheme
+@noindent
+@command{lilypond} complains that it cannot parse @code{foo} due to its
+unknown Scheme signature.
+
 
 @node New markup list command definition
 @subsection New markup list command definition
 Markup list commands are defined with the
 @code{define-markup-list-command} Scheme macro, which is similar to the
 @code{define-markup-command} macro described in
-@ref{New markup command definition}, except that where the later returns
+@ref{New markup command definition}, except that where the latter returns
 a single stencil, the former returns a list stencils.
 
 In the following example, a @code{\paragraph} markup list command is
