@@ -37,25 +37,45 @@ The command is now available in markup mode, e.g.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; markup definer utilities
 
-(define-macro (define-builtin-markup-command command-and-args signature . body)
+;; For documentation purposes
+;; category -> markup functions
+(define-public markup-functions-by-category (make-hash-table 150))
+;; markup function -> used properties
+(define-public markup-functions-properties (make-hash-table 150))
+;; List of markup list functions
+(define-public markup-list-function-list (list))
+
+(define-macro (define-builtin-markup-command command-and-args signature
+                category properties-or-copied-function . body)
   "
 * Define a COMMAND-markup function after command-and-args and body,
 register COMMAND-markup and its signature,
 
-* add COMMAND-markup to markup-function-list,
+* add COMMAND-markup to markup-functions-by-category,
 
 * sets COMMAND-markup markup-signature and markup-keyword object properties,
 
 * define a make-COMMAND-markup function.
 
 Syntax:
-  (define-builtin-markup-command (COMMAND layout props arg1 arg2 ...)
-                                 (arg1-type? arg2-type? ...)
+  (define-builtin-markup-command (COMMAND layout props . arguments)
+                                 argument-types
+                                 category
+                                 properties
     \"documentation string\"
     ...command body...)
  or:
-  (define-builtin-markup-command COMMAND (arg1-type? arg2-type? ...)
-    function)
+  (define-builtin-markup-command COMMAND
+                                 argument-types
+                                 category
+                                 function)
+
+where:
+  argument-types is a list of type predicates for arguments
+  category is either a symbol or a symbol list
+  properties a list of (property default-value) lists or COMMANDx-markup elements
+    (when a COMMANDx-markup is found, the properties of the said commandx are
+    added instead). No check is performed against cyclical references!
 "
   (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))
          (args (if (pair? command-and-args) (cdr command-and-args) '()))
@@ -64,51 +84,111 @@ Syntax:
     `(begin
        ;; define the COMMAND-markup function
        ,(if (pair? args)
-            `(define-public (,command-name ,@args)
-               ,@body)
+            (let ((documentation (car body))
+                  (real-body (cdr body))
+                  (properties properties-or-copied-function))
+              `(define-public (,command-name ,@args)
+                 ,documentation
+                 (let ,(filter identity
+                               (map (lambda (prop-spec)
+                                      (if (pair? prop-spec)
+                                          (let ((prop (car prop-spec))
+                                                (default-value (if (null? (cdr prop-spec))
+                                                                   #f
+                                                                   (cadr prop-spec)))
+                                                (props (cadr args)))
+                                            `(,prop (chain-assoc-get ',prop ,props ,default-value)))
+                                          #f))
+                                    properties))
+                   ,@real-body)))
+            (let ((args (gensym "args"))
+                  (markup-command properties-or-copied-function))
+              `(define-public (,command-name . ,args)
+                 ,(format #f "Copy of the ~a command." markup-command)
+                 (apply ,markup-command ,args))))
+       (set! (markup-command-signature ,command-name) (list ,@signature))
+       ;; Register the new function, for markup documentation
+       ,@(map (lambda (category)
+                `(hashq-set! markup-functions-by-category ',category
+                             (cons ,command-name
+                                   (or (hashq-ref markup-functions-by-category ',category)
+                                       (list)))))
+              (if (list? category) category (list category)))
+       ;; Used properties, for markup documentation
+       (hashq-set! markup-functions-properties
+                   ,command-name
+                   (list ,@(map (lambda (prop-spec)
+                                  (cond ((symbol? prop-spec)
+                                         prop-spec)
+                                         ((not (null? (cdr prop-spec)))
+                                          `(list ',(car prop-spec) ,(cadr prop-spec)))
+                                         (else
+                                          `(list ',(car prop-spec)))))
+                                (if (pair? args)
+                                    properties-or-copied-function
+                                    (list)))))
+       ;; define the make-COMMAND-markup function
+       (define-public (,make-markup-name . args)
+         (let ((sig (list ,@signature)))
+           (make-markup ,command-name ,(symbol->string make-markup-name) sig args))))))
+
+(define-macro (define-builtin-markup-list-command command-and-args signature
+                properties . body)
+  "Same as `define-builtin-markup-command, but defines a command that, when
+interpreted, returns a list of stencils instead os a single one"
+  (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))
+         (args (if (pair? command-and-args) (cdr command-and-args) '()))
+         (command-name (string->symbol (format #f "~a-markup-list" command)))
+         (make-markup-name (string->symbol (format #f "make-~a-markup-list" command))))
+    `(begin
+       ;; define the COMMAND-markup-list function
+       ,(if (pair? args)
+            (let ((documentation (car body))
+                  (real-body (cdr body)))
+              `(define-public (,command-name ,@args)
+                 ,documentation
+                 (let ,(filter identity
+                               (map (lambda (prop-spec)
+                                      (if (pair? prop-spec)
+                                          (let ((prop (car prop-spec))
+                                                (default-value (if (null? (cdr prop-spec))
+                                                                   #f
+                                                                   (cadr prop-spec)))
+                                                (props (cadr args)))
+                                            `(,prop (chain-assoc-get ',prop ,props ,default-value)))
+                                          #f))
+                                    properties))
+                   ,@body)))
             (let ((args (gensym "args"))
                   (markup-command (car body)))
             `(define-public (,command-name . ,args)
                ,(format #f "Copy of the ~a command." markup-command)
                (apply ,markup-command ,args))))
        (set! (markup-command-signature ,command-name) (list ,@signature))
-       ;; add the command to markup-function-list, for markup documentation
-       (if (not (member ,command-name markup-function-list))
-           (set! markup-function-list (cons ,command-name markup-function-list)))
-       ;; define the make-COMMAND-markup function
-       (define-public (,make-markup-name . args)
-         (let ((sig (list ,@signature)))
-           (make-markup ,command-name ,(symbol->string make-markup-name) sig args))))))
-
-(define-macro (define-builtin-markup-list-command command-and-args signature . body)
-  "Same as `define-builtin-markup-command, but defines a command that, when
-interpreted, returns a list of stencils instead os a single one"
-  (let* ((command (if (pair? command-and-args) (car command-and-args) command-and-args))
-	 (args (if (pair? command-and-args) (cdr command-and-args) '()))
-	 (command-name (string->symbol (format #f "~a-markup-list" command)))
-	 (make-markup-name (string->symbol (format #f "make-~a-markup-list" command))))
-    `(begin
-       ;; define the COMMAND-markup-list function
-       ,(if (pair? args)
-	    `(define-public (,command-name ,@args)
-	       ,@body)
-	    (let ((args (gensym "args"))
-		  (markup-command (car body)))
-	    `(define-public (,command-name . ,args)
-	       ,(format #f "Copy of the ~a command." markup-command)
-	       (apply ,markup-command ,args))))
-       (set! (markup-command-signature ,command-name) (list ,@signature))
        ;; add the command to markup-list-function-list, for markup documentation
        (if (not (member ,command-name markup-list-function-list))
-	   (set! markup-list-function-list (cons ,command-name
-						 markup-list-function-list)))
+           (set! markup-list-function-list (cons ,command-name
+                                                 markup-list-function-list)))
+       ;; Used properties, for markup documentation
+       (hashq-set! markup-functions-properties
+                   ,command-name
+                   (list ,@(map (lambda (prop-spec)
+                                  (cond ((symbol? prop-spec)
+                                         prop-spec)
+                                         ((not (null? (cdr prop-spec)))
+                                          `(list ',(car prop-spec) ,(cadr prop-spec)))
+                                         (else
+                                          `(list ',(car prop-spec)))))
+                                (if (pair? args)
+                                    properties
+                                    (list)))))
        ;; it's a markup-list command:
        (set-object-property! ,command-name 'markup-list-command #t)
        ;; define the make-COMMAND-markup-list function
        (define-public (,make-markup-name . args)
-	 (let ((sig (list ,@signature)))
-	   (list (make-markup ,command-name
-			      ,(symbol->string make-markup-name) sig args)))))))
+         (let ((sig (list ,@signature)))
+           (list (make-markup ,command-name
+                              ,(symbol->string make-markup-name) sig args)))))))
 
 (define-public (make-markup markup-function make-name signature args)
   " Construct a markup object from MARKUP-FUNCTION and ARGS. Typecheck
@@ -290,10 +370,6 @@ Use `markup*' in a \\notemode context."
 (define-public markup-command-signature
   (make-procedure-with-setter markup-command-signature-ref
                               markup-command-signature-set!))
-
-;; For documentation purposes
-(define-public markup-function-list (list))
-(define-public markup-list-function-list (list))
 
 (define-public (markup-signature-to-keyword sig)
   " (A B C) -> a0-b1-c2 "
