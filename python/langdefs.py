@@ -44,7 +44,7 @@ french_html_typo_rules = ((' :', '&nbsp;:'),
                           (' !', '<font size="-4">&nbsp;</font>!'))
 
 def french_html_filter (page):
-    m = html_page_body_re.search (page)
+    m = html_body_re.search (page)
     if m:
         body_begin = m.end ()
     else:

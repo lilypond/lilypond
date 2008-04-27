@@ -190,7 +190,7 @@ for d in dirs:
     allfiles += find ('*.ly', d)
 
 allfiles = [f for f in allfiles
-            if not x.endswith ('snippet-map.ly')
+            if not f.endswith ('snippet-map.ly')
             and not re.search ('lily-[0-9a-f]+', f)
             and 'musicxml' not in f]
 

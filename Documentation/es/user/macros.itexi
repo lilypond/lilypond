@@ -336,18 +336,16 @@
 
 @c Commands specific to translated docs
 
+@c ugh, cannot set/define global variable 'translationof' in some way?
 @iftex
 @macro translationof{TEXT}
-@tex
-\gdef\translationof{\TEXT\}
-@end tex
 @end macro
 @end iftex
 
 @ifinfo
 @macro
 @macro translationof{TEXT}
-@set translationof{\TEXT\}
+@set translationof \TEXT\
 @end macro
 @end ifinfo
 
