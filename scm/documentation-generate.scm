@@ -30,13 +30,17 @@
  (slot-ref (all-scheme-functions-doc) 'text)
  (open-output-file "scheme-functions.tely"))
 
-(display 
- (markup-doc-string)
- (open-output-file "markup-commands.tely"))
+;;(display 
+;; (markup-doc-string)
+;; (open-output-file "markup-commands.tely"))
 
-(display 
- (markup-list-doc-string)
- (open-output-file "markup-list-commands.tely"))
+(call-with-output-file "markup-commands.tely"
+  (lambda (port)
+    (dump-node (markup-doc-node) port 2 #t)))
+
+(call-with-output-file "markup-list-commands.tely"
+  (lambda (port)
+    (dump-node (markup-list-doc-node) port 2 #t)))
 
 (display 
  (identifiers-doc-string)

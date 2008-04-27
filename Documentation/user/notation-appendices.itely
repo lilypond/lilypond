@@ -212,18 +212,7 @@ The following styles may be used for note heads.
 
 @lilypondfile[noindent]{note-head-style.ly}
 
-
-@node Text markup commands
-@appendixsec Text markup commands
-
-The following commands can all be used inside @code{\markup @{ @}}.
-
 @include markup-commands.tely
-
-@node Text markup list commands
-@appendixsec Text markup list commands
-
-The following commands can all be used with @code{\markuplines}.
 
 @include markup-list-commands.tely
 

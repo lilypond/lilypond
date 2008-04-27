@@ -133,8 +133,8 @@ block -- for example, @code{\header} is often placed above the
 accepts.
 
 Two more commands you have not previously seen are
-@code{\layout @{ @}} and @code{\midi @{@}}.  If these appear as 
-shown they will cause LilyPond to produce a printed output and a 
+@code{\layout @{ @}} and @code{\midi @{@}}.  If these appear as
+shown they will cause LilyPond to produce a printed output and a
 MIDI output respectively.  They are described fully in the
 Notation Reference -- @ruser{Score layout} and
 @ruser{Creating MIDI files}.
@@ -146,8 +146,29 @@ a single output file.  A @code{\book} command is not necessary
 separate output files from one @code{.ly} file then the
 @code{\book} command should be used to separate the different
 sections: each @code{\book} block will produce a
-separate output file.  For details see @ruser{Multiple scores
-in a book}.
+separate output file.
+
+In summary:
+
+Every @code{\book} block creates a separate output file (e.g., a
+pdf file).  If you haven't explicitly added one, LilyPond wraps
+your entire input code in a @code{\book} block implicitly.
+
+Every @code{\score} block is a separate chunk of music within a
+@code{\book} block.
+
+Every @code{\layout} block affects the @code{\score} or
+@code{\book} block in which it appears -- i.e., a @code{\layout}
+block inside a @code{\score} block affects only that @code{\score}
+block, but a @code{\layout} block outside of a @code{\score} block
+(and thus in a @code{\book} block, either explicitly or
+implicitly) will affect every @code{\score} in that @code{\book}.
+
+Every @code{\context} block will affect the named context (e.g.,
+@code{\StaffGroup}) throughout the block (@code{\score} or
+@code{\book}) in which it appears.
+
+For details see @ruser{Multiple scores in a book}.
 
 @cindex variables
 
@@ -1003,8 +1024,8 @@ as here:
 Closely spaced notes in a chord, or notes occurring at the same
 time in different voices, are arranged in two, occasionally more,
 columns to prevent the note heads overlapping.  These are called
-note columns.  There are separate columns for each voice, and 
-the currently specified voice-dependent shift is applied to the 
+note columns.  There are separate columns for each voice, and
+the currently specified voice-dependent shift is applied to the
 note column if there would otherwise be a collision.  This can
 be seen in the example above.  In bar 2 the C in voice two is
 shifted to the right relative to the D in voice one, and in the
@@ -1014,10 +1035,10 @@ relative to the other notes.
 The @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn}, and
 @code{\shiftOff} commands specify the degree to which notes and
 chords of the voice should be shifted if a collision
-would otherwise occur. By default, the outer voices (normally 
-voices one and two) have @code{\shiftOff} specified, while the 
-inner voices (three and four) have @code{\shiftOn} specified.  
-When a shift is applied, Voices one and three are shifted to 
+would otherwise occur. By default, the outer voices (normally
+voices one and two) have @code{\shiftOff} specified, while the
+inner voices (three and four) have @code{\shiftOn} specified.
+When a shift is applied, Voices one and three are shifted to
 the right and voices two and four to the left.
 
 @code{\shiftOnn} and @code{\shiftOnnn} define further shift
@@ -1027,7 +1048,7 @@ in complex situations -- see @ref{Real music example}.
 A note column can contain just one note (or chord) from a voice
 with stems up and one note (or chord) from a voice with stems
 down.  If notes from two voices which have their stems in the
-same direction are placed at the same position and both voices 
+same direction are placed at the same position and both voices
 have no shift or the same shift specified, the error message
 @qq{Too many clashing note columns} will be produced.
 
@@ -1064,11 +1085,11 @@ where beaming is either not required at all or is used to indicate
 melismata in the lyrics.  In the example above we use the command
 @code{\autoBeamOff} to turn off the automatic beaming.
 
-Let us reuse the earlier example from Judas Maccabæus to 
+Let us reuse the earlier example from Judas Maccabæus to
 illustrate this more flexible technique.  We first recast
 it to use variables so the music and lyrics can be separated
-from the staff structure.  We also introduce a ChoirStaff 
-bracket.  The lyrics themselves must be introduced with 
+from the staff structure.  We also introduce a ChoirStaff
+bracket.  The lyrics themselves must be introduced with
 @code{\lyricmode} to ensure they are interpreted as lyrics
 rather than music.
 
@@ -1113,7 +1134,7 @@ more verses may be added to the lyrics,
 and the variables containing the music can easily be placed
 in separate files should they become too long.
 
-Here is a final example of the first line of a hymn with four
+Here is a example of the first line of a hymn with four
 verses, set for SATB.  In this case the words for all four
 parts are the same.
 
@@ -1123,13 +1144,13 @@ SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
 AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
 TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
 BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
-VerseOne   = \lyricmode { 
+VerseOne   = \lyricmode {
   E -- | ter -- nal fa -- ther, | strong to save, }
-VerseTwo   = \lyricmode { 
+VerseTwo   = \lyricmode {
   O | Christ, whose voice the | wa -- ters heard, }
-VerseThree = \lyricmode { 
+VerseThree = \lyricmode {
   O | Ho -- ly Spi -- rit, | who didst brood }
-VerseFour  = \lyricmode { 
+VerseFour  = \lyricmode {
   O | Tri -- ni -- ty of | love and pow'r }
 
 \score {
@@ -1152,21 +1173,208 @@ VerseFour  = \lyricmode {
 }
 @end lilypond
 
+We end with an example to show how we might code a solo verse which
+continues into a two-part refrain in two staves.  The
+positioning of the sequential and simultaneous sections to achieve
+this within a single score is quite tricky, so follow the
+explanation carefully!
+
+Let's start with a score block containing a @code{ChoirStaff}, as
+we would like the brace to appear at the start of the chorus.
+Normally you would need angle brackets after @code{\new ChoirStaff}
+to bring in all the staves in parallel, but here we want to
+defer the parallelism during the solo so we use braces, although
+angle brackets here wouldn't hurt.  Inside the @code{ChoirStaff} we
+want first the staff which will contain the verse.  This must
+contain notes and lyrics in parallel, so here we need angle
+brackets around the @code{\new Voice} and @code{\new Lyrics} to
+start them at the same time:
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+\score {
+  \new Choirstaff {
+    \new Staff <<
+      \new Voice = "verse" {
+        \versenotes \break
+      }
+      \new Lyrics \lyricsto verse {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+That gives the verse line.
+
+Now we want to continue with refrainA on the same staff while a
+second staff is introduced in parallel with it for refrainB, so
+this is a parallel section which must be positioned immediately
+following the @code{\break} in the verse Voice.  Yes, @emph{within}
+the verse Voice!  Here's that parallel section.  More staves
+could be introduced here in the same way.
+
+@example
+<<
+  \refrainnotesA
+  \new Lyrics \lyricsto verse @{
+    \refrainwordsA
+  @}
+  \new Staff <<
+    \new Voice = "refrainB" @{
+      \refrainnotesB
+    @}
+    \new Lyrics \lyricsto "refrainB" @{
+      \refrainwordsB
+    @}
+  >>
+>>
+@end example
+
+Here's the final result with two staves in the chorus showing
+how the parallel section is positioned within the verse Voice:
+
+@lilypond[quote,verbatim, ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new ChoirStaff {
+    \new Staff <<
+      \context Voice = "verse" {
+        \versenotes \break
+        <<
+          \refrainnotesA
+          \new Lyrics \lyricsto "verse" {
+            \refrainwordsA
+          }
+          \new Staff <<
+            \new Voice = "refrainB" {
+              \refrainnotesB
+            }
+            \new Lyrics \lyricsto "refrainB" {
+              \refrainwordsB
+            }
+          >>
+        >>
+      }
+      \new Lyrics \lyricsto "verse" {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+@cindex book, example of using
+@funindex \book
+
+However, although this is an interesting and useful exercise to
+help you to understand how sequential and simultaneous blocks work,
+in practice one would perhaps choose to code this as two 
+@code{\score} blocks within an implicit @code{\book} block, as
+follows:
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new Staff <<
+    \new Voice = "verse" {
+      \versenotes
+    }
+    \new Lyrics \lyricsto "verse" {
+      \versewords
+    }
+  >>
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "refrainA" {
+        \refrainnotesA
+      }
+      \new Lyrics \lyricsto "refrainA" {
+        \refrainwordsA
+      }
+    >>
+    \new Staff <<
+      \new Voice = "refrainB" {
+        \refrainnotesB
+      }
+      \new Lyrics \lyricsto "refrainB" {
+        \refrainwordsB
+      }
+    >>
+  >>
+}
+@end lilypond
+
 @node Contexts and engravers
 @section Contexts and engravers
 
 Contexts and engravers have been mentioned informally
-in earlier sections; we now must look at 
+in earlier sections; we now must look at
 these concepts in more detail, as they are important
 in the fine-tuning of LilyPond output.
 
 
 @menu
-* Contexts explained::          
-* Creating contexts::           
-* Engravers explained::         
-* Modifying context properties::  
-* Adding and removing engravers::  
+* Contexts explained::
+* Creating contexts::
+* Engravers explained::
+* Modifying context properties::
+* Adding and removing engravers::
 @end menu
 
 @node Contexts explained

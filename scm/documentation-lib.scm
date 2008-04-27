@@ -21,13 +21,16 @@
    (node-name x)
    (node-desc x)))
 
-(define (dump-node node port level)
+(define* (dump-node node port level #:optional (appendix #f))
   (display
    (string-append
     "\n@node "
     (node-name node)
     "\n\n"
-    (texi-section-command level) " "
+    (if appendix
+        (texi-appendix-section-command level)
+        (texi-section-command level))
+    " "
     (node-name node)
     "\n\n"
     (node-text node)
@@ -38,7 +41,7 @@
 	      (node-children node)))
 	""))
    port)
-  (map (lambda (x) (dump-node x port (+ 1 level)))
+  (map (lambda (x) (dump-node x port (+ 1 level) appendix))
        (node-children node)))
 
 (define (processing name)
@@ -64,6 +67,14 @@
 		      (3 . "@unnumberedsubsec")
 		      (4 . "@unnumberedsubsubsec")
 		      (5 . "@unnumberedsubsubsec")))))
+
+(define (texi-appendix-section-command level)
+  (cdr (assoc level '((0 . "@top")
+		      (1 . "@appendix")
+		      (2 . "@appendixsec")
+		      (3 . "@appendixsubsec")
+		      (4 . "@appendixsubsubsec")
+		      (5 . "@appendixsubsubsec")))))
 
 (define (one-item->texi label-desc-pair)
   "Document one (LABEL . DESC); return empty string if LABEL is empty string."
