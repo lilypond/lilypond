@@ -96,6 +96,7 @@ Specialist notation
 * Percussion::
 * Fretted strings::
 * Unfretted strings::
+* Winds::
 * Ancient notation::
 
 Other collections
@@ -127,7 +128,7 @@ Other collections
 @include percussion.itely
 @include fretted-strings.itely
 @include unfretted-strings.itely
-@c @include winds.itely
+@include winds.itely
 @include ancient-notation.itely
 
 @include contexts-and-engravers.itely
