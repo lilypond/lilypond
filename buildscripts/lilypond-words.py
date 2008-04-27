@@ -7,6 +7,7 @@
 
 import re
 import sys
+import os
 import getopt
 
 keywords = []
@@ -65,14 +66,14 @@ for name in ['ly/engraver-init.ly',
                     r"\s+([a-zA-Z_]+)\s*\\(?:set|override)"]:
         reserved_words += [w for w in re.findall (pattern, s)]
 
-keywords = list (set (keywords)).sort ()
-keywords.reverse ()
+keywords = list (set (keywords))
+keywords.sort (reverse=True)
 
-reserved_words = list (set (reserved_words)).sort ()
-reserved_words.reverse ()
+reserved_words = list (set (reserved_words))
+reserved_words.sort (reverse=True)
 
-note_names = list (set (note_names)).sort ()
-note_names.reverse()
+note_names = list (set (note_names))
+note_names.sort (reverse=True)
 
 
 # output
