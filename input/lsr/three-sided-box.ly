@@ -45,6 +45,8 @@ thickness and padding around the markup."
 
 % Test it:
 
+\layout { ragged-right = ##f }
+
 \relative c' { 
   c2^\markup { \NWS-box ABCD }
   c^\markup { \NWS-box \note #"4" #1.0 } 

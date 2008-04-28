@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "vocal-music, midi"
+  lsrtags = "vocal-music, unfretted-strings, midi"
 
   texidoc = "
 Problem: How to know which @code{midiInstrument} would be best for your

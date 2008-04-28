@@ -11,8 +11,8 @@ positioning-multi--measure-rests.ly
 using-ties-with-arpeggios.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
 compound-time-signatures.ly
-altering-the-number-of-stems-in-a-beam.ly
 modifying-tuplet-bracket-length.ly
+printing-metronome-and-rehearsal-marks-below-the-staff.ly
 changing-time-signatures-inside-a-polymetric-section-using--compressmusic.ly
 making-an-object-invisible-with-the-transparent-property.ly
 automatic-beam-subdivisions.ly

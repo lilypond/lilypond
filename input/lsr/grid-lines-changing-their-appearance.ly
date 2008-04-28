@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use"
+  lsrtags = "editorial-annotations"
 
   texidoc = "
 The appearance of grid lines can be changed by overriding some of their

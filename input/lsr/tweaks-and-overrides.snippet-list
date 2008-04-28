@@ -12,8 +12,8 @@ positioning-multi--measure-rests.ly
 changing-the-staff-size.ly
 vertically-aligning-ossias-and-lyrics.ly
 changing-properties-for-individual-grobs.ly
-altering-the-number-of-stems-in-a-beam.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
+printing-metronome-and-rehearsal-marks-below-the-staff.ly
 tweaking-clef-properties.ly
 vertically-centered-dynamics-and-textscripts.ly
 proportional-strict-notespacing.ly
