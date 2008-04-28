@@ -106,13 +106,11 @@ main docs
     Installed Files:
     @file{path/to/dir/blahz}.
 
-    Snippets:
-    @lsrdir{section},
-    @lsr{specific/example-name.ly}.
+    Snippets: @rlsr{section}.
 
     Internals Reference:
-    @internalsref{fazzle},
-    @internalsref{booar}.
+    @rinternals{fazzle},
+    @rinternals{booar}.
 
       If there are multiple entries, separate them by commas
       but do not include an `and'.

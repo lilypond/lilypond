@@ -117,12 +117,12 @@ that use fonts.  These are the ones supporting the
 @seealso
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Internals Reference:
-@internalsref{fontSize},
-@internalsref{font-size},
-@internalsref{font-interface}.
+@rinternals{fontSize},
+@rinternals{font-size},
+@rinternals{font-interface}.
 
 
 @node Fingering instructions
@@ -178,14 +178,14 @@ Notation Reference:
 @ref{Controlling direction and placement}
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Internals Reference:
-@internalsref{FingeringEvent},
-@internalsref{fingering-event},
-@internalsref{Fingering_engraver},
-@internalsref{New_fingering_engraver},
-@internalsref{Fingering}.
+@rinternals{FingeringEvent},
+@rinternals{fingering-event},
+@rinternals{Fingering_engraver},
+@rinternals{New_fingering_engraver},
+@rinternals{Fingering}.
 
 
 @node Hidden notes
@@ -231,11 +231,11 @@ e4(\p f)--
 @seealso
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Internals Reference:
-@internalsref{Note_spacing_engraver},
-@internalsref{NoteSpacing}.
+@rinternals{Note_spacing_engraver},
+@rinternals{NoteSpacing}.
 
 
 @node Coloring objects
@@ -314,7 +314,7 @@ Notation Reference:
 the input}.
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 @knownissues
 An X11 color is not necessarily exactly the same shade as a
@@ -358,12 +358,12 @@ c2 \parenthesize r
 @seealso
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Internals Reference:
-@internalsref{Parenthesis_engraver},
-@internalsref{ParenthesesItem},
-@internalsref{parentheses-interface}.
+@rinternals{Parenthesis_engraver},
+@rinternals{ParenthesesItem},
+@rinternals{parentheses-interface}.
 
 @knownissues
 
@@ -406,12 +406,12 @@ Notation Reference:
 @ref{Controlling direction and placement}.
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Internals Reference:
-@internalsref{Stem_engraver},
-@internalsref{Stem},
-@internalsref{stem-interface}.
+@rinternals{Stem_engraver},
+@rinternals{Stem},
+@rinternals{stem-interface}.
 
 
 @node Outside the staff
@@ -478,12 +478,12 @@ altered:
 @seealso
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Internals Reference:
-@internalsref{Balloon_engraver},
-@internalsref{BalloonTextItem},
-@internalsref{balloon-interface}.
+@rinternals{Balloon_engraver},
+@rinternals{BalloonTextItem},
+@rinternals{balloon-interface}.
 
 
 @node Grid lines
@@ -537,15 +537,15 @@ lines.
 @seealso
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Internals Reference:
-@internalsref{Grid_line_span_engraver},
-@internalsref{Grid_point_engraver},
-@internalsref{GridLine},
-@internalsref{GridPoint},
-@internalsref{grid-line-interface},
-@internalsref{grid-point-interface}.
+@rinternals{Grid_line_span_engraver},
+@rinternals{Grid_point_engraver},
+@rinternals{GridLine},
+@rinternals{GridPoint},
+@rinternals{grid-line-interface},
+@rinternals{grid-point-interface}.
 
 
 @node Analysis brackets
@@ -592,11 +592,11 @@ Analysis brackets may be nested.
 @seealso
 
 Snippets:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Internals Reference:
-@internalsref{Horizontal_bracket_engraver},
-@internalsref{HorizontalBracket},
-@internalsref{horizontal-bracket-interface},
-@internalsref{Staff}.
+@rinternals{Horizontal_bracket_engraver},
+@rinternals{HorizontalBracket},
+@rinternals{horizontal-bracket-interface},
+@rinternals{Staff}.
 

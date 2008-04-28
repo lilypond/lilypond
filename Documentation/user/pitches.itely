@@ -53,7 +53,7 @@ through@tie{}@code{g}.  The note names @code{c} to @code{b} are
 engraved in the octave below middle C.
 
 @c don't use c' here.
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,fragment]
 \clef bass
 c d e f
 g a b c
@@ -68,7 +68,7 @@ or comma@tie{}(@code{,}) character.  Each@tie{}@code{'} raises the
 pitch by one octave; each@tie{}@code{,} lowers the pitch by an
 octave.
 
-@lilypond[verbatim,quote,ragged-right,fragment]
+@lilypond[verbatim,quote,fragment]
 \clef treble
 c' c'' e' g
 d'' d' d c
@@ -83,7 +83,7 @@ Music Glossary:
 @rglos{Pitch names}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 
 @node Relative octave entry
@@ -134,7 +134,7 @@ absolute octave mode, and it is recommended that it be a octave of
 
 Here is the relative mode shown in action:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c {
   \clef bass
   c d e f
@@ -146,7 +146,7 @@ Here is the relative mode shown in action:
 Octave changing marks are used for intervals greater than a
 fourth:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   c g c f,
   c' a, e'' c
@@ -207,10 +207,10 @@ Notation Reference:
 @ref{Octave checks}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{RelativeOctaveMusic}.
+@rinternals{RelativeOctaveMusic}.
 
 
 @funindex \transpose
@@ -344,13 +344,13 @@ Notation Reference:
 @ref{Note names in other languages}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{Accidental_engraver}, 
-@internalsref{Accidental},
-@internalsref{AccidentalCautionary},
-@internalsref{accidental-interface}.
+@rinternals{Accidental_engraver}, 
+@rinternals{Accidental},
+@rinternals{AccidentalCautionary},
+@rinternals{accidental-interface}.
 
 
 @knownissues
@@ -466,7 +466,7 @@ Music Glossary:
 @rglos{Pitch names}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 
 @node Changing multiple pitches
@@ -542,10 +542,10 @@ checks fail, but the second one does not fail.
 @seealso
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{RelativeOctaveCheck}.
+@rinternals{RelativeOctaveCheck}.
 
 
 @node Transpose
@@ -658,10 +658,10 @@ Notation Reference:
 @ref{Instrument transpositions}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{TransposedMusic}.
+@rinternals{TransposedMusic}.
 
 @funindex \transpose
 @funindex \chordmode
@@ -798,13 +798,13 @@ Notation Reference:
 @ref{Ancient clefs}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{Clef_engraver},
-@internalsref{Clef},
-@internalsref{OctavateEight},
-@internalsref{clef-interface}.
+@rinternals{Clef_engraver},
+@rinternals{Clef},
+@rinternals{OctavateEight},
+@rinternals{clef-interface}.
 
 
 @node Key signature
@@ -876,16 +876,16 @@ Learning Manual:
 @rlearning{Accidentals and key signatures}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{KeyChangeEvent},
-@internalsref{Key_engraver},
-@internalsref{Key_performer},
-@internalsref{KeyCancellation},
-@internalsref{KeySignature},
-@internalsref{key-cancellation-interface},
-@internalsref{key-signature-interface}.
+@rinternals{KeyChangeEvent},
+@rinternals{Key_engraver},
+@rinternals{Key_performer},
+@rinternals{KeyCancellation},
+@rinternals{KeySignature},
+@rinternals{key-cancellation-interface},
+@rinternals{key-signature-interface}.
 
 
 @node Ottava brackets
@@ -924,12 +924,12 @@ Music Glossary:
 @rglos{octavation}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{Ottava_spanner_engraver},
-@internalsref{OttavaBracket},
-@internalsref{ottava-bracket-interface}.
+@rinternals{Ottava_spanner_engraver},
+@rinternals{OttavaBracket},
+@rinternals{ottava-bracket-interface}.
 
 
 
@@ -1023,7 +1023,7 @@ Notation Reference:
 @ref{Quoting other voices}, @ref{Transpose}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 
 @node Automatic accidentals
@@ -1728,17 +1728,17 @@ musicB = {
 @seealso
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{Accidental},
-@internalsref{Accidental_engraver},
-@internalsref{GrandStaff} and
-@internalsref{PianoStaff},
-@internalsref{Staff},
-@internalsref{AccidentalSuggestion},
-@internalsref{AccidentalPlacement},
-@internalsref{accidental-suggestion-interface}.
+@rinternals{Accidental},
+@rinternals{Accidental_engraver},
+@rinternals{GrandStaff} and
+@rinternals{PianoStaff},
+@rinternals{Staff},
+@rinternals{AccidentalSuggestion},
+@rinternals{AccidentalPlacement},
+@rinternals{accidental-suggestion-interface}.
 
 
 @cindex accidentals and simultaneous notes
@@ -1806,17 +1806,17 @@ Music Glossary:
 @rglos{ambitus}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{Ambitus_engraver},
-@internalsref{Voice},
-@internalsref{Staff},
-@internalsref{Ambitus},
-@internalsref{AmbitusAccidental},
-@internalsref{AmbitusLine},
-@internalsref{AmbitusNoteHead},
-@internalsref{ambitus-interface}.
+@rinternals{Ambitus_engraver},
+@rinternals{Voice},
+@rinternals{Staff},
+@rinternals{Ambitus},
+@rinternals{AmbitusAccidental},
+@rinternals{AmbitusLine},
+@rinternals{AmbitusNoteHead},
+@rinternals{ambitus-interface}.
 
 
 @knownissues
@@ -1875,19 +1875,19 @@ To see all note head styles, see @ref{Note head styles}.
 @seealso
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Notation Reference:
 @ref{Note head styles}.
 
 Internals Reference:
-@internalsref{note-event},
-@internalsref{Note_heads_engraver},
-@internalsref{Ledger_line_engraver},
-@internalsref{NoteHead},
-@internalsref{LedgerLineSpanner},
-@internalsref{note-head-interface},
-@internalsref{ledger-line-spanner-interface}.
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{Ledger_line_engraver},
+@rinternals{NoteHead},
+@rinternals{LedgerLineSpanner},
+@rinternals{note-head-interface},
+@rinternals{ledger-line-spanner-interface}.
 
 
 @node Easy notation note heads
@@ -1934,13 +1934,13 @@ Notation Reference:
 @ref{Setting the staff size}.
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{note-event},
-@internalsref{Note_heads_engraver},
-@internalsref{NoteHead},
-@internalsref{note-head-interface}.
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}.
 
 
 @node Shape note heads
@@ -1993,16 +1993,16 @@ To see all note head styles, see @ref{Note head styles}.
 @seealso
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Notation Reference:
 @ref{Note head styles}.
 
 Internals Reference:
-@internalsref{note-event},
-@internalsref{Note_heads_engraver},
-@internalsref{NoteHead},
-@internalsref{note-head-interface}.
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}.
 
 
 @node Improvisation
@@ -2042,11 +2042,11 @@ rhythm.  Such note heads can be created:
 @seealso
 
 Snippets:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Internals Reference:
-@internalsref{Pitch_squash_engraver},
-@internalsref{Voice},
-@internalsref{RhythmicStaff}.
+@rinternals{Pitch_squash_engraver},
+@rinternals{Voice},
+@rinternals{RhythmicStaff}.
 
 

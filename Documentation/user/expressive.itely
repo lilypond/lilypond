@@ -148,10 +148,10 @@ Music Glossary: @rglos{tenuto}, @rglos{accent}, @rglos{staccato},
 @rglos{portato}.
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
-Internals Reference: @internalsref{Script},
-@internalsref{TextScript}.
+Internals Reference: @rinternals{Script},
+@rinternals{TextScript}.
 
 
 @knownissues
@@ -325,7 +325,7 @@ To create new absolute dynamic marks or text that should be
 aligned with dynamics, see @ref{New dynamic marks}.
 
 Vertical positioning of dynamics is handled by
-@internalsref{DynamicLineSpanner}.
+@rinternals{DynamicLineSpanner}.
 
 
 @predefined
@@ -385,12 +385,12 @@ Learning Manual:
 @rlearning{Articulation and dynamics}.
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
 Internals Reference:
-@internalsref{DynamicText},
-@internalsref{Hairpin},
-@internalsref{DynamicLineSpanner}.
+@rinternals{DynamicText},
+@rinternals{Hairpin},
+@rinternals{DynamicLineSpanner}.
 
 
 @node New dynamic marks
@@ -432,7 +432,7 @@ boxf = \markup{ \bracket { \dynamic f } }
 @seealso
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
 
 @node Curves
@@ -504,9 +504,9 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 Music Glossary: @rglos{slur}
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
-Internals Reference: @internalsref{Slur}.
+Internals Reference: @rinternals{Slur}.
 
 
 @node Phrasing slurs
@@ -549,9 +549,9 @@ You cannot have simultaneous phrasing slurs.
 @seealso
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
-Internals Reference: @internalsref{PhrasingSlur}
+Internals Reference: @rinternals{PhrasingSlur}
 
 
 @node Breath marks
@@ -585,10 +585,10 @@ d4
 @seealso
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 @c @lsr{expressive,breathing-sign.ly}.
 
-Internals Reference: @internalsref{BreathingSign}
+Internals Reference: @rinternals{BreathingSign}
 
 
 @node Falls and doits
@@ -632,7 +632,7 @@ c4-\bendAfter #-3
 @c Music Glossary: @rglos{falls}, @rglos{doits}.
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
 
 @node Lines
@@ -679,13 +679,13 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 Music Glossary: @rglos{glissando}
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
 @c FIXME: I need to figure out what's up with these.  -gp
 @c @lsr{expressive,glissando.ly},
 @c @lsr{expressive,line-styles.ly}
 
-Internals Reference: @internalsref{Glissando}
+Internals Reference: @rinternals{Glissando}
 
 
 @knownissues
@@ -817,10 +817,10 @@ Music Glossary: @rglos{arpeggio}
 Notation Reference: @ref{Ties}, for writing out arpeggios.
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
-Internals Reference: @internalsref{Arpeggio},
-@internalsref{PianoStaff}.
+Internals Reference: @rinternals{Arpeggio},
+@rinternals{PianoStaff}.
 
 
 @knownissues
@@ -885,6 +885,6 @@ printed as a stemless note head in parentheses.
 Music Glossary: @rglos{trill}
 
 Snippets:
-@lsrdir{Expressive,Expressive-marks}.
+@rlsr{Expressive marks}.
 
-Internals Reference: @internalsref{TrillSpanner}
+Internals Reference: @rinternals{TrillSpanner}
