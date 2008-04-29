@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use, chords"
+  lsrtags = "editorial-annotations, chords"
 
   texidoc = "
 The placement of fingering numbers can be controlled precisely.

@@ -784,6 +784,7 @@
 	(after-line-breaking . ,ly:hairpin::after-line-breaking)
 	(grow-direction . ,hairpin::calc-grow-direction)
 	(circled-tip . #f)
+	(to-barline . #t)
 	(thickness . 1.0)
 	(height . 0.6666)
 	(minimum-length . 2.0)

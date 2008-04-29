@@ -148,7 +148,7 @@ to define new contexts.
 A complete description of all available contexts is in the program
 reference, see
 @ifhtml
-@internalsref{Contexts}.
+@rinternals{Contexts}.
 @end ifhtml
 @ifnothtml
 Translation @expansion{} Context.
@@ -334,7 +334,7 @@ c8 c c c
 
 @noindent
 the @var{context} argument to @code{\set} is left out, so automatic
-beaming is switched off in the current @internalsref{Voice}.  Note that
+beaming is switched off in the current @rinternals{Voice}.  Note that
 the bottom-most context does not always contain the property that you
 wish to change -- for example, attempting to set the @code{skipBars}
 property (of the bottom-most context, in this case @code{Voice}) will
@@ -413,7 +413,7 @@ note.
 A full description of all available context properties is in the
 program reference, see
 @ifhtml
-@internalsref{Tunable context properties}.
+@rinternals{Tunable context properties}.
 @end ifhtml
 @ifnothtml
 Translation @expansion{} Tunable context properties.
@@ -432,14 +432,14 @@ elements.  For example, the @code{Voice} context contains a
 
 For a full a description of each plug-in, see
 @ifhtml
-@internalsref{Engravers and Performers}.
+@rinternals{Engravers and Performers}.
 @end ifhtml
 @ifnothtml
 Internals Reference @expansion{} Translation @expansion{} Engravers.
 @end ifnothtml
 Every context described in
 @ifhtml
-@internalsref{Contexts}
+@rinternals{Contexts}
 @end ifhtml
 @ifnothtml
 Internals Reference @expansion{} Translation @expansion{} Context.
@@ -625,9 +625,9 @@ such as
 
 @seealso
 
-Internals: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
-@internalsref{PropertySet}, @internalsref{Backend}, and
-@internalsref{All layout objects}.
+Internals: @rinternals{OverrideProperty}, @rinternals{RevertProperty},
+@rinternals{PropertySet}, @rinternals{Backend}, and
+@rinternals{All layout objects}.
 
 
 @knownissues
@@ -786,8 +786,8 @@ but we only need this on the center line,
 squashedPosition = #0
 @end example
 
-The @internalsref{Pitch_squash_engraver} modifies note heads (created
-by @internalsref{Note_heads_engraver}) and sets their vertical
+The @rinternals{Pitch_squash_engraver} modifies note heads (created
+by @rinternals{Note_heads_engraver}) and sets their vertical
 position to the value of @code{squashedPosition}, in this case@tie{}@code{0},
 the center line.
 
@@ -800,7 +800,7 @@ The notes look like a slash, and have no stem,
 
 All these plug-ins have to cooperate, and this is achieved with a
 special plug-in, which must be marked with the keyword @code{\type}.
-This should always be @internalsref{Engraver_group},
+This should always be @rinternals{Engraver_group},
 
 @example
 \type "Engraver_group"
@@ -997,7 +997,7 @@ If you visit the documentation on fingering instructions (in
 @quotation
 @strong{See also}
 
-Internals Reference: @internalsref{Fingering}.
+Internals Reference: @rinternals{Fingering}.
 
 @end quotation
 
@@ -1012,7 +1012,7 @@ expression for the input @code{-2}.  The page contains many links
 forward.  For example, it says
 
 @quotation
-Accepted by: @internalsref{Fingering_engraver},
+Accepted by: @rinternals{Fingering_engraver},
 @end quotation
 
 @noindent
@@ -1020,7 +1020,7 @@ That link brings us to the documentation for the Engraver, the
 plug-in, which says
 
 @quotation
-This engraver creates the following layout objects: @internalsref{Fingering}.
+This engraver creates the following layout objects: @rinternals{Fingering}.
 @end quotation
 
 In other words, once the @code{FingerEvent}s are interpreted, the
@@ -1031,7 +1031,7 @@ In other words, once the @code{FingerEvent}s are interpreted, the
 @c  I can't figure out what this is supposed to mean.  -gp
 
 The @code{Fingering_engraver} is also listed to create
-@internalsref{Fingering} objects,
+@rinternals{Fingering} objects,
 
 @c  old info?  it doesn't make any sense to me with our current docs.
 This is also the
@@ -1047,12 +1047,12 @@ difficult to understand if you are using the
 PDF manual.
 @end ifnothtml
 
-Follow the link to @internalsref{Fingering}.  At the top of the
+Follow the link to @rinternals{Fingering}.  At the top of the
 page, you will see
 
 @quotation
-Fingering objects are created by: @internalsref{Fingering_engraver} and
-@internalsref{New_fingering_engraver}.
+Fingering objects are created by: @rinternals{Fingering_engraver} and
+@rinternals{New_fingering_engraver}.
 @end quotation
 
 By following related links inside the program reference, we can follow the
@@ -1060,16 +1060,16 @@ flow of information within the program:
 
 @itemize
 
-@item @internalsref{Fingering}:
-@internalsref{Fingering} objects are created by:
-@internalsref{Fingering_engraver}
+@item @rinternals{Fingering}:
+@rinternals{Fingering} objects are created by:
+@rinternals{Fingering_engraver}
 
-@item @internalsref{Fingering_engraver}:
-Music types accepted: @internalsref{fingering-event}
+@item @rinternals{Fingering_engraver}:
+Music types accepted: @rinternals{fingering-event}
 
-@item @internalsref{fingering-event}:
+@item @rinternals{fingering-event}:
 Music event type @code{fingering-event} is in Music expressions named
-@internalsref{FingerEvent}
+@rinternals{FingerEvent}
 @end itemize
 
 This path goes against the flow of information in the program: it
@@ -1080,12 +1080,12 @@ information, eventually ending up at the output object(s).
 The program reference can also be browsed like a normal document.  It
 contains chapters on
 @ifhtml
-@internalsref{Music definitions},
+@rinternals{Music definitions},
 @end ifhtml
 @ifnothtml
 @code{Music definitions}
 @end ifnothtml
-on @internalsref{Translation}, and the @internalsref{Backend}.  Every
+on @rinternals{Translation}, and the @rinternals{Backend}.  Every
 chapter lists all the definitions used and all properties that may be
 tuned.
 
@@ -1098,11 +1098,11 @@ tuned.
 @cindex grob
 
 The HTML page that we found in the previous section describes the
-layout object called @internalsref{Fingering}.  Such an object is a
+layout object called @rinternals{Fingering}.  Such an object is a
 symbol within the score.  It has properties that store numbers (like
 thicknesses and directions), but also pointers to related objects.  A
 layout object is also called a @emph{Grob}, which is short for Graphical
-Object.  For more details about Grobs, see @internalsref{grob-interface}.
+Object.  For more details about Grobs, see @rinternals{grob-interface}.
 
 The page for @code{Fingering} lists the definitions for the
 @code{Fingering} object.  For example, the page says
@@ -1145,15 +1145,15 @@ and subscript symbols.
 @end itemize
 
 Each of these aspects is captured in so-called @emph{interface}s,
-which are listed on the @internalsref{Fingering} page at the bottom
+which are listed on the @rinternals{Fingering} page at the bottom
 
 @quotation
 This object supports the following interfaces:
-@internalsref{item-interface},
-@internalsref{self-alignment-interface},
-@internalsref{side-position-interface}, @internalsref{text-interface},
-@internalsref{text-script-interface}, @internalsref{font-interface},
-@internalsref{finger-interface}, and @internalsref{grob-interface}.
+@rinternals{item-interface},
+@rinternals{self-alignment-interface},
+@rinternals{side-position-interface}, @rinternals{text-interface},
+@rinternals{text-script-interface}, @rinternals{font-interface},
+@rinternals{finger-interface}, and @rinternals{grob-interface}.
 @end quotation
 
 Clicking any of the links will take you to the page of the respective
@@ -1253,10 +1253,10 @@ f
 
 In this case, the context for this tweak is @code{Voice}.  This
 fact can also be deduced from the program reference, for the page for
-the @internalsref{Fingering_engraver} plug-in says
+the @rinternals{Fingering_engraver} plug-in says
 
 @quotation
-Fingering_engraver is part of contexts: @dots{} @internalsref{Voice}
+Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end quotation
 
 
@@ -1283,7 +1283,7 @@ without mentioning the grob name or context where this should be
 applied.
 
 This technique only works for objects that are directly connected to
-an @internalsref{Event} from the input, for example
+an @rinternals{Event} from the input, for example
 
 @itemize
 @item note heads, caused by chord-pitch (i.e., notes inside a chord)
@@ -1443,7 +1443,7 @@ checks if we are the last of the split objects
 if yes, it sets @code{extra-offset}.
 @end itemize
 
-This procedure is installed into @internalsref{Tie}, so the last part
+This procedure is installed into @rinternals{Tie}, so the last part
 of the broken tie is translated up.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -1658,10 +1658,10 @@ hairpins with \!.
 
 @seealso
 
-Internals Reference: @internalsref{TextSpanner},
-@internalsref{Glissando}, @internalsref{VoiceFollower},
-@internalsref{TrillSpanner},
-@internalsref{line-spanner-interface}.
+Internals Reference: @rinternals{TextSpanner},
+@rinternals{Glissando}, @rinternals{VoiceFollower},
+@rinternals{TrillSpanner},
+@rinternals{line-spanner-interface}.
 
 
 

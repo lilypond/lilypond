@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "staff-notation, editorial-and-educational-use"
+  lsrtags = "staff-notation, editorial-annotations"
 
   texidoc = "
 For pedagogical purposes, you may want to make one staff line thicker

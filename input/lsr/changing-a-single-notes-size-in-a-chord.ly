@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "simultaneous-notes, editorial-and-educational-use, tweaks-and-overrides"
+  lsrtags = "simultaneous-notes, editorial-annotations, tweaks-and-overrides"
 
   texidoc = "
 Individual note heads in a chord can be modified with the

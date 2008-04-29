@@ -86,7 +86,7 @@ Musical notation
 * Repeats::
 * Simultaneous notes::
 * Staff notation::
-* Editorial and educational use::
+* Editorial annotations::
 * Text::
 
 Specialist notation
@@ -119,7 +119,7 @@ Other collections
 @include repeats.itely
 @include simultaneous-notes.itely
 @include staff-notation.itely
-@include editorial-and-educational-use.itely
+@include editorial-annotations.itely
 @include text.itely
 
 @include vocal-music.itely

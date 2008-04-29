@@ -1,18 +1,13 @@
 \header {
 
-  texidoc = "By setting @code{hairpinToBarline}, hairpins will stop at
-the barline preceding the ending note."
+  texidoc = "Hairpins whose end note is preceded by a bar line
+should end at that bar line. "
 
 }
 
-\version "2.10.0"
-
-\paper {
-  ragged-right = ##t
-}
+\version "2.11.46"
 
 \relative c'' {
-  \set hairpinToBarline = ##t
   \override Hairpin #'bound-padding = #1.0
   c4\< c2. c4\!
 }

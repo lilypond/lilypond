@@ -98,9 +98,9 @@ Notation Reference: @ref{Formatting text},
 @ref{Controlling direction and placement}.
 
 Snippets:
-@lsrdir{Text,Text}.
+@rlsr{Text}.
 
-Internals Reference: @internalsref{TextScript}.
+Internals Reference: @rinternals{TextScript}.
 
 @knownissues
 
@@ -161,9 +161,9 @@ object property.  This syntax is described in @ref{Line styles}.
 Notation Reference: @ref{Line styles}.
 
 Snippets:
-@lsrdir{Text,Text}.
+@rlsr{Text}.
 
-Internals Reference: @internalsref{TextSpanner}.
+Internals Reference: @rinternals{TextSpanner}.
 
 
 @node Text marks
@@ -224,9 +224,9 @@ Notation Reference: @ref{Rehearsal marks},
 @ref{Formatting text}, @ref{The Feta font}.
 
 Snippets:
-@lsrdir{Text,Text}.
+@rlsr{Text}.
 
-Internals Reference: @internalsref{RehearsalMark}.
+Internals Reference: @rinternals{RehearsalMark}.
 
 @knownissues
 @c  IMO this is a bug; hopefully it'll be fixed soon, so I can
@@ -302,9 +302,9 @@ Notation Reference: @ref{Formatting text},
 @ref{Multi-page markup}.
 
 Snippets:
-@lsrdir{Text,Text}.
+@rlsr{Text}.
 
-Internals Reference: @internalsref{TextScript}.
+Internals Reference: @rinternals{TextScript}.
 
 
 @node Formatting text
@@ -436,7 +436,7 @@ allegro = \markup @{ \bold \large @{ Allegro @} @}
 
 Some objects have alignment procedures of their own, which cancel
 out any effects of alignments applied to their markup arguments as
-a whole.  For example, the @internalsref{RehearsalMark} is
+a whole.  For example, the @rinternals{RehearsalMark} is
 horizontally centered, so using @code{\mark \markup @{ \left-align
 .. @}} has no effect.
 
@@ -500,9 +500,9 @@ I'm putting them in bulk, prior to working on this section. -vv
 This manual: @ref{Text markup commands}.
 
 Snippets:
-@lsrdir{Text,Text}.
+@rlsr{Text}.
 
-Internals Reference: @internalsref{TextScript}.
+Internals Reference: @rinternals{TextScript}.
 
 Init files: @file{scm/@/new@/-markup@/.scm}.
 
@@ -711,7 +711,7 @@ block.  In such a case, the @code{\score} must contain a @code{\layout} block.
 @seealso
 
 Snippets:
-@lsrdir{Text,Text}.
+@rlsr{Text}.
 
 @node Multi-page markup
 @subsubsection Multi-page markup
@@ -745,7 +745,7 @@ This manual: @ref{Text markup list commands}, @ref{New
 markup list command definition}.
 
 Snippets:
-@lsrdir{Text,Text}.
+@rlsr{Text}.
 
 @predefined
 
@@ -880,6 +880,6 @@ property.  The resulting size is taken relative to the
 @seealso
 
 Snippets:
-@lsrdir{Text,Text}.
+@rlsr{Text}.
 
 

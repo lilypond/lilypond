@@ -144,11 +144,11 @@ Notation Reference:
 @ref{Proportional notation}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Internals Reference:
-@internalsref{Dots},
-@internalsref{DotColumn}.
+@rinternals{Dots},
+@rinternals{DotColumn}.
 
 
 @knownissues
@@ -249,12 +249,12 @@ Notation Reference:
 @ref{Polymetric notation}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Internals Reference:
-@internalsref{TupletBracket},
-@internalsref{TupletNumber},
-@internalsref{TimeScaledMusic}.
+@rinternals{TupletBracket},
+@rinternals{TupletNumber},
+@rinternals{TimeScaledMusic}.
 
 @knownissues
 @cindex grace notes within tuplet brackets
@@ -345,7 +345,7 @@ Notation Reference:
 @ref{Polymetric notation}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 
 @node Ties
@@ -476,13 +476,13 @@ Music Glossary:
 Notation Reference: @ref{Automatic note splitting}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Internals Reference:
-@internalsref{LaissezVibrerTie},
-@internalsref{LaissezVibrerTieColumn},
-@internalsref{TieColumn},
-@internalsref{Tie}.
+@rinternals{LaissezVibrerTie},
+@rinternals{LaissezVibrerTieColumn},
+@rinternals{TieColumn},
+@rinternals{Tie}.
 
 
 @knownissues
@@ -565,9 +565,9 @@ a4\rest d4\rest
 Notation Reference: @ref{Full measure rests}
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
-Internals Reference: @internalsref{Rest}
+Internals Reference: @rinternals{Rest}
 
 
 @knownissues
@@ -638,9 +638,9 @@ empty page:
 @seealso
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
-Internals Reference: @internalsref{SkipMusic}
+Internals Reference: @rinternals{SkipMusic}
 
 
 @node Full measure rests
@@ -812,12 +812,12 @@ Notation Reference:
 @ref{Text scripts}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Internals Reference:
-@internalsref{MultiMeasureRest},
-@internalsref{MultiMeasureRestNumber},
-@internalsref{MultiMeasureRestText}.
+@rinternals{MultiMeasureRest},
+@rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestText}.
 
 
 @knownissues
@@ -938,8 +938,8 @@ Options to group beats within a bar are available through the
 Scheme function @code{set-time-signature}, which takes three
 arguments: the number of beats, the beat length, and the internal
 grouping of beats in the measure.  If the
-@internalsref{Measure_grouping_engraver} is included, the function
-will also create @internalsref{MeasureGrouping} signs.  Such signs
+@rinternals{Measure_grouping_engraver} is included, the function
+will also create @rinternals{MeasureGrouping} signs.  Such signs
 ease reading rhythmically complex modern music.  In the example,
 the 9/8 measure is subdivided in 2, 2, 2 and 3.  This is passed to
 @code{set-time-signature} as the third argument: @code{'(2 2 2 3)}:
@@ -979,11 +979,11 @@ Notation Reference:
 @ruser{Time administration}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Internals Reference:
-@internalsref{TimeSignature},
-@internalsref{Timing_translator}.
+@rinternals{TimeSignature},
+@rinternals{Timing_translator}.
 
 
 @knownissues
@@ -1040,9 +1040,9 @@ Music Glossary: @rglos{anacrusis}
 Notation Reference: @ref{Grace notes}
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
-Internal Reference: @internalsref{Timing_translator}
+Internal Reference: @rinternals{Timing_translator}
 
 @knownissues
 
@@ -1114,7 +1114,7 @@ Music Glossary: @rglos{cadenza}
 Notation Reference: @ref{Controlling visibility of objects}
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 @knownissues
 
@@ -1259,14 +1259,14 @@ Music Glossary:
 Notation Reference: @ref{Scaling durations}
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 @c Is this still permitted?
 @c @lsr{contemporary,compound-time-signature}
 
 Internals Reference:
-@internalsref{TimeSignature},
-@internalsref{Timing-translator},
-@internalsref{Staff}.
+@rinternals{TimeSignature},
+@rinternals{Timing-translator},
+@rinternals{Staff}.
 
 @knownissues
 
@@ -1314,12 +1314,12 @@ Learning Manual:
 @rlearning{Adding and removing engravers}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Internals Reference:
-@internalsref{Note_heads_engraver},
-@internalsref{Completion_heads_engraver},
-@internalsref{Forbid_line_break_engraver}.
+@rinternals{Note_heads_engraver},
+@rinternals{Completion_heads_engraver},
+@rinternals{Forbid_line_break_engraver}.
 
 
 @knownissues
@@ -1472,9 +1472,9 @@ f8 f''8 f8 f''8
 Notation Reference: @ref{Manual beams}, @ref{Setting automatic beam behavior}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
-Internals Reference: @internalsref{Beam}.
+Internals Reference: @rinternals{Beam}.
 
 
 @knownissues
@@ -1672,7 +1672,7 @@ automatic beam is still accepting notes, it is not typeset.
 @seealso
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 
 @node Manual beams
@@ -1784,7 +1784,7 @@ music snippets, and when numbers in the fraction are small.
 @seealso
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 
 
@@ -1941,11 +1941,11 @@ Notation Reference: @ref{Line breaking}, @ref{Repeats},
 @c @ref{System start delimiters}.
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
-Internals Reference: @internalsref{BarLine} (created at
-@internalsref{Staff} level), @internalsref{SpanBar} (across
-staves), @internalsref{Timing_translator} (for Timing
+Internals Reference: @rinternals{BarLine} (created at
+@rinternals{Staff} level), @rinternals{SpanBar} (across
+staves), @rinternals{Timing_translator} (for Timing
 properties).
 
 
@@ -2084,16 +2084,16 @@ Bar numbers can be removed entirely by removing the
 @seealso
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
-Internals Reference: @internalsref{BarNumber}.
+Internals Reference: @rinternals{BarNumber}.
 
 
 @knownissues
 
 Bar numbers may collide with the top of the
-@internalsref{StaffGroup} bracket, if there is one.  To solve
-this, the @code{padding} property of @internalsref{BarNumber} can
+@rinternals{StaffGroup} bracket, if there is one.  To solve
+this, the @code{padding} property of @rinternals{BarNumber} can
 be used to position the number correctly.
 
 Bar numbers may only be printed at bar lines; to print a bar
@@ -2182,7 +2182,7 @@ when it is processed.
 @seealso
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 
 @node Rehearsal marks
@@ -2289,11 +2289,11 @@ For common tweaks to the positioning of rehearsal marks, see
 @seealso
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 This manual: @ref{The Feta font}, @ref{Formatting text}.
 
-Internals Reference: @internalsref{RehearsalMark}.
+Internals Reference: @rinternals{RehearsalMark}.
 
 Init files: @file{scm/@/translation@/-functions@/.scm} contains
 the definition of @code{format-mark-numbers} and
@@ -2478,9 +2478,9 @@ Music Glossary:
 @rglos{appoggiatura}
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
-Internals Reference: @internalsref{GraceMusic}.
+Internals Reference: @rinternals{GraceMusic}.
 
 
 @knownissues
@@ -2549,7 +2549,7 @@ cadenza = \relative c' {
 @seealso
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 
 @node Time administration
@@ -2629,8 +2629,8 @@ notes.
 This manual: @ref{Bar numbers}, @ref{Unmetered music}
 
 Snippets:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
-Internals Reference: @internalsref{Timing_translator},
-@internalsref{Score}
+Internals Reference: @rinternals{Timing_translator},
+@rinternals{Score}
 

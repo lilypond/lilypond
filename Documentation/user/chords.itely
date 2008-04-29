@@ -295,7 +295,7 @@ sheet,
 @cindex chord names
 @cindex chords
 
-For displaying printed chord names, use the @internalsref{ChordNames} context.
+For displaying printed chord names, use the @rinternals{ChordNames} context.
 The chords may be entered either using the notation
 described above, or directly using @code{<} and @code{>}
 
@@ -310,7 +310,7 @@ harmonies = {
 @end lilypond
 
 You can make the chord changes stand out by setting
-@internalsref{ChordNames}.@code{chordChanges} to true.  This will only
+@rinternals{ChordNames}.@code{chordChanges} to true.  This will only
 display chord names when there is a change in the chords scheme and at
 the start of a new line
 
@@ -328,7 +328,7 @@ harmonies = \chordmode {
 
 The previous examples all show chords over a staff.  This is not
 necessary.  Chords may also be printed separately.  It may be necessary
-to add @internalsref{Volta_engraver} and @internalsref{Bar_engraver}
+to add @rinternals{Volta_engraver} and @rinternals{Bar_engraver}
 for showing repeats.
 
 @lilypond[ragged-right,verbatim]
@@ -505,7 +505,7 @@ LilyPond has support for figured bass
 
 Although the support for figured bass may superficially resemble chord
 support, it is much simpler.  The @code{\figuremode} mode simply
-stores the numbers and @internalsref{FiguredBass} context prints them
+stores the numbers and @rinternals{FiguredBass} context prints them
 as entered.  There is no conversion to pitches and no realizations of
 the bass are played in the MIDI file.
 
@@ -519,8 +519,8 @@ vertical spacing of the figures may be set with @code{baseline-skip}.
 
 The support for figured bass consists of two parts: there is an input
 mode, introduced by @code{\figuremode}, where you can enter bass figures
-as numbers, and there is a context called @internalsref{FiguredBass} that
-takes care of making @internalsref{BassFigure} objects.
+as numbers, and there is a context called @rinternals{FiguredBass} that
+takes care of making @rinternals{BassFigure} objects.
 
 In figures input mode, a group of bass figures is delimited by
 @code{<} and @code{>}.  The duration is entered after the @code{>}
@@ -674,9 +674,9 @@ use @code{stacking-dir} on @code{BassFigureAlignment}.
 
 @seealso
 
-Internals Reference: @internalsref{NewBassFigure},
-@internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
-@internalsref{BassFigureBracket}, and
-@internalsref{BassFigureContinuation} objects and
-@internalsref{FiguredBass} context.
+Internals Reference: @rinternals{NewBassFigure},
+@rinternals{BassFigureAlignment}, @rinternals{BassFigureLine},
+@rinternals{BassFigureBracket}, and
+@rinternals{BassFigureContinuation} objects and
+@rinternals{FiguredBass} context.
 
