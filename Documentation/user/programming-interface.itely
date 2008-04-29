@@ -409,10 +409,10 @@ A music object has three kinds of types:
 @itemize
 @item
 music name: Each music expression has a name.  For example, a note
-leads to a @internalsref{NoteEvent}, and @code{\simultaneous} leads to
-a @internalsref{SimultaneousMusic}.  A list of all expressions
+leads to a @rinternals{NoteEvent}, and @code{\simultaneous} leads to
+a @rinternals{SimultaneousMusic}.  A list of all expressions
 available is in the Internals Reference manual, under
-@internalsref{Music expressions}.
+@rinternals{Music expressions}.
 
 @item
 @q{type} or interface: Each music name has several @q{types} or
@@ -420,7 +420,7 @@ interfaces, for example, a note is an @code{event}, but it is also a
 @code{note-event}, a @code{rhythmic-event}, and a
 @code{melodic-event}.  All classes of music are listed in the
 Internals Reference, under
-@internalsref{Music classes}.
+@rinternals{Music classes}.
 
 @item
 C++ object: Each music object is represented by an object of the C++
@@ -428,19 +428,19 @@ class @code{Music}.
 @end itemize
 
 The actual information of a music expression is stored in properties.
-For example, a @internalsref{NoteEvent} has @code{pitch} and
+For example, a @rinternals{NoteEvent} has @code{pitch} and
 @code{duration} properties that store the pitch and duration of that
 note.  A list of all properties available is in the internals manual,
-under @internalsref{Music properties}.
+under @rinternals{Music properties}.
 
 A compound music expression is a music object that contains other
 music objects in its properties.  A list of objects can be stored in
 the @code{elements} property of a music object, or a single @q{child}
 music object in the @code{element} object.  For example,
-@internalsref{SequentialMusic} has its children in @code{elements},
-and @internalsref{GraceMusic} has its single argument in
+@rinternals{SequentialMusic} has its children in @code{elements},
+and @rinternals{GraceMusic} has its single argument in
 @code{element}.  The body of a repeat is stored in the @code{element}
-property of @internalsref{RepeatedMusic}, and the alternatives in
+property of @rinternals{RepeatedMusic}, and the alternatives in
 @code{elements}.
 
 
@@ -1277,8 +1277,8 @@ arguments:
 In addition, the cause of the layout object, i.e., the music
 expression or object that was responsible for creating it, is in the
 object property @code{cause}.  For example, for a note head, this is a
-@internalsref{NoteHead} event, and for a @internalsref{Stem} object,
-this is a @internalsref{NoteHead} object.
+@rinternals{NoteHead} event, and for a @rinternals{Stem} object,
+this is a @rinternals{NoteHead} object.
 
 Here is a function to use for @code{\applyOutput}; it blanks
 note-heads on the center-line:

@@ -278,7 +278,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Internals Reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
+Internals Reference: @rinternals{LyricText}, @rinternals{LyricSpace}.
 
 @node Working with lyrics and variables
 @subsubsection Working with lyrics and variables
@@ -337,8 +337,8 @@ The final input would resemble
 @seealso
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
-Internals Reference: @internalsref{LyricCombineMusic},
-@internalsref{Lyrics}.
+Internals Reference: @rinternals{LyricCombineMusic},
+@rinternals{Lyrics}.
 
 
 @node Aligning lyrics to a melody
@@ -350,7 +350,7 @@ Internals Reference: @internalsref{LyricCombineMusic},
 
 
 Lyrics are printed by interpreting them in the context called
-@internalsref{Lyrics}.
+@rinternals{Lyrics}.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -395,7 +395,7 @@ melody and the lyrics with the @code{\lyricsto} expression
 @end example
 
 This aligns the lyrics to the
-notes of the @internalsref{Voice} context called @var{name}, which must
+notes of the @rinternals{Voice} context called @var{name}, which must
 already exist.  Therefore normally the @code{Voice} is specified first, and
 then the lyrics are specified with @code{\lyricsto}.  The command
 @code{\lyricsto} switches to @code{\lyricmode} mode automatically, so the
@@ -458,7 +458,7 @@ The alignment to a melody can be specified with the
 
 @noindent
 The value of the property (here: @code{"lala"}) should be the name of
-a @internalsref{Voice} context.  Without this setting, extender lines
+a @rinternals{Voice} context.  Without this setting, extender lines
 will not be formatted properly.
 
 Here is an example demonstrating manual lyric durations,
@@ -476,7 +476,7 @@ Here is an example demonstrating manual lyric durations,
 
 @seealso
 
-Internals Reference: @internalsref{Lyrics}.
+Internals Reference: @rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
@@ -504,7 +504,7 @@ glyph.}.
 
 @seealso
 
-Internals Reference: @internalsref{LyricCombineMusic}.
+Internals Reference: @rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -582,7 +582,7 @@ A complete example of a SATB score setup is in section
 
 @seealso
 
-Internals Reference: @internalsref{Melisma_translator}.
+Internals Reference: @rinternals{Melisma_translator}.
 
 @c @lsr{vocal,lyric@/-combine.ly}.
 
@@ -636,8 +636,8 @@ distance between two syllables) and the @code{minimum-length}
 
 @seealso
 
-Internals Reference: @internalsref{LyricExtender},
-@internalsref{LyricHyphen}
+Internals Reference: @rinternals{LyricExtender},
+@rinternals{LyricHyphen}
 
 @node Lyrics and repeats
 @subsubsection Lyrics and repeats
@@ -1156,8 +1156,8 @@ text = \lyricmode {
 
 @seealso
 
-Internals Reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
-@internalsref{VocalName}.
+Internals Reference: @rinternals{LyricText}, @rinternals{StanzaNumber},
+@rinternals{VocalName}.
 
 
 

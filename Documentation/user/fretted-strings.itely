@@ -53,7 +53,7 @@ with @code{\}@var{number},
 
 @seealso
 
-Internals Reference: @internalsref{StringNumber},
+Internals Reference: @rinternals{StringNumber},
 @c @lsr{guitar/,string-number.ly}.
 
 
@@ -71,8 +71,8 @@ The string number associated to a note is given as a backslash
 followed by a number, e.g., @code{c4\3} for a C quarter on the third
 string.  By default, string 1 is the highest one, and the tuning
 defaults to the standard guitar tuning (with 6 strings).  The notes
-are printed as tablature, by using @internalsref{TabStaff} and
-@internalsref{TabVoice} contexts
+are printed as tablature, by using @rinternals{TabStaff} and
+@rinternals{TabVoice} contexts
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff {
@@ -120,7 +120,7 @@ initialize the @code{TabStaff} with this code:
 
 @seealso
 
-Internals Reference: @internalsref{TabNoteHead}, @internalsref{TabStaff}, @internalsref{TabVoice}.
+Internals Reference: @rinternals{TabNoteHead}, @rinternals{TabStaff}, @rinternals{TabVoice}.
 
 @knownissues
 
@@ -185,7 +185,7 @@ Some other predefined tunings are @code{guitar-open-g-tuning},
 
 The file @file{scm/@/output@/-lib@/.scm} contains the predefined string
 tunings.
-Internals Reference: @internalsref{Tab_note_heads_engraver}.
+Internals Reference: @rinternals{Tab_note_heads_engraver}.
 
 @knownissues
 
@@ -234,7 +234,7 @@ markup interfaces are found at @ref{Text markup commands}.
 
 You can set a number of graphical properties according to your preference.
 Details about the property interface to fret diagrams are found at
-@internalsref{fret-diagram-interface}.
+@rinternals{fret-diagram-interface}.
 
 
 @seealso
@@ -294,7 +294,7 @@ The letters used for the fingerings are contained in the property
 
 @seealso
 
-Internals Reference: @internalsref{StrokeFinger}
+Internals Reference: @rinternals{StrokeFinger}
 
 
 @node Guitar
