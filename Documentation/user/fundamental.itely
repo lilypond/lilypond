@@ -96,7 +96,7 @@ was wrapped up inside the commands shown above.  For now, though,
 let us return to the first example and examine the @code{\score}
 command, leaving the others to default.
 
-A @code{\score} block must always contain just one music 
+A @code{\score} block must always contain just one music
 expression, and
 this must appear immediately after the @code{\score} command.
 Remember that a music expression could be anything from a single
@@ -114,7 +114,7 @@ note to a huge compound expression like
 Since everything is inside @code{@{ ... @}}, it counts
 as one music expression.
 
-As we saw previously, the @code{\score} block can contain other 
+As we saw previously, the @code{\score} block can contain other
 things, such as
 
 @example
@@ -127,10 +127,16 @@ things, such as
 @end example
 
 @noindent
-Some people put some of those commands outside the @code{\score}
-block -- for example, @code{\header} is often placed above the
-@code{\score} command.  That's just another shorthand that LilyPond
-accepts.
+Note that these three commands -- @code{\header}, @code{\layout}
+and @code{\midi} -- are special: unlike all other commands which
+begin with a backward slash (@code{\}) they are @emph{not} music
+expressions and are not part of any music expression.
+So they may be placed inside a @code{\score} block
+or outside it.  In fact, these commands are commonly placed
+outside the @code{\score} block -- for example, @code{\header}
+is often placed above the @code{\score} command because headers
+naturally appear at the top of a score.  That's just another
+shorthand that LilyPond accepts.
 
 Two more commands you have not previously seen are
 @code{\layout @{ @}} and @code{\midi @{@}}.  If these appear as
@@ -1299,7 +1305,7 @@ refrainwordsB = \lyricmode {
 
 However, although this is an interesting and useful exercise to
 help you to understand how sequential and simultaneous blocks work,
-in practice one would perhaps choose to code this as two 
+in practice one would perhaps choose to code this as two
 @code{\score} blocks within an implicit @code{\book} block, as
 follows:
 
@@ -1581,7 +1587,7 @@ by modifying the action of Engravers.
 Contexts are responsible for holding the values of a number of
 context @emph{properties}.  Many of them can be changed to
 influence the interpretation of the input and so change the
-appearance of the output.  They are changed by the 
+appearance of the output.  They are changed by the
 @code{\set} command.  This takes the form
 
 @example
@@ -1635,10 +1641,10 @@ where a Boolean is either True (@code{#t}) or False (@code{#f}),
 an Integer is a positive whole number, a Real is a positive
 or negative decimal number, and text is enclosed in double
 apostrophes.  Note the occurrence of hash signs,
-(@code{#}), in two different places -- as part of the Boolean 
+(@code{#}), in two different places -- as part of the Boolean
 value before the @code{t} or @code{f}, and before @emph{value}
-in the @code{\set} statement.  So when a Boolean is being 
-entered you need to code two hash signs, e.g., @code{##t}.  
+in the @code{\set} statement.  So when a Boolean is being
+entered you need to code two hash signs, e.g., @code{##t}.
 
 Before we can set any of these properties we need to know
 in which context they operate.  Sometimes this is obvious,
@@ -1658,7 +1664,7 @@ because we omitted the context name.
  }
   \new Staff \relative c' {
   \set instrumentName = #"Alto"  % Wrong!
-  d4 d 
+  d4 d
  }
 >>
 @end lilypond
@@ -1666,14 +1672,14 @@ because we omitted the context name.
 Remember the default context name is Voice, so the second
 @code{\set} command set the property @code{instrumentName} in the
 Voice context to @qq{Alto}, but as LilyPond does not look
-for any such property in the @code{Voice} context, no 
-further action took place.  This is not an error, and no error 
+for any such property in the @code{Voice} context, no
+further action took place.  This is not an error, and no error
 message is logged in the log file.
 
-Similarly, if the property name is mis-spelt no error message 
+Similarly, if the property name is mis-spelt no error message
 is produced, and clearly the expected action cannot be performed.
-If fact, you can set any (fictitious) @q{property} using any 
-name you like in any context that exists by using the 
+If fact, you can set any (fictitious) @q{property} using any
+name you like in any context that exists by using the
 @code{\set} command.  But if the name is not
 known to LilyPond it will not cause any action to be taken.
 This is one of the reasons why it is highly recommended to
@@ -1720,47 +1726,55 @@ and this turns them off in all staves:
 >>
 @end lilypond
 
-The value of every property set in this way can be reset
-to its original value with the @code{\unset} command.
- 
+As another example, if @code{clefOctavation} is set in
+the @code{Score} context this immediately changes the value
+of the octavation in all current staves and sets a new default
+value which will be applied to all staves.
+
+The opposite command, @code{\unset}, effectively removes the
+property from the context, which causes most properties to
+revert to their default value.  Usually @code{\unset} is not
+required as a new @code{\set} command will achieve what is
+wanted.
+
 The @code{\set} and @code{\unset} commands can appear anywhere
 in the input file and will take effect from the time they are
-encountered until the end of the score or until the property is 
-@code{\set} or @code{\unset} again.  Let's try changing the 
-font size, which affects the size of the note heads (among 
+encountered until the end of the score or until the property is
+@code{\set} or @code{\unset} again.  Let's try changing the
+font size, which affects the size of the note heads (among
 other things) several times.  The change is from the default
-value, not the current value.
+value, not the most recently set value.
 
 @lilypond[quote,verbatim,ragged-right,relative=1,fragment]
-c4 
+c4
 % make note heads smaller
 \set fontSize = #-4
 d e
 % make note heads larger
 \set fontSize = #2.5
 f g
-% return to original size
+% return to default size
 \unset fontSize
 a b
 @end lilypond
 
 We have now seen how to set the values of several different
-types of property.  Note that integers and numbers are alway 
-preceded by a hash sign, @code{#}, while a true or false value 
-is specified by ##t and ##f, with two hash signs.  A text 
-property should be enclosed in double quotation signs, as above, 
+types of property.  Note that integers and numbers are alway
+preceded by a hash sign, @code{#}, while a true or false value
+is specified by ##t and ##f, with two hash signs.  A text
+property should be enclosed in double quotation signs, as above,
 although we shall see later that text can actually be specified
-in a much more general way by using the very powerful 
-@code{markup} command. 
+in a much more general way by using the very powerful
+@code{markup} command.
 
 
 @funindex \with
 
 Context properties may also be set at the time the context is
-created.  Sometimes this is a clearer way of specifying a 
+created.  Sometimes this is a clearer way of specifying a
 property value if it is to remain fixed for the duration of
 the context.  When a context is created with a @code{\new}
-command it may be followed immediately by a 
+command it may be followed immediately by a
 @code{\with @{ .. @}} block in which the property values are
 set.  For example, if we wish to suppress the printing of
 extra naturals for the duration of a staff we would write:
@@ -1785,9 +1799,14 @@ like this:
 >>
 @end lilypond
 
-In effect this overrides the default value of the property.  It
-may still be changed dynamically using @code{\set} and returned
-to its (new) default value with @code{\unset}.
+Properties set in this way may still be changed dynamically using
+@code{\set} and returned to their default value with @code{\unset}.
+
+The @code{fontSize} property is treated differently.  If this is
+set in a @code{\with} clause it effectively resets the default
+value of the font size.  If it is later changed with @code{\set}
+this new default value may be restored with the
+@code{\unset fontSize} command.
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
@@ -1808,7 +1827,7 @@ can sometimes be useful.
 @subsubheading Changing a single context
 
 To remove an engraver from a single context we use the
-@code{\with} command placed immediately after the context creation 
+@code{\with} command placed immediately after the context creation
 command, as in the previous section.
 
 As an
@@ -1821,7 +1840,7 @@ staff lines are produced by the Staff_symbol_engraver.
   \remove Staff_symbol_engraver
 }
 \relative c' {
-  c4 
+  c4
   \set fontSize = #-4  % make note heads smaller
   d e
   \set fontSize = #2.5  % make note heads larger
@@ -1833,7 +1852,7 @@ staff lines are produced by the Staff_symbol_engraver.
 
 @cindex ambitus engraver
 
-Engravers can also be added to individual contexts.  
+Engravers can also be added to individual contexts.
 The command to do this is
 
 @code{\consists @emph{Engraver_name}},
@@ -1851,9 +1870,9 @@ the range from that voice only:
   \new Voice \with {
     \consists Ambitus_engraver
   }
-  \relative c'' { 
+  \relative c'' {
     \voiceOne
-    c a b g 
+    c a b g
   }
   \new Voice
   \relative c' {
@@ -1864,7 +1883,7 @@ the range from that voice only:
 @end lilypond
 
 @noindent
-but if we add the Ambitus engraver to the 
+but if we add the Ambitus engraver to the
 @code{Staff} context it calculates the range from all
 the notes in all the voices on that staff:
 
