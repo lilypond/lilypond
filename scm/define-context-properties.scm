@@ -231,8 +231,6 @@ for the full staff.")
 @code{GridPoint}s.")
 
 
-     (hairpinToBarline ,boolean? "If set, end a hairpin at the barline
-before the ending note.")
      (harmonicAccidentals ,boolean? "If set, harmonic notes in chords
 get accidentals.")
      (highStringOne ,boolean? "Whether the first string is the string
@@ -279,7 +277,9 @@ containing @code{(@var{step} . @var{alter})} or @code{((@var{octave} .
 0 to@tie{}6 and @var{alter} a fraction, denoting alteration.  For
 alterations, use symbols, e.g. @code{keySignature = #`((6 . ,FLAT))}.")
 
+
      (lyricMelismaAlignment ,ly:dir? "Alignment to use for a melisma syllable.")
+
 
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")

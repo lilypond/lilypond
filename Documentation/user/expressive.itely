@@ -231,12 +231,7 @@ on the immediately preceding bar line.  The following example
 illustrates this behavior:
 
 @c This example currently does not work. -pm
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-e4\< e2. e1\!
-\set hairpinToBarline = ##f
-e4\< e2. e1\!
-@end lilypond
+@c TODO: Add link to new snippet for #'to-barline
 
 Spacer notes are needed to engrave multiple marks on one note.
 
