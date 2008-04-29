@@ -10,7 +10,7 @@
 
 @c Andrew's TODO List
 @c references - started
-@c piano staff - started
+@c piano staff - deleted, material moved to 'references'
 @c manual changes - started
 @c automatic changes
 @c staff-chagne lines
@@ -42,22 +42,34 @@
 @node References for keyboards
 @subsubsection References for keyboards
 
-Keyboard music can be written in parallel with
-@ref{Writing music in parallel}.
-Fingerings are indicated with @ref{Fingering instructions}.
-Organ pedal indications are inserted as articulations, see
-@ref{List of articulations}.
-Vertical grid lines can be shown with @ref{Grid lines}.
-Keyboard music often contains @notation{Laissez vibrer} ties as well as
-ties on arpeggios and tremelos, described in @ref{Ties}.
-Arpeggios can be placed across multiple voices and staves with
-@ref{Arpeggio}.
-Tremelo marks are created with @ref{Tremolo repeats}.
+Keyboard instruments are usually notated with Piano staves. These are
+two or more normal staves coupled with a brace. The same notation is
+also used for harps and other keyed instruments. Organ music is normally
+written with two staves inside a @code{PianoStaff} group and third,
+normal staff for the pedals.
 
-Several of the tweaks that can occur in keyboard music are
-demonstrated in @rlearning{Real music example}.  Hidden notes can
-be used to produce ties that cross voices, as shown
-@rlearning{Other uses for tweaks}.
+The staves in keyboard music are largely independent, but sometimes
+voices can cross between the two staves.  In this section we discuss
+some notation techniques particular to keyboard music.
+
+Several common issues in keyboard music are covered elsewhere:
+@itemize
+@item Keyboard music can be written in parallel with @ref{Writing music
+in parallel}.
+@item Fingerings are indicated with @ref{Fingering instructions}.
+@item Organ pedal indications are inserted as articulations, see
+@ref{List of articulations}.
+@item Vertical grid lines can be shown with @ref{Grid lines}.
+@item Keyboard music often contains @notation{Laissez vibrer} ties as
+well as ties on arpeggios and tremelos, described in @ref{Ties}.
+@item Arpeggios can be placed across multiple voices and staves with
+@ref{Arpeggios}.
+@item Tremelo marks are created with @ref{Tremelo repeats}.
+@item Several of the tweaks that can occur in keyboard music are
+demonstrated in @rlearning{Real music example}.
+@item Hidden notes can be used to produce ties that cross voices, as
+shown in @rlearning{Other uses for tweaks}.
+@end itemize
 
 @snippets
 @c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
@@ -70,39 +82,21 @@ Learning Manual:
 @rlearning{Other uses for tweaks}.
 
 Notation Reference:
+@ref{Grouping staves},
+@ref{Instrument Names},
 @ref{Writing music in parallel},
 @ref{Fingering instructions},
 @ref{Grid lines},
 @ref{Ties},
-@ref{Arpeggio},
-@ref{Tremolo repeats}.
-@ref{List of articulations}
-
-Snippets:
-@c @lsrdir{Keyboard instruments}.
-
-
-@node The piano staff
-@subsubsection The piano staff
-
-Keyboard instruments are usually notated with Piano staves.  These
-are two or more normal staves coupled with a brace.  The same
-notation is also used for harps and other key instruments.  Organ
-music is normally written with two staves inside a
-@code{PianoStaff} group and third, normal staff for the
-pedals.
-
-The staves in keyboard music are largely independent, but sometimes
-voices can cross between the two staves.  In this section we discuss
-some notation techniques particular to keyboard music.
-
-@seealso
-Notation Reference:
-@ruser{Grouping staves},
-@ruser{Instrument Names}.
+@ref{Arpeggios},
+@ref{Tremelo repeats},
+@ref{List of articulations}.
 
 Internals Reference:
-@internalsref{PianoStaff}.
+@rinternals{PianoStaff}.
+
+Snippets:
+@rlsr{Keyboards}.
 
 @knownissues
 Dynamics are not centered, but workarounds do exist.  See the
@@ -134,16 +128,20 @@ and @code{"down"}, or @code{"RH"} and @code{"LH"}.
 Cross-staff notes are beamed automatically:
 
 @lilypond[verbatim,quote,ragged-right]
-upStaff = \change Staff = up
-downStaff = \change Staff = down
 \new PianoStaff <<
   \new Staff = "up" {
-    <e' c'>8 \downStaff g fis g \upStaff
-    <g'' c''>8 \downStaff e dis e \upStaff
+    <e' c'>8
+    \change Staff = down
+    g fis g
+    \change Staff = up
+    <g'' c''>8
+    \change Staff = down
+    e dis e
+    \change Staff = up
   }
   \new Staff = "down" {
     \clef "bass"
-    s1 % keep the context alive
+    s1 % keep staff alive
   }
 >>
 @end lilypond
@@ -162,10 +160,10 @@ Notation Reference:
 @ruser{Automatic beams}.
 
 Snippets:
-@c @lsrdir{Keyboard instruments}.
+@rlsr{Keyboards}.
 
 Internals Reference:
-@internalsref{Beam}.
+@rinternals{Beam}.
 
 @node Changing staff automatically
 @subsubsection Changing staff automatically
@@ -214,7 +212,7 @@ advance.  Here is a practical example
 
 Notation Reference: @ref{Changing staff manually}.
 
-Internals Reference: @internalsref{AutoChangeMusic}.
+Internals Reference: @rinternals{AutoChangeMusic}.
 
 
 
@@ -228,6 +226,7 @@ quality output, staff switches should be specified manually.
 
 @node Staff-change lines
 @subsubsection Staff-change lines
+
 
 @cindex follow voice
 @cindex staff switching
@@ -253,7 +252,7 @@ can be printed automatically.  This is switched on by setting
 
 @seealso
 
-Internals Reference: @internalsref{VoiceFollower}.
+Internals Reference: @rinternals{VoiceFollower}.
 
 @predefined
 
@@ -261,7 +260,6 @@ Internals Reference: @internalsref{VoiceFollower}.
 @code{\showStaffSwitch},
 @funindex \hideStaffSwitch
 @code{\hideStaffSwitch}.
-
 
 @node Cross-staff stems
 @subsubsection Cross-staff stems
@@ -317,7 +315,7 @@ c'4\sustainDown c'4\sustainUp
 What is printed can be modified by setting @code{pedal@var{X}Strings},
 where @var{X} is one of the pedal types: @code{Sustain},
 @code{Sostenuto} or @code{UnaCorda}.  Refer to
-@internalsref{SustainPedal} in the program reference for more
+@rinternals{SustainPedal} in the program reference for more
 information.
 
 Pedals can also be indicated by a sequence of brackets, by setting the
@@ -352,7 +350,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 For fine-tuning the appearance of a pedal bracket, the properties
 @code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
 @code{PianoPedalBracket} objects (see
-@internalsref{PianoPedalBracket} in the Internals Reference) can be
+@rinternals{PianoPedalBracket} in the Internals Reference) can be
 modified.  For example, the bracket may be extended to the right edge
 of the note head
 
