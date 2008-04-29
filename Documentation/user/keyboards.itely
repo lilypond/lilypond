@@ -32,7 +32,6 @@
 
 @menu
 * References for keyboards::
-* The piano staff::
 * Changing staff manually::
 * Changing staff automatically::
 * Staff-change lines::
@@ -62,9 +61,9 @@ in parallel}.
 @item Vertical grid lines can be shown with @ref{Grid lines}.
 @item Keyboard music often contains @notation{Laissez vibrer} ties as
 well as ties on arpeggios and tremelos, described in @ref{Ties}.
-@item Arpeggios can be placed across multiple voices and staves with
-@ref{Arpeggios}.
-@item Tremelo marks are created with @ref{Tremelo repeats}.
+@item Arpeggio can be placed across multiple voices and staves with
+@ref{Arpeggio}.
+@item Tremolo marks are created with @ref{Tremolo repeats}.
 @item Several of the tweaks that can occur in keyboard music are
 demonstrated in @rlearning{Real music example}.
 @item Hidden notes can be used to produce ties that cross voices, as
@@ -83,13 +82,13 @@ Learning Manual:
 
 Notation Reference:
 @ref{Grouping staves},
-@ref{Instrument Names},
+@ref{Instrument names},
 @ref{Writing music in parallel},
 @ref{Fingering instructions},
 @ref{Grid lines},
 @ref{Ties},
-@ref{Arpeggios},
-@ref{Tremelo repeats},
+@ref{Arpeggio},
+@ref{Tremolo repeats},
 @ref{List of articulations}.
 
 Internals Reference:
