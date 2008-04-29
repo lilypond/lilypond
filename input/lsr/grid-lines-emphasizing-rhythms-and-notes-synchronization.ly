@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use"
+  lsrtags = "editorial-annotations"
 
   texidoc = "
 Regular vertical lines can be drawn between staves to show notes

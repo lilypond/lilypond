@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "pitches, editorial-and-educational-use"
+  lsrtags = "pitches, editorial-annotations"
 
   texidoc = "
 The @code{shapeNoteStyles} property can be used to define various note

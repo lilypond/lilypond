@@ -617,8 +617,6 @@ automatically when an output definition (a @code{\score} or
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
   verticallySpacedContexts = #'(Staff)
-
-  \override Voice #'hairpinToBarline = ##t 
   
   timing = ##t
 }

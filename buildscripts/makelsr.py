@@ -26,7 +26,7 @@ TAGS = []
 # NR 1
 TAGS.extend (['pitches', 'rhythms', 'expressive-marks',
 'repeats', 'simultaneous-notes', 'staff-notation',
-'editorial-and-educational-use', 'text'])
+'editorial-annotations', 'text'])
 # NR 2
 TAGS.extend (['vocal-music', 'chords', 'keyboards',
 'percussion', 'fretted-strings', 'unfretted-strings',

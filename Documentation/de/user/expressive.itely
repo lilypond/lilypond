@@ -184,10 +184,7 @@ fällt, endet die Klammer an der direkt vorhergehenden Taktlinie. Diese
 Einstellung lässt sich aber durch die Eigenschaft @code{hairpinToBarline} 
 verändern.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set hairpinToBarline = ##f
-c4\< c2. c4\!
-@end lilypond
+@c TODO: Add link to new snippet for #'to-barline
 
 In manchen Situationen kann auch der @code{\espressivo}-Befehl 
 geeignet sein, ein An- und Abschwellen einer Note anzuzeigen.

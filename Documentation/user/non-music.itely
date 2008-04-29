@@ -541,7 +541,7 @@ crescendi and decrescendi translate into MIDI volume levels.  Dynamic
 marks translate to a fixed fraction of the available MIDI volume
 range, crescendi and decrescendi make the volume vary linearly between
 their two extremes.  The fractions can be adjusted by
-@code{dynamicAbsoluteVolumeFunction} in @internalsref{Voice} context.
+@code{dynamicAbsoluteVolumeFunction} in @rinternals{Voice} context.
 For each type of MIDI instrument, a volume range can be defined.  This
 gives a basic equalizer control, which can enhance the quality of
 the MIDI output remarkably.  The equalizer can be controlled by

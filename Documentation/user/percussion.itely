@@ -37,7 +37,7 @@ TBC
 
 @seealso
 
-Internals Reference: @internalsref{RhythmicStaff}.
+Internals Reference: @rinternals{RhythmicStaff}.
 
 
 @node Basic percussion notation
@@ -101,7 +101,7 @@ overridden to achieve a pleasing baseline.
 
 @seealso
 
-Internals Reference: @internalsref{note-event}.
+Internals Reference: @rinternals{note-event}.
 
 @node Percussion staves
 @subsubsection Percussion staves
@@ -114,7 +114,7 @@ of percussion.
 
 
 To typeset the music, the notes must be interpreted in a
-@internalsref{DrumStaff} and @internalsref{DrumVoice} contexts
+@rinternals{DrumStaff} and @rinternals{DrumVoice} contexts
 
 @lilypond[quote,ragged-right,verbatim]
 up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
@@ -127,7 +127,7 @@ down = \drummode { bassdrum4 snare8 bd r bd sn4 }
 
 The above example shows verbose polyphonic notation.  The short
 polyphonic notation, described in @rlearning{I'm hearing Voices},
-can also be used if the @internalsref{DrumVoice}s are instantiated
+can also be used if the @rinternals{DrumVoice}s are instantiated
 by hand first.  For example,
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -147,7 +147,7 @@ by hand first.  For example,
 
 
 There are also other layout possibilities.  To use these, set the
-property @code{drumStyleTable} in context @internalsref{DrumVoice}.
+property @code{drumStyleTable} in context @rinternals{DrumVoice}.
 The following variables have been predefined
 
 @table @code
@@ -312,7 +312,7 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 Init files: @file{ly/@/drumpitch@/-init@/.ly}.
 
-Internals Reference: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+Internals Reference: @rinternals{DrumStaff}, @rinternals{DrumVoice}.
 
 @knownissues
 

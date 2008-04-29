@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use, text"
+  lsrtags = "editorial-annotations, text"
 
   texidoc = "
 The @code{\\whiteout} command underlays a white box under a markup.

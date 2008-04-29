@@ -3033,3 +3033,18 @@ def conv (str):
 
 conversions.append (((2, 11, 38), conv, """\\setEasyHeads -> \\easyHeadsOn, \\fatText -> \\textLengthOn,
 \\emptyText -> \\textLengthOff"""))
+
+def conv (str):
+    str = re.sub (r"\\set\s+([a-zA-Z]+)\s*.\s*hairpinToBarline\s*=\s*##([tf]+)",
+                  r"\\override \1.Hairpin #'to-barline = ##\2", str)
+    str = re.sub (r"\\set\s+hairpinToBarline\s*=\s*##([tf]+)",
+                  r"\\override Hairpin #'to-barline = ##\1", str)
+    str = re.sub (r"\\unset\s+([a-zA-Z]+)\s*.\s*hairpinToBarline",
+                  r"\\revert \1.Hairpin #'to-barline", str)
+    str = re.sub (r"\\unset\s+hairpinToBarline",
+                  r"\\revert Hairpin #'to-barline", str)
+    str = re.sub (r"hairpinToBarline\s*=\s*##([tf]+)",
+                  r"\\override Hairpin #'to-barline = ##\1", str)
+    return str
+
+conversions.append (((2, 11, 46), conv, """\\set hairpinToBarline -> \\override Hairpin #'to-barline"""))

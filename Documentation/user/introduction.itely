@@ -541,7 +541,7 @@ context.  The Score context is the top level notation context.
 
 @seealso
 
-Internals Reference: @internalsref{Contexts}.
+Internals Reference: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
