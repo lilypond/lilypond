@@ -3,7 +3,7 @@ removing-the-first-empty-line.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
 incipit.ly
 adding-ambitus-per-voice.ly
-changing-the-number-of-lines-in-a-staff.ly
+making-some-staff-lines-thicker-than-the-others.ly
 adding-an-extra-staff-at-a-line-break.ly
 display-bracket-with-only-one-staff-in-a-system.ly
 time-signature-in-parentheses.ly
@@ -12,10 +12,10 @@ tweaking-clef-properties.ly
 adding-an-extra-staff.ly
 changing-the-staff-size.ly
 use-square-bracket-at-the-start-of-a-staff-group.ly
-quoting-another-voice-with-transposition.ly
 quoting-another-voice.ly
 volta-multi-staff.ly
 inserting-score-fragments-above-a-staff,-as-markups.ly
-nesting-staves.ly
+changing-the-number-of-lines-in-a-staff.ly
+quoting-another-voice-with-transposition.ly
 non-traditional-key-signatures.ly
-making-some-staff-lines-thicker-than-the-others.ly
+nesting-staves.ly

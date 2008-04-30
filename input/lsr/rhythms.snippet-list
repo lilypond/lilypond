@@ -5,8 +5,9 @@ adding-drum-parts.ly
 rest-styles.ly
 skips-in-lyric-mode-2.ly
 chant-or-psalms-notation.ly
-controlling-tuplet-bracket-visibility.ly
 heavily-customized-polymetric-time-signatures.ly
+controlling-tuplet-bracket-visibility.ly
+changing-the-tuplet-number.ly
 positioning-multi--measure-rests.ly
 using-ties-with-arpeggios.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
@@ -17,7 +18,6 @@ printing-metronome-and-rehearsal-marks-below-the-staff.ly
 changing-time-signatures-inside-a-polymetric-section-using--compressmusic.ly
 making-an-object-invisible-with-the-transparent-property.ly
 automatic-beam-subdivisions.ly
-changing-the-tuplet-number.ly
 entering-several-tuplets-using-only-one--times-command.ly
 conducting-signs,-measure-grouping-signs.ly
 changing-form-of-multi--measure-rests.ly
@@ -25,6 +25,6 @@ rhythmic-slashes.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 three-sided-box.ly
 permitting-line-breaks-within-beamed-tuplets.ly
-skips-in-lyric-mode.ly
-engraving-ties-manually.ly
 printing-music-with-different-time-signatures.ly
+engraving-ties-manually.ly
+skips-in-lyric-mode.ly
