@@ -36,10 +36,10 @@ gloss over some details in favor of simplicity.  For a complete
 description of the input format, see @ruser{File structure}.
 
 @menu
-* Introduction to the LilyPond file structure::  
-* Score is a (single) compound musical expression::  
-* Nesting music expressions::   
-* On the un-nestedness of brackets and ties::  
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting music expressions::
+* On the un-nestedness of brackets and ties::
 @end menu
 
 @node Introduction to the LilyPond file structure
@@ -63,7 +63,7 @@ example serves as a useful starting place.
 
 Up to this point none of the examples you have seen has used a
 @code{\score@{@}} command.  This is because LilyPond automatically
-adds the extra commands which are needed when you give it simple 
+adds the extra commands which are needed when you give it simple
 input.  LilyPond treats input like this:
 
 @example
@@ -92,13 +92,23 @@ as shorthand for this:
 
 In other words, if the input contains a single music expression,
 LilyPond will interpret the file as though the music expression
-was wrapped up inside the commands shown above.  For now, though,
-let us return to the first example and examine the @code{\score}
-command, leaving the others to default.
+was wrapped up inside the commands shown above.
 
-A @code{\score} block must always contain just one music
-expression, and
-this must appear immediately after the @code{\score} command.
+@strong{A word of warning!}  Many of the examples in the LilyPond
+documentation will omit the @code{\new Staff} and @code{\new Voice}
+commands, leaving them to be created implicitly.  For simple
+examples this works well, but for more complex examples, especially
+when additional commands are used, the implicit creation of contexts
+can give surprising results, maybe creating extra unwanted staves.
+When entering more than a few lines of music it is advisable to
+always create staves and voices explicitly, see
+@ref{Contexts and engravers}.
+
+For now, though, let us return to the first example and examine the
+@code{\score} command, leaving the others to default.
+
+A @code{\score} block must always contain just one music expression,
+and this must appear immediately after the @code{\score} command.
 Remember that a music expression could be anything from a single
 note to a huge compound expression like
 
@@ -1085,6 +1095,11 @@ name assigned to the Voice.
 >>
 @end lilypond
 
+Note that the lyrics must be linked to a @code{Voice} context, 
+@emph{not} a @code{Staff} context.  This is a case where it is 
+necessary to create @code{Staff} and @code{Voice} contexts
+explicitly.
+
 The automatic beaming which LilyPond uses by default works well
 for instrumental music, but not so well for music with lyrics,
 where beaming is either not required at all or is used to indicate
@@ -1386,34 +1401,34 @@ in the fine-tuning of LilyPond output.
 @node Contexts explained
 @subsection Contexts explained
 
-When music is printed, many notational elements which do not 
+When music is printed, many notational elements which do not
 appear explicitly in the input file must be added to the
-output.  For example, compare the input and output of the 
+output.  For example, compare the input and output of the
 following example:
 
 @lilypond[quote,verbatim,relative=2,fragment]
 cis4 cis2. g4
 @end lilypond
 
-The input is rather sparse, but in the output, bar lines, 
-accidentals, clef, and time signature have been added.  When 
-LilyPond @emph{interprets} the input the musical information 
-is inspected in time order, similar to reading a score from left 
-to right.  While reading the input, the program remembers where 
-measure boundaries are, and which pitches require explicit 
-accidentals.  This information must be held on several levels.  
+The input is rather sparse, but in the output, bar lines,
+accidentals, clef, and time signature have been added.  When
+LilyPond @emph{interprets} the input the musical information
+is inspected in time order, similar to reading a score from left
+to right.  While reading the input, the program remembers where
+measure boundaries are, and which pitches require explicit
+accidentals.  This information must be held on several levels.
 For example, the effect of an accidental is limited
-to a single staff, while a bar line must be synchronized across 
+to a single staff, while a bar line must be synchronized across
 the entire score.
 
 Within LilyPond, these rules and bits of information are grouped
-in @emph{Contexts}.  We have already met the 
-@code{Voice} context. 
-Others are the @code{Staff} and @code{Score} contexts.  
-Contexts are hierarchical to reflect the hierarchical nature of 
-a musical score.  
-For example: a @code{Staff} context can contain many 
-@code{Voice} contexts, and a @code{Score} context can 
+in @emph{Contexts}.  We have already met the
+@code{Voice} context.
+Others are the @code{Staff} and @code{Score} contexts.
+Contexts are hierarchical to reflect the hierarchical nature of
+a musical score.
+For example: a @code{Staff} context can contain many
+@code{Voice} contexts, and a @code{Score} context can
 contain many @code{Staff} contexts.
 
 @quotation
@@ -1426,11 +1441,11 @@ properties.  For example, the @code{Voice} context may introduce an
 accidental and then the @code{Staff} context maintains the rule to
 show or suppress the accidental for the remainder of the measure.
 
-As another example, the synchronization of bar lines is, by default, 
+As another example, the synchronization of bar lines is, by default,
 handled in the @code{Score} context.
 However, in some music we may not want the bar lines to be
 synchronized -- consider a polymetric score in 4/4 and 3/4 time.
-In such cases, we must modify the default settings of the 
+In such cases, we must modify the default settings of the
 @code{Score} and @code{Staff} contexts.
 
 For very simple scores, contexts are created implicitly, and you need
@@ -1441,7 +1456,7 @@ need, and that they are in the correct order.  For typesetting pieces
 with specialized notation, it is usual to modify existing, or
 even to define totally new, contexts.
 
-In addition to the @code{Score,} @code{Staff} and 
+In addition to the @code{Score,} @code{Staff} and
 @code{Voice} contexts there are contexts which fit between
 the score and staff levels to control staff groups, such as the
 @code{PianoStaff} and @code{ChoirStaff} contexts.  There
@@ -1449,23 +1464,23 @@ are also alternative staff and voice contexts, and contexts for
 lyrics, percussion, fret boards, figured bass, etc.
 
 The names of all context types are formed from one or more
-words, each word being capitalized and joined immediately to the 
-preceding word with no hyphen or underscore, e.g., 
+words, each word being capitalized and joined immediately to the
+preceding word with no hyphen or underscore, e.g.,
 @code{GregorianTranscriptionStaff}.
 
 @node Creating contexts
 @subsection Creating contexts
 
-There can be only one top level context: the 
-@code{Score} 
-context.  This is created with the @code{\score} command, 
+There can be only one top level context: the
+@code{Score}
+context.  This is created with the @code{\score} command,
 or, in simple scores, it is created automatically.
 
-For scores with only one voice and one staff, the 
-@code{Voice} and @code{Staff} contexts may be left to be 
-created automatically, but for more complex scores it is 
-necessary to create them by hand.  
-The simplest command that does this is @code{\new}.  
+For scores with only one voice and one staff, the
+@code{Voice} and @code{Staff} contexts may be left to be
+created automatically, but for more complex scores it is
+necessary to create them by hand.
+The simplest command that does this is @code{\new}.
 It is prepended to a music expression, for example
 
 @funindex \new
@@ -1482,10 +1497,10 @@ where @var{type} is a context name (like @code{Staff} or
 interpreting the @var{music-expression} within that context.
 
 Note that there is no @code{\new Score} command;
-the single top-level @code{Score} context is introduced 
-with @code{\score}.  
+the single top-level @code{Score} context is introduced
+with @code{\score}.
 
-The @code{\new} command may also give a identifying name to the 
+The @code{\new} command may also give a identifying name to the
 context to distinguish it from other contexts of the same type,
 
 @example
@@ -1497,7 +1512,7 @@ Note the distinction between the name of the context type,
 the identifying name of a particular instance of that type,
 which can be any sequence of letters invented by the user.
 The identifying name is used to refer back to that particular
-instance of a context.  We saw this in use in the section on 
+instance of a context.  We saw this in use in the section on
 lyrics in @ref{Voices and vocals}.
 
 
@@ -1510,9 +1525,9 @@ Every mark on the printed output of a score produced by LilyPond
 is produced by an @code{Engraver}.  Thus there is an engraver
 to print staves, one to print note heads, one for stems, one for
 beams, etc, etc.  In total there are over 120 such engravers!
-Fortunately, for most scores it is not necessary to know about 
-more than a few, and for simple scores you do not need to know 
-about any.  
+Fortunately, for most scores it is not necessary to know about
+more than a few, and for simple scores you do not need to know
+about any.
 
 Engravers live and operate in Contexts.
 Engravers such as the @code{Metronome_mark_engraver}, whose
@@ -1520,7 +1535,7 @@ action and output applies to the score as a whole, operate in
 the highest level context -- the @code{Score} context.
 
 The @code{Clef_engraver} and @code{Key_engraver} are to be
-found in every Staff Context, as different staves may require 
+found in every Staff Context, as different staves may require
 different clefs and keys.
 
 The @code{Note_heads_engraver} and @code{Stem_engraver} live
@@ -1532,19 +1547,19 @@ to that function.  These properties, like the properties
 associated with contexts, may be modified to change the
 operation of the engraver or the appearance of those elements
 in the printed score.
-   
+
 Engravers all have compound names formed from words which
-describe their function.  Just the first word is capitalized, 
+describe their function.  Just the first word is capitalized,
 and the remainder are joined to it with underscores.  Thus
 the @code{Staff_symbol_engraver} is responsible for creating the
 lines of the staff, the @code{Clef_engraver} determines and sets
 the pitch reference point on the staff by drawing a clef symbol.
 
 Here are some of the most common engravers together with their
-function.  You will see it is easy to guess the function from 
+function.  You will see it is easy to guess the function from
 the name, or vice versa.
 
-@multitable @columnfractions .3 .7 
+@multitable @columnfractions .3 .7
 @headitem Engraver
   @tab Function
 @item Accidental_engraver
@@ -1553,8 +1568,12 @@ the name, or vice versa.
   @tab Engraves beams
 @item Clef_engraver
   @tab Engraves clefs
+@item Completion_heads_engraver
+  @tab Splits notes which cross bar lines
 @item Dynamic_engraver
   @tab Creates hairpins and dynamic texts
+@item Forbid_line_break_engraver
+  @tab Prevents line breaks if a musical element is still active
 @item Key_engraver
   @tab Creates the key signature
 @item Metronome_mark_engraver
