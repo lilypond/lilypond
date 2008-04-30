@@ -71,7 +71,7 @@ to be played more than once.
 
 
 @menu
-* Long repeats::        
+* Long repeats::                
 * Short repeats::               
 @end menu
 
@@ -86,7 +86,7 @@ Repeat signs can also be controlled manually.
 @menu
 * Normal repeats::              
 * Manual repeat marks::         
-* Written-out repeats::         
+* Written-out repeats (unfold)::  
 @end menu
 
 @cindex volta
@@ -198,11 +198,11 @@ Music Glossary: @rglos{repeat}, @rglos{volta}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Internals Reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}.
+Internals Reference: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
 
@@ -274,10 +274,10 @@ d4 e
 
 Notation Reference: @ref{Bar lines}, @ref{Formatting text}.
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Internals Reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic}.
+Internals Reference: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic}.
 
 
 @node Written-out repeats (unfold)
@@ -318,10 +318,10 @@ c1
 
 @seealso
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Internals Reference: @internalsref{RepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}.
+Internals Reference: @rinternals{RepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
 
 @node Short repeats
 @subsection Short repeats
@@ -384,13 +384,13 @@ R1
 
 @seealso
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Internals Reference: @internalsref{RepeatSlash},
-@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
-@internalsref{DoublePercentRepeatCounter},
-@internalsref{PercentRepeatCounter},
-@internalsref{PercentRepeatedMusic}.
+Internals Reference: @rinternals{RepeatSlash},
+@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 @node Tremolo repeats
 @subsubsection Tremolo repeats
@@ -453,13 +453,10 @@ into the MIDI output.
 
 Notation Reference: @ref{Tremolo repeats}.
 
-Internals Reference: @internalsref{Beam}, @internalsref{StemTremolo}.
+Internals Reference: @rinternals{Beam}, @rinternals{StemTremolo}.
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Elsewhere: @internalsref{StemTremolo}.
-
-
-
+Elsewhere: @rinternals{StemTremolo}.
 
 
