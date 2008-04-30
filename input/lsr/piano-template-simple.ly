@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "template"
+  lsrtags = "keyboards, template"
 
   texidoc = "
 Here is a simple piano staff with some notes.

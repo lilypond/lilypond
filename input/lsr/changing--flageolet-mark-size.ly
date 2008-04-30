@@ -10,7 +10,7 @@ To make the @code{\\flageolet} circle smaller use the following Scheme
 function. 
 
 "
-  doctitle = "Changing \flageolet mark size"
+  doctitle = "Changing \\flageolet mark size"
 } % begin verbatim
 smallFlageolet = #(let ((m (make-music 'ArticulationEvent
                           'articulation-type "flageolet")))

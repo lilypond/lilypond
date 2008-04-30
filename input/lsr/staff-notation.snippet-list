@@ -1,6 +1,7 @@
 creating-blank-staves.ly
-incipit.ly
+removing-the-first-empty-line.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
+incipit.ly
 adding-ambitus-per-voice.ly
 changing-the-number-of-lines-in-a-staff.ly
 adding-an-extra-staff-at-a-line-break.ly

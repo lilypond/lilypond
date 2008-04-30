@@ -11,7 +11,7 @@ Since staff lines are in a lower layer than most other grobs, this
 white box will not overlap any other grob. 
 
 "
-  doctitle = "Blanking staff lines using the \whiteout command"
+  doctitle = "Blanking staff lines using the \\whiteout command"
 } % begin verbatim
 \relative {
   \override TextScript #'extra-offset = #'(2 . 4)

@@ -15,7 +15,7 @@ Therefore, @code{measureLength} has to be set manually, using the
 the second argument of @code{\\compressMusic}. 
 
 "
-  doctitle = "Changing time signatures inside a polymetric section using \compressMusic"
+  doctitle = "Changing time signatures inside a polymetric section using \\compressMusic"
 } % begin verbatim
 \layout {
   \context {

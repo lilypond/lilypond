@@ -12,6 +12,7 @@ positioning-multi--measure-rests.ly
 changing-the-staff-size.ly
 vertically-aligning-ossias-and-lyrics.ly
 changing-properties-for-individual-grobs.ly
+removing-the-first-empty-line.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 tweaking-clef-properties.ly

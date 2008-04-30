@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "percussion, template"
+  lsrtags = "keyboards, percussion, template"
 
   texidoc = "
 This is quite an advanced template, for a jazz ensemble. Note that all
