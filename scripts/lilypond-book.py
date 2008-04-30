@@ -991,6 +991,12 @@ class LilypondSnippet (Snippet):
             if k not in self.option_dict:
                 self.option_dict[k] = default_ly_options[k]
 
+        # RELATIVE does not work without FRAGMENT;
+        # make RELATIVE imply FRAGMENT
+        has_relative = self.option_dict.has_key (RELATIVE)
+        if has_relative and not self.option_dict.has_key (FRAGMENT):
+            self.option_dict[FRAGMENT] = None
+
         if not has_line_width:
             if type == 'lilypond' or FRAGMENT in self.option_dict:
                 self.option_dict[RAGGED_RIGHT] = None
