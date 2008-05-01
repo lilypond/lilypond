@@ -30,6 +30,7 @@ public:
   Skyline const &operator [] (Direction d) const;
   bool is_empty () const;
   void print () const;
+  void print_points () const;
 };
 
 #endif /* SKYLINE_PAIR_HH */

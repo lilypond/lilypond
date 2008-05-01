@@ -54,6 +54,20 @@ Skyline_pair::merge (Skyline_pair const &other)
   skylines_[DOWN].merge (other[DOWN]);
 }
 
+void
+Skyline_pair::print () const
+{
+  skylines_[UP].print ();
+  skylines_[DOWN].print ();
+}
+
+void
+Skyline_pair::print_points () const
+{
+  skylines_[UP].print ();
+  skylines_[DOWN].print ();
+}
+
 
 bool
 Skyline_pair::is_empty () const
@@ -77,8 +91,6 @@ Skyline_pair::operator [] (Direction d) const
 IMPLEMENT_SIMPLE_SMOBS (Skyline_pair);
 IMPLEMENT_TYPE_P (Skyline_pair, "ly:skyline-pair?");
 IMPLEMENT_DEFAULT_EQUAL_P (Skyline_pair);
-
-
 
 SCM
 Skyline_pair::mark_smob (SCM)

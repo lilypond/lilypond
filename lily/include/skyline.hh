@@ -70,5 +70,7 @@ public:
   bool is_empty () const;
 };
 
+extern bool debug_skylines;
+
 #endif /* SKYLINE_HH */
 

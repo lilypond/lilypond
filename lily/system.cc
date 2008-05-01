@@ -24,8 +24,6 @@
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
 
-extern bool debug_skylines;
-
 System::System (System const &src)
   : Spanner (src)
 {

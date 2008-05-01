@@ -630,7 +630,6 @@ Axis_group_interface::calc_max_stretch (SCM smob)
   return scm_from_double (ret);
 }
 
-extern bool debug_skylines;
 MAKE_SCHEME_CALLBACK (Axis_group_interface, print, 1)
 SCM
 Axis_group_interface::print (SCM smob)
@@ -642,8 +641,10 @@ Axis_group_interface::print (SCM smob)
   Stencil ret;
   if (Skyline_pair *s = Skyline_pair::unsmob (me->get_property ("vertical-skylines")))
     {
-      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[UP].to_points (X_AXIS)).in_color (255, 0, 255));
-      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[DOWN].to_points (X_AXIS)).in_color (0, 255, 255));
+      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[UP].to_points (X_AXIS))
+		       .in_color (255, 0, 255));
+      ret.add_stencil (Lookup::points_to_line_stencil (0.1, (*s)[DOWN].to_points (X_AXIS))
+		       .in_color (0, 255, 255));
     }
   return ret.smobbed_copy ();
 }

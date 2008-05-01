@@ -137,7 +137,6 @@ Separation_item::boxes (Grob *me, Grob *left)
   return out;      
 }
 
-extern bool debug_skylines;
 MAKE_SCHEME_CALLBACK (Separation_item, print, 1)
 SCM
 Separation_item::print (SCM smob)
