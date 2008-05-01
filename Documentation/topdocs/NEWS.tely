@@ -66,6 +66,17 @@ which scares away people.
 @end ignore
 
 @item
+Arpeggios may now use ``parenthesis'' style brackets:
+
+@lilypond[relative,ragged-right]
+  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
+
+  % Note: does not work for cross staff arpeggios.
+  \override Arpeggio #'X-extent = #ly:grob::stencil-width
+  <c g' c>2\arpeggio ~ c
+@end lilypond
+
+@item
 Enclosing text within boxes with rounded corners is now possible,
 using the @code{rounded-box} command.
 
