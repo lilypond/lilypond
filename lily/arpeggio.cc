@@ -8,15 +8,16 @@
 
 #include "arpeggio.hh"
 
+#include "bezier.hh"
+#include "font-interface.hh"
 #include "grob.hh"
+#include "lookup.hh"
 #include "output-def.hh"
-#include "stem.hh"
+#include "pointer-group-interface.hh"
 #include "staff-symbol-referencer.hh"
 #include "staff-symbol.hh"
+#include "stem.hh"
 #include "warn.hh"
-#include "font-interface.hh"
-#include "lookup.hh"
-#include "pointer-group-interface.hh"
 
 Grob *
 Arpeggio::get_common_y (Grob *me)
@@ -133,6 +134,29 @@ Arpeggio::brew_chord_bracket (SCM smob)
 
   Stencil mol (Lookup::bracket (Y_AXIS, Interval (0, dy), lt, x, lt));
   mol.translate_axis (heads[LEFT] - sp / 2.0, Y_AXIS);
+  return mol.smobbed_copy ();
+}
+
+MAKE_SCHEME_CALLBACK (Arpeggio, brew_chord_slur, 1);
+SCM
+Arpeggio::brew_chord_slur (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Interval heads = robust_scm2interval (me->get_property ("positions"),
+					Interval())
+    * Staff_symbol_referencer::staff_space (me);
+
+  Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
+  Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
+  Real dy = heads.length ();
+
+  Real height_limit = 1.5;
+  Real ratio = .33;
+  Bezier curve = slur_shape (dy, height_limit, ratio);
+  curve.rotate (M_PI / 2);
+
+  Stencil mol (Lookup::slur (curve, lt, lt));
+  mol.translate_axis (heads[LEFT], Y_AXIS);
   return mol.smobbed_copy ();
 }
 
