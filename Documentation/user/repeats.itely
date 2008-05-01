@@ -71,17 +71,22 @@ to be played more than once.
 
 
 @menu
-* Writing long repeats::        
+* Long repeats::                
 * Short repeats::               
 @end menu
 
-@node Writing long repeats
-@subsection Writing long repeats
+@node Long repeats
+@subsection Long repeats
+
+This section discusses how to input long (usually multi-measure)
+repeats.  The repeats can take two forms: repeats enclosed between
+repeat signs; or written out repeats, used to input repetitious music.
+Repeat signs can also be controlled manually.
 
 @menu
 * Normal repeats::              
 * Manual repeat marks::         
-* Written-out repeats::         
+* Written-out repeats (unfold)::  
 @end menu
 
 @cindex volta
@@ -193,11 +198,11 @@ Music Glossary: @rglos{repeat}, @rglos{volta}.
 
 Notation Reference: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Internals Reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}.
+Internals Reference: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
 
 @knownissues
 
@@ -246,9 +251,9 @@ Print a @code{:|} bar line.
 
 @item @code{(volta @var{text})}
 Print a volta bracket saying @var{text}.  The text can be specified as
-a text string or as a markup text; see @ref{Formatting text}.  Do not
+a text string or as a markup text, see @ref{Formatting text}.  Do not
 forget to change the font, as the default number font does not contain
-alphabetic characters.
+alphabetic characters;
 
 
 @item @code{(volta #f)}
@@ -269,14 +274,14 @@ d4 e
 
 Notation Reference: @ref{Bar lines}, @ref{Formatting text}.
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Internals Reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic}.
+Internals Reference: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic}.
 
 
-@node Written-out repeats
-@subsubsection Written-out repeats
+@node Written-out repeats (unfold)
+@subsubsection Written-out repeats (unfold)
 
 @cindex written-out repeats
 @cindex repetitious music
@@ -290,9 +295,8 @@ the writing out of repetitious music.  The syntax is
 @end example
 
 where @var{musicexpr} is a music expression.  Unfold repeats can be
-made with or without alternate endings.
-
-Unfold repeats without alternate endings:
+made with or without alternate endings.  Unfold repeats without
+alternate endings:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c1
@@ -314,13 +318,16 @@ c1
 
 @seealso
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Internals Reference: @internalsref{RepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}.
+Internals Reference: @rinternals{RepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
 
 @node Short repeats
 @subsection Short repeats
+
+This section discusses how to input short repeats, either single-note
+to multi-measure using slash marks, or tremolos.
 
 @menu
 * Percent repeats::             
@@ -347,9 +354,9 @@ syntax is
 where @var{musicexpr} is a music expression. 
 
 @lilypond[quote,verbatim,ragged-right]
-\new Voice \relative c' {
+\relative c' {
   \repeat percent 4 { c4 }
-  \repeat percent 2 { b4 a g f }
+  \repeat percent 2 { b'4 a g f }
   \repeat percent 2 { c2 es | f4 fis g c | }
 }
 @end lilypond
@@ -358,7 +365,7 @@ Measure repeats of more than two measures get a counter if you
 switch on the @code{countPercentRepeats} property:
 
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
-\new Voice {
+\relative c' {
   \set countPercentRepeats = ##t
   \repeat percent 4 { c1 }
 }
@@ -377,13 +384,13 @@ R1
 
 @seealso
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-Internals Reference: @internalsref{RepeatSlash},
-@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
-@internalsref{DoublePercentRepeatCounter},
-@internalsref{PercentRepeatCounter},
-@internalsref{PercentRepeatedMusic}.
+Internals Reference: @rinternals{RepeatSlash},
+@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 @node Tremolo repeats
 @subsubsection Tremolo repeats
@@ -394,7 +401,7 @@ To place tremolo marks between notes, use @code{\repeat} with
 tremolo style:
 
 @lilypond[quote,verbatim,ragged-right]
-\new Voice \relative c' {
+\relative c' {
   \repeat tremolo 8 { c16 d }
   \repeat tremolo 4 { c16 d }
   \repeat tremolo 2 { c16 d }
@@ -444,17 +451,12 @@ into the MIDI output.
 
 @seealso
 
-Music Glossary: @rglos{tremolo}.
-
 Notation Reference: @ref{Tremolo repeats}.
 
-Internals Reference: @internalsref{Beam}, @internalsref{StemTremolo}.
+Internals Reference: @rinternals{Beam}, @rinternals{StemTremolo}.
 
-Snippets: @lsrdir{Repeats,Repeats}.
+Snippets: @rlsr{Repeats}.
 
-
-
-
-
+Elsewhere: @rinternals{StemTremolo}.
 
 
