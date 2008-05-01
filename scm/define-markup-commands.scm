@@ -103,7 +103,7 @@ thickness and padding around the markup."
 
 (define-builtin-markup-command (with-url layout props url arg)
   (string? markup?)
-  other
+  graphic
   ()
   "
 @cindex inserting URL links into text
@@ -151,7 +151,7 @@ Create a beam with the specified parameters."
 
 (define-builtin-markup-command (underline layout props arg)
   (markup?)
-  other
+  music
   ((thickness 1))
   "
 @cindex underlining text
@@ -172,7 +172,7 @@ thickness and y offset."
 
 (define-builtin-markup-command (box layout props arg)
   (markup?)
-  other
+  font
   ((thickness 1)
    (font-size 0)
    (box-padding 0.2))
@@ -190,7 +190,7 @@ thickness and padding around the markup."
 
 (define-builtin-markup-command (filled-box layout props xext yext blot)
   (number-pair? number-pair? number?)
-  other
+  graphic
   ()
   "
 @cindex drawing solid boxes within text
@@ -209,7 +209,7 @@ circle of diameter@tie{}0 (i.e. sharp corners)."
 
 (define-builtin-markup-command (rounded-box layout props arg)
   (markup?)
-  other
+  graphic
   ((thickness 1)
    (corner-radius 1)
    (font-size 0)
@@ -234,7 +234,7 @@ c,8. c16 c4 r
 
 (define-builtin-markup-command (rotate layout props ang arg)
   (number? markup?)
-  other
+  align
   ()
   "
 @cindex rotating text
@@ -255,7 +255,7 @@ Provide a white background for @var{arg}."
 
 (define-builtin-markup-command (pad-markup layout props padding arg)
   (number? markup?)
-  other
+  align
   ()
   "
 @cindex padding text
@@ -293,7 +293,7 @@ Create a box of the same height as the space in the current font."
 ;; todo: fix negative space
 (define-builtin-markup-command (hspace layout props amount)
   (number?)
-  other
+  align
   ()
   "
 @cindex creating horizontal spaces in text
@@ -430,7 +430,7 @@ An empty markup with extents of a single point."
 
 (define-builtin-markup-command (simple layout props str)
   (string?)
-  other
+  font
   ()
   "
 @cindex simple text strings
@@ -441,7 +441,7 @@ A simple text string; @code{\\markup @{ foo @}} is equivalent with
 
 (define-builtin-markup-command (tied-lyric layout props str)
   (string?)
-  other
+  music
   ()
   "
 @cindex simple text strings with tie characters
@@ -570,7 +570,7 @@ determines the space between each markup in @var{args}."
 
 (define-builtin-markup-command (concat layout props args)
   (markup-list?)
-  other
+  align
   ()
   "
 @cindex concatenating text
@@ -758,7 +758,7 @@ the line width, where @var{X} is the number of staff spaces."
 
 (define-builtin-markup-command (combine layout props m1 m2)
   (markup? markup?)
-  other
+  align
   ()
   "
 @cindex merging text
@@ -892,7 +892,7 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
 
 (define-builtin-markup-command (pad-around layout props amount arg)
   (number? markup?)
-  other
+  align
   ()
   "Add padding @var{amount} all around @var{arg}."  
   (let* ((m (interpret-markup layout props arg))
@@ -904,7 +904,7 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
 
 (define-builtin-markup-command (pad-x layout props amount arg)
   (number? markup?)
-  other
+  align
   ()
   "
 @cindex padding text horizontally
@@ -919,7 +919,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction."
 
 (define-builtin-markup-command (put-adjacent layout props arg1 axis dir arg2)
   (markup? integer? ly:dir? markup?)
-  other
+  align
   ()
   "Put @var{arg2} next to @var{arg1}, without moving @var{arg1}."
   (let ((m1 (interpret-markup layout props arg1))
@@ -938,7 +938,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction."
 
 (define-builtin-markup-command (pad-to-box layout props x-ext y-ext arg)
   (number-pair? number-pair? markup?)
-  other
+  align
   ()
   "Make @var{arg} take at least @var{x-ext}, @var{y-ext} space."
   (let* ((m (interpret-markup layout props arg))
@@ -950,7 +950,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction."
 
 (define-builtin-markup-command (hcenter-in layout props length arg)
   (number? markup?)
-  other
+  align
   ()
   "Center @var{arg} horizontally within a box of extending
 @var{length}/2 to the left and right."
@@ -1660,7 +1660,7 @@ a shortened down stem."
 
 (define-builtin-markup-command (lower layout props amount arg)
   (number? markup?)
-  other
+  align
   ()
   "
 @cindex lowering text
@@ -1688,7 +1688,7 @@ Translate @var{arg} by @var{offset}, scaling the offset by the
 
 (define-builtin-markup-command (raise layout props amount arg)
   (number? markup?)
-  other
+  align
   ()
   "
 @cindex raising text
@@ -1743,7 +1743,7 @@ Make a fraction of two markups."
 
 (define-builtin-markup-command (normal-size-super layout props arg)
   (markup?)
-  other
+  font
   ((baseline-skip))
   "
 @cindex setting superscript in standard font size
@@ -1755,7 +1755,7 @@ Set @var{arg} in superscript with a normal font size."
 
 (define-builtin-markup-command (super layout props arg)
   (markup?)
-  other
+  font
   ((font-size 0)
    (baseline-skip))
   "  
@@ -1777,7 +1777,7 @@ Raising and lowering texts can be done with @code{\\super} and
 
 (define-builtin-markup-command (translate layout props offset arg)
   (number-pair? markup?)
-  other
+  align
   ()
   "
 @cindex translating text
@@ -1797,7 +1797,7 @@ that."
 
 (define-builtin-markup-command (sub layout props arg)
   (markup?)
-  other
+  font
   ((font-size 0)
    (baseline-skip))
   "
@@ -1814,7 +1814,7 @@ Set @var{arg} in subscript."
 
 (define-builtin-markup-command (normal-size-sub layout props arg)
   (markup?)
-  other
+  font
   ((baseline-skip))
   "
 @cindex setting subscript in standard font size
@@ -1831,7 +1831,7 @@ Set @var{arg} in subscript, in a normal font size."
 
 (define-builtin-markup-command (hbracket layout props arg)
   (markup?)
-  other
+  graphic
   ()
   "
 @cindex placing horizontal brackets around text
@@ -1843,7 +1843,7 @@ Draw horizontal brackets around @var{arg}."
 
 (define-builtin-markup-command (bracket layout props arg)
   (markup?)
-  other
+  graphic
   ()
   "
 @cindex placing vertical brackets around text
