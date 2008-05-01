@@ -13,15 +13,16 @@
 #include "axis-group-interface.hh"
 #include "grob-array.hh"
 #include "international.hh"
+#include "lookup.hh"
 #include "main.hh"
 #include "output-def.hh"
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "paper-system.hh"
 #include "pointer-group-interface.hh"
+#include "skyline-pair.hh"
 #include "staff-symbol-referencer.hh"
 #include "warn.hh"
-#include "lookup.hh"
 
 extern bool debug_skylines;
 

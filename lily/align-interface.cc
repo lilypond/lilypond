@@ -7,16 +7,17 @@
 */
 
 #include "align-interface.hh"
-#include "spanner.hh"
-#include "item.hh"
 #include "axis-group-interface.hh"
-#include "pointer-group-interface.hh"
-#include "hara-kiri-group-spanner.hh"
 #include "grob-array.hh"
+#include "hara-kiri-group-spanner.hh"
 #include "international.hh"
+#include "item.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "skyline-pair.hh"
 #include "system.hh"
 #include "warn.hh"
-#include "paper-column.hh"
 
 /*
   TODO: for vertical spacing, should also include a rod & spring

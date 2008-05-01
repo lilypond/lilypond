@@ -18,6 +18,7 @@
 #include "paper-column.hh"
 #include "paper-score.hh"
 #include "separation-item.hh"
+#include "skyline-pair.hh"
 #include "stencil.hh"
 #include "system.hh"
 #include "warn.hh"

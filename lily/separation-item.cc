@@ -8,15 +8,15 @@
 
 #include "separation-item.hh"
 
+#include "accidental-placement.hh"
 #include "axis-group-interface.hh"
 #include "lookup.hh"
 #include "note-head.hh"
-#include "stencil.hh"
-#include "skyline.hh"
 #include "paper-column.hh"
-#include "warn.hh"
 #include "pointer-group-interface.hh"
-#include "accidental-placement.hh"
+#include "skyline-pair.hh"
+#include "stencil.hh"
+#include "warn.hh"
 
 void
 Separation_item::add_item (Grob *s, Item *i)
