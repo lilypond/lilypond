@@ -329,7 +329,7 @@ A @rglos{rest} is entered just like a note with the name @samp{r}:
 
 @subheading Time signature
 
-The @rglos{time signature}) can be set with the @code{\time} command:
+The @rglos{time signature} can be set with the @code{\time} command:
 
 @lilypond[quote,ragged-right,verbatim]
 \relative c'' {
