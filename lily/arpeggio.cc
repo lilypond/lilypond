@@ -147,7 +147,6 @@ Arpeggio::brew_chord_slur (SCM smob)
     * Staff_symbol_referencer::staff_space (me);
 
   Real lt = me->layout ()->get_dimension (ly_symbol2scm ("line-thickness"));
-  Real sp = 1.5 * Staff_symbol_referencer::staff_space (me);
   Real dy = heads.length ();
 
   Real height_limit = 1.5;

@@ -394,8 +394,12 @@ System::get_paper_system ()
       Skyline_pair *skylines = Skyline_pair::unsmob (get_property ("vertical-skylines"));
       if (skylines)
 	{
-	  sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, (*skylines)[UP].to_points (X_AXIS)).in_color (255, 0, 0));
-	  sys_stencil.add_stencil (Lookup::points_to_line_stencil (0.1, (*skylines)[DOWN].to_points (X_AXIS)).in_color (0, 255, 0));
+	  Stencil up
+	    = Lookup::points_to_line_stencil (0.1, (*skylines)[UP].to_points (X_AXIS));
+	  Stencil down
+	    = Lookup::points_to_line_stencil (0.1, (*skylines)[DOWN].to_points (X_AXIS));
+	  sys_stencil.add_stencil (up.in_color (255, 0, 0));
+	  sys_stencil.add_stencil (down.in_color (0, 255, 0));
 	}
     }
 
