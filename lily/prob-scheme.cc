@@ -80,7 +80,7 @@ LY_DEFINE (ly_make_prob, "ly:make-prob",
 LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties",
 	   1, 0, 0,
 	   (SCM prob),
-	   "Retrieve an alist of mutable properties")
+	   "Retrieve an alist of mutable properties.")
 {
   LY_ASSERT_SMOB (Prob, prob, 1);
   Prob *ps = unsmob_prob (prob);
@@ -90,7 +90,7 @@ LY_DEFINE (ly_prob_mutable_properties, "ly:prob-mutable-properties",
 LY_DEFINE (ly_prob_immutable_properties, "ly:prob-immutable-properties",
 	   1, 0, 0,
 	   (SCM prob),
-	   "Retrieve an alist of mutable properties")
+	   "Retrieve an alist of mutable properties.")
 {
   LY_ASSERT_SMOB (Prob, prob, 1);
   Prob *ps = unsmob_prob (prob);
