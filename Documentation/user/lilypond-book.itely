@@ -618,6 +618,10 @@ Set the amount by which the @code{quote} option indents a music snippet.
 Use relative octave mode.  By default, notes are specified relative to
 middle@tie{}C.  The optional integer argument specifies the octave of
 the starting note, where the default @code{1} is middle C.
+@code{relative} option only works when @code{fragment} option is set,
+so @code{fragment} is automatically implied by @code{relative},
+regardless of the presence of any @code{(no)fragment} option in the
+source.
 @end table
 
 LilyPond also uses @command{lilypond-book} to produce its own

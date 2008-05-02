@@ -166,6 +166,7 @@ Completion_heads_engraver::process_music ()
 
       event->set_property ("pitch", pits);
       event->set_property ("duration", note_dur.smobbed_copy ());
+      event->set_property ("length", Moment (note_dur.get_length ()).smobbed_copy ());
       event->set_property ("duration-log", scm_from_int (note_dur.duration_log ()));
 
       Item *note = make_note_head (event);
@@ -187,9 +188,8 @@ Completion_heads_engraver::process_music ()
     }
 
   left_to_do_ -= note_dur.get_length ();
-
   if (left_to_do_)
-    get_global_context ()->add_moment_to_process (now.main_part_ + left_to_do_);
+    get_global_context ()->add_moment_to_process (now.main_part_ + note_dur.get_length());
   /*
     don't do complicated arithmetic with grace notes.
   */
@@ -217,6 +217,8 @@ Completion_heads_engraver::start_translation_timestep ()
       note_events_.clear ();
       prev_notes_.clear ();
     }
+  context ()->set_property ("completionBusy",
+			    ly_bool2scm (note_events_.size ()));
 }
 
 Completion_heads_engraver::Completion_heads_engraver ()
@@ -240,5 +242,5 @@ ADD_TRANSLATOR (Completion_heads_engraver,
 		"measureLength ",
 
 		/* write */
-		""
+		"completionBusy "
 		);

@@ -51,31 +51,38 @@ endcresc =  {
 
 setTextCresc = {
     \set crescendoText = \markup { \italic "cresc." }
-    \set crescendoSpanner = #'dashed-line
+    \set crescendoSpanner = #'text
+    \override DynamicTextSpanner #'style = #'dashed-line
 }
 
 setTextDecresc = {
     \set decrescendoText = \markup { \italic "decresc." }
-    \set decrescendoSpanner = #'dashed-line
+    \set decrescendoSpanner = #'text
+    \override DynamicTextSpanner #'style = #'dashed-line
 }
 
 setTextDecr = {
     \set decrescendoText = \markup { \italic "decr." }
-    \set decrescendoSpanner = #'dashed-line
+    \set decrescendoSpanner = #'text
+    \override DynamicTextSpanner #'style = #'dashed-line
 }
 
 setTextDim = {
     \set decrescendoText = \markup { \italic "dim." }
-    \set decrescendoSpanner = #'dashed-line
+    \set decrescendoSpanner = #'text
+    \override DynamicTextSpanner #'style = #'dashed-line
 }
+
 setHairpinCresc = {
     \unset crescendoText 
     \unset crescendoSpanner 
 }
+
 setHairpinDecresc = {
     \unset decrescendoText 
     \unset decrescendoSpanner 
 }
+
 setHairpinDim = {
     \unset decrescendoText 
     \unset decrescendoSpanner 
