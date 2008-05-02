@@ -235,8 +235,9 @@ FIXME: quotes.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative { e4 f e d e f e2 }
-\addlyrics { He said: â€œLet my peo ple goâ€. }
+\addlyrics { He said: there is a bug here }
 @end lilypond
+@c \addlyrics { He said: â€œLet my peo ple goâ€. }
 
 To use normal quotes in lyrics, add a backslash before the
 quotes.  For example,
@@ -835,9 +836,10 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
   Hi, my name is Bert.
 } \addlyrics {
   \set stanza = "2. "
-  Oh, chÃ© -- ri, je t'aime
+  Oh, there is a bug here
 }
 @end lilypond
+  @c Oh, chÃ© -- ri, je t'aime
 
 @noindent
 These numbers are put just before the start of the first syllable.
