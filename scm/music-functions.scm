@@ -340,7 +340,18 @@ i.e.  this is not an override"
 	      'grob-property gprop))
 
 (define direction-polyphonic-grobs
-  '(Stem Tie Rest Slur PhrasingSlur Script TextScript Dots DotColumn Fingering))
+  '(DotColumn
+    Dots
+    Fingering
+    LaissezVibrerTie
+    PhrasingSlur
+    RepeatTie
+    Rest
+    Script
+    Slur
+    Stem
+    TextScript
+    Tie))
 
 (define-safe-public (make-voice-props-set n)
   (make-sequential-music

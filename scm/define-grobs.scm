@@ -1886,6 +1886,7 @@
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(avoid-slur . inside)
 	(direction . ,ly:tie::calc-direction)
+	(neutral-direction . ,UP)
 	(stencil . ,ly:tie::print)
 	(font-size . -6)
 	(details . (

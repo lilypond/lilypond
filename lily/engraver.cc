@@ -70,7 +70,8 @@ Engraver::announce_end_grob (Grob *e, SCM cause)
     {
       cause = m->to_event ()->unprotect ();
     }
-  if (unsmob_stream_event (cause) || unsmob_grob (cause))
+  if (e->get_property ("cause") == SCM_EOL
+      && (unsmob_stream_event (cause) || unsmob_grob (cause)))
     e->set_property ("cause", cause);
 
   Grob_info i (this, e);

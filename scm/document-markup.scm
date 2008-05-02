@@ -96,13 +96,16 @@
     #:name "Text markup commands"
     #:desc ""
     #:text "The following commands can all be used inside @code{\\markup @{ @}}."
-    #:children (let ((categories (sort (hash-fold (lambda (category function+properties categories)
-                                                    (cons category categories))
-                                                  (list)
-                                                  markup-functions-by-category)
-                                       (lambda (c1 c2)
-                                         (string<? (symbol->string c1)
-                                                   (symbol->string c2))))))
+    #:children (let* (;; when a new category is defined, update `ordered-categories'
+                      (ordered-categories '(font align graphic music fret-diagram other))
+                      (raw-categories (hash-fold (lambda (category functions categories)
+                                                   (cons category categories))
+                                                 (list)
+                                                 markup-functions-by-category))
+                      (categories (append ordered-categories
+                                          (filter (lambda (cat)
+                                                    (not (memq cat ordered-categories)))
+                                                  raw-categories))))
                  (map markup-category-doc-node categories))))
 
 (define (markup-list-doc-node)

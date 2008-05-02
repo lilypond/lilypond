@@ -97,13 +97,15 @@ Lyric_combine_music_iterator::set_music_context (Context *to)
 {
   if (music_context_)
     {
-      music_context_->event_source ()->remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+      music_context_->event_source ()->
+	remove_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
     }
 
   music_context_ = to;
   if (to)
     {
-      to->event_source ()->add_listener (GET_LISTENER (set_busy), ly_symbol2scm ("music-event"));
+      to->event_source ()->add_listener (GET_LISTENER (set_busy),
+					 ly_symbol2scm ("music-event"));
     }
 }
 
