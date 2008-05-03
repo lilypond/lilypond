@@ -358,18 +358,22 @@ specific syntax called @qq{markup mode}.
 @cindex markup syntax
 
 The markup syntax is similar to LilyPond's usual syntax: a
-@code{\markup} expression can be made of one word, or several words.
-In the latter case, the expression has to be enclosed in curly braces
-@code{@{ ... @}} or double quotes @code{"..."}.
+@code{\markup} expression is enclosed in curly braces @code{@{
+@dots{} @}}.
+@c to delete?  -gp
+Markup expressions may also be enclosed in double quotes
+@code{"..."}, but these are treated as text strings.  Commands are
+interpreted literally.
 
-While a text string between double quotes is regarded as an indivisible
-single expression, markup blocks defined using braces can contain
-smaller expressions.
+In markup mode, specific commands are entered using the backslash
+@code{\} character.  Such commands only affect the first following
+expression.
 
-In markup mode, specific commands are entered using the
-backslash @code{\} character.  Such commands only affect
-the first following expression: either a single word, or
-a group of words.
+In this example, the first markup is made of one word without any
+braces or quotes, while the following markups demonstrate the usefulness
+of nested markup expressions using braces.
+This syntax is prefered, as it allows both single-word and multi-word
+markups.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 e1-\markup intenso
@@ -380,13 +384,6 @@ e
 b1^\markup { \bold { molto agitato } }
 c
 @end lilypond
-
-@noindent
-In this example, the first markup is made of one word without any
-braces or quotes, while the following markups demonstrate the usefulness
-of nested markup expressions using braces.
-This syntax is prefered, as it allows both single-word and multi-word
-markups.
 
 @cindex special characters in markup mode
 @cindex markup mode, special characters
@@ -407,7 +404,7 @@ cis a r4 r2
 @end lilypond
 
 The way markup expressions are defined affects 
-how these expressions will stacked,centered and aligned;
+how these expressions will stacked, centered and aligned;
 this syntax is described in @ref{Text alignment}.
 
 @lilypond[quote,verbatim,fragment,relative=1]
