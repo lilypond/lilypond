@@ -330,27 +330,10 @@ using the @code{\markup} mode specific syntax.
 @cindex markup text
 @cindex typeset text
 
-A @code{\markup} block is used to typeset text with an extensible syntax,
-called @qq{markup mode}.
-Specific commands can be entered in this mode, using the
-backslash @code{\} character.
-@c TODO: move the following sentence (and add an example?) -vv
-To @emph{print} such characters as
-@code{\} and @code{#} in the output, use double
-quotation marks.
+A @code{\markup} block is used to typeset text with an extensible
+specific syntax called @qq{markup mode}.
 
-@lilypond[quote,verbatim,fragment,relative=1]
-c1^\markup { hello }
-c1_\markup { hi there }
-c1^\markup { hi \bold there, is \italic {anyone home?} }
-c1_\markup { "\special {weird} #characters" }
-@end lilypond
-
-@noindent
-An exhaustive list of @code{\markup}-specific commands can be found in
-@ref{Text markup commands}.
-
-
+@c TODO: make a nicer example (maybe ask Trevor B?) -vv
 @lilypond[quote,verbatim]
 \header{ title = \markup{ \bold { foo \italic { bar! } } } }
 \score{
@@ -371,30 +354,61 @@ An exhaustive list of @code{\markup}-specific commands can be found in
 }
 @end lilypond
 
+@cindex markup expressions
+@cindex markup syntax
 
+The markup syntax is similar to LilyPond's usual syntax: a
+@code{\markup} expression can be made of one word, or several words.
+In the latter case, the expression has to be enclosed in curly braces
+@code{@{ ... @}} or double quotes @code{"..."}.
 
-@cindex font switching
+While a text string between double quotes is regarded as an indivisible
+single expression, markup blocks defined using braces can contain
+smaller expressions.
 
-Some font switching commands are demonstrated here. Such commands
-apply only to the first following word; several words may be affected
-by enclosing them in braces.
+In markup mode, specific commands are entered using the
+backslash @code{\} character.  Such commands only affect
+the first following expression: either a single word, or
+a group of words.
 
-@example
-\markup @{ \bold @{ hi there @} @}
-@end example
+@lilypond[quote,verbatim,fragment,relative=1]
+e1-\markup intenso
+a2^\markup { poco \italic più forte  }
+c e1
+d2_\markup { \italic "string. assai" }
+e 
+b1^\markup { \bold { molto agitato } }
+c
+@end lilypond
 
-@c TODO: remove the following line and example? -vv
 @noindent
-For clarity, you can also do this for single arguments, e.g.,
+In this example, the first markup is made of one word without any
+braces or quotes, while the following markups demonstrate the usefulness
+of nested markup expressions using braces.
+This syntax is prefered, as it allows both single-word and multi-word
+markups.
 
-@example
-\markup @{ is \italic @{ anyone @} home @}
-@end example
+@cindex special characters in markup mode
+@cindex markup mode, special characters
+@cindex reserved characters, printing
+@cindex printing special characters
 
-The markup mode can be used to compose expressions, similar to
-mathematical expressions, XML documents, and music expressions.
-Such expressions can be vertically stacked, horizontally centered, 
-or aligned in different ways:
+Special characters such as @code{\} and @code{#}
+can be printed in the output simply using double
+quotes.  Double quotation marks are only printed
+in the output when preceded by backslashes:
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\clef bass
+a^\markup "##\ LEPORELLO \##"
+a_\markup "Bravi! \"Cosa rara\"!"
+r a8 d
+cis a r4 r2
+@end lilypond
+
+The way markup expressions are defined affects 
+how these expressions will stacked,centered and aligned;
+this syntax is described in @ref{Text alignment}.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { \column { a bbbb \line { c d } } }
@@ -402,62 +416,34 @@ c1^\markup { \center-align { a bbbb c } }
 c1^\markup { \line { a b c } }
 @end lilypond
 
-Lists with no previous command are not kept distinct.  In
-the following example, the two @code{\markup} expressions
+Lists of words that are not enclosed with double quotes
+or preceded by a previous command are not kept distinct.  In
+the following example, the first two @code{\markup} expressions
 are equivalent:
 
-@c TODO: merge these two examples in a @lilypond example -vv
+@lilypond[quote,verbatim,fragment,relative=1]
+c1^\markup { \center-align { a bbb c } }
+c1^\markup { \center-align { a { bbb c } } }
+c1^\markup { \center-align { a \line { bbb c } } }
+@end lilypond
 
-@example
-\center-align @{ @{ a b @} @{ c d @} @}
-\center-align @{ a b c d @}
-@end example
+
+Markups can be stored in variables.  These variables may be
+attached to notes:
+
+@lilypond[quote,verbatim]
+allegro = \markup { \bold \large Allegro }
+
+{
+  d''8.^\allegro
+  d'16 d'4 r2
+}
+@end lilypond
+
 
 @noindent
-
-To keep lists of words distinct, please use quotes @code{"} or
-the @code{\line} command
-
-@lilypond[quote,verbatim,fragment,relative=1]
-\textLengthOn
-c4^\markup{ \center-align { on three lines } }
-c4^\markup{ \center-align { "all one line" } }
-c4^\markup{ \center-align { { on three lines } } }
-c4^\markup{ \center-align { \line { on one line } } }
-@end lilypond
-
-Markups can be stored in variables and these variables may be
-attached to notes, like
-
-@example
-allegro = \markup @{ \bold \large @{ Allegro @} @}
- @{ a^\allegro b c d @}
-@end example
-
-Some objects have alignment procedures of their own, which cancel
-out any effects of alignments applied to their markup arguments as
-a whole.  For example, the @rinternals{RehearsalMark} is
-horizontally centered, so using @code{\mark \markup @{ \left-align
-.. @}} has no effect.
-
-In addition, vertical placement is performed after creating the
-text markup object.  If you wish to move an entire piece of
-markup, you need to use the #'padding property or create an
-@q{anchor} point inside the markup (generally with @code{\hspace
-#0}).
-
-@lilypond[quote,verbatim,fragment,relative=1]
-\textLengthOn
-c'4^\markup{ \raise #5 "not raised" }
-\once \override TextScript #'padding = #3
-c'4^\markup{ raised }
-c'4^\markup{ \hspace #0 \raise #1.5 raised }
-@end lilypond
-
-Some situations (such as dynamic marks) have preset font-related
-properties.  If you are creating text in such situations, it is
-advisable to cancel those properties with @code{normal-text}.  See
-@ref{Text markup commands}, for more details.
+An exhaustive list of @code{\markup}-specific commands can be found in
+@ref{Text markup commands}.
 
 @ignore
 TODO: here are some commands that could be described here.
@@ -520,6 +506,11 @@ Syntax errors for markup mode are confusing.
 
 Some basic formatting can be used blah blah
 
+
+@cindex font switching
+
+Some font switching commands are demonstrated here.
+
 \italic 
 \upright
 \bold 
@@ -578,6 +569,33 @@ All these settings (except the size) can be reverted to the default font:
 
 @node Text alignment
 @subsubsection Text alignment
+
+
+Some objects have alignment procedures of their own, which cancel
+out any effects of alignments applied to their markup arguments as
+a whole.  For example, the @rinternals{RehearsalMark} is
+horizontally centered, so using @code{\mark \markup @{ \left-align
+.. @}} has no effect.
+
+In addition, vertical placement is performed after creating the
+text markup object.  If you wish to move an entire piece of
+markup, you need to use the #'padding property or create an
+@q{anchor} point inside the markup (generally with @code{\hspace
+#0}).
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\textLengthOn
+c'4^\markup{ \raise #5 "not raised" }
+\once \override TextScript #'padding = #3
+c'4^\markup{ raised }
+c'4^\markup{ \hspace #0 \raise #1.5 raised }
+@end lilypond
+
+Some situations (such as dynamic marks) have preset font-related
+properties.  If you are creating text in such situations, it is
+advisable to cancel those properties with @code{normal-text}.  See
+@ref{Text markup commands}, for more details.
+
 
 Alignment basics:
 \left-align
