@@ -100,7 +100,7 @@ a la melodía.  He aquí un ejemplo:
 
 @lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
-\relative { c2 e4 g2. }
+\relative c' { c2 e4 g2. }
 \addlyrics { play the game }
 @end lilypond
 
@@ -109,7 +109,7 @@ Se pueden añadir más versos mediante la adición de más secciones
 
 @lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
-\relative { c2 e4 g2. }
+\relative c' { c2 e4 g2. }
 \addlyrics { play the game }
 \addlyrics { speel het spel }
 \addlyrics { joue le jeu }
@@ -198,9 +198,9 @@ comillas o usar un carácter @code{_} (guión bajo), para obtener
 espacios entre las sílabas, o usar el símbolo de tilde curva
 (@code{~}) para obtener una ligadura entre sílabas de la letra.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
-\relative { c2 e4 g2 e4 }
+\relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
 \addlyrics { pu- ro~y~ho- nes- to }
@@ -220,7 +220,7 @@ utf-8.  Consulte @ref{Text encoding}, para ver más información.
 @c FIXME: quotes.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\relative { e4 f e d e f e2 }
+\relative c' { e4 f e d e f e2 }
 \addlyrics { He said: “Let my peo ple go”. }
 @end lilypond
 
@@ -481,9 +481,9 @@ ligaduras de texto están hechas con el carácter de Unicode U+203F, por
 tanto debe asegurarse de tener instalada una tipografía (como
 DejaVuLGC) que incluya este glifo.}.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
-\relative { c2 e4 g2 e4 }
+\relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
 \addlyrics { pu- ro~y~ho- nes- to }
@@ -758,7 +758,7 @@ la propiedad minimum-distance de LyricSpace.
 Para que este cambio sea válido para la letra de la partitura
 completa, establezca la propiedad dentro del @q{layout} o disposición.
 
-@lilypond[relative,verbatim,quote,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \score {
   \relative c' {
   c c c c
@@ -873,7 +873,7 @@ versión abreviada como @code{shortVocalName}.
   Hi, my name is Bert.
 } \addlyrics {
   \set vocalName = "Ernie "
-  Oh, che -- ri, je t'aime
+  Oh, ché -- ri, je t'aime
 }
 @end lilypond
 
@@ -896,7 +896,7 @@ texto, tal y como se muestra a continuación:
 @lilypond[verbatim,ragged-right,quote]
 %{
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     \slurDotted
@@ -926,7 +926,7 @@ lenta que la normal.  Esto se puede conseguir insertando @code{\skip}s
 texto se retrasará una nota más.  Por ejemplo,
 
 @lilypond[verbatim,ragged-right,quote]
-\relative { c c g' }
+\relative c' { c c g' }
 \addlyrics {
   twin -- \skip 4
   kle
@@ -942,7 +942,7 @@ texto.  Esto se hace estableciendo la propiedad
 
 @lilypond[ragged-right,quote]
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     <<

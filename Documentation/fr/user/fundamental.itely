@@ -430,7 +430,7 @@ amené à recourir à des voix supplémentaires afin d'éviter des collisions
 de notes.  Ces voix additionnelles s'ajoutent en définissant un
 identificateur, comme le montre l'exemple suivant :
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 \relative c''' <<
@@ -845,8 +845,7 @@ C'est un peu le bazar dans tout ça ; mais il vous sera facile de
 mettre un peu d'ordre dans l'indentation.  Voici le modèle pour
 soprano et violoncelle au complet :
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+@lilypond[quote,verbatim,ragged-right,addversion]
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major

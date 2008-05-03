@@ -500,7 +500,7 @@ sincronizadas con las notas.
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{grid-lines-changing-their-appearance.ly}
+{grid-lines--changing-their-appearance.ly}
 
 
 @seealso
