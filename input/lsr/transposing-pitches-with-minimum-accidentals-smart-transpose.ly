@@ -3,6 +3,31 @@
 \version "2.11.38"
 \header {
   lsrtags = "pitches"
+  texidoces = "Este ejemplo utiliza código de Scheme para forzar las modificaciones enarmónicas de las
+notas, y así tener el menor número de alteraciones accidentales. En este caso
+se aplican las siguientes reglas:
+
+@itemize
+@item
+Se quitan las dobles alteraciones
+
+@item
+Si sostenido -> Do
+
+@item
+Mi sistenido -> Fa
+
+@item
+Do bemol -> Si
+
+@item
+Fa bemol -> Mi
+
+@end itemize
+
+De esta forma se selecciona el mayor número de notas enarmónicas naturales.
+"
+
   texidoc = "This example uses some Scheme code to enforce enharmonic modifications for
 notes in order to have the minimum number of accidentals. In this
 case, the following rules apply:
