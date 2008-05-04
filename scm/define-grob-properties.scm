@@ -460,8 +460,8 @@ shortest playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
 shortest note that starts here.")
      (side-axis ,number? "If the value is @code{#X} (or
-equivalently@tie{}@code{1}), the object is placed horizontally next
-to the other object.  If the value is @code{#Y} or@tie{}@code{0}, it
+equivalently@tie{}@code{0}), the object is placed horizontally next
+to the other object.  If the value is @code{#Y} or@tie{}@code{1}, it
 is placed vertically.")
      (side-relative-direction ,ly:dir? "Multiply direction of
 @code{direction-source} with this to get the direction of this

@@ -597,7 +597,7 @@ to the main staff with @code{<<} and @code{>>} brackets.  The @emph{ossia}
 staff is stopped and started explicitely and white space is inserted 
 with the @code{\skip} command.
 
-@lilypond[verbatim,relative=2,quote]
+@lilypond[verbatim,quote]
 <<
   \new Staff \with
   {
@@ -696,7 +696,7 @@ You can make the staff lines invisible by removing the
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
-  \context Staff \relative c'' { c8 c c16 c c c }
+  \new Staff \relative c'' { c8 c c16 c c c }
   \layout{
     \context {
       \Staff
@@ -719,7 +719,7 @@ The lower staff of the second staff group is not removed,
 because the setting applies only to the specific staff inside 
 of which it is written.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \layout {
   \context { 
     \RemoveEmptyStaffContext 
@@ -1174,8 +1174,8 @@ cbsn = \relative c, {
 }
 
 <<
-  \context Staff = "picc" \picc
-  \context Staff = "cbsn" \cbsn
+  \new Staff = "picc" \picc
+  \new Staff = "cbsn" \cbsn
 >>
 @end lilypond
 

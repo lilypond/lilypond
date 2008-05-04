@@ -183,7 +183,7 @@ adicionales para evitar colisiones entre las notas.  Las voces
 adicionales se añaden definiendo una variable, como se muestra a
 continuación:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 \relative c''' <<
@@ -322,7 +322,7 @@ Si queremos sólo las partes mezcladas y no las marcas textuales,
 podemos establecer la propiedad @code{printPartCombineTexts} al valor
 false.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[quote,verbatim,ragged-right,fragment]
 \new Staff <<
   \set Staff.printPartCombineTexts = ##f
   \partcombine
@@ -335,7 +335,7 @@ Para cambiar el texto que se imprime para los solos o la fusión,
 podemos establecer las propiedades @code{soloText}, @code{soloIIText}
 y @code{aDueText}.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[quote,verbatim,ragged-right,fragment]
 \new Staff <<
   \set Score.soloText = #"ichi"
   \set Score.soloIIText = #"ni"

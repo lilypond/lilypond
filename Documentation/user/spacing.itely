@@ -1597,7 +1597,7 @@ music.  Note that @code{ly:make-moment} constructs
 a duration, so @code{1 4} is a longer duration
 than @code{1 16}.
 
-@lilypond[relative,verbatim,line-width=12\cm]
+@lilypond[verbatim,line-width=12\cm]
 \score {
   \relative c'' {
     g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
@@ -1608,7 +1608,7 @@ than @code{1 16}.
 }
 @end lilypond
 
-@lilypond[relative,verbatim,line-width=12\cm]
+@lilypond[verbatim,line-width=12\cm]
 \score {
   \relative c'' {
     g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
