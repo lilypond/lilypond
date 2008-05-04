@@ -835,14 +835,16 @@
 
     (InstrumentSwitch
      . (
-	(padding . 0.3)
+	(padding . 0.5)
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
-	(staff-padding . 2)
+	(staff-padding . 0.5)
 	(direction . ,UP)
 	(side-axis . ,Y)
-	(self-alignment-X . ,CENTER)
+	(self-alignment-X . ,LEFT)
+	(outside-staff-priority . 500)
+	(extra-spacing-width . '(+inf.0 . -inf.0))
 	(meta . ((class . Item)
 		 (interfaces . (side-position-interface
 				font-interface))))))
