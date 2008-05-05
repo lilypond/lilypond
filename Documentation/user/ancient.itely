@@ -228,7 +228,6 @@ the use of key signatures.
 
 Internals Reference: @rinternals{KeySignature}.
 
-Examples: @c @lsrdir{ancient}
 
 @node Ancient rests
 @subsubsection Ancient rests

@@ -460,7 +460,6 @@ chart}.  Turning on these styles is demonstrated in
 @seealso
 
 Examples:
-@c @lsrdir{chords}
 
 Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
 @file{scm/@/chord@/-entry@/.scm}.
