@@ -45,7 +45,7 @@ A chord is formed by a enclosing a set of pitches between @code{<} and
 articulations, just like simple notes:
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
-<c e g>1 <c e g>->
+{<c e g>2 <c f a>4 -> <e g c>-.} 
 @end lilypond
 
 For more information about chords, see @ref{Modern chords}.
@@ -66,8 +66,10 @@ Snippets:
 
 @knownissues
 
-Music expressions like @code{<< @{ g8 e8 @} a4 >>} are not printed
-accurately.  Use @code{<g a>8 <e a>8} instead.
+For some reason, music expressions like @code{<< @{ g8 e8 @} a4 >>}
+that should automatically turn into chords, appear splitted in two
+staves. To avoid this, use explicit chords instead as in @code{<g a>8
+<e a>8}.
 
 
 @node Clusters
@@ -199,7 +201,7 @@ In some instances of complex polyphonic music, you may need
 additional voices to avoid collisions between notes.  Additional
 voices are added by defining an variable, as shown below:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 \relative c''' <<
@@ -332,7 +334,7 @@ down stems and @q{Solo II}.
 If you just want the merging parts, and not the textual markings,
 you may set the property @code{printPartCombineTexts} to false.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff <<
   \set Staff.printPartCombineTexts = ##f
   \partcombine
@@ -345,7 +347,7 @@ To change the text that is printed for solos or merging, you may
 set the @code{soloText}, @code{soloIIText}, and @code{aDueText}
 properties.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff <<
   \set Score.soloText = #"ichi"
   \set Score.soloIIText = #"ni"
@@ -424,42 +426,37 @@ Music for multiple parts can be interleaved:
 
 This works quite well for piano music.
 
-@c  It would be nice if the first bar fit onto one 66-char line.
-@c  Maybe simplify the example?  -gp
 @lilypond[quote,verbatim]
+global = { \key g \major  \time 2/4 }
 music = {
-  \key c \major
-  \time 4/4
   \parallelMusic #'(voiceA voiceB voiceC voiceD) {
-    % Bar 1
-    r8  g'16[ c''] e''[ g' c'' e'']
-      r8 g'16[ c''] e''[ g' c'' e''] |
-    c'2
-      c'2 |
-    r8  a16[ d'] f'[ a d' f']
-      r8  a16[ d'] f'[ a d' f'] |
-    c2
-      c2 |
+    % Bar 1 
+    a'8 b'      c'' d''   |
+    d'4         e'        |
+    c16 d e f   d e f g   |
+    a,4         a,4       |
 
     % Bar 2
-    a'8 b'      c'' d''    e'' f''    g'' a'' |
-    d'4         d'         d'         d' |
-    c16 d e f   d e f g    e f g a    f g a b |
-    a,4         a,4        a,4        a,4 |
+    e''8 f''    g'' a''   |
+    f'4         g'        |
+    e16 f g a   f g a b   |
+    a,4         a,4       |
 
     % Bar 3 ...
   }
 }
 
-\score {
+\score {      
   \new PianoStaff <<
-    \music
-    \new Staff <<
-      \voiceA \\
-      \voiceB
-    >>
     \new Staff {
-      \clef bass
+      \global
+      <<
+        \voiceA \\
+        \voiceB
+      >>
+    }
+    \new Staff {
+      \global \clef bass
       <<
         \voiceC \\
         \voiceD

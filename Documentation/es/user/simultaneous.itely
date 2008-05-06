@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 4123193c08a3d9c8a54a3d058ab2be8511e4e075
+    Translation of GIT committish: 95df76f110099096e2d55d57798fa4a2bede19fd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -35,32 +35,41 @@ a tener más de una voz en el mismo pentagrama.
 @subsubsection Chorded notes
 
 @cindex acordes
+@cindex paréntesis en ángulo
+@funindex <
+@funindex >
+@funindex <...>
 
 Un acorde se forma encerrando un conjunto de notas entre @code{<} y
 @code{>}.  Un acorde puede ir seguido de una duración o un conjunto de
 articulaciones, como si fueran simples notas.
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
-<c e g>4 <c>8
+<c e g>2 <c f a>4-> <e g c>-.
 @end lilypond
 
-Para ver más información sobre los acordes, consulte @ref{Entering chord
-names}.
+Para ver más información sobre los acordes, consulte @ref{Modern chords}.
 
 @seealso
 
 Glosario musical:
 @rglos{chord}.
 
-Referencia de la notación: @ref{Entering chord names}.
+Manual de aprendizaje:
+@rlearning{Combining notes into chords}.
 
-Fragmentos de código:
-@lsrdir{Simultaneous,Simultaneous-notes}.
+Referencia de la notación:
+@ref{Modern chords}.
+
+Snippets:
+@rlsr{Simultaneous notes}.
 
 @knownissues
 
-Las expresiones musicales como @code{<< @{ g8 e8 @} a4 >>} no se
-imprimen con exactitud.  Utilice @code{<g a>8 <e a>8} en su lugar.
+Por algún motivo, expresiones musicales como @code{<< @{ g8 e8 @} a4
+>>}, que se deberían convertir en acordes, aparecen en dos pentagramas
+separados.  Para evitarlo emplee acordes explícitos como en
+@code{<g a>8 <e a>8}.
 
 
 
@@ -71,12 +80,11 @@ imprimen con exactitud.  Utilice @code{<g a>8 <e a>8} en su lugar.
 @cindex racimo (cluster)
 
 Un «cluster» o racimo indica que se deben tocar simultáneamente un
-conjunto de notas consecutivas.  Se pueden denotar como la envolvente
-de un conjunto de notas.  Se introducen aplicando la función
-@code{makeClusters} a una secuencia de cordes, p.ej.:
+conjunto de notas consecutivas.  Se escriben aplicando la función
+@code{\makeClusters} a una secuencia de cordes, p.ej.:
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-\makeClusters { <c e > <b f'> }
+\makeClusters { <g b>2 <c g'> }
 @end lilypond
 
 Se pueden mezclar en el mismo pentagrama notas normales y clusters,
@@ -85,16 +93,27 @@ evitar automáticamente las colisiones entre clusters y notas normales.
 
 @seealso
 
+Music Glossary:
+@rglos{cluster}.
+
 Fragmentos de código:
-@lsrdir{Simultaneous,Simultaneous-notes}.
+@rlsr{Simultaneous notes}.
 
 Referencia de funcionamiento interno:
 @internalsref{ClusterSpanner},
 @internalsref{ClusterSpannerBeacon},
 @internalsref{Cluster_spanner_engraver}.
 
-Examples: @c @lsr{contemporary,cluster@/.ly}.
+@c Examples: @rlsr{contemporary,cluster@/.ly}.
 
+@knownissues
+
+Los clusters sólo tienen un buen aspecto cuando abarcan un mínimo de
+dos acordes.  En caso contrario aperecerán excesivamente estrechos.
+
+Los clusters no llevan plica y por sí mismos no pueden indicar las
+duraciones.  Los racimos separados necesitarían silencios de
+separación entre ellos.
 
 @node Multiple voices
 @subsection Multiple voices
@@ -400,10 +419,10 @@ La música para varias partes se puede intercalar:
 
 @lilypond[quote,fragment,verbatim]
 \parallelMusic #'(voiceA voiceB) {
-  r8     g'16[ c''] e''[ g' c'' e''] r8     g'16[ c''] e''[ g' c'' e''] |
-  c'2                                c'2                                |
-  r8     a'16[ d''] f''[ a' d'' f''] r8     a'16[ d''] f''[ a' d'' f''] |
-  c'2                                c'2                                |
+  r8 g'16[ c''] e''[ g' c'' e''] r8 g'16[ c''] e''[ g' c'' e''] |
+  c'2                               c'2                         |
+  r8 a'16[ d''] f''[ a' d'' f''] r8 a'16[ d''] f''[ a' d'' f''] |
+  c'2                               c'2                         |
 }
 \new StaffGroup <<
   \new Staff \new Voice \voiceA
@@ -414,36 +433,36 @@ La música para varias partes se puede intercalar:
 Esto funciona bastante bien para música de piano.
 
 @lilypond[quote,verbatim]
+global = { \key g \major  \time 2/4 }
 music = {
-  \key c \major
-  \time 4/4
   \parallelMusic #'(voiceA voiceB voiceC voiceD) {
-    % Bar 1
-    r8  g'16[ c''] e''[ g' c'' e''] r8  g'16[ c''] e''[ g' c''
-e''] |
-    c'2                                 c'2 |
-    r8  a16[ d'] f'[ a d' f']       r8  a16[ d'] f'[ a d' f'] |
-    c2                                  c2 |
+    % Bar 1 
+    a'8 b'      c'' d''   |
+    d'4         e'        |
+    c16 d e f   d e f g   |
+    a,4         a,4       |
 
     % Bar 2
-    a'8 b'      c'' d''    e'' f''    g'' a'' |
-    d'4         d'         d'         d' |
-    c16 d e f   d e f g    e f g a    f g a b |
-    a,4         a,4        a,4        a,4 |
+    e''8 f''    g'' a''   |
+    f'4         g'        |
+    e16 f g a   f g a b   |
+    a,4         a,4       |
 
     % Bar 3 ...
   }
 }
 
-\score {
+\score {      
   \new PianoStaff <<
-    \music
-    \new Staff <<
-      \voiceA \\
-      \voiceB
-    >>
     \new Staff {
-      \clef bass
+      \global
+      <<
+        \voiceA \\
+        \voiceB
+      >>
+    }
+    \new Staff {
+      \global \clef bass
       <<
         \voiceC \\
         \voiceD
@@ -456,5 +475,5 @@ e''] |
 @seealso
 
 Fragmentos de código:
-@lsrdir{Simultaneous,Simultaneous-notes}
+@rlsr{Simultaneous notes}.
 
