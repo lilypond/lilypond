@@ -700,12 +700,32 @@ lilypond-book --process="lilypond --format=tex --tex \
 Most LilyPond test documents (in the @file{input} directory of the
 distribution) are small @file{.ly} files which look exactly like this.
 
+For localization purpose, if the Texinfo document contains
+@code{@@documentlanguage @var{LANG}} and @file{foo@/.ly} header
+contains a @code{texidoc@var{LANG}} field, and if @command{lilypond}
+is called with @option{--header=@/texidoc@var{LANG}}, then
+@file{foo@/.texidoc@var{LANG}} will be included instead of
+@file{foo@/.texidoc}.
+
 @item lilyquote
 (Only for Texinfo output.)  This option is similar to quote, but only
 the music snippet (and the optional verbatim block implied by
 @code{verbatim} option) is put into a quotation block.  This option is
 useful if you want to @code{quote} the music snippet but not the
 @code{texidoc} documentation block.
+
+@item doctitle
+(Only for Texinfo output.) This option works similarly to
+@code{texidoc} option: if @command{lilypond} is called with the
+@option{--header=@/doctitle} option, and the file to be processed is
+called @file{foo@/.ly} and contains a @code{doctitle} field in the
+@code{\header}, it creates a file @file{foo@/.doctitle}.  When
+@code{doctitle} option is used, the contents of @file{foo@/.doctitle},
+which should be a single line of @var{text}, is inserted in the
+Texinfo document as @code{@@lydoctitle @var{text}}.
+@code{@@lydoctitle} should be a macro defined in the Texinfo document.
+The same remark about @code{texidoc} processing with localized
+languages also applies to @code{doctitle}.
 
 @item printfilename
 If a LilyPond input file is included with @code{\lilypondfile}, print

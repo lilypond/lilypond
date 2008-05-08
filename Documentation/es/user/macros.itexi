@@ -118,6 +118,11 @@
 @code{\TEXT\}
 @end macro
 
+@macro lydoctitle {TEXT}
+@emph{\TEXT\}
+
+@end macro
+
 @macro funindex {TEXT}
 @findex \TEXT\
 @kindex \TEXT\

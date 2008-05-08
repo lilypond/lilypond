@@ -113,6 +113,10 @@
 @code{\TEXT\}@c should use internalsref
 @end macro
 
+@macro lydoctitle {TEXT}
+@emph{\TEXT\}
+
+@end macro
 
 @macro funindex {TEXT}
 @findex \TEXT\

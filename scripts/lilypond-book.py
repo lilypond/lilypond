@@ -247,6 +247,7 @@ QUOTE = 'quote'
 RAGGED_RIGHT = 'ragged-right'
 RELATIVE = 'relative'
 STAFFSIZE = 'staffsize'
+DOCTITLE = 'doctitle'
 TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
@@ -533,6 +534,7 @@ simple_options = [
     NOFRAGMENT,
     NOINDENT,
     PRINTFILENAME,
+    DOCTITLE,
     TEXIDOC,
     LANG,
     VERBATIM,
@@ -1206,10 +1208,14 @@ class LilypondSnippet (Snippet):
         map (consider_file, [base + '.tex',
                              base + '.eps',
                              base + '.texidoc',
-                             base + '.texidoc' + document_language,
+                             base + '.doctitle',
                              base + '-systems.texi',
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
+        if document_language:
+            map (consider_file,
+                 [base + '.texidoc' + document_language,
+                  base + '.doctitle' + document_language])
 
         # UGH - junk global_options
         if (base + '.eps' in result and self.format in (HTML, TEXINFO)
@@ -1352,6 +1358,13 @@ class LilypondSnippet (Snippet):
     def output_texinfo (self):
         str = self.output_print_filename (TEXINFO)
         base = self.basename ()
+        if DOCTITLE in self.option_dict:
+            doctitle = base + '.doctitle'
+            translated_doctitle = doctitle + document_language
+            if os.path.exists (translated_doctitle):
+                str += '@lydoctitle %s\n' % open (translated_doctitle).read ()
+            elif os.path.exists (doctitle):
+                str += '@lydoctitle %s\n' % open (doctitle).read ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
             translated_texidoc = texidoc + document_language

@@ -322,7 +322,7 @@ cis
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
 @seealso
@@ -648,7 +648,7 @@ see @ref{Instrument transpositions}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 
@@ -788,7 +788,7 @@ c2 c
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {tweaking-clef-properties.ly}
 
 
@@ -859,10 +859,10 @@ fis
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
 
@@ -914,7 +914,7 @@ The @code{set-octavation} function also takes -1 (for 8va bassa),
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {ottava-text.ly}
 
 
@@ -1721,7 +1721,7 @@ musicB = {
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
 
 
@@ -1793,10 +1793,10 @@ printed if they are not part of the key signature.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adding-ambitus-per-voice.ly}
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {ambitus-with-multiple-voices.ly}
 
 
@@ -1984,7 +1984,7 @@ the base of the scale is determined by the @code{\key} command.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
 
 @noindent

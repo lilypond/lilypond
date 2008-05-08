@@ -31,7 +31,7 @@ INFO_IMAGES_DIR = lilypond
 DEST_INFO_IMAGES_SUBDIR = Documentation/user
 endif
 
-STEPMAKE_TEMPLATES=tex texinfo omf documentation
+STEPMAKE_TEMPLATES=texinfo omf documentation
 OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
@@ -151,3 +151,5 @@ $(outdir)/lilypond-internals.texi: $(LILYPOND_BINARY)
 ## unused
 $(outdir)/interfaces.itexi: dummy
 	cd $(outdir) && lilypond $(top-src-dir)/ly/generate-interface-doc
+
+.SECONDARY:
