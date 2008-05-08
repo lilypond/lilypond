@@ -28,7 +28,10 @@ Tie_details::from_grob (Grob *me)
 {
   staff_symbol_referencer_ = me;
   staff_space_ = Staff_symbol_referencer::staff_space (me);
-
+  
+  neutral_direction_ = to_dir (me->get_property ("neutral-direction"));
+  if (!neutral_direction_)
+    neutral_direction_ = DOWN;
   
   SCM details = me->get_property ("details");
 

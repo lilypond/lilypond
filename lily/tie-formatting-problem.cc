@@ -977,7 +977,8 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
 	tie_configs->at (0).dir_ = Direction (sign (tie_configs->at (0).position_));
 
       if (!tie_configs->at (0).dir_)
-	tie_configs->at (0).dir_ = DOWN;
+	tie_configs->at (0).dir_
+	  = (tie_configs->size() > 1) ? DOWN : details_.neutral_direction_;
     }
   
   if (!tie_configs->back ().dir_)

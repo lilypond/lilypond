@@ -21,6 +21,7 @@
 #include "paper-score.hh"
 #include "pointer-group-interface.hh"
 #include "separation-item.hh"
+#include "skyline-pair.hh"
 #include "spaceable-grob.hh"
 #include "spacing-interface.hh"
 #include "staff-spacing.hh"

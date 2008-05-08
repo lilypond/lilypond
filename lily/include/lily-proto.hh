@@ -154,6 +154,7 @@ class Simultaneous_music;
 class Simultaneous_music_iterator;
 class Skyline;
 class Skyline_entry;
+class Skyline_pair;
 class Slur_configuration;
 class Slur_score_state;
 class Source_file;

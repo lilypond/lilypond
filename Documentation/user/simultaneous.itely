@@ -199,7 +199,7 @@ In some instances of complex polyphonic music, you may need
 additional voices to avoid collisions between notes.  Additional
 voices are added by defining an variable, as shown below:
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 \relative c''' <<
@@ -332,7 +332,7 @@ down stems and @q{Solo II}.
 If you just want the merging parts, and not the textual markings,
 you may set the property @code{printPartCombineTexts} to false.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff <<
   \set Staff.printPartCombineTexts = ##f
   \partcombine
@@ -345,7 +345,7 @@ To change the text that is printed for solos or merging, you may
 set the @code{soloText}, @code{soloIIText}, and @code{aDueText}
 properties.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 \new Staff <<
   \set Score.soloText = #"ichi"
   \set Score.soloIIText = #"ni"

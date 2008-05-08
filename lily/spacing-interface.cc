@@ -17,6 +17,7 @@
 #include "paper-column.hh"
 #include "separation-item.hh"
 #include "skyline.hh"
+#include "skyline-pair.hh"
 #include "system.hh"
 
 /* return the right-pointing skyline of the left-items and the left-pointing

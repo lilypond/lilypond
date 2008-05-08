@@ -8,6 +8,7 @@
 
 #include "axis-group-interface.hh"
 #include "context.hh"
+#include "engraver.hh"
 #include "dimensions.hh"
 #include "directional-element-interface.hh"
 #include "engraver.hh"
@@ -253,7 +254,7 @@ Dynamic_engraver::process_music ()
 	      cresc_->set_property ("style", s);
 	      context ()->set_property ((start_type
 					 + "Spanner").c_str (), SCM_EOL);
-	      s = get_property ((start_type + "Text").c_str ());
+ 	      s = get_property ((start_type + "Text").c_str ());
 	      if (Text_interface::is_markup (s))
 		{
 		  cresc_->set_property ("text", s);
@@ -277,7 +278,6 @@ Dynamic_engraver::process_music ()
 	      cresc_->set_bound (LEFT, script_);
 	      add_bound_item (line_spanner_, cresc_->get_bound (LEFT));
 	    }
-
 	  Axis_group_interface::add_element (line_spanner_, cresc_);
 	}
     }

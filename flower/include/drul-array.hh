@@ -40,7 +40,11 @@ struct Drul_array
   Drul_array ()
   {
   }
-  Drul_array (T t1, T t2)
+  Drul_array (T const &t1, T const &t2)
+  {
+    set (t1, t2);
+  }
+  void set (T const &t1, T const &t2)
   {
     array_[0] = t1;
     array_[1] = t2;
