@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2c2b739a8f4c1998ffb6423d1d73350426ec59be
+    Translation of GIT committish: 1599b9171f39a1000e38104deae93e9df08276be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -333,7 +333,7 @@ Si no especifica una duración, se utiliza la duración previa para la
 nota siguiente.  La figura por omisión de la primera nota es una
 negra.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   a1
   a2 a4 a8 a
@@ -346,7 +346,7 @@ punto @samp{.} al número de la duración.  La duración de una nota con
 puntillo se debe especificar de forma explícita (es decir: mediante un
 número).
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   a a a4. a8
   a8. a16 a a8. a8 a4.
@@ -376,7 +376,7 @@ Glosario musical: @rglos{time signature}.
 La @notation{indicación de compás} se puede establecer con la orden
 @code{\time} :
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   \time 3/4
   a4 a a
@@ -395,7 +395,7 @@ Glosario musical: @rglos{clef}.
 La @notation{clave} se puede establecer utilizando la orden
 @code{\clef} :
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c' {
   \clef treble
   c1
@@ -414,7 +414,7 @@ La @notation{clave} se puede establecer utilizando la orden
 He aquí un pequeño ejemplo que muestra todos los elementos anteriores
 juntos:
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c, {
   \time 3/4
   \clef bass
@@ -621,7 +621,7 @@ derivó de las convenciones de las lenguas nórdicas y germánicas para nombrar 
 como el alemán y el holandés.  Para utilizar otros nombres para las alteraciones accidentales, vea
 @ruser{Note names in other languages}.}
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 cis1 ees fisis, aeses
 @end lilypond
 
@@ -631,7 +631,7 @@ cis1 ees fisis, aeses
 La armadura de la tonalidad se establece mediante la instrucción @code{\key} seguido de
 una nota y @code{\major} o @code{\minor}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \key d \major
 a1
 \key c \minor
@@ -659,7 +659,7 @@ añadirán automáticamente, y usted deberá introducir aquello que quiera oír.
 
 En el siguiente ejemplo
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \key d \major
 d cis fis
 @end lilypond
@@ -673,26 +673,28 @@ primera línea del pentagrama.}  Más bien significa: @qq{hay una nota
 Mi natural.}  En la tonalidad de La bemol mayor, @emph{lleva} una
 alteración accidental:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \key aes \major
 e
 @end lilypond
 
-Poner todas las alteraciones de forma explícita puede que requiera algo más de trabajo
-al teclear, pero la ventaja es que la transposición es más fácil, y las
-alteraciones se pueden imprimir siguiendo varias convenciones distintas.  Consulte
-@ruser{Automatic accidentals} para ver ejemplos de cómo se pueden imprimir las alteraciones
-de acuerdo a reglas diferentes.
+Poner todas las alteraciones de forma explícita puede que requiera
+algo más de trabajo al teclear, pero la ventaja es que la
+@notation{transposición} es más fácil, y las alteraciones se pueden
+imprimir siguiendo varias convenciones distintas.  Consulte
+@ruser{Automatic accidentals} para ver ejemplos de cómo se pueden
+imprimir las alteraciones de acuerdo a reglas diferentes.
 
 @seealso
-@quotation
-@table @asis
-@item Alteraciones accidentales
-véase @ruser{Accidentals} y @ruser{Automatic accidentals}.
-@item Armadura de la tonalidad
-véase @ruser{Key signature}.
-@end table
-@end quotation
+
+Referencia de la notación:
+@ruser{Note names in other languages},
+@ruser{Accidentals},
+@ruser{Automatic accidentals},
+@ruser{Key signature}.
+
+Glosario musical:
+@rglos{Pitch names}.
 
 
 @node Ties and slurs
@@ -700,8 +702,12 @@ véase @ruser{Key signature}.
 
 @cindex ligaduras de unión
 @subheading Ties
-Una @rglos{tie} se crea adjuntando un carácter de tilde curva @samp{~} a la primera
-nota ligada:
+
+Glosario musical:
+@rglos{tie}.
+
+Una @notation{tie} se crea adjuntando un carácter de tilde curva @code{~}
+a la primera nota ligada:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 g4~ g c2~
@@ -711,8 +717,12 @@ c4 ~ c8 a8 ~ a2
 @cindex ligaduras de expresión
 @subheading Slurs
 
-Una @rglos{slur} es una curva que se traza abarcando varias notas.  Las notas inicial
-y final se marcan mediante @samp{(} y @samp{)} respectivamente.
+Glosario musical:
+@rglos{slur}.
+
+Una @notation{slur} es una curva que se traza abarcando varias notas.
+Las notas inicial y final se marcan mediante @code{(} y @code{)}
+respectivamente.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
@@ -722,41 +732,48 @@ d4( c16) cis( d e c cis d) e( d4)
 @cindex ligaduras de fraseo
 @subheading Phrasing slurs
 
-Las ligaduras que se utilizan para indicar fraseos más largos se pueden introducir mediante @code{\(} y
-@code{\)}.  Puede haber al mismo tiempo ligaduras de legato y ligaduras de fraseo,
-pero no es posible tener legatos simultáneos o ligaduras de expresión
+Glosario musical:
+@rglos{slur},
+@rglos{phrasing}.
+
+Las ligaduras que se utilizan para indicar @notation{fraseos} más
+largos se pueden introducir mediante @code{\(} y @code{\)}.  Puede
+haber al mismo tiempo ligaduras de legato y ligaduras de fraseo, pero
+no es posible tener legatos simultáneos o ligaduras de expresión
 simultáneas.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a8(\( ais b c) cis2 b'2 a4 cis,\)
 @end lilypond
 
-@sp 1
+@smallspace
 
 @cindex ligaduras de expresión frente a ligaduras de unión
 @subheading Warnings: slurs vs. ties
 
-Una ligadura de expresión parece una @rglos{tie}, pero tiene un significado distinto.  Una
-ligadura (de unión) sencillamente hace que la primera nota sea más larga, y sólo se puede utilizar sobre
-parejas de notas iguales.  Las ligaduras de expresión indican las articulaciones
-de las notas, y se pueden utilizar sobre grupos mayores de notas.  Las ligaduras de unión y de expresión
+Glosario musical:
+@rglos{articulation},
+@rglos{slur},
+@rglos{tie}.
+
+Una @notation{ligadura de expresión} parece una @notation{ligadura de
+unión}, pero tiene un significado distinto.  Una ligadura (de unión)
+sencillamente hace que la primera nota sea más larga, y sólo se puede
+utilizar sobre parejas de notas iguales.  Las ligaduras de expresión
+indican la @notation{articulación} de las notas, y se pueden utilizar
+sobre grupos mayores de notas.  Las ligaduras de unión y de expresión
 se pueden anidar unas dentro de otras.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Ligaduras de unión
-véase @ruser{Ties}.
-@item Ligaduras de expresión
-véase @ruser{Slurs}.
-@item Ligaduras de fraseo
-véase @ruser{Phrasing slurs}.
-@end table
-@end quotation
+
+Referencia de la notación:
+@ruser{Ties},
+@ruser{Slurs},
+@ruser{Phrasing slurs}.
 
 
 @node Articulation and dynamics
@@ -767,36 +784,50 @@ véase @ruser{Phrasing slurs}.
 @cindex staccato
 @subheading Articulations
 
-Las articulaciones (véase @rglos{articulation}) más corrientes se pueden añadir a las notas utilizando un guión @samp{-}
-seguido de un carácter único:
+Glosario musical:
+@rglos{articulation}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+Las @notation{articulaciones} más corrientes se pueden añadir a las
+notas utilizando un guión @samp{-} seguido de un carácter único:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
 @cindex digitaciones
 @subheading Fingerings
-De manera similar, las indicaciones de digitación se pueden añadir a una nota utilizando un guión 
-(@samp{-}) seguido del dígito deseado:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+Glosario musical:
+@rglos{fingering}.
+
+De manera similar, las indicaciones de digitación se pueden añadir a
+una nota utilizando un guión (@code{-}) seguido del dígito deseado:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c-3 e-5 b-2 a-1
 @end lilypond
 
-Las articulaciones y digitaciones normalmente se colocan de forma automática, pero puede
-especificar una dirección mediante @samp{^} (encima) o @samp{_} (debajo).  También
-puede usar varias articulaciones sobre la misma nota.  Sin embargo, casi siempre
-es mejor dejar que LilyPond determine la dirección de las articulaciones.
+Las articulaciones y digitaciones normalmente se colocan de forma
+automática, pero puede especificar una dirección mediante @code{^}
+(encima) o @code{_} (debajo).  También puede usar varias
+articulaciones sobre la misma nota.  Sin embargo, casi siempre es
+mejor dejar que LilyPond determine la dirección de las articulaciones.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
 @subheading Dynamics
-Las expresiones de matiz o signos dinámicos se hacen añadiendo las marcas (con una barra invertida) a la
-nota:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+Glosario musical:
+@rglos{dynamics},
+@rglos{crescendo},
+@rglos{decrescendo}.
+
+Las expresiones de @notation{matiz} o signos dinámicos se hacen
+añadiendo las marcas (con una barra invertida) a la nota:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c\ff c\mf c\p c\pp
 @end lilypond
 
@@ -804,25 +835,21 @@ c\ff c\mf c\p c\pp
 @cindex decrescendo
 @cindex crescendo
 
-Los crescendi y decrescendi comienzan con las órdenes @code{\<} y
-@code{\>}.  Una expresión terminal de matiz, como por ejemplo @code{\f}, dará por terminado el
-(de)crescendo, o bien se puede usar la orden @code{\!}:
+Los @notation{crescendi} y @notation{decrescendi} comienzan con las
+órdenes @code{\<} y @code{\>}.  La siguiente indicación de matiz, como
+por ejemplo @code{\f}, dará por terminado el (de)crescendo, o bien se
+puede usar la instrucción @code{\!}:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Articulaciones
-véase @rglos{articulation}.
-@item Digitaciones
-véase @ruser{Fingering instructions}.
-@item Matices
-véase @ruser{Dynamics}.
-@end table
-@end quotation
+
+Referencia de la notación:
+@ruser{Articulations and ornamentations},
+@ruser{Fingering instructions},
+@ruser{Dynamics}.
 
 
 @node Adding text
@@ -846,37 +873,38 @@ a1_\markup{
 
 @seealso
 
-Referencia de la notación: @ruser{Writing text}.
+Referencia de la notación:
+@ruser{Writing text}.
 
 
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
+Glosario musical:
+@rglos{beam}.
+
 @cindex barras, establecimiento manual
-Todas las @rglos{beam}s se dibujan automáticamente:
-@c aquí hay un problema con el plural. FVD
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+
+Todas las @notation{barras} de las figuras se dibujan automáticamente:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a8 ais d ees r d c16 b a8
 @end lilypond
 
 @noindent
-Si no le gustan las barras automáticas, pueden forzarse
-manualmente.  Marque la primera nota que comprende la barra con @samp{[} y la última
-con @samp{]}.
+Si no le gustan las barras automáticas, pueden forzarse manualmente.
+Marque la primera nota que comprende la barra con @code{[} y la última
+con @code{]}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Barras automáticas
-véase @ruser{Automatic beams}.
-@item Barras manuales
-véase @ruser{Manual beams}.
-@end table
-@end quotation
+
+Referencia de la notación:
+@ruser{Automatic beams},
+@ruser{Manual beams}.
 
 
 @node Advanced rhythmic commands
@@ -886,11 +914,14 @@ véase @ruser{Manual beams}.
 @cindex compás parcial
 @subheading Partial measure
 
-Una anacrusa (o @rglos{anacrusis}) se introduce con la palabra clave
-@code{\partial}.  Va seguida de una duración: @code{\partial 4} es
-una anacrusa de negra y @code{\partial 8} de corchea.
+Glosario musical:
+@rglos{anacrusis}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+Una @notation{anacrusa} se introduce con la palabra clave
+@code{\partial}.  Va seguida de una duración: @code{\partial 4} es una
+anacrusa de negra y @code{\partial 8} de corchea.
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \partial 8
 f8 c2 d
 @end lilypond
@@ -899,12 +930,17 @@ f8 c2 d
 @cindex tresillos
 @subheading Tuplets
 
-Los grupos especiales como los tresillos se hacen con la palabra clave @code{\times}.  Requiere dos
-argumentos: una fracción y un fragmento de música.  La duración del fragmento
-de música se multiplica por la fracción.  Los tresillos hacen que las notas ocupen
-2/3 de su duración expresa, por tanto un tresillo lleva una fracción de 2/3
+Glosario musical:
+@rglos{note value},
+@rglos{triplet}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+Los grupos especiales como los tresillos se hacen con la palabra clave
+@code{\times}.  Requiere dos argumentos: una fracción y un fragmento
+de música.  La duración del fragmento de música se multiplica por la
+fracción.  Los tresillos hacen que las notas ocupen 2/3 de su duración
+expresa, por tanto un @notation{tresillo} lleva una fracción de 2/3:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \times 2/3 { f8 g a }
 \times 2/3 { c r c }
 \times 2/3 { f,8 g16[ a g a] }
@@ -916,39 +952,41 @@ de música se multiplica por la fracción.  Los tresillos hacen que las notas oc
 @cindex appoggiatura
 @subheading Grace notes
 
-Las notas de adorno se crean con la instrucción @code{\grace}, aunque
-también se pueden conseguir precediendo una expresión musical por la
-palabra clave @code{\appoggiatura} o @code{\acciaccatura}
+Glosario musical:
+@rglos{grace notes},
+@rglos{acciaccatura},
+@rglos{appoggiatura}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+Las @notation{notas de adorno} se crean con la instrucción
+@code{\grace}, aunque también se pueden conseguir precediendo una
+expresión musical por la palabra clave @code{\appoggiatura} o
+@code{\acciaccatura}
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2 \grace { a32[ b] } c2
 c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
 @end lilypond
 
 @seealso
-@quotation
-@table @asis
-@item Notas de adorno
-véase @ruser{Grace notes},
-@item Grupos especiales
-véase @ruser{Tuplets},
-@item Anacrusas
-véase @ruser{Upbeats}.
-@end table
-@end quotation
+
+Referencia de la notación:
+@ruser{Grace notes},
+@ruser{Tuplets},
+@ruser{Upbeats}.
 
 
 @node Multiple notes at once
 @section Multiple notes at once
 
-Esta sección es una introducción a las notas simultáneas:
-varios instrumentos, varios pentagramas para un solo instrumento (p.ej. piano)
-y acordes.
+Esta sección es una introducción a las notas simultáneas: varios
+instrumentos, varios pentagramas para un solo instrumento
+(p.ej. piano) y acordes.
 
-La palabra @q{polifonía} en música hace referencia al hecho de tener más de una voz en un momento determinado
-dentro de una pieza musical.  La palabra @q{polifonía} en LilyPond se refiere al hecho de tener más de
-una voz en el mismo pentagrama.
+La palabra @qq{polifonía} en música hace referencia al hecho de tener
+más de una voz en un momento determinado dentro de una pieza musical.
+La palabra @qq{polifonía} en LilyPond se refiere al hecho de tener más
+de una voz en el mismo pentagrama.
 
 @menu
 * Music expressions explained::  
@@ -962,25 +1000,28 @@ una voz en el mismo pentagrama.
 @node Music expressions explained
 @subsection Music expressions explained
 
-En los archivos de entrada de LilyPond, la música se representa mediante @emph{expresiones
-musicales}.  Una sola nota es una expresión musical, aunque no es una
-entrada válida por sí sola.
+En los archivos de entrada de LilyPond, la música se representa
+mediante @emph{expresiones musicales}.  Una sola nota es una expresión
+musical:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a4
 @end lilypond
 
-Al encerrar un grupo de notas dentro de llaves creamos una expresión musical:
+Al encerrar un grupo de notas dentro de llaves creamos una
+@emph{expresión musical compuesta}.  Aquí hemos creado una expresión
+musical compuesta con dos notas:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 { a4 g4 }
 @end lilypond
 
-Si colocamos un grupo de expresiones musicales (p.ej.: notas) dentro de llaves, eso significa que
-se encuentran en secuencia (es decir, cada una sigue a la anterior).  El resultado
-es otra expresión musical:
+Si colocamos un grupo de expresiones musicales (p.ej.: notas) dentro
+de llaves, eso significa que se encuentran en secuencia (es decir,
+cada una sigue a la anterior).  El resultado es otra expresión
+musical:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 { { a4 g } f g }
 @end lilypond
 
@@ -988,10 +1029,11 @@ es otra expresión musical:
 @cindex expresión musical
 @subheading Analogy: mathematical expressions
 
-Este mecanismo es semejante a las fórmulas
-matemáticas: una fórmula grande se construye combinando fórmulas pequeñas.  Dichas
-fórmulas se llaman expresiones, y su definición es recursiva de tal forma que
-se pueden construir expresiones de un tamaño y complejidad arbitrarios.  Por ejemplo:
+Este mecanismo es semejante a las fórmulas matemáticas: una fórmula
+grande se construye combinando fórmulas pequeñas.  Dichas fórmulas se
+llaman expresiones, y su definición es recursiva de tal forma que se
+pueden construir expresiones de un tamaño y complejidad arbitrarios.
+Por ejemplo:
 
 @example
 1
@@ -1003,27 +1045,31 @@ se pueden construir expresiones de un tamaño y complejidad arbitrarios.  Por ej
 ((1 + 2) * 3) / (4 * 5)
 @end example
 
-Ésta es una secuencia de expresiones donde cada expresión se encuentra contenida dentro
-de la siguiente, más grande.  Las expresiones más simples son números, y las mayores
-se hacen combinando expresiones mediante operadores (como @samp{+},
-@samp{*} y @samp{/}) y paréntesis.  Del mismo modo que las expresiones matemáticas,
-las expresiones musicales se pueden anidar a una profundidad arbitraria, lo que se hace necesario
-para músicas complejas como las partituras polifónicas.
+Ésta es una secuencia de expresiones donde cada expresión se encuentra
+contenida dentro de la siguiente, más grande.  Las expresiones más
+simples son números, y las mayores se hacen combinando expresiones
+mediante operadores (como @code{+}, @code{*} y @code{/}) y paréntesis.
+Del mismo modo que las expresiones matemáticas, las expresiones
+musicales se pueden anidar a una profundidad arbitraria, lo que se
+hace necesario para músicas complejas como las partituras polifónicas.
 
 
 @subheading Simultaneous music expressions: multiple staves
 
-Glosario musical: @rglos{polyphony}.
+Glosario musical:
+@rglos{polyphony}.
 
-Esta técnica es muy útil para la música polifónica.  Para introducir música
-con más voces o con más pentagramas, lo que hacemos es combinar varias expresiones en
-paralelo.  Para indicar que dos voces se deben interpretar al mismo tiempo,
-sencillamente introduzca una combinación simultánea de expresiones musicales.  Una
-expresión musical @q{simultánea} se forma encerrando las expresiones dentro de
-@code{<<} y @code{>>}.  En el ejemplo que sigue, tres secuencias (cada una de las cuales
-contiene dos notas diferentes) se combinan de forma simultánea:
+Esta técnica es muy útil para la música @notation{polifónica}.  Para
+introducir música con más voces o con más pentagramas, lo que hacemos
+es combinar varias expresiones en paralelo.  Para indicar que dos
+voces se deben interpretar al mismo tiempo, sencillamente introduzca
+una combinación simultánea de expresiones musicales.  Una expresión
+musical @q{simultánea} se forma encerrando las expresiones dentro de
+@code{<<} y @code{>>}.  En el ejemplo que sigue, tres secuencias (cada
+una de las cuales contiene dos notas diferentes) se combinan de forma
+simultánea:
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   <<
     { a4 g }
@@ -1033,9 +1079,10 @@ contiene dos notas diferentes) se combinan de forma simultánea:
 }
 @end lilypond
 
-Tenga en cuenta que hemos sangrado cada nivel jerárquico de la entrada con un margen
-distinto.  A LilyPond no le importa cuánto (o cuán poco) espacio haya
-al comienzo de una línea, pero el establecimiento de márgenes distintos dentro del código de LilyPond, de esta forma, lo
+Tenga en cuenta que hemos sangrado cada nivel jerárquico de la entrada
+con un margen distinto.  A LilyPond no le importa cuánto (o cuán poco)
+espacio haya al comienzo de una línea, pero el establecimiento de
+márgenes distintos dentro del código de LilyPond, de esta forma, lo
 hace mucho más fácil de leer por nosotros los seres humanos.
 
 @warning{cada nota se entiende relativa a la nota anterior de la
@@ -1045,32 +1092,34 @@ entrada, no relativa a la @code{c''} dentro de la instrucción inicial
 
 @subheading Simultaneous music expressions: single staff
 
-Para determinar el número de pentagramas en una pieza, LilyPond examina la primera
-expresión.  Si ésta consiste en una sola nota, hay un solo pentagrama; si hay una
-expresión simultánea, hay más de un pentagrama.
+Para determinar el número de pentagramas en una pieza, LilyPond
+examina la primera expresión.  Si ésta consiste en una sola nota, hay
+un solo pentagrama; si hay una expresión simultánea, hay más de un
+pentagrama.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   c2 <<c e>>
   << { e f } { c <<b d>> } >>
 }
 @end lilypond
 
-
 @node Multiple staves
 @subsection Multiple staves
 
-Como ya hemos visto en @ref{Music expressions explained}, los archivos de entrada para LilyPond
-se construyen a base de expresiones musicales.  Si la partitura comienza con
-expresiones musicales simultáneas, LilyPond crea varios pentagramas.  Sin embargo
-es más fácil ver lo que ocurre si creamos cada uno de los pentagramas de forma explícita.
+Como ya hemos visto en @ref{Music expressions explained}, los
+archivos de entrada para LilyPond se construyen a base de expresiones
+musicales.  Si la partitura comienza con expresiones musicales
+simultáneas, LilyPond crea varios pentagramas.  Sin embargo es más
+fácil ver lo que ocurre si creamos cada uno de los pentagramas de
+forma explícita.
 
-Para imprimir más de un pentagrama, cada fragmento de música que constituye un
-pentagrama se marca escribiendo @code{\new Staff} antes de él.  Estos
-elementos @code{Staff} se combinan después en paralelo con @code{<<} y
-@code{>>}:
+Para imprimir más de un pentagrama, cada fragmento de música que
+constituye un pentagrama se marca escribiendo @code{\new Staff} antes
+de él.  Estos elementos @code{Staff} se combinan después en paralelo
+con @code{<<} y @code{>>}:
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   <<
     \new Staff { \clef treble c }
@@ -1079,36 +1128,38 @@ elementos @code{Staff} se combinan después en paralelo con @code{<<} y
 }
 @end lilypond
 
-La instrucción @code{\new} inaugura un @q{contexto de notación}.  Un contexto de
-notación es un entorno dentro del que se interpretan los acontecimientos musicales (como las notas o las
-instrucciones @code{\clef}).  Para piezas sencillas, tales
-contextos de notación se crean automáticamente.  Para piezas más complicadas, es mejor
-marcar los contextos de forma explícita.
+La instrucción @code{\new} inaugura un @q{contexto de notación}.  Un
+contexto de notación es un entorno dentro del que se interpretan los
+acontecimientos musicales (como las notas o las instrucciones
+@code{\clef}).  Para piezas sencillas, tales contextos de notación se
+crean automáticamente.  Para piezas más complicadas, es mejor marcar
+los contextos de forma explícita.
 
-Existen varias clases de contextos.  @code{Score}, @code{Staff}
-y @code{Voice} manejan la notación melódica, mientras que @code{Lyrics} se ocupa de los textos
-cantados y @code{ChordNames} imprime los nombres de los acordes.
+Existen varias clases de contextos.  @code{Score}, @code{Staff} y
+@code{Voice} manejan la notación melódica, mientras que @code{Lyrics}
+se ocupa de los textos cantados y @code{ChordNames} imprime los
+nombres de los acordes.
 
-En términos de sintaxis, la anteposición de @code{\new} a una expresión musical
-crea una expresión musical mayor.  Es semejante al signo
-menos de las matemáticas.  La fórmula @math{(4+5)} es una expresión, por tanto
-@math{-(4+5)} es una expresión más amplia.
+En términos de sintaxis, la anteposición de @code{\new} a una
+expresión musical crea una expresión musical mayor.  Es semejante al
+signo menos de las matemáticas.  La fórmula @math{(4+5)} es una
+expresión, por tanto @math{-(4+5)} es una expresión más amplia.
 
-Las indicaciones de compás escritas en un pentagrama afectan al
-resto de ellos@footnote{Este comportamiento se puede cambiar si uno lo desea; consulte
-@ruser{Polymetric notation} para ver más detalles.}. En cambio,
-la armadura de la tonalidad de un pentagrama @emph{no} afecta a los otros
-pentagramas.
+Las indicaciones de compás escritas en un pentagrama afectan al resto
+de ellos, de forma predeterminada.  En cambio, la armadura de la
+tonalidad de un pentagrama @emph{no} afecta a los otros pentagramas.
+Este comportamiento predeterminado diferente es a causa de que las
+partituras con instrumentos transpositores son más comunes que las
+partituras polirrítmicas.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   <<
-    \new Staff { \clef treble \time 3/4 c }
-    \new Staff { \clef bass \key d \major c,, }
+    \new Staff { \clef treble \key d \major \time 3/4 c }
+    \new Staff { \clef bass c,, }
   >>
 }
 @end lilypond
-
 
 @node Staff groups
 @subsection Staff groups
@@ -1117,13 +1168,14 @@ pentagramas.
 @cindex choir staff
 @cindex grand staff
 
-Glosario musical: @rglos{brace}.
+Glosario musical:
+@rglos{brace}.
 
 La música para piano se compone tipográficamente en forma de dos
-pentagramas unidos mediante una @notation{llave}. El aspecto impreso de este
-sistema de pentagramas se parece al ejemplo polifónico que aparece en
-@ref{Multiple staves}, pero en esta ocasión la expresión completa se
-coloca dentro de un @code{PianoStaff}:
+pentagramas unidos mediante una @notation{llave}. El aspecto impreso
+de este sistema de pentagramas se parece al ejemplo polifónico que
+aparece en @ref{Multiple staves}, pero en esta ocasión la expresión
+completa se coloca dentro de un @code{PianoStaff}:
 
 @example
 \new PianoStaff <<
@@ -1134,7 +1186,7 @@ coloca dentro de un @code{PianoStaff}:
 
 He aquí un pequeño ejemplo:
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   \new PianoStaff <<
     \new Staff { \time 2/4 c4 e g g, }
@@ -1144,38 +1196,52 @@ He aquí un pequeño ejemplo:
 @end lilypond
 
 Otros grupos de pentagramas se declaran mediante @code{\new
-GrandStaff,} que es apropiado para partituras orquestales, y
-@code{\new ChoirStaff,} que es apropiado para partituras vocales.
+GrandStaff}, que es apropiado para partituras orquestales, y
+@code{\new ChoirStaff}, que es apropiado para partituras vocales.
 Cada uno de estos grupos de pautas forma un tipo de contexto distinto,
 que produce la llave a la izquierda y que también controla el alcance
 de las líneas divisorias.
 
 @seealso
 
-Referencia de la notación: @ruser{References for keyboards}, 
+Referencia de la notación:
+@ruser{Keyboard instruments},
 @ruser{Displaying staves}.
+
 
 @node Combining notes into chords
 @subsection Combining notes into chords
 
 @cindex acordes
-Los acordes se hacen rodeando las notas con paréntesis en ángulo simples. Los paréntesis
-en ángulo son los símbolos @samp{<} (menor que) y @samp{>} (mayor que).
 
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
+Glosario musical:
+@rglos{chord}.
+
+Hemos visto con anterioridad cómo se pueden combinar las notas
+formando @notation{acordes} que indican que son simultáneas,
+encerrándolas entre dobles ángulos.  Sin embargo, la forma normal de
+indicar un acorde es encerrar las notas entre ángulos
+@emph{sencillos}.  Observe que todas las notas de un acorde deben
+tener la misma duración, y que la duración se escribe después del
+ángulo de cierre.
+
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>4 <c f a>2
 @end lilypond
 
-Se pueden combinar las marcas como barras y ligaduras con acordes.  Se deben
-colocar por fuera de los paréntesis en ángulo:
+Debemmos pensar en los acordes como algo casi equivalente a las notas
+sencillas: casi todo lo que se puede adjuntar a una nota se puede
+adjuntar también a un acorde, y todo debe ir @emph{por fuera} de los
+ángulos.  Por ejemplo, puede combinar marcas como barras y ligaduras,
+con acordes.  Tan sólo debe recordar que se escriben por fuera de los
+ángulos.
 
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 r4 <c e g>8[ <c f a>]~ <c f a>2
+r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @end lilypond
 
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
-r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
-@end lilypond
 
 @node Single staff polyphony
 @subsection Single staff polyphony
@@ -1183,28 +1249,31 @@ r4 <c e g>8\>( <c e g> <c e g>4 <c f a>\!)
 @cindex polifonía
 @cindex varias voces
 @cindex voces, más (en un solo pentagrama)
-Cuando distintas líneas melódicas se combinan sobre un solo pentagrama, se
-imprimen como voces polifónicas; cada voz lleva sus propias plicas, ligaduras y
-barras de corchea, y la voz superior tiene las plicas hacia arriba mientras que la voz inferior las
-tiene hacia abajo.
 
-La introducción de estas partes se hace escribiendo cada voz en forma de secuencia (con
-@code{@{...@}}) y combinando éstas de forma simultánea, separando las
-voces con @code{\\}
+Cuando distintas líneas melódicas se combinan sobre un solo
+pentagrama, se imprimen como voces polifónicas; cada voz lleva sus
+propias plicas, ligaduras y barras de corchea, y la voz superior tiene
+las plicas hacia arriba mientras que la voz inferior las tiene hacia
+abajo.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+La introducción de estas partes se hace escribiendo cada voz en forma
+de secuencia (con @code{@{...@}}) y combinando éstas de forma
+simultánea, separando las voces con @code{\\}
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 <<
   { a4 g2 f4~ f4 } \\
   { r4 g4 f2 f4 }
 >>
 @end lilypond
 
-Para el tipografiado de música polifónica, puede ser conveniente la utilización de silencios separadores, o sea,
-silencios que no aparecen impresos.  Son muy útiles para rellenar
-voces que temporalmente no están cantando.  He aquí el mismo ejemplo con un
-silencio separador (@samp{s}) en vez de un silencio normal (@samp{r}):
+Para el tipografiado de música polifónica, puede ser conveniente la
+utilización de silencios separadores, o sea, silencios que no aparecen
+impresos.  Son muy útiles para rellenar voces que temporalmente no
+están cantando.  He aquí el mismo ejemplo con un silencio separador
+(@code{s}) en vez de un silencio normal (@code{r}):
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 <<
   { a4 g2 f4~ f4 } \\
   { s4 g4 f2 f4 }
@@ -1214,7 +1283,7 @@ silencio separador (@samp{s}) en vez de un silencio normal (@samp{r}):
 @noindent
 Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 
-@lilypond[quote,fragment,verbatim,relative=2,fragment]
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 <<
   \new Staff <<
     { a4 g2 f4~ f4 } \\
@@ -1229,9 +1298,8 @@ Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 @end lilypond
 
 @seealso
-@quotation
-Véase @ref{I'm hearing Voices}.
-@end quotation
+
+Referencia de la notación: @ruser{Simultaneous notes}.
 
 
 @node Songs
@@ -1253,7 +1321,8 @@ canción sencillas.
 @cindex letra
 @cindex canciones
 
-Glosario musical: @rglos{lyrics}.
+Glosario musical:
+@rglos{lyrics}.
 
 Presentamos a continuación el inicio de la melodía de una canción
 infantil, @qq{Girls and boys come out to play}:
@@ -1266,9 +1335,9 @@ infantil, @qq{Girls and boys come out to play}:
 }
 @end lilypond
 
-La letra se puede asignar a esas notas, combinando ambas con la
-palabra clave @code{\addlyrics}.  La letra se escribe separando cada
-sílaba mediante un espacio.
+La @notation{letra} se puede asignar a esas notas, combinando ambas
+con la palabra clave @code{\addlyrics}.  La letra se escribe separando
+cada sílaba mediante un espacio.
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -1290,7 +1359,9 @@ expresar que la música y la letra han de suceder al mismo tiempo.
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
 
-Glosario musical: @rglos{melisma}, @rglos{extender line}.
+Glosario musical:
+@rglos{melisma},
+@rglos{extender line}.
 
 @cindex melisma
 @cindex línea de extensión
@@ -1438,7 +1509,8 @@ al factotum}:
 
 @seealso
 
-Referencia de la notación: @ruser{Vocal music}.
+Referencia de la notación:
+@ruser{Vocal music}.
 
 
 
@@ -1480,7 +1552,8 @@ tratan en @ref{Organizing pieces with variables}.
 
 @seealso
 
-Referencia de la notación: @ruser{Vocal music}.
+Referencia de la notación:
+@ruser{Vocal music}.
 
 @node Final touches
 @section Final touches
@@ -1519,7 +1592,7 @@ El contenido de la expresión musical @code{musicaConNombre} se puede usar
 posteriormente colocando una barra invertida delante del nombre
 (@code{\musicaConNombre}, igual que una orden normal de LilyPond). 
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 violin = \new Staff { \relative c'' {
   a4 b c b
 }}
@@ -1555,8 +1628,8 @@ compasA = { \tresilloA \tresilloA \tresilloA \tresilloA }
 }
 @end lilypond
 
-Las variables se pueden usar para otros muchos tipos de objetos
-dentro del código de entrada.  Por ejemplo,
+Las variables se pueden usar para otros muchos tipos de objetos dentro
+del código de entrada.  Por ejemplo,
 
 @example
 ancho = 4.5\cm
@@ -1588,7 +1661,8 @@ LilyPond se escribió el archivo:
 @end example
 
 @noindent
-por convenio se sitúa al principio del archivo de partitura de LilyPond.
+por convenio se sitúa al principio del archivo de partitura de
+LilyPond.
 
 Estas anotaciones hacen menos problemáticas las subsiguientes
 actualizaciones de LilyPond.  Los cambios en la sintaxis se tratan
@@ -1637,7 +1711,7 @@ una @code{b} significará siempre la nota inmediatamente por debajo del
 Do central, y una @code{g,} significará siempre la nota que se coloca
 en la primera línea del pentagrama en clave de Fa.
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 {
   \clef bass
   c' b g, g,
@@ -1666,7 +1740,7 @@ Como puede ver, escribir una melodía en clave de Sol implica escribir
 gran cantidad de apóstrofes @q{'} .  Consideremos este fragmento de
 Mozart:
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 {
   \key a \major
   \time 6/8
@@ -1679,7 +1753,7 @@ Todos estos apóstrofes hacen casi ilegible el código de entrada y será
 origen de numerosos errores.  Con @code{\relative}, el ejemplo
 anterior es mucho más fácil de leer:
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \relative c'' {
   \key a \major
   \time 6/8
@@ -1703,17 +1777,17 @@ archivos de LilyPond generados por ordenador.
 @subsection After the tutorial
 
 Después de terminar el tutorial, quizá debería probar a escribir una o
-dos piezas.  Comience con una de las plantillas del @ref{Templates} y añada algunas
-notas.  Si necesita un tipo de notación que no ha sido tratada en el
-tutorial, eche un vistazo a la Referencia de Notación, empezando por
-@ruser{Musical notation}.  Si quiere escribir música para un conjunto
-instrumental que no está cubierto por ninguna plantilla, consulte
-@ref{Extending the templates}.
+dos piezas.  Comience con una de las plantillas del @ref{Templates} y
+añada algunas notas.  Si necesita un tipo de notación que no ha sido
+tratada en el tutorial, eche un vistazo a la Referencia de Notación,
+empezando por @ruser{Musical notation}.  Si quiere escribir música para
+un conjunto instrumental que no está cubierto por ninguna plantilla,
+consulte @ref{Extending the templates}.
 
-Una vez que ha escrito algunas piezas cortas, lea el resto del
-Manual de aprendizaje (capítulos 3 al 5).  ¡Por supuesto, no pasa nada por
-leerlo ahora mismo!  Sin embargo, el resto del Manual
-de Aprendizaje da por sentado que está familiarizado con la entrada
-de LilyPond.  Puede saltarse estos capítulos ahora
-y volver a ellos cuando haya adquirido más experiencia.
+Una vez que ha escrito algunas piezas cortas, lea el resto del Manual
+de aprendizaje (capítulos 3 al 5).  ¡Por supuesto, no pasa nada por
+leerlo ahora mismo!  Sin embargo, el resto del Manual de Aprendizaje
+da por sentado que está familiarizado con la entrada de LilyPond.
+Puede saltarse estos capítulos ahora y volver a ellos cuando haya
+adquirido más experiencia.
 
