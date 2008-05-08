@@ -236,7 +236,7 @@ Setzt eine @code{:|} Taktlinie.
 @item @code{(volta @var{text})}
 Setzt eine Volta-Klammer mit der Beschriftung @var{text}: Der Text 
 kann definiert werden als Textstring oder formatierter Text, siehe 
-Abschnitt @ref{Text markup}. Es darf nicht vergessen werden, die 
+Abschnitt @ref{Formatting text}. Es darf nicht vergessen werden, die 
 Schriftart zu verändern, weil die Standardschriftart für die Nummern 
 keine Buchstaben enthält.
 

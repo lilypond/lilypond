@@ -18,6 +18,13 @@
 * List of colors::              
 * The Feta font::               
 * Note head styles::            
+* Text markup commands::        
+* Text markup list commands::   
+* List of articulations::       
+* All context properties::      
+* Layout properties::           
+* Identifiers::                 
+* Scheme functions::            
 @end menu
 
 @node Chord name chart
@@ -199,7 +206,7 @@ Die folgenden Symbole sind als Emmentaler-Schriftart verfügbar; auf sie
 kann direkt zugegriffen werden, indem man die übliche Textbeschriftung 
 benutzt. @code{\musicglyph} greift direkt auf die Notationsschriftart 
 zu (bspw. @code{g^\markup @{
-\musicglyph #"scripts.segno" @}}). Siehe auch @ref{Text markup}.
+\musicglyph #"scripts.segno" @}}). Siehe auch @ref{Formatting text}.
 
 @lilypondfile[noindent]{font-table.ly}
 
@@ -215,16 +222,63 @@ Folgende Stile können zur Darstellung der Notenköpfe verwendet werden:
 
 @lilypondfile[noindent]{note-head-style.ly}
 
-@ignore
-@n ode All context properties
-@a ppendixsec All context properties
+@include markup-commands.tely
 
-@i nclude context-properties.tely
+@include markup-list-commands.tely
+
+@node List of articulations
+@appendixsec List of articulations
+
+@cindex Akzent
+@cindex Marcato
+@cindex Staccatissimo
+@cindex Espressivo
+@cindex Fermate
+@cindex Gedämpft
+@cindex Staccato
+@cindex Portato
+@cindex Tenuto
+@cindex Aufstrich
+@cindex Abstrich
+@cindex Fußbezeichnung
+@cindex Orgelpedalbezeichnung
+@cindex Triller
+@cindex Offen
+@cindex Flageolet
+@cindex Praller
+@cindex Mordent
+@cindex Doppelpraller
+@cindex Prallermordent
+@cindex Fingersatz
+@cindex Daumenbezeichnung
+@cindex Segno
+@cindex Coda
+@cindex Varcoda
+
+Hier ist eine Liste, die alle möglichen Zeichen darstellt:
+
+@lilypondfile[ragged-right,quote]{script-chart.ly}
+
+@node All context properties
+@appendixsec All context properties
+
+@include context-properties.tely
 
 
-@n ode Layout properties
-@ap pendixsec Layout properties
+@node Layout properties
+@appendixsec Layout properties
 
-@in clude layout-properties.tely
+@include layout-properties.tely
 
-@end ignore
+
+@node Identifiers
+@appendixsec Identifiers
+
+@include identifiers.tely
+
+
+@node Scheme functions
+@appendixsec Scheme functions
+
+@include scheme-functions.tely
+

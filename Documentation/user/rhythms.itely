@@ -975,8 +975,8 @@ Music Glossary:
 @rglos{time signature}
 
 Notation Reference:
-@ruser{Ancient time signatures},
-@ruser{Time administration}.
+@ref{Ancient time signatures},
+@ref{Time administration}.
 
 Snippets:
 @rlsr{Rhythms}.

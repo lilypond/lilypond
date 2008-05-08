@@ -13,18 +13,21 @@
 @section Keyboard instruments
 
 @menu
-* Piano sections::              
+* Common notation for keyboards::  
+* Piano::                       
+* Accordion::                   
 @end menu
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
 
 @menu
-* Automatic staff changes::     
-* Manual staff switches::       
-* Pedals::                      
-* Staff switch lines::          
-* Cross staff stems::           
+* References for keyboards::    
+* The piano staff::             
+* Changing staff manually::     
+* Changing staff automatically::  
+* Staff-change lines::          
+* Cross-staff stems::           
 @end menu
 
 @node References for keyboards
@@ -141,7 +144,7 @@ práctico
 
 @seealso
 
-En este manual: @ref{Manual staff switches}.
+En este manual: @ref{Inside the staff}.
 
 Referencia del programa: @internalsref{AutoChangeMusic}.
 
@@ -230,7 +233,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 @subsection Piano
 
 @menu
-* Piano pedals::
+* Piano pedals::                
 @end menu
 
 @node Piano pedals
@@ -307,7 +310,7 @@ Referencia de la notación: @ref{Ties} (laissez vibrer).
 @subsection Accordion
 
 @menu
-* Discant symbols::
+* Discant symbols::             
 @end menu
 
 @node Discant symbols

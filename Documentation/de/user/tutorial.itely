@@ -947,7 +947,7 @@ also hat eine Triole 2/3 als Bruch:
 @cindex Vorhalt
 @subheading Grace notes
 
-Glossar: @rglos{grace notes}, @rglos{acciacccatura},
+Glossar: @rglos{grace notes}, @rglos{acciaccatura},
 @rglos{appoggiatura}.
 
 Verzierungen werden mit dem Befehl @code{\grace}
@@ -1217,7 +1217,7 @@ oder auch zwischen System gesetzt werden.
 
 @seealso
 
-Benutzerhandbuch: @ruser{Piano music}, 
+Benutzerhandbuch: @ruser{Keyboard instruments},
 @ruser{Displaying staves}.
 
 

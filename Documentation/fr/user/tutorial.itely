@@ -503,13 +503,13 @@ Le fragment suivant met en évidence quelques usages possibles des commentaires 
 @end itemize
 
 Vous trouverez plus d'astuces pour organiser vos fichiers LilyPond dans
-@ruser{Suggestions for writing LilyPond files}.
+@ref{Suggestions for writing LilyPond files}.
 
 
 @node How to read the tutorial
 @subsection How to read the tutorial
 
-Comme nous l'avons vu dans @ruser{Working on text files}, un code
+Comme nous l'avons vu dans @ref{Working on text files}, un code
 LilyPond doit être encadré par des @{ @} ou bien par @code{\relative
 c'' @{ ...  @}} afin d'être compris.  Cependant, dans la suite de ce
 manuel, la plupart des exemples ne feront pas apparaître ces signes.
@@ -554,9 +554,9 @@ Cette section présente la notation courante dont on a besoin pour
 @node Relative note names
 @subsection Relative note names
 
-Comme nous l'avons vu dans @ruser{Simple notation}, LilyPond calcule la
+Comme nous l'avons vu dans @ref{Simple notation}, LilyPond calcule la
 hauteur de chaque note en fonction de la précédente@footnote{Il existe
-un autre mode de saisie des hauteurs, le mode @ruser{Absolute note
+un autre mode de saisie des hauteurs, le mode @ref{Absolute note
 names}, mais en pratique il est bien plus aisé et sûr d'avoir recours
 au mode de hauteurs relatives.}.  Si aucune indication supplémentaire
 d'octaviation n'est ajoutée, il en concluera que chaque hauteur est
@@ -911,7 +911,7 @@ voir @ruser{Grace notes},
 @item nolets
 voir @ruser{Tuplets},
 @item levées
-voir @ruser{Partial measures}.
+voir @ruser{Upbeats}.
 @end table
 @end quotation
 
@@ -1043,7 +1043,7 @@ polyphoniques.
 @node Multiple staves
 @subsection Multiple staves
 
-Comme nous l'avons vu dans @ruser{Music expressions explained}, un fichier
+Comme nous l'avons vu dans @ref{Music expressions explained}, un fichier
 d'entrée LilyPond est fait d'expressions musicales.  Si la partition
 commence par plusieurs expressions simultanées, LilyPond créera
 plusieurs portées.  Cependant, il est plus facile de voir ce qu'il
@@ -1107,7 +1107,7 @@ n'affecte @emph{pas} les autres portées.
 @cindex voix changeant manuellement de portée
 La musique pour piano s'écrit sur deux portées reliées par une accolade.
 Imprimer ce type de portée revient au même que dans l'exemple de musique
-polyphonique de @ruser{Multiple staves}, mais maintenant cette expression
+polyphonique de @ref{Multiple staves}, mais maintenant cette expression
 entière doit être interprétée dans un contexte @code{PianoStaff} :
 
 @example
@@ -1130,7 +1130,7 @@ Voici un bref exemple :
 
 @seealso
 @quotation
-Voir @ruser{Piano music}.
+Voir @ruser{Keyboard instruments}.
 @end quotation
 
 
@@ -1350,7 +1350,7 @@ partition de chanson :
 @seealso
 @quotation
 Une liste complète de modificateurs et d'autres options de mise en forme
-se trouve à la section @ruser{Chords}.
+se trouve à la section @ruser{Chord notation}.
 @end quotation
 
 
@@ -1560,12 +1560,12 @@ différents endroits.  L'exemple suivant utilise la variable ci-dessus :
 @subsection After the tutorial
 
 Après avoir parcouru ce tutoriel, vous devriez vous essayer à écrire un
-morceau ou deux.  Commencez par copier l'un des @ruser{Templates} types et
+morceau ou deux.  Commencez par copier l'un des @ref{Templates} types et
 ajoutez-y des notes.  Si vous voulez employer une notation que vous
 n'avez pas trouvé dans le tutoriel, consultez la référence de notation,
-en commençant par la @ruser{Basic notation}.  Si vous désirez écrire pour
-un ensemble instrumental non couvert par les @ruser{Templates}, lisez la
-section @ruser{Extending the templates}.
+en commençant par la @ruser{Musical notation}.  Si vous désirez écrire pour
+un ensemble instrumental non couvert par les @ref{Templates}, lisez la
+section @ref{Extending the templates}.
 
 Après avoir écrit quelques pièces courtes, lisez les chapitres 3 à 5 du
 manuel d'apprentissage.  Rien ne s'oppose à ce que vous consultiez dès à
@@ -1577,7 +1577,7 @@ et y revenir plus tard après avoir acquis de l'expérience.
 @node How to read the manual
 @subsection How to read the manual
 
-Comme nous l'avons déjà vu dans @ruser{How to read the tutorial}, de
+Comme nous l'avons déjà vu dans @ref{How to read the tutorial}, de
 nombreux exemples du tutoriel n'ont pas fait apparaître
 @code{\relative c'' @{ ...  @}} dans l'extrait de code affiché.
 
@@ -1597,4 +1597,4 @@ partition.  La source exacte utilisée pour générer ce manuel s'affichera
 alors.
 
 Pour en savoir plus sur l'organisation de la suite de ce manuel,
-reportez-vous à @ruser{About this manual}.
+reportez-vous à @ref{About this manual}.

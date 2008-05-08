@@ -270,15 +270,15 @@ erwünschte Akkordtabulatur, wie das folgende Beispiel zeigt:
 }
 @end lilypond
 
-Es gibt drei Modi für die Abbildung der Tabulatur: den Standardmodus, 
-einen ausführlichen Modus und einen knappen Modus. Die unterschiedlichen 
-Modi werden angewählt, indem an den Befehl @code{fret-diagram} die Begriffe
-@code{-standard}, @code{-verbose} bzw. @code{-terse} angehängt werden.
-Die Modi produzieren gleichwertige Ausgaben, haben aber unterschiedliche 
-Informationen im Beschriftungsbefehl. Details über die 
-Beschriftungsbefehle finden sich im Abschnitt 
- @ref{Overview of text markup commands}. Alle drei Modi werden im obigen 
- Beispiel gezeigt.
+Es gibt drei Modi für die Abbildung der Tabulatur: den Standardmodus,
+einen ausführlichen Modus und einen knappen Modus. Die
+unterschiedlichen Modi werden angewählt, indem an den Befehl
+@code{fret-diagram} die Begriffe @code{-standard}, @code{-verbose}
+bzw. @code{-terse} angehängt werden.  Die Modi produzieren
+gleichwertige Ausgaben, haben aber unterschiedliche Informationen im
+Beschriftungsbefehl. Details über die Beschriftungsbefehle finden sich
+im Abschnitt @ref{Text markup commands}. Alle drei Modi werden im
+obigen Beispiel gezeigt.
 
 Einige graphische Eigenschaften können verändert werden. Genaueres zur 
 Schnittstelle für die Griffsymboleigenschaften findet sich unter 
@@ -369,7 +369,7 @@ zu signalisieren, dass der Gitarrist eine Note oder einen Akkord spielen
 soll, indem seine Finger die Saiten nur berühren, anstatt sie vollständig 
 herunterzudrücken. Damit werden schlagzeugartige Geräusche erreicht, 
 die aber noch die ursprüngliche Tonhöhe ahnen lassen. Diese Spielart 
-wird mit Kreuz-Notenköpfen notiert, wie im Abschnitt @ref{Special noteheads}
+wird mit Kreuz-Notenköpfen notiert, wie im Abschnitt @ref{Special note heads}
 gezeigt.
 
 

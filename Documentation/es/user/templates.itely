@@ -1490,7 +1490,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 @appendixsec lilypond-book templates
 
 Estas plantillas se usan para @code{lilypond-book}.  Si no está familiarizado con este
-programa, consulte @rprogram{lilypond-book}.
+programa, consulte @rprogram{LilyPond-book}.
 
 @appendixsubsec LaTeX
 

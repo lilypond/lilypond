@@ -167,13 +167,13 @@ c4^"piu mosso" d e f
 
 @seealso
 
-@ruser{The \override command}, @ruser{Common tweaks}.
+@ruser{The \override command}, @ref{Common tweaks}.
 
 
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-Im Kapitel @ruser{Moving objects} wurde gezeigt, wie man Texte 
+Im Kapitel @ref{Moving objects} wurde gezeigt, wie man Texte 
 (@code{TextScript}-Objekte) verschiebt. Mit der gleichen 
 Technik können auch andere Objektklassen verschoben werden, 
 @code{TextScript} muss dann nur durch den Namen des Objektes 
@@ -482,7 +482,7 @@ werden kann, indem man Befehle wie
 @code{\override TextScript #'extra-offset = ( 1 . -1)} benutzt. Aber 
 noch mehr Einfluss auf die Formatierung kann durch den Einsatz von 
 Scheme genommen werden. Eine vollständige Erklärung findet sich in der 
- @ruser{Scheme tutorial} und den
+ @ref{Scheme tutorial} und den
 @ruser{Interfaces for programmers}.
 
 Scheme kann benutzt werden, um einfach nur Befehle zu @qq{überschreiben} 
