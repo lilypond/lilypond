@@ -54,7 +54,7 @@ LY_DEFINE (ly_make_global_translator, "ly:make-global-translator",
 LY_DEFINE (ly_make_global_context, "ly:make-global-context",
 	   1, 0, 0, (SCM output_def),
 	   "Set up a global interpretation context, using the output"
-	   " block @var{output_def}.  The context is returned.\n")
+	   " block @var{output_def}.  The context is returned.")
 {
   LY_ASSERT_SMOB (Output_def, output_def, 1);
   Output_def *odef = unsmob_output_def (output_def); 

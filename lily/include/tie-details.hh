@@ -43,6 +43,7 @@ struct Tie_details
 
   int single_tie_region_size_;
   int multi_tie_region_size_;
+  Direction neutral_direction_;
   
   Tie_details ();
   void from_grob (Grob *);
