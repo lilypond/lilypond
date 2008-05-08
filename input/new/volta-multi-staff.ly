@@ -7,6 +7,8 @@ can be put over staves other than the topmost one in a score."
   doctitle = "Volta multi-staff"
 }
 
+% LSR: this is a test which should get automatically
+% LSR: removed from input/lsr/    -gp
 vmus = \relative c'' {
   \repeat volta 2 c1 \alternative { d e } 
 } 
