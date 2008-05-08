@@ -115,18 +115,6 @@
 
 @c   **** Links and references ****
 
-@c  TO BE DEPRECATED
-@c usage: @lsrdir{ancient,Ancient-notation}
-@macro lsrdir{SECTION,DIR}
-@ifhtml
-@uref{source/input/lsr/lilypond-snippets/\DIR\.html,\SECTION\}
-@end ifhtml
-@ifnothtml
-\DIR\
-@end ifnothtml
-@end macro
-
-
 @c  Definitions for references:
 @c     @rglos
 @c     @rlearning
