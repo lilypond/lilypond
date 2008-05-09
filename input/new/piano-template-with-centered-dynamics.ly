@@ -15,7 +15,7 @@ upper = \relative c'' {
   \key c \major
   \time 4/4
   
-  a b c d
+  a4 b c d
 }
 
 lower = \relative c {
@@ -27,12 +27,11 @@ lower = \relative c {
 }
 
 dynamics = {
-  s2\fff\> s4
-  s\!\pp
+  s2\fff\> s4 s\!\pp
 }
 
 pedal = {
-  s2\sustainDown s2\sustainUp
+  s2\sustainDown s\sustainUp
 }
 
 \score {
@@ -49,7 +48,8 @@ pedal = {
     \context {
       \type "Engraver_group"
       \name Dynamics
-      \alias Voice % So that \cresc works, for example.
+      % So that \cresc works, for example.
+      \alias Voice
       \consists "Output_property_engraver"
       
       \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
@@ -77,19 +77,8 @@ pedal = {
 }
 \score {
   \new PianoStaff <<
-    \new Staff = "upper" << \upper \dynamics >>
-    \new Staff = "lower" << \lower \dynamics >>
-    \new Dynamics = "pedal" \pedal
+    \new Staff = "upper" << \upper \dynamics \pedal >>
+    \new Staff = "lower" << \lower \dynamics \pedal >>
   >>
-  \midi {
-    \context {
-      \type "Performer_group"
-      \name Dynamics
-      \consists "Piano_pedal_performer"
-    }
-    \context {
-      \PianoStaff
-      \accepts Dynamics
-    }
-  }
+  \midi {}
 }

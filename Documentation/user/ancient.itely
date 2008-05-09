@@ -126,7 +126,7 @@ up during the baroque period.
 
 For ancient notation, a note head style other than the @code{default}
 style may be chosen.  This is accomplished by setting the @code{style}
-property of the @internalsref{NoteHead} object to @code{baroque},
+property of the @rinternals{NoteHead} object to @code{baroque},
 @code{neomensural}, @code{mensural} or @code{petrucci}.  The
 @code{baroque} style differs from the @code{default} style only in
 using a square shape for @code{\breve} note heads.  The
@@ -148,11 +148,11 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 When typesetting a piece in Gregorian Chant notation, the
-@internalsref{Gregorian_ligature_engraver} will automatically select
+@rinternals{Gregorian_ligature_engraver} will automatically select
 the proper note heads, so there is no need to explicitly set the
 note head style.  Still, the note head style can be set, e.g., to
 @code{vaticana_punctum} to produce punctum neumes.  Similarly, a
-@internalsref{Mensural_ligature_engraver} is used to automatically
+@rinternals{Mensural_ligature_engraver} is used to automatically
 assemble mensural ligatures.  See @ref{Ligatures}, for how ligature
 engravers work.
 
@@ -168,7 +168,7 @@ engravers work.
 
 
 Use the @code{glyph-name-alist} property of grob
-@internalsref{Accidental} and @internalsref{KeySignature} to select
+@rinternals{Accidental} and @rinternals{KeySignature} to select
 ancient accidentals.
 
 @lilypond[quote,ragged-right,staffsize=26]
@@ -217,7 +217,7 @@ different style, as demonstrated in
 
 Similarly to local accidentals, the style of the key signature can be
 controlled by the @code{glyph-name-alist} property of the
-@internalsref{KeySignature} grob.
+@rinternals{KeySignature} grob.
 
 @seealso
 
@@ -226,9 +226,8 @@ Notation Reference: @ref{Pitches}, @ref{Accidentals}, and
 accidentals.  @ref{Key signature}, gives a general introduction of
 the use of key signatures.
 
-Internals Reference: @internalsref{KeySignature}.
+Internals Reference: @rinternals{KeySignature}.
 
-Examples: @c @lsrdir{ancient}
 
 @node Ancient rests
 @subsubsection Ancient rests
@@ -236,7 +235,7 @@ Examples: @c @lsrdir{ancient}
 @cindex rests, ancient
 
 
-Use the @code{style} property of grob @internalsref{Rest} to select
+Use the @code{style} property of grob @rinternals{Rest} to select
 ancient rests.   Supported styles are @code{classical},
 @code{neomensural}, and @code{mensural}.  @code{classical} differs
 from the @code{default} style only in that the quarter rest looks like
@@ -511,7 +510,7 @@ The mensural g clef is mapped to the Petrucci g clef.
 @cindex flags
 
 
-Use the @code{flag-style} property of grob @internalsref{Stem} to
+Use the @code{flag-style} property of grob @rinternals{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
 only the @code{mensural} style is supported
 
@@ -600,7 +599,7 @@ following table
 }
 @end lilypond
 
-Use the @code{style} property of grob @internalsref{TimeSignature} to
+Use the @code{style} property of grob @rinternals{TimeSignature} to
 select ancient time signatures.  Supported styles are
 @code{neomensural} and @code{mensural}.  The above table uses the
 @code{neomensural} style.  This style is appropriate for the
@@ -721,8 +720,8 @@ of musical notation such as contemporary editions of Gregorian chant
 like the @emph{editio vaticana}.  There are different custos glyphs
 used in different flavors of notational style.
 
-For typesetting custodes, just put a @internalsref{Custos_engraver} into the
-@internalsref{Staff} context when declaring the @code{\layout} block,
+For typesetting custodes, just put a @rinternals{Custos_engraver} into the
+@rinternals{Staff} context when declaring the @code{\layout} block,
 as shown in the following example
 
 @example
@@ -778,7 +777,7 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 
 @seealso
 
-Internals Reference: @internalsref{Custos}.
+Internals Reference: @rinternals{Custos}.
 
 Examples:
 @c @lsr{ancient,custodes@/.ly}.
@@ -830,7 +829,7 @@ Therefore, @file{gregorian@/-init@/.ly} also defines @code{\virgula} and
 
 Notation Reference: @ref{Breath marks}.
 
-Internals Reference: @internalsref{BreathingSign}.
+Internals Reference: @rinternals{BreathingSign}.
 
 Examples: @c @lsr{expressive,breathing-sign.ly}.
 
@@ -850,7 +849,7 @@ chant notation to denote ascending or descending sequences of notes.
 Ligatures are entered by enclosing them in @code{\[} and @code{\]}.
 Some ligature styles may need additional input syntax specific for
 this particular type of ligature.  By default, the
-@internalsref{LigatureBracket} engraver just puts a square bracket
+@rinternals{LigatureBracket} engraver just puts a square bracket
 above the ligature
 
 @lilypond[quote,ragged-right,verbatim]
@@ -862,7 +861,7 @@ above the ligature
 @end lilypond
 
 To select a specific style of ligatures, a proper ligature engraver
-has to be added to the @internalsref{Voice} context, as explained in
+has to be added to the @rinternals{Voice} context, as explained in
 the following subsections.   Only white mensural ligatures
 are supported with certain limitations.
 
@@ -902,9 +901,9 @@ with the same effect and is believed to be stable.
 There is limited support for white mensural ligatures.
 
 To engrave white mensural ligatures, in the layout block put the
-@internalsref{Mensural_ligature_engraver} into the
-@internalsref{Voice} context, and remove the
-@internalsref{Ligature_bracket_engraver}, like this
+@rinternals{Mensural_ligature_engraver} into the
+@rinternals{Voice} context, and remove the
+@rinternals{Ligature_bracket_engraver}, like this
 
 @example
 \layout @{
@@ -960,8 +959,8 @@ For example,
 }
 @end lilypond
 
-Without replacing @internalsref{Ligature_bracket_engraver} with
-@internalsref{Mensural_ligature_engraver}, the same music transcribes
+Without replacing @rinternals{Ligature_bracket_engraver} with
+@rinternals{Mensural_ligature_engraver}, the same music transcribes
 to the following
 
 @lilypond[quote,ragged-right]
@@ -2035,6 +2034,8 @@ TBC
 
 @c TODO Add text
 @c clefs, mensuration signs etc from lsr and -user
+@c use snippet Transcription-of-ancient-music-with-incipit
+
 TBC
 
 
@@ -2098,8 +2099,8 @@ ais ais bis
 
 @seealso
 
-Internals Reference: @internalsref{Accidental_engraver} engraver and
-the @internalsref{AccidentalSuggestion} object.
+Internals Reference: @rinternals{Accidental_engraver} engraver and
+the @rinternals{AccidentalSuggestion} object.
 
 
 @node Baroque rhythmic notation
@@ -2107,4 +2108,16 @@ the @internalsref{AccidentalSuggestion} object.
 
 @c TODO Add text
 @c try Till Rettig
+@c Add example of white noteheads:
+@c In the french baroque some composers used white noteheads in slow pieces,
+@c mainly in 3/2-time.  A quarter looks there like a eighth with a white 
+@c notehead.  (Franz-Rudolf Kuhnen)
+
+@c TODO Add example of this:
+@c I was referring to e.g. notated a8. a16, which should, if I
+@c remember correctly, be interpreted more like a8.. a32 (in the french
+@c style). The editor might want to show that rythmic figure above the
+@c staff as an hint to performers. (Karl Hammer)
+
+
 TBC

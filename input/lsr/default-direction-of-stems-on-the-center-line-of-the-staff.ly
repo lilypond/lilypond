@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use"
+  lsrtags = "editorial-annotations"
 
   texidoc = "
 The default direction of stems on the center line of the staff is set

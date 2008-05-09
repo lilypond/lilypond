@@ -3,12 +3,10 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "expressive-marks, editorial-and-educational-use"
+  lsrtags = "expressive-marks, editorial-annotations"
 
   texidoc = "
-The appearance of slurs may be changed from solid to dotted or dashed.
-
-
+The appearance of slurs may be changed from solid to dotted or dashed. 
 
 "
   doctitle = "Changing the appearance of a slur from solid to dotted or dashed"
@@ -24,8 +22,4 @@ The appearance of slurs may be changed from solid to dotted or dashed.
   \slurSolid
   c( d e  c) |
 }
-
-
-
-
 

@@ -12,43 +12,99 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Piano music
-@section Piano music
+@node Keyboard instruments
+@section Keyboard instruments
 
-@menu 
-* Piano sections::
+@menu
+* Common notation for keyboards::  
+* Piano::                       
+* Accordion::                   
 @end menu
 
-@node Piano sections
-@subsection Piano sections
+@node Common notation for keyboards
+@subsection Common notation for keyboards
+
+@menu
+* References for keyboards::    
+* The piano staff::             
+* Changing staff manually::     
+* Changing staff automatically::  
+* Staff-change lines::          
+* Cross-staff stems::           
+@end menu
+
+@node References for keyboards
+@subsubsection References for keyboards
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+@ifnothtml
+@englishref
+@end ifnothtml
+
+@node The piano staff
+@subsubsection The piano staff
 
 Les systèmes de piano comprennent deux portées réunies par une accolade.
 Les portées sont largement autonomes, mais il arrive que des voix passent
 de l'une à l'autre.  Cette notation sert également à la harpe ou à d'autres
-instruments à clavier.  Le contexte @internalsref{PianoStaff} est précisément
+instruments à clavier.  Le contexte @code{PianoStaff} est précisément
 conçu pour gérer la notation spécifique au piano, notamment ces croisements.
-
-@menu
-* Automatic staff changes::     
-* Manual staff switches::       
-* Pedals::                      
-* Staff switch lines::          
-* Cross staff stems::           
-@end menu
 
 @knownissues
 
 Les nuances ne sont pas centrées verticalement, mais il existe
 des astuces.  Voir à ce sujet le modèle @q{alignement des nuances au
-piano} au chapitre @ref{Piano templates}.
-
-@cindex hampe, enjambement portées
-@cindex distance entre deux portées de piano
+piano} au chapitre @rlearning{Piano templates}.
 
 
-@node Automatic staff changes
-@unnumberedsubsubsec Automatic staff changes
-@cindex Changements de portées automatiques
+@node Changing staff manually
+@subsubsection Changing staff manually
+
+@cindex changements de portées manuels
+@cindex changement de portée, manuel
+
+Il est possible de passer d'une portée à l'autre de façon manuelle, au
+moyen de la commande
+
+@example
+\change Staff = @var{nomDeLaPortee} @var{musique}
+@end example
+
+@noindent
+La valeur @var{nomDeLaPortee} est le nom de la portée sur laquelle va se
+déplacer la voix courante.  Pour des raisons pratiques, on nomme la portée
+supérieure @code{"haut"} et la portée inférieure @code{"bas"}, donc
+@var{nomDeLaPortee} désigne habituellement @code{"haut"} ou
+@code{"bas"}.  Dans tous les cas, le contexte de portée ainsi utilisé
+doit exister au préalable.  C'est pourquoi il est d'usage de commencer
+par définir les portées
+
+@example
+<<
+  \new Staff = "haut" @{
+    \skip 1 * 10  % @emph{de façon à prolonger la portée}
+    @}
+  \new Staff = "bas" @{
+    \skip 1 * 10  % @emph{idem}
+    @}
+>>
+@end example
+
+
+avant d'insérer une mélodie au moyen d'un contexte @context{Voice} :
+
+@example
+\context Staff = bas
+  \new Voice @{ @dots{} \change Staff = haut @dots{} @}
+@end example
+
+
+@node Changing staff automatically
+@subsubsection Changing staff automatically
+@cindex Changement de portée automatique
+@cindex Automatique, changement de portée
 
 Les voix peuvent passer automatiquement d'une portée à l'autre, au moyen
 de la syntaxe suivante :
@@ -90,7 +146,7 @@ place les silences en fonction des notes qui les suivront. Ainsi :
 
 @seealso
 
-Dans ce même manuel : @ref{Manual staff switches}.
+Dans ce même manuel : @ruser{Changing staff manually}.
 
 Référence du programme : @internalsref{AutoChangeMusic}.
 
@@ -102,55 +158,87 @@ Les changements de portée automatiques n'interviennent pas toujours à
 l'endroit le plus opportun.  Pour un résultat de meilleure qualité, il
 vaut mieux indiquer soi-même ces changements.
 
-
 @code{\autochange} ne peut intervenir à l'intérieur d'une commande
 @code{\times}.
 
 
-@node Manual staff switches
-@unnumberedsubsubsec Manual staff switches
+@node Staff-change lines
+@subsubsection Staff-change lines
 
-@cindex changements de portées manuels
-@cindex changement de portée, manuel
+@cindex voix entre deux portées
+@cindex changements de portée
+@cindex mélodie d'une portée à une autre
 
-Il est possible de passer d'une portée à l'autre de façon manuelle, au
-moyen de la commande
+@funindex followVoice
 
-@example
-\change Staff = @var{nomDeLaPortee} @var{musique}
-@end example
+Lorsqu'une voix change de portée, il est possible d'imprimer
+automatiquement une ligne reliant les notes, en attribuant à la variable
+@code{followVoice} la valeur @emph{vrai} :
 
-@noindent
-La valeur @var{nomDeLaPortee} est le nom de la portée sur laquelle va se
-déplacer la voix courante.  Pour des raisons pratiques, on nomme la portée
-supérieure @code{"haut"} et la portée inférieure @code{"bas"}, donc
-@var{nomDeLaPortee} désigne habituellement @code{"haut"} ou
-@code{"bas"}.  Dans tous les cas, le contexte de portée ainsi utilisé
-doit exister au préalable.  C'est pourquoi il est d'usage de commencer
-par définir les portées
-
-@example
-<<
-  \new Staff = "haut" @{
-    \skip 1 * 10  % @emph{de façon à prolonger la portée}
-    @}
-  \new Staff = "bas" @{
-    \skip 1 * 10  % @emph{idem}
-    @}
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \new Staff="one" {
+    \set followVoice = ##t
+    c1
+    \change Staff=two
+    b2 a
+  }
+  \new Staff="two" { \clef bass \skip 1*2 }
 >>
-@end example
+@end lilypond
+
+@seealso
+
+Référence du programme : @internalsref{VoiceFollower}.
+
+@predefined
+
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
 
 
-avant d'insérer une mélodie au moyen d'un contexte @context{Voice} :
+@node Cross-staff stems
+@subsubsection Cross-staff stems
 
-@example
-\context Staff = bas
-  \new Voice @{ @dots{} \change Staff = haut @dots{} @}
-@end example
+@cindex hampe, enjambement portées
+@cindex distance entre deux portées de piano
+
+Pour écrire des accords qui enjambent deux portées, on allonge la hampe
+de l'accord de l'une des deux portées de façon à ce qu'elle rejoigne celle de
+l'autre portée.
+
+@lilypond[ragged-right,verbatim,quote]
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
+noFlag = \once \override Stem #'flag-style = #'no-flag
+\new PianoStaff <<
+  \new Staff {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
 
 
-@node Pedals
-@unnumberedsubsubsec Pedals
+@node Piano
+@subsection Piano
+
+@menu
+* Piano pedals::                
+@end menu
+
+@node Piano pedals
+@subsubsection Piano pedals
 @cindex Pédales
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
@@ -215,71 +303,22 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 @seealso
 
-Dans ce manuel : @ref{Laissez vibrer ties}.
-
-@node Staff switch lines
-@unnumberedsubsubsec Staff switch lines
+Dans ce manuel : @ref{Ties} @qq{laissez vibrer}.
 
 
-@cindex voix entre deux portées
-@cindex changements de portée
-@cindex mélodie d'une portée à une autre
+@node Accordion
+@subsection Accordion
 
-@funindex followVoice
+@menu
+* Discant symbols::             
+@end menu
 
-Lorsqu'une voix change de portée, il est possible d'imprimer
-automatiquement une ligne reliant les notes, en attribuant à la variable
-@code{followVoice} la valeur @emph{vrai} :
+@node Discant symbols
+@subsubsection Discant symbols
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new PianoStaff <<
-  \new Staff="one" {
-    \set followVoice = ##t
-    c1
-    \change Staff=two
-    b2 a
-  }
-  \new Staff="two" { \clef bass \skip 1*2 }
->>
-@end lilypond
-
-@seealso
-
-Référence du programme : @internalsref{VoiceFollower}.
-
-@predefined
-
-@funindex \showStaffSwitch
-@code{\showStaffSwitch},
-@funindex \hideStaffSwitch
-@code{\hideStaffSwitch}.
-
-
-@node Cross staff stems
-@unnumberedsubsubsec Cross staff stems
-
-Pour écrire des accords qui enjambent deux portées, on allonge la hampe
-de l'accord de l'une des deux portées de façon à ce qu'elle rejoigne celle de
-l'autre portée.
-
-@lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
-\new PianoStaff <<
-  \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
-  }
-  \new Staff {
-    \clef bass
-    a4 a8
-  }
->>
-@end lilypond
-
-
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+@ifnothtml
+@englishref
+@end ifnothtml

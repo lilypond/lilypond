@@ -42,6 +42,7 @@ import tempfile
 
 import lilylib as ly
 import fontextract
+import langdefs
 global _;_=ly._
 
 
@@ -135,6 +136,12 @@ def get_option_parser ():
                   action='store', dest='info_images_dir',
                   default='')
 
+    p.add_option ('--latex-program',
+                  help=_ ("run executable PROG instead of latex"),
+                  metavar=_ ("PROG"),
+                  action='store', dest='latex_program',
+                  default='latex')
+
     p.add_option ('--left-padding', 
                   metavar=_ ("PAD"),
                   dest="padding_mm",
@@ -176,11 +183,6 @@ def get_option_parser ():
                   help=_ ("create PDF files for use with PDFTeX"),
                   default=False)
 
-    p.add_option ('', '--psfonts', action="store_true", dest="psfonts",
-                  help=_ ('''extract all PostScript fonts into INPUT.psfonts for LaTeX
-must use this with dvips -h INPUT.psfonts'''),
-                  default=None)
-
     p.add_option ('-V', '--verbose', help=_ ("be verbose"),
                   action="store_true",
                   default=False,
@@ -210,6 +212,8 @@ global_options = None
 
 
 default_ly_options = { 'alt': "[image of music]" }
+
+document_language = ''
 
 #
 # Is this pythonic?  Personally, I find this rather #define-nesque. --hwn
@@ -821,9 +825,31 @@ def verbatim_html (s):
            re.sub ('<', '&lt;',
                re.sub ('&', '&amp;', s)))
 
+ly_var_def_re = re.compile (r'^([a-zA-Z]+)[\t ]*=', re.M)
+ly_comment_re = re.compile (r'(%+[\t ]*)(.*)$', re.M)
+
+def ly_comment_gettext (t, m):
+    return m.group (1) + t (m.group (2))
+
+def verb_ly_gettext (s):
+    if not document_language:
+        return s
+    try:
+        t = langdefs.translation[document_language]
+    except:
+        return s
+
+    s = ly_comment_re.sub (lambda m: ly_comment_gettext (t, m), s)
+    
+    for v in ly_var_def_re.findall (s):
+        s = re.sub (r"(?m)(^|[' \\#])%s([^a-zA-Z])" % v,
+                    "\\1" + t (v) + "\\2",
+                    s)
+    return s
 
 texinfo_lang_re = re.compile ('(?m)^@documentlanguage (.*?)( |$)')
 def set_default_options (source, default_ly_options, format):
+    global document_language
     if LINE_WIDTH not in default_ly_options:
         if format == LATEX:
             textwidth = get_latex_textwidth (source)
@@ -831,9 +857,9 @@ def set_default_options (source, default_ly_options, format):
         elif format == TEXINFO:
             m = texinfo_lang_re.search (source)
             if m and not m.group (1).startswith ('en'):
-                default_ly_options[LANG] = m.group (1)
+                document_language = m.group (1)
             else:
-                default_ly_options[LANG] = ''
+                document_language = ''
             for regex in texinfo_line_widths:
                 # FIXME: @layout is usually not in
                 # chunk #0:
@@ -911,7 +937,7 @@ class LilypondSnippet (Snippet):
         self.do_options (os, self.type)
 
     def verb_ly (self):
-        return self.substring ('code')
+        return verb_ly_gettext (self.substring ('code'))
 
     def ly (self):
         contents = self.substring ('code')
@@ -964,6 +990,12 @@ class LilypondSnippet (Snippet):
         for k in default_ly_options:
             if k not in self.option_dict:
                 self.option_dict[k] = default_ly_options[k]
+
+        # RELATIVE does not work without FRAGMENT;
+        # make RELATIVE imply FRAGMENT
+        has_relative = self.option_dict.has_key (RELATIVE)
+        if has_relative and not self.option_dict.has_key (FRAGMENT):
+            self.option_dict[FRAGMENT] = None
 
         if not has_line_width:
             if type == 'lilypond' or FRAGMENT in self.option_dict:
@@ -1174,6 +1206,7 @@ class LilypondSnippet (Snippet):
         map (consider_file, [base + '.tex',
                              base + '.eps',
                              base + '.texidoc',
+                             base + '.texidoc' + document_language,
                              base + '-systems.texi',
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
@@ -1321,7 +1354,7 @@ class LilypondSnippet (Snippet):
         base = self.basename ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
-            translated_texidoc = texidoc + default_ly_options[LANG]
+            translated_texidoc = texidoc + document_language
             if os.path.exists (translated_texidoc):
                 str += '@include %(translated_texidoc)s\n\n' % vars ()
             elif os.path.exists (texidoc):
@@ -1363,7 +1396,7 @@ class LilypondFileSnippet (LilypondSnippet):
         s = self.contents
         s = re_begin_verbatim.split (s)[-1]
         s = re_end_verbatim.split (s)[0]
-        return s
+        return verb_ly_gettext (s)
 
     def ly (self):
         name = self.substring ('filename')
@@ -1569,7 +1602,8 @@ def get_latex_textwidth (source):
     tmp_handle.write (latex_document)
     tmp_handle.close ()
     
-    ly.system ('latex %s' % tmpfile, be_verbose=global_options.verbose)
+    ly.system ('%s %s' % (global_options.latex_program, tmpfile),
+               be_verbose=global_options.verbose)
     parameter_string = file (logfile).read()
     
     os.unlink (tmpfile)
@@ -1715,8 +1749,13 @@ def write_if_updated (file_name, lines):
             # this prevents make from always rerunning lilypond-book:
             # output file must be touched in order to be up to date
             os.utime (file_name, None)
+            return
     except:
         pass
+
+    output_dir = os.path.dirname (file_name)
+    if not os.path.exists (output_dir):
+        os.makedirs (output_dir)
 
     progress (_ ("Writing `%s'...") % file_name)
     file (file_name, 'w').writelines (lines)
@@ -1736,7 +1775,7 @@ def samefile (f1, f2):
         f2 = re.sub ("//*", "/", f2)
         return f1 == f2
 
-def do_file (input_filename):
+def do_file (input_filename, included=False):
     # Ugh.
     if not input_filename or input_filename == '-':
         in_handle = sys.stdin
@@ -1754,6 +1793,8 @@ def do_file (input_filename):
 
     if input_filename == '-':
         input_base = 'stdin'
+    elif included:
+        input_base = os.path.splitext (input_filename)[0]
     else:
         input_base = os.path.basename (
             os.path.splitext (input_filename)[0])
@@ -1824,7 +1865,7 @@ def do_file (input_filename):
             name = snippet.substring ('filename')
             progress (_ ("Processing include: %s") % name)
             progress ('\n')
-            return do_file (name)
+            return do_file (name, included=True)
 
         include_chunks = map (process_include,
                               filter (lambda x: isinstance (x, IncludeSnippet),

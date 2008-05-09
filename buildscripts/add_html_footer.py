@@ -83,7 +83,7 @@ def build_pages_dict (filelist):
                 e = ''
             else:
                 e = g[1]
-            if not g[0] in pages_dict.keys():
+            if not g[0] in pages_dict:
                 pages_dict[g[0]] = [e]
             else:
                 pages_dict[g[0]].append (e)
@@ -204,7 +204,7 @@ def process_links (s, prefix, lang_ext, file_name, missing, target):
     return page_flavors
 
 def add_menu (page_flavors, prefix, available, target, translation):
-    for k in page_flavors.keys():
+    for k in page_flavors:
         language_menu = ''
         languages = ''
         if page_flavors[k][0] != '':
@@ -232,15 +232,13 @@ def add_menu (page_flavors, prefix, available, target, translation):
     return page_flavors
 
 
-def add_html_footer (translation,
-                     package_name = '',
+def add_html_footer (package_name = '',
                      package_version = '',
                      target = 'offline',
                      name_filter = lambda s: s):
     """Add header, footer to a number of HTML files
 
     Arguments:
-     translation               gettext translations dictionary, with language codes as keys
      package_name=NAME         set package_name to NAME
      package_version=VERSION   set package version to VERSION
      targets=offline|online    set page processing depending on the target
@@ -249,6 +247,7 @@ def add_html_footer (translation,
             negotiation
      name_filter               a HTML file name filter
     """
+    translation = langdefs.translation
     localtime = time.strftime ('%c %Z', time.localtime (time.time ()))
 
     if re.search ("http://", mail_address):
@@ -282,9 +281,9 @@ def add_html_footer (translation,
                 page_flavors = add_menu (page_flavors, prefix, available, target, translation)
             subst = dict ([i for i in globals().items() if type (i[1]) is str])
             subst.update (dict ([i for i in locals().items() if type (i[1]) is str]))
-            for k in page_flavors.keys():
-                if page_flavors[k][0] in translation.keys():
-                    for name in subst.keys():
+            for k in page_flavors:
+                if page_flavors[k][0] in translation:
+                    for name in subst:
                         subst[name] = translation[page_flavors[k][0]] (subst[name])
                 subst['footer_name_version'] = subst['footer_name_version'] % subst
                 subst['footer_report_errors'] = subst['footer_report_errors'] % subst

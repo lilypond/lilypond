@@ -469,7 +469,7 @@ Certains composants, tels que les marques de nuances, possèdent des
 propriétés particulières et prédéfinies quant à leur police.  Lorsque
 vous créez du texte en pareille situation, nous vous recommandons
 d'utiliser @code{normal-text} pour annuler ces propriétés.  Voir 
-@ref{Overview of text markup commands} pour plus de détails.
+@ref{Text markup commands} pour plus de détails.
 
 @cindex make-dynamic-script
 
@@ -528,7 +528,7 @@ c1_\markup { "\special {weird} #characters" }
 
 @noindent
 Pour une liste des différentes commandes disponibles, consultez
-@ref{Overview of text markup commands}. 
+@ref{Text markup commands}. 
 
 
 @code{\markup} est avant tout conçu pour gérer les
@@ -652,12 +652,12 @@ Certaines situations particulières, telles que les indications de
 nuance, possèdent des propriétés prédéfinies quant à leur police.
 Nous vous conseillons, en pareil cas, de réinitialiser ces propriétés
 en utilisant @code{normal-text}.  Pour plus d'informations, consultez
-@ref{Overview of text markup commands}. 
+@ref{Text markup commands}. 
 
 
 @seealso
 
-Dans ce manuel : @ref{Overview of text markup commands}.
+Dans ce manuel : @ref{Text markup commands}.
 
 Référence du programme : @internalsref{TextScript}.
 
@@ -727,11 +727,11 @@ tour des lignes de texte, comme ici :
 @end verbatim
 
 Les différentes commandes permettant de générer des listes de lignes
-se trouve dans @ref{Overview of text markup list commands}.
+se trouve dans @ref{Text markup list commands}.
 
 @seealso
 
-Dans ce manuel : @ref{Overview of text markup list commands}, 
+Dans ce manuel : @ref{Text markup list commands}, 
 @ref{New markup list command definition}.
 
 @predefined

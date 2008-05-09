@@ -45,10 +45,9 @@
 @end html
 @end macro
 
-@c FIXME: hack unbreakable thin spaces
 @macro qq{TEXT}
 @html
-&laquo;&nbsp;\TEXT\&nbsp;&raquo;
+&laquo;<font size="-4">&nbsp;</font>\TEXT\<font size="-4">&nbsp;</font>&raquo;
 @end html
 @end macro
 @end ifhtml
@@ -61,10 +60,9 @@
 @end xml
 @end macro
 
-@c FIXME: hack unbreakable thin spaces
 @macro qq{TEXT}
 @xml
-&laquo;&nbsp;\TEXT\&nbsp;&raquo;
+&laquo;<font size="-4">&nbsp;</font>\TEXT\<font size="-4">&nbsp;</font>&raquo;
 @end xml
 @end macro
 @end ifdocbook
@@ -360,4 +358,24 @@
 @end iftex
 
 
-@c EOF
+@c Commands specific to translated docs
+
+@c ugh, cannot set/define global variable 'translationof' in some way?
+@iftex
+@macro translationof{TEXT}
+@end macro
+@end iftex
+
+@ifinfo
+@macro
+@macro translationof{TEXT}
+@set translationof \TEXT\
+@end macro
+@end ifinfo
+
+@c TODO when @translationof is used in translated docs
+@c see if it's feasible to say @value{translationof}
+@macro englishref
+Cette section n'est pas encore encore traduite, veuillez
+vous reporter à la documentation correspondante en anglais.
+@end macro

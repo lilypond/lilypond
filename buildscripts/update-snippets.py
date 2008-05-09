@@ -23,7 +23,7 @@ import re
 print "update-snippets.py"
 
 comment_re = re.compile (r'(?<!@)(@c(?:omment)? .*?\n|^@ignore\n.*?\n@end ignore\n)', re.M | re.S)
-snippet_re = re.compile (r'(@lilypond(?:file)?(?:\[.*?\])?(?:\{.+?\}|(?:.|\n)+?@end lilypond))', re.M)
+snippet_re = re.compile (r'^(@lilypond(?:file)?(?:\[.*?\])?\s*\{.+?\}|@lilypond(?:\[.*?\])?(?:.|\n)+?@end lilypond)', re.M)
 
 
 def snippet_split (l):

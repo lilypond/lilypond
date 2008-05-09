@@ -481,7 +481,7 @@ The recommended font sizes are listed in the following table:
 
 These fonts are available in any sizes.  The context property
 @code{fontSize} and the layout property @code{staff-space} (in
-@internalsref{StaffSymbol}) can be used to tune the size for individual
+@rinternals{StaffSymbol}) can be used to tune the size for individual
 staves.  The sizes of individual staves are relative to the global size.
 
 @example
@@ -615,13 +615,13 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 @seealso
 
-Internals: @internalsref{LineBreakEvent}.
+Internals: @rinternals{LineBreakEvent}.
 
 A linebreaking configuration can be saved as a @code{.ly} file
 automatically.  This allows vertical alignments to be stretched to
 fit pages in a second formatting run.  This is fairly new and
 complicated.  More details are available in
-@c @lsrdir{spacing}
+@rlsr{Spacing}.
 
 @knownissues
 
@@ -955,7 +955,7 @@ in having more systems per page.
 Normally staves are stacked vertically.  To make staves maintain a
 distance, their vertical size is padded.  This is done with the
 property @code{minimum-Y-extent}.  When applied to a
-@internalsref{VerticalAxisGroup}, it controls the size of a horizontal
+@rinternals{VerticalAxisGroup}, it controls the size of a horizontal
 line, such as a staff or a line of lyrics.  @code{minimum-Y-extent}
 takes a pair of numbers, so
 if you want to make it smaller than its default @code{#'(-4 . 4)}
@@ -977,7 +977,7 @@ After page breaks are determined, the vertical spacing within each
 system is reevaluated in order to fill the page more evenly; if a page
 has space left over, systems are stretched in order to fill that space.
 The amount of stretching can be configured though the @code{max-stretch}
-property of the @internalsref{VerticalAlignment} grob. By default,
+property of the @rinternals{VerticalAlignment} grob. By default,
 @code{max-stretch} is set to zero, disabling stretching. To enable
 stretching, a sane value for @code{max-stretch}
 is @code{ly:align-interface::calc-max-stretch}.
@@ -987,7 +987,7 @@ leaving some parts fixed.  For example, if a piano part occurs in the
 middle of an orchestral score, you may want to leave the piano staves
 close to each other while stretching the rest of the score.  The
 @code{keep-fixed-while-stretching} property of
-@internalsref{VerticalAxisGroup} can be used to achieve this.  When set
+@rinternals{VerticalAxisGroup} can be used to achieve this.  When set
 to @code{##t}, this property keeps its staff (or line of lyrics) from
 moving relative to the one directly above it.  In the example above,
 you would override @code{keep-fixed-while-stretching} to @code{##t} in
@@ -1038,9 +1038,9 @@ the second piano staff:
 @seealso
 
 Internals: Vertical alignment of staves is handled by the
-@internalsref{VerticalAlignment} object.  The context parameters
+@rinternals{VerticalAlignment} object.  The context parameters
 specifying the vertical extent are described in connection with
-the @internalsref{Axis_group_engraver}.
+the @rinternals{Axis_group_engraver}.
 
 Example files: @c @lsr{spacing,page-spacing.ly},
 @c @lsr{spacing,alignment-vertical-spacing.ly}.
@@ -1461,7 +1461,7 @@ The spacing engine translates differences in durations into stretchable
 distances (@q{springs}) of differing lengths.  Longer durations get
 more space, shorter durations get less.  The shortest durations get a
 fixed amount of space (which is controlled by
-@code{shortest-duration-space} in the @internalsref{SpacingSpanner}
+@code{shortest-duration-space} in the @rinternals{SpacingSpanner}
 object).  The longer the duration, the more space it gets: doubling a
 duration adds a fixed amount (this amount is controlled by
 @code{spacing-increment}) of space to the note.
@@ -1499,7 +1499,7 @@ an 8th note.  The shortest duration is printed when you run
 @code{lilypond} with the @code{--verbose} option.
 
 These durations may also be customized.  If you set the
-@code{common-shortest-duration} in @internalsref{SpacingSpanner}, then
+@code{common-shortest-duration} in @rinternals{SpacingSpanner}, then
 this sets the base duration for spacing.  The maximum duration for this
 base (normally an 8th), is set through @code{base-shortest-duration}.
 
@@ -1521,9 +1521,9 @@ c2 c4. c8 c4. c16[ c] c4. c8 c8 c8 c4 c4 c4
 In the introduction (see @rlearning{Engraving}), it was explained that stem
 directions influence spacing.  This is controlled with the
 @code{stem-spacing-correction} property in the
-@internalsref{NoteSpacing}, object.  These are generated for every
-@internalsref{Voice} context.  The @code{StaffSpacing} object
-(generated in @internalsref{Staff} context) contains the same property
+@rinternals{NoteSpacing}, object.  These are generated for every
+@rinternals{Voice} context.  The @code{StaffSpacing} object
+(generated in @rinternals{Staff} context) contains the same property
 for controlling the stem/bar line spacing.  The following example shows
 these corrections, once with default settings, and once with
 exaggerated corrections:
@@ -1544,9 +1544,9 @@ Proportional notation is supported; see @ref{Proportional notation}.
 
 @seealso
 
-Internals: @internalsref{SpacingSpanner}, @internalsref{NoteSpacing},
-@internalsref{StaffSpacing}, @internalsref{SeparationItem}, and
-@internalsref{SeparatingGroupSpanner}.
+Internals: @rinternals{SpacingSpanner}, @rinternals{NoteSpacing},
+@rinternals{StaffSpacing}, @rinternals{SeparationItem}, and
+@rinternals{SeparatingGroupSpanner}.
 
 
 @knownissues
@@ -1581,7 +1581,7 @@ c16[ c c8]
 
 
 The @code{\newSpacingSection} command creates a new
-@internalsref{SpacingSpanner} object, and hence new @code{\override}s
+@rinternals{SpacingSpanner} object, and hence new @code{\override}s
 may be used in that location.
 
 
@@ -1597,7 +1597,7 @@ music.  Note that @code{ly:make-moment} constructs
 a duration, so @code{1 4} is a longer duration
 than @code{1 16}.
 
-@lilypond[relative,verbatim,line-width=12\cm]
+@lilypond[verbatim,line-width=12\cm]
 \score {
   \relative c'' {
     g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
@@ -1608,7 +1608,7 @@ than @code{1 16}.
 }
 @end lilypond
 
-@lilypond[relative,verbatim,line-width=12\cm]
+@lilypond[verbatim,line-width=12\cm]
 \score {
   \relative c'' {
     g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
@@ -2087,7 +2087,7 @@ effect.  In general the commands shown in this section can
 be placed in either.
 
 Much more detail on the options for tweaking the laying out
-of music are contained in @ruser{Spacing issues}.
+of music are contained in @ref{Spacing issues}.
 
 @node Global sizes
 @subsection Global sizes
@@ -2191,7 +2191,7 @@ a page-break at the point where they are inserted.
 Of course, the @code{\pageBreak} command also forces a line break.
 Like @code{\break}, the @code{\pageBreak} command is effective only
 at the end of a @q{complete} bar as defined above.  For more
-details see @ruser{Page breaking} and following sections.
+details see @ref{Page breaking} and following sections.
 
 There are also analogous settings to @code{ragged-right} and
 @code{ragged-last} which have the same effect on vertical spacing:
@@ -2199,7 +2199,7 @@ There are also analogous settings to @code{ragged-right} and
 @code{##t} the systems on all pages or just the last page
 respectively will not be justified vertically.
 
-For more details see @ruser{Vertical spacing}.
+For more details see @ref{Vertical spacing}.
 
 @node Fitting music onto fewer pages
 @subsection Fitting music onto fewer pages
@@ -2211,7 +2211,7 @@ of room left on those.
 
 When investigating layout issues, @code{annotate-spacing} is
 an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ruser{Displaying spacing}, for more
+layout spacing commands; see @ref{Displaying spacing}, for more
 details.  From the output of @code{annotate-spacing}, we can
 see which margins we may wish to alter.
 
@@ -2262,7 +2262,7 @@ e4 c g\f c
 
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ruser{Changing horizontal spacing}, for more details.  Here's
+@ref{Changing horizontal spacing}, for more details.  Here's
 an example first showing the default behavior:
 
 @lilypond[verbatim,quote,ragged-right]

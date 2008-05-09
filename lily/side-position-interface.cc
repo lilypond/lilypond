@@ -218,6 +218,10 @@ Side_position_interface::calc_cross_staff (SCM smob)
   Grob *me = unsmob_grob (smob);
   extract_grob_set (me, "side-support-elements", elts);
 
+  for (vsize i = 0; i < elts.size (); i++)
+    if (to_boolean (elts[i]->get_property ("cross-staff")))
+      return SCM_BOOL_T;
+
   Grob *common = common_refpoint_of_array (elts, me->get_parent (Y_AXIS), Y_AXIS);
   return scm_from_bool (common != me->get_parent (Y_AXIS));
 }
@@ -290,6 +294,7 @@ Side_position_interface::set_axis (Grob *me, Axis a)
 			     a);
     }
 }
+
 Axis
 Side_position_interface::get_axis (Grob *me)
 {

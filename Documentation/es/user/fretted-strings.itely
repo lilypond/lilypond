@@ -10,8 +10,8 @@
 @c \version "2.11.38"
 
 
-@node Guitar
-@section Guitar
+@node Fretted string instruments
+@section Fretted string instruments
 
 @cindex tablatura
 @cindex guitarra, tablatura de
@@ -263,7 +263,7 @@ ejemplo siguiente
 Existen tres interfaces distintos para el marcado de los diagramas de trastes: estándar, escueto
 y prolijo.  Los tres interfaces producen unos elementos de marcado equivalentes, pero tienen
 cantidades variables de información en la cadena de marcado.  Se pueden encontrar
-más detalles sobre los interfaces de marcado en @ref{Overview of text markup commands}.
+más detalles sobre los interfaces de marcado en @ref{Text markup commands}.
 
 Puede establecer un cierto número de propiedades gráficas según su elección.
 Se pueden encontrar más detalles sobre el interface de las propiedades de los diagramas de trastes en

@@ -392,7 +392,7 @@ appearance may be modified in the usual way with
 @c See issue 509
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \times 2/3 { c8[ c c]}
-\once \override TupletNumber 
+\once \override TupletNumber
   #'text = #tuplet-number::calc-fraction-text
 \times 2/3 {
   c[ c]
@@ -453,12 +453,12 @@ music:
 {
   \time 6/8
   {
-    r4 b8 b[( g]) g | 
-    g[( e]) e d[( f]) a | 
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond 
@@ -544,7 +544,7 @@ close to it.}  Let's do that:
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond 
@@ -604,12 +604,12 @@ repositioned as follows:
     r4 b8
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    b[( g]) g | 
-    g[( e]) e d[( f]) a | 
-    a g 
+    b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond 
@@ -641,11 +641,11 @@ the slurs begin:
     b[( g]) g |
     % Increase thickness of immediately following slur only
     \once \override Slur #'thickness = #5.0
-    g[( e]) e d[( f]) a | 
+    g[( e]) e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond 
@@ -664,14 +664,14 @@ after the second slur:
     % Increase thickness of all following slurs from 1.2 to 5.0
     \override Slur #'thickness = #5.0
     b[( g]) g |
-    g[( e]) 
+    g[( e])
     % Revert thickness of all following slurs to default of 1.2
     \revert Slur #'thickness
-    e d[( f]) a | 
+    e d[( f]) a |
     a g
   }
   \addlyrics {
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond
@@ -776,7 +776,7 @@ lyrics which it should affect, like this:
   }
   \addlyrics {
     \override LyricText #'font-shape = #'italic
-    The man who feels love's sweet e -- mo -- tion 
+    The man who feels love's sweet e -- mo -- tion
   }
 }
 @end lilypond
@@ -1196,7 +1196,7 @@ we simply set the stencil of each to @code{#f}, as follows:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main" 
+        alignAboveContext = "main"
       }
       {
         \override Staff.Clef #'stencil = ##f
@@ -1253,7 +1253,7 @@ So we could replace the example above with
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main" 
+        alignAboveContext = "main"
         % Don't print clefs in this staff
         \override Clef #'stencil = ##f
         % Don't print time signatures in this staff
@@ -1314,7 +1314,7 @@ Let's try it in our ossia example:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main" 
+        alignAboveContext = "main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         % Reduce all font sizes by ~24%
@@ -1369,7 +1369,7 @@ objects in proportion.  It is used like this:
     <<
       { f c c }
       \new Staff \with {
-        alignAboveContext = "main" 
+        alignAboveContext = "main"
         \override Clef #'stencil = ##f
         \override TimeSignature #'stencil = ##f
         fontSize = #-2
@@ -2793,7 +2793,7 @@ But how do we merge notes in different voices together?  The
 index in the Notation Reference does not mention merging,
 but a search of the text for @q{merge} quickly leads us to
 the overrides for merging differently headed and differently
-dotted notes in @ruser{Collision Resolution}.  In our
+dotted notes in @ruser{Collision resolution}.  In our
 example we need to merge both types of note for the duration
 of the polyphonic section in bar 3, so using the information
 in the Notation Reference we add

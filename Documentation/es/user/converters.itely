@@ -98,8 +98,8 @@ Imprimir valores de figura explícitos.
 Mostrar un resumen de las instrucciones de utilización.
 
 @item -k, --key=@var{alteración}[:@var{minor}]
-Establecer la tonalidad predeterminada.  @var{alteración}@math{ > 0}
-establece el número de sostenidos; @var{alteración}@math{ < 0}
+Establecer la tonalidad predeterminada. @math{@var{alteración} > 0}
+establece el número de sostenidos; @math{@var{alteración} < 0}
 establece el número de bemoles.  Se indica una tonalidad menor
 mediante @code{:1}.
 

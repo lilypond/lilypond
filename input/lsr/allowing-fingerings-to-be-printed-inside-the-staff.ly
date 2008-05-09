@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use, spacing"
+  lsrtags = "editorial-annotations, spacing"
 
   texidoc = "
 By default, fingering numbers will be printed outside the staff.

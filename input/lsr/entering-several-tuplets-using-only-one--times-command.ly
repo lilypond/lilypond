@@ -19,7 +19,7 @@ For more information about @code{make-moment}, see \"Time
 administration\". 
 
 "
-  doctitle = "Entering several tuplets using only one \times command"
+  doctitle = "Entering several tuplets using only one \\times command"
 } % begin verbatim
 \relative c' {
   \time 2/4

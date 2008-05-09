@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
+    Translation of GIT committish: 2c2b739a8f4c1998ffb6423d1d73350426ec59be
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -381,26 +381,27 @@ pero esto se puede cambiar sobreescribiendo las propiedades
 @code{break-align-anchor-alignment} y
 @code{break-align-anchor} para el objeto gráfico apropiado.
 
+@c KEEP LY
 @lilypond[fragment,quote,ragged-right,verbatim]
 {
   \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
   c1
   \key cis \major
 
-  % the RehearsalMark will be aligned with the left edge of the KeySignature
+  % La llamada se alinea con el límite izquierdo de la armadura
   \once \override Staff.KeySignature #'break-align-anchor-alignment = #LEFT
   \mark \default
   cis1
   \key ces \major
 
-  % the RehearsalMark will be aligned with the right edge of the KeySignature
+  % La llamada se alinea con el límite derecho de la armadura
   \once \override Staff.KeySignature #'break-align-anchor-alignment = #RIGHT
   \mark \default
   ces1
   \key cis \major
 
-  % the RehearsalMark will be aligned with the left edge of the KeySignature
-  % and then shifted right by 2 units.
+  % La llamada se alinea con el límite izquierdo de la armadura
+  % y después se desplaza 2 unidades hacia la derecha.
   \once \override Staff.KeySignature #'break-align-anchor = #2
   \mark \default
   ces1
@@ -445,7 +446,7 @@ indicaciones.  Tenga en cuenta que la tipografía de dinámica contiene solament
 Algunas situaciones (como las indicaciones de dinámica) tienen propiedades de tipografía
 establecidas como fijas.  Si estamos creando texto en estas situaciones,  se recomienda
 cancelar dichas propiedades con
-@code{normal-text}.  Consulte @ref{Overview of text markup commands} para
+@code{normal-text}.  Consulte @ref{Text markup commands} para
 ver más detalles.
 
 @cindex make-dynamic-script
@@ -502,7 +503,7 @@ c1_\markup { "\special {weird} #characters" }
 @end lilypond
 
 @noindent
-Consulte @ref{Overview of text markup commands}, para ver una lista de todas las
+Consulte @ref{Text markup commands}, para ver una lista de todas las
 instrucciones.
 
 @code{\markup} se usa principalmente para indicaciones del tipo @internalsref{TextScript},
@@ -620,13 +621,13 @@ c'4^\markup{ \hspace #0 \raise #1.5 raised }
 Algunas situaciones (como las indicaciones de dinámica) tienen propiedades de tipografía
 preestablecidas.  Si está creando texto en tales situaciones, recomendamos
 cancelar dichas propiedades con
-@code{normal-text}.  Consulte @ref{Overview of text markup commands}
+@code{normal-text}.  Consulte @ref{Text markup commands}
 para ver más detalles.
 
 
 @seealso
 
-En el presente manual: @ref{Overview of text markup commands}.
+En el presente manual: @ref{Text markup commands}.
 
 Referencia del programa: @internalsref{TextScript}.
 
@@ -684,11 +685,11 @@ que se pueden extender sobre varias páginas:
 @code{\markuplines} admite una lista de elementos de marcado, ya sea el resultado de
 una instrucción de lista de marcado, o una lista de elementos o listas de elementos. Las
 instrucciones incorporadas de lista de elementos de marcado se describen en
-@ref{Overview of text markup list commands}.
+@ref{Text markup list commands}.
 
 @seealso
 
-En este manual: @ref{Overview of text markup list commands}, 
+En este manual: @ref{Text markup list commands}, 
 @ref{New markup list command definition}.
 
 @predefined

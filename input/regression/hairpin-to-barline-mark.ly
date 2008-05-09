@@ -1,13 +1,13 @@
-\version "2.11.12"
-\paper { ragged-right = ##t }
+\version "2.11.46"
+
 \header {
 
-  texidoc = "hairpinToBarline is not confused by very long marks."
+  texidoc = "'to-barline is not confused by very long marks."
 
 }
 
 \new Staff \relative c' {
-  c1\< |
+  c1\<
   \mark "Very long mark"
-  c4\> c c c\! |
+  c4\> c c c\!
 }

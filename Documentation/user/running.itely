@@ -17,17 +17,17 @@ This chapter details the technicalities of running LilyPond.
 
 @menu
 * Normal usage::                
-* Command-line usage::          
-* Error messages::              
-* Updating files with convert-ly::  
-* Reporting bugs::              
+* Command-line usage::
+* Error messages::
+* Updating files with convert-ly::
+* Reporting bugs::
 @end menu
 
 
 @node Normal usage
 @section Normal usage
 
-Most users run LilyPond through a GUI; see @ruser{First steps} if
+Most users run LilyPond through a GUI; see @rlearning{First steps} if
 you have not read this already.
 
 
@@ -49,7 +49,13 @@ Describing how to use this part of an operating system is outside the
 scope of this manual; please consult other documentation on this topic
 if you are unfamiliar with the command-line.
 
+@menu
+* Invoking lilypond::
+* Command line options::
+* Environment variables::
+@end menu
 
+@node Invoking lilypond
 @subsection Invoking lilypond
 
 @cindex Invoking LilyPond
@@ -79,13 +85,13 @@ GUILE is not reset after processing a @code{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
 In addition, the value of @code{output-suffix} will be inserted between
-the basename and the number.  An input file containing 
+the basename and the number.  An input file containing
 
 @example
 #(define output-suffix "violin")
-\book @{ @dots{} @} 
+\book @{ @dots{} @}
 #(define output-suffix "cello")
-\book @{ @dots{} @} 
+\book @{ @dots{} @}
 @end example
 
 @noindent
@@ -93,7 +99,7 @@ will output @var{base}@file{-violin.ps} and
 @var{base}@file{-cello-1.ps}.
 
 
-
+@node Command line options
 @subsection Command line options
 
 The following options are supported:
@@ -155,7 +161,7 @@ Running @code{lilypond -dhelp} will print all of the @code{-d} options
 available.
 
 @item paper-size
-This option sets the default paper-size, 
+This option sets the default paper-size,
 @example
 -dpaper-size=\"letter\"
 @end example
@@ -366,7 +372,7 @@ Show the warranty with which GNU LilyPond comes. (It comes with
 @strong{NO WARRANTY}!)
 @end table
 
-
+@node Environment variables
 @subsection Environment variables
 
 
@@ -636,7 +642,7 @@ bug by following the directions on
 
 @uref{http://lilypond.org/web/devel/participating/bugs}
 
-Please construct submit @ruser{Minimal examples}, of bug reports.  We do not
+Please construct and submit minimal examples of bugs in reports.  We do not
 have the resources to investigate reports which are not as small as possible.
 
 

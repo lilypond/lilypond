@@ -773,7 +773,7 @@ def paired_files (dir1, dir2, pattern):
         
     pairs = []
     missing = []
-    for f in files[0].keys ():
+    for f in files[0]:
         try:
             files[1].pop (f)
             pairs.append (f)

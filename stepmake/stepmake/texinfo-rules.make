@@ -26,11 +26,6 @@ endif
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
-	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
-
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $< 
 	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
@@ -49,6 +44,11 @@ $(outdir)/%.pdf.omf: %.texi
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
 
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
+	mkdir -p $(dir $@)
+	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
+	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
+
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
 
@@ -64,3 +64,4 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo $(TOPLEVEL_VERSION)>> $@
 	echo '@end macro'>> $@
 
+.SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi

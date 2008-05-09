@@ -9,33 +9,49 @@
 
 @c \version "2.11.38"
 
+@node Keyboard instruments
+@section Keyboard instruments
 
-@node Piano music
-@section Piano music
-
-@menu 
-* TODO piano node fix::
+@menu
+* Common notation for keyboards::  
+* Piano::                       
+* Accordion::                   
 @end menu
 
-@node TODO piano node fix
-@subsection TODO piano node fix
+@node Common notation for keyboards
+@subsection Common notation for keyboards
+
+@menu
+* References for keyboards::    
+* The piano staff::             
+* Changing staff manually::     
+* Changing staff automatically::  
+* Staff-change lines::          
+* Cross-staff stems::           
+@end menu
+
+
+@node References for keyboards
+@subsubsection References for keyboards
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+@ifnothtml
+@englishref
+@end ifnothtml
+
+@node The piano staff
+@subsubsection The piano staff
 
 Ein Pianosystem besteht aus zwei normalen Notensystemen, die durch 
 eine Klammer verbunden sind. Die Systeme sind verhältnismäßig 
 unabhängig, aber zeitweise können Stimmen zwischen den Systemen 
 wechseln. Die gleiche Notation wird auch für andere Tasteninstrumente 
 sowie Harfen verwendet. Das Klaviersystem (mit dem Befehl 
-@internalsref{PianoStaff} erstellt) ist speziell dazu geschaffen, Stimmen 
+@code{PianoStaff} erstellt) ist speziell dazu geschaffen, Stimmen 
 zwischen den Systemen wechseln zu lassen. In diesem Abschnitt werden 
 das Klaviersystem und andere Eigenheiten der Pianonotation besprochen.
-
-@menu
-* Automatic staff changes::     
-* Manual staff switches::       
-* Pedals::                      
-* Staff switch lines::          
-* Cross staff stems::           
-@end menu
 
 @knownissues
 
@@ -43,13 +59,52 @@ Dynamische Zeichen werden nicht automatisch mittig notiert, aber
 dafür gibt es Lösungen, vgl. die 
 @q{piano centered dynamics}-Vorlage in @rlearning{Piano templates}.
 
-@cindex Hälse über zwei Systeme
-@cindex System querende Hälse
-@cindex Abstand zwischen Systemen in Klaviernoten
+
+@node Changing staff manually
+@subsubsection Changing staff manually
+
+@cindex manuelle Systemwechsel
+@cindex Systemwechsel, manuell
+@cindex Wechsel des Systems, manuell
+
+Stimmen können mit dem Befehl
+@example
+\change Staff = @var{Systembezeichnung} @var{Noten}
+@end example
+
+@noindent
+manuell erzielt werden. Die Zeichenkette @var{Systembezeichnung} ist die 
+Bezeichnung des Systems. Damit wird die aktuelle Stimme vom aktuellen 
+System zu dem System mit der @var{Systembezeichnung} gewechselt. 
+Üblicherweise ist die Systembezeichnung @code{"up"} oder
+@code{"down"}.  Dieses System (@context{Staff}), auf das verweisen wird, 
+muss auch wirklich existieren, weshalb die Aufstellung eines Klaviersystems 
+dann üblicherweise damit beginnt, die Systeme zu benennen. Hierbei können 
+natürlich beliebige Namen vergeben werden.
+
+@example
+<<
+  \new Staff = "up" @{
+    \skip 1 * 10  % @emph{keep staff alive}
+    @}
+  \new Staff = "down" @{
+    \skip 1 * 10  % @emph{idem}
+    @}
+>>
+@end example
+
+@noindent
+Die einzelnen Stimmen werden mit dem @code{Voice}-Befehl 
+daraufhin eingefügt.
+
+@example
+\context Staff = down
+  \new Voice @{ @dots{} \change Staff = up @dots{} @}
+@end example
 
 
-@node Automatic staff changes
-@unnumberedsubsubsec Automatic staff changes
+@node Changing staff automatically
+@subsubsection Changing staff automatically
 @cindex Automatischer Systemwechsel
 
 Stimmen können angewiesen werden, automatisch zwischen dem 
@@ -94,7 +149,7 @@ wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 
 @seealso
 
-Im Handbuch: @ref{Manual staff switches}.
+Im Handbuch: @rlearning{Single staff}.
 
 Programmreferenz: @internalsref{AutoChangeMusic}.
  
@@ -106,51 +161,87 @@ Für hohe Qualität muss der Wechsel mit der Hand eingegeben werden.
 @code{\autochange} kann sich nicht innerhalb einer @code{\times}-Umgebung 
 befinden.
 
-@node Manual staff switches
-@unnumberedsubsubsec Manual staff switches
 
-@cindex manuelle Systemwechsel
-@cindex Systemwechsel, manuell
-@cindex Wechsel des Systems, manuell
+@node Staff-change lines
+@subsubsection Staff-change lines
 
-Stimmen können mit dem Befehl
-@example
-\change Staff = @var{Systembezeichnung} @var{Noten}
-@end example
+@cindex Stimmkreuzung
+@cindex Systemwechsel von Stimmen
+@cindex Wechsel zwischen Systemen
 
-@noindent
-manuell erzielt werden. Die Zeichenkette @var{Systembezeichnung} ist die 
-Bezeichnung des Systems. Damit wird die aktuelle Stimme vom aktuellen 
-System zu dem System mit der @var{Systembezeichnung} gewechselt. 
-Üblicherweise ist die Systembezeichnung @code{"up"} oder
-@code{"down"}.  Dieses System (@context{Staff}), auf das verweisen wird, 
-muss auch wirklich existieren, weshalb die Aufstellung eines Klaviersystems 
-dann üblicherweise damit beginnt, die Systeme zu benennen. Hierbei können 
-natürlich beliebige Namen vergeben werden.
+@funindex followVoice
 
-@example
-<<
-  \new Staff = "up" @{
-    \skip 1 * 10  % @emph{keep staff alive}
-    @}
-  \new Staff = "down" @{
-    \skip 1 * 10  % @emph{idem}
-    @}
+Immer, wenn eine Stimme von einem Klaviersystem zu dem anderen 
+wechselt, kann automatisch eine Linie zur Verdeutlichung des 
+Stimmenverlaufs ausgegeben werden. Das wird erreicht, indem 
+@code{followVoice} aktiviert wird:
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new PianoStaff <<
+  \new Staff="one" {
+    \set followVoice = ##t
+    c1
+    \change Staff=two
+    b2 a
+  }
+  \new Staff="two" { \clef bass \skip 1*2 }
 >>
-@end example
+@end lilypond
 
-@noindent
-Die einzelnen Stimmen werden mit dem @code{Voice}-Befehl 
-daraufhin eingefügt.
+@seealso
 
-@example
-\context Staff = down
-  \new Voice @{ @dots{} \change Staff = up @dots{} @}
-@end example
+Programmreferenz: @internalsref{VoiceFollower}.
+
+@predefined
+
+@funindex \showStaffSwitch
+@code{\showStaffSwitch},
+@funindex \hideStaffSwitch
+@code{\hideStaffSwitch}.
 
 
-@node Pedals
-@unnumberedsubsubsec Pedals
+@node Cross-staff stems
+@subsubsection Cross-staff stems
+
+@cindex Hälse über zwei Systeme
+@cindex System querende Hälse
+@cindex Abstand zwischen Systemen in Klaviernoten
+
+Akkorde, die über zwei Systeme reichen, können erstellt werden,
+indem die Länge der Hälse im unteren System vergrößert wird, 
+bis sie zum oberen System hinauf reichen bzw. umgekehrt bei 
+Hälsen, die nach unten zeigen.
+
+@lilypond[ragged-right,verbatim,quote]
+stemExtend = {
+  \once \override Stem #'length = #10
+  \once \override Stem #'cross-staff = ##t
+}
+noFlag = \once \override Stem #'flag-style = #'no-flag
+\new PianoStaff <<
+  \new Staff {
+    \stemDown \stemExtend
+    f'4
+    \stemExtend \noFlag
+    f'8
+  }
+  \new Staff {
+    \clef bass
+    a4 a8
+  }
+>>
+@end lilypond
+
+
+@node Piano
+@subsection Piano
+
+@menu
+* Piano pedals::                
+@end menu
+
+@node Piano pedals
+@subsubsection Piano pedals
 @cindex Pedalbezeichnung
 
 Klaviere haben Pedale, mit denen die Klangeigenschaften beeinflusst werden 
@@ -221,72 +312,20 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 
 Im Handbuch: @ref{Laissez vibrer ties}
 
-@node Staff switch lines
-@unnumberedsubsubsec Staff switch lines
 
+@node Accordion
+@subsection Accordion
 
-@cindex Stimmkreuzung
-@cindex Systemwechsel von Stimmen
-@cindex Wechsel zwischen Systemen
+@menu
+* Discant symbols::             
+@end menu
 
-@funindex followVoice
+@node Discant symbols
+@subsubsection Discant symbols
 
-Immer, wenn eine Stimme von einem Klaviersystem zu dem anderen 
-wechselt, kann automatisch eine Linie zur Verdeutlichung des 
-Stimmenverlaufs ausgegeben werden. Das wird erreicht, indem 
-@code{followVoice} aktiviert wird:
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new PianoStaff <<
-  \new Staff="one" {
-    \set followVoice = ##t
-    c1
-    \change Staff=two
-    b2 a
-  }
-  \new Staff="two" { \clef bass \skip 1*2 }
->>
-@end lilypond
-
-@seealso
-
-Programmreferenz: @internalsref{VoiceFollower}.
-
-@predefined
-
-@funindex \showStaffSwitch
-@code{\showStaffSwitch},
-@funindex \hideStaffSwitch
-@code{\hideStaffSwitch}.
-
-
-@node Cross staff stems
-@unnumberedsubsubsec Cross staff stems
-
-Akkorde, die über zwei Systeme reichen, können erstellt werden,
-indem die Länge der Hälse im unteren System vergrößert wird, 
-bis sie zum oberen System hinauf reichen bzw. umgekehrt bei 
-Hälsen, die nach unten zeigen.
-
-@lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
-\new PianoStaff <<
-  \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
-  }
-  \new Staff {
-    \clef bass
-    a4 a8
-  }
->>
-@end lilypond
-
-
-
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+@ifnothtml
+@englishref
+@end ifnothtml

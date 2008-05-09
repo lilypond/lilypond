@@ -541,7 +541,7 @@ context.  The Score context is the top level notation context.
 
 @seealso
 
-Internals Reference: @internalsref{Contexts}.
+Internals Reference: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -861,7 +861,7 @@ section explains how to upgrade input files from previous versions of
 LilyPond.
 
 @item
-@emph{@rprogram{lilypond-book}},
+@emph{@rprogram{LilyPond-book}},
 explains the details behind creating
 documents with in-line music examples, like this manual.
 

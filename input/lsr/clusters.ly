@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "simultaneous-notes, chords, piano-music"
+  lsrtags = "simultaneous-notes, chords, keyboards"
 
   texidoc = "
 Clusters are a device to denote that a complete range of notes is to be

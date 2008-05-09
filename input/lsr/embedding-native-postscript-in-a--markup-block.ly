@@ -3,14 +3,14 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "editorial-and-educational-use, text"
+  lsrtags = "editorial-annotations, text"
 
   texidoc = "
 PostScript code can be directly inserted inside a @code{\\markup}
 block. 
 
 "
-  doctitle = "Embedding native PostScript in a \markup block"
+  doctitle = "Embedding native PostScript in a \\markup block"
 } % begin verbatim
 % PostScript is a registred trademark by Adobe Systems Inc.
 

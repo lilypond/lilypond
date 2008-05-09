@@ -256,8 +256,8 @@ Line thickness is given by @var{th}, fret & string spacing by
 (define (draw-xo layout props string-count fret-range size xo-list orientation)
 "Put open and mute string indications on diagram, as contained in @var{xo-list}."
     (let* ((fret-count (+ (- (cadr fret-range) (car fret-range) 1)))
-           (xo-font-mag (* size (chain-assoc-get 'xo-font-magnification props 0.5)))
-;           (xo-font-mag (* size 0.5))
+           (xo-font-mag (chain-assoc-get 'xo-font-magnification props 0.5))
+;           (xo-font-mag 0.5)
 ;           (xo-horizontal-offset (* size (chain-assoc-get 'xo-horizontal-offset props -0.35)))
            (xo-horizontal-offset (* size -0.35))
            (mypair (car xo-list))
@@ -408,9 +408,20 @@ Line thickness is given by @var{th}, fret & string spacing by
        (ly:stencil-translate-axis 
            (sans-serif-stencil layout props (* size label-font-mag) label-text) 
                        (* size (+ 1 label-vertical-offset)) X))))
- 
+
 (define-builtin-markup-command (fret-diagram-verbose layout props marking-list)
   (list?)
+  fret-diagram
+  ((size 1.0) ; needed for everything
+   (string-count 6) ; needed for everything
+   (fret-count 4) ; needed for everything
+   (orientation 'normal) ; needed for everything
+   (finger-code 'none)  ; needed for both draw-dots and draw-barre
+   (thickness 0.5) ; needed for both draw-frets and draw-strings
+   (align-dir -0.4) ; needed only here
+   (label-dir RIGHT)
+   (dot-radius)
+   (dot-position))
   "Make a fret diagram containing the symbols indicated in @var{marking-list}.
 
   For example,
@@ -447,79 +458,65 @@ changed by setting the value of the variable @var{dot-color}.  If the
 variable @var{finger-code}.  There is no limit to the number of fret
 indications per string.
 @end table"
-   (make-fret-diagram layout props marking-list))
-   
-(define (make-fret-diagram layout props marking-list)
-" Make a fret diagram markup"
-  (let* (
-         ; note:  here we get items from props that are needed in this routine, or that are needed in more than one
-         ; of the procedures called from this routine.  If they're only used in one of the sub-procedure, they're 
-         ; obtained in that procedure
-         
-         (size (chain-assoc-get 'size props 1.0)) ; needed for everything
-;TODO -- get string-count directly from length of stringTunings; requires FretDiagram engraver, which is not yet available
-;TODO -- adjust padding for fret label?  it appears to be too close to dots
-         (string-count (chain-assoc-get 'string-count props 6)) ; needed for everything
-         (fret-count (chain-assoc-get 'fret-count props 4)) ; needed for everything
-         (orientation (chain-assoc-get 'orientation props 'normal)) ; needed for everything
-         (finger-code (chain-assoc-get 'finger-code props 'none))  ; needed for both draw-dots and draw-barre
+  (let* (;; note:  here we get items from props that are needed in this routine, or that are needed in more than one
+         ;; of the procedures called from this routine.  If they're only used in one of the sub-procedure, they're 
+         ;; obtained in that procedure
+         ;;TODO -- get string-count directly from length of stringTunings; requires FretDiagram engraver, which is not yet available
+         ;;TODO -- adjust padding for fret label?  it appears to be too close to dots
          (default-dot-radius (if (eq? finger-code 'in-dot) 0.425 0.25))  ; bigger dots if labeled
          (default-dot-position (if (eq? finger-code 'in-dot) (- 0.95 default-dot-radius) 0.6))  ; move up to make room for bigger if labeled
          (dot-radius (chain-assoc-get 'dot-radius props default-dot-radius))  ; needed for both draw-dots and draw-barre
          (dot-position (chain-assoc-get 'dot-position props default-dot-position)) ; needed for both draw-dots and draw-barre
          (th (* (ly:output-def-lookup layout 'line-thickness)
-                (chain-assoc-get 'thickness props 0.5))) ; needed for both draw-frets and draw-strings
-                
-         (alignment (chain-assoc-get 'align-dir props -0.4)) ; needed only here
-;         (xo-padding (* th (chain-assoc-get 'padding props 2))) ; needed only here
+                thickness)) ; needed for both draw-frets and draw-strings
+         ;; (xo-padding (* th (chain-assoc-get 'padding props 2))) ; needed only here
          (label-space (* 0.25 size))
          (xo-padding (* th size 5))
-         (label-dir (chain-assoc-get 'label-dir props RIGHT))
          (parameters (fret-parse-marking-list marking-list fret-count))
          (dot-list (cdr (assoc 'dot-list parameters)))
          (xo-list (cdr (assoc 'xo-list parameters)))
          (fret-range (cdr (assoc 'fret-range parameters)))
          (barre-list (cdr (assoc 'barre-list parameters)))
          (fret-diagram-stencil (ly:stencil-add
-                            (draw-strings string-count fret-range th size orientation)
-                            (draw-frets layout props fret-range string-count th size orientation))))
-         (if (not (null? barre-list))
-             (set! fret-diagram-stencil (ly:stencil-add
+                                (draw-strings string-count fret-range th size orientation)
+                                (draw-frets layout props fret-range string-count th size orientation))))
+    (if (not (null? barre-list))
+        (set! fret-diagram-stencil (ly:stencil-add
                                     (draw-barre layout props string-count fret-range size finger-code  
                                                 dot-position dot-radius barre-list orientation)
                                     fret-diagram-stencil)))
-         (if (not (null? dot-list))
-             (set! fret-diagram-stencil (ly:stencil-add
+    (if (not (null? dot-list))
+        (set! fret-diagram-stencil (ly:stencil-add
                                     fret-diagram-stencil
                                     (draw-dots layout props string-count fret-count fret-range size finger-code
-                                          dot-position dot-radius th dot-list orientation))))
-         (if (= (car fret-range) 1)
-             (set! fret-diagram-stencil
-                 (if (eq? orientation 'normal)
-                     (ly:stencil-combine-at-edge fret-diagram-stencil Y UP
-                         (draw-thick-zero-fret props string-count th size orientation))
-                     (ly:stencil-combine-at-edge fret-diagram-stencil X LEFT
-                         (draw-thick-zero-fret props string-count th size orientation)))))
-         (if (not (null? xo-list))
-             (set! fret-diagram-stencil
-                  (if (eq? orientation 'normal)
-                      (ly:stencil-combine-at-edge fret-diagram-stencil Y UP
-                          (draw-xo layout props string-count fret-range size xo-list orientation) xo-padding )
-                      (ly:stencil-combine-at-edge fret-diagram-stencil X LEFT
-                          (draw-xo layout props string-count fret-range size xo-list orientation) xo-padding))))
-         (if (> (car fret-range) 1) 
-             (set! fret-diagram-stencil
-                  (if (eq? orientation 'normal)
-                   (ly:stencil-combine-at-edge fret-diagram-stencil X label-dir
-                             (label-fret layout props string-count fret-range size orientation) label-space)
-                      (ly:stencil-combine-at-edge fret-diagram-stencil Y label-dir
-                             (label-fret layout props string-count fret-range size orientation) label-space))))
+                                               dot-position dot-radius th dot-list orientation))))
+    (if (= (car fret-range) 1)
+        (set! fret-diagram-stencil
+              (if (eq? orientation 'normal)
+                  (ly:stencil-combine-at-edge fret-diagram-stencil Y UP
+                                              (draw-thick-zero-fret props string-count th size orientation))
+                  (ly:stencil-combine-at-edge fret-diagram-stencil X LEFT
+                                              (draw-thick-zero-fret props string-count th size orientation)))))
+    (if (not (null? xo-list))
+        (set! fret-diagram-stencil
+              (if (eq? orientation 'normal)
+                  (ly:stencil-combine-at-edge fret-diagram-stencil Y UP
+                                              (draw-xo layout props string-count fret-range size xo-list orientation) xo-padding )
+                  (ly:stencil-combine-at-edge fret-diagram-stencil X LEFT
+                                              (draw-xo layout props string-count fret-range size xo-list orientation) xo-padding))))
+    (if (> (car fret-range) 1) 
+        (set! fret-diagram-stencil
+              (if (eq? orientation 'normal)
+                  (ly:stencil-combine-at-edge fret-diagram-stencil X label-dir
+                                              (label-fret layout props string-count fret-range size orientation) label-space)
+                  (ly:stencil-combine-at-edge fret-diagram-stencil Y label-dir
+                                              (label-fret layout props string-count fret-range size orientation) label-space))))
+    (ly:stencil-aligned-to fret-diagram-stencil X align-dir)))
 
-         (ly:stencil-aligned-to fret-diagram-stencil X alignment)
-	 ))
-         
 (define-builtin-markup-command (fret-diagram layout props definition-string)
   (string?)
+  fret-diagram
+  (fret-diagram-verbose-markup)
   "Make a (guitar) fret diagram.  For example, say
 
 @example
@@ -588,8 +585,8 @@ by the @code{f:} code.
 @item
 Note: There is no limit to the number of fret indications per string.
 @end itemize"
-       (let ((definition-list (fret-parse-definition-string props definition-string)))
-       (make-fret-diagram layout (car definition-list) (cdr definition-list))))
+  (let ((definition-list (fret-parse-definition-string props definition-string)))
+    (fret-diagram-verbose-markup layout (car definition-list) (cdr definition-list))))
 
 (define (fret-parse-definition-string props definition-string)
  "parse a fret diagram string and return a pair containing:
@@ -660,6 +657,8 @@ Note: There is no limit to the number of fret indications per string.
            
 (define-builtin-markup-command (fret-diagram-terse layout props definition-string)
   (string?)
+  fret-diagram
+  (fret-diagram-verbose-markup)
   "Make a fret diagram markup using terse string-based syntax.
 
 Here an example
@@ -702,9 +701,9 @@ Where a barre indicator is desired, follow the fret (or fingering) symbol
 with @code{-(} to start a barre and @code{-)} to end the barre.
 
 @end itemize"
-;TODO -- change syntax to fret\string-finger
-       (let ((definition-list (fret-parse-terse-definition-string props definition-string)))
-       (make-fret-diagram layout (car definition-list) (cdr definition-list))))
+  ;; TODO -- change syntax to fret\string-finger
+  (let ((definition-list (fret-parse-terse-definition-string props definition-string)))
+    (fret-diagram-verbose-markup layout (car definition-list) (cdr definition-list))))
 
 (define (fret-parse-terse-definition-string props definition-string)
  "parse a fret diagram string that uses terse syntax; return a pair containing:

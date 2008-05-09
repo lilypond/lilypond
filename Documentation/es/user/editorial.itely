@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: aae416a0211bad0bbed5c82b91d80a83d21e8054
+    Translation of GIT committish: b92cad66f01316c6d1121fe08bffc92db104c46c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -18,8 +18,8 @@ Esta sección trata de las diversas maneras de modificar el aspecto de
 las notas y de aplicar énfasis analítico o educativo.
 
 @menu
-* Inside the staff::            
-* Outside the staff::           
+* Inside the staff::
+* Outside the staff::
 @end menu
 
 
@@ -30,66 +30,74 @@ Esta sección trata sobre cómo aplicar énfasis a los elementos situados
 dentro del pentagrama.
 
 @menu
-* Selecting notation font size::  
-* Fingering instructions::      
-* Hidden notes::                
-* Coloring objects::            
-* Parentheses::                 
-* Stems::                       
+* Selecting notation font size::
+* Fingering instructions::
+* Hidden notes::
+* Coloring objects::
+* Parentheses::
+* Stems::
 @end menu
 
 @node Selecting notation font size
-@subsubsection Selecting notation font size
+@unnumberedsubsubsec Selecting notation font size
 
-@cindex fuente tipográfica, tamaño 
-@cindex fuente tipográfica, tamaño, seleccionar
-@cindex selección del tamaño de la fuente tipográfica
+@cindex fuente tipográfica (de notación), tamaño
+@cindex selección del tamaño de la fuente tipográfica (de notación)
 
-El método más sencillo para establecer el tamaño de la tipografía de
-cualquier contexto es mediante el ajuste de la propiedad
-@code{fontSize}.
+Se puede alterar el tamaño de la fuente tipográfica de los elementos
+de notación.  Esto no cambia el tamaño de los símbolos variables, como
+las barras de corchea o las ligaduras.
+
+@warning{Para los tamaños de tipografía del @strong{texto}, consulte
+@ref{Text markup list commands}.}
 
 @lilypond[quote,fragment,relative=2,verbatim,ragged-right]
-c4
-\set fontSize = #-4
-c f
+\huge
+c4.-> d8---3
+\large
+c4.-> d8---3
+\normalsize
+c4.-> d8---3
+\small
+c4.-> d8---3
+\tiny
+c4.-> d8---3
+\teeny
+c4.-> d8---3
+@end lilypond
+
+@cindex fuente tipográfica (de notación), escalado del tamaño
+
+Internamente, esto establece un valor para la propiedad
+@code{fontSize}.  Esto, a su vez, hace que se establezca el valor de
+la propiedad @code{font-size} de todos los objetos de presentación.
+El valor de @code{font-size} es un número que indica el tamaño con
+relación al tamaño estándar para la altura vigente del pentagrama.
+Cada unidad hacia arriba es un incremento de un 12% del tamaño de la
+fuente, aproximadamente.  Seis unidades son exactamente un factor de
+dos.  La función de Scheme @code{magstep} convierte un número de
+tamaño @code{font-size} a un factor de escalado.  La propiedad
+@code{font-size} también se puede establecer directamente, de forma
+que queden afectados solamente determinados objetos gráficos.
+
+@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
 \set fontSize = #3
-g8 a
-@end lilypond
-
-@noindent
-No modifica el tamaño de los símbolos variables como barras o
-ligaduras de expresión.
-
-@cindex fuente tipográfica, escalado del tamaño
-
-Internamente, la propiedad de contexto @code{fontSize} produce que se
-eestablezca el valor de la propiedad @code{font-size} en todos los
-objetos de presentación.  El valor de @code{font-size} es un número
-que indica el tamaño relativo al tamaño estándar para la altura
-vigente del pentagrama.  Cada paso hacia arriba es un incremento de un
-12% del tamaño de la fuente, aproximadamente.  Seis pasos son
-exactamente un factor de dos.  La función de Scheme @code{magstep}
-convierte un número de tamaño @code{font-size} a un factor de
-escalado.  La propiedad @code{font-size} también se puede establecer
-directamente, de forma que queden afectados solamente determinados
-objetos gráficos.
-
-@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
-c4
+c4.-> d8---3
 \override NoteHead #'font-size = #-4
-c f
-\override NoteHead #'font-size = #3
-g8 a
+c4.-> d8---3
+\override Script #'font-size = #2
+c4.-> d8---3
+\override Stem #'font-size = #-5
+c4.-> d8---3
 @end lilypond
 
-@cindex estándar, tamaño de la tipografía
-@cindex fuente tipográfica, tamaño estándar de
+@cindex estándar, tamaño de la tipografía (de notación)
+@cindex fuente tipográfica (de notación), tamaño estándar de
 
 Los cambios en el tamaño de la fuente se obtienen por medio del
 escalado del tamaño del diseño que se encuentra más cerca del tamaño
-deseado.  El tamaño estándar para la tipografía (para @code{font-size}
-igual a 0), depende de la altura estándar del pentagrama.  Para un
+deseado.  El tamaño estándar para la tipografía (para @code{font-size
+= #0}), depende de la altura estándar del pentagrama.  Para un
 pentagrama de 20 puntos, se selecciona una fuente de 10 puntos.
 
 La propiedad @code{font-size} sólo se puede establecer en objetos
@@ -98,82 +106,95 @@ contemplan el interfaz de presentación @code{font-interface}.
 
 @predefined
 
-Las siguientes instrucciones establecen un valor de @code{fontSize}
-para la voz en curso:
-
+@funindex \teeny
+@code{\teeny} (enano),
 @funindex \tiny
-@code{\tiny},
+@code{\tiny} (muy pequeño),
 @funindex \small
-@code{\small},
+@code{\small} (pequeño),
 @funindex \normalsize
-@code{\normalsize}.
+@code{\normalsize} (normal),
+@funindex \large
+@code{\large} (grande),
+@funindex \huge
+@code{\huge} (enorme).
 
 @seealso
 
-Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Referencia de funcionamiento interno: @internalsref{font-interface}.
+Referencia de funcionamiento interno:
+@internalsref{fontSize},
+@internalsref{font-size},
+@internalsref{font-interface}.
+
 
 @node Fingering instructions
-@subsubsection Fingering instructions
+@unnumberedsubsubsec Fingering instructions
 
 @cindex digitación
 @cindex cambio de dedo
 
 Las instrucciones de digitación se pueden introducir usando
-@example
-@var{nota}-@var{dígito}
-@end example
-Para los cambios de dedo, utilice marcas de texto.
+@var{nota}-@var{dígito}:
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-c4-1 c-2 c-3 c-4
-c^\markup { \finger "2 - 3" }
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+c4-1 d-2 f-4 e-3
 @end lilypond
 
-Puede usar la articulación de pulgar para indicar que una nota se debe tocar con el pulgar
-(p.ej. en música de cello)
+Para los cambios de dedo se pueden usar elementos de marcado de texto.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
+@end lilypond
+
+@cindex thumb-script
+
+Puede usar la articulación de pulgar para indicar que una nota se debe
+tocar con el pulgar (p.ej. en música de cello).
+
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
 <a_\thumb a'-3>8 <b_\thumb b'-3>
 @end lilypond
 
-Las digitaciones para los acordes también se pueden añadir a las notas individuales del acorde
-escribiéndolas después de las alturas
+@cindex fingering chords
+@cindex chords, fingering
+
+Las digitaciones para los acordes también se pueden añadir a las notas
+individuales del acorde escribiéndolas después de las alturas.
+
 @lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-< c-1 e-2 g-3 b-5 >4
+<c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
 @end lilypond
 
+Las indicaciones de digitación se pueden situar manualmente encima o
+debajo del pentagrama, véase @ref{Controlling direction and
+placement}.
 
-@commonprop
+@snippets
 
-Puede ejercer un mayor control sobre la digitación de los acordes
-estableciendo @code{fingeringOrientations}
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-\set fingeringOrientations = #'(left down)
-<c-1 es-2 g-4 bes-5 > 4
-\set fingeringOrientations = #'(up right down)
-<c-1 es-2 g-4 bes-5 > 4
-@end lilypond
-
-Usando esta funcionalidad, también es posible poner instrucciones de digitación muy cerca de las cabezas 
-de nota en música monofónica,
-
-@lilypond[verbatim,ragged-right,quote,fragment]
-\set fingeringOrientations = #'(right)
-<es'-2>4
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{controlling-the-placement-of-chord-fingerings.ly}
 
 @seealso
 
-Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
+Referencia de la notación:
+@ref{Controlling direction and placement}
 
-Referencia de funcionamiento interno: @internalsref{Fingering}.
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
+
+Referencia de funcionamiento interno:
+@internalsref{FingeringEvent},
+@internalsref{fingering-event},
+@internalsref{Fingering_engraver},
+@internalsref{New_fingering_engraver},
+@internalsref{Fingering}.
 
 
 @node Hidden notes
-@subsubsection Hidden notes
+@unnumberedsubsubsec Hidden notes
 
 @cindex ocultas, notas
 @cindex invisibles, notas
@@ -181,8 +202,8 @@ Referencia de funcionamiento interno: @internalsref{Fingering}.
 @funindex \hideNotes
 @funindex \unHideNotes
 
-Las notas ocultas (o invisibles, o transparentes) pueden ser de utilidad en la preparación de ejercicios
-de teoría o de composición.
+Las notas ocultas (o invisibles, o transparentes) pueden ser de
+utilidad en la preparación de ejercicios de teoría o de composición.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
 c4 d
@@ -190,7 +211,7 @@ c4 d
 e4 f
 \unHideNotes
 g a
-\hideNotes 
+\hideNotes
 b
 \unHideNotes
 c
@@ -202,11 +223,16 @@ c
 
 @seealso
 
-Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
+
+Referencia de funcionamiento interno:
+@internalsref{Note_spacing_engraver},
+@internalsref{NoteSpacing}.
 
 
 @node Coloring objects
-@subsubsection Coloring objects
+@unnumberedsubsubsec Coloring objects
 
 @cindex coloreados, objetos
 @cindex colores
@@ -215,8 +241,8 @@ Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
 @cindex colorear notas
 @cindex notas, coloreadas
 
-Se pueden asignar colores a los objetos individuales.  Podemos usar los nombres de color
-que se relacionan en la @ref{List of colors}.
+Se pueden asignar colores a los objetos individuales.  Los nombres de
+color válidos se encuentran relacionados en la @ref{List of colors}.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=1]
 \override NoteHead #'color = #red
@@ -227,102 +253,124 @@ d
 e
 @end lilypond
 
-Se puede acceder al espectro completo de colores definido para X11 usando la función
-de Scheme x11-color.  Esta función acepta un argumento que puede ser un
-símbolo
+Se puede acceder al espectro completo de colores definido para X11
+usando la función de Scheme x11-color.  Esta función acepta un único
+argumento; éste puede ser un símbolo de la forma @var{'FulanoMengano}
+o una cadena de la forma @var{"FulanoMengano"}.  La primera forma es
+más rápida de escribir y también más eficiente.  Sin embargo, al usar
+la segunda forma es posible acceder a los colores de X11 por medio de
+la forma del nombre que tiene varias palabras.
 
-@example
-\override Beam #'color = #(x11-color 'MediumTurquoise)
-@end example
+Si @code{x11-color} no entiende el parámetro, el color predeterminado
+que se devuelve es el negro.
 
-o una cadena
-
-@example
-\override Beam #'color = #(x11-color "MediumTurquoise")
-@end example
-
-La primera forma es más rápida de escribir y más eficiente.  Sin embargo,
-es posible usar la segunda forma para acceder a los colores de X11 a través de la variante del
-nombre que tiene varias palabras
-
-@example
-\override Beam #'color = #(x11-color "medium turquoise")
-@end example
-
-Si el parámetro no tiene sentido para x11-color, el color por defecto que se devuelve
-es el negro.  Debería ser obvio, a la vista de la partitura resultante, que algo está
-mal.
-
-Este ejemplo ilustra el uso de x11-color.  Tenga en cuenta que el color de la plica
-sigue siendo negro después de haberlo establecido a (x11-color 'Boggle), que es un color sin sentido
-escrito a propósito.
-
-@lilypond[quote,ragged-right,verbatim]
-{
-  \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
-  \set Staff.instrumentName = \markup {
-    \with-color #(x11-color 'navy) "Clarinet"
-  }
-  \time 2/4
-  gis''8 a''
-  \override Beam #'color = #(x11-color "medium turquoise")
-  gis'' a''
-  \override NoteHead #'color = #(x11-color "LimeGreen")
-  gis'' a''
-  \override Stem #'color = #(x11-color 'Boggle)
-  gis'' a''
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\set Staff.instrumentName = \markup {
+  \with-color #(x11-color 'navy) "Clarinet"
 }
+
+gis8 a
+\override Beam #'color = #(x11-color "medium turquoise")
+gis a
+\override Accidental #'color = #(x11-color 'DarkRed)
+gis a
+\override NoteHead #'color = #(x11-color "LimeGreen")
+gis a
+% this is deliberate nonsense; note that the stems remain black
+\override Stem #'color = #(x11-color 'Boggle)
+b2 cis
 @end lilypond
 
+Se pueden especificar colores RGB exactos utilizando la función de
+Scheme @code{rgb-color}.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\set Staff.instrumentName = \markup {
+  \with-color #(x11-color 'navy) "Clarinet"
+}
+
+% black
+\override Stem #'color = #(rgb-color 0 0 0)
+gis8 a
+% white
+\override Stem #'color = #(rgb-color 1 1 1)
+gis8 a
+% dark blue
+\override Stem #'color = #(rgb-color 0 0 0.5)
+gis4 a
+@end lilypond
 
 @seealso
 
-Apéndice: @ref{List of colors}.
+Referencia de la notación:
+@ref{List of colors}, @ref{Objects connected to
+the input}.
+
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
 
 
 @knownissues
-En un navegador de web, no todos los colores de x11 se distinguen entre sí.  Para su utilización en la
-web se recomiendan los colores normales.
+Un color de X11 no es necesariamente de la misma tonalidad exacta que
+un color normal de nombre similar.
 
-Un color de x11 no es necesariamente de la misma tonalidad que un color normal
-con un nombre similar.
+No todos los colores de X11 se distinguen entre sí en un navegador
+web, es decir, un navegador de web podría no mostrar ninguna
+diferencia entre @code{'LimeGreen} (verde lima) y @code{'ForestGreen}
+(verde bosque).  Para la web se recomiendan los colores normales (o
+sea: @code{#blue}, azul, @code{#green}, verde, @code{#red}, rojo).
 
-Las notas de un acorde no se pueden colorear con @code{\override}; en su lugar utilice
-@code{\tweak}.  Consulte @ref{Objects connected to the input}
-para ver más detalles.
+
+Las notas de un acorde no se pueden colorear con @code{\override}; en
+su lugar utilice @code{\tweak}.  Consulte @ref{Objects connected to
+the input} para ver más detalles.
 
 
 @node Parentheses
-@subsubsection Parentheses
+@unnumberedsubsubsec Parentheses
 
 @cindex fantasma, notas
 @cindex notas fantasma
 @cindex notas entre paréntesis
+@cindex paréntesis
 
-Los objetos se pueden encerrar entre paréntesis anteponiendo @code{\parenthesize} al evento
-musical,
+Los objetos se pueden encerrar entre paréntesis anteponiendo
+@code{\parenthesize} al evento musical.  Si se aplica a un acorde,
+encierra cada nota dentro de un par de paréntesis.
 
-@lilypond[relative=2,fragment,verbatim,ragged-right]
-<
-  c
-  \parenthesize d
-  g
->4-\parenthesize -.
+@lilypond[quote,relative=2,fragment,verbatim,ragged-right]
+c2 \parenthesize d
+c2 \parenthesize <c e g>
 @end lilypond
 
-Esto sólo funciona dentro de los acordes, incluso para notas sueltas
+Los objetos que no son notas también se pueden poner entre paréntesis.
 
-@example
-< \parenthesize NOTA>
-@end example
+@lilypond[quote,relative=2,fragment,verbatim,ragged-right]
+c2-\parenthesize -. d
+c2 \parenthesize r
+@end lilypond
+
+@seealso
+
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
+
+Referencia de funciionamiento interno:
+@internalsref{Parenthesis_engraver},
+@internalsref{ParenthesesItem},
+@internalsref{parentheses-interface}.
 
 
 @node Stems
-@subsubsection Stems
+@unnumberedsubsubsec Stems
 
-Cuando se encuentra con una nota, se crea un objeto
-@internalsref{Stem} (plica) automáticamente.  Para las redondas y los
-silencios, también se crean pero se hacen invisibles.
+@cindex plica
+
+Cuando se encuentra con una nota, se crea automáticamente un objeto
+@code{Stem} (plica).  Para las redondas y los silencios, también se
+crean pero se hacen invisibles.
 
 @predefined
 
@@ -334,136 +382,190 @@ silencios, también se crean pero se hacen invisibles.
 @code{\stemNeutral}.
 
 
-@commonprop
+@snippets
 
-Para modificar la dirección de las plicas en medio de un pentagrama, utilice
+@cindex stem, direction
+@cindex stem, up
+@cindex stem, down
+@cindex stem, neutral
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
+
+@seealso
+Referencia de la notación:
+@ref{Controlling direction and placement}.
+
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
+
+Referencia de funcionamiento interno:
+@internalsref{Stem_engraver},
+@internalsref{Stem},
+@internalsref{stem-interface}.
 
 
 @node Outside the staff
 @subsection Outside the staff
 
+Esta sección trata sobre cómo enfatizar elementos que están dentro del
+pentagrama, desde fuera del pentagrama.
 
 @menu
-* Balloon help::                
-* Grid lines::                  
-* Analysis brackets::           
+* Balloon help::
+* Grid lines::
+* Analysis brackets::
 @end menu
 
 @node Balloon help
-@subsubsection Balloon help
+@unnumberedsubsubsec Balloon help
 
-Los elementos de notación se pueden marcar y nombrar con la ayuda de un cartel o globo de ayuda
-rectangular.  El propósito principal de esta funcionalidad es la explicación de la notación.
+Los elementos de notación se pueden marcar y nombrar con la ayuda de
+un cartel o globo de ayuda rectangular.  El propósito principal de
+esta funcionalidad es la explicación de la notación.
 
-El ejemplo siguiente presenta una demostración de su uso.
-
+@c KEEP LY
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
-  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
-  <c-\balloonText #'(-2 . -2) \markup { Hello }  >8
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "Soy una plica" }
+  a8
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "Soy un silencio" }
+  r
+  <c, g'-\balloonText #'(-2 . -2) \markup { "Soy una cabeza" } c>2.
 }
 @end lilypond
 
 @noindent
 Existen dos funciones musicales, @code{balloonText} y
-@code{balloonGrobText}. Este último toma su nombre del objeto gráfico que se adorna,
-mientras que el primero se puede usar como una articulación sobre una nota.
-Los otros argumentos son el desplazamiento y el texto de la etiqueta.
+@code{balloonGrobText}; el primero se usa como @code{\once\override}
+para adjuntar un texto a cualquier grob, y el último se usa coqmo
+@code{\tweak}, normalmente dentro de acordes, para adjuntar un texto a
+una nota individual.
 
 @cindex globo
-@cindex notación, explicaciones
+@cindex notación, explicar la
 
 @seealso
 
-Referencia del programa: @internalsref{text-balloon-interface}.
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
+
+Referencia de funcionamiento interno:
+@internalsref{Balloon_engraver},
+@internalsref{BalloonTextItem},
+@internalsref{balloon-interface}.
 
 
 @node Grid lines
-@subsubsection Grid lines
+@unnumberedsubsubsec Grid lines
 
-Se pueden dibujar líneas verticales, sincronizadas con las notas, entre
-pentagramas.
+Se pueden dibujar líneas verticales entre los pentagramas
+sincronizadas con las notas.
 
-@lilypond[ragged-right,quote,verbatim]
+@c KEEP LY
+@lilypond[quote,verbatim,ragged-right]
 \layout {
   \context {
     \Staff
-    \consists "Grid_point_engraver" %% sets of grid
+    % preparar la rejilla:
+    \consists "Grid_point_engraver"
+    % ajustar el intervalo de la cuadrícula a una negra:
     gridInterval = #(ly:make-moment 1 4)
   }
+  \context {
+    \Score
+    % por omisión las líneas de rejilla están centradas horizontalmente
+    % debajo y a la izquierda de la cabeza; las líneas parten de la tercera
+    % línea del pentagrama
+    \consists "Grid_line_span_engraver"
+  }
 }
 
-\new Score \with {
-  \consists "Grid_line_span_engraver"
-  %% centers grid lines  horizontally below noteheads
-  \override NoteColumn #'X-offset = #-0.5
+\score {
+  \new ChoirStaff <<
+    \new Staff \relative c'' {
+      \stemUp
+      c4. d8 e8 f g4
+    }
+    \new Staff \relative c {
+      \clef bass
+      \stemDown
+      c4 g' f e
+    }
+  >>
 }
-
-\new ChoirStaff <<
-  \new Staff {
-    \stemUp
-    \relative {
-      c'4. d8 e8 f g4
-    }
-  }
-  \new Staff {
-    %% centers grid lines  vertically
-    \override Score.GridLine #'extra-offset = #'( 0.0 . 1.0 )
-    \stemDown
-    \clef bass
-    \relative c {
-      c4  g'  f  e
-    }
-  }
->>
 @end lilypond
 
-Ejemplos: @lsrdir{education}
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{grid-lines--changing-their-appearance.ly}
+
+
+@seealso
+
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
+
+Referencia de funcionamiento interno:
+@internalsref{Grid_line_span_engraver},
+@internalsref{Grid_point_engraver},
+@internalsref{GridLine},
+@internalsref{GridPoint},
+@internalsref{grid-line-interface},
+@internalsref{grid-point-interface}.
 
 
 @node Analysis brackets
-@subsubsection Analysis brackets
+@unnumberedsubsubsec Analysis brackets
 
 @cindex corchetes
 @cindex fraseo, corchetes de
 @cindex musicológico, análisis
 @cindex notas, corchetes de agrupación de
 
-Los corchetes se usan en análisis musical para indicar las estructuras presentes en las piezas
-musicales.  LilyPond contempla una forma básica de corchetes horizontales anidados.
-Para usarlos, añada el grabador @internalsref{Horizontal_bracket_engraver}
-al contexto @internalsref{Staff}.  Un corchete se abre con
-@code{\startGroup} y se cierra con @code{\stopGroup}
+Los corchetes se usan en análisis musical para indicar la estructura
+de las piezas musicales.  Están contemplados los corchetes
+horizontales simples.
 
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    c4\startGroup\startGroup
-    c4\stopGroup
-    c4\startGroup
-    c4\stopGroup\stopGroup
+@lilypond[quote,verbatim,ragged-right]
+\layout {
+  \context {
+    \Staff
+    \consists "Horizontal_bracket_engraver"
   }
-  \layout {
-    \context {
-      \Staff \consists "Horizontal_bracket_engraver"
-}}}
+}
+\relative c'' {
+  c2\startGroup
+  d\stopGroup
+}
+@end lilypond
+
+Los corchetes de análisis se pueden anidar.
+
+@lilypond[quote,verbatim,ragged-right]
+\layout {
+  \context {
+    \Staff
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+\relative c'' {
+  c4\startGroup\startGroup
+  d4\stopGroup
+  e4\startGroup
+  d4\stopGroup\stopGroup
+}
 @end lilypond
 
 @seealso
 
-Fragmentos de código: @lsrdir{Editorial,Editorial-annotations}.
+Fragmentos de código:
+@lsrdir{Editorial,Editorial-annotations}.
 
-Referencia de funcionamiento interno: @internalsref{HorizontalBracket},
-@internalsref{Horizontal_bracket_engraver}, @internalsref{Staff}.
-
-
-
+Referencia de funcionamiento interno:
+@internalsref{Horizontal_bracket_engraver},
+@internalsref{HorizontalBracket},
+@internalsref{horizontal-bracket-interface},
+@internalsref{Staff}.

@@ -41,7 +41,7 @@ def walk_tree (tree_roots = [],
         for current_dir, dirs, files in os.walk(d):
             i = 0
             while i < len(dirs):
-                if exclude_dirs_re.search (dirs[i]):
+                if exclude_dirs_re.search (os.path.join (current_dir, dirs[i])):
                     del dirs[i]
                 else:
                     p = os.path.join (current_dir, dirs[i])

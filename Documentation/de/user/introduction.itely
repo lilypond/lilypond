@@ -602,8 +602,10 @@ c'4 d'8
 @noindent
 eine Viertel c' und eine Achtel d', wie in diesem Beispiel:
 
-@lilypond[quote,fragment]
-c'4 d'8
+@lilypond[quote]
+{
+  c'4 d'8
+}
 @end lilypond
 
 In kleinem Rahmen ist diese Syntax sehr einfach zu benutzen. In 
@@ -679,8 +681,11 @@ Programm kann nun dank vieler harter Arbeitsstunden benutzt werden,
 um sinnvolle Aufgaben zu erledigen. Die einfachste ist dabei der 
 Notendruck.
 
-@lilypond[quote,relative=1,fragment]
-\time 2/4 c4 c g'4 g a4 a g2
+@lilypond[quote,relative=1]
+{
+  \time 2/4
+  c4 c g'4 g a4 a g2
+}
 @end lilypond
 
 @noindent
@@ -746,7 +751,7 @@ stellt eine einfache Einführung in den Musiksatz dar. Neulinge sollten hiermit
 beginnen.
 
 @item
-@emph{@ref{Putting it all together}},
+@emph{@ref{Fundamental concepts}},
 erklärt generelle Konzepte des LilyPond-Dateiformates. Wenn Sie sich nicht 
 sicher sind, wohin ein Befehl gesetzt werden soll, lesen Sie hier nach.
 
@@ -771,36 +776,32 @@ Grundkonzeption des Programmes im Handbuch zum Lernen bekannt gemacht hat.
 @itemize @bullet
 
 @item
-@emph{@ref{Basic notation}},
+@emph{@ruser{Musical notation}},
 erklärt alles über die grundlegenden Notationskonstruktionen. Dieses Kapitel 
-ist für fast jedes Notationsprojekt  nützlich.
+ist für fast jedes Notationsprojekt nützlich.
 
 @item
-@emph{@ref{Instrument-specific notation}},
+@emph{@ruser{Specialist notation}},
 erklärt spezifische Schwierigkeiten, die sich bei bestimmten Notationstypen 
 ergeben. Dieses Kapitel ist nur in entsprechenden Fällen bestimmter Instrumente 
 oder bei Gesang zu konsultieren.
 
 @item
-@emph{@ref{Advanced notation}},
-erklärt komplizierte oder unübliche Anwendungen nach Notationsgegenstand geordnet.
-
-@item
-@emph{@ref{Changing defaults}},
+@emph{@ruser{Changing defaults}},
 erklärt, wie des Layout getrimmt werden kann.
 
 @item
-@emph{@ref{Non-musical notation}},
+@emph{@ruser{Non-musical notation}},
 zeigt alles, was nicht direkt mit den Noten zu tun hat wie Titel, mehrere Sätze oder 
 wie man ein MIDI-Instrument auswählt.
 
 @item
-@emph{@ref{Spacing issues}},
+@emph{@ruser{Spacing issues}},
 befasst sich mit globalen Fragen wie der Definition von Papierformaten 
 oder wie man Seitenumbrüche definiert.
 
 @item
-@emph{@ref{Interfaces for programmers}},
+@emph{@ruser{Interfaces for programmers}},
 demonstriert die Erstellung von musikalischen Funktionen.
 
 @end itemize
@@ -815,7 +816,7 @@ In diesem Buch werden nützliche Referenztabellen gezeigt.
 @ifhtml
 Die
 @end ifhtml
-@emph{@ref{Literature list}},
+@emph{@ruser{Literature list}},
 enthält einige wichtige Quellen für alle, die mehr über Notation und 
 den Notensatz erfahren wollen.
 
@@ -826,7 +827,7 @@ stellt eine kurze Einleitung in die Scheme-Sprache dar, mit dem
 die musikalischen Funktionen gebildet werden.
 
 @item
-@emph{@ref{Notation manual tables}},
+@emph{@ruser{Notation manual tables}},
 sind Tabellen, in denen Akkordbezeichnungen, MIDI-Instrumente, 
 Farbbezeichnungen und die Zeichen der Feta-Schriftart gesammelt sind.
 
@@ -837,12 +838,12 @@ ein und schreiben Sie noch die Noten dazu. Das ist alles!
 
 @item
 Die
-@emph{@ref{Cheat sheet}},
+@emph{@ruser{Cheat sheet}},
 zeigt die wichtigsten LilyPond-Befehle.
 
 @item
 Der
-@emph{@ref{LilyPond command index}},
+@emph{@ruser{LilyPond command index}},
 listet alle Befehle auf, die mit @code{\} anfangen.
 
 @item

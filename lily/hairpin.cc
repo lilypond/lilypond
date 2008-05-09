@@ -47,7 +47,6 @@ Hairpin::consider_suicide (Spanner*me)
       && ly_is_equal (bounds[RIGHT]->get_column ()->get_property ("when"),
 		      bounds[LEFT]->get_property ("when")))
     me->suicide ();
-  
 }
 
 MAKE_SCHEME_CALLBACK (Hairpin, print, 1);
@@ -207,7 +206,6 @@ Hairpin::print (SCM smob)
   /*
     should do relative to staff-symbol staff-space?
   */
-
   Stencil mol;
   Real x = 0.0;
 

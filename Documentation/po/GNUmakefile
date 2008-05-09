@@ -1,11 +1,12 @@
 depth = ../..
 
 STEPMAKE_TEMPLATES=podir
+LOCALSTEPMAKE_TEMPLATES=lilypond
 
 include $(depth)/make/stepmake.make
 
 doc-localedir=$(outdir)
-LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
+LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 DOMAIN=lilypond-doc
 DOC_PO_SOURCES = add_html_footer.py texi-gettext.py
 TELY_FILES = $(shell ls $(depth)/Documentation/user/lilypond*.tely)

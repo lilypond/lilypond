@@ -11,6 +11,31 @@
 @node Vocal music
 @section Vocal music
 
+TODO
+CLARIFY
+http://code.google.com/p/lilypond/issues/detail?id=248
+http://code.google.com/p/lilypond/issues/detail?id=329
+
+
+
+> I think the issue here is that changing the associatedVoice
+> happens one step
+> later than expected.  I could be wrong, but I don't think this
+> is obviously
+> documented.
+
+If you read section "Switching the melody associated with a lyrics
+line"
+it indeed says "Again, the command must be one syllable too
+early,..."!
+One problem with the current formulation is that the "Again"
+refers to what's described 2 subsections earlier in "Lyrics to
+multiple notes of a melisma", which isn't obvious unless you have
+read all the sections
+sequentially.
+
+
+
 Since LilyPond input files are text, there are two issues to
 consider when working with vocal music:
 
@@ -94,7 +119,7 @@ to a melody.  Here is an example,
 
 @lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
-\relative { c2 e4 g2. }
+\relative c' { c2 e4 g2. }
 \addlyrics { play the game }
 @end lilypond
 
@@ -103,7 +128,7 @@ More stanzas can be added by adding more
 
 @lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
-\relative { c2 e4 g2. }
+\relative c' { c2 e4 g2. }
 \addlyrics { play the game }
 \addlyrics { speel het spel }
 \addlyrics { joue le jeu }
@@ -188,9 +213,9 @@ In order to assign more than one syllable to a single note, you can
 surround them with quotes or use a @code{_} character, to get spaces
 between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
-\relative { c2 e4 g2 e4 }
+\relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
 \addlyrics { pu- ro~y~ho- nes- to }
@@ -204,13 +229,11 @@ glyph.
 To enter lyrics with characters from non-English languages, or with
 accented and special characters (such as the heart symbol or slanted quotes),
 simply insert the characters directly into the input file and save
-it with utf-8 encoding.  See @ref{Text encoding}, for more info.
-
-FIXME: quotes.
+it with UTF-8 encoding.  See @ref{Text encoding}, for more info.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\relative { e4 f e d e f e2 }
-\addlyrics { He said: â€œLet my peo ple goâ€. }
+\relative c' { e4 f e d e f e2 }
+\addlyrics { He said: “Let my peo ple go”. }
 @end lilypond
 
 To use normal quotes in lyrics, add a backslash before the
@@ -253,7 +276,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Internals Reference: @internalsref{LyricText}, @internalsref{LyricSpace}.
+Internals Reference: @rinternals{LyricText}, @rinternals{LyricSpace}.
 
 @node Working with lyrics and variables
 @subsubsection Working with lyrics and variables
@@ -312,8 +335,8 @@ The final input would resemble
 @seealso
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
-Internals Reference: @internalsref{LyricCombineMusic},
-@internalsref{Lyrics}.
+Internals Reference: @rinternals{LyricCombineMusic},
+@rinternals{Lyrics}.
 
 
 @node Aligning lyrics to a melody
@@ -325,7 +348,7 @@ Internals Reference: @internalsref{LyricCombineMusic},
 
 
 Lyrics are printed by interpreting them in the context called
-@internalsref{Lyrics}.
+@rinternals{Lyrics}.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -370,7 +393,7 @@ melody and the lyrics with the @code{\lyricsto} expression
 @end example
 
 This aligns the lyrics to the
-notes of the @internalsref{Voice} context called @var{name}, which must
+notes of the @rinternals{Voice} context called @var{name}, which must
 already exist.  Therefore normally the @code{Voice} is specified first, and
 then the lyrics are specified with @code{\lyricsto}.  The command
 @code{\lyricsto} switches to @code{\lyricmode} mode automatically, so the
@@ -433,7 +456,7 @@ The alignment to a melody can be specified with the
 
 @noindent
 The value of the property (here: @code{"lala"}) should be the name of
-a @internalsref{Voice} context.  Without this setting, extender lines
+a @rinternals{Voice} context.  Without this setting, extender lines
 will not be formatted properly.
 
 Here is an example demonstrating manual lyric durations,
@@ -451,7 +474,7 @@ Here is an example demonstrating manual lyric durations,
 
 @seealso
 
-Internals Reference: @internalsref{Lyrics}.
+Internals Reference: @rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
@@ -469,9 +492,9 @@ U+203F, so be
 sure to have a font (Like DejaVuLGC) installed that includes this
 glyph.}.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
-\relative { c2 e4 g2 e4 }
+\relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
 \addlyrics { pu- ro~y~ho- nes- to }
@@ -479,7 +502,7 @@ glyph.}.
 
 @seealso
 
-Internals Reference: @internalsref{LyricCombineMusic}.
+Internals Reference: @rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -557,7 +580,7 @@ A complete example of a SATB score setup is in section
 
 @seealso
 
-Internals Reference: @internalsref{Melisma_translator}.
+Internals Reference: @rinternals{Melisma_translator}.
 
 @c @lsr{vocal,lyric@/-combine.ly}.
 
@@ -576,7 +599,7 @@ the text will be delayed another note.
 For example,
 
 @lilypond[verbatim,ragged-right,quote]
-\relative { c c g' }
+\relative c' { c c g' }
 \addlyrics {
   twin -- \skip 4
   kle
@@ -611,8 +634,8 @@ distance between two syllables) and the @code{minimum-length}
 
 @seealso
 
-Internals Reference: @internalsref{LyricExtender},
-@internalsref{LyricHyphen}
+Internals Reference: @rinternals{LyricExtender},
+@rinternals{LyricHyphen}
 
 @node Lyrics and repeats
 @subsubsection Lyrics and repeats
@@ -742,7 +765,7 @@ LyricSpace.
 To make this change for all lyrics in the score, set the property in the
 layout.
 
-@lilypond[relative,verbatim,quote,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \score {
   \relative c' {
   c c c c
@@ -760,6 +783,21 @@ layout.
   }
 }
 @end lilypond
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{aligning-lyrics.ly}
+
+@c TODO Create and add lsr example of lyricMelismaAlignment
+@c It's used like this to center-align all lyric syllables,
+@c even when notes are tied. -td
+
+@ignore
+\layout
+{
+     \context { \Score lyricMelismaAlignment = #0 }
+}
+@end ignore
 
 @node Centering lyrics between staves
 @subsubsection Centering lyrics between staves
@@ -795,13 +833,38 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
   Hi, my name is Bert.
 } \addlyrics {
   \set stanza = "2. "
-  Oh, chÃ© -- ri, je t'aime
+  Oh, ché -- ri, je t'aime
 }
 @end lilypond
+
 
 @noindent
 These numbers are put just before the start of the first syllable.
 
+@c TODO Create and add snippet to show how two lines of a
+@c stanza can be grouped together, along these lines: 
+@c (might need improving a bit) -td
+
+@ignore
+leftbrace = \markup { \override #'(font-encoding . fetaBraces) \lookup
+#"brace105" }
+
+stanzaOneOne = {
+  \set stanza = \markup { "1. " \leftbrace }
+  \lyricmode { Child, you're mine and I love you.
+    Lend thine ear to what I say.
+    ...
+  }
+}
+
+stanzaOneThree =  {
+%  \set stanza = \markup { "   "}
+  \lyricmode { Child, I have no great -- er joy
+    Than to have you walk in truth.
+...
+  }
+}
+@end ignore
 
 @node Adding dynamics marks to stanzas
 @subsubsection Adding dynamics marks to stanzas
@@ -847,7 +910,7 @@ the line, just like instrument names.  They are created by setting
   Hi, my name is Bert.
 } \addlyrics {
   \set vocalName = "Ernie "
-  Oh, che -- ri, je t'aime
+  Oh, ché -- ri, je t'aime
 }
 @end lilypond
 
@@ -869,7 +932,7 @@ in the text, as shown here,
 @lilypond[verbatim,ragged-right,quote]
 %{
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     \slurDotted
@@ -902,7 +965,7 @@ done by setting the @code{associatedVoice} property.  In the example
 
 @lilypond[ragged-right,quote]
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     <<
@@ -977,7 +1040,7 @@ The underlay is switched back to the starting situation by assigning
 
 
 @node Printing stanzas at the end
-@subsubsection Printing stanzas at the end 
+@subsubsection Printing stanzas at the end
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -1021,8 +1084,8 @@ its fleece was white as snow.
 @end lilypond
 
 
-@node Printing stanzas at the end in multiple columns 
-@subsubsection Printing stanzas at the end in multiple columns 
+@node Printing stanzas at the end in multiple columns
+@subsubsection Printing stanzas at the end in multiple columns
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page.  An outdented verse number often
@@ -1092,8 +1155,8 @@ text = \lyricmode {
 
 @seealso
 
-Internals Reference: @internalsref{LyricText}, @internalsref{StanzaNumber},
-@internalsref{VocalName}.
+Internals Reference: @rinternals{LyricText}, @rinternals{StanzaNumber},
+@rinternals{VocalName}.
 
 
 

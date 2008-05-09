@@ -3,14 +3,14 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "expressive-marks"
+  lsrtags = "expressive-marks, unfretted-strings"
 
   texidoc = "
 To make the @code{\\flageolet} circle smaller use the following Scheme
 function. 
 
 "
-  doctitle = "Changing \flageolet mark size"
+  doctitle = "Changing \\flageolet mark size"
 } % begin verbatim
 smallFlageolet = #(let ((m (make-music 'ArticulationEvent
                           'articulation-type "flageolet")))
@@ -18,6 +18,8 @@ smallFlageolet = #(let ((m (make-music 'ArticulationEvent
              (acons 'font-size -3
                     (ly:music-property m 'tweaks)))
        m)
+
+\layout { ragged-right = ##f }
 
 \relative c'' {
   d4^\flageolet_\markup { default size } d4_\flageolet

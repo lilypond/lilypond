@@ -1,7 +1,7 @@
 depth = ..
 
 NAME = documentation
-LANGS = $(shell $(PYTHON) $(buildscript-dir)/langdefs.py)
+LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 SUBDIRS=user bibliography pictures topdocs misc po $(LANGS)
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
@@ -43,7 +43,7 @@ new-lang:
 	cp fr/GNUmakefile $(ISOLANG)
 	cp fr/user/GNUmakefile $(ISOLANG)/user
 	sed -i -e 's/ISOLANG *= *fr/ISOLANG = $(ISOLANG)/' $(ISOLANG)/GNUmakefile $(ISOLANG)/user/GNUmakefile
-	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond-learning.tely
+	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) -o doc.pot --skeleton --gettext ../user/lilypond-learning.tely
 	mv $(outdir)/*.*tely $(ISOLANG)/user
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
@@ -53,7 +53,7 @@ CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
-	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -b "UNTRANSLATED NODE: IGNORE ME" -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/user/%.tely=../user/%.tely)
+	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/user/%.tely=../user/%.tely)
 	$(PYTHON) $(buildscript-dir)/texi-skeleton-update.py $(ISOLANG)/user $(outdir)
 
 snippet-update:
@@ -69,4 +69,4 @@ update-translation:
 
 translation-status:
 	make -C po out=www messages
-	$(PYTHON) $(buildscript-dir)/translations-status.py $(buildscript-dir) po/out-www
+	$(PYTHON) $(buildscript-dir)/translations-status.py $(buildscript-dir)

@@ -123,6 +123,15 @@ Constrained_breaking::space_line (vsize i, vsize j)
   bool last = j == breaks_.size () - 1;
   bool ragged = ragged_right || (last && ragged_last);
 
+  /* As a special case, if there is only one line in the score and ragged-right
+     hasn't been specifically forbidden and the line is stretched, use
+     ragged spacing. */
+  if (last && i == 0
+      && lines_.at (i, j).force_ >= 0
+      && !scm_is_bool (pscore_->layout ()->c_variable ("ragged-right"))
+      && !scm_is_bool (pscore_->layout ()->c_variable ("ragged-last")))
+    ragged = true;
+
   return get_line_configuration (line, line_dims[RIGHT] - line_dims[LEFT], line_dims[LEFT], ragged);
 }
 

@@ -13,6 +13,8 @@
 @end tex
 @end iftex
 
+@include version.itexi
+
 @dircategory GNU LilyPond --- the music typesetter
 @direntry
 * LilyPond Snippets: (lilypond-snippets).       Short tricks, tips, and examples.
@@ -65,7 +67,7 @@ This document shows a selected set of LilyPond snippets from the
 Please note that it is not an exact subset of LSR: some snippets come
 from @file{input/new} LilyPond sources directory, and snippets from LSR
 are converted through @command{convert-ly}, as LSR is based on a stable
-LilyPond version, and this document is for version @value{version}.
+LilyPond version, and this document is for version @version{}.
 
 Snippets are grouped by tags; tags listed in the table of contents match
 a section of LilyPond notation manual.  Snippets may have several tags,
@@ -84,7 +86,7 @@ Musical notation
 * Repeats::
 * Simultaneous notes::
 * Staff notation::
-* Editorial and educational use::
+* Editorial annotations::
 * Text::
 
 Specialist notation
@@ -94,6 +96,7 @@ Specialist notation
 * Percussion::
 * Fretted strings::
 * Unfretted strings::
+* Winds::
 * Ancient notation::
 
 Other collections
@@ -118,7 +121,7 @@ Other collections
 @include repeats.itely
 @include simultaneous-notes.itely
 @include staff-notation.itely
-@include editorial-and-educational-use.itely
+@include editorial-annotations.itely
 @include text.itely
 
 @include vocal-music.itely
@@ -127,7 +130,7 @@ Other collections
 @include percussion.itely
 @include fretted-strings.itely
 @include unfretted-strings.itely
-@c @include winds.itely
+@include winds.itely
 @include ancient-notation.itely
 
 @include contexts-and-engravers.itely

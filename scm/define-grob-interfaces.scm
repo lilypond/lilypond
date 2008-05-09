@@ -184,5 +184,5 @@ with @code{breakable=##t}."
 (ly:add-interface
  'vertically-spaceable-interface
  "Objects that should be kept at constant vertical distances.  Typically:
-@internalsref{VerticalAxisGroup} objects of @internalsref{Staff} contexts."
+@rinternals{VerticalAxisGroup} objects of @rinternals{Staff} contexts."
  '())

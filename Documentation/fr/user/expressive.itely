@@ -187,10 +187,7 @@ barre de mesure qui la précède.  Ce comportement peut être annulé
 en assignant @emph{faux} (lettre @q{f}) à la propriété
 @code{hairpinToBarline} :
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set hairpinToBarline = ##f
-c4\< c2. c4\!
-@end lilypond
+@c TODO: Add link to new snippet for #'to-barline
 
 On peut avoir recours à l'indication @code{\espressivo} pour indiquer un
 crescendo puis un decrescendo sur une seule note.

@@ -253,11 +253,7 @@ nota final cae sobre el principio de un compás, el
 anterior.  Esto se puede modificar estableciendo la propiedad
 @code{hairpinToBarline}:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-e4\< e2. e1\!
-\set hairpinToBarline = ##f
-e4\< e2. e1\!
-@end lilypond
+@c TODO: Add link to new snippet for #'to-barline
 
 @cindex espressivo, articulación
 

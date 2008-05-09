@@ -222,7 +222,9 @@ multiple voices on the same staff."
   \consists "Part_combine_engraver"
 
   \consists "Text_engraver"
-  \consists "Dynamic_engraver"
+  \consists "New_dynamic_engraver"
+  \consists "Dynamic_align_engraver"
+%  \consists "Dynamic_engraver"
   \consists "Fingering_engraver"
   \consists "Bend_engraver"
 
@@ -505,6 +507,9 @@ automatically when an output definition (a @code{\score} or
   middleCClefPosition = #-6
   middleCPosition = #-6
   firstClef = ##t
+
+  crescendoSpanner = #'hairpin
+  decrescendoSpanner = #'hairpin
   
   defaultBarType = #"|"
   barNumberVisibility = #first-bar-number-invisible
@@ -617,8 +622,6 @@ automatically when an output definition (a @code{\score} or
   instrumentTransposition = #(ly:make-pitch 0 0 0)
 
   verticallySpacedContexts = #'(Staff)
-
-  \override Voice #'hairpinToBarline = ##t 
   
   timing = ##t
 }

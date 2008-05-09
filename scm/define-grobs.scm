@@ -702,6 +702,7 @@
 	(stencil . ,ly:text-interface::print)
 	(direction . ,ly:script-interface::calc-direction)
 	(positioning-done . ,ly:script-interface::calc-positioning-done)
+	(cross-staff . ,ly:side-position-interface::calc-cross-staff)
 
 	(text . ,fingering::calc-text) 
 	(font-encoding . fetaNumber)
@@ -783,6 +784,7 @@
 	(after-line-breaking . ,ly:hairpin::after-line-breaking)
 	(grow-direction . ,hairpin::calc-grow-direction)
 	(circled-tip . #f)
+	(to-barline . #t)
 	(thickness . 1.0)
 	(height . 0.6666)
 	(minimum-length . 2.0)
@@ -1884,6 +1886,7 @@
 	(springs-and-rods . ,ly:spanner::set-spacing-rods)
 	(avoid-slur . inside)
 	(direction . ,ly:tie::calc-direction)
+	(neutral-direction . ,UP)
 	(stencil . ,ly:tie::print)
 	(font-size . -6)
 	(details . (

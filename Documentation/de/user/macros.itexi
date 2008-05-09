@@ -308,5 +308,25 @@
 
 @end iftex
 
+@c Commands specific to translated docs
 
-@c EOF
+@c ugh, cannot set/define global variable 'translationof' in some way?
+@iftex
+@macro translationof{TEXT}
+@end macro
+@end iftex
+
+@ifinfo
+@macro
+@macro translationof{TEXT}
+@set translationof \TEXT\
+@end macro
+@end ifinfo
+
+@c TODO when @translationof is used in translated docs
+@c see if it's feasible to say @value{translationof}
+@macro englishref
+Dieser Abschnitt wurde noch nicht übersetzt, bitte lesen Sie den
+Abschnitt im englischen Benutzerhandbuch.
+@end macro
+

@@ -2062,7 +2062,7 @@ quintas y séptimas disminuidas se pueden obtener con @code{5/} y @code{7/}.
 
 Se pueden insertar espacios mediante el uso de @code{_}.  Los corchetes se
 escriben con @code{[} y @code{]}. También puede incluir cadenas de
-texto y elementos de marcado textuales, consulte @ref{Overview of text markup commands}.
+texto y elementos de marcado textuales, consulte @ref{Text markup commands}.
 
 @example
 < [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >

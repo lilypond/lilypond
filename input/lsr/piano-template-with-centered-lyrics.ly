@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "text, piano-music, template"
+  lsrtags = "text, keyboards, template"
 
   texidoc = "
 Instead of having a full staff for the melody and lyrics, you can place

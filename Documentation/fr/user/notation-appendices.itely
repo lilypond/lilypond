@@ -14,16 +14,14 @@
 @node Notation manual tables
 @appendix Notation manual tables
 
-UNTRANSLATED NODE: IGNORE ME
-
 @menu 
 * Chord name chart::
 * MIDI instruments::
 * List of colors::
 * The Feta font::
 * Note head styles::
-* Overview of text markup commands::
-* Overview of text markup list commands::
+* Text markup commands::
+* Text markup list commands::
 * List of articulations::       
 * All context properties::      
 * Layout properties::           
@@ -62,20 +60,17 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
-
-@node Overview of text markup commands
-@appendixsec Overview of text markup commands
-
+@ignore
 Vous pouvez utiliser les commandes suivantes au sein d'un bloc
 @code{\markup @{ @}}.
+@end ignore
 
 @include markup-commands.tely
 
 
-@node Overview of text markup list commands
-@appendixsec Overview of text markup list commands
-
+@ignore
 Vous pouvez utiliser les commandes suivantes avec @code{\markuplines}.
+@end ignore
 
 @include markup-list-commands.tely
 

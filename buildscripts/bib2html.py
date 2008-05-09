@@ -3,18 +3,16 @@ import os
 import sys
 import getopt
 import tempfile
-import string
 
 # usage:
 def usage ():
-  print 'usage: %s [-s style] [-o <outfile>] BIBFILES...';
+    print 'usage: %s [-s style] [-o <outfile>] BIBFILES...'
 
-#print os.environ['BSTINPUTS']
-
-(options, files) = getopt.getopt(sys.argv[1:], 's:o:', [])
+(options, files) = getopt.getopt (sys.argv[1:], 's:o:', [])
 
 output = 'bib.html'
 style = 'long'
+
 for (o,a) in options:
     if o == '-h' or o == '--help':
         usage ()
@@ -24,17 +22,17 @@ for (o,a) in options:
     elif o == '-o' or o == '--output':
         output = a
     else:
-        raise 'unknown opt ', o
+        raise Exception ('unknown option: %s' % o)
 
 
 if style not in ['alpha','index','long','longp','long-pario','short','short-pario','split']:
-  sys.stderr.write ("Unknown style \`%s'\n" % style)
+    sys.stderr.write ("Unknown style \`%s'\n" % style)
 
 tempfile = tempfile.mktemp ('bib2html')
 
 if not files:
-  usage ()
-  sys.exit (2)
+   usage ()
+   sys.exit (2)
 
 
 def strip_extension (f, ext):
@@ -45,22 +43,22 @@ def strip_extension (f, ext):
 
 nf = []
 for f in files:
-  nf.append (strip_extension(f, '.bib'))
+    nf.append (strip_extension (f, '.bib'))
 
-files = string.join (nf,',')
+files = ','.join (nf)
 
-open(tempfile + '.aux', 'w').write (r'''
+open (tempfile + '.aux', 'w').write (r'''
 \relax 
 \citation{*}
 \bibstyle{html-%(style)s}
 \bibdata{%(files)s}''' % vars ()) 
 
-cmd = "bibtex %s" % tempfile;
+cmd = "bibtex %s" % tempfile
 
 sys.stdout.write ("Invoking `%s'\n" % cmd)
 stat = os.system (cmd)
 if stat <> 0:
-  sys.exit(1)
+    sys.exit(1)
 
 
 #TODO: do tex -> html on output 
@@ -71,18 +69,8 @@ open (output, 'w').write  (bbl)
 
 
 def cleanup (tempfile):
-  for a in ['aux','bbl', 'blg']:
-    os.unlink (tempfile + '.' + a)
+    for a in ['aux','bbl', 'blg']:
+        os.unlink (tempfile + '.' + a)
 
-cleanup(tempfile)
-
-
-
-
-
-
-
-
-
-
+cleanup (tempfile)
 

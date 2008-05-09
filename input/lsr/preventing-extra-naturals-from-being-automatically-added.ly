@@ -12,6 +12,16 @@ altération précédente.  Pour modifier ce comportement, assignez la propriét�
 @code{extraNatural} du contexte @code{Staff} à la valeur @code{##f} (faux).
 "
 
+  texidoces = "
+Según las reglas estándar de composición tipográfica, se imprime un becuadro
+antes de un sostenido o un bemol cuando se tiene que cancelar una alteración anterior
+en la misma nota.  Para modificar este comportamiento, establezca el valor de la
+propiedad @code{extraNatural}  a @code{##f} (falso) dentro del
+contexto de @code{Staff}.
+
+"
+
+
   texidoc = "
 In accordance with standard typesetting rules, a natural sign is
 printed before a sharp or flat if a previous accidental on the same

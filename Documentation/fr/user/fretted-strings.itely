@@ -12,13 +12,13 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Guitar
-@section Guitar
+@node Fretted string instruments
+@section Fretted string instruments
 
 @cindex tablature
 @cindex tablature de guitare
 
-@menu 
+@menu
 * Guitar sections::
 @end menu
 
@@ -274,7 +274,7 @@ Vous pouvez indiquer vos diagrammes de trois manières différentes :
 @qq{standard}, @qq{terse} ou @qq{verbeux}. Ces trois interfaces
 produisent des schémas similaires, mais demandent d'entrer plus ou moins
 d'informations.  Vous trouverez tout les détails dans
-@ref{Overview of text markup commands}.
+@ref{Text markup commands}.
 
 Par ailleurs, plusieurs propriétés permettent d'ajuster le graphisme
 à votre convenance. Vous en trouverez les détails dans
@@ -363,6 +363,6 @@ Lorsque des notes doivent être jouées détimbrées --- le doigt effleurant
 la corde sans la presser, en un effet presque percussif, mais où la
 hauteur est encore perceptible ---, on peut employer des têtes de notes
 spéciales en forme de croix.
-Vous trouverez plus de détails dans @ref{Special noteheads}.
+Vous trouverez plus de détails dans @ref{Special note heads}.
 
 

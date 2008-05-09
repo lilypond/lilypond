@@ -3,7 +3,7 @@
 \version "2.11.38"
 
 \header {
-  lsrtags = "staff-notation, editorial-and-educational-use, contexts-and-engravers, paper-and-layout"
+  lsrtags = "staff-notation, editorial-annotations, contexts-and-engravers, paper-and-layout"
 
   texidoc = "
 To create blank staves, generate empty measures then remove the

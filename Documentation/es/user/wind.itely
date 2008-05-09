@@ -10,10 +10,8 @@
 @c \version "2.11.38"
 
 
-@node Bagpipes
-@section Bagpipes
-
-This section includes extra information for writing for bagpipes.
+@node Wind instruments
+@section Wind instruments
 
 @menu 
 * Bagpipe::

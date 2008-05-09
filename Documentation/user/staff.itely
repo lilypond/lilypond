@@ -125,12 +125,12 @@ Notation Reference: @ref{Percussion staves},
 @ref{Mensural contexts}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{Staff}, @internalsref{DrumStaff},
-@internalsref{GregorianTranscriptionStaff}, @internalsref{RhythmicStaff},
-@internalsref{TabStaff}, @internalsref{MensuralStaff},
-@internalsref{VaticanaStaff}, @internalsref{StaffSymbol}.
+Internals Reference: @rinternals{Staff}, @rinternals{DrumStaff},
+@rinternals{GregorianTranscriptionStaff}, @rinternals{RhythmicStaff},
+@rinternals{TabStaff}, @rinternals{MensuralStaff},
+@rinternals{VaticanaStaff}, @rinternals{StaffSymbol}.
 
 
 
@@ -260,13 +260,13 @@ Music Glossary: @rglos{brace},
 @rglos{bracket}, @rglos{grand staff}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{Staff}, @internalsref{ChoirStaff},
-@internalsref{GrandStaff}, @internalsref{PianoStaff}, 
-@internalsref{StaffGroup}, @internalsref{systemStartDelimiter},
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-@internalsref{SystemStartBracket}, @internalsref{systemStartSquare}.
+Internals Reference: @rinternals{Staff}, @rinternals{ChoirStaff},
+@rinternals{GrandStaff}, @rinternals{PianoStaff}, 
+@rinternals{StaffGroup}, @rinternals{systemStartDelimiter},
+@rinternals{SystemStartBar}, @rinternals{SystemStartBrace},
+@rinternals{SystemStartBracket}, @rinternals{systemStartSquare}.
 
 
 @node Deeper nested staff groups
@@ -385,12 +385,12 @@ source code, for instructions how to set them see @ref{Instrument names}.
 @seealso
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{InnerChoirStaffGroup}, 
-@internalsref{InnerStaffGroup}, @internalsref{SystemStartBar}, 
-@internalsref{SystemStartBrace}, @internalsref{SystemStartBracket},
-@internalsref{systemStartDelimiterHierarchy}.
+Internals Reference: @rinternals{InnerChoirStaffGroup}, 
+@rinternals{InnerStaffGroup}, @rinternals{SystemStartBar}, 
+@rinternals{SystemStartBrace}, @rinternals{SystemStartBracket},
+@rinternals{systemStartDelimiterHierarchy}.
 
 
 
@@ -554,7 +554,7 @@ b b
 
 Glossary: @rglos{line}, @rglos{ledger line}, @rglos{staff}.
 
-Internals Reference: @internalsref{StaffSymbol}.
+Internals Reference: @rinternals{StaffSymbol}.
 
 @knownissues
 
@@ -597,7 +597,7 @@ to the main staff with @code{<<} and @code{>>} brackets.  The @emph{ossia}
 staff is stopped and started explicitely and white space is inserted 
 with the @code{\skip} command.
 
-@lilypond[verbatim,relative=2,quote]
+@lilypond[verbatim,quote]
 <<
   \new Staff \with
   {
@@ -640,9 +640,9 @@ with the @code{\skip} command.
 Music Glossary: @rglos{ossia}, @rglos{staff}, @rglos{Frenched staff}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{StaffSymbol}.
+Internals Reference: @rinternals{StaffSymbol}.
 
 
 @node Hiding staves
@@ -696,7 +696,7 @@ You can make the staff lines invisible by removing the
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
-  \context Staff \relative c'' { c8 c c16 c c c }
+  \new Staff \relative c'' { c8 c c16 c c c }
   \layout{
     \context {
       \Staff
@@ -719,7 +719,7 @@ The lower staff of the second staff group is not removed,
 because the setting applies only to the specific staff inside 
 of which it is written.
 
-@lilypond[quote,ragged-right,verbatim,relative=2]
+@lilypond[quote,ragged-right,verbatim]
 \layout {
   \context { 
     \RemoveEmptyStaffContext 
@@ -758,11 +758,11 @@ of which it is written.
 Notation Reference: @ref{Staff symbol}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{ChordNames},
-@internalsref{FiguredBass}, @internalsref{Lyrics},
-@internalsref{Staff}, @internalsref{VerticalAxisGroup}.
+Internals Reference: @rinternals{ChordNames},
+@rinternals{FiguredBass}, @rinternals{Lyrics},
+@rinternals{Staff}, @rinternals{VerticalAxisGroup}.
 
 @node Writing parts
 @subsection Writing parts
@@ -825,9 +825,9 @@ Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
 Notation Reference: @ref{Formatting text}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
+Internals Reference: @rinternals{MetronomeMark}, @ref{MIDI
 output}.
 
 
@@ -945,10 +945,10 @@ c1 c c c \break
 Notation Reference: @ref{Modifying context plug-ins}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{InstrumentName},
-@internalsref{PianoStaff}, @internalsref{Staff}.
+Internals Reference: @rinternals{InstrumentName},
+@rinternals{PianoStaff}, @rinternals{Staff}.
 
 
 @node Quoting other voices
@@ -1068,9 +1068,9 @@ written entirely in lower-case letters: @code{\addquote}.
 Notation Reference: @ref{Instrument transpositions}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
+Internals Reference: @rinternals{QuoteMusic}, @rinternals{Voice}.
 
 
 @node Formatting cue notes
@@ -1174,16 +1174,16 @@ cbsn = \relative c, {
 }
 
 <<
-  \context Staff = "picc" \picc
-  \context Staff = "cbsn" \cbsn
+  \new Staff = "picc" \picc
+  \new Staff = "cbsn" \cbsn
 >>
 @end lilypond
 
 @seealso
 
 Snippets:
-@lsrdir{Staff,Staff-notation}
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{Voice}.
+Internals Reference: @rinternals{Voice}.
 
 

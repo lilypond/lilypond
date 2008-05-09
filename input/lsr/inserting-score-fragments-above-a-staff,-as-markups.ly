@@ -28,6 +28,8 @@ tuning = \markup {
   subsubtitle = \markup { "Originalstimmung:" \general-align #Y #CENTER \tuning }
 }
 
+\layout { ragged-right = ##f }
+
 \relative {
   \time 4/8
   \times 2/3 { c'8 d e } \times 2/3 { c d e }

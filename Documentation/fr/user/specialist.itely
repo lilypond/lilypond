@@ -16,22 +16,20 @@ spécifique à certains intruments ou certaines époques.
 
 @menu
 * Vocal music::
-* Chords::
-* Piano music::
+* Keyboard instruments::
+* Unfretted string instruments::
+* Fretted string instruments::
 * Percussion::
-* Guitar::
-* Orchestral strings::
-* Bagpipes::
+* Wind instruments::
+* Chord notation::
 * Ancient notation::
 @end menu
 
 @include vocal.itely
-@include chords.itely
-@include piano.itely
+@include keyboards.itely
+@include unfretted-strings.itely
+@include fretted-strings.itely
 @include percussion.itely
-@include guitar.itely
-@include strings.itely
-@include bagpipes.itely
+@include wind.itely
+@include chords.itely
 @include ancient.itely
-
-

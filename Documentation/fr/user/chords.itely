@@ -12,10 +12,8 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Chords
-@section Chords
-
-Intro text.
+@node Chord notation
+@section Chord notation
 
 @menu 
 * Chords sections::
@@ -26,9 +24,9 @@ Intro text.
 
 @c awkard bit of English docs (not reproduced here):
 @c "A lead sheet" is shovved in here from the tutorial,
-@c before "Introducing chord names".
+@c before "Introducing chord names".(changed to "Entering chord names")
 @menu
-* Introducing chord names::     
+* Entering chord names::     
 * Chords mode::                 
 * Printing chord names::        
 @end menu
@@ -36,8 +34,8 @@ Intro text.
 
 @c  awkward name; awkward section name.
 @c  still, the Basic "chords" seems like a good name...  :(
-@node Introducing chord names
-@unnumberedsubsubsec Introducing chord names
+@node Entering chord names
+@unnumberedsubsubsec Entering chord names
 @cindex accords, chiffrage jazz
 
 LilyPond permet de désigner les accords par leur chiffrage jazz.

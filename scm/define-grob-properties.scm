@@ -229,7 +229,7 @@ smaller, @code{+1} is bigger.  Each step of@tie{}1 is approximately
 Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
-note.  This is used by @internalsref{note-collision-interface}.")
+note.  This is used by @rinternals{note-collision-interface}.")
      (forced ,boolean? "Manually forced accidental.")
      (fraction ,number-pair? "Numerator and denominator of a time
 signature object.")
@@ -257,7 +257,7 @@ semitie?")
 slur, the closer it is to this height.")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of @code{NoteColumn}s for horizontal shifting.  This is used by
-@internalsref{note-collision-interface}.")
+@rinternals{note-collision-interface}.")
      (horizontal-skylines ,ly:skyline-pair? "Two skylines, one to the
 left and one to the right of this grob.")
 
@@ -339,7 +339,7 @@ directions (i.e., voice 1 &@tie{}2).")
 collisions, even if they have different note heads.  The
 smaller of the two heads is rendered invisible.  This is used in
 polyphonic guitar notation.  The value of this setting is used by
-@internalsref{note-collision-interface}.
+@rinternals{note-collision-interface}.
 
 @code{merge-differently-headed} only applies to opposing stem
 directions (i.e., voice 1 &@tie{}2).")
@@ -454,14 +454,14 @@ values shorten the text-spanner, while negative values lengthen it.")
      (shortest-duration-space ,ly:dimension? "Start with this much
 space for the shortest duration.  This is expressed in
 @code{spacing-increment} as unit.  See also
-@internalsref{spacing-spanner-interface}.")
+@rinternals{spacing-spanner-interface}.")
      (shortest-playing-duration ,ly:moment? "The duration of the
 shortest playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
 shortest note that starts here.")
      (side-axis ,number? "If the value is @code{#X} (or
-equivalently@tie{}@code{1}), the object is placed horizontally next
-to the other object.  If the value is @code{#Y} or@tie{}@code{0}, it
+equivalently@tie{}@code{0}), the object is placed horizontally next
+to the other object.  If the value is @code{#Y} or@tie{}@code{1}, it
 is placed vertically.")
      (side-relative-direction ,ly:dir? "Multiply direction of
 @code{direction-source} with this to get the direction of this
@@ -481,7 +481,7 @@ clef change followed by a barline, for example, this means that we will
 try to space the non-musical column as though the clef is not there.")
      (spacing-increment ,number? "Add this much space for a doubled
 duration.  Typically, the width of a note head.  See also
-@internalsref{spacing-spanner-interface}.")
+@rinternals{spacing-spanner-interface}.")
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")

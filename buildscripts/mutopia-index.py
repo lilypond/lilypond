@@ -1,9 +1,8 @@
-#!@PYTHON@
+#!/usr/bin/env python
 # mutopia-index.py
 
 import fnmatch
 import getopt
-import os
 import os
 import re
 import stat
@@ -25,7 +24,7 @@ headertext= r"""
 <h1>LilyPond samples</h1>
 
 
-<p>You're looking at a page with some LilyPond samples.  These files
+<p>You are looking at a page with some LilyPond samples.  These files
 are also included in the distribution. The output is completely
 generated from the source file, without any further touch up.
 
@@ -113,15 +112,9 @@ hr { border:0; height:1; color: #000000; background-color: #000000; }\n
         ext = ext2 + ext
         
         header = read_lilypond_header (ex)
-        def read_dict (s, default, h = header):
-                try:
-                    ret = h[s]
-                except KeyError:
-                    ret = default
-                return ret
-        head = read_dict ('title', os.path.basename (base))
-        composer = read_dict ('composer', '')
-        desc = read_dict ('description', '')
+        head = header.get ('title', os.path.basename (base))
+        composer = header.get ('composer', '')
+        desc = header.get ('description', '')
         list.write ('<hr>\n')
         list.write ('<h1>%s</h1>\n' % head);
         if composer:
@@ -173,14 +166,12 @@ hr { border:0; height:1; color: #000000; background-color: #000000; }\n
     list.write ('</body></html>\n');
     list.close ()
 
-(options, files) = getopt.getopt (sys.argv[1:], 
+(options, files) = getopt.getopt (sys.argv[1:],
  'ho:', ['help', 'output='])
 outfile = 'examples.html'
 
 subdirs = []
-for opt in options:
-    o = opt[0]
-    a = opt[1]
+for (o, a) in options:
     if o == '--help' or o == '-h':
         help ()
     elif o == '--output' or o == '-o':
@@ -188,7 +179,7 @@ for opt in options:
 
 dirs  = []
 for f in files:
-    dirs = dirs + find ('out-www', f)
+    dirs += find ('out-www', f)
 
 if not dirs:
     dirs = ['.']
@@ -196,11 +187,11 @@ if not dirs:
 allfiles = []
 
 for d in dirs:
-    allfiles = allfiles + find ('*.ly', d)
+    allfiles += find ('*.ly', d)
 
-allfiles = filter (lambda x: not x.endswith ('snippet-map.ly') and not re.search ('lily-[0-9a-f]+', x), allfiles)
-allfiles = filter (lambda x: 'musicxml' not in x, allfiles)
-
+allfiles = [f for f in allfiles
+            if not f.endswith ('snippet-map.ly')
+            and not re.search ('lily-[0-9a-f]+', f)
+            and 'musicxml' not in f]
 
 gen_list (allfiles, outfile)
-

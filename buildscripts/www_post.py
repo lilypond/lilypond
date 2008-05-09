@@ -9,9 +9,8 @@
 import sys
 import os
 import re
-import gettext
 
-package_name, package_version, buildscript_dir, localedir, outdir, targets = sys.argv[1:]
+package_name, package_version, buildscript_dir, outdir, targets = sys.argv[1:]
 targets = targets.split (' ')
 outdir = os.path.normpath (outdir)
 doc_dirs = ['input', 'Documentation', outdir]
@@ -49,7 +48,7 @@ sys.stderr.write ("Mirrorring...\n")
 dirs, symlinks, files = mirrortree.walk_tree (
     tree_roots = doc_dirs,
     process_dirs = outdir,
-    exclude_dirs = '(^|/)(' + '|'.join ([l.code for l in langdefs.LANGUAGES]) + r'|po|out|.*?[.]t2d|\w*?-root)(/|$)',
+    exclude_dirs = '(^|/)(' + r'|po|out|out-test|.*?[.]t2d|\w*?-root)(/|$)|Documentation/(' + '|'.join ([l.code for l in langdefs.LANGUAGES]) + ')',
     find_files = r'.*?\.(?:midi|html|pdf|png|txt|ly|signature|css)$|VERSION',
     exclude_files = r'lily-[0-9a-f]+.*\.(pdf|txt)')
 
@@ -92,17 +91,10 @@ if 'online' in targets:
     f.write ('#.htaccess\nDirectoryIndex index\n')
     f.close ()
 
-# load gettext messages catalogs
-translation = {}
-for l in langdefs.LANGUAGES:
-    if l.enabled and l.code != 'en':
-        translation[l.code] = gettext.translation('lilypond-doc', localedir, [l.code]).gettext
-
 add_html_footer.build_pages_dict (html_files)
 for t in targets:
     sys.stderr.write ("Processing HTML pages for %s target...\n" % t)
     add_html_footer.add_html_footer (
-        translation = translation,
         package_name = package_name,
         package_version = package_version,
         target = t,

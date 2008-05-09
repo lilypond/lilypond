@@ -53,8 +53,8 @@ used.  Each rule consists of
 
 @item context
 In which context is the rule applied.  For example, if @var{context}
-is @internalsref{Score} then all staves share accidentals, and if
-@var{context} is @internalsref{Staff} then all voices in the same staff
+is @rinternals{Score} then all staves share accidentals, and if
+@var{context} is @rinternals{Staff} then all voices in the same staff
 share accidentals, but staves do not.
 
 @item octavation
@@ -148,6 +148,7 @@ Values of 7 and -7 are common.")
      (clefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
+     (completionBusy ,boolean? "Whether a completion-note head is playing.")
      (connectArpeggios ,boolean? "If set, connect arpeggios across
 piano staff.")
      (countPercentRepeats ,boolean? "If set, produce counters for
@@ -172,8 +173,8 @@ non-hairpin decrescendo, i.e., @samp{dim.}.")
      (defaultBarType ,string? "Set the default type of bar line.  See
 @code{whichBar} for information on available bar types.
 
-This variable is read by @internalsref{Timing_translator} at
-@internalsref{Score} level.")
+This variable is read by @rinternals{Timing_translator} at
+@rinternals{Score} level.")
      (doubleSlurs ,boolean? "If set, two slurs are created for every
 slurred note, one above and one below the chord.")
      (drumPitchTable ,hash-table? "A table mapping percussion
@@ -231,8 +232,6 @@ for the full staff.")
 @code{GridPoint}s.")
 
 
-     (hairpinToBarline ,boolean? "If set, end a hairpin at the barline
-before the ending note.")
      (harmonicAccidentals ,boolean? "If set, harmonic notes in chords
 get accidentals.")
      (highStringOne ,boolean? "Whether the first string is the string
@@ -243,7 +242,7 @@ string selector for tablature notation.")
      (ignoreBarChecks ,boolean? "Ignore bar checks.")
      (ignoreFiguredBassRest ,boolean? "Don't swallow rest events.")
      (ignoreMelismata ,boolean? "Ignore melismata for this
-@internalsref{Lyrics} line.")
+@rinternals{Lyrics} line.")
      (implicitBassFigures ,list? "A list of bass figures that are not
 printed as numbers, but only as extender lines.")
      (implicitTimeSignatureVisibility ,vector? "break visibility for
@@ -279,7 +278,9 @@ containing @code{(@var{step} . @var{alter})} or @code{((@var{octave} .
 0 to@tie{}6 and @var{alter} a fraction, denoting alteration.  For
 alterations, use symbols, e.g. @code{keySignature = #`((6 . ,FLAT))}.")
 
+
      (lyricMelismaAlignment ,ly:dir? "Alignment to use for a melisma syllable.")
+
 
      (majorSevenSymbol ,markup? "How should the major 7th be formatted
 in a chord name?")
@@ -395,7 +396,7 @@ voice @q{two} when part-combining.")
      (soloText ,string? "The text for the start of a solo when
 part-combining.")
      (squashedPosition ,integer? "Vertical position of squashing for
-@internalsref{Pitch_squash_engraver}.")
+@rinternals{Pitch_squash_engraver}.")
      (staffLineLayoutFunction ,procedure? "Layout of staff lines,
 @code{traditional}, or @code{semitone}.")
      (stanza ,markup? "Stanza @q{number} to print before the start of a
@@ -486,7 +487,7 @@ Example:
 
 @noindent
 This will create a start-repeat bar in this staff only.  Valid values
-are described in @internalsref{bar-line-interface}.")
+are described in @rinternals{bar-line-interface}.")
      )))
 
 
@@ -581,4 +582,4 @@ and subscripts.  See @file{scm/script.scm} for more information.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public default-melisma-properties
-  '(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy))
+  '(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy completionBusy))

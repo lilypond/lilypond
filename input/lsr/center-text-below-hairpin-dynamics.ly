@@ -29,6 +29,8 @@ hairpinWithCenteredText = #(define-music-function (parser location text) (markup
 hairpinMolto = \hairpinWithCenteredText \markup { \italic "molto" }
 hairpinMore = \hairpinWithCenteredText \markup { \bigger "moltissimo" }
 
+\layout { ragged-right = ##f }
+
 {
   \hairpinMolto c'2\< c'2\f
   \hairpinMore  c'2\< c'2\f

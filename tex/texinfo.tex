@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2008-04-09.09}
+\def\texinfoversion{2008-04-18.10}
 %
 % Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -650,8 +650,8 @@
 \def\jmacro{j}
 \def\dotless#1{%
   \def\temp{#1}%
-  \ifx\temp\imacro \ptexi
-  \else\ifx\temp\jmacro \j
+  \ifx\temp\imacro \ifmmode\imath \else\ptexi \fi
+  \else\ifx\temp\jmacro \ifmmode\jmath \else\j \fi
   \else \errmessage{@dotless can be used only with i or j}%
   \fi\fi
 }
@@ -1119,6 +1119,16 @@ where each line of input produces a line of output.}
   \mathunderscore
   \let\\ = \mathbackslash
   \mathactive
+  % make the texinfo accent commands work in math mode
+  \let\"=\ddot
+  \let\'=\acute
+  \let\==\bar
+  \let\^=\hat
+  \let\`=\grave
+  \let\u=\breve
+  \let\v=\check
+  \let\~=\tilde
+  \let\dotaccent=\dot
   $\finishmath
 }
 \def\finishmath#1{#1$\endgroup}  % Close the group opened by \tex.

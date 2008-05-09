@@ -7,16 +7,17 @@
 */
 
 #include "align-interface.hh"
-#include "spanner.hh"
-#include "item.hh"
 #include "axis-group-interface.hh"
-#include "pointer-group-interface.hh"
-#include "hara-kiri-group-spanner.hh"
 #include "grob-array.hh"
+#include "hara-kiri-group-spanner.hh"
 #include "international.hh"
+#include "item.hh"
+#include "paper-column.hh"
+#include "pointer-group-interface.hh"
+#include "spanner.hh"
+#include "skyline-pair.hh"
 #include "system.hh"
 #include "warn.hh"
-#include "paper-column.hh"
 
 /*
   TODO: for vertical spacing, should also include a rod & spring
@@ -402,7 +403,7 @@ ADD_INTERFACE (Align_interface,
 	       "Order grobs from top to bottom, left to right, right to left"
 	       " or bottom to top.  For vertical alignments of staves, the"
 	       " @code{break-system-details} of the left"
-	       " @internalsref{NonMusicalPaperColumn} may be set to tune"
+	       " @rinternals{NonMusicalPaperColumn} may be set to tune"
 	       " vertical spacing.  Set @code{alignment-extra-space} to add"
 	       " extra space for staves.  Set"
 	       " @code{fixed-alignment-extra-space} to force staves in"

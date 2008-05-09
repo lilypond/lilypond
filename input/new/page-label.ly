@@ -1,9 +1,8 @@
 \version "2.11.26"
-\layout { ragged-right= ##t }
 \header {
   lsrtags = "spacing"
   texidoc = "Page labels may be placed inside music or at top-level,
-and refered to in markups."
+and referred to in markups."
   doctitle = "Page label"
 }
 
@@ -14,13 +13,13 @@ and refered to in markups."
    (markup #:fill-line (text #:page-ref label "8" "?"))))
 
 \book {
-  \markup \huge \fill-line { \null "Title Page" \null }
+  \markup \huge \fill-line { \null Title Page \null }
 
   \pageBreak
 
   \label #'toc
   \markup \column {
-    \large \fill-line { \null "Table of contents" \null }
+    \large \fill-line { \null Table of contents \null }
     \toc-line #'toc "Table of contents"
     \toc-line #'firstScore "First Score"
     \toc-line #'markA "Mark A"
@@ -33,14 +32,15 @@ and refered to in markups."
 
   \label #'firstScore
   \score {
-    { c'2 c'
-      \mark \markup { A (page \concat { \page-ref #'markA "0" "?" ) }} \label #'markA 
-      c' c'
+    {
+      c'2 c'
+      \mark \markup { A (page \concat { \page-ref #'markA "0" "?" ) } } \label #'markA
+      c'2 c'
       \pageBreak
       \mark "B" \label #'markB
-      d' d'
-      d' d'
-      \once \override Score . RehearsalMark #'break-visibility = #begin-of-line-invisible
+      d'2 d'
+      d'2 d'
+      \once \override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible
       \mark "C" \label #'markC
     }
     \header { piece = "First score" }

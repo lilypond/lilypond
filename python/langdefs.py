@@ -6,6 +6,8 @@ Documentation i18n module
 """
 
 import re
+import sys
+import os
 
 def lang_file_name (p, langext, ext):
     if langext != '':
@@ -34,17 +36,28 @@ class LanguageDef:
 
 site = LanguageDef ('en', 'English', webext='')
 
-html_page_body = re.compile ('</?body.*>', re.M | re.I)
+html_body_re = re.compile ('<body.*?>', re.I)
+html_end_body_re = re.compile ('</body>', re.I)
 french_html_typo_rules = ((' :', '&nbsp;:'),
                           (' ;', '&nbsp;;'),
-                          (' ?', '&thinsp;?'),
-                          (' !', '&thinsp;!'))
+                          (' ?', '<font size="-4">&nbsp;</font>?'),
+                          (' !', '<font size="-4">&nbsp;</font>!'))
 
 def french_html_filter (page):
-    parts = html_page_body.split (page)
+    m = html_body_re.search (page)
+    if m:
+        body_begin = m.end ()
+    else:
+        body_begin = 0
+    m = html_end_body_re.search (page)
+    if m:
+        body_end = m.start ()
+    else:
+        body_end = len (page)
+    body = page[body_begin:body_end]
     for r in french_html_typo_rules:
-        parts[1] = parts[1].replace (r[0], r[1])
-    return parts[0] + '<body>' + parts[1] + '</body>' + parts[2]
+        body = body.replace (r[0], r[1])
+    return page[:body_begin] + body + page[body_end:]
 
 fr = LanguageDef ('fr', 'français', double_punct_char_sep='&nbsp;', html_filter = french_html_filter)
 es = LanguageDef ('es', 'español')
@@ -62,3 +75,18 @@ else:
     LANGDICT = {}
     for l in LANGUAGES:
         LANGDICT[l.code] = l
+
+    try:
+        import gettext
+
+        translation = {}
+        for l in LANGUAGES:
+            if l.enabled and l.code != 'en':
+                t = gettext.translation('lilypond-doc',
+                                        os.environ['LYDOC_LOCALEDIR'],
+                                        [l.code])
+                translation[l.code] = t.gettext
+    except:
+        if os.environ.has_key ('LYDOC_LOCALEDIR'):
+            sys.stderr.write ('langdefs.py: warning: lilypond-doc gettext domain not found.\n')
+        translation = dict ([(l.code, lambda x: x) for l in LANGUAGES])
