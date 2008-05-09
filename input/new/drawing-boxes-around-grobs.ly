@@ -1,23 +1,22 @@
 \version "2.11.23"
-\layout { ragged-right= ##t }
 \header {
   lsrtags = "tweaks-and-overrides"
   texidoc = "
 The @code{print-function} can be overridden to draw a box around an
-arbitrary grob.  
+arbitrary grob.
 "
   doctitle = "Drawing boxes around grobs"
 }
 
 \relative c'' {
-  \override TextScript  #'stencil =
-  #(make-stencil-boxer 0.1 0.3 ly:text-interface::print)
+  \override TextScript #'stencil =
+    #(make-stencil-boxer 0.1 0.3 ly:text-interface::print)
   c'4^"foo"
 
-  \override Stem  #'stencil =
-  #(make-stencil-boxer 0.05 0.25 ly:stem::print)
+  \override Stem #'stencil =
+    #(make-stencil-boxer 0.05 0.25 ly:stem::print)
   \override Score.RehearsalMark  #'stencil =
-  #(make-stencil-boxer 0.15 0.3 ly:text-interface::print)
+    #(make-stencil-boxer 0.15 0.3 ly:text-interface::print)
   b8
   
   \revert Stem #'stencil

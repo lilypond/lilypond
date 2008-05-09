@@ -2,10 +2,11 @@
 \header {
   lsrtags = "pitches,staff-notation"
   texidoc = "Quotations take into account the transposition of both
-source and target. In this example, all instruments play sounding
-middle C; the target is an instrument in F. The target part may be
-transposed using @code{\\transpose}. In this case, all the pitches (including the
-quoted ones) are transposed."
+source and target.  In this example, all instruments play sounding
+middle C; the target is an instrument in F.  The target part may be
+transposed using @code{\\transpose}.  In this case, all the pitches
+(including the quoted ones) are transposed.
+"
   doctitle = "Quoting another voice with transposition"
 }
 
@@ -29,7 +30,7 @@ quoteTest = {
 }
 
 {
-  \set Staff.instrumentName = \markup \center-align { "Horn" "in F" }
+  \set Staff.instrumentName = \markup \center-align { Horn \line { in F } }
   \quoteTest
   \transpose c' d' << \quoteTest s4_"up a tone" >>
 }
