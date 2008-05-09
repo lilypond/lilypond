@@ -28,12 +28,12 @@ $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $< 
-	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
+	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 
 $(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
+	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
@@ -47,7 +47,7 @@ $(outdir)/%.ps.gz.omf: %.texi
 $(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond.css $(dir $@)
+	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)

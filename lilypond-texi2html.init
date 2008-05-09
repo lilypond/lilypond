@@ -226,7 +226,25 @@ sub lilypond_toc_body($)
 }
 
 
-
+sub lilypond_css_lines ($$)
+{
+    my $import_lines = shift;
+    my $rule_lines = shift;
+    return if (defined($CSS_LINES));
+#     return if (!@$rule_lines and !@$import_lines and (! keys(%css_map)));
+    if (@$rule_lines or @$import_lines)
+    {
+        $CSS_LINES = "<style type=\"text/css\">\n<!--\n";
+        $CSS_LINES .= join('',@$import_lines) . "\n" if (@$import_lines);
+        $CSS_LINES .= join('',@$rule_lines) . "\n" if (@$rule_lines);
+        $CSS_LINES .= "-->\n</style>\n";
+    }
+    foreach my $ref (@CSS_REFS)
+    {
+        $CSS_LINES .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\">\n";
+    }
+    $CSS_LINES .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+}
 
 
 
@@ -239,11 +257,15 @@ sub lilypond_toc_body($)
 sub print_lilypond_page_foot($)
 {
   my $fh = shift;
+  my $program_string = &$program_string();
+  print $fh "<p><font size="-1">$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
+  
+  # Print the TOC frame:
   my @lines = @this_page_toc;
   # use default TOC if no custom lines have been generated
   @lines = @default_toc if (not @lines);
   if (@lines) {
-    print $fh "<div id=\"tocframe\">";
+    print $fh "\n\n<div id=\"tocframe\">";
     print $fh '<h4> ' . $Texi2HTML::NAME{'Contents'}  . "</h4>\n";
     foreach my $line (@lines) {
       print $fh $line;
@@ -251,7 +273,9 @@ sub print_lilypond_page_foot($)
     print $fh "</div>";
     @this_page_toc = ();
   }
-  T2H_DEFAULT_print_page_foot($fh);
+  
+  # Close the page:
+  print $fh "</body>\n</html>\n";
 }
 
 
@@ -465,6 +489,7 @@ $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
 $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
 $Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
+$Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
 
 
 # For split pages, use index(.lang).html as start page!
@@ -508,6 +533,6 @@ sub lilypond_unknown($$$$$)
 }
 $Texi2HTML::Config::unknown                  = \&lilypond_unknown;
 
-
+%css_map=();
 
 return 1;
