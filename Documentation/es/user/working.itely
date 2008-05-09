@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
+    Translation of GIT committish: 23542761090f167ad42dbff7ef11d44a9c1374ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -38,7 +38,7 @@ salida que usted pretendía, realmente no importa mucho qué aspecto
 tengan sus archivos.  Sin embargo existen algunas otras cosas a tener
 en cuenta cuando se escriben archivos de LilyPond.
 
-@itemize @bullet
+@itemize
 @item ¿Qué ocurre si comete un fallo?  La estructura de un archivo
 de LilyPond puede hacer que ciertos errores se hagan más fáciles (o
 más difíciles) de encontrar.
@@ -72,7 +72,7 @@ fáciles (o más difíciles) de actualizar.
 Presentamos algunas sugerencias que le pueden servir de ayuda para evitar
 o corregir problemas:
 
-@itemize @bullet
+@itemize
 @item @strong{Incluya los números de @code{\version} en todos los archivos}.  Dese cuenta de que todas las
 plantillas contienen información sobre la @code{\version}.  Le
 recomendamos mucho que siempre incluya la @code{\version}, sin
@@ -128,7 +128,7 @@ si reelabora la música más tarde.
 Si está introduciendo música a partir de una partitura existente (es decir, tipografiando una hoja
 de música ya impresa),
 
-@itemize @bullet
+@itemize
 
 @item Introduzca un sistema del manuscrito (la copia física) cada vez (pero mantenga
 la práctica de escribir un compás por línea de texto), y compruebe
@@ -153,7 +153,7 @@ más oportuno.
 Al trabajar en proyecto grande se hace esencial tener una estructura clara
 en los archivos de LilyPond
 
-@itemize @bullet
+@itemize
 
 @item @strong{Utilice un identificador para cada voz}, con un mínimo de
 estructura dentro de la definición.  La estructura de la sección
