@@ -370,9 +370,6 @@ has no effect on the pitches of @var{musicexpr1} and
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,texidoc]
-{combining-two-parts-on-the-same-staff.ly}
-
 Parts may be merged without printing text:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -409,6 +406,7 @@ Notation Reference:
 
 Snippets:
 @rlsr{Simultaneous notes}.
+
 
 Internals Reference:
 @rinternals{PartCombineMusic},
@@ -469,13 +467,13 @@ music = {
     % Bar 1 
     a'8 b'      c'' d''   |
     d'4         e'        |
-    c16 d e f   d e f g   |
+    c16 d e fis d e fis g |
     a,4         a,4       |
 
     % Bar 2
-    e''8 f''    g'' a''   |
-    f'4         g'        |
-    e16 f g a   f g a b   |
+    e''8 fis''  g'' a''   |
+    fis'4       g'        |
+    e16 fis g a fis g a b |
     a,4         a,4       |
 
     % Bar 3 ...
