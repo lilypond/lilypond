@@ -996,8 +996,8 @@ returns an empty markup."
 @cindex overriding properties within text markup
 
 Add the first argument in to the property list.  Properties may be
-any sort of property supported by @internalsref{font-interface} and
-@internalsref{text-interface}, for example
+any sort of property supported by @rinternals{font-interface} and
+@rinternals{text-interface}, for example
 
 @example
 \\override #'(font-family . married) \"bla\"

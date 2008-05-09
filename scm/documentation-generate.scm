@@ -156,7 +156,7 @@
 @end iftex
 
 
-@macro internalsref{NAME}
+@macro rinternals{NAME}
 @ref{\\NAME\\}
 @end macro
 
