@@ -293,73 +293,67 @@ different accidentals in the same chord.  In this case, it is
 recommended to use enharmonic transcription, or to use special
 cluster notation (see @ref{Clusters}).
 
-
 @node Automatic part combining
 @subsubsection Automatic part combining
+
 @cindex automatic part combining
 @cindex part combiner
 @cindex combining parts
+@funindex \partcombine
 
-Automatic part combining is used to merge two parts of music onto
-a staff.  It is aimed at typesetting orchestral scores.  When the
-two parts are identical for a period of time, only one is shown.
-In places where the two parts differ, they are typeset as separate
+Automatic part combining is used to merge two parts of music onto a
+staff.  It is aimed at typesetting orchestral scores.  When the two
+parts are identical for a period of time, only one is shown.  In
+places where the two parts differ, they are typeset as separate
 voices, and stem directions are set automatically.  Also, solo and
-@emph{a due} parts are identified and can be marked.
+@notation{a due} parts are identified and marked by default.
 
-The syntax for part combining is
+The syntax for part combining is:
 
 @example
 \partcombine @var{musicexpr1} @var{musicexpr2}
 @end example
 
-
-The following example demonstrates the basic functionality of the
-part combiner: putting parts on one staff, and setting stem
-directions and polyphony.
-
-@lilypond[quote,verbatim,ragged-right,fragment]
-\new Staff \partcombine
-  \relative g' { g g a( b) c c r r }
-  \relative g' { g g r4 r e e g g }
-@end lilypond
-
-The first @code{g} appears only once, although it was specified
-twice (once in each part).  Stem, slur, and tie directions are set
-automatically, depending whether there is a solo or unisono.  The
-first part (with context called @code{one}) always gets up stems,
-and @q{Solo}, while the second (called @code{two}) always gets
-down stems and @q{Solo II}.
-
-If you just want the merging parts, and not the textual markings,
-you may set the property @code{printPartCombineTexts} to false.
+The following example demonstrates the basic functionality of the part
+combiner: putting parts on one staff and setting stem directions and
+polyphony.  The same variables are used for the independent
+parts and the combined staff.
 
 @lilypond[quote,verbatim,ragged-right]
-\new Staff <<
-  \set Staff.printPartCombineTexts = ##f
-  \partcombine
-    \relative g' { g a( b) r }
-    \relative g' { g r4 r f }
+instrumentOne = \relative c' {
+  c4 d e f
+  R1
+  d'4 c b a
+  b4 g2 f4
+  e1
+}
+
+instrumentTwo = \relative g' {
+  R1
+  g4 a b c
+  d c b a
+  g f( e) d
+  e1
+}
+
+<<
+  \new Staff \instrumentOne
+  \new Staff \instrumentTwo
+  \new Staff \partcombine \instrumentOne \instrumentTwo
 >>
 @end lilypond
 
-To change the text that is printed for solos or merging, you may
-set the @code{soloText}, @code{soloIIText}, and @code{aDueText}
-properties.
-
-@lilypond[quote,verbatim,ragged-right]
-\new Staff <<
-  \set Score.soloText = #"ichi"
-  \set Score.soloIIText = #"ni"
-  \set Score.aDueText = #"tachi"
-  \partcombine
-    \relative g' { g4 g a( b) r }
-    \relative g' { g4 g r r f }
->>
-@end lilypond
+The notes in the third measure appear only once, although they were
+specified in both parts.  Stem, slur, and tie directions are set
+automatically, depending whether there is a solo or unison.  When
+needed in polyphony situations, the first part (with context called
+@code{one}) always gets up stems, while the second (called @code{two})
+always gets down stems.  In solo situations, the parts get marked with
+@q{Solo} and @q{Solo II}, respectively.  The unisono (@notation{a due})
+parts are marked by default with the text @qq{a2}.
 
 Both arguments to @code{\partcombine} will be interpreted as
-@rinternals{Voice} contexts.  If using relative octaves,
+@code{Voice} contexts.  If using relative octaves,
 @code{\relative} should be specified for both music expressions,
 i.e.,
 
@@ -374,13 +368,45 @@ A @code{\relative} section that is outside of @code{\partcombine}
 has no effect on the pitches of @var{musicexpr1} and
 @var{musicexpr2}.
 
+@snippets
+
+Parts may be merged without printing text:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff <<
+  \set Staff.printPartCombineTexts = ##f
+  \partcombine
+    \relative g' { g a( b) r }
+    \relative g' { g r4 r f }
+>>
+@end lilypond
+
+The printed text may be changed:
+
+@lilypond[quote,verbatim,ragged-right]
+\new Staff <<
+  \set Score.soloText = #"girl"
+  \set Score.soloIIText = #"boy"
+  \set Score.aDueText = #"together"
+  \partcombine
+    \relative g' { g4 g r r a2 g }
+    \relative g' { r4 r a( b) a2 g }
+>>
+@end lilypond
+
+
 @seealso
 
 Music Glossary:
-@rglos{a due}.
+@rglos{a due},
+@rglos{part}.
+
+Notation Reference:
+@ref{Writing parts}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
+
 
 Internals Reference:
 @rinternals{PartCombineMusic},
@@ -402,14 +428,21 @@ when the parts can be combined.  Consequently, if the arguments
 switch to differently named @rinternals{Voice} contexts, the
 events in those will be ignored.
 
+@c IIRC in users list someone pointed out more issues. FV
 
 @node Writing music in parallel
 @subsubsection Writing music in parallel
 
 @cindex Writing music in parallel
 @cindex Interleaved music
+@funindex parallelMusic
 
-Music for multiple parts can be interleaved:
+Music for multiple parts can be interleaved in input code.  The
+function @code{\parallelMusic} accepts a list with the names of a
+number of variables to be created, and a musical expression.  The
+content of alternate measures from the expression become the value of
+the respective variables, so you can use them afterwards to print the
+music.
 
 @lilypond[quote,fragment,verbatim]
 \parallelMusic #'(voiceA voiceB) {
@@ -419,12 +452,13 @@ Music for multiple parts can be interleaved:
   c'2                               c'2                         |
 }
 \new StaffGroup <<
-  \new Staff \new Voice \voiceA
-  \new Staff \new Voice \voiceB
+  \new Staff  \voiceA
+  \new Staff  \voiceB
 >>
 @end lilypond
 
-This works quite well for piano music.
+This works quite well for piano music.  This example maps four
+consecutive measures to four variables:
 
 @lilypond[quote,verbatim]
 global = { \key g \major  \time 2/4 }
@@ -433,13 +467,13 @@ music = {
     % Bar 1 
     a'8 b'      c'' d''   |
     d'4         e'        |
-    c16 d e f   d e f g   |
+    c16 d e fis d e fis g |
     a,4         a,4       |
 
     % Bar 2
-    e''8 f''    g'' a''   |
-    f'4         g'        |
-    e16 f g a   f g a b   |
+    e''8 fis''  g'' a''   |
+    fis'4       g'        |
+    e16 fis g a fis g a b |
     a,4         a,4       |
 
     % Bar 3 ...
@@ -467,6 +501,9 @@ music = {
 @end lilypond
 
 @seealso
+
+Learning Manual:
+@rlearning{Organizing pieces with variables}
 
 Snippets:
 @rlsr{Simultaneous notes}.

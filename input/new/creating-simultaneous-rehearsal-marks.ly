@@ -15,8 +15,6 @@ end of one system and the start of the following system.
 
 % Thanks to Risto Vääräniemi for this snippet
 
-\paper { ragged-right = ##t }
-
 {
   \key a \major
   \set Score.markFormatter = #format-mark-box-letters
@@ -36,5 +34,5 @@ end of one system and the start of the following system.
   \mark \markup { \box \bold "Intro" }
   d'1
   \mark \default
-  d'
+  d'1
 }

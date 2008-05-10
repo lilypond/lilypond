@@ -9,21 +9,21 @@ You may have to install additional fonts.
 Red Hat Fedora
 
     taipeifonts fonts-xorg-truetype ttfonts-ja fonts-arabic \
-	 ttfonts-zh_CN fonts-ja fonts-hebrew 
+   ttfonts-zh_CN fonts-ja fonts-hebrew 
 
 Debian GNU/Linux
 
    apt-get install emacs-intl-fonts xfonts-intl-.* \
-	ttf-kochi-gothic ttf-kochi-mincho \
-	xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
+  ttf-kochi-gothic ttf-kochi-mincho \
+  xfonts-bolkhov-75dpi xfonts-cronyx-100dpi xfonts-cronyx-75dpi 
 %} 
 
 \header {
   lsrtags = "text"
   texidoc = "Various scripts may be used for texts (like titles and
-lyrics) introduced by entering them in UTF-8 encoding, and using a
-Pango based backend.  Depending on the fonts installed, this fragment
-will render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
+lyrics) by entering them in UTF-8 encoding, and using a Pango based
+backend.  Depending on the fonts installed, this fragment will
+render Bulgarian (Cyrillic), Hebrew, Japanese and Portuguese.
 "
   doctitle = "UTF-8"
 }
@@ -35,28 +35,27 @@ bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
 }
 
-hebrew = \lyricmode { 
+hebrew = \lyricmode {
   זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
 }
 
-japanese = \lyricmode {  
+japanese = \lyricmode {
   いろはにほへど ちりぬるを
   わがよたれぞ  つねならむ
   うゐのおくや  まけふこえて
-  あさきゆめみじ ゑひもせず 
+  あさきゆめみじ ゑひもせず
 }
 
 % "a legal song to you"
-portuguese = \lyricmode { 
+portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\paper {
-  ragged-right = ##t
-}
-
-\relative  { 
-  c2 d e f g f e
+\relative  {
+  c2 d
+  e2 f
+  g2 f
+  e1
 }
 \addlyrics { \bulgarian }
 \addlyrics { \hebrew }

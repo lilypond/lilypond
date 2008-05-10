@@ -120,18 +120,6 @@
 
 @c   **** Links and references ****
 
-@c  TO BE DEPRECATED
-@c usage: @lsrdir{ancient,Ancient-notation}
-@macro lsrdir{SECTION,DIR}
-@ifhtml
-@uref{source/input/lsr/lilypond-snippets/\DIR\.html,\SECTION\}
-@end ifhtml
-@ifnothtml
-\DIR\
-@end ifnothtml
-@end macro
-
-
 @c  Definitions for references:
 @c     @rglos
 @c     @rlearning
@@ -144,13 +132,6 @@
 @c ***** HTML *****
 
 @ifset bigpage
-
-@c TO BE DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page,Internals Reference}
-@end macro
-
 
 @macro rglos{TEXT}
 @vindex \TEXT\
@@ -185,13 +166,6 @@
 
 
 @ifclear bigpage
-
-@c  DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Internals Reference}
-@end macro
-
 
 @macro rglos{TEXT}
 @vindex \TEXT\
@@ -230,14 +204,6 @@
 @ifdocbook
 @c ***** DOCBOOK-XML *****
 
-@c  DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Internals Reference}
-@end macro
-
-
-
 @macro rglos{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Music Glossary}
@@ -273,14 +239,6 @@
 @ifinfo
 @c **** INFO ****
 
-@c DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@inforef{\TEXT\,,lilypond-internals,Internals Reference}
-@end macro
-
-
-
 @macro rglos{TEXT}
 @vindex \TEXT\
 @inforef{\TEXT\,,music-glossary,Music Glossary}
@@ -315,14 +273,6 @@
 
 @c **** TEX ****
 @iftex
-
-@c DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@code{\TEXT\}
-@end macro
-
-
 
 @macro rglos{TEXT}
 @vindex \TEXT\
