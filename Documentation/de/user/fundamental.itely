@@ -135,7 +135,7 @@ vorkommt. Die Namen sind frei wählbar, die Variable kann genauso
 gut  @code{melodie}, @code{GLOBAL},
 @code{rechteHandklavier}, oder @code{foofoobarbaz} heißen. Für mehr
 Information siehe
-@ruser{Saving typing with identifiers and functions}.
+@ref{Saving typing with variables and functions}.
 
 Eine komplette Definition des Eingabeformats findet sich
 im Kapitel @ruser{File structure}.
@@ -155,7 +155,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
 
-Im vorigen Kapitel, @ruser{How LilyPond files work}, 
+Im vorigen Kapitel, @ref{How LilyPond files work}, 
 wurde die allgemeine Struktur einer LilyPond-Quelldatei 
 beschrieben. Aber anscheinend haben wir die wichtigste 
 Frage ausgelassen, nämlich wie man herausfindet, was nach 
@@ -172,7 +172,7 @@ von einem einzelnen musikalischen Ausdruck.}
 
 @noindent
 Vielleicht wollen Sie noch einmal 
-@ruser{Music expressions explained} überfliegen. In diesem
+@ref{Music expressions explained} überfliegen. In diesem
 Kapitel wurde gezeigt, wie sich große musikalische Ausdrücke 
 aus kleinen Teilen zusammensetzen. Noten können zu Akkorden 
 verbunden werden usw. Jetzt gehen wir aber in die andere Richtung 

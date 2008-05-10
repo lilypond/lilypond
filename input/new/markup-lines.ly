@@ -10,10 +10,10 @@
 #(set-default-paper-size "a6")
 
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
-  (interpret-markup-list layout props 
+  (interpret-markup-list layout props
    (make-justified-lines-markup-list (cons (make-hspace-markup 2) args))))
 
-%% Candide, Voltaire
+% Candide, Voltaire
 \markuplines \override-lines #'(baseline-skip . 2.5) {
   \paragraph {
     Il y avait en Westphalie, dans le château de M. le baron de

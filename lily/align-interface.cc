@@ -382,7 +382,7 @@ ADD_INTERFACE (Align_interface,
 	       "Order grobs from top to bottom, left to right, right to left"
 	       " or bottom to top.  For vertical alignments of staves, the"
 	       " @code{break-system-details} of the left"
-	       " @internalsref{NonMusicalPaperColumn} may be set to tune"
+	       " @rinternals{NonMusicalPaperColumn} may be set to tune"
 	       " vertical spacing.  Set @code{alignment-extra-space} to add"
 	       " extra space for staves.  Set"
 	       " @code{fixed-alignment-extra-space} to force staves in"

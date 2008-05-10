@@ -765,22 +765,22 @@ de manière linéaire.
 @ifhtml
 Le
 @end ifhtml
-@emph{@ruser{Tutorial}}
+@emph{@ref{Tutorial}}
 propose une introduction en douceur à la typographie musicale.
 Les utilisateurs débutants sont invités à commencer ici.
 
 @item
-@emph{@ruser{Putting it all together}}
+@emph{@ref{Fundamental concepts}}
 explique des concepts généraux du format de fichier ly. Si vous n'êtes
 pas certain de l'endroit où placer une commande, lisez ce chapitre !
 
 @item
-@emph{@ruser{Working on LilyPond projects}}
+@emph{@ref{Working on LilyPond projects}}
 montre des utilisations pratiques de LilyPond et donne des conseils
 afin d'éviter les problèmes les plus courants.
 
 @item
-@emph{@ruser{Tweaking output}}
+@emph{@ref{Tweaking output}}
 est une introduction aux retouches de gravure avec LilyPond.
 
 @end itemize
@@ -795,22 +795,16 @@ concepts exposés dans le manuel d'apprentissage.
 @itemize @bullet
 
 @item
-@emph{@ruser{Basic notation}}
+@emph{@ruser{Musical notation}}
 traite de sujets groupés par type de notation.  Cette section
 détaille la notation de base, qui sera utile dans la plupart des
 projets de partition.
 
 @item
-@emph{@ruser{Instrument-specific notation}}
+@emph{@ruser{Specialist notation}}
 traite de sujets groupés par type de notation.  Cette section détaille
 des notations spéciales qui ne seront utiles que pour des types
 particuliers d'instruments ou la voix.
-
-@item
-@emph{@ruser{Advanced notation}}
-traite de sujets groupés par type de notation.  Cette section
-donne des précisions à propos de notations compliquées et
-inhabituelles
 
 @item
 @emph{@ruser{Changing defaults}}
@@ -851,7 +845,7 @@ en savoir plus sur la notation et la gravure.
 
 @item
 Le
-@emph{@ruser{Scheme tutorial}}
+@emph{@ref{Scheme tutorial}}
 propose une courte introduction à Scheme, le langage de programmation
 utilisé dans les fonctions de musique.
 
@@ -865,7 +859,7 @@ instruments MIDI, les noms de couleur, et la police Feta.
 
 @item
 Les
-@emph{@ruser{Templates}}
+@emph{@ref{Templates}}
 de pièces LilyPond.  Copiez et collez un modèle
 dans un fichier, ajoutez les notes, et c'est prêt !
 

@@ -173,13 +173,13 @@ c4^"piu mosso" d e f
 
 @seealso
 
-Dans ce même manuel : @ruser{The \override command}, @ruser{Common tweaks}.
+Dans ce même manuel : @ruser{The \override command}, @ref{Common tweaks}.
 
 
 @node Fixing overlapping notation
 @section Fixing overlapping notation
 
-Dans la section @ruser{Moving objects}, nous avons vu comment
+Dans la section @ref{Moving objects}, nous avons vu comment
 déplacer un objet @code{TextScript}.  Ce même procédé peut être
 appliqué à d'autres types d'objet : il vous suffira de remplacer
 @code{TextScript} par le nom de l'objet en question.
@@ -491,7 +491,7 @@ largement personnalisé à l'aide de commandes comme
 @code{\override TextScript #'extra-offset = ( 1 . -1)}.  Cependant,
 l'utilisation de Scheme ouvre des possibilités encore plus grandes.
 Pour des explications complètes là-dessus, consultez le 
-@ruser{Scheme tutorial}  et les @ruser{Interfaces for programmers}.
+@ref{Scheme tutorial}  et les @ruser{Interfaces for programmers}.
 
 On peut utiliser Scheme simplement à l'aide des commandes @code{\override}.
 

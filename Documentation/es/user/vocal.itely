@@ -358,7 +358,7 @@ o especificando la duración de cada sílaba explícitamente, utilizando
 @menu
 * Automatic syllable durations::  
 * Manual syllable durations::   
-* Multiple notes to one syllable::  
+* Multiple syllables to one note::  
 * Multiple notes to one syllable::  
 * Skipping notes::              
 * Extenders and hyphens::       
@@ -466,8 +466,8 @@ duraciones manuales de las sílabas del texto:
 Referencia de funcionamiento interno: @internalsref{Lyrics}.
 
 
-@node Multiple notes to one syllable
-@subsubsection Multiple notes to one syllable
+@node Multiple syllables to one note
+@subsubsection Multiple syllables to one note
 
 
 @funindex _

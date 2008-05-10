@@ -49,7 +49,7 @@ de notación.  Esto no cambia el tamaño de los símbolos variables, como
 las barras de corchea o las ligaduras.
 
 @warning{Para los tamaños de tipografía del @strong{texto}, consulte
-@ref{Common markup commands}.}
+@ref{Text markup list commands}.}
 
 @lilypond[quote,fragment,relative=2,verbatim,ragged-right]
 \huge

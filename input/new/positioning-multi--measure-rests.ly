@@ -1,5 +1,4 @@
 \version "2.11.42"
-\layout { ragged-right = ##t }
 \header {
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "

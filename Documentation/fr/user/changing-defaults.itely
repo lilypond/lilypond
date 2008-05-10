@@ -65,7 +65,7 @@ infrastructure.  Modifier les choix de mise en page revient à pénétrer dans
 les entrailles du programme, et de ce fait requiert l'emploi du Scheme.
 Les fragments de Scheme, dans un fichier @code{.ly}, sont introduits par le
 caractère @q{hash}, (@code{#}, improprement surnommé @q{dièse}).@footnote{Le 
-@ref{Scheme tutorial} fournit quelques notions de base pour saisir des nombres,
+@rlearning{Scheme tutorial} fournit quelques notions de base pour saisir des nombres,
 des listes, des chaînes de caractères ou des symboles, en Scheme.}
 
 
@@ -1244,7 +1244,7 @@ On peut alors saisir la musique, comme dans l'exemple plus haut :
 
 Il est possible d'aligner verticalement chaque nouveau contexte,
 en-dessous ou au-dessus, par exemple dans le cas de musique vocale
-(@ref{Vocal ensembles}) ou d'@qq{ossias}.
+(@rlearning{Vocal ensembles}) ou d'@qq{ossias}.
 
 @cindex ossia
 @findex alignAboveContext

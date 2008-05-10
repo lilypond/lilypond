@@ -2087,7 +2087,7 @@ effect.  In general the commands shown in this section can
 be placed in either.
 
 Much more detail on the options for tweaking the laying out
-of music are contained in @ruser{Spacing issues}.
+of music are contained in @ref{Spacing issues}.
 
 @node Global sizes
 @subsection Global sizes
@@ -2191,7 +2191,7 @@ a page-break at the point where they are inserted.
 Of course, the @code{\pageBreak} command also forces a line break.
 Like @code{\break}, the @code{\pageBreak} command is effective only
 at the end of a @q{complete} bar as defined above.  For more
-details see @ruser{Page breaking} and following sections.
+details see @ref{Page breaking} and following sections.
 
 There are also analogous settings to @code{ragged-right} and
 @code{ragged-last} which have the same effect on vertical spacing:
@@ -2199,7 +2199,7 @@ There are also analogous settings to @code{ragged-right} and
 @code{##t} the systems on all pages or just the last page
 respectively will not be justified vertically.
 
-For more details see @ruser{Vertical spacing}.
+For more details see @ref{Vertical spacing}.
 
 @node Fitting music onto fewer pages
 @subsection Fitting music onto fewer pages
@@ -2211,7 +2211,7 @@ of room left on those.
 
 When investigating layout issues, @code{annotate-spacing} is
 an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ruser{Displaying spacing}, for more
+layout spacing commands; see @ref{Displaying spacing}, for more
 details.  From the output of @code{annotate-spacing}, we can
 see which margins we may wish to alter.
 
@@ -2262,7 +2262,7 @@ e4 c g\f c
 
 @item
 Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ruser{Changing horizontal spacing}, for more details.  Here's
+@ref{Changing horizontal spacing}, for more details.  Here's
 an example first showing the default behavior:
 
 @lilypond[verbatim,quote,ragged-right]

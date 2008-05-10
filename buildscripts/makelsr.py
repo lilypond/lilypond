@@ -59,7 +59,10 @@ end_header_re = re.compile ('(\\header {.+?doctitle = ".+?})\n', re.M | re.S)
 def mark_verbatim_section (ly_code):
 	return end_header_re.sub ('\\1 % begin verbatim\n', ly_code, 1)
 
-begin_header_re = re.compile ('\\header\\s*{', re.M)
+# '% LSR' comments are to be stripped
+lsr_comment_re = re.compile (r'\s*%+\s*LSR.*')
+
+begin_header_re = re.compile (r'\\header\s*{', re.M)
 
 # add tags to ly files from LSR
 def add_tags (ly_code, tags):
@@ -84,6 +87,7 @@ def copy_ly (srcdir, name, tags):
 		s = LY_HEADER_NEW + s
 
 	s = mark_verbatim_section (s)
+	s = lsr_comment_re.sub ('', s)
 	open (dest, 'w').write (s)
 
 	e = os.system ("convert-ly -e '%s'" % dest)

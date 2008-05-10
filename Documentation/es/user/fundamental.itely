@@ -193,7 +193,7 @@ consulte @ruser{File structure}.
 @cindex expresión musical compuesta
 @cindex música, expresión compuesta de
 
-En la sección anterior, @ruser{How LilyPond files work} hemos podido
+En la sección anterior, @ref{How LilyPond files work} hemos podido
 ver la organización general de los archivos de entrada de LilyPond.
 Pero parece que nos saltamos la parte más importante: ¿cómo
 averiguamos qué escribir después de @code{\score}?
@@ -207,7 +207,7 @@ todo:
 @end quotation
 
 @noindent
-Quizá encuentre útil dar un repaso a @ruser{Music expressions
+Quizá encuentre útil dar un repaso a @ref{Music expressions
 explained}.  En esta sección, vimos cómo elaborar grandes expresiones
 musicales a partir de pequeñas piezas (comenzábamos con notas, luego
 acordes, etc.).  Ahora partiremos de una gran expresión musical y
