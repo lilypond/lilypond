@@ -91,37 +91,13 @@ get_skylines (Grob *me,
 	      bool pure, int start, int end,
 	      vector<Skyline_pair> *const ret)
 {
-  /* each child's skyline was calculated according to the common refpoint of its
-     elements. Here we need all the skylines to be positioned with respect to
-     a single refpoint, so we need the common refpoint of the common refpoints
-     of the elements of the children */
-  vector<Grob*> child_refpoints;
-  for (vsize i = 0; i < elements->size (); i++)
-    {
-      Grob *elt = (*elements)[i];
-      Grob *child_common = unsmob_grob ((a == Y_AXIS)
-					? elt->get_object ("X-common")
-					: elt->get_object ("Y-common"));
-      
-      if (!child_common)
-	{
-	  extract_grob_set (elt, "elements", child_elts);
-	  child_common = common_refpoint_of_array (child_elts, elt, other_axis (a));
-	}
-      
-      child_refpoints.push_back (child_common);
-    }
-
-  Grob *other_common = common_refpoint_of_array (child_refpoints, me, other_axis (a));
+  Grob *other_common = common_refpoint_of_array (*elements, me, other_axis (a));
   
   for (vsize i = elements->size (); i--;)
     {
       Grob *g = (*elements)[i];
       Skyline_pair skylines;
 
-      /* each skyline is calculated relative to (potentially) a different other_axis
-	 coordinate. In order to compare the skylines effectively, we need to shift them
-	 to some absolute reference point */
       if (!pure)
 	{
 	  Skyline_pair *skys = Skyline_pair::unsmob (g->get_property (a == Y_AXIS
@@ -147,7 +123,10 @@ get_skylines (Grob *me,
 		skylines.insert (b, 0, other_axis (a));
 	    }
 
-	  Real offset = child_refpoints[i]->relative_coordinate (other_common, other_axis (a));
+	  /* This skyline was calculated relative to the grob g. In order to compare it to
+	     skylines belonging to other grobs, we need to shift it so that it is relative
+	     to the common reference. */
+	  Real offset = g->relative_coordinate (other_common, other_axis (a));
 	  skylines.shift (offset);
 	}
       else
