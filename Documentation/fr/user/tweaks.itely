@@ -191,9 +191,9 @@ en bas des pages de la documentation.  Par exemple, en bas de la page
 @quotation
 @seealso
 
-Référence du programme : @internalsref{DynamicText}, @internalsref{Hairpin}.
+Référence du programme : @rinternals{DynamicText}, @rinternals{Hairpin}.
 Le placement vertical de ces symboles est contrôlé par
-@internalsref{DynamicLineSpanner}.
+@rinternals{DynamicLineSpanner}.
 @end quotation
 
 @noindent

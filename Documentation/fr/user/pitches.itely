@@ -137,8 +137,8 @@ d e fis g
 
 @seealso
 
-Référence du programme : @internalsref{LedgerLineSpanner},
-@internalsref{NoteHead}.
+Référence du programme : @rinternals{LedgerLineSpanner},
+@rinternals{NoteHead}.
 
 
 @node Cautionary accidentals
@@ -483,7 +483,7 @@ réelles, on utilisera un deuxième @code{transpose}
 
 @seealso
 
-Référence du programme : @internalsref{TransposedMusic}.
+Référence du programme : @rinternals{TransposedMusic}.
 
 Exemple : @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
@@ -586,7 +586,7 @@ apparaître des possibilités de réglage manuel de ces propriétés.
 
 Dans ce manuel : @ref{Grace notes}.
 
-Référence du programme : @internalsref{Clef}.
+Référence du programme : @rinternals{Clef}.
 
 
 @node Key signature
@@ -660,8 +660,8 @@ a bes c d
 
 @seealso
 
-Référence du programme : @internalsref{KeyCancellation},
-@internalsref{KeySignature}.
+Référence du programme : @rinternals{KeyCancellation},
+@rinternals{KeySignature}.
 
 
 @node Ottava brackets
@@ -704,7 +704,7 @@ d'octaviation en définissant @code{ottavation} après avoir fait appel
 
 @seealso
 
-Référence du programme : @internalsref{OttavaBracket}.
+Référence du programme : @rinternals{OttavaBracket}.
 
 
 @knownissues
@@ -806,7 +806,7 @@ Pour une liste exhaustive des styles de tête de note, consultez
 
 @seealso
 
-Référence du programme : @internalsref{NoteHead}.
+Référence du programme : @rinternals{NoteHead}.
 
 
 @node Easy notation note heads
@@ -825,7 +825,7 @@ la tête.  On l'utilise dans des partitions pour débutants.
 @end lilypond
 
 La commande @code{\easyHeadsOn} remplace tous les réglages de l'objet
-@internalsref{NoteHead}.  L'impression doit être de plus grande
+@rinternals{NoteHead}.  L'impression doit être de plus grande
 taille, afin que les lettres soient lisibles.  Voir à ce propos
 @ref{Setting the staff size}.
 
@@ -879,8 +879,8 @@ n-ième degré de la gamme.  Toutes les combinaisons sont possibles :
 
 L'improvisation peut quelquefois s'indiquer à l'aide de notes de forme
 allongée (@emph{slash}).  Ces têtes de notes sont créées  par
-l'adjonction du graveur @internalsref{Pitch_squash_engraver} au
-contexte @internalsref{Voice}, de telle sorte que la commande
+l'adjonction du graveur @rinternals{Pitch_squash_engraver} au
+contexte @rinternals{Voice}, de telle sorte que la commande
 
 @example
 \set squashedPosition = #0

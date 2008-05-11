@@ -101,9 +101,9 @@ Voici la liste exhaustive des symboles :
 Les symboles s'ordonnent verticalement suivant la propriété
 @code{script-priority}. Plus sa valeur numérique est faible, plus le
 symbole sera proche de la note. Dans l'exemple suivant, l'objet
-@internalsref{TextScript} --- le dièse --- a d'abord la propriété la
+@rinternals{TextScript} --- le dièse --- a d'abord la propriété la
 plus basse, et il est donc placé plus près de la note ; ensuite c'est
-l'objet @internalsref{Script} qui a la propriété la plus basse, et il se
+l'objet @rinternals{Script} qui a la propriété la plus basse, et il se
 place alors sous le dièse.  Lorsque deux objets ont la même priorité,
 c'est l'ordre dans lequel ils sont indiqués qui détermine lequel sera
 placé en premier.
@@ -119,7 +119,7 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
-Référence du programme : @internalsref{Script}.
+Référence du programme : @rinternals{Script}.
 
 
 @knownissues
@@ -199,8 +199,8 @@ c2 b4 a g1\espressivo
 Cependant, ces deux indications graphiques peuvent se trouver très
 comprimées horizontalement.  Pour les rallonger, on peut modifier la
 propriété @code{minimum-length} de
-@code{Voice.Hairpin} --- @internalsref{Voice}
-étant le contexte, et @internalsref{Hairpin} l'objet affecté. Par
+@code{Voice.Hairpin} --- @rinternals{Voice}
+étant le contexte, et @rinternals{Hairpin} l'objet affecté. Par
 exemple :
 
 @example
@@ -251,7 +251,7 @@ Pour créer des indications de nuances qui restent alignées
 avec les nuances habituelles, voir @ref{New dynamic marks}.
 
 Le positionnement vertical des nuances est géré par le
-@internalsref{DynamicLineSpanner}.
+@rinternals{DynamicLineSpanner}.
 
 
 @commonprop
@@ -298,10 +298,10 @@ leur étendue.  On peut empêcher l'impression de ces pointillés avec :
 
 @seealso
 
-Référence du programme : @internalsref{DynamicText}, @internalsref{Hairpin}.
+Référence du programme : @rinternals{DynamicText}, @rinternals{Hairpin}.
 
 Le placement vertical de ces éléments graphiques est géré par le
-@internalsref{DynamicLineSpanner}.
+@rinternals{DynamicLineSpanner}.
 
 
 @node Curves
@@ -433,7 +433,7 @@ le second la direction (1 pour haut, @minus{}1 pour bas).
 
 Dans ce même manuel : @ref{Automatic note splitting}.
 
-Référence du programme : @internalsref{Tie}.
+Référence du programme : @rinternals{Tie}.
 
 
 @knownissues
@@ -510,7 +510,7 @@ lier des accords. Dans LilyPond, il faut pour cela assigner
 
 @seealso
 
-Référence du programme : @internalsref{Slur}.
+Référence du programme : @rinternals{Slur}.
 
 
 @node Phrasing slurs
@@ -549,7 +549,7 @@ Il n'est pas possible d'avoir plusieurs liaisons de phrasé en même temps.
 
 @seealso
 
-Référence du programme : @internalsref{PhrasingSlur}.
+Référence du programme : @rinternals{PhrasingSlur}.
 
 
 @node Laissez vibrer ties
@@ -570,8 +570,8 @@ l'étouffer.  Cet effet s'obtient avec la commande @code{\laissezVibrer}.
 @seealso
 
 Référence du programme :
-@internalsref{LaissezVibrerTie}
-@internalsref{LaissezVibrerTieColumn}
+@rinternals{LaissezVibrerTie}
+@rinternals{LaissezVibrerTieColumn}
 
 D'autres exemples :
 @lsr{connecting,laissez-vibrer-ties.ly}
@@ -603,7 +603,7 @@ d4
 
 @seealso
 
-Référence du programme : @internalsref{BreathingSign}.
+Référence du programme : @rinternals{BreathingSign}.
 
 Exemples : @lsr{expressive,breathing-sign.ly}
 
@@ -663,7 +663,7 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 @seealso
 
-Référence du programme : @internalsref{Glissando}.
+Référence du programme : @rinternals{Glissando}.
 
 D'autres exemples : @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}.
 
@@ -717,7 +717,7 @@ de la vaguelette :
 Quand un arpège couvre plusieurs portées, il est possible d'indiquer
 l'arpège sur chacune des portées, puis de relier la ligne de vaguelettes
 en assignant @emph{vrai} à la propriété @code{connectArpeggios}, par
-exemple dans le contexte @internalsref{PianoStaff} :
+exemple dans le contexte @rinternals{PianoStaff} :
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new PianoStaff <<
@@ -745,13 +745,13 @@ exemple dans le contexte @internalsref{PianoStaff} :
 
 Dans ce même manuel : @ref{Ties}, pour noter explicitement des arpèges.
 
-Référence du programme : @internalsref{Arpeggio}.
+Référence du programme : @rinternals{Arpeggio}.
 
 
 @knownissues
 
 Il est impossible de mêler au même instant, dans un contexte
-@internalsref{PianoStaff}, des lignes d'arpèges connectées et d'autres
+@rinternals{PianoStaff}, des lignes d'arpèges connectées et d'autres
 non connectées.
 
 
@@ -797,7 +797,7 @@ sera imprimée comme une tête de note noire entre parenthèses.
 
 @seealso
 
-Référence du programme : @internalsref{TrillSpanner}.
+Référence du programme : @rinternals{TrillSpanner}.
 
 
 @node Analysis brackets
@@ -810,8 +810,8 @@ Référence du programme : @internalsref{TrillSpanner}.
 On utilise des crochets en analyse musicale, pour indiquer la
 structure d'une pièce.  LilyPond permet d'utiliser une forme
 simplifiée de crochets horizontaux imbriqués, dans la mesure où le
-contexte @internalsref{Staff} comporte le graveur
-@internalsref{Horizontal_bracket_engraver}.  Un crochet s'ouvre avec
+contexte @rinternals{Staff} comporte le graveur
+@rinternals{Horizontal_bracket_engraver}.  Un crochet s'ouvre avec
 @code{\startGroup}, et se ferme avec @code{\stopGroup}.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -830,6 +830,6 @@ contexte @internalsref{Staff} comporte le graveur
 
 @seealso
 
-Référence du programme : @internalsref{HorizontalBracket}.
+Référence du programme : @rinternals{HorizontalBracket}.
 
 

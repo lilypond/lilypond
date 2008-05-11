@@ -213,9 +213,9 @@ Referencia de la notación: @ref{Bar lines}, @ref{Modifying context plug-ins}.
 
 Fragmentos de código: @lsrdir{Repeats,Repeats}
 
-Referencia de funcionamiento interno: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}.
+Referencia de funcionamiento interno: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
 
 @c Ejemplos:
 
@@ -295,9 +295,9 @@ Referencia de la notación: @ref{Bar lines}.
 
 Fragmentos de código: @lsrdir{Repeats,Repeats}
 
-Referencia del programa: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic} y
-@internalsref{UnfoldedRepeatedMusic}.
+Referencia del programa: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic} y
+@rinternals{UnfoldedRepeatedMusic}.
 
 
 @node Written-out repeats
@@ -362,11 +362,11 @@ R1
 
 Fragmentos de código: @lsrdir{Repeats,Repeats}
 
-Referencia del programa: @internalsref{RepeatSlash},
-@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
-@internalsref{DoublePercentRepeatCounter},
-@internalsref{PercentRepeatCounter},
-@internalsref{PercentRepeatedMusic}.
+Referencia del programa: @rinternals{RepeatSlash},
+@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 @node Tremolo repeats
 @subsubsection Tremolo repeats
@@ -430,12 +430,12 @@ trasladan hacia la salida MIDI.
 
 Referencia de la notación: @ref{Tremolo repeats}.
 
-Referencia de funcionamiento interno: @internalsref{Beam},
-@internalsref{StemTremolo}.
+Referencia de funcionamiento interno: @rinternals{Beam},
+@rinternals{StemTremolo}.
 
 Fragmentos de código: @lsrdir{Repeats,Repeats}
 
-En otros lugares: @internalsref{StemTremolo}.
+En otros lugares: @rinternals{StemTremolo}.
 
 
 

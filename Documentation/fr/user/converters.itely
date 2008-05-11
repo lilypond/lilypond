@@ -60,8 +60,8 @@ cette faculté prend tout son intérêt lorsqu'un programme dispose d'un
 convertisseur capable d'importer directement un fichier.
 
 @command{midi2ly} convertit les pistes en contextes de portée
-(@internalsref{Staff}) et les canaux en contextes de voix
-(@internalsref{Voice}).  Les hauteurs sont rendues en mode relatif, et
+(@rinternals{Staff}) et les canaux en contextes de voix
+(@rinternals{Voice}).  Les hauteurs sont rendues en mode relatif, et
 les durées spécifiées lorsque nécessaire.
 
 Vous pouvez enregistrer un fichier MIDI grace à un clavier

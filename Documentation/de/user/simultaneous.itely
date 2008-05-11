@@ -90,7 +90,7 @@ sie mit @code{\\} getrennt werden.
 }
 @end lilypond
 
-Dieser Trenner veranlasst, dass Stimmen (@internalsref{Voice}) 
+Dieser Trenner veranlasst, dass Stimmen (@rinternals{Voice}) 
 -Kontexte@footnote{Polyphone Stimmen werden in anderen
 Programmen teilweise als @qq{layers} (Schichten) bezeichnet.}
 @cindex Layers
@@ -155,7 +155,7 @@ vorhergehenden.
 @node Explicitly instantiating voices
 @unnumberedsubsubsec Explicitly instantiating voices
 
-@internalsref{Voice}-Kontexte können auch manuell innerhalb 
+@rinternals{Voice}-Kontexte können auch manuell innerhalb 
 eines @code{<< >>}-Abschnittes initiiert werden. Mit den Befehlen 
 @code{\voiceOne} bis hin zu @code{\voiceFour} kann jeder Stimme 
 entsprechendes Verhalten von vertikaler Verschiebung und Richtung 
@@ -283,7 +283,7 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 Normalerweise werden Notenköpfe mit einer unterschiedlichen Anzahl 
 von Punktierungen nicht verschmolzen, aber wenn die Objekt-Eigenschaft 
  @code{merge-differently-dotted} in ein 
-Notenkollisions (@internalsref{NoteCollision})-Objekt gesetzt wird, 
+Notenkollisions (@rinternals{NoteCollision})-Objekt gesetzt wird, 
 werden sie zusammengefasst.
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
@@ -371,7 +371,7 @@ vier) den Befehl @code{\shiftOn}. @code{\shiftOnn} und
 
 Wenn LilyPond selber keine Lösung bieten kann, können die 
 Eigenschaft @code{force-hshift} des 
-@internalsref{NoteColumn}-Objektes (siehe unten) 
+@rinternals{NoteColumn}-Objektes (siehe unten) 
 sowie Pausen mit definierter Tonhöhe eingesetzt werden, 
 um Satzentscheidungen des Programmes zu überschreiben.
 
@@ -392,7 +392,7 @@ um Satzentscheidungen des Programmes zu überschreiben.
 
 Programmreferenz: Die Objekte, die für Auflösung von Zusammenstößen 
 zuständig sind, sind 
-@internalsref{NoteCollision} und @internalsref{RestCollision}.
+@rinternals{NoteCollision} und @rinternals{RestCollision}.
 
 
 @knownissues

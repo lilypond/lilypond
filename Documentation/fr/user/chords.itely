@@ -217,7 +217,7 @@ car elle est indiquée en dernier :
 @cindex accords
 
 Les chiffrages d'accords sont liés au contexte
-@internalsref{ChordNames}.  Les accords peuvent être saisis soit au
+@rinternals{ChordNames}.  Les accords peuvent être saisis soit au
 moyen de la notation indiquée ci-dessus, soit directement avec les
 symboles @code{<} et @code{>}.
 
@@ -233,7 +233,7 @@ harmonies = {
 
 Vous pouvez faire ressortir les chiffrages d'accords en assignant la
 valeur vrai à la propriété @code{chordChanges} dans le contexte
-@internalsref{ChordNames}.  De cette façon, les chiffrages ne sont
+@rinternals{ChordNames}.  De cette façon, les chiffrages ne sont
 imprimés qu'aux changements d'accord ou en début de ligne.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -251,8 +251,8 @@ harmonies = \chordmode {
 Les exemples précédents montrent des chiffrages placés au-dessus de la
 portée, mais ce n'est pas obligatoire : les accords peuvent également
 être imprimés séparément -- auquel cas vous aurez peut-être besoin
-d'ajouter le @internalsref{Volta_engraver} et le
-@internalsref{Bar_engraver} afin que les éventuelles barres de reprises
+d'ajouter le @rinternals{Volta_engraver} et le
+@rinternals{Bar_engraver} afin que les éventuelles barres de reprises
 s'affichent correctement.
 
 @lilypond[ragged-right,verbatim]

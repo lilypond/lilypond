@@ -147,7 +147,7 @@ o definir unos nuevos.
 En la referencia del programa se encuentra una descripción completa de todos los contextos que están disponibles,
 consulte
 @ifhtml
-@internalsref{Contexts}.
+@rinternals{Contexts}.
 @end ifhtml
 @ifnothtml
 Traducción @expansion{} Contexto.
@@ -333,7 +333,7 @@ c8 c c c
 
 @noindent
 el argumento @var{contexto} para la instrucción @code{\set} está omitido, por tanto
-el barrado automático está desactivado en la @internalsref{Voice} (voz) actual.  Fíjese en que
+el barrado automático está desactivado en la @rinternals{Voice} (voz) actual.  Fíjese en que
 el contexto más bajo no siempre contiene la propiedad que quiere
 cambiar. Por ejemplo, si intenta establecer la propiedad @code{skipBars}
 (del contexto más bajo, en este caso @code{Voice}) no se producirá ningún
@@ -412,7 +412,7 @@ nota.
 En la referencia del programa hay una descripción detallada de todas las propiedades de contexto disponibles,
 véase
 @ifhtml
-@internalsref{Tunable context properties}.
+@rinternals{Tunable context properties}.
 @end ifhtml
 @ifnothtml
 Traducción @expansion{} propiedades de contexto ajustables.
@@ -431,14 +431,14 @@ de notación.  Por ejemplo, el contexto @code{Voice} contiene un
 
 Para ver una descripción completa de cada uno de los añadidos, consulte
 @ifhtml
-@internalsref{Engravers}.
+@rinternals{Engravers}.
 @end ifhtml
 @ifnothtml
 Referencia del programa @expansion Traducción @expansion{} Grabadores.
 @end ifnothtml
 cada uno de los contextos descritos en
 @ifhtml
-@internalsref{Contexts}
+@rinternals{Contexts}
 @end ifhtml
 @ifnothtml
 Referencia del programa @expansion Traducción @expansion{} Contexto.
@@ -624,9 +624,9 @@ tal y como
 
 @seealso
 
-Funcionamiento interno: @internalsref{OverrideProperty}, @internalsref{RevertProperty},
-@internalsref{PropertySet}, @internalsref{Backend} y
-@internalsref{All layout objects}.
+Funcionamiento interno: @rinternals{OverrideProperty}, @rinternals{RevertProperty},
+@rinternals{PropertySet}, @rinternals{Backend} y
+@rinternals{All layout objects}.
 
 
 @knownissues
@@ -786,8 +786,8 @@ Pero sólo necesitamos esto en la línea central,
 squashedPosition = #0
 @end example
 
-El grabador @internalsref{Pitch_squash_engraver} modifica las cabezas de nota (creadas
-por el grabador @internalsref{Note_heads_engraver}) y establece sus posiciones verticales
+El grabador @rinternals{Pitch_squash_engraver} modifica las cabezas de nota (creadas
+por el grabador @rinternals{Note_heads_engraver}) y establece sus posiciones verticales
 al valor de @code{squashedPosition}, en este caso@tie{}@code{0},
 la línea central.
 
@@ -800,7 +800,7 @@ Las notas parecen barras inclinadas y no tienen plica,
 
 Todos estos añadidos tienen que cooperar, y esto se consigue con un añadido especial,
 que se debe marcar con la palabra clave @code{\type}.
-Este será siempre @internalsref{Engraver_group},
+Este será siempre @rinternals{Engraver_group},
 
 @example
 \type "Engraver_group"
@@ -997,7 +997,7 @@ Si hace una visita a la documentación en busca de instrucciones de digitación 
 @quotation
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{Fingering}.
+Referencia de funcionamiento interno: @rinternals{Fingering}.
 
 @end quotation
 
@@ -1012,7 +1012,7 @@ expression for the input @code{-2}.  The page contains many links
 forward.  For example, it says
 
 @quotation
-Accepted by: @internalsref{Fingering_engraver},
+Accepted by: @rinternals{Fingering_engraver},
 @end quotation
 
 @noindent
@@ -1020,7 +1020,7 @@ That link brings us to the documentation for the Engraver, the
 plug-in, which says
 
 @quotation
-This engraver creates the following layout objects: @internalsref{Fingering}.
+This engraver creates the following layout objects: @rinternals{Fingering}.
 @end quotation
 In other words, once the @code{FingerEvent}s are interpreted, the
 @code{Fingering_engraver} plug-in will process them.
@@ -1030,7 +1030,7 @@ In other words, once the @code{FingerEvent}s are interpreted, the
 @c  I can't figure out what this is supposed to mean.  -gp
 
 The @code{Fingering_engraver} is also listed to create
-@internalsref{Fingering} objects,
+@rinternals{Fingering} objects,
 
 @c  old info?  it doesn't make any sense to me with our current docs.
 This is also the
@@ -1046,12 +1046,12 @@ si está utilizando el manual en
 formato PDF.
 @end ifnothtml
 
-Siga el enlace que lleva a @internalsref{Fingering}.  Al principio de la página,
+Siga el enlace que lleva a @rinternals{Fingering}.  Al principio de la página,
 puede ver
 
 @quotation
-Los objetos de digitación se crean por parte de: @internalsref{Fingering_engraver} y
-@internalsref{New_fingering_engraver}.
+Los objetos de digitación se crean por parte de: @rinternals{Fingering_engraver} y
+@rinternals{New_fingering_engraver}.
 @end quotation
 
 Siguiendo los enlaces relacionados dentro de la referencia del programa, podemos seguir el
@@ -1059,16 +1059,16 @@ flujo de información dentro del programa:
 
 @itemize
 
-@item @internalsref{Fingering}:
-los objetos @internalsref{Fingering} se crean por parte de:
-@internalsref{Fingering_engraver}
+@item @rinternals{Fingering}:
+los objetos @rinternals{Fingering} se crean por parte de:
+@rinternals{Fingering_engraver}
 
-@item @internalsref{Fingering_engraver}:
-Tipos de música aceptados: @internalsref{fingering-event}
+@item @rinternals{Fingering_engraver}:
+Tipos de música aceptados: @rinternals{fingering-event}
 
-@item @internalsref{fingering-event}:
+@item @rinternals{fingering-event}:
 El tipo de evento musical @code{fingering-event} está descrito en Expresiones musicales con el nombre de
-@internalsref{FingerEvent}
+@rinternals{FingerEvent}
 @end itemize
 
 Este camino se recorre en contra de la corriente de información del programa: comienza
@@ -1079,12 +1079,12 @@ terminando en su caso en el objeto (u objetos) de la salida.
 La referencia del programa también se puede examinar como un documento normal.  Contiene
 capítulos que tratan de
 @ifhtml
-@internalsref{Music definitions},
+@rinternals{Music definitions},
 @end ifhtml
 @ifnothtml
 @code{Music definitions}
 @end ifnothtml
-de la @internalsref{Translation}, y del @internalsref{Backend}.  Cada uno de los capítulos
+de la @rinternals{Translation}, y del @rinternals{Backend}.  Cada uno de los capítulos
 relaciona todas las definiciones utilizadas y todas las propiedades que se pueden
 ajustar.
 
@@ -1097,11 +1097,11 @@ ajustar.
 @cindex grob
 
 La página HTML que pudimos ver en la sección anterior describe el
-objeto de presentación llamado @internalsref{Fingering}.  Dicho objeto es un
+objeto de presentación llamado @rinternals{Fingering}.  Dicho objeto es un
 símbolo dentro de la partitura.  Tiene propiedades que guardan números (como
 grosores y direcciones), pero también punteros a objetos relacionados.  Un
 objeto de presentación también se llama un @emph{Grob}, que es una abreviatura de Graphical
-Object (objeto gráfico).  Para ver más detalles acerca de los objetos gráficos o Grobs, consulte @internalsref{grob-interface}.
+Object (objeto gráfico).  Para ver más detalles acerca de los objetos gráficos o Grobs, consulte @rinternals{grob-interface}.
 
 La página dedicada a @code{Fingering} relaciona las definiciones del objeto
 @code{Fingering}.  Por ejemplo, la página dice
@@ -1144,15 +1144,15 @@ y de subíndice.
 @end itemize
 
 Cada uno de estos aspectos se capta en lo que se llaman @emph{interface}s,
-que se relacionan al final de la página dedicada a @internalsref{Fingering}
+que se relacionan al final de la página dedicada a @rinternals{Fingering}
 
 @quotation
 Este objeto contempla los siguientes interfaces:
-@internalsref{item-interface},
-@internalsref{self-alignment-interface},
-@internalsref{side-position-interface}, @internalsref{text-interface},
-@internalsref{text-script-interface}, @internalsref{font-interface},
-@internalsref{finger-interface} y @internalsref{grob-interface}.
+@rinternals{item-interface},
+@rinternals{self-alignment-interface},
+@rinternals{side-position-interface}, @rinternals{text-interface},
+@rinternals{text-script-interface}, @rinternals{font-interface},
+@rinternals{finger-interface} y @rinternals{grob-interface}.
 @end quotation
 
 Al pulsar sobre cualquiera de los enlaces nos desplazaremos a la página del respectivo interfaz del
@@ -1252,10 +1252,10 @@ f
 
 En este caso, el contexto de este truco es @code{Voice}.  Este
 hecho se puede deducir también a partir de la referencia del programa, ya que la página dedicada al
-añadido @internalsref{Fingering_engraver} dice
+añadido @rinternals{Fingering_engraver} dice
 
 @quotation
-El grabador Fingering_engraver es parte de los contextos: @dots{} @internalsref{Voice}
+El grabador Fingering_engraver es parte de los contextos: @dots{} @rinternals{Voice}
 @end quotation
 
 
@@ -1282,7 +1282,7 @@ sin hacer mención al nombre del grob ni al contexto en el que se tendría que
 aplicar.
 
 Esta técnica sólo funciona para los objetos que están conectados directamente a
-un @internalsref{Event} (evento) del texto de entrada, por ejemplo
+un @rinternals{Event} (evento) del texto de entrada, por ejemplo
 
 @itemize
 @item cabezas de nota, producidas por chord-pitch (p. ej.: las notas de un acorde)
@@ -1442,7 +1442,7 @@ comprueba si nosotros somos el último de los objetos divididos
 si es así, establece @code{extra-offset}.
 @end itemize
 
-Este procedimiento se instala dentro de @internalsref{Tie} (ligadura de unión), de forma que la última parte
+Este procedimiento se instala dentro de @rinternals{Tie} (ligadura de unión), de forma que la última parte
 de la ligadura dividida se traslada hacia arriba.
 
 @c KEEP LY

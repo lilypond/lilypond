@@ -542,7 +542,7 @@ es el contexto de notación de más alto nivel.
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{Contexts}.
+Referencia de funcionamiento interno: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"

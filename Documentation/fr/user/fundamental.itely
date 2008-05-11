@@ -322,7 +322,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
-Les contextes @internalsref{Voice} peuvent être déclarés manuellement
+Les contextes @rinternals{Voice} peuvent être déclarés manuellement
 dans un bloc @code{<< >>} pour créer de la musique polyphonique, en
 utilisant @code{\voiceOne}, @dots{} jusqu'à @code{\voiceFour} pour
 assigner des directions de hampes et un déplacement horizontal pour
@@ -513,7 +513,7 @@ devient extrêment utile.
 Une description exhaustive de tous les contextes disponibles peut être trouvée dans la
 référence du programme : voir
 @ifhtml
-@internalsref{Contexts}.
+@rinternals{Contexts}.
 @end ifhtml
 @ifnothtml
 Translation @expansion{} Context.
