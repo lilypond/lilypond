@@ -103,7 +103,8 @@ Free Documentation License''.
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 This is the Application Usage (AU) manual for GNU LilyPond version @version{}.
-For more information, see @rlearning{About the documentation}.
+For more information about how this fits with the other
+documentation, see @rlearning{About the documentation}.
 
 @cindex web site
 @cindex URL

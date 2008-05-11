@@ -109,7 +109,8 @@ Copyright 1999--2007 by the authors
 @c @oddheading @| @| @thispage @|
 
 This is the Music Glossary (MG) for GNU LilyPond version @version{}.
-For more information, see @rlearning{About the documentation}.
+For more information about how this fits with the other
+documentation, see @rlearning{About the documentation}.
 
 
 @c arrowref

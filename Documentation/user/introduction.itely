@@ -731,10 +731,8 @@ Application Usage (AU): this discusses the actual programs and
 operation system-specific issues.
 
 @item
-Snippet List (SL): this is a collection of useful snippets from
-the
-@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository},
-a public-domain collection of LilyPond examples.
+Snippet List (SL): this is a collection of short LilyPond examples
+(@qq{snippets}).
 
 @item
 Other documentation: there are a few other portions of the
@@ -768,6 +766,19 @@ documentation, such as News items and the mailist archives.
 
 @node About the Snippet List (SL)
 @subsection About the Snippet List (SL)
+
+The Snippet List shows a selected set of LilyPond snippets from the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR).  It is in the public domain.
+
+Please note that this document is not an exact subset of LSR.  LSR
+is running a stable LilyPond version, so any snippet which
+demonstrates new features of a development version must be added
+separately.  These are stored in @file{input/new/} in the LilyPond
+source tree.
+
+The list of snippets for each subsection of the Notation Reference
+(NR) are also linked from the @strong{See also} portion.
 
 
 @node Other documentation
