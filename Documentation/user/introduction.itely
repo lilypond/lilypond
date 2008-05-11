@@ -37,7 +37,7 @@ LilyPond.
 
 
 @node Engraving
-@subsection Engraving
+@unnumberedsubsec Engraving
 
 The art of music typography is called @emph{(plate) engraving}.  The
 term derives from the traditional process of music printing.  Just a
@@ -238,7 +238,7 @@ love to play from.
 
 
 @node Automated engraving
-@subsection Automated engraving
+@unnumberedsubsec Automated engraving
 
 How do we go about implementing typography?  If craftsmen need over
 ten years to become true masters, how could we simple hackers ever
@@ -376,7 +376,7 @@ music fragment.
 
 
 @node What symbols to engrave?
-@subsection What symbols to engrave?
+@unnumberedsubsec What symbols to engrave?
 
 @cindex engraving
 @cindex typography
@@ -567,7 +567,7 @@ Internals Reference: @rinternals{Contexts}.
 @end lilypond
 
 @node Music representation
-@subsection Music representation
+@unnumberedsubsec Music representation
 
 Ideally, the input format for any high-level formatting system is an
 abstract description of the content.  In this case, that would be the
@@ -662,7 +662,7 @@ and representation take up less than 10% of the source code.
 
 
 @node Example applications
-@subsection Example applications
+@unnumberedsubsec Example applications
 
 We have written LilyPond as an experiment of how to condense the art
 of music engraving into a computer program.  Thanks to all that hard
@@ -710,6 +710,8 @@ to mix music and text in documents.
 @node About the documentation
 @section About the documentation
 
+FIXME: still needs some work.
+
 This section explains the different manuals:
 
 @itemize
@@ -722,9 +724,11 @@ Music Glossary (MG): this explains musical terms and gives
 translations of terms in other languages.
 
 @item
-Notation Reference (NR): this is the @q{main} portion of the
+Notation Reference (NR): this is the main portion of the
 documentation.  It provides detailed information about creating
-notation.
+notation.  This book assumes that the reader knows basic material
+covered in the LM and is familiar with the English musical terms
+presented in the MG.
 
 @item
 Application Usage (AU): this discusses the actual programs and
@@ -733,6 +737,11 @@ operation system-specific issues.
 @item
 Snippet List (SL): this is a collection of short LilyPond examples
 (@qq{snippets}).
+
+@item
+Internals Reference (IR): this gives information about LilyPond
+internal programming information, which is required for
+constructing tweaks.
 
 @item
 Other documentation: there are a few other portions of the
@@ -746,26 +755,178 @@ documentation, such as News items and the mailist archives.
 * About the Notation Reference (NR)::  
 * About the Application Usage (AU)::  
 * About the Snippet List (SL)::  
+* About the Internals Reference (IR)::  
 * Other documentation::         
 @end menu
 
-@c zz
+
 @node About the Learning Manual (LM)
-@subsection About the Learning Manual (LM)
+@unnumberedsubsec About the Learning Manual (LM)
+
+This book explains how to begin learning LilyPond, as well as
+explaining some key concepts in easy terms.  It is recommended to
+read these chapters in a linear fashion.
+
+@itemize
+
+@item
+@ref{Tutorial}: gives a gentle introduction to typesetting music.
+First time users should start here.
+
+@item
+@ref{Fundamental concepts}: explains some general concepts about
+the LilyPond file format.  If you are not certain where to place a
+command, read this chapter!
+
+@item
+@ref{Working on LilyPond projects}: discusses practical uses of
+LilyPond and how to avoid some common problems.
+
+@item
+@ref{Tweaking output}: shows how to change the default engraving
+that LilyPond produces.
+
+@end itemize
 
 
 @node About the Music Glossary (MG)
-@subsection About the Music Glossary (MG)
+@unnumberedsubsec About the Music Glossary (MG)
+
+@cindex idiom
+@cindex jargon
+@cindex terminology
+@cindex foreign languages
+@cindex language
+
+@ref{Top,Music glossary,,music-glossary}:
+this explains musical terms, and includes translations to various
+languages.  If you are not familiar with music notation or music
+terminology (especially if you are a non-native English speaker),
+it is highly advisable to consult the glossary.
+
 
 @node About the Notation Reference (NR)
-@subsection About the Notation Reference (NR)
+@unnumberedsubsec About the Notation Reference (NR)
+
+This book explains all the LilyPond commands which produce
+notation.  It assumes that readers are familiar with the concepts
+in the Learning manual.
+
+@itemize
+
+@item
+@ruser{Basic notation}:
+discusses topics grouped by notation construct.  This section gives
+details about basic notation that will be useful in almost any
+notation project.
+
+@item
+@ruser{Specialist notation}:
+discusses topics grouped by notation construct.  This section gives
+details about special notation that will only be useful for particular
+instrument (or vocal) groups.
+
+@item
+@ruser{Input syntax}:
+
+@item
+@ruser{Non-musical notation}:
+
+@item
+@ruser{Spacing issues}:
+discusses issues which affect the global output, such as selecting
+paper size or specifying page breaks.
+
+@item
+@ruser{Changing defaults}:
+
+@item
+@ruser{Interfaces for programmers}:
+explains how to create music functions with scheme.
+
+@end itemize
+
+
+The NR also contains appendices with useful reference charts.
+
+@itemize
+@item
+@ruser{Literature list}:
+contains a set of useful reference books for those who wish to
+know more on notation and engraving.
+
+@item
+@ruser{Scheme tutorial}:
+presents a short introduction to Scheme, the programming
+language that music functions use.
+
+@item
+@ruser{Notation manual tables}:
+are a set of tables showing the chord names, MIDI instruments, a
+list of color names, and the Feta font.
+
+@item
+@ruser{Templates}:
+of LilyPond pieces.  Just cut and paste a
+template into a file, add notes, and you're done!
+
+@item
+@ruser{Cheat sheet}:
+is a handy reference of the most common LilyPond commands.
+
+@item
+@ruser{LilyPond command index}:
+is an index of all LilyPond @code{\commands}.
+
+@item
+@ruser{LilyPond index}:
+is a complete index.
+
+@end itemize
+
 
 @node About the Application Usage (AU)
-@subsection About the Application Usage (AU)
+@unnumberedsubsec About the Application Usage (AU)
+
+This book explains how to execute the program and how to integrate
+LilyPond notation with other programs.
+
+@itemize
+
+@item
+@rprogram{Install}:
+explains how to install LilyPond (including compilation if desired).
+
+@item
+@rprogram{Setup}:
+describes how to configure your computer for optimum LilyPond usage,
+such as using special environments for certain text editors.
+
+@item
+@rprogram{Running LilyPond}:
+shows how to run LilyPond and its helper programs.  In addition, this
+section explains how to upgrade input files from previous versions of
+LilyPond.
+
+@item
+@rprogram{LilyPond-book}:
+explains the details behind creating documents with in-line music
+examples, like this manual.
+
+@item
+@rprogram{Converting from other formats}:
+explains how to run the conversion programs.  These programs are
+supplied with the LilyPond package, and convert a variety of music
+formats to the @code{.ly} format.
+
+@end itemize
 
 
 @node About the Snippet List (SL)
-@subsection About the Snippet List (SL)
+@unnumberedsubsec About the Snippet List (SL)
+
+@cindex snippets
+@cindex LSR
 
 The Snippet List shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
@@ -780,215 +941,7 @@ source tree.
 The list of snippets for each subsection of the Notation Reference
 (NR) are also linked from the @strong{See also} portion.
 
-
-@node Other documentation
-@subsection Other documentation
-
-
-FIXME: needs almost-complete rewrite.  -gp
-
-There are four manuals about LilyPond: the @emph{Learning Manual},
-the @emph{Notation Reference}, the @emph{Application Usage}, and the
-@emph{Internals Reference}.
-
-
-@subheading Learning Manual (LM)
-
-This book explains how to begin learning LilyPond, as well as explaining
-some key concepts in easy terms.  It is recommended to read these
-chapters in a linear fashion.
-
 @itemize
-
-@item
-@ifhtml
-The
-@end ifhtml
-@emph{@ref{Tutorial}},
-gives a gentle introduction to typesetting music.  First time
-users should start here.
-
-@item
-@emph{@ref{Fundamental concepts}},
-explains some general concepts about the LilyPond file format.  If
-you are not certain where to place a command, read this chapter!
-
-@item
-@emph{@ref{Working on LilyPond projects}},
-discusses practical uses of LilyPond and how to avoid some common
-problems.
-
-@item
-@emph{@ref{Tweaking output}},
-shows how to change the default engraving that LilyPond
-produces.
-
-@end itemize
-
-
-@subheading Notation Reference (NR)
-
-This book explains all the LilyPond commands which produce notation.  It
-assumes that readers are familiar with the concepts in the Learning
-manual.
-
-All of this needs to be rewritten after GDP, anyway.
-
-@ignore
-
-@itemize
-
-@item
-@emph{@r ef{Basic notation}},
-discusses topics grouped by notation construct.  This section gives
-details about basic notation that will be useful in almost any
-notation project.
-
-@item
-@emph{@r ef{Instrument-specific notation}},
-discusses topics grouped by notation construct.  This section gives
-details about special notation that will only be useful for particular
-instrument (or vocal) groups.
-
-@item
-@emph{@r ef{Advanced notation}},
-discusses topics grouped by notation construct.  This section gives
-details about complicated or unusual notation.
-
-@item
-@emph{@r ef{Changing defaults}},
-explains how to fine tune layout.
-
-@item
-@emph{@r ef{Non-musical notation}},
-discusses non-musical output such as titles, multiple movements,
-and how to select which MIDI instruments to use.
-
-@item
-@emph{@r ef{Spacing issues}},
-discusses issues which affect the global output, such as selecting
-paper size or specifying page breaks.
-
-@item
-@emph{@r ef{Interfaces for programmers}},
-explains how to create music functions.
-
-@end itemize
-
-
-@subsubheading Appendices
-
-This book contains useful reference charts.
-
-@itemize
-@item
-@ifhtml
-The
-@end ifhtml
-@emph{@r ef{Literature list}},
-contains a set of useful reference books for those who wish to know
-more on notation and engraving.
-
-@item
-The
-@emph{@r ef{Scheme tutorial}},
-presents a short introduction to Scheme, the programming
-language that music functions use.
-
-@item
-@emph{@r ef{Notation manual tables}},
-are a set of tables showing the chord names, MIDI instruments,
-a list of color names, and the Feta font.
-
-@item
-@emph{@r ef{Templates}},
-of LilyPond pieces.  Just cut and paste a
-template into a file, add notes, and you're done!
-
-@item
-The
-@emph{@r ef{Cheat sheet}},
-is a handy reference of the most common LilyPond commands.
-
-@item
-The
-@emph{@r ef{LilyPond command index}},
-is an index of all LilyPond @code{\commands}.
-
-@item
-The
-@emph{@r ef{LilyPond index}},
-is a complete index.
-
-@end itemize
-
-@end ignore
-
-
-@subheading Program usage
-
-This book explains how to execute the program and how to integrate
-LilyPond notation with other programs.
-
-@itemize
-
-@item
-@emph{@rprogram{Install}},
-explains how to install LilyPond (including compilation if desired).
-
-@item
-@emph{@rprogram{Setup}},
-describes how to configure your computer for optimum LilyPond usage,
-such as using special environments for certain text editors.
-
-@item
-@emph{@rprogram{Running LilyPond}},
-shows how to run LilyPond and its helper programs.  In addition, this
-section explains how to upgrade input files from previous versions of
-LilyPond.
-
-@item
-@emph{@rprogram{LilyPond-book}},
-explains the details behind creating
-documents with in-line music examples, like this manual.
-
-@item
-@emph{@rprogram{Converting from other formats}},
-explains how to run the conversion programs.  These programs are
-supplied with the LilyPond package, and convert a variety of music
-formats to the @code{.ly} format.
-
-@end itemize
-
-
-
-@subsubheading Other information
-
-There are a number of other places which may be very valuable.
-
-@itemize
-@cindex idiom
-@cindex jargon
-@cindex terminology
-@cindex foreign languages
-@cindex language
-@item
-@ifnottex
-The @ref{Top,Music glossary,,music-glossary}, explains musical terms and
-includes translations to various languages.  It is also available in
-PDF.
-@end ifnottex
-@iftex
-The music glossary explains musical terms, and includes translations
-to various languages.  It is a separate document, available in HTML
-and PDF.
-@end iftex
-If you are not familiar with music notation or music terminology
-(especially if you are a non-native English speaker), it is highly
-advisable to consult the glossary.
-
-@cindex snippets
-@cindex LSR
 @item
 The
 @ifhtml
@@ -1001,8 +954,14 @@ are a great collection of short examples which demonstrate tricks, tips,
 and special features of LilyPond.  Most of these snippets can also be
 found in the @uref{http://lsr.dsi.unimi.it/,LilyPond Snippet
 Repository}.  This website also has a searchable LilyPond manual.
+@end itemize
 
 
+@node About the Internals Reference (IR)
+@unnumberedsubsec About the Internals Reference (IR)
+
+
+@itemize
 @item
 The
 @iftex
@@ -1025,6 +984,14 @@ HTML document, these subsections have clickable links.
 
 @end itemize
 
+
+@node Other documentation
+@unnumberedsubsec Other documentation
+
+FIXME: most of this should go higher up.  Discuss News, mailist
+archives, ...?
+
+There are a number of other places which may be very valuable.
 
 Once you are an experienced user, you can use the manual as reference:
 there is an extensive index@footnote{If you are looking for something,
@@ -1069,5 +1036,7 @@ are usually found in the directory @file{/usr/@/share/@/lilypond/}.
 Finally, this and all other manuals, are available online both as PDF
 files and HTML from the web site, which can be found at
 @uref{http://@/www@/.lilypond@/.org/}.
+
+
 
 
