@@ -1,9 +1,10 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @setfilename music-glosssary.info
 @settitle Music Glossary
-
 @documentencoding UTF-8
 @documentlanguage en
+
+@include macros.itexi
 
 @afourpaper
 
@@ -107,7 +108,9 @@ Copyright 1999--2007 by the authors
 @c @evenheading @thispage @| @|
 @c @oddheading @| @| @thispage @|
 
-@include macros.itexi
+This is the Music Glossary (MG) for GNU LilyPond version @version{}.
+For more information, see @rlearning{About the documentation}.
+
 
 @c arrowref
 @macro aref{word}

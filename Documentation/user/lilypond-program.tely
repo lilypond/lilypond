@@ -102,7 +102,8 @@ Free Documentation License''.
 @top GNU LilyPond --- program usage
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the program usage manual for GNU LilyPond version @version{}.
+This is the Application Usage (AU) manual for GNU LilyPond version @version{}.
+For more information, see @rlearning{About the documentation}.
 
 @cindex web site
 @cindex URL
