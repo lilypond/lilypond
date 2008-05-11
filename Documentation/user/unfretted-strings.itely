@@ -60,7 +60,6 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 <c g'\harmonic>4
 @end lilypond
 
-@end ignore
 
 @node Plucked instruments
 @subsection Plucked instruments
@@ -92,3 +91,4 @@ The \sacredHarpHeads command gives the wrong shapes when the key
 is minor.  A work-around is to switch the key to the relative
 major to obtain the right shapes.
 @end ignore
+
