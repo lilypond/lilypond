@@ -14,45 +14,42 @@
 This section includes extra information for writing for unfretted
 string instruments.
 
-@ignore
-The subsection on Bowed instruments is commmented out
-until we have something to say about them -td
-@end ignore
-
 @menu
-* Common notation for unfretted strings::
-@c * Bowed instruments::
-* Plucked instruments::
+* Common notation for unfretted strings::  
+* Bowed instruments::           
+* Plucked instruments::         
 @end menu
 
 @node Common notation for unfretted strings
 @subsection Common notation for unfretted strings
 
 @menu
-* References for unfretted strings::
+* References for unfretted strings::  
 @end menu
 
 @node References for unfretted strings
 @subsubsection References for unfretted strings
 
-@c TODO Add refs to fingerings, \thumb, bowings
+@c TODO Add refs to fingerings, \thumb
 @c TODO Add multiple fingering indications?
-@c TODO Add snippet showing pizzicato markings
 TBC
 
 @c TODO Decide whether to resurrect Bowed instruments subsection
 @c and if so which of the above should go there
-@ignore
 
 @node Bowed instruments
 @subsection Bowed instruments
 
 @menu
-* Artificial harmonics (strings)::
+* References for bowed strings::  
 @end menu
 
-@node Artificial harmonics (strings)
-@subsubsection Artificial harmonics (strings)
+@node References for bowed strings
+@subsubsection References for bowed strings
+
+@c link to slurs, articulation (for \upbow \downbow).  maybe
+@c an example as well.
+@c TODO Add snippet showing pizzicato markings
 
 @cindex artificial harmonics
 
@@ -69,12 +66,16 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 @subsection Plucked instruments
 
 @menu
-* Harp::
+* Harp::                        
 @end menu
 
 @node Harp
 @subsubsection Harp
 
+TBC
+
+@c  has nothing to do with harps, AFAIK.
+@ignore
 Sacred Harp notation uses four shaped note heads.  In the major,
 the tonic is a triangle and then proceeding up the scale you
 have circle, square, triangle, circle, square, diamond.  In the
@@ -90,3 +91,4 @@ means that the scale in the minor gives the tonic a square.)
 The \sacredHarpHeads command gives the wrong shapes when the key
 is minor.  A work-around is to switch the key to the relative
 major to obtain the right shapes.
+@end ignore
