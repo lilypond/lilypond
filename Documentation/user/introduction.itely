@@ -12,6 +12,20 @@
 @node Introduction
 @chapter Introduction
 
+This chapter introduces readers to LilyPond and the
+documentation.
+
+@menu
+* Background::                  
+* About the documentation::     
+@end menu
+
+
+@node Background
+@section Background
+
+This section covers the overall goals and architecture of
+LilyPond.
 
 @menu
 * Engraving::                   
@@ -19,12 +33,11 @@
 * What symbols to engrave?::    
 * Music representation::        
 * Example applications::        
-* About this manual::           
 @end menu
 
 
 @node Engraving
-@section Engraving
+@subsection Engraving
 
 The art of music typography is called @emph{(plate) engraving}.  The
 term derives from the traditional process of music printing.  Just a
@@ -225,7 +238,7 @@ love to play from.
 
 
 @node Automated engraving
-@section Automated engraving
+@subsection Automated engraving
 
 How do we go about implementing typography?  If craftsmen need over
 ten years to become true masters, how could we simple hackers ever
@@ -363,7 +376,7 @@ music fragment.
 
 
 @node What symbols to engrave?
-@section What symbols to engrave?
+@subsection What symbols to engrave?
 
 @cindex engraving
 @cindex typography
@@ -554,7 +567,7 @@ Internals Reference: @rinternals{Contexts}.
 @end lilypond
 
 @node Music representation
-@section Music representation
+@subsection Music representation
 
 Ideally, the input format for any high-level formatting system is an
 abstract description of the content.  In this case, that would be the
@@ -649,7 +662,7 @@ and representation take up less than 10% of the source code.
 
 
 @node Example applications
-@section Example applications
+@subsection Example applications
 
 We have written LilyPond as an experiment of how to condense the art
 of music engraving into a computer program.  Thanks to all that hard
@@ -694,9 +707,72 @@ in the resulting PDF or HTML output files.  This makes it easy
 to mix music and text in documents.
 
 
+@node About the documentation
+@section About the documentation
 
-@node About this manual
-@section About this manual
+This section explains the different manuals:
+
+@itemize
+@item
+Learning Manual (LM): this introduces LilyPond, giving in-depth
+explanations of how to create notation.
+
+@item
+Music Glossary (MG): this explains musical terms and gives
+translations of terms in other languages.
+
+@item
+Notation Reference (NR): this is the @q{main} portion of the
+documentation.  It provides detailed information about creating
+notation.
+
+@item
+Application Usage (AU): this discusses the actual programs and
+operation system-specific issues.
+
+@item
+Snippet List (SL): this is a collection of useful snippets from
+the
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository},
+a public-domain collection of LilyPond examples.
+
+@item
+Other documentation: there are a few other portions of the
+documentation, such as News items and the mailist archives.
+
+@end itemize
+
+@menu
+* About the Learning Manual (LM)::  
+* About the Music Glossary (MG)::  
+* About the Notation Reference (NR)::  
+* About the Application Usage (AU)::  
+* About the Snippet List (SL)::  
+* Other documentation::         
+@end menu
+
+@c zz
+@node About the Learning Manual (LM)
+@subsection About the Learning Manual (LM)
+
+
+@node About the Music Glossary (MG)
+@subsection About the Music Glossary (MG)
+
+@node About the Notation Reference (NR)
+@subsection About the Notation Reference (NR)
+
+@node About the Application Usage (AU)
+@subsection About the Application Usage (AU)
+
+
+@node About the Snippet List (SL)
+@subsection About the Snippet List (SL)
+
+
+@node Other documentation
+@subsection Other documentation
+
 
 FIXME: needs almost-complete rewrite.  -gp
 
