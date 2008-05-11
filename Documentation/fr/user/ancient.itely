@@ -2091,7 +2091,7 @@ Les altérations s'obtiennent en ajoutant aux chiffres les caractères
 
 Le caractère @code{_} insère un espace, et l'on peut imprimer des
 crochets avec @code{[} et @code{]}.  Vous pouvez aussi ajouter des
-chaînes de caractères ou des étiquettes --- cf. @ref{Overview of text
+chaînes de caractères ou des étiquettes --- cf. @ref{Text
 markup commands}.
 
 @example

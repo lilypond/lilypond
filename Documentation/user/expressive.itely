@@ -144,13 +144,23 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
-Music Glossary: @rglos{tenuto}, @rglos{accent}, @rglos{staccato},
+Music Glossary:
+@rglos{tenuto},
+@rglos{accent},
+@rglos{staccato},
 @rglos{portato}.
+
+Notation Reference:
+@ref{Controlling direction and placement}.
+
+Installed Files:
+@file{scm/@/script@/.scm}.
 
 Snippets:
 @rlsr{Expressive marks}.
 
-Internals Reference: @rinternals{Script},
+Internals Reference:
+@rinternals{Script},
 @rinternals{TextScript}.
 
 
@@ -163,7 +173,9 @@ MIDI rendering of the music.
 @node Dynamics
 @subsubsection Dynamics
 
+@cindex absolute dynamics
 @cindex dynamics
+@cindex dynamics, absolute
 @funindex \ppppp
 @funindex \pppp
 @funindex \ppp
@@ -224,15 +236,6 @@ d2\> d\>
 c1\!
 @end lilypond
 
-A @notation{hairpin} normally starts at the left edge of the
-beginning note and ends on the right edge of the ending note.  If
-the ending note falls on the downbeat, the @notation{hairpin} ends
-on the immediately preceding bar line.  The following example
-illustrates this behavior:
-
-@c This example currently does not work. -pm
-@c TODO: Add link to new snippet for #'to-barline
-
 Spacer notes are needed to engrave multiple marks on one note.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -240,35 +243,15 @@ c4\< c\! d\> e\!
 << f1 { s4 s4\< s4\> s4\! } >>
 @end lilypond
 
-If hairpins are too short, they can be lengthened using the
-following method:
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4\< c\! d\> e\!
-\override Voice.Hairpin #'minimum-length = #5
-<< f1 { s4 s4\< s4\> s4\! } >>
-@end lilypond
-
-@cindex espressivo, articulation
+@cindex espressivo articulation
 
 In some situations the @code{\espressivo} articulation mark may be
-the appropriate choice to indicate a crescendo and decrescendo on
-one note:
+the appropriate choice to indicate a @notation{crescendo} and
+@notation{decrescendo} on one note:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c2 b4 a
 g1\espressivo
-@end lilypond
-
-@cindex al niente
-@cindex niente, al
-
-Hairpins may be printed with a circled tip (al niente notation):
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-\override Hairpin #'circled-tip = ##t
-c2\< c\!
-c4\> c\< c2\!
 @end lilypond
 
 @cindex crescendo
@@ -282,38 +265,38 @@ c4\> c\< c2\!
 @funindex \setHairpinDim
 @funindex \setHairpinDecresc
 
-Crescendos and decrescendos can be engraved as @notation{cresc.},
-@notation{decresc.}, @notation{decr.}, or @notation{dim.} instead
-of using hairpins with the commands @code{\setTextCresc},
+@notation{Crescendos} and @notation{decrescendos} can be engraved
+as textual markings instead of hairpins.  The built-in commands
+that enable these text modes are @code{\setTextCresc},
 @code{\setTextDecresc}, @code{\setTextDecr}, and
 @code{\setTextDim}.  The corresponding @code{\setHairpinCresc},
-@code{\setHairpinDim}, and @code{\setHairpinDecresc} will revert
-to hairpins again:
+@code{\setHairpinDim}, and @code{\setHairpinDecresc} commands will
+revert to hairpins again:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c\< d e f\!
+e\> d c b\!
 \setTextCresc
 c\< d e f\!
-\setHairpinCresc
-e\> d c b\!
 \setTextDecresc
-e\> d e f\!
-\setTextDecr
-c\> d e f\!
-\setTextDim
 e\> d c b\!
+\setHairpinCresc
+c\< d e f\!
 @end lilypond
 
-You can also supply your own texts and change the style of the
-spanner line with the properties @code{crescendoText},
-@code{crescendoSpanner}, @code{decrescendoText}, and
-@code{decrescendoSpanner}.  Available values for the spanner
-properties are @code{hairpin}, @code{line}, @code{dashed-line},
-and @code{dotted-line}.  If unset, a hairpin crescendo is used:
+The text used for @notation{crescendos} and
+@notation{decrescendos} can be changed by modifying the context
+properties @code{crescendoText} and @code{decrescendoText}.  The
+style of the spanner line can be changed by modifying the context
+properties @code{crescendoSpanner} and @code{decrescendoSpanner}.
+Available values for the spanner properties are @code{'hairpin},
+@code{'line}, @code{'dashed-line}, and @code{'dotted-line}.  If
+unset, a hairpin crescendo is used:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=1]
 \set crescendoText = \markup { \italic "cresc. poco" }
 \set crescendoSpanner = #'dotted-line
-a'2\< a a a a a a a\!\mf
+a'2\< a a a a a a a\mf
 @end lilypond
 
 To create new absolute dynamic marks or text that should be
@@ -337,6 +320,34 @@ Vertical positioning of dynamics is handled by
 
 @c Add LilyPond examples to these snippets. -pm
 
+@c A @notation{hairpin} normally starts at the left edge of the
+@c beginning note and ends on the right edge of the ending note.  If
+@c the ending note falls on the downbeat, the @notation{hairpin} ends
+@c on the immediately preceding bar line.  The following example
+@c illustrates this behavior:
+@c 
+@c TODO: Add link to new snippet for #'to-barline
+
+If hairpins are too short, they can be lengthened using the
+following method:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+c4\< c\! d\> e\!
+\override Voice.Hairpin #'minimum-length = #5
+<< f1 { s4 s4\< s4\> s4\! } >>
+@end lilypond
+
+@cindex al niente
+@cindex niente, al
+
+Hairpins may be printed with a circled tip (al niente notation):
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+\override Hairpin #'circled-tip = ##t
+c2\< c\!
+c4\> c\< c2\!
+@end lilypond
+
 Dynamics that occur at, begin on, or end on the same note will be
 vertically aligned.  If you want to ensure that dynamics are
 aligned when they do not occur on the same note, you can increase
@@ -345,10 +356,6 @@ the @code{staff-padding} property.
 @example
 \override DynamicLineSpanner #'staff-padding = #4
 @end example
-
-@noindent
-You may also use this property if the dynamics are colliding with
-other notation.
 
 @notation{Crescendi} and @notation{decrescendi} that cross a line
 break will be continued on the second line.  If they end on the
@@ -378,6 +385,9 @@ Music Glossary:
 
 Learning Manual:
 @rlearning{Articulation and dynamics}.
+
+Notation Reference:
+@ref{Controlling direction and placement}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -496,12 +506,17 @@ can be achieved in LilyPond by setting @code{doubleSlurs},
 
 @seealso
 
-Music Glossary: @rglos{slur}
+Music Glossary:
+@rglos{slur}.
+
+Notation Reference:
+@ref{Controlling direction and placement}.
 
 Snippets:
 @rlsr{Expressive marks}.
 
-Internals Reference: @rinternals{Slur}.
+Internals Reference:
+@rinternals{Slur}.
 
 
 @node Phrasing slurs
@@ -543,10 +558,14 @@ You cannot have simultaneous phrasing slurs.
 
 @seealso
 
+Notation Reference:
+@ref{Controlling direction and placement}.
+
 Snippets:
 @rlsr{Expressive marks}.
 
-Internals Reference: @rinternals{PhrasingSlur}
+Internals Reference:
+@rinternals{PhrasingSlur}.
 
 
 @node Breath marks
@@ -583,7 +602,8 @@ Snippets:
 @rlsr{Expressive marks}.
 @c @lsr{expressive,breathing-sign.ly}.
 
-Internals Reference: @rinternals{BreathingSign}
+Internals Reference:
+@rinternals{BreathingSign}.
 
 
 @node Falls and doits
@@ -624,7 +644,9 @@ c4-\bendAfter #-3
 @seealso
 
 @c TODO: add falls and doits to glossary.
-@c Music Glossary: @rglos{falls}, @rglos{doits}.
+@c Music Glossary:
+@c @rglos{falls},
+@c @rglos{doits}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -671,7 +693,8 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 @seealso
 
-Music Glossary: @rglos{glissando}
+Music Glossary:
+@rglos{glissando}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -680,7 +703,8 @@ Snippets:
 @c @lsr{expressive,glissando.ly},
 @c @lsr{expressive,line-styles.ly}
 
-Internals Reference: @rinternals{Glissando}
+Internals Reference:
+@rinternals{Glissando}.
 
 
 @knownissues
@@ -694,6 +718,9 @@ supported.
 
 @cindex arpeggio
 @cindex broken chord
+
+@c Add documentation for new 'parenthesis' style arpeggio.  Maybe
+@c create a new \arpeggioParen command, or something similar. -pm
 
 You can specify an @notation{arpeggio} (also known as a
 @notation{broken chord}) on a chord by attaching an
@@ -807,14 +834,17 @@ moved to the Staff context:
 
 @c TODO: Add 'broken chord' to glossary.
 
-Music Glossary: @rglos{arpeggio}
+Music Glossary:
+@rglos{arpeggio}.
 
-Notation Reference: @ref{Ties}, for writing out arpeggios.
+Notation Reference:
+@ref{Ties}, for writing out arpeggios.
 
 Snippets:
 @rlsr{Expressive marks}.
 
-Internals Reference: @rinternals{Arpeggio},
+Internals Reference:
+@rinternals{Arpeggio},
 @rinternals{PianoStaff}.
 
 
@@ -877,9 +907,11 @@ printed as a stemless note head in parentheses.
 
 @seealso
 
-Music Glossary: @rglos{trill}
+Music Glossary:
+@rglos{trill}.
 
 Snippets:
 @rlsr{Expressive marks}.
 
-Internals Reference: @rinternals{TrillSpanner}
+Internals Reference:
+@rinternals{TrillSpanner}.

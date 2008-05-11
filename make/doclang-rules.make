@@ -1,9 +1,9 @@
 $(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
 	mkdir -p $(dir $@)
-	-$(MAKEINFO) -P $(outdir) --output=$(outdir)/$* --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+	$(MAKEINFO) -P $(outdir) --output=$(outdir)/$* --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
-	-$(MAKEINFO) -P $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
+	$(MAKEINFO) -P $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
 
 $(outdir)/%.pdftexi: $(outdir)/%.texi doc-po $(outdir)/version.itexi
 	$(PYTHON) $(buildscript-dir)/texi-gettext.py $(ISOLANG) $<

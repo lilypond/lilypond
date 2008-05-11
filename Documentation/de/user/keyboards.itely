@@ -149,7 +149,7 @@ wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 
 @seealso
 
-Im Handbuch: @ref{Manual staff switches}.
+Im Handbuch: @rlearning{Single staff}.
 
 Programmreferenz: @internalsref{AutoChangeMusic}.
  

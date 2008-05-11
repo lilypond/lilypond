@@ -147,8 +147,8 @@ libre de choisir comment dénommer vos variables@footnote{Les noms de
 variables sont sensibles à la casse, et ne peuvent contenir ni
 chiffre, ni tiret, ni caractère accentué.} ; ce peut être
 @code{melodie}, @code{global}, @code{maindroitepiano}, ou
-@code{laTeteAToto}.  Pour plus de détails, voir @ruser{Saving typing
-with identifiers and functions}.
+@code{laTeteAToto}.  Pour plus de détails, voir @ref{Saving
+typing with variables and functions}.
 
 Pour une description complète du format des fichiers d'entrée, voir 
 @ruser{File structure}.
@@ -173,7 +173,7 @@ expression musicale.}
 
 @noindent
 Peut-être serait-il judicieux de relire la section
-@ruser{Music expressions explained}, dans laquelle vous avez
+@ref{Music expressions explained}, dans laquelle vous avez
 appris à construire de grandes expressions musicales petit bout
 par petit bout --- nous avons vu les notes, puis les accords, etc.
 Maintenant, nous allons partir d'une grande expression musicale,
@@ -430,7 +430,7 @@ amené à recourir à des voix supplémentaires afin d'éviter des collisions
 de notes.  Ces voix additionnelles s'ajoutent en définissant un
 identificateur, comme le montre l'exemple suivant :
 
-@lilypond[quote,verbatim,ragged-right,relative=2]
+@lilypond[quote,verbatim,ragged-right]
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 
 \relative c''' <<
@@ -647,7 +647,7 @@ de type @var{Contexte}, quel que puisse être son nom.
 Cette variante sert à des expressions musicales qui peuvent être interprétées à
 plusieurs niveaux.  Par exemple, une commande telle que @code{\applyOutput} (voir
 @c FIXME: broken link
-@c @ref{Running a function on all layout objects}) : si elle n'est pas associée avec
+@c @ruser{Running a function on all layout objects}) : si elle n'est pas associée avec
 @code{\context}, elle s'applique par défaut dans le contexte @context{Voice}.
 
 @example
@@ -845,8 +845,7 @@ C'est un peu le bazar dans tout ça ; mais il vous sera facile de
 mettre un peu d'ordre dans l'indentation.  Voici le modèle pour
 soprano et violoncelle au complet :
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+@lilypond[quote,verbatim,ragged-right,addversion]
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major

@@ -79,7 +79,7 @@ Pour que les paroles évitent également les barres de mesure, ajoutez
 
 Le @emph{parlato} est du texte scandé en rythme, mais sans hauteurs
 définies ; il est indiqué par des notes en croix, à l'instar des
-percussions --- voir @ref{Special noteheads}.
+percussions --- voir @ref{Special note heads}.
 
 
 @node Setting simple songs
@@ -146,7 +146,7 @@ il est aussi possible d'attribuer automatiquement chaque syllabe à une
 note d'une mélodie ou d'une voix existante, avec @code{\addlyrics} ou
 @code{\lyricsto}.  
 @c  TODO: broken but exists Aligning lyrics
-@c For more details see @ref{The Lyrics context}.
+@c For more details see @ref{Aligning contexts}.
 
 Dans les paroles, un mot ou une syllabe commence par une lettre de
 l'alphabet, et se termine par un espace (éventuellement précédé d'un
@@ -193,9 +193,9 @@ ces syllabes entre guillemets, ou bien remplacer l'espace par un
 caractère souligné (@code{_}), ou encore utiliser un tilde (@code{~})
 pour obtenir une liaison entre les syllabes.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
-\relative { c2 e4 g2 e4 }
+\relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
 \addlyrics { pu- ro~y~ho- nes- to }
@@ -209,10 +209,10 @@ incluant ce symbole (par exemple DejaVuLGC) installée sur le système.
 Pour utiliser des lettres accentuées ou des caractères spéciaux 
 --- cœurs ou guillemets inversés par exemple --- il suffit de les insérer
 dans le fichier et de veiller à sauvegarder ce dernier avec le codage
-utf-8.  Voir à ce sujet @ref{Text encoding} pour plus de détails.
+UTF-8.  Voir à ce sujet @ref{Text encoding} pour plus de détails.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\relative { e4 f e d e f e2 }
+\relative c' { e4 f e d e f e2 }
 \addlyrics { He said: “Let my peo ple go”. }
 @end lilypond
 
@@ -471,9 +471,9 @@ liaison adaptée aux paroles correspond au caractère Unicode U+203F, et
 n'apparaîtra dans la partition que si le système dispose d'une police
 installée qui contient ce symbole(par exemple DejaVuLGC).}.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
-\relative { c2 e4 g2 e4 }
+\relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
 \addlyrics { pu- ro~y~ho- nes- to }
@@ -549,7 +549,7 @@ connecter manuellement créera un mélisme.
 @cindex choral score
 
 Vous trouverez un exemple complet de partition pour chœur dans la
-section @ref{Vocal ensembles}.
+section @rlearning{Vocal ensembles}.
 
 
 @predefined
@@ -742,7 +742,7 @@ d'accroître l'espacement des paroles.
 Pour que ce réglage s'applique à toute la partition, définissez-le
 dans le bloc @code{\layout}.
 
-@lilypond[relative,verbatim,quote,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \score {
   \relative c' {
   c c c c
@@ -853,7 +853,7 @@ abrégée.
   Hi, my name is Bert.
 } \addlyrics {
   \set vocalName = "Ernie "
-  Oh, che -- ri, je t'aime
+  Oh, ché -- ri, je t'aime
 }
 @end lilypond
 
@@ -905,7 +905,7 @@ faire un mélisme.  Il faudra alors insérer des sauts invisibles
 suivant d'une note :
 
 @lilypond[verbatim,ragged-right,quote]
-\relative { c c g' }
+\relative c' { c c g' }
 \addlyrics {
   twin -- \skip 4
   kle
@@ -921,7 +921,7 @@ modifie la propriété @code{associatedVoice}.  Dans cet exemple,
 
 @lilypond[ragged-right,quote]
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     <<

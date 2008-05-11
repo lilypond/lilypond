@@ -56,7 +56,7 @@ conçu pour gérer la notation spécifique au piano, notamment ces croisements.
 
 Les nuances ne sont pas centrées verticalement, mais il existe
 des astuces.  Voir à ce sujet le modèle @q{alignement des nuances au
-piano} au chapitre @ref{Piano templates}.
+piano} au chapitre @rlearning{Piano templates}.
 
 
 @node Changing staff manually
@@ -146,7 +146,7 @@ place les silences en fonction des notes qui les suivront. Ainsi :
 
 @seealso
 
-Dans ce même manuel : @ref{Manual staff switches}.
+Dans ce même manuel : @ruser{Changing staff manually}.
 
 Référence du programme : @internalsref{AutoChangeMusic}.
 

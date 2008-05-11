@@ -2092,7 +2092,7 @@ gesetzt, verminderte Quinten und Septimen mit @code{5/} und @code{7/}.
 
 Pausen können mit @code{_} notiert werden. Klammern werden mit @code{[}
 und @code{]} gesetzt. Text kann auch eingefügt werden nach den Regeln im 
-Abschnitt @ref{Overview of text markup commands}.
+Abschnitt @ref{Text markup commands}.
 
 @example
 < [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >

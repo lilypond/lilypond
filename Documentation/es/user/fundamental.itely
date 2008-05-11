@@ -193,7 +193,7 @@ consulte @ruser{File structure}.
 @cindex expresión musical compuesta
 @cindex música, expresión compuesta de
 
-En la sección anterior, @ruser{How LilyPond files work} hemos podido
+En la sección anterior, @ref{How LilyPond files work} hemos podido
 ver la organización general de los archivos de entrada de LilyPond.
 Pero parece que nos saltamos la parte más importante: ¿cómo
 averiguamos qué escribir después de @code{\score}?
@@ -207,7 +207,7 @@ todo:
 @end quotation
 
 @noindent
-Quizá encuentre útil dar un repaso a @ruser{Music expressions
+Quizá encuentre útil dar un repaso a @ref{Music expressions
 explained}.  En esta sección, vimos cómo elaborar grandes expresiones
 musicales a partir de pequeñas piezas (comenzábamos con notas, luego
 acordes, etc.).  Ahora partiremos de una gran expresión musical y
@@ -1894,8 +1894,7 @@ Esto parece un poco enrevesado; los márgenes están descuadrados.  Esto
 tiene fácil solución.  Presentamos aquí la plantilla completa para
 soprano y cello.
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+@lilypond[quote,verbatim,ragged-right,addversion]
 sopranoMusic = \relative c' {
   \clef treble
   \key c \major
@@ -2115,8 +2114,7 @@ Los grupos ChoirStaff y PianoStaff se deben combinar utilizando
 Al combinar todo esto junto y escribir la música de los tres compases
 del ejemplo anterior, obtenemos:
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+@lilypond[quote,verbatim,ragged-right,addversion]
 global = { \key d \major \time 4/4 }
 sopMusic = \relative c'' {
   \clef "treble"
@@ -2320,8 +2318,7 @@ pentagramas tendrá una estructura similar, aunque el número de voces
 puede variar.  Todo lo que nos queda es añadir la música, y combinar
 todas las partes.
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.38"
+@lilypond[quote,verbatim,ragged-right,addversion]
 \header {
   title = "Jesu, meine Freude"
   composer = "J S Bach"

@@ -722,14 +722,11 @@ common_refpoint_of_list (SCM elist, Grob *common, Axis a)
 Grob *
 common_refpoint_of_array (vector<Grob*> const &arr, Grob *common, Axis a)
 {
-  for (vsize i = arr.size (); i--;)
-    if (Grob *s = arr[i])
-      {
-	if (common)
-	  common = common->common_refpoint (s, a);
-	else
-	  common = s;
-      }
+  for (vsize i = 0; i < arr.size (); i++)
+    if (common)
+      common = common->common_refpoint (arr[i], a);
+    else
+      common = arr[i];
 
   return common;
 }

@@ -20,6 +20,7 @@
   formatted content of the grob is put into a
   Property_object. Page-breaking handles Property_object objects.
 */
+
 class Prob
 {
   DECLARE_SMOBS (Prob);
@@ -40,13 +41,17 @@ public:
   Prob (Prob const &);
   virtual string name () const;
   SCM type () const { return type_; }
-  SCM get_property_alist (bool mutble) const;
+  SCM get_property_alist (bool _mutable) const;
   SCM internal_get_property (SCM sym) const;
   void instrumented_set_property (SCM, SCM, const char*, int, const char*);
   void internal_set_property (SCM sym, SCM val);
 };
+
 DECLARE_UNSMOB(Prob,prob);
+
 SCM ly_prob_set_property_x (SCM system, SCM sym, SCM value);
 SCM ly_prob_property (SCM system, SCM sym, SCM dfault);
 
+SCM ly_prob_type_p (SCM obj, SCM sym);
+  
 #endif /* PROPERTY_OBJECT_HH */

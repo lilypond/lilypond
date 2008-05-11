@@ -99,7 +99,7 @@ down = \drummode { bassdrum4 snare8 bd r bd sn4 }
 @end lilypond
 
 El ejemplo anterior muestra una notación polifónica prolija.  La notación
-polifónica abreviada, descrita en @ref{Basic polyphony}, también se puede usar si
+polifónica abreviada, descrita en @rlearning{I'm hearing Voices}, también se puede usar si
 las @internalsref{DrumVoice}s se instancian primero a mano.  Por ejemplo,
 
 @lilypond[quote,ragged-right,fragment,verbatim]

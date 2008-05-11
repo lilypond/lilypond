@@ -148,6 +148,7 @@ Values of 7 and -7 are common.")
      (clefPosition ,number? "Where should the center of the clef
 symbol go, measured in half staff spaces from the center of the
 staff.")
+     (completionBusy ,boolean? "Whether a completion-note head is playing.")
      (connectArpeggios ,boolean? "If set, connect arpeggios across
 piano staff.")
      (countPercentRepeats ,boolean? "If set, produce counters for
@@ -581,4 +582,4 @@ and subscripts.  See @file{scm/script.scm} for more information.")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public default-melisma-properties
-  '(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy))
+  '(melismaBusy slurMelismaBusy tieMelismaBusy beamMelismaBusy completionBusy))

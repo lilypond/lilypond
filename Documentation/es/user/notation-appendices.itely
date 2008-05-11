@@ -18,8 +18,8 @@
 * List of colors::              
 * The Feta font::               
 * Note head styles::            
-* Overview of text markup commands::  
-* Overview of text markup list commands::  
+* Text markup commands::  
+* Text markup list commands::  
 * List of articulations::       
 * All context properties::      
 * Layout properties::           
@@ -213,17 +213,15 @@ Se pueden usar los siguientes estilos para las cabezas de las notas.
 @lilypondfile[noindent]{note-head-style.ly}
 
 
-@node Overview of text markup commands
-@appendixsec Overview of text markup commands
-
+@ignore
 Todas las instrucciones siguientes se pueden usar dentro de @code{\markup @{ @}}.
+@end ignore
 
 @include markup-commands.tely
 
-@node Overview of text markup list commands
-@appendixsec Overview of text markup list commands
-
+@ignore
 Todas las instrucciones siguientes se pueden utilizar con @code{\markuplines}.
+@end ignore
 
 @include markup-list-commands.tely
 

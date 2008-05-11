@@ -8,15 +8,15 @@
 
 #include "separation-item.hh"
 
+#include "accidental-placement.hh"
 #include "axis-group-interface.hh"
 #include "lookup.hh"
 #include "note-head.hh"
-#include "stencil.hh"
-#include "skyline.hh"
 #include "paper-column.hh"
-#include "warn.hh"
 #include "pointer-group-interface.hh"
-#include "accidental-placement.hh"
+#include "skyline-pair.hh"
+#include "stencil.hh"
+#include "warn.hh"
 
 void
 Separation_item::add_item (Grob *s, Item *i)
@@ -137,7 +137,6 @@ Separation_item::boxes (Grob *me, Grob *left)
   return out;      
 }
 
-extern bool debug_skylines;
 MAKE_SCHEME_CALLBACK (Separation_item, print, 1)
 SCM
 Separation_item::print (SCM smob)

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
+    Translation of GIT committish: 23542761090f167ad42dbff7ef11d44a9c1374ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2844,7 +2844,7 @@ voces?  El índice de la Referencia de la Notación no menciona la
 mezcla de notas, pero una búsqueda de texto por la palabra @q{fusión}
 o @q{mezcla} nos lleva rápidamente a las sobreescrituras necesarias
 para mezclar o fusionar notas con distinta cabeza y con o sin puntillo
-en @ruser{Collision Resolution}.  En nuestro ejemplo tenemos que
+en @ruser{Collision resolution}.  En nuestro ejemplo tenemos que
 fusionar ambos tipos de nota en el transcurso de la sección polifónica
 del compás 3; por tanto, en virtud de la información que aparece en la
 Referencia de la Notación, escribimos
@@ -3050,8 +3050,6 @@ lhMusic = \relative c' {
 @node Other uses for tweaks
 @subsection Other uses for tweaks
 
-@itemize
-
 @cindex transparent, uso de la propiedad
 @cindex objetos, hace invisibles
 @cindex eliminar objetos
@@ -3060,7 +3058,6 @@ lhMusic = \relative c' {
 @cindex invisibles, objetos
 @cindex ligar notas entre voces distintas
 
-@item
 @subheading Tying notes across voices
 
 El ejemplo siguiente muestra cómo conectar notas que están en
@@ -3105,7 +3102,6 @@ valor de longitud @code{length} a @code{8},
 >>
 @end lilypond
 
-@item
 @subheading Simulating a fermata
 
 @cindex sello, uso de la propiedad
@@ -3153,8 +3149,6 @@ los dos afectan al tempo del MIDI tal y como queríamos, pero la
 primera indicación de metrónomo (la transparente) aún influye sobre la
 separación de las notas, mientras que la segunda (sin «sello») no
 influye.
-
-@end itemize
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks

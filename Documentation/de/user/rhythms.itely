@@ -655,6 +655,7 @@ Programmreferenz: @internalsref{Completion_heads_engraver}.
 * Automatic beams::             
 * Manual beams::                
 * Feathered beams::             
+* Setting automatic beam behavior::  
 @end menu
 
 @node Automatic beams
@@ -775,6 +776,11 @@ Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 
 @node Feathered beams
 @unnumberedsubsubsec Feathered beams
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Setting automatic beam behavior
+@unnumberedsubsubsec Setting automatic beam behavior
 
 UNTRANSLATED NODE: IGNORE ME
 

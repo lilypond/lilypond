@@ -25,6 +25,7 @@
 @menu
 * Articulations::               
 * Dynamics::                    
+* New dynamic marks::           
 @end menu
 
 @node Articulations
@@ -297,6 +298,12 @@ eingesetzt werden.
 Programmreferenz: @internalsref{DynamicText}, @internalsref{Hairpin}.
 Vertikale Positionierung der Symbole wird von der Eigenschaft 
 @internalsref{DynamicLineSpanner} verwaltet.
+
+
+@node New dynamic marks
+@subsubsection New dynamic marks
+
+UNTRANSLATED NODE: IGNORE ME
 
 
 @node Curves

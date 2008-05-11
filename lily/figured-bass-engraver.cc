@@ -362,7 +362,8 @@ Figured_bass_engraver::process_music ()
 	    {
 	      if (!group.continuation_line_)
 		{
-		  Spanner * line = make_spanner ("BassFigureContinuation", SCM_EOL);
+		  Spanner * line
+		    = make_spanner ("BassFigureContinuation", SCM_EOL);
 		  Item * item = group.figure_item_;
 		  group.continuation_line_ = line;
 		  line->set_bound (LEFT, item);
@@ -412,7 +413,8 @@ Figured_bass_engraver::process_music ()
 void
 Figured_bass_engraver::create_grobs () 
 {
-  Grob *muscol = dynamic_cast<Item*> (unsmob_grob (get_property ("currentMusicalColumn")));
+  Grob *muscol
+    = dynamic_cast<Item*> (unsmob_grob (get_property ("currentMusicalColumn")));
   if (!alignment_)
     {
       alignment_ = make_spanner ("BassFigureAlignment", SCM_EOL);

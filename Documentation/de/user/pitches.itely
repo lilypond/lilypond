@@ -17,6 +17,7 @@ This section discusses how to specify the pitch of notes.
 * Writing pitches::             
 * Changing multiple pitches::   
 * Displaying pitches::          
+* Note heads::                  
 @end menu
 
 
@@ -540,6 +541,8 @@ innerhalb von @code{\transpose} befinden.
 * Key signature::               
 * Ottava brackets::             
 * Instrument transpositions::   
+* Automatic accidentals::       
+* Ambitus::                     
 @end menu
 
 @node Clef
@@ -740,3 +743,46 @@ UNTRANSLATED NODE: IGNORE ME
 
 UNTRANSLATED NODE: IGNORE ME
 
+
+@node Automatic accidentals
+@unnumberedsubsubsec Automatic accidentals
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Ambitus
+@unnumberedsubsubsec Ambitus
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Note heads
+@subsection Note heads
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Special note heads::          
+* Easy notation note heads::    
+* Shape note heads::            
+* Improvisation::               
+@end menu
+
+@node Special note heads
+@unnumberedsubsubsec Special note heads
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Easy notation note heads
+@unnumberedsubsubsec Easy notation note heads
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Shape note heads
+@unnumberedsubsubsec Shape note heads
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Improvisation
+@unnumberedsubsubsec Improvisation
+
+UNTRANSLATED NODE: IGNORE ME

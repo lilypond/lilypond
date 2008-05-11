@@ -119,7 +119,7 @@ to a melody.  Here is an example,
 
 @lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
-\relative { c2 e4 g2. }
+\relative c' { c2 e4 g2. }
 \addlyrics { play the game }
 @end lilypond
 
@@ -128,7 +128,7 @@ More stanzas can be added by adding more
 
 @lilypond[ragged-right,verbatim,fragment,quote]
 \time 3/4
-\relative { c2 e4 g2. }
+\relative c' { c2 e4 g2. }
 \addlyrics { play the game }
 \addlyrics { speel het spel }
 \addlyrics { joue le jeu }
@@ -213,9 +213,9 @@ In order to assign more than one syllable to a single note, you can
 surround them with quotes or use a @code{_} character, to get spaces
 between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
-\relative { c2 e4 g2 e4 }
+\relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
 \addlyrics { pu- ro~y~ho- nes- to }
@@ -229,13 +229,11 @@ glyph.
 To enter lyrics with characters from non-English languages, or with
 accented and special characters (such as the heart symbol or slanted quotes),
 simply insert the characters directly into the input file and save
-it with utf-8 encoding.  See @ref{Text encoding}, for more info.
-
-FIXME: quotes.
+it with UTF-8 encoding.  See @ref{Text encoding}, for more info.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\relative { e4 f e d e f e2 }
-\addlyrics { He said: â€œLet my peo ple goâ€. }
+\relative c' { e4 f e d e f e2 }
+\addlyrics { He said: “Let my peo ple go”. }
 @end lilypond
 
 To use normal quotes in lyrics, add a backslash before the
@@ -494,9 +492,9 @@ U+203F, so be
 sure to have a font (Like DejaVuLGC) installed that includes this
 glyph.}.
 
-@lilypond[quote,relative=2,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim]
 \time 3/4
-\relative { c2 e4 g2 e4 }
+\relative c' { c2 e4 g2 e4 }
 \addlyrics { gran- de_a- mi- go }
 \addlyrics { pu- "ro y ho-" nes- to }
 \addlyrics { pu- ro~y~ho- nes- to }
@@ -601,7 +599,7 @@ the text will be delayed another note.
 For example,
 
 @lilypond[verbatim,ragged-right,quote]
-\relative { c c g' }
+\relative c' { c c g' }
 \addlyrics {
   twin -- \skip 4
   kle
@@ -767,7 +765,7 @@ LyricSpace.
 To make this change for all lyrics in the score, set the property in the
 layout.
 
-@lilypond[relative,verbatim,quote,ragged-right]
+@lilypond[verbatim,quote,ragged-right]
 \score {
   \relative c' {
   c c c c
@@ -835,9 +833,10 @@ Stanza numbers can be added by setting @code{stanza}, e.g.,
   Hi, my name is Bert.
 } \addlyrics {
   \set stanza = "2. "
-  Oh, chÃ© -- ri, je t'aime
+  Oh, ché -- ri, je t'aime
 }
 @end lilypond
+
 
 @noindent
 These numbers are put just before the start of the first syllable.
@@ -911,7 +910,7 @@ the line, just like instrument names.  They are created by setting
   Hi, my name is Bert.
 } \addlyrics {
   \set vocalName = "Ernie "
-  Oh, che -- ri, je t'aime
+  Oh, ché -- ri, je t'aime
 }
 @end lilypond
 
@@ -933,7 +932,7 @@ in the text, as shown here,
 @lilypond[verbatim,ragged-right,quote]
 %{
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     \slurDotted
@@ -966,7 +965,7 @@ done by setting the @code{associatedVoice} property.  In the example
 
 @lilypond[ragged-right,quote]
 <<
-  \relative \new Voice = "lahlah" {
+  \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
     c4
     <<

@@ -110,9 +110,11 @@ commands, leaving them to be created implicitly.  For simple
 examples this works well, but for more complex examples, especially
 when additional commands are used, the implicit creation of contexts
 can give surprising results, maybe creating extra unwanted staves.
-When entering more than a few lines of music it is advisable to
-always create staves and voices explicitly, see
+The way to create contexts explicitly is explained in 
 @ref{Contexts and engravers}.
+
+@warning{When entering more than a few lines of music it is
+advisable to always create staves and voices explicitly.}
 
 For now, though, let us return to the first example and examine the
 @code{\score} command, leaving the others to default.
@@ -261,7 +263,8 @@ there @emph{is} no mystery.  This line explains it all:
 @end quotation
 
 @noindent
-You may find it useful to review
+To understand what is meant by a music expression and a compound
+music expression you may find it useful to review
 @ref{Music expressions explained}.  In that section, we saw how to
 build big music expressions from small pieces -- we started from
 notes, then chords, etc.  Now we're going to start from a big
@@ -976,11 +979,15 @@ markup, ties, slurs, and dynamics:
 }
 @end lilypond
 
+Now let's look at three different ways to notate the same passage
+of polyphonic music, each of which is advantageous in different
+circumstances, using the example from the previous section.
+
 An expression that appears directly inside a @code{<< >>} belongs
 to the main voice (but, note, @strong{not} in a @code{<< \\ >>}
 construct).  This is useful when extra voices appear while the
-main voice is playing.  Here is a more correct rendition of the
-example from the previous section.  The red diamond-shaped notes
+main voice is playing.  Here is a more correct rendition of our
+example.  The red diamond-shaped notes
 demonstrate that the main melody is now in a single voice context,
 permitting a phrasing slur to be drawn over them.
 
@@ -1017,7 +1024,7 @@ permitting a phrasing slur to be drawn over them.
 
 More deeply nested polyphony constructs are possible, and if a
 voice appears only briefly this might be a more natural way to
-typeset the music.
+typeset the music:
 
 @lilypond[quote,ragged-right,verbatim]
 \new Staff \relative c' {
@@ -1069,6 +1076,8 @@ as here:
   }
 >>
 @end lilypond
+
+@subsubheading Note columns
 
 @cindex note column
 @cindex shift commands
@@ -1212,7 +1221,11 @@ in separate files should they become too long.
 
 Here is a example of the first line of a hymn with four
 verses, set for SATB.  In this case the words for all four
-parts are the same.
+parts are the same.  Note how we use variables to separate the
+music notation and words from the staff structure.  See too
+how a variable, which we have chosen to call @q{TimeKey}, is used
+to hold several commands for use within the two staves.  In other
+examples this is often called @q{global}.
 
 @lilypond[quote,verbatim]
 TimeKey = { \time 4/4 \partial 4 \key c \major}
@@ -1559,6 +1572,60 @@ interpreting the @var{music-expression} within that context.
 Note that there is no @code{\new Score} command;
 the single top-level @code{Score} context is introduced
 with @code{\score}.
+
+You have seen many practical examples which created new
+@code{Staff} and @code{Voice} contexts in earlier sections, but
+to remind you how these commands are used in practice, here's an
+annotated real-music example:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {  % start single compound music expression
+  <<  % start of simultaneous staves section
+    \time 2/4
+    \new Staff {  % create RH staff
+      \key g \minor
+      \clef "treble"
+      \new Voice {  % create voice for RH notes
+        \relative c'' {  % start of RH notes
+          d4 ees16 c8. |
+          d4 ees16 c8. |
+        }  % end of RH notes
+      }  % end of RH voice
+    }  % end of RH staff
+    \new Staff <<  % create LH staff; needs two simultaneous voices
+      \key g \minor
+      \clef "bass"
+      \new Voice {  % create LH voice one
+        \voiceOne
+        \relative g {  % start of LH voice one notes
+          g8 <bes d> ees, <g c> |
+          g8 <bes d> ees, <g c> |
+        }  % end of LH voice one notes
+      }  % end of first LH voice
+      \new Voice {  % create LH voice two
+        \voiceTwo
+        \relative g {  % start of LH voice two notes
+          g4 ees |
+          g4 ees |
+        }  % end of LH voice two notes
+      }  % end of LH voice two
+    >>  % end of LH staff
+  >>  % end of simultaneous staves section
+}  % end of single compound music expression
+@end lilypond
+
+(Note how all the statements which open a block with either a
+curly bracket, @code{@{}, or double angle brackets, @code{<<},
+are indented by two further spaces, and the corresponding
+closing bracket is indented by exactly the same amount.  While
+this is not required, following this practice will greatly
+reduce the number of @q{unmatched bracket} errors, and is
+strongly recommended.  It enables the structure of the music to
+be seen at a glance, and any unmatched brackets will be obvious.
+Note too how the LH staff is created using double angle brackets
+because it requires two voices for its music, whereas the RH staff
+is created with a single music expression surrounded by curly
+brackets because it requires only one voice.)
 
 @cindex contexts, naming
 @cindex naming contexts
@@ -2311,7 +2378,7 @@ lower = \relative c, {
     >>  % end ChoirStaff
 
     \new PianoStaff <<
-      \set PianoStaff.instrumentName = "Piano  "
+      \set PianoStaff.instrumentName = "Piano"
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>
@@ -2409,7 +2476,7 @@ stacked one above the other:
   >>  % end ChoirStaff
 
   \new PianoStaff <<
-    \set PianoStaff.instrumentName = "Piano  "
+    \set PianoStaff.instrumentName = "Piano"
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower
   >>
@@ -2561,7 +2628,7 @@ part just one.
 Next we need to add a staff for the pedal organ.
 This goes underneath the PianoStaff, but it must
 be simultaneous with it, so we need angle brackets
-round the two.  Missing these out would generate
+around the two.  Missing these out would generate
 an error in the log file.  It's a common mistake
 which you'll make sooner or later!  Try copying
 the final example at the end of this section,
@@ -2640,7 +2707,7 @@ ManualOneVoiceOneMusic = \relative g' {
   g4 g f ees | d2 c2 |
 }
 ManualOneVoiceTwoMusic = \relative c' {
-  ees16 d ees8~ ees16 f ees s c8 d~ d c~ |
+  ees16 d ees8~ ees16 f ees d c8 d~ d c~ |
   c c4 b8 c8. g16 c b c d |
 }
 ManualTwoMusic = \relative c' {

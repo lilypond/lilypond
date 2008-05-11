@@ -1299,7 +1299,7 @@ Una vez más, las expresiones de este tipo se pueden anidar de forma arbitraria.
 
 @seealso
 
-Notation Reference: @ruser{Simultaneous notes}.
+Referencia de la notación: @ruser{Simultaneous notes}.
 
 
 @node Songs
@@ -1677,7 +1677,7 @@ más detalles, consulte @rprogram{Updating files with convert-ly}).
 La información sobre el título, autor, número de Opus y similares se
 escriben en el bloque @code{\header}.  Éste se encuentra fuera de la
 expresión musical principal; el bloque @code{\header} normalmente se
-sitúa por debajo del @ruser{Version number}.
+sitúa por debajo del @ref{Version number}.
 
 @example
 \version @w{"@version{}"}
@@ -1780,7 +1780,7 @@ Después de terminar el tutorial, quizá debería probar a escribir una o
 dos piezas.  Comience con una de las plantillas del @ref{Templates} y
 añada algunas notas.  Si necesita un tipo de notación que no ha sido
 tratada en el tutorial, eche un vistazo a la Referencia de Notación,
-empezando por @ruser{Basic notation}.  Si quiere escribir música para
+empezando por @ruser{Musical notation}.  Si quiere escribir música para
 un conjunto instrumental que no está cubierto por ninguna plantilla,
 consulte @ref{Extending the templates}.
 
