@@ -3169,33 +3169,43 @@ about LilyPond, but even more information can be gathered by
 looking at the internal LilyPond files.  To explore these, first
 find the directory appropriate to your system, as follows:
 
-@strong{Linux}
+@strong{Download from lilypond.org: Linux}
 
 Navigate to
-@file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+@file{@var{INSTALLDIR}/lilypond/usr/share/lilypond/current/}
 
-@strong{MacOS X}
+@strong{Download from lilypond.org: MacOS X}
 
 Navigate to
-@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+@file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current/}
 by either @code{cd}-ing into this directory from the
 Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
 
-@strong{Windows}
+@strong{Download from lilypond.org: Windows}
 
 Using Windows Explorer, navigate to
-@file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current/}
+
+@strong{Installed from a package manager or from source: all}
+
+Navigate to
+@file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, where
+@var{PREFIX} is set by your package manager or @code{configure}
+script, and @var{X.Y.Z} is the LilyPond version number.
+
+
+@sp 1
 
 Within this directory the two interesting subdirectories are
 
 @itemize
-@item @file{../ly/ } - contains files in LilyPond format
-@item @file{../scm/} - contains files in Scheme format
+@item @file{ly/} - contains files in LilyPond format
+@item @file{scm/} - contains files in Scheme format
 @end itemize
 
-Let's begin by looking at some files in @file{../ly/}.
-Open @file{../ly/property-init.ly} in a text editor.  The one
+Let's begin by looking at some files in @file{ly/}.
+Open @file{ly/property-init.ly} in a text editor.  The one
 you normally use for @code{.ly} files will be fine.  This file
 contains the definitions of all the standard LilyPond built-in
 commands, such as @code{\stemUp} and @code{\slurDotted}.  You will
@@ -3215,18 +3225,18 @@ be redefined easily, just like any other variable, at the
 head of your input file.
 
 The following are the most useful files to be found in
-@file{../ly/}:
+@file{ly/}:
 
 @multitable @columnfractions .4 .6
 @headitem Filename
   @tab Contents
-@item @file{../ly/engraver-init.ly}
+@item @file{ly/engraver-init.ly}
   @tab Definitions of engraver Contexts
-@item @file{../ly/paper-defaults.ly}
+@item @file{ly/paper-defaults.ly}
   @tab Specifications of paper-related defaults
-@item @file{../ly/performer-init.ly}
+@item @file{ly/performer-init.ly}
   @tab Definitions of performer Contexts
-@item @file{../ly/property-init.ly}
+@item @file{ly/property-init.ly}
   @tab Definitions of all common built-in commands
 @end multitable
 
@@ -3245,20 +3255,20 @@ interest are:
 @multitable @columnfractions .4 .6
 @headitem Filename
   @tab Contents
-@item @file{../scm/auto-beam.scm}
+@item @file{scm/auto-beam.scm}
   @tab Sub-beaming defaults
-@item @file{../scm/define-grobs.scm}
+@item @file{scm/define-grobs.scm}
   @tab Default settings for grob properties
-@item @file{../scm/define-markup-commands.scm}
+@item @file{scm/define-markup-commands.scm}
   @tab Specify all markup commands
-@item @file{../scm/midi.scm}
+@item @file{scm/midi.scm}
   @tab Default settings for MIDI output
-@item @file{../scm/output-lib.scm}
+@item @file{scm/output-lib.scm}
   @tab Settings that affect appearance of frets, colors,
        accidentals, bar lines, etc
-@item @file{../scm/parser-clef.scm}
+@item @file{scm/parser-clef.scm}
   @tab Definitions of supported clefs
-@item @file{../scm/script.scm}
+@item @file{scm/script.scm}
   @tab Default settings for articulations
 @end multitable
 
