@@ -59,7 +59,28 @@ skeleton-update:
 snippet-update:
 	$(PYTHON) $(buildscript-dir)/update-snippets.py user $(ISOLANG)/user '*.itely'
 
-endif
+DOCUMENTS_INCLUDES:=-I $(ISOLANG)/user \
+-I $(top-build-dir)/Documentation/$(ISOLANG)/user/out-www \
+-I $(top-src-dir)/input/lsr \
+-I $(top-build-dir)/input/lsr/out-www \
+-I user -I $(top-build-dir)/Documentation/user/out-www
+
+else # ISOLANG is empty
+
+DOCUMENTS_INCLUDES:=-I user \
+-I $(top-build-dir)/Documentation/user/out-www \
+-I $(top-src-dir)/input/lsr \
+-I $(top-build-dir)/input/lsr/out-www
+
+endif # ISOLANG
+
+check-xrefs:
+	$(PYTHON) $(buildscript-dir)/check_texi_refs.py --batch \
+	$(DOCUMENTS_INCLUDES) $(buildscript-dir)/manuals_definitions.py
+
+fix-xrefs:
+	$(PYTHON) $(buildscript-dir)/check_texi_refs.py --auto-fix \
+	$(DOCUMENTS_INCLUDES) $(buildscript-dir)/manuals_definitions.py
 
 check-translation:
 	$(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(CHECKED_FILES)
