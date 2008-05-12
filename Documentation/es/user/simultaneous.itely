@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 95df76f110099096e2d55d57798fa4a2bede19fd
+    Translation of GIT committish: b5ba45ccb092324961dac292dc58cc0eddbc7307
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -81,7 +81,7 @@ separados.  Para evitarlo emplee acordes explícitos como en
 
 Un «cluster» o racimo indica que se deben tocar simultáneamente un
 conjunto de notas consecutivas.  Se escriben aplicando la función
-@code{\makeClusters} a una secuencia de cordes, p.ej.:
+@code{\makeClusters} a una secuencia de acordes, p.ej.:
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 \makeClusters { <g b>2 <c g'> }
@@ -93,7 +93,7 @@ evitar automáticamente las colisiones entre clusters y notas normales.
 
 @seealso
 
-Music Glossary:
+Glosario musical:
 @rglos{cluster}.
 
 Fragmentos de código:
