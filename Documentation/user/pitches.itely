@@ -1966,11 +1966,11 @@ Shape note heads can be produced by setting @code{\aikenHeads} or
 
 @lilypond[verbatim,fragment,quote,relative=1]
 \aikenHeads
-c8 d4 e8 a2
-g1
+\time 6/4
+\aikenHeads
+c8 d4 e8 f g4 a8 b2
 \sacredHarpHeads
-c,8 d4 e8 a2
-g1
+c,8 d4 e8 f g4 a8 b2
 @end lilypond
 
 Shapes are typeset according to the step in the scale, where
