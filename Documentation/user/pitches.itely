@@ -1964,13 +1964,11 @@ notation was popular in nineteenth-century American song books.
 Shape note heads can be produced by setting @code{\aikenHeads} or
 @code{\sacredHarpHeads}, depending on the style desired.
 
-@lilypond[verbatim,fragment,quote,relative=1]
+@lilypond[verbatim,fragment,quote,relative=2]
 \aikenHeads
-\time 6/4
-\aikenHeads
-c8 d4 e8 f g4 a8 b2
+c, d e f g a b c
 \sacredHarpHeads
-c,8 d4 e8 f g4 a8 b2
+c, d e f g a b c
 @end lilypond
 
 Shapes are typeset according to the step in the scale, where
