@@ -211,7 +211,8 @@ commands.
   Do not compress vertically like this.
 
 @code{} - typeset in a tt-font. Use for actual lilypond code or
-  property/context names.
+  property/context names.  If the name contains a space, wrap
+  the entire thing inside @w{@code{  }}.
 @notation{} - refers to pieces of notation, e.g.
   "@notation{cres.}".  Also use to specific lyrics ("the
   @notation{A - men} is centered")
