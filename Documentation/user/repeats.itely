@@ -86,7 +86,7 @@ Repeat signs can also be controlled manually.
 @menu
 * Normal repeats::              
 * Manual repeat marks::         
-* Written-out repeats (unfold)::  
+* Written-out repeats::  
 @end menu
 
 @cindex volta
@@ -280,8 +280,8 @@ Internals Reference: @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic}.
 
 
-@node Written-out repeats (unfold)
-@subsubsection Written-out repeats (unfold)
+@node Written-out repeats
+@subsubsection Written-out repeats
 
 @cindex written-out repeats
 @cindex repetitious music
@@ -326,8 +326,9 @@ Internals Reference: @rinternals{RepeatedMusic},
 @node Short repeats
 @subsection Short repeats
 
-This section discusses how to input short repeats, either single-note
-to multi-measure using slash marks, or tremolos.
+This section discusses how to input short repeats.  Short repeats can
+take two basic forms: repeats of a single note to two measures,
+represented by slashes or percent signs; and tremolos.
 
 @menu
 * Percent repeats::             
@@ -340,12 +341,11 @@ to multi-measure using slash marks, or tremolos.
 @cindex percent repeats
 @cindex measure repeats
 
-Repeated short patterns of notes are also supported.  The music is
-printed once, and the pattern is replaced with a special sign.
-Patterns of one and two measures are replaced by percent-like signs,
-patterns that are shorter than one measure are replaced by slashes.
-Percent repeats must be declared within a @code{Voice} context.  The
-syntax is
+Repeated short patterns of notes are supported.  The music is printed
+once, and the pattern is replaced with a special sign.  Patterns that
+are shorter than one measure are replaced by slashes, and patterns of
+one or two measures are replaced by percent-like signs.  Percent
+repeats must be declared within a @code{Voice} context.  The syntax is
 
 @example
 @code{\repeat percent @var{number} @var{musicexpr}}
@@ -361,8 +361,8 @@ where @var{musicexpr} is a music expression.
 }
 @end lilypond
 
-Measure repeats of more than two measures get a counter if you
-switch on the @code{countPercentRepeats} property:
+Measure repeats of more than two repeats get a counter if you switch
+on the @code{countPercentRepeats} property:
 
 @lilypond[relative=2,fragment,quote,verbatim,ragged-right]
 \relative c' {
@@ -389,11 +389,17 @@ Snippets: @rlsr{Repeats}.
 Internals Reference: @rinternals{RepeatSlash},
 @rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
 @rinternals{DoublePercentRepeatCounter},
-@rinternals{PercentRepeatCounter},
-@rinternals{PercentRepeatedMusic}.
+@rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
 
 @node Tremolo repeats
 @subsubsection Tremolo repeats
+
+Tremolos can take two forms: alternation between two chords or two
+notes, and rapid repetition of a single
+note or chord. Tremolos consisting of an alternation are indicated by
+adding beams between the notes or chords being alternated, while
+tremolos consisting of the rapid repetition of a single note are
+indicated by adding beams or slashes to a single note.
 
 @cindex tremolo beams
 

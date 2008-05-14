@@ -3200,7 +3200,7 @@ Navigate to
 script, and @var{X.Y.Z} is the LilyPond version number.
 
 
-@sp 1
+@smallspace
 
 Within this directory the two interesting subdirectories are
 
