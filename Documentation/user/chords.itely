@@ -12,58 +12,51 @@
 @node Chord notation
 @section Chord notation
 
-Chords can be entered and displayed both as notes on a staff and
-as a chord name.  In addition, figured bass notation can be
-displayed.
+Chords can be entered in chord mode, which recognizes some
+traditional European chord naming conventions. Chord names can also
+be displayed. In addition, figured bass notation can be displayed.
 
 @menu
-* Entering chords::             
-* old Modern chords::           
-* Figured bass::                
+* Chord mode::
+* old Modern chords::
+* Figured bass::
 @end menu
 
 
-@node Entering chords
-@subsection Entering chords
+@node Chord mode
+@subsection Chord mode
 
-@cindex entering chords
-
-@c I'm testing a @longcode{} that does @w{@code{}}; this should be
-@c easier than writing @code{}@tie[}@code[}... -gp
-@c stay tuned about this
-Chords can be entered explicity through the use of the chord
-constructors @code{<}@tie{}@code{>}.  They can also be entered in
-chord mode, which allows chord pitches to be automatically
-added to the specified root.
+@cindex chord chords
 
 @menu
-* Explicitly stating pitches::  
-* Chord mode::                  
+* Chord mode overview::
+* Triads::
+* Seventh chords::
+* Extended chords::
+* Complex chords::
 @end menu
 
-@node Explicitly stating pitches
-@unnumberedsubsubsec Explicitly stating pitches
+@node Chord mode overview
+@unnumberedsubsubsec Chord mode overview
 
-The simplest method for entering chords is to enclose all of the
-pitches for the chord in angle brackets, with the duration of the
-chord specified outside the @code{<>}.
+@cindex chord names
+@cindex chord mode
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-<c e g>2
-@end lilypond
+Chords can be entered as simultaneous music, as discussed in
+@ref{Chorded notes}.
 
-@noindent
-This construction causes all of the notes inside of the @code{<>}
-to occur at the same moment and have the same duration.
+Chords can also be entered in chord mode, which is an input mode
+that focuses on the structures of chords in traditional European
+music, rather than on specific pitches. This is convenient for those
+who are familiar with using chord names to describe chords.
 
-In traditional European music, there is more to a chord than just
-the occurence of simultaneous notes.  Chords are identified by a
-root, and may have inversions.  Standard modifiers to the chords
-are also widely used.  Bass notes may be added to a chord.  The
-@code{<>} method for entering chords knows only the pitches, and
-is unable to support any of these extra characteristics.  If these
-characteristics are important, it is better to follow the method
-described in @ref{Chord mode}.
+Chords entered using chord mode are music elements, and can be
+transposed just like chords entered using simultaneous music.
+
+@code{\chordmode} is similar to @code{\lyricmode}, etc.  Most of
+the commands continue to work, for example, @code{r} and
+@code{\skip} can be used to insert rests and spaces, and property
+commands may be used to change various settings.
 
 @seealso
 
@@ -71,47 +64,46 @@ Music Glossary:
 @rglos{chord}.
 
 Notation Reference:
-@ref{Chord mode}.
+@ref{Chorded notes}.
 
 
-@node Chord mode
-@unnumberedsubsubsec Chord mode
+@node Triads
+@unnumberedsubsubsec Triads
 
-@cindex chord names
-@cindex chord mode
+@cindex triads
+@cindex root of chord
 
-Chord mode is an input mode that understands the usage of chords
-in traditional european music.  Such chords can be entered like
-notes,
+Major triads are entered by including the root and a duration:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote,relative=1,ragged-right]
 \chordmode { c2 f4. g8 }
 @end lilypond
 
-In chord mode each pitch is read as the root of a triad instead of a note.
-This mode is switched on with @code{\chordmode}.
+Minor, augmented, and diminished triads are entered by placing
+@code{:} and a quality modifier string after the duration:
 
-@cindex root of chord
-
-@code{\chordmode} is similar to @code{\lyricmode}, etc.  Most of
-the commands continue to work, for example, @code{r} and
-@code{\skip} can be used to insert rests and spaces, and property
-commands may be used to change various settings.
-
-Chords entered using chord mode are music elements, and can be
-transposed.
-
-Chord mode is not limited to simple triads.  More complex chords
-can be created by adding modifiers after a colon. The following
-example shows a few common modifiers:
-
-@lilypond[verbatim,quote,ragged-right]
-\chordmode { c2 f4:m g4:maj7 gis1:dim7 }
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\chordmode { c2:m f4:aug g4:dim}
 @end lilypond
 
-@noindent
-Note that the colon and the modifiers follow the duration of the
-chord.
+The possible quality modifier strings are explained in @ref{Complex
+chords}
+
+@seealso
+
+Notation Reference:
+@ref{Complex chords}
+
+@node Seventh chords
+@unnumberedsubsubsec Seventh chords
+
+@cindex seventh chords
+@cindex root of chord
+
+@node Extended chords
+@unnumberedsubsubsec Extended chords
+
+@cindex extended chords
 
 Modifiers can be used to extend a chord, specify the @q{quality} of
 the chord, add or remove chord steps, raise or lower chord steps,
@@ -134,6 +126,9 @@ added explicitly).
 @end lilypond
 
 @cindex additions, in chords
+
+@node Complex chords
+@unnumberedsubsubsec Complex chords
 
 The quality of a chord can be set according to standard chord naming
 conventions. The following quality modifiers are supported:
@@ -222,7 +217,6 @@ Each step can only be present in a chord once.  The following
 simply produces the augmented chord, since @code{5+} is
 interpreted last.
 
-@cindex clusters
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \chordmode { c:5.5-.5+ }
@@ -237,9 +231,9 @@ interpreted last.
 
 
 @menu
-* Printing chord names::        
-* Customizing chord names::     
-* Lead sheets::                 
+* Printing chord names::
+* Customizing chord names::
+* Lead sheets::
 @end menu
 
 @n ode Printing chord names
@@ -622,11 +616,11 @@ sheet:
 @subsection old Modern chords
 
 @menu
-* Chord modes::                 
-* Entering chord names::        
-* Building chords::             
-* Lead sheets::                 
-* Printing chord names::        
+* Chord modes::
+* Entering chord names::
+* Building chords::
+* Lead sheets::
+* Printing chord names::
 @end menu
 
 @cindex chords
@@ -1075,9 +1069,9 @@ may result in strange chord names when chords are entered with the
 @subsection Figured bass
 
 @menu
-* Introduction to figured bass::  
-* Entering figured bass::       
-* Displaying figured bass::     
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
 @node Introduction to figured bass
