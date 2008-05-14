@@ -86,7 +86,7 @@ Repeat signs can also be controlled manually.
 @menu
 * Normal repeats::              
 * Manual repeat marks::         
-* Written-out repeats using unfold::  
+* Written-out repeats::  
 @end menu
 
 @cindex volta
@@ -280,8 +280,8 @@ Internals Reference: @rinternals{VoltaBracket},
 @rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic}.
 
 
-@node Written-out repeats using unfold
-@subsubsection Written-out repeats using unfold
+@node Written-out repeats
+@subsubsection Written-out repeats
 
 @cindex written-out repeats
 @cindex repetitious music
