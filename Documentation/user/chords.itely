@@ -48,11 +48,11 @@ The simplest method for entering chords is to enclose all of the
 pitches for the chord in angle brackets, with the duration of the
 chord specified outside the @code{<>}.
 
-@c change to lilypond[]; "example" is strongly discouraged. -gp
-@example
+@lilypond[quote,ragged-right,fragment,verbatim]
 <c e g>2
-@end example
+@end lilypond
 
+@noindent
 This construction causes all of the notes inside of the @code{<>}
 to occur at the same moment and have the same duration.
 
@@ -88,7 +88,7 @@ notes,
 \chordmode { c2 f4. g8 }
 @end lilypond
 
-Now each pitch is read as the root of a triad instead of a note.
+In chord mode each pitch is read as the root of a triad instead of a note.
 This mode is switched on with @code{\chordmode}.
 
 @cindex root of chord
@@ -113,7 +113,7 @@ example shows a few common modifiers:
 Note that the colon and the modifiers follow the duration of the
 chord.
 
-Modifiers can be used to extend a chord, specify the @q{type} of
+Modifiers can be used to extend a chord, specify the @q{quality} of
 the chord, add or remove chord steps, raise or lower chord steps,
 and add a bass note or create an inversion.
 
@@ -135,8 +135,8 @@ added explicitly).
 
 @cindex additions, in chords
 
-The type of a chord can be set according to standard chord naming
-conventions. The following type modifiers are supported
+The quality of a chord can be set according to standard chord naming
+conventions. The following quality modifiers are supported:
 
 
 @table @code
@@ -150,17 +150,17 @@ and (if present) the 7th step.
 The augmented chord.  This modifier raises the 5th step.
 
 @item maj
-The major 7th chord.  This modifier raises the 7th step if
-present.
+The major 7th chord.  This modifier adds a raised the 7th step
+to the chord.  The @code{7} following @code{maj} is optional.
 
 @item sus
 The suspended 4th or 2nd.  This modifier removes the 3rd
 step.  Append either @code{2} or @code{4} to add the 2nd or 4th
-step to
-the chord.
+step to the chord.
 @end table
 
 @cindex modifiers, in chords.
+@cindex chord quality
 @funindex aug
 @funindex dim
 @funindex maj
@@ -169,33 +169,36 @@ the chord.
 
 
 Individual steps can be added to or removed from a chord.
-Additions are added after the chord type and are prefixed by dots
+Additions are added after the chord type and are prefixed by dots.
 
 @lilypond[quote,verbatim,fragment]
 \chordmode { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 
 Chord steps can be altered by suffixing a @code{-} or @code{+}
-sign to the number
+sign to the number.
 
 @lilypond[quote,verbatim,fragment]
 \chordmode { c:7+ c:5+.3- c:3-.5-.7- }
 @end lilypond
+
 @cindex chord steps, altering
 
 @cindex removals, in chords
 
+@funindex ^
 Steps to be removed are listed following the additions and are
-prefixed by a caret.
+prefixed by @code{^}.
 
 @lilypond[quote,verbatim,fragment]
 \chordmode { c^3 c:7^5 c:9^3.5 }
 @end lilypond
+
 @funindex /
 
 Inversions (putting a pitch other than the root on the bottom of
 the chord) and added bass notes, can be specified by appending
-@code{/}@var{pitch} to the chord:
+@code{/}@var{pitch} to the chord.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c1 c/g c/f }
@@ -217,7 +220,7 @@ moved as part of an inversion, by using @code{/+}@var{pitch}.
 
 Each step can only be present in a chord once.  The following
 simply produces the augmented chord, since @code{5+} is
-interpreted last
+interpreted last.
 
 @cindex clusters
 
