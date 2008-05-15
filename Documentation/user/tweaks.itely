@@ -878,7 +878,7 @@ by a hash sign, @code{#}.
 @node Appearance of objects
 @section Appearance of objects
 
-Let us now put what we have learnt into practice with a few
+Let us now put what we have learned into practice with a few
 examples which show how tweaks may be used to change the 
 appearance of the printed music.
 
@@ -1538,8 +1538,8 @@ are simpler equivalent predefined commands available.
 Here is a table of the commonest.  The meaning of each is stated
 where it is not obvious.
 
-@multitable @columnfractions .2 .2 .2 .4
-@headitem Down/Left           
+@multitable @columnfractions .2 .2 .25 .35
+@headitem Down/Left
   @tab Up/Right
   @tab Revert
   @tab Effect
@@ -2057,6 +2057,7 @@ of making changes to this type of property are (a) that some
 other objects will be moved automatically if necessary to make
 room and (b) the single override can apply to all instances of
 the same type of object.  Such properties include:
+
 @itemize
 
 @item
@@ -2085,9 +2086,13 @@ to all objects which support the @code{side-position-interface}.
 Instead of @code{padding}, the placement of groups of accidentals
 is controlled by @code{left-padding} and @code{right-padding}.
 These properties are to be found in the @code{AccidentalPlacement}
-object which, note, lives in the @strong{staff} context.  Because
-accidentals are always positioned after and to the left of
-note heads only the @code{right-padding} property has any effect.
+object which, note, lives in the @strong{staff} context.  In the
+type-setting process the note heads are type-set first and then
+the accidentals, if any, are added to the left of the note heads
+using the @code{right-padding} property to determine the separation
+from the note heads. So only the @code{right-padding} property of the
+@code{AccidentalPlacement} object has any effect on the placement
+of the accidentals.
 
 The @code{staff-padding} property is closely related to the
 @code{padding} property:  @code{padding}
@@ -2117,7 +2122,7 @@ objects, this value is set by default to be around 1.0 or less
 @code{self-alignment-X}
 
 @cindex self-alignment-X property
-This property can be used to align the object to the left, to 
+This property can be used to align the object to the left, to
 the right, or to center it with respect to the parent object's 
 reference point.  It may be used with all objects which support
 the @code{self-alignment-interface}.  In general these are objects
@@ -3195,7 +3200,7 @@ Navigate to
 script, and @var{X.Y.Z} is the LilyPond version number.
 
 
-@sp 1
+@smallspace
 
 Within this directory the two interesting subdirectories are
 

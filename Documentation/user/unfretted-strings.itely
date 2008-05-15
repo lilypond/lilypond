@@ -64,6 +64,7 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 @node Plucked instruments
 @subsection Plucked instruments
 
+
 @menu
 * Harp::                        
 @end menu
@@ -73,22 +74,18 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 
 TBC
 
-@c  has nothing to do with harps, AFAIK.
-@ignore
-Sacred Harp notation uses four shaped note heads.  In the major,
-the tonic is a triangle and then proceeding up the scale you
-have circle, square, triangle, circle, square, diamond.  In the
-minor, the shapes should be assigned to keep the same interval
-relationships, e.g. you assign them for the relative major.  (This
-means that the scale in the minor gives the tonic a square.)
+Some possibilities:
+- glissandi
+- tremolo (for bisbigliando)
+- natural harmonics
+- directional arpeggio and non-arpeggio
+- workaroung for keeping both staves visible in an orchestral
+  score,
+http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
+and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
 
-@c TODO add example of \sacredHarpHeads, or a ref?
+An LSR snippet could be used to demonstrate the main items; in the
+case of glissandi, it would be desirable to have a demonstration
+of different styles.
 
-
-@knownissues
-
-The \sacredHarpHeads command gives the wrong shapes when the key
-is minor.  A work-around is to switch the key to the relative
-major to obtain the right shapes.
-@end ignore
 

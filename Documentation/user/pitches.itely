@@ -366,9 +366,9 @@ any standard.
 
 There are predefined sets of note names for various other
 languages.  To use them, include the language-specific init file.
-For example, to use English notes names, add @code{\include
-"english.ly"} to the top of the input file.  The available
-language files and the note names they define are:
+For example, to use English notes names, add
+@w{@code{\include "english.ly"}} to the top of the input file.
+The available language files and the note names they define are:
 
 @cindex note names, other languages
 @cindex pitch names, other languages
@@ -598,15 +598,15 @@ produced with:
 @end lilypond
 
 @noindent
-Note that we specify @code{\key c \major} explicitly.  If we do
-not specify a key signature, the notes will be transposed but no
-key signature will be printed.
+Note that we specify @w{@code{\key c \major}} explicitly.  If we
+do not specify a key signature, the notes will be transposed but
+no key signature will be printed.
 
 @code{\transpose} distinguishes between enharmonic pitches: both
-@code{\transpose c cis} or @code{\transpose c des} will transpose
-up a semitone.  The first version will print sharps and the notes
-will remain on the same scale step, the second version will print
-flats on the scale step above.
+@w{@code{\transpose c cis}} or @w{@code{\transpose c des}} will
+transpose up a semitone.  The first version will print sharps and
+the notes will remain on the same scale step, the second version
+will print flats on the scale step above.
 
 @lilypond[verbatim,quote]
 mus = \relative c' { c d e f }
@@ -727,7 +727,7 @@ This section discusses how to alter the output of pitches.
 @cindex clef, varbaritone 
 @cindex subbass clef, subbass 
 
-The clef is set with the @code{\clef} @var{clefname} command.
+The clef is set with the @w{@code{\clef @var{clefname}}} command.
 Middle C is shown in every example.
 
 @lilypond[verbatim,quote,fragment,relative=1]
@@ -1560,8 +1560,8 @@ musicB = {
 @cindex cautionary accidental style, piano
 @cindex piano cautionary accidental style
 
-Same as @code{#(set-accidental-style 'piano)} but with the extra
-accidentals typeset as cautionaries.
+Same as @w{@code{#(set-accidental-style 'piano)}} but with the
+extra accidentals typeset as cautionaries.
 
 @lilypond[quote]
 musicA = {
@@ -1964,13 +1964,11 @@ notation was popular in nineteenth-century American song books.
 Shape note heads can be produced by setting @code{\aikenHeads} or
 @code{\sacredHarpHeads}, depending on the style desired.
 
-@lilypond[verbatim,fragment,quote,relative=1]
+@lilypond[verbatim,fragment,quote,relative=2]
 \aikenHeads
-c8 d4 e8 a2
-g1
+c, d e f g a b c
 \sacredHarpHeads
-c,8 d4 e8 a2
-g1
+c, d e f g a b c
 @end lilypond
 
 Shapes are typeset according to the step in the scale, where

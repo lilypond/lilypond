@@ -48,7 +48,7 @@ articulations, just like simple notes:
 <c e g>2 <c f a>4-> <e g c>-.
 @end lilypond
 
-For more information about chords, see @ref{Modern chords}.
+For more information about chords, see @ref{Chord notation}.
 
 @seealso
 
@@ -59,7 +59,7 @@ Learning Manual:
 @rlearning{Combining notes into chords}.
 
 Notation Reference:
-@ref{Modern chords}.
+@ref{Chord notation}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
