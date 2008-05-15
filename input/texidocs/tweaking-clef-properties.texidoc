@@ -14,7 +14,7 @@ la posición del Do central. Los parámetros posicionales están en
 relación con la tercera línea del pentagrama, los números
 positivos desplazan hacia arriba, contando una unidad por cada
 línea y espacio. El valor de @code{clefOctavation} se
-estaablecería normalmente a 7, -7, 15 or -15, pero son válidos
+establecería normalmente a 7, -7, 15 or -15, pero son válidos
 otros valores.
 
 
