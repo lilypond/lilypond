@@ -17,9 +17,9 @@ traditional European chord naming conventions. Chord names can also
 be displayed. In addition, figured bass notation can be displayed.
 
 @menu
-* Chord mode::
-* old Modern chords::
-* Figured bass::
+* Chord mode::                  
+* old Modern chords::           
+* Figured bass::                
 @end menu
 
 
@@ -29,11 +29,9 @@ be displayed. In addition, figured bass notation can be displayed.
 @cindex chord chords
 
 @menu
-* Chord mode overview::
-* Triads::
-* Seventh chords::
-* Extended chords::
-* Complex chords::
+* Chord mode overview::         
+* Common chords::               
+* Extended and altered chords::  
 @end menu
 
 @node Chord mode overview
@@ -50,13 +48,17 @@ that focuses on the structures of chords in traditional European
 music, rather than on specific pitches. This is convenient for those
 who are familiar with using chord names to describe chords.
 
+Chord mode is entered by using @code{\chordmode}.
+
 Chords entered using chord mode are music elements, and can be
 transposed just like chords entered using simultaneous music.
 
-@code{\chordmode} is similar to @code{\lyricmode}, etc.  Most of
-the commands continue to work, for example, @code{r} and
-@code{\skip} can be used to insert rests and spaces, and property
-commands may be used to change various settings.
+Chord mode can be used to enter chords of arbitrary complexity. Some
+examples are shown below.
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\chordmode { c4 c:m c:aug c:7.5- }
+@end lilypond
 
 @seealso
 
@@ -66,11 +68,14 @@ Music Glossary:
 Notation Reference:
 @ref{Chorded notes}.
 
+Snippets:
+@rlsr{Chords}
 
-@node Triads
-@unnumberedsubsubsec Triads
+@node Common chords
+@unnumberedsubsubsec Common chords
 
 @cindex triads
+@cindex seventh chords
 @cindex root of chord
 
 Major triads are entered by including the root and a duration:
@@ -86,72 +91,35 @@ Minor, augmented, and diminished triads are entered by placing
 \chordmode { c2:m f4:aug g4:dim}
 @end lilypond
 
-The possible quality modifier strings are explained in @ref{Complex
-chords}
+Seventh chords are created by adding the number 7 at the beginning
+of the modifier string (for the dominant seventh chord) or after the
+quality modifier (for the other named seventh chords).
 
-@seealso
-
-Notation Reference:
-@ref{Complex chords}
-
-@node Seventh chords
-@unnumberedsubsubsec Seventh chords
-
-@cindex seventh chords
-@cindex root of chord
-
-@node Extended chords
-@unnumberedsubsubsec Extended chords
-
-@cindex extended chords
-
-Modifiers can be used to extend a chord, specify the @q{quality} of
-the chord, add or remove chord steps, raise or lower chord steps,
-and add a bass note or create an inversion.
-
-The first number following the colon is taken to be the extent of
-the chord. The chord is constructed by sequentially adding thirds
-to the root until the specified number has been reached.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11}
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\chordmode {c1:7 c:m7 c:maj7 c:dim c:dim7 c:aug7 c:maj}
 @end lilypond
 
-Since an unaltered 11 does not sound good when combined with an
-unaltered 13, the 11 is removed from a :13 chord (unless it is
-added explicitly).
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c:13 c:13.11 c:m13 }
-@end lilypond
-
-@cindex additions, in chords
-
-@node Complex chords
-@unnumberedsubsubsec Complex chords
-
-The quality of a chord can be set according to standard chord naming
-conventions. The following quality modifiers are supported:
-
+The table belows shows the actions of the quality modifiers on
+triads and seventh chords.
 
 @table @code
-@item m The minor chord.  This modifier lowers the 3rd
-and (if present) the 7th step.
 
-@item dim The diminished chord.  This modifier lowers the 3rd, 5th
-and (if present) the 7th step.
+@item m
+The minor chord.  This modifier lowers the 3rd and (if present) the
+7th step.
+
+@item dim
+The diminished chord.  This modifier lowers the 3rd, 5th and (if
+present) the 7th step.
 
 @item aug
 The augmented chord.  This modifier raises the 5th step.
 
 @item maj
-The major 7th chord.  This modifier adds a raised the 7th step
-to the chord.  The @code{7} following @code{maj} is optional.
+The major 7th chord.  This modifier adds a raised 7th step.  The
+@code{7} following @code{maj} is optional.  Do NOT use this modifier
+to create a major triad.
 
-@item sus
-The suspended 4th or 2nd.  This modifier removes the 3rd
-step.  Append either @code{2} or @code{4} to add the 2nd or 4th
-step to the chord.
 @end table
 
 @cindex modifiers, in chords.
@@ -159,40 +127,93 @@ step to the chord.
 @funindex aug
 @funindex dim
 @funindex maj
-@funindex sus
 @funindex m
 
 
-Individual steps can be added to or removed from a chord.
-Additions are added after the chord type and are prefixed by dots.
+@seealso
 
-@lilypond[quote,verbatim,fragment]
-\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
+
+Snippets:
+@rlsr{Chords}
+
+@node Extended and altered chords
+@unnumberedsubsubsec Extended and altered chords
+
+@cindex extended chords
+@cindex altered chords
+
+Chord structures of arbitrary complexity can be created in chord
+mode.  The modifier string can be used to extend a chord, add or
+remove chord steps, raise or lower chord steps, and add a bass note
+or create an inversion.
+
+The first number following the @code{:} is taken to be the extent of
+the chord. The chord is constructed by sequentially adding thirds to
+the root until the specified number has been reached.  If the extent
+is not a third (e.g., 6), thirds are added up to the highest third
+below the extent, and then the step of the extent is added.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11}
 @end lilypond
 
-Chord steps can be altered by suffixing a @code{-} or @code{+}
-sign to the number.
+Since an unaltered 11 does not sound good when combined with an
+unaltered 13, the 11 is removed from a @code{:13} chord (unless it
+is added explicitly).
 
-@lilypond[quote,verbatim,fragment]
-\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\chordmode { c:13 c:13.11 c:m13 }
+@end lilypond
+
+@cindex additions, in chords
+
+Individual steps can be added to a chord. Additions are prefixed
+follow the extent are prefixed by a dot (@code{.}).
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 
 @cindex chord steps, altering
 
+Added chord steps can be altered by suffixing a @code{-} or @code{+}
+sign to the number.  To alter a step that is lower than the extent,
+you must add it as an altered step.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
+@end lilypond
+
 @cindex removals, in chords
 
 @funindex ^
-Steps to be removed are listed following the additions and are
-prefixed by @code{^}.
 
-@lilypond[quote,verbatim,fragment]
+Steps to be removed from the chord are prefixed by @code{^}.
+Additions and removals can be mixed in any order.
+
+@lilypond[quote,verbatim,fragment,relative=1]
 \chordmode { c^3 c:7^5 c:9^3.5 }
 @end lilypond
 
+@funindex sus
+
+The modifier @code{sus} can be added to the modifier string to
+create suspended chords.  This removes the 3rd step from the chord.
+Append either @code{2} or @code{4} to add the 2nd or 4th step to the
+chord.@code{sus} is equivalent to @code{^3}; @code{sus4} is
+equivalent to @code{.4^3}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode { c4:sus c:sus2 c:sus4 }
+%\chordmode { c4:sus c:sus2 c:sus4 c:.4^3 }
+@end lilypond
+
+
+
 @funindex /
 
-Inversions (putting a pitch other than the root on the bottom of
-the chord) and added bass notes, can be specified by appending
+Inversions (putting a pitch other than the root on the bottom of the
+chord) and added bass notes can be specified by appending
 @code{/}@var{pitch} to the chord.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -210,6 +231,8 @@ moved as part of an inversion, by using @code{/+}@var{pitch}.
 
 @seealso
 
+Snippets:
+@rlsr{Chords}
 
 @knownissues
 
@@ -217,9 +240,8 @@ Each step can only be present in a chord once.  The following
 simply produces the augmented chord, since @code{5+} is
 interpreted last.
 
-
 @lilypond[quote,ragged-right,verbatim,fragment]
-\chordmode { c:5.5-.5+ }
+\chordmode { c1:5.5-.5+ }
 @end lilypond
 
 
@@ -616,11 +638,11 @@ sheet:
 @subsection old Modern chords
 
 @menu
-* Chord modes::
-* Entering chord names::
-* Building chords::
-* Lead sheets::
-* Printing chord names::
+* Chord modes::                 
+* Entering chord names::        
+* Building chords::             
+* Lead sheets::                 
+* Printing chord names::        
 @end menu
 
 @cindex chords
@@ -1069,9 +1091,9 @@ may result in strange chord names when chords are entered with the
 @subsection Figured bass
 
 @menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
+* Introduction to figured bass::  
+* Entering figured bass::       
+* Displaying figured bass::     
 @end menu
 
 @node Introduction to figured bass
