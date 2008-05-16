@@ -50,7 +50,7 @@ mode that focuses on the structures of chords in traditional
 European music, rather than on specific pitches.  This is
 convenient for those who are familiar with using chord names to
 describe chords.  More information on different input modes can be
-found at @ref{Input modes FIXME}.
+found at @ref{Input modes}.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \chordmode { c1 g a g c }
@@ -66,7 +66,7 @@ Music Glossary:
 
 Notation Reference:
 @ref{Chorded notes},
-@ref{Input modes FIXME}.
+@ref{Input modes}.
 
 Snippets:
 @rlsr{Chords}
