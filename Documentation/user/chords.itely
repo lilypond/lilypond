@@ -29,9 +29,9 @@ be displayed. In addition, figured bass notation can be displayed.
 @cindex chord chords
 
 @menu
-* Chord mode overview::         
-* Common chords::               
-* Extended and altered chords::  
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
 @end menu
 
 @node Chord mode overview
@@ -48,16 +48,17 @@ that focuses on the structures of chords in traditional European
 music, rather than on specific pitches. This is convenient for those
 who are familiar with using chord names to describe chords.
 
+More information on different input modes can be found at @ref{Input modes FIXME}
+
 Chord mode is entered by using @code{\chordmode}.
 
 Chords entered using chord mode are music elements, and can be
 transposed just like chords entered using simultaneous music.
 
-Chord mode can be used to enter chords of arbitrary complexity. Some
-examples are shown below.
+The example below shows a simple chord progression:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\chordmode { c4 c:m c:aug c:7.5- }
+\chordmode { c1 g a g c }
 @end lilypond
 
 @seealso
@@ -66,7 +67,8 @@ Music Glossary:
 @rglos{chord}.
 
 Notation Reference:
-@ref{Chorded notes}.
+@ref{Chorded notes},
+@ref{Input modes FIXME}.
 
 Snippets:
 @rlsr{Chords}
@@ -88,7 +90,7 @@ Minor, augmented, and diminished triads are entered by placing
 @code{:} and a quality modifier string after the duration:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\chordmode { c2:m f4:aug g4:dim}
+\chordmode { c2:m f4:aug g4:dim }
 @end lilypond
 
 Seventh chords are created by adding the number 7 at the beginning
@@ -154,7 +156,7 @@ is not a third (e.g., 6), thirds are added up to the highest third
 below the extent, and then the step of the extent is added.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11}
+\chordmode { c1:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
 @end lilypond
 
 Since an unaltered 11 does not sound good when combined with an
@@ -162,37 +164,38 @@ unaltered 13, the 11 is removed from a @code{:13} chord (unless it
 is added explicitly).
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-\chordmode { c:13 c:13.11 c:m13 }
+\chordmode { c1:13 c:13.11 c:m13 }
 @end lilypond
 
 @cindex additions, in chords
 
-Individual steps can be added to a chord. Additions are prefixed
-follow the extent are prefixed by a dot (@code{.}).
+Individual steps can be added to a chord. Additions follow the
+extent and are prefixed by a dot (@code{.}).
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
+\chordmode { c1:5.6 c:3.7.8 c:3.6.13 }
 @end lilypond
 
 @cindex chord steps, altering
 
 Added chord steps can be altered by suffixing a @code{-} or @code{+}
 sign to the number.  To alter a step that is lower than the extent,
-you must add it as an altered step.
+add it as an altered step.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
+\chordmode { c1:7+ c:5+.3- c:3-.5-.7- }
 @end lilypond
 
 @cindex removals, in chords
 
 @funindex ^
 
-Steps to be removed from the chord are prefixed by @code{^}.
-Additions and removals can be mixed in any order.
+A step to be removed from the chord  must come at the end of a
+modifier string and be by @code{^}. Only one removal with @code{^}
+is allowed in a modifier string.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\chordmode { c^3 c:7^5 c:9^3.5 }
+\chordmode { c1^3 c:7^5 c:9^3.5 }
 @end lilypond
 
 @funindex sus
@@ -204,19 +207,21 @@ chord.@code{sus} is equivalent to @code{^3}; @code{sus4} is
 equivalent to @code{.4^3}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c4:sus c:sus2 c:sus4 }
-%\chordmode { c4:sus c:sus2 c:sus4 c:.4^3 }
+\chordmode { c1:sus c:sus2 c:sus4 c:5.4^3 }
 @end lilypond
 
-
+It is possible to remove the 3rd step with @code{sus} and remove
+another step with @code{^} in one modifier string.
 
 @funindex /
+@cindex chord inversions
+@cindex bass note, for chords
 
 Inversions (putting a pitch other than the root on the bottom of the
 chord) and added bass notes can be specified by appending
 @code{/}@var{pitch} to the chord.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \chordmode { c1 c/g c/f }
 @end lilypond
 
@@ -244,7 +249,9 @@ interpreted last.
 \chordmode { c1:5.5-.5+ }
 @end lilypond
 
-
+Only one step can be removed from a chord.  If a chord with multiple
+removed steps is desired, it must be build through addition of
+multiple steps.
 
 @ignore
 @n ode Displaying chords
@@ -638,11 +645,11 @@ sheet:
 @subsection old Modern chords
 
 @menu
-* Chord modes::                 
-* Entering chord names::        
-* Building chords::             
-* Lead sheets::                 
-* Printing chord names::        
+* Chord modes::
+* Entering chord names::
+* Building chords::
+* Lead sheets::
+* Printing chord names::
 @end menu
 
 @cindex chords
@@ -1091,9 +1098,9 @@ may result in strange chord names when chords are entered with the
 @subsection Figured bass
 
 @menu
-* Introduction to figured bass::  
-* Entering figured bass::       
-* Displaying figured bass::     
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
 @node Introduction to figured bass
