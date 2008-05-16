@@ -80,6 +80,10 @@ commands.
 * Comments should go on their own line, and be placed before the
   line(s) to which they refer.
 
+* Add extra spaces around { } marks; ie
+  not:          \chordmode {c e g}
+  but instead:  \chordmode { c e g }
+
 * If you only have one bar per line, omit bar checks.  If you
   put more than one bar per line (not recommended), then include
   bar checks.
