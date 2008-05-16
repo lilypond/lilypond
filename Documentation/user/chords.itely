@@ -18,6 +18,7 @@ be displayed.  In addition, figured bass notation can be displayed.
 
 @menu
 * Chord mode::                  
+* Displaying chords::           
 * old Modern chords::           
 * Figured bass::                
 @end menu
@@ -43,24 +44,20 @@ be displayed.  In addition, figured bass notation can be displayed.
 Chords can be entered as simultaneous music, as discussed in
 @ref{Chorded notes}.
 
-Chords can also be entered in chord mode, which is an input mode
-that focuses on the structures of chords in traditional European
-music, rather than on specific pitches.  This is convenient for
-those who are familiar with using chord names to describe chords.
-
-More information on different input modes can be found at @ref{Input
-modes FIXME}.
-
-Chord mode is entered by using @code{\chordmode}.
-
-Chords entered using chord mode are music elements, and can be
-transposed just like chords entered using simultaneous music.
-
-The example below shows a simple chord progression:
+@c need to decide about @qq{FOO mode} or @emph{} or whatever.
+Chords can also be entered in @qq{chord mode}, which is an input
+mode that focuses on the structures of chords in traditional
+European music, rather than on specific pitches.  This is
+convenient for those who are familiar with using chord names to
+describe chords.  More information on different input modes can be
+found at @ref{Input modes FIXME}.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \chordmode { c1 g a g c }
 @end lilypond
+
+Chords entered using chord mode are music elements, and can be
+transposed just like chords entered using simultaneous music.
 
 @seealso
 
@@ -252,24 +249,23 @@ Only one step can be removed from a chord.  If a chord with multiple
 removed steps is desired, it must be build through addition of
 multiple steps.
 
-@ignore
-@n ode Displaying chords
-@s ubsection Displaying chords
+
+@node Displaying chords
+@subsection Displaying chords
 
 
 
 @menu
-* Printing chord names::
-* Customizing chord names::
-* Lead sheets::
+* Printing chord names::        
 @end menu
 
-@n ode Printing chord names
-@u nnumberedsubsubsec Printing chord names
+@node Printing chord names
+@unnumberedsubsubsec Printing chord names
 
 @cindex printing chord names
 @cindex chord names
 @cindex chords
+@ignore
 
 LilyPond has support for printing chord names.  Because chords are
 music elements, they can be transposed, and the chord names will be
@@ -644,7 +640,7 @@ sheet:
 @menu
 * Entering chord names::        
 * Lead sheets::                 
-* Printing chord names::        
+* old Printing chord names::    
 @end menu
 
 @node Entering chord names
@@ -740,8 +736,8 @@ sheet,
 
 
 
-@node Printing chord names
-@subsubsection Printing chord names
+@node old Printing chord names
+@subsubsection old Printing chord names
 
 @cindex printing chord names
 @cindex chord names
