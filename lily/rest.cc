@@ -46,6 +46,22 @@ Rest::y_offset_callback (SCM smob)
   return scm_from_double (amount);
 }
 
+/* A rest might lie under a beam, in which case it should be cross-staff if
+   the beam is cross-staff because the rest's position depends on the
+   formatting of the beam. */
+MAKE_SCHEME_CALLBACK (Rest, calc_cross_staff, 1);
+SCM
+Rest::calc_cross_staff (SCM smob)
+{
+  Grob *me = unsmob_grob (smob);
+  Grob *stem = unsmob_grob (me->get_object ("stem"));
+
+  if (!stem)
+    return SCM_BOOL_F;
+
+  return stem->get_property ("cross-staff");
+}
+
 /*
   make this function easily usable in C++
 */

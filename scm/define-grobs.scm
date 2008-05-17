@@ -1416,6 +1416,7 @@
 	(Y-extent . ,ly:rest::height)
 	(Y-offset . ,ly:rest::y-offset-callback)
 	(minimum-distance . 0.25)
+	(cross-staff . ,ly:rest::calc-cross-staff)
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				rhythmic-head-interface
