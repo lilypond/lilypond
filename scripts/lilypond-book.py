@@ -1209,6 +1209,7 @@ class LilypondSnippet (Snippet):
                              base + '.eps',
                              base + '.texidoc',
                              base + '.doctitle',
+                             base + '.signature',
                              base + '-systems.texi',
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
