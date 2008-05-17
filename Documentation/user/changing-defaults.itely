@@ -71,6 +71,7 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 
 @menu
 * Interpretation contexts::     
+* Explaining the Internals Reference::  
 * Modifying properties::        
 * Common properties::           
 * Advanced tweaks::             
@@ -91,11 +92,6 @@ This section describes what contexts are, and how to modify them.
 * Changing context default settings::  
 * Defining new contexts::       
 * Aligning contexts::           
-* Explaining the Internals Reference::  
-* Navigating the program reference::  
-* Layout interfaces::           
-* Determining the grob property::  
-* Naming conventions::          
 @end menu
 
 
@@ -752,10 +748,14 @@ ossia = { f4 f f f }
 
 
 @node Explaining the Internals Reference
-@subsection Explaining the Internals Reference
+@section Explaining the Internals Reference
 
 
 @menu
+* Navigating the program reference::  
+* Layout interfaces::           
+* Determining the grob property::  
+* Naming conventions::          
 @end menu
 
 @node Navigating the program reference
