@@ -579,7 +579,7 @@ notation de plus haut niveau.
 
 @seealso
 
-Program reference: @internalsref{Contexts}.
+Program reference: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"

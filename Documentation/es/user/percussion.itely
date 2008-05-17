@@ -47,7 +47,7 @@ se muestran como una barra, y la pauta en sí tiene una sola línea.
 
 @seealso
 
-Referencia del programa: @internalsref{RhythmicStaff}.
+Referencia del programa: @rinternals{RhythmicStaff}.
 
 
 @node Entering percussion
@@ -74,7 +74,7 @@ La lista completa de nombre de instrumentos de percusión se encuentra en el arc
 
 @seealso
 
-Referencia del programa: @internalsref{note-event}.
+Referencia del programa: @rinternals{note-event}.
 
 @node Percussion staves
 @subsubsection Percussion staves
@@ -87,7 +87,7 @@ de percusión.
 
 
 Para tipografiar la música, se deben interpretar las notas dentro de los contextos
-@internalsref{DrumStaff} y @internalsref{DrumVoice}
+@rinternals{DrumStaff} y @rinternals{DrumVoice}
 
 @lilypond[quote,ragged-right,verbatim]
 up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
@@ -100,7 +100,7 @@ down = \drummode { bassdrum4 snare8 bd r bd sn4 }
 
 El ejemplo anterior muestra una notación polifónica prolija.  La notación
 polifónica abreviada, descrita en @rlearning{I'm hearing Voices}, también se puede usar si
-las @internalsref{DrumVoice}s se instancian primero a mano.  Por ejemplo,
+las @rinternals{DrumVoice}s se instancian primero a mano.  Por ejemplo,
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new DrumStaff <<
@@ -119,7 +119,7 @@ las @internalsref{DrumVoice}s se instancian primero a mano.  Por ejemplo,
 
 
 También existen otras posibilidades en lo referente a la disposición.  Para usarlas, establezca la
-propiedad @code{drumStyleTable} en el contexto @internalsref{DrumVoice}.
+propiedad @code{drumStyleTable} en el contexto @rinternals{DrumVoice}.
 Se han predefinido las siguientes variables:
 
 @table @code
@@ -284,7 +284,7 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 Archivos de inicio: @file{ly/@/drumpitch@/-init@/.ly}.
 
-Referencia del programa: @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+Referencia del programa: @rinternals{DrumStaff}, @rinternals{DrumVoice}.
 
 @knownissues
 

@@ -190,3 +190,6 @@ WWW-post: local-WWW-post
 web:
 	$(MAKE) out=www WWW
 	$(MAKE) out=www WWW-post
+
+web-clean:
+	$(MAKE) out=www clean

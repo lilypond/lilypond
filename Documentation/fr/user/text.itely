@@ -116,7 +116,7 @@ Vous pouvez cependant l'y forcer en définissant
 
 Dans ce manuel : @ref{Text markup}.
 
-Référence du programme : @internalsref{TextScript}.
+Référence du programme : @rinternals{TextScript}.
 
 
 @node Text and line spanners
@@ -247,9 +247,9 @@ début et la fin d'un glissando seraient en plein milieu des têtes de note.
 
 @seealso
 
-Référence du programme : @internalsref{TextSpanner},
-@internalsref{Glissando}, @internalsref{VoiceFollower},
-@internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
+Référence du programme : @rinternals{TextSpanner},
+@rinternals{Glissando}, @rinternals{VoiceFollower},
+@rinternals{TrillSpanner}, @rinternals{line-spanner-interface}.
 
 Exemples : @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
 
@@ -303,7 +303,7 @@ Pour obtenir une ligne pleine, utilisez
 
 @seealso
 
-Référence du programme : @internalsref{TextSpanner}.
+Référence du programme : @rinternals{TextSpanner}.
 
 
 @node Text marks
@@ -453,7 +453,7 @@ affectation à chacune des portées :
 
 @seealso
 
-Référence du programme : @internalsref{RehearsalMark}.
+Référence du programme : @rinternals{RehearsalMark}.
 
 
 @node New dynamic marks
@@ -532,7 +532,7 @@ Pour une liste des différentes commandes disponibles, consultez
 
 
 @code{\markup} est avant tout conçu pour gérer les
-@internalsref{TextScript}s, mais rien ne s'oppose à son utilisation
+@rinternals{TextScript}s, mais rien ne s'oppose à son utilisation
 pour traiter du texte avec LilyPond.
 
 @lilypond[quote,verbatim]
@@ -630,7 +630,7 @@ allegro = \markup @{ \bold \large @{ Allegro @} @}
 Certains objets possèdent leurs propres procédures d'alignement, qui
 annuleront toute spécification d'alignement que vous pourriez affecter
 à un argument de type @emph{markup} que vous leur auriez fourni.  Par
-exemple, les @internalsref{RehearsalMark} sont centrées
+exemple, les @rinternals{RehearsalMark} sont centrées
 horizontalement ; de fait, utiliser 
 @code{\mark \markup @{ \left-align .. @}} sera sans effet.
 
@@ -659,7 +659,7 @@ en utilisant @code{normal-text}.  Pour plus d'informations, consultez
 
 Dans ce manuel : @ref{Text markup commands}.
 
-Référence du programme : @internalsref{TextScript}.
+Référence du programme : @rinternals{TextScript}.
 
 Fichiers d'initialisation : @file{scm/@/new@/-markup@/.scm}.
 

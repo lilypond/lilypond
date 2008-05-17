@@ -110,9 +110,13 @@
 @c obsolete, remove when translation is fully updated
 @macro context{TEXT}
 @vindex \TEXT\
-@code{\TEXT\}@c should use internalsref
+@code{\TEXT\}@c should use rinternals
 @end macro
 
+@macro lydoctitle {TEXT}
+@emph{\TEXT\}
+
+@end macro
 
 @macro funindex {TEXT}
 @findex \TEXT\
@@ -148,7 +152,7 @@
 
 
 @c  Definitions for references:
-@c     @internalsref
+@c     @rinternals
 @c     @rglos
 @c     @rprogram
 @c     @ruser
@@ -159,7 +163,7 @@
 
 @ifset bigpage
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals-big-page,Programmreferenz}
 @end macro
@@ -189,7 +193,7 @@
 
 @ifclear bigpage
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals,Programmreferenz}
 @end macro
@@ -222,7 +226,7 @@
 @ifdocbook
 @c ***** DOCBOOK-XML *****
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals,Programmreferenz}
 @end macro
@@ -253,7 +257,7 @@
 @ifinfo
 @c **** INFO ****
 
-@macro internalsref{NAME}
+@macro rinternals{NAME}
 @vindex \NAME\
 @inforef{\NAME\,,lilypond-internals,Programmreferenz}
 @end macro
@@ -284,7 +288,7 @@
 @c **** TEX ****
 @iftex
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @code{\TEXT\}
 @end macro

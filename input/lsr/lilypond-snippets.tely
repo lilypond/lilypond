@@ -15,6 +15,10 @@
 
 @include version.itexi
 
+@macro lydoctitle{TEXT}
+@section \TEXT\
+@end macro
+
 @dircategory GNU LilyPond --- the music typesetter
 @direntry
 * LilyPond Snippets: (lilypond-snippets).       Short tricks, tips, and examples.

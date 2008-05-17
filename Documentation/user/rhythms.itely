@@ -8,6 +8,33 @@
 
 @c \version "2.11.38"
 
+@ignore
+GDP TODO list
+
+\compressMusic -> \scaleDurations.
+approved by Han-Wen; just needs somebody to kick up a fuss about
+it.
+
+1.2.3.1 Time signature
+Needs an example of beatLength, which is broken (see my recent
+mail
+to -bug).  What to do?  For now I've left a paragraph of text
+which really
+needs to be inserted with an example in a snippet.
+
+1.2.3.4 Polymetric notation
+Quite extensive changes. Could you please check through.  Divided
+into three
+sections.  Necessarily uses tweaks.  I've also left an @lsr under
+@seealso
+Snippets - is this permitted or is @lsr now verboten?  This
+snippet is too
+long to include, but seems relevant.
+A snippet "grouping beats" hasn't yet appeared (only sent to vv a
+couple of
+days ago).  Text left in Snippets: with TODO.
+@end ignore
+
 @node Rhythms
 @section Rhythms
 

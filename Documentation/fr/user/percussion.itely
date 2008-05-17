@@ -50,7 +50,7 @@ ramenées à la même hauteur, sur une portée d'une seule ligne.
 
 @seealso
 
-Référence du programme : @internalsref{RhythmicStaff}.
+Référence du programme : @rinternals{RhythmicStaff}.
 
 
 @node Entering percussion
@@ -77,7 +77,7 @@ Ces noms sont inventoriés dans le fichier d'initialisation
 
 @seealso
 
-Référence du Programme : @internalsref{note-event}.
+Référence du Programme : @rinternals{note-event}.
 
 @node Percussion staves
 @unnumberedsubsubsec Percussion staves
@@ -89,7 +89,7 @@ général une portée de plusieurs lignes, où chaque hauteur sur la
 portée représente un instrument à percussion.
 
 Pour saisir cette musique, il faut que les notes soient situées dans
-des contextes @internalsref{DrumStaff} et @internalsref{DrumVoice}.
+des contextes @rinternals{DrumStaff} et @rinternals{DrumVoice}.
 
 @lilypond[quote,ragged-right,verbatim]
 up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
@@ -102,7 +102,7 @@ down = \drummode { bassdrum4 snare8 bd r bd sn4 }
 
 L'exemple ci-dessus montre une notation polyphonique détaillée.  La
 notation polyphonique abrégée peut être employée lorsque le contexte
-@internalsref{DrumVoice} est spécifié explicitement :
+@rinternals{DrumVoice} est spécifié explicitement :
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new DrumStaff <<
@@ -120,7 +120,7 @@ notation polyphonique abrégée peut être employée lorsque le contexte
 @end lilypond
 
 On peut choisir d'autres mises en forme si l'on définit la propriété
-@code{drumStyleTable} dans le contexte @internalsref{DrumVoice}.  
+@code{drumStyleTable} dans le contexte @rinternals{DrumVoice}.  
 Quelques variables prédéfinies sont disponibles :
 
 @table @code
@@ -289,7 +289,7 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 Fichier d'initialisation : @file{ly/@/drumpitch@/-init@/.ly}.
 
-Référence du programme : @internalsref{DrumStaff}, @internalsref{DrumVoice}.
+Référence du programme : @rinternals{DrumStaff}, @rinternals{DrumVoice}.
 
 @knownissues
 

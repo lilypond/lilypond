@@ -92,7 +92,7 @@ c4.-> d8---3
 
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
-@code{font-size = #0}) depends on the standard staff height.
+@w{@code{font-size = #0}}) depends on the standard staff height.
 For a 20pt staff, a 10pt font is selected.
 
 The @code{font-size} property can only be set on layout objects
@@ -448,9 +448,10 @@ notation.
 @cindex notation, explaining
 
 There are two music functions, @code{balloonGrobText} and
-@code{balloonText};  the former is used like @code{\once \override} to 
-attach text to any grob, and the latter is used like @code{\tweak}, 
-typically within chords, to attach text to an individual note.
+@code{balloonText};  the former is used like
+@w{@code{\once \override}} to attach text to any grob, and the
+latter is used like @code{\tweak}, typically within chords, to
+attach text to an individual note.
 
 Balloon text normally influences note spacing, but this can be
 altered:

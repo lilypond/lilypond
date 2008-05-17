@@ -51,7 +51,7 @@ On peut ajouter aux accords les numéros de cordes, en les indiquant avec
 
 @seealso
 
-Référence du programme : @internalsref{StringNumber},
+Référence du programme : @rinternals{StringNumber},
 @lsr{guitar/,string-number.ly}.
 
 
@@ -70,7 +70,7 @@ oblique inverse (ou @qq{antislash}). Ainsi, @code{c4\3} donnera un do
 noire à jouer sur la troisième corde.  Par défaut, la première corde est
 la plus aigüe, et les cordes suivent l'accord traditionnel d'une guitare
 à six cordes.  Les notes sont imprimées sous forme de tablature, dans
-les contextes @internalsref{TabStaff} et @internalsref{TabVoice}.
+les contextes @rinternals{TabStaff} et @rinternals{TabVoice}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff {
@@ -122,7 +122,7 @@ comme suit :
 
 @seealso
 
-Référence du programme : @internalsref{TabStaff}, @internalsref{TabVoice}.
+Référence du programme : @rinternals{TabStaff}, @rinternals{TabVoice}.
 
 @knownissues
 
@@ -188,7 +188,7 @@ sont @code{guitar-open-g-tuning}, @code{mandolin-tuning} et
 Vous trouverez une liste complète des jeux prédéfinis dans le fichier
 @file{scm/@/output@/-lib@/.scm}.
 
-Référence du programme : @internalsref{Tab_note_heads_engraver}.
+Référence du programme : @rinternals{Tab_note_heads_engraver}.
 
 @knownissues
 
@@ -278,7 +278,7 @@ d'informations.  Vous trouverez tout les détails dans
 
 Par ailleurs, plusieurs propriétés permettent d'ajuster le graphisme
 à votre convenance. Vous en trouverez les détails dans
-@internalsref{fret-diagram-interface}. 
+@rinternals{fret-diagram-interface}. 
 
 
 @seealso
@@ -338,7 +338,7 @@ chaîne de caractères comme argument de @code{\rightHandFinger}.
 
 @seealso
 
-Référence du programme : @internalsref{StrokeFinger}
+Référence du programme : @rinternals{StrokeFinger}
 
 
 

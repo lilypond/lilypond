@@ -2,9 +2,11 @@ depth = ../..
 
 # urg, can't name itely templates foo.itely.in because of standard rule
 
-STEPMAKE_TEMPLATES=documentation texinfo tex
+STEPMAKE_TEMPLATES=documentation texinfo
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 EXTRA_DIST_FILES += README $(call src-wildcard,*.snippet-list)
+
+default:
 
 ifneq ($(out),)
 MAIN_INFO_DOC = lilypond-snippets
@@ -14,15 +16,13 @@ INFO_IMAGES_DIR = lilypond-snippets
 DEST_INFO_IMAGES_SUBDIR = input/lsr
 endif
 
-default:
-
 include $(depth)/make/stepmake.make
 
 IN_ITELY_FILES = $(call src-wildcard,*-intro.itely)
 GENERATED_ITELY_FILES = $(IN_ITELY_FILES:%-intro.itely=$(outdir)/%.itely)
 
 $(outdir)/%.itely: %-intro.itely %.snippet-list
-	xargs $(PYTHON) $(buildscript-dir)/lys-to-tely.py -f printfilename,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
+	xargs $(PYTHON) $(buildscript-dir)/lys-to-tely.py -f doctitle,texidoc,verbatim --name=$@ --template=$< < $(filter %.snippet-list, $^)
 
 $(outdir)/lilypond-snippets.texi: $(GENERATED_ITELY_FILES) $(LY_FILES)
 
@@ -60,3 +60,5 @@ local-WWW: info $(outdir)/lilypond-snippets.pdf \
   $(outdir)/lilypond-snippets/index.html \
   $(outdir)/lilypond-snippets-big-page.html \
   $(source-links)
+
+.SECONDARY:

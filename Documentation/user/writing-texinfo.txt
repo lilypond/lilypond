@@ -20,6 +20,9 @@ level.  Sections are created with
 	@subsection Foo
 commands.
 
+* Please leave two blank lines above a @node; this makes it easier
+  to find sections in texinfo.
+
 * sectioning commands (@node and @section) must not appear inside
   an @ignore.  Separate those commands with a space, ie @n ode.
 
@@ -76,6 +79,10 @@ commands.
 
 * Comments should go on their own line, and be placed before the
   line(s) to which they refer.
+
+* Add extra spaces around { } marks; ie
+  not:          \chordmode {c e g}
+  but instead:  \chordmode { c e g }
 
 * If you only have one bar per line, omit bar checks.  If you
   put more than one bar per line (not recommended), then include
@@ -211,7 +218,8 @@ commands.
   Do not compress vertically like this.
 
 @code{} - typeset in a tt-font. Use for actual lilypond code or
-  property/context names.
+  property/context names.  If the name contains a space, wrap
+  the entire thing inside @w{@code{  }}.
 @notation{} - refers to pieces of notation, e.g.
   "@notation{cres.}".  Also use to specific lyrics ("the
   @notation{A - men} is centered")

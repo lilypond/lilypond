@@ -109,13 +109,18 @@
 @c * Deprecated: not in English macros.itexi *
 @macro context{TEXT}
 @vindex \TEXT\
-@code{\TEXT\}@c should use internalsref
+@code{\TEXT\}@c should use rinternals
 @end macro
 
 @c * Deprecated: not in English macros.itexi *
 @macro refcommand{TEXT}
 @vindex \TEXT\
 @code{\TEXT\}
+@end macro
+
+@macro lydoctitle {TEXT}
+@emph{\TEXT\}
+
 @end macro
 
 @macro funindex {TEXT}
@@ -149,7 +154,7 @@
 
 
 @c  Definitions for references:
-@c     @internalsref
+@c     @rinternals
 @c     @rglos
 @c     @rprogram
 @c     @ruser
@@ -160,7 +165,7 @@
 
 @ifset bigpage
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals-big-page,Referencia de Funcionamiento Interno}
 @end macro
@@ -194,7 +199,7 @@
 
 @ifclear bigpage
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
@@ -231,7 +236,7 @@
 @ifdocbook
 @c ***** DOCBOOK-XML *****
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
@@ -268,7 +273,7 @@
 @ifinfo
 @c **** INFO ****
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @inforef{\TEXT\,,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
@@ -305,7 +310,7 @@
 @c **** TEX ****
 @iftex
 
-@macro internalsref{TEXT}
+@macro rinternals{TEXT}
 @vindex \TEXT\
 @code{\TEXT\}
 @end macro

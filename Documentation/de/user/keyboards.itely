@@ -151,7 +151,7 @@ wird die Richtung auch über Pausen hinweg im Voraus bestimmt.
 
 Im Handbuch: @rlearning{Single staff}.
 
-Programmreferenz: @internalsref{AutoChangeMusic}.
+Programmreferenz: @rinternals{AutoChangeMusic}.
  
 @knownissues
 
@@ -190,7 +190,7 @@ Stimmenverlaufs ausgegeben werden. Das wird erreicht, indem
 
 @seealso
 
-Programmreferenz: @internalsref{VoiceFollower}.
+Programmreferenz: @rinternals{VoiceFollower}.
 
 @predefined
 
@@ -263,7 +263,7 @@ Die Ausgabe kann verändert werden, indem der Wert
 What is printed can be modified by setting @code{pedal@var{X}Strings},
 where @var{X} is one of the pedal types: @code{Sustain},
 @code{Sostenuto} or @code{UnaCorda}.  Refer to
-@internalsref{SustainPedal} in the program reference for more
+@rinternals{SustainPedal} in the program reference for more
 information.
 
 Pedalbenutzung kann auch durch eine Anzahl von Klammern angezeigt 
@@ -299,7 +299,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 Die Erscheinung der Pedal-Klammer kann mit den Eigenschaften 
 @code{edge-width}, @code{edge-height} und @code{shorten-pair} des
 @code{PianoPedalBracket}-Objekts verändert werden (siehe 
-@internalsref{PianoPedalBracket} in der Programmreferenz). Zum 
+@rinternals{PianoPedalBracket} in der Programmreferenz). Zum 
 Beispiel kann die Klammer bis zum rechten Ende eines Notenkopfes 
 verlängert werden.
 

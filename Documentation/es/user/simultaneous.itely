@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 95df76f110099096e2d55d57798fa4a2bede19fd
+    Translation of GIT committish: b5ba45ccb092324961dac292dc58cc0eddbc7307
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -81,7 +81,7 @@ separados.  Para evitarlo emplee acordes explícitos como en
 
 Un «cluster» o racimo indica que se deben tocar simultáneamente un
 conjunto de notas consecutivas.  Se escriben aplicando la función
-@code{\makeClusters} a una secuencia de cordes, p.ej.:
+@code{\makeClusters} a una secuencia de acordes, p.ej.:
 
 @lilypond[quote,ragged-right,relative=2,fragment,verbatim]
 \makeClusters { <g b>2 <c g'> }
@@ -93,16 +93,16 @@ evitar automáticamente las colisiones entre clusters y notas normales.
 
 @seealso
 
-Music Glossary:
+Glosario musical:
 @rglos{cluster}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 Referencia de funcionamiento interno:
-@internalsref{ClusterSpanner},
-@internalsref{ClusterSpannerBeacon},
-@internalsref{Cluster_spanner_engraver}.
+@rinternals{ClusterSpanner},
+@rinternals{ClusterSpannerBeacon},
+@rinternals{Cluster_spanner_engraver}.
 
 @c Examples: @rlsr{contemporary,cluster@/.ly}.
 
@@ -133,7 +133,7 @@ separación entre ellos.
 Normalmente las cabezas de nota con un número de puntillos diferente
 no se mezclan en una sola, pero cuando se le da un valor verdadero a
 la propiedad @code{merge-differently-dotted} en el objeto
-@internalsref{NoteCollision}, se juntan en una sola:
+@rinternals{NoteCollision}, se juntan en una sola:
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
 \new Voice << {
@@ -257,7 +257,7 @@ más grandes.
 
 Cuando LilyPond no puede con todo, se pueden usar la propiedad
 @code{force-hshift} (forzar desplazamiento) del objeto
-@internalsref{NoteColumn} y los silencios con altura para
+@rinternals{NoteColumn} y los silencios con altura para
 sobreescribir las decisiones de composición tipográfica.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -280,8 +280,8 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno: los objetos responsables de
 resolver las colisiones son
-@internalsref{NoteCollision} y
-@internalsref{RestCollision}.
+@rinternals{NoteCollision} y
+@rinternals{RestCollision}.
 
 
 @knownissues
@@ -366,7 +366,7 @@ y @code{aDueText}.
 @end lilypond
 
 Los dos argumentos de @code{\partcombine} se interpretan como
-contextos de @internalsref{Voice}.  Si se están usando octavas
+contextos de @rinternals{Voice}.  Si se están usando octavas
 relativas, se debe especificar @code{\relative} para ambas expresiones
 musicales, es decir:
 
@@ -390,7 +390,7 @@ Fragmentos de código:
 @lsrdir{Simultaneous,Simultaneous-notes}.
 
 Referencia de funcionamiento interno:
-@internalsref{PartCombineMusic}, @internalsref{Voice}.
+@rinternals{PartCombineMusic}, @rinternals{Voice}.
 
 @knownissues
 
@@ -405,7 +405,7 @@ tipografiar @code{a2} más de una vez en el mismo compás.
 Internamente, el @code{\partcombine} interpreta los dos argumentos
 como @code{Voice}s llamadas @code{one} y @code{two}, y después decide
 cuándo se pueden combinar las partes.  Como consecuencia, si los
-argumentos cambian a contextos de @internalsref{Voice} con nombres
+argumentos cambian a contextos de @rinternals{Voice} con nombres
 diferentes, los eventos que contienen se ignorarán.
 
 

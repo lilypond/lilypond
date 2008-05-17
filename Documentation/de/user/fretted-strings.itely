@@ -49,7 +49,7 @@ wird:
 
 @seealso
 
-Programmreferenz: @internalsref{StringNumber},
+Programmreferenz: @rinternals{StringNumber},
 @lsr{guitar/,string-number.ly}.
 
 
@@ -68,8 +68,8 @@ Backslash, gefolgt von einer Zahl, notiert, etwa @code{c4\3} für eine
 Viertelnote C auf der dritten Saite. In der Standardeinstellung ist 
 die erste Saite die höchste Saite und als Stimmung wird die übliche 
 Gitarrenstimmung auf sechs Saiten angenommen. Die Noten werden in 
-einer Tabulatur gesetzt, indem @internalsref{TabStaff} und
-@internalsref{TabVoice}-Kontexte verwendet werden.
+einer Tabulatur gesetzt, indem @rinternals{TabStaff} und
+@rinternals{TabVoice}-Kontexte verwendet werden.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff {
@@ -118,7 +118,7 @@ initialisiert werden:
 
 @seealso
 
-Programmreferenz: @internalsref{TabStaff}, @internalsref{TabVoice}.
+Programmreferenz: @rinternals{TabStaff}, @rinternals{TabVoice}.
 
 @knownissues
 
@@ -185,7 +185,7 @@ Saiten EADGBE. Andere vordefinierte Stimmungen sind
 
 In der Datei @file{scm/@/output@/-lib@/.scm} sind die Stimmungen 
 definiert.
-Programmreferenz: @internalsref{Tab_note_heads_engraver}.
+Programmreferenz: @rinternals{Tab_note_heads_engraver}.
 
 @knownissues
 
@@ -282,7 +282,7 @@ obigen Beispiel gezeigt.
 
 Einige graphische Eigenschaften können verändert werden. Genaueres zur 
 Schnittstelle für die Griffsymboleigenschaften findet sich unter 
-@internalsref{fret-diagram-interface}.
+@rinternals{fret-diagram-interface}.
 
 
 @seealso
@@ -344,7 +344,7 @@ Argument eingesetzt wird, wie im nächsten Beispiel:
 
 @seealso
 
-Program reference: @internalsref{StrokeFinger}
+Program reference: @rinternals{StrokeFinger}
 
 
 

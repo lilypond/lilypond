@@ -173,10 +173,10 @@ muss
 
 @seealso
 
-Programmreferenz: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic} und
-@internalsref{UnfoldedRepeatedMusic}.
+Programmreferenz: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic} und
+@rinternals{UnfoldedRepeatedMusic}.
 
 
 Beispiele:
@@ -255,10 +255,10 @@ c4 c4
 
 @seealso
 
-Programmreferenz: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic} und
-@internalsref{UnfoldedRepeatedMusic}.
+Programmreferenz: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic} und
+@rinternals{UnfoldedRepeatedMusic}.
 
 
 @node Short repeats
@@ -312,11 +312,11 @@ R1
 
 @seealso
 
-Programmreferenz: @internalsref{RepeatSlash},
-@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
-@internalsref{DoublePercentRepeatCounter},
-@internalsref{PercentRepeatCounter},
-@internalsref{PercentRepeatedMusic}.
+Programmreferenz: @rinternals{RepeatSlash},
+@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 
 
@@ -351,7 +351,7 @@ die im Abschnitt @ref{Tremolo subdivisions} beschrieben wird.
 
 Im Handbuch: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
-Programmreferenz: @internalsref{Beam}, @internalsref{StemTremolo}.
+Programmreferenz: @rinternals{Beam}, @rinternals{StemTremolo}.
 
 
 @node Tremolo subdivisions
@@ -382,5 +382,5 @@ MIDI-Datei aufgenommen.
 
 Im Handbuch: @ref{Tremolo repeats}.
 
-Programmreferenz: @internalsref{StemTremolo}.
+Programmreferenz: @rinternals{StemTremolo}.
 

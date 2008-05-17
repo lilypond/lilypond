@@ -124,7 +124,7 @@ folgenden Befehlen kann ein anderes Verhalten der Punktierung erreicht werden.
 
 @seealso
 
-Programmreferenz: @internalsref{Dots}, and @internalsref{DotColumn}.
+Programmreferenz: @rinternals{Dots}, and @rinternals{DotColumn}.
 
 
 @node Tuplets
@@ -278,8 +278,8 @@ einem Taktvorspann oder bis zur nächsten Note reichen.
 
 @seealso
 
-Programmreferenz: @internalsref{TupletBracket},
-@internalsref{TupletNumber} und @internalsref{TimeScaledMusic}.
+Programmreferenz: @rinternals{TupletBracket},
+@rinternals{TupletNumber} und @rinternals{TimeScaledMusic}.
 
 
 
@@ -353,7 +353,7 @@ Auflösung von Zusammenstößen diese Pausen nicht mit einbezieht.
 
 @seealso
 
-Programmreferenz: @internalsref{Rest}.
+Programmreferenz: @rinternals{Rest}.
 
 
 @node Skips
@@ -389,8 +389,8 @@ Der Überspringungsbefehl (@code{\skip}) ist einfach ein leerer Platzhalter.
 Durch ihn wird 
 überhaupt nichts gesetzt, auch keine transparenten Objekte.
 
-Die Überspringung mit @code{s} hingegen erstellt  @internalsref{Staff} und
-@internalsref{Voice} wenn es erforderlich ist, genauso wie Noten und Pausen. 
+Die Überspringung mit @code{s} hingegen erstellt  @rinternals{Staff} und
+@rinternals{Voice} wenn es erforderlich ist, genauso wie Noten und Pausen. 
 Das folgende Beispiel etwa setzt ein leeres Notensystem:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -401,7 +401,7 @@ Das Fragment @code{@{ \skip 4 @}} würde nur eine leere Seite produzieren.
 
 @seealso
 
-Programmreferenz: @internalsref{SkipMusic}.
+Programmreferenz: @rinternals{SkipMusic}.
 
 
 @node Multi measure rests
@@ -461,7 +461,7 @@ Der Befehl @code{\time} stellt die Eigenschaften
 @code{timeSignatureFraction}, @code{beatLength} 
 und @code{measureLength} im @code{Timing}-Kontext ein, 
 der normalerweise zu den Eigenschaften aller System 
-(@internalsref{Score}-Ebene) gehört. Die Eigenschaft 
+(@rinternals{Score}-Ebene) gehört. Die Eigenschaft 
 @code{measureLenght} bestimmt, wo Taktlinien eingefügt werden, 
 und wie automatische Balken gesetzt werden. Ein Verändern 
 der Eigenschaften von @code{timeSignatureFraction} gibt 
@@ -469,8 +469,8 @@ das neue Symbol an dieser Stelle aus.
 
 Auf weitere Optionen kann man über die Scheme-Funktion
 @code{set-time-signature} zugreifen. In Kombination mit
-@internalsref{Measure_grouping_engraver} werden hiermit 
-@internalsref{MeasureGrouping}-Zeichen erzeugt. Solche 
+@rinternals{Measure_grouping_engraver} werden hiermit 
+@rinternals{MeasureGrouping}-Zeichen erzeugt. Solche 
 Zeichen erleichtern es, rhythmisch komplexe moderne Musik 
 zu lesen. Im nächsten Beispiel ist der 9/8-Takt in 2, 2, 2 
 und 3 Achtel unterteilt. Das wird im dritten Argument an 
@@ -496,8 +496,8 @@ und 3 Achtel unterteilt. Das wird im dritten Argument an
 
 @seealso
 
-Programmreferenz: @internalsref{TimeSignature} und
-@internalsref{Timing_translator}.
+Programmreferenz: @rinternals{TimeSignature} und
+@rinternals{Timing_translator}.
 
 Beispiele: @lsr{contemporary,compound-time-signature.ly}.
 
@@ -606,8 +606,8 @@ UNTRANSLATED NODE: IGNORE ME
 @unnumberedsubsubsec Automatic note splitting
 
 Lange Noten können automatisch in übergebundene Noten aufgeteilt werden. 
-Dieses Verhalten erreicht man, indem der  @internalsref{Note_heads_engraver} 
-mit dem @internalsref{Completion_heads_engraver} ausgetauscht wird. 
+Dieses Verhalten erreicht man, indem der  @rinternals{Note_heads_engraver} 
+mit dem @rinternals{Completion_heads_engraver} ausgetauscht wird. 
 Im nächsten Beispiel werden Noten, die über die Taktlinie dauern, aufgeteilt 
 und übergebunden.
 
@@ -629,7 +629,7 @@ Notenwerte noch in dem jeweiligen Takt fehlen.
 
 Wenn Sie wollen, dass auch Zeilenumbrüche an den Stellen, an denen 
 automatisch Noten aufgeteilt wurden, stattfinden, müssen Sie auch 
-den Formatierer  @internalsref{Forbid_line_break_engraver}  mit 
+den Formatierer  @rinternals{Forbid_line_break_engraver}  mit 
 dem @code{\remove}-Befehl entfernen.
 
 
@@ -645,7 +645,7 @@ Pausen werden nicht aufgeteilt.
 
 @seealso
 
-Programmreferenz: @internalsref{Completion_heads_engraver}.
+Programmreferenz: @rinternals{Completion_heads_engraver}.
 
 
 @node Beams
@@ -683,7 +683,7 @@ damit sie nicht mit einem Balken versehen werden.
 
 @seealso
 
-Programmreferenz: @internalsref{Beam}.
+Programmreferenz: @rinternals{Beam}.
 
 
 @node Manual beams
@@ -931,9 +931,9 @@ erzeugen. Siehe Abschnitt @ref{Repeats}.
 
 Im Handbuch: @ref{Repeats}, @ref{System start delimiters}.
 
-Programmreferenz: @internalsref{BarLine} (auf Partitur 
-(@internalsref{Staff})-Ebene erstellt), 
-@internalsref{SpanBar} (zwischen Systemen).
+Programmreferenz: @rinternals{BarLine} (auf Partitur 
+(@rinternals{Staff})-Ebene erstellt), 
+@rinternals{SpanBar} (zwischen Systemen).
 
 
 @node Bar numbers
@@ -1159,7 +1159,7 @@ zu werden.
 
 @seealso
 
-Programmreferenz: @internalsref{GraceMusic}.
+Programmreferenz: @rinternals{GraceMusic}.
 
 
 @knownissues

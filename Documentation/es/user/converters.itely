@@ -59,8 +59,8 @@ posibilidad puede ser de utilidad al importar archivos de un programa
 que tiene un convertidor para un formato directo.
 
 @command{midi2ly} convierte las pistas en contextos de
-@internalsref{Staff}) y los canales en contextos de
-@internalsref{Voice}.  Se utiliza el modo relativo para las alturas, y
+@rinternals{Staff}) y los canales en contextos de
+@rinternals{Voice}.  Se utiliza el modo relativo para las alturas, y
 las duraciones se escriben solamente cuando es necesario.
 
 Es posible grabar un archivo MIDI usando un teclado digital y

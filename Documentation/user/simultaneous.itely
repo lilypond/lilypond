@@ -48,7 +48,7 @@ articulations, just like simple notes:
 <c e g>2 <c f a>4-> <e g c>-.
 @end lilypond
 
-For more information about chords, see @ref{Modern chords}.
+For more information about chords, see @ref{Chord notation}.
 
 @seealso
 
@@ -59,7 +59,7 @@ Learning Manual:
 @rlearning{Combining notes into chords}.
 
 Notation Reference:
-@ref{Modern chords}.
+@ref{Chord notation}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
@@ -444,10 +444,16 @@ content of alternate measures from the expression become the value of
 the respective variables, so you can use them afterwards to print the
 music.
 
+@warning{Bar checks @code{|} must be used, and the measures must
+be of the same length.}
+
 @lilypond[quote,fragment,verbatim]
 \parallelMusic #'(voiceA voiceB) {
+  % Bar 1
   r8 g'16[ c''] e''[ g' c'' e''] r8 g'16[ c''] e''[ g' c'' e''] |
   c'2                               c'2                         |
+
+  % Bar 2
   r8 a'16[ d''] f''[ a' d'' f''] r8 a'16[ d''] f''[ a' d'' f''] |
   c'2                               c'2                         |
 }
@@ -457,48 +463,73 @@ music.
 >>
 @end lilypond
 
+Relative mode may be used.  Note that the @code{\relative} command
+is not used inside @code{\parallelMusic} itself.  The notes are
+relative to the preceding note in the voice, not to the previous
+note in the input -- in other words, relative notes for
+@code{voiceA} ignore the notes in @code{voiceB}.
+
+@lilypond[quote,fragment,verbatim]
+\parallelMusic #'(voiceA voiceB) {
+  % Bar 1
+  r8 g16 c e g, c e r8 g,16 c e g, c e  |
+  c2                c                   |
+
+  % Bar 2
+  r8 a,16 d f a, d f r8 a,16 d f a, d f |
+  c2                 c                  |
+ }
+\new StaffGroup <<
+  \new Staff \relative c'' \voiceA
+  \new Staff \relative c'  \voiceB
+>>
+@end lilypond
+
 This works quite well for piano music.  This example maps four
 consecutive measures to four variables:
 
 @lilypond[quote,verbatim]
-global = { \key g \major  \time 2/4 }
-music = {
-  \parallelMusic #'(voiceA voiceB voiceC voiceD) {
-    % Bar 1 
-    a'8 b'      c'' d''   |
-    d'4         e'        |
-    c16 d e fis d e fis g |
-    a,4         a,4       |
-
-    % Bar 2
-    e''8 fis''  g'' a''   |
-    fis'4       g'        |
-    e16 fis g a fis g a b |
-    a,4         a,4       |
-
-    % Bar 3 ...
-  }
+global = {
+  \key g \major
+  \time 2/4
 }
 
-\score {      
-  \new PianoStaff <<
-    \new Staff {
-      \global
-      <<
-        \voiceA \\
-        \voiceB
-      >>
-    }
-    \new Staff {
-      \global \clef bass
-      <<
-        \voiceC \\
-        \voiceD
-      >>
-    }
-  >>
+\parallelMusic #'(voiceA voiceB voiceC voiceD) {
+  % Bar 1
+  a8    b     c   d     |
+  d4          e         |
+  c16 d e fis d e fis g |
+  a4          a         |
+
+  % Bar 2
+  e8      fis  g     a   |
+  fis4         g         |
+  e16 fis g  a fis g a b |
+  a4           a         |
+
+  % Bar 3 ...
+}   
+
+\score {   
+\new PianoStaff <<
+ \new Staff {
+   \global
+   <<
+     \relative c'' \voiceA \\
+     \relative c'  \voiceB
+   >>
+ }
+ \new Staff {
+   \global \clef bass
+   <<
+     \relative c \voiceC \\
+     \relative c \voiceD
+   >>
+ }
+>>
 }
 @end lilypond
+
 
 @seealso
 

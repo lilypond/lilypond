@@ -48,7 +48,7 @@ Los números de cuerda se pueden añadir a los acordes especificándolos mediant
 
 @seealso
 
-Referencia del programa: @internalsref{StringNumber},
+Referencia del programa: @rinternals{StringNumber},
 @lsr{guitar/,string-number.ly}.
 
 
@@ -65,8 +65,8 @@ El número de cuerda asociado a una nota se proporciona en la forma de una barra
 seguida por un número, p.ej. @code{c4\3} es un Do negra sobre la tercera cuerda.
 Por defecto, la cuerda 1 es la más aguda, y la afinación normal
 es la afinación estándar de guitarra (con 6 cuerdas).  Las notas
-se imprimen como tablatura, usando lo contextos @internalsref{TabStaff} y
-@internalsref{TabVoice}
+se imprimen como tablatura, usando lo contextos @rinternals{TabStaff} y
+@rinternals{TabVoice}
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff {
@@ -114,7 +114,7 @@ inicialice el @code{TabStaff} (pentagrama de tablatura) con el código siguiente
 
 @seealso
 
-Referencia del programa: @internalsref{TabStaff}, @internalsref{TabVoice}.
+Referencia del programa: @rinternals{TabStaff}, @rinternals{TabVoice}.
 
 @knownissues
 
@@ -179,7 +179,7 @@ Otras afinaciones predefinidas son @code{guitar-open-g-tuning} (Sol Mayor al air
 
 El archivo @file{scm/@/output@/-lib@/.scm} contiene las afinaciones predefinidas
 de las cuerdas.
-Referencia del programa: @internalsref{Tab_note_heads_engraver}.
+Referencia del programa: @rinternals{Tab_note_heads_engraver}.
 
 @knownissues
 
@@ -267,7 +267,7 @@ más detalles sobre los interfaces de marcado en @ref{Text markup commands}.
 
 Puede establecer un cierto número de propiedades gráficas según su elección.
 Se pueden encontrar más detalles sobre el interface de las propiedades de los diagramas de trastes en
-@internalsref{fret-diagram-interface}.
+@rinternals{fret-diagram-interface}.
 
 
 @seealso
@@ -327,7 +327,7 @@ Las letras utilizadas para las digitaciones se encuentran contenidas dentro de l
 
 @seealso
 
-Referencia del programa: @internalsref{StrokeFinger}
+Referencia del programa: @rinternals{StrokeFinger}
 
 
 

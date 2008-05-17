@@ -209,7 +209,7 @@ simplemente produce el acorde aumentado, ya que el @code{5+} se interpreta en
 @cindex acordes, nombres de
 @cindex acordes
 
-Para la presentación de los nombres de acordes impresos utilice el contexto @internalsref{ChordNames}.
+Para la presentación de los nombres de acordes impresos utilice el contexto @rinternals{ChordNames}.
 Los acordes se puede introducir o bien usando la notación
 descrita anteriormente, o directamente usando @code{<} y @code{>}
 
@@ -224,7 +224,7 @@ harmonies = {
 @end lilypond
 
 Puede hacer que los cambios de acorde se hagan notar, estableciendo
-@internalsref{ChordNames}.@code{chordChanges} al valor verdadero.  Esto sólo 
+@rinternals{ChordNames}.@code{chordChanges} al valor verdadero.  Esto sólo 
 mostrará los nombres de los acordes cuando ocurra un cambio en la estructura de acordes y al comienzo
 de una línea
 
@@ -242,7 +242,7 @@ harmonies = \chordmode {
 
 Todos los ejemplos anteriores muestran los acordes sobre una pauta.  Esto no es
 necesario.  Los acordes también se pueden imprimir por separado.  Puede ser necesario
-añadir @internalsref{Volta_engraver} y @internalsref{Bar_engraver}
+añadir @rinternals{Volta_engraver} y @rinternals{Bar_engraver}
 para mostrar las repeticiones.
 
 @lilypond[ragged-right,verbatim]

@@ -25,28 +25,147 @@ FIXME: add comments
 to 3.1.
 
 @menu
-* Input files::                 
-* Common syntax issues TODO name?::  
-* Other stuffs TODO move?::     
+* Input structure::             
+* Useful concepts and properties::  
+* Titles and headers::          
+* Working with input files::    
+* Controlling output::          
 @end menu
 
 
-@node Input files
-@section Input files
+@node Input structure
+@section Input structure
 
 The main format of input for LilyPond are text files.  By convention,
 these files end with @code{.ly}.
 
 @menu
-* File structure::              
-* A single music expression::   
+* Structure of a score::        
 * Multiple scores in a book::   
-* Extracting fragments of notation::  
-* Including LilyPond files::    
-* Text encoding::               
-* Different editions from one source::  
+* File structure::              
 @end menu
 
+
+@node Structure of a score
+@subsection Structure of a score
+
+A @code{\score} must contain a single music expression.  However,
+this music expression may be of any size.  Recall that music
+expressions may be included inside other expressions to form
+larger expressions.  All of these examples are single music
+expressions; note the curly braces @{ @} or angle brackets <<
+>> at the beginning and ending of the music.
+
+@example
+@{ c'4 c' c' c' @}
+@end example
+
+@lilypond[ragged-right,verbatim,quote]
+{
+  { c'4 c' c' c'}
+  { d'4 d' d' d'}
+}
+@end lilypond
+
+@lilypond[ragged-right,verbatim,quote]
+<<
+  \new Staff { c'4 c' c' c' }
+  \new Staff { d'4 d' d' d' }
+>>
+@end lilypond
+
+@example
+@{
+  \new GrandStaff <<
+    \new StaffGroup <<
+      \new Staff @{ \flute @}
+      \new Staff @{ \oboe @}
+    >>
+    \new StaffGroup <<
+      \new Staff @{ \violinI @}
+      \new Staff @{ \violinII @}
+    >>
+  >>
+@}
+@end example
+
+
+@node Multiple scores in a book
+@subsection Multiple scores in a book
+
+@funindex \book
+@cindex movements, multiple
+
+A document may contain multiple pieces of music and texts.  Examples
+of these are an etude book, or an orchestral part with multiple
+movements.  Each movement is entered with a @code{\score} block,
+
+@example
+\score @{
+  @var{..music..}
+@}
+@end example
+
+and texts are entered with a @code{\markup} block,
+
+@example
+\markup @{
+  @var{..text..}
+@}
+@end example
+
+@funindex \book
+
+All the movements and texts which appear in the same @code{.ly} file 
+will normally be typeset in the form of a single output file. 
+
+@example
+\score @{
+  @var{..}
+@}
+\markup @{
+  @var{..}
+@}
+\score @{
+  @var{..}
+@}
+@end example
+
+However, if you want multiple output files from the same @code{.ly}
+file, then you can add multiple @code{\book} blocks, where each such
+@code{\book} block will result in a separate output.  If you do not
+specify any @code{\book} block in the file, LilyPond will implicitly
+treat the full file as a single @code{\book} block, see @ref{File
+structure}.  One important exception is within lilypond-book documents,
+where you explicitly have to add a @code{\book} block, otherwise only
+the first @code{\score} or @code{\markup} will appear in the output.
+
+The header for each piece of music can be put inside the @code{\score}
+block.  The @code{piece} name from the header will be printed before
+each movement.  The title for the entire book can be put inside the
+@code{\book}, but if it is not present, the @code{\header} which is at
+the top of the file is inserted.
+
+@example
+\header @{
+  title = "Eight miniatures"
+  composer = "Igor Stravinsky"
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Romanze" @}
+@}
+\markup @{
+   ..text of second verse..
+@}
+\markup @{
+   ..text of third verse..
+@}
+\score @{
+  @dots{}
+  \header @{ piece = "Menuetto" @}
+@}
+@end example
 
 @node File structure
 @subsection File structure
@@ -179,161 +298,531 @@ be entered:
 @end itemize
 
 
-@node A single music expression
-@subsection A single music expression
+@node Useful concepts and properties
+@section Useful concepts and properties
 
-A @code{\score} must contain a single music expression.  However,
-this music expression may be of any size.  Recall that music
-expressions may be included inside other expressions to form
-larger expressions.  All of these examples are single music
-expressions; note the curly braces @{ @} or angle brackets <<
->> at the beginning and ending of the music.
 
-@example
-@{ c'4 c' c' c' @}
-@end example
+@menu
+* Input modes::                 
+* When to add a -::             
+* Controlling direction and placement::  
+* Distances and measurements::  
+* Spanners::                    
+@end menu
 
-@lilypond[ragged-right,verbatim,quote]
-{
-  { c'4 c' c' c'}
-  { d'4 d' d' d'}
+@node Input modes
+@subsection Input modes
+
+\notemode
+
+\notemode turns the front end of LilyPond into note mode
+(which is the default parsing mode).
+It's certainly useful in certain situations, for example if you
+are in \lyricmode or \chordmode or ... and want to insert
+something that only can be done with \notemode syntax.
+
+See for example
+http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00418.html
+http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00218.html
+http://lists.gnu.org/archive/html/lilypond-user/2006-12/msg00236.html
+http://lists.gnu.org/archive/html/lilypond-user/2006-11/msg00061.html
+
+
+\chords
+\drums
+\fretmode ?
+
+
+@node When to add a -
+@subsection When to add a -
+
+One of these works, the other doesn't.
+
+@verbatim
+\version "2.11.38"
+{ c'\mp\fermata\accent-\markup { "forcefully"} }
+% { c'\mp\fermata\accent\markup { "forcefully"} }
+@end verbatim
+
+@node Controlling direction and placement
+@subsection Controlling direction and placement
+
+TODO: everything
+
+By default, LilyPond does a pretty jazz'n job of picking
+directions.  But in some cases, it may be desirable to force a
+direction.
+
+@verbatim
+-
+^ _
+@end verbatim
+
+Also cover
+#UP
+#DOWN
+#LEFT
+#RIGHT.
+
+Maybe rename section to "directions".
+
+Also mention \override Foo #'direction = #'DOWN.
+
+also mention the typical \fooDown, \fooNeutral predefined commands.
+
+also mention that some directions are (without other tweaking)
+always up or always down (like dynamics or fermata), while other
+things can alternate between up or down based on the stem direction
+(like slurs or accents).
+
+
+@node Distances and measurements
+@subsection Distances and measurements
+
+DISCUSS after working on other sections.
+
+TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
+
+
+@node Spanners
+@subsection Spanners
+
+
+@node Titles and headers
+@section Titles and headers
+
+Almost all printed music includes a title and the composer's name;
+some pieces include a lot more information.
+
+@menu
+* Creating titles::             
+* Custom titles::               
+* Reference to page numbers::   
+* Table of contents::           
+@end menu
+
+
+@node Creating titles
+@subsection Creating titles
+
+Titles are created for each @code{\score} block, as well as for the full
+input file (or @code{\book} block).
+
+The contents of the titles are taken from the @code{\header} blocks.
+The header block for a book supports the following
+
+
+@table @code
+@funindex dedication
+@item dedication
+The dedicatee of the music, centered at the top of the first page.
+
+@funindex title
+@item title
+The title of the music, centered just below the dedication.
+
+@funindex subtitle
+@item subtitle
+Subtitle, centered below the title.
+
+@funindex subsubtitle
+@item subsubtitle
+Subsubtitle, centered below the subtitle.
+
+@funindex poet
+@item poet
+Name of the poet, flush-left below the subtitle.
+
+@funindex composer
+@item composer
+Name of the composer, flush-right below the subtitle.
+
+@funindex meter
+@item meter
+Meter string, flush-left below the poet.
+
+@funindex opus
+@item opus
+Name of the opus, flush-right below the composer.
+
+@funindex arranger
+@item arranger
+Name of the arranger, flush-right below the opus.
+
+@funindex instrument
+@item instrument
+Name of the instrument, centered below the arranger.  Also
+centered at the top of pages (other than the first page).
+
+@funindex piece
+@item piece
+Name of the piece, flush-left below the instrument.
+
+@cindex page breaks, forcing
+@funindex breakbefore
+@item breakbefore
+This forces the title to start on a new page (set to ##t or ##f).
+
+@funindex copyright
+@item copyright
+Copyright notice, centered at the bottom of the first page.  To
+insert the copyright symbol, see @ref{Text encoding}.
+
+@funindex tagline
+@item tagline
+Centered at the bottom of the last page.
+
+@end table
+
+Here is a demonstration of the fields available.  Note that you
+may use any @ref{Formatting text}, commands in the header.
+
+@lilypond[quote,verbatim,line-width=11.0\cm]
+\paper {
+  line-width = 9.0\cm
+  paper-height = 10.0\cm
+}
+
+\book {
+  \header {
+    dedication = "dedicated to me"
+    title = \markup \center-align { "Title first line" "Title second line,
+longer" }
+    subtitle = "the subtitle,"
+    subsubtitle = #(string-append "subsubtitle LilyPond version "
+(lilypond-version))
+    poet = "Poet"
+    composer =  \markup \center-align { "composer" \small "(1847-1973)" }
+    texttranslator = "Text Translator"
+    meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge
+"r" }
+    arranger = \markup { \fontsize #8.5 "a" \fontsize #2.5 "r" \fontsize
+#-2.5 "r" \fontsize #-5.3 "a" \fontsize #7.5 "nger" }
+    instrument = \markup \bold \italic "instrument"
+    piece = "Piece"
+  }
+
+  \score {
+    { c'1 }
+    \header {
+      piece = "piece1"
+      opus = "opus1"
+    }
+  }
+  \markup {
+      and now...
+  }
+  \score {
+    { c'1 }
+    \header {
+      piece = "piece2"
+      opus = "opus2"
+    }
+  }
 }
 @end lilypond
 
-@lilypond[ragged-right,verbatim,quote]
-<<
-  \new Staff { c'4 c' c' c' }
-  \new Staff { d'4 d' d' d' }
->>
-@end lilypond
-
-@example
-@{
-  \new GrandStaff <<
-    \new StaffGroup <<
-      \new Staff @{ \flute @}
-      \new Staff @{ \oboe @}
-    >>
-    \new StaffGroup <<
-      \new Staff @{ \violinI @}
-      \new Staff @{ \violinII @}
-    >>
-  >>
-@}
-@end example
-
-
-@node Multiple scores in a book
-@subsection Multiple scores in a book
-
-@funindex \book
-@cindex movements, multiple
-
-A document may contain multiple pieces of music and texts.  Examples
-of these are an etude book, or an orchestral part with multiple
-movements.  Each movement is entered with a @code{\score} block,
-
-@example
-\score @{
-  @var{..music..}
-@}
-@end example
-
-and texts are entered with a @code{\markup} block,
-
-@example
-\markup @{
-  @var{..text..}
-@}
-@end example
-
-@funindex \book
-
-All the movements and texts which appear in the same @code{.ly} file 
-will normally be typeset in the form of a single output file. 
-
-@example
-\score @{
-  @var{..}
-@}
-\markup @{
-  @var{..}
-@}
-\score @{
-  @var{..}
-@}
-@end example
-
-However, if you want multiple output files from the same @code{.ly}
-file, then you can add multiple @code{\book} blocks, where each such
-@code{\book} block will result in a separate output.  If you do not
-specify any @code{\book} block in the file, LilyPond will implicitly
-treat the full file as a single @code{\book} block, see @ref{File
-structure}.  One important exception is within lilypond-book documents,
-where you explicitly have to add a @code{\book} block, otherwise only
-the first @code{\score} or @code{\markup} will appear in the output.
-
-The header for each piece of music can be put inside the @code{\score}
-block.  The @code{piece} name from the header will be printed before
-each movement.  The title for the entire book can be put inside the
-@code{\book}, but if it is not present, the @code{\header} which is at
-the top of the file is inserted.
+As demonstrated before, you can use multiple @code{\header} blocks.
+When same fields appear in different blocks, the latter is used.
+Here is a short example.
 
 @example
 \header @{
-  title = "Eight miniatures"
-  composer = "Igor Stravinsky"
+  composer = "Composer"
+@}
+\header @{
+  piece = "Piece"
 @}
 \score @{
-  @dots{}
-  \header @{ piece = "Romanze" @}
-@}
-\markup @{
-   ..text of second verse..
-@}
-\markup @{
-   ..text of third verse..
-@}
-\score @{
-  @dots{}
-  \header @{ piece = "Menuetto" @}
+  \new Staff @{ c'4 @}
+  \header @{
+    piece = "New piece"  % overwrite previous one
+  @}
 @}
 @end example
 
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
+If you define the @code{\header} inside the @code{\score} block, then
+normally only the @code{piece} and @code{opus} headers will be printed.
+Note that the music expression must come before the @code{\header}.
 
-It is possible to quote small fragments of a large score directly from
-the output.  This can be compared to clipping a piece of a paper score
-with scissors.
+@lilypond[quote,verbatim,line-width=11.0\cm]
+\score {
+  { c'4 }
+  \header {
+    title = "title"  % not printed
+    piece = "piece"
+    opus = "opus"
+  }
+}
+@end lilypond
 
-This is done by defining the measures that need to be cut out
-separately.  For example, including the following definition
+@funindex printallheaders
+@noindent
+You may change this behavior (and print all the headers when defining
+@code{\header} inside @code{\score}) by using
 
+@example
+\paper@{
+  printallheaders=##t
+@}
+@end example
+
+@cindex copyright
+@cindex tagline
+
+The default footer is empty, except for the first page, where the
+@code{copyright} field from @code{\header} is inserted, and the last
+page, where @code{tagline} from @code{\header} is added.  The default
+tagline is @qq{Music engraving by LilyPond (@var{version})}.@footnote{Nicely
+printed parts are good PR for us, so please leave the tagline if you
+can.}
+
+Headers may be completely removed by setting them to false.
+
+@example
+\header @{
+  tagline = ##f
+  composer = ##f
+@}
+@end example
+
+
+@node Custom titles
+@subsection Custom titles
+
+A more advanced option is to change the definitions of the following
+variables in the @code{\paper} block.  The init file
+@file{ly/titling-init.ly} lists the default layout.
+
+@table @code
+@funindex bookTitleMarkup
+@item bookTitleMarkup
+  This is the title added at the top of the entire output document.
+Typically, it has the composer and the title of the piece
+
+@funindex scoreTitleMarkup
+@item scoreTitleMarkup
+  This is the title put over a @code{\score} block.  Typically, it has
+the name of the movement (@code{piece} field).
+
+@funindex oddHeaderMarkup
+@item oddHeaderMarkup
+  This is the page header for odd-numbered pages.
+
+@funindex evenHeaderMarkup
+@item evenHeaderMarkup
+  This is the page header for even-numbered pages.  If unspecified,
+  the odd header is used instead.
+
+  By default, headers are defined such that the page number is on the
+  outside edge, and the instrument is centered.
+
+@funindex oddFooterMarkup
+@item oddFooterMarkup
+  This is the page footer for odd-numbered pages.
+
+@funindex evenFooterMarkup
+@item evenFooterMarkup
+  This is the page footer for even-numbered pages.  If unspecified,
+  the odd header is used instead.
+
+  By default, the footer has the copyright notice on the first, and
+  the tagline on the last page.
+@end table
+
+
+@cindex \paper
+@cindex header
+@cindex footer
+@cindex page layout
+@cindex titles
+
+The following definition will put the title flush left, and the
+composer flush right on a single line.
 
 @verbatim
-\layout {
-  clip-regions
-  = #(list
-      (cons
-       (make-rhythmic-location 5 1 2)
-       (make-rhythmic-location 7 3 4)))
-}       
+\paper {
+  bookTitleMarkup = \markup {
+   \fill-line {
+     \fromproperty #'header:title
+     \fromproperty #'header:composer
+   }
+  }
+}
 @end verbatim
 
-@noindent
-will extract a fragment starting halfway the fifth measure, ending in
-the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
-in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
+@node Reference to page numbers
+@subsection Reference to page numbers
 
-More clip regions can be defined by adding more pairs of
-rhythmic-locations to the list. 
+A particular place of a score can be marked using the @code{\label}
+command, either at top-level or inside music.  This label can then be
+referred to in a markup, to get the number of the page where the marked
+point is placed, using the @code{\page-ref} markup command.
 
-In order to use this feature, LilyPond must be invoked with
-@code{-dclip-systems}.  The clips are output as EPS files, and are
-converted to PDF and PNG if these formats are switched on as well.
+@lilypond[verbatim,line-width=11.0\cm]
+\header { tagline = ##f }
+\book {
+  \label #'firstScore
+  \score {
+    {
+      c'1
+      \pageBreak \mark A \label #'markA
+      c'
+    }
+  }
 
-For more information on output formats, see @rprogram{Invoking lilypond}.
+  \markup { The first score begins on page \page-ref #'firstScore "0" "?" }
+  \markup { Mark A is on page \page-ref #'markA "0" "?" }
+}
+@end lilypond
+
+The @code{\page-ref} markup command takes three arguments:
+@enumerate
+@item the label, a scheme symbol, eg. @code{#'firstScore};
+@item a markup that will be used as a gauge to estimate the dimensions
+of the markup;
+@item a markup that will be used in place of the page number if the label 
+is not known;
+@end enumerate
+
+The reason why a gauge is needed is that, at the time markups are
+interpreted, the page breaking has not yet occurred, so the page numbers
+are not yet known.  To work around this issue, the actual markup
+interpretation is delayed to a later time; however, the dimensions of
+the markup have to be known before, so a gauge is used to decide these
+dimensions.  If the book has between 10 and 99 pages, it may be "00",
+ie. a two digit number.
+
+@predefined
+
+@funindex \label
+@code{\label}
+@funindex \page-ref
+@code{\page-ref}
+
+@node Table of contents
+@subsection Table of contents
+A table of contents is included using the @code{\markuplines \table-of-contents}
+command.  The elements which should appear in the table of contents are
+entered with the @code{\tocItem} command, which may be used either at
+top-level, or inside a music expression.
+
+@verbatim
+\markuplines \table-of-contents
+\pageBreak
+
+\tocItem \markup "First score"
+\score { 
+  {
+    c'  % ...
+    \tocItem \markup "Some particular point in the first score"
+    d'  % ... 
+  }
+}
+
+\tocItem \markup "Second score"
+\score {
+  {
+    e' % ...
+  }
+}
+@end verbatim
+
+The markups which are used to format the table of contents are defined
+in the @code{\paper} block.  The default ones are @code{tocTitleMarkup},
+for formatting the title of the table, and @code{tocItemMarkup}, for
+formatting the toc elements, composed of the element title and page
+number.  These variables may be changed by the user:
+
+@verbatim
+\paper {
+  %% Translate the toc title into French:
+  tocTitleMarkup = \markup \huge \column {
+    \fill-line { \null "Table des matières" \null }
+    \hspace #1
+  }
+  %% use larger font size
+  tocItemMarkup = \markup \large \fill-line {
+    \fromproperty #'toc:text \fromproperty #'toc:page
+  }
+}
+@end verbatim
+
+Note how the toc element text and page number are referred to in
+the @code{tocItemMarkup} definition.
+
+New commands and markups may also be defined to build more elaborated
+table of contents:
+@itemize
+@item first, define a new markup variable in the @code{\paper} block
+@item then, define a music function which aims at adding a toc element
+using this markup paper variable.
+@end itemize
+
+In the following example, a new style is defined for entering act names
+in the table of contents of an opera:
+
+@verbatim
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct = 
+#(define-music-function (parser location text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+@end verbatim
+
+@lilypond[line-width=11.0\cm]
+\header { tagline = ##f }
+\paper {
+  tocActMarkup = \markup \large \column {
+    \hspace #1
+    \fill-line { \null \italic \fromproperty #'toc:text \null }
+    \hspace #1
+  }
+}
+
+tocAct = 
+#(define-music-function (parser location text) (markup?)
+   (add-toc-item! 'tocActMarkup text))
+
+\book {
+  \markuplines \table-of-contents
+  \tocAct \markup { Atto Primo }
+  \tocItem \markup { Coro. Viva il nostro Alcide }
+  \tocItem \markup { Cesare. Presti omai l'Egizzia terra }
+  \tocAct \markup { Atto Secondo }
+  \tocItem \markup { Sinfonia }
+  \tocItem \markup { Cleopatra. V'adoro, pupille, saette d'Amore }
+  \markup \null
+}
+@end lilypond
+
+@seealso
+
+Init files: @file{ly/@/toc@/-init@/.ly}.
+
+@predefined
+
+@funindex \table-of-contents
+@code{\table-of-contents}
+@funindex \tocItem
+@code{\tocItem}
+
+
+@node Working with input files
+@section Working with input files
+
+@menu
+* Including LilyPond files::    
+* Different editions from one source::  
+* Text encoding::               
+* Displaying LilyPond notation::  
+@end menu
 
 
 @node Including LilyPond files
@@ -376,58 +865,6 @@ directory, use
 
 @example
 \include "../stuff.ly"
-@end example
-
-
-@node Text encoding
-@subsection Text encoding
-
-LilyPond uses the Pango library to format multi-lingual texts, and
-does not perform any input-encoding conversions.  This means that any
-text, be it title, lyric text, or musical instruction containing
-non-ASCII characters, must be utf-8.  The easiest way to enter such text is
-by using a Unicode-aware editor and saving the file with utf-8 encoding.  Most
-popular modern editors have utf-8 support, for example, vim, Emacs,
-jEdit, and GEdit do.
-
-@c  Currently not working
-@ignore
-Depending on the fonts installed, the following fragment shows Hebrew
-and Cyrillic lyrics,
-
-@cindex Cyrillic
-@cindex Hebrew
-@cindex ASCII, non
-
-@li lypondfile[fontload]{utf-8.ly}
-
-The @TeX{} backend does not handle encoding specially at all.  Strings
-in the input are put in the output as-is.  Extents of text items in the
-@TeX{} backend, are determined by reading a file created via the
-@file{texstr} backend,
-
-@example
-lilypond -dbackend=texstr input/les-nereides.ly
-latex les-nereides.texstr
-@end example
-
-The last command produces @file{les-nereides.textmetrics}, which is
-read when you execute
-
-@example
-lilypond -dbackend=tex input/les-nereides.ly
-@end example
-
-Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
-suitable LaTeX wrappers to load appropriate La@TeX{} packages for
-interpreting non-ASCII strings.
-
-@end ignore
-
-To use a Unicode escape sequence, use
-
-@example
-#(ly:export (ly:wide-char->utf-8 #x2014))
 @end example
 
 
@@ -502,78 +939,57 @@ Multiple rests are not merged if you create the score with both tagged
 sections.
 
 
-@node Common syntax issues TODO name?
-@section Common syntax issues TODO name?
+@node Text encoding
+@subsection Text encoding
 
-@menu
-* Controlling direction and placement::  
-* Distances and measurements MAYBE MOVE::  
-* When to add a -::             
-@end menu
+LilyPond uses the Pango library to format multi-lingual texts, and
+does not perform any input-encoding conversions.  This means that any
+text, be it title, lyric text, or musical instruction containing
+non-ASCII characters, must be utf-8.  The easiest way to enter such text is
+by using a Unicode-aware editor and saving the file with utf-8 encoding.  Most
+popular modern editors have utf-8 support, for example, vim, Emacs,
+jEdit, and GEdit do.
 
-@node Controlling direction and placement
-@subsection Controlling direction and placement
+@c  Currently not working
+@ignore
+Depending on the fonts installed, the following fragment shows Hebrew
+and Cyrillic lyrics,
 
-TODO: everything
+@cindex Cyrillic
+@cindex Hebrew
+@cindex ASCII, non
 
-By default, LilyPond does a pretty jazz'n job of picking
-directions.  But in some cases, it may be desirable to force a
-direction.
+@li lypondfile[fontload]{utf-8.ly}
 
-@verbatim
--
-^ _
-@end verbatim
+The @TeX{} backend does not handle encoding specially at all.  Strings
+in the input are put in the output as-is.  Extents of text items in the
+@TeX{} backend, are determined by reading a file created via the
+@file{texstr} backend,
 
-Also cover
-#UP
-#DOWN
-#LEFT
-#RIGHT.
+@example
+lilypond -dbackend=texstr input/les-nereides.ly
+latex les-nereides.texstr
+@end example
 
-Maybe rename section to "directions".
+The last command produces @file{les-nereides.textmetrics}, which is
+read when you execute
 
-Also mention \override Foo #'direction = #'DOWN.
+@example
+lilypond -dbackend=tex input/les-nereides.ly
+@end example
 
-also mention the typical \fooDown, \fooNeutral predefined commands.
+Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
+suitable LaTeX wrappers to load appropriate La@TeX{} packages for
+interpreting non-ASCII strings.
 
-also mention that some directions are (without other tweaking)
-always up or always down (like dynamics or fermata), while other
-things can alternate between up or down based on the stem direction
-(like slurs or accents).
+@end ignore
 
+To use a Unicode escape sequence, use
 
-@node Distances and measurements MAYBE MOVE
-@subsection Distances and measurements MAYBE MOVE
+@example
+#(ly:export (ly:wide-char->utf-8 #x2014))
+@end example
 
-DISCUSS after working on other sections.
-
-TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
-
-
-@node When to add a -
-@subsection When to add a -
-
-One of these works, the other doesn't.
-
-@verbatim
-\version "2.11.38"
-{ c'\mp\fermata\accent-\markup { "forcefully"} }
-% { c'\mp\fermata\accent\markup { "forcefully"} }
-@end verbatim
-
-
-@node Other stuffs TODO move?
-@section Other stuffs TODO move?
-
-
-@menu
-* Displaying LilyPond notation::  
-* Skipping corrected music::    
-* context list FIXME::          
-* another thing FIXME::         
-* Input modes FIXME::           
-@end menu
 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
@@ -603,6 +1019,50 @@ a file.
 lilypond file.ly >display.txt
 @end example
 
+
+
+@node Controlling output
+@section Controlling output
+
+@menu
+* Extracting fragments of notation::  
+* Skipping corrected music::    
+@end menu
+
+@node Extracting fragments of notation
+@subsection Extracting fragments of notation
+
+It is possible to quote small fragments of a large score directly from
+the output.  This can be compared to clipping a piece of a paper score
+with scissors.
+
+This is done by defining the measures that need to be cut out
+separately.  For example, including the following definition
+
+
+@verbatim
+\layout {
+  clip-regions
+  = #(list
+      (cons
+       (make-rhythmic-location 5 1 2)
+       (make-rhythmic-location 7 3 4)))
+}       
+@end verbatim
+
+@noindent
+will extract a fragment starting halfway the fifth measure, ending in
+the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
+in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
+
+More clip regions can be defined by adding more pairs of
+rhythmic-locations to the list. 
+
+In order to use this feature, LilyPond must be invoked with
+@code{-dclip-systems}.  The clips are output as EPS files, and are
+converted to PDF and PNG if these formats are switched on as well.
+
+For more information on output formats, see @rprogram{Invoking lilypond}.
 
 @node Skipping corrected music
 @subsection Skipping corrected music
@@ -647,197 +1107,5 @@ been warned.
 
 In polyphonic music, @code{Score.skipTypesetting} will affect all
 voices and staves, saving even more time.
-
-
-@node context list FIXME
-@subsection context list FIXME
-
->> > > - list of contexts: my *danger unmaintainable* 
->> > > alarm just went off.  I'm 
-
-I knew it would... And leaving out some of them is perfectly fine
-with me.
-I do think that a list like this, with the main contexts and a
-brief
-description of  what they do (perhaps also with a note about what
-default
-behavior is associated with each of them, but this may be
-unmanageable),
-should be there, and then we could simply list the remaining ones
-without
-further explanation and with links to the IR.
-
-
-The Master Of All Contexts
-==========================
-
-    * Score
-        This is the top level notation context. No other context
-can
-        contain a Score context. This context handles the
-        administration of time signatures. It also makes sure that
-        items such as clefs, time signatures, and key-signatures
-are
-        aligned across staves.
-        You cannot explicitly instantiate a Score context (since
-it is
-        not contained in any other context). It is instantiated
-        automatically when an output definition (a \score or
-\layout
-        block) is processed. 
-        (it should also be made clear somewhere what the
-difference is between
-        \score and \Score).
-
-Top-level contexts: Staff containers
-====================================
-    * StaffGroup
-        Groups staves while adding a bracket on the left side,
-        grouping the staves together. The bar lines of the
-contained
-        staves are connected vertically. StaffGroup only consists
-of a
-        collection of staves, with a bracket in front and spanning
-bar
-        lines.
-    * ChoirStaff
-        Identical to StaffGroup except that the contained staves
-are
-        not connected vertically.
-    * GrandStaff
-        A group of staves, with a brace on the left side, grouping
-the
-        staves together. The bar lines of the contained staves are
-        connected vertically.
-    * PianoStaff
-        Just like GrandStaff but with a forced distance between
-the
-        staves, so cross staff beaming and slurring can be used.
-    * DrumStaff
-        Handles typesetting for percussion. Can contain DrumVoice
-    * InnerStaffGroup
-    * InnerChoirStaff
-
-Staff-level contexts
-====================
-    * Staff
-        Handles clefs, bar lines, keys, accidentals. It can
-contain
-        Voice contexts.
-    * RhythmicStaff
-        Like Staff but for printing rhythms. Pitches are
-        ignored; the notes are printed on one line.
-    * TabStaff
-        Context for generating tablature. By default lays the
-music
-        expression out as a guitar tablature, printed on six
-lines.
-    * VaticanaStaff
-        Same as Staff, except that it is accommodated for
-        typesetting a piece in gregorian style. 
-    * MensuralStaff
-        Same as Staff, except that it is accommodated for
-        typesetting a piece in mensural style. 
-
-Voice-level (bottom) contexts
-=============================
-What is generated by default here?  The voice-level contexts
-initiate
-certain properties and start engravers. 
-
-    * Voice 
-        Corresponds to a voice on a staff. This context handles
-the
-        conversion of dynamic signs, stems, beams, super- and
-        subscripts, slurs, ties, and rests.
-        You have to instantiate this explicitly if you want to
-have
-        multiple voices on the same staff. 
-        Bottom context.
-    * VaticanaVoice
-        Same as Voice, except that it is accommodated for
-        typesetting a piece in gregorian style.  
-    * MensuralVoice
-        Same as Voice, except that it is accommodated for
-        typesetting a piece in mensural style. 
-    * Lyrics
-        Corresponds to a voice with lyrics. Handles the printing
-of a
-        single line of lyrics.
-        Bottom context.
-    * DrumVoice
-        A voice on a percussion staff.
-    * FiguredBass
-         
-    * ChordNames
-        Typesets chord names.  This context is a `bottom' context;
-it
-        cannot contain other contexts.
-
-------------------------------
-Then the following, which I don't know what to do with:
-
-    * TabVoice
-    * GregorianTranscriptionVoice
-    * GregorianTranscriptionStaff
-
-    * FretBoards
-        Engraves fretboards from chords. Not easy... Not
-documented.
-    * NoteNames
-
-    * CueVoice Not documented
-    * Global
-        Hard coded entry point for LilyPond. Cannot be tuned.
-    * Devnull
-        Silently discards all musical information given to this
-context.
-
-
-@node another thing FIXME
-@subsection another thing FIXME
-
-Another thing that is needed, is an overview of the various naming
-conventions: 
-
-    scheme functions: lowercase-with-hyphens (incl. one-word
-names)
-    scheme functions: ly:plus-scheme-style
-    music events, music classes and music properties:
-as-scheme-functions
-    Grob interfaces: scheme-style
-    backend properties: scheme-style (but X and Y!)
-    contexts (and MusicExpressions and grobs): Capitalized or
-CamelCase
-    context properties: lowercaseFollowedByCamelCase
-    engravers:
-Capitalized_followed_by_lowercase_and_with_underscores
-
-Which of these are conventions and which are rules?
-Which are rules of the underlying language, and which are
-LP-specific?
-
-
-@node Input modes FIXME
-@subsection Input modes FIXME
-
-\notemode
-
-\notemode turns the front end of LilyPond into note mode
-(which is the default parsing mode).
-It's certainly useful in certain situations, for example if you
-are in \lyricmode or \chordmode or ... and want to insert
-something that only can be done with \notemode syntax.
-
-See for example
-http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00418.html
-http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00218.html
-http://lists.gnu.org/archive/html/lilypond-user/2006-12/msg00236.html
-http://lists.gnu.org/archive/html/lilypond-user/2006-11/msg00061.html
-
-
-\chords
-\drums
-\fretmode ?
 
 

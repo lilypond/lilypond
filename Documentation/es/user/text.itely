@@ -106,7 +106,7 @@ dichos cálculos; para habilitarlo, utilice
 
 En este manual: @ref{Text markup}.
 
-Referencia del programa: @internalsref{TextScript}.
+Referencia del programa: @rinternals{TextScript}.
 
 
 @node Text and line spanners
@@ -233,9 +233,9 @@ y acabaría en el centro de las cabezas de las notas.
 
 @seealso
 
-Referencia del programa: @internalsref{TextSpanner},
-@internalsref{Glissando}, @internalsref{VoiceFollower},
-@internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
+Referencia del programa: @rinternals{TextSpanner},
+@rinternals{Glissando}, @rinternals{VoiceFollower},
+@rinternals{TrillSpanner}, @rinternals{line-spanner-interface}.
 
 Ejemplos: @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
 
@@ -288,7 +288,7 @@ Para imprimir una línea continua, use
 
 @seealso
 
-Referencia del programa: @internalsref{TextSpanner}.
+Referencia del programa: @rinternals{TextSpanner}.
 
 
 @node Text marks
@@ -432,7 +432,7 @@ podemos alterar este comportamiento para que se impriman sobre todos los pentagr
 
 @seealso
 
-Referencia del programa: @internalsref{RehearsalMark}.
+Referencia del programa: @rinternals{RehearsalMark}.
 
 
 @node New dynamic marks
@@ -506,7 +506,7 @@ c1_\markup { "\special {weird} #characters" }
 Consulte @ref{Text markup commands}, para ver una lista de todas las
 instrucciones.
 
-@code{\markup} se usa principalmente para indicaciones del tipo @internalsref{TextScript},
+@code{\markup} se usa principalmente para indicaciones del tipo @rinternals{TextScript},
 pero también se pueden usar en cualquier lugar donde se requiere texto en lilypond
 
 @lilypond[quote,verbatim]
@@ -601,7 +601,7 @@ allegro = \markup @{ \bold \large @{ Allegro @} @}
 
 Ciertos objetos tienen procedimientos de alineación propios, que cancelan
 cualquier efecto de las alineaciones aplicadas a sus argumentos de marcado en su conjunto.
-Por ejemplo la @internalsref{RehearsalMark} se centra
+Por ejemplo la @rinternals{RehearsalMark} se centra
 horizontalmente, por lo que usar @code{\mark \markup @{ \left-align .. @}} no tiene
 ningún efecto.
 
@@ -629,7 +629,7 @@ para ver más detalles.
 
 En el presente manual: @ref{Text markup commands}.
 
-Referencia del programa: @internalsref{TextScript}.
+Referencia del programa: @rinternals{TextScript}.
 
 Archivos de inicio: @file{scm/@/new@/-markup@/.scm}.
 

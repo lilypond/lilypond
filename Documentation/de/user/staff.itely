@@ -48,7 +48,7 @@ können auf vier unterschiedliche Arten verbunden werden:
 @itemize @bullet
 @item Die Gruppe wird mit einer Klammer an der linken Seite geöffnet und 
 die Taktlinien sind verbunden. Das ist der Klaviersystem 
-(@internalsref{GrandStaff})-Kontext.
+(@rinternals{GrandStaff})-Kontext.
 
 @lilypond[verbatim,ragged-right,quote]
 \new GrandStaff
@@ -60,7 +60,7 @@ die Taktlinien sind verbunden. Das ist der Klaviersystem
 
 @item Die Gruppe beginnt mit einer Klammer und die Taktlinien sind verbunden. 
 Dieses Verhalten erzeugt der Stimmgruppen 
-(@internalsref{StaffGroup})-Kontext.
+(@rinternals{StaffGroup})-Kontext.
 
 @lilypond[verbatim,ragged-right,quote]
 \new StaffGroup
@@ -72,7 +72,7 @@ Dieses Verhalten erzeugt der Stimmgruppen
 
 @item Die Gruppe beginnt mit einer Klammer, aber die Taktlinien sind nicht 
 miteinander verbunden. Das wird mit dem Chorsystem 
-(@internalsref{ChoirStaff})-Kontext erreicht.
+(@rinternals{ChoirStaff})-Kontext erreicht.
 
 @lilypond[verbatim,ragged-right,quote]
 \new ChoirStaff
@@ -97,8 +97,8 @@ verbunden. Das ist die Standardeinstellung für eine Partitur.
 @seealso
 
 Die Definition der Taktlinien am Beginn jedes Systems werden mit 
-den Befehlen @internalsref{SystemStartBar}, @internalsref{SystemStartBrace} 
-und @internalsref{SystemStartBracket} festgelegt. Nur einer dieser 
+den Befehlen @rinternals{SystemStartBar}, @rinternals{SystemStartBrace} 
+und @rinternals{SystemStartBracket} festgelegt. Nur einer dieser 
 drei Typen wird in jedem Kontext erstellt, und dieser Typ wird durch 
 die @code{systemStartDelimiter}-Eigenschaft bestimmt.
 
@@ -165,7 +165,7 @@ benutzen, um Ossia-Abschnitte zu notieren. Siehe das Beispiel:
 
 @seealso
 
-Programmreferenz: @internalsref{StaffSymbol}.
+Programmreferenz: @rinternals{StaffSymbol}.
 
 Beispiele: @lsrdir{staff}
 

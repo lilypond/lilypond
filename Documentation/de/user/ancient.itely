@@ -130,7 +130,7 @@ Hier sind alle Unterkapitel auf einen Blick:
 
 Für die Notation Alter Musik kann ein Notenkopfstil ausgewählt werden, der sich 
 vom Standard (@code{default}) unterscheidet. Dies wird erreicht, indem die 
-@code{style}-Eigenschaft der Notenkopf-(@internalsref{NoteHead})-Objekte auf  
+@code{style}-Eigenschaft der Notenkopf-(@rinternals{NoteHead})-Objekte auf  
 einen der Werte @code{baroque}, @code{neomensural}, @code{mensural} oder 
 @code{petrucci} gesetzt wird. Der barocke (@code{baroque}) Stil unterscheidet 
 sich vom Standard (@code{default}) nur in sofern, als eine viereckige Form für 
@@ -153,11 +153,11 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 Für die Notation des Gregorianischen Chorals werden vom 
-@internalsref{Gregorian_ligature_engraver} automatisch die richtigen Notenköpfe 
+@rinternals{Gregorian_ligature_engraver} automatisch die richtigen Notenköpfe 
 ausgewählt, so dass man den Stil nicht manuell setzen muss. Trotzdem kann 
 der Stil manuell verändert werden, z. B. auf den Wert 
 @code{vaticana_punctum}, um Punktum-Neumen zu produzieren. Gleichfalls erstellt 
-der @internalsref{Mensural_ligature_engraver} automatisch Ligaturen der 
+der @rinternals{Mensural_ligature_engraver} automatisch Ligaturen der 
 Mensuralnotation. Siehe @ref{Ligatures} zu einer Übersicht über die Funktion 
 und Notation von Ligaturen.
 
@@ -174,8 +174,8 @@ Notenkopfstile zur Verfügung.
 
 
 Mit der @code{glyph-name-alist}-Eigenschaft der
-Versetzungszeichen-(@internalsref{Accidental})- und
-Vorzeichen-(@internalsref{KeySignature})-Eigenschaften können Vorzeichen 
+Versetzungszeichen-(@rinternals{Accidental})- und
+Vorzeichen-(@rinternals{KeySignature})-Eigenschaften können Vorzeichen 
 und Versetzungszeichen für die Alte Musik ausgewählt werden.
 
 @lilypond[quote,ragged-right,staffsize=26]
@@ -225,7 +225,7 @@ demonstriert wird.
 
 Ähnlich wie Versetzungszeichen können auch die Vorzeichen für die Angabe der 
 Tonart verändert werden, indem die @code{glyph-name-alist}-Eigenschaft 
-des @internalsref{KeySignature}-Objektes gesetzt wird.
+des @rinternals{KeySignature}-Objektes gesetzt wird.
 
 @seealso
 
@@ -234,7 +234,7 @@ In diesem Handbuch: @ref{Pitches}, @ref{Cautionary accidentals} und
 von Versetzungszeichen. Der Abschnitt @ref{Key signature} zeigt die allgemeine 
 Benutzung von Vorzeichen.
 
-Programmreferenz: @internalsref{KeySignature}.
+Programmreferenz: @rinternals{KeySignature}.
 
 Beispiele: @lsrdir{ancient}.
 
@@ -245,7 +245,7 @@ Beispiele: @lsrdir{ancient}.
 
 Besondere Pausensymbole für die Notation der Alten Musik können mit der 
 @code{style}-Eigenschaft des graphischen Objektes (grob) @qq{Pause}
-(@internalsref{Rest}) angewählt werden. Unterstützte Stile sind 
+(@rinternals{Rest}) angewählt werden. Unterstützte Stile sind 
 klassisch (@code{classical}), @code{neomensural} und @code{mensural}. 
 Der klassische (@code{classical}) Stil unterscheidet sich vom Standardstil 
 (@code{default}) nur darin, dass die Viertelpause wie eine gespiegelte 
@@ -523,7 +523,7 @@ Der mensurale G-Schlüssel ist als Petrucci-G-Schlüssel deklariert.
 @cindex Fähnchen, Alte Musik
 
 Mit der Fähnchen-(@code{flag-style})-Eigenschaft der graphischen Objekte 
-@qq{Hals} (@internalsref{Stem}) können auch Fähnchen passend zu den Notenköpfen 
+@qq{Hals} (@rinternals{Stem}) können auch Fähnchen passend zu den Notenköpfen 
 der Alten Musik gesetzt werden. Neben dem Standardstil (@code{default}) ist 
 auch ein mensuraler Stil (@code{mensural}) unterstützt.
 
@@ -612,7 +612,7 @@ Symbole sind starr verknüpft mit bestimmten Brüchen. Darum müssen die Werte
 }
 @end lilypond
 
-Mit der @code{style}-Eigenschaft des Objektes @internalsref{TimeSignature} 
+Mit der @code{style}-Eigenschaft des Objektes @rinternals{TimeSignature} 
 können die Taktarten angewählt werden. Unterstützte Stile sind:
 @code{neomensural} und @code{mensural}. In der Tabelle oben wurde der 
 neomensurale Stil verwendet. Dieser Stil ist geeignet, um im Incipt von 
@@ -722,8 +722,8 @@ Notationsformen, etwa modernen Editionen des Gregorianischen Chorals wie die
 @emph{editio vaticana}. LilyPond stellt unterschiedliche Custos-Symbole für 
 die unterschiedlichen Notationsstile zur Verfügung.
 
-Damit Custodes angezeigt werden, muss ein @internalsref{Custos_engraver} 
-im @internalsref{Staff}-Kontext gefordert werden. Der Aufruf folgt im Rahmen 
+Damit Custodes angezeigt werden, muss ein @rinternals{Custos_engraver} 
+im @rinternals{Staff}-Kontext gefordert werden. Der Aufruf folgt im Rahmen 
 des Layout-Kontextes, wie das folgende Beispiel zeigt.
 
 @example
@@ -779,7 +779,7 @@ und @code{mensural}. Sie werden im folgenden Fragment demonstriert.
 
 @seealso
 
-Programmreferenz: @internalsref{Custos}.
+Programmreferenz: @rinternals{Custos}.
 
 Examples:
 @lsr{ancient,custodes@/.ly}.
@@ -831,7 +831,7 @@ sich in der Datei @file{gregorian@/-init@/.ly} auch eine Definition für
 
 In diesem Handbuch: @ref{Breath marks}.
 
-Programmreferenz: @internalsref{BreathingSign}.
+Programmreferenz: @rinternals{BreathingSign}.
 
 Beispiele: @lsr{expressive,breathing-sign.ly}.
 
@@ -851,7 +851,7 @@ notieren.
 Ligaturen werden eingegeben, indem die dazugehörigen Noten zwischen
 @code{\[} und @code{\]} eingeschlossen werden. Einige Ligaturstile benötigen 
 zusätzliche Syntax für eine bestimmte Ligatur. In der Standardeinstellung
-setzt der @internalsref{LigatureBracket} ganz einfach eckige Klammern über 
+setzt der @rinternals{LigatureBracket} ganz einfach eckige Klammern über 
 die Noten der Ligatur.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -902,9 +902,9 @@ mit der selben Wirkung zur Verfügung stellt und stabil zu sein scheint.
 Begrenzte Unterstützung für Ligaturen der weißen Mensuralnotation.
 
 Um weiße Mensuralligaturen zu benutzen, muss innerhalb des Layout-Blocks 
-im @internalsref{Voice}-Kontext der @internalsref{Mensural_ligature_engraver}
+im @rinternals{Voice}-Kontext der @rinternals{Mensural_ligature_engraver}
 aktiviert werden und gleichzeitig der 
-@internalsref{Ligature_bracket_engraver} (der die Klammern über den Noten 
+@rinternals{Ligature_bracket_engraver} (der die Klammern über den Noten 
 setzt) entfernt werden, wie im Beispiel.
 
 @example
@@ -961,8 +961,8 @@ Eine Datei kann zum Beispiel so aussehen:
 }
 @end lilypond
 
-Wenn der @internalsref{Ligature_bracket_engraver} nicht durch den
-@internalsref{Mensural_ligature_engraver} ersetzt wird, werden die Noten 
+Wenn der @rinternals{Ligature_bracket_engraver} nicht durch den
+@rinternals{Mensural_ligature_engraver} ersetzt wird, werden die Noten 
 wie folgt ausgegeben:
 
 @lilypond[quote,ragged-right]
@@ -2035,8 +2035,8 @@ ais bis
 
 @seealso
 
-Programmreferenz: @internalsref{Accidental_engraver}-Setzer und das
-@internalsref{AccidentalSuggestion}-Objekt.
+Programmreferenz: @rinternals{Accidental_engraver}-Setzer und das
+@rinternals{AccidentalSuggestion}-Objekt.
 
 @node Figured bass
 @unnumberedsubsubsec Figured bass
@@ -2064,8 +2064,8 @@ LilyPond stellt Unterstützung für Generalbassnotation zur Verfügung.
 Die Unterstützung besteht aus zwei Teilen: Es gibt einen Eingabe-Modus,
 aktiviert durch den Befehl @code{\figuremode}, in dem Ziffern für den Bass 
 als Nummern eingegeben werden können, und einen Kontext
- @internalsref{FiguredBass}, der dafür sorgt, dass die entsprechenden 
- @internalsref{BassFigure}-Objekte auch erstellt werden.
+ @rinternals{FiguredBass}, der dafür sorgt, dass die entsprechenden 
+ @rinternals{BassFigure}-Objekte auch erstellt werden.
 
 Im Eingabemodus wird eine Gruppe von Bassziffern mit den Zeichen
 @code{<} and @code{>} begrenzt. Die Dauer wird nach dem @code{>}-Zeichen 
@@ -2175,7 +2175,7 @@ abhängig von den @code{figuredBassAlterationDirection}- und
 Auch wenn die Unterstützung für bezifferten Bass anscheinend an die 
 Akkord-Notation erinnert, ist sie doch sehr viel einfacher. Der Modus 
 @code{\figuremode} speichert einfach die Ziffern und  der
-@internalsref{FiguredBass}-Kontext gibt sie so aus, wie sie notiert 
+@rinternals{FiguredBass}-Kontext gibt sie so aus, wie sie notiert 
 werden. Es gibt also keine Umrechnung von Tonhöhen und die Notation 
 wird in der MIDI-Datei nicht umgesetzt.
 
@@ -2232,11 +2232,11 @@ im @code{BassFigureAlignment} benutzt werden.
 
 @seealso
 
-Programmreferenz: @internalsref{NewBassFigure}-,
-@internalsref{BassFigureAlignment}-, @internalsref{BassFigureLine}-,
-@internalsref{BassFigureBracket}- und
-@internalsref{BassFigureContinuation}-Objekte und der
-@internalsref{FiguredBass}-Kontext.
+Programmreferenz: @rinternals{NewBassFigure}-,
+@rinternals{BassFigureAlignment}-, @rinternals{BassFigureLine}-,
+@rinternals{BassFigureBracket}- und
+@rinternals{BassFigureContinuation}-Objekte und der
+@rinternals{FiguredBass}-Kontext.
 
 
 
