@@ -132,10 +132,13 @@ Ottava_bracket::print (SCM smob)
   Drul_array<Real> flare = robust_scm2interval (me->get_property ("bracket-flare"),
 						Interval (0, 0));
 
-  edge_height[LEFT] = 0.0;
-  edge_height[RIGHT] *= -get_grob_direction (me);
-  if (broken[RIGHT])
-    edge_height[RIGHT] = 0.0;
+  do
+    {
+      edge_height[d] *= -get_grob_direction (me);
+      if (broken[d])
+	edge_height[d] = 0.0;
+    }
+  while (flip(&d) != LEFT);
 
   Stencil b;
   Interval empty;
