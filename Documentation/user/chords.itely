@@ -29,6 +29,9 @@ be displayed.  In addition, figured bass notation can be displayed.
 
 @cindex chord chords
 
+Chord mode is used to enter chords using an indicator of the chord
+structure, rather than the chord pitches.
+
 @menu
 * Chord mode overview::         
 * Common chords::               
@@ -80,11 +83,16 @@ Snippets:
 @cindex modifiers, in chords.
 @cindex chord quality
 
-Major triads are entered by including the root and a duration:
+Major triads are entered by including the root and an
+optional duration:
 
 @lilypond[verbatim,quote,relative=1,ragged-right]
 \chordmode { c2 f4. g8 }
 @end lilypond
+
+@noindent
+If no duration is entered, the duration of the previous
+note (or chord) will be used.
 
 Minor, augmented, and diminished triads are entered by placing
 @code{:} and a quality modifier string after the duration:
@@ -98,7 +106,10 @@ of the modifier string (for the dominant seventh chord) or after the
 quality modifier (for the other named seventh chords).
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-\chordmode { c1:7 c:m7 c:maj7 c:dim c:dim7 c:aug7 c:maj }
+\chordmode {
+c1 |  c:7 | c:m7 | c:maj7 |
+c:dim | c:dim7 | c:aug7 | c:maj |
+}
 @end lilypond
 
 @funindex aug
@@ -152,7 +163,11 @@ extent is not a third (e.g., 6), thirds are added up to the highest
 third below the extent, and then the step of the extent is added.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-\chordmode { c1:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 }
+\chordmode {
+c4:2 c:3 c:4 c:5
+c:6 c:7 c:8 c:9
+c:10 c:11 c:12 c:13
+}
 @end lilypond
 
 Since an unaltered 11 does not sound good when combined with an
@@ -163,6 +178,9 @@ is added explicitly).
 \chordmode { c1:13 c:13.11 c:m13 }
 @end lilypond
 
+The largest possible value for the extent is 13.  Any larger value
+is interpreted as 13.
+
 @cindex additions, in chords
 
 Individual steps can be added to a chord.  Additions follow the
@@ -170,6 +188,12 @@ extent and are prefixed by a dot (@code{.}).
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode { c1:5.6 c:3.7.8 c:3.6.13 }
+@end lilypond
+
+Added steps can be as high as desired.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\chordmode { c4:5.15 c:5.20 c:5.25 c:5.30 }
 @end lilypond
 
 @cindex chord steps, altering
@@ -246,14 +270,15 @@ interpreted last.
 @end lilypond
 
 Only one step can be removed from a chord.  If a chord with multiple
-removed steps is desired, it must be build through addition of
+removed steps is desired, it must be built through addition of
 multiple steps.
 
 
 @node Displaying chords
 @subsection Displaying chords
 
-
+Chords can be displayed by name, in addition to the standard display
+as notes on a staff.
 
 @menu
 * Printing chord names::        
@@ -265,67 +290,57 @@ multiple steps.
 @cindex printing chord names
 @cindex chord names
 @cindex chords
-@ignore
 
-LilyPond has support for printing chord names.  Because chords are
-music elements, they can be transposed, and the chord names will be
-transposed along with the chords.
+LilyPond has support for printing chord names.  Chord names are
+printed in a special context, called @rinternals{ChordNames}.
 
-Chords can be entered using @code{< .. >} or through the use of
-chord mode.  The displayed chord name will sometimes be different
-depending upon the entry mode:
-
-@lilypond[quote,ragged-right,verbatim,ragged-right]
-twoWays = \transpose c c' {
-  \chordmode {
-    c1 f:sus4 bes/f
-  }
-  <c e g>
-  <f bes c'>
-  <f bes d'>
-}
-
-<< \new ChordNames \twoWays
-   \new Voice \twoWays >>
+@lilypond[verbatim,quote,relative=1,ragged-right]
+\new ChordNames \chordmode { c2 f4. g8 }
 @end lilypond
 
-This example also shows that the chord printing routines cannot
-correctly identify the root of a chord if it has been entered using
-@code{< .. >} instead of named chord entry.  Therefore, the sixth
-chord (@code{f bes d}) is not interpreted as an inversion.   In
-contrast, the third chord, which contains the same notes as the sixth
-chord, is correctly identified because it was entered in the named
-chord mode.
+To display both chord names and the notes of chords, use the
+technique in @ref{Writing music in parallel}.
 
-For displaying printed chord names, use the @rinternals{ChordNames}
-context.
-
-@lilypond[quote,verbatim,ragged-right]
-harmonies = {
-  \chordmode {a1 b c} <d' f' a'> <e' g' b'>
-}
+@lilypond[verbatim,quote,ragged-right]
+myChords = \chordmode { c2 f4. g8 }
 <<
-  \new ChordNames \harmonies
-  \new Staff \harmonies
+\new ChordNames \myChords
+\myChords
 >>
 @end lilypond
 
-The previous examples all show chords over a staff.  This is not
-necessary.  Chords may also be printed separately.  It may be necessary
-to add @rinternals{Volta_engraver} and @rinternals{Bar_engraver}
-for showing repeats.
+Chords can be entered as simultaneous notes or through the use of
+chord mode.  The displayed chord name will be the same, regardless
+of the mode of entry:
+
+@lilypond[quote,ragged-right,verbatim]
+twoWays = \relative c' {
+  \chordmode { c2 f:sus4 }
+  { <c e g>  <f bes c> }
+}
+<<
+\new ChordNames \twoWays
+\new Voice \twoWays
+>>
+@end lilypond
+
+
+If repeats are used in the music, and the volta brackets are to be
+dispayed above the chord names, @code{voltaOnThisStaff} must be set
+to @code{##t}.  To add bar indications in the @code{ChordNames}
+context, add @rinternals{Bar_engraver}.
 
 @lilypond[ragged-right,verbatim]
 \new ChordNames \with {
   \override BarLine #'bar-size = #4
-  \consists Bar_engraver
-  \consists "Volta_engraver"
+  voltaOnThisStaff = ##t
+  \consists "Bar_engraver"
 }
 \chordmode { \repeat volta 2 {
   f1:maj7 f:7 bes:7
   c:maj7
 } \alternative {
-  es e
+  ees e
 }
 }
 @end lilypond
@@ -334,38 +349,35 @@ for showing repeats.
 @code{\chordmode} and create a @code{ChordNames} context, with the
 following result:
 
-@lilypond[verbatim,quote,ragged-right]
-\chords { c2 f4.:m g4.:maj7 gis8:dim7 }
+@lilypond[verbatim,quote,ragged-right, relative=1]
+\chords { c2 f4.:m g8:maj7 }
 @end lilypond
 
-@c @predefined
-
-@c @snippets
 
 @seealso
-@c Music Glossary:
-@c @rglos{}.
 
-@c Learning Manual:
-@c @rlearning{}.
+Music Glossary:
+@rglos{chord}.
 
-@c Notation Reference:
-@c @ruser{}.
 
-@c Application Usage:
-@c @rprogram{}.
+Notation Reference:
+@ref{Writing music in parallel}.
 
-@c Installed Files:
-@c @file{}.
 
-@c Snippets:
-@c @rlsr{}.
+Snippets:
+@c @rlsr{Chords}.
 
-@c Internals Reference:
-@c @rinternals{}.
+Internals Reference:
+@rinternals{ChordNames},
+@rinternals{Volta_engraver},
+@rinternals{Bar_engraver}.
 
-@c @knownissues
+@knownissues
 
+Chords containing inversions or altered bass notes are not named
+properly.
+
+@ignore
 
 @n ode Customizing chord names
 @u nnumberedsubsubsec Customizing chord names
@@ -391,6 +403,16 @@ variables @code{\germanChords}, @code{\semiGermanChords},
 The effect is demonstrated here:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
+
+@C TODO - this paragraph is moved here from an earlier section
+@c and needs to be corrected.
+This example also shows that the chord printing routines cannot
+correctly identify the root of a chord if it has been entered using
+@code{< .. >} instead of named chord entry.  Therefore, the sixth
+chord (@code{f bes d}) is not interpreted as an inversion.   In
+contrast, the third chord, which contains the same notes as the sixth
+chord, is correctly identified because it was entered in the named
+chord mode.
 
 If none of the default settings give the desired output, the chord
 name display can be tuned through the following properties.
