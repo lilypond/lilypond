@@ -161,6 +161,13 @@ check_meshing_chords (Grob *me,
   Real shift_amount = 1;
 
   bool touch = (ups[0] >= dps.back ());
+  /* As a special case, if the topmost part of the downstem chord is a second,
+     the top note of which is the same pitch as the lowest upstem note, they
+     shouldn't count as touching.
+  */
+  if (dps.back () == ups[0] && dps.size () > 1 && dps[dps.size() - 2] == ups[0] - 1)
+    touch = false;
+
   if (touch)
     shift_amount *= -1;
 

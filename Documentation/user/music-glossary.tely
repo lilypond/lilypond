@@ -179,6 +179,7 @@ Languages in this order.
 * bass::                        
 * beam::                        
 * beat::                        
+* beat repeat::                        
 * bind::                        
 * brace::                       
 * bracket::                     
@@ -312,6 +313,7 @@ Languages in this order.
 * major::                       
 * meantone temperament::        
 * measure::                     
+* measure repeat::                     
 * mediant::                     
 * melisma::                     
 * melisma line::                
@@ -351,6 +353,7 @@ Languages in this order.
 * part::                        
 * pause::                       
 * pennant::                     
+* percent repeat::                  
 * percussion::                  
 * perfect interval::            
 * phrase::                      
@@ -390,12 +393,14 @@ Languages in this order.
 * sextuplet::                   
 * shake::                       
 * sharp::                       
+* simile::                
 * simple meter::                
 * sixteenth note::              
 * sixteenth rest::              
 * sixth::                       
 * sixty-fourth note::           
 * sixty-fourth rest::           
+* slash repeat::                        
 * slur::                        
 * solmization::                 
 * sonata::                      
@@ -478,7 +483,7 @@ Languages in this order.
 @node a due
 @section a due
 
-ES: ?,
+ES: a dos,
 I: a due,
 F: à deux,
 D: ?,
@@ -1139,6 +1144,14 @@ indicated at the start of the music.
 \time 3/8
 \relative c'' { g8 d' c | b c a | g4. \bar "||"}
 @end lilypond
+
+
+@node beat repeat
+@section beat repeat
+
+@seealso
+
+@ref{percent repeat}.
 
 
 @node bind
@@ -4405,6 +4418,14 @@ by bar-lines.
 @ref{meter}.
 
 
+@node measure repeat
+@section measure repeat
+
+@seealso
+
+@ref{percent repeat}.
+
+
 @node mediant
 @section mediant
 
@@ -5366,6 +5387,39 @@ web.
 @ref{flag}.
 
 
+@node percent repeat
+@section percent repeat
+
+LilyPond-specific term to indicate the repetition of a musical expression on a
+single staff, as opposed to the more usual definition of repeat, which affects
+all parts.  The musical expression can be anything from a single note or note
+pattern to one or more measures.  There are other names for this symbol:
+
+@itemize
+
+@item simile mark
+@item slash mark, or slash repeat
+@item beat repeat
+@item measure (or multi-measure) repeat
+
+@end itemize
+
+@lilypond[fragment,line-width=13.0\cm]
+\time 4/4
+\relative c' {
+  \repeat percent 4 { c4_"Beat (or slash) repeat" }
+  \repeat percent 2 { c4 e g b_"Measure repeat" }
+  \repeat percent 2 { c,2 es | f4 fis g c_"Multi-measure repeat" | }
+}
+@end lilypond
+
+@seealso
+
+@ref{repeat},
+@uref{http://www.music.vt.edu/musicdictionary/textr/Repeat.html,University of
+Vermont Music Dictionary}.
+
+
 @node percussion
 @section percussion
 
@@ -6123,6 +6177,27 @@ FI: korotusmerkki.
 @ref{accidental}.
 
 
+@node simile
+@section simile
+
+ES: ?,
+I: simile,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[From It, @q{in the same manner}] Performance direction: the music thus marked
+is to be played in the same manner (i.e. with the same articulations, dynamics,
+etc.) as the music that precedes it.
+
+@seealso
+
+TODO: Where else could I refer the reader?
+
+
 @node simple meter
 @section simple meter
 
@@ -6238,6 +6313,14 @@ FI: seksti.
 @seealso
 
 @ref{note value}.
+
+
+@node slash repeat
+@section slash repeat
+
+@seealso
+
+@ref{percent repeat}.
 
 
 @node slur
@@ -7656,7 +7739,8 @@ the lilypond-user discussion list.
   @tab -
 @item @strong{FR} @tab quintuple croche
   @tab trente-deuxième de soupir  @tab -
-@item @strong{DE} @tab Hundertundachtundzwanzigstel  @tab Hundertundachtundzwanzigstel  @tab 128tel-Note
+@item @strong{DE} @tab Hundertundachtundzwanzigstel
+  @tab Hundertundachtundzwanzigstel  @tab 128tel-Note
 @item @strong{NL} @tab honderdachtentwintigste noot
   @tab honderdachtentwintigste rust
   @tab 128e noot
@@ -7677,17 +7761,21 @@ the lilypond-user discussion list.
 @headitem Lang. @tab Note name
   @tab Rest name
   @tab Abbr.
-@item @strong{US} @tab two-hundred-fifty-sixth  @tab 256th note
+@item @strong{US} @tab two-hundred-fifty-sixth note
+  @tab two-hundred-fifty-sixth rest
+  @tab 256th note
 @item @strong{UK} @tab demisemihemidemisemiquaver
   @tab demisemihemidemisemiquaver rest
   @tab -
-@item @strong{ES} @tab semigarrapatea  @tab silencio de semigarrapatea  @tab -
+@item @strong{ES} @tab semigarrapatea
+  @tab silencio de semigarrapatea  @tab -
 @item @strong{IT} @tab semifusa
   @tab pausa di semifusa
   @tab -
 @item @strong{FR} @tab sextuple croche
   @tab soixante-quatrième de soupir  @tab -
-@item @strong{DE} @tab Zweihundertundsechsundfünfzigstelnote  @tab Zweihundertundsechsundfünfzigstel  @tab 256tel-Note
+@item @strong{DE} @tab Zweihundertundsechsundfünfzigstelnote
+  @tab Zweihundertundsechsundfünfzigstel  @tab 256tel-Note
 @item @strong{NL} @tab tweehonderdzesenvijftigste noot
   @tab tweehonderdzesenvijftigste rust
   @tab 256e noot

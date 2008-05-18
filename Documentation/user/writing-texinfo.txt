@@ -126,6 +126,11 @@ commands.
 * In examples of syntax, use @var{musicexpr} for a music
   expression.
 
+* Don't use @rinternals{} in the main text.  If you're tempted to
+  do so, you're probably getting too close to "talking through the
+  code".  If you really want to refer to a context, use @code{} in
+  the main text and @rinternals{} in the @seealso.
+
 * Variables or numbers which consist of a single character
   (probably followed by a punctuation mark) should be tied
   properly, either to the previous or the next word.  Example:
