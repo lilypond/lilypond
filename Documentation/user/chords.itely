@@ -442,8 +442,6 @@ chord mode.
 If none of the default settings give the desired output, the chord
 name display can be tuned through the following properties.
 
-@ignore
-
 @table @code
 
 @funindex chordRootNamer
@@ -503,7 +501,8 @@ The second item is a markups that will follow the @code{chordRootNamer}
 output to create the chord name.  See @code{FIXME -- future ref to snippet}
 for information on creating this list.
 
-@funindex chordPrefixSpacer @item chordPrefixSpacer
+@funindex chordPrefixSpacer
+@item chordPrefixSpacer
 
 The @q{m} for minor chords is usually printed immediately to the
 right of the root of the chord.  By setting
@@ -511,7 +510,6 @@ right of the root of the chord.  By setting
 and @q{m}.  The spacer is not used when the root is altered.
 
 @end table
-@end ignore
 
 @predefined
 
@@ -804,6 +802,7 @@ Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
 following properties
 
 @table @code
+
 @funindex chordNameExceptions
 @item chordNameExceptions
 This is a list that contains the chords that have special formatting.
