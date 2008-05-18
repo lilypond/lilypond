@@ -47,7 +47,6 @@ structure, rather than the chord pitches.
 Chords can be entered as simultaneous music, as discussed in
 @ref{Chorded notes}.
 
-@c need to decide about @qq{FOO mode} or @emph{} or whatever.
 Chords can also be entered in @qq{chord mode}, which is an input
 mode that focuses on the structures of chords in traditional
 European music, rather than on specific pitches.  This is
@@ -87,28 +86,21 @@ Major triads are entered by including the root and an
 optional duration:
 
 @lilypond[verbatim,quote,relative=1,ragged-right]
-\chordmode { c2 f4. g8 }
+\chordmode { c2 f4 g }
 @end lilypond
-
-@noindent
-If no duration is entered, the duration of the previous
-note (or chord) will be used.
 
 Minor, augmented, and diminished triads are entered by placing
 @code{:} and a quality modifier string after the duration:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\chordmode { c2:m f4:aug g4:dim }
+\chordmode { c2:m f4:aug g:dim }
 @end lilypond
 
-Seventh chords are created by adding the number 7 at the beginning
-of the modifier string (for the dominant seventh chord) or after the
-quality modifier (for the other named seventh chords).
+Seventh chords may be created:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 \chordmode {
-c1 |  c:7 | c:m7 | c:maj7 |
-c:dim | c:dim7 | c:aug7 | c:maj |
+  c1:7 c:m7 c:maj7 c:dim7 c:aug7
 }
 @end lilypond
 
@@ -156,15 +148,17 @@ mode.  The modifier string can be used to extend a chord, add or
 remove chord steps, raise or lower chord steps, and add a bass note
 or create an inversion.
 
-The first number following the @code{:} is taken to be the extent of
-the chord.  The chord is constructed by sequentially adding thirds
-to the root until the specified number has been reached.  If the
-extent is not a third (e.g., 6), thirds are added up to the highest
-third below the extent, and then the step of the extent is added.
+The first number following the @code{:} is taken to be the extent
+of the chord.  The chord is constructed by sequentially adding
+thirds to the root until the specified number has been reached.
+If the extent is not a third (e.g., 6), thirds are added up to the
+highest third below the extent, and then the step of the extent is
+added.  The largest possible value for the extent is 13.  Any
+larger value is interpreted as 13.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 \chordmode {
-c4:2 c:3 c:4 c:5
+c:2 c:3 c:4 c:5
 c:6 c:7 c:8 c:9
 c:10 c:11 c:12 c:13
 }
@@ -177,9 +171,6 @@ is added explicitly).
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 \chordmode { c1:13 c:13.11 c:m13 }
 @end lilypond
-
-The largest possible value for the extent is 13.  Any larger value
-is interpreted as 13.
 
 @cindex additions, in chords
 
@@ -282,6 +273,8 @@ as notes on a staff.
 
 @menu
 * Printing chord names::        
+* Customizing chord names::     
+* Lead sheets::                 
 @end menu
 
 @node Printing chord names
@@ -377,10 +370,9 @@ Internals Reference:
 Chords containing inversions or altered bass notes are not named
 properly.
 
-@ignore
 
-@n ode Customizing chord names
-@u nnumberedsubsubsec Customizing chord names
+@node Customizing chord names
+@unnumberedsubsubsec Customizing chord names
 
 @cindex customizing chord names
 
@@ -404,7 +396,7 @@ The effect is demonstrated here:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
-@C TODO - this paragraph is moved here from an earlier section
+@c TODO - this paragraph is moved here from an earlier section
 @c and needs to be corrected.
 This example also shows that the chord printing routines cannot
 correctly identify the root of a chord if it has been entered using
@@ -417,16 +409,18 @@ chord mode.
 If none of the default settings give the desired output, the chord
 name display can be tuned through the following properties.
 
+@ignore
 @c TODO Generate snippet based on the following
 @c      and add explanation -td
 
-@table
-@item
 @funindex chordNameExceptions
 
-@code{chordNameExceptions} contains a list of markups used to follow
-the root note name based on the pitches in the chord.  Creating the
-list requires four steps.
+@table @code
+@item chordNameExceptions
+
+contains a list of markups used to follow the root note name based
+on the pitches in the chord.  Creating the list requires four
+steps.
 
 The first step is to define sequential music that has the chords to
 be named with the desired markup (except for the root name) attached
@@ -463,7 +457,7 @@ newly-created exceptions list:
 
 The entire process is illustrated below:
 
-@lilypond[quote,ragged-right,verbatim,ragged-right]
+@lilypond[quote,ragged-right,verbatim]
 FGGChordNames = {
   <c e g b d'>1-\markup { \super "maj9" }
   <c e g a d'>1-\markup { \super "6(add9)" }
@@ -491,16 +485,22 @@ g1:6.9
 @end lilypond
 
 
-@funindex majorSevenSymbol @item majorSevenSymbol This property
-contains the markup object used as part of the printed chord name to
-identify a major 7 chord.  Predefined options are
-@code{whiteTriangleMarkup} and @code{blackTriangleMarkup}.
+@funindex majorSevenSymbol
+
+@item majorSevenSymbol
+
+This property contains the markup object used as part of the
+printed chord name to identify a major 7 chord.  Predefined
+options are @code{whiteTriangleMarkup} and
+@code{blackTriangleMarkup}.
 
 @funindex chordNameSeparator
 @item chordNameSeparator
+
 Different parts of a chord name are normally separated by a slash.
-By setting @code{chordNameSeparator}, you can use any desired markup
-for a separator, e.g.,
+By setting @code{chordNameSeparator}, you can use any desired
+markup for a separator, e.g.,
+
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new ChordNames \chordmode {
   c:7sus4
@@ -512,29 +512,33 @@ for a separator, e.g.,
 
 @funindex chordRootNamer
 @item chordRootNamer
+
 The chord name is usually printed as a letter for the root with an
 optional alteration.  The transformation from pitch to letter is
-done by this function.  Special note names (for example, the German
-@q{H} for a B-chord) can be produced by storing a new function in
-this property.
+done by this function.  Special note names (for example, the
+German @q{H} for a B-chord) can be produced by storing a new
+function in this property.
 
-@funindex chordNoteNamer @item chordNoteNamer When the chord name
-contains an additional pitch besides the root (e.g., an added bass
-note), this function is used to print the additional pitch.  By
-default the pitch is printed using @code{chordRootNamer}.  The
-@code{chordNoteNamer} property can be set to a specialized function
-to change this behavior.  For example, the bass note can be printed
-in lower case.
+@funindex chordNoteNamer
+@item chordNoteNamer
+
+When the chord name contains an additional pitch besides the root
+(e.g., an added bass note), this function is used to print the
+additional pitch.  By default the pitch is printed using
+@code{chordRootNamer}.  The @code{chordNoteNamer} property can be
+set to a specialized function to change this behavior.  For
+example, the bass note can be printed in lower case.
 
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
+
 The @q{m} for minor chords is usually printed immediately to the
 right of the root of the chord.  By setting
-@code{chordPrefixSpacer}, you can fix a spacer between the root and
-@q{m}.  The spacer is not used when the root is altered.
+@code{chordPrefixSpacer}, you can fix a spacer between the root
+and @q{m}.  The spacer is not used when the root is altered.
 
 @end table
-
+@end ignore
 
 
 
@@ -543,6 +547,7 @@ right of the root of the chord.  By setting
 @cindex chords, jazz
 
 @predefined
+
 @funindex major seven symbols
 @code{\whiteTriangleMarkup}
 @code{\blackTriangleMarkup}
@@ -597,8 +602,8 @@ any added bass notes are not identified.  In this  case, chord names
 are determined solely from the list of pitches.  This may result in
 strange chord names
 
-@n ode Lead sheets
-@u nnumberedsubsubsec Lead sheets
+@node Lead sheets
+@unnumberedsubsubsec Lead sheets
 
 @cindex lead sheet
 
@@ -653,15 +658,12 @@ sheet:
 
 
 
-@end ignore
-
-
 @node old Modern chords
 @subsection old Modern chords
 
 @menu
 * Entering chord names::        
-* Lead sheets::                 
+* old Lead sheets::             
 * old Printing chord names::    
 @end menu
 
@@ -733,8 +735,8 @@ g1:6.9
 
 
 
-@node Lead sheets
-@subsubsection Lead sheets
+@node old Lead sheets
+@subsubsection old Lead sheets
 
 @cindex lead sheet
 
