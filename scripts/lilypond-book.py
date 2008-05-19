@@ -1931,8 +1931,11 @@ def main ():
                                       + ' --formats=%s -dbackend=eps ' % formats)
 
     if global_options.process_cmd:
+        includes = global_options.include_path
+        if global_options.lily_output_dir:
+            includes = [os.path.abspath(global_options.lily_output_dir] + includes
         global_options.process_cmd += ' '.join ([(' -I %s' % ly.mkarg (p))
-                                                 for p in global_options.include_path])
+                                                 for p in includes])
 
     if global_options.format in (TEXINFO, LATEX):
         ## prevent PDF from being switched on by default.
