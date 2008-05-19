@@ -239,10 +239,10 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex mensurstriche layout
@@ -250,7 +250,7 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 @cindex transcription of mensural music
 @cindex mensural music, transcription of
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 @c FIXME: move to NR 2.8.x when sectioning is ready
 
@@ -378,7 +378,7 @@ source code, for instructions how to set them see @ref{Instrument names}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {nesting-staves.ly}
 
 
@@ -547,7 +547,7 @@ b b
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
 @seealso
@@ -744,7 +744,7 @@ of which it is written.
 @end lilypond
 
 @c FIXME not yet in master
-@c lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 @c {remove-the-first-empy-line.ly}
 
 @predefined

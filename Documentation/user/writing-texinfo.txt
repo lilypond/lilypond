@@ -66,8 +66,9 @@ commands.
   {pitches-headword.ly}
 
 * LSR snippets are linked with
-  @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+  @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
   {filename.ly}
+  excepted in Templates, where `doctitle' may be omitted.
 
 * Avoid long stretches of input code.  Noone is going to read them
   in print.  Please create a smaller example.  (the smaller

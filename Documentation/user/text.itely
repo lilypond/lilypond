@@ -209,13 +209,13 @@ c c
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line-or-a-score.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {aligning-marks-with-various-notation-objects.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
 @seealso

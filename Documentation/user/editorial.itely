@@ -168,7 +168,7 @@ staff, see @ref{Controlling direction and placement}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
 
@@ -398,7 +398,7 @@ made invisible.
 @cindex stem, down
 @cindex stem, neutral
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @seealso
@@ -531,7 +531,7 @@ lines.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
 
