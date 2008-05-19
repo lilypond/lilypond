@@ -110,7 +110,7 @@ src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
 web-clean: snippets-clean $(tree-share-prefix)/lilypond-force
 
-default: $(config_h) build-dir-setup 
+default: $(config_h) build-dir-setup
 
 build-dir-setup: $(tree-share-prefix)/lilypond-force
 

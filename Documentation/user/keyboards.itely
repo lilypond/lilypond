@@ -86,7 +86,7 @@ as shown in @rlearning{Other uses for tweaks}.
 @end itemize
 
 @snippets
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 @c {creating-slurs-across-voices.ly}
 
 @seealso

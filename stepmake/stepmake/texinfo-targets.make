@@ -117,4 +117,11 @@ texinfo-all-menus-update:
 	-$(foreach i, $(TEXINFO_SOURCES), echo q | emacs --batch --no-site-file $(i) --eval $(TEXINFO_ALL_MENUS_UPDATE_EL); )
 	$(foreach i, $(sort $(TEXINFO_SOURCES)), if diff -u $(i)~ $(i); then mv $(i)~ $(i);  fi && ) true
 
+local-help: local-texinfo-help
+
+local-texinfo-help:
+	@echo -e "\
+  info [out=www]  update Info documentation (use \`out=www' for having images)\n\
+  install-info [out=www]   install Info documentation (idem)\n\
+  texinfo-all-menus-update update node menus in Texinfo source files (use with caution)\n"
 

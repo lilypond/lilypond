@@ -249,15 +249,15 @@ see @ref{Scaling durations}.
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {entering-several-tuplets-using-only-one--times-command.ly}
 
 @funindex TupletNumber
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-the-tuplet-number.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {permitting-line-breaks-within-beamed-tuplets.ly}
 
 @seealso
@@ -487,10 +487,10 @@ commands.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {using-ties-with-arpeggios.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {engraving-ties-manually.ly}
 
 
@@ -583,7 +583,7 @@ a4\rest d4\rest
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
 
 
@@ -817,13 +817,13 @@ alongside and to the left of the measure count numeral.
 @cindex rest, church
 @cindex kirchenpausen
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-form-of-multi--measure-rests.ly}
 
 @cindex multi-measure rests, positioning
 @cindex positioning multi-measure rests
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {positioning-multi--measure-rests.ly}
 
 @seealso
@@ -992,7 +992,7 @@ the 9/8 measure is subdivided in 2, 2, 2 and 3.  This is passed to
 @cindex compound time signatures
 @cindex time signature, compound
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {compound-time-signatures.ly}
 
 
