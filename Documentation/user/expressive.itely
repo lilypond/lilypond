@@ -35,6 +35,28 @@
 @cindex articulations
 @cindex scripts
 @cindex ornaments
+@cindex espressivo
+@cindex fermata
+@cindex upbow
+@cindex downbow
+@cindex foot marks
+@cindex organ pedal marks
+@cindex turn
+@cindex open
+@cindex stopped
+@cindex flageolet
+@cindex reverseturn
+@cindex trill
+@cindex prall
+@cindex mordent
+@cindex prallprall
+@cindex prallmordent
+@cindex prall, up
+@cindex prall, down
+@cindex thumb marking
+@cindex segno
+@cindex coda
+@cindex varcoda
 
 A variety of symbols that denote articulations, ornamentations,
 and other performance indications can be attached to a note using
@@ -79,33 +101,12 @@ in @file{scm/@/script@/.scm}.  Articulations and ornamentations
 may be manually placed above or below the staff, see
 @ref{Controlling direction and placement}.
 
-@cindex espressivo
-@cindex fermata
-@cindex upbow
-@cindex downbow
-@cindex foot marks
-@cindex organ pedal marks
-@cindex turn
-@cindex open
-@cindex stopped
-@cindex flageolet
-@cindex reverseturn
-@cindex trill
-@cindex prall
-@cindex mordent
-@cindex prallprall
-@cindex prallmordent
-@cindex prall, up
-@cindex prall, down
-@cindex thumb marking
-@cindex segno
-@cindex coda
-@cindex varcoda
-
 
 @snippets
 
-@c Once revised, add to LSR.
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {modifying-default-values-for-articulation-shorthand-notation.ly}
 
 The shorthands are defined in @file{ly/@/script@/-init@/.ly},
 where the variables @code{dashHat}, @code{dashPlus},
@@ -122,6 +123,10 @@ shorthand with the @notation{trill} symbol instead of the default
 dashPlus = "trill"
 \relative c'' { c-+ }
 @end lilypond
+
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {controlling-the-vertical-ordering-of-scripts.ly}
 
 The vertical ordering of scripts is controlled with the
 @code{script-priority} property.  The lower this number, the
@@ -284,21 +289,6 @@ e\> d c b\!
 c\< d e f\!
 @end lilypond
 
-The text used for @notation{crescendos} and
-@notation{decrescendos} can be changed by modifying the context
-properties @code{crescendoText} and @code{decrescendoText}.  The
-style of the spanner line can be changed by modifying the context
-properties @code{crescendoSpanner} and @code{decrescendoSpanner}.
-Available values for the spanner properties are @code{'hairpin},
-@code{'line}, @code{'dashed-line}, and @code{'dotted-line}.  If
-unset, a hairpin crescendo is used:
-
-@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
-\set crescendoText = \markup { \italic "cresc. poco" }
-\set crescendoSpanner = #'dotted-line
-a'2\< a a a a a a a\mf
-@end lilypond
-
 To create new absolute dynamic marks or text that should be
 aligned with dynamics, see @ref{New dynamic marks}.
 
@@ -318,15 +308,12 @@ Vertical positioning of dynamics is handled by
 
 @snippets
 
-@c Add LilyPond examples to these snippets. -pm
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{setting-hairpin-behavior-at-bar-lines.ly}
 
-@c A @notation{hairpin} normally starts at the left edge of the
-@c beginning note and ends on the right edge of the ending note.  If
-@c the ending note falls on the downbeat, the @notation{hairpin} ends
-@c on the immediately preceding bar line.  The following example
-@c illustrates this behavior:
-@c 
-@c TODO: Add link to new snippet for #'to-barline
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {setting-the-minimum-length-of-hairpins.ly}
 
 If hairpins are too short, they can be lengthened using the
 following method:
@@ -340,6 +327,10 @@ c4\< c\! d\> e\!
 @cindex al niente
 @cindex niente, al
 
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {printing-hairpins-using-al-niente-notation.ly}
+
 Hairpins may be printed with a circled tip (al niente notation):
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -347,6 +338,10 @@ Hairpins may be printed with a circled tip (al niente notation):
 c2\< c\!
 c4\> c\< c2\!
 @end lilypond
+
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {vertically-aligning-dynamics-across-multiple-notes.ly}
 
 Dynamics that occur at, begin on, or end on the same note will be
 vertically aligned.  If you want to ensure that dynamics are
@@ -357,6 +352,8 @@ the @code{staff-padding} property.
 \override DynamicLineSpanner #'staff-padding = #4
 @end example
 
+@c I can't figure this one out.  Consider removing this.  -pm
+
 @notation{Crescendi} and @notation{decrescendi} that cross a line
 break will be continued on the second line.  If they end on the
 first note of a new line, nothing will be printed on that line.
@@ -366,6 +363,10 @@ To change this behavior, use
 \override Score.Hairpin #'after-line-breaking = ##t
 @end example
 
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {hiding-the-extender-line-for-text-dynamics.ly}
+
 Text style dynamic changes (such as @notation{cresc.} and
 @notation{dim.}) are printed with a dashed line showing their
 extent.  To suppress printing this line, use
@@ -373,6 +374,25 @@ extent.  To suppress printing this line, use
 @example
 \override DynamicTextSpanner #'dash-period = #-1.0
 @end example
+
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {changing-text-and-spanner-styles-for-text-dynamics.ly}
+
+The text used for @notation{crescendos} and
+@notation{decrescendos} can be changed by modifying the context
+properties @code{crescendoText} and @code{decrescendoText}.  The
+style of the spanner line can be changed by modifying the context
+properties @code{crescendoSpanner} and @code{decrescendoSpanner}.
+Available values for the spanner properties are @code{'hairpin},
+@code{'line}, @code{'dashed-line}, and @code{'dotted-line}.  If
+unset, a hairpin crescendo is used:
+
+@lilypond[verbatim,quote,ragged-right,fragment,relative=1]
+\set crescendoText = \markup { \italic "cresc. poco" }
+\set crescendoSpanner = #'dotted-line
+a'2\< a a a a a a a\mf
+@end lilypond
 
 
 @seealso
@@ -495,6 +515,10 @@ a long slur over a few small slurs, see @ref{Phrasing slurs}.
 
 @snippets
 
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {using-double-slurs-for-legato-chords.ly}
+
 Some composers write two slurs when they want legato chords.  This
 can be achieved in LilyPond by setting @code{doubleSlurs},
 
@@ -583,6 +607,10 @@ c'4 \breathe d4
 
 @snippets
 
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {changing-the-breath-mark-symbol.ly}
+
 The glyph of the breath mark can be tuned by overriding the
 @code{text} property of the @code{BreathingSign} layout object
 with any markup text.  For example,
@@ -629,10 +657,12 @@ writing @notation{falls} and @notation{doits}.
 
 @snippets
 
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {adjusting-the-shape-of-falls-and-doits.ly}
+
 The @code{shortest-duration-space} property may have to be tweaked
 to adjust the shape of @notation{falls} and @notation{doits}.
-
-@c Fix this snippet. The tweak does not work. -pm
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \override Score.SpacingSpanner #'shortest-duration-space = #3.0
@@ -680,6 +710,10 @@ c2\glissando c,
 
 
 @snippets
+
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {suppressing-compiler-warnings-when-two-glissandos-intersect.ly}
 
 @lilypond[verbatim,quote,ragged-right]
 I = \once \override NoteColumn #'ignore-collision = ##t
@@ -755,6 +789,8 @@ reverts to the arrow-less version:
 }
 @end lilypond
 
+@notation{Arpeggios} can be explicitly written out using
+@notation{ties}.  For more information, see @ref{Ties}.
 
 @predefined
 
@@ -772,6 +808,10 @@ reverts to the arrow-less version:
 
 @snippets
 
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {creating-cross--staff-arpeggios-in-a-piano-staff.ly}
+
 In a @code{PianoStaff}, it is possible to let an arpeggio cross
 between the staves by setting the property
 @code{PianoStaff}.@code{connectArpeggios}.
@@ -783,6 +823,10 @@ between the staves by setting the property
   \new Staff { \clef bass <c,, e g>\arpeggio }
 >>
 @end lilypond
+
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {creating-cross--staff-arpeggios-in-other-contexts.ly}
 
 The same can be accomplished in contexts other than
 @code{PianoStaff} if the @code{Span_arpeggio_engraver} is included
@@ -811,6 +855,10 @@ in the Score context.
 }
 @end lilypond
 
+@c After next LSR update, this snippet can be used
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {creating-arpeggios-across-notes-in-different-voices.ly}
+
 Similarly, an arpeggio can be drawn across notes in different
 voices on the same staff if the @code{Span_arpeggio_engraver} is
 moved to the Staff context:
@@ -838,7 +886,7 @@ Music Glossary:
 @rglos{arpeggio}.
 
 Notation Reference:
-@ref{Ties}, for writing out arpeggios.
+@ref{Ties}.
 
 Snippets:
 @rlsr{Expressive marks}.

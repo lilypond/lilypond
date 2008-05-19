@@ -2287,7 +2287,7 @@ context handles a certain object.  Since the @code{MetronomeMark}
 object
 is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
-@ruser{Constructing a tweak}.
+@ruser{Modifying properties}.
 
 If the @code{padding} property of an object is increased when that
 object is in a stack of objects being positioned according to
