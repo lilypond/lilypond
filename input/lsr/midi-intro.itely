@@ -1,5 +1,7 @@
 @node MIDI
-@unnumbered MIDI
+@chapter MIDI
+
+@ruser{MIDI output}
 
 @lysnippets
 
