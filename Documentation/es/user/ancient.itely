@@ -864,13 +864,13 @@ correctamente con las ligaduras.
 Las alteraciones accidentales no se deben imprimir dentro de las ligaduras, sino que deben
 reunirse e imprimirse juntas delante de ellas.
 
-La sintaxis todavía utiliza el obsoleto estilo infijo @code{\[ música expresión
-\]}.  Por motivos de consistencia, esto cambiará algún día al estilo
-postfijo @code{nota\[ ... nota\]}.  De forma alternativa, puede incluirse el archivo
-@file{gregorian@/-init@/.ly}; proporciona una función de
-Scheme
+La sintaxis todavía utiliza el obsoleto estilo infijo
+@code{\[ expresión_musical \]}.  Por motivos de consistencia, esto cambiará
+algún día al estilo postfijo @code{nota\[ ... nota\]}.  De forma
+alternativa, puede incluirse el archivo @file{gregorian@/-init@/.ly};
+proporciona una función de Scheme
 @example
-\ligature @var{música expresión}
+\ligature @var{expresión_musical}
 @end example
 que causa el mismo efecto y se supone que es lo bastante estable.
 
