@@ -11,7 +11,6 @@
 
 #include "lily-proto.hh"
 #include "std-vector.hh"
-#include "dimension-cache-callback.hh"
 #include "lily-guile.hh"
 
 /*
