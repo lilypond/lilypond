@@ -33,41 +33,11 @@ entering repetitious music.
 
 @item percent
 These are beat or measure repeats.  They look like percent signs.
-Percent repeats must be declared within a @code{Voice} context.
 
 @item tremolo
 This is used to write tremolo beams.
 
 @end table
-
-@ignore
-LilyPond has one syntactic construct for specifying different
-types of repeats.  The syntax is
-
-@example
-\repeat @var{variant} @var{repeatcount} @var{musicexpr}
-@end example
-
-where @var{musicexpr} is a music expression.
-
-
-Alternative endings are entered with 
-@funindex \alternative
-@example
-\alternative @{
-  @var{alternative1}
-  @var{alternative2}
-  @var{alternative3}
-  @dots{}
-@}
-@end example
-
-@noindent
-after a @code{\repeat volta} or @code{unfold} block, where each
-@var{alternative} is a music expression.  If you give fewer
-alternatives than @var{repeatcount}, the first alternative is assumed
-to be played more than once.
-@end ignore
 
 
 @menu
@@ -344,8 +314,7 @@ represented by slashes or percent signs; and tremolos.
 Repeated short patterns of notes are supported.  The music is printed
 once, and the pattern is replaced with a special sign.  Patterns that
 are shorter than one measure are replaced by slashes, and patterns of
-one or two measures are replaced by percent-like signs.  Percent
-repeats must be declared within a @code{Voice} context.  The syntax is
+one or two measures are replaced by percent-like signs.  The syntax is
 
 @example
 @code{\repeat percent @var{number} @var{musicexpr}}
@@ -380,6 +349,18 @@ multi-measure rest with a different print function:
   = #ly:multi-measure-rest::percent
 R1
 @end lilypond
+
+
+@knownissues
+
+Only three kinds of percent repeats are supported: a single slash
+representing a single beat (regardless of the duration of the repeated
+notes); a single slash with dots representing one full measure; and
+two slashes with dots crossing a bar line representing two full
+measures.  Neither multiple slashes representing single beat repeats
+consisting of sixteenth or shorter notes, nor two slashes with dots
+representing single beat repeats consisting of notes of varying
+durations, are supported.
 
 
 @seealso
