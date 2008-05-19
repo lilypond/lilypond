@@ -10,8 +10,6 @@
 #define DIMENSION_CACHE_HH
 
 #include "lily-proto.hh"
-#include "std-vector.hh"
-#include "lily-guile.hh"
 
 /*
   XY offset/refpoint/extent structure.
