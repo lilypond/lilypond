@@ -3045,6 +3045,8 @@ def conv (str):
                   r"\\revert Hairpin #'to-barline", str)
     str = re.sub (r"hairpinToBarline\s*=\s*##([tf]+)",
                   r"\\override Hairpin #'to-barline = ##\1", str)
+    str = re.sub (r"\\set (de)?crescendoSpanner = #'dashed-line",
+                  r"\\set \1crescendoSpanner = #'text", str)
     return str
 
 conversions.append (((2, 11, 46), conv, """\\set hairpinToBarline -> \\override Hairpin #'to-barline"""))
