@@ -146,7 +146,7 @@ place les silences en fonction des notes qui les suivront. Ainsi :
 
 @seealso
 
-Dans ce même manuel : @ruser{Changing staff manually}.
+Dans ce même manuel : @ref{Changing staff manually}.
 
 Référence du programme : @rinternals{AutoChangeMusic}.
 
