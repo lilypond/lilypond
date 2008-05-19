@@ -1933,6 +1933,8 @@ def main ():
     if global_options.process_cmd:
         includes = global_options.include_path
         if global_options.lily_output_dir:
+            # This must be first, so lilypond prefers to read .ly
+            # files in the other lybookdb dir.
             includes = [os.path.abspath(global_options.lily_output_dir)] + includes
         global_options.process_cmd += ' '.join ([' -I %s' % ly.mkarg (p)
                                                  for p in includes])
