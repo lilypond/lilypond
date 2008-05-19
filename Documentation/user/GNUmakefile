@@ -38,6 +38,8 @@ LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
 include $(depth)/make/stepmake.make
 
+default:
+
 info: $(INFO_FILES)
 	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
 	@echo export PYTHONPATH=$(PYTHONPATH)
@@ -50,8 +52,6 @@ xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-inter
 local-install-WWW: local-install-info
 local-uninstall-WWW: local-uninstall-info
 
-default:
-
 local-clean:
 	rm -f $(INFO_IMAGES_DIR)
 
@@ -60,7 +60,6 @@ local-help: extra-local-help
 extra-local-help:
 	@echo -e "\
   info        update info pages\n\
-  ps          update PostScript documents\n\
   xml	      update Docbook xml documentation\n\
 "
 

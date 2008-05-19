@@ -91,3 +91,24 @@ update-translation:
 translation-status:
 	make -C po out=www messages
 	$(PYTHON) $(buildscript-dir)/translations-status.py $(buildscript-dir)
+
+local-help: extra-local-help
+
+extra-local-help:
+	@echo -e "\
+  check-xrefs [ISOLANG=LL] validate Texinfo cross-references\n\
+  fix-xrefs [ISOLANG=LL]   interactively fix Texinfo cross-references (use with caution)\n\
+\n\
+Translations specific targets (see TRANSLATION for details):\n\
+  new-lang ISOLANG=LL  create and initialize subdirectory \'LL' for language \'LL\n\
+  po-update            update and replace PO files for documentation with msgmerged versions\n\
+  check-translation ISOLANG=LL   show changes in English docs since last translation update\n\
+  update-translation ISOLANG=LL  call $$$$EDITOR to help updating the translation\n\
+  skeleton-update ISOLANG=LL     update Texinfo skeleton files\n\
+  snippet-update ISOLANG=LL      update ly snippets in Texinfo translation according to\n\
+                              docs in English (use with caution)\n\
+\n\
+LL refers to the desired locale (most often only the ISO 639 language code).\n"
+
+info:
+	$(MAKE) -C user info

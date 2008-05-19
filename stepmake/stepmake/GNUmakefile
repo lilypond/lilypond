@@ -10,7 +10,7 @@ depth = ../..
 SUBDIRS =
 #
 
-STEPMAKE_TEMPLATES=makedir install www
+STEPMAKE_TEMPLATES=makedir install
 
 # bootstrap stepmake:
 #
