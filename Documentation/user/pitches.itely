@@ -111,18 +111,20 @@ pitch inside @var{musicexpr} is calculated as follows:
 
 @itemize
 @item
-If no octave changing mark is used on a pitch, its octave is calculated
-so that the interval with the previous note is less than a fifth.  This
-interval is determined without considering accidentals.
+If no octave changing mark is used on a pitch, its octave is
+calculated so that the interval with the previous note is less
+than a fifth.  This interval is determined without considering
+accidentals.
 
 @item
-An octave changing mark@tie{}@code{'} or@tie{}@code{,} can be added to
-respectively raise or lower a pitch by an extra octave, relative to
-the pitch calculated without an octave mark.
+An octave changing mark@tie{}@code{'} or@tie{}@code{,} can be
+added to respectively raise or lower a pitch by an extra octave,
+relative to the pitch calculated without an octave mark.
 
 @item
-Multiple octave changing marks can be used.  For example, @code{''}@tie{}and
-@code{,,}@tie{} will alter the pitch by two octaves.
+Multiple octave changing marks can be used.  For example,
+@code{''}@tie{}and@tie{}@code{,,} will alter the pitch by two
+octaves.
 
 @item
 The pitch of the first note is relative to
@@ -257,12 +259,12 @@ see @rlearning{Accidentals and key signatures}.}
 @cindex flat, double
 @cindex natural sign
 
-A @notation{sharp} pitch is made by adding @code{is} to the note name,
-and a @notation{flat} pitch by adding @code{es}.  As you might expect,
-a @notation{double sharp} or @notation{double flat} is made by adding
-@code{isis} or @code{eses}.  This syntax is derived from Dutch note
-naming conventions.  To use other names for accidentals, see
-@ref{Note names in other languages}.
+A @notation{sharp} pitch is made by adding @code{is} to the note
+name, and a @notation{flat} pitch by adding @code{es}.  As you
+might expect, a @notation{double sharp} or @notation{double flat}
+is made by adding @code{isis} or @code{eses}.  This syntax is
+derived from Dutch note naming conventions.  To use other names
+for accidentals, see @ref{Note names in other languages}.
 
 @lilypond[verbatim,quote,relative=2]
 ais1 aes aisis aeses
@@ -492,11 +494,11 @@ Octave checks make such errors easier to find by displaying a
 warning and correcting the octave if a note is found in an
 unexpected octave.
 
-To check the octave of a note, specify the absolute
-octave after the @code{=}@tie{}symbol.  This example will generate
-a warning (and change the pitch) because the second note is the
-absolute octave @code{d''} instead of @code{d'} as indicated by
-the octave correction.
+To check the octave of a note, specify the absolute octave after
+the @code{=}@tie{}symbol.  This example will generate a warning
+(and change the pitch) because the second note is the absolute
+octave @code{d''} instead of @code{d'} as indicated by the octave
+correction.
 
 @lilypond[verbatim,quote,fragment]
 \relative c'' {
@@ -506,11 +508,12 @@ the octave correction.
 @end lilypond
 
 The octave of notes may also be checked with the
-@code{\octave}@tie{}@var{controlpitch} command.  @var{controlpitch} is
-specified in absolute mode.  This checks that the interval between the
-previous note and the @var{controlpitch} is within a fourth (i.e., the
-normal calculation of relative mode).  If this check fails, a warning
-is printed, but the previous note is not changed.  Future notes are
+@code{\octave}@tie{}@var{controlpitch} command.
+@var{controlpitch} is specified in absolute mode.  This checks
+that the interval between the previous note and the
+@var{controlpitch} is within a fourth (i.e., the normal
+calculation of relative mode).  If this check fails, a warning is
+printed, but the previous note is not changed.  Future notes are
 relative to the @var{controlpitch}.
 
 @lilypond[verbatim,quote,fragment]
@@ -583,10 +586,10 @@ automatically transposed as well.
 }
 @end lilypond
 
-If a part written in C (normal @notation{concert pitch}) is to be played on
-the A clarinet (for which an A is notated as a C and thus sounds a
-minor third lower than notated), the appropriate part will be
-produced with:
+If a part written in C (normal @notation{concert pitch}) is to be
+played on the A clarinet (for which an A is notated as a C and
+thus sounds a minor third lower than notated), the appropriate
+part will be produced with:
 
 @lilypond[verbatim,quote]
 \transpose a c' {
@@ -669,7 +672,6 @@ Internals Reference:
 
 @knownissues
 
-
 The relative conversion will not affect @code{\transpose},
 @code{\chordmode} or @code{\relative} sections in its argument.
 To use relative mode within transposed music, an additional
@@ -727,8 +729,7 @@ This section discusses how to alter the output of pitches.
 @cindex clef, varbaritone 
 @cindex subbass clef, subbass 
 
-The clef is set with the @w{@code{\clef @var{clefname}}} command.
-Middle C is shown in every example.
+The clef may be altered.  Middle C is shown in every example.
 
 @lilypond[verbatim,quote,relative=1]
 \clef treble
@@ -770,13 +771,13 @@ Further supported clefs are described under @ref{Ancient clefs}.
 @cindex transposing clefs
 @cindex clef, transposing
 @cindex octave transposition
-
-By adding @code{_8} or @code{^8} to the clef name, the clef is
-transposed one octave down or up, respectively, and @code{_15} and
-@code{^15} transpose by two octaves.  The argument @var{clefname}
-must be enclosed in quotes when it contains underscores or digits.
-
 @cindex choral tenor clef
+
+By adding@tie{}@code{_8} or@tie{}@code{^8} to the clef name, the
+clef is transposed one octave down or up, respectively,
+and@tie{}@code{_15} and@tie{}@code{^15} transpose by two octaves.
+The clef name must be enclosed in quotes when it contains
+underscores or digits.
 
 @lilypond[verbatim,quote,relative=2]
 \clef treble
@@ -825,8 +826,7 @@ see @rlearning{Accidentals and key signatures}.}
 
 The key signature indicates the tonality in which a piece is
 played.  It is denoted by a set of alterations (flats or sharps)
-at the start of the staff.  Setting or changing the key signature
-is done with the @code{\key} command:
+at the start of the staff.  The key signature may be altered:
 
 @example
 \key @var{pitch} @var{mode}
@@ -949,8 +949,8 @@ parts can be typeset in a different pitch than the
 @notation{concert pitch}.  In these cases, the key of the
 @notation{transposing instrument} should be specified; otherwise
 the MIDI output and cues in other parts will produce incorrect
-pitches.  For more information about quotations, see @ref{Quoting
-other voices}.
+pitches.  For more information about quotations, see
+@ref{Quoting other voices}.
 
 @example
 \transposition @var{pitch}
@@ -961,7 +961,7 @@ the real sound heard when a@tie{}@code{c'} written on the staff is
 played by the transposing instrument.  This pitch is entered in
 absolute mode, so an instrument that produces a real sound which
 is one tone higher than the printed music should use
-@code{\transposition d'}.  @code{\transposition} should
+@w{@code{\transposition d'}}.  @code{\transposition} should
 @emph{only} be used if the pitches are @emph{not} being entered in
 concert pitch.
 
@@ -1041,7 +1041,7 @@ Snippets:
 
 There are many different conventions on how to typeset
 accidentals.  LilyPond provides a function to specify which
-accidental style to use.  This function is called as follows
+accidental style to use.  This function is called as follows:
 
 @example
 \new Staff <<
@@ -1055,7 +1055,7 @@ default (with the exception of the styles @code{piano} and
 @code{piano-cautionary}, which are explained below).  Optionally,
 the function can take a second argument that determines in which
 scope the style should be changed.  For example, to use the same
-style in all staves of the current @code{StaffGroup}, use
+style in all staves of the current @code{StaffGroup}, use:
 
 @example
 #(set-accidental-style 'voice 'StaffGroup)
@@ -1187,10 +1187,10 @@ musicB = {
 @end lilypond
 
 @item voice
-The normal behavior is to remember the accidentals at @code{Staff}-level.
-In this style, however, accidentals are typeset individually for
-each voice.  Apart from that, the rule is similar to
-@code{default}.
+The normal behavior is to remember the accidentals at
+@code{Staff}-level.  In this style, however, accidentals are
+typeset individually for each voice.  Apart from that, the rule is
+similar to @code{default}.
 
 As a result, accidentals from one voice do not get canceled in
 other voices, which is often an unwanted result: in the following
@@ -1323,7 +1323,6 @@ parentheses, but they can also be printed in reduced size by
 defining the @code{cautionary-style} property of
 @code{AccidentalSuggestion}.
 
-
 @lilypond[quote]
 musicA = {
   <<
@@ -1388,7 +1387,6 @@ previous cancellation was in a different voice, and
 the@tie{}@code{d} in the lower staff is canceled because of the
 accidental in a different voice in the previous measure:
 
-
 @lilypond[quote]
 musicA = {
   <<
@@ -1442,10 +1440,10 @@ musicB = {
 @item modern-voice-cautionary
 
 This rule is the same as @code{modern-voice}, but with the extra
-accidentals (the ones not typeset by @code{voice}) typeset
-as cautionaries.  Even though all accidentals typeset by
-@code{default} @emph{are} typeset with this rule,
-some of them are typeset as cautionaries.
+accidentals (the ones not typeset by @code{voice}) typeset as
+cautionaries.  Even though all accidentals typeset by
+@code{default} @emph{are} typeset with this rule, some of them are
+typeset as cautionaries.
 
 @lilypond[quote]
 musicA = {
@@ -1502,8 +1500,8 @@ musicB = {
 This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
 accidentals also get canceled across the staves in the same
-@code{GrandStaff} or @code{PianoStaff}, hence all the cancellations
-of the final notes.
+@code{GrandStaff} or @code{PianoStaff}, hence all the
+cancellations of the final notes.
 
 This accidental style applies to the current @code{GrandStaff} or
 @code{PianoStaff} by default.
@@ -1562,8 +1560,8 @@ musicB = {
 @cindex cautionary accidental style, piano
 @cindex piano cautionary accidental style
 
-Same as @w{@code{#(set-accidental-style 'piano)}} but with the
-extra accidentals typeset as cautionaries.
+This is the same as @code{piano} but with the extra accidentals
+typeset as cautionaries.
 
 @lilypond[quote]
 musicA = {
@@ -1855,24 +1853,25 @@ This section suggests ways of altering note heads.
 @cindex harmonic note heads
 @cindex guitar note heads
 
-Different note heads are used by various instruments for various
-meanings -- crosses are used for @q{parlato} with vocalists,
-stopped notes on guitar; diamonds are used for harmonics on string
-instruments, etc.  There is a shorthand (@code{\harmonic}) for
-diamond shapes; the other note head styles are produced by
-tweaking the property:
+Note heads may be altered:
 
 @lilypond[verbatim,quote,relative=2]
-c4 d
+c4 b a b
 \override NoteHead #'style = #'cross
-e f
+c4 b a b
 \revert NoteHead #'style
-e d <c f\harmonic> <d a'\harmonic>
+c4 d e f
+@end lilypond
+
+There is a shorthand for diamond shapes which can only be used
+inside chords:
+
+@lilypond[verbatim,quote,relative=2]
+<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
 @end lilypond
 
 @noindent
 To see all note head styles, see @ref{Note head styles}.
-
 
 @seealso
 
@@ -1880,7 +1879,8 @@ Snippets:
 @rlsr{Pitches}.
 
 Notation Reference:
-@ref{Note head styles}.
+@ref{Note head styles},
+@ref{Chorded notes}.
 
 Internals Reference:
 @rinternals{note-event},
@@ -1905,7 +1905,9 @@ Internals Reference:
 @cindex note heads, easy play
 
 The @q{easy play} note head includes a note name inside the head.
-It is used in music for beginners.
+It is used in music for beginners.  To make the letters readable,
+it should be printed in a large font size.  To print with a larger
+font, see @ref{Setting the staff size}.
 
 @lilypond[verbatim,quote]
 #(set-global-staff-size 26)
@@ -1917,12 +1919,6 @@ It is used in music for beginners.
   c,1
 }
 @end lilypond
-
-The command @code{\easyHeadsOn} overrides settings for the
-@code{NoteHead} object.  These settings can be reverted with the command
-@code{\easyHeadsOff}. To make the letters readable, it has to be printed
-in a large font size.  To print with a larger font, see @ref{Setting the
-staff size}.
 
 @predefined
 
@@ -1962,9 +1958,7 @@ Internals Reference:
 In shape note head notation, the shape of the note head
 corresponds to the harmonic function of a note in the scale.  This
 notation was popular in nineteenth-century American song books.
-
-Shape note heads can be produced by setting @code{\aikenHeads} or
-@code{\sacredHarpHeads}, depending on the style desired.
+Shape note heads can be produced:
 
 @lilypond[verbatim,quote,relative=2]
 \aikenHeads
@@ -1973,8 +1967,8 @@ c, d e f g a b c
 c, d e f g a b c
 @end lilypond
 
-Shapes are typeset according to the step in the scale, where
-the base of the scale is determined by the @code{\key} command.
+Shapes are typeset according to the step in the scale, where the
+base of the scale is determined by the @code{\key} command.
 
 @predefined
 
