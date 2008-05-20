@@ -17,9 +17,9 @@ traditional European chord naming conventions.  Chord names can also
 be displayed.  In addition, figured bass notation can be displayed.
 
 @menu
-* Chord mode::                  
-* Displaying chords::           
-* Figured bass::                
+* Chord mode::
+* Displaying chords::
+* Figured bass::
 @end menu
 
 
@@ -32,9 +32,9 @@ Chord mode is used to enter chords using an indicator of the chord
 structure, rather than the chord pitches.
 
 @menu
-* Chord mode overview::         
-* Common chords::               
-* Extended and altered chords::  
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
 @end menu
 
 @node Chord mode overview
@@ -61,12 +61,12 @@ Chords entered using chord mode are music elements, and can be
 transposed just like chords entered using simultaneous music.
 
 Chord mode and note mode can be mixed in sequential music:
+
 @lilypond[verbatim,quote,ragged-right,relative=1]
-{ <c e g>2 < g b d >
-  \chordmode { c2 f}
-  < c e g > < g' b d >
-  \chordmode { f g}
-}
+<c e g>2 < g b d >
+\chordmode { c2 f}
+< c e g > < g' b d >
+\chordmode { f g}
 @end lilypond
 
 
@@ -89,10 +89,8 @@ chord mode comes first, the note mode will create a new @code{Staff}
 context.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-{
-  \chordmode { c2 f}
-  < c e g > < g' b d >
-}
+\chordmode { c2 f}
+< c e g > < g' b d >
 @end lilypond
 
 To avoid this behavior, explicitly create the @code{Staff} context:
@@ -201,7 +199,9 @@ unaltered 13, the 11 is removed from a @code{:13} chord (unless it
 is added explicitly).
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-\chordmode { c1:13 c:13.11 c:m13 }
+\chordmode {
+  c1:13 c:13.11 c:m13
+}
 @end lilypond
 
 @cindex additions, in chords
@@ -210,13 +210,17 @@ Individual steps can be added to a chord.  Additions follow the
 extent and are prefixed by a dot (@code{.}).
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\chordmode { c1:5.6 c:3.7.8 c:3.6.13 }
+\chordmode {
+  c1:5.6 c:3.7.8 c:3.6.13
+}
 @end lilypond
 
 Added steps can be as high as desired.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\chordmode { c4:5.15 c:5.20 c:5.25 c:5.30 }
+\chordmode {
+  c4:5.15 c:5.20 c:5.25 c:5.30
+}
 @end lilypond
 
 @cindex chord steps, altering
@@ -226,7 +230,9 @@ sign to the number.  To alter a step that is automatically included
 as part of the basic chode structure, add it as an altered step.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\chordmode { c1:7+ c:5+.3- c:3-.5-.7- }
+\chordmode {
+  c1:7+ c:5+.3- c:3-.5-.7-
+}
 @end lilypond
 
 @cindex removals, in chords
@@ -238,7 +244,9 @@ modifier string and be prefixed by @code{^}.  Only one removal with @code{^}
 is allowed in a modifier string.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\chordmode { c1^3 c:7^5 c:9^3.5 }
+\chordmode {
+  c1^3 c:7^5 c:9^3.5
+}
 @end lilypond
 
 @funindex sus
@@ -250,7 +258,9 @@ chord.  @code{sus} is equivalent to @code{^3}; @code{sus4} is
 equivalent to @code{.4^3}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c1:sus c:sus2 c:sus4 c:5.4^3 }
+\chordmode {
+  c1:sus c:sus2 c:sus4 c:5.4^3
+}
 @end lilypond
 
 It is possible to remove the 3rd step with @code{sus} and remove
@@ -265,7 +275,9 @@ chord) and added bass notes can be specified by appending
 @code{/}@var{pitch} to the chord.
 
 @lilypond[quote,ragged-right,fragment,verbatim, relative=2]
-\chordmode { c1 c/g c/f }
+\chordmode {
+  c1 c/g c/f
+}
 @end lilypond
 
 @funindex /+
@@ -274,7 +286,9 @@ A bass note that is part of the chord can be added, instead of
 moved as part of an inversion, by using @code{/+}@var{pitch}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c1 c/+g c/+f }
+\chordmode {
+  c1 c/g c/+g
+}
 @end lilypond
 
 @seealso
@@ -304,8 +318,8 @@ Chords can be displayed by name, in addition to the standard display
 as notes on a staff.
 
 @menu
-* Printing chord names::        
-* Customizing chord names::     
+* Printing chord names::
+* Customizing chord names::
 @end menu
 
 @node Printing chord names
@@ -319,43 +333,10 @@ Chord names are printed in the @code{ChordNames} context:
 
 @lilypond[verbatim,quote,relative=1,ragged-right]
 \new ChordNames {
-  \chordmode { c2 f4. g8 }
+  \chordmode {
+    c2 f4. g8
+  }
 }
-@end lilypond
-
-Both chord names and the notes can be displayed:
-
-@lilypond[verbatim,quote,ragged-right]
-myChords = \relative c'{
-  \chordmode { c2 f4. g8 }
-}
-<<
-  \new ChordNames {
-    \chordmode { c2 f4. g8 }
-  }
-  {
-    \chordmode { c2 f4. g8 }
-  }
->>
-@end lilypond
-
-Setting @rinternals{ChordNames}.@code{chordChanges} to true causes
-chords names to be displayed only when the chord changes or at
-the start of a new line
-
-@lilypond[quote,verbatim,ragged-right]
-harmonies = \chordmode {
-  c1:m c:m \break c:m c:m d
-}
-<<
-  \new ChordNames {
-    \set chordChanges = ##t
-    \harmonies
-  }
-  \new Staff {
-    \relative c' { \harmonies }
-  }
->>
 @end lilypond
 
 Chords can be entered as simultaneous notes or through the use of
@@ -383,16 +364,60 @@ of the mode of entry, unless there are inversions or added bass notes:
 
 @funindex{\chords}
 
-@code{\chords} is a shortcut method used to change the input mode to
-@code{\chordmode} and create a @code{ChordNames} context, with the
-following result:
+@code{\chords} is a shortcut method used to create a
+@code{ChordNames} context and change the input mode to
+@code{\chordmode}:
 
 @lilypond[verbatim,quote,ragged-right, relative=1]
-\chords { c2 f4.:m g8:maj7 }
+\chords {
+  c2 f4.:m g8:maj7
+}
 @end lilypond
 
-@cindex lead sheet
+@lilypond[verbatim,quote,ragged-right, relative=1]
+\new ChordNames {
+  \chordmode {
+    c2 f4.:m g8:maj7
+  }
+}
+@end lilypond
 
+@snippets
+
+@c TODO -- replace this with a snippet
+Chord names can be displayed only at the start of lines and when
+the chord changes.
+
+@lilypond[quote,verbatim,ragged-right]
+harmonies = \chordmode {
+  c1:m c:m \break c:m c:m d
+}
+<<
+  \new ChordNames {
+    \set chordChanges = ##t
+    \harmonies
+  }
+  \new Staff {
+    \relative c' { \harmonies }
+  }
+>>
+@end lilypond
+
+@c TODO -- replace this with a snippet
+To add bar indications in the @code{ChordNames}
+context, add @rinternals{Bar_engraver}.
+
+@lilypond[ragged-right,verbatim]
+\new ChordNames \with {
+  \override BarLine #'bar-size = #4
+  \consists "Bar_engraver"
+}
+\chordmode {
+  f1:maj7 f:7 bes:7 c:maj7 ees e
+}
+@end lilypond
+
+@c TODO -- replace this with a snippet
 When put together, chord names, a melody, and lyrics form a lead
 sheet:
 
@@ -405,22 +430,6 @@ sheet:
   }
   \addlyrics { One day this shall be free __ }
 >>
-@end lilypond
-
-@snippets
-
-@c TODO -- replace this with a snippets
-To add bar indications in the @code{ChordNames}
-context, add @rinternals{Bar_engraver}.
-
-@lilypond[ragged-right,verbatim]
-\new ChordNames \with {
-  \override BarLine #'bar-size = #4
-  \consists "Bar_engraver"
-}
-\chordmode {
-  f1:maj7 f:7 bes:7 c:maj7 ees e
-}
 @end lilypond
 
 @seealso
@@ -517,16 +526,7 @@ bass note can be printed in lower case.
 
 Different parts of a chord name are normally separated by a slash.
 By setting @code{chordNameSeparator}, you can use any desired markup
-for a separator, e.g.,
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chords {
-  c:7sus4
-  \set chordNameSeparator
-    = \markup { \typewriter "|" }
-  c:7sus4
-}
-@end lilypond
+for a separator.
 
 @funindex chordNameExceptions
 
@@ -535,8 +535,7 @@ for a separator, e.g.,
 This property is a list of pairs.  The first item in each pair
 is a set of pitches used to identify the steps present in the chord.
 The second item is a markups that will follow the @code{chordRootNamer}
-output to create the chord name.  See @code{FIXME -- future ref to snippet}
-for information on creating this list.
+output to create the chord name.
 
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
@@ -551,8 +550,8 @@ and @q{m}.  The spacer is not used when the root is altered.
 @predefined
 
 @funindex major seven symbols
-@code{\whiteTriangleMarkup}
-@code{\blackTriangleMarkup}
+@code{\whiteTriangleMarkup},
+@code{\blackTriangleMarkup},
 @funindex \germanChords
 @code{\germanChords},
 @funindex \semiGermanChords
@@ -574,17 +573,24 @@ and @q{m}.  The spacer is not used when the root is altered.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-major7.ly}
 
-@c  This has yet to be approved
-@ignore
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{adding-bars-to-chordnames.ly)
-@end ignore
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {adding-bars-to-chordnames.ly)
 
-@c This has yet to be made a docs snippet
-@ignore
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-(volta-brackets-over-chord-names.ly)
-@end ignore
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {volta-brackets-over-chord-names.ly}
+
+@c TODO  convert to snippet
+The separator between different parts of a chord name
+can be set to any markup.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chords {
+  c:7sus4
+  \set chordNameSeparator
+    = \markup { \typewriter "|" }
+  c:7sus4
+}
+@end lilypond
 
 
 @seealso
@@ -597,8 +603,8 @@ Installed Files:
 Snippets:
 @rlsr{Chords}.
 
-Internals Reference:
-@c @rinternals{}.
+@c Internals Reference:
+@c @r internals{}.
 
 @knownissues
 
@@ -624,13 +630,13 @@ myChords = \relative c' {
 @subsection Figured bass
 
 @menu
-* Introduction to figured bass::  
-* Entering figured bass::       
-* Displaying figured bass::     
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
 @node Introduction to figured bass
-@subsubsection Introduction to figured bass
+@unnumberedsubsubsec Introduction to figured bass
 
 @cindex Basso continuo
 
