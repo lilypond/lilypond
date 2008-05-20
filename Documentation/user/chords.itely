@@ -17,9 +17,9 @@ traditional European chord naming conventions.  Chord names can also
 be displayed.  In addition, figured bass notation can be displayed.
 
 @menu
-* Chord mode::
-* Displaying chords::
-* Figured bass::
+* Chord mode::                  
+* Displaying chords::           
+* Figured bass::                
 @end menu
 
 
@@ -32,9 +32,9 @@ Chord mode is used to enter chords using an indicator of the chord
 structure, rather than the chord pitches.
 
 @menu
-* Chord mode overview::
-* Common chords::
-* Extended and altered chords::
+* Chord mode overview::         
+* Common chords::               
+* Extended and altered chords::  
 @end menu
 
 @node Chord mode overview
@@ -318,8 +318,8 @@ Chords can be displayed by name, in addition to the standard display
 as notes on a staff.
 
 @menu
-* Printing chord names::
-* Customizing chord names::
+* Printing chord names::        
+* Customizing chord names::     
 @end menu
 
 @node Printing chord names
@@ -630,9 +630,9 @@ myChords = \relative c' {
 @subsection Figured bass
 
 @menu
-* Introduction to figured bass::
-* Entering figured bass::
-* Displaying figured bass::
+* Introduction to figured bass::  
+* Entering figured bass::       
+* Displaying figured bass::     
 @end menu
 
 @node Introduction to figured bass
@@ -671,11 +671,6 @@ Internally, the code produces markup texts.  You can use any of the
 markup text properties to override formatting.  For example, the
 vertical spacing of the figures may be set with @code{baseline-skip}.
 
-
-@menu
-* Entering figured bass::
-* Displaying figured bass::
-@end menu
 
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass
