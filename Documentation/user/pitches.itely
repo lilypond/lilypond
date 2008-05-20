@@ -264,7 +264,7 @@ a @notation{double sharp} or @notation{double flat} is made by adding
 naming conventions.  To use other names for accidentals, see
 @ref{Note names in other languages}.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 ais1 aes aisis aeses
 @end lilypond
 
@@ -273,7 +273,7 @@ signature.  However, naturals are not encoded into the note name
 syntax with a suffix; a natural pitch is shown as a simple note
 name:
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a4 aes a2
 @end lilypond
 
@@ -283,7 +283,7 @@ a4 aes a2
 Quarter tones may be added; the following is a series of Cs with
 increasing pitches:
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 ceseh1 ces ceh c cih cis cisih
 @end lilypond
 
@@ -306,14 +306,14 @@ be obtained by adding the question mark@tie{}@code{?} after the
 pitch.  These extra accidentals can also be used to produce
 natural signs.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 cis cis cis! cis? c c c! c?
 @end lilypond
 
 Accidentals on tied notes are only printed at the beginning of a
 new system:
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 cis1 ~ cis ~
 \break
 cis
@@ -423,7 +423,7 @@ are accepted in LilyPond.  Similarly, both @code{es} and
 @code{eeses}@tie{}/@tie{}@code{eses}.  Sometimes only these
 contracted names are defined in the corresponding language files.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a2 as e es a ases e eses
 @end lilypond
 
@@ -730,7 +730,7 @@ This section discusses how to alter the output of pitches.
 The clef is set with the @w{@code{\clef @var{clefname}}} command.
 Middle C is shown in every example.
 
-@lilypond[verbatim,quote,fragment,relative=1]
+@lilypond[verbatim,quote,relative=1]
 \clef treble
 c2 c
 \clef alto
@@ -743,7 +743,7 @@ c2 c
 
 Other clefs include:
 
-@lilypond[verbatim,quote,fragment,relative=1]
+@lilypond[verbatim,quote,relative=1]
 \clef french
 c2 c
 \clef soprano
@@ -778,7 +778,9 @@ must be enclosed in quotes when it contains underscores or digits.
 
 @cindex choral tenor clef
 
-@lilypond[verbatim,quote,fragment,relative=1]
+@lilypond[verbatim,quote,relative=2]
+\clef treble
+c2 c
 \clef "treble_8"
 c2 c
 \clef "bass^15"
@@ -849,7 +851,7 @@ called @notation{church modes}: @code{\ionian}, @code{\dorian},
 @code{\phrygian}, @code{\lydian}, @code{\mixolydian},
 @code{\aeolian}, and @code{\locrian}.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \key g \major
 fis1
 f
@@ -900,7 +902,7 @@ Internals Reference:
 @notation{Ottava brackets} introduce an extra transposition of an
 octave for the staff:
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a'2 b
 #(set-octavation 1)
 a b
@@ -998,7 +1000,7 @@ The @code{\transposition} may be changed during a piece.  For
 example, a clarinetist may switch from an A clarinet to a B-flat
 clarinet.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \set Staff.instrumentName = "Cl (A)"
 \key a \major
 \transposition a
@@ -1860,7 +1862,7 @@ instruments, etc.  There is a shorthand (@code{\harmonic}) for
 diamond shapes; the other note head styles are produced by
 tweaking the property:
 
-@lilypond[verbatim,quote,fragment,relative=1]
+@lilypond[verbatim,quote,relative=2]
 c4 d
 \override NoteHead #'style = #'cross
 e f
@@ -1964,7 +1966,7 @@ notation was popular in nineteenth-century American song books.
 Shape note heads can be produced by setting @code{\aikenHeads} or
 @code{\sacredHarpHeads}, depending on the style desired.
 
-@lilypond[verbatim,fragment,quote,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \aikenHeads
 c, d e f g a b c
 \sacredHarpHeads
@@ -2015,10 +2017,10 @@ Improvisation is sometimes denoted with slashed note heads, where
 the performer may choose any pitch but should play the specified
 rhythm.  Such note heads can be created:
 
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,relative=2]
 \new Voice \with {
   \consists "Pitch_squash_engraver"
-} \transpose c c' {
+} {
   e8 e g a a16( bes) a8 g
   \improvisationOn
   e8 ~
