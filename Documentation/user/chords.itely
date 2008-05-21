@@ -17,9 +17,9 @@ traditional European chord naming conventions.  Chord names can also
 be displayed.  In addition, figured bass notation can be displayed.
 
 @menu
-* Chord mode::                  
-* Displaying chords::           
-* Figured bass::                
+* Chord mode::
+* Displaying chords::
+* Figured bass::
 @end menu
 
 
@@ -32,9 +32,9 @@ Chord mode is used to enter chords using an indicator of the chord
 structure, rather than the chord pitches.
 
 @menu
-* Chord mode overview::         
-* Common chords::               
-* Extended and altered chords::  
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
 @end menu
 
 @node Chord mode overview
@@ -318,8 +318,8 @@ Chords can be displayed by name, in addition to the standard display
 as notes on a staff.
 
 @menu
-* Printing chord names::        
-* Customizing chord names::     
+* Printing chord names::
+* Customizing chord names::
 @end menu
 
 @node Printing chord names
@@ -629,10 +629,12 @@ myChords = \relative c' {
 @node Figured bass
 @subsection Figured bass
 
+Figured bass notation can be displayed.
+
 @menu
-* Introduction to figured bass::  
-* Entering figured bass::       
-* Displaying figured bass::     
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
 @node Introduction to figured bass
@@ -647,109 +649,213 @@ LilyPond has support for figured bass
 @lilypond[quote,ragged-right,verbatim,fragment]
 <<
   \new Voice { \clef bass dis4 c d ais g fis}
-  \new FiguredBass \figuremode {
-    < 6 >4 < 7\+ >8 < 6+ [_!] >
-    < 6 >4 <6 5 [3+] >
-    < _ >4 < 6 5/>4
+  \new FiguredBass {
+    \figuremode {
+      < 6 >4 < 7\+ >8 < 6+ [_!] >
+      < 6 >4 <6 5 [3+] >
+      < _ >4 < 6 5/>4
+    }
   }
 >>
 @end lilypond
 
 The support for figured bass consists of two parts: there is an
-input mode, introduced by @code{\figuremode}, where you can enter
-bass figures as numbers, and there is a context named
-@rinternals{FiguredBass} that takes care of making
-@rinternals{BassFigure} objects.
+input mode, introduced by @code{\figuremode}, that accepts
+entry of bass figures, and there is a context named
+@code{FiguredBass} that takes care of displaying
+@code{BassFigure} objects.
+
+@code{\figures@{ ..@}} is a shortcut notation for
+@code{\new FiguredBass @{\figuremode @{ ..@}@}}.
+
 
 Although the support for figured bass may superficially resemble chord
-support, it is much simpler.  The @code{\figuremode} mode simply
-stores the numbers and @rinternals{FiguredBass} context prints them
-as entered.  There is no conversion to pitches and no realizations of
-the bass are played in the MIDI file.
+support, it is much simpler.  @code{\figuremode} mode simply
+stores the figures and the @code{FiguredBass} context prints them
+as entered.  There is no conversion to pitches.  Figured bass has
+no effect on the MIDI file.
 
-Internally, the code produces markup texts.  You can use any of the
-markup text properties to override formatting.  For example, the
-vertical spacing of the figures may be set with @code{baseline-skip}.
-
+Figures are created as markup texts.  Any of the standard markup
+properties can be used to modify the display of figures.  For
+example, the vertical spacing of the figures may be set with
+@code{baseline-skip}.
 
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass
 
+@code{\figuremode} is used to switch the input mode to figure mode.
+More information on different input modes can be
+found at @ref{Input modes}.
 
-In figures input mode, a group of bass figures is delimited by
-@code{<} and @code{>}.  The duration is entered after the @code{>}
-@example
-<4 6>2
-@end example
-@lilypond[quote,ragged-right,fragment]
-\new FiguredBass
-\figuremode { <4 6>2 }
-@end lilypond
+In figure mode, a group of bass figures is delimited by
+@code{<} and @code{>}.  The duration is entered after the @code{>}.
 
-Accidentals are added when you append @code{-}, @code{!}, and @code{+}
-to the numbers.  A plus sign is added when you append @code{\+}, and
-diminished fifths and sevenths can be obtained with @code{5/} and @code{7/}.
-
-@example
-<4- 6+ 7!>3 <5++> <3--> <7/> r <6\+ 5/>
-@end example
-@lilypond[quote,ragged-right,fragment]
-\figures { <4- 6+ 7!>4 <5++> <3--> <7/> r <6\+ 5/> }
-@end lilypond
-
-Spaces may be inserted by using @code{_}.  Brackets are
-introduced with @code{[} and @code{]}.  You can also include text
-strings and text markups, see @ref{Text markup commands}.
-
-@example
-< [4 6] 8 [_! 12] >4 < 5 \markup @{ \number 6 \super (1) @} >
-@end example
-@lilypond[quote,ragged-right,fragment]
-\new FiguredBass
-\figuremode { < [4 6] 8 [_! 12] >4 < 5 \markup{ \tiny \number 6 \super (1)} > }
-@end lilypond
-
-
-It is also possible to use continuation lines for repeated figures,
-
-@lilypond[verbatim,relative=1]
-<<
-  \new Staff {
-    \clef bass
-    c4 c c
+@lilypond[verbatim,quote,ragged-right,fragment]
+\new FiguredBass {
+  \figuremode {
+    <4 6>2
   }
-  \figures {
-    \set useBassFigureExtenders = ##t
-    <4 6>4 <3 6> <3 7>
-  }
->>
+}
+@end lilypond
+
+Accidentals can be added to figures:
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  <4- 6+ 7!> <5++> <3-->
+}
+@end lilypond
+
+Plus signs, diminished fifths, and diminished sevenths
+can be notated.
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  <7/> <6\+ 5/>
+}
+@end lilypond
+
+Vertical spaces and brackets can be be included in figures:
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  < [4 6] 8 [_! 12] >
+}
+@end lilypond
+
+
+Any text markup can be inserted as a figure:
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  < 5 \markup{ \tiny \number 6 \super (1)} >
+}
+@end lilypond
+
+Continuation lines can be used to indicate repeated figures:
+
+@c  I know I'm not supposed to use \set, but I think
+@c  it's part of the notation -- suggestions?  -cds
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  \set useBassFigureExtenders = ##t
+  <4 6> <3 6> <3 7>
+}
 @end lilypond
 
 @noindent
 In this case, the extender lines always replace existing figures.
 
-The @code{FiguredBass} context doesn't pay attention to the actual
-bass line.  As a consequence, you may have to insert extra figures to
-get extender lines below all notes, and you may have to add @code{\!}
-to avoid getting an extender line, e.g.
+@c @predefined
 
-@lilypond[relative=1]
-<<
-  \new Voice
+@c @snippets
+@c  This probably isn't notation, but rather adjusting output.  I guess this
+@c  should be converted to a snippet?  -cds
+Accidentals and plus signs can appear before or after the numbers,
+depending on the @code{figuredBassAlterationDirection} and
+@code{figuredBassPlusDirection}
+properties
+
+@lilypond
   \figures {
-    \set useBassFigureExtenders = ##t
-    <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #RIGHT
+    <6\+> <5+> <6 4-> r
+    \set figuredBassPlusDirection = #LEFT
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #LEFT
+    <6\+> <5+> <6 4-> r
   }
-  {
-    \clef bass
-    f16. g32 f16. g32 f16. g32 f16. g32 f8. es16 d8 es
+@end lilypond
+
+@seealso
+@c Music Glossary:
+@c @rglos{}.
+
+@c Learning Manual:
+@c @rlearning{}.
+
+@c Notation Reference:
+@c @ruser{}.
+
+@c Application Usage:
+@c @rprogram{}.
+
+@c Installed Files:
+@c @file{}.
+
+Snippets:
+@rlsr{Figured Bass}.
+
+@c Internals Reference:
+@rinternals{NewBassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}.
+
+@c @knownissues
+
+@node Displaying figured bass
+@unnumberedsubsubsec Displaying figured bass
+
+Figured bass can be displayed using the @code{FiguredBass} context,
+or in most staff contexts.
+
+When displayed in a @code{FiguredBass} context, the vertical location
+of the figures is independent of the notes on the staff.
+
+@lilypond[ragged-right,fragment,quote]
+<<
+  \relative c'' {
+    c4 c'8 r8 c,4 c'
+  }
+  \new FiguredBass {
+    \figuremode {
+      <4>4 <6 10>8 s8
+      <4 6>4 <4 6>
+    }
   }
 >>
 @end lilypond
 
+@noindent
+In the example above, the @code{FiguredBass} context must be
+explicitly instantiated to avoid creating a second (empty) staff.
+
+
+Figured bass can also be added to @code{Staff} contexts
+directly.  In this case, their vertical position is adjusted
+automatically.
+
+@c  This example uses /override, because the default
+@c    of 'direction is #UP,
+@c    even though UP is never used for figured bass.
+@c    I recommend that we leave it -cds
+@lilypond[ragged-right,fragment,quote]
+<<
+  \new Staff = myStaff
+  \figuremode {
+    \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+    <4>4 <6 10>8 s8
+    <4 6>4 <4 6>
+  }
+  %% Put notes on same Staff as figures
+  \context Staff = myStaff
+  \relative c'' {
+    c4 c'8 r8 c,4 c'
+  }
+>>
+@end lilypond
+
+
+@ignore
+@c I don't understand this -cs
 When using continuation lines, common figures are always put in the
-same vertical position.  When this is unwanted, you can insert a rest
-with @code{r}.  The rest will clear any previous alignment.  For
+same vertical position.  When this is unwanted, you can insert a rest.
+The rest will clear any previous alignment.  For
 example, you can write
 
 @example
@@ -761,46 +867,7 @@ instead of
 @example
 <4 6>4
 @end example
-
-Accidentals and plus signs can appear before or after the numbers,
-depending on the @code{figuredBassAlterationDirection} and
-@code{figuredBassPlusDirection}
-properties
-
-@lilypond
-  \figures {
-    <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #1
-    <6\+> <5+> <6 4-> r
-    \set figuredBassPlusDirection = #1
-    <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #-1
-    <6\+> <5+> <6 4-> r
-  }
-@end lilypond
-
-
-Figured bass can also be added to @code{Staff} contexts
-directly.  In this case, their vertical position is adjusted
-automatically.
-
-@lilypond[ragged-right,fragment,quote]
-<<
-  \new Staff = someUniqueName
-  \relative c'' {
-    c4 c'8 r8 c,4 c'
-  }
-
-  %% send to existing Staff.
-  \context Staff = someUniqueName
-  \figuremode {
-    <4>4 <6 10>8 s8
-
-    \set Staff.useBassFigureExtenders = ##t
-    <4 6>4 <4 6>
-  }
->>
-@end lilypond
+@end ignore
 
 @c @predefined
 
@@ -823,40 +890,7 @@ automatically.
 @c @file{}.
 
 @c Snippets:
-@c @rlsr{}.
-
-@c Internals Reference:
-@c @rinternals{}.
-
-@c @knownissues
-
-@node Displaying figured bass
-@unnumberedsubsubsec Displaying figured bass
-
-Figured bass is displayed using the @code{FiguredBass} context.
-
-@c @predefined
-
-@c @snippets
-
-@seealso
-@c Music Glossary:
-@c @rglos{}.
-
-@c Learning Manual:
-@c @rlearning{}.
-
-@c Notation Reference:
-@c @ruser{}.
-
-@c Application Usage:
-@c @rprogram{}.
-
-@c Installed Files:
-@c @file{}.
-
-@c Snippets:
-@c @rlsr{}.
+@rlsr{Figured Bass}.
 
 Internals Reference:
 @rinternals{NewBassFigure},
@@ -868,13 +902,39 @@ Internals Reference:
 
 @knownissues
 
-By default, this method produces figures above the notes.  To get
-figures below the notes, use
+To ensure that continuation lines work properly, it is
+safest to use the same rhythm in the figure line as in
+the bass line.
 
-@example
-\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
-@end example
+@lilypond[ragged-right,fragment,quote]
+<<
+  {
+    \clef bass
+    \repeat unfold 4 {f16. g32} f8. es16 d8 es
+  }
+  \figures {
+    \set useBassFigureExtenders = ##t
+    % The extenders are correct here, with the same rhythm as the bass
+    \repeat unfold 4 {<6 4->16. <6 4->32}
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+<<
+  {
+    \clef bass
+    \repeat unfold 4 {f16. g32} f8. es16 d8 es
+  }
+  \figures {
+    \set useBassFigureExtenders = ##t
+    % The extenders are incorrect here, even though the timing is the same
+    <6 4->4 <6 4->4
+    %\repeat unfold 4 {<6 4->16. <6 4->32}
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+@end lilypond
 
+@c I have no idea what this means -cds
 When using figured bass above the staff with extender lines and
 @code{implicitBassFigures} the lines may become swapped around.
 Maintaining order consistently will be impossible when multiple figures
