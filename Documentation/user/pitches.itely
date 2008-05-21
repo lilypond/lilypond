@@ -500,7 +500,7 @@ the @code{=}@tie{}symbol.  This example will generate a warning
 octave @code{d''} instead of @code{d'} as indicated by the octave
 correction.
 
-@lilypond[verbatim,quote,fragment]
+@lilypond[verbatim,quote]
 \relative c'' {
   c2 d='4 d
   e2 f
@@ -516,7 +516,7 @@ calculation of relative mode).  If this check fails, a warning is
 printed, but the previous note is not changed.  Future notes are
 relative to the @var{controlpitch}.
 
-@lilypond[verbatim,quote,fragment]
+@lilypond[verbatim,quote]
 \relative c'' {
   c2 d
   \octave c'
@@ -527,7 +527,7 @@ relative to the @var{controlpitch}.
 Compare the two bars below.  The first and third @code{\octave}
 checks fail, but the second one does not fail.
 
-@lilypond[verbatim,quote,fragment]
+@lilypond[verbatim,quote]
 \relative c'' {
   c4 f g f
 

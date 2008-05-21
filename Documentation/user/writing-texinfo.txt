@@ -53,13 +53,15 @@ commands.
     \override textscript #'padding = #3
     c1^"hi"
 
-* LilyPond input should be produced via
-    @lilypond[verbatim,quote,ragged-right]
-  with `fragment' and `relative=2' optional.
+* Most LilyPond input should be produced with:
+    @lilypond[verbatim,quote,relative=2]
+  or
+    @lilypond[verbatim,quote,relative=1]
 
-  Examples about page layout may alter the quote/ragged-right
-  options.  Omitting `verbatim' is not allowed except for special
-  circumstances.
+  If you want to use \layout{} or define variables, use
+    @lilypond[verbatim,quote]
+
+  In rare cases, other options may be used (or omitted), but ask first.
 
 * Inspirational headwords are produced with
   @lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
