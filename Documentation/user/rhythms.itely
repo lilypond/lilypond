@@ -518,6 +518,8 @@ well-defined.  In these cases, a slur may be preferable.
 @node Writing rests
 @subsection Writing rests
 
+Rests are entered as part of the music in music expressions.
+
 @menu
 * Rests::
 * Skips::
@@ -527,6 +529,7 @@ well-defined.  In these cases, a slur may be preferable.
 @node Rests
 @subsubsection Rests
 @cindex rest
+@cindex rest, entering durations
 @cindex maxima
 @cindex longa
 @cindex breve
@@ -537,8 +540,9 @@ well-defined.  In these cases, a slur may be preferable.
 @funindex \longa
 @funindex \breve
 
-Rests are entered like notes with the note name @code{r};
-longer rests with the predefined commands shown:
+Rests are entered like notes with the note name @code{r}.
+Durations longer than a whole rest use the predefined
+commands shown:
 
 @c \time 16/1 is used to avoid spurious bar lines
 @c and long tracts of empty measures
@@ -557,16 +561,21 @@ longer rests with the predefined commands shown:
 }
 @end lilypond
 
-Whole measure rests, centered in the middle of the measure, must
-be entered as multi-measure rests.  They can be used for a single
-measure as well as many measures and are discussed in
-@ref{Full measure rests}.
+@cindex rests, multi-measure
+@cindex rests, whole-measure
+
+Whole measure rests, centered in the middle of the measure, must be
+entered as multi-measure rests.  They can be used for a single
+measure as well as many measures and are discussed in @ref{Full
+measure rests}.
+
+@cindex rests, specifying vertical position
 
 To explicitly specify a rest's vertical position, write a note
-followed by @code{\rest}.  A rest will be placed in the position
-where the note would appear.  This allows for precise manual
-formatting of polyphonic music, since the automatic rest collision
-formatter will leave these rests alone.
+followed by @code{\rest}.  A rest of the duration of the note will
+be placed at the staff position where the note would appear.  This
+allows for precise manual formatting of polyphonic music, since the
+automatic rest collision formatter will not move these rests.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 a4\rest d4\rest
@@ -580,12 +589,14 @@ a4\rest d4\rest
 
 @seealso
 
-Notation Reference: @ref{Full measure rests}
+Notation Reference:
+@ref{Full measure rests}.
 
 Snippets:
 @rlsr{Rhythms}.
 
-Internals Reference: @rinternals{Rest}
+Internals Reference:
+@rinternals{Rest}.
 
 
 @knownissues
