@@ -264,6 +264,5 @@ and percent repeats).  For example,
 
 Micro tones are also exported to the MIDI file.
 
-
-
+Figured bass has no effect on MIDI.
 
