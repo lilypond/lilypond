@@ -68,14 +68,14 @@ are music expressions:
 @{ c'4 c' c' c' @}
 @end example
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[verbatim,quote]
 {
   { c'4 c' c' c'}
   { d'4 d' d' d'}
 }
 @end lilypond
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
   \new Staff { c'4 c' c' c' }
   \new Staff { d'4 d' d' d' }
@@ -386,10 +386,10 @@ This is activated with the @code{\lyricmode} command, and causes
 input to be interpreted as lyric syllables with optional durations
 and associated lyric modifiers.
 
-Lyric mode is also activated with the
-@code{\addlyrics} command.  This command also creates a new
-@code{Lyrics} context and an implicit @code{\lyricsto} command
-which associates the lyrics with the preceding music.
+Lyric mode is also activated with the @code{\addlyrics} command.  
+This also creates a new @code{Lyrics} context and an implicit 
+@code{\lyricsto} command which associates the following lyrics 
+with the preceding music.
 
 @unnumberedsubsubsection Chord mode
 
@@ -440,47 +440,72 @@ above the notes using the @code{\fret-diagram} command, see
 @ref{Fret diagrams}.
 
 
-@node When to add a -
-@subsection When to add a -
+@node Direction indicator on articulations
+@subsection Direction indicator on articulations
 
-One of these works, the other doesn't.
+@c TODO Merge with following section?
 
-@verbatim
-\version "2.11.38"
-{ c'\mp\fermata\accent-\markup { "forcefully"} }
-% { c'\mp\fermata\accent\markup { "forcefully"} }
-@end verbatim
+When adding articulations to notes the direction indicator,
+@code{^}, @code{_} or @code{-}, can usually be omitted, in which
+case @code{-} is assumed.  But a direction indicator is
+@strong{always} required before
+
+@itemize
+@item @code{\tweak} commands
+@item @code{\markup} commands
+@item @code{\tag} commands
+@item text annotation, e.g.-faster, -"with feeling"
+@item fingering instructions, e.g. @code{-1}
+@item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
+@end itemize
 
 @node Controlling direction and placement
 @subsection Controlling direction and placement
 
 TODO: everything
+TODO: Maybe rename section to "directions".
 
-By default, LilyPond does a pretty jazz'n job of picking
-directions.  But in some cases, it may be desirable to force a
-direction.
+In typesetting music the direction and placement of many items is
+a matter of choice.  For example, the stems of notes can
+be directed up or down; lyrics, dynamics, and other expressive
+marks may be placed above or below the staff; text may be aligned
+left, right or center; etc.  Most of these choices may be left to
+be determined automatically by LilyPond, but in some cases it may
+be desirable to force a particular direction or placement.
 
+@unnumberedsubsubsection Default actions
+By default some directions are always up or always down (e.g.
+dynamics or fermata), while other things can alternate between
+up or down based on the stem direction (like slurs or accents).
+
+@unnumberedsubsubsection context layout
+Contexts are positioned in a system from top to bottom in the
+order in which they are encountered.  Note, however, that a
+context will be created implicitly if a command is encountered
+when there is no suitable context available to contain it.  For
+example,
+
+\contextAbove or whatever it is
+
+@unnumberedsubsubsection direction indicators
 @verbatim
 -
 ^ _
 @end verbatim
 
+@unnumberedsubsubsection up,down,left,right,center
 Also cover
 #UP
 #DOWN
 #LEFT
 #RIGHT.
 
-Maybe rename section to "directions".
-
-Also mention \override Foo #'direction = #'DOWN.
-
+@unnumberedsubsubsection \fooUp, \fooDown, \fooNeutral
 also mention the typical \fooDown, \fooNeutral predefined commands.
 
-also mention that some directions are (without other tweaking)
-always up or always down (like dynamics or fermata), while other
-things can alternate between up or down based on the stem direction
-(like slurs or accents).
+@unnumberedsubsubsection \override
+Also mention \override Foo #'direction = #'DOWN.
+
 
 
 @node Distances and measurements
