@@ -663,10 +663,11 @@ The support for figured bass consists of two parts: there is an
 input mode, introduced by @code{\figuremode}, that accepts
 entry of bass figures, and there is a context named
 @code{FiguredBass} that takes care of displaying
-@code{BassFigure} objects.
+@code{BassFigure} objects.  Figured bass can also be displayed
+in @code{Staff} contexts.
 
-@code{\figures@{ ..@}} is a shortcut notation for
-@code{\new FiguredBass @{\figuremode @{ ..@}@}}.
+@code{\figures@{ .. @}} is a shortcut notation for
+@code{\new FiguredBass @{\figuremode @{ .. @}@}}.
 
 
 Although the support for figured bass may superficially resemble chord
@@ -711,7 +712,7 @@ can be notated.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
-  <7/> <6\+ 5/>
+  <6\+ 5/> <7/>
 }
 @end lilypond
 
@@ -734,9 +735,8 @@ Any text markup can be inserted as a figure:
 
 Continuation lines can be used to indicate repeated figures:
 
-@c  I know I'm not supposed to use \set, but I think
-@c  it's part of the notation -- suggestions?  -cds
-
+@c  \set to be replaced with predefined command once it is
+@c   included in property-init.ly
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
   \set useBassFigureExtenders = ##t
@@ -757,6 +757,7 @@ depending on the @code{figuredBassAlterationDirection} and
 @code{figuredBassPlusDirection}
 properties
 
+@c  TODO Need to set predefined commands for these directions as well. -cs
 @lilypond
   \figures {
     <6\+> <5+> <6 4-> r
@@ -807,7 +808,7 @@ or in most staff contexts.
 When displayed in a @code{FiguredBass} context, the vertical location
 of the figures is independent of the notes on the staff.
 
-@lilypond[ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,fragment,quote]
 <<
   \relative c'' {
     c4 c'8 r8 c,4 c'
@@ -830,11 +831,9 @@ Figured bass can also be added to @code{Staff} contexts
 directly.  In this case, their vertical position is adjusted
 automatically.
 
-@c  This example uses /override, because the default
-@c    of 'direction is #UP,
-@c    even though UP is never used for figured bass.
-@c    I recommend that we leave it -cds
-@lilypond[ragged-right,fragment,quote]
+@c  TODO change to use predefined command once it is added to
+@c  property-init.ly  -cds
+@lilypond[verbatim,ragged-right,fragment,quote]
 <<
   \new Staff = myStaff
   \figuremode {
@@ -906,7 +905,7 @@ To ensure that continuation lines work properly, it is
 safest to use the same rhythm in the figure line as in
 the bass line.
 
-@lilypond[ragged-right,fragment,quote]
+@lilypond[verbatim,ragged-right,fragment,quote]
 <<
   {
     \clef bass
@@ -935,6 +934,7 @@ the bass line.
 @end lilypond
 
 @c I have no idea what this means -cds
+@c A predefined command for changing this has been proposed -cds
 When using figured bass above the staff with extender lines and
 @code{implicitBassFigures} the lines may become swapped around.
 Maintaining order consistently will be impossible when multiple figures
