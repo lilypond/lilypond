@@ -1059,10 +1059,12 @@ any sort of property supported by @rinternals{font-interface} and
   (number? markup?)
   font
   ((font-size 0)
+   (word-space 1)
    (baseline-skip 2))
   "Add @var{increment} to the font-size.  Adjust baseline skip accordingly."
   (let ((entries (list
                   (cons 'baseline-skip (* baseline-skip (magstep increment)))
+                  (cons 'word-space (* word-space (magstep increment)))
                   (cons 'font-size (+ font-size increment)))))
     (interpret-markup layout (cons entries props) arg)))
 
