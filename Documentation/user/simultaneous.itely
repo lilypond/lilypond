@@ -134,79 +134,113 @@ them.
 @funindex \shiftOnn
 @funindex \shiftOnnn
 @funindex \shiftOff
+@cindex shift rest, automatic
 
-Normally, equal note heads with the same number of dots are
-automatically merged, but note heads with a different number of dots
-are not. To merge differently dotted note heads, you can set the
-@code{merge-differently-dotted} property of the
-@rinternals{NoteCollision} object:
+Note heads with equal durations are automatically merged, while
+note heads with unequal durations are not merged.  Rests opposite
+a stem are shifted vertically.
+
+@c   old material to delete, I think.  -gp
+@c Normally, equal note heads with the same number of dots and the same
+@c note head are automatically merged, while note heads with different note
+@c heads and/or a different number of dots are not.
+@c The following example
+@c has two cases of this, plus an undesired merging (the half-note head
+@c @code{e} is solid):
+@c Note that LilyPond has vertically shifted the rest, which is opposite
+@c of a stem.
 
 @lilypond[quote,verbatim,relative=2]
 <<
-  { g2 g4 g8 g
-    \override Staff.NoteCollision #'merge-differently-dotted = ##t
-    g2 g4 g8 g }
-  \\
-  { g2. g8. g16
-    g2. g8. g16 }
+  {
+    c8 d e d c d e4
+    g2 fis
+  } \\ {
+    c2 c8. b16 a4
+    e2 r
+  } \\ {
+    \oneVoice
+    s1
+    e8 a b c d2
+  }
 >>
 @end lilypond
 
-Similarly, you can merge half note heads with eighth notes, by
-setting @code{merge-differently-headed}:
+Note heads with different note heads may be merged:
+@c First we will merge the initial half note head with the eighth
+@c note by setting the @code{merge-differently-headed} property of the
+@c @code{NoteCollision} object:
+
+@lilypond[quote,verbatim,relative=2]
+<<
+  {
+    \override Staff.NoteCollision #'merge-differently-headed = ##t
+    c8 d e d c d e4
+    g2 fis
+  } \\ {
+    c2 c8. b16 a4
+    e2 r
+  } \\ {
+    \oneVoice
+    s1
+    e8 a b c d2
+  }
+>>
+@end lilypond
+
+Note heads with different dots may be merged:
+@c Similarly, you can merge differently dotted note heads:
 
 @lilypond[quote,relative=2,verbatim]
 <<
-  { c8 d e d
+  {
     \override Staff.NoteCollision #'merge-differently-headed = ##t
-    c8 d e d
+    \override Staff.NoteCollision #'merge-differently-dotted = ##t	
+    c8 d e d c d e4
+    g2 fis
+  } \\ {
+    c2 c8. b16 a4
+    e2 r
+  } \\ {
+    \oneVoice
+    s1
+    e8 a b c d2
   }
-  \\
-  { c2 c }
 >>
-@end lilypond
-
-@noindent
-Merging notes by setting @code{merge-differently-headed} and
-@code{merge-differently-dotted} only works for opposing stem
-directions (i.e., to @code{Voice}s 1 and 2).
-
-@cindex shift rest, automatic
-
-LilyPond also vertically shifts rests that are opposite of a stem, for
-example:
-
-@lilypond[quote,verbatim]
-<< c''4 \\ r4 >>
 @end lilypond
 
 @cindex shift note
 
-If three or more notes line up in the same column,
+The collision on the second measure happens because
 @code{merge-differently-headed} cannot successfully complete the merge
-of the two notes that should be merged.  To allow the merge to work
+when three or more notes line up in the same column (in fact, you will
+obtain a warning for this reason).  To allow the merge to work
 properly, apply a @code{\shift} to the note that should not be merged.
-In the first measure of following example,
-@code{merge-differently-headed} does not work (the half-note head is
-solid).  In the second measure, @code{\shiftOn} is applied to move the
-top @code{g} out of the column, and @code{merge-differently-headed}
-works properly.
+Here, @code{\shiftOn} is applied to move the top @code{g} out of the
+column, and @code{merge-differently-headed} works properly.
 
-@c IMO this uglyfies the typesetting. Look for a better example. FV
-
-@lilypond[quote,verbatim,relative=2]
-\override Staff.NoteCollision #'merge-differently-headed = ##t
+@lilypond[quote,relative=2,verbatim]
 <<
-  { d=''2 g2 } \\
-  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
-  { \voiceFour e,,2 e'2}
->>
-<<
-  { d'=''2 \shiftOn g2 } \\ 
-  { \oneVoice d=''8 c8 r4 e,8 c'8 r4 } \\
-  { \voiceFour e,,2 e'2}
+  {
+    \override Staff.NoteCollision #'merge-differently-headed = ##t
+    \override Staff.NoteCollision #'merge-differently-dotted = ##t	
+    c8 d e d c d e4
+    \shiftOn
+    g2 fis
+  } \\ {
+    c2 c8. b16 a4
+    e2 r
+  } \\ {
+    \oneVoice
+    s1
+    e8 a b c d2
+  }
 >>
 @end lilypond
+
+Merging notes by setting @code{merge-differently-headed} and
+@code{merge-differently-dotted} only works for opposing stem
+directions (i.e., to @code{Voice}s 1 and 2).
 
 @cindex multiple voices
 @cindex polyphonic music
@@ -270,7 +304,7 @@ inner voices (three and four) have @code{\shiftOn}.
 levels.
 
 When LilyPond cannot cope, the @code{force-hshift} property of the
-@rinternals{NoteColumn} object and pitched rests can be used to
+@code{NoteColumn} object and pitched rests can be used to
 override typesetting decisions.
 
 @lilypond[quote,verbatim,relative=1]
@@ -282,14 +316,13 @@ override typesetting decisions.
     \once \override NoteColumn #'force-hshift = #1.7
     <b f'> }
 >>
-
 @end lilypond
 
 
 @seealso
 
 Music Glossary:
-@rglos{polyphony}
+@rglos{polyphony}.
 
 Learning Manual:
 @rlearning{Multiple notes at once},
@@ -314,10 +347,15 @@ shorter note, and a downstem half note, the eighth note stem gets a
 slightly wrong offset because of the different width of the half note
 head symbol.
 
+@c investigate! Sometimes it works, sometimes not. --FV
+It is not clear in which circumpstances you can succesfully merge
+different note heads that are at the same time differently dotted.
+
 There is no support for clusters where the same note occurs with
 different accidentals in the same chord.  In this case, it is
 recommended to use enharmonic transcription, or to use special
 cluster notation (see @ref{Clusters}).
+
 
 @node Automatic part combining
 @subsubsection Automatic part combining
@@ -555,7 +593,6 @@ global = {
 >>
 }
 @end lilypond
-
 
 @seealso
 
