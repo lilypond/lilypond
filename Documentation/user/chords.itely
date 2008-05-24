@@ -125,7 +125,7 @@ Minor, augmented, and diminished triads are entered by placing
 \chordmode { c2:m f4:aug g:dim }
 @end lilypond
 
-Seventh chords may be created:
+Seventh chords can be created:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 \chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
@@ -364,9 +364,8 @@ of the mode of entry, unless there are inversions or added bass notes:
 
 @funindex{\chords}
 
-@code{\chords} is a shortcut method used to create a
-@code{ChordNames} context and change the input mode to
-@code{\chordmode}:
+@code{\chords} is a shortcut notation for
+@code{\new ChordNames @{\chordmode @{ ... @}@}}.
 
 @lilypond[verbatim,quote,ragged-right, relative=1]
 \chords {
@@ -641,10 +640,15 @@ Figured bass notation can be displayed.
 @unnumberedsubsubsec Introduction to figured bass
 
 @cindex Basso continuo
+@cindex Thorough bass
+@cindex Figured bass
+@cindex Bass, thorough
+@cindex Bass, figured
 
 @c TODO: musicological blurb about FB
 
-LilyPond has support for figured bass
+LilyPond has support for figured bass, also called thorough bass
+or basso continuo:
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 <<
@@ -666,15 +670,14 @@ entry of bass figures, and there is a context named
 @code{BassFigure} objects.  Figured bass can also be displayed
 in @code{Staff} contexts.
 
-@code{\figures@{ .. @}} is a shortcut notation for
-@code{\new FiguredBass @{\figuremode @{ .. @}@}}.
+@code{\figures@{ ... @}} is a shortcut notation for
+@code{\new FiguredBass @{\figuremode @{ ... @}@}}.
 
 
 Although the support for figured bass may superficially resemble chord
 support, it is much simpler.  @code{\figuremode} mode simply
 stores the figures and the @code{FiguredBass} context prints them
-as entered.  There is no conversion to pitches.  Figured bass has
-no effect on the MIDI file.
+as entered.  There is no conversion to pitches.
 
 Figures are created as markup texts.  Any of the standard markup
 properties can be used to modify the display of figures.  For
@@ -828,8 +831,8 @@ explicitly instantiated to avoid creating a second (empty) staff.
 
 
 Figured bass can also be added to @code{Staff} contexts
-directly.  In this case, their vertical position is adjusted
-automatically.
+directly.  In this case, the vertical position of the
+figures is adjusted automatically.
 
 @c  TODO change to use predefined command once it is added to
 @c  property-init.ly  -cds
