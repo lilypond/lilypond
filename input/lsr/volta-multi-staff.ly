@@ -3,7 +3,7 @@
 \version "2.11.46"
 \layout { ragged-right= ##t }
 \header {
-  lsrtags = "repeats,staff-notation"
+  lsrtags = "repeats,staff-notation,fretted-strings"
   texidoc = "By adding the @code{Volta_engraver} to the relevant
 staff, volte can be put over staves other than the topmost
 one in a score."

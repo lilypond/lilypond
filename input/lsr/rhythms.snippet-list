@@ -3,7 +3,6 @@ beams-across-line-breaks.ly
 manually-controlling-beam-positions.ly
 adding-drum-parts.ly
 rest-styles.ly
-skips-in-lyric-mode-2.ly
 chant-or-psalms-notation.ly
 controlling-tuplet-bracket-visibility.ly
 heavily-customized-polymetric-time-signatures.ly
@@ -20,6 +19,7 @@ automatic-beam-subdivisions.ly
 changing-the-tuplet-number.ly
 entering-several-tuplets-using-only-one--times-command.ly
 conducting-signs,-measure-grouping-signs.ly
+skips-in-lyric-mode-2.ly
 changing-form-of-multi--measure-rests.ly
 rhythmic-slashes.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly

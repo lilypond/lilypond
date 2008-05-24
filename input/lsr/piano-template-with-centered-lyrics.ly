@@ -6,9 +6,8 @@
   lsrtags = "text, keyboards, template"
 
   texidoc = "
-Instead of having a full staff for the melody and lyrics, you can place
-the lyrics between the piano staff (and omit the separate melody
-staff).
+Instead of having a full staff for the melody and lyrics, lyrics can be
+centered between the staves of a piano staff.
 
 "
   doctitle = "Piano template with centered lyrics"
@@ -18,7 +17,7 @@ upper = \relative c'' {
   \key c \major
   \time 4/4
   
-  a b c d
+  a4 b c d
   
 }
 

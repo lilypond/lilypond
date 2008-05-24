@@ -7,7 +7,7 @@
 
   texidoc = "
 Some composers write two slurs when they want legato chords.  This can
-be achieved by setting @code{doubleSlurs} 
+be achieved by setting @code{doubleSlurs}. 
 
 "
   doctitle = "Using double slurs for legato chords"
