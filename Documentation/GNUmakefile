@@ -47,7 +47,7 @@ new-lang:
 	mv $(outdir)/*.*tely $(ISOLANG)/user
 	msgmerge -U po/lilypond-doc.pot $(outdir)/doc.pot
 	cp po/lilypond-doc.pot po/$(ISOLANG).po
-	@echo "***  Please add a language definition for $(ISOLANG) in buildscripts/langdefs.py  ***"
+	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
 CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??')
 

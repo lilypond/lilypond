@@ -1,5 +1,7 @@
 @node Text
-@unnumbered Text
+@chapter Text
+
+@ruser{Text}
 
 @lysnippets
 
