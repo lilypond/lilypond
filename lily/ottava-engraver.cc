@@ -11,6 +11,7 @@
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "spanner.hh"
+#include "text-interface.hh"
 #include "item.hh"
 
 class Ottava_spanner_engraver : public Engraver
@@ -55,7 +56,7 @@ Ottava_spanner_engraver::process_music ()
     {
       finished_ = span_;
       span_ = 0;
-      if (scm_is_string (ott))
+      if (Text_interface::is_markup (ott))
 	{
 	  span_ = make_spanner ("OttavaBracket", SCM_EOL);
 	  span_->set_property ("text", ott);
