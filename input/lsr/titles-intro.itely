@@ -1,5 +1,7 @@
 @node Titles
-@unnumbered Titles
+@chapter Titles
+
+@ruser{Titles and headers}
 
 @lysnippets
 

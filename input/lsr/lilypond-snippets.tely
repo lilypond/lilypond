@@ -19,6 +19,28 @@
 @section \TEXT\
 @end macro
 
+@ifnottex
+@macro ruser{NAME}
+These snippets illustrate the User Manual,
+section @ref{\NAME\,,,lilypond,Notation Reference}.
+@end macro
+
+@macro rlearning{NAME}
+See also Learning Manual, section
+@ref{\NAME\,,,lilypond-learning,Learning Manual}.
+@end macro
+@end ifnottex
+
+@iftex
+@macro ruser{NAME}
+These snippets illustrate @ref{\NAME\,,,lilypond,Notation Reference}.
+@end macro
+
+@macro rlearning{NAME}
+See also @ref{\NAME\,,,lilypond-learning,Learning Manual}.
+@end macro
+@end iftex
+
 @dircategory GNU LilyPond --- the music typesetter
 @direntry
 * LilyPond Snippets: (lilypond-snippets).       Short tricks, tips, and examples.
