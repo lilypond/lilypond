@@ -329,7 +329,7 @@ repeated section for a page turn to be allowed within that section.")
 Parameters: A list of note events and a list of tabstring events.")
 
 
-     (ottavation ,string? "If set, the text for an ottava spanner.
+     (ottavation ,markup? "If set, the text for an ottava spanner.
 Changing this creates a new text spanner.")
      (output ,ly:music-output? "The output produced by a score-level
 translator during music interpretation.")

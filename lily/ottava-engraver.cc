@@ -1,11 +1,12 @@
 /*
-  ottova-engraver.cc -- implement Ottava_spanner_engraver
+  ottava-engraver.cc -- implement Ottava_spanner_engraver
 
   source file of the GNU LilyPond music typesetter
 
   (c) 2000--2007 Han-Wen Nienhuys
 */
 
+#include "text-interface.hh"
 #include "protected-scm.hh"
 #include "note-column.hh"
 #include "side-position-interface.hh"
@@ -55,7 +56,7 @@ Ottava_spanner_engraver::process_music ()
     {
       finished_ = span_;
       span_ = 0;
-      if (scm_is_string (ott))
+      if (Text_interface::is_markup (ott))
 	{
 	  span_ = make_spanner ("OttavaBracket", SCM_EOL);
 	  span_->set_property ("text", ott);
