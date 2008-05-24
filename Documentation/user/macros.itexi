@@ -241,7 +241,7 @@
 
 @macro rglos{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,music-glossary,Music Glossary}
+@ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
@@ -265,7 +265,7 @@
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,lilypond-internals,Internals Reference}
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @end ifinfo
