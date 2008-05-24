@@ -20,12 +20,12 @@ final bar line, as demonstrated on the second line of this example.
 \relative c'' {  
   \override Score.RehearsalMark  #'break-visibility = #begin-of-line-invisible
   g2 c
-  d, a'
+  d,2 a'
   \mark \default
   \break
   
-  \override Score.RehearsalMark #'self-alignment-X = #right
-  g b,
+  \override Score.RehearsalMark #'self-alignment-X = #RIGHT
+  g2 b,
   c1 \bar "||"
   \mark "D.C. al Fine"
 }

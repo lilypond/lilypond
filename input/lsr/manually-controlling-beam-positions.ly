@@ -22,6 +22,6 @@ Beam positions may be controlled manually, by overriding the
   c8 c
   % from center to one above center (position 2)
   \override Beam #'positions = #'(0 . 1)
-  c c
+  c8 c
 }
 
