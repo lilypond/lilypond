@@ -6,7 +6,6 @@
   (c) 2000--2007 Han-Wen Nienhuys
 */
 
-#include "text-interface.hh"
 #include "protected-scm.hh"
 #include "note-column.hh"
 #include "side-position-interface.hh"
