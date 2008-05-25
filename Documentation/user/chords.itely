@@ -343,7 +343,7 @@ Chords can be entered as simultaneous notes or through the use of
 chord mode.  The displayed chord name will be the same, regardless
 of the mode of entry, unless there are inversions or added bass notes:
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,ragged-right,verbatim,relative=1]
 <<
   \new ChordNames {
     <c e g>2  <f bes c>
@@ -364,7 +364,7 @@ of the mode of entry, unless there are inversions or added bass notes:
 
 @funindex{\chords}
 
-@code{\chords} is a shortcut notation for
+@code{\chords @{ ... @}} is a shortcut notation for
 @code{\new ChordNames @{\chordmode @{ ... @}@}}.
 
 @lilypond[verbatim,quote,ragged-right, relative=1]
@@ -565,9 +565,10 @@ and @q{m}.  The spacer is not used when the root is altered.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-names-jazz.ly}
 
+@c TODO fix indentation of snippet -- lots of tabs!
+@cindex exceptions, chord names.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-exceptions.ly}
-@cindex exceptions, chord names.
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-major7.ly}

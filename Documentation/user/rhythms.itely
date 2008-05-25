@@ -897,11 +897,21 @@ The time signature is set as follows:
 
 @cindex Time signature, visibility of
 
-Time signatures by default are printed at the start of every line
+Time signatures are printed at the beginning of a piece
 and whenever the time signature changes.  If a change takes place
 at the end of a line a warning time signature sign is printed
 there.  This default behavior may be changed, see
 @ref{Controlling visibility of objects}.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4
+c2 c
+\break
+c c
+\break
+\time 4/4
+c c c c
+@end lilypond
 
 @funindex \numericTimeSignature
 @funindex \defaultTimeSignature
@@ -1038,9 +1048,15 @@ where @code{duration} is the rhythmic length of the @emph{notes}
 which are to be placed before the first complete measure:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\partial 16*5 c16 cis d dis e |
+\partial 4 e4 |
 a2. c,4 |
-b2
+@end lilypond
+
+The partial measure can be any duration less than a full measure:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\partial 8*3 c8 d e |
+a2. c,4 |
 @end lilypond
 
 Internally, this is translated into
@@ -1055,7 +1071,6 @@ that this is set to a negative number by the @code{\partial}
 command: i.e., @code{\partial 4} is internally translated to
 @code{-4}, meaning @qq{there is a quarter note left in the measure.}
 
-
 @seealso
 
 Music Glossary: @rglos{anacrusis}
@@ -1065,7 +1080,8 @@ Notation Reference: @ref{Grace notes}
 Snippets:
 @rlsr{Rhythms}.
 
-Internal Reference: @rinternals{Timing_translator}
+Internal Reference:
+@rinternals{Timing_translator}
 
 @knownissues
 
@@ -1132,9 +1148,11 @@ d4 e d c
 
 @seealso
 
-Music Glossary: @rglos{cadenza}
+Music Glossary:
+@rglos{cadenza}
 
-Notation Reference: @ref{Controlling visibility of objects}
+Notation Reference:
+@ref{Controlling visibility of objects}
 
 Snippets:
 @rlsr{Rhythms}.

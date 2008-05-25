@@ -10,14 +10,14 @@ line-arrows.ly
 hiding-the-extender-line-for-text-dynamics.ly
 vertically-aligning-dynamics-across-multiple-notes.ly
 modifying-default-values-for-articulation-shorthand-notation.ly
+setting-the-minimum-length-of-hairpins.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 controlling-the-vertical-ordering-of-scripts.ly
 using-double-slurs-for-legato-chords.ly
-setting-the-minimum-length-of-hairpins.ly
+creating-text-spanners.ly
 creating-real-parenthesized-dynamics.ly
 center-text-below-hairpin-dynamics.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
-creating-text-spanners.ly
 broken-crescendo-hairpin.ly
 combining-dynamics-with-markup-texts.ly
 creating-slurs-across-voices.ly
