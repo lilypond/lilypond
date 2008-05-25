@@ -54,11 +54,9 @@ delimited by curly brackets:
 @}
 @end example
 
-@warning
-There must be @strong{only one} outer music expression in a
-@code{\score} block, and it @strong{must} be surrounded by
-curly brackets.
-@end warning
+@warning{There must be @strong{only one} outer music expression in
+a @code{\score} block, and it @strong{must} be surrounded by
+curly brackets.}
 
 This single music expression may be of any size, and may contain
 other music expressions to any complexity.  All of these examples
@@ -98,7 +96,7 @@ are music expressions:
 @end example
 
 Comments are one exception to this general rule.  (For others see
-@ref{File structure}.)  Both single-line comments and comments 
+@ref{File structure}.)  Both single-line comments and comments
 delimited by @code{%@{ .. %@}} may be placed anywhere within an
 input file.  They may be placed inside or outside a @code{\score}
 block, and inside or outside the single music expression within a
@@ -110,7 +108,7 @@ Learning Manual:
 
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
-@rlearning{Score is a single (compound) music expression.
+@rlearning{Score is a single (compound) music expression}.
 
 
 @node Multiple scores in a book
@@ -119,7 +117,7 @@ Learning Manual:
 @funindex \book
 @cindex movements, multiple
 
-A document may contain multiple pieces of music and texts.  Examples
+A document may contain multiple pieces of music and text.  Examples
 of these are an etude book, or an orchestral part with multiple
 movements.  Each movement is entered with a @code{\score} block,
 
@@ -139,8 +137,8 @@ and texts are entered with a @code{\markup} block,
 
 @funindex \book
 
-All the movements and texts which appear in the same @code{.ly} file 
-will normally be typeset in the form of a single output file. 
+All the movements and texts which appear in the same @code{.ly} file
+will normally be typeset in the form of a single output file.
 
 @example
 \score @{
@@ -203,7 +201,7 @@ the top of the file is inserted.
 A @code{.ly} file may contain any number of toplevel expressions, where a
 toplevel expression is one of the following:
 
-@itemize
+@itemize @bullet
 @item
 An output definition, such as @code{\paper}, @code{\midi}, and
 @code{\layout}.  Such a definition at the toplevel changes the default
@@ -341,7 +339,6 @@ Learning Manual:
 
 @menu
 * Input modes::
-* When to add a -::
 * Controlling direction and placement::
 * Distances and measurements::
 * Spanners::
@@ -353,45 +350,7 @@ Learning Manual:
 The way in which the notation contained within an input file is
 interpreted is determined by the current input mode.
 
-@unnumberedsubsubsection Note mode
-
-This is the default mode or it may be activated with the
-@code{\notemode} command.  Input is interpreted as pitches,
-durations, markup, etc and typeset as musical notation on a staff.
-
-It is not normally necessary to specify note mode explicitly, but
-it may be useful to do so in certain situations, for example if you
-are in \lyricmode or \chordmode or any other mode and want to insert
-something that only can be done with @code(\notemode} syntax.
-
-For example, to indicate dynamic markings for the verses of a
-choral pieces it is necessary to enter note mode to interpret
-the markings:
-
-@lilypond{verbatim,relative=2,quote}
-{ c4 c4 c4 c4 }
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic f 1. } }
-  To be sung loudly
-}
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic p 2. } }
-  To be sung quietly
-}
-@end lilypond
-
-@unnumberedsubsubsection Lyrics mode
-
-This is activated with the @code{\lyricmode} command, and causes
-input to be interpreted as lyric syllables with optional durations
-and associated lyric modifiers.
-
-Lyric mode is also activated with the @code{\addlyrics} command.  
-This also creates a new @code{Lyrics} context and an implicit 
-@code{\lyricsto} command which associates the following lyrics 
-with the preceding music.
-
-@unnumberedsubsubsection Chord mode
+@strong{Chord mode}
 
 This is activated with the @code{\chordmode} command, and causes
 input to be interpreted with the syntax of chord notation, see
@@ -403,7 +362,7 @@ causes the following input to be interpreted with the syntax of
 chord notation and rendered as chord names in the @code{ChordNames}
 context, see @ref{Printing chord names}.
 
-@unnumberedsubsubsection Drum mode
+@strong{Drum mode}
 
 This is activated with the @code{\drummode} command, and causes
 input to be interpreted with the syntax of drum notation, see
@@ -415,7 +374,7 @@ following input to be interpreted with the syntax of drum notation
 and rendered as drum symbols on a drum staff, see @ref{Basic
 percussion notation}.
 
-@unnumberedsubsubsection Figure mode
+@strong{Figure mode}
 
 This is activated with the @code{\figuremode} command, and causes
 input to be interpreted with the syntax of figured bass, see
@@ -427,7 +386,7 @@ following input to be interpreted with the figured bass syntax
 and rendered as figured bass symbols in the @code{FiguredBass}
 context, see @ref{Introduction to figured bass}.
 
-@unnumberedsubsubsection Fret and tab modes
+@strong{Fret and tab modes}
 
 There are no special input modes for entering fret and tab symbols.
 
@@ -439,30 +398,55 @@ To create fret diagrams above a staff, enter them as markup
 above the notes using the @code{\fret-diagram} command, see
 @ref{Fret diagrams}.
 
+@strong{Lyrics mode}
 
-@node Direction indicator on articulations
-@subsection Direction indicator on articulations
+This is activated with the @code{\lyricmode} command, and causes
+input to be interpreted as lyric syllables with optional durations
+and associated lyric modifiers, see @ref{Vocal music}.
 
-@c TODO Merge with following section?
+Lyric mode is also activated with the @code{\addlyrics} command.
+This also creates a new @code{Lyrics} context and an implicit
+@code{\lyricsto} command which associates the following lyrics
+with the preceding music.
 
-When adding articulations to notes the direction indicator,
-@code{^}, @code{_} or @code{-}, can usually be omitted, in which
-case @code{-} is assumed.  But a direction indicator is
-@strong{always} required before
+@strong{Markup mode}
 
-@itemize
-@item @code{\tweak} commands
-@item @code{\markup} commands
-@item @code{\tag} commands
-@item text annotation, e.g.-faster, -"with feeling"
-@item fingering instructions, e.g. @code{-1}
-@item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
-@end itemize
+This is activated with the @code{\markup} command, and causes
+input to be interpreted with the syntax of markup, see
+@ref{Text markup commands}.
+
+@strong{Note mode}
+
+This is the default mode or it may be activated with the
+@code{\notemode} command.  Input is interpreted as pitches,
+durations, markup, etc and typeset as musical notation on a staff.
+
+It is not normally necessary to specify note mode explicitly, but
+it may be useful to do so in certain situations, for example if you
+are in lyric mode, chord mode or any other mode and want to insert
+something that only can be done with note mode syntax.
+
+For example, to indicate dynamic markings for the verses of a
+choral pieces it is necessary to enter note mode to interpret
+the markings:
+
+@lilypond[verbatim,relative=2,quote]
+{ c4 c4 c4 c4 }
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic f 1. } }
+  To be sung loudly
+}
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic p 2. } }
+  To be sung quietly
+}
+@end lilypond
+
+
 
 @node Controlling direction and placement
 @subsection Controlling direction and placement
 
-TODO: everything
 TODO: Maybe rename section to "directions".
 
 In typesetting music the direction and placement of many items is
@@ -473,38 +457,79 @@ left, right or center; etc.  Most of these choices may be left to
 be determined automatically by LilyPond, but in some cases it may
 be desirable to force a particular direction or placement.
 
-@unnumberedsubsubsection Default actions
+@strong{Default actions}
+
 By default some directions are always up or always down (e.g.
 dynamics or fermata), while other things can alternate between
 up or down based on the stem direction (like slurs or accents).
 
-@unnumberedsubsubsection context layout
+@c TODO Add table showing these
+
+@strong{Context layout}
+
 Contexts are positioned in a system from top to bottom in the
 order in which they are encountered.  Note, however, that a
 context will be created implicitly if a command is encountered
-when there is no suitable context available to contain it.  For
-example,
+when there is no suitable context available to contain it.
 
-\contextAbove or whatever it is
+@c TODO Add example ?
 
-@unnumberedsubsubsection direction indicators
-@verbatim
--
-^ _
-@end verbatim
+The default order in which contexts are laid out can be changed,
+see @ref{Aligning contexts}
 
-@unnumberedsubsubsection up,down,left,right,center
-Also cover
-#UP
-#DOWN
-#LEFT
-#RIGHT.
+@strong{Articulation direction indicators}
 
-@unnumberedsubsubsection \fooUp, \fooDown, \fooNeutral
-also mention the typical \fooDown, \fooNeutral predefined commands.
+When adding articulations to notes the direction indicator,
+@code{^} (meaning @qq{up}), @code{_} (meaning @qq{down}) or
+@code{-} (meaning @qq{use default direction}), can usually be
+omitted, in which case @code{-} is assumed.  But a direction
+indicator is @strong{always} required before
 
-@unnumberedsubsubsection \override
-Also mention \override Foo #'direction = #'DOWN.
+@itemize
+@item @code{\tweak} commands
+@item @code{\markup} commands
+@item @code{\tag} commands
+@item string markups, e.g. -"string"
+@item fingering instructions, e.g. @code{-1}
+@item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
+@end itemize
+
+@strong{The direction property}
+
+The position or direction of many layout objects is controlled
+by the @code{direction} property.
+
+The value of the @code{direction} property may be
+set to @code{1}, meaning @qq{up} or @qq{above}, or to @code{-1},
+meaning @qq{down} or @qq{below}.  The symbols @code{UP} and
+@code{DOWN} may be used instead of @code{1} and @code{-1}
+respectively.  The default direction may be specified by setting
+@code{direction} to @code{0} or @code{CENTER}.  Alternatively,
+in many cases predefined commands
+exist to specify the direction.  These are all of the form
+
+@noindent
+@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
+
+@noindent
+where @code{xxxNeutral} means @qq{use the default direction}.
+See @rlearning{Within-staff objects}.
+
+In a few cases, arpeggio being the only common example, the value
+of the @code{direction} property specifies whether the object
+is to be placed to the right or left of the parent object.  In
+this case @code{-1} or @code{LEFT} means @qq{to the left} and
+@code{1} or @code{RIGHT} means @qq{to the right}.  @code{0}
+or @code{CENTER} means @qq{use the default} direction, as before.
+
+@ignore
+These all have side-axis set to #X
+AmbitusAccidental - direction has no effect
+Arpeggio - works
+StanzaNumber - not tried
+TrillPitchAccidental - not tried
+TrillPitchGroup - not tried
+@end ignore
 
 
 
@@ -513,7 +538,7 @@ Also mention \override Foo #'direction = #'DOWN.
 
 DISCUSS after working on other sections.
 
-TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
+TODO: staff spaces.  Maybe move into tweaks?
 
 
 @node Spanners
@@ -527,10 +552,10 @@ Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
 @menu
-* Creating titles::             
-* Custom titles::               
-* Reference to page numbers::   
-* Table of contents::           
+* Creating titles::
+* Custom titles::
+* Reference to page numbers::
+* Table of contents::
 @end menu
 
 
