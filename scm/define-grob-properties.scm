@@ -168,7 +168,7 @@ positions.")
 other object.  Otherwise, it determines whether the object is placed
 @code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
-@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{CENTER}=@code{0}
+@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}
 but also other numerical values are permitted.")
      (dot-color ,symbol? "Color of dots.  Options include 
 @code{black} and @code{white}.")
