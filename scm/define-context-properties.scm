@@ -33,7 +33,7 @@
 
      ;; TODO FIXME
    
-     (aDueText ,string? "Text to print at a unisono passage.")
+     (aDueText ,markup? "Text to print at a unisono passage.")
      (alignBelowContext ,string? "Where to insert newly created context in
 vertiical alignment.")
      (alignAboveContext ,string? "Where to insert newly created context in
@@ -391,9 +391,9 @@ voices is preserved.
      (skipTypesetting ,boolean? "If true, no typesetting is done,
 speeding up the interpretation phase.  Useful for debugging large
 scores.")
-     (soloIIText ,string? "The text for the start of a solo for
+     (soloIIText ,markup? "The text for the start of a solo for
 voice @q{two} when part-combining.")
-     (soloText ,string? "The text for the start of a solo when
+     (soloText ,markup? "The text for the start of a solo when
 part-combining.")
      (squashedPosition ,integer? "Vertical position of squashing for
 @rinternals{Pitch_squash_engraver}.")

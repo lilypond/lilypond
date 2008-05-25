@@ -12,6 +12,7 @@
 #include "side-position-interface.hh"
 #include "engraver.hh"
 #include "spanner.hh"
+#include "text-interface.hh"
 #include "item.hh"
 
 class Ottava_spanner_engraver : public Engraver
