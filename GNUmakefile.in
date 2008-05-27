@@ -217,6 +217,8 @@ test-baseline:
 	$(MAKE) test
 	$(MAKE) out=test -C input/regression/ local-test-baseline
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
+	rm -rf out/lybook-testdb/
+
 
 local-check: test
 	rm -rf $(RESULT_DIR)
