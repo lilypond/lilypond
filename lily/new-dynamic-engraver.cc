@@ -10,13 +10,14 @@
 
 #include "engraver.hh"
 
+#include "international.hh"
 #include "item.hh"
-#include "pointer-group-interface.hh"
-#include "text-interface.hh"
 #include "note-column.hh"
+#include "pointer-group-interface.hh"
 #include "self-alignment-interface.hh"
 #include "spanner.hh"
 #include "stream-event.hh"
+#include "text-interface.hh"
 
 #include "translator.icc"
 
@@ -122,9 +123,9 @@ New_dynamic_engraver::process_music ()
 	  if (cresc_type != ly_symbol2scm ("hairpin"))
 	    {
 	      // Fixme: should put value in error message.
-	      ly_display_scm (cresc_type);
+	      string as_string = ly_scm_write_string (cresc_type);
 	      current_span_event_
-		->origin()->warning ("unknown crescendo style; defaulting to hairpin.");
+		->origin()->warning (_f ("unknown crescendo style: %s\ndefaulting to hairpin.", as_string.c_str()));
 	    }
 	  current_spanner_ = make_spanner ("Hairpin",
 					   current_span_event_->self_scm ());
