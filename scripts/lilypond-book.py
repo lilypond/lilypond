@@ -1239,8 +1239,10 @@ class LilypondSnippet (Snippet):
             require_file (systemfile + '.eps')
             consider_file (systemfile + '.pdf')
 
+            # We can't require signatures, since books and toplevel
+            # markups do not output a signature.
             if 'ddump-signature' in global_options.process_cmd:
-                require_file (systemfile + '.signature')
+                consider_file (systemfile + '.signature')
              
        
         return (result, missing)
