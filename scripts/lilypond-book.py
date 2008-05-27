@@ -1209,6 +1209,7 @@ class LilypondSnippet (Snippet):
                              base + '.eps',
                              base + '.texidoc',
                              base + '.doctitle',
+                             base + '.signature',
                              base + '-systems.texi',
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
@@ -1930,8 +1931,13 @@ def main ():
                                       + ' --formats=%s -dbackend=eps ' % formats)
 
     if global_options.process_cmd:
-        global_options.process_cmd += ' '.join ([(' -I %s' % ly.mkarg (p))
-                                                 for p in global_options.include_path])
+        includes = global_options.include_path
+        if global_options.lily_output_dir:
+            # This must be first, so lilypond prefers to read .ly
+            # files in the other lybookdb dir.
+            includes = [os.path.abspath(global_options.lily_output_dir)] + includes
+        global_options.process_cmd += ' '.join ([' -I %s' % ly.mkarg (p)
+                                                 for p in includes])
 
     if global_options.format in (TEXINFO, LATEX):
         ## prevent PDF from being switched on by default.
