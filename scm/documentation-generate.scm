@@ -120,12 +120,7 @@
 @c ***** info *****
 
 @macro ruser{NAME}
-@inforef{\\NAME\\,,,lilypond}
-@cindex \\NAME\\
-@end macro
-
-@macro glossaryref{NAME}
-@inforef{\\NAME\\,,lilypond/music-glossary}
+@ref{\\NAME\\,,,lilypond}
 @cindex \\NAME\\
 @end macro
 

@@ -815,7 +815,7 @@ in the Learning manual.
 @itemize
 
 @item
-@ruser{Basic notation}:
+@ruser{Musical notation}:
 discusses topics grouped by notation construct.  This section gives
 details about basic notation that will be useful in almost any
 notation project.
@@ -856,7 +856,7 @@ contains a set of useful reference books for those who wish to
 know more on notation and engraving.
 
 @item
-@ruser{Scheme tutorial}:
+@rlearning{Scheme tutorial}:
 presents a short introduction to Scheme, the programming
 language that music functions use.
 
@@ -866,7 +866,7 @@ are a set of tables showing the chord names, MIDI instruments, a
 list of color names, and the Feta font.
 
 @item
-@ruser{Templates}:
+@rlearning{Templates}:
 of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
 

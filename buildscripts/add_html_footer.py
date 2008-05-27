@@ -90,6 +90,7 @@ def source_links_replace (m, source_val):
 splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
 
 snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
+user_ref_re = re.compile (r'href="(?:\.\./)?lilypond(|-internals|-learning|-program)')
 
 ## Windows does not support symlinks.
 # This function avoids creating symlinks for splitted HTML manuals
@@ -99,8 +100,11 @@ def hack_urls (s, prefix):
     if splitted_docs_re.match (prefix):
         s = re.sub ('(href|src)="(../lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
 
-    # fix Snippets xrefs ad hoc
-    s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
+    # fix xrefs between documents in different directories ad hoc
+    if 'user/out-www/lilypond' in prefix:
+        s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
+    elif 'input/lsr' in prefix:
+        s = user_ref_re.sub ('href="source/Documentation/user/lilypond\\1', s)
 
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):

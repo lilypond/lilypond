@@ -18,18 +18,12 @@ rather than specific notation.
 FIXME: don't complain about anything in this chapter.  It's still
 under heavy development.
 
-FIXME: add comments
-@verbatim
-% %{
-@end verbatim
-to 3.1.
-
 @menu
-* Input structure::             
-* Useful concepts and properties::  
-* Titles and headers::          
-* Working with input files::    
-* Controlling output::          
+* Input structure::
+* Useful concepts and properties::
+* Titles and headers::
+* Working with input files::
+* Controlling output::
 @end menu
 
 
@@ -40,34 +34,46 @@ The main format of input for LilyPond are text files.  By convention,
 these files end with @code{.ly}.
 
 @menu
-* Structure of a score::        
-* Multiple scores in a book::   
-* File structure::              
+* Structure of a score::
+* Multiple scores in a book::
+* File structure::
 @end menu
 
 
 @node Structure of a score
 @subsection Structure of a score
 
-A @code{\score} must contain a single music expression.  However,
-this music expression may be of any size.  Recall that music
-expressions may be included inside other expressions to form
-larger expressions.  All of these examples are single music
-expressions; note the curly braces @{ @} or angle brackets <<
->> at the beginning and ending of the music.
+@funindex \score
+
+A @code{\score} block must contain a single music expression
+delimited by curly brackets:
+
+@example
+\score @{
+...
+@}
+@end example
+
+@warning{There must be @strong{only one} outer music expression in
+a @code{\score} block, and it @strong{must} be surrounded by
+curly brackets.}
+
+This single music expression may be of any size, and may contain
+other music expressions to any complexity.  All of these examples
+are music expressions:
 
 @example
 @{ c'4 c' c' c' @}
 @end example
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[verbatim,quote]
 {
   { c'4 c' c' c'}
   { d'4 d' d' d'}
 }
 @end lilypond
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[verbatim,quote]
 <<
   \new Staff { c'4 c' c' c' }
   \new Staff { d'4 d' d' d' }
@@ -89,6 +95,21 @@ expressions; note the curly braces @{ @} or angle brackets <<
 @}
 @end example
 
+Comments are one exception to this general rule.  (For others see
+@ref{File structure}.)  Both single-line comments and comments
+delimited by @code{%@{ .. %@}} may be placed anywhere within an
+input file.  They may be placed inside or outside a @code{\score}
+block, and inside or outside the single music expression within a
+@code{\score} block.
+
+@seealso
+
+Learning Manual:
+
+@rlearning{Working on input files},
+@rlearning{Music expressions explained},
+@rlearning{Score is a single (compound) music expression}.
+
 
 @node Multiple scores in a book
 @subsection Multiple scores in a book
@@ -96,7 +117,7 @@ expressions; note the curly braces @{ @} or angle brackets <<
 @funindex \book
 @cindex movements, multiple
 
-A document may contain multiple pieces of music and texts.  Examples
+A document may contain multiple pieces of music and text.  Examples
 of these are an etude book, or an orchestral part with multiple
 movements.  Each movement is entered with a @code{\score} block,
 
@@ -116,8 +137,8 @@ and texts are entered with a @code{\markup} block,
 
 @funindex \book
 
-All the movements and texts which appear in the same @code{.ly} file 
-will normally be typeset in the form of a single output file. 
+All the movements and texts which appear in the same @code{.ly} file
+will normally be typeset in the form of a single output file.
 
 @example
 \score @{
@@ -170,14 +191,23 @@ the top of the file is inserted.
 @node File structure
 @subsection File structure
 
-A @code{.ly} file contains any number of toplevel expressions, where a
-toplevel expression is one of the following
+@funindex \paper
+@funindex \midi
+@funindex \layout
+@funindex \header
+@funindex \score
+@funindex \book
 
-@itemize
+A @code{.ly} file may contain any number of toplevel expressions, where a
+toplevel expression is one of the following:
+
+@itemize @bullet
 @item
 An output definition, such as @code{\paper}, @code{\midi}, and
 @code{\layout}.  Such a definition at the toplevel changes the default
-settings for the block entered.
+book-wide settings.  If more than one such definition of
+the same type is entered at the top level any definitions in the later
+expressions have precedence.
 
 @item
 A direct scheme expression, such as
@@ -192,28 +222,24 @@ composer, title, etc.
 @item
 A @code{\score} block.  This score will be collected with other
 toplevel scores, and combined as a single @code{\book}.
-
 This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
 defined in the init file @file{scm/@/lily@/.scm}.
 
-The @code{\score} must begin with a music expression, and may
-contain only one music expression.
-
 @item
 A @code{\book} block logically combines multiple movements
-(i.e., multiple @code{\score} blocks) in one document.  If there are
-a number of @code{\scores}, one output file will be created for
-each @code{\book} block, in which all corresponding movements are
-concatenated.  The only reason to explicitly specify @code{\book} blocks
-in a @code{.ly} file is if you wish multiple output files from a single
-input file.  One exception is within lilypond-book documents, where you
-explicitly have to add a @code{\book} block if you want more than a
-single @code{\score} or @code{\markup} in the same example.
-
-This behavior can be changed by setting the variable
-@code{toplevel-book-handler} at toplevel.  The default handler is
-defined in the init file @file{scm/@/lily@/.scm}.
+(i.e., multiple @code{\score} blocks) in one document.  If there
+are a number of @code{\score}s, one output file will be created
+for each @code{\book} block, in which all corresponding movements
+are concatenated.  The only reason to explicitly specify
+@code{\book} blocks in a @code{.ly} file is if you wish to create
+multiple output files from a single input file.  One exception is
+within lilypond-book documents, where you explicitly have to add
+a @code{\book} block if you want more than a single @code{\score}
+or @code{\markup} in the same example.  This behavior can be
+changed by setting the variable @code{toplevel-book-handler} at
+toplevel.  The default handler is defined in the init file
+@file{scm/@/lily@/.scm}.
 
 @item
 A compound music expression, such as
@@ -258,7 +284,7 @@ expressions, wherever they appear.
 @cindex variables
 
 @item
-An variable, such as
+A variable, such as
 @example
 foo = @{ c4 d e d @}
 @end example
@@ -274,7 +300,7 @@ toplevel
 
 @example
 \layout @{
-  % movements are non-justified by default
+  % Don't justify the output
   ragged-right = ##t
 @}
 
@@ -294,86 +320,217 @@ be entered:
 @item @code{\include}
 @item @code{\sourcefilename}
 @item @code{\sourcefileline}
+@item
+A single-line comment, introduced by a leading @code{%} sign.
+
+@item
+A multi-line comment delimited by @code{%@{ .. %@}}.
 
 @end itemize
 
+@seealso
+
+Learning Manual:
+@rlearning{How LilyPond input files work}.
 
 @node Useful concepts and properties
 @section Useful concepts and properties
 
 
 @menu
-* Input modes::                 
-* When to add a -::             
-* Controlling direction and placement::  
-* Distances and measurements::  
-* Spanners::                    
+* Input modes::
+* Controlling direction and placement::
+* Distances and measurements::
+* Spanners::
 @end menu
 
 @node Input modes
 @subsection Input modes
 
-\notemode
+The way in which the notation contained within an input file is
+interpreted is determined by the current input mode.
 
-\notemode turns the front end of LilyPond into note mode
-(which is the default parsing mode).
-It's certainly useful in certain situations, for example if you
-are in \lyricmode or \chordmode or ... and want to insert
-something that only can be done with \notemode syntax.
+@strong{Chord mode}
 
-See for example
-http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00418.html
-http://lists.gnu.org/archive/html/lilypond-user/2007-03/msg00218.html
-http://lists.gnu.org/archive/html/lilypond-user/2006-12/msg00236.html
-http://lists.gnu.org/archive/html/lilypond-user/2006-11/msg00061.html
+This is activated with the @code{\chordmode} command, and causes
+input to be interpreted with the syntax of chord notation, see
+@ref{Chord notation}.  Chords are rendered as notes on a staff.
+
+Chord mode is also activated with the @code{\chords} command.
+This also creates a new @code{ChordNames} context and
+causes the following input to be interpreted with the syntax of
+chord notation and rendered as chord names in the @code{ChordNames}
+context, see @ref{Printing chord names}.
+
+@strong{Drum mode}
+
+This is activated with the @code{\drummode} command, and causes
+input to be interpreted with the syntax of drum notation, see
+@ref{Basic percussion notation}.
+
+Drum mode is also activated with the @code{\drums} command.
+This also creates a new @code{DrumStaff} context and causes the
+following input to be interpreted with the syntax of drum notation
+and rendered as drum symbols on a drum staff, see @ref{Basic
+percussion notation}.
+
+@strong{Figure mode}
+
+This is activated with the @code{\figuremode} command, and causes
+input to be interpreted with the syntax of figured bass, see
+@ref{Entering figured bass}.
+
+Figure mode is also activated with the @code{\figures} command.
+This also creates a new @code{FiguredBass} context and causes the
+following input to be interpreted with the figured bass syntax
+and rendered as figured bass symbols in the @code{FiguredBass}
+context, see @ref{Introduction to figured bass}.
+
+@strong{Fret and tab modes}
+
+There are no special input modes for entering fret and tab symbols.
+
+To create tab diagrams, enter notes or chords in note mode and
+render them in a @code{TabStaff} context, see
+@ref{Default tablatures}.
+
+To create fret diagrams above a staff, enter them as markup
+above the notes using the @code{\fret-diagram} command, see
+@ref{Fret diagrams}.
+
+@strong{Lyrics mode}
+
+This is activated with the @code{\lyricmode} command, and causes
+input to be interpreted as lyric syllables with optional durations
+and associated lyric modifiers, see @ref{Vocal music}.
+
+Lyric mode is also activated with the @code{\addlyrics} command.
+This also creates a new @code{Lyrics} context and an implicit
+@code{\lyricsto} command which associates the following lyrics
+with the preceding music.
+
+@strong{Markup mode}
+
+This is activated with the @code{\markup} command, and causes
+input to be interpreted with the syntax of markup, see
+@ref{Text markup commands}.
+
+@strong{Note mode}
+
+This is the default mode or it may be activated with the
+@code{\notemode} command.  Input is interpreted as pitches,
+durations, markup, etc and typeset as musical notation on a staff.
+
+It is not normally necessary to specify note mode explicitly, but
+it may be useful to do so in certain situations, for example if you
+are in lyric mode, chord mode or any other mode and want to insert
+something that only can be done with note mode syntax.
+
+For example, to indicate dynamic markings for the verses of a
+choral pieces it is necessary to enter note mode to interpret
+the markings:
+
+@lilypond[verbatim,relative=2,quote]
+{ c4 c4 c4 c4 }
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic f 1. } }
+  To be sung loudly
+}
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic p 2. } }
+  To be sung quietly
+}
+@end lilypond
 
 
-\chords
-\drums
-\fretmode ?
-
-
-@node When to add a -
-@subsection When to add a -
-
-One of these works, the other doesn't.
-
-@verbatim
-\version "2.11.38"
-{ c'\mp\fermata\accent-\markup { "forcefully"} }
-% { c'\mp\fermata\accent\markup { "forcefully"} }
-@end verbatim
 
 @node Controlling direction and placement
 @subsection Controlling direction and placement
 
-TODO: everything
+TODO: Maybe rename section to "directions".
 
-By default, LilyPond does a pretty jazz'n job of picking
-directions.  But in some cases, it may be desirable to force a
-direction.
+In typesetting music the direction and placement of many items is
+a matter of choice.  For example, the stems of notes can
+be directed up or down; lyrics, dynamics, and other expressive
+marks may be placed above or below the staff; text may be aligned
+left, right or center; etc.  Most of these choices may be left to
+be determined automatically by LilyPond, but in some cases it may
+be desirable to force a particular direction or placement.
 
-@verbatim
--
-^ _
-@end verbatim
+@strong{Default actions}
 
-Also cover
-#UP
-#DOWN
-#LEFT
-#RIGHT.
+By default some directions are always up or always down (e.g.
+dynamics or fermata), while other things can alternate between
+up or down based on the stem direction (like slurs or accents).
 
-Maybe rename section to "directions".
+@c TODO Add table showing these
 
-Also mention \override Foo #'direction = #'DOWN.
+@strong{Context layout}
 
-also mention the typical \fooDown, \fooNeutral predefined commands.
+Contexts are positioned in a system from top to bottom in the
+order in which they are encountered.  Note, however, that a
+context will be created implicitly if a command is encountered
+when there is no suitable context available to contain it.
 
-also mention that some directions are (without other tweaking)
-always up or always down (like dynamics or fermata), while other
-things can alternate between up or down based on the stem direction
-(like slurs or accents).
+@c TODO Add example ?
+
+The default order in which contexts are laid out can be changed,
+see @ref{Aligning contexts}
+
+@strong{Articulation direction indicators}
+
+When adding articulations to notes the direction indicator,
+@code{^} (meaning @qq{up}), @code{_} (meaning @qq{down}) or
+@code{-} (meaning @qq{use default direction}), can usually be
+omitted, in which case @code{-} is assumed.  But a direction
+indicator is @strong{always} required before
+
+@itemize
+@item @code{\tweak} commands
+@item @code{\markup} commands
+@item @code{\tag} commands
+@item string markups, e.g. -"string"
+@item fingering instructions, e.g. @code{-1}
+@item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
+@end itemize
+
+@strong{The direction property}
+
+The position or direction of many layout objects is controlled
+by the @code{direction} property.
+
+The value of the @code{direction} property may be
+set to @code{1}, meaning @qq{up} or @qq{above}, or to @code{-1},
+meaning @qq{down} or @qq{below}.  The symbols @code{UP} and
+@code{DOWN} may be used instead of @code{1} and @code{-1}
+respectively.  The default direction may be specified by setting
+@code{direction} to @code{0} or @code{CENTER}.  Alternatively,
+in many cases predefined commands
+exist to specify the direction.  These are all of the form
+
+@noindent
+@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
+
+@noindent
+where @code{xxxNeutral} means @qq{use the default direction}.
+See @rlearning{Within-staff objects}.
+
+In a few cases, arpeggio being the only common example, the value
+of the @code{direction} property specifies whether the object
+is to be placed to the right or left of the parent object.  In
+this case @code{-1} or @code{LEFT} means @qq{to the left} and
+@code{1} or @code{RIGHT} means @qq{to the right}.  @code{0}
+or @code{CENTER} means @qq{use the default} direction, as before.
+
+@ignore
+These all have side-axis set to #X
+AmbitusAccidental - direction has no effect
+Arpeggio - works
+StanzaNumber - not tried
+TrillPitchAccidental - not tried
+TrillPitchGroup - not tried
+@end ignore
+
 
 
 @node Distances and measurements
@@ -381,7 +538,7 @@ things can alternate between up or down based on the stem direction
 
 DISCUSS after working on other sections.
 
-TODO: staff spaces, #UP #DOWN #LEFT #RIGHT.  Maybe move into tweaks?
+TODO: staff spaces.  Maybe move into tweaks?
 
 
 @node Spanners
@@ -395,10 +552,10 @@ Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
 @menu
-* Creating titles::             
-* Custom titles::               
-* Reference to page numbers::   
-* Table of contents::           
+* Creating titles::
+* Custom titles::
+* Reference to page numbers::
+* Table of contents::
 @end menu
 
 

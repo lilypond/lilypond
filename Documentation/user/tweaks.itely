@@ -2287,7 +2287,7 @@ context handles a certain object.  Since the @code{MetronomeMark}
 object
 is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
-@ruser{Constructing a tweak}.
+@ruser{Modifying properties}.
 
 If the @code{padding} property of an object is increased when that
 object is in a stack of objects being positioned according to
@@ -3171,15 +3171,24 @@ VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
 
 The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered by
-looking at the internal LilyPond files.  To explore these, first
-find the directory appropriate to your system, as follows:
+looking at the internal LilyPond files.  To explore these, you must
+first find the directory appropriate to your system.  The location
+of this directory depends (a) on whether you obtained LilyPond
+by downloading a precompiled binary from lilypond.org
+or whether you installed it from a package manager (i.e.
+distributed with Linux, or installed under fink or cygwin) or
+compiled it from source, and (b) on which operating system it is 
+being used:
 
-@strong{Download from lilypond.org: Linux}
+@strong{Downloaded from lilypond.org}
+
+@itemize @bullet
+@item Linux
 
 Navigate to
 @file{@var{INSTALLDIR}/lilypond/usr/share/lilypond/current/}
 
-@strong{Download from lilypond.org: MacOS X}
+@item MacOS X
 
 Navigate to
 @file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current/}
@@ -3187,18 +3196,19 @@ by either @code{cd}-ing into this directory from the
 Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
 
-@strong{Download from lilypond.org: Windows}
+@item Windows
 
 Using Windows Explorer, navigate to
 @file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current/}
 
-@strong{Installed from a package manager or from source: all}
+@end itemize
+
+@strong{Installed from a package manager or compiled from source}
 
 Navigate to
 @file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, where
 @var{PREFIX} is set by your package manager or @code{configure}
 script, and @var{X.Y.Z} is the LilyPond version number.
-
 
 @smallspace
 

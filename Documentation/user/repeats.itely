@@ -23,7 +23,7 @@ exist for repetitions. LilyPond supports the following kinds of repeats:
 The repeated music is not written out but enclosed between repeat bar
 lines.  If the repeat is at the beginning of a piece, a repeat bar
 line is only printed at the end. Alternative endings (volte) are
-printed, left to right with brackets.  This is the standard notation
+printed left to right with brackets.  This is the standard notation
 for repeats with alternatives.
 
 @item unfold
@@ -32,42 +32,13 @@ specified by @var{repeatcount}.  This is useful when
 entering repetitious music. 
 
 @item percent
-These are beat or measure repeats.  They look like percent signs.
-Percent repeats must be declared within a @code{Voice} context.
+These are beat or measure repeats.  They look like single slashes or
+percent signs.
 
 @item tremolo
 This is used to write tremolo beams.
 
 @end table
-
-@ignore
-LilyPond has one syntactic construct for specifying different
-types of repeats.  The syntax is
-
-@example
-\repeat @var{variant} @var{repeatcount} @var{musicexpr}
-@end example
-
-where @var{musicexpr} is a music expression.
-
-
-Alternative endings are entered with 
-@funindex \alternative
-@example
-\alternative @{
-  @var{alternative1}
-  @var{alternative2}
-  @var{alternative3}
-  @dots{}
-@}
-@end example
-
-@noindent
-after a @code{\repeat volta} or @code{unfold} block, where each
-@var{alternative} is a music expression.  If you give fewer
-alternatives than @var{repeatcount}, the first alternative is assumed
-to be played more than once.
-@end ignore
 
 
 @menu
@@ -128,7 +99,7 @@ c1
 @end lilypond
 
 
-Repeats with upbeats:
+Repeats with upbeats can be entered in two ways:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Staff {
@@ -172,10 +143,10 @@ c1
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
 
@@ -225,7 +196,7 @@ For clarity, it is advisable to use braces in such situations.
 Timing information is not remembered at the start of an alternative,
 so after a repeat timing information must be reset by hand; for
 example, by setting @code{Score.measurePosition} or entering
-@code{\partial}.  Similarly, slurs or ties are also not repeated.
+@code{\partial}.  Similarly, slurs are also not repeated.
 
 
 
@@ -344,8 +315,7 @@ represented by slashes or percent signs; and tremolos.
 Repeated short patterns of notes are supported.  The music is printed
 once, and the pattern is replaced with a special sign.  Patterns that
 are shorter than one measure are replaced by slashes, and patterns of
-one or two measures are replaced by percent-like signs.  Percent
-repeats must be declared within a @code{Voice} context.  The syntax is
+one or two measures are replaced by percent-like signs.  The syntax is
 
 @example
 @code{\repeat percent @var{number} @var{musicexpr}}
@@ -382,7 +352,21 @@ R1
 @end lilypond
 
 
+@knownissues
+
+Only three kinds of percent repeats are supported: a single slash
+representing a single beat (regardless of the duration of the repeated
+notes); a single slash with dots representing one full measure; and
+two slashes with dots crossing a bar line representing two full
+measures.  Neither multiple slashes representing single beat repeats
+consisting of sixteenth or shorter notes, nor two slashes with dots
+representing single beat repeats consisting of notes of varying
+durations, are supported.
+
+
 @seealso
+
+Music Glossary: @rglos{percent repeat}, @rglos{simile}.
 
 Snippets: @rlsr{Repeats}.
 
@@ -457,12 +441,4 @@ into the MIDI output.
 
 @seealso
 
-Notation Reference: @ref{Tremolo repeats}.
-
-Internals Reference: @rinternals{Beam}, @rinternals{StemTremolo}.
-
-Snippets: @rlsr{Repeats}.
-
-Elsewhere: @rinternals{StemTremolo}.
-
-
+@c Notation Reference: @re

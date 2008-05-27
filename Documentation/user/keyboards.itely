@@ -12,9 +12,9 @@
 @c references - first pass complete
 @c manual changes - first pass complete
 @c automatic changes - first pass complete
-@c staff-change lines - started
-@c cross-staff stems
-@c pedals
+@c staff-change lines - first pass complete
+@c cross-staff stems - first pass complete
+@c pedals - first pass complete
 @c accordian discant symbols
 
 @node Keyboard instruments
@@ -85,7 +85,7 @@ as shown in @rlearning{Other uses for tweaks}.
 
 @end itemize
 
-@snippets
+@c @snippets
 @c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 @c {creating-slurs-across-voices.ly}
 
@@ -117,6 +117,7 @@ Snippets:
 Dynamics are not centered, but workarounds do exist.  See the
 @q{piano centered dynamics} template in @rlearning{Piano templates}.
 
+@c TODO Find out status of the dynamics engravers
 
 @node Changing staff manually
 @subsubsection Changing staff manually
@@ -157,7 +158,7 @@ Cross-staff notes are beamed automatically:
     \change Staff = up
   }
   \new Staff = "down" {
-    \clef "bass"
+    \clef bass
     s1 % keep staff alive
   }
 >>
@@ -239,16 +240,21 @@ necessary to place a key signature in the lower staff:
   }
   \new Staff = "down" {
     \key g \major
-    \clef "bass"
+    \clef bass
   }
 >>
 @end lilypond
 
 @seealso
 
-Notation Reference: @ref{Changing staff manually}.
+Notation Reference:
+@ref{Changing staff manually}.
 
-Internals Reference: @rinternals{AutoChangeMusic}.
+Snippets:
+@rlsr{Keyboards}.
+
+Internals Reference:
+@rinternals{AutoChangeMusic}.
 
 @knownissues
 
@@ -271,60 +277,79 @@ chosen by the first note named in the chord.
 @funindex followVoice
 
 Whenever a voice switches to another staff, a line connecting the
-notes can be printed automatically.  This is switched on by
-setting @code{followVoice} to true, or by the shorthand commands
-@code{\showStaffSwitch} and @code{\hideStaffSwitch}.
+notes can be printed automatically:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new PianoStaff <<
-  \new Staff="one" {
+  \new Staff = "one" {
     \showStaffSwitch
     c1
     \change Staff=two
     b2 a
   }
-  \new Staff="two" { \clef bass s1*2 }
+  \new Staff = "two" { \clef bass s1*2 }
 >>
 @end lilypond
-
-@seealso
-
-Internals Reference: @rinternals{VoiceFollower}.
 
 @predefined
 
 @funindex \showStaffSwitch
-@code{\showStaffSwitch},
 @funindex \hideStaffSwitch
-@code{\hideStaffSwitch}.
+@code{\showStaffSwitch}, @code{\hideStaffSwitch}.
+
+@seealso
+
+Snippets:
+@rlsr{Keyboards}.
+
+Internals Reference:
+@rinternals{VoiceFollower}.
 
 
 @node Cross-staff stems
 @subsubsection Cross-staff stems
+
+@cindex cross-staff notes
+@cindex notes, cross-staff
+@cindex cross-staff stems
+@cindex stems, cross-staff
 
 Chords that cross staves may be produced by increasing the length
 of the stem in the lower staff, so it reaches the stem in the upper
 staff, or vice versa.
 
 @lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
 \new PianoStaff <<
-  \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
+  \new Staff \relative c' {
+    f8 e4 d8 <f bes,>2
   }
-  \new Staff {
-    \clef bass
-    a4 a8
+  \new Staff \relative c' {
+    << {
+      \clef bass
+      \stemUp
+      \override Stem #'length = #12
+      \override Stem #'cross-staff = ##t
+      \override Stem #'flag-style = #'no-flag
+      a8 g4 f8
+    } \\
+    { f,2 d' }
+    >>
   }
 >>
 @end lilypond
+
+@snippets
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+
+
+@seealso
+
+Snippets:
+@rlsr{Keyboards}.
+
+Internals Reference:
+@rinternals{Stem}
 
 @node Piano
 @subsection Piano
