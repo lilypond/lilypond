@@ -1205,11 +1205,13 @@ class LilypondSnippet (Snippet):
         if not skip_lily:
             require_file (base + '-systems.count')
 
+        if 'ddump-profile' in global_options.process_cmd:
+            require_file (base + '.profile')
+
         map (consider_file, [base + '.tex',
                              base + '.eps',
                              base + '.texidoc',
                              base + '.doctitle',
-                             base + '.signature',
                              base + '-systems.texi',
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
@@ -1231,11 +1233,16 @@ class LilypondSnippet (Snippet):
         system_count = 0
         if not skip_lily and not missing:
             system_count = int(file (full + '-systems.count').read())
+
         for number in range(1, system_count + 1):
             systemfile = '%s-%d' % (base, number)
             require_file (systemfile + '.eps')
             consider_file (systemfile + '.pdf')
-        
+
+            if 'ddump-signature' in global_options.process_cmd:
+                require_file (systemfile + '.signature')
+             
+       
         return (result, missing)
     
     def is_outdated (self, output_dir, current_files):
