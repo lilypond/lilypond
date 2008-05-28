@@ -65,7 +65,7 @@ global = {
 
 discantusNotes = {
   \transpose c' c'' {
-    \set Staff.instrumentName = "Discantus  "
+    \set Staff.instrumentName = #"Discantus  "
 
     % incipit
     \clef "neomensural-c1"
@@ -101,7 +101,7 @@ discantusLyrics = \lyricmode {
 
 altusNotes = {
   \transpose c' c'' {
-    \set Staff.instrumentName = "Altus  "
+    \set Staff.instrumentName = #"Altus  "
 
     % incipit
     \clef "neomensural-c3"
@@ -135,7 +135,7 @@ altusLyrics = \lyricmode {
 
 tenorNotes = {
   \transpose c' c' {
-    \set Staff.instrumentName = "Tenor  "
+    \set Staff.instrumentName = #"Tenor  "
 
     % incipit
     \clef "neomensural-c4"
@@ -169,7 +169,7 @@ tenorLyrics = \lyricmode {
 
 bassusNotes = {
   \transpose c' c' {
-    \set Staff.instrumentName = "Bassus  "
+    \set Staff.instrumentName = #"Bassus  "
 
     % incipit
     \clef "bass"

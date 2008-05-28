@@ -6,7 +6,7 @@
   lsrtags = "vocal-music, chords, template"
 
   texidoc = "
-This template allows you to prepare a song with melody, words, and
+This template allows the preparation of a song with melody, words, and
 chords. 
 
 "
@@ -18,7 +18,6 @@ melody = \relative c' {
   \time 4/4
   
   a4 b c d
-
 }
 
 text = \lyricmode {

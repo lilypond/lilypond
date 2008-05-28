@@ -3,10 +3,10 @@ beams-across-line-breaks.ly
 manually-controlling-beam-positions.ly
 adding-drum-parts.ly
 rest-styles.ly
-skips-in-lyric-mode-2.ly
 chant-or-psalms-notation.ly
-controlling-tuplet-bracket-visibility.ly
 heavily-customized-polymetric-time-signatures.ly
+controlling-tuplet-bracket-visibility.ly
+skips-in-lyric-mode-2.ly
 positioning-multi--measure-rests.ly
 using-ties-with-arpeggios.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly

@@ -6,47 +6,51 @@
   lsrtags = "template"
 
   texidoc = "
-A template to write score for a diatonic accordion.
+A template to write a score for a diatonic accordion.
 
-- There is a horizontal staff indicating if the accordion   must be
+- There is a horizontal staff indicating if the accordion must be
 pushed (thick line) or pulled (thin line)
 
-- There is a small rhytmic staff with lyrics that describes the bass
-buttons to press.   The bar-lines are made of gridlines ( Gridlines,
-not a really satisfying solution, but the best I found)
+- There is a small rhythmic staff with lyrics that describes the bass
+buttons to press. The bar lines are made from gridlines
 
 - The tabulator staff for diatonic accordions shows the geographic
-position of the buttons   and not (as for every other instrument) the
-pitch of the tones.   The keys on the melody-side of the accordion are
-placed in three columns and about 12 rows.   In the tabulator staff
-notation the   - most outer column is described with notes between
-lines   - most inner column is described with notes between lines with
-a cross as accidental   - middle column is described with notes on a
-line, whereby the row in the middle is represented     on the middle
-line in the staff.
+position of the buttons and not (as for every other instrument) the
+pitch of the notes; the keys on the melody-side of the accordion are
+placed in three columns and about 12 rows
 
 
+In the tabulator staff notation the outermost column is described with
+notes between lines, the innermost column is described with notes
+between lines and a cross as accidental, and the middle column is
+described with notes on a line, whereby the row in the middle is
+represented on the middle line in the staff.
 
-Some words to transpose piano note to the diatonic accordion.
------------------------------------------------------------- 1. Every
-diatonic accordion is built for some keys only. For example    for the
-key of C-major and F-major.    So it is important to transpose a piano
-melody to match one of these keys.    Transpose the source code, not
-only the output because    you need this code later on to translate it
-once more to the tabulator staff.    This can be done with the command
-'displayLilyMusic'.
 
-2. You have to alternate the push and pull-direction of the accordion
-regularely.    If the player has a too long part to pull the accordion
-gets broken.    At the other hand some harmonies are only available in
-one direction (push or pull)    Considering this decide which parts of
-the melody are the push-parts and whic the  pull-parts.
+Some words to transpose piano notes to the diatonic accordion:
 
-3. For each pull- / or push-part translate the piano notes to the
-according tabulatur representation.
+
+1. Every diatonic accordion is built for some keys only (for example,
+for the keys of C major and F major), so it is important to transpose a
+piano melody to match one of these keys. Transpose the source code, not
+only the output because this code is required later on to translate it
+once more to the tabulator staff. This can be done with the command
+@code{displayLilyMusic}.
+
+
+2. You have to alternate the push- and pull-direction of the accordion
+regularly. If the player has a too long part to pull the accordion gets
+broken. On the other hand, some harmonies are only available in one
+direction. Considering this, decide which parts of the melody are the
+push-parts and which the pull-parts.
+
+
+3. For each pull- or push-part translate the piano notes to the
+according tabulature representation.
+
 
 This snippet comes with a useful optional macro for the jEdit text
-editor.
+editor. 
 
 "
   doctitle = "Score for diatonic accordion"
