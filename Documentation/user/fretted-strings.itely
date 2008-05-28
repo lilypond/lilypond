@@ -44,31 +44,16 @@ TBC
 @cindex String numbers
 
 The string on which a note should be played may be indicated by
-appending @code{\}@tie{}@var{number} to a note inside a chord.
+appending @code{\}@tie{}@var{number} to a note inside a chord 
+construct (@code{<>}).
 
-@warning{String numbers @strong{must} be defined inside a chord,
-even if there is only a single note in the chord.}
+@warning{String numbers @strong{must} be defined inside a chord
+construct even if there is only a single note.}
 
 @lilypond[verbatim,quote,relative=2]
 <c\5>4 <e\4> <g\3>2
 <c,\5 e\4 g\3>1
 @end lilypond
-
-
-@ignore
-In notation for fretted stringed instruments, the string on which
-a note should be played is indicated by a circled number, and this
-is added with @code{\}@var{number} inside a chord construct.  The 
-string indication must occur within a @code{<>} chord construct for it to
-be printed in the score, even if it is a single note.  If the 
-@code{\}@var{number} is placed outside the @code{<>}, it will not generate
-errors but also will not print the string indication.  
-
-@warning{rhythmic durations must be specified outside of the
-chords.}
-example, @code{<c\5>4} will produce a quarter-note C on the fifth
-string.
-@end ignore
 
 Although fingering is covered in detail elsewhere, it is worth noting
 here how fingerings and string indications behave together, since
@@ -84,8 +69,10 @@ which the two items appear:
 
 @snippets
 
+@ignore
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
+@end ignore
 
 @seealso
 
@@ -130,6 +117,7 @@ e16 fis gis a b4
 \set TabStaff.minimumFret = #8
 e16 fis gis a b4
 @end example
+
 @lilypond[quote,ragged-right]
 frag = {
   \key e \major
@@ -450,6 +438,7 @@ These tunings may be converted to four string banjo tunings using the
 @seealso
 
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+
 
 
 
