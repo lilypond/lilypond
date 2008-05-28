@@ -562,8 +562,6 @@ and @q{m}.  The spacer is not used when the root is altered.
 
 
 @snippets
-@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{chord-names-jazz.ly}
 
 @c TODO fix indentation of snippet -- lots of tabs!
 @cindex exceptions, chord names.
@@ -594,6 +592,9 @@ can be set to any markup.
 
 
 @seealso
+
+Notation Reference:
+@ref{Chord name chart}.
 
 Installed Files:
 @file{scm/@/chords@/-ignatzek@/.scm},
