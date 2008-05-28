@@ -415,7 +415,9 @@ This is activated with the @code{\markup} command, and causes
 input to be interpreted with the syntax of markup, see
 @ref{Text markup commands}.
 
-@strong{Note mode}
+@c silly work-around for texinfo broken-ness
+@c (@strong{Note...} causes a spurious cross-reference in Info)
+@b{Note mode}
 
 This is the default mode or it may be activated with the
 @code{\notemode} command.  Input is interpreted as pitches,
