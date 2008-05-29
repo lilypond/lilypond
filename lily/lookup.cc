@@ -404,6 +404,7 @@ Lookup::slur (Bezier curve, Real curvethick, Real linethick)
   b[X_AXIS].unite (back.extent (X_AXIS));
   b[Y_AXIS].unite (back.extent (Y_AXIS));
 
+  b.widen (0.5 * linethick, 0.5 * linethick);
   return Stencil (b, at);
 }
 
