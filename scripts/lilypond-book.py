@@ -1207,6 +1207,8 @@ class LilypondSnippet (Snippet):
 
         if 'ddump-profile' in global_options.process_cmd:
             require_file (base + '.profile')
+        if 'dseparate-log-file' in global_options.process_cmd:
+            require_file (base + '.log')
 
         map (consider_file, [base + '.tex',
                              base + '.eps',
