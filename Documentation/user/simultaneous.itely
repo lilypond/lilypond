@@ -153,11 +153,11 @@ a stem are shifted vertically.
 @lilypond[quote,verbatim,relative=2]
 <<
   {
-    c8 d e d c d e4
-    g2 fis
+    c8 d e d c d c4
+    g'2 fis
   } \\ {
-    c2 c8. b16 a4
-    e2 r
+    c2 c8. b16 c4
+    e,2 r
   } \\ {
     \oneVoice
     s1
@@ -175,11 +175,11 @@ Note heads with different note heads may be merged:
 <<
   {
     \override Staff.NoteCollision #'merge-differently-headed = ##t
-    c8 d e d c d e4
-    g2 fis
+    c8 d e d c d c4
+    g'2 fis
   } \\ {
-    c2 c8. b16 a4
-    e2 r
+    c2 c8. b16 c4
+    e,2 r
   } \\ {
     \oneVoice
     s1
@@ -196,11 +196,11 @@ Note heads with different dots may be merged:
   {
     \override Staff.NoteCollision #'merge-differently-headed = ##t
     \override Staff.NoteCollision #'merge-differently-dotted = ##t	
-    c8 d e d c d e4
-    g2 fis
+    c8 d e d c d c4
+    g'2 fis
   } \\ {
-    c2 c8. b16 a4
-    e2 r
+    c2 c8. b16 c4
+    e,2 r
   } \\ {
     \oneVoice
     s1
@@ -224,17 +224,18 @@ column, and @code{merge-differently-headed} works properly.
   {
     \override Staff.NoteCollision #'merge-differently-headed = ##t
     \override Staff.NoteCollision #'merge-differently-dotted = ##t	
-    c8 d e d c d e4
+    c8 d e d c d c4
     \shiftOn
-    g2 fis
+    g'2 fis
   } \\ {
-    c2 c8. b16 a4
-    e2 r
+    c2 c8. b16 c4
+    e,2 r
   } \\ {
     \oneVoice
     s1
     e8 a b c d2
   }
+
 >>
 @end lilypond
 
