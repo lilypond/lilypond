@@ -6,10 +6,9 @@
   lsrtags = "vocal-music, tweaks-and-overrides, spacing"
 
   texidoc = "
-This snippet shows of to use the @code{alignBelowContext} and
-@code{alignAboveContext} properties, which may be needed for text
-elements (e.g. lyrics) positioning, but also for musical contents such
-as ossias.
+This snippet demonstrates the use of the @code{alignBelowContext} and
+@code{alignAboveContext} properties to control the positioning of
+lyrics and ossias.
 
 "
   doctitle = "Vertically aligning ossias and lyrics"
@@ -20,8 +19,8 @@ as ossias.
 
 \relative <<
   \new Staff = "1" { c4 c s2 }
-  \new Staff = "2" { c4  c s2 }
-  \new Staff = "3" { c4  c s2 }
+  \new Staff = "2" { c4 c s2 }
+  \new Staff = "3" { c4 c s2 }
   { \skip 2
     <<
       \lyrics {

@@ -9,8 +9,8 @@
 This template adds an automatic piano reduction to the standard SATB
 vocal score demonstrated in \"Vocal ensemble template\". This
 demonstrates one of the strengths of LilyPond – you can use a music
-definition more than once. If you make any changes to the vocal notes
-(say, tenorMusic), then the changes will also apply to the piano
+definition more than once. If any changes are made to the vocal notes
+(say, @code{tenorMusic}), then the changes will also apply to the piano
 reduction.
 
 "
