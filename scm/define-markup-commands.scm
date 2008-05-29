@@ -1608,8 +1608,10 @@ Construct a note symbol, with stem.  By using fractional values for
 							 (number->string log)))
                        (cons (+ (car attach-off) (if (< dir 0) stem-thickness 0)) stemy)))))
 
-    (if (and dots flaggl (> dir 0))
-	(set! dots (ly:stencil-translate-axis dots 0.35 X)))
+    ; If there is a flag on an upstem and the stem is short, move the dots to avoid the flag.
+    ; 16th notes get a special case because their flags hang lower than any other flags.
+    (if (and dots (> dir 0) (> log 2) (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
+	(set! dots (ly:stencil-translate-axis dots 0.5 X)))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
     (if (ly:stencil? stem-glyph)
