@@ -61,7 +61,7 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Modern chords}.
 
-Snippets:
+Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 @knownissues
@@ -109,7 +109,7 @@ Referencia de funcionamiento interno:
 @knownissues
 
 Los clusters sólo tienen un buen aspecto cuando abarcan un mínimo de
-dos acordes.  En caso contrario aperecerán excesivamente estrechos.
+dos acordes.  En caso contrario aparecerán excesivamente estrechos.
 
 Los clusters no llevan plica y por sí mismos no pueden indicar las
 duraciones.  Los racimos separados necesitarían silencios de
@@ -199,7 +199,7 @@ Se pueden combinar cabezas con puntillos diferentes:
 
 @cindex desplazar nota
 
-La colisi´on del segundo compás se produce porque
+La colisión del segundo compás se produce porque
 @code{merge-differently-headed} no es capaz de completar
 satisfactoriamente la combinación cuando se encuentran tres o más
 notas alineadas en la misma columna (de hecho, se obtiene una
