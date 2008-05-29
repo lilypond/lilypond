@@ -104,8 +104,6 @@ Internals Reference:
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
 
-@c Examples: @rlsr{contemporary,cluster@/.ly}.
-
 @knownissues
 
 Clusters only look good if they span at least two chords; otherwise
@@ -140,16 +138,6 @@ Note heads with equal durations are automatically merged, while
 note heads with unequal durations are not merged.  Rests opposite
 a stem are shifted vertically.
 
-@c   old material to delete, I think.  -gp
-@c Normally, equal note heads with the same number of dots and the same
-@c note head are automatically merged, while note heads with different note
-@c heads and/or a different number of dots are not.
-@c The following example
-@c has two cases of this, plus an undesired merging (the half-note head
-@c @code{e} is solid):
-@c Note that LilyPond has vertically shifted the rest, which is opposite
-@c of a stem.
-
 @lilypond[quote,verbatim,relative=2]
 <<
   {
@@ -166,10 +154,8 @@ a stem are shifted vertically.
 >>
 @end lilypond
 
-Note heads with different note heads may be merged:
-@c First we will merge the initial half note head with the eighth
-@c note by setting the @code{merge-differently-headed} property of the
-@c @code{NoteCollision} object:
+Note heads with different note heads may be merged, with the exception
+of half-note heads and quarter-note heads:
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -189,7 +175,6 @@ Note heads with different note heads may be merged:
 @end lilypond
 
 Note heads with different dots may be merged:
-@c Similarly, you can merge differently dotted note heads:
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -239,9 +224,8 @@ column, and @code{merge-differently-headed} works properly.
 >>
 @end lilypond
 
-Merging notes by setting @code{merge-differently-headed} and
-@code{merge-differently-dotted} only works for opposing stem
-directions (i.e., to @code{Voice}s 1 and 2).
+Notes are only merged if they have opposing stem directions (i.e., in
+@code{Voice} 1 and 2).
 
 @cindex multiple voices
 @cindex polyphonic music
