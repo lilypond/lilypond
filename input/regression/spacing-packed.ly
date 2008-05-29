@@ -5,7 +5,7 @@
 	are then printed at minimum distance.  This is mostly useful
 	for ancient notation, but may also be useful for some flavours
 	of contemporary music.  If not in raggedright mode, lily will
-	pack as much bars of music as possible into a line, but the
+	pack as many bars of music as possible into a line, but the
 	line will then be stretched to fill the whole linewidth.
 "
   }

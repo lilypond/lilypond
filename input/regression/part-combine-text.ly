@@ -1,6 +1,6 @@
 
 \header {
-    texidoc ="The new part combiner detects a2, solo1 and solo2, and prints
+    texidoc ="The part combiner detects a2, solo1 and solo2, and prints
 texts accordingly.
 
 "

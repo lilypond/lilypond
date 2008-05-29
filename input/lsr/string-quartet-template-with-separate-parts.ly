@@ -8,13 +8,14 @@
   texidoc = "
 The \"String quartet template\" snippet produces a nice string quartet,
 but what if you needed to print parts? This new template demonstrates
-how to use the \\tag feature to easily split a piece into individual
-parts.
+how to use the @code{\\tag} feature to easily split a piece into
+individual parts.
 
 You need to split this template into separate files; the filenames are
-contained in comments at the beginning of each file. piece.ly contains
-all the music definitions. The other files – score.ly, vn1.ly, vn2.ly,
-vla.ly, and vlc.ly – produce the appropiate part.
+contained in comments at the beginning of each file. @code{piece.ly}
+contains all the music definitions. The other files – @code{score.ly},
+@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly}, and @code{vlc.ly} –
+produce the appropriate part.
 
 
 Do not forget to remove specified comments when using separate files! 
@@ -31,26 +32,26 @@ global= {
 }
 
 Violinone = \new Voice { \relative c''{
-  \set Staff.instrumentName = "Violin 1 "
+  \set Staff.instrumentName = #"Violin 1 "
 
   c2 d e1
 
 \bar "|." }}   %*********************************
 Violintwo = \new Voice { \relative c''{
-  \set Staff.instrumentName = "Violin 2 "
+  \set Staff.instrumentName = #"Violin 2 "
 
   g2 f e1
 
 \bar "|." }}   %*********************************
 Viola = \new Voice { \relative c' {
-  \set Staff.instrumentName = "Viola "
+  \set Staff.instrumentName = #"Viola "
   \clef alto
 
   e2 d c1
 
 \bar "|." }}   %*********************************
 Cello = \new Voice { \relative c' {
-  \set Staff.instrumentName = "Cello     "
+  \set Staff.instrumentName = #"Cello "
   \clef bass
 
   c2 b a1
