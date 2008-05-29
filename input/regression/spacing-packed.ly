@@ -1,7 +1,7 @@
 \header {
   texidoc = "
 	In packed mode, pack notes as tight as possible.  This makes
-	sense mostly in combination with raggedright mode: the notes
+	sense mostly in combination with ragged-right mode: the notes
 	are then printed at minimum distance.  This is mostly useful
 	for ancient notation, but may also be useful for some flavours
 	of contemporary music.  If not in raggedright mode, lily will
