@@ -2486,20 +2486,16 @@ Grace notes may be forced to use align with regular notes
 in other staves by setting @code{strict-grace-spacing} to
 ##t:
 
-@lilypond[relative=2,ragged-right]
+@lilypond[verbatim,quote,relative=2]
 <<
   \override Score.SpacingSpanner #'strict-grace-spacing = ##t
   \new Staff {
-     c'4
-     \afterGrace
-     c'4
-     { c'16[ c'8 c'16] }
-     c'4
+    c4
+    \afterGrace c4 { c16[ c8 c16] }
+    c4 r
   }
   \new Staff {
-     c'16[ c'16 c'16 c'16]
-     c'16[ c'16 c'16 c'16]
-     c'4
+    c16 c c c c c c c c4 r
   }
 >>
 @end lilypond
