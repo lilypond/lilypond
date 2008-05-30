@@ -209,13 +209,13 @@ c c
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-at-the-end-of-a-line-or-a-score.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {aligning-marks-with-various-notation-objects.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {printing-marks-on-every-staff.ly}
 
 @seealso
@@ -250,7 +250,7 @@ A @code{\markup} block can exist by itself, outside of any
 any @code{\score} block, as a @qq{top-level
 expression}.  This syntax is described in @ref{File structure}.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[verbatim,quote]
 \markup {
   Tomorrow, and tomorrow, and tomorrow...
 }

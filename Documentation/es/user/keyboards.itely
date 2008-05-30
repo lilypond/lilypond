@@ -146,7 +146,7 @@ práctico
 
 En este manual: @ref{Inside the staff}.
 
-Referencia del programa: @internalsref{AutoChangeMusic}.
+Referencia del programa: @rinternals{AutoChangeMusic}.
 
 
 
@@ -187,7 +187,7 @@ que conecte las notas.  Esto se activa estableciendo
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{VoiceFollower}.
+Referencia de funcionamiento interno: @rinternals{VoiceFollower}.
 
 @predefined
 
@@ -257,7 +257,7 @@ c'4\sustainDown c'4\sustainUp
 Es posible modificar lo que se imprime estableciendo @code{pedal@var{X}Strings},
 donde @var{X} es uno de los tipos de pedal: @code{Sustain},
 @code{Sostenuto} o @code{UnaCorda}.  Consulte
-@internalsref{SustainPedal} dentro de la referencia del programa para más
+@rinternals{SustainPedal} dentro de la referencia del programa para más
 información.
 
 Los pedales se pueden indicar también mediante una secuencia de corchetes, estableciendo la
@@ -292,7 +292,7 @@ c\sostenutoDown d e c, f g a\sostenutoUp
 Para hacer un ajuste fino del aspecto de un corchete de pedal, se
 pueden modificar las propiedades @code{edge-width}, @code{edge-height}
 y @code{shorten-pair} de los objetos @code{PianoPedalBracket} (véase
-@internalsref{PianoPedalBracket} en la Referencia del programa).  Por
+@rinternals{PianoPedalBracket} en la Referencia del programa).  Por
 ejemplo, el corchete se puede extender hasta el borde derecho de la
 cabeza de la nota
 

@@ -128,7 +128,7 @@ Voici les points que nous allons aborder :
 
 Pour de la musique ancienne, vous disposez de plusieurs styles de tête
 de note, en plus du style par défaut @code{default}.  Vous pouvez
-affecter à la propriété @code{style} de l'objet @internalsref{NoteHead}
+affecter à la propriété @code{style} de l'objet @rinternals{NoteHead}
 les valeurs @code{baroque}, @code{neomensural}, @code{mensural} ou
 @code{petrucci}.  En style @code{baroque}, la seule différence par
 rapport au style @code{default} concerne la @code{\breve} qui sera
@@ -151,11 +151,11 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 Si vous écrivez en notation grégorienne, le
-@internalsref{Gregorian_ligature_engraver} se chargera de sélectionner
+@rinternals{Gregorian_ligature_engraver} se chargera de sélectionner
 les têtes de note appropriées ; il est donc inutile de spécifier le
 style à utiliser.  Vous pouvez cependant spécifier par exemple le style
 @code{vaticana_punctum} pour obtenir des neumes punctums.  De même,
-c'est le @internalsref{Mensural_ligature_engraver} qui se chargera des
+c'est le @rinternals{Mensural_ligature_engraver} qui se chargera des
 ligatures mensurales.  Consultez la section @ref{Ligatures} pour savoir
 comment fonctionnent les graveurs de ligature.
 
@@ -172,8 +172,8 @@ consultez @ref{Note head styles}.
 
 
 Pour utiliser les formes anciennes d'altération, utilisez la propriété
-@code{glyph-name-alist} des objets graphiques @internalsref{Accidental}
-et @internalsref{KeySignature}.
+@code{glyph-name-alist} des objets graphiques @rinternals{Accidental}
+et @rinternals{KeySignature}.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -221,7 +221,7 @@ constater dans @lsr{ancient,ancient-accidentals.ly}.
 
 À l'instar des altérations accidentelles, le style d'armure est géré
 par la propriété @code{glyph-name-alist} de l'objet
-@internalsref{KeySignature}. 
+@rinternals{KeySignature}. 
 
 @seealso
 
@@ -229,7 +229,7 @@ Dans ce manuel : @ref{Pitches}, @ref{Cautionary accidentals}, et
 @ref{Automatic accidentals}, pour les principes généraux d'utilisation
 des altérations ; @ref{Key signature} pour les armures.
 
-Référence du programme : @internalsref{KeySignature}.
+Référence du programme : @rinternals{KeySignature}.
 
 Exemples : @lsrdir{ancient}
 
@@ -239,7 +239,7 @@ Exemples : @lsrdir{ancient}
 
 @cindex silences, musique ancienne
 
-La propriété @code{style} de l'objet @internalsref{Rest} permet
+La propriété @code{style} de l'objet @rinternals{Rest} permet
 d'obtenir des silences de type ancien.  Vous disposez des styles
 @code{classical}, @code{neomensural} et @code{mensural}.  Le style
 @code{classical} ne se distingue du style @code{default} que par le
@@ -515,7 +515,7 @@ La clé de sol mensurale est calquée sur celle de Petrucci.
 @cindex crochets
 
 Le réglage de la propriété @code{flag-style} de l'objet hampe
-(@internalsref{Stem}) donne accès aux crochets de style ancien.  Les
+(@rinternals{Stem}) donne accès aux crochets de style ancien.  Les
 seuls styles actuellement pris en charge sont @code{default} et
 @code{mensural}.
 
@@ -605,7 +605,7 @@ devez choisir la paire @code{(n,m)} parmi les valeurs suivantes :
 }
 @end lilypond
 
-La propriété @code{style} de l'objet @internalsref{TimeSignature} permet
+La propriété @code{style} de l'objet @rinternals{TimeSignature} permet
 d'accéder aux indicateurs de métrique anciens.  Les styles
 @code{neomensural} et @code{mensural} sont disponibles.  Vous avez vu
 ci-dessus le style @code{neomensural}, particulièrement utilisé pour
@@ -715,7 +715,7 @@ les @emph{editio vaticana}.  Différents glyphes existent selon le style
 de notation.
 
 L'impression de guidons s'obtient en affectant, dans un bloc
-@code{\layout}, le @internalsref{Custos_engraver} au contexte
+@code{\layout}, le @rinternals{Custos_engraver} au contexte
 @code{Staff}, comme le montre l'exemple suivant.
 
 @example
@@ -771,7 +771,7 @@ styles disponibles sont @code{vaticana}, @code{medicaea},
 
 @seealso
 
-Référence du programme : @internalsref{Custos}.
+Référence du programme : @rinternals{Custos}.
 
 Exemples : @lsr{ancient,custodes@/.ly}.
 
@@ -821,7 +821,7 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 
 Dans ce manuel : @ref{Breath marks}.
 
-Référence du programme : @internalsref{BreathingSign}.
+Référence du programme : @rinternals{BreathingSign}.
 
 Exemples : @lsr{expressive,breathing-sign.ly}.
 
@@ -842,7 +842,7 @@ descendantes de notes.
 Les ligatures s'indiquent par une inclusion entre @code{\[} et 
 @code{\]}.  Certains styles de ligature peuvent demander un complément
 de syntaxe spécifique.  Par défaut, le graveur
-@internalsref{LigatureBracket} place un simple crochet au dessus de
+@rinternals{LigatureBracket} place un simple crochet au dessus de
 la ligature :
 
 @lilypond[quote,ragged-right,verbatim]
@@ -854,7 +854,7 @@ la ligature :
 @end lilypond
 
 Selon le style de ligature désiré, il faut ajouter au contexte
-@internalsref{Voice} le graveur de ligature approprié, comme nous le
+@rinternals{Voice} le graveur de ligature approprié, comme nous le
 verrons plus loin.  Seules sont disponibles les ligatures mensurales
 blanches, avec quelques limitations.
 
@@ -895,9 +895,9 @@ Les ligatures mensurales blanches sont prises en charge, avec des
 limitations.
 
 La gravure des ligatures mensurales blanches s'obtient après avoir
-ajouté le @internalsref{Mensural_ligature_engraver} et enlevé le
-@internalsref{Ligature_bracket_engraver} dans le contexte
-@internalsref{Voice}, comme ici :
+ajouté le @rinternals{Mensural_ligature_engraver} et enlevé le
+@rinternals{Ligature_bracket_engraver} dans le contexte
+@rinternals{Voice}, comme ici :
 
 @example
 \layout @{
@@ -953,8 +953,8 @@ Par exemple,
 }
 @end lilypond
 
-Si on ne remplace pas le @internalsref{Ligature_bracket_engraver}
-par le @internalsref{Mensural_ligature_engraver}, on obtient
+Si on ne remplace pas le @rinternals{Ligature_bracket_engraver}
+par le @rinternals{Mensural_ligature_engraver}, on obtient
 
 @lilypond[quote,ragged-right]
 \transpose c c' {
@@ -2022,8 +2022,8 @@ ais bis
 
 @seealso
 
-Référence du programme : le graveur @internalsref{Accidental_engraver}
-et l'objet @internalsref{AccidentalSuggestion}.
+Référence du programme : le graveur @rinternals{Accidental_engraver}
+et l'objet @rinternals{AccidentalSuggestion}.
 
 
 @node Figured bass
@@ -2063,8 +2063,8 @@ LilyPond gère la basse chiffrée.
 
 La gestion de la basse chiffrée se décompose en deux parties.  Dans un
 premier temps, le mode @code{\figuremode} permet de saisir les accords
-sous forme chiffrée.  Le contexte @internalsref{FiguredBass} s'occupera
-ensuite de gérer les objets @internalsref{BassFigure}.
+sous forme chiffrée.  Le contexte @rinternals{FiguredBass} s'occupera
+ensuite de gérer les objets @rinternals{BassFigure}.
 
 En mode de saisie, un chiffrage est délimité par @code{<} et
 @code{>}.  La  durée est indiquée après le @code{>} :
@@ -2177,7 +2177,7 @@ avant qu'après les chiffres, en réglant les propriétés
 Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
 des accords, elle est beaucoup plus simpliste.  Le mode
 @code{\figuremode} ne fait que stocker des chiffres que le contexte
-@internalsref{FiguredBass} se chargera d'imprimer tels quels.  En
+@rinternals{FiguredBass} se chargera d'imprimer tels quels.  En
 aucune manière ils ne sont transformés en son, et ils ne sont pas
 rendus dans un fichier MIDI.
 
@@ -2231,10 +2231,10 @@ propriété @code{stacking-dir} de l'objet @code{BassFigureAlignment}.
 
 @seealso
 
-Référence du programme : les objets @internalsref{NewBassFigure},
-@internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
-@internalsref{BassFigureBracket} et
-@internalsref{BassFigureContinuation}, ainsi que le contexte
-@internalsref{FiguredBass}.
+Référence du programme : les objets @rinternals{NewBassFigure},
+@rinternals{BassFigureAlignment}, @rinternals{BassFigureLine},
+@rinternals{BassFigureBracket} et
+@rinternals{BassFigureContinuation}, ainsi que le contexte
+@rinternals{FiguredBass}.
 
 

@@ -96,9 +96,9 @@ in your own music!  For more information about the display of
 examples in the manual, see @ref{How to read the manual}.}
 
 @cindex case sensitive
-In addition, LilyPond input is @strong{case sensitive}.  @code{
-@{ c d e @}} is valid input; @code{@{ C D E @}} will produce an
-error message.
+In addition, LilyPond input is @strong{case sensitive}.
+@w{@code{@{ c d e @}}} is valid input; @w{@code{@{ C D E @}}} will
+produce an error message.
 
 @smallspace
 
@@ -120,11 +120,11 @@ first.  After this, LilyPond will be much faster!}
 
 @subsubheading MacOS X
 
-If you double click @code{LilyPond.app}, it will open with an
+If you double click @command{LilyPond.app}, it will open with an
 example file.  Save it, for example, to @file{test.ly} on your
-Desktop, and then process it with the menu command @code{Compile >
-Typeset File}.  The resulting PDF file will be displayed on your
-screen.
+Desktop, and then process it with the menu command
+@w{@code{Compile > Typeset File}}.  The resulting PDF file will be
+displayed on your screen.
 
 For future use of LilyPond, you should begin by selecting @q{New}
 or @q{Open}.  You must save your file before typesetting it.  If
@@ -249,7 +249,7 @@ example, the first note -- the @code{d} -- is the closest D to
 middle C.
 
 By adding (or removing) quotes @code{'} or commas @code{,} from
-the @code{\relative c' @{} command, we can change the starting
+the @w{@code{\relative c' @{}} command, we can change the starting
 octave:
 
 @lilypond[verbatim,quote,ragged-right]
@@ -299,7 +299,7 @@ comma @code{,} to the note name.
 To change a note by two (or more!) octaves, we use multiple
 @code{''} or @code{,,} -- but be careful that you use two single
 quotes @code{''} and not one double quote @code{"}@tie{}!  The
-initial value in @code{\relative c'} may also be modified like
+initial value in @w{@code{\relative c'}} may also be modified like
 this.
 @c " - keeps quotes in order for context-sensitive editor -td
 
@@ -343,7 +343,7 @@ explicitly (i.e., with a number).
 Music Glossary: @rglos{rest}.
 
 A @notation{rest} is entered just like a note with the name
-@code{r}:
+@code{r}@tie{}:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -419,8 +419,8 @@ Notation Reference: @ruser{Writing pitches},
 LilyPond input files are similar to source files in many common
 programming languages.  They are case sensitive, and white-space
 is generally ignored.  Expressions are formed with curly braces
-@{ @}, and comments are denoted with @code{%} or @code{%@{ ...
-%@}}.
+@{ @}, and comments are denoted with @code{%} or
+@w{@code{%@{ ... %@}}}.
 
 If the previous sentences sound like nonsense, don't worry!  We'll
 explain what all these terms mean:
@@ -430,16 +430,16 @@ explain what all these terms mean:
 @cindex case sensitive
 @item
 @strong{Case sensitive}:
-it matters whether you enter a letter in lower case (e.g. @code{a,
-b, s, t}) or upper case (e.g.  @code{A, B, S, T}).  Notes are
-lower case: @code{@{ c d e @}} is valid input; @code{@{ C D E @}}
-will produce an error message.
+it matters whether you enter a letter in lower case (e.g.
+@w{@code{a, b, s, t}}) or upper case (e.g.  @w{@code{A, B, S, T}}).
+Notes are lower case: @w{@code{@{ c d e @}}} is valid input;
+@w{@code{@{ C D E @}}} will produce an error message.
 
 @item
 @strong{Whitespace insensitive}:
 it does not matter how many spaces (or new lines) you add.
-@code{@{ c d e @}} means the same thing as @code{@{ c @tie{}
-@tie{} @tie{} d e @}} and:
+@w{@code{@{ c d e @}}} means the same thing as
+@w{@code{@{ c @tie{}} @tie{} @tie{} d e @}} and:
 
 @example
 @{ c                        d
@@ -466,7 +466,7 @@ space unless they are at the beginning or end of a line to avoid
 ambiguities.
 
 A LilyPond command followed by a simple expression in braces (such
-as @code{\relative @{ @}}) also counts as a single music 
+as @w{@code{\relative @{ @}}}) also counts as a single music
 expression.
 
 @cindex comments
@@ -515,11 +515,11 @@ comments:
 @subsection How to read the manual
 
 LilyPond input must be surrounded by @{ @} marks or a
-@code{\relative c'' @{ ... @}}, as we saw in @ref{Working on input
-files}.  For the rest of this manual, most examples will omit
-this.  To replicate the examples, you may copy and paste the
-displayed input but you @strong{must} add the @code{\relative c''
-@{ @}} like this:
+@w{@code{\relative c'' @{ ... @}}}, as we saw in @ref{Working on
+input files}.  For the rest of this manual, most examples will
+omit this.  To replicate the examples, you may copy and paste the
+displayed input but you @strong{must} add the
+@w{@code{\relative c'' @{ @}}} like this:
 
 @example
 \relative c'' @{
@@ -529,9 +529,9 @@ displayed input but you @strong{must} add the @code{\relative c''
 
 Why omit the braces?  Most examples in this manual can be inserted
 into the middle of a longer piece of music.  For these examples,
-it does not make sense to add @code{\relative c'' @{ @}} -- you
-should not place a @code{\relative} inside another
-@code{\relative}!  If we included @code{\relative c'' @{ @}}
+it does not make sense to add @w{@code{\relative c'' @{ @}}} --
+you should not place a @code{\relative} inside another
+@code{\relative}!  If we included @w{@code{\relative c'' @{ @}}}
 around every example, you would not be able to copy a small
 documentation example and paste it inside a longer piece of your
 own.  Most people want to add material to an existing piece, so we
@@ -1141,13 +1141,11 @@ Here is a small example:
 }
 @end lilypond
 
-Other staff groupings are introduced with
-@code{\new GrandStaff,} suitable for orchestral
-scores, and @code{\new ChoirStaff,} suitable for
-vocal scores.  These staff groups each form another
-type of context, one that generates the brace at the
-left end of every system and also controls the extent
-of bar lines.
+Other staff groupings are introduced with @code{\new GrandStaff},
+suitable for orchestral scores, and @w{@code{\new ChoirStaff}},
+suitable for vocal scores.  These staff groups each form another
+type of context, one that generates the brace at the left end of
+every system and also controls the extent of bar lines.
 
 @seealso
 
@@ -1197,8 +1195,8 @@ slurs and beams, and the top voice has the stems up, while the
 bottom voice has them down.
 
 Entering such parts is done by entering each voice as a sequence
-(with @code{@{...@}}) and combining these simultaneously,
-separating the voices with @code{\\}
+(with @w{@code{@{...@}}}) and combining these simultaneously,
+separating the voices with @code{\\}:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 <<
@@ -1291,9 +1289,9 @@ separating each syllable with a space.
 @end lilypond
 
 Note the curly brackets delimiting both the music and the lyrics,
-and the double angle brackets @code{<< ... >>} around the whole 
-piece to show that the music and lyrics are to occur at the same 
-time.
+and the double angle brackets @w{@code{<< ... >>}} around the
+whole piece to show that the music and lyrics are to occur at the
+same time.
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
@@ -1345,8 +1343,8 @@ multiple notes, the simplest being to add a slur across them (see
 >> 
 @end lilypond
 
-Here we have also used manual beaming (the square brackets @code{[
-]} ) to generate the beaming which is customarily used with lyrics
+Here we have also used manual beaming (the square brackets
+@code{[]} ) to generate the beaming which is customarily used with lyrics
 (see @ref{Automatic and manual beams}).
 
 As an alternative to using slurs, the melismata may be indicated

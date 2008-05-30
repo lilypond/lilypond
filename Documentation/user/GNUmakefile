@@ -31,12 +31,14 @@ INFO_IMAGES_DIR = lilypond
 DEST_INFO_IMAGES_SUBDIR = Documentation/user
 endif
 
-STEPMAKE_TEMPLATES=tex texinfo omf documentation
+STEPMAKE_TEMPLATES=texinfo omf documentation
 OMF_FILES += $(outdir)/lilypond-internals.html.omf
 
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 
 include $(depth)/make/stepmake.make
+
+default:
 
 info: $(INFO_FILES)
 	@echo export LILYPOND_DATADIR=$(LILYPOND_DATADIR)
@@ -50,8 +52,6 @@ xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-inter
 local-install-WWW: local-install-info
 local-uninstall-WWW: local-uninstall-info
 
-default:
-
 local-clean:
 	rm -f $(INFO_IMAGES_DIR)
 
@@ -60,7 +60,6 @@ local-help: extra-local-help
 extra-local-help:
 	@echo -e "\
   info        update info pages\n\
-  ps          update PostScript documents\n\
   xml	      update Docbook xml documentation\n\
 "
 
@@ -151,3 +150,5 @@ $(outdir)/lilypond-internals.texi: $(LILYPOND_BINARY)
 ## unused
 $(outdir)/interfaces.itexi: dummy
 	cd $(outdir) && lilypond $(top-src-dir)/ly/generate-interface-doc
+
+.SECONDARY:

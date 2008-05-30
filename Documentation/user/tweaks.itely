@@ -410,9 +410,9 @@ appearance may be modified in the usual way with
 @cindex Internals Reference
 
 @menu
-* Properties of layout objects::
-* Properties found in interfaces::
-* Types of properties::
+* Properties of layout objects::  
+* Properties found in interfaces::  
+* Types of properties::         
 @end menu
 
 @node Properties of layout objects
@@ -878,7 +878,7 @@ by a hash sign, @code{#}.
 @node Appearance of objects
 @section Appearance of objects
 
-Let us now put what we have learnt into practice with a few
+Let us now put what we have learned into practice with a few
 examples which show how tweaks may be used to change the 
 appearance of the printed music.
 
@@ -1413,7 +1413,7 @@ from a font) may be changed in the same way.
 @section Placement of objects
 
 @menu
-* Automatic behavior::         
+* Automatic behavior::          
 * Within-staff objects::        
 * Outside staff objects::       
 @end menu
@@ -1538,8 +1538,8 @@ are simpler equivalent predefined commands available.
 Here is a table of the commonest.  The meaning of each is stated
 where it is not obvious.
 
-@multitable @columnfractions .2 .2 .2 .4
-@headitem Down/Left           
+@multitable @columnfractions .2 .2 .25 .35
+@headitem Down/Left
   @tab Up/Right
   @tab Revert
   @tab Effect
@@ -2057,6 +2057,7 @@ of making changes to this type of property are (a) that some
 other objects will be moved automatically if necessary to make
 room and (b) the single override can apply to all instances of
 the same type of object.  Such properties include:
+
 @itemize
 
 @item
@@ -2085,9 +2086,13 @@ to all objects which support the @code{side-position-interface}.
 Instead of @code{padding}, the placement of groups of accidentals
 is controlled by @code{left-padding} and @code{right-padding}.
 These properties are to be found in the @code{AccidentalPlacement}
-object which, note, lives in the @strong{staff} context.  Because
-accidentals are always positioned after and to the left of
-note heads only the @code{right-padding} property has any effect.
+object which, note, lives in the @strong{staff} context.  In the
+type-setting process the note heads are type-set first and then
+the accidentals, if any, are added to the left of the note heads
+using the @code{right-padding} property to determine the separation
+from the note heads. So only the @code{right-padding} property of the
+@code{AccidentalPlacement} object has any effect on the placement
+of the accidentals.
 
 The @code{staff-padding} property is closely related to the
 @code{padding} property:  @code{padding}
@@ -2117,7 +2122,7 @@ objects, this value is set by default to be around 1.0 or less
 @code{self-alignment-X}
 
 @cindex self-alignment-X property
-This property can be used to align the object to the left, to 
+This property can be used to align the object to the left, to
 the right, or to center it with respect to the parent object's 
 reference point.  It may be used with all objects which support
 the @code{self-alignment-interface}.  In general these are objects
@@ -2282,7 +2287,7 @@ context handles a certain object.  Since the @code{MetronomeMark}
 object
 is handled in the @code{Score} context, property changes in the
 @code{Voice} context will not be noticed.  For more details, see
-@ruser{Constructing a tweak}.
+@ruser{Modifying properties}.
 
 If the @code{padding} property of an object is increased when that
 object is in a stack of objects being positioned according to
@@ -2987,11 +2992,11 @@ lhMusic = \relative c' {
 @section Further tweaking
 
 @menu
-* Other uses for tweaks::
-* Using variables for tweaks::
-* Other sources of information::
-* Avoiding tweaks with slower processing::
-* Advanced tweaks with Scheme::
+* Other uses for tweaks::       
+* Using variables for tweaks::  
+* Other sources of information::  
+* Avoiding tweaks with slower processing::  
+* Advanced tweaks with Scheme::  
 @end menu
 
 @node Other uses for tweaks
@@ -3166,36 +3171,56 @@ VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
 
 The Internals Reference documentation contains a lot of information
 about LilyPond, but even more information can be gathered by
-looking at the internal LilyPond files.  To explore these, first
-find the directory appropriate to your system, as follows:
+looking at the internal LilyPond files.  To explore these, you must
+first find the directory appropriate to your system.  The location
+of this directory depends (a) on whether you obtained LilyPond
+by downloading a precompiled binary from lilypond.org
+or whether you installed it from a package manager (i.e.
+distributed with Linux, or installed under fink or cygwin) or
+compiled it from source, and (b) on which operating system it is 
+being used:
 
-@strong{Linux}
+@strong{Downloaded from lilypond.org}
+
+@itemize @bullet
+@item Linux
 
 Navigate to
-@file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+@file{@var{INSTALLDIR}/lilypond/usr/share/lilypond/current/}
 
-@strong{MacOS X}
+@item MacOS X
 
 Navigate to
-@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+@file{@var{INSTALLDIR}/LilyPond.app/Contents/Resources/share/lilypond/current/}
 by either @code{cd}-ing into this directory from the
 Terminal, or control-clicking on the LilyPond application and
 selecting @q{Show Package Contents}.
 
-@strong{Windows}
+@item Windows
 
 Using Windows Explorer, navigate to
-@file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+@file{@var{INSTALLDIR}/LilyPond/usr/share/lilypond/current/}
+
+@end itemize
+
+@strong{Installed from a package manager or compiled from source}
+
+Navigate to
+@file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, where
+@var{PREFIX} is set by your package manager or @code{configure}
+script, and @var{X.Y.Z} is the LilyPond version number.
+
+@smallspace
 
 Within this directory the two interesting subdirectories are
 
 @itemize
-@item @file{../ly/ } - contains files in LilyPond format
-@item @file{../scm/} - contains files in Scheme format
+@item @file{ly/} - contains files in LilyPond format
+@item @file{scm/} - contains files in Scheme format
 @end itemize
 
-Let's begin by looking at some files in @file{../ly/}.
-Open @file{../ly/property-init.ly} in a text editor.  The one
+Let's begin by looking at some files in @file{ly/}.
+Open @file{ly/property-init.ly} in a text editor.  The one
 you normally use for @code{.ly} files will be fine.  This file
 contains the definitions of all the standard LilyPond built-in
 commands, such as @code{\stemUp} and @code{\slurDotted}.  You will
@@ -3215,18 +3240,18 @@ be redefined easily, just like any other variable, at the
 head of your input file.
 
 The following are the most useful files to be found in
-@file{../ly/}:
+@file{ly/}:
 
 @multitable @columnfractions .4 .6
 @headitem Filename
   @tab Contents
-@item @file{../ly/engraver-init.ly}
+@item @file{ly/engraver-init.ly}
   @tab Definitions of engraver Contexts
-@item @file{../ly/paper-defaults.ly}
+@item @file{ly/paper-defaults.ly}
   @tab Specifications of paper-related defaults
-@item @file{../ly/performer-init.ly}
+@item @file{ly/performer-init.ly}
   @tab Definitions of performer Contexts
-@item @file{../ly/property-init.ly}
+@item @file{ly/property-init.ly}
   @tab Definitions of all common built-in commands
 @end multitable
 
@@ -3245,20 +3270,20 @@ interest are:
 @multitable @columnfractions .4 .6
 @headitem Filename
   @tab Contents
-@item @file{../scm/auto-beam.scm}
+@item @file{scm/auto-beam.scm}
   @tab Sub-beaming defaults
-@item @file{../scm/define-grobs.scm}
+@item @file{scm/define-grobs.scm}
   @tab Default settings for grob properties
-@item @file{../scm/define-markup-commands.scm}
+@item @file{scm/define-markup-commands.scm}
   @tab Specify all markup commands
-@item @file{../scm/midi.scm}
+@item @file{scm/midi.scm}
   @tab Default settings for MIDI output
-@item @file{../scm/output-lib.scm}
+@item @file{scm/output-lib.scm}
   @tab Settings that affect appearance of frets, colors,
        accidentals, bar lines, etc
-@item @file{../scm/parser-clef.scm}
+@item @file{scm/parser-clef.scm}
   @tab Definitions of supported clefs
-@item @file{../scm/script.scm}
+@item @file{scm/script.scm}
   @tab Default settings for articulations
 @end multitable
 
@@ -3340,8 +3365,6 @@ the staff.
 
 Further examples showing the use of these programmable interfaces
 can be found in @ref{Tweaking with Scheme}.
-
-
 
 
 

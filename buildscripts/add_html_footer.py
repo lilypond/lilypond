@@ -94,9 +94,7 @@ def source_links_replace (m, source_val):
 splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
 
 snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
-# TODO: master has ../lily- !
-src_href_re = re.compile ('(href|src)="(lily-.*?|.*?[.]png)"')
-source_link_re = re.compile ('href="source/(.*?)"')
+user_ref_re = re.compile (r'href="(?:\.\./)?lilypond(|-internals|-learning|-program)')
 
 ## Windows does not support symlinks.
 # This function avoids creating symlinks for splitted HTML manuals
@@ -104,16 +102,19 @@ source_link_re = re.compile ('href="source/(.*?)"')
 # this also fixes missing PNGs only present in translated docs
 def hack_urls (s, prefix):
     if splitted_docs_re.match (prefix):
-        s = src_href_re.sub ('\\1="../\\2"', s)
+        s = re.sub ('(href|src)="(../lily-.*?|.*?[.]png)"', '\\1="../\\2"', s)
 
-    # fix Snippets xrefs ad hoc
-    s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
+    # fix xrefs between documents in different directories ad hoc
+    if 'user/out-www/lilypond' in prefix:
+        s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
+    elif 'input/lsr' in prefix:
+        s = user_ref_re.sub ('href="source/Documentation/user/lilypond\\1', s)
 
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):
         return s
     source_val = os.readlink (source_path)
-    return source_link_re.sub (lambda m: source_links_replace (m, source_val), s)
+    return re.sub ('href="source/(.*?)"', lambda m: source_links_replace (m, source_val), s)
 
 body_tag_re = re.compile ('(?i)<body([^>]*)>')
 html_tag_re = re.compile ('(?i)<html>')

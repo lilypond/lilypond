@@ -152,8 +152,8 @@ ceses4 ces cis c
 
 @seealso
 
-Programmreferenz: @internalsref{LedgerLineSpanner},
-@internalsref{NoteHead}.
+Programmreferenz: @rinternals{LedgerLineSpanner},
+@rinternals{NoteHead}.
 
 
 @node Cautionary accidentals
@@ -519,7 +519,7 @@ eine weitere Transposition:
 
 @seealso
 
-Programmreferenz: @internalsref{TransposedMusic}.
+Programmreferenz: @rinternals{TransposedMusic}.
 
 Beispiel: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
 
@@ -650,7 +650,7 @@ zu setzen.
 
 Handbuch: @ref{Grace notes}.
 
-Programmreferenz: @internalsref{Clef}.
+Programmreferenz: @rinternals{Clef}.
 
 
 @node Key signature
@@ -728,8 +728,8 @@ a bes c d
 
 @seealso
 
-Programmreferenz: @internalsref{KeyCancellation},
-@internalsref{KeySignature}.
+Programmreferenz: @rinternals{KeyCancellation},
+@rinternals{KeySignature}.
 
 
 @node Ottava brackets

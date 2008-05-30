@@ -153,8 +153,8 @@ Fragmentos de código:
 @lsrdir{Rhythms,Rhythms}.
 
 Referencia de funcionamiento interno:
-@internalsref{Dots},
-@internalsref{DotColumn}.
+@rinternals{Dots},
+@rinternals{DotColumn}.
 
 
 @knownissues
@@ -261,9 +261,9 @@ Fragmentos de código:
 @lsrdir{Rhythms,Rhythms}.
 
 Referencia de funcionamiento interno:
-@internalsref{TupletBracket},
-@internalsref{TupletNumber},
-@internalsref{TimeScaledMusic}.
+@rinternals{TupletBracket},
+@rinternals{TupletNumber},
+@rinternals{TimeScaledMusic}.
 
 @knownissues
 @cindex adorno, notas de, dentro de corchetes de grupo especial
@@ -308,7 +308,7 @@ modificar mediante un multiplicador.  Esto es útil para saltar muchos
 compases, como por ejemplo @code{s1*23}.
 
 @cindex compresión de música
-@funindex \compressMusic
+@funindex \scaleDurations
 
 De la misma forma, se pueden comprimir por una fracción trozos de
 música más largos, como si cada nota, acorde o silencio tuviera la
@@ -316,7 +316,7 @@ fracción como multiplicador.  La sintaxis general de la iinstrucción
 que lo hace es:
 
 @example
-\compressMusic #'(@emph{numerador} . @emph{denominador}) @{ @emph{música} @}
+\scaleDurations #'(@emph{numerador} . @emph{denominador}) @{ @emph{música} @}
 @end example
 
 @noindent
@@ -331,11 +331,11 @@ comprimir y expandir la música:
 % Normal durations
 <c a>4 c8 a
 % Scale music by *2/3
-\compressMusic #'(2 . 3) {
+\scaleDurations #'(2 . 3) {
   <c a f>4. c8 a f
 }
 % Scale music by *2
-\compressMusic #'(2 . 1) {
+\scaleDurations #'(2 . 1) {
   <c' a>4 c8 b
 }
 @end lilypond
@@ -522,10 +522,10 @@ Fragmentos de código:
 @lsrdir{Rhythms,Rhythms}.
 
 Referencia de funcionamiento interno:
-@internalsref{LaissezVibrerTie},
-@internalsref{LaissezVibrerTieColumn},
-@internalsref{TieColumn},
-@internalsref{Tie}.
+@rinternals{LaissezVibrerTie},
+@rinternals{LaissezVibrerTieColumn},
+@rinternals{TieColumn},
+@rinternals{Tie}.
 
 
 @knownissues
@@ -584,7 +584,7 @@ porque el formateador automático de colisiones de silencios se olvidará de ell
 @seealso
 
 Referencia de funcionamiento interno:
-@internalsref{Rest}.
+@rinternals{Rest}.
 
 
 @node Skips
@@ -617,8 +617,8 @@ usar el comando @code{\skip}
 El comando skip es un mero contenedor musical vacío.  No produce
 ninguna salida, ni siguiera una salida transparente.
 
-El comando de desplazamiento @code{s} crea una @internalsref{Staff} y una
-@internalsref{Voice} cuando es necesario, de forma similar a los comandos de nota y de silencio.
+El comando de desplazamiento @code{s} crea una @rinternals{Staff} y una
+@rinternals{Voice} cuando es necesario, de forma similar a los comandos de nota y de silencio.
 Por ejemplo, el fragmento siguiente produce un pentagrama vacío.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -630,7 +630,7 @@ El fragmento @code{@{ \skip 4 @} } produciría una página vacía.
 @seealso
 
 Referencia de funcionamiento interno:
-@internalsref{SkipMusic}.
+@rinternals{SkipMusic}.
 
 
 @node Full measure rests
@@ -721,11 +721,11 @@ R1*4
 @seealso
 
 Referencia de funcionamiento interno:
-@internalsref{MultiMeasureRestMusicGroup},
-@internalsref{MultiMeasureRest}.
+@rinternals{MultiMeasureRestMusicGroup},
+@rinternals{MultiMeasureRest}.
 
-El objeto de presentación @internalsref{MultiMeasureRestNumber} es para el número
-por defecto, y @internalsref{MultiMeasureRestText} para los textos
+El objeto de presentación @rinternals{MultiMeasureRestNumber} es para el número
+por defecto, y @rinternals{MultiMeasureRestText} para los textos
 definidos por el usuario.
 
 
@@ -797,7 +797,7 @@ signatures}.
 
 @code{\time} establece las propiedades @code{timeSignatureFraction},
 @code{beatLength} y @code{measureLength} en el contexto @code{Timing},
-cuyo nombre alternativo normalmente es @internalsref{Score}.  La
+cuyo nombre alternativo normalmente es @rinternals{Score}.  La
 propiedad @code{measureLength} determina el lugar en que se deben insertar las barras de compás
 y cómo se generan las barras de corchea automáticas.  La modificación del valor de
 @code{timeSignatureFraction} también provoca que se imprima
@@ -805,8 +805,8 @@ el símbolo.
 
 Están disponibles más opciones a través de la función de Scheme
 @code{set-time-signature}.  En combinación con el grabador
-@internalsref{Measure_grouping_engraver} (agrupación de compases), creará signos de
-@internalsref{MeasureGrouping}.  Estos signos facilitan la lectura de música moderna
+@rinternals{Measure_grouping_engraver} (agrupación de compases), creará signos de
+@rinternals{MeasureGrouping}.  Estos signos facilitan la lectura de música moderna
 rítmicamente compleja.  En el siguiente ejemplo el compás de 9/8
 se subdivide en 2, 2, 2 y 3.  Esto se pasa a
 @code{set-time-signature} como un tercer argumento con el valor @code{(2 2 2 3)}
@@ -832,8 +832,8 @@ se subdivide en 2, 2, 2 y 3.  Esto se pasa a
 @seealso
 
 Referencia de funcionamiento interno:
-@internalsref{TimeSignature},
-@internalsref{Timing_translator}.
+@rinternals{TimeSignature},
+@rinternals{Timing_translator}.
 
 Ejemplos: @lsr{contemporary,compound-time-signature.ly}.
 
@@ -946,8 +946,8 @@ UNTRANSLATED NODE: IGNORE ME
 @subsubsection Automatic note splitting
 
 Las notas largas se pueden convertir automáticamente en notas ligadas.
-Se hace mediante la sustitución del @internalsref{Note_heads_engraver}
-por el @internalsref{Completion_heads_engraver}.  En los siguientes
+Se hace mediante la sustitución del @rinternals{Note_heads_engraver}
+por el @rinternals{Completion_heads_engraver}.  En los siguientes
 ejemplos, las notas que atraviesan la barra de compás se dividen y se unen mediante una ligadura.
 
 @lilypond[quote,fragment,verbatim,relative=1,line-width=12\cm]
@@ -965,8 +965,8 @@ si los compases no están completos, las ligaduras mostrarán
 exactamente cuánto le falta a cada compás.
 
 Si quiere permitir el salto de línea en las barras de compás en las
-que @internalsref{Completion_heads_engraver} divide las notas, debe
-eliminar también @internalsref{Forbid_line_break_engraver}.
+que @rinternals{Completion_heads_engraver} divide las notas, debe
+eliminar también @rinternals{Forbid_line_break_engraver}.
 
 
 @knownissues
@@ -982,7 +982,7 @@ silencios.
 @seealso
 
 Referencia de funcionamiento interno:
-@internalsref{Completion_heads_engraver}.
+@rinternals{Completion_heads_engraver}.
 
 
 @node Beams
@@ -1020,7 +1020,7 @@ que lleven una barra
 @seealso
 
 Referencia de funcionamiento interno:
-@internalsref{Beam}.
+@rinternals{Beam}.
 
 @node Setting automatic beam behavior
 @subsubsection Setting automatic beam behavior
@@ -1257,8 +1257,8 @@ Referencia de la notación:
 @ref{System start delimiters}.
 
 Referencia de funcionamiento interno:
-@internalsref{BarLine} (creada al nivel de @internalsref{Staff} (pentagrama)),
-@internalsref{SpanBar} (a través de los pentagramas).
+@rinternals{BarLine} (creada al nivel de @rinternals{Staff} (pentagrama)),
+@rinternals{SpanBar} (a través de los pentagramas).
 
 
 @node Bar numbers
@@ -1316,16 +1316,16 @@ c4 c c c
 @seealso
 
 Referencia de funcionamiento interno:
-@internalsref{BarNumber}.
+@rinternals{BarNumber}.
 
 Ejemplos: @lsrdir{staff}
 
 
 @knownissues
 
-Los números de compás pueden colisionar con el corchete @internalsref{StaffGroup}, si hay uno
+Los números de compás pueden colisionar con el corchete @rinternals{StaffGroup}, si hay uno
 en la parte de arriba.  Para solucionarlo, se puede usar la propiedad de relleno
-@code{padding} de @internalsref{BarNumber} para
+@code{padding} de @rinternals{BarNumber} para
 colocar el número correctamente.
 
 
@@ -1440,7 +1440,7 @@ Referencia de la notación:
 @ref{Text marks}.
 
 Referencia de funcionamiento interno:
-@internalsref{RehearsalMark}.
+@rinternals{RehearsalMark}.
 
 Archivos de inicio: @file{scm/@/translation@/-functions@/.scm} contiene la definición
 de @code{format-mark-numbers} y de
@@ -1638,7 +1638,7 @@ Se puede forzar que las notas de adorno utilicen espaciado flotante,
 @seealso
 
 Referencia de funcionamiento interno:
-@internalsref{GraceMusic}.
+@rinternals{GraceMusic}.
 
 
 @knownissues

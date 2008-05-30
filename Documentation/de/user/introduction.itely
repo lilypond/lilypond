@@ -567,7 +567,7 @@ in einen großen Score-Kontext (Partiturkontext) eingebunden werden.
 
 @seealso
 
-Programmreferenz: @internalsref{Contexts}.
+Programmreferenz: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"

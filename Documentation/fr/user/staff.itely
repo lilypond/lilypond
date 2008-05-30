@@ -46,7 +46,7 @@ portées peuvent être regroupées de quatre manières différentes.
 @itemize @bullet
 @item Le groupe de portées est attaché par une accolade sur la gauche,
 et les barres de mesure sont d'un seul tenant. Il s'agit du contexte
-@internalsref{GrandStaff}.
+@rinternals{GrandStaff}.
 
 @lilypond[verbatim,ragged-right,quote]
 \new GrandStaff
@@ -58,7 +58,7 @@ et les barres de mesure sont d'un seul tenant. Il s'agit du contexte
 
 @item Le groupe de portées est attaché par un crochet, et les barres
 de mesure sont d'un seul tenant. Il s'agit du contexte
-@internalsref{StaffGroup}.
+@rinternals{StaffGroup}.
 
 @lilypond[verbatim,ragged-right,quote]
 \new StaffGroup
@@ -72,7 +72,7 @@ de mesure sont d'un seul tenant. Il s'agit du contexte
 
 @item Le groupe de portées est attaché par un crochet, mais les barres
 de mesure sont séparées d'une portée à l'autre. Il s'agit du contexte
-@internalsref{ChoirStaff}.
+@rinternals{ChoirStaff}.
 
 @lilypond[verbatim,ragged-right,quote]
 \new ChoirStaff
@@ -98,8 +98,8 @@ s'agit de l'assemblage par défaut.
 @seealso
 
 Les barres de mesure au début de chaque système prennent l'un des styles
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-@internalsref{SystemStartBracket}.  Dans chaque contexte, seul l'un de
+@rinternals{SystemStartBar}, @rinternals{SystemStartBrace},
+@rinternals{SystemStartBracket}.  Dans chaque contexte, seul l'un de
 ces styles est utilisé, et c'est la propriété
 @code{systemStartDelimiter} qui détermine lequel.
 
@@ -170,7 +170,7 @@ comme sur l'exemple suivant :
 
 @seealso
 
-Référence du programme : @internalsref{StaffSymbol}.
+Référence du programme : @rinternals{StaffSymbol}.
 
 D'autres exemples : @lsrdir{staff}.
 
@@ -185,13 +185,13 @@ Dans les partitions d'orchestre, les portées qui n'ont que des
 silences sont habituellement masquées afin de gagner de la place.  Ce
 style d'édition s'appelle en anglais @qq{French Score}.
 Cette fonctionnalité est activée par défaut dans les contextes 
-@internalsref{Lyrics}, @internalsref{ChordNames} et
-@internalsref{FiguredBass}.  Lorsque des lignes appartenant à ces
+@rinternals{Lyrics}, @rinternals{ChordNames} et
+@rinternals{FiguredBass}.  Lorsque des lignes appartenant à ces
 contextes se retrouvent vides après placement des sauts de ligne,
 elles sont effacées.
 
 En ce qui concerne les portées normales, il existe un contexte
-@internalsref{Staff} spécifique qui permet d'arriver à ce résultat :
+@rinternals{Staff} spécifique qui permet d'arriver à ce résultat :
 les portées ne contenant rien ou uniquement des silences multi-mesures
 seront retirées.  La définition de ce contexte est enregistrée dans la
 variable @code{\RemoveEmptyStaffContext}.  Voyez comment la deuxième
@@ -213,7 +213,7 @@ portée disparaît du deuxième système :
 Le premier système comportera absolument toutes les portées.  Si vous
 voulez masquer les portées vides y compris pour le premier système,
 vous devrez assigner vrai à la propriété @code{remove-first} dans
-@internalsref{VerticalAxisGroup}. 
+@rinternals{VerticalAxisGroup}. 
 
 @example
 \override Score.VerticalAxisGroup #'remove-first = ##t
@@ -285,7 +285,7 @@ Pour plus de détails, voir @ref{Text markup}.
 
 @seealso
 
-Référence du programme : @internalsref{MetronomeMark}.
+Référence du programme : @rinternals{MetronomeMark}.
 
 
 @knownissues
@@ -308,10 +308,10 @@ Dans un conducteur, les noms d'instrument sont portés en regard de
 chacune des portées.
 
 Ce résultat s'obtient en spécifiant
-@internalsref{Staff}.@code{instrumentName} et
-@internalsref{Staff}.@code{shortInstrumentName}, ou
-@internalsref{PianoStaff}.@code{instrumentName} et 
-@internalsref{PianoStaff}.@code{shortInstrumentName}.  L'argument
+@rinternals{Staff}.@code{instrumentName} et
+@rinternals{Staff}.@code{shortInstrumentName}, ou
+@rinternals{PianoStaff}.@code{instrumentName} et 
+@rinternals{PianoStaff}.@code{shortInstrumentName}.  L'argument
 textuel apparaîtra avant le début de la portée.  La première ligne
 affichera @code{instrumentName}, et les suivantes
 @code{shortInstrumentName}. 
@@ -403,7 +403,7 @@ c1 c c c \break
 
 @seealso
 
-Référence du programme : @internalsref{InstrumentName}.
+Référence du programme : @rinternals{InstrumentName}.
 
 
 @node Quoting other voices
@@ -491,7 +491,7 @@ et nuances.
 
 @knownissues
 
-Seul le contenu de la première @internalsref{Voice} rencontrée dans la
+Seul le contenu de la première @rinternals{Voice} rencontrée dans la
 partie marquée d'une commande @code{\addQuote} pourra être retenu. Par
 voie de conséquence, @code{music} ne saurait comprendre de @code{\new}
 ou une instance @code{context Voice} qui la ferait passer à une autre voix.
@@ -508,7 +508,7 @@ Dans ce manuel : @ref{Instrument transpositions}.
 
 Exemples : @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
 
-Référence du programme : @internalsref{QuoteMusic}.
+Référence du programme : @rinternals{QuoteMusic}.
 
 
 @node Formatting cue notes
@@ -527,7 +527,7 @@ Sa syntaxe est :
 @end example
 
 Des notes issues de la partie @var{nom} s'insèreront dans une
-@internalsref{Voice} nommée @code{cue}, simultanément avec
+@rinternals{Voice} nommée @code{cue}, simultanément avec
 @var{musique} --- habituellement un silence.  L'apparition des petites
 notes initialise une polyphonie temporaire pour la portée concernée.  
 L'argument @var{updown} détermine si ces petites notes seront

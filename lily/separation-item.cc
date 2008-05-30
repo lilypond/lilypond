@@ -11,6 +11,7 @@
 #include "accidental-placement.hh"
 #include "axis-group-interface.hh"
 #include "lookup.hh"
+#include "note-column.hh"
 #include "note-head.hh"
 #include "paper-column.hh"
 #include "pointer-group-interface.hh"
@@ -101,7 +102,18 @@ Separation_item::boxes (Grob *me, Grob *left)
   if (left)
     elts = Accidental_placement::get_relevant_accidentals (read_only_elts, left);
   else
-    elts = read_only_elts;
+    {
+      elts = read_only_elts;
+
+      /* This is a special-case for NoteColumn: we want to include arpeggio in its
+	 skyline (so spacing takes it into account) but we don't want to include it
+	 in the NoteColumn's extent because some spanners (eg. Hairpin) bound themselves
+	 on the NoteColumn and we don't want them to include arpeggios in their bounds.
+      */
+      if (Grob *a = Note_column::arpeggio (me)) {
+	elts.push_back (a);
+      }
+    }
 
   Grob *ycommon = common_refpoint_of_array (elts, me, Y_AXIS);
   

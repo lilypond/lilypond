@@ -3,7 +3,7 @@
 
 \header {
 
-    texidoc = "Chords can be produced with the new chordname entry 
+    texidoc = "Chords can be produced with the chordname entry 
 code (@code{\chordmode} mode), using a pitch and a suffix. Here,
 the suffixes are printed below pitches.
 "

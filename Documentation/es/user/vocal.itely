@@ -263,8 +263,8 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{LyricText},
-@internalsref{LyricSpace}.
+Referencia de funcionamiento interno: @rinternals{LyricText},
+@rinternals{LyricSpace}.
 
 @node Working with lyrics and variables
 @subsubsection Working with lyrics and variables
@@ -324,7 +324,7 @@ El código de entrada definitivo sería algo como
  
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Referencia de funcionamiento interno:
-@internalsref{LyricCombineMusic}, @internalsref{Lyrics}.
+@rinternals{LyricCombineMusic}, @rinternals{Lyrics}.
 
 
 @node Aligning lyrics to a melody
@@ -336,7 +336,7 @@ Referencia de funcionamiento interno:
 
 
 La letra se imprime a través de su interpretación dentro del contexto
-llamado @internalsref{Lyrics}.
+llamado @rinternals{Lyrics}.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -379,7 +379,7 @@ se consigue combinando la melodía y el texto con la expresión
 \new Lyrics \lyricsto @var{nombre} @dots{}
 @end example
 
-Esto alinea la letra a las notas del contexto de @internalsref{Voice}
+Esto alinea la letra a las notas del contexto de @rinternals{Voice}
 llamado @var{nombre}, que debe existir previamente.  Por ello la
 @code{Voice} normalmente se especifica en primer lugar, y después se
 especifica la letra con @code{\lyricsto}.  La instrucción
@@ -444,7 +444,7 @@ propiedad @code{associatedVoice},
 
 @noindent
 El valor de la propiedad (aquí: @code{"lala"}) ha de ser el nombre de
-un contexto de @internalsref{Voice}.  Sin este ajuste, las líneas de
+un contexto de @rinternals{Voice}.  Sin este ajuste, las líneas de
 extensión no se formatearán correctamente.
  
 Presentamos a continuación un ejemplo que muestra el uso de las
@@ -463,7 +463,7 @@ duraciones manuales de las sílabas del texto:
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{Lyrics}.
+Referencia de funcionamiento interno: @rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
@@ -491,7 +491,7 @@ DejaVuLGC) que incluya este glifo.}.
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{LyricCombineMusic}.
+Referencia de funcionamiento interno: @rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -571,7 +571,7 @@ sección @rlearning{Vocal ensembles}.
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{Melisma_translator}.
+Referencia de funcionamiento interno: @rinternals{Melisma_translator}.
 
 @c @lsr{vocal,lyric@/-combine.ly}.
 
@@ -619,8 +619,8 @@ guiones).
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{LyricExtender},
-@internalsref{LyricHyphen}
+Referencia de funcionamiento interno: @rinternals{LyricExtender},
+@rinternals{LyricHyphen}
 
 
 @node Lyrics and repeats
@@ -1131,6 +1131,6 @@ text = \lyricmode {
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{LyricText},
-@internalsref{StanzaNumber}, @internalsref{VocalName}.
+Referencia de funcionamiento interno: @rinternals{LyricText},
+@rinternals{StanzaNumber}, @rinternals{VocalName}.
 

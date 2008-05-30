@@ -1,17 +1,18 @@
 .SUFFIXES: .doc .tely .texi .ly
 
 # TODO: fix hardcoded out/ ?
-LYS_OUTPUT_OPTION= --lily-output-dir $(top-build-dir)/out/lybook-db/
+LYS_OUTPUT_OPTION= --lily-output-dir $(LYS_OUTPUT_DIR)
+LYS_OUTPUT_DIR=$(top-build-dir)/out/lybook-db/
 LILYPOND_BOOK_FLAGS += $(LYS_OUTPUT_OPTION)
 $(outdir)/%.latex:  %.doc
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) $(LILYPOND_BOOK_FLAGS) $<
 
 
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
 $(outdir)/%.texi: %.tely $(outdir)/version.itexi
-	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir)  --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
+	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir)  --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
 
 
 $(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi

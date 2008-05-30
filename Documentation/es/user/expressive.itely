@@ -167,8 +167,8 @@ Glosario musical: @rglos{marcato}, @rglos{stopped}, @rglos{tenuto},
 
 Fragmentos de código: @lsrdir{Expressive,Expressive-marks}
 
-Referencia de funcionamiento interno: @internalsref{Script},
-@internalsref{TextScript}.
+Referencia de funcionamiento interno: @rinternals{Script},
+@rinternals{TextScript}.
 
 
 @knownissues
@@ -239,7 +239,7 @@ c\< c\! d\> e\!
 
 Esto puede dar lugar a reguladores excesivamente cortos.  Para
 alargarlos, utilice por ejemplo @code{minimum-length} dentro de
-@internalsref{Voice}.@internalsref{Hairpin}:
+@rinternals{Voice}.@rinternals{Hairpin}:
 
 @example
 \override Voice.Hairpin #'minimum-length = #5
@@ -327,7 +327,7 @@ Para crear nuevas indicaciones dinámicas o texto que se deba alinear
 con los matices, consulte @ref{New dynamic marks}.
 
 El posicionamiento vertical de las expresiones dinámicas se gestiona a
-través de @internalsref{DynamicLineSpanner}.
+través de @rinternals{DynamicLineSpanner}.
 
 @predefined
 
@@ -380,9 +380,9 @@ Manual de aprendizaje: @rlearning{Articulation and dynamics}.
 
 Fragmentos de código: @lsrdir{Expressive,Expressive-marks}
 
-Referencia de funcionamiento interno: @internalsref{DynamicText},
-@internalsref{Hairpin}.  El posicionamiento vertical de estos símbolos
-se maneja por parte de @internalsref{DynamicLineSpanner}.
+Referencia de funcionamiento interno: @rinternals{DynamicText},
+@rinternals{Hairpin}.  El posicionamiento vertical de estos símbolos
+se maneja por parte de @rinternals{DynamicLineSpanner}.
 
 @node Curves
 @subsection Curves
@@ -452,7 +452,7 @@ legato.  Esto se consigue en LilyPond mediante el establecimiento de @code{doubl
 
 @seealso
 
-Referencia del programa: @internalsref{Slur}.
+Referencia del programa: @rinternals{Slur}.
 
 
 @node Phrasing slurs
@@ -490,7 +490,7 @@ No se pueden tener varias ligaduras de fraseo simultáneas.
 
 @seealso
 
-Referencia del programa: @internalsref{PhrasingSlur}.
+Referencia del programa: @rinternals{PhrasingSlur}.
 
 @node Breath marks
 @subsubsection Breath marks
@@ -518,7 +518,7 @@ d4
 
 @seealso
 
-Referencia del programa: @internalsref{BreathingSign}.
+Referencia del programa: @rinternals{BreathingSign}.
 
 Ejemplos: @lsr{expressive,breathing-sign.ly}
 
@@ -577,7 +577,7 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 @seealso
 
-Referencia del programa: @internalsref{Glissando}.
+Referencia del programa: @rinternals{Glissando}.
 
 Archivos de ejemplo:
 @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
@@ -691,13 +691,13 @@ Referencia de la notación: @ref{Ties}, for writing out arpeggios.
 
 Fragmentos de código: @lsrdir{Expressive,Expressive-marks}
 
-Referencia de funcionamiento interno: @internalsref{Arpeggio},
-@internalsref{PianoStaff}.
+Referencia de funcionamiento interno: @rinternals{Arpeggio},
+@rinternals{PianoStaff}.
 
 @knownissues
 
 No es posible mezclar arpegios conectados y no conectados en un
-@internalsref{PianoStaff} en el mismo instante de tiempo.
+@rinternals{PianoStaff} en el mismo instante de tiempo.
 
 
 @node Trills
@@ -753,5 +753,5 @@ Glosario musical: @rglos{trill}
 
 Fragmentos de código: @lsrdir{Expressive,Expressive-marks}
 
-Referencia de funcionamiento interno: @internalsref{TrillSpanner}.
+Referencia de funcionamiento interno: @rinternals{TrillSpanner}.
 

@@ -80,10 +80,13 @@
 
 (define-public (make-circle-stencil radius thickness fill)
   "Make a circle of radius @var{radius} and thickness @var{thickness}"
+  (let*
+      ((out-radius (+ radius (/ thickness 2.0))))
+    
   (ly:make-stencil
    (list 'circle radius thickness fill) 
-   (cons (- radius) radius)
-   (cons (- radius) radius)))
+   (cons (- out-radius) out-radius)
+   (cons (- out-radius) out-radius))))
 
 (define-public (box-grob-stencil grob)
   "Make a box of exactly the extents of the grob.  The box precisely

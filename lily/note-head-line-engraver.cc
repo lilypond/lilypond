@@ -54,20 +54,19 @@ void
 Note_head_line_engraver::acknowledge_rhythmic_head (Grob_info info)
 {
   head_ = info.grob ();
-  if (to_boolean (get_property ("followVoice")))
-    {
-      Context *tr = context ();
-      while (tr && !tr->is_alias (ly_symbol2scm ("Staff")))
-	tr = tr->get_parent_context ();
+  Context *tr = context ();
 
-      if (tr
-	  && tr->is_alias (ly_symbol2scm ("Staff")) && tr != last_staff_)
-	{
-	  if (last_head_)
-	    follow_ = true;
-	  last_staff_ = tr;
-	}
+  while (tr && !tr->is_alias (ly_symbol2scm ("Staff")))
+    tr = tr->get_parent_context ();
+
+  if (tr
+      && tr->is_alias (ly_symbol2scm ("Staff")) && tr != last_staff_
+      && to_boolean (get_property ("followVoice")))
+    {
+      if (last_head_)
+        follow_ = true;
     }
+  last_staff_ = tr;
 }
 
 void

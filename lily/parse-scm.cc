@@ -11,6 +11,7 @@
 #include <cstdio>
 using namespace std;
 
+#include "lily-parser.hh"
 #include "international.hh"
 #include "main.hh"
 #include "paper-book.hh"
@@ -37,7 +38,6 @@ internal_ly_parse_scm (Parse_start *ps)
   SCM answer = SCM_UNSPECIFIED;
   SCM form = scm_read (port);
 
-
   /* Reset read_buf for scm_ftell.
      Shouldn't scm_read () do this for us?  */
   scm_fill_input (port);
@@ -56,6 +56,12 @@ internal_ly_parse_scm (Parse_start *ps)
 	      SCM function = ly_lily_module_constant ("make-safe-lilypond-module");
 	      module = scm_call_0 (function);
 	    }
+	  
+	  // We define the parser so trusted Scheme functions can
+	  // access the real namespace underlying the parser.
+	  if (ps->parser_)
+	    scm_module_define (module, ly_symbol2scm ("parser"),
+			       ps->parser_->self_scm());
 	  answer = scm_eval (form, module);
 	}
       else
@@ -113,12 +119,13 @@ bool parsed_objects_should_be_dead = false;
 /* Try parsing.  Upon failure return SCM_UNDEFINED.
    FIXME: shouldn't we return SCM_UNSCPECIFIED -- jcn  */
 SCM
-ly_parse_scm (char const *s, int *n, Input i, bool safe)
+ly_parse_scm (char const *s, int *n, Input i, bool safe, Lily_parser *parser)
 {
   Parse_start ps;
   ps.str = s;
   ps.start_location_ = i;
   ps.safe_ = safe;
+  ps.parser_ = parser;
 
   SCM ans = parse_protect_global ? protected_ly_parse_scm (&ps)
     : internal_ly_parse_scm (&ps);

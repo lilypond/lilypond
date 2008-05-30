@@ -1,4 +1,3 @@
-<<<<<<< HEAD:make/doclang-rules.make
 $(outdir)/%/index.html: $(outdir)/%.texi $(OUT_PNG_IMAGES) $(outdir)/version.itexi
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<

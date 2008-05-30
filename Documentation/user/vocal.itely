@@ -785,7 +785,7 @@ layout.
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {aligning-lyrics.ly}
 
 @c TODO Create and add lsr example of lyricMelismaAlignment

@@ -1233,7 +1233,7 @@ o definir unos nuevos.
 En la referencia del programa se encuentra una descripción completa de todos los contextos que están disponibles,
 consulte
 @ifhtml
-@internalsref{Contexts}.
+@rinternals{Contexts}.
 @end ifhtml
 @ifnothtml
 Traducción @expansion{} Contexto.

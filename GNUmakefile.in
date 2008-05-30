@@ -108,11 +108,9 @@ c-clean:
 
 src-ext = c cc yy ll hh icc py scm tex ps texi itexi tely itely sh
 
-web-clean: snippets-clean
-	$(MAKE) out=www clean
-	$(MAKE) $(tree-share-prefix)/lilypond-force
+web-clean: snippets-clean $(tree-share-prefix)/lilypond-force
 
-default: $(config_h) build-dir-setup 
+default: $(config_h) build-dir-setup
 
 build-dir-setup: $(tree-share-prefix)/lilypond-force
 
@@ -219,6 +217,8 @@ test-baseline:
 	$(MAKE) test
 	$(MAKE) out=test -C input/regression/ local-test-baseline
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
+	rm -rf out/lybook-testdb/
+
 
 local-check: test
 	rm -rf $(RESULT_DIR)

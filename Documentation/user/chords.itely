@@ -12,268 +12,413 @@
 @node Chord notation
 @section Chord notation
 
-Intro text.
+Chords can be entered in chord mode, which recognizes some
+traditional European chord naming conventions.  Chord names can also
+be displayed.  In addition, figured bass notation can be displayed.
 
 @menu
-* Modern chords::
+* Chord mode::
+* Displaying chords::
 * Figured bass::
 @end menu
 
 
-@node Modern chords
-@subsection Modern chords
+@node Chord mode
+@subsection Chord mode
+
+@cindex chord chords
+
+Chord mode is used to enter chords using an indicator of the chord
+structure, rather than the chord pitches.
 
 @menu
-* Chord modes::
-* Entering chord names::
-* Building chords::
-* Lead sheets::
-* Printing chord names::
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
 @end menu
 
-@cindex chords
+@node Chord mode overview
+@unnumberedsubsubsec Chord mode overview
+
 @cindex chord names
-
-@node Chord modes
-@subsubsection Chord modes
-
-In popular music it is common to denote accompaniment with chord
-names.  Such chords can be entered like notes,
-
-@lilypond[verbatim,quote,ragged-right]
-\chordmode { c2 f4. g8 }
-@end lilypond
-
-Now each pitch is read as the root of a chord instead of a note.
-This mode is switched on with @code{\chordmode}.  Other chords can
-be created by adding modifiers after a colon.  The following
-example shows a few common modifiers:
-
-@lilypond[verbatim,quote,ragged-right]
-\chordmode { c2 f4:m g4:maj7 gis1:dim7 }
-@end lilypond
-
-@cindex Chords mode
-
-In chord mode sets of pitches (chords) are entered with normal note
-names.  A chord is entered by the root, which is entered like a
-normal pitch
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { es4. d8 c2 }
-@end lilypond
-
-@noindent
-The mode is introduced by the keyword @code{\chordmode}.
-
-@cindex chord entry
 @cindex chord mode
 
-Chords is a mode similar to @code{\lyricmode}, etc.  Most
-of the commands continue to work, for example, @code{r} and
-@code{\skip} can be used to insert rests and spaces, and property
-commands may be used to change various settings.
-It uses the same syntax as
-@code{\chordmode}, but renders the notes in a @code{ChordNames}
-context, with the following result:
+Chords can be entered as simultaneous music, as discussed in
+@ref{Chorded notes}.
 
-@lilypond[verbatim,quote,ragged-right]
-\chords { c2 f4.:m g4.:maj7 gis8:dim7 }
+Chords can also be entered in @qq{chord mode}, which is an input
+mode that focuses on the structures of chords in traditional
+European music, rather than on specific pitches.  This is
+convenient for those who are familiar with using chord names to
+describe chords.  More information on different input modes can be
+found at @ref{Input modes}.
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\chordmode { c1 g a g c }
 @end lilypond
 
+Chords entered using chord mode are music elements, and can be
+transposed just like chords entered using simultaneous music.
+
+Chord mode and note mode can be mixed in sequential music:
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+<c e g>2 < g b d >
+\chordmode { c2 f}
+< c e g > < g' b d >
+\chordmode { f g}
+@end lilypond
+
+
+@seealso
+
+Music Glossary:
+@rglos{chord}.
+
+Notation Reference:
+@ref{Chorded notes},
+@ref{Input modes}.
+
+Snippets:
+@rlsr{Chords}
 
 @knownissues
 
-Each step can only be present in a chord once.  The following
-simply produces the augmented chord, since @code{5+} is interpreted
-last
-@cindex clusters
-@lilypond[quote,ragged-right,verbatim,fragment]
-\chordmode { c:5.5-.5+ }
+When chord mode and note mode are mixed in sequential music, and
+chord mode comes first, the note mode will create a new @code{Staff}
+context.
+
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\chordmode { c2 f}
+< c e g > < g' b d >
 @end lilypond
 
+To avoid this behavior, explicitly create the @code{Staff} context:
 
-@node Entering chord names
-@subsubsection Entering chord names
-@cindex chord names
-
-LilyPond has support for printing chord names.  Chords may be entered
-in musical chord notation, i.e., @code{< .. >}, but they can also be
-entered by name.  Internally, the chords are represented as a set of
-pitches, so they can be transposed
-
-
-@lilypond[quote,ragged-right,verbatim,ragged-right]
-twoWays = \transpose c c' {
-  \chordmode {
-    c1 f:sus4 bes/f
-  }
-  <c e g>
-  <f bes c'>
-  <f bes d'>
-}
-
-<< \new ChordNames \twoWays
-   \new Voice \twoWays >>
-@end lilypond
-
-This example also shows that the chord printing routines do not try to
-be intelligent.  The last chord (@code{f bes d}) is not interpreted as
-an inversion.
-
-Note that the duration of chords must be specified outside the
-@code{<>}.
-
-@example
-<c e g>2
-@end example
-
-@c TODO Generate snippet based on the following
-@c      and add explanation -td
-
-Custom chord names may be generated:
-
-@lilypond[quote,ragged-right,verbatim,ragged-right]
-FGGChordNames = {
-  <c e g b d'>1-\markup { \super "maj9" }
-  <c e g a d'>1-\markup { \super "6(add9)" }
-}
-chExceptions = #(append
-(sequential-music-to-chord-exceptions
-FGGChordNames #t) ignatzekExceptions)
-
-chordStuff = \chordmode
-{
-% standard names
-g1:maj9
-g1:6.9
-% names with FGG's custom exceptions
-\set chordNameExceptions = #chExceptions
-g1:maj9
-g1:6.9
-}
-
-\score
-{
-\new ChordNames \chordStuff
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\new Staff {
+  \chordmode { c2 f}
+  < c e g > < g' b d >
 }
 @end lilypond
 
-@node Building chords
-@subsubsection Building chords
+@node Common chords
+@unnumberedsubsubsec Common chords
 
-Other chords may be entered by suffixing a colon and introducing a
-modifier (which may include a number if desired)
-
-@lilypond[quote,fragment,verbatim]
-\chordmode { e1:m e1:7 e1:m7 }
-@end lilypond
-
-The first number following the root is taken to be the @q{type} of the
-chord, thirds are added to the root until it reaches the specified
-number.  The exception is @code{c:13}, for which the 11 is omitted.
-
-@lilypond[quote,fragment,verbatim]
-\chordmode { c:3 c:5 c:6 c:7 c:8 c:9 c:10 c:11 c:13 }
-@end lilypond
-
+@cindex triads
+@cindex seventh chords
 @cindex root of chord
-@cindex additions, in chords
-@cindex removals, in chords
+@cindex modifiers, in chords.
+@cindex chord quality
 
-More complex chords may also be constructed adding separate steps
-to a chord.  Additions are added after the number following
-the colon and are separated by dots
+Major triads are entered by including the root and an
+optional duration:
 
-@lilypond[quote,verbatim,fragment]
-\chordmode { c:5.6 c:3.7.8 c:3.6.13 }
+@lilypond[verbatim,quote,relative=1,ragged-right]
+\chordmode { c2 f4 g }
 @end lilypond
 
-Chord steps can be altered by suffixing a @code{-} or @code{+} sign
-to the number
+Minor, augmented, and diminished triads are entered by placing
+@code{:} and a quality modifier string after the duration:
 
-@lilypond[quote,verbatim,fragment]
-\chordmode { c:7+ c:5+.3- c:3-.5-.7- }
+@lilypond[verbatim,quote,ragged-right,relative=1]
+\chordmode { c2:m f4:aug g:dim }
 @end lilypond
 
-Removals are specified similarly and are introduced by a caret.  They
-must come after the additions
+Seventh chords can be created:
 
-@lilypond[quote,verbatim,fragment]
-\chordmode { c^3 c:7^5 c:9^3.5 }
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\chordmode { c1:7 c:m7 c:maj7 c:dim7 c:aug7 }
 @end lilypond
 
-Modifiers can be used to change pitches.  The following modifiers are
-supported
+@funindex aug
+@funindex dim
+@funindex maj
+@funindex m
+
+The table belows shows the actions of the quality modifiers on
+triads and seventh chords.
 
 @table @code
+
 @item m
-The minor chord.  This modifier lowers the 3rd and (if present) the 7th step.
+The minor chord.  This modifier lowers the 3rd and (if present) the
+7th step.
 
 @item dim
-The diminished chord.  This modifier lowers the 3rd, 5th and (if present)
-the 7th step.
+The diminished chord.  This modifier lowers the 3rd, 5th and (if
+present) the 7th step.
 
 @item aug
 The augmented chord.  This modifier raises the 5th step.
 
 @item maj
-The major 7th chord.  This modifier raises the 7th step if present.
+The major 7th chord.  This modifier adds a raised 7th step.  The
+@code{7} following @code{maj} is optional.  Do NOT use this modifier
+to create a major triad.
 
-@item sus
-The suspended 4th or 2nd.  This modifier removes the 3rd
-step.  Append either @code{2} or @code{4} to add the 2nd or 4th step to
-the chord.
 @end table
 
-Modifiers can be mixed with additions
-@lilypond[quote,verbatim,fragment]
-  \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
-@end lilypond
+@c TODO -- perhaps add warning about c and c:maj being different, while
+@c   c:maj and c:maj7 are the same
 
-@cindex modifiers, in chords.
-@funindex aug
-@funindex dim
-@funindex maj
-@funindex sus
-@funindex m
+@seealso
+
+Snippets:
+@rlsr{Chords}
+
+@node Extended and altered chords
+@unnumberedsubsubsec Extended and altered chords
+
+@cindex extended chords
+@cindex altered chords
+
+Chord structures of arbitrary complexity can be created in chord
+mode.  The modifier string can be used to extend a chord, add or
+remove chord steps, raise or lower chord steps, and add a bass note
+or create an inversion.
+
+The first number following the @code{:} is taken to be the extent
+of the chord.  The chord is constructed by sequentially adding
+thirds to the root until the specified number has been reached.
+If the extent is not a third (e.g., 6), thirds are added up to the
+highest third below the extent, and then the step of the extent is
+added.  The largest possible value for the extent is 13.  Any
+larger value is interpreted as 13.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\chordmode {
+  c:2 c:3 c:4 c:5
+  c:6 c:7 c:8 c:9
+  c:10 c:11 c:12 c:13
+}
+@end lilypond
 
 Since an unaltered 11 does not sound good when combined with an
-unaltered 13, the 11 is removed in this case (unless it is added
-explicitly)
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c:13 c:13.11 c:m13 }
+unaltered 13, the 11 is removed from a @code{:13} chord (unless it
+is added explicitly).
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+\chordmode {
+  c1:13 c:13.11 c:m13
+}
 @end lilypond
+
+@cindex additions, in chords
+
+Individual steps can be added to a chord.  Additions follow the
+extent and are prefixed by a dot (@code{.}).
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\chordmode {
+  c1:5.6 c:3.7.8 c:3.6.13
+}
+@end lilypond
+
+Added steps can be as high as desired.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\chordmode {
+  c4:5.15 c:5.20 c:5.25 c:5.30
+}
+@end lilypond
+
+@cindex chord steps, altering
+
+Added chord steps can be altered by suffixing a @code{-} or @code{+}
+sign to the number.  To alter a step that is automatically included
+as part of the basic chode structure, add it as an altered step.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\chordmode {
+  c1:7+ c:5+.3- c:3-.5-.7-
+}
+@end lilypond
+
+@cindex removals, in chords
+
+@funindex ^
+
+A step to be removed from the chord  must come at the end of a
+modifier string and be prefixed by @code{^}.  Only one removal with @code{^}
+is allowed in a modifier string.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\chordmode {
+  c1^3 c:7^5 c:9^3.5
+}
+@end lilypond
+
+@funindex sus
+
+The modifier @code{sus} can be added to the modifier string to
+create suspended chords.  This removes the 3rd step from the chord.
+Append either @code{2} or @code{4} to add the 2nd or 4th step to the
+chord.  @code{sus} is equivalent to @code{^3}; @code{sus4} is
+equivalent to @code{.4^3}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\chordmode {
+  c1:sus c:sus2 c:sus4 c:5.4^3
+}
+@end lilypond
+
+It is possible to remove the 3rd step with @code{sus} and remove
+another step with @code{^} in one modifier string.
 
 @funindex /
+@cindex chord inversions
+@cindex bass note, for chords
 
-An inversion (putting one pitch of the chord on the bottom), as well
-as bass notes, can be specified by appending
-@code{/}@var{pitch} to the chord
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c1 c/g c/f }
+Inversions (putting a pitch other than the root on the bottom of the
+chord) and added bass notes can be specified by appending
+@code{/}@var{pitch} to the chord.
+
+@lilypond[quote,ragged-right,fragment,verbatim, relative=2]
+\chordmode {
+  c1 c/g c/f
+}
 @end lilypond
+
 @funindex /+
 
-A bass note can be added instead of transposed out of the chord,
-by using @code{/+}@var{pitch}.
+A bass note that is part of the chord can be added, instead of
+moved as part of an inversion, by using @code{/+}@var{pitch}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\chordmode { c1 c/+g c/+f }
+\chordmode {
+  c1 c/g c/+g
+}
 @end lilypond
 
+@seealso
 
-@node Lead sheets
-@subsubsection Lead sheets
+Snippets:
+@rlsr{Chords}
 
-@cindex lead sheet
+@knownissues
 
-For lead sheets, chords are not printed on staves, but as names on
-a line for themselves.  This is achieved by using @code{\chords}
-instead of @code{\chordmode}.
+Each step can only be present in a chord once.  The following
+simply produces the augmented chord, since @code{5+} is
+interpreted last.
 
-When put together, chord names, lyrics and a melody form a lead
-sheet,
+@lilypond[quote,ragged-right,verbatim,fragment]
+\chordmode { c1:5.5-.5+ }
+@end lilypond
+
+Only one step can be removed from a chord.  If a chord with multiple
+removed steps is desired, it must be built through addition of
+multiple steps.
+
+
+@node Displaying chords
+@subsection Displaying chords
+
+Chords can be displayed by name, in addition to the standard display
+as notes on a staff.
+
+@menu
+* Printing chord names::
+* Customizing chord names::
+@end menu
+
+@node Printing chord names
+@unnumberedsubsubsec Printing chord names
+
+@cindex printing chord names
+@cindex chord names
+@cindex chords
+
+Chord names are printed in the @code{ChordNames} context:
+
+@lilypond[verbatim,quote,relative=1,ragged-right]
+\new ChordNames {
+  \chordmode {
+    c2 f4. g8
+  }
+}
+@end lilypond
+
+Chords can be entered as simultaneous notes or through the use of
+chord mode.  The displayed chord name will be the same, regardless
+of the mode of entry, unless there are inversions or added bass notes:
+
+@lilypond[quote,ragged-right,verbatim,relative=1]
+<<
+  \new ChordNames {
+    <c e g>2  <f bes c>
+    <f c' e g>1
+    \chordmode {
+      c2 f:sus4 c1:/f
+    }
+  }
+  {
+    <c e g>2  <f bes c>
+    <f, c' e g>1
+    \chordmode {
+      c2 f:sus4 c1:/f
+    }
+  }
+>>
+@end lilypond
+
+@funindex{\chords}
+
+@code{\chords @{ ... @}} is a shortcut notation for
+@code{\new ChordNames @{\chordmode @{ ... @}@}}.
+
+@lilypond[verbatim,quote,ragged-right, relative=1]
+\chords {
+  c2 f4.:m g8:maj7
+}
+@end lilypond
+
+@lilypond[verbatim,quote,ragged-right, relative=1]
+\new ChordNames {
+  \chordmode {
+    c2 f4.:m g8:maj7
+  }
+}
+@end lilypond
+
+@snippets
+
+@c TODO -- replace this with a snippet
+Chord names can be displayed only at the start of lines and when
+the chord changes.
+
+@lilypond[quote,verbatim,ragged-right]
+harmonies = \chordmode {
+  c1:m c:m \break c:m c:m d
+}
+<<
+  \new ChordNames {
+    \set chordChanges = ##t
+    \harmonies
+  }
+  \new Staff {
+    \relative c' { \harmonies }
+  }
+>>
+@end lilypond
+
+@c TODO -- replace this with a snippet
+To add bar indications in the @code{ChordNames}
+context, add @rinternals{Bar_engraver}.
+
+@lilypond[ragged-right,verbatim]
+\new ChordNames \with {
+  \override BarLine #'bar-size = #4
+  \consists "Bar_engraver"
+}
+\chordmode {
+  f1:maj7 f:7 bes:7 c:maj7 ees e
+}
+@end lilypond
+
+@c TODO -- replace this with a snippet
+When put together, chord names, a melody, and lyrics form a lead
+sheet:
 
 @lilypond[verbatim,quote,ragged-right]
 <<
@@ -286,115 +431,158 @@ sheet,
 >>
 @end lilypond
 
+@seealso
+
+Music Glossary:
+@rglos{chord}.
 
 
-@node Printing chord names
-@subsubsection Printing chord names
-
-@cindex printing chord names
-@cindex chord names
-@cindex chords
-
-For displaying printed chord names, use the @rinternals{ChordNames} context.
-The chords may be entered either using the notation
-described above, or directly using @code{<} and @code{>}
-
-@lilypond[quote,verbatim,ragged-right]
-harmonies = {
-  \chordmode {a1 b c} <d' f' a'> <e' g' b'>
-}
-<<
-  \new ChordNames \harmonies
-  \new Staff \harmonies
->>
-@end lilypond
-
-You can make the chord changes stand out by setting
-@rinternals{ChordNames}.@code{chordChanges} to true.  This will only
-display chord names when there is a change in the chords scheme and at
-the start of a new line
-
-@lilypond[quote,verbatim,ragged-right]
-harmonies = \chordmode {
-  c1:m c:m \break c:m c:m d
-}
-<<
-  \new ChordNames {
-    \set chordChanges = ##t
-    \harmonies }
-  \new Staff \transpose c c' \harmonies
->>
-@end lilypond
-
-The previous examples all show chords over a staff.  This is not
-necessary.  Chords may also be printed separately.  It may be necessary
-to add @rinternals{Volta_engraver} and @rinternals{Bar_engraver}
-for showing repeats.
-
-@lilypond[ragged-right,verbatim]
-\new ChordNames \with {
-  \override BarLine #'bar-size = #4
-  \consists Bar_engraver
-  \consists "Volta_engraver"
-}
-\chordmode { \repeat volta 2 {
-  f1:maj7 f:7 bes:7
-  c:maj7
-} \alternative {
-  es e
-}
-}
-@end lilypond
+Notation Reference:
+@ref{Writing music in parallel}.
 
 
-The default chord name layout is a system for Jazz music, proposed by
-Klaus Ignatzek (see @ref{Literature list}).  It can be tuned through the
-following properties
+Snippets:
+@rlsr{Chords}.
+
+Internals Reference:
+@rinternals{ChordNames},
+@rinternals{Volta_engraver},
+@rinternals{Bar_engraver}.
+
+@knownissues
+
+Chords containing inversions or altered bass notes are not named
+properly if entered using simultaneous music.
+
+
+@node Customizing chord names
+@unnumberedsubsubsec Customizing chord names
+
+@cindex customizing chord names
+
+There is no unique system for naming chords.  Different musical
+traditions use different names for the same set of chords.  There
+are also different symbols displayed for a given chord name.   The
+names and symbols displayed for chord names are customizable.
+
+@cindex Banter
+@cindex jazz chords
+@cindex chords, jazz
+
+The default chord name layout is a system for Jazz music, proposed
+by Klaus Ignatzek (see @ref{Literature list}).  There are also two
+other chord name schemes implemented: an alternate Jazz chord
+notation, and a systematic scheme called Banter chords.  The
+alternate Jazz notation is also shown on the chart in @ref{Chord
+name chart}.
+
+In addition to the different naming systems, different note names
+are used for the root in different languages.  The predefined
+variables @code{\germanChords}, @code{\semiGermanChords},
+@code{\italianChords} and @code{\frenchChords} set these variables.
+The effect is demonstrated here:
+
+@lilypondfile[ragged-right]{chord-names-languages.ly}
+
+If none of the default settings give the desired output, the chord
+name display can be tuned through the following properties.
 
 @table @code
-@funindex chordNameExceptions
-@item chordNameExceptions
-This is a list that contains the chords that have special formatting.
 
-The exceptions list should be encoded as
-@example
-@{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
-@end example
+@funindex chordRootNamer
 
-To get this information into @code{chordNameExceptions} takes a little
-maneuvering.  The following code transforms @code{chExceptionMusic}
-(which is a sequential music) into a list of exceptions.
-@example
-(sequential-music-to-chord-exceptions chExceptionMusic #t)
-@end example
-Then,
-@example
-(append
- (sequential-music-to-chord-exceptions chExceptionMusic #t)
- ignatzekExceptions)
-@end example
-adds the new exceptions to the default ones, which are defined in
-@file{ly/@/chord@/-modifier@/-init@/.ly}.
+@item chordRootNamer
 
-For an example of tuning this property, see also
-@c @lsr{chords,chord@/-name@/-exceptions@/.ly}
-@cindex exceptions, chord names.
-
+The chord name is usually printed as a letter for the root with an
+optional alteration.  The transformation from pitch to letter is
+done by this function.  Special note names (for example, the German
+@q{H} for a B-chord) can be produced by storing a new function in
+this property.
 
 @funindex majorSevenSymbol
+
 @item majorSevenSymbol
-This property contains the markup object used for the 7th step, when
-it is major.  Predefined options are @code{whiteTriangleMarkup} and
-@code{blackTriangleMarkup}.  See
-@c @lsr{chords,chord@/-name@/-major7@/.ly} for an example.
+
+This property contains the markup object used to follow the output
+of @code{chordRootNamer} to dentify a major 7 chord. Predefined
+options are @code{whiteTriangleMarkup} and
+@code{blackTriangleMarkup}.
+
+@funindex chordNoteNamer
+
+@item chordNoteNamer
+
+When the chord name contains additional pitches other than the root
+(e.g., an added bass note), this function is used to print the
+additional pitch.  By default the pitch is printed using
+@code{chordRootNamer}. The @code{chordNoteNamer} property can be set
+to a specialized function to change this behavior.  For example, the
+bass note can be printed in lower case.
 
 @funindex chordNameSeparator
+
 @item chordNameSeparator
-Different parts of a chord name are normally separated by a
-slash.  By setting @code{chordNameSeparator}, you can specify other
-separators, e.g.,
+
+Different parts of a chord name are normally separated by a slash.
+By setting @code{chordNameSeparator}, you can use any desired markup
+for a separator.
+
+@funindex chordNameExceptions
+
+@item chordNameExceptions
+
+This property is a list of pairs.  The first item in each pair
+is a set of pitches used to identify the steps present in the chord.
+The second item is a markups that will follow the @code{chordRootNamer}
+output to create the chord name.
+
+@funindex chordPrefixSpacer
+@item chordPrefixSpacer
+
+The @q{m} for minor chords is usually printed immediately to the
+right of the root of the chord.  By setting
+@code{chordPrefixSpacer}, you can fix a spacer between the root
+and @q{m}.  The spacer is not used when the root is altered.
+
+@end table
+
+@predefined
+
+@funindex major seven symbols
+@code{\whiteTriangleMarkup},
+@code{\blackTriangleMarkup},
+@funindex \germanChords
+@code{\germanChords},
+@funindex \semiGermanChords
+@code{\semiGermanChords},
+@funindex \italianChords
+@code{\italianChords},
+@funindex \frenchChords
+@code{\frenchChords}.
+
+
+@snippets
+
+@c TODO fix indentation of snippet -- lots of tabs!
+@cindex exceptions, chord names.
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{chord-name-exceptions.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{chord-name-major7.ly}
+
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {adding-bars-to-chordnames.ly)
+
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {volta-brackets-over-chord-names.ly}
+
+@c TODO  convert to snippet
+The separator between different parts of a chord name
+can be set to any markup.
+
 @lilypond[quote,ragged-right,fragment,verbatim]
-\new ChordNames \chordmode {
+\chords {
   c:7sus4
   \set chordNameSeparator
     = \markup { \typewriter "|" }
@@ -402,268 +590,356 @@ separators, e.g.,
 }
 @end lilypond
 
-@funindex chordRootNamer
-@item chordRootNamer
-The root of a chord is usually printed as a letter with an optional
-alteration.  The transformation from pitch to letter is done by this
-function.  Special note names (for example, the German @q{H} for a
-B-chord) can be produced by storing a new function in this property.
-
-@funindex chordNoteNamer
-@item chordNoteNamer
-The default is to print single pitch, e.g., the bass note, using the
-@code{chordRootNamer}.  The @code{chordNoteNamer} property can be set
-to a specialized function to change this behavior.  For example, the
-base can be printed in lower case.
-
-@funindex chordPrefixSpacer
-@item chordPrefixSpacer
-The @q{m} for minor chords is usually printed right after the root of
-the chord.  By setting @code{chordPrefixSpacer}, you can fix a spacer
-between the root and @q{m}.  The spacer is not used when the root
-is altered.
-
-@end table
-
-The predefined variables @code{\germanChords},
-@code{\semiGermanChords}, @code{\italianChords} and @code{\frenchChords}
-set these variables.  The effect is
-demonstrated here,
-
-@lilypondfile[ragged-right]{chord-names-languages.ly}
-
-There are also two other chord name schemes implemented: an alternate
-Jazz chord notation, and a systematic scheme called Banter chords.  The
-alternate Jazz notation is also shown on the chart in @ref{Chord name
-chart}.  Turning on these styles is demonstrated in
-@c @lsr{chords,chord-names-jazz.ly}.
-
-@cindex Banter
-@cindex jazz chords
-@cindex chords, jazz
-
-
-@predefined
-
-@funindex \germanChords
-@code{\germanChords},
-@funindex \semiGermanChords
-@code{\semiGermanChords}.
-@funindex \italianChords
-@code{\italianChords}.
-@funindex \frenchChords
-@code{\frenchChords}.
-
-
-
 
 @seealso
 
-Examples:
+Notation Reference:
+@ref{Chord name chart}.
 
-Init files: @file{scm/@/chords@/-ignatzek@/.scm}, and
-@file{scm/@/chord@/-entry@/.scm}.
+Installed Files:
+@file{scm/@/chords@/-ignatzek@/.scm},
+@file{scm/@/chord@/-entry@/.scm},
+@file{ly/@/chord@/-modifier@/-init@/.ly}.
 
+Snippets:
+@rlsr{Chords}.
+
+@c Internals Reference:
+@c @r internals{}.
 
 @knownissues
 
-Chord names are determined solely from the list of pitches.  Chord
-inversions are not identified, and neither are added bass notes.  This
-may result in strange chord names when chords are entered with the
-@code{< .. >} syntax.
+Chord names are determined from both the pitches that are present
+in the chord and the information on the chord structure that may
+have been entered in @code{\chordmode}.  If the simultaneous pitches
+method of entering chords is used, undesired names result from
+inversions or bass notes.
+
+@lilypond[quote,ragged-right,verbatim]
+myChords = \relative c' {
+  \chordmode{ c1 c/g c/f }
+  <c e g> <g c e> <f c' e g>
+}
+<<
+  \new ChordNames { \myChords }
+  \new Staff { \myChords }
+>>
+@end lilypond
 
 
 @node Figured bass
 @subsection Figured bass
 
+Figured bass notation can be displayed.
+
 @menu
 * Introduction to figured bass::
-* Entering figures::
-* Repeated figures::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
 @node Introduction to figured bass
-@subsubsection Introduction to figured bass
+@unnumberedsubsubsec Introduction to figured bass
 
 @cindex Basso continuo
+@cindex Thorough bass
+@cindex Figured bass
+@cindex Bass, thorough
+@cindex Bass, figured
 
 @c TODO: musicological blurb about FB
 
-LilyPond has support for figured bass
+LilyPond has support for figured bass, also called thorough bass
+or basso continuo:
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 <<
   \new Voice { \clef bass dis4 c d ais g fis}
-  \new FiguredBass \figuremode {
-    < 6 >4 < 7\+ >8 < 6+ [_!] >
-    < 6 >4 <6 5 [3+] >
-    < _ >4 < 6 5/>4
+  \new FiguredBass {
+    \figuremode {
+      < 6 >4 < 7\+ >8 < 6+ [_!] >
+      < 6 >4 <6 5 [3+] >
+      < _ >4 < 6 5/>4
+    }
   }
 >>
 @end lilypond
+
+The support for figured bass consists of two parts: there is an
+input mode, introduced by @code{\figuremode}, that accepts
+entry of bass figures, and there is a context named
+@code{FiguredBass} that takes care of displaying
+@code{BassFigure} objects.  Figured bass can also be displayed
+in @code{Staff} contexts.
+
+@code{\figures@{ ... @}} is a shortcut notation for
+@code{\new FiguredBass @{\figuremode @{ ... @}@}}.
+
 
 Although the support for figured bass may superficially resemble chord
-support, it is much simpler.  The @code{\figuremode} mode simply
-stores the numbers and @rinternals{FiguredBass} context prints them
-as entered.  There is no conversion to pitches and no realizations of
-the bass are played in the MIDI file.
+support, it is much simpler.  @code{\figuremode} mode simply
+stores the figures and the @code{FiguredBass} context prints them
+as entered.  There is no conversion to pitches.
 
-Internally, the code produces markup texts.  You can use any of the
-markup text properties to override formatting.  For example, the
-vertical spacing of the figures may be set with @code{baseline-skip}.
+Figures are created as markup texts.  Any of the standard markup
+properties can be used to modify the display of figures.  For
+example, the vertical spacing of the figures may be set with
+@code{baseline-skip}.
 
+@node Entering figured bass
+@unnumberedsubsubsec Entering figured bass
 
-@node Entering figures
-@subsubsection Entering figures
+@code{\figuremode} is used to switch the input mode to figure mode.
+More information on different input modes can be
+found at @ref{Input modes}.
 
-The support for figured bass consists of two parts: there is an input
-mode, introduced by @code{\figuremode}, where you can enter bass figures
-as numbers, and there is a context called @rinternals{FiguredBass} that
-takes care of making @rinternals{BassFigure} objects.
+In figure mode, a group of bass figures is delimited by
+@code{<} and @code{>}.  The duration is entered after the @code{>}.
 
-In figures input mode, a group of bass figures is delimited by
-@code{<} and @code{>}.  The duration is entered after the @code{>}
-@example
-<4 6>
-@end example
-@lilypond[quote,ragged-right,fragment]
-\new FiguredBass
-\figuremode { <4 6> }
-@end lilypond
-
-Accidentals are added when you append @code{-}, @code{!}, and @code{+}
-to the numbers.  A plus sign is added when you append @code{\+}, and
-diminished fifths and sevenths can be obtained with @code{5/} and @code{7/}.
-
-@example
-<4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
-@end example
-@lilypond[quote,ragged-right,fragment]
-\figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
-@end lilypond
-
-Spaces may be inserted by using @code{_}.  Brackets are
-introduced with @code{[} and @code{]}.  You can also include text
-strings and text markups, see @ref{Text markup commands}.
-
-@example
-< [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >
-@end example
-@lilypond[quote,ragged-right,fragment]
-\new FiguredBass
-\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
-@end lilypond
-
-
-@node Repeated figures
-@subsubsection Repeated figures
-
-
-It is also possible to use continuation lines for repeated figures,
-
-@lilypond[verbatim,relative=1]
-<<
-  \new Staff {
-    \clef bass
-    c4 c c
+@lilypond[verbatim,quote,ragged-right,fragment]
+\new FiguredBass {
+  \figuremode {
+    <4 6>2
   }
-  \figures {
-    \set useBassFigureExtenders = ##t
-    <4 6> <3 6> <3 7>
-  }
->>
+}
+@end lilypond
+
+Accidentals can be added to figures:
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  <4- 6+ 7!> <5++> <3-->
+}
+@end lilypond
+
+Plus signs, diminished fifths, and diminished sevenths
+can be notated.
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+Vertical spaces and brackets can be be included in figures:
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  < [4 6] 8 [_! 12] >
+}
+@end lilypond
+
+
+Any text markup can be inserted as a figure:
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  < 5 \markup{ \tiny \number 6 \super (1)} >
+}
+@end lilypond
+
+Continuation lines can be used to indicate repeated figures:
+
+@c  \set to be replaced with predefined command once it is
+@c   included in property-init.ly
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+  \set useBassFigureExtenders = ##t
+  <4 6> <3 6> <3 7>
+}
 @end lilypond
 
 @noindent
 In this case, the extender lines always replace existing figures.
 
-The @code{FiguredBass} context doesn't pay attention to the actual
-bass line.  As a consequence, you may have to insert extra figures to
-get extender lines below all notes, and you may have to add @code{\!}
-to avoid getting an extender line, e.g.
+@c @predefined
 
-@lilypond[relative=1]
-<<
-  \new Voice
-  \figures {
-    \set useBassFigureExtenders = ##t
-    <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
-  }
-  {
-    \clef bass
-    f16. g32 f16. g32 f16. g32 f16. g32 f8. es16 d8 es
-  }
->>
-@end lilypond
-
-When using continuation lines, common figures are always put in the
-same vertical position.  When this is unwanted, you can insert a rest
-with @code{r}.  The rest will clear any previous alignment.  For
-example, you can write
-
-@example
-  <4 6>8 r8
-@end example
-
-@noindent
-instead of
-@example
-  <4 6>4
-@end example
-
+@c @snippets
+@c  This probably isn't notation, but rather adjusting output.  I guess this
+@c  should be converted to a snippet?  -cds
 Accidentals and plus signs can appear before or after the numbers,
 depending on the @code{figuredBassAlterationDirection} and
 @code{figuredBassPlusDirection}
 properties
 
+@c  TODO Need to set predefined commands for these directions as well. -cs
 @lilypond
   \figures {
     <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #1
+    \set figuredBassAlterationDirection = #RIGHT
     <6\+> <5+> <6 4-> r
-    \set figuredBassPlusDirection = #1
+    \set figuredBassPlusDirection = #LEFT
     <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #-1
+    \set figuredBassAlterationDirection = #LEFT
     <6\+> <5+> <6 4-> r
   }
 @end lilypond
 
+@seealso
+@c Music Glossary:
+@c @rglos{}.
 
-Figured bass can also be added to @code{Staff} contexts
-directly.  In this case, their vertical position is adjusted
-automatically.
+@c Learning Manual:
+@c @rlearning{}.
 
-@lilypond[ragged-right,fragment,quote]
+@c Notation Reference:
+@c @ruser{}.
+
+@c Application Usage:
+@c @rprogram{}.
+
+@c Installed Files:
+@c @file{}.
+
+Snippets:
+@rlsr{Figured Bass}.
+
+@c Internals Reference:
+@rinternals{NewBassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}.
+
+@c @knownissues
+
+@node Displaying figured bass
+@unnumberedsubsubsec Displaying figured bass
+
+Figured bass can be displayed using the @code{FiguredBass} context,
+or in most staff contexts.
+
+When displayed in a @code{FiguredBass} context, the vertical location
+of the figures is independent of the notes on the staff.
+
+@lilypond[verbatim,ragged-right,fragment,quote]
 <<
-  \new Staff = someUniqueName
   \relative c'' {
     c4 c'8 r8 c,4 c'
   }
+  \new FiguredBass {
+    \figuremode {
+      <4>4 <6 10>8 s8
+      <4 6>4 <4 6>
+    }
+  }
+>>
+@end lilypond
 
-  %% send to existing Staff.
-  \context Staff = someUniqueName
+@noindent
+In the example above, the @code{FiguredBass} context must be
+explicitly instantiated to avoid creating a second (empty) staff.
+
+
+Figured bass can also be added to @code{Staff} contexts
+directly.  In this case, the vertical position of the
+figures is adjusted automatically.
+
+@c  TODO change to use predefined command once it is added to
+@c  property-init.ly  -cds
+@lilypond[verbatim,ragged-right,fragment,quote]
+<<
+  \new Staff = myStaff
   \figuremode {
+    \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
     <4>4 <6 10>8 s8
-
-    \set Staff.useBassFigureExtenders = ##t
     <4 6>4 <4 6>
+  }
+  %% Put notes on same Staff as figures
+  \context Staff = myStaff
+  \relative c'' {
+    c4 c'8 r8 c,4 c'
   }
 >>
 @end lilypond
 
 
-@snippets
-
-By default, this method produces figures above the notes.  To get
-figures below the notes, use
+@ignore
+@c I don't understand this -cs
+When using continuation lines, common figures are always put in the
+same vertical position.  When this is unwanted, you can insert a rest.
+The rest will clear any previous alignment.  For
+example, you can write
 
 @example
-\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+<4 6>8 r8
 @end example
 
+@noindent
+instead of
+@example
+<4 6>4
+@end example
+@end ignore
+
+@c @predefined
+
+@c @snippets
+
+@seealso
+@c Music Glossary:
+@c @rglos{}.
+
+@c Learning Manual:
+@c @rlearning{}.
+
+@c Notation Reference:
+@c @ruser{}.
+
+@c Application Usage:
+@c @rprogram{}.
+
+@c Installed Files:
+@c @file{}.
+
+@c Snippets:
+@rlsr{Figured Bass}.
+
+Internals Reference:
+@rinternals{NewBassFigure},
+@rinternals{BassFigureAlignment},
+@rinternals{BassFigureLine},
+@rinternals{BassFigureBracket},
+@rinternals{BassFigureContinuation},
+@rinternals{FiguredBass}.
 
 @knownissues
 
+To ensure that continuation lines work properly, it is
+safest to use the same rhythm in the figure line as in
+the bass line.
+
+@lilypond[verbatim,ragged-right,fragment,quote]
+<<
+  {
+    \clef bass
+    \repeat unfold 4 {f16. g32} f8. es16 d8 es
+  }
+  \figures {
+    \set useBassFigureExtenders = ##t
+    % The extenders are correct here, with the same rhythm as the bass
+    \repeat unfold 4 {<6 4->16. <6 4->32}
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+<<
+  {
+    \clef bass
+    \repeat unfold 4 {f16. g32} f8. es16 d8 es
+  }
+  \figures {
+    \set useBassFigureExtenders = ##t
+    % The extenders are incorrect here, even though the timing is the same
+    <6 4->4 <6 4->4
+    %\repeat unfold 4 {<6 4->16. <6 4->32}
+    <5>8. r16 <6>8 <6\! 5->
+  }
+>>
+@end lilypond
+
+@c I have no idea what this means -cds
+@c A predefined command for changing this has been proposed -cds
 When using figured bass above the staff with extender lines and
 @code{implicitBassFigures} the lines may become swapped around.
 Maintaining order consistently will be impossible when multiple figures
@@ -672,10 +948,3 @@ use @code{stacking-dir} on @code{BassFigureAlignment}.
 
 
 @seealso
-
-Internals Reference: @rinternals{NewBassFigure},
-@rinternals{BassFigureAlignment}, @rinternals{BassFigureLine},
-@rinternals{BassFigureBracket}, and
-@rinternals{BassFigureContinuation} objects and
-@rinternals{FiguredBass} context.
-

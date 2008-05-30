@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 03184badb3c2378e1ab3eec6ee62a6bdc0609082
+    Translation of GIT committish: 23542761090f167ad42dbff7ef11d44a9c1374ac
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -242,7 +242,7 @@ Cuando empezamos, escribimos el programa LilyPond completamente en el lenguaje C
 la funcionalidad del programa quedaba como esculpida en piedra por los desarrolladores.
 Este esquema resultó no ser muy satisfactorio por una serie de motivos:
 
-@itemize @bullet
+@itemize
 @item Cuando LilyPond comete fallos,
 los usuarios tienen la necesidad de superar las decisiones de formateo.  Por
 ello el usuario debe tener acceso
@@ -542,7 +542,7 @@ es el contexto de notación de más alto nivel.
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{Contexts}.
+Referencia de funcionamiento interno: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"

@@ -127,7 +127,7 @@ points.
 
 @seealso
 
-Référence du programme : @internalsref{Dots}, @internalsref{DotColumn}.
+Référence du programme : @rinternals{Dots}, @rinternals{DotColumn}.
 
 
 @node Tuplets
@@ -277,8 +277,8 @@ suivante, ou à la prochaine note.
 
 @seealso
 
-Référence du programme : @internalsref{TupletBracket},
-@internalsref{TupletNumber}, @internalsref{TimeScaledMusic}.
+Référence du programme : @rinternals{TupletBracket},
+@rinternals{TupletNumber}, @rinternals{TimeScaledMusic}.
 
 
 
@@ -349,7 +349,7 @@ silences tranquilles.
 
 @seealso
 
-Référence du programme : @internalsref{Rest}.
+Référence du programme : @rinternals{Rest}.
 
 
 @node Skips
@@ -382,8 +382,8 @@ paroles par exemple, vous devrez utiliser la commande @code{\skip}.
 
 La commande de saut génère simplement une case musicale vide.  Elle ne
 produit rien sur la partition, pas même un symbole transparent.  Le code
-de saut @code{s} crée tout de même une @internalsref{Staff} et une
-@internalsref{Voice} lorsque nécessaire, tout comme les commandes de
+de saut @code{s} crée tout de même une @rinternals{Staff} et une
+@rinternals{Voice} lorsque nécessaire, tout comme les commandes de
 note et de silence.  Ainsi, le code suivant aboutit à une portée vide.
 
 @lilypond[quote,ragged-right,verbatim]
@@ -394,7 +394,7 @@ Le fragment @code{@{ \skip 4 @} } produirait une page vide.
 
 @seealso
 
-Référence du programme : @internalsref{SkipMusic}.
+Référence du programme : @rinternals{SkipMusic}.
 
 
 @node Multi measure rests
@@ -488,11 +488,11 @@ R1*4
 
 @seealso
 
-Référence du programme : @internalsref{MultiMeasureRestMusic},
-@internalsref{MultiMeasureRest}.
+Référence du programme : @rinternals{MultiMeasureRestMusic},
+@rinternals{MultiMeasureRest}.
 
-L'objet de rendu @internalsref{MultiMeasureRestNumber} traite les
-nombres, et @internalsref{MultiMeasureRestText} le texte ajouté par
+L'objet de rendu @rinternals{MultiMeasureRestNumber} traite les
+nombres, et @rinternals{MultiMeasureRestText} le texte ajouté par
 l'utilisateur. 
 
 
@@ -567,7 +567,7 @@ signatures} pour plus d'exemples.
 
 @code{\time} définit les propriétés @code{timeSignatureFraction},
 @code{beatLength} et @code{measureLength} dans le contexte
-@code{Timing}, qui en principe est assimilé à @internalsref{Score}.  La
+@code{Timing}, qui en principe est assimilé à @rinternals{Score}.  La
 propriété @code{measureLength} détermine où des barres de mesure doivent
 être insérées, et comment les groupements de notes doivent être gérés.
 La modification de la valeur de @code{timeSignatureFraction} donne
@@ -575,8 +575,8 @@ La modification de la valeur de @code{timeSignatureFraction} donne
 
 Plus d'options sont accessibles au moyen de la fonction Scheme
 @code{set-time-signature}.  De concert avec le
-@internalsref{Measure_grouping_engraver}, elle crée les signes de
-@internalsref{MeasureGrouping}, qui facilitent la lecture de musiques
+@rinternals{Measure_grouping_engraver}, elle crée les signes de
+@rinternals{MeasureGrouping}, qui facilitent la lecture de musiques
 modernes, complexes rythmiquement.  Dans l'exemple suivant, les mesures
 à 9/8 sont subdivisées en @code{(2 2 2 3)}, ce qui est donné comme
 argument à la commande @code{set-time-signature}, en troisième position.
@@ -601,8 +601,8 @@ argument à la commande @code{set-time-signature}, en troisième position.
 
 @seealso
 
-Référence du programme : @internalsref{TimeSignature} et
-@internalsref{Timing_translator}.
+Référence du programme : @rinternals{TimeSignature} et
+@rinternals{Timing_translator}.
 
 Exemples : @lsr{contemporary,compound-time-signature.ly}.
 
@@ -719,7 +719,7 @@ LilyPond ne gère pas les métriques composites de manière explicite,
 mais on peut contourner ce problème.  Dans l'exemple suivant,
 l'indicateur de métrique est obtenu grâce à une étiquette textuelle.
 Cette étiquette vient s'insérer dans l'objet graphique (@emph{grob})
-@internalsref{TimeSignature}.  Voir aussi
+@rinternals{TimeSignature}.  Voir aussi
 @lsr{contemporary,compound-time-signature}. 
 
 
@@ -744,8 +744,8 @@ tsMarkup = \markup {
 @end lilypond
 
 Il arrive aussi que chaque portée ait sa propre métrique.  Vous y
-parviendrez en déplaçant le @internalsref{Timing_translator} dans le
-contexte @internalsref{Staff}.
+parviendrez en déplaçant le @rinternals{Timing_translator} dans le
+contexte @rinternals{Staff}.
 
 @example
 \layout @{
@@ -819,11 +819,11 @@ commune à toutes les portées,  que vous proratiserez manuellement
 selon le cas en utilisant @code{timeSignatureFraction} pour obtenir la
 division adéquate pour chaque portée.  Les durées, dans chacune des
 portées, seront alors échelonnées par rapport à la métrique commune.
-L'échelle de représentation se règle avec @code{\compressMusic} ---
+L'échelle de représentation se règle avec @code{\scaleDurations} ---
 qui fonctionne comme @code{\times}, sans toutefois créer de crochet.
 La syntaxe appropriée est :
 @example
-\compressMusic #'(@var{numérateur} . @var{dénominateur}) @var{exprmusicale}
+\scaleDurations #'(@var{numérateur} . @var{dénominateur}) @var{exprmusicale}
 @end example
 
 
@@ -841,13 +841,13 @@ multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
-    \compressMusic #'(2 . 3)
+    \scaleDurations #'(2 . 3)
       \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = #'(10 . 8)
-    \compressMusic #'(3 . 5) {
+    \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] }
       | c4. c4. \times 2/3 { c8 c c } c4
@@ -870,8 +870,8 @@ fausser l'espacement régulier.
 @unnumberedsubsubsec Automatic note splitting
 
 On peut convertir automatiquement les notes longues en notes liées.  Il
-faut pour cela remplacer le graveur @internalsref{Note_heads_engraver}
-par le graveur @internalsref{Completion_heads_engraver}.  Dans les
+faut pour cela remplacer le graveur @rinternals{Note_heads_engraver}
+par le graveur @rinternals{Completion_heads_engraver}.  Dans les
 exemples suivants, les notes dépassant de la mesure sont divisées et
 liées.
 
@@ -891,8 +891,8 @@ entièrement remplies, alors les liaisons de prolongation montrent
 exactement la durée des décalages de mesure.
 
 Si vous voulez permettre un saut de ligne aux barres de mesure où
-@internalsref{Completion_heads_engraver} divise les notes, vous devez
-aussi enlever @internalsref{Forbid_line_break_engraver}.
+@rinternals{Completion_heads_engraver} divise les notes, vous devez
+aussi enlever @rinternals{Forbid_line_break_engraver}.
 
 
 @knownissues
@@ -906,7 +906,7 @@ divise pas les silences.
 
 @seealso
 
-Référence du programme : @internalsref{Completion_heads_engraver}.
+Référence du programme : @rinternals{Completion_heads_engraver}.
 
 
 @node Beams
@@ -943,7 +943,7 @@ individuelles d'être rattachées aux autres.
 
 @seealso
 
-Référence du programme : @internalsref{Beam}.
+Référence du programme : @rinternals{Beam}.
 
 
 @node Manual beams
@@ -1200,8 +1200,8 @@ reprises. Voyez à ce sujet @ref{Repeats}.
 
 Dans ce manuel : @ref{Repeats}, @ref{System start delimiters}.
 
-Référence du programme : @internalsref{BarLine} (faisant partie du
-contexte @internalsref{Staff}), @internalsref{SpanBar} (sur plusieurs
+Référence du programme : @rinternals{BarLine} (faisant partie du
+contexte @rinternals{Staff}), @rinternals{SpanBar} (sur plusieurs
 portées).
 
 
@@ -1259,7 +1259,7 @@ c4 c c c
 
 @seealso
 
-Référence du programme : @internalsref{BarNumber}.
+Référence du programme : @rinternals{BarNumber}.
 
 Exemples : @lsrdir{staff}
 
@@ -1267,8 +1267,8 @@ Exemples : @lsrdir{staff}
 @knownissues
 
 Les numéros de mesure peuvent entrer en collision avec les crochets de
-@internalsref{StaffGroup}. La propriété @code{padding} --- décalage
---- de l'objet @internalsref{BarNumber} permet alors d'ajuster leur
+@rinternals{StaffGroup}. La propriété @code{padding} --- décalage
+--- de l'objet @rinternals{BarNumber} permet alors d'ajuster leur
 positionnement. 
 
 
@@ -1384,7 +1384,7 @@ Pour affiner le positionnement des repères, veuillez vous référer à
 
 Dans ce manuel : @ref{Text marks}.
 
-Référence du programme : @internalsref{RehearsalMark}.
+Référence du programme : @rinternals{RehearsalMark}.
 
 Fichiers d'initialisation : @file{scm/@/translation@/-functions@/.scm}
 contient les définitions de @code{format-mark-numbers} et
@@ -1591,7 +1591,7 @@ Il est possible de forcer l'élasticité de l'espacement des notes d'agrément.
 
 @seealso
 
-Référence du programme : @internalsref{GraceMusic}.
+Référence du programme : @rinternals{GraceMusic}.
 
 
 @knownissues
@@ -1662,8 +1662,8 @@ cadenza = \relative c' {
 
 @cindex temps, gestion du
 
-Le temps est administré par le @internalsref{Time_signature_engraver},
-qui réside en principe dans le contexte @internalsref{Score}.  Sa
+Le temps est administré par le @rinternals{Time_signature_engraver},
+qui réside en principe dans le contexte @rinternals{Score}.  Sa
 gestion traite les variables suivantes :
 
 @table @code
@@ -1739,16 +1739,16 @@ proportionnelle, vous devrez tenir compte des réglages suivants :
 
 @item La véritable notation proportionnelle exige que des symboles
 puissent en écraser d'autres.  Pour y parvenir, il faut retirer le
-@internalsref{Separating_line_group_engraver} du contexte
-@internalsref{Staff}. 
+@rinternals{Separating_line_group_engraver} du contexte
+@rinternals{Staff}. 
 
 @item L'influence en matière d'espacement induite par le formatage
 (clés, barres de mesure, etc) s'annule en assignant
 @emph{vrai}@tie{}(#t) à la propriété @code{strict-note-spacing} de
-l'objet @internalsref{SpacingSpanner}.
+l'objet @rinternals{SpacingSpanner}.
 
 @item Les affinages optiques se règlent en assignant @emph{vrai} à la
-propriété @code{uniform-stretching} du @internalsref{SpacingSpanner}. 
+propriété @code{uniform-stretching} du @rinternals{SpacingSpanner}. 
 
 
 @end itemize

@@ -10,6 +10,7 @@ using-the--tweak-command-to-tweak-individual-grobs.ly
 controlling-tuplet-bracket-visibility.ly
 positioning-multi--measure-rests.ly
 changing-the-staff-size.ly
+controlling-the-vertical-ordering-of-scripts.ly
 vertically-aligning-ossias-and-lyrics.ly
 changing-properties-for-individual-grobs.ly
 removing-the-first-empty-line.ly
@@ -22,7 +23,6 @@ making-an-object-invisible-with-the-transparent-property.ly
 transcription-of-ancient-music-with-incipit.ly
 alignment-vertical-spacing.ly
 drawing-circles-around-various-objects.ly
-adding-text-indications-to-metronome-marks.ly
 creating-text-spanners.ly
 caesura-railtracks-with-fermata.ly
 changing-form-of-multi--measure-rests.ly

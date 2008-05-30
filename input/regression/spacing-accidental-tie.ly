@@ -3,7 +3,7 @@
 \header {
   texidoc = "Horizontal spacing works as expected on tied notes with
 accidentals. No space is reserved for accidentals that end up not being printed,
-but accindentals that are printed don't collide with anything."
+but accidentals that are printed don't collide with anything."
 }
 
 \paper { ragged-right = ##t }

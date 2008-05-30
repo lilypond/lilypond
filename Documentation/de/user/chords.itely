@@ -233,7 +233,7 @@ weil @code{5+} als letztes kommt.
 @cindex Symbole, Akkord-
 
 Um Akkordsymbole anstelle der Noten zu setzen, muss der 
-@internalsref{ChordNames}-Kontext. Die Akkorde können entweder 
+@rinternals{ChordNames}-Kontext. Die Akkorde können entweder 
 mit der Notation aus dem vorigen Abschnitt oder direkt 
 mit der Akkordeingabe für Noten (@code{<} und @code{>}) 
 notiert werden.
@@ -268,8 +268,8 @@ harmonies = \chordmode {
 In den vorangegangenen Beispielen wurden alle Akkorde über dem 
 Notensystem mit den entsprechenden Noten ausgegeben. Das ist aber 
 nicht erforderlich. Akkorde können auch alleine gedruckt werden. 
-Dabei kann es nötig sein, @internalsref{Volta_engraver} und 
-@internalsref{Bar_engraver} einzufügen, damit Wiederholungen 
+Dabei kann es nötig sein, @rinternals{Volta_engraver} und 
+@rinternals{Bar_engraver} einzufügen, damit Wiederholungen 
 angezeigt werden.
 
 @lilypond[ragged-right,verbatim]

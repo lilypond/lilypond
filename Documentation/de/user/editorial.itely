@@ -91,7 +91,7 @@ Musik sehr nah in die Notenköpfe gerückt werden.
 
 @seealso
 
-Programmreferenz: @internalsref{Fingering}.
+Programmreferenz: @rinternals{Fingering}.
 
 Beispiele: @lsr{expressive,fingering-chords.ly}
 
@@ -118,7 +118,7 @@ UNTRANSLATED NODE: IGNORE ME
 @unnumberedsubsubsec Stems
 
 Immer, wenn das Programm eine Note findet, wird automatisch 
-ein Notenhals (@internalsref{Stem}) -Objekt erzeugt. Auch 
+ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch 
 für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
 gemacht.
 

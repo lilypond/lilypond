@@ -20,6 +20,9 @@ level.  Sections are created with
 	@subsection Foo
 commands.
 
+* Please leave two blank lines above a @node; this makes it easier
+  to find sections in texinfo.
+
 * sectioning commands (@node and @section) must not appear inside
   an @ignore.  Separate those commands with a space, ie @n ode.
 
@@ -50,21 +53,24 @@ commands.
     \override textscript #'padding = #3
     c1^"hi"
 
-* LilyPond input should be produced via
-    @lilypond[verbatim,quote,ragged-right]
-  with `fragment' and `relative=2' optional.
+* Most LilyPond input should be produced with:
+    @lilypond[verbatim,quote,relative=2]
+  or
+    @lilypond[verbatim,quote,relative=1]
 
-  Examples about page layout may alter the quote/ragged-right
-  options.  Omitting `verbatim' is not allowed except for special
-  circumstances.
+  If you want to use \layout{} or define variables, use
+    @lilypond[verbatim,quote]
+
+  In rare cases, other options may be used (or omitted), but ask first.
 
 * Inspirational headwords are produced with
   @lilypondfile[quote,ragged-right,line-width=16\cm,staffsize=16]
   {pitches-headword.ly}
 
 * LSR snippets are linked with
-  @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+  @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
   {filename.ly}
+  excepted in Templates, where `doctitle' may be omitted.
 
 * Avoid long stretches of input code.  Noone is going to read them
   in print.  Please create a smaller example.  (the smaller
@@ -76,6 +82,10 @@ commands.
 
 * Comments should go on their own line, and be placed before the
   line(s) to which they refer.
+
+* Add extra spaces around { } marks; ie
+  not:          \chordmode {c e g}
+  but instead:  \chordmode { c e g }
 
 * If you only have one bar per line, omit bar checks.  If you
   put more than one bar per line (not recommended), then include
@@ -118,6 +128,11 @@ commands.
 
 * In examples of syntax, use @var{musicexpr} for a music
   expression.
+
+* Don't use @rinternals{} in the main text.  If you're tempted to
+  do so, you're probably getting too close to "talking through the
+  code".  If you really want to refer to a context, use @code{} in
+  the main text and @rinternals{} in the @seealso.
 
 * Variables or numbers which consist of a single character
   (probably followed by a punctuation mark) should be tied
@@ -211,12 +226,14 @@ commands.
   Do not compress vertically like this.
 
 @code{} - typeset in a tt-font. Use for actual lilypond code or
-  property/context names.
+  property/context names.  If the name contains a space, wrap
+  the entire thing inside @w{@code{  }}.
 @notation{} - refers to pieces of notation, e.g.
   "@notation{cres.}".  Also use to specific lyrics ("the
   @notation{A - men} is centered")
 @q{} - Single quotes. Used for `vague' terms.
-@qq{} - Double quotes.  Used for actual quotes ("he said").
+@qq{} - Double quotes.  Used for actual quotes ("he said") or for
+  introducing special input modes.
 
 @tie{} - Variables or numbers which consist of a single character
   (probably followed by a punctuation mark) should be tied

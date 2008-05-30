@@ -223,7 +223,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 Cette règle est équivalente à @code{modern}, mais les bécarres de précaution sont
 imprimés de façon particulière : soit plus petits, soit (par défaut) entre parenthèses.
 Il est possible de le définir au moyen de la propriété @code{cautionary-style}
-pour l'objet @internalsref{AccidentalSuggestion}.
+pour l'objet @rinternals{AccidentalSuggestion}.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -251,7 +251,7 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 Cette règle sert aux altérations dans de la musique polyphonique destinée
 autant à des musiciens différents qu'à quelqu'un qui lirait l'ensemble des voix.
 Les altérations sont imprimées voix par voix, mais les autres voix, dans le même 
-contexte @internalsref{Staff}, en @emph{tiennent compte} cette fois.
+contexte @rinternals{Staff}, en @emph{tiennent compte} cette fois.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -322,8 +322,8 @@ pour chaque portée individuelle au sein du contexte GrandStaff.
 
 Cette règle est communément employée pour les partitions de piano au XXème siècle.
 Très similaire à @code{modern} de par son comportement, elle s'en distingue en ce que
-les altérations tiennent compte des autre portées du contexte @internalsref{GrandStaff} ou
-@internalsref{PianoStaff}.
+les altérations tiennent compte des autre portées du contexte @rinternals{GrandStaff} ou
+@rinternals{PianoStaff}.
 
 @lilypond[quote,ragged-right]
 musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
@@ -427,8 +427,8 @@ musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4
 
 @seealso
 
-Référence du programme : @internalsref{Accidental_engraver},
-@internalsref{Accidental}, @internalsref{AccidentalSuggestion} et @internalsref{AccidentalPlacement}.
+Référence du programme : @rinternals{Accidental_engraver},
+@rinternals{Accidental}, @rinternals{AccidentalSuggestion} et @rinternals{AccidentalPlacement}.
 
 
 @knownissues
@@ -696,7 +696,7 @@ c8 c c c
 @noindent
 aucun argument @var{contexte} n'a été donné à la commande @code{\set}.
 De ce fait, les ligatures automatiques sont désactivées dans le
-contexte actuel, c'est-à-dire @internalsref{Voice}.  Notez que le
+contexte actuel, c'est-à-dire @rinternals{Voice}.  Notez que le
 contexte le plus restreint n'est pas toujours le bon, 
 et peut ne pas contenir la propriété qui vous intéresse : ainsi, la propriété 
 @code{skipBars}, évoquée plus haut, ne relève pas du contexte @code{Voice}, 
@@ -773,7 +773,7 @@ Ici le changement de taille est annulé aussitôt après la note concernée.
 La référence du programme contient une description exhaustive de toutes les
 propriétés contexte par contexte : voir
 @ifhtml
-@internalsref{Tunable context properties}.
+@rinternals{Tunable context properties}.
 @end ifhtml
 @ifnothtml
 Translation @expansion{} Tunable context properties.
@@ -794,14 +794,14 @@ chargé des têtes de notes, et dans le contexte @code{Staff}, un graveur
 
 Vous trouverez une description exhaustive de chaque graveur dans
 @ifhtml
-@internalsref{Engravers}.
+@rinternals{Engravers}.
 @end ifhtml
 @ifnothtml
 Program reference @expansion Translation @expansion{} Engravers.
 @end ifnothtml
 Chaque contexte mentionné dans
 @ifhtml
-@internalsref{Contexts}
+@rinternals{Contexts}
 @end ifhtml
 @ifnothtml
 Program reference @expansion Translation @expansion{} Context.
@@ -992,9 +992,9 @@ Ainsi, par exemple :
 
 @seealso
 
-Référence du programme : @internalsref{OverrideProperty}, @internalsref{RevertProperty},
-@internalsref{PropertySet}, @internalsref{Backend}, et
-@internalsref{All layout objects}.
+Référence du programme : @rinternals{OverrideProperty}, @rinternals{RevertProperty},
+@rinternals{PropertySet}, @rinternals{Backend}, et
+@rinternals{All layout objects}.
 
 
 @knownissues
@@ -1151,8 +1151,8 @@ squashedPosition = #0
 @end example
 
 @noindent
-Le graveur @internalsref{Pitch_squash_engraver} intercepte les notes créées par 
-@internalsref{Note_heads_engraver}, et les @q{écrase} pour qu'elles aient toutes la
+Le graveur @rinternals{Pitch_squash_engraver} intercepte les notes créées par 
+@rinternals{Note_heads_engraver}, et les @q{écrase} pour qu'elles aient toutes la
 même position verticale, définie par @code{squashedPosition} : ici il s'agit de la
 valeur@tie{}@code{0}, c'est-à-dire la ligne du milieu.
 
@@ -1165,7 +1165,7 @@ valeur@tie{}@code{0}, c'est-à-dire la ligne du milieu.
 
 @item Afin que tous ces graveurs puissent travailler de concert, on leur adjoint un
 sous-programme spécial, introduit par la commande @code{\type} : il s'agit de
-@internalsref{Engraver_group},
+@rinternals{Engraver_group},
 
 @example
 \type "Engraver_group"
@@ -1368,7 +1368,7 @@ Sur la page de la documentation relative aux doigtés, c'est-à-dire
 @quotation
 @seealso
 
-Référence du programme : @internalsref{Fingering}.
+Référence du programme : @rinternals{Fingering}.
 
 @end quotation
 
@@ -1383,7 +1383,7 @@ expression for the input @code{-2}.  The page contains many links
 forward.  For example, it says
 
 @quotation
-Accepted by: @internalsref{Fingering_engraver},
+Accepted by: @rinternals{Fingering_engraver},
 @end quotation
 
 @noindent
@@ -1391,7 +1391,7 @@ That link brings us to the documentation for the Engraver, the
 plug-in, which says
 
 @quotation
-This engraver creates the following layout objects: @internalsref{Fingering}.
+This engraver creates the following layout objects: @rinternals{Fingering}.
 @end quotation
 
 In other words, once the @code{FingerEvent}s are interpreted, the
@@ -1402,7 +1402,7 @@ In other words, once the @code{FingerEvent}s are interpreted, the
 @c  I can't figure out what this is supposed to mean.  -gp
 
 The @code{Fingering_engraver} is also listed to create
-@internalsref{Fingering} objects,
+@rinternals{Fingering} objects,
 
 @c  old info?  it doesn't make any sense to me with our current docs.
 This is also the
@@ -1417,33 +1417,33 @@ dans ce format.  La démarche présentée ici sera plus difficle à comprendre
 dans un document au format PDF.
 @end ifnothtml
 
-Suivons le lien @internalsref{Fingering}.  En haut de la nouvelle page,
+Suivons le lien @rinternals{Fingering}.  En haut de la nouvelle page,
 on peut lire
 
 @quotation
-Fingering objects are created by: @internalsref{Fingering_engraver} and
-@internalsref{New_fingering_engraver}.
+Fingering objects are created by: @rinternals{Fingering_engraver} and
+@rinternals{New_fingering_engraver}.
 @end quotation
 
 En d'autres termes, @emph{Les indications de doigtés} 
 (@code{Fingering} en anglais) @emph{sont créées par les graveurs
-@internalsref{Fingering_engraver} et @internalsref{New_fingering_engraver}.}
+@rinternals{Fingering_engraver} et @rinternals{New_fingering_engraver}.}
 
 En suivant derechef les liens propres à la référence du programme, on suit en fait
 le cheminement qui aboutit à la création de la partition :
 
 @itemize @bullet
 
-@item @internalsref{Fingering}:
-@internalsref{Fingering} objects are created by:
-@internalsref{Fingering_engraver}
+@item @rinternals{Fingering}:
+@rinternals{Fingering} objects are created by:
+@rinternals{Fingering_engraver}
 
-@item @internalsref{Fingering_engraver}:
-Music types accepted: @internalsref{fingering-event}
+@item @rinternals{Fingering_engraver}:
+Music types accepted: @rinternals{fingering-event}
 
-@item @internalsref{fingering-event}:
+@item @rinternals{fingering-event}:
 Music event type @code{fingering-event} is in Music expressions named
-@internalsref{FingerEvent}
+@rinternals{FingerEvent}
 @end itemize
 
 Ce cheminement se produit, bien sûr, en sens inverse : nous sommes ici partis
@@ -1455,12 +1455,12 @@ ou plusieurs objets graphiques.
 La référence du programme peut également se parcourir comme un document normal.
 On y trouve des chapitres tels que
 @ifhtml
-@internalsref{Music definitions},
+@rinternals{Music definitions},
 @end ifhtml
 @ifnothtml
 @code{Music definitions}
 @end ifnothtml
-@internalsref{Translation}, ou encore @internalsref{Backend}.  Chaque chapitre
+@rinternals{Translation}, ou encore @rinternals{Backend}.  Chaque chapitre
 recense toutes les définitions employées, et les propriétés sujettes à 
 ajustements.
 
@@ -1484,7 +1484,7 @@ Tous les éléments de notation sont considérés comme des objets graphiques
 (en anglais @q{Graphical Object}, d'où le diminutif @emph{Grob}).
 Chaque objet est doté d'un certain nombre de propriétés (l'épaisseur du trait,
 l'orientation, etc.), et lié à d'autres objets.
-Le fonctionnement de ces objets est décrit en détail dans @internalsref{grob-interface}.
+Le fonctionnement de ces objets est décrit en détail dans @rinternals{grob-interface}.
 
 Prenons l'exemple des doigtés (en anglais @q{Fingering}).
 La page @code{Fingering} de la Référence du programme établit une liste de définitions
@@ -1527,15 +1527,15 @@ autres symboles, ponctuations, ou éléments textuels.
 @end itemize
 
 Faire appliquer ces différents attributs est le rôle des @emph{interfaces},
-que l'on trouve en bas de la page @internalsref{Fingering}.
+que l'on trouve en bas de la page @rinternals{Fingering}.
 
 @quotation
 This object supports the following interfaces:
-@internalsref{item-interface},
-@internalsref{self-alignment-interface},
-@internalsref{side-position-interface}, @internalsref{text-interface},
-@internalsref{text-script-interface}, @internalsref{font-interface},
-@internalsref{finger-interface}, and @internalsref{grob-interface}.
+@rinternals{item-interface},
+@rinternals{self-alignment-interface},
+@rinternals{side-position-interface}, @rinternals{text-interface},
+@rinternals{text-script-interface}, @rinternals{font-interface},
+@rinternals{finger-interface}, and @rinternals{grob-interface}.
 @end quotation
 
 @noindent
@@ -1660,16 +1660,16 @@ f
 
 Dans le cas présent, le réglage intervient dans le contexte @context{Voice},
 ce qui pouvait également se déduire de la Référence du programme, où la page
-du graveur @internalsref{Fingering_engraver} indique :
+du graveur @rinternals{Fingering_engraver} indique :
 
 @quotation
-Fingering_engraver is part of contexts: @dots{} @internalsref{Voice}
+Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @end quotation
 
 @noindent
 Ce qui signifie
 @quotation
-Le graveur Fingering_engraver fait partie des contextes : @dots{} @internalsref{Voice}
+Le graveur Fingering_engraver fait partie des contextes : @dots{} @rinternals{Voice}
 @end quotation
 
 
@@ -1698,7 +1698,7 @@ en même temps que les objets sont saisis.  Il n'est plus besoin de spécifier n
 le nom de l'objet (@emph{grob}), ni le contexte dans lequel cela doit s'appliquer.
 
 Ce procédé ne marche que pour des objets directement liés aux évènements 
-(@internalsref{Event}) du fichier source.  Par exemple :
+(@rinternals{Event}) du fichier source.  Par exemple :
 
 @itemize @bullet
 @item Les têtes de notes au sein d'un accord, qui sont directement engendrées par 
@@ -1858,7 +1858,7 @@ vérifie si l'objet considéré est bien la deuxième moitié d'un objet divisé
 si oui, applique un espacement supplémentaire (@code{extra-offset}).
 @end itemize
 
-On ajoute cette procédure à l'objet @internalsref{Tie} (liaison de tenue),
+On ajoute cette procédure à l'objet @rinternals{Tie} (liaison de tenue),
 de façon à ce que le deuxième morceau d'une liaison divisée soit rehaussé.
 
 @c KEEP LY

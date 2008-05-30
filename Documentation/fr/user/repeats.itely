@@ -176,10 +176,10 @@ Consultez @ref{Bar lines} pour plus d'informations.
 
 @seealso
 
-Program reference: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic}, et
-@internalsref{UnfoldedRepeatedMusic}.
+Program reference: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic}, et
+@rinternals{UnfoldedRepeatedMusic}.
 
 
 Examples
@@ -259,10 +259,10 @@ c4 c4
 
 @seealso
 
-Référence du programme : @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic}, et
-@internalsref{UnfoldedRepeatedMusic}.
+Référence du programme : @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic}, et
+@rinternals{UnfoldedRepeatedMusic}.
 
 
 @node Other repeats
@@ -307,7 +307,7 @@ La subdivision des trémolos aboutit à un résultat semblable : voir
 
 Dans ce manuel : @ref{Tremolo subdivisions}, @ref{Repeats}.
 
-Référence du programme : @internalsref{Beam}, @internalsref{StemTremolo}.
+Référence du programme : @rinternals{Beam}, @rinternals{StemTremolo}.
 
 
 @node Tremolo subdivisions
@@ -341,7 +341,7 @@ le fichier MIDI.
 
 Dans ce manuel : @ref{Tremolo repeats}.
 
-Référence du programme : @internalsref{StemTremolo}.
+Référence du programme : @rinternals{StemTremolo}.
 
 
 @node Measure repeats
@@ -388,9 +388,9 @@ R1
 
 @seealso
 
-Référence du programme : @internalsref{RepeatSlash},
-@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
-@internalsref{DoublePercentRepeatCounter},
-@internalsref{PercentRepeatCounter},
-@internalsref{PercentRepeatedMusic}.
+Référence du programme : @rinternals{RepeatSlash},
+@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 

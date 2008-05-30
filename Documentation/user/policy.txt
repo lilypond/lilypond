@@ -162,6 +162,7 @@ simultaenous    NOT concurrent
 measure: the unit of music
 bar line: the symbol delimiting a measure   NOT barline
 note head   NOT notehead
+chord construct   NOT chord (when referring to <>)
 
 
 %%%%% TECHNICAL WRITING STYLE

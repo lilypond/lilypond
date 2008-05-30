@@ -44,7 +44,7 @@ unir de cuatro formas distintas:
 
 @itemize @bullet
 @item El grupo comienza con una llave a la izquierda y las líneas de compás
-están conectadas.  Esto se hace con el contexto @internalsref{GrandStaff}.
+están conectadas.  Esto se hace con el contexto @rinternals{GrandStaff}.
 
 @lilypond[verbatim,ragged-right,quote]
 \new GrandStaff
@@ -56,7 +56,7 @@ están conectadas.  Esto se hace con el contexto @internalsref{GrandStaff}.
 
 @item El grupo comienza con un corchete recto y las líneas de compás están conectadas.
 Esto se hace con el contexto
-@internalsref{StaffGroup}
+@rinternals{StaffGroup}
 
 @lilypond[verbatim,ragged-right,quote]
 \new StaffGroup
@@ -67,7 +67,7 @@ Esto se hace con el contexto
 @end lilypond
 
 @item El grupo comienza con un corchete recto pero las líneas de compás no están conectadas.
-Esto se hace con el contexto @internalsref{ChoirStaff}.
+Esto se hace con el contexto @rinternals{ChoirStaff}.
 
 @lilypond[verbatim,ragged-right,quote]
 \new ChoirStaff
@@ -92,8 +92,8 @@ no están conectadas.  Ésta es la opción por defecto para la partitura.
 @seealso
 
 Las barras de compás al principio de cada sistema son
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace} y
-@internalsref{SystemStartBracket}.  En cada contexto solamente se
+@rinternals{SystemStartBar}, @rinternals{SystemStartBrace} y
+@rinternals{SystemStartBracket}.  En cada contexto solamente se
 crea uno de estos tipos, y ese tipo está determinado por la propiedad
 @code{systemStartDelimiter}.
 
@@ -158,7 +158,7 @@ esto se puede usar para componer tipográficamente secciones de ossia.  He aquí
 
 @seealso
 
-Referencia del programa: @internalsref{StaffSymbol}.
+Referencia del programa: @rinternals{StaffSymbol}.
 
 Ejemplos: @lsrdir{staff}
 
@@ -171,12 +171,12 @@ Ejemplos: @lsrdir{staff}
 
 En las partituras orquestales, generalmente se eliminan las líneas de pauta que contienen sólo silencios;
 así se ahorra espacio.  Este estilo se llama @q{Partitura francesa}.
-Para @internalsref{Lyrics},
-@internalsref{ChordNames} y @internalsref{FiguredBass}, esta opción está
+Para @rinternals{Lyrics},
+@rinternals{ChordNames} y @rinternals{FiguredBass}, esta opción está
 activada por defecto.  Cuando las líneas de estos contextos resultan vacías
 después del proceso de cálculo de los saltos de línea, se eliminan.
 
-Para las pautas normales hay un contexto especializado @internalsref{Staff}, que
+Para las pautas normales hay un contexto especializado @rinternals{Staff}, que
 hace lo mismo: las pautas que no contienen nada (o solamente
 silencios multicompás) se quitan.  La definición de contexto se almacena dentro de la variable
 @code{\RemoveEmptyStaffContext}.  Observe cómo el segundo pentagrama del siguiente ejemplo
@@ -197,7 +197,7 @@ desaparece en la segunda línea
 
 El primer sistema muestra todos los pentagramas al completo.  Si queremos que los pentagramas vacíos se
 quiten también del primer sistema, podemos establecer @code{remove-first} al valor true en
-@internalsref{VerticalAxisGroup}.
+@rinternals{VerticalAxisGroup}.
 
 @example
 \override Score.VerticalAxisGroup #'remove-first = ##t
@@ -265,7 +265,7 @@ Consulte @ref{Text markup} para ver más detalles.
 
 @seealso
 
-Referencia del programa: @internalsref{MetronomeMark}.
+Referencia del programa: @rinternals{MetronomeMark}.
 
 
 @knownissues
@@ -287,10 +287,10 @@ más lejos del pentagrama.
 En una partitura orquestal, los nombres de los instrumentos se imprimen en el lado izquierdo
 de los pentagramas.
 
-Esto se puede conseguir estableciendo @internalsref{Staff}.@code{instrumentName}
-y @internalsref{Staff}.@code{shortInstrumentName}, o bien
-@internalsref{PianoStaff}.@code{instrumentName} y
-@internalsref{PianoStaff}.@code{shortInstrumentName}.  Esto
+Esto se puede conseguir estableciendo @rinternals{Staff}.@code{instrumentName}
+y @rinternals{Staff}.@code{shortInstrumentName}, o bien
+@rinternals{PianoStaff}.@code{instrumentName} y
+@rinternals{PianoStaff}.@code{shortInstrumentName}.  Esto
 imprimirá el texto antes del
 principio del pentagrama.  Para el primer pentagrama se usa @code{instrumentName},
 y para los siguientes se usa @code{shortInstrumentName}.
@@ -380,7 +380,7 @@ c1 c c c \break
 
 @seealso
 
-Referencia del programa: @internalsref{InstrumentName}.
+Referencia del programa: @rinternals{InstrumentName}.
 
 
 @node Quoting other voices
@@ -464,7 +464,7 @@ se citarán las notas (pero no los silencios), además de las inscripciones text
 
 @knownissues
 
-Sólo los contenidos de la primera @internalsref{Voice} que aparece dentro de una
+Sólo los contenidos de la primera @rinternals{Voice} que aparece dentro de una
 instrucción @code{\addQuote} se tendrán en consideración para su cita, así que
 @var{música} no puede contener sentencias @code{\new} y @code{\context Voice}
 que podrían producir el cambio a una Voz diferente.
@@ -480,7 +480,7 @@ En este manual: @ref{Instrument transpositions}.
 
 Ejemplos: @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
 
-Referencia del programa: @internalsref{QuoteMusic}.
+Referencia del programa: @rinternals{QuoteMusic}.
 
 
 @node Formatting cue notes
@@ -499,7 +499,7 @@ La sintaxis es
 @end example
 
 Esto insertará las notas de la parte @var{nombre} en una
-@internalsref{Voice} llamada @code{cue}.  Esto ocurre de forma simultánea
+@rinternals{Voice} llamada @code{cue}.  Esto ocurre de forma simultánea
 con @var{música}, que por lo general es un silencio.  Cuando comienzan las notas guía,
 el pentagrama se hace polifónico por un momento.  El argumento
 @var{arriba_abajo} determina si las notas guía se deben tipografiar como
