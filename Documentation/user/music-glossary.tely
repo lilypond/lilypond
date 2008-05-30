@@ -5725,14 +5725,19 @@ DK: pythagoræisk komma,
 S: pytagoreiskt komma,
 FI: pytagorinen komma.
 
-A sequence of fifths starting on C eventually circles back to C, but this C,
-obtained by adding 12 fifths, is 24 @ref{cent}s higher than the C obtained
-by adding 7 octaves.  The difference between those two pitches is called the
-Pythagorean comma.
+Originally, the interval by which the sum of six whole tones exceeds the octave
+-- (9:8)^6 - 2:1 = 531441:524288, or 23.5 cents.
+
+Modern acoustical theory defines it as the interval by which twelve fifths
+exceed seven octaves.  To put it another way: A sequence of fifths that starts
+on C eventually circles back to C.  However, this C is 23.5 @ref{cent}s higher
+than the C obtained by adding 7 octaves.  The difference between those two
+pitches is the Pythagorean comma.
 
 @seealso
 
 @ref{cent}, @ref{temperament}.
+
 
 @node quadruplet
 @section quadruplet
@@ -6713,8 +6718,18 @@ S: syntoniskt komma,
 FI: syntoninen komma, terssien taajuusero luonnollisessa ja
 Pytagorisessa viritysjärjestelmässä.
 
-Difference between the natural third and the third obtained by
-Pythagorean tuning (@ref{Pythagorean comma}), equal to 22@w{ }cents.
+Named after Ptolemy's syntonic diatonic genus.  Originally, the difference
+by which the ditone exceeds the pure major third obtained by Pythagorean
+tuning -- (9:8)^2 - 5:4 = 81:80, or 21.5@w{ }cents.
+
+Modern acoustical theory defines it as the interval by which four fifths exceed
+the sum of two octaves plus a major third.  (3:2)^4 - (2:1)^2 + (5:4)
+
+This comma is also known as the comma of Didymus, or didymic comma.
+
+@seealso
+
+@ref{Pythagorean comma}
 
 
 @node system
@@ -6985,7 +7000,7 @@ FI: ääni.
 A sound of definite pitch and duration, as distinct from @emph{noise}.
 Tone is a primary building material of music.
 
-Music from the 20th century may be based on atonal sounds.
+@c Music from the 20th century may be based on atonal sounds. Meh, not so much
 
 
 @node tonic
