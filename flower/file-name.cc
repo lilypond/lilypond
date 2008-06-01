@@ -61,8 +61,8 @@ static /* avoid warning */
 string
 slashify (string file_name)
 {
-  replace_all (file_name, '\\', '/');
-  replace_all (file_name, string ("//"), "/");
+  replace_all (&file_name, '\\', '/');
+  replace_all (&file_name, string ("//"), "/");
   return file_name;
 }
 
@@ -185,7 +185,7 @@ File_name::canonicalized () const
 {
   File_name c = *this;
 
-  replace_all (c.dir_, string ("//"), string ("/"));
+  replace_all (&c.dir_, string ("//"), string ("/"));
 
   vector<string> components =  string_split (c.dir_, '/');
   vector<string> new_components;

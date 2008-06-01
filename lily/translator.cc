@@ -171,7 +171,7 @@ Translator::add_translator_listener (translator_listener_record **listener_list,
 {
   /* ev_class is the C++ identifier name. Convert to scm symbol */
   string name = string (ev_class);
-  name = replace_all (name, '_', '-');
+  name = replace_all (&name, '_', '-');
   name += "-event";
   
   SCM class_sym = scm_str2symbol (name.c_str ());
@@ -275,7 +275,7 @@ add_acknowledger (Engraver_void_function_engraver_grob_info ptr,
 
   string interface_name (func_name);
 
-  interface_name = replace_all (interface_name, '_', '-');
+  interface_name = replace_all (&interface_name, '_', '-');
   interface_name += "-interface";
 
   /*
@@ -342,7 +342,7 @@ internal_event_assignment (Stream_event **old_ev, Stream_event *new_ev, const ch
 
       /* "listen_foo_bar" -> "foo-bar" */
       ev_class.erase (0, strlen (prefix));
-      replace_all (ev_class, '_', '-');
+      replace_all (&ev_class, '_', '-');
 
       new_ev->origin ()->warning (_f ("Two simultaneous %s events, junking this one", ev_class.c_str ()));
       (*old_ev)->origin ()->warning (_f ("Previous %s event here", ev_class.c_str ()));

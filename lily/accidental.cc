@@ -189,7 +189,7 @@ Accidental_interface::get_stencil (Grob *me)
       return SCM_EOL;
     }
   
-  Stencil mol (fm->find_by_name (scm_i_string_chars (glyph_name)));
+  Stencil mol (fm->find_by_name (ly_scm2string (glyph_name)));
   if (to_boolean (me->get_property ("restore-first")))
     {
       /*
