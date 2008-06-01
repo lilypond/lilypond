@@ -4648,7 +4648,7 @@ msgstr "cbjo"
 #. @node in Documentation/de/user/staff.itely
 #. @section in Documentation/de/user/staff.itely
 msgid "Staff notation"
-msgstr "Notación de los pentragramas"
+msgstr "Notación de los pentagramas"
 
 #. @node in Documentation/user/staff.itely
 #. @subsection in Documentation/user/staff.itely

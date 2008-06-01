@@ -402,7 +402,7 @@ obsolete (sub)subsections in the translation.
 
 * Hints for Emacs users (without Emacs AucTeX installed)
 
-Texinfo Emacs mode makes this step easier:
+Emacs with Texinfo mode makes this step easier:
 
 - C-c C-s shows structure of current Texinfo file in a new buffer
 *Occur*; to show structure of two files simultaneously, first split
@@ -414,6 +414,18 @@ contents into *Scratch*, then press C-c C-s for the other file.
 file ; make sure there is at least a (possibly empty) @menu block
 everywhere it is needed, then do C-c C-u C-a ("update all menus") when
 you have updated all the rest of the file.
+
+- Moving to next or previous node: press C-s and type node (or C-s
+@node if the text contains the word 'node') then press C-s to move to
+next node or C-r to move to previous node.  Similar operation can be
+used to move to the next/previous section.
+
+- Moving a whole node (or even a sequence of nodes): jump to beginning
+of the node (quit incremental search by pressing an arrow), press
+C-SPACE, press C-s node and repeat C-s until you have selected enough
+text, cut it with C-w or C-x, jump to the right place (moving between
+nodes with the previous hint is often useful) and paste with C-y or
+C-v.
 
 
 4) update documentation PO.  Unless you have special interest in
