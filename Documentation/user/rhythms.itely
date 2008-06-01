@@ -11,10 +11,6 @@
 @ignore
 GDP TODO list
 
-\compressMusic -> \scaleDurations.
-approved by Han-Wen; just needs somebody to kick up a fuss about
-it.
-
 1.2.3.1 Time signature
 Needs an example of beatLength, which is broken (see my recent
 mail
@@ -296,8 +292,6 @@ placed within tuplet brackets.
 @cindex scaling durations
 @cindex durations, scaling
 
-TODO Change \compressMusic to \scaleDurations when implemented.
-
 You can alter the duration of single notes, rests or chords by a
 fraction @code{N/M} by appending @code{*N/M} (or @code{*N} if
 @code{M} is 1) to the duration.
@@ -326,7 +320,7 @@ a multiplier.  This is useful for skipping many measures, e.g.,
 @code{s1*23}.
 
 @cindex compressing music
-@funindex \compressMusic
+@funindex \scaleDurations
 
 Longer stretches of music may be compressed by a fraction in the
 same way, as if every note, chord or rest had the fraction as a
@@ -341,11 +335,11 @@ and expanded:
 % Normal durations
 <c a>4 c8 a
 % Scale music by *2/3
-\compressMusic #'(2 . 3) {
+\scaleDurations #'(2 . 3) {
   <c a f>4. c8 a f
 }
 % Scale music by *2
-\compressMusic #'(2 . 1) {
+\scaleDurations #'(2 . 1) {
   <c' a>4 c8 b
 }
 @end lilypond
@@ -1212,7 +1206,7 @@ This notation can be created by setting a common time signature
 for each staff but replacing the symbol manually by setting
 @code{timeSignatureFraction} to the desired fraction and scaling
 the printed durations in each staff to the common time
-signature.  This done with @code{\compressMusic}, which
+signature.  This done with @code{\scaleDurations}, which
 is used in a similar way to @code{\times}, but does not create
 a tuplet bracket, see @ref{Scaling durations}.
 
@@ -1231,13 +1225,13 @@ staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
-    \compressMusic #'(2 . 3)
+    \scaleDurations #'(2 . 3)
       \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = #'(10 . 8)
-    \compressMusic #'(3 . 5) {
+    \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
       c4. c4. \times 2/3 { c8 c c } c4
@@ -2492,20 +2486,16 @@ Grace notes may be forced to use align with regular notes
 in other staves by setting @code{strict-grace-spacing} to
 ##t:
 
-@lilypond[relative=2,ragged-right]
+@lilypond[verbatim,quote,relative=2]
 <<
   \override Score.SpacingSpanner #'strict-grace-spacing = ##t
   \new Staff {
-     c'4
-     \afterGrace
-     c'4
-     { c'16[ c'8 c'16] }
-     c'4
+    c4
+    \afterGrace c4 { c16[ c8 c16] }
+    c4 r
   }
   \new Staff {
-     c'16[ c'16 c'16 c'16]
-     c'16[ c'16 c'16 c'16]
-     c'4
+    c16 c c c c c c c c4 r
   }
 >>
 @end lilypond

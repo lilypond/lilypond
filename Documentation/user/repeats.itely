@@ -76,8 +76,10 @@ The syntax for a normal repeat is
 \repeat volta @var{repeatcount} @var{musicexpr}
 @end example
 
-where @var{musicexpr} is a music expression.  Alternate endings can
-be produced using @code{\alternative}.
+where @var{musicexpr} is a music expression.  Alternate endings can be
+produced using @code{\alternative}.  If there are more repeats than
+there are alternate endings, the earliest repeats are given the first
+alternative.
 
 Normal repeats without alternate endings:
 
@@ -94,6 +96,11 @@ Normal repeats with alternate endings:
   \alternative {
     { cis2 g' }
     { cis,2 b }
+  }
+\repeat volta 3 { c4 d e f }
+  \alternative {
+    { d2 e }
+    { f2 g }
   }
 c1
 @end lilypond
@@ -266,8 +273,10 @@ the writing out of repetitious music.  The syntax is
 @end example
 
 where @var{musicexpr} is a music expression.  Unfold repeats can be
-made with or without alternate endings.  Unfold repeats without
-alternate endings:
+made with or without alternate endings.  If there are more repeats
+than there are alternate endings, the first alternative ending is
+applied to the earliest endings.  Unfold repeats without alternate
+endings:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c1
@@ -283,6 +292,12 @@ c1
   \alternative {
     { cis2 g' }
     { cis,2 b }
+  }
+c1
+\repeat unfold 3 { d4 c b2 }
+  \alternative {
+    { c4 d e f }
+    { d4 c b a }
   }
 c1
 @end lilypond

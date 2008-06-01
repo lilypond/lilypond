@@ -819,11 +819,11 @@ commune à toutes les portées,  que vous proratiserez manuellement
 selon le cas en utilisant @code{timeSignatureFraction} pour obtenir la
 division adéquate pour chaque portée.  Les durées, dans chacune des
 portées, seront alors échelonnées par rapport à la métrique commune.
-L'échelle de représentation se règle avec @code{\compressMusic} ---
+L'échelle de représentation se règle avec @code{\scaleDurations} ---
 qui fonctionne comme @code{\times}, sans toutefois créer de crochet.
 La syntaxe appropriée est :
 @example
-\compressMusic #'(@var{numérateur} . @var{dénominateur}) @var{exprmusicale}
+\scaleDurations #'(@var{numérateur} . @var{dénominateur}) @var{exprmusicale}
 @end example
 
 
@@ -841,13 +841,13 @@ multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
-    \compressMusic #'(2 . 3)
+    \scaleDurations #'(2 . 3)
       \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
     \set Staff.timeSignatureFraction = #'(10 . 8)
-    \compressMusic #'(3 . 5) {
+    \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] }
       | c4. c4. \times 2/3 { c8 c c } c4

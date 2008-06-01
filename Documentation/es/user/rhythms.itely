@@ -308,7 +308,7 @@ modificar mediante un multiplicador.  Esto es útil para saltar muchos
 compases, como por ejemplo @code{s1*23}.
 
 @cindex compresión de música
-@funindex \compressMusic
+@funindex \scaleDurations
 
 De la misma forma, se pueden comprimir por una fracción trozos de
 música más largos, como si cada nota, acorde o silencio tuviera la
@@ -316,7 +316,7 @@ fracción como multiplicador.  La sintaxis general de la iinstrucción
 que lo hace es:
 
 @example
-\compressMusic #'(@emph{numerador} . @emph{denominador}) @{ @emph{música} @}
+\scaleDurations #'(@emph{numerador} . @emph{denominador}) @{ @emph{música} @}
 @end example
 
 @noindent
@@ -331,11 +331,11 @@ comprimir y expandir la música:
 % Normal durations
 <c a>4 c8 a
 % Scale music by *2/3
-\compressMusic #'(2 . 3) {
+\scaleDurations #'(2 . 3) {
   <c a f>4. c8 a f
 }
 % Scale music by *2
-\compressMusic #'(2 . 1) {
+\scaleDurations #'(2 . 1) {
   <c' a>4 c8 b
 }
 @end lilypond
