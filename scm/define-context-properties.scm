@@ -363,9 +363,9 @@ context and a list of music objects.  The list of contains entries with
 start times, music objects and whether they are processed in this
 context.")
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
-     (repeatCommands ,list? "This property is read to find any command
-of the form @code{(volta . @var{x})}, where @var{x} is a string or
-@code{#f}.")
+     (repeatCommands ,list? "This property is a list of commands
+of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
+@code{#f}.  @code{'end-repeat} is also accepted as a command.")
      (restNumberThreshold ,number? "If a multimeasure rest has more
 measures than this, a number is printed.")
 

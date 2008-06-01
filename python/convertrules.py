@@ -3050,3 +3050,9 @@ def conv (str):
     return str
 
 conversions.append (((2, 11, 46), conv, """\\set hairpinToBarline -> \\override Hairpin #'to-barline"""))
+
+def conv (str):
+    str = re.sub (r"compressMusic", r"scaleDurations", str)
+    return str
+
+conversions.append (((2, 11, 48), conv, """\\compressMusic -> \\scaleDurations"""))

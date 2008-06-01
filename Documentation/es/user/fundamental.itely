@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 7cc6b12897031c450e3399d59cdb22ca9df4fd8c
+    Translation of GIT committish: 8e7d8cfcb162ae90efc1d24bd378de1868f98982
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -49,6 +49,9 @@ entrada, consulte @ruser{File structure}.
 @node Introduction to the LilyPond file structure
 @subsection Introduction to the LilyPond file structure
 
+@cindex entrada, formato de la
+@cindex archivo, estructura del
+
 Un ejemplo básico de archivo de entrada de LilyPond es el siguiente:
 
 @example
@@ -65,11 +68,18 @@ Un ejemplo básico de archivo de entrada de LilyPond es el siguiente:
 Existen muchas variaciones de este esquema básico, pero el ejemplo
 constituye un útil punto de partida.
 
+@funindex \book
+@funindex \score
+@cindex book
+@cindex score
+@cindex libro
+@cindex partitura
+
 Hasta el momento, ninguno de los ejemplos que ha podido ver utiliza la
 instrucción @code{\score@{@}}.  Esto es así a causa de que LilyPond
 añade automáticamente las órdenes adicionales que se requieren cuando
 le proporcionamos una entrada sencilla.  LilyPond trata una entrada
-como ésta:
+como esta:
 
 @example
 \relative c'' @{
@@ -95,11 +105,29 @@ como una abreviatura de esta otra:
 @}
 @end example
 
-En tras palabras, si la entrada consta de una única expresión musical,
-LilyPond interpreta el archivo como si la expresción musical estuviera
-rodeada por un envoltorio hecho por las instrucciones que acabamos de
-ver.  De todas formas, vamos a volver al primer ejemplo para examinar
-la instrucción @code{\score}, dejando las demás en su forma
+En otras palabras, si la entrada consta de una única expresión
+musical, LilyPond interpreta el archivo como si la expresción musical
+estuviera rodeada por un envoltorio hecho por las instrucciones que
+acabamos de ver.
+
+@cindex contextos implícitos
+
+@strong{¡Advertencia!}  Muchos de los ejemplos que aparecen en la
+documentación de LilyPond omiten las instrucciones @code{\new Staff} y
+@code{\new Voice}, dejando que se creen de forma implícita.  Esto
+funciona bien para ejemplos sencillos, pero para ejemplos más
+complicados, especialmente cuando se usan instrucciones adicionales,
+la creación implícita de los contextos puede dar lugar a resultados
+inesperados, incluso en ocasiones crear pentagramas no deseados.  La
+forma de crear contextos de forma explícita se explica en
+@ref{Contexts and engravers}.
+
+@warning{Cuando se escriben más de unas pocas líneas de música, se
+recomienda crear siempre los pentagramas y las voces de forma
+explícita.}
+
+De todas formas, por ahora vamos a volver al primer ejemplo para
+examinar la instrucción @code{\score}, dejando las demás en su forma
 predeterminada.
 
 Un bloque @code{\score} siempre debe contener una expresión musical
@@ -131,11 +159,26 @@ cosas, tales como
 @}
 @end example
 
+@funindex \header
+@funindex \layout
+@funindex \midi
+@cindex header
+@cindex layout
+@cindex midi
+@cindex cabecera
+@cindex disposición
+
 @noindent
-Hay personas que ponen algunas de estas instrucciones fuera del bloque
-@code{\score} (por ejemplo, @code{\header} se sitúa con frecuencia por
-encima del @code{\score}.  Es tan sólo otra abreviatura que LilyPond
-acepta.
+Observe que estas tres instrucciones (@code{\header}, @code{\layout} y
+@code{\midi}) son especiales: a diferencia del resto de las
+instrucciones que comienzan con una barra invertida (@code{\}),
+@emph{no} son expresiones musicales y no forman parte de ninguna
+expresión musical.  Por tanto, se pueden situar dentro de un bloque
+@code{\score} o fuera de él.  De hecho, estas instrucciones se sitúan
+por lo general fuera del bloque @code{\score} (por ejemplo,
+@code{\header} se suele colocar antes de la instrucción @code{\score}
+porque las cabeceras aparecen de forma natural al principio de la
+partitura.  Es tan sólo otra abreviatura que LilyPond acepta.
 
 Dos instrucciones más que no hemos visto aún son @code{\layout @{ @}}
 y @code{\midi @{@}}.  Si aparecen tal y como se muestran aquí, hacen
@@ -144,20 +187,45 @@ respectivamente.  Se describen con todo detalle en el manual de
 Referencia de la notación, en @ruser{Score layout} y en
 @ruser{Creating MIDI files}.
 
+@cindex partituras, varias
+
 Podemos escribir varios bloques @code{\score}.  Cada uno de ellos
 recibirá el mismo tratamiento que una partitura independiente, pero se
 combinarán todos juntos en un archivo de salida único.  No se necesita
 ninguna instrucción @code{\book}, se creará una implícitamente.  Sin
-embargo, si quiere archivos de salida separados a partir de un archivo
-@code{.ly}, entonces es necesario utilizar la instrucción @code{\book}
-para separar las distintas secciones: cada bloque @code{\book} produce
-un archivo de salida distinto.  Para ver más detalles, consulte
-@ruser{Multiple scores in a book}.
+embargo, si quiere archivos de salida separados a partir de un único
+archivo @code{.ly}, entonces es necesario utilizar la instrucción
+@code{\book} para separar las distintas secciones: cada bloque
+@code{\book} produce un archivo de salida distinto.
+
+En resumen:
+
+Cada bloque @code{\book} crea un archivo de salida distinto (por
+ejemplo, un archivo PDF).  Si no hemos escrito uno de forma explícita,
+LilyPond envuelve todo nuestro código de entrada dentro de un bloque
+@code{\book} de forma implícita.q
+
+Cada bloque @code{\score} es un trozo de música separado dentro de un
+bloque @code{\book}.
+
+Cada bloque @code{\layout} afecta al bloque @code{\score} o
+@code{\book} dentro del cual aparece (es decir, un bloque
+@code{\layout} dentro de un bloque @code{\score} afecta solamente a
+ese bloque @code{\score}, pero un bloque @code{\layout} fuera de un
+bloque @code{\score} (que por ello está dentro de un bloque
+@code{\book}, ya sea explícita o implícitamente) afecta a los bloques
+@code{\score} que están dentro de ese @code{\book}.
+
+Cada bloque @code{\context} afecta al contexto con nombre (por
+ejemplo, @code{\StaffGroup}) a todo lo largo del bloque (@code{\score}
+o @code{\book}) en que aparece.
+
+Para ver más detalles, consulte @ruser{Multiple scores in a book}.
 
 @cindex variables
 
-Otro atajo genial es la posibilidad de definir variables.
-Todas las plantillas emplean lo siguiente:
+Otro atajo genial es la posibilidad de definir variables.  Todas las
+plantillas emplean lo siguiente:
 
 @example
 melodia = \relative c' @{
@@ -173,13 +241,14 @@ Cuando LilyPond examina este archivo, toma el valor de @code{melodia}
 (todo lo que está después del signo igual) y lo inserta dondequiera
 que ve @code{\melodia}.  No se requiere un cuidado especial con los
 nombres (puede ser @code{melodia}, @code{global},
-@code{manoderechadelpiano} o @code{fulanomengano}).  Para ver más
-detalles, consulte @ref{Saving typing with variables and functions}.
-Recuerde que puede usar casi cualquier nombre que se le ocurra, en la
-medida en que contenga solamente caracteres alfabéticos y sea
-diferente de cualquiera de los nombres de instrucción de LilyPond.
-Las limitaciones exactas que afectan a los nombres de variable se
-detallan en @ruser{File structure}.
+@code{CompasArmadura}, @code{manoderechadelpiano} o
+@code{fulanomengano}).  Para ver más detalles, consulte @ref{Saving
+typing with variables and functions}.  Recuerde que puede usar casi
+cualquier nombre que se le ocurra, en la medida en que contenga
+solamente caracteres alfabéticos y sea diferente de cualquiera de los
+nombres de instrucción de LilyPond.  Las limitaciones exactas que
+afectan a los nombres de variable se detallan en @ruser{File
+structure}.
 
 
 @seealso
@@ -192,6 +261,9 @@ consulte @ruser{File structure}.
 
 @cindex expresión musical compuesta
 @cindex música, expresión compuesta de
+@funindex \score
+@cindex score
+@cindex partitura
 
 En la sección anterior, @ref{How LilyPond files work} hemos podido
 ver la organización general de los archivos de entrada de LilyPond.
@@ -203,23 +275,25 @@ que no hay @emph{ningún} misterio.  La siguiente línea lo explica
 todo:
 
 @quotation
-@emph{Una @code{\score} debe comenzar con una única expresión musical.}
+@emph{Un bloque @code{\score} debe comenzar con una única expresión
+musical compuesta.}
 @end quotation
 
 @noindent
-Quizá encuentre útil dar un repaso a @ref{Music expressions
-explained}.  En esta sección, vimos cómo elaborar grandes expresiones
-musicales a partir de pequeñas piezas (comenzábamos con notas, luego
-acordes, etc.).  Ahora partiremos de una gran expresión musical y
-recorreremos el camino inverso hacia abajo.
+Para comprender lo que se entiende por expresión musical y expresión
+musical compuesta, quizá encuentre útil dar un repaso a @ref{Music
+expressions explained}.  En esta sección, vimos cómo elaborar grandes
+expresiones musicales a partir de pequeñas piezas (comenzábamos con
+notas, luego acordes, etc.).  Ahora partiremos de una gran expresión
+musical y recorreremos el camino inverso hacia abajo.
 
 @example
 \score @{
-  @{   % esta llave da inicio a la expresión musical completa
+  @{   % esta llave da inicio a toda la expresión musical compuesta
     \new GrandStaff <<
       @var{...introduzca aquí la partitura completa de una ópera de Wagner...}
     >>
-  @}   % esta llave da por terminada la expresión musical completa
+  @}   % esta llave da por terminada toda expresión musical completa
   \layout @{ @}
 @}
 @end example
@@ -337,7 +411,7 @@ crear temporalmente en cualquier momento.  Esto es de especial
 utilidad para crear secciones de ossia (véase @rglos{ossia}).  A
 continuación presentamos un ejemplo sencillo que muestra cómo
 introducir temporalmente un pentagrama nuevo mientras dura un
-fragmento de tras notas:
+fragmento de tres notas:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff {
@@ -360,6 +434,8 @@ Advierta que el tamaño de la clave es igual al que se imprime en un
 cambio de clave (ligeramente menor que la clave al principio de una
 línea).  Esto es normal para cualquier clave que se imprime en la
 mitad de una línea.
+
+@cindex pentagrama, posicionado del
 
 La sección ossia se puede colocar encima del pentagrama de la manera
 siguiente:
@@ -395,6 +471,7 @@ necesitaría más instrucciones que aún no se han visto.  Véase
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
+@cindex corchetes y paréntesis, anidado de
 
 En la escritura del archivo de entrada de LilyPond, hemos podido ver
 algunos tipos de paréntesis, llaves o ángulos de distintos tipos.
@@ -489,6 +566,9 @@ fundamental de todos--.
 @cindex polifonía
 @cindex capas
 @cindex Voice (voz), contexto de
+@cindex contexto de voz
+@cindex simultánea, música
+@cindex concurrente, música
 
 De las capas más profundas de una partitura de LilyPond, las más bajas
 y más fundamentales reciben el nombre de @q{Voice contexts}
@@ -649,6 +729,8 @@ construcciones, como se indica aquí en la voz de triángulos azules.
 }
 @end lilypond
 
+@funindex \voiceXXXStyle
+
 Las instrucciones @code{\voiceXXXStyle} están pensadas principalmente
 para usarlas en documentos educativos como este mismo.  Modifican el
 color de la cabeza, la plica y las barras, y el estilo de la cabeza,
@@ -657,7 +739,8 @@ está establecida a rombos rojos, la voz dos a triángulos azules, la
 voz tres a círculos verdes con aspas, y la voz cuatro (que no se
 utiliza aquí) a aspas color magenta.  Veremos más adelante cómo el
 usuario puede crear instrucciones como éstas.  Véase @ref{Visibility
-and color of objects}.
+and color of objects} y @ref{Using variables for tweaks}.
+
 
 La polifonía no cambia la relación de las notas dentro de un bloque
 @code{\relative @{ @}}.  La altura de cada nota aún se calcula con
@@ -833,6 +916,8 @@ force-hshift en @ref{Fixing overlapping notation} )
 @funindex \voiceTwo
 @funindex \voiceThree
 @funindex \voiceFour
+@funindex \new Voice
+@cindex contextos de voz, creación de
 
 Los contextos de voz también se pueden crear manualmente dentro de un
 bloque @code{<< >>} para crear música polifónica, utilizando
@@ -912,6 +997,10 @@ las ligaduras de unión y de expresión y las indicaciones de dinámica:
 }
 @end lilypond
 
+A continuación veremos tres formas distintas de componer la notación
+del mismo pasaje polifónico, cada una de las cuales tiene sus ventajas
+según la circunstancia, utilizando el ejemplo de la sección anterior.
+
 Una expresión que aparece directamente dentro de @code{<< >>}
 pertenece a la voz principal (pero, observe, @strong{no} dentro de una
 construcción @code{<< \\ >>}).  Esto es útil cuando aparecen voces
@@ -949,6 +1038,9 @@ pueda trazar una ligadura por encima de ellas.
 @cindex anidado de expresiones musicales
 @cindex anidado de construcciones simultáneas
 
+@cindex voces temporales
+@cindex voces, anidado de
+
 Son posibles construcciones polifónicas anidadas más profundamente, y
 si una voz aparece sólo brevemente podría haber una forma más natural
 de tipografiar la música.
@@ -973,8 +1065,9 @@ de tipografiar la música.
 }
 @end lilypond
 
+@cindex espaciadoras, notas
 
-Este método de anida voces nuevas brevemente es útil cuando sólo hay
+Este método de anidar voces nuevas brevemente es útil cuando sólo hay
 secciones polifónicas pequeñas, pero cuando todo el pentagrama es muy
 polifónico podría ser más claro usar varias voces todo el tiempo,
 usando notas espaciadoras para pasar por encima de las secciones en
@@ -1049,6 +1142,12 @@ columnas de notas}.
 La música vocal presenta una dificultad especial: tenemos que combinar
 dos expresiones, a saber, las notas y la letra.
 
+@funindex \new Lyrics
+@funindex \lyricsto
+@cindex Lyrics, creación de un contexto
+@cindex letra, creación de un contexto de
+@cindex letra, enlazar con una voz
+
 Ya ha visto la instrucción @code{\addlyrics@{@}}, que maneja bien
 partituras sencillas.  Sin embargo esta técnica es algo limitada.
 Para música de mayor complejidad, tenemos que introducir la letra en
@@ -1069,12 +1168,25 @@ usando el nombre asignado a la voz.
 >>
 @end lilypond
 
+Observe que la letra se debe enlazar a un contexto de @code{Voice},
+@emph{no} a un contexto de @code{Staff}.  Este es un caso en que es
+necesario crear contextos de @code{Staff} y de @code{Voice}
+explícitamente.
+
+@cindex letra y barrado
+@cindex barrado y letra
+@funindex \autoBeamOff
+
 El barrado automático que LilyPond usa de forma predeterminada
-funciona bien para la música instrumental, pero no ten bien para
+funciona bien para la música instrumental, pero no tan bien para
 música con letra, donde o bien el barrado no se necesita en absoluto,
 o bien se utiliza para indicar los melismas de la letra.  En el
 ejemplo anterior hemos utilizado la instrucción @code{\autoBeamOff}
 para desactivar el barrado automático.
+
+@funindex \new ChoirStaff
+@funindex \lyricmode
+@cindex vocal, estructura de una partitura
 
 Ahora vamos a reutilizar el ejemplo anterior de «Judas Macabeo» para
 ilustrar esta técnica más flexible.  Primero la reescribiremos para
@@ -1125,9 +1237,18 @@ voces a los pentagramas y más estrofas a la letra, y las variables que
 contienen la música se pueden colocar fácilmente en archivos separados
 cuando se hagan demasiado largos.
 
+@cindex himno, estructura de
+
 A continuación podemos ver un ejemplo final de la primera línea de un
 himno con cuatro estrofas, para coro SATB.  En este caso la letra de
-las cuatro partes es la misma.
+las cuatro partes es la misma.  Observe cómo utilizamos variables para
+separar la notación musical de la estructura de pentagramas.  Observe
+también cómo se utiliza una variable, para la que hemos elegido el
+nombre @q{TimeKey} («compás y tonalidad»), para que contenga varias
+instrucciones que se usarán dentro de los dos pentagramas.  En otros
+ejemplos se le suele dar el nombre de @q{global}.
+
+
 
 @lilypond[quote,verbatim]
 TimeKey = { \time 4/4 \partial 4 \key c \major}
@@ -1135,13 +1256,13 @@ SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
 AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
 TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
 BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
-VerseOne   = \lyricmode { 
+VerseOne   = \lyricmode {
   E -- | ter -- nal fa -- ther, | strong to save, }
-VerseTwo   = \lyricmode { 
+VerseTwo   = \lyricmode {
   O | Christ, whose voice the | wa -- ters heard, }
-VerseThree = \lyricmode { 
+VerseThree = \lyricmode {
   O | Ho -- ly Spi -- rit, | who didst brood }
-VerseFour  = \lyricmode { 
+VerseFour  = \lyricmode {
   O | Tri -- ni -- ty of | love and pow'r }
 
 \score {
@@ -1164,6 +1285,200 @@ VerseFour  = \lyricmode {
 }
 @end lilypond
 
+@cindex estrofa y estribillo
+
+Finalizamos con un ejemplo que muestra cómo podemos codificar una
+estrofa para solista seguida de un estribillo en dos partes sobre dos
+pentagramas.  El posicionado de las secciones secuencial y simultánea
+para conseguirlo dentro de una sola partitura es un poco enrevesado,
+por tanto siga esta explicación con todo cuidado.
+
+Comenzamos el ejemplo con un bloque de partitura que contiene un
+@code{ChoirStaff}, pues queremos que aparezca un corchete al comienzo
+de la parte de coro.  Normalmente necesitaríamos dobles ángulos
+después de @code{\new ChoirStaff} para meter dentro todos los
+pentagramas en paralelo, pero aquí queremos postponer el paralelismo
+mientras dura el solo y por ello usaremos llaves, aunque aquí unos
+ángulos dobles no harían daño.  Dentro del @code{ChoirStaff} queremos
+en primer lugar el pentagrama que va a contener la estrofa.  Debe
+contener notas y letra en paralelo, así que necesitamos dobles ángulos
+encerrando el @code{\new Voice} y el @code{\new Lyrics} para que den
+comienzo al mismo tiempo:
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+\score {
+  \new Choirstaff {
+    \new Staff <<
+      \new Voice = "verse" {
+        \versenotes \break
+      }
+      \new Lyrics \lyricsto verse {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+Con esto tenemos la línea de la estrofa.
+
+Ahora deseamos continuar con refrainA (la primera parte del
+estribillo) sobre el mismo pentagrama, mientras un segundo pentagrama
+aparece en paralelo con él para refrainB (estribillo, segunda parte),
+por lo que ésta es una sección paralela que se debe situar
+inmediatamente a continuación del salto de línea @code{\break} en la
+voz de la estrofa.  ¡Sí, @emph{dentro} de la voz de la estrofa!  He
+aquí dicha sección paralela.  Se podrían introducir más pentagramas de
+la misma forma.
+
+@example
+<<
+  \refrainnotesA
+  \new Lyrics \lyricsto verse @{
+    \refrainwordsA
+  @}
+  \new Staff <<
+    \new Voice = "refrainB" @{
+      \refrainnotesB
+    @}
+    \new Lyrics \lyricsto "refrainB" @{
+      \refrainwordsB
+    @}
+  >>
+>>
+@end example
+
+Aquí tenemos el resultado final con dos pentagramas en el estribillo
+mostrando cómo la sección paralela se posiciona dentro de la voz de la
+estrofa:
+
+@lilypond[quote,verbatim, ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new ChoirStaff {
+    \new Staff <<
+      \context Voice = "verse" {
+        \versenotes \break
+        <<
+          \refrainnotesA
+          \new Lyrics \lyricsto "verse" {
+            \refrainwordsA
+          }
+          \new Staff <<
+            \new Voice = "refrainB" {
+              \refrainnotesB
+            }
+            \new Lyrics \lyricsto "refrainB" {
+              \refrainwordsB
+            }
+          >>
+        >>
+      }
+      \new Lyrics \lyricsto "verse" {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+@cindex libro
+@cindex book, ejemplo de su uso
+@funindex \book
+
+Sin embargo, y aunque esto es un interesante y útil ejercicio
+destinado a ayudarle a comprender cómo funcionan los bloques
+secuenciales y simultáneos, en la práctica quizá nos decidiríamos por
+codificarlo como dos bloques @code{\score} dentro de un bloque
+@code{\book} implícito, como sigue:
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new Staff <<
+    \new Voice = "verse" {
+      \versenotes
+    }
+    \new Lyrics \lyricsto "verse" {
+      \versewords
+    }
+  >>
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "refrainA" {
+        \refrainnotesA
+      }
+      \new Lyrics \lyricsto "refrainA" {
+        \refrainwordsA
+      }
+    >>
+    \new Staff <<
+      \new Voice = "refrainB" {
+        \refrainnotesB
+      }
+      \new Lyrics \lyricsto "refrainB" {
+        \refrainwordsB
+      }
+    >>
+  >>
+}
+@end lilypond
+
 @node Contexts and engravers
 @section Contexts and engravers
 
@@ -1178,71 +1493,92 @@ LilyPond.
 * Engravers explained::         
 * Modifying context properties::  
 * Adding and removing engravers::  
-@end menu 
+@end menu
+
 @node Contexts explained
 @subsection Contexts explained
 
-Cuando se imprime la música, se tienen que añadir a la salida una gran cantidad de elementos
-notacionales.  Por ejemplo, compare la entrada y la salida del siguiente ejemplo:
+@cindex contextos, explicación de los
+
+Cuando se imprime la música, se tienen que añadir a la salida una gran
+cantidad de elementos notacionales que no aparecen explícitamente en
+el archivo de entrada.  Por ejemplo, compare la entrada y la salida
+del siguiente ejemplo:
 
 @lilypond[quote,verbatim,relative=2,fragment]
 cis4 cis2. g4
 @end lilypond
 
-La entrada es bastante escueta, pero en la salida se añaden líneas divisorias, alteraciones accidentales,
-la clave y la indicación de compás.  LilyPond @emph{interpreta} la
-entrada.  En esta fase se inspecciona la información musical en orden temporal,
-de forma parecida a la lectura de una partitura de izquierda a derecha. Mientras se lee
-la entrada, el programa recuerda dónde se encuentran los límites de los compases, y qué notas
-requieren alteraciones explícitas.  Esta información se puede presentar sobre varios
-niveles.  Por ejemplo, el efecto de una alteración accidental se encuentra limitada
-a un solo pentagrama, mientras que una barra divisoria debe estar sincronizada a través
-de la partitura de arriba a abajo.
+La entrada es bastante escueta, pero en la salida se añaden líneas
+divisorias, alteraciones accidentales, la clave y la indicación de
+compás.  LilyPond @emph{interpreta} la entrada.  En esta fase se
+inspecciona la información musical en orden temporal, de forma
+parecida a la lectura de una partitura de izquierda a
+derecha. Mientras se lee la entrada, el programa recuerda dónde se
+encuentran los límites de los compases, y qué notas requieren
+alteraciones explícitas.  Esta información se puede presentar sobre
+varios niveles.  Por ejemplo, el efecto de una alteración accidental
+se encuentra limitada a un solo pentagrama, mientras que una barra
+divisoria debe estar sincronizada a través de la partitura de arriba a
+abajo.
 
-Dentro de LilyPond, estas reglas y pequeñas porciones de información se agrupan en
-@emph{Contexts}.  Algunos ejemplos de contextos son @code{Voice} (Voz),
-@code{Staff} (Pauta o pentagrama) y @code{Score} (Partitura).  Los contextos son jerárquicos, por
-ejemplo: un @code{Staff} contener muchas @code{Voice}s, y una
-@code{Score} puede contener muchos contextos de @code{Staff}.
+Dentro de LilyPond, estas reglas y pequeñas porciones de información
+se agrupan en @emph{Contexts}.  Algunos ejemplos de contextos son
+@code{Voice} (Voz), @code{Staff} (Pauta o pentagrama) y @code{Score}
+(Partitura).  Los contextos son jerárquicos, de forma que reflejan la
+naturaleza jerárquica de una partitura musical.  Por ejemplo: un
+contexto de @code{Staff} contener muchos contextos de @code{Voice}, y
+un contexto de @code{Score} puede contener muchos contextos de
+@code{Staff}.
 
 @quotation
 @sourceimage{context-example,5cm,,}
 @end quotation
 
-Cada contexto asume la responsabilidad de imponer algunas reglas de notación,
-creando ciertos objetos de notación y manteniendo las propiedades
-asociadas.  Por ejemplo, el contexto @code{Voice} puede introducir una alteración
-accidental y entonces el contexto @code{Staff} mantiene la regla de mostrar o
-suprimir la alteración para el resto del compás.  La
-sincronización de las líneas divisorias se gestiona dentro del contexto de la partitura, @code{Score}.
+Cada contexto asume la responsabilidad de imponer algunas reglas de
+notación, creando ciertos objetos de notación y manteniendo las
+propiedades asociadas.  Por ejemplo, el contexto @code{Voice} puede
+introducir una alteración accidental y entonces el contexto
+@code{Staff} mantiene la regla de mostrar o suprimir la alteración
+para el resto del compás.
 
-Sin embargo, en algunas músicas posiblemente no queramos que las líneas divisorias estén
-sincronizada (pensemos en una partitura polimétrica en compases de 4/4 y de 3/4).  En tales casos,
-debemos modificar los ajustes por omisión de los contextos @code{Score}
-y @code{Staff}.
+Otro ejemplo lo constituye el hecho de que la sincronización de las
+líneas divisorias se gestiona dentro del contexto de la partitura,
+@code{Score}, de forma predeterminada.  Sin embargo, en algunas
+músicas posiblemente no queramos que las líneas divisorias estén
+sincronizadas (pensemos en una partitura polimétrica en compases de
+4/4 y de 3/4).  En tales casos, debemos modificar los ajustes por
+omisión de los contextos @code{Score} y @code{Staff}.
 
-Para partituras muy sencillas, los contextos se crean implícitamente y no debemos
-preocuparnos por ellos.  Para piezas mayores, como por ejemplo cualquiera que tenga más de un pentagrama,
-los contextos se deben crear explícitamente para asegurarnos
-de que tendremos la cantidad exacta de pentagramas que necesitamos,
-y que están en el orden correcto.  Para tipografiar piezas
-con notación especializada, puede ser útil modificar contextos existentes
-o definir unos nuevos.
+Para partituras muy sencillas, los contextos se crean implícitamente y
+no debemos preocuparnos por ellos.  Para piezas mayores, como por
+ejemplo cualquiera que tenga más de un pentagrama, los contextos se
+deben crear explícitamente para asegurarnos de que tendremos la
+cantidad exacta de pentagramas que necesitamos, y que están en el
+orden correcto.  Para tipografiar piezas con notación especializada,
+es frecuente la modificación de contextos existentes o incluso definir
+unos completamente nuevos.
 
 
-En la referencia del programa se encuentra una descripción completa de todos los contextos que están disponibles,
-consulte
-@ifhtml
-@rinternals{Contexts}.
-@end ifhtml
-@ifnothtml
-Traducción @expansion{} Contexto.
-@end ifnothtml
+Además de los contextos @code{Score,} @code{Staff} y @code{Voice}, hay
+contextos que se sitúan entre los niveles de partitura y de pentagrama
+para controlar los grupos de pentagraamas, como los contextos
+@code{PianoStaff} y @code{ChoirStaff}.  También existen contextos
+alternativos de pentagrama y de voz, y contextos para la letra, la
+percusión, diagramas de trastes, bajo cifrado, etc.
 
-@c [TODO: describe propagation]
+Los nombres de todos los tipos de contextos se componen de una o más
+palabras que comienzan con mayúscula y que están unidas unas a otras
+sin guión ni barra baja, por ejemplo:
+@code{GregorianTranscriptionStaff}.
 
 @node Creating contexts
 @subsection Creating contexts
+
+@funindex \new
+@cindex nuevos contextos
+@cindex creación de contextos
+@cindex contextos, creación de
 
 Sólo puede haber un contexto en el nivel más alto: el contexto de
 partitura @code{Score}.  Se crea con la instrucción @code{\score} o,
@@ -1253,10 +1589,6 @@ dejar que los contextos @code{Voice} y @code{Staff} se creen
 automáticamente, pero para partituras más complejas es necesario
 crearlos a mano.  La instrucción más simple que hace esto es
 @code{\new}.  Se antepone a una expresión musical, por ejemplo
-
-@funindex \new
-@cindex contextos nuevos
-@cindex nuevo, contexto
 
 @example
 \new @var{tipo} @var{expresión_musical}
@@ -1271,6 +1603,65 @@ contexto.
 Observe que no hay ninguna instrucción @code{\new Score}; el contexto
 @code{Score} único en el nivel más alto se introduce con
 @code{\score}.
+
+
+En las secciones anteriore ha podido ver muchos ejemplos prácticos que
+creaban nuevos contextos de @code{Staff} y de @code{Voice}, pero para
+recordarle cómo se emplean estas instrucciones en la práctica, he aquí
+un ejemplo anotado de música real:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {  % start single compound music expression
+  <<  % start of simultaneous staves section
+    \time 2/4
+    \new Staff {  % create RH staff
+      \key g \minor
+      \clef "treble"
+      \new Voice {  % create voice for RH notes
+        \relative c'' {  % start of RH notes
+          d4 ees16 c8. |
+          d4 ees16 c8. |
+        }  % end of RH notes
+      }  % end of RH voice
+    }  % end of RH staff
+    \new Staff <<  % create LH staff; needs two simultaneous voices
+      \key g \minor
+      \clef "bass"
+      \new Voice {  % create LH voice one
+        \voiceOne
+        \relative g {  % start of LH voice one notes
+          g8 <bes d> ees, <g c> |
+          g8 <bes d> ees, <g c> |
+        }  % end of LH voice one notes
+      }  % end of first LH voice
+      \new Voice {  % create LH voice two
+        \voiceTwo
+        \relative g {  % start of LH voice two notes
+          g4 ees |
+          g4 ees |
+        }  % end of LH voice two notes
+      }  % end of LH voice two
+    >>  % end of LH staff
+  >>  % end of simultaneous staves section
+}  % end of single compound music expression
+@end lilypond
+
+(Observe cómo todas las instrucciones que abren un bloque con una
+llave curva, @code{@{}, o con ángulos dobles, @code{<<}, están
+sangrados (tienen un margen adicional) con dos espacios adicionales, y
+la llave de cierre correspondiente tiene un margen exactamente igual.
+Aunque no es necesario, la observancia de esta práctica reducirá
+considerablemente el número de errores de @q{paréntesis
+descompensados}, y se recomienda vivamente.  Permite apreciar de un
+solo vistazo la estructura de la música, y cualquier paréntesis
+descompensado aprecerá con obviedad.  Observe también cómo el
+pentagrama de la MI se crea usando dobles ángulos porque requiere dos
+voces, mientras que el pentagrama de la MD se crea con una expresión
+musical única encerrada entre llaves porque sólo requiere una voz.)
+
+
+@cindex contextos, nombrado
+@cindex nombrar contextos
 
 La instrucción @code{\new} también puede otorgar un nombre
 identificativo al contexto para distinguirlo de otros contextos del
@@ -1372,6 +1763,8 @@ mediante la modificación del funcionamiento de los Grabadores.
 @subsection Modifying context properties
 
 @cindex contexto, propiedades de
+@cindex contexto, propiedades de, modificación
+@cindex modificar las propiedades de contexto
 @funindex \set
 @funindex \unset
 
@@ -1467,7 +1860,7 @@ la segunda instrucción @code{\set} establece la propiedad
 @code{instrumentName} del contexto Voice a @qq{Alto}, pero como
 LilyPond no busca esta propiedad en el contexto @code{Voice}, no se
 realiza ninguna acción.  Esto no es un error, y no se registra ningún
-mensaje en el archivo de errores Log.
+mensaje en el archivo Log de registro de errores.
 
 De forma parecida, si el nombre de la propiedad se escribe con alguna
 falta, no se produce ningún mensaje de error, y claramente la acción
@@ -1520,9 +1913,17 @@ y esto los desactivará en todos los pentagramas:
 >>
 @end lilypond
 
-El valor de cada propiedad establecido de esta forma se puede devolver
-a su valor original con la instrucción @code{\unset}.
- 
+Como un ejemplo más, si se establece @code{clefOctavation} dentro del
+contexto de @code{Score}, éste cambia inmediatamente el valor de la
+octavación en todos los pentagramas en curso y establece un nuevo
+valor predeterminado que se aplicará a todos los pentagramas.
+
+La instrucción opuesta, @code{\unset}, tiene el efecto de suprimir la
+propiedad del contexto, lo que ocasiona que la mayoría de las
+porpiedades vuelvan a su valor predeterminado.  Normalmente no es
+necesario el uso de @code{\unset}, pues una nueva instrucción
+@code{\set} hará el ajuste deseado.
+
 Las instrucciones @code{\set} y @code{\unset} pueden aparecer en
 cualquier lugar del archivo de entrada y tendrán efecto a partir del
 tiempo en que se encuentran y hasta el final de la partitura o hasta
@@ -1556,6 +1957,7 @@ utilizando la potentísima instrucción @code{markup}.
 
 
 @funindex \with
+@cindex contexto, propiedades de, establecimiento con \with
 
 Las propiedades de contexto también se pueden establecer en el momento
 en que se crea el contexto.  A veces esta forma de establecer el valor
@@ -1587,10 +1989,15 @@ de la siguiente forma:
 >>
 @end lilypond
 
-Efectivamente, esto sobreescribe el valor predeterminado de la
-propiedad.  Aún se puede modificar dinámicamente utilizando
-@code{\set} y devolverlo a su (nuevo) valor predeterminado con
-@code{\unset}.
+Las propiedades ajustadas de esta manera aún pueden cambiarse
+dinámicamente utilizando @code{\set} y ser devueltas a sus valores
+predeterminados mediante @code{\unset}.
+
+La propiedad @code{fontSize} se trata de forma distinta.  Si se ajusta
+dentro de una cláusula @code{\with}, tiene el efecto de reiniciar el
+valor predeterminado del tamaño de la fuente tipográfica.  Si más
+tarde se modifica con @code{\set}, este nuevo valor predeterminado
+puede restablecerse con la instrucción @code{\unset fontSize}.xs
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
@@ -1750,6 +2157,7 @@ contemplado aquí? Continúe leyendo.
 @node Soprano and cello
 @subsection Soprano and cello
 
+@cindex plantilla, modificar
 
 Para empezar, tome la plantilla que le parezca más parecida a aquello
 que quiere conseguir.  Digamos que quiere escribir algo para soprano y
@@ -1872,17 +2280,18 @@ LilyPond que hay más de una cosa (en este caso, @code{Staff})
 sucediendo al mismo tiempo -- .  La @code{\score} se parecerá ahora a
 esto
 
+@c Indentation in this example is deliberately poor
 @example
 \score@{
   <<
-    <<
-      \new Voice = "uno" @{
-        \autoBeamOff
-        \sopranoMusic
-      @}
-      \new Lyrics \lyricsto "uno" \letraSoprano
-    >>
-    \new Staff \musicaCello
+  <<
+    \new Voice = "uno" @{
+      \autoBeamOff
+      \sopranoMusic
+    @}
+    \new Lyrics \lyricsto "uno" \letraSoprano
+  >>
+  \new Staff \musicaCello
   >>
   \layout @{ @}
   \midi @{ @}
@@ -2191,6 +2600,8 @@ lower = \relative c, {
 @node Building a score from scratch
 @subsection Building a score from scratch
 
+@cindex plantilla, escribir su propia
+
 Después de adquirir algo de soltura en la escritura del código de
 LilyPond, se dará cuenta de que es más fácil construir completamente
 una partitura partiendo de cero, que modificar una plantilla.  También
@@ -2279,7 +2690,10 @@ No es estrictamente necesario utilizar la construcción simultánea
 @code{<< >>} para el pentagrama del manual dos y el pentagrama del
 órgano de pedal, ya que contienen una única expresión, pero no hace
 daño y es una buena costumbre utilizar siempre dobles ángulos después
-de @code{\new Staff} cuando hay varias voces.
+de @code{\new Staff} cuando hay varias voces.  Lo opuesto es cierto
+para las voces: normalmente deben ir seguidas de llaves @code{@{
+.. @}} en caso de que tengamos música codificada como distintas
+variables que se deben situar consecutivamente.
 
 Añadamos esta estructura al bloque de partitura, y ajustemos el
 sangrado de los márgenes.  También escribimos las claves
@@ -2363,4 +2777,3 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
-

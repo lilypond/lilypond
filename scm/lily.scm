@@ -141,7 +141,7 @@ on errors, and print a stack trace.")
 ;;; have a more sensible default.
 
 (if (or (ly:get-option 'verbose)
-	(ly:get-option 'trace-memory-frequencency)
+	(ly:get-option 'trace-memory-frequency)
 	(ly:get-option 'trace-scheme-coverage)
 	)
     (begin
