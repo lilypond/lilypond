@@ -20,10 +20,10 @@ TEXI2HTML = LANG= $(TEXI2HTML_PROGRAM)
 
 TEXI2PDF_FLAGS += --batch $(DOCUMENTATION_INCLUDES)
 
-TELY_FILES = $(call src-wildcard,*.tely)
-OUT_TEXI_FILES = $(TELY_FILES:%.tely=$(outdir)/%.texi)
-DEEP_HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%/index.html)
-PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
+TELY_FILES := $(call src-wildcard,*.tely)
+MASTER_TEXI_FILES := $(TELY_FILES:%.tely=$(outdir)/%.texi)
+DEEP_HTML_FILES := $(TELY_FILES:%.tely=$(outdir)/%/index.html)
+PDF_FILES := $(TELY_FILES:%.tely=$(outdir)/%.pdf)
 
 ITELY_FILES := $(call src-wildcard,*.itely)
 ITEXI_FILES := $(call src-wildcard,*.itexi)

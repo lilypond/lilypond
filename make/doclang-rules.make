@@ -7,7 +7,7 @@ $(outdir)/%-big-page.html: $(outdir)/%.texi $(OUT_PNG_IMAGES) $(outdir)/version.
 	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
-$(outdir)/%.pdftexi: $(outdir)/%.texi doc-po $(outdir)/version.itexi
+$(outdir)/%.pdftexi: $(outdir)/%.texi $(outdir)/version.itexi
 	$(PYTHON) $(buildscript-dir)/texi-gettext.py $(ISOLANG) $<
 
 $(outdir)/%.pdf: $(outdir)/%.pdftexi $(outdir)/version.itexi
@@ -23,10 +23,8 @@ $(outdir)/%.png: $(top-build-dir)/Documentation/user/$(outdir)/%.png
 
 # This makes sure lilypond-doc gettext domain has been compiled
 # before lilypond-book runs
-%.tely: doc-po
+$(TELY_FILES): doc-po
 
-$(OUT_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES)
-
-$(DEEP_HTML_FILES) $(PDF_FILES): $(ITELY_FILES) $(ITEXI_FILES)
+$(MASTER_TEXI_FILES): $(ITELY_FILES) $(ITEXI_FILES)
 
 .SECONDARY:

@@ -1,8 +1,6 @@
+local-WWW-1: $(outdir)/collated-files.texi $(outdir)/collated-files.pdf
 
-
-local-WWW: $(outdir)/collated-files.html $(outdir)/collated-files.pdf
-
-#.PRECIOUS: $(outdir)/$(NAME).texi
+local-WWW-2: $(outdir)/collated-files.html
 
 local-test-baseline:
 	rm -rf $(outdir)-baseline

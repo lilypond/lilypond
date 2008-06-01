@@ -1,5 +1,6 @@
-.PHONY : all clean config default dist doc exe help html lib TAGS\
-	 po
+.PHONY : all clean config default dist dist exe help html lib TAGS\
+	 po web web-1 WWW-1 WWW-2 WWW-post local-WWW-1 local-WWW-2\
+	 web-install
 
 all:	 default
 	$(LOOP)
@@ -158,21 +159,30 @@ $(config_make): $(top-src-dir)/configure
 	touch $@		# do something for multiple simultaneous configs.
 
 
-################ website.
+#### Documentation (website and tarball)
 
-local-WWW:
-local-WWW-post:
+# documentation is built in two stages,
+# plus WWW-post (only at toplevel)
+# see INSTALL for more information.
+
+local-WWW-1:
+local-WWW-2:
 web-install:
+WWW-post:
 
-WWW: local-WWW
+WWW-1: local-WWW-1
 	$(LOOP)
 
-WWW-post: local-WWW-post
+WWW-2: local-WWW-2
 	$(LOOP)
 
 web:
-	$(MAKE) out=www WWW
+	$(MAKE) out=www WWW-1
+	$(MAKE) out=www WWW-2
 	$(MAKE) out=www WWW-post
+
+web-1:
+	$(MAKE) out=www WWW-1
 
 web-clean:
 	$(MAKE) out=www clean

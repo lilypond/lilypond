@@ -13,7 +13,7 @@ include $(depth)/make/stepmake.make
 
 default: local-doc
 
-local-WWW: txt-to-html $(outdir)/index.html $(outdir)/devel.html
+local-WWW-2: txt-to-html $(outdir)/index.html $(outdir)/devel.html
 
 local-WWW-clean: deep-WWW-clean
 

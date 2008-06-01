@@ -1,4 +1,4 @@
-# Documentation/tex/Makefile
+# Documentation/bibliography/Makefile
 
 depth=../..
 
@@ -18,10 +18,10 @@ ps: $(PS_FILES)
 # urg
 default:
 
-GENHTMLS = engraving colorado  computer-notation
+GENHTMLS = engraving colorado computer-notation
 OUTGENHTMLS = $(addprefix $(outdir)/, $(GENHTMLS:%=%.html))
 
-local-WWW: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html) index.html)
+local-WWW-2: $(addprefix $(outdir)/, $(BIB_FILES:.bib=.html) index.html)
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
