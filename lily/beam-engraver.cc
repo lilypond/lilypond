@@ -262,7 +262,8 @@ Beam_engraver::acknowledge_stem (Grob_info info)
 		      scm_from_int (durlog));
   Moment stem_location = now - beam_start_mom_ + beam_start_location_;
   beam_info_->add_stem (stem_location,
-			max (durlog- 2, 0));
+			max (durlog- 2, 0),
+			Stem::is_invisible (stem));
   Beam::add_stem (beam_, stem);
 }
 

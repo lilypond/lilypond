@@ -32,8 +32,9 @@ struct Beam_rhythmic_element
   Moment beat_start_;
   Moment beat_length_;
   Moment group_start_;
+  bool invisible_;
   
-  Beam_rhythmic_element (Moment, int);
+  Beam_rhythmic_element (Moment, int, bool);
   Beam_rhythmic_element ();
 
   int count (Direction d);
@@ -51,7 +52,7 @@ public:
   
   void beamify (Beaming_options const&);
   void de_grace ();
-  void add_stem (Moment d, int beams);
+  void add_stem (Moment d, int beams, bool invisible);
   int beamlet_count (int idx, Direction d) const;
   
 private:
@@ -59,6 +60,8 @@ private:
   void beamify (bool);
   int beam_extend_count (Direction) const;
   int best_splitpoint_index (bool *split) const;
+  void unbeam_invisible_stems ();
+  bool is_next_to_invisible_stem (vsize) const;
 };
 
 #endif /* BEAMING_PATTERN_HH */
