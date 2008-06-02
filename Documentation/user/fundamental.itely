@@ -1360,7 +1360,7 @@ refrainwordsB = \lyricmode {
 \score {
   \new ChoirStaff {
     \new Staff <<
-      \context Voice = "verse" {
+      \new Voice = "verse" {
         \versenotes \break
         <<
           \refrainnotesA
