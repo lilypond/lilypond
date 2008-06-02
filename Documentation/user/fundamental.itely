@@ -710,7 +710,11 @@ blue triangle voice.
 }
 @end lilypond
 
-@funindex \voiceXXXStyle
+@funindex \voiceOneStyle
+@funindex \voiceTwoStyle
+@funindex \voiceThreeStyle
+@funindex \voiceFourStyle
+@funindex \voiceNeutralStyle
 
 The commands @code{\voiceXXXStyle} are mainly intended for use in
 educational documents such as this one.  They modify the color
@@ -718,8 +722,10 @@ of the note head, the stem and the beams, and the style of the
 note head, so that the voices may be easily distinguished.
 Voice one is set to red diamonds, voice two to blue triangles,
 voice three to green crossed circles, and voice four (not used
-here) to magenta crosses.  We shall see later how commands like
-these may be created by the user.
+here) to magenta crosses;  @code{\voiceNeutralStyle} (also not
+used here) reverts the style back to the default.  
+We shall see later how commands like these may be created by the
+user.
 See @ref{Visibility and color of objects} and
 @ref{Using variables for tweaks}.
 
@@ -900,6 +906,7 @@ notation} )
 @funindex \voiceTwo
 @funindex \voiceThree
 @funindex \voiceFour
+@funindex \oneVoice
 @funindex \new Voice
 @cindex Voice contexts, creating
 
