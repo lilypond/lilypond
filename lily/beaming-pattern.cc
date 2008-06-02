@@ -57,11 +57,23 @@ count_factor_twos (int x)
   return c;
 }
 
+/*
+  Returns true if splitting at the given index will result in a gap
+  between an invisible stem and a visible stem whose number of beams
+  is larger than the number of beams of the invisible stem.
+*/
 bool
 Beaming_pattern::is_next_to_invisible_stem (vsize i) const
 {
-  return infos_[i].invisible_
-    || (i > 0 && infos_[i-1].invisible_);
+  if (i == 0)
+    return false;
+
+  // In fact, we don't need to check that the visible stem has more beams
+  // than the invisible stem. unbeam_invisible_stems() ensures that the
+  // visible stem has at least as many stems as the invisible stem, so
+  // we only need to check that they are not equal.
+  return infos_[i].invisible_ != infos_[i-1].invisible_
+    && infos_[i].beam_count_drul_[LEFT] != infos_[i-1].beam_count_drul_[RIGHT];
 }
 
 /*
@@ -86,7 +98,7 @@ Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
 {
   bool require_invisible = false;
   for (vsize i = 0; i < infos_.size (); i++)
-    require_invisible |= infos_[i].invisible_;
+    require_invisible |= is_next_to_invisible_stem (i);
 
   *at_boundary = true;
   for (vsize i = 1; i < infos_.size (); i++)  
