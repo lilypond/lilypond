@@ -71,17 +71,17 @@ camel_case_to_lisp_identifier (string in)
   vector<char> out;
   
   /* don't add '-' before first character */
-  out.push_back (tolower (in[0]));
+  out.push_back (char (tolower (in[0])));
     
   for (size_t inpos = 1; inpos < in.size (); inpos++)
     {
       if (isupper (in[inpos]))
 	out.push_back ('-');
-      out.push_back (tolower (in[inpos]));
+      out.push_back ( char(tolower (in[inpos])));
     }
   
   string result (&out[0], out.size ());
-  replace_all (result, '_', '-');
+  replace_all (&result, '_', '-');
 
   return result;
 }

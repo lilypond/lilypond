@@ -38,8 +38,8 @@ string to_string (bool b);
 string to_string (char const *format, ...)
   __attribute__ ((format (printf, 1, 2)));
   
-string &replace_all (string &str, string find, string replace);
-string &replace_all (string &str, char find, char replace);
+string &replace_all (string* str, string const &find, string const &replace);
+string &replace_all (string* str, char find, char replace);
 char *string_copy (string s);
 
 int string_compare (string const &, string const &);
