@@ -19,10 +19,8 @@ source files.
 		  	(README.txt, INSTALL.txt, NEWS.txt etc.)
        user/		User manuals
        po/              translated manual node names
-       fr/              docs translated to French.
+       fr/ es/ de/      docs translated to French, Spanish, German resp.
    buildscripts/	Scripts for the build process
-   cygwin/		Cygwin (Windows) package support
-   debian/		Debian package support
    elisp/		Emacs LilyPond mode and syntax coloring
    flower/		A simple c++ library
        include/
@@ -33,6 +31,8 @@ source files.
        mutopia/		Real music, more at www.mutopiaproject.org
        new/         Snippets which are too new for LSR
        regression/	Testing of features, one test per file
+       texidocs/    Translations of texidoc and doctitle fields
+                    (for input/lsr)
        tutorial/	Examples from the tutorial 
    lily/		C++ sources for LilyPond (lilypond-bin)
      include/
