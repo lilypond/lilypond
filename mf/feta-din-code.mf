@@ -356,7 +356,7 @@ fet_beginchar ("dynamic p", "p")
 	save twiddle_thick, stem_thick, cheek_thick, cheek_width;
 	save fill_up, straigh_len;
 	save serif, dishing_angle, p, tmp;
-	save cheek_medium, left_serif_protude, right_serif_protude;
+	save cheek_medium, left_serif_protrude, right_serif_protrude;
 	save lower_overshoot;
 	save blot_t, corner_t;
 	path serif, p;
@@ -375,8 +375,8 @@ fet_beginchar ("dynamic p", "p")
 	stem_thick = 2/6 ex;
 	cheek_thick = 13/32 ex;
 	cheek_width = 0.72 ex;
-	left_serif_protude = 18/60 ex;
-	right_serif_protude = 15/60 ex;
+	left_serif_protrude = 18/60 ex;
+	right_serif_protrude = 15/60 ex;
 
 	currenttransform := currenttransform slanted slant;
 
@@ -453,8 +453,8 @@ fet_beginchar ("dynamic p", "p")
 
 	pickup pencircle scaled serif_thick;
 
-	lft x11 = -left_serif_protude;
-	rt x10 = stem_thick + right_serif_protude;
+	lft x11 = -left_serif_protrude;
+	rt x10 = stem_thick + right_serif_protrude;
 	bot y10 = bot y11 = -descender;
 
 	z15 = z6l + up * fill_up;

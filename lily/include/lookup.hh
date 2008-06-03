@@ -16,7 +16,7 @@
 struct Lookup
 {
   static Stencil dot (Offset p, Real radius);
-  static Stencil bracket (Axis a, Interval iv, Real thick, Real protude, Real blot);
+  static Stencil bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot);
   static Stencil accordion (SCM arg, Real interline_f, Font_metric *fm);
   static Stencil rotated_box (Real slope, Real width, Real thick, Real blot);
   static Stencil round_filled_polygon (vector<Offset> const &points, Real blotdiameter);
@@ -24,13 +24,13 @@ struct Lookup
   static Stencil slur (Bezier controls, Real cthick, Real thick);
   static Stencil bezier_sandwich (Bezier top_curve, Bezier bottom_curve);
   static Stencil beam (Real slope, Real width, Real thick, Real blot);
-  static Stencil dashed_slur (Bezier, Real thick, Real dash_period, Real dash_fraction);
+  static Stencil dashed_slur (Bezier b, Real thick, Real dash_period, Real dash_fraction);
   static Stencil blank (Box b);
   static Stencil filled_box (Box b);
   static Stencil round_filled_box (Box b, Real blotdiameter);
   static Stencil repeat_slash (Real w, Real slope, Real th);
   static Stencil horizontal_line (Interval w, Real th);
-  static Stencil triangle (Interval, Real, Real);
+  static Stencil triangle (Interval iv, Real thick, Real protrude);
   static Stencil points_to_line_stencil (Real thick, vector<Offset> const &points);
 };
 
