@@ -2144,6 +2144,7 @@
 	(thickness . 1.6)  ;;  line-thickness
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
 	(font-size . -4)
+	(word-space . 0.6)
 	(direction . ,UP)
 	(meta . ((class . Spanner)
 		 (interfaces . (volta-bracket-interface
