@@ -228,23 +228,62 @@ Print a @code{|:} bar line.
 Print a @code{:|} bar line.
 
 @item @code{(volta @var{text})}
-Print a volta bracket saying @var{text}.  The text can be specified as
-a text string or as a markup text, see @ref{Formatting text}.  Do not
-forget to change the font, as the default number font does not contain
-alphabetic characters;
-
+Print a volta bracket saying @var{text}.
 
 @item @code{(volta #f)}
 Stop a running volta bracket.
 @end table
 
+Printing a @code{|:} bar line:
+
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-c4
-\set Score.repeatCommands = #'((volta "93") end-repeat)
-c4 b
-\set Score.repeatCommands = #'((volta #f))
-d4 e
+c1
+\set Score.repeatCommands = #'( start-repeat )
+d4 e f g
+c1
 @end lilypond
+
+Printing a @code{:|} bar line:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c1
+d4 e f g
+\set Score.repeatCommands = #'( end-repeat )
+c1
+@end lilypond
+
+Printing a volta bracket saying @var{text}.  The text can be specified
+as a text string or as a markup text, see @ref{Formatting text}.  Do
+not forget to change the font, as the default number font does not
+contain alphabetic characters.
+
+
+@lilypond[verbatim,quote,relative=2]
+c1
+d4 e f g
+\override Staff.VoltaBracket #'font-name = #"sans"
+\set Score.repeatCommands = #'( ( volta "1. Repeat to CHORUS" ) )
+f4 g a b
+\set Score.repeatCommands = #'( ( volta #f ) \text ( volta "2., 3. To VERSE" ) end-repeat )
+g4 a g a
+c1
+@end lilypond
+
+Note: unless explicitly stopped as in the next example, the volta
+bracket will continue indefinitely.
+
+Stopping a running volta bracket:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c1
+d4 e f g
+\set Score.repeatCommands = #'( ( volta #f ) ( volta  "2" ) end-repeat )
+g4 a g a
+f4 e f
+\set Score.repeatCommands = #'( ( volta #f ) )
+d4
+c1
+@end lilypond 
 
 @c FIXME: improve visibility of bar lines link?
 
@@ -456,4 +495,5 @@ into the MIDI output.
 
 @seealso
 
-@c Notation Reference: @re
+Snippets: @rlsr{Repeats}.
+

@@ -263,6 +263,8 @@ grob_system_range (Grob *g)
 struct Substitution_entry
 {
   Grob *grob_;
+
+  /* Assumption: we have less than 32k paper columns. */
   short left_;
   short right_;
 
