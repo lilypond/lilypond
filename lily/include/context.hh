@@ -114,8 +114,7 @@ public:
 				string id, SCM ops);
   Context *create_unique_context (SCM context_name, string context_id,
 				  SCM ops);
-  vector<Context*> path_to_acceptable_context (SCM alias,
-						  Output_def *) const;
+  vector<Context_def*> path_to_acceptable_context (SCM alias) const;
 };
 
 /*

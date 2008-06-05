@@ -193,12 +193,24 @@ Context_def::get_default_child (SCM user_mod) const
   return name;
 }
 
+/*
+  Given a name of a context that we want to create, finds a list of context
+  definitions such that:
+   - the first element in the list defines a context that is a valid child of
+     the context defined by this Context_def
+   - each subsequent element in the list defines a context that is a valid child
+     of the the context defined by the preceding element in the list
+   - the last element in the list defines a context with the given name
+
+  The ADDITIONAL_ACCEPTS parameter is a list of additional contexts that this
+  specific output def (but not and of the child output defs) should accept.
+*/
 vector<Context_def*>
-Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
+Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef, SCM additional_accepts) const
 {
   assert (scm_is_symbol (type_sym));
 
-  SCM accepted = get_accepted (SCM_EOL);
+  SCM accepted = get_accepted (additional_accepts);
 
   vector<Context_def*> accepteds;
   for (SCM s = accepted; scm_is_pair (s); s = scm_cdr (s))
@@ -224,7 +236,7 @@ Context_def::path_to_acceptable_context (SCM type_sym, Output_def *odef) const
       Context_def *g = accepteds[i];
 
       vector<Context_def*> result
-	= g->path_to_acceptable_context (type_sym, odef);
+	= g->path_to_acceptable_context (type_sym, odef, SCM_EOL);
       if (result.size () && result.size () < best_depth)
 	{
 	  best_depth = result.size ();
