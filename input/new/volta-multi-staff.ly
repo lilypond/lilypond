@@ -8,12 +8,13 @@ one in a score."
 }
 
 voltaMusic = \relative c'' {
-  \repeat volta 2
+  \repeat volta 2 {
     c1
-    \alternative {
+  }
+  \alternative {
     d1
     e
-   }
+  }
 }
 
 <<

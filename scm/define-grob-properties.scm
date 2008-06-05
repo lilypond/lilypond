@@ -162,14 +162,13 @@ whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
      (digit-names ,vector "Names for string finger digits.")
-     (direction ,ly:dir? "If @code{side-axis} is @code{1} (or
+     (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
 @code{#X}), then this property determines whether the object is placed
 @code{#LEFT}, @code{#CENTER} or @code{#RIGHT} with respect to the
 other object.  Otherwise, it determines whether the object is placed
 @code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
-@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}
-but also other numerical values are permitted.")
+@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
      (dot-color ,symbol? "Color of dots.  Options include 
 @code{black} and @code{white}.")
      (dot-count ,integer? "The number of dots.")
@@ -444,8 +443,8 @@ stem distance.")
 order a script is within a stack of scripts.")
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @code{-1} means left aligned, @code{0}@tie{}centered, and
-@code{1}@tie{}right-aligned in X@tie{}direction.  Values in-between
-may also be specified.")
+@code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
+values may also be specified.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
      (shorten-pair ,number-pair? "The lengths to shorten a

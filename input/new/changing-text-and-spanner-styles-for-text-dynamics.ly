@@ -1,5 +1,4 @@
 \version "2.11.47"
-\layout { ragged-right = ##t }
 \header {
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
@@ -16,11 +15,11 @@ be changed by modifying the @code{'style} property of
 }
 
 \relative c'' {
- \set crescendoText = \markup { \italic { cresc. poco } }
- \set crescendoSpanner = #'text
- \override DynamicTextSpanner #'style = #'dotted-line
- a2\< a
- a2 a
- a2 a
- a2 a\mf
+  \set crescendoText = \markup { \italic { cresc. poco } }
+  \set crescendoSpanner = #'text
+  \override DynamicTextSpanner #'style = #'dotted-line
+  a2\< a
+  a2 a
+  a2 a
+  a2 a\mf
 }

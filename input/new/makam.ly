@@ -3,9 +3,9 @@
   lsrtags = "pitches"
   texidoc = "Makam is a type of melody from Turkey using 1/9th-tone
 microtonal alterations.  Consult the initialization file
-@code{makam-init.ly} (in @code{/usr/share/lilypond/current/ly})
-for details of pitch names and alterations.
-"
+@code{makam-init.ly) (see the `Learning Manual @version{},
+4.6.3 Other sources of information' for the location of this file)
+for details of pitch names and alterations."
   doctitle = "Makam"
 }
 
