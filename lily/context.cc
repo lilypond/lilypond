@@ -162,9 +162,6 @@ Context::find_create_context (SCM n, string id, SCM operations)
       return tg;
     }
 
-  /*
-    TODO: use accepts_list_.
-  */
   vector<Context_def*> path = path_to_acceptable_context (n);
 
   if (path.size ())
@@ -309,8 +306,8 @@ Context::create_context_from_event (SCM sev)
 vector<Context_def*>
 Context::path_to_acceptable_context (SCM name) const
 {
-  // definition_mods_ is a list of (symbol string), but the Context_def expects
-  // to see a list of (symbol symbol).
+  // The 'accepts elements in definition_mods_ is a list of ('accepts string),
+  // but the Context_def expects to see elements of the form ('accepts symbol).
   SCM accepts = SCM_EOL;
   for (SCM s = scm_reverse (definition_mods_); scm_is_pair (s); s = scm_cdr (s))
     if (scm_caar (s) == ly_symbol2scm ("accepts"))
