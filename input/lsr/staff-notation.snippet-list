@@ -8,6 +8,7 @@ printing-metronome-and-rehearsal-marks-below-the-staff.ly
 tweaking-clef-properties.ly
 quoting-another-voice.ly
 volta-multi-staff.ly
+bar-counter.ly
 non-traditional-key-signatures.ly
 creating-blank-staves.ly
 adding-ambitus-per-voice.ly

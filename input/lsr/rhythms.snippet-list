@@ -8,6 +8,7 @@ controlling-tuplet-bracket-visibility.ly
 heavily-customized-polymetric-time-signatures.ly
 positioning-multi--measure-rests.ly
 using-ties-with-arpeggios.ly
+changing-text-and-spanner-styles-for-text-dynamics.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
 integrating-text-indications-in-metronome-marks.ly
 compound-time-signatures.ly
