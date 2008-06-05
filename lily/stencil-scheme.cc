@@ -270,7 +270,7 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 	   4, 0, 0,
 	   (SCM a, SCM iv, SCM t, SCM p),
 	   "Make a bracket in direction@tie{}@var{a}.  The extent of the"
-	   " bracket is given by @var{iv}.  The wings protude by an amount"
+	   " bracket is given by @var{iv}.  The wings protrude by an amount"
 	   " of@tie{}@var{p}, which may be negative.  The thickness is given"
 	   " by@tie{}@var{t}.")
 {

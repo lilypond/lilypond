@@ -19,15 +19,15 @@ original = \relative c'' {
 
 <<
   \new Staff {
-    \set Staff.instrumentName = "quoteMe"
+    \set Staff.instrumentName = #"quoteMe"
     \quoteMe
   }
   \new Staff {
-    \set Staff.instrumentName = "orig"
+    \set Staff.instrumentName = #"orig"
     \original
   }
   \new Staff \relative c'' <<
-    \set Staff.instrumentName = "orig+quote"
+    \set Staff.instrumentName = #"orig+quote"
     \set Staff.quotedEventTypes = #'(note-event articulation-event)
     \original
     \new Voice {

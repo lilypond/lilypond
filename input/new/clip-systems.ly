@@ -1,5 +1,4 @@
 \version "2.10.0"
-\layout { ragged-right= ##t }
 \header {
   lsrtags = "paper-and-layout"  % a new tag like "Mixing text and music" or
 % "Special output" might be more adequate -jm
@@ -36,13 +35,13 @@ origScore = \score {
   \relative c' {
     \set Staff.instrumentName = #"bla"
     c1
-    d
+    d1
     \grace c16 e1
     \key d \major
-    f \break
+    f1 \break
     \clef bass
-    g,
-    fis
+    g,1
+    fis1
   }
 }
 
