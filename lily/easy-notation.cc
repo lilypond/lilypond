@@ -45,8 +45,8 @@ Note_head::brew_ez_stencil (SCM smob)
   else
     {
       char s[2] = "a";
-      s[0] = (pit->get_notename () + 2) % 7 + 'a';
-      s[0] = toupper (s[0]);
+      s[0] = char ((pit->get_notename () + 2) % 7 + 'a');
+      s[0] = char (toupper (s[0]));
       charstr = scm_from_locale_string (s);
     }
 
