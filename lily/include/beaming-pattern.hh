@@ -29,15 +29,13 @@ struct Beam_rhythmic_element
   Moment start_moment_;
   Drul_array<int> beam_count_drul_;
 
-  Moment beat_start_;
-  Moment beat_length_;
-  Moment group_start_;
+  int rhythmic_importance_;
   bool invisible_;
   
   Beam_rhythmic_element (Moment, int, bool);
   Beam_rhythmic_element ();
 
-  int count (Direction d);
+  int count (Direction d) const;
   void de_grace ();
 };
 
@@ -57,11 +55,9 @@ public:
   
 private:
   vector<Beam_rhythmic_element> infos_;
-  void beamify (bool);
-  int beam_extend_count (Direction) const;
-  int best_splitpoint_index (bool *split) const;
+  Direction flag_direction (vsize) const;
+  void find_rhythmic_importance (Beaming_options const&);
   void unbeam_invisible_stems ();
-  bool is_next_to_invisible_stem (vsize) const;
 };
 
 #endif /* BEAMING_PATTERN_HH */

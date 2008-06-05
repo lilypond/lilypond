@@ -16,9 +16,22 @@
 #include "beaming-pattern.hh"
 #include "context.hh"
 
+/*
+  Represents a stem belonging to a beam. Sometimes (for example, if the stem
+  belongs to a rest and stemlets aren't used) the stem will be invisible.
+
+  The rhythmic_importance_ of an element tells us the significance of the
+  moment at which this element occurs. For example, an element that occurs at
+  a beat is more significant than one that doesn't. Smaller number are
+  more important. The rhythmic_importance_ is decided and filled in by
+  Beaming_pattern. A rhythmic_importance_ smaller than zero has extra
+  significance: it represents the start of a beat and therefore beams may
+  need to be subdivided.
+*/
 Beam_rhythmic_element::Beam_rhythmic_element ()
 {
   start_moment_ = 0;
+  rhythmic_importance_ = 0;
   beam_count_drul_[LEFT] = 0;
   beam_count_drul_[RIGHT] = 0;
   invisible_ = false;
@@ -28,11 +41,11 @@ Beam_rhythmic_element::Beam_rhythmic_element ()
 Beam_rhythmic_element::Beam_rhythmic_element (Moment m, int i, bool inv)
 {
   start_moment_ = m;
+  rhythmic_importance_ = 0;
   beam_count_drul_[LEFT] = i;
   beam_count_drul_[RIGHT] = i;
   invisible_ = inv;
 }
-
 
 void
 Beam_rhythmic_element::de_grace ()
@@ -45,116 +58,41 @@ Beam_rhythmic_element::de_grace ()
 }
 
 int
-count_factor_twos (int x)
+Beam_rhythmic_element::count (Direction d) const
 {
-  int c = 0;
-  while (x && x % 2 == 0)
-    {
-      x /= 2;
-      c ++;
-    }
-	 
-  return c;
+  return beam_count_drul_[d];
 }
 
 /*
-  Returns true if splitting at the given index will result in a gap
-  between an invisible stem and a visible stem whose number of beams
-  is larger than the number of beams of the invisible stem.
+  Finds the appropriate direction for the flags at the given index that
+  hang below the neighbouring flags. If
+  the stem has no more flags than either of its neighbours, this returns
+  CENTER.
 */
-bool
-Beaming_pattern::is_next_to_invisible_stem (vsize i) const
+Direction
+Beaming_pattern::flag_direction (vsize i) const
 {
-  if (i == 0)
-    return false;
+  // The extremal stems shouldn't be messed with, so it's appropriate to
+  // return CENTER here also.
+  if (i == 0 || i == infos_.size () - 1)
+    return CENTER;
 
-  // In fact, we don't need to check that the visible stem has more beams
-  // than the invisible stem. unbeam_invisible_stems() ensures that the
-  // visible stem has at least as many stems as the invisible stem, so
-  // we only need to check that they are not equal.
-  return infos_[i].invisible_ != infos_[i-1].invisible_
-    && infos_[i].beam_count_drul_[LEFT] != infos_[i-1].beam_count_drul_[RIGHT];
-}
+  int count = infos_[i].count (LEFT); // Both directions should still be the same
+  int left_count = infos_[i-1].count (RIGHT);
+  int right_count = infos_[i+1].count (LEFT);
 
-/*
-  Finds the best point at which to subdivide a beam. In order of priority
-  (highest to lowest) this is
-   - before or after an invisible beam
-       - at the start of a beat group
-       - at the start of a beat
-       - whose position in its beat has the smallest denominator (that is,
-         a stem that starts halfway through a beat will be preferred over stems
-         that start 1/3 or 2/3s of the way through the beat).
-   - any other beam
-       - at the start of a beat group
-       - at the start of a beat
-       - whose position in its beat has the smallest denominator
+  if (count <= left_count && count <= right_count)
+    return CENTER;
 
-   If the split point occurs at the start of a beat group or at the start of a
-   beat, at_boundary will be set to true. Otherwise, it will be set to false.
-*/
-int
-Beaming_pattern::best_splitpoint_index (bool *at_boundary) const
-{
-  bool require_invisible = false;
-  for (vsize i = 0; i < infos_.size (); i++)
-    require_invisible |= is_next_to_invisible_stem (i);
+  // Try to avoid sticking-out flags as much as possible by pointing my flags
+  // at the neighbour with the most flags.
+  else if (right_count > left_count)
+    return RIGHT;
+  else if (left_count > right_count)
+    return LEFT;
 
-  *at_boundary = true;
-  for (vsize i = 1; i < infos_.size (); i++)  
-    {
-      if (infos_[i].group_start_ == infos_[i].start_moment_
-	  && (!require_invisible || is_next_to_invisible_stem (i)))
-	return i;
-    }
-
-  for (vsize i = 1; i < infos_.size (); i++)  
-    {
-      if (infos_[i].beat_start_ == infos_[i].start_moment_
-	  && (!require_invisible || is_next_to_invisible_stem (i)))
-	return i;
-    }
-
-  *at_boundary = false;
-  
-  int min_den = INT_MAX;
-  int min_index = -1;
-  
-  for (vsize i = 1; i < infos_.size (); i++)  
-    {
-      Moment dt = infos_[i].start_moment_ - infos_[i].beat_start_;
-
-      /*
-	This is a kludge, for the most common case of 16th, 32nds
-	etc. What should really happen is that \times x/y should
-	locally introduce a voice-specific beat duration.  (or
-	perhaps: a list of beat durations for nested tuplets.)
-	
-       */
-      
-      dt /= infos_[i].beat_length_;
-      
-      if (dt.den () < min_den
-	  && (!require_invisible || is_next_to_invisible_stem (i)))
-	{
-	  min_den = dt.den ();
-	  min_index = i;
-	}
-    }
-
-  return min_index;
-}
-
-int
-Beaming_pattern::beam_extend_count (Direction d) const
-{
-  if (infos_.size () == 1)
-    return infos_[0].beam_count_drul_[d];
-
-  Beam_rhythmic_element thisbeam = boundary (infos_, d, 0);
-  Beam_rhythmic_element next = boundary (infos_, d, 1);
-
-  return min (thisbeam.beam_count_drul_[-d], next.beam_count_drul_[d]);
+  // If all else fails, point the beamlet away from the important moment.
+  return (infos_[i].rhythmic_importance_ <= infos_[i+1].rhythmic_importance_) ? RIGHT : LEFT;
 }
 
 void
@@ -180,16 +118,36 @@ Beaming_pattern::beamify (Beaming_options const &options)
   if (infos_[0].start_moment_ < Moment (0))
     for (vsize i = 0; i < infos_.size (); i++)
       infos_[i].start_moment_ += options.measure_length_;
-  
-  Moment measure_pos (0);
-  
-  vector<Moment> group_starts;
-  vector<Moment> beat_starts;
 
-  // Find the starting moments of the beats and the groups.
-  SCM grouping = options.grouping_;
-  while (measure_pos <= infos_.back ().start_moment_)
+  find_rhythmic_importance (options);
+
+  for (vsize i = 1; i < infos_.size () - 1; i++)
     {
+      Direction non_flag_dir = other_dir (flag_direction (i));
+      if (non_flag_dir)
+	{
+	  int importance = (non_flag_dir == LEFT)
+	    ? infos_[i].rhythmic_importance_ : infos_[i+1].rhythmic_importance_;
+	  int count = (importance < 0)
+	    ? 1 : min (infos_[i].count (non_flag_dir),
+		       infos_[i+non_flag_dir].count (-non_flag_dir));
+
+	  infos_[i].beam_count_drul_[non_flag_dir] = count;
+	}
+    }
+}
+
+void
+Beaming_pattern::find_rhythmic_importance (Beaming_options const &options)
+{
+  Moment measure_pos (0);  
+  SCM grouping = options.grouping_;
+  vsize i = 0;
+
+  // Mark the importance of stems that start at a beat or a beat group.
+  while (i < infos_.size ())
+    {
+      // If a beat grouping is not specified, default to 2 beats per group.
       int count = 2;
       if (scm_is_pair (grouping))
 	{
@@ -197,91 +155,36 @@ Beaming_pattern::beamify (Beaming_options const &options)
 	  grouping = scm_cdr (grouping);
 	}
 
-      group_starts.push_back (measure_pos);
-      for (int i = 0; i < count; i++)
+      // Mark the start of this beat group
+      if (infos_[i].start_moment_ == measure_pos)
+	infos_[i].rhythmic_importance_ = -2;
+
+      // Mark the start of each beat up to the end of this beat group.
+      for (int beat = 1; beat <= count; beat++)
 	{
-	  beat_starts.push_back (measure_pos + options.beat_length_ * i);
+	  Moment next_measure_pos = measure_pos + options.beat_length_;
+
+	  while (i < infos_.size () && infos_[i].start_moment_ < next_measure_pos)
+	    {
+	      Moment dt = infos_[i].start_moment_ - measure_pos;
+
+	      // The rhythmic importance of a stem between beats depends on its fraction
+	      // of a beat: those stems with a lower denominator are deemed more
+	      // important.
+	      // FIXME: This is not the right way to do things for tuplets. For example,
+	      // in an 8th-note triplet with a quarter-note beat, 1/3 of a beat should be
+	      // more important than 1/2.
+	      if (infos_[i].rhythmic_importance_ >= 0)
+		infos_[i].rhythmic_importance_ = (dt / options.beat_length_).den ();
+
+	      i++;
+	    }
+
+	  measure_pos = next_measure_pos;
+	  if (i < infos_.size () && infos_[i].start_moment_ == measure_pos)
+	    infos_[i].rhythmic_importance_ = -1;
 	}
-      measure_pos += options.beat_length_ * count;
     }
-
-  // Set the group_start_ and beam_start_ properties of each stem.
-  vsize j = 0;
-  vsize k = 0;
-  for (vsize i = 0; i  < infos_.size (); i++)
-    {
-      while (j + 1 < group_starts.size ()
-	     && group_starts[j+1] <= infos_[i].start_moment_)
-	j++;
-
-      if (j < group_starts.size ())
-	infos_[i].group_start_ = group_starts[j];
-      
-      infos_[i].beat_length_ = options.beat_length_;  
-      while (k + 1 < beat_starts.size () 
-	     && beat_starts[k+1] <= infos_[i].start_moment_)
-	k++;
-
-      if (k < beat_starts.size ())
-	infos_[i].beat_start_ = beat_starts[k];
-    }
-  
-  beamify (options.subdivide_beams_);
-}
-
-
-/*
-  Determines beaming patterns by splitting the list of stems recursively.
-
-  Given a list of stems, we split it at the most 'natural' place (eg. at
-  the beginning of a beat) as determined by best_splitpoint_index. We
-  then beamify both subsets of beams. Finally, we determine the number of
-  beams between the subsets.
-
-  Note: if one of the subsets has only one element, we will not modify its
-  beams. This ensure that, for every stem, we will modify its beam count on at
-  most one side.
-*/
-void
-Beaming_pattern::beamify (bool subdivide_beams)
-{
-  if (infos_.size () <= 1)
-    return;
-  
-  Drul_array<Beaming_pattern> splits;
-
-  bool at_boundary = false;
-  int m = best_splitpoint_index (&at_boundary);
-
-  splits[LEFT].infos_ = vector<Beam_rhythmic_element> (infos_.begin (),
-						       infos_.begin () + m);
-  splits[RIGHT].infos_ = vector<Beam_rhythmic_element> (infos_.begin () + m,
-							infos_.end ());
-
-  Direction d = LEFT;
-
-  do
-    {
-      splits[d].beamify (subdivide_beams);
-    }
-  while (flip (&d) != LEFT);
-
-  int middle_beams = (at_boundary && subdivide_beams)
-		      ? 1	
-		      : min (splits[RIGHT].beam_extend_count (LEFT),
-			     splits[LEFT].beam_extend_count (RIGHT));
-
-  do
-    {
-      if (splits[d].infos_.size () != 1)
-	boundary (splits[d].infos_, -d, 0).beam_count_drul_[-d] = middle_beams;
-    }
-  while (flip (&d) != LEFT);
-
-  infos_ = splits[LEFT].infos_;
-  infos_.insert (infos_.end (),
-		 splits[RIGHT].infos_.begin (),
-		 splits[RIGHT].infos_.end ());
 }
 
 
@@ -296,7 +199,7 @@ Beaming_pattern::unbeam_invisible_stems ()
   for (vsize i = 1; i < infos_.size (); i++)
     if (infos_[i].invisible_)
       {
-	int b = infos_[i-1].beam_count_drul_[LEFT];
+	int b = min (infos_[i].count (LEFT), infos_[i-1].count (LEFT));
 	infos_[i].beam_count_drul_[LEFT] = b;
 	infos_[i].beam_count_drul_[RIGHT] = b;
       }
@@ -304,7 +207,7 @@ Beaming_pattern::unbeam_invisible_stems ()
   for (vsize i = infos_.size (); i--;)
     if (infos_[i].invisible_)
       {
-	int b = min (infos_[i].beam_count_drul_[LEFT], infos_[i+1].beam_count_drul_[LEFT]);
+	int b = min (infos_[i].count (LEFT), infos_[i+1].count (LEFT));
 	infos_[i].beam_count_drul_[LEFT] = b;
 	infos_[i].beam_count_drul_[RIGHT] = b;
       }
