@@ -6,16 +6,40 @@
 ;;;;		     Jan Nieuwenhuizen <janneke@gnu.org>
 
 ;; metronome marks
-(define-public (format-metronome-markup dur count context)
-  (let* ((note-mark (make-smaller-markup
-		     (make-note-by-number-markup (ly:duration-log dur)
-						 (ly:duration-dot-count dur)
-						 1))))  
-    (make-line-markup
-     (list
-      (make-general-align-markup Y DOWN note-mark)
-      (make-simple-markup  "=")
-      (make-simple-markup (number->string count))))))
+(define-public (format-metronome-markup text dur count context)
+  (let* ((hide_note (eq? #t (ly:context-property context 'tempoHideNote)))
+	 (note-mark (if (and (not hide_note) (ly:duration? dur))
+                      (make-smaller-markup
+		       (make-note-by-number-markup (ly:duration-log dur)
+						   (ly:duration-dot-count dur)
+						   1))
+		      #f))
+         (note-markup (if (and note-mark (number? count) (> count 0) )
+                        (make-concat-markup (list
+                          (make-general-align-markup Y DOWN note-mark)
+                          (make-simple-markup " ")
+                          (make-simple-markup  "=")
+                          (make-simple-markup " ")
+                          (make-simple-markup (number->string count))))
+                        #f))
+         (text-markup (if (not (null? text))
+                        (make-bold-markup text)
+                        #f)))
+    (if text-markup
+      (if note-markup
+        (make-line-markup (list text-markup
+          (make-concat-markup (list (make-simple-markup "(")
+                                    note-markup
+                                    (make-simple-markup ")")))))
+        (make-line-markup (list text-markup))
+      )
+      (if note-markup
+        (make-line-markup (list note-markup))
+        #f
+      )
+    )
+  )
+)
 
 (define-public (format-mark-alphabet mark context)
   (make-bold-markup (make-markalphabet-markup (1- mark))))

@@ -820,8 +820,20 @@ output_def_body:
 
 tempo_event:
 	TEMPO steno_duration '=' bare_unsigned	{
-		$$ = MAKE_SYNTAX ("tempo", @$, $2, scm_int2num ($4));
-	}				
+		$$ = MAKE_SYNTAX ("tempo", @$, SCM_BOOL_F, $2, scm_int2num ($4));
+	}
+	| TEMPO string steno_duration '=' bare_unsigned	{
+		$$ = MAKE_SYNTAX ("tempo", @$, make_simple_markup($2), $3, scm_int2num ($5));
+	}
+	| TEMPO full_markup steno_duration '=' bare_unsigned	{
+		$$ = MAKE_SYNTAX ("tempo", @$, $2, $3, scm_int2num ($5));
+	}
+	| TEMPO string {
+		$$ = MAKE_SYNTAX ("tempoText", @$, make_simple_markup($2) );
+	}
+	| TEMPO full_markup {
+		$$ = MAKE_SYNTAX ("tempoText", @$, $2 );
+	}
 	;
 
 /*
