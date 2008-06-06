@@ -108,7 +108,7 @@ Learning Manual:
 
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
-@rlearning{Score is a single (compound) music expression}.
+@rlearning{Score is a single (compound) musical expression}.
 
 
 @node Multiple scores in a book
@@ -339,7 +339,7 @@ Learning Manual:
 
 @menu
 * Input modes::
-* Controlling direction and placement::
+* Direction and placement::
 * Distances and measurements::
 * Spanners::
 @end menu
@@ -446,10 +446,8 @@ the markings:
 
 
 
-@node Controlling direction and placement
-@subsection Controlling direction and placement
-
-TODO: Maybe rename section to "directions".
+@node Direction and placement
+@subsection Direction and placement
 
 In typesetting music the direction and placement of many items is
 a matter of choice.  For example, the stems of notes can
@@ -546,6 +544,12 @@ TODO: staff spaces.  Maybe move into tweaks?
 @node Spanners
 @subsection Spanners
 
+Many objects of musical notation extend over several notes or even
+several bars.  Examples are crescendi, trills, tuplet brackets, and
+volta repeat brackets.  Such objects are called @qq{spanners}, and
+have special properties to control their appearance and behaviour.
+Some of these properties are common to all spanners; others are
+restricted to a sub-set of the spanners.
 
 @node Titles and headers
 @section Titles and headers
@@ -1184,12 +1188,12 @@ lilypond file.ly >display.txt
 @section Controlling output
 
 @menu
-* Extracting fragments of notation::  
+* Extracting fragments of music::
 * Skipping corrected music::    
 @end menu
 
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
+@node Extracting fragments of music
+@subsection Extracting fragments of music
 
 It is possible to quote small fragments of a large score directly from
 the output.  This can be compared to clipping a piece of a paper score
