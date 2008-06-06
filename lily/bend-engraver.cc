@@ -22,6 +22,7 @@ public:
 
 protected:
   DECLARE_TRANSLATOR_LISTENER (bend_after);
+  void finalize ();
   void process_music ();
   void stop_translation_timestep ();
   void start_translation_timestep ();
@@ -31,8 +32,18 @@ private:
   Moment stop_moment_;
   Stream_event *fall_event_;
   Spanner *fall_;
+  Spanner *last_fall_;
   Grob *note_head_;
 };
+
+void
+Bend_engraver::finalize ()
+{
+  // We shouldn't end a spanner on the last musical column of a piece because then
+  // it would extend past the last breakable column of the piece.
+  if (last_fall_)
+    last_fall_->set_bound (RIGHT, unsmob_grob (get_property ("currentCommandColumn")));
+}
 
 void
 Bend_engraver::stop_fall ()
@@ -43,6 +54,7 @@ Bend_engraver::stop_fall ()
   fall_->set_bound (RIGHT, unsmob_grob (bar
 					? get_property ("currentCommandColumn")
 					: get_property ("currentMusicalColumn")));
+  last_fall_ = fall_;
   fall_ = 0;
   note_head_ = 0;
   fall_event_ = 0;
@@ -61,6 +73,8 @@ Bend_engraver::stop_translation_timestep ()
 void
 Bend_engraver::start_translation_timestep ()
 {
+  last_fall_ = 0;
+
   if (fall_ && now_mom ().main_part_ >= stop_moment_.main_part_)
     {
       stop_fall ();
@@ -86,6 +100,7 @@ Bend_engraver::acknowledge_note_head (Grob_info info)
 Bend_engraver::Bend_engraver ()
 {
   fall_ = 0;
+  last_fall_ = 0;
   note_head_ = 0;
   fall_event_ = 0;
 }
