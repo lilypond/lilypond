@@ -297,3 +297,26 @@ textSpannerDown = \override TextSpanner #'direction = #DOWN
 textSpannerNeutral = \revert TextSpanner #'direction
 
 
+
+bassFigureExtendersOn = {
+  \set useBassFigureExtenders = ##t
+  \set Staff.useBassFigureExtenders = ##t
+}
+
+bassFigureExtendersOff = {
+  \set useBassFigureExtenders = ##f
+  \set Staff.useBassFigureExtenders = ##f
+}
+
+bassFigureStaffAlignmentDown = {
+  \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+}
+
+bassFigureStaffAlignmentUp = {
+  \override Staff.BassFigureAlignmentPositioning #'direction = #UP
+}
+
+bassFigureStaffAlignmentNeutral = {
+  \revert Staff.BassFigureAlignmentPositioning #'direction
+}
+

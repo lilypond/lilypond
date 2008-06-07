@@ -155,7 +155,6 @@ of this and other documentation.
     specific purposes.
 * Input syntax::                   General information about
     lilypond input files.
-* Non-musical notation::           Output that is not musical notation.
 * Spacing issues::                 Display of output on paper.
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::     Expert usage.
@@ -178,7 +177,6 @@ Appendices
 @include specialist.itely
 
 @include input.itely
-@include non-music.itely
 @include spacing.itely
 
 @include changing-defaults.itely

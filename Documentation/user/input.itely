@@ -19,11 +19,12 @@ FIXME: don't complain about anything in this chapter.  It's still
 under heavy development.
 
 @menu
-* Input structure::
-* Useful concepts and properties::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
+* Input structure::             
+* Useful concepts and properties::  
+* Titles and headers::          
+* Working with input files::    
+* Controlling output::          
+* MIDI output::                 
 @end menu
 
 
@@ -34,9 +35,9 @@ The main format of input for LilyPond are text files.  By convention,
 these files end with @code{.ly}.
 
 @menu
-* Structure of a score::
-* Multiple scores in a book::
-* File structure::
+* Structure of a score::        
+* Multiple scores in a book::   
+* File structure::              
 @end menu
 
 
@@ -108,7 +109,7 @@ Learning Manual:
 
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
-@rlearning{Score is a single (compound) music expression}.
+@rlearning{Score is a single (compound) musical expression}.
 
 
 @node Multiple scores in a book
@@ -338,10 +339,10 @@ Learning Manual:
 
 
 @menu
-* Input modes::
-* Controlling direction and placement::
-* Distances and measurements::
-* Spanners::
+* Input modes::                 
+* Direction and placement::     
+* Distances and measurements::  
+* Spanners::                    
 @end menu
 
 @node Input modes
@@ -446,10 +447,8 @@ the markings:
 
 
 
-@node Controlling direction and placement
-@subsection Controlling direction and placement
-
-TODO: Maybe rename section to "directions".
+@node Direction and placement
+@subsection Direction and placement
 
 In typesetting music the direction and placement of many items is
 a matter of choice.  For example, the stems of notes can
@@ -546,6 +545,12 @@ TODO: staff spaces.  Maybe move into tweaks?
 @node Spanners
 @subsection Spanners
 
+Many objects of musical notation extend over several notes or even
+several bars.  Examples are crescendi, trills, tuplet brackets, and
+volta repeat brackets.  Such objects are called @qq{spanners}, and
+have special properties to control their appearance and behaviour.
+Some of these properties are common to all spanners; others are
+restricted to a sub-set of the spanners.
 
 @node Titles and headers
 @section Titles and headers
@@ -554,10 +559,10 @@ Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
 @menu
-* Creating titles::
-* Custom titles::
-* Reference to page numbers::
-* Table of contents::
+* Creating titles::             
+* Custom titles::               
+* Reference to page numbers::   
+* Table of contents::           
 @end menu
 
 
@@ -1184,12 +1189,12 @@ lilypond file.ly >display.txt
 @section Controlling output
 
 @menu
-* Extracting fragments of notation::  
+* Extracting fragments of music::  
 * Skipping corrected music::    
 @end menu
 
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
+@node Extracting fragments of music
+@subsection Extracting fragments of music
 
 It is possible to quote small fragments of a large score directly from
 the output.  This can be compared to clipping a piece of a paper score
@@ -1267,4 +1272,247 @@ been warned.
 In polyphonic music, @code{Score.skipTypesetting} will affect all
 voices and staves, saving even more time.
 
+
+
+@node MIDI output
+@section MIDI output
+
+@cindex Sound
+@cindex MIDI
+
+MIDI (Musical Instrument Digital Interface) is a standard for
+connecting and controlling digital instruments.  A MIDI file is a
+series of notes in a number of tracks.  It is not an actual
+sound file; you need special software to translate between the
+series of notes and actual sounds.
+
+Pieces of music can be converted to MIDI files, so you can listen to
+what was entered.  This is convenient for checking the music; octaves
+that are off or accidentals that were mistyped stand out very much
+when listening to the MIDI output.
+
+@knownissues
+
+Many musically interesting effects, such as swing, articulation,
+slurring, etc., are not translated to midi.
+
+The midi output allocates a channel for each staff, and one for global
+settings.  Therefore the midi file should not have more than 15 staves
+(or 14 if you do not use drums).  Other staves will remain silent.
+
+Not all midi players correctly handle tempo changes in the midi
+output.  Players that are known to work include
+@uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
+
+@menu
+* Creating MIDI files::         
+* MIDI block::                  
+* MIDI instrument names::       
+* What goes into the MIDI?  FIXME::  
+* other midi::                  
+@end menu
+
+@node Creating MIDI files
+@subsection Creating MIDI files
+
+To create a MIDI from a music piece of music, add a @code{\midi} block
+to a score, for example,
+
+@example
+\score @{
+  @var{...music...}
+   \midi @{
+     \context @{
+       \Score
+       tempoWholesPerMinute = #(ly:make-moment 72 4)
+       @}
+     @}
+@}
+@end example
+
+The tempo can be specified using the @code{\tempo} command within the 
+actual music, see @ref{Metronome marks}.  An alternative, which does not
+result in a metronome mark in the printed score, is shown in the example
+above.  In this example the tempo of quarter notes is set to 72 beats per
+minute. 
+This kind of tempo
+specification can not take dotted note lengths as an argument.  In this
+case, break the dotted notes into smaller units.  For example, a tempo
+of 90 dotted quarter notes per minute can be specified as 270 eighth
+notes per minute
+
+@example
+tempoWholesPerMinute = #(ly:make-moment 270 8)
+@end example
+
+If there is a @code{\midi} command in a @code{\score}, only MIDI will
+be produced.  When notation is needed too, a @code{\layout} block must
+be added
+
+@example
+\score @{
+  @var{...music...}
+  \midi @{ @}
+  \layout @{ @}
+@}
+@end example
+@cindex layout block
+
+
+
+Ties, dynamics, and tempo changes are interpreted.  Dynamic marks,
+crescendi and decrescendi translate into MIDI volume levels.  Dynamic
+marks translate to a fixed fraction of the available MIDI volume
+range, crescendi and decrescendi make the volume vary linearly between
+their two extremes.  The fractions can be adjusted by
+@code{dynamicAbsoluteVolumeFunction} in @rinternals{Voice} context.
+For each type of MIDI instrument, a volume range can be defined.  This
+gives a basic equalizer control, which can enhance the quality of
+the MIDI output remarkably.  The equalizer can be controlled by
+setting @code{instrumentEqualizer}, or by setting
+
+@example
+\set Staff.midiMinimumVolume = #0.2
+\set Staff.midiMaximumVolume = #0.8
+@end example
+
+To remove dynamics from the MIDI output, insert the following lines
+in the @code{\midi@{@}} section.
+
+@example
+\midi @{
+  ...
+  \context @{
+    \Voice
+    \remove "Dynamic_performer"
+  @}
+@}
+@end example
+
+
+@knownissues
+
+Unterminated (de)crescendos will not render properly in the midi file,
+resulting in silent passages of music.  The workaround is to explicitly
+terminate the (de)crescendo.  For example,
+
+@example
+@{ a\< b c d\f @}
+@end example
+
+@noindent
+will not work properly but
+
+@example
+@{ a\< b c d\!\f @}
+@end example
+
+@noindent
+will.
+
+
+MIDI output is only created when the @code{\midi} command is within
+a @code{\score} block.  If you put it within an explicitly instantiated
+context ( i.e. @code{\new Score} ) the file will fail.  To solve this,
+enclose the @code{\new Score} and the @code{\midi} in a @code{\score} block.
+
+@example
+\score @{
+  \new Score @{ @dots{}notes@dots{} @}
+  \midi
+@}
+@end example
+
+
+@node MIDI block
+@subsection MIDI block
+@cindex MIDI block
+
+
+The MIDI block is analogous to the layout block, but it is somewhat
+simpler.  The @code{\midi} block is similar to @code{\layout}.  It can contain
+context definitions.
+
+
+@cindex context definition
+
+Context definitions follow precisely the same syntax as within the
+\layout block.  Translation modules for sound are called performers.
+The contexts for MIDI output are defined in @file{ly/@/performer@/-init@/.ly}.
+
+
+@node MIDI instrument names
+@subsection MIDI instrument names
+
+@cindex instrument names
+@funindex Staff.midiInstrument
+
+The MIDI instrument name is set by the @code{Staff.midiInstrument}
+property.  The instrument name should be chosen from the list in
+@ref{MIDI instruments}.
+
+@example
+\set Staff.midiInstrument = "glockenspiel"
+@var{...notes...}
+@end example
+
+If the selected instrument does not exactly match an instrument from
+the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
+instrument is used.
+
+
+@node What goes into the MIDI?  FIXME
+@subsection What goes into the MIDI?  FIXME
+
+@menu
+* Repeats and MIDI::            
+@end menu
+
+@node Repeats and MIDI
+@subsubsection Repeats and MIDI
+
+@cindex expanding repeats
+@funindex \unfoldRepeats
+
+With a little bit of tweaking, all types of repeats can be present
+in the MIDI output.  This is achieved by applying the
+@code{\unfoldRepeats} music function.  This function changes all
+repeats to unfold repeats.
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+When creating a score file using @code{\unfoldRepeats} for MIDI,
+it is necessary to make two @code{\score} blocks: one for MIDI
+(with unfolded repeats) and one for notation (with volta, tremolo,
+and percent repeats).  For example,
+
+@example
+\score @{
+  @var{..music..}
+  \layout @{ .. @}
+@}
+\score @{
+  \unfoldRepeats @var{..music..}
+  \midi @{ .. @}
+@}
+@end example
+
+
+@node other midi
+@subsection other midi
+
+Micro tones are also exported to the MIDI file.
+
+Figured bass has no effect on MIDI.
 

@@ -164,7 +164,7 @@ chord by adding them after the pitches.
 @end lilypond
 
 Fingering instructions may be manually placed above or below the
-staff, see @ref{Controlling direction and placement}.
+staff, see @ref{Direction and placement}.
 
 @snippets
 
@@ -175,7 +175,7 @@ staff, see @ref{Controlling direction and placement}.
 @seealso
 
 Notation Reference:
-@ref{Controlling direction and placement}
+@ref{Direction and placement}
 
 Snippets:
 @rlsr{Editorial annotations}.
@@ -403,7 +403,7 @@ made invisible.
 
 @seealso
 Notation Reference:
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Snippets:
 @rlsr{Editorial annotations}.

@@ -2,12 +2,12 @@
 \header {
   lsrtags = "rhythms,contexts-and-engravers"
   texidoc = "The @code{measureLength} property, together with
-@code{measurePosition}, determines when a bar line is needed. However,
+@code{measurePosition}, determines when a bar line is needed.  However,
 when using @code{\\scaleDurations}, the scaling of durations makes it
-difficult to change time signatures without making a mess of it.
-Therefore, @code{measureLength} has to be set manually, using the
-@code{ly:make-moment} callback. The second argument must be the same as
-the second argument of @code{\\scaleDurations}."
+difficult to change time signatures.  In this case, @code{measureLength}
+should be set manually, using the @code{ly:make-moment} callback.  The
+second argument must be the same as the second argument of
+@code{\\scaleDurations}."
   doctitle = "Changing time signatures inside a polymetric section using @code{\\scaleDurations}"
 }
 

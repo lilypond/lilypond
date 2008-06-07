@@ -80,5 +80,5 @@ pedal = {
     \new Staff = "upper" << \upper \dynamics \pedal >>
     \new Staff = "lower" << \lower \dynamics \pedal >>
   >>
-  \midi {}
+  \midi { }
 }

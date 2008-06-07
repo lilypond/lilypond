@@ -195,9 +195,9 @@ enddef;
 
 def draw_bass_clef (expr exact_center, reduction) =
 	save reduced_ss, swoosh_width;
-	save right_thickness, right_offset, tip_protude;
+	save right_thickness, right_offset, tip_protrude;
 	save dot_diam, bulb_y_offset, bulb_flare;
-	pair tip_protude;
+	pair tip_protrude;
 
 	reduced_ss# = staff_space# * reduction;
 	2.2 dot_diam# = reduction * (staff_space# - stafflinethickness#);
@@ -210,8 +210,8 @@ def draw_bass_clef (expr exact_center, reduction) =
 	right_offset = 0.05 staff_space;
 	bulb_y_offset := 0.075 staff_space;
 	bulb_flare := 2.5 linethickness;
-%	tip_protude := (-linethickness, -.2 staff_space);
-	tip_protude := (0, 0);
+%	tip_protrude := (-linethickness, -.2 staff_space);
+	tip_protrude := (0, 0);
 
 	set_char_box (-xpart exact_center,
 		      xpart exact_center + swoosh_width# + 7/12 reduced_ss#,
@@ -233,7 +233,7 @@ def draw_bass_clef (expr exact_center, reduction) =
 	% optical correction: the top dot seems farther away if y3l = 0.
 	y3l = right_offset;
 
-	z4 = -(0, 2.0 reduced_ss) + tip_protude;
+	z4 = -(0, 2.0 reduced_ss) + tip_protrude;
 
 	penpos3 (whatever, 185);
 	penpos4 (linethickness, 135);

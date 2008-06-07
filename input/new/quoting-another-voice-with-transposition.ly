@@ -12,7 +12,7 @@ transposed using @code{\\transpose}.  In this case, all the pitches
 
 \addQuote clarinet {
   \transposition bes
-  \repeat unfold 8 { d'16 d'16 d'8 }
+  \repeat unfold 8 { d'16 d' d'8 }
 }
 
 \addQuote sax {

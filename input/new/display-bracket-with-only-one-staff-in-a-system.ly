@@ -24,7 +24,7 @@ property has to be set, as shown on the second system in the example.
         c'1
       }
     >>
-    \layout {}
+    \layout { }
   }
   \score {
     \new PianoStaff <<
@@ -34,6 +34,6 @@ property has to be set, as shown on the second system in the example.
         c'1
       }
     >>
-    \layout {}
+    \layout { }
   }
 }

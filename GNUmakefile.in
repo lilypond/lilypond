@@ -217,7 +217,7 @@ test-baseline:
 	$(MAKE) test
 	$(MAKE) out=test -C input/regression/ local-test-baseline
 	$(MAKE) out=test -C input/regression/musicxml local-test-baseline
-	rm -rf out/lybook-testdb/
+	$(MAKE) test-snippets-clean
 
 
 local-check: test
@@ -234,8 +234,11 @@ test-redo:
 	done
 	$(MAKE) check
 
-test-clean: snippets-clean
+test-clean: test-snippets-clean
 	$(MAKE) -C input/regression/ out=test clean
 
 snippets-clean:
 	rm -rf out/lybook-db
+
+test-snippets-clean:
+	rm -rf out/lybook-testdb

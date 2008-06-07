@@ -58,7 +58,7 @@ notation.  For example, giving each staff a separate time signature.
 @item
 Page layout: changing the appearance of the spacing, line
 breaks, and page dimensions.  These modifications are discussed
-in @ref{Non-musical notation}, and @ref{Spacing issues}.
+@c in @ref{notation}, and @ref{Spacing issues}.
 @end itemize
 
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
