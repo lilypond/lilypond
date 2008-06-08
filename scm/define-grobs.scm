@@ -1815,6 +1815,7 @@
     (TabNoteHead
      . (
 	(stencil . ,ly:text-interface::print)
+	(duration-log . ,note-head::calc-duration-log)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(direction . ,CENTER)
