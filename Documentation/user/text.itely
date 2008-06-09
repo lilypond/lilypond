@@ -58,7 +58,7 @@ It is possible to add arbitrary text indications
 to a score, as demonstrated in the following example.
 Such indications can also be manually placed
 above or below the staff, using the
-simple syntax described in @ref{Controlling direction and
+simple syntax described in @ref{Direction and
 placement}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
@@ -95,7 +95,7 @@ d8^"pizz." e f g \textLengthOn a4_"scherzando" f
 @seealso
 
 Notation Reference: @ref{Formatting text},
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Snippets:
 @rlsr{Text}.

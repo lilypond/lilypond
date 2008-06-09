@@ -99,7 +99,7 @@ c->   c-.  c-_
 The rules for the default placement of articulations are defined
 in @file{scm/@/script@/.scm}.  Articulations and ornamentations
 may be manually placed above or below the staff, see
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 
 @snippets
@@ -120,7 +120,7 @@ Music Glossary:
 @rglos{portato}.
 
 Notation Reference:
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Installed Files:
 @file{scm/@/script@/.scm}.
@@ -170,8 +170,8 @@ such as @code{c4\ff}.  The available dynamic marks are
 @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp},
 @code{\spp}, @code{\sfz}, and @code{\rfz}.  The dynamic marks may
-be manually placed above or below the staff, see @ref{Controlling
-direction and placement}.
+be manually placed above or below the staff, see 
+@ref{Direction and placement}.
 
 @lilypond[verbatim,quote,relative=2]
 c2\ppp c\mp
@@ -336,7 +336,7 @@ Learning Manual:
 @rlearning{Articulation and dynamics}.
 
 Notation Reference:
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -423,7 +423,7 @@ Just as with ties, the direction of a slur can be specified with
 @code{\slur@emph{DIR}}, where @code{@emph{DIR}} is either
 @code{Up}, @code{Down}, or @code{Neutral} (@code{Neutral} is the
 default).  Slurs may be manually placed above or below the staff,
-see @ref{Controlling direction and placement}.
+see @ref{Direction and placement}.
 
 @lilypond[verbatim,quote,relative=2]
 c4_( c) c^( c)
@@ -461,7 +461,7 @@ Music Glossary:
 @rglos{slur}.
 
 Notation Reference:
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -491,7 +491,7 @@ normal slur.  However, they are treated as different objects.  A
 @code{\slurUp} will have no effect on a phrasing slur; instead,
 use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
 @code{\phrasingSlurNeutral}.  Phrasing slurs may be manually
-placed above or below the staff, see @ref{Controlling direction
+placed above or below the staff, see @ref{Direction
 and placement}.
 
 You cannot have simultaneous phrasing slurs.
@@ -510,7 +510,7 @@ You cannot have simultaneous phrasing slurs.
 @seealso
 
 Notation Reference:
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Snippets:
 @rlsr{Expressive marks}.

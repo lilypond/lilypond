@@ -313,7 +313,7 @@ Stem::calc_length (SCM smob)
 
   Real ss = Staff_symbol_referencer::staff_space (me);
   Real length = 7;
-  SCM s = scm_cdr (scm_assq (ly_symbol2scm ("lengths"), details));
+  SCM s = ly_assoc_get (ly_symbol2scm ("lengths"), details, SCM_EOL);
   if (scm_is_pair (s))
     length = 2 * scm_to_double (robust_list_ref (durlog - 2, s));
 
@@ -324,7 +324,7 @@ Stem::calc_length (SCM smob)
   Interval hp = head_positions (me);
   if (dir && dir * hp[dir] >= 0)
     {
-      SCM sshorten = scm_cdr (scm_assq (ly_symbol2scm ("stem-shorten"), details));
+      SCM sshorten = ly_assoc_get (ly_symbol2scm ("stem-shorten"), details, SCM_EOL);
       SCM scm_shorten = scm_is_pair (sshorten)
 	? robust_list_ref (max (duration_log (me) - 2, 0), sshorten) : SCM_EOL;
       Real shorten = 2* robust_scm2double (scm_shorten, 0);
@@ -868,7 +868,7 @@ Stem::calc_stem_info (SCM smob)
 
   /* Simple standard stem length */
   SCM details = me->get_property ("details");
-  SCM lengths = scm_cdr (scm_assq (ly_symbol2scm ("beamed-lengths"), details));
+  SCM lengths = ly_assoc_get (ly_symbol2scm ("beamed-lengths"), details, SCM_EOL);
   
   Real ideal_length
     = scm_to_double (robust_list_ref (beam_count - 1, lengths))
@@ -880,7 +880,7 @@ Stem::calc_stem_info (SCM smob)
     - 0.5 * beam_thickness;
 
   /* Condition: sane minimum free stem length (chord to beams) */
-  lengths = scm_cdr (scm_assq (ly_symbol2scm ("beamed-minimum-free-lengths"), details));
+  lengths = ly_assoc_get (ly_symbol2scm ("beamed-minimum-free-lengths"), details, SCM_EOL);
 
   Real ideal_minimum_free
     = scm_to_double (robust_list_ref (beam_count - 1, lengths))
@@ -952,8 +952,8 @@ Stem::calc_stem_info (SCM smob)
 
   ideal_y -= robust_scm2double (beam->get_property ("shorten"), 0);
 
-  SCM bemfl = scm_cdr (scm_assq (ly_symbol2scm ("beamed-extreme-minimum-free-lengths"),
-				 details));
+  SCM bemfl = ly_assoc_get (ly_symbol2scm ("beamed-extreme-minimum-free-lengths"),
+			    details, SCM_EOL);
   
   Real minimum_free
     = scm_to_double (robust_list_ref (beam_count - 1, bemfl))
