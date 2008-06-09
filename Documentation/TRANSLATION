@@ -15,8 +15,11 @@ TRANSLATION DETAILED INSTRUCTIONS
 CHECK STATE OF TRANSLATION
 UPDATE A TRANSLATION
 POLICY DURING GDP PROCESS
-MANAGING TRANSLATIONS ON GIT
+MANAGING TRANSLATIONS WITH GIT
+SOME GIT TIPS
 DEALING WITH SEVERAL GIT BRANCHES
+GIT PUSH ACCESS
+TECHNICAL BACKGROUND
 
 
 SOURCES
@@ -476,7 +479,7 @@ step 3) in all languages when documentation is compiled with
 texi2html and node names are directly translated in source files.
 
 
-MANAGING TRANSLATIONS ON GIT
+MANAGING TRANSLATIONS WITH GIT
 
 This policy explains how to manage Git branches and commit
 translations to Git.
@@ -504,6 +507,20 @@ first.  General maintenance include simple text substitutions
 lilypond-book commands, updating macros, updating ly code, fixing
 cross-references, and operations described in 'POLICY DURING GDP
 PROCESS'.
+
+
+SOME GIT TIPS
+
+* Saving uncommited changes in the working tree:
+
+    git diff > foo.diff
+
+This does not save untracked or ignored files.  If you prefer to
+include changes added to the index with 'git add', replace 'git diff'
+with 'git diff HEAD'.
+Then, you may try to apply foo.diff on a source tree with
+
+    patch -p1 < foo.diff
 
 
 DEALING WITH SEVERAL GIT BRANCHES
@@ -596,6 +613,30 @@ subrepository by default; it is possible to have several branches in a
 subrepository and do usual operations (checkout, merge, create,
 delete...) on these branches, but this possibility is not detailed
 here.
+
+Note that when you push BRANCH from SUBDIR to the main repository,
+and BRANCH is checked out in the main repository, you must save
+uncommitted changes (see SOME GIT TIPS) and do 'git reset --hard' in
+the main repository in order to apply pushed changes in the working
+tree of the main repository.
+
+
+GIT PUSH ACCESS
+
+If you have permission to push to Git with login USER, please start a
+new Git repository from scratch to avoid polluting history with
+duplicate commits; follow the usual instructions, except that every
+file you write in .git/remotes should contain instead
+
+URL: ssh://USER@git.sv.gnu.org/srv/git/lilypond.git
+Push: BRANCH:refs/heads/BRANCH
+Pull: BRANCH:refs/remotes/origin/BRANCH
+
+Then, you can use .git/remotes/NAME to push BRANCH with
+
+    git push NAME
+
+which works regardless of the branch checked out.
 
 
 TECHNICAL BACKGROUND
