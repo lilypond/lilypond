@@ -70,7 +70,7 @@ nested_property_revert_alist (SCM alist, SCM prop_path)
   for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
       SCM sub_sym = scm_caar (s);
-      SCM old_val = scm_cadr (s);
+      SCM old_val = scm_cdar (s);
 
       if (sub_sym == wanted_sym)
 	{
