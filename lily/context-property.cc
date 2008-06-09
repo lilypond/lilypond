@@ -16,13 +16,15 @@
 #include "spanner.hh"
 #include "warn.hh"
 
-
+/*
+  like execute_general_pushpop_property(), but typecheck
+  grob_property_path and context_property.
+*/
 void
 general_pushpop_property (Context *context,
 			  SCM context_property,
 			  SCM grob_property_path,
-			  SCM new_value			  
-			  )
+			  SCM new_value)
 {
   if (!scm_is_symbol (context_property)
       || !scm_is_symbol (scm_car (grob_property_path)))
@@ -49,8 +51,6 @@ general_pushpop_property (Context *context,
   indicates nested alists, eg. '(beamed-stem-lengths details)
   
 */
-
-
 void
 execute_override_property (Context *context,
 			   SCM context_property,
@@ -92,10 +92,10 @@ execute_override_property (Context *context,
 					 new_value);
     }
 
-  // it's tempting to replace the head of the list if it's the same
-  // property. However, we have to keep this info around, in case we have to
-  // \revert back to it.
-  
+  /* it's tempting to replace the head of the list if it's the same
+   property. However, we have to keep this info around, in case we have to
+   \revert back to it.
+  */
   target_alist = scm_acons (symbol, new_value, target_alist);
 
   bool ok = true;
@@ -116,16 +116,10 @@ execute_override_property (Context *context,
 }
 
 void
-execute_revert_property (Context *context,
-			 SCM context_property,
-			 SCM grob_property_path);
-
-void
 execute_general_pushpop_property (Context *context,
 				  SCM context_property,
 				  SCM grob_property_path,
-				  SCM new_value
-				  )
+				  SCM new_value)
 {
   if (new_value != SCM_UNDEFINED)
     execute_override_property (context, context_property,
@@ -162,7 +156,9 @@ execute_revert_property (Context *context,
       if (scm_is_pair (scm_cdr (grob_property_path)))
 	{
 	  SCM current_sub_alist = ly_assoc_get (symbol, current_alist, SCM_EOL);
-	  SCM new_val = nested_property_revert_alist (current_sub_alist, scm_cdr (grob_property_path));
+	  SCM new_val
+	    = nested_property_revert_alist (current_sub_alist,
+					    scm_cdr (grob_property_path));
 	    
 	  if (scm_is_pair (current_alist)
 	      && scm_caar (current_alist) == symbol
@@ -179,7 +175,8 @@ execute_revert_property (Context *context,
 	  if (new_alist == daddy)
 	    context->unset_property (context_property);
 	  else
-	    context->set_property (context_property, scm_cons (new_alist, daddy));
+	    context->set_property (context_property,
+				   scm_cons (new_alist, daddy));
 	}
     }
 }
