@@ -34,13 +34,12 @@ general_pushpop_property (Context *context,
 	assert (false);
     }
 
-  execute_general_pushpop_property (context, context_property,
+  sloppy_general_pushpop_property (context, context_property,
 				    grob_property_path, new_value);
 }
 
 
 /*
-  
   Grob descriptions (ie. alists with layout properties) are
   represented as a (ALIST . BASED-ON) pair, where BASED-ON is the
   alist defined in a parent context. BASED-ON should always be a tail
@@ -115,31 +114,35 @@ execute_override_property (Context *context,
     }
 }
 
+/*
+  do a pop (indicated by new_value==SCM_UNDEFINED) or push
+ */
 void
-execute_general_pushpop_property (Context *context,
-				  SCM context_property,
-				  SCM grob_property_path,
-				  SCM new_value)
+sloppy_general_pushpop_property (Context *context,
+				 SCM context_property,
+				 SCM grob_property_path,
+				 SCM new_value)
 {
-  if (new_value != SCM_UNDEFINED)
+  if (new_value == SCM_UNDEFINED)
+    execute_revert_property (context, context_property,
+			     grob_property_path);
+  else
     execute_override_property (context, context_property,
 			       grob_property_path,
 			       new_value);
-  else
-    execute_revert_property (context, context_property,
-			     grob_property_path);
 }
 
+/*
+  Revert the property given by property_path.
+*/
 void
 execute_revert_property (Context *context,
 			 SCM context_property,
 			 SCM grob_property_path)
 {
-  /*
-    revert.
-  */
   SCM current_context_val = SCM_EOL;
-  if (context->where_defined (context_property, &current_context_val) == context)
+  if (context->where_defined (context_property, &current_context_val)
+      == context)
     {
       SCM current_alist = scm_car (current_context_val);
       SCM daddy = scm_cdr (current_context_val);
@@ -152,7 +155,6 @@ execute_revert_property (Context *context,
 	}
       
       SCM symbol = scm_car (grob_property_path);
-
       if (scm_is_pair (scm_cdr (grob_property_path)))
 	{
 	  SCM current_sub_alist = ly_assoc_get (symbol, current_alist, SCM_EOL);
@@ -180,13 +182,15 @@ execute_revert_property (Context *context,
 	}
     }
 }
-
+/*
+  Convenience: a push/pop grob property using a single grob_property
+  as argument.
+*/
 void
 execute_pushpop_property (Context *context,
 			  SCM context_property,
 			  SCM grob_property,
-			  SCM new_value
-			  )
+			  SCM new_value)
 {
   general_pushpop_property (context, context_property,
 			    scm_list_1 (grob_property),
@@ -211,14 +215,14 @@ apply_property_operations (Context *tg, SCM pre_init_ops)
 	  SCM context_prop = scm_car (entry);
 	  SCM val = scm_cadr (entry);
 	  SCM grob_prop_path = scm_cddr (entry);
-	  execute_general_pushpop_property (tg, context_prop, grob_prop_path, val);
+	  sloppy_general_pushpop_property (tg, context_prop, grob_prop_path, val);
 	}
       else if (type == ly_symbol2scm ("pop"))
 	{
 	  SCM context_prop = scm_car (entry);
 	  SCM val = SCM_UNDEFINED;
 	  SCM grob_prop_path = scm_cdr (entry);
-	  execute_general_pushpop_property (tg, context_prop, grob_prop_path, val);
+	  sloppy_general_pushpop_property (tg, context_prop, grob_prop_path, val);
 	}
       else if (type == ly_symbol2scm ("assign"))
 	tg->set_property (scm_car (entry), scm_cadr (entry));

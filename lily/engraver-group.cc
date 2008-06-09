@@ -20,10 +20,10 @@ Engraver_group::override (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
   
-  execute_general_pushpop_property (context (),
-				    ev->get_property ("symbol"),
-				    ev->get_property ("property-path"),
-				    ev->get_property ("value"));
+  sloppy_general_pushpop_property (context (),
+				   ev->get_property ("symbol"),
+				   ev->get_property ("property-path"),
+				   ev->get_property ("value"));
 }
 
 IMPLEMENT_LISTENER (Engraver_group, revert);
@@ -32,10 +32,10 @@ Engraver_group::revert (SCM sev)
 {
   Stream_event *ev = unsmob_stream_event (sev);
   
-  execute_general_pushpop_property (context (),
-				    ev->get_property ("symbol"),
-				    ev->get_property ("property-path"),
-				    SCM_UNDEFINED);
+  sloppy_general_pushpop_property (context (),
+				   ev->get_property ("symbol"),
+				   ev->get_property ("property-path"),
+				   SCM_UNDEFINED);
 }
 
 void

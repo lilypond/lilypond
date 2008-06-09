@@ -126,7 +126,7 @@ void execute_revert_property (Context *context,
 			      SCM context_property,
 			      SCM grob_property_path);
 void execute_pushpop_property (Context *trg, SCM prop, SCM eltprop, SCM val);
-void execute_general_pushpop_property (Context *context,
+void sloppy_general_pushpop_property (Context *context,
 				       SCM context_property, SCM grob_property_path, SCM val);
 SCM updated_grob_properties (Context *tg, SCM sym);
 Context *find_context_below (Context *where,
