@@ -499,7 +499,7 @@ les notes.
 >>
 @end lilypond
 
-Exemples : @lsrdir{education}
+Exemples : @rlsr{Editorial annotations}.
 
 
 @node Blank music sheet

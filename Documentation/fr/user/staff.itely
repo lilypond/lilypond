@@ -14,8 +14,6 @@
 @node Staff notation
 @section Staff notation
 
-staff = singular, staves = plural
-
 @menu
 * Displaying staves::           
 * Writing parts::               
@@ -172,7 +170,7 @@ comme sur l'exemple suivant :
 
 Référence du programme : @rinternals{StaffSymbol}.
 
-D'autres exemples : @lsrdir{staff}.
+D'autres exemples : @rlsr{Staff notation}.
 
 
 @node Hiding staves

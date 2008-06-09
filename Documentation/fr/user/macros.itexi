@@ -174,10 +174,8 @@
 
 @c   **** Links and references ****
 
-@c WARNING: new @lsr macro in English docs takes 3 arguments
-@c and new @lsrdir takes two arguments
-
-@c obsolete
+@c obsolete, not replaced by anything (maybe will be replaced 
+@c with rlsr in the future)
 @c usage: @lsr{ancient,custodes.ly}
 @macro lsr{DIR,TEXT}
 @ifhtml
@@ -188,25 +186,13 @@
 @end ifnothtml
 @end macro
 
-@c don't update until this macro is correctly set up in English docs
-@macro lsrdir{DIR}
-@ifhtml
-@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
-@end ifhtml
-@ifnothtml
-@file{\DIR\}
-@end ifnothtml
-@end macro
-
-
-
-
 @c  Definitions for references:
 @c     @rinternals
 @c     @rglos
 @c     @rprogram
 @c     @ruser
 @c     @rlearning
+@c     @rlsr
 
 @ifhtml
 @c ***** HTML *****
@@ -238,6 +224,11 @@
 @ref{\TEXT\,,,lilypond-learning-big-page,Manuel d'initiation}
 @end macro
 
+@macro rlsr{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-snippets-big-page,Exemples de code}
+@end macro
+
 @end ifset
 
 
@@ -266,6 +257,11 @@
 @macro rlearning{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
+@end macro
+
+@macro rlsr{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
 @end macro
 
 @end ifclear
@@ -301,6 +297,11 @@
 @ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
 @end macro
 
+@macro rlsr{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
+@end macro
+
 @end ifdocbook
 
 
@@ -332,6 +333,10 @@
 @ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
 @end macro
 
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
+@end macro
+
 @end ifinfo
 
 
@@ -358,6 +363,10 @@
 
 @macro rlearning{TEXT}
 @ref{\TEXT\,,,lilypond-learning.fr,Manuel d'initiation}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
 @end macro
 
 @end iftex

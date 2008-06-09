@@ -1261,7 +1261,7 @@ c4 c c c
 
 Référence du programme : @rinternals{BarNumber}.
 
-Exemples : @lsrdir{staff}
+Exemples : @rlsr{Staff notation}.
 
 
 @knownissues

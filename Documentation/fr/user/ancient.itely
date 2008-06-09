@@ -231,7 +231,7 @@ des altérations ; @ref{Key signature} pour les armures.
 
 Référence du programme : @rinternals{KeySignature}.
 
-Exemples : @lsrdir{ancient}
+Exemples : @rlsr{Ancient notation}.
 
 
 @node Ancient rests

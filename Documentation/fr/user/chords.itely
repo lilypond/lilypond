@@ -387,8 +387,7 @@ pour la mise en œuvre de ces modèles.
 
 @seealso
 
-Exemples :
-@lsrdir{chords}
+Exemples : @rlsr{Chords}.
 
 Fichiers internes : @file{scm/@/chords@/-ignatzek@/.scm}, et
 @file{scm/@/chord@/-entry@/.scm}.
