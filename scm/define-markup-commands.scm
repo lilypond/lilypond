@@ -1562,7 +1562,10 @@ the possible glyphs.
 }
 @end lilypond"
 
-  (let* ((font (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
+  (let* ((font (ly:paper-get-font layout
+				  (cons '((font-encoding . fetaMusic)
+					  (font-name . #f))
+					
 						 props)))
 	 (glyph (ly:font-get-glyph font glyph-name)))
     (if (null? (ly:stencil-expr glyph))
