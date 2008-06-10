@@ -11,7 +11,7 @@
 @node Staff notation
 @section Staff notation
 
-staff = singular, staves = plural
+@lilypondfile[quote]{staff-headword.ly}
 
 @menu
 * Displaying staves::           

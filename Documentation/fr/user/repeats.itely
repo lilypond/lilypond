@@ -14,9 +14,11 @@
 @node Repeats
 @section Repeats
 
-Une des notions essentielles, dans la musique, est le fait que des
-éléments soient joués plusieurs fois. Il existe de nombreuses façons
-de noter ces reprises.
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+{repeats-headword.ly}
+
+La répétition est une notion essentielle en musique, et il existe de
+nombreuses façons de mettre en œuvre et noter ce concept.
 
 @menu
 * Writing repeats::             
@@ -240,7 +242,7 @@ Pour imprimer une barre de reprise @code{:|}
 @item @code{(volta @var{texte})}
 Pour imprimer un crochet indiquant une alternative.  L'argument
 @var{texte} mentionné dans le crochet peut être n'importe quelle chaîne
-de caractères ou indication textuelle --- voir @ref{Text markup}.
+de caractères ou indication textuelle --- voir @ref{Formatting text}.
 Attention cependant à changer la police, car la police employée par
 défaut pour les chiffres ne contient aucun caractère alphabétique.
 

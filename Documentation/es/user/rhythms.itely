@@ -688,7 +688,7 @@ R1*2 | R1*5 | R1*9
 @cindex calderón sobre silencios multicompás
 
 Se pueden añadir textos a los silencios multicompás utilizando la sintaxis
-@var{nota}-@code{marca} de @ref{Text markup}.
+@var{nota}-@code{marca} de @ref{Formatting text}.
 Hay una variable (@code{\fermataMarkup}) para añadir
 calderones
 

@@ -14,8 +14,10 @@
 @node Text
 @section Text
 
-Nous allons voir ici comment insérer du texte, selon différents
-formatages, dans vos partitions.
+@lilypondfile[quote]{text-headword.ly}
+
+Nous allons voir ici comment insérer dans une partition du texte, avec
+différentes possibilité de formatage.
 
 @cindex Texte, autres langues
 Pour écrire des accents et autres caractères spéciaux, il suffit de
@@ -23,25 +25,10 @@ les insérer directement dans votre fichier LilyPond.  Ce fichier devra
 être sauvegardé avec l'encodage UTF-8.  Pour plus d'informations, voir
 @ref{Text encoding}.
 
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
 @menu
 * Writing text::                
-* Text markup::                 
+* Formatting text::             
+* Fonts::                       
 @end menu
 
 
@@ -69,7 +56,7 @@ c'4^\markup { bla \bold bla }
 @cindex ajout de texte
 
 Vous pouvez placer arbitrairement des chaînes de caractères, ou
-@ref{Text markup} en langage LilyPond, au dessus ou au dessous des
+@ref{Formatting text} en langage LilyPond, au dessus ou au dessous des
 notes en employant la syntaxe @code{c^"text"}.  Par défaut, ces
 indications n'affecteront en rien l'espacement des notes, sauf à
 utiliser la commande @code{\textLengthOn}.
@@ -89,7 +76,7 @@ c'4^\markup { bla \bold bla }
 @end lilypond
 
 La commande @code{\markup} est décrite plus en détails dans la section
-@ref{Text markup}.
+@ref{Formatting text}.
 
 
 @predefined
@@ -114,7 +101,7 @@ Vous pouvez cependant l'y forcer en définissant
 
 @seealso
 
-Dans ce manuel : @ref{Text markup}.
+Dans ce manuel : @ref{Formatting text}.
 
 Référence du programme : @rinternals{TextScript}.
 
@@ -496,14 +483,13 @@ boxf = \markup{ \bracket { \dynamic f } }
 
 
 
-@node Text markup
-@subsection Text markup
+@node Formatting text
+@subsection Formatting text
 
 @menu
 * Text markup introduction::    
 * Nested scores::               
 * Page wrapping text::          
-* Font selection::              
 @end menu
 
 @node Text markup introduction
@@ -740,8 +726,8 @@ Dans ce manuel : @ref{Text markup list commands},
 @code{\markuplines}
 
 
-@node Font selection
-@unnumberedsubsubsec Font selection
+@node Fonts
+@subsection Fonts
 
 @cindex sélection de polices
 @cindex grossissement des polices

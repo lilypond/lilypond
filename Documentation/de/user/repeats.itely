@@ -11,6 +11,9 @@
 @node Repeats
 @section Repeats
 
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+{repeats-headword.ly}
+
 Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine 
 ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
 
