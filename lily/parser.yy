@@ -1907,6 +1907,10 @@ bass_figure:
 			{
 			m->set_property ("no-continuation", SCM_BOOL_T);
 			}
+		else if ($2 == ly_symbol2scm ("backslash"))
+			{
+			m->set_property ("augmented-slash", SCM_BOOL_T);
+			}
 	}
 	;
 
@@ -1920,6 +1924,9 @@ figured_bass_modification:
 	}
 	| '/'		{
 		$$ = ly_symbol2scm ("slash");
+	}
+	| E_BACKSLASH {
+		$$ = ly_symbol2scm ("backslash");
 	}
 	;
 
