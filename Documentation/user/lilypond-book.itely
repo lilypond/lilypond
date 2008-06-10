@@ -974,7 +974,7 @@ the automated method with @command{lilypond-book}.
 @subsection Many quotes from a large score
 
 If you need to quote many fragments from a large score, you can also use
-the clip systems feature, see @ruser{Extracting fragments of notation}.
+the clip systems feature, see @ruser{Extracting fragments of music}.
 
 
 @node Inserting LilyPond output into OpenOffice.org

@@ -109,7 +109,7 @@ Learning Manual:
 
 @rlearning{Working on input files},
 @rlearning{Music expressions explained},
-@rlearning{Score is a single (compound) musical expression}.
+@rlearning{Score is a (single) compound musical expression}.
 
 
 @node Multiple scores in a book
