@@ -19,12 +19,11 @@ FIXME: don't complain about anything in this chapter.  It's still
 under heavy development.
 
 @menu
-* Input structure::             
-* Useful concepts and properties::  
-* Titles and headers::          
-* Working with input files::    
-* Controlling output::          
-* MIDI output::                 
+* Input structure::
+* Titles and headers::
+* Working with input files::
+* Controlling output::
+* MIDI output::
 @end menu
 
 
@@ -35,9 +34,9 @@ The main format of input for LilyPond are text files.  By convention,
 these files end with @code{.ly}.
 
 @menu
-* Structure of a score::        
-* Multiple scores in a book::   
-* File structure::              
+* Structure of a score::
+* Multiple scores in a book::
+* File structure::
 @end menu
 
 
@@ -333,224 +332,6 @@ A multi-line comment delimited by @code{%@{ .. %@}}.
 
 Learning Manual:
 @rlearning{How LilyPond input files work}.
-
-@node Useful concepts and properties
-@section Useful concepts and properties
-
-
-@menu
-* Input modes::                 
-* Direction and placement::     
-* Distances and measurements::  
-* Spanners::                    
-@end menu
-
-@node Input modes
-@subsection Input modes
-
-The way in which the notation contained within an input file is
-interpreted is determined by the current input mode.
-
-@strong{Chord mode}
-
-This is activated with the @code{\chordmode} command, and causes
-input to be interpreted with the syntax of chord notation, see
-@ref{Chord notation}.  Chords are rendered as notes on a staff.
-
-Chord mode is also activated with the @code{\chords} command.
-This also creates a new @code{ChordNames} context and
-causes the following input to be interpreted with the syntax of
-chord notation and rendered as chord names in the @code{ChordNames}
-context, see @ref{Printing chord names}.
-
-@strong{Drum mode}
-
-This is activated with the @code{\drummode} command, and causes
-input to be interpreted with the syntax of drum notation, see
-@ref{Basic percussion notation}.
-
-Drum mode is also activated with the @code{\drums} command.
-This also creates a new @code{DrumStaff} context and causes the
-following input to be interpreted with the syntax of drum notation
-and rendered as drum symbols on a drum staff, see @ref{Basic
-percussion notation}.
-
-@strong{Figure mode}
-
-This is activated with the @code{\figuremode} command, and causes
-input to be interpreted with the syntax of figured bass, see
-@ref{Entering figured bass}.
-
-Figure mode is also activated with the @code{\figures} command.
-This also creates a new @code{FiguredBass} context and causes the
-following input to be interpreted with the figured bass syntax
-and rendered as figured bass symbols in the @code{FiguredBass}
-context, see @ref{Introduction to figured bass}.
-
-@strong{Fret and tab modes}
-
-There are no special input modes for entering fret and tab symbols.
-
-To create tab diagrams, enter notes or chords in note mode and
-render them in a @code{TabStaff} context, see
-@ref{Default tablatures}.
-
-To create fret diagrams above a staff, enter them as markup
-above the notes using the @code{\fret-diagram} command, see
-@ref{Fret diagrams}.
-
-@strong{Lyrics mode}
-
-This is activated with the @code{\lyricmode} command, and causes
-input to be interpreted as lyric syllables with optional durations
-and associated lyric modifiers, see @ref{Vocal music}.
-
-Lyric mode is also activated with the @code{\addlyrics} command.
-This also creates a new @code{Lyrics} context and an implicit
-@code{\lyricsto} command which associates the following lyrics
-with the preceding music.
-
-@strong{Markup mode}
-
-This is activated with the @code{\markup} command, and causes
-input to be interpreted with the syntax of markup, see
-@ref{Text markup commands}.
-
-@c silly work-around for texinfo broken-ness
-@c (@strong{Note...} causes a spurious cross-reference in Info)
-@b{Note mode}
-
-This is the default mode or it may be activated with the
-@code{\notemode} command.  Input is interpreted as pitches,
-durations, markup, etc and typeset as musical notation on a staff.
-
-It is not normally necessary to specify note mode explicitly, but
-it may be useful to do so in certain situations, for example if you
-are in lyric mode, chord mode or any other mode and want to insert
-something that only can be done with note mode syntax.
-
-For example, to indicate dynamic markings for the verses of a
-choral pieces it is necessary to enter note mode to interpret
-the markings:
-
-@lilypond[verbatim,relative=2,quote]
-{ c4 c4 c4 c4 }
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic f 1. } }
-  To be sung loudly
-}
-\addlyrics {
-  \notemode{\set stanza = \markup{ \dynamic p 2. } }
-  To be sung quietly
-}
-@end lilypond
-
-
-
-@node Direction and placement
-@subsection Direction and placement
-
-In typesetting music the direction and placement of many items is
-a matter of choice.  For example, the stems of notes can
-be directed up or down; lyrics, dynamics, and other expressive
-marks may be placed above or below the staff; text may be aligned
-left, right or center; etc.  Most of these choices may be left to
-be determined automatically by LilyPond, but in some cases it may
-be desirable to force a particular direction or placement.
-
-@strong{Default actions}
-
-By default some directions are always up or always down (e.g.
-dynamics or fermata), while other things can alternate between
-up or down based on the stem direction (like slurs or accents).
-
-@c TODO Add table showing these
-
-@strong{Context layout}
-
-Contexts are positioned in a system from top to bottom in the
-order in which they are encountered.  Note, however, that a
-context will be created implicitly if a command is encountered
-when there is no suitable context available to contain it.
-
-@c TODO Add example ?
-
-The default order in which contexts are laid out can be changed,
-see @ref{Aligning contexts}
-
-@strong{Articulation direction indicators}
-
-When adding articulations to notes the direction indicator,
-@code{^} (meaning @qq{up}), @code{_} (meaning @qq{down}) or
-@code{-} (meaning @qq{use default direction}), can usually be
-omitted, in which case @code{-} is assumed.  But a direction
-indicator is @strong{always} required before
-
-@itemize
-@item @code{\tweak} commands
-@item @code{\markup} commands
-@item @code{\tag} commands
-@item string markups, e.g. -"string"
-@item fingering instructions, e.g. @code{-1}
-@item articulation shortcuts, e.g. @code{-.}, @code{->}, @code{--}
-@end itemize
-
-@strong{The direction property}
-
-The position or direction of many layout objects is controlled
-by the @code{direction} property.
-
-The value of the @code{direction} property may be
-set to @code{1}, meaning @qq{up} or @qq{above}, or to @code{-1},
-meaning @qq{down} or @qq{below}.  The symbols @code{UP} and
-@code{DOWN} may be used instead of @code{1} and @code{-1}
-respectively.  The default direction may be specified by setting
-@code{direction} to @code{0} or @code{CENTER}.  Alternatively,
-in many cases predefined commands
-exist to specify the direction.  These are all of the form
-
-@noindent
-@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
-
-@noindent
-where @code{xxxNeutral} means @qq{use the default direction}.
-See @rlearning{Within-staff objects}.
-
-In a few cases, arpeggio being the only common example, the value
-of the @code{direction} property specifies whether the object
-is to be placed to the right or left of the parent object.  In
-this case @code{-1} or @code{LEFT} means @qq{to the left} and
-@code{1} or @code{RIGHT} means @qq{to the right}.  @code{0}
-or @code{CENTER} means @qq{use the default} direction, as before.
-
-@ignore
-These all have side-axis set to #X
-AmbitusAccidental - direction has no effect
-Arpeggio - works
-StanzaNumber - not tried
-TrillPitchAccidental - not tried
-TrillPitchGroup - not tried
-@end ignore
-
-
-
-@node Distances and measurements
-@subsection Distances and measurements
-
-DISCUSS after working on other sections.
-
-TODO: staff spaces.  Maybe move into tweaks?
-
-
-@node Spanners
-@subsection Spanners
-
-Many objects of musical notation extend over several notes or even
-several bars.  Examples are crescendi, trills, tuplet brackets, and
-volta repeat brackets.  Such objects are called @qq{spanners}, and
-have special properties to control their appearance and behaviour.
-Some of these properties are common to all spanners; others are
-restricted to a sub-set of the spanners.
 
 @node Titles and headers
 @section Titles and headers
@@ -1189,8 +970,8 @@ lilypond file.ly >display.txt
 @section Controlling output
 
 @menu
-* Extracting fragments of music::  
-* Skipping corrected music::    
+* Extracting fragments of music::
+* Skipping corrected music::
 @end menu
 
 @node Extracting fragments of music
