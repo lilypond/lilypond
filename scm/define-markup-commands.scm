@@ -1561,10 +1561,17 @@ the possible glyphs.
   \\musicglyph #\"clefs.G_change\"
 }
 @end lilypond"
-  (ly:font-get-glyph
-   (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
-				   props))
-   glyph-name))
+
+  (let* ((font (ly:paper-get-font layout
+				  (cons '((font-encoding . fetaMusic)
+					  (font-name . #f))
+					
+						 props)))
+	 (glyph (ly:font-get-glyph font glyph-name)))
+    (if (null? (ly:stencil-expr glyph))
+	(ly:warning (_ "Cannot find glyph ~a") glyph-name))
+
+    glyph))
 
 (define-builtin-markup-command (lookup layout props glyph-name)
   (string?)
