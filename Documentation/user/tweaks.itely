@@ -836,7 +836,7 @@ to the front of these values when they are entered in the
   @tab @code{2.5}, @code{0.34}
 @item Direction
   @tab A valid direction constant or its numerical equivalent
-  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP},
+  @tab @code{LEFT}, @code{CENTER}, @code{UP},
        @code{1}, @code{-1}
 @item Integer
   @tab A positive whole number
