@@ -53,10 +53,11 @@ This section introduces different ways of adding text to a score.
 @cindex Text scripts
 @cindex text items, non-empty
 @cindex non-empty texts
+@cindex quoted text
 
-It is possible to add arbitrary text indications
+Simple @q{quoted text} indications may be added
 to a score, as demonstrated in the following example.
-Such indications can also be manually placed
+Such indications can be manually placed
 above or below the staff, using the
 simple syntax described in @ref{Direction and
 placement}.
@@ -65,8 +66,7 @@ placement}.
 d8^"pizz." e f g a4-"scherz." f
 @end lilypond
 
-In LilyPond, such text strings are called @command{markup}
-objects.  This syntax is actually a shorthand; more complex text
+This syntax is actually a shorthand; more complex text
 formatting may be added to a note by explicitly using a
 @code{\markup} block, as described in @ref{Formatting text}.
 
@@ -229,9 +229,7 @@ Snippets:
 Internals Reference: @rinternals{RehearsalMark}.
 
 @knownissues
-@c  IMO this is a bug; hopefully it'll be fixed soon, so I can
-@c  delete this sentence.   -gp
-@c  A workaround is suggested in the first @snippets item -vv
+@c  To be removed when Issue 69 in the tracker gets fixed. -vv
 
 If a mark is entered at the end of the last bar of the score (where
 there is no next line), then the mark will not be printed at
@@ -283,7 +281,6 @@ use LilyPond as a word processor.  This syntax is described in
 
 @predefined
 
-@funindex \markup
 @code{\markup},
 @funindex \markuplines
 @code{\markuplines}
@@ -329,6 +326,7 @@ using the @code{\markup} mode specific syntax.
 @cindex text markup
 @cindex markup text
 @cindex typeset text
+@funindex \markup
 
 A @code{\markup} block is used to typeset text with an extensible
 specific syntax called @qq{markup mode}.
@@ -340,15 +338,10 @@ The markup syntax is similar to LilyPond's usual syntax: a
 @code{\markup} expression is enclosed in curly braces @code{@{
 @dots{} @}}.
 
-In markup mode, specific commands are entered using the backslash
-@code{\} character.  Such commands only affect the first following
-expression.
-
-Markup expressions may also be enclosed in double quotes
-@code{"..."}. Such expressions are treated as text strings
-and may not contain nested expressions or commands.
-Therefore, braces are generally prefered to double quotes;
-the following example demonstrates both syntaxes.
+Unlike simple @q{quoted text} indications, @code{\markup} blocks
+may contain nested expressions or specific commands,
+entered using the backslash @code{\} character.
+Such commands only affect the first following expression.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 e1-\markup "intenso"
@@ -364,11 +357,12 @@ c
 @cindex markup mode, special characters
 @cindex reserved characters, printing
 @cindex printing special characters
+@cindex quoted text in markup mode
 
-Special characters such as @code{\} and @code{#}
-can be printed in the output simply using double
-quotes.  Double quotation marks are only printed
-in the output when preceded by backslashes:
+A @code{\markup} block may also contain quoted text, which
+can be useful to print special characters (such as @code{\} and @code{#}).
+Quoted text even allows to print double quotation marks, by preceding
+them with backslashes:
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \clef bass
@@ -389,7 +383,7 @@ c1^\markup { \line { a b c } }
 @end lilypond
 
 Lists of words that are not enclosed with double quotes
-or preceded by a previous command are not kept distinct.  In
+or preceded by a command are not kept distinct.  In
 the following example, the first two @code{\markup} expressions
 are equivalent:
 
@@ -432,118 +426,121 @@ Init files: @file{scm/@/new@/-markup@/.scm}.
 
 @knownissues
 
-@c FIXME: this is totally deprecated, isn't it? -vv
-Kerning or generation of ligatures is only done when the @TeX{}
-backend is used.  In this case, LilyPond does not account for them
-so texts will be spaced slightly too wide.
-
-@c is the following sentence really relevant? -vv
 Syntax errors for markup mode are confusing.
 
 
 @node Common markup commands
 @subsubsection Common markup commands
 
-Some basic formatting can be used blah blah
-
-
-
-@ignore
-TODO: here are some commands that could be described here.
-I'm putting them in bulk, prior to working on this section. -vv
-
-\simple
-
-\char
-\fraction
-
-\combine
-\concat
-\put-adjacent
-
-
-\page-ref (see also "Table of contents")
-\fromproperty
-\verbatim-file
-\with-url
-
-\on-the-fly 
-\override
-
-
-\null
-\hspace
-
-\lower
-\raise 
-\translate 
-\translate-scaled
-\rotate
-\transparent
-\whiteout
-
-@end ignore
-
-
+Markup text may be formatted using simple commands.
 
 @cindex font switching
+@funindex \italic
+@funindex \bold
+@funindex \underline
 
-Some font switching commands are demonstrated here.
+Basic font switching is supported:
 
-\italic 
-\upright
-\bold 
-\medium	
-\underline
-	
+@lilypond[quote,verbatim,relative=2]
+{
+  d1^\markup { 
+      \bold { Più mosso } 
+      \italic { non troppo \underline Allegro } 
+    }
+  r2 r4 r8
+  d,_\markup { \italic quasi \smallCaps Tromba }
+  f1 d2 r
+}
+@end lilypond
 
-@c TODO: what's the difference between the following commands? -vv
-\smallCaps	
-\caps 
-\fontCaps
+@cindex font size
+@cindex text size
+@funindex \fontsize
+@funindex \small
+@funindex \large
+@funindex \smaller
+@funindex \larger
+@funindex \magnify
 
+The size of the characters can also be altered in different ways:
+@itemize @bullet
+@item
+the font size can be defined to an absolute value,
 
-Some alternate font families can easily be selected:
+@item
+predefined commands allow to easily select standard sizes,
 
-\sans
-\typewriter
-\roman
-\number (only for numbers, such as fingerings and time signatures)
-@c TODO: add \slashed-digit here? -vv
+@item
+other commands allow to change the size relatively to its previous value.
+@end itemize
 
-The size can be blah blah blah
+@noindent
+The following example demonstrates these three methods:
 
-\fontsize
+@lilypond[quote,verbatim,relative=2]
+{
+  f1^\markup { \fontsize #5 Sinfonia } 
+  a,_\markup { 
+         \tiny espressivo
+         \large e
+         \normalsize intenso 
+         }
+  bes^\markup { (con 
+         \larger grande 
+         \smaller emozione 
+         \magnify #0.6 {e sentimento } )
+         }
+  d c2 r8 c bes a g1
+}
+@end lilypond
 
-Some predefined font sizes can be used blah blah
+@cindex subscript
+@cindex superscript
+@funindex \super
+@funindex \sub
 
-\teeny
-\tiny
-\small	
-\normalsize
-\large
-\huge
+Text may be printed as subscript or superscript. By default
+these are printed in a smaller size, but a normal size can be used as well:
 
-Some shorcuts allow to change the font size relatively to its previous value 
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line { 1 \super st movement }
+    \line { 1 \normal-size-super st movement 
+      \sub { (part two) }  }
+  }
+}
+@end lilypond
 
-\smaller
-\bigger
-\larger
+The markup mode provides an easy way to select alternate
+font families.  The default serif font, of roman type, is automatically
+selected unless specified otherwise: on the last line of the following example,
+there is no difference between the first word and the following words.
 
-\magnify
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line { Act \number 1 }
+    \line { \sans { Scene I. } }
+    \line { \typewriter { Verona. An open place. } }
+    \line { \roman Enter Valentine and Proteus. }
+  }
+}
+@end lilypond
 
-Text may be printed as subscript or superscript:
+It is also possible to defined custom sets of fonts, as explained in
+@ref{Fonts}.
 
-\sub 
-\super
+@noindent
+An exhaustive list of font-switching, font-size and font-families related
+commands can be found in @ref{Font}.
 
-To obtain subscripts or superscripts in a normal text size, use
-\normal-size-sub
-\normal-size-super
+@knownissues
+When used inside a word, some of these commands may produce an unwanted
+blank space.  This can easily be solved by concatenating the text
+elements together, using a specific command
+described in @ref{Text alignment}.
 
-All these settings (except the size) can be reverted to the default font:
-
-\normal-text 
 
 
 @node Text alignment
@@ -614,6 +611,44 @@ Alignment inside a "large" markup:
 \wordwrap-field
 \wordwrap
 \wordwrap-string
+
+
+@ignore
+TODO: here are some commands that could be described here.
+I'm putting them in bulk, prior to working on this section. -vv
+
+\simple
+
+\char
+\fraction
+
+\combine
+\concat
+\put-adjacent
+
+
+\page-ref (see also "Table of contents")
+\fromproperty
+\verbatim-file
+\with-url
+
+\on-the-fly 
+\override
+
+
+\null
+\hspace
+
+\lower
+\raise 
+\translate 
+\translate-scaled
+\rotate
+\transparent
+\whiteout
+
+@end ignore
+
 
 @node Graphic notation inside markup
 @subsubsection Graphic notation inside markup
@@ -750,9 +785,6 @@ Snippets:
 @code{\markuplines}
 
 
-
-@c TODO: move the following subsubsec into NR3 -vv
-@c maybe.  -gp
 @node Fonts
 @subsection Fonts
 
