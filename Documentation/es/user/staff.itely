@@ -11,7 +11,7 @@
 @node Staff notation
 @section Staff notation
 
-staff = singular, staves = plural
+@lilypondfile[quote]{staff-headword.ly}
 
 @menu
 * Displaying staves::           
@@ -260,7 +260,7 @@ c4^\markup {
 @end lilypond
 
 @noindent
-Consulte @ref{Text markup} para ver más detalles.
+Consulte @ref{Formatting text} para ver más detalles.
 
 
 @seealso

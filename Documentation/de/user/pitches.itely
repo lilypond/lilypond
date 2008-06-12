@@ -11,6 +11,8 @@
 @node Pitches
 @section Pitches
 
+@lilypondfile[quote]{pitches-headword.ly}
+
 This section discusses how to specify the pitch of notes.
 
 @menu

@@ -11,6 +11,8 @@
 @node Rhythms
 @section Rhythms
 
+@lilypondfile[quote]{rhythms-headword.ly}
+
 This section discusses rhythms, durations, and bars.
 
 @menu

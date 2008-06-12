@@ -830,9 +830,6 @@ instrument (or vocal) groups.
 @ruser{Input syntax}:
 
 @item
-@ruser{Non-musical notation}:
-
-@item
 @ruser{Spacing issues}:
 discusses issues which affect the global output, such as selecting
 paper size or specifying page breaks.
@@ -856,7 +853,7 @@ contains a set of useful reference books for those who wish to
 know more on notation and engraving.
 
 @item
-@rlearning{Scheme tutorial}:
+@ref{Scheme tutorial}:
 presents a short introduction to Scheme, the programming
 language that music functions use.
 
@@ -866,7 +863,7 @@ are a set of tables showing the chord names, MIDI instruments, a
 list of color names, and the Feta font.
 
 @item
-@rlearning{Templates}:
+@ref{Templates}:
 of LilyPond pieces.  Just cut and paste a
 template into a file, add notes, and you're done!
 

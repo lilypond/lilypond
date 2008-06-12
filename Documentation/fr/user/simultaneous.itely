@@ -14,6 +14,8 @@
 @node Simultaneous notes
 @section Simultaneous notes
 
+@lilypondfile[quote]{simultaneous-headword.ly}
+
 La notion musicale de polyphonie fait référence au fait d'avoir plus
 d'une voix simultanément dans une pièce.  Dans LilyPond, la notion de
 polyphonie fait référence au fait d'avoir plus d'une voix sur la même

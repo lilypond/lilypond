@@ -11,6 +11,8 @@
 @node Simultaneous notes
 @section Simultaneous notes
 
+@lilypondfile[quote]{simultaneous-headword.ly}
+
 Polyphonie bedeutet in der musikalischen Terminologie das
 Vorhandensein von mehr als einer (eigenständigen) Stimme 
 in einem Stück. Für LilyPond bedeutet es aber das Vorhandensein 

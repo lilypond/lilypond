@@ -11,6 +11,8 @@
 @node Expressive marks
 @section Expressive marks
 
+@lilypondfile[quote]{expressive-headword.ly}
+
 @menu
 * Attached to notes::           
 * Curves::                      

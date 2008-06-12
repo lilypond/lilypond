@@ -271,7 +271,7 @@ Imprimir una barra de compás @code{:|}
 @item @code{(volta @var{texto})}
 Imprimir un corchete de volta que diga @var{texto} El texto se puede
 especificar como una cadena de texto o como un texto de marcado,
-consulte @ref{Text markup}.  No olvide cambiar la fuente tipográfica,
+consulte @ref{Formatting text}.  No olvide cambiar la fuente tipográfica,
 porque el tipo por defecto para los números no contiene caracteres
 alfabéticos;
 

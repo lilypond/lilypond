@@ -316,8 +316,8 @@ if this column is the start of a system.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "The thickness of the tie or slur
 contour.")
-     (long-text ,markup? "Text markup.  See @ruser{Text
-markup}.")
+     (long-text ,markup? "Text markup.  See @ruser{Formatting
+text}.")
 
      (max-beam-connect ,integer? "Maximum number of beams to connect
 to beams from this stem.  Further beams are typeset as beamlets.")
@@ -522,7 +522,7 @@ through flag on.")
 typeset.  Valid choices depend on the @code{stencil} callback reading
 this property.")
 
-     (text ,markup? "Text markup.  See @ruser{Text markup}.")
+     (text ,markup? "Text markup.  See @ruser{Formatting text}.")
 ;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
 words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew

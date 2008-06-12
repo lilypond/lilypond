@@ -11,6 +11,8 @@
 @node Text
 @section Text
 
+@lilypondfile[quote]{text-headword.ly}
+
 Esta sección explica cómo incluir texto (con diversos estilos de formateo) en las
 partituras.
 
@@ -20,25 +22,10 @@ sencillamente
 inserte los caracteres directamente en el archivo de lilypond.  El archivo se debe
 guardar como UTF-8.  Para ver más información, consulte @ref{Text encoding}.
 
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
 @menu
 * Writing text::                
-* Text markup::                 
+* Formatting text::             
+* Fonts::                       
 @end menu
 
 
@@ -60,7 +47,7 @@ c'4^\markup { bla \bold bla }
 @cindex texto, elementos no vacíos de
 @cindex no vacíos, textos
 
-Es posible colocar cadenas de texto arbitrarias o @ref{Text markup},
+Es posible colocar cadenas de texto arbitrarias o @ref{Formatting text},
 encima o debajo de las notas utilizando una cadena @code{c^"texto"}.  Por omisión,
 estas indicaciones no influyen sobre el espaciado de las notas, pero si se utiliza la
 instrucción @code{\textLengthOn}, las anchuras se tendrán en cuenta
@@ -80,7 +67,7 @@ c'4^\markup { bla \bold bla }
 @end lilypond
 
 La instrucción @code{\markup} se describe con más detalle en
-@ref{Text markup}.
+@ref{Formatting text}.
 
 
 @predefined
@@ -104,7 +91,7 @@ dichos cálculos; para habilitarlo, utilice
 
 @seealso
 
-En este manual: @ref{Text markup}.
+En este manual: @ref{Formatting text}.
 
 Referencia del programa: @rinternals{TextScript}.
 
@@ -473,14 +460,13 @@ boxf = \markup{ \bracket { \dynamic f } }
 
 
 
-@node Text markup
-@subsection Text markup
+@node Formatting text
+@subsection Formatting text
 
 @menu
 * Text markup introduction::    
 * Nested scores::               
 * Page wrapping text::          
-* Font selection::              
 @end menu
 
 @node Text markup introduction
@@ -664,6 +650,7 @@ a una expresión de marcado.  Dicha partitura debe contener un bloque
 
 @node Page wrapping text
 @subsubsection Page wrapping text
+
 Dondequiera que se utilice @code{\markup} para escribir un bloque de texto que no se deba dividir,
 se puede usar @code{\markuplines} en el nivel superior del código para introducir líneas de texto
 que se pueden extender sobre varias páginas:
@@ -697,8 +684,9 @@ En este manual: @ref{Text markup list commands},
 @funindex \markuplines
 @code{\markuplines}
 
-@node Font selection
-@subsubsection Font selection
+
+@node Fonts
+@subsection Fonts
 
 @cindex fuente tipográfica, selección de la
 @cindex fuente tipográfica, ampliación

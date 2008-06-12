@@ -14,7 +14,12 @@
 @node Staff notation
 @section Staff notation
 
-staff = singular, staves = plural
+@lilypondfile[quote]{staff-headword.ly}
+
+Cette section aborde les détails de gravure de la portée, la
+réalisation de partitions avec plusieurs portées et l'ajout
+d'indications globales d'exécution, présentes sur certaines portées
+seulement.
 
 @menu
 * Displaying staves::           
@@ -172,7 +177,7 @@ comme sur l'exemple suivant :
 
 Référence du programme : @rinternals{StaffSymbol}.
 
-D'autres exemples : @lsrdir{staff}.
+D'autres exemples : @rlsr{Staff notation}.
 
 
 @node Hiding staves
@@ -280,7 +285,7 @@ c4^\markup {
 @end lilypond
 
 @noindent
-Pour plus de détails, voir @ref{Text markup}.
+Pour plus de détails, voir @ref{Formatting text}.
 
 
 @seealso

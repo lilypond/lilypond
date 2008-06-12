@@ -14,6 +14,8 @@
 @node Rhythms
 @section Rhythms
 
+@lilypondfile[quote]{rhythms-headword.ly}
+
 This section discusses rhythms, durations, and bars.
 
 @menu
@@ -457,7 +459,7 @@ R1*2 | R1*5 | R1*9
 @cindex point d'orgue et silence multi-measures
 
 Vous pouvez aussi ajouter du texte à un silence multi-mesures en utilisant
-la syntaxe @var{note}-@code{markup} (cf. @ref{Text markup}).  La
+la syntaxe @var{note}-@code{markup} (cf. @ref{Formatting text}).  La
 variable @code{\fermataMarkup} permet d'ajouter un point d'orgue.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
@@ -1261,7 +1263,7 @@ c4 c c c
 
 Référence du programme : @rinternals{BarNumber}.
 
-Exemples : @lsrdir{staff}
+Exemples : @rlsr{Staff notation}.
 
 
 @knownissues

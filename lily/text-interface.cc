@@ -137,7 +137,7 @@ Text_interface::is_markup_list (SCM x)
 
 
 ADD_INTERFACE (Text_interface,
-	       "A Scheme markup text, see @ruser{Text markup} and"
+	       "A Scheme markup text, see @ruser{Formatting text} and"
 	       " @ruser{New markup command definition}.\n"
 	       "\n"
 	       "There are two important commands:"

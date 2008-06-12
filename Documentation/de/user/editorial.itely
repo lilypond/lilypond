@@ -11,6 +11,8 @@
 @node Editorial annotations
 @section Editorial annotations
 
+@lilypondfile[quote]{editorial-headword.ly}
+
 @menu
 * Inside the staff::            
 * Outside the staff::           

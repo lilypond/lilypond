@@ -66,7 +66,7 @@ Users are not expected to read this manual from start to finish.
 
 
 * Music Glossary: information about the music notation itself.
-  Explainations and translations about notation terms go here.
+  Explanations and translations about notation terms go here.
 
 Users are not expected to read this manual from start to finish.
 
@@ -135,6 +135,20 @@ main docs
   Pitches).  A first-level section may have introductory material,
   but other than that all material goes into third-level sections
   (ie 1.1.1 Writing Pitches).
+
+
+%%%%% CHECKING CROSS-REFERENCES
+
+Cross-references between different manuals are heavily used in the
+documentation, but they are not checked during compilation.  However,
+if you compile the documentation, a script called check_texi_refs can
+help you with checking and fixing these cross-references; for
+information on usage, cd into a source tree where documentation has
+been built, cd into Documentation and look for check-xrefs and
+fix-xrefs targets in 'make help' output.  Note that you have to find
+yourself the source files to fix cross-references in the generated
+documentation such as the Internals Reference; e.g. you can grep
+scm/ and lily/.
 
 
 %%%%% GENERAL WRITING
