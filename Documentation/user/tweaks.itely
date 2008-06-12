@@ -3071,8 +3071,8 @@ For example, if we wished to change the metronome setting in order
 to simulate a fermata in the MIDI output we would not want the
 metronome markings to appear in the printed output, and we would
 not want it to influence the spacing between the two systems or
-the spacing of the notes on the staff.  So setting its
-@code{stencil} property to @code{#f} would be the best way.
+the positions of adjacent annotations on the staff.  So setting
+its @code{stencil} property to @code{#f} would be the best way.
 We show here the effect of the two methods:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -3082,12 +3082,30 @@ We show here the effect of the two methods:
     \tempo 4=120
     a4 a a
     \once \override Score.MetronomeMark #'transparent = ##t
-    % Invisible tempo marking to lengthen fermata note in MIDI
+    % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a\fermata
-    \once \override Score.MetronomeMark #'stencil = ##f
-    % Invisible tempo marking to restore tempo in MIDI
+    % New tempo for next section
+    \tempo 4=100
+    a a a a
+  }
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \relative c'' {
+    % Visible tempo marking
     \tempo 4=120
+    a4 a a
+    \once \override Score.MetronomeMark #'stencil = ##f
+    % Invisible tempo marking to lengthen fermata in MIDI
+    \tempo 4=80
+    a\fermata
+    % New tempo for next section
+    \tempo 4=100
     a a a a
   }
   \layout { }
@@ -3096,10 +3114,11 @@ We show here the effect of the two methods:
 @end lilypond
 
 @noindent
-Both methods remove the metronome mark from the printed output,
-and both affect the MIDI timing as required, but the first
-(transparent) metronome mark still influences the note spacing
-while the second (with no stencil) does not.
+Both methods remove the metronome mark which lengthens the fermata
+from the printed output, and both affect the MIDI timing as 
+required, but the transparent metronome mark in the first line
+forces the following tempo indication too high while the
+second (with the stencil removed) does not.
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
