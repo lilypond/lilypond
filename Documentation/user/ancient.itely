@@ -105,46 +105,59 @@ There is limited support for figured bass notation from the Baroque period:
 * Ancient time signatures::     
 @end menu
 
+
 @node Ancient note heads
 @subsubsection Ancient note heads
 
 @cindex note heads, ancient
 
-For ancient notation, a note head style other than the @code{default}
-style may be chosen.  This is accomplished by setting the @code{style}
-property of the @rinternals{NoteHead} object to @code{baroque},
-@code{neomensural}, @code{mensural} or @code{petrucci}.  The
-@code{baroque} style differs from the @code{default} style only in
-using a square shape for @code{\breve} note heads.  The
-@code{neomensural} style differs from the @code{baroque} style in that
-it uses rhomboidal heads for whole notes and all smaller durations.
-Stems are centered on the note heads.  This style is particularly
-useful when transcribing mensural music, e.g., for the incipit.  The
-@code{mensural} style produces note heads that mimic the look of note
-heads in historic printings of the 16th century.  Finally, the
-@code{petrucci} style also mimics historic printings, but uses bigger
-note heads.
+For ancient notation, a note head style other than the @code{default} style
+may be chosen.  This is accomplished by setting the @code{style} property of
+the @rinternals{NoteHead} object to @code{baroque}, @code{neomensural},
+@code{mensural} or @code{petrucci}.
 
-The following example demonstrates the @code{neomensural} style
+The @code{baroque} style differs from the @code{default} style by:
+
+@itemize 
+@item Providing a @code{maxima} notehead, and
+@item Using a square shape for @code{\breve} note heads.
+@end itemize
+
+The @code{neomensural}, @code{mensural}, and @code{petrucci} styles differ from
+the @code{baroque} style by:
+
+@itemize
+@item Using rhomboidal heads for semibreves and all smaller durations, and
+@item Centering the stems on the note heads.
+@end itemize
+
+The @code{mensural} and @code{petrucci} styles aim to emulate the appearance
+of historic printed music.  The @code{petrucci} style uses larger note
+heads.
+
+The following example demonstrates the @code{petrucci} style
+
+@c Renaissance music doesn't use bar lines ... but they do help to
+@c separate the notes for easier identification.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
-\override NoteHead #'style = #'neomensural
-a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
+\autoBeamOff
+\override NoteHead #'style = #'petrucci
+a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 @end lilypond
 
-When typesetting a piece in Gregorian Chant notation, the
-@rinternals{Gregorian_ligature_engraver} will automatically select
-the proper note heads, so there is no need to explicitly set the
-note head style.  Still, the note head style can be set, e.g., to
-@code{vaticana_punctum} to produce punctum neumes.  Similarly, a
-@rinternals{Mensural_ligature_engraver} is used to automatically
-assemble mensural ligatures.  See @ref{Ligatures}, for how ligature
-engravers work.
+When typesetting a piece in Gregorian chant notation, the
+@rinternals{Gregorian_ligature_engraver} automatically selects the proper
+note heads, so there is no need to explicitly set the note head style. 
+Still, the note head style can be set, e.g., to @code{vaticana_punctum} to
+produce punctum neumes.  Similarly, the
+@rinternals{Mensural_ligature_engraver} automatically assembles mensural
+ligatures.  See @ref{Ligatures}, for how ligature engravers work.
 
 @seealso
 
-@ref{Note head styles}, gives an overview over all available note head styles.
+@ref{Note head styles}, gives an overview of all available note head styles.
 
 
 @node Ancient accidentals
@@ -152,10 +165,8 @@ engravers work.
 
 @cindex accidentals
 
-
-Use the @code{glyph-name-alist} property of grob
-@rinternals{Accidental} and @rinternals{KeySignature} to select
-ancient accidentals.
+Use the @code{glyph-name-alist} property of grob @rinternals{Accidental} and
+@rinternals{KeySignature} to select ancient accidentals.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -462,16 +473,14 @@ historic style hufnagel combined do/fa clef
 @end lilypond
 @end multitable
 
+@emph{Modern} or @emph{Neo-mensural style} means @qq{as is typeset in
+modern editions of transcribed mensural music.}
 
-
-@emph{Modern style} means @qq{as is typeset in contemporary editions of
-transcribed mensural music.}
-
-@emph{Petrucci style} means @qq{inspired by printings published by the
-famous engraver Petrucci (1466-1539).}
+@emph{Petrucci style} means @qq{inspired by music published by the famous
+engraver Petrucci (1466-1539).}
 
 @emph{Historic style} means @qq{as was typeset or written in historic
-editions (other than those of Petrucci).}
+editions other than those of Petrucci.}
 
 @emph{Editio XXX style} means @qq{as is/was printed in Editio XXX.}
 
@@ -528,17 +537,18 @@ staff lines.  This may not always be true when using advanced layout
 features of classical notation (which however are typically out of
 scope for mensural notation).
 
+
 @node Ancient time signatures
 @subsubsection Ancient time signatures
 
+@cindex mensuration sign
 @cindex time signatures
 
-
-There is limited support for mensural time signatures.   The
-glyphs are hard-wired to particular time fractions.  In other words,
-to get a particular mensural signature glyph with the @code{\time n/m}
-command, @code{n} and @code{m} have to be chosen according to the
-following table
+There is limited support for mensuration signs (which are similar to, but
+not exactly the same as time signatures).  The glyphs are hard-wired to
+particular time fractions.  In other words, to get a particular mensuration
+sign with the @code{\time n/m} command, @code{n} and @code{m} have to be
+chosen according to the following table
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -620,13 +630,13 @@ The following examples show the differences in style,
 
 @seealso
 
-This manual: @ref{Time signature}, gives a general introduction to
+Notation Reference: @ref{Time signature}, gives a general introduction to
 the use of time signatures.
 
 @knownissues
 
 Ratios of note durations do not change with the time signature.  For
-example, the ratio of 1 brevis = 3 semibrevis (tempus perfectum) must
+example, the ratio of 1 breve = 3 semibreves (@emph{tempus perfectum}) must
 be made by hand, by setting
 
 @example
@@ -2109,10 +2119,9 @@ fis gis
 ais bis
 @end lilypond
 
-This will treat @emph{every} subsequent accidentals as
-@emph{musica ficta} until it is unset with @code{\set
-suggestAccidentals = ##f}.  A more convenient way is to use
-@code{\once}:
+This will treat @emph{every} subsequent accidental as @emph{musica ficta}
+until it is unset with @code{\set suggestAccidentals = ##f}.  A more
+convenient way is to use @code{\once}:
 
 @lilypond[verbatim,fragment,relative=1]
 fis gis
