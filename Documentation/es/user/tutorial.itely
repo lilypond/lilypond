@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 7fa6057ec3158e579161cfa108e8e731552ed024
+    Translation of GIT committish: e007b6bd3b3328581df4998247fd92d9d66ce07c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -55,7 +55,7 @@ Esta sección le ofrece una introducción básica al trabajo con LilyPond.
 @menu
 * Compiling a file::            
 * Simple notation::             
-* Working on text files::       
+* Working on input files::
 * How to read the manual::      
 @end menu
 
