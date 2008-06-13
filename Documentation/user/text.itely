@@ -445,7 +445,7 @@ Basic font switching is supported:
 {
   d1^\markup { 
       \bold { Più mosso } 
-      \italic { non troppo \underline Allegro } 
+      \italic { non troppo \underline Vivo } 
     }
   r2 r4 r8
   d,_\markup { \italic quasi \smallCaps Tromba }
@@ -488,7 +488,7 @@ The following example demonstrates these three methods:
   bes^\markup { (con 
          \larger grande 
          \smaller emozione 
-         \magnify #0.6 {e sentimento } )
+         \magnify #0.6 { e sentimento } )
          }
   d c2 r8 c bes a g1
 }
@@ -528,12 +528,20 @@ there is no difference between the first word and the following words.
 }
 @end lilypond
 
-It is also possible to defined custom sets of fonts, as explained in
+@noindent
+Some of these font families, used for specific items
+such as numbers or dynamics, do not provide all
+characters, as mentioned in @ref{New dynamic marks} and
+@ref{Manual repeat marks}.
+
+
+Defining custom font sets is also possible, as explained in
 @ref{Fonts}.
 
-@noindent
 An exhaustive list of font-switching, font-size and font-families related
 commands can be found in @ref{Font}.
+
+@c TODO: add @seealso
 
 @knownissues
 When used inside a word, some of these commands may produce an unwanted
@@ -546,43 +554,46 @@ described in @ref{Text alignment}.
 @node Text alignment
 @subsubsection Text alignment
 
+@warning{This subsection discusses how to place text in markup mode,
+inside a @code{\markup} block.  However, markup objects can also
+be moved as a whole using the syntax described in
+@rlearning{Moving objects}.}
 
-Some objects have alignment procedures of their own, which cancel
-out any effects of alignments applied to their markup arguments as
-a whole.  For example, the @rinternals{RehearsalMark} is
-horizontally centered, so using @code{\mark \markup @{ \left-align
-.. @}} has no effect.
-
-In addition, vertical placement is performed after creating the
-text markup object.  If you wish to move an entire piece of
-markup, you need to use the #'padding property or create an
-@q{anchor} point inside the markup (generally with @code{\hspace
-#0}).
+Markup objects can be aligned in different ways.  By default,
+a text indication is aligned on its left edge: in the following
+example, there's no difference between the first and the second
+markup.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\textLengthOn
-c'4^\markup{ \raise #5 "not raised" }
-\once \override TextScript #'padding = #3
-c'4^\markup{ raised }
-c'4^\markup{ \hspace #0 \raise #1.5 raised }
+a1-\markup { poco }
+e'
+a,-\markup { \left-align poco }
+e'
+a,-\markup { \center-align { poco } }
+e'
+a,-\markup { \right-align poco }
 @end lilypond
 
-Some situations (such as dynamic marks) have preset font-related
-properties.  If you are creating text in such situations, it is
-advisable to cancel those properties with @code{normal-text}.  See
-@ref{Text markup commands}, for more details.
-
-
-Alignment basics:
-\left-align
-\center-align
-\right-align
+@c FIXME: \center-align actually doesn't belong here
+@c \center-align vs \column
+@c \center-align vs \hcenter
 
 Horizontal alignment:
 \hcenter
 \general-align
 \halign 
 
+
+\null
+\hspace
+
+\lower
+\raise 
+\translate 
+\translate-scaled
+\rotate
+\transparent
+\whiteout
 
 Vertical alignment: 
 \vcenter
@@ -636,18 +647,16 @@ I'm putting them in bulk, prior to working on this section. -vv
 \override
 
 
-\null
-\hspace
-
-\lower
-\raise 
-\translate 
-\translate-scaled
-\rotate
-\transparent
-\whiteout
 
 @end ignore
+
+
+Some objects have alignment procedures of their own, which cancel
+out any effects of alignments applied to their markup arguments as
+a whole.  For example, the @rinternals{RehearsalMark} is
+horizontally centered, so using @code{\mark \markup @{ \left-align
+.. @}} has no effect.
+
 
 
 @node Graphic notation inside markup
