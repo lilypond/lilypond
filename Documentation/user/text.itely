@@ -463,7 +463,7 @@ Basic font switching is supported:
 @funindex \magnify
 
 The size of the characters can also be altered in different ways:
-@itemize @bullet
+@itemize
 @item
 the font size can be defined to an absolute value,
 
