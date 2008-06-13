@@ -353,31 +353,24 @@ Internals Reference:
 @cindex new dynamic marks
 @cindex dynamic marks, new
 
-It is possible to print new dynamic marks or text that should be
-aligned with dynamics.  Use @code{make-dynamic-script} to create
-these marks.  Note that the dynamic font only contains the
-characters @code{f,m,p,r,s} and @code{z}.
-
-Some situations (such as dynamic marks) have preset font-related
-properties.  If you are creating text in such situations, it is
-advisable to cancel those properties with @code{normal-text}.  See
-@ref{Text markup commands} for more details.
-
-@cindex make-dynamic-script
+The easiest way to create dynamic indications is to use
+@code{\markup} objects.
 
 @lilypond[verbatim,quote]
-sfzp = #(make-dynamic-script "sfzp")
+moltoF = \markup { molto \dynamic f }
+
 \relative c' {
-  c4 c c\sfzp c
+  <d e>16 <d e>
+  <d e>2.._\moltoF
 }
 @end lilypond
 
 @cindex dynamics, editorial
 @cindex dynamics, parenthesis
 
-It is also possible to print dynamics in round parenthesis or
-square brackets.  These are often used for adding editorial
-dynamics.
+Markup mode makes possible, for instance, to add
+editorial dynamics, printed in round parenthesis or square
+brackets.  Its syntax is described in @ref{Formatting text}.
 
 @lilypond[verbatim,quote]
 rndf = \markup { \center-align { \line { \bold { \italic ( }
@@ -389,8 +382,46 @@ boxf = \markup { \bracket { \dynamic f } }
 }
 @end lilypond
 
+Markup objects are treated differently from authentic dynamic marks.
+Defining dynamic objects that will be entered and printed exactly like
+standard dynamic marks is also possible, using the following function:
+
+@cindex make-dynamic-script
+
+@lilypond[verbatim,quote]
+sfzp = #(make-dynamic-script "sfzp")
+\relative c' {
+  c4 c c\sfzp c
+}
+@end lilypond
+
+@noindent
+Note that the dynamic font only contains the characters 
+@code{f,m,p,r,s} and @code{z}.  To switch to other font families,
+it is necessary to use markup mode in its Scheme form, as
+explained in @ref{Markup construction in Scheme}.
+
+@lilypond[verbatim,quote]
+moltoF = #(make-dynamic-script (markup 
+                      #:normal-text "molto"
+                      #:dynamic "f"))
+\relative c' {
+  <d e>16 <d e>
+  <d e>2..\moltoF
+}
+@end lilypond
+
+@noindent
+Font settings in markup mode are described in
+@ref{Common markup commands}.
+
 
 @seealso
+
+Notation Reference:
+@ref{Formatting text},
+@ref{Common markup commands},
+@ref{Markup construction in Scheme}.
 
 Snippets:
 @rlsr{Expressive marks}.
