@@ -194,6 +194,9 @@ larger value is interpreted as 13.
 }
 @end lilypond
 
+@noindent
+Note that @code{c:5} is identical to @code{c}; it produces a C major triad.
+
 Since an unaltered 11 does not sound good when combined with an
 unaltered 13, the 11 is removed from a @code{:13} chord (unless it
 is added explicitly).
@@ -239,8 +242,8 @@ as part of the basic chode structure, add it as an altered step.
 
 @funindex ^
 
-A step to be removed from the chord  must come at the end of a
-modifier string and be prefixed by @code{^}.  Only one removal with @code{^}
+A step to be removed from the chord indicated in a
+modifier string with a prefix of @code{^}.  Only one removal with @code{^}
 is allowed in a modifier string.
 
 @lilypond[quote,verbatim,fragment,relative=1]
@@ -310,6 +313,14 @@ Only one step can be removed from a chord.  If a chord with multiple
 removed steps is desired, it must be built through addition of
 multiple steps.
 
+Only the first inversion can be created by adding a bass note.  The
+second inversion requires changing the root of the chord.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\chordmode {
+  c'1: c':/g e:6-3-^5 e:m6-^5
+}
+@end lilypond
 
 @node Displaying chords
 @subsection Displaying chords
@@ -343,7 +354,7 @@ Chords can be entered as simultaneous notes or through the use of
 chord mode.  The displayed chord name will be the same, regardless
 of the mode of entry, unless there are inversions or added bass notes:
 
-@lilypond[quote,ragged-right,verbatim,relative=1]
+@lilypond[verbatim,quote,relative=1]
 <<
   \new ChordNames {
     <c e g>2  <f bes c>
@@ -383,53 +394,15 @@ of the mode of entry, unless there are inversions or added bass notes:
 
 @snippets
 
-@c TODO -- replace this with a snippet
-Chord names can be displayed only at the start of lines and when
-the chord changes.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{showing-chords-at-changes.ly}
 
-@lilypond[quote,verbatim,ragged-right]
-harmonies = \chordmode {
-  c1:m c:m \break c:m c:m d
-}
-<<
-  \new ChordNames {
-    \set chordChanges = ##t
-    \harmonies
-  }
-  \new Staff {
-    \relative c' { \harmonies }
-  }
->>
-@end lilypond
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@c {adding-bar-lines-to-chordnames-context.ly}
 
-@c TODO -- replace this with a snippet
-To add bar indications in the @code{ChordNames}
-context, add @rinternals{Bar_engraver}.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
 
-@lilypond[ragged-right,verbatim]
-\new ChordNames \with {
-  \override BarLine #'bar-size = #4
-  \consists "Bar_engraver"
-}
-\chordmode {
-  f1:maj7 f:7 bes:7 c:maj7 ees e
-}
-@end lilypond
-
-@c TODO -- replace this with a snippet
-When put together, chord names, a melody, and lyrics form a lead
-sheet:
-
-@lilypond[verbatim,quote,ragged-right]
-<<
-  \chords { c2 g:sus4 f e }
-  \relative c'' {
-    a4 e c8 e r4
-    b2 c4( d)
-  }
-  \addlyrics { One day this shall be free __ }
->>
-@end lilypond
 
 @seealso
 
@@ -563,7 +536,6 @@ and @q{m}.  The spacer is not used when the root is altered.
 
 @snippets
 
-@c TODO fix indentation of snippet -- lots of tabs!
 @cindex exceptions, chord names.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-exceptions.ly}
@@ -578,6 +550,9 @@ and @q{m}.  The spacer is not used when the root is altered.
 @c {volta-brackets-over-chord-names.ly}
 
 @c TODO  convert to snippet
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {changing-chord-separator.ly}
+
 The separator between different parts of a chord name
 can be set to any markup.
 
@@ -704,7 +679,7 @@ In figure mode, a group of bass figures is delimited by
 }
 @end lilypond
 
-Accidentals can be added to figures:
+Accidentals (including naturals) can be added to figures:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
@@ -712,14 +687,25 @@ Accidentals can be added to figures:
 }
 @end lilypond
 
-Plus signs, diminished fifths, and diminished sevenths
-can be notated.
+Augmented and diminished steps can be indicated.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
   <6\+ 5/> <7/>
 }
 @end lilypond
+
+A backward slash through a figure (typically used for raised
+sixth steps) can be created.
+
+@lilypond[verbatim,quote,ragged-right,fragment]
+\figures {
+ <6>
+% broken:
+%  <6\\>
+}
+@end lilypond
+
 
 Vertical spaces and brackets can be be included in figures:
 
@@ -738,42 +724,56 @@ Any text markup can be inserted as a figure:
 }
 @end lilypond
 
+@c TODO We need to include notes any time we use extenders to
+@c avoid extraneous staff creation due to Staff.use... in
+@c \bassFigureExtendersOn
+
 Continuation lines can be used to indicate repeated figures:
 
-@c  \set to be replaced with predefined command once it is
-@c   included in property-init.ly
 @lilypond[verbatim,quote,ragged-right,fragment]
-\figures {
-  \set useBassFigureExtenders = ##t
-  <4 6> <3 6> <3 7>
-}
+<<
+  {
+    \clef bass
+    e d c b,
+    e d c b,
+  }
+  \figures {
+    \bassFigureExtendersOn
+    <4 6> <3 6> <3 7> <3 7>
+    \bassFigureExtendersOff
+    <4 6> <3 6> <3 7> <3 7>
+  }
+>>
 @end lilypond
 
 @noindent
-In this case, the extender lines always replace existing figures.
+In this case, the extender lines replace existing figures,
+unless the continuation lines have been explicitly terminated.
 
-@c @predefined
-
-@c @snippets
-@c  This probably isn't notation, but rather adjusting output.  I guess this
-@c  should be converted to a snippet?  -cds
-Accidentals and plus signs can appear before or after the numbers,
-depending on the @code{figuredBassAlterationDirection} and
-@code{figuredBassPlusDirection}
-properties
-
-@c  TODO Need to set predefined commands for these directions as well. -cs
-@lilypond
+@lilypond[verbatim,quote,ragged-right,fragment]
+<<
   \figures {
-    <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #RIGHT
-    <6\+> <5+> <6 4-> r
-    \set figuredBassPlusDirection = #LEFT
-    <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #LEFT
-    <6\+> <5+> <6 4-> r
+    \bassFigureExtendersOn
+    <4 6> <4 6> <4\! 6\!> <4 6>
   }
+  {
+    \clef bass
+    d d c c
+  }
+>>
 @end lilypond
+
+
+
+@predefined
+@cindex figured bass extender lines
+@code{bassFigureExtendersOn}
+@code{bassFigureExtendersOff}
+
+
+@snippets
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-positions-of-figured-bass-alterations.ly}
 
 @seealso
 @c Music Glossary:
@@ -792,9 +792,9 @@ properties
 @c @file{}.
 
 Snippets:
-@rlsr{Figured Bass}.
+@rlsr{Chords}.
 
-@c Internals Reference:
+Internals Reference:
 @rinternals{NewBassFigure},
 @rinternals{BassFigureAlignment},
 @rinternals{BassFigureLine},
@@ -836,20 +836,44 @@ Figured bass can also be added to @code{Staff} contexts
 directly.  In this case, the vertical position of the
 figures is adjusted automatically.
 
+@c TODO add a second paragraph to show direction change.  First
+@c   example should be UP (default), second should be DOWN.
+
 @c  TODO change to use predefined command once it is added to
 @c  property-init.ly  -cds
 @lilypond[verbatim,ragged-right,fragment,quote]
 <<
   \new Staff = myStaff
   \figuremode {
-    \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
     <4>4 <6 10>8 s8
     <4 6>4 <4 6>
   }
   %% Put notes on same Staff as figures
   \context Staff = myStaff
-  \relative c'' {
-    c4 c'8 r8 c,4 c'
+  {
+    \clef bass
+    c4 c'8 r8 c4 c'
+  }
+>>
+@end lilypond
+
+
+When added in a Staff context, figured bass can be displayed above
+or below the staff.
+
+@lilypond[verbatim,ragged-right,fragment,quote]
+<<
+  \new Staff = myStaff
+  \figuremode {
+    <4>4 <6 10>8 s8
+    \bassFigureStaffAlignmentDown
+    <4 6>4 <4 6>
+  }
+  %% Put notes on same Staff as figures
+  \context Staff = myStaff
+  {
+    \clef bass
+    c4 c'8 r8 c4 c'
   }
 >>
 @end lilypond
@@ -873,9 +897,13 @@ instead of
 @end example
 @end ignore
 
-@c @predefined
+@predefined
+@cindex figured bass alignment
+@code{bassFigureStaffAlignmentDown},
+@code{bassFigureStaffAlignmentUp},
+@code{bassFigureStaffAlignmentNeutral}.
 
-@c @snippets
+@snippets
 
 @seealso
 @c Music Glossary:
@@ -917,7 +945,7 @@ the bass line.
     \repeat unfold 4 {f16. g32} f8. es16 d8 es
   }
   \figures {
-    \set useBassFigureExtenders = ##t
+    \bassFigureExtendersOn
     % The extenders are correct here, with the same rhythm as the bass
     \repeat unfold 4 {<6 4->16. <6 4->32}
     <5>8. r16 <6>8 <6\! 5->
@@ -929,7 +957,7 @@ the bass line.
     \repeat unfold 4 {f16. g32} f8. es16 d8 es
   }
   \figures {
-    \set useBassFigureExtenders = ##t
+    \bassFigureExtendersOn
     % The extenders are incorrect here, even though the timing is the same
     <6 4->4 <6 4->4
     %\repeat unfold 4 {<6 4->16. <6 4->32}
@@ -940,6 +968,7 @@ the bass line.
 
 @c I have no idea what this means -cds
 @c A predefined command for changing this has been proposed -cds
+@c TODO -- put stacking direction snippet here -cds
 When using figured bass above the staff with extender lines and
 @code{implicitBassFigures} the lines may become swapped around.
 Maintaining order consistently will be impossible when multiple figures
