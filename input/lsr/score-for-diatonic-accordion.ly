@@ -55,23 +55,28 @@ editor.
 "
   doctitle = "Score for diatonic accordion"
 } % begin verbatim
-% Created on Sat Aug 17 2007 by ak
 
-verse= \lyricmode { Wie gross bist du! Wie gross bist du! }
+verse = \lyricmode { Wie gross bist du! Wie gross bist du! }
 
-harmonies =  \new ChordNames \chordmode {
-	\germanChords \set chordChanges = ##t
-	bes8 bes8 bes8 es2 f bes1
+harmonies = \new ChordNames \chordmode {
+  \germanChords
+  \set chordChanges = ##t
+	bes8 bes8 bes8
+  es2 f
+  bes1
 }
 
 NoStem = \override Stem #'transparent = ##t
-NoNoteHead= \override NoteHead #'transparent = ##t
+NoNoteHead = \override NoteHead #'transparent = ##t
 ZeroBeam = \override Beam  #'positions = #'(0 . 0)
 
-staffTabLine = \new Staff  \with { \remove "Time_signature_engraver" \remove "Clef_engraver" } {
-	\override Staff.StaffSymbol #'line-positions = #'( 0 ) 
+staffTabLine = \new Staff \with {
+  \remove "Time_signature_engraver"
+  \remove "Clef_engraver"
+} {
+  \override Staff.StaffSymbol #'line-positions = #'(0)
 % Shows one horizontal line. The vertical line (simulating a bar-line) is simulated with a gridline
-	\set Staff.midiInstrument="choir aahs"
+	\set Staff.midiInstrument = #"choir aahs"
 	\key c \major
 	\relative c''
 		{  
@@ -98,16 +103,11 @@ staffTabLine = \new Staff  \with { \remove "Time_signature_engraver" \remove "Cl
 			%	10. re-enable the line \NoNoteHead
 			\autoBeamOff
 			\ZeroBeam 
-			 s8 s s | e[ c c c c c c e] | s s s s s 
+			 s8 s s e[ c c c c c c e] | s s s s s 
 		}
 }
 
 %{
-notePush= {  	e       f	fis	g	a	 c'	c'      d'      ees'	e'	f'	fis'	g'	a'	bes'	c''	c''	d''	ees''	e''	f''	fis''	g''	a''	c'''	c'''	ees'''	e'''	f'''	g'''	a''' }
-tabPush=  {  	g	f	e	b	a	 d'	c'	bisis	disis'	f'	e'	aisis'	a'	g'	fisis'	b'	c''	eisis''	cisis''	e''	d''	gisis''	g''	f''	a''	b''	bisis''	d'''	c'''	f'''	e''' }
-
-notePull= {	g	aes	bes	b	c'	cis'	d'	ees'	e'	f'	fis'	g'	aes'	a'	bes'	b'	c''	cis''	d''	ees''	e''	f''	g''	aes''	a''	bes''	b''	c'''	cis'''	d'''	e''' }
-tabPull=  {	g	e	f	b	a	disis'	d'	bisis	c'	f'	fisis'	e'	aisis'	a'	g'	c''	b'	cisis''	e''	eisis''	d''	g''	f''	gisis''	b''	a''	d'''	f'''	bisis''	c'''	e''' }
 %}
 
 % Accordion melody in tabulator score		
@@ -118,7 +118,7 @@ tabPull=  {	g	e	f	b	a	disis'	d'	bisis	c'	f'	fisis'	e'	aisis'	a'	g'	c''	b'	cisis'
 % Tips:
 % - In jEdit Search & Replace mark the Option 'Keep Dialog'
 
-AccordionTabTwoCBesDur= {	
+AccordionTabTwoCBesDur = {
  % pull 1
  %<f' bes'>8 <f' a'>8 <d' bes'>8 | 
 <g'' a''>8 <g'' b''>8 <e'' a''>8 | 
@@ -230,200 +230,4 @@ staffBassRhytm = \new Staff=staffbass  \with { \remove "Clef_engraver" } {
 		\staffBassRhytm
 	\context Lyrics = "lBassRhytmAboveI" \with {alignAboveContext=staffbass} \lyricsto VoiceBassRhytm \LyricBassRhythmI
 	>>
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%                            APPENDIX                          %
-%     macro 'macro_conv2diaton_push.bsh' for jedit editor      %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%{ 
-// original saved in 'Handorg_Adria_Diaton_III.xls'
-// Save this buffer, to the other recorded macros in the jedit editor
-// and the macro should appear in the
-// Macros menu.
-
-// /ak 17.8.07 This macro from converts lilypond piano notation into 
-// lilypond tabulator notation for the push-part (at the bottom the pull-part) of a diatonic accordion
-// It replaces the piano notes of the line where the cursor is by the accordion notation
-
-
-
-// Known issues: 1) A note at the end of line is not replaced
-
-textArea.goToEndOfWhiteSpace(false);
-textArea.goToStartOfWhiteSpace(true);
-
-
-String firstName, lastName; 
-
-int ReplaceTextInSelection(String sfind, String sreplace)
-{
-//MsgConcat = new StringBuffer(512);
-//MsgConcat.append("Ha");
-
-//Macros.message(view, "On that line replace \"" + sfind + "\" by \"" + sreplace+ "\"");
-SearchAndReplace.setSearchString(sfind.toString());
-SearchAndReplace.setReplaceString(sreplace.toString());
-SearchAndReplace.setBeanShellReplace(false);
-SearchAndReplace.setIgnoreCase(true);
-SearchAndReplace.replace(view);
-SearchAndReplace.setRegexp(true);
-return 1;
-}
-
-
-String smainfind;
-String smainrepl;
-
-
-// Push-part tmp
-smainfind="(\\s|^|<|\\{)(c,)([^\'^is^es])"; smainrepl="$1tmpd\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(cis,)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(des,)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(d,)([^\'^is^es])"; smainrepl="$1tmpbisis-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(dis,)([^\'^is^es])"; smainrepl="$1tmpdisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ees,)([^\'^is^es])"; smainrepl="$1tmpdisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(e,)([^\'^is^es])"; smainrepl="$1tmpg$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(f,)([^\'^is^es])"; smainrepl="$1tmpf$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(fis,)([^\'^is^es])"; smainrepl="$1tmpe$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ges,)([^\'^is^es])"; smainrepl="$1tmpe$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(g,)([^\'^is^es])"; smainrepl="$1tmpb$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(gis,)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(aes,)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(a,)([^\'^is^es])"; smainrepl="$1tmpa$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ais,)([^\'^is^es])"; smainrepl="$1tmpfisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(bes,)([^\'^is^es])"; smainrepl="$1tmpfisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(b,)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(c)([^\'^is^es])"; smainrepl="$1tmpd\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(cis)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(des)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(d)([^\'^is^es])"; smainrepl="$1tmpbisis$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(dis)([^\'^is^es])"; smainrepl="$1tmpdisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ees)([^\'^is^es])"; smainrepl="$1tmpdisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(e)([^\'^is^es])"; smainrepl="$1tmpf\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(f)([^\'^is^es])"; smainrepl="$1tmpe\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(fis)([^\'^is^es])"; smainrepl="$1tmpaisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ges)([^\'^is^es])"; smainrepl="$1tmpaisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(g)([^\'^is^es])"; smainrepl="$1tmpa\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(gis)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(aes)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(a)([^\'^is^es])"; smainrepl="$1tmpg\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ais)([^\'^is^es])"; smainrepl="$1tmpfisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(bes)([^\'^is^es])"; smainrepl="$1tmpfisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(b)([^\'^is^es])"; smainrepl="$1tmpr$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(c\')([^\'^is^es])"; smainrepl="$1tmpb\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(cis\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(des\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(d\')([^\'^is^es])"; smainrepl="$1tmpeisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(dis\')([^\'^is^es])"; smainrepl="$1tmpcisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ees\')([^\'^is^es])"; smainrepl="$1tmpcisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(e\')([^\'^is^es])"; smainrepl="$1tmpe\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(f\')([^\'^is^es])"; smainrepl="$1tmpd\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(fis\')([^\'^is^es])"; smainrepl="$1tmpgisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ges\')([^\'^is^es])"; smainrepl="$1tmpgisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(g\')([^\'^is^es])"; smainrepl="$1tmpg\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(gis\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(as\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(a\')([^\'^is^es])"; smainrepl="$1tmpf\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ais\')([^\'^is^es])"; smainrepl="$1tmpfisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(bes\')([^\'^is^es])"; smainrepl="$1tmpfisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(b\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(c\'\')([^\'^is^es])"; smainrepl="$1tmpa\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(cis\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(des\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(d\'\')([^\'^is^es])"; smainrepl="$1tmpeisis\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(dis\'\')([^\'^is^es])"; smainrepl="$1tmpbisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ees\'\')([^\'^is^es])"; smainrepl="$1tmpbisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(e\'\')([^\'^is^es])"; smainrepl="$1tmpd\'\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(f\'\')([^\'^is^es])"; smainrepl="$1tmpc\'\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(fis\'\')([^\'^is^es])"; smainrepl="$1tmpgisis\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ges\'\')([^\'^is^es])"; smainrepl="$1tmpgisis\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(g\'\')([^\'^is^es])"; smainrepl="$1tmpf\'\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(gis\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(aes\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(a\'\')([^\'^is^es])"; smainrepl="$1tmpe\'\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ais\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(bes\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(b\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-
-smainfind="(\\s|^|<|\\{)(tmp)()"; smainrepl="$1$3"; ReplaceTextInSelection( smainfind, smainrepl );
-*/
-
-/*
-// Pull-part tmp
-smainfind="(\\s|^|<|\\{)(c,)([^\'^is^es])"; smainrepl="$1tmpa-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(cis,)([^\'^is^es])"; smainrepl="$1tmpdisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(des,)([^\'^is^es])"; smainrepl="$1tmpdisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(d,)([^\'^is^es])"; smainrepl="$1tmpd\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(dis,)([^\'^is^es])"; smainrepl="$1tmpbisis-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ees,)([^\'^is^es])"; smainrepl="$1tmpbisis-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(e,)([^\'^is^es])"; smainrepl="$1tmpc\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(f,)([^\'^is^es])"; smainrepl="$1tmpf\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(fis,)([^\'^is^es])"; smainrepl="$1tmpfisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ges,)([^\'^is^es])"; smainrepl="$1tmpfisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(g,)([^\'^is^es])"; smainrepl="$1tmpg$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(gis,)([^\'^is^es])"; smainrepl="$1tmpe$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(aes,)([^\'^is^es])"; smainrepl="$1tmpe$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(a,)([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ais,)([^\'^is^es])"; smainrepl="$1tmpf$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(bes,)([^\'^is^es])"; smainrepl="$1tmpf$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(b,)([^\'^is^es])"; smainrepl="$1tmpb$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(c)([^\'^is^es])"; smainrepl="$1tmpa$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(cis)([^\'^is^es])"; smainrepl="$1tmpdisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(des)([^\'^is^es])"; smainrepl="$1tmpdisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(d)([^\'^is^es])"; smainrepl="$1tmpd\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(dis)([^\'^is^es])"; smainrepl="$1tmpbisis$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ees)([^\'^is^es])"; smainrepl="$1tmpbisis$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(e)([^\'^is^es])"; smainrepl="$1tmpc\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(f)([^\'^is^es])"; smainrepl="$1tmpf\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(fis)([^\'^is^es])"; smainrepl="$1tmpfisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ges)([^\'^is^es])"; smainrepl="$1tmpfisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(g)([^\'^is^es])"; smainrepl="$1tmpe\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(gis)([^\'^is^es])"; smainrepl="$1tmpaisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(aes)([^\'^is^es])"; smainrepl="$1tmpaisis\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(a)([^\'^is^es])"; smainrepl="$1tmpa\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ais)([^\'^is^es])"; smainrepl="$1tmpg\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(bes)([^\'^is^es])"; smainrepl="$1tmpg\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(b)([^\'^is^es])"; smainrepl="$1tmpc\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(c\')([^\'^is^es])"; smainrepl="$1tmpb\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(cis\')([^\'^is^es])"; smainrepl="$1tmpcisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(des\')([^\'^is^es])"; smainrepl="$1tmpcisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(d\')([^\'^is^es])"; smainrepl="$1tmpe\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(dis\')([^\'^is^es])"; smainrepl="$1tmpeisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ees\')([^\'^is^es])"; smainrepl="$1tmpeisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(e\')([^\'^is^es])"; smainrepl="$1tmpd\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(f\')([^\'^is^es])"; smainrepl="$1tmpg\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(fis\')([^\'^is^es])"; smainrepl="$1tmpfisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ges\')([^\'^is^es])"; smainrepl="$1tmpfisis\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(g\')([^\'^is^es])"; smainrepl="$1tmpf\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(gis\')([^\'^is^es])"; smainrepl="$1tmpgisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(aes\')([^\'^is^es])"; smainrepl="$1tmpgisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(a\')([^\'^is^es])"; smainrepl="$1tmpb\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ais\')([^\'^is^es])"; smainrepl="$1tmpa\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(bes\')([^\'^is^es])"; smainrepl="$1tmpa\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(b\')([^\'^is^es])"; smainrepl="$1tmpd\'\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(c\'\')([^\'^is^es])"; smainrepl="$1tmpf\'\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(cis\'\')([^\'^is^es])"; smainrepl="$1tmpbisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(des\'\')([^\'^is^es])"; smainrepl="$1tmpbisis\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(d\'\')([^\'^is^es])"; smainrepl="$1tmpc\'\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(dis\'\')([^\'^is^es])"; smainrepl="$1tmpeisis\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ees\'\')([^\'^is^es])"; smainrepl="$1tmpeisis\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(e\'\')([^\'^is^es])"; smainrepl="$1tmpe\'\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(f\'\')([^\'^is^es])"; smainrepl="$1tmpg\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(fis\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ges\'\')([^\'^is^es])"; smainrepl="$1tmpr-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(g\'\')([^\'^is^es])"; smainrepl="$1tmpf\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(gis\'\')([^\'^is^es])"; smainrepl="$1tmpgisis\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(aes\'\')([^\'^is^es])"; smainrepl="$1tmpgisis\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(a\'\')([^\'^is^es])"; smainrepl="$1tmpb\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(ais\'\')([^\'^is^es])"; smainrepl="$1tmpa\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(bes\'\')([^\'^is^es])"; smainrepl="$1tmpa\'\'$3"; ReplaceTextInSelection( smainfind, smainrepl );
-smainfind="(\\s|^|<|\\{)(b\'\')([^\'^is^es])"; smainrepl="$1tmpd\'\'\'-.$3"; ReplaceTextInSelection( smainfind, smainrepl );
-
-smainfind="(\\s|^|<|\\{)(tmp)()"; smainrepl="$1$3"; ReplaceTextInSelection( smainfind, smainrepl );
-*/
-
-
 %}
-
