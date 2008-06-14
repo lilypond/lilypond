@@ -93,7 +93,7 @@ follows:
 
 @lilypond[verbatim,quote,relative=2]
 c4-^  c-+  c--  c-|
-c->   c-.  c-_
+c4->  c-.  c-_
 @end lilypond
 
 The rules for the default placement of articulations are defined
@@ -175,8 +175,8 @@ be manually placed above or below the staff, see
 
 @lilypond[verbatim,quote,relative=2]
 c2\ppp c\mp
-c\rfz c^\mf
-c_\spp c^\ff
+c2\rfz c^\mf
+c2_\spp c^\ff
 @end lilypond
 
 @cindex hairpin
@@ -243,14 +243,14 @@ that enable these text modes are @code{\setTextCresc},
 revert to hairpins again:
 
 @lilypond[verbatim,quote,relative=2]
-c\< d e f\!
-e\> d c b\!
+c4\< d e f\!
+e4\> d c b\!
 \setTextCresc
-c\< d e f\!
+c4\< d e f\!
 \setTextDecresc
-e\> d c b\!
+e4\> d c b\!
 \setHairpinCresc
-c\< d e f\!
+c4\< d e f\!
 @end lilypond
 
 To create new absolute dynamic marks or text that should be
@@ -287,41 +287,11 @@ Vertical positioning of dynamics is handled by
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {vertically-aligning-dynamics-across-multiple-notes.ly}
 
-@c I can't figure this one out.  Consider removing this.  -pm
-
-@notation{Crescendi} and @notation{decrescendi} that cross a line
-break will be continued on the second line.  If they end on the
-first note of a new line, nothing will be printed on that line.
-To change this behavior, use
-
-@example
-\override Score.Hairpin #'after-line-breaking = ##t
-@end example
-
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {hiding-the-extender-line-for-text-dynamics.ly}
 
-@c The following snippet goes in input/new/
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {changing-text-and-spanner-styles-for-text-dynamics.ly}
-
-The text used for @notation{crescendos} and
-@notation{decrescendos} can be changed by modifying the context
-properties @code{crescendoText} and @code{decrescendoText}.  The
-style of the spanner line can be changed by modifying the
-@code{'style} property of @code{DynamicTextSpanner}.  The default
-value is @code{'hairpin}, and other possible values include
-@code{'line}, @code{'dashed-line}, and @code{'dotted-line}:
-
-@lilypond[verbatim,quote,relative=2]
-\set crescendoText = \markup { \italic "cresc. poco" }
-\set crescendoSpanner = #'text
-\override DynamicTextSpanner #'style = #'dotted-line
-a2\< a
-a2 a
-a2 a
-a2 a\mf
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-text-and-spanner-styles-for-text-dynamics.ly}
 
 
 @seealso
@@ -373,11 +343,11 @@ editorial dynamics, printed in round parenthesis or square
 brackets.  Its syntax is described in @ref{Formatting text}.
 
 @lilypond[verbatim,quote]
-rndf = \markup { \center-align { \line { \bold { \italic ( }
+roundf = \markup { \center-align { \line { \bold { \italic ( }
          \dynamic f \bold { \italic ) } } } }
 boxf = \markup { \bracket { \dynamic f } }
 \relative c' {
-  c1_\rndf
+  c1_\roundf
   c1_\boxf
 }
 @end lilypond
@@ -442,26 +412,46 @@ Snippets:
 
 @cindex slurs
 
-A @notation{slur} indicates that notes are to be played bound or
-@emph{legato}.  They are entered using parentheses:
+@notation{Slurs} are entered using parentheses:
 
 @lilypond[verbatim,quote,relative=2]
-f( g a) a8 b( a4 g2 f4)
+f4( g a) a8 b(
+a4 g2 f4)
 <c e>2( <b d>2)
 @end lilypond
 
-Just as with ties, the direction of a slur can be specified with
-@code{\slur@emph{DIR}}, where @code{@emph{DIR}} is either
-@code{Up}, @code{Down}, or @code{Neutral} (@code{Neutral} is the
-default).  Slurs may be manually placed above or below the staff,
+The direction of a @notation{slur} can be specified with
+@code{\slurUp} or @code{\slurDown}.  The @code{\slurNeutral}
+command reverts back to the default slur direction.
+@notation{Slurs} may be manually placed above or below the staff,
 see @ref{Direction and placement}.
 
 @lilypond[verbatim,quote,relative=2]
-c4_( c) c^( c)
+c2( d)
+\slurDown
+c2( d)
+\slurNeutral
+c2( d)
 @end lilypond
 
-Using this method, only one slur can be printed at once.  To print
-a long slur over a few small slurs, see @ref{Phrasing slurs}.
+Different styles of @notation{slurs} may be created with the
+commands @code{\slurDashed} and @code{slurDotted};
+@code{\slurSolid} reverts back to the default @notation{slur}
+style:
+
+@lilypond[verbatim,quote,relative=1]
+c4( e g2)
+\slurDashed
+g4( e c2)
+\slurDotted
+c4( e g2)
+\slurSolid
+g4( e c2)
+@end lilypond
+
+Using this method, only one slur can be printed at once.
+@notation{Phrasing slurs} must be used to print a long slur over
+one or more small slurs.  For details, see @ref{Phrasing slurs}.
 
 
 @predefined
@@ -509,23 +499,30 @@ Internals Reference:
 @funindex \(
 @funindex \)
 
-A phrasing slur (or phrasing mark) connects notes and is used to
-indicate a musical sentence.  It is written using @code{\(} and
-@code{\)} respectively:
+@notation{Phrasing slurs} (or @notation{phrasing marks}) that
+indicate a musical sentence are written using the commands
+@code{\(} and @code{\)} respectively:
 
 @lilypond[verbatim,quote,relative=2]
-\time 6/4 c\( d( e) f( e) d\)
+c4\( d( e) f(
+e2) d\)
 @end lilypond
 
-Typographically, the phrasing slur behaves almost exactly like a
-normal slur.  However, they are treated as different objects.  A
-@code{\slurUp} will have no effect on a phrasing slur; instead,
-use @code{\phrasingSlurUp}, @code{\phrasingSlurDown}, and
-@code{\phrasingSlurNeutral}.  Phrasing slurs may be manually
-placed above or below the staff, see @ref{Direction
-and placement}.
+Typographically, a @notation{phrasing slur} behaves almost exactly
+like a normal @notation{slur}.  However, they are treated as
+different objects; a @code{\slurUp} will have no effect on a
+@notation{phrasing slur}.  The commands @code{\phrasingSlurUp},
+@code{\phrasingSlurDown}, and @code{\phrasingSlurNeutral} are used
+instead.  Phrasing slurs may be manually placed above or below the
+staff, see @ref{Direction and placement}.
 
-You cannot have simultaneous phrasing slurs.
+@lilypond[verbatim,quote,relative=1]
+c4\( g' c,( b) | c1\)
+\phrasingSlurUp
+c4\( g' c,( b) | c1\)
+@end lilypond
+
+Simultaneous phrasing slurs are not permitted.
 
 
 @predefined
@@ -559,7 +556,7 @@ Internals Reference:
 Breath marks are entered using @code{\breathe}:
 
 @lilypond[verbatim,quote,relative=2]
-c4 \breathe d4
+c2. \breathe d4
 @end lilypond
 
 
@@ -591,13 +588,14 @@ the @code{\bendAfter} command:
 
 @lilypond[verbatim,quote,relative=2]
 c2-\bendAfter #+4
-c-\bendAfter #-4
-c-\bendAfter #+8
-c-\bendAfter #-8
+c2-\bendAfter #-4
+c2-\bendAfter #+8
+c2-\bendAfter #-8
 @end lilypond
 
-The dash (@tie{-}) following the note name is @emph{required} when
-writing @notation{falls} and @notation{doits}.
+The dash (@tie{-}) immediately preceding the @code{\bendAfter}
+command is @emph{required} when writing @notation{falls} and
+@notation{doits}.
 
 
 @snippets
@@ -632,10 +630,8 @@ Snippets:
 @cindex glissando
 @funindex \glissando
 
-A @notation{glissando} is a smooth change in pitch.  It is denoted
-by a line or a wavy line between two notes.  A
-@notation{glissando} is created by attaching @code{\glissando} to
-a note:
+A @notation{glissando} is created by attaching @code{\glissando}
+to a note:
 
 @lilypond[verbatim,quote,relative=2]
 c2\glissando c'
@@ -689,43 +685,58 @@ supported.
 @cindex broken chord
 @cindex chord, broken
 
-@c Add documentation for new 'parenthesis' style arpeggio.  Maybe
-@c create a new \arpeggioParen command, or something similar. -pm
-
-You can specify an @notation{arpeggio} (also known as a
-@notation{broken chord}) on a chord by attaching an
-@code{\arpeggio} to the chord:
+An @notation{arpeggio} on a chord (also known as a
+@notation{broken chord}) is denoted by appending @code{\arpeggio}
+to the chord construct:
 
 @lilypond[verbatim,quote,relative=1]
-<c e g c>\arpeggio
+<c e g c>1\arpeggio
 @end lilypond
 
-A square bracket on the left, denoted by @code{\arpeggioBracket},
-is used to indicate that the chord should @emph{not} be
-arpeggiated:
+The direction of an @notation{arpeggio} is indicated by adding an
+arrowhead to the wiggly line.  The commands @code{\arpeggioUp} and
+@code{\arpeggioDown} are used for this task.
+@code{\arpeggioNeutral} reverts back to an arrow-less
+@notation{arpeggio}:
 
 @lilypond[verbatim,quote,relative=1]
+\arpeggioUp
+<c e g c>2\arpeggio
+\arpeggioDown
+<c e g c>2\arpeggio
+\arpeggioNeutral
+<c e g c>1\arpeggio
+@end lilypond
+
+The command @code{\arpeggioBracket} can be used to create a square
+bracket on the left of a chord, indicating that the chord should
+@emph{not} be arpeggiated.  @code{\arpeggioNeutral} reverts back
+to a regular arpeggio:
+
+@lilypond[verbatim,quote,relative=1]
+<c e g c>2
 \arpeggioBracket
-<c e g c>\arpeggio
+<c e g c>2\arpeggio
+\arpeggioNeutral
+<c e g c>1\arpeggio
 @end lilypond
 
-The direction of the arpeggio can be denoted by adding an
-arrowhead to the wiggly line.  This is done with the commands
-@code{arpeggioUp} and @code{arpeggioDown}.  @code{arpeggioNeutral}
-reverts to the arrow-less version:
+A @emph{parenthesis} style bracket may be attached to an
+@notation{arpeggio} instead of a square bracket.
+
+@c Maybe create a new \arpeggioParen command, or something
+@c like that. -pm
 
 @lilypond[verbatim,quote,relative=1]
-\new Voice {
-  \arpeggioUp
-  <c e g c>\arpeggio
-  \arpeggioDown
-  <c e g c>\arpeggio
-  \arpeggioNeutral
-  <c e g c>\arpeggio
-}
+<c e g c>2
+\override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
+\override Arpeggio #'X-extent = #ly:grob::stencil-width
+<c e g c>2\arpeggio
+\arpeggioNeutral
+<c e g c>1\arpeggio
 @end lilypond
 
-@notation{Arpeggios} can be explicitly written out using
+@notation{Arpeggios} can be explicitly written out with
 @notation{ties}.  For more information, see @ref{Ties}.
 
 @predefined
