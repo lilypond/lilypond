@@ -11,6 +11,8 @@
 @node Ancient notation
 @section Ancient notation
 
+@lilypondfile[quote]{ancient-headword.ly}
+
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
 @cindex hufnagel
