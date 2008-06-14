@@ -195,7 +195,7 @@ larger value is interpreted as 13.
 @end lilypond
 
 @noindent
-Note that @code{c:5} is identical to @code{c}; it produces a C major triad.
+Note that @code{c:5} is identical to @code{c} -- both produce a C major triad.
 
 Since an unaltered 11 does not sound good when combined with an
 unaltered 13, the 11 is removed from a @code{:13} chord (unless it
@@ -449,6 +449,10 @@ notation, and a systematic scheme called Banter chords.  The
 alternate Jazz notation is also shown on the chart in @ref{Chord
 name chart}.
 
+@c TODO --  Change this so we don't have a non-verbatim example.
+@c  Make short example in docs, then move longer example to
+@c  appendix, where the length of the snippet won't matter.
+
 In addition to the different naming systems, different note names
 are used for the root in different languages.  The predefined
 variables @code{\germanChords}, @code{\semiGermanChords},
@@ -540,6 +544,7 @@ and @q{m}.  The spacer is not used when the root is altered.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
+@c TODO - tweak snippet to use \blackTriangleMarkup as well
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-major7.ly}
 
@@ -674,7 +679,7 @@ In figure mode, a group of bass figures is delimited by
 @lilypond[verbatim,quote,ragged-right,fragment]
 \new FiguredBass {
   \figuremode {
-    <4 6>2
+    <6 4>2
   }
 }
 @end lilypond
@@ -683,7 +688,7 @@ Accidentals (including naturals) can be added to figures:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
-  <4- 6+ 7!> <5++> <3-->
+  <7! 6+ 4-> <5++> <3-->
 }
 @end lilypond
 
@@ -700,9 +705,9 @@ sixth steps) can be created.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
- <6>
-% broken:
-%  <6\\>
+<6>
+% FIXME: broken.
+  %<6\\>
 }
 @end lilypond
 
@@ -711,7 +716,7 @@ Vertical spaces and brackets can be be included in figures:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
-  < [4 6] 8 [_! 12] >
+  <[12 _!] 8 [6  4]>
 }
 @end lilypond
 
@@ -720,7 +725,7 @@ Any text markup can be inserted as a figure:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
-  < 5 \markup{ \tiny \number 6 \super (1)} >
+  <  \markup{ \tiny \number 6 \super (1)} 5 >
 }
 @end lilypond
 
@@ -739,9 +744,9 @@ Continuation lines can be used to indicate repeated figures:
   }
   \figures {
     \bassFigureExtendersOn
-    <4 6> <3 6> <3 7> <3 7>
+    <6 4> <6 3> <7 3> <7 3>
     \bassFigureExtendersOff
-    <4 6> <3 6> <3 7> <3 7>
+    <6 4> <6 3> <7 3> <7 3>
   }
 >>
 @end lilypond
@@ -754,7 +759,7 @@ unless the continuation lines have been explicitly terminated.
 <<
   \figures {
     \bassFigureExtendersOn
-    <4 6> <4 6> <4\! 6\!> <4 6>
+    <6 4> <6 4> <6\! 4\!> <6 4>
   }
   {
     \clef bass
@@ -767,11 +772,12 @@ unless the continuation lines have been explicitly terminated.
 
 @predefined
 @cindex figured bass extender lines
-@code{bassFigureExtendersOn}
-@code{bassFigureExtendersOff}
+@code{\bassFigureExtendersOn},
+@code{\bassFigureExtendersOff}.
 
 
 @snippets
+@c TODO  Fix this snippet -- Plus direction should be RIGHT.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
@@ -820,8 +826,8 @@ of the figures is independent of the notes on the staff.
   }
   \new FiguredBass {
     \figuremode {
-      <4>4 <6 10>8 s8
-      <4 6>4 <4 6>
+      <4>4 <10 6>8 s8
+      <6 4>4 <6 4>
     }
   }
 >>
@@ -845,8 +851,8 @@ figures is adjusted automatically.
 <<
   \new Staff = myStaff
   \figuremode {
-    <4>4 <6 10>8 s8
-    <4 6>4 <4 6>
+    <4>4 <10 6>8 s8
+    <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
   \context Staff = myStaff
@@ -865,9 +871,9 @@ or below the staff.
 <<
   \new Staff = myStaff
   \figuremode {
-    <4>4 <6 10>8 s8
+    <4>4 <10 6>8 s8
     \bassFigureStaffAlignmentDown
-    <4 6>4 <4 6>
+    <6 4>4 <6 4>
   }
   %% Put notes on same Staff as figures
   \context Staff = myStaff
@@ -887,7 +893,7 @@ The rest will clear any previous alignment.  For
 example, you can write
 
 @example
-<4 6>8 r8
+<6 4>8 r8
 @end example
 
 @noindent
@@ -899,9 +905,9 @@ instead of
 
 @predefined
 @cindex figured bass alignment
-@code{bassFigureStaffAlignmentDown},
-@code{bassFigureStaffAlignmentUp},
-@code{bassFigureStaffAlignmentNeutral}.
+@code{\bassFigureStaffAlignmentDown},
+@code{\bassFigureStaffAlignmentUp},
+@code{\bassFigureStaffAlignmentNeutral}.
 
 @snippets
 
