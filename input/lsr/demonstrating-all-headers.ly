@@ -28,12 +28,16 @@ A demonstration of all headers.
   source = "urtext"
 }
 
-\score {
-  \relative c'' { c1 c c c }
+\layout {
+  ragged-right = ##f
 }
 
 \score {
-   \relative c'' { c1 c c c }
+  \relative c'' { c1 | c | c | c }
+}
+
+\score {
+   \relative c'' { c1 | c | c | c }
    \header {
      title = "localtitle"
      subtitle = "localsubtitle"

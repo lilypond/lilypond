@@ -30,7 +30,14 @@
   "
 @cindex drawing lines within text
 
-A simple line."
+A simple line.
+@lilypond[verbatim,quote]
+\\markup {
+  \\draw-line #'(4 . 4)
+  \\override #'(thickness . 5)
+  \\draw-line #'(-3 . 0)
+}
+@end lilypond"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (x (car dest))
@@ -54,7 +61,11 @@ A circle of radius @var{radius}, thickness @var{thickness} and
 optionally filled.
 
 @lilypond[verbatim,quote]
-\\markup { \\draw-circle #2 #0.5 ##f \\hspace #2 \\draw-circle #2 #0 ##t }
+\\markup {
+  \\draw-circle #2 #0.5 ##f
+  \\hspace #2
+  \\draw-circle #2 #0 ##t
+}
 @end lilypond"
   (make-circle-stencil radius thickness fill))
 
@@ -70,7 +81,11 @@ optionally filled.
 A triangle, either filled or empty.
 
 @lilypond[verbatim,quote]
-\\markup { \\triangle ##t \\hspace #2 \\triangle ##f }
+\\markup {
+  \\triangle ##t
+  \\hspace #2
+  \\triangle ##f
+}
 @end lilypond"
   (let ((ex (* (magstep font-size) 0.8 baseline-skip)))
     (ly:make-stencil
@@ -94,7 +109,11 @@ A triangle, either filled or empty.
 
 Draw a circle around @var{arg}.  Use @code{thickness},
 @code{circle-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup."
+thickness and padding around the markup.
+
+@lilypond[verbatim,quote]
+\\markup \\circle { Hi }
+@end lilypond"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
          (pad (* (magstep font-size) circle-padding))
@@ -133,7 +152,10 @@ the PDF backend.
   "
 @cindex drawing beams within text
 
-Create a beam with the specified parameters."
+Create a beam with the specified parameters.
+@lilypond[verbatim,quote]
+\\markup \\beam #5 #1 #2
+@end lilypond"
   (let* ((y (* slope width))
 	 (yext (cons (min 0 y) (max 0 y)))
 	 (half (/ thickness 2)))
@@ -158,7 +180,11 @@ Create a beam with the specified parameters."
 @cindex underlining text
 
 Underline @var{arg}.  Looks at @code{thickness} to determine line
-thickness and y offset."
+thickness and y offset.
+
+@lilypond[verbatim,quote]
+\\markup \\underline { CONTENTS }
+@end lilypond"
   (let* ((thick (* (ly:output-def-lookup layout 'line-thickness)
                    thickness))
          (markup (interpret-markup layout props arg))
@@ -182,7 +208,15 @@ thickness and y offset."
 
 Draw a box round @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup."  
+thickness and padding around the markup.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(box-padding . 0.5)
+  \\box
+  \\line { V. S. }
+}
+@end lilypond"
   (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
                 thickness))
          (pad (* (magstep font-size) box-padding))
@@ -211,7 +245,8 @@ circle of diameter@tie{}0 (i.e. sharp corners).
   \\filled-box #'(0 . 4) #'(0 . 4) #0
   \\filled-box #'(0 . 2) #'(-4 . 2) #0.4
   \\filled-box #'(1 . 8) #'(0 . 7) #0.2
-  \\with-color #white \\filled-box #'(-4.5 . -2.5) #'(3.5 . 5.5) #0.7
+  \\with-color #white
+  \\filled-box #'(-4.5 . -2.5) #'(3.5 . 5.5) #0.7
 }
 @end lilypond"
   (ly:round-filled-box
@@ -232,7 +267,7 @@ thickness and padding around the markup; the @code{corner-radius} property
 makes possible to define another shape for the corners (default is 1).
 
 @lilypond[quote,verbatim,fragment,relative=2]
-c^\\markup{ \\rounded-box Overtura }
+c^\\markup \\rounded-box { Overtura }
 c,8. c16 c4 r
 @end lilypond" 
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
@@ -856,7 +891,9 @@ Print two markups on top of each other.
 \\markup {
   \\fontsize #5
   \\override #'(thickness . 2)
-  \\combine \\draw-line #'(0 . 4) \\arrow-head #Y #DOWN ##f
+  \\combine
+  \\draw-line #'(0 . 4)
+  \\arrow-head #Y #DOWN ##f
 }
 @end lilypond"
   (let* ((s1 (interpret-markup layout props m1))
@@ -874,7 +911,12 @@ Print two markups on top of each other.
 @cindex stacking text in a column
 
 Stack the markups in @var{args} vertically.  The property
-@code{baseline-skip} determines the space between each markup in @var{args}."
+@code{baseline-skip} determines the space between each
+markup in @var{args}.
+
+@lilypond[verbatim,quote]
+\\markup \\column { one two three }
+@end lilypond"
   (let ((arg-stencils (interpret-markup-list layout props args)))
     (stack-lines -1 0.0 baseline-skip
                  (remove ly:stencil-empty? arg-stencils))))
@@ -888,7 +930,15 @@ Stack the markups in @var{args} vertically.  The property
 @cindex changing direction of text columns
 
 Make a column of args, going up or down, depending on the setting
-of the @code{#'direction} layout property."
+of the @code{#'direction} layout property.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(direction . 1)
+  \\dir-column { going up }
+  \\dir-column { going down }
+}
+@end lilypond"
   (stack-lines (if (number? direction) direction -1)
                0.0
                baseline-skip
@@ -901,7 +951,11 @@ of the @code{#'direction} layout property."
   "
 @cindex centering a column of text
 
-Put @code{args} in a centered column."
+Put @code{args} in a centered column.
+
+@lilypond[verbatim,quote]
+\\markup \\center-align { one two three }
+@end lilypond"
   (let* ((mols (interpret-markup-list layout props args))
          (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
     (stack-lines -1 0.0 baseline-skip cmols)))
@@ -1128,7 +1182,13 @@ any sort of property supported by @rinternals{font-interface} and
   (markup?)
   font
   ()
-  "Increase the font size relative to current setting."
+  "Increase the font size relative to current setting.
+
+@lilypond[verbatim,quote]
+\\markup \\bigger {
+  Voici venir les temps où vibrant sur sa tige
+}
+@end lilypond"
   (interpret-markup layout props
    `(,fontsize-markup 1 ,arg)))
 
@@ -1195,7 +1255,13 @@ Use @code{\\fontsize} otherwise."
   (markup?)
   font
   ()
-  "Switch to bold font-series."
+  "Switch to bold font-series.
+  
+@lilypond[verbatim,quote]
+\\markup \\bold {
+  Chaque fleur s'évapore ainsi qu'un encensoir
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-series 'bold props) arg))
 
 (define-builtin-markup-command (sans layout props arg)
@@ -1271,7 +1337,7 @@ some punctuation.  It doesn't have any letters.
   (markup?)
   font
   ()
-  "Set @code{font-shape} to @code{caps}."
+  "Set @code{font-shape} to @code{caps}"
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
 ;; Poor man's caps
@@ -1320,7 +1386,13 @@ Note: @code{\\smallCaps} does not support accented characters."
   (markup?)
   font
   ()
-  "Emit @var{arg} as small caps."
+  "Emit @var{arg} as small caps.
+
+@lilypond[verbatim,quote]
+\\markup \\caps {
+  Les sons et les parfums tournent dans l'air du soir
+}
+@end lilypond"
   (interpret-markup layout props (make-smallCaps-markup arg)))
 
 (define-builtin-markup-command (dynamic layout props arg)
@@ -1561,10 +1633,17 @@ the possible glyphs.
   \\musicglyph #\"clefs.G_change\"
 }
 @end lilypond"
-  (ly:font-get-glyph
-   (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
-				   props))
-   glyph-name))
+  (let* ((font (ly:paper-get-font layout
+				  (cons '((font-encoding . fetaMusic)
+					  (font-name . #f))
+					
+						 props)))
+	 (glyph (ly:font-get-glyph font glyph-name)))
+    (if (null? (ly:stencil-expr glyph))
+	(ly:warning (_ "Cannot find glyph ~a") glyph-name))
+
+    glyph))
+
 
 (define-builtin-markup-command (lookup layout props glyph-name)
   (string?)
@@ -1683,7 +1762,7 @@ figured bass notation.
               (ly:stencil-add number-stencil slash-stencil))
         (ly:warning "invalid number for slashed digit ~a" num))
     number-stencil))
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1699,8 +1778,15 @@ figured bass notation.
 @cindex notes within text by log and dot-count
 
 Construct a note symbol, with stem.  By using fractional values for
-@var{dir}, you can obtain longer or shorter stems."
+@var{dir}, you can obtain longer or shorter stems.
 
+@lilypond[verbatim,quote]
+\\markup {
+  \\note-by-number #3 #0 #DOWN
+  \\hspace #1
+  \\note-by-number #1 #2 #0.8
+}
+@end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
      (format "noteheads.~a~a~a" dir-name (min log 2)
@@ -1803,7 +1889,16 @@ Construct a note symbol, with stem.  By using fractional values for
 This produces a note with a stem pointing in @var{dir} direction, with
 the @var{duration} for the note head type and augmentation dots.  For
 example, @code{\\note #\"4.\" #-0.75} creates a dotted quarter note, with
-a shortened down stem."
+a shortened down stem.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(style . cross)
+  \\note #\"4..\" #UP
+  \\hspace #1
+  \\note #\"breve\" #0
+}
+@end lilypond"
   (let ((parsed (parse-simple-duration duration)))
     (note-by-number-markup layout props (car parsed) (cadr parsed) dir)))
 
@@ -2004,7 +2099,11 @@ Draw horizontal brackets around @var{arg}."
   "
 @cindex placing vertical brackets around text
   
-Draw vertical brackets around @var{arg}."  
+Draw vertical brackets around @var{arg}.
+
+@lilypond[verbatim,quote]
+\\markup \\bracket \\note #\"2.\" #UP
+@end lilypond"
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))

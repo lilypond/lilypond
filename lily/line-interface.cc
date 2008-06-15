@@ -210,7 +210,7 @@ Line_interface::line (Grob *me, Offset from, Offset to)
   else if (type == ly_symbol2scm ("trill"))
     return make_trill_line (me, from, to);
   
-  Stencil stil;
+  Stencil stencil;
 
   if (type == ly_symbol2scm ("dashed-line") || type == ly_symbol2scm ("dotted-line"))
     {
@@ -239,12 +239,12 @@ Line_interface::line (Grob *me, Offset from, Offset to)
 	   */
 	  period = ((to-from).length () - period * fraction) / n;
 	}
-      stil = make_dashed_line (thick, from, to, period, fraction);
+      stencil = make_dashed_line (thick, from, to, period, fraction);
     }
   else
-    stil = make_line (thick, from, to);
+    stencil = make_line (thick, from, to);
 
-  return stil;
+  return stencil;
 }
 
 ADD_INTERFACE (Line_interface,

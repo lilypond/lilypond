@@ -6,11 +6,11 @@
   lsrtags = "chords"
 
   texidoc = "
-To add bar indications in the @@code@{ChordNames@} context, add
-@@code@{Bar_engraver@}. 
+To add bar line indications in the @code{ChordNames} context, add the
+@code{Bar_engraver}.
 
 "
-  doctitle = "Adding bars to ChordNames"
+  doctitle = "Adding bar lines to ChordNames context"
 } % begin verbatim
 \new ChordNames \with {
   \override BarLine #'bar-size = #4

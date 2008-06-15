@@ -12,7 +12,8 @@ The time signature can be enclosed within parentheses.
   doctitle = "Time signature in parentheses"
 } % begin verbatim
 tsMarkup = \markup {
-  \override #'(baseline-skip . 2) \number {
+  \override #'(baseline-skip . 0)
+  \number {
     \bracket \column { 2 4 }
   }
 }

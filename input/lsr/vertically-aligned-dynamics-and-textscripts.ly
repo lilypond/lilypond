@@ -6,17 +6,16 @@
   lsrtags = "tweaks-and-overrides, spacing"
 
   texidoc = "
-By setting the @code{Y-extent} property to a fixed value, all
-@code{DynamicLineSpanner} objects (hairpins and dynamic texts) are
+By setting the @code{Y-extent} property to a suitable value, all
+@code{DynamicLineSpanner} objects (hairpins and dynamic texts) can be
 aligned to a common reference point, regardless of their actual extent.
-This way, every element will be vertically centered, for a nicer output
-(you can compare the first and the second line in this example; the
-trick is only applied on the second line).
+This way, every element will be vertically aligned, thus producing a
+more pleasing output.
 
 The same idea is used to align the text scripts along their baseline.
 
 "
-  doctitle = "Vertically centered dynamics and textscripts"
+  doctitle = "Vertically aligned dynamics and textscripts"
 } % begin verbatim
 music = \relative c'' {
   c2\p^\markup { gorgeous } c\f^\markup { fantastic }
