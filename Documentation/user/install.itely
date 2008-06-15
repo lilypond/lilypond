@@ -285,6 +285,11 @@ path by issuing
 make web-install
 @end example
 
+@noindent
+This also installs Info documentation with images if the installation
+prefix is properly set; otherwise, instructions for manual installation
+of Info documentation are printed on standard output.
+
 It is also possible to build a documentation tree in
 @file{out-www/online-root/}, with special processing, so it can be used
 on a website with content negotiation for automatic language selection;
@@ -315,6 +320,20 @@ documentation maintenance are available from @file{Documentation/};
 for more information, see @file{Documentation/user/README.txt} and
 @file{Documentation/TRANSLATION}.
 
+@knownissues
+
+If source files have changed since last documentation build, output
+files that need to be rebuilt are normally rebuilt, even if you do not
+run @code{make web-clean} first.  However, building dependencies in the
+documentation are so complex that rebuilding of some targets may not
+be triggered as they should be; a workaround is to force rebuilding
+by touching appropriate files, e.g.
+
+@example
+touch Documentation/user/*.itely
+touch input/lsr/*.ly
+@end example
+
 
 @node Building documentation without compiling LilyPond
 @unnumberedsubsubsec Building documentation without compiling LilyPond
@@ -335,13 +354,12 @@ Please note that this may break sometimes -- for example, if a new
 feature is added with a test file in input/regression, even the latest
 development release of LilyPond will fail to build the docs.
 
-You may build the manual without building all
-the input/* stuff: change directory, for example to
-@file{Documentation/user}, issue @code{make web}, which will build
-documentation in a subdirectory @file{out-www} from the source files
-in current directory.  In this case, if you also want to browse the
-documentation in its post-processed form, change back to top directory
-and issue
+You may build the manual without building all the @file{input/*}
+stuff: change directory, for example to @file{Documentation/user},
+issue @code{make web}, which will build documentation in a
+subdirectory @file{out-www} from the source files in current
+directory.  In this case, if you also want to browse the documentation
+in its post-processed form, change back to top directory and issue
 
 @example
 make out=www WWW-post
