@@ -160,7 +160,7 @@ d'indiquer des doigtés très proches des têtes de notes.
 
 Référence du programme : @rinternals{Fingering}.
 
-D'autres exemples : @lsr{expressive,fingering-chords.ly}.
+Exemples : @rlsr{Editorial annotations}.
 
 
 @node Hidden notes
@@ -377,8 +377,7 @@ Référence du programme : @rinternals{Ambitus},
 @rinternals{AmbitusLine}, @rinternals{AmbitusNoteHead},
 @rinternals{AmbitusAccidental}.
 
-Exemples :
-@lsr{vocal,ambitus@/.ly}.
+Exemples : @rlsr{Pitches}, @rlsr{Vocal music}.
 
 @knownissues
 

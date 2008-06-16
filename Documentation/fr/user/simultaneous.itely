@@ -74,7 +74,7 @@ Référence du programme : @rinternals{ClusterSpanner},
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
 
-Exemples : @lsr{contemporary,cluster@/.ly}.
+Exemples : @rlsr{Simultaneous notes}.
 
 @knownissues
 

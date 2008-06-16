@@ -51,8 +51,9 @@ On peut ajouter aux accords les numéros de cordes, en les indiquant avec
 
 @seealso
 
-Référence du programme : @rinternals{StringNumber},
-@lsr{guitar/,string-number.ly}.
+Référence du programme : @rinternals{StringNumber}.
+
+Exemples : @rlsr{Fretted strings}.
 
 
 @node Tablatures basic

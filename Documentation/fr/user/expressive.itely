@@ -572,11 +572,10 @@ l'étouffer.  Cet effet s'obtient avec la commande @code{\laissezVibrer}.
 @seealso
 
 Référence du programme :
-@rinternals{LaissezVibrerTie}
-@rinternals{LaissezVibrerTieColumn}
+@rinternals{LaissezVibrerTie},
+@rinternals{LaissezVibrerTieColumn}.
 
-D'autres exemples :
-@lsr{connecting,laissez-vibrer-ties.ly}
+Exemples : @rlsr{Expressive marks}.
 
 
 @node Breath marks
@@ -607,7 +606,7 @@ d4
 
 Référence du programme : @rinternals{BreathingSign}.
 
-Exemples : @lsr{expressive,breathing-sign.ly}
+Exemples : @rlsr{Winds}.
 
 
 @node Falls and doits
@@ -667,7 +666,7 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 Référence du programme : @rinternals{Glissando}.
 
-D'autres exemples : @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}.
+Exemples : @rlsr{Expressive marks}.
 
 
 @knownissues

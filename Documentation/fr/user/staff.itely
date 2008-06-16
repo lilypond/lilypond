@@ -142,10 +142,12 @@ symbol} --- symbole de portée.
 
 L'aspect du symbole de portée peut être modifié selon différentes
 propriétés, telles que le nombre de lignes, leur épaisseur, ou leur
-éloignement. Vous en trouverez des exemples dans
+éloignement.
+@ignore
+Vous en trouverez des exemples dans
 @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} et
 @lsr{staff,changing-the-staff-size.ly}.
-
+@end ignore
 
 De plus, la portée peut commencer et s'arrêter où l'on veut, grâce aux
 commandes @code{\startStaff} et @code{\stopStaff}.
@@ -177,7 +179,7 @@ comme sur l'exemple suivant :
 
 Référence du programme : @rinternals{StaffSymbol}.
 
-D'autres exemples : @rlsr{Staff notation}.
+Exemples : @rlsr{Staff notation}.
 
 
 @node Hiding staves
@@ -511,7 +513,7 @@ Citer des triolets imbriqués peut entraîner un résultat de médiocre qualité
 
 Dans ce manuel : @ref{Instrument transpositions}.
 
-Exemples : @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
+Exemples : @rlsr{Staff notation}.
 
 Référence du programme : @rinternals{QuoteMusic}.
 
