@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 024932c39052e559d3541b0844660c7c9b988d5f
+    Translation of GIT committish: eba03f4a3cec521a7099a3ec55f51d163803a8e4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -48,7 +48,7 @@ articulaciones, como si fueran simples notas.
 <c e g>2 <c f a>4-> <e g c>-.
 @end lilypond
 
-Para ver más información sobre los acordes, consulte @ref{Modern chords}.
+Para ver más información sobre los acordes, consulte @ref{Chord notation}.
 
 @seealso
 
@@ -59,7 +59,7 @@ Manual de aprendizaje:
 @rlearning{Combining notes into chords}.
 
 Referencia de la notación:
-@ref{Modern chords}.
+@ref{Chord notation}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
