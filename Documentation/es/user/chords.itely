@@ -599,7 +599,7 @@ Snippets:
 @rlsr{Chords}.
 
 @c Internals Reference:
-@c @r internals{}.
+@c @rinternals{  }.
 
 @knownissues
 
@@ -797,19 +797,19 @@ unless the continuation lines have been explicitly terminated.
 
 @seealso
 @c Music Glossary:
-@c @rglos{}.
+@c @rglos{  }.
 
 @c Learning Manual:
-@c @rlearning{}.
+@c @rlearning{  }.
 
 @c Notation Reference:
-@c @ruser{}.
+@c @ruser{  }.
 
 @c Application Usage:
-@c @rprogram{}.
+@c @rprogram{  }.
 
 @c Installed Files:
-@c @file{}.
+@c @file{  }.
 
 Snippets:
 @rlsr{Chords}.
@@ -927,19 +927,19 @@ instead of
 
 @seealso
 @c Music Glossary:
-@c @rglos{}.
+@c @rglos{  }.
 
 @c Learning Manual:
-@c @rlearning{}.
+@c @rlearning{  }.
 
 @c Notation Reference:
-@c @ruser{}.
+@c @ruser{  }.
 
 @c Application Usage:
-@c @rprogram{}.
+@c @rprogram{  }.
 
 @c Installed Files:
-@c @file{}.
+@c @file{  }.
 
 @c Snippets:
 @rlsr{Figured Bass}.
