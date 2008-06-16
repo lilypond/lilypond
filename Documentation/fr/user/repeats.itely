@@ -184,14 +184,13 @@ Program reference: @rinternals{VoltaBracket},
 @rinternals{UnfoldedRepeatedMusic}.
 
 
-Examples
+Exemples
 
 Les crochets précédant une reprise s'impriment d'ordinaire seulement
 au-dessus de la portée du haut.  On peut ajuster cela en déplaçant le
 graveur @code{Volta_engraver} vers les contextes de portée
 (@code{Staff}) qui doivent comporter ces crochets ;
-voir @ref{Modifying context plug-ins} et 
-@lsr{repeats,volta@/-multi@/-staff@/.ly}.
+voir @ref{Modifying context plug-ins}, et @rlsr{Repeats}.
 
 
 @knownissues

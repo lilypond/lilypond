@@ -216,8 +216,7 @@ et @rinternals{KeySignature}.
 
 Vous noterez que chacun de ces styles ne comporte pas toutes les
 altérations.  LilyPond changera de style s'il y a besoin d'une
-altération indisponible dans le style utilisé, comme vous pouvez le
-constater dans @lsr{ancient,ancient-accidentals.ly}.
+altération indisponible dans le style utilisé.
 
 À l'instar des altérations accidentelles, le style d'armure est géré
 par la propriété @code{glyph-name-alist} de l'objet
@@ -258,15 +257,17 @@ r\longa r\breve r1 r2 r4 r8 r16
 
 Les styles @code{mensural} et @code{neomensural} ne disposent pas des 8e
 et 16e de soupir ; LilyPond utilise dans de tels cas le style par
-défaut.  @lsr{pitches,rests} donne une liste exhaustive des silences.
+défaut.  Voici une liste des styles de silences disponibles.
+
+@lilypondfile[quote,verbatim,ragged-right]{rest-styles.ly}
 
 Les silences sont absents de la notation grégorienne ; par contre, cette
 notation utilise des @ref{Divisiones}.
 
 @seealso
 
-Dans ce manuel : @ref{Rests} expose les principes généraux sur
-l'utilisation des silences.
+Dans ce manuel : les principes généraux sur l'utilisation des silences
+sont exposés dans @ref{Rests}.
 
 
 @node Ancient clefs
@@ -773,7 +774,7 @@ styles disponibles sont @code{vaticana}, @code{medicaea},
 
 Référence du programme : @rinternals{Custos}.
 
-Exemples : @lsr{ancient,custodes@/.ly}.
+Exemples : @rlsr{Ancient notation}.
 
 
 @node Divisiones
@@ -823,7 +824,8 @@ Dans ce manuel : @ref{Breath marks}.
 
 Référence du programme : @rinternals{BreathingSign}.
 
-Exemples : @lsr{expressive,breathing-sign.ly}.
+@c FIXME: add breathing-signs.ly directly
+Exemples : @rlsr{Winds}.
 
 
 @node Ligatures

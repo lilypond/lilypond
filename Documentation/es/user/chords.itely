@@ -607,7 +607,7 @@ Fragmentos de código:
 @rlsr{Chords}.
 
 @c Internals Reference:
-@c @r internals{}.
+@c @rinternals{  }.
 
 @knownissues
 
@@ -811,19 +811,19 @@ terminadas explícitamente.
 
 @seealso
 @c Music Glossary:
-@c @rglos{}.
+@c @rglos{  }.
 
 @c Learning Manual:
-@c @rlearning{}.
+@c @rlearning{  }.
 
 @c Notation Reference:
-@c @ruser{}.
+@c @ruser{  }.
 
 @c Application Usage:
-@c @rprogram{}.
+@c @rprogram{  }.
 
 @c Installed Files:
-@c @file{}.
+@c @file{  }.
 
 Fragmentos de código:
 @rlsr{Chords}.
@@ -944,19 +944,19 @@ instead of
 
 @seealso
 @c Music Glossary:
-@c @rglos{}.
+@c @rglos{  }.
 
 @c Learning Manual:
-@c @rlearning{}.
+@c @rlearning{  }.
 
 @c Notation Reference:
-@c @ruser{}.
+@c @ruser{  }.
 
 @c Application Usage:
-@c @rprogram{}.
+@c @rprogram{  }.
 
 @c Installed Files:
-@c @file{}.
+@c @file{  }.
 
 @c Snippets:
 @rlsr{Figured Bass}.
