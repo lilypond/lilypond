@@ -79,6 +79,7 @@ listas, cadenas y símbolos en Scheme.}
 * Interpretation contexts::     
 * Explaining the Internals Reference::  
 * Modifying properties::        
+* Useful concepts and properties::  
 * Common properties::           
 * Advanced tweaks::             
 * old The \override command::   
@@ -1376,6 +1377,221 @@ conectada directamente a la salida, así que
 @noindent
 no cambia el color.  Consulte @ref{Displaying music expressions} para
 ver más detalles.
+
+@node Useful concepts and properties
+@section Useful concepts and properties
+
+
+@menu
+* Input modes::                 
+* Direction and placement::     
+* Distances and measurements::  
+* Spanners::                    
+@end menu
+
+@node Input modes
+@subsection Input modes
+
+La forma en que se interpreta la notación conenida dentro de un
+archivo de entrada, está determinada por el modo de entrada en curso.
+
+@strong{Modo de acordes}
+
+Se activa con la instrucción @code{\chordmode} y produce que la
+entrada se interprete con al sintaxis de la notación de acordes, véase
+@ref{Chord notation}.  Los acordes se imprimen como notas sobre un
+pentagrama.
+
+El modo de acordes se activa también con la instrucción
+@code{\chords}.  Esto crea también un contexto @code{ChordNames} nuevo
+y produce que el código que sigue se interprete conla sintaxis de la
+notación de acordes y se imprima como nombres de acorde dentro del
+contexto @code{ChordNames}, véase @ref{Printing chord names}.
+
+@strong{Modo de percusión}
+
+Se activa con la instrucción @code{\drummode} y produce que el código
+de entrada se interprete con la sintaxis de la notación de percusión,
+véase @ref{Basic percussion notation}.
+
+EL modo de percusión también se activa con la instrucción
+@code{\drums}.  También crea un contexto @code{DrumStaff} nuevo y hace
+que el código que sigue se interprete con la sintaxis de la notación
+de percusión y se imprima como símbolos de percusión sobre un
+pentagrama de percusión, véase @ref{Basic percussion notation}.
+
+@strong{Modo de cifras}
+
+Se activa con la instrucción @code{\figuremode} y hace que el código
+de entrada se interprete con la sintaxis del bajo cifrado, véase
+@ref{Entering figured bass}.
+
+El modo de cifrase también se activa con la instrucción
+@code{\figures}.  También crea un contexto de @code{FiguredBass} nuevo
+y hace que el código que viene a continuación se interprete con la
+sintaxis del bajo cifrado y se imprima como símbolos de bajo cifrado
+dentro del contexto @code{FiguredBass}, véase @ref{Introduction to
+figured bass}.
+
+@strong{Modos de traste y tablatura}
+
+No existen modos de entrada especiales para introducir símibolos de
+trastes y de tablatura.
+
+Para crear diagramas de trastes, escriba las notas o acordes en el
+modo de notas e imprímalos dentro de un contexto @code{TabStaff},
+véase @ref{Default tablatures}.
+
+Para crear diagramas de trastes encima de un pentagrama, escríbalos
+como elementos de marcado encima de las notas utilizando la
+instrucción @code{\fret-diagram}, véase @ref{Fret diagrams}.
+
+@strong{Modo de letra}
+
+Se activa con la instrucción @code{\lyricmode}, y hace que la entrada
+se interprete como sílabas de la letra de la canción con duraciones
+opcionales y modificadores de letra asociados, véase @ref{Vocal
+music}.
+
+El modo de letra también se habilita con la instrucción
+@code{\addlyrics}.  Esto también crea un contexto @code{Lyrics} nuevo
+y una instrucción @code{\lyricsto} implícita que asocia la letra que
+viene a continuación con la música precedente.
+
+@strong{Modo de marcado}
+
+Se activa con la instrucción @code{\markup}, y hace que la entrada se
+interprete con la sintaxis del marcado, véase @ref{Text markup
+commands}.
+
+@c silly work-around for texinfo broken-ness
+@c (@strong{Note...} causes a spurious cross-reference in Info)
+@b{Modo de notas}
+
+Es el modo predeterminado o se puede activar con la instrucción
+@code{\notemode}.  La entrada se interpreta como alturas, duraciones,
+marcado, etc. y se imprime como notación musical sobre un pentagrama.
+
+Normalmente no es necesario especificar el modo de notas de forma
+explícita, pero puede ser útil hacerlo en ciertas situaciones, por
+ejemplo si estamos en el modo de letra, en el modo de acordes o en
+otro modo y queremos insertar algo que solamente se puede hacer con la
+sintaxis del modo de notas.
+
+Por ejemplo, para insertar indicaciones dinámicas para las estrofas de
+una pieza coral es necesario entrar en el modo de notas para poder
+interpretar dichas indicaciones:
+
+@lilypond[verbatim,relative=2,quote]
+{ c4 c4 c4 c4 }
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic f 1. } }
+  To be sung loudly
+}
+\addlyrics {
+  \notemode{\set stanza = \markup{ \dynamic p 2. } }
+  To be sung quietly
+}
+@end lilypond
+
+
+
+@node Direction and placement
+@subsection Direction and placement
+
+Al tipografiar música, la dirección y colocación de muchos elementos
+es cuestión de elección.  Por ejemplo, las plicas de las notas se
+pueden dirigir hacia arriba o hacia abajo; la lestra, las indicaciones
+dinámicas y otrase marcas expresivas se pueden colocar encima o debajo
+del pentagrama; el texto se pude alinear a la izquierda, a la derecha
+o centrado; etc.  La mayoría de estas elecciones pueden dejarse que
+LilyPond las determine automáticamente, pero en ciertos casos puede
+ser deseable forzar una dirección o colocación concreta.
+
+@strong{Acciones predeterminadas}
+
+De forma predeterminada algunas direcciones siempre son hacia arriba o
+siempre hacia abajo (p. ej. los matices o el calderón), mientras que
+otras cosas pueden alternar entre arriba y abajo en función de la
+dirección de las plicas (como las ligaduras o los acentos).
+
+@c TODO Add table showing these
+
+@strong{Disposición de contexto}
+
+Los contextos se colocan dentro de un sistema de arriba a abajo en el
+orden en que se encuentran.  Sin embargo, observe que se crea un
+contexto implícitamente si se encuentra una instrucción cuando no está
+disponible un contexto apropiado para contenerla.
+
+@c TODO Add example ?
+
+Se pude cambiar el orden predeterminado en que los contextos se
+presentan, véase @ref{Aligning contexts}
+
+@strong{Indicadores de dirección de las articulaciones}
+
+Al añadir articulaciones a notas se puede omitir normalmente el
+indicador de dirección, @code{^} (que significa @qq{arriba}), @code{_}
+(que significa @qq{abajo}) o @code{-} (que significa @qq{usar la
+dirección predeterminada}), en cuyo caso se supone el perdeterminado
+@code{-}.  Pero se necesita un indicador de dirección @strong{always}
+antes de:
+
+@itemize
+@item las instrucciones @code{\tweak}
+@item las instrucciones @code{\markup}
+@item las instrucciones @code{\tag}
+@item los marcados de cadena, p.ej. -"cadena"
+@item las instrucciones de digitación, p.ej. @code{-1}
+@item las abreviaturas de articulación, p.ej. @code{-.}, @code{->}, @code{--}
+@end itemize
+
+@strong{La propiedad de dirección}
+
+La posición o dirección de muchos objetos de presentación está
+controlada por la propiedad @code{direction}.
+
+El valor de la propiedad @code{direction} se puede establecer al valor
+@code{1}, con el significado de @qq{hacia arriba} o @qq{encima}, o a
+@code{-1}, con el significado de @qq{hacia abajo} o @qq{debajo}.  Se
+pueden usar los símbolos @code{UP} y @code{DOWN} en sustitución de
+@code{1} y @code{-1} respectivamente.  La dirección predeterminada se
+puede especificar estableciendo @code{direction} a @code{0} ó a
+@code{CENTER}.  De forma alternativa, en muchos casos existen
+instrucciones predefinidas para especificar la dirección.  Todas ellas
+son de la forma:
+
+@noindent
+@code{\xxxUp}, @code{xxxDown}, @code{xxxNeutral}
+
+@noindent
+donde @code{xxxNeutral} significa @qq{utilizar la dirección
+predeterminada}.  Véase @rlearning{Within-staff objects}.
+
+En alguna que otra ocasión, con el único ejemplo usual del arpegio, el
+valor de la propiedad @code{direction} especifica si el objeto se debe
+colocar a la izquierda o a la derecha del objeto padre.  En este caso
+@code{-1} ó @code{LEFT} significan @qq{a la izquierda} y @code{1} ó
+@code{RIGHT} significan @qq{a la derecha}.  @code{0} ó @code{CENTER}
+significan @qq{utilizar la dirección predeterminada}, como antes.
+
+
+@node Distances and measurements
+@subsection Distances and measurements
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Spanners
+@subsection Spanners
+
+Muchos objetos de notación musical abarcan varias notas o incluso
+varios compases.  Son ejemplos los crescendi, trinos, corchetes de
+grupo especial y corchetes de primera y segunda vez.  Estos objetos se
+llaman @qq{spanners} u «objetos de extensión», y tienen propiedades
+especiales para controlar su apariencia y comportamiento.  Algunas de
+estas propiedades son comunes a todos los objetos de extensión; otras
+se limitan a un subconjunto de los extensores.
 
 
 @node Common properties
