@@ -6,34 +6,28 @@
   lsrtags = "tweaks-and-overrides"
 
   texidoc = "
-The @code{\\applyOutput} command gives you the ability to tune any
-layout object, in any context. It requires a Scheme function with three
-arguments; advanced users can write it quite easily, whereas new users
-may want to use pre-defined functions such as this snippet, or the
-example in the manual.
+The @code{\\applyOutput} command allows the tuning of any layout
+object, in any context. It requires a Scheme function with three
+arguments.
 
 "
   doctitle = "Changing properties for individual grobs"
 } % begin verbatim
-% ****************************************************************
-% ly snippet:
-% ****************************************************************
-
 \layout {
   ragged-right = ##t
 }
 
-#(define (mc-squared gr org cur)
+#(define (mc-squared grob grob-origin context)
   (let*
    (
-     (ifs (ly:grob-interfaces gr))
-     (sp (ly:grob-property gr 'staff-position))
+     (ifs (ly:grob-interfaces grob))
+     (sp (ly:grob-property grob 'staff-position))
    )
    (if (memq 'note-head-interface ifs)
     (begin
-     (ly:grob-set-property! gr 'stencil ly:text-interface::print)
-     (ly:grob-set-property! gr 'font-family 'roman)
-     (ly:grob-set-property! gr 'text
+     (ly:grob-set-property! grob 'stencil ly:text-interface::print)
+     (ly:grob-set-property! grob 'font-family 'roman)
+     (ly:grob-set-property! grob 'text
       (make-raise-markup -0.5
        (case sp
 	((-5) (make-simple-markup "m"))
@@ -43,17 +37,8 @@ example in the manual.
       ))))
   )))
 
-\context Voice \relative c' {
-  \stemUp
-  \set autoBeaming = ##f
-
-  { <d f g b>8
-
-    \applyOutput #'Voice #mc-squared
-    <d f g b>
-  }
+\relative c' {
+  <d f g b>2
+  \applyOutput #'Voice #mc-squared
+  <d f g b>
 }
-
-% ****************************************************************
-% end ly snippet
-% ****************************************************************

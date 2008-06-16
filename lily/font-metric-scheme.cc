@@ -16,8 +16,7 @@ LY_DEFINE (ly_font_get_glyph, "ly:font-get-glyph",
 	   2, 0, 0,
 	   (SCM font, SCM name),
 	   "Return a stencil from @var{font} for the glyph named @var{name}."
-	   "  @var{font} must be available as an AFM file.  If the glyph"
-	   " is not available, return @code{#f}.")
+	   " If the glyph is not available, return an empty stencil.")
 {
   Font_metric *fm = unsmob_metrics (font);
   LY_ASSERT_SMOB (Font_metric, font, 1);
