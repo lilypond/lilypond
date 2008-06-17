@@ -1,3 +1,4 @@
+doctitlees = "Trucaje de las propiedades de clave"
 texidoces = "
 La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de
 @code{clefGlyph}, @code{clefPosition} (que controla la posición
@@ -31,4 +32,5 @@ Los siguientes ejemplos muestran las posibilidades cuando se
 ajustan estas propiedades manualmente.  En la primera línea, los
 cambios manuales preservan el posicionamiento relativo estándar de
 las claves y las notas, pero no lo hacen en la segunda línea.
+
 "
