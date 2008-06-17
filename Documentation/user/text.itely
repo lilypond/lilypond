@@ -121,8 +121,8 @@ default; to enable it, use
 
 @cindex Text spanners
 
-Some performance indications, e.g., @i{rallentando} or
-@i{accelerando}, are written as text and are extended over
+Some performance indications, e.g., @notation{rallentando} or
+@notation{accelerando}, are written as text and are extended over
 multiple notes with dotted lines.
 Such objects, called @q{spanners}, may be created
 from one note to another using the following syntax:
@@ -458,10 +458,9 @@ Basic font switching is supported:
 @cindex font size
 @cindex text size
 @funindex \fontsize
-@funindex \small
-@funindex \large
 @funindex \smaller
 @funindex \larger
+@funindex \bigger
 @funindex \magnify
 
 The size of the characters can also be altered in different ways:
@@ -540,6 +539,22 @@ characters, as mentioned in @ref{New dynamic marks} and
 Defining custom font sets is also possible, as explained in
 @ref{Fonts}.  An exhaustive list of font-switching, font-size
 and font-families related commands can be found in @ref{Font}.
+
+@predefined
+
+@funindex \teeny
+@funindex \tiny
+@funindex \small
+@funindex \normalsize
+@funindex \large
+@funindex \huge
+@code{\teeny},
+@code{\tiny},
+@code{\small},
+@code{\normalsize},
+@code{\large},
+@code{\huge}.
+
 
 @c TODO: add @seealso
 
