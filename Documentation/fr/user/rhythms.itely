@@ -606,7 +606,7 @@ argument à la commande @code{set-time-signature}, en troisième position.
 Référence du programme : @rinternals{TimeSignature} et
 @rinternals{Timing_translator}.
 
-Exemples : @lsr{contemporary,compound-time-signature.ly}.
+Exemples : @rlsr{Rhythms}.
 
 
 @knownissues
@@ -721,9 +721,7 @@ LilyPond ne gère pas les métriques composites de manière explicite,
 mais on peut contourner ce problème.  Dans l'exemple suivant,
 l'indicateur de métrique est obtenu grâce à une étiquette textuelle.
 Cette étiquette vient s'insérer dans l'objet graphique (@emph{grob})
-@rinternals{TimeSignature}.  Voir aussi
-@lsr{contemporary,compound-time-signature}. 
-
+@rinternals{TimeSignature}.
 
 @lilypond[verbatim,ragged-right]
 % Create 9/8 split into 2/4 + 5/8
@@ -744,6 +742,9 @@ tsMarkup = \markup {
   c'2 \bar ":" c'4 c'4.
 }
 @end lilypond
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{compound-time-signatures.ly}
 
 Il arrive aussi que chaque portée ait sa propre métrique.  Vous y
 parviendrez en déplaçant le @rinternals{Timing_translator} dans le
@@ -858,8 +859,9 @@ multipliées par 3/5, de telle sorte que @w{3/5 * 10/8 = 3/4}.
 >> }
 @end lilypond
 
+@seealso
 
-
+Exemples : @rlsr{Rhythms}.
 
 @knownissues
 
@@ -1236,11 +1238,19 @@ devrez-vous ajouter une barre vide :
 @end lilypond
 
 Vous pouvez imprimer un numéro de mesure à intervalles réguliers plutôt
-qu'en tête de chaque ligne.  C'est ce qu'illustre l'exemple suivant,
-dont la source complète est 
-@lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
+qu'en tête de chaque ligne.  C'est ce qu'illustre l'exemple suivant.
 
-@c @lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\override Score.BarNumber #'break-visibility = ##(#f #t #t)
+\set Score.currentBarNumber = #11
+\bar ""  % Permit first bar number to be printed
+% Print a bar number every second measure
+\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
+c1 c c c c
+\break
+c c c c c
+@end lilypond
+
 
 Désactiver le graveur concerné --- @code{Bar_number_engraver} ---
 donnera une partition sans numéros de mesure.
@@ -1393,7 +1403,7 @@ contient les définitions de @code{format-mark-numbers} et
 @code{format-mark-letters}.  Elles seront source d'inspiration pour
 d'autres fonctions de formatage.
 
-Exemples : @lsr{parts,rehearsal-mark-numbers.ly}
+Exemples : @rlsr{Rhythms}, @rlsr{Expressive marks}.
 
 
 @node Special rhythmic concerns
@@ -1757,9 +1767,7 @@ propriété @code{uniform-stretching} du @rinternals{SpacingSpanner}.
 
 @seealso
 
-Exemples : @lsr{spacing,proportional@/-spacing@/.ly}, 
-@lsr{spacing,proportional@/-strict@/-grace@/-notes@/.ly}, et
-@lsr{spacing,proportional@/-strict@/-notespacing@/.ly}
+Exemples : @rlsr{Spacing}.
 
 Le fichier @file{input/proportional.ly} illustre la notation
 proportionnelle stricte.

@@ -174,18 +174,6 @@
 
 @c   **** Links and references ****
 
-@c obsolete, not replaced by anything (maybe will be replaced 
-@c with rlsr in the future)
-@c usage: @lsr{ancient,custodes.ly}
-@macro lsr{DIR,TEXT}
-@ifhtml
-@uref{source/input/lsr/\DIR\/collated-files.html#\TEXT\,@file{\DIR\/\TEXT\}}
-@end ifhtml
-@ifnothtml
-@file{\DIR\/\TEXT\}
-@end ifnothtml
-@end macro
-
 @c  Definitions for references:
 @c     @rinternals
 @c     @rglos

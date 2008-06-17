@@ -23,7 +23,7 @@
 @subsection Chords sections
 
 @c awkard bit of English docs (not reproduced here):
-@c "A lead sheet" is shovved in here from the tutorial,
+@c "A lead sheet" is shoved in here from the tutorial,
 @c before "Introducing chord names".(changed to "Entering chord names")
 @menu
 * Entering chord names::     
@@ -301,17 +301,17 @@ par défaut définies dans @file{ly/@/chord@/-modifier@/-init@/.ly} :
  ignatzekExceptions)
 @end example
 
-Exemple de manipulation de cette propriété :
-@lsr{chords/,chord@/-name@/-exceptions@/.ly}
-@cindex exceptions, chiffrages d'accords.
-
+@cindex exceptions, chiffrage d'accords
+@cindex chiffrage d'accords, exceptions
+@cindex accords chiffrés, exceptions
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{chord-name-exceptions.ly}
 
 @funindex majorSevenSymbol
 @item majorSevenSymbol
 Cette propriété définit l'objet employé pour indiquer une septième
 majeure.  Les options prédéfinies sont @code{whiteTriangleMarkup}
-(triangle blanc) et @code{blackTriangleMarkup} (triangle noir).  Voir aussi
-l'exemple @lsr{chords,chord@/-name@/-major7@/.ly}.
+(triangle blanc) et @code{blackTriangleMarkup} (triangle noir).
 
 @funindex chordNameSeparator
 @item chordNameSeparator
@@ -363,14 +363,12 @@ adaptées aux notations de différents pays : @code{\germanChords} et
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
-LilyPond intègre également deux autres modèles de chiffrages : une
-notation Jazz alternative, et un modèle systématique appelé système
-Banter.  Voir @ref{Chord name chart} et @lsr{chords,chord-names-jazz.ly}
-pour la mise en œuvre de ces modèles.
-
 @cindex Banter
 @cindex jazz, chiffrages d'accords
 @cindex accords jazz, chiffrage
+LilyPond intègre également deux autres modèles de chiffrages : une
+notation Jazz alternative, et un modèle systématique appelé système
+Banter.  Pour la mise en œuvre de ces modèles, voir @ref{Chord name chart}.
 
 
 @predefined
@@ -378,9 +376,9 @@ pour la mise en œuvre de ces modèles.
 @funindex \germanChords
 @code{\germanChords},
 @funindex \semiGermanChords
-@code{\semiGermanChords}.
+@code{\semiGermanChords},
 @funindex \italianChords
-@code{\italianChords}.
+@code{\italianChords},
 @funindex \frenchChords
 @code{\frenchChords}.
 

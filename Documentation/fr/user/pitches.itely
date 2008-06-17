@@ -485,7 +485,7 @@ réelles, on utilisera un deuxième @code{transpose}
 
 Référence du programme : @rinternals{TransposedMusic}.
 
-Exemple : @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
+Exemples : @rlsr{Pitches}.
 
 
 @knownissues
