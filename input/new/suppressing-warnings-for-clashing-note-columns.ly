@@ -13,9 +13,10 @@ to @code{#t}.
   doctitle = "Suppressing warnings for clashing note columns"
 }
 
-ignore = \once \override NoteColumn #'ignore-collision = ##t
+ignore = \override NoteColumn #'ignore-collision = ##t
 
 \relative c' <<
-  { \oneVoice \stemDown f2\glissando \stemNeutral a } \\
-  { \oneVoice \ignore c2\glissando \ignore d, }
+  \ignore
+  { \stemDown f2 g } \\
+  { c2 c, }
 >>

@@ -120,7 +120,8 @@ Music Glossary:
 @rglos{portato}.
 
 Notation Reference:
-@ref{Direction and placement}.
+@ref{Direction and placement},
+@ref{List of articulations}.
 
 Installed Files:
 @file{scm/@/script@/.scm}.
@@ -306,7 +307,8 @@ Learning Manual:
 @rlearning{Articulation and dynamics}.
 
 Notation Reference:
-@ref{Direction and placement}.
+@ref{Direction and placement},
+@ref{New dynamic marks}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -420,9 +422,6 @@ a4 g2 f4)
 <c e>2( <b d>2)
 @end lilypond
 
-The direction of a @notation{slur} can be specified with
-@code{\slurUp} or @code{\slurDown}.  The @code{\slurNeutral}
-command reverts back to the default slur direction.
 @notation{Slurs} may be manually placed above or below the staff,
 see @ref{Direction and placement}.
 
@@ -482,7 +481,8 @@ Music Glossary:
 @rglos{slur}.
 
 Notation Reference:
-@ref{Direction and placement}.
+@ref{Direction and placement},
+@ref{Phrasing slurs}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -511,10 +511,8 @@ e2) d\)
 Typographically, a @notation{phrasing slur} behaves almost exactly
 like a normal @notation{slur}.  However, they are treated as
 different objects; a @code{\slurUp} will have no effect on a
-@notation{phrasing slur}.  The commands @code{\phrasingSlurUp},
-@code{\phrasingSlurDown}, and @code{\phrasingSlurNeutral} are used
-instead.  Phrasing slurs may be manually placed above or below the
-staff, see @ref{Direction and placement}.
+@notation{phrasing slur}.  Phrasing slurs may be manually placed
+above or below the staff, see @ref{Direction and placement}.
 
 @lilypond[verbatim,quote,relative=1]
 c4\( g' c,( b) | c1\)
@@ -559,6 +557,10 @@ Breath marks are entered using @code{\breathe}:
 c2. \breathe d4
 @end lilypond
 
+Musical indicators for breath marks in ancient notation,
+@notation{divisiones}, are supported.  For details, see
+@ref{Divisiones}.
+
 
 @snippets
 
@@ -567,6 +569,9 @@ c2. \breathe d4
 
 
 @seealso
+
+Notation Reference:
+@ref{Divisiones}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -634,32 +639,26 @@ A @notation{glissando} is created by attaching @code{\glissando}
 to a note:
 
 @lilypond[verbatim,quote,relative=2]
-c2\glissando c'
-\override Glissando #'style = #'zigzag
+g2\glissando g'
 c2\glissando c,
 @end lilypond
 
+Different styles of @notation{glissandi} can be created.  For
+details, see @ref{Line styles}.
 
 @snippets
 
-@c Modify, add description, and put in input/new/
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {suppressing-warnings-for-clashing-note-columns.ly}
-
-@lilypond[verbatim,quote]
-I = \once \override NoteColumn #'ignore-collision = ##t
-
-\relative c' <<
-  { \oneVoice \stemDown f2 \glissando \stemNeutral a } \\
-  { \oneVoice \I c2 \glissando \I d, }
->>
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{contemporary-glissando.ly}
 
 
 @seealso
 
 Music Glossary:
 @rglos{glissando}.
+
+Notation Reference:
+@ref{Line styles}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -796,8 +795,8 @@ time.
 @cindex trills
 @funindex \trill
 
-Short @notation{trills} are printed with @code{\trill} like normal
-articulation; see @ref{Articulations and ornamentations}.
+Short @notation{trills} without an extender line are printed with
+@code{\trill}; see @ref{Articulations and ornamentations}.
 
 Long running @notation{trills} are made with
 @code{\startTrillSpan} and @code{\stopTrillSpan}.  In the
@@ -845,6 +844,10 @@ printed as a stemless note head in parentheses.
 
 Music Glossary:
 @rglos{trill}.
+
+Notation Reference:
+@ref{Articulations and ornamentations},
+@ref{Grace notes}.
 
 Snippets:
 @rlsr{Expressive marks}.
