@@ -1,11 +1,3 @@
-\header {
-
-  texidoc = "Makam is Turkish type of melody that uses 1/9 tone
-  microtonal alterations."
-
-}
-
-
 \version "2.11.6"
 
 %{
