@@ -16,7 +16,7 @@
 @include version.itexi
 
 @macro lydoctitle{TEXT}
-@section \TEXT\
+@unnumberedsec \TEXT\
 @end macro
 
 @ifnottex

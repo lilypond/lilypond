@@ -59,7 +59,7 @@ Simple @q{quoted text} indications may be added
 to a score, as demonstrated in the following example.
 Such indications can be manually placed
 above or below the staff, using the
-simple syntax described in @ref{Direction and
+syntax described in @ref{Direction and
 placement}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
@@ -81,7 +81,9 @@ in the following example, the first text string does not affect
 spacing, whereas the second one does.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
-d8^"pizz." e f g \textLengthOn a4_"scherzando" f
+d8^"pizz." e f g
+\textLengthOn
+a4_"scherzando" f
 @end lilypond
 
 @predefined
@@ -119,9 +121,9 @@ default; to enable it, use
 
 @cindex Text spanners
 
-Some performance indications, e.g., @i{rallentando} or
-@i{accelerando}, are written as text and are extended over many
-measures with dotted lines.
+Some performance indications, e.g., @notation{rallentando} or
+@notation{accelerando}, are written as text and are extended over
+multiple notes with dotted lines.
 Such objects, called @q{spanners}, may be created
 from one note to another using the following syntax:
 
@@ -182,7 +184,7 @@ the syntax described in @ref{Rehearsal marks}:
 c4\mark "Allegro" c c c
 @end lilypond
 
-This syntax makes possible to put any text on a bar line;
+This syntax makes it possible to put any text on a bar line;
 more complex text formatting may be added using a @code{\markup}
 block, as described in @ref{Formatting text}.  This can be used to print
 signs like coda, segno or fermata, by specifying the appropriate
@@ -255,7 +257,7 @@ expression}.  This syntax is described in @ref{File structure}.
 @end lilypond
 
 @noindent
-This allows to print text separately
+This allows printing text separately
 from the music, which is particularly 
 useful when the input file contains
 several music pieces, as described in
@@ -432,7 +434,7 @@ Syntax errors for markup mode are confusing.
 @node Common markup commands
 @subsubsection Common markup commands
 
-Markup text may be formatted using simple commands.
+Markup text may be formatted in different ways.
 
 @cindex font switching
 @funindex \italic
@@ -444,9 +446,9 @@ Basic font switching is supported:
 @lilypond[quote,verbatim,relative=2]
 {
   d1^\markup { 
-      \bold { Più mosso } 
-      \italic { non troppo \underline Vivo } 
-    }
+    \bold { Più mosso } 
+    \italic { non troppo \underline Vivo } 
+  }
   r2 r4 r8
   d,_\markup { \italic quasi \smallCaps Tromba }
   f1 d2 r
@@ -456,10 +458,9 @@ Basic font switching is supported:
 @cindex font size
 @cindex text size
 @funindex \fontsize
-@funindex \small
-@funindex \large
 @funindex \smaller
 @funindex \larger
+@funindex \bigger
 @funindex \magnify
 
 The size of the characters can also be altered in different ways:
@@ -481,15 +482,15 @@ The following example demonstrates these three methods:
 {
   f1^\markup { \fontsize #5 Sinfonia } 
   a,_\markup { 
-         \tiny espressivo
-         \large e
-         \normalsize intenso 
-         }
+    \tiny espressivo
+    \large e
+    \normalsize intenso 
+  }
   bes^\markup { (con 
-         \larger grande 
-         \smaller emozione 
-         \magnify #0.6 { e sentimento } )
-         }
+    \larger grande 
+    \smaller emozione 
+    \magnify #0.6 { e sentimento } )
+  }
   d c2 r8 c bes a g1
 }
 @end lilypond
@@ -536,10 +537,24 @@ characters, as mentioned in @ref{New dynamic marks} and
 
 
 Defining custom font sets is also possible, as explained in
-@ref{Fonts}.
+@ref{Fonts}.  An exhaustive list of font-switching, font-size
+and font-families related commands can be found in @ref{Font}.
 
-An exhaustive list of font-switching, font-size and font-families related
-commands can be found in @ref{Font}.
+@predefined
+
+@funindex \teeny
+@funindex \tiny
+@funindex \small
+@funindex \normalsize
+@funindex \large
+@funindex \huge
+@code{\teeny},
+@code{\tiny},
+@code{\small},
+@code{\normalsize},
+@code{\large},
+@code{\huge}.
+
 
 @c TODO: add @seealso
 

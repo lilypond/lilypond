@@ -72,9 +72,12 @@
 			      (lambda (y) (make-translate-scaled-markup (cons -0.7 0) y))
 			      identity)
 
-			  (if (eq? #t (ly:event-property event 'diminished))
-			      (markup #:slashed-digit figure)
-			      (markup #:number (number->string figure 10))))
+			  (cond
+				((eq? #t (ly:event-property event 'diminished))
+				         (markup #:slashed-digit figure))
+				((eq? #t (ly:event-property event 'augmented-slash))
+				         (markup #:backslashed-digit figure))
+				(else (markup #:number (number->string figure 10)))))
 			 #f
 			 ))
 	 (alt (ly:event-property event 'alteration))

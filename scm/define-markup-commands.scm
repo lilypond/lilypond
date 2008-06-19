@@ -1709,6 +1709,71 @@ and continue with double letters.
    (ly:text-interface::interpret-markup layout props
      (number->markletter-string number->mark-alphabet-vector num)))
 
+(define-public (horizontal-slash-interval num forward number-interval mag)
+  (ly:message "Mag step: ~a" mag)
+  (if forward
+    (cond ;((= num 6) (interval-widen number-interval (* mag 0.5)))
+          ;((= num 5) (interval-widen number-interval (* mag 0.5)))
+          (else (interval-widen number-interval (* mag 0.25))))
+    (cond ((= num 6) (interval-widen number-interval (* mag 0.5)))
+          ;((= num 5) (interval-widen number-interval (* mag 0.5)))
+          (else (interval-widen number-interval (* mag 0.25))))
+  ))
+
+(define-public (adjust-slash-stencil num forward stencil mag)
+  (if forward
+    (cond ((= num 2)
+              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
+          ((= num 3)
+              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
+          ;((= num 5)
+              ;(ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.07))))
+          ;((= num 7)
+          ;    (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
+          (else stencil))
+    (cond ((= num 6)
+              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.15))))
+          ;((= num 8)
+          ;    (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
+          (else stencil))
+  )
+)
+
+(define (slashed-digit-internal layout props num forward font-size thickness)
+  (let* ((mag (magstep font-size))
+         (thickness (* mag
+                       (ly:output-def-lookup layout 'line-thickness)
+                       thickness))
+         ; backward slashes might use slope and point in the other direction!
+         (dy (* mag (if forward 0.4 -0.4)))
+         (number-stencil (interpret-markup layout
+                                           (prepend-alist-chain 'font-encoding 'fetaNumber props)
+                                           (number->string num)))
+         (num-x (horizontal-slash-interval num forward (ly:stencil-extent number-stencil X) mag))
+         (center (interval-center (ly:stencil-extent number-stencil Y)))
+         ; Use the real extents of the slash, not the whole number, because we
+         ; might translate the slash later on!
+         (num-y (interval-widen (cons center center) (abs dy)))
+         (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
+         (slash-stencil (if is-sane
+                            (ly:make-stencil
+                             `(draw-line ,thickness
+                                         ,(car num-x) ,(- (interval-center num-y) dy)
+                                         ,(cdr num-x) ,(+ (interval-center num-y) dy))
+                             num-x num-y)
+                            #f)))
+(ly:message "Num: ~a, X-interval: ~a" num num-x)
+    (if (ly:stencil? slash-stencil)
+      (begin
+        ; for some numbers we need to shift the slash/backslash up or down to make
+        ; the slashed digit look better
+        (set! slash-stencil (adjust-slash-stencil num forward slash-stencil mag))
+        (set! number-stencil
+          (ly:stencil-add number-stencil slash-stencil)))
+      (ly:warning "Unable to create slashed digit ~a" num))
+    number-stencil))
+
+
 (define-builtin-markup-command (slashed-digit layout props num)
   (integer?)
   other
@@ -1727,42 +1792,28 @@ figured bass notation.
   \\slashed-digit #7
 }
 @end lilypond"
-  (let* ((mag (magstep font-size))
-         (thickness (* mag
-                       (ly:output-def-lookup layout 'line-thickness)
-                       thickness))
-         (dy (* mag 0.15))
-         (number-stencil (interpret-markup layout
-                                           (prepend-alist-chain 'font-encoding 'fetaNumber props)
-                                           (number->string num)))
-         (num-x (interval-widen (ly:stencil-extent number-stencil X)
-                                (* mag 0.2)))
-         (num-y (ly:stencil-extent number-stencil Y))
-         (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
-         (slash-stencil (if is-sane
-                            (ly:make-stencil
-                             `(draw-line ,thickness
-                                         ,(car num-x) ,(- (interval-center num-y) dy)
-                                         ,(cdr num-x) ,(+ (interval-center num-y) dy))
-                             num-x num-y)
-                            #f)))
-    (set! slash-stencil
-          (cond ((not (ly:stencil? slash-stencil)) #f)
-                ((= num 5)
-                 (ly:stencil-translate slash-stencil
-                                       ;;(cons (* mag -0.05) (* mag 0.42))
-                                       (cons (* mag -0.00) (* mag -0.07))))
-                ((= num 7)
-                 (ly:stencil-translate slash-stencil
-                                       ;;(cons (* mag -0.05) (* mag 0.42))
-                                       (cons (* mag -0.00) (* mag -0.15))))
-                (else slash-stencil)))
-    (if slash-stencil
-        (set! number-stencil
-              (ly:stencil-add number-stencil slash-stencil))
-        (ly:warning "invalid number for slashed digit ~a" num))
-    number-stencil))
+  (slashed-digit-internal layout props num #t font-size thickness))
+
+(define-builtin-markup-command (backslashed-digit layout props num)
+  (integer?)
+  other
+  ((font-size 0)
+   (thickness 1.6))
+  "
+@cindex backslashed digits
 
+A feta number, with backslash.  This is for use in the context of
+figured bass notation.
+@lilypond[verbatim,quote]
+\\markup {
+  \\backslashed-digit #5
+  \\hspace #2
+  \\override #'(thickness . 3)
+  \\backslashed-digit #7
+}
+@end lilypond"
+  (slashed-digit-internal layout props num #f font-size thickness))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

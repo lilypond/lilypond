@@ -26,6 +26,8 @@ than one voice on the same staff.
 @node Single voice
 @subsection Single voice
 
+This section discusses simultaneous notes inside the same voice.
+
 @menu
 * Chorded notes::                      
 * Clusters::                    
@@ -115,6 +117,9 @@ them.
 
 @node Multiple voices
 @subsection Multiple voices
+
+This section discusses simultaneous notes in multiple voices or
+multiple staves.
 
 @menu
 * Collision resolution::        
@@ -231,22 +236,6 @@ Notes are only merged if they have opposing stem directions (i.e., in
 @cindex polyphonic music
 @cindex shifting voices
 
-In some instances of complex polyphonic music, you may need
-additional voices to avoid collisions between notes.  Additional
-voices are added by defining an variable, as shown below:
-
-@lilypond[quote,verbatim]
-voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
-\relative c'''
-<< 
-  { \voiceOne g2. ~ \stemDown g32[ f( es d c b a b64) g] } \\
-  { \voiceThree b4 } \\
-  { \voiceFive d,  } \\
-  { \voiceTwo g,   }
->>
-@end lilypond
-
-
 @predefined
 
 @funindex \oneVoice
@@ -260,7 +249,6 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @funindex \voiceFour
 @code{\voiceFour}.
 
-@c undocumented?: --FV
 @funindex \voiceNeutralStyle
 @funindex \voiceOneStyle
 @funindex \voiceTwoStyle
@@ -288,21 +276,13 @@ inner voices (three and four) have @code{\shiftOn}.
 @code{\shiftOnn} and @code{\shiftOnnn} define further shift
 levels.
 
-When LilyPond cannot cope, the @code{force-hshift} property of the
-@code{NoteColumn} object and pitched rests can be used to
-override typesetting decisions.
+@snippets
 
-@lilypond[quote,verbatim,relative=1]
-<<
-  { <d g>2
-    <d g>  }
-  \\
-  { <b f'>2
-    \once \override NoteColumn #'force-hshift = #1.7
-    <b f'> }
->>
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{additional-voices-to-avoid-collisions.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{forcing-horizontal-shift-of-notes.ly}
 
 @seealso
 
@@ -477,7 +457,7 @@ when the parts can be combined.  Consequently, if the arguments
 switch to differently named @rinternals{Voice} contexts, the
 events in those will be ignored.
 
-@c IIRC in users list someone pointed out more issues. FV
+@c IIRC in users list someone pointed out more issues. TODO: lookup FV
 
 @node Writing music in parallel
 @subsubsection Writing music in parallel
