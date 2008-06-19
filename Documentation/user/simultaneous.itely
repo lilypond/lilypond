@@ -26,6 +26,8 @@ than one voice on the same staff.
 @node Single voice
 @subsection Single voice
 
+This section discusses simultaneous notes inside the same voice.
+
 @menu
 * Chorded notes::                      
 * Clusters::                    
@@ -115,6 +117,9 @@ them.
 
 @node Multiple voices
 @subsection Multiple voices
+
+This section discusses simultaneous notes in multiple voices or
+multiple staves.
 
 @menu
 * Collision resolution::        
