@@ -41,11 +41,13 @@ comments_re = re.compile (r'^@ignore\n(.|\n)*?\n@end ignore$|@c .*?$', re.M)
 space_re = re.compile (r'\s+', re.M)
 lilypond_re = re.compile (r'@lilypond({.*?}|(.|\n)*?\n@end lilypond$)', re.M)
 node_re = re.compile ('^@node .*?$', re.M)
-title_re = re.compile ('^@(top|chapter|(?:sub){0,2}section|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?) (.*?)$', re.M)
+title_re = re.compile ('^@(top|chapter|(?:sub){0,2}section|' + \
+'(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?) (.*?)$', re.M)
 include_re = re.compile ('^@include (.*?)$', re.M)
 
 translators_re = re.compile (r'^@c\s+Translators\s*:\s*(.*?)$', re.M | re.I)
-checkers_re = re.compile (r'^@c\s+Translation\s*checkers\s*:\s*(.*?)$', re.M | re.I)
+checkers_re = re.compile (r'^@c\s+Translation\s*checkers\s*:\s*(.*?)$',
+                          re.M | re.I)
 status_re = re.compile (r'^@c\s+Translation\s*status\s*:\s*(.*?)$', re.M | re.I)
 post_gdp_re = re.compile ('post.GDP', re.I)
 untranslated_node_str = 'UNTRANSLATED NODE: IGNORE ME'
@@ -54,12 +56,14 @@ skeleton_str = '-- SKELETON FILE --'
 format_table = {
     'not translated': {'color':'d0f0f8', 'short':_doc ('no'), 'abbr':'NT',
                        'long':_doc ('not translated')},
-    'partially translated': {'color':'dfef77', 'short':_doc ('partially (%(p)d %%)'),
-                             'abbr':'%(p)d%%', 'long':_doc ('partially translated (%(p)d %%)')},
+    'partially translated': {'color':'dfef77',
+                             'short':_doc ('partially (%(p)d %%)'),
+                             'abbr':'%(p)d%%',
+                             'long':_doc ('partially translated (%(p)d %%)')},
     'fully translated': {'color':'1fff1f', 'short':_doc ('yes'), 'abbr':'FT',
                          'long': _doc ('translated')},
-    'up to date': {'short':_doc ('yes'), 'long':_doc ('up to date'), 'abbr':'100%%',
-                   'vague':_doc ('up to date')},
+    'up to date': {'short':_doc ('yes'), 'long':_doc ('up to date'),
+                   'abbr':'100%%', 'vague':_doc ('up to date')},
     'outdated': {'short':_doc ('partially (%(p)d %%)'), 'abbr':'%(p)d%%',
                  'vague':_doc ('partially up to date')},
     'N/A': {'short':_doc ('N/A'), 'abbr':'N/A', 'color':'d587ff', 'vague':''},
@@ -89,7 +93,8 @@ class SectionNumber (object):
     def __increase_last_index (self):
         type = self.__data[-1][1]
         if type == 'l':
-            self.__data[-1][0] = self.__data[-1][0].translate (appendix_number_trans)
+            self.__data[-1][0] = \
+                self.__data[-1][0].translate (appendix_number_trans)
         elif type == 'n':
             self.__data[-1][0] += 1
 
@@ -121,11 +126,14 @@ class SectionNumber (object):
 def percentage_color (percent):
     p = percent / 100.0
     if p < 0.33:
-        c = [hex (int (3 * p * b + (1 - 3 * p) * a))[2:] for (a, b) in [(0xff, 0xff), (0x5c, 0xa6), (0x5c, 0x4c)]]
+        c = [hex (int (3 * p * b + (1 - 3 * p) * a))[2:]
+             for (a, b) in [(0xff, 0xff), (0x5c, 0xa6), (0x5c, 0x4c)]]
     elif p < 0.67:
-        c = [hex (int ((3 * p - 1) * b + (2 - 3 * p) * a))[2:] for (a, b) in [(0xff, 0xff), (0xa6, 0xff), (0x4c, 0x3d)]]
+        c = [hex (int ((3 * p - 1) * b + (2 - 3 * p) * a))[2:]
+             for (a, b) in [(0xff, 0xff), (0xa6, 0xff), (0x4c, 0x3d)]]
     else:
-        c = [hex (int ((3 * p - 2) * b + 3 * (1 - p) * a))[2:] for (a, b) in [(0xff, 0x1f), (0xff, 0xff), (0x3d, 0x1f)]]
+        c = [hex (int ((3 * p - 2) * b + 3 * (1 - p) * a))[2:]
+             for (a, b) in [(0xff, 0x1f), (0xff, 0xff), (0x3d, 0x1f)]]
     return ''.join (c)
 
 
@@ -175,7 +183,8 @@ class TelyDocument (object):
             self.title = 'Untitled'
             self.level = ('u', 1)
 
-        included_files = [os.path.join (os.path.dirname (filename), t) for t in include_re.findall (self.contents)]
+        included_files = [os.path.join (os.path.dirname (filename), t)
+                          for t in include_re.findall (self.contents)]
         self.included_files = [p for p in included_files if os.path.exists (p)]
 
     def print_title (self, section_number):
@@ -216,30 +225,39 @@ class TranslatedTelyDocument (TelyDocument):
 
         ## calculate translation percentage
         master_total_word_count = sum (masterdocument.word_count)
-        translation_word_count = sum ([masterdocument.word_count[k] * self.translated_nodes[k]
-                                       for k in range (min (len (masterdocument.word_count), len (self.translated_nodes)))])
-        self.translation_percentage = 100 * translation_word_count / master_total_word_count
+        translation_word_count = \
+            sum ([masterdocument.word_count[k] * self.translated_nodes[k]
+                  for k in range (min (len (masterdocument.word_count),
+                                       len (self.translated_nodes)))])
+        self.translation_percentage = \
+            100 * translation_word_count / master_total_word_count
 
         ## calculate how much the file is outdated
-        (diff_string, error) = buildlib.check_translated_doc (masterdocument.filename, self.contents)
+        (diff_string, error) = \
+            buildlib.check_translated_doc (masterdocument.filename, self.contents)
         if error:
             sys.stderr.write ('warning: %s: %s' % (self.filename, error))
             self.uptodate_percentage = None
         else:
             diff = diff_string.splitlines ()
-            insertions = sum ([len (l) - 1 for l in diff if l.startswith ('+') and not l.startswith ('+++')])
-            deletions = sum ([len (l) - 1 for l in diff if l.startswith ('-') and not l.startswith ('---')])
-            outdateness_percentage = 50.0 * (deletions + insertions) / (masterdocument.size + 0.5 * (deletions - insertions))
+            insertions = sum ([len (l) - 1 for l in diff
+                               if l.startswith ('+')
+                               and not l.startswith ('+++')])
+            deletions = sum ([len (l) - 1 for l in diff
+                              if l.startswith ('-')
+                              and not l.startswith ('---')])
+            outdateness_percentage = 50.0 * (deletions + insertions) / \
+                (masterdocument.size + 0.5 * (deletions - insertions))
             self.uptodate_percentage = 100 - int (outdateness_percentage)
             if self.uptodate_percentage > 100:
                 alternative = 50
-                progress ("%s: strange uptodateness percentage %d %%, setting to %d %%" \
-                              % (self.filename, self.uptodate_percentage, alternative))
+                progress ("%s: strange uptodateness percentage %d %%, \
+setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                 self.uptodate_percentage = alternative
             elif self.uptodate_percentage < 1:
                 alternative = 1
-                progress ("%s: strange uptodateness percentage %d %%, setting to %d %%" \
-                              % (self.filename, self.uptodate_percentage, alternative))
+                progress ("%s: strange uptodateness percentage %d %%, \
+setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                 self.uptodate_percentage = alternative
 
     def completeness (self, formats=['long']):
@@ -283,14 +301,17 @@ class TranslatedTelyDocument (TelyDocument):
         if self.partially_translated:
             s += '<br>\n   '.join (self.translators) + '<br>\n'
             if self.checkers:
-                s += '   <small>' + '<br>\n   '.join (self.checkers) + '</small><br>\n'
+                s += '   <small>' + \
+                    '<br>\n   '.join (self.checkers) + '</small><br>\n'
 
         c = self.completeness (['color', 'long'])
-        s += '   <span style="background-color: #%(color)s">%(long)s</span><br>\n' % c
+        s += '   <span style="background-color: #%(color)s">\
+%(long)s</span><br>\n' % c
 
         if self.partially_translated:
             u = self.uptodateness (['vague', 'color'])
-            s += '   <span style="background-color: #%(color)s">%(vague)s</span><br>\n' % u
+            s += '   <span style="background-color: #%(color)s">\
+%(vague)s</span><br>\n' % u
 
         s += '  </td>\n'
         return s
@@ -307,15 +328,24 @@ class TranslatedTelyDocument (TelyDocument):
         return ''
 
 class MasterTelyDocument (TelyDocument):
-    def __init__ (self, filename, parent_translations=dict ([(lang, None) for lang in langdefs.LANGDICT])):
+    def __init__ (self,
+                  filename,
+                  parent_translations=dict ([(lang, None)
+                                             for lang in langdefs.LANGDICT])):
         TelyDocument.__init__ (self, filename)
         self.size = len (self.contents)
         self.word_count = tely_word_count (self.contents)
-        translations = dict ([(lang, os.path.join (lang, filename)) for lang in langdefs.LANGDICT])
-        self.translations = dict ([(lang, TranslatedTelyDocument (translations[lang], self, parent_translations.get (lang)))
-                                   for lang in langdefs.LANGDICT if os.path.exists (translations[lang])])
+        translations = dict ([(lang, os.path.join (lang, filename))
+                              for lang in langdefs.LANGDICT])
+        self.translations = \
+            dict ([(lang,
+                    TranslatedTelyDocument (translations[lang],
+                                            self, parent_translations.get (lang)))
+                   for lang in langdefs.LANGDICT
+                   if os.path.exists (translations[lang])])
         if self.translations:
-            self.includes = [MasterTelyDocument (f, self.translations) for f in self.included_files]
+            self.includes = [MasterTelyDocument (f, self.translations)
+                             for f in self.included_files]
         else:
             self.includes = []
 
@@ -341,7 +371,8 @@ class MasterTelyDocument (TelyDocument):
             s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
                 % (self.print_title (numbering), sum (self.word_count))
 
-        s += ''.join ([t.short_html_status () for t in self.translations.values ()])
+        s += ''.join ([t.short_html_status ()
+                       for t in self.translations.values ()])
         s += ' </tr>\n'
         s += ''.join ([i.html_status (numbering) for i in self.includes])
 
@@ -356,16 +387,19 @@ class MasterTelyDocument (TelyDocument):
         s = ''
         if self.level[1] == 0: # if self is a master document
             s += (self.print_title (numbering) + ' ').ljust (colspec[0])
-            s += ''.join (['%s'.ljust (colspec[1]) % l for l in self.translations])
+            s += ''.join (['%s'.ljust (colspec[1]) % l
+                           for l in self.translations])
             s += '\n'
-            s += ('Section titles (%d)' % sum (self.word_count)).ljust (colspec[0])
+            s += ('Section titles (%d)' % \
+                      sum (self.word_count)).ljust (colspec[0])
 
         else:
             s = '%s (%d) ' \
                 % (self.print_title (numbering), sum (self.word_count))
             s = s.ljust (colspec[0])
 
-        s += ''.join ([t.text_status ().ljust(colspec[1]) for t in self.translations.values ()])
+        s += ''.join ([t.text_status ().ljust(colspec[1])
+                       for t in self.translations.values ()])
         s += '\n\n'
         s += ''.join ([i.text_status (numbering) for i in self.includes])
 
@@ -380,21 +414,26 @@ counts_re = re.compile (r'(?m)^(\d+) ')
 
 def update_category_word_counts_sub (m):
     return '-' + m.group (1) + '-' + m.group (2) + \
-        str (sum ([int (c) for c in counts_re.findall (m.group (2))])).ljust (6) + 'total'
+        str (sum ([int (c)
+                   for c in counts_re.findall (m.group (2))])).ljust (6) + \
+        'total'
 
 
 progress ("Reading documents...")
 
-tely_files = buildlib.read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
-master_docs = [MasterTelyDocument (os.path.normpath (filename)) for filename in tely_files]
+tely_files = \
+    buildlib.read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
+master_docs = [MasterTelyDocument (os.path.normpath (filename))
+               for filename in tely_files]
 master_docs = [doc for doc in master_docs if doc.translations]
 
 main_status_page = open ('translations.template.html.in').read ()
 
 ## TODO
-#per_lang_status_pages = dict ([(l, open (os.path.join (l, 'translations.template.html')). read ())
-#                               for l in langdefs.LANGDICT
-#                               if langdefs.LANGDICT[l].enabled])
+#per_lang_status_pages = \
+#    dict ([(l, open (os.path.join (l, 'translations.template.html')). read ())
+#           for l in langdefs.LANGDICT
+#           if langdefs.LANGDICT[l].enabled])
 
 progress ("Generating status pages...")
 
@@ -410,7 +449,8 @@ main_status_page = html_re.sub ('''<html>
 <!-- This page is automatically generated by translation-status.py from
 translations.template.html.in; DO NOT EDIT !-->''', main_status_page)
 
-main_status_page = end_body_re.sub (main_status_html + '\n</body>', main_status_page)
+main_status_page = end_body_re.sub (main_status_html + '\n</body>',
+                                    main_status_page)
 
 open ('translations.html.in', 'w').write (main_status_page)
 
@@ -434,19 +474,22 @@ translation_instructions = open (translation_instructions_file).read ()
 for doc in master_docs:
     translation_instructions = doc.update_word_counts (translation_instructions)
 
-for html_file in re.findall (r'(?m)^\d+ *(\S+?\.html\S*?)(?: |$)', translation_instructions):
+for html_file in re.findall (r'(?m)^\d+ *(\S+?\.html\S*?)(?: |$)',
+                             translation_instructions):
     word_count = sgml_word_count (open (html_file).read ())
     translation_instructions = update_word_count (translation_instructions,
                                                   html_file,
                                                   word_count)
 
-for po_file in re.findall (r'(?m)^\d+ *(\S+?\.po\S*?)(?: |$)', translation_instructions):
+for po_file in re.findall (r'(?m)^\d+ *(\S+?\.po\S*?)(?: |$)',
+                           translation_instructions):
     word_count = po_word_count (open (po_file).read ())
     translation_instructions = update_word_count (translation_instructions,
                                                   po_file,
                                                   word_count)
 
-translation_instructions = update_category_word_counts_re.sub (update_category_word_counts_sub,
-                                                               translation_instructions)
+translation_instructions = \
+    update_category_word_counts_re.sub (update_category_word_counts_sub,
+                                        translation_instructions)
 
 open (translation_instructions_file, 'w').write (translation_instructions)
