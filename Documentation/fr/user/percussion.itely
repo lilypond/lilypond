@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 66ac58580685638eaf196304f1de95a412d8f909
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -16,45 +16,34 @@
 @section Percussion
 
 @menu
-* Percussion sections::
+* Common notation for percussion::  
 @end menu
 
-@node Percussion sections
-@subsection Percussion sections
+@node Common notation for percussion
+@subsection Common notation for percussion
 
 La notation rythmique sert avant tout aux parties de percussions ou de
 batterie, mais on peut aussi s'en servir à des fins pédagogiques, pour
 montrer le rythme d'une mélodie.
 
+
 @menu
-* Showing melody rhythms::      
-* Entering percussion::         
+* References for percussion::   
+* Basic percussion notation::   
 * Percussion staves::           
 * Ghost notes::                 
 @end menu
 
-
-@node Showing melody rhythms
-@unnumberedsubsubsec Showing melody rhythms
-
-Au moyen d'une portée rythmique -- @q{rhythmic staff} en anglais -- on
-peut montrer seulement le rythme d'une mélodie : toutes les notes sont
-ramenées à la même hauteur, sur une portée d'une seule ligne.
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new RhythmicStaff {
-  \time 4/4
-  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
-}
-@end lilypond
-
-@seealso
-
-Référence du programme : @rinternals{RhythmicStaff}.
+@node References for percussion
+@subsubsection References for percussion
 
 
-@node Entering percussion
-@unnumberedsubsubsec Entering percussion
+UNTRANSLATED NODE: IGNORE ME
+
+
+@node Basic percussion notation
+@subsubsection Basic percussion notation
+
 
 @cindex percussions
 @cindex batterie
@@ -71,6 +60,7 @@ fichier LilyPond, un nom complet et un nom raccourci.
 }
 @end lilypond
 
+
 Ces noms sont inventoriés dans le fichier d'initialisation 
 @file{ly/@/drumpitch@/-init@/.ly}.
 @c TODO: properly document this.
@@ -79,8 +69,12 @@ Ces noms sont inventoriés dans le fichier d'initialisation
 
 Référence du Programme : @rinternals{note-event}.
 
+
+
 @node Percussion staves
-@unnumberedsubsubsec Percussion staves
+@subsubsection Percussion staves
+
+
 @cindex percussions
 @cindex batterie
 
@@ -299,9 +293,9 @@ sur le bord de la caisse claire --- donc ils sont remplacés par des
 
 
 
-@c FIXME: check name -gp
 @node Ghost notes
-@unnumberedsubsubsec Ghost notes
+@subsubsection Ghost notes
+
 
 Des notes fantômes peuvent être créées pour les parties de percussion,
 grâce à la commande @code{\parenthesize} décrite dans
@@ -334,4 +328,7 @@ properties on the fly}.
 @noindent
 Notez que les commandes @code{\parenthesize} obligent à ajouter des
 accords --- sous la forme @code{< >} --- autour de chaque élément.
+
+
+
 
