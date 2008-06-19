@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: eba03f4a3cec521a7099a3ec55f51d163803a8e4
+    Translation of GIT committish: 3c1b5232885c3ff2c055707d44842feb61d71f80
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -166,13 +166,11 @@ modificador para crear una tríada mayor.
 
 @end table
 
-@c TODO -- perhaps add warning about c and c:maj being different, while
-@c   c:maj and c:maj7 are the same
 
 @seealso
 
 Fragmentos de código:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 
 @node Extended and altered chords
@@ -354,7 +352,8 @@ estándar como notas sobre un pentagrama.
 @cindex acordes, nombres de
 @cindex acordes
 
-Chord names are printed in the @code{ChordNames} context:
+Los nombres de acorde se imprimen dentro del contexto
+@code{ChordNames}:
 
 @lilypond[verbatim,quote,relative=1,ragged-right]
 \new ChordNames {
@@ -364,9 +363,10 @@ Chord names are printed in the @code{ChordNames} context:
 }
 @end lilypond
 
-Chords can be entered as simultaneous notes or through the use of
-chord mode.  The displayed chord name will be the same, regardless
-of the mode of entry, unless there are inversions or added bass notes:
+Los acordes se pueden escribir como notas simultáneas o a través del
+uso del modo de acordes.  El nombre de acorde que se imprime es el
+mismo independientemente del modo de entrada, a no ser que existan
+inversiones o bajos añadidos:
 
 @lilypond[verbatim,quote,relative=1]
 <<
@@ -420,63 +420,65 @@ of the mode of entry, unless there are inversions or added bass notes:
 
 @seealso
 
-Music Glossary:
+Glosario musical:
 @rglos{chord}.
 
 
-Notation Reference:
+Referencia de la notación:
 @ref{Writing music in parallel}.
 
 
-Snippets:
+Fragmentos de código:
 @rlsr{Chords}.
 
-Internals Reference:
+Referencia de funcionamiento interno:
 @rinternals{ChordNames},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
 
 @knownissues
 
-Chords containing inversions or altered bass notes are not named
-properly if entered using simultaneous music.
+Los acordes que contienen inversiones o bajos alterados no reciben un
+nombre adecuado si se escriben usando música simultánea.
 
 
 @node Customizing chord names
 @unnumberedsubsubsec Customizing chord names
 
-@cindex customizing chord names
+@cindex personalización de los nombres de acorde
 
-There is no unique system for naming chords.  Different musical
-traditions use different names for the same set of chords.  There
-are also different symbols displayed for a given chord name.   The
-names and symbols displayed for chord names are customizable.
+No hay un sistema único para nombrar acordes.  Las distintas
+tradiciones musicales usan distintos nombres para el mismo conjunto de
+acordes.  Tabién hay distintos símbolos impresos para un nombre de
+acorde dado.  Los nombres y símbolos que se imprimen para los nombres
+de acorde dados se pueden personalizar.
 
 @cindex Banter
-@cindex jazz chords
-@cindex chords, jazz
+@cindex jazz, acordes de
+@cindex acordes de jazz
 
-The default chord name layout is a system for Jazz music, proposed
-by Klaus Ignatzek (see @ref{Literature list}).  There are also two
-other chord name schemes implemented: an alternate Jazz chord
-notation, and a systematic scheme called Banter chords.  The
-alternate Jazz notation is also shown on the chart in @ref{Chord
-name chart}.
+El esquema de nomenclatura de acordes predeterminado es un sistema
+para música de Jazz, propuesto por Klaus Ignatzek (véase
+@ref{Literature list}).  También funcionan otros dos esquemas de
+nomenclatura de acordes: una notación de acordes de Jazz alternativa y
+un esquema sistemático llamado Acordes de Banter.  La notación de Jazz
+alternativa también se puede ver en el cuadro @ref{Chord name chart}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
 @c  Make short example in docs, then move longer example to
 @c  appendix, where the length of the snippet won't matter.
 
-In addition to the different naming systems, different note names
-are used for the root in different languages.  The predefined
-variables @code{\germanChords}, @code{\semiGermanChords},
-@code{\italianChords} and @code{\frenchChords} set these variables.
-The effect is demonstrated here:
+Además de los distintos sistemas de nomenclatura, se usan diferentes
+nombres de nota para la fundamental en los distintos idiomas.  Las
+variables predefinidas @code{\germanChords}, @code{\semiGermanChords},
+@code{\italianChords} y @code{\frenchChords} establecen el valor de
+estas variables.  El efecto se muestra aquí:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
-If none of the default settings give the desired output, the chord
-name display can be tuned through the following properties.
+Si ninguno de los ajustes predeterminados proporciona el resultado
+deseado, se puede afinar la presentación de los nombres de acorde a
+través de las siguientes propiedades.
 
 @table @code
 
@@ -484,56 +486,62 @@ name display can be tuned through the following properties.
 
 @item chordRootNamer
 
-The chord name is usually printed as a letter for the root with an
-optional alteration.  The transformation from pitch to letter is
-done by this function.  Special note names (for example, the German
-@q{H} for a B-chord) can be produced by storing a new function in
-this property.
+El nombre de acorde se imprime normalmente como una letra para la
+fundamental con una alteración opcional.  La transformación de la nota
+en la letra se realiza por parte de esta funcióne la nota hThe
+transformation from pitch to letter is done by this function.  Los
+nombres de nota especiales (por ejemplo, la @q{H} alemana para un
+acorde de Si) se pueden producir almacenando una cunción nueva en esta
+propiedad.
 
 @funindex majorSevenSymbol
 
 @item majorSevenSymbol
 
-This property contains the markup object used to follow the output
-of @code{chordRootNamer} to dentify a major 7 chord. Predefined
-options are @code{whiteTriangleMarkup} and
-@code{blackTriangleMarkup}.
+Esta propiedad contiene el objeto de marcado que se usa para hacer el
+seguimiento de la salida de @code{chordRootNamer} para identificar un
+acorde de séptima mayor. Las opciones predefinidas son
+@code{whiteTriangleMarkup} (triángulo blanco) y
+@code{blackTriangleMarkup} (triángulo negro).
 
 @funindex chordNoteNamer
 
 @item chordNoteNamer
 
-When the chord name contains additional pitches other than the root
-(e.g., an added bass note), this function is used to print the
-additional pitch.  By default the pitch is printed using
-@code{chordRootNamer}. The @code{chordNoteNamer} property can be set
-to a specialized function to change this behavior.  For example, the
-bass note can be printed in lower case.
+Cuando el nombre del acorde contiene notas adicionales aparte de la
+fundamental (p.ej., un bajo añadido), se utiliza esta función para
+imprimir la nota adicional.  De forma predeterminada se imprime la
+nota usando @code{chordRootNamer}.  La propiedad @code{chordNoteNamer}
+se puede establecer a una función especializada para cambiar este
+comportamiento.  Por ejemplo, el bajo se puede imprimir en minúscula.
 
 @funindex chordNameSeparator
 
 @item chordNameSeparator
 
-Different parts of a chord name are normally separated by a slash.
-By setting @code{chordNameSeparator}, you can use any desired markup
-for a separator.
+Las diferentes partes del nombre de un acorde se separan normalmente
+mediante una barra inclinada.  Mediante el ajuste de
+@code{chordNameSeparator}, podemos usar cualquier marcado que deseemos
+como separador.
 
 @funindex chordNameExceptions
 
 @item chordNameExceptions
 
-This property is a list of pairs.  The first item in each pair
-is a set of pitches used to identify the steps present in the chord.
-The second item is a markups that will follow the @code{chordRootNamer}
-output to create the chord name.
+Esta propiedad es una lista de parejas.  El primer elemento de cada
+pareja es un conjunto de notas utilizadas para identificar los
+elementos presentes en el acorde.  El segundo elemento es un elemento
+de marcado que sigue a la salida de @code{chordRootNamer} para crear
+el nombre del acorde.
 
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
 
-The @q{m} for minor chords is usually printed immediately to the
-right of the root of the chord.  By setting
-@code{chordPrefixSpacer}, you can fix a spacer between the root
-and @q{m}.  The spacer is not used when the root is altered.
+La @q{m} de los acordes menores se imprime por lo general
+imediatamente a la derecha de la fundamental.  Estableciendo
+@code{chordPrefixSpacer}, podemos determinar un símbolo espaciador
+entre la fundamental y la @q{m}.  El separador no se usa cuando el
+acorde está alterado.
 
 @end table
 
@@ -554,7 +562,7 @@ and @q{m}.  The spacer is not used when the root is altered.
 
 @snippets
 
-@cindex exceptions, chord names.
+@cindex excepciones, nombres de acorde
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-exceptions.ly}
 
@@ -572,8 +580,8 @@ and @q{m}.  The spacer is not used when the root is altered.
 @c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 @c {changing-chord-separator.ly}
 
-The separator between different parts of a chord name
-can be set to any markup.
+El separador entre las distintas partes del nombre de un acorde se
+puede establecer para que sea cualquier elemento de marcado.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \chords {
@@ -587,15 +595,15 @@ can be set to any markup.
 
 @seealso
 
-Notation Reference:
+Referencia de la notación:
 @ref{Chord name chart}.
 
-Installed Files:
+Archivos instalados:
 @file{scm/@/chords@/-ignatzek@/.scm},
 @file{scm/@/chord@/-entry@/.scm},
 @file{ly/@/chord@/-modifier@/-init@/.ly}.
 
-Snippets:
+Fragmentos de código:
 @rlsr{Chords}.
 
 @c Internals Reference:
@@ -603,11 +611,12 @@ Snippets:
 
 @knownissues
 
-Chord names are determined from both the pitches that are present
-in the chord and the information on the chord structure that may
-have been entered in @code{\chordmode}.  If the simultaneous pitches
-method of entering chords is used, undesired names result from
-inversions or bass notes.
+Los nombres de acorde se determinan a partir de las notas que están
+presentes en el mismo y de la información acerca de la estructura del
+acorde que ha podido ser introducida en @code{\chordmode}.  Si el
+método de las notas simultáneas se usa para introducir los acordes,
+pueden resultar nombres no deseados a partir de las inversiones o de
+las notas del bajo.
 
 @lilypond[quote,ragged-right,verbatim]
 myChords = \relative c' {
@@ -624,7 +633,7 @@ myChords = \relative c' {
 @node Figured bass
 @subsection Figured bass
 
-Figured bass notation can be displayed.
+Se puede imprimir notación de bajo cifrado.
 
 @menu
 * Introduction to figured bass::  
@@ -643,8 +652,8 @@ Figured bass notation can be displayed.
 
 @c TODO: musicological blurb about FB
 
-LilyPond has support for figured bass, also called thorough bass
-or basso continuo:
+LilyPond contempla el bajo cifrado, también conocido como basso
+continuo:
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 <<
@@ -659,36 +668,38 @@ or basso continuo:
 >>
 @end lilypond
 
-The support for figured bass consists of two parts: there is an
-input mode, introduced by @code{\figuremode}, that accepts
-entry of bass figures, and there is a context named
-@code{FiguredBass} that takes care of displaying
-@code{BassFigure} objects.  Figured bass can also be displayed
-in @code{Staff} contexts.
+El soporte para bajo cifrado se compone de dos partes: hay un modo de
+entrada, presentado por @code{\figuremode}, que admite la entrada de
+las cifras del bajo, y hay un contexto llamado @code{FiguredBass} que
+se ocupa de la impresión de los objetos del tipo @code{BassFigure}.
+El bajo cifrado también se puede imprimir dentro de contextos de
+@code{Staff}.
 
-@code{\figures@{ ... @}} is a shortcut notation for
+@code{\figures@{ ... @}} es una notación abreviada de
 @code{\new FiguredBass @{\figuremode @{ ... @}@}}.
 
 
-Although the support for figured bass may superficially resemble chord
-support, it is much simpler.  @code{\figuremode} mode simply
-stores the figures and the @code{FiguredBass} context prints them
-as entered.  There is no conversion to pitches.
+Aunque el soporte para bajo cifrado puede parecerse superficialmente
+al de los acordes, realmente es mucho más simple.  El modo
+@code{\figuremode} simplemente almacena las cifras y el contexto
+@code{FiguredBass} las imprime tal y como se han introducido.  No hay
+ninguna conversión a notas.
 
-Figures are created as markup texts.  Any of the standard markup
-properties can be used to modify the display of figures.  For
-example, the vertical spacing of the figures may be set with
-@code{baseline-skip}.
+Las cifrase se crean como textos de marcado.  Cualquiera de las
+propiedades estándar de marcado se pueden usar para modificar la
+impresión de las cifras.  Por ejemplo, el espaciado vertical de las
+cifras se puede ajustar con @code{baseline-skip}.
 
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass
 
-@code{\figuremode} is used to switch the input mode to figure mode.
-More information on different input modes can be
-found at @ref{Input modes}.
+Se usa @code{\figuremode} para cambiar el mod de entrada al modo de
+cifras.  Hay más información sobre los distintos modos de entrada en
+@ref{Input modes}.
 
-In figure mode, a group of bass figures is delimited by
-@code{<} and @code{>}.  The duration is entered after the @code{>}.
+En el modo de cifras, un grupo de cifras del bajo está delimitado
+mediante ángulos simples, @code{<} y @code{>}.  La duración se escribe
+después del @code{>}.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \new FiguredBass {
@@ -698,7 +709,8 @@ In figure mode, a group of bass figures is delimited by
 }
 @end lilypond
 
-Accidentals (including naturals) can be added to figures:
+Se pueden añadir alteraciones accidentales (incluso becuadros) a las
+cifras:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
@@ -706,7 +718,7 @@ Accidentals (including naturals) can be added to figures:
 }
 @end lilypond
 
-Augmented and diminished steps can be indicated.
+Se pueden indicar elementos del acorde aumentados y disminuidos:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
@@ -714,8 +726,8 @@ Augmented and diminished steps can be indicated.
 }
 @end lilypond
 
-A backward slash through a figure (typically used for raised
-sixth steps) can be created.
+Se puede crear una barra invertida cruzando una cifra (usada
+normalmente para sextas elevadas).
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
@@ -726,7 +738,7 @@ sixth steps) can be created.
 @end lilypond
 
 
-Vertical spaces and brackets can be be included in figures:
+Se pueden incluir espacios verticales y corchetes en las cifras:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
@@ -735,7 +747,7 @@ Vertical spaces and brackets can be be included in figures:
 @end lilypond
 
 
-Any text markup can be inserted as a figure:
+Se puede insertar cualquier elemento de marcado de texto como una cifra:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
@@ -747,7 +759,8 @@ Any text markup can be inserted as a figure:
 @c avoid extraneous staff creation due to Staff.use... in
 @c \bassFigureExtendersOn
 
-Continuation lines can be used to indicate repeated figures:
+Se pueden usar líneas de continuación para indicar cifras que se
+repiten:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 <<
@@ -766,8 +779,9 @@ Continuation lines can be used to indicate repeated figures:
 @end lilypond
 
 @noindent
-In this case, the extender lines replace existing figures,
-unless the continuation lines have been explicitly terminated.
+En este caso, las líneas de extensión sustituyen a las cifrase
+existentes, a no ser que las líneas de continuación hayan sido
+terminadas explícitamente.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 <<
@@ -785,7 +799,7 @@ unless the continuation lines have been explicitly terminated.
 
 
 @predefined
-@cindex figured bass extender lines
+@cindex bajo cifrado, líneas de extensión
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
 
@@ -811,10 +825,10 @@ unless the continuation lines have been explicitly terminated.
 @c Installed Files:
 @c @file{  }.
 
-Snippets:
+Fragmentos de código:
 @rlsr{Chords}.
 
-Internals Reference:
+Referencia de funcionamiento interno:
 @rinternals{NewBassFigure},
 @rinternals{BassFigureAlignment},
 @rinternals{BassFigureLine},
@@ -827,11 +841,13 @@ Internals Reference:
 @node Displaying figured bass
 @unnumberedsubsubsec Displaying figured bass
 
-Figured bass can be displayed using the @code{FiguredBass} context,
-or in most staff contexts.
+El bajo cifrado se puede imprimir usando el contexto
+@code{FiguredBass}, o dentro de la mayoría de los contextos de
+pentagrama.
 
-When displayed in a @code{FiguredBass} context, the vertical location
-of the figures is independent of the notes on the staff.
+Cuando se presenta dentro de un contexto de @code{FiguredBass}, la
+ubicación vertical de las cifras es independiente de las notas que
+están en el pentagrama.
 
 @lilypond[verbatim,ragged-right,fragment,quote]
 <<
@@ -848,13 +864,14 @@ of the figures is independent of the notes on the staff.
 @end lilypond
 
 @noindent
-In the example above, the @code{FiguredBass} context must be
-explicitly instantiated to avoid creating a second (empty) staff.
+En el ejemplo de arriba, el contexto @code{FiguredBass} se debe
+instanciar explícitamente para evitar crear un segundo pentagrama
+vacío.
 
 
-Figured bass can also be added to @code{Staff} contexts
-directly.  In this case, the vertical position of the
-figures is adjusted automatically.
+El bajo cifrado se puede añadir también a contextos de @code{Staff}
+directamente.  En este caso, la posición vertical de las cifras se
+ajusta automáticamente.
 
 @c TODO add a second paragraph to show direction change.  First
 @c   example should be UP (default), second should be DOWN.
@@ -878,8 +895,8 @@ figures is adjusted automatically.
 @end lilypond
 
 
-When added in a Staff context, figured bass can be displayed above
-or below the staff.
+Cuando se escribe dentro de un contexto de pentagrama, el bajo cifrado
+se puede presentar encima o debajo del mismo.
 
 @lilypond[verbatim,ragged-right,fragment,quote]
 <<
@@ -918,7 +935,7 @@ instead of
 @end ignore
 
 @predefined
-@cindex figured bass alignment
+@cindex bajo cifrado, alineación
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.
@@ -944,7 +961,7 @@ instead of
 @c Snippets:
 @rlsr{Figured Bass}.
 
-Internals Reference:
+Referencia de funcionamiento interno:
 @rinternals{NewBassFigure},
 @rinternals{BassFigureAlignment},
 @rinternals{BassFigureLine},
@@ -954,9 +971,9 @@ Internals Reference:
 
 @knownissues
 
-To ensure that continuation lines work properly, it is
-safest to use the same rhythm in the figure line as in
-the bass line.
+Para asegurar que las líneas extensoras funcionan adecuadamente, lo
+más seguro es utilizar las mismas duraciones en la línea de cifras y
+en la línea del bajo.
 
 @lilypond[verbatim,ragged-right,fragment,quote]
 <<
@@ -989,11 +1006,12 @@ the bass line.
 @c I have no idea what this means -cds
 @c A predefined command for changing this has been proposed -cds
 @c TODO -- put stacking direction snippet here -cds
-When using figured bass above the staff with extender lines and
-@code{implicitBassFigures} the lines may become swapped around.
-Maintaining order consistently will be impossible when multiple figures
-have overlapping extender lines.  To avoid this problem, please
-use @code{stacking-dir} on @code{BassFigureAlignment}.
+Cuando se usa un bajo cifrado encima del pentagrama con líneas
+extensoras y @code{implicitBassFigures} las líneas se pueden ver
+trastocadas.  Puede ser imposible mantener el orden de forma
+consistente cuando varias cifras tienen líneas de extensión que se
+solapan entre sí.  Para evitar este problema, utilice
+@code{stacking-dir} sobre @code{BassFigureAlignment}.
 
 
 @seealso
