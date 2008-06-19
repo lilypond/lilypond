@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: eba03f4a3cec521a7099a3ec55f51d163803a8e4
+    Translation of GIT committish: f1eb8f6698ba47b1950fab68d1b59cdccebf419f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -25,6 +25,8 @@ a tener más de una voz en el mismo pentagrama.
 
 @node Single voice
 @subsection Single voice
+
+Esta sección trata de la notas simultáneas dentro de la misma voz.
 
 @menu
 * Chorded notes::                      
@@ -117,6 +119,8 @@ separación entre ellos.
 
 @node Multiple voices
 @subsection Multiple voices
+
+Esta sección trata las notas simultáneas en varias voces o varios pentagramas.
 
 @menu
 * Collision resolution::        
@@ -236,21 +240,6 @@ Sólo se combinan las notas si tienen la plica en direcciones opuestas
 @cindex polyphonic music
 @cindex shifting voices
 
-En ciertos casos de polifonía compleja, podría necesitar voces
-adicionales para evitar colisiones entre las notas.  Las voces
-adicionales se añaden definiendo una variable, como se muestra a
-continuación:
-
-@lilypond[quote,verbatim]
-voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
-\relative c'''
-<<
-  { \voiceOne g2. ~ \stemDown g32[ f( es d c b a b64) g] } \\
-  { \voiceThree b4 } \\
-  { \voiceFive d,  } \\
-  { \voiceTwo g,   }
->>
-@end lilypond
 
 
 @predefined
@@ -294,21 +283,14 @@ y cuatro) tienen @code{\shiftOn} (desplazamiento activado).
 @code{\shiftOnn} y @code{\shiftOnnn} definen niveles de desplazamiento
 más grandes.
 
-Cuando LilyPond no puede con todo, se pueden usar la propiedad
-@code{force-hshift} (forzar desplazamiento horizontal) del objeto
-@code{NoteColumn} y los silencios con altura para sobreescribir las
-decisiones de composición tipográfica.
 
-@lilypond[quote,verbatim,relative=1]
-<<
-  { <d g>2
-    <d g>  }
-  \\
-  { <b f'>2
-    \once \override NoteColumn #'force-hshift = #1.7
-    <b f'> }
->>
-@end lilypond
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{additional-voices-to-avoid-collisions.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{forcing-horizontal-shift-of-notes.ly}
 
 
 @seealso
@@ -339,6 +321,7 @@ plica hacia abajo, la corchea recibe un desplazamiento ligeramente
 incorrecto a causa de la anchura diferente del símbolo de la cabeza de
 la blanca.
 
+@c investigate! Sometimes it works, sometimes not. --FV
 No está claro en qué circunstancias se pueden combinar cabezas de nota
 distintas que tienen también distinto puntillo.
 
@@ -489,12 +472,13 @@ cuándo se pueden combinar las partes.  Como consecuencia, si los
 argumentos cambian a contextos de @rinternals{Voice} con nombres
 diferentes, los eventos que contienen se ignorarán.
 
+@c IIRC in users list someone pointed out more issues. TODO: lookup FV
 
 @node Writing music in parallel
 @subsubsection Writing music in parallel
 
-@cindex Escribir música en paralelo
-@cindex Música intercalada
+@cindex escribir música en paralelo
+@cindex música intercalada
 @funindex parallelMusic
 
 La música para varias partes se puede intercalar dentro del código de

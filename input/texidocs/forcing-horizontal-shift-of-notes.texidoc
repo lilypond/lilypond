@@ -1,0 +1,8 @@
+ doctitlees = "Forzar el desplazamiento horizontal de las notas"
+ texidoces = "
+Cuando el motor de tipografiado no es capaz de todo, se puede usar la
+propiedad force-hshift del objeto NoteColumn para sobreescribir
+decisiones de tipografiado.  Las unidades de medida que se usan aquí
+son espacios de pentagrama.
+
+"
