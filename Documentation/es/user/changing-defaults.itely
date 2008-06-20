@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: fc68c2abd535ff0bad9c703982894317dfc4967f
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1750,10 +1750,6 @@ Referencia del programa:
 @rinternals{VoiceFollower},
 @rinternals{TrillSpanner},
 @rinternals{line-spanner-interface}.
-
-Ejemplos:
-@lsr{expressive,line-styles.ly},
-@lsr{expressive,line-arrows.ly}.
 
 
 @node Rotating objects

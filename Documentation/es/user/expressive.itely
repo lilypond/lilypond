@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 4df5301113af87b1ef691f1c06c3460f0fc9394d
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -549,8 +549,7 @@ c4 \breathe d4
 @seealso
 
 Fragmentos de código:
-@rlsr{Expressive marks}.
-@c @lsr{expressive,breathing-sign.ly}.
+@rlsr{Winds}.
 
 Referencia de funcionamiento interno:
 @rinternals{BreathingSign}.
@@ -810,7 +809,7 @@ Glosario musical:
 @rglos{trill}.
 
 Fragmentos de código:
-@lsrdir{Expressive-marks}.
+@rlsr{Expressive marks}.
 
 Referencia de funcionamiento interno:
 @rinternals{TrillSpanner}.

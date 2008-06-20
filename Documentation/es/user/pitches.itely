@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f6ac013f27431f7dbb7f3e07ca836d9a81d5bc47
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -213,7 +213,7 @@ Referencia de la notación:
 @ref{Octave checks}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{RelativeOctaveMusic}.
@@ -351,7 +351,7 @@ Referencia de la notación:
 @ref{Note names in other languages}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{Accidental_engraver},
@@ -473,7 +473,7 @@ Glosario musical:
 @rglos{Pitch names}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 
 @node Changing multiple pitches
@@ -554,7 +554,7 @@ correcto.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{RelativeOctaveCheck}.
@@ -670,7 +670,7 @@ Referencia de la notación:
 @ref{Instrument transpositions}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{TransposedMusic}.
@@ -808,7 +808,7 @@ Referencia de la notación:
 @ref{Ancient clefs}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{Clef_engraver},
@@ -893,7 +893,7 @@ Manual de aprendizaje:
 @rlearning{Accidentals and key signatures}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{KeyChangeEvent},
@@ -941,7 +941,7 @@ Glosario musical:
 @rglos{octavation}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{Ottava_spanner_engraver},
@@ -1041,7 +1041,7 @@ Referencia de la notación:
 @ref{Quoting other voices}, @ref{Transpose}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 
 @node Automatic accidentals
@@ -1743,7 +1743,7 @@ musicB = {
 @seealso
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{Accidental},
@@ -1821,7 +1821,7 @@ Glosario musical:
 @rglos{ambitus}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{Ambitus_engraver},
@@ -1892,7 +1892,7 @@ head styles}.
 
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de la notación:
 @ref{Note head styles}.
@@ -1952,7 +1952,7 @@ Referencia de la notación:
 @ref{Setting the staff size}.
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{note-event},
@@ -2007,7 +2007,7 @@ Para ver todos los estilos de formas de cabeza de nota, consulte
 @seealso
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de la notación:
 @ref{Note head styles}.
@@ -2056,7 +2056,7 @@ pero con el ritmo especificado.  Estas cabezas de nota se crean así:
 @seealso
 
 Fragmentos de código:
-@lsrdir{Pitches,Pitches}.
+@rlsr{Pitches}.
 
 Referencia de funcionamiento interno:
 @rinternals{Pitch_squash_engraver},

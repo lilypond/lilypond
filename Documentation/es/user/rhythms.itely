@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: a634a20e0ab2a874ff8bf423e5651139df8733fc
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -151,7 +151,7 @@ Referencia de la notación:
 @ref{Proportional notation}.
 
 Fragmentos de código:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
 @rinternals{Dots},
@@ -259,7 +259,7 @@ Referencia de la notación:
 @ref{Polymetric notation}.
 
 Fragmentos de código:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
 @rinternals{TupletBracket},
@@ -354,7 +354,7 @@ Referencia de la notación:
 @ref{Polymetric notation}.
 
 Fragmentos de código:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 
 
@@ -491,7 +491,7 @@ Referencia de la notación:
 @ref{Automatic note splitting}.
 
 Fragmentos de código:
-@lsrdir{Rhythms,Rhythms}.
+@rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
 @rinternals{LaissezVibrerTie},
@@ -856,7 +856,8 @@ Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
 
-Ejemplos: @lsr{contemporary,compound-time-signature.ly}.
+Ejemplos:
+@rlsr{Rhythms}.
 
 
 @knownissues
@@ -1629,9 +1630,11 @@ pieza, se debe añadir una línea divisoria vacía
 @end lilypond
 
 Los números de compás se pueden tipografiar a intervalos regulares en
-vez de al principio de cada línea.  Esto queda ilustrado en el ejemplo
-siguiente, cuyo código fuente se encuentra disponible como
-@lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
+vez de al principio de cada línea.
+
+@c Esto queda ilustrado en el ejemplo
+@c siguiente, cuyo código fuente se encuentra disponible como
+@c @lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
 
 @c @lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
 
@@ -1657,7 +1660,8 @@ c4 c c c
 Referencia de funcionamiento interno:
 @rinternals{BarNumber}.
 
-Ejemplos: @lsrdir{staff}
+Fragmentos de código:
+@rlsr{Rhythms}.
 
 
 @knownissues
@@ -1861,7 +1865,7 @@ contiene la definición de @code{format-mark-numbers} y de
 @code{format-mark-letters}.  Se pueden usar como inspiración para
 escribir otras funciones de formateo.
 
-Ejemplos: @c @lsr{parts,rehearsal-mark-numbers.ly}
+@c Ejemplos: @c @lsr{parts,rehearsal-mark-numbers.ly}
 
 
 @node Special rhythmic concerns
