@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 72488cbb2adff6090b154e6a964de45709b1b198
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -188,9 +188,7 @@ Klammern für die Wiederholung werden normalerweise nur über dem obersten
 System ausgegeben. Das kann verändert werden, indem 
  @code{Volta_engraver} in den @code{Staff}-Kontext gesetzt wird,
 über dem diese Klammern erscheinen sollen. Vgl.
-@ref{Modifying context plug-ins} und
-
-@lsr{repeats,volta@/-multi@/-staff@/.ly}.
+@ref{Modifying context plug-ins} und @rlsr{Repeats}.
 
 
 @knownissues

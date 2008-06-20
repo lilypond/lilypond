@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 57a8e8a6abee274bd500d3ebdd112f4ee4c580b4
+    Translation of GIT committish: 72488cbb2adff6090b154e6a964de45709b1b198
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -322,8 +322,11 @@ Dann werden mit dem Code
 die neuen Ausnahmen zu den schon vorhandenen hinzugefügt, die in 
 der Datei @file{ly/@/chord@/-modifier@/-init@/.ly} definiert sind.
 
-Ein Beispiel für die Benutzung dieser Eigenschaft findet sich 
-auch in der Datei @lsr{chords,chord@/-name@/-exceptions@/.ly}.
+@c Ein Beispiel für die Benutzung dieser Eigenschaft findet sich 
+@c auch in der Datei @lsr{chords,chord@/-name@/-exceptions@/.ly}.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{chord-name-exceptions.ly}
+
 @cindex Ausnahmen, Akkordsymbole
 
 
@@ -332,8 +335,8 @@ auch in der Datei @lsr{chords,chord@/-name@/-exceptions@/.ly}.
 Mit dieser Eigenschaft wird das Aussehen der Notation für die 
 große Septime (7) bestimmt. Vordefiniert sind die Optionen
 @code{whiteTriangleMarkup} und @code{blackTriangleMarkup}. 
-Siehe auch 
-@lsr{chords,chord@/-name@/-major7@/.ly} für ein Beispiel.
+@c Siehe auch 
+@c @lsr{chords,chord@/-name@/-major7@/.ly} für ein Beispiel.
 
 @funindex chordNameSeparator
 @item chordNameSeparator
@@ -389,9 +392,11 @@ gezeigt.
 Zusätzlich sind zwei weitere Vorlagen: eine alternative Jazz-Notation 
 und eine systematische Notation, genannt Banter-Akkorde. Die 
 alternative Jazz-Notation findet sich auch in der Liste im 
-Abschnitt @ref{Chord name chart}. Wie diese Stile verwendet werden, 
-wird in der Datei 
-@lsr{chords,chord-names-jazz.ly} gezeigt.
+Abschnitt @ref{Chord name chart}.
+
+@c Wie diese Stile verwendet werden, 
+@c wird in der Datei 
+@c @lsr{chords,chord-names-jazz.ly} gezeigt.
 
 @cindex Banter
 @cindex Jazz-Akkorde
@@ -411,7 +416,8 @@ wird in der Datei
 
 @seealso
 
-Beispiele: @lsrdir{chords}.
+Beispiele:
+@rlsr{Chords}.
 
 Init-Dateien: @file{scm/@/chords@/-ignatzek@/.scm} und
 @file{scm/@/chord@/-entry@/.scm}.

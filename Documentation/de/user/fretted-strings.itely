@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 72488cbb2adff6090b154e6a964de45709b1b198
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -49,8 +49,11 @@ wird:
 
 @seealso
 
-Programmreferenz: @rinternals{StringNumber},
-@lsr{guitar/,string-number.ly}.
+Programmreferenz:
+@rinternals{StringNumber}.
+
+Beispiele:
+@rlsr{Fretted strings}.
 
 
 @node Tablatures basic
@@ -287,7 +290,8 @@ Schnittstelle für die Griffsymboleigenschaften findet sich unter
 
 @seealso
 
-Examples: @lsrdir{guitar}.
+Beispiele:
+@rlsr{Fretted strings}.
 
 
 @node Right hand fingerings

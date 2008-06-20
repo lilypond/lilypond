@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 72488cbb2adff6090b154e6a964de45709b1b198
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -521,9 +521,11 @@ eine weitere Transposition:
 
 @seealso
 
-Programmreferenz: @rinternals{TransposedMusic}.
+Programmreferenz:
+@rinternals{TransposedMusic}.
 
-Beispiel: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
+Beispiel:
+@rlsr{Pitches}.
 
 
 @knownissues

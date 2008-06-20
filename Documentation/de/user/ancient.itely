@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 57a8e8a6abee274bd500d3ebdd112f4ee4c580b4
+    Translation of GIT committish: 72488cbb2adff6090b154e6a964de45709b1b198
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -152,8 +152,10 @@ und Versetzungszeichen für die Alte Musik ausgewählt werden.
 Wie zu sehen ist, werden nicht alle Versetzungszeichen von jedem Stil
 unterstützt. Wenn versucht wird, ein Versetzungszeichen zu notieren,
 das von einem bestimmten Stil nicht unterstützt wird, wechselt LilyPond zu einem
-anderen Stil, wie in dem Beispiel @lsr{ancient,ancient-accidentals.ly}
-demonstriert wird.
+anderen Stil, wie in dem Beispiel
+@code{ancient-accidentals.ly} demonstriert wird.
+@c FIX: was @lsr{ancient,ancient-accidentals.ly} --FV
+
 
 Ähnlich wie Versetzungszeichen können auch die Vorzeichen für die Angabe der
 Tonart verändert werden, indem die @code{glyph-name-alist}-Eigenschaft
@@ -166,9 +168,11 @@ In diesem Handbuch: @ref{Pitches}, @ref{Cautionary accidentals} und
 von Versetzungszeichen. Der Abschnitt @ref{Key signature} zeigt die allgemeine
 Benutzung von Vorzeichen.
 
-Programmreferenz: @rinternals{KeySignature}.
+Programmreferenz:
+@rinternals{KeySignature}.
 
-Beispiele: @lsrdir{ancient}.
+Beispiele:
+@rlsr{Ancient notation}.
 
 
 @node Ancient rests
@@ -197,7 +201,9 @@ r\longa r\breve r1 r2 r4 r8 r16
 
 Es gibt keine 32-stel- und 64-stel-Pausen für den mensuralen oder neomensuralen
 Stil. Anstatt dessen werden die Pausenformen des Standardstiles verwendet.
-Vgl. eine Liste aller vorhandenen Pausen in @lsr{pitches,rests}.
+Vgl. eine Liste aller vorhandenen Pausen in @code{pitches,rests}.
+@c FIX: was lsr{pitches,rests}. -FV
+
 
 Für die Notation des Gregorianischen Chorals gibt es keine Pausen; anstelle
 dessen werden @ref{Divisiones} verwendet.
@@ -724,10 +730,11 @@ und @code{mensural}. Sie werden im folgenden Fragment demonstriert.
 
 @seealso
 
-Programmreferenz: @rinternals{Custos}.
+Programmreferenz:
+@rinternals{Custos}.
 
-Examples:
-@lsr{ancient,custodes@/.ly}.
+Beispiele:
+@rlsr{Ancient notation}.
 
 
 @node Divisiones
@@ -774,11 +781,14 @@ sich in der Datei @file{gregorian@/-init@/.ly} auch eine Definition für
 
 @seealso
 
-In diesem Handbuch: @ref{Breath marks}.
+In diesem Handbuch:
+@ref{Breath marks}.
 
-Programmreferenz: @rinternals{BreathingSign}.
+Programmreferenz:
+@rinternals{BreathingSign}.
 
-Beispiele: @lsr{expressive,breathing-sign.ly}.
+Beispiele:
+@rlsr{Winds}.
 
 
 @node Ligatures

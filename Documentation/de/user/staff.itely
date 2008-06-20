@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 72488cbb2adff6090b154e6a964de45709b1b198
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -133,9 +133,11 @@ zeichnet diese Linien durch ein spezielles graphisches Objekt,
 @code{staff symbol} (engl. @qq{staff} = Notensystem) genannt.
 
 Dieses Objekt kann bezüglich seiner Eigenschaften, wie Anzahl, Dicke und 
-Abstand der Linien verändert werden. Das wird gezeigt in den Beispieldateien 
-@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} und
-@lsr{staff,changing-the-staff-size.ly}.
+Abstand der Linien verändert werden.
+
+@c Das wird gezeigt in den Beispieldateien 
+@c @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} und
+@c @lsr{staff,changing-the-staff-size.ly}.
 
 Zusätzlich können Systeme beliebig begonnen und beendet werden. Das 
 geschieht mit den Befehlen @code{\startStaff} und @code{\stopStaff}.
@@ -165,9 +167,11 @@ benutzen, um Ossia-Abschnitte zu notieren. Siehe das Beispiel:
 
 @seealso
 
-Programmreferenz: @rinternals{StaffSymbol}.
+Programmreferenz:
+@rinternals{StaffSymbol}.
 
-Beispiele: @lsrdir{staff}
+Beispiele:
+@rlsr{Staff notation}.
 
 
 @node Hiding staves

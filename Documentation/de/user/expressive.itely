@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 72488cbb2adff6090b154e6a964de45709b1b198
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -569,11 +569,11 @@ mit dem Befehl @code{\laissezVibrer} eingegeben werden.
 @seealso
 
 Programmreferenz:
-@rinternals{LaissezVibrerTie}
-@rinternals{LaissezVibrerTieColumn}
+@rinternals{LaissezVibrerTie},
+@rinternals{LaissezVibrerTieColumn}.
 
 Beispiele:
-@lsr{connecting,laissez-vibrer-ties.ly}
+@rlsr{Expressive marks}.
 
 
 @node Breath marks
@@ -602,9 +602,11 @@ d4
 
 @seealso
 
-Programmreferenz: @rinternals{BreathingSign}.
+Programmreferenz:
+@rinternals{BreathingSign}.
 
-Beispiele: @lsr{expressive,breathing-sign.ly}
+Beispiele:
+@rlsr{Winds}.
 
 
 @node Falls and doits
@@ -659,10 +661,11 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 @seealso
 
-Programmreferenz: @rinternals{Glissando}.
+Programmreferenz:
+@rinternals{Glissando}.
 
 Beispiele:
-@lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
+@rlsr{Expressive marks}.
 
 
 

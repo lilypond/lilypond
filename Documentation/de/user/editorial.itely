@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 72488cbb2adff6090b154e6a964de45709b1b198
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -93,9 +93,11 @@ Musik sehr nah in die Notenköpfe gerückt werden.
 
 @seealso
 
-Programmreferenz: @rinternals{Fingering}.
+Programmreferenz:
+@rinternals{Fingering}.
 
-Beispiele: @lsr{expressive,fingering-chords.ly}
+Beispiele:
+@rlsr{Editorial annotations}.
 
 
 @node Hidden notes
