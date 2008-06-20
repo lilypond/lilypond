@@ -8,7 +8,7 @@
 @setfilename lilypond-program.info
 @settitle GNU LilyPond program usage
 @documentencoding UTF-8
-@documentlanguage en
+@documentlanguage es
 
 @include macros.itexi
 
