@@ -657,11 +657,11 @@ top-level, or inside a music expression.
 \pageBreak
 
 \tocItem \markup "First score"
-\score { 
+\score {
   {
     c'  % ...
     \tocItem \markup "Some particular point in the first score"
-    d'  % ... 
+    d'  % ...
   }
 }
 
@@ -716,7 +716,7 @@ in the table of contents of an opera:
   }
 }
 
-tocAct = 
+tocAct =
 #(define-music-function (parser location text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
@@ -731,7 +731,7 @@ tocAct =
   }
 }
 
-tocAct = 
+tocAct =
 #(define-music-function (parser location text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 
@@ -763,10 +763,10 @@ Init files: @file{ly/@/toc@/-init@/.ly}.
 @section Working with input files
 
 @menu
-* Including LilyPond files::    
-* Different editions from one source::  
-* Text encoding::               
-* Displaying LilyPond notation::  
+* Including LilyPond files::
+* Different editions from one source::
+* Text encoding::
+* Displaying LilyPond notation::
 @end menu
 
 
@@ -776,41 +776,94 @@ Init files: @file{ly/@/toc@/-init@/.ly}.
 @funindex \include
 @cindex including files
 
-A large project may be split up into separate files.  To refer to another
-file, use
+A large project may be split up into separate files.  To refer to
+another file, use
 
 @example
 \include "otherfile.ly"
 @end example
 
-The line @code{\include "file.ly"} is equivalent to pasting the contents
-of file.ly into the current file at the place where you have the
-\include.  For example, for a large project you might write separate files
-for each instrument part and create a @q{full score} file which brings
-together the individual instrument files.
+The line @code{\include "otherfile.ly"} is equivalent to pasting the
+contents of @file{otherfile.ly} into the current file at the place
+where the @code{\include} appears.  For example, in a large
+project you might write separate files for each instrument part
+and create a @qq{full score} file which brings together the
+individual instrument files.  Normally the included file will
+define a number of variables which then become available
+for use in the full score file.  Tagged sections can be
+marked in included files to assist in making them usable in
+different places in a score, see @ref{Different editions from
+one source}.
 
-The initialization of LilyPond is done in a number of files that are
-included by default when you start the program, normally transparent to the
-user.  Run @code{lilypond --verbose} to see a list of paths and files that Lily
-finds.
-
-Files placed in directory @file{PATH/TO/share/lilypond/VERSION/ly/} (where
-VERSION is in the form @q{2.6.1}) are on the path and available to
-@code{\include}.  Files in the
-current working directory are available to \include, but a file of the same
-name in LilyPond's installation takes precedence.  Files are
-available to \include from directories in the search path specified as an
-option when invoking @code{lilypond --include=DIR} which adds DIR to the
-search path.
-
-The @code{\include} statement can use full path information, but with the UNIX
-convention @code{/} rather than the DOS/Windows @code{\}.  For example,
-if @file{stuff.ly} is located one directory higher than the current working
-directory, use
+Files in the current working directory may be referenced by
+specifying just the file name after the @code{\include} command.
+Files in other locations may be included by giving either a full
+path reference or a relative path reference (but use the UNIX
+forward slash, /, rather than the DOS/Windows back slash, \, as the
+directory separator.)  For example, if @file{stuff.ly} is located
+one directory higher than the current working directory, use
 
 @example
 \include "../stuff.ly"
 @end example
+
+@noindent
+or if the included orchestral parts files are all located in a
+subdirectory called @file{parts} within the current directory, use
+
+@example
+\include "parts/VI.ly"
+\include "parts/VII.ly"
+... etc
+@end example
+
+Files which are to be included can also contain @code{\include}
+statements of their own.  These second-level
+@code{\include} statements are not interpreted until they have
+been brought into the main file, so the file names they specify
+must all be relative to the directory containing the main file,
+not the directory containing the included file.
+
+Files can also be included from a directory in a search path
+specified as an option when invoking LilyPond from the command
+line.  To compile @file{main.ly} which includes files
+located in a subdirectory called @file{parts} by this method,
+cd to the directory containing @file{main.ly} and enter
+
+@example
+lilypond --include=parts main.ly
+@end example
+
+Files which are to be included in many scores may be placed in
+the LilyPond directory @file{../ly}.  (The location of this
+directory is installation-dependent - see @rlearning{Other sources
+of information}).  These files can then be included simply by
+naming them on an @code{\include} statement.  This is how the
+language-dependent files like @file{english.ly} are included.
+
+LilyPond includes a number of files by default when you start
+the program.  These includes are not apparent to the user, but the
+files may be identified by running @code{lilypond --verbose} from
+the command line.  This will display a list of paths and files that
+LilyPond uses, along with much other information.  Alternatively,
+the more important of these files are discussed in @rlearning{Other
+sources of information}.  These files may be edited, but changes to
+them will be lost on installing a new version of LilyPond.
+
+Some simple examples of using @code{\include} are shown in
+@rlearning{Scores and parts}.
+
+@seealso
+Learning Manual:
+@rlearning{Other sources of information},
+@rlearning{Scores and parts}.
+
+@knownissues
+
+If an included file is given a name which is the same as one in
+LilyPond's installation files, LilyPond's file from the
+installation files takes precedence.
+
 
 
 @node Different editions from one source

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-06-17 13:19+0200\n"
+"POT-Creation-Date: 2008-06-20 09:14+0200\n"
 "PO-Revision-Date: 2008-06-17 13:24+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español <lilypond.org>\n"
@@ -64,6 +64,83 @@ msgid ""
 "This section has not been translated yet; please refer to the manual in "
 "English."
 msgstr "Esta sección aún no está traducida; consulte el manual en inglés."
+
+#: translations-status.py:56
+#, fuzzy
+msgid "Translators"
+msgstr "Transposición"
+
+#: translations-status.py:56
+msgid "Translation checkers"
+msgstr ""
+
+#: translations-status.py:57
+#, fuzzy
+msgid "Translated"
+msgstr "Transposición"
+
+#: translations-status.py:57
+msgid "Up to date"
+msgstr ""
+
+#: translations-status.py:58
+#, fuzzy
+msgid "Other info"
+msgstr "Más información"
+
+#: translations-status.py:60
+#, fuzzy
+msgid "no"
+msgstr "normal"
+
+#: translations-status.py:61
+#, fuzzy
+msgid "not translated"
+msgstr "no impreso"
+
+#: translations-status.py:63
+#, python-format
+msgid "partially (%(p)d %%)"
+msgstr ""
+
+#: translations-status.py:65
+#, python-format
+msgid "partially translated (%(p)d %%)"
+msgstr ""
+
+#: translations-status.py:66 translations-status.py:68
+msgid "yes"
+msgstr ""
+
+#: translations-status.py:67
+#, fuzzy
+msgid "translated"
+msgstr "transparente"
+
+#: translations-status.py:68 translations-status.py:69
+msgid "up to date"
+msgstr ""
+
+#: translations-status.py:70
+#, fuzzy
+msgid "partially"
+msgstr "parte"
+
+#: translations-status.py:71
+msgid "partially up to date"
+msgstr ""
+
+#: translations-status.py:72
+msgid "N/A"
+msgstr ""
+
+#: translations-status.py:73
+msgid "pre-GDP"
+msgstr ""
+
+#: translations-status.py:74
+msgid "post-GDP"
+msgstr ""
 
 #. -*- coding: utf-8 -*-
 #. @node in Documentation/user/lilypond-learning.tely
@@ -1277,17 +1354,17 @@ msgid "Main voice"
 msgstr "Voz principal"
 
 #. Documentation/user/fundamental.itely:687 (comment)
-#. Documentation/user/simultaneous.itely:501 (comment)
-#. Documentation/user/simultaneous.itely:523 (comment)
-#. Documentation/user/simultaneous.itely:547 (comment)
+#. Documentation/user/simultaneous.itely:481 (comment)
+#. Documentation/user/simultaneous.itely:503 (comment)
+#. Documentation/user/simultaneous.itely:527 (comment)
 msgid "Bar 1"
 msgstr "Compás 1"
 
 # También Líneas divisorias. FVD
 #. Documentation/user/fundamental.itely:698 (comment)
-#. Documentation/user/simultaneous.itely:505 (comment)
-#. Documentation/user/simultaneous.itely:527 (comment)
-#. Documentation/user/simultaneous.itely:553 (comment)
+#. Documentation/user/simultaneous.itely:485 (comment)
+#. Documentation/user/simultaneous.itely:507 (comment)
+#. Documentation/user/simultaneous.itely:533 (comment)
 msgid "Bar 2"
 msgstr "Compás 2"
 
@@ -1364,7 +1441,7 @@ msgstr "Poner las plicas, etc. hacia arriba"
 #. Documentation/user/fundamental.itely:1187 (variable)
 #. Documentation/user/fundamental.itely:2497 (variable)
 #. Documentation/user/tweaks.itely:3156 (variable)
-#. Documentation/user/simultaneous.itely:541 (variable)
+#. Documentation/user/simultaneous.itely:521 (variable)
 msgid "global"
 msgstr "global"
 
@@ -1931,7 +2008,8 @@ msgstr "Aumentar solamente el grosor de la ligadura siguiente"
 
 #. Documentation/user/tweaks.itely:668 (comment)
 msgid "Revert thickness of all following slurs to default of 1.2"
-msgstr "Devolver el grosor de las ligaduras siguientes al valor predeterminado 1.2"
+msgstr ""
+"Devolver el grosor de las ligaduras siguientes al valor predeterminado 1.2"
 
 #. Documentation/user/tweaks.itely:1257 (comment)
 msgid "Don't print clefs in this staff"
@@ -1947,7 +2025,8 @@ msgstr "Reducir el tamaño de la fuente en un 24% aprox."
 
 #. Documentation/user/tweaks.itely:1376 (comment)
 msgid "Reduce stem length and line spacing to match"
-msgstr "Reducir la longitud de la plica y el espaciado de la línea en coincidencia"
+msgstr ""
+"Reducir la longitud de la plica y el espaciado de la línea en coincidencia"
 
 #. Documentation/user/tweaks.itely:1750 (comment)
 #. Documentation/user/tweaks.itely:1811 (comment)
@@ -1989,7 +2068,8 @@ msgstr "Detener el corchete de octava"
 
 #. Documentation/user/tweaks.itely:1816 (comment)
 msgid "Place following Ottava Bracket below Text Spanners"
-msgstr "Situar el corchete de octava ulterior por debajo de los extensores de texto"
+msgstr ""
+"Situar el corchete de octava ulterior por debajo de los extensores de texto"
 
 #. Documentation/user/tweaks.itely:1872 (comment)
 msgid "Cause notes to space out to accommodate text"
@@ -2330,7 +2410,8 @@ msgstr "la propiedad padding (relleno)"
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/es/user/tweaks.itely
 msgid "left-padding and right-padding"
-msgstr "left-padding y right-padding (relleno por la izquierda y por la derecha)"
+msgstr ""
+"left-padding y right-padding (relleno por la izquierda y por la derecha)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/es/user/tweaks.itely
@@ -3920,7 +4001,8 @@ msgstr "Imprimir el número de compás cada dos compases"
 
 #. Documentation/user/rhythms.itely:2058 (comment)
 msgid "Prevent bar numbers at the end of a line and permit them elsewhere"
-msgstr "No poner números de compás al final de la línea, pero sí en otros lugares"
+msgstr ""
+"No poner números de compás al final de la línea, pero sí en otros lugares"
 
 #. Documentation/user/rhythms.itely:2062 (comment)
 #. Documentation/user/rhythms.itely:2088 (comment)
@@ -4276,26 +4358,22 @@ msgstr "Alinear con una cadenza"
 msgid "Time administration"
 msgstr "Gestión del tiempo"
 
-#. Documentation/user/expressive.itely:330 (variable)
-#. Documentation/user/expressive.itely:375 (variable)
+#. Documentation/user/expressive.itely:332 (variable)
+#. Documentation/user/expressive.itely:377 (variable)
 msgid "moltoF"
 msgstr "moltoF"
 
-#. Documentation/user/expressive.itely:346 (variable)
+#. Documentation/user/expressive.itely:348 (variable)
 msgid "roundf"
 msgstr "f_redondo"
 
-#. Documentation/user/expressive.itely:348 (variable)
+#. Documentation/user/expressive.itely:350 (variable)
 msgid "boxf"
 msgstr "f_caja"
 
-#. Documentation/user/expressive.itely:362 (variable)
+#. Documentation/user/expressive.itely:364 (variable)
 msgid "sfzp"
 msgstr "sfzp"
-
-#. Documentation/user/expressive.itely:650 (variable)
-msgid "I"
-msgstr "I"
 
 #. @node in Documentation/user/expressive.itely
 #. @section in Documentation/user/expressive.itely
@@ -4460,6 +4538,20 @@ msgstr "Trinos"
 msgid "trill"
 msgstr "trino"
 
+#. Documentation/user/repeats.itely:237 (comment)
+#. Documentation/user/repeats.itely:277 (comment)
+msgid "FIXME: I can't believe this is right."
+msgstr ""
+
+#. Documentation/user/repeats.itely:297 (comment)
+#, fuzzy
+msgid "FIXME: broken"
+msgstr "ARREGLAR: no funciona."
+
+#. Documentation/user/repeats.itely:298 (comment)
+msgid "\\set Score.repeatCommands = #(list (list 'volta voltaChorus ) )"
+msgstr ""
+
 #. @node in Documentation/user/repeats.itely
 #. @section in Documentation/user/repeats.itely
 #. @node in Documentation/fr/user/repeats.itely
@@ -4544,19 +4636,15 @@ msgstr "simile"
 msgid "Tremolo repeats"
 msgstr "Repeticiones de trémolo"
 
-#. Documentation/user/simultaneous.itely:239 (variable)
-msgid "voiceFive"
-msgstr "vozCinco"
-
-#. Documentation/user/simultaneous.itely:372 (variable)
+#. Documentation/user/simultaneous.itely:352 (variable)
 msgid "instrumentOne"
 msgstr "instrumentoUno"
 
-#. Documentation/user/simultaneous.itely:380 (variable)
+#. Documentation/user/simultaneous.itely:360 (variable)
 msgid "instrumentTwo"
 msgstr "instrumentoDos"
 
-#. Documentation/user/simultaneous.itely:559 (comment)
+#. Documentation/user/simultaneous.itely:539 (comment)
 msgid "Bar 3 ..."
 msgstr "Compás 3 ..."
 
@@ -4680,7 +4768,8 @@ msgid "\\override VerticalAxisGroup #'remove-first = ##t"
 msgstr "\\override VerticalAxisGroup #'remove-first = ##t"
 
 #. Documentation/user/staff.itely:735 (comment)
-msgid "To use the setting globally, comment this line, uncomment the line above"
+msgid ""
+"To use the setting globally, comment this line, uncomment the line above"
 msgstr ""
 "Para emplear el ajuste globalmente, comente esta línea, descomente la "
 "anterior"
@@ -4871,7 +4960,8 @@ msgstr "Formateo de las notas de aviso"
 
 #. Documentation/user/editorial.itely:288 (comment)
 msgid "this is deliberate nonsense; note that the stems remain black"
-msgstr "esto no tiene sentido, intencionalmente. Observe que las plicas siguen negras"
+msgstr ""
+"esto no tiene sentido, intencionalmente. Observe que las plicas siguen negras"
 
 #. @node in Documentation/user/editorial.itely
 #. @section in Documentation/user/editorial.itely
@@ -5005,7 +5095,7 @@ msgstr "Líneas de rejilla"
 msgid "Analysis brackets"
 msgstr "Corchetes de análisis"
 
-#. Documentation/user/text.itely:401 (variable)
+#. Documentation/user/text.itely:403 (variable)
 msgid "allegro"
 msgstr "allegro"
 
@@ -6498,7 +6588,8 @@ msgstr "esta vez el texto estará más cerca del pentagrama"
 
 #. Documentation/user/spacing.itely:1440 (comment)
 msgid "by setting outside-staff-priority to a non-number, we"
-msgstr "ajustando el valor de outside-staff-priority a algo que no sea un número,"
+msgstr ""
+"ajustando el valor de outside-staff-priority a algo que no sea un número,"
 
 #. Documentation/user/spacing.itely:1441 (comment)
 msgid "disable the automatic collision avoidance"
@@ -8511,3 +8602,8 @@ msgstr "Notas al pie"
 msgid "Table of Contents"
 msgstr "Índice general"
 
+#~ msgid "I"
+#~ msgstr "I"
+
+#~ msgid "voiceFive"
+#~ msgstr "vozCinco"
