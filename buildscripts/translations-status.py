@@ -17,7 +17,6 @@ import sys
 import re
 import string
 import os
-import gettext
 
 import langdefs
 
@@ -37,6 +36,7 @@ import buildlib
 translation = langdefs.translation
 
 
+language_re = re.compile (r'^@documentlanguage (.+)', re.M)
 comments_re = re.compile (r'^@ignore\n(.|\n)*?\n@end ignore$|@c .*?$', re.M)
 space_re = re.compile (r'\s+', re.M)
 lilypond_re = re.compile (r'@lilypond({.*?}|(.|\n)*?\n@end lilypond$)', re.M)
@@ -53,6 +53,9 @@ post_gdp_re = re.compile ('post.GDP', re.I)
 untranslated_node_str = 'UNTRANSLATED NODE: IGNORE ME'
 skeleton_str = '-- SKELETON FILE --'
 
+detailed_status_heads = [_doc ('Translators'), _doc ('Translation checkers'),
+                         _doc ('Translated'), _doc ('Up to date'),
+                         _doc ('Other info')]
 format_table = {
     'not translated': {'color':'d0f0f8', 'short':_doc ('no'), 'abbr':'NT',
                        'long':_doc ('not translated')},
@@ -64,7 +67,7 @@ format_table = {
                          'long': _doc ('translated')},
     'up to date': {'short':_doc ('yes'), 'long':_doc ('up to date'),
                    'abbr':'100%%', 'vague':_doc ('up to date')},
-    'outdated': {'short':_doc ('partially (%(p)d %%)'), 'abbr':'%(p)d%%',
+    'outdated': {'short':_doc ('partially'), 'abbr':'%(p)d%%',
                  'vague':_doc ('partially up to date')},
     'N/A': {'short':_doc ('N/A'), 'abbr':'N/A', 'color':'d587ff', 'vague':''},
     'pre-GDP':_doc ('pre-GDP'),
@@ -183,6 +186,10 @@ class TelyDocument (object):
             self.title = 'Untitled'
             self.level = ('u', 1)
 
+        m = language_re.search (self.contents)
+        if m:
+            self.language = m.group (1)
+
         included_files = [os.path.join (os.path.dirname (filename), t)
                           for t in include_re.findall (self.contents)]
         self.included_files = [p for p in included_files if os.path.exists (p)]
@@ -196,6 +203,13 @@ class TranslatedTelyDocument (TelyDocument):
         TelyDocument.__init__ (self, filename)
 
         self.masterdocument = masterdocument
+        if not hasattr (self, 'language') \
+                and hasattr (parent_translation, 'language'):
+            self.language = parent_translation.language
+        if hasattr (self, 'language'):
+            self.translation = translation[self.language]
+        else:
+            self.translation = lambda x: x
 
         ## record authoring information
         m = translators_re.search (self.contents)
@@ -290,11 +304,11 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                 l[f] = format_table[status][f] % locals ()
         return l
 
-    def gdp_status (self, translation=lambda s: s):
+    def gdp_status (self):
         if self.post_gdp:
-            return translation (format-table['post-GDP'])
+            return self.translation (format_table['post-GDP'])
         else:
-            return translation (format-table['pre-GDP'])
+            return self.translation (format_table['pre-GDP'])
 
     def short_html_status (self):
         s = '  <td>'
@@ -323,9 +337,49 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             s += self.uptodateness ('abbr')['abbr'] + ' '
         return s
 
-    def html_status (self):
-        # TODO
-        return ''
+    def html_status (self, numbering=SectionNumber ()):
+        if self.level[1] == 0: # if self is a master document
+            s = '''<table align="center" border="2">
+ <tr align="center">
+  <th>%s</th>''' % self.print_title (numbering)
+            s += ''.join (['  <th>%s</th>\n' % self.translation (h)
+                           for h in detailed_status_heads])
+            s += ' </tr>\n'
+            s += ' <tr align="left">\n  <td>Section titles<br>(%d)</td>\n' \
+                % sum (self.masterdocument.word_count)
+
+        else:
+            s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
+                % (self.print_title (numbering),
+                   sum (self.masterdocument.word_count))
+
+        if self.partially_translated:
+            s += '  <td>' + '<br>\n   '.join (self.translators) + '</td>\n'
+            s += '  <td>' + '<br>\n   '.join (self.checkers) + '</td>\n'
+        else:
+            s += '  <td></td>\n' * 2
+
+        c = self.completeness (['color', 'short'])
+        s += '  <td><span style="background-color: #%(color)s">\
+%(short)s</span></td>\n' % {'color': c['color'],
+                           'short': self.translation (c['short'])}
+
+        if self.partially_translated:
+            u = self.uptodateness (['short', 'color'])
+            s += '  <td><span style="background-color: #%(color)s">\
+%(short)s</span></td>\n' % {'color': u['color'],
+                           'short': self.translation (u['short'])}
+        else:
+            s += '  <td></td>\n'
+
+        s += '  <td>' + self.gdp_status () + '</td>\n </tr>\n'
+        s += ''.join ([i.translations[self.language].html_status (numbering)
+                       for i in self.masterdocument.includes
+                       if self.language in i.translations])
+
+        if self.level[1] == 0:  # if self is a master document
+            s += '</table>\n<p></p>\n'
+        return s
 
 class MasterTelyDocument (TelyDocument):
     def __init__ (self,
@@ -367,7 +421,7 @@ class MasterTelyDocument (TelyDocument):
             s += ' <tr align="left">\n  <td>Section titles<br>(%d)</td>\n' \
                 % sum (self.word_count)
 
-        else:
+        else:  # if self is an included file
             s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
                 % (self.print_title (numbering), sum (self.word_count))
 
@@ -376,7 +430,7 @@ class MasterTelyDocument (TelyDocument):
         s += ' </tr>\n'
         s += ''.join ([i.html_status (numbering) for i in self.includes])
 
-        if self.level[1] == 0:
+        if self.level[1] == 0:  # if self is a master document
             s += '</table>\n<p></p>\n'
         return s
 
@@ -423,17 +477,19 @@ progress ("Reading documents...")
 
 tely_files = \
     buildlib.read_pipe ("find -maxdepth 2 -name '*.tely'")[0].splitlines ()
+tely_files.sort ()
 master_docs = [MasterTelyDocument (os.path.normpath (filename))
                for filename in tely_files]
 master_docs = [doc for doc in master_docs if doc.translations]
 
 main_status_page = open ('translations.template.html.in').read ()
 
-## TODO
-#per_lang_status_pages = \
-#    dict ([(l, open (os.path.join (l, 'translations.template.html')). read ())
-#           for l in langdefs.LANGDICT
-#           if langdefs.LANGDICT[l].enabled])
+enabled_languages = [l for l in langdefs.LANGDICT
+                     if langdefs.LANGDICT[l].enabled
+                     and l != 'en']
+lang_status_pages = \
+    dict ([(l, open (os.path.join (l, 'translations.template.html.in')). read ())
+           for l in enabled_languages])
 
 progress ("Generating status pages...")
 
@@ -445,14 +501,25 @@ main_status_html += '\n'.join ([doc.html_status () for doc in master_docs])
 html_re = re.compile ('<html>', re.I)
 end_body_re = re.compile ('</body>', re.I)
 
-main_status_page = html_re.sub ('''<html>
+html_header = '''<html>
 <!-- This page is automatically generated by translation-status.py from
-translations.template.html.in; DO NOT EDIT !-->''', main_status_page)
+translations.template.html.in; DO NOT EDIT !-->'''
+
+main_status_page = html_re.sub (html_header, main_status_page)
 
 main_status_page = end_body_re.sub (main_status_html + '\n</body>',
                                     main_status_page)
 
 open ('translations.html.in', 'w').write (main_status_page)
+
+for l in enabled_languages:
+    lang_status_page = html_re.sub (html_header, lang_status_pages[l])
+    html_status = '\n'.join ([doc.translations[l].html_status ()
+                              for doc in master_docs
+                              if l in doc.translations])
+    lang_status_page = end_body_re.sub (html_status + '\n</body>',
+                                        lang_status_page)
+    open (os.path.join (l, 'translations.html.in'), 'w').write (lang_status_page)
 
 main_status_txt = '''Documentation translations status
 Generated %s
