@@ -66,13 +66,14 @@ Notation Reference:
 Snippets:
 @rlsr{Simultaneous notes}.
 
+@ignore
 @knownissues
 
 For some reason, music expressions like @code{<< @{ g8 e8 @} a4 >>}
 that should automatically turn into chords, appear split in two
 staves.  To avoid this, use explicit chords instead as in
 @code{<g a>8 <e a>8}.
-
+@end ignore
 
 @node Clusters
 @subsubsection Clusters
@@ -202,13 +203,12 @@ Note heads with different dots may be merged:
 @cindex shift note
 
 The collision on the second measure happens because
-@code{merge-differently-headed} cannot successfully complete the
-merge when three or more notes line up in the same column -- in
-fact, you will obtain a warning for this reason.  To allow the
-merge to work properly, apply a @code{\shift} to the note that
-should not be merged.  Here, @code{\shiftOn} is applied to move
-the top @code{g} out of the column, and
-@code{merge-differently-headed} works properly.
+@code{merge-differently-headed} cannot successfully complete the merge
+when three or more notes line up in the same column -- in fact, you
+will obtain a warning for this reason.  To allow the merge to work
+properly, apply a @code{\shift} to the note that should not be merged.
+Here, @code{\shiftOn} is applied to move the top @code{g} out of the
+column, and @code{merge-differently-headed} works properly.
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -230,6 +230,13 @@ the top @code{g} out of the column, and
 >>
 @end lilypond
 
+The @code{\shiftOn}, @code{\shiftOnn}, and @code{\shiftOnnn} commands
+specify the degree to which chords of the current voice should be
+shifted.  The outer voices (normally: voices one and two) have
+@code{\shiftOff}, while the inner voices (three and four) have
+@code{\shiftOn}.  @code{\shiftOnn} and @code{\shiftOnnn} define
+further shift levels.
+
 Notes are only merged if they have opposing stem directions (i.e., in
 @code{Voice} 1 and 2).
 
@@ -239,8 +246,15 @@ Notes are only merged if they have opposing stem directions (i.e., in
 
 @predefined
 
-FIXME: use this first format.
-
+@funindex \mergeDifferentlyDottedOn
+@code{\mergeDifferentlyDottedOn},
+@funindex \mergeDifferentlyDottedOff
+@code{\mergeDifferentlyDottedOff},
+@funindex \mergeDifferentlyHeadedOn
+@code{\mergeDifferentlyHeadedOn},
+@funindex \mergeDifferentlyHeadedOff
+@code{\mergeDifferentlyHeadedOff}.
+ 
 @funindex \oneVoice
 @code{\oneVoice},
 @funindex \voiceOne
@@ -253,17 +267,15 @@ FIXME: use this first format.
 @code{\voiceFour}.
 
 @funindex \voiceNeutralStyle
+@code{\voiceNeutralStyle},
 @funindex \voiceOneStyle
+@code{\voiceOneStyle},
 @funindex \voiceTwoStyle
+@code{\voiceTwoStyle},
 @funindex \voiceThreeStyle
+@code{\voiceThreeStyle},
 @funindex \voiceFourStyle
-@example
-\voiceNeutralStyle
-\voiceOneStyle
-\voiceTwoStyle
-\voiceThreeStyle
-\voiceFourStyle
-@end example
+@code{\voiceFourStyle}.
 
 @funindex \shiftOn
 @code{\shiftOn},
@@ -272,14 +284,7 @@ FIXME: use this first format.
 @funindex \shiftOnnn
 @code{\shiftOnnn},
 @funindex \shiftOff
-@code{\shiftOff}: these commands specify the degree to which
-chords of the current voice should be shifted.  The outer voices
-(normally: voices one and two) have @code{\shiftOff}, while the
-inner voices (three and four) have @code{\shiftOn}.
-@code{\shiftOnn} and @code{\shiftOnnn} define further shift
-levels.
-
-FIXME: the above description shoudl go in the main text.
+@code{\shiftOff}.
 
 @snippets
 
