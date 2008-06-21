@@ -69,7 +69,7 @@ Snippets:
 @knownissues
 
 For some reason, music expressions like @code{<< @{ g8 e8 @} a4 >>}
-that should automatically turn into chords, appear splitted in two
+that should automatically turn into chords, appear split in two
 staves.  To avoid this, use explicit chords instead as in
 @code{<g a>8 <e a>8}.
 
@@ -108,10 +108,10 @@ Internals Reference:
 
 @knownissues
 
-Clusters only look good if they span at least two chords; otherwise
+Clusters look good only if they span at least two chords; otherwise
 they appear too narrow.
 
-Clusters do not have a stem and can not indicate durations by
+Clusters do not have a stem and cannot indicate durations by
 themselves.  Separate clusters would need a separating rest between
 them.
 
@@ -165,7 +165,7 @@ of half-note heads and quarter-note heads:
 @lilypond[quote,verbatim,relative=2]
 <<
   {
-    \override Staff.NoteCollision #'merge-differently-headed = ##t
+    \mergeDifferentlyHeadedOn
     c8 d e d c d c4
     g'2 fis
   } \\ {
@@ -184,8 +184,8 @@ Note heads with different dots may be merged:
 @lilypond[quote,relative=2,verbatim]
 <<
   {
-    \override Staff.NoteCollision #'merge-differently-headed = ##t
-    \override Staff.NoteCollision #'merge-differently-dotted = ##t	
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
     c8 d e d c d c4
     g'2 fis
   } \\ {
@@ -202,18 +202,19 @@ Note heads with different dots may be merged:
 @cindex shift note
 
 The collision on the second measure happens because
-@code{merge-differently-headed} cannot successfully complete the merge
-when three or more notes line up in the same column (in fact, you will
-obtain a warning for this reason).  To allow the merge to work
-properly, apply a @code{\shift} to the note that should not be merged.
-Here, @code{\shiftOn} is applied to move the top @code{g} out of the
-column, and @code{merge-differently-headed} works properly.
+@code{merge-differently-headed} cannot successfully complete the
+merge when three or more notes line up in the same column -- in
+fact, you will obtain a warning for this reason.  To allow the
+merge to work properly, apply a @code{\shift} to the note that
+should not be merged.  Here, @code{\shiftOn} is applied to move
+the top @code{g} out of the column, and
+@code{merge-differently-headed} works properly.
 
 @lilypond[quote,relative=2,verbatim]
 <<
   {
-    \override Staff.NoteCollision #'merge-differently-headed = ##t
-    \override Staff.NoteCollision #'merge-differently-dotted = ##t	
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
     c8 d e d c d c4
     \shiftOn
     g'2 fis
@@ -237,6 +238,8 @@ Notes are only merged if they have opposing stem directions (i.e., in
 @cindex shifting voices
 
 @predefined
+
+FIXME: use this first format.
 
 @funindex \oneVoice
 @code{\oneVoice},
@@ -275,6 +278,8 @@ chords of the current voice should be shifted.  The outer voices
 inner voices (three and four) have @code{\shiftOn}.
 @code{\shiftOnn} and @code{\shiftOnnn} define further shift
 levels.
+
+FIXME: the above description shoudl go in the main text.
 
 @snippets
 
@@ -316,7 +321,7 @@ head symbol.
 It is not clear in which circumpstances you can succesfully merge
 different note heads that are at the same time differently dotted.
 
-There is no support for clusters where the same note occurs with
+There is no support for chords where the same note occurs with
 different accidentals in the same chord.  In this case, it is
 recommended to use enharmonic transcription, or to use special
 cluster notation (see @ref{Clusters}).
@@ -537,33 +542,34 @@ global = {
   a4           a         |
 
   % Bar 3 ...
-}   
+}
 
-\score {   
-\new PianoStaff <<
- \new Staff {
-   \global
-   <<
-     \relative c'' \voiceA \\
-     \relative c'  \voiceB
-   >>
- }
- \new Staff {
-   \global \clef bass
-   <<
-     \relative c \voiceC \\
-     \relative c \voiceD
-   >>
- }
->>
+\score {
+  \new PianoStaff <<
+     \new Staff {
+       \global
+       <<
+         \relative c'' \voiceA
+         \\
+         \relative c'  \voiceB
+       >>
+     }
+     \new Staff {
+       \global \clef bass
+       <<
+         \relative c \voiceC
+         \\
+         \relative c \voiceD
+       >>
+     }
+  >>
 }
 @end lilypond
 
 @seealso
 
 Learning Manual:
-@rlearning{Organizing pieces with variables}
+@rlearning{Organizing pieces with variables}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
-
