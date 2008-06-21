@@ -29,6 +29,20 @@ phrasingSlurUp = \override PhrasingSlur  #'direction = #UP
 phrasingSlurDown = \override PhrasingSlur  #'direction = #DOWN
 phrasingSlurNeutral = \revert PhrasingSlur #'direction
 
+mergeDifferentlyDottedOn = {
+  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+}
+mergeDifferentlyDottedOff = {
+  \revert Staff.NoteCollision #'merge-differently-dotted
+}
+
+mergeDifferentlyHeadedOn = {
+  \override Staff.NoteCollision #'merge-differently-headed = ##t
+}
+mergeDifferentlyHeadedOff = {
+  \revert Staff.NoteCollision #'merge-differently-headed
+}
+
 shiftOn = \override NoteColumn  #'horizontal-shift = #1
 shiftOnn = \override NoteColumn  #'horizontal-shift = #2
 shiftOnnn = \override NoteColumn  #'horizontal-shift = #3
