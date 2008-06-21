@@ -530,6 +530,7 @@ la numérotation des mesures sera suspendue.
 * Unmetered music::             
 * Polymetric notation::         
 * Automatic note splitting::    
+* Showing melody rhythms::      
 @end menu
 
 @node Time signature
@@ -912,7 +913,7 @@ divise pas les silences.
 
 Référence du programme : @rinternals{Completion_heads_engraver}.
 
-@node OLD Showing melody rhythms
+@node Showing melody rhythms
 @subsubsection Showing melody rhythms
 
 Au moyen d'une portée rythmique -- @q{rhythmic staff} en anglais -- on

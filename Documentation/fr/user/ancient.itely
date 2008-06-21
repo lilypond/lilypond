@@ -89,7 +89,7 @@ notes.
 
 @itemize @bullet
 @item
-@ref{Gregorian Chant contexts},
+@ref{Gregorian chant contexts},
 @item
 @ref{Mensural contexts}.
 @end itemize
@@ -691,7 +691,6 @@ UNTRANSLATED NODE: IGNORE ME
 * Ligatures::                   
 * White mensural ligatures::    
 * Gregorian square neumes ligatures::  
-* Gregorian square neumes ligatures::  
 @end menu
 
 @node Ancient articulations
@@ -1011,9 +1010,6 @@ L'espacement horizontal n'est pas des meilleurs.
 
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures
-
-@node Gregorian square neumes ligatures
-@unnumberedsubsubsec Gregorian square neumes ligatures
 
 @cindex neumes carrés et ligatures
 @cindex grégorien, ligatures de neumes carrés
