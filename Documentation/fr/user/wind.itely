@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 55791938f7daff49bbe6cb9966ad942499bd8632
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,21 +15,45 @@
 @node Wind instruments
 @section Wind instruments
 
-@menu 
-* Bagpipe::
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Common notation for wind instruments::
+* Bagpipes::
 @end menu
 
+@node Common notation for wind instruments
+@subsection Common notation for wind instruments
 
-@node Bagpipe
-@subsection Bagpipe
+UNTRANSLATED NODE: IGNORE ME
 
-@menu 
+@menu
+* References for wind instruments::
+* Half-holes::
+@end menu
+
+@node References for wind instruments
+@subsubsection References for wind instruments
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Half-holes
+@subsubsection Half-holes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Bagpipes
+@subsection Bagpipes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
 * Bagpipe definitions::
 * Bagpipe example::
 @end menu
 
 @node Bagpipe definitions
-@unnumberedsubsubsec Bagpipe definitions
+@subsubsection Bagpipe definitions
 
 LilyPond inclut des définitions spécifiques destinées à la notation pour
 cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
@@ -72,9 +96,8 @@ Lorsqu'on joue des œuvres moins cérémonieuses que pour une parade
 ou un défilé, peut survenir un sol aigu, au doux nom de
 @qq{piobaireachd}, et que l'on indiquera par @code{gflat}.
 
-
 @node Bagpipe example
-@unnumberedsubsubsec Bagpipe example
+@subsubsection Bagpipe example
 
 Et voici en guise d'exemple, à quoi ressemble le chant populaire
 @emph{Amazing Grace}, noté dans l'idiome de la cornemuse.
@@ -115,5 +138,3 @@ Et voici en guise d'exemple, à quoi ressemble le chant populaire
   \bar "|."
 }
 @end lilypond
-
-
