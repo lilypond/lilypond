@@ -2196,13 +2196,26 @@ when @var{label} is not found."
 ;; Markup list commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (space-lines baseline-skip lines)
-  (map (lambda (line)
-	 (stack-lines DOWN 0.0 (/ baseline-skip 2.0)
-		      (list point-stencil
-			    line
-			    point-stencil)))
-       lines))
+(define-public (space-lines baseline stils)
+  (let space-stil ((prev-stil #f)
+		   (stil (car stils))
+		   (rest (cdr stils))
+		   (result (list)))
+    (cond ((null? rest)
+	   (reverse! result))
+	  ((not prev-stil)
+	   (space-stil stil (car rest) (cdr rest) (list stil)))
+	  (else
+	   (let* ((dy (max (- baseline
+			      (+ (- (interval-bound (ly:stencil-extent prev-stil Y) DOWN))
+				 (interval-bound (ly:stencil-extent stil Y) UP)))
+			   0.0))
+		  (new-stil (ly:make-stencil
+			     (ly:stencil-expr stil)
+			     (ly:stencil-extent stil X)
+			     (cons (interval-bound (ly:stencil-extent stil Y) DOWN)
+				   (+ (interval-bound (ly:stencil-extent stil Y) UP) dy)))))
+	     (space-stil stil (car rest) (cdr rest) (cons new-stil result)))))))
 
 (define-builtin-markup-list-command (justified-lines layout props args)
   (markup-list?)
