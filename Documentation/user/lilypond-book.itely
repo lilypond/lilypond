@@ -1015,5 +1015,8 @@ To produce a useful EPS file, use
 
 @example
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
+
+PNG:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
 @end example
 
