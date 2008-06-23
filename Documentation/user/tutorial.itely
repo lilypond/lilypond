@@ -1434,8 +1434,7 @@ two dashes, resulting in a centered hyphen between the syllables.
 Here is an example showing this and everything we have learned so
 far about aligning lyrics to notes.
 
-@c no ragged-right here because otherwise the hyphens get lost,
-@c but the example is long enough to avoid looking strange.
+@c FIXME: noragged-right
 @lilypond[verbatim,quote]
 <<
   \relative c' {
