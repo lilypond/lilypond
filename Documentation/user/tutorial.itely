@@ -871,7 +871,6 @@ on again.
 @c with lyrics.
 
 @lilypond[verbatim,quote,relative=2]
-a8 c b4 d8. c16 b4
 \autoBeamOff
 a8 c b4 d8. c16 b4
 \autoBeamOn
@@ -1389,8 +1388,8 @@ un-nestedness of brackets and ties}.
 @end lilypond
 
 As an alternative to using slurs, the melismata may be indicated
-in just the lyrics by using an underscore, @code{_}, for each
-note that should be included in the melisma:
+in just the lyrics by using an underscore @code{_} for each note
+that should be included in the melisma:
 
 @lilypond[verbatim,quote]
 <<
@@ -1435,7 +1434,6 @@ two dashes, resulting in a centered hyphen between the syllables.
 Here is an example showing this and everything we have learned so
 far about aligning lyrics to notes.
 
-@c TODOgp
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
 @lilypond[verbatim,quote]
