@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 54ddd0943ae763043343f0726af7a6e2ac427ad5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,19 +19,36 @@ Cette section dispense des informations supplémentaires et utiles à
 l'écriture pour les cordes frottées.
 
 @menu
-* Orchestral strings sections::
+* Common notation for unfretted strings::
+* Bowed instruments::
+* Plucked instruments::
 @end menu
 
+@node Common notation for unfretted strings
+@subsection Common notation for unfretted strings
 
-@node Orchestral strings sections
-@subsection Orchestral strings sections
+UNTRANSLATED NODE: IGNORE ME
 
 @menu
-* Artificial harmonics (strings)::
+* References for unfretted strings::
 @end menu
 
-@node Artificial harmonics (strings)
-@unnumberedsubsubsec Artificial harmonics (strings)
+@node References for unfretted strings
+@subsubsection References for unfretted strings
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Bowed instruments
+@subsection Bowed instruments
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* References for bowed strings::
+@end menu
+
+@node References for bowed strings
+@subsubsection References for bowed strings
 
 @cindex harmoniques
 
@@ -44,4 +61,17 @@ par @code{\harmonic}.
 <c g'\harmonic>4
 @end lilypond
 
+@node Plucked instruments
+@subsection Plucked instruments
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Harp::
+@end menu
+
+@node Harp
+@subsubsection Harp
+
+UNTRANSLATED NODE: IGNORE ME
 
