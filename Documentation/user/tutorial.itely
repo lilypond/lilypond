@@ -1274,7 +1274,7 @@ This section introduces vocal music and simple song sheets.
 Music Glossary: @rglos{lyrics}.
 
 Here is the start of the melody to a nursery
-rhyme, @qq{Girls and boys come out to play}:
+rhyme, @notation{Girls and boys come out to play}:
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -1316,8 +1316,8 @@ Music Glossary: @rglos{melisma}, @rglos{extender line}.
 @cindex hyphens
 @cindex underscore
 
-The next line in the nursery rhyme is @q{The moon doth shine as
-bright as day}.  Let's extend it:
+The next line in the nursery rhyme is @notation{The moon doth
+shine as bright as day}.  Let's extend it:
 
 @lilypond[verbatim,quote]
 <<
@@ -1335,13 +1335,11 @@ bright as day}.  Let's extend it:
 @end lilypond
 
 We see the extra lyrics do not align properly with the notes.  The
-word @q{shine} should be sung on two notes, not one.  This is
-called a @notation{melisma}, a single syllable sung to more than
-one note.  There are several ways to spread a syllable over
-multiple notes, the simplest being to add a slur across them:
-
-@c marking the start of the slur with a left bracket, (, and the
-@c end with a right bracket, ), for details, see @ref{Ties and slurs}:
+word @notation{shine} should be sung on two notes, not one.  This
+is called a @notation{melisma}, a single syllable sung to more
+than one note.  There are several ways to spread a syllable over
+multiple notes, the simplest being to add a slur across them, for
+details, see @ref{Ties and slurs}:
 
 @lilypond[verbatim,quote]
 <<
@@ -1359,18 +1357,10 @@ multiple notes, the simplest being to add a slur across them:
 @end lilypond
 
 The words now line up correctly with the notes, but the automatic
-beaming for the notes above @qq{shine as} does not look right.  We
-can correct this by inserting manual beaming commands to override
-the automatic beaming here.
-
-@ignore
-  We mark the start of the beam with a
-left square bracket, [, and the end with a right square bracket, ],
-for details, see @ref{Automatic and manual beams}.  Note that the 
-slur and beam indications do not need to @qq{nest}, i.e., the order
-in which they appear is not important, see @ref{On the 
-un-nestedness of brackets and ties}.
-@end ignore
+beaming for the notes above @notation{shine as} does not look right.
+We can correct this by inserting manual beaming commands to override
+the automatic beaming here, for details, see @ref{Automatic and
+manual beams}.
 
 @lilypond[verbatim,quote]
 <<
@@ -1378,7 +1368,7 @@ un-nestedness of brackets and ties}.
     \key g \major
     \time 6/8
     d4 b8 c4 a8 d4 b8 g4
-    g8 a4 b8 c([ b)] a d4 b8 g4.
+    g8 a4 b8 c([ b]) a d4 b8 g4.
   }
   \addlyrics {
     Girls and boys come out to play,
@@ -1410,18 +1400,19 @@ If a syllable extends over several notes or a single very long
 note an @notation{extender line} is usually drawn from the
 syllable extending under all the notes for that syllable.  It is
 entered as two underscores @code{__}.  Here is an example from the
-first three bars of Dido's Lament, from Purcell's Dido and Æneas:
+first three bars of @notation{Dido's Lament}, from Purcell's 
+@notation{Dido and Æneas}:
 
 @lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \minor
     \time 3/2
-    g2 a bes bes( a) 
+    g2 a bes bes( a)
     b c4.( bes8 a4. g8 fis4.) g8 fis1
   }
   \addlyrics {
-    When I am laid, 
+    When I am laid,
     am laid __ in earth,
   }
 >>
@@ -1441,11 +1432,11 @@ far about aligning lyrics to notes.
     \key g \major
     \time 3/4
     \partial 4
-    d4 g4 g a8( b) g4 g4 
+    d4 g4 g a8( b) g4 g4
     b8( c) d4 d e4 c2
   }
   \addlyrics {
-    A -- way in a __ man -- ger, 
+    A -- way in a __ man -- ger,
     no __ crib for a bed, __
   }
 >>
@@ -1454,20 +1445,21 @@ far about aligning lyrics to notes.
 Some lyrics, especially those in Italian, require the opposite:
 setting more than one syllable to a single note.  This is
 achieved by linking the syllables together with a single
-underscore @code{_} (with no spaces), or enclosing them in
-quotes.  Here's an example from Rossini's Figaro, where
-@q{al} has to be sung on the same note as the @q{go} of 
-@q{Largo} in Figaro's aria @q{Largo al factotum}:
+underscore @code{_} (with no spaces), or enclosing them in quotes.
+Here's an example from Rossini's @notation{Figaro}, where
+@notation{al} has to be sung on the same note as the @notation{go} of
+@notation{Largo} in Figaro's aria @notation{Largo al factotum}:
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
+@c FIXME: noragged-right
 @lilypond[verbatim,quote]
 <<
   \relative c' {
     \clef bass
     \key c \major
     \time 6/8
-    c4.~ c8 d b c([ d)] b c d b c
+    c4.~ c8 d b c([ d]) b c d b c
   }
   \addlyrics {
     Lar -- go_al fac -- to -- tum del -- la cit -- tà
@@ -1486,7 +1478,10 @@ Notation Reference: @ruser{Vocal music}.
 
 The simple approach using @code{\addlyrics} can be used for
 placing lyrics under more than one staff.  Here is an
-example from Handel's Judas Maccabæus:
+example from Handel's @notation{Judas Maccabæus}:
+
+@c TODO \partial has not been previously explained
+@c Change example or add explanation earlier
 
 @lilypond[verbatim,quote]
 <<
@@ -1496,14 +1491,14 @@ example from Handel's Judas Maccabæus:
   }
   \relative c'' {
     \key f \major
-    c8 c([ bes)] a a([ g)] f f'4. b, c4.~ c4
+    c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn, __
   }
   \relative c' {
     \key f \major
-    r8 r4. r4 c8 a'([ g)] f f([ e)] d e([ d)] c bes'4
+    r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn,
@@ -1531,11 +1526,11 @@ add the final touches to simple pieces, and provides an
 introduction to the rest of the manual.
 
 @menu
-* Organizing pieces with variables::  
-* Version number::              
-* Adding titles::               
-* Absolute note names::         
-* After the tutorial::          
+* Organizing pieces with variables::
+* Version number::
+* Adding titles::
+* Absolute note names::
+* After the tutorial::
 @end menu
 
 
