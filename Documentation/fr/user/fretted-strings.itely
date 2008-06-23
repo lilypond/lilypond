@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: 9aa812ca2a0da495158a7b4903b3c4ca747e4d6c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,28 +15,35 @@
 @node Fretted string instruments
 @section Fretted string instruments
 
-@cindex tablature
-@cindex tablature de guitare
+UNTRANSLATED NODE: IGNORE ME
 
 @menu
-* Guitar sections::
+* Common notation for fretted strings::
+* Guitar::
+* Banjo::
 @end menu
 
-@node Guitar sections
-@subsection Guitar sections
+@node Common notation for fretted strings
+@subsection Common notation for fretted strings
+
+UNTRANSLATED NODE: IGNORE ME
 
 @menu
+* References for fretted strings::
 * String number indications::
-* Tablatures basic::
-* Non-guitar tablatures::
-* Banjo tablatures::
+* Default tablatures::
+* Custom tablatures::
 * Fret diagrams::
 * Right hand fingerings::
-* Other guitar issues::
 @end menu
 
+@node References for fretted strings
+@subsubsection References for fretted strings
+
+UNTRANSLATED NODE: IGNORE ME
+
 @node String number indications
-@unnumberedsubsubsec String number indications
+@subsubsection String number indications
 
 @cindex cordes numérotées
 @cindex numéro de corde
@@ -48,16 +55,15 @@ On peut ajouter aux accords les numéros de cordes, en les indiquant avec
 <c\1 e\2 g\3>
 @end lilypond
 
-
 @seealso
 
 Référence du programme : @rinternals{StringNumber}.
 
 Exemples : @rlsr{Fretted strings}.
 
+@node Default tablatures
+@subsubsection Default tablatures
 
-@node Tablatures basic
-@unnumberedsubsubsec Tablatures basic
 @cindex tablatures de base
 
 La notation en tablature est utilisée pour certains instruments à cordes
@@ -90,7 +96,6 @@ régler cette propriété, selon qu'on désire une position plus ou moins
 haute.  La valeur par défaut de cette propriété est fixée à 0, ce qui
 correspond à la position la plus basse.
 
-
 @example
 e16 fis gis a b4
 \set TabStaff.minimumFret = #8
@@ -109,10 +114,9 @@ frag = {
   >>
 @end lilypond
 
-
 @commonprop
 
-Pour obtenir des tablatures où les hampes seront dirigées vers le bas et 
+Pour obtenir des tablatures où les hampes seront dirigées vers le bas et
 les ligatures horizontales, réglez le contexte @code{TabStaff}
 comme suit :
 
@@ -147,9 +151,9 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 >>
 @end lilypond
 
+@node Custom tablatures
+@subsubsection Custom tablatures
 
-@node Non-guitar tablatures
-@unnumberedsubsubsec Non-guitar tablatures
 @cindex tablatures, autres
 
 Vous pouvez bien sûr accorder vos cordes différemment.  Cet accord est
@@ -195,10 +199,189 @@ Référence du programme : @rinternals{Tab_note_heads_engraver}.
 
 Aucun effet spécial de guitare n'a été implémenté à ce jour.
 
+@node Fret diagrams
+@subsubsection Fret diagrams
 
+@cindex schémas d'accords
+@cindex schémas de barrés
+
+On peut ajouter des diagrammes d'accords au-dessus de n'importe quelle
+note, en tant qu'objets @code{\markup}. Ces objets donnent toutes
+les informations sur le doigté et les éventuels barrés :
+
+@lilypond[verbatim, ragged-right, quote]
+\new Voice {
+  d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+  d' d' d'
+  fis'^\markup \override #'(size . 0.75) {
+    \override #'(finger-code . below-string) {
+      \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
+                               (place-fret 5 4 3) (place-fret 4 4 4)
+                               (place-fret 3 3 2) (place-fret 2 2 1)
+                               (place-fret 1 2 1))
+    }
+  }
+  fis' fis' fis'
+  c'^\markup \override #'(dot-radius . 0.35) {
+    \override #'(finger-code . in-dot) {
+      \override #'(dot-color . white) {
+        \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
+      }
+    }
+  }
+  c' c' c'
+}
+@end lilypond
+
+Vous pouvez indiquer vos diagrammes de trois manières différentes :
+@qq{standard}, @qq{terse} ou @qq{verbeux}. Ces trois interfaces
+produisent des schémas similaires, mais demandent d'entrer plus ou moins
+d'informations.  Vous trouverez tout les détails dans
+@ref{Text markup commands}.
+
+Par ailleurs, plusieurs propriétés permettent d'ajuster le graphisme
+à votre convenance. Vous en trouverez les détails dans
+@rinternals{fret-diagram-interface}.
+
+@seealso
+
+Exemples : @rlsr{Fretted strings}.
+
+@node Right hand fingerings
+@subsubsection Right hand fingerings
+
+Les doigtés de la main droite, dans les accords, peuvent être ajoutés au moyen
+de @code{@var{note}-\rightHandFinger @var{doigté}}
+
+@lilypond[verbatim,fragment,relative=2]
+  <c-\rightHandFinger #1 e-\rightHandFinger #2 >
+@end lilypond
+
+Pour plus de clarté, vous pouvez traduire ou abréger la commande
+@code{\rightHandFinger}, par exemple en @code{\doigtMainDroite} ou
+même @code{\MD} :
+
+@example
+#(define MD rightHandFinger)
+@end example
+
+@cindex doigtés, main droite, guitare
+@cindex mains droite, doigtés guitare
+
+@commonprop
+
+Pour contrôler plus précisément les doigtés de main droite, réglez la
+propriété @code{strokeFingerOrientations} :
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(up down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+  \set strokeFingerOrientations = #'(up right down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+}
+@end lilypond
+
+Les lettres utilisées dans ces doigtés sont définies par la propriété
+@code{digit-names}, mais on peut bien sûr les changer en utilisant une
+chaîne de caractères comme argument de @code{\rightHandFinger}.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(right)
+  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@")
+  <c-\RH #5 >4
+  <c-\RH "@">4
+}
+@end lilypond
+
+@seealso
+
+Référence du programme : @rinternals{StrokeFinger}
+
+@node Guitar
+@subsection Guitar
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Guitar tablatures::
+* Indicating position and barring::
+@end menu
+
+@node Guitar tablatures
+@subsubsection Guitar tablatures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Indicating position and barring
+@subsubsection Indicating position and barring
+
+Les doigtés de la main droite, dans les accords, peuvent être ajoutés au moyen
+de @code{@var{note}-\rightHandFinger @var{doigté}}
+
+@lilypond[verbatim,fragment,relative=2]
+  <c-\rightHandFinger #1 e-\rightHandFinger #2 >
+@end lilypond
+
+Pour plus de clarté, vous pouvez traduire ou abréger la commande
+@code{\rightHandFinger}, par exemple en @code{\doigtMainDroite} ou
+même @code{\MD} :
+
+@example
+#(define MD rightHandFinger)
+@end example
+
+@cindex doigtés, main droite, guitare
+@cindex mains droite, doigtés guitare
+
+@commonprop
+
+Pour contrôler plus précisément les doigtés de main droite, réglez la
+propriété @code{strokeFingerOrientations} :
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(up down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+  \set strokeFingerOrientations = #'(up right down)
+  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+}
+@end lilypond
+
+Les lettres utilisées dans ces doigtés sont définies par la propriété
+@code{digit-names}, mais on peut bien sûr les changer en utilisant une
+chaîne de caractères comme argument de @code{\rightHandFinger}.
+
+@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+#(define RH rightHandFinger)
+{
+  \set strokeFingerOrientations = #'(right)
+  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@")
+  <c-\RH #5 >4
+  <c-\RH "@">4
+}
+@end lilypond
+
+@seealso
+
+Référence du programme : @rinternals{StrokeFinger}
+
+@node Banjo
+@subsection Banjo
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Banjo tablatures::
+@end menu
 
 @node Banjo tablatures
-@unnumberedsubsubsec Banjo tablatures
+@subsubsection Banjo tablatures
+
 @cindex Tablatures de banjo
 
 LilyPond permet d'écrire des tablatures de base pour le banjo à cinq
@@ -235,135 +418,3 @@ cordes, si l'on utilise la fonction @code{four-string-banjo} :
 
 Vous trouverez une liste complète des jeux de cordes prédéfinis pour le banjo
 dans le fichier @file{scm/@/output@/-lib@/.scm}.
-
-
-@node Fret diagrams
-@unnumberedsubsubsec Fret diagrams
-@cindex schémas d'accords
-@cindex schémas de barrés
-
-On peut ajouter des diagrammes d'accords au-dessus de n'importe quelle
-note, en tant qu'objets @code{\markup}. Ces objets donnent toutes
-les informations sur le doigté et les éventuels barrés :
-
-@lilypond[verbatim, ragged-right, quote]
-\new Voice {
-  d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
-  d' d' d'
-  fis'^\markup \override #'(size . 0.75) {
-    \override #'(finger-code . below-string) {
-      \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
-                               (place-fret 5 4 3) (place-fret 4 4 4)
-                               (place-fret 3 3 2) (place-fret 2 2 1)
-                               (place-fret 1 2 1))
-    }
-  }
-  fis' fis' fis'
-  c'^\markup \override #'(dot-radius . 0.35) {
-    \override #'(finger-code . in-dot) {
-      \override #'(dot-color . white) {
-        \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
-      }
-    }
-  }
-  c' c' c'
-}
-@end lilypond
-
-
-Vous pouvez indiquer vos diagrammes de trois manières différentes :
-@qq{standard}, @qq{terse} ou @qq{verbeux}. Ces trois interfaces
-produisent des schémas similaires, mais demandent d'entrer plus ou moins
-d'informations.  Vous trouverez tout les détails dans
-@ref{Text markup commands}.
-
-Par ailleurs, plusieurs propriétés permettent d'ajuster le graphisme
-à votre convenance. Vous en trouverez les détails dans
-@rinternals{fret-diagram-interface}. 
-
-
-@seealso
-
-Exemples : @rlsr{Fretted strings}.
-
-
-@node Right hand fingerings
-@unnumberedsubsubsec Right hand fingerings
-
-Les doigtés de la main droite, dans les accords, peuvent être ajoutés au moyen
-de @code{@var{note}-\rightHandFinger @var{doigté}}
-
-@lilypond[verbatim,fragment,relative=2]
-  <c-\rightHandFinger #1 e-\rightHandFinger #2 >
-@end lilypond
-
-Pour plus de clarté, vous pouvez traduire ou abréger la commande 
-@code{\rightHandFinger}, par exemple en @code{\doigtMainDroite} ou
-même @code{\MD} :
-
-@example
-#(define MD rightHandFinger)
-@end example
-
-@cindex doigtés, main droite, guitare
-@cindex mains droite, doigtés guitare
- 
-@commonprop
-
-Pour contrôler plus précisément les doigtés de main droite, réglez la
-propriété @code{strokeFingerOrientations} :
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-#(define RH rightHandFinger)
-{
-  \set strokeFingerOrientations = #'(up down)
-  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
-  \set strokeFingerOrientations = #'(up right down)
-  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
-}
-@end lilypond
-
-Les lettres utilisées dans ces doigtés sont définies par la propriété
-@code{digit-names}, mais on peut bien sûr les changer en utilisant une
-chaîne de caractères comme argument de @code{\rightHandFinger}.
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-#(define RH rightHandFinger)
-{
-  \set strokeFingerOrientations = #'(right)
-  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@") 
-  <c-\RH #5 >4
-  <c-\RH "@">4  
-}
-@end lilypond
-
-@seealso
-
-Référence du programme : @rinternals{StrokeFinger}
-
-
-
-@node Other guitar issues
-@unnumberedsubsubsec Other guitar issues
-
-
-Voici comment insérer des indications de position.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=0]
-\clef "G_8"
-b16 d16 g16 b16 e16
-\textSpannerDown
-\override TextSpanner #'bound-details #'left #'text = #"XII "
-  g16\startTextSpan
-  b16 e16 g16 e16 b16 g16\stopTextSpan
-e16 b16 g16 d16
-@end lilypond
-
-
-Lorsque des notes doivent être jouées détimbrées --- le doigt effleurant
-la corde sans la presser, en un effet presque percussif, mais où la
-hauteur est encore perceptible ---, on peut employer des têtes de notes
-spéciales en forme de croix.
-Vous trouverez plus de détails dans @ref{Special note heads}.
-
-
