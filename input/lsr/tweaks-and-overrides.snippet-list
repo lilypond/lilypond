@@ -9,6 +9,7 @@ move-specific-text.ly
 creating-text-spanners.ly
 rest-styles.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
+suppressing-warnings-for-clashing-note-columns.ly
 controlling-tuplet-bracket-visibility.ly
 positioning-multi--measure-rests.ly
 changing-the-staff-size.ly
