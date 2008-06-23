@@ -235,6 +235,7 @@ LILYQUOTE = 'lilyquote'
 NOFRAGMENT = 'nofragment'
 NOINDENT = 'noindent'
 NOQUOTE = 'noquote'
+NORAGGED_RIGHT = 'noragged-right'
 NOTES = 'body'
 NOTIME = 'notime'
 OUTPUT = 'output'
@@ -561,6 +562,8 @@ ly_options = {
         LILYQUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
 
         RAGGED_RIGHT: r'''ragged-right = ##t''',
+
+        NORAGGED_RIGHT: r'''ragged-right = ##f''',
 
         PACKED: r'''packed = ##t''',
     },
