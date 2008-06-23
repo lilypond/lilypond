@@ -2198,15 +2198,15 @@ when @var{label} is not found."
 
 (define-public (space-lines baseline stils)
   (let space-stil ((prev-stil #f)
-		   (stil (car stils))
-		   (rest (cdr stils))
+		   (stils stils)
 		   (result (list)))
-    (cond ((null? rest)
+    (cond ((null? stils)
 	   (reverse! result))
 	  ((not prev-stil)
-	   (space-stil stil (car rest) (cdr rest) (list stil)))
+	   (space-stil (car stils) (cdr stils) (list (car stils))))
 	  (else
-	   (let* ((dy (max (- baseline
+	   (let* ((stil (car stils))
+		  (dy (max (- baseline
 			      (+ (- (interval-bound (ly:stencil-extent prev-stil Y) DOWN))
 				 (interval-bound (ly:stencil-extent stil Y) UP)))
 			   0.0))
@@ -2215,7 +2215,7 @@ when @var{label} is not found."
 			     (ly:stencil-extent stil X)
 			     (cons (interval-bound (ly:stencil-extent stil Y) DOWN)
 				   (+ (interval-bound (ly:stencil-extent stil Y) UP) dy)))))
-	     (space-stil stil (car rest) (cdr rest) (cons new-stil result)))))))
+	     (space-stil stil (cdr stils) (cons new-stil result)))))))
 
 (define-builtin-markup-list-command (justified-lines layout props args)
   (markup-list?)
