@@ -35,7 +35,7 @@ This section discusses simultaneous notes inside the same voice.
 @end menu
 
 @node Chorded notes
-@subsubsection Chorded notes
+@unnumberedsubsubsec Chorded notes
 
 @cindex chords
 @cindex brackets, angle
@@ -77,7 +77,7 @@ staves.  To avoid this, use explicit chords instead as in
 @end ignore
 
 @node Parallel notes
-@subsubsection Parallel notes
+@unnumberedsubsubsec Parallel notes
 
 @ignore
 Pieces of music having the same rhythm form chords when
@@ -111,7 +111,7 @@ This method leads to strange beamings and warnings if the pieces of
 music do not have the same rhythm.
 
 @node Clusters
-@subsubsection Clusters
+@unnumberedsubsubsec Clusters
 
 @cindex cluster
 @funindex \makeClusters
@@ -165,7 +165,7 @@ multiple staves.
 @end menu
 
 @node Collision resolution
-@subsubsection Collision resolution
+@unnumberedsubsubsec Collision resolution
 
 @cindex merging notes
 @cindex note collisions
@@ -358,7 +358,7 @@ recommended to use enharmonic transcription, or to use special
 cluster notation (see @ref{Clusters}).
 
 @node Voice styles
-@subsubsection Voice styles
+@unnumberedsubsubsec Voice styles
 
 @cindex voice styles
 @cindex styles, voice
@@ -407,7 +407,7 @@ Snippets:
 @rlsr{Simultaneous notes}.
 
 @node Automatic part combining
-@subsubsection Automatic part combining
+@unnumberedsubsubsec Automatic part combining
 
 @cindex automatic part combining
 @cindex part combiner
@@ -545,7 +545,7 @@ events in those will be ignored.
 @c IIRC in users list someone pointed out more issues. TODO: lookup FV
 
 @node Writing music in parallel
-@subsubsection Writing music in parallel
+@unnumberedsubsubsec Writing music in parallel
 
 @cindex Writing music in parallel
 @cindex Interleaved music
