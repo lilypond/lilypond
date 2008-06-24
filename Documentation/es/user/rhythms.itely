@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
+    Translation of GIT committish: b9d7f2392b815947674db6c6181e9fb550842fab
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2035,22 +2035,21 @@ en otras situaciones mediante @code{\override Stem #'stroke-style =
 
 @commonprop
 
-Se puede forzar que las notas de adorno utilicen espaciado flotante,
+Se puede forzar la alineación de las notas de adorno con las notas
+normales de los otros pentagramasGrace notes may be forced to use
+align with regular notes estableciendo @code{strict-grace-spacing} al
+valor ##t:
 
-@lilypond[relative=2,ragged-right]
+@lilypond[verbatim,quote,relative=2]
 <<
   \override Score.SpacingSpanner #'strict-grace-spacing = ##t
   \new Staff {
-     c'4
-     \afterGrace
-     c'4
-     { c'16[ c'8 c'16] }
-     c'4
-  }  
+    c4
+    \afterGrace c4 { c16[ c8 c16] }
+    c4 r
+  }
   \new Staff {
-     c'16[ c'16 c'16 c'16]
-     c'16[ c'16 c'16 c'16]
-     c'4
+    c16 c c c c c c c c4 r
   }
 >>
 @end lilypond
