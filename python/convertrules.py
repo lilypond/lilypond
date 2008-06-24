@@ -3064,4 +3064,4 @@ def conv (str):
                           "\t(format-metronome-markup text dur count context)\n")
     return str
 
-conversions.append (((2, 11, 49), conv, """metronomeMarkFormatter uses text markup as second argument"""))
+conversions.append (((2, 11, 50), conv, """metronomeMarkFormatter uses text markup as second argument"""))
