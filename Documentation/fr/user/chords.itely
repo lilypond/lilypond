@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0158d92df62a318013371e3dd370062b6e407a37
+    Translation of GIT committish: d1124e0293b22f1d8accf4d418015b754d581fcf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,28 +15,29 @@
 @node Chord notation
 @section Chord notation
 
+UNTRANSLATED NODE: IGNORE ME
+
 @menu
-* Chords sections::
+* Chord mode::
+* Displaying chords::
 * Figured bass::
 @end menu
 
-@node Chords sections
-@subsection Chords sections
+@node Chord mode
+@subsection Chord mode
 
-@c awkard bit of English docs (not reproduced here):
-@c "A lead sheet" is shoved in here from the tutorial,
-@c before "Introducing chord names".(changed to "Entering chord names")
+UNTRANSLATED NODE: IGNORE ME
+
 @menu
-* Entering chord names::
-* Chords mode::
-* Printing chord names::
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
 @end menu
 
+@c This material comes from 'Entering chord names' -FV
+@node Chord mode overview
+@unnumberedsubsubsec Chord mode overview
 
-@c  awkward name; awkward section name.
-@c  still, the Basic "chords" seems like a good name...  :(
-@node Entering chord names
-@unnumberedsubsubsec Entering chord names
 @cindex accords, chiffrage jazz
 
 LilyPond permet de désigner les accords par leur chiffrage jazz.
@@ -71,9 +72,9 @@ Notez bien que la valeur rythmique des accords doit être indiquée
 <c e g>2
 @end example
 
-
-@node Chords mode
-@unnumberedsubsubsec Chords mode
+@c This material comes from 'Chords mode' -FV
+@node Common chords
+@unnumberedsubsubsec Common chords
 
 Dans le mode accords, introduit par la commande @code{\chordmode}, les
 accords ne sont indiqués que par leur note fondamentale.
@@ -197,11 +198,9 @@ la plupart des commandes sont encore disponibles ; ainsi, @code{r} ou
 invisibles.  De plus, les propriétés des objets peuvent être ajustées
 ou modifiées.
 
-
-
 @knownissues
 
-Aucun nom de note ne peut être indiqué deux fois dans un accord.  Ainsi, 
+Aucun nom de note ne peut être indiqué deux fois dans un accord.  Ainsi,
 dans l'accord suivant, seule la quinte augmentée est prise en compte,
 car elle est indiquée en dernier :
 
@@ -210,6 +209,20 @@ car elle est indiquée en dernier :
 \chordmode { c:5.5-.5+ }
 @end lilypond
 
+@node Extended and altered chords
+@unnumberedsubsubsec Extended and altered chords
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Displaying chords
+@subsection Displaying chords
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Printing chord names::
+* Customizing chord names::
+@end menu
 
 @node Printing chord names
 @unnumberedsubsubsec Printing chord names
@@ -273,7 +286,7 @@ s'affichent correctement.
 
 Le modèle par défaut des chiffrages d'accord est celui de
 Klaus Ignatzek pour le jazz (cf. @ref{Literature list}).  Il s'agit
-d'une notation anglo-saxonne ; cependant vous pouvez 
+d'une notation anglo-saxonne ; cependant vous pouvez
 indiquer vos chiffrages en notation française au moyen de
 la commande \frenchChords (voir plus bas).
 
@@ -371,7 +384,6 @@ LilyPond intègre également deux autres modèles de chiffrages : une
 notation Jazz alternative, et un modèle systématique appelé système
 Banter.  Pour la mise en œuvre de ces modèles, voir @ref{Chord name chart}.
 
-
 @predefined
 
 @funindex \germanChords
@@ -383,14 +395,12 @@ Banter.  Pour la mise en œuvre de ces modèles, voir @ref{Chord name chart}.
 @funindex \frenchChords
 @code{\frenchChords}.
 
-
 @seealso
 
 Exemples : @rlsr{Chords}.
 
 Fichiers internes : @file{scm/@/chords@/-ignatzek@/.scm}, et
 @file{scm/@/chord@/-entry@/.scm}.
-
 
 @knownissues
 
@@ -400,9 +410,25 @@ reconnus, ni les notes ajoutées à la basse.  C'est pourquoi les accords
 saisis au moyen de la syntaxe @code{<.. >} peuvent produire des
 chiffrages étranges.
 
+@node Customizing chord names
+@unnumberedsubsubsec Customizing chord names
+
+UNTRANSLATED NODE: IGNORE ME
 
 @node Figured bass
 @subsection Figured bass
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
+@end menu
+
+@c This material comes from 'Figured bass', needs redistribution by translator --FV
+@node Introduction to figured bass
+@unnumberedsubsubsec Introduction to figured bass
 
 @cindex basse continue
 @cindex basse chiffrée
@@ -413,7 +439,7 @@ chiffrages étranges.
 Les parties de basse continue étaient très répandues dans la musique
 baroque et jusqu'à la fin du XVIIIe siècle.  Comme son nom
 l'indique, le @emph{continuo} constitue une partie à lui seul, qui
-se déroule tout au long de l'œuvre pour en donner la structure harmonique. 
+se déroule tout au long de l'œuvre pour en donner la structure harmonique.
 
 Les musiciens du @emph{continuo} jouent des claviers (clavecin,
 orgue) ou de tout autre instrument pouvant réaliser des accords.  Leur
@@ -423,7 +449,7 @@ accords à jouer, ainsi que leur éventuel renversement.  Cette notation
 était avant tout un guide, invitant le musicien à improviser de
 lui-même l'accompagnement.
 
-LilyPond gère la basse chiffrée. 
+LilyPond gère la basse chiffrée.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 <<
@@ -477,9 +503,8 @@ markup commands}.
 \figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
 @end lilypond
 
-
 Lorsque des chiffrages se répètent, vous pouvez utiliser des lignes de
-prolongation. 
+prolongation.
 
 @lilypond[verbatim,relative=1]
 <<
@@ -548,7 +573,6 @@ avant qu'après les chiffres, en réglant les propriétés
   }
 @end lilypond
 
-
 Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
 des accords, elle est beaucoup plus simpliste.  Le mode
 @code{\figuremode} ne fait que stocker des chiffres que le contexte
@@ -561,7 +585,6 @@ pouvez formater à votre convenance grâce aux propriétés des
 étiquettes.  Par exemple, l'espacement vertical des chiffrages est
 déterminé par la propriété @code{baseline-skip}.
 
-
 On peut également ajouter une basse chiffrée directement à un contexte
 @code{Staff}.  L'alignement vertical est alors automatiquement ajusté.
 
@@ -573,16 +596,15 @@ On peut également ajouter une basse chiffrée directement à un contexte
   }
 
   %% send to existing Staff.
-  \context Staff = someUniqueName 
+  \context Staff = someUniqueName
   \figuremode {
     <4>4 <6 10>8 s8
-    
+
     \set Staff.useBassFigureExtenders = ##t
     <4 6>4 <4 6>
   }
 >>
 @end lilypond
-
 
 @commonprop
 
@@ -593,7 +615,6 @@ imprimer dessous, ajoutez
 \override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
 @end example
 
-
 @knownissues
 
 Si vous positionnez la basse chiffrée au dessus de la portée en ayant
@@ -603,7 +624,6 @@ impossible lorsque plusieurs chiffrages qui se chevauchent en possèdent.
 Ce problème peut être contourné en jouant sur l'empilement, avec la
 propriété @code{stacking-dir} de l'objet @code{BassFigureAlignment}.
 
-
 @seealso
 
 Référence du programme : les objets @rinternals{NewBassFigure},
@@ -612,4 +632,12 @@ Référence du programme : les objets @rinternals{NewBassFigure},
 @rinternals{BassFigureContinuation}, ainsi que le contexte
 @rinternals{FiguredBass}.
 
+@node Entering figured bass
+@unnumberedsubsubsec Entering figured bass
 
+UNTRANSLATED NODE: IGNORE ME
+
+@node Displaying figured bass
+@unnumberedsubsubsec Displaying figured bass
+
+UNTRANSLATED NODE: IGNORE ME

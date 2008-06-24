@@ -1,14 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3c1b5232885c3ff2c055707d44842feb61d71f80
+    Translation of GIT committish: d1124e0293b22f1d8accf4d418015b754d581fcf
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 @c \version "2.11.38"
-
 
 @node Chord notation
 @section Chord notation
@@ -19,31 +18,34 @@ acordes.  También se pueden imprimir los nombres de los acordes.
 Además se puede imprimir notación de bajo cifrado.
 
 @menu
-* Chord mode::                  
-* Displaying chords::           
-* Figured bass::                
+* Chord mode::
+* Displaying chords::
+* Figured bass::
 @end menu
-
 
 @node Chord mode
 @subsection Chord mode
 
-@cindex chord chords
+@cindex modo de acordes
 
-Chord mode is used to enter chords using an indicator of the chord
-structure, rather than the chord pitches.
+Para introducir acordes se utiliza el modo de acordes. Se usa un
+indicador de la estructura del acorde en lugar de la altura de sus
+notas.
 
 @menu
-* Chord mode overview::         
-* Common chords::               
-* Extended and altered chords::  
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
 @end menu
 
 @node Chord mode overview
 @unnumberedsubsubsec Chord mode overview
 
-@cindex chord names
-@cindex chord mode
+@cindex acordes, nombres de
+@cindex acordes, modo de
+@cindex cifrado americano
+@cindex acordes de jazz
+@cindex jazz, acordes de
 
 Los acordes se pueden escribir como música simultánea, como se explica
 en @ref{Chorded notes}.
@@ -73,7 +75,6 @@ secuencial:
 < c e g > < g' b d >
 \chordmode { f g}
 @end lilypond
-
 
 @seealso
 
@@ -107,7 +108,6 @@ contexto de @code{Staff}:
   < c e g > < g' b d >
 }
 @end lilypond
-
 
 @node Common chords
 @unnumberedsubsubsec Common chords
@@ -166,12 +166,10 @@ modificador para crear una tríada mayor.
 
 @end table
 
-
 @seealso
 
 Fragmentos de código:
 @rlsr{Chords}.
-
 
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
@@ -341,8 +339,8 @@ Los acordes se pueden imprimir por su nombre, además de la impresión
 estándar como notas sobre un pentagrama.
 
 @menu
-* Printing chord names::        
-* Customizing chord names::     
+* Printing chord names::
+* Customizing chord names::
 @end menu
 
 @node Printing chord names
@@ -417,16 +415,13 @@ inversiones o bajos añadidos:
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {simple-lead-sheet.ly}
 
-
 @seealso
 
 Glosario musical:
 @rglos{chord}.
 
-
 Referencia de la notación:
 @ref{Writing music in parallel}.
-
 
 Fragmentos de código:
 @rlsr{Chords}.
@@ -440,7 +435,6 @@ Referencia de funcionamiento interno:
 
 Los acordes que contienen inversiones o bajos alterados no reciben un
 nombre adecuado si se escriben usando música simultánea.
-
 
 @node Customizing chord names
 @unnumberedsubsubsec Customizing chord names
@@ -559,7 +553,6 @@ acorde está alterado.
 @funindex \frenchChords
 @code{\frenchChords}.
 
-
 @snippets
 
 @cindex excepciones, nombres de acorde
@@ -591,7 +584,6 @@ puede establecer para que sea cualquier elemento de marcado.
   c:7sus4
 }
 @end lilypond
-
 
 @seealso
 
@@ -629,16 +621,15 @@ myChords = \relative c' {
 >>
 @end lilypond
 
-
 @node Figured bass
 @subsection Figured bass
 
 Se puede imprimir notación de bajo cifrado.
 
 @menu
-* Introduction to figured bass::  
-* Entering figured bass::       
-* Displaying figured bass::     
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
 @end menu
 
 @node Introduction to figured bass
@@ -677,7 +668,6 @@ El bajo cifrado también se puede imprimir dentro de contextos de
 
 @code{\figures@{ ... @}} es una notación abreviada de
 @code{\new FiguredBass @{\figuremode @{ ... @}@}}.
-
 
 Aunque el soporte para bajo cifrado puede parecerse superficialmente
 al de los acordes, realmente es mucho más simple.  El modo
@@ -737,7 +727,6 @@ normalmente para sextas elevadas).
 }
 @end lilypond
 
-
 Se pueden incluir espacios verticales y corchetes en las cifras:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
@@ -745,7 +734,6 @@ Se pueden incluir espacios verticales y corchetes en las cifras:
   <[12 _!] 8 [6  4]>
 }
 @end lilypond
-
 
 Se puede insertar cualquier elemento de marcado de texto como una cifra:
 
@@ -796,13 +784,10 @@ terminadas explícitamente.
 >>
 @end lilypond
 
-
-
 @predefined
 @cindex bajo cifrado, líneas de extensión
 @code{\bassFigureExtendersOn},
 @code{\bassFigureExtendersOff}.
-
 
 @snippets
 @c TODO  Fix this snippet -- Plus direction should be RIGHT.
@@ -810,20 +795,6 @@ terminadas explícitamente.
 {changing-the-positions-of-figured-bass-alterations.ly}
 
 @seealso
-@c Music Glossary:
-@c @rglos{  }.
-
-@c Learning Manual:
-@c @rlearning{  }.
-
-@c Notation Reference:
-@c @ruser{  }.
-
-@c Application Usage:
-@c @rprogram{  }.
-
-@c Installed Files:
-@c @file{  }.
 
 Fragmentos de código:
 @rlsr{Chords}.
@@ -868,7 +839,6 @@ En el ejemplo de arriba, el contexto @code{FiguredBass} se debe
 instanciar explícitamente para evitar crear un segundo pentagrama
 vacío.
 
-
 El bajo cifrado se puede añadir también a contextos de @code{Staff}
 directamente.  En este caso, la posición vertical de las cifras se
 ajusta automáticamente.
@@ -894,7 +864,6 @@ ajusta automáticamente.
 >>
 @end lilypond
 
-
 Cuando se escribe dentro de un contexto de pentagrama, el bajo cifrado
 se puede presentar encima o debajo del mismo.
 
@@ -914,7 +883,6 @@ se puede presentar encima o debajo del mismo.
   }
 >>
 @end lilypond
-
 
 @ignore
 @c I don't understand this -cs
@@ -1012,6 +980,5 @@ trastocadas.  Puede ser imposible mantener el orden de forma
 consistente cuando varias cifras tienen líneas de extensión que se
 solapan entre sí.  Para evitar este problema, utilice
 @code{stacking-dir} sobre @code{BassFigureAlignment}.
-
 
 @seealso
