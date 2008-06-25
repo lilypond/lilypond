@@ -1425,8 +1425,9 @@ two dashes, resulting in a centered hyphen between the syllables.
 Here is an example showing this and everything we have learned so
 far about aligning lyrics to notes.
 
-@c FIXME: noragged-right
-@lilypond[verbatim,quote]
+@c no ragged-right here because otherwise the hyphens get lost,
+@c but the example is long enough to avoid looking strange.
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
     \key g \major
@@ -1452,8 +1453,7 @@ Here's an example from Rossini's @notation{Figaro}, where
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
-@c FIXME: noragged-right
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
     \clef bass
