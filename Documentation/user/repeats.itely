@@ -297,11 +297,11 @@ explicitly terminated or an error will be generated.
 Manual control of the volte, including a @code{|:} bar line at the
 beginning and explicit volta numbers:
 
-@lilypond[verbatim,quote,relative=2]
 @c FIXME: I can't believe this is right.  
 @c TODO: I think it is. I plan
 @c to delete this example, since it's
 @c already been given at L238. rp
+@lilypond[verbatim,quote,relative=2]
 s1*1/10
 \set Score.repeatCommands = #'( start-repeat )
 c1*9/10
