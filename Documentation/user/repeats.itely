@@ -159,6 +159,8 @@ c1
 
 @c Is there a way to have a final bar ("|.") at the end of the
 @c previous line? Doesn't seem to be.
+@c It could be done by overriding
+@c the BreakAlignment property. Want a separate example?
 If you want to start a repeat at the beginning of a line and have a
 double bar at the end of the previous line, use @code{\bar}. For more
 information, see @ref{Bar lines}.
@@ -230,16 +232,28 @@ d4 e f g
 c1
 @end lilypond
 
-In order to print a @code{|:} bar line at the beginning, a skip must
-be used:
+In order to print a @code{|:} bar line at the beginning of a piece,
+the @code{BreakAlignment} property must be overridden:
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-% FIXME: I can't believe this is right.
-s1*1/10
-\set Score.repeatCommands = #'( start-repeat )
-c1*1/10
-d4 e f g
+\once \override Score.BreakAlignment #'break-align-orders =
+#(make-vector 3 '(
+instrument-name
+left-edge
+ambitus
+span-bar
+breathing-sign
+clef
+key-signature
+time-signature
+staff-bar
+custos
+span-bar
+))
+\bar "|:"
 c1
+d1
+d4 e f g
 @end lilypond
 
 @item @code{end-repeat}
@@ -255,16 +269,26 @@ c1
 @item @code{(volta #f)}
 Stop a running volta bracket.
 
-FIXME: example?
+@c FIXME: example?
+@c TODO: Modify and insert <Test volta.ly>.
 
-@item @code{(volta @var{text})}
-Print a volta bracket saying @var{text}.
+@item @code{(volta @var{number})}
+Change the volta number.
 
 FIXME: simple example?
+@c Test volta text.ly works
+
+@c @lilypond[verbatim,quote,relative=2]
+
+@c @end lilypond
 
 @end table
 
-The text can be a number or numbers or markup text, see
+@c FIXME: Should this be a ``selected snippet''?
+@c TODO: the example will be fixed.
+
+By using Scheme, @var{text} can be included with the volta
+bracket.  The text can be a number or numbers or markup text, see
 @ref{Formatting text}.  The simplest way to use markup text is to
 define the markup first, then include the the markup in a Scheme
 list. When manually creating a volta bracket, the bracket must be
@@ -274,7 +298,10 @@ Manual control of the volte, including a @code{|:} bar line at the
 beginning and explicit volta numbers:
 
 @lilypond[verbatim,quote,relative=2]
-% FIXME: I can't believe this is right.
+@c FIXME: I can't believe this is right.  
+@c TODO: I think it is. I plan
+@c to delete this example, since it's
+@c already been given at L238. rp
 s1*1/10
 \set Score.repeatCommands = #'( start-repeat )
 c1*9/10
