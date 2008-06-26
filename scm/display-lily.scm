@@ -132,7 +132,7 @@ display method will be called."
 (define (gen-condition expr pattern)
   "Helper function for `with-music-match'.
 Generate an form that checks if the properties of `expr'
-match thoses desscribed in `pattern'."
+match thoses described in `pattern'."
   (let* (;; all (property . value) found at the first depth in pattern,
 	 ;; including a (name . <Musictype>) pair.
 	 (pat-all-props (cons (cons 'name (second pattern))

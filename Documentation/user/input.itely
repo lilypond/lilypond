@@ -824,14 +824,23 @@ been brought into the main file, so the file names they specify
 must all be relative to the directory containing the main file,
 not the directory containing the included file.
 
-Files can also be included from a directory in a search path
+Files can also be included from a directory in a search path 
 specified as an option when invoking LilyPond from the command
-line.  To compile @file{main.ly} which includes files
-located in a subdirectory called @file{parts} by this method,
+line.  The included files are then specified using just their
+file name.  For example, to compile @file{main.ly} which includes
+files located in a subdirectory called @file{parts} by this method,
 cd to the directory containing @file{main.ly} and enter
 
 @example
 lilypond --include=parts main.ly
+@end example
+
+and in main.ly write
+
+@example
+\include "VI.ly"
+\include "VII.ly"
+... etc
 @end example
 
 Files which are to be included in many scores may be placed in

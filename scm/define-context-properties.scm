@@ -301,7 +301,7 @@ manual beams are considered.  Possible values include
 @code{melismaBusy}, @code{slurMelismaBusy}, @code{tieMelismaBusy}, and
 @code{beamMelismaBusy}.")
      (metronomeMarkFormatter ,procedure? "How to produce a metronome
-markup.  Called with two arguments, event and context.")
+markup.  Called with four arguments: text, duration, count and context.")
      (midiInstrument ,string? "Name of the MIDI instrument to use.")
      (midiMaximumVolume ,number? "Analogous to
 @code{midiMinimumVolume}.")
@@ -432,6 +432,8 @@ note head; it takes a string number, a list of string tunings and a
 minute.")
      (tempoUnitCount ,number? "Count for specifying tempo.")
      (tempoUnitDuration ,ly:duration? "Unit for specifying tempo.")
+     (tempoText ,markup? "Text for tempo marks.")
+     (tempoHideNote ,boolean? "Hide the note=count in tempo marks.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to
 follow each other directly.  This can be used for writing out
 arpeggios.")
