@@ -177,7 +177,7 @@ You will see something resembling:
 
 @example
 lilypond test.ly
-GNU LilyPond 2.12.0
+GNU LilyPond @version{}
 Processing `test.ly'
 Parsing...
 Interpreting music...
@@ -504,7 +504,7 @@ comments:
   are ignored, since they are in a
   block comment.
 
-  g g f f e e d d c2
+  f f e e d d c2
 %@}
 @end example
 
@@ -518,7 +518,7 @@ LilyPond input must be surrounded by @{ @} marks or a
 @w{@code{\relative c'' @{ ... @}}}, as we saw in @ref{Working on
 input files}.  For the rest of this manual, most examples will
 omit this.  To replicate the examples, you may copy and paste the
-displayed input but you @strong{must} add the
+displayed input, but you @strong{must} add the
 @w{@code{\relative c'' @{ @}}} like this:
 
 @example
@@ -559,7 +559,6 @@ same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
 
 @seealso
-
 
 There are more tips for constructing input files in
 @ref{Suggestions for writing LilyPond input files}.  But it might be
