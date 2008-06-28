@@ -1371,9 +1371,7 @@ class TempoMark (Music):
             return res
         if self.beats:
             if self.parentheses:
-                dm = self.duration_to_markup (self.baseduration)
-                contents = "\"(\" %s = %s \")\"" % (dm, self.beats)
-                res += self.tempo_markup_template() % contents
+                res += "\\tempo \"\" %s=%s" % (self.baseduration.ly_expression(), self.beats)
             else:
                 res += "\\tempo %s=%s" % (self.baseduration.ly_expression(), self.beats)
         elif self.newduration:
