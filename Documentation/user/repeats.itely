@@ -150,10 +150,10 @@ c1
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
 
@@ -214,21 +214,112 @@ example, by setting @code{Score.measurePosition} or entering
 
 @funindex repeatCommands
 
-In some cases, manual repeat marks can be created by simply
-printing the relevant bar lines.  For more information, see
-@ref{Bar lines}.
+@warning{These methods are only used for displaying unusual repeat
+constructs.  In most cases, repeats should be created using the
+standard @code{\\repeat} command or by printing the relevant bar
+lines.  For more information, see @ref{Bar lines}.}
 
 The property @code{repeatCommands} can be used to control the
 layout of repeats.  Its value is a Scheme list of repeat commands.
 
-@table @asis
-@item @code{start-repeat}
-Print a @code{|:} bar line:
+@table @code
+@item start-repeat
+Print a @code{|:} bar line.
 
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 c1
 \set Score.repeatCommands = #'( start-repeat )
 d4 e f g
+c1
+@end lilypond
+
+As per standard engraving practice, repeat signs are not printed
+at the beginning of a piece.
+
+@item end-repeat
+Print a @code{:|} bar line:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c1
+d4 e f g
+\set Score.repeatCommands = #'( end-repeat )
+c1
+@end lilypond
+
+@item (volta @var{number})
+Create a new volta with the specified number:
+
+@lilypond[verbatim,quote,relative=2]
+f4 g a b
+\set Score.repeatCommands = #'( ( volta "2" ) )
+g4 a g a
+c1
+@end lilypond
+
+@item (volta #f)
+Stops a running volta bracket:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c1
+\set Score.repeatCommands = #'( ( volta "2" ) )
+f4 g a b
+\set Score.repeatCommands = #'( ( volta #f ) )
+a4 g f e
+c1
+@end lilypond
+
+@end table
+
+Multiple repeat commands may occur at the same point:
+
+@lilypond[verbatim,quote,relative=2]
+f4 g a b
+\set Score.repeatCommands = #'( ( volta "2, 5" ) end-repeat )
+g4 a g a
+c1
+\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
+b1
+@end lilypond
+
+Text can be included with the volta bracket.  The text can be a
+number or numbers or markup text, see @ref{Formatting text}.  The
+simplest way to use markup text is to define the markup first,
+then include the the markup in a Scheme list.
+
+@lilypond[verbatim,quote]
+voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
+\relative c'' {
+  c1
+  \set Score.repeatCommands = #(list (list 'volta voltaAdLib) 'start-repeat)
+  c4 b d e
+  \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
+  f1
+  \set Score.repeatCommands = #'((volta #f))
+}
+@end lilypond
+
+
+@snippets
+
+@c FIXME: send these to Neil or Valentin to be added as snippets,
+@c delete them.
+Manual control of the volte, including a @code{|:} bar line at the
+beginning and explicit volta numbers:
+
+@c FIXME: I can't believe this is right.  
+@c TODO: I think it is. I plan
+@c to delete this example, since it's
+@c already been given at L238. rp
+@lilypond[verbatim,quote,relative=2]
+s1*1/10
+\set Score.repeatCommands = #'( start-repeat )
+c1*9/10
+d4 e f g
+\set Score.repeatCommands = #'( ( volta "1, 2, 5" ) )
+f4 g a b
+\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
+g4 a g a
+\set Score.repeatCommands = #'( ( volta #f ) )
 c1
 @end lilypond
 
@@ -256,79 +347,6 @@ d1
 d4 e f g
 @end lilypond
 
-@item @code{end-repeat}
-Print a @code{:|} bar line:
-
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-c1
-d4 e f g
-\set Score.repeatCommands = #'( end-repeat )
-c1
-@end lilypond
-
-@item @code{(volta #f)}
-Stop a running volta bracket.
-
-@c FIXME: example?
-@c TODO: Modify and insert <Test volta.ly>.
-
-@item @code{(volta @var{number})}
-Change the volta number.
-
-FIXME: simple example?
-@c Test volta text.ly works
-
-@c @lilypond[verbatim,quote,relative=2]
-
-@c @end lilypond
-
-@end table
-
-@c FIXME: Should this be a ``selected snippet''?
-@c TODO: the example will be fixed.
-
-By using Scheme, @var{text} can be included with the volta
-bracket.  The text can be a number or numbers or markup text, see
-@ref{Formatting text}.  The simplest way to use markup text is to
-define the markup first, then include the the markup in a Scheme
-list. When manually creating a volta bracket, the bracket must be
-explicitly terminated or an error will be generated.
-
-Manual control of the volte, including a @code{|:} bar line at the
-beginning and explicit volta numbers:
-
-@c FIXME: I can't believe this is right.  
-@c TODO: I think it is. I plan
-@c to delete this example, since it's
-@c already been given at L238. rp
-@lilypond[verbatim,quote,relative=2]
-s1*1/10
-\set Score.repeatCommands = #'( start-repeat )
-c1*9/10
-d4 e f g
-\set Score.repeatCommands = #'( ( volta "1, 2, 5" ) )
-f4 g a b
-\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
-g4 a g a
-\set Score.repeatCommands = #'( ( volta #f ) )
-c1
-@end lilypond
-
-Manual control of the volte, including markup text:
-
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-c1
-\set Score.repeatCommands = #'( start-repeat )
-d1
-d4 e f g
-% FIXME: broken
-%\set Score.repeatCommands = #(list (list 'volta voltaChorus ) )
-f4 g a b
-\set Score.repeatCommands = #'( ( volta #f ) ( volta "4" ) end-repeat )
-g4 a g a
-\set Score.repeatCommands = #'( ( volta #f ) )
-c1
-@end lilypond 
 
 @seealso
 
