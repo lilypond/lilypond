@@ -230,7 +230,8 @@ commands.
   the entire thing inside @w{@code{  }}.
 @notation{} - refers to pieces of notation, e.g.
   "@notation{cres.}".  Also use to specific lyrics ("the
-  @notation{A - men} is centered")
+  @notation{A - men} is centered").  Only use once per subsection
+  per term.
 @q{} - Single quotes. Used for `vague' terms.
 @qq{} - Double quotes.  Used for actual quotes ("he said") or for
   introducing special input modes.

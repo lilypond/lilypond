@@ -3056,3 +3056,12 @@ def conv (str):
     return str
 
 conversions.append (((2, 11, 48), conv, """\\compressMusic -> \\scaleDurations"""))
+
+def conv (str):
+    if re.search ('metronomeMarkFormatter', str):
+	stderr_write (NOT_SMART % _ ("metronomeMarkFormatter got an additional text argument.\n"))
+	stderr_write (_ ("The function assigned to Score.metronomeMarkFunction now uses the signature\n%s") %
+                          "\t(format-metronome-markup text dur count context)\n")
+    return str
+
+conversions.append (((2, 11, 50), conv, """metronomeMarkFormatter uses text markup as second argument"""))
