@@ -1420,6 +1420,31 @@ any sort of property supported by @rinternals{font-interface} and
                     (cons '((font-size . -5) (font-encoding . fetaNumber)) props)
                     arg))
 
+(define-builtin-markup-command (abs-fontsize layout props size arg)
+  (number? markup?)
+  font
+  ((word-space 1)
+   (baseline-skip 2))
+  "Use @var{size} as the absolute font size to display @var{arg}.
+Adjust baseline skip and word space accordingly.
+@lilypond[verbatim,quote]
+\\markup {
+  default text font size
+  \\hspace #2
+  \\abs-fontsize #16 { text font size 16 }
+  \\hspace #2
+  \\abs-fontsize #12 { text font size 12 }
+}
+@end lilypond"
+  (let* ((ref-size (ly:output-def-lookup layout 'text-font-size 12))
+	 (magnification (/ size ref-size)))
+    (interpret-markup layout
+		      (cons `((baseline-skip . ,(* magnification baseline-skip))
+			      (word-space . ,(* magnification word-space))
+			      (font-size . ,(magnification->font-size magnification)))
+			    props)
+		      arg)))
+
 (define-builtin-markup-command (fontsize layout props increment arg)
   (number? markup?)
   font
