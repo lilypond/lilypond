@@ -53,6 +53,8 @@ post_gdp_re = re.compile ('post.GDP', re.I)
 untranslated_node_str = 'UNTRANSLATED NODE: IGNORE ME'
 skeleton_str = '-- SKELETON FILE --'
 
+section_titles_string = _doc ('Section titles')
+last_updated_string = _doc (' <p><i>Last updated %s</i></p>\n')
 detailed_status_heads = [_doc ('Translators'), _doc ('Translation checkers'),
                          _doc ('Translated'), _doc ('Up to date'),
                          _doc ('Other info')]
@@ -210,6 +212,7 @@ class TranslatedTelyDocument (TelyDocument):
             self.translation = translation[self.language]
         else:
             self.translation = lambda x: x
+        self.title = self.translation (self.title)
 
         ## record authoring information
         m = translators_re.search (self.contents)
@@ -274,7 +277,12 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
 setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
                 self.uptodate_percentage = alternative
 
-    def completeness (self, formats=['long']):
+    def completeness (self, formats=['long'], translated=False):
+        if translated:
+            translation = self.translation
+        else:
+            translation = lambda x: x
+
         if isinstance (formats, str):
             formats = [formats]
         p = self.translation_percentage
@@ -284,9 +292,15 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             status = 'fully translated'
         else:
             status = 'partially translated'
-        return dict ([(f, format_table[status][f] % locals()) for f in formats])
+        return dict ([(f, translation (format_table[status][f]) % locals())
+                      for f in formats])
 
-    def uptodateness (self, formats=['long']):
+    def uptodateness (self, formats=['long'], translated=False):
+        if translated:
+            translation = self.translation
+        else:
+            translation = lambda x: x
+
         if isinstance (formats, str):
             formats = [formats]
         p = self.uptodate_percentage
@@ -301,7 +315,7 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             if f == 'color' and p != None:
                 l['color'] = percentage_color (p)
             else:
-                l[f] = format_table[status][f] % locals ()
+                l[f] = translation (format_table[status][f]) % locals ()
         return l
 
     def gdp_status (self):
@@ -338,6 +352,9 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         return s
 
     def html_status (self, numbering=SectionNumber ()):
+        if self.title == 'Untitled':
+            return ''
+
         if self.level[1] == 0: # if self is a master document
             s = '''<table align="center" border="2">
  <tr align="center">
@@ -345,8 +362,9 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
             s += ''.join (['  <th>%s</th>\n' % self.translation (h)
                            for h in detailed_status_heads])
             s += ' </tr>\n'
-            s += ' <tr align="left">\n  <td>Section titles<br>(%d)</td>\n' \
-                % sum (self.masterdocument.word_count)
+            s += ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
+                % (self.translation (section_titles_string),
+                   sum (self.masterdocument.word_count))
 
         else:
             s = ' <tr align="left">\n  <td>%s<br>(%d)</td>\n' \
@@ -359,16 +377,16 @@ setting to %d %%" % (self.filename, self.uptodate_percentage, alternative))
         else:
             s += '  <td></td>\n' * 2
 
-        c = self.completeness (['color', 'short'])
+        c = self.completeness (['color', 'short'], translated=True)
         s += '  <td><span style="background-color: #%(color)s">\
 %(short)s</span></td>\n' % {'color': c['color'],
-                           'short': self.translation (c['short'])}
+                           'short': c['short']}
 
         if self.partially_translated:
-            u = self.uptodateness (['short', 'color'])
+            u = self.uptodateness (['short', 'color'], translated=True)
             s += '  <td><span style="background-color: #%(color)s">\
 %(short)s</span></td>\n' % {'color': u['color'],
-                           'short': self.translation (u['short'])}
+                           'short': u['short']}
         else:
             s += '  <td></td>\n'
 
@@ -495,7 +513,7 @@ progress ("Generating status pages...")
 
 date_time = buildlib.read_pipe ('LANG= date -u')[0]
 
-main_status_html = ' <p><i>Last updated %s</i></p>\n' % date_time
+main_status_html = last_updated_string % date_time
 main_status_html += '\n'.join ([doc.html_status () for doc in master_docs])
 
 html_re = re.compile ('<html>', re.I)
@@ -513,6 +531,8 @@ main_status_page = end_body_re.sub (main_status_html + '\n</body>',
 open ('translations.html.in', 'w').write (main_status_page)
 
 for l in enabled_languages:
+    date_time = buildlib.read_pipe ('LANG=%s date -u' % l)[0]
+    lang_status_pages[l] = translation[l] (last_updated_string) % date_time + lang_status_pages[l]
     lang_status_page = html_re.sub (html_header, lang_status_pages[l])
     html_status = '\n'.join ([doc.translations[l].html_status ()
                               for doc in master_docs
