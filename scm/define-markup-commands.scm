@@ -1423,8 +1423,7 @@ any sort of property supported by @rinternals{font-interface} and
 (define-builtin-markup-command (abs-fontsize layout props size arg)
   (number? markup?)
   font
-  ((word-space 1)
-   (baseline-skip 2))
+  ()
   "Use @var{size} as the absolute font size to display @var{arg}.
 Adjust baseline skip and word space accordingly.
 @lilypond[verbatim,quote]
@@ -1437,10 +1436,13 @@ Adjust baseline skip and word space accordingly.
 }
 @end lilypond"
   (let* ((ref-size (ly:output-def-lookup layout 'text-font-size 12))
+	 (text-props (list (ly:output-def-lookup layout 'text-font-defaults)))
+	 (ref-word-space (chain-assoc-get 'word-space text-props 0.6))
+	 (ref-baseline (chain-assoc-get 'baseline-skip text-props 3))
 	 (magnification (/ size ref-size)))
     (interpret-markup layout
-		      (cons `((baseline-skip . ,(* magnification baseline-skip))
-			      (word-space . ,(* magnification word-space))
+		      (cons `((baseline-skip . ,(* magnification ref-baseline))
+			      (word-space . ,(* magnification ref-word-space))
 			      (font-size . ,(magnification->font-size magnification)))
 			    props)
 		      arg)))
