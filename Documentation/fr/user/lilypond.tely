@@ -133,7 +133,7 @@ Free Documentation License''.
 
 Ce document constitue le manuel de notation de GNU LilyPond
 @version{}.  Pour connaître la place qu'occupe ce manuel dans la
-documentation, consultez @ref{About the documentation}.
+documentation, consultez @rlearning{About the documentation}.
 
 @cindex web site
 @cindex URL
