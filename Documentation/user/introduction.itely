@@ -764,8 +764,8 @@ documentation, such as News items and the mailist archives.
 @unnumberedsubsec About the Learning Manual (LM)
 
 This book explains how to begin learning LilyPond, as well as
-explaining some key concepts in easy terms.  It is recommended to
-read these chapters in a linear fashion.
+explaining some key concepts in easy terms.  You should read these
+chapters in a linear fashion.
 
 @itemize
 
@@ -779,12 +779,32 @@ the LilyPond file format.  If you are not certain where to place a
 command, read this chapter!
 
 @item
-@ref{Working on LilyPond projects}: discusses practical uses of
-LilyPond and how to avoid some common problems.
-
-@item
 @ref{Tweaking output}: shows how to change the default engraving
 that LilyPond produces.
+
+@item
+@ref{Working on LilyPond projects}: discusses practical uses of
+LilyPond and how to avoid some common problems.  Read this before
+undertaking large projects!
+
+@end itemize
+
+The LM also contains appendices which are not part of the
+recommended linear reading.  They may be useful for later
+viewing:
+
+@itemize
+
+@item
+@ref{Templates}: shows ready-made templates of LilyPond pieces.
+Just cut and paste a template into a file, add notes, and you're
+done!
+
+@item
+@ref{Scheme tutorial}: presents a short introduction to Scheme,
+the programming language that music functions use.  This is
+material for advanced tweaks; many users never touch Scheme at
+all.
 
 @end itemize
 
@@ -816,18 +836,19 @@ in the Learning manual.
 
 @item
 @ruser{Musical notation}:
-discusses topics grouped by notation construct.  This section gives
-details about basic notation that will be useful in almost any
-notation project.
+discusses topics grouped by notation construct.  This section
+gives details about basic notation that will be useful in almost
+any notation project.
 
 @item
 @ruser{Specialist notation}:
-discusses topics grouped by notation construct.  This section gives
-details about special notation that will only be useful for particular
-instrument (or vocal) groups.
+discusses topics grouped by notation construct.  This section
+gives details about special notation that will only be useful for
+particular instrument (or vocal) groups.
 
 @item
 @ruser{Input syntax}:
+
 
 @item
 @ruser{Spacing issues}:
@@ -843,19 +864,14 @@ explains how to create music functions with scheme.
 
 @end itemize
 
-
 The NR also contains appendices with useful reference charts.
 
 @itemize
+
 @item
 @ruser{Literature list}:
 contains a set of useful reference books for those who wish to
 know more on notation and engraving.
-
-@item
-@ref{Scheme tutorial}:
-presents a short introduction to Scheme, the programming
-language that music functions use.
 
 @item
 @ruser{Notation manual tables}:
@@ -863,21 +879,16 @@ are a set of tables showing the chord names, MIDI instruments, a
 list of color names, and the Feta font.
 
 @item
-@ref{Templates}:
-of LilyPond pieces.  Just cut and paste a
-template into a file, add notes, and you're done!
-
-@item
 @ruser{Cheat sheet}:
 is a handy reference of the most common LilyPond commands.
 
 @item
 @ruser{LilyPond command index}:
-is an index of all LilyPond @code{\commands}.
+an index of all LilyPond @code{\commands}.
 
 @item
 @ruser{LilyPond index}:
-is a complete index.
+a complete index.
 
 @end itemize
 
@@ -892,18 +903,20 @@ LilyPond notation with other programs.
 
 @item
 @rprogram{Install}:
-explains how to install LilyPond (including compilation if desired).
+explains how to install LilyPond (including compilation if
+desired).
 
 @item
 @rprogram{Setup}:
-describes how to configure your computer for optimum LilyPond usage,
-such as using special environments for certain text editors.
+describes how to configure your computer for optimum LilyPond
+usage, such as using special environments for certain text
+editors.
 
 @item
 @rprogram{Running LilyPond}:
-shows how to run LilyPond and its helper programs.  In addition, this
-section explains how to upgrade input files from previous versions of
-LilyPond.
+shows how to run LilyPond and its helper programs.  In addition,
+this section explains how to upgrade input files from previous
+versions of LilyPond.
 
 @item
 @rprogram{LilyPond-book}:
