@@ -919,8 +919,8 @@ formats to the @code{.ly} format.
 @cindex LSR
 
 @c FIXME: check on kainhofer.
-@rlsr{LilyPond Snippet List}: this shows a selected set of
-LilyPond snippets from the
+@ref{Top,LilyPond Snippet List,,lilypond-snippets}:
+this shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  It is in the public domain.
 
