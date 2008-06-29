@@ -613,6 +613,8 @@ Chords can be constructed with @code{<<} and @code{>>} enclosing the notes
 @c < > is not a music expression,
 @c so we use <<>> iso. <> to drive home the point of
 @c expressions.  Don't change this back --hwn.
+
+@c FIXME: change this.  I can explain it better.  -gp
 @example
 <<c4 d4 e4>>
 @end example
@@ -741,6 +743,10 @@ chapters in a linear fashion.
 @itemize
 
 @item
+@ref{Introduction}: explains the background and overall goal of
+LilyPond.
+
+@item
 @ref{Tutorial}: gives a gentle introduction to typesetting music.
 First time users should start here.
 
@@ -819,7 +825,8 @@ particular instrument (or vocal) groups.
 
 @item
 @ruser{Input syntax}:
-
+discusses general information about LilyPond files and controlling
+output.
 
 @item
 @ruser{Spacing issues}:
@@ -828,6 +835,8 @@ paper size or specifying page breaks.
 
 @item
 @ruser{Changing defaults}:
+explains how to tweak LilyPond to produce exactly the notation you
+want.
 
 @item
 @ruser{Interfaces for programmers}:
@@ -909,7 +918,9 @@ formats to the @code{.ly} format.
 @cindex snippets
 @cindex LSR
 
-The Snippet List shows a selected set of LilyPond snippets from the
+@c FIXME: check on kainhofer.
+@rlsr{LilyPond Snippet List}: this shows a selected set of
+LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  It is in the public domain.
 
@@ -922,25 +933,11 @@ source tree.
 The list of snippets for each subsection of the Notation Reference
 (NR) are also linked from the @strong{See also} portion.
 
-@itemize
-@item
-The
-@ifhtml
-@uref{source/input/lsr/lilypond-snippets/index.html,Snippets}
-@end ifhtml
-@ifnothtml
-Snippets
-@end ifnothtml
-are a great collection of short examples which demonstrate tricks, tips,
-and special features of LilyPond.  Most of these snippets can also be
-found in the @uref{http://lsr.dsi.unimi.it/,LilyPond Snippet
-Repository}.  This website also has a searchable LilyPond manual.
-@end itemize
-
 
 @node About the Internals Reference (IR)
 @unnumberedsubsec About the Internals Reference (IR)
 
+@c zzz
 
 @itemize
 @item
