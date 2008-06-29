@@ -9,7 +9,6 @@
 
 @c \version "2.11.38"
 
-
 @node Fretted string instruments
 @section Fretted string instruments
 
@@ -17,21 +16,21 @@
 @cindex guitarra, tablatura de
 
 @menu
-* Common notation for fretted strings::  
-* Guitar::                      
-* Banjo::                       
+* Common notation for fretted strings::
+* Guitar::
+* Banjo::
 @end menu
 
 @node Common notation for fretted strings
 @subsection Common notation for fretted strings
 
 @menu
-* References for fretted strings::  
-* String number indications::   
-* Default tablatures::          
-* Custom tablatures::           
-* Fret diagrams::               
-* Right hand fingerings::       
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagrams::
+* Right hand fingerings::
 @end menu
 
 @node References for fretted strings
@@ -110,7 +109,6 @@ Cuando no se especifica ninguna cuerda, se selecciona la primera
 cuerda que no da un número de traste menor de @code{minimumFret}
 (traste mínimo).  El valor por defecto de @code{minimumFret} es cero:
 
-
 @example
 e16 fis gis a b4
 \set TabStaff.minimumFret = #8
@@ -128,7 +126,6 @@ frag = {
     \new TabStaff { \frag }
   >>
 @end lilypond
-
 
 @commonprop
 
@@ -169,7 +166,6 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
   >>
 >>
 @end lilypond
-
 
 @node Custom tablatures
 @subsubsection Custom tablatures
@@ -237,7 +233,6 @@ equivalentes, pero tienen cantidades variables de información en la
 cadena de marcado.  Hay más detalles sobre los interfaces de marcado
 en @ref{Text markup commands}.
 
-
 @lilypond[verbatim, ragged-right, quote]
 \new Voice {
   d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
@@ -245,9 +240,9 @@ en @ref{Text markup commands}.
   fis'^\markup \override #'(size . 0.75) {
     \override #'(finger-code . below-string) {
       \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
-                               (place-fret 5 4 3) 
+                               (place-fret 5 4 3)
                                (place-fret 4 4 4)
-                               (place-fret 3 3 2) 
+                               (place-fret 3 3 2)
                                (place-fret 2 2 1)
                                (place-fret 1 2 1))
     }
@@ -264,15 +259,12 @@ en @ref{Text markup commands}.
 }
 @end lilypond
 
-
 Puede establecer un cierto número de propiedades gráficas según su
 elección.  Se pueden encontrar más detalles sobre el interface de las
 propiedades de los diagramas de trastes en
 @rinternals{fret-diagram-interface}.
 
-
 @seealso
-
 
 @node Right hand fingerings
 @subsubsection Right hand fingerings
@@ -284,12 +276,11 @@ una construcción @code{<>} de acorde para que se pueda imprimir en la
 partitura, incluso si es una sola nota.  Debe haber un guión después
 de la nota y un espacio antes del ángulo de cierre @code{>}.
 
-
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c' {
-  <c-\rightHandFinger #1 >4 
-  <e-\rightHandFinger #2 > 
-  <g-\rightHandFinger #3 > 
+  <c-\rightHandFinger #1 >4
+  <e-\rightHandFinger #2 >
+  <g-\rightHandFinger #3 >
   <c-\rightHandFinger #4 >
   <c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 }
@@ -304,7 +295,7 @@ más corto, como por ejemplo @code{RH}:
 
 @cindex digitaciones, mano derecha, de guitarra
 @cindex mano derecha, digitaciones para guitarra
- 
+
 @snippets
 
 Puede ejercer un mayor control sobre las digitaciones de la mano
@@ -326,7 +317,6 @@ también se pueden fijar individualmente aportando a
 @code{\rightHandFinger} un argumento de cadena, como en el ejemplo
 siguiente:
 
-
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 #(define RH rightHandFinger)
 {
@@ -339,15 +329,15 @@ siguiente:
 }
 @end lilypond
 
-This example combines left-hand fingering, string indication, and 
+This example combines left-hand fingering, string indication, and
 right-hand fingering
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 #(define RH rightHandFinger)
 \relative c' {
-  <c-3\5-\RH #1 >4 
-  <e-2\4-\RH #2 > 
-  <g-0\3-\RH #3 > 
+  <c-3\5-\RH #1 >4
+  <e-2\4-\RH #2 >
+  <g-0\3-\RH #3 >
   <c-1\2-\RH #4 >
 }
 @end lilypond
@@ -365,8 +355,8 @@ Referencia de funcionamiento interno:
 @c and include it somewhere -td
 
 @menu
-* Guitar tablatures::           
-* Indicating position and barring::  
+* Guitar tablatures::
+* Indicating position and barring::
 @end menu
 
 @node Guitar tablatures
@@ -398,12 +388,11 @@ percusivo y ruidoso, sin perder la altura de la nota original.  Su
 notación se realiza con cabezas en equis; se muestra en @ref{Special
 note heads}.
 
-
 @node Banjo
 @subsection Banjo
 
 @menu
-* Banjo tablatures::            
+* Banjo tablatures::
 @end menu
 
 @node Banjo tablatures
