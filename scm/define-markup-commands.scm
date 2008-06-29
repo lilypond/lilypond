@@ -30,7 +30,14 @@
   "
 @cindex drawing lines within text
 
-A simple line."
+A simple line.
+@lilypond[verbatim,quote]
+\\markup {
+  \\draw-line #'(4 . 4)
+  \\override #'(thickness . 5)
+  \\draw-line #'(-3 . 0)
+}
+@end lilypond"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
         (x (car dest))
@@ -52,9 +59,13 @@ A simple line."
 
 A circle of radius @var{radius}, thickness @var{thickness} and
 optionally filled.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\draw-circle #2 #0.5 ##f \\hspace #2 \\draw-circle #2 #0 ##t }
+\\markup {
+  \\draw-circle #2 #0.5 ##f
+  \\hspace #2
+  \\draw-circle #2 #0 ##t
+}
 @end lilypond"
   (make-circle-stencil radius thickness fill))
 
@@ -68,9 +79,13 @@ optionally filled.
 @cindex drawing triangles within text
 
 A triangle, either filled or empty.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\triangle ##f \\triangle ##t }
+\\markup {
+  \\triangle ##t
+  \\hspace #2
+  \\triangle ##f
+}
 @end lilypond"
   (let ((ex (* (magstep font-size) 0.8 baseline-skip)))
     (ly:make-stencil
@@ -94,7 +109,15 @@ A triangle, either filled or empty.
 
 Draw a circle around @var{arg}.  Use @code{thickness},
 @code{circle-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup."
+thickness and padding around the markup.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\circle {
+    Hi
+  }
+}
+@end lilypond"
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
                thickness))
          (pad (* (magstep font-size) circle-padding))
@@ -110,10 +133,13 @@ thickness and padding around the markup."
 
 Add a link to URL @var{url} around @var{arg}.  This only works in
 the PDF backend.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\with-url #\"http://lilypond.org/web/\" {
-    LilyPond ... \\italic \"music notation for everyone\"
+    LilyPond ... \\italic {
+      music notation for everyone
+    }
   }
 }
 @end lilypond"
@@ -132,7 +158,12 @@ the PDF backend.
   "
 @cindex drawing beams within text
 
-Create a beam with the specified parameters."
+Create a beam with the specified parameters.
+@lilypond[verbatim,quote]
+\\markup {
+  \\beam #5 #1 #2
+}
+@end lilypond"
   (let* ((y (* slope width))
 	 (yext (cons (min 0 y) (max 0 y)))
 	 (half (/ thickness 2)))
@@ -151,13 +182,22 @@ Create a beam with the specified parameters."
 
 (define-builtin-markup-command (underline layout props arg)
   (markup?)
-  music
+  font
   ((thickness 1))
   "
 @cindex underlining text
 
 Underline @var{arg}.  Looks at @code{thickness} to determine line
-thickness and y offset."
+thickness and y offset.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(thickness . 2)
+  \\underline {
+    CONTENTS
+  }
+}
+@end lilypond"
   (let* ((thick (* (ly:output-def-lookup layout 'line-thickness)
                    thickness))
          (markup (interpret-markup layout props arg))
@@ -181,7 +221,15 @@ thickness and y offset."
 
 Draw a box round @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
-thickness and padding around the markup."  
+thickness and padding around the markup.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(box-padding . 0.5)
+  \\box
+  \\line { V. S. }
+}
+@end lilypond"
   (let* ((th (* (ly:output-def-lookup layout 'line-thickness)
                 thickness))
          (pad (* (magstep font-size) box-padding))
@@ -203,7 +251,17 @@ Draw a box with rounded corners of dimensions @var{xext} and
 @end verbatim
 creates a box extending horizontally from -0.3 to 1.8 and
 vertically from -0.3 up to 1.8, with corners formed from a
-circle of diameter@tie{}0 (i.e. sharp corners)."
+circle of diameter@tie{}0 (i.e. sharp corners).
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\filled-box #'(0 . 4) #'(0 . 4) #0
+  \\filled-box #'(0 . 2) #'(-4 . 2) #0.4
+  \\filled-box #'(1 . 8) #'(0 . 7) #0.2
+  \\with-color #white
+  \\filled-box #'(-4.5 . -2.5) #'(3.5 . 5.5) #0.7
+}
+@end lilypond"
   (ly:round-filled-box
    xext yext blot))
 
@@ -222,7 +280,11 @@ thickness and padding around the markup; the @code{corner-radius} property
 makes possible to define another shape for the corners (default is 1).
 
 @lilypond[quote,verbatim,fragment,relative=2]
-c^\\markup{ \\rounded-box Overtura }
+c4^\\markup {
+  \\rounded-box {
+    Overtura
+  }
+}
 c,8. c16 c4 r
 @end lilypond" 
   (let ((th (* (ly:output-def-lookup layout 'line-thickness)
@@ -298,15 +360,25 @@ Create a box of the same height as the space in the current font."
   "
 @cindex creating horizontal spaces in text
 
-This produces a invisible object taking horizontal space.  For example,
+This produces an invisible object taking horizontal space.  For example,
 
 @example 
-\\markup @{ A \\hspace #2.0 B @} 
+\\markup @{ A \\hspace #2.0 B @}
 @end example
 
 @noindent
 puts extra space between A and@tie{}B, on top of the space that is
-normally inserted before elements on a line."
+normally inserted before elements on a line.
+
+@lilypond[verbatim,quote]
+\\markup {
+  one
+  \\hspace #2
+  two
+  \\hspace #8
+  three
+}
+@end lilypond"
   (if (> amount 0)
       (ly:make-stencil "" (cons 0 amount) '(-1 . 1))
       (ly:make-stencil "" (cons amount amount) '(-1 . 1))))
@@ -349,7 +421,16 @@ Use a stencil as markup."
 @cindex inlining an Encapsulated PostScript image
 
 Inline an EPS image.  The image is scaled along @var{axis} to
-@var{size}."
+@var{size}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\general-align #Y #DOWN {
+    \\epsfile #X #20 #\"context-example.eps\"
+    \\epsfile #Y #20 #\"context-example.eps\"
+  }
+}
+@end lilypond"
   (if (ly:get-option 'safe)
       (interpret-markup layout props "not allowed in safe")
       (eps-file->stencil axis size file-name)
@@ -384,7 +465,39 @@ For the postscript backend, use the following
 gsave /ecrm10 findfont 
  10.0 output-scale div 
  scalefont setfont 90 rotate (hello) show grestore 
-@end example"
+@end example
+
+@lilypond[verbatim,quote]
+eyeglassesps = #\"
+  0.15 setlinewidth
+  -0.9 0 translate
+  1.1 1.1 scale
+  1.2 0.7 moveto
+  0.7 0.7 0.5 0 361 arc
+  stroke
+  2.20 0.70 0.50 0 361 arc
+  stroke
+  1.45 0.85 0.30 0 180 arc
+  stroke
+  0.20 0.70 moveto
+  0.80 2.00 lineto
+  0.92 2.26 1.30 2.40 1.15 1.70 curveto
+  stroke
+  2.70 0.70 moveto
+  3.30 2.00 lineto
+  3.42 2.26 3.80 2.40 3.65 1.70 curveto
+  stroke\"
+
+eyeglasses = \\markup {
+  \\with-dimensions #'(0 . 4.4) #'(0 . 2.5)
+  \\postscript #eyeglassesps
+}
+
+\\relative c'' {
+  c2^\\eyeglasses
+  a2_\\eyeglasses
+}
+@end lilypond"
   ;; FIXME
   (ly:make-stencil
    (list 'embedded-ps
@@ -404,7 +517,47 @@ grestore
   "
 @cindex inserting music into text
 
-Inline an image of music."
+Inline an image of music.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\score {
+    \\new PianoStaff <<
+      \\new Staff \\relative c' {
+        \\key f \\major
+        \\time 3/4
+        \\mark \\markup { Allegro }
+        f2\\p( a4)
+        c2( a4)
+        bes2( g'4)
+        f8( e) e4 r
+      }
+      \\new Staff \\relative c {
+        \\clef bass
+        \\key f \\major
+        \\time 3/4
+        f8( a c a c a
+        f c' es c es c)
+        f,( bes d bes d bes)
+        f( g bes g bes g)
+      }
+    >>
+    \\layout {
+      indent = 0.0\\cm
+      \\context {
+        \\Score
+        \\override RehearsalMark #'break-align-symbols =
+          #'(time-signature key-signature)
+        \\override RehearsalMark #'self-alignment-X = #LEFT
+      }
+      \\context {
+        \\Staff
+        \\override TimeSignature #'break-align-anchor-alignment = #LEFT
+      }
+    }
+  }
+}
+@end lilypond"
   (let* ((output (ly:score-embedded-format score layout)))
 
     (if (ly:music-output? output)
@@ -421,7 +574,13 @@ Inline an image of music."
   "
 @cindex creating empty text objects
 
-An empty markup with extents of a single point."
+An empty markup with extents of a single point.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\null
+}
+@end lilypond"
   point-stencil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -436,7 +595,15 @@ An empty markup with extents of a single point."
 @cindex simple text strings
 
 A simple text string; @code{\\markup @{ foo @}} is equivalent with
-@code{\\markup @{ \\simple #\"foo\" @}}."
+@code{\\markup @{ \\simple #\"foo\" @}}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\simple #\"simple\"
+  \\simple #\"text\"
+  \\simple #\"strings\"
+}
+@end lilypond"
   (interpret-markup layout props str))
 
 (define-builtin-markup-command (tied-lyric layout props str)
@@ -446,7 +613,13 @@ A simple text string; @code{\\markup @{ foo @}} is equivalent with
   "
 @cindex simple text strings with tie characters
 
-Like simple-markup, but use tie characters for @q{~} tilde symbols."
+Like simple-markup, but use tie characters for @q{~} tilde symbols.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\tied-lyric #\"Lasciate~i monti\"
+}
+@end lilypond"
   (if (string-contains str "~")
       (let*
 	  ((parts (string-split str #\~))
@@ -503,8 +676,25 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols."
    (line-width #f))
   "Put @var{markups} in a horizontal line of width @var{line-width}.
 The markups are spaced or flushed to fill the entire line.
-If there are no arguments, return an empty stencil."
- 
+If there are no arguments, return an empty stencil.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    \\fill-line {
+      Words evenly spaced across the page
+    }
+    \\null
+    \\fill-line {
+      \\line { Text markups }
+      \\line {
+        \\italic { evenly spaced }
+      }
+      \\line { across the page }
+    }
+  }
+}
+@end lilypond"
   (let* ((orig-stencils (interpret-markup-list layout props markups))
 	 (stencils
 	  (map (lambda (stc)
@@ -560,7 +750,15 @@ If there are no arguments, return an empty stencil."
   ((word-space)
    (text-direction RIGHT))
   "Put @var{args} in a horizontal line.  The property @code{word-space}
-determines the space between each markup in @var{args}."
+determines the space between each markup in @var{args}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\line {
+    A simple line of text
+  }
+}
+@end lilypond"
   (let ((stencils (interpret-markup-list layout props args)))
     (if (= text-direction LEFT)
         (set! stencils (reverse stencils)))
@@ -579,7 +777,20 @@ determines the space between each markup in @var{args}."
 Concatenate @var{args} in a horizontal line, without spaces inbetween.
 Strings and simple markups are concatenated on the input level, allowing
 ligatures.  For example, @code{\\concat @{ \"f\" \\simple #\"i\" @}} is
-equivalent to @code{\"fi\"}."
+equivalent to @code{\"fi\"}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\bold {
+    au
+    \\concat {
+      Mouv
+      \\super
+      t
+    }
+  }
+}
+@end lilypond"
   (define (concat-string-args arg-list)
     (fold-right (lambda (arg result-list)
                   (let ((result (if (pair? result-list)
@@ -763,7 +974,16 @@ the line width, where @var{X} is the number of staff spaces."
   "
 @cindex merging text
 
-Print two markups on top of each other."
+Print two markups on top of each other.
+@lilypond[verbatim,quote]
+\\markup {
+  \\fontsize #5
+  \\override #'(thickness . 2)
+  \\combine
+  \\draw-line #'(0 . 4)
+  \\arrow-head #Y #DOWN ##f
+}
+@end lilypond"
   (let* ((s1 (interpret-markup layout props m1))
 	 (s2 (interpret-markup layout props m2)))
     (ly:stencil-add s1 s2)))
@@ -779,7 +999,18 @@ Print two markups on top of each other."
 @cindex stacking text in a column
 
 Stack the markups in @var{args} vertically.  The property
-@code{baseline-skip} determines the space between each markup in @var{args}."
+@code{baseline-skip} determines the space between each
+markup in @var{args}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    one
+    two
+    three
+  }
+}
+@end lilypond"
   (let ((arg-stencils (interpret-markup-list layout props args)))
     (stack-lines -1 0.0 baseline-skip
                  (remove ly:stencil-empty? arg-stencils))))
@@ -793,7 +1024,20 @@ Stack the markups in @var{args} vertically.  The property
 @cindex changing direction of text columns
 
 Make a column of args, going up or down, depending on the setting
-of the @code{#'direction} layout property."
+of the @code{#'direction} layout property.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(direction . 1) {
+    \\dir-column {
+      going up
+    }
+  }
+  \\dir-column {
+    going down
+  }
+}
+@end lilypond"
   (stack-lines (if (number? direction) direction -1)
                0.0
                baseline-skip
@@ -806,7 +1050,17 @@ of the @code{#'direction} layout property."
   "
 @cindex centering a column of text
 
-Put @code{args} in a centered column."
+Put @code{args} in a centered column.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\center-align {
+    one
+    two
+    three
+  }
+}
+@end lilypond"
   (let* ((mols (interpret-markup-list layout props args))
          (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
     (stack-lines -1 0.0 baseline-skip cmols)))
@@ -818,7 +1072,16 @@ Put @code{args} in a centered column."
   "
 @cindex vertically centering text
 
-Align @code{arg} to its Y@tie{}center."
+Align @code{arg} to its Y@tie{}center.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\arrow-head #X #RIGHT ##f
+  \\vcenter
+  Centered
+  \\arrow-head #X #LEFT ##f
+}
+@end lilypond"
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-aligned-to mol Y CENTER)))
 
@@ -829,7 +1092,17 @@ Align @code{arg} to its Y@tie{}center."
   "
 @cindex horizontally centering text
 
-Align @code{arg} to its X@tie{}center."
+Align @code{arg} to its X@tie{}center.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    ↓
+    \\hcenter
+    centered
+  }
+}
+@end lilypond"
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-aligned-to mol X CENTER)))
 
@@ -840,7 +1113,17 @@ Align @code{arg} to its X@tie{}center."
   "
 @cindex right aligning text
 
-Align @var{arg} on its right edge."
+Align @var{arg} on its right edge.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    ↓
+    \\right-align
+    right-aligned
+  }
+}
+@end lilypond"
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X RIGHT)))
 
@@ -851,7 +1134,17 @@ Align @var{arg} on its right edge."
   "
 @cindex left aligning text
 
-Align @var{arg} on its left edge."
+Align @var{arg} on its left edge.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    ↓
+    \\left-align
+    left-aligned
+  }
+}
+@end lilypond"
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X LEFT)))
 
@@ -874,8 +1167,29 @@ Align @var{arg} in @var{axis} direction to the @var{dir} side."
 @cindex setting horizontal text alignment
 
 Set horizontal alignment.  If @var{dir} is @code{-1}, then it is
-left-aligned, while @code{+1} is right.  Values inbetween interpolate
-alignment accordingly."
+left-aligned, while @code{+1} is right.  Values in between interpolate
+alignment accordingly.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    ↓
+    \\halign #LEFT
+    Left
+    ↓
+    \\halign #CENTER
+    Center
+    ↓
+    \\halign #RIGHT
+    Right
+    ↓
+    \\halign #1.2
+    \\line {
+      Arbitrary alignment
+    }
+  }
+}
+@end lilypond"
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m X dir)))
 
@@ -996,8 +1310,8 @@ returns an empty markup."
 @cindex overriding properties within text markup
 
 Add the first argument in to the property list.  Properties may be
-any sort of property supported by @internalsref{font-interface} and
-@internalsref{text-interface}, for example
+any sort of property supported by @rinternals{font-interface} and
+@rinternals{text-interface}, for example
 
 @example
 \\override #'(font-family . married) \"bla\"
@@ -1012,7 +1326,12 @@ any sort of property supported by @internalsref{font-interface} and
   (string?)
   other
   ()
-  "Read the contents of a file, and include it verbatim."
+  "Read the contents of a file, and include it verbatim.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\verbatim-file #\"simple.ly\"
+@end lilypond"
   (interpret-markup layout props
                     (if  (ly:get-option 'safe)
                          "verbatim-file disabled in safe mode"
@@ -1029,7 +1348,21 @@ any sort of property supported by @internalsref{font-interface} and
   (markup?)
   font
   ()
-  "Increase the font size relative to current setting."
+  "Increase the font size relative to current setting.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\huge {
+    huge
+    \\hspace #2
+    \\bigger {
+      bigger
+    }
+    \\hspace #2
+    huge
+  }
+}
+@end lilypond"
   (interpret-markup layout props
    `(,fontsize-markup 1 ,arg)))
 
@@ -1037,20 +1370,52 @@ any sort of property supported by @internalsref{font-interface} and
   (markup?)
   font
   ()
-  "Decrease the font size relative to current setting."
+  "Decrease the font size relative to current setting.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\fontsize #3.5 {
+    some large text
+    \\hspace #2
+    \\smaller {
+      a bit smaller
+    }
+    \\hspace #2
+    more large text
+  }
+}
+@end lilypond"
   (interpret-markup layout props
    `(,fontsize-markup -1 ,arg)))
 
-(define-builtin-markup-command larger
+(define-builtin-markup-command (larger layout props arg)
   (markup?)
   font
-  bigger-markup)
+  ()
+  "Copy of the @code{\\bigger} command.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\larger
+  larger
+}
+@end lilypond"
+  (interpret-markup layout props (make-bigger-markup arg)))
 
 (define-builtin-markup-command (finger layout props arg)
   (markup?)
   font
   ()
-  "Set the argument as small numbers."
+  "Set the argument as small numbers.
+@lilypond[verbatim,quote]
+\\markup {
+  \\finger {
+    1 2 3 4 5
+  }
+}
+@end lilypond"
   (interpret-markup layout
                     (cons '((font-size . -5) (font-encoding . fetaNumber)) props)
                     arg))
@@ -1059,10 +1424,20 @@ any sort of property supported by @internalsref{font-interface} and
   (number? markup?)
   font
   ((font-size 0)
+   (word-space 1)
    (baseline-skip 2))
-  "Add @var{increment} to the font-size.  Adjust baseline skip accordingly."
+  "Add @var{increment} to the font-size.  Adjust baseline skip accordingly.
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\fontsize #-1.5
+  smaller
+}
+@end lilypond"
   (let ((entries (list
                   (cons 'baseline-skip (* baseline-skip (magstep increment)))
+                  (cons 'word-space (* word-space (magstep increment)))
                   (cons 'font-size (+ font-size increment)))))
     (interpret-markup layout (cons entries props) arg)))
 
@@ -1081,7 +1456,17 @@ A \\magnify #1.1 @{ A @} A
 @end example
 
 Note: Magnification only works if a font name is explicitly selected.
-Use @code{\\fontsize} otherwise."
+Use @code{\\fontsize} otherwise.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\magnify #1.5 {
+    50% larger
+  }
+}
+@end lilypond"
   (interpret-markup
    layout 
    (prepend-alist-chain 'font-size (magnification->font-size sz) props)
@@ -1091,14 +1476,33 @@ Use @code{\\fontsize} otherwise."
   (markup?)
   font
   ()
-  "Switch to bold font-series."
+  "Switch to bold font-series.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\bold
+  bold
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-series 'bold props) arg))
 
 (define-builtin-markup-command (sans layout props arg)
   (markup?)
   font
   ()
-  "Switch to the sans serif family."
+  "Switch to the sans serif family.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\sans {
+    sans serif
+  }
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-family 'sans props) arg))
 
 (define-builtin-markup-command (number layout props arg)
@@ -1107,63 +1511,144 @@ Use @code{\\fontsize} otherwise."
   ()
   "Set font family to @code{number}, which yields the font used for
 time signatures and fingerings.  This font only contains numbers and
-some punctuation.  It doesn't have any letters."
+some punctuation.  It doesn't have any letters.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\number {
+    0 1 2 3 4 5 6 7 8 9 . ,
+  }
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-encoding 'fetaNumber props) arg))
 
 (define-builtin-markup-command (roman layout props arg)
   (markup?)
   font
   ()
-  "Set font family to @code{roman}."
+  "Set font family to @code{roman}.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\sans \\bold {
+    sans serif, bold
+    \\hspace #2
+    \\roman {
+      text in roman font family
+    }
+    \\hspace #2
+    return to sans
+  }
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-family 'roman props) arg))
 
 (define-builtin-markup-command (huge layout props arg)
   (markup?)
   font
   ()
-  "Set font size to +2."
+  "Set font size to +2.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\huge
+  huge
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size 2 props) arg))
 
 (define-builtin-markup-command (large layout props arg)
   (markup?)
   font
   ()
-  "Set font size to +1."
+  "Set font size to +1.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\large
+  large
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size 1 props) arg))
 
 (define-builtin-markup-command (normalsize layout props arg)
   (markup?)
   font
   ()
-  "Set font size to default."
+  "Set font size to default.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\teeny {
+    this is very small
+    \\hspace #2
+    \\normalsize {
+      normal size
+    }
+    \\hspace #2
+    teeny again
+  }
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size 0 props) arg))
 
 (define-builtin-markup-command (small layout props arg)
   (markup?)
   font
   ()
-  "Set font size to -1."
+  "Set font size to -1.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\small
+  small
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size -1 props) arg))
 
 (define-builtin-markup-command (tiny layout props arg)
   (markup?)
   font
   ()
-  "Set font size to -2."
+  "Set font size to -2.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\tiny
+  tiny
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size -2 props) arg))
 
 (define-builtin-markup-command (teeny layout props arg)
   (markup?)
   font
   ()
-  "Set font size to -3."
+  "Set font size to -3.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\teeny
+  teeny
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-size -3 props) arg))
 
 (define-builtin-markup-command (fontCaps layout props arg)
   (markup?)
   font
   ()
-  "Set @code{font-shape} to @code{caps}."
+  "Set @code{font-shape} to @code{caps}"
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
 ;; Poor man's caps
@@ -1171,12 +1656,19 @@ some punctuation.  It doesn't have any letters."
   (markup?)
   font
   ()
-  "Turn @code{text}, which should be a string, to small caps.
-@example
-\\markup \\smallCaps \"Text between double quotes\"
-@end example
+  "Emit @var{arg} as small caps.
 
-Note: @code{\\smallCaps} does not support accented characters."
+Note: @code{\\smallCaps} does not support accented characters.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\smallCaps {
+    Text in small caps
+  }
+}
+@end lilypond"
   (define (char-list->markup chars lower)
     (let ((final-string (string-upcase (reverse-list->string chars))))
       (if lower
@@ -1212,7 +1704,17 @@ Note: @code{\\smallCaps} does not support accented characters."
   (markup?)
   font
   ()
-  "Emit @var{arg} as small caps."
+  "Copy of the @code{\\smallCaps} command.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\caps {
+    Text in small caps
+  }
+}
+@end lilypond"
   (interpret-markup layout props (make-smallCaps-markup arg)))
 
 (define-builtin-markup-command (dynamic layout props arg)
@@ -1222,7 +1724,14 @@ Note: @code{\\smallCaps} does not support accented characters."
   "Use the dynamic font.  This font only contains @b{s}, @b{f}, @b{m},
 @b{z}, @b{p}, and @b{r}.  When producing phrases, like
 @q{pi@`{u}@tie{}@b{f}}, the normal words (like @q{pi@`{u}}) should be
-done in a different font.  The recommended font for this is bold and italic."
+done in a different font.  The recommended font for this is bold and italic.
+@lilypond[verbatim,quote]
+\\markup {
+  \\dynamic {
+    sfzp
+  }
+}
+@end lilypond"
   (interpret-markup
    layout (prepend-alist-chain 'font-encoding 'fetaDynamic props) arg))
 
@@ -1230,7 +1739,19 @@ done in a different font.  The recommended font for this is bold and italic."
   (markup?)
   font
   ()
-  "Use a text font instead of music symbol or music alphabet font."  
+  "Use a text font instead of music symbol or music alphabet font.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\number {
+    1, 2,
+    \\text {
+      three, four,
+    }
+    5
+  }
+}
+@end lilypond"
 
   ;; ugh - latin1
   (interpret-markup layout (prepend-alist-chain 'font-encoding 'latin1 props)
@@ -1240,14 +1761,32 @@ done in a different font.  The recommended font for this is bold and italic."
   (markup?)
   font
   ()
-  "Use italic @code{font-shape} for @var{arg}."
+  "Use italic @code{font-shape} for @var{arg}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\italic
+  italic
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-shape 'italic props) arg))
 
 (define-builtin-markup-command (typewriter layout props arg)
   (markup?)
   font
   ()
-  "Use @code{font-family} typewriter for @var{arg}."
+  "Use @code{font-family} typewriter for @var{arg}.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\typewriter
+  typewriter
+}
+@end lilypond"
   (interpret-markup
    layout (prepend-alist-chain 'font-family 'typewriter props) arg))
 
@@ -1255,7 +1794,21 @@ done in a different font.  The recommended font for this is bold and italic."
   (markup?)
   font
   ()
-  "Set font shape to @code{upright}.  This is the opposite of @code{italic}."
+  "Set font shape to @code{upright}.  This is the opposite of @code{italic}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\italic {
+    italic text
+    \\hspace #2
+    \\upright {
+      upright text
+    }
+    \\hspace #2
+    italic again
+  }
+}
+@end lilypond"
   (interpret-markup
    layout (prepend-alist-chain 'font-shape 'upright props) arg))
 
@@ -1263,7 +1816,21 @@ done in a different font.  The recommended font for this is bold and italic."
   (markup?)
   font
   ()
-  "Switch to medium font series (in contrast to bold)."
+  "Switch to medium font series (in contrast to bold).
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\bold {
+    some bold text
+    \\hspace #2
+    \\medium {
+      medium font series
+    }
+    \\hspace #2
+    bold again
+  }
+}
+@end lilypond"
   (interpret-markup layout (prepend-alist-chain 'font-series 'medium props)
 		    arg))
 
@@ -1272,7 +1839,21 @@ done in a different font.  The recommended font for this is bold and italic."
   font
   ()
   "Set all font related properties (except the size) to get the default
-normal text font, no matter what font was used earlier."
+normal text font, no matter what font was used earlier.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\huge \\bold \\sans \\caps {
+    Some text with font overrides
+    \\hspace #2
+    \\normal-text {
+      Default text, same font-size
+    }
+    \\hspace #2
+    More text as before
+  }
+}
+@end lilypond"
   ;; ugh - latin1
   (interpret-markup layout
                     (cons '((font-family . roman) (font-shape . upright)
@@ -1289,9 +1870,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a double sharp symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\doublesharp }
+\\markup {
+  \\doublesharp
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1 standard-alteration-glyph-name-alist ""))))
 
@@ -1300,9 +1883,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a 3/2 sharp symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\sesquisharp }
+\\markup {
+  \\sesquisharp
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 3/4 standard-alteration-glyph-name-alist ""))))					 
 
@@ -1311,9 +1896,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a sharp symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\sharp }
+\\markup {
+  \\sharp
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1/2 standard-alteration-glyph-name-alist ""))))
 
@@ -1322,9 +1909,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a semi sharp symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\semisharp }
+\\markup {
+  \\semisharp
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 1/4 standard-alteration-glyph-name-alist ""))))
 
@@ -1333,9 +1922,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a natural symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\natural }
+\\markup {
+  \\natural
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get 0 standard-alteration-glyph-name-alist ""))))
 
@@ -1344,9 +1935,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a semiflat symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\semiflat }
+\\markup {
+  \\semiflat
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1/4 standard-alteration-glyph-name-alist ""))))
 
@@ -1355,9 +1948,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a flat symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\flat }
+\\markup {
+  \\flat
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1/2 standard-alteration-glyph-name-alist ""))))
 
@@ -1366,9 +1961,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a 3/2 flat symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\sesquiflat }
+\\markup {
+  \\sesquiflat
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -3/4 standard-alteration-glyph-name-alist ""))))
 
@@ -1377,9 +1974,11 @@ normal text font, no matter what font was used earlier."
   music
   ()
   "Draw a double flat symbol.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { \\doubleflat }
+\\markup {
+  \\doubleflat
+}
 @end lilypond"
   (interpret-markup layout props (markup #:musicglyph (assoc-get -1 standard-alteration-glyph-name-alist ""))))
 
@@ -1405,7 +2004,20 @@ Draw @var{arg} in color specified by @var{color}."
   graphic
   ()
   "Produce an arrow head in specified direction and axis.
-Use the filled head if @var{filled} is specified."
+Use the filled head if @var{filled} is specified.
+@lilypond[verbatim,quote]
+\\markup {
+  \\fontsize #5 {
+    \\general-align #Y #DOWN {
+      \\arrow-head #Y #UP ##t
+      \\arrow-head #Y #DOWN ##f
+      \\hspace #2
+      \\arrow-head #X #RIGHT ##f
+      \\arrow-head #X #LEFT ##f
+    }
+  }
+}
+@end lilypond"
   (let*
       ((name (format "arrowheads.~a.~a~a"
 		     (if filled
@@ -1425,17 +2037,43 @@ Use the filled head if @var{filled} is specified."
   "@var{glyph-name} is converted to a musical symbol; for example,
 @code{\\musicglyph #\"accidentals.natural\"} selects the natural sign from
 the music font.  See @ruser{The Feta font} for a complete listing of
-the possible glyphs."
-  (ly:font-get-glyph
-   (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
-				   props))
-   glyph-name))
+the possible glyphs.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\musicglyph #\"f\"
+  \\musicglyph #\"rests.2\"
+  \\musicglyph #\"clefs.G_change\"
+}
+@end lilypond"
+  (let* ((font (ly:paper-get-font layout
+				  (cons '((font-encoding . fetaMusic)
+					  (font-name . #f))
+					
+						 props)))
+	 (glyph (ly:font-get-glyph font glyph-name)))
+    (if (null? (ly:stencil-expr glyph))
+	(ly:warning (_ "Cannot find glyph ~a") glyph-name))
+
+    glyph))
+
 
 (define-builtin-markup-command (lookup layout props glyph-name)
   (string?)
   other
   ()
-  "Lookup a glyph by name."
+  "Lookup a glyph by name.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(font-encoding . fetaBraces) {
+    \\lookup #\"brace200\"
+    \\hspace #2
+    \\rotate #180
+    \\lookup #\"brace180\"
+  }
+}
+@end lilypond"
   (ly:font-get-glyph (ly:paper-get-font layout props)
 		     glyph-name))
 
@@ -1474,7 +2112,15 @@ letter @q{A}."
   other
   ()
   "Make a markup letter for @var{num}.  The letters start with A to@tie{}Z
-(skipping letter@tie{}I), and continue with double letters."
+(skipping letter@tie{}I), and continue with double letters.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\markletter #8
+  \\hspace #2
+  \\markletter #26
+}
+@end lilypond"
   (ly:text-interface::interpret-markup layout props
     (number->markletter-string number->mark-letter-vector num)))
 
@@ -1483,9 +2129,82 @@ letter @q{A}."
   other
   ()
    "Make a markup letter for @var{num}.  The letters start with A to@tie{}Z
-and continue with double letters."
+and continue with double letters.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\markalphabet #8
+  \\hspace #2
+  \\markalphabet #26
+}
+@end lilypond"
    (ly:text-interface::interpret-markup layout props
      (number->markletter-string number->mark-alphabet-vector num)))
+
+(define-public (horizontal-slash-interval num forward number-interval mag)
+  (ly:message "Mag step: ~a" mag)
+  (if forward
+    (cond ;((= num 6) (interval-widen number-interval (* mag 0.5)))
+          ;((= num 5) (interval-widen number-interval (* mag 0.5)))
+          (else (interval-widen number-interval (* mag 0.25))))
+    (cond ((= num 6) (interval-widen number-interval (* mag 0.5)))
+          ;((= num 5) (interval-widen number-interval (* mag 0.5)))
+          (else (interval-widen number-interval (* mag 0.25))))
+  ))
+
+(define-public (adjust-slash-stencil num forward stencil mag)
+  (if forward
+    (cond ((= num 2)
+              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
+          ((= num 3)
+              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.2))))
+          ;((= num 5)
+              ;(ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.07))))
+          ;((= num 7)
+          ;    (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
+          (else stencil))
+    (cond ((= num 6)
+              (ly:stencil-translate stencil (cons (* mag -0.00) (* mag 0.15))))
+          ;((= num 8)
+          ;    (ly:stencil-translate stencil (cons (* mag -0.00) (* mag -0.15))))
+          (else stencil))
+  )
+)
+
+(define (slashed-digit-internal layout props num forward font-size thickness)
+  (let* ((mag (magstep font-size))
+         (thickness (* mag
+                       (ly:output-def-lookup layout 'line-thickness)
+                       thickness))
+         ; backward slashes might use slope and point in the other direction!
+         (dy (* mag (if forward 0.4 -0.4)))
+         (number-stencil (interpret-markup layout
+                                           (prepend-alist-chain 'font-encoding 'fetaNumber props)
+                                           (number->string num)))
+         (num-x (horizontal-slash-interval num forward (ly:stencil-extent number-stencil X) mag))
+         (center (interval-center (ly:stencil-extent number-stencil Y)))
+         ; Use the real extents of the slash, not the whole number, because we
+         ; might translate the slash later on!
+         (num-y (interval-widen (cons center center) (abs dy)))
+         (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
+         (slash-stencil (if is-sane
+                            (ly:make-stencil
+                             `(draw-line ,thickness
+                                         ,(car num-x) ,(- (interval-center num-y) dy)
+                                         ,(cdr num-x) ,(+ (interval-center num-y) dy))
+                             num-x num-y)
+                            #f)))
+(ly:message "Num: ~a, X-interval: ~a" num num-x)
+    (if (ly:stencil? slash-stencil)
+      (begin
+        ; for some numbers we need to shift the slash/backslash up or down to make
+        ; the slashed digit look better
+        (set! slash-stencil (adjust-slash-stencil num forward slash-stencil mag))
+        (set! number-stencil
+          (ly:stencil-add number-stencil slash-stencil)))
+      (ly:warning "Unable to create slashed digit ~a" num))
+    number-stencil))
+
 
 (define-builtin-markup-command (slashed-digit layout props num)
   (integer?)
@@ -1496,43 +2215,37 @@ and continue with double letters."
 @cindex slashed digits
 
 A feta number, with slash.  This is for use in the context of
-figured bass notation."
-  (let* ((mag (magstep font-size))
-         (thickness (* mag
-                       (ly:output-def-lookup layout 'line-thickness)
-                       thickness))
-         (dy (* mag 0.15))
-         (number-stencil (interpret-markup layout
-                                           (prepend-alist-chain 'font-encoding 'fetaNumber props)
-                                           (number->string num)))
-         (num-x (interval-widen (ly:stencil-extent number-stencil X)
-                                (* mag 0.2)))
-         (num-y (ly:stencil-extent number-stencil Y))
-         (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
-         (slash-stencil (if is-sane
-                            (ly:make-stencil
-                             `(draw-line ,thickness
-                                         ,(car num-x) ,(- (interval-center num-y) dy)
-                                         ,(cdr num-x) ,(+ (interval-center num-y) dy))
-                             num-x num-y)
-                            #f)))
-    (set! slash-stencil
-          (cond ((not (ly:stencil? slash-stencil)) #f)
-                ((= num 5)
-                 (ly:stencil-translate slash-stencil
-                                       ;;(cons (* mag -0.05) (* mag 0.42))
-                                       (cons (* mag -0.00) (* mag -0.07))))
-                ((= num 7)
-                 (ly:stencil-translate slash-stencil
-                                       ;;(cons (* mag -0.05) (* mag 0.42))
-                                       (cons (* mag -0.00) (* mag -0.15))))
-                (else slash-stencil)))
-    (if slash-stencil
-        (set! number-stencil
-              (ly:stencil-add number-stencil slash-stencil))
-        (ly:warning "invalid number for slashed digit ~a" num))
-    number-stencil))
-
+figured bass notation.
+@lilypond[verbatim,quote]
+\\markup {
+  \\slashed-digit #5
+  \\hspace #2
+  \\override #'(thickness . 3)
+  \\slashed-digit #7
+}
+@end lilypond"
+  (slashed-digit-internal layout props num #t font-size thickness))
+
+(define-builtin-markup-command (backslashed-digit layout props num)
+  (integer?)
+  other
+  ((font-size 0)
+   (thickness 1.6))
+  "
+@cindex backslashed digits
+
+A feta number, with backslash.  This is for use in the context of
+figured bass notation.
+@lilypond[verbatim,quote]
+\\markup {
+  \\backslashed-digit #5
+  \\hspace #2
+  \\override #'(thickness . 3)
+  \\backslashed-digit #7
+}
+@end lilypond"
+  (slashed-digit-internal layout props num #f font-size thickness))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; the note command.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1548,8 +2261,15 @@ figured bass notation."
 @cindex notes within text by log and dot-count
 
 Construct a note symbol, with stem.  By using fractional values for
-@var{dir}, you can obtain longer or shorter stems."
+@var{dir}, you can obtain longer or shorter stems.
 
+@lilypond[verbatim,quote]
+\\markup {
+  \\note-by-number #3 #0 #DOWN
+  \\hspace #2
+  \\note-by-number #1 #2 #0.8
+}
+@end lilypond"
   (define (get-glyph-name-candidates dir log style)
     (map (lambda (dir-name)
      (format "noteheads.~a~a~a" dir-name (min log 2)
@@ -1606,8 +2326,10 @@ Construct a note symbol, with stem.  By using fractional values for
 							 (number->string log)))
                        (cons (+ (car attach-off) (if (< dir 0) stem-thickness 0)) stemy)))))
 
-    (if (and dots flaggl (> dir 0))
-	(set! dots (ly:stencil-translate-axis dots 0.35 X)))
+    ; If there is a flag on an upstem and the stem is short, move the dots to avoid the flag.
+    ; 16th notes get a special case because their flags hang lower than any other flags.
+    (if (and dots (> dir 0) (> log 2) (or (< dir 1.15) (and (= log 4) (< dir 1.3))))
+	(set! dots (ly:stencil-translate-axis dots 0.5 X)))
     (if flaggl
         (set! stem-glyph (ly:stencil-add flaggl stem-glyph)))
     (if (ly:stencil? stem-glyph)
@@ -1650,7 +2372,17 @@ Construct a note symbol, with stem.  By using fractional values for
 This produces a note with a stem pointing in @var{dir} direction, with
 the @var{duration} for the note head type and augmentation dots.  For
 example, @code{\\note #\"4.\" #-0.75} creates a dotted quarter note, with
-a shortened down stem."
+a shortened down stem.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(style . cross) {
+    \\note #\"4..\" #UP
+  }
+  \\hspace #2
+  \\note #\"breve\" #0
+}
+@end lilypond"
   (let ((parsed (parse-simple-duration duration)))
     (note-by-number-markup layout props (car parsed) (cadr parsed) dir)))
 
@@ -1705,9 +2437,15 @@ If the text object itself is positioned above or below the staff, then
 positions it next to the staff cancels any shift made with
 @code{\\raise}.  For vertical positioning, use the @code{padding}
 and/or @code{extra-offset} properties.
-@c
+
 @lilypond[verbatim,quote]
-\\markup { C \\small \\raise #1.0 \\bold { \"9/7+\" } }
+\\markup {
+  C
+  \\small
+  \\bold
+  \\raise #1.0
+  9/7+
+}
 @end lilypond"
   (ly:stencil-translate-axis (interpret-markup layout props arg) amount Y))
 
@@ -1718,7 +2456,13 @@ and/or @code{extra-offset} properties.
   "
 @cindex creating text fractions
 
-Make a fraction of two markups."
+Make a fraction of two markups.
+@lilypond[verbatim,quote]
+\\markup {
+  π ≈
+  \\fraction 355 113
+}
+@end lilypond"
   (let* ((m1 (interpret-markup layout props arg1))
          (m2 (interpret-markup layout props arg2))
          (factor (magstep font-size))
@@ -1748,7 +2492,16 @@ Make a fraction of two markups."
   "
 @cindex setting superscript in standard font size
 
-Set @var{arg} in superscript with a normal font size."
+Set @var{arg} in superscript with a normal font size.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\normal-size-super {
+    superscript in standard size
+  }
+}
+@end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
    (* 0.5 baseline-skip) Y))
@@ -1763,9 +2516,16 @@ Set @var{arg} in superscript with a normal font size."
 
 Raising and lowering texts can be done with @code{\\super} and
 @code{\\sub}:
-@c
+
 @lilypond[verbatim,quote]
-\\markup { E \"=\" \\concat { \"mc\" \\super \"2\" } }
+\\markup {
+  E =
+  \\concat {
+    mc
+    \\super
+    2
+  }
+}
 @end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup
@@ -1803,7 +2563,19 @@ that."
   "
 @cindex subscript text
 
-Set @var{arg} in subscript."
+Set @var{arg} in subscript.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\concat {
+    H
+    \\sub {
+      2
+    }
+    O
+  }
+}
+@end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup
     layout
@@ -1819,7 +2591,16 @@ Set @var{arg} in subscript."
   "
 @cindex setting subscript in standard font size
 
-Set @var{arg} in subscript, in a normal font size."
+Set @var{arg} in subscript, in a normal font size.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\normal-size-sub {
+    subscript in standard size
+  }
+}
+@end lilypond"
   (ly:stencil-translate-axis
    (interpret-markup layout props arg)
    (* -0.5 baseline-skip)
@@ -1836,7 +2617,17 @@ Set @var{arg} in subscript, in a normal font size."
   "
 @cindex placing horizontal brackets around text
   
-Draw horizontal brackets around @var{arg}."  
+Draw horizontal brackets around @var{arg}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\hbracket {
+    \\line {
+      one two three
+    }
+  }
+}
+@end lilypond"
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m X th (* 2.5 th) th)))
@@ -1848,7 +2639,15 @@ Draw horizontal brackets around @var{arg}."
   "
 @cindex placing vertical brackets around text
   
-Draw vertical brackets around @var{arg}."  
+Draw vertical brackets around @var{arg}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\bracket {
+    \\note #\"2.\" #UP
+  }
+}
+@end lilypond"
   (let ((th 0.1) ;; todo: take from GROB.
         (m (interpret-markup layout props arg)))
     (bracketify-stencil m Y th (* 2.5 th) th)))
@@ -1890,13 +2689,26 @@ when @var{label} is not found."
 ;; Markup list commands
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-public (space-lines baseline-skip lines)
-  (map (lambda (line)
-	 (stack-lines DOWN 0.0 (/ baseline-skip 2.0)
-		      (list point-stencil
-			    line
-			    point-stencil)))
-       lines))
+(define-public (space-lines baseline stils)
+  (let space-stil ((prev-stil #f)
+		   (stils stils)
+		   (result (list)))
+    (cond ((null? stils)
+	   (reverse! result))
+	  ((not prev-stil)
+	   (space-stil (car stils) (cdr stils) (list (car stils))))
+	  (else
+	   (let* ((stil (car stils))
+		  (dy (max (- baseline
+			      (+ (- (interval-bound (ly:stencil-extent prev-stil Y) DOWN))
+				 (interval-bound (ly:stencil-extent stil Y) UP)))
+			   0.0))
+		  (new-stil (ly:make-stencil
+			     (ly:stencil-expr stil)
+			     (ly:stencil-extent stil X)
+			     (cons (interval-bound (ly:stencil-extent stil Y) DOWN)
+				   (+ (interval-bound (ly:stencil-extent stil Y) UP) dy)))))
+	     (space-stil stil (cdr stils) (cons new-stil result)))))))
 
 (define-builtin-markup-list-command (justified-lines layout props args)
   (markup-list?)

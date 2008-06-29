@@ -20,5 +20,5 @@ Objects of the same type, like text, can be moved around by using some Scheme co
       'extra-offset '(-3.5 . -4.5))
     a^2^"m.d."
   }
-  \layout { ragged-right = ##t}
+  \layout { }
 }

@@ -13,9 +13,7 @@ end of one system and the start of the following system.
   doctitle = "Creating simultaneous rehearsal marks"
 }
 
-% Thanks to Risto Vääräniemi for this snippet
-
-\paper { ragged-right = ##t }
+% LSR: Thanks to Risto Vääräniemi for this snippet
 
 {
   \key a \major
@@ -23,7 +21,7 @@ end of one system and the start of the following system.
   \once \override Score.RehearsalMark #'outside-staff-priority = #5000
   \once \override Score.RehearsalMark #'self-alignment-X = #LEFT
   \once \override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
-  \mark \markup { \bold "Senza denti" }
+  \mark \markup { \bold { Senza denti } }
   
   % the hidden measure and bar line
   \once \override Score.TimeSignature #'stencil = ##f
@@ -33,8 +31,8 @@ end of one system and the start of the following system.
   \time 4/4
   \once \override Score.RehearsalMark #'self-alignment-X = #LEFT
   \once \override Score.RehearsalMark #'break-align-symbols = #'(bar-line)
-  \mark \markup { \box \bold "Intro" }
+  \mark \markup { \box \bold Intro }
   d'1
   \mark \default
-  d'
+  d'1
 }

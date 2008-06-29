@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: a0e34b9be40d377c7815f96a07f23280b3257413
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -263,8 +263,8 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{LyricText},
-@internalsref{LyricSpace}.
+Referencia de funcionamiento interno: @rinternals{LyricText},
+@rinternals{LyricSpace}.
 
 @node Working with lyrics and variables
 @subsubsection Working with lyrics and variables
@@ -324,7 +324,7 @@ El código de entrada definitivo sería algo como
  
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Referencia de funcionamiento interno:
-@internalsref{LyricCombineMusic}, @internalsref{Lyrics}.
+@rinternals{LyricCombineMusic}, @rinternals{Lyrics}.
 
 
 @node Aligning lyrics to a melody
@@ -336,7 +336,7 @@ Referencia de funcionamiento interno:
 
 
 La letra se imprime a través de su interpretación dentro del contexto
-llamado @internalsref{Lyrics}.
+llamado @rinternals{Lyrics}.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -379,7 +379,7 @@ se consigue combinando la melodía y el texto con la expresión
 \new Lyrics \lyricsto @var{nombre} @dots{}
 @end example
 
-Esto alinea la letra a las notas del contexto de @internalsref{Voice}
+Esto alinea la letra a las notas del contexto de @rinternals{Voice}
 llamado @var{nombre}, que debe existir previamente.  Por ello la
 @code{Voice} normalmente se especifica en primer lugar, y después se
 especifica la letra con @code{\lyricsto}.  La instrucción
@@ -444,7 +444,7 @@ propiedad @code{associatedVoice},
 
 @noindent
 El valor de la propiedad (aquí: @code{"lala"}) ha de ser el nombre de
-un contexto de @internalsref{Voice}.  Sin este ajuste, las líneas de
+un contexto de @rinternals{Voice}.  Sin este ajuste, las líneas de
 extensión no se formatearán correctamente.
  
 Presentamos a continuación un ejemplo que muestra el uso de las
@@ -463,7 +463,7 @@ duraciones manuales de las sílabas del texto:
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{Lyrics}.
+Referencia de funcionamiento interno: @rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
@@ -491,7 +491,7 @@ DejaVuLGC) que incluya este glifo.}.
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{LyricCombineMusic}.
+Referencia de funcionamiento interno: @rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -565,15 +565,15 @@ sección @rlearning{Vocal ensembles}.
 
 @predefined
 
-@code{\melisma}, @code{\melismaEnd}
+@code{\melisma},
+@code{\melismaEnd}
 @funindex \melismaEnd
 @funindex \melisma
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{Melisma_translator}.
-
-@c @lsr{vocal,lyric@/-combine.ly}.
+Referencia de funcionamiento interno:
+@rinternals{Melisma_translator}.
 
 @knownissues
 
@@ -583,13 +583,7 @@ se deben insertar a mano.
 @node Skipping notes
 @subsubsection Skipping notes
 
-@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-@ifnothtml
-@englishref
-@end ifnothtml
-
 
 @node Extenders and hyphens
 @subsubsection Extenders and hyphens
@@ -619,20 +613,14 @@ guiones).
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{LyricExtender},
-@internalsref{LyricHyphen}
+Referencia de funcionamiento interno: @rinternals{LyricExtender},
+@rinternals{LyricHyphen}
 
 
 @node Lyrics and repeats
 @subsubsection Lyrics and repeats
 
-@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-@ifnothtml
-@englishref
-@end ifnothtml
-
 
 @node Placement of lyrics
 @subsection Placement of lyrics
@@ -726,12 +714,7 @@ lyr = \lyricmode { I like my cat! }
 @node Chants
 @subsubsection Chants
 
-@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-@ifnothtml
-@englishref
-@end ifnothtml
 
 
 @node Spacing out syllables
@@ -780,13 +763,7 @@ completa, establezca la propiedad dentro del @q{layout} o disposición.
 @node Centering lyrics between staves
 @subsubsection Centering lyrics between staves
 
-@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-@ifnothtml
-@englishref
-@end ifnothtml
-
 
 @node Stanzas
 @subsection Stanzas
@@ -1131,6 +1108,8 @@ text = \lyricmode {
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{LyricText},
-@internalsref{StanzaNumber}, @internalsref{VocalName}.
+Referencia de funcionamiento interno:
+@rinternals{LyricText},
+@rinternals{StanzaNumber},
+@rinternals{VocalName}.
 

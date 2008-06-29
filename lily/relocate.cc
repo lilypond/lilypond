@@ -336,7 +336,7 @@ expand_environment_variables (string orig)
   return out;
 }
 
-
+// Ugh - very inefficient, but safer than fgets.
 static string
 read_line (FILE *f)
 {
@@ -344,7 +344,7 @@ read_line (FILE *f)
   
   int c = 0;
   while ((c = fgetc (f)) != EOF && c != '\n')
-    out += c;
+    out += char(c);
 
   return out;
 }

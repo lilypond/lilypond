@@ -43,13 +43,36 @@ TBC
 
 @cindex String numbers
 
-String numbers can be added to chords, by indicating the string number
-with @code{\}@var{number},
+The string on which a note should be played may be indicated by
+appending @code{\}@tie{}@var{number} to a note inside a chord 
+construct (@code{<>}).
 
-@lilypond[relative,relative=1,ragged-right,fragment]
-<c\1 e\2 g\3>
+@warning{String numbers @strong{must} be defined inside a chord
+construct even if there is only a single note.}
+
+@lilypond[verbatim,quote,relative=2]
+<c\5>4 <e\4> <g\3>2
+<c,\5 e\4 g\3>1
 @end lilypond
 
+Although fingering is covered in detail elsewhere, it is worth noting
+here how fingerings and string indications behave together, since
+guitar music often incorporates both at once.  The usual convention
+is to place the fingering closest to the note, then the string 
+indication outside the fingering.  This is controlled by the order in 
+which the two items appear:
+
+@lilypond[verbatim,quote,relative=2]
+<g\3-0>2
+<g-0\3>
+@end lilypond
+
+@snippets
+
+@ignore
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{controlling-the-placement-of-chord-fingerings.ly}
+@end ignore
 
 @seealso
 
@@ -64,8 +87,8 @@ Internals Reference: @rinternals{StringNumber},
 
 Tablature notation is used for notating music for plucked string
 instruments.  Pitches are not denoted with note heads, but by
-numbers indicating on which string and fret a note must be played.  LilyPond
-offers limited support for tablature.
+numbers indicating on which string and fret a note must be played.  
+LilyPond offers limited support for tablature.
 
 The string number associated to a note is given as a backslash
 followed by a number, e.g., @code{c4\3} for a C quarter on the third
@@ -94,6 +117,7 @@ e16 fis gis a b4
 \set TabStaff.minimumFret = #8
 e16 fis gis a b4
 @end example
+
 @lilypond[quote,ragged-right]
 frag = {
   \key e \major
@@ -198,9 +222,18 @@ No guitar special effects have been implemented.
 @cindex fret diagrams
 @cindex chord diagrams
 
-Fret diagrams can be added to music as a markup to the desired note.  The
-markup contains information about the desired fret diagram, as shown in the
-following example
+Fret diagrams can be added to music as a markup to the desired note.  
+The markup contains information about the desired fret diagram.
+There are three different fret-diagram markup interfaces: standard, terse,
+and verbose.  The three interfaces produce equivalent markups, but have
+varying amounts of information in the markup string.  Details about the
+markup interfaces are found at @ref{Text markup commands}.
+
+The following example shows the three fret-diagram markup interfaces,
+along with examples of common tweaks.  For example, the size of the verbose
+fret diagram is reduced to 0.75, and the finger indications are specified
+to appear below the diagram.  The terse diagram includes tweaks to 
+specify placement of finger code and color of dots.
 
 @lilypond[verbatim, ragged-right, quote]
 \new Voice {
@@ -209,8 +242,10 @@ following example
   fis'^\markup \override #'(size . 0.75) {
     \override #'(finger-code . below-string) {
       \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
-                               (place-fret 5 4 3) (place-fret 4 4 4)
-                               (place-fret 3 3 2) (place-fret 2 2 1)
+                               (place-fret 5 4 3) 
+                               (place-fret 4 4 4)
+                               (place-fret 3 3 2) 
+                               (place-fret 2 2 1)
                                (place-fret 1 2 1))
     }
   }
@@ -226,12 +261,6 @@ following example
 }
 @end lilypond
 
-
-There are three different fret-diagram markup interfaces: standard, terse,
-and verbose.  The three interfaces produce equivalent markups, but have
-varying amounts of information in the markup string.  Details about the
-markup interfaces are found at @ref{Text markup commands}.
-
 You can set a number of graphical properties according to your preference.
 Details about the property interface to fret diagrams are found at
 @rinternals{fret-diagram-interface}.
@@ -244,11 +273,22 @@ Details about the property interface to fret diagrams are found at
 @node Right hand fingerings
 @subsubsection Right hand fingerings
 
-Right hand fingerings in chords can be entered using
-@code{@var{note}-\rightHandFinger @var{finger}}
+Right-hand fingerings @var{p-i-m-a} can be entered using 
+@code{<@var{note}-\rightHandFinger @var{finger} >}.
+The right-hand fingering indication must occur within a @code{<>} chord 
+construct for it to be printed in the score, even if it is a single note.  
+There must be a hyphen after the note and the space
+before the closing @code{>}.
 
-@lilypond[verbatim,fragment,relative=2]
-  <c-\rightHandFinger #1 e-\rightHandFinger #2 >
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' {
+  <c-\rightHandFinger #1 >4 
+  <e-\rightHandFinger #2 > 
+  <g-\rightHandFinger #3 > 
+  <c-\rightHandFinger #4 >
+  <c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+}
 @end lilypond
 
 for brevity, you can abbreviate @code{\rightHandFinger} to something
@@ -263,8 +303,8 @@ short, for example @code{RH},
 
 @snippets
 
-You may exercise greater control over right handing fingerings by
-setting @code{strokeFingerOrientations},
+You may exercise greater control over the placement of right-hand 
+fingerings by setting @code{strokeFingerOrientations},
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 #(define RH rightHandFinger)
@@ -288,6 +328,21 @@ The letters used for the fingerings are contained in the property
   \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@")
   <c-\RH #5 >4
   <c-\RH "@">4
+  <c-\RH #2 >4
+  <c-\RH "z">4
+}
+@end lilypond
+
+This example combines left-hand fingering, string indication, and 
+right-hand fingering
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+#(define RH rightHandFinger)
+\relative c' {
+  <c-3\5-\RH #1 >4 
+  <e-2\4-\RH #2 > 
+  <g-0\3-\RH #3 > 
+  <c-1\2-\RH #4 >
 }
 @end lilypond
 
@@ -383,5 +438,7 @@ These tunings may be converted to four string banjo tunings using the
 @seealso
 
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+
+
 
 

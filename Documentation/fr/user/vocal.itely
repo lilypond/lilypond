@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -254,7 +254,7 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Référence du programme : @internalsref{LyricText}, @internalsref{LyricSpace}.
+Référence du programme : @rinternals{LyricText}, @rinternals{LyricSpace}.
 
 
 @node Working with lyrics and variables
@@ -315,8 +315,8 @@ Le résultat donnera ainsi quelque chose comme
  
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 
-Référence du programme : @internalsref{LyricCombineMusic},
-@internalsref{Lyrics}.  
+Référence du programme : @rinternals{LyricCombineMusic},
+@rinternals{Lyrics}.  
 
 
 
@@ -329,7 +329,7 @@ Référence du programme : @internalsref{LyricCombineMusic},
 
 
 Avant d'être imprimées, les paroles sont interprétées par le programme
-dans le contexte @internalsref{Lyrics}.
+dans le contexte @rinternals{Lyrics}.
 
 @example
 \new Lyrics \lyricmode @dots{}
@@ -373,7 +373,7 @@ paroles avec la commande @code{\lyricsto}.
 @end example
 
 Cette commande adapte les paroles aux notes de la voix (contexte
-@internalsref{Voice} dans le jargon LilyPond) @var{nom}.  Ce contexte
+@rinternals{Voice} dans le jargon LilyPond) @var{nom}.  Ce contexte
 @code{Voice} doit exister avant l'indication des paroles avec
 @code{\lyricsto}.  La commande @code{\lyricsto} introduit
 automatiquement le mode @code{\lyricmode}, donc dans ce cas vous n'avez
@@ -436,7 +436,7 @@ La mélodie associée à ces paroles peut être spécifiée par la propriété
  
 @noindent
 La valeur que vous attribuez à cette propriété (ici @code{"lala"})
-doit désigner un contexte @internalsref{Voice}, sans quoi les mélismes
+doit désigner un contexte @rinternals{Voice}, sans quoi les mélismes
 ne seront pas imprimés correctement.
  
 Voici un exemple de cette manière de procéder :
@@ -454,7 +454,7 @@ Voici un exemple de cette manière de procéder :
 
 @seealso
  
-Référence du programme : @internalsref{Lyrics}.
+Référence du programme : @rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
@@ -481,7 +481,7 @@ installée qui contient ce symbole(par exemple DejaVuLGC).}.
 
 @seealso
 
-Référence du programme : @internalsref{LyricCombineMusic}.
+Référence du programme : @rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -560,9 +560,9 @@ section @rlearning{Vocal ensembles}.
 
 @seealso
 
-Référence du programme : @internalsref{Melisma_translator}.
+Référence du programme : @rinternals{Melisma_translator}.
 
-@lsr{vocal,lyric@/-combine.ly}.
+Exemples : @rlsr{Vocal music}.
 
 @knownissues
 
@@ -606,8 +606,8 @@ d'union.
 
 @seealso
 
-Référence du programme : @internalsref{LyricExtender},
-@internalsref{LyricHyphen}
+Référence du programme : @rinternals{LyricExtender},
+@rinternals{LyricHyphen}
 
 
 @node Lyrics and repeats
@@ -1114,6 +1114,6 @@ text = \lyricmode {
 
 @seealso
 
-Référence du programme : @internalsref{LyricText},
-@internalsref{StanzaNumber}, @internalsref{VocalName}.
+Référence du programme : @rinternals{LyricText},
+@rinternals{StanzaNumber}, @rinternals{VocalName}.
 

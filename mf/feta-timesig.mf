@@ -18,7 +18,7 @@ fet_begingroup ("timesig");
 %  * The inside curve of the C is rather straight.
 %  * The outside curve of the C is rather round.
 %  * Right tips of the C point slightly outward.
-%  * Lower tip protudes to the right very slightly.
+%  * Lower tip protrudes to the right very slightly.
 %
 
 def draw_C =

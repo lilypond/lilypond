@@ -1,19 +1,31 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
-
-@c Translators: Valentin Villenave
-@c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
 @node Ancient notation
 @section Ancient notation
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@menu
+* Introduction to ancient notation::  
+* Alternative note signs::      
+* Additional note signs::       
+* Pre-defined contexts::        
+* Transcribing ancient music::  
+* Editorial markings::          
+@end menu
+
+@node Introduction to ancient notation
+@subsection Introduction to ancient notation
+
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
@@ -77,7 +89,7 @@ notes.
 
 @itemize @bullet
 @item
-@ref{Gregorian Chant contexts},
+@ref{Gregorian chant contexts},
 @item
 @ref{Mensural contexts}.
 @end itemize
@@ -93,12 +105,23 @@ harmonie et en analyse.
 
 Voici les points que nous allons aborder :
 
+
 @menu
-* Ancient TODO::                
+* Ancient notation supported::  
 @end menu
 
-@node Ancient TODO
-@subsection Ancient TODO
+@node Ancient notation supported
+@subsubsection Ancient notation supported
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+
+@node Alternative note signs
+@subsection Alternative note signs
+
+UNTRANSLATED NODE: IGNORE ME
+
 
 @menu
 * Ancient note heads::          
@@ -107,28 +130,16 @@ Voici les points que nous allons aborder :
 * Ancient clefs::               
 * Ancient flags::               
 * Ancient time signatures::     
-* Ancient articulations::       
-* Custodes::                    
-* Divisiones::                  
-* Ligatures::                   
-* White mensural ligatures::    
-* Gregorian square neumes ligatures::  
-* Gregorian Chant contexts::    
-* Mensural contexts::           
-* Musica ficta accidentals::    
-* Figured bass::                
 @end menu
 
-
-
 @node Ancient note heads
-@unnumberedsubsubsec Ancient note heads
+@subsubsection Ancient note heads
 
 @cindex têtes de note, musique ancienne
 
 Pour de la musique ancienne, vous disposez de plusieurs styles de tête
 de note, en plus du style par défaut @code{default}.  Vous pouvez
-affecter à la propriété @code{style} de l'objet @internalsref{NoteHead}
+affecter à la propriété @code{style} de l'objet @rinternals{NoteHead}
 les valeurs @code{baroque}, @code{neomensural}, @code{mensural} ou
 @code{petrucci}.  En style @code{baroque}, la seule différence par
 rapport au style @code{default} concerne la @code{\breve} qui sera
@@ -151,11 +162,11 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 Si vous écrivez en notation grégorienne, le
-@internalsref{Gregorian_ligature_engraver} se chargera de sélectionner
+@rinternals{Gregorian_ligature_engraver} se chargera de sélectionner
 les têtes de note appropriées ; il est donc inutile de spécifier le
 style à utiliser.  Vous pouvez cependant spécifier par exemple le style
 @code{vaticana_punctum} pour obtenir des neumes punctums.  De même,
-c'est le @internalsref{Mensural_ligature_engraver} qui se chargera des
+c'est le @rinternals{Mensural_ligature_engraver} qui se chargera des
 ligatures mensurales.  Consultez la section @ref{Ligatures} pour savoir
 comment fonctionnent les graveurs de ligature.
 
@@ -165,15 +176,16 @@ Pour un aperçu de toutes les possibilités,
 consultez @ref{Note head styles}.
 
 
+
 @node Ancient accidentals
-@unnumberedsubsubsec Ancient accidentals
+@subsubsection Ancient accidentals
 
 @cindex altérations
 
 
 Pour utiliser les formes anciennes d'altération, utilisez la propriété
-@code{glyph-name-alist} des objets graphiques @internalsref{Accidental}
-et @internalsref{KeySignature}.
+@code{glyph-name-alist} des objets graphiques @rinternals{Accidental}
+et @rinternals{KeySignature}.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -216,12 +228,11 @@ et @internalsref{KeySignature}.
 
 Vous noterez que chacun de ces styles ne comporte pas toutes les
 altérations.  LilyPond changera de style s'il y a besoin d'une
-altération indisponible dans le style utilisé, comme vous pouvez le
-constater dans @lsr{ancient,ancient-accidentals.ly}.
+altération indisponible dans le style utilisé.
 
 À l'instar des altérations accidentelles, le style d'armure est géré
 par la propriété @code{glyph-name-alist} de l'objet
-@internalsref{KeySignature}. 
+@rinternals{KeySignature}. 
 
 @seealso
 
@@ -229,17 +240,17 @@ Dans ce manuel : @ref{Pitches}, @ref{Cautionary accidentals}, et
 @ref{Automatic accidentals}, pour les principes généraux d'utilisation
 des altérations ; @ref{Key signature} pour les armures.
 
-Référence du programme : @internalsref{KeySignature}.
+Référence du programme : @rinternals{KeySignature}.
 
-Exemples : @lsrdir{ancient}
+Exemples : @rlsr{Ancient notation}.
 
 
 @node Ancient rests
-@unnumberedsubsubsec Ancient rests
+@subsubsection Ancient rests
 
 @cindex silences, musique ancienne
 
-La propriété @code{style} de l'objet @internalsref{Rest} permet
+La propriété @code{style} de l'objet @rinternals{Rest} permet
 d'obtenir des silences de type ancien.  Vous disposez des styles
 @code{classical}, @code{neomensural} et @code{mensural}.  Le style
 @code{classical} ne se distingue du style @code{default} que par le
@@ -258,19 +269,21 @@ r\longa r\breve r1 r2 r4 r8 r16
 
 Les styles @code{mensural} et @code{neomensural} ne disposent pas des 8e
 et 16e de soupir ; LilyPond utilise dans de tels cas le style par
-défaut.  @lsr{pitches,rests} donne une liste exhaustive des silences.
+défaut.  Voici une liste des styles de silences disponibles.
+
+@lilypondfile[quote,verbatim,ragged-right]{rest-styles.ly}
 
 Les silences sont absents de la notation grégorienne ; par contre, cette
 notation utilise des @ref{Divisiones}.
 
 @seealso
 
-Dans ce manuel : @ref{Rests} expose les principes généraux sur
-l'utilisation des silences.
+Dans ce manuel : les principes généraux sur l'utilisation des silences
+sont exposés dans @ref{Rests}.
 
 
 @node Ancient clefs
-@unnumberedsubsubsec Ancient clefs
+@subsubsection Ancient clefs
 
 @cindex clefs
 @cindex clés
@@ -510,12 +523,12 @@ La clé de sol mensurale est calquée sur celle de Petrucci.
 
 
 @node Ancient flags
-@unnumberedsubsubsec Ancient flags
+@subsubsection Ancient flags
 
 @cindex crochets
 
 Le réglage de la propriété @code{flag-style} de l'objet hampe
-(@internalsref{Stem}) donne accès aux crochets de style ancien.  Les
+(@rinternals{Stem}) donne accès aux crochets de style ancien.  Les
 seuls styles actuellement pris en charge sont @code{default} et
 @code{mensural}.
 
@@ -549,8 +562,9 @@ de présentation de la notation classique, qui, par définition, ne sont
 pas prévues pour être appliquées à la notation mensurale.
 
 
+
 @node Ancient time signatures
-@unnumberedsubsubsec Ancient time signatures
+@subsubsection Ancient time signatures
 
 @cindex métrique
 
@@ -605,7 +619,7 @@ devez choisir la paire @code{(n,m)} parmi les valeurs suivantes :
 }
 @end lilypond
 
-La propriété @code{style} de l'objet @internalsref{TimeSignature} permet
+La propriété @code{style} de l'objet @rinternals{TimeSignature} permet
 d'accéder aux indicateurs de métrique anciens.  Les styles
 @code{neomensural} et @code{mensural} sont disponibles.  Vous avez vu
 ci-dessus le style @code{neomensural}, particulièrement utilisé pour
@@ -663,8 +677,24 @@ Le symbole @code{old6/8alt} --- symbole alternatif pour la métrique 6/8
 plutôt un @code{\markup}.
 
 
+
+@node Additional note signs
+@subsection Additional note signs
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@menu
+* Ancient articulations::       
+* Custodes::                    
+* Divisiones::                  
+* Ligatures::                   
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
+@end menu
+
 @node Ancient articulations
-@unnumberedsubsubsec Ancient articulations
+@subsubsection Ancient articulations
 
 @cindex articulations
 
@@ -696,8 +726,9 @@ de note.
 Le trait d'un episem n'est bien souvent pas apparent et, lorsqu'il
 l'est, son extension à droite est trop longue.
 
+
 @node Custodes
-@unnumberedsubsubsec Custodes
+@subsubsection Custodes
 
 @cindex custos
 @cindex custodes
@@ -715,7 +746,7 @@ les @emph{editio vaticana}.  Différents glyphes existent selon le style
 de notation.
 
 L'impression de guidons s'obtient en affectant, dans un bloc
-@code{\layout}, le @internalsref{Custos_engraver} au contexte
+@code{\layout}, le @rinternals{Custos_engraver} au contexte
 @code{Staff}, comme le montre l'exemple suivant.
 
 @example
@@ -771,13 +802,13 @@ styles disponibles sont @code{vaticana}, @code{medicaea},
 
 @seealso
 
-Référence du programme : @internalsref{Custos}.
+Référence du programme : @rinternals{Custos}.
 
-Exemples : @lsr{ancient,custodes@/.ly}.
+Exemples : @rlsr{Ancient notation}.
 
 
 @node Divisiones
-@unnumberedsubsubsec Divisiones
+@subsubsection Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -821,13 +852,14 @@ pourquoi @file{gregorian@/-init@/.ly} définit aussi @code{\virgula} et
 
 Dans ce manuel : @ref{Breath marks}.
 
-Référence du programme : @internalsref{BreathingSign}.
+Référence du programme : @rinternals{BreathingSign}.
 
-Exemples : @lsr{expressive,breathing-sign.ly}.
+@c FIXME: add breathing-signs.ly directly
+Exemples : @rlsr{Winds}.
 
 
 @node Ligatures
-@unnumberedsubsubsec Ligatures
+@subsubsection Ligatures
 
 @cindex Ligatures
 
@@ -842,7 +874,7 @@ descendantes de notes.
 Les ligatures s'indiquent par une inclusion entre @code{\[} et 
 @code{\]}.  Certains styles de ligature peuvent demander un complément
 de syntaxe spécifique.  Par défaut, le graveur
-@internalsref{LigatureBracket} place un simple crochet au dessus de
+@rinternals{LigatureBracket} place un simple crochet au dessus de
 la ligature :
 
 @lilypond[quote,ragged-right,verbatim]
@@ -854,7 +886,7 @@ la ligature :
 @end lilypond
 
 Selon le style de ligature désiré, il faut ajouter au contexte
-@internalsref{Voice} le graveur de ligature approprié, comme nous le
+@rinternals{Voice} le graveur de ligature approprié, comme nous le
 verrons plus loin.  Seules sont disponibles les ligatures mensurales
 blanches, avec quelques limitations.
 
@@ -880,13 +912,12 @@ En attendant, vous pouvez inclure le fichier
 @end example
 qui produit le même résultat, et dont la pérennité est assurée.
 
-@menu
-* White mensural ligatures::    
-* Gregorian square neumes ligatures::  
-@end menu
 
+* White mensural ligatures::
+* Gregorian square neumes ligatures::
 @node White mensural ligatures
-@unnumberedsubsubsec White mensural ligatures
+@subsubsection White mensural ligatures
+
 
 @cindex Ligatures mensurales
 @cindex Ligatures mensurales blanches
@@ -895,9 +926,9 @@ Les ligatures mensurales blanches sont prises en charge, avec des
 limitations.
 
 La gravure des ligatures mensurales blanches s'obtient après avoir
-ajouté le @internalsref{Mensural_ligature_engraver} et enlevé le
-@internalsref{Ligature_bracket_engraver} dans le contexte
-@internalsref{Voice}, comme ici :
+ajouté le @rinternals{Mensural_ligature_engraver} et enlevé le
+@rinternals{Ligature_bracket_engraver} dans le contexte
+@rinternals{Voice}, comme ici :
 
 @example
 \layout @{
@@ -953,8 +984,8 @@ Par exemple,
 }
 @end lilypond
 
-Si on ne remplace pas le @internalsref{Ligature_bracket_engraver}
-par le @internalsref{Mensural_ligature_engraver}, on obtient
+Si on ne remplace pas le @rinternals{Ligature_bracket_engraver}
+par le @rinternals{Mensural_ligature_engraver}, on obtient
 
 @lilypond[quote,ragged-right]
 \transpose c c' {
@@ -975,8 +1006,10 @@ par le @internalsref{Mensural_ligature_engraver}, on obtient
 L'espacement horizontal n'est pas des meilleurs.
 
 
+
+
 @node Gregorian square neumes ligatures
-@unnumberedsubsubsec Gregorian square neumes ligatures
+@subsubsection Gregorian square neumes ligatures
 
 @cindex neumes carrés et ligatures
 @cindex grégorien, ligatures de neumes carrés
@@ -1929,8 +1962,21 @@ qu'en tant que fonction unaire, afin qu'@code{\augmentum} puisse
 s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 
 
-@node Gregorian Chant contexts
-@unnumberedsubsubsec Gregorian Chant contexts
+
+
+@node Pre-defined contexts
+@subsection Pre-defined contexts
+
+UNTRANSLATED NODE: IGNORE ME
+
+
+@menu
+* Gregorian chant contexts::    
+* Mensural contexts::           
+@end menu
+
+@node Gregorian chant contexts
+@subsubsection Gregorian chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -1963,8 +2009,11 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 @end lilypond
 
 
+
+
 @node Mensural contexts
-@unnumberedsubsubsec Mensural contexts
+@subsubsection Mensural contexts
+
 
 @cindex MensuralVoiceContext
 @cindex MensuralStaffContext
@@ -1997,244 +2046,90 @@ lancer dans la saisie de votre chant comme ci-après :
 @end lilypond
 
 
-@node Musica ficta accidentals
-@unnumberedsubsubsec Musica ficta accidentals
 
-Dans la musique européenne antérieure au XVIIe siècle, les chanteurs
-étaient censés altérer les notes de leur propre initiative.  On appelait
-cela @emph{musica ficta}.  Dans les transcriptions modernes, on a
-l'habitude de placer ces altérations au-dessus de la note concernée.
+@node Transcribing ancient music
+@subsection Transcribing ancient music
 
-@cindex altérations, musica ficta
-@cindex musica ficta
+UNTRANSLATED NODE: IGNORE ME
 
-De telles altérations suggérées sont disponibles et peuvent être
-activées en assignant à la propriété @code{suggestAccidentals} la valeur
-vrai (@code{#t} pour @q{true}).
+@menu
+* Ancient and modern from one source::  
+* Incipits::                    
+* Mensurstriche layout::        
+* Transcribing Gregorian chant::  
+@end menu
 
-@funindex suggestAccidentals
+@node Ancient and modern from one source
+@subsubsection Ancient and modern from one source
 
-@lilypond[verbatim,fragment,relative=1]
-fis gis
-\set suggestAccidentals = ##t
-ais bis
-@end lilypond
+UNTRANSLATED NODE: IGNORE ME
 
-@seealso
+@node Incipits
+@subsubsection Incipits
 
-Référence du programme : le graveur @internalsref{Accidental_engraver}
-et l'objet @internalsref{AccidentalSuggestion}.
+UNTRANSLATED NODE: IGNORE ME
 
 
-@node Figured bass
-@unnumberedsubsubsec Figured bass
+@node Mensurstriche layout
+@subsubsection Mensurstriche layout
 
-@cindex basse continue
-@cindex basse chiffrée
+UNTRANSLATED NODE: IGNORE ME
 
-@c TODO: musicological blurb about FB
-@c librement adapté de
-@c http://en.wikipedia.org/wiki/Basso_continuo#Basso_continuo
-Les parties de basse continue étaient très répandues dans la musique
-baroque et jusqu'à la fin du XVIIIe siècle.  Comme son nom
-l'indique, le @emph{continuo} constitue une partie à lui seul, qui
-se déroule tout au long de l'œuvre pour en donner la structure harmonique. 
+@node Transcribing Gregorian chant
+@subsubsection Transcribing Gregorian chant
 
-Les musiciens du @emph{continuo} jouent des claviers (clavecin,
-orgue) ou de tout autre instrument pouvant réaliser des accords.  Leur
-partie est constituée d'une portée de basse aux notes agrémentées de
-combinaisons de chiffres et signes indiquant le développement des
-accords à jouer, ainsi que leur éventuel renversement.  Cette notation
-était avant tout un guide, invitant le musicien à improviser de
-lui-même l'accompagnement.
+UNTRANSLATED NODE: IGNORE ME
 
-LilyPond gère la basse chiffrée. 
 
-@lilypond[quote,ragged-right,verbatim,fragment]
-<<
-  \new Voice { \clef bass dis4 c d ais g fis}
-  \new FiguredBass \figuremode {
-    < 6 >4 < 7\+ >8 < 6+ [_!] >
-    < 6 >4 <6 5 [3+] >
-    < _ >4 < 6 5/>4
-  }
->>
-@end lilypond
+@node Editorial markings
+@subsection Editorial markings
 
-La gestion de la basse chiffrée se décompose en deux parties.  Dans un
-premier temps, le mode @code{\figuremode} permet de saisir les accords
-sous forme chiffrée.  Le contexte @internalsref{FiguredBass} s'occupera
-ensuite de gérer les objets @internalsref{BassFigure}.
 
-En mode de saisie, un chiffrage est délimité par @code{<} et
-@code{>}.  La  durée est indiquée après le @code{>} :
+UNTRANSLATED NODE: IGNORE ME
 
-@example
-<4 6>
-@end example
-@lilypond[quote,ragged-right,fragment]
-\new FiguredBass
-\figuremode { <4 6> }
-@end lilypond
+@menu
+* Annotational accidentals::    
+* Baroque rhythmic notation::   
+@end menu
 
-Les altérations s'obtiennent en ajoutant aux chiffres les caractères
-@code{-}, @code{!} ou @code{+}. Un signe plus s'obtient grâce à
-@code{\+}, et une quinte ou septième diminuée par @code{5/} ou
-@code{7/} respectivement.
+@node Annotational accidentals
+@subsubsection Annotational accidentals
 
-@example
-<4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
-@end example
-@lilypond[quote,ragged-right,fragment]
-\figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
-@end lilypond
 
-Le caractère @code{_} insère un espace, et l'on peut imprimer des
-crochets avec @code{[} et @code{]}.  Vous pouvez aussi ajouter des
-chaînes de caractères ou des étiquettes --- cf. @ref{Text
-markup commands}.
+@cindex MensuralVoiceContext
+@cindex MensuralStaffContext
 
-@example
-<[4 6] 8 [_! 12] > <5 \markup @{ \number 6 \super (1) @} >
-@end example
-@lilypond[quote,ragged-right,fragment]
-\new FiguredBass
-\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
+Les contextes @code{MensuralVoiceContext} et
+@code{MensuralStaffContext} permettent de graver des chants
+dans le style mesuré.  Ces contextes initialisent
+les propriétés de tous les autres contextes et objets graphiques à des
+valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
+lancer dans la saisie de votre chant comme ci-après :
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  <<
+    \new MensuralVoice = "discantus" \transpose c c' {
+      \override Score.BarNumber #'transparent = ##t {
+        c'1\melisma bes a g\melismaEnd
+        f\breve
+        \[ f1\melisma a c'\breve d'\melismaEnd \]
+        c'\longa
+        c'\breve\melisma a1 g1\melismaEnd
+        fis\longa^\signumcongruentiae
+      }
+    }
+    \new Lyrics \lyricsto "discantus" {
+      San -- ctus, San -- ctus, San -- ctus
+    }
+  >>
+}
 @end lilypond
 
 
-Lorsque des chiffrages se répètent, vous pouvez utiliser des lignes de
-prolongation. 
 
-@lilypond[verbatim,relative=1]
-<<
-  \new Staff {
-    \clef bass
-    c4 c c
-  }
-  \figures {
-    \set useBassFigureExtenders = ##t
-    <4 6> <3 6> <3 7>
-  }
->>
-@end lilypond
+@node Baroque rhythmic notation
+@subsubsection Baroque rhythmic notation
 
-@noindent
-En pareil cas, la ligne de prolongation masquera toujours le chiffre
-qu'elle rappelle dans le chiffrage suivant.
-
-Le contexte @code{FiguredBass} ne tient aucun compte de la ligne de
-basse.  Par conséquent, il vous faudra peut être insérer des chiffrages
-supplémentaires pour imprimer les prolongations, ou utiliser des
-@code{\!} pour les éviter, comme dans l'exemple suivant :
-
-@lilypond[relative=1]
-<<
-  \new Voice
-  \figures {
-    \set useBassFigureExtenders = ##t
-    <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
-  }
-  {
-    \clef bass
-    f16. g32 f16. g32 f16. g32 f16. g32 f8. es16 d8 es
-  }
->>
-@end lilypond
-
-Lorsque vous utilisez des lignes de prolongation, les chiffres communs
-seront verticalement alignés.  Pour l'éviter, insérez un silence avec
-@code{r} afin de réinitialiser l'alignement.  Par exemple, saisissez
-
-@example
-  <4 6>8 r8
-@end example
-
-@noindent
-au lieu de
-@example
-  <4 6>4
-@end example
-
-On peut choisir d'impriemr les altérations et signes plus aussi bien
-avant qu'après les chiffres, en réglant les propriétés
-@code{figuredBassAlterationDirection} et
-@code{figuredBassPlusDirection}.
-
-@lilypond
-  \figures {
-    <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #1
-    <6\+> <5+> <6 4-> r
-    \set figuredBassPlusDirection = #1
-    <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #-1
-    <6\+> <5+> <6 4-> r
-  }
-@end lilypond
-
-
-Bien que la gestion de la basse chiffrée ressemble beaucoup à celle
-des accords, elle est beaucoup plus simpliste.  Le mode
-@code{\figuremode} ne fait que stocker des chiffres que le contexte
-@internalsref{FiguredBass} se chargera d'imprimer tels quels.  En
-aucune manière ils ne sont transformés en son, et ils ne sont pas
-rendus dans un fichier MIDI.
-
-En interne, ce code produit des étiquettes de texte que vous
-pouvez formater à votre convenance grâce aux propriétés des
-étiquettes.  Par exemple, l'espacement vertical des chiffrages est
-déterminé par la propriété @code{baseline-skip}.
-
-
-On peut également ajouter une basse chiffrée directement à un contexte
-@code{Staff}.  L'alignement vertical est alors automatiquement ajusté.
-
-@lilypond[ragged-right,fragment,quote]
-<<
-  \new Staff = someUniqueName
-  \relative c'' {
-    c4 c'8 r8 c,4 c'
-  }
-
-  %% send to existing Staff.
-  \context Staff = someUniqueName 
-  \figuremode {
-    <4>4 <6 10>8 s8
-    
-    \set Staff.useBassFigureExtenders = ##t
-    <4 6>4 <4 6>
-  }
->>
-@end lilypond
-
-
-@commonprop
-
-Par défaut, les chiffres sont imprimés au-dessus de la portée.  Pour les
-imprimer dessous, ajoutez
-
-@example
-\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
-@end example
-
-
-@knownissues
-
-Si vous positionnez la basse chiffrée au dessus de la portée en ayant
-recours aux lignes d'extension et @code{implicitBassFigures}, les lignes
-peuvent se mélanger.  Préserver l'ordre des prolongateurs peut s'avérer
-impossible lorsque plusieurs chiffrages qui se chevauchent en possèdent.
-Ce problème peut être contourné en jouant sur l'empilement, avec la
-propriété @code{stacking-dir} de l'objet @code{BassFigureAlignment}.
-
-
-@seealso
-
-Référence du programme : les objets @internalsref{NewBassFigure},
-@internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
-@internalsref{BassFigureBracket} et
-@internalsref{BassFigureContinuation}, ainsi que le contexte
-@internalsref{FiguredBass}.
-
+UNTRANSLATED NODE: IGNORE ME
 

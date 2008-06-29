@@ -1,10 +1,9 @@
 \version "2.11.26"
-\layout { ragged-right= ##t }
 \header {
   lsrtags = "paper-and-layout"
   texidoc = "A table of contents is included using
-@code{\\markuplines \\table-of-contents}. The TOC items are added with
-the @code{\\tocItem} command."
+@w{@code{\\markuplines \\table-of-contents}}.  The TOC items are
+added with the @code{\\tocItem} command."
   doctitle = "Table of contents"
 }
 
@@ -13,19 +12,18 @@ the @code{\\tocItem} command."
 \book {
   \markuplines \table-of-contents
   \pageBreak
-
-  \tocItem \markup "The first score"
+  \tocItem \markup { The first score }
   \score {
-    { 
+    {
       c'1 \pageBreak
-      \mark "A" \tocItem \markup "Mark A"
-      d'
+      \mark "A" \tocItem \markup { Mark A }
+      d'1
     }
   }
   \pageBreak
-  \tocItem \markup "The second score"
+  \tocItem \markup { The second score }
   \score {
-    { e' }
+    { e'1 }
     \header { piece = "Second score" }
   }
 }

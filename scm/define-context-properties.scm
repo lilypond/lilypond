@@ -33,7 +33,7 @@
 
      ;; TODO FIXME
    
-     (aDueText ,string? "Text to print at a unisono passage.")
+     (aDueText ,markup? "Text to print at a unisono passage.")
      (alignBelowContext ,string? "Where to insert newly created context in
 vertiical alignment.")
      (alignAboveContext ,string? "Where to insert newly created context in
@@ -53,8 +53,8 @@ used.  Each rule consists of
 
 @item context
 In which context is the rule applied.  For example, if @var{context}
-is @internalsref{Score} then all staves share accidentals, and if
-@var{context} is @internalsref{Staff} then all voices in the same staff
+is @rinternals{Score} then all staves share accidentals, and if
+@var{context} is @rinternals{Staff} then all voices in the same staff
 share accidentals, but staves do not.
 
 @item octavation
@@ -173,8 +173,8 @@ non-hairpin decrescendo, i.e., @samp{dim.}.")
      (defaultBarType ,string? "Set the default type of bar line.  See
 @code{whichBar} for information on available bar types.
 
-This variable is read by @internalsref{Timing_translator} at
-@internalsref{Score} level.")
+This variable is read by @rinternals{Timing_translator} at
+@rinternals{Score} level.")
      (doubleSlurs ,boolean? "If set, two slurs are created for every
 slurred note, one above and one below the chord.")
      (drumPitchTable ,hash-table? "A table mapping percussion
@@ -242,7 +242,7 @@ string selector for tablature notation.")
      (ignoreBarChecks ,boolean? "Ignore bar checks.")
      (ignoreFiguredBassRest ,boolean? "Don't swallow rest events.")
      (ignoreMelismata ,boolean? "Ignore melismata for this
-@internalsref{Lyrics} line.")
+@rinternals{Lyrics} line.")
      (implicitBassFigures ,list? "A list of bass figures that are not
 printed as numbers, but only as extender lines.")
      (implicitTimeSignatureVisibility ,vector? "break visibility for
@@ -301,7 +301,7 @@ manual beams are considered.  Possible values include
 @code{melismaBusy}, @code{slurMelismaBusy}, @code{tieMelismaBusy}, and
 @code{beamMelismaBusy}.")
      (metronomeMarkFormatter ,procedure? "How to produce a metronome
-markup.  Called with two arguments, event and context.")
+markup.  Called with four arguments: text, duration, count and context.")
      (midiInstrument ,string? "Name of the MIDI instrument to use.")
      (midiMaximumVolume ,number? "Analogous to
 @code{midiMinimumVolume}.")
@@ -329,7 +329,7 @@ repeated section for a page turn to be allowed within that section.")
 Parameters: A list of note events and a list of tabstring events.")
 
 
-     (ottavation ,string? "If set, the text for an ottava spanner.
+     (ottavation ,markup? "If set, the text for an ottava spanner.
 Changing this creates a new text spanner.")
      (output ,ly:music-output? "The output produced by a score-level
 translator during music interpretation.")
@@ -363,9 +363,9 @@ context and a list of music objects.  The list of contains entries with
 start times, music objects and whether they are processed in this
 context.")
      (rehearsalMark ,integer? "The last rehearsal mark printed.")
-     (repeatCommands ,list? "This property is read to find any command
-of the form @code{(volta . @var{x})}, where @var{x} is a string or
-@code{#f}.")
+     (repeatCommands ,list? "This property is a list of commands
+of the form @code{(list 'volta @var{x})}, where @var{x} is a string or
+@code{#f}.  @code{'end-repeat} is also accepted as a command.")
      (restNumberThreshold ,number? "If a multimeasure rest has more
 measures than this, a number is printed.")
 
@@ -391,12 +391,12 @@ voices is preserved.
      (skipTypesetting ,boolean? "If true, no typesetting is done,
 speeding up the interpretation phase.  Useful for debugging large
 scores.")
-     (soloIIText ,string? "The text for the start of a solo for
+     (soloIIText ,markup? "The text for the start of a solo for
 voice @q{two} when part-combining.")
-     (soloText ,string? "The text for the start of a solo when
+     (soloText ,markup? "The text for the start of a solo when
 part-combining.")
      (squashedPosition ,integer? "Vertical position of squashing for
-@internalsref{Pitch_squash_engraver}.")
+@rinternals{Pitch_squash_engraver}.")
      (staffLineLayoutFunction ,procedure? "Layout of staff lines,
 @code{traditional}, or @code{semitone}.")
      (stanza ,markup? "Stanza @q{number} to print before the start of a
@@ -432,6 +432,8 @@ note head; it takes a string number, a list of string tunings and a
 minute.")
      (tempoUnitCount ,number? "Count for specifying tempo.")
      (tempoUnitDuration ,ly:duration? "Unit for specifying tempo.")
+     (tempoText ,markup? "Text for tempo marks.")
+     (tempoHideNote ,boolean? "Hide the note=count in tempo marks.")
      (tieWaitForNote ,boolean? "If true, tied notes do not have to
 follow each other directly.  This can be used for writing out
 arpeggios.")
@@ -487,7 +489,7 @@ Example:
 
 @noindent
 This will create a start-repeat bar in this staff only.  Valid values
-are described in @internalsref{bar-line-interface}.")
+are described in @rinternals{bar-line-interface}.")
      )))
 
 

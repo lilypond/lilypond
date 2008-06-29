@@ -49,7 +49,7 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR(Context_def, Context_def);
 
   vector<Context_def*> path_to_acceptable_context (SCM type_string,
-						      Output_def *) const;
+						   Output_def *, SCM) const;
   Context *instantiate (SCM extra_ops);
 
   SCM to_alist () const;

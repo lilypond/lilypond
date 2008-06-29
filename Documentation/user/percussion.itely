@@ -328,9 +328,7 @@ Ghost notes for drums and percussion may be created using the
 @code{\parenthesize} command detailed in @ref{Parentheses}.  However,
 the default @code{\drummode} does
 not include the @code{Parenthesis_engraver} plugin which allows
-this.  You
-must add the plugin explicitly in the context definition as
-detailed in @ref{Changing context properties on the fly}.
+this.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \new DrumStaff \with {

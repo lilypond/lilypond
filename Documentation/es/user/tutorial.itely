@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 1599b9171f39a1000e38104deae93e9df08276be
+    Translation of GIT committish: e007b6bd3b3328581df4998247fd92d9d66ce07c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -55,7 +55,7 @@ Esta sección le ofrece una introducción básica al trabajo con LilyPond.
 @menu
 * Compiling a file::            
 * Simple notation::             
-* Working on text files::       
+* Working on input files::
 * How to read the manual::      
 @end menu
 
@@ -218,8 +218,12 @@ automáticos son adecuados.
 
 @subheading Pitches
 
-Glosario musical: @rglos{pitch}, @rglos{interval},
-@rglos{scale}, @rglos{middle C}, @rglos{octave},
+Glosario musical:
+@rglos{pitch},
+@rglos{interval},
+@rglos{scale},
+@rglos{middle C},
+@rglos{octave},
 @rglos{accidental}.
 
 La manera más sencilla de introducir las notas es mediante la
@@ -239,8 +243,8 @@ desde la nota anterior.
 }
 @end lilypond
 
-La nota inicial es @rglos{middle C}.  Cada nota sucesiva se coloca lo
-más cerca posible de la nota previa (en otras palabras: la primera
+La nota inicial es @notation{middle C}.  Cada nota sucesiva se coloca
+lo más cerca posible de la nota previa (en otras palabras: la primera
 @samp{c} es el Do más cercano al Do central; a éste le sigue el Re más
 cercano a la nota previa, y así sucesivamente).  Podemos crear
 melodías con intervalos mayores, aún sin dejar de utilizar el modo
@@ -262,9 +266,8 @@ Añadiendo (o eliminando) comillas simples @code{'} o comas @code{,} de
 la instrucción @code{\relative c' @{}, podemos cambiar la octava de
 inicio:
 
-@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
-\relative c'' {  % Una octava por encima del Do central
+\relative c'' {  % one octave above middle C
   e c a c
 }
 @end lilypond
@@ -279,15 +282,14 @@ tanto, si la nota siguiente a Si es Do, Re o Mi se supondrá que está
 por encima del Si, mientras que La, Sol o Fa se entenderán situados
 por debajo.
 
-@c KEEP LY
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
-  b c  % el Do está un espacio por encima: es el Do agudo
-  b d  % el Re está 2 por encima ó 5 por debajo: es el Re agudo
-  b e  % el Mi está 3 por encima ó 4 por debajo: es el Mi agudo
-  b a  % el La está 6 por arriba ó 1 por debajo: es el La grave
-  b g  % el Sol está 5 por encima ó 2 por debajo: es el Sol grave
-  b f  % el Fa está 4 por encima ó 3 por debajo: es el Fa grave
+  b c  % c is 1 staff space up, so is the c above
+  b d  % d is 2 up or 5 down, so is the d above
+  b e  % e is 3 up or 4 down, so is the e above
+  b a  % a is 6 up or 1 down, so is the a below
+  b g  % g is 5 up or 2 down, so is the g below
+  b f  % f is 4 up or 3 down, so is the f below
 }
 @end lilypond
 
@@ -320,14 +322,19 @@ esta forma.
 
 @subheading Durations (rhythms)
 
-Glosario musical: @rglos{beam}, @rglos{duration}, @rglos{whole note},
-@rglos{half note}, @rglos{quarter note}, @rglos{dotted note}.
+Glosario musical:
+@rglos{beam},
+@rglos{duration},
+@rglos{whole note},
+@rglos{half note},
+@rglos{quarter note},
+@rglos{dotted note}.
 
 La @notation{duración} de una nota se especifica mediante un número
-después del nombre de la nota.  @code{1} significa @rglos{redonda},
-@code{2} significa @rglos{blanca}, @code{4} significa @rglos{negra} y
-así sucesivamente.  Las @notation{barras de corchea} se añaden
-automáticamente.
+después del nombre de la nota.  @code{1} significa @notation{redonda},
+@code{2} significa @notation{blanca}, @code{4} significa
+@notation{negra} y así sucesivamente.  Las @notation{barras de
+corchea} se añaden automáticamente.
 
 Si no especifica una duración, se utiliza la duración previa para la
 nota siguiente.  La figura por omisión de la primera nota es una
@@ -341,10 +348,9 @@ negra.
 }
 @end lilypond
 
-Para crear notas con puntillo (véase @rglos{dotted note}), añada un
-punto @samp{.} al número de la duración.  La duración de una nota con
-puntillo se debe especificar de forma explícita (es decir: mediante un
-número).
+Para crear @notation{notas con puntillo}, añada un punto @code{.} al
+número de la duración.  La duración de una nota con puntillo se debe
+especificar de forma explícita (es decir: mediante un número).
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -356,10 +362,11 @@ número).
 
 @subheading Rests
 
-Glosario musical: @rglos{rest}.
+Glosario musical:
+@rglos{rest}.
 
-Un @notation{rest} se introduce igual que si fuera una nota con el
-nombre @code{r}:
+Un @notation{silencio} se introduce igual que si fuera una nota con el
+nombre @code{r}@tie{}:
 
 @lilypond[verbatim,quote,ragged-right]
 \relative c'' {
@@ -371,7 +378,8 @@ nombre @code{r}:
 
 @subheading Time signature
 
-Glosario musical: @rglos{time signature}.
+Glosario musical:
+@rglos{time signature}.
 
 La @notation{indicación de compás} se puede establecer con la orden
 @code{\time} :
@@ -390,7 +398,8 @@ La @notation{indicación de compás} se puede establecer con la orden
 
 @subheading Clef
 
-Glosario musical: @rglos{clef}.
+Glosario musical:
+@rglos{clef}.
 
 La @notation{clave} se puede establecer utilizando la orden
 @code{\clef} :
@@ -425,13 +434,16 @@ juntos:
 
 
 @seealso
-Referencia de la notación: @ruser{Writing pitches},
-@ruser{Writing rhythms}, @ruser{Writing rests},
-@ruser{Time signature}, @ruser{Clef}.
+Referencia de la notación:
+@ruser{Writing pitches},
+@ruser{Writing rhythms},
+@ruser{Writing rests},
+@ruser{Time signature},
+@ruser{Clef}.
 
 
-@node Working on text files
-@subsection Working on text files
+@node Working on input files
+@subsection Working on input files
 
 Los archivos de entrada de LilyPond son como los archivos fuente de
 muchos lenguajes de programación corrientes.  Son sensibles a las
@@ -531,18 +543,13 @@ fragmento muestra algunos posibles usos para los comentarios:
 @node How to read the manual
 @subsection How to read the manual
 
-Como vimos en @ref{Working on text files}, la entrada de LilyPond debe
-estar rodeada de llaves @{ @} o de @code{\relative c'' @{ ... @}}.
-Durante el resto del presente manual, la mayor parte de los ejemplos
-omitirán las llaves.  Para reproducir los ejemplos, deberá copiar y
-pegar la entrada que se muestra, pero @strong{deberá} escribir
-@code{\relative c'' @{ @}}, de la siguiente forma:
-
-Si está leyendo la documentación HTML y quiere ver el código de LilyPond exacto
-que se utilizó para crear el ejemplo, sencillamente haga clic
-sobre la imagen.  Si no está leyendo la versión en HTML, podría
-copiar y pegar la entrada que se muestra, pero @strong{deberá} añadir
-@code{\relative c'' @{ @}} de la siguiente manera:
+Como ya vimos en @ref{Working on input files}, el código de entrada de
+LilyPond debe estar rodeado de llaves @{ @} o de 
+@w{@code{\relative c'' @{ ... @}}}.  Durante el resto del presente
+manual, la mayor parte de los ejemplos omitirán las llaves.  Para
+reproducir los ejemplos, deberá copiar y pegar la entrada que se
+muestra, pero @strong{deberá} escribir el
+@w{@code{\relative c'' @{ @}}}, de la siguiente forma:
 
 @example
 \relative c'' @{
@@ -558,23 +565,22 @@ Para estos ejemplos no tiene ningún sentido añadir @code{\relative c''
 rodeando a cada uno de los ejemplos, usted no podría copiar un ejemplo
 pequeño procedente de la documentación y pegarlo dentro de su propia
 pieza.  La mayoría querrá insertar el código dentro de una pieza más
-grande, por eso hemos formateado el manual de esta forma.
+grande, por eso hemos formateado el manual de esta manera.
 
 
 
 @subheading Clickable examples
 
-Muchas personas aprenden a utilizar programas probando y enredando con ellos.
-Esto también puede hacerse con LilyPond.  Si hace clic sobre una imagen
-en la versión en HTML de este manual, podrá ver la entrada exacta de LilyPond
-que se utilizó para generar esa imagen.
-Pruébelo sobre esta imagen:
+Muchas personas aprenden a utilizar programas probando y enredando con
+ellos.  Esto también puede hacerse con LilyPond.  Si hace clic sobre
+una imagen en la versión en HTML de este manual, podrá ver la entrada
+exacta de LilyPond que se utilizó para generar esa imagen.  Pruébelo
+sobre esta imagen:
 
 @c no verbatim here
-@c KEEP LY
 @lilypond[quote,ragged-right]
 \relative c'' {
-  c-\markup { \bold \huge { Haga clic aquí.  } }
+  c-\markup { \bold \huge { Click here.  } }
 }
 @end lilypond
 
@@ -588,8 +594,8 @@ para sus experimentos. Para poder ver exactamente el mismo resultado
 
 
 Podrá encontrar más consejos y trucos para la construcción de archivos
-de entrada en @ref{Suggestions for writing LilyPond files}; pero
-podría ser mejor leer primero el resto del presente manual.
+de entrada en @ref{Suggestions for writing LilyPond files}; pero quizá
+sea mejor leer primero el resto del tutorial.
 
 
 @node Single staff notation
@@ -613,13 +619,21 @@ o un pentagrama.
 
 @subheading Accidentals
 
-Una nota @rglos{sharp} se hace añadiendo @samp{is} al
-nombre, y una nota @rglos{flat} añadiendo @samp{es}.  Como
-ha podido adivinar, un @rglos{double sharp} o @rglos{double flat} se hace
-añadiendo @samp{isis} o @samp{eses}@footnote{Esta sintaxis
-derivó de las convenciones de las lenguas nórdicas y germánicas para nombrar las notas
-como el alemán y el holandés.  Para utilizar otros nombres para las alteraciones accidentales, vea
-@ruser{Note names in other languages}.}
+Glosario musical:
+@rglos{sharp},
+@rglos{flat},
+@rglos{double sharp},
+@rglos{double flat},
+@rglos{accidental}.
+
+Una nota con @notation{sostenido} se hace añadiendo @code{is} al
+nombre, y una nota @notation{bemol} añadiendo @code{es}.  Como ha
+podido adivinar, un @notation{doble sostenido} o @notation{doble
+bemol} se hace añadiendo @code{isis} o @code{eses}.  Esta sintaxis se
+deriva de las convenciones para da nombre a las notas de las lenguas
+nórdicas y germánicas como el alemán y el holandés.  Para utilizar
+otros nombres para las @notation{alteraciones accidentales}, véase
+@ruser{Note names in other languages}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 cis1 ees fisis, aeses
@@ -628,8 +642,14 @@ cis1 ees fisis, aeses
 @cindex tonalidad, armadura de la, establecer
 @subheading Key signatures
 
-La armadura de la tonalidad se establece mediante la instrucción @code{\key} seguido de
-una nota y @code{\major} o @code{\minor}.
+Glosario musical:
+@rglos{key signature},
+@rglos{major},
+@rglos{minor}.
+
+La @notation{armadura de la tonalidad} se establece mediante la
+instrucción @code{\key} seguido de una nota y @code{\major} o
+@code{\minor}.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \key d \major
@@ -638,26 +658,38 @@ a1
 a
 @end lilypond
 
-@sp 1
+@smallspace
 
 @subheading Warning: key signatures and pitches
 
-Para determinar si hay que imprimir una alteración accidental, LilyPond examina las
-notas y la armadura de la tonalidad.  La armadura solamente afecta a las
-alteraciones @emph{impresas}, ¡no a las propias notas!  Ésta es una
-funcionalidad que frecuentemente confunde a los que se inician con el programa, por ello permítanos explicarla
-en detalle.
+Glosario musical:
+@rglos{accidental},
+@rglos{key signature},
+@rglos{pitch},
+@rglos{flat},
+@rglos{natural},
+@rglos{sharp},
+@rglos{transposition}.
+
+Para determinar si hay que imprimir una @notation{alteración
+accidental}, LilyPond examina las notas y la @notation{armadura de la
+tonalidad}.  La armadura solamente afecta a las alteraciones
+@emph{impresas}, ¡no a las propias notas!  Esta funcionalidad suele
+confundir a los que están empezando con el programa, por ello
+permítanos explicarla en detalle.
 
 LilyPond hace una clara distinción entre el contenido musical y la
-presentación.  La alteración (bemol, becuadro o sostenido) de una nota es parte de
-la altura, y por tanto es contenido musical.  Si una alteración (un
-signo @emph{impreso} de bemol, becuadro o sostenido) se imprime o no delante de la
-nota correspondiente, es una cuestión de presentación.  La presentación es algo que
-sigue unas reglas, así que las alteraciones accidentales se imprimen automáticamente según
-dichas reglas.  Las alturas de las notas en su música son obras de arte, por tanto no se
-añadirán automáticamente, y usted deberá introducir aquello que quiera oír.
+presentación.  La alteración (@notation{bemol}, @notation{becuadro} o
+@notation{sostenido}) de una nota es parte de la altura, y por tanto
+es contenido musical.  Si una alteración (un signo @emph{impreso} de
+bemol, becuadro o sostenido) se imprime o no delante de la nota
+correspondiente, es una cuestión de presentación.  La presentación es
+algo que sigue unas reglas, así que las alteraciones accidentales se
+imprimen automáticamente según dichas reglas.  Las alturas de las
+notas en su música son obras de arte, por tanto no se añadirán
+automáticamente, y usted deberá introducir aquello que quiera oír.
 
-En el siguiente ejemplo
+En el siguiente ejemplo:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 \key d \major
@@ -665,10 +697,10 @@ d cis fis
 @end lilypond
 
 @noindent
-ninguna nota lleva una alteración impresa, pero de todas formas usted debe añadir la @samp{is} a
-@code{cis} y a @code{fis}.
+ninguna nota lleva una alteración impresa, pero de todas formas usted
+debe añadir el @code{is} a @code{cis} y a @code{fis}.
 
-El texto @samp{e} no significa @qq{imprimir una bolita negra en la
+El texto @code{e} no significa @qq{imprimir una bolita negra en la
 primera línea del pentagrama.}  Más bien significa: @qq{hay una nota
 Mi natural.}  En la tonalidad de La bemol mayor, @emph{lleva} una
 alteración accidental:
@@ -788,7 +820,7 @@ Glosario musical:
 @rglos{articulation}.
 
 Las @notation{articulaciones} más corrientes se pueden añadir a las
-notas utilizando un guión @samp{-} seguido de un carácter único:
+notas utilizando un guión @code{-} seguido de un carácter único:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c-. c-- c-> c-^ c-+ c-_
@@ -800,8 +832,8 @@ c-. c-- c-> c-^ c-+ c-_
 Glosario musical:
 @rglos{fingering}.
 
-De manera similar, las indicaciones de digitación se pueden añadir a
-una nota utilizando un guión (@code{-}) seguido del dígito deseado:
+De manera similar, las @notation{digitaciones} se pueden añadir a una
+nota utilizando un guión (@code{-}) seguido del dígito deseado:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 c-3 e-5 b-2 a-1

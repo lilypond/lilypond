@@ -1,9 +1,9 @@
 \version "2.11.33"
 \header {
   lsrtags = "pitches"
-  texidoc = "This example uses some Scheme code to enforce enharmonic modifications for
-notes in order to have the minimum number of accidentals. In this
-case, the following rules apply:
+  texidoc = "This example uses some Scheme code to enforce enharmonic
+modifications for notes in order to have the minimum number of
+accidentals.  In this case, the following rules apply:
 
 @itemize
 @item
@@ -30,7 +30,7 @@ In this manner, the most natural enharmonic notes are chosen.
 
 #(define  (naturalize-pitch p)
   (let* ((o (ly:pitch-octave p))
-         (a (* 4 (ly:pitch-alteration p))) 
+         (a (* 4 (ly:pitch-alteration p)))
     ; alteration, a, in quarter tone steps, for historical reasons
          (n (ly:pitch-notename p)))
     (cond
@@ -43,8 +43,8 @@ In this manner, the most natural enharmonic notes are chosen.
     (cond
      ((> a 2) (set! a (- a 4)) (set! n (+ n 1)))
      ((< a -2) (set! a (+ a 4)) (set! n (- n 1))))
-    (if (< n 0) (begin (set!  o (- o 1)) (set! n (+ n 7))))
-    (if (> n 6) (begin (set!  o (+ o 1)) (set! n (- n 7))))
+    (if (< n 0) (begin (set! o (- o 1)) (set! n (+ n 7))))
+    (if (> n 6) (begin (set! o (+ o 1)) (set! n (- n 7))))
     (ly:make-pitch o n (/ a 4))))
 
 #(define (naturalize music)
@@ -70,7 +70,7 @@ naturalizeMusic =
 					(ly:music?)
 			(naturalize m))
 
-music =  \relative c' { c4 d e g }
+music = \relative c' { c4 d e g }
 
 \score {
   \new Staff {
@@ -79,5 +79,5 @@ music =  \relative c' { c4 d e g }
     \transpose c deses \music
     \naturalizeMusic \transpose c deses \music
   }
-  \layout { ragged-right = ##t }
+  \layout { }
 }

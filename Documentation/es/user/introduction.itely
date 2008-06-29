@@ -19,7 +19,7 @@
 * What symbols to engrave?::    
 * Music representation::        
 * Example applications::        
-* About this manual::           
+* About the documentation::     
 @end menu
 
 
@@ -542,7 +542,7 @@ es el contexto de notación de más alto nivel.
 
 @seealso
 
-Referencia de funcionamiento interno: @internalsref{Contexts}.
+Referencia de funcionamiento interno: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -695,8 +695,8 @@ mezclar música y texto dentro de los documentos, en algo muy sencillo.
 
 
 
-@node About this manual
-@section About this manual
+@node About the documentation
+@section About the documentation
 
 
 Hay cuatro manuales de LilyPond: el @emph{Manual de aprendizaje}, la

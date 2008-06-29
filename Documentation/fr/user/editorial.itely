@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 33ba8d40c3493011a4b39ab8b1369701f8013bd6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,8 +13,7 @@
 @node Editorial annotations
 @section Editorial annotations
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-{editorial-headword.ly}
+@lilypondfile[quote]{editorial-headword.ly}
 
 @menu
 * Inside the staff::            
@@ -81,7 +80,7 @@ portée de 20 points correspond une police de 10 points.
 
 La propriété @code{font-size} ne peut intervenir que pour les objets
 qui utilisent des polices, autrement dit ceux qui disposent de
-l'interface de rendu @internalsref{font-interface}.
+l'interface de rendu @rinternals{font-interface}.
 
 @predefined
 
@@ -159,9 +158,9 @@ d'indiquer des doigtés très proches des têtes de notes.
 
 @seealso
 
-Référence du programme : @internalsref{Fingering}.
+Référence du programme : @rinternals{Fingering}.
 
-D'autres exemples : @lsr{expressive,fingering-chords.ly}.
+Exemples : @rlsr{Editorial annotations}.
 
 
 @node Hidden notes
@@ -304,8 +303,8 @@ coup d'oeil s'ils sont en mesure de tenir la partie en question.
 
 Pour exprimer l'ambitus d'une pièce, on indique avant la clé deux notes
 représentant la hauteur la plus basse et la plus haute.  Pour imprimer
-cet ambitus, il faut ajouter le graveur @internalsref{Ambitus_engraver}
-au contexte @internalsref{Voice}.  Ainsi,
+cet ambitus, il faut ajouter le graveur @rinternals{Ambitus_engraver}
+au contexte @rinternals{Voice}.  Ainsi,
 
 @example
 \layout @{
@@ -333,8 +332,8 @@ donne pour résultat
 @end lilypond
 
 Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
-graveur @internalsref{Ambitus_engraver} au contexte @internalsref{Staff}
-plutôt qu'au contexte @internalsref{Voice} ; l'ambitus affiché sera
+graveur @rinternals{Ambitus_engraver} au contexte @rinternals{Staff}
+plutôt qu'au contexte @rinternals{Voice} ; l'ambitus affiché sera
 alors celui de toutes les voix cumulées, non d'une seule des voix
 actives.
 
@@ -374,12 +373,11 @@ déplacé.
 
 @seealso
 
-Référence du programme : @internalsref{Ambitus},
-@internalsref{AmbitusLine}, @internalsref{AmbitusNoteHead},
-@internalsref{AmbitusAccidental}.
+Référence du programme : @rinternals{Ambitus},
+@rinternals{AmbitusLine}, @rinternals{AmbitusNoteHead},
+@rinternals{AmbitusAccidental}.
 
-Exemples :
-@lsr{vocal,ambitus@/.ly}.
+Exemples : @rlsr{Pitches}, @rlsr{Vocal music}.
 
 @knownissues
 
@@ -390,7 +388,7 @@ une même portée.
 @node Stems
 @unnumberedsubsubsec Stems
 
-Dès qu'une note est rencontrée, un objet @internalsref{Stem} se crée
+Dès qu'une note est rencontrée, un objet @rinternals{Stem} se crée
 automatiquement.  Pour les rondes et les silences, ils sont aussi
 créés, mais en mode invisible.
 
@@ -456,7 +454,7 @@ et le texte de la bulle.
 
 @seealso
 
-Référence du programme : @internalsref{text-balloon-interface}.
+Référence du programme : @rinternals{text-balloon-interface}.
 
 
 @node Grid lines
@@ -499,7 +497,7 @@ les notes.
 >>
 @end lilypond
 
-Exemples : @lsrdir{education}
+Exemples : @rlsr{Editorial annotations}.
 
 
 @node Blank music sheet

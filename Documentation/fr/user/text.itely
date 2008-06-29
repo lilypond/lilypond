@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -14,8 +14,10 @@
 @node Text
 @section Text
 
-Nous allons voir ici comment insérer du texte, selon différents
-formatages, dans vos partitions.
+@lilypondfile[quote]{text-headword.ly}
+
+Nous allons voir ici comment insérer dans une partition du texte, avec
+différentes possibilité de formatage.
 
 @cindex Texte, autres langues
 Pour écrire des accents et autres caractères spéciaux, il suffit de
@@ -23,25 +25,10 @@ les insérer directement dans votre fichier LilyPond.  Ce fichier devra
 être sauvegardé avec l'encodage UTF-8.  Pour plus d'informations, voir
 @ref{Text encoding}.
 
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
-@lilypond[fragment,ragged-right,staffsize=16,quote]
-c'4^\markup { bla \bold bla }
-@end lilypond
-
 @menu
 * Writing text::                
-* Text markup::                 
+* Formatting text::             
+* Fonts::                       
 @end menu
 
 
@@ -69,7 +56,7 @@ c'4^\markup { bla \bold bla }
 @cindex ajout de texte
 
 Vous pouvez placer arbitrairement des chaînes de caractères, ou
-@ref{Text markup} en langage LilyPond, au dessus ou au dessous des
+@ref{Formatting text} en langage LilyPond, au dessus ou au dessous des
 notes en employant la syntaxe @code{c^"text"}.  Par défaut, ces
 indications n'affecteront en rien l'espacement des notes, sauf à
 utiliser la commande @code{\textLengthOn}.
@@ -89,7 +76,7 @@ c'4^\markup { bla \bold bla }
 @end lilypond
 
 La commande @code{\markup} est décrite plus en détails dans la section
-@ref{Text markup}.
+@ref{Formatting text}.
 
 
 @predefined
@@ -114,9 +101,9 @@ Vous pouvez cependant l'y forcer en définissant
 
 @seealso
 
-Dans ce manuel : @ref{Text markup}.
+Dans ce manuel : @ref{Formatting text}.
 
-Référence du programme : @internalsref{TextScript}.
+Référence du programme : @rinternals{TextScript}.
 
 
 @node Text and line spanners
@@ -247,11 +234,11 @@ début et la fin d'un glissando seraient en plein milieu des têtes de note.
 
 @seealso
 
-Référence du programme : @internalsref{TextSpanner},
-@internalsref{Glissando}, @internalsref{VoiceFollower},
-@internalsref{TrillSpanner}, @internalsref{line-spanner-interface}.
+Référence du programme : @rinternals{TextSpanner},
+@rinternals{Glissando}, @rinternals{VoiceFollower},
+@rinternals{TrillSpanner}, @rinternals{line-spanner-interface}.
 
-Exemples : @lsr{expressive,line-styles.ly}, @lsr{expressive,line-arrows.ly}
+Exemples : @rlsr{Expressive marks}.
 
 
 @node Text spanners
@@ -303,7 +290,7 @@ Pour obtenir une ligne pleine, utilisez
 
 @seealso
 
-Référence du programme : @internalsref{TextSpanner}.
+Référence du programme : @rinternals{TextSpanner}.
 
 
 @node Text marks
@@ -453,7 +440,7 @@ affectation à chacune des portées :
 
 @seealso
 
-Référence du programme : @internalsref{RehearsalMark}.
+Référence du programme : @rinternals{RehearsalMark}.
 
 
 @node New dynamic marks
@@ -496,14 +483,13 @@ boxf = \markup{ \bracket { \dynamic f } }
 
 
 
-@node Text markup
-@subsection Text markup
+@node Formatting text
+@subsection Formatting text
 
 @menu
 * Text markup introduction::    
 * Nested scores::               
 * Page wrapping text::          
-* Font selection::              
 @end menu
 
 @node Text markup introduction
@@ -532,7 +518,7 @@ Pour une liste des différentes commandes disponibles, consultez
 
 
 @code{\markup} est avant tout conçu pour gérer les
-@internalsref{TextScript}s, mais rien ne s'oppose à son utilisation
+@rinternals{TextScript}s, mais rien ne s'oppose à son utilisation
 pour traiter du texte avec LilyPond.
 
 @lilypond[quote,verbatim]
@@ -630,7 +616,7 @@ allegro = \markup @{ \bold \large @{ Allegro @} @}
 Certains objets possèdent leurs propres procédures d'alignement, qui
 annuleront toute spécification d'alignement que vous pourriez affecter
 à un argument de type @emph{markup} que vous leur auriez fourni.  Par
-exemple, les @internalsref{RehearsalMark} sont centrées
+exemple, les @rinternals{RehearsalMark} sont centrées
 horizontalement ; de fait, utiliser 
 @code{\mark \markup @{ \left-align .. @}} sera sans effet.
 
@@ -659,7 +645,7 @@ en utilisant @code{normal-text}.  Pour plus d'informations, consultez
 
 Dans ce manuel : @ref{Text markup commands}.
 
-Référence du programme : @internalsref{TextScript}.
+Référence du programme : @rinternals{TextScript}.
 
 Fichiers d'initialisation : @file{scm/@/new@/-markup@/.scm}.
 
@@ -740,8 +726,8 @@ Dans ce manuel : @ref{Text markup list commands},
 @code{\markuplines}
 
 
-@node Font selection
-@unnumberedsubsubsec Font selection
+@node Fonts
+@subsection Fonts
 
 @cindex sélection de polices
 @cindex grossissement des polices
@@ -848,6 +834,5 @@ du texte respectivement en roman, sans serif et monospace, comme ici :
 
 @seealso
 
-Exemples : @lsr{text,font@/-family@/-override.ly}.
-
+Exemples : @rlsr{Text}.
 

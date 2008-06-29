@@ -1,7 +1,3 @@
-
-include $(stepdir)/www-targets.make
-
-
 .PHONY: download mutopia png ps scores tar
 
 .PRECIOUS: $(outdir)/%.ps $(outdir)/%-book.ps

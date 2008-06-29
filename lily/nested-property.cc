@@ -1,10 +1,12 @@
 #include "context.hh"
 #include "grob.hh"
 
+
+/*
+  Drop symbol from the list alist..alist_end.
+ */
 SCM
-evict_from_alist (SCM symbol,
-		  SCM alist,
-		  SCM alist_end)
+evict_from_alist (SCM symbol, SCM alist, SCM alist_end)
 {
   SCM new_alist = SCM_EOL;
   SCM *tail = &new_alist;
@@ -40,28 +42,64 @@ nested_property_alist (SCM alist, SCM prop_path, SCM value)
     }
   else
     {
-	new_value = value;
+      new_value = value;
     }
 
   return scm_acons (scm_car (prop_path), new_value, alist);
 }
 
+/*
+  Recursively purge alist of prop_path:
+
+  revert ((sym, val) : L, [sym]) = L
+  revert ((sym, val) : L, sym : props) = 
+    (sym, revert (val, rest-props)) ++ L
+  revert ((sym, val) : L, p ++ rest-props) =
+    (sym, val) : revert (L, p ++ rest-props)
+
+ */
 SCM 
 nested_property_revert_alist (SCM alist, SCM prop_path)
 {
-  SCM new_sub_alist = SCM_EOL;
-  SCM sym = scm_car (prop_path);
-  if (scm_is_pair (scm_cdr (prop_path)))
+  assert(scm_is_pair (prop_path));
+  
+  SCM wanted_sym = scm_car (prop_path);
+
+  SCM new_list = SCM_EOL;
+  SCM *tail = &new_list;
+  for (SCM s = alist; scm_is_pair (s); s = scm_cdr (s))
     {
-      SCM sub_alist = ly_assoc_get (sym, alist, SCM_EOL);
-      new_sub_alist = nested_property_revert_alist (sub_alist, scm_cdr (prop_path));
-    }
-  else
-    {
-      new_sub_alist = evict_from_alist (sym, alist, SCM_EOL);
+      SCM sub_sym = scm_caar (s);
+      SCM old_val = scm_cdar (s);
+
+      if (sub_sym == wanted_sym)
+	{
+	  if (scm_is_pair (scm_cdr (prop_path)))
+	    {
+	      SCM new_val = nested_property_revert_alist (old_val, scm_cdr (prop_path));
+
+	      /* nothing changed: drop newly constructed list. */
+	      if (old_val == new_val)
+		return alist;
+	      
+	      *tail = scm_acons (sub_sym, new_val, SCM_EOL);
+	      tail = SCM_CDRLOC(*tail);
+	    }
+	  else
+	    {
+	      /* old value is dropped. */
+	    }
+	  
+	  *tail = scm_cdr (s);
+	  return new_list;
+	}
+
+      *tail = scm_acons (sub_sym, old_val, SCM_EOL);
+      tail = SCM_CDRLOC (*tail);
     }
 
-  return scm_acons (sym, new_sub_alist, alist);
+  /* Wanted symbol not found: drop newly constructed list. */
+  return alist;
 }
 
 
@@ -72,7 +110,6 @@ set_nested_property (Grob *me, SCM big_to_small, SCM value)
 
   alist = nested_property_alist (alist, scm_cdr (big_to_small), value);
   
-  me->set_property (scm_car (big_to_small),
-		    alist);
+  me->set_property (scm_car (big_to_small), alist);
 }
 

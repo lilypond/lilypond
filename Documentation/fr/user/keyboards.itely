@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -146,9 +146,9 @@ place les silences en fonction des notes qui les suivront. Ainsi :
 
 @seealso
 
-Dans ce même manuel : @ruser{Changing staff manually}.
+Dans ce même manuel : @ref{Changing staff manually}.
 
-Référence du programme : @internalsref{AutoChangeMusic}.
+Référence du programme : @rinternals{AutoChangeMusic}.
 
 
 
@@ -189,7 +189,7 @@ automatiquement une ligne reliant les notes, en attribuant à la variable
 
 @seealso
 
-Référence du programme : @internalsref{VoiceFollower}.
+Référence du programme : @rinternals{VoiceFollower}.
 
 @predefined
 
@@ -258,7 +258,7 @@ c'4\sustainDown c'4\sustainUp
 Les modalités d'impression de ces indications sont définies par la
 propriété @code{pedal@var{X}Strings}, @var{X} étant l'une des trois
 pédales @code{Sustain}, @code{Sostenuto} ou @code{UnaCorda}.  Voyez
-la référence du programme, section @internalsref{SustainPedal}, pour en
+la référence du programme, section @rinternals{SustainPedal}, pour en
 savoir plus.
 
 La propriété @code{pedalSustainStyle} permet différentes notations de
@@ -293,7 +293,7 @@ Il est possible de d'affiner l'apparence d'un crochet de pédale, au
 moyen des propriétés @code{edge-width}, @code{edge-height}, et
 @code{shorten-pair}, appliquées aux objets @code{PianoPedalBracket} ---
 voir la référence du programme, section
-@internalsref{PianoPedalBracket}. Par exemple, on peut étirer le crochet
+@rinternals{PianoPedalBracket}. Par exemple, on peut étirer le crochet
 jusqu'à l'extrémité droite de la dernière note :
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]

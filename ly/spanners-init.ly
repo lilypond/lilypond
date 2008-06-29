@@ -22,7 +22,7 @@ stopTrillSpan = #(make-span-event 'TrillSpanEvent STOP)
 cresc =  {
   #(ly:export (make-event-chord (list cr)))
   \set crescendoText = \markup { \italic "cresc." }
-  \set crescendoSpanner = #'dashed-line
+  \set crescendoSpanner = #'text
 }
 
 
@@ -30,7 +30,7 @@ dim =  {
   #(ly:export (make-event-chord (list decr)))
 
   \set decrescendoText = \markup { \italic "dim." }
-  \set decrescendoSpanner = #'dashed-line
+  \set decrescendoSpanner = #'text
 }
 
 enddim =  {

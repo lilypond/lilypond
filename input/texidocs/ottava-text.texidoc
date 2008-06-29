@@ -1,0 +1,8 @@
+  texidoces = "
+Internamente, la función @code{set-octavation} establece las
+propiedades @code{ottavation} (por ejemplo, a @code{\"8va\"} o a
+@code{\"8vb\"}) y @code{middleCPosition}.  Para sobreescribir el texto
+del corchete, ajuste @code{ottavation} despues de invocar a
+@code{set-octavation}.
+"
+  doctitlees = "Texto de octava alta y baja"

@@ -162,14 +162,13 @@ whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
      (digit-names ,vector "Names for string finger digits.")
-     (direction ,ly:dir? "If @code{side-axis} is @code{1} (or
+     (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
 @code{#X}), then this property determines whether the object is placed
 @code{#LEFT}, @code{#CENTER} or @code{#RIGHT} with respect to the
 other object.  Otherwise, it determines whether the object is placed
 @code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
-@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{CENTER}=@code{0}
-but also other numerical values are permitted.")
+@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
      (dot-color ,symbol? "Color of dots.  Options include 
 @code{black} and @code{white}.")
      (dot-count ,integer? "The number of dots.")
@@ -229,7 +228,7 @@ smaller, @code{+1} is bigger.  Each step of@tie{}1 is approximately
 Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
-note.  This is used by @internalsref{note-collision-interface}.")
+note.  This is used by @rinternals{note-collision-interface}.")
      (forced ,boolean? "Manually forced accidental.")
      (fraction ,number-pair? "Numerator and denominator of a time
 signature object.")
@@ -257,7 +256,7 @@ semitie?")
 slur, the closer it is to this height.")
      (horizontal-shift ,integer? "An integer that identifies ranking
 of @code{NoteColumn}s for horizontal shifting.  This is used by
-@internalsref{note-collision-interface}.")
+@rinternals{note-collision-interface}.")
      (horizontal-skylines ,ly:skyline-pair? "Two skylines, one to the
 left and one to the right of this grob.")
 
@@ -317,8 +316,8 @@ if this column is the start of a system.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "The thickness of the tie or slur
 contour.")
-     (long-text ,markup? "Text markup.  See @ruser{Text
-markup}.")
+     (long-text ,markup? "Text markup.  See @ruser{Formatting
+text}.")
 
      (max-beam-connect ,integer? "Maximum number of beams to connect
 to beams from this stem.  Further beams are typeset as beamlets.")
@@ -339,7 +338,7 @@ directions (i.e., voice 1 &@tie{}2).")
 collisions, even if they have different note heads.  The
 smaller of the two heads is rendered invisible.  This is used in
 polyphonic guitar notation.  The value of this setting is used by
-@internalsref{note-collision-interface}.
+@rinternals{note-collision-interface}.
 
 @code{merge-differently-headed} only applies to opposing stem
 directions (i.e., voice 1 &@tie{}2).")
@@ -444,8 +443,8 @@ stem distance.")
 order a script is within a stack of scripts.")
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @code{-1} means left aligned, @code{0}@tie{}centered, and
-@code{1}@tie{}right-aligned in X@tie{}direction.  Values in-between
-may also be specified.")
+@code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
+values may also be specified.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
      (shorten-pair ,number-pair? "The lengths to shorten a
@@ -454,7 +453,7 @@ values shorten the text-spanner, while negative values lengthen it.")
      (shortest-duration-space ,ly:dimension? "Start with this much
 space for the shortest duration.  This is expressed in
 @code{spacing-increment} as unit.  See also
-@internalsref{spacing-spanner-interface}.")
+@rinternals{spacing-spanner-interface}.")
      (shortest-playing-duration ,ly:moment? "The duration of the
 shortest playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
@@ -481,7 +480,7 @@ clef change followed by a barline, for example, this means that we will
 try to space the non-musical column as though the clef is not there.")
      (spacing-increment ,number? "Add this much space for a doubled
 duration.  Typically, the width of a note head.  See also
-@internalsref{spacing-spanner-interface}.")
+@rinternals{spacing-spanner-interface}.")
      (springs-and-rods ,boolean? "Dummy variable for triggering
 spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
@@ -523,7 +522,7 @@ through flag on.")
 typeset.  Valid choices depend on the @code{stencil} callback reading
 this property.")
 
-     (text ,markup? "Text markup.  See @ruser{Text markup}.")
+     (text ,markup? "Text markup.  See @ruser{Formatting text}.")
 ;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
 words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew

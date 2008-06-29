@@ -149,7 +149,7 @@ get_help_string ()
       SCM opt_help_scm
 	= scm_object_property (sym, ly_symbol2scm ("program-option-documentation"));
       string opt_help = ly_scm2string (opt_help_scm);
-      replace_all (opt_help,
+      replace_all (&opt_help,
 		   string ("\n"),
 		   string ("\n")
 		   + String_convert::char_string (' ', HELP_INDENT));

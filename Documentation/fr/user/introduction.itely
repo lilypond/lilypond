@@ -18,12 +18,12 @@
 
 
 @menu
-* Engraving::         
-* Automated engraving::
+* Engraving::                   
+* Automated engraving::         
 * What symbols to engrave?::    
-* Music representation::      
-* Example applications::
-* About this manual::
+* Music representation::        
+* Example applications::        
+* About the documentation::     
 @end menu
 
 
@@ -579,7 +579,7 @@ notation de plus haut niveau.
 
 @seealso
 
-Program reference: @internalsref{Contexts}.
+Program reference: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -741,8 +741,8 @@ musique et du texte dans les documents.
 
 
 
-@node About this manual
-@section About this manual
+@node About the documentation
+@section About the documentation
 
 Deux manuels traitent de LilyPond : le @emph{manuel de l'utilisateur}
 --- que vous lisez actuellement --- et le @emph{manuel d'utilisation du

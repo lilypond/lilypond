@@ -4,7 +4,6 @@
 check_texi_refs.py
 Interactive Texinfo cross-references checking and fixing tool
 
-
 """
 
 
@@ -12,13 +11,16 @@ import sys
 import re
 import os
 import optparse
+import imp
 
 outdir = 'out-www'
 
 log = sys.stderr
 stdout = sys.stdout
 
-warn_not_fixed = "*** Warning: this broken x-ref has not been fixed!\n"
+file_not_found = 'file not found in include path'
+
+warn_not_fixed = '*** Warning: this broken x-ref has not been fixed!\n'
 
 opt_parser = optparse.OptionParser (usage='check_texi_refs.py [OPTION]... FILE',
                                     description='''Check and fix \
@@ -39,11 +41,22 @@ opt_parser.add_option ('-b', '--batch',
                        dest='interactive',
                        default=True)
 
+opt_parser.add_option ('-c', '--check-comments',
+                       help="Also check commented out x-refs",
+                       action='store_true',
+                       dest='check_comments',
+                       default=False)
+
 opt_parser.add_option ('-p', '--check-punctuation',
-                       help="Check for punctuation after x-ref",
+                       help="Check punctuation after x-refs",
                        action='store_true',
                        dest='check_punctuation',
                        default=False)
+
+opt_parser.add_option ("-I", '--include', help="add DIR to include path",
+                       metavar="DIR",
+                       action='append', dest='include_path',
+                       default=[os.path.abspath (os.getcwd ())])
 
 (options, files) = opt_parser.parse_args ()
 
@@ -51,12 +64,38 @@ class InteractionError (Exception):
     pass
 
 
+manuals_defs = imp.load_source ('manuals_defs', files[0])
 manuals = {}
+
+def find_file (name, prior_directory='.'):
+    p = os.path.join (prior_directory, name)
+    out_p = os.path.join (prior_directory, outdir, name)
+    if os.path.isfile (p):
+        return p
+    elif os.path.isfile (out_p):
+        return out_p
+
+    # looking for file in include_path
+    for d in options.include_path:
+        p = os.path.join (d, name)
+        if os.path.isfile (p):
+            return p
+
+    # file not found in include_path: looking in `outdir' subdirs
+    for d in options.include_path:
+        p = os.path.join (d, outdir, name)
+        if os.path.isfile (p):
+            return p
+
+    raise EnvironmentError (1, file_not_found, name)
+
+
 exit_code = 0
 
 def set_exit_code (n):
     global exit_code
     exit_code = max (exit_code, n)
+
 
 if options.interactive:
     try:
@@ -103,18 +142,13 @@ else:
     def search_prompt ():
         return None
 
+
 ref_re = re.compile (r'@(ref|ruser|rlearning|rprogram|rglos)\{([^,\\]*?)\}(.)',
                      re.DOTALL)
 node_include_re = re.compile (r'(?m)^@(node|include)\s+(.+?)$')
 
 whitespace_re = re.compile (r'\s+')
 line_start_re = re.compile ('(?m)^')
-
-manuals_to_refs = {'lilypond': 'ruser',
-                   'lilypond-learning': 'rlearning',
-                   'lilypond-program': 'rprogram',
-                   # 'lilypond-snippets': 'rlsr',
-                   'music-glossary': 'rglos'}
 
 def which_line (index, newline_indices):
     """Calculate line number of a given string index
@@ -133,39 +167,36 @@ newline_indices is an ordered iterable of all newline indices.
             sup = m
     return inf + 1
 
+
+comments_re = re.compile ('(?<!@)(@c(?:omment)? \
+.*?\\n|^@ignore\\n.*?\\n@end ignore\\n)', re.M | re.S)
+
+def calc_comments_boundaries (texinfo_doc):
+    return [(m.start (), m.end ()) for m in comments_re.finditer (texinfo_doc)]
+
+
+def is_commented_out (start, end, comments_boundaries):
+    for k in range (len (comments_boundaries)):
+        if (start > comments_boundaries[k][0]
+            and end <= comments_boundaries[k][1]):
+            return True
+        elif end <= comments_boundaries[k][0]:
+            return False
+    return False
+
+
 def read_file (f, d):
-    """Look for all node names and cross-references in a Texinfo document
-
-Return a dictionary with three keys:
-
-  'manual' contains the cross-reference
-macro name which matches the base name of f in global manuals_to_refs
-dictionary,
-
-  'nodes' is a dictionary of `node name':(file name, line number),
-
-  'contents' is a dictionary of file:`full file contents'.
-
-  'newline_indices' is a dictionary of
-file:[list of beginning-of-line string indices]
-
-Included files that can be read are processed too.
-
-"""
     s = open (f).read ()
-    # TODO (maybe as option)
-    # s = trim_comments (s)
     base = os.path.basename (f)
     dir = os.path.dirname (f)
-    if d == {}:
-        d['manual'] = manuals_to_refs.get (os.path.splitext (base)[0], '')
-        print "Processing manual %s(%s)" % (f, d['manual'])
-        d['nodes'] = {}
-        d['contents'] = {}
-        d['newline_indices'] = {}
+
+    d['contents'][f] = s
 
     d['newline_indices'][f] = [m.end () for m in line_start_re.finditer (s)]
-    d['contents'][f] = s
+    if options.check_comments:
+        d['comments_boundaries'][f] = []
+    else:
+        d['comments_boundaries'][f] = calc_comments_boundaries (s)
 
     for m in node_include_re.finditer (s):
         if m.group (1) == 'node':
@@ -173,25 +204,75 @@ Included files that can be read are processed too.
             d['nodes'][m.group (2)] = (f, line)
 
         elif m.group (1) == 'include':
-            p = os.path.join (dir, m.group (2))
-            if os.path.isfile (p):
-                read_file (p, d)
-            else:
-                p = os.path.join (dir, outdir, m.group (2))
-                if os.path.isfile (p):
-                    read_file (p, d)
-    return d
+            try:
+                p = find_file (m.group (2), dir)
+            except EnvironmentError, (errno, strerror):
+                if strerror == file_not_found:
+                    continue
+                else:
+                    raise
+            read_file (p, d)
+
+
+def read_manual (name):
+    """Look for all node names and cross-references in a Texinfo document
+
+Return a (manual, dictionary) tuple where manual is the cross-reference
+macro name defined by references_dict[name], and dictionary
+has the following keys:
+
+  'nodes' is a dictionary of `node name':(file name, line number),
+
+  'contents' is a dictionary of file:`full file contents',
+
+  'newline_indices' is a dictionary of
+file:[list of beginning-of-line string indices],
+
+  'comments_boundaries' is a list of (start, end) tuples,
+which contain string indices of start and end of each comment.
+
+Included files that can be found in the include path are processed too.
+
+"""
+    d = {}
+    d['nodes'] = {}
+    d['contents'] = {}
+    d['newline_indices'] = {}
+    d['comments_boundaries'] = {}
+    manual = manuals_defs.references_dict.get (name, '')
+    try:
+        f = find_file (name + '.tely')
+    except EnvironmentError, (errno, strerror):
+        if not strerror == file_not_found:
+            raise
+        else:
+            try:
+                f = find_file (name + '.texi')
+            except EnvironmentError, (errno, strerror):
+                if strerror == file_not_found:
+                    sys.stderr.write (name + '.{texi,tely}: ' +
+                                      file_not_found + '\n')
+                    return (manual, d)
+                else:
+                    raise
+
+    log.write ("Processing manual %s (%s)\n" % (f, manual))
+    read_file (f, d)
+    return (manual, d)
+
 
 log.write ("Reading files...\n")
 
-manuals = dict ([(d['manual'], d)
-                 for d in [read_file (f, dict ()) for f in files]])
+manuals = dict ([read_manual (name)
+                 for name in manuals_defs.references_dict.keys ()])
 
 ref_fixes = set ()
+bad_refs_count = 0
 fixes_count = 0
 
 def add_fix (old_type, old_ref, new_type, new_ref):
     ref_fixes.add ((old_type, old_ref, new_type, new_ref))
+
 
 def lookup_fix (r):
     found = []
@@ -211,6 +292,7 @@ def preserve_linebreak (text, linebroken):
     else:
         n = ''
     return (text, n)
+
 
 def choose_in_numbered_list (message, string_list, sep=' ', retries=3):
     S = set (string_list)
@@ -245,8 +327,11 @@ in the list)\n")
         t -= 1
     raise InteractionError ("%d retries limit exceeded" % retries)
 
+
 def check_ref (manual, file, m):
-    global fixes_count
+    global fixes_count, bad_refs_count
+    bad_ref = False
+    fixed = True
     type = m.group (1)
     original_name = m.group (2)
     name = whitespace_re.sub (' ', original_name). strip ()
@@ -254,17 +339,21 @@ def check_ref (manual, file, m):
     line = which_line (m.start (), newline_indices)
     linebroken = '\n' in m.group (2)
     next_char = m.group (3)
+    commented_out = is_commented_out \
+        (m.start (), m.end (), manuals[manual]['comments_boundaries'][file])
+    useful_fix = not outdir in file
 
-    # check for puncuation after x-ref
+    # check puncuation after x-ref
     if options.check_punctuation and not next_char in '.,;:!?':
-        stdout.write ("Warning: %s: %d: `%s': x-ref not followed by punctuation\n"
-                      % (file, line, name))
+        stdout.write ("Warning: %s: %d: `%s': x-ref \
+not followed by punctuation\n" % (file, line, name))
 
     # validate xref
     explicit_type = type
     new_name = name
 
-    if type != 'ref' and type == manual:
+    if type != 'ref' and type == manual and not commented_out and useful_fix:
+        bad_ref = True
         stdout.write ("\n%s: %d: `%s': external %s x-ref should be internal\n"
                       % (file, line, name, type))
         if options.auto_fix or yes_prompt ("Fix this?"):
@@ -273,7 +362,8 @@ def check_ref (manual, file, m):
     if type == 'ref':
         explicit_type = manual
 
-    if not name in manuals[explicit_type]['nodes']:
+    if not name in manuals[explicit_type]['nodes'] and not commented_out:
+        bad_ref = True
         fixed = False
         stdout.write ('\n')
         if type == 'ref':
@@ -301,13 +391,13 @@ def check_ref (manual, file, m):
                     found.append (k)
                     stdout.write ("  found as `%s' x-ref\n" % k)
 
-        if len (found) == 1 and (options.auto_fix
-                                 or yes_prompt ("Fix this x-ref?")):
+        if (len (found) == 1
+            and (options.auto_fix or yes_prompt ("Fix this x-ref?"))):
             add_fix (type, name, found[0], name)
             type = found[0]
             fixed = True
 
-        elif len (found) > 1:
+        elif len (found) > 1 and useful_fix:
             if options.interactive or options.auto_fix:
                 stdout.write ("* Several manuals contain this node name, \
 cannot determine manual automatically.\n")
@@ -356,7 +446,8 @@ and x-ref by index number or beginning of name:\n", [''.join ([i[0], ' ', i[1]])
                 else:
                     concatenated = choose_in_numbered_list ("Choose \
 node name and manual for this x-ref by index number or beginning of name:\n", \
-                            [' '.join ([i[0], i[1], '(in %s)' % i[2]]) for i in node_list],
+                            [' '.join ([i[0], i[1], '(in %s)' % i[2]])
+                             for i in node_list],
                                                             sep='\n')
                     if concatenated:
                         t, z = concatenated.split (' ', 1)
@@ -365,6 +456,13 @@ node name and manual for this x-ref by index number or beginning of name:\n", \
                         type = t
                         fixed = True
                         break
+
+    if fixed and type == manual:
+        type = 'ref'
+    bad_refs_count += int (bad_ref)
+    if bad_ref and not useful_fix:
+        stdout.write ("*** Warning: this file is automatically generated, \
+please fix the code source instead of generated documentation.\n")
 
     # compute returned string
     if new_name == name:
@@ -384,13 +482,12 @@ try:
                             manuals[key]['contents'][file])
             if s != manuals[key]['contents'][file]:
                 open (file, 'w').write (s)
-
 except KeyboardInterrupt:
     log.write ("Operation interrupted, exiting.\n")
     sys.exit (2)
-
 except InteractionError, instance:
     log.write ("Operation refused by user: %s\nExiting.\n" % instance)
     sys.exit (3)
 
-log.write ("Done, fixed %d x-refs.\n" % fixes_count)
+log.write ("Done: %d bad x-refs found, fixed %d.\n" %
+           (bad_refs_count, fixes_count))

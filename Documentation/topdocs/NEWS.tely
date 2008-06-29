@@ -90,8 +90,9 @@ option.
 command @code{\easyHeadsOff} reverts note heads to normal heads.
 
 @item
-@code{\fatText} and @code{\emptyText} have been renamed to
-@code{\textLengthOn} and @code{\textLengthOff}, respectively.
+@code{\fatText}, @code{\emptyText} and @code{\compressMusic} have been
+renamed to @code{\textLengthOn}, @code{\textLengthOff} and
+@code{\scaleDurations}, respectively.
 
 @item
 Underlining is now possible with the @code{\underline} markup command.

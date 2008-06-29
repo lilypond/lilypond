@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d619d9858609c54377a0652eaa7cb843b103742d
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -114,7 +114,6 @@ período barroco.
 * Gregorian Chant contexts::    
 * Mensural contexts::           
 * Musica ficta accidentals::    
-* Figured bass::                
 @end menu
 
 
@@ -126,7 +125,7 @@ período barroco.
 
 Para la notación antigua, se puede elegir un estilo de cabezas de notas distinto al @code{default}
 (estilo por defecto).  Esto se consigue estableciendo la propiedad @code{style}
-del objeto @internalsref{NoteHead} a los valores @code{baroque},
+del objeto @rinternals{NoteHead} a los valores @code{baroque},
 @code{neomensural}, @code{mensural} o @code{petrucci}.  El estilo
 @code{baroque} se diferencia del estilo por defecto @code{default} únicamente en que usa
 una forma cuadrada para las cabezas de las @code{\breve}.  El estilo
@@ -148,11 +147,11 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 Cuando se tipografía una pieza en notación de Canto Gregoriano, el grabador
-@internalsref{Gregorian_ligature_engraver} selecciona automáticamente
+@rinternals{Gregorian_ligature_engraver} selecciona automáticamente
 las cabezas adecuadas, de manera que no es necesario establecer el estilo de las cabezas
 explícitamente.  Aún así, el estilo de las cabezas se puede establecer, p.ej., a
 @code{vaticana_punctum} para producir neumas punctum.  De forma similar, se utiliza un grabador
-@internalsref{Mensural_ligature_engraver} para construir automáticamente
+@rinternals{Mensural_ligature_engraver} para construir automáticamente
 ligaduras mensurales.  Consulte @ref{Ligatures} para ver cómo funcionan los grabadores
 de las ligaduras.
 
@@ -168,7 +167,7 @@ de las ligaduras.
 
 
 Utilice la propiedad @code{glyph-name-alist} del elemento gráfico
-@internalsref{Accidental} y @internalsref{KeySignature} para seleccionar
+@rinternals{Accidental} y @rinternals{KeySignature} para seleccionar
 los símbolos de alteración de la notación antigua.
 
 @lilypond[quote,ragged-right,staffsize=26]
@@ -210,14 +209,14 @@ los símbolos de alteración de la notación antigua.
 }
 @end lilypond
 
-Como se muestra aquí, no todas las alteraciones están contempladas por cada uno de los estilos. Cuando
-trate de acceder a una alteración no contemplada, LilyPond cambiará a un estilo diferente,
-como se muestra en
-@lsr{ancient,ancient-accidentals.ly}.
+Como se muestra aquí, no todas las alteraciones están contempladas por
+cada uno de los estilos. Cuando trate de acceder a una alteración no
+contemplada, LilyPond cambiará a un estilo diferente.
 
-De forma similar a las alteraciones accidentales, el estilo de la armadura de la tonalidad se puede
-controlar a través de la propiedad @code{glyph-name-alist} del elemento gráfico
-@internalsref{KeySignature}.
+De forma similar a las alteraciones accidentales, el estilo de la
+armadura de la tonalidad se puede controlar a través de la propiedad
+@code{glyph-name-alist} del elemento gráfico
+@rinternals{KeySignature}.
 
 @seealso
 
@@ -226,9 +225,11 @@ En el presente manual: @ref{Pitches}, @ref{Accidentals} y
 alteraciones.  @ref{Key signature} ofrece una introducción general al uso de
 las armaduras de tonalidad.
 
-Referencia del programa: @internalsref{KeySignature}.
+Referencia del programa:
+@rinternals{KeySignature}.
 
-Ejemplos: @lsrdir{ancient}
+Ejemplos:
+@rlsr{Ancient notation}.
 
 @node Ancient rests
 @subsubsection Ancient rests
@@ -236,7 +237,7 @@ Ejemplos: @lsrdir{ancient}
 @cindex silencios antiguos
 
 
-Utilice la propiedad @code{style} del elemento gráfico @internalsref{Rest} para seleccionar
+Utilice la propiedad @code{style} del elemento gráfico @rinternals{Rest} para seleccionar
 silencios antiguos.  Los estilos contemplados son @code{classical},
 @code{neomensural} y @code{mensural}.  @code{classical} se diferencia
 del estilo por defecto @code{default} solamente en que el silencio de negra parece
@@ -255,7 +256,7 @@ r\longa r\breve r1 r2 r4 r8 r16
 
 No existen silencios de fusa y semifusa específicos para los estilos mensural
 ni neo-mensural.  En su lugar se tomarán los silencios del estilo por defecto.
-Consulte @lsr{pitches,rests} para ver un cuadro de todos los silencios.
+@c Consulte @lsr{pitches,rests} para ver un cuadro de todos los silencios.
 
 No hay silencios en la notación del Canto Gregoriano; en su lugar, se utilizan
 @ref{Divisiones}.
@@ -511,7 +512,7 @@ La clave mensural de Sol está reasignada a la clave de Sol de Petrucci.
 @cindex corchetes
 
 
-Utilice la propiedad @code{flag-style} del elemento gráfico @internalsref{Stem} para seleccionar
+Utilice la propiedad @code{flag-style} del elemento gráfico @rinternals{Stem} para seleccionar
 los corchetes de estilo antiguo.  Aparte del estilo de corchete por defecto @code{default},
 sólo está contemplado el estilo @code{mensural}
 
@@ -600,7 +601,7 @@ tabla
 }
 @end lilypond
 
-Utilice la propiedad @code{style} del elemento gráfico @internalsref{TimeSignature} para
+Utilice la propiedad @code{style} del elemento gráfico @rinternals{TimeSignature} para
 seleccionar las indicaciones de compás de la música antigua.  Los estilos contemplados son
 @code{neomensural} y @code{mensural}.  La tabla anterior utiliza el
 estilo @code{neomensural}.  Este estilo es adecuado para el
@@ -707,8 +708,8 @@ de notación musical como las ediciones contemporáneas de Canto Gregoriano
 como la @emph{editio vaticana}.  Hay distintos glifos para el custos
 que se utilizan en las diferentes variaciones de estilo notacional.
 
-Para tipografiar las custodias, simplemente coloque un grabador @internalsref{Custos_engraver} dentro del contexto
-@internalsref{Staff} (el contexto del pentagrama) al declarar el bloque de @code{\layout} (el bloque de disposición de la página),
+Para tipografiar las custodias, simplemente coloque un grabador @rinternals{Custos_engraver} dentro del contexto
+@rinternals{Staff} (el contexto del pentagrama) al declarar el bloque de @code{\layout} (el bloque de disposición de la página),
 como se muestra en el ejemplo siguiente:
 
 @example
@@ -764,10 +765,11 @@ contemplados son @code{vaticana}, @code{medicaea}, @code{hufnagel} y
 
 @seealso
 
-Referencia del programa: @internalsref{Custos}.
+Referencia del programa:
+@rinternals{Custos}.
 
 Ejemplos:
-@lsr{ancient,custodes@/.ly}.
+@rlsr{Ancient notation}.
 
 
 @node Divisiones
@@ -814,11 +816,14 @@ Por ello, @file{gregorian@/-init@/.ly} define también las instrucciones @code{\
 
 @seealso
 
-En el presente manual: @ref{Breath marks}.
+En el presente manual:
+@ref{Breath marks}.
 
-Referencia del programa: @internalsref{BreathingSign}.
+Referencia del programa:
+@rinternals{BreathingSign}.
 
-Ejemplos: @lsr{expressive,breathing-sign.ly}.
+Ejemplos:
+@rlsr{Winds}.
 
 
 @node Ligatures
@@ -836,7 +841,7 @@ Canto Gregoriano para denotar secuencias de notas ascendentes o descendentes.
 Las ligaduras se escriben encerrándolas dentro de un par @code{\[} y @code{\]}.
 Ciertos estilos de ligadura podrían necesitar una sintaxis de entrada adicional específica para
 este tipo de ligadura en particular.  Por defecto, el grabador
-@internalsref{LigatureBracket} se limita a colocar un corchete recto
+@rinternals{LigatureBracket} se limita a colocar un corchete recto
 sobre la ligadura
 
 @lilypond[quote,ragged-right,verbatim]
@@ -848,7 +853,7 @@ sobre la ligadura
 @end lilypond
 
 Para seleccionar un estilo de ligaduras específico, se debe añadir el grabador adecuado
-al contexto @internalsref{Voice}, tal y como se explica en los 
+al contexto @rinternals{Voice}, tal y como se explica en los 
 sub-apartados siguientes.   Solamente están contempladas las ligaduras mensurales
 blancas con ciertas limitaciones.
 
@@ -864,13 +869,13 @@ correctamente con las ligaduras.
 Las alteraciones accidentales no se deben imprimir dentro de las ligaduras, sino que deben
 reunirse e imprimirse juntas delante de ellas.
 
-La sintaxis todavía utiliza el obsoleto estilo infijo @code{\[ música expresión
-\]}.  Por motivos de consistencia, esto cambiará algún día al estilo
-postfijo @code{nota\[ ... nota\]}.  De forma alternativa, puede incluirse el archivo
-@file{gregorian@/-init@/.ly}; proporciona una función de
-Scheme
+La sintaxis todavía utiliza el obsoleto estilo infijo
+@code{\[ expresión_musical \]}.  Por motivos de consistencia, esto cambiará
+algún día al estilo postfijo @code{nota\[ ... nota\]}.  De forma
+alternativa, puede incluirse el archivo @file{gregorian@/-init@/.ly};
+proporciona una función de Scheme
 @example
-\ligature @var{música expresión}
+\ligature @var{expresión_musical}
 @end example
 que causa el mismo efecto y se supone que es lo bastante estable.
 
@@ -888,9 +893,9 @@ que causa el mismo efecto y se supone que es lo bastante estable.
 Las ligaduras mensurales blancas están contempladas de forma limitada.
 
 Para grabar ligaduras mensurales blancas, en el bloque layout o de disposición de la página coloque el grabador
-@internalsref{Mensural_ligature_engraver} dentro del contexto
-@internalsref{Voice}, y elimine el grabador
-@internalsref{Ligature_bracket_engraver}, de la siguiente manera:
+@rinternals{Mensural_ligature_engraver} dentro del contexto
+@rinternals{Voice}, y elimine el grabador
+@rinternals{Ligature_bracket_engraver}, de la siguiente manera:
 
 @example
 \layout @{
@@ -946,8 +951,8 @@ Por ejemplo,
 }
 @end lilypond
 
-Si no se sustituye el grabador @internalsref{Ligature_bracket_engraver} por el
-@internalsref{Mensural_ligature_engraver}, la misma música se transcribe
+Si no se sustituye el grabador @rinternals{Ligature_bracket_engraver} por el
+@rinternals{Mensural_ligature_engraver}, la misma música se transcribe
 de la siguiente manera:
 
 @lilypond[quote,ragged-right]
@@ -2010,198 +2015,6 @@ ais bis
 
 @seealso
 
-Referencia del programa: el grabador @internalsref{Accidental_engraver} y el objeto
-@internalsref{AccidentalSuggestion}.
-
-@node Figured bass
-@subsubsection Figured bass
-
-@cindex Bajo continuo
-
-@c TODO: musicological blurb about FB
-
-
-LilyPond contempla el bajo cifrado
-
-@lilypond[quote,ragged-right,verbatim,fragment]
-<<
-  \new Voice { \clef bass dis4 c d ais g fis}
-  \new FiguredBass \figuremode {
-    < 6 >4 < 7\+ >8 < 6+ [_!] >
-    < 6 >4 <6 5 [3+] >
-    < _ >4 < 6 5/>4
-  }
->>
-@end lilypond
-
-El soporte para el bajo cifrado consta de dos partes: hay un modo de entrada,
-que se inicia mediante @code{\figuremode}, en el que puede escribir las cifras del bajo
-como números, y hay un contexto llamado @internalsref{FiguredBass} que se ocupa
-de crear los objetos @internalsref{BassFigure} (cifras del bajo).
-
-En el modo de entrada de cifras, un grupo de cifras del bajo se encuentra delimitado por
-los paréntesis en ángulo @code{<} y @code{>}.  La duración se introduce después del ángulo de cierre @code{>}
-@example
-<4 6>
-@end example
-@lilypond[quote,ragged-right,fragment]
-\new FiguredBass
-\figuremode { <4 6> }
-@end lilypond
-
-Las alteraciones se añaden al escribir @code{-}, @code{!} y @code{+}
-después de los números.  Se añadirá un signo más plus cuando escriba @code{\+}, y las
-quintas y séptimas disminuidas se pueden obtener con @code{5/} y @code{7/}.
-
-@example
-<4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
-@end example
-@lilypond[quote,ragged-right,fragment]
-\figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
-@end lilypond
-
-Se pueden insertar espacios mediante el uso de @code{_}.  Los corchetes se
-escriben con @code{[} y @code{]}. También puede incluir cadenas de
-texto y elementos de marcado textuales, consulte @ref{Text markup commands}.
-
-@example
-< [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >
-@end example
-@lilypond[quote,ragged-right,fragment]
-\new FiguredBass
-\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
-@end lilypond
-
-
-Además es posible usar líneas de continuación para las cifras que se repiten,
-
-@lilypond[verbatim,relative=1]
-<<
-  \new Staff {
-    \clef bass
-    c4 c c
-  }
-  \figures {
-    \set useBassFigureExtenders = ##t
-    <4 6> <3 6> <3 7>
-  }
->>
-@end lilypond
-
-@noindent
-En este caso, las líneas de extensión siempre sustituyen a las cifras existentes.
-
-El contexto @code{FiguredBass} no presta atención a la propia línea del
-bajo. Como consecuencia, quizá tenga que insertar cifras adicionales para
-obtener líneas de extensión bajo todas las notas, y puede que necesite añadir @code{\!}
-para evitar que aparezca una línea de extensión, e.g.
-
-@lilypond[relative=1]
-<<
-  \new Voice
-  \figures {
-    \set useBassFigureExtenders = ##t
-    <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
-  }
-  {
-    \clef bass
-    f16. g32 f16. g32 f16. g32 f16. g32 f8. es16 d8 es
-  }
->>
-@end lilypond
-
-Al usar líneas de continuación, las cifras comunes siempre se colocan
-en la misma posición vertical. Si esto no es lo que desea, puede insertar un silencio
-con @code{r}. El silencio borrará cualquier alineación previa.  Por
-ejemplo, puede escribir
-
-@example
-  <4 6>8 r8
-@end example
-
-@noindent
-instead of
-@example
-  <4 6>4
-@end example
-
-Las alteraciones y signos más pueden aparecer antes o después de los números,
-dependiendo de las propiedades dirección de la alteración establecida en @code{figuredBassAlterationDirection} y la
-dirección del signo más establecida en @code{figuredBassPlusDirection}
-
-
-@lilypond
-  \figures {
-    <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #1
-    <6\+> <5+> <6 4-> r
-    \set figuredBassPlusDirection = #1
-    <6\+> <5+> <6 4-> r
-    \set figuredBassAlterationDirection = #-1
-    <6\+> <5+> <6 4-> r
-  }
-@end lilypond
-
-
-Aunque posiblemente la forma en que está contemplado el bajo cifrado se parece superficialmente a los
-acordes, es mucho más simple.  El modo @code{\figuremode} sencillamente
-almacena los números, y el contexto @internalsref{FiguredBass} los imprime
-tal y como se han escrito.  No hay ninguna conversión a alturas de nota ni se reproduce ninguna realización
-del bajo en el archivo MIDI.
-
-Internamente, el código del programa produce elementos de marcado textual.  Puede utilizar cualquiera de las
-propiedades de los elementos de marcado textual para sobreescribir los detalles del formateo.  Por ejemplo, el
-espaciado vertical de las cifras se puede establecer con @code{baseline-skip}.
-
-
-El bajo cifrado también se puede añadir a contextos @code{Staff} (de pauta)
-directamente.  En este caso, su posición vertical se ajusta de
-forma automática.
-
-@lilypond[ragged-right,fragment,quote]
-<<
-  \new Staff = someUniqueName
-  \relative c'' {
-    c4 c'8 r8 c,4 c'
-  }
-
-  %% send to existing Staff.
-  \context Staff = someUniqueName 
-  \figuremode {
-    <4>4 <6 10>8 s8
-    
-    \set Staff.useBassFigureExtenders = ##t
-    <4 6>4 <4 6>
-  }
->>
-@end lilypond
-
-
-@commonprop
-
-Por defecto, este método produce cifras encima de las notas. Para obtener
-cifras por debajo de las notas, utilice
-
-@example
-\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
-@end example
-
-
-@knownissues
-
-Al usar bajos cifrados por encima del pentagrama con líneas de extensión y
-@code{implicitBassFigures}, las líneas podrían intercambiarse.
-Es imposible mantener el orden de forma consistente cuando varias cifras
-tienen líneas de extensión que se superponen.  Para evitar este problema, utilice
-@code{stacking-dir} sobre @code{BassFigureAlignment}.
-
-
-@seealso
-
-Referencia del programa: Objetos @internalsref{NewBassFigure},
-@internalsref{BassFigureAlignment}, @internalsref{BassFigureLine},
-@internalsref{BassFigureBracket} y 
-@internalsref{BassFigureContinuation} y el contexto
-@internalsref{FiguredBass}.
-
+Referencia del programa: el grabador @rinternals{Accidental_engraver} y el objeto
+@rinternals{AccidentalSuggestion}.
 

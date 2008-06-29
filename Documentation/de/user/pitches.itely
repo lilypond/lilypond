@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,6 +10,8 @@
 
 @node Pitches
 @section Pitches
+
+@lilypondfile[quote]{pitches-headword.ly}
 
 This section discusses how to specify the pitch of notes.
 
@@ -152,8 +154,8 @@ ceses4 ces cis c
 
 @seealso
 
-Programmreferenz: @internalsref{LedgerLineSpanner},
-@internalsref{NoteHead}.
+Programmreferenz: @rinternals{LedgerLineSpanner},
+@rinternals{NoteHead}.
 
 
 @node Cautionary accidentals
@@ -519,9 +521,11 @@ eine weitere Transposition:
 
 @seealso
 
-Programmreferenz: @internalsref{TransposedMusic}.
+Programmreferenz:
+@rinternals{TransposedMusic}.
 
-Beispiel: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
+Beispiel:
+@rlsr{Pitches}.
 
 
 @knownissues
@@ -650,7 +654,7 @@ zu setzen.
 
 Handbuch: @ref{Grace notes}.
 
-Programmreferenz: @internalsref{Clef}.
+Programmreferenz: @rinternals{Clef}.
 
 
 @node Key signature
@@ -728,8 +732,8 @@ a bes c d
 
 @seealso
 
-Programmreferenz: @internalsref{KeyCancellation},
-@internalsref{KeySignature}.
+Programmreferenz: @rinternals{KeyCancellation},
+@rinternals{KeySignature}.
 
 
 @node Ottava brackets

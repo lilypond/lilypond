@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,6 +10,8 @@
 
 @node Editorial annotations
 @section Editorial annotations
+
+@lilypondfile[quote]{editorial-headword.ly}
 
 @menu
 * Inside the staff::            
@@ -91,9 +93,11 @@ Musik sehr nah in die Notenköpfe gerückt werden.
 
 @seealso
 
-Programmreferenz: @internalsref{Fingering}.
+Programmreferenz:
+@rinternals{Fingering}.
 
-Beispiele: @lsr{expressive,fingering-chords.ly}
+Beispiele:
+@rlsr{Editorial annotations}.
 
 
 @node Hidden notes
@@ -118,7 +122,7 @@ UNTRANSLATED NODE: IGNORE ME
 @unnumberedsubsubsec Stems
 
 Immer, wenn das Programm eine Note findet, wird automatisch 
-ein Notenhals (@internalsref{Stem}) -Objekt erzeugt. Auch 
+ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch 
 für ganze Noten und Pausen werden sie erzeugt, aber unsichtbar 
 gemacht.
 

@@ -111,8 +111,13 @@ string
 ly_scm2string (SCM str)
 {
   assert (scm_is_string (str));
-  return string (scm_i_string_chars (str),
-		 (int) scm_i_string_length (str));
+  string result;
+  size_t len = scm_c_string_length (str);
+  if (len) {
+    result.resize(len);
+    scm_to_locale_stringbuf(str, &result.at(0), len);
+  }
+  return result;
 }
 
 SCM
@@ -126,30 +131,16 @@ ly_string2scm (string const &str)
 char *
 ly_scm2newstr (SCM str, size_t *lenp)
 {
-  LY_ASSERT_TYPE (scm_is_string, str, 1);
-
-  size_t len = scm_i_string_length (str);
-  if (char *new_str = (char *) malloc ((len + 1) * sizeof (char)))
-    {
-      memcpy (new_str, scm_i_string_chars (str), len);
-      new_str[len] = '\0';
-
-      if (lenp)
-	*lenp = len;
-
-      return new_str;
-    }
-  return 0;
+  char* p = scm_to_locale_stringn(str, lenp);
+  return p;
 }
-
 
 /*
   PAIRS
 */
-SCM
+SCM 
 index_get_cell (SCM s, Direction d)
 {
-
   assert (d);
   return (d == LEFT) ? scm_car (s) : scm_cdr (s);
 }
@@ -177,7 +168,6 @@ ly_scm_hash (SCM s)
 {
   return scm_ihashv (s, ~1u);
 }
-
 
 bool
 is_axis (SCM s)
@@ -634,10 +624,10 @@ mangle_cxx_identifier (string cxx_id)
   else if (cxx_id.substr (cxx_id.length () - 2) == "_x")
     cxx_id = cxx_id.replace (cxx_id.length () - 2, 2, "!");
 
-  cxx_id = replace_all (cxx_id, "_less?", "<?");
-  cxx_id = replace_all (cxx_id, "_2_", "->");
-  cxx_id = replace_all (cxx_id, "__", "::");
-  cxx_id = replace_all (cxx_id, '_', '-');
+  replace_all (&cxx_id, "_less?", "<?");
+  replace_all (&cxx_id, "_2_", "->");
+  replace_all (&cxx_id, "__", "::");
+  replace_all (&cxx_id, '_', '-');
 
 
   return cxx_id;
@@ -661,9 +651,9 @@ parse_symbol_list (char const *symbols)
   while (isspace (*symbols))
     *symbols++;
   string s = symbols;
-  replace_all (s, '\n', ' ');
-  replace_all (s, '\t', ' ');
-  replace_all (s, "  ", " ");
+  replace_all (&s, '\n', ' ');
+  replace_all (&s, '\t', ' ');
+  replace_all (&s, "  ", " ");
   return ly_string_array_to_scm (string_split (s, ' '));
 }
 

@@ -235,6 +235,7 @@ LILYQUOTE = 'lilyquote'
 NOFRAGMENT = 'nofragment'
 NOINDENT = 'noindent'
 NOQUOTE = 'noquote'
+NORAGGED_RIGHT = 'noragged-right'
 NOTES = 'body'
 NOTIME = 'notime'
 OUTPUT = 'output'
@@ -247,6 +248,7 @@ QUOTE = 'quote'
 RAGGED_RIGHT = 'ragged-right'
 RELATIVE = 'relative'
 STAFFSIZE = 'staffsize'
+DOCTITLE = 'doctitle'
 TEXIDOC = 'texidoc'
 TEXINFO = 'texinfo'
 VERBATIM = 'verbatim'
@@ -533,6 +535,7 @@ simple_options = [
     NOFRAGMENT,
     NOINDENT,
     PRINTFILENAME,
+    DOCTITLE,
     TEXIDOC,
     LANG,
     VERBATIM,
@@ -559,6 +562,8 @@ ly_options = {
         LILYQUOTE: r'''line-width = %(line-width)s - 2.0 * %(exampleindent)s''',
 
         RAGGED_RIGHT: r'''ragged-right = ##t''',
+
+        NORAGGED_RIGHT: r'''ragged-right = ##f''',
 
         PACKED: r'''packed = ##t''',
     },
@@ -1203,13 +1208,22 @@ class LilypondSnippet (Snippet):
         if not skip_lily:
             require_file (base + '-systems.count')
 
+        if 'ddump-profile' in global_options.process_cmd:
+            require_file (base + '.profile')
+        if 'dseparate-log-file' in global_options.process_cmd:
+            require_file (base + '.log')
+
         map (consider_file, [base + '.tex',
                              base + '.eps',
                              base + '.texidoc',
-                             base + '.texidoc' + document_language,
+                             base + '.doctitle',
                              base + '-systems.texi',
                              base + '-systems.tex',
                              base + '-systems.pdftexi'])
+        if document_language:
+            map (consider_file,
+                 [base + '.texidoc' + document_language,
+                  base + '.doctitle' + document_language])
 
         # UGH - junk global_options
         if (base + '.eps' in result and self.format in (HTML, TEXINFO)
@@ -1224,11 +1238,18 @@ class LilypondSnippet (Snippet):
         system_count = 0
         if not skip_lily and not missing:
             system_count = int(file (full + '-systems.count').read())
+
         for number in range(1, system_count + 1):
             systemfile = '%s-%d' % (base, number)
             require_file (systemfile + '.eps')
             consider_file (systemfile + '.pdf')
-        
+
+            # We can't require signatures, since books and toplevel
+            # markups do not output a signature.
+            if 'ddump-signature' in global_options.process_cmd:
+                consider_file (systemfile + '.signature')
+             
+       
         return (result, missing)
     
     def is_outdated (self, output_dir, current_files):
@@ -1352,6 +1373,13 @@ class LilypondSnippet (Snippet):
     def output_texinfo (self):
         str = self.output_print_filename (TEXINFO)
         base = self.basename ()
+        if DOCTITLE in self.option_dict:
+            doctitle = base + '.doctitle'
+            translated_doctitle = doctitle + document_language
+            if os.path.exists (translated_doctitle):
+                str += '@lydoctitle %s\n' % open (translated_doctitle).read ()
+            elif os.path.exists (doctitle):
+                str += '@lydoctitle %s\n' % open (doctitle).read ()
         if TEXIDOC in self.option_dict:
             texidoc = base + '.texidoc'
             translated_texidoc = texidoc + document_language
@@ -1917,8 +1945,13 @@ def main ():
                                       + ' --formats=%s -dbackend=eps ' % formats)
 
     if global_options.process_cmd:
-        global_options.process_cmd += ' '.join ([(' -I %s' % ly.mkarg (p))
-                                                 for p in global_options.include_path])
+        includes = global_options.include_path
+        if global_options.lily_output_dir:
+            # This must be first, so lilypond prefers to read .ly
+            # files in the other lybookdb dir.
+            includes = [os.path.abspath(global_options.lily_output_dir)] + includes
+        global_options.process_cmd += ' '.join ([' -I %s' % ly.mkarg (p)
+                                                 for p in includes])
 
     if global_options.format in (TEXINFO, LATEX):
         ## prevent PDF from being switched on by default.

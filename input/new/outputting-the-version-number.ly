@@ -10,9 +10,11 @@ a score, or in a document generated with @code{lilypond-book}.
   doctitle = "Outputting the version number"
 }
 
-\score { \context Lyrics  {
-    \override Score.RehearsalMark  #'self-alignment-X = #LEFT
-    \mark #(ly:export (string-append "Processed with LilyPond version " (lilypond-version)))
+\score {
+  \new Lyrics {
+    \override Score.RehearsalMark #'self-alignment-X = #LEFT
+    \mark #(ly:export (string-append "Processed with LilyPond version "
+                       (lilypond-version)))
     s2
   }
 }

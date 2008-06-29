@@ -1,5 +1,26 @@
 LILYPOND DOCUMENTATION TRANSLATION
 
+TABLE OF CONTENTS
+
+SOURCES
+GIT
+REQUIREMENTS
+WHICH DOCUMENTATION CAN BE TRANSLATED
+STARTING A TRANSLATION IN A NEW LANGUAGE
+FILES TO BE TRANSLATED
+TRANSLATION DETAILED INSTRUCTIONS
+* LEARNING MANUAL AND OTHER TEXINFO DOCUMENTATION
+* REFERENCE NOTATION AND PROGRAM USAGE MANUAL
+* DOCUMENTATION INDEX index.html.in
+CHECK STATE OF TRANSLATION
+UPDATE A TRANSLATION
+POLICY DURING GDP PROCESS
+MANAGING TRANSLATIONS WITH GIT
+SOME GIT TIPS
+DEALING WITH SEVERAL GIT BRANCHES
+GIT PUSH ACCESS
+TECHNICAL BACKGROUND
+
 
 SOURCES
 
@@ -90,65 +111,63 @@ Files marked with priority 3, 4 or 5 may be submitted individually.
 Word counts (excluding lilypond snippets) are given for each file.
 
 -1- Documentation index and Tutorial
-396   user/lilypond-learning.tely
-5593  user/tutorial.itely
+412   user/lilypond-learning.tely
+5652  user/tutorial.itely
 23    user/dedication.itely
-216   index.html.in
-2022  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
-8250  total
-
-In addition, user/macros.itexi may be translated in case typographic
-rules used in this file are different in your language.
+378   user/macros.itexi
+218   index.html.in
+3457  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
+10140 total
 
 -2- Introduction and beginning of Application Usage
 411   user/preface.itely
-3198  user/introduction.itely
-374   user/lilypond-program.tely
-1477  user/install.itely (partial translation)
+3704  user/introduction.itely
+390   user/lilypond-program.tely
+1674  user/install.itely (partial translation)
 947   user/setup.itely
-2860  user/running.itely
-9267  total
+2879  user/running.itely
+10005 total
 
 -3- Learning manual
-8626  user/fundamental.itely -- Fundamental concepts
-12134 user/tweaks.itely -- Tweaking output
-2985  user/working.itely -- Working on LilyPond files
+9800  user/fundamental.itely -- Fundamental concepts
+12228 user/tweaks.itely -- Tweaking output
+3005  user/working.itely -- Working on LilyPond files
 483   user/templates.itely -- Templates
-24228 total
+25516 total
 
 -4- Notation reference
-539   user/lilypond.tely
+544   user/lilypond.tely
 91    user/notation.itely -- Musical notation
-2808  user/pitches.itely
-7336  user/rhythms.itely
-1681  user/expressive.itely
-725   user/repeats.itely
-916   user/simultaneous.itely
-1861  user/staff.itely
-879   user/editorial.itely
-2336  user/text.itely
-54    user/specialist.itely -- Specialist notation
-2630  user/vocal.itely
-1275  user/chords.itely
+2822  user/pitches.itely
+6591  user/rhythms.itely
+944   user/expressive.itely
+976   user/repeats.itely
+1078  user/simultaneous.itely
+2310  user/staff.itely
+827   user/editorial.itely
+1851  user/text.itely
+68    user/specialist.itely -- Specialist notation
+2745  user/vocal.itely
+1530  user/chords.itely
 702   user/piano.itely
-481   user/percussion.itely
+546   user/percussion.itely
 826   user/guitar.itely
 66    user/strings.itely
 242   user/bagpipes.itely
-4289  user/ancient.itely
-2458  user/input.itely -- Input syntax
+3474  user/ancient.itely
+4971  user/input.itely -- Input syntax
 2164  user/non-music.itely -- Non-musical notation
-8399  user/spacing.itely -- Spacing issues
-5149  user/changing-defaults.itely -- Changing defaults
-4547  user/programming-interface.itely -- Interfaces for programmers
-935   user/notation-appendices.itely -- Notation manual tables
+8400  user/spacing.itely -- Spacing issues
+6951  user/changing-defaults.itely -- Changing defaults
+5213  user/programming-interface.itely -- Interfaces for programmers
+894   user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-53639 total
+57076 total
 
 -5- Application usage
-2917  user/lilypond-book.itely -- LilyPond-book
+3175  user/lilypond-book.itely -- LilyPond-book
 975   user/converters.itely -- Converting from other formats
-3892  total
+4150  total
 
 -6- Appendices whose translation is optional
 299   user/literature.itely
@@ -195,6 +214,10 @@ separately in a .po file (just as well as LilyPond output messages).
 This .po file should be in Documentation/po.
 
 
+Take care of using typographic rules for your language, especially in
+user/macros.itexi.
+
+
 Please keep verbatim copies of music snippets (in @lilypond blocs).
 However, some music snippets containing text that shows in the
 rendered music, and sometimes translating this text really helps the
@@ -205,7 +228,7 @@ beginning with
 
 @c KEEP LY
 
-Otherwise the music snippet would be reset to the same contents as the
+Otherwise the music snippet would be reset to the same content as the
 English version at next 'make snippet-update' run (see UPDATING A
 TRANSLATION below).
 
@@ -213,15 +236,20 @@ When you encounter
 
   @lilypondfile[<number of fragment options>,texidoc]{FILENAME.ly}
 
-in the source, open input/lsr/FILENAME.ly, translate the texidoc
-string it contains, enclose it with 'texidoc<MY-LANGUAGE> = "' and
-'"', and write it into input/texidocs/FILENAME.texidoc -- please keep
-possibly existing translations in other languages!  For instance,
-input/texidocs/FILENAME.texidoc may contain
+in the source, open input/lsr/FILENAME.ly, translate the `texidoc'
+header field it contains, enclose it with 'texidoc<MY-LANGUAGE> = "'
+and '"', and write it into input/texidocs/FILENAME.texidoc -- please
+keep possibly existing translations in other languages!
+Additionnally, you may translate the snippet's title in `doctitle'
+header field, in case `doctitle' is a fragment option used in
+@lilypondfile; you can do this exactly the same way as `texidoc'.  For
+instance, input/texidocs/FILENAME.texidoc may contain
 
+doctitlees = "Spanish title baz"
 texidoces = "
 Spanish translation blah
 "
+doctitlede = "German title bar"
 texidocde = "German translation foo
 "
 
@@ -279,7 +307,8 @@ Translations status page.  To update that page, do from Documentation/
     make translation-status
 
 This will also leave out/translations-status.txt, which contains
-up-to-dateness percentages for each translated file.
+up-to-dateness percentages for each translated file, and update word
+counts of documentation files in this file.
 
 
 UPDATE A TRANSLATION
@@ -319,7 +348,7 @@ Translation meister runs this command.
 
 Updating music snippets can quickly become cumbersome, as most
 snippets should be identical in all languages.  Fortunately, there is
-a script than can do this odd job for you (run from Documentation):
+a script that can do this odd job for you (run from Documentation):
 
     make ISOLANG=<MY_LANGUAGE> snippet-update
 
@@ -334,10 +363,177 @@ enabled languages (from Documentation):
 
     make all-translations-update
 
-This command is mainly intended to be used by the Translation meister.
+Use this command with caution, and keep in mind it will not be really
+useful until translations are stabilized after the end of GDP.
 
 
-MISCELLANEOUS: DEALING WITH SEVERAL GIT BRANCHES
+POLICY DURING GDP PROCESS
+or "How to maintain translations without updating them"
+
+During GDP progress, documentation changes so much, and translators are
+often involved in GDP too, so keeping translations up to date is very
+difficult.  However, it is possible -- and even recommended -- to
+perform some maintaining that keeps translated documentation usable
+and eases future translation updating.  The rationale below the tasks
+list motivates this plan.
+
+The following tasks are listed in decreasing priority order.
+
+1) Update macros.itexi.  For each obsolete macro definition, if it is
+possible to update macro usage in documentation with an automatic text
+or regexp substitution, do it and delete the macro definition from
+macros.itexi; otherwise, mark this macro definition as obsolete with a
+comment, and keep it in macros.itexi until the documentation
+translation has been updated and no longer uses this macro.
+
+2) Update *.tely files completely with make check-translation -- you
+may want to redirect ouptput to a file because of overwhelming output,
+or call check-translation.py on individual files, see CHECK STATE OF
+TRANSLATION.
+
+3) in .itelys, match sections and .itely file names with those from
+English docs, which possibly involves moving nodes contents in block
+between files, without updating contents itself.  In other words, the
+game is catching where has gone each section.  In Learning manual, and
+in Notation Reference sections which have been revised in GDP, there
+may be completely new sections: in this case, copy @node and
+@section-command from English docs, and put the usual tricky line
+'UNTRANSLATED NODE: IGNORE ME'.  Note that it is not possible to
+exactly match subsections or subsubsections of documentation in
+English, when contents has been deeply revised; in this case, kee
+obsolete (sub)subsections in the translation.
+
+* Hints for Emacs users (without Emacs AucTeX installed)
+
+Emacs with Texinfo mode makes this step easier:
+
+- without Emacs AucTeX installed, C-c C-s shows structure of current
+Texinfo file in a new buffer *Occur*; to show structure of two files 
+simultaneously, first split Emacs window in 4 tiles (with C-x 1 and 
+C-x 2), press C-c C-s to show structure of one file (e.g. the translated
+file), copy *Occur* contents into *Scratch*, then press C-c C-s for the 
+other file.
+If you happen to have installed AucTeX, you can either call the macro
+by doing M-x texinfo-show-structure or create a key binding in your
+~/.emacs, by adding the four following lines:
+	(add-hook 'Texinfo-mode-hook
+		  '(lambda ()
+	     	     (define-key Texinfo-mode-map "\C-cs"
+              	      'texinfo-show-structure)))
+and then obtain the structure in the *Occur* buffer with C-c s
+
+
+- Do not bother updating @menus when all menu entries are in the same
+file ; make sure there is at least a (possibly empty) @menu block
+everywhere it is needed, then do C-c C-u C-a ("update all menus") when
+you have updated all the rest of the file.
+
+- Moving to next or previous node: press C-s and type node (or C-s
+@node if the text contains the word 'node') then press C-s to move to
+next node or C-r to move to previous node.  Similar operation can be
+used to move to the next/previous section.
+
+- Moving a whole node (or even a sequence of nodes): jump to beginning
+of the node (quit incremental search by pressing an arrow), press
+C-SPACE, press C-s node and repeat C-s until you have selected enough
+text, cut it with C-w or C-x, jump to the right place (moving between
+nodes with the previous hint is often useful) and paste with C-y or
+C-v.
+
+
+4) update documentation PO.  Unless you have special interest in
+having all titles translated in the next development release, it is
+better to wait until step 3) has been completed, to avoid doing the
+work more than once.
+
+5) Fix broken cross-references by running (from Documentation/)
+
+  make ISOLANG=<YOUR-LANGUAGE> fix-xrefs
+
+This step requires a sucessful documentation build (with 'make web').
+Some cross-references are broken because they point to a node that
+exists in the documentation in English, which has not been added to
+the translation; in this case, do not fix the cross-reference but keep
+it "broken", so that the resulting HTML link will point to an existing
+page of documentation in English.
+
+Rationale
+
+You may wonder if it would not be better to leave translations as-is
+until you can really start updating translations.  There are several
+reasons to do these maintenance tasks right now.
+
+- This will have to be done sooner or later anyway, before updating
+translation of documentation contents, and this can already be done
+without needing to be redone later, as sections of documentation in
+English are mostly revised once.  However, note that not all
+documentation sectioning has been revised in one go, so all this
+maintenance plan has to be repeated whenever a big reorganization is
+made. Currently (in May 2008), only chapters 3-7 in Notation Reference
+and Application Usage have not been reorganized yet.
+
+- This just makes translated documentation take advantage of the new
+organization, which is far better than the old one.
+
+- Moving and renaming sections to match sectioning of documentation in
+English simplify future updating work: it allows updating the
+translation by side-by-side comparison, without bothering whether
+cross-reference names already exist in the translation.
+
+- Each maintenance task (except 4) updating PO files) can be done by
+the same person for all languages, which saves overall time spent by
+translators to achieve this task: the node names and section titles
+are in English, so you can do.  It is important to take advantage of
+this now, as it will be more complicated (but still possible) to do
+step 3) in all languages when documentation is compiled with
+texi2html and node names are directly translated in source files.
+
+
+MANAGING TRANSLATIONS WITH GIT
+
+This policy explains how to manage Git branches and commit
+translations to Git.
+
+* Translation changes matching master branch are preferably made on
+lilypond/translation branch; they may be pushed directly on master
+only if they do not break compilation of LilyPond and its
+documentation, and in this case they should be pushed to
+lilypond/translation too.  Similarly, changes matching stable/X.Y are
+preferably made on lilypond/X.Ytranslation.
+
+* lilypond/translation Git branch may be merged into master only if
+LilyPond ('make all') and documentation ('make web') compile
+succesfully.
+
+* master Git branch may be merged into lilypond/translation whenever
+'make' and 'make web' are succesful (in order to ease documentation
+compilation by translators), or when significant changes had been made
+in documentation in English in master branch.
+
+* General maintenance may be done by anybody who knows what he does
+in documentation in all languages, without informing translators
+first.  General maintenance include simple text substitutions
+(e.g. automated by sed), compilation fixes, updating Texinfo or
+lilypond-book commands, updating macros, updating ly code, fixing
+cross-references, and operations described in 'POLICY DURING GDP
+PROCESS'.
+
+
+SOME GIT TIPS
+
+* Saving uncommited changes in the working tree:
+
+    git diff > foo.diff
+
+This does not save untracked or ignored files.  If you prefer to
+include changes added to the index with 'git add', replace 'git diff'
+with 'git diff HEAD'.
+Then, you may try to apply foo.diff on a source tree with
+
+    patch -p1 < foo.diff
+
+
+DEALING WITH SEVERAL GIT BRANCHES
 
 * It is possible to work with several branches on the same local Git
 repository; this is especially useful for translators who may have to
@@ -373,7 +569,7 @@ branch BRANCH.
 Note that it is possible to check out another branch while having
 uncommitted changes, but it is not recommended unless you know what
 you are doing; it is recommended to run 'git status' to check this
-kind of issue before checking ouy another branch.
+kind of issue before checking out another branch.
 
 When pulling using SHORTHAND, do not forget to check first that the
 right branch is checked out, i.e. the branch named A in the first part
@@ -423,26 +619,52 @@ subrepository with changes made on the main repository, cd into SUBDIR
 and run 'git pull'; to send changes made on the subrepository back to
 the main repository, run 'git push' from SUBDIR.  Note that only one
 branch (the currently checked out branch) is created in the
-subrepository by deafult; it is possible to have several branches in a
+subrepository by default; it is possible to have several branches in a
 subrepository and do usual operations (checkout, merge, create,
-delete...) on these branches, but this is more difficult to manage
-them and sync them with the main repository, so this possibility is
-not detailed here.
+delete...) on these branches, but this possibility is not detailed
+here.
+
+Note that when you push BRANCH from SUBDIR to the main repository,
+and BRANCH is checked out in the main repository, you must save
+uncommitted changes (see SOME GIT TIPS) and do 'git reset --hard' in
+the main repository in order to apply pushed changes in the working
+tree of the main repository.
+
+
+GIT PUSH ACCESS
+
+If you have permission to push to Git with login USER, please start a
+new Git repository from scratch to avoid polluting history with
+duplicate commits; follow the usual instructions, except that every
+file you write in .git/remotes should contain instead
+
+URL: ssh://USER@git.sv.gnu.org/srv/git/lilypond.git
+Push: BRANCH:refs/heads/BRANCH
+Pull: BRANCH:refs/remotes/origin/BRANCH
+
+Then, you can use .git/remotes/NAME to push BRANCH with
+
+    git push NAME
+
+which works regardless of the branch checked out.
 
 
 TECHNICAL BACKGROUND
 
 A number of Python scripts handle a part of the documentation
-translation process:
+translation process.  All are located in buildscripts/, except
+langdefs.py which is in python/
 
-* langdefs.py  -- language definitions
+* buildlib.py -- module containing common functions (read piped output
+of a shell command, use Git)
+* langdefs.py  -- language definitions module
 * check_translation.py  -- show diff to update a translation
 * texi-langutils.py  -- quickly and dirtily parse Texinfo files to
 make message catalogs and Texinfo skeleton files
 * texi-skeleton-update.py -- update Texinfo skeleton files
 * html-gettext.py -- translate node names, section titles and cross
 references in HTML files generated by makeinfo
-* add_html_footer.py (module called by www_post.py) -- add footer and
+* add_html_footer.py (module imported by www_post.py) -- add footer and
 tweak links in HTML pages
 * texi-gettext.py -- gettext node names, section titles and references
 before calling texi2pdf
@@ -451,4 +673,4 @@ and documentation in other languages
 * update-snippets.py -- synchronize ly snippets with those from
 English docs
 * translations-status.py -- update translations status pages and word
-counts in the file you are reading
+counts in the file you are reading.

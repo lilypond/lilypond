@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,7 +11,7 @@
 @node Staff notation
 @section Staff notation
 
-staff = singular, staves = plural
+@lilypondfile[quote]{staff-headword.ly}
 
 @menu
 * Displaying staves::           
@@ -48,7 +48,7 @@ können auf vier unterschiedliche Arten verbunden werden:
 @itemize @bullet
 @item Die Gruppe wird mit einer Klammer an der linken Seite geöffnet und 
 die Taktlinien sind verbunden. Das ist der Klaviersystem 
-(@internalsref{GrandStaff})-Kontext.
+(@rinternals{GrandStaff})-Kontext.
 
 @lilypond[verbatim,ragged-right,quote]
 \new GrandStaff
@@ -60,7 +60,7 @@ die Taktlinien sind verbunden. Das ist der Klaviersystem
 
 @item Die Gruppe beginnt mit einer Klammer und die Taktlinien sind verbunden. 
 Dieses Verhalten erzeugt der Stimmgruppen 
-(@internalsref{StaffGroup})-Kontext.
+(@rinternals{StaffGroup})-Kontext.
 
 @lilypond[verbatim,ragged-right,quote]
 \new StaffGroup
@@ -72,7 +72,7 @@ Dieses Verhalten erzeugt der Stimmgruppen
 
 @item Die Gruppe beginnt mit einer Klammer, aber die Taktlinien sind nicht 
 miteinander verbunden. Das wird mit dem Chorsystem 
-(@internalsref{ChoirStaff})-Kontext erreicht.
+(@rinternals{ChoirStaff})-Kontext erreicht.
 
 @lilypond[verbatim,ragged-right,quote]
 \new ChoirStaff
@@ -97,8 +97,8 @@ verbunden. Das ist die Standardeinstellung für eine Partitur.
 @seealso
 
 Die Definition der Taktlinien am Beginn jedes Systems werden mit 
-den Befehlen @internalsref{SystemStartBar}, @internalsref{SystemStartBrace} 
-und @internalsref{SystemStartBracket} festgelegt. Nur einer dieser 
+den Befehlen @rinternals{SystemStartBar}, @rinternals{SystemStartBrace} 
+und @rinternals{SystemStartBracket} festgelegt. Nur einer dieser 
 drei Typen wird in jedem Kontext erstellt, und dieser Typ wird durch 
 die @code{systemStartDelimiter}-Eigenschaft bestimmt.
 
@@ -133,9 +133,11 @@ zeichnet diese Linien durch ein spezielles graphisches Objekt,
 @code{staff symbol} (engl. @qq{staff} = Notensystem) genannt.
 
 Dieses Objekt kann bezüglich seiner Eigenschaften, wie Anzahl, Dicke und 
-Abstand der Linien verändert werden. Das wird gezeigt in den Beispieldateien 
-@lsr{staff,changing-the-number-of-lines-in-a-staff.ly} und
-@lsr{staff,changing-the-staff-size.ly}.
+Abstand der Linien verändert werden.
+
+@c Das wird gezeigt in den Beispieldateien 
+@c @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} und
+@c @lsr{staff,changing-the-staff-size.ly}.
 
 Zusätzlich können Systeme beliebig begonnen und beendet werden. Das 
 geschieht mit den Befehlen @code{\startStaff} und @code{\stopStaff}.
@@ -165,9 +167,11 @@ benutzen, um Ossia-Abschnitte zu notieren. Siehe das Beispiel:
 
 @seealso
 
-Programmreferenz: @internalsref{StaffSymbol}.
+Programmreferenz:
+@rinternals{StaffSymbol}.
 
-Beispiele: @lsrdir{staff}
+Beispiele:
+@rlsr{Staff notation}.
 
 
 @node Hiding staves

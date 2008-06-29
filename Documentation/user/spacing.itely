@@ -9,9 +9,48 @@
 
 @c \version "2.11.38"
 
-@c A menu is needed before every deeper *section nesting of @node's; run
-@c     M-x texinfo-all-menus-update
-@c to automatically fill in these menus before saving changes
+@ignore
+GDP TODO list
+
+Negative numbers are allowed:
+> Are you sure? The following works well
+> \paper{
+>   first-page-number = -2
+> }
+> and prints page number -1 on the second page, for example.
+
+
+- default paper size is A4.
+
+
+In 5.2.1 the @refbugs (line 495 in spacing.itely on master) it
+states:
+
+"@code{layout-set-staff-size} does not change the distance between
+the
+staff lines."
+
+Could we add a sentence:
+"Use instead the pair               fontSize = #@var{N}
+            \override StaffSymbol #'staff-space = #(magstep
+@var{N})
+inside the Staff context to change the size of the font and the
+distance between
+staff lines accordingly."
+
+Actually I found, that the @internalsref{StaffSymbol} at line 481
+sends to an uncomplete
+documentation. The property staff-space is not explained here. I
+thought Y-extent might be of
+help, but it is in turn explained by x-space which again is
+missing from the list. Who has the
+knowledge to fix this?
+
+
+Clarify
+http://code.google.com/p/lilypond/issues/detail?id=68
+
+@end ignore
 
 @node Spacing issues
 @chapter Spacing issues

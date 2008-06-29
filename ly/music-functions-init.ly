@@ -157,7 +157,7 @@ clef =
    (make-clef-set type))
 
 
-compressMusic =
+scaleDurations =
 #(define-music-function
 		  (parser location fraction music) (number-pair? ly:music?)
 		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))

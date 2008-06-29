@@ -16,6 +16,7 @@ using namespace std;
 #include "grob-array.hh"
 #include "item.hh"
 #include "stream-event.hh"
+#include "text-interface.hh"
 
 #include "translator.icc"
 
@@ -33,6 +34,7 @@ protected:
 
   SCM last_duration_;
   SCM last_count_;
+  SCM last_text_;
   
 protected:
   virtual void derived_mark () const;
@@ -52,6 +54,7 @@ Metronome_mark_engraver::derived_mark () const
 {
   scm_gc_mark (last_count_);
   scm_gc_mark (last_duration_);
+  scm_gc_mark (last_text_);
 }
 
 void
@@ -72,16 +75,19 @@ Metronome_mark_engraver::process_music ()
 {
   SCM count = get_property ("tempoUnitCount");
   SCM duration = get_property ("tempoUnitDuration");
-  
-  if (unsmob_duration (duration)
-      && scm_is_number (count)
+  SCM text = get_property ("tempoText");
+
+  if ( ( (unsmob_duration (duration) && scm_is_number (count))
+        || Text_interface::is_markup (text) )
       && !(ly_is_equal (count, last_count_)
-	   && ly_is_equal (duration, last_duration_)))
+	   && ly_is_equal (duration, last_duration_)
+	   && ly_is_equal (text, last_text_)))
     {
       text_ = make_item ("MetronomeMark", SCM_EOL);
 
       SCM proc = get_property ("metronomeMarkFormatter");
-      SCM result = scm_call_3 (proc,
+      SCM result = scm_call_4 (proc,
+			       text,
 			       duration,
 			       count,
 			       context ()->self_scm ());
@@ -91,6 +97,7 @@ Metronome_mark_engraver::process_music ()
 
   last_duration_ = duration;
   last_count_ = count;
+  last_text_ = text;
 }
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
@@ -108,7 +115,9 @@ ADD_TRANSLATOR (Metronome_mark_engraver,
 		"stavesFound "
 		"metronomeMarkFormatter "
 		"tempoUnitDuration "
-		"tempoUnitCount ",
+		"tempoUnitCount "
+		"tempoText "
+		"tempoHideNote ",
 
 		/* write */
 		""

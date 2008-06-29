@@ -1,5 +1,4 @@
 \version "2.10.0"
-\layout { ragged-right= ##t }
 \header {
   lsrtags = "paper-and-layout"  % a new tag like "Mixing text and music" or
 % "Special output" might be more adequate -jm
@@ -12,10 +11,18 @@ snippets page may not adequately show the results.
 The result will be files named
 @file{@var{base}-from-@var{start}-to-@var{end}[-@var{count}].eps}.
 
-@itemize @bullet
-@item If system starts and ends are included, they include extents of the System grob, e.g., instrument names.
-@item Grace notes at the end point of the region are not included.
-@item Regions can span multiple systems. In this case, multiple EPS files are generated.
+@itemize
+@item
+If system starts and ends are included, they include extents of the
+System grob, e.g., instrument names.
+
+@item
+Grace notes at the end point of the region are not included.
+
+@item
+Regions can span multiple systems.  In this case, multiple EPS files
+are generated.
+
 @end itemize
 "
   doctitle = "Clip systems"
@@ -28,13 +35,13 @@ origScore = \score {
   \relative c' {
     \set Staff.instrumentName = #"bla"
     c1
-    d
+    d1
     \grace c16 e1
     \key d \major
-    f \break
+    f1 \break
     \clef bass
-    g,
-    fis
+    g,1
+    fis1
   }
 }
 
@@ -74,7 +81,9 @@ origScore = \score {
   \score {
     \lyrics {
       \markup { from-2.0.1-to-4.0.1-clip.eps }
-      \markup { \epsfile #X #30.0 #(format #f "~a-1-from-2.0.1-to-4.0.1-clip.eps" (ly:parser-output-name parser)) }
+      \markup {
+        \epsfile #X #30.0 #(format #f "~a-1-from-2.0.1-to-4.0.1-clip.eps"
+                            (ly:parser-output-name parser)) }
     }
   }
 }

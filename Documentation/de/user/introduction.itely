@@ -19,7 +19,7 @@
 * What symbols to engrave?::    
 * Music representation::        
 * Example applications::        
-* About this manual::           
+* About the documentation::     
 @end menu
 
 
@@ -567,7 +567,7 @@ in einen großen Score-Kontext (Partiturkontext) eingebunden werden.
 
 @seealso
 
-Programmreferenz: @internalsref{Contexts}.
+Programmreferenz: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -721,8 +721,8 @@ es sehr einfach, Noten und Text zu kombinieren.
 
 
 
-@node About this manual
-@section About this manual
+@node About the documentation
+@section About the documentation
 
 Es gibt zwei Handbücher zu LilyPond: das @emph{Benutzerhandbuch} (dieses 
 Dokument) und das @emph{Handbuch über die Programmbenutzung}.

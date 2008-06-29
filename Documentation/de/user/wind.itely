@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: b03ad3631e3a6c5bd657eda5f4ba6963dfb22c36
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,27 +13,48 @@
 @node Wind instruments
 @section Wind instruments
 
-This section includes extra information for writing for bagpipes.
+UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Bagpipe::
+@menu
+* Common notation for wind instruments::
+* Bagpipes::
 @end menu
 
-@node Bagpipe
-@subsection Bagpipe
+@node Common notation for wind instruments
+@subsection Common notation for wind instruments
 
 UNTRANSLATED NODE: IGNORE ME
 
-@menu 
+@menu
+* References for wind instruments::
+* Half-holes::
+@end menu
+
+@node References for wind instruments
+@subsubsection References for wind instruments
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Half-holes
+@subsubsection Half-holes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Bagpipes
+@subsection Bagpipes
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
 * Bagpipe definitions::
 * Bagpipe example::
 @end menu
 
 @node Bagpipe definitions
-@unnumberedsubsubsec Bagpipe definitions
+@subsubsection Bagpipe definitions
 
-LilyPond besitzt spezielle Definitionen, mit der die Musik 
-des schottischen Hochland-Dudelsacks notiert wird. Um sie 
+LilyPond besitzt spezielle Definitionen, mit der die Musik
+des schottischen Hochland-Dudelsacks notiert wird. Um sie
 zu benutzen, muss
 
 @example
@@ -41,9 +62,9 @@ zu benutzen, muss
 @end example
 
 @noindent
-am Anfang der LilyPond-Quelldatei eingefügt werden. Hierdurch 
-können dann bestimmte Verzierungsnoten, die für die Dudelsackmusik 
-üblich sind, mit kurzen Befehlen eingefügt werden. So reicht etwa der 
+am Anfang der LilyPond-Quelldatei eingefügt werden. Hierdurch
+können dann bestimmte Verzierungsnoten, die für die Dudelsackmusik
+üblich sind, mit kurzen Befehlen eingefügt werden. So reicht etwa der
 Befehl @code{\taor}, anstatt
 
 @example
@@ -52,7 +73,7 @@ Befehl @code{\taor}, anstatt
 
 @noindent zu schreiben.
 
-@code{bagpipe.ly} enthält außerdem Definitionen für Tonhöhen von 
+@code{bagpipe.ly} enthält außerdem Definitionen für Tonhöhen von
 Dudelsacknoten in bestimmten Oktaven, so dass man sich nicht mehr um
 @code{\relative} oder @code{\transpose} kümmern muss.
 
@@ -62,11 +83,11 @@ Dudelsacknoten in bestimmten Oktaven, so dass man sich nicht mehr um
 @end lilypond
 
 Musik für den Dudelsack wird dem Namen nach in D-Dur
- geschrieben (auch wenn das eigentlich nicht stimmt). Weil 
- das aber die einzige Tonart ist, die benutzt werden kann, werden 
- die Vorzeichen meistens nicht geschrieben. Damit das funktioniert, 
- müssen die Noten immer mit @code{\hideKeySignature} beginnen. 
- Wenn die Vorzeichen hingegen angezeigt werden sollen, kann das 
+ geschrieben (auch wenn das eigentlich nicht stimmt). Weil
+ das aber die einzige Tonart ist, die benutzt werden kann, werden
+ die Vorzeichen meistens nicht geschrieben. Damit das funktioniert,
+ müssen die Noten immer mit @code{\hideKeySignature} beginnen.
+ Wenn die Vorzeichen hingegen angezeigt werden sollen, kann das
  mithilfe des Befehls @code{\showKeySignature} vorgenommen werden.
 
 Some modern music use cross fingering on c and f to flatten those notes.
@@ -74,11 +95,10 @@ This can be indicated by @code{cflat} or @code{fflat}. Similarly, the
 piobaireachd high g can be written @code{gflat} when it occurs in light
 music.
 
-
 @node Bagpipe example
-@unnumberedsubsubsec Bagpipe example
+@subsubsection Bagpipe example
 
-So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für 
+So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für
 Dudelsack notiert.
 
 @lilypond[verbatim,quote]
@@ -117,5 +137,3 @@ Dudelsack notiert.
   \bar "|."
 }
 @end lilypond
-
-

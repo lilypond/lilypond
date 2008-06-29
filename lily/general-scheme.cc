@@ -180,8 +180,9 @@ LY_DEFINE (ly_string_substitute, "ly:string-substitute",
   LY_ASSERT_TYPE (scm_is_string, s, 3);
 
   string ss = ly_scm2string (s);
-  replace_all (ss, string (scm_i_string_chars (a)),
-		   string (scm_i_string_chars (b)));
+  replace_all (&ss, ly_scm2string (a),
+	       ly_scm2string (b));
+  
   return ly_string2scm (ss);
 }
   
@@ -245,11 +246,11 @@ LY_DEFINE (ly_protects, "ly:protects",
 }
 
 LY_DEFINE (ly_gettext, "ly:gettext",
-	   1, 0, 0, (SCM string),
+	   1, 0, 0, (SCM original),
 	   "A Scheme wrapper function for @code{gettext}.")
 {
-  LY_ASSERT_TYPE (scm_is_string, string, 1);
-  return ly_string2scm (_ (scm_i_string_chars (string)));
+  LY_ASSERT_TYPE (scm_is_string, original, 1);
+  return ly_string2scm (_ (ly_scm2string (original).c_str ()));
 }
 
 LY_DEFINE (ly_output_formats, "ly:output-formats",

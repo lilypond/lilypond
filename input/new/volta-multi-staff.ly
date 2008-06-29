@@ -1,24 +1,30 @@
 \version "2.11.36"
-\layout { ragged-right= ##t }
 \header {
-  lsrtags = "repeats,staff-notation"
-  texidoc = "By adding @code{Volta_engraver}, repeat brackets
-can be put over staves other than the topmost one in a score."
+  lsrtags = "repeats,staff-notation,fretted-strings"
+  texidoc = "By adding the @code{Volta_engraver} to the relevant
+staff, volte can be put over staves other than the topmost
+one in a score."
   doctitle = "Volta multi-staff"
 }
 
-vmus = \relative c'' {
-  \repeat volta 2 c1 \alternative { d e } 
-} 
+voltaMusic = \relative c'' {
+  \repeat volta 2 {
+    c1
+  }
+  \alternative {
+    d1
+    e
+  }
+}
 
 <<
   \new StaffGroup <<
-    \context Staff \vmus
-    \new Staff \vmus
+    \context Staff \voltaMusic
+    \new Staff \voltaMusic
   >>
   \new StaffGroup <<
-    \new Staff \with { \consists Volta_engraver }
-      \vmus
-    \new Staff \vmus
+    \new Staff \with { \consists "Volta_engraver" }
+      \voltaMusic
+    \new Staff \voltaMusic
   >>
 >>

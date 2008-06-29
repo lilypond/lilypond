@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 19fc0f930f921ca2609e0e60aa26f9d980771b97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,67 +9,75 @@
 
 @c \version "2.11.38"
 
-
 @node Fretted string instruments
 @section Fretted string instruments
 
-@cindex tablature
-@cindex guitar tablature
-
-@menu 
-* Guitar TODO::
-@end menu 
-
-@node Guitar TODO
-@subsection Guitar TODO
+UNTRANSLATED NODE: IGNORE ME
 
 @menu
-* String number indications::   
-* Tablatures basic::            
-* Non-guitar tablatures::       
-* Banjo tablatures::            
-* Fret diagrams::               
-* Right hand fingerings::       
-* Other guitar issues::         
+* Common notation for fretted strings::
+* Guitar::
+* Banjo::
 @end menu
 
+@node Common notation for fretted strings
+@subsection Common notation for fretted strings
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* References for fretted strings::
+* String number indications::
+* Default tablatures::
+* Custom tablatures::
+* Fret diagrams::
+* Right hand fingerings::
+@end menu
+
+@node References for fretted strings
+@subsubsection References for fretted strings
+
+UNTRANSLATED NODE: IGNORE ME
+
 @node String number indications
-@unnumberedsubsubsec String number indications
+@subsubsection String number indications
 
 @cindex String numbers
 
-Saitennummerierung kann zu den Akkorden hinzugefügt werden, 
-indem die Saitennummer nach einem Backslash als Zahl angegeben 
+Saitennummerierung kann zu den Akkorden hinzugefügt werden,
+indem die Saitennummer nach einem Backslash als Zahl angegeben
 wird:
 
 @lilypond[relative,relative=1,ragged-right,fragment]
 <c\1 e\2 g\3>
 @end lilypond
 
-
 @seealso
 
-Programmreferenz: @internalsref{StringNumber},
-@lsr{guitar/,string-number.ly}.
+Programmreferenz:
+@rinternals{StringNumber}.
 
+Beispiele:
+@rlsr{Fretted strings}.
 
-@node Tablatures basic
-@unnumberedsubsubsec Tablatures basic
+@node Default tablatures
+@subsubsection Default tablatures
+
 @cindex Tablatures basic
 
-Tabulatur-Notation wird für die Notation von Zupfinstrumenten benutzt. 
-Tonhöhen werden hier nicht durch Notenköpfe, sondern durch Zahlen 
-notiert. Diese Zahlen zeigen an, auf welcher Saite und welchem Bund 
-der Ton gespielt werden soll. LilyPond bringt beschränkte Unterstützung 
+Tabulatur-Notation wird für die Notation von Zupfinstrumenten benutzt.
+Tonhöhen werden hier nicht durch Notenköpfe, sondern durch Zahlen
+notiert. Diese Zahlen zeigen an, auf welcher Saite und welchem Bund
+der Ton gespielt werden soll. LilyPond bringt beschränkte Unterstützung
 für Tabulaturen mit.
 
-Die Saitennummer, die mit einer Note assoziiert ist, wird durch einen 
-Backslash, gefolgt von einer Zahl, notiert, etwa @code{c4\3} für eine 
-Viertelnote C auf der dritten Saite. In der Standardeinstellung ist 
-die erste Saite die höchste Saite und als Stimmung wird die übliche 
-Gitarrenstimmung auf sechs Saiten angenommen. Die Noten werden in 
-einer Tabulatur gesetzt, indem @internalsref{TabStaff} und
-@internalsref{TabVoice}-Kontexte verwendet werden.
+Die Saitennummer, die mit einer Note assoziiert ist, wird durch einen
+Backslash, gefolgt von einer Zahl, notiert, etwa @code{c4\3} für eine
+Viertelnote C auf der dritten Saite. In der Standardeinstellung ist
+die erste Saite die höchste Saite und als Stimmung wird die übliche
+Gitarrenstimmung auf sechs Saiten angenommen. Die Noten werden in
+einer Tabulatur gesetzt, indem @rinternals{TabStaff} und
+@rinternals{TabVoice}-Kontexte verwendet werden.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff {
@@ -81,10 +89,9 @@ einer Tabulatur gesetzt, indem @internalsref{TabStaff} und
 @funindex minimumFret
 @cindex Bund
 
-Wenn keine Saite angegeben wird, wird die Saite, deren Bund-Zahl 
-weniger als der Betrag in @code{minimumFret} beträgt, ausgewählt. 
+Wenn keine Saite angegeben wird, wird die Saite, deren Bund-Zahl
+weniger als der Betrag in @code{minimumFret} beträgt, ausgewählt.
 Der Standardwert für @code{minimumFret} beträgt 0.
-
 
 @example
 e16 fis gis a b4
@@ -104,11 +111,10 @@ frag = {
   >>
 @end lilypond
 
-
 @commonprop
 
-Um Tabulaturen mit Hälsen nach unten und horizontalen Balken 
-zu erstellen, muss der @code{TabStaff} mit folgenden Parametern 
+Um Tabulaturen mit Hälsen nach unten und horizontalen Balken
+zu erstellen, muss der @code{TabStaff} mit folgenden Parametern
 initialisiert werden:
 
 @example
@@ -118,15 +124,15 @@ initialisiert werden:
 
 @seealso
 
-Programmreferenz: @internalsref{TabStaff}, @internalsref{TabVoice}.
+Programmreferenz: @rinternals{TabStaff}, @rinternals{TabVoice}.
 
 @knownissues
 
-Akkorde werden nicht gesondert behandelt, sodass die Saitenauswahlfunktion 
+Akkorde werden nicht gesondert behandelt, sodass die Saitenauswahlfunktion
 eventuell die selbe Saite für zwei Töne eines Akkordes auswählen kann.
 
-Damit die Kombination von Stimmen (@code{\partcombine}) richtig funktioniert, 
-müssen speziell erstellte Stimmen innerhalb des Tabulatursystems 
+Damit die Kombination von Stimmen (@code{\partcombine}) richtig funktioniert,
+müssen speziell erstellte Stimmen innerhalb des Tabulatursystems
 (@code{TabStaff}) benutzt werden:
 
 @lilypond[quote,ragged-right,verbatim]
@@ -142,22 +148,21 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 >>
 @end lilypond
 
+@node Custom tablatures
+@subsubsection Custom tablatures
 
-
-@node Non-guitar tablatures
-@unnumberedsubsubsec Non-guitar tablatures
 @cindex Non-guitar tablatures
 
-Die Stimmung der Saiten kann verändert werden. Die Stimmung muss als 
+Die Stimmung der Saiten kann verändert werden. Die Stimmung muss als
 eine Scheme-Liste dargestellt werden, in der jeder Saite eine Zahl
-zugewiesen ist, die die Tonhöhe der offenen Saite in Halbtönen 
-(gemessen von c') darstellt. Die Liste wird als Definition von 
-@code{stringTunings} dargestellt. Die Halbtöne können vom c' aus addiert 
-oder subtrahiert werden. Die Reihenfolge der Zahlen bestimmt auch 
-die Reihenfolge der Saiten. LilyPond entnimmt aus dieser Liste 
+zugewiesen ist, die die Tonhöhe der offenen Saite in Halbtönen
+(gemessen von c') darstellt. Die Liste wird als Definition von
+@code{stringTunings} dargestellt. Die Halbtöne können vom c' aus addiert
+oder subtrahiert werden. Die Reihenfolge der Zahlen bestimmt auch
+die Reihenfolge der Saiten. LilyPond entnimmt aus dieser Liste
 auch die Anzahl der Saiten.
 
-Im nächsten Beispiel wird 
+Im nächsten Beispiel wird
 @code{stringTunings} für die Tonhöhen @code{e, a, d,} und @code{g} gesetzt.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -169,81 +174,39 @@ Im nächsten Beispiel wird
 >>
 @end lilypond
 
-LilyPond bringt schon vordefinierte Stimmungen für Banjo, Mandoline, 
+LilyPond bringt schon vordefinierte Stimmungen für Banjo, Mandoline,
 Gitarre und Bassgitarre mit.
 
 @example
 \set TabStaff.stringTunings = #bass-tuning
 @end example
 
-Der Standard ist die Gitarrenstimmung (@code{guitar-tuning}) mit den 
-Saiten EADGBE. Andere vordefinierte Stimmungen sind 
+Der Standard ist die Gitarrenstimmung (@code{guitar-tuning}) mit den
+Saiten EADGBE. Andere vordefinierte Stimmungen sind
 @code{guitar-open-g-tuning},
 @code{mandolin-tuning} und @code{banjo-open-g-tuning}.
 
 @seealso
 
-In der Datei @file{scm/@/output@/-lib@/.scm} sind die Stimmungen 
+In der Datei @file{scm/@/output@/-lib@/.scm} sind die Stimmungen
 definiert.
-Programmreferenz: @internalsref{Tab_note_heads_engraver}.
+Programmreferenz: @rinternals{Tab_note_heads_engraver}.
 
 @knownissues
 
 Spezialeffekte für Gitarren sind noch nicht implementiert.
 
-
-
-@node Banjo tablatures
-@unnumberedsubsubsec Banjo tablatures
-@cindex Banjo tablatures
-
-LilyPond unterstützt die Basisnotation für das fünfsaitige Banjo. Die 
-Banjo-Tabulatur-Funktion sollte zum Notieren von Banjo-Tabulaturen 
-verwendet werden, damit die richtigen Bund-Nummern für die fünfte 
-Saite gesetzt werden:
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\new TabStaff <<
-  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
-  \set TabStaff.stringTunings = #banjo-open-g-tuning
-  {
-    \stemDown
-    g8 d' g'\5 a b g e d' |
-    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
-    g4
-  }
->>
-@end lilypond
-
-Eine Anzahl von üblichen Stimmungen für das Banjo sind in LilyPond 
-schon vordefiniert: 
-@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
-@code{banjo-open-d-tuning} (aDF#AD) und @code{banjo-open-dm-tuning}
-(aDFAD).
-
-Diese Stimmungen können für das viersaitige Banjo angepasst werden, 
-indem die @code{four-string-banjo}-Funktion eingesetzt wird:
-
-@example
-\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
-@end example
-
-@seealso
-
-Die Datei @file{scm/@/output@/-lib@/.scm} enthält vordefinierte 
-Banjo-Stimmungen.
-
-
 @node Fret diagrams
-@unnumberedsubsubsec Fret diagrams
+@subsubsection Fret diagrams
+
 @cindex Fret-Diagramme
 @cindex Griffsymbole
 @cindex Gitarrengriffsymbole
 @cindex Akkordtabulartur
 @cindex Akkorddiagramm
 
-Akkordtabulaturen (Fret-Diagramme) können zu Noten als eine Beschriftung 
-hinzugefügt werden. Die Beschriftung enthält Information über die 
+Akkordtabulaturen (Fret-Diagramme) können zu Noten als eine Beschriftung
+hinzugefügt werden. Die Beschriftung enthält Information über die
 erwünschte Akkordtabulatur, wie das folgende Beispiel zeigt:
 
 @lilypond[verbatim, ragged-right, quote]
@@ -280,21 +243,20 @@ Beschriftungsbefehl. Details über die Beschriftungsbefehle finden sich
 im Abschnitt @ref{Text markup commands}. Alle drei Modi werden im
 obigen Beispiel gezeigt.
 
-Einige graphische Eigenschaften können verändert werden. Genaueres zur 
-Schnittstelle für die Griffsymboleigenschaften findet sich unter 
-@internalsref{fret-diagram-interface}.
-
+Einige graphische Eigenschaften können verändert werden. Genaueres zur
+Schnittstelle für die Griffsymboleigenschaften findet sich unter
+@rinternals{fret-diagram-interface}.
 
 @seealso
 
-Examples: @lsrdir{guitar}.
-
+Beispiele:
+@rlsr{Fretted strings}.
 
 @node Right hand fingerings
-@unnumberedsubsubsec Right hand fingerings
+@subsubsection Right hand fingerings
 
-Fingersatz für die rechte Hand in Akkorden kann notiert werden, indem 
-der Befehl @code{@var{note}-\rightHandFinger @var{finger}} 
+Fingersatz für die rechte Hand in Akkorden kann notiert werden, indem
+der Befehl @code{@var{note}-\rightHandFinger @var{finger}}
 benutzt wird.
 
 @lilypond[verbatim,fragment,relative=2]
@@ -310,10 +272,10 @@ Buchstaben abgekürzt werden, etwa @code{RH}.
 
 @cindex Fingersatz, rechte Hand, Gitarre
 @cindex Rechte Hand-Fingersatz für Gitarre
- 
+
 @commonprop
 
-Größere Kontrolle über den Fingersatz der rechten Hand kann 
+Größere Kontrolle über den Fingersatz der rechten Hand kann
 mit einer Definition des Befehls @code{strokeFingerOrientations}
 erreicht werden:
 
@@ -327,31 +289,44 @@ erreicht werden:
 }
 @end lilypond
 
-Die Buchstaben, die für den Fingersatz verwendet werden, sind in der 
-Eigenschaft @code{digit-names} enthalten, aber sie können auch individuell 
-verändert werden, indem @code{\rightHandFinger} mit einer Zeichenfolge als 
+Die Buchstaben, die für den Fingersatz verwendet werden, sind in der
+Eigenschaft @code{digit-names} enthalten, aber sie können auch individuell
+verändert werden, indem @code{\rightHandFinger} mit einer Zeichenfolge als
 Argument eingesetzt wird, wie im nächsten Beispiel:
 
 @lilypond[quote,verbatim,ragged-right,fragment,relative=1]
 #(define RH rightHandFinger)
 {
   \set strokeFingerOrientations = #'(right)
-  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@") 
+  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@")
   <c-\RH #5 >4
-  <c-\RH "@">4  
+  <c-\RH "@">4
 }
 @end lilypond
 
 @seealso
 
-Program reference: @internalsref{StrokeFinger}
+Program reference: @rinternals{StrokeFinger}
 
+@node Guitar
+@subsection Guitar
 
+UNTRANSLATED NODE: IGNORE ME
 
-@node Other guitar issues
-@unnumberedsubsubsec Other guitar issues
+@menu
+* Guitar tablatures::
+* Indicating position and barring::
+@end menu
 
-Dieses Beispiel zeigt, wie Griff - und Barre-Angaben 
+@node Guitar tablatures
+@subsubsection Guitar tablatures
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Indicating position and barring
+@subsubsection Indicating position and barring
+
+Dieses Beispiel zeigt, wie Griff - und Barre-Angaben
 eingefügt werden können.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=0]
@@ -364,12 +339,60 @@ b16 d16 g16 b16 e16
 e16 b16 g16 d16
 @end lilypond
 
-Gedämpfte (X) Notenköpfe werden in der Gitarrenmusik benutzt, um 
-zu signalisieren, dass der Gitarrist eine Note oder einen Akkord spielen 
-soll, indem seine Finger die Saiten nur berühren, anstatt sie vollständig 
-herunterzudrücken. Damit werden schlagzeugartige Geräusche erreicht, 
-die aber noch die ursprüngliche Tonhöhe ahnen lassen. Diese Spielart 
+Gedämpfte (X) Notenköpfe werden in der Gitarrenmusik benutzt, um
+zu signalisieren, dass der Gitarrist eine Note oder einen Akkord spielen
+soll, indem seine Finger die Saiten nur berühren, anstatt sie vollständig
+herunterzudrücken. Damit werden schlagzeugartige Geräusche erreicht,
+die aber noch die ursprüngliche Tonhöhe ahnen lassen. Diese Spielart
 wird mit Kreuz-Notenköpfen notiert, wie im Abschnitt @ref{Special note heads}
 gezeigt.
 
+@node Banjo
+@subsection Banjo
 
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Banjo tablatures::
+@end menu
+
+@node Banjo tablatures
+@subsubsection Banjo tablatures
+
+@cindex Banjo tablatures
+
+LilyPond unterstützt die Basisnotation für das fünfsaitige Banjo. Die
+Banjo-Tabulatur-Funktion sollte zum Notieren von Banjo-Tabulaturen
+verwendet werden, damit die richtigen Bund-Nummern für die fünfte
+Saite gesetzt werden:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff <<
+  \set TabStaff.tablatureFormat = #fret-number-tablature-format-banjo
+  \set TabStaff.stringTunings = #banjo-open-g-tuning
+  {
+    \stemDown
+    g8 d' g'\5 a b g e d' |
+    g4 d''8\5 b' a'\2 g'\5 e'\2 d' |
+    g4
+  }
+>>
+@end lilypond
+
+Eine Anzahl von üblichen Stimmungen für das Banjo sind in LilyPond
+schon vordefiniert:
+@code{banjo-c-tuning} (gCGBD), @code{banjo-modal-tuning} (gDGCD),
+@code{banjo-open-d-tuning} (aDF#AD) und @code{banjo-open-dm-tuning}
+(aDFAD).
+
+Diese Stimmungen können für das viersaitige Banjo angepasst werden,
+indem die @code{four-string-banjo}-Funktion eingesetzt wird:
+
+@example
+\set TabStaff.stringTunings = #(four-string-banjo banjo-c-tuning)
+@end example
+
+@seealso
+
+Die Datei @file{scm/@/output@/-lib@/.scm} enthält vordefinierte
+Banjo-Stimmungen.

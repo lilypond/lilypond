@@ -83,6 +83,9 @@
 /* define if you have sys/stat.h */
 #define HAVE_SYS_STAT_H 0
 
+/* define if you have fpu_control.h */
+#define HAVE_FPU_CONTROL_H 0
+
 /* define if you have sys/stat.h */
 #define STAT_MACROS_BROKEN 0
 

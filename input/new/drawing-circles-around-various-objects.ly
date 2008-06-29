@@ -1,5 +1,4 @@
 \version "2.11.23"
-\layout { ragged-right= ##t }
 \header {
   lsrtags = "tweaks-and-overrides"
   texidoc = "
@@ -14,14 +13,14 @@ such as @code{#'thickness}, @code{#'circle-padding} or @code{#'font-size}.
   doctitle = "Drawing circles around various objects"
 }
 
-\relative c'{
-c1
-\set Score.markFormatter
-  = #(lambda (mark context)
+\relative c' {
+  c1
+  \set Score.markFormatter =
+    #(lambda (mark context)
              (make-circle-markup (format-mark-numbers mark context)))
-\mark \default
-c2 d^\markup{\circle \finger "2"}
-\override Score.BarNumber #'break-visibility = #all-visible
-\override Score.BarNumber  #'stencil
-  = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
+  \mark \default
+  c2 d^\markup { \circle \finger 2 }
+  \override Score.BarNumber #'break-visibility = #all-visible
+  \override Score.BarNumber  #'stencil =
+    #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
 }

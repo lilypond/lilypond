@@ -9,14 +9,13 @@
 @c \version "2.11.38"
 
 @c Andrew's TODO List
-@c references - started
-@c piano staff - deleted, material moved to 'references'
-@c manual changes - started
-@c automatic changes
-@c staff-chagne lines
-@c cross-staff stems
-@c pedals
-@c discant symbols
+@c references - first pass complete
+@c manual changes - first pass complete
+@c automatic changes - first pass complete
+@c staff-change lines - first pass complete
+@c cross-staff stems - first pass complete
+@c pedals - first pass complete
+@c accordian discant symbols
 
 @node Keyboard instruments
 @section Keyboard instruments
@@ -41,36 +40,52 @@
 @node References for keyboards
 @subsubsection References for keyboards
 
-Keyboard instruments are usually notated with Piano staves. These are
-two or more normal staves coupled with a brace. The same notation is
-also used for harps and other keyed instruments. Organ music is normally
-written with two staves inside a @code{PianoStaff} group and third,
-normal staff for the pedals.
+Keyboard instruments are usually notated with Piano staves.  These
+are two or more normal staves coupled with a brace.  The same
+notation is also used for harps and other keyed instruments.
+Organ music is normally written with two staves inside a
+@code{PianoStaff} group and third, normal staff for the pedals.
 
-The staves in keyboard music are largely independent, but sometimes
-voices can cross between the two staves.  In this section we discuss
-some notation techniques particular to keyboard music.
+The staves in keyboard music are largely independent, but
+sometimes voices can cross between the two staves.  In this
+section we discuss some notation techniques particular to keyboard
+music.
 
 Several common issues in keyboard music are covered elsewhere:
+
 @itemize
-@item Keyboard music can be written in parallel with @ref{Writing music
-in parallel}.
+@item Keyboard music usually contains multiple voices and the
+number of voices may change regularly; this is described in
+@ref{Collision resolution}.
+
+@item Keyboard music can be written in parallel, as described in
+@ref{Writing music in parallel}.
+
 @item Fingerings are indicated with @ref{Fingering instructions}.
+
 @item Organ pedal indications are inserted as articulations, see
 @ref{List of articulations}.
+
 @item Vertical grid lines can be shown with @ref{Grid lines}.
-@item Keyboard music often contains @notation{Laissez vibrer} ties as
-well as ties on arpeggios and tremelos, described in @ref{Ties}.
-@item Arpeggio can be placed across multiple voices and staves with
-@ref{Arpeggio}.
-@item Tremolo marks are created with @ref{Tremolo repeats}.
+
+@item Keyboard music often contains @notation{Laissez vibrer} ties
+as well as ties on arpeggios and tremelos, described in
+@ref{Ties}.
+
+@item Placing arpeggios across multiple voices and staves is
+covered in @ref{Arpeggio}.
+
+@item Tremolo marks are described in @ref{Tremolo repeats}.
+
 @item Several of the tweaks that can occur in keyboard music are
 demonstrated in @rlearning{Real music example}.
-@item Hidden notes can be used to produce ties that cross voices, as
-shown in @rlearning{Other uses for tweaks}.
+
+@item Hidden notes can be used to produce ties that cross voices,
+as shown in @rlearning{Other uses for tweaks}.
+
 @end itemize
 
-@snippets
+@c @snippets
 @c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 @c {creating-slurs-across-voices.ly}
 
@@ -98,8 +113,11 @@ Snippets:
 @rlsr{Keyboards}.
 
 @knownissues
+
 Dynamics are not centered, but workarounds do exist.  See the
 @q{piano centered dynamics} template in @rlearning{Piano templates}.
+
+@c TODO Find out status of the dynamics engravers
 
 @node Changing staff manually
 @subsubsection Changing staff manually
@@ -114,15 +132,16 @@ Dynamics are not centered, but workarounds do exist.  See the
 @funindex \change
 
 Voices can be switched between staves manually, using the command
+
 @example
 \change Staff = @var{staffname}
 @end example
 
 @noindent
-The string @var{staffname} is the name of the staff.  It switches the
-current voice from its current staff to the Staff called
-@var{staffname}.  Typical values for @var{staffname} are @code{"up"}
-and @code{"down"}, or @code{"RH"} and @code{"LH"}.
+The string @var{staffname} is the name of the staff.  It switches
+the current voice from its current staff to the Staff called
+@var{staffname}.  Typical values for @var{staffname} are
+@code{"up"} and @code{"down"}, or @code{"RH"} and @code{"LH"}.
 
 Cross-staff notes are beamed automatically:
 
@@ -139,18 +158,20 @@ Cross-staff notes are beamed automatically:
     \change Staff = up
   }
   \new Staff = "down" {
-    \clef "bass"
+    \clef bass
     s1 % keep staff alive
   }
 >>
 @end lilypond
 
 If the beaming needs to be tweaked, make any changes to the stem
-directions first. The beam positions are then measured from the center
-of the staff that is closest to the beam. For a simple example of beam
-tweaking, see @rlearning{Fixing overlapping notation}.
+directions first.  The beam positions are then measured from the
+center of the staff that is closest to the beam.  For a simple
+example of beam tweaking, see @rlearning{Fixing overlapping
+notation}.
 
 @seealso
+
 Learning Manual:
 @rlearning{Fixing overlapping notation}.
 
@@ -164,128 +185,171 @@ Snippets:
 Internals Reference:
 @rinternals{Beam}.
 
+
 @node Changing staff automatically
 @subsubsection Changing staff automatically
+
+@cindex changing staff automatically
 @cindex automatic staff changes
 @cindex staff changes, automatic
+@funindex \autochange
 
-Voices can be made to switch automatically between the top and the bottom
-staff.  The syntax for this is
+Voices can be made to switch automatically between the top and the
+bottom staff.  The syntax for this is
 
-@quotation
 @example
 \autochange @dots{}@var{music}@dots{}
 @end example
-@end quotation
 
 @noindent
-This will create two staves inside the current PianoStaff, called
-@code{up} and @code{down}.  The lower staff will be in bass clef by
-default.
-
-A @code{\relative} section that is outside of @code{\autochange} has
-no effect on the pitches of @var{music}, so, if necessary, put
-@code{\relative} inside @code{\autochange} like
-
-@quotation
-@example
-\autochange \relative @dots{} @dots{}
-@end example
-@end quotation
-
-
-The autochanger switches on basis of the pitch (middle C is the turning
-point), and it looks ahead skipping over rests to switch in
-advance.  Here is a practical example
+This will create two staves inside the current staff group
+(usually a @code{PianoStaff}), called @code{"up"} and
+@code{"down"}.  The lower staff will be in bass clef by default.
+The autochanger switches on basis of the pitch (middle C is the
+turning point), and it looks ahead skipping over rests to switch
+in advance.
 
 @lilypond[quote,verbatim,ragged-right]
-\new PianoStaff
-  \autochange \relative c'
-  {
-    g4 a b c d r4 a g
+\new PianoStaff {
+  \autochange {
+    g4 a b c' d' r4 a g
   }
+}
 @end lilypond
 
+A @code{\relative} section that is outside of @code{\autochange}
+has no effect on the pitches of the music, so if necessary, put
+@code{\relative} inside @code{\autochange}.
+
+If additional control is needed over the individual staves, they
+can be created manually with the names @code{"up"} and
+@code{"down"}.  The @code{\autochange} command will then switch
+its voice between the existing staves.  For example, this is
+necessary to place a key signature in the lower staff:
+
+@lilypond[quote,verbatim,ragged-right]
+\new PianoStaff <<
+  \new Staff = "up" {
+    \new Voice = "melOne" {
+      \key g \major
+      \autochange \relative c' {
+        g8 b a c b d c e
+        d r fis, g a2
+      }
+    }
+  }
+  \new Staff = "down" {
+    \key g \major
+    \clef bass
+  }
+>>
+@end lilypond
 
 @seealso
 
-Notation Reference: @ref{Changing staff manually}.
+Notation Reference:
+@ref{Changing staff manually}.
 
-Internals Reference: @rinternals{AutoChangeMusic}.
+Snippets:
+@rlsr{Keyboards}.
 
-
+Internals Reference:
+@rinternals{AutoChangeMusic}.
 
 @knownissues
 
 The staff switches may not end up in optimal places.  For high
 quality output, staff switches should be specified manually.
 
+Chords will not be split across the staves; the staff will be
+chosen by the first note named in the chord.
 
-@code{\autochange} cannot be inside @code{\times}.
 
 @node Staff-change lines
 @subsubsection Staff-change lines
 
-
+@cindex staff-change lines
+@cindex cross-staff lines
+@cindex lines, staff-change follower
 @cindex follow voice
 @cindex staff switching
 @cindex cross-staff
-
 @funindex followVoice
 
-Whenever a voice switches to another staff, a line connecting the notes
-can be printed automatically.  This is switched on by setting
-@code{followVoice} to true
+Whenever a voice switches to another staff, a line connecting the
+notes can be printed automatically:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new PianoStaff <<
-  \new Staff="one" {
-    \set followVoice = ##t
+  \new Staff = "one" {
+    \showStaffSwitch
     c1
     \change Staff=two
     b2 a
   }
-  \new Staff="two" { \clef bass \skip 1*2 }
+  \new Staff = "two" { \clef bass s1*2 }
 >>
 @end lilypond
-
-@seealso
-
-Internals Reference: @rinternals{VoiceFollower}.
 
 @predefined
 
 @funindex \showStaffSwitch
-@code{\showStaffSwitch},
 @funindex \hideStaffSwitch
-@code{\hideStaffSwitch}.
+@code{\showStaffSwitch}, @code{\hideStaffSwitch}.
+
+@seealso
+
+Snippets:
+@rlsr{Keyboards}.
+
+Internals Reference:
+@rinternals{VoiceFollower}.
+
 
 @node Cross-staff stems
 @subsubsection Cross-staff stems
+
+@cindex cross-staff notes
+@cindex notes, cross-staff
+@cindex cross-staff stems
+@cindex stems, cross-staff
 
 Chords that cross staves may be produced by increasing the length
 of the stem in the lower staff, so it reaches the stem in the upper
 staff, or vice versa.
 
 @lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
 \new PianoStaff <<
-  \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
+  \new Staff \relative c' {
+    f8 e4 d8 <f bes,>2
   }
-  \new Staff {
-    \clef bass
-    a4 a8
+  \new Staff \relative c' {
+    << {
+      \clef bass
+      \stemUp
+      \override Stem #'length = #12
+      \override Stem #'cross-staff = ##t
+      \override Stem #'flag-style = #'no-flag
+      a8 g4 f8
+    } \\
+    { f,2 d' }
+    >>
   }
 >>
 @end lilypond
+
+@snippets
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+
+
+@seealso
+
+Snippets:
+@rlsr{Keyboards}.
+
+Internals Reference:
+@rinternals{Stem}
 
 @node Piano
 @subsection Piano

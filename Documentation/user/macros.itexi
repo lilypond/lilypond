@@ -106,6 +106,11 @@
 
 @end macro
 
+@macro lydoctitle {TEXT}
+@emph{\TEXT\}
+
+@end macro
+
 @macro funindex {TEXT}
 @findex \TEXT\
 @kindex \TEXT\
@@ -114,18 +119,6 @@
 
 
 @c   **** Links and references ****
-
-@c  TO BE DEPRECATED
-@c usage: @lsrdir{ancient,Ancient-notation}
-@macro lsrdir{SECTION,DIR}
-@ifhtml
-@uref{source/input/lsr/lilypond-snippets/\DIR\.html,\SECTION\}
-@end ifhtml
-@ifnothtml
-\DIR\
-@end ifnothtml
-@end macro
-
 
 @c  Definitions for references:
 @c     @rglos
@@ -139,13 +132,6 @@
 @c ***** HTML *****
 
 @ifset bigpage
-
-@c TO BE DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page,Internals Reference}
-@end macro
-
 
 @macro rglos{TEXT}
 @vindex \TEXT\
@@ -180,13 +166,6 @@
 
 
 @ifclear bigpage
-
-@c  DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Internals Reference}
-@end macro
-
 
 @macro rglos{TEXT}
 @vindex \TEXT\
@@ -225,14 +204,6 @@
 @ifdocbook
 @c ***** DOCBOOK-XML *****
 
-@c  DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Internals Reference}
-@end macro
-
-
-
 @macro rglos{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Music Glossary}
@@ -268,17 +239,9 @@
 @ifinfo
 @c **** INFO ****
 
-@c DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@inforef{\TEXT\,,lilypond-internals,Internals Reference}
-@end macro
-
-
-
 @macro rglos{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,music-glossary,Music Glossary}
+@ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
 @macro rlearning{TEXT}
@@ -302,7 +265,7 @@
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@inforef{\TEXT\,,lilypond-internals,Internals Reference}
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @end ifinfo
@@ -310,14 +273,6 @@
 
 @c **** TEX ****
 @iftex
-
-@c DEPRECATED
-@macro internalsref{TEXT}
-@vindex \TEXT\
-@code{\TEXT\}
-@end macro
-
-
 
 @macro rglos{TEXT}
 @vindex \TEXT\
@@ -347,5 +302,3 @@ program usage manual, @ref{\TEXT\,,,lilypond-program,Application Usage}
 
 @end iftex
 
-
-@c EOF

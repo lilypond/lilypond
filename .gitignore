@@ -63,6 +63,7 @@ config.status.lineno
 configure
 gcstat*.scm
 lily-[0-9a-f][0-9a-f][0-9a-f]*
+lsr-unsafe.txt
 nohup.out
 out
 out-cov

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: b92cad66f01316c6d1121fe08bffc92db104c46c
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -122,12 +122,12 @@ contemplan el interfaz de presentación @code{font-interface}.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
-@internalsref{fontSize},
-@internalsref{font-size},
-@internalsref{font-interface}.
+@rinternals{fontSize},
+@rinternals{font-size},
+@rinternals{font-interface}.
 
 
 @node Fingering instructions
@@ -183,14 +183,14 @@ Referencia de la notación:
 @ref{Controlling direction and placement}
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
-@internalsref{FingeringEvent},
-@internalsref{fingering-event},
-@internalsref{Fingering_engraver},
-@internalsref{New_fingering_engraver},
-@internalsref{Fingering}.
+@rinternals{FingeringEvent},
+@rinternals{fingering-event},
+@rinternals{Fingering_engraver},
+@rinternals{New_fingering_engraver},
+@rinternals{Fingering}.
 
 
 @node Hidden notes
@@ -224,11 +224,11 @@ c
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
-@internalsref{Note_spacing_engraver},
-@internalsref{NoteSpacing}.
+@rinternals{Note_spacing_engraver},
+@rinternals{NoteSpacing}.
 
 
 @node Coloring objects
@@ -309,7 +309,7 @@ Referencia de la notación:
 the input}.
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 
 @knownissues
@@ -355,12 +355,12 @@ c2 \parenthesize r
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funciionamiento interno:
-@internalsref{Parenthesis_engraver},
-@internalsref{ParenthesesItem},
-@internalsref{parentheses-interface}.
+@rinternals{Parenthesis_engraver},
+@rinternals{ParenthesesItem},
+@rinternals{parentheses-interface}.
 
 
 @node Stems
@@ -397,12 +397,12 @@ Referencia de la notación:
 @ref{Controlling direction and placement}.
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
-@internalsref{Stem_engraver},
-@internalsref{Stem},
-@internalsref{stem-interface}.
+@rinternals{Stem_engraver},
+@rinternals{Stem},
+@rinternals{stem-interface}.
 
 
 @node Outside the staff
@@ -449,12 +449,12 @@ una nota individual.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
-@internalsref{Balloon_engraver},
-@internalsref{BalloonTextItem},
-@internalsref{balloon-interface}.
+@rinternals{Balloon_engraver},
+@rinternals{BalloonTextItem},
+@rinternals{balloon-interface}.
 
 
 @node Grid lines
@@ -506,15 +506,15 @@ sincronizadas con las notas.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
-@internalsref{Grid_line_span_engraver},
-@internalsref{Grid_point_engraver},
-@internalsref{GridLine},
-@internalsref{GridPoint},
-@internalsref{grid-line-interface},
-@internalsref{grid-point-interface}.
+@rinternals{Grid_line_span_engraver},
+@rinternals{Grid_point_engraver},
+@rinternals{GridLine},
+@rinternals{GridPoint},
+@rinternals{grid-line-interface},
+@rinternals{grid-point-interface}.
 
 
 @node Analysis brackets
@@ -562,10 +562,10 @@ Los corchetes de análisis se pueden anidar.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
-@internalsref{Horizontal_bracket_engraver},
-@internalsref{HorizontalBracket},
-@internalsref{horizontal-bracket-interface},
-@internalsref{Staff}.
+@rinternals{Horizontal_bracket_engraver},
+@rinternals{HorizontalBracket},
+@rinternals{horizontal-bracket-interface},
+@rinternals{Staff}.

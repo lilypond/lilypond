@@ -186,9 +186,9 @@ Kapitels  @ruser{Dynamics} findet sich:
 @quotation
 @seealso
 
-Programmreferenz: @internalsref{DynamicText}, @internalsref{Hairpin}.
+Programmreferenz: @rinternals{DynamicText}, @rinternals{Hairpin}.
 Vertikale Positionierung dieser Symbole wird mit
-@internalsref{DynamicLineSpanner} erreicht.
+@rinternals{DynamicLineSpanner} erreicht.
 @end quotation
 
 @noindent

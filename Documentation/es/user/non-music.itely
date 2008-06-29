@@ -116,7 +116,7 @@ Cartel de propósito general en el pie de página, centrado al final de la últi
 
 A continuación presentamos una demostración de todos los campos que
 están disponibles.  Fíjese en que puede utilizar en la cabecera
-cualquier instrucción de marcado de texto (Véase @ref{Text markup}).
+cualquier instrucción de marcado de texto (Véase @ref{Formatting text}).
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
 \paper {
@@ -565,7 +565,7 @@ traducen a una fracción fija del rango de volumen MIDI disponible, los
 crescendi y decrescendi hacen que el volumen varíe de forma lineal
 entre sus dos extremos.  Las fracciones se pueden ajustar mediante
 @code{dynamicAbsoluteVolumeFunction} dentro de un contexto
-@internalsref{Voice}.  Para cada tipo de instrumento MIDI se puede
+@rinternals{Voice}.  Para cada tipo de instrumento MIDI se puede
 definir un rango de volumen.  Esto proporciona un control de
 ecualización básico, que puede realzar significativamente la calidad
 de la salida MIDI.  El ecualizador se puede controlar estableciendo un

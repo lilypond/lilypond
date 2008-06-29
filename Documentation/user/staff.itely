@@ -121,16 +121,16 @@ in the score.  This is done with the commands @code{\startStaff} and
 Music Glossary: @rglos{staff}, @rglos{staves}.
 
 Notation Reference: @ref{Percussion staves}, 
-@ref{Guitar tablatures}, @ref{Gregorian Chant contexts},
+@ref{Guitar tablatures}, @ref{Gregorian chant contexts},
 @ref{Mensural contexts}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{Staff}, @internalsref{DrumStaff},
-@internalsref{GregorianTranscriptionStaff}, @internalsref{RhythmicStaff},
-@internalsref{TabStaff}, @internalsref{MensuralStaff},
-@internalsref{VaticanaStaff}, @internalsref{StaffSymbol}.
+Internals Reference: @rinternals{Staff}, @rinternals{DrumStaff},
+@rinternals{GregorianTranscriptionStaff}, @rinternals{RhythmicStaff},
+@rinternals{TabStaff}, @rinternals{MensuralStaff},
+@rinternals{VaticanaStaff}, @rinternals{StaffSymbol}.
 
 
 
@@ -239,10 +239,10 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {use-square-bracket-at-the-start-of-a-staff-group.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {display-bracket-with-only-one-staff-in-a-system.ly}
 
 @cindex mensurstriche layout
@@ -250,7 +250,7 @@ piano music and @code{ChoirStaff} for all kind of vocal ensemble music.
 @cindex transcription of mensural music
 @cindex mensural music, transcription of
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 @c FIXME: move to NR 2.8.x when sectioning is ready
 
@@ -260,13 +260,13 @@ Music Glossary: @rglos{brace},
 @rglos{bracket}, @rglos{grand staff}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{Staff}, @internalsref{ChoirStaff},
-@internalsref{GrandStaff}, @internalsref{PianoStaff}, 
-@internalsref{StaffGroup}, @internalsref{systemStartDelimiter},
-@internalsref{SystemStartBar}, @internalsref{SystemStartBrace},
-@internalsref{SystemStartBracket}, @internalsref{systemStartSquare}.
+Internals Reference: @rinternals{Staff}, @rinternals{ChoirStaff},
+@rinternals{GrandStaff}, @rinternals{PianoStaff}, 
+@rinternals{StaffGroup}, @rinternals{systemStartDelimiter},
+@rinternals{SystemStartBar}, @rinternals{SystemStartBrace},
+@rinternals{SystemStartBracket}, @rinternals{systemStartSquare}.
 
 
 @node Deeper nested staff groups
@@ -378,19 +378,19 @@ source code, for instructions how to set them see @ref{Instrument names}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {nesting-staves.ly}
 
 
 @seealso
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{InnerChoirStaffGroup}, 
-@internalsref{InnerStaffGroup}, @internalsref{SystemStartBar}, 
-@internalsref{SystemStartBrace}, @internalsref{SystemStartBracket},
-@internalsref{systemStartDelimiterHierarchy}.
+Internals Reference: @rinternals{InnerChoirStaffGroup}, 
+@rinternals{InnerStaffGroup}, @rinternals{SystemStartBar}, 
+@rinternals{SystemStartBrace}, @rinternals{SystemStartBracket},
+@rinternals{systemStartDelimiterHierarchy}.
 
 
 
@@ -547,14 +547,14 @@ b b
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {making-some-staff-lines-thicker-than-the-others.ly}
 
 @seealso
 
 Glossary: @rglos{line}, @rglos{ledger line}, @rglos{staff}.
 
-Internals Reference: @internalsref{StaffSymbol}.
+Internals Reference: @rinternals{StaffSymbol}.
 
 @knownissues
 
@@ -640,9 +640,9 @@ with the @code{\skip} command.
 Music Glossary: @rglos{ossia}, @rglos{staff}, @rglos{Frenched staff}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{StaffSymbol}.
+Internals Reference: @rinternals{StaffSymbol}.
 
 
 @node Hiding staves
@@ -744,7 +744,7 @@ of which it is written.
 @end lilypond
 
 @c FIXME not yet in master
-@c lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 @c {remove-the-first-empy-line.ly}
 
 @predefined
@@ -758,11 +758,11 @@ of which it is written.
 Notation Reference: @ref{Staff symbol}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{ChordNames},
-@internalsref{FiguredBass}, @internalsref{Lyrics},
-@internalsref{Staff}, @internalsref{VerticalAxisGroup}.
+Internals Reference: @rinternals{ChordNames},
+@rinternals{FiguredBass}, @rinternals{Lyrics},
+@rinternals{Staff}, @rinternals{VerticalAxisGroup}.
 
 @node Writing parts
 @subsection Writing parts
@@ -825,9 +825,9 @@ Music Glossary: @rglos{metronome}, @rglos{metronomic indication},
 Notation Reference: @ref{Formatting text}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{MetronomeMark}, @ref{MIDI
+Internals Reference: @rinternals{MetronomeMark}, @ref{MIDI
 output}.
 
 
@@ -945,10 +945,10 @@ c1 c c c \break
 Notation Reference: @ref{Modifying context plug-ins}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{InstrumentName},
-@internalsref{PianoStaff}, @internalsref{Staff}.
+Internals Reference: @rinternals{InstrumentName},
+@rinternals{PianoStaff}, @rinternals{Staff}.
 
 
 @node Quoting other voices
@@ -1068,9 +1068,9 @@ written entirely in lower-case letters: @code{\addquote}.
 Notation Reference: @ref{Instrument transpositions}.
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{QuoteMusic}, @internalsref{Voice}.
+Internals Reference: @rinternals{QuoteMusic}, @rinternals{Voice}.
 
 
 @node Formatting cue notes
@@ -1182,8 +1182,8 @@ cbsn = \relative c, {
 @seealso
 
 Snippets:
-@lsrdir{Staff,Staff-notation}.
+@rlsr{Staff notation}.
 
-Internals Reference: @internalsref{Voice}.
+Internals Reference: @rinternals{Voice}.
 
 

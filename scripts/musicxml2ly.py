@@ -55,24 +55,23 @@ additional_definitions = {
             '(-0.1 . 0.1) '(0.1 . 1)))
         0.7 X))))""",
   "eyeglasses": """eyeglassesps = #"0.15 setlinewidth
-% 255 0 0 setrgbcolor
--0.9 0 translate
-1.1 1.1 scale
-1.2 0.7 moveto
-0.7 0.7 0.5 0 361 arc
-stroke
-2.20 0.70 0.50 0 361 arc
-stroke
-1.45 0.85 0.30 0 180 arc
-stroke
-0.20 0.70 moveto
-0.80 2.00 lineto
-0.92 2.26 1.30 2.40 1.15 1.70 curveto
-stroke
-2.70 0.70 moveto
-3.30 2.00 lineto
-3.42 2.26 3.80 2.40 3.65 1.70 curveto
-stroke"
+      -0.9 0 translate
+      1.1 1.1 scale
+      1.2 0.7 moveto
+      0.7 0.7 0.5 0 361 arc
+      stroke
+      2.20 0.70 0.50 0 361 arc
+      stroke
+      1.45 0.85 0.30 0 180 arc
+      stroke
+      0.20 0.70 moveto
+      0.80 2.00 lineto
+      0.92 2.26 1.30 2.40 1.15 1.70 curveto
+      stroke
+      2.70 0.70 moveto
+      3.30 2.00 lineto
+      3.42 2.26 3.80 2.40 3.65 1.70 curveto
+      stroke"
 eyeglasses =  \markup { \with-dimensions #'(0 . 4.4) #'(0 . 2.5) \postscript #eyeglassesps }"""
 }
 
@@ -1329,7 +1328,7 @@ chordkind_dict = {
     'diminished-seventh': 'dim7',
     'augmented-seventh': 'aug7',
     'half-diminished': 'dim5m7',
-    'major-minor': '7m5',
+    'major-minor': 'maj7m5',
         # Sixths:
     'major-sixth': '6',
     'minor-sixth': 'm6',
@@ -1356,7 +1355,7 @@ chordkind_dict = {
     #'German': '???',
         # Other:
     #'pedal': '???',(pedal-point bass)
-    #'power': '???',(perfect fifth)
+    'power': '5^3',
     #'Tristan': '???',
     'other': '1',
     'none': None,
@@ -1386,6 +1385,19 @@ def musicxml_harmony_to_lily_chordname (n):
         inversion = n.get_maybe_exist_named_child ('inversion')
         if inversion:
             # TODO: Lilypond does not support inversions, does it?
+
+            # Mail from Carl Sorensen on lilypond-devel, June 11, 2008:
+            # 4. LilyPond supports the first inversion in the form of added 
+            # bass notes.  So the first inversion of C major would be c:/g.   
+            # To get the second inversion of C major, you would need to do 
+            # e:6-3-^5 or e:m6-^5.  However, both of these techniques 
+            # require you to know the chord and calculate either the fifth 
+            # pitch (for the first inversion) or the third pitch (for the 
+            # second inversion) so they may not be helpful for musicxml2ly.
+            inversion_count = string.atoi (inversion.get_text ())
+            if inversion_count == 1:
+              # TODO: Calculate the bass note for the inversion...
+              pass
             pass
         for deg in n.get_named_children ('degree'):
             d = musicexp.ChordModification ()

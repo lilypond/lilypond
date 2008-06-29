@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0204d415337bf74ae8626f396e6ea3cc5669c8f2
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -179,8 +179,7 @@ dentro del contexto Score, y así los corchetes de las repeticiones se
 imprimen solamente por encima del pentagrama superior.  Se puede
 ajustar esto añadiento el grabador @code{Volta_engraver} al contexto
 Staff en que queremos que aparezcan los corchetes; véase
-@ref{Modifying context plug-ins} y
-@c @lsr{repeats,volta@/-multi@/-staff@/.ly}.
+@ref{Modifying context plug-ins} y @rlsr{Repeats}.
 
 @lilypond[verbatim,ragged-right,quote]
 \score { <<
@@ -206,16 +205,22 @@ consulte @ref{Bar lines} para ver más información.
 
 @seealso
 
-Glosario musical: @rglos{repeat}.
+Glosario musical:
+@rglos{repeat}.
 @c FIXME : add @rglos{volta} after glossary addition
 
-Referencia de la notación: @ref{Bar lines}, @ref{Modifying context plug-ins}.
+Referencia de la notación:
+@ref{Bar lines},
+@ref{Modifying context plug-ins}.
 
-Fragmentos de código: @lsrdir{Repeats,Repeats}
+Fragmentos de código:
+@rlsr{Repeats}.
 
-Referencia de funcionamiento interno: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic},
-@internalsref{UnfoldedRepeatedMusic}.
+Referencia de funcionamiento interno:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic},
+@rinternals{UnfoldedRepeatedMusic}.
 
 @c Ejemplos:
 
@@ -271,7 +276,7 @@ Imprimir una barra de compás @code{:|}
 @item @code{(volta @var{texto})}
 Imprimir un corchete de volta que diga @var{texto} El texto se puede
 especificar como una cadena de texto o como un texto de marcado,
-consulte @ref{Text markup}.  No olvide cambiar la fuente tipográfica,
+consulte @ref{Formatting text}.  No olvide cambiar la fuente tipográfica,
 porque el tipo por defecto para los números no contiene caracteres
 alfabéticos;
 
@@ -291,13 +296,15 @@ c4 c4
 
 @seealso
 
-Referencia de la notación: @ref{Bar lines}.
+Referencia de la notación:
+@ref{Bar lines}.
 
-Fragmentos de código: @lsrdir{Repeats,Repeats}
+Fragmentos de código:
+@rlsr{Repeats}.
 
-Referencia del programa: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic}, @internalsref{VoltaRepeatedMusic} y
-@internalsref{UnfoldedRepeatedMusic}.
+Referencia del programa: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic} y
+@rinternals{UnfoldedRepeatedMusic}.
 
 
 @node Written-out repeats
@@ -360,13 +367,16 @@ R1
 
 @seealso
 
-Fragmentos de código: @lsrdir{Repeats,Repeats}
+Fragmentos de código:
+@rlsr{Repeats}.
 
-Referencia del programa: @internalsref{RepeatSlash},
-@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
-@internalsref{DoublePercentRepeatCounter},
-@internalsref{PercentRepeatCounter},
-@internalsref{PercentRepeatedMusic}.
+Referencia del programa:
+@rinternals{RepeatSlash},
+@rinternals{PercentRepeat},
+@rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 @node Tremolo repeats
 @subsubsection Tremolo repeats
@@ -428,14 +438,18 @@ trasladan hacia la salida MIDI.
 
 @seealso
 
-Referencia de la notación: @ref{Tremolo repeats}.
+Referencia de la notación:
+@ref{Tremolo repeats}.
 
-Referencia de funcionamiento interno: @internalsref{Beam},
-@internalsref{StemTremolo}.
+Referencia de funcionamiento interno:
+@rinternals{Beam},
+@rinternals{StemTremolo}.
 
-Fragmentos de código: @lsrdir{Repeats,Repeats}
+Fragmentos de código:
+@rlsr{Repeats}.
 
-En otros lugares: @internalsref{StemTremolo}.
+En otros lugares:
+@rinternals{StemTremolo}.
 
 
 

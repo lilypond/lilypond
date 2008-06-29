@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,6 +10,8 @@
 
 @node Expressive marks
 @section Expressive marks
+
+@lilypondfile[quote]{expressive-headword.ly}
 
 @menu
 * Attached to notes::           
@@ -99,9 +101,9 @@ Hier ist eine Liste, die alle möglichen Zeichen darstellt:
 Die vertikale Anordnung der Zeichen wird durch die 
 @code{script-priority}-Eigenschaft kontrolliert. Je kleiner die Zahl 
 ist, umso näher wird das Zeichen an die Note gesetzt. In dem 
-nächsten Beispiel hat das Textsymbol (@internalsref{TextScript}),
+nächsten Beispiel hat das Textsymbol (@rinternals{TextScript}),
 ein Kreuz, die niedrigste Priorität und wird also als unterstes 
-gesetzt. Im zweiten Beispiel hat der Praller (das @internalsref{Script}) 
+gesetzt. Im zweiten Beispiel hat der Praller (das @rinternals{Script}) 
 die niedrigste Priorität und erscheint innen. Wenn zwei Objekte die 
 gleiche Priorität haben, entscheidet die Reihenfolge, in der sie notiert 
 sind, welches zuerst kommt.
@@ -117,7 +119,7 @@ a4^\prall^\markup { \sharp }
 
 @seealso
 
-Programmreferenz: @internalsref{Script}.
+Programmreferenz: @rinternals{Script}.
 
 
 @knownissues
@@ -195,7 +197,7 @@ c2 b4 a g1\espressivo
 @end lilypond
 
 Hier können allerdings sehr kurze Klammern auftreten. Der Wert von 
-@code{minimum-length} in @internalsref{Voice}.@internalsref{Hairpin} 
+@code{minimum-length} in @rinternals{Voice}.@rinternals{Hairpin} 
 kann angepasst werden, etwa:
 
 @example
@@ -245,7 +247,7 @@ Um neue Dynamikzeichen oder Text, der mit diesen zusammen
 gesetzt wird, zu erstellen, siehe den Abschnitt @ref{New dynamic marks}.
 
 Vertikale Position der Zeichen wird von der Funktion 
-@internalsref{DynamicLineSpanner} verwaltet.
+@rinternals{DynamicLineSpanner} verwaltet.
 
 
 @commonprop
@@ -295,9 +297,9 @@ eingesetzt werden.
 
 @seealso
 
-Programmreferenz: @internalsref{DynamicText}, @internalsref{Hairpin}.
+Programmreferenz: @rinternals{DynamicText}, @rinternals{Hairpin}.
 Vertikale Positionierung der Symbole wird von der Eigenschaft 
-@internalsref{DynamicLineSpanner} verwaltet.
+@rinternals{DynamicLineSpanner} verwaltet.
 
 
 @node New dynamic marks
@@ -435,7 +437,7 @@ die Richtung (1=nach oben, -1=nach unten).
 
 Im Handbuch: @ref{Automatic note splitting}.
 
-Programmreferenz: @internalsref{Tie}.
+Programmreferenz: @rinternals{Tie}.
 
 
 @knownissues
@@ -508,7 +510,7 @@ markieren. Das kann in LilyPond erreicht werden, indem die Eigenschaft
 
 @seealso
 
-Programmreferenz: @internalsref{Slur}.
+Programmreferenz: @rinternals{Slur}.
 
 
 @node Phrasing slurs
@@ -546,7 +548,7 @@ Es können keine simultanen Phrasierungsbögen gesetzt werden.
 
 @seealso
 
-Programmreferenz: @internalsref{PhrasingSlur}.
+Programmreferenz: @rinternals{PhrasingSlur}.
 
 
 @node Laissez vibrer ties
@@ -567,11 +569,11 @@ mit dem Befehl @code{\laissezVibrer} eingegeben werden.
 @seealso
 
 Programmreferenz:
-@internalsref{LaissezVibrerTie}
-@internalsref{LaissezVibrerTieColumn}
+@rinternals{LaissezVibrerTie},
+@rinternals{LaissezVibrerTieColumn}.
 
 Beispiele:
-@lsr{connecting,laissez-vibrer-ties.ly}
+@rlsr{Expressive marks}.
 
 
 @node Breath marks
@@ -600,9 +602,11 @@ d4
 
 @seealso
 
-Programmreferenz: @internalsref{BreathingSign}.
+Programmreferenz:
+@rinternals{BreathingSign}.
 
-Beispiele: @lsr{expressive,breathing-sign.ly}
+Beispiele:
+@rlsr{Winds}.
 
 
 @node Falls and doits
@@ -657,10 +661,11 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 @seealso
 
-Programmreferenz: @internalsref{Glissando}.
+Programmreferenz:
+@rinternals{Glissando}.
 
 Beispiele:
-@lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}
+@rlsr{Expressive marks}.
 
 
 
@@ -709,7 +714,7 @@ eigene Befehle.
 
 Wenn ein Arpeggio sich über mehrere Systeme erstreckt, kann mit einem 
 Klaviersystem die Eigenschaft 
-@internalsref{PianoStaff}.@code{connectArpeggios} gesetzt werden.
+@rinternals{PianoStaff}.@code{connectArpeggios} gesetzt werden.
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new PianoStaff <<
@@ -739,7 +744,7 @@ Klaviersystem die Eigenschaft
 
 Notationshandbuch: @ref{Ties}, um Arpeggios auszuschreiben.
 
-Programmreferenz: @internalsref{Arpeggio}.
+Programmreferenz: @rinternals{Arpeggio}.
 
 
 @knownissues
@@ -791,6 +796,6 @@ ohne Hals in Klammern gesetzt.
 
 @seealso
 
-Programmreferenz: @internalsref{TrillSpanner}.
+Programmreferenz: @rinternals{TrillSpanner}.
 
 

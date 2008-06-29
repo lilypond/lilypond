@@ -1,4 +1,4 @@
-.PHONY : all clean config default diff dist doc exe help html lib TAGS\
+.PHONY : all clean config default dist doc exe help html lib TAGS\
 	 po
 
 all:	 default
@@ -32,43 +32,38 @@ maintainerclean:
 	$(MAKE) local-distclean
 
 
-# configure:
-#
+# This doesn't allow command-line options, is it really useful? -jm
 config:
 	./$(src-depth)/configure
-#
 
 
-# target help:
-#
 generic-help:
 	@echo -e "\
 Makefile for $(PACKAGE_NAME) $(TOPLEVEL_VERSION)\n\
 Usage: make ["VARIABLE=value"]... [TARGET]\n\
 \n\
-Targets:\n"
+Targets specific to current directory:\n"
 
 help: generic-help local-help
-	@echo -e "\
-  all         update everything\n\
-  clean       remove all generated stuff in $(outdir)\n\
-  check       run self tests\n\
+	@echo -e "Generic targets:\n\
+  all *       update everything except website documentation\n\
+  clean *     remove all generated stuff in $(outdir)\n\
   default     same as the empty target\n\
   exe         update all executables\n\
   help        this help\n\
-  install     install programs and data (prefix=$(prefix))\n\
+  install *   install programs and data (prefix=$(prefix))\n\
   lib         update all libraries\n\
-  web         update website in directory \`out-www'\n\
-  web-install install website documentation in (webdir=$(webdir))\n\
-  web-clean   clean \`out-www' directory\n\
+  web *       update website in directory \`out-www'\n\
+  web-install * install website documentation in (webdir=$(webdir))\n\
+              and Info documentation with images\n\
+  web-clean * clean \`out-www' directory\n\
   TAGS        generate tagfiles\n\
 \n\
 \`make' may be invoked from any subdirectory.\n\
-Note that all commands recurse into subdirectories;\n\
+Note that all commands marked with a star (*) recurse into subdirectories;\n\
 prepend \`local-' to restrict operation to the current directory.\n\
-Example: \`local-clean'.\n"
+Example: \`local-clean'."
 
-# "
 local-help:
 
 local-dist: $(DIST_FILES) $(OUT_DIST_FILES) $(NON_ESSENTIAL_DIST_FILES)
@@ -163,18 +158,6 @@ $(config_make): $(top-src-dir)/configure
 	touch $@		# do something for multiple simultaneous configs.
 
 
-deb:
-	$(MAKE) -C $(depth)/debian
-	cd $(depth) && debuild
-
-diff:
-	$(PYTHON) $(step-bindir)/package-diff.py  --outdir=$(top-src-dir)/$(outdir) --package=$(top-src-dir) $(makeflags)
-	-ln -f $(depth)/$(outdir)/$(distname).diff.gz $(patch-dir)
-
-release:
-	$(PYTHON) $(step-bindir)/release.py --outdir=$(top-src-dir)/$(outdir) --package=$(top-src-dir)
-
-
 ################ website.
 
 local-WWW:
@@ -190,3 +173,6 @@ WWW-post: local-WWW-post
 web:
 	$(MAKE) out=www WWW
 	$(MAKE) out=www WWW-post
+
+web-clean:
+	$(MAKE) out=www clean

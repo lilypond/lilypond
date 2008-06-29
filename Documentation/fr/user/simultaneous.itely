@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 33ba8d40c3493011a4b39ab8b1369701f8013bd6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,6 +13,8 @@
 
 @node Simultaneous notes
 @section Simultaneous notes
+
+@lilypondfile[quote]{simultaneous-headword.ly}
 
 La notion musicale de polyphonie fait référence au fait d'avoir plus
 d'une voix simultanément dans une pièce.  Dans LilyPond, la notion de
@@ -68,11 +70,11 @@ pour tenter d'empécher les chevauchements entre notes et clusters.
 
 @seealso
 
-Référence du programme : @internalsref{ClusterSpanner},
-@internalsref{ClusterSpannerBeacon},
-@internalsref{Cluster_spanner_engraver}.
+Référence du programme : @rinternals{ClusterSpanner},
+@rinternals{ClusterSpannerBeacon},
+@rinternals{Cluster_spanner_engraver}.
 
-Exemples : @lsr{contemporary,cluster@/.ly}.
+Exemples : @rlsr{Simultaneous notes}.
 
 @knownissues
 
@@ -114,7 +116,7 @@ en séparant les voix avec @code{\\}
 }
 @end lilypond
 
-Le séparateur permet aux contextes @internalsref{Voice}@footnote{Ces
+Le séparateur permet aux contextes @rinternals{Voice}@footnote{Ces
 voix polyphoniques sont parfois appelées @qq{couches} ou @qq{calques} dans
 d'autres logiciels de notation.}
 @cindex couches
@@ -178,7 +180,7 @@ pas à @code{noteB} ou @code{noteA}.
 
 D'ordinaire, les têtes de notes pointées et non-pointées ne sont pas
 fusionnées, mais lorsque la propriété @code{merge-differently-dotted} de
-l'objet @internalsref{NoteCollision} est définie, elles se trouvent
+l'objet @rinternals{NoteCollision} est définie, elles se trouvent
 fusionnées :
 
 @lilypond[quote,verbatim,fragment,ragged-right,relative=2]
@@ -260,7 +262,7 @@ internes --- trois et quatre --- ont @code{\shiftOn}.  @code{\shiftOnn}
 et @code{\shiftOnnn} sont des niveaux supplémentaires de décalage.
 
 Quand LilyPond est dépassé, la propriété @code{force-hshift} de l'objet
-@internalsref{NoteColumn}, et des silences à hauteur déterminée, peuvent
+@rinternals{NoteColumn}, et des silences à hauteur déterminée, peuvent
 s'avérer utiles pour dicter au programme les choix de placement.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -278,8 +280,8 @@ s'avérer utiles pour dicter au programme les choix de placement.
 
 @seealso
 Référence du programme : les objets appropriés pour résoudre les
-collisions sont @internalsref{NoteCollision} et
-@internalsref{RestCollision}.
+collisions sont @rinternals{NoteCollision} et
+@rinternals{RestCollision}.
 
 
 @knownissues
@@ -360,7 +362,7 @@ les propriétés @code{soloText}, @code{soloIIText}, et @code{aDueText}.
 >>
 @end lilypond
 
-LilyPond interprète dans un contexte @internalsref{Voice} les
+LilyPond interprète dans un contexte @rinternals{Voice} les
 arguments fournis à @code{\partcombine}.  Si vous travaillez avec des
 octaves relatives, spécifiez @code{\relative} dans chacune des
 expressions musicales, comme ceci :
@@ -377,7 +379,7 @@ sans effet sur les hauteurs de @var{musicexpr1} et @var{musicexpr2}.
 
 @seealso
 
-Référence du programme : @internalsref{PartCombineMusic}.
+Référence du programme : @rinternals{PartCombineMusic}.
 
 @knownissues
 
@@ -392,7 +394,7 @@ plus d'une fois par mesure.
 En interne, @code{\partcombine} interprète les deux arguments en tant
 que @code{Voice}s, dénommées @code{one} et @code{two}, puis décide de
 quand les parties seront fusionnées.  Par conséquent, si les arguments
-changent pour d'autres noms de contexte @internalsref{Voice}, les
+changent pour d'autres noms de contexte @rinternals{Voice}, les
 événements qu'ils contiendraient seront ignorés. 
 
 

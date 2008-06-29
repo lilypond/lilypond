@@ -49,7 +49,7 @@ change the size of variable symbols, such as beams or slurs.
 @warning{For font sizes of text, see
 @ref{Common markup commands}.}
 
-@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
+@lilypond[verbatim,quote,relative=2]
 \huge
 c4.-> d8---3
 \large
@@ -76,7 +76,7 @@ Six steps is exactly a factor of two.  The Scheme function
 factor.  The @code{font-size} property can also be set directly,
 so that only certain layout objects are affected.
 
-@lilypond[quote,fragment,relative=2,verbatim,ragged-right]
+@lilypond[verbatim,quote,relative=2]
 \set fontSize = #3
 c4.-> d8---3
 \override NoteHead #'font-size = #-4
@@ -92,7 +92,7 @@ c4.-> d8---3
 
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
-@code{font-size = #0}) depends on the standard staff height.
+@w{@code{font-size = #0}}) depends on the standard staff height.
 For a 20pt staff, a 10pt font is selected.
 
 The @code{font-size} property can only be set on layout objects
@@ -134,13 +134,13 @@ Internals Reference:
 Fingering instructions can be entered using
 @var{note}-@var{digit}:
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 e-3
 @end lilypond
 
 Markup texts may be used for finger changes. 
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @end lilypond
 
@@ -149,7 +149,7 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 A thumb-script can be added (e.g., in cello music) to indicate
 that a note should be played with the thumb. 
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 <a_\thumb a'-3>2 <b_\thumb b'-3>
 @end lilypond
 
@@ -159,23 +159,23 @@ that a note should be played with the thumb.
 Fingerings for chords can also be added to individual notes of the
 chord by adding them after the pitches.
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 <c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
 @end lilypond
 
 Fingering instructions may be manually placed above or below the
-staff, see @ref{Controlling direction and placement}.
+staff, see @ref{Direction and placement}.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
 
 @seealso
 
 Notation Reference:
-@ref{Controlling direction and placement}
+@ref{Direction and placement}
 
 Snippets:
 @rlsr{Editorial annotations}.
@@ -200,7 +200,7 @@ Internals Reference:
 Hidden (or invisible or transparent) notes can be useful in
 preparing theory or composition exercises.
 
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+@lilypond[verbatim,quote,relative=2]
 c4 d
 \hideNotes
 e4 f
@@ -215,7 +215,7 @@ c
 Notation objects which are attached to invisible notes are still
 visible.
 
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+@lilypond[verbatim,quote,relative=2]
 c4( d)
 \hideNotes
 e4(\p f)--
@@ -251,7 +251,7 @@ Internals Reference:
 Individual objects may be assigned colors.  Valid color names
 are listed in the @ref{List of colors}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \override NoteHead #'color = #red
 c4 c
 \override NoteHead #'color = #(x11-color 'LimeGreen)
@@ -272,7 +272,7 @@ possible to access X11 colors by the multi-word form of its name.
 If @code{x11-color} cannot make sense of the parameter then the
 color returned defaults to black. 
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
@@ -293,7 +293,7 @@ b2 cis
 Exact RGB colors can be specified using the Scheme function
 @code{rgb-color}.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
 \set Staff.instrumentName = \markup {
   \with-color #(x11-color 'navy) "Clarinet"
@@ -342,7 +342,7 @@ Objects may be parenthesized by prefixing @code{\parenthesize} to
 the music event.  When prefixed to a chord, it parenthesizes every
 note.  Individual notes inside a chord may also be parenthesized.
 
-@lilypond[quote,relative=2,fragment,verbatim,ragged-right]
+@lilypond[verbatim,quote,relative=2]
 c2 \parenthesize d
 c2 \parenthesize <c e g>
 c2 <c \parenthesize e g>
@@ -350,7 +350,7 @@ c2 <c \parenthesize e g>
 
 Non-note objects may be parenthesized as well.
 
-@lilypond[quote,relative=2,fragment,verbatim,ragged-right]
+@lilypond[verbatim,quote,relative=2]
 c2-\parenthesize -. d
 c2 \parenthesize r
 @end lilypond
@@ -398,12 +398,12 @@ made invisible.
 @cindex stem, down
 @cindex stem, neutral
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
 @seealso
 Notation Reference:
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Snippets:
 @rlsr{Editorial annotations}.
@@ -433,7 +433,7 @@ Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
 notation.
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
@@ -448,14 +448,15 @@ notation.
 @cindex notation, explaining
 
 There are two music functions, @code{balloonGrobText} and
-@code{balloonText};  the former is used like @code{\once \override} to 
-attach text to any grob, and the latter is used like @code{\tweak}, 
-typically within chords, to attach text to an individual note.
+@code{balloonText};  the former is used like
+@w{@code{\once \override}} to attach text to any grob, and the
+latter is used like @code{\tweak}, typically within chords, to
+attach text to an individual note.
 
 Balloon text normally influences note spacing, but this can be
 altered:
 
-@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \new Voice \with { \consists "Balloon_engraver" }
 {
   \balloonLengthOff
@@ -500,7 +501,7 @@ Grid lines extend from the middle lines of each staff.  The
 @code{gridInterval} must specify the duration between the grid
 lines.
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[verbatim,quote]
 \layout {
   \context {
     \Staff
@@ -530,7 +531,7 @@ lines.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {grid-lines--changing-their-appearance.ly}
 
 
@@ -559,7 +560,7 @@ Internals Reference:
 Brackets are used in musical analysis to indicate structure in musical
 pieces.  Simple horizontal brackets are supported.
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[verbatim,quote]
 \layout {
   \context {
     \Voice
@@ -574,7 +575,7 @@ pieces.  Simple horizontal brackets are supported.
 
 Analysis brackets may be nested.
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[verbatim,quote]
 \layout {
   \context {
     \Voice

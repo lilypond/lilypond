@@ -9,7 +9,7 @@ ritenuto = \markup { \italic  "rit." }
 cresc =  {
     #(ly:export (make-event-chord (list (make-span-event 'CrescendoEvent START)))) 
     \set crescendoText =  \markup { \italic \bold "cresc." }
-    \set crescendoSpanner =  #'dashed-line
+    \set crescendoSpanner =  #'text
 }
 
 \layout {

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
+    Translation of GIT committish: 54ddd0943ae763043343f0726af7a6e2ac427ad5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,27 +9,42 @@
 
 @c \version "2.11.38"
 
-
 @node Unfretted string instruments
 @section Unfretted string instruments
 
-This section includes extra information for writing for orchestral
-strings.
+UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Orchestral strings TODO::
+@menu
+* Common notation for unfretted strings::
+* Bowed instruments::
+* Plucked instruments::
 @end menu
 
-@node Orchestral strings TODO
-@subsection Orchestral strings TODO
+@node Common notation for unfretted strings
+@subsection Common notation for unfretted strings
 
+UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Artificial harmonics (strings)::
+@menu
+* References for unfretted strings::
 @end menu
 
-@node Artificial harmonics (strings)
-@subsubsection Artificial harmonics (strings)
+@node References for unfretted strings
+@subsubsection References for unfretted strings
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Bowed instruments
+@subsection Bowed instruments
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* References for bowed strings::
+@end menu
+
+@node References for bowed strings
+@subsubsection References for bowed strings
 
 @cindex armónicos artificiales
 
@@ -40,4 +55,17 @@ introducen marcando la nota que es un armónico mediante @code{\harmonic}.
 <c g'\harmonic>4
 @end lilypond
 
+@node Plucked instruments
+@subsection Plucked instruments
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Harp::
+@end menu
+
+@node Harp
+@subsubsection Harp
+
+UNTRANSLATED NODE: IGNORE ME
 

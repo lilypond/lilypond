@@ -114,8 +114,7 @@ public:
 				string id, SCM ops);
   Context *create_unique_context (SCM context_name, string context_id,
 				  SCM ops);
-  vector<Context*> path_to_acceptable_context (SCM alias,
-						  Output_def *) const;
+  vector<Context_def*> path_to_acceptable_context (SCM alias) const;
 };
 
 /*
@@ -123,8 +122,11 @@ public:
 */
 
 void apply_property_operations (Context *tg, SCM pre_init_ops);
+void execute_revert_property (Context *context,
+			      SCM context_property,
+			      SCM grob_property_path);
 void execute_pushpop_property (Context *trg, SCM prop, SCM eltprop, SCM val);
-void execute_general_pushpop_property (Context *context,
+void sloppy_general_pushpop_property (Context *context,
 				       SCM context_property, SCM grob_property_path, SCM val);
 SCM updated_grob_properties (Context *tg, SCM sym);
 Context *find_context_below (Context *where,

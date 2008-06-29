@@ -3045,6 +3045,23 @@ def conv (str):
                   r"\\revert Hairpin #'to-barline", str)
     str = re.sub (r"hairpinToBarline\s*=\s*##([tf]+)",
                   r"\\override Hairpin #'to-barline = ##\1", str)
+    str = re.sub (r"\\set (de|)crescendoSpanner = #'dashed-line",
+                  r"\\set \1crescendoSpanner = #'text", str)
     return str
 
 conversions.append (((2, 11, 46), conv, """\\set hairpinToBarline -> \\override Hairpin #'to-barline"""))
+
+def conv (str):
+    str = re.sub (r"compressMusic", r"scaleDurations", str)
+    return str
+
+conversions.append (((2, 11, 48), conv, """\\compressMusic -> \\scaleDurations"""))
+
+def conv (str):
+    if re.search ('metronomeMarkFormatter', str):
+	stderr_write (NOT_SMART % _ ("metronomeMarkFormatter got an additional text argument.\n"))
+	stderr_write (_ ("The function assigned to Score.metronomeMarkFunction now uses the signature\n%s") %
+                          "\t(format-metronome-markup text dur count context)\n")
+    return str
+
+conversions.append (((2, 11, 50), conv, """metronomeMarkFormatter uses text markup as second argument"""))

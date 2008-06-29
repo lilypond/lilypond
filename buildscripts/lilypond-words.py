@@ -39,7 +39,7 @@ for name in ['ly/chord-modifiers-init.ly',
              'ly/declarations-init.ly',
              'ly/params-init.ly']:
     s = open (name, 'r').read ()
-    keywords += [w for w in re.findall (r"(?m)^\s*([a-zA-Z]+)\s*=", s)]
+    keywords += [w for w in re.findall (r"(?m)^\s*\"?([a-zA-Z]+)\"?\s*=", s)]
 
 # note names
 for name in ['ly/catalan.ly',

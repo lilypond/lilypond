@@ -1,5 +1,3 @@
-include $(stepdir)/www-targets.make
-
 local-dist: configure
 
 local-distclean:
@@ -52,32 +50,20 @@ dist:
 	(cd ./$(depth)/$(outdir); $(TAR) -cf -  --owner=0 --group=0 $(DIST_NAME) | gzip -9 > $(DIST_NAME).tar.gz)
 	rm -rf $(distdir)/
 
-#
-#
 local-help:
 	@echo -e "\
   config      rerun configure\n\
-  deb         build Debian package\n\
-  diff        generate patch: $(depth)/$(outdir)/$(distname).diff.gz\n\
-  .           Options:\n\
-  .             from=0.1.74\n\
-  .             help==\n\
-  .             release==\n\
-  .             to=0.1.74.jcn2\n\
   dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
   distclean   also remove configure output\n\
   doc         update all documentation (without images)\n\
   cvs-clean   also remove out directories and generated files\n\
-  info        update info docs (without images)\n\
-  info out=www  update info docs with images\n\
   maintainerclean also remove distributed generated files\n\
   po          make new translation Portable Object database\n\
   po-replace  do po-update and replace catalogs with msgmerged versions\n\
   po-update   update translation Portable Object database\n\
-  release     roll tarball and generate patch\n\
 \n\
-Some of these top level targets (diff, dist, release) can be issued\n\
-from anywhere in the source tree.\n\
-"\
-#
+Some more targets are available for testing changes:\n\
+  test-baseline  check  test-redo  test-clean\n\
+For more information on these targets, see Testing LilyPond\n\
+in Application Usage documentation.\n"
 

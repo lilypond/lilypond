@@ -1,0 +1,8 @@
+ doctitlees = "Voces adicionales para evitar colisiones"
+ texidoces = "
+En ciertos casos de polifonía compleja, se necesitan voces adicionales
+para evitar colisiones entre las notas.  Las voces adicionales se
+añaden definiendo una variable que utiliza la función de Scheme
+context-spec-music.
+
+"

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,6 +10,9 @@
 
 @node Repeats
 @section Repeats
+
+@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
+{repeats-headword.ly}
 
 Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine 
 ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
@@ -173,10 +176,10 @@ muss
 
 @seealso
 
-Programmreferenz: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic} und
-@internalsref{UnfoldedRepeatedMusic}.
+Programmreferenz: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic} und
+@rinternals{UnfoldedRepeatedMusic}.
 
 
 Beispiele:
@@ -185,9 +188,7 @@ Klammern für die Wiederholung werden normalerweise nur über dem obersten
 System ausgegeben. Das kann verändert werden, indem 
  @code{Volta_engraver} in den @code{Staff}-Kontext gesetzt wird,
 über dem diese Klammern erscheinen sollen. Vgl.
-@ref{Modifying context plug-ins} und
-
-@lsr{repeats,volta@/-multi@/-staff@/.ly}.
+@ref{Modifying context plug-ins} und @rlsr{Repeats}.
 
 
 @knownissues
@@ -255,10 +256,10 @@ c4 c4
 
 @seealso
 
-Programmreferenz: @internalsref{VoltaBracket},
-@internalsref{RepeatedMusic},
-@internalsref{VoltaRepeatedMusic} und
-@internalsref{UnfoldedRepeatedMusic}.
+Programmreferenz: @rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic} und
+@rinternals{UnfoldedRepeatedMusic}.
 
 
 @node Short repeats
@@ -312,11 +313,11 @@ R1
 
 @seealso
 
-Programmreferenz: @internalsref{RepeatSlash},
-@internalsref{PercentRepeat}, @internalsref{DoublePercentRepeat},
-@internalsref{DoublePercentRepeatCounter},
-@internalsref{PercentRepeatCounter},
-@internalsref{PercentRepeatedMusic}.
+Programmreferenz: @rinternals{RepeatSlash},
+@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter},
+@rinternals{PercentRepeatedMusic}.
 
 
 
@@ -351,7 +352,7 @@ die im Abschnitt @ref{Tremolo subdivisions} beschrieben wird.
 
 Im Handbuch: @ref{Tremolo subdivisions}, @ref{Repeats}.
 
-Programmreferenz: @internalsref{Beam}, @internalsref{StemTremolo}.
+Programmreferenz: @rinternals{Beam}, @rinternals{StemTremolo}.
 
 
 @node Tremolo subdivisions
@@ -382,5 +383,5 @@ MIDI-Datei aufgenommen.
 
 Im Handbuch: @ref{Tremolo repeats}.
 
-Programmreferenz: @internalsref{StemTremolo}.
+Programmreferenz: @rinternals{StemTremolo}.
 

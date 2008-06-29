@@ -17,6 +17,7 @@ class Rest
 {
 public:
   DECLARE_SCHEME_CALLBACK (y_offset_callback, (SCM));
+  DECLARE_SCHEME_CALLBACK (calc_cross_staff, (SCM));
   DECLARE_GROB_INTERFACE();
   static string glyph_name (Grob *, int, string, bool);
   static SCM brew_internal_stencil (Grob*, bool);

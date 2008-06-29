@@ -136,7 +136,9 @@ Free Documentation License''.
 @top GNU LilyPond --- The music typesetter
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-This is the Notation Reference for GNU LilyPond version @version{}.
+This is the Notation Reference (NR) for GNU LilyPond version @version{}.
+For more information about how this fits with the other
+documentation, see @rlearning{About the documentation}.
 
 @cindex web site
 @cindex URL
@@ -153,7 +155,6 @@ of this and other documentation.
     specific purposes.
 * Input syntax::                   General information about
     lilypond input files.
-* Non-musical notation::           Output that is not musical notation.
 * Spacing issues::                 Display of output on paper.
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::     Expert usage.
@@ -176,7 +177,6 @@ Appendices
 @include specialist.itely
 
 @include input.itely
-@include non-music.itely
 @include spacing.itely
 
 @include changing-defaults.itely

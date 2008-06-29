@@ -1,4 +1,7 @@
+measure-counter.ly
 positioning-segno-and-coda-with-line-break.ly
-adding-volta-brackets-to-additional-staves.ly
-volta-multi-staff.ly
 shortening-volta-brackets.ly
+volta-multi-staff.ly
+volta-below-chords.ly
+volta-text-markup-using-repeatcommands.ly
+adding-volta-brackets-to-additional-staves.ly

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 6a56196b4b7dc895e7be90159f3b0fb94650fb9b
+    Translation of GIT committish: 9c6e7a4df574fb28fa9043e585c97a20ca13f10b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -155,14 +155,17 @@ Free Documentation License''.
 @top GNU LilyPond --- manuel d'initiation
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
-Ce document est le manuel d'initiation pour GNU LilyPond @version{}.
+Ce document constitue le manuel d'initiation à GNU LilyPond
+@version{}.  Pour connaître la place qu'occupe ce manuel dans la
+documentation, consultez @ref{About the documentation}.
 
 @cindex web site
 @cindex URL
 
-More information can be found at
-@uref{http://@/www@/.lilypond@/.org/}.  The website contains on-line copies
-of this and other documentation.
+Vous pouvez trouvez plus d'informations sur
+@uref{http://@/www@/.lilypond@/.org/}.  Le site web contient des
+copies en ligne de cette documentation, ainsi qu'une documentation
+supplémentaire.
 
 @menu
 * Preface::

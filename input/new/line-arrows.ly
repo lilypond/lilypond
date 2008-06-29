@@ -1,8 +1,8 @@
 \version "2.10.0"
-\layout { ragged-right= ##t }
 \header {
   lsrtags = "expressive-marks"
-  texidoc = "Arrows can be applied to text-spanners and line-spanners (such as the Glissando)"
+  texidoc = "Arrows can be applied to text-spanners and line-spanners
+(such as the Glissando)."
   doctitle = "Line arrows"
 }
 
@@ -21,6 +21,6 @@
   \override Glissando #'arrow-length = #0.5
   \override Glissando #'arrow-width = #0.25
   
-  a8\startTextSpan gis8 a4 b4\glissando
-  b,4 | g' c\stopTextSpan c
+  a8\startTextSpan gis a4 b\glissando b,
+  g'4 c\stopTextSpan c2
 }
