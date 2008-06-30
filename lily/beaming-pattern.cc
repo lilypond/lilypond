@@ -70,7 +70,7 @@ Beam_rhythmic_element::count (Direction d) const
   CENTER.
 */
 Direction
-Beaming_pattern::flag_direction (vsize i) const
+Beaming_pattern::flag_direction (Beaming_options const &options, vsize i) const
 {
   // The extremal stems shouldn't be messed with, so it's appropriate to
   // return CENTER here also.
@@ -80,6 +80,16 @@ Beaming_pattern::flag_direction (vsize i) const
   int count = infos_[i].count (LEFT); // Both directions should still be the same
   int left_count = infos_[i-1].count (RIGHT);
   int right_count = infos_[i+1].count (LEFT);
+
+  // If we are told to subdivide beams and we are next to a beat, point the
+  // beamlet away from the beat.
+  if (options.subdivide_beams_)
+    {
+      if (infos_[i].rhythmic_importance_ < 0)
+	return RIGHT;
+      else if (infos_[i+1].rhythmic_importance_ < 0)
+	return LEFT;
+    }
 
   if (count <= left_count && count <= right_count)
     return CENTER;
@@ -123,12 +133,12 @@ Beaming_pattern::beamify (Beaming_options const &options)
 
   for (vsize i = 1; i < infos_.size () - 1; i++)
     {
-      Direction non_flag_dir = other_dir (flag_direction (i));
+      Direction non_flag_dir = other_dir (flag_direction (options, i));
       if (non_flag_dir)
 	{
 	  int importance = (non_flag_dir == LEFT)
 	    ? infos_[i].rhythmic_importance_ : infos_[i+1].rhythmic_importance_;
-	  int count = (importance < 0)
+	  int count = (importance < 0 && options.subdivide_beams_)
 	    ? 1 : min (infos_[i].count (non_flag_dir),
 		       infos_[i+non_flag_dir].count (-non_flag_dir));
 
