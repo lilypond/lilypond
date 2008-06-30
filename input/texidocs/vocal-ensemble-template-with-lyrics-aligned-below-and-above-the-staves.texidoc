@@ -1,0 +1,8 @@
+  texidoces = "
+Esta plantilla es, básicamente, la misma que la sencilla plantilla
+\"Conjunto vocal\", excepto que aquí todas las líneas de letra se
+colocan utilizando @code{alignAboveContext} y
+@code{alignBelowContext}.
+
+"
+  doctitlees = "Plantilla para conjunto vocal con letras alineadas encima y debajo de los pentagramas"

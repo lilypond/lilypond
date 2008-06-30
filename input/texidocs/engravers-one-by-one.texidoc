@@ -1,0 +1,30 @@
+  texidoces = "
+Del problema central de la notación, esto es, crear un determinado
+símbolo, se encargan los «plugins» o complementos añadidos.  Cada
+uno de los complementos se conoce como un grabador. En este
+ejemplo, los grabadores se van activando uno por uno, en el orden
+siguiente:
+
+- cabeza de las notas,
+
+- el símbolo del pentagrama,
+
+- clave,
+
+- plicas,
+
+- barras, ligaduras de expresión, acentos,
+
+- alteraciones, líneas divisorias, indicación del compás, y armadura.
+
+Los grabadores se encuentran agrupados. Por ejemplo, las cabezas
+de nota, ligaduras de expresión, barras de corchea, etc. forman un
+contexto de voz. Los grabadores de la armadura, alteraciones,
+compás, etc. forman un contexto de pentagrama.
+
+Sólo podemos ver el primer ejemplo en este documento; para ver los
+demás debemos descartar el fragmento de código y procesarlo en
+nuestro ordenador.
+
+"
+  doctitlees = "Los grabadores, uno por uno"
