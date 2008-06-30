@@ -1331,6 +1331,7 @@ any sort of property supported by @rinternals{font-interface} and
 @lilypond[verbatim,quote]
 \\markup {
   \\verbatim-file #\"simple.ly\"
+}
 @end lilypond"
   (interpret-markup layout props
                     (if  (ly:get-option 'safe)
