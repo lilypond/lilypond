@@ -3144,30 +3144,30 @@ requiring emphasis.  So instead we define these as two variables,
 and use them as follows:
 
 @lilypond[quote,verbatim]
-emph = {
+emphasize = {
   \override Lyrics . LyricText #'font-shape = #'italic
   \override Lyrics . LyricText #'font-series = #'bold
 }
-norm = {
+normal = {
   \revert Lyrics . LyricText #'font-shape
   \revert Lyrics . LyricText #'font-series
 }
 
 global = { \time 4/4 \partial 4 \key c \major}
-SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+SopranoMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
 AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
 TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
 BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
-VerseOne   = \lyrics { E -- | ter -- nal \emph Fa -- ther, \norm | strong to save, }
-VerseTwo   = \lyricmode { O | \emph Christ, \norm whose voice the | wa -- ters heard, }
-VerseThree = \lyricmode { O | \emph Ho -- ly Spi -- rit, \norm | who didst brood }
-VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
+VerseOne   = \lyrics { E -- | ter -- nal \emphasize Fa -- ther, \normal | strong to save, }
+VerseTwo   = \lyricmode { O | \emphasize Christ, \normal whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { O | \emphasize Ho -- ly Spi -- rit, \normal | who didst brood }
+VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and pow'r }
 
 \score {
   \new ChoirStaff <<
     \new Staff <<
       \clef "treble"
-      \new Voice = "Sop"  { \voiceOne \global \SopMusic }
+      \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
       \new Lyrics \lyricsto "Sop" { \VerseOne   }
       \new Lyrics \lyricsto "Sop" { \VerseTwo   }

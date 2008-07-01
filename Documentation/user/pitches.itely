@@ -972,7 +972,7 @@ playing in unison.
 
 @lilypond[verbatim,quote]
 \new GrandStaff <<
-  \new Staff = "Vln" {
+  \new Staff = "violin" {
     \relative c'' {
       \set Staff.instrumentName = "Vln"
       \set Staff.midiInstrument = "violin"
