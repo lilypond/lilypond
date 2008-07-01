@@ -8,17 +8,14 @@
 
 @c \version "2.11.38"
 
-@c Andrew's TODO List
-@c references - first pass complete
-@c manual changes - first pass complete
-@c automatic changes - first pass complete
-@c staff-change lines - first pass complete
-@c cross-staff stems - first pass complete
-@c pedals - first pass complete
-@c accordian discant symbols
+@c "I have finished the first draft." -AH
 
 @node Keyboard instruments
 @section Keyboard instruments
+
+@lilypondfile[quote]{keyboard-headword.ly}
+
+FIXME add sentence
 
 @menu
 * Common notation for keyboards::
@@ -28,6 +25,8 @@
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
+
+FIXME add sentence
 
 @menu
 * References for keyboards::
@@ -176,8 +175,8 @@ Learning Manual:
 @rlearning{Fixing overlapping notation}.
 
 Notation Reference:
-@ref{Stems},
-@ref{Automatic beams}.
+@ruser{Stems},
+@ruser{Automatic beams}.
 
 Snippets:
 @rlsr{Keyboards}.
@@ -339,9 +338,8 @@ staff, or vice versa.
 @end lilypond
 
 @snippets
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @seealso
 
@@ -353,6 +351,8 @@ Internals Reference:
 
 @node Piano
 @subsection Piano
+
+FIXME add sentence
 
 @menu
 * Piano pedals::
@@ -437,12 +437,34 @@ Notation Reference: @ref{Ties} (laissez vibrer).
 @node Accordion
 @subsection Accordion
 
+FIXME add sentence
+
 @menu
 * Discant symbols::
 @end menu
 
 @node Discant symbols
 @subsubsection Discant symbols
+@cindex accordion discant symbols
+@cindex discant symbols, accordion
+@cindex accordion shifts
 
-@c TODO Add text from -user and lsr 194
-TBC
+@c FIXME: use @notation, not @q.
+
+Accordions are often built with more than one set of reeds that may be
+in unison with, an octave above, or an octave below the written pitch.
+Each accordian maker has different names for the @q{shifts} that
+select the various reed combinations, such as @q{oboe}, @q{musette}, or
+@q{bandonium}, so a system of symbols has come into use to simplify
+the performance instructions.
+
+@snippets
+
+@c FIXME: invalid snippet name.  Check the GDP snippet list.
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {accordion-discant-symbols.ly}
+
+@seealso
+
+Snippets:
+@rlsr{Keyboards}.
