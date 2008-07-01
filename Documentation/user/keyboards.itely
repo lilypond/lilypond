@@ -113,10 +113,11 @@ Snippets:
 
 @knownissues
 
-Dynamics are not centered, but workarounds do exist.  See the
-@q{piano centered dynamics} template in @rlearning{Piano templates}.
-
-@c TODO Find out status of the dynamics engravers
+Dynamics are not automatically centered, but workarounds do exist.  One
+option is the @q{piano centered dynamics} template under
+@rlearning{Piano templates}; another option is to add dynamics
+normally and then increase their staff-paddingm as discussed in
+@rlearning{Moving objects}.
 
 @node Changing staff manually
 @subsubsection Changing staff manually
@@ -352,87 +353,82 @@ Internals Reference:
 @node Piano
 @subsection Piano
 
-FIXME add sentence
-
 @menu
 * Piano pedals::
 @end menu
 
 @node Piano pedals
 @subsubsection Piano pedals
-@cindex Pedals
+@cindex piano pedals
+@cindex pedals, piano
+@cindex sustain pedal
+@cindex sostenuto pedal
+@cindex una corde
+@cindex tre corde
+@funindex \sustainDown
+@funindex \sustainUp
+@funindex \sostenutoDown
+@funindex \sostenutoUp
+@funindex \unaCorda
+@funindex \treCorde
 
-Pianos have pedals that alter the way sound is produced.  Generally, a
-piano has three pedals, sustain, una corda, and sostenuto.
+Pianos generally have three pedals that alter the way sound is
+produced: @notation{sustain}, @notation{sostenuto}
+(@notation{sos.}), and @notation{una corde} (@notation{U.C.}).
+Sustain pedals are also found on vibraphones and celestas.
 
-
-Piano pedal instruction can be expressed by attaching
-@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
-@code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
-note or chord
+FIXME: see policy for allowed lilypond[] options.
+(ie use [relative=2])
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainDown c'4\sustainUp
+\relative c' {
+  c4\sustainDown d e g
+  <c, f a>1\sustainUp
+  c4\sostenutoDown e g c,
+  <bes d f>1\sostenutoUp
+  c4\unaCorda d e g
+  <d fis a>1\treCorde
+}
 @end lilypond
 
-What is printed can be modified by setting @code{pedal@var{X}Strings},
-where @var{X} is one of the pedal types: @code{Sustain},
-@code{Sostenuto} or @code{UnaCorda}.  Refer to
-@rinternals{SustainPedal} in the program reference for more
-information.
+There are three styles of pedal indications: text, bracket, and mixed.
+The sustain pedal and the una corda pedal use the text style by default
+while the sostenuto pedal uses mixed by default.
 
-Pedals can also be indicated by a sequence of brackets, by setting the
-@code{pedalSustainStyle} property to bracket objects
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set Staff.pedalSustainStyle = #'bracket
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c'' {
+  c4\sustainDown g c2\sustainUp
+  \set Staff.pedalSustainStyle = #'mixed
+  c4\sustainDown g c d
+  d\sustainUp\sustainDown g, c2\sustainUp
+  \set Staff.pedalSustainStyle = #'bracket
+  c4\sustainDown g c d
+  d\sustainUp\sustainDown g, c2
+  \bar "|."
+}
 @end lilypond
 
-A third style of pedal notation is a mixture of text and brackets,
-obtained by setting the @code{pedalSustainStyle} property to
-@code{mixed}
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set Staff.pedalSustainStyle = #'mixed
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
-@end lilypond
-
-The default @q{*Ped.} style for sustain and damper pedals corresponds to
-style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
-default.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoDown d e c, f g a\sostenutoUp
-@end lilypond
-
-For fine-tuning the appearance of a pedal bracket, the properties
-@code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
-@code{PianoPedalBracket} objects (see
-@rinternals{PianoPedalBracket} in the Internals Reference) can be
-modified.  For example, the bracket may be extended to the right edge
-of the note head
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoDown d e c, f g a\sostenutoUp
-@end lilypond
-
-@noindent
-Note that overrides must be placed before the note at which the 
-pedal bracket starts.
-
-@c TODO Check relative positions of the sustain pedal and
-@c      dynamics are correct (they collided in 2.11.44).
-@c      Give example showing this.
+The placement of the pedal commands matches the physical movement of the
+sustain pedal during piano performance.  Pedalling to the final barline
+is indicated by omitting the final pedal up command.
 
 @seealso
 
-Notation Reference: @ref{Ties} (laissez vibrer).
+Notation Reference:
+@ref{Ties}.
+
+Snippets:
+@rlsr{Keyboards}.
+
+Internals Reference:
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
+@rinternals{SostenutoPedal},
+@rinternals{SostenutoPedalLineSpanner},
+@rinternals{UnaCordaPedal},
+@rinternals{UnaCordaPedalLineSpanner},
+@rinternals{PianoPedalBracket},
+@rinternals{Piano_pedal_engraver}.
 
 @node Accordion
 @subsection Accordion
@@ -450,6 +446,8 @@ FIXME add sentence
 @cindex accordion shifts
 
 @c FIXME: use @notation, not @q.
+@c FIXME: you might want to submit some of these terms to the MG.
+@c    If so, send an email to Kurt about this.
 
 Accordions are often built with more than one set of reeds that may be
 in unison with, an octave above, or an octave below the written pitch.
