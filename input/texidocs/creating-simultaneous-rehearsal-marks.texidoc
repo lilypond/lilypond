@@ -1,0 +1,13 @@
+  texidoces = "
+A diferencia de las inscripciones de texto, las lestras de ensayo
+no se pueden apilar en un punto concreto de la partitura: sólo se
+crea un objeto @code{RehearsalMark}.  Utilizando un compás y línea
+divisoria invisibles se puede crear una nueva marca de ensayo,
+dando la apariencia de dos marcas en la misma columna.
+
+Este método también puede resultar útil para colocar marcas de
+ensayo tanto al final de un sistema como al comienzo del sistema
+siguiente.
+
+"
+  doctitlees = "Creación de marcas de ensayo simultáneas"

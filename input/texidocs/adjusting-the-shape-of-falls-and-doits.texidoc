@@ -1,0 +1,7 @@
+  texidoces = "
+Puede ser necesario trucar la propiedad
+@code{shortest-duration-space} para poder ajustar el tamaño de las
+caídas y subidas de tono («falls» y «doits»).
+
+"
+  doctitlees = "Ajustar la forma de las subidas y caídas de tono"

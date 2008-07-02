@@ -1,0 +1,7 @@
+  texidoces = "
+Si los reguladores son demasiado cortos, se pueden alargar
+modificando la propiedad @code{minimum-length} del objeto
+@code{Hairpin}.
+
+"
+  doctitlees = "Ajustar la longitud mínima de los reguladores"
