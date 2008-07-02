@@ -718,7 +718,7 @@
 
     (FretBoard
      . ((stencil . ,fret-board::calc-stencil)
-	(finger-code . below-string)
+	(fret-diagram-details . ((finger-code . below-string)))
 	(meta . ((class . Item)
 		 (interfaces . (fret-diagram-interface
 				font-interface))))))
