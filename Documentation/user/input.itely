@@ -340,10 +340,10 @@ Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
 @menu
-* Creating titles::             
-* Custom titles::               
-* Reference to page numbers::   
-* Table of contents::           
+* Creating titles::
+* Custom titles::
+* Reference to page numbers::
+* Table of contents::
 @end menu
 
 
@@ -626,7 +626,7 @@ The @code{\page-ref} markup command takes three arguments:
 @item the label, a scheme symbol, eg. @code{#'firstScore};
 @item a markup that will be used as a gauge to estimate the dimensions
 of the markup;
-@item a markup that will be used in place of the page number if the label 
+@item a markup that will be used in place of the page number if the label
 is not known;
 @end enumerate
 
@@ -826,12 +826,21 @@ not the directory containing the included file.
 
 Files can also be included from a directory in a search path
 specified as an option when invoking LilyPond from the command
-line.  To compile @file{main.ly} which includes files
-located in a subdirectory called @file{parts} by this method,
+line.  The included files are then specified using just their
+file name.  For example, to compile @file{main.ly} which includes
+files located in a subdirectory called @file{parts} by this method,
 cd to the directory containing @file{main.ly} and enter
 
 @example
 lilypond --include=parts main.ly
+@end example
+
+and in main.ly write
+
+@example
+\include "VI.ly"
+\include "VII.ly"
+... etc
 @end example
 
 Files which are to be included in many scores may be placed in
@@ -869,73 +878,234 @@ installation files takes precedence.
 @node Different editions from one source
 @subsection Different editions from one source
 
-@funindex \tag
-@cindex tag
+Several mechanisms are available to facilitate the generation
+of different versions of a score from the same music source.
+Variables are perhaps most useful for combining lengthy sections
+of music and/or annotation in various ways, while tags are more
+useful for selecting one from several alternative shorter sections
+of music.  Whichever method is used, separating the notation from
+the structure of the score will make it easier to change the
+structure while leaving the notation untouched.
 
-The @code{\tag} command marks music expressions with a name.  These
-tagged expressions can be filtered out later.  With this mechanism it
-is possible to make different versions of the same music source.
+@menu
+* Using variables::
+* Using tags::
+@end menu
 
-In the following example, we see two versions of a piece of music, one
-for the full score, and one with cue notes for the instrumental part
+@node Using variables
+@unnumberedsubsubsec Using variables
 
-@example
-c1
+@cindex variables, use of
+
+If sections of the music are defined in variables they can be
+reused in different parts of the score, see @rlearning{Organizing
+pieces with variables}.  For example, an @notation{a cappella}
+vocal score frequently includes a piano reduction of the parts
+for rehearsal purposes which is identical to the vocal music, so
+the music need be entered only once.  Music from two variables
+may be combined on one staff, see @ref{Automatic part combining}.
+Here is an example:
+
+@lilypond[verbatim,quote]
+sopranoMusic = \relative c'' { a4 b c b8( a)}
+altoMusic = \relative g' { e4 e e f }
+tenorMusic = \relative c' { c4 b e d8( c) }
+bassMusic = \relative c' { a4 gis a d, }
+allLyrics = \lyricmode {King of glo -- ry }
 <<
-  \tag #'part <<
-    R1 \\
-    @{
-      \set fontSize = #-1
-      c4_"cue" f2 g4 @}
+  \new Staff = "Soprano" \sopranoMusic
+  \new Lyrics \allLyrics
+  \new Staff = "Alto" \altoMusic
+  \new Lyrics \allLyrics
+  \new Staff = "Tenor" {
+    \clef "treble_8"
+    \tenorMusic
+  }
+  \new Lyrics \allLyrics
+  \new Staff = "Bass" {
+    \clef "bass"
+    \bassMusic
+  }
+  \new Lyrics \allLyrics
+  \new PianoStaff <<
+    \new Staff = "RH" {
+      \set Staff.printPartCombineTexts = ##f
+      \partcombine
+      \sopranoMusic
+      \altoMusic
+    }
+    \new Staff = "LH" {
+      \set Staff.printPartCombineTexts = ##f
+      \clef "bass"
+      \partcombine
+      \tenorMusic
+      \bassMusic
+    }
   >>
-  \tag #'score R1
 >>
-c1
+@end lilypond
+
+Separate scores showing just the vocal parts or just the piano
+part can be produced by changing just the structural statements,
+leaving the musical notation unchanged.
+
+For lengthy scores, the variable definitions may be placed in
+separate files which are then included, see @ref{Including
+LilyPond files}.
+
+@node Using tags
+@unnumberedsubsubsec Using tags
+
+@funindex \tag
+@funindex \keepWithTag
+@funindex \removeWithTag
+@cindex tag
+@cindex keep tagged music
+@cindex remove tagged music
+
+The @code{\tag #'@var{partA}} command marks a music expression
+with the name @var{partA}.
+Expressions tagged in this way can be selected or filtered out by
+name later, using either @code{\keepWithTag #'@var{name}} or
+@code{\removeWithTag #'@var{name}}.  The result of applying these filters
+to tagged music is as follows:
+@multitable @columnfractions .5 .5
+@headitem Filter
+  @tab Result
+@item
+Tagged music preceded by @code{\keepWithTag #'@var{name}}
+  @tab Untagged music and music tagged with @var{name} is included;
+       music tagged with any other tag name is excluded.
+@item
+Tagged music preceded by @code{\removeWithTag #'@var{name}}
+@tab Untagged music and music tagged with any tag name other than
+     @var{name} is included; music tagged with @var{name} is
+     excluded.
+@item
+Tagged music not preceded by either @code{\keepWithTag} or
+@code{\removeWithTag}
+@tab All tagged and untagged music is included.
+@end multitable
+
+The arguments of the @code{\tag}, @code{\keepWithTag} and
+@code{\removeWithTag} commands should be a symbol
+(such as @code{#'score} or @code{#'part}), followed
+by a music expression.
+
+In the following example, we see two versions of a piece of music,
+one showing trills with the usual notation, and one with trills
+explicitly expanded:
+
+@lilypond[verbatim,quote]
+music = \relative g' {
+  g8. c32 d
+  \tag #'trills {d8.\trill }
+  \tag #'expand {\repeat unfold 3 {e32 d} }
+  c32 d
+ }
+
+\score {
+  \keepWithTag #'trills \music
+}
+\score {
+  \keepWithTag #'expand \music
+}
+@end lilypond
+
+@noindent
+Alternatively, it is sometimes easier to exclude sections of music:
+
+@lilypond[verbatim,quote]
+music = \relative g' {
+  g8. c32 d
+  \tag #'trills {d8.\trill }
+  \tag #'expand {\repeat unfold 3 {e32 d} }
+  c32 d
+ }
+
+\score {
+  \removeWithTag #'expand
+  \music
+}
+\score {
+  \removeWithTag #'trills
+  \music
+}
+@end lilypond
+
+Tagged filtering can be applied to articulations, texts, etc. by
+prepending
+
+@example
+-\tag #'@var{your-tag}
 @end example
 
-The same can be applied to articulations, texts, etc.: they are
-made by prepending
+to an articulation.  For example, this would define a note with a
+conditional fingering indication and a note with a conditional
+annotation:
+
 @example
--\tag #@var{your-tag}
-@end example
-to an articulation, for example,
-@example
-c1-\tag #'part ^4
+c1-\tag #'finger ^4
+c1-\tag #'warn ^"Watch!"
 @end example
 
-This defines a note with a conditional fingering indication.
+Multiple tags may be placed on expressions with multiple
+@code{\tag} entries:
 
-@cindex keepWithTag
-@cindex removeWithTag
-By applying the @code{\keepWithTag} and @code{\removeWithTag}
-commands, tagged expressions can be filtered.  For example,
-@example
+@lilypond[quote,verbatim]
+music = \relative c'' {
+  \tag #'a \tag #'both { a a a a }
+  \tag #'b \tag #'both { b b b b }
+}
 <<
-  @var{the music}
-  \keepWithTag #'score @var{the music}
-  \keepWithTag #'part @var{the music}
+\keepWithTag #'a \music
+\keepWithTag #'b \music
+\keepWithTag #'both \music
 >>
-@end example
-would yield
+@end lilypond
 
-@c FIXME: broken
-@c @lilypondfile[ragged-right,quote]{tag-filter.ly}
+Multiple @code{\removeWithTag} filters may be applied to a single
+music expression to remove several differently named tagged sections:
 
-The arguments of the @code{\tag} command should be a symbol
-(such as @code{#'score} or @code{#'part}), followed by a
-music expression.  It is possible to put multiple tags on
-a piece of music with multiple @code{\tag} entries,
+@lilypond[verbatim,quote]
+music = \relative c'' {
+\tag #'A { a a a a }
+\tag #'B { b b b b }
+\tag #'C { c c c c }
+\tag #'D { d d d d }
+}
+{
+\removeWithTag #'B
+\removeWithTag #'C
+\music
+}
+@end lilypond
 
-@example
-  \tag #'original-part \tag #'transposed-part @dots{}
-@end example
+Two or more @code{\keepWithTag} filters applied to a single music
+expression will cause @emph{all} tagged sections to be removed, as
+the first filter will remove all tagged sections except the one
+named, and the second filter will remove even that tagged section.
 
+@seealso
+
+Learning Manual:
+@rlearning{Organizing pieces with variables}.
+
+Notation Reference:
+@ref{Automatic part combining},
+@ref{Including LilyPond files}.
+
+@ignore
+@c This warning is more general than this placement implies.
+@c Rests are not merged whether or not they come from tagged sections.
+@c Should be deleted?  -td
 
 @knownissues
 
-Multiple rests are not merged if you create the score with both tagged
-sections.
+Multiple rests are not merged if you create a score with more
+than one tagged section at the same place.
 
+@end ignore
 
 @node Text encoding
 @subsection Text encoding

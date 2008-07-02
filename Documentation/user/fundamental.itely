@@ -1071,13 +1071,13 @@ as here:
   }
   % Initiate second voice
   \new Voice {
-    % set stems, etc down
+    % Set stems, etc, down
     \voiceTwo
     s4 r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 |
   }
   % Initiate third voice
   \new Voice {
-    % set stems, etc up
+    % Set stems, etc, up
     \voiceThree
     s1 | s4 b4 c2 |
   }

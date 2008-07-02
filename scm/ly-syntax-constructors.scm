@@ -78,15 +78,26 @@
   (make-music 'TransposedMusic
   	      'element (ly:music-transpose music pitch)))
 
-(define-ly-syntax-simple (tempo duration tempo)
+(define-ly-syntax-simple (tempo text duration tempo)
+  (let ((props (list
+		  (make-property-set 'tempoWholesPerMinute
+			(ly:moment-mul (ly:make-moment tempo 1)
+				       (ly:duration-length duration)))
+		  (make-property-set 'tempoUnitDuration duration)
+		  (make-property-set 'tempoUnitCount tempo))))
+    (set! props (cons 
+            (if text (make-property-set 'tempoText text)
+                     (make-property-unset 'tempoText)) 
+            props))
+    (context-spec-music
+      (make-sequential-music props)
+      'Score)))
+
+(define-ly-syntax-simple (tempoText text)
   (context-spec-music
    (make-sequential-music
     (list
-     (make-property-set 'tempoWholesPerMinute
-			(ly:moment-mul (ly:make-moment tempo 1)
-				       (ly:duration-length duration)))
-     (make-property-set 'tempoUnitDuration duration)
-     (make-property-set 'tempoUnitCount tempo)))
+     (make-property-set 'tempoText text)))
    'Score))
 
 (define-ly-syntax-simple (skip-music dur)

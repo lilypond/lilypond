@@ -35,6 +35,15 @@ read all the sections
 sequentially.
 
 
+I don't know who's working on the vocal music right now, but I
+found something that should be clarified in NR 2.1.2.4.
+
+It should be made clear that __ is used to crate a lyric extender,
+and _ is used to add a note to a melisma, so both __ and _ are
+used.  The example shows it, but there is no description of the
+lyrics extender in this section.
+
+
 
 Since LilyPond input files are text, there are two issues to
 consider when working with vocal music:
