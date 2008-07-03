@@ -105,6 +105,7 @@ There is support from different text editors for LilyPond.
 * jEdit::                       
 * TexShop::                     
 * TextMate::                    
+* LilyKDE::                     
 @end menu
 
 @node Emacs mode
