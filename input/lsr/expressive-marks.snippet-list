@@ -12,6 +12,7 @@ vertically-aligning-dynamics-across-multiple-notes.ly
 modifying-default-values-for-articulation-shorthand-notation.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 controlling-the-vertical-ordering-of-scripts.ly
+inserting-a-caesura.ly
 using-double-slurs-for-legato-chords.ly
 setting-the-minimum-length-of-hairpins.ly
 creating-real-parenthesized-dynamics.ly

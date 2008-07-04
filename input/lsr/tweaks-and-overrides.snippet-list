@@ -5,7 +5,6 @@ changing-the-default-text-font-family.ly
 drawing-boxes-around-grobs.ly
 manually-controlling-beam-positions.ly
 custodes.ly
-move-specific-text.ly
 creating-text-spanners.ly
 rest-styles.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
@@ -15,6 +14,7 @@ positioning-multi--measure-rests.ly
 changing-the-staff-size.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 controlling-the-vertical-ordering-of-scripts.ly
+inserting-a-caesura.ly
 vertically-aligning-ossias-and-lyrics.ly
 changing-properties-for-individual-grobs.ly
 vertically-aligned-dynamics-and-textscripts.ly
@@ -26,6 +26,7 @@ making-an-object-invisible-with-the-transparent-property.ly
 transcription-of-ancient-music-with-incipit.ly
 alignment-vertical-spacing.ly
 drawing-circles-around-various-objects.ly
+analysis-brackets-above-the-staff.ly
 removing-the-first-empty-line.ly
 caesura-railtracks-with-fermata.ly
 changing-form-of-multi--measure-rests.ly
