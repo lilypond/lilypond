@@ -551,8 +551,6 @@ indications per string.
 	  (ly:stencil-add
 	   (draw-strings string-count fret-range th size orientation)
 	   (draw-frets fret-range string-count th size orientation))))
-;    (display "PROPS \n") (display props) (display "\n")
-;    (display "DETAILS \n") (display details) (display "\n")
     (if (not (null? barre-list))
 	(set! fret-diagram-stencil
 	      (ly:stencil-add
