@@ -19,7 +19,7 @@
            fs''8 (
            ^ \markup \column {
               \line \bold { Un peu retenu  }
-              \line \italic { très expressif } }
+              \line \italic { trÃ¨s expressif } }
            es''16
            cs''16
            as'4 )
