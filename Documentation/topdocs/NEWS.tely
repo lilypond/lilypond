@@ -256,6 +256,33 @@ uneven vertical spacing.
 }
 @end lilypond
 
+@item Metonome marks can now also contain a textual description. The duration and 
+count (if given) will be shown in parenthesis after the text.
+
+@lilypond
+{
+  \tempo "Fast"
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo "Andante" 4=120
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo 4=100
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo "" 4=30
+  c'4 c' c' c'
+  c'4 c' c' c'
+}
+@end lilypond
+
+@item In figured bass you can now also use a backslash through a number to 
+indicate a raised 6th step.
+
+@lilypond[ragged-right]
+\new FiguredBass \figuremode { < 6\\ 5\\ > < 6/ > }
+@end lilypond
+
 @end itemize
 
 

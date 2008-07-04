@@ -8,17 +8,13 @@
 
 @c \version "2.11.38"
 
-@c Andrew's TODO List
-@c references - first pass complete
-@c manual changes - first pass complete
-@c automatic changes - first pass complete
-@c staff-change lines - first pass complete
-@c cross-staff stems - first pass complete
-@c pedals - first pass complete
-@c accordian discant symbols
-
 @node Keyboard instruments
 @section Keyboard instruments
+
+@lilypondfile[quote]{keyboard-headword.ly}
+
+This section discusses several aspects of music notation that are unique
+to keyboard instruments.
 
 @menu
 * Common notation for keyboards::
@@ -28,6 +24,9 @@
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
+
+This section discusses notation issues that may arise for most keyboard
+instruments.
 
 @menu
 * References for keyboards::
@@ -85,10 +84,6 @@ as shown in @rlearning{Other uses for tweaks}.
 
 @end itemize
 
-@c @snippets
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {creating-slurs-across-voices.ly}
-
 @seealso
 
 Learning Manual:
@@ -114,10 +109,11 @@ Snippets:
 
 @knownissues
 
-Dynamics are not centered, but workarounds do exist.  See the
-@q{piano centered dynamics} template in @rlearning{Piano templates}.
-
-@c TODO Find out status of the dynamics engravers
+Dynamics are not automatically centered, but workarounds do exist.  One
+option is the @q{piano centered dynamics} template under
+@rlearning{Piano templates}; another option is to increase the
+@code{staff-padding} of dynamics as discussed in @rlearning{Moving
+objects}.
 
 @node Changing staff manually
 @subsubsection Changing staff manually
@@ -176,8 +172,8 @@ Learning Manual:
 @rlearning{Fixing overlapping notation}.
 
 Notation Reference:
-@ref{Stems},
-@ref{Automatic beams}.
+@ruser{Stems},
+@ruser{Automatic beams}.
 
 Snippets:
 @rlsr{Keyboards}.
@@ -261,9 +257,8 @@ Internals Reference:
 The staff switches may not end up in optimal places.  For high
 quality output, staff switches should be specified manually.
 
-Chords will not be split across the staves; the staff will be
-chosen by the first note named in the chord.
-
+Chords will not be split across the staves; they will be assigned to a
+staff based on the first note named in the chord construct.
 
 @node Staff-change lines
 @subsubsection Staff-change lines
@@ -339,9 +334,8 @@ staff, or vice versa.
 @end lilypond
 
 @snippets
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @seealso
 
@@ -354,88 +348,83 @@ Internals Reference:
 @node Piano
 @subsection Piano
 
+This section discusses notation issues that relate most directly to the
+piano.
+
 @menu
 * Piano pedals::
 @end menu
 
 @node Piano pedals
 @subsubsection Piano pedals
-@cindex Pedals
+@cindex piano pedals
+@cindex pedals, piano
+@cindex sustain pedal
+@cindex sostenuto pedal
+@cindex una corde
+@cindex tre corde
+@funindex \sustainDown
+@funindex \sustainUp
+@funindex \sostenutoDown
+@funindex \sostenutoUp
+@funindex \unaCorda
+@funindex \treCorde
 
-Pianos have pedals that alter the way sound is produced.  Generally, a
-piano has three pedals, sustain, una corda, and sostenuto.
-
-
-Piano pedal instruction can be expressed by attaching
-@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
-@code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
-note or chord
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainDown c'4\sustainUp
-@end lilypond
-
-What is printed can be modified by setting @code{pedal@var{X}Strings},
-where @var{X} is one of the pedal types: @code{Sustain},
-@code{Sostenuto} or @code{UnaCorda}.  Refer to
-@rinternals{SustainPedal} in the program reference for more
-information.
-
-Pedals can also be indicated by a sequence of brackets, by setting the
-@code{pedalSustainStyle} property to bracket objects
+Pianos generally have three pedals that alter the way sound is
+produced: @notation{sustain}, @notation{sostenuto}
+(@notation{sos.}), and @notation{una corde} (@notation{U.C.}).
+Sustain pedals are also found on vibraphones and celestas.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set Staff.pedalSustainStyle = #'bracket
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c4\sustainDown d e g
+<c, f a>1\sustainUp
+c4\sostenutoDown e g c,
+<bes d f>1\sostenutoUp
+c4\unaCorda d e g
+<d fis a>1\treCorde
 @end lilypond
 
-A third style of pedal notation is a mixture of text and brackets,
-obtained by setting the @code{pedalSustainStyle} property to
-@code{mixed}
+There are three styles of pedal indications: text, bracket, and mixed.
+The sustain pedal and the una corda pedal use the text style by default
+while the sostenuto pedal uses mixed by default.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+c4\sustainDown g c2\sustainUp
 \set Staff.pedalSustainStyle = #'mixed
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c4\sustainDown g c d
+d\sustainUp\sustainDown g, c2\sustainUp
+\set Staff.pedalSustainStyle = #'bracket
+c4\sustainDown g c d
+d\sustainUp\sustainDown g, c2
+\bar "|."
 @end lilypond
 
-The default @q{*Ped.} style for sustain and damper pedals corresponds to
-style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
-default.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoDown d e c, f g a\sostenutoUp
-@end lilypond
-
-For fine-tuning the appearance of a pedal bracket, the properties
-@code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
-@code{PianoPedalBracket} objects (see
-@rinternals{PianoPedalBracket} in the Internals Reference) can be
-modified.  For example, the bracket may be extended to the right edge
-of the note head
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoDown d e c, f g a\sostenutoUp
-@end lilypond
-
-@noindent
-Note that overrides must be placed before the note at which the 
-pedal bracket starts.
-
-@c TODO Check relative positions of the sustain pedal and
-@c      dynamics are correct (they collided in 2.11.44).
-@c      Give example showing this.
+The placement of the pedal commands matches the physical movement of the
+sustain pedal during piano performance.  Pedalling to the final bar line
+is indicated by omitting the final pedal up command.
 
 @seealso
 
-Notation Reference: @ref{Ties} (laissez vibrer).
+Notation Reference:
+@ref{Ties}.
+
+Snippets:
+@rlsr{Keyboards}.
+
+Internals Reference:
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
+@rinternals{SostenutoPedal},
+@rinternals{SostenutoPedalLineSpanner},
+@rinternals{UnaCordaPedal},
+@rinternals{UnaCordaPedalLineSpanner},
+@rinternals{PianoPedalBracket},
+@rinternals{Piano_pedal_engraver}.
 
 @node Accordion
 @subsection Accordion
+
+This section discusses notation that is unique to the accordion.
 
 @menu
 * Discant symbols::
@@ -443,6 +432,24 @@ Notation Reference: @ref{Ties} (laissez vibrer).
 
 @node Discant symbols
 @subsubsection Discant symbols
+@cindex accordion discant symbols
+@cindex discant symbols, accordion
+@cindex accordion shifts
 
-@c TODO Add text from -user and lsr 194
-TBC
+Accordions are often built with more than one set of reeds that may be
+in unison with, an octave above, or an octave below the written pitch.
+Each accordion maker has different names for the @notation{shifts} that
+select the various reed combinations, such as @notation{oboe},
+@notation{musette}, or @notation{bandonium}, so a system of symbols has
+come into use to simplify the performance instructions.
+
+@snippets
+
+@c This snippet should work once it's been tagged for the docs.
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {accordion-discant-symbols.ly}
+
+@seealso
+
+Snippets:
+@rlsr{Keyboards}.

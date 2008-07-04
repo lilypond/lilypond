@@ -192,9 +192,11 @@ thickness and y offset.
 
 @lilypond[verbatim,quote]
 \\markup {
+  default
+  \\hspace #2
   \\override #'(thickness . 2)
   \\underline {
-    CONTENTS
+    underline
   }
 }
 @end lilypond"
@@ -301,7 +303,18 @@ c,8. c16 c4 r
   "
 @cindex rotating text
 
-Rotate object with @var{ang} degrees around its center."
+Rotate object with @var{ang} degrees around its center.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\hspace #2
+  \\rotate #45
+  \\line {
+    rotated 45°
+  }
+}
+@end lilypond"
   (let* ((stil (interpret-markup layout props arg)))
     (ly:stencil-rotate stil ang 0 0)))
 
@@ -312,7 +325,16 @@ Rotate object with @var{ang} degrees around its center."
   "
 @cindex adding a white background to text
 
-Provide a white background for @var{arg}."
+Provide a white background for @var{arg}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\combine
+  \\filled-box #'(-1 . 10) #'(-3 . 4) #1
+  \\whiteout
+  whiteout
+}
+@end lilypond"
   (stencil-whiteout (interpret-markup layout props arg)))
 
 (define-builtin-markup-command (pad-markup layout props padding arg)
@@ -395,7 +417,14 @@ normally inserted before elements on a line.
   "
 @cindex importing stencils into text
 
-Use a stencil as markup."
+Use a stencil as markup.
+
+@c FIXME works in .ly file, produces empty stencil in docs
+@lilypond[verbatim,quote]
+\\markup {
+  \\stencil #(dimension-arrows '(15 . 0))
+}
+@end lilypond"
   stil)
 
 (define bbox-regexp
@@ -888,7 +917,18 @@ equivalent to @code{\"fi\"}.
 
 Like wordwrap, but with lines stretched to justify the margins.
 Use @code{\\override #'(line-width . @var{X})} to set the line width;
-@var{X}@tie{}is the number of staff spaces."
+@var{X}@tie{}is the number of staff spaces.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\justify {
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.
+  }
+}
+@end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
                (wordwrap-internal-markup-list layout props #t args)))
 
@@ -898,7 +938,18 @@ Use @code{\\override #'(line-width . @var{X})} to set the line width;
   ((baseline-skip)
    wordwrap-internal-markup-list)
   "Simple wordwrap.  Use @code{\\override #'(line-width . @var{X})} to set
-the line width, where @var{X} is the number of staff spaces."
+the line width, where @var{X} is the number of staff spaces.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\wordwrap {
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed
+    do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.
+  }
+}
+@end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
 	       (wordwrap-internal-markup-list layout props #f args)))
 
@@ -934,7 +985,24 @@ the line width, where @var{X} is the number of staff spaces."
   align
   ((baseline-skip)
    wordwrap-string-internal-markup-list)
-  "Wordwrap a string.  Paragraphs may be separated with double newlines."
+  "Wordwrap a string.  Paragraphs may be separated with double newlines.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(line-width . 40)
+  \\wordwrap-string #\"Lorem ipsum dolor sit amet, consectetur
+    adipisicing elit, sed do eiusmod tempor incididunt ut labore
+    et dolore magna aliqua.
+    
+    
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.
+    
+    
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa
+    qui officia deserunt mollit anim id est laborum\"
+}
+@end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
                (wordwrap-string-internal-markup-list layout props #f arg)))
 
@@ -943,7 +1011,24 @@ the line width, where @var{X} is the number of staff spaces."
   align
   ((baseline-skip)
    wordwrap-string-internal-markup-list)
-  "Justify a string.  Paragraphs may be separated with double newlines"
+  "Justify a string.  Paragraphs may be separated with double newlines
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\override #'(line-width . 40)
+  \\justify-string #\"Lorem ipsum dolor sit amet, consectetur
+    adipisicing elit, sed do eiusmod tempor incididunt ut labore
+    et dolore magna aliqua.
+    
+    
+    Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.
+    
+    
+    Excepteur sint occaecat cupidatat non proident, sunt in culpa
+    qui officia deserunt mollit anim id est laborum\"
+}
+@end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
                (wordwrap-string-internal-markup-list layout props #t arg)))
 
@@ -1155,7 +1240,35 @@ Align @var{arg} on its left edge.
   "
 @cindex controlling general text alignment
 
-Align @var{arg} in @var{axis} direction to the @var{dir} side."
+Align @var{arg} in @var{axis} direction to the @var{dir} side.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\column {
+    ↓
+    \\general-align #X #LEFT
+    \\line { X, Left }
+    ↓
+    \\general-align #X #CENTER
+    \\line { X, Center }
+    \\null
+    \\line {
+      \\arrow-head #X #RIGHT ##f
+      \\general-align #Y #DOWN
+      \\line { Y, Down }
+      \\arrow-head #X #LEFT ##f
+    }
+    \\line {
+      \\arrow-head #X #RIGHT ##f
+      \\general-align #Y #3.2
+      \\line {
+        \\line { Y, Arbitrary alignment }
+      }
+      \\arrow-head #X #LEFT ##f
+    }
+  }
+}
+@end lilypond"
   (let* ((m (interpret-markup layout props arg)))
     (ly:stencil-aligned-to m axis dir)))
 
@@ -1244,7 +1357,15 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction."
   (markup?)
   other
   ()
-  "Make the argument transparent."
+  "Make the argument transparent.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\transparent {
+    invisible text
+  }
+}
+@end lilypond"
   (let* ((m (interpret-markup layout props arg))
          (x (ly:stencil-extent m X))
          (y (ly:stencil-extent m Y)))
@@ -1284,7 +1405,21 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction."
   ()
   "Read the @var{symbol} from property settings, and produce a stencil
 from the markup contained within.  If @var{symbol} is not defined, it
-returns an empty markup."
+returns an empty markup.
+
+@lilypond[verbatim,quote]
+\\header {
+  myTitle = \"myTitle\"
+  title = \\markup {
+    from
+    \\italic
+    \\fromproperty #'header:myTitle
+  }
+}
+\\markup {
+  \\null
+}
+@end lilypond"
   (let ((m (chain-assoc-get symbol props)))
     (if (markup? m)
         (interpret-markup layout props m)
@@ -1315,7 +1450,25 @@ any sort of property supported by @rinternals{font-interface} and
 
 @example
 \\override #'(font-family . married) \"bla\"
-@end example"
+@end example
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\line {
+    \\column {
+      default
+      baseline-skip
+    }
+    \\hspace #2
+    \\override #'(baseline-skip . 4) {
+      \\column {
+        increased
+        baseline-skip
+      }
+    }
+  }
+}
+@end lilypond"
   (interpret-markup layout (cons (list new-prop) props) arg))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2017,7 +2170,20 @@ normal text font, no matter what font was used earlier.
   "
 @cindex coloring text
 
-Draw @var{arg} in color specified by @var{color}."
+Draw @var{arg} in color specified by @var{color}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\with-color #red
+  red
+  \\hspace #2
+  \\with-color #green
+  green
+  \\hspace #2
+  \\with-color #blue
+  blue
+}
+@end lilypond"
   (let ((stil (interpret-markup layout props arg)))
     (ly:make-stencil (list 'color color (ly:stencil-expr stil))
 		     (ly:stencil-extent stil X)
@@ -2110,7 +2276,13 @@ the possible glyphs.
   other
   ()
   "Produce a single character.  For example, @code{\\char #65} produces the 
-letter @q{A}."
+letter @q{A}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\char #65
+}
+@end lilypond"
   (ly:text-interface::interpret-markup layout props (ly:wide-char->utf-8 num)))
 
 (define number->mark-letter-vector (make-vector 25 #\A))
@@ -2413,7 +2585,7 @@ a shortened down stem.
 @end lilypond"
   (let ((parsed (parse-simple-duration duration)))
     (note-by-number-markup layout props (car parsed) (cadr parsed) dir)))
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; translating.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -2426,20 +2598,39 @@ a shortened down stem.
 @cindex lowering text
 
 Lower @var{arg} by the distance @var{amount}.
-A negative @var{amount} indicates raising; see also @code{\\raise}."
+A negative @var{amount} indicates raising; see also @code{\\raise}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  default
+  \\lower #3 {
+    three spaces lower
+  }
+}
+@end lilypond"
   (ly:stencil-translate-axis (interpret-markup layout props arg)
 			     (- amount) Y))
 
 (define-builtin-markup-command (translate-scaled layout props offset arg)
   (number-pair? markup?)
-  other
+  align
   ((font-size 0))
   "
 @cindex translating text
 @cindex scaling text
 
 Translate @var{arg} by @var{offset}, scaling the offset by the
-@code{font-size}."
+@code{font-size}.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\fontsize #5 {
+    * \\translate #'(2 . 3) translate
+    \\hspace #2
+    * \\translate-scaled #'(2 . 3) translate-scaled
+  }
+}
+@end lilypond"
   (let* ((factor (magstep font-size))
          (scaled (cons (* factor (car offset))
                        (* factor (cdr offset)))))
@@ -2579,8 +2770,16 @@ A \\translate #(cons 2 -3) @{ B C @} D
 This moves @q{B C} 2@tie{}spaces to the right, and 3 down, relative to its
 surroundings.  This command cannot be used to move isolated scripts
 vertically, for the same reason that @code{\\raise} cannot be used for
-that."
-  (ly:stencil-translate (interpret-markup  layout props arg)
+that.
+
+@lilypond[verbatim,quote]
+\\markup {
+  *
+  \\translate #'(2 . 3)
+  \\line { translated two spaces right, three up }
+}
+@end lilypond"
+  (ly:stencil-translate (interpret-markup layout props arg)
 			offset))
 
 (define-builtin-markup-command (sub layout props arg)
