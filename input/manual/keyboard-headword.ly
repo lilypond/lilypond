@@ -1,5 +1,3 @@
-% Sergei Rachmaninoff, Prelude Op. 3 No. 5, mm. 44–47
-
 \version "2.11.49"
 \include "english.ly"
 
@@ -10,73 +8,214 @@
   indent=0\cm
 }
 
-rh = { \change Staff = RH \voiceFour }
-lh = { \change Staff = LH \voiceOne }
-
 \new PianoStaff <<
-  \set Score.currentBarNumber = #44
-  \new Staff = "RH" {
-    <<
-      \override Staff.NoteCollision #'merge-differently-dotted = ##t
-      \relative c''' {
-        \key g \minor
-        r8 <a fs>--( <a fs>-- <bf fs d bf>-- <c g ef c>4-- <bf bf,>8 <a
-          a,>8)
-        <g g,>8( <a a,> <bf bf,>4)-- <fs d c fs,>8(-- <g g,> <a d, c a>4)
-        r8 <bf bf,>(_\markup \italic cresc. <bf g d> <c c,>
-          <d bf af d,>4) <c c,>8( <bf bf,>)
-        <c ef, c>\mf( <d d,> <ef ef,> <f f,>) <g g,>( <a a,>4\> <bf
-          bf,>8)\!
-        <fs, fs,>8\p
-      }
-      \\
-      \relative c'' {
-        s8 a16( c d4)-- s4 <ef c>
-        <e cs>4 <e cs> s2
-        s1
-        s4 <bf' g> <d bf>2
-      }
+  \set PianoStaff.connectArpeggios = ##t
+  \new Staff {
+     \time 2/4
+     \key fs \major
+     <<
+        \new Voice {
+           \voiceOne
+           fs''8 (
+           ^ \markup \column {
+              \line \bold { Un peu retenu  }
+              \line \italic { très expressif } }
+           es''16
+           cs''16
+           as'4 )
+           |
+           fs''8 (
+           es''16
+           cs''16
+           as'4 )
+           |
+           fs''8 (
+           es''16
+           cs''16
+           as'8
+           cs''8 )
+           |
+        }
+        \new Voice {
+           \voiceTwo
+           r8 \ppp
+           fs'4 (
+           es'8 )
+           |
+           r8
+           fs'4 (
+           es'8 )
+           |
+           r8
+           fs'4 (
+           es'8 )
+           |
+        }
     >>
+     \clef bass
+     <ds b! es'>4 (
+     ^ \markup \bold { Rall. }
+     \once \override Script #'padding = #2
+     <ds' as'>8 ) \fermata
+     \noBeam
+     \clef treble
+     \slurUp
+     <as fs'>8 ( \pp
+     |
+     <gs b cs'>4. )
+     ^ \markup \bold { a tempo }
+     \slurUp
+     <as fs'>8 (
+     |
+     <gs b cs'>4. )
+     <<
+        \new Voice {
+           \voiceOne
+           <as fs'>8 (
+           ^ \markup \bold { Rallentando }
+           |
+           cs'8
+           b16
+           cs'16
+           d'8
+           e'16
+           fs'16
+           |
+           <as! cs' gs'>4. )
+           s8
+           |
+           r8
+           <cs'' as'' cs'''>4 \arpeggio
+           e''16 (
+           ^ \markup \bold { Lent }
+           fs''16
+           |
+           \stemDown
+           <as'! cs'' gs''>2 )
+           |
+        }
+      \new Voice {
+           \voiceTwo
+           s8
+           |
+           <gs b>4 \<
+           <fs bs>4 \>
+           |
+           s4. \!
+           \slurUp
+           \once \override Script #'direction = #up
+           <a bs e'>8 ( \accent
+           |
+           <as! cs' gs'>4. )
+           <a' bs'>8 \ppp \>
+           |
+           s8 \!
+           \stemDown
+           \once \override Script #'direction = #up
+           #(set-octavation 1)
+           % \once \override Arpeggio #'extra-offset = #'(-0.25 .
+           % 0)
+           <cs''' as''' cs''''>4. \arpeggio \fermata
+           #(set-octavation 0)
+           \bar "|."
+        }
+     >>
   }
-  \new Staff = "LH" <<
-    \override Staff.NoteCollision #'merge-differently-dotted = ##t
-    \clef bass
-    \key g \minor
-    \new Voice \relative c' {
-      \rh <c~ fs,>2-- c8 \lh d ef f
-      g4 fs8-- \rh g^- a4.-- a16( c
-      \showStaffSwitch
-      <d bf d,>2--) r8 d-- ef-- f--
-      g4-- \lh g,~-- g8 \clef treble a-- bf-- c--
-      \rh d2*1/4
-    }
-    \new Voice \relative c, {
-      \times 4/6 {d16[( a' d fs c' d]}
-      \override TupletNumber #'transparent = ##t
-      \times 4/6 {fs d c fs, d a)}
-      \voiceTwo
-      \times 4/6 {d,[ a' g' d'( c g)]}
-      \times 4/6 {ef'( c g) f'( c g)}
-      
-      \times 4/6 {d,[( a' g' a bf cs])}
-      \times 4/6 {fs( cs bf g a, d,~)}
-      \oneVoice
-      \times 4/6 {d[( a' d d a' d]}
-      \times 4/6 {c a d, d d, d')}
-      
-      \times 4/6 {g,[( d' g bf \clef treble d g]}
-      \times 4/6 {bf g d \clef bass bf g d)}
-      \times 4/6 {f,([ d' g af bf \clef treble d]}
-      \times 4/6 {af' ef bf d \clef bass af bf,)}
-      
-      \times 4/6 {ef,([ bf' g' bf ef f])}
-      \voiceTwo
-      \times 4/6 {g( ef bf g bf, ef,)}
-      \times 4/6 {e[( g' <d' bf>) a'( g d)]}
-      \times 4/6 {bf'( g d) c'( g d)}
-      
-      \oneVoice
-      \clef bass a,,16
-    }
+  \new Staff <<
+     \set Staff.pedalSustainStyle = #'bracket
+     \key fs \major
+     \clef bass
+     \new Voice {
+        \voiceOne
+        ds'4 \tenuto
+        cs'4 \tenuto
+        |
+        ds'4 \tenuto
+        cs'4 \tenuto
+        |
+        ds'4 \tenuto
+        cs'4 \tenuto
+        |
+        s8
+        \clef treble
+        <b' cs''>8 [
+        \clef bass
+        <es b cs'>8 \fermata ]
+        s8
+        |
+        r8
+        \clef treble
+        <b' cs''>4 \tenuto
+        s8
+        |
+        r8
+        \clef treble
+        <b' cs''>4 \tenuto
+        s8
+        |
+        s2
+        |
+        r8
+        \clef treble
+        <as' cs''>4
+        \clef bass
+        s8
+        |
+        s8
+        \clef treble
+        <as'>4 \arpeggio
+        \clef bass
+        s8
+        |
+        s8
+        \clef treble
+        <as''>4. \arpeggio \fermata
+        |
+     }
+     \new Voice {
+        \voiceTwo
+        ds'8 [ (
+        < ds bs >8
+        cs'8
+        < ds as >8 ] )
+        |
+        ds'8 [ (
+        < ds bs >8
+        cs'8
+        < ds as >8 ] )
+        |
+        ds'8 [ (
+        < ds bs >8
+        cs'8
+        < ds as >8 ] )
+        |
+        \once \override Script #'outside-staff-priority = #100
+        \once \override TextScript #'outside-staff-priority = #500
+        <cs, gs,>4. \fermata
+        _ \markup \italic { ped. }
+        <fs, cs>8 (
+        |
+        <e, b,>4. ) \sustainDown
+        \clef bass
+        <fs, cs>8 ( \sustainUp
+        |
+        <e, b,>4. ) \sustainDown
+        \clef bass
+        <fs, cs>8 ( \sustainUp
+        |
+        <e, b,>4
+        <d, a,>4
+        |
+        <fs,, cs,>4. ) \sustainDown
+        <a, e>8 ( \sustainUp
+        |
+        <fs, cs>4. ) \sustainDown
+        \slurUp
+        <a e'>8 ( \sustainUp \sustainDown
+        |
+        <fs cs'>2 ) \sustainUp \sustainDown
+        |
+     }
   >>
 >>
+

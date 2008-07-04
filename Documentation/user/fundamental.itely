@@ -1586,7 +1586,7 @@ to remind you how these commands are used in practice, here's an
 annotated real-music example:
 
 @lilypond[quote,verbatim,ragged-right]
-\score {  % start single compound music expression
+\score {  % start of single compound music expression
   <<  % start of simultaneous staves section
     \time 2/4
     \new Staff {  % create RH staff
@@ -1608,7 +1608,7 @@ annotated real-music example:
           g8 <bes d> ees, <g c> |
           g8 <bes d> ees, <g c> |
         }  % end of LH voice one notes
-      }  % end of first LH voice
+      }  % end of LH voice one
       \new Voice {  % create LH voice two
         \voiceTwo
         \relative g {  % start of LH voice two notes
@@ -2004,7 +2004,7 @@ staff lines are produced by the Staff_symbol_engraver.
   d e
   \set fontSize = #2.5  % make note heads larger
   f g
-  \unset fontSize  % return to original size
+  \unset fontSize  % return to default size
   a b
 }
 @end lilypond
@@ -2322,28 +2322,28 @@ from Handel's Messiah:
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
 global = { \key d \major \time 4/4 }
-sopMusic = \relative c'' {
+sopranoMusic = \relative c'' {
   \clef "treble"
   r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
-sopWords = \lyricmode {
+sopranoWords = \lyricmode {
   Wor -- thy is the lamb that was slain
 }
 altoMusic = \relative a' {
   \clef "treble"
   r4 a2 a4 | fis4. fis8 a2 | g4 fis e2 |
 }
-altoWords = \sopWords
+altoWords = \sopranoWords
 tenorMusic = \relative c' {
   \clef "G_8"
   r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
 }
-tenorWords = \sopWords
+tenorWords = \sopranoWords
 bassMusic = \relative c' {
   \clef "bass"
   r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
-bassWords = \sopWords
+bassWords = \sopranoWords
 upper = \relative a' {
   \clef "treble"
   \global
@@ -2364,9 +2364,9 @@ lower = \relative c, {
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = "Soprano"
-        \new Voice = "sopranos" { \global \sopMusic }
+        \new Voice = "sopranos" { \global \sopranoMusic }
       >>
-      \new Lyrics \lyricsto "sopranos" { \sopWords }
+      \new Lyrics \lyricsto "sopranos" { \sopranoWords }
       \new Staff = "altos" <<
         \set Staff.instrumentName = "Alto"
         \new Voice = "altos" { \global \altoMusic }
@@ -2419,9 +2419,9 @@ Doing this gives for our ChoirStaff:
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = "Soprano"
-        \new Voice = "sopranos" @{ \global \sopMusic @}
+        \new Voice = "sopranos" @{ \global \sopranoMusic @}
       >>
-      \new Lyrics \lyricsto "sopranos" @{ \sopWords @}
+      \new Lyrics \lyricsto "sopranos" @{ \sopranoWords @}
       \new Staff = "altos" <<
         \set Staff.instrumentName = "Alto"
         \new Voice = "altos" @{ \global \altoMusic @}
@@ -2463,9 +2463,9 @@ stacked one above the other:
 <<  % combine ChoirStaff and PianoStaff one above the other
   \new ChoirStaff <<
     \new Staff = "sopranos" <<
-      \new Voice = "sopranos" @{ \global \sopMusic @}
+      \new Voice = "sopranos" @{ \global \sopranoMusic @}
     >>
-    \new Lyrics \lyricsto "sopranos" @{ \sopWords @}
+    \new Lyrics \lyricsto "sopranos" @{ \sopranoWords @}
     \new Staff = "altos" <<
       \new Voice = "altos" @{ \global \altoMusic @}
     >>
@@ -2495,28 +2495,28 @@ for the three bars of the example above gives:
 
 @lilypond[quote,verbatim,ragged-right,addversion]
 global = { \key d \major \time 4/4 }
-sopMusic = \relative c'' {
+sopranoMusic = \relative c'' {
   \clef "treble"
   r4 d2 a4 | d4. d8 a2 | cis4 d cis2 |
 }
-sopWords = \lyricmode {
+sopranoWords = \lyricmode {
   Wor -- thy is the lamb that was slain
 }
 altoMusic = \relative a' {
   \clef "treble"
   r4 a2 a4 | fis4. fis8 a2 | g4 fis fis2 |
 }
-altoWords = \sopWords
+altoWords = \sopranoWords
 tenorMusic = \relative c' {
   \clef "G_8"
   r4 fis2 e4 | d4. d8 d2 | e4 a, cis2 |
 }
-tenorWords = \sopWords
+tenorWords = \sopranoWords
 bassMusic = \relative c' {
   \clef "bass"
   r4 d2 cis4 | b4. b8 fis2 | e4 d a'2 |
 }
-bassWords = \sopWords
+bassWords = \sopranoWords
 upper = \relative a' {
   \clef "treble"
   \global
@@ -2537,9 +2537,9 @@ lower = \relative c, {
     \new ChoirStaff <<
       \new Staff = "sopranos" <<
         \set Staff.instrumentName = "Soprano"
-        \new Voice = "sopranos" { \global \sopMusic }
+        \new Voice = "sopranos" { \global \sopranoMusic }
       >>
-      \new Lyrics \lyricsto "sopranos" { \sopWords }
+      \new Lyrics \lyricsto "sopranos" { \sopranoWords }
       \new Staff = "altos" <<
         \set Staff.instrumentName = "Alto"
         \new Voice = "altos" { \global \altoMusic }

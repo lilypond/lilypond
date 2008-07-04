@@ -146,6 +146,7 @@ Interval robust_relative_extent (Grob *, Grob *, Axis);
 /* offset/extent callbacks. */
 void add_offset_callback (Grob *g, SCM proc, Axis a);
 void chain_offset_callback (Grob *g, SCM proc, Axis a);
+void chain_callback (Grob *g, SCM proc, SCM sym);
 SCM axis_offset_symbol (Axis a);
 SCM axis_parent_positioning (Axis a);
 

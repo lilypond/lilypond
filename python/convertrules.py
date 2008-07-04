@@ -3065,3 +3065,28 @@ def conv (str):
     return str
 
 conversions.append (((2, 11, 50), conv, """metronomeMarkFormatter uses text markup as second argument"""))
+
+
+def conv (str):
+    fret_props = ['barre-type', 
+                'dot-color', 
+                'dot-radius',
+                'finger-code',
+                'fret-count',
+                'label-dir',
+                'number-type',
+                'string-count',
+                'xo-font-magnification',
+                'mute-string',
+                'open-string',
+                'orientation']
+    for prop in fret_props:
+      if re.search ( prop, str):
+          stderr_write ('\n')
+          stderr_write (NOT_SMART %
+            prop + " in fret-diagram properties. Use fret-diagram-details.")
+          stderr_write ('\n')
+    return str
+
+conversions.append (((2, 11, 50), conv, """Fret diagram properties moved to fret-diagram-details"""))
+

@@ -679,11 +679,15 @@ centered, X==1 is at the right, X == -1 is at the left."
 
 (define-public (fret-board::calc-stencil grob)
   (let* ((string-frets (ly:grob-property grob 'string-fret-finger-combinations))
-	 (string-count (ly:grob-property grob 'string-count)))
+	 (string-count (assoc-get 
+                         'string-count 
+                         (ly:grob-property grob 'fret-diagram-details)
+                         6)))
     
-    (grob-interpret-markup grob
-			   (make-fret-diagram-verbose-markup
-			    (string-frets->description string-frets string-count)))))
+    (grob-interpret-markup 
+      grob
+      (make-fret-diagram-verbose-markup
+	(string-frets->description string-frets string-count)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; scripts
