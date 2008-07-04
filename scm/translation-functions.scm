@@ -174,6 +174,7 @@
 	b))
 (let*
       ((tunings (ly:context-property context 'stringTunings))
+       (details (ly:grob-property grob 'fret-diagram-details))
        (minimum-fret (ensure-number
 		      (ly:context-property context 'minimumFret) 0))
        (max-stretch (ensure-number
@@ -182,11 +183,11 @@
 					 minimum-fret max-stretch
 					 tunings)))
 
-       	      
-  (set! (ly:grob-property grob 'string-count) (length tunings))
-  (set! (ly:grob-property grob 'string-fret-finger-combinations) string-frets)
-
-  ))
+  (set! (ly:grob-property grob 'fret-diagram-details)
+          (if (null? details)
+              (acons 'string-count (length tunings) '())
+              (acons 'string-count (length tunings) details)))
+  (set! (ly:grob-property grob 'string-fret-finger-combinations) string-frets)))
 
 (define-public (determine-frets-mf notes string-numbers
 				   minimum-fret max-stretch
