@@ -147,7 +147,7 @@ fret & string spacing by @var{size}. Orientation is given by @var{orientation}"
          (y1 (- half-thick))
          (y2 (+ top-fret-thick half-thick))
          (x-extent (cons (- x1) x2))
-         (y-extent (cons 0 y2)))
+         (y-extent (cons sth top-fret-thick)))
     (if (eq? orientation 'normal)
         (ly:make-stencil (list 'round-filled-box x1 x2 y1 y2 sth)
                          x-extent y-extent)
