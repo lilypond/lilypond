@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Pitches
 @section Pitches
@@ -402,7 +402,7 @@ Es gibt auch eine Oktavenüberprüfung, die keine sichtbare Ausgabe
 erzeugt. Die Syntax:
 
 @example
-\octave @var{Tonhöhe}
+\octaveCheck @var{Tonhöhe}
 @end example
 
 Hierdurch wird überprüft, dass die @var{Tonhöhe} (ohne Apostroph) 
@@ -423,8 +423,8 @@ richtigen Oktave gesetzt werden.
 @example
 \relative c' @{
   e
-  \octave a'
-  \octave b'
+  \octaveCheck a'
+  \octaveCheck b'
 @}
 @end example
 
@@ -441,7 +441,7 @@ verändert.
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' {
   e
-  \octave b
+  \octaveCheck b
   a
 }
 @end lilypond
