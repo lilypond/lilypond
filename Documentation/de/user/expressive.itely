@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Expressive marks
 @section Expressive marks
@@ -239,7 +239,7 @@ e\> d c b\!
 Dieser Text kann auch beliebig angepasst werden:
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \set crescendoText = \markup { \italic "cresc. poco" }
-\set crescendoSpanner = #'dashed-line
+\set crescendoSpanner = #'text
 a'2\< a a a\!\mf
 @end lilypond
 

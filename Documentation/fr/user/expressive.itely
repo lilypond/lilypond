@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -245,7 +245,7 @@ On peut même définir ses propres indications textuelles :
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \set crescendoText = \markup { \italic "cresc. poco" }
-\set crescendoSpanner = #'dashed-line
+\set crescendoSpanner = #'text
 a'2\< a a a\!\mf
 @end lilypond
 

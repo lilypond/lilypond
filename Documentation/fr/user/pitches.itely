@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Frédéric Chiasson
 @c Translation checkers: Valentin Villenave, Jean-Charles Malahieude
@@ -375,7 +375,7 @@ Il existe aussi une vérification d'octave qui ne produit pas de musique
 imprimée, ayant pour syntaxe
 
 @example
-\octave @var{hauteur}
+\octaveCheck @var{hauteur}
 @end example
 
 Cette commande vérifie que la @var{hauteur} considérée sans apostrophe
@@ -394,21 +394,21 @@ suivantes soient à nouveau à la bonne octave.
 @example
 \relative c' @{
   e
-  \octave a'
-  \octave b'
+  \octaveCheck a'
+  \octaveCheck b'
 @}
 @end example
 
 L'octave d'une note qui suit un test d'octave est déterminée selon la
 note précédente.  Dans l'exemple suivant, la dernière note est un
 @code{a'}, au-dessus du do central.  Cela veut dire que le test
-@code{\octave} réussit, et peut donc être enlevé sans changer le
+@code{\octaveCheck} réussit, et peut donc être enlevé sans changer le
 résultat sur la partition.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' {
   e
-  \octave b
+  \octaveCheck b
   a
 }
 @end lilypond
