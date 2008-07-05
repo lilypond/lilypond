@@ -2735,9 +2735,8 @@ def conv (str):
                           "\t(format-metronome-markup text dur count context)\n")
     return str
 
-conversions.append (((2, 11, 50), conv, """metronomeMarkFormatter uses text markup as second argument"""))
-
-
+@rule ((2,11,50), "Fret diagram properties moved to
+fret-diagram-details")
 def conv (str):
     fret_props = ['barre-type', 
                 'dot-color', 
@@ -2759,5 +2758,4 @@ def conv (str):
           stderr_write ('\n')
     return str
 
-conversions.append (((2, 11, 50), conv, """Fret diagram properties moved to fret-diagram-details"""))
 
