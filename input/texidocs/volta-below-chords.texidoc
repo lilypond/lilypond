@@ -1,0 +1,7 @@
+  texidoces = "
+Mediante la adición del grabador @code{Volta_engraver} al
+pentagrama pertinente, se pueden poner los corchetes de primera y
+segunda vez debajo de los acordes.
+
+"
+  doctitlees = "Corchetes de primera y segunda vez debajo de los acordes"
