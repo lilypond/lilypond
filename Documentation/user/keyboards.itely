@@ -37,7 +37,7 @@ instruments.
 @end menu
 
 @node References for keyboards
-@subsubsection References for keyboards
+@unnumbered References for keyboards
 
 Keyboard instruments are usually notated with Piano staves.  These
 are two or more normal staves coupled with a brace.  The same
@@ -116,7 +116,7 @@ option is the @q{piano centered dynamics} template under
 objects}.
 
 @node Changing staff manually
-@subsubsection Changing staff manually
+@unnumbered Changing staff manually
 
 @cindex changing staff manually
 @cindex manual staff changes
@@ -183,7 +183,7 @@ Internals Reference:
 
 
 @node Changing staff automatically
-@subsubsection Changing staff automatically
+@unnumbered Changing staff automatically
 
 @cindex changing staff automatically
 @cindex automatic staff changes
@@ -261,7 +261,7 @@ Chords will not be split across the staves; they will be assigned to a
 staff based on the first note named in the chord construct.
 
 @node Staff-change lines
-@subsubsection Staff-change lines
+@unnumbered Staff-change lines
 
 @cindex staff-change lines
 @cindex cross-staff lines
@@ -302,7 +302,7 @@ Internals Reference:
 
 
 @node Cross-staff stems
-@subsubsection Cross-staff stems
+@unnumbered Cross-staff stems
 
 @cindex cross-staff notes
 @cindex notes, cross-staff
@@ -356,7 +356,7 @@ piano.
 @end menu
 
 @node Piano pedals
-@subsubsection Piano pedals
+@unnumbered Piano pedals
 @cindex piano pedals
 @cindex pedals, piano
 @cindex sustain pedal
@@ -431,7 +431,7 @@ This section discusses notation that is unique to the accordion.
 @end menu
 
 @node Discant symbols
-@subsubsection Discant symbols
+@unnumbered Discant symbols
 @cindex accordion discant symbols
 @cindex discant symbols, accordion
 @cindex accordion shifts
@@ -445,8 +445,9 @@ come into use to simplify the performance instructions.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{accordion-discant-symbols.ly}
+@c FIXME: Neil, uncomment when fixed.
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@c {accordion-discant-symbols.ly}
 
 @seealso
 
