@@ -30,7 +30,7 @@ TAGS.extend (['pitches', 'rhythms', 'expressive-marks',
 # NR 2
 TAGS.extend (['vocal-music', 'chords', 'keyboards',
 'percussion', 'fretted-strings', 'unfretted-strings',
-'ancient-notation', 'winds'
+'ancient-notation', 'winds', 'world-music'
 ])
 
 # other
