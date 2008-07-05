@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -1543,9 +1543,9 @@ where it is not obvious.
   @tab Up/Right
   @tab Revert
   @tab Effect
-@item @code{\arpeggioDown}
-  @tab @code{\arpeggioUp}
-  @tab @code{\arpeggioNeutral}
+@item @code{\arpeggioArrowDown}
+  @tab @code{\arpeggioArrowUp}
+  @tab @code{\arpeggioNormal}
   @tab Arrow is at bottom, at top, or no arrow
 @item @code{\dotsDown}
   @tab @code{\dotsUp}

@@ -235,20 +235,23 @@ defaultTimeSignature = {
 
 arpeggio = #(make-music 'ArpeggioEvent)
 
-arpeggioUp = \sequential {
+arpeggioArrowUp = \sequential {
   \revert Arpeggio  #'stencil
   \override Arpeggio  #'arpeggio-direction = #UP
 }
-arpeggioDown = \sequential {
+arpeggioArrowDown = \sequential {
   \revert Arpeggio #'stencil
   \override Arpeggio  #'arpeggio-direction = #DOWN
 }
-arpeggioNeutral = \sequential {
+arpeggioNormal = \sequential {
   \revert Arpeggio #'stencil
   \revert Arpeggio  #'arpeggio-direction
 }
 arpeggioBracket = \sequential {
   \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-bracket
+}
+arpeggioParenthesis = \sequential {
+  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
 }
 
 glissando = #(make-music 'GlissandoEvent)
