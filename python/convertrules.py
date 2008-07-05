@@ -2735,8 +2735,7 @@ def conv (str):
                           "\t(format-metronome-markup text dur count context)\n")
     return str
 
-@rule ((2,11,50), "Fret diagram properties moved to
-fret-diagram-details")
+@rule ((2,11,50), "Fret diagram properties moved to fret-diagram-details")
 def conv (str):
     fret_props = ['barre-type', 
                 'dot-color', 
@@ -2756,6 +2755,11 @@ def conv (str):
           stderr_write (NOT_SMART %
             prop + " in fret-diagram properties. Use fret-diagram-details.")
           stderr_write ('\n')
+    return str
+
+@rule ((2, 11, 48), "\\octave -> \\octaveCheck")
+def conv (str):
+    str = re.sub (r"\\octave", r"\\octaveCheck", str)
     return str
 
 
