@@ -445,9 +445,8 @@ come into use to simplify the performance instructions.
 
 @snippets
 
-@c This snippet should work once it's been tagged for the docs.
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {accordion-discant-symbols.ly}
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{accordion-discant-symbols.ly}
 
 @seealso
 
