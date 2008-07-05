@@ -2622,7 +2622,7 @@ def conv (str):
                   r"\override \2Beam #'breakable", str)
     str = re.sub (r'(\\set\s+)?allowBeamBreak',
                   r"\override Beam #'breakable", str)
-    str = re.sub (r'addquote' , 'addQuote', str)
+    str = re.sub (r'addquote', 'addQuote', str)
     if re.search ("Span_dynamic_performer", str):
         stderr_write ("Span_dynamic_performer has been merged into Dynamic_performer")
 
@@ -2757,7 +2757,7 @@ def conv (str):
           stderr_write ('\n')
     return str
 
-@rule ((2, 11, 48), "\\octave -> \\octaveCheck")
+@rule ((2, 11, 51), "\\octave -> \\octaveCheck")
 def conv (str):
     str = re.sub (r"\\octave", r"\\octaveCheck", str)
     return str
