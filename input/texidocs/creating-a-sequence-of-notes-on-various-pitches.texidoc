@@ -1,0 +1,12 @@
+  texidoces = "
+En una música que tenga muchas apariciones de la
+misma secuencia de notas a distintas alturas, podría ser de
+utilidad la siguiente función musical.  Admite una nota, de la que
+sólo se utiliza su altura.  Las funciones de apoyo en Scheme se
+han tomado prestadas del documento de \"Consejos y trucos\" de la
+versión 2.10 del manual.  Este ejemplo crea las duraciones
+rítmicas que se usan a todo lo largo de «Marte», de «Los Planetas»
+de Gustav Holst.
+
+"
+  doctitlees = "Crear una secuencia de notas a distintas alturas"

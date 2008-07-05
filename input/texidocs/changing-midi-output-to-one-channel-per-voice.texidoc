@@ -1,0 +1,16 @@
+  texidoces = "
+Al producir una salida MIDI, el comportamiento predeterminado es
+que cada pentagrama representa un canal MIDI, con todas las voces
+de dicho pentagrama mezcladas.  Esto reduce al mínimo el riesgo de
+que se agote el número de canales MIDI disponibles, pues existe un
+máximo de 16 canales por pista.
+
+Sin embargo, cuando se traslada el interpretador
+@code{Staff_performer} al contexto @code{Voice}, cada voz de un
+pentagrama puede tener su propio canal MIDI, como se muestra en el
+siguiente ejemplo: a pesar de estar sobre el mismo pentagrama, se
+crean dos canales MIDI, cada uno con un @code{midiInstrument}
+distinto.
+
+"
+  doctitlees = "Modificar la salida MIDI para que tenga un canal por cada voz"

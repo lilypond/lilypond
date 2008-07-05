@@ -1,0 +1,7 @@
+  texidoces = "
+Se puede usar la propiedad @code{chordNameExceptions} para
+almacenar una lista de notaciones espaciales para acordes
+específicos.
+
+"
+  doctitlees = "Excepciones para los nombres de acorde"

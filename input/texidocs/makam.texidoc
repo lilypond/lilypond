@@ -1,0 +1,10 @@
+  texidoces = "
+El «Makam» es un tipo de melodía de Turquía que
+utiliza intervalos microtonales de 1/9 de tono.  Consulte el
+archivo de inicio @code{makam-init.ly} (véase el 'Manual de
+aprendizaje @version{}, 4.6.3 Otras fuentes de información' para
+averiguar la situación de este archivo) para ver detalles de los
+nombres de las notas y las alteraciones.
+
+"
+  doctitlees = "El «Makam»"
