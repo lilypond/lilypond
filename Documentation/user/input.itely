@@ -15,9 +15,6 @@
 This section deals with general LilyPond input syntax issues,
 rather than specific notation.
 
-FIXME: don't complain about anything in this chapter.  It's still
-under heavy development.
-
 @menu
 * Input structure::
 * Titles and headers::
@@ -1118,7 +1115,12 @@ by using a Unicode-aware editor and saving the file with utf-8 encoding.  Most
 popular modern editors have utf-8 support, for example, vim, Emacs,
 jEdit, and GEdit do.
 
-@c  Currently not working
+@c TODO Expand - meanings; how to get and install fonts?
+
+@c TODO Explainn that programming error: FT_Get_Glyph_Name () error: invalid argument
+@c is often due to saving in Latin-1 rather than UTF-8
+
+@c  TODO Currently not working
 @ignore
 Depending on the fonts installed, the following fragment shows Hebrew
 and Cyrillic lyrics,
@@ -1128,6 +1130,8 @@ and Cyrillic lyrics,
 @cindex ASCII, non
 
 @li lypondfile[fontload]{utf-8.ly}
+
+@c TODO TeX is no longer used as backend
 
 The @TeX{} backend does not handle encoding specially at all.  Strings
 in the input are put in the output as-is.  Extents of text items in the
@@ -1183,6 +1187,8 @@ with all the other messages.  To split up these messages and save
 the results of @code{\display@{STUFF@}}, redirect the output to
 a file.
 
+@c TODO What happens under Windows?
+
 @example
 lilypond file.ly >display.txt
 @end example
@@ -1215,7 +1221,7 @@ separately.  For example, including the following definition
       (cons
        (make-rhythmic-location 5 1 2)
        (make-rhythmic-location 7 3 4)))
-}       
+}
 @end verbatim
 
 @noindent
@@ -1224,7 +1230,7 @@ the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
 in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
 
 More clip regions can be defined by adding more pairs of
-rhythmic-locations to the list. 
+rhythmic-locations to the list.
 
 In order to use this feature, LilyPond must be invoked with
 @code{-dclip-systems}.  The clips are output as EPS files, and are
@@ -1295,11 +1301,13 @@ what was entered.  This is convenient for checking the music; octaves
 that are off or accidentals that were mistyped stand out very much
 when listening to the MIDI output.
 
+@c TODO Move to lower section - next one?
 @knownissues
 
 Many musically interesting effects, such as swing, articulation,
 slurring, etc., are not translated to midi.
 
+@c TODO Check this
 The midi output allocates a channel for each staff, and one for global
 settings.  Therefore the midi file should not have more than 15 staves
 (or 14 if you do not use drums).  Other staves will remain silent.
@@ -1309,11 +1317,10 @@ output.  Players that are known to work include
 @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 
 @menu
-* Creating MIDI files::         
-* MIDI block::                  
-* MIDI instrument names::       
-* What goes into the MIDI?  FIXME::  
-* other midi::                  
+* Creating MIDI files::
+* MIDI block::
+* MIDI instrument names::
+* What goes into the MIDI output?
 @end menu
 
 @node Creating MIDI files
@@ -1334,11 +1341,11 @@ to a score, for example,
 @}
 @end example
 
-The tempo can be specified using the @code{\tempo} command within the 
+The tempo can be specified using the @code{\tempo} command within the
 actual music, see @ref{Metronome marks}.  An alternative, which does not
 result in a metronome mark in the printed score, is shown in the example
 above.  In this example the tempo of quarter notes is set to 72 beats per
-minute. 
+minute.
 This kind of tempo
 specification can not take dotted note lengths as an argument.  In this
 case, break the dotted notes into smaller units.  For example, a tempo
@@ -1432,6 +1439,8 @@ enclose the @code{\new Score} and the @code{\midi} in a @code{\score} block.
 @subsection MIDI block
 @cindex MIDI block
 
+@c TODO Do we need this?  Should it be elsewhere?
+@c TODO If we keep it it should be expanded
 
 The MIDI block is analogous to the layout block, but it is somewhat
 simpler.  The @code{\midi} block is similar to @code{\layout}.  It can contain
@@ -1465,17 +1474,21 @@ the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
 instrument is used.
 
 
-@node What goes into the MIDI?  FIXME
-@subsection What goes into the MIDI?  FIXME
+@node What goes into the MIDI output?
+@subsection What goes into the MIDI output?
+
+@c TODO Add Notes, rhythms, dynamics
+@c TODO Check grace notes - timing is suspect?
 
 @menu
-* Repeats and MIDI::            
+* Repeats::
+* Microtones::
 @end menu
 
-@node Repeats and MIDI
-@subsubsection Repeats and MIDI
+@node Repeats
+@subsubsection Repeats
 
-@cindex expanding repeats
+@cindex repeats in MIDI
 @funindex \unfoldRepeats
 
 With a little bit of tweaking, all types of repeats can be present
@@ -1513,10 +1526,12 @@ and percent repeats).  For example,
 @end example
 
 
-@node other midi
-@subsection other midi
+@node Microtones
+@subsubsection Microtones
 
 Micro tones are also exported to the MIDI file.
+@c TODO Write
 
-Figured bass has no effect on MIDI.
+@c TODO List things that have no effect
+Figured bass, chords, lyrics have no effect on MIDI.
 

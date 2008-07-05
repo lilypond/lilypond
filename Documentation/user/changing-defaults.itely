@@ -76,7 +76,6 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 * Useful concepts and properties::
 * Common properties::
 * Advanced tweaks::
-* old The \override command::
 * Discussion of specific tweaks::
 @end menu
 
@@ -98,6 +97,8 @@ This section describes what contexts are, and how to modify them.
 
 @node Contexts explained
 @subsection Contexts explained
+
+@c FIXME Rethink and rewrite
 
 >> > > - list of contexts: my *danger unmaintainable*
 >> > > alarm just went off.  I'm 
@@ -245,6 +246,9 @@ context.
 @node Creating contexts
 @subsection Creating contexts
 
+@c TODO \new Score and \score
+@c TODO more complete descriptions rather than learning style
+
 For scores with only one voice and one staff, contexts are
 created automatically.  For more complex scores, it is necessary to
 create them by hand.  There are three commands that do this.
@@ -383,6 +387,8 @@ these forms
 
 @node Modifying context plug-ins
 @subsection Modifying context plug-ins
+
+@c TODO Should this be Modifying engravers or Modifying contexts?
 
 Notation contexts (like @code{Score} and @code{Staff}) not only
 store properties,
@@ -728,7 +734,7 @@ New contexts may be aligned above or below existing contexts.  This
 could be useful in setting up a vocal staff (@rlearning{Vocal ensembles}) and
 in ossia,
 
-FIXME: this section doesn't work in pdf.  (?)
+@c TODO Better example needed.  Ref LM, and expand on it.
 
 @cindex ossia
 @findex alignAboveContext
@@ -761,6 +767,9 @@ ossia = { f4 f f f }
 
 @node Navigating the program reference
 @subsection Navigating the program reference
+
+@c TODO remove this (it's in the LM)
+@c Replace with more factual directions
 
 Suppose we want to move the fingering indication in the fragment
 below:
@@ -823,7 +832,7 @@ manual.
 The programmer's reference is available as an HTML document.  It is
 highly recommended that you read it in HTML form, either online or
 by downloading the HTML documentation.  This section will be much more
-difficult to understand if you are using the 
+difficult to understand if you are using the
 PDF manual.
 @end ifnothtml
 
@@ -977,6 +986,9 @@ is directly generated from this definition.
 
 @node Determining the grob property
 @subsection Determining the grob property
+
+@c TODO remove this (it's in the LM)
+@c Replace with more factual directions
 
 Recall that we wanted to change the position of the @b{2} in
 
@@ -1689,6 +1701,7 @@ restricted to a sub-set of the spanners.
 @node Controlling visibility of objects
 @subsection Controlling visibility of objects
 
+@c FIXME Write this section
 
 @node Line styles
 @subsection Line styles
@@ -1823,7 +1836,7 @@ glissando would start and end in the center of each note head.
 
 @end table
 
-FIXME: should this be in NR 3?
+@c TODO: Move to 5.4.4
 
 The music function \endSpanners terminates spanners and hairpins
 after exactly one note.
@@ -1851,17 +1864,21 @@ Internals Reference: @rinternals{TextSpanner},
 @node Rotating objects
 @subsection Rotating objects
 
+@c FIXME Write this section
+
 @node Aligning objects
 @subsection Aligning objects
+
+@c FIXME Write this section
 
 
 @node Advanced tweaks
 @section Advanced tweaks
 
 @menu
-* Vertical grouping of grobs::  
-* Modifying ends of spanners::  
-* Modifying stencils::          
+* Vertical grouping of grobs::
+* Modifying ends of spanners::
+* Modifying stencils::
 @end menu
 
 
@@ -1870,52 +1887,40 @@ Internals Reference: @rinternals{TextSpanner},
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
 
+@c FIXME Expand this section
+
 The VerticalAlignment and VerticalAxisGroup grobs work together.
 VerticalAxisGroup groups together different grobs like Staff, Lyrics,
 etc.  VerticalAlignment then vertically aligns the different grobs
 grouped together by VerticalAxisGroup.  There is usually only one
 VerticalAlignment per score but every Staff, Lyrics, etc. has its own
-VerticalAxisGroup. 
+VerticalAxisGroup.
 
 
 @node Modifying ends of spanners
 @subsection Modifying ends of spanners
 
+@c FIXME Write this section
 
 @node Modifying stencils
 @subsection Modifying stencils
 
-
-
-@node old The \override command
-@section old The @code{\override} command
-
-In the previous section, we have already touched on a command that
-changes layout details: the @code{\override} command.  In this section,
-we will look in more detail at how to use the command in practice.  The
-general syntax of this command is:
-
-@example
-\override @var{context}.@var{layout_object} #'@var{layout_property} = #@var{value}
-@end example
-
-This will set the @var{layout_property} of the specified @var{layout_object},
-which is a member of the @var{context}, to the @var{value}.
-
-
-
+@c FIXME Write this section
 
 
 @node Discussion of specific tweaks
 @section Discussion of specific tweaks
 
 @menu
-* old Contexts explained::      
+* old Contexts explained::
 @end menu
 
 
 @node old Contexts explained
 @subsection old Contexts explained
+
+@c FIXME Delete this section?  It is in LM
+@c Or leave heading and go on from LM?
 
 When music is printed, a lot of notational elements must be added to the
 output.  For example, compare the input and output of the following example:
