@@ -471,20 +471,24 @@ pitchedTrill =
 		      (ly:music-property ev-chord 'elements))))
 	(sec-note-events (get-notes secondary-note))
 	(trill-events (filter (lambda (m) (music-has-type m 'trill-span-event))
-			      (ly:music-property main-note 'elements)))
+			      (ly:music-property main-note 'elements))))
 
-	(trill-pitch
-	 (if (pair? sec-note-events)
-	     (ly:music-property (car sec-note-events) 'pitch)
-	     )))
-     
-     (if (ly:pitch? trill-pitch)
-	 (for-each (lambda (m) (ly:music-set-property! m 'pitch trill-pitch))
-		   trill-events)
+     (if (pair? sec-note-events)
 	 (begin
-	   (ly:warning (_ "Second argument of \\pitchedTrill should be single note: "))
-	   (display sec-note-events)))
+	   (let*
+	       ((trill-pitch (ly:music-property (car sec-note-events) 'pitch))
+		(forced (ly:music-property (car sec-note-events ) 'force-accidental)))
+	     
+	     (if (ly:pitch? trill-pitch)
+		 (for-each (lambda (m) (ly:music-set-property! m 'pitch trill-pitch))
+			   trill-events)
+		 (begin
+		   (ly:warning (_ "Second argument of \\pitchedTrill should be single note: "))
+		   (display sec-note-events)))
 
+	     (if (eq? forced #t)
+		 (for-each (lambda (m) (ly:music-set-property! m 'force-accidental forced))
+			   trill-events)))))
      main-note))
 
 

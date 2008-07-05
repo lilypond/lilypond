@@ -54,7 +54,7 @@
                (subtract-base-fret base-fret (cdr dot-list))))))
 
 (define (sans-serif-stencil layout props mag text)
-  "create a stencil in sans-serif font based on @var{layout} and @var{props}
+  "Create a stencil in sans-serif font based on @var{layout} and @var{props}
 with magnification @var{mag} of the string @var{text}."
   (let* ((my-props
           (prepend-alist-chain
@@ -185,7 +185,7 @@ Line thickness is given by @var{th}, fret & string spacing by
          (scale-dot-thick (* size dot-thickness))
          (dot-color (assoc-get 'dot-color details 'black))
          (finger-xoffset -0.25)
-         (finger-yoffset (- (* size 0.5)))
+         (finger-yoffset (* -0.5 size ))
          (dot-label-font-mag
           (* scale-dot-radius (assoc-get 'dot-label-font-mag details 1.0)))
          (string-label-font-mag
@@ -295,7 +295,7 @@ Line thickness is given by @var{th}, fret & string spacing by
          glyph-stencil))))
 
 (define (make-bezier-sandwich-list start stop base height thickness orientation)
-  " Make the argument list for a bezier sandwich from
+  "Make the argument list for a bezier sandwich from
 @var{start} to @var{stop} with a baseline at @var{base}, a height of
 @var{height}, and a thickness of @var{thickness}.  If @var{orientation} is
 @var{'normal}, @var{base} is a y coordinate, otherwise it's an x coordinate."
@@ -496,7 +496,7 @@ indications per string.
   (make-fret-diagram layout props marking-list))
 
 (define (make-fret-diagram layout props marking-list)
-  " Make a fret diagram markup"
+  "Make a fret diagram markup"
   (let* (
          ; note: here we get items from props that are needed in this routine,
 	 ; or that are needed in more than one of the procedures
@@ -682,7 +682,7 @@ Note: There is no limit to the number of fret indications per string.
      layout (car definition-list) (cdr definition-list))))
 
 (define (fret-parse-definition-string props definition-string)
- "parse a fret diagram string and return a pair containing:
+ "Parse a fret diagram string and return a pair containing:
   props, modified as necessary by the definition-string
   a fret-indication list with the appropriate values"
  (let* ((fret-count 4)
@@ -750,7 +750,7 @@ Note: There is no limit to the number of fret indications per string.
    `(,props . ,output-list))) ;ugh -- hard-coded spell -- procedure better
 
 (define (cons-fret new-value old-list)
-  "  Put together a fret-list in the format desired by parse-string "
+  "Put together a fret-list in the format desired by parse-string"
   (if (eq? old-list '())
       (list new-value)
       (cons* new-value old-list)))
@@ -896,7 +896,7 @@ with @code{-(} to start a barre and @code{-)} to end the barre.
     `(,props . ,output-list))) ; ugh -- hard coded; proc is better
 
 (define (drop-paren item-list)
-  " drop a final parentheses from a fret indication list
+  "Drop a final parentheses from a fret indication list
    resulting from a terse string specification of barre."
   (if (> (length item-list) 0)
       (let* ((max-index (- (length item-list) 1))
@@ -907,7 +907,7 @@ with @code{-(} to start a barre and @code{-)} to end the barre.
       item-list))
 
 (define (get-sub-list value master-list)
-  " Get a sub-list whose cadr is equal to @var{value} from @var{master-list}"
+  "Get a sub-list whose cadr is equal to @var{value} from @var{master-list}"
   (if (eq? master-list '())
       #f
       (let ((sublist (car master-list)))

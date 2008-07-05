@@ -256,8 +256,8 @@ uneven vertical spacing.
 }
 @end lilypond
 
-@item Metonome marks can now also contain a textual description. The duration and 
-count (if given) will be shown in parenthesis after the text.
+@item Metronome marks can now also contain a textual description.  The
+duration and count (if given) are shown in parentheses after the text.
 
 @lilypond
 {

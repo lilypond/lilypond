@@ -80,9 +80,22 @@ Pitched_trill_engraver::make_trill (Stream_event *ev)
   SCM key = scm_cons (scm_from_int (p->get_octave ()),
 		      scm_from_int (p->get_notename ()));
 
+  int bn = measure_number (context());
+
   SCM handle = scm_assoc (key, keysig);
+  if (handle != SCM_BOOL_F)
+    {
+      bool same_bar = (bn == robust_scm2int (scm_cddr (handle), 0));
+      bool same_alt
+	= (p->get_alteration () == robust_scm2rational (scm_cadr (handle), 0));
+
+      if (!same_bar || (same_bar && !same_alt))
+	handle = SCM_BOOL_F;
+    }
+
   bool print_acc
-    = (handle == SCM_BOOL_F) || p->get_alteration () == Rational (0);
+    = (handle == SCM_BOOL_F) || p->get_alteration () == Rational (0)
+    || (ev->get_property ("force-accidental") == SCM_BOOL_T);
 
   if (trill_head_)
     {

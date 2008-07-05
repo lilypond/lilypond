@@ -2016,7 +2016,6 @@
 		 (interfaces . (side-position-interface
 				parentheses-interface
 				note-head-interface
-				rhythmic-head-interface
 				font-interface
 				axis-group-interface))))))
 
