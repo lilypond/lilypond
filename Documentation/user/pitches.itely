@@ -487,7 +487,7 @@ This section discusses how to modify pitches.
 @cindex octave correction
 @cindex octave check
 @funindex =
-@funindex \octave
+@funindex \octaveCheck
 
 In relative mode, it is easy to forget an octave changing mark.
 Octave checks make such errors easier to find by displaying a
@@ -508,7 +508,7 @@ correction.
 @end lilypond
 
 The octave of notes may also be checked with the
-@code{\octave}@tie{}@var{controlpitch} command.
+@code{\octaveCheck}@tie{}@var{controlpitch} command.
 @var{controlpitch} is specified in absolute mode.  This checks
 that the interval between the previous note and the
 @var{controlpitch} is within a fourth (i.e., the normal
@@ -519,12 +519,12 @@ relative to the @var{controlpitch}.
 @lilypond[verbatim,quote]
 \relative c'' {
   c2 d
-  \octave c'
+  \octaveCheck c'
   e2 f
 }
 @end lilypond
 
-Compare the two bars below.  The first and third @code{\octave}
+Compare the two bars below.  The first and third @code{\octaveCheck}
 checks fail, but the second one does not fail.
 
 @lilypond[verbatim,quote]
@@ -532,11 +532,11 @@ checks fail, but the second one does not fail.
   c4 f g f
 
   c4
-  \octave c'
+  \octaveCheck c'
   f
-  \octave c'
+  \octaveCheck c'
   g
-  \octave c'
+  \octaveCheck c'
   f
 }
 @end lilypond
