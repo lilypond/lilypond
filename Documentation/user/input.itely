@@ -1107,61 +1107,85 @@ than one tagged section at the same place.
 @node Text encoding
 @subsection Text encoding
 
-LilyPond uses the Pango library to format multi-lingual texts, and
-does not perform any input-encoding conversions.  This means that any
-text, be it title, lyric text, or musical instruction containing
-non-ASCII characters, must be utf-8.  The easiest way to enter such text is
-by using a Unicode-aware editor and saving the file with utf-8 encoding.  Most
-popular modern editors have utf-8 support, for example, vim, Emacs,
-jEdit, and GEdit do.
+LilyPond uses the character repertoire defined by the Unicode
+consortium and ISO/IEC 10646.  This defines a unique name and
+code point for the character sets used in virtually all modern
+languages and many others too.  Unicode can be implemented using
+several different encodings.  LilyPond uses the UTF-8 encoding
+(UTF stands for Unicode Transformation Format) which represents
+all common Latin characters in one byte, and represents other
+characters using a variable length format of up to four bytes.
 
-@c TODO Expand - meanings; how to get and install fonts?
+The actual appearance of the characters is determined by the
+glyphs defined in the particular fonts available - a font defines
+the mapping of a subset of the Unicode code points to glyphs.
+LilyPond uses the Pango library to layout and render multi-lingual
+texts.
 
-@c TODO Explainn that programming error: FT_Get_Glyph_Name () error: invalid argument
-@c is often due to saving in Latin-1 rather than UTF-8
+Lilypond does not perform any input-encoding conversions.  This
+means that any text, be it title, lyric text, or musical
+instruction containing non-ASCII characters, must be encoded in
+UTF-8.  The easiest way to enter such text is by using a
+Unicode-aware editor and saving the file with UTF-8 encoding.  Most
+popular modern editors have UTF-8 support, for example, vim, Emacs,
+jEdit, and GEdit do.  All MS Windows systems later than NT use
+Unicode as their native character encoding, so even Notepad can
+edit and save a file in UTF-8 format.  A more functional 
+alternative for Windows is BabelPad.
 
-@c  TODO Currently not working
-@ignore
-Depending on the fonts installed, the following fragment shows Hebrew
-and Cyrillic lyrics,
-
-@cindex Cyrillic
-@cindex Hebrew
-@cindex ASCII, non
-
-@li lypondfile[fontload]{utf-8.ly}
-
-@c TODO TeX is no longer used as backend
-
-The @TeX{} backend does not handle encoding specially at all.  Strings
-in the input are put in the output as-is.  Extents of text items in the
-@TeX{} backend, are determined by reading a file created via the
-@file{texstr} backend,
+If a LilyPond input file containing a non-ASCII character is not
+saved in UTF-8 format the error message
 
 @example
-lilypond -dbackend=texstr input/les-nereides.ly
-latex les-nereides.texstr
+FT_Get_Glyph_Name () error: invalid argument
 @end example
 
-The last command produces @file{les-nereides.textmetrics}, which is
-read when you execute
+will be generated.
+
+Here is an example showing Cyrillic, Hebrew and Portuguese
+text:
+
+@lilypond[verbatim,quote]
+% Cyrillic
+bulgarian = \lyricmode {
+  Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
+}
+
+% Hebrew
+hebrew = \lyricmode {
+  זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
+}
+
+% Portuguese
+portuguese = \lyricmode {
+  à vo -- cê uma can -- ção legal
+}
+
+\relative  {
+  c2 d e f g f e
+}
+\addlyrics { \bulgarian }
+\addlyrics { \hebrew }
+\addlyrics { \portuguese }
+@end lilypond
+
+To enter a single character for which the Unicode escape sequence
+is known but which is not available in the editor being used, enter
 
 @example
-lilypond -dbackend=tex input/les-nereides.ly
+#(ly:export (ly:wide-char->utf-8 #x03BE))
 @end example
 
-Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
-suitable LaTeX wrappers to load appropriate La@TeX{} packages for
-interpreting non-ASCII strings.
+where in this example @code{x03BE} is the hexadecimal code for the
+Unicode U+03BE character, which has the Unicode name @qq{Greek Small
+Letter Xi}.  Any Unicode hexadecimal code may be substituted, and
+if all special characters are entered in this format it is not
+necessary to save the input file in UTF-8 format.
 
-@end ignore
+@knownissues
 
-To use a Unicode escape sequence, use
-
-@example
-#(ly:export (ly:wide-char->utf-8 #x2014))
-@end example
-
+The @code{ly:export} format may be used in text within @code{\mark} or
+@code{\markup} commands but not in lyrics.
 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
@@ -1320,7 +1344,7 @@ output.  Players that are known to work include
 * Creating MIDI files::
 * MIDI block::
 * MIDI instrument names::
-* What goes into the MIDI output?
+* What goes into the MIDI output?::
 @end menu
 
 @node Creating MIDI files
@@ -1481,12 +1505,12 @@ instrument is used.
 @c TODO Check grace notes - timing is suspect?
 
 @menu
-* Repeats::
-* Microtones::
+* Repeats in  MIDI::
+* Microtones in MIDI::
 @end menu
 
-@node Repeats
-@subsubsection Repeats
+@node Repeats in MIDI
+@subsubsection Repeats in MIDI
 
 @cindex repeats in MIDI
 @funindex \unfoldRepeats
@@ -1526,8 +1550,8 @@ and percent repeats).  For example,
 @end example
 
 
-@node Microtones
-@subsubsection Microtones
+@node Microtones in MIDI
+@subsubsection Microtones in MIDI
 
 Micro tones are also exported to the MIDI file.
 @c TODO Write
