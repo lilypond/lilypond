@@ -2,7 +2,7 @@
   texidoc = "Excercise all output functions"
 }
 
-\version "2.11.38"
+\version "2.11.51"
 
 \paper { ragged-right = ##t }
 

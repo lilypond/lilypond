@@ -4,7 +4,7 @@
 from the notes. "
 
 }
-\version "2.10.13"
+\version "2.11.51"
 
 \layout {
   indent = 0.0\mm
@@ -12,7 +12,7 @@ from the notes. "
 }
 
 \relative c' {
-  \setTextCresc
+  \crescTextCresc
   c\< c c c | \break
   c  c\! c c
 }

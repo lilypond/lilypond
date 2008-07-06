@@ -3,7 +3,7 @@
   texidoc = "Even very flat but slanted patterns should give slanted beams. "
 }
 
-\version "2.10.7"
+\version "2.11.51"
 \layout{
   line-width = 15\cm
   debug-beam-scoring = ##t

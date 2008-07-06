@@ -5,7 +5,7 @@
 }
 
 
-\version "2.11.8"
+\version "2.11.51"
 
 %% todo : use macro, to show the statement tested. 
 #(ly:progress "~a\n" (ly:expand-environment "${HOME} $HOME $$ "))

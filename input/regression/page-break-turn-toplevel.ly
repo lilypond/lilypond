@@ -1,4 +1,4 @@
-\version "2.11.24"
+\version "2.11.51"
 
 \header {
   texidoc = "Page breaking and page turning commands (@code{\\pageBreak}, 

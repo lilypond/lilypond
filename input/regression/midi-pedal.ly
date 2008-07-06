@@ -5,16 +5,16 @@
 
 }
 
-\version  "2.11.10"
+\version "2.11.51"
 
 \score {
   \relative {
     {
       { c16 e g c }
       
-      { c,16\sustainDown e g c\sustainUp }
+      { c,16\sustainOn e g c\sustainOff }
       { c,16\unaCorda e g c\treCorde }
-      { c,16\sostenutoDown e g c\sostenutoUp }
+      { c,16\sostenutoOn e g c\sostenutoOff }
     }
   }
   \midi {}

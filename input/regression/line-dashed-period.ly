@@ -5,7 +5,7 @@ starts and ends on a full dash. "
 
 }
 
-\version "2.11.13"
+\version "2.11.51"
 
 \layout {
   indent = 0.0\mm
@@ -14,14 +14,14 @@ starts and ends on a full dash. "
 
 \relative <<
   \new Staff {
-    \setTextCresc
+    \crescTextCresc
     \set crescendoSpanner = #'line
     c1_\< c c1\!
   }
   \new Staff {
     \override DynamicTextSpanner #'dash-period = #3
     \override DynamicTextSpanner #'dash-fraction = #0.3
-    \setTextCresc
+    \crescTextCresc
     c1^\< c c1\!
   }
 >>

@@ -4,7 +4,7 @@
   texidoc = 
   "Both edge heights of an ottava bracket can be specified."
 }
-\version "2.11.45"
+\version "2.11.51"
 
 
 \layout { ragged-right = ##t} 

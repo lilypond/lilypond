@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.51"
 \header{
   texidoc="
 Breathing signs are available in different tastes: commas (default),
@@ -44,10 +44,10 @@ ticks, vees and `railroad tracks' (caesura)."
 
       %% caesurae
       \override BreathingSign  #'text =
-      #(make-musicglyph-markup "scripts.caesura.curved")
+      #(make-musicglyph-markup "scripts.caesura.curved.curved")
       es8[ d] \breathe
       \override BreathingSign  #'text =
-      #(make-musicglyph-markup "scripts.caesura.straight")
+      #(make-musicglyph-markup "scripts.caesura.curved.straight")
                        es[ f] \breathe g[ f] |
       es2 r4 \bar "||" \break
     }

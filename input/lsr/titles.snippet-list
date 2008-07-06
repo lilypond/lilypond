@@ -1,3 +1,4 @@
+\version "2.11.51"
 aligning-and-centering-instrument-names.ly
 demonstrating-all-headers.ly
 adding-the-current-date-to-a-score.ly

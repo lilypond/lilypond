@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.51"
 \header{
   texidoc="
 In addition to normal collision rules, there is support for polyphony, 

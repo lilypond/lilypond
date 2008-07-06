@@ -1,3 +1,4 @@
+\version "2.11.51"
 depth = ../..
 
 # urg, can't name itely templates foo.itely.in because of standard rule

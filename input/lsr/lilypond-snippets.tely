@@ -1,3 +1,4 @@
+\version "2.11.51"
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @setfilename lilypond-snippets.info
 @settitle LilyPond snippets

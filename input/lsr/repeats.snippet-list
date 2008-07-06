@@ -1,3 +1,4 @@
+\version "2.11.51"
 measure-counter.ly
 positioning-segno-and-coda-with-line-break.ly
 shortening-volta-brackets.ly

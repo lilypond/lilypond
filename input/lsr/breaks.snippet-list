@@ -1,3 +1,4 @@
+\version "2.11.51"
 removing-the-first-empty-line.ly
 positioning-segno-and-coda-with-line-break.ly
 beams-across-line-breaks.ly

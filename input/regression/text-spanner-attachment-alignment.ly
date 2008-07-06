@@ -9,7 +9,7 @@
   ragged-right = ##t
   }
 
-\version "2.11.22"
+\version "2.11.51"
 <<
    \new Staff {
     \override TextSpanner #'bound-details #'left #'text = "*"
