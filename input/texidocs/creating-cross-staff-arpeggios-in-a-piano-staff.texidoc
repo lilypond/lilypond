@@ -1,0 +1,7 @@
+  texidoces = "
+Dentro de un @code{PianoStaff}, es posible hacer que un arpegio
+cruce entre los pentagramas ajustando la propiedad
+@code{PianoStaff.connectArpeggios}.
+ 
+"
+  doctitlees = "Crear arpegios que se cruzan entre pentagramas dentro de un sistema de piano"

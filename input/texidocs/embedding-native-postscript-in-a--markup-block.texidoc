@@ -1,0 +1,6 @@
+  texidoces = "
+Se puede insertar códico PostScript directamente dentro de un
+bloque @code{\\markup}.
+
+"
+  doctitlees = "Empotrar PostScript nativo dentro de un bloque \\markup"

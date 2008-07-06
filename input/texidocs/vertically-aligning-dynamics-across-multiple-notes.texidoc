@@ -1,0 +1,9 @@
+  texidoces = "
+Las expresiones dinámicas que se comienzan, terminan o se producen
+en la misma nota se alinean verticalmente.  Para asegurar que las
+expresiones dinámicas se alinean cuando no se producen sobre la
+misma nota, incremente la propiedad @code{staff-padding} del
+objeto @code{DynamicLineSpanner}.
+
+"
+  doctitlees = "Alinear verticalmente expresiones dinámicas que abarcan varias notas"

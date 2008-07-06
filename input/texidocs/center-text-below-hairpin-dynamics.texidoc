@@ -1,0 +1,8 @@
+  texidoces = "
+Este ejemplo proporciona una función para tipografiar un regulador
+con texto por debajo, como \"molto\" o \"poco\". El ejemplo
+ilustra también cómo modificar la manera en que se imprime
+normalmente un objeto, utilizando código de Scheme.
+
+"
+  doctitlees = "Centrar texto debajo de un regulador"

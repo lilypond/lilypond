@@ -7,7 +7,7 @@
    version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @ignore
 Tutorial guidelines:
@@ -1398,7 +1398,7 @@ qui existe indépendamment des expressions musicales principales.  Le
 bloc @code{\header} est habituellement placé en début de fichier.
 
 @example
-\version "2.11.38"
+\version "2.11.51"
 \header @{
   title = "Symphonie"
   composer = "Moi"

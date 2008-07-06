@@ -1,0 +1,6 @@
+  texidoces = "
+Algunos compositores escriben dos ligaduras cuando quieren acordes
+legato.  Esto se puede conseguir estableciendo @code{doubleSlurs}.
+
+"
+  doctitlees = "Utilizar ligaduras dobes para acordes legato"

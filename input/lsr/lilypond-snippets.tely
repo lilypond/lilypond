@@ -124,6 +124,7 @@ Specialist notation
 * Unfretted strings::
 * Winds::
 * Ancient notation::
+* World music::
 
 Other collections
 * Contexts and engravers::
@@ -156,6 +157,7 @@ Other collections
 @include unfretted-strings.itely
 @include winds.itely
 @include ancient-notation.itely
+@include world-music.itely
 
 @include contexts-and-engravers.itely
 @include tweaks-and-overrides.itely

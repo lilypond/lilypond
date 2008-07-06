@@ -1,0 +1,14 @@
+  texidoces = "
+El orden vertical que ocupan las inscripciones gráficas está
+controlado con la propiedad @code{script-priority}. Cuanto más
+bajo es este número, más cerca de la nota se colocará. En este
+ejemplo, el @code{TextScript} (el sostenido) tiene primero la
+prioridad más baja, por lo que se sitúa en la posición más baja en
+el primer ejemplo. En el segundo, el semitrino (el @code{Script})
+es el que la tiene más baja, por lo que se sitúa en la parte
+interior. Cuando dos objetos tienen la misma prioridad, el orden
+en que se introducen determina cuál será el que aparece en primer
+lugar.
+
+"
+  doctitlees = "Controlar la ordenación vertical de las inscripciones"

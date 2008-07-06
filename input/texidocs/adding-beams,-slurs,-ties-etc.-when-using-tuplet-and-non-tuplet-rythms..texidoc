@@ -1,0 +1,15 @@
+  texidoces = "
+La sintaxis de LilyPond puede implicar muchas colocaciones poco
+comunes para los paréntesis, corchetes, etc, que a veces se tienen
+que intercalar. Por ejemplo, al introducir una barra manual, el
+corchete izquierdo de apertura se debe escribir después de la nota
+inicial y de su duración, no antes. De forma similar, el corchete
+derecho de cierre debe seguir inmediatamente a la nota que se
+quiere situar al final del barrado, incluso si esta nota resulta
+estar dentro de un grupo de valoración especial. Este fragmento de
+código muestra cómo combinar el barrado manual, las ligaduras de
+expresión y de unión y las ligaduras de fraseo, con secciones de
+valoración especial (encerradas entre llaves).
+
+"
+  doctitlees = "Añadir barras, ligaduras de expresión y de unión, etc. cuando se usan ritmos con y sin grupos de valoración especial."

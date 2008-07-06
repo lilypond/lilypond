@@ -446,7 +446,7 @@ markups), or inside a score.")
 %% doing
 %% define-music-function in a .scm causes crash.
 
-octave =
+octaveCheck =
 #(define-music-function (parser location pitch-note) (ly:music?)
    (_i "octave check")
 
