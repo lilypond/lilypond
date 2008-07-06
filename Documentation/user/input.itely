@@ -1503,7 +1503,7 @@ in a @code{\score} block.
 
 @c TODO Check header and text appear in this example
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{Changing-MIDI-output-to-one-channel-per-voice.ly}
+{changing-midi-output-to-one-channel-per-voice.ly}
 
 @node MIDI instrument names
 @subsection MIDI instrument names
