@@ -1,4 +1,3 @@
-\version "2.11.51"
 measure-counter.ly
 creating-blank-staves.ly
 controlling-the-placement-of-chord-fingerings.ly

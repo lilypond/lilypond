@@ -1,4 +1,3 @@
-\version "2.11.51"
 forcing-horizontal-shift-of-notes.ly
 additional-voices-to-avoid-collisions.ly
 suppressing-warnings-for-clashing-note-columns.ly
