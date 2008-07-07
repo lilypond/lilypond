@@ -2727,16 +2727,16 @@ def conv (str):
     return str
 
 
-@rule ((2, 11, 50), "metronomeMarkFormatter uses text markup as second argument")
+@rule ((2, 11, 50), _ ("metronomeMarkFormatter uses text markup as second argument,\n\
+fret diagram properties moved to fret-diagram-details."))
 def conv (str):
+    ## warning 1/2: metronomeMarkFormatter uses text markup as second argument
     if re.search ('metronomeMarkFormatter', str):
 	stderr_write (NOT_SMART % _ ("metronomeMarkFormatter got an additional text argument.\n"))
 	stderr_write (_ ("The function assigned to Score.metronomeMarkFunction now uses the signature\n%s") %
                           "\t(format-metronome-markup text dur count context)\n")
-    return str
 
-@rule ((2,11,50), "Fret diagram properties moved to fret-diagram-details")
-def conv (str):
+    ## warning 2/2: fret diagram properties moved to fret-diagram-details
     fret_props = ['barre-type', 
                 'dot-color', 
                 'dot-radius',
@@ -2750,106 +2750,45 @@ def conv (str):
                 'open-string',
                 'orientation']
     for prop in fret_props:
-      if re.search ( prop, str):
-          stderr_write ('\n')
+      if re.search (prop, str):
           stderr_write (NOT_SMART %
             prop + " in fret-diagram properties. Use fret-diagram-details.")
           stderr_write ('\n')
     return str
 
-@rule ((2, 11, 51), "\\octave -> \\octaveCheck")
+@rule ((2, 11, 51), "\\octave -> \\octaveCheck, \\arpeggioUp -> \\arpeggioArrowUp,\n\
+\\arpeggioDown -> \\arpeggioArrowDown, \\arpeggioNeutral -> \\arpeggioNormal,\n\
+\\setTextCresc -> \\crescTextCresc, \\setTextDecresc -> \\dimTextDecresc,\n\
+\\setTextDecr -> \\dimTextDecr, \\setTextDim -> \\dimTextDim,\n\
+\\setHairpinCresc -> \\crescHairpin, \\setHairpinDecresc -> \\dimHairpin,\n\
+\\sustainUp -> \\sustainOff, \\sustainDown -> \\sustainOn\n\
+\\sostenutoDown -> \\sostenutoOn, \\sostenutoUp -> \\sostenutoOff")
 def conv (str):
     str = re.sub (r"\\octave", r"\\octaveCheck", str)
+    str = re.sub (r"arpeggioUp", r"arpeggioArrowUp", str)
+    str = re.sub (r"arpeggioDown", r"arpeggioArrowDown", str)
+    str = re.sub (r"arpeggioNeutral", r"arpeggioNormal", str)
+    str = re.sub (r"setTextCresc", r"crescTextCresc", str)
+    str = re.sub (r"setTextDecresc", r"dimTextDecresc", str)
+    str = re.sub (r"setTextDecr", r"dimTextDecr", str)
+    str = re.sub (r"setTextDim", r"dimTextDim", str)
+    str = re.sub (r"setHairpinCresc", r"crescHairpin", str)
+    str = re.sub (r"setHairpinDecresc", r"dimHairpin", str)
+    str = re.sub (r"sustainUp", r"sustainOff", str)
+    str = re.sub (r"sustainDown", r"sustainOn", str)
+    str = re.sub (r"sostenutoDown", r"sostenutoOn", str)
+    str = re.sub (r"sostenutoUp", r"sostenutoOff", str)
     return str
 
-
-
-def conv (str):
-  str = re.sub (r"arpeggioUp", r"arpeggioArrowUp", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\arpeggioUp -> \\arpeggioArrowUp"""))
-
-
-def conv (str):
-  str = re.sub (r"arpeggioDown", r"arpeggioArrowDown", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\arpeggioDown -> \\arpeggioArrowDown"""))
-
-
-def conv (str):
-  str = re.sub (r"arpeggioNeutral", r"arpeggioNormal", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\arpeggioNeutral -> \\arpeggioNormal"""))
-
-
-def conv (str):
-  str = re.sub (r"setTextCresc", r"crescTextCresc", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\setTextCresc -> \\crescTextCresc"""))
-
-
-def conv (str):
-  str = re.sub (r"setTextDecresc", r"dimTextDecresc", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\setTextDecresc -> \\dimTextDecresc"""))
-
-
-def conv (str):
-  str = re.sub (r"setTextDecr", r"dimTextDecr", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\setTextDecr -> \\dimTextDecr"""))
-
-
-def conv (str):
-  str = re.sub (r"setTextDim", r"dimTextDim", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\setTextDim -> \\dimTextDim"""))
-
-
-def conv (str):
-  str = re.sub (r"setHairpinCresc", r"crescHairpin", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\setHairpinCresc -> \\crescHairpin"""))
-
-
-def conv (str):
-  str = re.sub (r"setHairpinDecresc", r"dimHairpin", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\setHairpinDecresc -> \\dimHairpin"""))
-
-
-def conv (str):
-  str = re.sub (r"sustainUp", r"sustainOff", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\sustainUp -> \\sustainOff"""))
-
-
-def conv (str):
-  str = re.sub (r"sustainDown", r"sustainOn", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\sustainDown -> \\sustainOn"""))
-
-
-def conv (str):
-  str = re.sub (r"sostenutoDown", r"sostenutoOn", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\sostenutoDown -> \\sostenutoOn"""))
-
-
-def conv (str):
-  str = re.sub (r"sostenutoUp", r"sostenutoOff", str)
-  return str
-
-conversions.append (((2, 11, 51), conv, """\\sostenutoUp -> \\sostenutoOff"""))
+# Guidelines to write rules (please keep this at the end of this file)
+#
+# - keep at most one rule per version; if several conversions should be done,
+# concatenate them into a single "conv" function;
+#
+# - enclose strings to be localized with `_(' and  `)';
+#
+# - write rule for bumping major stable version with
+#
+#     _ ("bump version for release")
+#  
+# as exact description.
