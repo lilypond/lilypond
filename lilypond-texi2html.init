@@ -110,10 +110,11 @@ sub split_at_numbered_sections($$$)
 }
 
 
+
 # The default formatting of external refs returns e.g. 
-# "(lilypond-internals)Timing_translator", while we simply want "Timing_translator".
-# Solution: Remove all (...) from the file_and_node argument before calling
-# the default handler!
+# "(lilypond-internals)Timing_translator", so we remove all (...) from the 
+# file_and_node argument. Also, we want only a very simple format, so we don't
+# even call the default handler!
 sub lilypond_external_ref($$$$$$)
 {
   my $type = shift;
@@ -124,8 +125,14 @@ sub lilypond_external_ref($$$$$$)
   my $cross_ref = shift;
 
   $file_node =~ s/\(.*\)//;
-  return t2h_default_external_ref($type, $section, $book, $file_node, $href, $cross_ref);
+  $file_node = &$anchor('', $href, $file_node) if ($file_node ne '');
+  return &$I('%{node_file_href}', { 'node_file_href' => $file_node });
+
+#  Default: format as "see <a ..>NODE</a> section 'SECTION' in BOOK"
+#   return t2h_default_external_ref($type, $section, $book, $file_node, $href, $cross_ref);
 }
+
+
 
 
 # recursively generate the TOC entries for the element and its children (which
