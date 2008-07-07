@@ -1,6 +1,5 @@
 #!/usr/bin/env perl
 
-# {
 package Texi2HTML::Config;
 
 my $lastfilename;
@@ -78,10 +77,6 @@ sub split_at_numbered_sections($$$)
   my $type = shift;
   my $docu_name = shift;
   my $docu_ext = $Texi2HTML::Config::EXTENSION;
-
-#   if ($$element{number} eq "1.1") {
-#     print_element_info ($element);
-#   }
 
   # TOC, footer, about etc. are called with undefined $element and $type == "toc"|"stoc"|"foot"|"about"
   if ($type eq "toc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
