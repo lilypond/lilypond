@@ -9,7 +9,7 @@ even if there is no opposite note or rest. The amount is two
 \layout { ragged-right = ##t }
 
 
-\version "2.10.0"
+\version "2.11.51"
 
 
 \new Staff  \relative c' {

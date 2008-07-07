@@ -1,4 +1,4 @@
-\version "2.11.49"
+\version "2.11.51"
 \include "english.ly"
 
 #(set-global-staff-size 15)
@@ -195,25 +195,25 @@
         _ \markup \italic { ped. }
         <fs, cs>8 (
         |
-        <e, b,>4. ) \sustainDown
+        <e, b,>4. ) \sustainOn
         \clef bass
-        <fs, cs>8 ( \sustainUp
+        <fs, cs>8 ( \sustainOff
         |
-        <e, b,>4. ) \sustainDown
+        <e, b,>4. ) \sustainOn
         \clef bass
-        <fs, cs>8 ( \sustainUp
+        <fs, cs>8 ( \sustainOff
         |
         <e, b,>4
         <d, a,>4
         |
-        <fs,, cs,>4. ) \sustainDown
-        <a, e>8 ( \sustainUp
+        <fs,, cs,>4. ) \sustainOn
+        <a, e>8 ( \sustainOff
         |
-        <fs, cs>4. ) \sustainDown
+        <fs, cs>4. ) \sustainOn
         \slurUp
-        <a e'>8 ( \sustainUp \sustainDown
+        <a e'>8 ( \sustainOff \sustainOn
         |
-        <fs cs'>2 ) \sustainUp \sustainDown
+        <fs cs'>2 ) \sustainOff \sustainOn
         |
      }
   >>

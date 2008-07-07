@@ -1,4 +1,4 @@
-\version "2.11.29"
+\version "2.11.51"
 
 \header {
   texidoc = "Slurs that depend on a cross-staff beam are not calculated until after line-breaking."

@@ -49,36 +49,36 @@ endcresc =  {
 
 %%%%%%%%%%%%%%%%
 
-setTextCresc = {
+crescTextCresc = {
     \set crescendoText = \markup { \italic "cresc." }
     \set crescendoSpanner = #'text
     \override DynamicTextSpanner #'style = #'dashed-line
 }
 
-setTextDecresc = {
+dimTextDecresc = {
     \set decrescendoText = \markup { \italic "decresc." }
     \set decrescendoSpanner = #'text
     \override DynamicTextSpanner #'style = #'dashed-line
 }
 
-setTextDecr = {
+dimTextDecr = {
     \set decrescendoText = \markup { \italic "decr." }
     \set decrescendoSpanner = #'text
     \override DynamicTextSpanner #'style = #'dashed-line
 }
 
-setTextDim = {
+dimTextDim = {
     \set decrescendoText = \markup { \italic "dim." }
     \set decrescendoSpanner = #'text
     \override DynamicTextSpanner #'style = #'dashed-line
 }
 
-setHairpinCresc = {
+crescHairpin = {
     \unset crescendoText 
     \unset crescendoSpanner 
 }
 
-setHairpinDecresc = {
+dimHairpin = {
     \unset decrescendoText 
     \unset decrescendoSpanner 
 }
@@ -91,14 +91,14 @@ setHairpinDim = {
 
 
 % better name sustainstart/stop? 
-sustainUp = #(make-span-event 'SustainEvent STOP)
-sustainDown = #(make-span-event 'SustainEvent START)
+sustainOff = #(make-span-event 'SustainEvent STOP)
+sustainOn = #(make-span-event 'SustainEvent START)
 
 unaCorda = #(make-span-event 'UnaCordaEvent START)
 treCorde = #(make-span-event 'UnaCordaEvent STOP)
 
-sostenutoDown = #(make-span-event 'SostenutoEvent START)
-sostenutoUp = #(make-span-event 'SostenutoEvent STOP)
+sostenutoOn = #(make-span-event 'SostenutoEvent START)
+sostenutoOff = #(make-span-event 'SostenutoEvent STOP)
 
 %crescpoco = \set crescendoText = "cresc. poco a poco"
 %decresc = \set crescendoText = "decr."

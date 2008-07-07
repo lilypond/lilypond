@@ -37,7 +37,7 @@ instruments.
 @end menu
 
 @node References for keyboards
-@subsubsection References for keyboards
+@unnumberedsubsubsec References for keyboards
 
 Keyboard instruments are usually notated with Piano staves.  These
 are two or more normal staves coupled with a brace.  The same
@@ -116,7 +116,7 @@ option is the @q{piano centered dynamics} template under
 objects}.
 
 @node Changing staff manually
-@subsubsection Changing staff manually
+@unnumberedsubsubsec Changing staff manually
 
 @cindex changing staff manually
 @cindex manual staff changes
@@ -183,7 +183,7 @@ Internals Reference:
 
 
 @node Changing staff automatically
-@subsubsection Changing staff automatically
+@unnumberedsubsubsec Changing staff automatically
 
 @cindex changing staff automatically
 @cindex automatic staff changes
@@ -261,7 +261,7 @@ Chords will not be split across the staves; they will be assigned to a
 staff based on the first note named in the chord construct.
 
 @node Staff-change lines
-@subsubsection Staff-change lines
+@unnumberedsubsubsec Staff-change lines
 
 @cindex staff-change lines
 @cindex cross-staff lines
@@ -302,7 +302,7 @@ Internals Reference:
 
 
 @node Cross-staff stems
-@subsubsection Cross-staff stems
+@unnumberedsubsubsec Cross-staff stems
 
 @cindex cross-staff notes
 @cindex notes, cross-staff
@@ -356,17 +356,17 @@ piano.
 @end menu
 
 @node Piano pedals
-@subsubsection Piano pedals
+@unnumberedsubsubsec Piano pedals
 @cindex piano pedals
 @cindex pedals, piano
 @cindex sustain pedal
 @cindex sostenuto pedal
 @cindex una corde
 @cindex tre corde
-@funindex \sustainDown
-@funindex \sustainUp
-@funindex \sostenutoDown
-@funindex \sostenutoUp
+@funindex \sustainOn
+@funindex \sustainOff
+@funindex \sostenutoOn
+@funindex \sostenutoOff
 @funindex \unaCorda
 @funindex \treCorde
 
@@ -376,10 +376,10 @@ produced: @notation{sustain}, @notation{sostenuto}
 Sustain pedals are also found on vibraphones and celestas.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c4\sustainDown d e g
-<c, f a>1\sustainUp
-c4\sostenutoDown e g c,
-<bes d f>1\sostenutoUp
+c4\sustainOn d e g
+<c, f a>1\sustainOff
+c4\sostenutoOn e g c,
+<bes d f>1\sostenutoOff
 c4\unaCorda d e g
 <d fis a>1\treCorde
 @end lilypond
@@ -389,13 +389,13 @@ The sustain pedal and the una corda pedal use the text style by default
 while the sostenuto pedal uses mixed by default.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c4\sustainDown g c2\sustainUp
+c4\sustainOn g c2\sustainOff
 \set Staff.pedalSustainStyle = #'mixed
-c4\sustainDown g c d
-d\sustainUp\sustainDown g, c2\sustainUp
+c4\sustainOn g c d
+d\sustainOff\sustainOn g, c2\sustainOff
 \set Staff.pedalSustainStyle = #'bracket
-c4\sustainDown g c d
-d\sustainUp\sustainDown g, c2
+c4\sustainOn g c d
+d\sustainOff\sustainOn g, c2
 \bar "|."
 @end lilypond
 
@@ -431,7 +431,7 @@ This section discusses notation that is unique to the accordion.
 @end menu
 
 @node Discant symbols
-@subsubsection Discant symbols
+@unnumberedsubsubsec Discant symbols
 @cindex accordion discant symbols
 @cindex discant symbols, accordion
 @cindex accordion shifts
@@ -445,7 +445,7 @@ come into use to simplify the performance instructions.
 
 @snippets
 
-@c This snippet should work once it's been tagged for the docs.
+@c FIXME: Neil, uncomment when fixed.
 @c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 @c {accordion-discant-symbols.ly}
 

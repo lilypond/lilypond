@@ -10,7 +10,7 @@ markup can be tuned with @code{Staff.ottavation}.
 "
 
 }
-\version "2.11.47"
+\version "2.11.51"
 
 %% . There must be a minimum distance between the octavation line and the
 %%   topmost staff line, taking into account the height of the closing

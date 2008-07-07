@@ -1,5 +1,5 @@
 
-\version "2.10.0"
+\version "2.11.51"
 \header{
   texidoc="
 Rests should not collide with beams, stems and noteheads.  Rests may

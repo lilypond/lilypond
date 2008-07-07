@@ -1,4 +1,4 @@
-\version "2.11.19"
+\version "2.11.51"
 
 \header {
   texidoc = "Page breaks work when they are placed at the end of a score,

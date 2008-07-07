@@ -237,19 +237,19 @@ g1\espressivo
 
 Crescendos and decrescendos can be engraved as textual markings
 instead of hairpins.  The built-in commands that enable these text
-modes are @code{\setTextCresc}, @code{\setTextDecresc},
-@code{\setTextDecr}, and @code{\setTextDim}.  The corresponding
-@code{\setHairpinCresc}, @code{\setHairpinDim}, and
-@code{\setHairpinDecresc} commands will revert to hairpins again:
+modes are @code{\crescTextCresc}, @code{\dimTextDecresc},
+@code{\dimTextDecr}, and @code{\dimTextDim}.  The corresponding
+@code{\crescHairpin}, @code{\setHairpinDim}, and
+@code{\dimHairpin} commands will revert to hairpins again:
 
 @lilypond[verbatim,quote,relative=2]
 c4\< d e f\!
 e4\> d c b\!
-\setTextCresc
+\crescTextCresc
 c4\< d e f\!
-\setTextDecresc
+\dimTextDecresc
 e4\> d c b\!
-\setHairpinCresc
+\crescHairpin
 c4\< d e f\!
 @end lilypond
 
@@ -268,20 +268,20 @@ Vertical positioning of dynamics is handled by
 @code{\dynamicDown},
 @funindex \dynamicNeutral
 @code{\dynamicNeutral},
-@funindex \setTextCresc
-@code{\setTextCresc},
-@funindex \setTextDim
-@code{\setTextDim},
-@funindex \setTextDecr
-@code{\setTextDecr},
-@funindex \setTextDecresc
-@code{\setTextDecresc},
-@funindex \setHairpinCresc
-@code{\setHairpinCresc},
+@funindex \crescTextCresc
+@code{\crescTextCresc},
+@funindex \dimTextDim
+@code{\dimTextDim},
+@funindex \dimTextDecr
+@code{\dimTextDecr},
+@funindex \dimTextDecresc
+@code{\dimTextDecresc},
+@funindex \crescHairpin
+@code{\crescHairpin},
 @funindex \setHairpinDim
 @code{\setHairpinDim},
-@funindex \setHairpinDecresc
-@code{\setHairpinDecresc}.
+@funindex \dimHairpin
+@code{\dimHairpin}.
 
 
 @snippets
@@ -731,29 +731,29 @@ is denoted by appending @code{\arpeggio} to the chord construct:
 @end lilypond
 
 The direction of an arpeggio is indicated by adding an arrowhead
-to the wiggly line.  The commands @code{\arpeggioUp} and
-@code{\arpeggioDown} are used for this task.
-@code{\arpeggioNeutral} reverts back to an arrow-less arpeggio:
+to the wiggly line.  The commands @code{\arpeggioArrowUp} and
+@code{\arpeggioArrowDown} are used for this task.
+@code{\arpeggioNormal} reverts back to an arrow-less arpeggio:
 
 @lilypond[verbatim,quote,relative=1]
-\arpeggioUp
+\arpeggioArrowUp
 <c e g c>2\arpeggio
-\arpeggioDown
+\arpeggioArrowDown
 <c e g c>2\arpeggio
-\arpeggioNeutral
+\arpeggioNormal
 <c e g c>1\arpeggio
 @end lilypond
 
 The command @code{\arpeggioBracket} can be used to create a square
 bracket on the left of a chord, indicating that the chord should
-@emph{not} be arpeggiated.  @code{\arpeggioNeutral} reverts back
+@emph{not} be arpeggiated.  @code{\arpeggioNormal} reverts back
 to a regular arpeggio:
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2
 \arpeggioBracket
 <c e g c>2\arpeggio
-\arpeggioNeutral
+\arpeggioNormal
 <c e g c>1\arpeggio
 @end lilypond
 
@@ -768,7 +768,7 @@ construct instead of a square bracket.
 \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
 \override Arpeggio #'X-extent = #ly:grob::stencil-width
 <c e g c>2\arpeggio
-\arpeggioNeutral
+\arpeggioNormal
 <c e g c>1\arpeggio
 @end lilypond
 
@@ -779,12 +779,12 @@ information, see @ref{Ties}.
 
 @funindex \arpeggio
 @code{\arpeggio},
-@funindex \arpeggioUp
-@code{\arpeggioUp},
-@funindex \arpeggioDown
-@code{\arpeggioDown},
-@funindex \arpeggioNeutral
-@code{\arpeggioNeutral},
+@funindex \arpeggioArrowUp
+@code{\arpeggioArrowUp},
+@funindex \arpeggioArrowDown
+@code{\arpeggioArrowDown},
+@funindex \arpeggioNormal
+@code{\arpeggioNormal},
 @funindex \arpeggioBracket
 @code{\arpeggioBracket}.
 

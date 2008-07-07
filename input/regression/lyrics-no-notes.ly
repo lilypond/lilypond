@@ -6,7 +6,7 @@ paper column is very wide."
  
 \layout{ ragged-right = ##t }
 
-\version "2.11.38"
+\version "2.11.51"
 <<
   \new Staff \relative c' {
     \key aes \major

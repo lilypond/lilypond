@@ -5,7 +5,7 @@
 
 \include "typography-demo.ly"
 
-\version "2.11.16"
+\version "2.11.51"
 
 #(define outname (ly:parser-output-name parser))
 

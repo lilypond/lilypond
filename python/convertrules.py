@@ -2763,3 +2763,93 @@ def conv (str):
     return str
 
 
+
+def conv (str):
+  str = re.sub (r"arpeggioUp", r"arpeggioArrowUp", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\arpeggioUp -> \\arpeggioArrowUp"""))
+
+
+def conv (str):
+  str = re.sub (r"arpeggioDown", r"arpeggioArrowDown", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\arpeggioDown -> \\arpeggioArrowDown"""))
+
+
+def conv (str):
+  str = re.sub (r"arpeggioNeutral", r"arpeggioNormal", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\arpeggioNeutral -> \\arpeggioNormal"""))
+
+
+def conv (str):
+  str = re.sub (r"setTextCresc", r"crescTextCresc", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\setTextCresc -> \\crescTextCresc"""))
+
+
+def conv (str):
+  str = re.sub (r"setTextDecresc", r"dimTextDecresc", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\setTextDecresc -> \\dimTextDecresc"""))
+
+
+def conv (str):
+  str = re.sub (r"setTextDecr", r"dimTextDecr", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\setTextDecr -> \\dimTextDecr"""))
+
+
+def conv (str):
+  str = re.sub (r"setTextDim", r"dimTextDim", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\setTextDim -> \\dimTextDim"""))
+
+
+def conv (str):
+  str = re.sub (r"setHairpinCresc", r"crescHairpin", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\setHairpinCresc -> \\crescHairpin"""))
+
+
+def conv (str):
+  str = re.sub (r"setHairpinDecresc", r"dimHairpin", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\setHairpinDecresc -> \\dimHairpin"""))
+
+
+def conv (str):
+  str = re.sub (r"sustainUp", r"sustainOff", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\sustainUp -> \\sustainOff"""))
+
+
+def conv (str):
+  str = re.sub (r"sustainDown", r"sustainOn", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\sustainDown -> \\sustainOn"""))
+
+
+def conv (str):
+  str = re.sub (r"sostenutoDown", r"sostenutoOn", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\sostenutoDown -> \\sostenutoOn"""))
+
+
+def conv (str):
+  str = re.sub (r"sostenutoUp", r"sostenutoOff", str)
+  return str
+
+conversions.append (((2, 11, 51), conv, """\\sostenutoUp -> \\sostenutoOff"""))

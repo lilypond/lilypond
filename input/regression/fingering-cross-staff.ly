@@ -1,4 +1,4 @@
-\version "2.11.44"
+\version "2.11.51"
 
 \header {
   texidoc = "Fingerings work correctly with cross-staff beams."

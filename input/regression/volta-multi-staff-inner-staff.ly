@@ -12,7 +12,7 @@ volta brackets on staves other than the topmost one."
   }
 }
 
-\version "2.10.0"
+\version "2.11.51"
 
 vmus =  { \repeat volta 2 c1 \alternative { d e } } 
 

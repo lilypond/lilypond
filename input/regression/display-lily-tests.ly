@@ -1,4 +1,4 @@
-\version "2.11.6"
+\version "2.11.51"
 #(use-modules (srfi srfi-13)
               (ice-9 format))
 
@@ -133,8 +133,8 @@ stderr of this run."
 \test "" ##[ { c\<  c\!  c^\<  c^\!  c_\<  c_\!  } #]	% CrescendoEvent
 \test "" ##[ { c\>  c\!  c^\>  c^\!  c_\>  c_\!  } #]	% DecrescendoEvent
 \test "" ##[ { c\(  c\)  c^\(  c^\)  c_\(  c_\)  } #]	% PhrasingSlurEvent
-\test "" ##[ { c\sustainDown  c\sustainUp  } #] % SustainEvent
-\test "" ##[ { c\sostenutoDown  c\sostenutoUp  } #] % SostenutoEvent
+\test "" ##[ { c\sustainOn  c\sustainOff  } #] % SustainEvent
+\test "" ##[ { c\sostenutoOn  c\sostenutoOff  } #] % SostenutoEvent
 \test "" ##[ \melisma #]
 \test "" ##[ \melismaEnd #]
 \test "" ##[ { c\startTextSpan  c\stopTextSpan  } #] % TextSpanEvent

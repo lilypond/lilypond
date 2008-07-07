@@ -3,7 +3,7 @@
 
   }
 
-\version "2.11.21"
+\version "2.11.51"
 \include "graphviz-init.ly"
 
 #(whitelist-grob 'NoteHead)

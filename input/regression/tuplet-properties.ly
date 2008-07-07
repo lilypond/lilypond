@@ -6,7 +6,7 @@ for instance, bracketed (B) and non-bracketed (NB).
 }
 
 
-\version "2.10.0"
+\version "2.11.51"
 
 
 
@@ -30,7 +30,6 @@ for instance, bracketed (B) and non-bracketed (NB).
   \revert TupletNumber #'transparent
 
   \override TupletBracket  #'bracket-visibility = ##t
-  \override TupletBracket  #'edge-height = #'(0.0 . 0.0)
   \override TupletBracket  #'shorten-pair = #'(2.0 . 2.0)
   \times 4/6 { c_"shorter, no edges" f b  b f c}	
   \revert TupletBracket #'edge-height

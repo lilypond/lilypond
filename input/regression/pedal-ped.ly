@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.51"
 \header
 {
   texidoc = "The standard piano pedals style comes with Ped symbols.
@@ -10,12 +10,12 @@ at the end of the melody."
 
 \context Staff \relative c'{
   c4 d e f g
-  \sustainDown b c
-  c, d16[  c  c c]  e[ e \sustainUp \sustainDown e e ] f4 \sustainUp 
-  g\sustainDown  b \sustainUp c 
+  \sustainOn b c
+  c, d16[  c  c c]  e[ e \sustainOff \sustainOn e e ] f4 \sustainOff 
+  g\sustainOn  b \sustainOff c 
   \set Staff.pedalSustainStrings = #'("-" "-P" "P")
   \override Staff.SustainPedal   #'padding = #-2
-  c, \sustainDown d e \sustainUp \sustainDown f
-  \sustainUp g b c
+  c, \sustainOn d e \sustainOff \sustainOn f
+  \sustainOff g b c
 }
 

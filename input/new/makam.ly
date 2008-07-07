@@ -1,6 +1,6 @@
 \version "2.11.6"
 \header {
-  lsrtags = "pitches"
+  lsrtags = "pitches,world-music"
   texidoc = "Makam is a type of melody from Turkey using 1/9th-tone
 microtonal alterations.  Consult the initialization file
 @code{makam-init.ly} (see the `Learning Manual @version{},

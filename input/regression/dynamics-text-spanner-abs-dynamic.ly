@@ -7,10 +7,10 @@
   
 }
 
-\version "2.11.14"
+\version "2.11.51"
 \paper { ragged-right = ##t }
 
 \relative c' {
-  \setTextCresc
+  \crescTextCresc
   c4\p\< c c c\!
 }

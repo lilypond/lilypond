@@ -6,7 +6,7 @@ is adjusted according to the step of the scale, as measured relative
 to the @code{tonic} property."
 
 }
-\version "2.10.0"
+\version "2.11.51"
 
 fragment = {
   \key c \major
