@@ -327,7 +327,7 @@ dynamics = {
 }
 
 pedal = {
-  s2\sustainDown s2\sustainUp
+  s2\sustainOn s2\sustainOff
 }
 
 \score {

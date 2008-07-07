@@ -1568,9 +1568,9 @@ menciona el significado de cada una allí donde no es obvio.
   @tab Arriba o Derecha
   @tab Anular
   @tab Efecto
-@item @code{\arpeggioDown}
-  @tab @code{\arpeggioUp}
-  @tab @code{\arpeggioNeutral}
+@item @code{\arpeggioArrowDown}
+  @tab @code{\arpeggioArrowUp}
+  @tab @code{\arpeggioNormal}
   @tab La flecha está abajo, arriba o no hay flecha
 @item @code{\dotsDown}
   @tab @code{\dotsUp}
