@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
 @node LilyPond-book
@@ -556,6 +556,11 @@ option is present.  It is also the default for the @code{lilypond}
 environment if the @code{fragment} option is set, and no line width is
 explicitly specified.
 
+@item noragged-right
+For single-line snippets, allow the staff length to be stretched to
+equal that of the line width, i.e., @code{ragged-right = ##f} is
+added to the LilyPond snippet.
+
 @c does this option still exist in lilypond? -jm
 @item packed
 Produce lines with packed spacing, i.e., @code{packed = ##t} is added
@@ -974,7 +979,7 @@ the automated method with @command{lilypond-book}.
 @subsection Many quotes from a large score
 
 If you need to quote many fragments from a large score, you can also use
-the clip systems feature, see @ruser{Extracting fragments of notation}.
+the clip systems feature, see @ruser{Extracting fragments of music}.
 
 
 @node Inserting LilyPond output into OpenOffice.org
@@ -1015,5 +1020,8 @@ To produce a useful EPS file, use
 
 @example
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
+
+PNG:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
 @end example
 

@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Notation manual tables
 @appendix Notation manual tables
@@ -199,7 +199,7 @@ donde N es un número entre 0 y 100.
 
 Los símbolos siguientes están disponibles en la tipografía Emmentaler y es posible acceder a ellos
 directamente utilizando elementos de marcado textual como @code{g^\markup @{
-\musicglyph #"scripts.segno" @}}, véase @ref{Text markup}.
+\musicglyph #"scripts.segno" @}}, véase @ref{Formatting text}.
 
 @lilypondfile[noindent]{font-table.ly}
 

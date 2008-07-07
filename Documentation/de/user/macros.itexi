@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: db57f02c46305a587071dfb73a51bd8250df2482
+    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -188,6 +188,11 @@
 @ref{\TEXT\,,,lilypond-learning-big-page,Handbuch zum Lernen}
 @end macro
 
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets-big-page,Beispiele}
+@end macro
+
+
 @end ifset
 
 
@@ -217,6 +222,11 @@
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
 @end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Beispiele}
+@end macro
+
 
 @end ifclear
 
@@ -251,6 +261,11 @@
 @ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
 @end macro
 
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Beispiele}
+@end macro
+
+
 @end ifdocbook
 
 
@@ -282,6 +297,11 @@
 @ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
 @end macro
 
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Beispiele}
+@end macro
+
+
 @end ifinfo
 
 
@@ -309,6 +329,11 @@
 @macro rlearning{TEXT}
 @ref{\TEXT\,,,lilypond-learning.de,Handbuch zum Lernen}
 @end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Beispiele}
+@end macro
+
 
 @end iftex
 

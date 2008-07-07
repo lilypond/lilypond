@@ -16,7 +16,7 @@
 @include version.itexi
 
 @macro lydoctitle{TEXT}
-@section \TEXT\
+@unnumberedsec \TEXT\
 @end macro
 
 @ifnottex
@@ -84,7 +84,7 @@ or figure for each example to see the corresponding input file.
 
 @ifnottex
 @node Top
-@top LilyPond examples
+@top LilyPond Snippet List
 
 This document shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
@@ -124,6 +124,7 @@ Specialist notation
 * Unfretted strings::
 * Winds::
 * Ancient notation::
+* World music::
 
 Other collections
 * Contexts and engravers::
@@ -158,6 +159,7 @@ Other collections
 @include unfretted-strings.itely
 @include winds.itely
 @include ancient-notation.itely
+@include world-music.itely
 
 @include contexts-and-engravers.itely
 @include tweaks-and-overrides.itely

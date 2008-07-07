@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Specialist notation
 @chapter Specialist notation
@@ -23,6 +23,7 @@ types of instrument or in specific styles.
 * Wind instruments::
 * Chord notation::
 * Ancient notation::
+* World music::
 @end menu
 
 @include vocal.itely
@@ -33,5 +34,5 @@ types of instrument or in specific styles.
 @include wind.itely
 @include chords.itely
 @include ancient.itely
-
+@include world.itely
 

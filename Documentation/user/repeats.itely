@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Repeats
 @section Repeats
@@ -150,15 +150,17 @@ c1
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {shortening-volta-brackets.ly}
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {adding-volta-brackets-to-additional-staves.ly}
 
 
 @c Is there a way to have a final bar ("|.") at the end of the
 @c previous line? Doesn't seem to be.
+@c It could be done by overriding
+@c the BreakAlignment property. Want a separate example?
 If you want to start a repeat at the beginning of a line and have a
 double bar at the end of the previous line, use @code{\bar}. For more
 information, see @ref{Bar lines}.
@@ -212,50 +214,153 @@ example, by setting @code{Score.measurePosition} or entering
 
 @funindex repeatCommands
 
-@c FIXME: Markup does not work in the "text" field
-@c And how does one change the font?
-@c On the whole, this section needs better documentation (why the
-@c double parentheses around the volta expressions?)
+@warning{These methods are only used for displaying unusual repeat
+constructs.  In most cases, repeats should be created using the
+standard @code{\\repeat} command or by printing the relevant bar
+lines.  For more information, see @ref{Bar lines}.}
 
 The property @code{repeatCommands} can be used to control the
 layout of repeats.  Its value is a Scheme list of repeat commands.
 
-@table @asis
-@item @code{start-repeat}
+@table @code
+@item start-repeat
 Print a @code{|:} bar line.
 
-@item @code{end-repeat}
-Print a @code{:|} bar line.
-
-@item @code{(volta @var{text})}
-Print a volta bracket saying @var{text}.  The text can be specified as
-a text string or as a markup text, see @ref{Formatting text}.  Do not
-forget to change the font, as the default number font does not contain
-alphabetic characters;
-
-
-@item @code{(volta #f)}
-Stop a running volta bracket.
-@end table
-
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-c4
-\set Score.repeatCommands = #'((volta "93") end-repeat)
-c4 b
-\set Score.repeatCommands = #'((volta #f))
-d4 e
+c1
+\set Score.repeatCommands = #'( start-repeat )
+d4 e f g
+c1
 @end lilypond
 
-@c FIXME: improve visibility of bar lines link?
+As per standard engraving practice, repeat signs are not printed
+at the beginning of a piece.
+
+@item end-repeat
+Print a @code{:|} bar line:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c1
+d4 e f g
+\set Score.repeatCommands = #'( end-repeat )
+c1
+@end lilypond
+
+@item (volta @var{number})
+Create a new volta with the specified number:
+
+@lilypond[verbatim,quote,relative=2]
+f4 g a b
+\set Score.repeatCommands = #'( ( volta "2" ) )
+g4 a g a
+c1
+@end lilypond
+
+@item (volta #f)
+Stops a running volta bracket:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+c1
+\set Score.repeatCommands = #'( ( volta "2" ) )
+f4 g a b
+\set Score.repeatCommands = #'( ( volta #f ) )
+a4 g f e
+c1
+@end lilypond
+
+@end table
+
+Multiple repeat commands may occur at the same point:
+
+@lilypond[verbatim,quote,relative=2]
+f4 g a b
+\set Score.repeatCommands = #'( ( volta "2, 5" ) end-repeat )
+g4 a g a
+c1
+\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
+b1
+@end lilypond
+
+Text can be included with the volta bracket.  The text can be a
+number or numbers or markup text, see @ref{Formatting text}.  The
+simplest way to use markup text is to define the markup first,
+then include the the markup in a Scheme list.
+
+@lilypond[verbatim,quote]
+voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
+\relative c'' {
+  c1
+  \set Score.repeatCommands = #(list (list 'volta voltaAdLib) 'start-repeat)
+  c4 b d e
+  \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
+  f1
+  \set Score.repeatCommands = #'((volta #f))
+}
+@end lilypond
+
+
+@snippets
+
+@c FIXME: send these to Neil or Valentin to be added as snippets,
+@c delete them.
+Manual control of the volte, including a @code{|:} bar line at the
+beginning and explicit volta numbers:
+
+@c FIXME: I can't believe this is right.  
+@c TODO: I think it is. I plan
+@c to delete this example, since it's
+@c already been given at L238. rp
+@lilypond[verbatim,quote,relative=2]
+s1*1/10
+\set Score.repeatCommands = #'( start-repeat )
+c1*9/10
+d4 e f g
+\set Score.repeatCommands = #'( ( volta "1, 2, 5" ) )
+f4 g a b
+\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
+g4 a g a
+\set Score.repeatCommands = #'( ( volta #f ) )
+c1
+@end lilypond
+
+In order to print a @code{|:} bar line at the beginning of a piece,
+the @code{BreakAlignment} property must be overridden:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\once \override Score.BreakAlignment #'break-align-orders =
+#(make-vector 3 '(
+instrument-name
+left-edge
+ambitus
+span-bar
+breathing-sign
+clef
+key-signature
+time-signature
+staff-bar
+custos
+span-bar
+))
+\bar "|:"
+c1
+d1
+d4 e f g
+@end lilypond
+
 
 @seealso
 
-Notation Reference: @ref{Bar lines}, @ref{Formatting text}.
+Notation Reference:
+@ref{Bar lines},
+@ref{Formatting text}.
 
-Snippets: @rlsr{Repeats}.
+Snippets:
+@rlsr{Repeats}.
 
-Internals Reference: @rinternals{VoltaBracket},
-@rinternals{RepeatedMusic}, @rinternals{VoltaRepeatedMusic}.
+Internals Reference:
+@rinternals{VoltaBracket},
+@rinternals{RepeatedMusic},
+@rinternals{VoltaRepeatedMusic}.
 
 
 @node Written-out repeats
@@ -456,4 +561,5 @@ into the MIDI output.
 
 @seealso
 
-@c Notation Reference: @re
+Snippets: @rlsr{Repeats}.
+

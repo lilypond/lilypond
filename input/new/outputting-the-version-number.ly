@@ -11,7 +11,7 @@ a score, or in a document generated with @code{lilypond-book}.
 }
 
 \score {
-  \context Lyrics {
+  \new Lyrics {
     \override Score.RehearsalMark #'self-alignment-X = #LEFT
     \mark #(ly:export (string-append "Processed with LilyPond version "
                        (lilypond-version)))

@@ -6,10 +6,12 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Ancient notation
 @section Ancient notation
+
+@lilypondfile[quote]{ancient-headword.ly}
 
 @cindex Vaticana, Editio
 @cindex Medicaea, Editio
@@ -18,147 +20,146 @@
 @cindex mensural
 
 @menu
-* Introduction to ancient notation::
-* Alternative note signs::
-* Additional note signs::
-* Pre-defined contexts::
-* Transcribing ancient music::
-* Editorial markings::
+* Introduction to ancient notation::  
+* Alternative note signs::      
+* Additional note signs::       
+* Pre-defined contexts::        
+* Transcribing ancient music::  
+* Editorial markings::          
 @end menu
+
 
 @node Introduction to ancient notation
 @subsection Introduction to ancient notation
 
 @menu
-* Ancient notation supported::
+* Ancient notation supported::  
 @end menu
+
 
 @node Ancient notation supported
 @subsubsection Ancient notation supported
 
-Support for ancient notation includes features for mensural notation
-and Gregorian Chant notation.  There is also limited support for
-figured bass notation, see @ref{Figured bass}.
+Support for ancient notation includes features for mensural notation and
+Gregorian chant notation, as well as limited support for figured bass notation.
 
 Many graphical objects provide a @code{style} property, see
+
 @itemize
-@item
-@ref{Ancient note heads},
-@item
-@ref{Ancient accidentals},
-@item
-@ref{Ancient rests},
-@item
-@ref{Ancient clefs},
-@item
-@ref{Ancient flags},
-@item
-@ref{Ancient time signatures}.
+@item @ref{Ancient note heads},
+@item @ref{Ancient accidentals},
+@item @ref{Ancient rests},
+@item @ref{Ancient clefs},
+@item @ref{Ancient flags},
+@item @ref{Ancient time signatures}.
 @end itemize
 
-By manipulating such a grob property, the typographical appearance of
-the affected graphical objects can be accommodated for a specific
-notation flavor without the need for introducing any new notational
-concept.
+By manipulating these grob properties, the typographical appearance of a
+specific type of notation can be accommodated without needing to introduce any
+new notational concepts.
 
 In addition to the standard articulation signs described in
-section @ref{Articulations and ornamentations}, specific
-articulation signs for ancient notation are provided.
+@ref{Articulations and ornamentations}, specific articulation signs for
+Gregorian chant are provided.
 
 @itemize
-@item
-@ref{Ancient articulations}
+@item @ref{Ancient articulations}
 @end itemize
 
-Other aspects of ancient notation can not that easily be expressed
-in terms of just changing a style property of a graphical object or
-adding articulation signs.  Some notational concepts are introduced
-specifically for ancient notation,
+Other aspects of ancient notation cannot be easily expressed by changing a
+style property of a graphical object or by adding articulation signs.  Some
+notational concepts are introduced specifically for ancient notation,
 
 @itemize
-@item
-@ref{Custodes},
-@item
-@ref{Divisiones},
-@item
-@ref{Ligatures}.
+@item @ref{Custodes},
+@item @ref{Divisiones},
+@item @ref{Ligatures}.
 @end itemize
 
-If this all is too much of documentation for you, and you just want to
-dive into typesetting without worrying too much about the details on
-how to customize a context, you may have a look at the predefined
-contexts.  Use them to set up predefined style-specific voice and
-staff contexts, and directly go ahead with the note entry,
+To start typesetting without worrying too much about the details on how to
+customize a context, there are predefined contexts for Gregorian chant and
+mensural notation.  They set up predefined style-specific voice and staff
+contexts, and allow one to proceed directly with note entry:
 
 @itemize
-@item
-@ref{Gregorian Chant contexts},
-@item
-@ref{Mensural contexts}.
+@item @ref{Gregorian chant contexts},
+@item @ref{Mensural contexts}.
 @end itemize
 
-There is limited support for figured bass notation which came
-up during the baroque period.
+There is limited support for figured bass notation from the Baroque period:
 
 @itemize
-@item
-@ref{Figured bass}
+@item @ref{Figured bass}
 @end itemize
 
 @c Here are all subtopics at a glance:
+
 
 @node Alternative note signs
 @subsection Alternative note signs
 
 @menu
-* Ancient note heads::
-* Ancient accidentals::
-* Ancient rests::
-* Ancient clefs::
-* Ancient flags::
-* Ancient time signatures::
+* Ancient note heads::          
+* Ancient accidentals::         
+* Ancient rests::               
+* Ancient clefs::               
+* Ancient flags::               
+* Ancient time signatures::     
 @end menu
+
 
 @node Ancient note heads
 @subsubsection Ancient note heads
 
 @cindex note heads, ancient
 
-For ancient notation, a note head style other than the @code{default}
-style may be chosen.  This is accomplished by setting the @code{style}
-property of the @rinternals{NoteHead} object to @code{baroque},
-@code{neomensural}, @code{mensural} or @code{petrucci}.  The
-@code{baroque} style differs from the @code{default} style only in
-using a square shape for @code{\breve} note heads.  The
-@code{neomensural} style differs from the @code{baroque} style in that
-it uses rhomboidal heads for whole notes and all smaller durations.
-Stems are centered on the note heads.  This style is particularly
-useful when transcribing mensural music, e.g., for the incipit.  The
-@code{mensural} style produces note heads that mimic the look of note
-heads in historic printings of the 16th century.  Finally, the
-@code{petrucci} style also mimics historic printings, but uses bigger
-note heads.
+For ancient notation, a note head style other than the @code{default} style
+may be chosen.  This is accomplished by setting the @code{style} property of
+the @rinternals{NoteHead} object to @code{baroque}, @code{neomensural},
+@code{mensural} or @code{petrucci}.
 
-The following example demonstrates the @code{neomensural} style
+The @code{baroque} style differs from the @code{default} style by:
+
+@itemize 
+@item Providing a @code{maxima} notehead, and
+@item Using a square shape for @code{\breve} note heads.
+@end itemize
+
+The @code{neomensural}, @code{mensural}, and @code{petrucci} styles differ from
+the @code{baroque} style by:
+
+@itemize
+@item Using rhomboidal heads for semibreves and all smaller durations, and
+@item Centering the stems on the note heads.
+@end itemize
+
+The @code{mensural} and @code{petrucci} styles aim to emulate the appearance
+of historic printed music.  The @code{petrucci} style uses larger note
+heads.
+
+The following example demonstrates the @code{petrucci} style
+
+@c Renaissance music doesn't use bar lines ... but they do help to
+@c separate the notes for easier identification.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
-\override NoteHead #'style = #'neomensural
-a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
+\autoBeamOff
+\override NoteHead #'style = #'petrucci
+a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 @end lilypond
 
-When typesetting a piece in Gregorian Chant notation, the
-@rinternals{Gregorian_ligature_engraver} will automatically select
-the proper note heads, so there is no need to explicitly set the
-note head style.  Still, the note head style can be set, e.g., to
-@code{vaticana_punctum} to produce punctum neumes.  Similarly, a
-@rinternals{Mensural_ligature_engraver} is used to automatically
-assemble mensural ligatures.  See @ref{Ligatures}, for how ligature
-engravers work.
+When typesetting a piece in Gregorian chant notation, the
+@rinternals{Gregorian_ligature_engraver} automatically selects the proper
+note heads, so there is no need to explicitly set the note head style. 
+Still, the note head style can be set, e.g., to @code{vaticana_punctum} to
+produce punctum neumes.  Similarly, the
+@rinternals{Mensural_ligature_engraver} automatically assembles mensural
+ligatures.  See @ref{Ligatures}, for how ligature engravers work.
 
 @seealso
 
-@ref{Note head styles}, gives an overview over all available note head styles.
+@ref{Note head styles}, gives an overview of all available note head styles.
 
 
 @node Ancient accidentals
@@ -166,10 +167,8 @@ engravers work.
 
 @cindex accidentals
 
-
-Use the @code{glyph-name-alist} property of grob
-@rinternals{Accidental} and @rinternals{KeySignature} to select
-ancient accidentals.
+Use the @code{glyph-name-alist} property of grob @rinternals{Accidental} and
+@rinternals{KeySignature} to select ancient accidentals.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -234,7 +233,6 @@ Internals Reference: @rinternals{KeySignature}.
 
 @cindex rests, ancient
 
-
 Use the @code{style} property of grob @rinternals{Rest} to select
 ancient rests.   Supported styles are @code{classical},
 @code{neomensural}, and @code{mensural}.  @code{classical} differs
@@ -256,7 +254,7 @@ There are no 32th and 64th rests specifically for the mensural or
 neo-mensural style.  Instead, the rests from the default style will be
 taken.  See @c @lsr{pitches,rests} for a chart of all rests.
 
-There are no rests in Gregorian Chant notation; instead, it uses
+There are no rests in Gregorian chant notation; instead, it uses
 @ref{Divisiones}.
 
 @seealso
@@ -269,7 +267,6 @@ rests.
 @subsubsection Ancient clefs
 
 @cindex clefs
-
 
 LilyPond supports a variety of clefs, many of them ancient.
 
@@ -478,16 +475,14 @@ historic style hufnagel combined do/fa clef
 @end lilypond
 @end multitable
 
+@emph{Modern} or @emph{Neo-mensural style} means @qq{as is typeset in
+modern editions of transcribed mensural music.}
 
-
-@emph{Modern style} means @qq{as is typeset in contemporary editions of
-transcribed mensural music.}
-
-@emph{Petrucci style} means @qq{inspired by printings published by the
-famous engraver Petrucci (1466-1539).}
+@emph{Petrucci style} means @qq{inspired by music published by the famous
+engraver Petrucci (1466-1539).}
 
 @emph{Historic style} means @qq{as was typeset or written in historic
-editions (other than those of Petrucci).}
+editions other than those of Petrucci.}
 
 @emph{Editio XXX style} means @qq{as is/was printed in Editio XXX.}
 
@@ -503,12 +498,10 @@ Notation Reference: see @ref{Clef}.
 The mensural g clef is mapped to the Petrucci g clef.
 
 
-
 @node Ancient flags
 @subsubsection Ancient flags
 
 @cindex flags
-
 
 Use the @code{flag-style} property of grob @rinternals{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
@@ -529,7 +522,11 @@ vertically aligned with a staff line.
 There is no particular flag style for neo-mensural notation.  Hence,
 when typesetting the incipit of a transcribed piece of mensural
 music, the default flag style should be used.  There are no flags in
-Gregorian Chant notation.
+Gregorian chant notation.
+
+@seealso
+
+TODO: nothing here yet ...
 
 @knownissues
 
@@ -542,17 +539,18 @@ staff lines.  This may not always be true when using advanced layout
 features of classical notation (which however are typically out of
 scope for mensural notation).
 
+
 @node Ancient time signatures
 @subsubsection Ancient time signatures
 
+@cindex mensuration sign
 @cindex time signatures
 
-
-There is limited support for mensural time signatures.   The
-glyphs are hard-wired to particular time fractions.  In other words,
-to get a particular mensural signature glyph with the @code{\time n/m}
-command, @code{n} and @code{m} have to be chosen according to the
-following table
+There is limited support for mensuration signs (which are similar to, but
+not exactly the same as time signatures).  The glyphs are hard-wired to
+particular time fractions.  In other words, to get a particular mensuration
+sign with the @code{\time n/m} command, @code{n} and @code{m} have to be
+chosen according to the following table
 
 @lilypond[quote,ragged-right]
 \layout {
@@ -634,13 +632,13 @@ The following examples show the differences in style,
 
 @seealso
 
-This manual: @ref{Time signature}, gives a general introduction to
+Notation Reference: @ref{Time signature}, gives a general introduction to
 the use of time signatures.
 
 @knownissues
 
 Ratios of note durations do not change with the time signature.  For
-example, the ratio of 1 brevis = 3 semibrevis (tempus perfectum) must
+example, the ratio of 1 breve = 3 semibreves (@emph{tempus perfectum}) must
 be made by hand, by setting
 
 @example
@@ -660,12 +658,12 @@ addressable with @code{\time}.  Use a @code{\markup} instead
 @subsection Additional note signs
 
 @menu
-* Ancient articulations::
-* Custodes::
-* Divisiones::
-* Ligatures::
-* White mensural ligatures::
-* Gregorian square neumes ligatures::
+* Ancient articulations::       
+* Custodes::                    
+* Divisiones::                  
+* Ligatures::                   
+* White mensural ligatures::    
+* Gregorian square neumes ligatures::  
 @end menu
 
 
@@ -695,6 +693,10 @@ designed for use with notation in Editio Vaticana style.
 }
 @end lilypond
 
+@seealso
+
+TODO: nothing here yet ...
+
 @knownissues
 
 Some articulations are vertically placed too closely to the
@@ -702,6 +704,7 @@ corresponding note heads.
 
 The episem line is not displayed in many cases.  If it is displayed,
 the right end of the episem line is often too far to the right.
+
 
 @node Custodes
 @subsubsection Custodes
@@ -799,7 +802,6 @@ the breathmarks from @ref{Breath marks}.  The @emph{finalis} sign not
 only marks the end of a chant, but is also frequently used within a
 single antiphonal/responsorial chant to mark the end of each section.
 
-
 To use divisiones, include the file @file{gregorian@/-init@/.ly}.  It
 contains definitions that you can apply by just inserting
 @code{\divisioMinima}, @code{\divisioMaior}, @code{\divisioMaxima},
@@ -865,7 +867,9 @@ has to be added to the @rinternals{Voice} context, as explained in
 the following subsections.   Only white mensural ligatures
 are supported with certain limitations.
 
+@seealso
 
+TODO: nothing here yet ...
 
 @knownissues
 
@@ -891,6 +895,7 @@ with the same effect and is believed to be stable.
 * White mensural ligatures::
 * Gregorian square neumes ligatures::
 @end menu
+
 
 @node White mensural ligatures
 @subsubsection White mensural ligatures
@@ -977,9 +982,14 @@ to the following
 }
 @end lilypond
 
+@seealso
+
+TODO: nothing here yet ...
+
 @knownissues
 
 Horizontal spacing is poor.
+
 
 @node Gregorian square neumes ligatures
 @subsubsection Gregorian square neumes ligatures
@@ -1515,7 +1525,6 @@ Deminutae}
 
 @end multitable
 
-
 Unlike most other neumes notation systems, the input language for
 neumes does not reflect the typographical appearance, but is designed
 to focus on musical meaning.  For example, @code{\[ a \pes b
@@ -1922,6 +1931,10 @@ respectively.
 @funindex \augmentum
 Use the unary music function @code{\augmentum} to add augmentum dots.
 
+@seealso
+
+TODO: nothing here yet ...
+
 @knownissues
 
 When an @code{\augmentum} dot appears at the end of the last staff
@@ -1938,20 +1951,20 @@ with head prefixes in arbitrary order.
 @subsection Pre-defined contexts
 
 @menu
-* Gregorian Chant contexts::
-* Mensural contexts::
+* Gregorian chant contexts::    
+* Mensural contexts::           
 @end menu
 
 
-@node Gregorian Chant contexts
-@subsubsection Gregorian Chant contexts
+@node Gregorian chant contexts
+@subsubsection Gregorian chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
 
 The predefined @code{VaticanaVoiceContext} and
 @code{VaticanaStaffContext} can be used to engrave a piece of
-Gregorian Chant in the style of the Editio Vaticana.  These contexts
+Gregorian chant in the style of the Editio Vaticana.  These contexts
 initialize all relevant context properties and grob properties to
 proper values, so you can immediately go ahead entering the chant, as
 the following excerpt demonstrates
@@ -1976,6 +1989,9 @@ the following excerpt demonstrates
 }
 @end lilypond
 
+@seealso
+
+TODO: nothing here yet ...
 
 @node Mensural contexts
 @subsubsection Mensural contexts
@@ -2010,14 +2026,19 @@ demonstrates
 }
 @end lilypond
 
+@seealso
+
+TODO: nothing here yet ...
+
+
 @node Transcribing ancient music
 @subsection Transcribing ancient music
 
 @menu
-* Ancient and modern from one source::
-* Incipits::
-* Mensurstriche layout::
-* Transcribing Gregorian chant::
+* Ancient and modern from one source::  
+* Incipits::                    
+* Mensurstriche layout::        
+* Transcribing Gregorian chant::  
 @end menu
 
 
@@ -2028,6 +2049,10 @@ demonstrates
 @c Here among others the snippets about reducing note length
 TBC
 
+@seealso
+
+@c ... and reference to other sections ...
+
 
 @node Incipits
 @subsubsection Incipits
@@ -2035,9 +2060,11 @@ TBC
 @c TODO Add text
 @c clefs, mensuration signs etc from lsr and -user
 @c use snippet Transcription-of-ancient-music-with-incipit
-
 TBC
 
+@seealso
+
+@c ... and reference to other sections ...
 
 @node Mensurstriche layout
 @subsubsection Mensurstriche layout
@@ -2045,6 +2072,10 @@ TBC
 @c TODO Add text
 @c from lsr and -user
 TBC
+
+@seealso
+
+@c ... and reference to other sections ...
 
 
 @node Transcribing Gregorian chant
@@ -2054,13 +2085,17 @@ TBC
 @c extract from 1.6.1.1
 TBC
 
+@seealso
+
+@c ... and reference to other sections ...
+
 
 @node Editorial markings
 @subsection Editorial markings
 
 @menu
-* Annotational accidentals::
-* Baroque rhythmic notation::
+* Annotational accidentals::    
+* Baroque rhythmic notation::   
 @end menu
 
 
@@ -2069,7 +2104,7 @@ TBC
 
 In European music from before about 1600, singers were often
 expected to chromatically alter notes at their own initiative.
-This is called @q{Musica Ficta}.  In modern transcriptions, these
+This is called @notation{musica ficta}.  In modern transcriptions, these
 accidentals are usually printed over the note.
 
 @cindex Accidental, musica ficta
@@ -2086,10 +2121,9 @@ fis gis
 ais bis
 @end lilypond
 
-This will treat @emph{every} subsequent accidentals as
-@emph{musica ficta} until it is unset with @code{\set
-suggestAccidentals = ##f}.  A more convenient way is to use
-@code{\once}:
+This will treat @emph{every} subsequent accidental as @emph{musica ficta}
+until it is unset with @code{\set suggestAccidentals = ##f}.  A more
+convenient way is to use @code{\once}:
 
 @lilypond[verbatim,fragment,relative=1]
 fis gis
@@ -2121,3 +2155,7 @@ the @rinternals{AccidentalSuggestion} object.
 
 
 TBC
+
+@seealso
+
+@c ... and reference to other sections ...

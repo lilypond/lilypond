@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Ludovic Sardain, John Mandereau
 @c Translation checkers: Jean-Charles Malahieude, Jean-Yves Baudais
@@ -18,12 +18,12 @@
 
 
 @menu
-* Engraving::         
-* Automated engraving::
+* Engraving::                   
+* Automated engraving::         
 * What symbols to engrave?::    
-* Music representation::      
-* Example applications::
-* About this manual::
+* Music representation::        
+* Example applications::        
+* About the documentation::     
 @end menu
 
 
@@ -741,8 +741,8 @@ musique et du texte dans les documents.
 
 
 
-@node About this manual
-@section About this manual
+@node About the documentation
+@section About the documentation
 
 Deux manuels traitent de LilyPond : le @emph{manuel de l'utilisateur}
 --- que vous lisez actuellement --- et le @emph{manuel d'utilisation du

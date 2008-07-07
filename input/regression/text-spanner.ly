@@ -1,5 +1,5 @@
 
-\version "2.10.0"
+\version "2.11.51"
 \header {
     texidoc= "Text spanners should not repeat start text when broken."
 }
@@ -9,7 +9,7 @@
 
 \relative c'' {
     \set crescendoText = #"cresc."
-    \set crescendoSpanner = #'dashed-line
+    \set crescendoSpanner = #'text
     c1\< c \break
     c1 c\! \break
 }

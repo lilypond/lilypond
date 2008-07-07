@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is included from notation.itely
 @ignore
-    Translation of GIT committish: b92cad66f01316c6d1121fe08bffc92db104c46c
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Editorial annotations
 @section Editorial annotations
@@ -122,7 +122,7 @@ contemplan el interfaz de presentación @code{font-interface}.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
 @rinternals{fontSize},
@@ -183,7 +183,7 @@ Referencia de la notación:
 @ref{Controlling direction and placement}
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
 @rinternals{FingeringEvent},
@@ -224,7 +224,7 @@ c
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
 @rinternals{Note_spacing_engraver},
@@ -309,7 +309,7 @@ Referencia de la notación:
 the input}.
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 
 @knownissues
@@ -355,7 +355,7 @@ c2 \parenthesize r
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funciionamiento interno:
 @rinternals{Parenthesis_engraver},
@@ -397,7 +397,7 @@ Referencia de la notación:
 @ref{Controlling direction and placement}.
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
 @rinternals{Stem_engraver},
@@ -449,7 +449,7 @@ una nota individual.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
 @rinternals{Balloon_engraver},
@@ -506,7 +506,7 @@ sincronizadas con las notas.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
 @rinternals{Grid_line_span_engraver},
@@ -562,7 +562,7 @@ Los corchetes de análisis se pueden anidar.
 @seealso
 
 Fragmentos de código:
-@lsrdir{Editorial,Editorial-annotations}.
+@rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
 @rinternals{Horizontal_bracket_engraver},

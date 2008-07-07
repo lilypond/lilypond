@@ -1,15 +1,17 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Pitches
 @section Pitches
+
+@lilypondfile[quote]{pitches-headword.ly}
 
 This section discusses how to specify the pitch of notes.
 
@@ -400,7 +402,7 @@ Es gibt auch eine Oktavenüberprüfung, die keine sichtbare Ausgabe
 erzeugt. Die Syntax:
 
 @example
-\octave @var{Tonhöhe}
+\octaveCheck @var{Tonhöhe}
 @end example
 
 Hierdurch wird überprüft, dass die @var{Tonhöhe} (ohne Apostroph) 
@@ -421,8 +423,8 @@ richtigen Oktave gesetzt werden.
 @example
 \relative c' @{
   e
-  \octave a'
-  \octave b'
+  \octaveCheck a'
+  \octaveCheck b'
 @}
 @end example
 
@@ -439,7 +441,7 @@ verändert.
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' {
   e
-  \octave b
+  \octaveCheck b
   a
 }
 @end lilypond
@@ -519,9 +521,11 @@ eine weitere Transposition:
 
 @seealso
 
-Programmreferenz: @rinternals{TransposedMusic}.
+Programmreferenz:
+@rinternals{TransposedMusic}.
 
-Beispiel: @lsr{scheme,transpose-pitches-with-minimum-accidentals.ly}.
+Beispiel:
+@rlsr{Pitches}.
 
 
 @knownissues

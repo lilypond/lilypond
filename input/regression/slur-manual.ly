@@ -6,7 +6,7 @@ positioning of the slur. It selects the slur configuration closest to
 the given pair. "
   
   }
-\version "2.10.0"
+\version "2.11.51"
 
 \paper { ragged-right = ##T }
 \relative {

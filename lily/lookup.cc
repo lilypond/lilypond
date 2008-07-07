@@ -688,7 +688,7 @@ Lookup::repeat_slash (Real w, Real s, Real t)
 }
 
 Stencil
-Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
+Lookup::bracket (Axis a, Interval iv, Real thick, Real protrude, Real blot)
 {
   Box b;
   Axis other = Axis ((a + 1)%2);
@@ -698,8 +698,8 @@ Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
   Stencil m = round_filled_box (b, blot);
 
   b[a] = Interval (iv[UP] - thick, iv[UP]);
-  Interval oi = Interval (-thick / 2, thick / 2 + fabs (protude));
-  oi *= sign (protude);
+  Interval oi = Interval (-thick / 2, thick / 2 + fabs (protrude));
+  oi *= sign (protrude);
   b[other] = oi;
   m.add_stencil (round_filled_box (b, blot));
   b[a] = Interval (iv[DOWN], iv[DOWN] + thick);
@@ -709,16 +709,16 @@ Lookup::bracket (Axis a, Interval iv, Real thick, Real protude, Real blot)
 }
 
 Stencil
-Lookup::triangle (Interval iv, Real thick, Real protude)
+Lookup::triangle (Interval iv, Real thick, Real protrude)
 {
   Box b;
   b[X_AXIS] = Interval (0, iv.length ());
-  b[Y_AXIS] = Interval (min (0., protude), max (0.0, protude));
+  b[Y_AXIS] = Interval (min (0., protrude), max (0.0, protrude));
 
   vector<Offset> points;
   points.push_back (Offset (iv[LEFT], 0));
   points.push_back (Offset (iv[RIGHT], 0));
-  points.push_back (Offset (iv.center (), protude));
+  points.push_back (Offset (iv.center (), protrude));
 
   return points_to_line_stencil (thick, points);
 

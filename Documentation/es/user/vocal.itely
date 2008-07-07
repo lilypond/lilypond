@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: a0e34b9be40d377c7815f96a07f23280b3257413
+    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 
 @node Vocal music
@@ -565,15 +565,15 @@ sección @rlearning{Vocal ensembles}.
 
 @predefined
 
-@code{\melisma}, @code{\melismaEnd}
+@code{\melisma},
+@code{\melismaEnd}
 @funindex \melismaEnd
 @funindex \melisma
 
 @seealso
 
-Referencia de funcionamiento interno: @rinternals{Melisma_translator}.
-
-@c @lsr{vocal,lyric@/-combine.ly}.
+Referencia de funcionamiento interno:
+@rinternals{Melisma_translator}.
 
 @knownissues
 
@@ -583,13 +583,7 @@ se deben insertar a mano.
 @node Skipping notes
 @subsubsection Skipping notes
 
-@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-@ifnothtml
-@englishref
-@end ifnothtml
-
 
 @node Extenders and hyphens
 @subsubsection Extenders and hyphens
@@ -626,13 +620,7 @@ Referencia de funcionamiento interno: @rinternals{LyricExtender},
 @node Lyrics and repeats
 @subsubsection Lyrics and repeats
 
-@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-@ifnothtml
-@englishref
-@end ifnothtml
-
 
 @node Placement of lyrics
 @subsection Placement of lyrics
@@ -726,12 +714,7 @@ lyr = \lyricmode { I like my cat! }
 @node Chants
 @subsubsection Chants
 
-@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-@ifnothtml
-@englishref
-@end ifnothtml
 
 
 @node Spacing out syllables
@@ -780,13 +763,7 @@ completa, establezca la propiedad dentro del @q{layout} o disposición.
 @node Centering lyrics between staves
 @subsubsection Centering lyrics between staves
 
-@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-@ifnothtml
-@englishref
-@end ifnothtml
-
 
 @node Stanzas
 @subsection Stanzas
@@ -1131,6 +1108,8 @@ text = \lyricmode {
 
 @seealso
 
-Referencia de funcionamiento interno: @rinternals{LyricText},
-@rinternals{StanzaNumber}, @rinternals{VocalName}.
+Referencia de funcionamiento interno:
+@rinternals{LyricText},
+@rinternals{StanzaNumber},
+@rinternals{VocalName}.
 

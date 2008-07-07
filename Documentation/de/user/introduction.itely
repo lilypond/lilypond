@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Introduction
 @chapter Introduction
@@ -19,7 +19,7 @@
 * What symbols to engrave?::    
 * Music representation::        
 * Example applications::        
-* About this manual::           
+* About the documentation::     
 @end menu
 
 
@@ -721,8 +721,8 @@ es sehr einfach, Noten und Text zu kombinieren.
 
 
 
-@node About this manual
-@section About this manual
+@node About the documentation
+@section About the documentation
 
 Es gibt zwei Handbücher zu LilyPond: das @emph{Benutzerhandbuch} (dieses 
 Dokument) und das @emph{Handbuch über die Programmbenutzung}.

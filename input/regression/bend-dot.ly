@@ -1,4 +1,4 @@
-\version "2.11.2"
+\version "2.11.51"
 \header {
   texidoc  = "Bends avoid dots, but only if necessary."
 }

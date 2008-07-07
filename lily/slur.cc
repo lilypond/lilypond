@@ -349,12 +349,34 @@ Slur::auxiliary_acknowledge_extra_object (Grob_info const &info,
       if (slur)
 	{
 	  chain_offset_callback (e, outside_slur_callback_proc, Y_AXIS);
+	  chain_callback (e, outside_slur_cross_staff_proc, ly_symbol2scm("cross-staff"));
 	  e->set_object ("slur", slur->self_scm ());
 	}
     }
   else
     e->warning (_f ("Ignoring grob for slur: %s. avoid-slur not set?",
 		    e->name().c_str ()));
+}
+
+/*
+  A callback that will be chained together with the original cross-staff
+  value of a grob that is placed 'outside or 'around a slur. This just says
+  that any grob becomes cross-staff if it is placed 'outside or 'around a
+  cross-staff slur.
+*/
+MAKE_SCHEME_CALLBACK (Slur, outside_slur_cross_staff, 2)
+SCM
+Slur::outside_slur_cross_staff (SCM smob, SCM previous)
+{
+  if (previous == SCM_BOOL_T)
+    return previous;
+
+  Grob *me = unsmob_grob (smob);
+  Grob *slur = unsmob_grob (me->get_object ("slur"));
+
+  if (!slur)
+    return SCM_BOOL_F;
+  return slur->get_property ("cross-staff");
 }
 
 MAKE_SCHEME_CALLBACK (Slur, calc_cross_staff, 1)

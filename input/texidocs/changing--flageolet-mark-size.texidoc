@@ -1,0 +1,6 @@
+  texidoces = "
+Para hacer más pequeño el círculo de @code{\\flageolet} (armónico)
+utilice la siguiente función de Scheme.
+
+"
+  doctitlees = "Cambiar el tamaño de la marca de \\flageolet"

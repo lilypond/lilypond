@@ -172,7 +172,8 @@ char const *LILYPOND_DATADIR = PACKAGE_DATADIR "/" TOPLEVEL_VERSION;
    unpredictable places. To get around this, we tell the x87 FPU to use only
    double precision. Note that this is not needed for x86_64 because that uses
    the SSE unit by default instead of the x87 FPU. */
-#ifdef __x86__
+#if ((defined(__x86__) || defined(__i386__)) \
+  && defined(HAVE_FPU_CONTROL_H) && (HAVE_FPU_CONTROL_H == 1))
 
 #include <fpu_control.h>
 static void configure_fpu() {
@@ -185,7 +186,7 @@ static void configure_fpu() {
 static void configure_fpu() {
 }
 
-#endif /* __x86__ */
+#endif /* defined(__x86__) || defined(__i386__) */
 
 
 static void

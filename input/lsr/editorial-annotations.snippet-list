@@ -1,4 +1,6 @@
+measure-counter.ly
 creating-blank-staves.ly
+controlling-the-placement-of-chord-fingerings.ly
 making-some-staff-lines-thicker-than-the-others.ly
 applying-note-head-styles-depending-on-the-step-of-the-scale.ly
 embedding-native-postscript-in-a--markup-block.ly
@@ -6,7 +8,7 @@ changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
 grid-lines--emphasizing-rhythms-and-notes-synchronization.ly
 changing-a-single-notes-size-in-a-chord.ly
 grid-lines--changing-their-appearance.ly
-controlling-the-placement-of-chord-fingerings.ly
+default-direction-of-stems-on-the-center-line-of-the-staff.ly
 allowing-fingerings-to-be-printed-inside-the-staff.ly
 blanking-staff-lines-using-the--whiteout-command.ly
-default-direction-of-stems-on-the-center-line-of-the-staff.ly
+analysis-brackets-above-the-staff.ly

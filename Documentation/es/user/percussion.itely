@@ -1,66 +1,53 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2607a3536733d8d4a1e74176027a5cb01d4e776a
+    Translation of GIT committish: 223846f933f47587fd0403e1a75cc1776990a785
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
-
+@c \version "2.11.51"
 
 @node Percussion
 @section Percussion
 
-@menu 
-* TODO percussion node fix::
+@menu
+* Common notation for percussion::
 @end menu
 
-@node TODO percussion node fix
-@subsection TODO percussion node fix
+@node Common notation for percussion
+@subsection Common notation for percussion
 
 La notación rítmica se emplea primordialmente para la percusión y la batería, pero también
 se puede utilizar para mostrar los valores rítmicos una melodía.
 
 @menu
-* Showing melody rhythms::      
-* Entering percussion::         
-* Percussion staves::           
-* Ghost notes::                 
+* References for percussion::
+* Basic percussion notation::
+* Percussion staves::
+* Ghost notes::
 @end menu
 
+@node References for percussion
+@subsubsection References for percussion
 
-@node Showing melody rhythms
-@subsubsection Showing melody rhythms
-
-En ocasiones podría desear que se muestre sólo el ritmo de una melodía.  Esto
-se puede hacer con la pauta rítmica.  Todas las alturas de las notas en dicha pauta
-se muestran como una barra, y la pauta en sí tiene una sola línea.
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new RhythmicStaff {
-  \time 4/4
-  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
-}
-@end lilypond
-
-@seealso
-
-Referencia del programa: @rinternals{RhythmicStaff}.
+UNTRANSLATED NODE: IGNORE ME
 
 
-@node Entering percussion
-@subsubsection Entering percussion
+@node Basic percussion notation
+@subsubsection Basic percussion notation
 
 @cindex percusión
 @cindex batería
 
 
-Las notas de percusión se pueden escribir en el modo @code{\drummode}, que es similar
-al modo estándar para introducir notas.  Cada elemento de un set de percusión
-lleva un nombre completo y un nombre abreviado, y los dos se pueden usar
-en la entrada
+Las notas de percusión se pueden escribir en el modo @code{\drummode},
+que es similar al modo estándar para introducir notas.  Cada elemento
+de un set de percusión lleva un nombre completo y un nombre abreviado,
+y los dos se pueden usar en la entrada.  La manera más fácil de
+escribir notas de percusión es utilizar la instrucción @code{\drums},
+que crea el contexto y el modo de entrada apropiados para percusión:
 
 @lilypond[quote,ragged-right,verbatim]
 \drums {
@@ -68,26 +55,65 @@ en la entrada
 }
 @end lilypond
 
+Esto es una abreviatura de
+
+@lilypond[quote,ragged-right,verbatim]
+\new DrumStaff
+\drummode {
+  hihat hh bassdrum bd
+}
+@end lilypond
+
+
+
 La lista completa de nombre de instrumentos de percusión se encuentra en el archivo de inicio
 @file{ly/@/drumpitch@/-init@/.ly}.
 @c TODO: properly document this.
 
+Los redobles se indican mediante tres barras cruzadas en la plica.
+Para las negras o notas más largas, las tres barras se muestran
+explícitamente, las corcheas se presentan con dos barras cruzadas
+(siendo la barra de corchea la tercera), y los redobles más breves que
+las corcheas tienen una barra cruzada para complementar las barras
+normales.  Esto se consigue mediante la notación de trémolo,
+@code{:32}, véase @ref{Tremolo repeats}.  He aquí un ejemplo de
+redobles de caja:
+
+@lilypond[quote,ragged-right,verbatim]
+\new DrumStaff
+\drummode {
+  \time 2/4
+  sn16 sn8 sn16 sn8 sn8:32~ |
+  sn8 sn8 sn4:32~ |
+  sn4 sn8 sn16 sn16 |
+  sn4 r4 |
+}
+@end lilypond
+
+Los golpes de baqueta se pueden indicar mediante la colocación de
+@code{^"R"} o @code{^"L"} después de la nota.  La propiedad
+@code{staff-padding} se puede sobreescribir para conseguir una línea
+de base satisfactoria.
+
+@c TODO Add example of sticking
+
 @seealso
 
-Referencia del programa: @rinternals{note-event}.
+Referencia del programa:
+@rinternals{note-event}.
 
 @node Percussion staves
 @subsubsection Percussion staves
 @cindex percusión
 @cindex batería
 
-Una parte de percusión para más de un instrumento, normalmente utiliza una pauta
-de varias líneas donde cada posición dentro de la pauta se refiere a un elemento
-de percusión.
+Una parte de percusión para más de un instrumento, normalmente utiliza
+una pauta de varias líneas donde cada posición dentro de la pauta se
+refiere a un elemento de percusión.
 
 
-Para tipografiar la música, se deben interpretar las notas dentro de los contextos
-@rinternals{DrumStaff} y @rinternals{DrumVoice}
+Para tipografiar la música, se deben interpretar las notas dentro de
+los contextos @rinternals{DrumStaff} y @rinternals{DrumVoice}
 
 @lilypond[quote,ragged-right,verbatim]
 up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
@@ -98,9 +124,10 @@ down = \drummode { bassdrum4 snare8 bd r bd sn4 }
   >>
 @end lilypond
 
-El ejemplo anterior muestra una notación polifónica prolija.  La notación
-polifónica abreviada, descrita en @rlearning{I'm hearing Voices}, también se puede usar si
-las @rinternals{DrumVoice}s se instancian primero a mano.  Por ejemplo,
+El ejemplo anterior muestra una notación polifónica prolija.  La
+notación polifónica abreviada, descrita en @rlearning{I'm hearing
+Voices}, también se puede usar si las @rinternals{DrumVoice}s se
+instancian primero a mano.  Por ejemplo,
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new DrumStaff <<
@@ -118,13 +145,15 @@ las @rinternals{DrumVoice}s se instancian primero a mano.  Por ejemplo,
 @end lilypond
 
 
-También existen otras posibilidades en lo referente a la disposición.  Para usarlas, establezca la
-propiedad @code{drumStyleTable} en el contexto @rinternals{DrumVoice}.
-Se han predefinido las siguientes variables:
+También existen otras posibilidades en lo referente a la disposición.
+Para usarlas, establezca la propiedad @code{drumStyleTable} en el
+contexto @rinternals{DrumVoice}.  Se han predefinido las siguientes
+variables:
 
 @table @code
 @item drums-style
-Es la opción por defecto.  Tipografía un típico set de percusión sobre una pauta de cinco líneas
+Es la opción por defecto.  Tipografía un típico set de percusión sobre
+una pauta de cinco líneas
 
 @lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
@@ -153,13 +182,14 @@ mus = \drummode {
 }
 @end lilypond
 
-El esquema de percusión contempla seis tambores graves (toms) distintos.  Cuando haya menos toms,
-sencillamente seleccione aquellos que producen el resultado deseado, es decir, para tener toms
-en las tres líneas centrales utilizará @code{tommh}, @code{tomml} y
+El esquema de percusión contempla seis tambores graves (toms)
+distintos.  Cuando haya menos toms, sencillamente seleccione aquellos
+que producen el resultado deseado, es decir, para tener toms en las
+tres líneas centrales utilizará @code{tommh}, @code{tomml} y
 @code{tomfh}.
 
 @item timbales-style
-Esto tipografía timbales en una pauta de dos líneas
+Esto tipografía timbales en una pauta de dos líneas:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { timh ssh timl ssl cb }
@@ -184,7 +214,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
 @end lilypond
 
 @item congas-style
-Esto tipografía congas en una pauta de dos líneas
+Esto tipografía congas en una pauta de dos líneas:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
@@ -210,7 +240,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 @end lilypond
 
 @item bongos-style
-Esto tipografía bongos sobre una pauta de dos líneas
+Esto tipografía bongos sobre una pauta de dos líneas:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
@@ -236,7 +266,8 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 @end lilypond
 
 @item percussion-style
-Para tipografiar toda clase de percusiones simples sobre pautas de una línea.
+Para tipografiar toda clase de percusiones simples sobre pautas de una
+línea.
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
@@ -259,8 +290,8 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end lilypond
 @end table
 
-Si no le gusta ninguna de las listas predefinidas, puede definir su propia lista
-al principio de su archivo
+Si no le gusta ninguna de las listas predefinidas, puede definir su
+propia lista al principio de su archivo
 
 @lilypond[quote,ragged-right,verbatim]
 #(define mydrums '(
@@ -282,27 +313,30 @@ down = \drummode { bd4 sn bd toml8 toml }
 
 @seealso
 
-Archivos de inicio: @file{ly/@/drumpitch@/-init@/.ly}.
+Archivos de inicio:
+@file{ly/@/drumpitch@/-init@/.ly}.
 
-Referencia del programa: @rinternals{DrumStaff}, @rinternals{DrumVoice}.
+Referencia de funcionamiento interno:
+@rinternals{DrumStaff},
+@rinternals{DrumVoice}.
 
 @knownissues
 
-A causa de que el estándar General MIDI no contiene golpes de aro (rim shot), para este propósito se usa
-el golpe lateral de baqueta (sidestick) en su lugar.
+A causa de que el estándar General MIDI no contiene golpes de aro (rim
+shot), para este propósito se usa el golpe lateral de baqueta
+(sidestick) en su lugar.
 
 
 @c FIXME: check name -gp
 @node Ghost notes
 @subsubsection Ghost notes
 
-Las notas fantasma para la batería e instrumentos de percusión se pueden crear utilizando la instrucción
-@code{\parenthesize} detallada en @ref{Parentheses}.  Sin embargo,
-el modo por defecto @code{\drummode} no
-incluye el añadido grabador @code{Parenthesis_engraver} que permite
-esto.
-Debe escribir el grabador añadido explícitamente en la definición de contexto tal y como se explica detalladamente
-en @ref{Changing context properties on the fly}.
+Las notas fantasma para la batería e instrumentos de percusión se
+pueden crear utilizando la instrucción @code{\parenthesize} detallada
+en @ref{Parentheses}.  Sin embargo, el modo por defecto
+@code{\drummode} no incluye el complemento grabador
+@code{Parenthesis_engraver} que permite esto.
+
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \new DrumStaff \with {
@@ -325,7 +359,7 @@ en @ref{Changing context properties on the fly}.
 @end lilypond
 
 @noindent
-Tenga en cuenta, además, que debe añadir acordes (paréntesis en ángulo @code{< >})
-alrededor de cada una de las instrucciones @code{\parenthesize}.
+Observe, además, que debe añadir acordes (paréntesis en ángulo @code{<
+>}) alrededor de cada una de las instrucciones @code{\parenthesize}.
 
 

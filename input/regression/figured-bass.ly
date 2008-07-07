@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.51"
 
 \header {
 
@@ -6,7 +6,7 @@
   texidoc = " Figured bass is created by the FiguredBass context which
 responds to figured bass events and rest events.  You must enter these
 using the special @code{\figuremode @{ @}} mode, which allows you to
-type numbers, like @code{<4 6+>} and add slashes and pluses.
+type numbers, like @code{<4 6+>} and add slashes, backslashes and pluses.
 
 You can also enter markup strings. The vertical alignment may also be tuned.
 
@@ -32,6 +32,7 @@ You can also enter markup strings. The vertical alignment may also be tuned.
     <3 _! 5 _- 7>
     <3 _ 5 _ 7>
     <3 6/ >
+    <3 6\\ >
     <"V7" ["bla" 6] \markup{ \musicglyph #"rests.2"} >
 
     \once \override BassFigureAlignment #'stacking-dir = #UP

@@ -104,17 +104,12 @@ Context::create_unique_context (SCM name, string id, SCM operations)
   if (gthis && gthis->get_score_context ())
     return gthis->get_score_context ()->create_unique_context (name, id, operations);
 
-  /*
-    TODO: use accepts_list_.
-  */
-  vector<Context_def*> path
-    = unsmob_context_def (definition_)->path_to_acceptable_context (name, get_output_def ());
-
+  vector<Context_def*> path = path_to_acceptable_context (name);
   if (path.size ())
     {
       Context *current = this;
 
-      // start at 1.  The first one (index 0) will be us.
+      // Iterate through the path and create all of the implicit contexts.
       for (vsize i = 0; i < path.size (); i++)
 	{
 	  SCM ops = SCM_EOL;
@@ -167,11 +162,7 @@ Context::find_create_context (SCM n, string id, SCM operations)
       return tg;
     }
 
-  /*
-    TODO: use accepts_list_.
-  */
-  vector<Context_def*> path
-    = unsmob_context_def (definition_)->path_to_acceptable_context (n, get_output_def ());
+  vector<Context_def*> path = path_to_acceptable_context (n);
 
   if (path.size ())
     {
@@ -261,8 +252,8 @@ Context::create_context_from_event (SCM sev)
   SCM type_scm = ev->get_property ("type");
   string type = ly_symbol2string (type_scm);
   
-  vector<Context_def*> path
-    = unsmob_context_def (definition_)->path_to_acceptable_context (type_scm, get_output_def ());
+  vector<Context_def*> path = path_to_acceptable_context (type_scm);
+
   if (path.size () != 1)
     {
       programming_error (_f ("Invalid CreateContext event: Cannot create %s context", type.c_str ()));
@@ -310,6 +301,25 @@ Context::create_context_from_event (SCM sev)
   send_stream_event (this, "AnnounceNewContext", 0,
   		     ly_symbol2scm ("context"), new_context->self_scm (),
   		     ly_symbol2scm ("creator"), sev);
+}
+
+vector<Context_def*>
+Context::path_to_acceptable_context (SCM name) const
+{
+  // The 'accepts elements in definition_mods_ is a list of ('accepts string),
+  // but the Context_def expects to see elements of the form ('accepts symbol).
+  SCM accepts = SCM_EOL;
+  for (SCM s = scm_reverse (definition_mods_); scm_is_pair (s); s = scm_cdr (s))
+    if (scm_caar (s) == ly_symbol2scm ("accepts"))
+      {
+	SCM elt = scm_list_2 (scm_caar (s), scm_string_to_symbol (scm_cadar (s)));
+	accepts = scm_cons (elt, accepts);
+      }
+
+  return unsmob_context_def (definition_)->path_to_acceptable_context (name,
+								       get_output_def (),
+								       accepts);
+								       
 }
 
 Context *
@@ -697,6 +707,20 @@ measure_position (Context const *context)
     }
 
   return m;
+}
+
+int
+measure_number (Context const *context)
+{
+  SCM barnum = context->get_property ("internalBarNumber");
+  SCM smp = context->get_property ("measurePosition");
+
+  int bn = robust_scm2int (barnum, 0);
+  Moment mp = robust_scm2moment (smp, Moment (0));
+  if (mp.main_part_ < Rational (0))
+    bn--;
+
+  return bn;
 }
 
 

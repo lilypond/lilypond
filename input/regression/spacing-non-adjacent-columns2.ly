@@ -1,4 +1,4 @@
-\version "2.11.28"
+\version "2.11.51"
 \paper {ragged-right = ##t}
 \header {
   texidoc = "The spacing engine avoids collisions between non-adjacent columns."

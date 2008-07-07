@@ -63,8 +63,6 @@ script.")
 grobs, this should contain only one number.")
 
      (bar-size ,ly:dimension? "The size of a bar line.")
-     (barre-type ,symbol? "Type of barre indication used in a fret
-diagram.  Choices include @code{curved} and @code{straight}.")
      (base-shortest-duration ,ly:moment? "Spacing is based on the
 shortest notes in a piece.  Normally, pieces are spaced as if notes
 at least as short as this are present.")
@@ -162,18 +160,14 @@ whitespace.  If negative, no line is drawn at all.")
      (default-direction ,ly:dir? "Direction determined by note head
 positions.")
      (digit-names ,vector "Names for string finger digits.")
-     (direction ,ly:dir? "If @code{side-axis} is @code{1} (or
+     (direction ,ly:dir? "If @code{side-axis} is @code{0} (or
 @code{#X}), then this property determines whether the object is placed
 @code{#LEFT}, @code{#CENTER} or @code{#RIGHT} with respect to the
 other object.  Otherwise, it determines whether the object is placed
 @code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
-@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}
-but also other numerical values are permitted.")
-     (dot-color ,symbol? "Color of dots.  Options include 
-@code{black} and @code{white}.")
+@code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
-     (dot-radius ,number? "Radius of dots.")
      (duration-log ,integer? "The 2-log of the note head duration,
 i.e., @code{0} = whole note, @code{1} = half note, etc.")
 
@@ -199,10 +193,6 @@ problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
 item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
-
-     (finger-code ,symbol? "Code for the type of fingering indication
-in a fret diagram.  Options include @code{none}, @code{in-dot}, and
-@code{below-string}.")
      (flag-count ,number? "The number of tremolo beams.")
      (flag-style ,symbol? "A string determining what style of flag
 glyph is typeset on a @code{Stem}.  Valid options include @code{()}
@@ -235,8 +225,68 @@ note.  This is used by @rinternals{note-collision-interface}.")
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
 stem.  The stem stops at the innermost beams.")
-     (fret-count ,integer? "The number of frets in a fret diagram.")
-     ;; ugh: double, change.
+
+     (fret-diagram-details ,list? "An alist of detailed grob properties
+for fret diagrams.  Each alist entry consists of a
+(@code{property} . @code{value}) pair.
+The properties which can be included in fret-diagram-details
+include the following:
+@itemize @bullet
+@item
+@code{barre-type} -- Type of barre indication used.
+Choices include @code{curved} and @code{straight}.
+@item
+@code{dot-color} -- Color of dots.  Options include
+@code{black} and @code{white}.
+@item
+@code{dot-label-font-mag} -- Magnification for font used to
+label fret dots.  Default value 1.
+@item
+@code{dot-radius} -- Radius of dots.
+@item
+@code{finger-code} -- Code for the type of fingering indication used.
+Options include @code{none}, @code{in-dot}, and
+@code{below-string}.
+@item
+@code{fret-count} -- The number of frets.
+@item
+@code{fret-label-font-mag} -- The magnification of the font used to label
+the lowest fret number.  Default 0.5
+@item
+@code{fret-label-vertical-offset} -- The vertical offset of the fret label
+from the fret.  Default -0.2
+@item
+@code{label-dir} -- Side to which the fret label is attached.
+@code{-1}, @code{#LEFT}, or @code{#DOWN} for left or down;
+@code{1}, @code{#RIGHT}, or @code{#UP} for right or up.
+@item
+@code{mute-string} -- Character string to be used to indicate muted string.
+@item
+@code{number-type} -- Type of numbers to use in fret label.  Choices
+include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.
+@item
+@code{open-string} -- Character string to be used to indicate open string.
+@item
+@code{orientation} -- Orientation of fret-diagram.  Options include
+@code{normal} and @code{landscape}
+@item
+@code{string-count} -- The number of strings.
+@item
+@code{string-label-font-mag} -- The magnification of the font used to label fingerings
+at the string, rather than in the dot.  Default value 0.6.
+@item
+@code{top-fret-thickness} -- The thickness of the top fret line, as a multiple
+of the standard thickness.   Default value 3.
+@item
+@code{xo-font-magnification} -- Magnification used for mute and
+open string indicators.  Default value 0.5.
+@item
+@code{xo-padding} -- Padding for open and mute indicators from top fret.  Default
+value 0.25.
+@end itemize")
+
+
+    ;; ugh: double, change.
      (full-size-change ,boolean? "Don't make a change clef smaller.")
 
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
@@ -287,8 +337,6 @@ correction amount for kneed beams.  Set between @code{0} for no
 correction and @code{1} for full correction.")
 
      (labels ,list? "List of labels (symbols) placed on a column")
-     (label-dir ,ly:dir? "Side to which a label is attached.
-@code{-1} for left, @code{1}@tie{}for right.")
      (layer ,number? "The output layer (a value between 0 and@tie{}2:
 Layers define the order of printing objects.  Objects in lower layers
 are overprinted by objects in higher layers.")
@@ -317,8 +365,8 @@ if this column is the start of a system.")
      (line-positions ,list? "Vertical positions of staff lines.")
      (line-thickness ,number? "The thickness of the tie or slur
 contour.")
-     (long-text ,markup? "Text markup.  See @ruser{Text
-markup}.")
+     (long-text ,markup? "Text markup.  See @ruser{Formatting
+text}.")
 
      (max-beam-connect ,integer? "Maximum number of beams to connect
 to beams from this stem.  Further beams are typeset as beamlets.")
@@ -375,8 +423,6 @@ get stems extending to the middle staff line.")
 @code{NonMusicalPaperColumn}.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
-     (number-type ,symbol? "Type of numbers to use in label.  Choices
-include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
 
      (outside-staff-horizontal-padding ,number? "By default, an
 outside-staff-object can be placed so that is it very close to another
@@ -444,8 +490,8 @@ stem distance.")
 order a script is within a stack of scripts.")
      (self-alignment-X ,number? "Specify alignment of an object.  The
 value @code{-1} means left aligned, @code{0}@tie{}centered, and
-@code{1}@tie{}right-aligned in X@tie{}direction.  Values in-between
-may also be specified.")
+@code{1}@tie{}right-aligned in X@tie{}direction.  Other numerical
+values may also be specified.")
      (self-alignment-Y ,number? "Like @code{self-alignment-X} but for
 the Y@tie{}axis.")
      (shorten-pair ,number-pair? "The lengths to shorten a
@@ -507,13 +553,11 @@ be?")
      (stencil ,ly:stencil? "The symbol to print.")
      (stencils ,list? "Multiple stencils, used as intermediate
 value.")
-     (strict-grace-spacing ,boolean? "If set, grace notes 
+     (strict-grace-spacing ,boolean? "If set, grace notes
 are not spaced separately, but put before musical columns.")
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, barlines, etc.) are not spaced
 separately, but put before musical columns.")
-     (string-count ,integer? "The number of strings in a fret
-diagram.")
      (string-fret-finger-combinations ,list? "List consisting of
 @code{(@var{string-number} @var{fret-number} @var{finger-number})}
 entries.")
@@ -523,7 +567,7 @@ through flag on.")
 typeset.  Valid choices depend on the @code{stencil} callback reading
 this property.")
 
-     (text ,markup? "Text markup.  See @ruser{Text markup}.")
+     (text ,markup? "Text markup.  See @ruser{Formatting text}.")
 ;;FIXME -- Should both be the same?
      (text-direction ,ly:dir? "This controls the ordering of the
 words.  The default @code{RIGHT} is for roman text.  Arabic or Hebrew
@@ -586,7 +630,7 @@ be constructed from a whole number of squiggles.")
   (map
    (lambda (x)
      (apply define-internal-grob-property x))
-   
+
    `(
      ;;;;;;;;;;;;;;;;
      ;; grobs & grob arrays. (alphabetical)
@@ -818,18 +862,7 @@ similar to a note head that is part of a ligature.")
 
      (x-offset ,ly:dimension? "Extra horizontal offset for ligature heads.")
 
-     ;;;;;;;;;;;;;;;;
-     ;; fret-diagrams extra properties
-     (mute-string ,string? "String to be used to indicate a muted string in
-fret diagrams")
-     (open-string ,string? "A string to be used to indicate an open string
-in fret diagrams")
-     (orientation ,symbol? "The orientation of a fret-diagram.  Options
-include @code{normal} and @code{landscape}.")
-     (xo-font-magnification ,number? "Magnification used for mute and open
-string indicators in fret diagrams.")
-
-    )))
+     )))
 
 (define-public all-backend-properties
   (append

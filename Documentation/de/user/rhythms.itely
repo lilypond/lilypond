@@ -1,15 +1,17 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Rhythms
 @section Rhythms
+
+@lilypondfile[quote]{rhythms-headword.ly}
 
 This section discusses rhythms, durations, and bars.
 
@@ -34,7 +36,7 @@ This section discusses rhythms, durations, and bars.
 @end menu
 
 @node Durations
-@unnumberedsubsubsec Durations
+@subsubsection Durations
 
 @cindex Dauer
 @cindex Notenlänge
@@ -96,7 +98,7 @@ für die erste Note ist eine Viertel.
 
 
 @node Augmentation dots
-@unnumberedsubsubsec Augmentation dots
+@subsubsection Augmentation dots
 
 @funindex .
 @cindex Punktierung
@@ -128,7 +130,7 @@ Programmreferenz: @rinternals{Dots}, and @rinternals{DotColumn}.
 
 
 @node Tuplets
-@unnumberedsubsubsec Tuplets
+@subsubsection Tuplets
 
 @cindex N-tolen
 @cindex Triolen
@@ -284,7 +286,7 @@ Programmreferenz: @rinternals{TupletBracket},
 
 
 @node Scaling durations
-@unnumberedsubsubsec Scaling durations
+@subsubsection Scaling durations
 
 Die Dauer von Längen kann mit einem Bruch multipliziert werden, 
 indem hinter die Note  @qq{*@var{N/M}} (oder @qq{*@var{N}} wenn @var{M=1}) 
@@ -318,7 +320,7 @@ Abschnitt @ref{Tuplets}
 @end menu
 
 @node Rests
-@unnumberedsubsubsec Rests
+@subsubsection Rests
 @cindex Pausen
 
 @funindex \rest
@@ -357,7 +359,7 @@ Programmreferenz: @rinternals{Rest}.
 
 
 @node Skips
-@unnumberedsubsubsec Skips
+@subsubsection Skips
 
 @cindex Skip
 @cindex Überspringen von Zeichen
@@ -405,7 +407,7 @@ Programmreferenz: @rinternals{SkipMusic}.
 
 
 @node Multi measure rests
-@unnumberedsubsubsec Multi measure rests
+@subsubsection Multi measure rests
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -414,15 +416,16 @@ UNTRANSLATED NODE: IGNORE ME
 @subsection Displaying rhythms
 
 @menu
-* Time signature::              
-* Upbeats::                     
-* Unmetered music::             
-* Polymetric notation::         
-* Automatic note splitting::    
+* Time signature::
+* Upbeats::
+* Unmetered music::
+* Polymetric notation::
+* Automatic note splitting::
+* Showing melody rhythms::
 @end menu
 
 @node Time signature
-@unnumberedsubsubsec Time signature
+@subsubsection Time signature
 
 @cindex Taktangabe
 @cindex Metrum
@@ -496,10 +499,12 @@ und 3 Achtel unterteilt. Das wird im dritten Argument an
 
 @seealso
 
-Programmreferenz: @rinternals{TimeSignature} und
+Programmreferenz:
+@rinternals{TimeSignature} und
 @rinternals{Timing_translator}.
 
-Beispiele: @lsr{contemporary,compound-time-signature.ly}.
+Beispiele:
+@rlsr{Rhythms}.
 
 
 @knownissues
@@ -509,7 +514,7 @@ mit @code{set-time-signature} erzeugt werden.
 
 
 @node Upbeats
-@unnumberedsubsubsec Upbeats
+@subsubsection Upbeats
 
 @cindex Auftakt
 @cindex Takte verkürzen
@@ -560,7 +565,7 @@ auftreten.
 
 
 @node Unmetered music
-@unnumberedsubsubsec Unmetered music
+@subsubsection Unmetered music
 
 @cindex Kadenz
 @funindex \cadenzaOn
@@ -597,13 +602,13 @@ einfügen, um anzuzeigen, wo umgebrochen werden darf.
 
 
 @node Polymetric notation
-@unnumberedsubsubsec Polymetric notation
+@subsubsection Polymetric notation
 
 UNTRANSLATED NODE: IGNORE ME
 
 
 @node Automatic note splitting
-@unnumberedsubsubsec Automatic note splitting
+@subsubsection Automatic note splitting
 
 Lange Noten können automatisch in übergebundene Noten aufgeteilt werden. 
 Dieses Verhalten erreicht man, indem der  @rinternals{Note_heads_engraver} 
@@ -645,21 +650,42 @@ Pausen werden nicht aufgeteilt.
 
 @seealso
 
-Programmreferenz: @rinternals{Completion_heads_engraver}.
+Programmreferenz:
+@rinternals{Completion_heads_engraver}.
 
+
+@node Showing melody rhythms
+@subsubsection Showing melody rhythms
+
+Manchmal soll nur der Rhythmus einer Melodie dargestellt werden. Das 
+erreicht man mit einem Schlagzeug-Notensystem. Alle Tonhöhen werden 
+auf eine Linie reduziert und das System hat auch nur eine einzige 
+Linie.
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+\new RhythmicStaff {
+  \time 4/4
+  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
+}
+@end lilypond
+
+@seealso
+
+Programmreferenz:
+@rinternals{RhythmicStaff}.
 
 @node Beams
 @subsection Beams
 
 @menu
-* Automatic beams::             
-* Manual beams::                
-* Feathered beams::             
-* Setting automatic beam behavior::  
+* Automatic beams::
+* Manual beams::
+* Feathered beams::
+* Setting automatic beam behavior::
 @end menu
 
 @node Automatic beams
-@unnumberedsubsubsec Automatic beams
+@subsubsection Automatic beams
 
 LilyPond setzt Balken (engl. beam) automatisch.
 
@@ -687,7 +713,7 @@ Programmreferenz: @rinternals{Beam}.
 
 
 @node Manual beams
-@unnumberedsubsubsec Manual beams
+@subsubsection Manual beams
 
 @cindex Balken, manuell
 @funindex ]
@@ -775,12 +801,12 @@ Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 
 
 @node Feathered beams
-@unnumberedsubsubsec Feathered beams
+@subsubsection Feathered beams
 
 UNTRANSLATED NODE: IGNORE ME
 
 @node Setting automatic beam behavior
-@unnumberedsubsubsec Setting automatic beam behavior
+@subsubsection Setting automatic beam behavior
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -790,15 +816,15 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Bar check::                   
-* Bar lines::                   
-* Bar numbers::                 
-* Barnumber check::             
-* Rehearsal marks::             
+* Bar check::
+* Bar lines::
+* Bar numbers::
+* Barnumber check::
+* Rehearsal marks::
 @end menu
 
 @node Bar check
-@unnumberedsubsubsec Bar check
+@subsubsection Bar check
 
 @cindex Taktüberprüfung
 @funindex barCheckSynchronize
@@ -846,7 +872,7 @@ pipeSymbol = \bar "||"
 
 
 @node Bar lines
-@unnumberedsubsubsec Bar lines
+@subsubsection Bar lines
 
 @cindex Taktlinien
 @funindex \bar
@@ -937,13 +963,13 @@ Programmreferenz: @rinternals{BarLine} (auf Partitur
 
 
 @node Bar numbers
-@unnumberedsubsubsec Bar numbers
+@subsubsection Bar numbers
 
 UNTRANSLATED NODE: IGNORE ME
 
 
 @node Barnumber check
-@unnumberedsubsubsec Barnumber check
+@subsubsection Barnumber check
 
 Wenn man größere Musikstücke kopiert, kann es hilfreich sein, wenn 
 LilyPond überprüft, ob die Taktnummer, in der Sie gerade kopieren, 
@@ -961,7 +987,7 @@ nicht mit dem Wert 123 übereinstimmt.
 
 
 @node Rehearsal marks
-@unnumberedsubsubsec Rehearsal marks
+@subsubsection Rehearsal marks
 
 UNTRANSLATED NODE: IGNORE ME
 
@@ -971,14 +997,14 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Grace notes::                 
-* Aligning to cadenzas::        
-* Time administration::         
-* Proportional notation (introduction)::  
+* Grace notes::
+* Aligning to cadenzas::
+* Time administration::
+* Proportional notation (introduction)::
 @end menu
 
 @node Grace notes
-@unnumberedsubsubsec Grace notes
+@subsubsection Grace notes
 
 @funindex \grace
 @cindex Verzierungen
@@ -1138,23 +1164,20 @@ Situation erreicht werden mit
 Verzierungen könne gezwungen werden, den Hauptnoten entsprechend aufgeteilt 
 zu werden.
 
-@lilypond[relative=2,ragged-right]
+@lilypond[verbatim,quote,relative=2]
 <<
   \override Score.SpacingSpanner #'strict-grace-spacing = ##t
   \new Staff {
-     c'4
-     \afterGrace
-     c'4
-     { c'16[ c'8 c'16] }
-     c'4
-  }  
+    c4
+    \afterGrace c4 { c16[ c8 c16] }
+    c4 r
+  }
   \new Staff {
-     c'16[ c'16 c'16 c'16]
-     c'16[ c'16 c'16 c'16]
-     c'4
+    c16 c c c c c c c c4 r
   }
 >>
 @end lilypond
+
 
 
 @seealso
@@ -1196,19 +1219,19 @@ zu Fehlermeldungen oder Abstürzen kommen.
 
 
 @node Aligning to cadenzas
-@unnumberedsubsubsec Aligning to cadenzas
+@subsubsection Aligning to cadenzas
 
 UNTRANSLATED NODE: IGNORE ME
 
 
 @node Time administration
-@unnumberedsubsubsec Time administration
+@subsubsection Time administration
 
 UNTRANSLATED NODE: IGNORE ME
 
 
 @node Proportional notation (introduction)
-@unnumberedsubsubsec Proportional notation (introduction)
+@subsubsection Proportional notation (introduction)
 
 UNTRANSLATED NODE: IGNORE ME
 

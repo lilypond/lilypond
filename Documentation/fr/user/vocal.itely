@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude
@@ -562,7 +562,7 @@ section @rlearning{Vocal ensembles}.
 
 Référence du programme : @rinternals{Melisma_translator}.
 
-@lsr{vocal,lyric@/-combine.ly}.
+Exemples : @rlsr{Vocal music}.
 
 @knownissues
 

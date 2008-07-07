@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.51"
 
 \header {
 
@@ -12,9 +12,9 @@ At a line-break, there are no vertical endings.  " }
      \relative c'' {
         \set Staff.pedalSustainStyle = #'bracket
 
-        c4 d e \sustainDown b c c, \sustainUp \sustainDown  d8[ c]  e8[ 
-	    e \sustainUp \sustainDown]  f4 d
-        \sustainUp g \sustainDown b b, \sustainUp c'
+        c4 d e \sustainOn b c c, \sustainOff \sustainOn  d8[ c]  e8[ 
+	    e \sustainOff \sustainOn]  f4 d
+        \sustainOff g \sustainOn b b, \sustainOff c'
 
         \set Staff.pedalUnaCordaStyle = #'mixed
 

@@ -1,0 +1,10 @@
+  texidoces = "
+De forma predeterminada, las indicaciones metronómicas y las
+letras de ensayo se imprimen encima del pentagrama.  Para
+colocarlas debajo del pentagrama, simplemente ajustamos
+adecuadamente las propiedades @code{side-axis} y @code{direction}
+de @code{MetronomeMark} o de @code{RehearsalMark}.
+
+"
+
+  doctitlees = "Impresión de indicaciones metronómicas y letras de ensayo debajo del pentagrama"

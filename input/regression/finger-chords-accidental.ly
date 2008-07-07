@@ -1,4 +1,4 @@
-\version "2.10.8"
+\version "2.11.51"
 \header
 {
   texidoc = "Scripts left of a chord avoid accidentals."

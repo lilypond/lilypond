@@ -310,7 +310,7 @@ Long_option_init::table_string (Long_option_init *l)
       s += string (wid - s.length () + EXTRA_SPACES, ' ');
 
       string help_text (gettext (l[i].help_str0_));
-      replace_all (help_text, "\n",
+      replace_all (&help_text, "\n",
 		   "\n" + string (wid + EXTRA_SPACES + 2, ' '));
       tabstr += s + help_text + "\n";
     }

@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c A menu is needed before every deeper *section nesting of @node's; run
 @c     M-x texinfo-all-menus-update
@@ -116,7 +116,7 @@ Cartel de propósito general en el pie de página, centrado al final de la últi
 
 A continuación presentamos una demostración de todos los campos que
 están disponibles.  Fíjese en que puede utilizar en la cabecera
-cualquier instrucción de marcado de texto (Véase @ref{Text markup}).
+cualquier instrucción de marcado de texto (Véase @ref{Formatting text}).
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
 \paper {

@@ -7,14 +7,14 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
 - unless you have a really good reason, use either
-    @lilypond[verbatim,quote,ragged-right]
+    @lilypond[verbatim,quote]
   or
-    @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+    @lilypond[verbatim,quote,relative=2]
 
   Don't use any other relative=X commands (make it a non-fragment
   example), and don't use fragment without relative=2.
@@ -81,7 +81,7 @@ notation.  For example, if we write:
 the result looks like this:
 
 @c  in this case we don't want verbatim
-@lilypond[quote,ragged-right]
+@lilypond[quote]
 {
   c' e' g' e'
 }
@@ -177,7 +177,7 @@ You will see something resembling:
 
 @example
 lilypond test.ly
-GNU LilyPond 2.12.0
+GNU LilyPond @version{}
 Processing `test.ly'
 Parsing...
 Interpreting music...
@@ -197,7 +197,7 @@ LilyPond will add some notation elements automatically.  In the
 next example, we have only specified four pitches, but LilyPond
 has added a clef, time signature, and rhythms.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 {
   c' e' g' e'
 }
@@ -222,7 +222,7 @@ staff spaces of the previous note.  We begin by entering the most
 elementary piece of music, a @notation{scale}, in which every note
 is within just one staff space of the previous note.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c' {  % set the starting point to middle C
   c d e f
   g a b c
@@ -235,7 +235,7 @@ placed closest to the previous note -- in other words, the first
 closest D to the previous note.  We can create melodies which have
 larger intervals, still using only @code{\relative} mode:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c' {
   d f a g
   c b f d
@@ -252,7 +252,7 @@ By adding (or removing) quotes @code{'} or commas @code{,} from
 the @w{@code{\relative c' @{}} command, we can change the starting
 octave:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {  % one octave above middle C
   e c a c
 }
@@ -266,7 +266,7 @@ going up, and an A, G and F within 3 staff spaces going down.  So
 if the note following a B is a C, D or E it will be assumed to be
 above the B, and an A, G or F will be assumed to be below.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   b c  % c is 1 staff space up, so is the c above
   b d  % d is 2 up or 5 down, so is the d above
@@ -288,7 +288,7 @@ raise the @notation{octave} by adding a single quote @code{'} (or
 apostrophe) to the note name.  We can lower the octave by adding a
 comma @code{,} to the note name.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   a a, c' f,
   g g'' a,, f'
@@ -318,7 +318,7 @@ If you do not specify a duration, the previous duration is used
 for the next note.  The duration of the first note defaults to a
 quarter.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   a1
   a2 a4 a8 a
@@ -330,7 +330,7 @@ To create @notation{dotted notes}, add a dot @code{.} to the
 duration number.  The duration of a dotted note must be stated
 explicitly (i.e., with a number).
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   a a a4. a8
   a8. a16 a a8. a8 a4.
@@ -345,7 +345,7 @@ Music Glossary: @rglos{rest}.
 A @notation{rest} is entered just like a note with the name
 @code{r}@tie{}:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   a r r2
   r8 a r4 r4. r8
@@ -360,7 +360,7 @@ Music Glossary: @rglos{time signature}.
 The @notation{time signature} can be set with the @code{\time}
 command:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   \time 3/4
   a4 a a
@@ -378,7 +378,7 @@ Music Glossary: @rglos{clef}.
 
 The @notation{clef} can be set using the @code{\clef} command:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c' {
   \clef treble
   c1
@@ -396,7 +396,7 @@ The @notation{clef} can be set using the @code{\clef} command:
 
 Here is a small example showing all these elements together:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c, {
   \time 3/4
   \clef bass
@@ -504,7 +504,7 @@ comments:
   are ignored, since they are in a
   block comment.
 
-  g g f f e e d d c2
+  f f e e d d c2
 %@}
 @end example
 
@@ -518,7 +518,7 @@ LilyPond input must be surrounded by @{ @} marks or a
 @w{@code{\relative c'' @{ ... @}}}, as we saw in @ref{Working on
 input files}.  For the rest of this manual, most examples will
 omit this.  To replicate the examples, you may copy and paste the
-displayed input but you @strong{must} add the
+displayed input, but you @strong{must} add the
 @w{@code{\relative c'' @{ @}}} like this:
 
 @example
@@ -547,7 +547,7 @@ LilyPond input that was used to generate that image.  Try it on
 this image:
 
 @c no verbatim here
-@lilypond[quote,ragged-right]
+@lilypond[quote]
 \relative c'' {
   c-\markup { \bold \huge { Click here.  } }
 }
@@ -559,7 +559,6 @@ same output (line-width and all), copy everything from @qq{Start
 cut-&-pastable section} to the bottom of the file.
 
 @seealso
-
 
 There are more tips for constructing input files in
 @ref{Suggestions for writing LilyPond input files}.  But it might be
@@ -599,7 +598,7 @@ from note naming conventions in Nordic and Germanic languages,
 like German and Dutch.  To use other names for
 @notation{accidentals}, see @ruser{Note names in other languages}.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 cis1 ees fisis, aeses
 @end lilypond
 
@@ -612,7 +611,7 @@ Music Glossary: @rglos{key signature}, @rglos{major},
 The @notation{key signature} is set with the command @code{\key}
 followed by a pitch and @code{\major} or @code{\minor}.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \key d \major
 a1
 \key c \minor
@@ -646,7 +645,7 @@ hear.
 
 In this example:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \key d \major
 d cis fis
 @end lilypond
@@ -655,12 +654,12 @@ d cis fis
 No note has a printed accidental, but you must still add
 @code{is} and type @code{cis} and @code{fis} in the input file.
 
-The code @code{e} does not mean @qq{print a black dot just below
+The code @code{e} does not mean @qq{print a black dot just on
 the first line of the staff.}  Rather, it means @qq{there is a
 note with pitch E-natural.}  In the key of A-flat major, it
 @emph{does} get an accidental:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \key aes \major
 e
 @end lilypond
@@ -692,7 +691,7 @@ Music Glossary: @rglos{tie}.
 A @notation{tie} is created by appending a tilde @code{~} to the
 first note being tied.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
@@ -706,7 +705,7 @@ A @notation{slur} is a curve drawn across many notes.  The
 starting note and ending note are marked with @code{(} and
 @code{)} respectively.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
@@ -721,7 +720,7 @@ Slurs to indicate longer @notation{phrasing} can be entered with
 and phrasing slurs at the same time, but you cannot have
 simultaneous slurs or simultaneous phrasing slurs.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a8(\( ais b c) cis2 b'2 a4 cis,\)
 @end lilypond
 
@@ -738,7 +737,7 @@ can only be used on pairs of notes with the same pitch.  Slurs
 indicate the @notation{articulation} of notes, and can be used on
 larger groups of notes.  Slurs and ties can be nested.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c2~( c8 fis fis4 ~ fis2 g2)
 @end lilypond
 
@@ -761,7 +760,7 @@ Music Glossary: @rglos{articulation}.
 Common @notation{articulations} can be added to a note using a
 dash @code{-} and a single character:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
@@ -774,7 +773,7 @@ Music Glossary: @rglos{fingering}.
 Similarly, @notation{fingering} indications can be added to a note
 using a dash (@code{-}) and the digit to be printed:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c-3 e-5 b-2 a-1
 @end lilypond
 
@@ -784,7 +783,7 @@ you can specify a direction by replacing the dash (@code{-}) with
 articulations on the same note.  However, in most cases it is best
 to let LilyPond determine the articulation directions.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
@@ -796,7 +795,7 @@ Music Glossary: @rglos{dynamics}, @rglos{crescendo},
 @notation{Dynamic} signs are made by adding the markings (with a
 backslash) to the note:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c\ff c\mf c\p c\pp
 @end lilypond
 
@@ -809,7 +808,7 @@ the commands @code{\<} and @code{\>}.  The next dynamics sign, for
 example @code{\f}, will end the (de)crescendo, or the command
 @code{\!} can be used:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c2\< c2\ff\> c2 c2\!
 @end lilypond
 
@@ -824,13 +823,13 @@ Notation Reference: @ruser{Articulations and ornamentations},
 
 Text may be added to your scores:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c1^"espr" a_"legato"
 @end lilypond
 
 Extra formatting may be added with the @code{\markup} command:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c1^\markup{ \bold espr}
 a1_\markup{
   \dynamic f \italic \small { 2nd } \hspace #0.1 \dynamic p
@@ -851,17 +850,30 @@ Music Glossary: @rglos{beam}.
 @cindex beams, by hand
 All @notation{beams} are drawn automatically:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a8 ais d ees r d c16 b a8
 @end lilypond
 
-@noindent
 If you do not like the automatic beams, they may be overridden
-manually.  Mark the first note to be beamed with @code{[} and the
-last one with @code{]}.
+manually.  To correct just an occasional beam mark the first note
+to be beamed with @code{[} and the last one with @code{]}.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a8[ ais] d[ ees r d] a b
+@end lilypond
+
+If you want to turn off automatic beaming entirely or for an
+extended section of music, use the command @code{\autoBeamOff}
+to turn off automatic beaming and @code{\autoBeamOn} to turn it
+on again.
+@c It will usually be necessary to manually beam music
+@c with lyrics.
+
+@lilypond[verbatim,quote,relative=2]
+\autoBeamOff
+a8 c b4 d8. c16 b4
+\autoBeamOn
+a8 c b4 d8. c16 b4
 @end lilypond
 
 @seealso
@@ -883,7 +895,7 @@ A pickup (or @notation{anacrusis}) is entered with the keyword
 @code{\partial}.  It is followed by a duration: @code{\partial 4}
 is a quarter note pickup and @code{\partial 8} an eighth note.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \partial 8
 f8 c2 d
 @end lilypond
@@ -900,7 +912,7 @@ duration of the piece of music is multiplied by the fraction.
 Triplets make notes occupy 2/3 of their notated duration, so a
 @notation{triplet} has 2/3 as its fraction
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \times 2/3 { f8 g a }
 \times 2/3 { c r c }
 \times 2/3 { f,8 g16[ a g a] }
@@ -919,7 +931,7 @@ Music Glossary: @rglos{grace notes}, @rglos{acciaccatura},
 although they can also be created by prefixing a music expression
 with the keyword @code{\appoggiatura} or @code{\acciaccatura}:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c2 \grace { a32[ b] } c2
 c2 \appoggiatura b16 c2
 c2 \acciaccatura b16 c2
@@ -943,11 +955,11 @@ in a piece of music.  Polyphony in LilyPond refers to having more
 than one voice on the same staff.
 
 @menu
-* Music expressions explained::  
-* Multiple staves::             
-* Staff groups::                
-* Combining notes into chords::  
-* Single staff polyphony::      
+* Music expressions explained::
+* Multiple staves::
+* Staff groups::
+* Combining notes into chords::
+* Single staff polyphony::
 @end menu
 
 
@@ -957,7 +969,7 @@ than one voice on the same staff.
 In LilyPond input files, music is represented by @emph{music
 expressions}.  A single note is a music expression:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a4
 @end lilypond
 
@@ -965,7 +977,7 @@ Enclosing a note in braces creates a @emph{compound music
 expression}.  Here we have created a compound music expression
 with two notes:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 { a4 g4 }
 @end lilypond
 
@@ -973,7 +985,7 @@ Putting a group of music expressions (e.g. notes) in braces means
 that they are in sequence (i.e. each one follows the previous
 one).  The result is another music expression:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 { { a4 g } f g }
 @end lilypond
 
@@ -1018,7 +1030,7 @@ enclosing expressions inside @code{<<} and @code{>>}.  In the
 following example, three sequences (all containing two separate
 notes) are combined simultaneously:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   <<
     { a4 g }
@@ -1045,7 +1057,7 @@ the beginning of the first expression.  If is a single note, there
 is one staff; if there is a simultaneous expression, there is more
 than one staff.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   c2 <<c e>>
   << { e f } { c <<b d>> } >>
@@ -1066,7 +1078,7 @@ staff is marked by adding @code{\new Staff} before it.  These
 @code{Staff} elements are then combined in parallel with @code{<<}
 and @code{>>}:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   <<
     \new Staff { \clef treble c }
@@ -1096,7 +1108,7 @@ default.  On the other hand, the key signature of one staff does
 is because scores with transposing instruments are more common
 than polyrhythmic scores.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   <<
     \new Staff { \clef treble \key d \major \time 3/4 c }
@@ -1132,7 +1144,7 @@ inserted inside a @code{PianoStaff}:
 
 Here is a small example:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   \new PianoStaff <<
     \new Staff { \time 2/4 c4 e g g, }
@@ -1167,7 +1179,7 @@ surround the pitches with @emph{single} angle brackets.  Note that
 all the notes in a chord must have the same duration, and that the
 duration is placed after the closing bracket.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 r4 <c e g>4 <c f a>2
 @end lilypond
 
@@ -1177,7 +1189,7 @@ to a chord, and everything must go @emph{outside} the angle
 brackets.  For example, you can combine markings like beams and
 ties with chords.  They must be placed outside the angle brackets.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 r4 <c e g>8[ <c f a>]~ <c f a>2
 r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @end lilypond
@@ -1198,7 +1210,7 @@ Entering such parts is done by entering each voice as a sequence
 (with @w{@code{@{...@}}}) and combining these simultaneously,
 separating the voices with @code{\\}:
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 <<
   { a4 g2 f4~ f4 } \\
   { r4 g4 f2 f4 }
@@ -1211,7 +1223,7 @@ for filling up voices that temporarily do not play.  Here is the
 same example with a spacer rest (@code{s}) instead of a normal
 rest (@code{r}),
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 <<
   { a4 g2 f4~ f4 } \\
   { s4 g4 f2 f4 }
@@ -1221,7 +1233,7 @@ rest (@code{r}),
 @noindent
 Again, these expressions can be nested arbitrarily.
 
-@lilypond[verbatim,quote,ragged-right,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 <<
   \new Staff <<
     { a4 g2 f4~ f4 } \\
@@ -1246,9 +1258,9 @@ Notation Reference: @ruser{Simultaneous notes}.
 This section introduces vocal music and simple song sheets.
 
 @menu
-* Setting simple songs::        
-* Aligning lyrics to a melody::  
-* Lyrics to multiple staves::   
+* Setting simple songs::
+* Aligning lyrics to a melody::
+* Lyrics to multiple staves::
 @end menu
 
 
@@ -1261,9 +1273,9 @@ This section introduces vocal music and simple song sheets.
 Music Glossary: @rglos{lyrics}.
 
 Here is the start of the melody to a nursery
-rhyme, @qq{Girls and boys come out to play}:
+rhyme, @notation{Girls and boys come out to play}:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   \key g \major
   \time 6/8
@@ -1275,7 +1287,7 @@ The @notation{lyrics} can be set to these notes, combining both
 with the @code{\addlyrics} keyword.  Lyrics are entered by
 separating each syllable with a space.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
@@ -1303,15 +1315,15 @@ Music Glossary: @rglos{melisma}, @rglos{extender line}.
 @cindex hyphens
 @cindex underscore
 
-The next line in the nursery rhyme is @q{The moon doth shine as
-bright as day}.  Let's extend it:
+The next line in the nursery rhyme is @notation{The moon doth
+shine as bright as day}.  Let's extend it:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
+    d4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c b a d4 b8 g4.
   }
   \addlyrics {
@@ -1322,66 +1334,84 @@ bright as day}.  Let's extend it:
 @end lilypond
 
 We see the extra lyrics do not align properly with the notes.  The
-word @q{shine} should be sung on two notes, not one.  This is
-called a @notation{melisma}, a single syllable sung to more than
-one note.  There are several ways to spread a syllable over
-multiple notes, the simplest being to add a slur across them (see
-@ref{Ties and slurs}):
+word @notation{shine} should be sung on two notes, not one.  This
+is called a @notation{melisma}, a single syllable sung to more
+than one note.  There are several ways to spread a syllable over
+multiple notes, the simplest being to add a slur across them, for
+details, see @ref{Ties and slurs}:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
-    g8 a4 b8 c([ b)] a d4 b8 g4.
+    d4 b8 c4 a8 d4 b8 g4
+    g8 a4 b8 c( b) a d4 b8 g4.
   }
   \addlyrics {
     Girls and boys come out to play,
     The moon doth shine as bright as day;
   }
->> 
+>>
 @end lilypond
 
-Here we have also used manual beaming (the square brackets
-@code{[]} ) to generate the beaming which is customarily used with lyrics
-(see @ref{Automatic and manual beams}).
+The words now line up correctly with the notes, but the automatic
+beaming for the notes above @notation{shine as} does not look right.
+We can correct this by inserting manual beaming commands to override
+the automatic beaming here, for details, see @ref{Automatic and
+manual beams}.
 
-As an alternative to using slurs, the melismata may be indicated
-in just the lyrics by using an underscore, @code{_}, for each
-note that should be included in the melisma:
-
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
+    d4 b8 c4 a8 d4 b8 g4
+    g8 a4 b8 c([ b]) a d4 b8 g4.
+  }
+  \addlyrics {
+    Girls and boys come out to play,
+    The moon doth shine as bright as day;
+  }
+>>
+@end lilypond
+
+As an alternative to using slurs, the melismata may be indicated
+in just the lyrics by using an underscore @code{_} for each note
+that should be included in the melisma:
+
+@lilypond[verbatim,quote]
+<<
+  \relative c'' {
+    \key g \major
+    \time 6/8
+    d4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c[ b] a d4 b8 g4.
   }
   \addlyrics {
     Girls and boys come out to play,
     The moon doth shine _ as bright as day;
   }
->> 
+>>
 @end lilypond
 
 If a syllable extends over several notes or a single very long
 note an @notation{extender line} is usually drawn from the
 syllable extending under all the notes for that syllable.  It is
 entered as two underscores @code{__}.  Here is an example from the
-first three bars of Dido's Lament, from Purcell's Dido and Æneas:
+first three bars of @notation{Dido's Lament}, from Purcell's 
+@notation{Dido and Æneas}:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \minor
     \time 3/2
-    g2 a bes bes( a) 
+    g2 a bes bes( a)
     b c4.( bes8 a4. g8 fis4.) g8 fis1
   }
   \addlyrics {
-    When I am laid, 
+    When I am laid,
     am laid __ in earth,
   }
 >>
@@ -1396,17 +1426,17 @@ far about aligning lyrics to notes.
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
     \key g \major
     \time 3/4
     \partial 4
-    d4 g4 g a8( b) g4 g4 
+    d4 g4 g a8( b) g4 g4
     b8( c) d4 d e4 c2
   }
   \addlyrics {
-    A -- way in a __ man -- ger, 
+    A -- way in a __ man -- ger,
     no __ crib for a bed, __
   }
 >>
@@ -1415,20 +1445,20 @@ far about aligning lyrics to notes.
 Some lyrics, especially those in Italian, require the opposite:
 setting more than one syllable to a single note.  This is
 achieved by linking the syllables together with a single
-underscore @code{_} (with no spaces), or enclosing them in
-quotes.  Here's an example from Rossini's Figaro, where
-@q{al} has to be sung on the same note as the @q{go} of 
-@q{Largo} in Figaro's aria @q{Largo al factotum}:
+underscore @code{_} (with no spaces), or enclosing them in quotes.
+Here's an example from Rossini's @notation{Figaro}, where
+@notation{al} has to be sung on the same note as the @notation{go} of
+@notation{Largo} in Figaro's aria @notation{Largo al factotum}:
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
     \clef bass
     \key c \major
     \time 6/8
-    c4.~ c8 d b c([ d)] b c d b c
+    c4.~ c8 d b c([ d]) b c d b c
   }
   \addlyrics {
     Lar -- go_al fac -- to -- tum del -- la cit -- tà
@@ -1447,9 +1477,12 @@ Notation Reference: @ruser{Vocal music}.
 
 The simple approach using @code{\addlyrics} can be used for
 placing lyrics under more than one staff.  Here is an
-example from Handel's Judas Maccabæus:
+example from Handel's @notation{Judas Maccabæus}:
 
-@lilypond[verbatim,quote,ragged-right]
+@c TODO \partial has not been previously explained
+@c Change example or add explanation earlier
+
+@lilypond[verbatim,quote]
 <<
   {
     \time 6/8
@@ -1457,14 +1490,14 @@ example from Handel's Judas Maccabæus:
   }
   \relative c'' {
     \key f \major
-    c8 c([ bes)] a a([ g)] f f'4. b, c4.~ c4
+    c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn, __
   }
   \relative c' {
     \key f \major
-    r8 r4. r4 c8 a'([ g)] f f([ e)] d e([ d)] c bes'4
+    r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn,
@@ -1492,11 +1525,11 @@ add the final touches to simple pieces, and provides an
 introduction to the rest of the manual.
 
 @menu
-* Organizing pieces with variables::  
-* Version number::              
-* Adding titles::               
-* Absolute note names::         
-* After the tutorial::          
+* Organizing pieces with variables::
+* Version number::
+* Adding titles::
+* Absolute note names::
+* After the tutorial::
 @end menu
 
 
@@ -1521,7 +1554,7 @@ The contents of the music expression @code{namedMusic} can be used
 later by placing a backslash in front of the name
 (@code{\namedMusic}, just like a normal LilyPond command).
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 violin = \new Staff { \relative c'' {
   a4 b c b
 }}
@@ -1547,7 +1580,7 @@ they have been defined.  They may even be used in a later definition
 of another variable, giving a way of shortening the input if a
 section of music is repeated many times.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 tripletA = \times 2/3 { c,8 e g }
 barA = { \tripletA \tripletA \tripletA \tripletA }
 
@@ -1637,7 +1670,7 @@ absolute values.  A @code{c'} will always mean middle C, a
 @code{g,} will always mean the note on the bottom staff of the
 bass clef.
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 {
   \clef bass
   c' b g, g,
@@ -1647,7 +1680,7 @@ bass clef.
 
 Here is a four-octave scale:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 {
   \clef bass
   c, d, e, f,
@@ -1665,7 +1698,7 @@ Here is a four-octave scale:
 As you can see, writing a melody in the treble clef involves a lot
 of quote @code{'} marks.  Consider this fragment from Mozart:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 {
   \key a \major
   \time 6/8
@@ -1678,7 +1711,7 @@ All these quotes makes the input less readable and they are a source
 of errors.  With @code{\relative}, the previous example is much
 easier to read and type:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \relative c'' {
   \key a \major
   \time 6/8

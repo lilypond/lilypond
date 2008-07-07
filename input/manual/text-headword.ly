@@ -1,4 +1,4 @@
-\version "2.11.38"
+\version "2.11.51"
 \include "english.ly"
 #(set-global-staff-size 15)
 \paper{
@@ -177,7 +177,7 @@
       \override Staff.SustainPedalLineSpanner #'outside-staff-priority = #1000
       \override Staff.SustainPedalLineSpanner #'staff-padding = #7
       \once \override TextScript #'padding = #2
-      af16 \sustainDown
+      af16 \sustainOn
       ^ \markup \italic { non staccato }
       _ \markup \italic { molto \concat {\dynamic {p},} sempre tranquillo
          ed egualmente, non rubato }
@@ -188,18 +188,18 @@
       <ef' c'>16
       <ef' c'>16
       <ef' c'>16
-      af16 \sustainDown
+      af16 \sustainOn
       <ef' c'>16
       <ef' c'>16
       <ef' c'>16
 
       |
 
-      bf16 \sustainDown
+      bf16 \sustainOn
       <ef' df'>16
       <ef' df'>16
       <ef' df'>16
-      bf16 \sustainDown
+      bf16 \sustainOn
       <ef' df'>16
       <ef' df'>16
       <ef' df'>16
@@ -211,7 +211,7 @@
       |
 
       \override Staff.SustainPedalLineSpanner #'staff-padding = #4
-      df'16 \sustainDown
+      df'16 \sustainOn
       <bf' g' ef'>16
       <bf' g' ef'>16
       <bf' g' ef'>16
@@ -219,7 +219,7 @@
       <bf' g' ef'>16
       <bf' g' ef'>16
       <bf' g' ef'>16
-      df'16 \sustainDown
+      df'16 \sustainOn
       <bf' g' ef'>16
       <bf' g' ef'>16
       <bf' g' ef'>16

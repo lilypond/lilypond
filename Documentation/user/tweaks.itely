@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -836,7 +836,7 @@ to the front of these values when they are entered in the
   @tab @code{2.5}, @code{0.34}
 @item Direction
   @tab A valid direction constant or its numerical equivalent
-  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP},
+  @tab @code{LEFT}, @code{CENTER}, @code{UP},
        @code{1}, @code{-1}
 @item Integer
   @tab A positive whole number
@@ -1543,9 +1543,9 @@ where it is not obvious.
   @tab Up/Right
   @tab Revert
   @tab Effect
-@item @code{\arpeggioDown}
-  @tab @code{\arpeggioUp}
-  @tab @code{\arpeggioNeutral}
+@item @code{\arpeggioArrowDown}
+  @tab @code{\arpeggioArrowUp}
+  @tab @code{\arpeggioNormal}
   @tab Arrow is at bottom, at top, or no arrow
 @item @code{\dotsDown}
   @tab @code{\dotsUp}
@@ -2557,12 +2557,12 @@ Here's the final result:
 @node Real music example
 @subsection Real music example
 
-We end this section on Tweaks by showing the steps to be taken to 
-deal with a tricky example which needs several tweaks to produce 
-the desired output.  The example has been deliberately chosen to 
-illustrate the use of the Notation Reference to resolve unusual 
-problems with notation.  It is not representative of more usual 
-engraving process, so please do not let these difficulties put 
+We end this section on Tweaks by showing the steps to be taken to
+deal with a tricky example which needs several tweaks to produce
+the desired output.  The example has been deliberately chosen to
+illustrate the use of the Notation Reference to resolve unusual
+problems with notation.  It is not representative of more usual
+engraving process, so please do not let these difficulties put
 you off!  Fortunately, difficulties like these are not very common!
 
 The example is from Chopin's Première Ballade, Op. 23, bars 6 to
@@ -2580,8 +2580,8 @@ rhMusic = \relative c'' {
   bes1~ |
   \bar "||"
   \time 6/4
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
   bes2.^\markup {\bold "Moderato"} r8
   <<
     {c,8[ d fis bes a] | }
@@ -2596,8 +2596,8 @@ rhMusic = \relative c'' {
   \\
     {s4 fis4.}
   >>
-  \revert Staff.NoteCollision #'merge-differently-headed
-  \revert Staff.NoteCollision #'merge-differently-dotted
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
   g2.\)
 }
 
@@ -2679,10 +2679,10 @@ lhMusic = \relative c' {
 All the notes are right, but the appearance is far from
 satisfactory.  The tie clashes with the change in time signature,
 the beaming in the third bar is wrong, the notes are not
-merged together, and several notation elements are missing.  
+merged together, and several notation elements are missing.
 Let's first deal with the easier things.
 We can correct the beaming by inserting a beam
-manually, and we can easily add the left hand slur and the right 
+manually, and we can easily add the left hand slur and the right
 hand phrasing slur, since these were all covered in the Tutorial.
 Doing this gives:
 
@@ -2792,28 +2792,28 @@ lhMusic = \relative c' {
 @end lilypond
 
 On to bar three and the start of the Moderato section.  The
-tutorial showed how to add embolded text with the
-@code{\markup} command, so adding @q{Moderato} in bold is easy.
-But how do we merge notes in different voices together?  The
-index in the Notation Reference does not mention merging,
-but a search of the text for @q{merge} quickly leads us to
-the overrides for merging differently headed and differently
+tutorial showed how to add embolded text with the @code{\markup}
+command, so adding @q{Moderato} in bold is easy.
+But how do we merge notes in different voices together?  This is
+where we need to turn to the Notation Reference for help.  A search
+for @qq{merge} in the Notation Reference index quickly leads us to
+the commands for merging differently headed and differently
 dotted notes in @ruser{Collision resolution}.  In our
 example we need to merge both types of note for the duration
 of the polyphonic section in bar 3, so using the information
-in the Notation Reference we add
+we find in the Notation Reference we add
 
 @example
-\override Staff.NoteCollision #'merge-differently-headed = ##t
-\override Staff.NoteCollision #'merge-differently-dotted = ##t
+\mergeDifferentlyHeadedOn
+\mergeDifferentlyDottedOn
 @end example
 
 @noindent
 to the start of that section and
 
 @example
-\revert Staff.NoteCollision #'merge-differently-headed
-\revert Staff.NoteCollision #'merge-differently-dotted
+\mergeDifferentlyHeadedOff
+\mergeDifferentlyDottedOff
 @end example
 
 @noindent
@@ -2827,8 +2827,8 @@ rhMusic = \relative c'' {
   \bar "||"
   \time 6/4
   bes2.^\markup {\bold "Moderato"} r8
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
     {c,8[ d fis bes a] | }
@@ -2839,8 +2839,8 @@ rhMusic = \relative c'' {
   \\
     {s4 fis4. | }
   >>
-  \revert Staff.NoteCollision #'merge-differently-headed
-  \revert Staff.NoteCollision #'merge-differently-dotted  
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
   g2.\)
 }
 
@@ -2866,11 +2866,11 @@ lhMusic = \relative c' {
 }
 @end lilypond
 
-These overrides have merged the two F-sharp notes, but not the two 
+These overrides have merged the two F-sharp notes, but not the two
 on D.  Why not?  The answer is there in the same section in the
-Notation Reference -- notes being merged must have stems in 
-opposite directions and two notes cannot be merged successfully if 
-there is a third note in the same note column.  Here the two D's 
+Notation Reference -- notes being merged must have stems in
+opposite directions and two notes cannot be merged successfully if
+there is a third note in the same note column.  Here the two D's
 both have upward stems and there is a third note -- the C.  We know
 how to change the stem direction using @code{\stemDown}, and
 the Notation Reference also says how to move the C -- apply a shift
@@ -2878,7 +2878,7 @@ using one of the @code{\shift} commands.  But which one?
 The C is in voice two which has shift off, and the two D's are in
 voices one and three, which have shift off and shift on,
 respectively.  So we have to shift the C a further level still
-using @code{\shiftOnn} to avoid it interfering with the two D's.  
+using @code{\shiftOnn} to avoid it interfering with the two D's.
 Applying these changes gives:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -2889,8 +2889,8 @@ rhMusic = \relative c'' {
   \bar "||"
   \time 6/4
   bes2.^\markup {\bold "Moderato"} r8
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
     {c,8[ d fis bes a] | }
@@ -2903,8 +2903,8 @@ rhMusic = \relative c'' {
   \\
     {s4 fis4. | }
   >>
-  \revert Staff.NoteCollision #'merge-differently-headed
-  \revert Staff.NoteCollision #'merge-differently-dotted
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
   g2.\)
 }
 
@@ -2945,8 +2945,8 @@ rhMusic = \relative c'' {
   \bar "||"
   \time 6/4
   bes2.^\markup {\bold "Moderato"} r8
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
   <<
     {c,8[ d fis bes a] | }
   \\
@@ -2960,8 +2960,8 @@ rhMusic = \relative c'' {
   \\
     {s4 fis4.}
   >>
-  \revert Staff.NoteCollision #'merge-differently-headed
-  \revert Staff.NoteCollision #'merge-differently-dotted
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
   g2.\)
 }
 
@@ -2992,10 +2992,10 @@ lhMusic = \relative c' {
 @section Further tweaking
 
 @menu
-* Other uses for tweaks::       
-* Using variables for tweaks::  
-* Other sources of information::  
-* Avoiding tweaks with slower processing::  
+* Other uses for tweaks::
+* Using variables for tweaks::
+* Other sources of information::
+* Avoiding tweaks with slower processing::
 * Advanced tweaks with Scheme::  
 @end menu
 
@@ -3071,8 +3071,8 @@ For example, if we wished to change the metronome setting in order
 to simulate a fermata in the MIDI output we would not want the
 metronome markings to appear in the printed output, and we would
 not want it to influence the spacing between the two systems or
-the spacing of the notes on the staff.  So setting its
-@code{stencil} property to @code{#f} would be the best way.
+the positions of adjacent annotations on the staff.  So setting
+its @code{stencil} property to @code{#f} would be the best way.
 We show here the effect of the two methods:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -3082,12 +3082,30 @@ We show here the effect of the two methods:
     \tempo 4=120
     a4 a a
     \once \override Score.MetronomeMark #'transparent = ##t
-    % Invisible tempo marking to lengthen fermata note in MIDI
+    % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a\fermata
-    \once \override Score.MetronomeMark #'stencil = ##f
-    % Invisible tempo marking to restore tempo in MIDI
+    % New tempo for next section
+    \tempo 4=100
+    a a a a
+  }
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \relative c'' {
+    % Visible tempo marking
     \tempo 4=120
+    a4 a a
+    \once \override Score.MetronomeMark #'stencil = ##f
+    % Invisible tempo marking to lengthen fermata in MIDI
+    \tempo 4=80
+    a\fermata
+    % New tempo for next section
+    \tempo 4=100
     a a a a
   }
   \layout { }
@@ -3096,10 +3114,11 @@ We show here the effect of the two methods:
 @end lilypond
 
 @noindent
-Both methods remove the metronome mark from the printed output,
-and both affect the MIDI timing as required, but the first
-(transparent) metronome mark still influences the note spacing
-while the second (with no stencil) does not.
+Both methods remove the metronome mark which lengthens the fermata
+from the printed output, and both affect the MIDI timing as 
+required, but the transparent metronome mark in the first line
+forces the following tempo indication too high while the
+second (with the stencil removed) does not.
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
@@ -3125,30 +3144,30 @@ requiring emphasis.  So instead we define these as two variables,
 and use them as follows:
 
 @lilypond[quote,verbatim]
-emph = {
+emphasize = {
   \override Lyrics . LyricText #'font-shape = #'italic
   \override Lyrics . LyricText #'font-series = #'bold
 }
-norm = {
+normal = {
   \revert Lyrics . LyricText #'font-shape
   \revert Lyrics . LyricText #'font-series
 }
 
 global = { \time 4/4 \partial 4 \key c \major}
-SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+SopranoMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
 AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
 TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
 BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
-VerseOne   = \lyrics { E -- | ter -- nal \emph Fa -- ther, \norm | strong to save, }
-VerseTwo   = \lyricmode { O | \emph Christ, \norm whose voice the | wa -- ters heard, }
-VerseThree = \lyricmode { O | \emph Ho -- ly Spi -- rit, \norm | who didst brood }
-VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
+VerseOne   = \lyrics { E -- | ter -- nal \emphasize Fa -- ther, \normal | strong to save, }
+VerseTwo   = \lyricmode { O | \emphasize Christ, \normal whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { O | \emphasize Ho -- ly Spi -- rit, \normal | who didst brood }
+VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and pow'r }
 
 \score {
   \new ChoirStaff <<
     \new Staff <<
       \clef "treble"
-      \new Voice = "Sop"  { \voiceOne \global \SopMusic }
+      \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
       \new Lyrics \lyricsto "Sop" { \VerseOne   }
       \new Lyrics \lyricsto "Sop" { \VerseTwo   }

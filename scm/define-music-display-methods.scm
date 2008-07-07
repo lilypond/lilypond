@@ -881,21 +881,48 @@ Otherwise, return #f."
     "\\melismaEnd"))
 
 ;;; \tempo
+;;; Check for all three different syntaxes of tempo:
+;;; \tempo string duration=note, \tempo duration=note and \tempo string
 (define-extra-display-method ContextSpeccedMusic (expr parser)
   "If expr is a tempo, return \"\\tempo x = nnn\", otherwise return #f."
-  (with-music-match (expr (music 'ContextSpeccedMusic
+  (or   (with-music-match (expr (music 'ContextSpeccedMusic
+		element (music 'SequentialMusic
+			      elements ((music 'PropertySet
+					  value ?unit-text
+					  symbol 'tempoText)
+					(music 'PropertySet
+					  symbol 'tempoWholesPerMinute)
+					(music 'PropertySet
+					  value ?unit-duration
+					  symbol 'tempoUnitDuration)
+					(music 'PropertySet
+					  value ?unit-count
+					  symbol 'tempoUnitCount)))))
+		(format #f "\\tempo ~a ~a = ~a"
+			(scheme-expr->lily-string ?unit-text)
+			(duration->lily-string ?unit-duration #:force-duration #t)
+			?unit-count))
+	(with-music-match (expr (music 'ContextSpeccedMusic
+		    element (music 'SequentialMusic
+			      elements ((music 'PropertyUnset
+					  symbol 'tempoText)
+					(music 'PropertySet
+					  symbol 'tempoWholesPerMinute)
+					(music 'PropertySet
+					  value ?unit-duration
+					  symbol 'tempoUnitDuration)
+					(music 'PropertySet
+					  value ?unit-count
+					  symbol 'tempoUnitCount)))))
+			(format #f "\\tempo ~a = ~a"
+				(duration->lily-string ?unit-duration #:force-duration #t)
+				?unit-count))
+	(with-music-match (expr (music 'ContextSpeccedMusic
 			    element (music 'SequentialMusic
 				      elements ((music 'PropertySet
-						  symbol 'tempoWholesPerMinute)
-						(music 'PropertySet
-						  value ?unit-duration
-						  symbol 'tempoUnitDuration)
-						(music 'PropertySet
-						  value ?unit-count
-						  symbol 'tempoUnitCount)))))
-    (format #f "\\tempo ~a = ~a"
-	    (duration->lily-string ?unit-duration #:force-duration #t)
-	    ?unit-count)))
+						  value ?tempo-text
+						 symbol 'tempoText)))))
+			(format #f "\\tempo ~a" (scheme-expr->lily-string ?tempo-text)))))
 
 ;;; \clef 
 (define clef-name-alist #f)

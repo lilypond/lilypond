@@ -1,4 +1,4 @@
-\version "2.11.20"
+\version "2.11.51"
 
 \header {
   texidoc = "Horizontal scripts don't have @code{avoid-slur} set."

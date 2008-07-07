@@ -1,6 +1,6 @@
-\version "2.10.19"
+\version "2.11.51"
 \header {
-  texidoc = "extenders will not protude into the right margin"
+  texidoc = "Extenders will not protrude into the right margin"
   }
 
 \score{
@@ -16,8 +16,4 @@
       e d c
     }
   }
-
-}
-\paper {
-  ragged-right = ##t
 }

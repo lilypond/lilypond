@@ -1,15 +1,17 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Editorial annotations
 @section Editorial annotations
+
+@lilypondfile[quote]{editorial-headword.ly}
 
 @menu
 * Inside the staff::            
@@ -91,9 +93,11 @@ Musik sehr nah in die Notenköpfe gerückt werden.
 
 @seealso
 
-Programmreferenz: @rinternals{Fingering}.
+Programmreferenz:
+@rinternals{Fingering}.
 
-Beispiele: @lsr{expressive,fingering-chords.ly}
+Beispiele:
+@rlsr{Editorial annotations}.
 
 
 @node Hidden notes

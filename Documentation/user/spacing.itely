@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @ignore
 GDP TODO list
@@ -45,6 +45,10 @@ thought Y-extent might be of
 help, but it is in turn explained by x-space which again is
 missing from the list. Who has the
 knowledge to fix this?
+
+
+Clarify
+http://code.google.com/p/lilypond/issues/detail?id=68
 
 @end ignore
 

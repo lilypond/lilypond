@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @ignore
 GDP TODO list
@@ -139,7 +139,7 @@ proportional notation, see @ref{Proportional notation}.
 Dots are normally moved up to avoid staff lines, except in
 polyphonic situations.  Predefined commands are available to
 force a particular direction manually, for details
-see @ref{Controlling direction and placement}.
+see @ref{Direction and placement}.
 
 @predefined
 
@@ -214,7 +214,7 @@ c4 c \times 2/3 { b4 a g }
 
 The automatic placement of the tuplet bracket above or below the
 notes may be overridden manually with predefined commands, for
-details see @ref{Controlling direction and placement}.
+details see @ref{Direction and placement}.
 
 Tuplets may be nested:
 
@@ -449,7 +449,7 @@ be entered as follows:
 
 The vertical placement of ties may be controlled, see
 Predefined commands, or for details, see
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 @cindex ties, appearance
 @funindex \tieDotted
@@ -828,8 +828,7 @@ appear to be centered.
 @seealso
 
 Music Glossary:
-@rglos{multi-measure rest},
-@rglos{church rests}.
+@rglos{multi-measure rest}.
 
 Notation Reference:
 @ref{Durations},

@@ -12,6 +12,7 @@ vertically-aligning-dynamics-across-multiple-notes.ly
 modifying-default-values-for-articulation-shorthand-notation.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 controlling-the-vertical-ordering-of-scripts.ly
+inserting-a-caesura.ly
 using-double-slurs-for-legato-chords.ly
 setting-the-minimum-length-of-hairpins.ly
 creating-real-parenthesized-dynamics.ly
@@ -22,10 +23,9 @@ broken-crescendo-hairpin.ly
 combining-dynamics-with-markup-texts.ly
 creating-slurs-across-voices.ly
 caesura-railtracks-with-fermata.ly
-adjusting-the-shape-of-falls-and-doits.ly
+changing-the-breath-mark-symbol.ly
 creating-simultaneous-rehearsal-marks.ly
-suppressing-compiler-warnings-when-two-glissandos-intersect.ly
 setting-hairpin-behavior-at-bar-lines.ly
 changing--flageolet-mark-size.ly
 piano-template-with-centered-dynamics.ly
-changing-the-breath-mark-symbol.ly
+adjusting-the-shape-of-falls-and-doits.ly

@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: bdf8540b74167817eab96ed3d13b35477217f9fe
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -14,7 +14,12 @@
 @node Staff notation
 @section Staff notation
 
-staff = singular, staves = plural
+@lilypondfile[quote]{staff-headword.ly}
+
+Cette section aborde les détails de gravure de la portée, la
+réalisation de partitions avec plusieurs portées et l'ajout
+d'indications globales d'exécution, présentes sur certaines portées
+seulement.
 
 @menu
 * Displaying staves::           
@@ -137,10 +142,12 @@ symbol} --- symbole de portée.
 
 L'aspect du symbole de portée peut être modifié selon différentes
 propriétés, telles que le nombre de lignes, leur épaisseur, ou leur
-éloignement. Vous en trouverez des exemples dans
+éloignement.
+@ignore
+Vous en trouverez des exemples dans
 @lsr{staff,changing-the-number-of-lines-in-a-staff.ly} et
 @lsr{staff,changing-the-staff-size.ly}.
-
+@end ignore
 
 De plus, la portée peut commencer et s'arrêter où l'on veut, grâce aux
 commandes @code{\startStaff} et @code{\stopStaff}.
@@ -172,7 +179,7 @@ comme sur l'exemple suivant :
 
 Référence du programme : @rinternals{StaffSymbol}.
 
-D'autres exemples : @lsrdir{staff}.
+Exemples : @rlsr{Staff notation}.
 
 
 @node Hiding staves
@@ -280,7 +287,7 @@ c4^\markup {
 @end lilypond
 
 @noindent
-Pour plus de détails, voir @ref{Text markup}.
+Pour plus de détails, voir @ref{Formatting text}.
 
 
 @seealso
@@ -506,7 +513,7 @@ Citer des triolets imbriqués peut entraîner un résultat de médiocre qualité
 
 Dans ce manuel : @ref{Instrument transpositions}.
 
-Exemples : @lsr{parts,quote.ly}, @lsr{parts,quote-transportation.ly}
+Exemples : @rlsr{Staff notation}.
 
 Référence du programme : @rinternals{QuoteMusic}.
 

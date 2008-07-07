@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f7420240e4ce1fe2217646482a47d00f566af52c
+    Translation of GIT committish: 33ba8d40c3493011a4b39ab8b1369701f8013bd6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -14,6 +14,8 @@
 
 @node Expressive marks
 @section Expressive marks
+
+@lilypondfile[quote]{expressive-headword.ly}
 
 @menu
 * Attached to notes::           
@@ -243,7 +245,7 @@ On peut même définir ses propres indications textuelles :
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \set crescendoText = \markup { \italic "cresc. poco" }
-\set crescendoSpanner = #'dashed-line
+\set crescendoSpanner = #'text
 a'2\< a a a\!\mf
 @end lilypond
 
@@ -570,11 +572,10 @@ l'étouffer.  Cet effet s'obtient avec la commande @code{\laissezVibrer}.
 @seealso
 
 Référence du programme :
-@rinternals{LaissezVibrerTie}
-@rinternals{LaissezVibrerTieColumn}
+@rinternals{LaissezVibrerTie},
+@rinternals{LaissezVibrerTieColumn}.
 
-D'autres exemples :
-@lsr{connecting,laissez-vibrer-ties.ly}
+Exemples : @rlsr{Expressive marks}.
 
 
 @node Breath marks
@@ -605,7 +606,7 @@ d4
 
 Référence du programme : @rinternals{BreathingSign}.
 
-Exemples : @lsr{expressive,breathing-sign.ly}
+Exemples : @rlsr{Winds}.
 
 
 @node Falls and doits
@@ -665,7 +666,7 @@ I = \once \override NoteColumn #'ignore-collision = ##t
 
 Référence du programme : @rinternals{Glissando}.
 
-D'autres exemples : @lsr{expressive,glissando.ly}, @lsr{expressive,line-styles.ly}.
+Exemples : @rlsr{Expressive marks}.
 
 
 @knownissues

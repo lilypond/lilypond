@@ -31,6 +31,8 @@
 TODO: Consider making type into symbol.")
      (augmented ,boolean? "This figure is for an augmented figured bass
 (with @code{+} sign).")
+     (augmented-slash ,boolean? "This figure is for an augmented figured bass
+(back-slashed number).")
      (associated-context ,string? "Name of the Voice context associated with
 this @code{\\newaddlyrics} section.")
 

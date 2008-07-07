@@ -611,8 +611,8 @@ class SignatureFileLink (FileLink):
                 outfile = (dest_dir + '/' + f).replace ('.eps', '.png')
                 data_option = ''
                 if options.local_data_dir:
-                    data_option = ('-slilypond-datadir=%s/share/lilypond/current '
-                                   % os.path.split(infile)[0])
+                    data_option = ('-slilypond-datadir=%s/../share/lilypond/current '
+                                   % os.path.dirname(infile))
                 
                 mkdir (os.path.split (outfile)[0])
                 cmd = ('gs -sDEVICE=png16m -dGraphicsAlphaBits=4 -dTextAlphaBits=4 '

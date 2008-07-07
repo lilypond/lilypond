@@ -3,12 +3,11 @@
 @ignore
     Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
 
-
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 
 @node Literature list

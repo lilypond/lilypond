@@ -7,7 +7,7 @@ texidoc = "Even in case of incorrect contexts (eg. shortlived
 
 }
 
-\version "2.11.2"
+\version "2.11.51"
 
 
 %% \new Staff cause shortlived, disconnected Voice contexts

@@ -718,7 +718,7 @@
 
     (FretBoard
      . ((stencil . ,fret-board::calc-stencil)
-	(finger-code . below-string)
+	(fret-diagram-details . ((finger-code . below-string)))
 	(meta . ((class . Item)
 		 (interfaces . (fret-diagram-interface
 				font-interface))))))
@@ -1815,6 +1815,7 @@
     (TabNoteHead
      . (
 	(stencil . ,ly:text-interface::print)
+	(duration-log . ,note-head::calc-duration-log)
 	(Y-offset . ,ly:staff-symbol-referencer::callback)
 	(X-offset . ,ly:self-alignment-interface::x-aligned-on-self)
 	(direction . ,CENTER)
@@ -2015,7 +2016,6 @@
 		 (interfaces . (side-position-interface
 				parentheses-interface
 				note-head-interface
-				rhythmic-head-interface
 				font-interface
 				axis-group-interface))))))
 
@@ -2144,6 +2144,7 @@
 	(thickness . 1.6)  ;;  line-thickness
 	(edge-height . (2.0 . 2.0)) ;; staff-space;
 	(font-size . -4)
+	(word-space . 0.6)
 	(direction . ,UP)
 	(meta . ((class . Spanner)
 		 (interfaces . (volta-bracket-interface

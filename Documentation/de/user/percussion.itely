@@ -1,58 +1,44 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 19fc0f930f921ca2609e0e60aa26f9d980771b97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
-
 
 @node Percussion
 @section Percussion
 
-@menu 
-* TODO percussion node fix::
+UNTRANSLATED NODE: IGNORE ME
+
+
+@menu
+* Common notation for percussion::
 @end menu
 
-@node TODO percussion node fix
-@subsection TODO percussion node fix
+@node Common notation for percussion
+@subsection Common notation for percussion
 
 Rhythmusnotation wird vor allem für Schlaginstrumente eingesetzt, 
 aber hiermit kann auch der Rhythmus einer Melodie dargestellt werden.
 
+
 @menu
-* Showing melody rhythms::      
-* Entering percussion::         
-* Percussion staves::           
-* Ghost notes::                 
+* References for percussion::
+* Basic percussion notation::
+* Percussion staves::
+* Ghost notes::
 @end menu
 
+@node References for percussion
+@subsubsection References for percussion
 
-@node Showing melody rhythms
-@unnumberedsubsubsec Showing melody rhythms
+UNTRANSLATED NODE: IGNORE ME
 
-Manchmal soll nur der Rhythmus einer Melodie dargestellt werden. Das 
-erreicht man mit einem Schlagzeug-Notensystem. Alle Tonhöhen werden 
-auf eine Linie reduziert und das System hat auch nur eine einzige 
-Linie.
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new RhythmicStaff {
-  \time 4/4
-  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
-}
-@end lilypond
-
-@seealso
-
-Programmreferenz: @rinternals{RhythmicStaff}.
-
-
-@node Entering percussion
-@unnumberedsubsubsec Entering percussion
+@node Basic percussion notation
+@subsubsection Basic percussion notation
 
 @cindex Percussion
 @cindex Drums
@@ -76,10 +62,13 @@ der Datei @file{ly/@/drumpitch@/-init@/.ly}.
 
 @seealso
 
-Programmreferenz: @rinternals{note-event}.
+Programmreferenz:
+@rinternals{note-event}.
+
 
 @node Percussion staves
-@unnumberedsubsubsec Percussion staves
+@subsubsection Percussion staves
+
 @cindex Perkussion
 @cindex Schlagzeug
 
@@ -296,9 +285,8 @@ Weil in den allgemeinen MIDI-Definitionen kein Rimshot enthalten ist,
 wird sidestick für diesen Zweck benutzt.
 
 
-@c FIXME: check name -tr
 @node Ghost notes
-@unnumberedsubsubsec Ghost notes
+@subsubsection Ghost notes
 
 Geisternoten für Schlagzeug und Perkussion können mit dem 
 Klammer- (@code{\parenthesize})-Befehl, beschrieben in @ref{Parentheses}, 

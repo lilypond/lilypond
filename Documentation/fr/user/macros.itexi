@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d30aabb4adc9e13c7a5a99a22230e97a0f164255
+    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -174,39 +174,13 @@
 
 @c   **** Links and references ****
 
-@c WARNING: new @lsr macro in English docs takes 3 arguments
-@c and new @lsrdir takes two arguments
-
-@c obsolete
-@c usage: @lsr{ancient,custodes.ly}
-@macro lsr{DIR,TEXT}
-@ifhtml
-@uref{source/input/lsr/\DIR\/collated-files.html#\TEXT\,@file{\DIR\/\TEXT\}}
-@end ifhtml
-@ifnothtml
-@file{\DIR\/\TEXT\}
-@end ifnothtml
-@end macro
-
-@c don't update until this macro is correctly set up in English docs
-@macro lsrdir{DIR}
-@ifhtml
-@uref{source/input/lsr/\DIR\/collated-files.html,@file{\DIR\}/}
-@end ifhtml
-@ifnothtml
-@file{\DIR\}
-@end ifnothtml
-@end macro
-
-
-
-
 @c  Definitions for references:
 @c     @rinternals
 @c     @rglos
 @c     @rprogram
 @c     @ruser
 @c     @rlearning
+@c     @rlsr
 
 @ifhtml
 @c ***** HTML *****
@@ -238,6 +212,11 @@
 @ref{\TEXT\,,,lilypond-learning-big-page,Manuel d'initiation}
 @end macro
 
+@macro rlsr{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-snippets-big-page,Exemples de code}
+@end macro
+
 @end ifset
 
 
@@ -266,6 +245,11 @@
 @macro rlearning{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
+@end macro
+
+@macro rlsr{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
 @end macro
 
 @end ifclear
@@ -301,6 +285,11 @@
 @ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
 @end macro
 
+@macro rlsr{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
+@end macro
+
 @end ifdocbook
 
 
@@ -332,6 +321,10 @@
 @ref{\TEXT\,,,lilypond-learning,Manuel d'initiation}
 @end macro
 
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
+@end macro
+
 @end ifinfo
 
 
@@ -358,6 +351,10 @@
 
 @macro rlearning{TEXT}
 @ref{\TEXT\,,,lilypond-learning.fr,Manuel d'initiation}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Exemples de code}
 @end macro
 
 @end iftex

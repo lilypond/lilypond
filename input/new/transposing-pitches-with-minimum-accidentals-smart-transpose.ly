@@ -70,7 +70,7 @@ naturalizeMusic =
 					(ly:music?)
 			(naturalize m))
 
-music =  \relative c' { c4 d e g }
+music = \relative c' { c4 d e g }
 
 \score {
   \new Staff {
@@ -79,5 +79,5 @@ music =  \relative c' { c4 d e g }
     \transpose c deses \music
     \naturalizeMusic \transpose c deses \music
   }
-  \layout {}
+  \layout { }
 }

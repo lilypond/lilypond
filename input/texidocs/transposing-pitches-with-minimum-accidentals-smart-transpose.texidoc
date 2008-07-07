@@ -1,3 +1,4 @@
+doctitlees = "Transportar música con el menor número de alteraciones"
 texidoces = "
 Este ejemplo utiliza código de Scheme para forzar las
 modificaciones enarmónicas de las notas, y así tener el menor
@@ -24,4 +25,5 @@ Fa bemol -> Mi
 
 De esta forma se selecciona el mayor número de notas enarmónicas
 naturales.
+
 "

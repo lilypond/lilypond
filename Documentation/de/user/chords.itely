@@ -1,44 +1,46 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dab80970d8e89571263d16433aff1e6f878a8f62
+    Translation of GIT committish: 19fc0f930f921ca2609e0e60aa26f9d980771b97
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
-
+@c \version "2.11.51"
 
 @node Chord notation
-@section Chords notation
+@section Chord notation
 
-Intro text.
+UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* TODO chords fix::
-@end menu
-
-
-@node TODO chords fix
-@subsection TODO chords fix
-
-@c  awkward name; awkward section name.
-@c  still, the Basic "chords" seems like a good name...  :(
 @menu
-* Entering chord names::     
-* Chords mode::                 
-* Printing chord names::        
+* Chord mode::
+* Displaying chords::
+* Figured bass::
 @end menu
 
-@node Entering chord names
-@unnumberedsubsubsec Entering chord names
+@node Chord mode
+@subsection Chord mode
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Chord mode overview::
+* Common chords::
+* Extended and altered chords::
+@end menu
+
+@c This material comes from 'Entering chord names' --FV
+@node Chord mode overview
+@unnumberedsubsubsec Chord mode overview
+
 @cindex Akkordbezeichnungen
 
-LilyPond bringt Unterstützung zur Ausgabe von Akkordsymbolen 
-mit. Akkorde können entweder mithilfe der musikalischen 
-Akkordeingabe (also @code{< ... >}) notiert werden, aber sie 
-können auch mit ihren Bezeichnungen direkt eingegeben werden. 
+LilyPond bringt Unterstützung zur Ausgabe von Akkordsymbolen
+mit. Akkorde können entweder mithilfe der musikalischen
+Akkordeingabe (also @code{< ... >}) notiert werden, aber sie
+können auch mit ihren Bezeichnungen direkt eingegeben werden.
 Programmintern werden die Akkorde als eine Gruppe von Tonhöhen
 dargestellt und können somit transponiert werden.
 
@@ -56,24 +58,25 @@ twoWays = \transpose c c' {
    \new Voice \twoWays >>
 @end lilypond
 
-Dieses Beispiel zeigt auch, dass die Ausgaberoutinen für die 
-Akkordsymbole nicht besonders klug sind. Der letzte Akkord 
+Dieses Beispiel zeigt auch, dass die Ausgaberoutinen für die
+Akkordsymbole nicht besonders klug sind. Der letzte Akkord
 (@code{f bes d}) wird nicht als Umkehrung erkannt.
 
-Achtung: Die Dauer eines Akkordes muss außerhalb der 
+Achtung: Die Dauer eines Akkordes muss außerhalb der
 spitzen Klammern @code{<>} notiert werden.
 
 @example
 <c e g>2
 @end example
 
+@c This material comes from 'Chords mode' --FV
+@node Common chords
+@unnumberedsubsubsec Common chords
 
-@node Chords mode
-@unnumberedsubsubsec Chords mode
 @cindex Akkord-Modus
 
-Im Akkord-Modus wird eine Anzahl von Tonhöhen (ein Akkord) 
-durch eine normale Notenbezeichnung notiert. Ein Akkord wird 
+Im Akkord-Modus wird eine Anzahl von Tonhöhen (ein Akkord)
+durch eine normale Notenbezeichnung notiert. Ein Akkord wird
 mit seinem Grundton notiert, der einfach wie eine normale
 Note geschrieben wird:
 
@@ -87,17 +90,17 @@ Dieser Modus wird mit dem @code{\chordmode}-Befehl aktiviert.
 @cindex Akkord-Notation
 @cindex Eingabe von Akkorden
 
-Andere als die Grundakkorde können notiert werden, indem an 
-die Notenbezeichnung ein Doppelpunkt und eine Spezifizierung 
+Andere als die Grundakkorde können notiert werden, indem an
+die Notenbezeichnung ein Doppelpunkt und eine Spezifizierung
 (die auch aus einer Zahl bestehen kann) angefügt wird.
 
 @lilypond[quote,fragment,verbatim]
 \chordmode { e1:m e1:7 e1:m7 }
 @end lilypond
 
-@noindent 
-Die erste Zahl, die auf den Grundton folgt, wird als @qq{Art} 
-des Akkordes interpretiert: Terzen werden auf dem Grundton 
+@noindent
+Die erste Zahl, die auf den Grundton folgt, wird als @qq{Art}
+des Akkordes interpretiert: Terzen werden auf dem Grundton
 gestapelt, bis die angegebene Zahl (=Tonhöhe) erreicht ist.
 Eine Ausnahme ist @code{c:13}, weil hier die 11 ausgelassen wird.
 
@@ -112,8 +115,8 @@ Eine Ausnahme ist @code{c:13}, weil hier die 11 ausgelassen wird.
 @cindex Entfernen von Tönen aus Akkorden
 
 Kompliziertere Akkorde können auch konstruiert werden, indem
-einzelne Intervalle zu dem Grundton addiert werden. 
-Diese Additionen werden nach der ersten Zahl notiert und mit 
+einzelne Intervalle zu dem Grundton addiert werden.
+Diese Additionen werden nach der ersten Zahl notiert und mit
 Punkten voneinander getrennt.
 
 @lilypond[quote,verbatim,fragment]
@@ -121,7 +124,7 @@ Punkten voneinander getrennt.
 @end lilypond
 
 @noindent
-Einzelne Intervalle können mit @code{-} oder @code{+} vergrößert 
+Einzelne Intervalle können mit @code{-} oder @code{+} vergrößert
 oder verkleinert werden.
 
 @lilypond[quote,verbatim,fragment]
@@ -129,21 +132,21 @@ oder verkleinert werden.
 @end lilypond
 
 @noindent
-Zu entfernende Töne werden mit der gleichen Methode notiert, 
-allerdings mit einem Dach (@code{^}) vor der Sequenz, die 
-nicht erscheinen soll. Sie müssen nach den zu addierenden 
+Zu entfernende Töne werden mit der gleichen Methode notiert,
+allerdings mit einem Dach (@code{^}) vor der Sequenz, die
+nicht erscheinen soll. Sie müssen nach den zu addierenden
 Tönen notiert werden.
 
 @lilypond[quote,verbatim,fragment]
 \chordmode { c^3 c:7^5 c:9^3.5 }
 @end lilypond
 
-Mit weiteren Endungen können Tonhöhen der Akkorde beeinflusst werden. 
+Mit weiteren Endungen können Tonhöhen der Akkorde beeinflusst werden.
 Folgende Endungen sind unterstützt:
 
 @table @code
 @item m
-Der Moll-Akkord. Diese Endung erniedrigt die Terz (3) und die Septime (7), 
+Der Moll-Akkord. Diese Endung erniedrigt die Terz (3) und die Septime (7),
 wenn vorhanden.
 
 @item dim
@@ -154,17 +157,17 @@ und Septime (7), wenn vorhanden.
 Der übermäßige Akkord. Diese Endung erhöht die Quinte (5).
 
 @item maj
-Der große Sept-Akkord. Diese Endung erhöht die Septime (7), 
+Der große Sept-Akkord. Diese Endung erhöht die Septime (7),
 wenn vorhanden.
 
 @item sus
-Der Sekundakkord. Diese Endung entfernt die Terz (3) aus dem 
-Akkord. Schreiben Sie @code{2} oder @code{4} hinter die Endung, 
-um entweder die Sekunde (2) oder die Quarte (4) zum Akkord 
+Der Sekundakkord. Diese Endung entfernt die Terz (3) aus dem
+Akkord. Schreiben Sie @code{2} oder @code{4} hinter die Endung,
+um entweder die Sekunde (2) oder die Quarte (4) zum Akkord
 hinzuzufügen.
 @end table
 
-Die Endungen können mit weiteren hinzugefügten Tönen kombiniert 
+Die Endungen können mit weiteren hinzugefügten Tönen kombiniert
 werden.
 @lilypond[quote,verbatim,fragment]
   \chordmode { c:sus4 c:7sus4 c:dim7 c:m6 }
@@ -178,8 +181,8 @@ werden.
 @funindex sus
 @funindex m
 
-Da der unveränderte elfte Ton in Verbindung mit einem unveränderten 
-13. Ton nicht gut klingt, wird die 11 in diesem Fall automatisch 
+Da der unveränderte elfte Ton in Verbindung mit einem unveränderten
+13. Ton nicht gut klingt, wird die 11 in diesem Fall automatisch
 entfernt (es sei denn, sie wird explizit gefordert).
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -188,8 +191,8 @@ entfernt (es sei denn, sie wird explizit gefordert).
 
 @funindex /
 
-Eine Umkehrung (ein Ton des Akkordes wird unter den Grundton gesetzt) 
-sowie auch Bassnoten können mit dem Schrägstrich (@code{/}) markiert 
+Eine Umkehrung (ein Ton des Akkordes wird unter den Grundton gesetzt)
+sowie auch Bassnoten können mit dem Schrägstrich (@code{/}) markiert
 werden:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -197,25 +200,24 @@ werden:
 @end lilypond
 @funindex /+
 
-Eine Bassnote kann hinzugefügt werden, anstatt dass sie aus dem Akkord 
-entnommen wird, indem noch ein Plus zwischen den Schrägstrich und 
+Eine Bassnote kann hinzugefügt werden, anstatt dass sie aus dem Akkord
+entnommen wird, indem noch ein Plus zwischen den Schrägstrich und
 die Tonhöhe gesetzt wird:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \chordmode { c1 c/+g c/+f }
 @end lilypond
 
-Der Akkord-Modus funktioniert ähnlich wie der Liedtext-Modus 
-(@code{\lyricmode}) usw. Die meisten Befehle funktionieren weiter, 
-so können etwa @code{r} und @code{\skip} benutzt werden, 
-um Pausen und Zwischenräume einzufügen. Mit Eigenschaftsbefehlen 
+Der Akkord-Modus funktioniert ähnlich wie der Liedtext-Modus
+(@code{\lyricmode}) usw. Die meisten Befehle funktionieren weiter,
+so können etwa @code{r} und @code{\skip} benutzt werden,
+um Pausen und Zwischenräume einzufügen. Mit Eigenschaftsbefehlen
 können verschiedene Einstellungen verändert werden.
-
 
 @knownissues
 
-Jedes Intervall kann nur einmal in einem Akkord vorkommen. 
-Im folgenden Beispiel wird nur der erweiterte Akkord erstellt, 
+Jedes Intervall kann nur einmal in einem Akkord vorkommen.
+Im folgenden Beispiel wird nur der erweiterte Akkord erstellt,
 weil @code{5+} als letztes kommt.
 
 @cindex Cluster
@@ -223,6 +225,20 @@ weil @code{5+} als letztes kommt.
 \chordmode { c:5.5-.5+ }
 @end lilypond
 
+@node Extended and altered chords
+@unnumberedsubsubsec Extended and altered chords
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Displaying chords
+@subsection Displaying chords
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Printing chord names::
+* Customizing chord names::
+@end menu
 
 @node Printing chord names
 @unnumberedsubsubsec Printing chord names
@@ -232,10 +248,10 @@ weil @code{5+} als letztes kommt.
 @cindex Akkorde
 @cindex Symbole, Akkord-
 
-Um Akkordsymbole anstelle der Noten zu setzen, muss der 
-@rinternals{ChordNames}-Kontext. Die Akkorde können entweder 
-mit der Notation aus dem vorigen Abschnitt oder direkt 
-mit der Akkordeingabe für Noten (@code{<} und @code{>}) 
+Um Akkordsymbole anstelle der Noten zu setzen, muss der
+@rinternals{ChordNames}-Kontext. Die Akkorde können entweder
+mit der Notation aus dem vorigen Abschnitt oder direkt
+mit der Akkordeingabe für Noten (@code{<} und @code{>})
 notiert werden.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -248,9 +264,9 @@ harmonies = {
 >>
 @end lilypond
 
-Sie können Akkordwiederholungen unterdrücken, so dass nur 
-bei einer Änderung des Akkordes ein Symbol ausgegeben wird. 
-Das aktuelle Symbol wird auch am Zeilenanfang wiederholt. 
+Sie können Akkordwiederholungen unterdrücken, so dass nur
+bei einer Änderung des Akkordes ein Symbol ausgegeben wird.
+Das aktuelle Symbol wird auch am Zeilenanfang wiederholt.
 Das geschieht mit dem Befehl @code{\set chordChanges = ##t}.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -265,11 +281,11 @@ harmonies = \chordmode {
 >>
 @end lilypond
 
-In den vorangegangenen Beispielen wurden alle Akkorde über dem 
-Notensystem mit den entsprechenden Noten ausgegeben. Das ist aber 
-nicht erforderlich. Akkorde können auch alleine gedruckt werden. 
-Dabei kann es nötig sein, @rinternals{Volta_engraver} und 
-@rinternals{Bar_engraver} einzufügen, damit Wiederholungen 
+In den vorangegangenen Beispielen wurden alle Akkorde über dem
+Notensystem mit den entsprechenden Noten ausgegeben. Das ist aber
+nicht erforderlich. Akkorde können auch alleine gedruckt werden.
+Dabei kann es nötig sein, @rinternals{Volta_engraver} und
+@rinternals{Bar_engraver} einzufügen, damit Wiederholungen
 angezeigt werden.
 
 @lilypond[ragged-right,verbatim]
@@ -287,27 +303,27 @@ angezeigt werden.
 }
 @end lilypond
 
-Die Standardeinstellungen für die Symbole entsprechen den Konventionen 
-im Jazz, wie sie von Klaus Ignatzek (siehe @ref{Literature list}). 
-vorgeschlagen wurden. Mit den folgenden Befehlen könne aber 
+Die Standardeinstellungen für die Symbole entsprechen den Konventionen
+im Jazz, wie sie von Klaus Ignatzek (siehe @ref{Literature list}).
+vorgeschlagen wurden. Mit den folgenden Befehlen könne aber
 Anpassungen vorgenommen werden:
 
 @table @code
 @funindex chordNameExceptions
 @item chordNameExceptions
-Das ist eine Liste, die alle Akkorde aufführt, die ungewöhnliche 
+Das ist eine Liste, die alle Akkorde aufführt, die ungewöhnliche
 Form haben.
 
-Die Liste muss nach dem Schema 
+Die Liste muss nach dem Schema
 @example
 @{ <c f g bes>1 \markup @{ \super "7" "wahh" @} @}
 @end example
 @noindent
 gesetzt werden.
 
-Diese Liste in die @code{chordNameExceptions}-Funktion einzulesen 
-ist allerdings etwas kompliziert. Mit dem folgenden Code-Abschnitt 
-wird @code{chExceptionMusic} (aufeinander folgende 
+Diese Liste in die @code{chordNameExceptions}-Funktion einzulesen
+ist allerdings etwas kompliziert. Mit dem folgenden Code-Abschnitt
+wird @code{chExceptionMusic} (aufeinander folgende
 Noten) in eine Ausnahmeliste umgewandelt:
 @example
 (sequential-music-to-chord-exceptions chExceptionMusic #t)
@@ -318,27 +334,29 @@ Dann werden mit dem Code
  (sequential-music-to-chord-exceptions chExceptionMusic #t)
  ignatzekExceptions)
 @end example
-die neuen Ausnahmen zu den schon vorhandenen hinzugefügt, die in 
+die neuen Ausnahmen zu den schon vorhandenen hinzugefügt, die in
 der Datei @file{ly/@/chord@/-modifier@/-init@/.ly} definiert sind.
 
-Ein Beispiel für die Benutzung dieser Eigenschaft findet sich 
-auch in der Datei @lsr{chords,chord@/-name@/-exceptions@/.ly}.
-@cindex Ausnahmen, Akkordsymbole
+@c Ein Beispiel für die Benutzung dieser Eigenschaft findet sich
+@c auch in der Datei @lsr{chords,chord@/-name@/-exceptions@/.ly}.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{chord-name-exceptions.ly}
 
+@cindex Ausnahmen, Akkordsymbole
 
 @funindex majorSevenSymbol
 @item majorSevenSymbol
-Mit dieser Eigenschaft wird das Aussehen der Notation für die 
+Mit dieser Eigenschaft wird das Aussehen der Notation für die
 große Septime (7) bestimmt. Vordefiniert sind die Optionen
-@code{whiteTriangleMarkup} und @code{blackTriangleMarkup}. 
-Siehe auch 
-@lsr{chords,chord@/-name@/-major7@/.ly} für ein Beispiel.
+@code{whiteTriangleMarkup} und @code{blackTriangleMarkup}.
+@c Siehe auch
+@c @lsr{chords,chord@/-name@/-major7@/.ly} für ein Beispiel.
 
 @funindex chordNameSeparator
 @item chordNameSeparator
-Verschiedene Teile eines Akkordsymboles werden normalerweise 
-durch einen Schrägstrich markiert. Indem @code{chordNameSeparator} 
-ein anderer Wert zugewiesen wird, kann das Aussehen des Trenners 
+Verschiedene Teile eines Akkordsymboles werden normalerweise
+durch einen Schrägstrich markiert. Indem @code{chordNameSeparator}
+ein anderer Wert zugewiesen wird, kann das Aussehen des Trenners
 verändert werden, z. B.:
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new ChordNames \chordmode {
@@ -351,51 +369,52 @@ verändert werden, z. B.:
 
 @funindex chordRootNamer
 @item chordRootNamer
-Der Grundton eines Akkordes wird normalerweise als Buchstabe mit 
-optionaler Erhöhung oder Erniedrigung dargestellt. Die Interpretation 
-einer Tonhöhe als Buchstabe wird von der @code{chordRootNamer}-Eigenschaft 
+Der Grundton eines Akkordes wird normalerweise als Buchstabe mit
+optionaler Erhöhung oder Erniedrigung dargestellt. Die Interpretation
+einer Tonhöhe als Buchstabe wird von der @code{chordRootNamer}-Eigenschaft
 übernommen. Besondere Bezeichnungen, wie etwa im Deutschen H für
-einen H-Dur-Akkord (und nicht @qq{B} wie im Englischen), können 
-durch Hinzufügen einer neuen Funktion zu dieser Eigenschaft 
+einen H-Dur-Akkord (und nicht @qq{B} wie im Englischen), können
+durch Hinzufügen einer neuen Funktion zu dieser Eigenschaft
 erstellt werden.
 
 @funindex chordNoteNamer
 @item chordNoteNamer
-In den Standardeinstellungen wird ein einziger Buchstabe für einen 
-Akkord ausgegeben, nämlich sein Grundton, der von der 
-@code{chordRootNamer}-Eigenschaft bestimmt wird. Die 
-@code{chordNoteNamer}-Eigenschaft hingegen kann das Aussehen dieses 
-Buchstaben ändern, ihn etwa als Klein- und nicht als Großbuchstabe 
+In den Standardeinstellungen wird ein einziger Buchstabe für einen
+Akkord ausgegeben, nämlich sein Grundton, der von der
+@code{chordRootNamer}-Eigenschaft bestimmt wird. Die
+@code{chordNoteNamer}-Eigenschaft hingegen kann das Aussehen dieses
+Buchstaben ändern, ihn etwa als Klein- und nicht als Großbuchstabe
 darstellen.
 
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
-Das @qq{m} für Moll-Akkorde wird normalerweise direkt hinter dem 
-Akkordbuchstaben gesetzt. Mit der Eigenschaft @code{chordPrefixSpacer} 
-kann ein Abstand(halter) zwischen den Buchstaben und das @qq{m} 
-gesetzt werden. Der Abstandhalter wird nicht verwendet, wenn der 
+Das @qq{m} für Moll-Akkorde wird normalerweise direkt hinter dem
+Akkordbuchstaben gesetzt. Mit der Eigenschaft @code{chordPrefixSpacer}
+kann ein Abstand(halter) zwischen den Buchstaben und das @qq{m}
+gesetzt werden. Der Abstandhalter wird nicht verwendet, wenn der
 Grundton erhöht oder erniedrigt ist.
 
 @end table
 
 Die vordefinierten Befehle @code{\germanChords},
 @code{\semiGermanChords}, @code{\italianChords} und @code{\frenchChords}
-benutzen diese Variablen. Die Auswirkungen werden im nächsten Beispiel 
+benutzen diese Variablen. Die Auswirkungen werden im nächsten Beispiel
 gezeigt.
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
-Zusätzlich sind zwei weitere Vorlagen: eine alternative Jazz-Notation 
-und eine systematische Notation, genannt Banter-Akkorde. Die 
-alternative Jazz-Notation findet sich auch in der Liste im 
-Abschnitt @ref{Chord name chart}. Wie diese Stile verwendet werden, 
-wird in der Datei 
-@lsr{chords,chord-names-jazz.ly} gezeigt.
+Zusätzlich sind zwei weitere Vorlagen: eine alternative Jazz-Notation
+und eine systematische Notation, genannt Banter-Akkorde. Die
+alternative Jazz-Notation findet sich auch in der Liste im
+Abschnitt @ref{Chord name chart}.
+
+@c Wie diese Stile verwendet werden,
+@c wird in der Datei
+@c @lsr{chords,chord-names-jazz.ly} gezeigt.
 
 @cindex Banter
 @cindex Jazz-Akkorde
 @cindex Akkorde, Jazz
-
 
 @predefined
 
@@ -410,17 +429,239 @@ wird in der Datei
 
 @seealso
 
-Beispiele: @lsrdir{chords}.
+Beispiele:
+@rlsr{Chords}.
 
 Init-Dateien: @file{scm/@/chords@/-ignatzek@/.scm} und
 @file{scm/@/chord@/-entry@/.scm}.
 
+@knownissues
+
+Akkordsymbole werden nur von den Tonhöhenbezeichnungen bestimmt.
+Akkordumkehrungen sind nicht definiert, noch werden Bassnoten
+hinzugefügt. Deshalb kann es zu seltsamen Akkord-Symbolen kommen,
+wenn die Akkorde mit der @code{< ... >} Syntax notiert werden.
+
+@node Customizing chord names
+@unnumberedsubsubsec Customizing chord names
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Figured bass
+@subsection Figured bass
+
+UNTRANSLATED NODE: IGNORE ME
+
+@menu
+* Introduction to figured bass::
+* Entering figured bass::
+* Displaying figured bass::
+@end menu
+
+@c This material comes from 'Figured bass', needs redistribution by translator --FV
+@node Introduction to figured bass
+@unnumberedsubsubsec Introduction to figured bass
+
+@cindex Basso continuo
+@cindex Generalbass
+@cindex Bezifferter Bass
+
+@c TODO: musicological blurb about FB
+
+LilyPond stellt Unterstützung für Generalbassnotation zur Verfügung.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+<<
+  \new Voice { \clef bass dis4 c d ais g fis}
+  \new FiguredBass \figuremode {
+    < 6 >4 < 7\+ >8 < 6+ [_!] >
+    < 6 >4 <6 5 [3+] >
+    < _ >4 < 6 5/>4
+  }
+>>
+@end lilypond
+
+Die Unterstützung besteht aus zwei Teilen: Es gibt einen Eingabe-Modus,
+aktiviert durch den Befehl @code{\figuremode}, in dem Ziffern für den Bass
+als Nummern eingegeben werden können, und einen Kontext
+ @rinternals{FiguredBass}, der dafür sorgt, dass die entsprechenden
+ @rinternals{BassFigure}-Objekte auch erstellt werden.
+
+Im Eingabemodus wird eine Gruppe von Bassziffern mit den Zeichen
+@code{<} and @code{>} begrenzt. Die Dauer wird nach dem @code{>}-Zeichen
+eingegeben.
+
+@example
+<4 6>
+@end example
+@lilypond[quote,ragged-right,fragment]
+\new FiguredBass
+\figuremode { <4 6> }
+@end lilypond
+
+Versetzungszeichen werden durch Anhängen von @code{-}, @code{!} und @code{+}
+hinter die Nummern erreicht. Ein Pluszeichen wird mit dem Befehl @code{\+}
+gesetzt, verminderte Quinten und Septimen mit @code{5/} und @code{7/}.
+
+@example
+<4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/>
+@end example
+@lilypond[quote,ragged-right,fragment]
+\figures { <4- 6+ 7!> <5++> <3--> <7/> r <6\+ 5/> }
+@end lilypond
+
+Pausen können mit @code{_} notiert werden. Klammern werden mit @code{[}
+und @code{]} gesetzt. Text kann auch eingefügt werden nach den Regeln im
+Abschnitt @ref{Text markup commands}.
+
+@example
+< [4 6] 8 [_! 12] > < 5 \markup @{ \number 6 \super (1) @} >
+@end example
+@lilypond[quote,ragged-right,fragment]
+\new FiguredBass
+\figuremode { < [4 6] 8 [_! 12] > < 5 \markup{ \tiny \number 6 \super (1)} > }
+@end lilypond
+
+Es ist auch möglich, Vortsetzungslinien für wiederholte Ziffern zu benutzen.
+
+@lilypond[verbatim,relative=1]
+<<
+  \new Staff {
+    \clef bass
+    c4 c c
+  }
+  \figures {
+    \set useBassFigureExtenders = ##t
+    <4 6> <3 6> <3 7>
+  }
+>>
+@end lilypond
+
+@noindent
+In diesem Fall werden wiederholte Ziffern immer durch eine Linie ersetzt.
+
+Der @code{FiguredBass}-Kontext kümmert sich nicht um die aktuelle Basslinie.
+Als Konsequenz müssen eventuell zusätzliche Ziffern eingefügt werden, um
+Linien unter alle Noten zu erhalten, und die Verwendung von @code{\!}
+kann nötig werden, um zu lange Linien zu stoppen.
+
+@lilypond[relative=1]
+<<
+  \new Voice
+  \figures {
+    \set useBassFigureExtenders = ##t
+    <6 4->4. <6 4->16. <6 4->32 <5>8. r16 <6>8 <6\! 5->
+  }
+  {
+    \clef bass
+    f16. g32 f16. g32 f16. g32 f16. g32 f8. es16 d8 es
+  }
+>>
+@end lilypond
+Bei der Benutzung von Linien werden gemeinsame Ziffern immer in die
+gleiche vertikale Position gesetzt. Wenn dies nicht gewünscht ist,
+können Pausen (@code{r}) eingefügt werden. Dadurch wird die vorangegangene
+Positionierung aufgehoben. So kann man etwa
+
+@example
+  <4 6>8 r8
+@end example
+
+@noindent
+anstelle von
+@example
+  <4 6>4
+@end example
+
+@noindent
+schreiben.
+
+Versetzungszeichen und Pluszeichen können vor oder nach den Ziffern stehen,
+abhängig von den @code{figuredBassAlterationDirection}- und
+@code{figuredBassPlusDirection}-Eigenschaften.
+
+@lilypond
+  \figures {
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #1
+    <6\+> <5+> <6 4-> r
+    \set figuredBassPlusDirection = #1
+    <6\+> <5+> <6 4-> r
+    \set figuredBassAlterationDirection = #-1
+    <6\+> <5+> <6 4-> r
+  }
+@end lilypond
+
+Auch wenn die Unterstützung für bezifferten Bass anscheinend an die
+Akkord-Notation erinnert, ist sie doch sehr viel einfacher. Der Modus
+@code{\figuremode} speichert einfach die Ziffern und  der
+@rinternals{FiguredBass}-Kontext gibt sie so aus, wie sie notiert
+werden. Es gibt also keine Umrechnung von Tonhöhen und die Notation
+wird in der MIDI-Datei nicht umgesetzt.
+
+Programmintern erstellt die Funktion einfache Textbeschriftung. Somit
+sind alle Textbeschriftungsbefehle verfügbar, um die Formatierungen zu
+verändern. So kann zum Beispiel die vertikale Position der Ziffern mit
+@code{baseline-skip} gesetzt werden.
+
+Bassziffern können auch direkt einem Notensystemkontext (@code{Staff})
+hinzugefügt werden. In diesem Fall wird ihre vertikale Position automatisch
+bestimmt.
+
+@lilypond[ragged-right,fragment,quote]
+<<
+  \new Staff = someUniqueName
+  \relative c'' {
+    c4 c'8 r8 c,4 c'
+  }
+
+  %% send to existing Staff.
+  \context Staff = someUniqueName
+  \figuremode {
+    <4>4 <6 10>8 s8
+
+    \set Staff.useBassFigureExtenders = ##t
+    <4 6>4 <4 6>
+  }
+>>
+@end lilypond
+
+@commonprop
+
+In der Standardeinstellung werden die Bassziffern über den Noten
+ausgegeben. Um Ziffern unter den Noten zu erhalten, kann der
+Befehl
+
+@example
+\override Staff.BassFigureAlignmentPositioning #'direction = #DOWN
+@end example
+
+@noindent
+benutzt werden.
 
 @knownissues
 
-Akkordsymbole werden nur von den Tonhöhenbezeichnungen bestimmt. 
-Akkordumkehrungen sind nicht definiert, noch werden Bassnoten 
-hinzugefügt. Deshalb kann es zu seltsamen Akkord-Symbolen kommen, 
-wenn die Akkorde mit der @code{< ... >} Syntax notiert werden.
+Wenn Bassziffern über dem Notensystem mit Ergänzungslinien und
+@code{implicitBassFigures}  benutzt werden, kann es vorkommen, dass
+die Linien vertauscht werden. Besonders kritisch wird es, wenn
+mehrere Bassziffern sich überschneidende Linien haben. Um dieses
+Problem zu vermeiden, sollte @code{stacking-dir}
+im @code{BassFigureAlignment} benutzt werden.
 
+@seealso
 
+Programmreferenz: @rinternals{NewBassFigure}-,
+@rinternals{BassFigureAlignment}-, @rinternals{BassFigureLine}-,
+@rinternals{BassFigureBracket}- und
+@rinternals{BassFigureContinuation}-Objekte und der
+@rinternals{FiguredBass}-Kontext.
+
+@node Entering figured bass
+@unnumberedsubsubsec Entering figured bass
+
+UNTRANSLATED NODE: IGNORE ME
+
+@node Displaying figured bass
+@unnumberedsubsubsec Displaying figured bass
+
+UNTRANSLATED NODE: IGNORE ME

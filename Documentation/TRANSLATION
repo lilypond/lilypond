@@ -15,8 +15,11 @@ TRANSLATION DETAILED INSTRUCTIONS
 CHECK STATE OF TRANSLATION
 UPDATE A TRANSLATION
 POLICY DURING GDP PROCESS
-MANAGING TRANSLATIONS ON GIT
+MANAGING TRANSLATIONS WITH GIT
+SOME GIT TIPS
 DEALING WITH SEVERAL GIT BRANCHES
+GIT PUSH ACCESS
+TECHNICAL BACKGROUND
 
 
 SOURCES
@@ -108,63 +111,63 @@ Files marked with priority 3, 4 or 5 may be submitted individually.
 Word counts (excluding lilypond snippets) are given for each file.
 
 -1- Documentation index and Tutorial
-396   user/lilypond-learning.tely
-5593  user/tutorial.itely
+412   user/lilypond-learning.tely
+5652  user/tutorial.itely
 23    user/dedication.itely
-100   user/macros.itexi
-216   index.html.in
-2022  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
-8250  total
+378   user/macros.itexi
+218   index.html.in
+3457  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
+10140 total
 
 -2- Introduction and beginning of Application Usage
 411   user/preface.itely
-3198  user/introduction.itely
-374   user/lilypond-program.tely
-1477  user/install.itely (partial translation)
+3704  user/introduction.itely
+390   user/lilypond-program.tely
+1674  user/install.itely (partial translation)
 947   user/setup.itely
-2860  user/running.itely
-9267  total
+2879  user/running.itely
+10005 total
 
 -3- Learning manual
-8626  user/fundamental.itely -- Fundamental concepts
-12134 user/tweaks.itely -- Tweaking output
-2985  user/working.itely -- Working on LilyPond files
+9800  user/fundamental.itely -- Fundamental concepts
+12228 user/tweaks.itely -- Tweaking output
+3005  user/working.itely -- Working on LilyPond files
 483   user/templates.itely -- Templates
-24228 total
+25516 total
 
 -4- Notation reference
-539   user/lilypond.tely
+544   user/lilypond.tely
 91    user/notation.itely -- Musical notation
-2808  user/pitches.itely
-7336  user/rhythms.itely
-1681  user/expressive.itely
-725   user/repeats.itely
-916   user/simultaneous.itely
-1861  user/staff.itely
-879   user/editorial.itely
-2336  user/text.itely
-54    user/specialist.itely -- Specialist notation
-2630  user/vocal.itely
-1275  user/chords.itely
+2822  user/pitches.itely
+6591  user/rhythms.itely
+944   user/expressive.itely
+976   user/repeats.itely
+1078  user/simultaneous.itely
+2310  user/staff.itely
+827   user/editorial.itely
+1851  user/text.itely
+68    user/specialist.itely -- Specialist notation
+2745  user/vocal.itely
+1530  user/chords.itely
 702   user/piano.itely
-481   user/percussion.itely
+546   user/percussion.itely
 826   user/guitar.itely
 66    user/strings.itely
 242   user/bagpipes.itely
-4289  user/ancient.itely
-2458  user/input.itely -- Input syntax
+3474  user/ancient.itely
+4971  user/input.itely -- Input syntax
 2164  user/non-music.itely -- Non-musical notation
-8399  user/spacing.itely -- Spacing issues
-5149  user/changing-defaults.itely -- Changing defaults
-4547  user/programming-interface.itely -- Interfaces for programmers
-935   user/notation-appendices.itely -- Notation manual tables
+8400  user/spacing.itely -- Spacing issues
+6951  user/changing-defaults.itely -- Changing defaults
+5213  user/programming-interface.itely -- Interfaces for programmers
+894   user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-53639 total
+57076 total
 
 -5- Application usage
-2917  user/lilypond-book.itely -- LilyPond-book
+3175  user/lilypond-book.itely -- LilyPond-book
 975   user/converters.itely -- Converting from other formats
-3892  total
+4150  total
 
 -6- Appendices whose translation is optional
 299   user/literature.itely
@@ -225,7 +228,7 @@ beginning with
 
 @c KEEP LY
 
-Otherwise the music snippet would be reset to the same contents as the
+Otherwise the music snippet would be reset to the same content as the
 English version at next 'make snippet-update' run (see UPDATING A
 TRANSLATION below).
 
@@ -345,7 +348,7 @@ Translation meister runs this command.
 
 Updating music snippets can quickly become cumbersome, as most
 snippets should be identical in all languages.  Fortunately, there is
-a script than can do this odd job for you (run from Documentation):
+a script that can do this odd job for you (run from Documentation):
 
     make ISOLANG=<MY_LANGUAGE> snippet-update
 
@@ -404,11 +407,21 @@ obsolete (sub)subsections in the translation.
 
 Emacs with Texinfo mode makes this step easier:
 
-- C-c C-s shows structure of current Texinfo file in a new buffer
-*Occur*; to show structure of two files simultaneously, first split
-Emacs window in 4 tiles (with C-x 1 and C-x 2), press C-c C-s to
-show structure of one file (e.g. the translated file), copy *Occur*
-contents into *Scratch*, then press C-c C-s for the other file.
+- without Emacs AucTeX installed, C-c C-s shows structure of current
+Texinfo file in a new buffer *Occur*; to show structure of two files 
+simultaneously, first split Emacs window in 4 tiles (with C-x 1 and 
+C-x 2), press C-c C-s to show structure of one file (e.g. the translated
+file), copy *Occur* contents into *Scratch*, then press C-c C-s for the 
+other file.
+If you happen to have installed AucTeX, you can either call the macro
+by doing M-x texinfo-show-structure or create a key binding in your
+~/.emacs, by adding the four following lines:
+	(add-hook 'Texinfo-mode-hook
+		  '(lambda ()
+	     	     (define-key Texinfo-mode-map "\C-cs"
+              	      'texinfo-show-structure)))
+and then obtain the structure in the *Occur* buffer with C-c s
+
 
 - Do not bother updating @menus when all menu entries are in the same
 file ; make sure there is at least a (possibly empty) @menu block
@@ -457,7 +470,7 @@ English are mostly revised once.  However, note that not all
 documentation sectioning has been revised in one go, so all this
 maintenance plan has to be repeated whenever a big reorganization is
 made. Currently (in May 2008), only chapters 3-7 in Notation Reference
-and Application Usage have not be reorganized yet.
+and Application Usage have not been reorganized yet.
 
 - This just makes translated documentation take advantage of the new
 organization, which is far better than the old one.
@@ -476,7 +489,7 @@ step 3) in all languages when documentation is compiled with
 texi2html and node names are directly translated in source files.
 
 
-MANAGING TRANSLATIONS ON GIT
+MANAGING TRANSLATIONS WITH GIT
 
 This policy explains how to manage Git branches and commit
 translations to Git.
@@ -504,6 +517,20 @@ first.  General maintenance include simple text substitutions
 lilypond-book commands, updating macros, updating ly code, fixing
 cross-references, and operations described in 'POLICY DURING GDP
 PROCESS'.
+
+
+SOME GIT TIPS
+
+* Saving uncommited changes in the working tree:
+
+    git diff > foo.diff
+
+This does not save untracked or ignored files.  If you prefer to
+include changes added to the index with 'git add', replace 'git diff'
+with 'git diff HEAD'.
+Then, you may try to apply foo.diff on a source tree with
+
+    patch -p1 < foo.diff
 
 
 DEALING WITH SEVERAL GIT BRANCHES
@@ -542,7 +569,7 @@ branch BRANCH.
 Note that it is possible to check out another branch while having
 uncommitted changes, but it is not recommended unless you know what
 you are doing; it is recommended to run 'git status' to check this
-kind of issue before checking ouy another branch.
+kind of issue before checking out another branch.
 
 When pulling using SHORTHAND, do not forget to check first that the
 right branch is checked out, i.e. the branch named A in the first part
@@ -596,6 +623,30 @@ subrepository by default; it is possible to have several branches in a
 subrepository and do usual operations (checkout, merge, create,
 delete...) on these branches, but this possibility is not detailed
 here.
+
+Note that when you push BRANCH from SUBDIR to the main repository,
+and BRANCH is checked out in the main repository, you must save
+uncommitted changes (see SOME GIT TIPS) and do 'git reset --hard' in
+the main repository in order to apply pushed changes in the working
+tree of the main repository.
+
+
+GIT PUSH ACCESS
+
+If you have permission to push to Git with login USER, please start a
+new Git repository from scratch to avoid polluting history with
+duplicate commits; follow the usual instructions, except that every
+file you write in .git/remotes should contain instead
+
+URL: ssh://USER@git.sv.gnu.org/srv/git/lilypond.git
+Push: BRANCH:refs/heads/BRANCH
+Pull: BRANCH:refs/remotes/origin/BRANCH
+
+Then, you can use .git/remotes/NAME to push BRANCH with
+
+    git push NAME
+
+which works regardless of the branch checked out.
 
 
 TECHNICAL BACKGROUND

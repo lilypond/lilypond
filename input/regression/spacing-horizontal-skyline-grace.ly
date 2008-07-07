@@ -6,7 +6,7 @@ and the barline do not collide."
 
 }
 
-\version "2.11.13"
+\version "2.11.51"
 
 \paper
 {

@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 024932c39052e559d3541b0844660c7c9b988d5f
+    Translation of GIT committish: f5faa0ee5b0bcad6a22d4e7f7267b0f542b8a7a5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Simultaneous notes
 @section Simultaneous notes
@@ -18,21 +18,23 @@ pieza cualquiera de música.  En LilyPond la polifonía hace referencia
 a tener más de una voz en el mismo pentagrama.
 
 @menu
-* Single voice::                
-* Multiple voices::             
+* Single voice::
+* Multiple voices::
 @end menu
-
 
 @node Single voice
 @subsection Single voice
 
+Esta sección trata de la notas simultáneas dentro de la misma voz.
+
 @menu
-* Chorded notes::                      
-* Clusters::                    
+* Chorded notes::
+* Parallel notes::
+* Clusters::
 @end menu
 
 @node Chorded notes
-@subsubsection Chorded notes
+@unnumberedsubsubsec Chorded notes
 
 @cindex acordes
 @cindex paréntesis en ángulo
@@ -44,11 +46,12 @@ Un acorde se forma encerrando un conjunto de notas entre @code{<} y
 @code{>}.  Un acorde puede ir seguido de una duración o un conjunto de
 articulaciones, como si fueran simples notas.
 
-@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+@lilypond[verbatim,quote,relative=1]
 <c e g>2 <c f a>4-> <e g c>-.
 @end lilypond
 
-Para ver más información sobre los acordes, consulte @ref{Modern chords}.
+Para ver más información sobre los acordes, consulte @ref{Chord
+notation}.
 
 @seealso
 
@@ -59,31 +62,51 @@ Manual de aprendizaje:
 @rlearning{Combining notes into chords}.
 
 Referencia de la notación:
-@ref{Modern chords}.
+@ref{Chord notation}.
+
+Fragmentos de código:
+@rlsr{Simultaneous notes}.
+
+@node Parallel notes
+@unnumberedsubsubsec Parallel notes
+
+Se pueden combinar pasajes musicales en un solo contexto de voz,
+formando así acordes si los dos pasajes tienen las mismas nuraciones
+en todas las notas.  Para conseguirlo, enciérrelos dentro de una
+construcción de música simultánea:
+
+@lilypond[quote,relative=2,verbatim]
+\new Voice <<
+  { e4 f8 d e16 f g8 d4 }
+  { c4 d8 b c16 d e8 b4 }
+>>
+@end lilypond
+
+@seealso
+
+Manual de aprendizaje:
+@rlearning{Voices contain music}.
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 @knownissues
 
-Por algún motivo, expresiones musicales como @code{<< @{ g8 e8 @} a4
->>}, que se deberían convertir en acordes, aparecen en dos pentagramas
-separados.  Para evitarlo emplee acordes explícitos como en
-@code{<g a>8 <e a>8}.
-
-
+Este método produce barras extrañas y advertencias si las notas de los
+dos pasajes no tienen las mismas duraciones.
 
 @node Clusters
-@subsubsection Clusters
+@unnumberedsubsubsec Clusters
 
 @cindex cluster
 @cindex racimo (cluster)
+@funindex \makeClusters
 
 Un «cluster» o racimo indica que se deben tocar simultáneamente un
 conjunto de notas consecutivas.  Se escriben aplicando la función
 @code{\makeClusters} a una secuencia de acordes, p.ej.:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+@lilypond[quote,relative=2,verbatim]
 \makeClusters { <g b>2 <c g'> }
 @end lilypond
 
@@ -104,8 +127,6 @@ Referencia de funcionamiento interno:
 @rinternals{ClusterSpannerBeacon},
 @rinternals{Cluster_spanner_engraver}.
 
-@c Examples: @rlsr{contemporary,cluster@/.ly}.
-
 @knownissues
 
 Los clusters sólo tienen un buen aspecto cuando abarcan un mínimo de
@@ -118,14 +139,17 @@ separación entre ellos.
 @node Multiple voices
 @subsection Multiple voices
 
+Esta sección trata las notas simultáneas en varias voces o varios pentagramas.
+
 @menu
-* Collision resolution::        
-* Automatic part combining::    
-* Writing music in parallel::   
+* Collision resolution::
+* Voice styles::
+* Automatic part combining::
+* Writing music in parallel::
 @end menu
 
 @node Collision resolution
-@subsubsection Collision resolution
+@unnumberedsubsubsec Collision resolution
 
 @cindex mezclar notas
 @cindex notas, colisiones de
@@ -163,7 +187,7 @@ de blancas con negras:
 @lilypond[quote,verbatim,relative=2]
 <<
   {
-    \override Staff.NoteCollision #'merge-differently-headed = ##t
+    \mergeDifferentlyHeadedOn
     c8 d e d c d c4
     g'2 fis
   } \\ {
@@ -182,8 +206,8 @@ Se pueden combinar cabezas con puntillos diferentes:
 @lilypond[quote,relative=2,verbatim]
 <<
   {
-    \override Staff.NoteCollision #'merge-differently-headed = ##t
-    \override Staff.NoteCollision #'merge-differently-dotted = ##t
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
     c8 d e d c d c4
     g'2 fis
   } \\ {
@@ -212,8 +236,8 @@ mover el sol agudo fuera de la columna, y entonces
 @lilypond[quote,relative=2,verbatim]
 <<
   {
-    \override Staff.NoteCollision #'merge-differently-headed = ##t
-    \override Staff.NoteCollision #'merge-differently-dotted = ##t
+    \mergeDifferentlyHeadedOn
+    \mergeDifferentlyDottedOn
     c8 d e d c d c4
     \shiftOn
     g'2 fis
@@ -229,6 +253,14 @@ mover el sol agudo fuera de la columna, y entonces
 >>
 @end lilypond
 
+Las instrucciones @code{\shiftOn}, @code{\shiftOnn} y
+@code{\shiftOnnn} especifican el grado en que se deben desplazar los
+acordes de la voz en curso.  Las voces exteriores (normalmente: la voz
+uno y la voz dos) tienen @code{\shiftOff} (desplazamiento
+desactivado), mientras que las voces interiores (tres y cuatro) tienen
+@code{\shiftOn} (desplazamiento activado).  @code{\shiftOnn} y
+@code{\shiftOnnn} definen niveles de desplazamiento más grandes.
+
 Sólo se combinan las notas si tienen la plica en direcciones opuestas
 (o sea en las @code{Voice}s 1 y 2).
 
@@ -236,24 +268,16 @@ Sólo se combinan las notas si tienen la plica en direcciones opuestas
 @cindex polyphonic music
 @cindex shifting voices
 
-En ciertos casos de polifonía compleja, podría necesitar voces
-adicionales para evitar colisiones entre las notas.  Las voces
-adicionales se añaden definiendo una variable, como se muestra a
-continuación:
-
-@lilypond[quote,verbatim]
-voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
-\relative c'''
-<<
-  { \voiceOne g2. ~ \stemDown g32[ f( es d c b a b64) g] } \\
-  { \voiceThree b4 } \\
-  { \voiceFive d,  } \\
-  { \voiceTwo g,   }
->>
-@end lilypond
-
-
 @predefined
+
+@funindex \mergeDifferentlyDottedOn
+@code{\mergeDifferentlyDottedOn},
+@funindex \mergeDifferentlyDottedOff
+@code{\mergeDifferentlyDottedOff},
+@funindex \mergeDifferentlyHeadedOn
+@code{\mergeDifferentlyHeadedOn},
+@funindex \mergeDifferentlyHeadedOff
+@code{\mergeDifferentlyHeadedOff}.
 
 @funindex \oneVoice
 @code{\oneVoice},
@@ -266,19 +290,6 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @funindex \voiceFour
 @code{\voiceFour}.
 
-@funindex \voiceNeutralStyle
-@funindex \voiceOneStyle
-@funindex \voiceTwoStyle
-@funindex \voiceThreeStyle
-@funindex \voiceFourStyle
-@example
-\voiceNeutralStyle
-\voiceOneStyle
-\voiceTwoStyle
-\voiceThreeStyle
-\voiceFourStyle
-@end example
-
 @funindex \shiftOn
 @code{\shiftOn},
 @funindex \shiftOnn
@@ -286,30 +297,15 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @funindex \shiftOnnn
 @code{\shiftOnnn},
 @funindex \shiftOff
-@code{\shiftOff}: estos comandos especifican el grado en que se deben
-desplazar los acordes de la voz en curso.  Las voces exteriores
-(normalmente: la voz uno y la voz dos) tienen @code{\shiftOff}
-(desplazamiento desactivado), mientras que las voces interiores (tres
-y cuatro) tienen @code{\shiftOn} (desplazamiento activado).
-@code{\shiftOnn} y @code{\shiftOnnn} definen niveles de desplazamiento
-más grandes.
+@code{\shiftOff}.
 
-Cuando LilyPond no puede con todo, se pueden usar la propiedad
-@code{force-hshift} (forzar desplazamiento horizontal) del objeto
-@code{NoteColumn} y los silencios con altura para sobreescribir las
-decisiones de composición tipográfica.
+@snippets
 
-@lilypond[quote,verbatim,relative=1]
-<<
-  { <d g>2
-    <d g>  }
-  \\
-  { <b f'>2
-    \once \override NoteColumn #'force-hshift = #1.7
-    <b f'> }
->>
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{additional-voices-to-avoid-collisions.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{forcing-horizontal-shift-of-notes.ly}
 
 @seealso
 
@@ -325,11 +321,9 @@ Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
 Referencia de funcionamiento interno:
-@rinternals{NoteColumn}.
-Los objetos responsables de la resolución de colisiones son
-@rinternals{NoteCollision} y
+@rinternals{NoteColumn},
+@rinternals{NoteCollision},
 @rinternals{RestCollision}.
-
 
 @knownissues
 
@@ -339,6 +333,7 @@ plica hacia abajo, la corchea recibe un desplazamiento ligeramente
 incorrecto a causa de la anchura diferente del símbolo de la cabeza de
 la blanca.
 
+@c investigate! Sometimes it works, sometimes not. --FV
 No está claro en qué circunstancias se pueden combinar cabezas de nota
 distintas que tienen también distinto puntillo.
 
@@ -347,13 +342,62 @@ presenta con diferentes alteraciones accidentales dentro del mismo
 acorde.  En este caso se recomienda usar la transcripción enarmónica,
 o usar la notación especial de racimos (véase @ref{Clusters}).
 
+@node Voice styles
+@unnumberedsubsubsec Voice styles
+
+@cindex voice styles
+@cindex styles, voice
+@cindex coloring voices
+
+Se pueden aplicar colores y formas distintos a las voces para permitir
+identificarlas fácilmente:
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  {
+    a1
+    \voiceOneStyle
+    f2 g
+    \voiceNeutralStyle
+    a1
+  } \\ {
+    f1
+    \voiceTwoStyle
+    f4 f2 e4
+    \voiceNeutralStyle
+    f1
+  }
+>>
+@end lilypond
+
+@predefined
+
+@funindex \voiceOneStyle
+@code{\voiceOneStyle},
+@funindex \voiceTwoStyle
+@code{\voiceTwoStyle},
+@funindex \voiceThreeStyle
+@code{\voiceThreeStyle},
+@funindex \voiceFourStyle
+@code{\voiceFourStyle},
+@funindex \voiceNeutralStyle
+@code{\voiceNeutralStyle}.
+
+@seealso
+
+Manual de aprendizaje:
+@rlearning{I'm hearing Voices}.
+
+Fragmentos de código:
+@rlsr{Simultaneous notes}.
 
 @node Automatic part combining
-@subsubsection Automatic part combining
+@unnumberedsubsubsec Automatic part combining
 
 @cindex automática, combinación de partes
 @cindex partes, combinación automática
 @cindex partes, combinador de
+@funindex \partcombine
 
 La combinación automática de particellas se usa para mezclar dos
 partes musicales sobre un pentagrama.  Tiene como objetivo el
@@ -361,15 +405,14 @@ tipografiado de partituras orquestales.  Cuando las dos partes son
 idénticas durante un período de tiempo, sólo se presenta una de ellas.
 En los lugares en que las dos partes son diferentes, se tipografían
 como voces separadas, y las direcciones de las plicas se establecen de
-forma automática.  También las partes de solo y @emph{a due} quedan
-identificadas y es posible marcarlas.
+forma automática.  También las partes de solo y @notation{a due}
+quedan identificadas y es posible marcarlas.
 
 La sintaxis para la combinación de las partes es:
 
 @example
 \partcombine @var{expresión_musical_1} @var{expresión_musical_2}
 @end example
-
 
 El ejemplo siguiente ejemplifica la funcionalidad básica del
 combinador de partes: poner las partes en un solo pentagrama, y
@@ -455,7 +498,6 @@ Es posible modificar los textos que se imprimen:
 >>
 @end lilypond
 
-
 @seealso
 
 Glosario musical:
@@ -467,7 +509,6 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
-
 
 Referencia de funcionamiento interno:
 @rinternals{PartCombineMusic},
@@ -489,12 +530,13 @@ cuándo se pueden combinar las partes.  Como consecuencia, si los
 argumentos cambian a contextos de @rinternals{Voice} con nombres
 diferentes, los eventos que contienen se ignorarán.
 
+@c IIRC in users list someone pointed out more issues. TODO: lookup FV
 
 @node Writing music in parallel
-@subsubsection Writing music in parallel
+@unnumberedsubsubsec Writing music in parallel
 
-@cindex Escribir música en paralelo
-@cindex Música intercalada
+@cindex escribir música en paralelo
+@cindex música intercalada
 @funindex parallelMusic
 
 La música para varias partes se puede intercalar dentro del código de
@@ -573,22 +615,24 @@ global = {
 }
 
 \score {
-\new PianoStaff <<
- \new Staff {
-   \global
-   <<
-     \relative c'' \voiceA \\
-     \relative c'  \voiceB
-   >>
- }
- \new Staff {
-   \global \clef bass
-   <<
-     \relative c \voiceC \\
-     \relative c \voiceD
-   >>
- }
->>
+  \new PianoStaff <<
+     \new Staff {
+       \global
+       <<
+         \relative c'' \voiceA
+         \\
+         \relative c'  \voiceB
+       >>
+     }
+     \new Staff {
+       \global \clef bass
+       <<
+         \relative c \voiceC
+         \\
+         \relative c \voiceD
+       >>
+     }
+  >>
 }
 @end lilypond
 
