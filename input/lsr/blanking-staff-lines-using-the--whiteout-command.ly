@@ -5,6 +5,16 @@
 \header {
   lsrtags = "editorial-annotations, text"
 
+  texidoces = "
+La instrucción @code{\whiteout} intercala un rectángulo blanco
+debajo de un elemento de marcado.  Este rectángulo blanco no tapa
+a ningún otro objeto gráfico, puesto que las líneas del pentagrama
+están en una capa inferior a la de la mayor parte de los otros
+objetos.
+
+"
+  doctitlees = "Poner en blanco las líneas del pentagrama utilizando la instrucción \whiteout"
+
   texidoc = "
 The @code{\\whiteout} command underlays a markup with a white box. 
 Since staff lines are in a lower layer than most other grobs, this

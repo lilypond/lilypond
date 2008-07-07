@@ -5,6 +5,15 @@
 \header {
   lsrtags = "text, vocal-music, contexts-and-engravers, template"
 
+  texidoces = "
+Esta plantilla es, básicamente, la misma que la sencilla plantilla
+\"Conjunto vocal\", excepto que aquí todas las líneas de letra se
+colocan utilizando @code{alignAboveContext} y
+@code{alignBelowContext}.
+
+"
+  doctitlees = "Plantilla para conjunto vocal con letras alineadas encima y debajo de los pentagramas"
+
   texidoc = "
 This template is basically the same as the simple \"Vocal ensemble\"
 template, with the exception that here all the lyrics lines are placed

@@ -5,6 +5,13 @@
 \header {
   lsrtags = "expressive-marks, unfretted-strings"
 
+  texidoces = "
+Para hacer más pequeño el círculo de @code{\flageolet} (armónico)
+utilice la siguiente función de Scheme.
+
+"
+  doctitlees = "Cambiar el tamaño de la marca de \flageolet"
+
   texidoc = "
 To make the @code{\\flageolet} circle smaller use the following Scheme
 function. 

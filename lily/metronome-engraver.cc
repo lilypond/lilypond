@@ -47,6 +47,7 @@ Metronome_mark_engraver::Metronome_mark_engraver ()
   text_ = 0;
   last_duration_ = SCM_EOL;
   last_count_ = SCM_EOL;
+  last_text_ = SCM_EOL;
 }
 
 void

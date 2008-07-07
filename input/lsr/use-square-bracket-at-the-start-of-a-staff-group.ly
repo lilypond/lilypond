@@ -5,6 +5,14 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers"
 
+  texidoces = "
+Se puede usar el delimitador de comienzo de un sistema
+@code{SystemStartSquare} estableciéndolo explícitamente dentro de
+un contexto @code{StaffGroup} o @code{ChoirStaffGroup}.
+
+"
+  doctitlees = "Uso del corchete recto al comienzo de un grupo de pentagramas"
+
   texidoc = "
 The system start delimiter @code{SystemStartSquare} can be used by
 setting it explicitly in a @code{StaffGroup} or @code{ChoirStaffGroup}

@@ -5,6 +5,13 @@
 \header {
   lsrtags = "editorial-annotations, text"
 
+  texidoces = "
+Se puede insertar códico PostScript directamente dentro de un
+bloque @code{\markup}.
+
+"
+  doctitlees = "Empotrar PostScript nativo dentro de un bloque \markup"
+
   texidoc = "
 PostScript code can be directly inserted inside a @code{\\markup}
 block. 

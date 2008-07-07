@@ -5,6 +5,13 @@
 \header {
   lsrtags = "chords"
 
+  texidoces = "
+Se puede establecer el separador entre las distintas partes del
+nombre de un acorde para que sea cualquier elemento de marcado.
+
+"
+  doctitlees = "Modificación del separador de acordes"
+
   texidoc = "
 The separator between different parts of a chord name can be set to any
 markup.

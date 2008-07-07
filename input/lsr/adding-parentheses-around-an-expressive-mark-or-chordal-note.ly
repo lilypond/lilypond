@@ -5,6 +5,14 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+La función @code{\parenthesize} es un truco especial que encierra
+objetos entre paréntesis.  El grob asociado es
+@code{Score.ParenthesesItem}.
+
+"
+  doctitlees = "Encerrar entre paréntesis una marca expresiva o una nota de un acorde"
+
   texidoc = "
 The @code{\\parenthesize} function is a special tweak that encloses
 objects in parentheses.  The associated grob is

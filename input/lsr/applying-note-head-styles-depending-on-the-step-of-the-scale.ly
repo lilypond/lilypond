@@ -6,8 +6,8 @@
   lsrtags = "pitches, editorial-annotations"
 
   doctitle = "Applying note head styles depending on the step of the scale"
-
-  texidoc = "
+  doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
+  texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
 estilos de cabezas de nota para cada grado de la escala (según esté
 establecido por la armadura o por la propiedad \"tonic\"). Esta
@@ -28,8 +28,6 @@ correspondencia entre las funciones armónicas y los estilos de cabezas
 de nota.
 
 "
-
-
 
   texidoc = "
 The @code{shapeNoteStyles} property can be used to define various note

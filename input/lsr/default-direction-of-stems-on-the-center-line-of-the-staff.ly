@@ -5,6 +5,14 @@
 \header {
   lsrtags = "editorial-annotations"
 
+  texidoces = "
+La dirección predeterminada de las plicas sobre la tercera línea
+del pentagrama está determinada por la propiedad
+@code{neutral-direction} del objeto @code{Stem}.
+
+"
+  doctitlees = "Dirección predeterminada de las plicas sobre la tercera línea del pentagrama"
+
   texidoc = "
 The default direction of stems on the center line of the staff is set
 by the @code{Stem} property @code{neutral-direction}.

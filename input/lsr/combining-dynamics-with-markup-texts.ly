@@ -5,6 +5,14 @@
 \header {
   lsrtags = "expressive-marks, text"
 
+  texidoces = "
+Ciertas indicaciones dinámicas pueden llevar textos (como \"più
+forte\" o \"piano subito\"). Se pueden producir usando un
+bloque @code{\markup}.
+
+"
+  doctitlees = "Combinar indicaciones dinámicas con marcados textuales"
+
   texidoc = "
 Some dynamics may involve text indications (such as \"più forte\" or
 \"piano subito\"). They can be produced using a @code{\\markup} block.

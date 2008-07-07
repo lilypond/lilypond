@@ -2,6 +2,15 @@
 %% This file is in the public domain.
 \version "2.11.51"
 \header {
+  texidoces = "
+Si la nota que da fin a un regulador cae sobre la primera parte de
+un compás, el regulador se detiene en la línea divisoria
+inmediatamente precedente.  Se puede controlar este comportamiento
+sobreescribiendo la propiedad @code{to-barline}.
+
+"
+  doctitlees = "Establecer el comportamiento de los reguladores en las barras de compás"
+
   lsrtags = "expressive-marks"
   texidoc = "If the note which ends a hairpin falls on a downbeat,
 the hairpin stops at the bar line immediately preceding.  This behavior

@@ -5,6 +5,17 @@
 \header {
   lsrtags = "staff-notation, ancient-notation, contexts-and-engravers, tweaks-and-overrides"
 
+  texidoces = "
+La disposición «mensurstriche» en que las líneas divisorias no
+están dibujadas sobre los pentagramas, sino entre ellos, se puede
+conseguir con un @code{StaffGroup} en vez de un @code{ChoirStaff}.
+La línea divisoria sobre los pentagramas se borra estableciendo la
+propiedad @code{transparent}.
+
+"
+
+  doctitlees = "Disposición Mensurstriche (líneas divisorias entre pentagramas)"
+
   texidoc = "
 The mensurstriche-layout where the bar lines do not show on the staves
 but between staves can be achieved with a @code{StaffGroup} instead of

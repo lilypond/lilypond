@@ -5,6 +5,14 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+Dentro de un @code{PianoStaff}, es posible hacer que un arpegio
+cruce entre los pentagramas ajustando la propiedad
+@code{PianoStaff.connectArpeggios}.
+ 
+"
+  doctitlees = "Crear arpegios que se cruzan entre pentagramas dentro de un sistema de piano"
+
   texidoc = "
 In a @code{PianoStaff}, it is possible to let an arpeggio cross between
 the staves by setting the property @code{PianoStaff.connectArpeggios}.

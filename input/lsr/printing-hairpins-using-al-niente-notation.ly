@@ -5,6 +5,14 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+Se pueden imprimir reguladores con un círculo en la punta
+(notación «al niente») estableciendo la propiedad
+@code{circled-tip} del objeto @code{Hairpin} al valor @code{#t}.
+
+"
+  doctitlees = "Impresión de reguladores utilizando la notación «al niente»"
+
   texidoc = "
 Hairpins may be printed with a circled tip (al niente notation) by
 setting the @code{circled-tip} property of the @code{Hairpin} object to

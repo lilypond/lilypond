@@ -5,6 +5,14 @@
 \header {
   lsrtags = "chords, template"
 
+  texidoces = "
+¿Quiere preparar una hoja guía de acordes (o «lead sheet») con
+melodía y acordes?  ¡No busque más!
+
+"
+
+doctitlees = "Plantilla de pentagrama único con música y acordes"
+
   texidoc = "
 Want to prepare a lead sheet with a melody and chords? Look no further!
 

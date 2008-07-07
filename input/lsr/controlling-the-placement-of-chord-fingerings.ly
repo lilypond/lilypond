@@ -5,6 +5,12 @@
 \header {
   lsrtags = "editorial-annotations, chords, keyboards"
 
+  texidoces = "
+Se puede controlar con precisión la colocación de los números de digitación.
+
+"
+  doctitlees = "Controlar la colocación de las digitaciones de acordes"
+
   texidoc = "
 The placement of fingering numbers can be controlled precisely.
 

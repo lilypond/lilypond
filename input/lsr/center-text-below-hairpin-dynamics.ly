@@ -5,6 +5,15 @@
 \header {
   lsrtags = "expressive-marks, text"
 
+  texidoces = "
+Este ejemplo proporciona una función para tipografiar un regulador
+con texto por debajo, como \"molto\" o \"poco\". El ejemplo
+ilustra también cómo modificar la manera en que se imprime
+normalmente un objeto, utilizando código de Scheme.
+
+"
+  doctitlees = "Centrar texto debajo de un regulador"
+
   texidoc = "
 This example provides a function to typeset a hairpin (de)crescendo
 with some additional text below it, such as \"molto\" or \"poco\". The

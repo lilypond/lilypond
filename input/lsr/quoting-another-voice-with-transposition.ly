@@ -2,6 +2,17 @@
 %% This file is in the public domain.
 \version "2.11.51"
 \header {
+  texidoces = "Los pasajes citados tienen en cuenta la
+transposición de la fuente tanto como la del destino.  En este
+ejemplo, todos los instrumentos interpreta una nota con el sonido
+del Do central; el destino de un instrumento transpositor en Fa.
+La parte de destino se puede transponer utilizando
+@code{\transpose}.  En este caso se transportan todas las notas
+(incluidas las citadas).
+
+"
+
+doctitlees = "Citar otra voz con transposición"
   lsrtags = "pitches,staff-notation"
   texidoc = "Quotations take into account the transposition of both
 source and target.  In this example, all instruments play sounding

@@ -5,6 +5,15 @@
 \header {
   lsrtags = "expressive-marks, tweaks-and-overrides"
 
+  texidoces = "
+A veces se denota una «cesura» con una doble marca de respiración
+parecida a las vías del tren, con un calderón encima. Este
+fragmento de código presenta una combinación de estas dos marcas,
+visualmente satisfactoria.
+
+"
+  doctitlees = "Cesura tipo \"vías del tren\" con calderón"
+
   texidoc = "
 A caesura is sometimes denoted with a double \"railtracks\" breath mark
 with a fermata sign positioned above. This snippet should present an

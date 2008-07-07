@@ -5,6 +5,13 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+Se puede tipografiar un gissando contemporáneo sin nota final
+utilizando una nota oculta y temporalización de cadenza.
+
+"
+  doctitlees = "Glissando contemporáneo"
+
   texidoc = "
 A contemporary glissando without a final note can be typeset using a
 hidden note and cadenza timing.

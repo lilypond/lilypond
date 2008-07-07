@@ -96,13 +96,15 @@ Side_position_interface::general_side_position (Grob *me, Axis a, bool use_exten
 	continue;
       
       if (e)
-	if (use_extents)
-	  dim.unite (e->maybe_pure_extent (common, a, pure, start, end));
-	else
-	  {
-	    Real x = e->maybe_pure_coordinate (common, a, pure, start, end);
-	    dim.unite (Interval (x, x));
-	  }
+	{
+	  if (use_extents)
+	    dim.unite (e->maybe_pure_extent (common, a, pure, start, end));
+	  else
+	    {
+	      Real x = e->maybe_pure_coordinate (common, a, pure, start, end);
+	      dim.unite (Interval (x, x));
+	    }
+	}
     }
 
   if (dim.is_empty ())
@@ -267,7 +269,7 @@ Side_position_interface::aligned_side (Grob *me, Axis a, bool pure, int start, i
 	{
 	  Interval iv = me->maybe_pure_extent (me, a, pure, start, end);
 	  
-	  Real padding
+ 	  Real padding
 	    = Staff_symbol_referencer::staff_space (me)
 	    * scm_to_double (me->get_property ("staff-padding"));
 

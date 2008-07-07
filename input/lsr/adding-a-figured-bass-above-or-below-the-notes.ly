@@ -5,6 +5,22 @@
 \header {
   lsrtags = "chords, ancient-notation, contexts-and-engravers"
 
+  texidoces = "
+Al escribir un bajo cifrado, existe una forma de especificar si
+queremos que las cifras se sitúen encima o debajo de las notas del
+bajo, mediante la definición de la propiedad
+@code{BassFigureAlignmentPositioning #'direction} (exclusivamente
+dentro de un contexto @code{Staff}). Se puede elegir entre
+@code{#UP} (o @code{#1}, arriba), @code{#CENTER} (o @code{#0},
+centrado) y @code{#DOWN} (o @code{#-1}, abajo).
+
+Como podemos ver, esta propiedad se puede cambiar tantas veces
+como queramos. Utilice @code{\once \override} si no quiere que el
+truco se aplique a toda la partitura.
+
+"
+  doctitlees = "Añadir un bajo cifrado encima o debajo de las notas"
+
   texidoc = "
 When writing a figured bass, here's a way to specify if you want your
 figures to be placed above or below the bass notes, by defining the

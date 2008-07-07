@@ -5,6 +5,13 @@
 \header {
   lsrtags = "chords"
 
+  texidoces = "
+Se pueden imprimir los acordes exclusivamente al comienzo de las
+líneas y cuando cambia el acorde.
+
+"
+  doctitlees = "Imprimir los acordes cuando se produce un cambio"
+
   texidoc = "
 Chord names can be displayed only at the start of lines and when the
 chord changes.
