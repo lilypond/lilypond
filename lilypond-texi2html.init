@@ -258,7 +258,7 @@ sub print_lilypond_page_foot($)
 {
   my $fh = shift;
   my $program_string = &$program_string();
-  print $fh "<p><font size="-1">$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
+  print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
   
   # Print the TOC frame:
   my @lines = @this_page_toc;
