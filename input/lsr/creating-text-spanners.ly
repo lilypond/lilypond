@@ -5,6 +5,16 @@
 \header {
   lsrtags = "expressive-marks, text, tweaks-and-overrides"
 
+  texidoces = "
+Las instrucciones @code{\startTextSpan} y @code{\stopTextSpan}
+permiten la creación de elementos de extensión textuales tan
+fácilmente como indicaciones de pedal u
+octavaciones. Sobreescribimos ciertas propiedades del objeto
+@code{TextSpanner} para modificar su salida.
+
+"
+  doctitlees = "Crear elementos de extensión textuales"
+
   texidoc = "
 The @code{\\startTextSpan} and @code{\\stopTextSpan} commands allow the
 creation of text spanners as easily as pedal indications or

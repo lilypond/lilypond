@@ -30,5 +30,5 @@ modify what material they cover.
   \time 4/4
   \times 4/5 { c4 c1 }
   \time 3/4
-  c4
+  c2.
 }

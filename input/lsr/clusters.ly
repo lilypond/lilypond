@@ -5,6 +5,13 @@
 \header {
   lsrtags = "simultaneous-notes, chords, keyboards"
 
+  texidoces = "
+Los «clusters» o racimos son un mecanismo para indicar la
+interpretación de un ámbito de notas al mismo tiempo.
+
+"
+  doctitlees = "Clusters («racimos»)"
+
   texidoc = "
 Clusters are a device to denote that a complete range of notes is to be
 played.

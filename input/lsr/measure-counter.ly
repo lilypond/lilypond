@@ -5,6 +5,14 @@
 \header {
   lsrtags = "repeats, staff-notation, editorial-annotations"
 
+  texidoces = "
+Este fragmento de código proporciona una solución alternativa a la
+producción de contadores de compás utilizando repeticiones
+transparentes de tipo porcentaje.
+
+"
+  doctitlees = "Contador de compases"
+
   texidoc = "
 This snippet provides an workaround for emitting measure counters using
 transparent percent repeats. 

@@ -10,6 +10,7 @@
 Los silencios se pueden imprimir en distintos estilos.
 
 "
+
   texidoc = "
 Rests may be used in various styles.
 

@@ -5,6 +5,14 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+Se pueden crear arpegios que se cruzan entre pentagramas dentro de
+contextos distintos a @code{PianoStaff} si se incluye el grabador
+@code{Span_arpeggio_engraver} en el contexto de @code{Score}.
+
+"
+  doctitlees = "Creación de arpegios que se cruzan entre pentagramas dentro de otros contextos"
+
   texidoc = "
 Cross-staff arpeggios can be created in contexts other than
 @code{PianoStaff} if the @code{Span_arpeggio_engraver} is included in

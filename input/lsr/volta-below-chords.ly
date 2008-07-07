@@ -2,6 +2,14 @@
 %% This file is in the public domain.
 \version "2.11.51"
 \header {
+  texidoces = "
+Mediante la adición del grabador @code{Volta_engraver} al
+pentagrama pertinente, se pueden poner los corchetes de primera y
+segunda vez debajo de los acordes.
+
+"
+  doctitlees = "Corchetes de primera y segunda vez debajo de los acordes"
+
   lsrtags = "repeats,staff-notation,chords"
   texidoc = "By adding the @code{Volta_engraver} to the relevant
 staff, volte can be put under chords."

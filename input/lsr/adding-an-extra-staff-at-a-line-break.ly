@@ -5,6 +5,19 @@
 \header {
   lsrtags = "staff-notation, contexts-and-engravers, breaks"
 
+  texidoces = "
+Al añadir un pentagrama nuevo en un salto de línea, por desgracia
+se añade un espacio adicional al final de la línea antes del salto
+(reservado para hacer sitio a un cambio de armadura que de todas
+formas no se va a imprimir). La solución alternativa es añadir un
+ajuste para @code{Staff.explicitKeySignatureVisibility} como se
+muestra en el ejemplo.  En las versiones 2.10 y anteriores,
+también se necesita un ajuste similar para las indicaciones de
+compás (véase el ejemplo).
+
+"
+  doctitlees = "Añadir un pentagrama adicional en un salto de línea"
+
   texidoc = "
 When adding a new staff at a line break, some extra space is
 unfortunately added at the end of the line before the break (to fit in

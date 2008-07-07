@@ -5,6 +5,16 @@
 \header {
   lsrtags = "ancient-notation, template"
 
+  texidoces = "
+Este ejemplo muestra cómo hacer una transcripción moderna de Canto
+Gregoriano. El Canto Gregoriano no tiene compás ni plicas; utiliza
+solamente cabezas de nota de blanca y de negra, y unas marcas
+especiales que indican silencios de distintas longitudes.
+
+"
+
+  doctitlees = "Plantilla para notación de música antigua (transcripción moderna de Canto Gregoriano)"
+
   texidoc = "
 This example demonstrates how to do modern transcription of Gregorian
 music. Gregorian music has no measure, no stems; it uses only half and

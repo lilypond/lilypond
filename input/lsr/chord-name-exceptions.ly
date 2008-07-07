@@ -5,6 +5,14 @@
 \header {
   lsrtags = "chords"
 
+  texidoces = "
+Se puede usar la propiedad @code{chordNameExceptions} para
+almacenar una lista de notaciones espaciales para acordes
+específicos.
+
+"
+  doctitlees = "Excepciones para los nombres de acorde"
+
   texidoc = "
 The property @code{chordNameExceptions} can be used to store a list of
 special notations for specific chords. 

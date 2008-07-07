@@ -5,6 +5,12 @@
 \header {
   lsrtags = "ancient-notation, tweaks-and-overrides"
 
+  texidoces = "
+Se pueden tipografiar «custos» en diferentes estilos.
+
+"
+  doctitlees = "Custos"
+
   texidoc = "
 Custodes may be engraved in various styles.
 

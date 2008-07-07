@@ -5,8 +5,8 @@
 \header {
   lsrtags = "pitches, vocal-music"
 
-  doctitle = "Ámbitos con varias voces"
-  texidoc = "
+  doctitlees = "Ámbitos con varias voces"
+  texidoces = "
 La adición del grabador @code{Ambitus_engraver} al contexto de
 @code{Staff} crea un solo ámbito por pentagrama, incluso en el caso de
 pentagramas con varias voces.

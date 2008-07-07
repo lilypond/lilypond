@@ -5,6 +5,17 @@
 \header {
   lsrtags = "ancient-notation, tweaks-and-overrides"
 
+  texidoces = "
+A modo de alternativa para obtener auténticos «incipit»
+independientes de la partitura principal, se incluyen como
+elemento de marcado en el campo que se usa normalmente para el
+nombre del instrumento. Por el momento, la letra sólo se puede
+añadir como marcado directo. Por desgracia, su espaciado no es
+análogo al de la letra principal.
+
+"
+  doctitlees = "Transcripción de música antigua con incipit"
+
   texidoc = "
 As a workaround to get real incipits which are independent from the
 main score these are included as a markup into the field normally used

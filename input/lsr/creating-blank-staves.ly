@@ -5,6 +5,17 @@
 \header {
   lsrtags = "staff-notation, editorial-annotations, contexts-and-engravers, paper-and-layout"
 
+  texidoces = "
+Para crear pentagramas en blanco, genere compases vacíos y después
+elimine el grabador de números de compás
+@code{Bar_number_engraver} del contexto @code{Score}, y los
+grabadores de la indicación de compás
+@code{Time_signature_engraver}, de la clave @code{Clef_engraver} y
+de los compases @code{Bar_engraver} del contexto de @code{Staff}.
+
+"
+  doctitlees = "Crear pentagramas en blanco"
+
   texidoc = "
 To create blank staves, generate empty measures then remove the
 @code{Bar_number_engraver} from the @code{Score} context, and the

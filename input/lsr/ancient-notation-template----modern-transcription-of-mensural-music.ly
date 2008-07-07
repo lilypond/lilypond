@@ -5,6 +5,20 @@
 \header {
   lsrtags = "ancient-notation, template"
 
+  texidoces = "
+Al transcribir música mensural, es útil un «incipit» al compienzo
+de la pieza para indicar la tonalidad y el tempo
+originales. Aunque los músicos actuales están acostumbrados a las
+barras de compás para reconocer con más facilidad los patrones
+rítmicos, durante el período de la música mensural aún no se
+habíen inventado las líneas divisorias; de hecho, la medida solía
+cambiar a cada pocas notas. Como compromiso, a menudo las líneas
+divisorias se imprimen entre los pentagramas en vez de hacerlo
+encima de ellos.
+
+"
+  doctitlees = "Plantilla de notación de música antigua (transcripción moderna de música mensural)"
+
   texidoc = "
 When transcribing mensural music, an incipit at the beginning of the
 piece is useful to indicate the original key and tempo. While today

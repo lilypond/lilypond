@@ -5,6 +5,14 @@
 \header {
   lsrtags = "vocal-music, chords, template"
 
+  texidoces = "
+Presentamos a continuación un ejemplo de plantilla para una hoja
+guía de acordes con melodía, letra, acordes y diagramas de
+trastes.
+"
+
+  doctitlees = "Plantilla para un pentagrama único con música, letra, acordes y trastes"
+
   texidoc = "
 Here is a simple lead sheet template with melody, lyrics, chords and
 fret diagrams.

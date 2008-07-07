@@ -5,6 +5,13 @@
 \header {
   lsrtags = "editorial-annotations"
 
+  texidoces = "
+Se puede cambiar el aspecto de las líneas de rejilla
+sobreescribiendo algunas de sus propiedades.
+
+"
+  doctitlees = "Líneas de rejilla: modificar su aspecto"
+
   texidoc = "
 The appearance of grid lines can be changed by overriding some of their
 properties.
