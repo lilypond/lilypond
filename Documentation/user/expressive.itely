@@ -239,8 +239,8 @@ Crescendos and decrescendos can be engraved as textual markings
 instead of hairpins.  The built-in commands that enable these text
 modes are @code{\crescTextCresc}, @code{\dimTextDecresc},
 @code{\dimTextDecr}, and @code{\dimTextDim}.  The corresponding
-@code{\crescHairpin}, @code{\setHairpinDim}, and
-@code{\dimHairpin} commands will revert to hairpins again:
+@code{\crescHairpin} and @code{\dimHairpin} commands will revert to
+hairpins again:
 
 @lilypond[verbatim,quote,relative=2]
 c4\< d e f\!
@@ -278,8 +278,6 @@ Vertical positioning of dynamics is handled by
 @code{\dimTextDecresc},
 @funindex \crescHairpin
 @code{\crescHairpin},
-@funindex \setHairpinDim
-@code{\setHairpinDim},
 @funindex \dimHairpin
 @code{\dimHairpin}.
 

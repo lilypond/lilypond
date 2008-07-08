@@ -233,9 +233,9 @@ c2 b4 a g1\espressivo
 @cindex diminuendo
 @funindex \crescTextCresc
 @funindex \dimTextDim
+@funindex \dimTextDecr
 @funindex \dimTextDecresc
 @funindex \crescHairpin
-@funindex \setHairpinDim
 @funindex \dimHairpin
 
 Los @notation{Crescendi} y @notation{decrescendi} se pueden
@@ -243,9 +243,8 @@ tipografiar como marcas textuales en lugar de reguladores.  Las
 instrucciones incorporadaas que activan estos modos de texto son
 @code{\crescTextCresc}, @code{\dimTextDecresc}, @code{\dimTextDecr} y
 @code{\dimTextDim}.  Las instrucciones correspondientes
-@code{\crescHairpin}, @code{\setHairpinDim} y
-@code{\dimHairpin} hacen que vuelvan a aparecer los reguladores
-de nuevo:
+@code{\crescHairpin} y @code{\dimHairpin} hacen que vuelvan a aparecer
+los reguladores de nuevo:
 
 @lilypond[verbatim,quote,relative=2]
 c\< d e f\!
