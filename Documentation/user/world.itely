@@ -23,10 +23,148 @@ FIXME
 FIXME
 
 @menu
-* References for arabic music::  
+* Arabic music notation overview::  
+* Note names ::                 
+* References for Arabic music::  
 @end menu
 
-@node References for arabic music
+ 
+@node Arabic music notation overview
+@unnumberedsubsubsec Arabic music notation overview
+
+@cindex Arabic music
+@cindex medium intervals  
+@cindex maqam 
+@cindex maqams
+
+Arabic music so far has been mainly an oral tradition.  When music
+is transcribed, it is usually in a sketch format, on which
+performers are expected to improvise significantly.  Increasingly,
+Western notation, with a few variations, is adopted in order to
+communicate and preserve Arabic music. 
+
+Some elements of Western musical notation such as the
+transcription of chords or independent parts, are not required to
+typeset the more traditional Arabic pieces.  There are however
+some different issues, such as the need to indicate medium
+intervals that are somewhere between a semi-tone and a tone, in
+addition to the minor and major intervals that are used in Western
+music.  There is also the need to indicate different maqams which
+are more similar to the ancient modes, than modern musical scales,
+in the sense that certain flows, intervals, quality of intervals,
+musical patterns and finalis are part of the maqam, and may
+distinguish two maqams that have the same scale intervals. 
+
+In general, Arabic music notation does not attempt to precisely
+indicate microtonal elements that are present in musical practice.
+The mode, if present, may indicate the quality of intervals,
+including medium intervals. 
+ 
+
+@node Note names 
+@unnumberedsubsubsec Note names
+
+@cindex Arabic note names 
+
+The more traditional Arabic music note names indicate an absolute
+position on an instrument, for example the note name of kardan
+refers to the pitch produced when the first (and highest in pitch)
+open string on a traditional oud is plucked.  This is notated as
+@code{do''}, ie a C note that fits in the treble clef, but the
+actual pitch produced on the oud is equivalent to the middle C on
+a piano if Western tuning is used (since the oud sounds an octave
+lower than notated).  Many of the more familiar Arabic note names
+are associated with maqams for which they serve as the finalis.  
+
+@multitable {Arabic Note Name} {symbol}         
+
+@headitem Arabic Note 
+  @tab symbol
+
+@item yakah  
+  @tab sol 
+
+@item ushairan  
+  @tab la 
+
+@item ajam ushairan  
+  @tab sib 
+
+@item iraq  
+  @tab sisb 
+
+@item rast 
+  @tab do'  
+
+@item dukah  
+  @tab re' 
+
+@item kurd  
+  @tab mib' 
+
+@item sikah 
+  @tab misb' 
+
+@item jaharkah  
+  @tab fa' 
+
+@item hijaz-saba  
+  @tab solb' 
+
+@item nawa  
+  @tab sol' 
+
+@item husseini  
+  @tab la'  
+
+@item kardan  
+  @tab do''
+
+@item muhayer  
+  @tab re''
+
+@item mahouran  
+  @tab fa'' 
+
+@item jawab nawa  
+  @tab sol'' 
+
+@item jawab kardan  
+  @tab do''' 
+
+@end multitable               
+
+
+The Arabic note names can be quite long and are not suitable for
+the purpose of music writing, so they are not defined by the
+inclusion of "arabic.ly".  English note names @code{a, b, c, d, e,
+f, g} are not very familiar in Arabic music education.  Italian or
+Solfege note names @code{do, re, mi, fa, sol, la, si} are more
+familiar, and can be used when @code{"arabic.ly"} is included.
+Modifiers may be used, as discussed in
+@ref{Note names in other languages}.
+
+For example, this is how the Arabic rast scale can be notated:
+
+@lilypond[quote,verbatim]
+%\include "arabic.ly"
+%\relative do' {
+%  do re misb fa sol la sisb do sisb la sol fa misb re do
+\relative c' {
+  c4
+}
+@end lilypond
+
+
+@seealso 
+
+Notation Reference:    
+@ref{Note names in other languages}.
+
+
+@node References for Arabic music
 @subsubsection References for arabic music
+
+
 
 
