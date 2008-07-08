@@ -44,8 +44,8 @@ TBC
 @cindex String numbers
 
 The string on which a note should be played may be indicated by
-appending @code{\}@tie{}@var{number} to a note inside a chord 
-construct (@code{<>}).
+appending @code{\@var{number}} to a note inside a chord construct
+@code{<>}.
 
 @warning{String numbers @strong{must} be defined inside a chord
 construct even if there is only a single note.}
@@ -69,15 +69,12 @@ the order in which the two items appear:
 
 @snippets
 
-@ignore
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
-@end ignore
 
 @seealso
 
 Internals Reference: @rinternals{StringNumber}, @rinternals{Fingering}
-@c @lsr{Guitar/,string-number.ly}. @lsr(Editorial annotations/,Adding-fingerings-to-a-score.ly}
 
 
 @node Default tablatures
