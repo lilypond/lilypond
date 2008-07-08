@@ -1445,12 +1445,12 @@ indication to be printed:
 @example
 \score @{
   @var{...music...}
-   \midi @{
-     \context @{
-       \Score
-       tempoWholesPerMinute = #(ly:make-moment 72 4)
-       @}
-     @}
+  \midi @{
+    \context @{
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 4)
+    @}
+  @}
 @}
 @end example
 
@@ -1470,8 +1470,9 @@ tempoWholesPerMinute = #(ly:make-moment 270 8)
 Context definitions follow precisely the same syntax as those
 within a @code{\layout} block.  Translation modules for sound are
 called performers.  The contexts for MIDI output are defined in
-@file{ly/@/performer@/-init@/.ly} (see @rlearning{Other sources
-of information}.  For example, to remove the effect of dynamics
+@file{ly/@/performer@/-init@/.ly},
+see @rlearning{Other sources of information}.
+For example, to remove the effect of dynamics
 from the MIDI output, insert the following lines in the
 @code{\midi@{ @}} block.
 
@@ -1501,7 +1502,6 @@ in a @code{\score} block.
 
 @snippets
 
-@c TODO Check header and text appear in this example
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {changing-midi-output-to-one-channel-per-voice.ly}
 
