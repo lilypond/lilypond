@@ -290,6 +290,7 @@ Languages in this order.
 * hemiola::                     
 * homophony::                   
 * interval::                    
+* inversion::           
 * inverted interval::           
 * just intonation::             
 * key::                         
@@ -371,6 +372,7 @@ Languages in this order.
 * proportion::                  
 * Pythagorean comma::          
 * quadruplet::                  
+* quality::                  
 * quarter note::                
 * quarter rest::                
 * quarter tone::                
@@ -1418,13 +1420,14 @@ DK: akkord,
 S: ackord,
 FI: sointu.
 
-Three or more tones sounding simultaneously.  In traditional European music the
-base chord is a @emph{triad} consisting of 2@w{ }thirds. @emph{Major} (major +
-minor @ref{third}) as well as @emph{minor} (minor + major third) chords may be
-extended with more thirds. Four-tone @emph{seventh chords} and five-tone
-@emph{ninth} major chords are most often used as dominants (@ref{functional
-harmony}).  A special case is chords having no third above the lower notes to
-define their quality as major or minor: such chords are called @q{open chords}.
+Three or more tones sounding simultaneously.  In traditional European music
+the base chord is a @emph{triad} consisting of two thirds. @emph{Major}
+(major + minor third) as well as @emph{minor} (minor + major third) chords
+may be extended with more thirds. Four-tone @emph{seventh chords} and
+five-tone @emph{ninth} major chords are most often used as dominants
+(functional harmony).  Chords having no third above the lower notes to
+define their mood are a special case called @q{open chords}.  The lack of
+the middle third means their quality is ambivalent: neither major nor minor.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -1449,6 +1452,11 @@ define their quality as major or minor: such chords are called @q{open chords}.
 }
 >>
 @end lilypond
+
+@seealso
+
+@ref{functional harmony}, @ref{interval}, @ref{inversion}, @ref{quality},
+@ref{third}.
 
 
 @node chromatic scale
@@ -3197,7 +3205,7 @@ Used in many contexts, for example:
 Dictionary}.
 
 @item
-In figured (or thorough) bass to indicate that:
+In figured bass to indicate that:
 
 @itemize
 
@@ -3363,9 +3371,47 @@ FI: kvintti.
 @node figured bass
 @section figured bass
 
-@seealso
+ES: bajo cifrado,
+I: basso continuo, basso numerato,
+F: basse chiffrée, basse continue,
+D: Generalbass, bezifferter Bass,
+NL: basso continuo, becijferde bas
+DK: generalbas,
+S: generalbas,
+FI: kenraalibasso, numeroitu basso.
 
-@ref{thorough bass}.
+Also called @q{thorough bass}.
+
+A method of indicating an accompaniment part by the bass notes only, together
+with figures designating the chief @ref{interval}s and @ref{chord}s to be played
+above the bass notes.
+
+@lilypond[fragment,line-width=13.0\cm]
+\context GrandStaff <<
+  \context Staff = lh \relative c'' {
+    \time 4/4
+    \key es \major
+    \clef treble
+    << \context Voice = rha {
+        \stemUp
+        es4 d c bes | bes }
+      \context Voice = rhb {
+        \stemDown
+        < bes g >8 as < as f > g < g es > f < d f > es | < g es >4 }
+    >>
+  }
+  <<
+    \context Staff = rh \relative c' {
+    \clef bass
+    \key es \major
+    es8 c d bes c as bes16 as g f | es4
+    }
+    \figures { s8 <6> s <4 2> s <6> s16 s <6> <4 2>  }
+  >>
+>>
+@end lilypond
+
+
 
 
 @node fingering
@@ -4004,6 +4050,44 @@ addition of such two intervals forms an octave.
 }
 >>
 @end lilypond
+
+
+@node inversion
+@section inversion
+
+ES: ?,
+I: ?,
+F: inversion,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+When the bass is not the same as the root, the chord is inverted. The number
+of inversions that a chord can have is one fewer than the number of
+constituent notes. Triads, for example, (having three constituent notes) can
+have three positions, two of which are inversions:
+
+@table @strong
+@item Root position
+The root note is in the bass, and above that are the third and the fifth. A
+triad built on the first scale degree, for example, is marked @notation{I}.
+
+@item First inversion
+The third is in the bass, and above it are the fifth and the root. This
+creates an interval of a sixth and a third above the bass note, and so is
+marked in figured Roman notation as @notation{6/3}. This is commonly
+abbreviated to @notation{I6} (or @notation{Ib}) since the sixth is the
+characteristic interval of the inversion, and so always implies
+@notation{6/3}.
+
+@item Second inversion
+The fifth is in the bass, and above it are the root and the third. This
+creates an interval of a sixth and a fourth above the bass note, and so is
+marked as @notation{I6/4} or @notation{Ic}. Second inversion is the most
+unstable chord position.
+@end table
 
 
 @node inverted interval
@@ -5756,6 +5840,56 @@ FI: kvartoli.
 @ref{note value}.
 
 
+@node quality
+@section quality
+
+ES: ?,
+I: qualità (?),
+F: qualité (?),
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+The quality of a triad is determined by the precise arrangement of its
+intervals.  Tertian triads can be described as a series of three notes.  The
+first element is the root note (or simply @q{root}) of the chord, the second
+note is the @q{third} of the chord, and the last note is the @q{fifth} of
+the chord. These are described below:
+
+@multitable @columnfractions .10 .35 .35 .20
+
+@headitem Chord name @tab Component intervals
+  @tab Example
+  @tab Symbol
+@item major triad @tab major third/perfect fifth
+  @tab C-E-G
+  @tab C, CM, Cma, Cmaj, CΔ
+@item minor triad @tab minor third/perfect fifth
+  @tab C-E♭-G
+  @tab Cm, Cmi, Cmin, C-
+@item augmented triad @tab major third/augmented fifth
+  @tab C-E-G♯
+  @tab C+, C^+, Caug
+@item diminished triad @tab minor third/diminished fifth
+  @tab C-E♭-G♭
+  @tab Cm(♭5), Cº, Cdim
+@end multitable
+
+There are various types of seventh chords depending on the quality of the
+original chord and the quality of the seventh added.
+
+Five common types of seventh chords have standard symbols. The chord quality
+indications are sometimes superscripted and sometimes not (e.g. Dm7, Dm^7,
+and D^m7 are all identical). The last three chords are not used commonly
+except in jazz.
+
+@seealso
+
+@ref{chord}.
+
+
 @node quarter note
 @section quarter note
 
@@ -6892,45 +7026,9 @@ FI: terssi.
 @node thorough bass
 @section thorough bass
 
-ES: bajo cifrado,
-I: basso continuo, basso numerato,
-F: basse chiffrée, basse continue,
-D: Generalbass, bezifferter Bass,
-NL: basso continuo, becijferde bas
-DK: generalbas,
-S: generalbas,
-FI: kenraalibasso, numeroitu basso.
+@seealso
 
-Also called @q{figured bass}.
-
-A method of indicating an accompaniment part by the bass notes only, together
-with figures designating the chief @ref{interval}s and @ref{chord}s to be played
-above the bass notes.
-
-@lilypond[fragment,line-width=13.0\cm]
-\context GrandStaff <<
-  \context Staff = lh \relative c'' {
-    \time 4/4
-    \key es \major
-    \clef treble
-    << \context Voice = rha {
-        \stemUp
-        es4 d c bes | bes }
-      \context Voice = rhb {
-        \stemDown
-        < bes g >8 as < as f > g < g es > f < d f > es | < g es >4 }
-    >>
-  }
-  <<
-    \context Staff = rh \relative c' {
-    \clef bass
-    \key es \major
-    es8 c d bes c as bes16 as g f | es4
-    }
-    \figures { s8 <6> s <4 2> s <6> s16 s <6> <4 2>  }
-  >>
->>
-@end lilypond
+@ref{figured bass}.
 
 
 @node tie

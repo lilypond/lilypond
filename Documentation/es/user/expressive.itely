@@ -241,7 +241,7 @@ c2 b4 a g1\espressivo
 Los @notation{Crescendi} y @notation{decrescendi} se pueden
 tipografiar como marcas textuales en lugar de reguladores.  Las
 instrucciones incorporadaas que activan estos modos de texto son
-@code{\crescTextCresc}, @code{\dimTextDecr}, @code{\dimTextDecresc} y
+@code{\crescTextCresc}, @code{\dimTextDecresc}, @code{\dimTextDecr} y
 @code{\dimTextDim}.  Las instrucciones correspondientes
 @code{\crescHairpin} y @code{\dimHairpin} hacen que vuelvan a aparecer
 los reguladores de nuevo:
@@ -251,7 +251,7 @@ c\< d e f\!
 e\> d c b\!
 \crescTextCresc
 c\< d e f\!
-\dimTextDecr
+\dimTextDecresc
 e\> d c b\!
 \crescHairpin
 c\< d e f\!

@@ -235,7 +235,7 @@ une notation textuelle.
 c\< d e f\!
 \crescHairpin
 e\> d c b\!
-\dimTextDecr
+\dimTextDecresc
 c\> d e f\!
 \dimTextDim
 e\> d c b\!
