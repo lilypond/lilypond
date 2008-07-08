@@ -50,17 +50,17 @@ construct (@code{<>}).
 @warning{String numbers @strong{must} be defined inside a chord
 construct even if there is only a single note.}
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 <c\5>4 <e\4> <g\3>2
 <c,\5 e\4 g\3>1
 @end lilypond
 
-Although fingering is covered in detail elsewhere, it is worth noting
-here how fingerings and string indications behave together, since
-guitar music often incorporates both at once.  The usual convention
-is to place the fingering closest to the note, then the string 
-indication outside the fingering.  This is controlled by the order in 
-which the two items appear:
+Although @ref{Fingering instructions} are covered in detail elsewhere, 
+it is worth noting here how fingerings and string indications behave 
+together, since guitar music often incorporates both at once.  The 
+usual convention is to place the fingering closest to the note, then 
+the string  indication outside the fingering.  This is controlled by 
+the order in which the two items appear:
 
 @lilypond[verbatim,quote,relative=2]
 <g\3-0>2
@@ -76,8 +76,8 @@ which the two items appear:
 
 @seealso
 
-Internals Reference: @rinternals{StringNumber},
-@c @lsr{guitar/,string-number.ly}.
+Internals Reference: @rinternals{StringNumber}, @rinternals{Fingering}
+@c @lsr{Guitar/,string-number.ly}. @lsr(Editorial annotations/,Adding-fingerings-to-a-score.ly}
 
 
 @node Default tablatures
@@ -94,8 +94,8 @@ The string number associated to a note is given as a backslash
 followed by a number, e.g., @code{c4\3} for a C quarter on the third
 string.  By default, string 1 is the highest one, and the tuning
 defaults to the standard guitar tuning (with 6 strings).  The notes
-are printed as tablature, by using @rinternals{TabStaff} and
-@rinternals{TabVoice} contexts
+are printed as tablature, by using @code{TabStaff} and
+@code{TabVoice} contexts
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff {
@@ -107,30 +107,25 @@ are printed as tablature, by using @rinternals{TabStaff} and
 @funindex minimumFret
 @cindex fret
 
-When no string is specified, the first string that does not give a
-fret number less than @code{minimumFret} is selected.  The default
-value for @code{minimumFret} is 0
+
+When no string is specified for a note, the note is assigned to the lowest string
+that can generate the note with a fret number greater than or equal to
+@code{minimumFret} is selected.  The default value for @code{minimumFret} is 0.
 
 
-@example
-e16 fis gis a b4
-\set TabStaff.minimumFret = #8
-e16 fis gis a b4
-@end example
-
-@lilypond[quote,ragged-right]
-frag = {
-  \key e \major
-  e16 fis gis a b4
-  \set TabStaff.minimumFret = #8
-  e16 fis gis a b4
-}
-  \new StaffGroup <<
-    \new Staff { \clef "G_8" \frag }
-    \new TabStaff { \frag }
-  >>
+@lilypond[quote,ragged-right,verbatim]
+\new StaffGroup <<
+   \new Staff \relative c' {
+     c16 d e f g4
+     c,16 d e f g4
+   }
+   \new TabStaff \relative c {
+     c16 d e f g4
+     \set TabStaff.minimumFret = #5
+     c,16 d e f g4
+   }
+>>
 @end lilypond
-
 
 @snippets
 
@@ -149,7 +144,7 @@ Internals Reference: @rinternals{TabNoteHead}, @rinternals{TabStaff}, @rinternal
 @knownissues
 
 Chords are not handled in a special way, and hence the automatic
-string selector may easily select the same string to two notes in a
+string selector may easily select the same string for two notes in a
 chord.
 
 In order to handle @code{\partcombine}, a @code{TabStaff} must use
@@ -277,8 +272,7 @@ Right-hand fingerings @var{p-i-m-a} can be entered using
 @code{<@var{note}-\rightHandFinger @var{finger} >}.
 The right-hand fingering indication must occur within a @code{<>} chord 
 construct for it to be printed in the score, even if it is a single note.  
-There must be a hyphen after the note and the space
-before the closing @code{>}.
+There must be a hyphen after the note and a space before the closing @code{>}.
 
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -291,7 +285,7 @@ before the closing @code{>}.
 }
 @end lilypond
 
-for brevity, you can abbreviate @code{\rightHandFinger} to something
+For convenience, you can abbreviate @code{\rightHandFinger} to something
 short, for example @code{RH},
 
 @example
@@ -438,6 +432,7 @@ These tunings may be converted to four string banjo tunings using the
 @seealso
 
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+
 
 
 
