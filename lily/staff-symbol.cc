@@ -170,7 +170,8 @@ Staff_symbol::height  (SCM smob)
 bool
 Staff_symbol::on_line (Grob *me, int pos)
 {
-  SCM line_positions = me->get_property ("line-positions");
+  Grob *st = Staff_symbol_referencer::get_staff_symbol (me);
+  SCM line_positions = st->get_property ("line-positions");
   if (scm_is_pair (line_positions))
     {
       Real min_line = HUGE_VAL;
@@ -194,7 +195,7 @@ Staff_symbol::on_line (Grob *me, int pos)
       return false;
     }
   else
-    return ((abs (pos + line_count (me)) % 2) == 1);
+    return ((abs (pos + line_count (st)) % 2) == 1);
 }
 
 ADD_INTERFACE (Staff_symbol,
