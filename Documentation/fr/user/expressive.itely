@@ -231,13 +231,13 @@ Au lieu d'une notation graphique des crescendos, on peut utiliser
 une notation textuelle.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\setTextCresc
+\crescTextCresc
 c\< d e f\!
-\setHairpinCresc
+\crescHairpin
 e\> d c b\!
-\setTextDecresc
+\dimTextDecr
 c\> d e f\!
-\setTextDim
+\dimTextDim
 e\> d c b\!
 @end lilypond
 
@@ -705,9 +705,9 @@ de la vaguelette :
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 \new Voice {
-  \arpeggioUp
+  \arpeggioArrowUp
   <c e g c>\arpeggio
-  \arpeggioDown
+  \arpeggioArrowDown
   <c e g c>\arpeggio
 }
 @end lilypond
@@ -732,12 +732,12 @@ exemple dans le contexte @rinternals{PianoStaff} :
 @predefined
 
 @code{\arpeggio},
-@funindex \arpeggioUp
-@code{\arpeggioUp},
-@funindex \arpeggioDown
-@code{\arpeggioDown},
-@funindex \arpeggioNeutral
-@code{\arpeggioNeutral},
+@funindex \arpeggioArrowUp
+@code{\arpeggioArrowUp},
+@funindex \arpeggioArrowDown
+@code{\arpeggioArrowDown},
+@funindex \arpeggioNormal
+@code{\arpeggioNormal},
 @funindex \arpeggioBracket
 @code{\arpeggioBracket}.
 

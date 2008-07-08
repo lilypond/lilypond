@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.52"
 
 startGroup = #(make-span-event 'NoteGroupingEvent START)
 stopGroup = #(make-span-event 'NoteGroupingEvent STOP)
@@ -83,14 +83,7 @@ dimHairpin = {
     \unset decrescendoSpanner 
 }
 
-setHairpinDim = {
-    \unset decrescendoText 
-    \unset decrescendoSpanner 
-}
 
-
-
-% better name sustainstart/stop? 
 sustainOff = #(make-span-event 'SustainEvent STOP)
 sustainOn = #(make-span-event 'SustainEvent START)
 
