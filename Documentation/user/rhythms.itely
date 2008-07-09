@@ -1938,7 +1938,7 @@ c c c c
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are
 connected between different staves of a @code{StaffGroup},
-@code{InnderStaffGroup}, @code{PianoStaff}, or @code{GrandStaff}.
+@code{InnerStaffGroup}, @code{PianoStaff}, or @code{GrandStaff}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
