@@ -74,7 +74,13 @@ the order in which the two items appear:
 
 @seealso
 
-Internals Reference: @rinternals{StringNumber}, @rinternals{Fingering}
+Snippets:
+@rlsr{Fretted strings}.
+
+Internals Reference:
+@rinternals{StringNumber},
+@rinternals{Fingering}.
+
 
 
 @node Default tablatures
