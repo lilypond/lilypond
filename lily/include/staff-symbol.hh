@@ -24,6 +24,7 @@ public:
   
   static int get_steps (Grob *);
   static int line_count (Grob *);
+  static bool on_line (Grob *me, int pos);
   DECLARE_SCHEME_CALLBACK (print, (SCM));
   DECLARE_SCHEME_CALLBACK (height, (SCM));  
   DECLARE_GROB_INTERFACE();
