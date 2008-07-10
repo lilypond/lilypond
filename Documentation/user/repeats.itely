@@ -11,20 +11,20 @@
 @node Repeats
 @section Repeats
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-{repeats-headword.ly}
+@lilypondfile[quote]{repeats-headword.ly}
 
 Repetition is a central concept in music, and multiple notations
-exist for repetitions. LilyPond supports the following kinds of repeats:
+exist for repetitions.  LilyPond supports the following kinds of
+repeats:
 
 
 @table @code
 @item volta
 The repeated music is not written out but enclosed between repeat bar
 lines.  If the repeat is at the beginning of a piece, a repeat bar
-line is only printed at the end. Alternative endings (volte) are
-printed left to right with brackets.  This is the standard notation
-for repeats with alternatives.
+line is only printed at the endof the repeat.  Alternative endings
+(volte) are printed left to right with brackets.  This is the standard
+notation for repeats with alternatives.
 
 @item unfold
 The repeated music is fully written out, as many times as
@@ -68,7 +68,7 @@ Repeat signs can also be controlled manually.
 @funindex \repeat
 
 @node Normal repeats
-@subsubsection Normal repeats
+@unnumberedsubsubsec Normal repeats
 
 The syntax for a normal repeat is
 
@@ -83,7 +83,7 @@ alternative.
 
 Normal repeats without alternate endings:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \repeat volta 2 { c4 d e f }
 c2 d
 \repeat volta 2 { d4 e f g }
@@ -91,7 +91,7 @@ c2 d
 
 Normal repeats with alternate endings:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \repeat volta 2 { g4 f e d }
   \alternative {
     { cis2 g' }
@@ -108,29 +108,25 @@ c1
 
 Repeats with upbeats can be entered in two ways:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\new Staff {
-  \partial 4
-  e |
-  \repeat volta 4 { c2 d | e2 f | }
-  \alternative {
-    { g4 g g e }
-    { a4 a a a | b2. }
-  }
+@lilypond[verbatim,quote,relative=2]
+\partial 4
+e |
+\repeat volta 4 { c2 d | e2 f | }
+\alternative {
+  { g4 g g e }
+  { a4 a a a | b2. }
 }
 @end lilypond
 
 @noindent
 or
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\new Staff {
-  \partial 4 
-  \repeat volta 4 { e4 | c2 d | e2 f | }
-  \alternative {
-    { \partial 4*3 g4 g g }
-    { a4 a a a | b2. }
-  }
+@lilypond[verbatim,quote,relative=2]
+\partial 4 
+\repeat volta 4 { e4 | c2 d | e2 f | }
+\alternative {
+  { \partial 4*3 g4 g g }
+  { a4 a a a | b2. }
 }
 @end lilypond
 
@@ -139,12 +135,12 @@ or
 
 Ties may be added to a second ending:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c1
-\repeat volta 2 {c4 d e f ~ }
+\repeat volta 2 { c4 d e f ~ }
 \alternative {
-  {f2 d}
-  {f2\repeatTie f,}
+  { f2 d }
+  { f2\repeatTie f, }
 }
 @end lilypond
 
@@ -165,7 +161,7 @@ If you want to start a repeat at the beginning of a line and have a
 double bar at the end of the previous line, use @code{\bar}. For more
 information, see @ref{Bar lines}.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c4 c c c
 \bar "||:" \break 
 \repeat volta 2 { c4 d e f }   
@@ -210,14 +206,15 @@ example, by setting @code{Score.measurePosition} or entering
 
 
 @node Manual repeat marks
-@subsubsection Manual repeat marks
+@unnumberedsubsubsec Manual repeat marks
 
 @funindex repeatCommands
 
 @warning{These methods are only used for displaying unusual repeat
-constructs.  In most cases, repeats should be created using the
-standard @code{\\repeat} command or by printing the relevant bar
-lines.  For more information, see @ref{Bar lines}.}
+constructs, and may produce unexpected behavior.  In most cases,
+repeats should be created using the standard @code{\\repeat} command
+or by printing the relevant bar lines.  For more information, see
+@ref{Bar lines}.}
 
 The property @code{repeatCommands} can be used to control the
 layout of repeats.  Its value is a Scheme list of repeat commands.
@@ -226,7 +223,7 @@ layout of repeats.  Its value is a Scheme list of repeat commands.
 @item start-repeat
 Print a @code{|:} bar line.
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c1
 \set Score.repeatCommands = #'( start-repeat )
 d4 e f g
@@ -239,32 +236,22 @@ at the beginning of a piece.
 @item end-repeat
 Print a @code{:|} bar line:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c1
 d4 e f g
 \set Score.repeatCommands = #'( end-repeat )
 c1
 @end lilypond
 
-@item (volta @var{number})
-Create a new volta with the specified number:
+@item (volta @var{number}) ... (volta #f)
+Create a new volta with the specified number.  The volta bracket must
+be explicitly terminated, or it will not be printed.
 
 @lilypond[verbatim,quote,relative=2]
 f4 g a b
 \set Score.repeatCommands = #'( ( volta "2" ) )
 g4 a g a
-c1
-@end lilypond
-
-@item (volta #f)
-Stops a running volta bracket:
-
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-c1
-\set Score.repeatCommands = #'( ( volta "2" ) )
-f4 g a b
 \set Score.repeatCommands = #'( ( volta #f ) )
-a4 g f e
 c1
 @end lilypond
 
@@ -301,8 +288,10 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @snippets
 
+@ignore
 @c FIXME: send these to Neil or Valentin to be added as snippets,
 @c delete them.
+@c FIXME: will do, rp.
 Manual control of the volte, including a @code{|:} bar line at the
 beginning and explicit volta numbers:
 
@@ -326,7 +315,7 @@ c1
 In order to print a @code{|:} bar line at the beginning of a piece,
 the @code{BreakAlignment} property must be overridden:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \once \override Score.BreakAlignment #'break-align-orders =
 #(make-vector 3 '(
 instrument-name
@@ -346,6 +335,7 @@ c1
 d1
 d4 e f g
 @end lilypond
+@end ignore
 
 
 @seealso
@@ -364,7 +354,7 @@ Internals Reference:
 
 
 @node Written-out repeats
-@subsubsection Written-out repeats
+@unnumberedsubsubsec Written-out repeats
 
 @cindex written-out repeats
 @cindex repetitious music
@@ -383,7 +373,7 @@ than there are alternate endings, the first alternative ending is
 applied to the earliest endings.  Unfold repeats without alternate
 endings:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c1
 \repeat unfold 2 { c4 d e f }
 c1
@@ -391,7 +381,7 @@ c1
 
 Unfold repeats with alternate endings:
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c1
 \repeat unfold 2 { g4 f e d }
   \alternative {
@@ -427,7 +417,7 @@ represented by slashes or percent signs; and tremolos.
 @end menu
 
 @node Percent repeats
-@subsubsection Percent repeats
+@unnumberedsubsubsec Percent repeats
 
 @cindex percent repeats
 @cindex measure repeats
@@ -443,34 +433,42 @@ one or two measures are replaced by percent-like signs.  The syntax is
 
 where @var{musicexpr} is a music expression. 
 
-@lilypond[quote,verbatim,ragged-right]
-\relative c' {
-  \repeat percent 4 { c4 }
-  \repeat percent 2 { b'4 a g f }
-  \repeat percent 2 { c2 es | f4 fis g c | }
-}
+@lilypond[verbatim,quote,relative=2]
+\repeat percent 4 { c4 }
+\repeat percent 2 { b4 a g f }
+\repeat percent 2 { c2 es | f4 fis g c | }
 @end lilypond
 
+@snippets
+
+@c FIXME: email these to Valentin or Neil to be made into snippets
 Measure repeats of more than two repeats get a counter if you switch
 on the @code{countPercentRepeats} property:
 
-@lilypond[relative=2,fragment,quote,verbatim,ragged-right]
-\relative c' {
-  \set countPercentRepeats = ##t
-  \repeat percent 4 { c1 }
-}
+@lilypond[verbatim,quote,relative=2]
+\set countPercentRepeats = ##t
+\repeat percent 4 { c1 }
 @end lilypond
-
 
 Isolated percents can also be printed.  This is done by entering a
 multi-measure rest with a different print function:
 
-@lilypond[fragment,verbatim,quote]
+@lilypond[verbatim,quote,relative=2]
 \override MultiMeasureRest #'stencil
   = #ly:multi-measure-rest::percent
 R1
 @end lilypond
 
+@seealso
+
+Music Glossary: @rglos{percent repeat}, @rglos{simile}.
+
+Snippets: @rlsr{Repeats}.
+
+Internals Reference: @rinternals{RepeatSlash},
+@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
+@rinternals{DoublePercentRepeatCounter},
+@rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
 
 @knownissues
 
@@ -484,19 +482,8 @@ representing single beat repeats consisting of notes of varying
 durations, are supported.
 
 
-@seealso
-
-Music Glossary: @rglos{percent repeat}, @rglos{simile}.
-
-Snippets: @rlsr{Repeats}.
-
-Internals Reference: @rinternals{RepeatSlash},
-@rinternals{PercentRepeat}, @rinternals{DoublePercentRepeat},
-@rinternals{DoublePercentRepeatCounter},
-@rinternals{PercentRepeatCounter}, @rinternals{PercentRepeatedMusic}.
-
 @node Tremolo repeats
-@subsubsection Tremolo repeats
+@unnumberedsubsubsec Tremolo repeats
 
 Tremolos can take two forms: alternation between two chords or two
 notes, and rapid repetition of a single
@@ -510,12 +497,10 @@ indicated by adding beams or slashes to a single note.
 To place tremolo marks between notes, use @code{\repeat} with
 tremolo style:
 
-@lilypond[quote,verbatim,ragged-right]
-\relative c' {
-  \repeat tremolo 8 { c16 d }
-  \repeat tremolo 4 { c16 d }
-  \repeat tremolo 2 { c16 d }
-}
+@lilypond[quote,verbatim,relative=2]
+\repeat tremolo 8 { c16 d }
+\repeat tremolo 4 { c16 d }
+\repeat tremolo 2 { c16 d }
 @end lilypond
 
 The @code{\repeat tremolo} syntax expects exactly two notes within
@@ -547,17 +532,10 @@ the duration of the subdivision, and it must be at least 8.  A
 the length is omitted, the last value (stored in
 @code{tremoloFlags}) is used
 
-@lilypond[quote,ragged-right,verbatim,fragment]
-c'2:8 c':32 | c': c': |
+@lilypond[quote,verbatim,relative=2]
+c2:8 c:32
+c: c:
 @end lilypond
-
-
-@knownissues
-
-
-Tremolos entered with @q{@code{:}[@var{number}]} do not carry over
-into the MIDI output.
-
 
 @seealso
 
