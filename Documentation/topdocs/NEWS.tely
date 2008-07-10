@@ -66,6 +66,31 @@ which scares away people.
 @end ignore
 
 @item
+A few syntax changes were made:
+@example
+2.11.23: #'break-align-symbol -> #'break-align-symbols
+2.11.35: scripts.caesura -> scripts.caesura.curved.
+Use #'style not #'dash-fraction to select solid/dashed lines.
+2.11.38: \setEasyHeads -> \easyHeadsOn, \fatText -> \textLengthOn,
+\emptyText -> \textLengthOff
+2.11.46: \set hairpinToBarline -> \override Hairpin #'to-barline
+2.11.48: \compressMusic -> \scaleDurations
+2.11.50: metronomeMarkFormatter uses text markup as second
+argument,
+fret diagram properties moved to fret-diagram-details.
+2.11.51: \octave -> \octaveCheck, \arpeggioUp -> \arpeggioArrowUp,
+\arpeggioDown -> \arpeggioArrowDown, \arpeggioNeutral ->
+\arpeggioNormal,
+\setTextCresc -> \crescTextCresc, \setTextDecresc ->
+\dimTextDecresc,
+\setTextDecr -> \dimTextDecr, \setTextDim -> \dimTextDim,
+\setHairpinCresc -> \crescHairpin, \setHairpinDecresc ->
+\dimHairpin,
+\sustainUp -> \sustainOff, \sustainDown -> \sustainOn
+\sostenutoDown -> \sostenutoOn, \sostenutoUp -> \sostenutoOff
+@end example
+
+@item
 Arpeggios may now use ``parenthesis'' style brackets:
 
 @lilypond[relative,ragged-right]
