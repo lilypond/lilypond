@@ -658,6 +658,12 @@ properties can be used to modify the display of figures.  For
 example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 
+@seealso
+
+Snippets:
+@rlsr{Chords}
+
+
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass
 
@@ -720,7 +726,7 @@ Any text markup can be inserted as a figure:
 }
 @end lilypond
 
-@c TODO We need to include notes any time we use extenders to
+@c NOTE: We need to include notes any time we use extenders to
 @c avoid extraneous staff creation due to Staff.use... in
 @c \bassFigureExtendersOn
 
@@ -768,7 +774,6 @@ unless the continuation lines have been explicitly terminated.
 
 
 @snippets
-@c TODO  Fix this snippet -- Plus direction should be RIGHT.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
@@ -833,11 +838,6 @@ Figured bass can also be added to @code{Staff} contexts
 directly.  In this case, the vertical position of the
 figures is adjusted automatically.
 
-@c TODO add a second paragraph to show direction change.  First
-@c   example should be UP (default), second should be DOWN.
-
-@c  TODO change to use predefined command once it is added to
-@c  property-init.ly  -cds
 @lilypond[verbatim,ragged-right,fragment,quote]
 <<
   \new Staff = myStaff
@@ -876,31 +876,13 @@ or below the staff.
 @end lilypond
 
 
-@ignore
-@c I don't understand this -cs
-When using continuation lines, common figures are always put in the
-same vertical position.  When this is unwanted, you can insert a rest.
-The rest will clear any previous alignment.  For
-example, you can write
-
-@example
-<6 4>8 r8
-@end example
-
-@noindent
-instead of
-@example
-<4 6>4
-@end example
-@end ignore
-
 @predefined
 @cindex figured bass alignment
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.
 
-@snippets
+@c @snippets
 
 @seealso
 @c Music Glossary:
@@ -918,8 +900,8 @@ instead of
 @c Installed Files:
 @c @file{}.
 
-@c Snippets:
-@rlsr{Figured Bass}.
+Snippets:
+@rlsr{Chords}.
 
 Internals Reference:
 @rinternals{NewBassFigure},
@@ -977,7 +959,7 @@ a different figure location can cause the figure positions to invert.
 @end lilypond
 
 To avoid this problem, simply turn on extenders after the figure that
-begins the extender line and turn them off at teh end of the extender line.
+begins the extender line and turn them off at the end of the extender line.
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
 <<
@@ -991,4 +973,3 @@ begins the extender line and turn them off at teh end of the extender line.
 >>
 @end lilypond
 
-@seealso
