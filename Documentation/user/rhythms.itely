@@ -773,6 +773,8 @@ R1^"wrong"
 R1^"right"
 @end lilypond
 
+When a multi-measure rest immediately follows a @code{\partial}
+setting, resulting bar-check warnings may not be displayed.
 
 @predefined
 @code{\textLengthOn},
@@ -823,7 +825,6 @@ Text attached to a spacer rest in this way is left-aligned to the
 position where the note would be placed in the measure, but if the
 measure length is determined by the length of the text, the text will
 appear to be centered.
-
 
 @seealso
 
@@ -1205,7 +1206,7 @@ This notation can be created by setting a common time signature
 for each staff but replacing the symbol manually by setting
 @code{timeSignatureFraction} to the desired fraction and scaling
 the printed durations in each staff to the common time
-signature.  This done with @code{\scaleDurations}, which
+signature.  This is done with @code{\scaleDurations}, which
 is used in a similar way to @code{\times}, but does not create
 a tuplet bracket, see @ref{Scaling durations}.
 
@@ -1937,7 +1938,7 @@ c c c c
 In scores with many staves, a @code{\bar} command in one staff is
 automatically applied to all staves.  The resulting bar lines are
 connected between different staves of a @code{StaffGroup},
-@code{PianoStaff}, or @code{GrandStaff}.
+@code{InnerStaffGroup}, @code{PianoStaff}, or @code{GrandStaff}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 <<
@@ -2178,6 +2179,11 @@ An incorrect duration can result in a completely garbled score,
 especially if the score is polyphonic, so a good place to start
 correcting input is by scanning for failed bar checks and
 incorrect durations.
+
+If successive bar checks are off by the same musical interval,
+only the first warning message is displayed.  This allows the
+warning to focus on the source of the timing error.
+
 
 @funindex |
 @funindex pipeSymbol
