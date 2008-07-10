@@ -2,8 +2,8 @@
 #(set-global-staff-size 15)
 \paper{
   ragged-right=##f
-  line-width=17\cm
-  indent=0\cm
+  line-width=16\cm
+  indent=1.5\cm
 }
 
 % NR 2.7.3 Figured bass
