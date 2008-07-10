@@ -35,8 +35,28 @@
 @node References for fretted strings
 @subsubsection References for fretted strings
 
-@c TODO Add refs
-TBC
+@itemize
+@item Fingerings are indicated with @ref{Fingering instructions}.
+
+@item Instructions for @notation{Laissez vibrer} ties
+as well as ties on arpeggios and tremolos is described in
+@ref{Ties}.
+
+@item Instructions on handling multiple voices is described 
+in @ref{Collision resolution}. 
+
+@end itemize
+
+@seealso
+
+Notation Reference:
+@ref{Instrument names},
+@ref{Writing music in parallel},
+@ref{Fingering instructions},
+@ref{Ties},
+@ref{Arpeggio},
+@ref{List of articulations},
+@ref{Clef}.
 
 @node String number indications
 @subsubsection String number indications
@@ -55,12 +75,9 @@ construct even if there is only a single note.}
 <c,\5 e\4 g\3>1
 @end lilypond
 
-Although @ref{Fingering instructions} are covered in detail elsewhere, 
-it is worth noting here how fingerings and string indications behave 
-together, since guitar music often incorporates both at once.  The 
-usual convention is to place the fingering closest to the note, then 
-the string  indication outside the fingering.  This is controlled by 
-the order in which the two items appear:
+When fingerings and string indications are used together, their
+placement is controlled by the order in which the two items appear
+in the code:
 
 @lilypond[verbatim,quote,relative=2]
 <g\3-0>2
@@ -68,14 +85,19 @@ the order in which the two items appear:
 @end lilypond
 
 @snippets
-
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @seealso
 
 Snippets:
 @rlsr{Fretted strings}.
+
+Notation Reference:
+@ref{Fingering instructions}.
 
 Internals Reference:
 @rinternals{StringNumber},
@@ -93,11 +115,10 @@ instruments.  Pitches are not denoted with note heads, but by
 numbers indicating on which string and fret a note must be played.  
 LilyPond offers limited support for tablature.
 
-The string number associated to a note is given as a backslash
-followed by a number, e.g., @code{c4\3} for a C quarter on the third
-string.  By default, string 1 is the highest one, and the tuning
-defaults to the standard guitar tuning (with 6 strings).  The notes
-are printed as tablature, by using @code{TabStaff} and
+The string number associated with a note is given as a backslash
+followed by a number.  By default, string 1 is the highest, 
+and the tuning defaults to the standard guitar tuning (with 6 strings).  
+The notes are printed as tablature, by using @code{TabStaff} and
 @code{TabVoice} contexts
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -132,17 +153,38 @@ that can generate the note with a fret number greater than or equal to
 
 @snippets
 
-To print tablatures with stems down and horizontal beams,
-initialize the @code{TabStaff} with this code:
+The direction of stems is controlled the same way in tablature as
+in traditional notation. Beams can be made horizontal:
 
-@example
-\stemDown
-\override Beam #'damping = #100000
-@end example
+@lilypond[quote,ragged-right,verbatim]
+\new TabStaff {
+  \relative c {
+    g16 b d g
+    b d g b
+    \stemDown
+    \override Beam #'damping = #100000
+    g,,16 b d g
+    b d g b
+  }
+}
+@end lilypond
 
 @seealso
 
-Internals Reference: @rinternals{TabNoteHead}, @rinternals{TabStaff}, @rinternals{TabVoice}.
+Snippets:
+@rlsr{Fretted strings}.
+
+Notation Reference:
+@ref{Stems}
+
+Internals Reference: 
+@rinternals{TabNoteHead}, 
+ 
+@rinternals{TabStaff},  
+
+@rinternals{TabVoice},  
+
+@rinternals{Beam}.
 
 @knownissues
 
@@ -205,6 +247,9 @@ Some other predefined tunings are @code{guitar-open-g-tuning},
 
 @seealso
 
+Snippets:
+@rlsr{Fretted strings}.
+
 The file @file{scm/@/output@/-lib@/.scm} contains the predefined string
 tunings.
 Internals Reference: @rinternals{Tab_note_heads_engraver}.
@@ -266,7 +311,8 @@ Details about the property interface to fret diagrams are found at
 
 @seealso
 
-
+Snippets:
+@rlsr{Fretted strings}.
 
 @node Right hand fingerings
 @subsubsection Right hand fingerings
@@ -345,7 +391,11 @@ right-hand fingering
 
 @seealso
 
-Internals Reference: @rinternals{StrokeFinger}
+Snippets:
+@rlsr{Fretted strings}.
+
+Internals Reference: 
+@rinternals{StrokeFinger}.
 
 
 @node Guitar
@@ -390,6 +440,10 @@ percussive noise-like sound that still maintains part of the original
 pitch.  It is notated with cross note heads; this is
 demonstrated in @ref{Special note heads}.
 
+@seealso
+
+Snippets:
+@rlsr{Fretted strings}.
 
 @node Banjo
 @subsection Banjo
@@ -434,9 +488,9 @@ These tunings may be converted to four string banjo tunings using the
 
 @seealso
 
+Snippets:
+@rlsr{Fretted strings}.
+
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
-
-
-
 
 
