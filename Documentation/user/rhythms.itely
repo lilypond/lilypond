@@ -676,7 +676,7 @@ Rests for one or more full measures are entered like notes with
 the note name uppercase @code{R}:
 
 @lilypond[quote,fragment,verbatim,relative=2]
-% Rest bars contracted to single bar
+% Rest measures contracted to single measure
 \compressFullBarRests
 R1*4
 R1*24
