@@ -11,6 +11,9 @@
 @node Fretted string instruments
 @section Fretted string instruments
 
+This section discusses several aspects of music notation that are unique
+to fretted-string instruments.
+
 @cindex tablature
 @cindex guitar tablature
 
@@ -23,6 +26,9 @@
 @node Common notation for fretted strings
 @subsection Common notation for fretted strings
 
+This section discusses common notation that is unique
+to fretted-string instruments.
+
 @menu
 * References for fretted strings::
 * String number indications::
@@ -34,6 +40,13 @@
 
 @node References for fretted strings
 @subsubsection References for fretted strings
+
+Music for fretted-string instruments is normally notated on
+a single staff, either in traditional music notation or in
+tablature.  Sometimes the two types are combined, and it is
+especially common in popular music to use chord diagrams above
+a staff of traditional notation.  Some other elements pertinent
+to fretted-string instruments are covered elsewhere:
 
 @itemize
 @item Fingerings are indicated with @ref{Fingering instructions}.
@@ -175,15 +188,12 @@ Snippets:
 @rlsr{Fretted strings}.
 
 Notation Reference:
-@ref{Stems}
+@ref{Stems}.
 
 Internals Reference: 
-@rinternals{TabNoteHead}, 
- 
-@rinternals{TabStaff},  
-
-@rinternals{TabVoice},  
-
+@rinternals{TabNoteHead},
+@rinternals{TabStaff},
+@rinternals{TabVoice},
 @rinternals{Beam}.
 
 @knownissues
@@ -317,12 +327,10 @@ Snippets:
 @node Right hand fingerings
 @subsubsection Right hand fingerings
 
-Right-hand fingerings @var{p-i-m-a} can be entered using 
-@code{<@var{note}-\rightHandFinger @var{finger} >}.
-The right-hand fingering indication must occur within a @code{<>} chord 
-construct for it to be printed in the score, even if it is a single note.  
-There must be a hyphen after the note and a space before the closing @code{>}.
-
+Right-hand fingerings @var{p-i-m-a} must be entered within a 
+@code{<>} chord construct for it to be printed in the score, 
+even when applied to a single note. There must be a hyphen 
+after the note and a space before the closing @code{>}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \relative c' {
@@ -353,9 +361,11 @@ fingerings by setting @code{strokeFingerOrientations},
 #(define RH rightHandFinger)
 {
   \set strokeFingerOrientations = #'(up down)
-  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 > 4
   \set strokeFingerOrientations = #'(up right down)
-  <c-\RH #1 es-\RH #2 g-\RH #4 > 4
+  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 > 4
+  \set strokeFingerOrientations = #'(left)
+  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 > 2
 }
 @end lilypond
 
@@ -492,5 +502,6 @@ Snippets:
 @rlsr{Fretted strings}.
 
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+
 
 
