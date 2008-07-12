@@ -300,9 +300,8 @@ contained staves are connected vertically."
   \name "PianoStaff"
   \alias "GrandStaff"
 
-  \description "Just like @code{GrandStaff} but with a forced
-distance between the staves, so cross staff beaming and slurring
-can be used."
+  \description "Just like @code{GrandStaff} but with support for
+instrument names at the start of each system."
 
   \consists "Instrument_name_engraver"
   
