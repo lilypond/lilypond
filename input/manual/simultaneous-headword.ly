@@ -7,6 +7,13 @@
   indent=0\cm
 }
  
+\layout {
+  \context { \Score
+    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  }
+}
+
 % NR 1.5 Simultaneous notes
 
 % L. v. Beethoven, Op. 111

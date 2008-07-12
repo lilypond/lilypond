@@ -351,9 +351,9 @@ moltoF = \markup { molto \dynamic f }
 @cindex dynamics, editorial
 @cindex dynamics, parenthesis
 
-Markup mode makes possible, for instance, to add
-editorial dynamics, printed in round parenthesis or square
-brackets.  Its syntax is described in @ref{Formatting text}.
+In markup mode, editorial dynamics (within parentheses or square
+brackets) can be created.  The syntax for markup mode is described
+in @ref{Formatting text}.
 
 @lilypond[verbatim,quote]
 roundf = \markup { \center-align { \line { \bold { \italic ( }
@@ -365,9 +365,10 @@ boxf = \markup { \bracket { \dynamic f } }
 }
 @end lilypond
 
-Markup objects are treated differently from authentic dynamic marks.
-Defining dynamic objects that will be entered and printed exactly like
-standard dynamic marks is also possible, using the following function:
+By default, markup objects are aligned to the left side of a note
+head, but authentic dynamic marks are always centered on the note
+head.  New, centered dynamic marks can be created using the
+following function:
 
 @cindex make-dynamic-script
 
@@ -379,10 +380,10 @@ sfzp = #(make-dynamic-script "sfzp")
 @end lilypond
 
 @noindent
-Note that the dynamic font only contains the characters 
-@code{f,m,p,r,s} and @code{z}.  To switch to other font families,
-it is necessary to use markup mode in its Scheme form, as
-explained in @ref{Markup construction in Scheme}.
+The dynamic font only contains the characters @code{f,m,p,r,s} and
+@code{z}.  In order to use other font families, it is necessary to
+use markup mode in its Scheme form, as explained in
+@ref{Markup construction in Scheme}.
 
 @lilypond[verbatim,quote]
 moltoF = #(make-dynamic-script (markup 
@@ -581,23 +582,8 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 @cindex caesura
 @cindex railroad tracks
 
-@c input/new snippet
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {inserting-a-caesura.ly}
-
-Caesura marks can be created by overriding the @code{'text}
-property of the @code{BreathingSign} object.  A curved caesura
-mark is also available.
-
-@lilypond[verbatim,quote,relative=2]
-\override BreathingSign #'text =
-  #(make-musicglyph-markup "scripts.caesura.straight")
-c8 e4. \breathe g8. e16 c4
-
-\override BreathingSign #'text =
-  #(make-musicglyph-markup "scripts.caesura.curved")
-g8 e'4. \breathe g8. e16 c4
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{inserting-a-caesura.ly}
 
 
 @seealso
@@ -758,13 +744,9 @@ to a regular arpeggio:
 A @emph{parenthesis} style bracket may be attached to a chord
 construct instead of a square bracket.
 
-@c Maybe create a new \arpeggioParen command, or something
-@c like that. -pm
-
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2
-\override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
-\override Arpeggio #'X-extent = #ly:grob::stencil-width
+\arpeggioParenthesis
 <c e g c>2\arpeggio
 \arpeggioNormal
 <c e g c>1\arpeggio
@@ -784,7 +766,9 @@ information, see @ref{Ties}.
 @funindex \arpeggioNormal
 @code{\arpeggioNormal},
 @funindex \arpeggioBracket
-@code{\arpeggioBracket}.
+@code{\arpeggioBracket},
+@funindex \arpeggioParenthesis
+@code{\arpeggioParenthesis}.
 
 
 @snippets
@@ -834,11 +818,11 @@ cross-staff arpeggios.
 Short @notation{trills} without an extender line are printed with
 @code{\trill}; see @ref{Articulations and ornamentations}.
 
-Long running trills are made with @code{\startTrillSpan} and
-@code{\stopTrillSpan}.  In the following example, a long running
-trill is shown combined with grace notes.  To achieve precise
-control of the placement of the grace notes, see @ref{Grace
-notes}.
+Longer trills with an extender line are made with
+@code{\startTrillSpan} and @code{\stopTrillSpan}.  In the
+following example, the trill is combined with grace notes.  To
+achieve precise control over the placement of the grace notes, see
+@ref{Grace notes}.
 
 @lilypond[verbatim,quote,relative=2]
 c1 \afterGrace
@@ -849,31 +833,46 @@ c4
 @cindex pitched trills
 @cindex trills, pitched
 
-Trills that should be executed on an explicitly specified pitch
-can be typeset with the command @code{\pitchedTrill} using the
-following syntax:
+Trills that require an auxiliary note with an explicit pitch can
+be typeset with the @code{\pitchedTrill} command.  The first
+argument is the main note, and the second is the @emph{trilled}
+note, printed as a stemless note head in parentheses.
 
-@example
-@code{\pitchedTrill} @var{mainnote} @code{\startTrillSpan}
-@var{trillnote} @var{endnote} @code{\stopTrillSpan}
-@end example
+@c This syntax example doesn't look nice. -pm
+
+@c @example
+@c @code{\pitchedTrill} @var{mainnote} @code{\startTrillSpan}
+@c @var{trillnote} @var{endnote} @code{\stopTrillSpan}
+@c @end example
 
 @lilypond[verbatim,quote,relative=1]
-\pitchedTrill e2 \startTrillSpan fis
+\pitchedTrill e2\startTrillSpan fis
 d\stopTrillSpan
 @end lilypond
 
-@noindent
-The first argument is the main note.  The pitch of the second is
-printed as a stemless note head in parentheses.
+In the following example, the second pitched trill is ambiguous;
+the accidental of the trilled note is not printed.  As a
+workaround, the accidentals of the trilled notes can be forced.
+The second measure illustrates this method:
+
+@lilypond[verbatim,quote,relative=2]
+\pitchedTrill eis4\startTrillSpan fis
+g\stopTrillSpan
+\pitchedTrill eis4\startTrillSpan fis
+g\stopTrillSpan
+\pitchedTrill eis4\startTrillSpan fis
+g\stopTrillSpan
+\pitchedTrill eis4\startTrillSpan fis!
+g\stopTrillSpan
+@end lilypond
 
 
 @predefined
 
-@code{\startTrillSpan},
 @funindex \startTrillSpan
-@code{\stopTrillSpan}.
+@code{\startTrillSpan},
 @funindex \stopTrillSpan
+@code{\stopTrillSpan}.
 
 
 @seealso

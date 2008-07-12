@@ -68,7 +68,7 @@ number of voices may change regularly; this is described in
 @item Vertical grid lines can be shown with @ref{Grid lines}.
 
 @item Keyboard music often contains @notation{Laissez vibrer} ties
-as well as ties on arpeggios and tremelos, described in
+as well as ties on arpeggios and tremolos, described in
 @ref{Ties}.
 
 @item Placing arpeggios across multiple voices and staves is
@@ -309,9 +309,7 @@ Internals Reference:
 @cindex cross-staff stems
 @cindex stems, cross-staff
 
-Chords that cross staves may be produced by increasing the length
-of the stem in the lower staff, so it reaches the stem in the upper
-staff, or vice versa.
+Chords that cross staves may be produced:
 
 @lilypond[ragged-right,verbatim,quote]
 \new PianoStaff <<
@@ -322,12 +320,16 @@ staff, or vice versa.
     << {
       \clef bass
       \stemUp
-      \override Stem #'length = #12
+      % stems may overlap the other staff
       \override Stem #'cross-staff = ##t
+      % extend the stems to reach other other staff
+      \override Stem #'length = #12
+      % do not print extra flags
       \override Stem #'flag-style = #'no-flag
       a8 g4 f8
-    } \\
-    { f,2 d' }
+    } \\ {
+      f,2 d'
+    }
     >>
   }
 >>

@@ -221,7 +221,7 @@ A @code{\score} block.  This score will be collected with other
 toplevel scores, and combined as a single @code{\book}.
 This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
-defined in the init file @file{scm/@/lily@/.scm}.
+defined in the init file @file{../scm/@/lily@/.scm}.
 
 @item
 A @code{\book} block logically combines multiple movements
@@ -236,7 +236,7 @@ a @code{\book} block if you want more than a single @code{\score}
 or @code{\markup} in the same example.  This behavior can be
 changed by setting the variable @code{toplevel-book-handler} at
 toplevel.  The default handler is defined in the init file
-@file{scm/@/lily@/.scm}.
+@file{../scm/@/lily@/.scm}.
 
 @item
 A compound music expression, such as
@@ -265,7 +265,7 @@ music expression will be translated into
 
 This behavior can be changed by setting the variable
 @code{toplevel-music-handler} at toplevel.  The default handler is
-defined in the init file @file{scm/@/lily@/.scm}.
+defined in the init file @file{../scm/@/lily@/.scm}.
 
 @item
 A markup text, a verse for example
@@ -534,7 +534,7 @@ Headers may be completely removed by setting them to false.
 
 A more advanced option is to change the definitions of the following
 variables in the @code{\paper} block.  The init file
-@file{ly/titling-init.ly} lists the default layout.
+@file{../ly/titling-init.ly} lists the default layout.
 
 @table @code
 @funindex bookTitleMarkup
@@ -746,7 +746,7 @@ tocAct =
 
 @seealso
 
-Init files: @file{ly/@/toc@/-init@/.ly}.
+Init files: @file{../ly/@/toc@/-init@/.ly}.
 
 @predefined
 
@@ -1335,6 +1335,7 @@ settings.  Therefore the midi file should not have more than 15 staves
 * MIDI block::
 * MIDI instrument names::
 * Repeats in MIDI::
+* Controlling MIDI dynamics::
 * What else goes into the MIDI output?::
 @end menu
 
@@ -1379,24 +1380,6 @@ will normally result in the metronome mark being printed, but this
 can be suppressed, see @ref{Metronome marks}.  An alternative way
 of specifying the inital or overall MIDI tempo is described below,
 see @ref{MIDI block}.
-
-@ignore
-@c TODO Investigate dynamicAbsoluteVolumeFunction and the two
-@c midi..Volume properties, then document properly.
-
-The fractions can be adjusted by setting
-@code{dynamicAbsoluteVolumeFunction} in @rinternals{Voice} context.
-For each type of MIDI instrument, a volume range can be defined.  This
-gives a basic equalizer control, which can enhance the quality of
-the MIDI output remarkably.  The equalizer can be controlled by
-setting @code{instrumentEqualizer}, or by setting
-
-@example
-\set Staff.midiMinimumVolume = #0.2
-\set Staff.midiMaximumVolume = #0.8
-@end example
-
-@end ignore
 
 @knownissues
 
@@ -1470,7 +1453,7 @@ tempoWholesPerMinute = #(ly:make-moment 270 8)
 Context definitions follow precisely the same syntax as those
 within a @code{\layout} block.  Translation modules for sound are
 called performers.  The contexts for MIDI output are defined in
-@file{ly/@/performer@/-init@/.ly},
+@file{../ly/@/performer@/-init@/.ly},
 see @rlearning{Other sources of information}.
 For example, to remove the effect of dynamics
 from the MIDI output, insert the following lines in the
@@ -1565,6 +1548,231 @@ and percent repeats).  For example,
 @}
 @end example
 
+@node Controlling MIDI dynamics
+@subsection Controlling MIDI dynamics
+
+MIDI dynamics are implemented by the Dynamic_performer which lives
+by default in the Voice context.  It is possible to control the
+overall MIDI volume, the relative volume of dynamic markings and
+the relative volume of different instruments.
+
+@unnumberedsubsubsec Dynamic marks
+
+Dynamic marks are translated to a fixed fraction of the available
+MIDI volume range.  The default fractions range from 0.25 for
+@notation{ppppp} to 0.95 for @notation{fffff}.  The set of dynamic
+marks and the associated fractions can be seen in
+@file{../scm/midi.scm}, see @rlearning{Other sources of information}.
+This set of fractions may be changed or extended by providing a
+function which takes a dynamic mark as its argument and returns the
+required fraction, and setting
+@code{Score.dynamicAbsoluteVolumeFunction} to this function.
+
+For example, if a @notation{rinforzando} dynamic marking, rfz,
+has been defined with @code{make-dynamic-script}, this will not
+have any effect on the MIDI volume, as this dynamic marking is not
+included in the default set.  The following example shows how the
+MIDI volume for this new dynamic marking can be added.  The Scheme
+function sets the fraction to 0.9 if a dynamic mark of rfz is
+found, or calls the default function otherwise.
+
+@lilypond[verbatim,quote]
+#(define (myDynamics dynamic)
+    (if (equal? dynamic "rfz")
+      0.9
+      (default-dynamic-absolute-volume dynamic)))
+
+rfz = #(make-dynamic-script "rfz")
+
+\score {
+  \new Staff {
+    \set Staff.midiInstrument = "cello"
+    \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
+    \new Voice {
+       \relative c'' {
+         a\pp b c-\rfz
+       }
+    }
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+
+Alternatively, if the whole table of fractions needs to be
+redefined, it would be better to use the
+@notation{default-dynamic-absolute-volume} procedure in
+@file{../scm/midi.scm} and the associated table as a model.
+The final example in this section shows how this might be done.
+
+@unnumberedsubsubsec Overall MIDI volume
+
+The minimum and maximum overall volume of MIDI dynamic markings is
+controlled by setting the properties @code{midiMinimumVolume} and
+@code{midiMaximumVolume} at the @code{Score} level.  Note that
+these properties have an effect only on dynamic marks, so if they
+are to apply from the start of the score a dynamic mark must be
+placed there.  The fraction corresponding to each dynamic mark is
+modified by multiplying it with
+
+midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
+
+In the following example the dynamic range of the overall MIDI
+volume is limited to the range 0.2 - 0.5.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Staff.midiInstrument = #"flute"
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+      midiMinimumVolume = #0.2
+      midiMaximumVolume = #0.5
+    }
+  }
+}
+@end lilypond
+
+@unnumberedsubsubsec Equalizing different instruments (i)
+
+If the minimum and maximum MIDI volume properties are set in
+the @code{Staff} context the relative volumes of the MIDI
+instruments can be controlled.  This gives a basic instrument
+equalizer, which can enhance the quality of the MIDI output
+remarkably.
+
+In this example the volume of the clarinet is reduced relative
+to the volume of the flute.  Again, note, there must be a dynamic
+mark on the first note of each instrument for this to work
+correctly.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiMinimumVolume = #0.7
+      \set Staff.midiMaximumVolume = #0.9
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiMinimumVolume = #0.3
+      \set Staff.midiMaximumVolume = #0.6
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+    }
+  }
+}
+@end lilypond
+
+@unnumberedsubsubsec Equalizing different instruments (ii)
+
+If the MIDI minimum and maximum volume properties are not set
+LilyPond will, by default, apply a small degree of equalization
+to a few instruments.  The instruments and the equalization
+applied are shown in the table @notation{instrument-equalizer-alist}
+in @file{../scm/midi.scm}.
+
+This basic default equalizer can be replaced by setting
+@code{instrumentEqualizer} in the @code{Score} context to a new
+Scheme procedure which accepts a MIDI instrument name as its only
+argument and returns a pair of fractions giving the minimum and
+maximum volumes to be applied to that instrument.  This replacement
+is done in the same way as shown for resetting the
+@code{dynamicAbsoluteVolumeFunction} at the start of this section.
+The default equalizer, @notation{default-instrument-equalizer}, in
+@file{../scm/midi.scm} shows how such a procedure might be written.
+
+The following example sets the relative flute and clarinet volumes
+to the same values as the previous example.
+
+@lilypond[verbatim,quote]
+#(define my-instrument-equalizer-alist '())
+
+#(set! my-instrument-equalizer-alist
+  (append
+    '(
+      ("flute" . (0.7 . 0.9))
+      ("clarinet" . (0.3 . 0.6)))
+    my-instrument-equalizer-alist))
+
+#(define (my-instrument-equalizer s)
+  (let ((entry (assoc s my-instrument-equalizer-alist)))
+    (if entry
+      (cdr entry))))
+
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Score.instrumentEqualizer = #my-instrument-equalizer
+      \set Staff.midiInstrument = #"flute"
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+    }
+  }
+}
+@end lilypond
 
 @node What else goes into the MIDI output?
 @subsection What else goes into the MIDI output?
@@ -1603,7 +1811,8 @@ copied out and compiled to test microtones in your MIDI player.
 
 Many musically interesting effects, such as swing, articulation,
 slurring, etc., are not translated to midi.  Also, figured bass,
-chords, and lyrics have no effect on MIDI.
+chords, tremolos entered with @q{@code{:}[@var{number}]} and lyrics
+have no effect on MIDI.
 
 
 

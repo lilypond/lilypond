@@ -6,6 +6,13 @@
   indent=0\cm
 }
 
+\layout {
+  \context { \Score
+    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  }
+}
+
 theChords = \chordmode {
   \time 2/2
   f1 | c2 f2 | f1 | c2 f2| %\break 
