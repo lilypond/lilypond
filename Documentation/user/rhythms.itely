@@ -353,7 +353,7 @@ notation, see @ref{Polymetric notation}.
 
 Notation Reference:
 @ref{Tuplets},
-@ref{Skips},
+@ref{Invisible rests},
 @ref{Polymetric notation}.
 
 Snippets:
@@ -516,7 +516,7 @@ Rests are entered as part of the music in music expressions.
 
 @menu
 * Rests::
-* Skips::
+* Invisible rests::
 * Full measure rests::
 @end menu
 
@@ -551,7 +551,7 @@ commands shown:
   r\longa
   % Print a breve rest
   r\breve
-  r1 r2 r4 r8 r16 r32 r64
+  r1 r2 r4 r8 r16 r32 r64 r128
 }
 @end lilypond
 
@@ -601,14 +601,15 @@ longest and shortest), but the number of glyphs is limited: there
 are rests from 128th to maxima (8 x whole).
 
 
-@node Skips
-@subsubsection Skips
+@node Invisible rests
+@subsubsection Invisible rests
 
 @cindex skip
 @cindex invisible rest
 @cindex rest, invisible
 @cindex spacer note
 @funindex s
+@funindex \skip
 
 An invisible rest (also called a @q{spacer rest}) can be entered
 like a note with the note name@tie{}@code{s}:
@@ -911,8 +912,8 @@ c c c c
 @funindex \defaultTimeSignature
 @cindex time signature style
 
-The symbol that is printed in 2/2 and 4/4 time can be customized
-to use a numeric style:
+The time signature symbol that is used in 2/2 and 4/4 time can be
+changed to a numeric style:
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 % Default style
@@ -1038,8 +1039,8 @@ entered using the @code{\partial} command, with the syntax
 \partial @var{duration} @emph{notes}
 @end example
 
-where @code{duration} is the rhythmic length of the @emph{notes}
-which are to be placed before the first complete measure:
+where @code{duration} is the rhythmic length of the interval
+before the start of the first complete measure:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \partial 4 e4 |
@@ -1108,9 +1109,9 @@ odd warnings may occur.
 
 Bar lines and bar numbers are calculated automatically.  For
 unmetered music (cadenzas, for example), this is not desirable.
-To turn off automatic bar lines and bar numbers, use the command
-@code{\cadenzaOn}, and use @code{\cadenzaOff} to turn them on
-again.
+To turn off automatic calculation of bar lines and bar numbers,
+use the command @code{\cadenzaOn}, and use @code{\cadenzaOff} 
+to turn them on again.
 
 @lilypond[verbatim,quote,ragged-right,relative=2,fragment]
 c4 d e d
@@ -1172,6 +1173,14 @@ to indicate where breaks can occur.
 @cindex signatures, polymetric
 @cindex polymetric signatures
 @cindex meter, polymetric
+
+Polymetric notation is supported, either explicitly or through
+clever use of markup features.
+
+@c Each of these examples uses \set or \override, and therefore
+@c by policy should be converted to a snippet.
+@c Do we want to have a section with a very brief (two-line 
+@c introduction, and have most of the content be in snippets?
 
 @strong{Alternating time signatures}
 
@@ -1239,6 +1248,9 @@ staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
   }
 >> }
 @end lilypond
+
+@c I guess this example doesn't use \set or \override, and so
+@c could stay in the manual.
 
 @strong{Staves with different time signatures, unequal bar lengths}
 

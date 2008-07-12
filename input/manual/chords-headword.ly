@@ -2,7 +2,7 @@
 #(set-global-staff-size 15)
 \paper{
   ragged-right=##f
-  line-width=17\cm
+  line-width=15\cm
   indent=0\cm
 }
 
