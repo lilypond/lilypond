@@ -26,6 +26,7 @@ FIXME
 * Arabic music notation overview::  
 * Arabic note names ::          
 * Arabic key signatures::       
+* Arabic time signatures:: 
 * References for Arabic music::  
 @end menu
 
@@ -103,20 +104,71 @@ sikah, iraq, and kurd. These key signatures define a small number
 of maqam groups rather than the large number of maqams that are in
 common use. 
 
-In general, a maqam uses the key signature of its base maqam in the
-same group, or a neighbouring group, and varying accidentals are 
-marked throughout the music.
+In general, a maqam uses the key signature of its group, or a 
+neighbouring group, and varying accidentals are marked throughout 
+the music.
 
 For example to indicate the key signature of a maqam muhayer piece:  
 
   \key re \bayati
 
 Here re is the default pitch of the muhayer maqam, and bayati is the
-name of the base maqam in the group.
+name of the base maqam in the group. 
 
-While the key signature indicates the maqam base or group, it is
+While the key signature indicates the group, it is
 common for the title to indicate the more  specific maqam, so in this
 example, the name of maqam muhayer should appear in the title.    
+
+In Arabic music, the same term such as bayati that is used to indicate 
+a maqam group, is also a maqam which is usually the most important
+in the group, and can also be thought of as a base maqam. 
+
+Here is one suggested grouping that maps the more common maqams to key 
+signatures: 
+
+@multitable @columnfractions 0.1 0.1 0.1 0.6
+@headitem maqam group 
+  @tab key 
+  @tab finalis 
+  @tab Other maqmas in group (finalis)  
+@item ajam 
+  @tab major 
+  @tab sib 
+  @tab jaharka (fa)
+@item bayati 
+  @tab bayati
+  @tab re
+  @tab hussaini, muhayer, saba, ushaq, nawa (sol) 
+@item hijaz 
+  @tab kurd
+  @tab re 
+  @tab shahnaz, shad arban (sol), hijazkar (do)
+@item iraq 
+  @tab iraq
+  @tab sisb
+  @tab - 
+@item kurd 
+  @tab kurd
+  @tab re
+  @tab hijazkar kurd (do) 
+@item nahawand 
+  @tab minor
+  @tab do 
+  @tab busalik (re), farah faza (sol)
+@item nakriz 
+  @tab minor
+  @tab do 
+  @tab nawa athar, hisar (re)
+@item rast 
+  @tab rast
+  @tab do
+  @tab mahur, yakah (sol)
+@item sikah 
+  @tab sikah
+  @tab misb
+  @tab huzam 
+@end multitable          
+
 
 You can also set the key signature using Staff.keySignature as discussed
 in @ref{Key signature}.  This offers more flexibility if you don't wish  
@@ -153,7 +205,78 @@ Learning Manual:
 Internals Reference:
 @rinternals{KeySignature}.
 
+@node Arabic time signatures
+@unnumberedsubsubsec Arabic time signatures 
+
+@cindex Arabic time signatures
+@cindex Semai form 
+@cindex taqasim 
+
+Some Arabic and Turkish music classical forms such as Semai use 
+unusual time signatures such as 10/8. This may lead to an 
+automatic grouping of notes that is quite different from existing
+typeset music. You can override this by switching off automatic 
+beaming, and grouping the notes manually using @code{[ ]} to 
+surround grouped notes, as described in @ref{Manual beams}. 
+
+For improvisations or taqasim which are temporarily free, the time
+signature can be omitted, and @code{\cadenzaOn} can be used.  
+You might need to adjust the accidental style, since the absence 
+of bar lines will cause the accidental to be marked only once:
+
+@example  
+#(set-accidental-style 'forget)
+@end example 
+
+@seealso 
+
+Notation Reference:
+@ref{Manual beams},
+@ref{Automatic beams},
+@ref{Unmetered music}, 
+@ref{Automatic accidentals}. 
+
 @node References for Arabic music
 @unnumberedsubsubsec References for arabic music
+
+@enumerate
+
+@item 
+The music of the Arabs by Habib Hassan Touma [Amadeus Press, 1996], 
+contains a discussion of maqams and their method of groupings.
+
+There are also various web sites that explain maqams and some 
+provide audio examples such as :
+
+@itemize @bullet 
+@item 
+@uref{http://www.maqamworld.com/}
+@item 
+@uref{http://www.turath.org/}
+@end itemize  
+
+There are some variations in the details of how maqams are grouped, 
+despite agreement on the criteria of grouping maqams that are 
+related through common lower tetra chords, or through modulation.  
+
+@item 
+There is not a complete consistency, sometimes even in the same 
+text on how key signatures for particular maqams should be 
+specified. It is common, however, to use a key signature per 
+group, rather than a different key signature for each different 
+maqam.
   
+Oud methods by the following authors, contain examples of 
+mainly Turkish and Arabic compositions. 
+
+@itemize @bullet
+@item 
+Charbel Rouhana
+@item 
+George Farah
+@item 
+Ibrahim Ali Darwish Al-masri
+@end itemize
+@end enumerate
+
 
