@@ -197,7 +197,7 @@ larger value is interpreted as 13.
 @end lilypond
 
 @noindent
-Note that @code{c:5} is identical to @code{c} -- both produce a C major triad.
+Note that both @code{c:5} and @code{c} produce a C major triad.
 
 Since an unaltered 11 does not sound good when combined with an
 unaltered 13, the 11 is removed from a @code{:13} chord (unless it
@@ -244,13 +244,15 @@ as part of the basic chode structure, add it as an altered step.
 
 @funindex ^
 
-A step to be removed from the chord indicated in a
-modifier string with a prefix of @code{^}.  Only one removal with @code{^}
-is allowed in a modifier string.
+Following any steps to be added, a series of steps to be removed 
+is introduced in a modifier string with a prefix of @code{^}.  
+If more than one step is to be removed, the steps to be
+removed are separated by @code{.} following the
+initial @code{^}. 
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {
-  c1^3 c:7^5 c:9^3.5
+  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
 }
 @end lilypond
 
@@ -267,9 +269,6 @@ equivalent to @code{.4^3}.
   c1:sus c:sus2 c:sus4 c:5.4^3
 }
 @end lilypond
-
-It is possible to remove the 3rd step with @code{sus} and remove
-another step with @code{^} in one modifier string.
 
 @funindex /
 @cindex chord inversions
@@ -296,7 +295,14 @@ moved as part of an inversion, by using @code{/+}@var{pitch}.
 }
 @end lilypond
 
+Chord modifiers that can be used to produce a variety of
+standard chords are shown in 
+@ref{Common chord modifiers}.
+
 @seealso
+
+Notation Reference:
+@ref{Common chord modifiers}.
 
 Snippets:
 @rlsr{Chords}
@@ -310,10 +316,6 @@ interpreted last.
 @lilypond[quote,ragged-right,verbatim,fragment]
 \chordmode { c1:5.5-.5+ }
 @end lilypond
-
-Only one step can be removed from a chord.  If a chord with multiple
-removed steps is desired, it must be built through addition of
-multiple steps.
 
 Only the first inversion can be created by adding a bass note.  The
 second inversion requires changing the root of the chord.
@@ -550,11 +552,11 @@ and @q{m}.  The spacer is not used when the root is altered.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-major7.ly}
 
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {adding-bars-to-chordnames.ly)
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adding-bar-lines-to-chordnames-context.ly}
 
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {volta-brackets-over-chord-names.ly}
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{volta-below-chords.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-chord-separator.ly}
@@ -563,7 +565,8 @@ and @q{m}.  The spacer is not used when the root is altered.
 @seealso
 
 Notation Reference:
-@ref{Chord name chart}.
+@ref{Chord name chart},
+@ref{Common chord modifiers}.
 
 Installed Files:
 @file{scm/@/chords@/-ignatzek@/.scm},
@@ -682,6 +685,7 @@ In figure mode, a group of bass figures is delimited by
 }
 @end lilypond
 
+
 Accidentals (including naturals) can be added to figures:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
@@ -708,7 +712,6 @@ sixth steps) can be created.
 }
 @end lilypond
 
-
 Vertical spaces and brackets can be be included in figures:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
@@ -716,7 +719,6 @@ Vertical spaces and brackets can be be included in figures:
   <[12 _!] 8 [6  4]>
 }
 @end lilypond
-
 
 Any text markup can be inserted as a figure:
 
@@ -764,6 +766,70 @@ unless the continuation lines have been explicitly terminated.
   }
 >>
 @end lilypond
+
+The table below summarizes the figure modifiers available.
+
+@multitable @columnfractions .1 .5 .4
+
+@item
+@b{Modifier}
+@tab
+@b{Purpose}
+@tab
+@b{Example}
+
+@item
++, -, !
+@tab
+Accidentals
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <7! 6+ 4-> <5++> <3-->
+}
+@end lilypond
+
+@item
+\+, /
+@tab
+Augmented and diminished steps
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+@item
+\\
+@tab
+Raised sixth step
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\\>
+}
+@end lilypond
+
+@item
+\!
+@tab
+End of continuation line
+@tab
+@lilypond[line-width=1.5\cm]
+<<
+  \figures {
+    \bassFigureExtendersOn
+    <6 4> <6 4> <6\! 4\!> <6 4>
+  }
+  {
+    \clef bass
+    d d c c
+  }
+>>
+@end lilypond
+
+@end multitable
 
 
 
@@ -939,7 +1005,6 @@ the bass line.
     \bassFigureExtendersOn
     % The extenders are incorrect here, even though the timing is the same
     <6 4->4 <6 4->4
-    %\repeat unfold 4 {<6 4->16. <6 4->32}
     <5>8. r16 <6>8 <6\! 5->
   }
 >>
