@@ -1332,11 +1332,12 @@ settings.  Therefore the midi file should not have more than 15 staves
 
 @menu
 * Creating MIDI files::
+* What goes into the MIDI output?::
 * MIDI block::
 * MIDI instrument names::
 * Repeats in MIDI::
 * Controlling MIDI dynamics::
-* What else goes into the MIDI output?::
+* Microtones in MIDI::
 @end menu
 
 @node Creating MIDI files
@@ -1411,6 +1412,43 @@ single note.
 Not all midi players correctly handle tempo changes in the midi
 output.  Players that are known to work include MS Windows Media
 Player and @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
+
+@node What goes into the MIDI output?
+@subsection What goes into the MIDI output?
+
+@c TODO Check grace notes - timing is suspect?
+
+@unnumberedsubsubsec Supported in MIDI
+
+The following items of notation are reflected in the MIDI output:
+
+@itemize
+@item Pitches
+@item Microtones
+@item Chords entered as chord names
+@item Rhythms entered as note durations, including tuplets
+@item Tremolos entered without @q{@code{:}[@var{number}]}
+@item Ties
+@item Dynamic marks
+@item Crescendi, decrescendi over multiple notes
+@item Tempo changes entered with a tempo marking
+@end itemize
+
+@unnumberedsubsubsec Unsupported in MIDI
+
+The following items of notation have no effect on the MIDI output:
+
+@itemize
+@item Rhythms entered as annotations, e.g. swing
+@item Tempo changes entered as annotations with no tempo marking
+@item Staccato and other articulations and ornamentations
+@item Slurs and Phrasing slurs
+@item Crescendi, decrescendi over a single note
+@item Tremolos entered with @q{@code{:}[@var{number}]}
+@item Figured bass
+@c TODO Check Lyrics
+@item Lyrics
+@end itemize
 
 
 @node MIDI block
@@ -1609,13 +1647,15 @@ The final example in this section shows how this might be done.
 
 The minimum and maximum overall volume of MIDI dynamic markings is
 controlled by setting the properties @code{midiMinimumVolume} and
-@code{midiMaximumVolume} at the @code{Score} level.  Note that
-these properties have an effect only on dynamic marks, so if they
+@code{midiMaximumVolume} at the @code{Score} level.  These
+properties have an effect only on dynamic marks, so if they
 are to apply from the start of the score a dynamic mark must be
 placed there.  The fraction corresponding to each dynamic mark is
-modified by multiplying it with
+modified with this formula
 
+@example
 midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
+@end example
 
 In the following example the dynamic range of the overall MIDI
 volume is limited to the range 0.2 - 0.5.
@@ -1664,7 +1704,7 @@ equalizer, which can enhance the quality of the MIDI output
 remarkably.
 
 In this example the volume of the clarinet is reduced relative
-to the volume of the flute.  Again, note, there must be a dynamic
+to the volume of the flute.  There must be a dynamic
 mark on the first note of each instrument for this to work
 correctly.
 
@@ -1774,12 +1814,8 @@ to the same values as the previous example.
 }
 @end lilypond
 
-@node What else goes into the MIDI output?
-@subsection What else goes into the MIDI output?
-
-@c TODO Check grace notes - timing is suspect?
-
-@unnumberedsubsubsec Microtones
+@node Microtones in MIDI
+@subsection Microtones in MIDI
 
 @cindex microtones in MIDI
 
@@ -1804,15 +1840,6 @@ copied out and compiled to test microtones in your MIDI player.
 }
 @end lilypond
 
-@knownissues
-
-@c TODO List things that have no effect
-@c TODO Check these
-
-Many musically interesting effects, such as swing, articulation,
-slurring, etc., are not translated to midi.  Also, figured bass,
-chords, tremolos entered with @q{@code{:}[@var{number}]} and lyrics
-have no effect on MIDI.
 
 
 
