@@ -500,8 +500,9 @@ comments:
   c4 c g' g a a g2
 
 %@{
-  This line, and the notes below are ignored,
-  since they are in a block comment.
+  This line, and the notes below
+  are ignored, since they are in a
+  block comment.
 
   f f e e d d c2
 %@}

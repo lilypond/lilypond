@@ -1437,8 +1437,8 @@ r2.
 \once \override TextScript #'outside-staff-priority = #1
 c4_"Text"\pp % this time the text will be closer to the staff
 r2.
-% by setting outside-staff-priority to a non-number, 
-% we disable the automatic collision avoidance
+% by setting outside-staff-priority to a non-number, we
+% disable the automatic collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
 \once \override DynamicLineSpanner #'outside-staff-priority = ##f
 c4_"Text"\pp % now they will collide
