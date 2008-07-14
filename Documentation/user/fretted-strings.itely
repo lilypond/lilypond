@@ -11,6 +11,8 @@
 @node Fretted string instruments
 @section Fretted string instruments
 
+@lilypondfile[quote]{fretted-headword.ly}
+
 This section discusses several aspects of music notation that are unique
 to fretted string instruments.
 
