@@ -3054,7 +3054,7 @@ too much, we can lengthen the stem by setting the
 >>
 @end lilypond
 
-@subheading Simulating a fermata
+@subheading Simulating a fermata in MIDI
 
 @cindex stencil property, use of
 @cindex fermata, implementing in MIDI
