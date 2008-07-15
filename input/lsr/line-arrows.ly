@@ -2,6 +2,13 @@
 %% This file is in the public domain.
 \version "2.11.51"
 \header {
+  texidoces = "
+Se pueden aplicar puntas de flecha a los elementos de extensión de
+texto y de línea (como el Glissando).
+
+"
+  doctitlees = "Puntas de flecha para las líneas"
+
   lsrtags = "expressive-marks"
   texidoc = "Arrows can be applied to text-spanners and line-spanners
 (such as the Glissando)."

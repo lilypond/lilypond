@@ -5,6 +5,13 @@
 \header {
   lsrtags = "rhythms, vocal-music, ancient-notation, contexts-and-engravers"
 
+  texidoces = "
+Este tipo de notación se utiliza para el canto de los Salmos, en
+que las estrofas no siempre tienen la misma longitud.
+
+"
+  doctitlees = "Notación de responsos o salmos"
+
   texidoc = "
 This form of notation is used for the chant of the Psalms, where verses
 aren't always the same length.

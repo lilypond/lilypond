@@ -3,6 +3,15 @@
 \version "2.11.51"
 
 \header {
+  texidoces = "
+Muchas partituras de piano tienen las indicaciones dinámicas
+centradas entre los dos pentagramas.  Esto requiere un poco de
+trucaje, pero puesto que la plantilla está aquí mismo, no tenemos
+que hacer este trucaje por nuestra cuenta.
+
+"
+  doctitlees = "Plantilla de piano con matices centrados"
+
   lsrtags = "expressive-marks,keyboards,template"
   texidoc = "
 Many piano scores have the dynamics centered between the two staves.

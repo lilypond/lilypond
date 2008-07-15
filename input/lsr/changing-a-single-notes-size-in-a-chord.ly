@@ -5,6 +5,19 @@
 \header {
   lsrtags = "simultaneous-notes, editorial-annotations, tweaks-and-overrides"
 
+  texidoces = "
+Se pueden modificar notas individuales de un acorde con la
+instrucción @code{\tweak}, alterando la propiedad
+@code{font-size}.
+
+Dentro de un acorde (entre ángulos simples @code{< >}), antes de
+la nota que queremos alterar, situamos la instrucción
+@code{\tweak} seguida por @code{#'font-size} y definimos el
+tamaño adecuado como @code{#-2} (una cabeza pequeña).
+
+"
+  doctitlees = "Modificar el tamaño de una nota suelta de un acorde"
+
   texidoc = "
 Individual note heads in a chord can be modified with the
 @code{\\tweak} command inside a chord, by altering the @code{font-size}

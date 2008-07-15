@@ -5,6 +5,14 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+El glifo de la marca de respiración se puede ajustar
+sobreescribiendo la proopiedad de texto del objeto de presentación
+@code{BreathingSign}, con cualquier otro texto de marcado.
+
+"
+  doctitlees = "Cambiar el símbolo de la marca de respiración"
+
   texidoc = "
 The glyph of the breath mark can be tuned by overriding the text
 property of the @code{BreathingSign} layout object with any markup

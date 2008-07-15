@@ -5,6 +5,13 @@
 \header {
   lsrtags = "vocal-music, chords, template"
 
+  texidoces = "
+Esta plantilla facilita la preparación de una canción con melodía,
+letra y acordes.
+
+"
+  doctitlees = "Plantilla de pentagrama único con música, letra y acordes"
+
   texidoc = "
 This template allows the preparation of a song with melody, words, and
 chords. 

@@ -5,6 +5,14 @@
 \header {
   lsrtags = "ancient-notation"
 
+  texidoces = "
+Aquí se muestran muchos (¿o quizá todos?) de los símbolos que
+están contemplados por la capacidad de LilyPond para la música
+antigua.
+"
+
+  doctitlees = "Tipografía de música antigua"
+
   texidoc = "
 Here are shown many (all?) of the symbols that are included in
 LilyPond's support of ancient notation.

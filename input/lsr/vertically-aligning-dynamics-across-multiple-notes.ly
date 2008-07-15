@@ -5,6 +5,16 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+Las expresiones dinámicas que se comienzan, terminan o se producen
+en la misma nota se alinean verticalmente.  Para asegurar que las
+expresiones dinámicas se alinean cuando no se producen sobre la
+misma nota, incremente la propiedad @code{staff-padding} del
+objeto @code{DynamicLineSpanner}.
+
+"
+  doctitlees = "Alinear verticalmente expresiones dinámicas que abarcan varias notas"
+
   texidoc = "
 Dynamics that occur at, begin on, or end on the same note will be
 vertically aligned.  To ensure that dynamics are aligned when they do

@@ -5,6 +5,13 @@
 \header {
   lsrtags = "chords"
 
+  texidoces = "
+Al juntar nombres de acorde en cifrado americano, melodía y letra,
+obtenemos una hoja guía de acordes o «lead sheet»:
+
+"
+  doctitlees = "Hoja guía de acordes o «lead sheet» sencilla"
+
   texidoc = "
 When put together, chord names, a melody, and lyrics form a lead sheet:
 

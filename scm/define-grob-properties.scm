@@ -25,7 +25,7 @@
      (X-extent ,number-pair? "Hard coded extent in X@tie{}direction.")
      (X-offset ,number? "The horizontal amount that this object is
 moved relative to its X-parent.")
-     (Y-extent ,number-pair? "See @code{X-extent}.")
+     (Y-extent ,number-pair? "Hard coded extent in Y@tie{}direction.")
      (Y-offset ,number? "The vertical amount that this object is moved
 relative to its Y-parent.")
 
@@ -37,8 +37,8 @@ callback for @code{after-line-breaking}.")
 @code{0}: around center of width, @code{1}: right side.")
      (allow-loose-spacing ,boolean? "If set, column can be detached
 from main spacing.")
-     (allow-span-bar ,boolean? "If false, no inter-staff barline will
-be created below this barline.")
+     (allow-span-bar ,boolean? "If false, no inter-staff bar line will
+be created below this bar line.")
      (alteration ,number? "Alteration numbers for accidental.")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
@@ -95,12 +95,12 @@ printing of the bracket.  Setting the property to @code{if-no-beam}
 makes it print only if there is no beam associated with this tuplet
 bracket.")
      (break-align-anchor ,number? "Grobs aligned to this break-align
-grob will have their X-offsets shifted by this number.  In barlines,
+grob will have their X-offsets shifted by this number.  In bar lines,
 for example, this is used to position grobs relative to the (visual)
-center of the barline.")
+center of the bar line.")
      (break-align-anchor-alignment ,number? "Read by
-ly:break-aligned-interface::calc-extent-aligned-anchor for aligning
-an anchor to a grobs extent")
+@code{ly:break-aligned-interface::calc-extent-aligned-anchor} for aligning
+an anchor to a grob's extent")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-symbols ,list? "A list of symbols that determine
@@ -181,7 +181,8 @@ edges: @code{(@var{left-text} . @var{right-text})}.")
 church rests.")
      (extra-X-extent ,number-pair? "A grob is enlarged in
 X@tie{}dimension by this much.")
-     (extra-Y-extent ,number-pair? "See @code{extra-X-extent}.")
+     (extra-Y-extent ,number-pair? "A grob is enlarged in
+Y@tie{}dimension by this much.")
      ;; remove me?
      (extra-dy ,number? "Slope glissandi this much extra.")
      (extra-offset ,number-pair? "A pair representing an offset.  This
@@ -212,10 +213,10 @@ of the font to load.  This setting overrides selection using
 include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
      (font-shape ,symbol? "Select the shape of a font.  Choices
 include @code{upright}, @code{italic}, @code{caps}.")
-     (font-size ,number? "The font size, compared to the @q{normal}
-size.  @code{0}@tie{}is style-sheet's normal size, @code{-1} is
-smaller, @code{+1} is bigger.  Each step of@tie{}1 is approximately
-12% larger, 6@tie{}steps are exactly a factor@tie{}2 larger.
+     (font-size ,number? "The font size, compared to the
+@q{normal}@tie{}size.  @code{0}@tie{}is style-sheet's normal size,
+@code{-1} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
+approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2 larger.
 Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
@@ -328,7 +329,7 @@ scores.")
 set to true is fixed relative to the staff above it when systems are
 stretched.")
      (keep-inside-line ,boolean? "If set, this column cannot have
-things sticking into the margin.")
+objects sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add.  For
 bar lines, this is the amount of space after a thick line.")
      (knee ,boolean? "Is this beam kneed?")
@@ -354,7 +355,7 @@ unbeamed stems.")
 determining ledger lines and stem lengths.")
      (line-break-penalty ,number? "Penalty for a line break at this
 column.  This affects the choices of the line breaker; it avoids a
-line break at a column with a positive penalty and prefer a line break
+line break at a column with a positive penalty and prefers a line break
 at a column with a negative penalty.")
      (line-break-permission ,symbol? "Instructs the line breaker on
 whether to put a line break at this column.  Can be @code{force} or
@@ -393,7 +394,8 @@ polyphonic guitar notation.  The value of this setting is used by
 directions (i.e., voice 1 &@tie{}2).")
      (minimum-X-extent ,number-pair? "Minimum size of an object in
 X@tie{}dimension, measured in @code{staff-space} units.")
-     (minimum-Y-extent ,number-pair? "See @code{minimum-X-extent}.")
+     (minimum-Y-extent ,number-pair? "Minimum size of an object in
+Y@tie{}dimension, measured in @code{staff-space} units.")
      (minimum-distance ,ly:dimension? "Minimum distance between rest
 and notes or beam.")
      (minimum-length ,ly:dimension? "Try to make a spanner at least
@@ -413,7 +415,8 @@ to flip the direction of custos stem.")
      (next ,ly:grob? "Object that is next relation (e.g., the lyric
 syllable following an extender.")
      (no-alignment ,boolean? "If set, don't place this grob in a
-VerticalAlignment; rather, place it using its own Y-offset callback")
+@code{VerticalAlignment}; rather, place it using its own @code{Y-offset}
+callback.")
      (no-ledgers ,boolean? "If set, don't draw ledger lines on this
 object.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
@@ -427,7 +430,7 @@ easy-notation note heads.")
      (outside-staff-horizontal-padding ,number? "By default, an
 outside-staff-object can be placed so that is it very close to another
 grob horizontally.  If this property is set, the outside-staff-object
-is raised so that it is not so close to its neighbour.")
+is raised so that it is not so close to its neighbor.")
      (outside-staff-padding ,number? "The padding to place between
 this grob and the staff when spacing according to
 @code{outside-staff-priority}.")
@@ -442,14 +445,14 @@ tightly as possible.")
 objects that are next to each other.")
      (page-break-penalty ,number? "Penalty for page break at this
 column.  This affects the choices of the page breaker; it avoids a
-page break at a column with a positive penalty and prefer a page break
+page break at a column with a positive penalty and prefers a page break
 at a column with a negative penalty.")
      (page-break-permission ,symbol? "Instructs the page breaker on
 whether to put a page break at this column.  Can be @code{force} or
 @code{allow}.")
      (page-turn-penalty ,number? "Penalty for a page turn at this
 column.  This affects the choices of the page breaker; it avoids a
-page turn at a column with a positive penalty and prefer a page turn
+page turn at a column with a positive penalty and prefers a page turn
 at a column with a negative penalty.")
      (page-turn-permission ,symbol? "Instructs the page breaker on
 whether to put a page turn at this column.  Can be @code{force} or
@@ -484,7 +487,7 @@ by 45 degrees around the center of this object.")
 
      (same-direction-correction ,number? "Optical correction amount
 for stems that are placed in tight configurations.  This amount is
-used for stems with the same direction to compensate for note-head to
+used for stems with the same direction to compensate for note head to
 stem distance.")
      (script-priority ,number? "A sorting key that determines in what
 order a script is within a stack of scripts.")
@@ -502,7 +505,7 @@ space for the shortest duration.  This is expressed in
 @code{spacing-increment} as unit.  See also
 @rinternals{spacing-spanner-interface}.")
      (shortest-playing-duration ,ly:moment? "The duration of the
-shortest playing here.")
+shortest note playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
 shortest note that starts here.")
      (side-axis ,number? "If the value is @code{#X} (or
@@ -521,9 +524,9 @@ of spacing tuples: @code{(@var{break-align-symbol} @var{type}
 . @var{distance})}, where @var{type} can be the symbols
 @code{minimum-space} or @code{extra-space}.")
      (space-to-barline ,boolean? "If set, the distance between a note
-and the following non-musical column will be measured to the barline
+and the following non-musical column will be measured to the bar line
 instead of to the beginning of the non-musical column.  If there is a
-clef change followed by a barline, for example, this means that we will
+clef change followed by a bar line, for example, this means that we will
 try to space the non-musical column as though the clef is not there.")
      (spacing-increment ,number? "Add this much space for a doubled
 duration.  Typically, the width of a note head.  See also
@@ -533,13 +536,13 @@ spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
      (staff-padding ,ly:dimension? "Maintain this much space between
 reference points and the staff.  Its effect is to align objects of
-differing sizes (like the dynamic @b{p} and @b{f}) on their
+differing sizes (like the dynamics @b{p} and @b{f}) on their
 baselines.")
      (staff-position ,number? "Vertical position, measured in half
 staff spaces, counted from the middle line.")
      (staff-space ,ly:dimension? "Amount of space between staff lines,
 expressed in global @code{staff-space}.")
-     (stem-attachment ,number-pair? "A @code{(@var{x} . @var{y})} pair
+     (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})} pair
 where the stem attaches to the notehead.")
      (stem-end-position ,number? "Where does the stem end (the end is
 opposite to the support-head)?")
@@ -556,7 +559,7 @@ value.")
      (strict-grace-spacing ,boolean? "If set, grace notes
 are not spaced separately, but put before musical columns.")
      (strict-note-spacing ,boolean? "If set, unbroken columns
-with non-musical material (clefs, barlines, etc.) are not spaced
+with non-musical material (clefs, bar lines, etc.) are not spaced
 separately, but put before musical columns.")
      (string-fret-finger-combinations ,list? "List consisting of
 @code{(@var{string-number} @var{fret-number} @var{finger-number})}
@@ -579,7 +582,7 @@ should use @code{LEFT}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
      (threshold ,number-pair? "@code{(@var{min} . @var{max})}, where
 @var{min} and @var{max} are dimensions in staff space.")
-     (to-barline ,boolean? "If true, the spanner will stop at that barline
+     (to-barline ,boolean? "If true, the spanner will stop at the bar line
 just before it would otherwise stop.")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where
@@ -594,7 +597,7 @@ automatically.")
 proportionally to their durations.  This looks better in complex
 polyphonic patterns.")
      (used ,boolean? "If set, this spacing column is kept in the
-spacing problem")
+spacing problem.")
 
      (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
 one below this grob.")
@@ -651,9 +654,9 @@ function is to protect objects from being garbage collected.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
      (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")
 
-     (bar-extent ,number-pair? "The Y-extent of the actual barline.
-This may differ from 'Y-extent because it does not include the dots in
-a repeat barline.")
+     (bar-extent ,number-pair? "The Y-extent of the actual bar line.
+This may differ from @code{Y-extent} because it does not include the dots in
+a repeat bar line.")
      (bars ,ly:grob-array? "A list of bar line pointers.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
      (bounded-by-me ,ly:grob-array? "A list of spanners that have this

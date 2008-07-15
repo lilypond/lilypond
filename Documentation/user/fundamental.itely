@@ -2745,7 +2745,7 @@ PedalOrganMusic = \relative c {
       \TimeKey
       \clef "bass"
       \new Voice { \PedalOrganMusic }
-    >>  % end PedalOrgan Staff
+    >>  % end PedalOrgan Staff context
   >>
 }  % end Score context
 @end lilypond

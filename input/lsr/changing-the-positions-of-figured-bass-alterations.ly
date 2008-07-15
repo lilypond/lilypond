@@ -5,6 +5,15 @@
 \header {
   lsrtags = "chords"
 
+  texidoces = "
+Las alteraciones y los signos «más» pueden aparecer antes o
+después de los números, según el valor de las propiedades
+@code{figuredBassAlterationDirection} y
+@code{figuredBassPlusDirection}.
+
+"
+  doctitlees = "Cambiar las posiciones de las alteraciones del bajo cifrado"
+
   texidoc = "
 Accidentals and plus signs can appear before or after the numbers,
 depending on the @code{figuredBassAlterationDirection} and

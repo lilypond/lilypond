@@ -5,6 +5,15 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+Se puede trazar un símbolo de arpegio entre notas de distintas
+voces que están sobre el mismo pentagrama si el grabador
+@code{Span_arpeggio_engraver} se traslada al contexto de
+@code{Staff} context:
+
+"
+  doctitlees = "Crear arpegios entre notas de voces distintas"
+
   texidoc = "
 An arpeggio can be drawn across notes in different voices on the same
 staff if the @code{Span_arpeggio_engraver} is moved to the @code{Staff}

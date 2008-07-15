@@ -5,6 +5,15 @@
 \header {
   lsrtags = "editorial-annotations"
 
+  texidoces = "
+Se pueden trazar líneas verticales normales entre pentagramas para
+mostrar la relación entre notas; sin embargo, en caso de música
+monofónica, podemos hacer invisible el segundo pentagrama, y que
+las líneas sean más cortas, como en este fragmento de código.
+
+"
+  doctitlees = "Líneas de rejilla: destacar ritmos y la relación temporal entre notas"
+
   texidoc = "
 Regular vertical lines can be drawn between staves to show notes
 synchronization; however, in case of monophonic music, you may want to

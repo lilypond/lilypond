@@ -5,6 +5,14 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+Puede ser necesario trucar la propiedad
+@code{shortest-duration-space} para poder ajustar el tamaño de las
+caídas y subidas de tono («falls» y «doits»).
+
+"
+  doctitlees = "Ajustar la forma de las subidas y caídas de tono"
+
   texidoc = "
 The @code{shortest-duration-space} property may have to be tweaked to
 adjust the shape of falls and doits.

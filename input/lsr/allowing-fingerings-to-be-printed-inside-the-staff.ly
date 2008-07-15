@@ -5,6 +5,14 @@
 \header {
   lsrtags = "editorial-annotations, spacing"
 
+  texidoces = "
+Las cifras de digitación se imprimen de forma predeterminada fuera
+del pentagrama.  Sin embargo, este comportamiento se puede
+cancelar.
+
+"
+  doctitlees = "Permitir que las digitaciones se impriman dentro del pentagrama"
+
   texidoc = "
 By default, fingering numbers will be printed outside the staff. 
 However, this behavior can be canceled.

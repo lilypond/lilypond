@@ -5,6 +5,17 @@
 \header {
   lsrtags = "pitches"
 
+  texidoces = "
+Este fragmento de código basado en Scheme genera
+24 notas aleatorias (o tantas como se necesiten), basándose en la
+hora actual (o en cualquier número pseudo-aleatorio que se
+especifique en su lugar, para obtener las mismas notas aleatorias
+cada vez): es decir, para obtener distintos patrones de notas,
+sólo tiene que modificar este número.
+
+"
+  doctitlees = "Generación de notas aleatorias"
+
   texidoc = "
 This Scheme-based snippet generates 24 random notes (or as many as
 required), based on the current time (or any randomish number specified

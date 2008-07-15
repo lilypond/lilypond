@@ -21,7 +21,9 @@
 } }
 
 
-#(graph-write graph (current-error-port))
+
+#(ly:progress (call-with-output-string
+  (lambda (port) (graph-write graph port))))
 #(ly:set-grob-modification-callback #f)
 #(ly:set-property-cache-callback #f)
 

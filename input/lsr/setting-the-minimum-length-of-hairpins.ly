@@ -5,6 +5,14 @@
 \header {
   lsrtags = "expressive-marks"
 
+  texidoces = "
+Si los reguladores son demasiado cortos, se pueden alargar
+modificando la propiedad @code{minimum-length} del objeto
+@code{Hairpin}.
+
+"
+  doctitlees = "Ajustar la longitud mínima de los reguladores"
+
   texidoc = "
 If hairpins are too short, they can be lengthened by modifying the
 @code{minimum-length} property of the @code{Hairpin} object. 

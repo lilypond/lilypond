@@ -5,6 +5,14 @@
 \header {
   lsrtags = "chords"
 
+  texidoces = "
+Para añadir indicaciones de línea divisoria dentro del contexto de
+los nombres de acorde @code{ChordNames}, incluya el grabador
+@code{Bar_engraver}.
+
+"
+  doctitlees = "Añadir barras de compás al contexto de nombres de acorde (ChordNames)"
+
   texidoc = "
 To add bar line indications in the @code{ChordNames} context, add the
 @code{Bar_engraver}.

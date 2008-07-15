@@ -5,6 +5,15 @@
 \header {
   lsrtags = "chords"
 
+  texidoces = "
+La nomenclatura inglesa (predeterminada) para los acordes del
+cifrado americano se puede cambiar por la alemana
+(@code{\germanChords} sustituye B y Bes por H y B) o por la semi-alemana
+(@code{\semiGermanChords} sustituye B y Bes por H y Bb).
+
+"
+  doctitlees = "Cambiar la nomenclatura de los acordes del cifrado americano por la notación alemana o semi-alemana"
+
   texidoc = "
 The english naming of chords (default) can be changed to german 
 (@code{\\germanChords} replaces B and Bes to H and B) or semi-german 

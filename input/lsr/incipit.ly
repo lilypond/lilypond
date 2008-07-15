@@ -2,6 +2,13 @@
 %% This file is in the public domain.
 \version "2.11.51"
 \header {
+  texidoces = "
+Los «incipit» se pueden escribir utilizando el grob del nombre del
+instruemento, pero manteniendo independientes las definiciones del
+nombre del instrumento y del incipit."
+ 
+ doctitlees = "Incipit"
+
   lsrtags = "staff-notation,ancient-notation"
   texidoc = "Incipits can be added using the instrument name grob, but
 keeping separate the instrument name definition and the incipit definition."

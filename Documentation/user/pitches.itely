@@ -612,10 +612,10 @@ the notes will remain on the same scale step, the second version
 will print flats on the scale step above.
 
 @lilypond[verbatim,quote]
-mus = \relative c' { c d e f }
+music = \relative c' { c d e f }
 \new Staff {
-  \transpose c cis { \mus }
-  \transpose c des { \mus }
+  \transpose c cis { \music }
+  \transpose c des { \music }
 }
 @end lilypond
 
