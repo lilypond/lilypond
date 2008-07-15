@@ -92,16 +92,11 @@ c2 d
 Normal repeats with alternate endings:
 
 @lilypond[verbatim,quote,relative=2]
-\repeat volta 2 { g4 f e d }
-  \alternative {
-    { cis2 g' }
-    { cis,2 b }
-  }
-\repeat volta 3 { c4 d e f }
-  \alternative {
-    { d2 e }
-    { f2 g }
-  }
+\repeat volta 4 { c4 d e f }
+\alternative {
+  { d2 e }
+  { f2 g }
+}
 c1
 @end lilypond
 
@@ -389,12 +384,6 @@ c1
     { cis,2 b }
   }
 c1
-\repeat unfold 3 { d4 c b2 }
-  \alternative {
-    { c4 d e f }
-    { d4 c b a }
-  }
-c1
 @end lilypond
 
 @seealso
@@ -499,7 +488,7 @@ tremolo style:
 
 @lilypond[quote,verbatim,relative=2]
 \repeat tremolo 8 { c16 d }
-\repeat tremolo 4 { c16 d }
+\repeat tremolo 6 { c16 d }
 \repeat tremolo 2 { c16 d }
 @end lilypond
 
