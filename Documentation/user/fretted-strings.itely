@@ -20,9 +20,9 @@ to fretted string instruments.
 @cindex guitar tablature
 
 @menu
-* Common notation for fretted strings::
-* Guitar::
-* Banjo::
+* Common notation for fretted strings::  
+* Guitar::                      
+* Banjo::                       
 @end menu
 
 @node Common notation for fretted strings
@@ -32,12 +32,12 @@ This section discusses common notation that is unique
 to fretted string instruments.
 
 @menu
-* References for fretted strings::
-* String number indications::
-* Default tablatures::
-* Custom tablatures::
-* Fret diagrams::
-* Right hand fingerings::
+* References for fretted strings::  
+* String number indications::   
+* Default tablatures::          
+* Custom tablatures::           
+* Fret diagrams::               
+* Right-hand fingerings::       
 @end menu
 
 @node References for fretted strings
@@ -452,9 +452,9 @@ Internals Reference:
 @c and include it somewhere -td
 
 @menu
-* Guitar tablatures::
-* Indicating position and barring::
-* Indicating harmonics and dampened notes::
+* Guitar tablatures::           
+* Indicating position and barring::  
+* Indicating harmonics and dampened notes::  
 @end menu
 
 @node Guitar tablatures
@@ -508,8 +508,8 @@ Notation Reference:
 @node Banjo
 @subsection Banjo
 
-@menu Banjo tablatures
-* Banjo tablatures::
+@menu
+* Banjo tablatures::            
 @end menu
 
 @node Banjo tablatures
