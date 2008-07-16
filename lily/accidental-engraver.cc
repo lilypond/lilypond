@@ -480,7 +480,8 @@ Accidental_engraver::stop_translation_timestep ()
 	     && origin->where_defined (ly_symbol2scm ("localKeySignature"), &localsig))
 	{
 	  bool change = false;
-	  if (accidentals_[i].tied_)
+	  if (accidentals_[i].tied_
+	      && !(to_boolean (accidentals_[i].accidental_->get_property ("forced"))))
 	    {
 	      /*
 		Remember an alteration that is different both from
