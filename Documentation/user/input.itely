@@ -1382,6 +1382,11 @@ can be suppressed, see @ref{Metronome marks}.  An alternative way
 of specifying the inital or overall MIDI tempo is described below,
 see @ref{MIDI block}.
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
+
 @knownissues
 
 @c In 2.11 the following no longer seems to be a problem -td
@@ -1520,11 +1525,6 @@ in a @code{\score} block.
   \midi @{ @}
 @}
 @end example
-
-@snippets
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{changing-midi-output-to-one-channel-per-voice.ly}
 
 @node MIDI instrument names
 @subsection MIDI instrument names
