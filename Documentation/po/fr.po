@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-06-20 09:14+0200\n"
-"PO-Revision-Date: 2008-07-13 14:42+0200\n"
+"PO-Revision-Date: 2008-07-16 18:51+0200\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan-AT-wanadoo-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -299,7 +299,7 @@ msgstr "Exemples d'application"
 #. @node in Documentation/de/user/introduction.itely
 #. @section in Documentation/de/user/introduction.itely
 msgid "About the documentation"
-msgstr "Compilation de la documentation"
+msgstr "À propos de la documentation"
 
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
@@ -309,7 +309,7 @@ msgstr "À propos du manuel d'initiation (LM)"
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
 msgid "About the Music Glossary (MG)"
-msgstr "À porpos du glossaire musicologique (MG)"
+msgstr "À propos du glossaire musicologique (MG)"
 
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
@@ -324,7 +324,7 @@ msgstr "À propos du manuel d'utilisation (AU)"
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
 msgid "About the Snippet List (SL)"
-msgstr "À propos ds morceaux choisis (SL)"
+msgstr "À propos des morceaux choisis (SL)"
 
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
