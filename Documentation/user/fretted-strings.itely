@@ -288,11 +288,26 @@ e, a, d, and g.
 @end lilypond
 
 LilyPond comes with predefined string tunings for banjo, mandolin,
-guitar and bass guitar.
+guitar and bass guitar.  Lilypond automatically sets the correct 
+transposition for predefined tunings.  The following example is
+for bass guitar, which sounds an octave lower than written.
 
-@example
-\set TabStaff.stringTunings = #bass-tuning
-@end example
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \clef "bass_8"
+    \relative c, {
+    c4 d e f
+    }
+  >>
+  \new TabStaff <<
+    \set TabStaff.stringTunings = #bass-tuning
+    \relative c, {
+    c4 d e f
+    }
+  >>
+>>
+@end lilypond
 
 The default string tuning is @code{guitar-tuning} (the standard
 EADGBE tuning).  Some other predefined tunings are
@@ -383,14 +398,12 @@ even when applied to a single note.
 before the closing @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
-{
-  \clef "treble_8"
-  <c-\rightHandFinger #1 >4 
-  <e-\rightHandFinger #2 > 
-  <g-\rightHandFinger #3 > 
-  <c-\rightHandFinger #4 >
-  <c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
-}
+\clef "treble_8"
+<c-\rightHandFinger #1 >4 
+<e-\rightHandFinger #2 > 
+<g-\rightHandFinger #3 > 
+<c-\rightHandFinger #4 >
+<c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 For convenience, you can abbreviate @code{\rightHandFinger} to something
@@ -408,9 +421,9 @@ short, for example @code{RH},
 You may exercise greater control over the placement of right-hand 
 fingerings by setting @code{strokeFingerOrientations},
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=0]
+@lilypond[quote,verbatim]
 #(define RH rightHandFinger)
-{
+\relative c {
   \clef "treble_8"
   \set strokeFingerOrientations = #'(up down)
   <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 > 4
@@ -424,9 +437,9 @@ fingerings by setting @code{strokeFingerOrientations},
 This example combines left-hand fingering, string indication, and 
 right-hand fingering
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=0]
+@lilypond[quote,verbatim]
 #(define RH rightHandFinger)
-{
+\relative c {
   \clef "treble_8"
   <c-3\5-\RH #1 >4 
   <e-2\4-\RH #2 > 
@@ -551,6 +564,7 @@ Snippets:
 @rlsr{Fretted strings}.
 
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+
 
 
 
