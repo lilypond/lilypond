@@ -2,8 +2,15 @@
 #(set-global-staff-size 15)
 \paper{
   ragged-right=##f
-  line-width=17\cm
+  line-width=15\cm
   indent=0\cm
+}
+
+\layout {
+  \context { \Score
+    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  }
 }
 
 theChords = \chordmode {

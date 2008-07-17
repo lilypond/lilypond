@@ -330,9 +330,8 @@ Provide a white background for @var{arg}.
 @lilypond[verbatim,quote]
 \\markup {
   \\combine
-  \\filled-box #'(-1 . 10) #'(-3 . 4) #1
-  \\whiteout
-  whiteout
+    \\filled-box #'(-1 . 10) #'(-3 . 4) #1
+    \\whiteout whiteout
 }
 @end lilypond"
   (stencil-whiteout (interpret-markup layout props arg)))
@@ -625,6 +624,9 @@ An empty markup with extents of a single point.
 
 A simple text string; @code{\\markup @{ foo @}} is equivalent with
 @code{\\markup @{ \\simple #\"foo\" @}}.
+
+Note: for creating standard text markup or defining new markup commands,
+the use of @code{\\simple} is unnecessary.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1036,7 +1038,31 @@ the line width, where @var{X} is the number of staff spaces.
   (symbol?)
   align
   ()
-  "Wordwrap the data which has been assigned to @var{symbol}."
+  "Wordwrap the data which has been assigned to @var{symbol}.
+  
+@lilypond[verbatim,quote]
+\\header {
+  title = \"My title\"
+  descr = \"Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+  nisi ut aliquip ex ea commodo consequat.\"
+}
+
+\\paper {
+  bookTitleMarkup = \\markup {
+    \\column {
+      \\fill-line { \\fromproperty #'header:title }
+      \\null
+      \\wordwrap-field #'header:descr
+    }
+  }
+}
+
+\\markup {
+  \\null
+}
+@end lilypond"
   (let* ((m (chain-assoc-get symbol props)))
     (if (string? m)
         (wordwrap-string-markup layout props m)
@@ -1046,7 +1072,31 @@ the line width, where @var{X} is the number of staff spaces.
   (symbol?)
   align
   ()
-  "Justify the data which has been assigned to @var{symbol}."
+  "Justify the data which has been assigned to @var{symbol}.
+  
+@lilypond[verbatim,quote]
+\\header {
+  title = \"My title\"
+  descr = \"Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+  nisi ut aliquip ex ea commodo consequat.\"
+}
+
+\\paper {
+  bookTitleMarkup = \\markup {
+    \\column {
+      \\fill-line { \\fromproperty #'header:title }
+      \\null
+      \\justify-field #'header:descr
+    }
+  }
+}
+
+\\markup {
+  \\null
+}
+@end lilypond"
   (let* ((m (chain-assoc-get symbol props)))
     (if (string? m)
         (justify-string-markup layout props m)
@@ -1060,13 +1110,21 @@ the line width, where @var{X} is the number of staff spaces.
 @cindex merging text
 
 Print two markups on top of each other.
+
+Note: @code{\\combine} cannot take a list of markups enclosed in
+curly braces as an argument; the follow example will not compile:
+
+@example
+\\combine @{ a list @}
+@end example
+
 @lilypond[verbatim,quote]
 \\markup {
   \\fontsize #5
   \\override #'(thickness . 2)
   \\combine
-  \\draw-line #'(0 . 4)
-  \\arrow-head #Y #DOWN ##f
+    \\draw-line #'(0 . 4)
+    \\arrow-head #Y #DOWN ##f
 }
 @end lilypond"
   (let* ((s1 (interpret-markup layout props m1))
@@ -1829,7 +1887,10 @@ some punctuation.  It doesn't have any letters.
   (markup?)
   font
   ()
-  "Set @code{font-shape} to @code{caps}"
+  "Set @code{font-shape} to @code{caps}
+  
+Note: @code{\\fontCaps} requires the installation and selection of
+fonts which support the @code{caps} font shape."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
 ;; Poor man's caps
@@ -2917,25 +2978,25 @@ when @var{label} is not found."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (define-public (space-lines baseline stils)
-  (let space-stil ((prev-stil #f)
-		   (stils stils)
+  (let space-stil ((stils stils)
 		   (result (list)))
-    (cond ((null? stils)
-	   (reverse! result))
-	  ((not prev-stil)
-	   (space-stil (car stils) (cdr stils) (list (car stils))))
-	  (else
-	   (let* ((stil (car stils))
-		  (dy (max (- baseline
-			      (+ (- (interval-bound (ly:stencil-extent prev-stil Y) DOWN))
-				 (interval-bound (ly:stencil-extent stil Y) UP)))
-			   0.0))
-		  (new-stil (ly:make-stencil
-			     (ly:stencil-expr stil)
-			     (ly:stencil-extent stil X)
-			     (cons (interval-bound (ly:stencil-extent stil Y) DOWN)
-				   (+ (interval-bound (ly:stencil-extent stil Y) UP) dy)))))
-	     (space-stil stil (cdr stils) (cons new-stil result)))))))
+    (if (null? stils)
+	(reverse! result)
+	(let* ((stil (car stils))
+	       (dy-top (max (- (/ baseline 1.5)
+			       (interval-bound (ly:stencil-extent stil Y) UP))
+			    0.0))
+	       (dy-bottom (max (+ (/ baseline 3.0)
+				  (interval-bound (ly:stencil-extent stil Y) DOWN))
+			       0.0))
+	       (new-stil (ly:make-stencil
+			  (ly:stencil-expr stil)
+			  (ly:stencil-extent stil X)
+			  (cons (- (interval-bound (ly:stencil-extent stil Y) DOWN)
+				   dy-bottom)
+				(+ (interval-bound (ly:stencil-extent stil Y) UP)
+				   dy-top)))))
+	  (space-stil (cdr stils) (cons new-stil result))))))
 
 (define-builtin-markup-list-command (justified-lines layout props args)
   (markup-list?)

@@ -3054,7 +3054,7 @@ too much, we can lengthen the stem by setting the
 >>
 @end lilypond
 
-@subheading Simulating a fermata
+@subheading Simulating a fermata in MIDI
 
 @cindex stencil property, use of
 @cindex fermata, implementing in MIDI
@@ -3128,8 +3128,10 @@ have to be absolutely correct.  If the same overrides are to be
 used many times it may be worth defining variables to hold them.
 Suppose we wish to emphasize certain words in lyrics by printing
 them in bold italics.  The @code{\italic} and @code{\bold}
-commands do not work within lyrics so we must instead use the
-following @code{\override} and @code{\revert} commands:
+commands only work within lyrics if they are also embedded in
+@code{\markup}, which makes them tedious to enter, so as an
+alternative can we instead use the @code{\override} and 
+@code{\revert} commands?
 
 @example
 @code{\override Lyrics . LyricText #'font-shape = #'italic}
@@ -3139,9 +3141,11 @@ following @code{\override} and @code{\revert} commands:
 @code{\revert Lyrics . LyricText #'font-series}
 @end example
 
-These would be extremely tedious to enter if there were many words
-requiring emphasis.  So instead we define these as two variables,
-and use them as follows:
+These would also be extremely tedious to enter if there were many
+words requiring emphasis.  So instead we define these as two
+variables, and use them as follows, although normally we would
+perhaps choose shorter names for the variables to make them
+quicker to type:
 
 @lilypond[quote,verbatim]
 emphasize = {
@@ -3169,10 +3173,10 @@ VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and p
       \clef "treble"
       \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
-      \new Lyrics \lyricsto "Sop" { \VerseOne   }
-      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
-      \new Lyrics \lyricsto "Sop" { \VerseThree }
-      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne   }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo   }
+      \new Lyrics \lyricsto "Soprano" { \VerseThree }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour  }
     >>
     \new Staff <<
       \clef "bass"

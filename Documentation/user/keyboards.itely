@@ -41,13 +41,13 @@ instruments.
 
 Keyboard instruments are usually notated with Piano staves.  These
 are two or more normal staves coupled with a brace.  The same
-notation is also used for harps and other keyed instruments.
+notation is also used for other keyed instruments.
 Organ music is normally written with two staves inside a
 @code{PianoStaff} group and third, normal staff for the pedals.
 
 The staves in keyboard music are largely independent, but
-sometimes voices can cross between the two staves.  In this
-section we discuss some notation techniques particular to keyboard
+sometimes voices can cross between the two staves.  This
+section discusses notation techniques particular to keyboard
 music.
 
 Several common issues in keyboard music are covered elsewhere:
@@ -68,7 +68,7 @@ number of voices may change regularly; this is described in
 @item Vertical grid lines can be shown with @ref{Grid lines}.
 
 @item Keyboard music often contains @notation{Laissez vibrer} ties
-as well as ties on arpeggios and tremelos, described in
+as well as ties on arpeggios and tremolos, described in
 @ref{Ties}.
 
 @item Placing arpeggios across multiple voices and staves is
@@ -93,13 +93,14 @@ Learning Manual:
 Notation Reference:
 @ref{Grouping staves},
 @ref{Instrument names},
+@ref{Collision resolution},
 @ref{Writing music in parallel},
 @ref{Fingering instructions},
+@ref{List of articulations},
 @ref{Grid lines},
 @ref{Ties},
 @ref{Arpeggio},
-@ref{Tremolo repeats},
-@ref{List of articulations}.
+@ref{Tremolo repeats}.
 
 Internals Reference:
 @rinternals{PianoStaff}.
@@ -135,27 +136,28 @@ Voices can be switched between staves manually, using the command
 
 @noindent
 The string @var{staffname} is the name of the staff.  It switches
-the current voice from its current staff to the Staff called
+the current voice from its current staff to the staff called
 @var{staffname}.  Typical values for @var{staffname} are
 @code{"up"} and @code{"down"}, or @code{"RH"} and @code{"LH"}.
 
 Cross-staff notes are beamed automatically:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \new PianoStaff <<
   \new Staff = "up" {
     <e' c'>8
-    \change Staff = down
-    g fis g
-    \change Staff = up
+    \change Staff = "down"
+    g8 fis g
+    \change Staff = "up"
     <g'' c''>8
-    \change Staff = down
-    e dis e
-    \change Staff = up
+    \change Staff = "down"
+    e8 dis e
+    \change Staff = "up"
   }
   \new Staff = "down" {
     \clef bass
-    s1 % keep staff alive
+    % keep staff alive
+    s1
   }
 >>
 @end lilypond
@@ -179,7 +181,8 @@ Snippets:
 @rlsr{Keyboards}.
 
 Internals Reference:
-@rinternals{Beam}.
+@rinternals{Beam},
+@rinternals{ContextChange}.
 
 
 @node Changing staff automatically
@@ -200,15 +203,16 @@ bottom staff.  The syntax for this is
 @noindent
 This will create two staves inside the current staff group
 (usually a @code{PianoStaff}), called @code{"up"} and
-@code{"down"}.  The lower staff will be in bass clef by default.
-The autochanger switches on basis of the pitch (middle C is the
+@code{"down"}.  The lower staff will be in the bass clef by default.
+The autochanger switches on the basis of the pitch (middle@tie{}C is the
 turning point), and it looks ahead skipping over rests to switch
 in advance.
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim]
 \new PianoStaff {
   \autochange {
-    g4 a b c' d' r4 a g
+    g4 a b c'
+    d'4 r a g
   }
 }
 @end lilypond
@@ -223,14 +227,14 @@ can be created manually with the names @code{"up"} and
 its voice between the existing staves.  For example, this is
 necessary to place a key signature in the lower staff:
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim]
 \new PianoStaff <<
   \new Staff = "up" {
     \new Voice = "melOne" {
       \key g \major
       \autochange \relative c' {
         g8 b a c b d c e
-        d r fis, g a2
+        d8 r fis, g a2
       }
     }
   }
@@ -274,15 +278,18 @@ staff based on the first note named in the chord construct.
 Whenever a voice switches to another staff, a line connecting the
 notes can be printed automatically:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[quote,verbatim,relative=1]
 \new PianoStaff <<
   \new Staff = "one" {
     \showStaffSwitch
     c1
-    \change Staff=two
+    \change Staff = "two"
     b2 a
   }
-  \new Staff = "two" { \clef bass s1*2 }
+  \new Staff = "two" {
+    \clef bass
+    s1*2
+  }
 >>
 @end lilypond
 
@@ -298,6 +305,7 @@ Snippets:
 @rlsr{Keyboards}.
 
 Internals Reference:
+@rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
 
 
@@ -309,32 +317,38 @@ Internals Reference:
 @cindex cross-staff stems
 @cindex stems, cross-staff
 
-Chords that cross staves may be produced by increasing the length
-of the stem in the lower staff, so it reaches the stem in the upper
-staff, or vice versa.
+Chords that cross staves may be produced:
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[verbatim,quote]
 \new PianoStaff <<
-  \new Staff \relative c' {
-    f8 e4 d8 <f bes,>2
+  \new Staff {
+    \relative c' {
+      f8 e4 d8 <f bes,>2
+    }
   }
-  \new Staff \relative c' {
-    << {
-      \clef bass
-      \stemUp
-      \override Stem #'length = #12
-      \override Stem #'cross-staff = ##t
-      \override Stem #'flag-style = #'no-flag
-      a8 g4 f8
-    } \\
-    { f,2 d' }
-    >>
+  \new Staff {
+    \relative c' {
+      << {
+        \clef bass
+        % stems may overlap the other staff
+        \override Stem #'cross-staff = ##t
+        % extend the stems to reach other other staff
+        \override Stem #'length = #12
+        % do not print extra flags
+        \override Stem #'flag-style = #'no-flag
+        a8 g4 f8
+      }
+      \\
+      {
+        f,2 d'
+      } >>
+    }
   }
 >>
 @end lilypond
 
 @snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @seealso
@@ -343,7 +357,7 @@ Snippets:
 @rlsr{Keyboards}.
 
 Internals Reference:
-@rinternals{Stem}
+@rinternals{Stem}.
 
 @node Piano
 @subsection Piano
@@ -361,7 +375,7 @@ piano.
 @cindex pedals, piano
 @cindex sustain pedal
 @cindex sostenuto pedal
-@cindex una corde
+@cindex una corda
 @cindex tre corde
 @funindex \sustainOn
 @funindex \sustainOff
@@ -372,10 +386,10 @@ piano.
 
 Pianos generally have three pedals that alter the way sound is
 produced: @notation{sustain}, @notation{sostenuto}
-(@notation{sos.}), and @notation{una corde} (@notation{U.C.}).
+(@notation{sos.}), and @notation{una corda} (@notation{U.C.}).
 Sustain pedals are also found on vibraphones and celestas.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c4\sustainOn d e g
 <c, f a>1\sustainOff
 c4\sostenutoOn e g c,
@@ -388,7 +402,7 @@ There are three styles of pedal indications: text, bracket, and mixed.
 The sustain pedal and the una corda pedal use the text style by default
 while the sostenuto pedal uses mixed by default.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c4\sustainOn g c2\sustainOff
 \set Staff.pedalSustainStyle = #'mixed
 c4\sustainOn g c d
@@ -414,10 +428,13 @@ Snippets:
 Internals Reference:
 @rinternals{SustainPedal},
 @rinternals{SustainPedalLineSpanner},
+@rinternals{SustainEvent},
 @rinternals{SostenutoPedal},
 @rinternals{SostenutoPedalLineSpanner},
+@rinternals{SostenutoEvent},
 @rinternals{UnaCordaPedal},
 @rinternals{UnaCordaPedalLineSpanner},
+@rinternals{UnaCordaEvent},
 @rinternals{PianoPedalBracket},
 @rinternals{Piano_pedal_engraver}.
 
@@ -445,7 +462,7 @@ come into use to simplify the performance instructions.
 
 @snippets
 
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {accordion-discant-symbols.ly}
 
 @seealso

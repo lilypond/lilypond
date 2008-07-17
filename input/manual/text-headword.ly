@@ -2,11 +2,17 @@
 \include "english.ly"
 #(set-global-staff-size 15)
 \paper{
-  ragged-right=##t
-  line-width=17\cm
-  indent=0\cm
+  line-width = 16\cm
+  indent = 0\cm
 }
  
+\layout {
+  \context { \Score
+    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  }
+}
+
 % NR 1.8 Text
 
 % L. v. Beethoven, Op. 110
@@ -42,7 +48,7 @@
 
       <df'' g'>4
       <bf' g'>2
-      _ \markup { \italic { "ten." } }
+      _ \markup { \italic { ten. } }
 
       |
 
@@ -59,10 +65,10 @@
 
             \once \override TextScript #'staff-padding = #4
             ef''8. (
-            _ \markup { \italic { "tranqu." } }
+            _ \markup { \italic { tranqu. } }
             d''16 )
             df''8 \trill \fermata
-            _ \markup { \italic { "ten." } }
+            _ \markup { \italic { ten. } }
          }
 
          \new Voice {
@@ -83,7 +89,7 @@
       \oneVoice
       \once \override TextScript #'staff-padding = #4
       df''32 
-      _ \markup { \italic "dolce" }
+      _ \markup { \italic dolce }
       c''32 
       df''32
       ef''32
@@ -149,7 +155,7 @@
             |
 
             bf4
-            bf8 ^ \markup { \italic "ten." }
+            bf8 ^ \markup { \italic ten. }
          }
 
          \new Voice {

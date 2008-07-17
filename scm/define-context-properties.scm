@@ -546,7 +546,7 @@ signature change.")
      (localKeySignature ,list? "The key signature at this point in the
 measure.  The format is the same as for @code{keySignature}, but can
 also contain @code{((@var{octave} . @var{name}) . (@var{alter} .
-@var{barnumber}))} pairs.  It is reset at every bar line.")
+@var{barnumber}))} pairs.")
 
 
      (melismaBusy ,boolean? "Signifies whether a melisma is active.
