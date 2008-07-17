@@ -166,6 +166,8 @@ sub lilypond_external_ref($$$$$$)
 #   return t2h_default_external_ref($type, $section, $book, $file_node, $href, $cross_ref);
 }
 
+
+my %translated_books = ();
 # Construct a href to an external source of information.
 # node is the node with texinfo @-commands
 # node_id is the node transliterated and transformed as explained in the
@@ -175,19 +177,34 @@ sub lilypond_external_ref($$$$$$)
 # file is the file in '(file)node'
 sub lilypond_external_href($$$)
 {
-    my $node = shift;
-    my $node_id = shift;
-    my $node_xhtml_id = shift;
-    my $file = shift;
-    my $original_func = \&t2h_default_external_href;
-    
-    # TODO: 
-    # 1) Keep a hash of book->section_map
-    # 2) if not file in keys hash => try to load the map (assign empty map is non-existent => will load only once!)
-    # 3) if node in the section=>(file, anchor) map, replace node_id and node_xhtml_id by the map's values
-    # 4) call the t2h_default_external_href with these values (or the old ones if not found)
-print STDERR "lilypond_external_href: texi_node='$node', node_file='$node_id', node_xhtml_id='$node_xhtml_id', file='$file'\n\n";
-# 
+  my $node = shift;
+  my $node_id = shift;
+  my $node_xhtml_id = shift;
+  my $file = shift;
+  my $original_func = \&t2h_default_external_href;
+
+  # TODO:
+  # 1) Keep a hash of book->section_map
+  # 2) if not file in keys hash => try to load the map (assign empty map is non-existent => will load only once!)
+  # 3) if node in the section=>(file, anchor) map, replace node_id and node_xhtml_id by the map's values
+  # 4) call the t2h_default_external_href with these values (or the old ones if not found)
+  print STDERR "lilypond_external_href: texi_node='$node', node_file='$node_id', node_xhtml_id='$node_xhtml_id', file='$file'\n";
+  if (($node_id ne '') and defined($file)) {
+    if (!exists($translated_books{$file})) {
+      print STDERR "Map for book $file not yet loaded, trying to initialize\n";
+      # TODO: Load the file...
+      $translated_books{$file}={};
+    }
+    my $section_name_map = $translated_books{$file};
+    if (exists($section_name_map->{$node_id})) {
+      print STDERR "Found key $node_id in section_name_map\n";
+      # TODO: Assign the new values to $file, $node_id and $node_xhtml_id!
+    } else {
+      print STDERR "Unable to find key $node_id in section_name_map\n";
+    }
+  }
+  print STDERR "\n";
+#
 #     $file = '' if (!defined($file));
 #     my $default_target_split = $EXTERNAL_CROSSREF_SPLIT;
 #     my $target_split;
