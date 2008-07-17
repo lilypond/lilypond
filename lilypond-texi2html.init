@@ -179,6 +179,7 @@ sub lilypond_external_href($$$)
     my $node_id = shift;
     my $node_xhtml_id = shift;
     my $file = shift;
+    my $original_func = \&t2h_default_external_href;
     
     # TODO: 
     # 1) Keep a hash of book->section_map
@@ -328,7 +329,11 @@ print STDERR "lilypond_external_href: texi_node='$node', node_file='$node_id', n
 #     {
 #         return $file . $file_basename . ".$NODE_FILE_EXTENSION";
 #     }
-  return t2h_default_external_href($node, $node_id, $node_hxmlt_id, $file);
+  if (defined $file) {
+    return &$original_func($node, $node_id, $node_hxmlt_id, $file);
+  } else {
+    return &$original_func($node, $node_id, $node_hxmlt_id);
+  }
 }
 
 
