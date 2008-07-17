@@ -2,14 +2,30 @@
 
 package Texi2HTML::Config;
 
+use Data::Dumper;
+$Data::Dumper::Maxdepth = 2;
+
+@Texi2HTML::Config::CSS_REFS      = ("lilypond.css");
+$Texi2HTML::Config::USE_ACCESSKEY = 1;
+$Texi2HTML::Config::USE_LINKS     = 1;
+$Texi2HTML::Config::USE_REL_REV   = 1;
+$Texi2HTML::Config::element_file_name    = \&split_at_numbered_sections;
+$Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
+$Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
+$Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
+$Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
+$Texi2HTML::Config::external_href         = \&lilypond_external_href;
+$Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
+$Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
+$Texi2HTML::Config::finish_out           = \&lilypond_finish_out;
+
+
 my $lastfilename;
 my $docnr = 0;
 my $page_toc_depth = 2;
 my @default_toc = [];
 my @section_to_filename;
 
-use Data::Dumper;
-$Data::Dumper::Maxdepth = 2;
 
 sub print_element_info($) 
 {
@@ -662,36 +678,12 @@ sub lilypond_print_navigation
      'right-aligned-cell-2', 'Forward'
     );
 
-# $Texi2HTML::Config::SPLIT = 'section';
-@Texi2HTML::Config::CSS_REFS      = ("lilypond.css");
-$Texi2HTML::Config::USE_ACCESSKEY = 1;
-$Texi2HTML::Config::USE_LINKS     = 1;
-$Texi2HTML::Config::USE_REL_REV   = 1;
-$Texi2HTML::Config::element_file_name    = \&split_at_numbered_sections;
-$Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
-$Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
-$Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
-$Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
-$Texi2HTML::Config::external_href         = \&lilypond_external_href;
-$Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
-$Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
-$Texi2HTML::Config::finish_out           = \&lilypond_finish_out;
 
 
-# For split pages, use index(.lang).html as start page!
+# For split pages, use index.html as start page!
 if ($Texi2HTML::Config::SPLIT == 'section') {
-#   my $lng = $Texi2HTML::THISDOC{'current_lang'};
-#   if ($lng and ($lng ne "en")) {
-#     $Texi2HTML::Config::TOP_FILE = 'index.'.$lng.'.html';
-#   } else {
-    $Texi2HTML::Config::TOP_FILE = 'index.html';
-#   }
+  $Texi2HTML::Config::TOP_FILE = 'index.html';
 }
-
-# if ($Texi2HTML::THISDOC{'current_lang'}) {
-#   $Texi2HTML::Config::EXTENSION = $Texi2HTML::THISDOC{'current_lang'} . "." . 
-#         $docu_ext = $Texi2HTML::Config::EXTENSION;;
-# }
 
 
 
