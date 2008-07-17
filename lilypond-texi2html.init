@@ -218,7 +218,7 @@ sub split_at_numbered_sections($$$)
     # normalize to the same file name as texinfo
     $anchor = texinfo_file_name($anchor);
     $$element{id} = $anchor;
-    # Numbered sections will get a filename Section_1.1.2, unnumbered sections will use
+    # Numbered sections will get a filename Node_title, unnumbered sections will use
     # the file name of the previous numbered section:
     if ($$element{number}) {
       my $filename = $anchor;
@@ -263,7 +263,7 @@ sub lilypond_external_ref($$$$$$)
   $file_node = &$anchor('', $href, $file_node) if ($file_node ne '');
   return &$I('%{node_file_href}', { 'node_file_href' => $file_node });
 
-#  Default: format as "see <a ..>NODE</a> section 'SECTION' in BOOK"
+#  Default: format as "see <a ..>NODE</a> section 'SECTION' in BOOK". We don't want this!
 #   return t2h_default_external_ref($type, $section, $book, $file_node, $href, $cross_ref);
 }
 
