@@ -91,16 +91,15 @@ c1\fermata
 
 Some of these articulations have shorthands for easier entry.
 Shorthands are appended to the note name, and their syntax
-consists of a dash (@tie{}@code{-}) followed by a symbol
-signifying the articulation.  Predefined shorthands exist for
-@notation{marcato}, @notation{stopped}, @notation{tenuto},
-@notation{staccatissimo}, @notation{accent}, @notation{staccato},
-and @notation{portato}.  Their corresponding output appears as
-follows:
+consists of a dash @code{-} followed by a symbol signifying the
+articulation.  Predefined shorthands exist for @notation{marcato},
+@notation{stopped}, @notation{tenuto}, @notation{staccatissimo},
+@notation{accent}, @notation{staccato}, and @notation{portato}.
+Their corresponding output appears as follows:
 
 @lilypond[verbatim,quote,relative=2]
 c4-^  c-+  c--  c-|
-c4->  c-.  c-_
+c4->  c-.  c2-_
 @end lilypond
 
 The rules for the default placement of articulations are defined
@@ -139,12 +138,6 @@ Snippets:
 Internals Reference:
 @rinternals{Script},
 @rinternals{TextScript}.
-
-
-@knownissues
-
-These signs appear in the printed output but have no effect on the
-MIDI rendering of the music.
 
 
 @node Dynamics
@@ -619,7 +612,7 @@ c2-\bendAfter #+8
 c2-\bendAfter #-8
 @end lilypond
 
-The dash (@tie{-}) immediately preceding the @code{\bendAfter}
+The dash @code{-} immediately preceding the @code{\bendAfter}
 command is @emph{required} when writing falls and doits.
 
 
@@ -714,42 +707,29 @@ is denoted by appending @code{\arpeggio} to the chord construct:
 <c e g c>1\arpeggio
 @end lilypond
 
-The direction of an arpeggio is indicated by adding an arrowhead
-to the wiggly line.  The commands @code{\arpeggioArrowUp} and
-@code{\arpeggioArrowDown} are used for this task.
-@code{\arpeggioNormal} reverts back to an arrow-less arpeggio:
+Different types of arpeggios may be written.
+@code{\arpeggioNormal} reverts to a normal arpeggio:
 
 @lilypond[verbatim,quote,relative=1]
+<c e g c>2\arpeggio
 \arpeggioArrowUp
 <c e g c>2\arpeggio
 \arpeggioArrowDown
 <c e g c>2\arpeggio
 \arpeggioNormal
-<c e g c>1\arpeggio
+<c e g c>2\arpeggio
 @end lilypond
 
-The command @code{\arpeggioBracket} can be used to create a square
-bracket on the left of a chord, indicating that the chord should
-@emph{not} be arpeggiated.  @code{\arpeggioNormal} reverts back
-to a regular arpeggio:
+Special @emph{bracketed} arpeggio symbols can be created:
 
 @lilypond[verbatim,quote,relative=1]
 <c e g c>2
 \arpeggioBracket
 <c e g c>2\arpeggio
-\arpeggioNormal
-<c e g c>1\arpeggio
-@end lilypond
-
-A @emph{parenthesis} style bracket may be attached to a chord
-construct instead of a square bracket.
-
-@lilypond[verbatim,quote,relative=1]
-<c e g c>2
 \arpeggioParenthesis
 <c e g c>2\arpeggio
 \arpeggioNormal
-<c e g c>1\arpeggio
+<c e g c>2\arpeggio
 @end lilypond
 
 Arpeggios can be explicitly written out with ties.  For more
@@ -826,8 +806,8 @@ achieve precise control over the placement of the grace notes, see
 
 @lilypond[verbatim,quote,relative=2]
 c1 \afterGrace
-d1\startTrillSpan { c16[\stopTrillSpan d] }
-c4
+d1\startTrillSpan { c32[ d]\stopTrillSpan }
+e2 r2
 @end lilypond
 
 @cindex pitched trills
