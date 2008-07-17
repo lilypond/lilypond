@@ -1,9 +1,63 @@
 #!/usr/bin/env perl
 
+### texi2html customization script for Lilypond
+### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
+###         Some code parts copied from texi2html and adapted.
+### License: GPLv2+
+###
+###
+### Features implemented here:
+### -) For split manuals, the main page is index.html.
+### -) All @unnumbered* sections are placed into the same file
+###    (implemented by split_at_numbered_sections)
+### -) Use our custom CSS file, with IE-specific fixes in another CSS file,
+###    impelmented by lilypond_css_lines
+### -) TOC (folded, with the current page highlighted) in an iframe is added
+###    to every page; implemented by:
+###           lilypond_print_element_header -- building of the TOC
+###           lilypond_toc_body -- generation of customized TOC output
+###           print_lilypond_page_foot -- output of the TOC
+### -) External refs are formatted only as "Text of the node" (not as >>see
+###    "NODE" section "SECTION" in "BOOK"<< like with default texi2html). Also,
+###    the leading "(book-name)" is removed.
+###    Implemented by overriding lilypond_external_ref
+### -) Navigation bars on top/bottom of the page and between sections are not
+###    left-aligned, but use a combination of left/center/right aligned table
+###    cells; For this, I heavily extend the texi2html code to allow for
+###    differently aligned cells and for multi-line tables);
+###    Implemented in lilypond_print_navigation
+### -) Allow translated section titles: All section titles can be translated,
+###    the original (English) title is associated with @translationof. This is
+###    needed, because the file name / anchor is generated from the original
+###    English title, since otherwise language-autoselection would break with
+###    posted links.
+###    Since it is then no longer possible to obtain the file name from the
+###    section title, I keep a sectionname<=>filename/anchor around and write
+###    it out to disk at the end of the conversion. This way, xrefs from
+###    other manuals can simply load that map and retrieve the correct file
+###    name for the link. Implemented in:
+###           lilypond_unknown (handling of @translationof)
+###           split_at_numbered_sections (correct file name, build the map)
+###           lilypond_finish_out (write out the map to disk)
+###           lilypond_external_href (load the map, use the correct link target)
+###
+###
+### Useful helper functions:
+### -) texinfo_file_name($node_name): returns a texinfo-compatible file name
+###    for the given string $node_name (whitespace trimmed/replaced by -,
+###    non-standard chars replaced by _xxxx (ascii char code) and forced to
+###    start with a letter by prepending t_g if necessary)
+
+
 package Texi2HTML::Config;
 
-use Data::Dumper;
-$Data::Dumper::Maxdepth = 2;
+
+
+
+
+#############################################################################
+###  SETTINGS FOR TEXI2HTML
+#############################################################################
 
 @Texi2HTML::Config::CSS_REFS      = ("lilypond.css");
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
@@ -14,10 +68,11 @@ $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
 $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
-$Texi2HTML::Config::external_href         = \&lilypond_external_href;
+$Texi2HTML::Config::external_href        = \&lilypond_external_href;
 $Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
 $Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
 $Texi2HTML::Config::finish_out           = \&lilypond_finish_out;
+$Texi2HTML::Config::unknown              = \&lilypond_unknown;
 
 
 my $lastfilename;
@@ -27,7 +82,17 @@ my @default_toc = [];
 my @section_to_filename;
 
 
-sub print_element_info($) 
+
+
+
+#############################################################################
+###  DEBUGGING
+#############################################################################
+
+use Data::Dumper;
+$Data::Dumper::Maxdepth = 2;
+
+sub print_element_info($)
 {
   my $element = shift;
   print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
@@ -35,6 +100,13 @@ sub print_element_info($)
   print Dumper($element);
 }
 
+
+
+
+
+#############################################################################
+###  HELPER FUNCTIONS
+#############################################################################
 
 # Convert a given node name to its proper file name (normalization as explained
 # in the texinfo manual:
@@ -46,7 +118,7 @@ sub texinfo_file_name($)
   # 1/2: letters and numbers are left unchanged
   # 3/4: multiple, leading and trailing whitespace is removed
   $str = main::normalise_space($str);
-  # 5/6: all remaining spaces are converted to '-', all other 7- or 8-bit 
+  # 5/6: all remaining spaces are converted to '-', all other 7- or 8-bit
   #      chars are replaced by _xxxx (xxxx=ascii character code)
   my @chars = split(//, $str);
   my $str = '';
@@ -80,14 +152,51 @@ sub texinfo_file_name($)
 
 
 
+
+
+#############################################################################
+###  CSS HANDLING
+#############################################################################
+
+# Include our standard CSS file, not hard-coded CSS code directly in the HTML!
+# For IE, conditionally include the lilypond-ie-fixes.css style sheet
+sub lilypond_css_lines ($$)
+{
+    my $import_lines = shift;
+    my $rule_lines = shift;
+    return if (defined($CSS_LINES));
+    if (@$rule_lines or @$import_lines)
+    {
+        $CSS_LINES = "<style type=\"text/css\">\n<!--\n";
+        $CSS_LINES .= join('',@$import_lines) . "\n" if (@$import_lines);
+        $CSS_LINES .= join('',@$rule_lines) . "\n" if (@$rule_lines);
+        $CSS_LINES .= "-->\n</style>\n";
+    }
+    foreach my $ref (@CSS_REFS)
+    {
+        $CSS_LINES .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\">\n";
+    }
+    $CSS_LINES .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+}
+
+
+
+
+
+#############################################################################
+###  SPLITTING BASED ON NUMBERED SECTIONS
+#############################################################################
+
 # This function makes sure that files are only generated for numbered sections,
 # but not for unnumbered ones. It is called after texi2html has done its own
 # splitting and simply returns the filename for the node given as first argument
-# Nodes with the same filename will be printed out to the same filename, so 
+# Nodes with the same filename will be printed out to the same filename, so
 # this really all we need. Also, make sure that the file names for sections
 # are derived from the section title. We also might want to name the anchors
-# according to node titles, which works by simply overriding the id element of 
-# the $element hash.
+# according to node titles, which works by simply overriding the id element of
+# the $element hash. Store the file name for each section in a hash (written
+# out to disk in lilypond_finish_out), so that other manuals can retrieve
+# the correct filename/anchor from the section title.
 sub split_at_numbered_sections($$$)
 {
   my $element = shift;
@@ -99,7 +208,7 @@ sub split_at_numbered_sections($$$)
   if ($type eq "toc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
     return;
   } else {
-    # derive the name of the anchor (i.e. the part after # in the links!), 
+    # derive the name of the anchor (i.e. the part after # in the links!),
     # don't use texi2html's SECx.x default!
     my $sec_name = main::remove_texi($$element{texi});
     my $anchor = $sec_name;
@@ -109,7 +218,7 @@ sub split_at_numbered_sections($$$)
     # normalize to the same file name as texinfo
     $anchor = texinfo_file_name($anchor);
     $$element{id} = $anchor;
-    # Numbered sections will get a filename Section_1.1.2, unnumbered sections will use 
+    # Numbered sections will get a filename Section_1.1.2, unnumbered sections will use
     # the file name of the previous numbered section:
     if ($$element{number}) {
       my $filename = $anchor;
@@ -129,24 +238,16 @@ sub split_at_numbered_sections($$$)
   return;
 }
 
-sub lilypond_finish_out()
-{
-  my $map_filename = "$Texi2HTML::THISDOC{'destination_directory'}$Texi2HTML::THISDOC{'file_base_name'}_xref.map";
-  if (open(XREFFILE, ">$map_filename")) {
-    foreach (@section_to_filename) {
-      my ($sec, $file, $anchor) = @$_;
-      print XREFFILE "$sec\t$file\t$anchor\n";
-    }
-    close XREFFILE;
-  } else {
-    print "Can't open $map_filename for writing: $! The map of X-refs will not be written out\n";
-  }
-}
 
 
 
-# The default formatting of external refs returns e.g. 
-# "(lilypond-internals)Timing_translator", so we remove all (...) from the 
+
+#############################################################################
+###  CLEANER LINK TITLE FOR EXTERNAL REFS
+#############################################################################
+
+# The default formatting of external refs returns e.g.
+# "(lilypond-internals)Timing_translator", so we remove all (...) from the
 # file_and_node argument. Also, we want only a very simple format, so we don't
 # even call the default handler!
 sub lilypond_external_ref($$$$$$)
@@ -167,12 +268,64 @@ sub lilypond_external_ref($$$$$$)
 }
 
 
+
+
+
+#############################################################################
+###  HANDLING TRANSLATED SECTIONS: handle @translationof, secname<->filename
+###                  map stored on disk, xrefs in other manuals load that map
+#############################################################################
+
+
+# Try to make use of @translationof to generate files according to the original
+# English section title...
+sub lilypond_unknown($$$$$)
+{
+    my $macro = shift;
+    my $line = shift;
+    my $pass = shift;
+    my $stack = shift;
+    my $state = shift;
+
+    # the @translationof macro provides the original English section title,
+    # which should be used for file/anchor naming, while the title will be
+    # translated to each language
+    if ($pass == 1 and $macro eq "translationof") {
+      if (ref($state->{'element'})=='HASH') {
+        $state->{'element'}->{'translationof'} = main::normalise_space($line);
+      }
+      return ('', true, undef, undef);
+    } else {
+      return t2h_default_unknown($macro, $line, $pass, $stack, $state);
+    }
+}
+
+
+# Print out the sectionName<=>filename association to the file basename_xref.map
+# so that cross-references from other manuals can load it and retrieve the
+# correct filenames/anchors for each section title.
+sub lilypond_finish_out()
+{
+  my $map_filename = "$Texi2HTML::THISDOC{'destination_directory'}$Texi2HTML::THISDOC{'file_base_name'}_xref.map";
+  if (open(XREFFILE, ">$map_filename")) {
+    foreach (@section_to_filename) {
+      my ($sec, $file, $anchor) = @$_;
+      print XREFFILE "$sec\t$file\t$anchor\n";
+    }
+    close XREFFILE;
+  } else {
+    print "Can't open $map_filename for writing: $! The map of X-refs will not be written out\n";
+  }
+}
+
+
+
 my %translated_books = ();
 # Construct a href to an external source of information.
 # node is the node with texinfo @-commands
 # node_id is the node transliterated and transformed as explained in the
 #         texinfo manual
-# node_xhtml_id is the node transformed such that it is unique and can 
+# node_xhtml_id is the node transformed such that it is unique and can
 #     be used to make an html cross ref as explained in the texinfo manual
 # file is the file in '(file)node'
 sub lilypond_external_href($$$)
@@ -231,7 +384,7 @@ sub lilypond_external_href($$$)
 #                        $href_mono =  $Texi2HTML::THISDOC{'htmlxref'}->{$file}->{'mono'}->{'href'};
 #                   }
 #              }
-# 
+#
 #              if ((not $target_mono) and (not $target_split))
 #              { # nothing specified for that manual, use default
 #                   $target_split = $default_target_split;
@@ -244,7 +397,7 @@ sub lilypond_external_href($$$)
 #              { # only mono specified
 #                   $target_split = 0;
 #              }
-# 
+#
 #              if ($target_split)
 #              {
 #                   if (defined($href_split))
@@ -291,7 +444,7 @@ sub lilypond_external_href($$$)
 #              else
 #              {
 #                  $file = '../' . $file;
-#              } 
+#              }
 #          }
 #     }
 #     else
@@ -355,8 +508,14 @@ sub lilypond_external_href($$$)
 
 
 
+
+
+#############################################################################
+###  CUSTOM TOC FOR EACH PAGE (in a frame on the left)
+#############################################################################
+
 # recursively generate the TOC entries for the element and its children (which
-# are only shown up to maxlevel. All ancestors of the current element are also 
+# are only shown up to maxlevel. All ancestors of the current element are also
 # shown with their immediate children, irrespective of their level.
 sub generate_ly_toc_entries($$$)
 {
@@ -404,7 +563,7 @@ sub lilypond_generate_page_toc_body($)
     my %parentelements;
     $parentelements{$element->{'number'}} = 1;
     # Find the path to the current element
-    while ( defined($current_element->{'sectionup'}) and 
+    while ( defined($current_element->{'sectionup'}) and
            ($current_element->{'sectionup'} ne $current_element) )
     {
       $parentelements{$current_element->{'sectionup'}->{'number'}} = 1
@@ -423,8 +582,12 @@ sub lilypond_generate_page_toc_body($)
     return @toc_entries;
 }
 
-my @this_page_toc = ();
 
+# Create the custom TOC for this page (partially folded, current page is
+# highlighted) and store it in a global variable. The TOC is written out after
+# the html contents (but positioned correctly using CSS), so that browsers with
+# css turned off still show the contents first.
+my @this_page_toc = ();
 sub lilypond_print_element_header
 {
   my $fh = shift;
@@ -439,6 +602,7 @@ sub lilypond_print_element_header
   return T2H_DEFAULT_print_element_header( $fh, $first_in_page, $previous_is_top);
 }
 
+# Generate the HTML output for the TOC
 sub lilypond_toc_body($)
 {
     my $elements_list = shift;
@@ -448,32 +612,6 @@ sub lilypond_toc_body($)
 }
 
 
-sub lilypond_css_lines ($$)
-{
-    my $import_lines = shift;
-    my $rule_lines = shift;
-    return if (defined($CSS_LINES));
-#     return if (!@$rule_lines and !@$import_lines and (! keys(%css_map)));
-    if (@$rule_lines or @$import_lines)
-    {
-        $CSS_LINES = "<style type=\"text/css\">\n<!--\n";
-        $CSS_LINES .= join('',@$import_lines) . "\n" if (@$import_lines);
-        $CSS_LINES .= join('',@$rule_lines) . "\n" if (@$rule_lines);
-        $CSS_LINES .= "-->\n</style>\n";
-    }
-    foreach my $ref (@CSS_REFS)
-    {
-        $CSS_LINES .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\">\n";
-    }
-    $CSS_LINES .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
-}
-
-
-
-
-
-
-
 # Print out the TOC in a <div> at the end of th page, which will be formatted as a
 # sidebar mimicking a TOC frame
 sub print_lilypond_page_foot($)
@@ -481,7 +619,7 @@ sub print_lilypond_page_foot($)
   my $fh = shift;
   my $program_string = &$program_string();
   print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
-  
+
   # Print the TOC frame:
   my @lines = @this_page_toc;
   # use default TOC if no custom lines have been generated
@@ -495,7 +633,7 @@ sub print_lilypond_page_foot($)
     print $fh "</div>";
     @this_page_toc = ();
   }
-  
+
   # Close the page:
   print $fh "</body>\n</html>\n";
 }
@@ -504,6 +642,9 @@ sub print_lilypond_page_foot($)
 
 
 
+#############################################################################
+###  NICER / MORE FLEXIBLE NAVIGATION PANELS
+#############################################################################
 
 sub get_navigation_text
 {
@@ -520,11 +661,11 @@ sub get_navigation_text
 }
 
 
-# Don't automatically create left-aligned table cells for every link, but 
+# Don't automatically create left-aligned table cells for every link, but
 # instead create a <td> only on an appropriate '(left|right|center)-aligned-cell-n'
 # button text. It's alignment as well as the colspan will be taken from the
 # name of the button. Also, add 'newline' button text to create a new table
-# row. The texts of the buttons are generated by get_navigation_text and 
+# row. The texts of the buttons are generated by get_navigation_text and
 # will contain the name of the next/previous section/chapter.
 sub lilypond_print_navigation
 {
@@ -542,20 +683,20 @@ sub lilypond_print_navigation
     {
         print $fh qq{<tr valign="top" align="left">\n} if $vertical;
         # Allow (left|right|center)-aligned-cell and newline as buttons!
-        if ( $button =~ /^(.*)-aligned-cell-(.*)$/ ) 
+        if ( $button =~ /^(.*)-aligned-cell-(.*)$/ )
         {
           print $fh qq{</td>} unless $beginofline;
           print $fh qq{<td valign="middle" align="$1" colspan="$2">};
           $beginofline = 0;
-        } 
-        elsif ( $button eq 'newline' ) 
+        }
+        elsif ( $button eq 'newline' )
         {
           print $fh qq{</td>} unless $beginofline;
           print $fh qq{</tr>};
           print $fh qq{<tr>};
           $beginofline = 1;
 
-        } 
+        }
         elsif (ref($button) eq 'CODE')
         {
             &$button($fh, $vertical);
@@ -569,7 +710,7 @@ sub lilypond_print_navigation
             my $text = $button->[1];
             my $button_href = $button->[0];
             # verify that $button_href is simple text and text is a reference
-            if (defined($button_href) and !ref($button_href) 
+            if (defined($button_href) and !ref($button_href)
                and defined($text) and (ref($text) eq 'SCALAR') and defined($$text))
             {             # use given text
                 if ($Texi2HTML::HREF{$button_href})
@@ -659,7 +800,7 @@ sub lilypond_print_navigation
 
 
 @Texi2HTML::Config::SECTION_BUTTONS =
-    ('left-aligned-cell-1', 'FastBack', 
+    ('left-aligned-cell-1', 'FastBack',
      'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
      'right-aligned-cell-1', 'FastForward',
      'newline',
@@ -674,14 +815,14 @@ sub lilypond_print_navigation
 # buttons for chapter file footers
 # (and headers but only if SECTION_NAVIGATION is false)
 @Texi2HTML::Config::CHAPTER_BUTTONS =
-    ('left-aligned-cell-1', 'FastBack', 
+    ('left-aligned-cell-1', 'FastBack',
      'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
      'right-aligned-cell-1', 'FastForward',
     );
 
 # buttons for section file footers
 @Texi2HTML::Config::SECTION_FOOTER_BUTTONS =
-    ('left-aligned-cell-1', 'FastBack', 
+    ('left-aligned-cell-1', 'FastBack',
      'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
      'right-aligned-cell-1', 'FastForward',
      'newline',
@@ -691,7 +832,7 @@ sub lilypond_print_navigation
     );
 
 @Texi2HTML::Config::NODE_FOOTER_BUTTONS =
-    ('left-aligned-cell-1', 'FastBack', 
+    ('left-aligned-cell-1', 'FastBack',
      'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
      'right-aligned-cell-1', 'FastForward',
      'newline',
@@ -702,37 +843,16 @@ sub lilypond_print_navigation
 
 
 
+
+
+#############################################################################
+###  OTHER SETTINGS
+#############################################################################
+
 # For split pages, use index.html as start page!
 if ($Texi2HTML::Config::SPLIT == 'section') {
   $Texi2HTML::Config::TOP_FILE = 'index.html';
 }
 
-
-
-# Try to make use of @translationof to generate files according to the original
-# English section title...
-sub lilypond_unknown($$$$$)
-{
-    my $macro = shift;
-    my $line = shift;
-    my $pass = shift;
-    my $stack = shift;
-    my $state = shift;
-
-    # the @translationof macro provides the original English section title, 
-    # which should be used for file/anchor naming, while the title will be
-    # translated to each language
-    if ($pass == 1 and $macro eq "translationof") {
-      if (ref($state->{'element'})=='HASH') {
-        $state->{'element'}->{'translationof'} = main::normalise_space($line);
-      }
-      return ('', true, undef, undef);
-    } else {
-      return t2h_default_unknown($macro, $line, $pass, $stack, $state);
-    }
-}
-$Texi2HTML::Config::unknown                  = \&lilypond_unknown;
-
-%css_map=();
 
 return 1;
