@@ -869,7 +869,7 @@ de symboles.  Le n-ième élément indique le style à utiliser pour le
 n-ième degré de la gamme.  Toutes les combinaisons sont possibles :
 
 @lilypond[verbatim,relative=1,fragment]
-  \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
+  \set shapeNoteStyles  = #'#(cross triangle fa #f mensural xcircle diamond)
   c8 d4. e8 a2 g1
 @end lilypond
 

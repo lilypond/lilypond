@@ -291,7 +291,7 @@ chaîne de caractères comme argument de @code{\rightHandFinger}.
 #(define RH rightHandFinger)
 {
   \set strokeFingerOrientations = #'(right)
-  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@")
+  \override StrokeFinger #'digit-names = #'#("x" "y" "z" "!" "@")
   <c-\RH #5 >4
   <c-\RH "@">4
 }
@@ -360,7 +360,7 @@ chaîne de caractères comme argument de @code{\rightHandFinger}.
 #(define RH rightHandFinger)
 {
   \set strokeFingerOrientations = #'(right)
-  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@")
+  \override StrokeFinger #'digit-names = #'#("x" "y" "z" "!" "@")
   <c-\RH #5 >4
   <c-\RH "@">4
 }
