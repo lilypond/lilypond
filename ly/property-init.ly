@@ -79,9 +79,9 @@ easyHeadsOff = {
   \revert NoteHead #'font-series
 }
 
-aikenHeads = \set shapeNoteStyles = ##(do re mi fa #f la ti)
+aikenHeads = \set shapeNoteStyles = #'#(do re mi fa #f la ti)
 
-sacredHarpHeads = \set shapeNoteStyles = ##(fa #f la fa #f la mi)
+sacredHarpHeads = \set shapeNoteStyles = #'#(fa #f la fa #f la mi)
 
 dynamicUp = {
   \override DynamicText #'direction = #UP
