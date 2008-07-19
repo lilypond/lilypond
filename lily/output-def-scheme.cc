@@ -135,7 +135,6 @@ LY_DEFINE (ly_paper_get_number, "ly:paper-get-number", 2, 0, 0,
 	   (SCM layout_smob, SCM name),
 	   "Return the layout variable @var{name}.")
 {
- 
   LY_ASSERT_SMOB (Output_def, layout_smob, 1);
   Output_def *layout = unsmob_output_def (layout_smob);
   return scm_from_double (layout->get_dimension (name));

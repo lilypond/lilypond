@@ -104,7 +104,6 @@ Open_type_font *
 All_font_metrics::find_otf (string name)
 {
   SCM sname = ly_symbol2scm (name.c_str ());
-  SCM name_string = ly_string2scm (name);
   SCM val;
   if (!otf_dict_->try_retrieve (sname, &val))
     {
@@ -124,6 +123,7 @@ All_font_metrics::find_otf (string name)
 	progress_indication ("]");
 
       unsmob_metrics (val)->file_name_ = file_name;
+      SCM name_string = ly_string2scm (name);
       unsmob_metrics (val)->description_ = scm_cons (name_string,
 						     scm_from_double (1.0));
       otf_dict_->set (sname, val);
