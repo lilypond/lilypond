@@ -1259,7 +1259,7 @@ Vous pouvez imprimer un numéro de mesure à intervalles réguliers plutôt
 qu'en tête de chaque ligne.  C'est ce qu'illustre l'exemple suivant.
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
-\override Score.BarNumber #'break-visibility = ##(#f #t #t)
+\override Score.BarNumber #'break-visibility = #'#(#f #t #t)
 \set Score.currentBarNumber = #11
 \bar ""  % Permit first bar number to be printed
 % Print a bar number every second measure
