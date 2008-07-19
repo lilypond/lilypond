@@ -1002,7 +1002,7 @@ de la instrucción @code{\override}.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'break-visibility = ##(#f #f #f)
+  \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
   c4 b8 c d16 c d8 |
   g, a16 b8 c d4 e16 |
   e8
