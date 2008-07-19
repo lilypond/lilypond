@@ -189,6 +189,12 @@ Y@tie{}dimension by this much.")
 offset is added just before outputting the symbol, so the typesetting
 engine is completely oblivious to it.  The values are measured in
 @code{staff-space} units of the staff's @code{StaffSymbol}.")
+     (extra-spacing-height ,number-pair? "In the horizontal spacing
+problem, we increase the height of each item by this amount (by adding
+the @q{car} to the bottom of the item and adding the @q{cdr} to the top
+of the item. In order to make a grob infinitely high (to prevent the
+horizontal spacing problem from placing any other grobs above or below
+this grob), set this to @code{(-inf.0 . +inf.0)}.")
      (extra-spacing-width ,number-pair? "In the horizontal spacing
 problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
@@ -315,10 +321,6 @@ left and one to the right of this grob.")
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
      (implicit ,boolean? "Is this an implicit bass figure?")
-     (infinite-spacing-height ,boolean? "If true, then for the
-purposes of horizontal spacing, treat this item as though it were
-infinitely tall.  That is, no object from another column is allowed to
-stick above or below this item.")
      (inspect-index ,integer? "If debugging is set, set beam and slur
 configuration to this index, and print the respective scores.")
      (inspect-quants ,number-pair? "If debugging is set,

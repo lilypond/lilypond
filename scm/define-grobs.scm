@@ -1940,6 +1940,7 @@
 	 . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-visibility . ,all-visible)
 	(avoid-slur . inside)
+	(extra-spacing-height . (-1.0 . 1.0))
 	(space-alist . (
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
