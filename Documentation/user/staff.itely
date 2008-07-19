@@ -98,7 +98,7 @@ is preserved.  See @ref{Showing melody rhythms}.
 
 @item
 @code{TabStaff} creates by default a tablature with six strings in 
-standard guitar tuning.  See @ref{Guitar tablatures}.
+standard guitar tuning.  See @ref{Default tablatures}.
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative=2]
 \new TabStaff { c d e f }
@@ -121,7 +121,7 @@ in the score.  This is done with the commands @code{\startStaff} and
 Music Glossary: @rglos{staff}, @rglos{staves}.
 
 Notation Reference: @ref{Percussion staves}, 
-@ref{Guitar tablatures}, @ref{Gregorian chant contexts},
+@ref{Default tablatures}, @ref{Gregorian chant contexts},
 @ref{Mensural contexts}.
 
 Snippets:
