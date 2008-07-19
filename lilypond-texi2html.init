@@ -142,8 +142,8 @@ sub texinfo_file_name($)
       $str .= $addstr;
     }
   }
-  # 7: if name begins with number, prepend 't_g' (so it starts with a letter)
-  if ($str =~ /^[0-9]/) {
+  # 7: if name does not begin with a letter, prepend 't_g' (so it starts with a letter)
+  if ($str !~ /^[a-zA-Z]/) {
     $str = 't_g' . $str;
   }
   # DONE
