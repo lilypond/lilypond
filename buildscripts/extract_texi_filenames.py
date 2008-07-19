@@ -6,15 +6,19 @@
 #
 # -o OUTDIR specifies that output files should rather be written in OUTDIR
 #
+# Description:
 # This script parses the .texi file given and creates a file with the
-# nodename <=> filename/anchor map (tab-separated as NODE\tFILENAME\tANCHOR).
+# nodename <=> filename/anchor map.
 # The idea behind: Unnumbered subsections go into the same file as the
 # previous numbered section, @translationof gives the original node name,
 # which is then used for the filename/anchor.
 #
 # If this script is run on a file texifile.texi, it produces a file
-# texifile_xref.map, which can then be used by our texi2html init script
-# to determine the correct file name and anchor for external refs
+# texifile_xref.map with tab-separated entries of the form
+#        NODE\tFILENAME\tANCHOR
+# Note: The filename does not have any extension appended!
+# This file can then be used by our texi2html init script to determine 
+# the correct file name and anchor for external refs
 
 import sys
 import re
@@ -40,7 +44,7 @@ def expand_includes (m):
     print "Including file: " + filepath
     if os.path.exists (filepath):
         return extract_sections (filepath)
-    return m.group(0)
+    return ''
 
 def extract_sections (filename):
     result = ''
@@ -54,7 +58,13 @@ def extract_sections (filename):
         result += "@" + sec[0] + " " + sec[1] + "\n"
     return result
 
+# Convert a given node name to its proper file name (normalization as explained
+# in the texinfo manual:
+# http://www.gnu.org/software/texinfo/manual/texinfo/html_node/HTML-Xref-Node-Name-Expansion.html
 def texinfo_file_name(title):
+    # exception: The top node is always mapped to index.html
+    if title == "Top":
+        return "index"
     # File name normalization by texinfo (described in the texinfo manual):
     # 1/2: letters and numbers are left unchanged
     # 3/4: multiple, leading and trailing whitespace is removed
@@ -92,6 +102,7 @@ def create_texinfo_anchor (title):
 unnumbered_re = re.compile (r'unnumbered.*')
 def process_sections (filename, page):
     sections = section_translation_re.findall (page)
+    # TODO: Don't rely on the file having a 4-letter extension (texi)!!!
     p = os.path.join (outdir, filename) [:-5] + '_xref.map'
     f = open (p, 'w')
 
@@ -107,12 +118,16 @@ def process_sections (filename, page):
                 print (this_title + "\t" + this_filename + "\t" + this_anchor)
             this_title = remove_texinfo (sec[1])
             this_anchor = create_texinfo_anchor (sec[1])
-        if sec[0] == "translationof":
+        elif sec[0] == "translationof":
             anchor = create_texinfo_anchor (sec[1])
+            # If @translationof is used, it gives the original node name, which
+            # we use for the anchor and the file name (if it is a numbered node)
             this_anchor = anchor
             if not this_unnumbered:
                 this_filename = anchor
         else:
+            # unnumbered nodes use the previously used file name, only numbered
+            # nodes get their own filename!
             this_unnumbered = unnumbered_re.match (sec[0])
             if not this_unnumbered:
                 this_filename = this_anchor
