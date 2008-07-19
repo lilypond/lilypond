@@ -460,21 +460,19 @@ Internals Reference:
 @node Guitar
 @subsection Guitar
 
-@c TODO Make a snippet based on
-@c http://www.nabble.com/Creating-a-nice-formatted-Chords-%2B-Lyrics-layout-for-guitar-players-to13829430.html
-@c and include it somewhere -td
+Most of the notational issues associated with guitar music are
+covered sufficiently in the general fretted strings section, but there
+are a few more worth covering here.  Occasionally users want to 
+create songbook-type documents having only lyrics with chord
+indications above them.  Since Lilypond is a music typesetter,
+it is not recommended for documents that have no music notation
+in them.  A better alternative is a word processor, text editor, 
+or, for experienced users, a typesetter like GuitarTeX.
 
 @menu
-* Guitar tablatures::           
 * Indicating position and barring::  
 * Indicating harmonics and dampened notes::  
 @end menu
-
-@node Guitar tablatures
-@subsubsection Guitar tablatures
-
-@c TODO Add text
-TBC
 
 @node Indicating position and barring
 @subsubsection Indicating position and barring
@@ -532,6 +530,8 @@ Notation Reference:
 LilyPond has basic support for the five-string banjo.  When making tablatures
 for five-string banjo, use the banjo tablature format function to get
 correct fret numbers for the fifth string:
+
+@c due to crazy intervals of banjo music, absolute pitch is recommended
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff <<
