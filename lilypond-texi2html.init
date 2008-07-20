@@ -71,7 +71,7 @@ $Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
 $Texi2HTML::Config::external_href        = \&lilypond_external_href;
 $Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
 $Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
-$Texi2HTML::Config::finish_out           = \&lilypond_finish_out;
+$Texi2HTML::Config::init_out             = \&lilypond_init_out;
 $Texi2HTML::Config::unknown              = \&lilypond_unknown;
 
 
@@ -139,6 +139,35 @@ sub texinfo_file_name($)
 }
 
 
+# Load a file containing a nodename<=>filename map (tab-sepatared, i.e.
+# NODENAME\tFILENAME\tANCHOR
+# Returns a ref to a hash "Node title" => ["FilenameWithoutExt", "Anchor"]
+sub load_map_file ($)
+{
+    my $mapfile = shift;
+    my $node_map = ();
+    # TODO: Load and parse the file
+    
+    if (open(XREFFILE, $mapfilename)) {
+        @nodelist = <XREFFILE>;
+        close (XREFFILE);
+        # parse the tab-separated entries and insert them into the map:
+        foreach $node (@nodelist) {
+            chomp($node);
+            my @entries = split(/\t/, $node);
+            if (length (@entries) == 3) {
+              $node_map->{$entries[0]} = [$entries[1], $entries[2]];
+            } else {
+              print STDERR "Invalid entry in the node file $mapfile: $node\n";
+            }
+        }
+    } else {
+        print STDERR "Unable to load the map file $mapfile\n";
+    }
+    return $node_map;
+}
+
+
 
 
 
@@ -196,10 +225,32 @@ sub split_at_numbered_sections($$$)
   my $docu_name = shift;
   my $docu_ext = $Texi2HTML::Config::EXTENSION;
 
-  # TOC, footer, about etc. are called with undefined $element and $type == "toc"|"stoc"|"foot"|"about"
-  if ($type eq "toc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+  my $node_name = $element->{'node_ref'}->{'no_texi'};
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, my $anchor) = @$node_to_filename_map->{$node_name};
+    $filename .= ".$docu_ext" if (defined($docu_ext));
+    print "Stored target: " + $node_to_filename_map->{$node_name};
+    $element->{id} = $anchor;
+    if ($filename == $lastfilename) {
+      $$element{doc_nr} = $docnr;
+    } else {
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+    }
+    return $filename;
+
+  } elsif ($type eq "toc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+    # TOC, footer, about etc. are called with undefined $element and $type == "toc"|"stoc"|"foot"|"about"
     return;
   } else {
+    # If we have an entry in the section<=>filename map, use that one, otherwise
+    # generate the filename/anchor here. In the latter case, external manuals
+    # will not be able to retrieve the file name for xrefs!!! Still, I already
+    # had that code, so I'll leave it in in case something goes wrong with the
+    #extract_texi_filenames.py script in the lilypond build process!
+    # TODO: lookup node name in nodename<=>filename map
+
     # derive the name of the anchor (i.e. the part after # in the links!),
     # don't use texi2html's SECx.x default!
     my $sec_name = main::remove_texi($$element{texi});
@@ -218,11 +269,9 @@ sub split_at_numbered_sections($$$)
       $docnr += 1;
       $$element{doc_nr} = $docnr;
       $lastfilename = $filename;
-      push (@section_to_filename, [$sec_name, $filename, $anchor]);
       return $filename;
     } else {
       $$element{doc_nr} = $docnr;
-      push (@section_to_filename, [$sec_name, $lastfilename, $anchor]);
       return $lastfilename;
     }
   }
@@ -230,8 +279,15 @@ sub split_at_numbered_sections($$$)
   return;
 }
 
-
-
+sub lilypond_init_out ()
+{
+    print "Init out\n";
+    t2h_default_init_out ();
+#     my $map_filename = "$Texi2HTML::THISDOC{'destination_directory'}$Texi2HTML::THISDOC{'file_base_name'}_xref.map";
+    my $map_filename = "$Texi2HTML::THISDOC{'file_base_name'}_xref.map";
+    $node_to_filename_map = load_map_file ($map_filename);
+    print Dumper ($node_to_filename_map);
+}
 
 
 #############################################################################
@@ -293,23 +349,6 @@ sub lilypond_unknown($$$$$)
 }
 
 
-# Print out the sectionName<=>filename association to the file basename_xref.map
-# so that cross-references from other manuals can load it and retrieve the
-# correct filenames/anchors for each section title.
-sub lilypond_finish_out()
-{
-  my $map_filename = "$Texi2HTML::THISDOC{'destination_directory'}$Texi2HTML::THISDOC{'file_base_name'}_xref.map";
-  if (open(XREFFILE, ">$map_filename")) {
-    foreach (@section_to_filename) {
-      my ($sec, $file, $anchor) = @$_;
-      print XREFFILE "$sec\t$file\t$anchor\n";
-    }
-    close XREFFILE;
-  } else {
-    print "Can't open $map_filename for writing: $! The map of X-refs will not be written out\n";
-  }
-}
-
 
 
 my %translated_books = ();
@@ -344,11 +383,18 @@ sub lilypond_external_href($$$)
     if (exists($section_name_map->{$node_id})) {
       print STDERR "Found key $node_id in section_name_map\n";
       # TODO: Assign the new values to $file, $node_id and $node_xhtml_id!
+      # TODO: Am I doing this right?
+
+      (my $filename, my $anchor) = @$section_name_map->{$node_id};
+      $filename .= ".$docu_ext" if (defined($docu_ext));
+      print "Stored target: " + $node_to_filename_map->{$node_name};
+      
+      $node_xhtml_id = $anchor;
+      $file = $filename;
     } else {
       print STDERR "Unable to find key $node_id in section_name_map\n";
     }
   }
-  print STDERR "\n";
 #
 #     $file = '' if (!defined($file));
 #     my $default_target_split = $EXTERNAL_CROSSREF_SPLIT;
