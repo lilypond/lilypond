@@ -1628,7 +1628,7 @@ required fraction, and setting
 @code{Score.dynamicAbsoluteVolumeFunction} to this function.
 
 For example, if a @notation{rinforzando} dynamic marking,
-@code{\rfz), is required, this will not by default
+@code{\rfz}, is required, this will not by default
 have any effect on the MIDI volume, as this dynamic marking is not
 included in the default set.  Similarly, if a new dynamic marking
 has been defined with @code{make-dynamic-script} that too will not
