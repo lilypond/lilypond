@@ -24,8 +24,8 @@ The engraver does no time-keeping, so it involves some trickery to get
   c4 \glissando d e \glissando f \glissando \break
   %% consecutive 
   c \glissando d, \glissando e'
-  << { \stemUp e8 \glissando g8 }
-     \context Voice = VB {\stemDown \repeat unfold 4 d16 } >>
+  << { e8 \glissando g8 } \\
+     { \repeat unfold 4 d16 } >>
   \override Glissando  #'style = #'zigzag
   c4 \glissando c,, \glissando c' \glissando d
 }

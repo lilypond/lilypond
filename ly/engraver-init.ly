@@ -608,10 +608,12 @@ automatically when an output definition (a @code{\score} or
   keepAliveInterfaces = #'(
     rhythmic-grob-interface
     lyric-interface
+    percent-repeat-item-interface
+    percent-repeat-interface
 
     ;; need this, as stanza numbers are items, and appear only once. 
     stanza-number-interface
-    percent-repeat-interface)
+  )
   quotedEventTypes = #'(
     note-event
     rest-event

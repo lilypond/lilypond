@@ -2033,7 +2033,7 @@ line visible}, @code{beginning of line visible}.  In the following
 example bar numbers are printed at all possible places:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
-\override Score.BarNumber #'break-visibility = ##(#t #t #t)
+\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
 \set Score.currentBarNumber = #11
 \bar ""  % Permit first bar number to be printed
 c1 c c c
@@ -2049,7 +2049,7 @@ and here the bar numbers are printed every two measures
 except at the end of the line:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
-\override Score.BarNumber #'break-visibility = ##(#f #t #t)
+\override Score.BarNumber #'break-visibility = #'#(#f #t #t)
 \set Score.currentBarNumber = #11
 \bar ""  % Permit first bar number to be printed
 % Print a bar number every second measure
@@ -2097,7 +2097,7 @@ bar line:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
 \set Score.currentBarNumber = #111
-\override Score.BarNumber #'break-visibility = ##(#t #t #t)
+\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
 % Increase the size of the bar number by 2
 \override Score.BarNumber #'font-size = #2
 % Print a bar number every second measure

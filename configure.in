@@ -133,6 +133,8 @@ STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, OPTIONAL, 8.15)
 
 STEPMAKE_PATH_PROG(FONTFORGE, fontforge, REQUIRED, 20050624)
 
+STEPMAKE_PATH_PROG(T1ASM, t1asm, REQUIRED)
+
 AC_CHECK_HEADERS([assert.h grp.h libio.h pwd.h sys/stat.h wchar.h fpu_control.h])
 AC_LANG_PUSH(C++)
 AC_CHECK_HEADERS([sstream boost/lambda/lambda.hpp])

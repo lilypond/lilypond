@@ -117,6 +117,11 @@ note)."
  '(padding stencils))
 
 (ly:add-interface
+ 'percent-repeat-interface
+ "Beat, Double and single measure repeats."
+ '())
+
+(ly:add-interface
  'piano-pedal-interface
  "A piano pedal sign."
  '())
