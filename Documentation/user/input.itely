@@ -1130,7 +1130,7 @@ Unicode-aware editor and saving the file with UTF-8 encoding.  Most
 popular modern editors have UTF-8 support, for example, vim, Emacs,
 jEdit, and GEdit do.  All MS Windows systems later than NT use
 Unicode as their native character encoding, so even Notepad can
-edit and save a file in UTF-8 format.  A more functional 
+edit and save a file in UTF-8 format.  A more functional
 alternative for Windows is BabelPad.
 
 If a LilyPond input file containing a non-ASCII character is not
@@ -1145,7 +1145,8 @@ will be generated.
 Here is an example showing Cyrillic, Hebrew and Portuguese
 text:
 
-@lilypond[verbatim,quote]
+@lilypond[quote]
+%c No verbatim here as the code does not display correctly in PDF
 % Cyrillic
 bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
@@ -1332,19 +1333,17 @@ settings.  Therefore the midi file should not have more than 15 staves
 
 @menu
 * Creating MIDI files::
-* What goes into the MIDI output?::
 * MIDI block::
-* MIDI instrument names::
+* What goes into the MIDI output?::
 * Repeats in MIDI::
 * Controlling MIDI dynamics::
-* Microtones in MIDI::
 @end menu
 
 @node Creating MIDI files
 @subsection Creating MIDI files
 
-To create a MIDI output file from a LilyPond input file, add a @code{\midi} block
-to a score, for example,
+To create a MIDI output file from a LilyPond input file, add a
+@code{\midi} block to a score, for example,
 
 @example
 \score @{
@@ -1382,6 +1381,33 @@ can be suppressed, see @ref{Metronome marks}.  An alternative way
 of specifying the inital or overall MIDI tempo is described below,
 see @ref{MIDI block}.
 
+@unnumberedsubsubsec Instrument names
+
+@cindex instrument names
+@funindex Staff.midiInstrument
+
+The MIDI instrument to be used is specified by setting the
+@code{Staff.midiInstrument} property to the instrument name.
+The name should be chosen from the list in @ref{MIDI instruments}.
+
+@example
+\new Staff @{
+  \set Staff.midiInstrument = "glockenspiel"
+  @var{...notes...}
+@}
+@end example
+
+@example
+\new Staff \with @{midiInstrument = "cello"@} @{
+  @var{...notes...}
+@}
+@end example
+
+If the selected instrument does not exactly match an instrument from
+the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
+instrument is used.
+
+
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -1417,44 +1443,6 @@ single note.
 Not all midi players correctly handle tempo changes in the midi
 output.  Players that are known to work include MS Windows Media
 Player and @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
-
-@node What goes into the MIDI output?
-@subsection What goes into the MIDI output?
-
-@c TODO Check grace notes - timing is suspect?
-
-@unnumberedsubsubsec Supported in MIDI
-
-The following items of notation are reflected in the MIDI output:
-
-@itemize
-@item Pitches
-@item Microtones
-@item Chords entered as chord names
-@item Rhythms entered as note durations, including tuplets
-@item Tremolos entered without @q{@code{:}[@var{number}]}
-@item Ties
-@item Dynamic marks
-@item Crescendi, decrescendi over multiple notes
-@item Tempo changes entered with a tempo marking
-@end itemize
-
-@unnumberedsubsubsec Unsupported in MIDI
-
-The following items of notation have no effect on the MIDI output:
-
-@itemize
-@item Rhythms entered as annotations, e.g. swing
-@item Tempo changes entered as annotations with no tempo marking
-@item Staccato and other articulations and ornamentations
-@item Slurs and Phrasing slurs
-@item Crescendi, decrescendi over a single note
-@item Tremolos entered with @q{@code{:}[@var{number}]}
-@item Figured bass
-@c TODO Check Lyrics
-@item Lyrics
-@end itemize
-
 
 @node MIDI block
 @subsection MIDI block
@@ -1526,24 +1514,57 @@ in a @code{\score} block.
 @}
 @end example
 
-@node MIDI instrument names
-@subsection MIDI instrument names
+@node What goes into the MIDI output?
+@subsection What goes into the MIDI output?
 
-@cindex instrument names
-@funindex Staff.midiInstrument
+@c TODO Check grace notes - timing is suspect?
 
-The MIDI instrument name is set by the @code{Staff.midiInstrument}
-property.  The instrument name should be chosen from the list in
-@ref{MIDI instruments}.
+@unnumberedsubsubsec Supported in MIDI
 
-@example
-\set Staff.midiInstrument = "glockenspiel"
-@var{...notes...}
-@end example
+@cindex Pitches in MIDI
+@cindex MIDI, Pitches
+@cindex Quarter tones in MIDI
+@cindex MIDI, quarter tones
+@cindex Microtones in MIDI
+@cindex MIDI, microtones
+@cindex Chord names in MIDI
+@cindex MIDI, chord names
+@cindex Rhythms in MIDI
+@cindex MIDI, Rhythms
+@c TODO etc
 
-If the selected instrument does not exactly match an instrument from
-the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
-instrument is used.
+The following items of notation are reflected in the MIDI output:
+
+@itemize
+@item Pitches
+@item Quarter tones (See @ref{Accidentals}. Rendering needs a
+player that supports pitch bend.)
+@item Chords entered as chord names
+@item Rhythms entered as note durations, including tuplets
+@item Tremolos entered without @q{@code{:}[@var{number}]}
+@item Ties
+@item Dynamic marks
+@item Crescendi, decrescendi over multiple notes
+@item Tempo changes entered with a tempo marking
+@end itemize
+
+@unnumberedsubsubsec Unsupported in MIDI
+
+@c TODO index as above
+
+The following items of notation have no effect on the MIDI output:
+
+@itemize
+@item Rhythms entered as annotations, e.g. swing
+@item Tempo changes entered as annotations with no tempo marking
+@item Staccato and other articulations and ornamentations
+@item Slurs and Phrasing slurs
+@item Crescendi, decrescendi over a single note
+@item Tremolos entered with @q{@code{:}[@var{number}]}
+@item Figured bass
+@c TODO Check Lyrics
+@item Lyrics
+@end itemize
 
 
 @node Repeats in MIDI
@@ -1606,11 +1627,13 @@ function which takes a dynamic mark as its argument and returns the
 required fraction, and setting
 @code{Score.dynamicAbsoluteVolumeFunction} to this function.
 
-For example, if a @notation{rinforzando} dynamic marking, rfz,
-has been defined with @code{make-dynamic-script}, this will not
+For example, if a @notation{rinforzando} dynamic marking,
+@code{\rfz), is required, this will not by default
 have any effect on the MIDI volume, as this dynamic marking is not
-included in the default set.  The following example shows how the
-MIDI volume for this new dynamic marking can be added.  The Scheme
+included in the default set.  Similarly, if a new dynamic marking
+has been defined with @code{make-dynamic-script} that too will not
+be included in the default set.  The following example shows how the
+MIDI volume for such dynamic markings might be added.  The Scheme
 function sets the fraction to 0.9 if a dynamic mark of rfz is
 found, or calls the default function otherwise.
 
@@ -1619,8 +1642,6 @@ found, or calls the default function otherwise.
     (if (equal? dynamic "rfz")
       0.9
       (default-dynamic-absolute-volume dynamic)))
-
-rfz = #(make-dynamic-script "rfz")
 
 \score {
   \new Staff {
@@ -1814,6 +1835,9 @@ to the same values as the previous example.
 }
 @end lilypond
 
+@ignore
+@c Delete when satisfied this is adequately covered elsewhere -td
+
 @node Microtones in MIDI
 @subsection Microtones in MIDI
 
@@ -1839,7 +1863,7 @@ copied out and compiled to test microtones in your MIDI player.
   \midi {}
 }
 @end lilypond
-
+@end ignore
 
 
 
