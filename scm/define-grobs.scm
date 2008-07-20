@@ -574,6 +574,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				break-aligned-interface
+				percent-repeat-interface
 				percent-repeat-item-interface))))))
 
     (DoublePercentRepeatCounter
@@ -597,6 +598,7 @@
 		 (interfaces . (side-position-interface
 				self-alignment-interface
 				percent-repeat-item-interface
+				percent-repeat-interface
 				font-interface
 				text-interface))))))
 
@@ -1312,7 +1314,8 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (multi-measure-rest-interface
 				font-interface
-				percent-repeat-item-interface))))))
+				percent-repeat-interface
+				))))))
 
     (PercentRepeatCounter
      . (
@@ -1333,7 +1336,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (side-position-interface
 				self-alignment-interface
-				percent-repeat-item-interface
+				percent-repeat-interface
 				font-interface
 				text-interface))))))
 
@@ -1389,6 +1392,7 @@
 	(slope . 1.7)
 	(meta . ((class . Item)
 		 (interfaces . (rhythmic-grob-interface
+				percent-repeat-interface
 				percent-repeat-item-interface))))))
 
     (RepeatTie
