@@ -135,12 +135,15 @@ Separation_item::boxes (Grob *me, Grob *left)
       Interval y (il->pure_height (ycommon, 0, very_large));
       Interval x (il->extent (pc, X_AXIS));
 
-      Interval extra = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
-					    Interval (-0.1, 0.1));
-      x[LEFT] += extra[LEFT];
-      x[RIGHT] += extra[RIGHT];
-      if (to_boolean (elts[i]->get_property ("infinite-spacing-height")))
-	y = Interval (-infinity_f, infinity_f);
+      Interval extra_width = robust_scm2interval (elts[i]->get_property ("extra-spacing-width"),
+						  Interval (-0.1, 0.1));
+      Interval extra_height = robust_scm2interval (elts[i]->get_property ("extra-spacing-height"),
+						   Interval (-0.1, 0.1));
+
+      x[LEFT] += extra_width[LEFT];
+      x[RIGHT] += extra_width[RIGHT];
+      y[DOWN] += extra_height[DOWN];
+      y[UP] += extra_height[UP];
  
       if (!x.is_empty () && !y.is_empty ())
       out.push_back (Box (x, y));
