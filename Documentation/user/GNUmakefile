@@ -125,7 +125,7 @@ $(outdir)/%/source:
 	mkdir -p $(dir $@)
 	ln -sf $(depth)/.. $(@)
 
-local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) info
+local-WWW-1: $(MASTER_TEXI_FILES) $(MASTER_TEXI_FILES:%.texi=%_xref.map) $(PDF_FILES) info
 
 local-WWW-2: $(HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
 
