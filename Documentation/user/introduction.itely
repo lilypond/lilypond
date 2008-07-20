@@ -992,9 +992,8 @@ formats to the @code{.ly} format.
 @cindex snippets
 @cindex LSR
 
-@c FIXME: check on kainhofer.
-@ref{Top,LilyPond Snippet List,,lilypond-snippets}:
-this shows a selected set of LilyPond snippets from the
+@ref{Top,LilyPond Snippet List,,lilypond-snippets}: this shows a
+selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  It is in the public domain.
 
@@ -1011,84 +1010,62 @@ The list of snippets for each subsection of the Notation Reference
 @node About the Internals Reference (IR)
 @unnumberedsubsec About the Internals Reference (IR)
 
-@c zzz
+@ref{Top,Internals Reference,,lilypond-internals}: this is a set
+of heavily cross linked HTML pages which document the nitty-gritty
+details of each and every LilyPond class, object, and function.
+It is produced directly from the formatting definitions used.
 
-@itemize
-@item
-The
-@iftex
-Internals Reference
-@end iftex
-@ifnottex
-@ref{Top,Internals Reference,,lilypond-internals}
-@end ifnottex
-is a set of heavily cross linked HTML pages, which document the
-nitty-gritty details of each and every LilyPond class, object, and
-function.  It is produced directly from the formatting definitions used.
-
-Almost all formatting functionality that is used internally, is
-available directly to the user.  For example, all variables that control
-thickness values, distances, etc., can be changed in input files.  There
-are a huge number of formatting options, and all of them are described
-in this document.  Each section of the notation manual has a @b{See
-also} subsection, which refers to the generated documentation.  In the
-HTML document, these subsections have clickable links.
-
-@end itemize
+Almost all formatting functionality that is used internally is
+available directly to the user.  For example, all variables that
+control thickness values, distances, etc., can be changed in input
+files.  There are a huge number of formatting options, and all of
+them are described in this document.  Each section of the notation
+manual has a @b{See also} subsection, which refers to the
+generated documentation.  In the HTML document, these subsections
+have clickable links.
 
 
 @node Other documentation
 @unnumberedsubsec Other documentation
 
-FIXME: most of this should go higher up.  Discuss News, mailist
-archives, ...?
+There are a number of other sources of information which may be
+very valuable.
 
-There are a number of other places which may be very valuable.
+@itemize
 
-Once you are an experienced user, you can use the manual as reference:
-there is an extensive index@footnote{If you are looking for something,
-and you cannot find it in the manual, that is considered a bug.  In
-that case, please file a bug report.}, but the document is also
-available in
-@iftex
-a big HTML page,
-@end iftex
-@ifhtml
-@uref{source/Documentation/user/lilypond-big-page.html, one big page},
-@end ifhtml
-which can be searched easily using the search facility of a web
-browser.
+@item @ref{Top,News,,NEWS}: This is a summary of important changes
+and new features in LilyPond since the previous version.
 
+@item @uref{http://lists.gnu.org/archive/html/lilypond-user/, The
+lilypond-user mailist archives}: this is a collection of previous
+emails sent to the user list.  Many questions have been asked
+multiple times; there is a very good chance that if you have a
+question, the answer might be found in these archives.
 
-In all HTML documents that have music fragments embedded, the LilyPond
-input that was used to produce that image can be viewed by clicking
-the image.
+@item @uref{http://lists.gnu.org/archive/html/lilypond-devel/, The
+lilypond-devel mailist archives}: this is a collection of previous
+emails sent to the developer's list.  The discussion here is more
+technical; if you have an advanced question about lilypond
+internals, the answer might be in these archives.
 
-The location of the documentation files that are mentioned here can vary
-from system to system.  On occasion, this manual refers to
-initialization and example files.  Throughout this manual, we refer to
-input files relative to the top-directory of the source archive.  For
-example, @file{input/@/lsr/@/dirname/@/bla@/.ly} may refer to the file
-@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  On binary
-packages for the UNIX platform, the documentation and examples can
-typically be found somewhere below
+@item Embedded music fragments: in all HTML documents that have
+music fragments embedded, the exact LilyPond input that was used
+to produce that image can be viewed by clicking the image.
+
+@item Init files: The location of the documentation files that are
+mentioned here can vary from system to system.  On occasion, this
+manual refers to initialization and example files.  Throughout
+this manual, we refer to input files relative to the top-directory
+of the source archive.  For example,
+@file{input/@/lsr/@/dirname/@/bla@/.ly} may refer to the file
+@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  On
+binary packages for the UNIX platform, the documentation and
+examples can typically be found somewhere below
 @file{/usr/@/share/@/doc/@/lilypond/}.  Initialization files, for
-example @file{scm/@/lily@/.scm}, or @file{ly/@/engraver@/-init@/.ly},
-are usually found in the directory @file{/usr/@/share/@/lilypond/}.
+example @file{scm/@/lily@/.scm}, or
+@file{ly/@/engraver@/-init@/.ly}, are usually found in the
+directory @file{/usr/@/share/@/lilypond/}.
 
-@cindex adjusting output
-@cindex variables
-@cindex properties
-@cindex lilypond-internals
-@cindex internal documentation
-@cindex Scheme
-@cindex extending LilyPond
-@cindex index
-
-Finally, this and all other manuals, are available online both as PDF
-files and HTML from the web site, which can be found at
-@uref{http://@/www@/.lilypond@/.org/}.
-
-
+@end itemize
 
 
