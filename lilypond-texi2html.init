@@ -113,38 +113,31 @@ sub print_element_info($)
 # http://www.gnu.org/software/texinfo/manual/texinfo/html_node/HTML-Xref-Node-Name-Expansion.html
 sub texinfo_file_name($)
 {
-  my $str = shift;
+  my $text = shift;
+  my $result = '';
   # File name normalization by texinfo:
   # 1/2: letters and numbers are left unchanged
   # 3/4: multiple, leading and trailing whitespace is removed
-  $str = main::normalise_space($str);
+  $text = main::normalise_space($text);
   # 5/6: all remaining spaces are converted to '-', all other 7- or 8-bit
   #      chars are replaced by _xxxx (xxxx=ascii character code)
-  my @chars = split(//, $str);
-  my $str = '';
-  foreach my $char (@chars) {
-    if ( $char eq ' ' ) { # space -> '-'
-      $str .= '-';
-    } elsif ( ('0' le $char and $char le '9' ) or
-              ('A' le $char and $char le 'Z' ) or
-              ('a' le $char and $char le 'z' ) ) { # number or letter
-      $str .= $char;
-    } else {
-      my $ccode = ord($char);
-      my $addstr;
-      if ( ord($char)<= 0xFFFF ) {
-        $addstr = sprintf("_%4x", $ccode);
+  while ($text ne '') {
+    if ($text =~ s/^([A-Za-z0-9]+)//o) { # number or letter stay unchanged
+      $result .= $1;
+    } elsif ($text =~ s/^ //o) { # space -> '-'
+      $result .= '-';
+    } elsif ($text =~ s/^(.)//o) { # Otherwise use _xxxx (ascii char code)
+      my $ccode = ord($1);
+      if ( $ccode <= 0xFFFF ) {
+        $result .= sprintf("_%04x", $ccode);
       } else {
-        $addstr = sprintf("__%6x", $ccode);
+        $result .= sprintf("__%06x", $ccode);
       }
-      # padding is done by spaces, replace by '0'
-      $addstr =~ s/\ /0/g;
-      $str .= $addstr;
     }
   }
   # 7: if name does not begin with a letter, prepend 't_g' (so it starts with a letter)
-  if ($str !~ /^[a-zA-Z]/) {
-    $str = 't_g' . $str;
+  if ($result !~ /^[a-zA-Z]/) {
+    $result = 't_g' . $str;
   }
   # DONE
   return $str
