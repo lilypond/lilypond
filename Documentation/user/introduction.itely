@@ -1033,7 +1033,7 @@ very valuable.
 
 @itemize
 
-@item @ref{Top,News,,NEWS}: This is a summary of important changes
+@item News: This is a summary of important changes
 and new features in LilyPond since the previous version.
 
 @item @uref{http://lists.gnu.org/archive/html/lilypond-user/, The
