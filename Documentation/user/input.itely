@@ -1130,7 +1130,7 @@ Unicode-aware editor and saving the file with UTF-8 encoding.  Most
 popular modern editors have UTF-8 support, for example, vim, Emacs,
 jEdit, and GEdit do.  All MS Windows systems later than NT use
 Unicode as their native character encoding, so even Notepad can
-edit and save a file in UTF-8 format.  A more functional 
+edit and save a file in UTF-8 format.  A more functional
 alternative for Windows is BabelPad.
 
 If a LilyPond input file containing a non-ASCII character is not
@@ -1145,7 +1145,8 @@ will be generated.
 Here is an example showing Cyrillic, Hebrew and Portuguese
 text:
 
-@lilypond[verbatim,quote]
+@lilypond[quote]
+%c No verbatim here as the code does not display correctly in PDF
 % Cyrillic
 bulgarian = \lyricmode {
   Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
