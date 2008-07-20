@@ -1335,10 +1335,8 @@ settings.  Therefore the midi file should not have more than 15 staves
 * Creating MIDI files::
 * MIDI block::
 * What goes into the MIDI output?::
-* MIDI instrument names::
 * Repeats in MIDI::
 * Controlling MIDI dynamics::
-* Microtones in MIDI::
 @end menu
 
 @node Creating MIDI files
@@ -1393,16 +1391,16 @@ The MIDI instrument to be used is specified by setting the
 The name should be chosen from the list in @ref{MIDI instruments}.
 
 @example
-\new Staff {
+\new Staff @{
   \set Staff.midiInstrument = "glockenspiel"
   @var{...notes...}
-}
+@}
 @end example
 
 @example
-\new Staff \with {midiInstrument = "cello"} {
+\new Staff \with @{midiInstrument = "cello"@} @{
   @var{...notes...}
-}
+@}
 @end example
 
 If the selected instrument does not exactly match an instrument from
@@ -1865,7 +1863,7 @@ copied out and compiled to test microtones in your MIDI player.
   \midi {}
 }
 @end lilypond
-@end ingore
+@end ignore
 
 
 
