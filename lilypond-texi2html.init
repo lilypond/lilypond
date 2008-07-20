@@ -75,12 +75,7 @@ $Texi2HTML::Config::finish_out           = \&lilypond_finish_out;
 $Texi2HTML::Config::unknown              = \&lilypond_unknown;
 
 
-my $lastfilename;
-my $docnr = 0;
-my $page_toc_depth = 2;
-my @default_toc = [];
 my @section_to_filename;
-
 
 
 
@@ -179,6 +174,10 @@ sub lilypond_css_lines ($$)
 #############################################################################
 ###  SPLITTING BASED ON NUMBERED SECTIONS
 #############################################################################
+
+my $lastfilename;
+my $docnr = 0;
+my $node_to_filename_map = ();
 
 # This function makes sure that files are only generated for numbered sections,
 # but not for unnumbered ones. It is called after texi2html has done its own
@@ -506,6 +505,9 @@ sub lilypond_external_href($$$)
 #############################################################################
 ###  CUSTOM TOC FOR EACH PAGE (in a frame on the left)
 #############################################################################
+
+my $page_toc_depth = 2;
+my @default_toc = [];
 
 # recursively generate the TOC entries for the element and its children (which
 # are only shown up to maxlevel. All ancestors of the current element are also
