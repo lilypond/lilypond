@@ -135,7 +135,7 @@ sub texinfo_file_name($)
     $result = 't_g' . $str;
   }
   # DONE
-  return $str
+  return $result
 }
 
 
