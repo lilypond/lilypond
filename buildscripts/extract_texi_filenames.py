@@ -116,7 +116,6 @@ def process_sections (filename, page):
             # Write out the cached values to the file and start a new section:
             if this_title != '':
                 f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
-                print (this_title + "\t" + this_filename + "\t" + this_anchor)
             this_title = remove_texinfo (sec[1])
             this_anchor = create_texinfo_anchor (sec[1])
         elif sec[0] == "translationof":
@@ -135,7 +134,6 @@ def process_sections (filename, page):
 
     if this_title != '':
         f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
-        print (this_title + "\t" + this_filename + "\t" + this_anchor)
     f.close ()
 
 
