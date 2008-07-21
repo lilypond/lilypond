@@ -36,10 +36,12 @@
 ###    it out to disk at the end of the conversion. This way, xrefs from
 ###    other manuals can simply load that map and retrieve the correct file
 ###    name for the link. Implemented in:
-###           lilypond_unknown (handling of @translationof)
-###           split_at_numbered_sections (correct file name, build the map)
-###           lilypond_finish_out (write out the map to disk)
-###           lilypond_external_href (load the map, use the correct link target)
+###           lilypond_unknown (handling of @translationof, in case 
+###                             extract_texi_filenames.py messes up...)
+###           split_at_numbered_sections (correct file name: use the map)
+###           lilypond_init_out (read in the externally created map from disk)
+###           lilypond_external_href (load the map for xrefs, use the correct 
+###                                   link target)
 ###
 ###
 ### Useful helper functions:
@@ -215,9 +217,10 @@ my $node_to_filename_map = ();
 # this really all we need. Also, make sure that the file names for sections
 # are derived from the section title. We also might want to name the anchors
 # according to node titles, which works by simply overriding the id element of
-# the $element hash. Store the file name for each section in a hash (written
-# out to disk in lilypond_finish_out), so that other manuals can retrieve
-# the correct filename/anchor from the section title.
+# the $element hash.
+# If an external nodename<=>filename/anchor map file is found (loaded in
+# lilypond_init_out, use the externally created values, otherwise use the 
+# same logic here.
 sub split_at_numbered_sections($$$)
 {
   my $element = shift;
@@ -338,6 +341,9 @@ sub lilypond_unknown($$$$$)
     # the @translationof macro provides the original English section title,
     # which should be used for file/anchor naming, while the title will be
     # translated to each language
+    # It is already used by extract_texi_filenames.py, so this should not be
+    # necessary here at all. Still, I'll leave the code in just in case the
+    # python script messed up ;-)
     if ($pass == 1 and $macro eq "translationof") {
       if (ref($state->{'element'})=='HASH') {
         $state->{'element'}->{'translationof'} = main::normalise_space($line);
@@ -395,6 +401,10 @@ sub lilypond_external_href($$$)
       print STDERR "Unable to find key $node_id in section_name_map\n";
     }
   }
+# Code copied from texi2html:
+# I'll need to find the correct path to the map file and texi2html already
+# seems to do a good job for this with the following code, which I will 
+# need to strip down to those parts that we really need:
 #
 #     $file = '' if (!defined($file));
 #     my $default_target_split = $EXTERNAL_CROSSREF_SPLIT;
@@ -558,6 +568,8 @@ my @default_toc = [];
 # recursively generate the TOC entries for the element and its children (which
 # are only shown up to maxlevel. All ancestors of the current element are also
 # shown with their immediate children, irrespective of their level.
+# Unnumbered entries are only printed out if they are at top-level or their 
+# parent element is an ancestor of the currently viewed node.
 sub generate_ly_toc_entries($$$$)
 {
   my $element = shift;
