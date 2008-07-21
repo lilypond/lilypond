@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.53"
 
 @node Fretted string instruments
 @section Fretted string instruments
@@ -322,7 +322,8 @@ Snippets:
 The file @file{scm/@/output@/-lib@/.scm} contains the predefined string
 tunings.
 
-Internals Reference: @rinternals{Tab_note_heads_engraver}.
+Internals Reference: 
+@rinternals{Tab_note_heads_engraver}.
 
 @knownissues
 
@@ -490,6 +491,15 @@ b16 d g b e
 e16 b g d
 @end lilypond
 
+@seealso
+
+Notation Reference:
+@ref{Text spanners}.
+
+Snippets:
+@rlsr{Fretted strings},
+@rlsr{Expressive marks}.
+
 @node Indicating harmonics and dampened notes
 @subsubsection Indicating harmonics and dampened notes
 
@@ -564,6 +574,7 @@ Snippets:
 @rlsr{Fretted strings}.
 
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+
 
 
 
