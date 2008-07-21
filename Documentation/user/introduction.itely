@@ -800,7 +800,7 @@ This section explains the different portions of the documentation.
 
 * About the Snippet List (SL)::  this is a collection of short LilyPond examples.
 
-* About the Internals Reference (IR)::  this document gives information about LilyPond internal programming information, which is required for constructing tweaks.
+* About the Internals Reference (IR)::  this document gives reference information about LilyPond's internal structures, which is required for constructing tweaks.
 
 * Other documentation::         there are a few other portions of the documentation, such as News items and the mailist archives.
 
@@ -995,7 +995,7 @@ formats to the @code{.ly} format.
 @ref{Top,LilyPond Snippet List,,lilypond-snippets}: this shows a
 selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
-(LSR).  It is in the public domain.
+(LSR).  All the snippets are in the public domain.
 
 Please note that this document is not an exact subset of LSR.  LSR
 is running a stable LilyPond version, so any snippet which
@@ -1013,14 +1013,15 @@ The list of snippets for each subsection of the Notation Reference
 @ref{Top,Internals Reference,,lilypond-internals}: this is a set
 of heavily cross linked HTML pages which document the nitty-gritty
 details of each and every LilyPond class, object, and function.
-It is produced directly from the formatting definitions used.
+It is produced directly from the formatting definitions in the
+source code.
 
 Almost all formatting functionality that is used internally is
-available directly to the user.  For example, all variables that
+available directly to the user.  For example, most variables that
 control thickness values, distances, etc., can be changed in input
 files.  There are a huge number of formatting options, and all of
-them are described in this document.  Each section of the notation
-manual has a @b{See also} subsection, which refers to the
+them are described in this document.  Each section of the Notation
+Reference has a @b{See also} subsection, which refers to the
 generated documentation.  In the HTML document, these subsections
 have clickable links.
 
