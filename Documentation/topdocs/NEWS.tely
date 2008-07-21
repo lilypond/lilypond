@@ -88,6 +88,7 @@ fret diagram properties moved to fret-diagram-details.
 \dimHairpin,
 \sustainUp -> \sustainOff, \sustainDown -> \sustainOn
 \sostenutoDown -> \sostenutoOn, \sostenutoUp -> \sostenutoOff
+2.11.53: infinite-spacing-height -> extra-spacing-height
 @end example
 
 @item

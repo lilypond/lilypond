@@ -8,7 +8,7 @@
 
 <<
   \key c \major
-  \set Staff.shapeNoteStyles = ##(do re mi fa #f la ti)
+  \set Staff.shapeNoteStyles = #'#(do re mi fa #f la ti)
 
   { f'4 }
   \\

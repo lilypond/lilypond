@@ -6,47 +6,52 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.53"
 
 @node Fretted string instruments
 @section Fretted string instruments
 
+@lilypondfile[quote]{fretted-headword.ly}
+
 This section discusses several aspects of music notation that are unique
-to fretted-string instruments.
+to fretted string instruments.
 
 @cindex tablature
 @cindex guitar tablature
 
 @menu
-* Common notation for fretted strings::
-* Guitar::
-* Banjo::
+* Common notation for fretted strings::  
+* Guitar::                      
+* Banjo::                       
 @end menu
 
 @node Common notation for fretted strings
 @subsection Common notation for fretted strings
 
 This section discusses common notation that is unique
-to fretted-string instruments.
+to fretted string instruments.
 
 @menu
-* References for fretted strings::
-* String number indications::
-* Default tablatures::
-* Custom tablatures::
-* Fret diagrams::
-* Right hand fingerings::
+* References for fretted strings::  
+* String number indications::   
+* Default tablatures::          
+* Custom tablatures::           
+* Fret diagrams::               
+* Right-hand fingerings::       
 @end menu
 
 @node References for fretted strings
 @subsubsection References for fretted strings
 
-Music for fretted-string instruments is normally notated on
+Music for fretted string instruments is normally notated on
 a single staff, either in traditional music notation or in
 tablature.  Sometimes the two types are combined, and it is
 especially common in popular music to use chord diagrams above
-a staff of traditional notation.  Some other elements pertinent
-to fretted-string instruments are covered elsewhere:
+a staff of traditional notation.  The guitar and the banjo are
+transposing instruments, sounding an octave lower than written. 
+Scores for these instruments should use the @code{"treble_8"} clef. 
+Some other elements pertinent to fretted string instruments 
+are covered elsewhere:
 
 @itemize
 @item Fingerings are indicated with @ref{Fingering instructions}.
@@ -83,7 +88,8 @@ appending @code{\@var{number}} to a note inside a chord construct
 @warning{String numbers @strong{must} be defined inside a chord
 construct even if there is only a single note.}
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,relative=0]
+\clef "treble_8"
 <c\5>4 <e\4> <g\3>2
 <c,\5 e\4 g\3>1
 @end lilypond
@@ -92,12 +98,14 @@ When fingerings and string indications are used together, their
 placement is controlled by the order in which the two items appear
 in the code:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
+\clef "treble_8"
 <g\3-0>2
 <g-0\3>
 @end lilypond
 
 @snippets
+
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
@@ -106,16 +114,15 @@ in the code:
 
 @seealso
 
-Snippets:
-@rlsr{Fretted strings}.
-
 Notation Reference:
 @ref{Fingering instructions}.
+
+Snippets:
+@rlsr{Fretted strings}.
 
 Internals Reference:
 @rinternals{StringNumber},
 @rinternals{Fingering}.
-
 
 
 @node Default tablatures
@@ -145,14 +152,16 @@ The notes are printed as tablature, by using @code{TabStaff} and
 @cindex fret
 
 
-When no string is specified for a note, the note is assigned to the lowest string
-that can generate the note with a fret number greater than or equal to
-@code{minimumFret} is selected.  The default value for @code{minimumFret} is 0.
+When no string is specified for a note, the note is assigned to
+the lowest string that can generate the note with a fret number
+greater than or equal to @code{minimumFret} is selected.  The
+default value for @code{minimumFret} is 0.
 
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup <<
-   \new Staff \relative c' {
+   \new Staff \relative c {
+     \clef "treble_8"
      c16 d e f g4
      c,16 d e f g4
    }
@@ -182,13 +191,47 @@ in traditional notation. Beams can be made horizontal:
 }
 @end lilypond
 
-@seealso
+Polyphony is created the same way in a @code{TabStaff} as in a
+regular staff.
 
-Snippets:
-@rlsr{Fretted strings}.
+@lilypond[quote,ragged-right,verbatim]
+upper = \relative c' {
+	\time 12/8
+	\key e \minor
+	\voiceOne
+	r4. r8 e, fis g16 b g e e' b c b a g fis e
+}
+
+lower = \relative c {
+	\key e \minor
+	\voiceTwo
+	r16 e d c b a g4 fis8 e fis g a b c  
+}
+
+\score {
+  <<
+    \new StaffGroup = "tab with traditional" <<
+      \new Staff = "guitar traditional" <<
+	    \clef "treble_8"
+	    \context Voice = "upper" \upper
+	    \context Voice = "lower" \lower
+      >>
+      \new TabStaff = "guitar tab" << 
+            \context TabVoice = "upper"  \upper 
+            \context TabVoice = "lower"  \lower 
+      >>
+    >>
+  >>
+}
+@end lilypond
+
+@seealso
 
 Notation Reference:
 @ref{Stems}.
+
+Snippets:
+@rlsr{Fretted strings}.
 
 Internals Reference: 
 @rinternals{TabNoteHead},
@@ -199,8 +242,8 @@ Internals Reference:
 @knownissues
 
 Chords are not handled in a special way, and hence the automatic
-string selector may easily select the same string for two notes in a
-chord.
+string selector may easily select the same string for two notes in
+a chord.
 
 In order to handle @code{\partcombine}, a @code{TabStaff} must use
 specially-created voices:
@@ -223,16 +266,17 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 @subsubsection Custom tablatures
 @cindex Tablatures, custom
 
-You can change the tuning of the strings.  A string tuning is given as
-a Scheme list with one integer number for each string, the number
-being the pitch (measured in semitones relative to middle C) of an
-open string.  The numbers specified for @code{stringTunings} are the
-numbers of semitones to subtract or add, starting the specified pitch
-by default middle C, in string order.  LilyPond automatically calculates
-the number of strings by looking at @code{stringTunings}.
+You can change the tuning of the strings.  A string tuning is
+given as a Scheme list with one integer number for each string,
+the number being the pitch (measured in semitones relative to
+middle C) of an open string.  The numbers specified for
+@code{stringTunings} are the numbers of semitones to subtract or
+add, starting the specified pitch by default middle C, in string
+order.  LilyPond automatically calculates the number of strings by
+looking at @code{stringTunings}.
 
-In the next example,
-@code{stringTunings} is set for the pitches e, a, d, and g
+In the next example, @code{stringTunings} is set for the pitches
+e, a, d, and g.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff <<
@@ -243,17 +287,32 @@ In the next example,
 >>
 @end lilypond
 
-LilyPond comes with predefined string tunings for banjo, mandolin, guitar
-and bass guitar.
+LilyPond comes with predefined string tunings for banjo, mandolin,
+guitar and bass guitar.  Lilypond automatically sets the correct 
+transposition for predefined tunings.  The following example is
+for bass guitar, which sounds an octave lower than written.
 
-@example
-\set TabStaff.stringTunings = #bass-tuning
-@end example
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff <<
+    \clef "bass_8"
+    \relative c, {
+    c4 d e f
+    }
+  >>
+  \new TabStaff <<
+    \set TabStaff.stringTunings = #bass-tuning
+    \relative c, {
+    c4 d e f
+    }
+  >>
+>>
+@end lilypond
 
-The default string tuning is @code{guitar-tuning} (the standard EADGBE
-tuning).
-Some other predefined tunings are @code{guitar-open-g-tuning},
-@code{mandolin-tuning} and @code{banjo-open-g-tuning}.
+The default string tuning is @code{guitar-tuning} (the standard
+EADGBE tuning).  Some other predefined tunings are
+@code{guitar-open-g-tuning}, @code{mandolin-tuning} and
+@code{banjo-open-g-tuning}.
 
 @seealso
 
@@ -262,7 +321,9 @@ Snippets:
 
 The file @file{scm/@/output@/-lib@/.scm} contains the predefined string
 tunings.
-Internals Reference: @rinternals{Tab_note_heads_engraver}.
+
+Internals Reference: 
+@rinternals{Tab_note_heads_engraver}.
 
 @knownissues
 
@@ -275,24 +336,27 @@ No guitar special effects have been implemented.
 @cindex fret diagrams
 @cindex chord diagrams
 
-Fret diagrams can be added to music as a markup to the desired note.  
-The markup contains information about the desired fret diagram.
-There are three different fret-diagram markup interfaces: standard, terse,
-and verbose.  The three interfaces produce equivalent markups, but have
-varying amounts of information in the markup string.  Details about the
-markup interfaces are found at @ref{Text markup commands}.
+Fret diagrams can be added to music as a markup to the desired
+note.  The markup contains information about the desired fret
+diagram.  There are three different fret-diagram markup
+interfaces: standard, terse, and verbose.  The three interfaces
+produce equivalent markups, but have varying amounts of
+information in the markup string.  Details about the markup
+interfaces are found at @ref{Text markup commands}.
 
-The following example shows the three fret-diagram markup interfaces,
-along with examples of common tweaks.  For example, the size of the verbose
-fret diagram is reduced to 0.75, and the finger indications are specified
-to appear below the diagram.  The terse diagram includes tweaks to 
-specify placement of finger code and color of dots.
+The following example shows the three fret-diagram markup
+interfaces, along with examples of common tweaks.  For example,
+the size of the verbose fret diagram is reduced to 0.75, and the
+finger indications are specified to appear below the diagram.  The
+terse diagram includes tweaks to specify placement of finger code
+and color of dots.
 
-@lilypond[verbatim, ragged-right, quote]
+@lilypond[verbatim,ragged-right,quote]
 \new Voice {
-  d'^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
-  d' d' d'
-  fis'^\markup \override #'(size . 0.75) {
+  \clef "treble_8"
+  d^\markup \fret-diagram #"6-x;5-x;4-o;3-2;2-3;1-2;"
+  d d d
+  fis^\markup \override #'(size . 0.75) {
     \override #'(finger-code . below-string) {
       \fret-diagram-verbose #'((place-fret 6 2 1) (barre 6 1 2)
                                (place-fret 5 4 3) 
@@ -302,15 +366,15 @@ specify placement of finger code and color of dots.
                                (place-fret 1 2 1))
     }
   }
-  fis' fis' fis'
-  c'^\markup \override #'(dot-radius . 0.35) {
+  fis fis fis
+  c^\markup \override #'(dot-radius . 0.35) {
     \override #'(finger-code . in-dot) {
       \override #'(dot-color . white) {
         \fret-diagram-terse #"x;3-1-(;5-2;5-3;5-4;3-1-);"
       }
     }
   }
-  c' c' c'
+  c c c
 }
 @end lilypond
 
@@ -324,22 +388,23 @@ Details about the property interface to fret diagrams are found at
 Snippets:
 @rlsr{Fretted strings}.
 
-@node Right hand fingerings
-@subsubsection Right hand fingerings
+@node Right-hand fingerings
+@subsubsection Right-hand fingerings
 
-Right-hand fingerings @var{p-i-m-a} must be entered within a 
-@code{<>} chord construct for it to be printed in the score, 
-even when applied to a single note. There must be a hyphen 
-after the note and a space before the closing @code{>}.
+Right-hand fingerings @var{p-i-m-a} must be entered within a  
+chord construct @code{<>} for them to be printed in the score, 
+even when applied to a single note. 
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-\relative c' {
-  <c-\rightHandFinger #1 >4 
-  <e-\rightHandFinger #2 > 
-  <g-\rightHandFinger #3 > 
-  <c-\rightHandFinger #4 >
-  <c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
-}
+@warning{There @strong{must} be a hyphen after the note and a space 
+before the closing @code{>}.}
+
+@lilypond[quote,verbatim,relative=0]
+\clef "treble_8"
+<c-\rightHandFinger #1 >4 
+<e-\rightHandFinger #2 > 
+<g-\rightHandFinger #3 > 
+<c-\rightHandFinger #4 >
+<c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 For convenience, you can abbreviate @code{\rightHandFinger} to something
@@ -357,9 +422,10 @@ short, for example @code{RH},
 You may exercise greater control over the placement of right-hand 
 fingerings by setting @code{strokeFingerOrientations},
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
+@lilypond[quote,verbatim]
 #(define RH rightHandFinger)
-{
+\relative c {
+  \clef "treble_8"
   \set strokeFingerOrientations = #'(up down)
   <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 > 4
   \set strokeFingerOrientations = #'(up right down)
@@ -369,29 +435,13 @@ fingerings by setting @code{strokeFingerOrientations},
 }
 @end lilypond
 
-The letters used for the fingerings are contained in the property
-@code{digit-names}, but they can also be set individually by supplying
-@code{\rightHandFinger} with a string argument, as in the following example
-
-
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-#(define RH rightHandFinger)
-{
-  \set strokeFingerOrientations = #'(right)
-  \override StrokeFinger #'digit-names = ##("x" "y" "z" "!" "@")
-  <c-\RH #5 >4
-  <c-\RH "@">4
-  <c-\RH #2 >4
-  <c-\RH "z">4
-}
-@end lilypond
-
 This example combines left-hand fingering, string indication, and 
 right-hand fingering
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,verbatim]
 #(define RH rightHandFinger)
-\relative c' {
+\relative c {
+  \clef "treble_8"
   <c-3\5-\RH #1 >4 
   <e-2\4-\RH #2 > 
   <g-0\3-\RH #3 > 
@@ -411,20 +461,19 @@ Internals Reference:
 @node Guitar
 @subsection Guitar
 
-@c TODO Make a snippet based on
-@c http://www.nabble.com/Creating-a-nice-formatted-Chords-%2B-Lyrics-layout-for-guitar-players-to13829430.html
-@c and include it somewhere -td
+Most of the notational issues associated with guitar music are
+covered sufficiently in the general fretted strings section, but there
+are a few more worth covering here.  Occasionally users want to 
+create songbook-type documents having only lyrics with chord
+indications above them.  Since Lilypond is a music typesetter,
+it is not recommended for documents that have no music notation
+in them.  A better alternative is a word processor, text editor, 
+or, for experienced users, a typesetter like GuitarTeX.
 
 @menu
-* Guitar tablatures::
-* Indicating position and barring::
+* Indicating position and barring::  
+* Indicating harmonics and dampened notes::  
 @end menu
-
-@node Guitar tablatures
-@subsubsection Guitar tablatures
-
-@c TODO Add text
-TBC
 
 @node Indicating position and barring
 @subsubsection Indicating position and barring
@@ -433,43 +482,66 @@ This example demonstrates how to include guitar position and
 barring indications.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=0]
-\clef "G_8"
-b16 d16 g16 b16 e16
+\clef "treble_8"
+b16 d g b e
 \textSpannerDown
 \override TextSpanner #'bound-details #'left #'text = #"XII "
   g16\startTextSpan
-  b16 e16 g16 e16 b16 g16\stopTextSpan
-e16 b16 g16 d16
+  b16 e g e b g\stopTextSpan
+e16 b g d
 @end lilypond
 
+@seealso
 
-Stopped (X) note heads are used in guitar music to signal a place where the
-guitarist must play a certain note or chord, with its fingers just
-touching the strings instead of fully pressing them.  This gives the sound a
-percussive noise-like sound that still maintains part of the original
-pitch.  It is notated with cross note heads; this is
-demonstrated in @ref{Special note heads}.
+Notation Reference:
+@ref{Text spanners}.
+
+Snippets:
+@rlsr{Fretted strings},
+@rlsr{Expressive marks}.
+
+@node Indicating harmonics and dampened notes
+@subsubsection Indicating harmonics and dampened notes
+
+Special note heads can be used to indicate dampened notes or 
+harmonics.  Harmonics are normally further explained with a 
+text markup.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\relative c' {
+  \clef "treble_8"
+  \override Staff.NoteHead #'style = #'cross
+  g8 a b c b4
+  \override Staff.NoteHead #'style = #'harmonic-mixed
+  d^\markup { \italic { \fontsize #-2 { "harm. 12" }}} <g b>1
+}
+@end lilypond
 
 @seealso
 
 Snippets:
 @rlsr{Fretted strings}.
 
+Notation Reference:
+@ref{Special note heads},
+@ref{Note head styles}.
+
 @node Banjo
 @subsection Banjo
 
-@menu Banjo tablatures
-* Banjo tablatures::
+@menu
+* Banjo tablatures::            
 @end menu
 
 @node Banjo tablatures
 @subsubsection Banjo tablatures
 @cindex Banjo tablatures
 
-LilyPond has basic support for five stringed banjo.  When making tablatures
-for five stringed banjo, use the banjo tablature format function to get
-correct
-fret numbers for the fifth string:
+LilyPond has basic support for the five-string banjo.  When making tablatures
+for five-string banjo, use the banjo tablature format function to get
+correct fret numbers for the fifth string:
+
+@c due to crazy intervals of banjo music, absolute pitch is recommended
 
 @lilypond[quote,ragged-right,fragment,verbatim]
 \new TabStaff <<
@@ -502,6 +574,8 @@ Snippets:
 @rlsr{Fretted strings}.
 
 The file @file{scm/@/output@/-lib@/.scm} contains predefined banjo tunings.
+
+
 
 
 

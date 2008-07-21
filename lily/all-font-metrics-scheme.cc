@@ -28,7 +28,8 @@ LY_DEFINE (ly_font_load, "ly:font-load", 1, 0, 0,
 {
   LY_ASSERT_TYPE (scm_is_string, name, 1);
   
-  Font_metric *fm = all_fonts_global->find_font (ly_scm2string (name));
+  string name_str = ly_scm2string (name);
+  Font_metric *fm = all_fonts_global->find_font (name_str);
 
   return fm->self_scm ();
 }
