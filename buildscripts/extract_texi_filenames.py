@@ -39,12 +39,13 @@ include_re = re.compile (r'@include ((?!../lily-).*?)\.texi$', re.M)
 whitespaces = re.compile (r'\s+')
 section_translation_re = re.compile (r'@(node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading|translationof) (.*?)\n')
 
-def expand_includes (m):
-    filepath = os.path.join (os.path.dirname (m.group(0)), m.group(1)) + '.texi'
-    print "Including file: " + filepath
+def expand_includes (m, filename):
+    filepath = os.path.join (os.path.dirname (filename), m.group(1)) + '.texi'
     if os.path.exists (filepath):
         return extract_sections (filepath)
-    return ''
+    else:
+        print "Unable to locate include file " + filepath
+        return ''
 
 def extract_sections (filename):
     result = ''
@@ -52,7 +53,7 @@ def extract_sections (filename):
     page = f.read ()
     f.close()
     # Replace all includes by their list of sections and extract all sections
-    page = include_re.sub (expand_includes, page)
+    page = include_re.sub (lambda m: expand_includes (m, filename), page)
     sections = section_translation_re.findall (page)
     for sec in sections:
         result += "@" + sec[0] + " " + sec[1] + "\n"
