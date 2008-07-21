@@ -240,7 +240,7 @@ sub split_at_numbered_sections($$$)
     }
     return $filename;
 
-  } elsif ($type eq "toc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+  } elsif ($type eq "top" or $type eq "toc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
     # TOC, footer, about etc. are called with undefined $element and $type == "toc"|"stoc"|"foot"|"about"
     return;
   } else {
