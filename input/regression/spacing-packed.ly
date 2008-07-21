@@ -14,5 +14,5 @@
 
 \relative {
   \override Score.SpacingSpanner #'packed-spacing = ##t
-  c2 d4 f8[ g]
+  c2 d4 f8[ g] a
 }
