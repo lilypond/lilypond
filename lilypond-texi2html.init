@@ -567,7 +567,7 @@ sub generate_ly_toc_entries($$$)
   return() if (not defined($element) or exists($element->{'index_page'}));
   my @result = ();
   my $level = $element->{'toc_level'};
-  my $is_parent_of_current = $element_path->{$element->{'number'}};
+  my $is_parent_of_current = $element->{'number'} && $element_path->{$element->{'number'}};
   my $print_children = ( ($level < $maxlevel) or $is_parent_of_current );
   my $ind = '  ' x $level;
   my $this_css_class = $is_parent_of_current ? " class=\"toc_current\"" : "";
