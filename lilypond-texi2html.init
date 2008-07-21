@@ -32,10 +32,9 @@
 ###    English title, since otherwise language-autoselection would break with
 ###    posted links.
 ###    Since it is then no longer possible to obtain the file name from the
-###    section title, I keep a sectionname<=>filename/anchor around and write
-###    it out to disk at the end of the conversion. This way, xrefs from
-###    other manuals can simply load that map and retrieve the correct file
-###    name for the link. Implemented in:
+###    section title, I keep a sectionname<=>filename/anchor around. This way, 
+###    xrefs from other manuals can simply load that map and retrieve the 
+###    correct file name for the link. Implemented in:
 ###           lilypond_unknown (handling of @translationof, in case 
 ###                             extract_texi_filenames.py messes up...)
 ###           split_at_numbered_sections (correct file name: use the map)
