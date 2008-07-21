@@ -255,7 +255,11 @@ sub split_at_numbered_sections($$$)
 
     # derive the name of the anchor (i.e. the part after # in the links!),
     # don't use texi2html's SECx.x default!
-    my $sec_name = main::remove_texi($$element{texi});
+    
+    my $sec_name = main::remove_texi($element->{'texi'});
+    if ($element->{'node_ref'}->{'texi'} ne '') { # if we have a node, use its name:
+      $sec_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+    }
     my $anchor = $sec_name;
     if ($$element{translationof}) {
       $anchor = main::remove_texi($$element{translationof});
@@ -265,7 +269,7 @@ sub split_at_numbered_sections($$$)
     $$element{id} = $anchor;
     # Numbered sections will get a filename Node_title, unnumbered sections will use
     # the file name of the previous numbered section:
-    if ($$element{number} or $lastfilename == '') {
+    if (($element->{number}) or ($lastfilename eq '')) {
       my $filename = $anchor;
       $filename .= ".$docu_ext" if (defined($docu_ext));
       $docnr += 1;
