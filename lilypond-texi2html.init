@@ -583,7 +583,7 @@ sub generate_ly_toc_entries($$$$)
   return() if (not defined($element) or exists($element->{'index_page'}));
   my @result = ();
   my $level = $element->{'toc_level'};
-  my $is_parent_of_current = $element->{'number'} && $element_path->{$element->{'number'}};
+  my $is_parent_of_current = $element->{'id'} && $element_path->{$element->{'id'}};
   my $print_children = ( ($level < $maxlevel) or $is_parent_of_current );
   my $ind = '  ' x $level;
   my $this_css_class = $is_parent_of_current ? " class=\"toc_current\"" : "";
@@ -622,13 +622,13 @@ sub lilypond_generate_page_toc_body($)
     my $element = shift;
     my $current_element = $element;
     my %parentelements;
-    $parentelements{$element->{'number'}} = 1;
+    $parentelements{$element->{'id'}} = 1;
     # Find the path to the current element
     while ( defined($current_element->{'sectionup'}) and
            ($current_element->{'sectionup'} ne $current_element) )
     {
-      $parentelements{$current_element->{'sectionup'}->{'number'}} = 1
-              if ($current_element->{'sectionup'}->{'number'} ne '');
+      $parentelements{$current_element->{'sectionup'}->{'id'}} = 1
+              if ($current_element->{'sectionup'}->{'id'} ne '');
       $current_element = $current_element->{'sectionup'};
     }
     return () if not defined($current_element);
