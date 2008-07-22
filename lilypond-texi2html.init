@@ -133,7 +133,7 @@ sub texinfo_file_name($)
   }
   # 7: if name does not begin with a letter, prepend 't_g' (so it starts with a letter)
   if ($result !~ /^[a-zA-Z]/) {
-    $result = 't_g' . $str;
+    $result = 't_g' . $result;
   }
   # DONE
   return $result
@@ -242,7 +242,7 @@ sub split_at_numbered_sections($$$)
     }
     return $filename;
 
-  } elsif ($type eq "top" or $type eq "toc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+  } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
     # TOC, footer, about etc. are called with undefined $element and $type == "toc"|"stoc"|"foot"|"about"
     return;
   } else {
