@@ -61,12 +61,12 @@ fragment = {
   \new Staff {
     \transpose c d 
     \relative c' {
-      \set shapeNoteStyles = ##(do re mi fa #f la ti)
+      \set shapeNoteStyles = #'#(do re mi fa #f la ti)
       \fragment
     }
     
     \relative c' {
-      \set shapeNoteStyles  = ##(cross triangle fa #f mensural xcircle diamond)
+      \set shapeNoteStyles  = #'#(cross triangle fa #f mensural xcircle diamond)
       \fragment
     }
   }

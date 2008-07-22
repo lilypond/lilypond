@@ -5,6 +5,17 @@
 \header {
   lsrtags = "repeats"
 
+  texidoces = "
+El grabador @code{Volta_engraver} reside de forma predeterminada
+dentro del contexto de @code{Score}, y los corchetes de la repetición
+se imprimen así normalmente sólo encima del pentagrama superior.  Esto
+se puede ajustar añadiendo el grabador @code{Volta_engraver} al
+contexto de @code{Staff} en que deban aparecer los corchetes; véase
+también el fragmento de código \"Volta multi staff\".
+
+"
+  doctitlees = "Añadir corchetes de primera y segunda vez a más pentagramas"
+
   texidoc = "
 The @code{Volta_engraver} by default resides in the @code{Score}
 context, and brackets for the repeat are thus normally only printed

@@ -2,7 +2,7 @@
 %% This file is in the public domain.
 \version "2.11.52"
 \header {
-  lsrtags = "repeats,staff-notation,fretted-strings"
+  lsrtags = "repeats,staff-notation"
   texidoc = "By adding the @code{Volta_engraver} to the relevant
 staff, volte can be put over staves other than the topmost
 one in a score."
