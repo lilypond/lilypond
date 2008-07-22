@@ -9,10 +9,10 @@
 
 @c \version "2.11.51"
 
-@node Input syntax
-@chapter Input syntax
+@node General input and output
+@chapter General input and output
 
-This section deals with general LilyPond input syntax issues,
+This section deals with general LilyPond input and output issues,
 rather than specific notation.
 
 @menu

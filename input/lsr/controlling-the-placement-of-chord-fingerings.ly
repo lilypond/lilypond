@@ -3,7 +3,7 @@
 \version "2.11.52"
 
 \header {
-  lsrtags = "editorial-annotations, chords, keyboards"
+  lsrtags = "editorial-annotations, chords, keyboards, fretted-strings"
 
   texidoces = "
 Se puede controlar con precisión la colocación de los números de digitación.

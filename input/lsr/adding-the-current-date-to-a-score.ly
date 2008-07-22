@@ -5,6 +5,13 @@
 \header {
   lsrtags = "titles"
 
+  texidoces = "
+Con algo de código de Scheme, se puede añadir fácilmente la fecha
+actual a una partitura.
+
+"
+  doctitlees = "Añadir la fecha actual a una partitura"
+
   texidoc = "
 With a little Scheme code, the current date can easily be added to a
 score.

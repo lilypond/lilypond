@@ -5,6 +5,12 @@
 \header {
   lsrtags = "ancient-notation"
 
+  texidoces = "
+Las indicaciones de compás también se pueden grabar en estilo antiguo.
+
+"
+  doctitlees = "Indicaciones de compás antiguas"
+
   texidoc = "
 Time signatures may also be engraved in an old style.
 
