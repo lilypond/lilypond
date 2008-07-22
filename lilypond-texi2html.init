@@ -269,7 +269,7 @@ sub split_at_numbered_sections($$$)
     $$element{id} = $anchor;
     # Numbered sections will get a filename Node_title, unnumbered sections will use
     # the file name of the previous numbered section:
-    if (($element->{number}) or ($lastfilename eq '')) {
+    if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
       my $filename = $anchor;
       $filename .= ".$docu_ext" if (defined($docu_ext));
       $docnr += 1;
