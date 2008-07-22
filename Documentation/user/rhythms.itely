@@ -1036,7 +1036,7 @@ Partial or pick-up measures, such as an anacrusis or upbeat, are
 entered using the @code{\partial} command, with the syntax
 
 @example
-\partial @var{duration} @emph{notes}
+\partial @var{duration} 
 @end example
 
 where @code{duration} is the rhythmic length of the interval
@@ -1317,9 +1317,12 @@ Internals Reference:
 
 @knownissues
 
-When using different time signatures in parallel, the spacing is
-aligned vertically, but bar lines distort the regular spacing.
-
+When using different time signatures in parallel, notes
+at the same moment will be be placed at the same horizontal
+location.  However, the bar lines in the different staves
+will cause the note spacing to be less regular in each of the
+individual staves than would be normal without the different
+time signatures.
 
 @node Automatic note splitting
 @subsubsection Automatic note splitting
@@ -1329,7 +1332,7 @@ aligned vertically, but bar lines distort the regular spacing.
 
 Long notes which overrun bar lines can be converted automatically
 to tied notes.  This is done by replacing the
-@code{Note_heads_engraver} by the
+@code{Note_heads_engraver} with the
 @code{Completion_heads_engraver}.  In the following
 example, notes crossing the bar lines are split and tied.
 
@@ -1351,7 +1354,9 @@ To allow line breaking on the bar lines where the
 @code{Completion_heads_engraver} has inserted a split note, remove
 the @code{Forbid_line_break_engraver} too.
 
-
+TODO -- find example that shows the above paragraph.  I can't make
+the Forbid_line_break_engraver have any effect in my examples (cs).
+Does the Forbid_line_break_engraver still have the claimed effect?
 @seealso
 
 Music Glossary: @rglos{tie}
@@ -1372,8 +1377,8 @@ Internals Reference:
 @knownissues
 
 Not all durations (especially those containing tuplets) can be
-represented exactly with normal notes and dots, but the engraver
-will not insert tuplets.
+represented exactly with normal notes and dots, but the 
+@code{Completion_heads_engraver} will not insert tuplets.
 
 The @code{Completion_heads_engraver} only affects notes; it does not
 split rests.
@@ -1394,6 +1399,8 @@ staff are squashed, and the staff itself has a single line
 }
 @end lilypond
 
+TODO -- put example in with multiple lines as well (used for strumming
+rhythms in guitar)
 
 @node Beams
 @subsection Beams
@@ -1442,6 +1449,7 @@ c16 c8
 
 @snippets
 
+@c TODO -- convert to snippet
 Beaming patterns may be altered with the @code{beatGrouping} property,
 
 @lilypond[quote,verbatim,relative=2,fragment,ragged-right]
@@ -1452,6 +1460,7 @@ c8[^"(2+3)" c16 c8]
 c8[^"(3+2)" c16 c8]
 @end lilypond
 
+@c TODO  convert to snippet
 The beams of consecutive 16th (or shorter) notes are, by default,
 not sub-divided.  That is, the three (or more) beams stretch
 unbroken over entire groups of notes.  This behavior can
@@ -1485,6 +1494,7 @@ For more information about @code{make-moment}, see
 @cindex break, line
 @cindex line breaks
 
+@c TODO  convert to snippet
 Line breaks are normally forbidden when beams cross bar lines.
 This behavior can be changed by setting the @code{breakable}
 property: @code{\override Beam #'breakable = ##t}.
@@ -1499,6 +1509,7 @@ c8 \repeat unfold 15 { c[ c] } c
 @cindex kneed beams
 @cindex auto-knee-gap
 
+@c TODO convert to snippet
 Kneed beams are inserted automatically when a large gap is
 detected between the note heads.  This behavior can be tuned
 through the @code{auto-knee-gap} property.  A kneed beam is
@@ -1553,24 +1564,32 @@ defined in @file{scm/@/auto@/-beam@/.scm}.
 
 In order to add a rule to the list, use
 @example
-#(override-auto-beam-setting '(be p q n m) a b [context])
+#(override-auto-beam-setting 
+  '(beam-limit beam-numerator  beam-denominator
+     time-signature-numerator time-signature-denominator) 
+  moment-numerator moment-denominator [context])
 @end example
 
 @itemize
 
-@item @code{be} is either @code{begin} or @code{end}.
+@item @code{beam-limit} is the type of automatic beam limit
+defined, either @code{begin} or @code{end}.
 
-@item @code{p/q} is the duration of the note for which you want
-to add a rule.  A beam is considered to have the duration of its
-shortest note.  Set @code{p} and @code{q} to @code{'*'} to
-have this apply to any beam.
+@item @code{beam-numerator/beam-denominator} is the beam duration
+for which you want to add a rule.  A beam is considered to have 
+the duration of its shortest note.  Set @code{beam-numerator} and 
+@code{beam-denominator} to @code{'*'} to
+have this rule apply beams of any duration.
 
-@item @code{n/m} is the time signature to which
-this rule should apply.  Set @code{n} and @code{m} to @code{'*'}
-to have this apply in any time signature.
+@item @code{time-signature-numerator/time-signature-denominator}
+is the time signature to which
+this rule should apply.  Set @code{time-signature-numerator} and 
+@code{time-signature-denominator} to @code{'*'}
+to have this rule apply in any time signature.
 
-@item @code{a/b} is the position in the bar at which the beam should
-begin/end.
+@item @code{monent-numerator/moment-denominator} is the position 
+in the bar at which the beam should
+begin or end.
 
 @item @code{context} is optional, and it specifies the context at which
 the change should be made.  The default is @code{'Voice}.
@@ -1580,6 +1599,7 @@ the change should be made.  The default is @code{'Voice}.
 
 @end itemize
 
+TODO -- convert to music example
 For example, if automatic beams should always end on the first quarter
 note, use
 
@@ -1592,9 +1612,11 @@ note is a certain duration
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 2/4
+% end 1/16 beams for all time signatures at the 1/16 moment
 #(override-auto-beam-setting '(end 1 16 * *) 1 16)
 a16 a a a a a a a |
 a32 a a a a16 a a a a a |
+% end 1/32 beams for all time signatures at the 1/16 moment
 #(override-auto-beam-setting '(end 1 32 * *) 1 16)
 a32 a a a a16 a a a a a |
 @end lilypond
@@ -1604,6 +1626,7 @@ signatures
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 5/8
+% end beams of all durations in 5/8 time signature at the 2/8 moment
 #(override-auto-beam-setting '(end * * 5 8) 2 8)
 c8 c d d d
 \time 4/4
@@ -1612,21 +1635,27 @@ e8 e f f e e d d
 c8 c d d d
 @end lilypond
 
-You can also remove a previously set beam-ending rule by using
+Existing auto-beam rules are removed by using
 
 @example
-#(revert-auto-beam-setting '(be p q n m) a b [context])
+#(revert-auto-beam-setting 
+  '(beam-limit beam-numerator  beam-denominator
+     time-signature-numerator time-signature-denominator) 
+  moment-numerator moment-denominator [context])
 @end example
 
 @noindent
-@code{be}, @code{p}, @code{q}, @code{n}, @code{m}, @code{a},
-@code{b} and @code{context} are the same as above.  Note that the
-default rules are specified in @file{scm/@/auto@/-beam@/.scm},
+@code{beam-limit}, @code{beam-numerator}, @code{beam-denominator}, 
+@code{time-signature-numerator}, @code{time-signature-denominator},
+@code{moment-numerator}, @code{moment-denominator} and @code{context}
+are the same as above.  Note that the default auto-beaming rules are 
+specified in @file{scm/@/auto@/-beam@/.scm},
 so you can revert rules that you did not explicitly create.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 4/4
 a16 a a a a a a a a a a a a a a a
+% undo a rule ending 1/16 beams in 4/4 time at 1/4 moment
 #(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
 a16 a a a a a a a a a a a a a a a
 @end lilypond
@@ -1726,6 +1755,8 @@ Snippets:
 @subsubsection Manual beams
 
 @cindex beams, manual
+@funindex ]
+@funindex [
 
 In some cases it may be necessary to override the automatic
 beaming algorithm.  For example, the autobeamer will not put beams
@@ -1748,9 +1779,6 @@ from being beamed:
 \time 2/4 c8 c\noBeam c c
 @end lilypond
 
-@funindex ]
-@funindex [
-
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
@@ -1763,6 +1791,7 @@ then it is erased.  In this example, the last @code{f} is printed
 with only one beam on the left side, i.e., the eighth-note beam of
 the group as a whole.
 
+TODO -- no difference based on stemLeftBeamCount in this example
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
 {
   f8[ r16 f g a]
@@ -1780,6 +1809,10 @@ the group as a whole.
 
 @cindex beams, feathered
 @funindex \featherDurations
+
+TODO -- this section relies on overrides.  We need to either add
+a predefined, move this to snippets (whole section), or violate
+policy for this section.
 
 Feathered beams are used to indicate that a small group of notes
 should be played at an increasing (or decreasing) tempo, without
@@ -1800,6 +1833,8 @@ show the extent of the beam and the braces show
 which notes are to have their durations modified.  Normally
 these would delimit the same group of notes, but this is not
 required: the two commands are independent.
+
+@c TODO -- eliminate "Talking through code"
 
 In the following example the eight 16th notes occupy exactly the
 same time as a half note, but the first note is one half as long
@@ -1822,6 +1857,9 @@ the last four 32nd notes are at a constant tempo.
 @noindent
 The spacing in the printed output represents the
 note durations only approximately, but the midi output is exact.
+
+@c TODO -- resolve whether or not midi is capitalized -- policy 
+@c  decision needed
 
 @knownissues
 
@@ -1867,8 +1905,13 @@ double bar line is usually placed at the end of a piece:
 e4 d c2 \bar "|."
 @end lilypond
 
+@c TODO -- make this warning more clear.  What does it mean?
 @warning{An incorrect duration can lead to poorly formatted
 music.}
+
+@c TODO -- check this.  I think this behavior no longer happens
+@c with completion_heads_engraver, but it may with note_heads_engraver
+@c Make an example showing the problem
 
 It is not invalid if the final note in a measure does not
 end on the automatically entered bar line: the note is assumed
