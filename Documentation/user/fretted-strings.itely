@@ -409,7 +409,7 @@ Fingerings can be added to FretBoard fret diagrams.
 
 The strings and frets for the @code{FretBoards} context depend
 on the @code{stringTunings} property, which has the same meaning
-as in the TabStaff context.  See @ref{Custom Tablatures} for 
+as in the TabStaff context.  See @ref{Custom tablatures} for 
 information on the @code{stringTunings} property. 
 
 The graphical layout of a fret diagram can be customized according to
@@ -428,6 +428,15 @@ property.
 @c TODO -- snippet for using StringTunings
 
 @seealso
+
+Notation Reference:
+@ref{Custom tablatures}
+
+Snippets:
+@rlsr{Fretted strings}.
+
+Internals Reference:
+@rinternals {fret-diagram-interface}.
 
 
 @node Fret diagram markups
@@ -464,7 +473,8 @@ In addition, open and unplayed (muted) strings can be indicated.
 >>
 @end lilypond
 
-Barre indications can be shown in the markup string.
+Barre indications can be added to the diagram from
+the fret-diagram markup string.
 
 @lilypond[quote, verbatim]
 <<
@@ -554,7 +564,7 @@ markup string.
   \context Staff {
     \clef "treble_8"
     < c e g c' e' > 1 ^\markup 
-      \fret-diagram #"d:0.3;6-x;5-3;4-2;3-o;2-1;1-o;"
+      \fret-diagram #"d:0.35;6-x;5-3;4-2;3-o;2-1;1-o;"
     < d a d' f'> ^\markup
       \fret-diagram #"p:0.2;6-x;5-x;4-o;3-2;2-3;1-1;"
   }  
@@ -745,9 +755,12 @@ Details are found at @rinternals{fret-diagram-interface}.  For a fret diagram
 markup , the interface properties belong to @code{Voice.TextScript}.
 
 @snippets
-@c TODO create snippets for changing properties.  Use regression test?
+TODO create snippets for changing properties.  Use regression test?
 
 @seealso
+
+Notation Reference:
+@ref{Text markup commands}.
 
 Snippets:
 @rlsr{Fretted strings}.
