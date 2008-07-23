@@ -1,7 +1,16 @@
 /***********************************************************/
 /*                  PAGE-WIDE SETTINGS                     */
-/***********************************************************/
+/**********************************************************/
+
+html {
+  height:100%;
+}
+
 body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 100%;
   margin-right: auto;
   margin-left: auto;
 }
@@ -67,54 +76,52 @@ table.cartouche td {
 }
 
 /***********************************************************/
-/*                        TOC                              */
+/*                    MAIN CONTENT                         */
 /***********************************************************/
-.contents {
-  border: 1px dashed #339999;
-  margin: 3px 2em;
-  list-style-type: square;
-  padding-right: 1em;
-  width: 40em;
-  background-color: #fcfff9;
+
+div#main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 27%;
+  padding: 0 1em;
+  margin: 0;
+  overflow: auto;
 }
 
+#languages {
+  padding-bottom: 1em;
+}
 
 /***********************************************************/
 /*                    TOC SIDEBAR                          */
 /***********************************************************/
-body {
-  padding-left: 27%; /* To create space for the sidebar! */
-}
-div#main {
-}
+
 div#tocframe {
-/*   position:      fixed; */
   position:      absolute;
   top:           0;
+  right: 73%;
+  bottom: 0;
   left:          0;
-  margin:        0em;
   padding:       5px;
-  width:         25%;
-  height:        100%;
+  padding-bottom: 0;
+  margin: 0;
   overflow:      auto;
   background-color: #FFFACD;
   z-index:100;
   list-style-type: none;
-  
-/*   float: left; */
-/*   clear: both; */
 }
 
-@media screen
-  {
-  body>div#tocframe
-    {
-    position: fixed;
+@media screen {
+  body>div#tocframe {
+    position: fixed
     }
   }
 
 #tocframe .contents {
   width: 100%;
+  padding-bottom: 0.25em;
   border: none;
   margin: 0em;
   background-color: transparent;
@@ -153,13 +160,15 @@ li.toc_current ul {
 /***********************************************************/
 /*                     NAVIGATION                          */
 /***********************************************************/
+
 .nav_table {
-  width:  98%;
-  background-color: #CCCCCC;
+  width: 100%;
+  background-color: #CCC;
   border: 0;
+  margin-top: 4px;
   left: auto;
   right: auto;
-  font-size: 10pt;
+  font-size: 0.8em;
 }
 
 

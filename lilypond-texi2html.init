@@ -16,7 +16,8 @@
 ###    to every page; implemented by:
 ###           lilypond_print_element_header -- building of the TOC
 ###           lilypond_toc_body -- generation of customized TOC output
-###           print_lilypond_page_foot -- output of the TOC
+###           lilypond_print_page_head -- start <div id="main">
+###           print_lilypond_page_foot -- closing id=main, output of footer & TOC
 ### -) External refs are formatted only as "Text of the node" (not as >>see
 ###    "NODE" section "SECTION" in "BOOK"<< like with default texi2html). Also,
 ###    the leading "(book-name)" is removed.
@@ -74,6 +75,7 @@ $Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
 $Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
 $Texi2HTML::Config::init_out             = \&lilypond_init_out;
 $Texi2HTML::Config::unknown              = \&lilypond_unknown;
+$Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
 
 
 my @section_to_filename;
@@ -231,6 +233,7 @@ sub split_at_numbered_sections($$$)
   if (exists ($node_to_filename_map->{$node_name})) {
     (my $filename, my $anchor) = @$node_to_filename_map->{$node_name};
     $filename .= ".$docu_ext" if (defined($docu_ext));
+    # TODO: Does this work?
     print "Stored target: " + $node_to_filename_map->{$node_name};
     $element->{id} = $anchor;
     if ($filename == $lastfilename) {
@@ -287,12 +290,11 @@ sub split_at_numbered_sections($$$)
 
 sub lilypond_init_out ()
 {
-    print "Init out\n";
     t2h_default_init_out ();
+    # TODO: find correct path to the map file
 #     my $map_filename = "$Texi2HTML::THISDOC{'destination_directory'}$Texi2HTML::THISDOC{'file_base_name'}_xref.map";
     my $map_filename = "$Texi2HTML::THISDOC{'file_base_name'}_xref.map";
     $node_to_filename_map = load_map_file ($map_filename);
-    print Dumper ($node_to_filename_map);
 }
 
 
@@ -604,7 +606,7 @@ sub generate_ly_toc_entries($$$$)
     # if no child nodes were generated, e.g. for the index, where expanded pages
     # are ignored, don't generate a list at all...
     if (@child_result) {
-      push (@result, "$ind<ul$NO_BULLET_LIST_ATTRIBUTE>");
+      push (@result, "\n$ind<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
       push (@result, @child_result);
       push (@result, "$ind</ul></li>\n");
     }
@@ -633,22 +635,38 @@ sub lilypond_generate_page_toc_body($)
     }
     return () if not defined($current_element);
     # Create the toc entries recursively
-    my @toc_entries = ("<div class=\"contents\">", "<ul$NO_BULLET_LIST_ATTRIBUTE>");
+    my @toc_entries = ("<div class=\"contents\">\n", "<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
     my $children = $current_element->{'section_childs'};
     foreach ( @$children ) {
       push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth, False));
     }
-    push (@toc_entries, "</ul>");
-    push (@toc_entries, "</div>");
+    push (@toc_entries, "</ul>\n");
+    push (@toc_entries, "</div>\n");
     return @toc_entries;
 }
 
+sub lilypond_print_toc_div ($$)
+{
+  my $fh = shift;
+  my $tocref = shift;
+  my @lines = @$tocref;
+  # use default TOC if no custom lines have been generated
+  @lines = @default_toc if (not @lines);
+  if (@lines) {
+    print $fh "\n\n<div id=\"tocframe\">\n";
+    print $fh '<h4> ' . $Texi2HTML::NAME{'Contents'}  . "</h4>\n";
+    foreach my $line (@lines) {
+      print $fh $line;
+    }
+    print $fh "</div>\n\n";
+  }
+}
 
 # Create the custom TOC for this page (partially folded, current page is
 # highlighted) and store it in a global variable. The TOC is written out after
 # the html contents (but positioned correctly using CSS), so that browsers with
 # css turned off still show the contents first.
-my @this_page_toc = ();
+our @this_page_toc = ();
 sub lilypond_print_element_header
 {
   my $fh = shift;
@@ -672,6 +690,13 @@ sub lilypond_toc_body($)
     return T2H_GPL_toc_body($elements_list);
 }
 
+# Print out the TOC in a <div> at the beginning of the page
+sub lilypond_print_page_head($)
+{
+    my $fh = shift;
+    T2H_DEFAULT_print_page_head($fh);
+    print $fh "<div id=\"main\">\n";
+}
 
 # Print out the TOC in a <div> at the end of th page, which will be formatted as a
 # sidebar mimicking a TOC frame
@@ -680,20 +705,12 @@ sub print_lilypond_page_foot($)
   my $fh = shift;
   my $program_string = &$program_string();
   print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
+  print $fh "<!-- FOOTER -->\n\n";
+  print $fh "<!-- end div#main here -->\n</div>\n\n";
 
-  # Print the TOC frame:
-  my @lines = @this_page_toc;
-  # use default TOC if no custom lines have been generated
-  @lines = @default_toc if (not @lines);
-  if (@lines) {
-    print $fh "\n\n<div id=\"tocframe\">";
-    print $fh '<h4> ' . $Texi2HTML::NAME{'Contents'}  . "</h4>\n";
-    foreach my $line (@lines) {
-      print $fh $line;
-    }
-    print $fh "</div>";
-    @this_page_toc = ();
-  }
+  # Print the TOC frame and reset the TOC:
+  lilypond_print_toc_div ($fh, \@this_page_toc);
+  @this_page_toc = ();
 
   # Close the page:
   print $fh "</body>\n</html>\n";
