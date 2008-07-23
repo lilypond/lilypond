@@ -138,35 +138,94 @@ Seventh chords can be created:
 @funindex m
 
 The table belows shows the actions of the quality modifiers on
-triads and seventh chords.
+triads and seventh chords.  A more complete table of modifier usage
+is found at @ref{Common chord modifiers}.
 
-@table @code
+@c @table @code
+@multitable @columnfractions .2 .5 .2
 
-@item m
+@item
+@b{Modifier}
+@tab
+@b{Action}
+@tab
+@b{Example}
+
+@item
+None
+@tab
+The default action; produces a major triad.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1
+}
+@end lilypond
+
+@item 
+m
+@tab
 The minor chord.  This modifier lowers the 3rd and (if present) the
 7th step.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:m c:m7
+}
+@end lilypond
 
-@item dim
+
+@item 
+dim
+@tab
 The diminished chord.  This modifier lowers the 3rd, 5th and (if
 present) the 7th step.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:dim c:dim7
+}
+@end lilypond
 
-@item aug
+@item 
+aug
+@tab
 The augmented chord.  This modifier raises the 5th step.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:aug
+}
+@end lilypond
 
-@item maj
+@item 
+maj, maj7
+@tab
 The major 7th chord.  This modifier adds a raised 7th step.  The
 @code{7} following @code{maj} is optional.  Do NOT use this modifier
 to create a major triad.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:maj c:maj7
+}
+@end lilypond
 
-@end table
+@end multitable
 
-@c TODO -- perhaps add warning about c and c:maj being different, while
-@c   c:maj and c:maj7 are the same
 
 @seealso
 
+Notation Reference:
+@ref{Common chord modifiers}.
+
 Snippets:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
