@@ -426,8 +426,8 @@ the nesting of a start delimiters.")
 
 
      (tablatureFormat ,procedure? "A function formatting a tablature
-note head; it takes a string number, a list of string tunings and a
-@code{Pitch} object.  It returns the text as a string.")
+note head.  Called with three arguments: string number, context and event.
+It returns the text as a string.")
      (tempoWholesPerMinute ,ly:moment? "The tempo in whole notes per
 minute.")
      (tempoUnitCount ,number? "Count for specifying tempo.")

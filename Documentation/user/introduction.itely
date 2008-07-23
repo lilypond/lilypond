@@ -898,9 +898,9 @@ gives details about special notation that will only be useful for
 particular instrument (or vocal) groups.
 
 @item
-@ruser{Input syntax}:
-discusses general information about LilyPond files and controlling
-output.
+@ruser{General input and output}:
+discusses general information about LilyPond input files and
+controlling output.
 
 @item
 @ruser{Spacing issues}:

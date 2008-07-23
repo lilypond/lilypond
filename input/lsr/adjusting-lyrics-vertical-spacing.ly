@@ -5,6 +5,13 @@
 \header {
   lsrtags = "text, vocal-music, spacing"
 
+  texidoces = "
+Este fragmento de código muestra cómo situar la línea de base de la
+letra más cerca del pentagrama.
+
+"
+  doctitlees = "Ajuste del especiado vertical de la letra"
+
   texidoc = "
 This snippet shows how to bring the lyrics line closer to the staff.
 
