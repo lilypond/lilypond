@@ -61,11 +61,11 @@ browser_lang = _doc ('About <A HREF="%s">automatic language selection</A>.')
 browser_language_url = "/web/about/browser-language"
 
 LANGUAGES_TEMPLATE = '''
-<P>
+<p id="languages">
  %(language_available)s
- <BR>
+ <br/>
  %(browser_language)s
-</P>
+</p>
 '''
 
 
@@ -150,16 +150,19 @@ def add_title (s):
     s = AT_web_title_re.sub (fallback_web_title, s)
     return s
 
+footer_insert_re = re.compile ('<!--\s*FOOTER\s*-->')
 end_body_re = re.compile ('(?i)</body>')
 end_html_re = re.compile ('(?i)</html>')
 
-def add_footer (s):
+def add_footer (s, footer_text):
     """add footer"""
-    (s, n) = end_body_re.subn (footer_tag + footer + '\n' + '</body>', s, 1)
+    (s, n) = footer_insert_re.subn (footer_text + '\n' + '<!-- FOOTER -->', s, 1)
     if not n:
-        (s, n) = end_html_re.subn (footer_tag + footer + '\n' + '</html>', s, 1)
-        if not n:
-            s += footer_tag + footer + '\n'
+        (s, n) = end_body_re.subn (footer_text + '\n' + '</body>', s, 1)
+    if not n:
+        (s, n) = end_html_re.subn (footer_text + '\n' + '</html>', s, 1)
+    if not n:
+        s += footer_text + '\n'
     return s
 
 def find_translations (prefix, lang_ext):
@@ -225,11 +228,7 @@ def add_menu (page_flavors, prefix, available, target, translation):
             language_available = t (lang_available) % language_menu
             languages = LANGUAGES_TEMPLATE % vars ()
         # put language menu before '</body>' and '</html>' tags
-        (page_flavors[k][1], n) = end_body_re.subn (languages + '</body>', page_flavors[k][1], 1)
-        if not n:
-            (page_flavors[k][1], n) = end_html_re.subn (languages + '</html>', page_flavors[k][1], 1)
-            if not n:
-                page_flavors[k][1] += languages
+        page_flavors[k][1] = add_footer (page_flavors[k][1], languages)
     return page_flavors
 
 
@@ -274,7 +273,7 @@ def add_html_footer (package_name = '',
 
             ### add footer
             if footer_tag_re.search (s) == None:
-                s = add_footer (s)
+                s = add_footer (s, footer_tag + footer)
                 
                 available, missing = find_translations (prefix, lang_ext)
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
