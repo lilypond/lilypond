@@ -63,7 +63,7 @@ Major third, perfect fifth
 @tab
 @code{5} or nothing
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:5
 }
@@ -76,7 +76,7 @@ Minor third, perfect fifth
 @tab
 @code{m} or @code{m5}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:m
 }
@@ -89,7 +89,7 @@ Major third, augmented fifth
 @tab
 @code{aug}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:aug
 }
@@ -102,7 +102,7 @@ Minor third, diminished fifth
 @tab
 @code{dim}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:dim
 }
@@ -115,7 +115,7 @@ Major triad, minor seventh
 @tab
 @code{7}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:7
 }
@@ -128,7 +128,7 @@ Major triad, major seventh
 @tab
 @code{maj7} or @code{maj}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:maj7
 }
@@ -141,7 +141,7 @@ Minor triad, minor seventh
 @tab
 @code{m7}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:m7
 }
@@ -154,7 +154,7 @@ Diminished triad, diminished seventh
 @tab
 @code{dim7}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:dim7
 }
@@ -167,7 +167,7 @@ Augmented triad, minor seventh
 @tab
 @code{aug7}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:aug7
 }
@@ -180,7 +180,7 @@ Diminished triad, minor seventh
 @tab
 @code{dim5m7}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:dim5m7
 }
@@ -193,7 +193,7 @@ Minor triad, major seventh
 @tab
 @code{7m5}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:7m5
 }
@@ -206,7 +206,7 @@ Major triad, sixth
 @tab
 @code{6}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:6
 }
@@ -219,7 +219,7 @@ Minor triad, sixth
 @tab
 @code{m6}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:m6
 }
@@ -232,7 +232,7 @@ Dominant seventh, major ninth
 @tab
 @code{9}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:9
 }
@@ -245,7 +245,7 @@ TODO
 @tab
 @code{maj9}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:maj9
 }
@@ -258,7 +258,7 @@ TODO
 @tab
 @code{m9}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:m9
 }
@@ -271,7 +271,7 @@ Dominant ninth, perfect eleventh
 @tab
 @code{11}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:11
 }
@@ -284,7 +284,7 @@ TODO
 @tab
 @code{maj11}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:maj11
 }
@@ -297,7 +297,7 @@ TODO
 @tab
 @code{m11}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:m11
 }
@@ -310,7 +310,7 @@ Dominant eleventh, major thirteenth
 @tab
 @code{13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:13.11
 }
@@ -323,7 +323,7 @@ TODO
 @tab
 @code{maj13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:maj13.11
 }
@@ -336,7 +336,7 @@ TODO
 @tab
 @code{m13.11}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:m13.11
 }
@@ -349,7 +349,7 @@ TODO
 @tab
 @code{sus2}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:sus2
 }
@@ -362,7 +362,7 @@ TODO
 @tab
 @code{sus4}
 @tab
-@lilypond[line-width=3\cm,noragged-right]
+@lilypond[line-width=3\cm,noragged-right, notime]
 \chordmode {
   c1:sus4
 }

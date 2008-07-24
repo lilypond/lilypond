@@ -1,6 +1,6 @@
 \version "2.11.36"
 \header {
-  lsrtags = "repeats,staff-notation,fretted-strings"
+  lsrtags = "repeats,staff-notation"
   texidoc = "By adding the @code{Volta_engraver} to the relevant
 staff, volte can be put over staves other than the topmost
 one in a score."

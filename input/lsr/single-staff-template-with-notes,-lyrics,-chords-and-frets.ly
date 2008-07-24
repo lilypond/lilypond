@@ -22,11 +22,11 @@ fret diagrams.
 } % begin verbatim
 % Define the fret diagrams to be used
 cFretDiagram = \markup {
-  \fret-diagram #"5-3-3;4-2-2;3-o;2-1-1;1-o"
+  \fret-diagram #"6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"
 }
 
 gFretDiagram = \markup {
-  \fret-diagram #"6-3-2;5-2-1;4-o;3-o;2-o;1-3-3"
+  \fret-diagram #"6-3-2;5-2-1;4-o;3-o;2-o;1-3-3;"
 }
 
 verseI = \lyricmode {

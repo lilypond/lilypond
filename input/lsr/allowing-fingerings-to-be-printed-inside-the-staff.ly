@@ -3,7 +3,7 @@
 \version "2.11.52"
 
 \header {
-  lsrtags = "editorial-annotations, spacing"
+  lsrtags = "editorial-annotations, fretted-strings, spacing"
 
   texidoces = "
 Las cifras de digitación se imprimen de forma predeterminada fuera

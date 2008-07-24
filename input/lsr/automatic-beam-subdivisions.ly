@@ -5,6 +5,14 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+Se pueden subdividir las barras automáticamente.  Estableciendo la
+propiedad @code{subdivideBeams}, las barras se subdividen en
+posiciones de pulso (tal y como se especifica en @code{beatLength}).
+
+"
+  doctitlees = "Subdivisiones de barra automáticas"
+
   texidoc = "
 Beams can be subdivided automatically.  By setting the property
 @code{subdivideBeams}, beams are subdivided at beat positions (as

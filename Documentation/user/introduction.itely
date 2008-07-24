@@ -796,7 +796,7 @@ This section explains the different portions of the documentation.
 
 * About the Notation Reference (NR)::  this manual is the main portion of the documentation.  It provides detailed information about creating notation.  This book assumes that the reader knows basic material covered in the LM and is familiar with the English musical terms presented in the MG.
 
-* About the Application Usage (AU)::  this discusses the actual programs and operation system-specific issues.
+* About the Application Usage (AU)::  this discusses the actual programs and operating system-specific issues.
 
 * About the Snippet List (SL)::  this is a collection of short LilyPond examples.
 
