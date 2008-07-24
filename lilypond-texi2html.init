@@ -27,6 +27,8 @@
 ###    cells; For this, I heavily extend the texi2html code to allow for
 ###    differently aligned cells and for multi-line tables);
 ###    Implemented in lilypond_print_navigation
+### -) Different formatting than the default: example uses the same formatting
+###    as quote.
 ### -) Allow translated section titles: All section titles can be translated,
 ###    the original (English) title is associated with @translationof. This is
 ###    needed, because the file name / anchor is generated from the original
@@ -76,6 +78,12 @@ $Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
 $Texi2HTML::Config::init_out             = \&lilypond_init_out;
 $Texi2HTML::Config::unknown              = \&lilypond_unknown;
 $Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
+
+# Examples should be formatted similar to quotes:
+$Texi2HTML::Config::complex_format_map->{'example'} = {
+  'begin' => q{"<blockquote><pre class=\"example\">"},
+  'end' => q{"</pre></blockquote>\n"},
+ };
 
 
 my @section_to_filename;
