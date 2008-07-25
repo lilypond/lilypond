@@ -57,7 +57,12 @@ number of different maqams (modes) that are part of Arabic music.
 In general, Arabic music notation does not attempt to precisely
 indicate microtonal elements that are present in musical practice.
 
+@see also
+
+Snippets:
+@rlsr{World music}.
  
+
 @node Arabic note names 
 @unnumberedsubsubsec Arabic note names
 
@@ -87,6 +92,9 @@ notated:
 
 Notation Reference:     
 @ref{Note names in other languages}.
+
+Snippets:
+@rlsr{World music}.
 
 
 @node Arabic key signatures
