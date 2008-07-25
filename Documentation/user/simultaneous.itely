@@ -166,7 +166,9 @@ separated by double backslashes.
 
 First and third voices get stems up, second and fourth voices get
 stems down, third and fourth voice noteheads are horizontally shifted,
-and rests move to avoid collisions.
+and rests move to avoid collisions.  In the following example, the
+intermediate voice has stems up, therefore we enter it in the third
+place, so it becomes voice three which has the stems up as desired.
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -178,9 +180,23 @@ and rests move to avoid collisions.
 >>
 @end lilypond
 
-For these purposes, the @code{\voiceOne} ... @code{\voiceFour}
-commands can be used instead.  Spacing rests are often used to avoid
-too many rests, as seen in the example avobe.
+Spacing rests are often used to avoid too many rests, as seen in the
+example above.
+
+The method exposed creates two new voices when the @code{<<@{...@} \\
+@{...@}>>} construction is found in the code; to temporally add only
+one additional voice to an existing one, it is necessary to
+instantiate that voice explicitly. For these purposes, the
+@code{\voiceOne} ... @code{\voiceFour}, and @code{\oneVoice} commands
+can be used:
+
+@example
+<< @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
+@end example
+
+This is a better construction to keep the control of the voices, for
+example, to ease a consistent assign of lyrics to the proper voice
+context.
 
 @predefined
 
@@ -191,12 +207,18 @@ too many rests, as seen in the example avobe.
 @funindex \voiceThree
 @code{\voiceThree},
 @funindex \voiceFour
-@code{\voiceFour}.
+@code{\voiceFour},
+@funindex \oneVoice
+@code{\oneVoice}.
 
 @seealso
 
 Learning Manual:
-@rlearning{Voices contain music}.
+@rlearning{Voices contain music},
+@rlearning{Explicitly instantiating voices}.
+
+Notation Reference:
+@ref{Percussion staves}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
@@ -377,9 +399,6 @@ Notes are only merged if they have opposing stem directions (i.e., in
 @code{\mergeDifferentlyHeadedOn},
 @funindex \mergeDifferentlyHeadedOff
 @code{\mergeDifferentlyHeadedOff}.
-
-@funindex \oneVoice
-@code{\oneVoice}.
 
 @funindex \shiftOn
 @code{\shiftOn},
