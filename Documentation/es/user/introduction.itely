@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 23542761090f167ad42dbff7ef11d44a9c1374ac
+    Translation of GIT committish: f6b77b196db5d80b891e133e58659095134424de
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,8 +15,8 @@
 En este capítulo se presentan al lector LilyPond y su documentación.
 
 @menu
-* Background::                  
-* About the documentation::     
+* Background::
+* About the documentation::
 @end menu
 
 @node Background
