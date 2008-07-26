@@ -572,12 +572,12 @@ ly_options = {
     LAYOUT: {
         NOTIME: r'''
  \context {
-  \Score
-  timing = ##f
+   \Score
+   timing = ##f
  }
  \context {
-  \Staff
-  \remove Time_signature_engraver
+   \Staff
+   \remove "Time_signature_engraver"
  }''',
     },
 

@@ -232,6 +232,9 @@ Then the following, which I don't know what to do with:
     * FretBoards
         Engraves fretboards from chords. Not easy... Not
 documented.
+        There is now some documentation on FretBoards in the NR, under
+         instrument-specific notation -- cds.
+
     * NoteNames
 
     * CueVoice Not documented
@@ -1530,9 +1533,11 @@ To create tab diagrams, enter notes or chords in note mode and
 render them in a @code{TabStaff} context, see
 @ref{Default tablatures}.
 
-To create fret diagrams above a staff, enter them as markup
-above the notes using the @code{\fret-diagram} command, see
-@ref{Fret diagrams}.
+To create fret diagrams above a staff, you have two choices.
+You can either use the @code{FretBoards} context (see
+@ref{Automatic fret diagrams} or you can enter them as a markup
+above the notes using the @code{\fret-diagram} command (see
+@ref{Fret diagram markups}).
 
 @strong{Lyrics mode}
 

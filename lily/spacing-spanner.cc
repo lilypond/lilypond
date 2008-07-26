@@ -137,7 +137,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
 	}
     }
 
-  int max_idx = -1;
+  vsize max_idx = VPOS;
   int max_count = 0;
   for (vsize i = durations.size (); i--;)
     {
@@ -153,7 +153,7 @@ Spacing_spanner::calc_common_shortest_duration (SCM grob)
   if (Moment *m = unsmob_moment (bsd))
     d = m->main_part_;
 
-  if (max_idx >= 0)
+  if (max_idx != VPOS)
     d = min (d, durations[max_idx]);
 
   return Moment (d).smobbed_copy ();
@@ -368,16 +368,9 @@ Spacing_spanner::musical_column_spacing (Grob *me,
 	  else
 	    {
 	      /*
-		Fixed should be 0.0. If there are no spacing wishes, we're
-		likely dealing with polyphonic spacing of hemiolas.
-	    
-		We used to have min_distance_ = options->increment_
-
-		but this can lead to numeric instability problems when we
-		do
-	    
-		inverse_strength = (distance_ - min_distance_)
-      
+		Min distance should be 0.0. If there are no spacing
+		wishes, we're probably dealing with polyphonic spacing
+		of hemiolas.      
 	      */
 	      spring = Spring (base_note_space, 0.0);
 	    }
@@ -402,14 +395,18 @@ Spacing_spanner::musical_column_spacing (Grob *me,
     {
       /*
 	In packed mode, pack notes as tight as possible.  This makes
-	sense mostly in combination with raggedright mode: the notes
+	sense mostly in combination with ragged-right mode: the notes
 	are then printed at minimum distance.  This is mostly useful
 	for ancient notation, but may also be useful for some flavours
-	of contemporary music.  If not in raggedright mode, lily will
-	pack as much bars of music as possible into a line, but the
+	of contemporary music.  If not in ragged-right mode, lily will
+	pack as many bars of music as possible into a line, but the
 	line will then be stretched to fill the whole linewidth.
+
+	Note that we don't actually pack things as tightly as possible:
+	we don't allow the next column to begin before this one ends.
       */
-      spring.set_distance (spring.min_distance ());
+      spring.set_distance (max (left_col->extent (left_col, X_AXIS)[RIGHT],
+				spring.min_distance ()));
       spring.set_inverse_stretch_strength (1.0);
     }
 

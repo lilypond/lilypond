@@ -39,25 +39,30 @@ FIXME
 @cindex maqam 
 @cindex maqams
 
-Arabic music so far has been mainly an oral tradition.  When music is
-transcribed, it is usually in a sketch format, on which performers are
-expected to improvise significantly.  Increasingly, Western notation,
-with a few variations, is adopted in order to communicate and
-preserve Arabic music. 
+Arabic music so far has been mainly an oral tradition.  When music
+is transcribed, it is usually in a sketch format, on which
+performers are expected to improvise significantly.  Increasingly,
+Western notation, with a few variations, is adopted in order to
+communicate and preserve Arabic music. 
 
-Some elements of Western musical notation such as the transcription
-of chords or independent parts, are not required to typeset the more
-traditional Arabic pieces.  There are however some different issues,
-such as the need to indicate medium intervals that are somewhere
-between a semi-tone and a tone, in addition to the minor and major
-intervals that are used in Western music.  There is also the need to
-group and indicate a large number of different maqams (modes) that
-are part of Arabic music.
+Some elements of Western musical notation such as the
+transcription of chords or independent parts, are not required to
+typeset the more traditional Arabic pieces.  There are however
+some different issues, such as the need to indicate medium
+intervals that are somewhere between a semi-tone and a tone, in
+addition to the minor and major intervals that are used in Western
+music.  There is also the need to group and indicate a large
+number of different maqams (modes) that are part of Arabic music.
   
 In general, Arabic music notation does not attempt to precisely
 indicate microtonal elements that are present in musical practice.
 
+@seealso
+
+Snippets:
+@rlsr{World music}.
  
+
 @node Arabic note names 
 @unnumberedsubsubsec Arabic note names
 
@@ -65,10 +70,10 @@ indicate microtonal elements that are present in musical practice.
 
 The more traditional Arabic note names can be quite long and are
 not suitable for the purpose of music writing, so they are not
-defined by the inclusion of "arabic.ly".  English note names
-@code{a, b, c, d, e, f, g} are not very familiar in Arabic music
-education.  Italian or Solfege note names @code{do, re, mi, fa,
-sol, la, si} are more familiar, and are used when
+defined by the inclusion of @code{"arabic.ly"}.  English note
+names @code{a, b, c, d, e, f, g} are not very familiar in Arabic
+music education.  Italian or Solfege note names @code{do, re, mi,
+fa, sol, la, si} are more familiar, and are used when
 @code{"arabic.ly"} is included.  Modifiers can also be used, as
 discussed in @ref{Note names in other languages}. 
 
@@ -76,13 +81,9 @@ For example, this is how the Arabic @notation{rast} scale can be
 notated:
 
 @lilypond[quote,verbatim]    
-% TODO: commented out until arabic is included
-%\include "arabic.ly"
-%\relative do' { 
-%  do re misb fa sol la sisb do sisb la sol fa misb re do 
-%}
-\relative c' {
-  c
+\include "arabic.ly"
+\relative do' { 
+  do re misb fa sol la sisb do sisb la sol fa misb re do 
 }
 @end lilypond
 
@@ -91,6 +92,9 @@ notated:
 
 Notation Reference:     
 @ref{Note names in other languages}.
+
+Snippets:
+@rlsr{World music}.
 
 
 @node Arabic key signatures
@@ -180,17 +184,10 @@ For example, you can set the key signature to do sharp, mi semi-flat, and
 sol flat as follows : 
 
 @lilypond[quote,verbatim]
-% TODO: uncomment when arabic is added.
-%\include "arabic.ly" 
-%{
-%  \set Staff.keySignature = #`( (0 . ,SHARP) (2 . ,SEMI-FLAT) (4 . ,FLAT) )  
-%  \relative re' 
-%  { 
-%    re misb fa solb la si dod re sisb la solb fa misb re    
-%  } 
-%}
-\relative c'{
-  c
+\include "arabic.ly" 
+\relative re' {
+  \set Staff.keySignature = #`( (0 . ,SHARP) (2 . ,SEMI-FLAT) (4 . ,FLAT) )  
+  re misb fa solb la si dod re sisb la solb fa misb re    
 }
 @end lilypond
 

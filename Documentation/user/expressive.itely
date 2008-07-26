@@ -229,21 +229,22 @@ g1\espressivo
 @cindex diminuendo
 
 Crescendos and decrescendos can be engraved as textual markings
-instead of hairpins.  The built-in commands that enable these text
-modes are @code{\crescTextCresc}, @code{\dimTextDecresc},
+instead of hairpins.  Dashed lines are printed to indicate their
+extent.  The built-in commands that enable these text modes are
+@code{\crescTextCresc}, @code{\dimTextDecresc},
 @code{\dimTextDecr}, and @code{\dimTextDim}.  The corresponding
-@code{\crescHairpin} and @code{\dimHairpin} commands will revert to
-hairpins again:
+@code{\crescHairpin} and @code{\dimHairpin} commands will revert
+to hairpins again:
 
 @lilypond[verbatim,quote,relative=2]
-c4\< d e f\!
-e4\> d c b\!
 \crescTextCresc
-c4\< d e f\!
+c2\< d | e f\!
 \dimTextDecresc
-e4\> d c b\!
+e2\> d | c b\!
 \crescHairpin
-c4\< d e f\!
+c2\< d | e f\!
+\dimHairpin
+e2\> d\!
 @end lilypond
 
 To create new absolute dynamic marks or text that should be
@@ -290,7 +291,7 @@ Vertical positioning of dynamics is handled by
 {printing-hairpins-using-al-niente-notation.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-{vertically-aligning-dynamics-across-multiple-notes.ly}
+{vertically-aligned-dynamics-and-textscripts.ly}
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {hiding-the-extender-line-for-text-dynamics.ly}
@@ -336,8 +337,8 @@ The easiest way to create dynamic indications is to use
 moltoF = \markup { molto \dynamic f }
 
 \relative c' {
-  <d e>16 <d e>
-  <d e>2.._\moltoF
+  <d e>16_\moltoF <d e>
+  <d e>2..
 }
 @end lilypond
 

@@ -5,6 +5,14 @@
 \header {
   lsrtags = "editorial-annotations, tweaks-and-overrides"
 
+  texidoces = "
+De forma predeterminada se añaden corchetes de análisis sencillos
+debajo del pentagrama.  El ejemplo siguiente muestra una manera de
+colocarlos por encima.
+
+"
+  doctitlees = "Corchetes de análisis encima del pentagrama"
+
   texidoc = "
 Simple horizontal analysis brackets are added below the staff by
 default. The following example shows a way to place them above the

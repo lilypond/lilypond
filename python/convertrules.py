@@ -2785,6 +2785,12 @@ def conv (str):
     str = str.replace ("setHairpinDim", "dimHairpin")
     return str
 
+@rule ((2, 11, 53), "infinite-spacing-height -> extra-spacing-height")
+def conv (str):
+    str = re.sub (r"infinite-spacing-height\s+=\s+##t", r"extra-spacing-height = #'(-inf.0 . +inf.0)", str)
+    str = re.sub (r"infinite-spacing-height\s+=\s+##f", r"extra-spacing-height = #'(0 . 0)", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,

@@ -871,8 +871,8 @@ preceded by an apostrophe
        @code{#f}
 @item Vector
   @tab A list of three items enclosed in brackets and preceded
-by a hash sign, @code{#}.
-  @tab @code{#(#t #t #f)}
+by apostrophe-hash, @code{'#}.
+  @tab @code{'#(#t #t #f)}
 @end multitable
 
 @node Appearance of objects
@@ -979,13 +979,13 @@ booleans.
 These control respectively whether bar lines are printed at
 the end of a line, in the middle of lines, and at the beginning
 of lines.  For our example we want all bar lines to be suppressed,
-so the value we need is @code{#(#f #f #f)}.
+so the value we need is @code{'#(#f #f #f)}.
 Let's try that, remembering
 to include the @code{Staff} context.  Note also that in writing
-this value we have two hash signs before the opening bracket.
-One is required as part of the value to introduce a vector, 
-and one is required, as always, to precede the value itself in 
-the @code{\override} command.
+this value we have @code{#'#} before the opening bracket.
+The @code{'#} is required as part of the value to introduce a
+vector, and the first @code{#} is required, as always, to precede
+the value itself in the @code{\override} command.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {

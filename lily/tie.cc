@@ -31,8 +31,7 @@
 
 
 bool
-Tie::less (Grob *const &s1,
-	   Grob *const &s2)
+Tie::less (Grob *const &s1, Grob *const &s2)
 {
   return Tie::get_position (s1) < Tie::get_position (s2);
 }
@@ -209,7 +208,6 @@ Tie::get_control_points (Grob *me,
   return controls;
 }
 
-
 MAKE_SCHEME_CALLBACK (Tie, calc_control_points, 1);
 SCM
 Tie::calc_control_points (SCM smob)
@@ -219,18 +217,16 @@ Tie::calc_control_points (SCM smob)
   Grob *yparent = me->get_parent (Y_AXIS);
   if ((Tie_column::has_interface (yparent)
        || Semi_tie_column::has_interface (yparent)) 
-      && unsmob_grob_array (yparent->get_object ("ties"))
-      //      && unsmob_grob_array (yparent->get_object ("ties"))->size () > 1
-      )
+      && unsmob_grob_array (yparent->get_object ("ties")))
     {
       extract_grob_set (yparent, "ties", ties);
-      if (ties.size() == 1
+      if (me->original() && ties.size() == 1
 	  && !to_dir (me->get_property_data ("direction")))
 	{
 	  assert (ties[0] == me);
 	  set_grob_direction (me, Tie::get_default_dir (me));
-	}
-      
+	    
+	}      
       /* trigger positioning. */
       (void) yparent->get_property ("positioning-done");
     }

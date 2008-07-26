@@ -5,6 +5,14 @@
 \header {
   lsrtags = "keyboards"
 
+  texidoces = "
+Los símbolos específicos de acordeón discanto se escriben mediante
+@code{\markup}. Se puede trucar la colocación vertical de los
+símbolos modificando los argumentos de @code{\raise}.
+
+"
+  doctitlees = "Símbolos de acordeón discanto"
+
   texidoc = "
 Accordion discant-specific symbols are added using @code{\\markup}. The
 vertical placement of the symbols can be tweaked by changing the

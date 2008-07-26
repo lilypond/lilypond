@@ -5,6 +5,16 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+En un compás sencillo como 2/2 ó 4/4, las corcheas se barran de forma
+predeterminada como dos grupos de cuatro.
+
+Utilizando un macro que seobreescribe el comportamiento automático del
+barrado, este fragmento de código cambia el barrado a pulsos de negra.
+
+"
+  doctitlees = "Barras automáticas de dos en dos en los compases de 4/4 o de 2/2"
+
   texidoc = "
 In a simple time signature of 2/2 or 4/4, 8th notes are beamed by
 default as two sets of four.
