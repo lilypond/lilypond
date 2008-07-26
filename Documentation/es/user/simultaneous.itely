@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 346679c17c3bfdb1372bed4e23e3235159e324a9
+    Translation of GIT committish: 855e78dbe64b0a48a03cea88cde16c15d1af85b0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -68,33 +68,6 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
-@node Parallel notes
-@unnumberedsubsubsec Parallel notes
-
-Se pueden combinar pasajes musicales en un solo contexto de voz,
-formando así acordes si los dos pasajes tienen las mismas nuraciones
-en todas las notas.  Para conseguirlo, enciérrelos dentro de una
-construcción de música simultánea:
-
-@lilypond[quote,relative=2,verbatim]
-\new Voice <<
-  { e4 f8 d e16 f g8 d4 }
-  { c4 d8 b c16 d e8 b4 }
->>
-@end lilypond
-
-@seealso
-
-Manual de aprendizaje:
-@rlearning{Voices contain music}.
-
-Fragmentos de código:
-@rlsr{Simultaneous notes}.
-
-@knownissues
-
-Este método produce barras extrañas y advertencias si las notas de los
-dos pasajes no tienen las mismas duraciones.
 
 @node Clusters
 @unnumberedsubsubsec Clusters
@@ -204,13 +177,13 @@ A menudo se utilizan silencios espaciadores para evitar la aparición
 de un número excesivo de silencios, como se ha podido ver en el
 ejemplo anterior.
 
-El método que acabamos de presentar crea dos voces cuando se encuentra
-la construcción @code{<<@{...@} \\ @{...@}>>} en el código de entrada;
-para añadir de forma temporal una sola voz adicional a una voz ya
-existente, es necesario instanciar dicha voz de forma explícita.  Para
-este propósito, se pueden utilizar las instrucciones desde
-@code{\voiceOne} (voz uno) hasta @code{\voiceFour} (voz cuatro) y
-@code{\oneVoice} (una voz única):
+El método que acabamos de presentar crea dos voces nuevas cuando se
+encuentra la construcción @code{<<@{...@} \\ @{...@}>>} en el código
+de entrada; para añadir de forma temporal una sola voz adicional a una
+voz ya existente, es necesario instanciar dicha voz de forma
+explícita.  Para este propósito, se pueden utilizar las instrucciones
+desde @code{\voiceOne} (voz uno) hasta @code{\voiceFour} (voz cuatro)
+y @code{\oneVoice} (una voz única):
 
 @example
 << @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
