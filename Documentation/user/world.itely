@@ -11,7 +11,8 @@
 @node World music
 @section World music
 
-FIXME
+The purpose of this section is to highlight musical notation issues
+that are relevant to traditions outside the Western tradition. 
 
 @menu
 * Arabic music::                
@@ -20,19 +21,20 @@ FIXME
 @node Arabic music
 @subsection Arabic music
 
-FIXME
+This section highlights issues that are relevant to notating Arabic
+music.
 
 @menu
-* Arabic music notation overview::  
+* References for Arabic music::  
 * Arabic note names ::          
 * Arabic key signatures::       
 * Arabic time signatures:: 
-* References for Arabic music::  
+* Further reading::  
 @end menu
 
  
-@node Arabic music notation overview
-@unnumberedsubsubsec Arabic music notation overview
+@node References for Arabic music
+@unnumberedsubsubsec References for Arabic music 
 
 @cindex Arabic music
 @cindex medium intervals  
@@ -57,14 +59,41 @@ number of different maqams (modes) that are part of Arabic music.
 In general, Arabic music notation does not attempt to precisely
 indicate microtonal elements that are present in musical practice.
 
+Several issues that are relevant to Arabic music are covered 
+elsewhere: 
+
+@itemize
+@item Note names can be tailored as discussed in
+@ref{Note names in other languages}.
+
+@item Additional key signatures can be obtained by the 
+inclusion of @code{"arabic.ly"} as discussed in  
+@ref{Note names in other languages}. Key signatures 
+can also be tailored as described in @ref{Key signature}.
+
+@item Medium intervals, that are neither minor or major, 
+but are approximately a three quarter of a tone, can be 
+indicated by the note names of quarter tones as described
+in @ref{Note names in other languages}.
+
+@item  Complex time signatures may require that notes 
+are grouped manually using @code{[ ]} to 
+surround grouped notes, as described in @ref{Manual beams}. 
+
+@end itemize 
+ 
 @seealso
+Notation Reference:
+@ref{Note names in other languages},     
+@ref{Key signature}.
 
 Snippets:
 @rlsr{World music}.
  
 
 @node Arabic note names 
-@unnumberedsubsubsec Arabic note names
+@unnumberedsubsubsec Arabic note names 
+
 
 @cindex Arabic note names 
 
@@ -114,14 +143,30 @@ the music.
 
 For example to indicate the key signature of a maqam muhayer piece:  
 
-  \key re \bayati
+  \key re \bayati 
 
 Here re is the default pitch of the muhayer maqam, and bayati is the
 name of the base maqam in the group. 
 
 While the key signature indicates the group, it is
 common for the title to indicate the more  specific maqam, so in this
-example, the name of maqam muhayer should appear in the title.    
+example, the name of maqam muhayer should appear in the title.
+
+Other maqams in the same group, as shown in the table below:
+bayati, hussaini, saba, and ushaq can be indicated in the 
+same way. These are all variations of the base and most common 
+maqam in the group, which is bayati. They usually differ from the 
+base maqam in their upper tetrachords, or certain flow details that 
+don't change their fundamental nature, as related siblings. 
+
+The other maqam in the same group (Nawa) is related to bayati by 
+modulation which is indicated in the table in parenthesis for 
+those maqams that are modulations of their base maqam. Arabic 
+maqams admit of only limited modulations, due to the nature of
+Arabic musical instruments. Nawa can be indicated as follows : 
+
+   \key sol \bayati
+
 
 In Arabic music, the same term such as bayati that is used to indicate 
 a maqam group, is also a maqam which is usually the most important
@@ -174,22 +219,13 @@ signatures:
 @end multitable          
 
 
-You can also set the key signature using Staff.keySignature as discussed
-in @ref{Key signature}.  This offers more flexibility if you don't wish  
-to be limited to the key signatures that are defined in "arabic.ly", or if 
-you don't wish to use the above method of determining a key signature based 
-on the maqam group. 
 
-For example, you can set the key signature to do sharp, mi semi-flat, and 
-sol flat as follows : 
-
-@lilypond[quote,verbatim]
-\include "arabic.ly" 
-\relative re' {
-  \set Staff.keySignature = #`( (0 . ,SHARP) (2 . ,SEMI-FLAT) (4 . ,FLAT) )  
-  re misb fa solb la si dod re sisb la solb fa misb re    
-}
-@end lilypond
+You can also set the key signature using Staff.keySignature as 
+discussed in @ref{Key signature}.  This offers more flexibility 
+if you don't wish to be limited to the key signatures that are 
+defined in @code{"arabic.ly"}, or if you don't wish to use the 
+above method of determining a key signature based on the maqam 
+group. 
 
 @seealso
 
@@ -201,6 +237,10 @@ Learning Manual:
 
 Internals Reference:
 @rinternals{KeySignature}.
+
+Snippets:
+@rlsr{World music}, 
+@rlsr{Pitches}.
 
 @node Arabic time signatures
 @unnumberedsubsubsec Arabic time signatures 
@@ -233,8 +273,11 @@ Notation Reference:
 @ref{Unmetered music}, 
 @ref{Automatic accidentals}. 
 
-@node References for Arabic music
-@unnumberedsubsubsec References for arabic music
+Snippets:
+@rlsr{World music}.
+
+@node Further reading
+@unnumberedsubsubsec Further reading
 
 @enumerate
 
