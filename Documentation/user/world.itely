@@ -63,29 +63,23 @@ Several issues that are relevant to Arabic music are covered
 elsewhere: 
 
 @itemize
-@item Note names can be tailored as discussed in
-@ref{Note names in other languages}.
+@item Note names and accidentals (including quarter tones) can be
+tailored as discussed in @ref{Note names in other languages}.
 
-@item Additional key signatures can be obtained by the 
-inclusion of @code{"arabic.ly"} as discussed in  
-@ref{Note names in other languages}. Key signatures 
-can also be tailored as described in @ref{Key signature}.
+@item Additional key signatures can also be tailored as described
+in @ref{Key signature}.
 
-@item Medium intervals, that are neither minor or major, 
-but are approximately a three quarter of a tone, can be 
-indicated by the note names of quarter tones as described
-in @ref{Note names in other languages}.
-
-@item  Complex time signatures may require that notes 
-are grouped manually using @code{[ ]} to 
-surround grouped notes, as described in @ref{Manual beams}. 
+@item Complex time signatures may require that notes be grouped
+manually as described in @ref{Manual beams}. 
 
 @end itemize 
- 
+
 @seealso
+
 Notation Reference:
 @ref{Note names in other languages},     
-@ref{Key signature}.
+@ref{Key signature},
+@ref{Manual beams}.
 
 Snippets:
 @rlsr{World music}.
@@ -99,12 +93,10 @@ Snippets:
 
 The more traditional Arabic note names can be quite long and are
 not suitable for the purpose of music writing, so they are not
-defined by the inclusion of @code{"arabic.ly"}.  English note
-names @code{a, b, c, d, e, f, g} are not very familiar in Arabic
-music education.  Italian or Solfege note names @code{do, re, mi,
-fa, sol, la, si} are more familiar, and are used when
-@code{"arabic.ly"} is included.  Modifiers can also be used, as
-discussed in @ref{Note names in other languages}. 
+used.  English note names are not very familiar in Arabic music
+education, so Italian or Solfege note names (@code{do, re, mi, fa,
+sol, la, si}) are used instead.  Modifiers (accidentals) can also
+be used, as discussed in @ref{Note names in other languages}. 
 
 For example, this is how the Arabic @notation{rast} scale can be
 notated:
@@ -132,9 +124,10 @@ Snippets:
 @cindex Arabic key signatures
 
 In addition to the minor and major key signatures, the following
-key signatures are defined in @code{"arabic.ly"}: bayati, rast,
-sikah, iraq, and kurd. These key signatures define a small number
-of maqam groups rather than the large number of maqams that are in
+key signatures are defined in @code{arabic.ly}: @notation{bayati},
+@notation{rast}, @notation{sikah}, @notation{iraq}, and
+@notation{kurd}.  These key signatures define a small number of
+maqam groups rather than the large number of maqams that are in
 common use. 
 
 In general, a maqam uses the key signature of its group, or a 
@@ -143,37 +136,44 @@ the music.
 
 For example to indicate the key signature of a maqam muhayer piece:  
 
-  \key re \bayati 
+@example
+\key re \bayati 
+@end example
 
-Here re is the default pitch of the muhayer maqam, and bayati is the
-name of the base maqam in the group. 
+Here @var{re} is the default pitch of the muhayer maqam, and
+@var{bayati} is the name of the base maqam in the group. 
 
-While the key signature indicates the group, it is
-common for the title to indicate the more  specific maqam, so in this
-example, the name of maqam muhayer should appear in the title.
+While the key signature indicates the group, it is common for the
+title to indicate the more specific maqam, so in this example, the
+name of maqam muhayer should appear in the title.
 
+@c FIXME: what group?  bayati?
+@c FIXME: the list is hard to read.  Either end the sentence with
+@c the list, or put it in parentheses, or something.
 Other maqams in the same group, as shown in the table below:
-bayati, hussaini, saba, and ushaq can be indicated in the 
-same way. These are all variations of the base and most common 
-maqam in the group, which is bayati. They usually differ from the 
-base maqam in their upper tetrachords, or certain flow details that 
+bayati, hussaini, saba, and ushaq can be indicated in the same
+way.  These are all variations of the base and most common maqam
+in the group, which is bayati.  They usually differ from the base
+maqam in their upper tetrachords, or certain flow details that
 don't change their fundamental nature, as related siblings. 
 
-The other maqam in the same group (Nawa) is related to bayati by 
-modulation which is indicated in the table in parenthesis for 
-those maqams that are modulations of their base maqam. Arabic 
+The other maqam in the same group (Nawa) is related to bayati by
+modulation which is indicated in the table in parenthesis for
+those maqams that are modulations of their base maqam.  Arabic
 maqams admit of only limited modulations, due to the nature of
-Arabic musical instruments. Nawa can be indicated as follows : 
+Arabic musical instruments.  Nawa can be indicated as follows: 
 
-   \key sol \bayati
+@example
+\key sol \bayati
+@end example
 
+In Arabic music, the same term such as bayati that is used to
+indicate a maqam group, is also a maqam which is usually the most
+important in the group, and can also be thought of as a base
+maqam. 
 
-In Arabic music, the same term such as bayati that is used to indicate 
-a maqam group, is also a maqam which is usually the most important
-in the group, and can also be thought of as a base maqam. 
-
-Here is one suggested grouping that maps the more common maqams to key 
-signatures: 
+Here is one suggested grouping that maps the more common maqams to
+key signatures: 
 
 @multitable @columnfractions 0.1 0.1 0.1 0.6
 @headitem maqam group 
@@ -218,14 +218,11 @@ signatures:
   @tab huzam 
 @end multitable          
 
+@snippets
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
 
-You can also set the key signature using Staff.keySignature as 
-discussed in @ref{Key signature}.  This offers more flexibility 
-if you don't wish to be limited to the key signatures that are 
-defined in @code{"arabic.ly"}, or if you don't wish to use the 
-above method of determining a key signature based on the maqam 
-group. 
 
 @seealso
 
@@ -242,6 +239,7 @@ Snippets:
 @rlsr{World music}, 
 @rlsr{Pitches}.
 
+
 @node Arabic time signatures
 @unnumberedsubsubsec Arabic time signatures 
 
@@ -249,10 +247,11 @@ Snippets:
 @cindex Semai form 
 @cindex taqasim 
 
+@c FIXME why not just adjust the automatic beaming?
 Some Arabic and Turkish music classical forms such as Semai use 
 unusual time signatures such as 10/8. This may lead to an 
 automatic grouping of notes that is quite different from existing
-typeset music. You can override this by switching off automatic 
+typeset music.  You can override this by switching off automatic 
 beaming, and grouping the notes manually using @code{[ ]} to 
 surround grouped notes, as described in @ref{Manual beams}. 
 
