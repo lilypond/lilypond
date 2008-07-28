@@ -383,35 +383,38 @@ The available language files and the note names they define are:
 @item nederlands.ly
   @tab c d e f g a bes b
   @tab -is @tab -es @tab -isis @tab -eses
-@item english.ly
-  @tab c d e f g a bf b
-  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
-    @tab -ff/-flatflat
-@item deutsch.ly
-  @tab c d e f g a b h
-  @tab -is @tab -es @tab -isis @tab -eses
-@item norsk.ly
-  @tab c d e f g a b h
-  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
-    @tab -essess/-eses
-@item svenska.ly
-  @tab c d e f g a b h
-  @tab -iss @tab -ess @tab -ississ @tab -essess
-@item suomi.ly
-  @tab c d e f g a b h
-  @tab -is @tab -es @tab -isis @tab -eses
-@item italiano.ly
+@item arabic.ly
   @tab do re mi fa sol la sib si
   @tab -d @tab -b @tab -dd @tab -bb
 @item catalan.ly
   @tab do re mi fa sol la sib si
   @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+@item deutsch.ly
+  @tab c d e f g a b h
+  @tab -is @tab -es @tab -isis @tab -eses
+@item english.ly
+  @tab c d e f g a bf b
+  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
+    @tab -ff/-flatflat
 @item espanol.ly
   @tab do re mi fa sol la sib si
   @tab -s @tab -b @tab -ss @tab -bb
+@item italiano.ly
+  @tab do re mi fa sol la sib si
+  @tab -d @tab -b @tab -dd @tab -bb
+@item norsk.ly
+  @tab c d e f g a b h
+  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
+    @tab -essess/-eses
 @item portugues.ly
   @tab do re mi fa sol la sib si
   @tab -s @tab -b @tab -ss @tab -bb
+@item suomi.ly
+  @tab c d e f g a b h
+  @tab -is @tab -es @tab -isis @tab -eses
+@item svenska.ly
+  @tab c d e f g a b h
+  @tab -iss @tab -ess @tab -ississ @tab -essess
 @item vlaams.ly
   @tab do re mi fa sol la sib si
   @tab -k @tab -b @tab -kk @tab -bb
@@ -446,12 +449,15 @@ languages, no special names have been defined yet.
 @item nederlands.ly
   @tab c d e f g a bes b
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item english.ly
-  @tab c d e f g a bf b
-  @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item arabic.ly
+  @tab do re mi fa sol la sib si
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item deutsch.ly
   @tab c d e f g a b h
   @tab -ih @tab -eh @tab -isih @tab -eseh
+@item english.ly
+  @tab c d e f g a bf b
+  @tab -qs @tab -qf @tab -tqs @tab -tqf
 @item italiano.ly
   @tab do re mi fa sol la sib si
   @tab -sd @tab -sb @tab -dsd @tab -bsb

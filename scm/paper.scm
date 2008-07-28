@@ -207,7 +207,7 @@ size. SZ is in points"
 				     (ly:modules-lookup (list m) 'right-margin (* 10 mm))))
 
     (module-define! m 'indent (/ w 14))
-    (module-define! m 'short-indent (* 5 mm))
+    (module-define! m 'short-indent 0)
 
     ;; page layout - what to do with (printer specific!) margin settings?
 

@@ -176,55 +176,11 @@ default value for @code{minimumFret} is 0.
 
 @snippets
 
-The direction of stems is controlled the same way in tablature as
-in traditional notation. Beams can be made horizontal:
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{stem-and-beam-behavior-in-tablature.ly}
 
-@lilypond[quote,ragged-right,verbatim]
-\new TabStaff {
-  \relative c {
-    g16 b d g
-    b d g b
-    \stemDown
-    \override Beam #'damping = #100000
-    g,,16 b d g
-    b d g b
-  }
-}
-@end lilypond
-
-Polyphony is created the same way in a @code{TabStaff} as in a
-regular staff.
-
-@lilypond[quote,ragged-right,verbatim]
-upper = \relative c' {
-	\time 12/8
-	\key e \minor
-	\voiceOne
-	r4. r8 e, fis g16 b g e e' b c b a g fis e
-}
-
-lower = \relative c {
-	\key e \minor
-	\voiceTwo
-	r16 e d c b a g4 fis8 e fis g a b c  
-}
-
-\score {
-  <<
-    \new StaffGroup = "tab with traditional" <<
-      \new Staff = "guitar traditional" <<
-	    \clef "treble_8"
-	    \context Voice = "upper" \upper
-	    \context Voice = "lower" \lower
-      >>
-      \new TabStaff = "guitar tab" << 
-            \context TabVoice = "upper"  \upper 
-            \context TabVoice = "lower"  \lower 
-      >>
-    >>
-  >>
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{polyphony-in-tablature.ly}
 
 @seealso
 
@@ -799,35 +755,11 @@ short, for example @code{RH},
 
 @snippets
 
-You may exercise greater control over the placement of right-hand 
-fingerings by setting @code{strokeFingerOrientations},
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{placement-of-right-hand-fingerings.ly}
 
-@lilypond[quote,verbatim]
-#(define RH rightHandFinger)
-\relative c {
-  \clef "treble_8"
-  \set strokeFingerOrientations = #'(up down)
-  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 > 4
-  \set strokeFingerOrientations = #'(up right down)
-  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 > 4
-  \set strokeFingerOrientations = #'(left)
-  <c-\RH #1 e-\RH #2 g-\RH #3 c-\RH #4 > 2
-}
-@end lilypond
-
-This example combines left-hand fingering, string indication, and 
-right-hand fingering
-
-@lilypond[quote,verbatim]
-#(define RH rightHandFinger)
-\relative c {
-  \clef "treble_8"
-  <c-3\5-\RH #1 >4 
-  <e-2\4-\RH #2 > 
-  <g-0\3-\RH #3 > 
-  <c-1\2-\RH #4 >
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{fingerings,-string-indications,-and-right-hand-fingerings.ly}
 
 @seealso
 
@@ -941,7 +873,7 @@ A number of common tunings for banjo are predefined in LilyPond:
 @code{banjo-open-d-tuning} (aDF#AD) and @code{banjo-open-dm-tuning}
 (aDFAD).
 
-These tunings may be converted to four string banjo tunings using the
+These tunings may be converted to four-string banjo tunings using the
 @code{four-string-banjo} function:
 
 @example
