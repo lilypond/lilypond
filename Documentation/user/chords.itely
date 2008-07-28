@@ -376,8 +376,9 @@ interpreted last.
 \chordmode { c1:5.5-.5+ }
 @end lilypond
 
-Only the first inversion can be created by adding a bass note.  The
-second inversion requires changing the root of the chord.
+Only the second inversion can be created by adding a bass
+note.  The first inversion requires changing the root of
+the chord.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \chordmode {
