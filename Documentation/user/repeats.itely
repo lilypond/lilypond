@@ -148,21 +148,6 @@ c1
 {adding-volta-brackets-to-additional-staves.ly}
 
 
-@c Is there a way to have a final bar ("|.") at the end of the
-@c previous line? Doesn't seem to be.
-@c It could be done by overriding
-@c the BreakAlignment property. Want a separate example?
-If you want to start a repeat at the beginning of a line and have a
-double bar at the end of the previous line, use @code{\bar}. For more
-information, see @ref{Bar lines}.
-
-@lilypond[verbatim,quote,relative=2]
-c4 c c c
-\bar "||:" \break 
-\repeat volta 2 { c4 d e f }   
-@end lilypond
-
-
 @seealso
 
 Music Glossary: @rglos{repeat}, @rglos{volta}.
@@ -283,55 +268,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @snippets
 
-@ignore
-@c FIXME: send these to Neil or Valentin to be added as snippets,
-@c delete them.
-@c FIXME: will do, rp.
-Manual control of the volte, including a @code{|:} bar line at the
-beginning and explicit volta numbers:
-
-@c FIXME: I can't believe this is right.  
-@c TODO: I think it is. I plan
-@c to delete this example, since it's
-@c already been given at L238. rp
-@lilypond[verbatim,quote,relative=2]
-s1*1/10
-\set Score.repeatCommands = #'( start-repeat )
-c1*9/10
-d4 e f g
-\set Score.repeatCommands = #'( ( volta "1, 2, 5" ) )
-f4 g a b
-\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
-g4 a g a
-\set Score.repeatCommands = #'( ( volta #f ) )
-c1
-@end lilypond
-
-In order to print a @code{|:} bar line at the beginning of a piece,
-the @code{BreakAlignment} property must be overridden:
-
-@lilypond[verbatim,quote,relative=2]
-\once \override Score.BreakAlignment #'break-align-orders =
-#(make-vector 3 '(
-instrument-name
-left-edge
-ambitus
-span-bar
-breathing-sign
-clef
-key-signature
-time-signature
-staff-bar
-custos
-span-bar
-))
-\bar "|:"
-c1
-d1
-d4 e f g
-@end lilypond
-@end ignore
-
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
 @seealso
 
@@ -430,23 +368,11 @@ where @var{musicexpr} is a music expression.
 
 @snippets
 
-@c FIXME: email these to Valentin or Neil to be made into snippets
-Measure repeats of more than two repeats get a counter if you switch
-on the @code{countPercentRepeats} property:
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-counter.ly}
 
-@lilypond[verbatim,quote,relative=2]
-\set countPercentRepeats = ##t
-\repeat percent 4 { c1 }
-@end lilypond
-
-Isolated percents can also be printed.  This is done by entering a
-multi-measure rest with a different print function:
-
-@lilypond[verbatim,quote,relative=2]
-\override MultiMeasureRest #'stencil
-  = #ly:multi-measure-rest::percent
-R1
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{isolated-percent-repeats.ly}
 
 @seealso
 
