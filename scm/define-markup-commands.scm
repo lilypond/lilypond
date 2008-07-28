@@ -281,7 +281,7 @@ Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
 thickness and padding around the markup; the @code{corner-radius} property
 makes possible to define another shape for the corners (default is 1).
 
-@lilypond[quote,verbatim,fragment,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c4^\\markup {
   \\rounded-box {
     Overtura
@@ -344,7 +344,21 @@ Provide a white background for @var{arg}.
 @cindex padding text
 @cindex putting space around text
 
-Add space around a markup object."
+Add space around a markup object.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\box {
+    default
+  }
+  \\hspace #2
+  \\box {
+    \\pad-around #1 {
+      padded
+    }
+  }
+}
+@end lilypond"
   (let*
       ((stil (interpret-markup layout props arg))
        (xext (ly:stencil-extent stil X))
@@ -418,10 +432,9 @@ normally inserted before elements on a line.
 
 Use a stencil as markup.
 
-@c FIXME works in .ly file, produces empty stencil in docs
 @lilypond[verbatim,quote]
 \\markup {
-  \\stencil #(dimension-arrows '(15 . 0))
+  \\stencil #(make-circle-stencil 2 0 #t)
 }
 @end lilypond"
   stil)
@@ -1379,7 +1392,21 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
   (number? markup?)
   align
   ()
-  "Add padding @var{amount} all around @var{arg}."  
+  "Add padding @var{amount} all around @var{arg}.
+  
+@lilypond[verbatim,quote]
+\\markup {
+  \\box {
+    default
+  }
+  \\hspace #2
+  \\box {
+    \\pad-around #0.5 {
+      padded
+    }
+  }
+}
+@end lilypond"
   (let* ((m (interpret-markup layout props arg))
          (x (ly:stencil-extent m X))
          (y (ly:stencil-extent m Y)))
@@ -1394,7 +1421,21 @@ Set the dimensions of @var{arg} to @var{x} and@tie{}@var{y}."
   "
 @cindex padding text horizontally
 
-Add padding @var{amount} around @var{arg} in the X@tie{}direction."
+Add padding @var{amount} around @var{arg} in the X@tie{}direction.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\box {
+    default
+  }
+  \\hspace #4
+  \\box {
+    \\pad-x #2 {
+      padded
+    }
+  }
+}
+@end lilypond"
   (let* ((m (interpret-markup layout props arg))
          (x (ly:stencil-extent m X))
          (y (ly:stencil-extent m Y)))
@@ -1406,7 +1447,13 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction."
   (markup? integer? ly:dir? markup?)
   align
   ()
-  "Put @var{arg2} next to @var{arg1}, without moving @var{arg1}."
+  "
+@ignore
+This is broken, since there's no parser tag for the signature
+markup_scm_scm_markup. Only works using Scheme markup. -np
+@end ignore
+
+Put @var{arg2} next to @var{arg1}, without moving @var{arg1}."
   (let ((m1 (interpret-markup layout props arg1))
         (m2 (interpret-markup layout props arg2)))
     (ly:stencil-combine-at-edge m1 axis dir m2 0.0)))
@@ -1433,7 +1480,21 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction."
   (number-pair? number-pair? markup?)
   align
   ()
-  "Make @var{arg} take at least @var{x-ext}, @var{y-ext} space."
+  "Make @var{arg} take at least @var{x-ext}, @var{y-ext} space.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\box {
+    default
+  }
+  \\hspace #4
+  \\box {
+    \\pad-to-box #'(0 . 10) #'(0 . 3) {
+      padded
+    }
+  }
+}
+@end lilypond"
   (let* ((m (interpret-markup layout props arg))
          (x (ly:stencil-extent m X))
          (y (ly:stencil-extent m Y)))
@@ -1446,7 +1507,27 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction."
   align
   ()
   "Center @var{arg} horizontally within a box of extending
-@var{length}/2 to the left and right."
+@var{length}/2 to the left and right.
+
+@lilypond[quote,verbatim]
+\\new StaffGroup <<
+  \\new Staff {
+    \\set Staff.instrumentName = \\markup {
+      \\hcenter-in #12
+      Oboe
+    }
+    c''1
+  }
+  \\new Staff {
+    \\set Staff.instrumentName = \\markup {
+      \\hcenter-in #12
+      Bassoon
+    }
+    \\clef tenor
+    c'1
+  }
+>>
+@end lilypond"
   (interpret-markup layout props
                     (make-pad-to-box-markup
                      (cons (/ length -2) (/ length 2))

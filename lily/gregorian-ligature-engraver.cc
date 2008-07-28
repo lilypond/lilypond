@@ -208,20 +208,22 @@ provide_context_info (vector<Grob_info> primitives)
       int prefix_set = scm_to_int (primitive->get_property ("prefix-set"));
 
       if (prefix_set & PES_OR_FLEXA)
-	if (!i) // ligature may not start with 2nd head of pes or flexa
-	  primitive->warning (_ ("cannot apply `\\~' on first head of ligature"));
-	else if (pitch > prev_pitch) // pes
-	  {
-	    prev_context_info |= PES_LOWER;
-	    context_info |= PES_UPPER;
-	  }
-	else if (pitch < prev_pitch) // flexa
-	  {
-	    prev_context_info |= FLEXA_LEFT;
-	    context_info |= FLEXA_RIGHT;
-	  }
-	else // (pitch == prev_pitch)
-	  primitive->warning (_ ("cannot apply `\\~' on heads with identical pitch"));
+	{
+	  if (!i) // ligature may not start with 2nd head of pes or flexa
+	    primitive->warning (_ ("cannot apply `\\~' on first head of ligature"));
+	  else if (pitch > prev_pitch) // pes
+	    {
+	      prev_context_info |= PES_LOWER;
+	      context_info |= PES_UPPER;
+	    }
+	  else if (pitch < prev_pitch) // flexa
+	    {
+	      prev_context_info |= FLEXA_LEFT;
+	      context_info |= FLEXA_RIGHT;
+	    }
+	  else // (pitch == prev_pitch)
+	    primitive->warning (_ ("cannot apply `\\~' on heads with identical pitch"));
+	}
       if (prev_prefix_set & DEMINUTUM)
 	context_info |= AFTER_DEMINUTUM;
 

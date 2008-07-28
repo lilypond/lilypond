@@ -676,8 +676,6 @@ Tie_formatting_problem::score_aptitude (Tie_configuration *conf,
       if (!tie_position_dir_ok)
 	ties_conf->add_score (details_.same_dir_as_stem_penalty_, "tie/pos dir");
     }
-  while (flip (&d) != LEFT);
-
 	    
   return penalty;
 }
@@ -709,9 +707,10 @@ Tie_formatting_problem::score_configuration (Tie_configuration *conf) const
   
   Real length = conf->attachment_x_.length ();
 
+  Real length_penalty
+    = peak_around (0.33 * details_.min_length_, details_.min_length_, length);
   conf->add_score (details_.min_length_penalty_factor_
-		   * peak_around (0.33 * details_.min_length_, details_.min_length_, length),
-		   "minlength");
+		   * length_penalty, "minlength");
   
   Real tip_pos = conf->position_ + conf->delta_y_ / 0.5 * details_.staff_space_;
   Real tip_y = tip_pos * details_.staff_space_ * 0.5;
@@ -854,6 +853,7 @@ Tie_formatting_problem::score_ties_configuration (Ties_configuration *ties) cons
 		       "pos symmetry");
     }
 }
+
 /*
   Generate with correct X-attachments and beziers, copying delta_y_
   from TIES_CONFIG if necessary.
@@ -927,7 +927,8 @@ Tie_formatting_problem::find_best_variation (Ties_configuration const &base,
   for (vsize i = 0; i < vars.size (); i++)
     {
       Ties_configuration variant (base);
-      variant[vars[i].index_] = *vars[i].suggestion_;
+      for (vsize j = 0; j < vars[i].index_suggestion_pairs_.size(); j++)
+	variant[vars[i].index_suggestion_pairs_[j].first] = *vars[i].index_suggestion_pairs_[j].second;
 
       variant.reset_score ();
       score_ties (&variant);
@@ -1025,33 +1026,38 @@ Tie_formatting_problem::set_ties_config_standard_directions (Ties_configuration 
     }
 }
 
-Tie_configuration_variation::Tie_configuration_variation ()
-{
-  index_ = 0;
-  suggestion_ = 0;
-}
-
 vector<Tie_configuration_variation>
 Tie_formatting_problem::generate_extremal_tie_variations (Ties_configuration const &ties) const
 {
   vector<Tie_configuration_variation> vars;
-  Direction d = DOWN;
-  do
+  Direction d = DOWN; 
+  for (int i = 1; i <= details_.multi_tie_region_size_; i++)
     {
-      if (boundary (ties, d, 0).dir_ == d
-	  && !boundary (specifications_, d, 0).has_manual_position_)
-	for (int i = 1; i <= details_.multi_tie_region_size_; i++)
-	  {
-	    Tie_configuration_variation var;
-	    var.index_ = (d == DOWN) ? 0 : ties.size () - 1;
-	    var.suggestion_ = get_configuration (boundary (ties, d, 0).position_
-						 + d * i, d,
-						 boundary (ties, d, 0).column_ranks_,
-						 true);
-	    vars.push_back (var);
-	  }
+      Drul_array<Tie_configuration*> configs (0, 0);
+      do
+	{
+	  const Tie_configuration &config = boundary (ties, d, 0);
+	  if (config.dir_ == d
+	      && !boundary (specifications_, d, 0).has_manual_position_)
+	    {
+	      Tie_configuration_variation var;
+	      configs[d] =  get_configuration (config.position_ + d * i, d,
+					       config.column_ranks_,
+					       true);
+	      var.add_suggestion((d == DOWN) ? 0 : ties.size () - 1,
+				 configs[d]);
+	      vars.push_back (var);
+	    }
+	}
+      while (flip (&d) !=  DOWN);
+      if (configs[LEFT] && configs[RIGHT])
+	{
+	  Tie_configuration_variation var;
+	  var.add_suggestion(0, configs[DOWN]);
+	  var.add_suggestion(ties.size() - 1, configs[UP]);
+	  vars.push_back (var);
+	}
     }
-  while (flip (&d) !=  DOWN);
 
   return vars;
 }
@@ -1079,10 +1085,10 @@ Tie_formatting_problem::generate_single_tie_variations (Ties_configuration const
 	      || d == specifications_[0].manual_dir_)
 	    {
 	      Tie_configuration_variation var;
-	      var.index_ = 0;
-	      var.suggestion_ = get_configuration (p,
-						   d, specifications_[0].column_ranks_,
-						   !specifications_[0].has_manual_delta_y_);
+	      var.add_suggestion(0,
+				 get_configuration (p,
+						    d, specifications_[0].column_ranks_,
+						    !specifications_[0].has_manual_delta_y_));
 	      vars.push_back (var);
 	    }
 	}
@@ -1112,14 +1118,14 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 	      if (!specifications_[i].has_manual_dir_)
 		{
 		  Tie_configuration_variation var;
-		  var.index_ = i;
-		  var.suggestion_ = get_configuration (specifications_[i].position_
+		  var.add_suggestion(i,
+				     get_configuration (specifications_[i].position_
 						       - ties[i].dir_,
 						       - ties[i].dir_,
 
 						       ties[i].column_ranks_,
 						       !specifications_[i].has_manual_delta_y_
-						       );
+							));
 
 		  vars.push_back (var);
 		}
@@ -1127,13 +1133,12 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 	      if (!specifications_[i-1].has_manual_dir_)
 		{
 		  Tie_configuration_variation var;
-		  var.index_ = i-1;
-		  var.suggestion_ = get_configuration (specifications_[i-1].position_
-						       - ties[i-1].dir_,
-						       - ties[i-1].dir_,
-						       specifications_[i-1].column_ranks_,
-						       !specifications_[i-1].has_manual_delta_y_
-						       );
+		  var.add_suggestion(i-1,
+				     get_configuration (specifications_[i-1].position_
+							- ties[i-1].dir_,
+							- ties[i-1].dir_,
+							specifications_[i-1].column_ranks_,
+							!specifications_[i-1].has_manual_delta_y_));
 
 		  vars.push_back (var);
 		}
@@ -1142,24 +1147,23 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 		  && ties[i-1].dir_ == DOWN)
 		{
 		  Tie_configuration_variation var;
-		  var.index_ = i-1;
-		  var.suggestion_ = get_configuration (specifications_[i-1].position_ - 1, DOWN,
-						       specifications_[i-1].column_ranks_,
-						       !specifications_[i-1].has_manual_delta_y_
-
-						       );
+		  var.add_suggestion(i-1,
+				     get_configuration (specifications_[i-1].position_ - 1, DOWN,
+							specifications_[i-1].column_ranks_,
+							!specifications_[i-1].has_manual_delta_y_
+							));
 		  vars.push_back (var);
 		}
 	      if (i == ties.size () && !specifications_[i].has_manual_position_
 		  && ties[i].dir_ == UP)
 		{
 		  Tie_configuration_variation var;
-		  var.index_ = i;
-		  var.suggestion_ = get_configuration (specifications_[i].position_
-						       + 1, UP,
-						       specifications_[i].column_ranks_,
-						       !specifications_[i].has_manual_delta_y_
-						       );
+		  var.add_suggestion(i,
+				     get_configuration (specifications_[i].position_
+							+ 1, UP,
+							specifications_[i].column_ranks_,
+							!specifications_[i].has_manual_delta_y_
+							));
 		  vars.push_back (var);
 		}
 	    }
@@ -1167,12 +1171,12 @@ Tie_formatting_problem::generate_collision_variations (Ties_configuration const 
 		   && !specifications_[i].has_manual_position_)
 	    {
 	      Tie_configuration_variation var;
-	      var.index_ = i;
-	      var.suggestion_ = get_configuration (ties[i].position_  + ties[i].dir_,
-						   ties[i].dir_,
-						   ties[i].column_ranks_,
-						   !specifications_[i].has_manual_delta_y_
-						   );
+	      var.add_suggestion(i,
+				 get_configuration (ties[i].position_  + ties[i].dir_,
+						    ties[i].dir_,
+						    ties[i].column_ranks_,
+						    !specifications_[i].has_manual_delta_y_
+						    ));
 	      vars.push_back (var);
 	    }
 	  
