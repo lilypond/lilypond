@@ -13,13 +13,6 @@
 % Movt II, Andante con moto
 % Measures 9 - 16
 
-\layout {
-  \context {
-    \Staff
-    \remove "Time_signature_engraver"
-  }
-}
-
 \new PianoStaff <<
 
    \new Staff = RH {

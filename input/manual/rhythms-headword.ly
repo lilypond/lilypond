@@ -20,10 +20,6 @@
       #(ly:make-moment 1 40)
       %\override SpacingSpanner #'strict-grace-spacing = ##t
   }
-  \context {
-    \Staff
-    \remove "Time_signature_engraver"
-  }
 }
 
 \new PianoStaff <<
