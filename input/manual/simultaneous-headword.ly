@@ -31,6 +31,13 @@
    }
 }
 
+trillflat = 
+  \once \override TrillSpanner #'bound-details #'left #'text =
+    #(markup #:translate-scaled '(-0.05 . -1)
+             #:concat (#:musicglyph "scripts.trill"
+                       #:translate '(-0.5 . 1.9) #:fontsize -7 #:flat))
+
+
 \new PianoStaff <<
 
    % RH
@@ -79,6 +86,7 @@
 
          |
 
+         \trillflat
          af''4. \startTrillSpan
          ~
          af''8.
@@ -134,6 +142,7 @@
          |
 
          d''8. \stopTrillSpan
+         \trillflat
          d''4. \startTrillSpan
          ~
 
@@ -160,6 +169,7 @@
 
          |
 
+         \trillflat
          d''4. \startTrillSpan
          ~
          d''8.
