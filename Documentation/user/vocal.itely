@@ -291,7 +291,9 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Internals Reference: @rinternals{LyricText}, @rinternals{LyricSpace}.
+Internals Reference:
+@rinternals{LyricText},
+@rinternals{LyricSpace}.
 
 @node Working with lyrics and variables
 @subsubsection Working with lyrics and variables
@@ -522,7 +524,8 @@ Here is an example demonstrating manual lyric durations,
 
 @seealso
 
-Internals Reference: @rinternals{Lyrics}.
+Internals Reference:
+@rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
@@ -550,7 +553,8 @@ glyph.}.
 
 @seealso
 
-Internals Reference: @rinternals{LyricCombineMusic}.
+Internals Reference:
+@rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -636,7 +640,8 @@ A complete example of a SATB score setup is in section
 
 @seealso
 
-Internals Reference: @rinternals{Melisma_translator}.
+Internals Reference:
+@rinternals{Melisma_translator}.
 
 @c @lsr{vocal,lyric@/-combine.ly}.
 
@@ -696,7 +701,8 @@ distance between two syllables) and the @code{minimum-length}
 
 @seealso
 
-Internals Reference: @rinternals{LyricExtender},
+Internals Reference:
+@rinternals{LyricExtender},
 @rinternals{LyricHyphen}
 
 @node Lyrics and repeats
@@ -929,7 +935,7 @@ stanzaOneOne = {
   \set stanza = \markup { "1. " \leftbrace }
   \lyricmode { Child, you're mine and I love you.
     Lend thine ear to what I say.
-    ...
+
   }
 }
 
@@ -937,9 +943,16 @@ stanzaOneThree =  {
 %  \set stanza = \markup { "   "}
   \lyricmode { Child, I have no great -- er joy
     Than to have you walk in truth.
-...
+
   }
 }
+
+\new Voice {
+  \repeat volta 2 { c'8 c' c' c' c' c' c'4 
+                    c'8 c' c' c' c' c' c'4   } 
+}  \addlyrics { \stanzaOneOne }
+   \addlyrics { \stanzaOneThree }
+
 @end ignore
 
 @node Adding dynamics marks to stanzas
@@ -1005,8 +1018,8 @@ must be set one syllable @emph{before} the non-melismatic syllable
 in the text, as shown here,
 
 @c  TODO: breaks compile
+@c seems to be fixed, does not break compile anymore --FV
 @lilypond[verbatim,ragged-right,quote]
-%{
 <<
   \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -1025,7 +1038,6 @@ in the text, as shown here,
     still
   }
 >>
-%}
 @end lilypond
 
 
@@ -1233,7 +1245,9 @@ text = \lyricmode {
 
 @seealso
 
-Internals Reference: @rinternals{LyricText}, @rinternals{StanzaNumber},
+Internals Reference:
+@rinternals{LyricText},
+@rinternals{StanzaNumber},
 @rinternals{VocalName}.
 
 
