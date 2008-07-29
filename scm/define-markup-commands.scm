@@ -2478,7 +2478,6 @@ and continue with double letters.
      (number->markletter-string number->mark-alphabet-vector num)))
 
 (define-public (horizontal-slash-interval num forward number-interval mag)
-  (ly:message "Mag step: ~a" mag)
   (if forward
     (cond ;((= num 6) (interval-widen number-interval (* mag 0.5)))
           ;((= num 5) (interval-widen number-interval (* mag 0.5)))
@@ -2530,7 +2529,6 @@ and continue with double letters.
                                          ,(cdr num-x) ,(+ (interval-center num-y) dy))
                              num-x num-y)
                             #f)))
-(ly:message "Num: ~a, X-interval: ~a" num num-x)
     (if (ly:stencil? slash-stencil)
       (begin
         ; for some numbers we need to shift the slash/backslash up or down to make
