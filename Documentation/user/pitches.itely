@@ -47,6 +47,7 @@ mode.  In most cases, relative mode will be more convenient.
 @cindex pitches
 @cindex absolute
 @cindex absolute octave specification
+@cindex absolute octave entry
 
 A pitch name is specified using lowercase letters@tie{}@code{a}
 through@tie{}@code{g}.  The note names @code{c} to @code{b} are
@@ -60,6 +61,7 @@ g a b c
 d e f g
 @end lilypond
 
+@cindex octave changing mark
 @funindex '
 @funindex ,
 
@@ -90,6 +92,7 @@ Snippets:
 @unnumberedsubsubsec Relative octave entry
 
 @cindex relative
+@cindex relative octave entry
 @cindex relative octave specification
 @funindex \relative
 
@@ -215,6 +218,8 @@ Internals Reference:
 @rinternals{RelativeOctaveMusic}.
 
 
+@cindex relative octave entry and transposition
+@cindex transposition and relative octave entry
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
@@ -312,6 +317,9 @@ natural signs.
 cis cis cis! cis? c c c! c?
 @end lilypond
 
+@cindex accidental on tied note
+@cindex tied note, accidental
+
 Accidentals on tied notes are only printed at the beginning of a
 new system:
 
@@ -354,6 +362,9 @@ Internals Reference:
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
 
+
+@cindex accidental, quarter-tone
+@cindex quarter-tone accidental
 
 @knownissues
 
@@ -432,6 +443,12 @@ contracted names are defined in the corresponding language files.
 a2 as e es a ases e eses
 @end lilypond
 
+
+@cindex microtones
+@cindex semi-sharp
+@cindex semi-flat
+@cindex sesqui-sharp
+@cindex sesqui-flat
 
 Some music uses microtones whose alterations are fractions of a
 @q{normal} sharp or flat.  The note names for quarter-tones
@@ -561,8 +578,12 @@ Internals Reference:
 @unnumberedsubsubsec Transpose
 
 @cindex transpose
+@cindex transposing
 @cindex transposition
 @cindex transposition of pitches
+@cindex transposition of notes
+@cindex pitches, transposition of
+@cindex notes, transposition of
 @funindex \transpose
 
 A music expression can be transposed with @code{\transpose}.  The
@@ -591,6 +612,9 @@ automatically transposed as well.
   }
 }
 @end lilypond
+
+@cindex transposing instruments
+@cindex instruments, transposing
 
 If a part written in C (normal @notation{concert pitch}) is to be
 played on the A clarinet (for which an A is notated as a C and
@@ -626,6 +650,7 @@ music = \relative c' { c d e f }
 @end lilypond
 
 @cindex transposing instruments
+@cindex instruments, transposing
 
 @code{\transpose} may also be used in a different way, to input
 written notes for a transposing instrument.  The previous examples
@@ -948,6 +973,7 @@ Internals Reference:
 @cindex transposition, instrument
 @cindex transposing instrument
 @cindex MIDI
+@cindex MIDI transposition
 @funindex \transposition
 
 When typesetting scores that involve transposing instruments, some
@@ -1139,6 +1165,10 @@ both staves.
 @c don't use verbatim in this table.
 @table @code
 @item default
+
+@cindex default accidental style
+@cindex accidental style, default
+
 This is the default typesetting behavior.  It corresponds to
 eighteenth-century common practice: accidentals are remembered to
 the end of the measure in which they occur and only in their own
@@ -1193,6 +1223,14 @@ musicB = {
 @end lilypond
 
 @item voice
+
+@cindex accidental style, voice
+@cindex voice accidental style
+@cindex accidental style, modern
+@cindex modern accidental style
+@cindex accidental style, modern-cautionary
+@cindex modern-cautionary accidental style
+
 The normal behavior is to remember the accidentals at
 @code{Staff}-level.  In this style, however, accidentals are
 typeset individually for each voice.  Apart from that, the rule is
@@ -1255,9 +1293,9 @@ musicB = {
 @end lilypond
 
 @item modern
+
 @cindex accidentals, modern style
 @cindex modern style accidentals
-@funindex modern style accidentals
 
 This rule corresponds to the common practice in the twentieth
 century.  It prints the same accidentals as @code{default}, with
@@ -1315,6 +1353,7 @@ musicB = {
 @end lilypond
 
 @item modern-cautionary
+
 @cindex accidentals, modern cautionary style
 @cindex modern accidental style
 @cindex modern cautionary accidental style
@@ -1376,6 +1415,7 @@ musicB = {
 @end lilypond
 
 @item modern-voice
+
 @cindex accidental style, modern
 @cindex accidentals, modern
 @cindex accidentals, multivoice
@@ -1443,6 +1483,7 @@ musicB = {
 @cindex accidental style, modern voice cautionary
 @cindex accidental style, voice, modern cautionary
 @funindex modern-voice-cautionary
+
 @item modern-voice-cautionary
 
 This rule is the same as @code{modern-voice}, but with the extra
@@ -1498,6 +1539,7 @@ musicB = {
 @end lilypond
 
 @item piano
+
 @cindex accidental style, piano
 @cindex accidentals, piano
 @cindex piano accidental style
@@ -1558,7 +1600,8 @@ musicB = {
 @end lilypond
 
 @item piano-cautionary
-@funindex #(set-accidental-style 'piano-cautionary)
+
+@funindex piano-cautionary
 @cindex accidentals, piano cautionary
 @cindex cautionary accidentals, piano
 @cindex piano cautionary accidentals
@@ -1615,6 +1658,7 @@ musicB = {
 @end lilypond
 
 @item no-reset
+
 @funindex no-reset accidental style
 @cindex accidental style, no reset
 @cindex no reset accidental style
@@ -1669,6 +1713,7 @@ musicB = {
 @end lilypond
 
 @item forget
+
 @funindex forget accidental style
 @cindex forget accidental style
 @cindex accidental style, forget
@@ -1858,6 +1903,8 @@ This section suggests ways of altering note heads.
 @cindex parlato note heads
 @cindex harmonic note heads
 @cindex guitar note heads
+@cindex note head styles
+@cindex styles, note heads
 
 Note heads may be altered:
 
@@ -1902,6 +1949,7 @@ Internals Reference:
 @unnumberedsubsubsec Easy notation note heads
 
 @cindex note heads, practice
+@cindex practice note heads
 @cindex note heads, easy notation
 @cindex easy notation
 @cindex Hal Leonard
