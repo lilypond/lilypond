@@ -11,12 +11,16 @@
 @node Vocal music
 @section Vocal music
 
-TODO
-CLARIFY
-http://code.google.com/p/lilypond/issues/detail?id=248
-http://code.google.com/p/lilypond/issues/detail?id=329
+@c TODO: CLARIFY
+@c TODO: delete this comment block
+@c http://code.google.com/p/lilypond/issues/detail?id=248
+@c Done, see @node Lyrics independent of notes ----FV
 
+@c http://code.google.com/p/lilypond/issues/detail?id=329
+@c Done, see @node Working with lyrics and variables ----FV
 
+@c partially done, needs improvement, see Switching to an alternative melody ----FV
+@ignore
 
 > I think the issue here is that changing the associatedVoice
 > happens one step
@@ -35,6 +39,8 @@ read all the sections
 sequentially.
 
 
+@c Done in @node Extenders and hyphens ---FV
+@c also done (duplicated) in @node Multiple notes to one syllable --FV
 I don't know who's working on the vocal music right now, but I
 found something that should be clarified in NR 2.1.2.4.
 
@@ -42,7 +48,7 @@ It should be made clear that __ is used to crate a lyric extender,
 and _ is used to add a note to a melisma, so both __ and _ are
 used.  The example shows it, but there is no description of the
 lyrics extender in this section.
-
+@end ignore
 
 
 Since LilyPond input files are text, there are two issues to
@@ -341,10 +347,43 @@ The final input would resemble
 >>
 @end example
 
+@ignore
+
+http://code.google.com/p/lilypond/issues/detail?id=329
+The problem cannot be reproduced.
+The following has no sense, because the issue seems to be fixed.
+A comment is in tracker waiting for response ---FV
+
+
+Be careful when defining a variable with lyrics that creates a new
+context, for example, using the deprecated @code{\lyrics} command. See
+the next erroneous example:
+
+@example
+words = \lyrics{ %warning: this creates a new context
+ one two
+}
+<<
+  \new Voice = "sop" { c1 }
+  \new Lyrics \lyricsto "sop" { \words }
+  \new Voice = "alt" { c2 c }
+  \new Lyrics \lyricsto "alt" { \words }
+>>
+@end example
+
+the problem is that \lyricsto will try to connect the "sop" melody with the context
+created by "\new Lyrics".
+
+Then \lyrics in \words creates another context, and the original "\new Lyrics" one
+remains empty.
+
+@end ignore
+
 @seealso
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
-Internals Reference: @rinternals{LyricCombineMusic},
+Internals Reference:
+@rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
 
 
@@ -531,8 +570,16 @@ single syllable; such vocalises are called melismas, or melismata.
 @c it might be better to present it first - vv
 
 You can define melismata entirely in the lyrics, by entering @code{_}
-for every note
-that is part of the melisma.
+for every note that is part of the melisma.
+
+@c verbose! --FV
+@c duplicated: TODO fix
+Additionaly, you can make an extender line to be typeset to indicate
+the melisma in the score, writing a double underscore next to the
+first syllable of the melisma. This example shows the three elements
+that are used for this purpose (all of them surrounded by spaces):
+double hyphens to separate syllables in a word, underscores to add
+notes to a melisma, and a double underscore to put an extender line.
 
 @lilypond[relative=1,verbatim,fragment,quote]
 { \set melismaBusyProperties = #'()
@@ -623,10 +670,16 @@ For example,
 @cindex extender
 
 @c leave this as samp. -gp
-Melismata are indicated with a horizontal line centered between a syllable
-and the next one.  Such a line is called an extender line, and it is entered
-as @samp{ __ } (note the spaces before and after the two underscore
-characters).
+Melismata are sometimes indicated with a long horizontal line starting
+in the melisma syllable, and ending in the next one.  Such a line is
+called an extender line, and it is entered as @samp{ __ } (note the
+spaces before and after the two underscore characters).
+
+@warning{Melismata are indicated in the score with extender lines,
+which are entered as one double underscore; but short melismata can
+also be entered by skipping individual notes, which are entered as
+single underscore characters; these do not make an extender line to be
+typeset by default.}
 
 @cindex hyphens
 
@@ -719,6 +772,8 @@ section.
 @node Lyrics independent of notes
 @subsubsection Lyrics independent of notes
 
+@cindex Devnull context
+
 In some complex vocal music, it may be desirable to place
 lyrics completely independently of notes.  Music defined
 inside @code{lyricrhythm} disappears into the
@@ -743,6 +798,18 @@ lyr = \lyricmode { I like my cat! }
   c' c' c' c' c' c' c' c' }
 >>
 @end lilypond
+
+This method is recommended only if the music in the @code{Devnull}
+context does not contain melismata.  Melismata are defined by the
+@code{Voice} context. Connecting lyrics to a @code{Devnull} context
+makes the voice/lyrics links to get lost, and so does the info on
+melismata.  Therefore, if you link lyrics to a @code{Devnull} context,
+the implicit melismata get ignored.
+
+@c Conclusion: do not use devnull for lyrics -FV
+
+@c this clarifies http://code.google.com/p/lilypond/issues/detail?id=248
+
 
 @node Chants
 @subsubsection Chants
@@ -1029,8 +1096,10 @@ This is achieved with
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
-Again, the command must be one syllable too early, before @q{Ty} in
-this case.
+This command command must be one syllable too early, before @q{Ty} in
+this case.  In other words, changing the associatedVoice happens one
+step later than expected.  This is for technical reasons, and it is
+not a bug.
 
 @example
 \new Lyrics \lyricsto "lahlah" @{
