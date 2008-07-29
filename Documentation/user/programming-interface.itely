@@ -1132,6 +1132,7 @@ Currently, the available combinations of arguments (after the standard
 @itemx @var{scm markup}
 @itemx @var{scm scm}
 @itemx @var{scm scm markup}
+@itemx @var{scm scm markup markup}
 @itemx @var{scm markup markup}
 @itemx @var{scm scm scm}
 @end table

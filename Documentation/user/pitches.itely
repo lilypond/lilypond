@@ -935,13 +935,13 @@ octave for the staff:
 
 @lilypond[verbatim,quote,relative=2]
 a'2 b
-#(set-octavation 1)
+\ottava #1
 a b
-#(set-octavation 0)
+\ottava #0
 a b
 @end lilypond
 
-The @code{set-octavation} function also takes -1 (for 8va bassa),
+The @code{ottava} function also takes -1 (for 8va bassa),
 2@tie{}(for 15ma), and -2 (for 15ma bassa) as arguments.
 
 
