@@ -147,15 +147,12 @@ While the key signature indicates the group, it is common for the
 title to indicate the more specific maqam, so in this example, the
 name of maqam muhayer should appear in the title.
 
-@c FIXME: what group?  bayati?
-@c FIXME: the list is hard to read.  Either end the sentence with
-@c the list, or put it in parentheses, or something.
-Other maqams in the same group, as shown in the table below:
-bayati, hussaini, saba, and ushaq can be indicated in the same
+Other maqams in the same bayati group, as shown in the table below:
+(bayati, hussaini, saba, and ushaq) can be indicated in the same
 way.  These are all variations of the base and most common maqam
 in the group, which is bayati.  They usually differ from the base
 maqam in their upper tetrachords, or certain flow details that
-don't change their fundamental nature, as related siblings. 
+don't change their fundamental nature, as siblings. 
 
 The other maqam in the same group (Nawa) is related to bayati by
 modulation which is indicated in the table in parenthesis for
@@ -220,6 +217,7 @@ key signatures:
 
 @snippets
 
+
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -247,22 +245,33 @@ Snippets:
 @cindex Semai form 
 @cindex taqasim 
 
-@c FIXME why not just adjust the automatic beaming?
-Some Arabic and Turkish music classical forms such as Semai use 
-unusual time signatures such as 10/8. This may lead to an 
-automatic grouping of notes that is quite different from existing
-typeset music.  You can override this by switching off automatic 
-beaming, and grouping the notes manually using @code{[ ]} to 
-surround grouped notes, as described in @ref{Manual beams}. 
+Some Arabic and Turkish music classical forms such as
+@notation{Semai} use unusual time signatures such as 10/8.  This
+may lead to an automatic grouping of notes that is quite different
+from existing typeset music, where notes may not be grouped on the
+beat, but in a manner that is difficult to match by adjusting
+automatic beaming.  You can override this by switching off
+automatic beaming and beaming the notes manually.  Where matching
+existing typeset music is not an issue, you may still want to
+adjust the beaming behaviour and/or using compound time
+signatures.
 
-For improvisations or taqasim which are temporarily free, the time
-signature can be omitted, and @code{\cadenzaOn} can be used.  
-You might need to adjust the accidental style, since the absence 
-of bar lines will cause the accidental to be marked only once:
+@c FIXME: move to snippet?  -gp note for gp
+For improvisations or @notation{taqasim} which are temporarily
+free, the time signature can be omitted and @code{\cadenzaOn} can
+be used.  You might need to adjust the accidental style, since the
+absence of bar lines will cause the accidental to be marked only
+once:
 
 @example  
 #(set-accidental-style 'forget)
 @end example 
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{compound-time-signatures.ly}
+
 
 @seealso 
 
@@ -270,7 +279,9 @@ Notation Reference:
 @ref{Manual beams},
 @ref{Automatic beams},
 @ref{Unmetered music}, 
-@ref{Automatic accidentals}. 
+@ref{Automatic accidentals}, 
+@ref{Setting automatic beam behavior}, 
+@ref{Time signature}. 
 
 Snippets:
 @rlsr{World music}.

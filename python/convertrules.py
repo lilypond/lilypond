@@ -2785,10 +2785,12 @@ def conv (str):
     str = str.replace ("setHairpinDim", "dimHairpin")
     return str
 
-@rule ((2, 11, 53), "infinite-spacing-height -> extra-spacing-height")
+@rule ((2, 11, 53), "infinite-spacing-height -> extra-spacing-height, \
+#(set-octavation oct) -> \\ottava #oct")
 def conv (str):
     str = re.sub (r"infinite-spacing-height\s+=\s+##t", r"extra-spacing-height = #'(-inf.0 . +inf.0)", str)
     str = re.sub (r"infinite-spacing-height\s+=\s+##f", r"extra-spacing-height = #'(0 . 0)", str)
+    str = re.sub (r"#\(set-octavation (-*[0-9]+)\)", r"\\ottava #\1", str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
