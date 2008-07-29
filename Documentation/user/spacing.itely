@@ -81,9 +81,8 @@ be placed in either.
 
 @menu
 * Paper and pages::             
-* Music layout::                
-* Displaying spacing::          
-* Breaks::                      
+* Music layout::
+* Breaks::
 * Vertical spacing::
 * Horizontal spacing::
 * Fitting music onto fewer pages::
@@ -581,37 +580,6 @@ layout.
 @seealso
 
 This manual: @ref{Changing context default settings}.
-
-
-@node Displaying spacing
-@section Displaying spacing
-
-@funindex annotate-spacing
-@cindex Spacing, display of properties
-
-To graphically display the dimensions of vertical properties that may
-be altered for page formatting, set @code{annotate-spacing} in the
-@code{\paper} block, like this
-
-
-@c need to have \book{} otherwise we get  the separate systems. -hwn
-@lilypond[verbatim]
-#(set-default-paper-size "a6" 'landscape)
-
-\book {
-  \score { { c4 } }
-  \paper { annotate-spacing = ##t }
-}
-@end lilypond
-
-
-@c  TODO: really bad vagueness due to bug in annotate-spacing.  -gp
-@noindent
-Some unit dimensions are measured in staff spaces, while others
-are measured in millimeters.
-The pairs
-(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
-@var{b} the upper edge of the interval.
 
 
 @node Breaks
@@ -2157,9 +2125,49 @@ of room left on those.
 
 When investigating layout issues, @code{annotate-spacing} is
 an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ref{Displaying spacing}, for more
-details.  From the output of @code{annotate-spacing}, we can
+layout spacing commands; for more details see the following
+section, @ref{Displaying spacing}.
+
+@menu
+* Displaying spacing::
+* Changing spacing::
+@end menu
+
+@node Displaying spacing
+@subsection Displaying spacing
+
+@funindex annotate-spacing
+@cindex Spacing, display of properties
+
+To graphically display the dimensions of vertical properties that may
+be altered for page formatting, set @code{annotate-spacing} in the
+@code{\paper} block, like this:
+
+@c need to have \book{} otherwise we get the separate systems. -hwn
+@lilypond[verbatim]
+#(set-default-paper-size "a6" 'landscape)
+\book {
+  \score { { c4 } }
+  \paper { annotate-spacing = ##t }
+}
+@end lilypond
+
+
+@c  TODO: really bad vagueness due to bug in annotate-spacing.  -gp
+@noindent
+Some unit dimensions are measured in staff spaces, while others
+are measured in millimeters.
+The pairs
+(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
+@var{b} the upper edge of the interval.
+
+@node Changing spacing
+@subsection Changing spacing
+
+From the output of @code{annotate-spacing}, we can
 see which margins we may wish to alter.
+
+@c TODO add info about or pointers to margin settings
 
 Other than margins, there are a few other options to save space:
 
