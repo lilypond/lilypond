@@ -1002,3 +1002,34 @@ use GrandStaff as a context. "
 	(ly:music-property (car evs) 'pitch)
 	#f)))
        
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public (extract-named-music music music-name)
+"Return a flat list of all music named @code{music-name}
+from @code{music}."
+   (let ((extracted-list
+          (if (ly:music? music)
+              (if (eq? (ly:music-property music 'name) music-name)
+                  (list music)
+                  (let ((elt (ly:music-property music 'element))
+                        (elts (ly:music-property music 'elements)))
+                    (if (ly:music? elt)
+                        (extract-named-music elt music-name)
+                        (if (null? elts)
+                            '()
+                            (map (lambda(x) 
+                                    (extract-named-music x music-name ))
+                             elts)))))
+              '())))
+     (flatten-list extracted-list)))
+
+(define-public (event-chord-notes event-chord)
+"Return a list of all notes from @{event-chord}."
+  (filter
+    (lambda (m) (eq? 'NoteEvent (ly:music-property m 'name)))
+    (ly:music-property event-chord 'elements)))
+
+(define-public (event-chord-pitches event-chord)
+"Return a list of all pitches from @{event-chord}."
+  (map (lambda (x) (ly:music-property x 'pitch))
+       (event-chord-notes event-chord)))

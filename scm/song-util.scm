@@ -116,15 +116,6 @@
   `(set! ,list-var (append ,list-var (list ,object))))
 (export add!)
 
-(define-public (flatten lst)
-  (cond
-   ((null? lst)
-    lst)
-   ((pair? (car lst))
-    (append (flatten (car lst)) (flatten (cdr lst))))
-   (else
-    (cons (car lst) (flatten (cdr lst))))))
-
 (define-public (safe-car list)
   (if (null? list)
       #f

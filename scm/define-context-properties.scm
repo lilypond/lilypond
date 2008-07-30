@@ -345,6 +345,8 @@ the pedal.")
 sustain pedals: @code{text}, @code{bracket} or @code{mixed} (both).")
      (pedalUnaCordaStrings ,list? "See @code{pedalSustainStrings}.")
      (pedalUnaCordaStyle ,symbol? "See @code{pedalSustainStyle}.")
+     (predefinedDiagramTable ,hash-table? "The hash table of predefined
+fret diagrams to use in FretBoards.")
      (printKeyCancellation ,boolean? "Print restoration alterations
 before a key signature change.")
      (printOctaveNames ,boolean? "Print octave marks for the
@@ -466,8 +468,7 @@ setting this property, you can make brackets last shorter.
 
      (useBassFigureExtenders ,boolean? "Whether to use extender lines
 for repeated bass figures.")
-
-
+     
      (verticallySpacedContexts ,list? "List of symbols, containing
 context names whose vertical axis groups should be taken into account
 for vertical spacing of systems.")
