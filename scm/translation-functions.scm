@@ -139,10 +139,10 @@
     (if alt-markup
 	(set! fig-markup
 	      (markup #:put-adjacent
-		      fig-markup X
-		      (if (number? alt-dir)
-			  alt-dir
-			  LEFT)
+		      X (if (number? alt-dir)
+			    alt-dir
+			    LEFT)
+		      fig-markup
 		      #:pad-x 0.2 alt-markup
 		      )))
 
@@ -151,10 +151,10 @@
 	(set! fig-markup
 	      (if fig-markup
 		  (markup #:put-adjacent
-			  fig-markup
 			  X (if (number? plus-dir)
 				plus-dir
 				LEFT)
+			  fig-markup
 			  #:pad-x 0.2 plus-markup)
 		  plus-markup)))
     

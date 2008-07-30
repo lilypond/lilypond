@@ -1443,17 +1443,11 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
                      (interval-widen x amount)
                      y)))
 
-(define-builtin-markup-command (put-adjacent layout props arg1 axis dir arg2)
-  (markup? integer? ly:dir? markup?)
+(define-builtin-markup-command (put-adjacent layout props axis dir arg1 arg2)
+  (integer? ly:dir? markup? markup?)
   align
   ()
-  "
-@ignore
-This is broken, since there's no parser tag for the signature
-markup_scm_scm_markup. Only works using Scheme markup. -np
-@end ignore
-
-Put @var{arg2} next to @var{arg1}, without moving @var{arg1}."
+  "Put @var{arg2} next to @var{arg1}, without moving @var{arg1}."
   (let ((m1 (interpret-markup layout props arg1))
         (m2 (interpret-markup layout props arg2)))
     (ly:stencil-combine-at-edge m1 axis dir m2 0.0)))
@@ -2484,7 +2478,6 @@ and continue with double letters.
      (number->markletter-string number->mark-alphabet-vector num)))
 
 (define-public (horizontal-slash-interval num forward number-interval mag)
-  (ly:message "Mag step: ~a" mag)
   (if forward
     (cond ;((= num 6) (interval-widen number-interval (* mag 0.5)))
           ;((= num 5) (interval-widen number-interval (* mag 0.5)))
@@ -2536,7 +2529,6 @@ and continue with double letters.
                                          ,(cdr num-x) ,(+ (interval-center num-y) dy))
                              num-x num-y)
                             #f)))
-(ly:message "Num: ~a, X-interval: ~a" num num-x)
     (if (ly:stencil? slash-stencil)
       (begin
         ; for some numbers we need to shift the slash/backslash up or down to make
