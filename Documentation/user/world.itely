@@ -28,8 +28,9 @@ music.
 * References for Arabic music::  
 * Arabic note names ::          
 * Arabic key signatures::       
-* Arabic time signatures:: 
-* Further reading::  
+* Arabic time signatures::      
+* Arabic music example::        
+* Further reading::             
 @end menu
 
  
@@ -105,6 +106,26 @@ notated:
 \include "arabic.ly"
 \relative do' { 
   do re misb fa sol la sisb do sisb la sol fa misb re do 
+}
+@end lilypond
+
+
+@cindex Arabic semi-flat symbol 
+@cindex Semi-flat symbol appearance
+
+The symbol for semi-flat does not match the symbol which is used
+in Arabic notation.  The @code{\dwn} symbol defined in
+@code{arabic.ly} may be used preceding a flat symbol as a work
+around if it is important to use the specific Arabic semi-flat
+symbol.  The appearance of the semi-flat symbol in the key
+signature cannot be altered by using this method. 
+
+
+@lilypond[quote,verbatim]    
+\include "arabic.ly"
+\relative do' { 
+  \set Staff.extraNatural = ##f 
+  dod dob dosd \dwn dob dobsb dodsd do do
 }
 @end lilypond
 
@@ -218,6 +239,7 @@ key signatures:
 @snippets
 
 
+
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
 
@@ -256,21 +278,28 @@ existing typeset music is not an issue, you may still want to
 adjust the beaming behaviour and/or using compound time
 signatures.
 
-@c FIXME: move to snippet?  -gp note for gp
-For improvisations or @notation{taqasim} which are temporarily
-free, the time signature can be omitted and @code{\cadenzaOn} can
-be used.  You might need to adjust the accidental style, since the
-absence of bar lines will cause the accidental to be marked only
-once:
-
-@example  
-#(set-accidental-style 'forget)
-@end example 
-
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {compound-time-signatures.ly}
+
+@c FIXME: move to arabic-improvisation.ly
+For improvisations or @notation{taqasim} which are temporarily
+free, the time signature can be omitted and @code{\cadenzaOn} can
+be used.  You might need to adjust the accidental style, since the
+absence of bar lines will cause the accidental to be marked only
+once.  Here is an example of what could be the start of a
+@notation{hijaz} improvisation:
+
+@lilypond[quote,verbatim]    
+\include "arabic.ly"
+\relative sol' {
+  \key re \kurd 
+  #(set-accidental-style 'forget)
+  \cadenzaOn  
+  sol4 sol sol sol fad mib sol1 fad8 mib re4. r8 mib1 fad sol
+} 
+@end lilypond
 
 
 @seealso 
@@ -285,6 +314,47 @@ Notation Reference:
 
 Snippets:
 @rlsr{World music}.
+
+
+@node Arabic music example
+@unnumberedsubsubsec Arabic music example 
+
+@cindex Arabic music example 
+@cindex Arabic music template
+@cindex Template Arabic music 
+
+Here is a template that also uses the start of a Turkish Semai
+that is familiar in Arabic music education in order to illustrate
+some of the peculiarities of Arabic music notation, such as medium
+intervals and unusual modes that are discussed in this section. 
+
+@lilypond[quote,verbatim]  
+\include "arabic.ly"
+\score {
+  \relative re' {
+    \set Staff.extraNatural = ##f
+    \set Staff.autoBeaming = ##f
+    \key re \bayati 
+    \time 10/8
+          
+    re4 re'8 re16 [misb re do] sisb [la sisb do] re4 r8                
+    re16 [misb do re] sisb [do] la [sisb sol8] la [sisb] do [re] misb 
+    fa4 fa16 [misb] misb8. [re16] re8 [misb] re  [do] sisb             
+    do4 sisb8 misb16 [re do sisb] la [do sisb la] la4 r8                
+  }
+  \header {
+    title = "Semai Muhayer"
+    composer = "Jamil Bek"
+  }
+}
+@end lilypond
+
+@seealso
+
+Snippets:
+@rlsr{World music} 
+
+
 
 @node Further reading
 @unnumberedsubsubsec Further reading

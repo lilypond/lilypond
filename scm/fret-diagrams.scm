@@ -366,7 +366,7 @@ Line thickness is given by @var{th}, fret & string spacing by
 		  (make-bezier-sandwich-list
 		   (* size barre-start-string-coordinate)
 		   (* size barre-end-string-coordinate)
-		   (* size (+ 1 (- top-fret fret) barre-fret-coordinate))
+                   (* size (+ 2 (- top-fret (+ low-fret barre-fret-coordinate))))
 		   (* size bezier-height)
 		   (* size bezier-thick)
 		   orientation)
