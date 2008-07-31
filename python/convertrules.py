@@ -2785,12 +2785,20 @@ def conv (str):
     str = str.replace ("setHairpinDim", "dimHairpin")
     return str
 
-@rule ((2, 11, 53), "infinite-spacing-height -> extra-spacing-height, \
-#(set-octavation oct) -> \\ottava #oct")
+@rule ((2, 11, 53), "infinite-spacing-height -> extra-spacing-height")
 def conv (str):
     str = re.sub (r"infinite-spacing-height\s+=\s+##t", r"extra-spacing-height = #'(-inf.0 . +inf.0)", str)
     str = re.sub (r"infinite-spacing-height\s+=\s+##f", r"extra-spacing-height = #'(0 . 0)", str)
+    return str
+
+@rule ((2, 11, 55), "#(set-octavation oct) -> \\ottava #oct,\n\
+\\put-adjacent markup axis dir markup -> \\put-adjacent axis dir markup markup")
+def conv (str):    
     str = re.sub (r"#\(set-octavation (-*[0-9]+)\)", r"\\ottava #\1", str)
+    if re.search ('put-adjacent', str):
+	stderr_write (NOT_SMART % _ ("\\put-adjacent argument order.\n"))
+	stderr_write (_ ("Axis and direction now come before markups:\n"))
+	stderr_write (_ ("\\put-adjacent axis dir markup markup."))
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
