@@ -66,6 +66,8 @@ Repeat signs can also be controlled manually.
 @cindex volta, prima
 @cindex volta, seconda
 @funindex \repeat
+@funindex \alternative
+@funindex \partial
 
 @node Normal repeats
 @unnumberedsubsubsec Normal repeats
@@ -126,6 +128,10 @@ or
 @end lilypond
 
 
+@cindex repeats with ties
+@cindex alternative endings with ties
+@cindex ties in repeats
+@cindex ties in alternative endings
 @funindex \repeatTie
 
 Ties may be added to a second ending:
