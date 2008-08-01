@@ -73,6 +73,10 @@ in @ref{Key signature}.
 @item Complex time signatures may require that notes be grouped
 manually as described in @ref{Manual beams}. 
 
+@item @notation{Takasim} which are rhythmically free 
+improvisations may be written down omitting bar lines as 
+described in @ref{Unmetered music}. 
+
 @end itemize 
 
 @seealso
@@ -238,11 +242,8 @@ key signatures:
 
 @snippets
 
-
-
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {non-traditional-key-signatures.ly}
-
 
 @seealso
 
@@ -283,24 +284,8 @@ signatures.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {compound-time-signatures.ly}
 
-@c FIXME: move to arabic-improvisation.ly
-For improvisations or @notation{taqasim} which are temporarily
-free, the time signature can be omitted and @code{\cadenzaOn} can
-be used.  You might need to adjust the accidental style, since the
-absence of bar lines will cause the accidental to be marked only
-once.  Here is an example of what could be the start of a
-@notation{hijaz} improvisation:
-
-@lilypond[quote,verbatim]    
-\include "arabic.ly"
-\relative sol' {
-  \key re \kurd 
-  #(set-accidental-style 'forget)
-  \cadenzaOn  
-  sol4 sol sol sol fad mib sol1 fad8 mib re4. r8 mib1 fad sol
-} 
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{arabic-improvisation.ly}
 
 @seealso 
 
