@@ -22,7 +22,7 @@ repeats:
 @item volta
 The repeated music is not written out but enclosed between repeat bar
 lines.  If the repeat is at the beginning of a piece, a repeat bar
-line is only printed at the endof the repeat.  Alternative endings
+line is only printed at the end of the repeat.  Alternative endings
 (volte) are printed left to right with brackets.  This is the standard
 notation for repeats with alternatives.
 
@@ -79,9 +79,10 @@ The syntax for a normal repeat is
 @end example
 
 where @var{musicexpr} is a music expression.  Alternate endings can be
-produced using @code{\alternative}.  If there are more repeats than
-there are alternate endings, the earliest repeats are given the first
-alternative.
+produced using @code{\alternative}.  In order to delimit the alternate
+endings, the group of alternatives must be enclosed in a set of
+braces.  If there are more repeats than there are alternate endings,
+the earliest repeats are given the first alternative.
 
 Normal repeats without alternate endings:
 
@@ -211,7 +212,7 @@ Print a @code{|:} bar line.
 
 @lilypond[verbatim,quote,relative=2]
 c1
-\set Score.repeatCommands = #'( start-repeat )
+\set Score.repeatCommands = #'(start-repeat)
 d4 e f g
 c1
 @end lilypond
@@ -225,7 +226,7 @@ Print a @code{:|} bar line:
 @lilypond[verbatim,quote,relative=2]
 c1
 d4 e f g
-\set Score.repeatCommands = #'( end-repeat )
+\set Score.repeatCommands = #'(end-repeat)
 c1
 @end lilypond
 
@@ -235,9 +236,9 @@ be explicitly terminated, or it will not be printed.
 
 @lilypond[verbatim,quote,relative=2]
 f4 g a b
-\set Score.repeatCommands = #'( ( volta "2" ) )
+\set Score.repeatCommands = #'((volta "2"))
 g4 a g a
-\set Score.repeatCommands = #'( ( volta #f ) )
+\set Score.repeatCommands = #'((volta #f))
 c1
 @end lilypond
 
@@ -247,10 +248,10 @@ Multiple repeat commands may occur at the same point:
 
 @lilypond[verbatim,quote,relative=2]
 f4 g a b
-\set Score.repeatCommands = #'( ( volta "2, 5" ) end-repeat )
+\set Score.repeatCommands = #'((volta "2, 5") end-repeat)
 g4 a g a
 c1
-\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
+\set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
 b1
 @end lilypond
 
@@ -263,7 +264,7 @@ then include the the markup in a Scheme list.
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 \relative c'' {
   c1
-  \set Score.repeatCommands = #(list (list 'volta voltaAdLib) 'start-repeat)
+  \set Score.repeatCommands = #(list(list 'volta voltaAdLib) 'start-repeat)
   c4 b d e
   \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
   f1
@@ -306,11 +307,8 @@ the writing out of repetitious music.  The syntax is
 \repeat unfold @var{repeatcount} @var{musicexpr}
 @end example
 
-where @var{musicexpr} is a music expression.  Unfold repeats can be
-made with or without alternate endings.  If there are more repeats
-than there are alternate endings, the first alternative ending is
-applied to the earliest endings.  Unfold repeats without alternate
-endings:
+where @var{musicexpr} is a music expressionand @var{repeatcount}
+is the number of times @var{musicexpr} is repeated.
 
 @lilypond[verbatim,quote,relative=2]
 c1
@@ -318,7 +316,9 @@ c1
 c1
 @end lilypond
 
-Unfold repeats with alternate endings:
+Unfold repeats can be made with alternate endings.  If there are
+more repeats than there are alternate endings, the first
+alternative ending is applied to the earliest endings.
 
 @lilypond[verbatim,quote,relative=2]
 c1
@@ -461,4 +461,8 @@ c: c:
 @seealso
 
 Snippets: @rlsr{Repeats}.
+
+@knownissues
+
+Cross-staff tremolos do not work well.
 
