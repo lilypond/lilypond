@@ -4,12 +4,12 @@
 
 \header {
   lsrtags = "world-music"
-  texidoc = "For improvisations or taqasim which are
+  texidoc = "For improvisations or @emph{taqasim} which are
 temporarily free, the time signature can be omitted and
 @code{\cadenzaOn} can be used.  Adjusting the accidental style
 might be required, since the absence of bar lines will cause the
 accidental to be marked only once.  Here is an example of what
-could be the start of a hijaz improvisation:"
+could be the start of a @emph{hijaz} improvisation:"
 doctitle = "Arabic improvisation"
 } % begin verbatim
 
