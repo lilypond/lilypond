@@ -435,12 +435,12 @@ Line thickness is given by @var{th}, fret & string spacing by
 	 (label-text
 	  (cond
            ((equal? number-type 'roman-lower)
-	    (fancy-format #f "~(~:@r~)" base-fret))
+	    (fancy-format #f "~(~@r~)" base-fret))
            ((equal? number-type 'roman-upper)
-	    (fancy-format #f "~:@r" base-fret))
+	    (fancy-format #f "~@r" base-fret))
            ((equal? 'arabic number-type)
 	    (fancy-format #f "~d" base-fret))
-           (else (fancy-format #f "~(~:@r~)" base-fret)))))
+           (else (fancy-format #f "~(~@r~)" base-fret)))))
     (if (eq? orientation 'normal)
 	(ly:stencil-translate-axis
 	 (sans-serif-stencil layout props (* size label-font-mag) label-text)
