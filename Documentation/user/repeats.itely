@@ -65,6 +65,10 @@ Repeat signs can also be controlled manually.
 @cindex seconda volta
 @cindex volta, prima
 @cindex volta, seconda
+@cindex repeat, normal
+@cindex normal repeat
+@cindex repeat with alternate endings
+@cindex alternate endings
 @funindex \repeat
 @funindex \alternative
 @funindex \partial
@@ -103,6 +107,14 @@ Normal repeats with alternate endings:
 c1
 @end lilypond
 
+
+@cindex repeat with upbeat
+@cindex upbeat in a repeat
+@cindex anacrucis in a repeat
+@cindex repeat with anacrucis
+@cindex repeat with pickup
+@cindex pickup in a repeat
+@funindex \partial
 
 Repeats with upbeats can be entered in two ways:
 
@@ -170,6 +182,14 @@ Internals Reference: @rinternals{VoltaBracket},
 @knownissues
 
 @cindex repeat, ambiguous
+@cindex nested repeat
+@cindex repeat, nested
+@cindex repeat timing information
+@cindex repeat and measure number
+@cindex timing information and repeats
+@cindex measure number and repeats
+@cindex repeat and slur
+@cindex slur and repeat
 
 A nested repeat like
 
@@ -195,7 +215,18 @@ example, by setting @code{Score.measurePosition} or entering
 @node Manual repeat marks
 @unnumberedsubsubsec Manual repeat marks
 
+@cindex manual repeat mark
+@cindex repeat, manual
+@cindex start repeat
+@cindex repeat, start
+@cindex end repeat
+@cindex repeat, end
+@cindex repeat number, changing
+@cindex repeat volta, changing
+@cindex volta bracket
+@cindex bracket, volta
 @funindex repeatCommands
+@funindex start-repeat
 
 @warning{These methods are only used for displaying unusual repeat
 constructs, and may produce unexpected behavior.  In most cases,
@@ -255,6 +286,9 @@ c1
 b1
 @end lilypond
 
+@cindex volta bracket with text
+@cindex text in volta bracket
+
 Text can be included with the volta bracket.  The text can be a
 number or numbers or markup text, see @ref{Formatting text}.  The
 simplest way to use markup text is to define the markup first,
@@ -299,6 +333,13 @@ Internals Reference:
 @cindex written-out repeats
 @cindex repetitious music
 @cindex repeats, written-out
+@cindex repeat, unfold
+@cindex unfold music
+@cindex unfold repeat
+@cindex unfold repeat with alternate endings
+@cindex unfold music with alternate endings
+@cindex alternate ending in written-out repeats
+@funindex unfold
 
 By using the @code{unfold} command, repeats can be used to simplify
 the writing out of repetitious music.  The syntax is
@@ -307,8 +348,8 @@ the writing out of repetitious music.  The syntax is
 \repeat unfold @var{repeatcount} @var{musicexpr}
 @end example
 
-where @var{musicexpr} is a music expressionand @var{repeatcount}
-is the number of times @var{musicexpr} is repeated.
+where @var{musicexpr} is a music expression and @var{repeatcount} is
+the number of times @var{musicexpr} is repeated.
 
 @lilypond[verbatim,quote,relative=2]
 c1
@@ -354,6 +395,11 @@ represented by slashes or percent signs; and tremolos.
 
 @cindex percent repeats
 @cindex measure repeats
+@cindex repeat, percent
+@cindex repeat, measure
+@cindex repeat, short
+@funindex \repeat percent
+@funindex percent
 
 Repeated short patterns of notes are supported.  The music is printed
 once, and the pattern is replaced with a special sign.  Patterns that
@@ -406,14 +452,18 @@ durations, are supported.
 @node Tremolo repeats
 @unnumberedsubsubsec Tremolo repeats
 
-Tremolos can take two forms: alternation between two chords or two
-notes, and rapid repetition of a single
-note or chord. Tremolos consisting of an alternation are indicated by
-adding beams between the notes or chords being alternated, while
-tremolos consisting of the rapid repetition of a single note are
-indicated by adding beams or slashes to a single note.
-
 @cindex tremolo beams
+@cindex tremolo
+@cindex repeat, tremolo
+@funindex \repeat tremolo
+@funindex tremolo
+
+Tremolos can take two forms: alternation between two chords or two
+notes, and rapid repetition of a single note or chord. Tremolos
+consisting of an alternation are indicated by adding beams between the
+notes or chords being alternated, while tremolos consisting of the
+rapid repetition of a single note are indicated by adding beams or
+slashes to a single note.
 
 To place tremolo marks between notes, use @code{\repeat} with
 tremolo style:
@@ -445,6 +495,7 @@ the note should not be surrounded by braces:
 
 @cindex tremolo marks
 @funindex tremoloFlags
+@funindex :
 
 The same output can be obtained by adding
 @q{@code{:}[@var{number}]} after the note.  The number indicates
@@ -461,6 +512,9 @@ c: c:
 @seealso
 
 Snippets: @rlsr{Repeats}.
+
+@cindex tremolo, cross-staff
+@cindex cross-staff tremolo
 
 @knownissues
 
