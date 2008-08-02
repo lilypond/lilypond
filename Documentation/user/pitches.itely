@@ -263,6 +263,7 @@ see @rlearning{Accidentals and key signatures}.}
 @cindex double flat
 @cindex flat, double
 @cindex natural sign
+@cindex natural pitch
 
 A @notation{sharp} pitch is made by adding @code{is} to the note
 name, and a @notation{flat} pitch by adding @code{es}.  As you
@@ -377,14 +378,17 @@ any standard.
 @node Note names in other languages
 @unnumberedsubsubsec Note names in other languages
 
+@cindex note names, other languages
+@cindex pitch names, other languages
+@cindex language, note names in other
+@cindex language, pitch names in other
+
 There are predefined sets of note names for various other
 languages.  To use them, include the language-specific init file.
 For example, to use English notes names, add
 @w{@code{\include "english.ly"}} to the top of the input file.
 The available language files and the note names they define are:
 
-@cindex note names, other languages
-@cindex pitch names, other languages
 
 @smallexample
 @multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
@@ -509,8 +513,10 @@ This section discusses how to modify pitches.
 
 @cindex octave correction
 @cindex octave check
+@cindex control pitch
 @funindex =
 @funindex \octaveCheck
+@funindex controlpitch
 
 In relative mode, it is easy to forget an octave changing mark.
 Octave checks make such errors easier to find by displaying a
@@ -874,6 +880,15 @@ at the start of the staff.  The key signature may be altered:
 @funindex \dorian
 @cindex church modes
 @cindex modes
+@cindex major
+@cindex minor
+@cindex ionian
+@cindex locrian
+@cindex aeolian
+@cindex mixolydian
+@cindex lydian
+@cindex phrygian
+@cindex dorian
 
 Here, @var{mode} should be @code{\major} or @code{\minor} to get a
 key signature of @var{pitch}-major or @var{pitch}-minor,
@@ -929,6 +944,7 @@ Internals Reference:
 @cindex 8va
 @cindex 8ve
 @cindex octavation
+@funindex set-octavation
 
 @notation{Ottava brackets} introduce an extra transposition of an
 octave for the staff:
@@ -1070,6 +1086,7 @@ Snippets:
 @cindex automatic accidentals
 @cindex default accidental style
 @funindex set-accidental-style
+@funindex voice
 
 There are many different conventions on how to typeset
 accidentals.  LilyPond provides a function to specify which
@@ -1095,6 +1112,8 @@ style in all staves of the current @code{StaffGroup}, use:
 
 The following accidental styles are supported.  To demonstrate
 each style, we use the following example:
+
+@funindex default
 
 @lilypond[verbatim,quote]
 musicA = {
@@ -1168,6 +1187,7 @@ both staves.
 
 @cindex default accidental style
 @cindex accidental style, default
+@funindex default
 
 This is the default typesetting behavior.  It corresponds to
 eighteenth-century common practice: accidentals are remembered to
@@ -1230,6 +1250,7 @@ musicB = {
 @cindex modern accidental style
 @cindex accidental style, modern-cautionary
 @cindex modern-cautionary accidental style
+@funindex voice
 
 The normal behavior is to remember the accidentals at
 @code{Staff}-level.  In this style, however, accidentals are
@@ -1296,6 +1317,7 @@ musicB = {
 
 @cindex accidentals, modern style
 @cindex modern style accidentals
+@funindex modern
 
 This rule corresponds to the common practice in the twentieth
 century.  It prints the same accidentals as @code{default}, with
@@ -1544,6 +1566,7 @@ musicB = {
 @cindex accidentals, piano
 @cindex piano accidental style
 @cindex piano accidentals
+@funindex piano
 
 This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
@@ -1601,7 +1624,7 @@ musicB = {
 
 @item piano-cautionary
 
-@funindex piano-cautionary
+@funindex piano-cautionary 
 @cindex accidentals, piano cautionary
 @cindex cautionary accidentals, piano
 @cindex piano cautionary accidentals
@@ -1659,7 +1682,7 @@ musicB = {
 
 @item no-reset
 
-@funindex no-reset accidental style
+@funindex no-reset
 @cindex accidental style, no reset
 @cindex no reset accidental style
 
@@ -1714,7 +1737,7 @@ musicB = {
 
 @item forget
 
-@funindex forget accidental style
+@funindex forget
 @cindex forget accidental style
 @cindex accidental style, forget
 
@@ -1905,6 +1928,7 @@ This section suggests ways of altering note heads.
 @cindex guitar note heads
 @cindex note head styles
 @cindex styles, note heads
+@funindex cross
 
 Note heads may be altered:
 
@@ -2005,7 +2029,6 @@ Internals Reference:
 @cindex Aiken shape note heads
 @cindex sacred harp note heads
 @funindex \key
-@funindex shapeNoteStyles
 @funindex \aikenHeads
 @funindex \sacredHarpHeads
 
