@@ -1918,7 +1918,7 @@
 		    (outer-tie-length-symmetry-penalty-factor . 10)
 		    (vertical-distance-penalty-factor . 7)
 		    (outer-tie-vertical-gap . 0.25)
-		    (multi-tie-region-size . 1)
+		    (multi-tie-region-size . 3)
 		    (single-tie-region-size . 4)
 		    (between-length-limit . 1.0)))
 	

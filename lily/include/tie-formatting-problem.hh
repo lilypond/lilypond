@@ -21,11 +21,14 @@
 #include <set>
 
 typedef map< Tuple<int,4>, Tie_configuration *> Tie_configuration_map;
+
 struct Tie_configuration_variation
 {
-  int index_;
-  Tie_configuration *suggestion_;
-  Tie_configuration_variation ();
+  vector<pair<int, Tie_configuration *> > index_suggestion_pairs_;
+  void add_suggestion(int index, Tie_configuration* suggestion)
+  {
+    index_suggestion_pairs_.push_back (make_pair (index, suggestion));
+  }
 };
 
 typedef map < Tuple<int, 2>, Skyline> Chord_outline_map;

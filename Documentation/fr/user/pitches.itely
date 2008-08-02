@@ -669,7 +669,7 @@ Référence du programme : @rinternals{KeyCancellation},
 
 Les marques d'octaviation, @emph{Ottava}, permettent d'introduire une
 transposition spécifique d'une octave pour la portée en cours.  C'est
-la fonction @code{set-octavation} qui s'en charge.
+la fonction @code{ottava} qui s'en charge.
 
 @cindex ottava
 @cindex 15ma
@@ -678,24 +678,24 @@ la fonction @code{set-octavation} qui s'en charge.
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c''' {
   a2 b
-  #(set-octavation 1)
+  \ottava #1
   a b
-  #(set-octavation 0)
+  \ottava #0
   a b
 }
 @end lilypond
 
-La fonction @code{set-octavation} peut aussi prendre en argument les
+La fonction @code{ottava} peut aussi prendre en argument les
 valeurs -1@tie{}(pour 8va bassa), 2@tie{}(pour 15ma --- 2 octaves) ou
 -2@tie{}(pour 15ma bassa).   En interne, cette fonction détermine les
 propriétés @code{ottavation} (p.ex. en @code{"8va"} ou @code{"8vb"})
 et @code{centralCPosition}.  Vous pouvez modifier le texte d'une marque
 d'octaviation en définissant @code{ottavation} après avoir fait appel
-à @code{set-octavation} :
+à @code{ottava} :
 
 @lilypond[quote,ragged-right,verbatim]
 {
-  #(set-octavation 1)
+  \ottava #1
   \set Staff.ottavation = #"8"
   c'''
 }
@@ -709,7 +709,7 @@ Référence du programme : @rinternals{OttavaBracket}.
 
 @knownissues
 
-@code{set-octavation} gère difficilement les changements de clé qui
+@code{ottava} gère difficilement les changements de clé qui
 pourraient intervenir alors qu'elle est effective.
 
 

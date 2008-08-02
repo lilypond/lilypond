@@ -901,10 +901,10 @@ class OctaveShiftEvent (SpanEvent):
         dir = self.ly_octave_shift_indicator ()
         value = ''
         if dir:
-            value = '#(set-octavation %s)' % dir
+            value = '\ottava #%s' % dir
         return { 
             -1: value,
-            1: '#(set-octavation 0)'}.get (self.span_direction, '')
+            1: '\ottava #0'}.get (self.span_direction, '')
 
 class TrillSpanEvent (SpanEvent):
     def ly_expression (self):

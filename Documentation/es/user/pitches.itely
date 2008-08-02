@@ -918,14 +918,14 @@ de una octava para el pentagrama.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a'2 b
-#(set-octavation 1)
+\ottava #1
 a b
-#(set-octavation 0)
+\ottava #0
 a b
 @end lilypond
 
 
-La función @code{set-octavation} también admite los valores -1 (para
+La función @code{ottava} también admite los valores -1 (para
 8va bassa), 2@tie{}(para 15ma) y -2 (para 15ma bassa) como argumentos.
 
 

@@ -17,10 +17,6 @@
     \Score
     \remove "Bar_number_engraver"
   }
-  \context {
-    \Staff
-    \remove "Time_signature_engraver"
-  }
 }
 
 fermataLong = \markup {
