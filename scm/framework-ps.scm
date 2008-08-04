@@ -545,11 +545,12 @@
 			       (if (or (nan? x) (inf? x)) 0.0 x)))
 	   (directed-round (lambda (x rounder)
 			     (inexact->exact
-			      (rounder (/ (* x scale) (ly:bp 1)))))))
+			      (rounder (/ (* (strip-non-number x) scale)
+					  (ly:bp 1)))))))
       (list (directed-round (car box) floor)
 	    (directed-round (cadr box) floor)
-	    (max (1+ (car box)) (directed-round (caddr box) ceiling))
-	    (max (1+ (cadr box)) (directed-round (cadddr box) ceiling))
+	    (directed-round (max (1+ (car box)) (caddr box)) ceiling)
+	    (directed-round (max (1+ (cadr box)) (cadddr box)) ceiling)
 	  )))
 
   (let* ((outputter (ly:make-paper-outputter
