@@ -176,6 +176,25 @@ sub load_map_file ($)
 }
 
 
+# Split the given path into dir and basename (with .texi removed). Used mainly
+# to get the path/basename of the original texi input file
+sub split_texi_filename ($)
+{
+  my $docu = shift;
+  my $docu_dir, $docu_name;
+  if ($docu =~ /(.*\/)/) {
+    chop($docu_dir = $1);
+    $docu_name = $docu;
+    $docu_name =~ s/.*\///;
+  } else {
+     $docu_dir = '.';
+     $docu_name = $docu;
+  }
+  $docu_name =~ s/\.te?x(i|info)?$//;
+  return ($docu_dir, $docu_name);
+}
+
+
 
 
 
@@ -300,18 +319,7 @@ sub split_at_numbered_sections($$$)
 #  of the texi2html conversion.
 sub lilypond_init_map ()
 {
-    my $docu = $Texi2HTML::THISDOC{'input_file_name'};
-    my $docu_dir, $docu_name;
-    if ($docu =~ /(.*\/)/) {
-      chop($docu_dir = $1);
-      $docu_name = $docu;
-      $docu_name =~ s/.*\///;
-    } else {
-       $docu_dir = '.';
-       $docu_name = $docu;
-    }
-    $docu_name =~ s/\.te?x(i|info)?$//;
-
+    my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
     my $map_filename = "$docu_dir/${docu_name}_xref.map";
     $node_to_filename_map = load_map_file ($map_filename);
 }
@@ -406,172 +414,22 @@ sub lilypond_external_href($$$)
   # 4) call the t2h_default_external_href with these values (or the old ones if not found)
 #   print STDERR "lilypond_external_href: texi_node='$node', node_file='$node_id', node_xhtml_id='$node_xhtml_id', file='$file'\n";
   if (($node_id ne '') and defined($file)) {
+    # Load the map if we haven't done so already
     if (!exists($translated_books{$file})) {
-      print STDERR "Map for book $file not yet loaded, trying to initialize\n";
-      # TODO: Load the file...
-      $translated_books{$file}={};
+      my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+      my $map_filename = "$docu_dir/${file}_xref.map";
+      $translated_books{$file} = load_map_file ($map_filename);
     }
-    my $section_name_map = $translated_books{$file};
-    if (exists($section_name_map->{$node_id})) {
-      print STDERR "Found key $node_id in section_name_map\n";
-      # TODO: Assign the new values to $file, $node_id and $node_xhtml_id!
-      # TODO: Am I doing this right?
 
-      (my $filename, my $anchor) = @$section_name_map->{$node_id};
-      $filename .= ".$docu_ext" if (defined($docu_ext));
-      
-      $node_xhtml_id = $anchor;
-      $file = $filename;
+    # look up translation. use these values instead of the old filename/anchor
+    my $section_name_map = $translated_books{$file};
+    my $node_text = main::remove_texi($node);
+    if (defined($section_name_map->{$node_text})) {
+      ($node_id, $node_hxmlt_id) = @{$section_name_map->{$node_text}};
     } else {
-#       print STDERR "Unable to find key $node_id in section_name_map\n";
+      print STDERR "Unable to find key '$node_text' in section_name_map for book $file\n";
     }
   }
-# Code copied from texi2html:
-# I'll need to find the correct path to the map file and texi2html already
-# seems to do a good job for this with the following code, which I will 
-# need to strip down to those parts that we really need:
-#
-#     $file = '' if (!defined($file));
-#     my $default_target_split = $EXTERNAL_CROSSREF_SPLIT;
-#     my $target_split;
-#     my $target_mono;
-#     my $href_split;
-#     my $href_mono;
-#     if ($file ne '')
-#     {
-#          if ($NEW_CROSSREF_STYLE)
-#          {
-#              $file =~ s/\.[^\.]*$//;
-#              $file =~ s/^.*\///;
-#              my $href;
-#              if (exists($Texi2HTML::THISDOC{'htmlxref'}->{$file}))
-#              {
-#                   if (exists($Texi2HTML::THISDOC{'htmlxref'}->{$file}->{'split'}))
-#                   {
-#                        $target_split = 1;
-#                        $href_split =  $Texi2HTML::THISDOC{'htmlxref'}->{$file}->{'split'}->{'href'};
-#                   }
-#                   if (exists($Texi2HTML::THISDOC{'htmlxref'}->{$file}->{'mono'}))
-#                   {
-#                        $target_mono = 1;
-#                        $href_mono =  $Texi2HTML::THISDOC{'htmlxref'}->{$file}->{'mono'}->{'href'};
-#                   }
-#              }
-#
-#              if ((not $target_mono) and (not $target_split))
-#              { # nothing specified for that manual, use default
-#                   $target_split = $default_target_split;
-#              }
-#              elsif ($target_split and $target_mono)
-#              { # depends on the splitting of the manual
-#                   $target_split = $SPLIT;
-#              }
-#              elsif ($target_mono)
-#              { # only mono specified
-#                   $target_split = 0;
-#              }
-#
-#              if ($target_split)
-#              {
-#                   if (defined($href_split))
-#                   {
-#                        $file = "$href_split";
-#                   }
-#                   elsif (defined($EXTERNAL_DIR))
-#                   {
-#                        $file = "$EXTERNAL_DIR/$file";
-#                   }
-#                   elsif ($SPLIT)
-#                   {
-#                        $file = "../$file";
-#                   }
-#                   $file .= "/";
-#              }
-#              else
-#              {# target not split
-#                   if (defined($href_mono))
-#                   {
-#                        $file = "$href_mono";
-#                   }
-#                   else
-#                   {
-#                        if (defined($EXTERNAL_DIR))
-#                        {
-#                             $file = "$EXTERNAL_DIR/$file";
-#                        }
-#                        elsif ($SPLIT)
-#                        {
-#                            $file = "../$file";
-#                        }
-#                        $file .= "." . $NODE_FILE_EXTENSION;
-#                   }
-#              }
-#          }
-#          else
-#          {
-#              $file .= "/";
-#              if (defined($EXTERNAL_DIR))
-#              {
-#                  $file = $EXTERNAL_DIR . $file;
-#              }
-#              else
-#              {
-#                  $file = '../' . $file;
-#              }
-#          }
-#     }
-#     else
-#     {
-#         $target_split = $default_target_split;
-#     }
-#     if ($node eq '')
-#     {
-#          if ($NEW_CROSSREF_STYLE)
-#          {
-#              if ($target_split)
-#              {
-#                  return $file . $TOP_NODE_FILE . '.' . $NODE_FILE_EXTENSION . '#Top';
-#                  # or ?
-#                  #return $file . '#Top';
-#              }
-#              else
-#              {
-#                   return $file . '#Top';
-#              }
-#          }
-#          else
-#          {
-#              return $file;
-#          }
-#     }
-#     my $target;
-#     if ($NEW_CROSSREF_STYLE)
-#     {
-#          $node = $node_id;
-#          $target = $node_xhtml_id;
-#     }
-#     else
-#     {
-#          $node = main::remove_texi($node);
-#          $node =~ s/[^\w\.\-]/-/g;
-#     }
-#     my $file_basename = $node;
-#     $file_basename = $TOP_NODE_FILE if ($node =~ /^top$/i);
-#     if ($NEW_CROSSREF_STYLE)
-#     {
-#         if ($target_split)
-#         {
-#             return $file . $file_basename . ".$NODE_FILE_EXTENSION" . '#' . $target;
-#         }
-#         else
-#         {
-#             return $file . '#' . $target;
-#         }
-#     }
-#     else
-#     {
-#         return $file . $file_basename . ".$NODE_FILE_EXTENSION";
-#     }
   if (defined $file) {
     return &$original_func($node, $node_id, $node_hxmlt_id, $file);
   } else {
