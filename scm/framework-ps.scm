@@ -548,9 +548,9 @@
 			      (rounder (/ (* x scale) (ly:bp 1)))))))
       (list (directed-round (car box) floor)
 	    (directed-round (cadr box) floor)
-	    (max (1+ (car box)) (directed-round (caddr box) ceiling)
-	    (max (1+ (cadr box)) (directed-round (cadddr box) ceiling)
-	  )))))
+	    (max (1+ (car box)) (directed-round (caddr box) ceiling))
+	    (max (1+ (cadr box)) (directed-round (cadddr box) ceiling))
+	  )))
 
   (let* ((outputter (ly:make-paper-outputter
 		     ;; FIXME: better wrap open/open-file,
