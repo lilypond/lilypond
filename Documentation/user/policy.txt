@@ -167,6 +167,11 @@ scm/ and lily/.
   is preferred.  (instead of `Time signature')   Only use capital
   letters for musical terms which demand them, like D.S. al Fine.
 
+  For scheme functions, only include the final part, ie
+    @funindex modern-voice-cautionary
+  and NOT
+    @funindex #(set-accidental-style modern-voice-cautionary)
+
 * Preferred terms:
     - in general, use the American spellings.  The internal
       lilypond property names use this spelling.

@@ -12,7 +12,7 @@ including markup is to use an identifier for the text and embed
 it in the command list using the Scheme syntax
 @w{@code{#(list (list 'volta textIdentifier))}}. Start- and end-repeat commands
 can be added as separate list elements:"
-doctitle = "Volta text markup using @code{\\repeatCommands}"
+doctitle = "Volta text markup using @code{repeatCommands}"
 }
 
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }

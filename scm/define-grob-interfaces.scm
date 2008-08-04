@@ -119,7 +119,7 @@ note)."
 (ly:add-interface
  'percent-repeat-interface
  "Beat, Double and single measure repeats."
- '())
+ '(slope thickness))
 
 (ly:add-interface
  'piano-pedal-interface

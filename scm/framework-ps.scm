@@ -535,19 +535,22 @@
 (define-public (dump-stencil-as-EPS-with-bbox paper dump-me filename
 					      load-fonts
 					      bbox)
-  (define (to-bp-box mmbox)
+  "Create an EPS file from stencil DUMP-ME to FILENAME. BBOX has format
+   (left-x, lower-y, right x, up-y).  If LOAD-FONTS set, include fonts inline." 
+
+  (define (to-rounded-bp-box box)
+    "Convert box to 1/72 inch with rounding to enlarge the box."
     (let* ((scale (ly:output-def-lookup paper 'output-scale))
-	   (box (map
-		 (lambda (x)
-		   (if (or (nan? x) (inf? x))
-		       0
-		       (inexact->exact
-			(round (/ (* x scale) (ly:bp 1)))))) mmbox)))
-      
-    (list (car box)
-	  (cadr box)
-	  (max (1+ (car box)) (caddr box))
-	  (max (1+ (cadr box)) (cadddr box))
+	   (strip-non-number (lambda (x)
+			       (if (or (nan? x) (inf? x)) 0.0 x)))
+	   (directed-round (lambda (x rounder)
+			     (inexact->exact
+			      (rounder (/ (* (strip-non-number x) scale)
+					  (ly:bp 1)))))))
+      (list (directed-round (car box) floor)
+	    (directed-round (cadr box) floor)
+	    (directed-round (max (1+ (car box)) (caddr box)) ceiling)
+	    (directed-round (max (1+ (cadr box)) (cadddr box)) ceiling)
 	  )))
 
   (let* ((outputter (ly:make-paper-outputter
@@ -558,7 +561,7 @@
 		     'ps))
 
 	 (port (ly:outputter-port outputter))
-	 (rounded-bbox (to-bp-box bbox))
+	 (rounded-bbox (to-rounded-bp-box bbox))
 	 (port (ly:outputter-port outputter))
 	 (header (eps-header paper rounded-bbox load-fonts)))
 
@@ -597,7 +600,7 @@
 	   ((xext (car ext-system-pair))
 	    (paper-system (cdr ext-system-pair))
 	    (yext (paper-system-extent paper-system Y))
-	    (bbox (list (car  xext) (car yext)
+	    (bbox (list (car xext) (car yext)
 			(cdr xext) (cdr yext)))
 	    (filename (if (< 0 count)
 			  (format "~a-~a" basename count)

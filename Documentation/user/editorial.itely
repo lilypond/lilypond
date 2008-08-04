@@ -171,6 +171,9 @@ staff, see @ref{Direction and placement}.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{allowing-fingerings-to-be-printed-inside-the-staff.ly}
+
 
 @seealso
 

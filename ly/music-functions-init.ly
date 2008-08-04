@@ -453,7 +453,12 @@ octaveCheck =
    (make-music 'RelativeOctaveCheck
 	       'origin location
 	       'pitch (pitch-of-note pitch-note) 
-	       ))
+           ))
+
+ottava = #(define-music-function (parser location octave) (number?)
+  (_i "set the octavation ")
+  (make-ottava-set octave))
+
 partcombine =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
                 (make-part-combine-music parser

@@ -108,8 +108,6 @@ Staff_symbol_referencer::extent_in_staff (Grob *me)
   return retval;
 }
 
-
-
 int
 Staff_symbol_referencer::get_rounded_position (Grob *me)
 {

@@ -22,7 +22,7 @@ repeats:
 @item volta
 The repeated music is not written out but enclosed between repeat bar
 lines.  If the repeat is at the beginning of a piece, a repeat bar
-line is only printed at the endof the repeat.  Alternative endings
+line is only printed at the end of the repeat.  Alternative endings
 (volte) are printed left to right with brackets.  This is the standard
 notation for repeats with alternatives.
 
@@ -65,7 +65,13 @@ Repeat signs can also be controlled manually.
 @cindex seconda volta
 @cindex volta, prima
 @cindex volta, seconda
+@cindex repeat, normal
+@cindex normal repeat
+@cindex repeat with alternate endings
+@cindex alternate endings
 @funindex \repeat
+@funindex \alternative
+@funindex \partial
 
 @node Normal repeats
 @unnumberedsubsubsec Normal repeats
@@ -77,9 +83,10 @@ The syntax for a normal repeat is
 @end example
 
 where @var{musicexpr} is a music expression.  Alternate endings can be
-produced using @code{\alternative}.  If there are more repeats than
-there are alternate endings, the earliest repeats are given the first
-alternative.
+produced using @code{\alternative}.  In order to delimit the alternate
+endings, the group of alternatives must be enclosed in a set of
+braces.  If there are more repeats than there are alternate endings,
+the earliest repeats are given the first alternative.
 
 Normal repeats without alternate endings:
 
@@ -100,6 +107,14 @@ Normal repeats with alternate endings:
 c1
 @end lilypond
 
+
+@cindex repeat with upbeat
+@cindex upbeat in a repeat
+@cindex anacrucis in a repeat
+@cindex repeat with anacrucis
+@cindex repeat with pickup
+@cindex pickup in a repeat
+@funindex \partial
 
 Repeats with upbeats can be entered in two ways:
 
@@ -126,6 +141,10 @@ or
 @end lilypond
 
 
+@cindex repeats with ties
+@cindex alternative endings with ties
+@cindex ties in repeats
+@cindex ties in alternative endings
 @funindex \repeatTie
 
 Ties may be added to a second ending:
@@ -148,21 +167,6 @@ c1
 {adding-volta-brackets-to-additional-staves.ly}
 
 
-@c Is there a way to have a final bar ("|.") at the end of the
-@c previous line? Doesn't seem to be.
-@c It could be done by overriding
-@c the BreakAlignment property. Want a separate example?
-If you want to start a repeat at the beginning of a line and have a
-double bar at the end of the previous line, use @code{\bar}. For more
-information, see @ref{Bar lines}.
-
-@lilypond[verbatim,quote,relative=2]
-c4 c c c
-\bar "||:" \break 
-\repeat volta 2 { c4 d e f }   
-@end lilypond
-
-
 @seealso
 
 Music Glossary: @rglos{repeat}, @rglos{volta}.
@@ -178,6 +182,14 @@ Internals Reference: @rinternals{VoltaBracket},
 @knownissues
 
 @cindex repeat, ambiguous
+@cindex nested repeat
+@cindex repeat, nested
+@cindex repeat timing information
+@cindex repeat and measure number
+@cindex timing information and repeats
+@cindex measure number and repeats
+@cindex repeat and slur
+@cindex slur and repeat
 
 A nested repeat like
 
@@ -203,7 +215,18 @@ example, by setting @code{Score.measurePosition} or entering
 @node Manual repeat marks
 @unnumberedsubsubsec Manual repeat marks
 
+@cindex manual repeat mark
+@cindex repeat, manual
+@cindex start repeat
+@cindex repeat, start
+@cindex end repeat
+@cindex repeat, end
+@cindex repeat number, changing
+@cindex repeat volta, changing
+@cindex volta bracket
+@cindex bracket, volta
 @funindex repeatCommands
+@funindex start-repeat
 
 @warning{These methods are only used for displaying unusual repeat
 constructs, and may produce unexpected behavior.  In most cases,
@@ -220,7 +243,7 @@ Print a @code{|:} bar line.
 
 @lilypond[verbatim,quote,relative=2]
 c1
-\set Score.repeatCommands = #'( start-repeat )
+\set Score.repeatCommands = #'(start-repeat)
 d4 e f g
 c1
 @end lilypond
@@ -234,7 +257,7 @@ Print a @code{:|} bar line:
 @lilypond[verbatim,quote,relative=2]
 c1
 d4 e f g
-\set Score.repeatCommands = #'( end-repeat )
+\set Score.repeatCommands = #'(end-repeat)
 c1
 @end lilypond
 
@@ -244,9 +267,9 @@ be explicitly terminated, or it will not be printed.
 
 @lilypond[verbatim,quote,relative=2]
 f4 g a b
-\set Score.repeatCommands = #'( ( volta "2" ) )
+\set Score.repeatCommands = #'((volta "2"))
 g4 a g a
-\set Score.repeatCommands = #'( ( volta #f ) )
+\set Score.repeatCommands = #'((volta #f))
 c1
 @end lilypond
 
@@ -256,12 +279,15 @@ Multiple repeat commands may occur at the same point:
 
 @lilypond[verbatim,quote,relative=2]
 f4 g a b
-\set Score.repeatCommands = #'( ( volta "2, 5" ) end-repeat )
+\set Score.repeatCommands = #'((volta "2, 5") end-repeat)
 g4 a g a
 c1
-\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
+\set Score.repeatCommands = #'((volta #f) (volta "95") end-repeat)
 b1
 @end lilypond
+
+@cindex volta bracket with text
+@cindex text in volta bracket
 
 Text can be included with the volta bracket.  The text can be a
 number or numbers or markup text, see @ref{Formatting text}.  The
@@ -272,7 +298,7 @@ then include the the markup in a Scheme list.
 voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 \relative c'' {
   c1
-  \set Score.repeatCommands = #(list (list 'volta voltaAdLib) 'start-repeat)
+  \set Score.repeatCommands = #(list(list 'volta voltaAdLib) 'start-repeat)
   c4 b d e
   \set Score.repeatCommands = #'((volta #f) (volta "4.") end-repeat)
   f1
@@ -283,55 +309,8 @@ voltaAdLib = \markup { 1. 2. 3... \text \italic { ad lib. } }
 
 @snippets
 
-@ignore
-@c FIXME: send these to Neil or Valentin to be added as snippets,
-@c delete them.
-@c FIXME: will do, rp.
-Manual control of the volte, including a @code{|:} bar line at the
-beginning and explicit volta numbers:
-
-@c FIXME: I can't believe this is right.  
-@c TODO: I think it is. I plan
-@c to delete this example, since it's
-@c already been given at L238. rp
-@lilypond[verbatim,quote,relative=2]
-s1*1/10
-\set Score.repeatCommands = #'( start-repeat )
-c1*9/10
-d4 e f g
-\set Score.repeatCommands = #'( ( volta "1, 2, 5" ) )
-f4 g a b
-\set Score.repeatCommands = #'( ( volta #f ) ( volta "95" ) end-repeat )
-g4 a g a
-\set Score.repeatCommands = #'( ( volta #f ) )
-c1
-@end lilypond
-
-In order to print a @code{|:} bar line at the beginning of a piece,
-the @code{BreakAlignment} property must be overridden:
-
-@lilypond[verbatim,quote,relative=2]
-\once \override Score.BreakAlignment #'break-align-orders =
-#(make-vector 3 '(
-instrument-name
-left-edge
-ambitus
-span-bar
-breathing-sign
-clef
-key-signature
-time-signature
-staff-bar
-custos
-span-bar
-))
-\bar "|:"
-c1
-d1
-d4 e f g
-@end lilypond
-@end ignore
-
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{printing-a-repeat-sign-at-the-beginning-of-a-piece.ly}
 
 @seealso
 
@@ -354,6 +333,13 @@ Internals Reference:
 @cindex written-out repeats
 @cindex repetitious music
 @cindex repeats, written-out
+@cindex repeat, unfold
+@cindex unfold music
+@cindex unfold repeat
+@cindex unfold repeat with alternate endings
+@cindex unfold music with alternate endings
+@cindex alternate ending in written-out repeats
+@funindex unfold
 
 By using the @code{unfold} command, repeats can be used to simplify
 the writing out of repetitious music.  The syntax is
@@ -362,11 +348,8 @@ the writing out of repetitious music.  The syntax is
 \repeat unfold @var{repeatcount} @var{musicexpr}
 @end example
 
-where @var{musicexpr} is a music expression.  Unfold repeats can be
-made with or without alternate endings.  If there are more repeats
-than there are alternate endings, the first alternative ending is
-applied to the earliest endings.  Unfold repeats without alternate
-endings:
+where @var{musicexpr} is a music expression and @var{repeatcount} is
+the number of times @var{musicexpr} is repeated.
 
 @lilypond[verbatim,quote,relative=2]
 c1
@@ -374,7 +357,9 @@ c1
 c1
 @end lilypond
 
-Unfold repeats with alternate endings:
+Unfold repeats can be made with alternate endings.  If there are
+more repeats than there are alternate endings, the first
+alternative ending is applied to the earliest endings.
 
 @lilypond[verbatim,quote,relative=2]
 c1
@@ -410,6 +395,11 @@ represented by slashes or percent signs; and tremolos.
 
 @cindex percent repeats
 @cindex measure repeats
+@cindex repeat, percent
+@cindex repeat, measure
+@cindex repeat, short
+@funindex \repeat percent
+@funindex percent
 
 Repeated short patterns of notes are supported.  The music is printed
 once, and the pattern is replaced with a special sign.  Patterns that
@@ -430,23 +420,11 @@ where @var{musicexpr} is a music expression.
 
 @snippets
 
-@c FIXME: email these to Valentin or Neil to be made into snippets
-Measure repeats of more than two repeats get a counter if you switch
-on the @code{countPercentRepeats} property:
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{percent-repeat-counter.ly}
 
-@lilypond[verbatim,quote,relative=2]
-\set countPercentRepeats = ##t
-\repeat percent 4 { c1 }
-@end lilypond
-
-Isolated percents can also be printed.  This is done by entering a
-multi-measure rest with a different print function:
-
-@lilypond[verbatim,quote,relative=2]
-\override MultiMeasureRest #'stencil
-  = #ly:multi-measure-rest::percent
-R1
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{isolated-percent-repeats.ly}
 
 @seealso
 
@@ -474,14 +452,18 @@ durations, are supported.
 @node Tremolo repeats
 @unnumberedsubsubsec Tremolo repeats
 
-Tremolos can take two forms: alternation between two chords or two
-notes, and rapid repetition of a single
-note or chord. Tremolos consisting of an alternation are indicated by
-adding beams between the notes or chords being alternated, while
-tremolos consisting of the rapid repetition of a single note are
-indicated by adding beams or slashes to a single note.
-
 @cindex tremolo beams
+@cindex tremolo
+@cindex repeat, tremolo
+@funindex \repeat tremolo
+@funindex tremolo
+
+Tremolos can take two forms: alternation between two chords or two
+notes, and rapid repetition of a single note or chord. Tremolos
+consisting of an alternation are indicated by adding beams between the
+notes or chords being alternated, while tremolos consisting of the
+rapid repetition of a single note are indicated by adding beams or
+slashes to a single note.
 
 To place tremolo marks between notes, use @code{\repeat} with
 tremolo style:
@@ -513,6 +495,7 @@ the note should not be surrounded by braces:
 
 @cindex tremolo marks
 @funindex tremoloFlags
+@funindex :
 
 The same output can be obtained by adding
 @q{@code{:}[@var{number}]} after the note.  The number indicates
@@ -529,4 +512,11 @@ c: c:
 @seealso
 
 Snippets: @rlsr{Repeats}.
+
+@cindex tremolo, cross-staff
+@cindex cross-staff tremolo
+
+@knownissues
+
+Cross-staff tremolos do not work well.
 

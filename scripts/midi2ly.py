@@ -844,7 +844,7 @@ def convert_midi (in_file, out_file):
 
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'midi2ly',
-                 description=_ ("Convert %s to LilyPond input.") % 'MIDI',
+                 description=_ ("Convert %s to LilyPond input.\n") % 'MIDI',
                  add_help_option=False)
 
     p.add_option ('-a', '--absolute-pitches',
@@ -888,10 +888,9 @@ def get_option_parser ():
 
     p.add_option_group (ly.display_encode (_ ("Examples")),
               description = r'''
-  midi2ly --key=-2:1 --duration-quant=32 \
-    --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
+  $ midi2ly --key=-2:1 --duration-quant=32 --allow-tuplet=4*2/3 --allow-tuplet=2*4/3 foo.midi
 ''')
-    p.add_option_group (ly.display_encode (_ ('Bugs')),
+    p.add_option_group ('',
                         description=(_ ('Report bugs via')
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))

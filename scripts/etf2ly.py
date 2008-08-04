@@ -1178,7 +1178,8 @@ Copyright (c) %s by
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... ETF-FILE") % 'etf2ly',
                  description=_ ("""Enigma Transport Format is a format used by Coda Music Technology's
-Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file."""),
+Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file.
+"""),
                  add_help_option=False)
     p.add_option("-h", "--help",
                  action="help",
@@ -1194,7 +1195,7 @@ Finale product.  etf2ly converts a subset of ETF to a ready-to-use LilyPond file
            action='store_true',
            ),
 
-    p.add_option_group (ly.display_encode (_ ('Bugs')),
+    p.add_option_group ('',
                         description=(_ ('Report bugs via')
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))

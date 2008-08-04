@@ -1,16 +1,9 @@
-
 depth = ../..
 
-STEPMAKE_TEMPLATES=documentation texinfo tex
-LOCALSTEPMAKE_TEMPLATES=lilypond ly lysdoc
-
-## Hmm, would this work?  No -- if we really want examples, move
-## to other dir (input/) comes to mind.
-## examples = font20 ancient-font
-## LOCALSTEPMAKE_TEMPLATES += ly mutopia
+STEPMAKE_TEMPLATES=documentation
 
 EXTRA_DIST_FILES= README
+EXTRA_DIST_FILES+=$(call src-wildcard,*.ly)
+EXTRA_DIST_FILES+=$(call src-wildcard,*.ily)
 
 include $(depth)/make/stepmake.make
-
-TITLE=LilyPond Examples from the Manual

@@ -1753,7 +1753,7 @@ these.
 % Place dynamics above staff
 \dynamicUp
 % Start Ottava Bracket
-#(set-octavation 1)
+\ottava #1
 c' \startTextSpan
 % Add Dynamic Text
 c\pp
@@ -1765,7 +1765,7 @@ c c
 % Add Dynamic Text
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
-#(set-octavation 0)
+\ottava #0
 c, c c c
 @end lilypond
 
@@ -1816,7 +1816,7 @@ that @code{OttavaBracket} is created in the @code{Staff} context:
 %Place following Ottava Bracket below Text Spanners
 \once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
-#(set-octavation 1)
+\ottava #1
 c' \startTextSpan
 % Add Dynamic Text
 c\pp
@@ -1828,7 +1828,7 @@ c c
 % Add Dynamic Text
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
-#(set-octavation 0)
+\ottava #0
 c, c c c
 @end lilypond
 

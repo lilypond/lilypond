@@ -58,9 +58,9 @@ _ ("Process LilyPond snippets in hybrid HTML, LaTeX, texinfo or DocBook document
 + '\n\n'
 + _ ("Examples:")
 + '''
- lilypond-book --filter="tr '[a-z]' '[A-Z]'" %(BOOK)s
- lilypond-book --filter="convert-ly --no-version --from=2.0.0 -" %(BOOK)s
- lilypond-book --process='lilypond -I include' %(BOOK)s
+ $ lilypond-book --filter="tr '[a-z]' '[A-Z]'" %(BOOK)s
+ $ lilypond-book -F "convert-ly --no-version --from=2.0.0 -" %(BOOK)s
+ $ lilypond-book --process='lilypond -I include' %(BOOK)s
 ''' % {'BOOK': _ ("BOOK")})
 
 authors = ('Jan Nieuwenhuizen <janneke@gnu.org>',
@@ -113,11 +113,12 @@ def get_option_parser ():
     p.add_option ('-F', '--filter', metavar=_ ("FILTER"),
                   action="store",
                   dest="filter_cmd",
-                  help=_ ("pipe snippets through FILTER [convert-ly -n -]"),
+                  help=_ ("pipe snippets through FILTER [default: `convert-ly -n -']"),
                   default=None)
 
     p.add_option ('-f', '--format',
                   help=_ ("use output format FORMAT (texi [default], texi-html, latex, html, docbook)"),
+                  metavar=_ ("FORMAT"),
                   action='store')
 
     p.add_option("-h", "--help",
@@ -155,7 +156,7 @@ def get_option_parser ():
                   default='')
     
     p.add_option ('--skip-lily-check',
-                  help=_ ("do not fail if no lilypond output is found."),
+                  help=_ ("do not fail if no lilypond output is found"),
                   metavar=_ ("DIR"),
                   action='store_true', dest='skip_lilypond_run',
                   default=False)
@@ -167,7 +168,7 @@ def get_option_parser ():
                   default=False)
     
     p.add_option ('--lily-output-dir',
-                  help=_ ("write lily-XXX files to DIR, link into --output dir."),
+                  help=_ ("write lily-XXX files to DIR, link into --output dir"),
                   metavar=_ ("DIR"),
                   action='store', dest='lily_output_dir',
                   default=None)
@@ -196,7 +197,7 @@ def get_option_parser ():
     p.add_option ('-w', '--warranty',
                   help=_ ("show warranty and copyright"),
                   action='store_true')
-    p.add_option_group (ly.display_encode (_ ('Bugs')),
+    p.add_option_group ('',
                         description=(
         _ ("Report bugs via")
         + ' http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n'))
@@ -572,12 +573,12 @@ ly_options = {
     LAYOUT: {
         NOTIME: r'''
  \context {
-  \Score
-  timing = ##f
+   \Score
+   timing = ##f
  }
  \context {
-  \Staff
-  \remove Time_signature_engraver
+   \Staff
+   \remove "Time_signature_engraver"
  }''',
     },
 

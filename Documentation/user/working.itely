@@ -261,6 +261,9 @@ violin = \relative c'' @{
 @}
 @end example
 
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
+
 So far we've seen static substitution -- when LilyPond
 sees @code{\padText}, it replaces it with the stuff that
 we've defined it to be (ie the stuff to the right of

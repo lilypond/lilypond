@@ -5,8 +5,10 @@ changing-the-default-text-font-family.ly
 drawing-boxes-around-grobs.ly
 manually-controlling-beam-positions.ly
 custodes.ly
+printing-a-repeat-sign-at-the-beginning-of-a-piece.ly
 creating-text-spanners.ly
 rest-styles.ly
+how-to-change-fret-diagram-position.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
 suppressing-warnings-for-clashing-note-columns.ly
 controlling-tuplet-bracket-visibility.ly
@@ -27,6 +29,7 @@ making-an-object-invisible-with-the-transparent-property.ly
 alignment-vertical-spacing.ly
 drawing-circles-around-various-objects.ly
 analysis-brackets-above-the-staff.ly
+fret-diagrams-explained-and-developed.ly
 removing-the-first-empty-line.ly
 caesura-railtracks-with-fermata.ly
 changing-form-of-multi--measure-rests.ly
