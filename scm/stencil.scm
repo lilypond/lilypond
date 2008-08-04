@@ -94,8 +94,8 @@ encloses the contents.
 "
   (let* ((xext (ly:grob-extent grob grob 0))
 	 (yext (ly:grob-extent grob grob 1))
-	 (thick 0.1))
-    
+	 (thick 0.01))
+
     (ly:stencil-add
      (make-filled-box-stencil xext (cons (- (car yext) thick) (car yext)))
      (make-filled-box-stencil xext (cons (cdr yext) (+ (cdr yext) thick)))
