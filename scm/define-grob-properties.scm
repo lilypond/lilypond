@@ -294,6 +294,7 @@ value 0.25.
 
 
     ;; ugh: double, change.
+     (full-length-padding ,number? "How much padding to use at the right side of a full-length tuplet bracket.")
      (full-size-change ,boolean? "Don't make a change clef smaller.")
 
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
