@@ -290,11 +290,13 @@ open string indicators.  Default value 0.5.
 @item
 @code{xo-padding} -- Padding for open and mute indicators from top fret.  Default
 value 0.25.
-@end itemize")
+@end itemize")      ;"
 
 
     ;; ugh: double, change.
      (full-length-padding ,number? "How much padding to use at the right side of a full-length tuplet bracket.")
+     (full-length-to-extent ,boolean? "Run to the extent of the column for a full-length tuplet bracket.")
+     
      (full-size-change ,boolean? "Don't make a change clef smaller.")
 
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")

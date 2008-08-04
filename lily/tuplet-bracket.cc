@@ -238,7 +238,13 @@ Tuplet_bracket::calc_control_points (SCM smob)
 	  if (bounds[d]->break_status_dir ())
 	    padding = 0.0;
 
-	  x_span[d] = bounds[d]->relative_coordinate(commonx, X_AXIS) - padding;
+	  Real coord = bounds[d]->relative_coordinate(commonx, X_AXIS);
+	  if (to_boolean (me->get_property ("full-length-to-extent")))
+	    coord = robust_relative_extent(bounds[d], commonx, X_AXIS)[LEFT];
+
+	  coord = max (coord, x_span[LEFT]);
+
+	  x_span[d] = coord - padding;
 	}
     }
   while (flip (&d) != LEFT);
@@ -780,6 +786,7 @@ ADD_INTERFACE (Tuplet_bracket,
 	       "edge-height "
 	       "edge-text "
 	       "full-length-padding "
+	       "full-length-to-extent "
 	       "gap "
 	       "positions "
 	       "note-columns "
