@@ -111,11 +111,13 @@ def process_sections (filename, page):
     this_filename = ''
     this_anchor = ''
     this_unnumbered = False
+    had_section = False
     for sec in sections:
         if sec[0] == "node":
             # Write out the cached values to the file and start a new section:
             if this_title != '':
                 f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
+                had_section = False
             this_title = remove_texinfo (sec[1])
             this_anchor = create_texinfo_anchor (sec[1])
         elif sec[0] == "translationof":
@@ -126,10 +128,21 @@ def process_sections (filename, page):
             if not this_unnumbered:
                 this_filename = anchor
         else:
+            # Some pages might not use a node for every section, so treat this
+            # case here, too: If we already had a section and encounter enother
+            # one before the next @node, we write out the old one and start
+            # with the new values
+            if had_section and this_title != '':
+                f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
+                this_title = remove_texinfo (sec[1])
+                this_anchor = create_texinfo_anchor (sec[1])
+            had_section = True
+
             # unnumbered nodes use the previously used file name, only numbered
-            # nodes get their own filename!
+            # nodes get their own filename! However, top-level @unnumbered
+            # still get their own file.
             this_unnumbered = unnumbered_re.match (sec[0])
-            if not this_unnumbered:
+            if not this_unnumbered or sec[0] == "unnumbered":
                 this_filename = this_anchor
 
     if this_title != '':
