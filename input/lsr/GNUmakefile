@@ -57,7 +57,8 @@ local-clean:
 	rm -f $(INFO_IMAGES_DIR)
 
 local-WWW-1: info $(outdir)/lilypond-snippets.pdf \
-  $(outdir)/lilypond-snippets.texi
+  $(outdir)/lilypond-snippets.texi \
+  $(outdir)/lilypond-snippets_xref.map
 
 local-WWW-2: $(outdir)/lilypond-snippets/index.html \
   $(outdir)/lilypond-snippets-big-page.html \
