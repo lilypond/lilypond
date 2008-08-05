@@ -260,11 +260,17 @@ sub split_at_numbered_sections($$$)
     $node_name = main::remove_texi($element->{'texi'});
   }
 
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the filename/anchor here. In the latter case, external manuals
+  # will not be able to retrieve the file name for xrefs!!! Still, I already
+  # had that code, so I'll leave it in in case something goes wrong with the
+  # extract_texi_filenames.py script in the lilypond build process!
   if (exists ($node_to_filename_map->{$node_name})) {
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
     $filename .= ".$docu_ext" if (defined($docu_ext));
+
     $element->{id} = $anchor;
-    if ($filename == $lastfilename) {
+    if ($filename eq $lastfilename) {
       $$element{doc_nr} = $docnr;
     } else {
       $docnr += 1;
@@ -278,23 +284,17 @@ sub split_at_numbered_sections($$$)
     return;
   } else {
     print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
-        unless $node_name eq '';
-    # If we have an entry in the section<=>filename map, use that one, otherwise
-    # generate the filename/anchor here. In the latter case, external manuals
-    # will not be able to retrieve the file name for xrefs!!! Still, I already
-    # had that code, so I'll leave it in in case something goes wrong with the
-    #extract_texi_filenames.py script in the lilypond build process!
-    # TODO: lookup node name in nodename<=>filename map
+        unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec');
 
     # derive the name of the anchor (i.e. the part after # in the links!),
     # don't use texi2html's SECx.x default!
-    
     my $sec_name = main::remove_texi($element->{'texi'});
-    if ($element->{'node_ref'}->{'texi'} ne '') { # if we have a node, use its name:
+    # if we have a node, use its name:
+    if ($element->{'node_ref'}->{'texi'} ne '') { 
       $sec_name = main::remove_texi($element->{'node_ref'}->{'texi'});
     }
     my $anchor = $sec_name;
-    if ($$element{translationof}) {
+    if ($element->{translationof}) {
       $anchor = main::remove_texi($$element{translationof});
     }
     # normalize to the same file name as texinfo
@@ -385,7 +385,7 @@ sub lilypond_unknown($$$$$)
     # necessary here at all. Still, I'll leave the code in just in case the
     # python script messed up ;-)
     if ($pass == 1 and $macro eq "translationof") {
-      if (ref($state->{'element'})=='HASH') {
+      if (ref($state->{'element'}) eq 'HASH') {
         $state->{'element'}->{'translationof'} = main::normalise_space($line);
       }
       return ('', true, undef, undef);
@@ -817,7 +817,7 @@ sub lilypond_print_navigation
 #############################################################################
 
 # For split pages, use index.html as start page!
-if ($Texi2HTML::Config::SPLIT == 'section') {
+if ($Texi2HTML::Config::SPLIT eq 'section') {
   $Texi2HTML::Config::TOP_FILE = 'index.html';
 }
 
