@@ -254,6 +254,12 @@ sub split_at_numbered_sections($$$)
   my $docu_ext = $Texi2HTML::Config::EXTENSION;
 
   my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  # the snippets page does not use nodes for the snippets, so in this case
+  # we'll have to use the section name!
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
   if (exists ($node_to_filename_map->{$node_name})) {
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
     $filename .= ".$docu_ext" if (defined($docu_ext));
