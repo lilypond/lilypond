@@ -458,8 +458,14 @@ The following example uses different commands for entering lyrics.
     \time 2/4
     c4 b8. a16 g4. f8 e4 d c2
   }
+
+% not recommended: left aligns syllables 
   \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
+
+% wrong: durations needed
   \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
+
+%correct
   \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
 >>
 @end lilypond
@@ -1108,10 +1114,10 @@ This is achieved with
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
-This command command must be one syllable too early, before @q{Ty} in
-this case.  In other words, changing the associatedVoice happens one
-step later than expected.  This is for technical reasons, and it is
-not a bug.
+This command must be one syllable too early, before @q{Ty} in this
+case.  In other words, changing the associatedVoice happens one step
+later than expected.  This is for technical reasons, and it is not a
+bug.
 
 @example
 \new Lyrics \lyricsto "lahlah" @{
