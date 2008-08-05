@@ -51,21 +51,31 @@ lyrics extender in this section.
 @end ignore
 
 
-Since LilyPond input files are text, there are two issues to
-consider when working with vocal music:
+Since LilyPond input files are text, there are two issues to consider
+when working with vocal music:
 
 @itemize
 @item
-Song texts must be entered as text, not notes.  For example, the
-input@tie{}@code{d} should be interpreted as a one letter syllable, not the
-note@tie{}D.
+Song texts must be interpreted as text, not notes.  For example, the
+input@tie{}@code{d} should be interpreted as a one letter syllable,
+not the note@tie{}D.
 
 @item
 Song texts must be aligned with the notes of their melody.
 @end itemize
 
-There are a few different ways to define lyrics; we shall begin
-by examining the simplest method, and gradually increase complexity.
+To address the first issue, the fundamental method is the special mode
+opened by @code{\lyricmode} that interprets its contents as text.
+This mode is implicit by some abbreviated methods, as we will see.
+
+Aligning of text with melodies can be made automatically, but if you
+specify the durations of the syllables it can also be made manually.
+Lyrics aligning and typesetting are prepared with the help of skips,
+hyphens and extender lines.
+
+All these methods and their combinations lead to a few different ways
+to define lyrics; we shall begin by examining the simplest method, and
+gradually increase complexity.
 
 @menu
 * Common notation for vocals::
@@ -558,7 +568,7 @@ single syllable; such vocalises are called melismas, or melismata.
 @c it might be better to present it first - vv
 
 You can define melismata entirely in the lyrics, by entering @code{_}
-for every note that is part of the melisma.
+for every extra note that has to be added to the the melisma.
 
 @c verbose! --FV
 @c duplicated: TODO fix
@@ -569,6 +579,7 @@ that are used for this purpose (all of them surrounded by spaces):
 double hyphens to separate syllables in a word, underscores to add
 notes to a melisma, and a double underscore to put an extender line.
 
+@c wrong: extender line only on last syllable of a word. Change example
 @lilypond[relative=1,verbatim,fragment,quote]
 { \set melismaBusyProperties = #'()
  c d( e) f f( e) e e  }
@@ -659,10 +670,11 @@ For example,
 @cindex extender
 
 @c leave this as samp. -gp
-Melismata are sometimes indicated with a long horizontal line starting
-in the melisma syllable, and ending in the next one.  Such a line is
-called an extender line, and it is entered as @samp{ __ } (note the
-spaces before and after the two underscore characters).
+In the last syllable of a word, melismata are sometimes indicated with
+a long horizontal line starting in the melisma syllable, and ending in
+the next one.  Such a line is called an extender line, and it is
+entered as @samp{ __ } (note the spaces before and after the two
+underscore characters).
 
 @warning{Melismata are indicated in the score with extender lines,
 which are entered as one double underscore; but short melismata can
