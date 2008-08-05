@@ -413,29 +413,34 @@ sub lilypond_external_href($$$)
   my $file = shift;
   my $original_func = \&t2h_default_external_href;
 
-  # TODO:
   # 1) Keep a hash of book->section_map
-  # 2) if not file in keys hash => try to load the map (assign empty map is non-existent => will load only once!)
-  # 3) if node in the section=>(file, anchor) map, replace node_id and node_xhtml_id by the map's values
+  # 2) if not file in keys hash => try to load the map (assign empty map if 
+  #    non-existent => will load only once!)
+  # 3) if node in the section=>(file, anchor) map, replace node_id and 
+  #    node_xhtml_id by the map's values
   # 4) call the t2h_default_external_href with these values (or the old ones if not found)
-#   print STDERR "lilypond_external_href: texi_node='$node', node_file='$node_id', node_xhtml_id='$node_xhtml_id', file='$file'\n";
+
   if (($node_id ne '') and defined($file)) {
+    my $map_name = $file;
+    $map_name =~ s/-big-page//;
+
     # Load the map if we haven't done so already
-    if (!exists($translated_books{$file})) {
+    if (!exists($translated_books{$map_name})) {
       my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-      my $map_filename = "$docu_dir/${file}_xref.map";
-      $translated_books{$file} = load_map_file ($map_filename);
+      my $map_filename = "$docu_dir/${map_name}_xref.map";
+      $translated_books{$map_name} = load_map_file ($map_filename);
     }
 
     # look up translation. use these values instead of the old filename/anchor
-    my $section_name_map = $translated_books{$file};
+    my $section_name_map = $translated_books{$map_name};
     my $node_text = main::remove_texi($node);
     if (defined($section_name_map->{$node_text})) {
-      ($node_id, $node_hxmlt_id) = @{$section_name_map->{$node_text}};
+      (my $node_id, $node_hxmlt_id) = @{$section_name_map->{$node_text}};
     } else {
-      print STDERR "Unable to find key '$node_text' in section_name_map for book $file\n";
+      print STDERR "Unable to find key '$node_text' in section_name_map for book $map_name\n";
     }
   }
+
   if (defined $file) {
     return &$original_func($node, $node_id, $node_hxmlt_id, $file);
   } else {
