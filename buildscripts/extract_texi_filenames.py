@@ -89,7 +89,7 @@ def texinfo_file_name(title):
             else:
                 result += "__%06x" % ccode
     # 7: if name begins with number, prepend 't_g' (so it starts with a letter)
-    if ord(result[0]) in range (ord('0'), ord('9')):
+    if (result != '') and (ord(result[0]) in range (ord('0'), ord('9'))):
         result = 't_g' + result
     return result
 
@@ -115,9 +115,9 @@ def process_sections (filename, page):
     for sec in sections:
         if sec[0] == "node":
             # Write out the cached values to the file and start a new section:
-            if this_title != '':
-                f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
-                had_section = False
+            if this_title != '' and this_title != 'Top':
+                    f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
+            had_section = False
             this_title = remove_texinfo (sec[1])
             this_anchor = create_texinfo_anchor (sec[1])
         elif sec[0] == "translationof":
@@ -145,7 +145,7 @@ def process_sections (filename, page):
             if not this_unnumbered or sec[0] == "unnumbered":
                 this_filename = this_anchor
 
-    if this_title != '':
+    if this_title != '' and this_title != 'Top':
         f.write (this_title + "\t" + this_filename + "\t" + this_anchor + "\n")
     f.close ()
 
