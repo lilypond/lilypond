@@ -7,11 +7,12 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.55"
 
 @node Changing defaults
 @chapter Changing defaults
 
+@strong{N.B. This Chapter is under heavy development at present.}
 
 The purpose of LilyPond's design is to provide the finest output
 quality as a default.  Nevertheless, it may happen that you need to
@@ -121,7 +122,17 @@ further explanation and with links to the IR.
 
 @c TODO Add introduction which explains contexts in generality  -td
 
-@unnumberedsubsec Score - the master of all contexts
+Contexts are arranged heirarchically:
+
+@menu
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
+@end menu
+
+@node Score - the master of all contexts
+@unnumberedsubsubsec Score - the master of all contexts
 
 This is the top level notation context. No other context can
 contain a Score context. By default the Score context handles
@@ -134,115 +145,118 @@ A Score context is instantiated implicitly when a
 processed, or explicitly when a @code{\new Score} command is
 executed.
 
-@subheading Top-level contexts: Staff containers
+@node Top-level contexts - staff containers
+@unnumberedsubsubsec Top-level contexts - staff containers
 
-@subsubheading StaffGroup
+@strong{@emph{StaffGroup}}
 
 Groups staves while adding a bracket on the left side, grouping
 the staves together. The bar lines of the contained staves are
 connected vertically. StaffGroup only consists of a collection
 of staves, with a bracket in front and spanning bar lines.
 
-@unnumberedsubsubsec ChoirStaff
+@strong{@emph{ChoirStaff}}
 
 Identical to StaffGroup except that the bar lines of the contained
 staves are not connected vertically.
 
-@unnumberedsubsubsec GrandStaff
+@strong{@emph{GrandStaff}}
 
 A group of staves, with a brace on the left side, grouping
 the staves together. The bar lines of the contained staves are
 connected vertically.
 
-@unnumberedsubsubsec PianoStaff
+@strong{@emph{PianoStaff}}
 
 TODO No longer correct?  Check.  -td
 
 Just like GrandStaff but with a forced distance between the
 staves, so cross staff beaming and slurring can be used.
 
-@unnumberedsubsubsec DrumStaff
-
-Handles typesetting for percussion. Can contain DrumVoice
-
-@unnumberedsubsubsec InnerStaffGroup
+@strong{@emph{InnerStaffGroup}}
 
 TODO  -td
 
-@unnumberedsubsubsec InnerChoirStaff
+@strong{@emph{InnerChoirStaff}}
 
 TODO  -td
 
-@heading Staff-level contexts
+@node Intermediate-level contexts - staves
+@unnumberedsubsubsec Intermediate-level contexts - staves
 
-@unnumberedsubsubsec Staff
+@strong{@emph{Staff}}
 
 Handles clefs, bar lines, keys, accidentals. It can contain
 Voice contexts.
 
-@unnumberedsubsubsec RhythmicStaff
+@strong{@emph{RhythmicStaff}}
 
 Like Staff but for printing rhythms. Pitches are ignored;
 the notes are printed on one line.
 
-@unnumberedsubsubsec TabStaff
+@strong{@emph{TabStaff}}
 
 Context for generating tablature. By default lays the music
 expression out as a guitar tablature, printed on six lines.
 
-@unnumberedsubsubsec VaticanaStaff
+@strong{@emph{DrumStaff}}
+
+Handles typesetting for percussion. Can contain DrumVoice
+
+@strong{@emph{VaticanaStaff}}
 
 Same as Staff, except that it is designed for typesetting
 a piece in gregorian style.
 
-@unnumberedsubsubsec MensuralStaff
+@strong{@emph{MensuralStaff}}
 
 Same as Staff, except that it is designed for typesetting
 a piece in mensural style.
 
-@unnumberedsubsec Voice-level (bottom) contexts
+@node Bottom-level contexts - voices
+@unnumberedsubsubsec Bottom-level contexts - voices
 
 Voice-level contexts initialise certain properties and start
 appropriate engravers.  Being bottom-level contexts, they cannot
 contain other contexts.
 
-@unnumberedsubsubsec Voice
+@strong{@emph{Voice}}
 
 Corresponds to a voice on a staff. This context handles the
 conversion of dynamic signs, stems, beams, super- and sub-scripts,
 slurs, ties, and rests.  You have to instantiate this explicitly
 if you require multiple voices on the same staff.
 
-@unnumberedsubsubsec VaticanaVoice
+@strong{@emph{VaticanaVoice}}
 
 Same as Voice, except that it is designed for typesetting a piece
 in gregorian style.
 
-@unnumberedsubsubsec MensuralVoice
+@strong{@emph{MensuralVoice}}
 
 Same as Voice, with modifications for typesetting a piece in
 mensural style.
 
-@unnumberedsubsubsec Lyrics
+@strong{@emph{Lyrics}}
 
 Corresponds to a voice with lyrics. Handles the printing of a
 single line of lyrics.
 
-@unnumberedsubsubsec DrumVoice
+@strong{@emph{DrumVoice}}
 
 The voice context used in a percussion staff.
 
-@unnumberedsubsubsec FiguredBass
+@strong{@emph{FiguredBass}}
 
 The context in which BassFigure objects are created from
 input entered in @code{\figuremode} mode.
 
-@unnumberedsubsubsec TabVoice
+@strong{@emph{TabVoice}}
 
 The voice context used within a TabStaff context.  Usually left to
 be created implicitly.
 
-@unnumberedsubsubsec ChordNames
+@strong{@emph{ChordNames}}
 
 Typesets chord names.
 
