@@ -1606,8 +1606,7 @@ Proportional notation is supported; see @ref{Proportional notation}.
 @seealso
 
 Internals: @rinternals{SpacingSpanner}, @rinternals{NoteSpacing},
-@rinternals{StaffSpacing}, @rinternals{SeparationItem}, and
-@rinternals{SeparatingGroupSpanner}.
+@rinternals{StaffSpacing}, and @rinternals{SeparationItem}.
 
 
 @knownissues
