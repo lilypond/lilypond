@@ -1126,7 +1126,7 @@ LP-specific?
 * The \set command::            
 * The \override command::       
 * \set versus \override::       
-* Objects connected to the input::  
+* Objects connected to the input::
 @end menu
 
 
@@ -2265,6 +2265,7 @@ Internals Reference: @rinternals{TextSpanner},
 * Vertical grouping of grobs::
 * Modifying ends of spanners::
 * Modifying stencils::
+* Modifying shapes::
 @end menu
 
 
@@ -2293,6 +2294,11 @@ VerticalAxisGroup.
 
 @c FIXME Write this section
 
+@node Modifying shapes
+@subsection Modifying shapes
+
+@c FIXME Write this section
+@c Discussion of Bezier curves and the control-points property
 
 @node Discussion of specific tweaks
 @section Discussion of specific tweaks
