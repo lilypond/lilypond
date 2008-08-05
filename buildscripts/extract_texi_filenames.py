@@ -108,7 +108,7 @@ def process_sections (filename, page):
     f = open (p, 'w')
 
     this_title = ''
-    this_filename = ''
+    this_filename = 'index'
     this_anchor = ''
     this_unnumbered = False
     had_section = False
