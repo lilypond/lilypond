@@ -10,7 +10,7 @@
   \remove Staff_symbol_engraver
 }
 \relative c' {
-       \time 5/8
-       f4 ~ f4 
-       f4 f4.
+  \time 5/8
+  f4 ~ f4 
+  f4 f4.
 }
