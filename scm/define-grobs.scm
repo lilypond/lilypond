@@ -2044,6 +2044,7 @@
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
 	(staff-padding . 0.25)
+	(full-length-to-extent . #t)
 	(direction  . ,ly:tuplet-bracket::calc-direction)
 	(positions . ,ly:tuplet-bracket::calc-positions)
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
@@ -2249,6 +2250,7 @@
 
 (define pure-print-callbacks
   (list
+   fret-board::calc-stencil
    print-circled-text-callback
    lyric-text::print
    ly:arpeggio::print

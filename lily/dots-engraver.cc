@@ -36,7 +36,6 @@ Dots_engraver::acknowledge_rhythmic_head (Grob_info gi)
   Grob *note = gi.grob ();
   if (unsmob_grob (note->get_object ("dot")))
     return;
-
   
   Duration *dur = unsmob_duration (cause->get_property ("duration"));
   if (dur && dur->dot_count ())
