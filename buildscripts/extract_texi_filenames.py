@@ -14,7 +14,7 @@
 # which is then used for the filename/anchor.
 #
 # If this script is run on a file texifile.texi, it produces a file
-# texifile_xref.map with tab-separated entries of the form
+# texifile.xref-map with tab-separated entries of the form
 #        NODE\tFILENAME\tANCHOR
 # Note: The filename does not have any extension appended!
 # This file can then be used by our texi2html init script to determine 
@@ -104,7 +104,7 @@ unnumbered_re = re.compile (r'unnumbered.*')
 def process_sections (filename, page):
     sections = section_translation_re.findall (page)
     # TODO: Don't rely on the file having a 4-letter extension (texi)!!!
-    p = os.path.join (outdir, filename) [:-5] + '_xref.map'
+    p = os.path.join (outdir, filename) [:-5] + '.xref-map'
     f = open (p, 'w')
 
     this_title = ''

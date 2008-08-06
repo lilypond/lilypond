@@ -58,10 +58,18 @@ local-clean:
 
 local-WWW-1: info $(outdir)/lilypond-snippets.pdf \
   $(outdir)/lilypond-snippets.texi \
-  $(outdir)/lilypond-snippets_xref.map
+  $(outdir)/lilypond-snippets.xref-map \
+  $(outdir)/lilypond.xref-map \
+  $(outdir)/lilypond-learning.xref-map
 
 local-WWW-2: $(outdir)/lilypond-snippets/index.html \
   $(outdir)/lilypond-snippets-big-page.html \
   $(source-links)
+
+%.xref-map: %.texi
+	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py $<
+
+$(outdir)/lilypond.xref-map $(outdir)/lilypond-learning.xref-map:
+	ln -sf ../../../Documentation/user/$@ $@
 
 .SECONDARY:

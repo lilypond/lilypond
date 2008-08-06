@@ -26,12 +26,12 @@ endif
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/%_xref.map $(outdir)/version.itexi
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $< 
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 
-$(outdir)/%.html: $(outdir)/%.texi $(outdir)/%_xref.map $(outdir)/version.itexi
+$(outdir)/%.html: $(outdir)/%.texi $(outdir)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
@@ -44,7 +44,7 @@ $(outdir)/%.pdf.omf: %.texi
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
 
-$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/%_xref.map $(outdir)/version.itexi
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/%.xref-map $(outdir)/version.itexi
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
@@ -59,7 +59,7 @@ $(outdir)/%.texi: %.texi
 	rm -f $@
 	cp $< $@
 
-%_xref.map: %.texi
+%.xref-map: %.texi
 	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py $<
 
 
