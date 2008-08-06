@@ -284,7 +284,8 @@ sub split_at_numbered_sections($$$)
     return;
   } else {
     print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
-        unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec');
+        unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec')
+               or ($node_name =~ /NOT REALLY USED/);
 
     # derive the name of the anchor (i.e. the part after # in the links!),
     # don't use texi2html's SECx.x default!
@@ -420,7 +421,7 @@ sub lilypond_external_href($$$)
   #    node_xhtml_id by the map's values
   # 4) call the t2h_default_external_href with these values (or the old ones if not found)
 
-  if (($node_id ne '') and defined($file)) {
+  if (($node_id ne '') and defined($file) and ($node_id ne 'Top')) {
     my $map_name = $file;
     $map_name =~ s/-big-page//;
 
