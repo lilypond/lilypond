@@ -801,10 +801,10 @@ ossia = { f4 f f f }
 
 
 @menu
-* Navigating the program reference::  
-* Layout interfaces::           
-* Determining the grob property::  
-* Naming conventions::          
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
 @end menu
 
 @node Navigating the program reference
@@ -1098,7 +1098,7 @@ Fingering_engraver is part of contexts: @dots{} @rinternals{Voice}
 @subsection Naming conventions
 
 Another thing that is needed, is an overview of the various naming
-conventions: 
+conventions:
 
     scheme functions: lowercase-with-hyphens (incl. one-word
 names)
@@ -1122,10 +1122,10 @@ LP-specific?
 @section Modifying properties
 
 @menu
-* Overview of modifying properties::  
-* The \set command::            
-* The \override command::       
-* \set versus \override::       
+* Overview of modifying properties::
+* The \set command::
+* The \override command::
+* \set versus \override::
 * Objects connected to the input::
 @end menu
 
@@ -1811,50 +1811,48 @@ a a
 @node Painting objects white
 @unnumberedsubsubsec Painting objects white
 
-Every layout object has a color property which by default is set
-to @code{black}.  If this is overridden to @code{white} the object
-will be indistinguishable from the white background.  However,
-if the object crosses other objects and is drawn after them the
-crossings will also be colored white, as can be seen in this
-example:
-
-@c TODO Sometimes the bar lines are not overriden - why not?
-
-@lilypond[quote,verbatim,relative=2]
-a1 a
-\once \override Score.BarLine #'color = #white
-a a
-@end lilypond
-
+@cindex objects, coloring
+@cindex coloring objects
 @cindex layers
 @cindex printing order
 @cindex overwriting objects
 @cindex objects, overwriting
 @cindex grobs, overwriting
 
+Every layout object has a color property which by default is set
+to @code{black}.  If this is overridden to @code{white} the object
+will be indistinguishable from the white background.  However,
+if the object crosses other objects the color of the crossing
+points will be determined by the order in which they are drawn,
+and this may leave a ghostly image of the white object, as shown
+here:
+
+@lilypond[quote,verbatim,relative=2]
+\override Staff.Clef #'color = #white
+a1
+@end lilypond
+
 This may be avoided by changing the order of printing the objects.
-Objects in layer 0 are drawn first, then objects in layer 1 and
-finally objects in layer 2.  Within one layer, objects drawn later
-overwrite objects drawn earlier.  By default all objects are placed
-in layer 0, and the order of drawing is just the order in which the
-objects are processed.
+All layout objects have a @code{layer} property which takes a real
+number.  Objects with the lowest value of @code{layer} are drawn
+first, then objects with progressively higher values are drawn, so
+objects with higher values overwrite objects with lower values.
+By default most objects are assigned a @code{layer} value of
+@code{1}, although a few objects, including @code{StaffSymbol} and
+@code{BarLine}, are assigned a value of @code{0}.  The order of
+printing objects with the same nominal value of @code{layer} is
+indeterminate.
 
-In the example above the white bar line is drawn after the staff
-lines, so overwriting them.  To change this, the @code{StaffSymbol}
-object must be placed in a higher layer, say layer 1, so that it is
-drawn later.  This override must be encountered before or at the
-time the @code{StaffSymbol} object is created, i.e. at the
-beginning of the staff:
+In the example above the white clef, with a default @code{layer}
+value of @code{1}, is drawn after the staff lines (default
+@code{layer} value @code{0}), so overwriting them.  To change this,
+the @code{Clef} object must be given in a lower value of
+@code{layer}, say @code{-1}, so that it is drawn earlier:
 
-@lilypond[quote,verbatim]
-\score {
-  \relative c'' {
-    \once \override Score.StaffSymbol #'layer = #1
-    a1 a
-    \once \override Score.BarLine #'color = #white
-    a a
-  }
-}
+@lilypond[quote,verbatim,relative=2]
+\override Staff.Clef #'color = #white
+\override Staff.Clef #'layer = #-1
+a1
 @end lilypond
 
 @node Using break-visibility
