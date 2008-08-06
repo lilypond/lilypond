@@ -1,9 +1,9 @@
-$(outdir)/%/index.html: $(outdir)/%.texi $(OUT_PNG_IMAGES) $(outdir)/version.itexi
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/%.xref-map $(OUT_PNG_IMAGES) $(outdir)/version.itexi
 	mkdir -p $(dir $@)
 	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
-$(outdir)/%-big-page.html: $(outdir)/%.texi $(OUT_PNG_IMAGES) $(outdir)/version.itexi
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/%.xref-map $(OUT_PNG_IMAGES) $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
@@ -20,6 +20,9 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 
 $(outdir)/%.png: $(top-build-dir)/Documentation/user/$(outdir)/%.png
 	ln -f $< $@
+
+$(outdir)/%.xref-map: $(outdir)/%.texi
+	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py $<
 
 # This makes sure lilypond-doc gettext domain has been compiled
 # before lilypond-book runs
