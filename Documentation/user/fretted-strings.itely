@@ -625,32 +625,76 @@ Fret diagrams can be displayed using the @code{FretBoards} context.  By
 default, the @code{FretBoards} context will display fret diagrams that
 are stored in a lookup table:
 
-TODO -- simple example of fretboards
+@lilypond[verbatim, ragged-right, quote]
+\context FretBoards {
+  \chordmode {
+    c1 d
+  }
+}
+@end lilypond
 
 Fret diagrams are stored based on the pitches of a chord and the value of 
 @code{StringTunings} that is currently in use.  Currently, predefined chords
 are available only for @code{guitar-tuning}.  Chord pitches can be entered
-either as simultaneous music or using chord mode TODO add ref.
+either as simultaneous music or using chord mode (see 
+@ref{Chord mode overview}).
 
-TODO -- example of different chords, with and without chordmode 
+@lilypond[verbatim, ragged-right,quote]
+\context FretBoards {
+  \chordmode {c1}
+  <c' e' g'>1
+}
+@end lilypond
 
 It is common that both chord names and fret diagrams are displayed together.
 This is achieved by putting a @code{ChordNames} context in parallel with
 a @code{FretBoards} context and giving both contexts the same music.
 
-TODO -- example of ChordNames in parallel with FretBoards
+@lilypond[verbatim, ragged-right, quote]
+mychords = \chordmode{
+  c1 f g
+}
+
+<<
+  \context ChordNames {
+    \mychords
+  }
+  \context FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
 
 Predefined fret diagrams are transposable, as long as a diagram for the
 transposed chord is stored in the fret diagram table.  
 
-TODO -- example of transposition
+@lilypond[verbatim, ragged-right, quote]
+mychords = \chordmode{
+  c1 f g
+}
+
+mychordlist = {
+  \mychords
+  \transpose c e { \mychords}
+}
+<<
+  \context ChordNames {
+    \mychordlist
+  }
+  \context FretBoards {
+    \mychordlist
+  }
+>>
+@end lilypond
+
 
 The predefined fret diagram table contains seven chords (major, minor,
 augmented, diminished, dominant seventh, major seventh, minor seventh)
 for each of 17 keys (C, C\sharp?, D\flat, D, D\sharp, E\flat, E, F,
 F\sharp, G\flat, G, G\sharp, A\flat, A, A\sharp, B\flat, and B).  A
-complete list of the predefined fret diagrams is shown in TODO ref to
-appendix. If there is no entry in the table for a chord, the FretBoards
+complete list of the predefined fret diagrams is shown in 
+@ref{Predefined fretboard diagrams}.  If there is no entry 
+in the table for a chord, the FretBoards
 engraver will calculate a fret-diagram using the automatic fret diagram
 functionality described in @ref{Automatic fret diagrams}.
 
@@ -668,7 +712,12 @@ octaves of pitches.
 TODO -- show the use of different fret diagrams
 
 In addition to fret diagrams, LilyPond stores an internal list of chord
-shapes.  
+shapes.  The chord shapes are fret diagrams that can be shifted along
+the neck to different posistions to provide different chords.  Chord
+shapes can be added to the internal list and then used to define
+predefined fret diagrams.
+
+TODO -- snippet with power chords 
 
 The appearance of the fret diagrams is controlled using the 
 @code{fret-diagram-interface}, which is explained in TODO add ref.
@@ -690,6 +739,7 @@ which can be used to play the notes.
      }
   }
   \context FretBoards {
+  \predefinedDiagramsOff
     < f, c f a c' f'>1
     < g,\6 b, d g b g'>
   }
@@ -714,6 +764,7 @@ context.
      }
   }
   \context FretBoards {
+  \predefinedDiagramsOff
     < c e g c' e' > 1
     < c\5 e g c' e' > 1
     < d a d' f'>
@@ -739,6 +790,7 @@ Fingerings can be added to FretBoard fret diagrams.
      }
   }
   \context FretBoards {
+  \predefinedDiagramsOff
     < c\5-3 e-2 g c'-1 e' > 1
     < d\4 a-2 d'-3 f'-1>
   }
