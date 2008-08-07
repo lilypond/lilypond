@@ -616,8 +616,8 @@ Snippets:
 Internals Reference:
 @rinternals{fret-diagram-interface}.
 
-@@node Predefined fret diagrams
-@subsbusection Predefined fret diagrams
+@node Predefined fret diagrams
+@subsubsection Predefined fret diagrams
 @cindex fret diagrams
 @cindex chord diagrams
 
@@ -630,13 +630,13 @@ TODO -- simple example of fretboards
 Fret diagrams are stored based on the pitches of a chord and the value of 
 @code{StringTunings} that is currently in use.  Currently, predefined chords
 are available only for @code{guitar-tuning}.  Chord pitches can be entered
-either as simultaneous music or using chord mode @ref{Chords}.
+either as simultaneous music or using chord mode TODO add ref.
 
 TODO -- example of different chords, with and without chordmode 
 
 It is common that both chord names and fret diagrams are displayed together.
 This is achieved by putting a @code{ChordNames} context in parallel with
-a @node{FretBoards} context and giving both contexts the same music.
+a @code{FretBoards} context and giving both contexts the same music.
 
 TODO -- example of ChordNames in parallel with FretBoards
 
@@ -671,10 +671,9 @@ In addition to fret diagrams, LilyPond stores an internal list of chord
 shapes.  
 
 The appearance of the fret diagrams is controlled using the 
-@code{fret-diagram-interface}, which is explained in @ref{}.
+@code{fret-diagram-interface}, which is explained in TODO add ref.
 
-
-@@node Automatic fret diagrams
+@node Automatic fret diagrams
 @subsubsection Automatic fret diagrams
 @cindex fret diagrams
 @cindex chord diagrams
@@ -783,7 +782,7 @@ Internals Reference:
 @rinternals {fret-diagram-interface}.
 
 
-node Right-hand fingerings
+@node Right-hand fingerings
 @subsubsection Right-hand fingerings
 
 Right-hand fingerings @var{p-i-m-a} must be entered within a  
