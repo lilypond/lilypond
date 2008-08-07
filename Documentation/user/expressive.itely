@@ -171,7 +171,7 @@ such as @code{c4\ff}.  The available dynamic marks are
 @code{\mp}, @code{\mf}, @code{\f}, @code{\ff}, @code{\fff},
 @code{\ffff}, @code{\fp}, @code{\sf}, @code{\sff}, @code{\sp},
 @code{\spp}, @code{\sfz}, and @code{\rfz}.  The dynamic marks may
-be manually placed above or below the staff, see 
+be manually placed above or below the staff, see
 @ref{Direction and placement}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -313,7 +313,9 @@ Learning Manual:
 
 Notation Reference:
 @ref{Direction and placement},
-@ref{New dynamic marks}.
+@ref{New dynamic marks},
+@ref{What goes into the MIDI output?},
+@ref{Controlling MIDI dynamics}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -350,21 +352,20 @@ brackets) can be created.  The syntax for markup mode is described
 in @ref{Formatting text}.
 
 @lilypond[verbatim,quote]
-roundf = \markup { \center-align { \line { \bold { \italic ( }
-         \dynamic f \bold { \italic ) } } } }
-boxf = \markup { \bracket { \dynamic f } }
+roundF = \markup { \hcenter \concat { \bold { \italic ( }
+           \dynamic f \bold { \italic ) } } }
+boxF = \markup { \bracket { \dynamic f } }
 \relative c' {
-  c1_\roundf
-  c1_\boxf
+  c1_\roundF
+  c1_\boxF
 }
 @end lilypond
 
-By default, markup objects are aligned to the left side of a note
-head, but authentic dynamic marks are always centered on the note
-head.  New, centered dynamic marks can be created using the
-following function:
-
 @cindex make-dynamic-script
+
+Simple, centered dynamic marks are easily created with the
+@code{make-dynamic-script} function.  The dynamic font only
+contains the characters @code{f,m,p,r,s} and @code{z}.
 
 @lilypond[verbatim,quote]
 sfzp = #(make-dynamic-script "sfzp")
@@ -373,23 +374,39 @@ sfzp = #(make-dynamic-script "sfzp")
 }
 @end lilypond
 
-@noindent
-The dynamic font only contains the characters @code{f,m,p,r,s} and
-@code{z}.  In order to use other font families, it is necessary to
-use markup mode in its Scheme form, as explained in
-@ref{Markup construction in Scheme}.
+In general, @code{make-dynamic-script} takes any markup object as
+its argument.  In the following example, using
+@code{make-dynamic-script} ensures the vertical alignment of
+markup objects and hairpins that are attached to the same note
+head.
 
 @lilypond[verbatim,quote]
-moltoF = #(make-dynamic-script (markup 
-                      #:normal-text "molto"
-                      #:dynamic "f"))
+roundF = \markup { \hcenter \concat {
+           \normal-text { \bold { \italic ( } }
+           \dynamic f
+           \normal-text { \bold { \italic ) } } } }
+boxF = \markup { \bracket { \dynamic f } }
+roundFdynamic = #(make-dynamic-script roundF)
+boxFdynamic = #(make-dynamic-script boxF)
+\relative c' {
+  c4_\roundFdynamic\< d e f
+  g,1_\boxFdynamic
+}
+@end lilypond
+
+The Scheme form of markup mode may be used instead.  Its syntax is
+explained in @ref{Markup construction in Scheme}.
+
+@lilypond[verbatim,quote]
+moltoF = #(make-dynamic-script
+            (markup #:normal-text "molto"
+                    #:dynamic "f"))
 \relative c' {
   <d e>16 <d e>
   <d e>2..\moltoF
 }
 @end lilypond
 
-@noindent
 Font settings in markup mode are described in
 @ref{Common markup commands}.
 
@@ -399,7 +416,9 @@ Font settings in markup mode are described in
 Notation Reference:
 @ref{Formatting text},
 @ref{Common markup commands},
-@ref{Markup construction in Scheme}.
+@ref{Markup construction in Scheme},
+@ref{What goes into the MIDI output?},
+@ref{Controlling MIDI dynamics}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -487,6 +506,9 @@ g4( e c2)
 Music Glossary:
 @rglos{slur}.
 
+Learning Manual:
+@rlearning{On the un-nestedness of brackets and ties}.
+
 Notation Reference:
 @ref{Direction and placement},
 @ref{Phrasing slurs}.
@@ -541,6 +563,9 @@ Simultaneous phrasing slurs are not permitted.
 
 
 @seealso
+
+Learning Manual:
+@rlearning{On the un-nestedness of brackets and ties}.
 
 Notation Reference:
 @ref{Direction and placement}.
@@ -800,10 +825,17 @@ Short @notation{trills} without an extender line are printed with
 @code{\trill}; see @ref{Articulations and ornamentations}.
 
 Longer trills with an extender line are made with
-@code{\startTrillSpan} and @code{\stopTrillSpan}.  In the
-following example, the trill is combined with grace notes.  To
-achieve precise control over the placement of the grace notes, see
-@ref{Grace notes}.
+@code{\startTrillSpan} and @code{\stopTrillSpan}:
+
+@lilypond[verbatim,quote,relative=2]
+d1~\startTrillSpan
+d1
+c2\stopTrillSpan r2
+@end lilypond
+
+In the following example, a trill is combined with grace notes.
+The syntax of this construct and the method to precisely position
+the grace notes are described in @ref{Grace notes}.
 
 @lilypond[verbatim,quote,relative=2]
 c1 \afterGrace
@@ -818,13 +850,6 @@ Trills that require an auxiliary note with an explicit pitch can
 be typeset with the @code{\pitchedTrill} command.  The first
 argument is the main note, and the second is the @emph{trilled}
 note, printed as a stemless note head in parentheses.
-
-@c This syntax example doesn't look nice. -pm
-
-@c @example
-@c @code{\pitchedTrill} @var{mainnote} @code{\startTrillSpan}
-@c @var{trillnote} @var{endnote} @code{\stopTrillSpan}
-@c @end example
 
 @lilypond[verbatim,quote,relative=1]
 \pitchedTrill e2\startTrillSpan fis
