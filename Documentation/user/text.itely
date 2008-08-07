@@ -654,7 +654,7 @@ a'4 a g2 a
 
 Some commands can affect both the horizontal and vertical
 alignment of text objects in markup mode.  Any object
-affected by these commands must be preceded by an
+affected by these commands must be preceded with an
 anchor point:
 
 @lilypond[quote,verbatim,fragment,relative=1]
@@ -680,9 +680,6 @@ A markup object may include several lines of text.
 In the following example, each element or expression
 is placed on its own line:
 
-@lilypond[quote,verbatim]
-\markup {
-  \column {
     
 
 
