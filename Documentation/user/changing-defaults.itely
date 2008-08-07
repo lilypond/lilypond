@@ -1833,15 +1833,14 @@ a1
 @end lilypond
 
 This may be avoided by changing the order of printing the objects.
-All layout objects have a @code{layer} property which takes a real
-number.  Objects with the lowest value of @code{layer} are drawn
-first, then objects with progressively higher values are drawn, so
-objects with higher values overwrite objects with lower values.
+All layout objects have a @code{layer} property which should be set
+to an integer.  Objects with the lowest value of @code{layer} are
+drawn first, then objects with progressively higher values are drawn,
+so objects with higher values overwrite objects with lower values.
 By default most objects are assigned a @code{layer} value of
 @code{1}, although a few objects, including @code{StaffSymbol} and
 @code{BarLine}, are assigned a value of @code{0}.  The order of
-printing objects with the same nominal value of @code{layer} is
-indeterminate.
+printing objects with the same value of @code{layer} is indeterminate.
 
 In the example above the white clef, with a default @code{layer}
 value of @code{1}, is drawn after the staff lines (default
