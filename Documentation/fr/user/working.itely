@@ -21,13 +21,13 @@ ces astuces peuvent vous paraître évidentes, mais vous ne perdrez tout
 de même pas votre temps à lire ce chapitre.
 
 @menu
-* Suggestions for writing LilyPond files::  
+* Suggestions for writing LilyPond input files::
 * When things don't work::      
 * Scores and parts::            
 @end menu
 
-@node Suggestions for writing LilyPond files
-@section Suggestions for writing LilyPond files
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
 LilyPond --- des pièces entières, et plus seulement les petits
