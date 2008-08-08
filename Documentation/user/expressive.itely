@@ -408,14 +408,14 @@ moltoF = #(make-dynamic-script
 @end lilypond
 
 Font settings in markup mode are described in
-@ref{Common markup commands}.
+@ref{Selecting font and font size}.
 
 
 @seealso
 
 Notation Reference:
 @ref{Formatting text},
-@ref{Common markup commands},
+@ref{Selecting font and font size},
 @ref{Markup construction in Scheme},
 @ref{What goes into the MIDI output?},
 @ref{Controlling MIDI dynamics}.
