@@ -22,6 +22,8 @@
   \consists "Separating_line_group_engraver"
   \consists "Font_size_engraver"
   \consists "Instrument_name_engraver"
+
+  predefinedDiagramTable = #fretboard-table
 }
 
 \context {

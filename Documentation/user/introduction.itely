@@ -789,6 +789,7 @@ makes it easy to mix music and text in documents.
 This section explains the different portions of the documentation.
 
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
+@c This is actually a limitation of texi2html. -jm
 @menu
 * About the Learning Manual (LM)::  this manual introduces LilyPond, giving in-depth explanations of how to create notation.
 
@@ -950,7 +951,7 @@ a complete index.
 @node About the Application Usage (AU)
 @unnumberedsubsec About the Application Usage (AU)
 
-This book explains how to execute the program and how to integrate
+This book explains how to execute the programs and how to integrate
 LilyPond notation with other programs.
 
 @itemize

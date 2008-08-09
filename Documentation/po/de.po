@@ -5191,7 +5191,7 @@ msgstr "Textbeschriftung (Einleitung)"
 #. @subsubsection in Documentation/user/text.itely
 #. @node in Documentation/es/user/text.itely
 #. @subsubsection in Documentation/es/user/text.itely
-msgid "Common markup commands"
+msgid "Selecting font and font size"
 msgstr "Überblick über die wichtigsten Textbeschriftungsbefehle"
 
 #. @node in Documentation/user/text.itely

@@ -65,7 +65,7 @@ The font size of notation elements may be altered.  It does not
 change the size of variable symbols, such as beams or slurs.
 
 @warning{For font sizes of text, see
-@ref{Common markup commands}.}
+@ref{Selecting font and font size}.}
 
 @lilypond[verbatim,quote,relative=2]
 \huge

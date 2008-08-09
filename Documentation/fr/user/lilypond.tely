@@ -147,7 +147,7 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @menu
 * Musical notation::               notation générale.
 * Specialist notation::            notation à usage spécifique.
-* Input syntax::                   généralités sur les fichiers sources.
+* General input and output::       généralités sur les fichiers sources.
 * Non-musical notation::           aspects autres que la notation musicale.
 * Spacing issues::                 mise en page de la musique sur le papier.
 * Changing defaults::              ajustement de la gravure.
