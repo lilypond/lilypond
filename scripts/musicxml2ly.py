@@ -2141,26 +2141,30 @@ def get_all_voices (parts):
 
 
 def option_parser ():
-    p = ly.get_option_parser (usage = _ ("musicxml2ly [options] FILE.xml"),
-                             description = _ ("Convert MusicXML from FILE.xml to LilyPond input. If the given filename is -, musicxml2ly reads from the command line.") + "\n",
-                             add_help_option=False)
+    p = ly.get_option_parser (usage = _ ("musicxml2ly [OPTION]... FILE.xml"),
+                             description =
+_ ("""Convert MusicXML from FILE.xml to LilyPond input.
+If the given filename is -, musicxml2ly reads from the command line.
+"""), add_help_option=False)
 
     p.add_option("-h", "--help",
                  action="help",
                  help=_ ("show this help and exit"))
 
     p.version = ('''%prog (LilyPond) @TOPLEVEL_VERSION@\n\n'''
-                                      +
-_ ("""This program is free software.  It is covered by the GNU General Public
-License and you are welcome to change it and/or distribute copies of it
-under certain conditions.  Invoke as `%s --warranty' for more
-information.""") % 'lilypond'
-+ """
-Copyright (c) 2005--2008 by
++
+_ ("""Copyright (c) 2005--2008 by
     Han-Wen Nienhuys <hanwen@xs4all.nl>,
     Jan Nieuwenhuizen <janneke@gnu.org> and
     Reinhold Kainhofer <reinhold@kainhofer.com>
-""")
+"""
++
+"""
+This program is free software.  It is covered by the GNU General Public
+License and you are welcome to change it and/or distribute copies of it
+under certain conditions.  Invoke as `%s --warranty' for more
+information.""") % 'lilypond')
+
     p.add_option("--version",
                  action="version",
                  help=_ ("show version number and exit"))
@@ -2217,7 +2221,7 @@ Copyright (c) 2005--2008 by
                   type = 'string',
                   dest = 'output_name',
                   help = _ ("set output filename to FILE, stdout if -"))
-    p.add_option_group (ly.display_encode (_ ('Bugs')),
+    p.add_option_group ('',
                         description = (_ ("Report bugs via")
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))

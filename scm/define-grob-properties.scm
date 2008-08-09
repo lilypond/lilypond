@@ -168,6 +168,10 @@ other object.  Otherwise, it determines whether the object is placed
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
 @code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
+     (dot-placement-list ,list? "List 
+consisting of @code{@var{description} (@var{string-number} 
+@var{fret-number} @var{finger-number})} 
+entries used to define fret diagrams.")
      (duration-log ,integer? "The 2-log of the note head duration,
 i.e., @code{0} = whole note, @code{1} = half note, etc.")
 
@@ -290,10 +294,13 @@ open string indicators.  Default value 0.5.
 @item
 @code{xo-padding} -- Padding for open and mute indicators from top fret.  Default
 value 0.25.
-@end itemize")
+@end itemize")      ;"
 
 
     ;; ugh: double, change.
+     (full-length-padding ,number? "How much padding to use at the right side of a full-length tuplet bracket.")
+     (full-length-to-extent ,boolean? "Run to the extent of the column for a full-length tuplet bracket.")
+     
      (full-size-change ,boolean? "Don't make a change clef smaller.")
 
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
@@ -563,9 +570,6 @@ are not spaced separately, but put before musical columns.")
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, bar lines, etc.) are not spaced
 separately, but put before musical columns.")
-     (string-fret-finger-combinations ,list? "List consisting of
-@code{(@var{string-number} @var{fret-number} @var{finger-number})}
-entries.")
      (stroke-style ,string? "Set to @code{\"grace\"} to turn stroke
 through flag on.")
      (style ,symbol? "This setting determines in what style a grob is

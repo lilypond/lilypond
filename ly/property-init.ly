@@ -341,3 +341,11 @@ bassFigureStaffAlignmentNeutral = {
   \revert Staff.BassFigureAlignmentPositioning #'direction
 }
 
+predefinedFretboardsOff = {  
+  \set FretBoards.predefinedDiagramTable = ##f
+}
+
+predefinedFretboardsOn = {
+  \set FretBoards.predefinedDiagramTable = #fretboard-table
+}
+
