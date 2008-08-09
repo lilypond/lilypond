@@ -1341,7 +1341,8 @@ def print_version ():
 def get_option_parser ():
     p = ly.get_option_parser (usage=_ ("%s [OPTION]... FILE") % 'abc2ly',
                  description=_ ('''abc2ly converts ABC music files (see
-%s) to LilyPond input.''') % 'http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt',
+%s) to LilyPond input.
+''') % 'http://www.gre.ac.uk/~c.walshaw/abc2mtex/abc.txt',
                  add_help_option=False)
 
     p.version = "abc2ly (LilyPond) @TOPLEVEL_VERSION@"
@@ -1358,7 +1359,7 @@ def get_option_parser ():
     p.add_option ('-s', '--strict', help=_ ("be strict about success"),
                   action='store_true')
     p.add_option ('-b', '--beams', help=_ ("preserve ABC's notion of beams"))
-    p.add_option_group (ly.display_encode (_ ('Bugs')),
+    p.add_option_group ('',
                         description=(_ ('Report bugs via')
                                      + ''' http://post.gmane.org/post.php'''
                                      '''?group=gmane.comp.gnu.lilypond.bugs\n'''))

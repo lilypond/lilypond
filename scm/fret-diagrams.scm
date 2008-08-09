@@ -2,7 +2,7 @@
 ;;;;
 ;;;;  source file of the GNU LilyPond music typesetter
 ;;;;
-;;;; (c) 2004--2007 Carl D. Sorensen <c_sorensen@byu.edu>
+;;;; (c) 2004--2008 Carl D. Sorensen <c_sorensen@byu.edu>
 
 (define (fret-parse-marking-list marking-list fret-count)
   (let* ((fret-range (list 1 fret-count))
@@ -366,7 +366,8 @@ Line thickness is given by @var{th}, fret & string spacing by
 		  (make-bezier-sandwich-list
 		   (* size barre-start-string-coordinate)
 		   (* size barre-end-string-coordinate)
-                   (* size (+ 2 (- top-fret (+ low-fret barre-fret-coordinate))))
+                   (* size (+ 2 (- top-fret 
+                                   (+ low-fret barre-fret-coordinate))))
 		   (* size bezier-height)
 		   (* size bezier-thick)
 		   orientation)
@@ -435,12 +436,12 @@ Line thickness is given by @var{th}, fret & string spacing by
 	 (label-text
 	  (cond
            ((equal? number-type 'roman-lower)
-	    (fancy-format #f "~(~:@r~)" base-fret))
+	    (fancy-format #f "~(~@r~)" base-fret))
            ((equal? number-type 'roman-upper)
-	    (fancy-format #f "~:@r" base-fret))
+	    (fancy-format #f "~@r" base-fret))
            ((equal? 'arabic number-type)
 	    (fancy-format #f "~d" base-fret))
-           (else (fancy-format #f "~(~:@r~)" base-fret)))))
+           (else (fancy-format #f "~(~@r~)" base-fret)))))
     (if (eq? orientation 'normal)
 	(ly:stencil-translate-axis
 	 (sans-serif-stencil layout props (* size label-font-mag) label-text)
@@ -823,7 +824,8 @@ with @code{-(} to start a barre and @code{-)} to end the barre.
 				 (car definition-list)
 				 (cdr definition-list))))
 
-(define (fret-parse-terse-definition-string props definition-string)
+(define-public 
+  (fret-parse-terse-definition-string props definition-string)
   "Parse a fret diagram string that uses terse syntax; return a pair containing:
     props, modified to include the string-count determined by the
     definition-string, and

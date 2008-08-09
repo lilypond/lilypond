@@ -443,8 +443,8 @@ gets a slightly wrong offset because of the different width of the
 half note head symbol.
 
 @c investigate! Sometimes it works, sometimes not. --FV
-It is not clear in which circumpstances you can succesfully merge
-different note heads that are at the same time differently dotted.
+The requirements for successfully merging different note heads that
+are at the same time differently dotted are not clear.
 
 There is no support for chords where the same note occurs with
 different accidentals in the same chord.  In this case, it is

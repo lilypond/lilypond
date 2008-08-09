@@ -53,7 +53,7 @@ note)."
 (ly:add-interface
  'fret-diagram-interface
  "A fret diagram"
- '(align-dir fret-diagram-details size string-fret-finger-combinations
+ '(align-dir fret-diagram-details size dot-placement-list
    thickness))
 
 (ly:add-interface

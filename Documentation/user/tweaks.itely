@@ -1006,8 +1006,8 @@ We see from the properties specified in the @code{grob-interface}
 page in the IR that the @code{transparent} property is a boolean.
 This
 should be set to @code{#t} to make the grob transparent.
-In this next example let us make the time signature invisible 
-rather than the bar lines.  
+In this next example let us make the time signature invisible
+rather than the bar lines.
 To do this we need to find the grob name for the time signature.
 Back to
 the @q{All layout objects} page in the IR to find the properties
@@ -1028,10 +1028,10 @@ transparent is:
 @end lilypond
 
 @noindent
-The time signature is gone, but this command leaves a gap where 
+The time signature is gone, but this command leaves a gap where
 the time signature should be.  Maybe this is what is wanted for
-an exercise for the student to fill it in, but in other 
-circumstances a gap might be undesirable.  To remove it, the 
+an exercise for the student to fill it in, but in other
+circumstances a gap might be undesirable.  To remove it, the
 stencil for the time signature should be set to @code{#f}
 instead:
 
@@ -1053,8 +1053,16 @@ leaves it where it is, but makes it invisible.
 @subheading color
 @cindex color property
 
-Finally we could make the bar lines invisible by coloring
-them white.  The @code{grob-interface} specifies that the
+Finally let us try making the bar lines invisible by coloring
+them white.  (There is a difficulty with this in that the
+white bar line may or may not blank out the staff lines where
+they cross.  You may see in some of the examples below that this
+happens unpredictably.  The details of why this is so and how to
+control it are covered in @ruser{Painting objects white}.  But at
+the moment we are learning about color, so please just accept this
+limitation for now.)
+
+The @code{grob-interface} specifies that the
 color property value is a list, but there is no
 explanation of what that list should be.  The list it
 requires is actually a list of values in internal units,
@@ -1080,7 +1088,7 @@ and again, we see the bar lines are not visible.  Note that
 a symbol, but a @emph{function}.  When called, it provides
 the list of internal values required to set the color to
 white.  The other colors in the normal list are functions
-too.  To convince yourself this is working you might like 
+too.  To convince yourself this is working you might like
 to change the color to one of the other functions in the
 list.
 
@@ -1113,7 +1121,7 @@ an apostrophe and the two enclosed in brackets.
 
 There is yet a third function, one which converts RGB values into
 internal colors -- the @code{rgb-color} function.  This takes
-three arguments giving the intensities of the red, green and 
+three arguments giving the intensities of the red, green and
 blue colors.  These take values in the range 0 to 1.  So to
 set the color to red the value should be @code{(rgb-color 1 0 0)}
 and to white it should be @code{(rgb-color 1 1 1)}:
