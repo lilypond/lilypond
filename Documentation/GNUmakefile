@@ -6,14 +6,17 @@ SUBDIRS=user bibliography pictures topdocs misc po $(LANGS)
 STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
-README_TOP_FILES= DEDICATION THANKS 
+README_TOP_FILES= DEDICATION THANKS
 EXTRA_DIST_FILES= texinfo.css TRANSLATION
 
 include $(depth)/make/stepmake.make
 
+HTML_PAGE_NAMES= index devel translations
+OUT_HTML_FILES= $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
+
 default: local-doc
 
-local-WWW: txt-to-html $(outdir)/index.html $(outdir)/devel.html
+local-WWW: txt-to-html $(OUT_HTML_FILES)
 
 local-WWW-clean: deep-WWW-clean
 
