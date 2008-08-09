@@ -279,9 +279,9 @@ def add_html_footer (package_name = '',
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
                 # Add menu after stripping: must not have autoselection for language menu.
                 page_flavors = add_menu (page_flavors, prefix, available, target, translation)
-            subst = dict ([i for i in globals().items() if type (i[1]) is str])
-            subst.update (dict ([i for i in locals().items() if type (i[1]) is str]))
             for k in page_flavors:
+                subst = dict ([i for i in globals().items() if type (i[1]) is str])
+                subst.update (dict ([i for i in locals().items() if type (i[1]) is str]))
                 if page_flavors[k][0] in translation:
                     for name in subst:
                         subst[name] = translation[page_flavors[k][0]] (subst[name])
