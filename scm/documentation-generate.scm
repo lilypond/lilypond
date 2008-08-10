@@ -109,11 +109,11 @@
 @end macro
 
 @macro q{TEXT}
-@quoteleft{}\TEXT\@quoteright{}
+@quoteleft{}\\TEXT\\@quoteright{}
 @end macro
 
 @macro qq{TEXT}
-@quotedblleft{}\TEXT\@quotedblright{}
+@quotedblleft{}\\TEXT\\@quotedblright{}
 @end macro
 
 
