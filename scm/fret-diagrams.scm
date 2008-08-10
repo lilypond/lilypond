@@ -548,11 +548,14 @@ indications per string.
          (xo-list (cdr (assoc 'xo-list parameters)))
          (fret-range (cdr (assoc 'fret-range parameters)))
          (barre-list (cdr (assoc 'barre-list parameters)))
+         (barre-type
+          (assoc-get 'barre-type details 'curved))
          (fret-diagram-stencil
 	  (ly:stencil-add
 	   (draw-strings string-count fret-range th size orientation)
 	   (draw-frets fret-range string-count th size orientation))))
-    (if (not (null? barre-list))
+    (if (and (not (null? barre-list))
+             (not (eq? 'none barre-type)))
 	(set! fret-diagram-stencil
 	      (ly:stencil-add
 	       (draw-barre layout props string-count fret-range size

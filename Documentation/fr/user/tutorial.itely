@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 1f529784cd672e34f18e534eccf36280c330e934
+   Translation of GIT committish: 0b3b41414fa52672d7d9416c265cd8d0568eef13
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -30,6 +30,7 @@ Tutorial guidelines:  (different from policy.txt!)
 
 @c Translators: Nicolas Grandclaude, Ludovic Sardain, Gauvain Pocentek
 @c Translation checkers: Jean-Charles Malahieude, Valentin Villenave, John Mandereau
+@c Translation status: post-GDP
 
 @node Tutorial
 @chapter Tutorial
