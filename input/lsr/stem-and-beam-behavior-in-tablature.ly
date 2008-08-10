@@ -17,7 +17,7 @@ example.
   \relative c {
     g16 b d g b d g b
     \stemDown
-    \override Beam #'damping = #100000
+    \override Beam #'damping = #+inf.0
     g,,16 b d g b d g b
   }
 }

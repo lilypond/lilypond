@@ -10,7 +10,7 @@ adding-parentheses-around-an-expressive-mark-or-chordal-note.ly
 line-arrows.ly
 hiding-the-extender-line-for-text-dynamics.ly
 vertically-aligning-dynamics-across-multiple-notes.ly
-modifying-default-values-for-articulation-shorthand-notation.ly
+horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 controlling-the-vertical-ordering-of-scripts.ly
 inserting-a-caesura.ly
@@ -25,6 +25,7 @@ combining-dynamics-with-markup-texts.ly
 creating-slurs-across-voices.ly
 caesura-railtracks-with-fermata.ly
 changing-the-breath-mark-symbol.ly
+modifying-default-values-for-articulation-shorthand-notation.ly
 creating-simultaneous-rehearsal-marks.ly
 setting-hairpin-behavior-at-bar-lines.ly
 changing--flageolet-mark-size.ly
