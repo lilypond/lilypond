@@ -637,7 +637,7 @@ are stored in a lookup table:
 The default predefined fret diagrams are contained in the file
 @code{predefined-guitar-fretboards.ly}.  Fret diagrams are 
 stored based on the pitches of a chord and the value of
-@code{StringTunings} that is currently in use.  
+@code{stringTunings} that is currently in use.  
 @code{predefined-guitar-fretboards.ly} contains predefined 
 fret diagrams only for @code{guitar-tuning}.  Predefined fret
 diagrams can be added for other instruments or other tunings
@@ -812,7 +812,8 @@ mychords = \chordmode{
 The graphical layout of a fret diagram can be customized according to
 user preference through the properties of the @code{fret-diagram-interface}.
 Details are found at @rinternals{fret-diagram-interface}.  For a 
-predefined fret diagram, the interface properties belong to @code{FretBoards}.
+predefined fret diagram, the interface properties belong to 
+@code{FretBoards.FretBoard}.
 
 @c @snippets
 
@@ -955,7 +956,7 @@ The graphical layout of a fret diagram can be customized according to
 user preference through the properties of the @code{fret-diagram-interface}.
 Details are found at @rinternals{fret-diagram-interface}.  For a 
 @code{FretBoards} fret diagram, the interface properties belong to 
-@code{FretBoards}.
+@code{FretBoards.FretBoard}.
 
 @snippets
 The minimum fret to be used in calculating strings and frets for
