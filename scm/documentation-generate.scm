@@ -109,11 +109,13 @@
 @end macro
 
 @macro q{TEXT}
-@html
-&lsquo;\\TEXT\\&rsquo;
-@end html
+@quoteleft{}\TEXT\@quoteright{}
 @end macro
-@end ifhtml
+
+@macro qq{TEXT}
+@quotedblleft{}\TEXT\@quotedblright{}
+@end macro
+
 
 
 @ifinfo
