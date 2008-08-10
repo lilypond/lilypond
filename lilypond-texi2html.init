@@ -158,14 +158,15 @@ sub load_map_file ($)
     my $node_map = ();
 
     if (open(XREFFILE, $mapfile)) {
-        while ( <XREFFILE> ) {
+        my $line;
+        while ( $line = <XREFFILE> ) {
             # parse the tab-separated entries and insert them into the map:
             chomp($_);
-            my @entries = split(/\t/, $_);
+            my @entries = split(/\t/, $line);
             if (scalar (@entries) == 3) {
               $node_map->{$entries[0]} = [$entries[1], $entries[2]];
             } else {
-              print STDERR "Invalid entry in the node file $mapfile: $_\n";
+              print STDERR "Invalid entry in the node file $mapfile: $line\n";
             }
         }
         close (XREFFILE);
