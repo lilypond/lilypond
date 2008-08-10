@@ -92,22 +92,12 @@
 @cindex \\TEXT\\
 @end macro
 
-@macro glossaryref{TEXT}
-@vindex \\TEXT\\
-@ref{\\TEXT\\,,,music-glossary-big-page,Music Glossary}
-@end macro
-
 @end ifset
 
 @ifclear bigpage
 
 @macro ruser{NAME}
 @ref{\\NAME\\,,,lilypond,Notation Reference}
-@cindex \\NAME\\
-@end macro
-
-@macro glossaryref{NAME}
-@ref{\\NAME\\,,,music-glossary,Music Glossary}
 @cindex \\NAME\\
 @end macro
 
@@ -125,11 +115,6 @@
 
 @macro ruser{NAME}
 @ref{\\NAME\\,,,lilypond,Notation Reference}
-@cindex \\NAME\\
-@end macro
-
-@macro glossaryref{NAME}
-@ref{\\NAME\\,,,music-glossary,Music Glossary}
 @cindex \\NAME\\
 @end macro
 
