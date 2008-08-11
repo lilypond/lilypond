@@ -360,7 +360,7 @@ sub lilypond_external_ref($$$$$$)
   # 3) In all other cases use the section name
   if ($cross_ref ne '') {
     $displaytext = $cross_ref;
-  } elsif (($section eq '') or ($displaytext eq 'Top')) {
+  } elsif (($section eq '') or ($section eq 'Top')) {
     $displaytext = $book;
   } else {
     $displaytext = $section;
