@@ -1,12 +1,44 @@
 <html>
 <!--
-    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+    Translation of GIT committish: 862d8ce7ab34bfa6e9192fb31d004137d158c452
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 !-->
+<head>
+  <title>État de la traduction de la documentation de LilyPond</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
 
 <body>
+<p><a href="index.html">Retour à l'accueil de la documentation</a></p>
+
+<h1>Avancement de la traduction de la documentation</h1>
+
+<p>Cette page présente pour chaque partie de la documentation de
+  LilyPond @TOPLEVEL_VERSION@ l'avancement de la traduction
+  francophone.  Pour chaque partie sont indiqués le nombre de mots de
+  l'original en anglais, les noms des traducteurs et relecteurs,
+  le proportion de matériel traduit, l'état de mise à jour, et
+  l'indicateur de révision par rapport au Grand Documentation Project
+  (GDP).
+</p>
+
+<p>Au cours du GDP, la documentation en anglais a été complètement
+  remaniée, et sa révision se poursuit encore actuellement&nbsp;; le rythme
+  de cette révision ne permet pas de maintenir toutes les traductions
+  à jour.  Cependant, le fait que certaines traductions ne soient pas
+  du tout à jour (avec une indication sur fond rouge) ne signifient
+  pas qu'elles sont périmées, cela signifie juste que les traductions
+  n'atteignent pas la qualité de la documentation en anglais récemment
+  remaniée&nbsp;: les traducteurs font de leur mieux pour au moins mettre à
+  jour dans la documentation la syntaxe et les noms de commande
+  LilyPond.  La mise à jour des traductions après le GDP est en
+  cours&nbsp;; vous pouvez accélérer et améliorer ce processus en
+  participant aux traductions et relectures, qui sont organisées sur
+  la liste de diffusion
+  <a href="http://lists.gnu.org/mailman/listinfo/lilypond-user-fr">lilypond-user-fr@gnu.org</a>.
+</p>
 
 </body>
 </html>

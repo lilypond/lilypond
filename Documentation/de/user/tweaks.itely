@@ -261,7 +261,7 @@ für bestimmte Objekte zuständig ist. Weil das
  @code{MetronomeMark}-Objekt vom @code{Score}-Kontext gesetzt 
 wird, werden Veränderungen innerhalb des @code{Voice}-Kontextes 
 nicht berücksichtigt. Genauere Details im Kapitel
-@ruser{Constructing a tweak}.
+@ruser{The \override command}.
 
 @cindex extra-offset
 @cindex zusätzlicher Abstand

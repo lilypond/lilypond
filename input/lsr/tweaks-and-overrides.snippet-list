@@ -8,12 +8,14 @@ custodes.ly
 printing-a-repeat-sign-at-the-beginning-of-a-piece.ly
 creating-text-spanners.ly
 rest-styles.ly
+horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly
 how-to-change-fret-diagram-position.ly
 using-the--tweak-command-to-tweak-individual-grobs.ly
 suppressing-warnings-for-clashing-note-columns.ly
 controlling-tuplet-bracket-visibility.ly
 positioning-multi--measure-rests.ly
 changing-the-staff-size.ly
+customizing-markup-fret-diagrams.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 fine-tuning-pedal-brackets.ly
 controlling-the-vertical-ordering-of-scripts.ly
@@ -35,5 +37,6 @@ caesura-railtracks-with-fermata.ly
 changing-form-of-multi--measure-rests.ly
 time-signature-in-parentheses.ly
 changing-a-single-notes-size-in-a-chord.ly
+customizing-fretboard-fret-diagrams.ly
 creating-simultaneous-rehearsal-marks.ly
 nesting-staves.ly

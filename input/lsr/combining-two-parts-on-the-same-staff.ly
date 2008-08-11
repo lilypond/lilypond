@@ -5,6 +5,27 @@
 \header {
   lsrtags = "simultaneous-notes, text"
 
+  texidoces = "
+La herramienta de combinación de partes ( instrucción
+@code{\partcombine}) permite la combinación de varias partes
+diferentes sobre el mismo pentagrama.  Las indicaciones textuales
+tales como \"solo\" o \"a2\" se añaden de forma predeterminada;
+para quitarlas, sencillamente establezca la proopiedad
+@code{printPartCombineTexts} al valor \"falso\".  Para partituras
+vocales (como himnos), no hay necesidad de añadir los textos
+\"solo\" o \"a2\", por lo que se deben desactivar.  Sin embargo,
+podría ser mejor no usarlo si hay solos, porque éstos no se
+indicarán.  En tales casos podría ser preferible la notación
+polifónica estándar.
+
+Este fragmento de código presenta las tres formas en que se pueden
+imprimir dos partes sobre un solo pentagrama: polifonía estándar,
+@code{\partcombine} sin textos, y @code{\partcombine} con
+textos.
+
+"
+  doctitlees = "Combinar dos partes sobre el mismo pentagrama"
+
   texidoc = "
 The part combiner tool ( @code{\\partcombine} command ) allows the
 combination of several different parts on the same staff.  Text
