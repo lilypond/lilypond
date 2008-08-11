@@ -1,81 +1,119 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 3975a6210f49b40850e3f5101aad1ea4b09883f0
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
-
 
 @node Setup
 @chapter Setup
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Setup for specific Operating Systems::
 * Text editor support::
 * Point and click::
-@end menu 
+@end menu
+
 @node Setup for specific Operating Systems
 @section Setup for specific Operating Systems
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * MacOS X on the command-line::
-@end menu 
+@end menu
+
 @node MacOS X on the command-line
 @subsection MacOS X on the command-line
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Text editor support
 @section Text editor support
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Emacs mode::
 * Vim mode::
 * jEdit::
 * TexShop::
 * TextMate::
-@end menu 
+* LilyKDE::
+@end menu
+
 @node Emacs mode
 @subsection Emacs mode
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Vim mode
 @subsection Vim mode
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node jEdit
 @subsection jEdit
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node TexShop
 @subsection TexShop
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node TextMate
 @subsection TextMate
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node LilyKDE
+@subsection LilyKDE
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Point and click
 @section Point and click
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+
+@c -- SKELETON FILE --

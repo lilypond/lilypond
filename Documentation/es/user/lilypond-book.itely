@@ -984,7 +984,7 @@ del método automatizado con @command{lilypond-book}.
 
 Si tiene que citar muchos fragmentos extraídos de una partitura grade,
 puede también usar la capacidad de recorte de sistemas, véase
-@ruser{Extracting fragments of notation}.
+@ruser{Extracting fragments of music}.
 
 
 @node Inserting LilyPond output into OpenOffice.org

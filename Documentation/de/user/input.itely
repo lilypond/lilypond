@@ -7,129 +7,301 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.51"
 
-@node Input syntax
-@chapter Input syntax
+@node General input and output
+@chapter General input and output
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
-* Input files::
-* Common syntax issues TODO name?::
-* Other stuffs TODO move?::
-@end menu 
-@node Input files
-@section Input files
 
+@menu
+* Input structure::             
+* Titles and headers::          
+* Working with input files::    
+* Controlling output::          
+* MIDI output::                 
+@end menu
+
+@node Input structure
+@section Input structure
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
-* File structure::
-* A single music expression::
-* Multiple scores in a book::
-* Extracting fragments of notation::
-* Including LilyPond files::
-* Text encoding::
-* Different editions from one source::
-@end menu 
-@node File structure
-@subsection File structure
 
+@menu
+* Structure of a score::        
+* Multiple scores in a book::   
+* File structure::              
+@end menu
+
+@node Structure of a score
+@subsection Structure of a score
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node A single music expression
-@subsection A single music expression
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Multiple scores in a book
 @subsection Multiple scores in a book
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
 
+@node File structure
+@subsection File structure
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Titles and headers
+@section Titles and headers
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Creating titles::             
+* Custom titles::               
+* Reference to page numbers::   
+* Table of contents::           
+@end menu
+
+@node Creating titles
+@subsection Creating titles
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Custom titles
+@subsection Custom titles
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Reference to page numbers
+@subsection Reference to page numbers
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Table of contents
+@subsection Table of contents
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Working with input files
+@section Working with input files
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Including LilyPond files::    
+* Different editions from one source::  
+* Text encoding::               
+* Displaying LilyPond notation::  
+@end menu
 
 @node Including LilyPond files
 @subsection Including LilyPond files
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Text encoding
-@subsection Text encoding
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Different editions from one source
 @subsection Different editions from one source
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Common syntax issues TODO name?
-@section Common syntax issues TODO name?
 
+@menu
+* Using variables::             
+* Using tags::                  
+@end menu
+
+@node Using variables
+@unnumberedsubsubsec Using variables
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
-* Controlling direction and placement::
-* Distances and measurements MAYBE MOVE::
-* When to add a -::
-@end menu 
-@node Controlling direction and placement
-@subsection Controlling direction and placement
 
+@node Using tags
+@unnumberedsubsubsec Using tags
+
+@cindex Erweiterung von Wiederholungen
+@funindex \unfoldRepeats
+
+Mit ein bisschen Anpassung können alle Wiederholungstypen 
+auch in der MIDI-Datei wiedergegeben werden. Das wird erreicht 
+durch die @code{\unfoldRepeats}-Funktion. Hiermit werden alle 
+Wiederholungen, welcher Art auch immer, in notengetreue Wiederholungen 
+umgewandelt, die Noten werden also wiederholt ausgegeben.
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+Wenn man eine Partitur schreibt, die diesen @code{\unfoldRepeats}-Befehl 
+für die MIDI-Ausgabe benutzt, muss man zwei @code{\score}-Umgebungen 
+schreiben: eine für die MIDI-Ausgabe, wo die Wiederholungen ausgeschrieben 
+werden, und eine für die gedruckte Notation, in der Klammern, Tremolo und 
+Prozent-Wiederholungen benutzt werden. Zum Beispiel:
+
+@example
+\score @{
+  @var{..music..}
+  \layout @{ .. @}
+@}
+\score @{
+  \unfoldRepeats @var{..music..}
+  \midi @{ .. @}
+@}
+@end example
+
+
+@node Text encoding
+@subsection Text encoding
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Distances and measurements MAYBE MOVE
-@subsection Distances and measurements MAYBE MOVE
 
-UNTRANSLATED NODE: IGNORE ME
-
-@node When to add a -
-@subsection When to add a -
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Other stuffs TODO move?
-@section Other stuffs TODO move?
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Displaying LilyPond notation::
-* Skipping corrected music::
-* context list FIXME::
-* another thing FIXME::
-* Input modes FIXME::
-@end menu 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Controlling output
+@section Controlling output
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Extracting fragments of music::  
+* Skipping corrected music::    
+@end menu
+
+@node Extracting fragments of music
+@subsection Extracting fragments of music
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Skipping corrected music
 @subsection Skipping corrected music
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node context list FIXME
-@subsection context list FIXME
 
+@node MIDI output
+@section MIDI output
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node another thing FIXME
-@subsection another thing FIXME
 
+@menu
+* Creating MIDI files::         
+* MIDI block::                  
+* What goes into the MIDI output?::  
+* Repeats in MIDI::             
+* Controlling MIDI dynamics::   
+@end menu
+
+@node Creating MIDI files
+@subsection Creating MIDI files
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Input modes FIXME
-@subsection Input modes FIXME
 
+@unnumberedsubsubsec Instrument names
+@node MIDI block
+@subsection MIDI block
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@node What goes into the MIDI output?
+@subsection What goes into the MIDI output?
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@unnumberedsubsubsec Supported in MIDI
+@unnumberedsubsubsec Unsupported in MIDI
+@node Repeats in MIDI
+@subsection Repeats in MIDI
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Controlling MIDI dynamics
+@subsection Controlling MIDI dynamics
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@unnumberedsubsubsec Dynamic marks
+@unnumberedsubsubsec Overall MIDI volume
+@unnumberedsubsubsec Equalizing different instruments (i)
+@unnumberedsubsubsec Equalizing different instruments (ii)

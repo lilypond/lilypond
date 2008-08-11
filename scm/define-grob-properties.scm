@@ -276,14 +276,14 @@ from the fret.  Default -0.2
 Default @code{#RIGHT}.
 @item
 @code{mute-string} -- Character string to be used to indicate muted 
-string.  Default @qq{x}.
+string.  Default \"x\".
 @item
 @code{number-type} -- Type of numbers to use in fret label.  Choices
 include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.  Default
 @code{roman-lower}.
 @item
 @code{open-string} -- Character string to be used to indicate open 
-string.  Default @qq{o}.
+string.  Default \"o\".
 @item
 @code{orientation} -- Orientation of fret-diagram.  Options include
 @code{normal} and @code{landscape}.  Default @code{normal}.

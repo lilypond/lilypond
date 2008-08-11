@@ -844,5 +844,5 @@ erstellt werden, finden sich im Notationshandbuch, siehe
 
 Das Setzen der Variablen, die das Verhalten von LilyPond beeinflussen 
 (@q{properties}), wird im Kapitel
-@ruser{Changing context properties on the fly} besprochen.
+@ref{Modifying context properties} besprochen.
 
