@@ -352,9 +352,22 @@ sub lilypond_external_ref($$$$$$)
   my $href = shift;
   my $cross_ref = shift;
 
-  $file_node =~ s/\(.*\)//;
-  $file_node = &$anchor('', $href, $file_node) if ($file_node ne '');
-  return &$I('%{node_file_href}', { 'node_file_href' => $file_node });
+  my $displaytext = '';
+
+  # 1) if we have a cross ref name, that's the text to be displayed:
+  # 2) For the top node, use the (printable) name of the manual, unless we 
+  #    have an explicit cross ref name
+  # 3) In all other cases use the section name
+  if ($cross_ref ne '') {
+    $displaytext = $cross_ref;
+  } elsif (($section eq '') or ($displaytext eq 'Top')) {
+    $displaytext = $book;
+  } else {
+    $displaytext = $section;
+  }
+
+  $displaytext = &$anchor('', $href, $displaytext) if ($displaytext ne '');
+  return &$I('%{node_file_href}', { 'node_file_href' => $displaytext });
 
 #  Default: format as "see <a ..>NODE</a> section 'SECTION' in BOOK". We don't want this!
 #   return t2h_default_external_ref($type, $section, $book, $file_node, $href, $cross_ref);
