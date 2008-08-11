@@ -169,8 +169,8 @@ individuales del acorde escribiéndolas después de las alturas.
 @end lilypond
 
 Las indicaciones de digitación se pueden situar manualmente encima o
-debajo del pentagrama, véase @ref{Controlling direction and
-placement}.
+debajo del pentagrama, véase @ref{Direction
+and placement}.
 
 @snippets
 
@@ -180,7 +180,7 @@ placement}.
 @seealso
 
 Referencia de la notación:
-@ref{Controlling direction and placement}
+@ref{Direction and placement}
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -394,7 +394,7 @@ crean pero se hacen invisibles.
 
 @seealso
 Referencia de la notación:
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.

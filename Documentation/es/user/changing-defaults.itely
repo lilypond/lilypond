@@ -62,7 +62,7 @@ compás distinta.
 @item
 Disposición de la página: cambiar el aspecto visual del espaciado, los
 saltos de línea y las dimensiones de la página.  Estas modificaciones
-se discuten en @ref{Non-musical notation} y @ref{Spacing issues}.
+se discuten en @ref{General input and output} y @ref{Spacing issues}.
 @end itemize
 
 Internamente, LilyPond utiliza el lenguaje Scheme (un dialecto de
@@ -82,8 +82,6 @@ listas, cadenas y símbolos en Scheme.}
 * Useful concepts and properties::  
 * Common properties::           
 * Advanced tweaks::             
-* old The \override command::   
-* Discussion of specific tweaks::  
 @end menu
 
 
@@ -1769,8 +1767,6 @@ Referencia del programa:
 @end menu
 
 
-
-
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
 
@@ -1787,26 +1783,10 @@ partitura, pero cada @code{Staff}, @code{Lyrics}, etc. tiene su propio
 @node Modifying ends of spanners
 @subsection Modifying ends of spanners
 
+UNTRANSLATED NODE: IGNORE ME
+
 
 @node Modifying stencils
 @subsection Modifying stencils
 
-@node old The \override command
-@section old The @code{\override} command
-
 UNTRANSLATED NODE: IGNORE ME
-
-@node Discussion of specific tweaks
-@section Discussion of specific tweaks
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu
-* old Contexts explained::      
-@end menu
-
-@node old Contexts explained
-@subsection old Contexts explained
-
-UNTRANSLATED NODE: IGNORE ME
-

@@ -203,8 +203,7 @@ de la presente documentación y de otras.
 @menu
 * Musical notation::               Notación musical.
 * Specialist notation::            Notación especializada.
-* Input syntax::                   General information about lilypond input files.
-* Non-musical notation::           Salida que no es notación musical.
+* General input and output::       General information about LilyPond input and output.
 * Spacing issues::                 Presentación de la salida sobre papel.
 * Changing defaults::              Ajuste fino de la salida.
 * Interfaces for programmers::     Utilización por expertos.
@@ -227,7 +226,6 @@ Apéndices
 @include specialist.itely
 
 @include input.itely
-@include non-music.itely
 @include spacing.itely
 
 @include changing-defaults.itely

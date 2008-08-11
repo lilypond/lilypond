@@ -1,34 +1,40 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 66dde21fe63499f32a718f6098abe70e1429059b
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
-
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Music functions::
 * Programmer interfaces::
 * Building complicated functions::
 * Markup programmer interface::
 * Contexts for programmers::
 * Scheme procedures as properties::
-@end menu 
+* TODO moved into scheme::
+@end menu
+
 @node Music functions
 @section Music functions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Overview of music functions::
 * Simple substitution functions::
 * Paired substitution functions::
@@ -36,149 +42,253 @@ UNTRANSLATED NODE: IGNORE ME
 * Void functions::
 * Functions without arguments::
 * Overview of available music functions::
-@end menu 
+@end menu
+
 @node Overview of music functions
 @subsection Overview of music functions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Simple substitution functions
 @subsection Simple substitution functions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Paired substitution functions
 @subsection Paired substitution functions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Mathematics in functions
 @subsection Mathematics in functions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Void functions
 @subsection Void functions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Functions without arguments
 @subsection Functions without arguments
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Overview of available music functions
 @subsection Overview of available music functions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @include identifiers.tely
 @node Programmer interfaces
 @section Programmer interfaces
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Input variables and Scheme::
 * Internal music representation::
-@end menu 
+@end menu
+
 @node Input variables and Scheme
 @subsection Input variables and Scheme
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Internal music representation
 @subsection Internal music representation
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Building complicated functions
 @section Building complicated functions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Displaying music expressions::
 * Music properties::
 * Doubling a note with slurs (example)::
 * Adding articulation to notes (example)::
-@end menu 
+@end menu
+
 @node Displaying music expressions
 @subsection Displaying music expressions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Music properties
 @subsection Music properties
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Doubling a note with slurs (example)
 @subsection Doubling a note with slurs (example)
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Adding articulation to notes (example)
 @subsection Adding articulation to notes (example)
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Markup programmer interface
 @section Markup programmer interface
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Markup construction in Scheme::
 * How markups work internally::
 * New markup command definition::
 * New markup list command definition::
-@end menu 
+@end menu
+
 @node Markup construction in Scheme
 @subsection Markup construction in Scheme
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node How markups work internally
 @subsection How markups work internally
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node New markup command definition
 @subsection New markup command definition
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node New markup list command definition
 @subsection New markup list command definition
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Contexts for programmers
 @section Contexts for programmers
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Context evaluation::
 * Running a function on all layout objects::
-@end menu 
+@end menu
+
 @node Context evaluation
 @subsection Context evaluation
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Running a function on all layout objects
 @subsection Running a function on all layout objects
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Scheme procedures as properties
 @section Scheme procedures as properties
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@node TODO moved into scheme
+@section TODO moved into scheme
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Using Scheme code instead of \tweak::
+* Difficult tweaks::
+@end menu
+
+@node Using Scheme code instead of \tweak
+@subsection Using Scheme code instead of @code{\tweak}
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Difficult tweaks
+@subsection Difficult tweaks
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+
+@c -- SKELETON FILE --

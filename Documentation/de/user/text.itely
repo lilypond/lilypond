@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,75 +11,157 @@
 @node Text
 @section Text
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Writing text::
 * Formatting text::
-@end menu 
+* Fonts::
+@end menu
+
 @node Writing text
 @subsection Writing text
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Text scripts::
 * Text spanners::
 * Text marks::
 * Separate text::
-@end menu 
+@end menu
+
 @node Text scripts
 @subsubsection Text scripts
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Text spanners
 @subsubsection Text spanners
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Text marks
 @subsubsection Text marks
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Separate text
 @subsubsection Separate text
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Formatting text
 @subsection Formatting text
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Text markup introduction::
-* Nested scores::
-* Page wrapping text::
-* Font selection::
-@end menu 
+* Selecting font and font size::
+* Text alignment::
+* Graphic notation inside markup::
+* Music notation inside markup::
+* Multi-page markup::
+@end menu
+
 @node Text markup introduction
 @subsubsection Text markup introduction
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Nested scores
-@subsubsection Nested scores
 
+@node Selecting font and font size
+@subsubsection Selecting font and font size
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Page wrapping text
-@subsubsection Page wrapping text
 
+@node Text alignment
+@subsubsection Text alignment
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Font selection
-@subsubsection Font selection
 
+@node Graphic notation inside markup
+@subsubsection Graphic notation inside markup
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@node Music notation inside markup
+@subsubsection Music notation inside markup
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Multi-page markup
+@subsubsection Multi-page markup
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Fonts
+@subsection Fonts
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Entire document fonts::
+* Single entry fonts::
+@end menu
+
+@node Entire document fonts
+@subsubsection Entire document fonts
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Single entry fonts
+@subsubsection Single entry fonts
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+
+@c -- SKELETON FILE --

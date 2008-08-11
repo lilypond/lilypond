@@ -57,7 +57,7 @@ notation -- par exemple, le fait d'attribuer un chiffre de mesure distinct à ch
 
 @item
 La mise en page, autrement dit les marges, l'espacement, la taille du papier ; tous ces facteurs
-font l'objet des chapitres @ref{Non-musical notation} et @ref{Spacing issues}.
+font l'objet des chapitres @ref{General input and output} et @ref{Spacing issues}.
 @end itemize
 
 En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP) comme
