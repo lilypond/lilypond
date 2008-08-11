@@ -156,8 +156,8 @@ The notes are printed as tablature, by using @code{TabStaff} and
 
 When no string is specified for a note, the note is assigned to
 the lowest string that can generate the note with a fret number
-greater than or equal to @code{minimumFret} is selected.  The
-default value for @code{minimumFret} is 0.
+greater than or equal to the value of @code{minimumFret}.
+The default value for @code{minimumFret} is 0.
 
 
 @lilypond[quote,ragged-right,verbatim]
@@ -603,7 +603,10 @@ Details are found at @rinternals{fret-diagram-interface}.  For a fret diagram
 markup , the interface properties belong to @code{Voice.TextScript}.
 
 @snippets
-TODO create snippets for changing properties.  Use regression test?
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{customizing-markup-fret-diagrams.ly}
+
 
 @seealso
 
@@ -815,7 +818,11 @@ Details are found at @rinternals{fret-diagram-interface}.  For a
 predefined fret diagram, the interface properties belong to 
 @code{FretBoards.FretBoard}.
 
-@c @snippets
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{customizing-fretboard-fret-diagrams.ly}
+
 
 @seealso
 
