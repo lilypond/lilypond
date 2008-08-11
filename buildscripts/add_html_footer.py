@@ -94,7 +94,7 @@ def source_links_replace (m, source_val):
 splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
 
 snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
-user_ref_re = re.compile (r'href="(?:\.\./)?lilypond(|-internals|-learning|-program)')
+user_ref_re = re.compile (r'href="(?:\.\./)?lilypond(-internals|-learning|-program|(?!-snippets))')
 
 ## Windows does not support symlinks.
 # This function avoids creating symlinks for splitted HTML manuals
