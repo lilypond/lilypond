@@ -20,6 +20,8 @@ TEXI2HTML_FLAGS += --css-ref=lilypond.css $(DOCUMENTATION_INCLUDES)
 TEXI2HTML_INIT = --init-file=$(top-src-dir)/lilypond-texi2html.init
 TEXI2HTML = $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) $(TEXI2HTML_LANG)
 
+TEXI2PDF_FLAGS += -q
+
 # info stuff
 INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))
 INFO_INSTALL_COMMAND =$(if $(INFO_INSTALL_FILES),\
