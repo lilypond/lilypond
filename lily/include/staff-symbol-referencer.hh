@@ -31,10 +31,8 @@ public:
   static Real line_thickness (Grob *);
   static Real staff_space (Grob *);
   static Grob *get_staff_symbol (Grob *);
-  static bool on_line (Grob *);
   static bool on_line (Grob *, int);
   static bool on_staff_line (Grob *, int);
-  static bool on_staff_line (Grob *);
   static int line_count (Grob *);
   static Real get_position (Grob *);
   static Real staff_radius (Grob *);
