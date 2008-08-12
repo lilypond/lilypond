@@ -379,9 +379,9 @@ to interpret the following content as music and text
 respectively.
 
 When writing (or reading) a @code{\score} section, just take it
-slowly and carefully.  Start with the outer layer, then work on
-each smaller layer.  It also really helps to be strict with
-indentation -- make sure that each item on the same layer starts
+slowly and carefully.  Start with the outer level, then work on
+each smaller level.  It also really helps to be strict with
+indentation -- make sure that each item on the same level starts
 on the same horizontal position in your text editor.
 
 
@@ -391,12 +391,11 @@ on the same horizontal position in your text editor.
 @cindex staves, temporary
 @cindex ossias
 
-It is not essential to declare all staves at the beginning;
-they may be introduced temporarily at any point.  This is
-particularly useful for creating ossia sections
-(see @rglos{ossia}).  Here is a simple example showing how
-to introduce a new staff temporarily for the duration of
-three notes:
+It is not essential to declare all staves at the beginning; they may
+be introduced temporarily at any point.  This is particularly useful
+for creating ossia sections -- see @rglos{ossia}.  Here is a simple
+example showing how to introduce a new staff temporarily for the
+duration of three notes:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff {
@@ -882,20 +881,19 @@ and placing the music in voice four:
 @end lilypond
 
 @noindent
-We see that this fixes the stem direction, but exposes a
-problem sometimes encountered with multiple voices -- the
-stems of the notes in one voice can collide with the note heads
-in other voices.  In laying out the notes, LilyPond allows the
-notes or chords from two voices to occupy the same vertical
-note column provided the stems are in opposite directions, but
-the notes from the third and fourth voices are displaced to if
-necessary to avoid the note heads colliding.  This usually works well,
-but in this example the notes of the lowest voice are clearly not well
-placed by default. LilyPond provides several ways to adjust the
-horizontal placing of notes.  We are not quite ready yet to see how to
-correct this, so we shall leave this problem until a later section
---- see the @code{force-hshift} property in @ref{Fixing overlapping
-notation}.
+We see that this fixes the stem direction, but exposes a problem
+sometimes encountered with multiple voices -- the stems of the notes
+in one voice can collide with the note heads in other voices.  In
+laying out the notes, LilyPond allows the notes or chords from two
+voices to occupy the same vertical note column provided the stems are
+in opposite directions, but the notes from the third and fourth voices
+are displaced, if necessary, to avoid the note heads colliding.  This
+usually works well, but in this example the notes of the lowest voice
+are clearly not well placed by default. LilyPond provides several ways
+to adjust the horizontal placing of notes.  We are not quite ready yet
+to see how to correct this, so we shall leave this problem until a
+later section --- see the @code{force-hshift} property in @ref{Fixing
+overlapping notation}.
 
 
 @node Explicitly instantiating voices
@@ -1917,14 +1915,13 @@ f g
 a b
 @end lilypond
 
-We have now seen how to set the values of several different
-types of property.  Note that integers and numbers are always
-preceded by a hash sign, @code{#}, while a true or false value
-is specified by ##t and ##f, with two hash signs.  A text
-property should be enclosed in double quotation signs, as above,
-although we shall see later that text can actually be specified
-in a much more general way by using the very powerful
-@code{markup} command.
+We have now seen how to set the values of several different types of
+property.  Note that integers and numbers are always preceded by a
+hash sign, @code{#}, while a true or false value is specified by
+@code{##t} and @code{##f}, with two hash signs.  A text property
+should be enclosed in double quotation signs, as above, although we
+shall see later that text can actually be specified in a much more
+general way by using the very powerful @code{markup} command.
 
 
 @funindex \with
@@ -1964,9 +1961,10 @@ Properties set in this way may still be changed dynamically using
 
 The @code{fontSize} property is treated differently.  If this is
 set in a @code{\with} clause it effectively resets the default
-value of the font size.  If it is later changed with @code{\set}
+value of the font size.  If it is later changed with @code{\set},
 this new default value may be restored with the
 @code{\unset fontSize} command.
+
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
@@ -1980,7 +1978,7 @@ this new default value may be restored with the
 We have seen that contexts each contain several engravers, each
 of which is responsible for producing a particular part of the
 output, like bar lines, staves, note heads, stems, etc.  If an
-engraver is removed from a context it can no longer produce its
+engraver is removed from a context, it can no longer produce its
 output.  This is a crude way of modifying the output, but it
 can sometimes be useful.
 
@@ -1990,10 +1988,9 @@ To remove an engraver from a single context we use the
 @code{\with} command placed immediately after the context creation
 command, as in the previous section.
 
-As an
-illustration let's repeat an example from the previous
-section with the staff lines removed.  Remember that the
-staff lines are produced by the Staff_symbol_engraver.
+As an illustration, let's repeat an example from the previous section
+with the staff lines removed.  Remember that the staff lines are
+produced by the @code{Staff_symbol_engraver}.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
@@ -2015,15 +2012,15 @@ staff lines are produced by the Staff_symbol_engraver.
 Engravers can also be added to individual contexts.
 The command to do this is
 
-@code{\consists @emph{Engraver_name}},
+@code{\consists @var{Engraver_name}},
 
-placed inside a @code{\with} block.  Some vocal scores
-have an @rglos{ambitus} placed at the beginning of a
-staff to indicate the range of notes in that staff.
-The ambitus is produced by the @code{Ambitus_engraver},
-which is not normally included in any context.  If
-we add it to the @code{Voice} context it calculates
-the range from that voice only:
+@noindent
+placed inside a @code{\with} block.  Some vocal scores have an ambitus
+placed at the beginning of a staff to indicate the range of notes in
+that staff -- see @rglos{ambitus}.  The ambitus is produced by the
+@code{Ambitus_engraver}, which is not normally included in any
+context.  If we add it to the @code{Voice} context, it calculates the
+range from that voice only:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff <<
@@ -2043,8 +2040,8 @@ the range from that voice only:
 @end lilypond
 
 @noindent
-but if we add the Ambitus engraver to the
-@code{Staff} context it calculates the range from all
+but if we add the ambitus engraver to the
+@code{Staff} context, it calculates the range from all
 the notes in all the voices on that staff:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -2074,7 +2071,7 @@ individual contexts.  It is also possible to remove or add
 engravers to every context of a specific type by placing the
 commands in the appropriate context in a @code{\layout}
 block.  For example, if we wanted to show an ambitus for every
-staff in a four-staff score we could write
+staff in a four-staff score, we could write
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2109,6 +2106,7 @@ for all contexts of a particular type by including the
 @code{\set} command in a @code{\context} block in the
 same way.
 
+
 @node Extending the templates
 @section Extending the templates
 
@@ -2116,10 +2114,7 @@ You've read the tutorial, you know how to write music, you
 understand the fundamental concepts.  But how can you
 get the staves that you want?  Well, you can find lots of
 templates (see @ref{Templates}) which may give you a start.
-But what
-if you want something that isn't covered there?  Read on.
-
-TODO Add links to templates after they have been moved to LSR
+But what if you want something that isn't covered there?  Read on.
 
 @menu
 * Soprano and cello::
@@ -2247,7 +2242,7 @@ want the cello part to appear under the soprano part, we need to add
 underneath the soprano stuff.  We also need to add @code{<<} and
 @code{>>} around the music -- that tells LilyPond that there's
 more than one thing (in this case, two @code{Staves}) happening
-at once.  The @code{\score} looks like this now
+at once.  The @code{\score} looks like this now:
 
 @c Indentation in this example is deliberately poor
 @example
@@ -2305,6 +2300,11 @@ celloMusic = \relative c {
   \midi { }
 }
 @end lilypond
+
+@seealso
+
+The starting templates can be found in the @q{Templates} appendix,
+see @ref{Single staff}.
 
 
 @node Four-part SATB vocal score
@@ -2394,13 +2394,12 @@ lower = \relative c, {
 }
 @end lilypond
 
-None of the templates provides this layout exactly.  The
-nearest is @q{SATB vocal score and automatic piano reduction},
-but we need to change the layout and add a piano
-accompaniment which is not derived automatically from the
-vocal parts.  The variables holding the music and words for
-the vocal parts are fine, but we shall need to add variables for
-the piano reduction.
+None of the templates provides this layout exactly.  The nearest is
+@q{SATB vocal score and automatic piano reduction} -- see @ref{Vocal
+ensembles} -- but we need to change the layout and add a piano
+accompaniment which is not derived automatically from the vocal parts.
+The variables holding the music and words for the vocal parts are
+fine, but we shall need to add variables for the piano reduction.
 
 The order in which the contexts appear in the ChoirStaff of
 the template do not correspond with the order in the vocal
@@ -2573,7 +2572,7 @@ lower = \relative c, {
 
 @cindex template, writing your own
 
-After gaining some facility with writing LilyPond code you
+After gaining some facility with writing LilyPond code, you
 may find that it is easier to build a score from scratch
 rather than modifying one of the templates.  You can also
 develop your own style this way to suit the sort of music you
@@ -2616,7 +2615,7 @@ Next let's see what should go in the score block.
 We simply mirror the staff structure we want.
 Organ music is usually written on three staves,
 one for each manual and one for the pedals.  The
-manual staves should be bracketed together so we
+manual staves should be bracketed together, so we
 need to use a PianoStaff for them.  The first
 manual part needs two voices and the second manual
 part just one.
@@ -2660,20 +2659,20 @@ see what errors it generates.
 >>
 @end example
 
-It is not strictly necessary to use the simultaneous construct
+It is not necessary to use the simultaneous construct
 @code{<< .. >>} for the manual two staff and the pedal organ staff,
-since they contain only one music expression, but it does no harm
+since they contain only one music expression, but it does no harm,
 and always using angle brackets after @code{\new Staff} is a good
 habit to cultivate in case there are multiple voices.  The opposite
 is true for Voices: these should habitually be followed by braces
 @code{@{ .. @}} in case your music is coded in several variables
 which need to run consecutively.
 
-Let's add this structure to the score block, and adjust the
-indenting.  We also add the appropriate clefs, ensure the
-second voice stems point down with @code{\voiceTwo} and
-enter the time signature and key to each staff using our
-predefined variable, @code{\TimeKey}.
+Let's add this structure to the score block, and adjust the indenting.
+We also add the appropriate clefs, ensure stems, ties and slurs in
+each voice on the upper staff point to the right direction with
+@code{\voiceOne} and @code{\voiceTwo}, and enter the time signature
+and key to each staff using our predefined variable, @code{\TimeKey}.
 
 @example
 \score @{
@@ -2682,7 +2681,7 @@ predefined variable, @code{\TimeKey}.
       \new Staff = "ManualOne" <<
         \TimeKey  % set time signature and key
         \clef "treble"
-        \new Voice @{ \ManualOneVoiceOneMusic @}
+        \new Voice @{ \voiceOne \ManualOneVoiceOneMusic @}
         \new Voice @{ \voiceTwo \ManualOneVoiceTwoMusic @}
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
@@ -2733,7 +2732,7 @@ PedalOrganMusic = \relative c {
       \new Staff = "ManualOne" <<
         \TimeKey  % set time signature and key
         \clef "treble"
-        \new Voice { \ManualOneVoiceOneMusic }
+        \new Voice { \voiceOne \ManualOneVoiceOneMusic }
         \new Voice { \voiceTwo \ManualOneVoiceTwoMusic }
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
@@ -2750,10 +2749,5 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
-
-
-
-
-
 
 
