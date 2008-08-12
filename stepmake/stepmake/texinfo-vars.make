@@ -14,6 +14,7 @@ TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 MAKEINFO_FLAGS = --enable-encoding
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
+TEXI2PDF_FLAGS += -q
 
 # info stuff
 INFO_INSTALL_FILES = $(wildcard $(addsuffix *, $(INFO_FILES)))

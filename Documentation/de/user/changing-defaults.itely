@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,149 +11,436 @@
 @node Changing defaults
 @chapter Changing defaults
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Interpretation contexts::
-* The \override command::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Common properties::
+* Advanced tweaks::
 * Discussion of specific tweaks::
-@end menu 
+@end menu
+
 @node Interpretation contexts
 @section Interpretation contexts
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Contexts explained::
 * Creating contexts::
-* Changing context properties on the fly::
 * Modifying context plug-ins::
-* Layout tunings within contexts::
 * Changing context default settings::
 * Defining new contexts::
 * Aligning contexts::
-* Vertical grouping of grobs::
-@end menu 
+@end menu
+
 @node Contexts explained
 @subsection Contexts explained
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
+@end menu
+
+@node Score - the master of all contexts
+@unnumberedsubsubsec Score - the master of all contexts
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Top-level contexts - staff containers
+@unnumberedsubsubsec Top-level contexts - staff containers
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Intermediate-level contexts - staves
+@unnumberedsubsubsec Intermediate-level contexts - staves
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Bottom-level contexts - voices
+@unnumberedsubsubsec Bottom-level contexts - voices
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Creating contexts
 @subsection Creating contexts
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Changing context properties on the fly
-@subsection Changing context properties on the fly
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Modifying context plug-ins
 @subsection Modifying context plug-ins
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Layout tunings within contexts
-@subsection Layout tunings within contexts
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Changing context default settings
 @subsection Changing context default settings
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Defining new contexts
 @subsection Defining new contexts
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Aligning contexts
 @subsection Aligning contexts
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Vertical grouping of grobs
-@subsection Vertical grouping of grobs
 
+@node Explaining the Internals Reference
+@section Explaining the Internals Reference
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node The \override command
-@section The @code{\override} command
 
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Constructing a tweak::
+@menu
 * Navigating the program reference::
 * Layout interfaces::
 * Determining the grob property::
-* Objects connected to the input::
-* Using Scheme code instead of \tweak::
-* \set versus \override::
-* Difficult tweaks::
-@end menu 
-@node Constructing a tweak
-@subsection Constructing a tweak
-
-UNTRANSLATED NODE: IGNORE ME
+* Naming conventions::
+@end menu
 
 @node Navigating the program reference
 @subsection Navigating the program reference
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Layout interfaces
 @subsection Layout interfaces
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Determining the grob property
 @subsection Determining the grob property
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Objects connected to the input
-@subsection Objects connected to the input
 
+@node Naming conventions
+@subsection Naming conventions
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Using Scheme code instead of \tweak
-@subsection Using Scheme code instead of @code{\tweak}
 
+@node Modifying properties
+@section Modifying properties
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Overview of modifying properties::
+* The \set command::
+* The \override command::
+* \set versus \override::
+* Objects connected to the input::
+@end menu
+
+@node Overview of modifying properties
+@subsection Overview of modifying properties
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node The \set command
+@subsection The @code{\set} command
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node The \override command
+@subsection The @code{\override} command
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node \set versus \override
 @subsection @code{\set} vs. @code{\override}
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Difficult tweaks
-@subsection Difficult tweaks
 
+@node Objects connected to the input
+@subsection Objects connected to the input
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@node Discussion of specific tweaks
-@section Discussion of specific tweaks
 
+@node Useful concepts and properties
+@section Useful concepts and properties
+
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
-* Line styles::
+
+@menu
+* Input modes::
+* Direction and placement::
+* Distances and measurements::
+* Spanners::
+@end menu
+
+@node Input modes
+@subsection Input modes
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Direction and placement
+@subsection Direction and placement
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Distances and measurements
+@subsection Distances and measurements
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Spanners
+@subsection Spanners
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Common properties
+@section Common properties
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
 * Controlling visibility of objects::
-@end menu 
-@node Line styles
-@subsection Line styles
-
-UNTRANSLATED NODE: IGNORE ME
+* Line styles::
+* Rotating objects::
+* Aligning objects::
+@end menu
 
 @node Controlling visibility of objects
 @subsection Controlling visibility of objects
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@menu
+* Removing the stencil::
+* Making objects transparent::
+* Painting objects white::
+* Using break-visibility::
+* Special considerations::
+@end menu
+
+@node Removing the stencil
+@unnumberedsubsubsec Removing the stencil
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Making objects transparent
+@unnumberedsubsubsec Making objects transparent
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Painting objects white
+@unnumberedsubsubsec Painting objects white
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Using break-visibility
+@unnumberedsubsubsec Using break-visibility
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Special considerations
+@unnumberedsubsubsec Special considerations
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Line styles
+@subsection Line styles
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Rotating objects
+@subsection Rotating objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Aligning objects
+@subsection Aligning objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Advanced tweaks
+@section Advanced tweaks
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Vertical grouping of grobs::
+* Modifying ends of spanners::
+* Modifying stencils::
+* Modifying shapes::
+@end menu
+
+@node Vertical grouping of grobs
+@subsection Vertical grouping of grobs
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Modifying ends of spanners
+@subsection Modifying ends of spanners
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Modifying stencils
+@subsection Modifying stencils
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Modifying shapes
+@subsection Modifying shapes
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Discussion of specific tweaks
+@section Discussion of specific tweaks
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* old Contexts explained::
+@end menu
+
+@node old Contexts explained
+@subsection old Contexts explained
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+
+@c -- SKELETON FILE --

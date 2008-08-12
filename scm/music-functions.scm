@@ -689,7 +689,6 @@ SkipEvent. Useful for extracting parts from crowded scores"
       ((< i 0))
     (f (vector-ref v i))))
 
-;; TODO:  make a remove-grace-property too.
 (define-public (add-grace-property context-name grob sym val)
   "Set SYM=VAL for GROB in CONTEXT-NAME. "
   (define (set-prop context)
@@ -699,6 +698,25 @@ SkipEvent. Useful for extracting parts from crowded scores"
 				 (list (list context-name grob sym val)))))
       (ly:context-set-property! where 'graceSettings new-settings)))
   (ly:export (context-spec-music (make-apply-context set-prop) 'Voice)))
+
+(define-public (remove-grace-property context-name grob sym)
+  "Remove all SYM for GROB in CONTEXT-NAME. "
+  (define (sym-grob-context? property sym grob context-name)
+    (and (eq? (car property) context-name)
+         (eq? (cadr property) grob)
+         (eq? (caddr property) sym)))
+  (define (delete-prop context)
+    (let* ((where (ly:context-property-where-defined context 'graceSettings))
+	   (current (ly:context-property where 'graceSettings))
+           (prop-settings (filter 
+                            (lambda(x) (sym-grob-context? x sym grob context-name))
+                            current)) 
+	   (new-settings current))
+      (for-each (lambda(x) 
+                 (set! new-settings (delete x new-settings)))
+               prop-settings)
+      (ly:context-set-property! where 'graceSettings new-settings)))
+  (ly:export (context-spec-music (make-apply-context delete-prop) 'Voice)))
 
 
 

@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 080373e092844b50b53959679eaf9dcb4ea1fd76
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -147,8 +147,7 @@ ligne de ce manuel, ainsi qu'une documentation supplémentaire.
 @menu
 * Musical notation::               notation générale.
 * Specialist notation::            notation à usage spécifique.
-* General input and output::       généralités sur les fichiers sources.
-* Non-musical notation::           aspects autres que la notation musicale.
+* General input and output::       généralités sur les fichiers sources et les sorties.
 * Spacing issues::                 mise en page de la musique sur le papier.
 * Changing defaults::              ajustement de la gravure.
 * Interfaces for programmers::     utilisation avancée.
@@ -172,7 +171,6 @@ Annexes
 @include specialist.itely
 
 @include input.itely
-@include non-music.itely
 @include spacing.itely
 
 @include changing-defaults.itely

@@ -293,7 +293,7 @@ Klammer- (@code{\parenthesize})-Befehl, beschrieben in @ref{Parentheses},
 erstellt werden. Im Standard-@code{\drummode}-Modus ist aber 
 das @code{Parenthesis_engraver}-Plugin nicht automatisch enthalten. 
 Sie müssen das Plugin ausdrücklich in den Kontext-Definitionen 
-laden, wie im Abschnitt @ref{Changing context properties on the fly}
+laden, wie im Abschnitt @rlearning{Modifying context properties}
 detailliert beschrieben.
 
 @lilypond[quote,ragged-right,verbatim,fragment]

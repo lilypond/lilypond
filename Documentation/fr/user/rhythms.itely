@@ -36,6 +36,7 @@ This section discusses rhythms, durations, and bars.
 * Augmentation dots::           
 * Tuplets::                     
 * Scaling durations::           
+* Ties::                        
 @end menu
 
 @node Durations
@@ -306,6 +307,156 @@ b16*4 c4
 @seealso
 
 Dans ce manuel : @ref{Tuplets}.
+
+
+@node Ties
+@subsubsection Ties
+
+@cindex liaison de prolongation
+@funindex ~
+
+Une liaison de tenue (ou de prolongation) relie deux notes adjacentes de
+même hauteur.  Dans les faits, elle prolonge la durée d'une note, et ne
+doit donc pas être confondue avec les liaisons d'articulation ou de
+phrasé.  Une liaison de tenue est indiquée au moyen d'un tilde @samp{~}.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+e' ~ e' <c' e' g'> ~ <c' e' g'>
+@end lilypond
+
+
+Quand une liaison de tenue se trouve entre deux accords, toutes les
+notes de même hauteur entre ces deux accords sont reliées.  S'il n'y en
+a aucune, aucune liaison n'est créée.  Il est également possible de lier
+partiellement deux accords, en mettant les liaisons à l'intérieur des
+accords.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+<c~ e g~ b> <c e g b>
+@end lilypond
+
+
+Une liaison de tenue est un moyen parmi d'autres pour prolonger la durée
+d'une note, tout comme les points.  L'exemple suivant montre deux
+manières de matérialiser exactement la même idée :
+
+
+@lilypond[quote,fragment,ragged-right]
+\time 3/4 c'2. c'2 ~ c'4
+@end lilypond
+
+@noindent
+Les liaisons de tenues sont utilisées soit lorsque la note dépasse de la
+mesure, soit quand les points ne suffisent pas à donner la bonne durée.
+Lorsque l'on utilise ces liaisons, les valeurs rythmiques les plus
+longues doivent s'aligner sur les subidivisions de la mesure, comme ici :
+
+@c KEEP LY
+@lilypond[fragment,quote,ragged-right]
+\relative {
+  r8^"oui" c8 ~ c2 r4 | r8^"non" c2 ~ c8 r4
+}
+@end lilypond
+
+
+Lorsque l'on doit lier de nombreuses notes sur plusieurs mesures, il
+devient plus facile d'avoir recours à la division automatique des notes
+--- voir @ref{Automatic note splitting}.  Ce procédé divise
+automatiquement les notes trop longues, et les lie par-delà les barres
+de mesure.
+
+@funindex \repeatTie
+@cindex liaison de prolongation, répétition
+@cindex reprises avec alternatives et liaisons de prolongation
+
+Lorsqu'une mesure de seconde fois après une reprise commence sur une
+note liée, la liaison doit être répétée. C'est à cela que sert la
+commande @code{\repeatTie} :
+
+@lilypond[fragment,quote,ragged-right,relative=2]
+r <c e g>\repeatTie
+@end lilypond
+
+@cindex laissez vibrer
+@cindex liaison, laissez vibrer
+@funindex \laissezVibrer
+
+Les liaisons @qq{Laissez vibrer} (L.V.) sont utilisées pour le piano, la
+harpe, et certains instruments de percussion.  Elles indiquent à
+l'instrumentiste de laisser sonner la note ou l'accord au lieu de
+l'étouffer.  Cet effet s'obtient avec la commande @code{\laissezVibrer}.
+
+@lilypond[fragment,ragged-right,verbatim,relative=1]
+<c f g>\laissezVibrer
+@end lilypond
+
+@commonprop
+
+Les liaisons de tenue servent parfois à rendre un accord arpégé. Dans ce
+cas, les notes liées ne sont pas toutes consécutives. Il faut alors
+assigner à la propriété @code{tieWaitForNote} la valeur @emph{vrai}
+(@q{t} pour @q{true}).  Cette même méthode peut servir, par exemple, à
+lier un trémolo à un accord.
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+\set tieWaitForNote = ##t
+\grace { c16[~ e~ g]~ } <c, e g>2
+\repeat tremolo 8 { c32~ c'~ } <c c,>1
+e8~ c~ a~ f~ <e' c a f>2
+@end lilypond
+
+Il est possible de graver manuellement les liaisons de tenue, en
+modifiant la propriété @code{tie-configuration}.  Pour chaque paire, le
+premier nombre indique la distance à la portée, en espaces de portée, et
+le second la direction (1 pour haut, @minus{}1 pour bas).
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+<c e g>2~ <c e g> |
+\override TieColumn #'tie-configuration =
+  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+<c e g>~ <c e g> |
+@end lilypond
+
+
+@predefined
+
+@funindex \tieUp
+@code{\tieUp},
+@funindex \tieDown
+@code{\tieDown},
+@funindex \tieNeutral
+@code{\tieNeutral},
+@funindex \tieDotted
+@code{\tieDotted},
+@funindex \tieDashed
+@code{\tieDashed},
+@funindex \tieSolid
+@code{\tieSolid}.
+
+
+@seealso
+
+Glossaire musical :
+@rglos{tie},
+@rglos{laissez vibrer}.
+
+Dans ce manuel : @ref{Automatic note splitting}.
+
+Référence du programme :
+@rinternals{Tie},
+@rinternals{TieColumn},
+@rinternals{LaissezVibrerTie},
+@rinternals{LaissezVibrerTieColumn}.
+
+
+@knownissues
+
+Un changement de portée, lorsqu'une liaison de tenue est active, ne
+peut produire une liaison oblique.
+
+Le changement de clé ou d'octave pendant une liaison de tenue produit un
+résultat indéfini.  Dans ces cas-là, il est préférable d'utiliser un
+legato.
 
 
 @node Writing rests

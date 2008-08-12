@@ -824,7 +824,8 @@ Lily_lexer::scan_bare_word (string str)
 			else if (scm_is_symbol (yylval.scm))
 			    return DRUM_PITCH;
 		}
-		else if ((handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
+		else if ((YYSTATE == chords)
+		     	&& (handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
 		{
 		    yylval.scm = scm_cdr (handle);
 		    return CHORD_MODIFIER;

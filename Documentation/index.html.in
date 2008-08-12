@@ -50,11 +50,13 @@
 	    <li>
 	    <a class="title"
 href="user/lilypond-learning/index.html">Learning Manual (LM)</a>
+(in <a class="title" href="user/lilypond-learning-big-page.html">one big page</a> ~ 1.5 MB,
+in <a class="title" href="user/lilypond-learning.pdf">PDF</a>)
 	      <br>(start here)
 
 	   <li><a class="title"
 href="user/music-glossary/index.html">Music Glossary (MG)</a>
-(in <a class="title" href="user/music-glossary-big-page.html">one big page</a> ~ 1 Mb,
+(in <a class="title" href="user/music-glossary-big-page.html">one big page</a> ~ 500 kB,
 in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 
      <br>(for non-English users)
@@ -79,14 +81,14 @@ in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 	    <li>
 <a class="title" href="user/lilypond/index.html">Notation
 Reference (NR)</a>
-(in <a class="title" href="user/lilypond-big-page.html">one big page</a> ~ 4 Mb,
+(in <a class="title" href="user/lilypond-big-page.html">one big page</a> ~ 4 MB,
 in <a class="title" href="user/lilypond.pdf">PDF</a>)
      <br>(writing music in LilyPond)
 
        <li>
  <a  class="title"
 href="user/lilypond-internals/index.html">Internals Reference (IR)</a>
- (in <a class="title" href="user/lilypond-internals-big-page.html">one big page</a> ~ 1 Mb)
+ (in <a class="title" href="user/lilypond-internals-big-page.html">one big page</a> ~ 1 MB)
      <br>(definitions for tweaking)
 	 
   </ul>
@@ -102,7 +104,7 @@ in <a class="title" href="user/lilypond-program.pdf">PDF</a>)
 	    <br>(how to install and run the program)
 
 <li><a class="title"href="../input/lsr/lilypond-snippets/index.html">Snippets List (SL)</a>
-(in <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">one big page</a>,
+(in <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">one big page</a> ~ 2MB,
 in <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
      <br>(Short tricks, tips, and examples)
 
@@ -118,12 +120,10 @@ in <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
 	</ul>
     </td><td class="right-column">
           &nbsp;
-<!-- TODO
-    <ul>
-        <li><a class="title"  href="translations.html">Translations status</a>
-        <br>(see translations progress)
-    </ul>
--->
+	<ul>
+          <li><a class="title"  href="translations.html">Translations status</a>
+          <br>(see translations progress)
+	</ul>
 	  </td>
         </tr>
         <tr>

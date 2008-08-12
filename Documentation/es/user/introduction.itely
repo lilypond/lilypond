@@ -871,7 +871,7 @@ Esta sección proporciona detalles sobre notación especial que
 solamente será útil para ciertos grupos de instrumentos (o voces).
 
 @item
-@ruser{Input syntax}:
+@ruser{General input and output}:
 trata de información general sobre los archivos de LilyPond y el
 control sobre la salida.
 
