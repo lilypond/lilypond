@@ -354,7 +354,7 @@ correction amount for kneed beams.  Set between @code{0} for no
 correction and @code{1} for full correction.")
 
      (labels ,list? "List of labels (symbols) placed on a column")
-     (layer ,number? "The output layer (a value between 0 and@tie{}2:
+     (layer ,integer? "The output layer (a value between 0 and@tie{}2:
 Layers define the order of printing objects.  Objects in lower layers
 are overprinted by objects in higher layers.")
      (ledger-line-thickness ,number-pair? "The thickness of ledger
