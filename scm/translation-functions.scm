@@ -339,7 +339,8 @@
 			    free-strings)))
 	   (if fit-string
 	       (set-fret note fit-string)
-	       (ly:warning "No string for pitch ~a (given frets ~a)" (note-pitch note)
+	       (ly:warning "No string for pitch ~a (given frets ~a)" 
+                           (note-pitch note)
 			   specified-frets))
 			   
 	       )))
