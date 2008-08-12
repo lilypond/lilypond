@@ -224,26 +224,11 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 @subsubsection Custom tablatures
 @cindex Tablatures, custom
 
-You can change the tuning of the strings.  A string tuning is
-given as a Scheme list with one integer number for each string,
-the number being the pitch (measured in semitones relative to
-middle C) of an open string.  The numbers specified for
-@code{stringTunings} are the numbers of semitones to subtract or
-add, starting the specified pitch by default middle C, in string
-order.  LilyPond automatically calculates the number of strings by
-looking at @code{stringTunings}.
-
-In the next example, @code{stringTunings} is set for the pitches
-e, a, d, and g.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\new TabStaff <<
-  \set TabStaff.stringTunings = #'(-5 -10 -15 -20)
-  {
-    a,4 c' a e' e c' a e'
-  }
->>
-@end lilypond
+LilyPond tabulature automatically calculates the fret for 
+a note based on the string to which the note is assigned.
+In order to do this, the tuning of the strings must be
+specified.  The tuning of the strings is given in the
+@code{StringTunings} property.
 
 LilyPond comes with predefined string tunings for banjo, mandolin,
 guitar and bass guitar.  Lilypond automatically sets the correct 
@@ -252,33 +237,63 @@ for bass guitar, which sounds an octave lower than written.
 
 @lilypond[quote,ragged-right,verbatim]
 <<
-  \new Staff <<
+  \new Staff {
     \clef "bass_8"
     \relative c, {
-    c4 d e f
+      c4 d e f
     }
-  >>
-  \new TabStaff <<
+  }
+  \new TabStaff {
     \set TabStaff.stringTunings = #bass-tuning
     \relative c, {
-    c4 d e f
+      c4 d e f
     }
-  >>
+  }
 >>
 @end lilypond
 
-The default string tuning is @code{guitar-tuning} (the standard
-EADGBE tuning).  Some other predefined tunings are
+The default string tuning is @code{guitar-tuning}, which
+is the standard EADGBE tuning.  Some other predefined tunings are
 @code{guitar-open-g-tuning}, @code{mandolin-tuning} and
-@code{banjo-open-g-tuning}.
+@code{banjo-open-g-tuning}.  The predefined string tunings 
+are found in @code{scm/output-lib.scm}.
+
+A string tuning is a Scheme list of string pitches, 
+one for each string, ordered from the bottom to the 
+top of the tablature staff.
+This ordinarily results in ordering from lowest pitch to highest
+pitch, but some instruments (e.g. ukulele) do not have strings
+ordered by pitch.
+
+A string pitch in a string tuning list is the pitch difference of 
+middle C from the open string measured in semitones.  The pitch must
+be an integer.  Lilypond calculates the actual pitch of the string by
+adding the string tuning pitch to the actual pitch for middle C.
+
+LilyPond automatically calculates the number of strings in the
+@code{TabStaff} as the number of elements in @code{stringTunings}.
+
+Any desired string tuning can be created.  For example, we can
+define a string tuning for a four-string instrument with pitches
+of e, a, d', and g':
+
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+\new TabStaff {
+  \set TabStaff.stringTunings = #'(-5 -10 -15 -20)
+  {
+    a,4 c' a e' e c' a e'
+  }
+}
+@end lilypond
 
 @seealso
 
+Installed Files:
+@file{scm/output-lib.scm}.
+
 Snippets:
 @rlsr{Fretted strings}.
-
-The file @file{scm/@/output@/-lib@/.scm} contains the predefined string
-tunings.
 
 Internals Reference: 
 @rinternals{Tab_note_heads_engraver}.
