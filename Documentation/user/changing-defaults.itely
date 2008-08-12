@@ -40,6 +40,8 @@ LilyPond.  It is written as a HTML document, which is available
 @uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
 but is also included with the LilyPond documentation package.
 
+@c TODO The following is at variance to what actually follows.  Fix -td
+
 There are four areas where the default settings may be changed:
 
 @itemize
@@ -1857,6 +1859,8 @@ a1
 @node Using break-visibility
 @unnumberedsubsubsec Using break-visibility
 
+@c TODO Add making other objects breakable
+
 @cindex break-visibility
 
 Most layout objects are printed only once, but some like
@@ -1878,19 +1882,20 @@ of the next line and a cautionary time signature will be printed
 at the end of the previous line as well.
 
 This behaviour is controlled by the @code{break-visibility}
-property, which is explained in @rlearning{Visibility and color of
-objects}.  This property takes a vector of three booleans which,
-in order, determine whether the object is printed at the end of,
-within the body of, or at the beginning of a line.  Or to be more
-precise, before a line break, where there is no line break, or
-after a line break.
+property, which is explained in
+@c Leave this ref on a newline - formats incorrectly otherwise -td
+@rlearning{Visibility and color of objects}.  This property takes
+a vector of three booleans which, in order, determine whether the
+object is printed at the end of, within the body of, or at the
+beginning of a line.  Or to be more precise, before a line break,
+where there is no line break, or after a line break.
 
 Alternatively, seven of the eight combinations may be specified
 by pre-defined functions, defined in @file{scm/output-lib.scm},
 where the last three columns indicate whether the layout objects
 will be visible in the positions shown at the head of the columns:
 
-@multitable @columnfractions .40 .15 .15 .15 .15
+@multitable @columnfractions .40 .15 .1 .1 .1
 @c TODO check these more carefully
 @headitem Function                   @tab Vector                  @tab Before @tab At no    @tab After
 @headitem form                       @tab form                    @tab break  @tab break    @tab break
