@@ -2247,7 +2247,65 @@ Internals Reference: @rinternals{TextSpanner},
 @node Rotating objects
 @subsection Rotating objects
 
-@c FIXME Write this section
+Both layout objects and elements of markup text can be rotated by
+any angle about any point, but the method of doing so differs.
+
+@menu
+* Rotating layout objects::
+* Rotating markup::
+@end menu
+
+@node Rotating layout objects
+@unnumberedsubsubsec Rotating layout objects
+
+@cindex rotating objects
+@cindex objects, rotating
+
+All layout objects which support the @code{grob-interface} can be
+rotated by setting their @code{rotation} property.  This takes a
+list of three items: the angle of rotation counter-clockwise,
+and the x and y coordinates of the point relative to the object's
+reference point about which the rotation is to be performed.  The
+angle of rotation is specified in degrees and the coordinates in
+staff-spaces.
+
+The angle of rotation and the coordinates of the rotation point must
+be determined by trial and error.
+
+@cindex hairpins, angled
+@cindex angled hairpins
+
+There are only a few situations where the rotation of layout
+objects is useful; the following example shows one situation where
+they may be:
+
+@lilypond[quote,verbatim,relative=1]
+g4\< e' d' f\!
+\override Hairpin #'rotation = #'(20 -1 0)
+g,,4\< e' d' f\!
+@end lilypond
+
+@node Rotating markup
+@unnumberedsubsubsec Rotating markup
+
+All markup text can be rotated to lie at any angle by prefixing it
+with the @code{\rotate} command.  The command takes two arguments:
+the angle of rotation in degrees counter-clockwise and the text to
+be rotated.  The extents of the text are not rotated: they take
+their values from the extremes of the x and y coordinates of the
+rotated text.  In the following example the
+@code{outside-staff-priority} property for text is set to @code{#f}
+to disable the automatic collision avoidance, which would push some
+of the text too high.
+
+@lilypond[quote,verbatim,relative=1]
+\override TextScript #'outside-staff-priority = ##f
+g4^\markup { \rotate #30 "a G" }
+b^\markup { \rotate #30 "a B" }
+des^\markup { \rotate #30 "a D-Flat" }
+fis^\markup { \rotate #30 "an F-Sharp" }
+@end lilypond
+
 
 @node Aligning objects
 @subsection Aligning objects
