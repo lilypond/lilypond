@@ -52,9 +52,9 @@ A basic example of a LilyPond input file is
 
 @example
 \version @w{"@version{}"}
+\header @{ @}
 \score @{
   @var{...compound music expression...}  % all the music goes here!
-  \header @{ @}
   \layout @{ @}
   \midi @{ @}
 @}
@@ -156,22 +156,20 @@ things, such as
 @cindex midi
 
 @noindent
-Note that these three commands -- @code{\header}, @code{\layout}
-and @code{\midi} -- are special: unlike all other commands which
-begin with a backward slash (@code{\}) they are @emph{not} music
-expressions and are not part of any music expression.
-So they may be placed inside a @code{\score} block
-or outside it.  In fact, these commands are commonly placed
-outside the @code{\score} block -- for example, @code{\header}
-is often placed above the @code{\score} command because headers
-naturally appear at the top of a score.  That's just another
-shorthand that LilyPond accepts.
+Note that these three commands -- @code{\header}, @code{\layout} and
+@code{\midi} -- are special: unlike many other commands which begin
+with a backward slash (@code{\}) they are @emph{not} music expressions
+and are not part of any music expression.  So they may be placed
+inside a @code{\score} block or outside it.  In fact, these commands
+are commonly placed outside the @code{\score} block -- for example,
+@code{\header} is often placed above the @code{\score} command, as the
+example at the beginning of this section shows.
 
 Two more commands you have not previously seen are
 @code{\layout @{ @}} and @code{\midi @{@}}.  If these appear as
 shown they will cause LilyPond to produce a printed output and a
 MIDI output respectively.  They are described fully in the
-Notation Reference -- @ruser{Score layout} and
+Notation Reference -- @ruser{Score layout}, and
 @ruser{Creating MIDI files}.
 
 @cindex scores, multiple
@@ -188,7 +186,7 @@ separate output file.
 In summary:
 
 Every @code{\book} block creates a separate output file (e.g., a
-pdf file).  If you haven't explicitly added one, LilyPond wraps
+PDF file).  If you haven't explicitly added one, LilyPond wraps
 your entire input code in a @code{\book} block implicitly.
 
 Every @code{\score} block is a separate chunk of music within a
@@ -264,7 +262,7 @@ there @emph{is} no mystery.  This line explains it all:
 
 @noindent
 To understand what is meant by a music expression and a compound
-music expression you may find it useful to review
+music expression, you may find it useful to review the tutorial,
 @ref{Music expressions explained}.  In that section, we saw how to
 build big music expressions from small pieces -- we started from
 notes, then chords, etc.  Now we're going to start from a big
@@ -299,16 +297,16 @@ it.  We @emph{do} need a singer and a piano, though.
 @}
 @end example
 
-Remember that we use @code{<< ... >>} instead of
-@code{@{ ... @}} to show simultaneous
-music.  And we definitely want to show the vocal part and piano
-part at the same time, not one after the other!  However, the
-@code{<< ... >>} construct is not really necessary for the Singer
-staff, as it contains only one music expression, but Staves often
-do require simultaneous Voices within them, so using
-@code{<< ... >>}
-rather than braces is a good habit to adopt. We'll add some real
-music later; for now let's just put in some dummy notes and lyrics.
+Remember that we use @code{<< ... >>} instead of @code{@{ ... @}} to
+show simultaneous music.  And we definitely want to show the vocal
+part and piano part at the same time, not one after the other!  Note
+that the @code{<< ... >>} construct is not really necessary for the
+Singer staff, as it contains only one sequential music expression;
+however, using @code{<< ... >>} instead of braces is still necessary
+if the music in the Staff is made of two simultaneous expressions,
+e.g. two simultaneous Voices, or a Voice with lyrics.  We'll add some
+real music later; for now let's just put in some dummy notes and
+lyrics.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -374,7 +372,8 @@ lower  = \relative c { b2 e2 }
 
 
 Be careful about the difference between notes, which are introduced
-with @code{\relative}, and lyrics, which are introduced with
+with @code{\relative} or which are directly included in a music
+expression, and lyrics, which are introduced with
 @code{\lyricmode}.  These are essential to tell LilyPond
 to interpret the following content as music and text
 respectively.
@@ -451,7 +450,7 @@ position which is below.
 Ossia are often written without clef and without
 time signature and are usually in a smaller font.
 These require further commands which
-have not yet been introduced.  See @ref{Size of objects}
+have not yet been introduced.  See @ref{Size of objects}.
 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
@@ -473,11 +472,11 @@ let's first review the different types of bracket.
 @item @code{< .. >}
   @tab Encloses the notes of a chord
 @item @code{<< .. >>}
-  @tab Encloses concurrent or simultaneous sections
+  @tab Encloses simultaneous music expressions
 @item @code{( .. )}
   @tab Marks the start and end of a slur
 @item @code{\( .. \)}
-  @tab Marks the start and end of a phrase mark
+  @tab Marks the start and end of a phrasing slur
 @item @code{[ .. ]}
   @tab Marks the start and end of a manual beam
 @end multitable
@@ -586,7 +585,7 @@ Now we have two notes which start at the same time but have
 different durations: the quarter-note D and the eighth-note
 F-sharp.  How are these to be coded?  They cannot be written as
 a chord because all the notes in a chord must have the same
-duration.  And they cannot be written as two separate notes
+duration.  And they cannot be written as two sequential notes
 as they need to start at the same time.  This is when two
 voices are required.
 
@@ -742,8 +741,8 @@ note of the preceding chord.  So in
 @code{noteB} is relative to @code{noteA}                      @*
 @code{noteC} is relative to @code{noteB}, not @code{noteA};   @*
 @code{noteD} is relative to @code{noteB}, not @code{noteA} or
-@code{noteC}.                                                 @*
-@code{noteE} is relative to @code{noteD}, not @code{noteA}
+@code{noteC};                                                 @*
+@code{noteE} is relative to @code{noteD}, not @code{noteA}.
 
 An alternative way, which may be clearer if the notes in the
 voices are widely separated, is to place a @code{\relative}
@@ -890,14 +889,14 @@ in other voices.  In laying out the notes, LilyPond allows the
 notes or chords from two voices to occupy the same vertical
 note column provided the stems are in opposite directions, but
 the notes from the third and fourth voices are displaced to if
-necessary to avoid the note heads
-colliding.  This usually works well, but in this example the
-notes of the lowest voice are clearly not well placed by default.
-LilyPond provides several ways to adjust the horizontal placing
-of notes.  We are not quite ready yet to see how to correct this,
-so we shall leave this problem until a later section
-(see the force-hshift property in @ref{Fixing overlapping
-notation} )
+necessary to avoid the note heads colliding.  This usually works well,
+but in this example the notes of the lowest voice are clearly not well
+placed by default. LilyPond provides several ways to adjust the
+horizontal placing of notes.  We are not quite ready yet to see how to
+correct this, so we shall leave this problem until a later section
+--- see the @code{force-hshift} property in @ref{Fixing overlapping
+notation}.
+
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
@@ -1645,12 +1644,11 @@ context to distinguish it from other contexts of the same type,
 @end example
 
 Note the distinction between the name of the context type,
-@code{Staff}, @code{Voice}, etc, and
-the identifying name of a particular instance of that type,
-which can be any sequence of letters invented by the user.
-The identifying name is used to refer back to that particular
-instance of a context.  We saw this in use in the section on
-lyrics in @ref{Voices and vocals}.
+@code{Staff}, @code{Voice}, etc, and the identifying name of a
+particular instance of that type, which can be any sequence of letters
+and digits invented by the user.  The identifying name is used to
+refer back to that particular instance of a context.  We saw this in
+use in the section on lyrics in @ref{Voices and vocals}.
 
 
 @node Engravers explained
@@ -1707,7 +1705,8 @@ from the name, or vice versa.
   @tab Engraves clefs
 @item Completion_heads_engraver
   @tab Splits notes which cross bar lines
-@item Dynamic_engraver
+@c The old Dynamic_engraver is deprecated. -jm
+@item New_dynamic_engraver
   @tab Creates hairpins and dynamic texts
 @item Forbid_line_break_engraver
   @tab Prevents line breaks if a musical element is still active
@@ -1834,16 +1833,18 @@ for any such property in the @code{Voice} context, no
 further action took place.  This is not an error, and no error
 message is logged in the log file.
 
-Similarly, if the property name is mis-spelt no error message
-is produced, and clearly the expected action cannot be performed.
-If fact, you can set any (fictitious) @q{property} using any
-name you like in any context that exists by using the
-@code{\set} command.  But if the name is not
-known to LilyPond it will not cause any action to be taken.
-This is one of the reasons why it is highly recommended to
-use a context-sensitive editor with syntax highlighting for
-editing LilyPond input files, such as Vim, Jedit, ConTEXT or Emacs,
-since unknown property names will be highlighted differently.
+Similarly, if the property name is mis-spelt no error message is
+produced, and clearly the expected action cannot be performed.  If
+fact, you can set any (fictitious) @q{property} using any name you
+like in any context that exists by using the @code{\set} command.  But
+if the name is not known to LilyPond it will not cause any action to
+be taken.  Some text editors with special support for LilyPond input
+files document property names with bullets when you hover them with
+the mouse, like JEdit with LilyPondTool, or highlight unknown property
+names differently, like ConTEXT.  If you do not use an editor with
+such features, it is recommended to check the property name in the
+Internals Reference: see @rinternals{Tunable context properties}, or
+@rinternals{Contexts}.
 
 The @code{instrumentName} property will take effect only
 if it is set in the @code{Staff} context, but
