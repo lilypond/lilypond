@@ -4,7 +4,8 @@
   source file of the GNU LilyPond music typesetter
   
   (c) 2006--2007 Han-Wen Nienhuys <hanwen@lilypond.org>
-  
+      2007--2008 Rune Zedeler
+      2008       Joe Neeman <joeneeman@gmail.com>
 */
 
 #include "scale.hh"
@@ -17,34 +18,35 @@
 */
 LY_DEFINE (ly_make_scale, "ly:make-scale",
 	   1, 0, 0, (SCM steps),
-	   "Create a scale.  Takes a vector of integers as argument.")
+	   "Create a scale. "
+	   "The argument is a vector of natural numbers, each of which "
+	   "represents the number of tones of a pitch above the tonic.")
 {
   bool type_ok = scm_is_vector (steps);
 
-  vector<Rational> semitones; 
+  vector<Rational> tones; 
   if (type_ok)
     {
       int len = scm_c_vector_length (steps);
       for (int i = 0 ; i < len; i++)
 	{
-	  SCM step = scm_c_vector_ref (steps, i);
+ 	  SCM step = scm_c_vector_ref (steps, i);
 	  type_ok = type_ok && scm_is_rational (step);
 	  if (type_ok)
 	    {
 	      Rational from_c (scm_to_int (scm_numerator (step)),
 			       scm_to_int (scm_denominator (step)));
-	      semitones.push_back (from_c);
+	      tones.push_back (from_c);
 	    }
 	}
     }
   
-  SCM_ASSERT_TYPE (type_ok, steps, SCM_ARG1, __FUNCTION__, "vector of int");
+  
+  SCM_ASSERT_TYPE (type_ok, steps, SCM_ARG1, __FUNCTION__, "vector of rational");
 
-  Scale *s = new Scale;
-  s->step_tones_ = semitones;
+  Scale *s = new Scale (tones);
 
   SCM retval =  s->self_scm ();
-
   s->unprotect ();
   
   return retval;
@@ -77,6 +79,46 @@ LY_DEFINE (ly_set_default_scale, "ly:set-default-scale",
   return SCM_UNSPECIFIED;
 }
 
+int
+Scale::step_count () const
+{
+  return step_tones_.size ();
+}
+
+Rational
+Scale::tones_at_step (int step, int octave) const
+{
+  int normalized_step = normalize_step (step);
+
+  octave += (step - normalized_step) / step_count ();
+
+  // There are 6 tones in an octave.
+  return step_tones_[normalized_step] + Rational (octave*6);
+}
+
+Rational
+Scale::step_size (int step) const
+{
+  int normalized_step = normalize_step (step);
+
+  // Wrap around if we are asked for the final note of the
+  // scale (6 is the number of tones of the octave above the
+  // first note).
+  if (normalized_step + 1 == step_count ())
+    return Rational(6) - step_tones_[normalized_step];
+
+  return step_tones_[normalized_step + 1] - step_tones_[normalized_step];
+}
+
+int
+Scale::normalize_step (int step) const
+{
+  int ret = step % step_count ();
+  if (ret < 0)
+    ret += step_count ();
+
+  return ret;
+}
 
 int
 Scale::print_smob (SCM x, SCM port, scm_print_state *)
@@ -95,8 +137,10 @@ Scale::mark_smob (SCM x)
   return SCM_UNSPECIFIED;
 }
 
-Scale::Scale ()
+Scale::Scale (vector<Rational> const &tones)
 {
+  step_tones_ = tones;
+
   smobify_self ();
 }
 
