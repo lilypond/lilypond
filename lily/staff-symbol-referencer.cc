@@ -21,21 +21,10 @@ Staff_symbol_referencer::line_count (Grob *me)
 }
 
 bool
-Staff_symbol_referencer::on_line (Grob *me)
-{
-  return on_line (me, (int) rint (get_position (me)));
-}
-
-bool
-Staff_symbol_referencer::on_staff_line (Grob *me)
-{
-  return on_staff_line (me, (int) rint (get_position (me)));
-}
-
-bool
 Staff_symbol_referencer::on_line (Grob *me, int pos)
 {
-  return Staff_symbol::on_line (me, pos);
+  Grob *st = get_staff_symbol (me);
+  return st ? Staff_symbol::on_line (st, pos) : false;
 }
 
 bool

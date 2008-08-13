@@ -18,18 +18,172 @@ Notenfragment kann geändert werden.
 
 
 @menu
-* Moving objects::              
-* Fixing overlapping notation::  
+* Tweaking basics::             
+* The Internals Reference manual::  
+* Appearance of objects::       
+* Placement of objects::        
+* Collisions of objects::       
 * Common tweaks::               
-* Default files::               
-* Fitting music onto fewer pages::  
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
+* Further tweaking::            
 @end menu
 
 
+@node Tweaking basics
+@section Tweaking basics
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@menu
+* Introduction to tweaks::      
+* Objects and interfaces::      
+* Naming conventions of objects and properties::  
+* Tweaking methods::            
+@end menu
+
+@node Introduction to tweaks
+@subsection Introduction to tweaks
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Objects and interfaces
+@subsection Objects and interfaces
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Naming conventions of objects and properties
+@subsection Naming conventions of objects and properties
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Tweaking methods
+@subsection Tweaking methods
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node The Internals Reference manual
+@section The Internals Reference manual
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@menu
+* Properties of layout objects::  
+* Properties found in interfaces::  
+* Types of properties::         
+@end menu
+
+@node Properties of layout objects
+@subsection Properties of layout objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Properties found in interfaces
+@subsection Properties found in interfaces
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Types of properties
+@subsection Types of properties
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Appearance of objects
+@section Appearance of objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@menu
+* Visibility and color of objects::  
+* Size of objects::             
+* Length and thickness of objects::  
+@end menu
+
+@node Visibility and color of objects
+@subsection Visibility and color of objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Size of objects
+@subsection Size of objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Length and thickness of objects
+@subsection Length and thickness of objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Placement of objects
+@section Placement of objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@menu
+* Automatic behavior::          
+* Within-staff objects::        
+* Outside staff objects::       
+@end menu
+
+@node Automatic behavior
+@subsection Automatic behavior
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Within-staff objects
+@subsection Within-staff objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Outside staff objects
+@subsection Outside staff objects
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Collisions of objects
+@section Collisions of objects
+
+@menu
+* Moving objects::              
+* Fixing overlapping notation::  
+* Real music example::          
+@end menu
+
 @node Moving objects
-@section Moving objects
+@subsection Moving objects
 
 Es wird vielleicht eine Überraschung sein, aber LilyPond ist nicht 
 perfekt. Einige Notationselemente können sich überschneiden. Das 
@@ -171,7 +325,7 @@ c4^"piu mosso" d e f
 
 
 @node Fixing overlapping notation
-@section Fixing overlapping notation
+@subsection Fixing overlapping notation
 
 Im Kapitel @ref{Moving objects} wurde gezeigt, wie man Texte 
 (@code{TextScript}-Objekte) verschiebt. Mit der gleichen 
@@ -214,8 +368,18 @@ aber die gebräuchlichsten finden sich hier:
 @end multitable
 
 
+@node Real music example
+@subsection Real music example
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@c DEPRECATED SECTION
 @node Common tweaks
 @section Common tweaks
+
 Bestimmte Korrekturen sind so häufig, dass für sie schon fertige 
 angepasste Befehle bereitgestellt sind, so etwa 
  @code{\slurUp} um einen Bindebogen oberhalb anzuzeigen oder 
@@ -352,8 +516,33 @@ verhalten sich anders, etwa die Dicke von Balken ist an die
 Notenzeilenabstände gekoppelt. Mehr Information findet sich 
 im relevanten Teil der Programmreferenz.
 
-@node Default files
-@section Default files
+@node Further tweaking
+@section Further tweaking
+
+@menu
+* Other uses for tweaks::       
+* Using variables for tweaks::  
+* Other sources of information::  
+* Avoiding tweaks with slower processing::  
+* Advanced tweaks with Scheme::  
+@end menu
+
+@node Other uses for tweaks
+@subsection Other uses for tweaks
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Using variables for tweaks
+@subsection Using variables for tweaks
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+@node Other sources of information
+@subsection Other sources of information
 
 Die Programmreferenz enthält sehr viel Information über LilyPond, aber 
 noch mehr Information findet sich in den internen 
@@ -386,96 +575,23 @@ Dateien wie @file{ly/property-init.ly} und
 @file{ly/declarations-init.ly} definieren alle häufig vorkommenden Veränderungen.
 
 
-@node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
+@node Avoiding tweaks with slower processing
+@subsection Avoiding tweaks with slower processing
 
-Manchmal bleiben nur noch ein oder zwei Systeme auf der 
-letzten Seite übrig. Das ist immer ärgerlich, besonders 
-wenn es scheint, dass auf den vorigen Seiten genug Platz 
-ist, um die Systeme noch unterzubringen.
-
-Wenn man versucht, das Layout zu verändern, kommt einem 
-der Befehl @code{annotate-spacing} zu Hilfe. Mit diesem 
-Befehl erhält man die Werte von verschiedenen Abstandsbefehlen 
-ausgedruckt, mehr Information im Kapitel @ruser{Displaying spacing}. 
-Anhand dieser Angaben kann dann entschieden werden, welche 
-Werte verändert werden müssen.
-
-Neben Rändern gibt es nämlich weitere Optionen, Platz zu sparen:
-
-@itemize
-@item
-LilyPond kann die Systeme so dicht wie möglich platzieren (damit 
-so viele Systeme wie möglich auf eine Seite passen), aber sie 
-dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
+LilyPond kann einige zusätzliche Tests durchführen, während 
+die Noten gesetzt werden. Dadurch braucht das Programm länger, 
+um den Notensatz zu produzieren, aber üblicherweise werden 
+weniger nachträgliche Anpassungen nötig sein.
 
 @example
-\paper @{
-  between-system-padding = #0.1
-  between-system-space = #0.1
-  ragged-last-bottom = ##f
-  ragged-bottom = ##f
-@}
+%%  Um sicher zu gehen, dass Texte und Liedtext 
+%%  innerhalb der Papierränder bleiben
+\override Score.PaperColumn #'keep-inside-line = ##t 
 @end example
-
-@item
-Die Anzahl der Systeme kann reduziert werden (wenn LilyPond 
-die Musik auf 11 Systeme verteilt, kann man die Benutzung von 
-nur 10 Systemen erzwingen).
-
-@example
-\paper @{
-  system-count = #10
-@}
-@end example
-
-@item
-Vermeidung von Objekten, die den vertikalen Abstand von Systemen 
-vergrößern, hilft oft. Die Verwendung von Klammern bei Wiederholungen 
-etwa braucht mehr Platz. Wenn die Noten innerhalb der Klammern  auf 
-zwei Systeme verteilt sind, brauchen sie mehr Platz, als wenn sie 
-nur auf einer Zeile gedruckt werden.
-
-Ein anderes Beispiel ist es, Dynamik-Zeichen, die besonders 
-weit @qq{hervorstehen}, zu verschieben.
-
-@lilypond[verbatim,quote,fragment]
-\relative c' {
-  e4 c g\f c
-  \override DynamicLineSpanner #'padding = #-1.8
-  \override DynamicText #'extra-offset = #'( -2.1 . 0)
-  e4 c g\f c
-}
-@end lilypond
-
-@item
-Die horizontalen Abstände können mit der 
- @code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
-@ruser{Changing horizontal spacing} für Einzelheiten.
-
-@lilypond[verbatim,quote]
-\score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-  }
-  \layout {
-    \context {
-      \Score
-      \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
-    }
-  }
-}
-@end lilypond
-
-@end itemize
 
 
 @node Advanced tweaks with Scheme
-@section Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
 
 Es wurde schon gezeigt, wie die LilyPond-Ausgabe sehr stark verändert 
 werden kann, indem man Befehle wie 
@@ -534,21 +650,4 @@ pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
   \pattern {d16 dis} { ais16-> b\p }
 }
 @end lilypond
-
-
-@node Avoiding tweaks with slower processing
-@section Avoiding tweaks with slower processing
-
-LilyPond kann einige zusätzliche Tests durchführen, während 
-die Noten gesetzt werden. Dadurch braucht das Programm länger, 
-um den Notensatz zu produzieren, aber üblicherweise werden 
-weniger nachträgliche Anpassungen nötig sein.
-
-@example
-%%  Um sicher zu gehen, dass Texte und Liedtext 
-%%  innerhalb der Papierränder bleiben
-\override Score.PaperColumn #'keep-inside-line = ##t 
-@end example
-
-
 

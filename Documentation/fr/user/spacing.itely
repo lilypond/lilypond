@@ -1,19 +1,16 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: 964d024dd4f022ba7cd66adc13c0169035d4c4e5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.51"
 
 @node Spacing issues
 @chapter Spacing issues
-
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
 
 
 @menu
@@ -272,11 +269,6 @@ UNTRANSLATED NODE: IGNORE ME
 @node Fitting music onto fewer pages
 @section Fitting music onto fewer pages
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
-
-
 @menu
 * Displaying spacing::
 * Changing spacing::
@@ -293,10 +285,90 @@ UNTRANSLATED NODE: IGNORE ME
 @node Changing spacing
 @subsection Changing spacing
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+Parfois, une partition peut se terminer avec seulement 
+un ou deux systèmes sur la dernière page. Ceci peut être ennuyeux
+surtout si vous constatez, en regardant les pages précédentes, qu'il
+reste encore beaucoup de place sur celles-ci.
+
+Si vous vous intéressez aux problèmes de mise en page,
+@code{annotate-spacing} peut alors être un outil d'une valeur
+inestimable.  Cette commande imprime les valeurs 
+de nombreuses commandes d'espacement concernant la mise en page.  
+Consultez @ref{Displaying spacing} pour de plus amples informations.  À l'aide 
+des informations données par @code{annotate-spacing}, on peut 
+voir quelles marges il est souhaitable de modifier afin de résoudre le
+problème.
 
 
+En plus d'agir sur les marges, il existe d'autres possibilités
+qui permettent de gagner de la place.
 
-@c -- SKELETON FILE --
+@itemize
+@item
+Demander à LilyPond de placer les systèmes aussi 
+près que possible les uns des autres (pour en disposer autant
+que possible sur une page), tout en répartissant les systèmes afin
+de ne pas laisser de blanc en bas de la dernière page.
+
+@example
+\paper @{
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Obliger LilyPond à mettre un certain nombre de systèmes
+par page.  Par exemple, si LilyPond veut placer onze systèmes dans une page,
+vous pouvez l'obliger à n'en mettre que dix.
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Supprimer (ou réduire) les objets qui augmentent la hauteur du
+système.  C'est le cas en particulier de certaines reprises (avec des 
+alternatives) qui placent des crochets au dessus des portées. Si ces crochets 
+de reprise se poursuivent sur deux systèmes, ils prendront plus de
+place que s'ils sont regroupés sur un même système.
+
+Un autre exemple : déplacer les nuances qui @qq{débordent} d'un système.
+
+@lilypond[verbatim,quote,fragment]
+\relative c' {
+  e4 c g\f c
+  \override DynamicLineSpanner #'padding = #-1.8
+  \override DynamicText #'extra-offset = #'( -2.1 . 0)
+  e4 c g\f c
+}
+@end lilypond
+
+@item
+Modifier l'espacement vertical avec @code{SpacingSpanner}.  Reportez-vous à
+@ref{Changing horizontal spacing} pour plus de détails.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 4)
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+

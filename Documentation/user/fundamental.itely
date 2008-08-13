@@ -199,10 +199,6 @@ block, but a @code{\layout} block outside of a @code{\score} block
 (and thus in a @code{\book} block, either explicitly or
 implicitly) will affect every @code{\score} in that @code{\book}.
 
-Every @code{\context} block will affect the named context (e.g.,
-@code{\StaffGroup}) throughout the block (@code{\score} or
-@code{\book}) in which it appears.
-
 For details see @ruser{Multiple scores in a book}.
 
 @cindex variables
@@ -249,9 +245,9 @@ For a complete definition of the input format, see
 @cindex Music expression, compound
 
 We saw the general organization of LilyPond input files in the
-previous section, @ref{How LilyPond input files work}.  But we seemed to
-skip over the most important part: how do we figure out what to
-write after @code{\score}?
+previous section, @ref{Introduction to the LilyPond file structure}.
+But we seemed to skip over the most important part: how do we figure
+out what to write after @code{\score}?
 
 We didn't skip over it at all.  The big mystery is simply that
 there @emph{is} no mystery.  This line explains it all:
@@ -384,6 +380,9 @@ each smaller level.  It also really helps to be strict with
 indentation -- make sure that each item on the same level starts
 on the same horizontal position in your text editor.
 
+@seealso
+
+Notation Reference: @ruser{Structure of a score}.
 
 @node Nesting music expressions
 @subsection Nesting music expressions
@@ -446,10 +445,14 @@ of a single Staff.  Here it says that the new staff should be
 placed above the staff called @qq{main} instead of the default
 position which is below.
 
+@seealso
+
 Ossia are often written without clef and without
 time signature and are usually in a smaller font.
 These require further commands which
-have not yet been introduced.  See @ref{Size of objects}.
+have not yet been introduced.  See @ref{Size of objects},
+and @ruser{Ossia staves}.
+
 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
@@ -895,6 +898,10 @@ to see how to correct this, so we shall leave this problem until a
 later section --- see the @code{force-hshift} property in @ref{Fixing
 overlapping notation}.
 
+@seealso
+
+Notation Reference: @ruser{Multiple voices}.
+
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
@@ -1120,6 +1127,11 @@ down.  If notes from two voices which have their stems in the
 same direction are placed at the same position and both voices
 have no shift or the same shift specified, the error message
 @qq{Too many clashing note columns} will be produced.
+
+@seealso
+
+Notation Reference: @ruser{Multiple voices}.
+
 
 @node Voices and vocals
 @subsection Voices and vocals
@@ -1455,6 +1467,11 @@ refrainwordsB = \lyricmode {
 }
 @end lilypond
 
+@seealso
+
+Notation Reference: @ruser{Vocal music}.
+
+
 @node Contexts and engravers
 @section Contexts and engravers
 
@@ -1543,6 +1560,11 @@ The names of all context types are formed from one or more
 words, each word being capitalized and joined immediately to the
 preceding word with no hyphen or underscore, e.g.,
 @code{GregorianTranscriptionStaff}.
+
+@seealso
+
+Notation Reference: @ruser{Contexts explained}.
+
 
 @node Creating contexts
 @subsection Creating contexts
@@ -1646,7 +1668,11 @@ Note the distinction between the name of the context type,
 particular instance of that type, which can be any sequence of letters
 and digits invented by the user.  The identifying name is used to
 refer back to that particular instance of a context.  We saw this in
-use in the section on lyrics in @ref{Voices and vocals}.
+use in the section on lyrics, see @ref{Voices and vocals}.
+
+@seealso
+
+Notation Reference: @ruser{Creating contexts}.
 
 
 @node Engravers explained
@@ -1728,6 +1754,10 @@ from the name, or vice versa.
 
 We shall see later how the output of LilyPond can be changed
 by modifying the action of Engravers.
+
+@seealso
+
+Internals reference: @rinternals{Engravers and performers}.
 
 
 @node Modifying context properties
@@ -1923,6 +1953,7 @@ should be enclosed in double quotation signs, as above, although we
 shall see later that text can actually be specified in a much more
 general way by using the very powerful @code{markup} command.
 
+@unnumberedsubsubsec Setting context properties with @code{\with}
 
 @funindex \with
 @cindex context properties, setting with \with
@@ -1964,6 +1995,48 @@ set in a @code{\with} clause it effectively resets the default
 value of the font size.  If it is later changed with @code{\set},
 this new default value may be restored with the
 @code{\unset fontSize} command.
+
+@unnumberedsubsubsec Setting context properties with @code{\context}
+
+The values of context properties may be set in @emph{all} contexts
+of a particular type, such as all @code{Staff} contexts, with a single
+command.  The context type is identified by using its
+type name, like @code{Staff}, prefixed by a back-slash: @code{\Staff}.
+The statement which sets the property value is the same as that in a 
+@code{\with} block, introduced above.  It is placed in a
+@code{\context} block within a @code{\layout} block.  Each
+@code{\context} block will affect all contexts of the type specified
+throughout the @code{\score} or @code{\book} block in which the
+@code{\layout} block appears.  Here is a example to show the format:
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative c'' {
+      cis4 e d ces
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Context properties set in this way may be overridden for particular
+instances of contexts by statements in a @code{\with} block, and by
+@code{\set} commands embedded in music statements.
+
+@seealso
+
+Notation Reference: @ruser{Changing context default settings},
+@ruser{The set command}.
+
+Internals Reference: @rinternals{Contexts},
+@rinternals{Tunable context properties}.
 
 
 @node Adding and removing engravers
@@ -2105,6 +2178,11 @@ The values of context properties may also be set
 for all contexts of a particular type by including the
 @code{\set} command in a @code{\context} block in the
 same way.
+
+@seealso
+
+Notation Reference: @ruser{Modifying context plug-ins},
+@ruser{Changing context default settings}.
 
 
 @node Extending the templates
