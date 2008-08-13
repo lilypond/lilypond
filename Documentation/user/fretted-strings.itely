@@ -43,7 +43,7 @@ to fretted string instruments.
 @end menu
 
 @node References for fretted strings
-@subsubsection References for fretted strings
+@unnumberedsubsubsec References for fretted strings
 
 Music for fretted string instruments is normally notated on
 a single staff, either in traditional music notation or in
@@ -70,16 +70,17 @@ in @ref{Collision resolution}.
 @seealso
 
 Notation Reference:
-@ref{Instrument names},
-@ref{Writing music in parallel},
 @ref{Fingering instructions},
 @ref{Ties},
+@ref{Collision resolution},
+@ref{Instrument names},
+@ref{Writing music in parallel},
 @ref{Arpeggio},
 @ref{List of articulations},
 @ref{Clef}.
 
 @node String number indications
-@subsubsection String number indications
+@unnumberedsubsubsec String number indications
 
 @cindex String numbers
 
@@ -128,7 +129,7 @@ Internals Reference:
 
 
 @node Default tablatures
-@subsubsection Default tablatures
+@unnumberedsubsubsec Default tablatures
 @cindex Tablatures, basic
 @cindex Tablatures, default
 
@@ -221,7 +222,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 
 
 @node Custom tablatures
-@subsubsection Custom tablatures
+@unnumberedsubsubsec Custom tablatures
 @cindex Tablatures, custom
 
 LilyPond tabulature automatically calculates the fret for 
@@ -314,7 +315,7 @@ No guitar special effects have been implemented.
 
 
 @node Fret diagram markups
-@subsubsection Fret diagram markups
+@unnumberedsubsubsec Fret diagram markups
 @cindex fret diagrams
 @cindex chord diagrams
 
@@ -646,7 +647,7 @@ Internals Reference:
 @rinternals{fret-diagram-interface}.
 
 @node Predefined fret diagrams
-@subsubsection Predefined fret diagrams
+@unnumberedsubsubsec Predefined fret diagrams
 @cindex fret diagrams
 @cindex chord diagrams
 
@@ -869,7 +870,7 @@ Internals Reference:
 
 
 @node Automatic fret diagrams
-@subsubsection Automatic fret diagrams
+@unnumberedsubsubsec Automatic fret diagrams
 @cindex fret diagrams
 @cindex chord diagrams
 
@@ -1014,8 +1015,8 @@ Details are found at @rinternals{fret-diagram-interface}.  For a
 @code{FretBoards.FretBoard}.
 
 @predefined
-\predefinedFretboardsOff,
-\predefinedFretboardsOn.
+@code{\predefinedFretboardsOff},
+@code{\predefinedFretboardsOn}.
 
 @seealso
 
@@ -1030,7 +1031,7 @@ Internals Reference:
 
 
 @node Right-hand fingerings
-@subsubsection Right-hand fingerings
+@unnumberedsubsubsec Right-hand fingerings
 
 Right-hand fingerings @var{p-i-m-a} must be entered within a  
 chord construct @code{<>} for them to be printed in the score, 
@@ -1093,7 +1094,7 @@ or, for experienced users, a typesetter like GuitarTeX.
 @end menu
 
 @node Indicating position and barring
-@subsubsection Indicating position and barring
+@unnumberedsubsubsec Indicating position and barring
 
 This example demonstrates how to include guitar position and
 barring indications.
@@ -1118,7 +1119,7 @@ Snippets:
 @rlsr{Expressive marks}.
 
 @node Indicating harmonics and dampened notes
-@subsubsection Indicating harmonics and dampened notes
+@unnumberedsubsubsec Indicating harmonics and dampened notes
 
 Special note heads can be used to indicate dampened notes or 
 harmonics.  Harmonics are normally further explained with a 
@@ -1151,7 +1152,7 @@ Notation Reference:
 @end menu
 
 @node Banjo tablatures
-@subsubsection Banjo tablatures
+@unnumberedsubsubsec Banjo tablatures
 @cindex Banjo tablatures
 
 LilyPond has basic support for the five-string banjo.  When making tablatures
