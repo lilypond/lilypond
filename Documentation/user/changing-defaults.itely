@@ -1743,11 +1743,6 @@ restricted to a sub-set of the spanners.
 * Aligning objects::
 @end menu
 
-@c TODO Add new subsection Shapes of objects
-@c which would include Slur shapes
-@c with a Known issue: can't modify shapes with 'control-points if there are
-@c more than one at the same musical moment
-
 @node Controlling visibility of objects
 @subsection Controlling visibility of objects
 
@@ -2357,8 +2352,81 @@ VerticalAxisGroup.
 @node Modifying shapes
 @subsection Modifying shapes
 
-@c FIXME Write this section
-@c Discussion of Bezier curves and the control-points property
+@menu
+* Modifying ties and slurs::
+@end menu
+
+@node Modifying ties and slurs
+@unnumberedsubsubsec Modifying ties and slurs
+
+Ties, slurs and phrasing slurs are drawn as third-order Bézier
+curves.  If the shape of the tie or slur which is calculated
+automatically is not optimum, the shape may be modified manually by
+explicitly specifying the four control points required to define
+a third-order Bézier curve.
+
+Third-order or cubic Bézier curves are defined by four control
+points.  The first and fourth control points are precisely the
+starting and ending points of the curve.  The intermediate two
+control points define the shape.  Animations showing how the curve
+is drawn can be found on the web, but the following description
+may be helpful.  The curve starts from the first control point
+heading directly towards the second, gradually bending over to
+head towards the third and continuing to bend over to head towards
+the fourth, arriving there travelling directly from the third
+control point.  The curve is entirely contained in the
+quadrilateral defined by the four control points.
+
+Here is an example of a case where the tie is not optimum, and
+where @code{\tieDown} would not help.
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  { e1 ~ e }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+One way of improving this tie is to manually modify its control
+points, as follows.
+
+The coordinates of the Bézier control points are specified in units
+of staff-spaces.  The X@tie{}coordinate is relative to the reference
+point of the note to which the tie or slur is attached, and the
+Y@tie{}coordinate is relative to the staff center line.  The
+coordinates are entered as a list of four pairs of decimal numbers
+(reals).  One approach is to estimate the coordinates of the two
+end points, and then guess the two intermediate points.  The optimum
+values are then found by trial and error.
+
+It is useful to remember that a symmetric curve requires symmetric
+control points, and that Bézier curves have the useful property that
+transformations of the curve such as translation, rotation and
+scaling can be achieved by applying the same transformation to the
+curve's control points.
+
+For the example above the following override gives a satisfactory
+tie:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  \once \override Tie
+    #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+  { e1 ~ e1 }
+\\
+  { r4 <g c,> <g c,> <g c,>4  }
+>>
+@end lilypond
+
+@knownissues
+
+It is not possible to modify shapes of ties or slurs by changing
+the @code{control-points} property if there are more than one at
+the same musical moment, not even by using the @code{\tweak}
+command.
+
+
 
 @node Discussion of specific tweaks
 @section Discussion of specific tweaks
