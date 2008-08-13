@@ -14,8 +14,9 @@
 
 @lilypondfile[quote]{chords-headword.ly}
 
-Chords can be entered in chord mode, which recognizes some traditional European chord naming conventions.  Chord names can also
-be displayed.  In addition, figured bass notation can be displayed.
+Chords can be entered either as normal notes or in chord mode and displayed
+using a variety of traditional European chord naming conventions.  Chord
+names and figured bass notation can also be displayed.
 
 @menu
 * Chord mode::
@@ -502,15 +503,15 @@ traditions use different names for the same set of chords.  There
 are also different symbols displayed for a given chord name.   The
 names and symbols displayed for chord names are customizable.
 
-@cindex Banter
 @cindex jazz chords
 @cindex chords, jazz
 
-The default chord name layout is a system for Jazz music, proposed
-by Klaus Ignatzek (see @ref{Literature list}).  There are also two
-other chord name schemes implemented: an alternate Jazz chord
-notation, and a systematic scheme called Banter chords.  The
-alternate Jazz notation is also shown on the chart in @ref{Chord
+The basic chord name layout is a system for Jazz music, proposed
+by Klaus Ignatzek (see @ref{Literature list}).  The chord naming
+system can be modified as described below.  An alternate jazz
+chord system has been developed using these modifications.
+The Ignatzek and alternate
+Jazz notation are shown on the chart in @ref{Chord
 name chart}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
@@ -525,7 +526,7 @@ The effect is demonstrated here:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
-If none of the default settings give the desired output, the chord
+If none of the existing settings give the desired output, the chord
 name display can be tuned through the following properties.
 
 @table @code
@@ -722,6 +723,9 @@ example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 
 @seealso
+
+Music Glossary:
+@rglos{Figured Bass}.
 
 Snippets:
 @rlsr{Chords}

@@ -29,7 +29,7 @@ See also Learning Manual, section
 @end macro
 
 @macro ruser{NAME}
-These snippets illustrate the User Manual,
+These snippets illustrate the Notation Reference,
 section @ref{\NAME\,,,lilypond-big-page,Notation Reference}.
 @end macro
 
@@ -44,7 +44,7 @@ See also Learning Manual, section
 @end macro
 
 @macro ruser{NAME}
-These snippets illustrate the User Manual,
+These snippets illustrate the Notation Reference,
 section @ref{\NAME\,,,lilypond,Notation Reference}.
 @end macro
 

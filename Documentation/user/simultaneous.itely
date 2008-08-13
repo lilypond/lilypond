@@ -165,7 +165,7 @@ separated by double backslashes.
 @end lilypond
 
 First and third voices get stems up, second and fourth voices get
-stems down, third and fourth voice noteheads are horizontally shifted,
+stems down, third and fourth voice note heads are horizontally shifted,
 and rests move to avoid collisions.  In the following example, the
 intermediate voice has stems up, therefore we enter it in the third
 place, so it becomes voice three which has the stems up as desired.
@@ -183,18 +183,18 @@ place, so it becomes voice three which has the stems up as desired.
 Spacing rests are often used to avoid too many rests, as seen in the
 example above.
 
-The method exposed creates two new voices when the @code{<<@{...@} \\
-@{...@}>>} construction is found in the code; to temporally add only
-one additional voice to an existing one, it is necessary to
-instantiate that voice explicitly. For these purposes, the
-@code{\voiceOne} ... @code{\voiceFour}, and @code{\oneVoice} commands
-can be used:
+Each music expression in the @code{<<@{...@} \\ @{...@}>>} construct
+is placed in a new voice, distinct from the voice for single-voice
+music; to temporarily add only one additional voice to an existing
+one, it is necessary to instantiate that voice explicitly.  For
+these purposes, the @code{\voiceOne} ... @code{\voiceFour}, and
+@code{\oneVoice} commands can be used:
 
 @example
 << @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
 @end example
 
-This is a better construction to keep the control of the voices, for
+This is a better construct to keep the control of the voices, for
 example, to ease a consistent assign of lyrics to the proper voice
 context.
 
