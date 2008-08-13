@@ -199,10 +199,6 @@ block, but a @code{\layout} block outside of a @code{\score} block
 (and thus in a @code{\book} block, either explicitly or
 implicitly) will affect every @code{\score} in that @code{\book}.
 
-Every @code{\context} block will affect the named context (e.g.,
-@code{\StaffGroup}) throughout the block (@code{\score} or
-@code{\book}) in which it appears.
-
 For details see @ruser{Multiple scores in a book}.
 
 @cindex variables
@@ -1957,6 +1953,7 @@ should be enclosed in double quotation signs, as above, although we
 shall see later that text can actually be specified in a much more
 general way by using the very powerful @code{markup} command.
 
+@unnumberedsubsubsec Setting context properties with @code{\with}
 
 @funindex \with
 @cindex context properties, setting with \with
@@ -1998,6 +1995,40 @@ set in a @code{\with} clause it effectively resets the default
 value of the font size.  If it is later changed with @code{\set},
 this new default value may be restored with the
 @code{\unset fontSize} command.
+
+@unnumberedsubsubsec Setting context properties with @code{\context}
+
+The values of context properties may be set in @emph{all} contexts
+of a particular type, such as all @code{Staff} contexts, with a single
+command.  The context type is identified by using its
+type name, like @code{Staff}, prefixed by a back-slash: @code{\Staff}.
+The statement which sets the property value is the same as that in a 
+@code{\with} block, introduced above.  It is placed in a
+@code{\context} block within a @code{\layout} block.  Each
+@code{\context} block will affect all contexts of the type specified
+throughout the @code{\score} or @code{\book} block in which the
+@code{\layout} block appears.  Here is a example to show the format:
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative c'' {
+      cis4 e d ces
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Context properties set in this way may be overridden for particular
+instances of contexts by statements in a @code{\with} block, and by
+@code{\set} commands embedded in music statements.
 
 @seealso
 
@@ -2150,7 +2181,8 @@ same way.
 
 @seealso
 
-Notation Reference: @ruser{Modifying context plug-ins}.
+Notation Reference: @ruser{Modifying context plug-ins},
+@ruser{Changing context default settings}.
 
 
 @node Extending the templates
