@@ -236,7 +236,7 @@ par la propriété @code{glyph-name-alist} de l'objet
 
 @seealso
 
-Dans ce manuel : @ref{Pitches}, @ref{Cautionary accidentals}, et
+Dans ce manuel : @ref{Pitches}, @ref{Accidentals}, et
 @ref{Automatic accidentals}, pour les principes généraux d'utilisation
 des altérations ; @ref{Key signature} pour les armures.
 
