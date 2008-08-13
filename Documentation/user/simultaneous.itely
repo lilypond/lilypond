@@ -165,7 +165,7 @@ separated by double backslashes.
 @end lilypond
 
 First and third voices get stems up, second and fourth voices get
-stems down, third and fourth voice noteheads are horizontally shifted,
+stems down, third and fourth voice note heads are horizontally shifted,
 and rests move to avoid collisions.  In the following example, the
 intermediate voice has stems up, therefore we enter it in the third
 place, so it becomes voice three which has the stems up as desired.
