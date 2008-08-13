@@ -4264,7 +4264,7 @@ of inversions that a chord can have is one fewer than the number of
 constituent notes. Triads, for example, (having three constituent notes) can
 have three positions, two of which are inversions:
 
-@table
+@table @strong
 @item Root position
 The root note is in the bass, and above that are the third and the fifth. A
 triad built on the first scale degree, for example, is marked @notation{I}.
