@@ -83,7 +83,7 @@ vor einem Jahr verwendet hat. Auch @code{convert-ly} benötigt die
 Versionsnummer.
 
 @item @strong{Benutzen Sie Überprüfungen}: @ruser{Bar check}, 
-@ruser{Octave check} und
+@ruser{Octave checks} und
 @ruser{Barnumber check}.  Wenn Sie hier und da diese Überprüfungen 
 einfügen, finden Sie einen möglichen Fehler weit schneller. Wie oft 
 aber 

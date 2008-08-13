@@ -163,7 +163,7 @@ des @rinternals{KeySignature}-Objektes gesetzt wird.
 
 @seealso
 
-In diesem Handbuch: @ref{Pitches}, @ref{Cautionary accidentals} und
+In diesem Handbuch: @ref{Pitches}, @ref{Accidentals} und
 @ref{Automatic accidentals} geben eine allgemeine Einführung in die Benutzung
 von Versetzungszeichen. Der Abschnitt @ref{Key signature} zeigt die allgemeine
 Benutzung von Vorzeichen.

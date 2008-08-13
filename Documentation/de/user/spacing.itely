@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -293,10 +293,87 @@ UNTRANSLATED NODE: IGNORE ME
 @node Changing spacing
 @subsection Changing spacing
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+Manchmal bleiben nur noch ein oder zwei Systeme auf der 
+letzten Seite übrig. Das ist immer ärgerlich, besonders 
+wenn es scheint, dass auf den vorigen Seiten genug Platz 
+ist, um die Systeme noch unterzubringen.
 
+Wenn man versucht, das Layout zu verändern, kommt einem 
+der Befehl @code{annotate-spacing} zu Hilfe. Mit diesem 
+Befehl erhält man die Werte von verschiedenen Abstandsbefehlen 
+ausgedruckt, mehr Information im Kapitel @ref{Displaying spacing}.
+Anhand dieser Angaben kann dann entschieden werden, welche 
+Werte verändert werden müssen.
 
+Neben Rändern gibt es nämlich weitere Optionen, Platz zu sparen:
 
-@c -- SKELETON FILE --
+@itemize
+@item
+LilyPond kann die Systeme so dicht wie möglich platzieren (damit 
+so viele Systeme wie möglich auf eine Seite passen), aber sie 
+dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
+
+@example
+\paper @{
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Die Anzahl der Systeme kann reduziert werden (wenn LilyPond 
+die Musik auf 11 Systeme verteilt, kann man die Benutzung von 
+nur 10 Systemen erzwingen).
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Vermeidung von Objekten, die den vertikalen Abstand von Systemen 
+vergrößern, hilft oft. Die Verwendung von Klammern bei Wiederholungen 
+etwa braucht mehr Platz. Wenn die Noten innerhalb der Klammern  auf 
+zwei Systeme verteilt sind, brauchen sie mehr Platz, als wenn sie 
+nur auf einer Zeile gedruckt werden.
+
+Ein anderes Beispiel ist es, Dynamik-Zeichen, die besonders 
+weit @qq{hervorstehen}, zu verschieben.
+
+@lilypond[verbatim,quote,fragment]
+\relative c' {
+  e4 c g\f c
+  \override DynamicLineSpanner #'padding = #-1.8
+  \override DynamicText #'extra-offset = #'( -2.1 . 0)
+  e4 c g\f c
+}
+@end lilypond
+
+@item
+Die horizontalen Abstände können mit der 
+ @code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
+@ref{Changing horizontal spacing} für Einzelheiten.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 4)
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+

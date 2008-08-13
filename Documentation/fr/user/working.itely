@@ -81,7 +81,7 @@ années auparavant.  L'utilitaire @command{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
 @item @strong{Ajoutez des contrôles}: @ruser{Bar check}, @ruser{Octave
-check} et @ruser{Barnumber check}.  Si vous avez ajouté des contrôles de
+checks} et @ruser{Barnumber check}.  Si vous avez ajouté des contrôles de
 loin en loin, et que vous faites une erreur, vous pourrez la retrouver
 plus rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?  Cela
 dépend de la complexité de la musique.  Pour de la musique très
