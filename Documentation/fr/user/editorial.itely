@@ -422,11 +422,12 @@ a4 b c b
 @menu
 * Balloon help::                
 * Grid lines::                  
+* Analysis brackets::           
 * Blank music sheet::           
 @end menu
 
 @node Balloon help
-@subsubsection Balloon help
+@unnumberedsubsubsec Balloon help
 
 Vous pouvez marquer et nommer des éléments de notation à l'aide de
 bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
@@ -458,7 +459,7 @@ Référence du programme : @rinternals{text-balloon-interface}.
 
 
 @node Grid lines
-@subsubsection Grid lines
+@unnumberedsubsubsec Grid lines
 
 Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
@@ -500,8 +501,41 @@ les notes.
 Exemples : @rlsr{Editorial annotations}.
 
 
+@node Analysis brackets
+@unnumberedsubsubsec Analysis brackets
+@cindex crochets
+@cindex crochets de phrasé
+@cindex analyse musicologique
+@cindex crochet de regroupement de notes
+
+On utilise des crochets en analyse musicale, pour indiquer la
+structure d'une pièce.  LilyPond permet d'utiliser une forme
+simplifiée de crochets horizontaux imbriqués, dans la mesure où le
+contexte @rinternals{Staff} comporte le graveur
+@rinternals{Horizontal_bracket_engraver}.  Un crochet s'ouvre avec
+@code{\startGroup}, et se ferme avec @code{\stopGroup}.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    c4\startGroup\startGroup
+    c4\stopGroup
+    c4\startGroup
+    c4\stopGroup\stopGroup
+  }
+  \layout {
+    \context {
+      \Staff \consists "Horizontal_bracket_engraver"
+}}}
+@end lilypond
+
+@seealso
+
+Référence du programme : @rinternals{HorizontalBracket}.
+
+
 @node Blank music sheet
-@subsubsection Blank music sheet
+@unnumberedsubsubsec Blank music sheet
 
 @cindex Papier musique
 @cindex Portées, feuille blanche

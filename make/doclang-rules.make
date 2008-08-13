@@ -4,7 +4,7 @@ $(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/%.xref-map $(OUT_PNG_IMAGES) 
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/%.xref-map $(OUT_PNG_IMAGES) $(outdir)/version.itexi
-	$(TEXI2HTML) --I=$(outdir) $(TEXI2HTML_FLAGS) --output=$@ $(TEXI2HTML_INIT) $<
+	$(TEXI2HTML) --I=$(outdir) -D bigpage $(TEXI2HTML_FLAGS) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%.pdftexi: $(outdir)/%.texi $(outdir)/version.itexi

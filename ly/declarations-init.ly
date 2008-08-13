@@ -120,4 +120,4 @@ setDefaultDurationToQuarter = { c4 }
 #(define book-text-handler ly:book-add-score!)
 
 
-%\include "predefined-fretboards-init.ly"
+\include "predefined-fretboards-init.ly"

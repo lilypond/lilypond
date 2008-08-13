@@ -2326,8 +2326,8 @@ Observe en el segundo ejemplo la gran importancia que tiene saber qué
 contexto maneja un determinado objeto.  Puesto que el objeto
 @code{MetronomeMark} se maneja dentro del contexto @code{Score}, los
 cambios de propiedades en el contexto @code{Voice} pasarán
-inadvertidos.  Para ver más detalles, consulte @ruser{Constructing a
-tweak}.
+inadvertidos.  Para ver más detalles, consulte @ruser{The
+\override command}.
 
 Si la propiedad de relleno @code{padding} de un objeto se incrementa
 cuando dicho objeto se encuentra en una pila de objetos que se están

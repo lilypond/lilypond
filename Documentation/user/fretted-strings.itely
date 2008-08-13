@@ -36,8 +36,9 @@ to fretted string instruments.
 * String number indications::   
 * Default tablatures::          
 * Custom tablatures::           
-* Automatic fret diagrams::               
 * Fret diagram markups::
+* Predefined fret diagrams::
+* Automatic fret diagrams::               
 * Right-hand fingerings::       
 @end menu
 
@@ -155,8 +156,8 @@ The notes are printed as tablature, by using @code{TabStaff} and
 
 When no string is specified for a note, the note is assigned to
 the lowest string that can generate the note with a fret number
-greater than or equal to @code{minimumFret} is selected.  The
-default value for @code{minimumFret} is 0.
+greater than or equal to the value of @code{minimumFret}.
+The default value for @code{minimumFret} is 0.
 
 
 @lilypond[quote,ragged-right,verbatim]
@@ -285,115 +286,6 @@ Internals Reference:
 @knownissues
 
 No guitar special effects have been implemented.
-
-@node Automatic fret diagrams
-@subsubsection Automatic fret diagrams
-@cindex fret diagrams
-@cindex chord diagrams
-
-Fret diagrams can be automatically created from entered notes using the 
-@code{FretBoards} context.  This context calculates strings and frets
-which can be used to play the notes.
-
-@lilypond[quote,ragged-right,verbatim]
-<<
-  \context ChordNames {
-     \chordmode { 
-       f1 g  
-     }
-  }
-  \context FretBoards {
-    < f, c f a c' f'>1
-    < g,\6 b, d g b g'>
-  }
-  \context Staff {
-    \clef "treble_8"
-    < f, c f a c' f'>1
-    < g, b, d g b' g'>
-  }  
->>
-@end lilypond
-
-Notes can be explicitly placed on a string.  It is often enough
-to place only the lowest note on an explicit string; the rest of 
-the notes will then be placed appropriately by the @code{FretBoards}
-context.
-
-@lilypond[quote,ragged-right,verbatim]
-<<
-  \context ChordNames {
-     \chordmode { 
-       c1 c d:m d:m    
-     }
-  }
-  \context FretBoards {
-    < c e g c' e' > 1
-    < c\5 e g c' e' > 1
-    < d a d' f'>
-    < d\4 a d' f'>
-  }
-  \context Staff {
-    \clef "treble_8"
-    < c e g c' e' > 1
-    < c e g c' e' > 1
-    < d a d' f'>
-    < d a d' f'>
-  }  
->>
-@end lilypond
-
-Fingerings can be added to FretBoard fret diagrams.
-
-@lilypond[quote, verbatim]
-<<
-  \context ChordNames {
-     \chordmode { 
-       c1 d:m          
-     }
-  }
-  \context FretBoards {
-    < c\5-3 e-2 g c'-1 e' > 1
-    < d\4 a-2 d'-3 f'-1>
-  }
-  \context Staff {
-    \clef "treble_8"
-    < c e g c' e' > 1
-    < d a d' f'>
-  }  
->>
-@end lilypond
-
-The strings and frets for the @code{FretBoards} context depend
-on the @code{stringTunings} property, which has the same meaning
-as in the TabStaff context.  See @ref{Custom tablatures} for 
-information on the @code{stringTunings} property. 
-
-The graphical layout of a fret diagram can be customized according to
-user preference through the properties of the @code{fret-diagram-interface}.
-Details are found at @rinternals{fret-diagram-interface}.  For a 
-@code{FretBoards} fret diagram, the interface properties belong to 
-@code{FretBoards}.
-
-@snippets
-The minimum fret to be used in calculating strings and frets for
-the FretBoard context can be set with the @code{minimumFret}
-property.
-
-@c TODO -- snippet showing minimum fret.
-
-@c TODO -- snippet for using StringTunings
-
-@seealso
-
-Notation Reference:
-@ref{Custom tablatures}
-
-Snippets:
-@rlsr{Fretted strings}.
-
-Internals Reference:
-@rinternals {fret-diagram-interface}.
-
 
 @node Fret diagram markups
 @subsubsection Fret diagram markups
@@ -711,7 +603,10 @@ Details are found at @rinternals{fret-diagram-interface}.  For a fret diagram
 markup , the interface properties belong to @code{Voice.TextScript}.
 
 @snippets
-TODO create snippets for changing properties.  Use regression test?
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{customizing-markup-fret-diagrams.ly}
+
 
 @seealso
 
@@ -723,6 +618,377 @@ Snippets:
 
 Internals Reference:
 @rinternals{fret-diagram-interface}.
+
+@node Predefined fret diagrams
+@subsubsection Predefined fret diagrams
+@cindex fret diagrams
+@cindex chord diagrams
+
+Fret diagrams can be displayed using the @code{FretBoards} context.  By
+default, the @code{FretBoards} context will display fret diagrams that
+are stored in a lookup table:
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+\context FretBoards {
+  \chordmode {
+    c1 d
+  }
+}
+@end lilypond
+
+The default predefined fret diagrams are contained in the file
+@code{predefined-guitar-fretboards.ly}.  Fret diagrams are 
+stored based on the pitches of a chord and the value of
+@code{stringTunings} that is currently in use.  
+@code{predefined-guitar-fretboards.ly} contains predefined 
+fret diagrams only for @code{guitar-tuning}.  Predefined fret
+diagrams can be added for other instruments or other tunings
+by following the examples found in 
+@code{predefined-guitar-fretboards.ly}.  
+
+Chord pitches can be entered
+either as simultaneous music or using chord mode (see
+@ref{Chord mode overview}).
+
+@lilypond[verbatim, ragged-right,quote]
+\include "predefined-guitar-fretboards.ly"
+\context FretBoards {
+  \chordmode {c1}
+  <c' e' g'>1
+}
+@end lilypond
+
+It is common that both chord names and fret diagrams are displayed together.
+This is achieved by putting a @code{ChordNames} context in parallel with
+a @code{FretBoards} context and giving both contexts the same music.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+mychords = \chordmode{
+  c1 f g
+}
+
+<<
+  \context ChordNames {
+    \mychords
+  }
+  \context FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+Predefined fret diagrams are transposable, as long as a diagram for the
+transposed chord is stored in the fret diagram table.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+mychords = \chordmode{
+  c1 f g
+}
+
+mychordlist = {
+  \mychords
+  \transpose c e { \mychords}
+}
+<<
+  \context ChordNames {
+    \mychordlist
+  }
+  \context FretBoards {
+    \mychordlist
+  }
+>>
+@end lilypond
+
+
+The predefined fret diagram table contains seven chords (major, minor,
+augmented, diminished, dominant seventh, major seventh, minor seventh)
+for each of 17 keys.  A complete list of the predefined fret diagrams is
+shown in @ref{Predefined fretboard diagrams}.  If there is no entry in
+the table for a chord, the FretBoards engraver will calculate a
+fret-diagram using the automatic fret diagram functionality described in
+@ref{Automatic fret diagrams}.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+mychords = \chordmode{
+  c1 c:9
+}
+
+<<
+  \context ChordNames {
+    \mychords
+  }
+  \context FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+Fret diagrams can be added to the fret diagram table.  To add a diagram,
+you must specify the chord for the diagram, the tuning to be used, and the
+fret-diagram-terse definition string for the diagram.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+
+\storePredefinedDiagram \chordmode {c:9} 
+                        #guitar-tuning
+                        #"x;3-2;2-1;3-3;3-4;x;"
+
+mychords = \chordmode{
+  c1 c:9
+}
+
+<<
+  \context ChordNames {
+    \mychords
+  }
+  \context FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+Different fret diagrams for the same chord name can be stored using different
+octaves of pitches.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+
+\storePredefinedDiagram \chordmode {c'} 
+                        #guitar-tuning
+                        #(offset-fret 2 (chord-shape 'bes))
+
+mychords = \chordmode{
+  c1 c'
+}
+
+<<
+  \context ChordNames {
+    \mychords
+  }
+  \context FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+In addition to fret diagrams, LilyPond stores an internal list of chord
+shapes.  The chord shapes are fret diagrams that can be shifted along
+the neck to different posistions to provide different chords.  Chord
+shapes can be added to the internal list and then used to define
+predefined fret diagrams.
+
+@lilypond[verbatim, ragged-right, quote]
+\include "predefined-guitar-fretboards.ly"
+
+% add a new chord shape
+
+\addChordShape #'powerf #"1-1;3-3;3-4;x;x;x;"
+
+% add some new chords based on the power chord shape
+
+\storePredefinedDiagram \chordmode {f'} 
+                        #guitar-tuning 
+                        #(chord-shape 'powerf)
+\storePredefinedDiagram \chordmode {g'} 
+                        #guitar-tuning
+                        #(offset-fret 2 (chord-shape 'powerf))
+
+mychords = \chordmode{
+  f1 f' g g' 
+}
+
+<<
+  \context ChordNames {
+    \mychords
+  }
+  \context FretBoards {
+    \mychords
+  }
+>>
+@end lilypond
+
+The graphical layout of a fret diagram can be customized according to
+user preference through the properties of the @code{fret-diagram-interface}.
+Details are found at @rinternals{fret-diagram-interface}.  For a 
+predefined fret diagram, the interface properties belong to 
+@code{FretBoards.FretBoard}.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{customizing-fretboard-fret-diagrams.ly}
+
+
+@seealso
+
+Notation Reference:
+@ref{Custom tablatures},
+@ref{Automatic fret diagrams},
+@ref{Chord mode overview},
+@ref{Predefined fretboard diagrams}.
+
+Installed Files:
+@file{ly/predefined-guitar-fretboards.ly}.
+
+Snippets:
+@rlsr{Fretted strings}.
+
+Internals Reference:
+@rinternals {fret-diagram-interface}.
+
+
+@node Automatic fret diagrams
+@subsubsection Automatic fret diagrams
+@cindex fret diagrams
+@cindex chord diagrams
+
+Fret diagrams can be automatically created from entered notes using the 
+@code{FretBoards} context.  If no predefined diagram is available for
+the entered notes in the active @code{stringTunings}, this context
+calculates strings and frets that can be used to play the notes.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \context ChordNames {
+     \chordmode { 
+       f1 g  
+     }
+  }
+  \context FretBoards {
+    < f, c f a c' f'>1
+    < g,\6 b, d g b g'>
+  }
+  \context Staff {
+    \clef "treble_8"
+    < f, c f a c' f'>1
+    < g, b, d g b' g'>
+  }  
+>>
+@end lilypond
+
+As no predefined diagrams are loaded by default, automatic calculation 
+of fret diagrams is the default behavior.  Once default diagrams are
+loaded, automatic calculation can be enabled and disabled with predefined
+commands:
+
+@lilypond[quote,ragged-right,verbatim]
+
+\storePredefinedDiagram <c\5 e g c' e'>
+                        #guitar-tuning
+                        #"x;3-1-(;5-2;5-3;5-4;3-1-1);"
+<<
+  \context ChordNames {
+     \chordmode { 
+       c1 c c 
+     }
+  }
+  \context FretBoards {
+    <c\5 e g c' e'>1
+    \predefinedFretboardsOff
+    <c\5 e g c' e'>
+    \predefinedFretboardsOn
+    <c\5 e g c' e'>
+  }
+  \context Staff {
+    \clef "treble_8"
+    <c\5 e g c' e'>1
+    <c\5 e g c' e'>
+    <c\5 e g c' e'>
+  }  
+>>
+@end lilypond
+
+  
+
+Notes can be explicitly placed on a string.  It is often enough
+to place only the lowest note on an explicit string; the rest of 
+the notes will then be placed appropriately by the @code{FretBoards}
+context.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \context ChordNames {
+     \chordmode { 
+       c1 c d:m d:m    
+     }
+  }
+  \context FretBoards {
+    < c e g c' e' > 1
+    < c\5 e g c' e' > 1
+    < d a d' f'>
+    < d\4 a d' f'>
+  }
+  \context Staff {
+    \clef "treble_8"
+    < c e g c' e' > 1
+    < c e g c' e' > 1
+    < d a d' f'>
+    < d a d' f'>
+  }  
+>>
+@end lilypond
+
+Fingerings can be added to FretBoard fret diagrams.
+
+@lilypond[quote, verbatim]
+<<
+  \context ChordNames {
+     \chordmode { 
+       c1 d:m          
+     }
+  }
+  \context FretBoards {
+    < c\5-3 e-2 g c'-1 e' > 1
+    < d\4 a-2 d'-3 f'-1>
+  }
+  \context Staff {
+    \clef "treble_8"
+    < c e g c' e' > 1
+    < d a d' f'>
+  }  
+>>
+@end lilypond
+
+The strings and frets for the @code{FretBoards} context depend
+on the @code{stringTunings} property, which has the same meaning
+as in the TabStaff context.  See @ref{Custom tablatures} for 
+information on the @code{stringTunings} property. 
+
+The graphical layout of a fret diagram can be customized according to
+user preference through the properties of the @code{fret-diagram-interface}.
+Details are found at @rinternals{fret-diagram-interface}.  For a 
+@code{FretBoards} fret diagram, the interface properties belong to 
+@code{FretBoards.FretBoard}.
+
+@snippets
+The minimum fret to be used in calculating strings and frets for
+the FretBoard context can be set with the @code{minimumFret}
+property.
+
+@c TODO -- snippet showing minimum fret.
+
+@c TODO -- snippet for using StringTunings
+
+@predefined
+\predefinedFretboardsOff,
+\predefinedFretboardsOn.
+
+@seealso
+
+Notation Reference:
+@ref{Custom tablatures}.
+
+Snippets:
+@rlsr{Fretted strings}.
+
+Internals Reference:
+@rinternals {fret-diagram-interface}.
+
 
 @node Right-hand fingerings
 @subsubsection Right-hand fingerings

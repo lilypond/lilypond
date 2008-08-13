@@ -377,9 +377,7 @@ TODO
 
 The chart below shows the predefined fretboard diagrams.
 
-@ignore
-@lilypondfile{predefined-fretboard-diagrams.ly}
-@end ignore
+@lilypondfile{display-predefined-fretboards.ly}
 
 @node MIDI instruments
 @appendixsec MIDI instruments

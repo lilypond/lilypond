@@ -158,14 +158,15 @@ sub load_map_file ($)
     my $node_map = ();
 
     if (open(XREFFILE, $mapfile)) {
-        while ( <XREFFILE> ) {
+        my $line;
+        while ( $line = <XREFFILE> ) {
             # parse the tab-separated entries and insert them into the map:
-            chomp($_);
-            my @entries = split(/\t/, $_);
+            chomp($line);
+            my @entries = split(/\t/, $line);
             if (scalar (@entries) == 3) {
               $node_map->{$entries[0]} = [$entries[1], $entries[2]];
             } else {
-              print STDERR "Invalid entry in the node file $mapfile: $_\n";
+              print STDERR "Invalid entry in the node file $mapfile: $line\n";
             }
         }
         close (XREFFILE);
@@ -351,9 +352,22 @@ sub lilypond_external_ref($$$$$$)
   my $href = shift;
   my $cross_ref = shift;
 
-  $file_node =~ s/\(.*\)//;
-  $file_node = &$anchor('', $href, $file_node) if ($file_node ne '');
-  return &$I('%{node_file_href}', { 'node_file_href' => $file_node });
+  my $displaytext = '';
+
+  # 1) if we have a cross ref name, that's the text to be displayed:
+  # 2) For the top node, use the (printable) name of the manual, unless we 
+  #    have an explicit cross ref name
+  # 3) In all other cases use the section name
+  if ($cross_ref ne '') {
+    $displaytext = $cross_ref;
+  } elsif (($section eq '') or ($section eq 'Top')) {
+    $displaytext = $book;
+  } else {
+    $displaytext = $section;
+  }
+
+  $displaytext = &$anchor('', $href, $displaytext) if ($displaytext ne '');
+  return &$I('%{node_file_href}', { 'node_file_href' => $displaytext });
 
 #  Default: format as "see <a ..>NODE</a> section 'SECTION' in BOOK". We don't want this!
 #   return t2h_default_external_ref($type, $section, $book, $file_node, $href, $cross_ref);
@@ -410,7 +424,7 @@ sub lilypond_external_href($$$)
 {
   my $node = shift;
   my $node_id = shift;
-  my $node_xhtml_id = shift;
+  my $node_hxmlt_id = shift;
   my $file = shift;
   my $original_func = \&t2h_default_external_href;
 
@@ -436,7 +450,7 @@ sub lilypond_external_href($$$)
     my $section_name_map = $translated_books{$map_name};
     my $node_text = main::remove_texi($node);
     if (defined($section_name_map->{$node_text})) {
-      (my $node_id, $node_hxmlt_id) = @{$section_name_map->{$node_text}};
+      ($node_id, $node_hxmlt_id) = @{$section_name_map->{$node_text}};
     } else {
       print STDERR "Unable to find key '$node_text' in section_name_map for book $map_name\n";
     }

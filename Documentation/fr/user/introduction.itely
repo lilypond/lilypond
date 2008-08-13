@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-kearning.tely
 @ignore
-    Translation of GIT committish: f8b1d1c16ff9c8d89e48175b5881ec039a0fae3b
+    Translation of GIT committish: 4706bf2d0cccc915834cd9c063999cb38d2e78e8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,6 +11,7 @@
 
 @c Translators: Ludovic Sardain, John Mandereau
 @c Translation checkers: Jean-Charles Malahieude, Jean-Yves Baudais
+@c Translation status: post-GDP
 
 
 @node Introduction
@@ -754,7 +755,7 @@ plus exotiques :
       << {
         \revert Stem #'direction
         \change Staff = down
-        \set subdivideBeams = ##t
+        \set subdivideBeams = ##t	     
         g16.[
           \change Staff = up
           c'''32
@@ -785,7 +786,7 @@ plus exotiques :
       \override Beam  #'thickness = #0.3
       \override Stem  #'thickness = #4.0
       g'16[ b16 fis16 g16]
-      << \makeClusters {
+      << \makeClusters { 
         as16 <as b>
         <g b>
         <g cis>

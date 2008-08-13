@@ -884,7 +884,7 @@ texto, tal y como se muestra a continuación:
     more slow -- ly
   }
   \new Lyrics \lyricsto "lahlah" {
-    \set ignoreMelismata = ##t % applies to "fas"
+    \set ignoreMelismata = ##t % se aplica al "fas"
     go fas -- ter
     \unset ignoreMelismata
     still

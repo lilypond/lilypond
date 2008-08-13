@@ -112,57 +112,57 @@ Word counts (excluding lilypond snippets) are given for each file.
 
 -1- Documentation index and Tutorial
 412   user/lilypond-learning.tely
-5652  user/tutorial.itely
+5685  user/tutorial.itely
 23    user/dedication.itely
 378   user/macros.itexi
-218   index.html.in
-3457  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
-10140 total
+228   index.html.in
+3438  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
+10164 total
 
 -2- Introduction and beginning of Application Usage
 411   user/preface.itely
-3699  user/introduction.itely
+3678  user/introduction.itely
 390   user/lilypond-program.tely
 1681  user/install.itely (partial translation)
 1012  user/setup.itely
 2879  user/running.itely
-10072 total
+10051 total
 
 -3- Learning manual
 9800  user/fundamental.itely -- Fundamental concepts
-12262 user/tweaks.itely -- Tweaking output
+12334 user/tweaks.itely -- Tweaking output
 3005  user/working.itely -- Working on LilyPond files
 483   user/templates.itely -- Templates
-25550 total
+25622 total
 
 -4- Notation reference
-544   user/lilypond.tely
+547   user/lilypond.tely
 91    user/notation.itely -- Musical notation
-2822  user/pitches.itely
-6657  user/rhythms.itely
-843   user/expressive.itely
-940   user/repeats.itely
-883   user/simultaneous.itely
-2310  user/staff.itely
-827   user/editorial.itely
-1851  user/text.itely
+2948  user/pitches.itely
+6785  user/rhythms.itely
+1119  user/expressive.itely
+556   user/repeats.itely
+1000  user/simultaneous.itely
+1800  user/staff.itely
+908   user/editorial.itely
+2082  user/text.itely
 73    user/specialist.itely -- Specialist notation
-2745  user/vocal.itely
-1303  user/chords.itely
+2799  user/vocal.itely
+1352  user/chords.itely
 702   user/piano.itely
-546   user/percussion.itely
+747   user/percussion.itely
 826   user/guitar.itely
 66    user/strings.itely
 242   user/bagpipes.itely
 3474  user/ancient.itely
-5399  user/input.itely -- Input syntax
+5431  user/input.itely -- Input syntax
 2164  user/non-music.itely -- Non-musical notation
-8400  user/spacing.itely -- Spacing issues
-6855  user/changing-defaults.itely -- Changing defaults
-5213  user/programming-interface.itely -- Interfaces for programmers
-1127  user/notation-appendices.itely -- Notation manual tables
+7896  user/spacing.itely -- Spacing issues
+8377  user/changing-defaults.itely -- Changing defaults
+5218  user/programming-interface.itely -- Interfaces for programmers
+1146  user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-57153 total
+58599 total
 
 -5- Application usage
 3175  user/lilypond-book.itely -- LilyPond-book

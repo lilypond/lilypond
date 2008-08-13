@@ -190,8 +190,8 @@ Learning Manual:
 @rlearning{Fixing overlapping notation}.
 
 Notation Reference:
-@ruser{Stems},
-@ruser{Automatic beams}.
+@ref{Stems},
+@ref{Automatic beams}.
 
 Snippets:
 @rlsr{Keyboards}.

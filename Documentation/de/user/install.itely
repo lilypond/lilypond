@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,71 +11,120 @@
 @node Install
 @chapter Install
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Precompiled binaries::
 * Compiling from source::
-@end menu 
+@end menu
+
 @node Precompiled binaries
 @section Precompiled binaries
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @subsection Downloading
 @node Compiling from source
 @section Compiling from source
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Downloading source code::
 * Requirements::
 * Building LilyPond::
-* Building documentation without compiling LilyPond::
+* Building documentation::
 * Testing LilyPond::
 * Problems::
-@end menu 
+@end menu
+
 @node Downloading source code
 @subsection Downloading source code
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Requirements
 @subsection Requirements
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @unnumberedsubsubsec Compilation
 @unnumberedsubsubsec Running requirements
-@unnumberedsubsubsec Building documentation
+@unnumberedsubsubsec Requirements for building documentation
 @node Building LilyPond
 @subsection Building LilyPond
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @unnumberedsubsubsec Compiling
 @unnumberedsubsubsec Compiling for multiple platforms
-@node Building documentation without compiling LilyPond
-@subsection Building documentation without compiling LilyPond
+@unnumberedsubsubsec Compiling outside the source tree
+@node Building documentation
+@subsection Building documentation
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Commands for building documentation::
+* Building documentation without compiling LilyPond::
+@end menu
+
+@node Commands for building documentation
+@unnumberedsubsubsec Commands for building documentation
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Building documentation without compiling LilyPond
+@unnumberedsubsubsec Building documentation without compiling LilyPond
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Testing LilyPond
 @subsection Testing LilyPond
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Problems
 @subsection Problems
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @unnumberedsubsubsec Bison 1.875
 @unnumberedsubsubsec Solaris
 @unnumberedsubsubsec FreeBSD
 @unnumberedsubsubsec International fonts
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@c -- SKELETON FILE --
