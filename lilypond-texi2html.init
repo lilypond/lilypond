@@ -171,7 +171,7 @@ sub load_map_file ($)
         }
         close (XREFFILE);
     } else {
-        print STDERR "Unable to load the map file $mapfile\n";
+        print STDERR "WARNING: Unable to load the map file $mapfile\n";
     }
     return $node_map;
 }
@@ -452,7 +452,7 @@ sub lilypond_external_href($$$)
     if (defined($section_name_map->{$node_text})) {
       ($node_id, $node_hxmlt_id) = @{$section_name_map->{$node_text}};
     } else {
-      print STDERR "Unable to find key '$node_text' in section_name_map for book $map_name\n";
+      print STDERR "WARNING: Unable to find node '$node_text' in book $map_name.\n";
     }
   }
 
