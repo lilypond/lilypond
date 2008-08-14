@@ -66,6 +66,25 @@ which scares away people.
 @end ignore
 
 @item
+Predefined, user-configurable, transposable fret diagrams
+are now available in the FretBoards context:
+@lilypond[]
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new ChordNames {
+   \chordmode {
+      c1 \transpose c e { c }
+    }
+  }
+  \new FretBoards {
+    \chordmode {
+      c1 \transpose c e { c }
+    }
+  }
+>>
+@end lilypond
+
+@item
 A few syntax changes were made:
 @example
 2.11.23: #'break-align-symbol -> #'break-align-symbols
