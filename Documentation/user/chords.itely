@@ -927,7 +927,7 @@ Snippets:
 @rlsr{Chords}.
 
 Internals Reference:
-@rinternals{NewBassFigure},
+@rinternals{BassFigure},
 @rinternals{BassFigureAlignment},
 @rinternals{BassFigureLine},
 @rinternals{BassFigureBracket},
@@ -1034,7 +1034,7 @@ Snippets:
 @rlsr{Chords}.
 
 Internals Reference:
-@rinternals{NewBassFigure},
+@rinternals{BassFigure},
 @rinternals{BassFigureAlignment},
 @rinternals{BassFigureLine},
 @rinternals{BassFigureBracket},

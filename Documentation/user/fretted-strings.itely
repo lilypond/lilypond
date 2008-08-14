@@ -176,6 +176,18 @@ The default value for @code{minimumFret} is 0.
 >>
 @end lilypond
 
+Harmonic indications and slides can be added to tablature
+notation.
+
+@lilypond[fragment, verbatim, quote, relative=1]
+\new TabStaff {
+  \new TabVoice {
+    <c g'\harmonic> d\2\glissando e\2
+  }
+}
+@end lilypond
+
+
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
@@ -220,6 +232,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 >>
 @end lilypond
 
+Guitar special effects are limited to harmonics and slides.
 
 @node Custom tablatures
 @unnumberedsubsubsec Custom tablatures
@@ -308,10 +321,6 @@ Snippets:
 
 Internals Reference: 
 @rinternals{Tab_note_heads_engraver}.
-
-@knownissues
-
-No guitar special effects have been implemented.
 
 
 @node Fret diagram markups

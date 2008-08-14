@@ -66,6 +66,25 @@ which scares away people.
 @end ignore
 
 @item
+Predefined, user-configurable, transposable fret diagrams
+are now available in the FretBoards context:
+@lilypond[]
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new ChordNames {
+   \chordmode {
+      c1 \transpose c e { c }
+    }
+  }
+  \new FretBoards {
+    \chordmode {
+      c1 \transpose c e { c }
+    }
+  }
+>>
+@end lilypond
+
+@item
 The following syntax changes were made, in chronological order. In
 addition, fret diagram properties have been moved to
 @code{fret-diagram-details}, and @code{#'style} property is used to
@@ -177,7 +196,6 @@ their end points.  This includes glissando, voice followers, text
 crescendos and other text spanners.  The old syntax for setting
 text on line spanners is no longer valid.
 
-@c  with ragged-right we can't see the gliss.
 @lilypond[]
 \relative c'' {
   \override Glissando #'bound-details #'right #'text = \markup { \hcenter \bold down }
@@ -186,6 +204,8 @@ text on line spanners is no longer valid.
   \override Glissando #'bound-details #'left #'arrow = ##t
   \override Glissando #'bound-details #'left #'padding = #3.0
   \override Glissando #'style = #'trill
+  \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
+  \override Glissando #'minimum-length = #12
   
   c1 \glissando c'
 }
@@ -289,13 +309,13 @@ duration and count (if given) are shown in parentheses after the text.
   \tempo "Fast"
   c'4 c' c' c'
   c'4 c' c' c'
-  \tempo "Andante" 4=120
+  \tempo "Andante" 4 = 120
   c'4 c' c' c'
   c'4 c' c' c'
-  \tempo 4=100
+  \tempo 4 = 100
   c'4 c' c' c'
   c'4 c' c' c'
-  \tempo "" 4=30
+  \tempo "" 4 = 30
   c'4 c' c' c'
   c'4 c' c' c'
 }

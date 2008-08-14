@@ -349,3 +349,10 @@ predefinedFretboardsOn = {
   \set FretBoards.predefinedDiagramTable = #fretboard-table
 }
 
+pointAndClickOff = #(define-music-function (parser location) ()
+                      (ly:set-option 'point-and-click #f)
+                      (make-music 'SequentialMusic 'void #t))
+
+pointAndClickOn = #(define-music-function (parser location) ()
+                      (ly:set-option 'point-and-click #t)
+                      (make-music 'SequentialMusic 'void #t))
