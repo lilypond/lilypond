@@ -150,7 +150,7 @@ a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
 @end lilypond
 
 When typesetting a piece in Gregorian chant notation, the
-@rinternals{Gregorian_ligature_engraver} automatically selects the proper
+@rinternals{Vaticana_ligature_engraver} automatically selects the proper
 note heads, so there is no need to explicitly set the note head style. 
 Still, the note head style can be set, e.g., to @code{vaticana_punctum} to
 produce punctum neumes.  Similarly, the

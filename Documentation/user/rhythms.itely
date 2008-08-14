@@ -1312,7 +1312,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TimeSignature},
-@rinternals{Timing-translator},
+@rinternals{Timing_translator},
 @rinternals{Staff}.
 
 @knownissues

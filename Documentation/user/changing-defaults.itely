@@ -702,7 +702,7 @@ The notes look like a slash, and have no stem,
 
 All these plug-ins have to cooperate, and this is achieved with a
 special plug-in, which must be marked with the keyword @code{\type}.
-This should always be @rinternals{Engraver_group},
+This should always be @code{Engraver_group}.
 
 @example
 \type "Engraver_group"
@@ -838,9 +838,9 @@ Internals Reference: @rinternals{Fingering}.
 @c  outdated info; probably will delete.
 @ignore
 This fragment points to two parts of the program reference: a page
-on @code{FingerEvent} and one on @code{Fingering}.
+on @code{FingeringEvent} and one on @code{Fingering}.
 
-The page on @code{FingerEvent} describes the properties of the music
+The page on @code{FingeringEvent} describes the properties of the music
 expression for the input @code{-2}.  The page contains many links
 forward.  For example, it says
 
@@ -856,7 +856,7 @@ plug-in, which says
 This engraver creates the following layout objects: @rinternals{Fingering}.
 @end quotation
 
-In other words, once the @code{FingerEvent}s are interpreted, the
+In other words, once the @code{FingeringEvent}s are interpreted, the
 @code{Fingering_engraver} plug-in will process them.
 @end ignore
 
@@ -902,7 +902,7 @@ Music types accepted: @rinternals{fingering-event}
 
 @item @rinternals{fingering-event}:
 Music event type @code{fingering-event} is in Music expressions named
-@rinternals{FingerEvent}
+@rinternals{FingeringEvent}
 @end itemize
 
 This path goes against the flow of information in the program: it

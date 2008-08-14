@@ -138,8 +138,6 @@ Snippets:
 @rlsr{Editorial annotations}.
 
 Internals Reference:
-@rinternals{fontSize},
-@rinternals{font-size},
 @rinternals{font-interface}.
 
 
