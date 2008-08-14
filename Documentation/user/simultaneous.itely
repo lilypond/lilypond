@@ -194,9 +194,31 @@ these purposes, the @code{\voiceOne} ... @code{\voiceFour}, and
 << @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
 @end example
 
-This is a better construct to keep the control of the voices, for
-example, to ease a consistent assign of lyrics to the proper voice
-context.
+This construct keeps a voice alive throughout the polyphonic section.
+For example, this allows lyrics to be assigned to one consistent voice.
+
+@lilypond[quote, verbatim, relative=1]
+<<
+  \new Voice = "melody" {
+    a4
+    <<
+      {
+        \voiceOne
+        g f
+      }
+      \new Voice {
+        \voiceTwo
+        e d
+      }
+    >>
+    \oneVoice
+    e
+  }
+  \new Lyrics \lyricsto "melody" {
+  This is my song.
+  }
+>>
+@end lilypond
 
 @predefined
 
