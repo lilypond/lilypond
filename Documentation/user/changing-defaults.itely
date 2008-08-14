@@ -2343,11 +2343,63 @@ VerticalAxisGroup.
 @subsection Modifying ends of spanners
 
 @c FIXME Write this section
+@c See earlier material in Line styles
 
 @node Modifying stencils
 @subsection Modifying stencils
 
-@c FIXME Write this section
+All layout objects have a @code{stencil} property which is part of
+the @code{grob-interface}.  By default, this property is usually
+set to a function specific to the object that is tailor-made to
+render the symbol which represents it in the output.  For example,
+the standard setting for the @code{stencil} property of the
+@code{MultiMeasureRest} object is @code{ly:multi-measure-rest::print}.
+
+The standard symbol for any object can be replaced by modifying the
+@code{stencil} property to reference a different, specially-written,
+procedure.  This requires a high level of knowledge of the internal
+workings of LilyPond, but there is an easier way which can often
+produce adequate results.
+
+This is to set the @code{stencil} property to the procedure which
+prints text -- @code{ly:text-interface::print} -- and to add a
+@code{text} property to the object which is set to contain the
+markup text which produces the required symbol.  Due to the
+flexibility of markup, much can be achieved -- see in particular
+@ref{Graphic notation inside markup}.
+
+The following example demonstrates this by changing the note head
+symbol to a cross within a circle.
+
+@lilypond[verbatim,quote]
+XinO = {
+  \once \override NoteHead  #'stencil = #ly:text-interface::print
+  \once \override NoteHead #'text = \markup {
+    \combine
+      \halign #-0.7 \draw-circle #0.85 #0.2 ##f
+      \musicglyph #"noteheads.s2cross"
+  }
+}
+\relative c'' {
+  a a \XinO a a
+}
+@end lilypond
+
+Any of the glyphs in the feta Font can be supplied to the
+@code{\musicglyph} markup command -- see @ref{The Feta font}.
+
+@c TODO Add inserting eps files or ref to later
+
+@c TODO Add inserting Postscript or ref to later
+
+@seealso
+
+Notation Reference:
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
+@ref{Text markup commands},
+@ref{The Feta font}.
+
 
 @node Modifying shapes
 @subsection Modifying shapes
@@ -2359,13 +2411,13 @@ VerticalAxisGroup.
 @node Modifying ties and slurs
 @unnumberedsubsubsec Modifying ties and slurs
 
-Ties, slurs and phrasing slurs are drawn as third-order Bézier
+Ties, slurs and phrasing slurs are drawn as third-order BÃ©zier
 curves.  If the shape of the tie or slur which is calculated
 automatically is not optimum, the shape may be modified manually by
 explicitly specifying the four control points required to define
-a third-order Bézier curve.
+a third-order BÃ©zier curve.
 
-Third-order or cubic Bézier curves are defined by four control
+Third-order or cubic BÃ©zier curves are defined by four control
 points.  The first and fourth control points are precisely the
 starting and ending points of the curve.  The intermediate two
 control points define the shape.  Animations showing how the curve
@@ -2391,7 +2443,7 @@ where @code{\tieDown} would not help.
 One way of improving this tie is to manually modify its control
 points, as follows.
 
-The coordinates of the Bézier control points are specified in units
+The coordinates of the BÃ©zier control points are specified in units
 of staff-spaces.  The X@tie{}coordinate is relative to the reference
 point of the note to which the tie or slur is attached, and the
 Y@tie{}coordinate is relative to the staff center line.  The
@@ -2401,7 +2453,7 @@ end points, and then guess the two intermediate points.  The optimum
 values are then found by trial and error.
 
 It is useful to remember that a symmetric curve requires symmetric
-control points, and that Bézier curves have the useful property that
+control points, and that BÃ©zier curves have the useful property that
 transformations of the curve such as translation, rotation and
 scaling can be achieved by applying the same transformation to the
 curve's control points.
