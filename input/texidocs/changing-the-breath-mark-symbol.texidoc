@@ -1,0 +1,7 @@
+  texidoces = "
+El glifo de la marca de respiración se puede ajustar
+sobreescribiendo la proopiedad de texto del objeto de presentación
+@code{BreathingSign}, con cualquier otro texto de marcado.
+
+"
+  doctitlees = "Cambiar el símbolo de la marca de respiración"

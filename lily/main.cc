@@ -240,9 +240,10 @@ static void
 notice ()
 {
   identify (stdout);
-  puts (_f (NOTICE, PROGRAM_NAME).c_str ());
   printf ("\n");
   copyright ();
+  printf ("\n");
+  puts (_f (NOTICE, PROGRAM_NAME).c_str ());
 }
 
 LY_DEFINE (ly_usage, "ly:usage",
@@ -557,7 +558,6 @@ parse_argv (int argc, char **argv)
 
   if (show_help)
     {
-      identify (stdout);
       ly_usage ();
       if (be_verbose_global)
 	dir_info (stdout);

@@ -41,7 +41,7 @@
 */
 
 /* Ugh: This declaration is duplicated in piano-pedal-performer */
-typedef enum Pedal_type {
+enum Pedal_type {
   SOSTENUTO,
   SUSTAIN,
   UNA_CORDA,

@@ -66,6 +66,32 @@ which scares away people.
 @end ignore
 
 @item
+A few syntax changes were made:
+@example
+2.11.23: #'break-align-symbol -> #'break-align-symbols
+2.11.35: scripts.caesura -> scripts.caesura.curved.
+Use #'style not #'dash-fraction to select solid/dashed lines.
+2.11.38: \setEasyHeads -> \easyHeadsOn, \fatText -> \textLengthOn,
+\emptyText -> \textLengthOff
+2.11.46: \set hairpinToBarline -> \override Hairpin #'to-barline
+2.11.48: \compressMusic -> \scaleDurations
+2.11.50: metronomeMarkFormatter uses text markup as second
+argument,
+fret diagram properties moved to fret-diagram-details.
+2.11.51: \octave -> \octaveCheck, \arpeggioUp -> \arpeggioArrowUp,
+\arpeggioDown -> \arpeggioArrowDown, \arpeggioNeutral ->
+\arpeggioNormal,
+\setTextCresc -> \crescTextCresc, \setTextDecresc ->
+\dimTextDecresc,
+\setTextDecr -> \dimTextDecr, \setTextDim -> \dimTextDim,
+\setHairpinCresc -> \crescHairpin, \setHairpinDecresc ->
+\dimHairpin,
+\sustainUp -> \sustainOff, \sustainDown -> \sustainOn
+\sostenutoDown -> \sostenutoOn, \sostenutoUp -> \sostenutoOff
+2.11.53: infinite-spacing-height -> extra-spacing-height
+@end example
+
+@item
 Arpeggios may now use ``parenthesis'' style brackets:
 
 @lilypond[relative,ragged-right]
@@ -254,6 +280,33 @@ uneven vertical spacing.
     }
   }
 }
+@end lilypond
+
+@item Metronome marks can now also contain a textual description.  The
+duration and count (if given) are shown in parentheses after the text.
+
+@lilypond
+{
+  \tempo "Fast"
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo "Andante" 4=120
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo 4=100
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo "" 4=30
+  c'4 c' c' c'
+  c'4 c' c' c'
+}
+@end lilypond
+
+@item In figured bass you can now also use a backslash through a number to 
+indicate a raised 6th step.
+
+@lilypond[ragged-right]
+\new FiguredBass \figuremode { < 6\\ 5\\ > < 6/ > }
 @end lilypond
 
 @end itemize

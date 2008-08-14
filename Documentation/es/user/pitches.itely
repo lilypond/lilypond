@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 
 @node Pitches
@@ -495,7 +495,7 @@ Esta sección trata de la manera de modificar las alturas.
 @cindex octava, comprobación de
 @cindex octava, corrección de
 @funindex =
-@funindex \octave
+@funindex \octaveCheck
 
 En el modo relativo, es fácil olvidar una marca de cambio de octava.
 Las comprobaciones de octava hacen más fácil encontrar estos errores,
@@ -516,7 +516,7 @@ octava.
 @end lilypond
 
 La octava de las notas se puede comprobar también con la instrucción
-@code{\octave}@tie{}@var{altura_de_control}.  @var{altura_de_control}
+@code{\octaveCheck}@tie{}@var{altura_de_control}.  @var{altura_de_control}
 se eespecifica en modo absoluto.  Esto comprueba que el intervalo
 entre la nota anterior y la @var{altura_de_control} se encuntra dentro
 de una cuarta (es decir, el cálculo normal para el modo relativo).  Si
@@ -527,13 +527,13 @@ relación a la @var{altura_de_control}.
 @lilypond[verbatim,quote,ragged-right,fragment]
 \relative c'' {
   c2 d
-  \octave c'
+  \octaveCheck c'
   e2 f
 }
 @end lilypond
 
 Compare los dos compases siguientes.  La primera y tercera
-comprobaciones de @code{\octave} fracasan, pero el segundo es
+comprobaciones de @code{\octaveCheck} fracasan, pero el segundo es
 correcto.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
@@ -541,11 +541,11 @@ correcto.
   c4 f g f
 
   c4
-  \octave c'
+  \octaveCheck c'
   f
-  \octave c'
+  \octaveCheck c'
   g
-  \octave c'
+  \octaveCheck c'
   f
 }
 @end lilypond
@@ -918,14 +918,14 @@ de una octava para el pentagrama.
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
 a'2 b
-#(set-octavation 1)
+\ottava #1
 a b
-#(set-octavation 0)
+\ottava #0
 a b
 @end lilypond
 
 
-La función @code{set-octavation} también admite los valores -1 (para
+La función @code{ottava} también admite los valores -1 (para
 8va bassa), 2@tie{}(para 15ma) y -2 (para 15ma bassa) como argumentos.
 
 

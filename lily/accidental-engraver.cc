@@ -51,7 +51,6 @@ Accidental_entry::Accidental_entry ()
 
 class Accidental_engraver : public Engraver
 {
-  int get_bar_number ();
   void update_local_key_signature (SCM new_signature);
   void create_accidental (Accidental_entry *entry, bool, bool);
   Grob *make_standard_accidental (Stream_event *note, Grob *note_head, Engraver *trans, bool);
@@ -297,21 +296,6 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin,
   return result;
 }
 
-int
-Accidental_engraver::get_bar_number ()
-{
-  SCM barnum = get_property ("internalBarNumber");
-  SCM smp = get_property ("measurePosition");
-
-  int bn = robust_scm2int (barnum, 0);
-
-  Moment mp = robust_scm2moment (smp, Moment (0));
-  if (mp.main_part_ < Rational (0))
-    bn--;
-
-  return bn;
-}
-
 void
 Accidental_engraver::process_acknowledged ()
 {
@@ -319,7 +303,7 @@ Accidental_engraver::process_acknowledged ()
     {
       SCM accidental_rules = get_property ("autoAccidentals");
       SCM cautionary_rules = get_property ("autoCautionaries");
-      int barnum = get_bar_number ();
+      int barnum = measure_number (context());
 
       for (vsize i = 0; i < accidentals_.size (); i++)
 	{
@@ -354,12 +338,14 @@ Accidental_engraver::process_acknowledged ()
 
 	  /* Cannot look for ties: it's not guaranteed that they reach
 	     us before the notes. */
-	  if (acc.need_acc
-	      && !note->in_event_class ("trill-span-event"))
-	    create_accidental (&accidentals_[i], acc.need_restore, cautionary);
+	  if (!note->in_event_class ("trill-span-event"))
+	    {
+	      if (acc.need_acc)	      
+		create_accidental (&accidentals_[i], acc.need_restore, cautionary);
 
-	  if (forced || cautionary)
-	    accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
+	      if (forced || cautionary)
+		accidentals_[i].accidental_->set_property ("forced", SCM_BOOL_T);
+	    }
 	}
     }
 }
@@ -474,11 +460,11 @@ Accidental_engraver::stop_translation_timestep ()
     }
 
   for (vsize i = accidentals_.size (); i--;)
-    {
-      int barnum = get_bar_number ();
-
+    {      
       Stream_event *note = accidentals_[i].melodic_;
       Context *origin = accidentals_[i].origin_;
+
+      int barnum = measure_number (origin);
 
       Pitch *pitch = unsmob_pitch (note->get_property ("pitch"));
       if (!pitch)
@@ -494,7 +480,8 @@ Accidental_engraver::stop_translation_timestep ()
 	     && origin->where_defined (ly_symbol2scm ("localKeySignature"), &localsig))
 	{
 	  bool change = false;
-	  if (accidentals_[i].tied_)
+	  if (accidentals_[i].tied_
+	      && !(to_boolean (accidentals_[i].accidental_->get_property ("forced"))))
 	    {
 	      /*
 		Remember an alteration that is different both from

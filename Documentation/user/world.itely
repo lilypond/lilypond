@@ -1,0 +1,386 @@
+@c -*- coding: utf-8; mode: texinfo; -*-
+@ignore
+    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+@c \version "2.11.51"
+
+@node World music
+@section World music
+
+The purpose of this section is to highlight musical notation issues
+that are relevant to traditions outside the Western tradition. 
+
+@menu
+* Arabic music::                
+@end menu
+
+@node Arabic music
+@subsection Arabic music
+
+This section highlights issues that are relevant to notating Arabic
+music.
+
+@menu
+* References for Arabic music::  
+* Arabic note names ::          
+* Arabic key signatures::       
+* Arabic time signatures::      
+* Arabic music example::        
+* Further reading::             
+@end menu
+
+ 
+@node References for Arabic music
+@unnumberedsubsubsec References for Arabic music 
+
+@cindex Arabic music
+@cindex medium intervals  
+@cindex maqam 
+@cindex maqams
+
+Arabic music so far has been mainly an oral tradition.  When music
+is transcribed, it is usually in a sketch format, on which
+performers are expected to improvise significantly.  Increasingly,
+Western notation, with a few variations, is adopted in order to
+communicate and preserve Arabic music. 
+
+Some elements of Western musical notation such as the
+transcription of chords or independent parts, are not required to
+typeset the more traditional Arabic pieces.  There are however
+some different issues, such as the need to indicate medium
+intervals that are somewhere between a semi-tone and a tone, in
+addition to the minor and major intervals that are used in Western
+music.  There is also the need to group and indicate a large
+number of different maqams (modes) that are part of Arabic music.
+  
+In general, Arabic music notation does not attempt to precisely
+indicate microtonal elements that are present in musical practice.
+
+Several issues that are relevant to Arabic music are covered 
+elsewhere: 
+
+@itemize
+@item Note names and accidentals (including quarter tones) can be
+tailored as discussed in @ref{Note names in other languages}.
+
+@item Additional key signatures can also be tailored as described
+in @ref{Key signature}.
+
+@item Complex time signatures may require that notes be grouped
+manually as described in @ref{Manual beams}. 
+
+@item @notation{Takasim} which are rhythmically free 
+improvisations may be written down omitting bar lines as 
+described in @ref{Unmetered music}. 
+
+@end itemize 
+
+@seealso
+
+Notation Reference:
+@ref{Note names in other languages},     
+@ref{Key signature},
+@ref{Manual beams}.
+
+Snippets:
+@rlsr{World music}.
+ 
+
+@node Arabic note names 
+@unnumberedsubsubsec Arabic note names 
+
+
+@cindex Arabic note names 
+
+The more traditional Arabic note names can be quite long and are
+not suitable for the purpose of music writing, so they are not
+used.  English note names are not very familiar in Arabic music
+education, so Italian or Solfege note names (@code{do, re, mi, fa,
+sol, la, si}) are used instead.  Modifiers (accidentals) can also
+be used, as discussed in @ref{Note names in other languages}. 
+
+For example, this is how the Arabic @notation{rast} scale can be
+notated:
+
+@lilypond[quote,verbatim]    
+\include "arabic.ly"
+\relative do' { 
+  do re misb fa sol la sisb do sisb la sol fa misb re do 
+}
+@end lilypond
+
+
+@cindex Arabic semi-flat symbol 
+@cindex Semi-flat symbol appearance
+
+The symbol for semi-flat does not match the symbol which is used
+in Arabic notation.  The @code{\dwn} symbol defined in
+@code{arabic.ly} may be used preceding a flat symbol as a work
+around if it is important to use the specific Arabic semi-flat
+symbol.  The appearance of the semi-flat symbol in the key
+signature cannot be altered by using this method. 
+
+
+@lilypond[quote,verbatim]    
+\include "arabic.ly"
+\relative do' { 
+  \set Staff.extraNatural = ##f 
+  dod dob dosd \dwn dob dobsb dodsd do do
+}
+@end lilypond
+
+
+@seealso 
+
+Notation Reference:     
+@ref{Note names in other languages}.
+
+Snippets:
+@rlsr{World music}.
+
+
+@node Arabic key signatures
+@unnumberedsubsubsec Arabic key signatures 
+
+@cindex Arabic key signatures
+
+In addition to the minor and major key signatures, the following
+key signatures are defined in @code{arabic.ly}: @notation{bayati},
+@notation{rast}, @notation{sikah}, @notation{iraq}, and
+@notation{kurd}.  These key signatures define a small number of
+maqam groups rather than the large number of maqams that are in
+common use. 
+
+In general, a maqam uses the key signature of its group, or a 
+neighbouring group, and varying accidentals are marked throughout 
+the music.
+
+For example to indicate the key signature of a maqam muhayer piece:  
+
+@example
+\key re \bayati 
+@end example
+
+Here @var{re} is the default pitch of the muhayer maqam, and
+@var{bayati} is the name of the base maqam in the group. 
+
+While the key signature indicates the group, it is common for the
+title to indicate the more specific maqam, so in this example, the
+name of maqam muhayer should appear in the title.
+
+Other maqams in the same bayati group, as shown in the table below:
+(bayati, hussaini, saba, and ushaq) can be indicated in the same
+way.  These are all variations of the base and most common maqam
+in the group, which is bayati.  They usually differ from the base
+maqam in their upper tetrachords, or certain flow details that
+don't change their fundamental nature, as siblings. 
+
+The other maqam in the same group (Nawa) is related to bayati by
+modulation which is indicated in the table in parenthesis for
+those maqams that are modulations of their base maqam.  Arabic
+maqams admit of only limited modulations, due to the nature of
+Arabic musical instruments.  Nawa can be indicated as follows: 
+
+@example
+\key sol \bayati
+@end example
+
+In Arabic music, the same term such as bayati that is used to
+indicate a maqam group, is also a maqam which is usually the most
+important in the group, and can also be thought of as a base
+maqam. 
+
+Here is one suggested grouping that maps the more common maqams to
+key signatures: 
+
+@multitable @columnfractions 0.1 0.1 0.1 0.6
+@headitem maqam group 
+  @tab key 
+  @tab finalis 
+  @tab Other maqmas in group (finalis)  
+@item ajam 
+  @tab major 
+  @tab sib 
+  @tab jaharka (fa)
+@item bayati 
+  @tab bayati
+  @tab re
+  @tab hussaini, muhayer, saba, ushaq, nawa (sol) 
+@item hijaz 
+  @tab kurd
+  @tab re 
+  @tab shahnaz, shad arban (sol), hijazkar (do)
+@item iraq 
+  @tab iraq
+  @tab sisb
+  @tab - 
+@item kurd 
+  @tab kurd
+  @tab re
+  @tab hijazkar kurd (do) 
+@item nahawand 
+  @tab minor
+  @tab do 
+  @tab busalik (re), farah faza (sol)
+@item nakriz 
+  @tab minor
+  @tab do 
+  @tab nawa athar, hisar (re)
+@item rast 
+  @tab rast
+  @tab do
+  @tab mahur, yakah (sol)
+@item sikah 
+  @tab sikah
+  @tab misb
+  @tab huzam 
+@end multitable          
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
+
+@seealso
+
+Notation Reference:     
+@ref{Key signature}.
+ 
+Learning Manual:
+@rlearning{Accidentals and key signatures}.
+
+Internals Reference:
+@rinternals{KeySignature}.
+
+Snippets:
+@rlsr{World music}, 
+@rlsr{Pitches}.
+
+
+@node Arabic time signatures
+@unnumberedsubsubsec Arabic time signatures 
+
+@cindex Arabic time signatures
+@cindex Semai form 
+@cindex taqasim 
+
+Some Arabic and Turkish music classical forms such as
+@notation{Semai} use unusual time signatures such as 10/8.  This
+may lead to an automatic grouping of notes that is quite different
+from existing typeset music, where notes may not be grouped on the
+beat, but in a manner that is difficult to match by adjusting
+automatic beaming.  You can override this by switching off
+automatic beaming and beaming the notes manually.  Where matching
+existing typeset music is not an issue, you may still want to
+adjust the beaming behaviour and/or use compound time signatures.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{compound-time-signatures.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{arabic-improvisation.ly}
+
+@seealso 
+
+Notation Reference:
+@ref{Manual beams},
+@ref{Automatic beams},
+@ref{Unmetered music}, 
+@ref{Automatic accidentals}, 
+@ref{Setting automatic beam behavior}, 
+@ref{Time signature}. 
+
+Snippets:
+@rlsr{World music}.
+
+
+@node Arabic music example
+@unnumberedsubsubsec Arabic music example 
+
+@cindex Arabic music example 
+@cindex Arabic music template
+@cindex Template Arabic music 
+
+Here is a template that also uses the start of a Turkish Semai
+that is familiar in Arabic music education in order to illustrate
+some of the peculiarities of Arabic music notation, such as medium
+intervals and unusual modes that are discussed in this section. 
+
+@lilypond[quote,verbatim]  
+\include "arabic.ly"
+\score {
+  \relative re' {
+    \set Staff.extraNatural = ##f
+    \set Staff.autoBeaming = ##f
+    \key re \bayati 
+    \time 10/8
+          
+    re4 re'8 re16 [misb re do] sisb [la sisb do] re4 r8                
+    re16 [misb do re] sisb [do] la [sisb sol8] la [sisb] do [re] misb 
+    fa4 fa16 [misb] misb8. [re16] re8 [misb] re  [do] sisb             
+    do4 sisb8 misb16 [re do sisb] la [do sisb la] la4 r8                
+  }
+  \header {
+    title = "Semai Muhayer"
+    composer = "Jamil Bek"
+  }
+}
+@end lilypond
+
+@seealso
+
+Snippets:
+@rlsr{World music} 
+
+
+
+@node Further reading
+@unnumberedsubsubsec Further reading
+
+@enumerate
+
+@item 
+The music of the Arabs by Habib Hassan Touma [Amadeus Press, 1996], 
+contains a discussion of maqams and their method of groupings.
+
+There are also various web sites that explain maqams and some 
+provide audio examples such as :
+
+@itemize @bullet 
+@item 
+@uref{http://www.maqamworld.com/}
+@item 
+@uref{http://www.turath.org/}
+@end itemize  
+
+There are some variations in the details of how maqams are grouped, 
+despite agreement on the criteria of grouping maqams that are 
+related through common lower tetra chords, or through modulation.  
+
+@item 
+There is not a complete consistency, sometimes even in the same 
+text on how key signatures for particular maqams should be 
+specified. It is common, however, to use a key signature per 
+group, rather than a different key signature for each different 
+maqam.
+  
+Oud methods by the following authors, contain examples of 
+mainly Turkish and Arabic compositions. 
+
+@itemize @bullet
+@item 
+Charbel Rouhana
+@item 
+George Farah
+@item 
+Ibrahim Ali Darwish Al-masri
+@end itemize
+@end enumerate
+
+

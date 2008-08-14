@@ -36,14 +36,14 @@ import tempfile
 FESTIVAL_COMMAND = 'festival --pipe'
 VOICE_CODINGS = {'voice_czech_ph': 'iso-8859-2'}
 
-_USAGE = """lilysong [ -p PLAY-PROGRAM ] FILE.xml [ LANGUAGE-CODE-OR-VOICE [ SPEEDUP ] ]
-./lilysong FILE.ly [ LANGUAGE-CODE-OR-VOICE ]
-./lilysong --list-voices
-./lilysong --list-languages
+_USAGE = """lilysong [-p PLAY-PROGRAM] FILE.xml [LANGUAGE-CODE-OR-VOICE [SPEEDUP]]
+       lilysong FILE.ly [LANGUAGE-CODE-OR-VOICE]
+       lilysong --list-voices
+       lilysong --list-languages
 """
 
 def usage ():
-    print 'usage:', _USAGE
+    print 'Usage:', _USAGE
     sys.exit (2)
 
 def process_options (args):

@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Converting from other formats
 @chapter Converting from other formats
@@ -281,5 +281,12 @@ which imports MIDI
 @item
 @uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
 a LISP library to generate music notation 
+@item
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml},
+has experimental export for lilypond.
+@item
+@uref{http://www.tuxguitar.com.ar/}, can export to lilypond.
+@item
+@uref{http://musescore.org} can also export to lilypond.
 @end itemize
 

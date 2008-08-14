@@ -2,7 +2,7 @@
   texidoc = "Excercise all output functions"
 }
 
-\version "2.11.38"
+\version "2.11.53"
 
 \paper { ragged-right = ##t }
 
@@ -10,9 +10,9 @@
   \new StaffGroup \new PianoStaff <<
     \new Staff
       {
-	#(set-octavation 1)
+	\ottava #1
 	\times 2/3 {  c'8[\< f]( f''\!)  }
-	#(set-octavation 0)
+	\ottava #0
 	<f,, \5>4
 
 	\override TextScript #'color = #red

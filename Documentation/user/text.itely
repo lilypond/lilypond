@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Text
 @section Text
@@ -180,8 +180,13 @@ Internals Reference: @rinternals{TextSpanner}.
 Various text elements can be added to a score using
 the syntax described in @ref{Rehearsal marks}:
 
+@c \mark needs to be placed on a separate line (it's not
+@c attached to an object like \markup is). -vv
+
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
-c4\mark "Allegro" c c c
+c4
+\mark "Allegro"
+c c c
 @end lilypond
 
 This syntax makes it possible to put any text on a bar line;
@@ -191,7 +196,8 @@ signs like coda, segno or fermata, by specifying the appropriate
 symbol name:
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+\mark \markup { \musicglyph #"scripts.ufermata" }
 c1
 @end lilypond
 
@@ -203,9 +209,10 @@ beginning of a score or at a line break, marks will be printed at
 the beginning of the line (the next line, in case of a line break).
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-\mark "Allegro" c1
-c\mark "assai" \break
-c c
+\mark "Allegro"
+c1 c
+\mark "assai" \break
+c  c
 @end lilypond
 
 
@@ -314,7 +321,7 @@ using the @code{\markup} mode specific syntax.
 
 @menu
 * Text markup introduction::    
-* Common markup commands::      
+* Selecting font and font size::      
 * Text alignment::              
 * Graphic notation inside markup::  
 * Music notation inside markup::  
@@ -362,9 +369,9 @@ c
 @cindex quoted text in markup mode
 
 A @code{\markup} block may also contain quoted text, which
-can be useful to print special characters (such as @code{\} and @code{#}).
-Quoted text even allows to print double quotation marks, by preceding
-them with backslashes:
+can be useful to print special characters such as @code{\} and @code{#},
+or even double quotation marks -- these have to be preceded
+with backslashes:
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \clef bass
@@ -385,9 +392,9 @@ c1^\markup { \line { a b c } }
 @end lilypond
 
 Lists of words that are not enclosed with double quotes
-or preceded by a command are not kept distinct.  In
-the following example, the first two @code{\markup} expressions
-are equivalent:
+or preceded by a command are not treated as a distinct
+expression.  In the following example, the first two
+@code{\markup} expressions are equivalent:
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { \center-align { a bbb c } }
@@ -428,20 +435,18 @@ Init files: @file{scm/@/new@/-markup@/.scm}.
 
 @knownissues
 
-Syntax errors for markup mode are confusing.
+Syntax errors for markup mode can be confusing.
 
 
-@node Common markup commands
-@subsubsection Common markup commands
-
-Markup text may be formatted in different ways.
+@node Selecting font and font size
+@subsubsection Selecting font and font size
 
 @cindex font switching
 @funindex \italic
 @funindex \bold
 @funindex \underline
 
-Basic font switching is supported:
+Basic font switching is supported in markup mode:
 
 @lilypond[quote,verbatim,relative=2]
 {
@@ -472,7 +477,7 @@ the font size can be defined to an absolute value,
 predefined commands allow to easily select standard sizes,
 
 @item
-other commands allow to change the size relatively to its previous value.
+the font size can also be changed relatively to its previous value.
 @end itemize
 
 @noindent
@@ -513,10 +518,13 @@ these are printed in a smaller size, but a normal size can be used as well:
 }
 @end lilypond
 
+@cindex font families
+
 The markup mode provides an easy way to select alternate
-font families.  The default serif font, of roman type, is automatically
-selected unless specified otherwise: on the last line of the following example,
-there is no difference between the first word and the following words.
+font families.  The default serif font, of roman type, is
+automatically selected unless specified otherwise: on the
+last line of the following example, there is no difference
+between the first and the second word.
 
 @lilypond[quote,verbatim]
 \markup {
@@ -524,7 +532,7 @@ there is no difference between the first word and the following words.
     \line { Act \number 1 }
     \line { \sans { Scene I. } }
     \line { \typewriter { Verona. An open place. } }
-    \line { \roman Enter Valentine and Proteus. }
+    \line { Enter \roman Valentine and Proteus. }
   }
 }
 @end lilypond
@@ -535,10 +543,33 @@ such as numbers or dynamics, do not provide all
 characters, as mentioned in @ref{New dynamic marks} and
 @ref{Manual repeat marks}.
 
+@c \concat is actually documented in Align (it is not
+@c a font-switching command). But we need it here. -vv
+
+When used inside a word, some font-switching or formatting
+commands may produce an unwanted blank space.  This can
+easily be solved by concatenating the text elements together:
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line {
+      \concat { 1 \super st }
+      movement
+    }
+    \line {
+      \concat { \dynamic p , }
+      \italic { con dolce espressione }
+    }
+  }
+}
+@end lilypond
+
+An exhaustive list of font-switching, font-size
+and font-families related commands can be found in @ref{Font}.
 
 Defining custom font sets is also possible, as explained in
-@ref{Fonts}.  An exhaustive list of font-switching, font-size
-and font-families related commands can be found in @ref{Font}.
+@ref{Fonts}.
 
 @predefined
 
@@ -555,130 +586,208 @@ and font-families related commands can be found in @ref{Font}.
 @code{\large},
 @code{\huge}.
 
-
 @c TODO: add @seealso
-
-@knownissues
-When used inside a word, some of these commands may produce an unwanted
-blank space.  This can easily be solved by concatenating the text
-elements together, using a specific command
-described in @ref{Text alignment}.
-
 
 
 @node Text alignment
 @subsubsection Text alignment
 
-@warning{This subsection discusses how to place text in markup mode,
-inside a @code{\markup} block.  However, markup objects can also
-be moved as a whole using the syntax described in
-@rlearning{Moving objects}.}
+@cindex text, aligning
+@cindex aligning text
 
-Markup objects can be aligned in different ways.  By default,
+This subsection discusses how to place text in markup mode,
+inside a @code{\markup} block.  Markup objects can also
+be moved as a whole, using the syntax described in
+@rlearning{Moving objects}.
+
+@c The padding commands should be mentioned on this page, but
+@c most of these require \box to be more clearly illustrated. -vv
+
+@cindex text, horizontal alignment
+@cindex horizontal text alignment
+@funindex \left-align
+@funindex \hcenter
+@funindex \right-align
+
+Markup objects may be aligned in different ways.  By default,
 a text indication is aligned on its left edge: in the following
-example, there's no difference between the first and the second
-markup.
+example, there's no difference
+between the first and the second markup.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 a1-\markup { poco }
 e'
 a,-\markup { \left-align poco }
 e'
-a,-\markup { \center-align { poco } }
+a,-\markup { \hcenter { poco } }
 e'
 a,-\markup { \right-align poco }
 @end lilypond
 
-@c FIXME: \center-align actually doesn't belong here
-@c \center-align vs \column
-@c \center-align vs \hcenter
+@funindex \halign
 
-Horizontal alignment:
-\hcenter
-\general-align
-\halign 
+The horizontal alignment may be fine-tuned
+using a numeric value:
 
+@lilypond[quote,verbatim,fragment,relative=1]
+a1-\markup { \halign #-1 poco }
+e'
+a,-\markup { \halign #0 poco }
+e'
+a,-\markup { \halign #0.5 poco }
+e'
+a,-\markup { \halign #2 poco }
+@end lilypond
 
-\null
-\hspace
+@noindent
+Some objects may have alignment procedures of their own,
+and therefore are not affected by these commands.  It is
+possible to move such markup objects as a whole, as shown
+for instance in @ref{Text marks},
 
-\lower
-\raise 
-\translate 
-\translate-scaled
-\rotate
-\transparent
-\whiteout
+@cindex text, vertical alignment
+@cindex vertical text alignment
+@funindex \raise
+@funindex \lower
 
-Vertical alignment: 
-\vcenter
-\column 
-\dir-column 
+Vertical alignment is a bit more complex. As stated above,
+markup objects can be moved as a whole; however, it is also
+possible to move specific elements inside a markup block.
+In this case, the element to be moved needs to be preceded
+with an @emph{anchor point}, that can be another markup element
+or an invisible object.  The following example demonstrates these
+two possibilities; the last markup in this example has no anchor
+point, and therefore is not moved.
 
-Building a "large" markup:
+@lilypond[quote,verbatim,fragment,relative=1]
+d2^\markup { 
+  Acte I
+  \raise #2 { Scène 1 } }
+a'
+g_\markup {
+  \null
+  \lower #4 \bold { Très modéré } }
+a
+d,^\markup {
+  \raise #4 \italic { Une forêt. } }
+a'4 a g2 a
+@end lilypond
 
-\line
+@funindex \general-align
+@funindex \translate
+@funindex \translate-scaled
 
-\fill-line
+Some commands can affect both the horizontal and vertical
+alignment of text objects in markup mode.  Any object
+affected by these commands must be preceded with an
+anchor point:
 
-\hcenter-in
-	
-\pad-around
-\pad-markup
-\pad-to-box
-\pad-x
-	
-Alignment inside a "large" markup:
+@lilypond[quote,verbatim,fragment,relative=1]
+d2^\markup {
+  Acte I
+  \translate #'(-1 . 2) "Scène 1" }
+a'
+g_\markup {
+  \null
+  \general-align #Y #3.2 \bold "Très modéré" }
+a
+d,^\markup {
+  \null
+  \translate-scaled #'(-1 . 2) \teeny "Une forêt." }
+a'4 a g2 a
+@end lilypond
 
-\justify-field 
-\justify
-\justify-string
+@cindex multi-line markup
+@cindex multi-line text
+@cindex columns, text
 
-\wordwrap-field
-\wordwrap
-\wordwrap-string
+A markup object may include several lines of text.
+In the following example, each element or expression
+is placed on its own line, either left-aligned or centered:
 
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    a
+    "b c"
+    \line { d e f }
+  }
+  \hspace #10
+  \center-align {
+    a
+    "b c"
+    \line { d e f }
+  }
+}
+@end lilypond
 
-@ignore
-TODO: here are some commands that could be described here.
-I'm putting them in bulk, prior to working on this section. -vv
+Similarly, a list of elements or expressions may be
+spread to fill the entire horizontal line width -- if there
+is only one element, it will be centered on the page.
+These expressions can, in turn, include multi-line text
+or any other markup expression:
 
-\simple
+@lilypond[quote,verbatim]
+\markup {
+  \fill-line {
+    \line { William S. Gilbert }
+    \center-align {
+      \huge \smallCaps "The Mikado"
+      or
+      \smallCaps "The Town of Titipu"
+    }
+    \line { Sir Arthur Sullivan }
+  }
+}
+\markup {
+  \fill-line { 1885 } 
+}
+@end lilypond
 
-\char
-\fraction
+Long text indications can also be automatically wrapped
+accordingly to the given line width.  These will be
+either left-aligned or justified, as shown in
+the following example.
 
-\combine
-\concat
-\put-adjacent
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line  \smallCaps { La vida breve }
+    \line \bold { Acto I }
+    \wordwrap \italic {
+      (La escena representa el corral de una casa de
+      gitanos en el Albaicín de Granada. Al fondo una
+      puerta por la que se vé el negro interior de
+      una Fragua, iluminado por los rojos resplandores
+      del fuego.) 
+    }
+    \hspace #0
 
+    \line \bold { Acto II }
+    \override #'(line-width . 50)
+    \justify \italic {
+      (Calle de Granada. Fachada de la casa de Carmela
+      y su hermano Manuel con grandes ventanas abiertas
+      a través de las que se ve el patio
+      donde se celebra una alegre fiesta)
+    }
+  }
+}
+@end lilypond
 
-\page-ref (see also "Table of contents")
-\fromproperty
-\verbatim-file
-\with-url
+An exhaustive list of text alignment commands
+can be found in @ref{Align}.
 
-\on-the-fly 
-\override
-
-
-
-@end ignore
-
-
-Some objects have alignment procedures of their own, which cancel
-out any effects of alignments applied to their markup arguments as
-a whole.  For example, the @rinternals{RehearsalMark} is
-horizontally centered, so using @code{\mark \markup @{ \left-align
-.. @}} has no effect.
-
-
+@c TODO: add @seealso
 
 @node Graphic notation inside markup
 @subsubsection Graphic notation inside markup
+
 Graphics around text:
 \box
 \circle
+
+(TODO: document padding commands here)
 
 \bracket
 \hbracket

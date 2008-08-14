@@ -863,9 +863,9 @@ class BeamEvent (SpanEvent):
 
 class PedalEvent (SpanEvent):
     def ly_expression (self):
-        return {-1: '\\sustainDown',
-            0:'\\sustainUp\\sustainDown',
-            1:'\\sustainUp'}.get (self.span_direction, '')
+        return {-1: '\\sustainOn',
+            0:'\\sustainOff\\sustainOn',
+            1:'\\sustainOff'}.get (self.span_direction, '')
 
 class TextSpannerEvent (SpanEvent):
     def ly_expression (self):
@@ -901,10 +901,10 @@ class OctaveShiftEvent (SpanEvent):
         dir = self.ly_octave_shift_indicator ()
         value = ''
         if dir:
-            value = '#(set-octavation %s)' % dir
+            value = '\ottava #%s' % dir
         return { 
             -1: value,
-            1: '#(set-octavation 0)'}.get (self.span_direction, '')
+            1: '\ottava #0'}.get (self.span_direction, '')
 
 class TrillSpanEvent (SpanEvent):
     def ly_expression (self):
@@ -937,12 +937,12 @@ class ArpeggioEvent(Event):
         if self.non_arpeggiate:
             printer.dump ("\\arpeggioBracket")
         else:
-          dir = { -1: "\\arpeggioDown", 1: "\\arpeggioUp" }.get (self.direction, '')
+          dir = { -1: "\\arpeggioArrowDown", 1: "\\arpeggioArrowUp" }.get (self.direction, '')
           if dir:
               printer.dump (dir)
     def print_after_note (self, printer):
         if self.non_arpeggiate or self.direction:
-            printer.dump ("\\arpeggioNeutral")
+            printer.dump ("\\arpeggioNormal")
     def ly_expression (self):
         return ('\\arpeggio')
 

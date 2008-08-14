@@ -167,8 +167,35 @@ Staff_symbol::height  (SCM smob)
   return ly_interval2scm (y_ext);
 }
 
+bool
+Staff_symbol::on_line (Grob *me, int pos)
+{
+  SCM line_positions = me->get_property ("line-positions");
+  if (scm_is_pair (line_positions))
+    {
+      Real min_line = HUGE_VAL;
+      Real max_line = -HUGE_VAL;
+      for (SCM s = line_positions; scm_is_pair (s); s = scm_cdr (s))
+	{
+	  Real current_line = scm_to_double (scm_car (s));
+	  if (pos == current_line)
+	    return true;
+	  if (current_line > max_line)
+	    max_line = current_line;
+	  if (current_line < min_line)
+	    min_line = current_line;
+	
+	}
+      if (pos < min_line)
+	return (( (int) (rint (pos - min_line)) % 2) == 0);
+      if (pos > max_line)
+	return (( (int) (rint (pos - max_line)) % 2) == 0);
 
-
+      return false;
+    }
+  else
+    return ((abs (pos + line_count (me)) % 2) == 1);
+}
 
 ADD_INTERFACE (Staff_symbol,
 	       "This spanner draws the lines of a staff.  A staff symbol"

@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -16,14 +16,13 @@ Tutorial guidelines:  (different from policy.txt!)
   or
     @lilypond[verbatim,quote,relative=2]
 
-  Don't use any other relative=X commands (make it a non-fragment
-  example), and don't use fragment without relative=2.
+  Don't use any other relative=X commands.
 
 - use "aes" and "ees" instead of "as" and "es".  I know it's not
   correct Dutch naming, but let's not confuse people with this
   until we get to the Basic notation chapter.
 
-- Add "Music Glossary: @rglos{foo}" to the _top_ of the relevant
+- Add "Music Glossary: @rglos{foo}" to the *top* of the relevant
   portions of the tutorial.
 
 @end ignore
@@ -223,7 +222,8 @@ elementary piece of music, a @notation{scale}, in which every note
 is within just one staff space of the previous note.
 
 @lilypond[verbatim,quote]
-\relative c' {  % set the starting point to middle C
+% set the starting point to middle C
+\relative c' {
   c d e f
   g a b c
 }
@@ -253,7 +253,8 @@ the @w{@code{\relative c' @{}} command, we can change the starting
 octave:
 
 @lilypond[verbatim,quote]
-\relative c'' {  % one octave above middle C
+% one octave above middle C
+\relative c'' {
   e c a c
 }
 @end lilypond
@@ -500,9 +501,8 @@ comments:
   c4 c g' g a a g2
 
 %@{
-  This line, and the notes below
-  are ignored, since they are in a
-  block comment.
+  This line, and the notes below are ignored,
+  since they are in a block comment.
 
   f f e e d d c2
 %@}
@@ -769,7 +769,6 @@ c-. c-- c-> c-^ c-+ c-_
 
 Music Glossary: @rglos{fingering}.
 
-
 Similarly, @notation{fingering} indications can be added to a note
 using a dash (@code{-}) and the digit to be printed:
 
@@ -866,8 +865,6 @@ If you want to turn off automatic beaming entirely or for an
 extended section of music, use the command @code{\autoBeamOff}
 to turn off automatic beaming and @code{\autoBeamOn} to turn it
 on again.
-@c It will usually be necessary to manually beam music
-@c with lyrics.
 
 @lilypond[verbatim,quote,relative=2]
 \autoBeamOff
@@ -1479,17 +1476,12 @@ The simple approach using @code{\addlyrics} can be used for
 placing lyrics under more than one staff.  Here is an
 example from Handel's @notation{Judas Maccabæus}:
 
-@c TODO \partial has not been previously explained
-@c Change example or add explanation earlier
-
 @lilypond[verbatim,quote]
 <<
-  {
-    \time 6/8
-    \partial 8
-  }
   \relative c'' {
     \key f \major
+    \time 6/8
+    \partial 8
     c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
   }
   \addlyrics {
@@ -1497,6 +1489,8 @@ example from Handel's @notation{Judas Maccabæus}:
   }
   \relative c' {
     \key f \major
+    \time 6/8
+    \partial 8
     r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
   }
   \addlyrics {
@@ -1505,11 +1499,10 @@ example from Handel's @notation{Judas Maccabæus}:
 >>
 @end lilypond
 
-@noindent
-but scores any more complex than this simple example are
-better produced by separating out the staff structure
-from the notes and lyrics with variables.  These are
-discussed in @ref{Organizing pieces with variables}.
+Scores any more complex than this simple example are better
+produced by separating out the score structure from the notes and
+lyrics with variables.  These are discussed in @ref{Organizing
+pieces with variables}.
 
 @seealso
 
@@ -1555,13 +1548,17 @@ later by placing a backslash in front of the name
 (@code{\namedMusic}, just like a normal LilyPond command).
 
 @lilypond[verbatim,quote]
-violin = \new Staff { \relative c'' {
-  a4 b c b
-}}
-cello = \new Staff { \relative c {
-  \clef bass
-  e2 d
-}}
+violin = \new Staff {
+  \relative c'' {
+    a4 b c b
+  }
+}
+cello = \new Staff {
+  \relative c {
+    \clef bass
+    e2 d
+  }
+}
 {
   <<
     \violin
@@ -1606,7 +1603,9 @@ places.  The following example uses the above variables:
   \aFivePaper
   line-width = \width
 @}
-@{ c4^\name @}
+@{
+  c4^\name
+@}
 @end example
 
 
@@ -1626,7 +1625,7 @@ By convention, this is placed at the top of your LilyPond file.
 
 These annotations make future upgrades of LilyPond go more
 smoothly.  Changes in the syntax are handled with a special
-program, @file{convert-ly}, and it uses @code{\version} to
+program, @command{convert-ly}, and it uses @code{\version} to
 determine what rules to apply.  For details, see
 @rprogram{Updating files with convert-ly}.
 
@@ -1637,7 +1636,7 @@ determine what rules to apply.  For details, see
 The title, composer, opus number, and similar information are
 entered in the @code{\header} block.  This exists outside of the
 main music expression; the @code{\header} block is usually placed
-underneath the @ref{Version number}.
+underneath the version number.
 
 @example
 \version @w{"@version{}"}
@@ -1735,9 +1734,6 @@ files.
 @node After the tutorial
 @subsection After the tutorial
 
-FIXME: rewrite slightly after the rest of the LM has been
-stabilized.  Translators, ignore this section for now.
-
 After finishing the tutorial, you should probably try writing a
 piece or two.  Start by adding notes to one of the
 @ref{Templates}.  If you need any notation that was not covered in
@@ -1753,6 +1749,9 @@ Manual assumes that you are familiar with LilyPond input.  You may
 wish to skim these chapters right now, and come back to them after
 you have more experience.
 
-
-
+If you have not done so already, @emph{please} read @ref{About the
+documentation}.  There is a lot of information about LilyPond, so
+newcomers often do not know where they should look for help.  If
+you spend five minutes reading that section carefully, you might 
+save yourself hours of frustration looking in the wrong places!
 

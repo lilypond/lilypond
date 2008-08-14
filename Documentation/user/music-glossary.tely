@@ -166,8 +166,8 @@ Languages in this order.
 * arpeggio::                    
 * articulation::                
 * ascending interval::          
-* augmentation::          
 * augmented interval::          
+* augmentation::                
 * autograph::                   
 * B::                           
 * backfall::                    
@@ -179,7 +179,7 @@ Languages in this order.
 * bass clef::                   
 * beam::                        
 * beat::                        
-* beat repeat::                        
+* beat repeat::                 
 * bind::                        
 * brace::                       
 * bracket::                     
@@ -212,7 +212,7 @@ Languages in this order.
 * contralto::                   
 * copying music::               
 * counterpoint::                
-* countertenor::               
+* countertenor::                
 * crescendo::                   
 * cue-notes::                   
 * custos::                      
@@ -225,11 +225,13 @@ Languages in this order.
 * didymic comma::               
 * diminished interval::         
 * diminuendo::                  
-* diminution::          
+* diminution::                  
 * direct::                      
 * disjunct movement::           
 * dissonance::                  
 * dissonant interval::          
+* divisio::                     
+* doit::                        
 * dominant::                    
 * dominant ninth chord::        
 * dominant seventh chord::      
@@ -260,12 +262,14 @@ Languages in this order.
 * extender line::               
 * F::                           
 * F clef::                      
+* fall::                        
 * feathered beam::              
 * fermata::                     
 * fifth::                       
 * figured bass::                
 * fingering::                   
 * flag::                        
+* flageolet::                   
 * flat::                        
 * forefall::                    
 * forte::                       
@@ -283,13 +287,17 @@ Languages in this order.
 * grave::                       
 * gruppetto::                   
 * H::                           
+* hairpin::                     
 * half note::                   
 * half rest::                   
 * harmonic cadence::            
+* harmonics::                   
 * harmony::                     
 * hemiola::                     
 * homophony::                   
+* hymn meter::                  
 * interval::                    
+* inversion::                   
 * inverted interval::           
 * just intonation::             
 * key::                         
@@ -313,7 +321,7 @@ Languages in this order.
 * major interval::              
 * meantone temperament::        
 * measure::                     
-* measure repeat::                     
+* measure repeat::              
 * mediant::                     
 * melisma::                     
 * melisma line::                
@@ -343,17 +351,17 @@ Languages in this order.
 * note head::                   
 * note names::                  
 * note value::                  
-* octavation::                      
+* octavation::                  
 * octave::                      
-* octave mark::                      
-* octave marking::                      
+* octave mark::                 
+* octave marking::              
 * octave sign::                 
 * ornament::                    
 * ossia::                       
 * part::                        
 * pause::                       
 * pennant::                     
-* percent repeat::                  
+* percent repeat::              
 * percussion::                  
 * perfect interval::            
 * phrase::                      
@@ -369,8 +377,9 @@ Languages in this order.
 * portato::                     
 * presto::                      
 * proportion::                  
-* Pythagorean comma::          
+* Pythagorean comma::           
 * quadruplet::                  
+* quality::                     
 * quarter note::                
 * quarter rest::                
 * quarter tone::                
@@ -393,14 +402,14 @@ Languages in this order.
 * sextuplet::                   
 * shake::                       
 * sharp::                       
-* simile::                
+* simile::                      
 * simple meter::                
 * sixteenth note::              
 * sixteenth rest::              
 * sixth::                       
 * sixty-fourth note::           
 * sixty-fourth rest::           
-* slash repeat::                        
+* slash repeat::                
 * slur::                        
 * solmization::                 
 * sonata::                      
@@ -411,6 +420,7 @@ Languages in this order.
 * staff::                       
 * staves::                      
 * stem::                        
+* stringendo::                  
 * strings::                     
 * strong beat::                 
 * subdominant::                 
@@ -421,7 +431,7 @@ Languages in this order.
 * supertonic::                  
 * symphony::                    
 * syncopation::                 
-* syntonic comma::            
+* syntonic comma::              
 * system::                      
 * temperament::                 
 * tempo indication::            
@@ -1418,13 +1428,14 @@ DK: akkord,
 S: ackord,
 FI: sointu.
 
-Three or more tones sounding simultaneously.  In traditional European music the
-base chord is a @emph{triad} consisting of 2@w{ }thirds. @emph{Major} (major +
-minor @ref{third}) as well as @emph{minor} (minor + major third) chords may be
-extended with more thirds. Four-tone @emph{seventh chords} and five-tone
-@emph{ninth} major chords are most often used as dominants (@ref{functional
-harmony}).  A special case is chords having no third above the lower notes to
-define their quality as major or minor: such chords are called @q{open chords}.
+Three or more tones sounding simultaneously.  In traditional European music
+the base chord is a @emph{triad} consisting of two thirds. @emph{Major}
+(major + minor third) as well as @emph{minor} (minor + major third) chords
+may be extended with more thirds. Four-tone @emph{seventh chords} and
+five-tone @emph{ninth} major chords are most often used as dominants
+(functional harmony).  Chords having no third above the lower notes to
+define their mood are a special case called @q{open chords}.  The lack of
+the middle third means their quality is ambivalent: neither major nor minor.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -1449,6 +1460,11 @@ define their quality as major or minor: such chords are called @q{open chords}.
 }
 >>
 @end lilypond
+
+@seealso
+
+@ref{functional harmony}, @ref{interval}, @ref{inversion}, @ref{quality},
+@ref{third}.
 
 
 @node chromatic scale
@@ -2193,7 +2209,7 @@ S: crescendo,
 FI: cresendo, voimistuen.
 
 Increasing volume.  Indicated by a rightwards opening horizontal wedge
-or the abbreviation @samp{cresc.}.
+(hairpin) or the abbreviation @samp{cresc.}.
 
 @lilypond[fragment,ragged-right]
 \key g \major \time 4/4
@@ -2337,8 +2353,8 @@ DK: decrescendo,
 S: decrescendo,
 FI: decresendo, hiljentyen.
 
-Decreasing tone volume.  Indicated by a leftwards opening horizontal wedge
-or the abbreviation @samp{decresc.}.
+Decreasing tone volume.  Indicated by a leftwards opening horizontal
+wedge (hairpin) or the abbreviation @samp{decresc.}.
 
 @lilypond[fragment,ragged-right]
 \relative c'' {
@@ -2379,7 +2395,7 @@ A scale consisting of 5@w{ }@ref{whole tone}s and 2@w{ }@ref{semitone}s (S).
 Scales played on the white keys of a piano keybord are diatonic; and these
 scales are sometimes called, somewhat inaccurately, @q{church modes}).
 
-These @q{modes} are used in gregorian chant and in pre-baroque early music
+These @q{modes} are used in Gregorian chant and in pre-baroque early music
 but also to some extent in newer jazz music.
 
 @lilypond[fragment,notime,ragged-right]
@@ -2689,6 +2705,62 @@ FI: dissonanssi, dissonoiva intervalli, riitasointi.
 @seealso
 
 @ref{harmony}.
+
+
+@node divisio
+@section divisio
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[Latin: @q{division}: pl. @emph{divisiones}] In Gregorian chant, a
+vertical stroke through part or all of the staff that serves to
+structure a chant into phrases and sections.  There are four types:
+
+@itemize
+
+@item @emph{divisio minima}, a short pause
+
+@item @emph{divisio maior}, a medium pause
+
+@item @emph{divisio maxima}, a long pause
+
+@item @emph{finalis}, to indicate the end of a chant, or the end of a
+section in a long antiphonal or responsorial chant.
+
+@end itemize
+
+TODO: musical example here?
+
+@seealso
+
+None yet.
+
+
+@node doit
+@section doit
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Indicator for a indeterminately rising pitch bend.  Compare with
+@emph{glissando}, which has determinate starting and ending pitches.
+
+@seealso
+
+@ref{fall}, @ref{glissando}.
 
 
 @node dominant
@@ -3197,7 +3269,7 @@ Used in many contexts, for example:
 Dictionary}.
 
 @item
-In figured (or thorough) bass to indicate that:
+In figured bass to indicate that:
 
 @itemize
 
@@ -3299,6 +3371,26 @@ double bass @ref{strings}).
 @c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
 
 
+@node fall
+@section fall
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+Indicator for a indeterminately falling pitch bend.  Compare with
+@emph{glissando}, which has determinate starting and ending pitches.
+
+@seealso
+
+@ref{doit}, @ref{glissando}.
+
+
 @node feathered beam
 @section feathered beam
 
@@ -3363,9 +3455,45 @@ FI: kvintti.
 @node figured bass
 @section figured bass
 
-@seealso
+ES: bajo cifrado,
+I: basso continuo, basso numerato,
+F: basse chiffrée, basse continue,
+D: Generalbass, bezifferter Bass,
+NL: basso continuo, becijferde bas
+DK: generalbas,
+S: generalbas,
+FI: kenraalibasso, numeroitu basso.
 
-@ref{thorough bass}.
+Also called @q{thorough bass}.
+
+A method of indicating an accompaniment part by the bass notes only, together
+with figures designating the chief @ref{interval}s and @ref{chord}s to be played
+above the bass notes.
+
+@lilypond[fragment,line-width=13.0\cm]
+\context GrandStaff <<
+  \context Staff = lh \relative c'' {
+    \time 4/4
+    \key es \major
+    \clef treble
+    << \context Voice = rha {
+        \stemUp
+        es4 d c bes | bes }
+      \context Voice = rhb {
+        \stemDown
+        < bes g >8 as < as f > g < g es > f < d f > es | < g es >4 }
+    >>
+  }
+  <<
+    \context Staff = rh \relative c' {
+    \clef bass
+    \key es \major
+    es8 c d bes c as bes16 as g f | es4
+    }
+    \figures { s8 <6> s <4 2> s <6> s16 s <6> <4 2>  }
+  >>
+>>
+@end lilypond
 
 
 @node fingering
@@ -3409,6 +3537,36 @@ less than a quarter note.  The number of flags determines the
   g64_"1/64" s8
 }
 @end lilypond
+
+
+@node flageolet
+@section flageolet
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+An articulation for string players that means the note or passage is to
+be played in harmonics.
+
+Also:
+
+@itemize
+
+@item A duct flute similar to the recorder.
+
+@item An organ stop of flute scale at 1' or 2' pitch.
+
+@end itemize
+
+@seealso
+
+@ref{articulation}, @ref{harmonics}.
 
 
 @node flat
@@ -3740,7 +3898,18 @@ usage.  In the standard usage of these countries, @samp{B} means
 
 @seealso
 
-@ref{Pitch names}, @ref{B}
+@ref{Pitch names}, @ref{B}.
+
+
+@node hairpin
+@section hairpin
+
+Graphical version of the @notation{crescendo} and @notation{decrescendo}
+dynamic marks.
+
+@seealso
+
+@ref{crescendo}, @ref{decrescendo}.
 
 
 @node half note
@@ -3817,6 +3986,31 @@ A sequence of chords that terminates a musical phrase or section.
 >>
 
 @end lilypond
+
+
+@node harmonics
+@section harmonics
+
+ES: sonidos del flautín,
+I: suoni flautati,
+F: flageolet, sons harmoniques,
+D: Flageolett-Töne,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+The general class of pitches produced by sounding the second or higher
+harmonic of a tone producer: string, column of air, and so on.
+
+On stringed instruments, these pitches sound rather flute-like; hence,
+their name in languages other than English.  They are produced by
+lightly touching the string at a node for the desired mode of vibration
+while it is being bowed or plucked.
+
+For instruments of the violin family, there are two types of harmonics:
+natural harmonics, which are those played on the open string; and
+artificial harmonics, which are produced on stopped strings.
 
 
 @node harmony
@@ -3927,6 +4121,53 @@ voices more or less in the same rhythm.  In contrast to
 @ref{polyphony}.
 
 
+@node hymn meter
+@section hymn meter
+
+ES: ?,
+I: ?,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+A group or list of numbers that indicate the number of syllables in a
+line of a hymn's verse.  Different hymnals have different ways of noting
+the hymn meter -- consider a hymn having four lines in two couplets that
+alternate between eight and seven syllables.  The @emph{English Hymnal}
+notes this as 87.@w{ }87.  Other hymnals may note it as 8787, 87.87, or
+8@w{ }7@w{ }8@w{ }7.
+
+Some frequently-used hymn meters have traditional names:
+
+@itemize
+
+@item 66.86 is called Short Meter (abbreviated SM or S.M.)
+
+@item 86.86 is called Common Meter (CM or C.M.)
+
+@item 88.88 is called Long Meter (LM or L.M.)
+
+@end itemize
+
+Some hymns and their tunes are doubled versions of a simpler meter: for
+easier reading, a hymn with a meter of 87.87.87.87 is usually written
+87.87D.  The traditional names above also have doubled versions:
+
+@itemize
+
+@item 66.86.66.86 is Double Short Meter (DSM or D.S.M.)
+
+@item 86.86.86.86 is Double Common Meter (DCM or D.C.M.)
+
+@item 88.88.88.88 is Double Long Meter (DLM or D.L.M.)
+
+@end itemize
+
+
+
 @node interval
 @section interval
 
@@ -4004,6 +4245,44 @@ addition of such two intervals forms an octave.
 }
 >>
 @end lilypond
+
+
+@node inversion
+@section inversion
+
+ES: ?,
+I: ?,
+F: inversion,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+When the bass is not the same as the root, the chord is inverted. The number
+of inversions that a chord can have is one fewer than the number of
+constituent notes. Triads, for example, (having three constituent notes) can
+have three positions, two of which are inversions:
+
+@table @strong
+@item Root position
+The root note is in the bass, and above that are the third and the fifth. A
+triad built on the first scale degree, for example, is marked @notation{I}.
+
+@item First inversion
+The third is in the bass, and above it are the fifth and the root. This
+creates an interval of a sixth and a third above the bass note, and so is
+marked in figured Roman notation as @notation{6/3}. This is commonly
+abbreviated to @notation{I6} (or @notation{Ib}) since the sixth is the
+characteristic interval of the inversion, and so always implies
+@notation{6/3}.
+
+@item Second inversion
+The fifth is in the bass, and above it are the root and the third. This
+creates an interval of a sixth and a fourth above the bass note, and so is
+marked as @notation{I6/4} or @notation{Ic}. Second inversion is the most
+unstable chord position.
+@end table
 
 
 @node inverted interval
@@ -5756,6 +6035,56 @@ FI: kvartoli.
 @ref{note value}.
 
 
+@node quality
+@section quality
+
+ES: ?,
+I: qualità (?),
+F: qualité (?),
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+The quality of a triad is determined by the precise arrangement of its
+intervals.  Tertian triads can be described as a series of three notes.  The
+first element is the root note (or simply @q{root}) of the chord, the second
+note is the @q{third} of the chord, and the last note is the @q{fifth} of
+the chord. These are described below:
+
+@multitable @columnfractions .10 .35 .35 .20
+
+@headitem Chord name @tab Component intervals
+  @tab Example
+  @tab Symbol
+@item major triad @tab major third/perfect fifth
+  @tab C-E-G
+  @tab C, CM, Cma, Cmaj, CΔ
+@item minor triad @tab minor third/perfect fifth
+  @tab C-E♭-G
+  @tab Cm, Cmi, Cmin, C-
+@item augmented triad @tab major third/augmented fifth
+  @tab C-E-G♯
+  @tab C+, C^+, Caug
+@item diminished triad @tab minor third/diminished fifth
+  @tab C-E♭-G♭
+  @tab Cm(♭5), Cº, Cdim
+@end multitable
+
+There are various types of seventh chords depending on the quality of the
+original chord and the quality of the seventh added.
+
+Five common types of seventh chords have standard symbols. The chord quality
+indications are sometimes superscripted and sometimes not (e.g. Dm7, Dm^7,
+and D^m7 are all identical). The last three chords are not commonly used
+except in jazz.
+
+@seealso
+
+@ref{chord}.
+
+
 @node quarter note
 @section quarter note
 
@@ -6056,7 +6385,7 @@ to:
 or impossible
 
 @item alter the characteristic timbre of the instrument, for example,
-to increase brilliance)
+to increase brilliance
 
 @item reinforce certain sonorities or tonalities by making them
 available on open strings
@@ -6533,6 +6862,26 @@ whole note.
 @end lilypond
 
 
+@node stringendo
+@section stringendo
+
+ES: ?,
+I: stringendo,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[It, @q{pressing}].  Pressing, urging, or hastening the time, as to a
+climax.
+
+@seealso
+
+@ref{accelerando}.
+
+
 @node strings
 @section strings
 
@@ -6892,45 +7241,9 @@ FI: terssi.
 @node thorough bass
 @section thorough bass
 
-ES: bajo cifrado,
-I: basso continuo, basso numerato,
-F: basse chiffrée, basse continue,
-D: Generalbass, bezifferter Bass,
-NL: basso continuo, becijferde bas
-DK: generalbas,
-S: generalbas,
-FI: kenraalibasso, numeroitu basso.
+@seealso
 
-Also called @q{figured bass}.
-
-A method of indicating an accompaniment part by the bass notes only, together
-with figures designating the chief @ref{interval}s and @ref{chord}s to be played
-above the bass notes.
-
-@lilypond[fragment,line-width=13.0\cm]
-\context GrandStaff <<
-  \context Staff = lh \relative c'' {
-    \time 4/4
-    \key es \major
-    \clef treble
-    << \context Voice = rha {
-        \stemUp
-        es4 d c bes | bes }
-      \context Voice = rhb {
-        \stemDown
-        < bes g >8 as < as f > g < g es > f < d f > es | < g es >4 }
-    >>
-  }
-  <<
-    \context Staff = rh \relative c' {
-    \clef bass
-    \key es \major
-    es8 c d bes c as bes16 as g f | es4
-    }
-    \figures { s8 <6> s <4 2> s <6> s16 s <6> <4 2>  }
-  >>
->>
-@end lilypond
+@ref{figured bass}.
 
 
 @node tie

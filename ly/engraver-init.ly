@@ -22,6 +22,8 @@
   \consists "Separating_line_group_engraver"
   \consists "Font_size_engraver"
   \consists "Instrument_name_engraver"
+
+  predefinedDiagramTable = #fretboard-table
 }
 
 \context {
@@ -300,9 +302,8 @@ contained staves are connected vertically."
   \name "PianoStaff"
   \alias "GrandStaff"
 
-  \description "Just like @code{GrandStaff} but with a forced
-distance between the staves, so cross staff beaming and slurring
-can be used."
+  \description "Just like @code{GrandStaff} but with support for
+instrument names at the start of each system."
 
   \consists "Instrument_name_engraver"
   
@@ -609,10 +610,12 @@ automatically when an output definition (a @code{\score} or
   keepAliveInterfaces = #'(
     rhythmic-grob-interface
     lyric-interface
+    percent-repeat-item-interface
+    percent-repeat-interface
 
     ;; need this, as stanza numbers are items, and appear only once. 
     stanza-number-interface
-    percent-repeat-interface)
+  )
   quotedEventTypes = #'(
     note-event
     rest-event

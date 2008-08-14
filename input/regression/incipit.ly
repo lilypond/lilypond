@@ -4,7 +4,7 @@
 
 }
 
-\version "2.11.39"
+\version "2.11.51"
 
 %% to avoid warnings:
 #(set-object-property! 'music 'backend-type? ly:music?)

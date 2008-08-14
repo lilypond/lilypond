@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Pitches
 @section Pitches
@@ -29,15 +29,14 @@ This section discusses how to specify the pitch of notes.
 Into text.
 
 @menu
-* Normal pitches::              
+* Absolute octave entry::       
+* Relative octave entry::       
 * Accidentals::                 
-* Cautionary accidentals::      
-* Micro tones::                 
 * Note names in other languages::  
 @end menu
 
-@node Normal pitches
-@unnumberedsubsubsec Normal pitches
+@node Absolute octave entry
+@unnumberedsubsubsec Absolute octave entry
 
 @cindex Tonhöhenbezeichnungen
 
@@ -82,217 +81,11 @@ Eine alternative Methode gibt am Anfang die Oktave vor,
 innerhalb derer die Noten gesetzt werden, dabei werden 
 unter Umständen weniger Oktavangaben (@code{'} oder @code{,})
 benötigt. Siehe auch 
-@ref{Relative octaves}.
+@ref{Relative octave entry}.
 
 
-@node Accidentals
-@unnumberedsubsubsec Accidentals
-
-@cindex Notenbezeichnungen, Deutsch
-@cindex Notenbezeichnungen, Standard
-@cindex Vorzeichen, Deutsch
-@cindex Versetzungszeichen
-@cindex Akzidentien
-
-Ein Kreuz wird eingegeben, indem man @code{-is} an die 
-Notenbezeichnung hängt, ein b durch @code{-es}. Doppelkreuze 
-und Doppel-Bs werden durch Hinzufügen von @code{-isis} und 
-@code{-eses} hinter die Notenbezeichnung erzeugt.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-a2 ais a aes
-a2 aisis a aeses
-@end lilypond
-
-@noindent
-Auch die deutschen Varianten @code{as} für @code{aes} und
-@code{es} für @code{ees} sind erlaubt. Im Unterschied zum 
-Deutschen ist aber @code{bes} die einzige Version für den Ton
-B, während his als @code{bis} geschrieben werden muss. Das kann
-aber auch verändert werden, siehe @ref{Note names in other languages}.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-a2 as e es
-@end lilypond
-
-Ein Auflösungszeichen macht die Wirkung eines Kreuzes oder Bs
-rückgängig. Diese Auflösungszeichen werden jedoch nicht 
-als Suffix einer Tonhöhenbezeichnung eingegeben, sondern
-sie ergeben sich (automatisch) aus dem Kontext, wenn die 
-nicht alterierte Notenbezeichnung eingegeben wird.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-a4 aes a2
-@end lilypond
-
-Die Sequenz @code{d e f} wird interpretiert als: @qq{Setze eine
- D-Noten, eine E-Note und eine F-Note,} unabhängig von den 
- Vorzeichen der Tonart. Mehr Information über den Unterschied 
- zwischen musikalischem Inhalt und der Präsentation dieses 
- Inhalts siehe @rlearning{Accidentals and key signatures}.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative]
-\key d \major
-d e f g
-d e fis g
-@end lilypond
-
-
-@commonprop
-
-Den Satzregeln für den Notensatz folgend wird ein Auflösungszeichen 
-dann ausgegeben, wenn ein vorhergehendes Versetzungszeichen rückgängig 
-gemacht werden soll. Um dieses Verhalten zu ändern, muss 
-@code{\set Staff.extraNatural = ##f} eingesetzt werden.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-ceses4 ces cis c
-\set Staff.extraNatural = ##f
-ceses4 ces cis c
-@end lilypond
-
-
-@seealso
-
-Programmreferenz: @rinternals{LedgerLineSpanner},
-@rinternals{NoteHead}.
-
-
-@node Cautionary accidentals
-@unnumberedsubsubsec Cautionary accidentals
-
-@cindex Versetzungszeichen, Erinnerung
-@cindex Versetzungszeichen, Warnung
-@cindex Vorzeichen, Erinnerung
-@cindex Vorzeichen in Klammern
-@cindex Erinnerungsvorzeichen
-@cindex Warnungsvorzeichen
-@funindex ?
-@cindex Klammern um Vorzeichen
-@funindex !
-
-Normalerweise werden Versetzungszeichen automatisch gesetzt, aber
-sie können auch manuell hinzugefügt werden. Ein erinnerndes 
-Versetzungszeichen kann erzwungen werden, indem man ein Ausrufungszeichen
-(@code{!}) hinter die Notenbezeichnung schreibt. Ein warnendes 
-Versetzungszeichen (also ein Vorzeichen in Klammern) wird durch Anfügen 
-eines Fragezeichens (@code{?}) erstellt. Mit diesen zusätzlichen 
-Zeichen kann man sich auch Auflösungszeichen ausgeben lassen.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-cis cis cis! cis? c c? c! c
-@end lilypond
-
-
-@seealso
-Die automatische Setzung von Versetzungszeichen kann auf viele Arten 
-beeinflusst werden. Mehr Information dazu siehe
- @ref{Automatic accidentals}.
-
-
-@node Micro tones
-@unnumberedsubsubsec Micro tones
-
-@cindex Vierteltöne
-@cindex Vorzeichen, Vierteltöne
-@cindex Versetzungszeichen, Vierteltöne
-@cindex Mikrotöne
-
-Versetzungszeichen für Vierteltöne werden durch Anhängen der Endungen 
-@code{-eh} (Erniedrigung) und @code{-ih} (Erhöhung) an den 
-Tonhöhenbuchstaben erstellt. Das Beispiel zeigt eine in Vierteltönen 
-aufsteigende Serie vom kleinen C.
-
-@lilypond[verbatim,ragged-right,quote,relative=2,fragment]
-\set Staff.extraNatural = ##f
-ceseh ceh cih cisih
-@end lilypond
-
-Mikrotöne werden auch in die MIDI-Dateien geschrieben.
-
-
-
-@knownissues
-
-Es gibt keine allgemein anerkannten Standards für die 
-Notation von Dreiviertelton-Erniedrigungszeichen. LilyPonds
-Symbol entspricht also keinem Standard.
-
-
-@node Note names in other languages
-@unnumberedsubsubsec Note names in other languages
-
-Es gibt vordefinierte Bezeichnungen für die Notenbezeichnungen in anderen 
-Sprachen als Englisch. Um sie zu benutzen, muss nur die 
-entsprechende Datei für die jeweilige Sprache eingefügt werden.
-Zum Beispiel fügt man mit @code{\include "deutsch.ly"} die 
-Notendefinitionen für die deutsche Sprache am Anfang der Datei 
-hinzu. In der Tabelle sind die existierenden Definitionen
-mit den dazugehörigen Notenbezeichnungen dargestellt.
-
-
-@c  Should this be made into a multitable?
-@cindex Notenbezeichnungen, andere Sprachen
-@example
-               Notenbezeichnungen              Kreuz       B         Doppelkreuz   Doppel-B
-
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es       -isis         -eses
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat  -ss/-x/       -ff/
-                                                                     -sharpsharp   -flatflat
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es       -isis         -eses
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es  -ississ/-isis -essess/-eses
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess      -ississ       -essess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd           -bb
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
-@end example
-
-@noindent
-Auf Holländisch, Deutsch, Norwegisch und Schwedisch (u. a.) werden die 
-Erniedrigungen von @q{a} wie @code{aes} und @code{aeses} zu
-@code{as} und @code{ases} (oder auch @code{asas}) zusammengezogen.
-In manchen Sprachen sind nur diese Kurzformen definiert (das gilt auch für die 
-Endungen der Vierteltöne).
-
-@noindent
-Bestimmte Musik verwendet Alterationen, die Bruchteile von den 
-@qq{üblichen} Kreuzen oder Bs sind. Die Notenbezeichnungen für 
-Vierteltöne für die verschiedenen Sprachen sind in der folgenden 
-Tabelle aufgeführt. Die Präfixe @qq{Semi-} und @qq{Sesqui-} bedeuten 
-@qq{halb} bzw. @qq{eineinhalb}. Für Norwegisch, Schwedisch, Katalanisch 
-und Spanisch sind noch keine eigenen Namen definiert.
-@c What about Turkish Maquam music and similar microtonal systems?
-@c
-@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
-@c is actually misleading since the alteration is in fact one and a half
-@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
-
-@example
-               Notenbezeichnungen              Semi-   Semi-  Sesqui-  Sesqui-
-                                               kreuz   B      Kreuz    B
-
-nederlands.ly  c   d   e   f   g   a   bes b   -ih     -eh    -isih    -eseh
-english.ly     c   d   e   f   g   a   bf  b   -qs     -qf    -tqs     -tqf
-deutsch.ly     c   d   e   f   g   a   b   h   -ih     -eh    -isih    -eseh
-norsk.ly       c   d   e   f   g   a   b   h   
-svenska.ly     c   d   e   f   g   a   b   h   
-italiano.ly    do  re  mi  fa  sol la  sib si  -sd     -sb    -dsd     -bsb
-catalan.ly     do  re  mi  fa  sol la  sib si  
-espanol.ly     do  re  mi  fa  sol la  sib si  
-@end example
-
-
-@node Changing multiple pitches
-@subsection Changing multiple pitches
-
-@menu
-* Relative octaves::            
-* Octave check::                
-* Transpose::                   
-@end menu
-
-@node Relative octaves
-@unnumberedsubsubsec Relative octaves
+@node Relative octave entry
+@unnumberedsubsubsec Relative octave entry
 
 @cindex Relativ
 @cindex Relative Oktavbestimmung
@@ -377,8 +170,212 @@ aus.  Um den relativen Modus innerhalb von transponierter Musik zu
 verwenden, muss ein zusätzliches @code{\relative} innerhalb der 
 Klammern des @code{\transpose}-Befehls gesetzt werden.
 
-@node Octave check
-@unnumberedsubsubsec Octave check
+
+@node Accidentals
+@unnumberedsubsubsec Accidentals
+
+@cindex Notenbezeichnungen, Deutsch
+@cindex Notenbezeichnungen, Standard
+@cindex Vorzeichen, Deutsch
+@cindex Versetzungszeichen
+@cindex Akzidentien
+
+Ein Kreuz wird eingegeben, indem man @code{-is} an die 
+Notenbezeichnung hängt, ein b durch @code{-es}. Doppelkreuze 
+und Doppel-Bs werden durch Hinzufügen von @code{-isis} und 
+@code{-eses} hinter die Notenbezeichnung erzeugt.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a2 ais a aes
+a2 aisis a aeses
+@end lilypond
+
+@noindent
+Auch die deutschen Varianten @code{as} für @code{aes} und
+@code{es} für @code{ees} sind erlaubt. Im Unterschied zum 
+Deutschen ist aber @code{bes} die einzige Version für den Ton
+B, während his als @code{bis} geschrieben werden muss. Das kann
+aber auch verändert werden, siehe @ref{Note names in other languages}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+a2 as e es
+@end lilypond
+
+Ein Auflösungszeichen macht die Wirkung eines Kreuzes oder Bs
+rückgängig. Diese Auflösungszeichen werden jedoch nicht 
+als Suffix einer Tonhöhenbezeichnung eingegeben, sondern
+sie ergeben sich (automatisch) aus dem Kontext, wenn die 
+nicht alterierte Notenbezeichnung eingegeben wird.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+a4 aes a2
+@end lilypond
+
+Die Sequenz @code{d e f} wird interpretiert als: @qq{Setze eine
+ D-Noten, eine E-Note und eine F-Note,} unabhängig von den 
+ Vorzeichen der Tonart. Mehr Information über den Unterschied 
+ zwischen musikalischem Inhalt und der Präsentation dieses 
+ Inhalts siehe @rlearning{Accidentals and key signatures}.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative]
+\key d \major
+d e f g
+d e fis g
+@end lilypond
+
+
+@commonprop
+
+Den Satzregeln für den Notensatz folgend wird ein Auflösungszeichen 
+dann ausgegeben, wenn ein vorhergehendes Versetzungszeichen rückgängig 
+gemacht werden soll. Um dieses Verhalten zu ändern, muss 
+@code{\set Staff.extraNatural = ##f} eingesetzt werden.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+ceses4 ces cis c
+\set Staff.extraNatural = ##f
+ceses4 ces cis c
+@end lilypond
+
+
+@seealso
+
+Programmreferenz: @rinternals{LedgerLineSpanner},
+@rinternals{NoteHead}.
+
+
+@unnumberedsubsubsec Micro tones
+
+@cindex Vierteltöne
+@cindex Vorzeichen, Vierteltöne
+@cindex Versetzungszeichen, Vierteltöne
+@cindex Mikrotöne
+
+Versetzungszeichen für Vierteltöne werden durch Anhängen der Endungen 
+@code{-eh} (Erniedrigung) und @code{-ih} (Erhöhung) an den 
+Tonhöhenbuchstaben erstellt. Das Beispiel zeigt eine in Vierteltönen 
+aufsteigende Serie vom kleinen C.
+
+@lilypond[verbatim,ragged-right,quote,relative=2,fragment]
+\set Staff.extraNatural = ##f
+ceseh ceh cih cisih
+@end lilypond
+
+Mikrotöne werden auch in die MIDI-Dateien geschrieben.
+
+
+
+@knownissues
+
+Es gibt keine allgemein anerkannten Standards für die 
+Notation von Dreiviertelton-Erniedrigungszeichen. LilyPonds
+Symbol entspricht also keinem Standard.
+
+
+@unnumberedsubsubsec Cautionary accidentals
+
+@cindex Versetzungszeichen, Erinnerung
+@cindex Versetzungszeichen, Warnung
+@cindex Vorzeichen, Erinnerung
+@cindex Vorzeichen in Klammern
+@cindex Erinnerungsvorzeichen
+@cindex Warnungsvorzeichen
+@funindex ?
+@cindex Klammern um Vorzeichen
+@funindex !
+
+Normalerweise werden Versetzungszeichen automatisch gesetzt, aber
+sie können auch manuell hinzugefügt werden. Ein erinnerndes 
+Versetzungszeichen kann erzwungen werden, indem man ein Ausrufungszeichen
+(@code{!}) hinter die Notenbezeichnung schreibt. Ein warnendes 
+Versetzungszeichen (also ein Vorzeichen in Klammern) wird durch Anfügen 
+eines Fragezeichens (@code{?}) erstellt. Mit diesen zusätzlichen 
+Zeichen kann man sich auch Auflösungszeichen ausgeben lassen.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+cis cis cis! cis? c c? c! c
+@end lilypond
+
+
+@seealso
+Die automatische Setzung von Versetzungszeichen kann auf viele Arten 
+beeinflusst werden. Mehr Information dazu siehe
+ @ref{Automatic accidentals}.
+
+
+@node Note names in other languages
+@unnumberedsubsubsec Note names in other languages
+
+Es gibt vordefinierte Bezeichnungen für die Notenbezeichnungen in anderen 
+Sprachen als Englisch. Um sie zu benutzen, muss nur die 
+entsprechende Datei für die jeweilige Sprache eingefügt werden.
+Zum Beispiel fügt man mit @code{\include "deutsch.ly"} die 
+Notendefinitionen für die deutsche Sprache am Anfang der Datei 
+hinzu. In der Tabelle sind die existierenden Definitionen
+mit den dazugehörigen Notenbezeichnungen dargestellt.
+
+
+@c  Should this be made into a multitable?
+@cindex Notenbezeichnungen, andere Sprachen
+@example
+               Notenbezeichnungen              Kreuz       B         Doppelkreuz   Doppel-B
+
+nederlands.ly  c   d   e   f   g   a   bes b   -is         -es       -isis         -eses
+english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat  -ss/-x/       -ff/
+                                                                     -sharpsharp   -flatflat
+deutsch.ly     c   d   e   f   g   a   b   h   -is         -es       -isis         -eses
+norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es  -ississ/-isis -essess/-eses
+svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess      -ississ       -essess
+italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd           -bb
+catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
+espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
+@end example
+
+@noindent
+Auf Holländisch, Deutsch, Norwegisch und Schwedisch (u. a.) werden die 
+Erniedrigungen von @q{a} wie @code{aes} und @code{aeses} zu
+@code{as} und @code{ases} (oder auch @code{asas}) zusammengezogen.
+In manchen Sprachen sind nur diese Kurzformen definiert (das gilt auch für die 
+Endungen der Vierteltöne).
+
+@noindent
+Bestimmte Musik verwendet Alterationen, die Bruchteile von den 
+@qq{üblichen} Kreuzen oder Bs sind. Die Notenbezeichnungen für 
+Vierteltöne für die verschiedenen Sprachen sind in der folgenden 
+Tabelle aufgeführt. Die Präfixe @qq{Semi-} und @qq{Sesqui-} bedeuten 
+@qq{halb} bzw. @qq{eineinhalb}. Für Norwegisch, Schwedisch, Katalanisch 
+und Spanisch sind noch keine eigenen Namen definiert.
+@c What about Turkish Maquam music and similar microtonal systems?
+@c
+@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
+@c is actually misleading since the alteration is in fact one and a half
+@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+
+@example
+               Notenbezeichnungen              Semi-   Semi-  Sesqui-  Sesqui-
+                                               kreuz   B      Kreuz    B
+
+nederlands.ly  c   d   e   f   g   a   bes b   -ih     -eh    -isih    -eseh
+english.ly     c   d   e   f   g   a   bf  b   -qs     -qf    -tqs     -tqf
+deutsch.ly     c   d   e   f   g   a   b   h   -ih     -eh    -isih    -eseh
+norsk.ly       c   d   e   f   g   a   b   h   
+svenska.ly     c   d   e   f   g   a   b   h   
+italiano.ly    do  re  mi  fa  sol la  sib si  -sd     -sb    -dsd     -bsb
+catalan.ly     do  re  mi  fa  sol la  sib si  
+espanol.ly     do  re  mi  fa  sol la  sib si  
+@end example
+
+
+@node Changing multiple pitches
+@subsection Changing multiple pitches
+
+@menu
+* Octave checks::               
+* Transpose::                   
+@end menu
+
+@node Octave checks
+@unnumberedsubsubsec Octave checks
 
 @cindex Oktavenüberprüfung
 
@@ -402,7 +399,7 @@ Es gibt auch eine Oktavenüberprüfung, die keine sichtbare Ausgabe
 erzeugt. Die Syntax:
 
 @example
-\octave @var{Tonhöhe}
+\octaveCheck @var{Tonhöhe}
 @end example
 
 Hierdurch wird überprüft, dass die @var{Tonhöhe} (ohne Apostroph) 
@@ -423,8 +420,8 @@ richtigen Oktave gesetzt werden.
 @example
 \relative c' @{
   e
-  \octave a'
-  \octave b'
+  \octaveCheck a'
+  \octaveCheck b'
 @}
 @end example
 
@@ -441,7 +438,7 @@ verändert.
 @lilypond[quote,ragged-right,verbatim,fragment]
 \relative c' {
   e
-  \octave b
+  \octaveCheck b
   a
 }
 @end lilypond
@@ -739,30 +736,39 @@ Programmreferenz: @rinternals{KeyCancellation},
 @node Ottava brackets
 @unnumberedsubsubsec Ottava brackets
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
-
+@end ifhtml
 
 @node Instrument transpositions
 @unnumberedsubsubsec Instrument transpositions
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 
 @node Automatic accidentals
 @unnumberedsubsubsec Automatic accidentals
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 @node Ambitus
 @unnumberedsubsubsec Ambitus
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 
 @node Note heads
 @subsection Note heads
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 @menu
 * Special note heads::          
@@ -774,19 +780,27 @@ UNTRANSLATED NODE: IGNORE ME
 @node Special note heads
 @unnumberedsubsubsec Special note heads
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 @node Easy notation note heads
 @unnumberedsubsubsec Easy notation note heads
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 @node Shape note heads
 @unnumberedsubsubsec Shape note heads
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 @node Improvisation
 @unnumberedsubsubsec Improvisation
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml

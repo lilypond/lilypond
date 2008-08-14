@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Keyboard instruments
 @section Keyboard instruments
@@ -246,12 +246,12 @@ y tonal (en inglés: sustain, una corda y sostenuto).
 
 
 Se puede expresar una instrucción de pedal de piano adjuntando
-@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
-@code{\treCorde}, @code{\sostenutoDown} y @code{\sostenutoUp} a una
+@code{\sustainOn}, @code{\sustainOff}, @code{\unaCorda},
+@code{\treCorde}, @code{\sostenutoOn} y @code{\sostenutoOff} a una
 nota o acorde
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainDown c'4\sustainUp
+c'4\sustainOn c'4\sustainOff
 @end lilypond
 
 Es posible modificar lo que se imprime estableciendo @code{pedal@var{X}Strings},
@@ -265,9 +265,9 @@ propiedad @code{pedalSustainStyle} a objetos corchete
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'bracket
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c\sustainOn d e
+b\sustainOff\sustainOn
+b g \sustainOff a \sustainOn \bar "|."
 @end lilypond
 
 Un tercer estilo de notación de pedal es una mezcla de texto y corchetes,
@@ -276,9 +276,9 @@ que se obtiene estableciendo la propiedad @code{pedalSustainStyle} a
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'mixed
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c\sustainOn d e
+b\sustainOff\sustainOn
+b g \sustainOff a \sustainOn \bar "|."
 @end lilypond
 
 El estilo por defecto @q{*Ped.} para los pedales derecho y una corda corresponde al
@@ -286,7 +286,7 @@ estilo @code{#'text}.  El pedal tonal usa el estilo @code{mixed} por
 defecto.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoDown d e c, f g a\sostenutoUp
+c\sostenutoOn d e c, f g a\sostenutoOff
 @end lilypond
 
 Para hacer un ajuste fino del aspecto de un corchete de pedal, se
@@ -298,7 +298,7 @@ cabeza de la nota
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoDown d e c, f g a\sostenutoUp
+c\sostenutoOn d e c, f g a\sostenutoOff
 @end lilypond
 
 @seealso

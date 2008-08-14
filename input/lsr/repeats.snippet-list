@@ -1,7 +1,10 @@
 measure-counter.ly
+adding-volta-brackets-to-additional-staves.ly
+isolated-percent-repeats.ly
+volta-text-markup-using-repeatcommands.ly
+printing-a-repeat-sign-at-the-beginning-of-a-piece.ly
 positioning-segno-and-coda-with-line-break.ly
 shortening-volta-brackets.ly
 volta-multi-staff.ly
+percent-repeat-counter.ly
 volta-below-chords.ly
-volta-text-markup-using-repeatcommands.ly
-adding-volta-brackets-to-additional-staves.ly

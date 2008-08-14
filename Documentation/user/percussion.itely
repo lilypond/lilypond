@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Percussion
 @section Percussion
@@ -60,19 +60,107 @@ context and entry mode for percussion:
 }
 @end lilypond
 
-This is shorthand for
+This is shorthand for:
 
 @lilypond[quote,ragged-right,verbatim]
-\new DrumStaff
-\drummode {
-  hihat hh bassdrum bd
+\new DrumStaff {
+  \drummode {
+    hihat hh bassdrum bd
+  }
 }
 @end lilypond
+
+Note, that percussion clefs are added automatically in a
+@code{DrumStaff} context.  But it is possible to use other clefs
+if you want.
 
 
 The complete list of drum names is in the init file
 @file{ly/@/drumpitch@/-init@/.ly}.
-@c TODO: properly document this.
+
+Here is the list of abbreviations You can use in a drum Staff:
+
+@example
+   bda  acousticbassdrum
+   bd  bassdrum
+   ssh  hisidestick
+   ss  sidestick
+   ssl  losidestick
+   sna  acousticsnare
+   sn  snare
+   hc  handclap
+   sne  electricsnare
+   tomfl  lowfloortom
+   hhc  closedhihat
+   hh  hihat
+   tomfh  highfloortom
+   hhp  pedalhihat
+   toml  lowtom
+   hho  openhihat
+   hhho  halfopenhihat
+   tomml  lowmidtom
+   tommh  himidtom
+   cymca  crashcymbala
+   cymc  crashcymbal
+   tomh  hightom
+   cymra  ridecymbala
+   cymr  ridecymbal
+   cymch  chinesecymbal
+   rb  ridebell
+   tamb  tambourine
+   cyms  splashcymbal
+   cb  cowbell
+   cymcb  crashcymbalb
+   vibs  vibraslap
+   cymrb  ridecymbalb
+   bohm  mutehibongo
+   boh  hibongo
+   boho  openhibongo
+   bolm  mutelobongo
+   bol  lobongo
+   bolo  openlobongo
+   cghm  mutehiconga
+   cglm  muteloconga
+   cgho  openhiconga
+   cgh  hiconga
+   cglo  openloconga
+   cgl  loconga
+   timh  hitimbale
+   timl  lotimbale
+   agh  hiagogo
+   agl  loagogo
+   cab  cabasa
+   mar  maracas
+   whs  shortwhistle
+   whl  longwhistle
+   guis  shortguiro
+   guil  longguiro
+   gui  guiro
+   cl  claves
+   wbh  hiwoodblock
+   wbl  lowoodblock
+   cuim  mutecuica
+   cuio  opencuica
+   trim  mutetriangle
+   tri  triangle
+   trio  opentriangle
+   tt  tamtam
+   ua  oneup
+   ub  twoup
+   uc  threeup
+   ud  fourup
+   ue  fiveup
+   da  onedown
+   db  twodown
+   dc  threedown
+   dd  fourdown
+   de  fivedown
+@end example
+
+Note that the normal notation of pitches in a @code{DrumStaff}
+will cause an error message.
+
+
 
 Drum rolls are indicated with three slashes across the stem.
 For quarter notes or longer the three slashes are shown explicitly,
@@ -97,7 +185,13 @@ Sticking can be indicated by placing @code{^"R"} or @code{^"L"}
 after the note.  The @code{staff-padding} property may be
 overridden to achieve a pleasing baseline.
 
-@c TODO Add example of sticking
+@lilypond[quote,ragged-right,verbatim]
+\drums {
+	\repeat "unfold" 2 { sn16 ^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L"  sn^"R" sn^"R" }
+				
+}
+@end lilypond
+
 
 @seealso
 

@@ -6,19 +6,15 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
-
-@c Andrew's TODO List
-@c references - first pass complete
-@c manual changes - first pass complete
-@c automatic changes - first pass complete
-@c staff-change lines - first pass complete
-@c cross-staff stems - first pass complete
-@c pedals - first pass complete
-@c accordian discant symbols
+@c \version "2.11.51"
 
 @node Keyboard instruments
 @section Keyboard instruments
+
+@lilypondfile[quote]{keyboard-headword.ly}
+
+This section discusses several aspects of music notation that are unique
+to keyboard instruments.
 
 @menu
 * Common notation for keyboards::
@@ -29,6 +25,9 @@
 @node Common notation for keyboards
 @subsection Common notation for keyboards
 
+This section discusses notation issues that may arise for most keyboard
+instruments.
+
 @menu
 * References for keyboards::
 * Changing staff manually::
@@ -38,22 +37,31 @@
 @end menu
 
 @node References for keyboards
-@subsubsection References for keyboards
+@unnumberedsubsubsec References for keyboards
+
+@cindex piano staves
+@cindex staves, piano
+@cindex staves, keyboard instruments
+@cindex staves, keyed instruments
+@cindex keyboard instrument staves
+@cindex keyed instrument staves
+@funindex PianoStaff
 
 Keyboard instruments are usually notated with Piano staves.  These
 are two or more normal staves coupled with a brace.  The same
-notation is also used for harps and other keyed instruments.
+notation is also used for other keyed instruments.
 Organ music is normally written with two staves inside a
 @code{PianoStaff} group and third, normal staff for the pedals.
 
 The staves in keyboard music are largely independent, but
-sometimes voices can cross between the two staves.  In this
-section we discuss some notation techniques particular to keyboard
+sometimes voices can cross between the two staves.  This
+section discusses notation techniques particular to keyboard
 music.
 
 Several common issues in keyboard music are covered elsewhere:
 
 @itemize
+
 @item Keyboard music usually contains multiple voices and the
 number of voices may change regularly; this is described in
 @ref{Collision resolution}.
@@ -69,7 +77,7 @@ number of voices may change regularly; this is described in
 @item Vertical grid lines can be shown with @ref{Grid lines}.
 
 @item Keyboard music often contains @notation{Laissez vibrer} ties
-as well as ties on arpeggios and tremelos, described in
+as well as ties on arpeggios and tremolos, described in
 @ref{Ties}.
 
 @item Placing arpeggios across multiple voices and staves is
@@ -85,10 +93,6 @@ as shown in @rlearning{Other uses for tweaks}.
 
 @end itemize
 
-@c @snippets
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {creating-slurs-across-voices.ly}
-
 @seealso
 
 Learning Manual:
@@ -98,13 +102,14 @@ Learning Manual:
 Notation Reference:
 @ref{Grouping staves},
 @ref{Instrument names},
+@ref{Collision resolution},
 @ref{Writing music in parallel},
 @ref{Fingering instructions},
+@ref{List of articulations},
 @ref{Grid lines},
 @ref{Ties},
 @ref{Arpeggio},
-@ref{Tremolo repeats},
-@ref{List of articulations}.
+@ref{Tremolo repeats}.
 
 Internals Reference:
 @rinternals{PianoStaff}.
@@ -114,13 +119,20 @@ Snippets:
 
 @knownissues
 
-Dynamics are not centered, but workarounds do exist.  See the
-@q{piano centered dynamics} template in @rlearning{Piano templates}.
+@cindex keyboard music, centering dynamics
+@cindex dynamics, centered in keyboard music
+@cindex piano music, centering dynamics
+@cindex centered dynamics in piano music
+@funindex staff-padding
 
-@c TODO Find out status of the dynamics engravers
+Dynamics are not automatically centered, but workarounds do exist.  One
+option is the @q{piano centered dynamics} template under
+@rlearning{Piano templates}; another option is to increase the
+@code{staff-padding} of dynamics as discussed in @rlearning{Moving
+objects}.
 
 @node Changing staff manually
-@subsubsection Changing staff manually
+@unnumberedsubsubsec Changing staff manually
 
 @cindex changing staff manually
 @cindex manual staff changes
@@ -130,6 +142,7 @@ Dynamics are not centered, but workarounds do exist.  See the
 @cindex cross-staff beams
 @cindex beams, cross-staff
 @funindex \change
+@funindex change
 
 Voices can be switched between staves manually, using the command
 
@@ -139,27 +152,28 @@ Voices can be switched between staves manually, using the command
 
 @noindent
 The string @var{staffname} is the name of the staff.  It switches
-the current voice from its current staff to the Staff called
+the current voice from its current staff to the staff called
 @var{staffname}.  Typical values for @var{staffname} are
 @code{"up"} and @code{"down"}, or @code{"RH"} and @code{"LH"}.
 
 Cross-staff notes are beamed automatically:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \new PianoStaff <<
   \new Staff = "up" {
     <e' c'>8
-    \change Staff = down
-    g fis g
-    \change Staff = up
+    \change Staff = "down"
+    g8 fis g
+    \change Staff = "up"
     <g'' c''>8
-    \change Staff = down
-    e dis e
-    \change Staff = up
+    \change Staff = "down"
+    e8 dis e
+    \change Staff = "up"
   }
   \new Staff = "down" {
     \clef bass
-    s1 % keep staff alive
+    % keep staff alive
+    s1
   }
 >>
 @end lilypond
@@ -183,16 +197,19 @@ Snippets:
 @rlsr{Keyboards}.
 
 Internals Reference:
-@rinternals{Beam}.
+@rinternals{Beam},
+@rinternals{ContextChange}.
 
 
 @node Changing staff automatically
-@subsubsection Changing staff automatically
+@unnumberedsubsubsec Changing staff automatically
 
 @cindex changing staff automatically
 @cindex automatic staff changes
 @cindex staff changes, automatic
 @funindex \autochange
+@funindex autochange
+@funindex PianoStaff
 
 Voices can be made to switch automatically between the top and the
 bottom staff.  The syntax for this is
@@ -204,18 +221,24 @@ bottom staff.  The syntax for this is
 @noindent
 This will create two staves inside the current staff group
 (usually a @code{PianoStaff}), called @code{"up"} and
-@code{"down"}.  The lower staff will be in bass clef by default.
-The autochanger switches on basis of the pitch (middle C is the
+@code{"down"}.  The lower staff will be in the bass clef by default.
+The autochanger switches on the basis of the pitch (middle@tie{}C is the
 turning point), and it looks ahead skipping over rests to switch
 in advance.
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim]
 \new PianoStaff {
   \autochange {
-    g4 a b c' d' r4 a g
+    g4 a b c'
+    d'4 r a g
   }
 }
 @end lilypond
+
+@cindex relative music and autochange
+@cindex autochange and relative music
+@funindex \relative
+@funindex relative
 
 A @code{\relative} section that is outside of @code{\autochange}
 has no effect on the pitches of the music, so if necessary, put
@@ -227,14 +250,14 @@ can be created manually with the names @code{"up"} and
 its voice between the existing staves.  For example, this is
 necessary to place a key signature in the lower staff:
 
-@lilypond[quote,verbatim,ragged-right]
+@lilypond[quote,verbatim]
 \new PianoStaff <<
   \new Staff = "up" {
     \new Voice = "melOne" {
       \key g \major
       \autochange \relative c' {
         g8 b a c b d c e
-        d r fis, g a2
+        d8 r fis, g a2
       }
     }
   }
@@ -258,43 +281,53 @@ Internals Reference:
 
 @knownissues
 
+@cindex chords, splitting across staves with \autochange
+
 The staff switches may not end up in optimal places.  For high
 quality output, staff switches should be specified manually.
 
-Chords will not be split across the staves; the staff will be
-chosen by the first note named in the chord.
-
+Chords will not be split across the staves; they will be assigned to a
+staff based on the first note named in the chord construct.
 
 @node Staff-change lines
-@subsubsection Staff-change lines
+@unnumberedsubsubsec Staff-change lines
 
-@cindex staff-change lines
-@cindex cross-staff lines
-@cindex lines, staff-change follower
+@cindex staff-change line
+@cindex staff change line
+@cindex cross-staff line
+@cindex cross staff line
+@cindex line, staff-change follower
+@cindex line, cross-staff
+@cindex line, staff-change
 @cindex follow voice
 @cindex staff switching
 @cindex cross-staff
 @funindex followVoice
+@funindex \showStaffSwitch
+@funindex showStaffSwitch
+@funindex \hideStaffSwitch
+@funindex hideStaffSwitch
 
 Whenever a voice switches to another staff, a line connecting the
 notes can be printed automatically:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[quote,verbatim,relative=1]
 \new PianoStaff <<
   \new Staff = "one" {
     \showStaffSwitch
     c1
-    \change Staff=two
+    \change Staff = "two"
     b2 a
   }
-  \new Staff = "two" { \clef bass s1*2 }
+  \new Staff = "two" {
+    \clef bass
+    s1*2
+  }
 >>
 @end lilypond
 
 @predefined
 
-@funindex \showStaffSwitch
-@funindex \hideStaffSwitch
 @code{\showStaffSwitch}, @code{\hideStaffSwitch}.
 
 @seealso
@@ -303,45 +336,60 @@ Snippets:
 @rlsr{Keyboards}.
 
 Internals Reference:
+@rinternals{Note_head_line_engraver},
 @rinternals{VoiceFollower}.
 
 
 @node Cross-staff stems
-@subsubsection Cross-staff stems
+@unnumberedsubsubsec Cross-staff stems
 
 @cindex cross-staff notes
+@cindex cross staff notes
 @cindex notes, cross-staff
 @cindex cross-staff stems
+@cindex cross staff stems
 @cindex stems, cross-staff
+@cindex chords, cross-staff
+@cindex cross-staff chords
+@cindex cross staff chords
+@funindex Stem
+@funindex cross-staff
+@funindex length
+@funindex flag-style
 
-Chords that cross staves may be produced by increasing the length
-of the stem in the lower staff, so it reaches the stem in the upper
-staff, or vice versa.
+Chords that cross staves may be produced:
 
-@lilypond[ragged-right,verbatim,quote]
+@lilypond[verbatim,quote]
 \new PianoStaff <<
-  \new Staff \relative c' {
-    f8 e4 d8 <f bes,>2
+  \new Staff {
+    \relative c' {
+      f8 e4 d8 <f bes,>2
+    }
   }
-  \new Staff \relative c' {
-    << {
-      \clef bass
-      \stemUp
-      \override Stem #'length = #12
-      \override Stem #'cross-staff = ##t
-      \override Stem #'flag-style = #'no-flag
-      a8 g4 f8
-    } \\
-    { f,2 d' }
-    >>
+  \new Staff {
+    \relative c' {
+      << {
+        \clef bass
+        % stems may overlap the other staff
+        \override Stem #'cross-staff = ##t
+        % extend the stems to reach other other staff
+        \override Stem #'length = #12
+        % do not print extra flags
+        \override Stem #'flag-style = #'no-flag
+        a8 g4 f8
+      }
+      \\
+      {
+        f,2 d'
+      } >>
+    }
   }
 >>
 @end lilypond
 
 @snippets
-@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-@c {indicating-cross-staff-chords-with-arpeggio-bracket.ly}
-
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
 
 @seealso
 
@@ -349,100 +397,138 @@ Snippets:
 @rlsr{Keyboards}.
 
 Internals Reference:
-@rinternals{Stem}
+@rinternals{Stem}.
 
 @node Piano
 @subsection Piano
+
+This section discusses notation issues that relate most directly to the
+piano.
 
 @menu
 * Piano pedals::
 @end menu
 
 @node Piano pedals
-@subsubsection Piano pedals
-@cindex Pedals
+@unnumberedsubsubsec Piano pedals
 
-Pianos have pedals that alter the way sound is produced.  Generally, a
-piano has three pedals, sustain, una corda, and sostenuto.
+@cindex piano pedals
+@cindex pedals, piano
+@cindex sustain pedal
+@cindex sostenuto pedal
+@cindex una corda
+@cindex tre corde
+@cindex sos.
+@cindex U.C.
+@funindex \sustainOn
+@funindex sustainOn
+@funindex \sustainOff
+@funindex sustainOff
+@funindex \sostenutoOn
+@funindex sostenutoOn
+@funindex \sostenutoOff
+@funindex sostenutoOff
+@funindex \unaCorda
+@funindex unaCorda
+@funindex \treCorde
+@funindex treCorde
 
+Pianos generally have three pedals that alter the way sound is
+produced: @notation{sustain}, @notation{sostenuto}
+(@notation{sos.}), and @notation{una corda} (@notation{U.C.}).
+Sustain pedals are also found on vibraphones and celestas.
 
-Piano pedal instruction can be expressed by attaching
-@code{\sustainDown}, @code{\sustainUp}, @code{\unaCorda},
-@code{\treCorde}, @code{\sostenutoDown} and @code{\sostenutoUp} to a
-note or chord
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainDown c'4\sustainUp
+@lilypond[quote,verbatim,relative=2]
+c4\sustainOn d e g
+<c, f a>1\sustainOff
+c4\sostenutoOn e g c,
+<bes d f>1\sostenutoOff
+c4\unaCorda d e g
+<d fis a>1\treCorde
 @end lilypond
 
-What is printed can be modified by setting @code{pedal@var{X}Strings},
-where @var{X} is one of the pedal types: @code{Sustain},
-@code{Sostenuto} or @code{UnaCorda}.  Refer to
-@rinternals{SustainPedal} in the program reference for more
-information.
+@cindex pedal indication styles
+@cindex pedal indication, text
+@cindex pedal indication, bracket
+@cindex pedal indication, mixed
+@cindex pedal sustain style
+@cindex sustain pedal style
+@funindex pedalSustainStyle
+@funindex mixed
+@funindex bracket
+@funindex text
 
-Pedals can also be indicated by a sequence of brackets, by setting the
-@code{pedalSustainStyle} property to bracket objects
+There are three styles of pedal indications: text, bracket, and mixed.
+The sustain pedal and the una corda pedal use the text style by default
+while the sostenuto pedal uses mixed by default.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set Staff.pedalSustainStyle = #'bracket
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
-@end lilypond
-
-A third style of pedal notation is a mixture of text and brackets,
-obtained by setting the @code{pedalSustainStyle} property to
-@code{mixed}
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
+c4\sustainOn g c2\sustainOff
 \set Staff.pedalSustainStyle = #'mixed
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c4\sustainOn g c d
+d\sustainOff\sustainOn g, c2\sustainOff
+\set Staff.pedalSustainStyle = #'bracket
+c4\sustainOn g c d
+d\sustainOff\sustainOn g, c2
+\bar "|."
 @end lilypond
 
-The default @q{*Ped.} style for sustain and damper pedals corresponds to
-style @code{#'text}.  The sostenuto pedal uses @code{mixed} style by
-default.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoDown d e c, f g a\sostenutoUp
-@end lilypond
-
-For fine-tuning the appearance of a pedal bracket, the properties
-@code{edge-width}, @code{edge-height}, and @code{shorten-pair} of
-@code{PianoPedalBracket} objects (see
-@rinternals{PianoPedalBracket} in the Internals Reference) can be
-modified.  For example, the bracket may be extended to the right edge
-of the note head
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoDown d e c, f g a\sostenutoUp
-@end lilypond
-
-@noindent
-Note that overrides must be placed before the note at which the 
-pedal bracket starts.
-
-@c TODO Check relative positions of the sustain pedal and
-@c      dynamics are correct (they collided in 2.11.44).
-@c      Give example showing this.
+The placement of the pedal commands matches the physical movement of the
+sustain pedal during piano performance.  Pedalling to the final bar line
+is indicated by omitting the final pedal up command.
 
 @seealso
 
-Notation Reference: @ref{Ties} (laissez vibrer).
+Notation Reference:
+@ref{Ties}.
+
+Snippets:
+@rlsr{Keyboards}.
+
+Internals Reference:
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
+@rinternals{SustainEvent},
+@rinternals{SostenutoPedal},
+@rinternals{SostenutoPedalLineSpanner},
+@rinternals{SostenutoEvent},
+@rinternals{UnaCordaPedal},
+@rinternals{UnaCordaPedalLineSpanner},
+@rinternals{UnaCordaEvent},
+@rinternals{PianoPedalBracket},
+@rinternals{Piano_pedal_engraver}.
 
 @node Accordion
 @subsection Accordion
+
+@cindex accordion
+
+This section discusses notation that is unique to the accordion.
 
 @menu
 * Discant symbols::
 @end menu
 
 @node Discant symbols
-@subsubsection Discant symbols
+@unnumberedsubsubsec Discant symbols
+@cindex accordion discant symbols
+@cindex discant symbols, accordion
+@cindex accordion shifts
+@cindex accordion shift symbols
 
-@c TODO Add text from -user and lsr 194
-TBC
+Accordions are often built with more than one set of reeds that may be
+in unison with, an octave above, or an octave below the written pitch.
+Each accordion maker has different names for the @notation{shifts} that
+select the various reed combinations, such as @notation{oboe},
+@notation{musette}, or @notation{bandonium}, so a system of symbols has
+come into use to simplify the performance instructions.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{accordion-discant-symbols.ly}
+
+@seealso
+
+Snippets:
+@rlsr{Keyboards}.

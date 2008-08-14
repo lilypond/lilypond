@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,41 +11,58 @@
 @node Converting from other formats
 @chapter Converting from other formats
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
-@menu 
+
+@menu
 * Invoking midi2ly::
 * Invoking musicxml2ly::
 * Invoking abc2ly::
 * Invoking etf2ly::
 * Generating LilyPond files::
-@end menu 
+@end menu
+
 @node Invoking midi2ly
 @section Invoking @command{midi2ly}
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Invoking abc2ly
 @section Invoking @code{abc2ly}
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Invoking etf2ly
 @section Invoking @command{etf2ly}
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
 
 @node Generating LilyPond files
 @section Generating LilyPond files
 
+@ifhtml
 UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+
+@c -- SKELETON FILE --

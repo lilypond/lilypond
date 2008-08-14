@@ -1,0 +1,21 @@
+  texidoces = "
+Para hacer invisibles partes de un regulador de crescendo, se usa
+el método de dibujar un rectángulo blanco encima de la parte
+respectiva del regulador, tapándola.  El rectángulo se define como
+código PostScript dentro de un elemento de marcado de texto.
+
+Para realizar un ajuste fino de la posición y el tamaño del
+elemento de marcado, se puede establecer el número que precede a
+@code{setgray} en la definición de PostScript a un valor menor que
+la unidad, haciendo que sea de color gris.  Los dos números que
+están antes de @code{scale} en el código PostScript son los
+responsables del ancho y la altura del rectángulo, y los dos
+números que están antes de @code{translate} cambian las
+coordenadas X e Y de origen del rectángulo.
+
+Asegúrse de poner el regulador en una capa más baja que el
+elemento de marcado de texto para trazar el rectángulo encima del
+regulador.
+
+"
+  doctitlees = "Regulador interrumpido"

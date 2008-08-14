@@ -3,7 +3,7 @@
 
   texidoc = "accidentals may be folded under preceding notes."
   }
-\version "2.11.1"
+\version "2.11.51"
 
 \paper {
   ragged-right = ##t

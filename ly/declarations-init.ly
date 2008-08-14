@@ -63,6 +63,7 @@ escapedBiggerSymbol = #(make-span-event 'DecrescendoEvent START)
 escapedSmallerSymbol = #(make-span-event 'CrescendoEvent START)
 
 
+#(define fretboard-table (make-hash-table 100))
 
 \include "scale-definitions-init.ly"
 
@@ -117,3 +118,6 @@ setDefaultDurationToQuarter = { c4 }
 #(define book-music-handler collect-book-music-for-book)
 #(define book-score-handler ly:book-add-score!)
 #(define book-text-handler ly:book-add-score!)
+
+
+\include "predefined-fretboards-init.ly"

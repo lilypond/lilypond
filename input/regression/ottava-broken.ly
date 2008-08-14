@@ -10,16 +10,16 @@ the end of the line (regardless of prefatory matter).
 
 }
 
-\version "2.10.0"
+\version "2.11.53"
 
 
 \layout { ragged-right = ##t }
 \relative c'''  {
     a2 b
-    #(set-octavation 1)
+    \ottava #1
     a2 b \time 3/4  \break c''2. \break
     a
-    #(set-octavation 0)
+    \ottava #0
     g,,2 b4 c2 a4 
 }
 

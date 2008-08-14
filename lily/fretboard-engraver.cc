@@ -95,8 +95,10 @@ ADD_TRANSLATOR (Fretboard_engraver,
 		/* read */
 		"stringTunings "
 		"minimumFret "
+                "maximumFretStretch "
 		"tablatureFormat "
-		"highStringOne ",
+		"highStringOne "
+                "predefinedDiagramTable",
 
 		/* write */
 		""

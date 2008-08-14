@@ -1,10 +1,17 @@
-\version "2.11.48"
+\version "2.11.51"
 
 #(set-global-staff-size 15)
 \paper{
   ragged-right=##t
   line-width=17\cm
   indent=0\cm
+}
+
+\layout {
+  \context { \Score
+    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  }
 }
 
 \include "gregorian-init.ly" 

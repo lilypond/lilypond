@@ -1,4 +1,4 @@
-\version "2.11.32"
+\version "2.11.51"
 \header {
   texidoc = "Span bars can be turned on/off on a staff-by-staff basis."
 }

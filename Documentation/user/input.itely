@@ -7,16 +7,13 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
-@node Input syntax
-@chapter Input syntax
+@node General input and output
+@chapter General input and output
 
-This section deals with general LilyPond input syntax issues,
+This section deals with general LilyPond input and output issues,
 rather than specific notation.
-
-FIXME: don't complain about anything in this chapter.  It's still
-under heavy development.
 
 @menu
 * Input structure::
@@ -224,7 +221,7 @@ A @code{\score} block.  This score will be collected with other
 toplevel scores, and combined as a single @code{\book}.
 This behavior can be changed by setting the variable
 @code{toplevel-score-handler} at toplevel.  The default handler is
-defined in the init file @file{scm/@/lily@/.scm}.
+defined in the init file @file{../scm/@/lily@/.scm}.
 
 @item
 A @code{\book} block logically combines multiple movements
@@ -239,7 +236,7 @@ a @code{\book} block if you want more than a single @code{\score}
 or @code{\markup} in the same example.  This behavior can be
 changed by setting the variable @code{toplevel-book-handler} at
 toplevel.  The default handler is defined in the init file
-@file{scm/@/lily@/.scm}.
+@file{../scm/@/lily@/.scm}.
 
 @item
 A compound music expression, such as
@@ -268,7 +265,7 @@ music expression will be translated into
 
 This behavior can be changed by setting the variable
 @code{toplevel-music-handler} at toplevel.  The default handler is
-defined in the init file @file{scm/@/lily@/.scm}.
+defined in the init file @file{../scm/@/lily@/.scm}.
 
 @item
 A markup text, a verse for example
@@ -537,7 +534,7 @@ Headers may be completely removed by setting them to false.
 
 A more advanced option is to change the definitions of the following
 variables in the @code{\paper} block.  The init file
-@file{ly/titling-init.ly} lists the default layout.
+@file{../ly/titling-init.ly} lists the default layout.
 
 @table @code
 @funindex bookTitleMarkup
@@ -749,7 +746,7 @@ tocAct =
 
 @seealso
 
-Init files: @file{ly/@/toc@/-init@/.ly}.
+Init files: @file{../ly/@/toc@/-init@/.ly}.
 
 @predefined
 
@@ -1110,54 +1107,86 @@ than one tagged section at the same place.
 @node Text encoding
 @subsection Text encoding
 
-LilyPond uses the Pango library to format multi-lingual texts, and
-does not perform any input-encoding conversions.  This means that any
-text, be it title, lyric text, or musical instruction containing
-non-ASCII characters, must be utf-8.  The easiest way to enter such text is
-by using a Unicode-aware editor and saving the file with utf-8 encoding.  Most
-popular modern editors have utf-8 support, for example, vim, Emacs,
-jEdit, and GEdit do.
+LilyPond uses the character repertoire defined by the Unicode
+consortium and ISO/IEC 10646.  This defines a unique name and
+code point for the character sets used in virtually all modern
+languages and many others too.  Unicode can be implemented using
+several different encodings.  LilyPond uses the UTF-8 encoding
+(UTF stands for Unicode Transformation Format) which represents
+all common Latin characters in one byte, and represents other
+characters using a variable length format of up to four bytes.
 
-@c  Currently not working
-@ignore
-Depending on the fonts installed, the following fragment shows Hebrew
-and Cyrillic lyrics,
+The actual appearance of the characters is determined by the
+glyphs defined in the particular fonts available - a font defines
+the mapping of a subset of the Unicode code points to glyphs.
+LilyPond uses the Pango library to layout and render multi-lingual
+texts.
 
-@cindex Cyrillic
-@cindex Hebrew
-@cindex ASCII, non
+Lilypond does not perform any input-encoding conversions.  This
+means that any text, be it title, lyric text, or musical
+instruction containing non-ASCII characters, must be encoded in
+UTF-8.  The easiest way to enter such text is by using a
+Unicode-aware editor and saving the file with UTF-8 encoding.  Most
+popular modern editors have UTF-8 support, for example, vim, Emacs,
+jEdit, and GEdit do.  All MS Windows systems later than NT use
+Unicode as their native character encoding, so even Notepad can
+edit and save a file in UTF-8 format.  A more functional
+alternative for Windows is BabelPad.
 
-@li lypondfile[fontload]{utf-8.ly}
-
-The @TeX{} backend does not handle encoding specially at all.  Strings
-in the input are put in the output as-is.  Extents of text items in the
-@TeX{} backend, are determined by reading a file created via the
-@file{texstr} backend,
-
-@example
-lilypond -dbackend=texstr input/les-nereides.ly
-latex les-nereides.texstr
-@end example
-
-The last command produces @file{les-nereides.textmetrics}, which is
-read when you execute
+If a LilyPond input file containing a non-ASCII character is not
+saved in UTF-8 format the error message
 
 @example
-lilypond -dbackend=tex input/les-nereides.ly
+FT_Get_Glyph_Name () error: invalid argument
 @end example
 
-Both @file{les-nereides.texstr} and @file{les-nereides.tex} need
-suitable LaTeX wrappers to load appropriate La@TeX{} packages for
-interpreting non-ASCII strings.
+will be generated.
 
-@end ignore
+Here is an example showing Cyrillic, Hebrew and Portuguese
+text:
 
-To use a Unicode escape sequence, use
+@lilypond[quote]
+%c No verbatim here as the code does not display correctly in PDF
+% Cyrillic
+bulgarian = \lyricmode {
+  Жълтата дюля беше щастлива, че пухът, който цъфна, замръзна като гьон.
+}
+
+% Hebrew
+hebrew = \lyricmode {
+  זה כיף סתם לשמוע איך תנצח קרפד עץ טוב בגן.
+}
+
+% Portuguese
+portuguese = \lyricmode {
+  à vo -- cê uma can -- ção legal
+}
+
+\relative  {
+  c2 d e f g f e
+}
+\addlyrics { \bulgarian }
+\addlyrics { \hebrew }
+\addlyrics { \portuguese }
+@end lilypond
+
+To enter a single character for which the Unicode escape sequence
+is known but which is not available in the editor being used, enter
 
 @example
-#(ly:export (ly:wide-char->utf-8 #x2014))
+#(ly:export (ly:wide-char->utf-8 #x03BE))
 @end example
 
+where in this example @code{x03BE} is the hexadecimal code for the
+Unicode U+03BE character, which has the Unicode name @qq{Greek Small
+Letter Xi}.  Any Unicode hexadecimal code may be substituted, and
+if all special characters are entered in this format it is not
+necessary to save the input file in UTF-8 format.
+
+@knownissues
+
+The @code{ly:export} format may be used in text within @code{\mark} or
+@code{\markup} commands but not in lyrics.
 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
@@ -1182,6 +1211,8 @@ By default, LilyPond will print these messages to the console along
 with all the other messages.  To split up these messages and save
 the results of @code{\display@{STUFF@}}, redirect the output to
 a file.
+
+@c TODO What happens under Windows?
 
 @example
 lilypond file.ly >display.txt
@@ -1215,7 +1246,7 @@ separately.  For example, including the following definition
       (cons
        (make-rhythmic-location 5 1 2)
        (make-rhythmic-location 7 3 4)))
-}       
+}
 @end verbatim
 
 @noindent
@@ -1224,7 +1255,7 @@ the seventh measure.  The meaning of @code{5 1 2} is: after a 1/2 note
 in measure 5, and @code{7 3 4} after 3 quarter notes in measure 7.
 
 More clip regions can be defined by adding more pairs of
-rhythmic-locations to the list. 
+rhythmic-locations to the list.
 
 In order to use this feature, LilyPond must be invoked with
 @code{-dclip-systems}.  The clips are output as EPS files, and are
@@ -1295,63 +1326,36 @@ what was entered.  This is convenient for checking the music; octaves
 that are off or accidentals that were mistyped stand out very much
 when listening to the MIDI output.
 
-@knownissues
-
-Many musically interesting effects, such as swing, articulation,
-slurring, etc., are not translated to midi.
-
+@c TODO Check this
 The midi output allocates a channel for each staff, and one for global
 settings.  Therefore the midi file should not have more than 15 staves
 (or 14 if you do not use drums).  Other staves will remain silent.
 
-Not all midi players correctly handle tempo changes in the midi
-output.  Players that are known to work include
-@uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
-
 @menu
-* Creating MIDI files::         
-* MIDI block::                  
-* MIDI instrument names::       
-* What goes into the MIDI?  FIXME::  
-* other midi::                  
+* Creating MIDI files::
+* MIDI block::
+* What goes into the MIDI output?::
+* Repeats in MIDI::
+* Controlling MIDI dynamics::
 @end menu
 
 @node Creating MIDI files
 @subsection Creating MIDI files
 
-To create a MIDI from a music piece of music, add a @code{\midi} block
-to a score, for example,
+To create a MIDI output file from a LilyPond input file, add a
+@code{\midi} block to a score, for example,
 
 @example
 \score @{
   @var{...music...}
-   \midi @{
-     \context @{
-       \Score
-       tempoWholesPerMinute = #(ly:make-moment 72 4)
-       @}
-     @}
+  \midi @{ @}
 @}
 @end example
 
-The tempo can be specified using the @code{\tempo} command within the 
-actual music, see @ref{Metronome marks}.  An alternative, which does not
-result in a metronome mark in the printed score, is shown in the example
-above.  In this example the tempo of quarter notes is set to 72 beats per
-minute. 
-This kind of tempo
-specification can not take dotted note lengths as an argument.  In this
-case, break the dotted notes into smaller units.  For example, a tempo
-of 90 dotted quarter notes per minute can be specified as 270 eighth
-notes per minute
-
-@example
-tempoWholesPerMinute = #(ly:make-moment 270 8)
-@end example
-
-If there is a @code{\midi} command in a @code{\score}, only MIDI will
-be produced.  When notation is needed too, a @code{\layout} block must
-be added
+If there is a @code{\midi} block in a @code{\score} with no
+@code{\layout} block, only MIDI output will be produced.  When
+notation is needed too, a @code{\layout} block must be also be
+present.
 
 @example
 \score @{
@@ -1360,42 +1364,59 @@ be added
   \layout @{ @}
 @}
 @end example
-@cindex layout block
 
+Pitches, rhythms, ties, dynamics, and tempo changes are interpreted
+and translated correctly to the MIDI output.  Dynamic marks,
+crescendi and decrescendi translate into MIDI volume levels.
+Dynamic marks translate to a fixed fraction of the available MIDI
+volume range.  Crescendi and decrescendi make the volume vary
+linearly between their two extremes.  The effect of dynamic markings
+on the MIDI output can be removed completely, see @ref{MIDI block}.
 
+The initial tempo and later tempo changes can be specified
+with the @code{\tempo} command within the music notation.  These
+are reflected in tempo changes in the MIDI output.  This command
+will normally result in the metronome mark being printed, but this
+can be suppressed, see @ref{Metronome marks}.  An alternative way
+of specifying the inital or overall MIDI tempo is described below,
+see @ref{MIDI block}.
 
-Ties, dynamics, and tempo changes are interpreted.  Dynamic marks,
-crescendi and decrescendi translate into MIDI volume levels.  Dynamic
-marks translate to a fixed fraction of the available MIDI volume
-range, crescendi and decrescendi make the volume vary linearly between
-their two extremes.  The fractions can be adjusted by
-@code{dynamicAbsoluteVolumeFunction} in @rinternals{Voice} context.
-For each type of MIDI instrument, a volume range can be defined.  This
-gives a basic equalizer control, which can enhance the quality of
-the MIDI output remarkably.  The equalizer can be controlled by
-setting @code{instrumentEqualizer}, or by setting
+@unnumberedsubsubsec Instrument names
+
+@cindex instrument names
+@funindex Staff.midiInstrument
+
+The MIDI instrument to be used is specified by setting the
+@code{Staff.midiInstrument} property to the instrument name.
+The name should be chosen from the list in @ref{MIDI instruments}.
 
 @example
-\set Staff.midiMinimumVolume = #0.2
-\set Staff.midiMaximumVolume = #0.8
-@end example
-
-To remove dynamics from the MIDI output, insert the following lines
-in the @code{\midi@{@}} section.
-
-@example
-\midi @{
-  ...
-  \context @{
-    \Voice
-    \remove "Dynamic_performer"
-  @}
+\new Staff @{
+  \set Staff.midiInstrument = "glockenspiel"
+  @var{...notes...}
 @}
 @end example
 
+@example
+\new Staff \with @{midiInstrument = "cello"@} @{
+  @var{...notes...}
+@}
+@end example
+
+If the selected instrument does not exactly match an instrument from
+the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
+instrument is used.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-midi-output-to-one-channel-per-voice.ly}
 
 @knownissues
 
+@c In 2.11 the following no longer seems to be a problem -td
+@ignore
 Unterminated (de)crescendos will not render properly in the midi file,
 resulting in silent passages of music.  The workaround is to explicitly
 terminate the (de)crescendo.  For example,
@@ -1413,77 +1434,151 @@ will not work properly but
 
 @noindent
 will.
+@end ignore
 
+Changes in the MIDI volume take place only on starting a note, so
+crescendi and decrescendi cannot affect the volume of a
+single note.
 
-MIDI output is only created when the @code{\midi} command is within
-a @code{\score} block.  If you put it within an explicitly instantiated
-context ( i.e. @code{\new Score} ) the file will fail.  To solve this,
-enclose the @code{\new Score} and the @code{\midi} in a @code{\score} block.
-
-@example
-\score @{
-  \new Score @{ @dots{}notes@dots{} @}
-  \midi
-@}
-@end example
-
+Not all midi players correctly handle tempo changes in the midi
+output.  Players that are known to work include MS Windows Media
+Player and @uref{http://@/timidity@/.sourceforge@/.net/,timidity}.
 
 @node MIDI block
 @subsection MIDI block
 @cindex MIDI block
 
-
-The MIDI block is analogous to the layout block, but it is somewhat
-simpler.  The @code{\midi} block is similar to @code{\layout}.  It can contain
-context definitions.
-
-
-@cindex context definition
-
-Context definitions follow precisely the same syntax as within the
-\layout block.  Translation modules for sound are called performers.
-The contexts for MIDI output are defined in @file{ly/@/performer@/-init@/.ly}.
-
-
-@node MIDI instrument names
-@subsection MIDI instrument names
-
-@cindex instrument names
-@funindex Staff.midiInstrument
-
-The MIDI instrument name is set by the @code{Staff.midiInstrument}
-property.  The instrument name should be chosen from the list in
-@ref{MIDI instruments}.
+A @code{\midi} block must appear within a score block if MIDI output
+is required.  It is analogous to the layout block, but somewhat
+simpler.  Often, the @code{\midi} block is left empty, but it
+can contain context rearrangements, new context definitions or code
+to set the values of properties.  For example, the following will
+set the initial tempo exported to a MIDI file without causing a tempo
+indication to be printed:
 
 @example
-\set Staff.midiInstrument = "glockenspiel"
-@var{...notes...}
+\score @{
+  @var{...music...}
+  \midi @{
+    \context @{
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 4)
+    @}
+  @}
+@}
 @end example
 
-If the selected instrument does not exactly match an instrument from
-the list of MIDI instruments, the Grand Piano (@code{"acoustic grand"})
-instrument is used.
+In this example the tempo is set to 72 quarter note
+beats per minute.  This kind of tempo specification cannot take
+a dotted note length as an argument.  If one is required, break
+the dotted note into smaller units.  For example, a tempo of 90
+dotted quarter notes per minute can be specified as 270 eighth
+notes per minute:
+
+@example
+tempoWholesPerMinute = #(ly:make-moment 270 8)
+@end example
+
+@cindex MIDI context definitions
+
+Context definitions follow precisely the same syntax as those
+within a @code{\layout} block.  Translation modules for sound are
+called performers.  The contexts for MIDI output are defined in
+@file{../ly/@/performer@/-init@/.ly},
+see @rlearning{Other sources of information}.
+For example, to remove the effect of dynamics
+from the MIDI output, insert the following lines in the
+@code{\midi@{ @}} block.
+
+@example
+\midi @{
+  ...
+  \context @{
+    \Voice
+    \remove "Dynamic_performer"
+  @}
+@}
+@end example
+
+MIDI output is created only when a @code{\midi} block is included
+within a score block defined with a @code{\score} command.  If it
+is placed within an explicitly instantiated score context (i.e.
+within a @code{\new Score} block) the file will fail.  To solve
+this, enclose the @code{\new Score} and the @code{\midi} commands
+in a @code{\score} block.
+
+@example
+\score @{
+  \new Score @{ @dots{}notes@dots{} @}
+  \midi @{ @}
+@}
+@end example
+
+@node What goes into the MIDI output?
+@subsection What goes into the MIDI output?
+
+@c TODO Check grace notes - timing is suspect?
+
+@unnumberedsubsubsec Supported in MIDI
+
+@cindex Pitches in MIDI
+@cindex MIDI, Pitches
+@cindex Quarter tones in MIDI
+@cindex MIDI, quarter tones
+@cindex Microtones in MIDI
+@cindex MIDI, microtones
+@cindex Chord names in MIDI
+@cindex MIDI, chord names
+@cindex Rhythms in MIDI
+@cindex MIDI, Rhythms
+@c TODO etc
+
+The following items of notation are reflected in the MIDI output:
+
+@itemize
+@item Pitches
+@item Quarter tones (See @ref{Accidentals}. Rendering needs a
+player that supports pitch bend.)
+@item Chords entered as chord names
+@item Rhythms entered as note durations, including tuplets
+@item Tremolos entered without @q{@code{:}[@var{number}]}
+@item Ties
+@item Dynamic marks
+@item Crescendi, decrescendi over multiple notes
+@item Tempo changes entered with a tempo marking
+@end itemize
+
+@unnumberedsubsubsec Unsupported in MIDI
+
+@c TODO index as above
+
+The following items of notation have no effect on the MIDI output:
+
+@itemize
+@item Rhythms entered as annotations, e.g. swing
+@item Tempo changes entered as annotations with no tempo marking
+@item Staccato and other articulations and ornamentations
+@item Slurs and Phrasing slurs
+@item Crescendi, decrescendi over a single note
+@item Tremolos entered with @q{@code{:}[@var{number}]}
+@item Figured bass
+@c TODO Check Lyrics
+@item Lyrics
+@end itemize
 
 
-@node What goes into the MIDI?  FIXME
-@subsection What goes into the MIDI?  FIXME
+@node Repeats in MIDI
+@subsection Repeats in MIDI
 
-@menu
-* Repeats and MIDI::            
-@end menu
-
-@node Repeats and MIDI
-@subsubsection Repeats and MIDI
-
-@cindex expanding repeats
+@cindex repeats in MIDI
 @funindex \unfoldRepeats
 
-With a little bit of tweaking, all types of repeats can be present
+With a few minor additions, all types of repeats can be represented
 in the MIDI output.  This is achieved by applying the
 @code{\unfoldRepeats} music function.  This function changes all
 repeats to unfold repeats.
 
-@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+@lilypond[quote,verbatim]
 \unfoldRepeats {
   \repeat tremolo 8 {c'32 e' }
   \repeat percent 2 { c''8 d'' }
@@ -1512,11 +1607,263 @@ and percent repeats).  For example,
 @}
 @end example
 
+@node Controlling MIDI dynamics
+@subsection Controlling MIDI dynamics
 
-@node other midi
-@subsection other midi
+MIDI dynamics are implemented by the Dynamic_performer which lives
+by default in the Voice context.  It is possible to control the
+overall MIDI volume, the relative volume of dynamic markings and
+the relative volume of different instruments.
 
-Micro tones are also exported to the MIDI file.
+@unnumberedsubsubsec Dynamic marks
 
-Figured bass has no effect on MIDI.
+Dynamic marks are translated to a fixed fraction of the available
+MIDI volume range.  The default fractions range from 0.25 for
+@notation{ppppp} to 0.95 for @notation{fffff}.  The set of dynamic
+marks and the associated fractions can be seen in
+@file{../scm/midi.scm}, see @rlearning{Other sources of information}.
+This set of fractions may be changed or extended by providing a
+function which takes a dynamic mark as its argument and returns the
+required fraction, and setting
+@code{Score.dynamicAbsoluteVolumeFunction} to this function.
+
+For example, if a @notation{rinforzando} dynamic marking,
+@code{\rfz}, is required, this will not by default
+have any effect on the MIDI volume, as this dynamic marking is not
+included in the default set.  Similarly, if a new dynamic marking
+has been defined with @code{make-dynamic-script} that too will not
+be included in the default set.  The following example shows how the
+MIDI volume for such dynamic markings might be added.  The Scheme
+function sets the fraction to 0.9 if a dynamic mark of rfz is
+found, or calls the default function otherwise.
+
+@lilypond[verbatim,quote]
+#(define (myDynamics dynamic)
+    (if (equal? dynamic "rfz")
+      0.9
+      (default-dynamic-absolute-volume dynamic)))
+
+\score {
+  \new Staff {
+    \set Staff.midiInstrument = "cello"
+    \set Score.dynamicAbsoluteVolumeFunction = #myDynamics
+    \new Voice {
+       \relative c'' {
+         a\pp b c-\rfz
+       }
+    }
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+
+Alternatively, if the whole table of fractions needs to be
+redefined, it would be better to use the
+@notation{default-dynamic-absolute-volume} procedure in
+@file{../scm/midi.scm} and the associated table as a model.
+The final example in this section shows how this might be done.
+
+@unnumberedsubsubsec Overall MIDI volume
+
+The minimum and maximum overall volume of MIDI dynamic markings is
+controlled by setting the properties @code{midiMinimumVolume} and
+@code{midiMaximumVolume} at the @code{Score} level.  These
+properties have an effect only on dynamic marks, so if they
+are to apply from the start of the score a dynamic mark must be
+placed there.  The fraction corresponding to each dynamic mark is
+modified with this formula
+
+@example
+midiMinimumVolume + (midiMaximumVolume - midiMinimumVolume) * fraction
+@end example
+
+In the following example the dynamic range of the overall MIDI
+volume is limited to the range 0.2 - 0.5.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Staff.midiInstrument = #"flute"
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+      midiMinimumVolume = #0.2
+      midiMaximumVolume = #0.5
+    }
+  }
+}
+@end lilypond
+
+@unnumberedsubsubsec Equalizing different instruments (i)
+
+If the minimum and maximum MIDI volume properties are set in
+the @code{Staff} context the relative volumes of the MIDI
+instruments can be controlled.  This gives a basic instrument
+equalizer, which can enhance the quality of the MIDI output
+remarkably.
+
+In this example the volume of the clarinet is reduced relative
+to the volume of the flute.  There must be a dynamic
+mark on the first note of each instrument for this to work
+correctly.
+
+@lilypond[verbatim,quote]
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Staff.midiInstrument = #"flute"
+      \set Staff.midiMinimumVolume = #0.7
+      \set Staff.midiMaximumVolume = #0.9
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \set Staff.midiMinimumVolume = #0.3
+      \set Staff.midiMaximumVolume = #0.6
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+    }
+  }
+}
+@end lilypond
+
+@unnumberedsubsubsec Equalizing different instruments (ii)
+
+If the MIDI minimum and maximum volume properties are not set
+LilyPond will, by default, apply a small degree of equalization
+to a few instruments.  The instruments and the equalization
+applied are shown in the table @notation{instrument-equalizer-alist}
+in @file{../scm/midi.scm}.
+
+This basic default equalizer can be replaced by setting
+@code{instrumentEqualizer} in the @code{Score} context to a new
+Scheme procedure which accepts a MIDI instrument name as its only
+argument and returns a pair of fractions giving the minimum and
+maximum volumes to be applied to that instrument.  This replacement
+is done in the same way as shown for resetting the
+@code{dynamicAbsoluteVolumeFunction} at the start of this section.
+The default equalizer, @notation{default-instrument-equalizer}, in
+@file{../scm/midi.scm} shows how such a procedure might be written.
+
+The following example sets the relative flute and clarinet volumes
+to the same values as the previous example.
+
+@lilypond[verbatim,quote]
+#(define my-instrument-equalizer-alist '())
+
+#(set! my-instrument-equalizer-alist
+  (append
+    '(
+      ("flute" . (0.7 . 0.9))
+      ("clarinet" . (0.3 . 0.6)))
+    my-instrument-equalizer-alist))
+
+#(define (my-instrument-equalizer s)
+  (let ((entry (assoc s my-instrument-equalizer-alist)))
+    (if entry
+      (cdr entry))))
+
+\score {
+  <<
+    \new Staff {
+      \key g \major
+      \time 2/2
+      \set Score.instrumentEqualizer = #my-instrument-equalizer
+      \set Staff.midiInstrument = #"flute"
+      \new Voice \relative c''' {
+        r2 g\mp g fis ~
+        fis4 g8 fis e2 ~
+        e4 d8 cis d2
+      }
+    }
+    \new Staff {
+      \key g \major
+      \set Staff.midiInstrument = #"clarinet"
+      \new Voice \relative c'' {
+        b1\p a2. b8 a
+        g2. fis8 e
+        fis2 r
+      }
+    }
+  >>
+  \layout { }
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 72 2)
+    }
+  }
+}
+@end lilypond
+
+@ignore
+@c Delete when satisfied this is adequately covered elsewhere -td
+
+@n ode Microtones in MIDI
+@s ubsection Microtones in MIDI
+
+@cindex microtones in MIDI
+
+Microtones consisting of half sharps and half flats are exported
+to the MIDI file and render correctly in MIDI players which support
+pitch bending.  See @ref{Note names in other languages}.  Here is
+an example showing all the half sharps and half flats.  It can be
+copied out and compiled to test microtones in your MIDI player.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c' {
+    c cih cis cisih
+    d dih ees eeh
+    e eih f fih
+    fis fisih g gih
+    gis gisih a aih
+    bes beh b bih
+  }
+  \layout {}
+  \midi {}
+}
+@end lilypond
+@end ignore
+
+
 

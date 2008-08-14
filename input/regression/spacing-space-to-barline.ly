@@ -1,4 +1,4 @@
-\version "2.11.29"
+\version "2.11.51"
 
 \header {
   texidoc = "When space-to-barline is false, we measure the space between the note and the

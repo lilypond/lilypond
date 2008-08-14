@@ -1,4 +1,4 @@
-\version "2.11.38"
+\version "2.11.51"
 \include "english.ly"
 #(set-global-staff-size 15)
 \paper{
@@ -7,6 +7,13 @@
   indent=0\cm
 }
   
+\layout {
+  \context { \Score
+    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  }
+}
+
 % NR 1.1 Pitches
 
 % L. v. Beethoven 
@@ -91,18 +98,18 @@
    % LH Staff
    \new Staff {
       \override Staff.SustainPedalLineSpanner #'staff-padding = #5
-      <gs' e'>2 ( \sustainDown
-      <fs' ds' b>4 \sustainUp
+      <gs' e'>2 ( \sustainOn
+      <fs' ds' b>4 \sustainOff
       <e' cs'>4
       |
       <ds' bs gs>2
-      <cs' a>2 ) \sustainDown
+      <cs' a>2 ) \sustainOn
       |
       \clef bass
       \slurDown
-      <ds' b! a fs>2 ( \sustainUp
+      <ds' b! a fs>2 ( \sustainOff
       <e' b gs>4
-      <fs' cs' a>4 \sustainDown
+      <fs' cs' a>4 \sustainOn
       |
       \clef treble
       \voiceOne
@@ -113,7 +120,7 @@
          }
          \new Voice {
             \voiceTwo
-            b1 \sustainUp
+            b1 \sustainOff
          }
       >>
       \oneVoice
@@ -125,9 +132,9 @@
       <e cs>4
       |
       <ds bs, gs,>2
-      <cs a,>2 ) \sustainDown
+      <cs a,>2 ) \sustainOn
       |
-      <b,! b,,!>1 ( \sustainUp
+      <b,! b,,!>1 ( \sustainOff
       |
       <e e,>4 )
       r4 r2

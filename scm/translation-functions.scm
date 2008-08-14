@@ -139,10 +139,10 @@
     (if alt-markup
 	(set! fig-markup
 	      (markup #:put-adjacent
-		      fig-markup X
-		      (if (number? alt-dir)
-			  alt-dir
-			  LEFT)
+		      X (if (number? alt-dir)
+			    alt-dir
+			    LEFT)
+		      fig-markup
 		      #:pad-x 0.2 alt-markup
 		      )))
 
@@ -151,10 +151,10 @@
 	(set! fig-markup
 	      (if fig-markup
 		  (markup #:put-adjacent
-			  fig-markup
 			  X (if (number? plus-dir)
 				plus-dir
 				LEFT)
+			  fig-markup
 			  #:pad-x 0.2 plus-markup)
 		  plus-markup)))
     
@@ -168,25 +168,68 @@
 ;; fret diagrams
 
 (define-public (determine-frets context grob notes string-numbers)
+  
   (define (ensure-number a b)
     (if (number? a)
 	a
 	b))
-(let*
+
+  (define (string-frets->dot-placement string-frets string-count)
+    (let*
+      ((desc (list->vector
+              (map (lambda (x) (list 'mute  (1+ x)))
+                   (iota string-count)))))
+
+       (for-each (lambda (sf)
+                   (let*
+                       ((string (car sf))
+                        (fret (cadr sf))
+                        (finger (caddr sf)))
+
+                       (vector-set! 
+                         desc (1- string)
+                         (if (= 0 fret)
+                             (list 'open string)
+                             (if finger
+                                 (list 'place-fret string fret finger)
+                                 (list 'place-fret string fret))
+                                      ))
+                     ))
+                 string-frets)
+       (vector->list desc)))
+
+;; body.
+  (let*
       ((tunings (ly:context-property context 'stringTunings))
+       (my-string-count (length tunings))
+       (details (ly:grob-property grob 'fret-diagram-details))
+       (predefined-frets
+         (ly:context-property context 'predefinedDiagramTable)) 
        (minimum-fret (ensure-number
 		      (ly:context-property context 'minimumFret) 0))
        (max-stretch (ensure-number
 		      (ly:context-property context 'maximumFretStretch) 4))
        (string-frets (determine-frets-mf notes string-numbers
 					 minimum-fret max-stretch
-					 tunings)))
+					 tunings))
+       (pitches (map (lambda (x) (ly:event-property x 'pitch)) notes)))
 
-       	      
-  (set! (ly:grob-property grob 'string-count) (length tunings))
-  (set! (ly:grob-property grob 'string-fret-finger-combinations) string-frets)
+    (set! (ly:grob-property grob 'fret-diagram-details)
 
-  ))
+          (if (null? details)
+              (acons 'string-count (length tunings) '())
+              (acons 'string-count (length tunings) details)))
+    (set! (ly:grob-property grob 'dot-placement-list)
+        (if predefined-frets
+            (let ((hash-handle 
+                    (hash-get-handle
+                      predefined-frets
+                      (cons tunings pitches))))
+              (if hash-handle 
+                  (cdr hash-handle)  ;found default diagram
+                  (string-frets->dot-placement 
+                        string-frets my-string-count)))
+            (string-frets->dot-placement string-frets my-string-count)))))
 
 (define-public (determine-frets-mf notes string-numbers
 				   minimum-fret max-stretch
@@ -291,12 +334,13 @@
      (if (note-string note)
 	 (set-fret note (note-string note))
 	 (let*
-	     ((string (find (lambda (string) (string-qualifies string
-							       (note-pitch note)))
-			      (reverse free-strings))))
-	   (if string
-	       (set-fret note string)
-	       (ly:warning "No string for pitch ~a (given frets ~a)" (note-pitch note)
+	     ((fit-string (find (lambda (string) 
+                               (string-qualifies string (note-pitch note)))
+			    free-strings)))
+	   (if fit-string
+	       (set-fret note fit-string)
+	       (ly:warning "No string for pitch ~a (given frets ~a)" 
+                           (note-pitch note)
 			   specified-frets))
 			   
 	       )))

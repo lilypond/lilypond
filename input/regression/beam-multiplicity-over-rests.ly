@@ -1,4 +1,4 @@
-\version "2.11.46"
+\version "2.11.51"
 
 \header {
   texidoc = "When a beam goes over a rest, there should not be any 

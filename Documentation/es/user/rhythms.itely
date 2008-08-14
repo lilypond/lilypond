@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Rhythms
 @section Rhythms
@@ -121,8 +121,8 @@ otros ajustes que controlan la notación proporcional, consulte
 
 Normalmente los puntillos se desplazan hacia arriba para evitar las
 líneas del pentagrama, excepto en situaciones de polifonía. Para
-forzar una dirección concreta de forma manual, véase @ref{Controlling
-direction and placement}.
+forzar una dirección concreta de forma manual, véase @ref{Direction
+and placement}.
 
 
 @predefined
@@ -451,7 +451,7 @@ percusión.  Se pueden introducir de la siguiente manera:
 
 Es posible controlar la colocación vertical de las ligaduras de unión;
 véase la sección de instrucciones predefinidas, o para ver más
-detalles, consulte @ref{Controlling direction and placement}.
+detalles, consulte @ref{Direction and placement}.
 
 
 @cindex ligaduras, apariencia

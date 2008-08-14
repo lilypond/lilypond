@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Editorial annotations
 @section Editorial annotations
@@ -40,14 +40,32 @@ inside the staff.
 @node Selecting notation font size
 @unnumberedsubsubsec Selecting notation font size
 
+@cindex font size (notation) scaling
 @cindex font size (notation)
 @cindex selecting font size (notation)
+@cindex notation font size
+@cindex note heads
+@funindex fontSize
+@funindex font-size
+@funindex magstep
+@funindex \huge
+@funindex \large
+@funindex \normalsize
+@funindex \small
+@funindex \tiny
+@funindex \teeny
+@funindex huge
+@funindex large
+@funindex normalsize
+@funindex small
+@funindex tiny
+@funindex teeny
 
 The font size of notation elements may be altered.  It does not
 change the size of variable symbols, such as beams or slurs.
 
 @warning{For font sizes of text, see
-@ref{Common markup commands}.}
+@ref{Selecting font and font size}.}
 
 @lilypond[verbatim,quote,relative=2]
 \huge
@@ -63,8 +81,6 @@ c4.-> d8---3
 \teeny
 c4.-> d8---3
 @end lilypond
-
-@cindex font size (notation) scaling
 
 Internally, this sets the @code{fontSize} property.  This in turn
 causes the @code{font-size} property to be set in all layout
@@ -89,6 +105,8 @@ c4.-> d8---3
 
 @cindex standard font size (notation)
 @cindex font size (notation), standard
+@funindex font-interface
+@funindex font-size
 
 Font size changes are achieved by scaling the design size that is
 closest to the desired size.  The standard font size (for
@@ -130,6 +148,8 @@ Internals Reference:
 
 @cindex fingering
 @cindex finger change
+@funindex \finger
+@funindex finger
 
 Fingering instructions can be entered using
 @var{note}-@var{digit}:
@@ -145,6 +165,8 @@ c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @end lilypond
 
 @cindex thumb-script
+@funindex \thumb
+@funindex thumb
 
 A thumb-script can be added (e.g., in cello music) to indicate
 that a note should be played with the thumb. 
@@ -154,6 +176,7 @@ that a note should be played with the thumb.
 @end lilypond
 
 @cindex fingering chords
+@cindex fingering instructions for chords
 @cindex chords, fingering
 
 Fingerings for chords can also be added to individual notes of the
@@ -170,6 +193,9 @@ staff, see @ref{Direction and placement}.
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {controlling-the-placement-of-chord-fingerings.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 
 @seealso
@@ -194,8 +220,13 @@ Internals Reference:
 @cindex hidden notes
 @cindex invisible notes
 @cindex transparent notes
+@cindex notes, hidden
+@cindex notes, invisible
+@cindex notes, transparent
 @funindex \hideNotes
+@funindex hideNotes
 @funindex \unHideNotes
+@funindex unHideNotes
 
 Hidden (or invisible or transparent) notes can be useful in
 preparing theory or composition exercises.
@@ -224,8 +255,6 @@ e4(\p f)--
 
 @predefined
 
-@funindex \hideNotes
-@funindex \unHideNotes
 @code{\hideNotes}, @code{\unHideNotes}
 
 @seealso
@@ -247,6 +276,13 @@ Internals Reference:
 @cindex colored notes
 @cindex coloring notes
 @cindex notes, colored
+@cindex x11 color
+@cindex x11-color
+@cindex with-color
+@funindex color
+@funindex \with-color
+@funindex with-color
+@funindex x11-color
 
 Individual objects may be assigned colors.  Valid color names
 are listed in the @ref{List of colors}.
@@ -260,7 +296,6 @@ d
 e
 @end lilypond
 
-@cindex x11-color
 
 The full range of colors defined for X11 can be accessed by using
 the Scheme function @code{x11-color}.  The function takes one
@@ -290,6 +325,11 @@ gis a
 b2 cis
 @end lilypond
 
+@cindex rgb-color
+@cindex color, rgb
+@cindex rgb color
+@funindex rgb-color
+
 Exact RGB colors can be specified using the Scheme function
 @code{rgb-color}.
 
@@ -316,6 +356,12 @@ the input}.
 Snippets:
 @rlsr{Editorial annotations}.
 
+@cindex x11 color
+@cindex colored notes in chords
+@cindex notes, colored in chords
+@cindex color in chords
+@funindex x11-color
+
 @knownissues
 An X11 color is not necessarily exactly the same shade as a
 similarly named normal color.  
@@ -337,6 +383,8 @@ Notes in a chord cannot be colored with @code{\override}; use
 @cindex notes, ghost
 @cindex notes, parenthesized
 @cindex parentheses
+@funindex \parenthesize
+@funindex parenthesize
 
 Objects may be parenthesized by prefixing @code{\parenthesize} to
 the music event.  When prefixed to a chord, it parenthesizes every
@@ -376,6 +424,8 @@ chord.
 @unnumberedsubsubsec Stems
 
 @cindex stem
+@cindex stem, invisible
+@cindex invisible stem
 
 Whenever a note is found, a @code{Stem} object is created
 automatically.  For whole notes and rests, they are also created but
@@ -429,6 +479,16 @@ from outside of the staff.
 @node Balloon help
 @unnumberedsubsubsec Balloon help
 
+@cindex balloon
+@cindex notation, explaining
+@cindex balloon help
+@cindex help, balloon
+@funindex \balloonGrobText
+@funindex \balloonText
+@funindex Balloon_engraver
+@funindex balloonGrobText
+@funindex balloonText
+
 Elements of notation can be marked and named with the help of a
 square balloon.  The primary purpose of this feature is to explain
 notation.
@@ -444,8 +504,6 @@ notation.
 }
 @end lilypond
 
-@cindex balloon
-@cindex notation, explaining
 
 There are two music functions, @code{balloonGrobText} and
 @code{balloonText};  the former is used like
@@ -474,6 +532,9 @@ altered:
 
 @funindex balloonLengthOn
 @funindex balloonLengthOff
+@funindex \balloonLengthOn
+@funindex \balloonLengthOff
+
 @code{\balloonLengthOn}, @code{\balloonLengthOff}
 
 @seealso
@@ -489,6 +550,14 @@ Internals Reference:
 
 @node Grid lines
 @unnumberedsubsubsec Grid lines
+
+@cindex grid lines
+@cindex lines, grid
+@cindex vertical lines between staves
+@cindex lines, vertical between staves
+@funindex Grid_point_engraver
+@funindex Grid_line_span_engraver
+@funindex gridInterval
 
 Vertical lines can be drawn between staves synchronized with the
 notes.
@@ -553,9 +622,17 @@ Internals Reference:
 @unnumberedsubsubsec Analysis brackets
 
 @cindex brackets
-@cindex phrasing brackets
+@cindex bracket, phrasing
+@cindex phrasing bracket
 @cindex musicological analysis
 @cindex note grouping bracket
+@cindex horizontal bracket
+@cindex bracket, horizontal
+@funindex Horizontal_bracket_engraver
+@funindex \startGroup
+@funindex startGroup
+@funindex \stopGroup
+@funindex stopGroup
 
 Brackets are used in musical analysis to indicate structure in musical
 pieces.  Simple horizontal brackets are supported.

@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.51"
 \header {
 
   texidoc = "Unterminated piano pedal brackets run to the end of the piece. "
@@ -10,7 +10,7 @@
 
 {
   \set Staff.pedalSustainStyle = #'bracket
-  c4 \sustainDown
+  c4 \sustainOn
   \bar "|."
 }
 

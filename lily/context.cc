@@ -709,6 +709,20 @@ measure_position (Context const *context)
   return m;
 }
 
+int
+measure_number (Context const *context)
+{
+  SCM barnum = context->get_property ("internalBarNumber");
+  SCM smp = context->get_property ("measurePosition");
+
+  int bn = robust_scm2int (barnum, 0);
+  Moment mp = robust_scm2moment (smp, Moment (0));
+  if (mp.main_part_ < Rational (0))
+    bn--;
+
+  return bn;
+}
+
 
 void
 set_context_property_on_children (Context *trans, SCM sym, SCM val)

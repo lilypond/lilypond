@@ -4,11 +4,11 @@
   block-shaped note."
 }
 
-\version "2.11.44"
+\version "2.11.51"
 
 <<
   \key c \major
-  \set Staff.shapeNoteStyles = ##(do re mi fa #f la ti)
+  \set Staff.shapeNoteStyles = #'#(do re mi fa #f la ti)
 
   { f'4 }
   \\

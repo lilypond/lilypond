@@ -1,0 +1,16 @@
+  texidoces = "
+Se puede utilizar la propiedad
+@code{systemStartDelimiterHierarchy} para crear grupos de
+pentagramas anidados de forma más compleja. La instrucción
+@code{\\set StaffGroup.systemStartDelimiterHierarchy} toma una
+lista alfabética del número de pentagramas producidos. Se puede
+proporcionar antes de cada pentagrama un delimitador de comienzo
+de sistema. Se debe encerrar entre corchetes y admite tantos
+pentagramas como encierren las llaves. Se pueden omitir los
+elementos de la lista, pero el primer corchete siempre abarca
+todos los pentagramas. Las posibilidades son
+@code{SystemStartBar}, @code{SystemStartBracket},
+@code{SystemStartBrace} y @code{SystemStartSquare}.
+
+"
+  doctitlees = "Anidado de grupos de pentagramas"

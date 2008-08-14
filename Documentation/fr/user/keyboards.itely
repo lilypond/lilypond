@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -245,14 +245,14 @@ Le piano possède deux pédales, parfois trois, permettant de modifier
 l'émission du son.  Il est possible d'indiquer précisément chacune
 d'entre elles, en ajoutant à une note ou un accord les commandes
 suivantes :
-@multitable {enfoncerr} {pédale de tenuee} {pédale una cordaa} {\sostenutoDownnnn}
+@multitable {enfoncerr} {pédale de tenuee} {pédale una cordaa} {\sostenutoOnnnn}
 @item       @tab pédale de tenue @tab pédale @emph{una corda} @tab pédale tonale
-@item enfoncer @tab @code{\sustainDown} @tab @code{\unaCorda} @tab @code{\sostenutoDown}
-@item relâcher @tab @code{\sustainUp}   @tab @code{\treCorde} @tab @code{\sostenutoUp}
+@item enfoncer @tab @code{\sustainOn} @tab @code{\unaCorda} @tab @code{\sostenutoOn}
+@item relâcher @tab @code{\sustainOff}   @tab @code{\treCorde} @tab @code{\sostenutoOff}
 @end multitable
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainDown c'4\sustainUp
+c'4\sustainOn c'4\sustainOff
 @end lilypond
 
 Les modalités d'impression de ces indications sont définies par la
@@ -266,9 +266,9 @@ pédale, en utilisant des crochets
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'bracket
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c\sustainOn d e
+b\sustainOff\sustainOn
+b g \sustainOff a \sustainOn \bar "|."
 @end lilypond
 
 @noindent
@@ -276,9 +276,9 @@ ou en mélangeant indications textuelles et crochets
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'mixed
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c\sustainOn d e
+b\sustainOff\sustainOn
+b g \sustainOff a \sustainOn \bar "|."
 @end lilypond
 
 @code{text} est le style de notation par défaut pour la pédale de
@@ -286,7 +286,7 @@ tenue --- le traditionnel @q{*Ped.}.  La pédale tonale, en revanche,
 utilise @code{mixed} par défaut.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoDown d e c, f g a\sostenutoUp
+c\sostenutoOn d e c, f g a\sostenutoOff
 @end lilypond
 
 Il est possible de d'affiner l'apparence d'un crochet de pédale, au
@@ -298,7 +298,7 @@ jusqu'à l'extrémité droite de la dernière note :
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoDown d e c, f g a\sostenutoUp
+c\sostenutoOn d e c, f g a\sostenutoOff
 @end lilypond
 
 @seealso

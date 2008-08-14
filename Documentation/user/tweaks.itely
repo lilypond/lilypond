@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -871,8 +871,8 @@ preceded by an apostrophe
        @code{#f}
 @item Vector
   @tab A list of three items enclosed in brackets and preceded
-by a hash sign, @code{#}.
-  @tab @code{#(#t #t #f)}
+by apostrophe-hash, @code{'#}.
+  @tab @code{'#(#t #t #f)}
 @end multitable
 
 @node Appearance of objects
@@ -979,18 +979,18 @@ booleans.
 These control respectively whether bar lines are printed at
 the end of a line, in the middle of lines, and at the beginning
 of lines.  For our example we want all bar lines to be suppressed,
-so the value we need is @code{#(#f #f #f)}.
+so the value we need is @code{'#(#f #f #f)}.
 Let's try that, remembering
 to include the @code{Staff} context.  Note also that in writing
-this value we have two hash signs before the opening bracket.
-One is required as part of the value to introduce a vector, 
-and one is required, as always, to precede the value itself in 
-the @code{\override} command.
+this value we have @code{#'#} before the opening bracket.
+The @code{'#} is required as part of the value to introduce a
+vector, and the first @code{#} is required, as always, to precede
+the value itself in the @code{\override} command.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'break-visibility = ##(#f #f #f)
+  \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
   c4 b8 c d16 c d8 |
   g, a16 b8 c d4 e16 |
   e8
@@ -1006,8 +1006,8 @@ We see from the properties specified in the @code{grob-interface}
 page in the IR that the @code{transparent} property is a boolean.
 This
 should be set to @code{#t} to make the grob transparent.
-In this next example let us make the time signature invisible 
-rather than the bar lines.  
+In this next example let us make the time signature invisible
+rather than the bar lines.
 To do this we need to find the grob name for the time signature.
 Back to
 the @q{All layout objects} page in the IR to find the properties
@@ -1028,10 +1028,10 @@ transparent is:
 @end lilypond
 
 @noindent
-The time signature is gone, but this command leaves a gap where 
+The time signature is gone, but this command leaves a gap where
 the time signature should be.  Maybe this is what is wanted for
-an exercise for the student to fill it in, but in other 
-circumstances a gap might be undesirable.  To remove it, the 
+an exercise for the student to fill it in, but in other
+circumstances a gap might be undesirable.  To remove it, the
 stencil for the time signature should be set to @code{#f}
 instead:
 
@@ -1053,8 +1053,16 @@ leaves it where it is, but makes it invisible.
 @subheading color
 @cindex color property
 
-Finally we could make the bar lines invisible by coloring
-them white.  The @code{grob-interface} specifies that the
+Finally let us try making the bar lines invisible by coloring
+them white.  (There is a difficulty with this in that the
+white bar line may or may not blank out the staff lines where
+they cross.  You may see in some of the examples below that this
+happens unpredictably.  The details of why this is so and how to
+control it are covered in @ruser{Painting objects white}.  But at
+the moment we are learning about color, so please just accept this
+limitation for now.)
+
+The @code{grob-interface} specifies that the
 color property value is a list, but there is no
 explanation of what that list should be.  The list it
 requires is actually a list of values in internal units,
@@ -1080,7 +1088,7 @@ and again, we see the bar lines are not visible.  Note that
 a symbol, but a @emph{function}.  When called, it provides
 the list of internal values required to set the color to
 white.  The other colors in the normal list are functions
-too.  To convince yourself this is working you might like 
+too.  To convince yourself this is working you might like
 to change the color to one of the other functions in the
 list.
 
@@ -1113,7 +1121,7 @@ an apostrophe and the two enclosed in brackets.
 
 There is yet a third function, one which converts RGB values into
 internal colors -- the @code{rgb-color} function.  This takes
-three arguments giving the intensities of the red, green and 
+three arguments giving the intensities of the red, green and
 blue colors.  These take values in the range 0 to 1.  So to
 set the color to red the value should be @code{(rgb-color 1 0 0)}
 and to white it should be @code{(rgb-color 1 1 1)}:
@@ -1543,9 +1551,9 @@ where it is not obvious.
   @tab Up/Right
   @tab Revert
   @tab Effect
-@item @code{\arpeggioDown}
-  @tab @code{\arpeggioUp}
-  @tab @code{\arpeggioNeutral}
+@item @code{\arpeggioArrowDown}
+  @tab @code{\arpeggioArrowUp}
+  @tab @code{\arpeggioNormal}
   @tab Arrow is at bottom, at top, or no arrow
 @item @code{\dotsDown}
   @tab @code{\dotsUp}
@@ -1753,7 +1761,7 @@ these.
 % Place dynamics above staff
 \dynamicUp
 % Start Ottava Bracket
-#(set-octavation 1)
+\ottava #1
 c' \startTextSpan
 % Add Dynamic Text
 c\pp
@@ -1765,7 +1773,7 @@ c c
 % Add Dynamic Text
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
-#(set-octavation 0)
+\ottava #0
 c, c c c
 @end lilypond
 
@@ -1816,7 +1824,7 @@ that @code{OttavaBracket} is created in the @code{Staff} context:
 %Place following Ottava Bracket below Text Spanners
 \once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
-#(set-octavation 1)
+\ottava #1
 c' \startTextSpan
 % Add Dynamic Text
 c\pp
@@ -1828,7 +1836,7 @@ c c
 % Add Dynamic Text
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
-#(set-octavation 0)
+\ottava #0
 c, c c c
 @end lilypond
 
@@ -3054,7 +3062,7 @@ too much, we can lengthen the stem by setting the
 >>
 @end lilypond
 
-@subheading Simulating a fermata
+@subheading Simulating a fermata in MIDI
 
 @cindex stencil property, use of
 @cindex fermata, implementing in MIDI
@@ -3128,8 +3136,10 @@ have to be absolutely correct.  If the same overrides are to be
 used many times it may be worth defining variables to hold them.
 Suppose we wish to emphasize certain words in lyrics by printing
 them in bold italics.  The @code{\italic} and @code{\bold}
-commands do not work within lyrics so we must instead use the
-following @code{\override} and @code{\revert} commands:
+commands only work within lyrics if they are also embedded in
+@code{\markup}, which makes them tedious to enter, so as an
+alternative can we instead use the @code{\override} and 
+@code{\revert} commands?
 
 @example
 @code{\override Lyrics . LyricText #'font-shape = #'italic}
@@ -3139,40 +3149,42 @@ following @code{\override} and @code{\revert} commands:
 @code{\revert Lyrics . LyricText #'font-series}
 @end example
 
-These would be extremely tedious to enter if there were many words
-requiring emphasis.  So instead we define these as two variables,
-and use them as follows:
+These would also be extremely tedious to enter if there were many
+words requiring emphasis.  So instead we define these as two
+variables, and use them as follows, although normally we would
+perhaps choose shorter names for the variables to make them
+quicker to type:
 
 @lilypond[quote,verbatim]
-emph = {
+emphasize = {
   \override Lyrics . LyricText #'font-shape = #'italic
   \override Lyrics . LyricText #'font-series = #'bold
 }
-norm = {
+normal = {
   \revert Lyrics . LyricText #'font-shape
   \revert Lyrics . LyricText #'font-series
 }
 
 global = { \time 4/4 \partial 4 \key c \major}
-SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+SopranoMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
 AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
 TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
 BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
-VerseOne   = \lyrics { E -- | ter -- nal \emph Fa -- ther, \norm | strong to save, }
-VerseTwo   = \lyricmode { O | \emph Christ, \norm whose voice the | wa -- ters heard, }
-VerseThree = \lyricmode { O | \emph Ho -- ly Spi -- rit, \norm | who didst brood }
-VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
+VerseOne   = \lyrics { E -- | ter -- nal \emphasize Fa -- ther, \normal | strong to save, }
+VerseTwo   = \lyricmode { O | \emphasize Christ, \normal whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { O | \emphasize Ho -- ly Spi -- rit, \normal | who didst brood }
+VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and pow'r }
 
 \score {
   \new ChoirStaff <<
     \new Staff <<
       \clef "treble"
-      \new Voice = "Sop"  { \voiceOne \global \SopMusic }
+      \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
-      \new Lyrics \lyricsto "Sop" { \VerseOne   }
-      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
-      \new Lyrics \lyricsto "Sop" { \VerseThree }
-      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne   }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo   }
+      \new Lyrics \lyricsto "Soprano" { \VerseThree }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour  }
     >>
     \new Staff <<
       \clef "bass"

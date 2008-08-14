@@ -539,6 +539,8 @@ BOM_UTF8	\357\273\277
 				return MARKUP_HEAD_SCM0_MARKUP1;
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup2"))
 				return MARKUP_HEAD_SCM0_SCM1_MARKUP2;
+			else if (tag == ly_symbol2scm ("scheme0-scheme1-markup2-markup3"))
+				return MARKUP_HEAD_SCM0_SCM1_MARKUP2_MARKUP3;
 			else if (tag == ly_symbol2scm ("scheme0-markup1-markup2"))
 				return MARKUP_HEAD_SCM0_MARKUP1_MARKUP2;
 			else if (tag == ly_symbol2scm ("scheme0-scheme1-scheme2"))
@@ -822,7 +824,8 @@ Lily_lexer::scan_bare_word (string str)
 			else if (scm_is_symbol (yylval.scm))
 			    return DRUM_PITCH;
 		}
-		else if ((handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
+		else if ((YYSTATE == chords)
+		     	&& (handle = scm_hashq_get_handle (chordmodifier_tab_, sym))!= SCM_BOOL_F)
 		{
 		    yylval.scm = scm_cdr (handle);
 		    return CHORD_MODIFIER;

@@ -25,7 +25,7 @@
      (X-extent ,number-pair? "Hard coded extent in X@tie{}direction.")
      (X-offset ,number? "The horizontal amount that this object is
 moved relative to its X-parent.")
-     (Y-extent ,number-pair? "See @code{X-extent}.")
+     (Y-extent ,number-pair? "Hard coded extent in Y@tie{}direction.")
      (Y-offset ,number? "The vertical amount that this object is moved
 relative to its Y-parent.")
 
@@ -37,8 +37,8 @@ callback for @code{after-line-breaking}.")
 @code{0}: around center of width, @code{1}: right side.")
      (allow-loose-spacing ,boolean? "If set, column can be detached
 from main spacing.")
-     (allow-span-bar ,boolean? "If false, no inter-staff barline will
-be created below this barline.")
+     (allow-span-bar ,boolean? "If false, no inter-staff bar line will
+be created below this bar line.")
      (alteration ,number? "Alteration numbers for accidental.")
      (alteration-alist ,list? "List of @code{(@var{pitch}
 . @var{accidental})} pairs for key signature.")
@@ -63,8 +63,6 @@ script.")
 grobs, this should contain only one number.")
 
      (bar-size ,ly:dimension? "The size of a bar line.")
-     (barre-type ,symbol? "Type of barre indication used in a fret
-diagram.  Choices include @code{curved} and @code{straight}.")
      (base-shortest-duration ,ly:moment? "Spacing is based on the
 shortest notes in a piece.  Normally, pieces are spaced as if notes
 at least as short as this are present.")
@@ -97,12 +95,12 @@ printing of the bracket.  Setting the property to @code{if-no-beam}
 makes it print only if there is no beam associated with this tuplet
 bracket.")
      (break-align-anchor ,number? "Grobs aligned to this break-align
-grob will have their X-offsets shifted by this number.  In barlines,
+grob will have their X-offsets shifted by this number.  In bar lines,
 for example, this is used to position grobs relative to the (visual)
-center of the barline.")
+center of the bar line.")
      (break-align-anchor-alignment ,number? "Read by
-ly:break-aligned-interface::calc-extent-aligned-anchor for aligning
-an anchor to a grobs extent")
+@code{ly:break-aligned-interface::calc-extent-aligned-anchor} for aligning
+an anchor to a grob's extent")
      (break-align-symbol ,symbol? "This key is used for aligning and
 spacing breakable items.")
      (break-align-symbols ,list? "A list of symbols that determine
@@ -169,10 +167,11 @@ other object.  Otherwise, it determines whether the object is placed
 @code{#UP}, @code{#CENTER} or @code{#DOWN}.  Numerical values may also
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
 @code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
-     (dot-color ,symbol? "Color of dots.  Options include 
-@code{black} and @code{white}.")
      (dot-count ,integer? "The number of dots.")
-     (dot-radius ,number? "Radius of dots.")
+     (dot-placement-list ,list? "List 
+consisting of @code{(@var{description} @var{string-number} 
+@var{fret-number} @var{finger-number})} 
+entries used to define fret diagrams.")
      (duration-log ,integer? "The 2-log of the note head duration,
 i.e., @code{0} = whole note, @code{1} = half note, etc.")
 
@@ -186,22 +185,25 @@ edges: @code{(@var{left-text} . @var{right-text})}.")
 church rests.")
      (extra-X-extent ,number-pair? "A grob is enlarged in
 X@tie{}dimension by this much.")
-     (extra-Y-extent ,number-pair? "See @code{extra-X-extent}.")
+     (extra-Y-extent ,number-pair? "A grob is enlarged in
+Y@tie{}dimension by this much.")
      ;; remove me?
      (extra-dy ,number? "Slope glissandi this much extra.")
      (extra-offset ,number-pair? "A pair representing an offset.  This
 offset is added just before outputting the symbol, so the typesetting
 engine is completely oblivious to it.  The values are measured in
 @code{staff-space} units of the staff's @code{StaffSymbol}.")
+     (extra-spacing-height ,number-pair? "In the horizontal spacing
+problem, we increase the height of each item by this amount (by adding
+the @q{car} to the bottom of the item and adding the @q{cdr} to the top
+of the item. In order to make a grob infinitely high (to prevent the
+horizontal spacing problem from placing any other grobs above or below
+this grob), set this to @code{(-inf.0 . +inf.0)}.")
      (extra-spacing-width ,number-pair? "In the horizontal spacing
 problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
 item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
-
-     (finger-code ,symbol? "Code for the type of fingering indication
-in a fret diagram.  Options include @code{none}, @code{in-dot}, and
-@code{below-string}.")
      (flag-count ,number? "The number of tremolo beams.")
      (flag-style ,symbol? "A string determining what style of flag
 glyph is typeset on a @code{Stem}.  Valid options include @code{()}
@@ -221,10 +223,10 @@ of the font to load.  This setting overrides selection using
 include @code{medium}, @code{bold}, @code{bold-narrow}, etc.")
      (font-shape ,symbol? "Select the shape of a font.  Choices
 include @code{upright}, @code{italic}, @code{caps}.")
-     (font-size ,number? "The font size, compared to the @q{normal}
-size.  @code{0}@tie{}is style-sheet's normal size, @code{-1} is
-smaller, @code{+1} is bigger.  Each step of@tie{}1 is approximately
-12% larger, 6@tie{}steps are exactly a factor@tie{}2 larger.
+     (font-size ,number? "The font size, compared to the
+@q{normal}@tie{}size.  @code{0}@tie{}is style-sheet's normal size,
+@code{-1} is smaller, @code{+1} is bigger.  Each step of@tie{}1 is
+approximately 12% larger; 6@tie{}steps are exactly a factor@tie{}2 larger.
 Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
@@ -234,8 +236,78 @@ note.  This is used by @rinternals{note-collision-interface}.")
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
 stem.  The stem stops at the innermost beams.")
-     (fret-count ,integer? "The number of frets in a fret diagram.")
-     ;; ugh: double, change.
+
+     (fret-diagram-details ,list? "An alist of detailed grob properties
+for fret diagrams.  Each alist entry consists of a
+(@code{property} . @code{value}) pair.
+The properties which can be included in fret-diagram-details
+include the following:
+@itemize @bullet
+@item
+@code{barre-type} -- Type of barre indication used.
+Choices include @code{curved}, @code{straight}, and
+@code{none}.  Default @code{curved}.
+@item
+@code{dot-color} -- Color of dots.  Options include
+@code{black} and @code{white}.  Default @code{black}.
+@item
+@code{dot-label-font-mag} -- Magnification for font used to
+label fret dots.  Default value 1.
+@item
+@code{dot-radius} -- Radius of dots, in terms of fret spaces.  
+Default value 0.425 for labeled dots, 0.25 for unlabeled dots.
+@item
+@code{finger-code} -- Code for the type of fingering indication used.
+Options include @code{none}, @code{in-dot}, and
+@code{below-string}.  Default @code{none} for markup fret diagrams, 
+@code{below-string} for @code{FretBoards} fret diagrams.
+@item
+@code{fret-count} -- The number of frets.  Default 4.
+@item
+@code{fret-label-font-mag} -- The magnification of the font used to label
+the lowest fret number.  Default 0.5
+@item
+@code{fret-label-vertical-offset} -- The vertical offset of the fret label
+from the fret.  Default -0.2
+@item
+@code{label-dir} -- Side to which the fret label is attached.
+@code{-1}, @code{#LEFT}, or @code{#DOWN} for left or down;
+@code{1}, @code{#RIGHT}, or @code{#UP} for right or up.
+Default @code{#RIGHT}.
+@item
+@code{mute-string} -- Character string to be used to indicate muted 
+string.  Default \"x\".
+@item
+@code{number-type} -- Type of numbers to use in fret label.  Choices
+include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.  Default
+@code{roman-lower}.
+@item
+@code{open-string} -- Character string to be used to indicate open 
+string.  Default \"o\".
+@item
+@code{orientation} -- Orientation of fret-diagram.  Options include
+@code{normal} and @code{landscape}.  Default @code{normal}.
+@item
+@code{string-count} -- The number of strings.  Default 6.
+@item
+@code{string-label-font-mag} -- The magnification of the font used to label 
+fingerings at the string, rather than in the dot.  Default value 0.6.
+@item
+@code{top-fret-thickness} -- The thickness of the top fret line, as a multiple
+of the standard thickness.   Default value 3.
+@item
+@code{xo-font-magnification} -- Magnification used for mute and
+open string indicators.  Default value 0.5.
+@item
+@code{xo-padding} -- Padding for open and mute indicators from top fret.  
+Default value 0.25.
+@end itemize")      ;"
+
+
+    ;; ugh: double, change.
+     (full-length-padding ,number? "How much padding to use at the right side of a full-length tuplet bracket.")
+     (full-length-to-extent ,boolean? "Run to the extent of the column for a full-length tuplet bracket.")
+     
      (full-size-change ,boolean? "Don't make a change clef smaller.")
 
      (gap ,ly:dimension? "Size of a gap in a variable symbol.")
@@ -263,10 +335,6 @@ left and one to the right of this grob.")
      (ignore-collision ,boolean? "If set, don't do note collision
 resolution on this @code{NoteColumn}.")
      (implicit ,boolean? "Is this an implicit bass figure?")
-     (infinite-spacing-height ,boolean? "If true, then for the
-purposes of horizontal spacing, treat this item as though it were
-infinitely tall.  That is, no object from another column is allowed to
-stick above or below this item.")
      (inspect-index ,integer? "If debugging is set, set beam and slur
 configuration to this index, and print the respective scores.")
      (inspect-quants ,number-pair? "If debugging is set,
@@ -277,7 +345,7 @@ scores.")
 set to true is fixed relative to the staff above it when systems are
 stretched.")
      (keep-inside-line ,boolean? "If set, this column cannot have
-things sticking into the margin.")
+objects sticking into the margin.")
      (kern ,ly:dimension? "Amount of extra white space to add.  For
 bar lines, this is the amount of space after a thick line.")
      (knee ,boolean? "Is this beam kneed?")
@@ -286,9 +354,7 @@ correction amount for kneed beams.  Set between @code{0} for no
 correction and @code{1} for full correction.")
 
      (labels ,list? "List of labels (symbols) placed on a column")
-     (label-dir ,ly:dir? "Side to which a label is attached.
-@code{-1} for left, @code{1}@tie{}for right.")
-     (layer ,number? "The output layer (a value between 0 and@tie{}2:
+     (layer ,integer? "The output layer (a value between 0 and@tie{}2:
 Layers define the order of printing objects.  Objects in lower layers
 are overprinted by objects in higher layers.")
      (ledger-line-thickness ,number-pair? "The thickness of ledger
@@ -305,7 +371,7 @@ unbeamed stems.")
 determining ledger lines and stem lengths.")
      (line-break-penalty ,number? "Penalty for a line break at this
 column.  This affects the choices of the line breaker; it avoids a
-line break at a column with a positive penalty and prefer a line break
+line break at a column with a positive penalty and prefers a line break
 at a column with a negative penalty.")
      (line-break-permission ,symbol? "Instructs the line breaker on
 whether to put a line break at this column.  Can be @code{force} or
@@ -344,7 +410,8 @@ polyphonic guitar notation.  The value of this setting is used by
 directions (i.e., voice 1 &@tie{}2).")
      (minimum-X-extent ,number-pair? "Minimum size of an object in
 X@tie{}dimension, measured in @code{staff-space} units.")
-     (minimum-Y-extent ,number-pair? "See @code{minimum-X-extent}.")
+     (minimum-Y-extent ,number-pair? "Minimum size of an object in
+Y@tie{}dimension, measured in @code{staff-space} units.")
      (minimum-distance ,ly:dimension? "Minimum distance between rest
 and notes or beam.")
      (minimum-length ,ly:dimension? "Try to make a spanner at least
@@ -364,7 +431,8 @@ to flip the direction of custos stem.")
      (next ,ly:grob? "Object that is next relation (e.g., the lyric
 syllable following an extender.")
      (no-alignment ,boolean? "If set, don't place this grob in a
-VerticalAlignment; rather, place it using its own Y-offset callback")
+@code{VerticalAlignment}; rather, place it using its own @code{Y-offset}
+callback.")
      (no-ledgers ,boolean? "If set, don't draw ledger lines on this
 object.")
      (no-stem-extend ,boolean? "If set, notes with ledger lines do not
@@ -374,13 +442,11 @@ get stems extending to the middle staff line.")
 @code{NonMusicalPaperColumn}.")
      (note-names ,vector? "Vector of strings containing names for
 easy-notation note heads.")
-     (number-type ,symbol? "Type of numbers to use in label.  Choices
-include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.")
 
      (outside-staff-horizontal-padding ,number? "By default, an
 outside-staff-object can be placed so that is it very close to another
 grob horizontally.  If this property is set, the outside-staff-object
-is raised so that it is not so close to its neighbour.")
+is raised so that it is not so close to its neighbor.")
      (outside-staff-padding ,number? "The padding to place between
 this grob and the staff when spacing according to
 @code{outside-staff-priority}.")
@@ -395,14 +461,14 @@ tightly as possible.")
 objects that are next to each other.")
      (page-break-penalty ,number? "Penalty for page break at this
 column.  This affects the choices of the page breaker; it avoids a
-page break at a column with a positive penalty and prefer a page break
+page break at a column with a positive penalty and prefers a page break
 at a column with a negative penalty.")
      (page-break-permission ,symbol? "Instructs the page breaker on
 whether to put a page break at this column.  Can be @code{force} or
 @code{allow}.")
      (page-turn-penalty ,number? "Penalty for a page turn at this
 column.  This affects the choices of the page breaker; it avoids a
-page turn at a column with a positive penalty and prefer a page turn
+page turn at a column with a positive penalty and prefers a page turn
 at a column with a negative penalty.")
      (page-turn-permission ,symbol? "Instructs the page breaker on
 whether to put a page turn at this column.  Can be @code{force} or
@@ -437,7 +503,7 @@ by 45 degrees around the center of this object.")
 
      (same-direction-correction ,number? "Optical correction amount
 for stems that are placed in tight configurations.  This amount is
-used for stems with the same direction to compensate for note-head to
+used for stems with the same direction to compensate for note head to
 stem distance.")
      (script-priority ,number? "A sorting key that determines in what
 order a script is within a stack of scripts.")
@@ -455,7 +521,7 @@ space for the shortest duration.  This is expressed in
 @code{spacing-increment} as unit.  See also
 @rinternals{spacing-spanner-interface}.")
      (shortest-playing-duration ,ly:moment? "The duration of the
-shortest playing here.")
+shortest note playing here.")
      (shortest-starter-duration ,ly:moment? "The duration of the
 shortest note that starts here.")
      (side-axis ,number? "If the value is @code{#X} (or
@@ -474,9 +540,9 @@ of spacing tuples: @code{(@var{break-align-symbol} @var{type}
 . @var{distance})}, where @var{type} can be the symbols
 @code{minimum-space} or @code{extra-space}.")
      (space-to-barline ,boolean? "If set, the distance between a note
-and the following non-musical column will be measured to the barline
+and the following non-musical column will be measured to the bar line
 instead of to the beginning of the non-musical column.  If there is a
-clef change followed by a barline, for example, this means that we will
+clef change followed by a bar line, for example, this means that we will
 try to space the non-musical column as though the clef is not there.")
      (spacing-increment ,number? "Add this much space for a doubled
 duration.  Typically, the width of a note head.  See also
@@ -486,13 +552,13 @@ spacing routines.")
      (stacking-dir ,ly:dir? "Stack objects in which direction?")
      (staff-padding ,ly:dimension? "Maintain this much space between
 reference points and the staff.  Its effect is to align objects of
-differing sizes (like the dynamic @b{p} and @b{f}) on their
+differing sizes (like the dynamics @b{p} and @b{f}) on their
 baselines.")
      (staff-position ,number? "Vertical position, measured in half
 staff spaces, counted from the middle line.")
      (staff-space ,ly:dimension? "Amount of space between staff lines,
 expressed in global @code{staff-space}.")
-     (stem-attachment ,number-pair? "A @code{(@var{x} . @var{y})} pair
+     (stem-attachment ,number-pair? "An @code{(@var{x} . @var{y})} pair
 where the stem attaches to the notehead.")
      (stem-end-position ,number? "Where does the stem end (the end is
 opposite to the support-head)?")
@@ -506,16 +572,11 @@ be?")
      (stencil ,ly:stencil? "The symbol to print.")
      (stencils ,list? "Multiple stencils, used as intermediate
 value.")
-     (strict-grace-spacing ,boolean? "If set, grace notes 
+     (strict-grace-spacing ,boolean? "If set, grace notes
 are not spaced separately, but put before musical columns.")
      (strict-note-spacing ,boolean? "If set, unbroken columns
-with non-musical material (clefs, barlines, etc.) are not spaced
+with non-musical material (clefs, bar lines, etc.) are not spaced
 separately, but put before musical columns.")
-     (string-count ,integer? "The number of strings in a fret
-diagram.")
-     (string-fret-finger-combinations ,list? "List consisting of
-@code{(@var{string-number} @var{fret-number} @var{finger-number})}
-entries.")
      (stroke-style ,string? "Set to @code{\"grace\"} to turn stroke
 through flag on.")
      (style ,symbol? "This setting determines in what style a grob is
@@ -534,7 +595,7 @@ should use @code{LEFT}.")
      (thin-kern ,number? "The space after a hair-line in a bar line.")
      (threshold ,number-pair? "@code{(@var{min} . @var{max})}, where
 @var{min} and @var{max} are dimensions in staff space.")
-     (to-barline ,boolean? "If true, the spanner will stop at that barline
+     (to-barline ,boolean? "If true, the spanner will stop at the bar line
 just before it would otherwise stop.")
      (tie-configuration ,list? "List of @code{(@var{position} .
 @var{dir})} pairs, indicating the desired tie configuration, where
@@ -549,7 +610,7 @@ automatically.")
 proportionally to their durations.  This looks better in complex
 polyphonic patterns.")
      (used ,boolean? "If set, this spacing column is kept in the
-spacing problem")
+spacing problem.")
 
      (vertical-skylines ,ly:skyline-pair? "Two skylines, one above and
 one below this grob.")
@@ -585,7 +646,7 @@ be constructed from a whole number of squiggles.")
   (map
    (lambda (x)
      (apply define-internal-grob-property x))
-   
+
    `(
      ;;;;;;;;;;;;;;;;
      ;; grobs & grob arrays. (alphabetical)
@@ -606,9 +667,9 @@ function is to protect objects from being garbage collected.")
      (axis-group-parent-X ,ly:grob? "Containing X@tie{}axis group.")
      (axis-group-parent-Y ,ly:grob? "Containing Y@tie{}axis group.")
 
-     (bar-extent ,number-pair? "The Y-extent of the actual barline.
-This may differ from 'Y-extent because it does not include the dots in
-a repeat barline.")
+     (bar-extent ,number-pair? "The Y-extent of the actual bar line.
+This may differ from @code{Y-extent} because it does not include the dots in
+a repeat bar line.")
      (bars ,ly:grob-array? "A list of bar line pointers.")
      (beam ,ly:grob? "A pointer to the beam, if applicable.")
      (bounded-by-me ,ly:grob-array? "A list of spanners that have this
@@ -817,18 +878,7 @@ similar to a note head that is part of a ligature.")
 
      (x-offset ,ly:dimension? "Extra horizontal offset for ligature heads.")
 
-     ;;;;;;;;;;;;;;;;
-     ;; fret-diagrams extra properties
-     (mute-string ,string? "String to be used to indicate a muted string in
-fret diagrams")
-     (open-string ,string? "A string to be used to indicate an open string
-in fret diagrams")
-     (orientation ,symbol? "The orientation of a fret-diagram.  Options
-include @code{normal} and @code{landscape}.")
-     (xo-font-magnification ,number? "Magnification used for mute and open
-string indicators in fret diagrams.")
-
-    )))
+     )))
 
 (define-public all-backend-properties
   (append

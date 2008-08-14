@@ -160,6 +160,7 @@ size. SZ is in points"
     ("statement" . (cons (* 5.5 in) (* 8.5 in)))
     ("half letter" . (cons (* 5.5 in) (* 8.5 in)))
     ("quarto" . (cons (* 8.0 in) (* 10.0 in)))
+    ("octavo" . (cons (* 6.75 in) (* 10.5 in)))
     ("executive" . (cons (* 7.25 in) (* 10.5 in)))
     ("monarch" . (cons (* 7.25 in) (* 10.5 in)))
     ("foolscap" . (cons (* 8.27 in) (* 13.0 in)))
@@ -206,7 +207,7 @@ size. SZ is in points"
 				     (ly:modules-lookup (list m) 'right-margin (* 10 mm))))
 
     (module-define! m 'indent (/ w 14))
-    (module-define! m 'short-indent (* 5 mm))
+    (module-define! m 'short-indent 0)
 
     ;; page layout - what to do with (printer specific!) margin settings?
 

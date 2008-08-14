@@ -574,6 +574,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				break-aligned-interface
+				percent-repeat-interface
 				percent-repeat-item-interface))))))
 
     (DoublePercentRepeatCounter
@@ -597,6 +598,7 @@
 		 (interfaces . (side-position-interface
 				self-alignment-interface
 				percent-repeat-item-interface
+				percent-repeat-interface
 				font-interface
 				text-interface))))))
 
@@ -718,7 +720,7 @@
 
     (FretBoard
      . ((stencil . ,fret-board::calc-stencil)
-	(finger-code . below-string)
+	(fret-diagram-details . ((finger-code . below-string)))
 	(meta . ((class . Item)
 		 (interfaces . (fret-diagram-interface
 				font-interface))))))
@@ -1312,7 +1314,8 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (multi-measure-rest-interface
 				font-interface
-				percent-repeat-item-interface))))))
+				percent-repeat-interface
+				))))))
 
     (PercentRepeatCounter
      . (
@@ -1333,7 +1336,7 @@
 	(meta . ((class . Spanner)
 		 (interfaces . (side-position-interface
 				self-alignment-interface
-				percent-repeat-item-interface
+				percent-repeat-interface
 				font-interface
 				text-interface))))))
 
@@ -1389,6 +1392,7 @@
 	(slope . 1.7)
 	(meta . ((class . Item)
 		 (interfaces . (rhythmic-grob-interface
+				percent-repeat-interface
 				percent-repeat-item-interface))))))
 
     (RepeatTie
@@ -1914,7 +1918,7 @@
 		    (outer-tie-length-symmetry-penalty-factor . 10)
 		    (vertical-distance-penalty-factor . 7)
 		    (outer-tie-vertical-gap . 0.25)
-		    (multi-tie-region-size . 1)
+		    (multi-tie-region-size . 3)
 		    (single-tie-region-size . 4)
 		    (between-length-limit . 1.0)))
 	
@@ -1940,6 +1944,7 @@
 	 . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-visibility . ,all-visible)
 	(avoid-slur . inside)
+	(extra-spacing-height . (-1.0 . 1.0))
 	(space-alist . (
 			(first-note . (fixed-space . 2.0))
 			(right-edge . (extra-space . 0.5))
@@ -2016,7 +2021,6 @@
 		 (interfaces . (side-position-interface
 				parentheses-interface
 				note-head-interface
-				rhythmic-head-interface
 				font-interface
 				axis-group-interface))))))
 
@@ -2040,6 +2044,7 @@
 	(edge-height . (0.7 . 0.7))
 	(shorten-pair . (-0.2 . -0.2))
 	(staff-padding . 0.25)
+	(full-length-to-extent . #t)
 	(direction  . ,ly:tuplet-bracket::calc-direction)
 	(positions . ,ly:tuplet-bracket::calc-positions)
 	(connect-to-neighbor . ,ly:tuplet-bracket::calc-connect-to-neighbors)
@@ -2245,6 +2250,7 @@
 
 (define pure-print-callbacks
   (list
+   fret-board::calc-stencil
    print-circled-text-callback
    lyric-text::print
    ly:arpeggio::print

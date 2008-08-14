@@ -231,17 +231,20 @@ Tuplet_bracket::calc_control_points (SCM smob)
 	  /*
 	    We're connecting to a column, for the last bit of a broken
 	    fullLength bracket.
-	    
-	    TODO: make padding tunable?
 	  */
-	  Real padding = 1.0;
+	  Real padding =
+	    robust_scm2double(me->get_property("full-length-padding"), 1.0);
 
 	  if (bounds[d]->break_status_dir ())
 	    padding = 0.0;
-	  
-	  x_span[d]
-	    = robust_relative_extent (bounds[d], commonx, X_AXIS) [LEFT]
-	    - padding;
+
+	  Real coord = bounds[d]->relative_coordinate(commonx, X_AXIS);
+	  if (to_boolean (me->get_property ("full-length-to-extent")))
+	    coord = robust_relative_extent(bounds[d], commonx, X_AXIS)[LEFT];
+
+	  coord = max (coord, x_span[LEFT]);
+
+	  x_span[d] = coord - padding;
 	}
     }
   while (flip (&d) != LEFT);
@@ -782,6 +785,8 @@ ADD_INTERFACE (Tuplet_bracket,
 	       "direction "
 	       "edge-height "
 	       "edge-text "
+	       "full-length-padding "
+	       "full-length-to-extent "
 	       "gap "
 	       "positions "
 	       "note-columns "

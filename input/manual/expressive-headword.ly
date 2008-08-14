@@ -1,12 +1,11 @@
-\version "2.11.38"
+\version "2.11.51"
 \include "english.ly"
 #(set-global-staff-size 15)
-\paper{
-  ragged-right=##t
-  line-width=17\cm
-  indent=0\cm
+\paper {
+  line-width = 16\cm
+  indent = 0\cm
 }
- 
+
 % NR 1.3 Expressive marks
 
 % L. v. Beethoven, Op. 49 no. 1 
@@ -32,8 +31,8 @@
       \once \override TextScript #'staff-padding = #2
       d'8 \staccato
       ^ \markup { \column {
-         "RONDO"
-         \italic "Allegro" } }
+         RONDO
+         \italic Allegro } }
       d'8 \staccato
       g'8 \staccato
       a'8 \staccato

@@ -1,20 +1,17 @@
-\version "2.11.38"
+\version "2.11.51"
 \include "english.ly"
 #(set-global-staff-size 15)
-\paper{
-  ragged-right=##t
-  line-width=17\cm
-  indent=0\cm
+\paper {
+  line-width = 16\cm
+  indent = 0\cm
 }
- 
+
 % NR 1.7 Repeats
 
 % Beethoven, Op. 57
 % Piano sonata 23 - Dem Grafen Franz von Brunswick Gewidmet
 % Movt II, Andante con moto
 % Measures 9 - 16
-
-\layout { }
 
 \new PianoStaff <<
 
@@ -25,7 +22,7 @@
       \set Score.currentBarNumber = #9
       \bar "|:"
       <af ef c>4 (
-      <af g c>8..
+      <af gf c>8..
       <af ef c>32
       |
       <af f df>8. )

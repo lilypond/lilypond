@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Keyboard instruments
 @section Keyboard instruments
@@ -249,14 +249,14 @@ können. Normalerweise besitzt ein Klavier drei Pedale, das linke oder
 Haltepedal, das rechte oder Una-corda-Pedal und das Sostenuto-Pedal.
 
 Spielanweisungen für das Pedal können durch die Befehle 
-@code{\sustainDown} (linkes Pedal), @code{\sustainUp} (linkes Pedal 
+@code{\sustainOn} (linkes Pedal), @code{\sustainOff} (linkes Pedal 
 hoch), @code{\unaCorda} (rechtes Pedal), @code{\treCorde} (rechtes 
-Pedal hoch), @code{\sostenutoDown} (mittleres Pedal) und 
-@code{\sostenutoUp} (mittleres Pedal hoch) anschließend an eine 
+Pedal hoch), @code{\sostenutoOn} (mittleres Pedal) und 
+@code{\sostenutoOff} (mittleres Pedal hoch) anschließend an eine 
 Note oder einen Akkord notiert werden.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainDown c'4\sustainUp
+c'4\sustainOn c'4\sustainOff
 @end lilypond
 
 Die Ausgabe kann verändert werden, indem der Wert 
@@ -272,9 +272,9 @@ auf Klammern (eng. bracket) gesetzt wird.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'bracket
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c\sustainOn d e
+b\sustainOff\sustainOn
+b g \sustainOff a \sustainOn \bar "|."
 @end lilypond
 
 Eine dritte Art der Pedalnotation besteht aus einer Mischung von Text 
@@ -283,9 +283,9 @@ und den Pedalklammern. Sie wird durch setzen von
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \set Staff.pedalSustainStyle = #'mixed
-c\sustainDown d e
-b\sustainUp\sustainDown
-b g \sustainUp a \sustainDown \bar "|."
+c\sustainOn d e
+b\sustainOff\sustainOn
+b g \sustainOff a \sustainOn \bar "|."
 @end lilypond
 
 Die Einstellungen für linkes @c ?
@@ -293,7 +293,7 @@ und mittleres Pedal ist üblicherweise ein @code{#'text}-Stil. Für das
 mittlere Pedal ist der gemischte Stil voreingestellt.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoDown d e c, f g a\sostenutoUp
+c\sostenutoOn d e c, f g a\sostenutoOff
 @end lilypond
 
 Die Erscheinung der Pedal-Klammer kann mit den Eigenschaften 
@@ -305,7 +305,7 @@ verlängert werden.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoDown d e c, f g a\sostenutoUp
+c\sostenutoOn d e c, f g a\sostenutoOff
 @end lilypond
 
 @seealso

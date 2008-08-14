@@ -2,10 +2,13 @@
 \header
 {
   texidoc = "horizontal scripts are ordered, so they do not overlap.
-The order may be set with script-priority."
+The order may be set with script-priority.
+
+The scripts should not be folded under the time signature.
+"
   
 }
-\version "2.10.0"
+\version "2.11.51"
 
 \paper {
   ragged-right = ##t

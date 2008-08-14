@@ -153,8 +153,8 @@ of this and other documentation.
 * Musical notation::               Musical notation.
 * Specialist notation::            Notation which is only used for
     specific purposes.
-* Input syntax::                   General information about
-    lilypond input files.
+* General input and output::       General information about
+    lilypond input and output.
 * Spacing issues::                 Display of output on paper.
 * Changing defaults::              Tuning output.
 * Interfaces for programmers::     Expert usage.

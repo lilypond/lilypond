@@ -1,0 +1,89 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node World music
+@section World music
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* Arabic music::
+@end menu
+
+@node Arabic music
+@subsection Arabic music
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@menu
+* References for Arabic music::
+* Arabic note names ::
+* Arabic key signatures::
+* Arabic time signatures::
+* Arabic music example::
+* Further reading::
+@end menu
+
+@node References for Arabic music
+@unnumberedsubsubsec References for Arabic music 
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Arabic note names 
+@unnumberedsubsubsec Arabic note names 
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Arabic key signatures
+@unnumberedsubsubsec Arabic key signatures 
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Arabic time signatures
+@unnumberedsubsubsec Arabic time signatures 
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Arabic music example
+@unnumberedsubsubsec Arabic music example 
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+@node Further reading
+@unnumberedsubsubsec Further reading
+
+@ifhtml
+UNTRANSLATED NODE: IGNORE ME
+@end ifhtml
+
+
+
+@c -- SKELETON FILE --

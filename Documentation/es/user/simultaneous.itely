@@ -1,12 +1,14 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f5faa0ee5b0bcad6a22d4e7f7267b0f542b8a7a5
+    Translation of GIT committish: 855e78dbe64b0a48a03cea88cde16c15d1af85b0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
+
+@c Translation status: post-GDP
 
 @node Simultaneous notes
 @section Simultaneous notes
@@ -29,7 +31,6 @@ Esta sección trata de la notas simultáneas dentro de la misma voz.
 
 @menu
 * Chorded notes::
-* Parallel notes::
 * Clusters::
 @end menu
 
@@ -67,33 +68,6 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
 
-@node Parallel notes
-@unnumberedsubsubsec Parallel notes
-
-Se pueden combinar pasajes musicales en un solo contexto de voz,
-formando así acordes si los dos pasajes tienen las mismas nuraciones
-en todas las notas.  Para conseguirlo, enciérrelos dentro de una
-construcción de música simultánea:
-
-@lilypond[quote,relative=2,verbatim]
-\new Voice <<
-  { e4 f8 d e16 f g8 d4 }
-  { c4 d8 b c16 d e8 b4 }
->>
-@end lilypond
-
-@seealso
-
-Manual de aprendizaje:
-@rlearning{Voices contain music}.
-
-Fragmentos de código:
-@rlsr{Simultaneous notes}.
-
-@knownissues
-
-Este método produce barras extrañas y advertencias si las notas de los
-dos pasajes no tienen las mismas duraciones.
 
 @node Clusters
 @unnumberedsubsubsec Clusters
@@ -139,14 +113,160 @@ separación entre ellos.
 @node Multiple voices
 @subsection Multiple voices
 
-Esta sección trata las notas simultáneas en varias voces o varios pentagramas.
+Esta sección trata las notas simultáneas en varias voces o varios
+pentagramas.
 
 @menu
-* Collision resolution::
+* Single-staff polyphony::
 * Voice styles::
+* Collision resolution::
 * Automatic part combining::
 * Writing music in parallel::
 @end menu
+
+@node Single-staff polyphony
+@unnumberedsubsubsec Single-staff polyphony
+
+Para tipografiar fragmentos de música que discurre en paralelo y con
+las mismas duraciones, se pueden combinar en un solo contexto de voz,
+formando así acordes.  Para conseguirlo, incorpórelas dentro de una
+construcción de música simultánea:
+
+@lilypond[quote,relative=2,verbatim]
+\new Voice <<
+  { e4 f8 d e16 f g8 d4 }
+  { c4 d8 b c16 d e8 b4 }
+>>
+@end lilypond
+
+Este método conduce a barrados extraños y advertencias si los
+fragmentos de música no tienen las mismas duraciones exactas.  Para
+componer tipográficamente varias voces verdaderamente independientes
+dentro de un único pentagrama se utiliza la construcción
+@code{<<@{...@} \\ @{...@}>>}, en que las dos (o más) voces se
+encuentran separadas por dobles barras invertidas.
+
+@lilypond[quote,relative=3,verbatim]
+<<
+  { r8 r16 g e8. f16 g8[ c,] f e16 d }
+  \\
+  { d16 c d8~ d16 b c8~ c16 b c8~ c16 b8. }
+>>
+@end lilypond
+
+Las plicas de las voces primera y tercera se dirigen hacia arriba, y
+las de las voces segunda y cuarta se dirigen hacia abajo; las cabezas
+de las notas en las voces tercera y cuarta se desplazan
+horizontalmente, y los silencios se mueven de manera que eviten las
+colisiones.  En el ejemplo siguiente, la voz intermedia tiene las
+plicas hacia arriba, por lo que la introducimos en tercer lugar, de
+forma que se convierte en la voz número tres que tiene las plicas
+hacia arriba tal y como era nuestro propósito.
+
+@lilypond[quote,relative=3,verbatim]
+<<
+  { r8 g g  g g f16 es f8 d }
+  \\
+  { es,8 r es r d r d r }
+  \\
+  { d'8 s c s bes s a s }
+>>
+@end lilypond
+
+A menudo se utilizan silencios espaciadores para evitar la aparición
+de un número excesivo de silencios, como se ha podido ver en el
+ejemplo anterior.
+
+El método que acabamos de presentar crea dos voces nuevas cuando se
+encuentra la construcción @code{<<@{...@} \\ @{...@}>>} en el código
+de entrada; para añadir de forma temporal una sola voz adicional a una
+voz ya existente, es necesario instanciar dicha voz de forma
+explícita.  Para este propósito, se pueden utilizar las instrucciones
+desde @code{\voiceOne} (voz uno) hasta @code{\voiceFour} (voz cuatro)
+y @code{\oneVoice} (una voz única):
+
+@example
+<< @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
+@end example
+
+Esta construcción es más apropiada para mantener en todo momento el
+control de las voces, por ejemplo para facilitar una asignación
+coherente de la letra al contexto de voz adecuado.
+
+@predefined
+
+@funindex \voiceOne
+@code{\voiceOne},
+@funindex \voiceTwo
+@code{\voiceTwo},
+@funindex \voiceThree
+@code{\voiceThree},
+@funindex \voiceFour
+@code{\voiceFour},
+@funindex \oneVoice
+@code{\oneVoice}.
+
+@seealso
+
+Manual de aprendizaje:
+@rlearning{Voices contain music},
+@rlearning{Explicitly instantiating voices}.
+
+Referencia de la notación:
+@ref{Percussion staves}.
+
+Fragmentos de código:
+@rlsr{Simultaneous notes}.
+
+@node Voice styles
+@unnumberedsubsubsec Voice styles
+
+@cindex voice styles
+@cindex styles, voice
+@cindex coloring voices
+
+Se pueden aplicar colores y formas distintos a las voces para permitir
+identificarlas fácilmente:
+
+@lilypond[quote,relative=2,verbatim]
+<<
+  { \voiceOneStyle d4 c2 b4 }
+  \\
+  { \voiceTwoStyle e,2 e }
+  \\
+  { \voiceThreeStyle b2. c4 }
+  \\
+  { \voiceFourStyle g'2 g }
+>>
+@end lilypond
+
+Para recuperar la presentación normal se utiliza la instrucción
+@code{\voiceNeutralstyle}.
+
+@predefined
+
+@funindex \voiceOneStyle
+@code{\voiceOneStyle},
+@funindex \voiceTwoStyle
+@code{\voiceTwoStyle},
+@funindex \voiceThreeStyle
+@code{\voiceThreeStyle},
+@funindex \voiceFourStyle
+@code{\voiceFourStyle},
+@funindex \voiceNeutralStyle
+@code{\voiceNeutralStyle}.
+
+@seealso
+
+
+Manual de aprendizaje:
+@rlearning{I'm hearing Voices},
+@rlearning{Other sources of information}.
+
+Fragmentos de código:
+@rlsr{Simultaneous notes}.
+
+
 
 @node Collision resolution
 @unnumberedsubsubsec Collision resolution
@@ -279,16 +399,6 @@ Sólo se combinan las notas si tienen la plica en direcciones opuestas
 @funindex \mergeDifferentlyHeadedOff
 @code{\mergeDifferentlyHeadedOff}.
 
-@funindex \oneVoice
-@code{\oneVoice},
-@funindex \voiceOne
-@code{\voiceOne},
-@funindex \voiceTwo
-@code{\voiceTwo},
-@funindex \voiceThree
-@code{\voiceThree},
-@funindex \voiceFour
-@code{\voiceFour}.
 
 @funindex \shiftOn
 @code{\shiftOn},
@@ -337,59 +447,10 @@ la blanca.
 No está claro en qué circunstancias se pueden combinar cabezas de nota
 distintas que tienen también distinto puntillo.
 
-No están contemplados los racimos (clusters) donde la misma nota se
-presenta con diferentes alteraciones accidentales dentro del mismo
-acorde.  En este caso se recomienda usar la transcripción enarmónica,
-o usar la notación especial de racimos (véase @ref{Clusters}).
-
-@node Voice styles
-@unnumberedsubsubsec Voice styles
-
-@cindex voice styles
-@cindex styles, voice
-@cindex coloring voices
-
-Se pueden aplicar colores y formas distintos a las voces para permitir
-identificarlas fácilmente:
-
-@lilypond[quote,relative=2,verbatim]
-<<
-  {
-    a1
-    \voiceOneStyle
-    f2 g
-    \voiceNeutralStyle
-    a1
-  } \\ {
-    f1
-    \voiceTwoStyle
-    f4 f2 e4
-    \voiceNeutralStyle
-    f1
-  }
->>
-@end lilypond
-
-@predefined
-
-@funindex \voiceOneStyle
-@code{\voiceOneStyle},
-@funindex \voiceTwoStyle
-@code{\voiceTwoStyle},
-@funindex \voiceThreeStyle
-@code{\voiceThreeStyle},
-@funindex \voiceFourStyle
-@code{\voiceFourStyle},
-@funindex \voiceNeutralStyle
-@code{\voiceNeutralStyle}.
-
-@seealso
-
-Manual de aprendizaje:
-@rlearning{I'm hearing Voices}.
-
-Fragmentos de código:
-@rlsr{Simultaneous notes}.
+No están contemplados los acordes en que la misma nota se presenta con
+diferentes alteraciones accidentales dentro del mismo.  En este caso
+se recomienda usar la transcripción enarmónica, o usar la notación
+especial de racimos (véase @ref{Clusters}).
 
 @node Automatic part combining
 @unnumberedsubsubsec Automatic part combining
@@ -473,30 +534,11 @@ Una sección @code{\relative} que se encuentra fuera de
 
 @snippets
 
-Las partes se pueden combinar sin imprimir ningún texto:
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{combining-two-parts-on-the-same-staff.ly}
 
-@lilypond[quote,verbatim]
-\new Staff <<
-  \set Staff.printPartCombineTexts = ##f
-  \partcombine
-    \relative g' { g a( b) r }
-    \relative g' { g r4 r f }
->>
-@end lilypond
-
-Es posible modificar los textos que se imprimen:
-
-@c KEEP LY
-@lilypond[quote,verbatim]
-\new Staff <<
-  \set Score.soloText = #"ellas"
-  \set Score.soloIIText = #"ellos"
-  \set Score.aDueText = #"todos"
-  \partcombine
-    \relative g' { g4 g r r a2 g }
-    \relative g' { r4 r a( b) a2 g }
->>
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-partcombine-texts.ly}
 
 @seealso
 
@@ -551,18 +593,21 @@ la música.
 los compases deben tener la misma longitud.}
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB) {
+\parallelMusic #'(voiceA voiceB voiceC) {
   % Bar 1
-  r8 g'16[ c''] e''[ g' c'' e''] r8 g'16[ c''] e''[ g' c'' e''] |
-  c'2                               c'2                         |
+  r8 g'16 c'' e'' g' c'' e'' r8 g'16 c'' e'' g' c'' e'' |
+  r16 e'8.~   e'4            r16 e'8.~   e'4            |
+  c'2                        c'2                        |
 
   % Bar 2
-  r8 a'16[ d''] f''[ a' d'' f''] r8 a'16[ d''] f''[ a' d'' f''] |
-  c'2                               c'2                         |
+  r8 a'16 d'' f'' a' d'' f'' r8 a'16 d'' f'' a' d'' f'' |
+  r16 d'8.~   d'4            r16 d'8.~   d'4            |
+  c'2                        c'2                        |
+
 }
 \new StaffGroup <<
-  \new Staff  \voiceA
-  \new Staff  \voiceB
+  \new Staff << \voiceA \\ \voiceB >>
+  \new Staff { \clef bass \voiceC }
 >>
 @end lilypond
 
@@ -574,18 +619,21 @@ entrada (dicho de otra manera, las notas relativas de @code{vozA}
 ignoran a las notas que hay en @code{vozB}.
 
 @lilypond[quote,verbatim]
-\parallelMusic #'(voiceA voiceB) {
+\parallelMusic #'(voiceA voiceB voiceC) {
   % Bar 1
   r8 g16 c e g, c e r8 g,16 c e g, c e  |
+  r16 e8.~ e4       r16 e8.~  e4        |
   c2                c                   |
 
   % Bar 2
   r8 a,16 d f a, d f r8 a,16 d f a, d f |
+  r16 d8.~  d4       r16 d8.~  d4       |
   c2                 c                  |
+
  }
 \new StaffGroup <<
-  \new Staff \relative c'' \voiceA
-  \new Staff \relative c'  \voiceB
+  \new Staff << \relative c'' \voiceA \\ \relative c' \voiceB >>
+  \new Staff \relative c' { \clef bass \voiceC }
 >>
 @end lilypond
 
@@ -643,4 +691,3 @@ Manual de aprendizaje:
 
 Fragmentos de código:
 @rlsr{Simultaneous notes}.
-

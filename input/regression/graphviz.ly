@@ -3,7 +3,7 @@
 
   }
 
-\version "2.11.21"
+\version "2.11.51"
 \include "graphviz-init.ly"
 
 #(whitelist-grob 'NoteHead)
@@ -21,7 +21,9 @@
 } }
 
 
-#(graph-write graph (current-error-port))
+
+#(ly:progress (call-with-output-string
+  (lambda (port) (graph-write graph port))))
 #(ly:set-grob-modification-callback #f)
 #(ly:set-property-cache-callback #f)
 

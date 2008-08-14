@@ -1,12 +1,18 @@
-\version "2.11.38"
+\version "2.11.51"
 \include "english.ly"
 #(set-global-staff-size 15)
 \paper{
-  ragged-right=##t
-  line-width=17\cm
-  indent=0\cm
+  line-width = 16\cm
+  indent = 0\cm
 }
  
+\layout {
+  \context { \Score
+    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  }
+}
+
 % NR 1.8 Text
 
 % L. v. Beethoven, Op. 110
@@ -42,7 +48,7 @@
 
       <df'' g'>4
       <bf' g'>2
-      _ \markup { \italic { "ten." } }
+      _ \markup { \italic { ten. } }
 
       |
 
@@ -59,10 +65,10 @@
 
             \once \override TextScript #'staff-padding = #4
             ef''8. (
-            _ \markup { \italic { "tranqu." } }
+            _ \markup { \italic { tranqu. } }
             d''16 )
             df''8 \trill \fermata
-            _ \markup { \italic { "ten." } }
+            _ \markup { \italic { ten. } }
          }
 
          \new Voice {
@@ -83,7 +89,7 @@
       \oneVoice
       \once \override TextScript #'staff-padding = #4
       df''32 
-      _ \markup { \italic "dolce" }
+      _ \markup { \italic dolce }
       c''32 
       df''32
       ef''32
@@ -149,7 +155,7 @@
             |
 
             bf4
-            bf8 ^ \markup { \italic "ten." }
+            bf8 ^ \markup { \italic ten. }
          }
 
          \new Voice {
@@ -177,7 +183,7 @@
       \override Staff.SustainPedalLineSpanner #'outside-staff-priority = #1000
       \override Staff.SustainPedalLineSpanner #'staff-padding = #7
       \once \override TextScript #'padding = #2
-      af16 \sustainDown
+      af16 \sustainOn
       ^ \markup \italic { non staccato }
       _ \markup \italic { molto \concat {\dynamic {p},} sempre tranquillo
          ed egualmente, non rubato }
@@ -188,18 +194,18 @@
       <ef' c'>16
       <ef' c'>16
       <ef' c'>16
-      af16 \sustainDown
+      af16 \sustainOn
       <ef' c'>16
       <ef' c'>16
       <ef' c'>16
 
       |
 
-      bf16 \sustainDown
+      bf16 \sustainOn
       <ef' df'>16
       <ef' df'>16
       <ef' df'>16
-      bf16 \sustainDown
+      bf16 \sustainOn
       <ef' df'>16
       <ef' df'>16
       <ef' df'>16
@@ -211,7 +217,7 @@
       |
 
       \override Staff.SustainPedalLineSpanner #'staff-padding = #4
-      df'16 \sustainDown
+      df'16 \sustainOn
       <bf' g' ef'>16
       <bf' g' ef'>16
       <bf' g' ef'>16
@@ -219,7 +225,7 @@
       <bf' g' ef'>16
       <bf' g' ef'>16
       <bf' g' ef'>16
-      df'16 \sustainDown
+      df'16 \sustainOn
       <bf' g' ef'>16
       <bf' g' ef'>16
       <bf' g' ef'>16

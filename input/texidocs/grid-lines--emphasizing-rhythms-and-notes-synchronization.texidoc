@@ -1,0 +1,8 @@
+  texidoces = "
+Se pueden trazar líneas verticales normales entre pentagramas para
+mostrar la relación entre notas; sin embargo, en caso de música
+monofónica, podemos hacer invisible el segundo pentagrama, y que
+las líneas sean más cortas, como en este fragmento de código.
+
+"
+  doctitlees = "Líneas de rejilla: destacar ritmos y la relación temporal entre notas"

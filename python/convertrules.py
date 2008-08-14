@@ -23,6 +23,30 @@ stderr_write = lilylib.stderr_write
 def warning (str):
     stderr_write (_ ("warning: %s") % str)
 
+# Decorator to make rule syntax simpler
+def rule (version, message):
+    """
+    version: a LilyPond version tuple like (2, 11, 50)
+    message: the message that describes the conversion.
+
+    This decorator adds its function together with the version and the
+    message to the global conversions list.  (It doesn't need to return
+    the function as it isn't used directly anyway.)
+
+    A conversion rule using this decorator looks like this:
+
+    @rule ((1, 2, 3), "convert foo to bar")
+    def conv(str):
+        str = str.replace('foo', 'bar')
+        return str
+
+    """
+    def dec(f):
+        conversions.append ((version, f, message))
+    return dec
+
+
+@rule ((0, 1, 9), _ ('\\header { key = concat + with + operator }'))
 def conv(str):
     if re.search ('\\\\multi', str):
 	stderr_write ('\n')
@@ -30,9 +54,8 @@ def conv(str):
 	stderr_write ('\n')
     return str
 
-conversions.append (((0,1,9), conv, _ ('\\header { key = concat + with + operator }')))
 
-
+@rule ((0, 1, 19), _ ('deprecated %s') % '\\octave')
 def conv (str):
     if re.search ('\\\\octave', str):
 	stderr_write ('\n')
@@ -41,58 +64,39 @@ def conv (str):
 	stderr_write (UPDATE_MANUALLY)
 	stderr_write ('\n')
     #	raise FatalConversionError ()
-
     return str
 
-conversions.append ((
-	((0,1,19), conv, _ ('deprecated %s') % '\\octave')))
 
-
-
+@rule ((0, 1, 20), _ ('deprecated \\textstyle, new \\key syntax'))
 def conv (str):
     str = re.sub ('\\\\textstyle([^;]+);',
 			     '\\\\property Lyrics . textstyle = \\1', str)
     # harmful to current .lys
     # str = re.sub ('\\\\key([^;]+);', '\\\\accidentals \\1;', str)
-
     return str
 
-conversions.append ((
-	((0,1,20), conv, _ ('deprecated \\textstyle, new \\key syntax'))))
 
-
-
+@rule ((0, 1, 21), '\\musical_pitch -> \\musicalpitch, \\meter -> \\time')
 def conv (str):
     str = re.sub ('\\\\musical_pitch', '\\\\musicalpitch',str)
     str = re.sub ('\\\\meter', '\\\\time',str)
-
     return str
 
-conversions.append ((
-	((0,1,21), conv, '\\musical_pitch -> \\musicalpitch, '+
-	 '\\meter -> \\time')))
 
-
+@rule ((1, 0, 0), _ ("bump version for release"))
 def conv (str):
     return str
 
-conversions.append ((
-	((1,0,0), conv, _ ("bump version for release"))))
 
-
-
+@rule ((1, 0, 1), '\\accidentals -> \\keysignature, specialaccidentals -> keyoctaviation')
 def conv (str):
     str = re.sub ('\\\\accidentals', '\\\\keysignature',str)
     str = re.sub ('specialaccidentals *= *1', 'keyoctaviation = 0',str)
     str = re.sub ('specialaccidentals *= *0', 'keyoctaviation = 1',str)
-
     return str
 
-conversions.append ((
-	((1,0,1), conv, '\\accidentals -> \\keysignature, ' +
-	 'specialaccidentals -> keyoctaviation')))
 
-
+@rule ((1, 0, 2), _ ('\\header { key = concat + with + operator }'))
 def conv(str):
     if re.search ('\\\\header', str):
 	stderr_write ('\n')
@@ -100,33 +104,28 @@ def conv(str):
 	stderr_write ('\n')
     return str
 
-conversions.append (((1,0,2), conv, _ ('\\header { key = concat + with + operator }')))
 
-
+@rule ((1, 0, 3), '\\melodic -> \\notes')
 def conv(str):
     str =  re.sub ('\\\\melodic([^a-zA-Z])', '\\\\notes\\1',str)
     return str
 
-conversions.append (((1,0,3), conv, '\\melodic -> \\notes'))
 
-
+@rule ((1, 0, 4), 'default_{paper,midi}')
 def conv(str):
     str =  re.sub ('default_paper *=', '',str)
     str =  re.sub ('default_midi *=', '',str)
     return str
 
-conversions.append (((1,0,4), conv, 'default_{paper,midi}'))
 
-
+@rule ((1, 0, 5), 'ChoireStaff -> ChoirStaff')
 def conv(str):
     str =  re.sub ('ChoireStaff', 'ChoirStaff',str)
     str =  re.sub ('\\\\output', 'output = ',str)
-
     return str
 
-conversions.append (((1,0,5), conv, 'ChoireStaff -> ChoirStaff'))
 
-
+@rule ((1, 0, 6), 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }')
 def conv(str):
     if re.search ('[a-zA-Z]+ = *\\translator',str):
 	stderr_write ('\n')
@@ -135,18 +134,14 @@ def conv(str):
     #	raise FatalConversionError ()
     return str
 
-conversions.append (((1,0,6), conv, 'foo = \\translator {\\type .. } ->\\translator {\\type ..; foo; }'))
 
-
-
+@rule ((1, 0, 7), '\\lyric -> \\lyrics')
 def conv(str):
     str =  re.sub ('\\\\lyrics*', '\\\\lyrics',str)
-
     return str
 
-conversions.append (((1,0,7), conv, '\\lyric -> \\lyrics'))
 
-
+@rule ((1, 0, 10), '[2/3 ]1/1 -> \\times 2/3 ')
 def conv(str):
     str =  re.sub ('\\\\\\[/3+', '\\\\times 2/3 { ',str)
     str =  re.sub ('\\[/3+', '\\\\times 2/3 { [',str)
@@ -157,48 +152,36 @@ def conv(str):
     str =  re.sub ('\\]([0-9/]+)', '] }', str)
     return str
 
-conversions.append (((1,0,10), conv, '[2/3 ]1/1 -> \\times 2/3 '))
 
-
+@rule ((1, 0, 12), 'Chord syntax stuff')
 def conv(str):
     return str
-conversions.append (((1,0,12), conv, 'Chord syntax stuff'))
 
 
-
+@rule ((1, 0, 13), '<a ~ b> c -> <a b> ~ c')
 def conv(str):
-
-
     str =  re.sub ('<([^>~]+)~([^>]*)>','<\\1 \\2> ~', str)
-
     return str
 
-conversions.append (((1,0,13), conv, '<a ~ b> c -> <a b> ~ c'))
 
-
+@rule ((1, 0, 14), '<[a b> <a b]>c -> [<a b> <a b>]')
 def conv(str):
     str =  re.sub ('<\\[','[<', str)
     str =  re.sub ('\\]>','>]', str)
-
     return str
 
-conversions.append (((1,0,14), conv, '<[a b> <a b]>c -> [<a b> <a b>]'))
 
-
-
+@rule ((1, 0, 16), '\\type -> \\context, textstyle -> textStyle')
 def conv(str):
     str =  re.sub ('\\\\type([^\n]*engraver)','\\\\TYPE\\1', str)
     str =  re.sub ('\\\\type([^\n]*performer)','\\\\TYPE\\1', str)
     str =  re.sub ('\\\\type','\\\\context', str)
     str =  re.sub ('\\\\TYPE','\\\\type', str)
     str =  re.sub ('textstyle','textStyle', str)
-
     return str
 
-conversions.append (((1,0,16), conv, '\\type -> \\context, textstyle -> textStyle'))
 
-
-
+@rule ((1, 0, 18), _ ('\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative'))
 def conv(str):
     if re.search ('\\\\repeat',str):
 	stderr_write ('\n')
@@ -207,148 +190,104 @@ def conv(str):
     #	raise FatalConversionError ()
     return str
 
-conversions.append (((1,0,18), conv,
-		     _ ('\\repeat NUM Music Alternative -> \\repeat FOLDSTR Music Alternative')))
 
-
+@rule ((1, 0, 19), 'fontsize -> fontSize, midi_instrument -> midiInstrument, SkipBars -> skipBars')
 def conv(str):
     str =  re.sub ('SkipBars','skipBars', str)
     str =  re.sub ('fontsize','fontSize', str)
     str =  re.sub ('midi_instrument','midiInstrument', str)
-
     return str
 
-conversions.append (((1,0,19), conv,
-		     'fontsize -> fontSize, midi_instrument -> midiInstrument, SkipBars -> skipBars'))
 
-
-
+@rule ((1, 0, 20), '{,tie,slur}ydirection -> {v,tieV,slurV}erticalDirection')
 def conv(str):
     str =  re.sub ('tieydirection','tieVerticalDirection', str)
     str =  re.sub ('slurydirection','slurVerticalDirection', str)
     str =  re.sub ('ydirection','verticalDirection', str)
-
     return str
 
-conversions.append (((1,0,20), conv,
-	'{,tie,slur}ydirection -> {v,tieV,slurV}erticalDirection'))
 
-
-
+@rule ((1, 0, 21), 'hshift -> horizontalNoteShift')
 def conv(str):
     str =  re.sub ('hshift','horizontalNoteShift', str)
-
     return str
 
-conversions.append (((1,0,21), conv,
-	'hshift -> horizontalNoteShift'))
 
-
-
+@rule ((1, 1, 52), _ ('deprecate %s') % '\\grouping')
 def conv(str):
     str =  re.sub ('\\\\grouping[^;]*;','', str)
-
     return str
 
-conversions.append (((1,1,52), conv,
-	_ ('deprecate %s') % '\\grouping'))
 
-
-
+@rule ((1, 1, 55), '\\wheel -> \\coda')
 def conv(str):
     str =  re.sub ('\\\\wheel','\\\\coda', str)
-
     return str
 
-conversions.append (((1,1,55), conv,
-	'\\wheel -> \\coda'))
 
-
+@rule ((1, 1, 65), 'slurdash -> slurDash, keyoctaviation -> keyOctaviation')
 def conv(str):
     str =  re.sub ('keyoctaviation','keyOctaviation', str)
     str =  re.sub ('slurdash','slurDash', str)
-
     return str
 
-conversions.append (((1,1,65), conv,
-	'slurdash -> slurDash, keyoctaviation -> keyOctaviation'))
 
-
+@rule ((1, 1, 66), 'semi -> volta')
 def conv(str):
     str =  re.sub ('\\\\repeat *\"?semi\"?','\\\\repeat "volta"', str)
-
     return str
 
-conversions.append (((1,1,66), conv,
-	'semi -> volta'))
 
-
-
+@rule ((1, 1, 67), 'beamAuto -> noAutoBeaming')
 def conv(str):
     str =  re.sub ('\"?beamAuto\"? *= *\"?0?\"?','noAutoBeaming = "1"', str)
-
     return str
 
-conversions.append (((1,1,67), conv,
-	'beamAuto -> noAutoBeaming'))
 
-
+@rule ((1, 2, 0), 'automaticMelismas -> automaticMelismata')
 def conv(str):
     str =  re.sub ('automaticMelismas', 'automaticMelismata', str)
-
     return str
 
-conversions.append (((1,2,0), conv,
-	'automaticMelismas -> automaticMelismata'))
 
-
+@rule ((1, 2, 1), 'dynamicDir -> dynamicDirection')
 def conv(str):
     str =  re.sub ('dynamicDir\\b', 'dynamicDirection', str)
-
     return str
 
-conversions.append (((1,2,1), conv,
-	'dynamicDir -> dynamicDirection'))
 
-
+@rule ((1, 3, 4), '\\cadenza -> \\cadenza{On|Off}')
 def conv(str):
     str =  re.sub ('\\\\cadenza *0 *;', '\\\\cadenzaOff', str)
     str =  re.sub ('\\\\cadenza *1 *;', '\\\\cadenzaOn', str)
-
     return str
 
-conversions.append (((1,3,4), conv,
-	'\\cadenza -> \\cadenza{On|Off}'))
 
-
+@rule ((1, 3, 5), 'beamAuto moment properties')
 def conv (str):
     str = re.sub ('"?beamAuto([^"=]+)"? *= *"([0-9]+)/([0-9]+)" *;*',
 		  'beamAuto\\1 = #(make-moment \\2 \\3)',
 		  str)
     return str
 
-conversions.append (((1,3,5), conv, 'beamAuto moment properties'))
 
-
+@rule ((1, 3, 17), 'stemStyle -> flagStyle')
 def conv (str):
     str = re.sub ('stemStyle',
 		  'flagStyle',
 		  str)
     return str
 
-conversions.append (((1,3,17), conv, 'stemStyle -> flagStyle'))
 
-
+@rule ((1, 3, 18), 'staffLineLeading -> staffSpace')
 def conv (str):
     str = re.sub ('staffLineLeading',
 		  'staffSpace',
 		  str)
     return str
 
-conversions.append (((1,3,18), conv, 'staffLineLeading -> staffSpace'))
 
-
-
+@rule ((1, 3, 23), _ ('deprecate %s ') % '\\repetitions')
 def conv(str):
     if re.search ('\\\\repetitions',str):
 	stderr_write ('\n')
@@ -357,11 +296,8 @@ def conv(str):
     #	raise FatalConversionError ()
     return str
 
-conversions.append (((1,3,23), conv,
-	_ ('deprecate %s ') % '\\repetitions'))
 
-
-
+@rule ((1, 3, 35), 'textEmptyDimension -> textNonEmpty')
 def conv (str):
     str = re.sub ('textEmptyDimension *= *##t',
 		  'textNonEmpty = ##f',
@@ -371,9 +307,8 @@ def conv (str):
 		  str)
     return str
 
-conversions.append (((1,3,35), conv, 'textEmptyDimension -> textNonEmpty'))
 
-
+@rule ((1, 3, 38), '\musicalpitch { a b c } -> #\'(a b c)')
 def conv (str):
     str = re.sub ("([a-z]+)[ \t]*=[ \t]*\\\\musicalpitch *{([- 0-9]+)} *\n",
 		  "(\\1 . (\\2))\n", str)
@@ -385,9 +320,8 @@ def conv (str):
 	stderr_write ('\n')
     return str
 
-conversions.append (((1,3,38), conv, '\musicalpitch { a b c } -> #\'(a b c)'))
 
-
+@rule ((1, 3, 39), '\\key A ;  ->\\key a;')
 def conv (str):
     def replace (match):
 	return '\\key %s;' % match.group (1).lower ()
@@ -395,9 +329,8 @@ def conv (str):
     str = re.sub ("\\\\key ([^;]+);",  replace, str)
     return str
 
-conversions.append (((1,3,39), conv, '\\key A ;  ->\\key a;'))
 
-
+@rule ((1, 3, 41), '[:16 c4 d4 ] -> \\repeat "tremolo" 2 { c16 d16 }')
 def conv (str):
     if re.search ('\\[:',str):
 	stderr_write ('\n')
@@ -405,26 +338,20 @@ def conv (str):
 	stderr_write ('\n')
     return str
 
-conversions.append (((1,3,41), conv,
-	'[:16 c4 d4 ] -> \\repeat "tremolo" 2 { c16 d16 }'))
 
-
+@rule ((1, 3, 42), _ ('Staff_margin_engraver deprecated, use Instrument_name_engraver'))
 def conv (str):
     str = re.sub ('Staff_margin_engraver' , 'Instrument_name_engraver', str)
     return str
 
-conversions.append (((1,3,42), conv,
-	_ ('Staff_margin_engraver deprecated, use Instrument_name_engraver')))
 
-
+@rule ((1, 3, 49), 'noteHeadStyle value: string -> symbol')
 def conv (str):
     str = re.sub ('note[hH]eadStyle\\s*=\\s*"?(\\w+)"?' , "noteHeadStyle = #'\\1", str)
     return str
 
-conversions.append (((1,3,49), conv,
-	'noteHeadStyle value: string -> symbol'))
 
-
+@rule ((1, 3, 58), 'noteHeadStyle value: string -> symbol')
 def conv (str):
     if re.search ('\\\\keysignature', str):
 	stderr_write ('\n')
@@ -433,29 +360,22 @@ def conv (str):
     return str
 
 
-conversions.append (((1,3,58), conv,
-	'noteHeadStyle value: string -> symbol'))
-
-
+@rule ((1, 3, 59), '\key X ; -> \key X major; ')
 def conv (str):
     str = re.sub (r"""\\key *([a-z]+) *;""", r"""\\key \1 \major;""",str);
     return str
-conversions.append (((1,3,59), conv,
-	'\key X ; -> \key X major; '))
 
 
+@rule ((1, 3, 68), 'latexheaders = "\\input global" -> latexheaders = "global"')
 def conv (str):
     str = re.sub (r'latexheaders *= *"\\\\input ',
 		  'latexheaders = "',
 		  str)
     return str
-conversions.append (((1,3,68), conv, 'latexheaders = "\\input global" -> latexheaders = "global"'))
-
-
 
 
 # TODO: lots of other syntax change should be done here as well
-
+@rule ((1, 3, 92), 'basicXXXProperties -> XXX, Repeat_engraver -> Volta_engraver')
 def conv (str):
     str = re.sub ('basicCollisionProperties', 'NoteCollision', str)
     str = re.sub ('basicVoltaSpannerProperties' , "VoltaBracket", str)
@@ -471,9 +391,8 @@ def conv (str):
     str = re.sub ('Repeat_engraver' ,'Volta_engraver', str)
     return str
 
-conversions.append (((1,3,92), conv, 'basicXXXProperties -> XXX, Repeat_engraver -> Volta_engraver'))
 
-
+@rule ((1, 3, 93), _ ('change property definiton case (eg. onevoice -> oneVoice)'))
 def conv (str):
     # Ugh, but meaning of \stemup changed too
     # maybe we should do \stemup -> \stemUp\slurUp\tieUp ?
@@ -527,16 +446,10 @@ def conv (str):
 
     str = re.sub ('\\\\property *[^ .]*[.]?noAutoBeaming[^=]*= *#?"?(0|(""))"?', '\\\\autoBeamOn', str)
     str = re.sub ('\\\\property *[^ .]*[.]?noAutoBeaming[^=]*= *#?"?([1-9]+)"?', '\\\\autoBeamOff', str)
-
-
-
     return str
 
-conversions.append (((1,3,93), conv,
-	_ ('change property definiton case (eg. onevoice -> oneVoice)')))
 
-
-
+@rule ((1, 3, 97), 'ChordName -> ChordNames')
 def conv (str):
     str = re.sub ('ChordNames*', 'ChordNames', str)
     if re.search ('\\\\textscript "[^"]* *"[^"]*"', str):
@@ -545,15 +458,11 @@ def conv (str):
 	stderr_write ('\n')
 
     str = re.sub ('\\textscript +("[^"]*")', '\\textscript #\\1', str)
-
     return str
-
-conversions.append (((1,3,97), conv, 'ChordName -> ChordNames'))
-
 
 # TODO: add lots of these
 
-
+@rule ((1, 3, 98), 'CONTEXT.textStyle -> GROB.#font-style ')
 def conv (str):
     str = re.sub ('\\\\property *"?Voice"? *[.] *"?textStyle"? *= *"([^"]*)"', '\\\\property Voice.TextScript \\\\set #\'font-style = #\'\\1', str)
     str = re.sub ('\\\\property *"?Lyrics"? *[.] *"?textStyle"? *= *"([^"]*)"', '\\\\property Lyrics.LyricText \\\\set #\'font-style = #\'\\1', str)
@@ -574,31 +483,24 @@ def conv (str):
     str = re.sub ('\\\\property *"?([^.]+)"? *[.] *"?flagStyle"? *= *"([^"]*)"', '\\\\property \\1.Stem \\\\override #\'flag-style = #\'\\2', str)
     return str
 
-conversions.append (((1,3,98), conv, 'CONTEXT.textStyle -> GROB.#font-style '))
 
-
+@rule ((1, 3, 102), 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)')
 def conv (str):
     str = re.sub ('"?beamAutoEnd_([0-9]*)"? *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end 1 \\1 * *) = \\2', str)
     str = re.sub ('"?beamAutoBegin_([0-9]*)"? *= *(#\\([^)]*\))', 'autoBeamSettings \\push #\'(begin 1 \\1 * *) = \\2', str)
     str = re.sub ('"?beamAutoEnd"? *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(end * * * *) = \\1', str)
     str = re.sub ('"?beamAutoBegin"? *= *(#\\([^)]*\\))', 'autoBeamSettings \\push #\'(begin * * * *) = \\1', str)
-
-
     return str
 
-conversions.append (((1,3,102), conv, 'beamAutoEnd -> autoBeamSettings \\push (end * * * *)'))
 
-
-
+@rule ((1, 3, 111), '\\push -> \\override, \\pop -> \\revert')
 def conv (str):
     str = re.sub ('\\\\push', '\\\\override', str)
     str = re.sub ('\\\\pop', '\\\\revert', str)
-
     return str
 
-conversions.append (((1,3,111), conv, '\\push -> \\override, \\pop -> \\revert'))
 
-
+@rule ((1, 3, 113), 'LyricVoice -> LyricsVoice')
 def conv (str):
     str = re.sub ('LyricVoice', 'LyricsVoice', str)
     # old fix
@@ -606,7 +508,7 @@ def conv (str):
     str = re.sub ('Chord[Nn]ames([ \t\n]+\\\\override)', 'ChordName\\1', str)
     return str
 
-conversions.append (((1,3,113), conv, 'LyricVoice -> LyricsVoice'))
+
 def regularize_id (str):
     s = ''
     lastx = ''
@@ -624,9 +526,9 @@ def regularize_id (str):
         lastx = x
     return s
 
+
+@rule ((1, 3, 117), _ ('identifier names: %s') % '$!foo_bar_123 -> xfooBarABC')
 def conv (str):
-
-
     def regularize_dollar_reference (match):
 	return regularize_id (match.group (1))
     def regularize_assignment (match):
@@ -635,14 +537,11 @@ def conv (str):
     str = re.sub ('\n([^ \t\n]+)[ \t]*= *', regularize_assignment, str)
     return str
 
-conversions.append (((1,3,117), conv, _ ('identifier names: %s') % '$!foo_bar_123 -> xfooBarABC'))
 
-
-
+@rule ((1, 3, 120), 'paper_xxx -> paperXxxx, pedalup -> pedalUp.')
 def conv (str):
     def regularize_paper (match):
 	return regularize_id (match.group (1))
-
     str = re.sub ('(paper_[a-z]+)', regularize_paper, str)
     str = re.sub ('sustainup', 'sustainUp', str)
     str = re.sub ('nobreak', 'noBreak', str)
@@ -651,65 +550,55 @@ def conv (str):
     str = re.sub ('sostenutodown', 'sostenutoDown', str)
     str = re.sub ('unachorda', 'unaChorda', str)
     str = re.sub ('trechorde', 'treChorde', str)
-
     return str
 
-conversions.append (((1,3,120), conv, 'paper_xxx -> paperXxxx, pedalup -> pedalUp.'))
 
-
+@rule ((1, 3, 122), 'drarnChords -> chordChanges, \\musicalpitch -> \\pitch')
 def conv (str):
     str = re.sub ('drarnChords', 'chordChanges', str)
     str = re.sub ('\\musicalpitch', '\\pitch', str)
     return str
 
-conversions.append (((1,3,122), conv, 'drarnChords -> chordChanges, \\musicalpitch -> \\pitch'))
 
-
+@rule ((1, 3, 136), 'ly-X-elt-property -> ly-X-grob-property')
 def conv (str):
     str = re.sub ('ly-([sg])et-elt-property', 'ly-\\1et-grob-property', str)
     return str
 
-conversions.append (((1,3,136), conv, 'ly-X-elt-property -> ly-X-grob-property'))
 
-
+@rule ((1, 3, 138), _ ('point-and-click argument changed to procedure.'))
 def conv (str):
     str = re.sub ('point-and-click +#t', 'point-and-click line-column-location', str)
     return str
 
-conversions.append (((1,3,138), conv, _ ('point-and-click argument changed to procedure.')))
 
-
+@rule ((1, 3, 138), 'followThread -> followVoice.')
 def conv (str):
     str = re.sub ('followThread', 'followVoice', str)
     str = re.sub ('Thread.FollowThread', 'Voice.VoiceFollower', str)
     str = re.sub ('FollowThread', 'VoiceFollower', str)
     return str
 
-conversions.append (((1,3,138), conv, 'followThread -> followVoice.'))
 
-
+@rule ((1, 3, 139), 'font-point-size -> font-design-size.')
 def conv (str):
     str = re.sub ('font-point-size', 'font-design-size', str)
     return str
 
-conversions.append (((1,3,139), conv, 'font-point-size -> font-design-size.'))
 
-
+@rule ((1, 3, 141), 'xNoDots -> xSolid')
 def conv (str):
     str = re.sub ('([a-zA-Z]*)NoDots', '\\1Solid', str)
     return str
 
-conversions.append (((1,3,141), conv, 'xNoDots -> xSolid'))
 
-
+@rule ((1, 3, 144), 'Chorda -> Corda')
 def conv (str):
     str = re.sub ('([Cc])hord([ea])', '\\1ord\\2', str)
     return str
 
-conversions.append (((1,3,144), conv, 'Chorda -> Corda'))
 
-
-
+@rule ((1, 3, 145), 'ContextNameXxxxVerticalExtent -> XxxxVerticalExtent')
 def conv (str):
     str = re.sub ('([A-Za-z]+)MinimumVerticalExtent', 'MinimumV@rticalExtent', str)
     str = re.sub ('([A-Za-z]+)ExtraVerticalExtent', 'ExtraV@rticalExtent', str)
@@ -718,10 +607,8 @@ def conv (str):
     str = re.sub ('MinimumV@rticalExtent', 'MinimumVerticalExtent', str)
     return str
 
-conversions.append (((1,3,145), conv,
-'ContextNameXxxxVerticalExtent -> XxxxVerticalExtent'))
 
-
+@rule ((1, 3, 146), _('semicolons removed'))
 def conv (str):
     str = re.sub ('\\\\key[ \t]*;', '\\key \\default;', str)
     str = re.sub ('\\\\mark[ \t]*;', '\\mark \\default;', str)
@@ -734,40 +621,37 @@ def conv (str):
     # Otherwise  we interfere with Scheme comments,
     # which is badbadbad.
     str = re.sub ("([^ \t;#]);", "\\1", str)
-
     return str
-conversions.append (((1,3,146), conv, _('semicolons removed')))
 
 
+@rule ((1, 3, 147), 'default-neutral-direction -> neutral-direction')
 def conv (str):
     str = re.sub ('default-neutral-direction', 'neutral-direction',str)
     return str
-conversions.append (((1,3,147), conv, 'default-neutral-direction -> neutral-direction'))
 
 
+@rule ((1, 3, 148), '"(align" -> "(axis", "(rows" -> "(columns"')
 def conv (str):
     str = re.sub ('\(align', '(axis', str)
     str = re.sub ('\(rows', '(columns', str)
     return str
-conversions.append (((1,3,148), conv, '"(align" -> "(axis", "(rows" -> "(columns"'))
 
 
-
+@rule ((1, 5, 33), 'SystemStartDelimiter -> systemStartDelimiter')
 def conv (str):
     str = re.sub ('SystemStartDelimiter', 'systemStartDelimiter', str)
     return str
-conversions.append (((1,5,33), conv, 'SystemStartDelimiter -> systemStartDelimiter'))
 
 
+@rule ((1, 5, 38), 'arithmetic... -> spacing...')
 def conv (str):
     str = re.sub ('arithmetic-multiplier', 'spacing-increment', str)
     str = re.sub ('arithmetic-basicspace', 'shortest-duration-space', str)
     return str
 
-conversions.append (((1,5,38), conv, 'SystemStartDelimiter -> systemStartDelimiter'))
 
-
-
+# 40 ?
+@rule ((1, 5, 40), _ ('%s property names') % 'breakAlignOrder')
 def conv (str):
 
     def func(match):
@@ -791,44 +675,35 @@ def conv (str):
 		  func, str)
     return str
 
-# 40 ?
-conversions.append (((1,5,40), conv, _ ('%s property names') % 'breakAlignOrder'))
 
-
-
+@rule ((1, 5, 49), 'noAutoBeaming -> autoBeaming')
 def conv (str):
     str = re.sub ('noAutoBeaming *= *##f', 'autoBeaming = ##t', str)
     str = re.sub ('noAutoBeaming *= *##t', 'autoBeaming = ##f', str)
     return str
 
-conversions.append (((1,5,49), conv, 'noAutoBeaming -> autoBeaming'))
 
-
+@rule ((1, 5, 52), 'tuplet-X-visibility -> X-visibility')
 def conv (str):
     str = re.sub ('tuplet-bracket-visibility', 'bracket-visibility', str)
     str = re.sub ('tuplet-number-visibility', 'number-visibility', str)
     return str
 
-conversions.append (((1,5,52), conv, 'tuplet-X-visibility -> X-visibility'))
 
-
+@rule ((1, 5, 56), 'Pitch::transpose -> ly-transpose-pitch')
 def conv (str):
     str = re.sub ('Pitch::transpose', 'ly-transpose-pitch', str)
-
     return str
 
-conversions.append (((1,5,56), conv, 'Pitch::transpose -> ly-transpose-pitch'))
 
-
+@rule ((1, 5, 58), _ ('deprecate %s') % 'textNonEmpty')
 def conv (str):
     str = re.sub ('textNonEmpty *= *##t', "TextScript \\set #'no-spacing-rods = ##f", str)
     str = re.sub ('textNonEmpty *= *##f', "TextScript \\set #'no-spacing-rods = ##t", str)
     return str
 
-conversions.append (((1,5,58), conv, _ ('deprecate %s') % 'textNonEmpty'))
 
-
-
+@rule ((1, 5, 59), 'XxxxVerticalExtent -> xxxVerticalExtent')
 def conv (str):
     str = re.sub ('MinimumVerticalExtent', 'minimumV@rticalExtent', str)
     str = re.sub ('minimumVerticalExtent', 'minimumV@rticalExtent', str)
@@ -839,19 +714,14 @@ def conv (str):
     str = re.sub ('minimumV@rticalExtent', 'minimumVerticalExtent', str)
     return str
 
-conversions.append (((1,5,59), conv,
-'XxxxVerticalExtent -> xxxVerticalExtent'))
 
-
+@rule ((1, 5, 62), 'visibility-lambda -> break-visibility')
 def conv (str):
     str = re.sub ('visibility-lambda', 'break-visibility', str)
     return str
 
-conversions.append (((1,5,62), conv,
-'visibility-lambda -> break-visibility'))
 
-
-
+@rule ((1, 5, 67), _ ('automaticMelismata turned on by default'))
 def conv (str):
     if re.search (r'\addlyrics',str) \
 	   and re.search ('automaticMelismata', str)  == None:
@@ -861,27 +731,22 @@ def conv (str):
 	raise FatalConversionError ()
     return str
 
-conversions.append (((1,5,67), conv,
-		     _ ('automaticMelismata turned on by default')))
 
-
+@rule ((1, 5, 68), 'ly-set-X-property -> ly-set-X-property!')
 def conv (str):
     str = re.sub ('ly-set-grob-property([^!])', 'ly-set-grob-property!\1', str)
     str = re.sub ('ly-set-mus-property([^!])', 'ly-set-mus-property!\1', str)
     return str
 
-conversions.append (((1,5,68), conv, 'ly-set-X-property -> ly-set-X-property!'))
 
-
+@rule ((1, 5, 71), 'extent-[XY] -> [XY]-extent')
 def conv (str):
     str = re.sub ('extent-X', 'X-extent', str)
     str = re.sub ('extent-Y', 'Y-extent', str)
     return str
 
-conversions.append (((1,5,71), conv, 'extent-[XY] -> [XY]-extent'))
 
-
-
+@rule ((1, 5, 72), 'set! point-and-click -> set-point-and-click!')
 def conv (str):
     str = re.sub ("""#\(set! +point-and-click +line-column-location\)""",
 		  """#(set-point-and-click! \'line-column)""", str)
@@ -891,30 +756,24 @@ def conv (str):
 		  '#(set-point-and-click! \'none)', str)
     return str
 
-conversions.append (((1,5,72), conv, 'set! point-and-click -> set-point-and-click!'))
 
-
-
+@rule ((1, 6, 5), 'Stems: flag-style -> stroke-style; style -> flag-style')
 def conv (str):
     str = re.sub ('flag-style', 'stroke-style', str)
     str = re.sub (r"""Stem([ ]+)\\override #'style""", r"""Stem \\override #'flag-style""", str);
     str = re.sub (r"""Stem([ ]+)\\set([ ]+)#'style""", r"""Stem \\set #'flag-style""", str);
     return str
 
-conversions.append (((1,6,5), conv, 'Stems: flag-style -> stroke-style; style -> flag-style'))
-
-
 
 def subst_req_name (match):
     return "(make-music-by-name \'%sEvent)" % regularize_id (match.group(1))
 
+
+@rule ((1, 7, 1), 'ly-make-music foo_bar_req -> make-music-by-name FooBarEvent')
 def conv (str):
     str = re.sub ('\\(ly-make-music *\"([A-Z][a-z_]+)_req\"\\)', subst_req_name, str)
     str = re.sub ('Request_chord', 'EventChord', str)
     return str
-
-conversions.append (((1,7,1), conv, 'ly-make-music foo_bar_req -> make-music-by-name FooBarEvent'))
-
 
 
 spanner_subst ={
@@ -926,24 +785,29 @@ spanner_subst ={
 	"UnaCorda" : 'UnaCordaEvent',
 	"Sostenuto" : 'SostenutoEvent',
 	}
+
 def subst_ev_name (match):
     stype = 'STOP'
     if re.search ('start', match.group(1)):
 	stype= 'START'
-
     mtype = spanner_subst[match.group(2)]
     return "(make-span-event '%s %s)" % (mtype , stype)
 
 def subst_definition_ev_name(match):
     return ' = #%s' % subst_ev_name (match)
+
 def subst_inline_ev_name (match):
     s = subst_ev_name (match)
     return '#(ly-export %s)' % s
+
 def subst_csp_definition (match):
     return ' = #(make-event-chord (list %s))' % subst_ev_name (match)
+
 def subst_csp_inline (match):
     return '#(ly-export (make-event-chord (list %s)))' % subst_ev_name (match)
 
+
+@rule ((1, 7, 2), '\\spanrequest -> #(make-span-event .. ), \script -> #(make-articulation .. )')
 def conv (str):
     str = re.sub (r' *= *\\spanrequest *([^ ]+) *"([^"]+)"', subst_definition_ev_name, str)
     str = re.sub (r'\\spanrequest *([^ ]+) *"([^"]+)"', subst_inline_ev_name, str)
@@ -955,9 +819,8 @@ def conv (str):
     str = re.sub (r'\\script "([^"]+)"', '#(ly-export (make-articulation "\\1"))', str)
     return str
 
-conversions.append (((1,7,2), conv, '\\spanrequest -> #(make-span-event .. ), \script -> #(make-articulation .. )'))
 
-
+@rule ((1, 7, 3), 'ly- -> ly:')
 def conv(str):
     str = re.sub (r'\(ly-', '(ly:', str)
 
@@ -995,12 +858,10 @@ def conv(str):
 
     str = re.sub (origre, r'ly:\1',str)
     str = re.sub ('set-point-and-click!', 'set-point-and-click', str)
-
     return str
 
-conversions.append (((1,7,3), conv, 'ly- -> ly:'))
 
-
+@rule ((1, 7, 4), '<< >> -> < <  > >')
 def conv(str):
     if re.search ('new-chords-done',str):
 	return str
@@ -1009,16 +870,15 @@ def conv(str):
     str = re.sub (r'>>', '> >', str)
     return str
 
-conversions.append (((1,7,4), conv, '<< >> -> < <  > >'))
 
-
+@rule ((1, 7, 5), '\\transpose TO -> \\transpose FROM  TO')
 def conv(str):
     str = re.sub (r"\\transpose", r"\\transpose c'", str)
     str = re.sub (r"\\transpose c' *([a-z]+)'", r"\\transpose c \1", str)
     return str
-conversions.append (((1,7,5), conv, '\\transpose TO -> \\transpose FROM  TO'))
 
 
+@rule ((1, 7, 6), 'note\\script -> note-\script')
 def conv(str):
     kws =   ['arpeggio',
 	     'sustainDown',
@@ -1037,47 +897,40 @@ def conv(str):
     origstr = '|'.join (kws)
     str = re.sub (r'([^_^-])\\(%s)\b' % origstr, r'\1-\\\2', str)
     return str
-conversions.append (((1,7,6), conv, 'note\\script -> note-\script'))
 
 
-
+@rule ((1, 7, 10), "\property ChordName #'style -> #(set-chord-name-style 'style)")
 def conv(str):
     str = re.sub (r"\\property *ChordNames *\. *ChordName *\\(set|override) *#'style *= *#('[a-z]+)",
 		  r"#(set-chord-name-style \2)", str)
     str = re.sub (r"\\property *ChordNames *\. *ChordName *\\revert *#'style",
 		  r"", str)
     return str
-conversions.append (((1,7,10), conv, "\property ChordName #'style -> #(set-chord-name-style 'style)"))
 
 
-
-
+@rule ((1, 7, 11), "transpose-pitch -> pitch-transpose")
 def conv(str):
     str = re.sub (r"ly:transpose-pitch", "ly:pitch-transpose", str)
-
     return str
-conversions.append (((1,7,11), conv, "transpose-pitch -> pitch-transpose"))
 
 
+@rule ((1, 7, 13), "ly:XX-molecule-YY -> ly:molecule-XX-YY")
 def conv(str):
     str = re.sub (r"ly:get-molecule-extent", "ly:molecule-get-extent", str)
     str = re.sub (r"ly:set-molecule-extent!", "ly:molecule-set-extent!", str)
     str = re.sub (r"ly:add-molecule", "ly:molecule-add", str)
     str = re.sub (r"ly:combine-molecule-at-edge", "ly:molecule-combine-at-edge", str)
     str = re.sub (r"ly:align-to!", "ly:molecule-align-to!", str)
-
     return str
 
-conversions.append (((1,7,13), conv, "ly:XX-molecule-YY -> ly:molecule-XX-YY"))
 
-
+@rule ((1, 7, 15), "linewidth = -1 -> raggedright = ##t")
 def conv(str):
     str = re.sub (r"linewidth *= *-[0-9.]+ *(\\mm|\\cm|\\in|\\pt)?", 'raggedright = ##t', str )
     return str
 
-conversions.append (((1,7,15), conv, "linewidth = -1 -> raggedright = ##t"))
 
-
+@rule ((1, 7, 16), "divisiomaior -> divisioMaior")
 def conv(str):
     str = re.sub ("divisiomaior",
 		  "divisioMaior", str)
@@ -1087,17 +940,15 @@ def conv(str):
 		  "divisioMaxima", str)
     return str
 
-conversions.append (((1,7,16), conv, "divisiomaior -> divisioMaior"))
 
-
+@rule ((1, 7, 17), "Skip_req  -> Skip_event")
 def conv(str):
     str = re.sub ("Skip_req_swallow_translator",
 		  "Skip_event_swallow_translator", str)
     return str
 
-conversions.append (((1,7,17), conv, "Skip_req  -> Skip_event"))
 
-
+@rule ((1, 7, 18), "groupOpen/Close  -> start/stopGroup, #'outer  -> #'enclose-bounds")
 def conv(str):
     str = re.sub ("groupOpen",
 		  "startGroup", str)
@@ -1108,12 +959,8 @@ def conv(str):
 
     return str
 
-conversions.append (((1,7,18), conv,
-		     """groupOpen/Close  -> start/stopGroup,
-		     #'outer  -> #'enclose-bounds
-		     """))
 
-
+@rule ((1, 7, 19), _ ("remove %s") % "GraceContext")
 def conv(str):
     if re.search( r'\\GraceContext', str):
 	stderr_write ('\n')
@@ -1128,11 +975,8 @@ def conv(str):
     str = re.sub ('HaraKiriStaffContext', 'RemoveEmptyStaffContext', str)
     return str
 
-conversions.append (((1,7,19), conv, _ ("remove %s") % "GraceContext"))
 
-
-
-
+@rule ((1, 7, 22), "#'type -> #'style")
 def conv(str):
     str = re.sub (
 	    r"(set|override|revert) *#'type",
@@ -1140,9 +984,8 @@ def conv(str):
 	    str)
     return str
 
-conversions.append (((1,7,22), conv,"#'type -> #'style"))
 
-
+@rule ((1, 7, 23), "barNonAuto -> automaticBars")
 def conv(str):
     str = re.sub (
 	    "barNonAuto *= *##t",
@@ -1154,10 +997,8 @@ def conv(str):
 	    str)
     return str
 
-conversions.append (((1,7,23), conv,"barNonAuto -> automaticBars"))
 
-
-
+@rule ((1, 7, 24), _ ("cluster syntax"))
 def conv(str):
     if re.search( r'-(start|stop)Cluster', str):
 	stderr_write ('\n')
@@ -1167,22 +1008,15 @@ def conv(str):
 	stderr_write ('\n')
 
 	raise FatalConversionError ()
-
     return str
 
-conversions.append (((1,7,24), conv, _ ("cluster syntax")))
 
-
+@rule ((1, 7, 28), _ ("new Pedal style syntax"))
 def conv(str):
     str = re.sub (r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\(override|set) *#'pedal-type *",
 		    r"\property Staff.pedal\1Style ", str)
     str = re.sub (r"\\property *Staff\.(Sustain|Sostenuto|UnaCorda)Pedal *\\revert *#'pedal-type", '', str)
     return str
-
-conversions.append (((1,7,28), conv, _ ("new Pedal style syntax")))
-
-
-
 
 
 def sub_chord (m):
@@ -1436,6 +1270,8 @@ def conv_relative(str):
 
     return str
 
+@rule ((1, 9, 0), _ ("""New relative mode,
+Postfix articulations, new text markup syntax, new chord syntax."""))
 def conv (str):
     str = re.sub (r"#'\(\)", "@SCM_EOL@", str)
     str =  conv_relative (str)
@@ -1444,13 +1280,10 @@ def conv (str):
     str = text_markup (str)
     str = smarter_articulation_subst (str)
     str = re.sub ("@SCM_EOL@", "#'()", str)
-
     return str
 
-conversions.append (((1,9,0), conv, _ ("""New relative mode,
-Postfix articulations, new text markup syntax, new chord syntax.""")))
 
-
+@rule ((1, 9, 1), _ ("Remove - before articulation"))
 def conv (str):
     if re.search ("font-style",str):
 	stderr_write ('\n')
@@ -1471,8 +1304,8 @@ def conv (str):
     str = re.sub (r'@\\markup', r'-\\markup', str)
     return str
 
-conversions.append (((1,9,1), conv, _ ("""Remove - before articulation""")))
 
+@rule ((1, 9, 2), "\\newcontext -> \\new")
 def conv (str):
     str = re.sub ('ly:set-context-property',
 		  'ly:set-context-property!', str)
@@ -1485,11 +1318,11 @@ def conv (str):
   \1
   \\property Voice.Stem \\revert #'stroke-style }
 """, str)
-
     return str
 
-conversions.append (((1,9,2), conv, """\\newcontext -> \\new"""))
 
+@rule ((1, 9, 3), (_ ("%s misspelling") % "\\acciaccatura") + 
+                         ", fingerHorizontalDirection -> fingeringOrientations")
 def conv (str):
     str = re.sub ('accacciatura',
 		  'acciaccatura', str)
@@ -1507,18 +1340,13 @@ def conv (str):
 		  "fingeringOrientations = #'(up down left)", str)
     str = re.sub ('fingerHorizontalDirection *= *#(RIGHT|1)',
 		  "fingeringOrientations = #'(up down right)", str)
-
     return str
 
-conversions.append (((1,9,3), conv,
-		     (_ ("%s misspelling") % "\\acciaccatura") + \
-                         ", fingerHorizontalDirection -> fingeringOrientations"))
 
-
+@rule ((1, 9, 4), _ ('Swap < > and << >>'))
 def conv (str):
     if re.search ('\\figures', str):
 	warning (_ ("attempting automatic \\figures conversion.  Check results!"));
-
 
     def figures_replace (m):
 	s = m.group (1)
@@ -1543,19 +1371,16 @@ def conv (str):
     str = re.sub ('@ENDSIMUL@', '>>', str)
     str = re.sub ('@FIGOPEN@', '<', str)
     str = re.sub ('@FIGCLOSE@', '>', str)
-
     return str
 
-conversions.append (((1,9,4), conv, _ ('Swap < > and << >>')))
 
-
+@rule ((1, 9, 5), 'HaraKiriVerticalGroup -> RemoveEmptyVerticalGroup')
 def conv (str):
     str = re.sub ('HaraKiriVerticalGroup', 'RemoveEmptyVerticalGroup', str)
-
     return str
 
-conversions.append (((1,9,5), conv, 'HaraKiriVerticalGroup -> RemoveEmptyVerticalGroup'))
 
+@rule ((1, 9, 6), _ ('deprecate %s') % 'ly:get-font')
 def conv (str):
     if re.search ("ly:get-font", str) :
 	stderr_write ('\n')
@@ -1576,12 +1401,11 @@ def conv (str):
 	stderr_write ('\n')
 
 	raise FatalConversionError ()
-
     return str
 
 
-conversions.append (((1,9,6), conv, _ ('deprecate %s') % 'ly:get-font'))
-
+@rule ((1, 9, 7), _ ('''use symbolic constants for alterations,
+remove \\outputproperty, move ly:verbose into ly:get-option'''))
 def conv (str):
     def sub_alteration (m):
 	alt = m.group (3)
@@ -1626,13 +1450,10 @@ to support quarter tone accidentals.  You must update the following constructs m
 * keySignature settings made with \property
 """))
 	raise FatalConversionError ()
-
     return str
-conversions.append (((1,9,7), conv,
-		     _ ('''use symbolic constants for alterations,
-remove \\outputproperty, move ly:verbose into ly:get-option''')))
 
 
+@rule ((1, 9, 8), "dash-length -> dash-fraction")
 def conv (str):
     if re.search ("dash-length",str):
 	stderr_write ('\n')
@@ -1645,9 +1466,8 @@ def conv (str):
 	raise FatalConversionError ()
     return str
 
-conversions.append (((1,9,8), conv, """dash-length -> dash-fraction"""))
 
-
+@rule ((2, 1, 1), "font-relative-size -> font-size")
 def conv (str):
     def func(match):
 	return "#'font-size = #%d" % (2*int (match.group (1)))
@@ -1655,23 +1475,22 @@ def conv (str):
     str =re.sub (r"#'font-relative-size\s*=\s*#\+?([0-9-]+)", func, str)
     str =re.sub (r"#'font-family\s*=\s*#'ancient",
 		 r"#'font-family = #'music", str)
-
     return str
 
-conversions.append (((2,1,1), conv, """font-relative-size -> font-size"""))
 
+@rule ((2, 1, 2), "ly:get-music-length -> ly:music-length")
 def conv (str):
     str =re.sub (r"ly:get-music-length", "ly:music-length", str)
     return str
 
-conversions.append (((2,1,2), conv, """ly:get-music-length -> ly:music-length"""))
 
+@rule ((2, 1, 3), "stanza -> instrument")
 def conv (str):
     str =re.sub (r"\.\s+stz=", ". instr ", str)
     return str
 
-conversions.append (((2,1,3), conv, """stanza -> instrument"""))
 
+@rule ((2, 1, 4), _ ("removal of automaticMelismata; use melismaBusyProperties instead."))
 def conv (str):
     def func (match):
 	c = match.group (1)
@@ -1688,22 +1507,22 @@ def conv (str):
     str = re.sub (r"\\property ([a-zA-Z]+)\s*\.\s*automaticMelismata\s*=\s*##([ft])", func, str)
     return str
 
-conversions.append (((2,1,4), conv, _ ("""removal of automaticMelismata; use melismaBusyProperties instead.""")))
 
-
-
+@rule ((2, 1, 7), "\\translator Staff -> \\change Staff")
 def conv (str):
     str =re.sub (r"\\translator\s+([a-zA-Z]+)", r"\\change \1", str)
     return str
 
-conversions.append (((2,1,7), conv, """\\translator Staff -> \\change Staff"""))
 
+@rule ((2, 1, 10), "\\newaddlyrics -> \\lyricsto")
 def conv (str):
     str =re.sub (r"\\newaddlyrics", r"\\lyricsto", str)
     return str
 
-conversions.append (((2,1,10), conv, """\\newaddlyrics -> \\lyricsto"""))
 
+@rule ((2, 1, 11), """\\include "paper16.ly" -> #(set-staff-size 16)
+\\note #3 #1 #1 -> \\note #"8." #1
+""")
 def conv (str):
     str = re.sub (r'\\include\s*"paper([0-9]+)(-init)?.ly"',
 		  r"#(set-staff-size \1)", str)
@@ -1728,41 +1547,37 @@ def conv (str):
 		  sub_note, str)
     return str
 
-conversions.append (((2,1,11), conv, """\\include "paper16.ly" -> #(set-staff-size 16)
-\\note #3 #1 #1 -> \\note #"8." #1
-"""))
 
-
+@rule ((2, 1, 12), "OttavaSpanner -> OttavaBracket")
 def conv (str):
-    str =re.sub (r"OttavaSpanner", r"OttavaBracket", str)
+    str = re.sub (r"OttavaSpanner", r"OttavaBracket", str)
     return str
 
-conversions.append (((2,1,12), conv, """OttavaSpanner -> OttavaBracket"""))
 
-
+@rule ((2, 1, 13), "set-staff-size -> set-global-staff-size")
 def conv (str):
-    str =re.sub (r"\(set-staff-size ", r"(set-global-staff-size ", str)
+    str = re.sub (r"\(set-staff-size ", r"(set-global-staff-size ", str)
     return str
 
-conversions.append (((2,1,13), conv, """set-staff-size -> set-global-staff-size"""))
 
+@rule ((2, 1, 14), "style = dotted -> dash-fraction = 0")
 def conv (str):
-    str =re.sub (r"#'style\s*=\s*#'dotted-line",
+    str = re.sub (r"#'style\s*=\s*#'dotted-line",
 		 r"#'dash-fraction = #0.0 ", str)
     return str
 
-conversions.append (((2,1,14), conv, """style = dotted -> dash-fraction = 0"""))
 
+@rule ((2, 1, 15), "LyricsVoice . instr(ument) -> vocalName")
 def conv (str):
-    str =re.sub (r'LyricsVoice\s*\.\s*instrument\s*=\s*("[^"]*")',
+    str = re.sub (r'LyricsVoice\s*\.\s*instrument\s*=\s*("[^"]*")',
 		 r'LyricsVoice . vocalName = \1', str)
 
-    str =re.sub (r'LyricsVoice\s*\.\s*instr\s*=\s*("[^"]*")',
+    str = re.sub (r'LyricsVoice\s*\.\s*instr\s*=\s*("[^"]*")',
 		 r'LyricsVoice . vocNam = \1', str)
     return str
 
-conversions.append (((2,1,15), conv, """LyricsVoice . instr(ument) -> vocalName"""))
 
+@rule ((2, 1, 16), '\\musicglyph #"accidentals-NUM" -> \\sharp/flat/etc.')
 def conv (str):
     def sub_acc (m):
 	d = {
@@ -1781,9 +1596,8 @@ def conv (str):
 		  sub_acc, str)
     return str
 
-conversions.append (((2,1,16), conv, """\\musicglyph #"accidentals-NUM" -> \\sharp/flat/etc."""))
 
-
+@rule ((2, 1, 17), _ ("\\partcombine syntax change to \\newpartcombine"))
 def conv (str):
 
     if re.search (r'\\partcombine', str):
@@ -1799,25 +1613,20 @@ def conv (str):
     str = re.sub (r'\\context\s+Voice\s*=\s*one\s*\\partcombine\s+Voice\s*\\context\s+Thread\s*=\s*one(.*)\s*'
 		  + r'\\context\s+Thread\s*=\s*two',
 		  '\\\\newpartcombine\n\\1\n', str)
-
-
     return str
 
-conversions.append (((2,1,17), conv, _ ("\\partcombine syntax change to \\newpartcombine")))
 
-
+@rule ((2, 1, 18), """\\newpartcombine -> \\partcombine,
+\\autochange Staff -> \\autochange
+""")
 def conv (str):
     str = re.sub (r'\\newpartcombine', r'\\partcombine', str)
     str = re.sub (r'\\autochange\s+Staff', r'\\autochange ', str)
     return str
 
-conversions.append (((2,1,18), conv, """\\newpartcombine -> \\partcombine,
-\\autochange Staff -> \\autochange
-"""))
 
-
-
-
+@rule ((2, 1, 19), _ ("""Drum notation changes, Removing \\chordmodifiers, \\notenames.
+Harmonic notes. Thread context removed. Lyrics context removed."""))
 def conv (str):
     if re.search ('include "drumpitch', str):
 	stderr_write (_ ("Drums found. Enclose drum notes in \\drummode"))
@@ -1855,19 +1664,22 @@ def conv (str):
     str = re.sub (r"""\bLyrics\b""", r"""LyricsVoice""", str)
     str = re.sub (r"""LyricsContext""", r"""LyricsVoiceContext""", str)
     str = re.sub (r"""L@ricsVoice""", r"""LyricsVoice""",str)
-
-
     return str
 
-conversions.append (((2,1,19), conv, _ ("""Drum notation changes, Removing \\chordmodifiers, \\notenames.
-Harmonic notes. Thread context removed. Lyrics context removed.""")))
 
+@rule ((2, 1, 20), "nonevent-skip -> skip-music")
 def conv (str):
     str = re.sub (r'nonevent-skip', 'skip-music', str)
     return str
 
-conversions.append (((2,1,20), conv, """nonevent-skip -> skip-music""" ))
 
+@rule ((2, 1, 21), """molecule-callback -> print-function,
+brew_molecule -> print
+brew-new-markup-molecule -> Text_item::print
+LyricsVoice -> Lyrics
+tupletInvisible -> TupletBracket \set #'transparent
+%s.
+""" % (_ ("remove %s") % "Grob::preset_extent"))
 def conv (str):
     str = re.sub (r'molecule-callback', 'print-function', str)
     str = re.sub (r'brew_molecule', 'print', str)
@@ -1880,18 +1692,14 @@ def conv (str):
     str = re.sub (r"\\property\s+[a-zA-Z]+\s*\.\s*[a-zA-Z]+\s*"
 		  + r"\\set\s*#'X-extent-callback\s*=\s*#Grob::preset_extent",
 		  "", str)
-
     return str
 
-conversions.append (((2,1,21), conv, """molecule-callback -> print-function,
-brew_molecule -> print
-brew-new-markup-molecule -> Text_item::print
-LyricsVoice -> Lyrics
-tupletInvisible -> TupletBracket \set #'transparent
-%s.
-""" % (_ ("remove %s") % "Grob::preset_extent")))
 
+@rule ((2, 1, 22), """%s
+        \\set A.B = #C , \\unset A.B
+        \\override A.B #C = #D, \\revert A.B #C
 
+""" % _ ("new syntax for property settings:"))
 def conv (str):
     str = re.sub (r'(\\property[^=]+)=\s*([-0-9]+)',
 		  r'\1= #\2', str)
@@ -1916,12 +1724,8 @@ def conv (str):
     str = re.sub ('Molecule', 'Stencil', str)
     return str
 
-conversions.append (((2,1,22), conv, """%s
-	\\set A.B = #C , \\unset A.B
-	\\override A.B #C = #D, \\revert A.B #C
 
-""" % _ ("new syntax for property settings:")))
-
+@rule ((2, 1, 23), _ ("Property setting syntax in \\translator{ }"))
 def conv (str):
     def subst_in_trans (match):
 	s = match.group (0)
@@ -1950,18 +1754,17 @@ def conv (str):
     str = re.sub (r"""\\override\s*(?P<context>[a-zA-Z]+\s*\.\s*)?autoBeamSettings"""
 		  +r"""\s*#(?P<prop>[^=]+)\s*=\s*#\(ly:make-moment\s+(?P<num>\d+)\s+(?P<den>\d)\s*\)""",
 		  sub_abs, str)
-
     return str
 
-conversions.append (((2,1,23), conv, _ ("Property setting syntax in \\translator{ }")))
 
+@rule ((2, 1, 24), "music-list? -> ly:music-list?")
 def conv (str):
     str = re.sub (r'music-list\?', 'ly:music-list?', str)
     str = re.sub (r'\|\s*~', '~ |', str)
     return str
 
-conversions.append (((2,1,24), conv, """music-list? -> ly:music-list?"""))
 
+@rule ((2, 1, 25), _ ("Scheme grob function renaming"))
 def conv (str):
     str = re.sub (r'ly:get-spanner-bound', 'ly:spanner-get-bound', str)
     str = re.sub (r'ly:get-extent', 'ly:grob-extent', str)
@@ -1988,12 +1791,10 @@ def conv (str):
     str = re.sub (r'\\pianoCautionaries', "#(set-accidental-style 'piano-cautionary)", str)
     str = re.sub (r'\\forgetAccidentals', "#(set-accidental-style 'forget)", str)
     str = re.sub (r'\\noResetKey', "#(set-accidental-style 'no-reset)", str)
-
     return str
 
-conversions.append (((2,1,25), conv, _ ("Scheme grob function renaming")))
 
-
+@rule ((2, 1, 26), _ ("More Scheme function renaming"))
 def conv (str):
     str = re.sub ('ly:set-grob-property!', 'ly:grob-set-property!',str)
     str = re.sub ('ly:set-mus-property!', 'ly:music-set-property!',str)
@@ -2001,11 +1802,10 @@ def conv (str):
     str = re.sub ('ly:get-grob-property', 'ly:grob-property',str)
     str = re.sub ('ly:get-mus-property', 'ly:music-property',str)
     str = re.sub ('ly:get-context-property', 'ly:context-property',str)
-
     return str
 
-conversions.append (((2,1,26), conv, _ ("More Scheme function renaming")))
 
+@rule ((2, 1, 27), "property transposing -> tuning")
 def conv (str):
     def subst (m):
 	g = int (m.group (2))
@@ -2036,26 +1836,29 @@ def conv (str):
 		  subst, str)
     return str
 
-conversions.append (((2,1,27), conv, """property transposing -> tuning"""))
 
+@rule ((2, 1, 28), """make-music-by-name -> make-music,
+new syntax for setting \\arpeggioBracket""")
 def conv (str):
     str = re.sub (r'make-music-by-name', 'make-music', str)
     str = re.sub (r"\\override\s+.*Arpeggio\s+#.print-function\s+=\s+\\arpeggioBracket", r"\\arpeggioBracket", str)
     return str
 
-conversions.append (((2,1,28), conv,
-		     """make-music-by-name -> make-music,
-new syntax for setting \\arpeggioBracket"""))
 
+@rule ((2, 1, 29), '\\center -> \\center-align, \\translator -> \\context')
 def conv (str):
     str = re.sub (r'\\center([^-])', '\\center-align\\1', str)
     str = re.sub (r'\\translator', '\\context', str)
     return str
 
-conversions.append (((2,1,29), conv,
-		     '\\center -> \\center-align, \\translator -> \\context'))
 
-
+@rule ((2, 1, 30), '''\\threeq{flat,sharp} -> \\sesqui{flat,sharp}
+ly:get-mutable-properties -> ly:mutable-music-properties
+centralCPosition -> middleCPosition
+ly:unset-context-property -> ly:context-unset-property
+ly:translator-find -> ly:context-find
+ly:get-stencil-extent -> ly:stencil-extent
+''')
 def conv (str):
     str = re.sub (r'\\threeq(flat|sharp)', r'\\sesqui\1', str)
     str = re.sub (r'ly:stencil-get-extent',
@@ -2071,63 +1874,46 @@ def conv (str):
 		  'middleCPosition',str)
     return str
 
-conversions.append (((2,1,30), conv,
-		     '''\\threeq{flat,sharp} -> \\sesqui{flat,sharp}
-ly:get-mutable-properties -> ly:mutable-music-properties
-centralCPosition -> middleCPosition
-ly:unset-context-property -> ly:context-unset-property
-ly:translator-find -> ly:context-find
-ly:get-stencil-extent -> ly:stencil-extent
-'''))
 
-
+@rule ((2, 1, 31), 'remove \\alias Timing')
 def conv (str):
     str = re.sub (r'\\alias\s*"?Timing"?', '', str)
     return str
 
-conversions.append (((2,1,31), conv,
-		     '''remove \\alias Timing'''))
 
+@rule ((2, 1, 33), 'breakAlignOrder -> break-align-orders.')
 def conv (str):
     str = re.sub (r"(\\set\s+)?(?P<context>(Score\.)?)breakAlignOrder\s*=\s*#'(?P<list>[^\)]+)",
 		  r"\n\\override \g<context>BreakAlignment #'break-align-orders = "
 		  + "#(make-vector 3 '\g<list>)", str)
-
     return str
 
-conversions.append (((2,1,33), conv,
-		     '''breakAlignOrder -> break-align-orders.'''))
 
+@rule ((2, 1, 34), 'set-paper-size -> set-default-paper-size.')
 def conv (str):
     str = re.sub (r"\(set-paper-size",
 		  "(set-default-paper-size",str)
     return str
 
-conversions.append (((2,1,34), conv,
-		     '''set-paper-size -> set-default-paper-size.'''))
 
+@rule ((2, 1, 36), 'ly:mutable-music-properties -> ly:music-mutable-properties')
 def conv (str):
     str = re.sub (r"ly:mutable-music-properties",
 		  "ly:music-mutable-properties", str)
     return str
 
-conversions.append (((2,1, 36), conv,
-		     '''ly:mutable-music-properties -> ly:music-mutable-properties'''))
 
-
-
+@rule ((2, 2, 0), _ ("bump version for release"))
 def conv (str):
     return str
 
-conversions.append (((2, 2, 0), conv,
-		     _ ("bump version for release")))
 
+@rule ((2, 3, 1), '\\apply -> \\applymusic')
 def conv (str):
     return re.sub (r'\\apply\b', r'\\applymusic', str)
 
-conversions.append (((2, 3, 1), conv,
-		     '''\\apply -> \\applymusic'''))
 
+@rule ((2, 3, 2), '\\FooContext -> \\Foo')
 def conv (str):
     if re.search ('textheight', str):
 	stderr_write ('\n')
@@ -2153,47 +1939,35 @@ textheight is no longer used.
     str = re.sub ('ly:paper-lookup', 'ly:output-def-lookup', str)
     return str
 
-conversions.append (((2, 3, 2), conv,
-		     '''\\FooContext -> \\Foo'''))
 
+@rule ((2, 3, 4), _ ('remove %s') % '\\notes')
 def conv (str):
     str = re.sub (r'\\notes\b', '', str)
-
     return str
 
-conversions.append (((2, 3, 4), conv,
-		     _ ('remove %s') % '\\notes'))
 
-
-
+@rule ((2, 3, 6), 'lastpagefill -> raggedlastbottom')
 def conv (str):
     str = re.sub (r'lastpagefill\s*=\s*"?1"', 'raggedlastbottom = ##t', str)
     return str
 
-conversions.append (((2, 3, 6), conv,
-		     '''lastpagefill -> raggedlastbottom'''))
 
-
-
+@rule ((2, 3, 8), 'remove \\consistsend, strip \\lyrics from \\lyricsto.')
 def conv (str):
     str = re.sub (r'\\consistsend', '\\consists', str)
     str = re.sub (r'\\lyricsto\s+("?[a-zA-Z]+"?)(\s*\\new Lyrics\s*)?\\lyrics',
 		  r'\\lyricsto \1 \2', str)
     return str
 
-conversions.append (((2, 3, 8), conv,
-		     '''remove \\consistsend, strip \\lyrics from \\lyricsto.'''))
 
+@rule ((2, 3, 9), 'neo_mensural -> neomensural, if-text-padding -> bound-padding')
 def conv (str):
     str = re.sub (r'neo_mensural', 'neomensural', str)
     str = re.sub (r'if-text-padding', 'bound-padding', str)
     return str
 
-conversions.append (((2, 3, 9), conv,
-		     '''neo_mensural -> neomensural, if-text-padding -> bound-padding'''))
 
-
-
+@rule ((2, 3, 10), '\\addlyrics -> \\oldaddlyrics, \\newlyrics -> \\addlyrics')
 def conv (str):
     str = re.sub (r'\\addlyrics', r'\\oldaddlyrics', str)
     str = re.sub (r'\\newlyrics', r'\\addlyrics', str)
@@ -2201,17 +1975,17 @@ def conv (str):
 	stderr_write ("\nWarning: TextSpanner has been split into DynamicTextSpanner and TextSpanner\n")
     return str
 
-conversions.append (((2, 3, 10), conv,
-		     '''\\addlyrics -> \\oldaddlyrics, \\newlyrics -> \\addlyrics'''))
 
+@rule ((2, 3, 11), '\\setMmRestFermata -> ^\\fermataMarkup')
 def conv (str):
     str = re.sub (r'\\setMmRestFermata\s+(R[0-9.*/]*)',
 		  r'\1^\\fermataMarkup', str)
     return str
 
-conversions.append (((2, 3, 11), conv,
-		     '''\\setMmRestFermata -> ^\\fermataMarkup'''))
 
+@rule ((2, 3, 12), '''\\newpage -> \\pageBreak, junk \\script{up,down,both},
+soloADue -> printPartCombineTexts, #notes-to-clusters -> \\makeClusters
+''')
 def conv (str):
     str = re.sub (r'\\newpage', r'\\pageBreak', str)
     str = re.sub (r'\\scriptUp', r"""{
@@ -2233,12 +2007,9 @@ def conv (str):
     str = re.sub (r'pagenumber\s*=', 'firstpagenumber = ', str)
     return str
 
-conversions.append (((2, 3, 12), conv,
-		     '''\\newpage -> \\pageBreak, junk \\script{up,down,both},
-soloADue -> printPartCombineTexts, #notes-to-clusters -> \\makeClusters
-'''))
 
-
+@rule ((2, 3, 16), _ ('''\\foo -> \\foomode (for chords, notes, etc.)
+fold \\new FooContext \\foomode into \\foo.'''))
 def conv (str):
     str = re.sub (r'\\chords\b', r'\\chordmode', str)
     str = re.sub (r'\\lyrics\b', r'\\lyricmode', str)
@@ -2254,29 +2025,23 @@ def conv (str):
 
     return str
 
-conversions.append (((2, 3, 16), conv,
-		     _ ('''\\foo -> \\foomode (for chords, notes, etc.)
-fold \\new FooContext \\foomode into \\foo.''')))
 
+@rule ((2, 3, 17), '''slurBoth -> slurNeutral, stemBoth -> stemNeutral, etc.
+\\applymusic #(remove-tag 'foo) -> \\removeWithTag 'foo''')
 def conv (str):
     str = re.sub (r'(slur|stem|phrasingSlur|tie|dynamic|dots|tuplet|arpeggio|)Both', r'\1Neutral', str)
     str = re.sub (r"\\applymusic\s*#\(remove-tag\s*'([a-z-0-9]+)\)",
 		  r"\\removeWithTag #'\1", str)
     return str
 
-conversions.append (((2, 3, 17), conv,
-		     '''slurBoth -> slurNeutral, stemBoth -> stemNeutral, etc.
-\\applymusic #(remove-tag 'foo) -> \\removeWithTag 'foo'''))
 
-
+@rule ((2, 3, 18), 'Text_item -> Text_interface')
 def conv (str):
     str = re.sub (r'Text_item', 'Text_interface', str)
     return str
 
-conversions.append (((2, 3, 18),
-		     conv,
-		     '''Text_item -> Text_interface''' ))
 
+@rule ((2, 3, 22), 'paper -> layout, bookpaper -> paper')
 def conv (str):
     str = re.sub (r'\\paper', r'\\layout', str)
     str = re.sub (r'\\bookpaper', r'\\paper', str)
@@ -2292,21 +2057,16 @@ with
     str = re.sub (r'#\(paper-set-staff-size', '%Use set-global-staff-size at toplevel\n% #(layout-set-staff-size', str)
     return str
     
-conversions.append (((2, 3, 22),
-		     conv,
-		     '''paper -> layout, bookpaper -> paper''' ))
 
-
+@rule ((2, 3, 23), r'\context Foo = NOTENAME -> \context Foo = "NOTENAME"')
 def conv (str):
     str = re.sub (r'\\context\s+([a-zA-Z]+)\s*=\s*([a-z]+)\s',
 		  r'\\context \1 = "\2" ',
 		  str )
     return str
 
-conversions.append (((2, 3, 23),
-		     conv,
-		     '''\context Foo = NOTENAME -> \context Foo = "NOTENAME"'''))
 
+@rule ((2, 3, 24), _ ('''regularize other identifiers'''))
 def conv (str):
     def sub(m):
 	return regularize_id (m.group (1))
@@ -2314,48 +2074,35 @@ def conv (str):
 		  sub, str)
     return str
 
-conversions.append (((2, 3, 24),
-		     conv,
-		     _ ('''regularize other identifiers''')))
 
+@rule ((2, 3, 25), 'petrucci_c1 -> petrucci-c1, 1style -> single-digit')
 def conv (str):
     str = re.sub ('petrucci_c1', 'petrucci-c1', str)
     str = re.sub ('1style', 'single-digit', str)
     return str
 
-conversions.append (((2, 3, 25),
-		     conv,
-		     '''petrucci_c1 -> petrucci-c1, 1style -> single-digit'''))
 
-
+@rule ((2, 4, 0), _ ("bump version for release"))
 def conv (str):
     return str
 
-conversions.append (((2, 4, 0),
-		     conv,
-		     _ ("bump version for release")))
 
-
+@rule ((2, 5, 0), '\\quote -> \\quoteDuring')
 def conv (str):
     str = re.sub (r'\\quote\s+"?([a-zA-Z0-9]+)"?\s+([0-9.*/]+)',
 		  r'\\quoteDuring #"\1" { \skip \2 }',
 		  str)
     return str
 
-conversions.append (((2, 5, 0),
-		     conv,
-		     '\\quote -> \\quoteDuring'))
 
-
+@rule ((2, 5, 1), 'ly:import-module -> ly:module-copy')
 def conv (str):
     str = re.sub (r'ly:import-module',
 		  r'ly:module-copy', str)
     return str
 
-conversions.append (((2, 5, 1),
-		     conv,
-		     'ly:import-module -> ly:module-copy'))
 
+@rule ((2, 5, 2), '\markup .. < .. > .. -> \markup .. { .. } ..')
 def conv (str):
     str = re.sub (r'\\(column|fill-line|dir-column|center-align|right-align|left-align|bracketed-y-column)\s*<(([^>]|<[^>]*>)*)>',
 		  r'\\\1 {\2}', str)
@@ -2370,10 +2117,8 @@ def conv (str):
     str = re.sub (r'\\markup\s*{([^}]|{[^}]*})*}', get_markup, str)
     return str
 
-conversions.append (((2, 5, 2),
-		     conv,
-		     '\markup .. < .. > .. -> \markup .. { .. } ..'))
 
+@rule ((2, 5, 3), 'ly:find-glyph-by-name -> ly:font-get-glyph, remove - from glyphnames.')
 def conv (str):
     str = re.sub ('ly:find-glyph-by-name', 'ly:font-get-glyph', str)
     str = re.sub ('"(scripts|clefs|accidentals)-', r'"\1.', str)
@@ -2381,20 +2126,15 @@ def conv (str):
     str = re.sub ("'(vaticana|hufnagel|medicaea|petrucci|neomensural|mensural)-", r"'\1.", str)
     return str
 
-conversions.append (((2, 5, 3),
-		     conv,
-		     'ly:find-glyph-by-name -> ly:font-get-glyph, remove - from glyphnames.'))
 
-
+@rule ((2, 5, 12), '\set Slur #\'dashed = #X -> \slurDashed')
 def conv (str):
     str = re.sub (r"\\override\s+(Voice\.)?Slur #'dashed\s*=\s*#\d*(\.\d+)?",
 		  r"\\slurDashed", str)
     return str
 
-conversions.append (((2, 5, 12),
-		     conv,
-		     '\set Slur #\'dashed = #X -> \slurDashed'))
 
+@rule ((2, 5, 13), _ ('\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click'))
 def conv (str):
     input_encoding = 'latin1'
     def func (match):
@@ -2446,11 +2186,8 @@ def conv (str):
     str = re.sub (r"#\(ly:set-point-and-click '[a-z-]+\)", '', str)
     return str
 
-conversions.append (((2, 5, 13),
-		     conv,
-		     _ ('\\encoding: smart recode latin1..utf-8. Remove ly:point-and-click')))
 
-
+@rule ((2, 5, 17), _ ('remove %s') % 'ly:stencil-set-extent!')
 def conv (str):
     if re.search ("ly:stencil-set-extent!", str):
 	stderr_write ('\n')
@@ -2466,17 +2203,14 @@ def conv (str):
 	raise FatalConversionError ()
     return str
 
-conversions.append (((2, 5, 17),
-		     conv,
-		     _ ('remove %s') % 'ly:stencil-set-extent!'))
 
+@rule ((2, 5, 18), 'ly:warn -> ly:warning')
 def conv (str):
     str = re.sub (r"ly:warn\b", 'ly:warning', str)
     return str
 
-conversions.append (((2, 5, 18),
-		     conv,
-		     'ly:warn -> ly:warning'))
+
+@rule ((2, 5, 21), _ ('warn about auto beam settings'))
 def conv (str):
     if re.search ("(override-|revert-)auto-beam-setting", str)\
        or re.search ("autoBeamSettings", str):
@@ -2492,32 +2226,28 @@ explicitely; 1/4 is no longer multiplied to cover moments 1/2 and 3/4 too.
 	raise FatalConversionError ()
     return str
 
-conversions.append (((2, 5, 21),
-		     conv,
-		     _ ('warn about auto beam settings')))
 
+@rule ((2, 5, 25), 'unfoldrepeats -> unfoldRepeats, compressmusic -> compressMusic')
 def conv (str):
     str = re.sub (r"unfoldrepeats", 'unfoldRepeats', str)
     str = re.sub (r"compressmusic", 'compressMusic', str)
     return str
 
-conversions.append (((2, 5, 25), conv,
-	     'unfoldrepeats -> unfoldRepeats, compressmusic -> compressMusic'))
 
+@rule ((2, 6, 0), _ ("bump version for release"))
 def conv (str):
     return str
 
-conversions.append (((2, 6, 0), conv,
-		     _ ("bump version for release")))
 
-
-
+@rule ((2, 7, 0), 'ly:get-default-font -> ly:grob-default-font')
 def conv (str):
     return re.sub('ly:get-default-font', 'ly:grob-default-font', str) 
 
-conversions.append (((2, 7, 0), conv,
-		     'ly:get-default-font -> ly:grob-default-font'))
 
+@rule ((2, 7, 1), '''ly:parser-define -> ly:parser-define!
+excentricity -> eccentricity
+Timing_engraver -> Timing_translator + Default_bar_line_engraver
+''')
 def conv (str):
     str = re.sub('ly:parser-define', 'ly:parser-define!', str)
     str = re.sub('excentricity', 'eccentricity', str)
@@ -2526,30 +2256,21 @@ def conv (str):
 		 str)
     return str
 
-conversions.append (((2, 7, 1), conv,
-		     '''ly:parser-define -> ly:parser-define!
-excentricity -> eccentricity
-Timing_engraver -> Timing_translator + Default_bar_line_engraver
-'''))
 
-
+@rule ((2, 7, 2), 'ly:X-moment -> ly:moment-X')
 def conv (str):
     str = re.sub('ly:(add|mul|mod|div)-moment', r'ly:moment-\1', str)
     return str
 
-conversions.append (((2, 7, 2), conv,
-		     '''ly:X-moment -> ly:moment-X'''))
 
-
+@rule ((2, 7, 4), 'keyAccidentalOrder -> keyAlterationOrder')
 def conv (str):
     str = re.sub('keyAccidentalOrder', 'keyAlterationOrder', str)
     return str
 
-conversions.append (((2, 7, 4), conv,
-		     '''keyAccidentalOrder -> keyAlterationOrder'''))
 
-
-
+@rule ((2, 7, 6), '''Performer_group_performer -> Performer_group, Engraver_group_engraver -> Engraver_group,
+inside-slur -> avoid-slur''')
 def conv (str):
     str = re.sub('Performer_group_performer', 'Performer_group', str)
     str = re.sub('Engraver_group_engraver', 'Engraver_group', str)
@@ -2561,12 +2282,8 @@ def conv (str):
 		  r"#'avoid-slur", str)
     return str
 
-conversions.append (((2, 7, 6), conv,
-		     '''Performer_group_performer -> Performer_group, Engraver_group_engraver -> Engraver_group,
-inside-slur -> avoid-slur'''))
 
-
-
+@rule ((2, 7, 10), '\\applyxxx -> \\applyXxx')
 def conv (str):
     str = re.sub(r'\\applyoutput', r'\\applyOutput', str)
     str = re.sub(r'\\applycontext', r'\\applyContext', str)
@@ -2574,26 +2291,20 @@ def conv (str):
     str = re.sub(r'ly:grob-suicide', 'ly:grob-suicide!', str)
     return str
 
-conversions.append (((2, 7, 10), conv,
-		     '''\\applyxxx -> \\applyXxx'''))
 
-
-
+@rule ((2, 7, 11), '"tabloid" -> "11x17"')
 def conv (str):
     str = re.sub(r'\"tabloid\"', '"11x17"', str)
     return str
 
-conversions.append (((2, 7, 11), conv,
-		     '''\"tabloid\" -> \"11x17\"'''))
 
+@rule ((2, 7, 12), 'outputProperty -> overrideProperty')
 def conv (str):
     str = re.sub(r'outputProperty' , 'overrideProperty', str)
     return str
 
-conversions.append (((2, 7, 12), conv,
-		     '''outputProperty -> overrideProperty'''))
 
-
+@rule ((2, 7, 13), 'layout engine refactoring [FIXME]')
 def conv (str):
     def subber (match):
 	newkey = {'spacing-procedure': 'springs-and-rods',
@@ -2623,11 +2334,8 @@ def conv (str):
 	stderr_write (_ ('verticalAlignmentChildCallback has been deprecated'))
     return str
 
-conversions.append (((2, 7, 13), conv,
-		     '''layout engine refactoring [FIXME]'''))
 
-
-
+@rule ((2, 7, 14), _ ('Remove callbacks property, deprecate XY-extent-callback.'))
 def conv (str):
     str = re.sub (r"\\override +([A-Z.a-z]+) #'callbacks",
 		  r"\\override \1", str)
@@ -2647,10 +2355,8 @@ def conv (str):
 		  r"\\override \1VerticalAxisGroup #'Y-extent", str)
     return str
 
-conversions.append (((2, 7, 14), conv,
-		     _ ('Remove callbacks property, deprecate XY-extent-callback.')))
 
-
+@rule ((2, 7, 15), _ ('Use grob closures iso. XY-offset-callbacks.'))
 def conv (str):
     if re.search ('[XY]-offset-callbacks', str):
 	stderr_write (NOT_SMART % "[XY]-offset-callbacks")
@@ -2658,10 +2364,8 @@ def conv (str):
 	stderr_write (NOT_SMART % "position-callbacks")
     return str
 
-conversions.append (((2, 7, 15), conv,
-		     _ ('Use grob closures iso. XY-offset-callbacks.')))
 
-
+@rule ((2, 7, 22), r"\tag #'(a b) -> \tag #'a \tag #'b")
 def conv (str):
     def sub_syms (m):
 	syms =  m.group (1).split ()
@@ -2671,25 +2375,22 @@ def conv (str):
     str = re.sub (r"\\tag #'\(([^)]+)\)",  sub_syms, str)
     return str
 
-conversions.append (((2, 7, 22), conv,
-		     """\tag #'(a b) -> \tag #'a \tag #'b""" ))
 
+@rule ((2, 7, 24), _ ('deprecate %s') % 'number-visibility')
 def conv (str):
     str = re.sub (r"#'number-visibility",
 		  "#'number-visibility % number-visibility is deprecated. Tune the TupletNumber instead\n",
 		  str)
     return str
 
-conversions.append (((2, 7, 24), conv,
-		     _ ('deprecate %s') % 'number-visibility')) 
 
+@rule ((2, 7, 28), "ly:spanner-get-bound -> ly:spanner-bound")
 def conv (str):
     str = re.sub (r"ly:spanner-get-bound", "ly:spanner-bound", str)
     return str
 
-conversions.append (((2, 7, 28), conv,
-		     """ly:spanner-get-bound -> ly:spanner-bound"""))
 
+@rule ((2, 7, 29), "override Stem #'beamed-* -> #'details #'beamed-*")
 def conv (str):
     for a in ['beamed-lengths', 'beamed-minimum-free-lengths',
               'lengths',
@@ -2699,17 +2400,14 @@ def conv (str):
 		      str)
     return str
 
-conversions.append (((2, 7, 29), conv,
-		     """override Stem #'beamed-* -> #'details #'beamed-*"""))
 
+@rule ((2, 7, 30), "\\epsfile")
 def conv (str):
     str = re.sub (r'\\epsfile *#"', r'\\epsfile #X #10 #"', str)
     return str
 
-conversions.append (((2, 7, 30), conv,
-		     """\\epsfile"""))
 
-
+@rule ((2, 7, 31), "Foo_bar::bla_bla -> ly:foo-bar::bla-bla")
 def conv (str):
     def sub_cxx_id (m):
 	str = m.group(1)
@@ -2719,10 +2417,8 @@ def conv (str):
 		  sub_cxx_id, str)
     return str
 
-conversions.append (((2, 7, 31), conv,
-		     """Foo_bar::bla_bla -> ly:foo-bar::bla-bla"""))
 
-
+@rule ((2, 7, 32), _ ("foobar -> foo-bar for \paper, \layout"))
 def conv (str):
     identifier_subs = [
 	    ('inputencoding', 'input-encoding'),
@@ -2765,26 +2461,21 @@ def conv (str):
 	str = re.sub (a, b, str)
     return str
 
-conversions.append (((2, 7, 32), conv,
-		     _ ("foobar -> foo-bar for \paper, \layout")))
 
+@rule ((2, 7, 32), "debug-beam-quanting -> debug-beam-scoring")
 def conv (str):
     str = re.sub ('debug-beam-quanting', 'debug-beam-scoring', str)
     return str
 
-conversions.append (((2, 7, 32), conv,
-		     """debug-beam-quanting -> debug-beam-scoring"""))
 
+@rule ((2, 7, 36), "def-(music-function|markup-command) -> define-(music-function|markup-command)")
 def conv (str):
     str = re.sub ('def-music-function', 'define-music-function', str)
     str = re.sub ('def-markup-command', 'define-markup-command', str)
     return str
 
-conversions.append (((2, 7, 36), conv,
-		    """def-(music-function|markup-command) -> define-(music-function|markup-command)"""))
 
-
-
+@rule ((2, 7, 40), "rehearsalMarkAlignSymbol/barNumberAlignSymbol -> break-align-symbol")
 def conv (str):
     str = re.sub (r'\\set\s+Score\s*\.\s*barNumberAlignSymbol\s*=',
 		  r"\\override Score.BarNumber #'break-align-symbol = ", str)
@@ -2792,33 +2483,29 @@ def conv (str):
 		  r"\\override Score.RehearsalMark #'break-align-symbol = ", str)
     return str
 
-conversions.append (((2, 7, 40), conv,
-		    "rehearsalMarkAlignSymbol/barNumberAlignSymbol -> break-align-symbol"))
 
-
+@rule ((2, 9, 4), "(page-)penalty -> (page-)break-penalty")
 def conv (str):
     str = re.sub ('page-penalty', 'page-break-penalty', str)
     str = re.sub ('([^-])penalty', '\1break-penalty', str)
     return str
 
-conversions.append (((2, 9, 4), conv, """(page-)penalty -> (page-)break-penalty"""))
 
+@rule ((2, 9, 6), "\\context Foo \\applyOutput #bla -> \\applyOutput #'Foo #bla ")
 def conv (str):
     str = re.sub (r'\\context\s+\"?([a-zA-Z]+)\"?\s*\\applyOutput', r"\\applyOutput #'\1", str)
     return str
 
-conversions.append (((2, 9, 6), conv, """\context Foo \\applyOutput #bla -> \\applyOutput #'Foo #bla """))
 
-
+@rule ((2, 9, 9), "annotatefoo -> annotate-foo")
 def conv (str):
     str = re.sub ('annotatepage', 'annotate-page', str)
     str = re.sub ('annotateheaders', 'annotate-headers', str)
     str = re.sub ('annotatesystems', 'annotate-systems', str)
     return str
 
-conversions.append (((2, 9, 9), conv, """annotatefoo -> annotate-foo"""))
 
-
+@rule ((2, 9, 11), "\\set tupletNumberFormatFunction -> \\override #'text = ")
 def conv (str):
     str = re.sub (r"""(\\set\s)?(?P<context>[a-zA-Z]*.?)tupletNumberFormatFunction\s*=\s*#denominator-tuplet-formatter""",
                   r"""\\override \g<context>TupletNumber #'text = #tuplet-number::calc-denominator-text""", str)
@@ -2830,21 +2517,18 @@ def conv (str):
         stderr_write ("\n")
 	stderr_write ("tupletNumberFormatFunction has been removed. Use #'text property on TupletNumber")
         stderr_write ("\n")
-        
     return str
 
-conversions.append (((2, 9, 11), conv, """\\set tupletNumberFormatFunction -> \\override #'text = """))
 
-
+@rule ((2, 9, 13), "instrument -> instrumentName, instr -> shortInstrumentName, vocNam -> shortVocalName")
 def conv (str):
     str = re.sub ('vocNam', 'shortVocalName', str)
     str = re.sub (r'\.instr\s*=', r'.shortInstrumentName =', str)
     str = re.sub (r'\.instrument\s*=', r'.instrumentName =', str)
     return str
 
-conversions.append (((2, 9, 13), conv, """instrument -> instrumentName, instr -> shortInstrumentName, vocNam -> shortVocalName"""))
 
-
+@rule ((2, 9, 16), _ ("deprecate \\tempo in \\midi"))
 def conv (str):
 
     def sub_tempo (m):
@@ -2873,29 +2557,25 @@ def conv (str):
     str = re.sub (r'\\midi\s*{\s*\\tempo ([0-9]+)\s*([.]*)\s*=\s*([0-9]+)\s*}', sub_tempo, str)
     return str
 
-conversions.append (((2, 9, 16), conv, _ ("deprecate \\tempo in \\midi")))
 
+@rule ((2, 9, 19), "printfirst-page-number -> print-first-page-number")
 def conv (str):
     str = re.sub ('printfirst-page-number', 'print-first-page-number', str)
     return str
 
-conversions.append (((2, 9, 19), conv, """printfirst-page-number -> print-first-page-number"""))
 
-
+@rule ((2, 10, 0), _ ("bump version for release"))
 def conv (str):
     return str
 
-conversions.append (((2, 10, 0), conv, _ ("bump version for release")))
 
-
+@rule ((2, 11, 2), "ly:clone-parser -> ly:parser-clone")
 def conv (str):
     return re.sub ('ly:clone-parser',
                    'ly:parser-clone', str)
 
-conversions.append (((2, 11, 2), conv, """ly:clone-parser -> ly:parser-clone"""))
 
-
-
+@rule ((2, 11, 5), _ ("deprecate cautionary-style. Use AccidentalCautionary properties"))
 def conv (str):
     str = re.sub ("Accidental\s*#'cautionary-style\s*=\s*#'smaller",
                    "AccidentalCautionary #'font-size = #-2", str)
@@ -2905,14 +2585,10 @@ def conv (str):
                    r"\1 #'parenthesized = ##t", str)
     str = re.sub ("([A-Za-z]+)\s*#'cautionary-style\s*=\s*#'smaller",
                    r"\1 #'font-size = #-2", str)
-    
     return str
 
-conversions.append (((2, 11, 5), conv, _ ("deprecate cautionary-style. Use AccidentalCautionary properties")))
 
-                    
-
-
+@rule ((2, 11, 6), _ ("Rename accidental glyphs, use glyph-name-alist."))
 def conv (str):
     
     def sub_acc_name (m):
@@ -2937,32 +2613,30 @@ def conv (str):
                        'standard-alteration-glyph-name-alist')
     return str
 
-conversions.append (((2, 11, 6), conv, _ ("Rename accidental glyphs, use glyph-name-alist.")))
 
-
+@rule ((2, 11, 10), """allowBeamBreak -> Beam #'breakable = ##t
+addquote -> addQuote
+""")
 def conv (str):
     str = re.sub (r'(\\set\s+)?([A-Z][a-zA-Z]+\s*\.\s*)allowBeamBreak',
                   r"\override \2Beam #'breakable", str)
     str = re.sub (r'(\\set\s+)?allowBeamBreak',
                   r"\override Beam #'breakable", str)
-    str = re.sub (r'addquote' , 'addQuote', str)
+    str = re.sub (r'addquote', 'addQuote', str)
     if re.search ("Span_dynamic_performer", str):
         stderr_write ("Span_dynamic_performer has been merged into Dynamic_performer")
 
     return str
 
-conversions.append (((2, 11, 10), conv, """allowBeamBreak -> Beam #'breakable = ##t
-addquote -> addQuote
-"""))
 
+@rule ((2, 11, 11), "layout-set-staff-size -> layout-set-absolute-staff-size")
 def conv (str):
     str = re.sub (r'\(layout-set-staff-size \(\*\s*([0-9.]+)\s*(pt|mm|cm)\)\)',
                   r'(layout-set-absolute-staff-size (* \1 \2))', str)
     return str
 
-conversions.append (((2, 11, 11), conv, """layout-set-staff-size -> layout-set-absolute-staff-size"""))
 
-
+@rule ((2, 11, 13), "#'arrow = ##t -> #'bound-details #'right #'arrow = ##t")
 def conv (str):
     str = re.sub (r"\\override\s*([a-zA-Z.]+)\s*#'arrow\s*=\s*##t",
                   r"\\override \1 #'bound-details #'right #'arrow = ##t",
@@ -2973,12 +2647,10 @@ def conv (str):
 	stderr_write (_ ("Use\n\n%s") %
                           "\t\\override TextSpanner #'bound-details #'right #'text = <right-text>\n"
                           "\t\\override TextSpanner #'bound-details #'left #'text = <left-text>\n")
-
-        
     return str
 
-conversions.append (((2, 11, 13), conv, """#'arrow = ##t -> #'bound-details #'right #'arrow = ##t"""))
 
+@rule ((2, 11, 15), "#'edge-height -> #'bound-details #'right/left #'text = ...")
 def conv (str):
     def sub_edge_height (m):
         s = ''
@@ -3002,15 +2674,16 @@ def conv (str):
                   sub_edge_height, str)
     return str
 
-conversions.append (((2, 11, 15), conv, """#'edge-height -> #'bound-details #'right/left #'text = ..."""))
 
+@rule ((2, 11, 23), "#'break-align-symbol -> #'break-align-symbols")
 def conv (str):
     str = re.sub (r"\\override\s*([a-zA-Z.]+)\s*#'break-align-symbol\s*=\s*#'([a-z-]+)",
                   r"\\override \1 #'break-align-symbols = #'(\2)", str)
     return str
 
-conversions.append (((2, 11, 23), conv, """#'break-align-symbol -> #'break-align-symbols"""))
 
+@rule ((2, 11, 35), """scripts.caesura -> scripts.caesura.curved.
+""" + _ ("Use #'style not #'dash-fraction to select solid/dashed lines."))
 def conv (str):
     str = re.sub (r"scripts\.caesura",
                   r"scripts.caesura.curved", str)
@@ -3019,21 +2692,19 @@ def conv (str):
 	stderr_write (NOT_SMART % _ ("all settings related to dashed lines.\n"))
 	stderr_write (_ ("Use \\override ... #'style = #'line for solid lines and\n"))
 	stderr_write (_ ("\t\\override ... #'style = #'dashed-line for dashed lines."))
-
     return str
 
-conversions.append (((2, 11, 35), conv, """scripts.caesura -> scripts.caesura.curved.
-""" + _ ("Use #'style not #'dash-fraction to select solid/dashed lines.")))
 
+@rule ((2, 11, 38), """\\setEasyHeads -> \\easyHeadsOn, \\fatText -> \\textLengthOn,
+\\emptyText -> \\textLengthOff""")
 def conv (str):
     str = re.sub (r"setEasyHeads", r"easyHeadsOn", str)
     str = re.sub (r"fatText", r"textLengthOn", str)
     str = re.sub (r"emptyText", r"textLengthOff", str)
     return str
 
-conversions.append (((2, 11, 38), conv, """\\setEasyHeads -> \\easyHeadsOn, \\fatText -> \\textLengthOn,
-\\emptyText -> \\textLengthOff"""))
 
+@rule ((2, 11, 46), "\\set hairpinToBarline -> \\override Hairpin #'to-barline")
 def conv (str):
     str = re.sub (r"\\set\s+([a-zA-Z]+)\s*.\s*hairpinToBarline\s*=\s*##([tf]+)",
                   r"\\override \1.Hairpin #'to-barline = ##\2", str)
@@ -3049,19 +2720,96 @@ def conv (str):
                   r"\\set \1crescendoSpanner = #'text", str)
     return str
 
-conversions.append (((2, 11, 46), conv, """\\set hairpinToBarline -> \\override Hairpin #'to-barline"""))
 
+@rule ((2, 11, 48), "\\compressMusic -> \\scaleDurations")
 def conv (str):
     str = re.sub (r"compressMusic", r"scaleDurations", str)
     return str
 
-conversions.append (((2, 11, 48), conv, """\\compressMusic -> \\scaleDurations"""))
 
+@rule ((2, 11, 50), _ ("metronomeMarkFormatter uses text markup as second argument,\n\
+fret diagram properties moved to fret-diagram-details."))
 def conv (str):
+    ## warning 1/2: metronomeMarkFormatter uses text markup as second argument
     if re.search ('metronomeMarkFormatter', str):
 	stderr_write (NOT_SMART % _ ("metronomeMarkFormatter got an additional text argument.\n"))
 	stderr_write (_ ("The function assigned to Score.metronomeMarkFunction now uses the signature\n%s") %
                           "\t(format-metronome-markup text dur count context)\n")
+
+    ## warning 2/2: fret diagram properties moved to fret-diagram-details
+    fret_props = ['barre-type', 
+                'dot-color', 
+                'dot-radius',
+                'finger-code',
+                'fret-count',
+                'label-dir',
+                'number-type',
+                'string-count',
+                'xo-font-magnification',
+                'mute-string',
+                'open-string',
+                'orientation']
+    for prop in fret_props:
+      if re.search (prop, str):
+          stderr_write (NOT_SMART %
+            prop + " in fret-diagram properties. Use fret-diagram-details.")
+          stderr_write ('\n')
     return str
 
-conversions.append (((2, 11, 50), conv, """metronomeMarkFormatter uses text markup as second argument"""))
+@rule ((2, 11, 51), "\\octave -> \\octaveCheck, \\arpeggioUp -> \\arpeggioArrowUp,\n\
+\\arpeggioDown -> \\arpeggioArrowDown, \\arpeggioNeutral -> \\arpeggioNormal,\n\
+\\setTextCresc -> \\crescTextCresc, \\setTextDecresc -> \\dimTextDecresc,\n\
+\\setTextDecr -> \\dimTextDecr, \\setTextDim -> \\dimTextDim,\n\
+\\setHairpinCresc -> \\crescHairpin, \\setHairpinDecresc -> \\dimHairpin,\n\
+\\sustainUp -> \\sustainOff, \\sustainDown -> \\sustainOn\n\
+\\sostenutoDown -> \\sostenutoOn, \\sostenutoUp -> \\sostenutoOff")
+def conv (str):
+    str = re.sub (r"\\octave", r"\\octaveCheck", str)
+    str = re.sub (r"arpeggioUp", r"arpeggioArrowUp", str)
+    str = re.sub (r"arpeggioDown", r"arpeggioArrowDown", str)
+    str = re.sub (r"arpeggioNeutral", r"arpeggioNormal", str)
+    str = re.sub (r"setTextCresc", r"crescTextCresc", str)
+    str = re.sub (r"setTextDecresc", r"dimTextDecresc", str)
+    str = re.sub (r"setTextDecr", r"dimTextDecr", str)
+    str = re.sub (r"setTextDim", r"dimTextDim", str)
+    str = re.sub (r"setHairpinCresc", r"crescHairpin", str)
+    str = re.sub (r"setHairpinDecresc", r"dimHairpin", str)
+    str = re.sub (r"sustainUp", r"sustainOff", str)
+    str = re.sub (r"sustainDown", r"sustainOn", str)
+    str = re.sub (r"sostenutoDown", r"sostenutoOn", str)
+    str = re.sub (r"sostenutoUp", r"sostenutoOff", str)
+    return str
+
+@rule ((2, 11, 52), "\\setHairpinDim -> \\dimHairpin")
+def conv (str):
+    str = str.replace ("setHairpinDim", "dimHairpin")
+    return str
+
+@rule ((2, 11, 53), "infinite-spacing-height -> extra-spacing-height")
+def conv (str):
+    str = re.sub (r"infinite-spacing-height\s+=\s+##t", r"extra-spacing-height = #'(-inf.0 . +inf.0)", str)
+    str = re.sub (r"infinite-spacing-height\s+=\s+##f", r"extra-spacing-height = #'(0 . 0)", str)
+    return str
+
+@rule ((2, 11, 55), "#(set-octavation oct) -> \\ottava #oct,\n\
+\\put-adjacent markup axis dir markup -> \\put-adjacent axis dir markup markup")
+def conv (str):    
+    str = re.sub (r"#\(set-octavation (-*[0-9]+)\)", r"\\ottava #\1", str)
+    if re.search ('put-adjacent', str):
+	stderr_write (NOT_SMART % _ ("\\put-adjacent argument order.\n"))
+	stderr_write (_ ("Axis and direction now come before markups:\n"))
+	stderr_write (_ ("\\put-adjacent axis dir markup markup."))
+    return str
+
+# Guidelines to write rules (please keep this at the end of this file)
+#
+# - keep at most one rule per version; if several conversions should be done,
+# concatenate them into a single "conv" function;
+#
+# - enclose strings to be localized with `_(' and  `)';
+#
+# - write rule for bumping major stable version with
+#
+#     _ ("bump version for release")
+#  
+# as exact description.

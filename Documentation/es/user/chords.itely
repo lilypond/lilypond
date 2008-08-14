@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Chord notation
 @section Chord notation
@@ -918,7 +918,7 @@ instead of
 @c @rlearning{  }.
 
 @c Notation Reference:
-@c @ruser{  }.
+@c @ref{  }.
 
 @c Application Usage:
 @c @rprogram{  }.

@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
@@ -40,7 +40,6 @@ les insérer directement dans votre fichier LilyPond.  Ce fichier devra
 * Text and line spanners::      
 * Text spanners::               
 * Text marks::                  
-* New dynamic marks::           
 @end menu
 
 @node Text scripts
@@ -441,46 +440,6 @@ affectation à chacune des portées :
 @seealso
 
 Référence du programme : @rinternals{RehearsalMark}.
-
-
-@node New dynamic marks
-@unnumberedsubsubsec New dynamic marks
-
-Grâce à la commande @code{make-dynamic-script}, vous pouvez créer de
-nouvelles marques textuelles de nuances que vous combinerez
-éventuellement avec les signes de nuances.
-Notez bien que la police des nuances en contient que les caractères
-@code{f,m,p,r,s} and @code{z}. 
-
-Certains composants, tels que les marques de nuances, possèdent des
-propriétés particulières et prédéfinies quant à leur police.  Lorsque
-vous créez du texte en pareille situation, nous vous recommandons
-d'utiliser @code{normal-text} pour annuler ces propriétés.  Voir 
-@ref{Text markup commands} pour plus de détails.
-
-@cindex make-dynamic-script
-
-@lilypond[quote,verbatim,ragged-right]
-sfzp = #(make-dynamic-script "sfzp")
-\relative c' {
-  c4 c c\sfzp c
-}
-@end lilypond
-
-@cindex Nuances éditoriales
-@cindex Nuances, entre parenthèses
-
-Vous pouvez aussi encadrer les nuances entre parenthèses ou entre
-crochets.  Ceci est souvent utilisé pour ajouter des nuances propres à
-une édition donnée.
-
-@lilypond[quote,verbatim,ragged-right]
-rndf = \markup{ \center-align {\line { \bold{\italic (}
-  \dynamic f \bold{\italic )} }} }
-boxf = \markup{ \bracket { \dynamic f } }
-{ c'1_\rndf c'1_\boxf }
-@end lilypond
-
 
 
 @node Formatting text

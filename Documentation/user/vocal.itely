@@ -6,17 +6,21 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Vocal music
 @section Vocal music
 
-TODO
-CLARIFY
-http://code.google.com/p/lilypond/issues/detail?id=248
-http://code.google.com/p/lilypond/issues/detail?id=329
+@c TODO: CLARIFY
+@c TODO: delete this comment block
+@c http://code.google.com/p/lilypond/issues/detail?id=248
+@c Done, see @node Lyrics independent of notes ----FV
 
+@c http://code.google.com/p/lilypond/issues/detail?id=329
+@c Done, see @node Working with lyrics and variables ----FV
 
+@c partially done, needs improvement, see Switching to an alternative melody ----FV
+@ignore
 
 > I think the issue here is that changing the associatedVoice
 > happens one step
@@ -35,6 +39,8 @@ read all the sections
 sequentially.
 
 
+@c Done in @node Extenders and hyphens ---FV
+@c also done (duplicated) in @node Multiple notes to one syllable --FV
 I don't know who's working on the vocal music right now, but I
 found something that should be clarified in NR 2.1.2.4.
 
@@ -42,24 +48,34 @@ It should be made clear that __ is used to crate a lyric extender,
 and _ is used to add a note to a melisma, so both __ and _ are
 used.  The example shows it, but there is no description of the
 lyrics extender in this section.
+@end ignore
 
 
-
-Since LilyPond input files are text, there are two issues to
-consider when working with vocal music:
+Since LilyPond input files are text, there are two issues to consider
+when working with vocal music:
 
 @itemize
 @item
-Song texts must be entered as text, not notes.  For example, the
-input@tie{}@code{d} should be interpreted as a one letter syllable, not the
-note@tie{}D.
+Song texts must be interpreted as text, not notes.  For example, the
+input@tie{}@code{d} should be interpreted as a one letter syllable,
+not the note@tie{}D.
 
 @item
 Song texts must be aligned with the notes of their melody.
 @end itemize
 
-There are a few different ways to define lyrics; we shall begin
-by examining the simplest method, and gradually increase complexity.
+To address the first issue, the fundamental method is the special mode
+opened by @code{\lyricmode} that interprets its contents as text.
+This mode is implicit by some abbreviated methods, as we will see.
+
+Aligning of text with melodies can be made automatically, but if you
+specify the durations of the syllables it can also be made manually.
+Lyrics aligning and typesetting are prepared with the help of skips,
+hyphens and extender lines.
+
+All these methods and their combinations lead to a few different ways
+to define lyrics; we shall begin by examining the simplest method, and
+gradually increase complexity.
 
 @menu
 * Common notation for vocals::
@@ -68,28 +84,6 @@ by examining the simplest method, and gradually increase complexity.
 * Stanzas::
 @end menu
 
-@snippets
-
-Checking to make sure that text scripts and lyrics are within the margins is
-a relatively large computational task.  To speed up processing, LilyPond does
-not perform such calculations by default; to enable it, use
-
-@example
-\override Score.PaperColumn #'keep-inside-line = ##t
-@end example
-
-To make lyrics avoid bar lines as well, use
-
-@example
-\layout @{
-  \context @{
-    \Lyrics
-      \consists "Bar_engraver"
-      \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
-  @}
-@}
-@end example
 
 @node Common notation for vocals
 @subsection Common notation for vocals
@@ -285,7 +279,9 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
-Internals Reference: @rinternals{LyricText}, @rinternals{LyricSpace}.
+Internals Reference:
+@rinternals{LyricText},
+@rinternals{LyricSpace}.
 
 @node Working with lyrics and variables
 @subsubsection Working with lyrics and variables
@@ -341,10 +337,43 @@ The final input would resemble
 >>
 @end example
 
+@ignore
+
+http://code.google.com/p/lilypond/issues/detail?id=329
+The problem cannot be reproduced.
+The following has no sense, because the issue seems to be fixed.
+A comment is in tracker waiting for response ---FV
+
+
+Be careful when defining a variable with lyrics that creates a new
+context, for example, using the deprecated @code{\lyrics} command. See
+the next erroneous example:
+
+@example
+words = \lyrics{ %warning: this creates a new context
+ one two
+}
+<<
+  \new Voice = "sop" { c1 }
+  \new Lyrics \lyricsto "sop" { \words }
+  \new Voice = "alt" { c2 c }
+  \new Lyrics \lyricsto "alt" { \words }
+>>
+@end example
+
+the problem is that \lyricsto will try to connect the "sop" melody with the context
+created by "\new Lyrics".
+
+Then \lyrics in \words creates another context, and the original "\new Lyrics" one
+remains empty.
+
+@end ignore
+
 @seealso
 
 @c TODO: document \new Staff << Voice \lyricsto >> bug
-Internals Reference: @rinternals{LyricCombineMusic},
+Internals Reference:
+@rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
 
 
@@ -417,8 +446,14 @@ The following example uses different commands for entering lyrics.
     \time 2/4
     c4 b8. a16 g4. f8 e4 d c2
   }
+
+% not recommended: left aligns syllables 
   \new Lyrics \lyricmode { Joy4 to8. the16 world!4. the8 Lord4 is come.2 }
+
+% wrong: durations needed
   \new Lyrics \lyricmode { Joy to the earth! the Sa -- viour reigns. }
+
+%correct
   \new Lyrics \lyricsto "one" { No more let sins and sor -- rows grow. }
 >>
 @end lilypond
@@ -483,7 +518,8 @@ Here is an example demonstrating manual lyric durations,
 
 @seealso
 
-Internals Reference: @rinternals{Lyrics}.
+Internals Reference:
+@rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
@@ -511,7 +547,8 @@ glyph.}.
 
 @seealso
 
-Internals Reference: @rinternals{LyricCombineMusic}.
+Internals Reference:
+@rinternals{LyricCombineMusic}.
 
 @c Here come the section which used to be "Melismata"
 @c the new title might be more self-explanatory
@@ -531,9 +568,18 @@ single syllable; such vocalises are called melismas, or melismata.
 @c it might be better to present it first - vv
 
 You can define melismata entirely in the lyrics, by entering @code{_}
-for every note
-that is part of the melisma.
+for every extra note that has to be added to the the melisma.
 
+@c verbose! --FV
+@c duplicated: TODO fix
+Additionaly, you can make an extender line to be typeset to indicate
+the melisma in the score, writing a double underscore next to the
+first syllable of the melisma. This example shows the three elements
+that are used for this purpose (all of them surrounded by spaces):
+double hyphens to separate syllables in a word, underscores to add
+notes to a melisma, and a double underscore to put an extender line.
+
+@c wrong: extender line only on last syllable of a word. Change example
 @lilypond[relative=1,verbatim,fragment,quote]
 { \set melismaBusyProperties = #'()
  c d( e) f f( e) e e  }
@@ -589,7 +635,8 @@ A complete example of a SATB score setup is in section
 
 @seealso
 
-Internals Reference: @rinternals{Melisma_translator}.
+Internals Reference:
+@rinternals{Melisma_translator}.
 
 @c @lsr{vocal,lyric@/-combine.ly}.
 
@@ -623,10 +670,17 @@ For example,
 @cindex extender
 
 @c leave this as samp. -gp
-Melismata are indicated with a horizontal line centered between a syllable
-and the next one.  Such a line is called an extender line, and it is entered
-as @samp{ __ } (note the spaces before and after the two underscore
-characters).
+In the last syllable of a word, melismata are sometimes indicated with
+a long horizontal line starting in the melisma syllable, and ending in
+the next one.  Such a line is called an extender line, and it is
+entered as @samp{ __ } (note the spaces before and after the two
+underscore characters).
+
+@warning{Melismata are indicated in the score with extender lines,
+which are entered as one double underscore; but short melismata can
+also be entered by skipping individual notes, which are entered as
+single underscore characters; these do not make an extender line to be
+typeset by default.}
 
 @cindex hyphens
 
@@ -643,7 +697,8 @@ distance between two syllables) and the @code{minimum-length}
 
 @seealso
 
-Internals Reference: @rinternals{LyricExtender},
+Internals Reference:
+@rinternals{LyricExtender},
 @rinternals{LyricHyphen}
 
 @node Lyrics and repeats
@@ -719,6 +774,8 @@ section.
 @node Lyrics independent of notes
 @subsubsection Lyrics independent of notes
 
+@cindex Devnull context
+
 In some complex vocal music, it may be desirable to place
 lyrics completely independently of notes.  Music defined
 inside @code{lyricrhythm} disappears into the
@@ -743,6 +800,18 @@ lyr = \lyricmode { I like my cat! }
   c' c' c' c' c' c' c' c' }
 >>
 @end lilypond
+
+This method is recommended only if the music in the @code{Devnull}
+context does not contain melismata.  Melismata are defined by the
+@code{Voice} context. Connecting lyrics to a @code{Devnull} context
+makes the voice/lyrics links to get lost, and so does the info on
+melismata.  Therefore, if you link lyrics to a @code{Devnull} context,
+the implicit melismata get ignored.
+
+@c Conclusion: do not use devnull for lyrics -FV
+
+@c this clarifies http://code.google.com/p/lilypond/issues/detail?id=248
+
 
 @node Chants
 @subsubsection Chants
@@ -797,6 +866,30 @@ layout.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {aligning-lyrics.ly}
 
+
+@snippets
+
+Checking to make sure that text scripts and lyrics are within the margins is
+a relatively large computational task.  To speed up processing, LilyPond does
+not perform such calculations by default; to enable it, use
+
+@example
+\override Score.PaperColumn #'keep-inside-line = ##t
+@end example
+
+To make lyrics avoid bar lines as well, use
+
+@example
+\layout @{
+  \context @{
+    \Lyrics
+      \consists "Bar_engraver"
+      \consists "Separating_line_group_engraver"
+      \override BarLine #'transparent = ##t
+  @}
+@}
+@end example
+
 @c TODO Create and add lsr example of lyricMelismaAlignment
 @c It's used like this to center-align all lyric syllables,
 @c even when notes are tied. -td
@@ -807,6 +900,7 @@ layout.
      \context { \Score lyricMelismaAlignment = #0 }
 }
 @end ignore
+
 
 @node Centering lyrics between staves
 @subsubsection Centering lyrics between staves
@@ -862,7 +956,7 @@ stanzaOneOne = {
   \set stanza = \markup { "1. " \leftbrace }
   \lyricmode { Child, you're mine and I love you.
     Lend thine ear to what I say.
-    ...
+
   }
 }
 
@@ -870,9 +964,16 @@ stanzaOneThree =  {
 %  \set stanza = \markup { "   "}
   \lyricmode { Child, I have no great -- er joy
     Than to have you walk in truth.
-...
+
   }
 }
+
+\new Voice {
+  \repeat volta 2 { c'8 c' c' c' c' c' c'4 
+                    c'8 c' c' c' c' c' c'4   } 
+}  \addlyrics { \stanzaOneOne }
+   \addlyrics { \stanzaOneThree }
+
 @end ignore
 
 @node Adding dynamics marks to stanzas
@@ -938,8 +1039,8 @@ must be set one syllable @emph{before} the non-melismatic syllable
 in the text, as shown here,
 
 @c  TODO: breaks compile
+@c seems to be fixed, does not break compile anymore --FV
 @lilypond[verbatim,ragged-right,quote]
-%{
 <<
   \relative c' \new Voice = "lahlah" {
     \set Staff.autoBeaming = ##f
@@ -958,7 +1059,6 @@ in the text, as shown here,
     still
   }
 >>
-%}
 @end lilypond
 
 
@@ -1029,8 +1129,10 @@ This is achieved with
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
-Again, the command must be one syllable too early, before @q{Ty} in
-this case.
+This command must be one syllable too early, before @q{Ty} in this
+case.  In other words, changing the associatedVoice happens one step
+later than expected.  This is for technical reasons, and it is not a
+bug.
 
 @example
 \new Lyrics \lyricsto "lahlah" @{
@@ -1120,8 +1222,8 @@ text = \lyricmode {
 
 \markup {
   \fill-line {
-    \hspace #0.1 % moves the column off the left margin; can be removed if
-        % space on the page is tight
+    \hspace #0.1 % moves the column off the left margin; 
+        % can be removed if space on the page is tight
      \column {
       \line { \bold "2."
         \column {
@@ -1137,9 +1239,9 @@ text = \lyricmode {
         }
       }
     }
-    \hspace #0.1  % adds horizontal spacing between columns; if they are
-        % still too close, add more " " pairs until the result 
-        % looks good
+    \hspace #0.1  % adds horizontal spacing between columns; 
+        % if they are still too close, add more " " pairs  
+        % until the result looks good
      \column {
       \line { \bold "4."
         \column {
@@ -1155,8 +1257,8 @@ text = \lyricmode {
         }
       }
     }
-  \hspace #0.1 % gives some extra space on the right margin; can
-      % be removed if page space is tight
+  \hspace #0.1 % gives some extra space on the right margin; 
+      % can be removed if page space is tight
   }
 }
 @end lilypond
@@ -1164,7 +1266,9 @@ text = \lyricmode {
 
 @seealso
 
-Internals Reference: @rinternals{LyricText}, @rinternals{StanzaNumber},
+Internals Reference:
+@rinternals{LyricText},
+@rinternals{StanzaNumber},
 @rinternals{VocalName}.
 
 

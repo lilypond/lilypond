@@ -1,4 +1,4 @@
-\version "2.11.47"
+\version "2.11.51"
 
 \header {
   texidoc = "Part combine texts accept markup."

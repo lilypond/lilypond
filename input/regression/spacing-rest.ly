@@ -1,5 +1,5 @@
 
-\version "2.10.0"
+\version "2.11.51"
 \header {
   texidoc = "Rests get a little less space, since they are narrower.
 However, the quarter rest in feta font is relatively wide, causing this 

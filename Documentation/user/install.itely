@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @ifclear INSTALL
 @node Install
@@ -122,9 +122,12 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
 
+@item @uref{http://www.lcdf.org/~eddietwo/type/#t1utils,t1utils}
+(version 1.33 or newer recommended).
+
 @item New Century Schoolbook fonts, as PFB files.  These are shipped with
 X11 and Ghostscript, and are named @file{c059033l.pfb}
-@file{c059036l.pfb}, @file{c059013l.pfb} and @file{c059016l.pfb}
+@file{c059036l.pfb}, @file{c059013l.pfb} and @file{c059016l.pfb}.
 
 @item @uref{http://www.gnu.org/software/guile/guile.html,GUILE} (version
 1.8.2 or newer).  If you are installing binary packages, you may need to
@@ -141,11 +144,11 @@ newer.  4.x is strongly recommended).
 
 @item @uref{http://www.gnu.org/software/gettext/gettext.html,gettext}.
 
-@item @uref{http://www.gnu.org/software/flex/,Flex} 
+@item @uref{http://www.gnu.org/software/flex/,Flex}.
 
-@item @uref{http://www.perl.org/,Perl} 
+@item @uref{http://www.perl.org/,Perl}.
 
-@item @uref{http://www.gnu.org/software/flex/,GNU Bison} 
+@item @uref{http://www.gnu.org/software/flex/,GNU Bison}.
 
 @item All packages required for running, including development packages with
 header files and libraries.

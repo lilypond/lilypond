@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Working on LilyPond projects
 @chapter Working on LilyPond projects
@@ -209,9 +209,9 @@ hornNotes = \relative c'' { c4 b dis c }
 You may even realize that this could be useful in minimalist music:
 
 @lilypond[quote,verbatim,ragged-right]
-fragA = \relative c'' { a4 a8. b16 }
-fragB = \relative c'' { a8. gis16 ees4 }
-violin = \new Staff { \fragA \fragA \fragB \fragA }
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
 \score {
   {
     \violin
@@ -260,6 +260,9 @@ violin = \relative c'' @{
   @}
 @}
 @end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
 
 So far we've seen static substitution -- when LilyPond
 sees @code{\padText}, it replaces it with the stuff that

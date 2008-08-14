@@ -7,7 +7,7 @@
    version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Ludovic Sardain
 @c Translation checkers: Jean-Yves Baudais, Valentin Villenave, John Mandereau, Jean-Charles Malahieude
@@ -21,13 +21,13 @@ ces astuces peuvent vous paraître évidentes, mais vous ne perdrez tout
 de même pas votre temps à lire ce chapitre.
 
 @menu
-* Suggestions for writing LilyPond files::  
+* Suggestions for writing LilyPond input files::
 * When things don't work::      
 * Scores and parts::            
 @end menu
 
-@node Suggestions for writing LilyPond files
-@section Suggestions for writing LilyPond files
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
 
 Maintenant vous êtes prêt à travailler sur de plus gros fichiers
 LilyPond --- des pièces entières, et plus seulement les petits
@@ -81,7 +81,7 @@ années auparavant.  L'utilitaire @command{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
 @item @strong{Ajoutez des contrôles}: @ruser{Bar check}, @ruser{Octave
-check} et @ruser{Barnumber check}.  Si vous avez ajouté des contrôles de
+checks} et @ruser{Barnumber check}.  Si vous avez ajouté des contrôles de
 loin en loin, et que vous faites une erreur, vous pourrez la retrouver
 plus rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?  Cela
 dépend de la complexité de la musique.  Pour de la musique très
@@ -208,9 +208,9 @@ Vous comprendrez combien cela peut être utile pour écrire de la
 musique minimaliste :
 
 @lilypond[quote,verbatim,ragged-right]
-fragA = \relative c'' { a4 a8. b16 }
-fragB = \relative c'' { a8. gis16 ees4 }
-violin = \new Staff { \fragA \fragA \fragB \fragA }
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
 \score {
   {
     \violin

@@ -288,7 +288,7 @@ ADD_INTERFACE (Item,
 
 	       /* properties */
 	       "break-visibility "
+	       "extra-spacing-height "
 	       "extra-spacing-width "
-	       "infinite-spacing-height "
 	       "non-musical "
 	       );

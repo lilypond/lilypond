@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Expressive marks
 @section Expressive marks
@@ -231,30 +231,29 @@ c2 b4 a g1\espressivo
 @cindex crescendo
 @cindex decrescendo
 @cindex diminuendo
-@funindex \setTextCresc
-@funindex \setTextDim
-@funindex \setTextDecresc
-@funindex \setHairpinCresc
-@funindex \setHairpinDim
-@funindex \setHairpinDecresc
+@funindex \crescTextCresc
+@funindex \dimTextDim
+@funindex \dimTextDecr
+@funindex \dimTextDecresc
+@funindex \crescHairpin
+@funindex \dimHairpin
 
 Los @notation{Crescendi} y @notation{decrescendi} se pueden
 tipografiar como marcas textuales en lugar de reguladores.  Las
 instrucciones incorporadaas que activan estos modos de texto son
-@code{\setTextCresc}, @code{\setTextDecresc}, @code{\setTextDecr} y
-@code{\setTextDim}.  Las instrucciones correspondientes
-@code{\setHairpinCresc}, @code{\setHairpinDim} y
-@code{\setHairpinDecresc} hacen que vuelvan a aparecer los reguladores
-de nuevo:
+@code{\crescTextCresc}, @code{\dimTextDecresc}, @code{\dimTextDecr} y
+@code{\dimTextDim}.  Las instrucciones correspondientes
+@code{\crescHairpin} y @code{\dimHairpin} hacen que vuelvan a aparecer
+los reguladores de nuevo:
 
 @lilypond[verbatim,quote,relative=2]
 c\< d e f\!
 e\> d c b\!
-\setTextCresc
+\crescTextCresc
 c\< d e f\!
-\setTextDecresc
+\dimTextDecresc
 e\> d c b\!
-\setHairpinCresc
+\crescHairpin
 c\< d e f\!
 @end lilypond
 
@@ -685,16 +684,16 @@ arpegiar el acorde:
 
 La dirección del arpegio se denota a veces mediante la adición de una
 punta de flecha a la línea ondulada.  Esto se hace con las
-instrucciones @code{arpeggioUp} y @code{arpeggioDown}.
-@code{arpeggioNeutral} nos devuelve a la versión sin flecha:
+instrucciones @code{arpeggioArrowUp} y @code{arpeggioArrowDown}.
+@code{arpeggioNormal} nos devuelve a la versión sin flecha:
 
 @lilypond[verbatim,quote,relative=1]
 \new Voice {
-  \arpeggioUp
+  \arpeggioArrowUp
   <c e g c>\arpeggio
-  \arpeggioDown
+  \arpeggioArrowDown
   <c e g c>\arpeggio
-  \arpeggioNeutral
+  \arpeggioNormal
   <c e g c>\arpeggio
 }
 @end lilypond
@@ -707,12 +706,12 @@ consulte @ref{Ties}.
 
 @funindex \arpeggio
 @code{\arpeggio},
-@funindex \arpeggioUp
-@code{\arpeggioUp},
-@funindex \arpeggioDown
-@code{\arpeggioDown},
-@funindex \arpeggioNeutral
-@code{\arpeggioNeutral},
+@funindex \arpeggioArrowUp
+@code{\arpeggioArrowUp},
+@funindex \arpeggioArrowDown
+@code{\arpeggioArrowDown},
+@funindex \arpeggioNormal
+@code{\arpeggioNormal},
 @funindex \arpeggioBracket
 @code{\arpeggioBracket}.
 

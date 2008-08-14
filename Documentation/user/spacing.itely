@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @ignore
 GDP TODO list
@@ -69,14 +69,23 @@ estimated.  Finally, a page breaking and line breaking combination is chosen
 so that neither the horizontal nor the vertical spacing is too cramped
 or stretched.
 
+Settings which influence layout may be placed in two blocks.
+The @code{\paper @{...@}} block is placed outside any
+@code{\score @{...@}} blocks and contains settings that
+relate to the entire document.  The @code{\layout @{...@}}
+block is placed within a @code{\score @{...@}} block and
+contains settings for that particular score.  If you have
+only one @code{\score @{...@}} block the two have the same
+effect.  In general the commands shown in this chapter can
+be placed in either.
+
 @menu
 * Paper and pages::             
-* Music layout::                
-* Displaying spacing::          
-* Breaks::                      
-* Vertical spacing::            
-* Horizontal spacing::          
-* Page layout MOVED FROM LM::   
+* Music layout::
+* Breaks::
+* Vertical spacing::
+* Horizontal spacing::
+* Fitting music onto fewer pages::
 @end menu
 
 
@@ -84,7 +93,7 @@ or stretched.
 @section Paper and pages
 
 This section deals with the boundaries that define the area
-that music can be printed inside.
+within which music can be printed.
 
 @menu
 * Paper size::                  
@@ -102,6 +111,8 @@ that music can be printed inside.
 To change the paper size, there are two commands,
 @example
 #(set-default-paper-size "a4")
+@end example
+@example
 \paper @{
   #(set-paper-size "a4")
 @}
@@ -117,6 +128,8 @@ apply to that book.
 Support for the following paper sizes are included by default,
 @code{a6}, @code{a5}, @code{a4}, @code{a3}, @code{legal}, @code{letter},
 @code{11x17} (also known as tabloid).
+
+@c TODO Add new paper sizes -td
 
 Extra sizes may be added by editing the definition for
 @code{paper-alist} in the initialization file @file{scm/paper.scm}.
@@ -171,12 +184,12 @@ If set to false, page numbers will not be printed.  Default is true.
 @funindex paper-width
 @item paper-width
 The width of the page.  The default is taken from the current paper size,
-see @ref{Paper size}. 
+see @ref{Paper size}.
 
 @funindex paper-height
 @item paper-height
 The height of the page.  The default is taken from the current paper size,
-see @ref{Paper size}. 
+see @ref{Paper size}.
 
 @funindex top-margin
 @item top-margin
@@ -191,7 +204,7 @@ Margin between footer and bottom of the page.  Default is@tie{}6mm.
 Margin between the left side of the page and the beginning of the
 music.  Unset by default, which means that the margins is determined
 based on the @code{paper-width} and @code{line-width} to center the
-score on the paper. 
+score on the paper.
 
 @funindex line-width
 @item line-width
@@ -200,7 +213,7 @@ The length of the systems.  Default is @code{paper-width} minus @tie{}20mm.
 @funindex head-separation
 @item head-separation
 Distance between the top-most music system and the page header.  Default
-is@tie{}4mm. 
+is@tie{}4mm.
 
 @funindex foot-separation
 @item foot-separation
@@ -329,7 +342,7 @@ value is 10.
 @item auto-first-page-number
 The page breaking algorithm is affected by the first page number being
 odd or even.  If this variable is set to #t, the page breaking algorithm
-will decide whether to start with an odd or even number.  This will 
+will decide whether to start with an odd or even number.  This will
 result in the first page number remaining as is or being increased by one.
 
 @end table
@@ -370,7 +383,7 @@ Example:
 @}
 @end example
 
-This second example centers page numbers at the bottom of every page. 
+This second example centers page numbers at the bottom of every page.
 
 @example
 \paper @{
@@ -384,7 +397,7 @@ This second example centers page numbers at the bottom of every page.
   evenFooterMarkup = \markup @{ \fill-line @{
      \bold \fontsize #3 \on-the-fly #print-page-number-check-first
      \fromproperty #'page:page-number-string @} @}
-@} 
+@}
 @end example
 
 You can also define these values in Scheme.  In that case @code{mm},
@@ -428,8 +441,8 @@ add space between the titles and the first system of the score.
 @section Music layout
 
 @menu
-* Setting the staff size::      
-* Score layout::                
+* Setting the staff size::
+* Score layout::
 @end menu
 
 
@@ -439,6 +452,9 @@ add space between the titles and the first system of the score.
 @cindex font size, setting
 @cindex staff size, setting
 @funindex layout file
+
+The default @strong{staff size} is set to 20 points.
+This may be changed in two ways:
 
 To set the staff size globally for all scores in a file (or
 in a @code{book} block, to be precise), use @code{set-global-staff-size}.
@@ -451,7 +467,7 @@ in a @code{book} block, to be precise), use @code{set-global-staff-size}.
 This sets the global default size to 14pt staff height and scales all
 fonts accordingly.
 
-To set the staff size individually for each score, use 
+To set the staff size individually for each score, use
 @example
 \score@{
   ...
@@ -566,48 +582,17 @@ layout.
 This manual: @ref{Changing context default settings}.
 
 
-@node Displaying spacing
-@section Displaying spacing
-
-@funindex annotate-spacing
-@cindex Spacing, display of properties
-
-To graphically display the dimensions of vertical properties that may
-be altered for page formatting, set @code{annotate-spacing} in the
-@code{\paper} block, like this
-
-
-@c need to have \book{} otherwise we get  the separate systems. -hwn
-@lilypond[verbatim]
-#(set-default-paper-size "a6" 'landscape)
-
-\book {
-  \score { { c4 } }
-  \paper { annotate-spacing = ##t }
-}
-@end lilypond
-
-
-@c  TODO: really bad vagueness due to bug in annotate-spacing.  -gp
-@noindent
-Some unit dimensions are measured in staff spaces, while others
-are measured in millimeters.
-The pairs
-(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
-@var{b} the upper edge of the interval.
-
-
 @node Breaks
 @section Breaks
 
 @menu
-* Line breaking::               
-* Page breaking::               
-* Optimal page breaking::       
-* Optimal page turning::        
-* Minimal page breaking::       
-* Explicit breaks::             
-* Using an extra voice for breaks::  
+* Line breaking::
+* Page breaking::
+* Optimal page breaking::
+* Optimal page turning::
+* Minimal page breaking::
+* Explicit breaks::
+* Using an extra voice for breaks::
 @end menu
 
 @node Line breaking
@@ -616,24 +601,55 @@ The pairs
 @cindex line breaks
 @cindex breaking lines
 
-Line breaks are normally computed automatically.  They are chosen so
-that lines look neither cramped nor loose, and that consecutive lines
-have similar density.
+Line breaks are normally determined automatically. They are chosen
+so that lines look neither cramped nor loose, and consecutive
+lines have similar density.  Occasionally you might want to
+override the automatic breaks; you can do this by specifying
+@code{\break}. This will force a line break at this point.  However,
+line breaks can only occur at the end of @q{complete} bars, i.e.,
+where there are no notes or tuplets left @q{hanging} over the bar
+line.  If you want to have a line break where there is no bar line,
+you can force an invisible bar line by entering @code{\bar ""},
+although again there must be no notes left hanging over in any of
+the staves at this point, or it will be ignored.
 
-Occasionally you might want to override the automatic breaks; you can
-do this by specifying @code{\break}.  This will force a line break at
-this point.  Line breaks can only occur at places where there are bar
-lines.  If you want to have a line break where there is no bar line,
-you can force an invisible bar line by entering @code{\bar
-""}.  Similarly, @code{\noBreak} forbids a line break at a
-point.
+The opposite command, @code{\noBreak}, forbids a line break at the
+bar line where it is inserted.
+
+The most basic settings influencing line spacing are @code{indent}
+and @code{line-width}. They are set in the @code{\layout} block.
+They control the indentation of the first line of music, and the
+lengths of the lines.
+
+If @code{ragged-right} is set to true in the @code{\layout} block,
+then systems end at their natural horizontal length, instead of
+being spread horizontally to fill the whole line. This is useful
+for short fragments, and for checking how tight the natural
+spacing is.
+
+@c TODO Check and add para on default for ragged-right
+
+The option @code{ragged-last} is similar to @code{ragged-right},
+but affects only the last line of the piece.
+
+@example
+\layout @{
+indent = #0
+line-width = #150
+ragged-last = ##t
+@}
+@end example
+
 
 
 @cindex regular line breaks
 @cindex four bar music.
 
 For line breaks at regular intervals use @code{\break} separated by
-skips and repeated with @code{\repeat}:
+skips and repeated with @code{\repeat}.  For example, this would
+cause the following 28 measures (assuming 4/4 time) to be broken
+every 4 measures, and only there:
+
 @example
 << \repeat unfold 7 @{
          s1 \noBreak s1 \noBreak
@@ -641,10 +657,6 @@ skips and repeated with @code{\repeat}:
    @emph{the real music}
 >>
 @end example
-
-@noindent
-This makes the following 28 measures (assuming 4/4 time) be broken every
-4 measures, and only there.
 
 @predefined
 
@@ -656,6 +668,7 @@ This makes the following 28 measures (assuming 4/4 time) be broken every
 
 Internals: @rinternals{LineBreakEvent}.
 
+@c TODO Check this
 A linebreaking configuration can be saved as a @code{.ly} file
 automatically.  This allows vertical alignments to be stretched to
 fit pages in a second formatting run.  This is fairly new and
@@ -683,12 +696,12 @@ with the music.
   \remove Forbid_line_break_engraver
 } {
   c4 c2 << c2 {s4 \break } >>  % now the break is allowed
-  c2 c4 
+  c2 c4
 }
 @end lilypond
 
 Similarly, line breaks are normally forbidden when beams cross bar
-lines.  This behavior can be changed by setting 
+lines.  This behavior can be changed by setting
 @code{\override Beam #'breakable = ##t}.
 
 
@@ -705,6 +718,14 @@ a line break.
 The @code{\pageBreak} and @code{\noPageBreak} commands may also be
 inserted at top-level, between scores and top-level markups.
 
+There are also analogous settings to @code{ragged-right} and
+@code{ragged-last} which have the same effect on vertical spacing:
+@code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
+@code{##t} the systems on all pages or just the last page
+respectively will not be justified vertically.
+
+For more details see @ref{Vertical spacing}.
+
 Page breaks are computed by the @code{page-breaking} function.  LilyPond
 provides three algorithms for computing page breaks,
 @code{ly:optimal-breaking}, @code{ly:page-turn-breaking} and
@@ -717,6 +738,7 @@ but the value can be changed in the @code{\paper} block:
 @}
 @end example
 
+@c TODO Check this -td
 The old page breaking algorithm is called
 @code{optimal-page-breaks}.  If you are having trouble with the new page
 breakers, you can enable the old one as a workaround.
@@ -1437,8 +1459,8 @@ r2.
 \once \override TextScript #'outside-staff-priority = #1
 c4_"Text"\pp % this time the text will be closer to the staff
 r2.
-% by setting outside-staff-priority to a non-number, we
-% disable the automatic collision avoidance
+% by setting outside-staff-priority to a non-number, 
+% we disable the automatic collision avoidance
 \once \override TextScript #'outside-staff-priority = ##f
 \once \override DynamicLineSpanner #'outside-staff-priority = ##f
 c4_"Text"\pp % now they will collide
@@ -1584,8 +1606,7 @@ Proportional notation is supported; see @ref{Proportional notation}.
 @seealso
 
 Internals: @rinternals{SpacingSpanner}, @rinternals{NoteSpacing},
-@rinternals{StaffSpacing}, @rinternals{SeparationItem}, and
-@rinternals{SeparatingGroupSpanner}.
+@rinternals{StaffSpacing}, and @rinternals{SeparationItem}.
 
 
 @knownissues
@@ -2093,155 +2114,8 @@ to break across systems and pages.  See the respective parts of the manual
 for these related settings.
 
 
-
-@node Page layout MOVED FROM LM
-@section Page layout MOVED FROM LM
-
-@menu
-* Introduction to layout::      
-* Global sizes::                
-* Line breaks::                 
-* Page breaks::                 
-* Fitting music onto fewer pages::  
-@end menu
-
-@node Introduction to layout
-@subsection Introduction to layout
-
-The global paper layout is determined by three factors: 
-the page layout, the line breaks, and the spacing. These all 
-influence each other. The choice of spacing determines how 
-densely each system of music is set. This influences where line 
-breaks are chosen, and thus ultimately, how many pages a piece 
-of music takes.
-
-Settings which influence layout may be placed in two blocks.
-The @code{\paper @{...@}} block is placed outside any
-@code{\score @{...@}} blocks and contains settings that
-relate to the entire document.  The @code{\layout @{...@}}
-block is placed within a @code{\score @{...@}} block and
-contains settings for that particular score.  If you have
-only one @code{\score @{...@}} block the two have the same
-effect.  In general the commands shown in this section can
-be placed in either.
-
-Much more detail on the options for tweaking the laying out
-of music are contained in @ref{Spacing issues}.
-
-@node Global sizes
-@subsection Global sizes
-
-TODO Check all these examples
-
-The default @strong{paper size} which LilyPond assumes in laying
-out the music is A4.  This may be changed in two ways:
-
-@example
-#(set-default-paper-size "a6")
-
-\paper @{
-#(set-paper-size "letter")
-@}
-@end example
-
-@noindent
-The first command sets the size of all pages. The second command
-sets the size of the pages to which the \paper block applies -- if
-the \paper block is at the top of the file, then it will apply
-to all pages.  Support for the following paper sizes is available:
-a6, a5, a4, a3, legal, letter, 11x17 (also known as tabloid).
-Setting the paper size automatically sets suitable margins and
-line length.
-
-If the symbol @code{landscape} is supplied as an argument to
-@code{set-default-paper-size}, the pages will be rotated by 90
-degrees, and wider line widths will be set correspondingly, e.g.
-
-@example
-#(set-default-paper-size "a6" 'landscape)
-@end example
-
-The default @strong{staff size} is set to 20 points.
-This may be changed in two ways:
-
-@example
-#(set-global-staff-size 14)
-
-\paper @{
-#(set-global-staff-size 16)
-@}
-@end example
-
-@noindent
-The first command sets the size in all pages. The second command
-sets the size in the pages to which the \paper block applies - if
-the \paper block is at the top of the file, then it will apply
-to all pages.  All the fonts are automatically scaled to suit
-the new value of the staff size.
-
-@node Line breaks
-@subsection Line breaks
-
-Line breaks are normally determined automatically. They are chosen
-so that lines look neither cramped nor loose, and consecutive
-lines have similar density.  Occasionally you might want to
-override the automatic breaks; you can do this by specifying
-@code{\break}. This will force a line break at this point.  However,
-line breaks can only occur at the end of @q{complete} bars, i.e.,
-where there are no notes or tuplets left @q{hanging} over the bar
-line.  If you want to have a line break where there is no bar line,
-you can force an invisible bar line by entering @code{\bar ""},
-although again there must be no notes left hanging over in any of
-the staves at this point, or it will be ignored.
-
-The opposite command, @code{\noBreak}, forbids a line break at the
-bar line where it is inserted.
-
-The most basic settings influencing line spacing are @code{indent}
-and @code{line-width}. They are set in the @code{\layout} block.
-They control the indentation of the first line of music, and the
-lengths of the lines.
-
-If @code{ragged-right} is set to true in the @code{\layout} block,
-then systems end at their natural horizontal length, instead of
-being spread horizontally to fill the whole line. This is useful
-for short fragments, and for checking how tight the natural
-spacing is.
-
-The option @code{ragged-last} is similar to @code{ragged-right},
-but affects only the last line of the piece.
-
-@example
-\layout @{
-indent = #0
-line-width = #150
-ragged-last = ##t
-@}
-@end example
-
-@node Page breaks
-@subsection Page breaks
-
-The default page breaking may be overridden by inserting 
-@code{\pageBreak} or @code{\noPageBreak} commands.
-These commands are analogous to the @code{\break} and 
-@code{\noBreak} commands discussed above and force or forbid 
-a page-break at the point where they are inserted.
-Of course, the @code{\pageBreak} command also forces a line break.
-Like @code{\break}, the @code{\pageBreak} command is effective only
-at the end of a @q{complete} bar as defined above.  For more
-details see @ref{Page breaking} and following sections.
-
-There are also analogous settings to @code{ragged-right} and
-@code{ragged-last} which have the same effect on vertical spacing:
-@code{ragged-bottom} and @code{ragged-last-bottom}.  If set to
-@code{##t} the systems on all pages or just the last page
-respectively will not be justified vertically.
-
-For more details see @ref{Vertical spacing}.
-
 @node Fitting music onto fewer pages
-@subsection Fitting music onto fewer pages
+@section Fitting music onto fewer pages
 
 Sometimes you can end up with one or two staves on a second
 (or third, or fourth...) page.  This is annoying, especially
@@ -2250,9 +2124,49 @@ of room left on those.
 
 When investigating layout issues, @code{annotate-spacing} is
 an invaluable tool.  This command prints the values of various
-layout spacing commands; see @ref{Displaying spacing}, for more
-details.  From the output of @code{annotate-spacing}, we can
+layout spacing commands; for more details see the following
+section, @ref{Displaying spacing}.
+
+@menu
+* Displaying spacing::
+* Changing spacing::
+@end menu
+
+@node Displaying spacing
+@subsection Displaying spacing
+
+@funindex annotate-spacing
+@cindex Spacing, display of properties
+
+To graphically display the dimensions of vertical properties that may
+be altered for page formatting, set @code{annotate-spacing} in the
+@code{\paper} block, like this:
+
+@c need to have \book{} otherwise we get the separate systems. -hwn
+@lilypond[verbatim]
+#(set-default-paper-size "a6" 'landscape)
+\book {
+  \score { { c4 } }
+  \paper { annotate-spacing = ##t }
+}
+@end lilypond
+
+
+@c  TODO: really bad vagueness due to bug in annotate-spacing.  -gp
+@noindent
+Some unit dimensions are measured in staff spaces, while others
+are measured in millimeters.
+The pairs
+(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
+@var{b} the upper edge of the interval.
+
+@node Changing spacing
+@subsection Changing spacing
+
+From the output of @code{annotate-spacing}, we can
 see which margins we may wish to alter.
+
+@c TODO add info about or pointers to margin settings
 
 Other than margins, there are a few other options to save space:
 
@@ -2344,9 +2258,6 @@ example) to @code{1/2}:
 Note that this override cannot be modified dynamically, so it must
 always be placed in a @code{\context@{..@}} block so that it applies
 to the whole score.
-
-TODO Add description of using \context in this way earlier if it is
-not already anywhere  -td
 
 @end itemize
 

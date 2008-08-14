@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Text
 @section Text
@@ -325,7 +325,7 @@ usando la sintaxis específica del modo de @code{\markup}.
 
 @menu
 * Text markup introduction::    
-* Common markup commands::      
+* Selecting font and font size::      
 * Text alignment::              
 * Graphic notation inside markup::  
 * Music notation inside markup::  
@@ -454,8 +454,8 @@ Los errores de sintaxis para el modo de marcado a menudo producen
 confusión.
 
 
-@node Common markup commands
-@subsubsection Common markup commands
+@node Selecting font and font size
+@subsubsection Selecting font and font size
 
 UNTRANSLATED NODE: IGNORE ME
 

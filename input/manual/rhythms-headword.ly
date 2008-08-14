@@ -1,12 +1,11 @@
-\version "2.11.38"
+\version "2.11.51"
 \include "english.ly"
 #(set-global-staff-size 15)
-\paper{
-  ragged-right=##t
-  line-width=17\cm
-  indent=0\cm
+\paper {
+  line-width = 16\cm
+  indent = 0\cm
 }
- 
+
 % NR 1.2 Rhythms
 
 % Beethoven, Op. 81a
@@ -15,12 +14,12 @@
 % Measures 31 - 34
 
 \layout {
-   \context {
-      \Score
-      \override SpacingSpanner #'base-shortest-duration = 
-         #(ly:make-moment 1 40) 
+  \context {
+    \Score
+    \override SpacingSpanner #'base-shortest-duration =
+      #(ly:make-moment 1 40)
       %\override SpacingSpanner #'strict-grace-spacing = ##t
-   }
+  }
 }
 
 \new PianoStaff <<
@@ -32,7 +31,12 @@
       \time 2/4
       \set Score.currentBarNumber = #31
 
-      <c'' c'>8 (
+      <c''' c''>8 ( -\markup {
+        \override #'(baseline-skip . 2) \italic \column {
+          \line { a tempo }
+          cantabile
+        }
+      }
       <g'' g'>8 )
       ~
       <g'' g'>8 (
@@ -42,7 +46,7 @@
       |
 
       \afterGrace
-         <f'' f'>8 (
+         <f'' f'>8 [ (
          {
             e''16 [
             f''16
@@ -50,8 +54,9 @@
             d''16 ]
          }
       <e''! e'>16
-      <f'' f'>16 )
-      <g'' g'>16 ( \staccato
+      <f'' f'>16 ] )
+      \once \override TextScript #'padding = #3.8
+      <g'' g'>16 ( \staccato -\markup { \italic cresc. }
       <a'' a'>16 ) \staccato
       <bf'' bf'>32  (
       <b'' b'>32 )
@@ -59,11 +64,12 @@
       <c''' c''>32 )
 
       |
-
-      b''32 (
+      
+      \once \override DynamicLineSpanner #'padding = #2
+      b''32 ( \p \>
       c'''32
       d'''32
-      c'''32 )
+      c'''32 ) \!
       g''8 (
       ~
       g''32 [
@@ -90,7 +96,7 @@
       |
 
       \afterGrace
-         <f'' f'>8 (
+         <f'' f'>8 [ (
          {
             e''16 [
             f''16
@@ -98,8 +104,8 @@
             d''16 ]
          }
       <e''! e'>16
-      <f'' f'>16 )
-      <g'' g'>16 ( \staccato
+      <f'' f'>16 ] )
+      <g'' g'>16 ( \staccato -\markup { \italic cresc. }
       <af''! af'!>16 ) \staccato
       <bf'' bf'>32  (
       <b'' b'>32 )

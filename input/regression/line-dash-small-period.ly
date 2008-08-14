@@ -5,12 +5,13 @@
 
 }
 
-\version "2.11.29"
+\version "2.11.53"
+
 \relative {
   \override Staff.OttavaBracket #'dash-period = #0.1
   \override Score.OttavaBracket #'dash-fraction = #1
 
-  #(set-octavation 1)
+  \ottava #1
   c4 c
 }
 

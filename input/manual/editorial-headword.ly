@@ -1,4 +1,4 @@
-\version "2.11.38"
+\version "2.11.51"
 \include "english.ly"
 #(set-global-staff-size 15)
 \paper{
@@ -7,6 +7,13 @@
   indent=0\cm
 }
  
+\layout {
+  \context { \Score
+    \override PaperColumn #'keep-inside-line = ##t
+    \override NonMusicalPaperColumn #'keep-inside-line = ##t
+  }
+}
+
 % NR 1.7 Editorial annotations
 
 % Beethoven, Op. 31, No. 3

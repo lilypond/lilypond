@@ -55,7 +55,7 @@ public:
   
 private:
   vector<Beam_rhythmic_element> infos_;
-  Direction flag_direction (vsize) const;
+  Direction flag_direction (Beaming_options const&, vsize) const;
   void find_rhythmic_importance (Beaming_options const&);
   void unbeam_invisible_stems ();
 };

@@ -15,20 +15,20 @@
 
 using namespace std;
 
-#include "dots.hh"
-#include "dot-column.hh"
-#include "rhythmic-head.hh"
-#include "staff-symbol-referencer.hh"
-#include "directional-element-interface.hh"
-#include "side-position-interface.hh"
 #include "axis-group-interface.hh"
-#include "stem.hh"
-#include "grob.hh"
-#include "pointer-group-interface.hh"
+#include "directional-element-interface.hh"
+#include "dot-column.hh"
 #include "dot-configuration.hh"
-#include "note-head.hh"
-#include "rest.hh"
 #include "dot-formatting-problem.hh"
+#include "dots.hh"
+#include "grob.hh"
+#include "note-head.hh"
+#include "pointer-group-interface.hh"
+#include "rest.hh"
+#include "rhythmic-head.hh"
+#include "side-position-interface.hh"
+#include "staff-symbol-referencer.hh"
+#include "stem.hh"
 
 MAKE_SCHEME_CALLBACK (Dot_column, calc_positioning_done, 1);
 SCM
@@ -178,7 +178,6 @@ Dot_column::calc_positioning_done (SCM smob)
        */
       Staff_symbol_referencer::set_position (i->second.dot_, i->first);
     }
-
   
   me->translate_axis (cfg.x_offset () - me->relative_coordinate (commonx, X_AXIS),
 		      X_AXIS);
@@ -186,16 +185,19 @@ Dot_column::calc_positioning_done (SCM smob)
 }
 
 void
-Dot_column::add_head (Grob *me, Grob *rh)
+Dot_column::add_head (Grob *me, Grob *head)
 {
-  Grob *d = unsmob_grob (rh->get_object ("dot"));
+  Grob *d = unsmob_grob (head->get_object ("dot"));
   if (d)
     {
-      Side_position_interface::add_support (me, rh);
+      Side_position_interface::add_support (me, head);
 
       Pointer_group_interface::add_grob (me, ly_symbol2scm ("dots"), d);
       d->set_property ("Y-offset", Grob::x_parent_positioning_proc);
-      d->set_property ("X-offset", Grob::x_parent_positioning_proc);
+      // Dot formatting requests the Y-offset, -which- for rests may
+      // trigger post-linebreak callbacks.
+      if (!Rest::has_interface (head))
+	d->set_property ("X-offset", Grob::x_parent_positioning_proc);
       Axis_group_interface::add_element (me, d);
     }
 }

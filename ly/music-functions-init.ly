@@ -98,14 +98,6 @@ applyContext =
                    'procedure proc))
 
 
-balloonText =
-#(define-music-function (parser location offset text) (number-pair? markup?)
-   
-    (make-music 'AnnotateOutputEvent
-		'X-offset (car offset)
-		'Y-offset (cdr offset)
-		'text text))
-
 balloonGrobText =
 #(define-music-function (parser location grob-name offset text) (symbol? number-pair? markup?)
    
@@ -114,6 +106,15 @@ balloonGrobText =
 		'X-offset (car offset)
 		'Y-offset (cdr offset)
 		'text text))
+
+balloonText =
+#(define-music-function (parser location offset text) (number-pair? markup?)
+   
+    (make-music 'AnnotateOutputEvent
+		'X-offset (car offset)
+		'Y-offset (cdr offset)
+		'text text))
+
 
 bar =
 #(define-music-function (parser location type)
@@ -136,6 +137,12 @@ barNumberCheck =
 					 cbn n))))))
 
 
+bendAfter =
+#(define-music-function (parser location delta) (real?)
+	      
+  (make-music 'BendAfterEvent
+   'delta-step delta))
+
 %% why a function?
 breathe =
 #(define-music-function (parser location) ()
@@ -143,11 +150,6 @@ breathe =
               'origin location
               'elements (list (make-music 'BreathingEvent))))
 
-bendAfter =
-#(define-music-function (parser location delta) (real?)
-	      
-  (make-music 'BendAfterEvent
-   'delta-step delta))
 
 clef =
 #(define-music-function (parser location type)
@@ -155,12 +157,6 @@ clef =
    (_i "Set the current clef.")
 
    (make-clef-set type))
-
-
-scaleDurations =
-#(define-music-function
-		  (parser location fraction music) (number-pair? ly:music?)
-		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
 
 
 cueDuring = 
@@ -275,6 +271,27 @@ instrumentSwitch =
       'Staff)))
 
 
+%% Parser used to read page-layout file, and then retreive score tweaks.
+#(define page-layout-parser #f)
+
+includePageLayoutFile = 
+#(define-music-function (parser location) ()
+   (_i "If page breaks and tweak dump is not asked, and the file
+<basename>-page-layout.ly exists, include it.")
+   (if (not (ly:get-option 'dump-tweaks))
+       (let ((tweak-filename (format #f "~a-page-layout.ly"
+				     (ly:parser-output-name parser))))
+	 (if (access? tweak-filename R_OK)
+	     (begin
+	       (ly:message "Including tweak file ~a" tweak-filename)
+               (set! page-layout-parser (ly:parser-clone parser))
+	       (ly:parser-parse-string page-layout-parser
+                                       (format #f "\\include \"~a\""
+                                               tweak-filename))))))
+   (make-music 'SequentialMusic 'void #t))
+
+
+
 keepWithTag =
 #(define-music-function
   (parser location tag music) (symbol? ly:music?)
@@ -287,7 +304,15 @@ keepWithTag =
       res)))
    music))
 
-
+removeWithTag = 
+#(define-music-function
+  (parser location tag music) (symbol? ly:music?)
+  (music-filter
+   (lambda (m)
+    (let* ((tags (ly:music-property m 'tags))
+           (res (memq tag tags)))
+     (not res)))
+ music))
 
 killCues =
 #(define-music-function
@@ -417,28 +442,23 @@ markups), or inside a score.")
 	       'elements (list (make-music 'PageTurnEvent
 					   'break-permission 'allow))))
 
-removeWithTag = 
-#(define-music-function
-  (parser location tag music) (symbol? ly:music?)
-  (music-filter
-   (lambda (m)
-    (let* ((tags (ly:music-property m 'tags))
-           (res (memq tag tags)))
-     (not res)))
- music))
-
 %% Todo:
 %% doing
 %% define-music-function in a .scm causes crash.
 
-octave =
+octaveCheck =
 #(define-music-function (parser location pitch-note) (ly:music?)
    (_i "octave check")
 
    (make-music 'RelativeOctaveCheck
 	       'origin location
 	       'pitch (pitch-of-note pitch-note) 
-	       ))
+           ))
+
+ottava = #(define-music-function (parser location octave) (number?)
+  (_i "set the octavation ")
+  (make-ottava-set octave))
+
 partcombine =
 #(define-music-function (parser location part1 part2) (ly:music? ly:music?)
                 (make-part-combine-music parser
@@ -456,37 +476,27 @@ pitchedTrill =
 		      (ly:music-property ev-chord 'elements))))
 	(sec-note-events (get-notes secondary-note))
 	(trill-events (filter (lambda (m) (music-has-type m 'trill-span-event))
-			      (ly:music-property main-note 'elements)))
+			      (ly:music-property main-note 'elements))))
 
-	(trill-pitch
-	 (if (pair? sec-note-events)
-	     (ly:music-property (car sec-note-events) 'pitch)
-	     )))
-     
-     (if (ly:pitch? trill-pitch)
-	 (for-each (lambda (m) (ly:music-set-property! m 'pitch trill-pitch))
-		   trill-events)
+     (if (pair? sec-note-events)
 	 (begin
-	   (ly:warning (_ "Second argument of \\pitchedTrill should be single note: "))
-	   (display sec-note-events)))
+	   (let*
+	       ((trill-pitch (ly:music-property (car sec-note-events) 'pitch))
+		(forced (ly:music-property (car sec-note-events ) 'force-accidental)))
+	     
+	     (if (ly:pitch? trill-pitch)
+		 (for-each (lambda (m) (ly:music-set-property! m 'pitch trill-pitch))
+			   trill-events)
+		 (begin
+		   (ly:warning (_ "Second argument of \\pitchedTrill should be single note: "))
+		   (display sec-note-events)))
 
+	     (if (eq? forced #t)
+		 (for-each (lambda (m) (ly:music-set-property! m 'force-accidental forced))
+			   trill-events)))))
      main-note))
-   
-parenthesize =
-#(define-music-function (parser loc arg) (ly:music?)
-   (_i "Tag @var{arg} to be parenthesized.")
 
-   (if (memq 'event-chord (ly:music-property arg 'types))
-     ; arg is an EventChord -> set the parenthesize property on all child notes and rests
-     (map
-       (lambda (ev)
-         (if (or (memq 'note-event (ly:music-property ev 'types))
-                 (memq 'rest-event (ly:music-property ev 'types)))
-           (set! (ly:music-property ev 'parenthesize) #t)))
-       (ly:music-property arg 'elements))
-     ; No chord, simply set property for this expression:
-     (set! (ly:music-property arg 'parenthesize) #t))
-   arg)
+
 
 %% for lambda*
 #(use-modules (ice-9 optargs))
@@ -584,6 +594,23 @@ Example:
 
 
 
+parenthesize =
+#(define-music-function (parser loc arg) (ly:music?)
+   (_i "Tag @var{arg} to be parenthesized.")
+
+   (if (memq 'event-chord (ly:music-property arg 'types))
+     ; arg is an EventChord -> set the parenthesize property on all child notes and rests
+     (map
+       (lambda (ev)
+         (if (or (memq 'note-event (ly:music-property ev 'types))
+                 (memq 'rest-event (ly:music-property ev 'types)))
+           (set! (ly:music-property ev 'parenthesize) #t)))
+       (ly:music-property arg 'elements))
+     ; No chord, simply set property for this expression:
+     (set! (ly:music-property arg 'parenthesize) #t))
+   arg)
+
+
 quoteDuring = #
 (define-music-function
   (parser location what main-music)
@@ -614,6 +641,12 @@ resetRelativeOctave  =
     reference-note))
 
 
+scaleDurations =
+#(define-music-function
+		  (parser location fraction music) (number-pair? ly:music?)
+		  (ly:music-compress music (ly:make-moment (car fraction) (cdr fraction))))
+
+
 
 shiftDurations =
 #(define-music-function (parser location dur dots arg) (integer? integer? ly:music?)
@@ -633,25 +666,6 @@ the `parameters' assoc list.")
         #$(list (cons 'alignment-extra-space (cdr (assoc 'system-stretch parameters)))
 		(cons 'system-Y-extent (cdr (assoc 'system-Y-extent parameters))))
    #})
-
-%% Parser used to read page-layout file, and then retreive score tweaks.
-#(define page-layout-parser #f)
-
-includePageLayoutFile = 
-#(define-music-function (parser location) ()
-   (_i "If page breaks and tweak dump is not asked, and the file
-<basename>-page-layout.ly exists, include it.")
-   (if (not (ly:get-option 'dump-tweaks))
-       (let ((tweak-filename (format #f "~a-page-layout.ly"
-				     (ly:parser-output-name parser))))
-	 (if (access? tweak-filename R_OK)
-	     (begin
-	       (ly:message "Including tweak file ~a" tweak-filename)
-               (set! page-layout-parser (ly:parser-clone parser))
-	       (ly:parser-parse-string page-layout-parser
-                                       (format #f "\\include \"~a\""
-                                               tweak-filename))))))
-   (make-music 'SequentialMusic 'void #t))
 
 
 rightHandFinger =
@@ -677,6 +691,20 @@ scoreTweak =
              tweak-music
              (make-music 'SequentialMusic)))
        (make-music 'SequentialMusic)))
+
+
+tag = #(define-music-function (parser location tag arg)
+   (symbol? ly:music?)
+
+   (_i "Add @var{tag} to the @code{tags} property of @var{arg}.")
+
+   (set!
+    (ly:music-property arg 'tags)
+    (cons tag
+	  (ly:music-property arg 'tags)))
+   arg)
+
+
 
 transposedCueDuring =
 #(define-music-function
@@ -720,16 +748,6 @@ tweak = #(define-music-function (parser location sym val arg)
 		   (ly:music-property arg 'tweaks)))
 	   arg)
 
-tag = #(define-music-function (parser location tag arg)
-   (symbol? ly:music?)
-
-   (_i "Add @var{tag} to the @code{tags} property of @var{arg}.")
-
-   (set!
-    (ly:music-property arg 'tags)
-    (cons tag
-	  (ly:music-property arg 'tags)))
-   arg)
 
 
 unfoldRepeats =
@@ -744,5 +762,3 @@ withMusicProperty =
 
    (set! (ly:music-property music sym) val)
    music)
-
-

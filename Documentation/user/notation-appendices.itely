@@ -7,13 +7,15 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Notation manual tables
 @appendix Notation manual tables
 
 @menu
 * Chord name chart::            
+* Common chord modifiers::
+* Predefined fretboard diagrams::
 * MIDI instruments::            
 * List of colors::              
 * The Feta font::               
@@ -36,6 +38,346 @@ The following charts shows two standard systems for printing chord
 names, along with the pitches they represent.
 
 @lilypondfile{chord-names-jazz.ly}
+
+@node Common chord modifiers
+@appendixsec Common chord modifiers
+
+The following table shows chord modifiers that can be used in
+@code{\chordmode} to generate standard chord structures.
+
+@multitable @columnfractions .2 .3 .2 .2
+
+@item
+@b{Chord type}
+@tab
+@b{Intervals}
+@tab
+@b{Modifier(s)}
+@tab
+@b{Example}
+
+
+@item
+Major
+@tab
+Major third, perfect fifth
+@tab
+@code{5} or nothing
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:5
+}
+@end lilypond
+
+@item
+Minor
+@tab
+Minor third, perfect fifth
+@tab
+@code{m} or @code{m5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m
+}
+@end lilypond
+
+@item
+Augmented
+@tab
+Major third, augmented fifth
+@tab
+@code{aug}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug
+}
+@end lilypond
+
+@item
+Diminished
+@tab
+Minor third, diminished fifth
+@tab
+@code{dim}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim
+}
+@end lilypond
+
+@item
+Dominant seventh
+@tab
+Major triad, minor seventh
+@tab
+@code{7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:7
+}
+@end lilypond
+
+@item
+Major seventh
+@tab
+Major triad, major seventh
+@tab
+@code{maj7} or @code{maj}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj7
+}
+@end lilypond
+
+@item
+Minor seventh
+@tab
+Minor triad, minor seventh
+@tab
+@code{m7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m7
+}
+@end lilypond
+
+@item
+Diminished seventh
+@tab
+Diminished triad, diminished seventh
+@tab
+@code{dim7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim7
+}
+@end lilypond
+
+@item
+Augmented seventh
+@tab
+Augmented triad, minor seventh
+@tab
+@code{aug7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:aug7
+}
+@end lilypond
+
+@item
+Half-diminished seventh
+@tab
+Diminished triad, minor seventh
+@tab
+@code{dim5m7}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:dim5m7
+}
+@end lilypond
+
+@item
+Minor-major seventh
+@tab
+Minor triad, major seventh
+@tab
+@code{7m5}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:7m5
+}
+@end lilypond
+
+@item
+Major sixth
+@tab
+Major triad, sixth
+@tab
+@code{6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:6
+}
+@end lilypond
+
+@item
+Minor sixth
+@tab
+Minor triad, sixth
+@tab
+@code{m6}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m6
+}
+@end lilypond
+
+@item
+Dominant ninth
+@tab
+Dominant seventh, major ninth
+@tab
+@code{9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:9
+}
+@end lilypond
+
+@item
+Major ninth
+@tab
+TODO
+@tab
+@code{maj9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj9
+}
+@end lilypond
+
+@item
+Minor ninth
+@tab
+TODO
+@tab
+@code{m9}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m9
+}
+@end lilypond
+
+@item
+Dominant eleventh
+@tab
+Dominant ninth, perfect eleventh
+@tab
+@code{11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:11
+}
+@end lilypond
+
+@item
+Major eleventh
+@tab
+TODO
+@tab
+@code{maj11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj11
+}
+@end lilypond
+
+@item
+Minor eleventh
+@tab
+TODO
+@tab
+@code{m11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m11
+}
+@end lilypond
+
+@item
+Dominant thirteenth
+@tab
+Dominant eleventh, major thirteenth
+@tab
+@code{13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:13.11
+}
+@end lilypond
+
+@item
+Major thirteenth
+@tab
+TODO
+@tab
+@code{maj13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:maj13.11
+}
+@end lilypond
+
+@item
+Minor thirteenth
+@tab
+TODO
+@tab
+@code{m13.11}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:m13.11
+}
+@end lilypond
+
+@item
+Suspended second
+@tab
+TODO
+@tab
+@code{sus2}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus2
+}
+@end lilypond
+
+@item
+Suspended fourth
+@tab
+TODO
+@tab
+@code{sus4}
+@tab
+@lilypond[line-width=3\cm,noragged-right, notime]
+\chordmode {
+  c1:sus4
+}
+@end lilypond
+
+
+@end multitable
+
+@node Predefined fretboard diagrams
+@appendixsec Predefined fretboard diagrams
+
+The chart below shows the predefined fretboard diagrams.
+
+@lilypondfile{display-predefined-fretboards.ly}
 
 @node MIDI instruments
 @appendixsec MIDI instruments

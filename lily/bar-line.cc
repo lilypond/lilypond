@@ -94,13 +94,28 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
   colon.translate_axis (-dist / 2, Y_AXIS);
 
   Stencil m;
+  Grob *staff = Staff_symbol_referencer::get_staff_symbol (me);
+  Real center = 0;
+  if (staff)
+    {
+      Interval staff_extent = staff->extent (staff, Y_AXIS);
+      center = staff_extent.center ();
+    }
+
   if (str == "||:")
     str = "|:";
 
   if (str == "")
-    return Lookup::blank (Box (Interval (0, 0), Interval (-h / 2, h / 2)));
+    {
+      Stencil empty =  Lookup::blank (Box (Interval (0, 0), Interval (-h / 2, h / 2)));
+      empty.translate_axis (center, Y_AXIS);
+      return empty;
+    }
   else if (str == "|")
-    return thin;
+    {
+      thin.translate_axis (center, Y_AXIS);
+      return thin;
+    }
   else if (str == "|." || (h == 0 && str == ":|"))
     {
       m.add_at_edge (X_AXIS, LEFT, thick, 0);
@@ -165,6 +180,8 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
     {
       m = dot;
     }
+
+  m.translate_axis (center, Y_AXIS);
   return m;
 }
 

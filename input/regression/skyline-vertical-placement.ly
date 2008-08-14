@@ -5,7 +5,7 @@ using a skyline algorithm so that they don't collide with other objects."
 
 \layout {ragged-right = ##t}
 
-\version "2.11.0"
+\version "2.11.51"
 \relative c''' {
   \override TextScript #'outside-staff-priority = #2
   \override DynamicLineSpanner #'outside-staff-priority = #1

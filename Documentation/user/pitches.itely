@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 
 @node Pitches
@@ -47,6 +47,7 @@ mode.  In most cases, relative mode will be more convenient.
 @cindex pitches
 @cindex absolute
 @cindex absolute octave specification
+@cindex absolute octave entry
 
 A pitch name is specified using lowercase letters@tie{}@code{a}
 through@tie{}@code{g}.  The note names @code{c} to @code{b} are
@@ -60,6 +61,7 @@ g a b c
 d e f g
 @end lilypond
 
+@cindex octave changing mark
 @funindex '
 @funindex ,
 
@@ -90,6 +92,7 @@ Snippets:
 @unnumberedsubsubsec Relative octave entry
 
 @cindex relative
+@cindex relative octave entry
 @cindex relative octave specification
 @funindex \relative
 
@@ -215,6 +218,8 @@ Internals Reference:
 @rinternals{RelativeOctaveMusic}.
 
 
+@cindex relative octave entry and transposition
+@cindex transposition and relative octave entry
 @funindex \transpose
 @funindex \chordmode
 @funindex \relative
@@ -258,6 +263,7 @@ see @rlearning{Accidentals and key signatures}.}
 @cindex double flat
 @cindex flat, double
 @cindex natural sign
+@cindex natural pitch
 
 A @notation{sharp} pitch is made by adding @code{is} to the note
 name, and a @notation{flat} pitch by adding @code{es}.  As you
@@ -312,6 +318,9 @@ natural signs.
 cis cis cis! cis? c c c! c?
 @end lilypond
 
+@cindex accidental on tied note
+@cindex tied note, accidental
+
 Accidentals on tied notes are only printed at the beginning of a
 new system:
 
@@ -355,6 +364,9 @@ Internals Reference:
 @rinternals{accidental-interface}.
 
 
+@cindex accidental, quarter-tone
+@cindex quarter-tone accidental
+
 @knownissues
 
 There are no generally accepted standards for denoting
@@ -366,14 +378,17 @@ any standard.
 @node Note names in other languages
 @unnumberedsubsubsec Note names in other languages
 
+@cindex note names, other languages
+@cindex pitch names, other languages
+@cindex language, note names in other
+@cindex language, pitch names in other
+
 There are predefined sets of note names for various other
 languages.  To use them, include the language-specific init file.
 For example, to use English notes names, add
 @w{@code{\include "english.ly"}} to the top of the input file.
 The available language files and the note names they define are:
 
-@cindex note names, other languages
-@cindex pitch names, other languages
 
 @smallexample
 @multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
@@ -383,35 +398,38 @@ The available language files and the note names they define are:
 @item nederlands.ly
   @tab c d e f g a bes b
   @tab -is @tab -es @tab -isis @tab -eses
-@item english.ly
-  @tab c d e f g a bf b
-  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
-    @tab -ff/-flatflat
-@item deutsch.ly
-  @tab c d e f g a b h
-  @tab -is @tab -es @tab -isis @tab -eses
-@item norsk.ly
-  @tab c d e f g a b h
-  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
-    @tab -essess/-eses
-@item svenska.ly
-  @tab c d e f g a b h
-  @tab -iss @tab -ess @tab -ississ @tab -essess
-@item suomi.ly
-  @tab c d e f g a b h
-  @tab -is @tab -es @tab -isis @tab -eses
-@item italiano.ly
+@item arabic.ly
   @tab do re mi fa sol la sib si
   @tab -d @tab -b @tab -dd @tab -bb
 @item catalan.ly
   @tab do re mi fa sol la sib si
   @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+@item deutsch.ly
+  @tab c d e f g a b h
+  @tab -is @tab -es @tab -isis @tab -eses
+@item english.ly
+  @tab c d e f g a bf b
+  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
+    @tab -ff/-flatflat
 @item espanol.ly
   @tab do re mi fa sol la sib si
   @tab -s @tab -b @tab -ss @tab -bb
+@item italiano.ly
+  @tab do re mi fa sol la sib si
+  @tab -d @tab -b @tab -dd @tab -bb
+@item norsk.ly
+  @tab c d e f g a b h
+  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
+    @tab -essess/-eses
 @item portugues.ly
   @tab do re mi fa sol la sib si
   @tab -s @tab -b @tab -ss @tab -bb
+@item suomi.ly
+  @tab c d e f g a b h
+  @tab -is @tab -es @tab -isis @tab -eses
+@item svenska.ly
+  @tab c d e f g a b h
+  @tab -iss @tab -ess @tab -ississ @tab -essess
 @item vlaams.ly
   @tab do re mi fa sol la sib si
   @tab -k @tab -b @tab -kk @tab -bb
@@ -430,6 +448,12 @@ a2 as e es a ases e eses
 @end lilypond
 
 
+@cindex microtones
+@cindex semi-sharp
+@cindex semi-flat
+@cindex sesqui-sharp
+@cindex sesqui-flat
+
 Some music uses microtones whose alterations are fractions of a
 @q{normal} sharp or flat.  The note names for quarter-tones
 defined in the various language files are listed in the following
@@ -446,12 +470,15 @@ languages, no special names have been defined yet.
 @item nederlands.ly
   @tab c d e f g a bes b
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item english.ly
-  @tab c d e f g a bf b
-  @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item arabic.ly
+  @tab do re mi fa sol la sib si
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
 @item deutsch.ly
   @tab c d e f g a b h
   @tab -ih @tab -eh @tab -isih @tab -eseh
+@item english.ly
+  @tab c d e f g a bf b
+  @tab -qs @tab -qf @tab -tqs @tab -tqf
 @item italiano.ly
   @tab do re mi fa sol la sib si
   @tab -sd @tab -sb @tab -dsd @tab -bsb
@@ -486,8 +513,10 @@ This section discusses how to modify pitches.
 
 @cindex octave correction
 @cindex octave check
+@cindex control pitch
 @funindex =
-@funindex \octave
+@funindex \octaveCheck
+@funindex controlpitch
 
 In relative mode, it is easy to forget an octave changing mark.
 Octave checks make such errors easier to find by displaying a
@@ -508,7 +537,7 @@ correction.
 @end lilypond
 
 The octave of notes may also be checked with the
-@code{\octave}@tie{}@var{controlpitch} command.
+@code{\octaveCheck}@tie{}@var{controlpitch} command.
 @var{controlpitch} is specified in absolute mode.  This checks
 that the interval between the previous note and the
 @var{controlpitch} is within a fourth (i.e., the normal
@@ -519,12 +548,12 @@ relative to the @var{controlpitch}.
 @lilypond[verbatim,quote]
 \relative c'' {
   c2 d
-  \octave c'
+  \octaveCheck c'
   e2 f
 }
 @end lilypond
 
-Compare the two bars below.  The first and third @code{\octave}
+Compare the two bars below.  The first and third @code{\octaveCheck}
 checks fail, but the second one does not fail.
 
 @lilypond[verbatim,quote]
@@ -532,11 +561,11 @@ checks fail, but the second one does not fail.
   c4 f g f
 
   c4
-  \octave c'
+  \octaveCheck c'
   f
-  \octave c'
+  \octaveCheck c'
   g
-  \octave c'
+  \octaveCheck c'
   f
 }
 @end lilypond
@@ -555,8 +584,12 @@ Internals Reference:
 @unnumberedsubsubsec Transpose
 
 @cindex transpose
+@cindex transposing
 @cindex transposition
 @cindex transposition of pitches
+@cindex transposition of notes
+@cindex pitches, transposition of
+@cindex notes, transposition of
 @funindex \transpose
 
 A music expression can be transposed with @code{\transpose}.  The
@@ -586,6 +619,9 @@ automatically transposed as well.
 }
 @end lilypond
 
+@cindex transposing instruments
+@cindex instruments, transposing
+
 If a part written in C (normal @notation{concert pitch}) is to be
 played on the A clarinet (for which an A is notated as a C and
 thus sounds a minor third lower than notated), the appropriate
@@ -612,14 +648,15 @@ the notes will remain on the same scale step, the second version
 will print flats on the scale step above.
 
 @lilypond[verbatim,quote]
-mus = \relative c' { c d e f }
+music = \relative c' { c d e f }
 \new Staff {
-  \transpose c cis { \mus }
-  \transpose c des { \mus }
+  \transpose c cis { \music }
+  \transpose c des { \music }
 }
 @end lilypond
 
 @cindex transposing instruments
+@cindex instruments, transposing
 
 @code{\transpose} may also be used in a different way, to input
 written notes for a transposing instrument.  The previous examples
@@ -843,6 +880,15 @@ at the start of the staff.  The key signature may be altered:
 @funindex \dorian
 @cindex church modes
 @cindex modes
+@cindex major
+@cindex minor
+@cindex ionian
+@cindex locrian
+@cindex aeolian
+@cindex mixolydian
+@cindex lydian
+@cindex phrygian
+@cindex dorian
 
 Here, @var{mode} should be @code{\major} or @code{\minor} to get a
 key signature of @var{pitch}-major or @var{pitch}-minor,
@@ -898,19 +944,20 @@ Internals Reference:
 @cindex 8va
 @cindex 8ve
 @cindex octavation
+@funindex set-octavation
 
 @notation{Ottava brackets} introduce an extra transposition of an
 octave for the staff:
 
 @lilypond[verbatim,quote,relative=2]
 a'2 b
-#(set-octavation 1)
+\ottava #1
 a b
-#(set-octavation 0)
+\ottava #0
 a b
 @end lilypond
 
-The @code{set-octavation} function also takes -1 (for 8va bassa),
+The @code{ottava} function also takes -1 (for 8va bassa),
 2@tie{}(for 15ma), and -2 (for 15ma bassa) as arguments.
 
 
@@ -942,6 +989,7 @@ Internals Reference:
 @cindex transposition, instrument
 @cindex transposing instrument
 @cindex MIDI
+@cindex MIDI transposition
 @funindex \transposition
 
 When typesetting scores that involve transposing instruments, some
@@ -972,7 +1020,7 @@ playing in unison.
 
 @lilypond[verbatim,quote]
 \new GrandStaff <<
-  \new Staff = "Vln" {
+  \new Staff = "violin" {
     \relative c'' {
       \set Staff.instrumentName = "Vln"
       \set Staff.midiInstrument = "violin"
@@ -1038,6 +1086,7 @@ Snippets:
 @cindex automatic accidentals
 @cindex default accidental style
 @funindex set-accidental-style
+@funindex voice
 
 There are many different conventions on how to typeset
 accidentals.  LilyPond provides a function to specify which
@@ -1063,6 +1112,8 @@ style in all staves of the current @code{StaffGroup}, use:
 
 The following accidental styles are supported.  To demonstrate
 each style, we use the following example:
+
+@funindex default
 
 @lilypond[verbatim,quote]
 musicA = {
@@ -1133,6 +1184,11 @@ both staves.
 @c don't use verbatim in this table.
 @table @code
 @item default
+
+@cindex default accidental style
+@cindex accidental style, default
+@funindex default
+
 This is the default typesetting behavior.  It corresponds to
 eighteenth-century common practice: accidentals are remembered to
 the end of the measure in which they occur and only in their own
@@ -1187,6 +1243,15 @@ musicB = {
 @end lilypond
 
 @item voice
+
+@cindex accidental style, voice
+@cindex voice accidental style
+@cindex accidental style, modern
+@cindex modern accidental style
+@cindex accidental style, modern-cautionary
+@cindex modern-cautionary accidental style
+@funindex voice
+
 The normal behavior is to remember the accidentals at
 @code{Staff}-level.  In this style, however, accidentals are
 typeset individually for each voice.  Apart from that, the rule is
@@ -1249,9 +1314,10 @@ musicB = {
 @end lilypond
 
 @item modern
+
 @cindex accidentals, modern style
 @cindex modern style accidentals
-@funindex modern style accidentals
+@funindex modern
 
 This rule corresponds to the common practice in the twentieth
 century.  It prints the same accidentals as @code{default}, with
@@ -1309,6 +1375,7 @@ musicB = {
 @end lilypond
 
 @item modern-cautionary
+
 @cindex accidentals, modern cautionary style
 @cindex modern accidental style
 @cindex modern cautionary accidental style
@@ -1370,6 +1437,7 @@ musicB = {
 @end lilypond
 
 @item modern-voice
+
 @cindex accidental style, modern
 @cindex accidentals, modern
 @cindex accidentals, multivoice
@@ -1437,6 +1505,7 @@ musicB = {
 @cindex accidental style, modern voice cautionary
 @cindex accidental style, voice, modern cautionary
 @funindex modern-voice-cautionary
+
 @item modern-voice-cautionary
 
 This rule is the same as @code{modern-voice}, but with the extra
@@ -1492,10 +1561,12 @@ musicB = {
 @end lilypond
 
 @item piano
+
 @cindex accidental style, piano
 @cindex accidentals, piano
 @cindex piano accidental style
 @cindex piano accidentals
+@funindex piano
 
 This rule reflects twentieth-century practice for piano notation.
 Its behavior is very similar to @code{modern} style, but here
@@ -1552,7 +1623,8 @@ musicB = {
 @end lilypond
 
 @item piano-cautionary
-@funindex #(set-accidental-style 'piano-cautionary)
+
+@funindex piano-cautionary 
 @cindex accidentals, piano cautionary
 @cindex cautionary accidentals, piano
 @cindex piano cautionary accidentals
@@ -1609,7 +1681,8 @@ musicB = {
 @end lilypond
 
 @item no-reset
-@funindex no-reset accidental style
+
+@funindex no-reset
 @cindex accidental style, no reset
 @cindex no reset accidental style
 
@@ -1663,7 +1736,8 @@ musicB = {
 @end lilypond
 
 @item forget
-@funindex forget accidental style
+
+@funindex forget
 @cindex forget accidental style
 @cindex accidental style, forget
 
@@ -1852,6 +1926,9 @@ This section suggests ways of altering note heads.
 @cindex parlato note heads
 @cindex harmonic note heads
 @cindex guitar note heads
+@cindex note head styles
+@cindex styles, note heads
+@funindex cross
 
 Note heads may be altered:
 
@@ -1896,6 +1973,7 @@ Internals Reference:
 @unnumberedsubsubsec Easy notation note heads
 
 @cindex note heads, practice
+@cindex practice note heads
 @cindex note heads, easy notation
 @cindex easy notation
 @cindex Hal Leonard
@@ -1951,7 +2029,6 @@ Internals Reference:
 @cindex Aiken shape note heads
 @cindex sacred harp note heads
 @funindex \key
-@funindex shapeNoteStyles
 @funindex \aikenHeads
 @funindex \sacredHarpHeads
 

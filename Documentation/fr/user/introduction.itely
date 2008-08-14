@@ -1,21 +1,36 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-kearning.tely
 @ignore
-    Translation of GIT committish: 27af34a245b02a6b89c9af3becefcfe676b2e19d
+    Translation of GIT committish: 4706bf2d0cccc915834cd9c063999cb38d2e78e8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @c Translators: Ludovic Sardain, John Mandereau
 @c Translation checkers: Jean-Charles Malahieude, Jean-Yves Baudais
+@c Translation status: post-GDP
 
 
 @node Introduction
 @chapter Introduction
 
+Ce chapitre constitue une première présentation de LilyPond et de sa 
+documentation.
+
+@menu
+* Background::                  
+* About the documentation::     
+@end menu
+
+
+@node Background
+@section Background
+
+Cette partie présente les objectifs de LilyPond ainsi que son 
+architecture.
 
 @menu
 * Engraving::                   
@@ -23,12 +38,11 @@
 * What symbols to engrave?::    
 * Music representation::        
 * Example applications::        
-* About the documentation::     
 @end menu
 
 
 @node Engraving
-@section Engraving
+@unnumberedsubsec Engraving
 
 L'art de la typographie musicale se nomme la @emph{gravure}.  Ce terme
 est issu du processus traditionnel d'impression musicale.  Il y a
@@ -96,9 +110,8 @@ s'harmonise avec nos lignes de portée, lesquelles sont également plus
 @end ifnottex
 @end ifnotinfo
 @ifinfo
-@c workaround for makeinfo-4.6: line breaks and multi-column cookies
-@image{henle-flat-bw,,,png} @image{baer-flat-bw,,,png}
-@image{lily-flat-bw,,,png}
+@image{lilypond/henle-flat-bw,,,png} @image{lilypond/baer-flat-bw,,,png}
+@image{lilypond/lily-flat-bw,,,png}
 @end ifinfo
 
 @item @tab
@@ -242,7 +255,7 @@ aimons tant lire et jouer.
 
 
 @node Automated engraving
-@section Automated engraving
+@unnumberedsubsec Automated engraving
 
 Comment pouvons-nous implémenter la typographie ? Si les artisans ont
 besoin de plus de dix ans pour devenir de vrais maîtres, comment nous,
@@ -263,7 +276,7 @@ entièrement dans le language de programmation C++ ; les fonctions du
 programme étaient figées par les développeurs.  Ceci s'est avéré
 insatisfaisant pour plusieurs raisons :
 
-@itemize @bullet
+@itemize 
 @item Quand Lilypond fait des erreurs,
 les utilisateurs ont besoin de contredire les décisions de formatage.
 Les utilisateurs doivent donc avoir accès au moteur de formatage.  Par
@@ -304,7 +317,7 @@ haut (droite).
 \new Score \with {
    \override SpacingSpanner #'spacing-increment = #3
    \override TimeSignature #'transparent = ##t
-} \relative {
+} \relative c' {
    \stemDown <e g b>4_>-\arpeggio
    \override Arpeggio #'direction = #RIGHT
    \stemUp <e g b>4^>-\arpeggio
@@ -388,7 +401,7 @@ musique.
 
 
 @node What symbols to engrave?
-@section What symbols to engrave?
+@unnumberedsubsec What symbols to engrave?
 
 @cindex gravure
 @cindex typographie
@@ -427,9 +440,9 @@ pour les têtes de notes, le graveur de têtes de note
 \include "engraver-example.ily"
 
 \score {
-   \topVoice
-   \layout {
-   \context {
+  \topVoice
+  \layout {
+    \context {
       \Voice
       \remove "Stem_engraver"
       \remove "Phrasing_slur_engraver"
@@ -437,8 +450,8 @@ pour les têtes de notes, le graveur de têtes de note
       \remove "Script_engraver"
       \remove "Beam_engraver"
       \remove "Auto_beam_engraver"
-   }
-   \context {
+    }
+    \context {
       \Staff
       \remove "Accidental_engraver"
       \remove "Key_engraver"
@@ -447,8 +460,8 @@ pour les têtes de notes, le graveur de têtes de note
       \remove "Time_signature_engraver"
       \remove "Staff_symbol_engraver"
       \consists "Pitch_squash_engraver"
-   }
-}
+    }
+  }
 }
 @end lilypond
 
@@ -542,6 +555,7 @@ et le graveur de hampes (@code{Stem_engraver}) ajoute les hampes :
 }
 @end lilypond
 
+@noindent
 Le graveur de hampe est notifié de chaque tête de note qui survient.
 Chaque fois qu'une tête de note --- plusieurs pour un accord --- est
 rencontrée, un objet hampe est créé et connecté à la tête de note.  En
@@ -579,7 +593,7 @@ notation de plus haut niveau.
 
 @seealso
 
-Program reference: @rinternals{Contexts}.
+Référence du programme: @rinternals{Contexts}.
 
 @lilypond[quote,ragged-right]
 \include "engraver-example.ily"
@@ -592,7 +606,7 @@ Program reference: @rinternals{Contexts}.
 @end lilypond
 
 @node Music representation
-@section Music representation
+@unnumberedsubsec Music representation
 
 Idéalement, le format d'entrée pour n'importe quel système de
 formatage est une description abstraite du contenu.  Dans ce cas-ci,
@@ -609,7 +623,9 @@ La syntaxe est également l'interface utilisateur pour LilyPond, par
 conséquent il est facile de saisir
 
 @example
+@{
 c'4 d'8
+@}
 @end example
 
 @noindent
@@ -630,7 +646,7 @@ de petits fragments de musique pour en former de plus grands, on peut
 exprimer de la musique plus complexe.  Par exemple
 
 @lilypond[quote,verbatim,fragment,relative=1]
-c4
+f4
 @end lilypond
 
 @noindent
@@ -640,6 +656,8 @@ des notes.
 @c < > is not a music expression,
 @c so we use <<>> iso. <> to drive home the point of
 @c expressions.  Don't change this back --hwn.
+
+@c FIXME: change this.  I can explain it better.  -gp
 @example
 <<c4 d4 e4>>
 @end example
@@ -691,7 +709,7 @@ composants respectifs : l'analyse et la représentation constituent
 moins de 10% du code source.
 
 @node Example applications
-@section Example applications
+@unnumberedsubsec Example applications
 
 Nous avons conçu LilyPond comme une expérimentation visant à
 concentrer l'art de la gravure musicale dans un logiciel.  Grâce à
@@ -722,7 +740,76 @@ La notation polyphonique et la musique pour piano peuvent également
 être générées.  L'exemple suivant associe quelques constructions
 plus exotiques :
 
-@lilypondfile[quote,ragged-right]{screech-boink.ly}
+@lilypond[quote]
+\header {
+  title = "Screech and boink"
+  subtitle = "Random complex notation"
+  composer = "Han-Wen Nienhuys"
+}
+
+\score {
+  \context PianoStaff <<
+    \new Staff = "up" {
+      \time 4/8
+      \key c \minor
+      << {
+        \revert Stem #'direction
+        \change Staff = down
+        \set subdivideBeams = ##t	     
+        g16.[
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g32
+          \change Staff = up
+          c'''32
+          \change Staff = down
+          g16]
+        \change Staff = up
+        \stemUp
+        \set followVoice = ##t
+        c'''32([ b''16 a''16 gis''16 g''32)]
+      } \\ {
+        s4 \times 2/3 { d'16[ f' g'] } as'32[ b''32 e'' d'']
+      } \\ {
+        s4 \autoBeamOff d''8.. f''32
+      } \\ {
+        s4 es''4
+      } >>
+    }
+
+    \new Staff = "down" {
+      \clef bass
+      \key c \minor
+      \set subdivideBeams = ##f
+      \override Stem  #'french-beaming = ##t
+      \override Beam  #'thickness = #0.3
+      \override Stem  #'thickness = #4.0
+      g'16[ b16 fis16 g16]
+      << \makeClusters { 
+        as16 <as b>
+        <g b>
+        <g cis>
+      } \\ {
+        \override Staff.Arpeggio  #'arpeggio-direction =#down
+        <cis, e, gis, b, cis>4\arpeggio
+      }
+    >> }
+  >>
+  \midi {
+    \context {
+      \Score
+      tempoWholesPerMinute = #(ly:make-moment 60 8)
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists Horizontal_bracket_engraver
+    }
+  }
+}
+@end lilypond
 
 Les extraits exposés ici ont tous été écrits à la main, mais ce n'est
 pas une obligation.  Puisque le moteur de formatage est en grande
@@ -744,261 +831,289 @@ musique et du texte dans les documents.
 @node About the documentation
 @section About the documentation
 
-Deux manuels traitent de LilyPond : le @emph{manuel de l'utilisateur}
---- que vous lisez actuellement --- et le @emph{manuel d'utilisation du
-programme.}
+Cette partie présente les différents volumes de la documentation.
 
-@subheading Manuel de l'utilisateur
+@c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
+@c This is actually a limitation of texi2html. -jm
+@menu
+* About the Learning Manual (LM)::  introduction à LilyPond, ce manuel explique aux débutants la création de partitions.
 
-Ce manuel se divise en trois livres.
-@c pourquoi pas "tomes" au lieu de "livres" ? -John M.
+* About the Music Glossary (MG)::  ce document explique de nombreux termes musicaux et en donne la traduction dans d'autres langues.
 
-@subsubheading Manuel d'apprentissage
+* About the Notation Reference (NR)::  ce manuel représente la partie la plus volumineuse de la documentation.  Il fournit tous les détails sur la création de notation musicale.  La lecture de cet ouvrage requiert une bonne compréhension des concepts exposés dans le manuel d'initiation.
 
-Ce livre explique comment débuter avec LilyPond, et expose de manière
+* About the Application Usage (AU)::  ce manuel aborde l'exécution des programmes LilyPond et les particularités dépendant du système d'exploitation.
+
+* About the Snippet List (SL)::  ce document rassemble une collection d'extraits de code LilyPond.
+
+* About the Internals Reference (IR)::  ce manuel constitue une source d'information sur le fonctionnement interne de LilyPond.  C'est une référence complète pour l'élaboration de retouches.
+
+* Other documentation::          d'autres sources de documentation sont disponibles, telles que les notes de nouveautés et les archives des listes de diffusion.
+
+@end menu
+
+
+@node About the Learning Manual (LM)
+@unnumberedsubsec About the Learning Manual (LM)
+
+Ce volume explique comment débuter avec LilyPond, et expose de manière
 simple quelques concepts clés.  Il est conseillé de lire ces chapitres
 de manière linéaire.
 
-@itemize @bullet
+@itemize
 
 @item
-@ifhtml
-Le
-@end ifhtml
-@emph{@ref{Tutorial}}
-propose une introduction en douceur à la typographie musicale.
-Les utilisateurs débutants sont invités à commencer ici.
+@ref{Introduction} : le pourquoi du comment de LilyPond.
 
 @item
-@emph{@ref{Fundamental concepts}}
-explique des concepts généraux du format de fichier ly. Si vous n'êtes
-pas certain de l'endroit où placer une commande, lisez ce chapitre !
+@ref{Tutorial} : introduction en douceur à la typographie musicale.
+Les utilisateurs débutants sont invités à commencer par ce chapitre.
 
 @item
-@emph{@ref{Working on LilyPond projects}}
-montre des utilisations pratiques de LilyPond et donne des conseils
-afin d'éviter les problèmes les plus courants.
+@ref{Fundamental concepts} : concepts généraux du format de fichier
+@code{ly} spécifique à LilyPond.  Si vous n'êtes pas certain de
+l'endroit où placer une commande, lisez ce chapitre !
 
 @item
-@emph{@ref{Tweaking output}}
-est une introduction aux retouches de gravure avec LilyPond.
+@ref{Tweaking output} : introduction aux retouches de gravure avec
+LilyPond.
+
+@item
+@ref{Working on LilyPond projects} : utilisation pratique de LilyPond,
+conseils généraux, prévention et résolution des problèmes les plus
+courants.  À lire avant de se lancer dans des travaux d'envergure !
+
+@end itemize
+
+Ce volume contient aussi des annexes que vous pouvez consulter au gré de
+vos besoins :
+
+@itemize
+
+@item
+@ref{Templates} de pièces LilyPond.  Copiez et collez un modèle dans
+un fichier, ajoutez les notes, et c'est prêt !
+
+@item
+@ref{Scheme tutorial} : courte introduction à Scheme, le langage de
+programmation utilisé dans les fonctions de musique.  Ces quelques
+lignes vous aideront à construire des retouches avancées ; nombre
+d'utilisateurs n'ont jamais touché à Scheme.
 
 @end itemize
 
 
-@subsubheading Manuel de référence
+@node About the Music Glossary (MG)
+@unnumberedsubsec About the Music Glossary (MG)
 
-Ce livre détaille toutes les commandes LilyPond produisant une notation
-musicale.  La lecture de cet ouvrage requiert une bonne compréhension des
-concepts exposés dans le manuel d'apprentissage.
-
-@itemize @bullet
-
-@item
-@emph{@ruser{Musical notation}}
-traite de sujets groupés par type de notation.  Cette section
-détaille la notation de base, qui sera utile dans la plupart des
-projets de partition.
-
-@item
-@emph{@ruser{Specialist notation}}
-traite de sujets groupés par type de notation.  Cette section détaille
-des notations spéciales qui ne seront utiles que pour des types
-particuliers d'instruments ou la voix.
-
-@item
-@emph{@ruser{Changing defaults}}
-explique comment ajuster finement la mise en page.
-
-@item
-@emph{@ruser{Non-musical notation}}
-traite de sorties non musicales comme les titres, les mouvements
-multiples, et la sélection des instruments MIDI.
-
-@item
-@emph{@ruser{Spacing issues}}
-traite de sujets affectant la sortie globale, comme sélectionner
-la taille de papier ou spécifier les sauts de page.
-
-@item
-@emph{@ruser{Interfaces for programmers}}
-explique comment créer des fonctions de musique.
-
-@end itemize
-
-
-@subsubheading Annexes
-
-Ce livre contient des tables de référence pratiques.
-
-@c  Nous avons besoin d'ecrivez tous ca, aprez GDP est fini.  -gp
-@ignore 
-@itemize @bullet
-
-@item
-@ifhtml
-La
-@end ifhtml
-@emph{@ruser{Literature list}}
-contient un choix de livres de référence utiles pour ceux qui veulent
-en savoir plus sur la notation et la gravure.
-
-@item
-Le
-@emph{@ref{Scheme tutorial}}
-propose une courte introduction à Scheme, le langage de programmation
-utilisé dans les fonctions de musique.
-
-@item
-@ifhtml
-Les
-@end ifhtml
-@emph{@ruser{Notation manual tables}}
-sont un ensemble de tableaux montrant les noms d'accord, les
-instruments MIDI, les noms de couleur, et la police Feta.
-
-@item
-Les
-@emph{@ref{Templates}}
-de pièces LilyPond.  Copiez et collez un modèle
-dans un fichier, ajoutez les notes, et c'est prêt !
-
-@item
-L'
-@emph{@ruser{Cheat sheet}}
-est une référence pratique des commandes LilyPond les plus courantes.
-
-@item
-L'
-@emph{@ruser{LilyPond command index}}
-est un index de toutes les @code{\commandes} LilyPond.
-
-@item
-L'
-@emph{@ruser{LilyPond index}}
-est un index complet.
-
-@end itemize
-
-@subheading Utilisation du programme
-
-Ce livre explique l'exécution du programme et l'intégration de
-partitions LilyPond dans d'autres programmes.
-
-@itemize @bullet
-
-@item
-@emph{@rprogram{Install}}
-explique l'installation (et pour les personnes intéressées la
-compilation) de LilyPond.
-
-@item
-@emph{@rprogram{Running LilyPond}}
-documente le lancement de LilyPond et de ses programmes auxiliaires.  De
-plus, cette section explique la mise à jour de fichiers source écrits
-pour d'anciennes versions de LilyPond.
-
-@item
-@emph{@rprogram{LilyPond-book}} 
-détaille la création de documents intégrant des exemples musicaux,
-comme ce manuel.
-
-@item
-@emph{@rprogram{Converting from other formats}}
-explique l'exécution des programmes de conversion.  Ces programmes sont
-livrés avec le paquetage LilyPond, et convertissent divers formats
-musicaux vers le format @code{.ly}.
-
-@end itemize
-@end ignore
-
-
-@subsubheading Autre documentation
-
-D'autres documents constituent de précieuses sources d'information.
-
-@itemize @bullet
 @cindex jargon
 @cindex terminologie
 @cindex langues étrangères
 @cindex langue
 @cindex langage
-@iftex
-Le glossaire de musique explique les termes musicaux, et inclut
-leur traduction dans diverses langues.  C'est un document séparé,
-disponible aux formats HTML et PDF.
-@end iftex
-@ifnottex
-Le @ruser{Top,glossaire musical,,music-glossary} explique les termes
-musicaux et inclut les traductions dans diverses langues.  Il est
-également disponible au format PDF. 
-@end ifnottex
-Si vous n'êtes pas familier avec la notation musicale ou la
-terminologie, il est conseillé de consulter le glossaire, notamment
-pour les parties non encore traduites de la documentation.
+ 
+@ref{Top,Music Glossary,,music-glossary,Glossaire musical} :
+explication des termes musicaux et traduction dans diverses langues.
+Si vous n'êtes pas familier avec la notation et la terminologie
+musicales, il est conseillé de consulter le glossaire, notamment pour
+les parties non encore traduites de la documentation.
 
-@cindex exemples de code
+
+@node About the Notation Reference (NR)
+@unnumberedsubsec About the Notation Reference (NR)
+
+Ce volume détaille toutes les commandes LilyPond produisant une notation
+musicale.  La lecture de cet ouvrage requiert une bonne compréhension des
+concepts exposés dans le manuel d'initiation.
+
+@itemize
+
+@c Normalement, il est impossible d'utiliser deux points en français,
+@c car une référence externe doit se terminer par un signe de
+@c ponctuation dans la format Info.  Cependant, Info
+@c n'internationalise pas encore des documents Info, donc nous n'en
+@c avons rien à faire pour l'instant. -jm
+@item
+@ruser{Musical notation} : cette partie décrit la notation de base,
+qui sera utile dans la plupart des projets de partition.  Les sujets
+sont groupés par type de notation.
+
+@item
+@ruser{Specialist notation} : cette partie détaille des éléments de
+notation spécifiques à certains instruments ou styles.  Les sujets
+sont groupés par type de notation.
+
+@item
+@ruser{General input and output} : informations générales sur les
+fichiers source LilyPond et le contrôle des sorties.
+
+@item
+@ruser{Spacing issues} : différents aspects de l'espacement selon les
+axes et échelles, par exemple la sélection de la taille de papier, ou
+la gestion des sauts de page.
+
+@item
+@ruser{Changing defaults} : ce chapitre est une référence des
+différentes formes de retouches, qui permettent d'obtenir de Lilypond
+(presque) tout ce que vous désirez.
+
+@item
+@ruser{Interfaces for programmers} :.création de fonctions de musique
+à l'aide de Scheme.
+
+@end itemize
+
+Les annexes de ce manuel contiennent entre autres des tableaux de
+référence pratiques.
+
+@itemize
+
+@item
+@ruser{Literature list} : choix de livres de référence, pour en savoir
+plus sur la notation et la gravure.
+
+@item
+@ruser{Notation manual tables} : tableaux montrant les noms d'accord,
+les instruments MIDI, les noms de couleur, et la police Feta.
+
+@item
+@ruser{Cheat sheet} : référence pratique des commandes LilyPond les
+plus courantes.
+
+@item
+@ruser{LilyPond command index} : index de toutes les @code{\commandes}
+LilyPond.
+
+@item
+@ruser{LilyPond index} : un index complet.
+
+@end itemize
+
+
+@node About the Application Usage (AU)
+@unnumberedsubsec About the Application Usage (AU)
+
+Ce manuel explique l'exécution des programmes et l'intégration de
+partitions LilyPond dans d'autres programmes.
+
+@itemize
+
+@item
+@rprogram{Install} : installation --- et éventuellement compilation ---
+de LilyPond.
+
+@item
+@rprogram{Setup} : configuration de votre système pour une utilisation
+optimale de LilyPond, comprenant l'utilisation d'environnements
+adaptés pour certains éditeurs de tecte.
+
+@item
+@rprogram{Running LilyPond} : exécution de LilyPond et de ses
+programmes auxiliaires.  De plus, cette partie explique comment
+effectuer la mise à jour de fichiers source écrits avec d'anciennes
+versions de LilyPond.
+
+@item
+@rprogram{LilyPond-book} : création de documents intégrant des
+extraits musicaux, comme ce manuel.
+
+@item
+@rprogram{Converting from other formats} : utilisation des programmes
+de conversion.  Ces programmes sont livrés avec le paquetage LilyPond,
+et convertissent divers formats de musique vers le format @code{.ly}.
+
+@end itemize
+
+
+@node About the Snippet List (SL)
+@unnumberedsubsec About the Snippet List (SL)
+
+@cindex snippets
 @cindex LSR
-@item
-Les
-@ifhtml
-@uref{source/input/lsr/collated-files.html,Exemples de code}
-@end ifhtml
-@ifnothtml
-Exemples de code
-@end ifnothtml
-sont une vaste sélection de petits exemples montrant des trucs, astuces
-et fonctionnalités particulières de LilyPond.  La plupart de ces
-exemples sont également disponibles sur le
-@uref{http://lsr.dsi.unimi.it/,LilyPond Snippet Repository}.  Ce site
-Web possède également le manuel de LilyPond avec une fonctionnalité de
-recherche.
 
-@item
-La
-@iftex
-référence du programme
-@end iftex
-@ifnottex
-@ruser{Top,référence du programme,,lilypond-internals}.
-@end ifnottex
-est un ensemble de pages HTML étroitement liées entre elles, qui
-documente les moindres petits détails de chaque classe, objet et
-fonction de LilyPond.  Cette documentation est produite directement à
-partir des définitions de formatage utilisées.
+@ref{Top,LilyPond Snippet List,,lilypond-snippets,Exemples de code} :
+il s'agit d'une sélection de petits exemples montrant des trucs,
+astuces et fonctionnalités particulières de LilyPond, issus de
+@uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
+(LSR).  Tous ces exemples sont dans le domaine public.
+
+Notez bien que cette annexe n'est en aucune manière un miroir ou même
+une partie du LSR.  Dans la mesure où le LSR repose sur une version
+stable de LilyPond, les exemples illustrant des fonctionnalités
+introduites dans la dernière version de développement ne peuvent y
+figurer ; c'est pourquoi vous les trouverez dans le répertoire
+@file{input/new/} des sources de LilyPond.
+
+La liste des exemples correspondant à chacun des sous-chapitres du
+manuel de notation est accessible par des liens dans le paragraphe
+@strong{Voir aussi}.
+
+
+@node About the Internals Reference (IR)
+@unnumberedsubsec About the Internals Reference (IR)
+
+@cindex retoucher
+@cindex variables
+@cindex propriétés
+@cindex lilypond-internals
+@cindex documentation du fonctionnement interne
+@cindex Scheme
+@cindex étendre lilypond
+@cindex index
+
+@ref{Top,Internals Reference,,lilypond-internals,Référence des
+propriétés internes} : c'est un ensemble de pages HTML étroitement
+liées entre elles, qui documente les moindres petits détails de chaque
+classe, objet et fonction de LilyPond.  Cette documentation est
+produite directement à partir des définitions de formatage utilisées.
 
 Presque toutes les fonctions de formatage utilisées en interne sont
 directement disponibles pour l'utilisateur.  Par exemple, toutes les
 variables qui contrôlent les épaisseurs, les distances etc., peuvent
 être modifiées dans les fichiers d'entrée.  Il y a un grand nombre
 d'options de formatage, et elles sont toutes décrites dans ce
-document.  Chaque section du manuel de notation a une section @b{Voir
-aussi} qui renvoie à la documentation générée automatiquement.  Dans la
-documentation au format HTML, ces sous-sections ont des liens
+document.  Chaque section du manuel de notation a un paragraphe @b{Voir
+aussi}, qui renvoie à la documentation générée automatiquement.  Dans la
+documentation au format HTML, ces paragraphes disposent de liens
 cliquables.
 
-@end itemize
 
-Lorsque vous serez un utilisateur expérimenté, vous pourrez consulter le
-manuel comme une référence : il y a un index complet@footnote{Si vous
-cherchez quelque chose sans le trouver dans la documentation, c'est un
-bogue.  Dans ce cas, merci d'envoyer un rapport de bogue.}, mais le
-manuel est aussi disponible en
-@iftex
-une seule grande page,
-@end iftex
-@ifhtml
-@uref{source/Documentation/user/lilypond-big-page.html, une seule grande
-page},
-@end ifhtml
-ce qui facilite la recherche avec la fonction de recherche de votre
-navigateur.
+@node Other documentation
+@unnumberedsubsec Other documentation
 
-Dans tous les documents HTML qui incluent des fragments musicaux,
-le code Lilypond utilisé pour produire l'image peut être vu en
-cliquant l'image.
+Pour finir, présentons d'autres précieuses sources de documentation.
 
-L'emplacement des fichiers de documentation mentionnés ici peut varier
+@itemize
+
+@item Nouveautés : ce document résume les changements importants et
+les nouvelles fonctionalités de LilyPond depuis la dernière version
+stable.
+
+@item @uref{http://lists.gnu.org/archive/html/lilypond-user/, Les
+archives de la liste lilypond-user} : c'est un dépôt archivant les
+courriels qui ont été envoyés à la liste anglophone des utilisateurs.
+Beaucoup de questions sont apparues plusieurs fois sur la liste, il y
+a donc des chances que si vous avez une question, la réponse puisse
+être dans ces archives.
+@c DIV specific
+@uref{http://lists.gnu.org/archive/html/lilypond-user-fr/,Les archives
+de la liste francophone} ne sont pas aussi bien fournies, mais vous
+pouvez toujours y chercher des conversations passées sur les
+traductions, et si vous avez de la chance une réponse à une question.
+@c END DIV
+
+@item @uref{http://lists.gnu.org/archive/html/lilypond-devel/, Les
+archives de la liste lilypond-devel} : les courriels envoyés à la
+liste des développeurs y sont archivés.  Les sujets de discussion sont
+plus techniques ; si vous voulez vous renseigner sur l'histoire du
+développement ou si vous avez une question très technique, tentez
+votre chance en cherchant dans ces archives.
+
+@item Fragments de musique au cours du texte : dans tous les documents
+HTML qui incluent des fragments musicaux, le code LilyPond utilisé
+pour produire l'image est accessible par un clic sur l'image.
+
+@item L'emplacement des fichiers de documentation mentionnés ici peut varier
 d'un système à l'autre.  De temps en temps, ce manuel fait référence aux
 fichiers d'exemple et d'initialisation.  Tout au long de ce manuel, nous
 donnons les emplacements des fichiers d'entrée relativement au
@@ -1011,16 +1126,4 @@ fichiers d'initialisation, par exemple @file{scm/@/lily@/.scm}, ou
 @file{ly/@/engraver@/-init@/.ly}, se trouvent généralement dans le
 répértoire @file{/usr/@/share/@/lilypond/}.
 
-@cindex retoucher
-@cindex variables
-@cindex propriétés
-@cindex lilypond-internals
-@cindex documentation du fonctionnement interne
-@cindex Scheme
-@cindex étendre lilypond
-@cindex index
-
-Pour finir, ce manuel et les autres sont disponibles en ligne, à la
-fois aux formats PDF et HTML, à partir du site Web, accessible
-à l'adresse @uref{http://@/www@/.lilypond@/.org/}.
-
+@end itemize

@@ -60,7 +60,7 @@ grobs à une forme de notation particulière, ce qui évite la création de
 nouveaux concepts de notation.
 
 En plus des signes d'articulation standards décrits à la section
-@ref{Articulations}, la notation ancienne dispose de signes particuliers.
+@ref{Articulations and ornamentations}, la notation ancienne dispose de signes particuliers.
 
 @itemize @bullet
 @item
@@ -236,7 +236,7 @@ par la propriété @code{glyph-name-alist} de l'objet
 
 @seealso
 
-Dans ce manuel : @ref{Pitches}, @ref{Cautionary accidentals}, et
+Dans ce manuel : @ref{Pitches}, @ref{Accidentals}, et
 @ref{Automatic accidentals}, pour les principes généraux d'utilisation
 des altérations ; @ref{Key signature} pour les armures.
 
@@ -699,7 +699,7 @@ UNTRANSLATED NODE: IGNORE ME
 @cindex articulations
 
 En plus des signes d'articulation standards décrits à la section
-@ref{Articulations}, LilyPond fournit des articulations pour la musique
+@ref{Articulations and ornamentations}, LilyPond fournit des articulations pour la musique
 ancienne.  Elles sont spécifiquement destinées au style Editio Vaticana.
 
 @lilypond[quote,ragged-right,verbatim]

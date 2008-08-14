@@ -1,4 +1,4 @@
-\version "2.11.30"
+\version "2.11.51"
 
 \header {
   texidoc = "Horizontal spacing works as expected on tied notes with

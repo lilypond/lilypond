@@ -6,15 +6,17 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 
 @node Chord notation
 @section Chord notation
 
-Chords can be entered in chord mode, which recognizes some
-traditional European chord naming conventions.  Chord names can also
-be displayed.  In addition, figured bass notation can be displayed.
+@lilypondfile[quote]{chords-headword.ly}
+
+Chords can be entered either as normal notes or in chord mode and displayed
+using a variety of traditional European chord naming conventions.  Chord
+names and figured bass notation can also be displayed.
 
 @menu
 * Chord mode::
@@ -137,35 +139,94 @@ Seventh chords can be created:
 @funindex m
 
 The table belows shows the actions of the quality modifiers on
-triads and seventh chords.
+triads and seventh chords.  A more complete table of modifier usage
+is found at @ref{Common chord modifiers}.
 
-@table @code
+@c @table @code
+@multitable @columnfractions .2 .4 .3
 
-@item m
+@item
+@b{Modifier}
+@tab
+@b{Action}
+@tab
+@b{Example}
+
+@item
+None
+@tab
+The default action; produces a major triad.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1
+}
+@end lilypond
+
+@item 
+m, m7
+@tab
 The minor chord.  This modifier lowers the 3rd and (if present) the
 7th step.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:m c:m7
+}
+@end lilypond
 
-@item dim
+
+@item 
+dim, dim7
+@tab
 The diminished chord.  This modifier lowers the 3rd, 5th and (if
 present) the 7th step.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:dim c:dim7
+}
+@end lilypond
 
-@item aug
+@item 
+aug
+@tab
 The augmented chord.  This modifier raises the 5th step.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:aug
+}
+@end lilypond
 
-@item maj
+@item 
+maj, maj7
+@tab
 The major 7th chord.  This modifier adds a raised 7th step.  The
 @code{7} following @code{maj} is optional.  Do NOT use this modifier
 to create a major triad.
+@tab
+@lilypond[line-width=4\cm, noragged-right]
+\chordmode {
+  \override Staff.TimeSignature #'stencil = ##f
+  c1:maj c:maj7
+}
+@end lilypond
 
-@end table
+@end multitable
 
-@c TODO -- perhaps add warning about c and c:maj being different, while
-@c   c:maj and c:maj7 are the same
 
 @seealso
 
+Notation Reference:
+@ref{Common chord modifiers}.
+
 Snippets:
-@rlsr{Chords}
+@rlsr{Chords}.
 
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
@@ -188,14 +249,15 @@ larger value is interpreted as 13.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 \chordmode {
-  c:2 c:3 c:4 c:5
+  c1:2 c:3 c:4 c:5
   c:6 c:7 c:8 c:9
   c:10 c:11 c:12 c:13
+  c:14
 }
 @end lilypond
 
 @noindent
-Note that @code{c:5} is identical to @code{c} -- both produce a C major triad.
+Note that both @code{c:5} and @code{c} produce a C major triad.
 
 Since an unaltered 11 does not sound good when combined with an
 unaltered 13, the 11 is removed from a @code{:13} chord (unless it
@@ -242,13 +304,15 @@ as part of the basic chode structure, add it as an altered step.
 
 @funindex ^
 
-A step to be removed from the chord indicated in a
-modifier string with a prefix of @code{^}.  Only one removal with @code{^}
-is allowed in a modifier string.
+Following any steps to be added, a series of steps to be removed 
+is introduced in a modifier string with a prefix of @code{^}.  
+If more than one step is to be removed, the steps to be
+removed are separated by @code{.} following the
+initial @code{^}. 
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {
-  c1^3 c:7^5 c:9^3.5
+  c1^3 c:7^5 c:9^3 c:9^3.5 c:13.11^3.7
 }
 @end lilypond
 
@@ -265,9 +329,6 @@ equivalent to @code{.4^3}.
   c1:sus c:sus2 c:sus4 c:5.4^3
 }
 @end lilypond
-
-It is possible to remove the 3rd step with @code{sus} and remove
-another step with @code{^} in one modifier string.
 
 @funindex /
 @cindex chord inversions
@@ -294,7 +355,14 @@ moved as part of an inversion, by using @code{/+}@var{pitch}.
 }
 @end lilypond
 
+Chord modifiers that can be used to produce a variety of
+standard chords are shown in 
+@ref{Common chord modifiers}.
+
 @seealso
+
+Notation Reference:
+@ref{Common chord modifiers}.
 
 Snippets:
 @rlsr{Chords}
@@ -309,12 +377,9 @@ interpreted last.
 \chordmode { c1:5.5-.5+ }
 @end lilypond
 
-Only one step can be removed from a chord.  If a chord with multiple
-removed steps is desired, it must be built through addition of
-multiple steps.
-
-Only the first inversion can be created by adding a bass note.  The
-second inversion requires changing the root of the chord.
+Only the second inversion can be created by adding a bass
+note.  The first inversion requires changing the root of
+the chord.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \chordmode {
@@ -438,15 +503,15 @@ traditions use different names for the same set of chords.  There
 are also different symbols displayed for a given chord name.   The
 names and symbols displayed for chord names are customizable.
 
-@cindex Banter
 @cindex jazz chords
 @cindex chords, jazz
 
-The default chord name layout is a system for Jazz music, proposed
-by Klaus Ignatzek (see @ref{Literature list}).  There are also two
-other chord name schemes implemented: an alternate Jazz chord
-notation, and a systematic scheme called Banter chords.  The
-alternate Jazz notation is also shown on the chart in @ref{Chord
+The basic chord name layout is a system for Jazz music, proposed
+by Klaus Ignatzek (see @ref{Literature list}).  The chord naming
+system can be modified as described below.  An alternate jazz
+chord system has been developed using these modifications.
+The Ignatzek and alternate
+Jazz notation are shown on the chart in @ref{Chord
 name chart}.
 
 @c TODO --  Change this so we don't have a non-verbatim example.
@@ -461,7 +526,7 @@ The effect is demonstrated here:
 
 @lilypondfile[ragged-right]{chord-names-languages.ly}
 
-If none of the default settings give the desired output, the chord
+If none of the existing settings give the desired output, the chord
 name display can be tuned through the following properties.
 
 @table @code
@@ -548,33 +613,21 @@ and @q{m}.  The spacer is not used when the root is altered.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {chord-name-major7.ly}
 
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {adding-bars-to-chordnames.ly)
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adding-bar-lines-to-chordnames-context.ly}
 
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {volta-brackets-over-chord-names.ly}
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{volta-below-chords.ly}
 
-@c TODO  convert to snippet
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {changing-chord-separator.ly}
-
-The separator between different parts of a chord name
-can be set to any markup.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\chords {
-  c:7sus4
-  \set chordNameSeparator
-    = \markup { \typewriter "|" }
-  c:7sus4
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-chord-separator.ly}
 
 
 @seealso
 
 Notation Reference:
-@ref{Chord name chart}.
+@ref{Chord name chart},
+@ref{Common chord modifiers}.
 
 Installed Files:
 @file{scm/@/chords@/-ignatzek@/.scm},
@@ -610,6 +663,8 @@ myChords = \relative c' {
 @node Figured bass
 @subsection Figured bass
 
+@lilypondfile[quote]{figured-bass-headword.ly}
+
 Figured bass notation can be displayed.
 
 @menu
@@ -628,6 +683,7 @@ Figured bass notation can be displayed.
 @cindex Bass, figured
 
 @c TODO: musicological blurb about FB
+
 
 LilyPond has support for figured bass, also called thorough bass
 or basso continuo:
@@ -666,6 +722,15 @@ properties can be used to modify the display of figures.  For
 example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
 
+@seealso
+
+Music Glossary:
+@rglos{Figured Bass}.
+
+Snippets:
+@rlsr{Chords}
+
+
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass
 
@@ -683,6 +748,7 @@ In figure mode, a group of bass figures is delimited by
   }
 }
 @end lilypond
+
 
 Accidentals (including naturals) can be added to figures:
 
@@ -705,12 +771,10 @@ sixth steps) can be created.
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
-<6>
-% FIXME: broken.
-  %<6\\>
+  <6>
+  <6\\>
 }
 @end lilypond
-
 
 Vertical spaces and brackets can be be included in figures:
 
@@ -720,7 +784,6 @@ Vertical spaces and brackets can be be included in figures:
 }
 @end lilypond
 
-
 Any text markup can be inserted as a figure:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
@@ -729,7 +792,7 @@ Any text markup can be inserted as a figure:
 }
 @end lilypond
 
-@c TODO We need to include notes any time we use extenders to
+@c NOTE: We need to include notes any time we use extenders to
 @c avoid extraneous staff creation due to Staff.use... in
 @c \bassFigureExtendersOn
 
@@ -768,6 +831,70 @@ unless the continuation lines have been explicitly terminated.
 >>
 @end lilypond
 
+The table below summarizes the figure modifiers available.
+
+@multitable @columnfractions .1 .5 .4
+
+@item
+@b{Modifier}
+@tab
+@b{Purpose}
+@tab
+@b{Example}
+
+@item
++, -, !
+@tab
+Accidentals
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <7! 6+ 4-> <5++> <3-->
+}
+@end lilypond
+
+@item
+\+, /
+@tab
+Augmented and diminished steps
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\+ 5/> <7/>
+}
+@end lilypond
+
+@item
+\\
+@tab
+Raised sixth step
+@tab
+@lilypond[line-width=4\cm]
+\figures {
+  <6\\>
+}
+@end lilypond
+
+@item
+\!
+@tab
+End of continuation line
+@tab
+@lilypond[line-width=1.5\cm]
+<<
+  \figures {
+    \bassFigureExtendersOn
+    <6 4> <6 4> <6\! 4\!> <6 4>
+  }
+  {
+    \clef bass
+    d d c c
+  }
+>>
+@end lilypond
+
+@end multitable
+
 
 
 @predefined
@@ -777,7 +904,6 @@ unless the continuation lines have been explicitly terminated.
 
 
 @snippets
-@c TODO  Fix this snippet -- Plus direction should be RIGHT.
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {changing-the-positions-of-figured-bass-alterations.ly}
 
@@ -842,11 +968,6 @@ Figured bass can also be added to @code{Staff} contexts
 directly.  In this case, the vertical position of the
 figures is adjusted automatically.
 
-@c TODO add a second paragraph to show direction change.  First
-@c   example should be UP (default), second should be DOWN.
-
-@c  TODO change to use predefined command once it is added to
-@c  property-init.ly  -cds
 @lilypond[verbatim,ragged-right,fragment,quote]
 <<
   \new Staff = myStaff
@@ -885,31 +1006,13 @@ or below the staff.
 @end lilypond
 
 
-@ignore
-@c I don't understand this -cs
-When using continuation lines, common figures are always put in the
-same vertical position.  When this is unwanted, you can insert a rest.
-The rest will clear any previous alignment.  For
-example, you can write
-
-@example
-<6 4>8 r8
-@end example
-
-@noindent
-instead of
-@example
-<4 6>4
-@end example
-@end ignore
-
 @predefined
 @cindex figured bass alignment
 @code{\bassFigureStaffAlignmentDown},
 @code{\bassFigureStaffAlignmentUp},
 @code{\bassFigureStaffAlignmentNeutral}.
 
-@snippets
+@c @snippets
 
 @seealso
 @c Music Glossary:
@@ -927,8 +1030,8 @@ instead of
 @c Installed Files:
 @c @file{}.
 
-@c Snippets:
-@rlsr{Figured Bass}.
+Snippets:
+@rlsr{Chords}.
 
 Internals Reference:
 @rinternals{NewBassFigure},
@@ -966,20 +1069,36 @@ the bass line.
     \bassFigureExtendersOn
     % The extenders are incorrect here, even though the timing is the same
     <6 4->4 <6 4->4
-    %\repeat unfold 4 {<6 4->16. <6 4->32}
     <5>8. r16 <6>8 <6\! 5->
   }
 >>
 @end lilypond
 
-@c I have no idea what this means -cds
-@c A predefined command for changing this has been proposed -cds
-@c TODO -- put stacking direction snippet here -cds
-When using figured bass above the staff with extender lines and
-@code{implicitBassFigures} the lines may become swapped around.
-Maintaining order consistently will be impossible when multiple figures
-have overlapping extender lines.  To avoid this problem, please
-use @code{stacking-dir} on @code{BassFigureAlignment}.
+When using extender lines, adjacent figures with the same number in
+a different figure location can cause the figure positions to invert.
 
+@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+<<
+ { fis g g, e' }
+  \figures {
+    \bassFigureExtendersOn
+    <6 5> <5\! 4> < 5 _!> <6>
+  }
+>>
+@end lilypond
 
-@seealso
+To avoid this problem, simply turn on extenders after the figure that
+begins the extender line and turn them off at the end of the extender line.
+
+@lilypond[verbatim,ragged-right,fragment,quote,relative=1]
+<<
+ { fis g g, e' }
+  \figures {
+    <6 5> <5 4>
+    \bassFigureExtendersOn
+    < 5 _!> <6>
+    \bassFigureExtendersOff
+  }
+>>
+@end lilypond
+

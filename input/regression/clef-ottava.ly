@@ -5,21 +5,21 @@
 but they don't confuse one another."
 }
 
-\version "2.11.36"
+\version "2.11.53"
 
 \layout { ragged-right = ##t} 
 
 \relative c''  {
   \clef "alto"
   a b c a
-  #(set-octavation 1)
+  \ottava #1
   a b c a
   \clef "bass"
   a b c a
-  #(set-octavation 2)
+  \ottava #2
   a b c a
   \clef "treble"
-  #(set-octavation -1)
+  \ottava #-1
   a b c a
 }
 

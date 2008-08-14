@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.38"
+@c \version "2.11.51"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -1002,7 +1002,7 @@ de la instrucción @code{\override}.
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
-  \override Staff.BarLine #'break-visibility = ##(#f #f #f)
+  \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
   c4 b8 c d16 c d8 |
   g, a16 b8 c d4 e16 |
   e8
@@ -1568,9 +1568,9 @@ menciona el significado de cada una allí donde no es obvio.
   @tab Arriba o Derecha
   @tab Anular
   @tab Efecto
-@item @code{\arpeggioDown}
-  @tab @code{\arpeggioUp}
-  @tab @code{\arpeggioNeutral}
+@item @code{\arpeggioArrowDown}
+  @tab @code{\arpeggioArrowUp}
+  @tab @code{\arpeggioNormal}
   @tab La flecha está abajo, arriba o no hay flecha
 @item @code{\dotsDown}
   @tab @code{\dotsUp}
@@ -1777,7 +1777,7 @@ de ellos.
 % Place dynamics above staff
 \dynamicUp
 % Start Ottava Bracket
-#(set-octavation 1)
+\ottava #1
 c' \startTextSpan
 % Add Dynamic Text
 c\pp
@@ -1789,7 +1789,7 @@ c c
 % Add Dynamic Text
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
-#(set-octavation 0)
+\ottava #0
 c, c c c
 @end lilypond
 
@@ -1842,7 +1842,7 @@ recordando que @code{OttavaBracket} se crea dentro del contexto de
 %Place following Ottava Bracket below Text Spanners
 \once \override Staff.OttavaBracket #'outside-staff-priority = #340
 % Start Ottava Bracket
-#(set-octavation 1)
+\ottava #1
 c' \startTextSpan
 % Add Dynamic Text
 c\pp
@@ -1854,7 +1854,7 @@ c c
 % Add Dynamic Text
 c\ff c \stopTextSpan
 % Stop Ottava Bracket
-#(set-octavation 0)
+\ottava #0
 c, c c c
 @end lilypond
 
@@ -2326,8 +2326,8 @@ Observe en el segundo ejemplo la gran importancia que tiene saber qué
 contexto maneja un determinado objeto.  Puesto que el objeto
 @code{MetronomeMark} se maneja dentro del contexto @code{Score}, los
 cambios de propiedades en el contexto @code{Voice} pasarán
-inadvertidos.  Para ver más detalles, consulte @ruser{Constructing a
-tweak}.
+inadvertidos.  Para ver más detalles, consulte @ruser{The
+\override command}.
 
 Si la propiedad de relleno @code{padding} de un objeto se incrementa
 cuando dicho objeto se encuentra en una pila de objetos que se están
