@@ -205,7 +205,7 @@ can be used:
 This construct keeps a voice alive throughout the polyphonic section.
 For example, this allows lyrics to be assigned to one consistent voice.
 
-@lilypond[quote, verbatim, relative=1]
+@lilypond[quote, verbatim, relative=2]
 <<
   \new Voice = "melody" {
     a4
