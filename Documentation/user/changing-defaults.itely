@@ -73,13 +73,13 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 
 
 @menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Common properties::
-* Advanced tweaks::
-* Discussion of specific tweaks::
+* Interpretation contexts::     
+* Explaining the Internals Reference::  
+* Modifying properties::        
+* Useful concepts and properties::  
+* Common properties::           
+* Advanced tweaks::             
+* Discussion of specific tweaks::  
 @end menu
 
 
@@ -89,12 +89,12 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 This section describes what contexts are, and how to modify them.
 
 @menu
-* Contexts explained::
-* Creating contexts::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Aligning contexts::
+* Contexts explained::          
+* Creating contexts::           
+* Modifying context plug-ins::  
+* Changing context default settings::  
+* Defining new contexts::       
+* Aligning contexts::           
 @end menu
 
 
@@ -127,10 +127,10 @@ further explanation and with links to the IR.
 Contexts are arranged heirarchically:
 
 @menu
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
+* Score - the master of all contexts::  
+* Top-level contexts - staff containers::  
+* Intermediate-level contexts - staves::  
+* Bottom-level contexts - voices::  
 @end menu
 
 @node Score - the master of all contexts
@@ -540,7 +540,7 @@ time signature.
 @subsection Changing context default settings
 
 The adjustments of the previous subsections (
-@ref{The \set command}, @ref{Modifying context plug-ins}, and
+@ref{The set command}, @ref{Modifying context plug-ins}, and
 @ref{Overview of modifying properties}) can also be entered
 separately from the music in the @code{\layout} block,
 
@@ -803,10 +803,10 @@ ossia = { f4 f f f }
 
 
 @menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
+* Navigating the program reference::  
+* Layout interfaces::           
+* Determining the grob property::  
+* Naming conventions::          
 @end menu
 
 @node Navigating the program reference
@@ -1124,11 +1124,11 @@ LP-specific?
 @section Modifying properties
 
 @menu
-* Overview of modifying properties::
-* The \set command::
-* The \override command::
-* \set versus \override::
-* Objects connected to the input::
+* Overview of modifying properties::  
+* The set command::             
+* The override command::        
+* set versus override::         
+* The tweak command::           
 @end menu
 
 
@@ -1246,7 +1246,7 @@ or crashes, or both.
 
 
 
-@node The \set command
+@node The set command
 @subsection The @code{\set} command
 
 @cindex properties
@@ -1371,7 +1371,7 @@ Translation @expansion{} Tunable context properties.
 
 
 
-@node The \override command
+@node The override command
 @subsection The @code{\override} command
 
 Commands which change output generally look like
@@ -1413,7 +1413,7 @@ We demonstrate how to glean this information from the notation manual
 and the program reference.
 
 
-@node \set versus \override
+@node set versus override
 @subsection @code{\set} vs. @code{\override}
 
 We have seen two methods of changing properties: @code{\set} and
@@ -1464,8 +1464,8 @@ objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
 
 
-@node Objects connected to the input
-@subsection Objects connected to the input
+@node The tweak command
+@subsection The @code{\tweak} command
 
 TODO: can't use \tweak in a variable
 
@@ -1518,10 +1518,10 @@ details.
 
 
 @menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Spanners::
+* Input modes::                 
+* Direction and placement::     
+* Distances and measurements::  
+* Spanners::                    
 @end menu
 
 @node Input modes
@@ -1737,10 +1737,10 @@ restricted to a sub-set of the spanners.
 @section Common properties
 
 @menu
-* Controlling visibility of objects::
-* Line styles::
-* Rotating objects::
-* Aligning objects::
+* Controlling visibility of objects::  
+* Line styles::                 
+* Rotating objects::            
+* Aligning objects::            
 @end menu
 
 @c TODO Add new subsection Shapes of objects
@@ -1768,11 +1768,11 @@ certain layout objects.  These are covered under Special
 considerations.
 
 @menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
+* Removing the stencil::        
+* Making objects transparent::  
+* Painting objects white::      
+* Using break-visibility::      
+* Special considerations::      
 @end menu
 
 
@@ -2256,8 +2256,8 @@ Both layout objects and elements of markup text can be rotated by
 any angle about any point, but the method of doing so differs.
 
 @menu
-* Rotating layout objects::
-* Rotating markup::
+* Rotating layout objects::     
+* Rotating markup::             
 @end menu
 
 @node Rotating layout objects
@@ -2322,10 +2322,10 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 @section Advanced tweaks
 
 @menu
-* Vertical grouping of grobs::
-* Modifying ends of spanners::
-* Modifying stencils::
-* Modifying shapes::
+* Vertical grouping of grobs::  
+* Modifying ends of spanners::  
+* Modifying stencils::          
+* Modifying shapes::            
 @end menu
 
 
@@ -2364,7 +2364,7 @@ VerticalAxisGroup.
 @section Discussion of specific tweaks
 
 @menu
-* old Contexts explained::
+* old Contexts explained::      
 @end menu
 
 

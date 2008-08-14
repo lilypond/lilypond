@@ -17,13 +17,13 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Common properties::
-* Advanced tweaks::
-* Discussion of specific tweaks::
+* Interpretation contexts::     
+* Explaining the Internals Reference::  
+* Modifying properties::        
+* Useful concepts and properties::  
+* Common properties::           
+* Advanced tweaks::             
+* Discussion of specific tweaks::  
 @end menu
 
 @node Interpretation contexts
@@ -35,12 +35,12 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Contexts explained::
-* Creating contexts::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Aligning contexts::
+* Contexts explained::          
+* Creating contexts::           
+* Modifying context plug-ins::  
+* Changing context default settings::  
+* Defining new contexts::       
+* Aligning contexts::           
 @end menu
 
 @node Contexts explained
@@ -52,10 +52,10 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
+* Score - the master of all contexts::  
+* Top-level contexts - staff containers::  
+* Intermediate-level contexts - staves::  
+* Bottom-level contexts - voices::  
 @end menu
 
 @node Score - the master of all contexts
@@ -139,10 +139,10 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
+* Navigating the program reference::  
+* Layout interfaces::           
+* Determining the grob property::  
+* Naming conventions::          
 @end menu
 
 @node Navigating the program reference
@@ -186,11 +186,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Overview of modifying properties::
-* The \set command::
-* The \override command::
-* \set versus \override::
-* Objects connected to the input::
+* Overview of modifying properties::  
+* The set command::             
+* The override command::        
+* set versus override::         
+* The tweak command::           
 @end menu
 
 @node Overview of modifying properties
@@ -201,7 +201,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 
 
-@node The \set command
+@node The set command
 @subsection The @code{\set} command
 
 @ifhtml
@@ -209,7 +209,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 
 
-@node The \override command
+@node The override command
 @subsection The @code{\override} command
 
 @ifhtml
@@ -217,7 +217,7 @@ UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 
 
-@node \set versus \override
+@node set versus override
 @subsection @code{\set} vs. @code{\override}
 
 @ifhtml
@@ -225,8 +225,8 @@ UNTRANSLATED NODE: IGNORE ME
 @end ifhtml
 
 
-@node Objects connected to the input
-@subsection Objects connected to the input
+@node The tweak command
+@subsection The @code{\tweak} command
 
 @ifhtml
 UNTRANSLATED NODE: IGNORE ME
@@ -242,10 +242,10 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Spanners::
+* Input modes::                 
+* Direction and placement::     
+* Distances and measurements::  
+* Spanners::                    
 @end menu
 
 @node Input modes
@@ -289,10 +289,10 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Controlling visibility of objects::
-* Line styles::
-* Rotating objects::
-* Aligning objects::
+* Controlling visibility of objects::  
+* Line styles::                 
+* Rotating objects::            
+* Aligning objects::            
 @end menu
 
 @node Controlling visibility of objects
@@ -304,11 +304,11 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
+* Removing the stencil::        
+* Making objects transparent::  
+* Painting objects white::      
+* Using break-visibility::      
+* Special considerations::      
 @end menu
 
 @node Removing the stencil
@@ -384,10 +384,10 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* Vertical grouping of grobs::
-* Modifying ends of spanners::
-* Modifying stencils::
-* Modifying shapes::
+* Vertical grouping of grobs::  
+* Modifying ends of spanners::  
+* Modifying stencils::          
+* Modifying shapes::            
 @end menu
 
 @node Vertical grouping of grobs
@@ -431,7 +431,7 @@ UNTRANSLATED NODE: IGNORE ME
 
 
 @menu
-* old Contexts explained::
+* old Contexts explained::      
 @end menu
 
 @node old Contexts explained

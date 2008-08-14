@@ -72,7 +72,7 @@ des listes, des chaînes de caractères ou des symboles, en Scheme.}
 @menu
 * Automatic notation::          
 * Interpretation contexts::     
-* The \override command::       
+* The override command::        
 @end menu
 
 
@@ -921,7 +921,7 @@ de la partition, mais chaque contexte @context{Staff}, @context{Lyrics}, etc.
 possède son propre @code{VerticalAxisGroup}.
 
 
-@node The \override command
+@node The override command
 @section The @code{\override} command
 
 La commande @code{\override} permet de modifier la mise en page
@@ -940,9 +940,9 @@ La propriété @var{propriété} de l'objet @var{objet}, appartenant au contexte
 * Navigating the program reference::  
 * Layout interfaces::           
 * Determining the grob property::  
-* Objects connected to the input::  
-* Using Scheme code instead of \tweak::  
-* \set versus \override::       
+* The tweak command::           
+* Using Scheme code instead of tweak::  
+* set versus override::         
 * Difficult tweaks::            
 @end menu
 
@@ -1317,8 +1317,8 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{} @rinternals{Vo
 @end quotation
 
 
-@node Objects connected to the input
-@subsection Objects connected to the input
+@node The tweak command
+@subsection The @code{\tweak} command
 
 @funindex \tweak
 
@@ -1367,7 +1367,7 @@ pas directement rendue ; c'est pourquoi le code suivant ne sera d'aucun effet :
 Voir pour plus de détails @ref{Displaying music expressions}.
 
 
-@node Using Scheme code instead of \tweak
+@node Using Scheme code instead of tweak
 @subsection Using Scheme code instead of @code{\tweak}
 
 L'inconvénient principal de la commande @code{\tweak} est la rigidité de sa
@@ -1413,7 +1413,7 @@ Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
 @samp{m} lui-même.
 
 
-@node \set versus \override
+@node set versus override
 @subsection @code{\set} vs. @code{\override}
 
 Si les propriétés peuvent être modifiées de deux façons, par les commandes

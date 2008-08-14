@@ -350,8 +350,8 @@ gis4 a
 @seealso
 
 Notation Reference:
-@ref{List of colors}, @ref{Objects connected to
-the input}.
+@ref{List of colors}, @ref{The
+tweak command}.
 
 Snippets:
 @rlsr{Editorial annotations}.
@@ -373,7 +373,7 @@ and @code{'ForestGreen}.  For web use normal colors are recommended
 
 
 Notes in a chord cannot be colored with @code{\override}; use
-@code{\tweak} instead, see @ref{Objects connected to the input}.
+@code{\tweak} instead, see @ref{The tweak command}.
 
 
 @node Parentheses
