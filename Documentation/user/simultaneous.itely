@@ -153,8 +153,8 @@ construction:
 This method leads to strange beamings and warnings if the pieces of
 music do not have the same rhythm.  To typeset multiple, truly
 independent voices in a single staff, the @code{<<@{...@} \\
-@{...@}>>} construction is used, where the two (or more) voices are
-separated by double backslashes.
+@{...@}>>} construction can be used as a simplified method, where the
+two (or more) voices are separated by double backslashes.
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -183,12 +183,20 @@ place, so it becomes voice three which has the stems up as desired.
 Spacing rests are often used to avoid too many rests, as seen in the
 example above.
 
-Each music expression in the @code{<<@{...@} \\ @{...@}>>} construct
-is placed in a new voice, distinct from the voice for single-voice
-music; to temporarily add only one additional voice to an existing
-one, it is necessary to instantiate that voice explicitly.  For
-these purposes, the @code{\voiceOne} ... @code{\voiceFour}, and
-@code{\oneVoice} commands can be used:
+Voices created by this simplified method are implicit @code{Voice}
+contexts; in all but simplest works it is advised to create explicit
+@code{\Voice} contexts using the @code{\new} and @code{\context}
+commands as it is explained in @rlearning{Contexts and engravers} and
+@rlearning{Explicitly instantiating voices}.
+
+This applies to a common case: each music expression in the
+@code{<<@{...@} \\ @{...@}>>} construct is placed in a new voice,
+distinct from the voice for single-voice music; to temporarily add
+only one additional voice to an existing one, it is necessary to
+instantiate that voice explicitly.  When doing this, to force the
+settings that would be implicitly made by the simplified method, the
+@code{\voiceOne} ... @code{\voiceFour}, and @code{\oneVoice} commands
+can be used:
 
 @example
 << @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
