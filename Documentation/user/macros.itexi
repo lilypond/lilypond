@@ -127,9 +127,13 @@
 @c     @rprogram
 @c     @rsnippets
 @c     @rinternals
+@c  all these also have a @...named version, which allows to specify the
+@c  displayed text for the reference as second argument
 
-@ifhtml
-@c ***** HTML *****
+@c ***** HTML + bigpage is a special case (other manual names), all other
+@c formats are treated similarly
+
+@ifnottex
 
 @ifset bigpage
 
@@ -138,9 +142,19 @@
 @ref{\TEXT\,,,music-glossary-big-page,Music Glossary}
 @end macro
 
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Music Glossary}
+@end macro
+
 @macro rlearning{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning-big-page,Learning Manual}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning-big-page,Learning Manual}
 @end macro
 
 @macro ruser{TEXT}
@@ -148,16 +162,35 @@
 @ref{\TEXT\,,,lilypond-big-page,Notation Reference}
 @end macro
 
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-big-page,Notation Reference}
+@end macro
+
 @macro rprogram{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-program-big-page,Application Usage}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-program-big-page,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
 @ref{\TEXT\,,,lilypond-snippets-big-page,Snippets}
 @end macro
 
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets-big-page,Snippets}
+@end macro
+
 @macro rinternals{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals-big-page,Internals Reference}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals-big-page,Internals Reference}
 @end macro
@@ -172,7 +205,17 @@
 @ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
+@end macro
+
 @macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
@@ -182,93 +225,43 @@
 @ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
+@end macro
+
 @macro rprogram{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-program,Application Usage}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
 @ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippets}
+@end macro
+
 @macro rinternals{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,lilypond-internals,Internals Reference}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
 @end macro
 
 @end ifclear
 
-@end ifhtml
+@end ifnottex
 
-
-@ifdocbook
-@c ***** DOCBOOK-XML *****
-
-@macro rglos{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,music-glossary,Music Glossary}
-@end macro
-
-@macro rlearning{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning,Learning Manual}
-@end macro
-
-@macro ruser{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond,Notation Reference}
-@end macro
-
-@macro rprogram{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program,Application Usage}
-@end macro
-
-@macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets,Snippets}
-@end macro
-
-@macro rinternals{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Internals Reference}
-@end macro
-
-@end ifdocbook
-
-
-@ifinfo
-@c **** INFO ****
-
-@macro rglos{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,music-glossary,Music Glossary}
-@end macro
-
-@macro rlearning{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning,Learning Manual}
-@end macro
-
-@macro ruser{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond,Notation Reference}
-@end macro
-
-@macro rprogram{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program,Application Usage}
-@end macro
-
-@macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets,Snippets}
-@end macro
-
-@macro rinternals{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Internals Reference}
-@end macro
-
-@end ifinfo
 
 
 @c **** TEX ****
@@ -279,25 +272,51 @@
 @ref{\TEXT\,,,music-glossary,Music Glossary}
 @end macro
 
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Music Glossary}
+@end macro
+
 @macro rlearning{TEXT}
 learning manual, @ref{\TEXT\,,,lilypond-learning,Learning Manual}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+learning manual, @ref{\TEXT\,,\DISPLAY\,lilypond-learning,Learning Manual}
 @end macro
 
 @macro ruser{TEXT}
 notation reference, @ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
+@macro rusernamed{TEXT,DISPLAY,DISPLAY}
+notation reference, @ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
+@end macro
+
 @macro rprogram{TEXT}
 program usage manual, @ref{\TEXT\,,,lilypond-program,Application Usage}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+program usage manual, @ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
 @ref{\TEXT\,,,lilypond-snippets,Snippets}
 @end macro
 
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Snippets}
+@end macro
+
 @macro rinternals{TEXT}
 @vindex \TEXT\
 @code{\TEXT\}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@code{\DISPLAY\}
 @end macro
 
 @end iftex
