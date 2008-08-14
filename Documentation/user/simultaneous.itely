@@ -185,7 +185,7 @@ example above.
 
 Voices created by this simplified method are implicit @code{Voice}
 contexts; in all but simplest works it is advised to create explicit
-@code{\Voice} contexts using the @code{\new} and @code{\context}
+@code{Voice} contexts using the @code{\new} and @code{\context}
 commands as it is explained in @rlearning{Contexts and engravers} and
 @rlearning{Explicitly instantiating voices}.
 
