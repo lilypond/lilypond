@@ -2343,11 +2343,63 @@ VerticalAxisGroup.
 @subsection Modifying ends of spanners
 
 @c FIXME Write this section
+@c See earlier material in Line styles
 
 @node Modifying stencils
 @subsection Modifying stencils
 
-@c FIXME Write this section
+All layout objects have a @code{stencil} property which is part of
+the @code{grob-interface}.  By default, this property is usually
+set to a function specific to the object that is tailor-made to
+render the symbol which represents it in the output.  For example,
+the standard setting for the @code{stencil} property of the
+@code{MultiMeasureRest} object is @code{ly:multi-measure-rest::print}.
+
+The standard symbol for any object can be replaced by modifying the
+@code{stencil} property to reference a different, specially-written,
+procedure.  This requires a high level of knowledge of the internal
+workings of LilyPond, but there is an easier way which can often
+produce adequate results.
+
+This is to set the @code{stencil} property to the procedure which
+prints text -- @code{ly:text-interface::print} -- and to add a
+@code{text} property to the object which is set to contain the
+markup text which produces the required symbol.  Due to the
+flexibility of markup, much can be achieved -- see in particular
+@ref{Graphic notation inside markup}.
+
+The following example demonstrates this by changing the note head
+symbol to a cross within a circle.
+
+@lilypond[verbatim,quote]
+XinO = {
+  \once \override NoteHead  #'stencil = #ly:text-interface::print
+  \once \override NoteHead #'text = \markup {
+    \combine
+      \halign #-0.7 \draw-circle #0.85 #0.2 ##f
+      \musicglyph #"noteheads.s2cross"
+  }
+}
+\relative c'' {
+  a a \XinO a a
+}
+@end lilypond
+
+Any of the glyphs in the feta Font can be supplied to the
+@code{\musicglyph} markup command -- see @ref{The Feta font}.
+
+@c TODO Add inserting eps files or ref to later
+
+@c TODO Add inserting Postscript or ref to later
+
+@seealso
+
+Notation Reference:
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
+@ref{Text markup commands},
+@ref{The Feta font}.
+
 
 @node Modifying shapes
 @subsection Modifying shapes

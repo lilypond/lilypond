@@ -1235,7 +1235,7 @@ in separate files should they become too long.
 
 @cindex hymn structure
 
-Here is a example of the first line of a hymn with four
+Here is an example of the first line of a hymn with four
 verses, set for SATB.  In this case the words for all four
 parts are the same.  Note how we use variables to separate the
 music notation and words from the staff structure.  See too
@@ -1690,11 +1690,11 @@ about any.
 
 Engravers live and operate in Contexts.
 Engravers such as the @code{Metronome_mark_engraver}, whose
-action and output applies to the score as a whole, operate in
+action and output apply to the score as a whole, operate in
 the highest level context -- the @code{Score} context.
 
 The @code{Clef_engraver} and @code{Key_engraver} are to be
-found in every Staff Context, as different staves may require
+found in every @code{Staff} Context, as different staves may require
 different clefs and keys.
 
 The @code{Note_heads_engraver} and @code{Stem_engraver} live
@@ -1836,7 +1836,7 @@ in which context they operate.  Sometimes this is obvious,
 but occasionally it can be tricky.  If the wrong context
 is specified, no error message is produced, but the expected
 action will not take place.  For example, the
-@code{instrumentName} clearly lives in the Staff context, since
+@code{instrumentName} clearly lives in the @code{Staff} context, since
 it is the staff that is to be named.
 In this example the first staff is labelled, but not the second,
 because we omitted the context name.
@@ -1854,9 +1854,9 @@ because we omitted the context name.
 >>
 @end lilypond
 
-Remember the default context name is Voice, so the second
+Remember the default context name is @code{Voice}, so the second
 @code{\set} command set the property @code{instrumentName} in the
-Voice context to @qq{Alto}, but as LilyPond does not look
+@code{Voice} context to @qq{Alto}, but as LilyPond does not look
 for any such property in the @code{Voice} context, no
 further action took place.  This is not an error, and no error
 message is logged in the log file.
@@ -2033,7 +2033,7 @@ instances of contexts by statements in a @code{\with} block, and by
 @seealso
 
 Notation Reference: @ruser{Changing context default settings},
-@ruser{The set command}.
+@ruser{The \set command}.
 
 Internals Reference: @rinternals{Contexts},
 @rinternals{Tunable context properties}.
