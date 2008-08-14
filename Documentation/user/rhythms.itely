@@ -2397,7 +2397,6 @@ other formatting functions.
 
 Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 
-
 @node Special rhythmic concerns
 @subsection Special rhythmic concerns
 
@@ -2469,34 +2468,33 @@ c1 \afterGrace d1 { c16[ d] } c4
 
 This will put the grace notes after a @q{space} lasting 3/4 of the
 length of the main note.  The fraction 3/4 can be changed by
-setting @code{afterGraceFraction}, i.e.,
+setting @code{afterGraceFraction}.  The following example will put
+the grace note at 7/8 of the main note.
 
-@example
-#(define afterGraceFraction (cons 7 8))
-@end example
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+#(define afterGraceFraction (cons 15 16))
+c1 \afterGrace d1 { c16[ d] } c4
+@end lilypond
 
-@noindent
-will put the grace note at 7/8 of the main note.
-
-The same effect can be achieved manually by doing
+The space between the main note and the grace note may also be
+specified using spacers. The following example places the grace
+note at 7/8 of the main note.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
   << { d1^\trill_( }
-     { s2 \grace { c16[ d] } } >>
+     { s2 s4. \grace { c16[ d] } } >>
   c4)
 }
 @end lilypond
 
-@noindent
-By adjusting the duration of the skip note (here it is a
-half-note), the space between the main note and the grace
-may be adjusted.
-
 A @code{\grace} music expression will introduce special
 typesetting settings, for example, to produce smaller type, and
-set directions.  Hence, when introducing layout tweaks, they
-should be inside the grace expression, for example,
+set directions.  Hence, when introducing layout tweaks to
+override the special settings, they should be placed inside
+the grace expression. The overrides should also be reverted
+inside the grace expression. Here, the grace note's default stem
+direction is overriden and then reverted.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
@@ -2509,22 +2507,42 @@ should be inside the grace expression, for example,
 }
 @end lilypond
 
-@noindent
-The overrides should also be reverted inside the grace expression.
+
+@cindex stem, with slash
+
+
+@snippets
+
+The slash through the stem in @emph{acciaccatura}s can be obtained in
+other situations:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\relative c'' {
+  \override Stem #'stroke-style = #"grace"
+  c8( d2) e8( f4)
+}
+@end lilypond
 
 The layout of grace expressions can be changed throughout the
 music using the function @code{add-grace-property}.  The following
 example undefines the @code{Stem} direction for this grace, so
 that stems do not always point up.
 
-@example
-\new Staff @{
-  #(add-grace-property 'Voice 'Stem 'direction '())
-  @dots{}
-@}
-@end example
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\relative c'' {
+  \new Staff {
+    #(add-grace-property 'Voice 'Stem 'direction ly:stem::calc-direction)
+    #(remove-grace-property 'Voice 'Stem 'direction)
+    \new Voice {
+       \acciaccatura {
+       f16
+       }
+     g4
+    }
+  }
+}
+@end lilypond
 
-@noindent
 Another option is to change the variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
 @code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic},
@@ -2532,32 +2550,23 @@ Another option is to change the variables @code{startGraceMusic},
 seen in the file @file{ly/@/grace@/-init@/.ly}.  By redefining
 them other effects may be obtained.
 
-@cindex stem, with slash
+Grace notes may be forced to align with regular notes
+in other staves:
 
-@noindent
-The slash through the stem in @emph{acciaccatura}s can be obtained in
-other situations by @code{\override Stem  #'stroke-style =
-#"grace"}.
-
-
-@snippets
-
-Grace notes may be forced to use align with regular notes
-in other staves by setting @code{strict-grace-spacing} to
-##t:
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  \override Score.SpacingSpanner #'strict-grace-spacing = ##t
-  \new Staff {
-    c4
-    \afterGrace c4 { c16[ c8 c16] }
-    c4 r
-  }
-  \new Staff {
-    c16 c c c c c c c c4 r
-  }
->>
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  <<
+    \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+    \new Staff {
+      c4
+      \afterGrace c4 { c16[ c8 c16] }
+      c4 r
+    }
+    \new Staff {
+      c16 c c c c c c c c4 r
+    }
+  >>
+}
 @end lilypond
 
 
@@ -2724,3 +2733,4 @@ Snippets:
 
 Internals Reference: @rinternals{Timing_translator},
 @rinternals{Score}
+
