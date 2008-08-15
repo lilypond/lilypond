@@ -134,6 +134,20 @@ multiple staves.
 * Writing music in parallel::
 @end menu
 
+@ignore FUTURE PLANS. Carl suggested:
+
+Perhaps it would be clearer if we started with single-staff polyphony
+with named and explicitly created voices, along with the \voiceOne
+through \voiceFour properties.
+
+We could then introduce the << \\ >> syntax as a simple way to handle
+music where we don't care that temporary voices are created and then
+discarded.
+
+It seems to me to be much easier to go from the full understanding to
+the shortcut than the other way around.
+@end ignore
+
 
 @node Single-staff polyphony
 @unnumberedsubsubsec Single-staff polyphony
