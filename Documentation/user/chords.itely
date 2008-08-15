@@ -915,7 +915,7 @@ End of continuation line
 @c @rlearning{}.
 
 @c Notation Reference:
-@c @ruser{}.
+@c @ref{}.
 
 @c Application Usage:
 @c @rprogram{}.
@@ -1022,7 +1022,7 @@ or below the staff.
 @c @rlearning{}.
 
 @c Notation Reference:
-@c @ruser{}.
+@c @ref{}.
 
 @c Application Usage:
 @c @rprogram{}.

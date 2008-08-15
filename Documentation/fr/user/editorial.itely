@@ -261,7 +261,7 @@ normale ayant un nom similaire.
 
 Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
 @code{\override}. si besoin est, utilisez @code{\tweak}.  
-Pour plus de détails, consultez @ref{Objects connected to the input}.
+Pour plus de détails, consultez @ref{The tweak command}.
 
 
 @node Parentheses

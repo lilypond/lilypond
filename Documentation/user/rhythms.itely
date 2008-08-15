@@ -267,7 +267,7 @@ Learning Manual: @rlearning{Tweaking methods}.
 Notation Reference:
 @ref{Time administration},
 @ref{Scaling durations},
-@ref{Objects connected to the input},
+@ref{The tweak command},
 @ref{Polymetric notation}.
 
 Snippets:
@@ -1294,7 +1294,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TimeSignature},
-@rinternals{Timing-translator},
+@rinternals{Timing_translator},
 @rinternals{Staff}.
 
 @knownissues

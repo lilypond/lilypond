@@ -384,7 +384,7 @@ tresillo corto.
 @end lilypond
 
 Encontrará más detalles de la instrucción @code{\tweak} en
-@ruser{Objects connected to the input}.
+@ruser{The tweak command}.
 
 Si los grupos anidados no comienzan en el mismo momento, su apariencia
 se puede modificar de la forma usual mediante instrucciones
