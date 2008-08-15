@@ -11,9 +11,7 @@
 @node Converting from other formats
 @chapter Converting from other formats
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -27,41 +25,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Invoking midi2ly
 @section Invoking @command{midi2ly}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Invoking abc2ly
 @section Invoking @code{abc2ly}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Invoking etf2ly
 @section Invoking @command{etf2ly}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Generating LilyPond files
 @section Generating LilyPond files
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 

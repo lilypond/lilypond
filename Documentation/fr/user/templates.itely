@@ -11,9 +11,7 @@
 @node Templates
 @appendix Templates
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -29,9 +27,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Single staff
 @appendixsec Single staff
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @appendixsubsec Notes only
@@ -41,9 +37,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Piano templates
 @appendixsec Piano templates
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @appendixsubsec Solo piano
@@ -53,9 +47,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node String quartet
 @appendixsec String quartet
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @appendixsubsec String quartet
@@ -63,9 +55,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Vocal ensembles
 @appendixsec Vocal ensembles
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @appendixsubsec SATB vocal score
@@ -74,9 +64,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Ancient notation templates
 @appendixsec Ancient notation templates
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @appendixsubsec Transcription of mensural music
@@ -84,17 +72,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Jazz combo
 @appendixsec Jazz combo
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node lilypond-book templates
 @appendixsec lilypond-book templates
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @appendixsubsec LaTeX

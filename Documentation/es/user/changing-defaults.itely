@@ -960,7 +960,7 @@ El grabador Fingering_engraver es parte de los contextos: @dots{}
 @node Naming conventions
 @subsection Naming conventions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Modifying properties
 @section Modifying properties
@@ -1578,7 +1578,7 @@ significan @qq{utilizar la dirección predeterminada}, como antes.
 @node Distances and measurements
 @subsection Distances and measurements
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Spanners
 @subsection Spanners
@@ -1783,10 +1783,10 @@ partitura, pero cada @code{Staff}, @code{Lyrics}, etc. tiene su propio
 @node Modifying ends of spanners
 @subsection Modifying ends of spanners
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Modifying stencils
 @subsection Modifying stencils
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated

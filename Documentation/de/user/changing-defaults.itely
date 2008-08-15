@@ -11,9 +11,7 @@
 @node Changing defaults
 @chapter Changing defaults
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -29,9 +27,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Interpretation contexts
 @section Interpretation contexts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -46,9 +42,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Contexts explained
 @subsection Contexts explained
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -61,81 +55,61 @@ UNTRANSLATED NODE: IGNORE ME
 @node Score - the master of all contexts
 @unnumberedsubsubsec Score - the master of all contexts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Top-level contexts - staff containers
 @unnumberedsubsubsec Top-level contexts - staff containers
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Intermediate-level contexts - staves
 @unnumberedsubsubsec Intermediate-level contexts - staves
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Bottom-level contexts - voices
 @unnumberedsubsubsec Bottom-level contexts - voices
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Creating contexts
 @subsection Creating contexts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Modifying context plug-ins
 @subsection Modifying context plug-ins
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Changing context default settings
 @subsection Changing context default settings
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Defining new contexts
 @subsection Defining new contexts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Aligning contexts
 @subsection Aligning contexts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Explaining the Internals Reference
 @section Explaining the Internals Reference
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -148,41 +122,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Navigating the program reference
 @subsection Navigating the program reference
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Layout interfaces
 @subsection Layout interfaces
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Determining the grob property
 @subsection Determining the grob property
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Naming conventions
 @subsection Naming conventions
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Modifying properties
 @section Modifying properties
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -196,49 +160,37 @@ UNTRANSLATED NODE: IGNORE ME
 @node Overview of modifying properties
 @subsection Overview of modifying properties
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node The set command
 @subsection The @code{\set} command
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node The override command
 @subsection The @code{\override} command
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node set versus override
 @subsection @code{\set} vs. @code{\override}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node The tweak command
 @subsection The @code{\tweak} command
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Useful concepts and properties
 @section Useful concepts and properties
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -251,41 +203,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Input modes
 @subsection Input modes
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Direction and placement
 @subsection Direction and placement
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Distances and measurements
 @subsection Distances and measurements
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Spanners
 @subsection Spanners
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Common properties
 @section Common properties
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -298,9 +240,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Controlling visibility of objects
 @subsection Controlling visibility of objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -314,73 +254,55 @@ UNTRANSLATED NODE: IGNORE ME
 @node Removing the stencil
 @unnumberedsubsubsec Removing the stencil
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Making objects transparent
 @unnumberedsubsubsec Making objects transparent
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Painting objects white
 @unnumberedsubsubsec Painting objects white
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Using break-visibility
 @unnumberedsubsubsec Using break-visibility
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Special considerations
 @unnumberedsubsubsec Special considerations
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Line styles
 @subsection Line styles
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Rotating objects
 @subsection Rotating objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Aligning objects
 @subsection Aligning objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Advanced tweaks
 @section Advanced tweaks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -393,41 +315,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Modifying ends of spanners
 @subsection Modifying ends of spanners
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Modifying stencils
 @subsection Modifying stencils
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Modifying shapes
 @subsection Modifying shapes
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Discussion of specific tweaks
 @section Discussion of specific tweaks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -437,9 +349,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node old Contexts explained
 @subsection old Contexts explained
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 

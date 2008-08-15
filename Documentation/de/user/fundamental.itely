@@ -150,7 +150,7 @@ im Kapitel @ruser{File structure}.
 @node Introduction to the LilyPond file structure
 @subsection Introduction to the LilyPond file structure
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
@@ -298,18 +298,18 @@ gleichen Stelle beginnt.
 @node Nesting music expressions
 @subsection Nesting music expressions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @ 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Voices contain music
 @section Voices contain music
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu 
 * I'm hearing Voices::
@@ -319,22 +319,22 @@ UNTRANSLATED NODE: IGNORE ME
 @node I'm hearing Voices
 @subsection I'm hearing Voices
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Voices and vocals
 @subsection Voices and vocals
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Contexts and engravers
 @section Contexts and engravers
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu 
 * Contexts explained::
@@ -347,32 +347,32 @@ UNTRANSLATED NODE: IGNORE ME
 @node Contexts explained
 @subsection Contexts explained
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Creating contexts
 @subsection Creating contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Engravers explained
 @subsection Engravers explained
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Modifying context properties
 @subsection Modifying context properties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Extending the templates
 @section Extending the templates
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu 
 * Soprano and cello::
@@ -383,15 +383,15 @@ UNTRANSLATED NODE: IGNORE ME
 @node Soprano and cello
 @subsection Soprano and cello
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Four-part SATB vocal score
 @subsection Four-part SATB vocal score
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Building a score from scratch
 @subsection Building a score from scratch
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
