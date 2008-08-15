@@ -11,7 +11,10 @@
 @node Wind instruments
 @section Wind instruments
 
-This section includes extra information for writing for bagpipes.
+@c @lilypondfile[quote]{wind-headword.ly}
+
+This section includes some elements of music notation that arise when
+writing for winds.
 
 @menu
 * Common notation for wind instruments::
@@ -21,24 +24,93 @@ This section includes extra information for writing for bagpipes.
 @node Common notation for wind instruments
 @subsection Common notation for wind instruments
 
+This section discusses some issues common to most wind instruments.
+
 @menu
 * References for wind instruments::
-* Half-holes::
+* Fingerings::
 @end menu
 
 @node References for wind instruments
-@subsubsection References for wind instruments
+@unnumberedsubsubsec References for wind instruments
 
-@c TODO Add refs
-TBC
+@cindex wind instruments
 
-@node Half-holes
-@subsubsection Half-holes
-@c TODO Add text; search -user
+Many notation issues for wind instruments pertain to breathing and
+tonguing:
+
+@itemize
+@item Breathing can be specified by rests or @ref{Breath marks}.
+@item Legato playing is indicated by @ref{slurs}.
+@item Different types of tonguings, ranging from legato to non-legato to
+stacatto are usually shown by articulation marks, sometimes combined
+with slurs, see @ref{Articulations and ornamentations} and @ref{List of
+articulations}.
+@item Flutter tonguing is usually indicated by placing a tremolo mark
+and a text markup on the note. See @ref{Tremolo repeats}.
+@end itemize
+
+There are also other aspects of musical notation that can apply to wind
+instruments:
+
+@itemize
+@item Many wind instruments are transposing intruments, see
+@ref{Instrument transpositions}.
+@item The slide glissando are characteristic of the trombone, but other
+winds may perform keyed or valved glissandi. See @ref{Glissando}.
+@item Harmonic series glissandi, which are possible on all brass
+instruments but common for French Horns, are usually written out as
+@ref{Grace notes}.
+@item Pitch inflections at the end of a note are discussed in @ref{Falls
+and doits}.
+@item Key slaps or valve slaps are often shown by the @code{cross} style
+of @ref{Special note heads}.
+@item Woodwinds can overblow low notes to sound harmonics. These are
+shown by the @code{flageolet} articulation. See @ref{List of articulations}.
+@item The use of brass mutes is usually indicated by a text markup, but
+where there are many rapid changes it is better to use the
+@code{stopped} and @code{open} articulations. See @ref{Articulations and
+ornamentations} and @ref{List of articulations}.
+@item Stopped horns are indicated by the @code{stopped} articulation.
+See @ref{Articulations and ornamentations}.
+@end itemize
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing--flageolet-mark-size.ly}
+
+@seealso
+
+Notation Reference:
+@ref{Breath marks},
+@ref{slurs},
+@ref{Articulations and ornamentations},
+@ref{List of articulations},
+@ref{Tremolo repeats},
+@ref{Instrument transpositions},
+@ref{Glissando},
+@ref{Grace notes},
+@ref{Falls and doits},
+@ref{Special note heads},
+
+Snippets:
+@rlsr{Winds}
+
+
+@node Fingerings
+@unnumberedsubsubsec Fingerings
+@c TODO add link to LSR snippet by Libero Mureddo once he has added
+@c it (after August 15th).
+All wind instruments other than the trombone require the use of several
+fingers to produce each pitch.
+
 TBC
 
 @node Bagpipes
 @subsection Bagpipes
+
+This section includes extra information for writing for bagpipes.
 
 @menu
 * Bagpipe definitions::
@@ -46,7 +118,17 @@ TBC
 @end menu
 
 @node Bagpipe definitions
-@subsubsection Bagpipe definitions
+@unnumberedsubsubsec Bagpipe definitions
+
+@cindex bagpipe
+@cindex Scottish highland bagpipe
+@cindex grace notes
+@funindex \taor
+@funindex taor
+@funindex \hideKeySignature
+@funindex hideKeySignature
+@funindex \showKeySignature
+@funindex showKeySignature
 
 LilyPond contains special definitions for music for the Scottish
 highland bagpipe; to use them, add
@@ -85,9 +167,14 @@ This can be indicated by @code{cflat} or @code{fflat}.  Similarly, the
 piobaireachd high g can be written @code{gflat} when it occurs in light
 music.
 
+@seealso
+@rlsr{Winds}
 
 @node Bagpipe example
-@subsubsection Bagpipe example
+@unnumberedsubsubsec Bagpipe example
+
+@cindex bagpipe example
+@cindex Amazing Grace bagpipe example
 
 This is what the well known tune Amazing Grace looks like in bagpipe
 notation.
@@ -129,7 +216,5 @@ notation.
 }
 @end lilypond
 
-
-
-
-
+@seealso
+@rlsr{Winds}
