@@ -25,22 +25,25 @@
 @quotedblleft{}\TEXT\@quotedblright{}
 @end macro
 
-@macro warning{TEXT}
 @ifhtml
+@macro warning{TEXT}
 @cartouche
 @b{Note:} \TEXT\
 @end cartouche
-@end ifhtml
-@ifnothtml
-@quotation
-@quotation
-@cartouche
-@b{Note:} \TEXT\
-@end cartouche
-@end quotation
-@end quotation
-@end ifnothtml
 @end macro
+@end ifhtml
+
+@ifnothtml
+@macro warning{TEXT}
+@quotation
+@quotation
+@cartouche
+@b{Note:} \TEXT\
+@end cartouche
+@end quotation
+@end quotation
+@end macro
+@end ifnothtml
 
 @ifnotinfo
 @macro notation{TEXT}
@@ -125,7 +128,7 @@
 @c     @rlearning
 @c     @ruser
 @c     @rprogram
-@c     @rsnippets
+@c     @rlsr
 @c     @rinternals
 @c  all these also have a @...named version, which allows to specify the
 @c  displayed text for the reference as second argument
@@ -192,7 +195,7 @@
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page,Internals Reference}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals-big-page,Internals Reference}
 @end macro
 
 @end ifset
@@ -278,27 +281,27 @@
 @end macro
 
 @macro rlearning{TEXT}
-learning manual, @ref{\TEXT\,,,lilypond-learning,Learning Manual}
+@ref{\TEXT\,,,lilypond-learning,Learning Manual}
 @end macro
 
 @macro rlearningnamed{TEXT,DISPLAY}
-learning manual, @ref{\TEXT\,,\DISPLAY\,lilypond-learning,Learning Manual}
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning,Learning Manual}
 @end macro
 
 @macro ruser{TEXT}
-notation reference, @ref{\TEXT\,,,lilypond,Notation Reference}
+@ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY,DISPLAY}
-notation reference, @ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
+@ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
 @end macro
 
 @macro rprogram{TEXT}
-program usage manual, @ref{\TEXT\,,,lilypond-program,Application Usage}
+@ref{\TEXT\,,,lilypond-program,Application Usage}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
-program usage manual, @ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
+@ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
@@ -320,4 +323,3 @@ program usage manual, @ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 @end macro
 
 @end iftex
-
