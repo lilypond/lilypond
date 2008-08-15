@@ -2466,17 +2466,20 @@ For common tweaks to the positioning of rehearsal marks, see
 
 @seealso
 
-Snippets:
-@rlsr{Rhythms}.
+This manual: 
+@ref{The Feta font}, 
+@ref{Formatting text}.
 
-This manual: @ref{The Feta font}, @ref{Formatting text}.
-
-Internals Reference: @rinternals{RehearsalMark}.
-
-Init files: @file{scm/@/translation@/-functions@/.scm} contains
+Installed Files: 
+@file{scm/@/translation@/-functions@/.scm} contains
 the definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for
 other formatting functions.
+
+Snippets:
+@rlsr{Rhythms}.
+
+Internals Reference: @rinternals{RehearsalMark}.
 
 Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 
@@ -2499,42 +2502,35 @@ Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 @cindex appoggiatura
 @cindex acciaccatura
 
-Grace notes are ornaments that are written out. They are made with
-the @code{\grace} command.  By prefixing this keyword to a music
-expression, a new one is formed, which will be printed in a
-smaller font and takes up no logical time in a measure.
+Grace notes are ornaments that are written out. Grace notes
+are printed in a smaller font and take up no logical time 
+in a measure.
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 c4 \grace c16 c4
-\grace { c16[ d16] } c2 c4
+\grace { c16[ d16] } c2
 @end lilypond
 
-Two special forms of the @code{\grace} command exist.
-An @emph{acciaccatura}, which should be played as very short,
-is denoted by a slurred small note with a slashed stem.  The
-@emph{appoggiatura}, a grace note that takes a fixed fraction of the
-main note, is denoted as a slurred note in small print without
-a slash.  They are entered with the commands @code{\acciaccatura}
-and @code{\appoggiatura}, as demonstrated in the following
-example:
+Lilypond also supports two special types of grace notes, the 
+@emph{acciaccatura}--an unmeasured grace note indicated by a slurred 
+small note with a slashed stem--and the @emph{appoggiatura}, which 
+takes a fixed fraction of the main note and appears in small print 
+without a slash. 
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-b4 \acciaccatura d8 c4
+\grace c8 b4 
+\acciaccatura d8 c4
 \appoggiatura e8 d4
 \acciaccatura { g16[ f] } e4
 @end lilypond
-
-@noindent
-@code{\acciaccatura} and @code{\appoggiatura} start a slur,
-@code{\grace} does not.
 
 The placement of grace notes is synchronized between different
 staves.  In the following example, there are two sixteenth grace
 notes for every eighth grace note
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \grace { c16[ d e f] } e4 }
-   \new Staff { c4 \grace { g8[ b] } c4 } >>
+<< \new Staff { e2 \grace { c16[ d e f] } e2 }
+   \new Staff { c2 \grace { g8[ b] } c2 } >>
 @end lilypond
 
 @funindex \afterGrace
@@ -2546,28 +2542,40 @@ command.  It takes two arguments: the main note, and the grace
 notes following the main note.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
-c1 \afterGrace d1 { c16[ d] } c4
+c1 \afterGrace d1 { c16[ d] } c1
 @end lilypond
 
-This will put the grace notes after a @q{space} lasting 3/4 of the
-length of the main note.  The fraction 3/4 can be changed by
-setting @code{afterGraceFraction}.  The following example will put
-the grace note at 7/8 of the main note.
+This will put the grace notes after a space lasting 3/4 of the
+length of the main note.  The default fraction 3/4 can be changed by
+setting @code{afterGraceFraction}.  The following example shows
+the results from setting the space at the default,  at 15/16, and 
+finally at 1/2 of the main note.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
-#(define afterGraceFraction (cons 15 16))
-c1 \afterGrace d1 { c16[ d] } c4
+<<
+  \new Staff {
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+  \new Staff {
+    #(define afterGraceFraction (cons 15 16))
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+  \new Staff {
+    #(define afterGraceFraction (cons 1 2))
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+>>
 @end lilypond
 
 The space between the main note and the grace note may also be
 specified using spacers. The following example places the grace
-note at 7/8 of the main note.
+note after a space lasting 7/8 of the main note.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
   << { d1^\trill_( }
      { s2 s4. \grace { c16[ d] } } >>
-  c4)
+  c1)
 }
 @end lilypond
 
@@ -2586,7 +2594,7 @@ direction is overriden and then reverted.
     f16->
     \stemNeutral
   }
-  g4
+  g4 e c2
 }
 @end lilypond
 
@@ -2596,8 +2604,8 @@ direction is overriden and then reverted.
 
 @snippets
 
-The slash through the stem in @emph{acciaccatura}s can be obtained in
-other situations:
+The slash through the stem found in @emph{acciaccatura}s can be applied 
+in other situations:
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \relative c'' {
@@ -2617,10 +2625,9 @@ that stems do not always point up.
     #(add-grace-property 'Voice 'Stem 'direction ly:stem::calc-direction)
     #(remove-grace-property 'Voice 'Stem 'direction)
     \new Voice {
-       \acciaccatura {
-       f16
-       }
-     g4
+       \acciaccatura { f16 } g4 
+       \grace { d16[ e] } f4
+       \appoggiatura { a,32[ b c d] } e2
     }
   }
 }
@@ -2630,7 +2637,7 @@ Another option is to change the variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
 @code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic},
 @code{stopAppoggiaturaMusic}.  The default values of these can be
-seen in the file @file{ly/@/grace@/-init@/.ly}.  By redefining
+seen in the file @code{ly/@/grace@/-init@/.ly}.  By redefining
 them other effects may be obtained.
 
 Grace notes may be forced to align with regular notes
@@ -2658,10 +2665,11 @@ in other staves:
 Music Glossary:
 @rglos{grace notes},
 @rglos{acciaccatura},
-@rglos{appoggiatura}
+@rglos{appoggiatura}.
 
-Snippets:
-@rlsr{Rhythms}.
+Installed Files: @file{ly/@/grace@/-init@/.ly}.
+
+Snippets: @rlsr{Rhythms}.
 
 Internals Reference: @rinternals{GraceMusic}.
 
@@ -2679,8 +2687,8 @@ synchronized.  Take care when you mix staves with grace notes and
 staves without, for example,
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \bar "|:" \grace c16 d4 }
-   \new Staff { c4 \bar "|:" d4 } >>
+<< \new Staff { e4 \bar "|:" \grace c16 d2. }
+   \new Staff { c4 \bar "|:" d2. } >>
 @end lilypond
 
 @noindent
@@ -2688,8 +2696,8 @@ This can be remedied by inserting grace skips of the corresponding
 durations in the other staves.  For the above example
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \bar "|:" \grace c16 d4 }
-   \new Staff { c4 \bar "|:" \grace s16 d4 } >>
+<< \new Staff { e4 \bar "|:" \grace c16 d2. }
+   \new Staff { c4 \bar "|:" \grace s16 d2. } >>
 @end lilypond
 
 Grace sections should only be used within sequential music
@@ -2711,20 +2719,19 @@ cadenza, otherwise they will start too soon or too late.
 A solution to this problem is to use the functions
 @code{mmrest-of-length} and @code{skip-of-length}.  These Scheme
 functions take a piece of music as argument, and generate a multi-measure
-rest or @code{\skip}, exactly as long as the piece.  The use of
-@code{mmrest-of-length} is demonstrated in the following example.
+rest or @code{\skip}, exactly as long as the piece.  
 
 @lilypond[verbatim,ragged-right,quote]
 cadenza = \relative c' {
-  c4 d8 << { e f g } \\ { d4. } >>
-  g4 f2 g4 g
+  c4 d8 e f g g4 
+  f2 g4 g
 }
 
 \new GrandStaff <<
-  \new Staff { \cadenza c'4 }
+  \new Staff { \cadenza c'1 }
   \new Staff {
     #(ly:export (mmrest-of-length cadenza))
-    c'4
+    c'1
   }
 >>
 @end lilypond
