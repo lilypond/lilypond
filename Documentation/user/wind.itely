@@ -11,7 +11,7 @@
 @node Wind instruments
 @section Wind instruments
 
-@c @lilypondfile[quote]{wind-headword.ly}
+@lilypondfile[quote]{wind-headword.ly}
 
 This section includes some elements of music notation that arise when
 writing for winds.
