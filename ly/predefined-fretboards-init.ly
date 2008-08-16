@@ -4,6 +4,8 @@
 %%%%
 %%%% (c) 2008 Carl D. Sorensen <c_sorensen@byu.edu>
 
+\version "2.11.56"
+
 %%%%% define storage structures
 
 % base-chord-shapes is an alist of chord shapes
