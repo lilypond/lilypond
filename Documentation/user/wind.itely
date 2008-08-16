@@ -41,7 +41,7 @@ tonguing:
 
 @itemize
 @item Breathing can be specified by rests or @ref{Breath marks}.
-@item Legato playing is indicated by @ref{slurs}.
+@item Legato playing is indicated by @ref{Slurs}.
 @item Different types of tonguings, ranging from legato to non-legato to
 stacatto are usually shown by articulation marks, sometimes combined
 with slurs, see @ref{Articulations and ornamentations} and @ref{List of
@@ -84,7 +84,7 @@ See @ref{Articulations and ornamentations}.
 
 Notation Reference:
 @ref{Breath marks},
-@ref{slurs},
+@ref{Slurs},
 @ref{Articulations and ornamentations},
 @ref{List of articulations},
 @ref{Tremolo repeats},

@@ -1,5 +1,4 @@
-\version "2.11.51"
-\include "english.ly"
+\version "2.11.55"
 #(set-global-staff-size 15)
 \paper {
   line-width = 16\cm
@@ -10,8 +9,7 @@
 
 % Tchaikovsky
 % Nutcracker Suite, VII Dance of the Merlitons
-\new Score {
-  \compressFullBarRests
+\score {
   \new StaffGroup <<
     \new Staff \relative c'' {
       \set Staff.instrumentName = "Flauto I,II"
@@ -24,6 +22,7 @@
       \mark \markup \large \bold {Moderato assai}
       \key d \major
       \time 2/4
+      \compressFullBarRests
       R2*2
       <d a>16-.\p <cis g>-. <d a>-. <cis g>-. <d a>8-. <cis g>-.
       <e a,>-.\< <d a>32( <fis d> <a fis> <d a> <fis d>4--)\mf
@@ -35,6 +34,7 @@
       \set Staff.instrumentName = "Flauto III"
       \key d \major
       \time 2/4
+      \compressFullBarRests
       R2*2_\markup{Gr.Fl.}
       fis16-.\p e-. fis-. e-. fis8-. e-.
       g8-.\< fis32( a d fis a4--)\mf
