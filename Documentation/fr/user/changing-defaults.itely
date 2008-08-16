@@ -57,7 +57,7 @@ notation -- par exemple, le fait d'attribuer un chiffre de mesure distinct à ch
 
 @item
 La mise en page, autrement dit les marges, l'espacement, la taille du papier ; tous ces facteurs
-font l'objet des chapitres @ref{Non-musical notation} et @ref{Spacing issues}.
+font l'objet des chapitres @ref{General input and output} et @ref{Spacing issues}.
 @end itemize
 
 En sous-main, LilyPond se sert du langage Scheme (un dérivé du LISP) comme
@@ -72,7 +72,7 @@ des listes, des chaînes de caractères ou des symboles, en Scheme.}
 @menu
 * Automatic notation::          
 * Interpretation contexts::     
-* The \override command::       
+* The override command::        
 @end menu
 
 
@@ -80,367 +80,11 @@ des listes, des chaînes de caractères ou des symboles, en Scheme.}
 @section Automatic notation
 
 Cette section s'intéresse au réglage de l'impression automatique des
-altérations accidentelles et ligatures.
+ligatures.
 
 @menu
-* Automatic accidentals::       
 * Setting automatic beam behavior::  
 @end menu
-
-@node Automatic accidentals
-@subsection Automatic accidentals
-@cindex Altérations accidentelles automatiques
-
-Une fonction a été créée pour regrouper les règles suivant lesquelles
-s'impriment les altérations.  Elle s'invoque de la manière suivante :
-
-@funindex set-accidental-style
-@example
-#(set-accidental-style 'REGLE)
-@end example
-
-@c TODO: check the context stuff below
-@c -does it *really* work?
-@c -the default contexts as specified in
-@c  scm/music-function.scm seem to be different -vv
-
-Cette fonction prend pour argument le nom de la règle d'altérations,
-auquel peut s'ajouter, comme argument facultatif, le contexte
-devant être affecté :
-
-@example
-#(set-accidental-style 'REGLE #('CONTEXTE#))
-@end example
-
-Si aucun contexte n'est spécifié, le contexte @code{Staff} sera affecté ; 
-cependant on peut souhaiter l'appliquer au contexte @code{Voice} en lieu 
-et place.
-
-Les régles d'altérations suivantes sont possibles :
-
-@table @code
-@item default
-C'est la règle d'impression par défaut, qui se rapporte à l'usage 
-en vigueur au XVIIIème siècle : les altérations accidentelles sont valables toute
-une mesure, et uniquement à leur propre octave.
-
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       %#(set-accidental-style 'default) 
-       \musicA }
-       \context Staff = "down"{
-	       %#(set-accidental-style 'default)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'default" }}}
-}
-@end lilypond
-
-@item voice
-En principe, LilyPond se souvient de toutes les altérations présentes sur la
-portée (contexte Staff).  Avec cette règle, cependant, les altérations sont indépendantes
-pour chacune des voix. 
-
-
-@example
- \new Staff <<
-        #(set-accidental-style 'voice)
-	@{ @dots{} @}
-	>>
-@end example
-
-De ce fait, les altérations d'une voix sont ignorées dans les autres voix,
-ce qui peut donner lieu à un résultat malencontreux.  Dans l'exemple suivant,
-il est difficile de dire si le deuxième @samp{la} est dièse ou naturel.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'voice) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'voice)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'voice" }}}
-}
-@end lilypond
-
-La règle @code{voice} n'est à envisager que dans le cas de voix devant être lues par
-des musiciens différents.  S'il s'agit d'un @q{conducteur}, ou d'une portée destinée
-à un seul musicien, il vaut mieux utiliser @code{modern} ou @code{modern-cautionary}.
-
-
-@item modern
-@funindex modern style accidentals
-Cette règle est la plus courante au XXème siècle.  Les altérations accidentelles
-sont imprimées comme avec le style @code{default}, mais lorsqu'une note non-altérée
-apparaît à une octave différente, ou bien dans la mesure suivante, des bécarres de précaution
-sont ajoutés.  Dans l'exemple suivant, notez ainsi les deux bécarres dans la
-deuxième mesure de la main droite.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern" }}}
-}
-@end lilypond
-
-@item @code{modern-cautionary}
-@funindex modern-cautionary
-Cette règle est équivalente à @code{modern}, mais les bécarres de précaution sont
-imprimés de façon particulière : soit plus petits, soit (par défaut) entre parenthèses.
-Il est possible de le définir au moyen de la propriété @code{cautionary-style}
-pour l'objet @rinternals{AccidentalSuggestion}.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-cautionary" }}}
-}
-@end lilypond
-
-@funindex modern-voice
-@item modern-voice
-Cette règle sert aux altérations dans de la musique polyphonique destinée
-autant à des musiciens différents qu'à quelqu'un qui lirait l'ensemble des voix.
-Les altérations sont imprimées voix par voix, mais les autres voix, dans le même 
-contexte @rinternals{Staff}, en @emph{tiennent compte} cette fois.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-voice) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-voice)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice" }}}
-}
-@end lilypond
-
-@funindex modern-voice-cautionary
-@item modern-voice-cautionary
-Cette régle est similaire à la précédente, mais les altérations de précautions
-(celles que n'aurait pas ajoutées @code{voice}), sont imprimées de façon
-particulière.  On retrouve donc toutes les altérations qu'imprimerait
-@code{default}, mais certaines sont considérées comme étant @qq{de précaution}.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'modern-voice-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'modern-voice-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'modern-voice-cautionary" }}}
-}
-@end lilypond
-
-@item piano
-@funindex piano accidentals
-Cette règle est adaptée aux contextes GrandStaff -- ce qui n'empêche pas de devoir la spécifier 
-pour chaque portée individuelle au sein du contexte GrandStaff.
-
-@example
-\new GrandStaff @{ <<
-  \new Staff = "up" @{ <<
-    #(set-accidental-style 'piano)
-    @{ @dots{} @}
-  >> @}
-  \new Staff = "down"@{ <<
-    #(set-accidental-style 'piano)
-  @{ @dots{} @}
-  >> @}
->> @}
-@end example
-
-Cette règle est communément employée pour les partitions de piano au XXème siècle.
-Très similaire à @code{modern} de par son comportement, elle s'en distingue en ce que
-les altérations tiennent compte des autre portées du contexte @rinternals{GrandStaff} ou
-@rinternals{PianoStaff}.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'piano) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'piano)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano" }}}
-}
-@end lilypond
-
-@item piano-cautionary
-@funindex #(set-accidental-style 'piano-cautionary)
-Identique à @code{#(set-accidental-style 'piano)}, mais les altérations de précaution
-sont imprimées différemment.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'piano-cautionary) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'piano-cautionary)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'piano-cautionary" }}}
-}
-@end lilypond
-
-@item no-reset
-@funindex no-reset accidental style
-C'est la même règle que @code{default}, mais l'effet des altérations accidentelles
-ne cesse jamais, même dans les mesures suivantes.
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'no-reset) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'no-reset)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'no-reset" }}}
-}
-@end lilypond
-
-@item forget
-Tout le contraire de @code{no-reset}: l'effet des altérations cesse aussitôt,
-et de ce fait, toutes les altérations, quelque soit leur place dans la mesure, sont
-imprimées, en fonction de l'éventuelle armure.
-
-@lilypond[quote,ragged-right]
-musicA = {  << \relative {  cis'8 fis, d'4 <a cis>8 f bis4 | cis2. <c, g'>4 | } \\
-       \relative { ais'2 cis, | fis8 b a4 cis2 | } >> }
-
-musicB = { \clef bass  \new Voice { \voiceTwo \relative { < fis, a cis>4 
-	\change Staff = up cis' \change Staff = down <fis, a>  
-	\change Staff = up dis' | \change Staff = down <fis, a cis>4 gis 
-	<f a d>2 |  } }}
-
-\score { 
-	\new PianoStaff {
-       << \context Staff = "up" {
-	       #(set-accidental-style 'forget) 
-       \musicA }
-       \context Staff = "down"{
-	       #(set-accidental-style 'forget)
-       \musicB } >> }
-       \header { piece = \markup {\fill-line { \fontsize #3  "'forget" }}}
-}
-@end lilypond
-@end table
-
-
-@seealso
-
-Référence du programme : @rinternals{Accidental_engraver},
-@rinternals{Accidental}, @rinternals{AccidentalSuggestion} et @rinternals{AccidentalPlacement}.
-
-
-@knownissues
-
-Les notes simultanées sont considérées comme des évènements séquentiels.
-Ce qui implique que, dans un accord, les altérations accidentelles seront 
-imprimées comme si les notes de l'accords apparaissaient une par une, en fonction
-de l'ordre dans lequels elles ont été saisies -- ce qui peut poser problème lorsqu'au
-sein d'un accord certaines altérations dépendent les unes des autres.
-Ce problème est à résoudre manuellement, en insérant des @code{!} et des @code{?} après les notes
-concernées.
-
 
 @node Setting automatic beam behavior
 @subsection Setting automatic beam behavior
@@ -685,7 +329,7 @@ Ce changement étant appliqué @q{à la volée}, il n'affecte que le second grou
 
 Si l'argument @var{contexte} n'est pas spécifié, alors la propriété cherchera à s'appliquer
 dans le contexte le plus restreint où elle est employée : le plus souvent
- @context{ChordNames}, @context{Voice}, ou @context{Lyrics}.  Dans l'exemple suivant,
+ @code{ChordNames}, @code{Voice}, ou @code{Lyrics}.  Dans l'exemple suivant,
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c8 c c c
@@ -709,8 +353,8 @@ R1*2
 @end lilypond
 
 Les contextes s'organisent de façon hiérarchique : aussi, lorsqu'un contexte de niveau
-supérieur est spécifié (par exemple @context{Staff}), la propriété sera modifée dans
-tous les contextes inférieurs (tous les contextes @context{Voice}, par exemple)
+supérieur est spécifié (par exemple @code{Staff}), la propriété sera modifée dans
+tous les contextes inférieurs (tous les contextes @code{Voice}, par exemple)
 qu'il contient.
 
 @funindex \unset
@@ -921,7 +565,7 @@ La commande suivante :
 @noindent
 rend les hampes plus épaisses (la valeur par défaut est 1.3, ce qui signifie qu'elles 
 sont 1,3 fois plus épaisses que les lignes de la portée).  Dans la mesure où nous avons
-indiqué @context{Staff} comme contexte, ce réglage ne s'appliquera qu'à la portée courante ;
+indiqué @code{Staff} comme contexte, ce réglage ne s'appliquera qu'à la portée courante ;
 les autres portées demeureront intactes.
 
 
@@ -934,10 +578,10 @@ c4
 @end lilypond
 
 La commande @code{\override} modifie donc la définition de l'objet @code{Stem}
-dans le contexte @context{Staff} ; toutes les hampes qui suivent seront affectées.
+dans le contexte @code{Staff} ; toutes les hampes qui suivent seront affectées.
 
 Tout comme avec la commande @code{\set}, l'argument @var{contexte} peut être omis, auquel
-cas le contexte par défaut (ici, @context{Voice}) sera employé.  La commande @code{\once}
+cas le contexte par défaut (ici, @code{Voice}) sera employé.  La commande @code{\once}
 permet de n'appliquer la modification qu'une seule fois.
 
 @lilypond[quote,fragment,verbatim,relative=2]
@@ -1026,9 +670,9 @@ de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\contex
 @end example
 
 Le raccourci @code{\Staff} invoque les définitions inhérentes au contexte
-@context{Staff}, de façon à ce qu'elles puissent être modifiées.
+@code{Staff}, de façon à ce qu'elles puissent être modifiées.
 
-Les lignes suivantes affecteront toutes les portées (tous les contextes @context{Staff})
+Les lignes suivantes affecteront toutes les portées (tous les contextes @code{Staff})
 dans la partition.
 @example
 \set fontSize = #-2
@@ -1073,12 +717,12 @@ avoir invoqué @code{\RemoveEmptyStaffContext} :
 @node Defining new contexts
 @subsection Defining new contexts
 
-Les contextes tels que @context{Staff} ou @code{Voice} sont faits
+Les contextes tels que @code{Staff} ou @code{Voice} sont faits
 de briques de constructions empilées.  En combinant divers graveurs,
 il est possible de créer de nouveaux types de contextes.
 
 Dans l'exemple suivant, on construit, de zéro, un nouveau contexte très
-semblable à @context{Voice}, mais qui n'imprime que des têtes de notes en forme
+semblable à @code{Voice}, mais qui n'imprime que des têtes de notes en forme
 de barres obliques au centre de la portée.  Un tel contexte, par exemple, peut
 servir à indiquer un passage improvisé dans un morceau de jazz.
 
@@ -1127,9 +771,9 @@ En lieu et place des points (@dots{}), voici les éléments à saisir :
 \name ImproVoice
 @end example
 
-@item Comme il est très semblable à @context{Voice}, nous souhaitons que toutes les
-commandes associées au @context{Voice} déjà existant, restent valables.  D'où nécessité
-de la commande @code{\alias}, qui va l'associer au contexte @context{Voice} :
+@item Comme il est très semblable à @code{Voice}, nous souhaitons que toutes les
+commandes associées au @code{Voice} déjà existant, restent valables.  D'où nécessité
+de la commande @code{\alias}, qui va l'associer au contexte @code{Voice} :
 
 @example
 \alias Voice
@@ -1191,9 +835,9 @@ Récapitulons -- on se retrouve avec le bloc suivant :
 
 @funindex \accepts
 Ce n'est pas tout.  En effet, on veut intégrer le nouveau contexte
-@context{ImproVoice} dans la hiérarchie des contextes.  Tout comme le
+@code{ImproVoice} dans la hiérarchie des contextes.  Tout comme le
 contexte @code{Voice}, sa place est au sein du contexte @code{Staff}.
-Nous allons donc modifier le contexte @context{Staff},
+Nous allons donc modifier le contexte @code{Staff},
 au moyen de la commande @code{\accepts} :
 
 @example
@@ -1273,11 +917,11 @@ travaillent de concert.  Comme leurs noms anglais l'indiquent,
 (@code{Staff}), les paroles (@code{Lyrics}) et ainsi de suite ; puis
 @code{VerticalAlignment} synchronise verticalement ces différents groupes.
 En général, il n'y a qu'un seul @code{VerticalAlignment} pour l'ensemble
-de la partition, mais chaque contexte @context{Staff}, @context{Lyrics}, etc.
+de la partition, mais chaque contexte @code{Staff}, @code{Lyrics}, etc.
 possède son propre @code{VerticalAxisGroup}.
 
 
-@node The \override command
+@node The override command
 @section The @code{\override} command
 
 La commande @code{\override} permet de modifier la mise en page
@@ -1296,9 +940,9 @@ La propriété @var{propriété} de l'objet @var{objet}, appartenant au contexte
 * Navigating the program reference::  
 * Layout interfaces::           
 * Determining the grob property::  
-* Objects connected to the input::  
-* Using Scheme code instead of \tweak::  
-* \set versus \override::       
+* The tweak command::           
+* Using Scheme code instead of tweak::  
+* set versus override::         
 * Difficult tweaks::            
 @end menu
 
@@ -1318,7 +962,7 @@ ressemblent en général à
 Pour élaborer un réglage de ce type, on a besoin de connaître précisément :
 
 @itemize
-@item le contexte : ici @context{Voice} (la voix).
+@item le contexte : ici @code{Voice} (la voix).
 @item l'objet à affecter : ici @code{Stem} (les hampes).
 @item la propriété à modifier : ici @code{thickness} (l'épaisseur du trait).
 @item la valeur désirée : ici @code{3.0} (par défaut, elle est de 1.3).
@@ -1554,7 +1198,7 @@ propriétés internes).
 Pour aller encore plus loin, plutôt que de simplement parler de l'objet
 @code{Fingering}, ce qui ne nous avance pas à grand chose, on peut aller explorer
 son âme même, dans les fichiers source de LilyPond (voir
-@rlearning{Default files}), en l'occurence le fichier
+@rlearning{Other sources of information}), en l'occurence le fichier
 @file{scm/@/define@/-grobs@/.scm} :
 
 @example
@@ -1658,7 +1302,7 @@ f
 @end lilypond
 
 
-Dans le cas présent, le réglage intervient dans le contexte @context{Voice},
+Dans le cas présent, le réglage intervient dans le contexte @code{Voice},
 ce qui pouvait également se déduire de la Référence du programme, où la page
 du graveur @rinternals{Fingering_engraver} indique :
 
@@ -1673,8 +1317,8 @@ Le graveur Fingering_engraver fait partie des contextes : @dots{} @rinternals{Vo
 @end quotation
 
 
-@node Objects connected to the input
-@subsection Objects connected to the input
+@node The tweak command
+@subsection The @code{\tweak} command
 
 @funindex \tweak
 
@@ -1723,7 +1367,7 @@ pas directement rendue ; c'est pourquoi le code suivant ne sera d'aucun effet :
 Voir pour plus de détails @ref{Displaying music expressions}.
 
 
-@node Using Scheme code instead of \tweak
+@node Using Scheme code instead of tweak
 @subsection Using Scheme code instead of @code{\tweak}
 
 L'inconvénient principal de la commande @code{\tweak} est la rigidité de sa
@@ -1769,7 +1413,7 @@ Le dernier élément, dans ce bloc @code{let}, est la valeur finale de
 @samp{m} lui-même.
 
 
-@node \set versus \override
+@node set versus override
 @subsection @code{\set} vs. @code{\override}
 
 Si les propriétés peuvent être modifiées de deux façons, par les commandes

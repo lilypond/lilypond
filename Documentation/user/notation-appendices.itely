@@ -15,6 +15,7 @@
 @menu
 * Chord name chart::            
 * Common chord modifiers::
+* Predefined fretboard diagrams::
 * MIDI instruments::            
 * List of colors::              
 * The Feta font::               
@@ -370,6 +371,13 @@ TODO
 
 
 @end multitable
+
+@node Predefined fretboard diagrams
+@appendixsec Predefined fretboard diagrams
+
+The chart below shows the predefined fretboard diagrams.
+
+@lilypondfile{display-predefined-fretboards.ly}
 
 @node MIDI instruments
 @appendixsec MIDI instruments

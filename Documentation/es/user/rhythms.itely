@@ -121,8 +121,8 @@ otros ajustes que controlan la notación proporcional, consulte
 
 Normalmente los puntillos se desplazan hacia arriba para evitar las
 líneas del pentagrama, excepto en situaciones de polifonía. Para
-forzar una dirección concreta de forma manual, véase @ref{Controlling
-direction and placement}.
+forzar una dirección concreta de forma manual, véase @ref{Direction
+and placement}.
 
 
 @predefined
@@ -255,7 +255,7 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Time administration},
 @ref{Scaling durations},
-@ref{Objects connected to the input},
+@ref{The tweak command},
 @ref{Polymetric notation}.
 
 Fragmentos de código:
@@ -451,7 +451,7 @@ percusión.  Se pueden introducir de la siguiente manera:
 
 Es posible controlar la colocación vertical de las ligaduras de unión;
 véase la sección de instrucciones predefinidas, o para ver más
-detalles, consulte @ref{Controlling direction and placement}.
+detalles, consulte @ref{Direction and placement}.
 
 
 @cindex ligaduras, apariencia
@@ -963,7 +963,7 @@ para indicar dónde se pueden producir los saltos.
 @node Polymetric notation
 @subsubsection Polymetric notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Automatic note splitting

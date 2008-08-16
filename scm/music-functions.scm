@@ -689,7 +689,6 @@ SkipEvent. Useful for extracting parts from crowded scores"
       ((< i 0))
     (f (vector-ref v i))))
 
-;; TODO:  make a remove-grace-property too.
 (define-public (add-grace-property context-name grob sym val)
   "Set SYM=VAL for GROB in CONTEXT-NAME. "
   (define (set-prop context)
@@ -699,6 +698,25 @@ SkipEvent. Useful for extracting parts from crowded scores"
 				 (list (list context-name grob sym val)))))
       (ly:context-set-property! where 'graceSettings new-settings)))
   (ly:export (context-spec-music (make-apply-context set-prop) 'Voice)))
+
+(define-public (remove-grace-property context-name grob sym)
+  "Remove all SYM for GROB in CONTEXT-NAME. "
+  (define (sym-grob-context? property sym grob context-name)
+    (and (eq? (car property) context-name)
+         (eq? (cadr property) grob)
+         (eq? (caddr property) sym)))
+  (define (delete-prop context)
+    (let* ((where (ly:context-property-where-defined context 'graceSettings))
+	   (current (ly:context-property where 'graceSettings))
+           (prop-settings (filter 
+                            (lambda(x) (sym-grob-context? x sym grob context-name))
+                            current)) 
+	   (new-settings current))
+      (for-each (lambda(x) 
+                 (set! new-settings (delete x new-settings)))
+               prop-settings)
+      (ly:context-set-property! where 'graceSettings new-settings)))
+  (ly:export (context-spec-music (make-apply-context delete-prop) 'Voice)))
 
 
 
@@ -1002,3 +1020,34 @@ use GrandStaff as a context. "
 	(ly:music-property (car evs) 'pitch)
 	#f)))
        
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(define-public (extract-named-music music music-name)
+"Return a flat list of all music named @code{music-name}
+from @code{music}."
+   (let ((extracted-list
+          (if (ly:music? music)
+              (if (eq? (ly:music-property music 'name) music-name)
+                  (list music)
+                  (let ((elt (ly:music-property music 'element))
+                        (elts (ly:music-property music 'elements)))
+                    (if (ly:music? elt)
+                        (extract-named-music elt music-name)
+                        (if (null? elts)
+                            '()
+                            (map (lambda(x) 
+                                    (extract-named-music x music-name ))
+                             elts)))))
+              '())))
+     (flatten-list extracted-list)))
+
+(define-public (event-chord-notes event-chord)
+"Return a list of all notes from @{event-chord}."
+  (filter
+    (lambda (m) (eq? 'NoteEvent (ly:music-property m 'name)))
+    (ly:music-property event-chord 'elements)))
+
+(define-public (event-chord-pitches event-chord)
+"Return a list of all pitches from @{event-chord}."
+  (map (lambda (x) (ly:music-property x 'pitch))
+       (event-chord-notes event-chord)))

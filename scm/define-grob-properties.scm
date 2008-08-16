@@ -168,6 +168,10 @@ other object.  Otherwise, it determines whether the object is placed
 be used: @code{#UP}=@code{1}, @code{#DOWN}=@code{-1},
 @code{#LEFT}=@code{-1}, @code{#RIGHT}=@code{1}, @code{#CENTER}=@code{0}.")
      (dot-count ,integer? "The number of dots.")
+     (dot-placement-list ,list? "List 
+consisting of @code{(@var{description} @var{string-number} 
+@var{fret-number} @var{finger-number})} 
+entries used to define fret diagrams.")
      (duration-log ,integer? "The 2-log of the note head duration,
 i.e., @code{0} = whole note, @code{1} = half note, etc.")
 
@@ -241,21 +245,24 @@ include the following:
 @itemize @bullet
 @item
 @code{barre-type} -- Type of barre indication used.
-Choices include @code{curved} and @code{straight}.
+Choices include @code{curved}, @code{straight}, and
+@code{none}.  Default @code{curved}.
 @item
 @code{dot-color} -- Color of dots.  Options include
-@code{black} and @code{white}.
+@code{black} and @code{white}.  Default @code{black}.
 @item
 @code{dot-label-font-mag} -- Magnification for font used to
 label fret dots.  Default value 1.
 @item
-@code{dot-radius} -- Radius of dots.
+@code{dot-radius} -- Radius of dots, in terms of fret spaces.  
+Default value 0.425 for labeled dots, 0.25 for unlabeled dots.
 @item
 @code{finger-code} -- Code for the type of fingering indication used.
 Options include @code{none}, @code{in-dot}, and
-@code{below-string}.
+@code{below-string}.  Default @code{none} for markup fret diagrams, 
+@code{below-string} for @code{FretBoards} fret diagrams.
 @item
-@code{fret-count} -- The number of frets.
+@code{fret-count} -- The number of frets.  Default 4.
 @item
 @code{fret-label-font-mag} -- The magnification of the font used to label
 the lowest fret number.  Default 0.5
@@ -266,21 +273,25 @@ from the fret.  Default -0.2
 @code{label-dir} -- Side to which the fret label is attached.
 @code{-1}, @code{#LEFT}, or @code{#DOWN} for left or down;
 @code{1}, @code{#RIGHT}, or @code{#UP} for right or up.
+Default @code{#RIGHT}.
 @item
-@code{mute-string} -- Character string to be used to indicate muted string.
+@code{mute-string} -- Character string to be used to indicate muted 
+string.  Default \"x\".
 @item
 @code{number-type} -- Type of numbers to use in fret label.  Choices
-include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.
+include @code{roman-lower}, @code{roman-upper}, and @code{arabic}.  Default
+@code{roman-lower}.
 @item
-@code{open-string} -- Character string to be used to indicate open string.
+@code{open-string} -- Character string to be used to indicate open 
+string.  Default \"o\".
 @item
 @code{orientation} -- Orientation of fret-diagram.  Options include
-@code{normal} and @code{landscape}
+@code{normal} and @code{landscape}.  Default @code{normal}.
 @item
-@code{string-count} -- The number of strings.
+@code{string-count} -- The number of strings.  Default 6.
 @item
-@code{string-label-font-mag} -- The magnification of the font used to label fingerings
-at the string, rather than in the dot.  Default value 0.6.
+@code{string-label-font-mag} -- The magnification of the font used to label 
+fingerings at the string, rather than in the dot.  Default value 0.6.
 @item
 @code{top-fret-thickness} -- The thickness of the top fret line, as a multiple
 of the standard thickness.   Default value 3.
@@ -288,8 +299,8 @@ of the standard thickness.   Default value 3.
 @code{xo-font-magnification} -- Magnification used for mute and
 open string indicators.  Default value 0.5.
 @item
-@code{xo-padding} -- Padding for open and mute indicators from top fret.  Default
-value 0.25.
+@code{xo-padding} -- Padding for open and mute indicators from top fret.  
+Default value 0.25.
 @end itemize")      ;"
 
 
@@ -343,7 +354,7 @@ correction amount for kneed beams.  Set between @code{0} for no
 correction and @code{1} for full correction.")
 
      (labels ,list? "List of labels (symbols) placed on a column")
-     (layer ,number? "The output layer (a value between 0 and@tie{}2:
+     (layer ,integer? "The output layer (a value between 0 and@tie{}2:
 Layers define the order of printing objects.  Objects in lower layers
 are overprinted by objects in higher layers.")
      (ledger-line-thickness ,number-pair? "The thickness of ledger
@@ -566,9 +577,6 @@ are not spaced separately, but put before musical columns.")
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, bar lines, etc.) are not spaced
 separately, but put before musical columns.")
-     (string-fret-finger-combinations ,list? "List consisting of
-@code{(@var{string-number} @var{fret-number} @var{finger-number})}
-entries.")
      (stroke-style ,string? "Set to @code{\"grace\"} to turn stroke
 through flag on.")
      (style ,symbol? "This setting determines in what style a grob is

@@ -1,65 +1,91 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 66dde21fe63499f32a718f6098abe70e1429059b
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
-
 
 @node Running LilyPond
 @chapter Running LilyPond
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Normal usage::
 * Command-line usage::
 * Error messages::
 * Updating files with convert-ly::
 * Reporting bugs::
-@end menu 
+@end menu
+
 @node Normal usage
 @section Normal usage
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Command-line usage
 @section Command-line usage
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
+
+@menu
+* Invoking lilypond::
+* Command line options::
+* Environment variables::
+@end menu
+
+@node Invoking lilypond
 @subsection Invoking lilypond
+
+@untranslated
+
+
+@node Command line options
 @subsection Command line options
+
+@untranslated
+
+
+@node Environment variables
 @subsection Environment variables
+
+@untranslated
+
+
 @node Error messages
 @section Error messages
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Updating files with convert-ly
 @section Updating with @command{convert-ly}
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @subsection Command line options
-@menu 
+@menu
 * Problems with convert-ly::
-@end menu 
+@end menu
+
 @node Problems with convert-ly
 @subsection Problems with @code{convert-ly}
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Reporting bugs
 @section Reporting bugs
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+
+@c -- SKELETON FILE --

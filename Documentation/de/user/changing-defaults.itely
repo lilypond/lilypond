@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,149 +11,346 @@
 @node Changing defaults
 @chapter Changing defaults
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Interpretation contexts::
-* The \override command::
-* Discussion of specific tweaks::
-@end menu 
+
+@menu
+* Interpretation contexts::     
+* Explaining the Internals Reference::  
+* Modifying properties::        
+* Useful concepts and properties::  
+* Common properties::           
+* Advanced tweaks::             
+* Discussion of specific tweaks::  
+@end menu
+
 @node Interpretation contexts
 @section Interpretation contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Contexts explained::
-* Creating contexts::
-* Changing context properties on the fly::
-* Modifying context plug-ins::
-* Layout tunings within contexts::
-* Changing context default settings::
-* Defining new contexts::
-* Aligning contexts::
-* Vertical grouping of grobs::
-@end menu 
+
+@menu
+* Contexts explained::          
+* Creating contexts::           
+* Modifying context plug-ins::  
+* Changing context default settings::  
+* Defining new contexts::       
+* Aligning contexts::           
+@end menu
+
 @node Contexts explained
 @subsection Contexts explained
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
+
+@menu
+* Score - the master of all contexts::  
+* Top-level contexts - staff containers::  
+* Intermediate-level contexts - staves::  
+* Bottom-level contexts - voices::  
+@end menu
+
+@node Score - the master of all contexts
+@unnumberedsubsubsec Score - the master of all contexts
+
+@untranslated
+
+
+@node Top-level contexts - staff containers
+@unnumberedsubsubsec Top-level contexts - staff containers
+
+@untranslated
+
+
+@node Intermediate-level contexts - staves
+@unnumberedsubsubsec Intermediate-level contexts - staves
+
+@untranslated
+
+
+@node Bottom-level contexts - voices
+@unnumberedsubsubsec Bottom-level contexts - voices
+
+@untranslated
+
 
 @node Creating contexts
 @subsection Creating contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Changing context properties on the fly
-@subsection Changing context properties on the fly
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Modifying context plug-ins
 @subsection Modifying context plug-ins
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Layout tunings within contexts
-@subsection Layout tunings within contexts
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Changing context default settings
 @subsection Changing context default settings
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Defining new contexts
 @subsection Defining new contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Aligning contexts
 @subsection Aligning contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Vertical grouping of grobs
-@subsection Vertical grouping of grobs
 
-UNTRANSLATED NODE: IGNORE ME
+@node Explaining the Internals Reference
+@section Explaining the Internals Reference
 
-@node The \override command
-@section The @code{\override} command
+@untranslated
 
-UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Constructing a tweak::
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Objects connected to the input::
-* Using Scheme code instead of \tweak::
-* \set versus \override::
-* Difficult tweaks::
-@end menu 
-@node Constructing a tweak
-@subsection Constructing a tweak
-
-UNTRANSLATED NODE: IGNORE ME
+@menu
+* Navigating the program reference::  
+* Layout interfaces::           
+* Determining the grob property::  
+* Naming conventions::          
+@end menu
 
 @node Navigating the program reference
 @subsection Navigating the program reference
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Layout interfaces
 @subsection Layout interfaces
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Determining the grob property
 @subsection Determining the grob property
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Objects connected to the input
-@subsection Objects connected to the input
 
-UNTRANSLATED NODE: IGNORE ME
+@node Naming conventions
+@subsection Naming conventions
 
-@node Using Scheme code instead of \tweak
-@subsection Using Scheme code instead of @code{\tweak}
+@untranslated
 
-UNTRANSLATED NODE: IGNORE ME
 
-@node \set versus \override
+@node Modifying properties
+@section Modifying properties
+
+@untranslated
+
+
+@menu
+* Overview of modifying properties::  
+* The set command::             
+* The override command::        
+* set versus override::         
+* The tweak command::           
+@end menu
+
+@node Overview of modifying properties
+@subsection Overview of modifying properties
+
+@untranslated
+
+
+@node The set command
+@subsection The @code{\set} command
+
+@untranslated
+
+
+@node The override command
+@subsection The @code{\override} command
+
+@untranslated
+
+
+@node set versus override
 @subsection @code{\set} vs. @code{\override}
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Difficult tweaks
-@subsection Difficult tweaks
 
-UNTRANSLATED NODE: IGNORE ME
+@node The tweak command
+@subsection The @code{\tweak} command
 
-@node Discussion of specific tweaks
-@section Discussion of specific tweaks
+@untranslated
 
-UNTRANSLATED NODE: IGNORE ME
 
-@menu 
-* Line styles::
-* Controlling visibility of objects::
-@end menu 
-@node Line styles
-@subsection Line styles
+@node Useful concepts and properties
+@section Useful concepts and properties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
+
+@menu
+* Input modes::                 
+* Direction and placement::     
+* Distances and measurements::  
+* Spanners::                    
+@end menu
+
+@node Input modes
+@subsection Input modes
+
+@untranslated
+
+
+@node Direction and placement
+@subsection Direction and placement
+
+@untranslated
+
+
+@node Distances and measurements
+@subsection Distances and measurements
+
+@untranslated
+
+
+@node Spanners
+@subsection Spanners
+
+@untranslated
+
+
+@node Common properties
+@section Common properties
+
+@untranslated
+
+
+@menu
+* Controlling visibility of objects::  
+* Line styles::                 
+* Rotating objects::            
+* Aligning objects::            
+@end menu
 
 @node Controlling visibility of objects
 @subsection Controlling visibility of objects
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@menu
+* Removing the stencil::        
+* Making objects transparent::  
+* Painting objects white::      
+* Using break-visibility::      
+* Special considerations::      
+@end menu
+
+@node Removing the stencil
+@unnumberedsubsubsec Removing the stencil
+
+@untranslated
+
+
+@node Making objects transparent
+@unnumberedsubsubsec Making objects transparent
+
+@untranslated
+
+
+@node Painting objects white
+@unnumberedsubsubsec Painting objects white
+
+@untranslated
+
+
+@node Using break-visibility
+@unnumberedsubsubsec Using break-visibility
+
+@untranslated
+
+
+@node Special considerations
+@unnumberedsubsubsec Special considerations
+
+@untranslated
+
+
+@node Line styles
+@subsection Line styles
+
+@untranslated
+
+
+@node Rotating objects
+@subsection Rotating objects
+
+@untranslated
+
+
+@node Aligning objects
+@subsection Aligning objects
+
+@untranslated
+
+
+@node Advanced tweaks
+@section Advanced tweaks
+
+@untranslated
+
+
+@menu
+* Vertical grouping of grobs::  
+* Modifying ends of spanners::  
+* Modifying stencils::          
+* Modifying shapes::            
+@end menu
+
+@node Vertical grouping of grobs
+@subsection Vertical grouping of grobs
+
+@untranslated
+
+
+@node Modifying ends of spanners
+@subsection Modifying ends of spanners
+
+@untranslated
+
+
+@node Modifying stencils
+@subsection Modifying stencils
+
+@untranslated
+
+
+@node Modifying shapes
+@subsection Modifying shapes
+
+@untranslated
+
+
+@node Discussion of specific tweaks
+@section Discussion of specific tweaks
+
+@untranslated
+
+
+@menu
+* old Contexts explained::      
+@end menu
+
+@node old Contexts explained
+@subsection old Contexts explained
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

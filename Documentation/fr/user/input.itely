@@ -9,68 +9,130 @@
 
 @c \version "2.11.51"
 
-@c Translators: Jean-Charles Malahieude
+@c Translators: Jean-Charles Malahieude, Valentin Villenave
 
-@node Input syntax
-@chapter Input syntax
+@node General input and output
+@chapter General input and output
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Input files::
-* Common syntax issues TODO name?::
-* Other stuffs TODO move?::
-@end menu 
-@node Input files
-@section Input files
 
-UNTRANSLATED NODE: IGNORE ME
+@menu
+* Input structure::             
+* Titles and headers::          
+* Working with input files::    
+* Controlling output::          
+* MIDI output::                 
+@end menu
 
-@menu 
-* File structure::
-* A single music expression::
-* Multiple scores in a book::
-* Extracting fragments of notation::
-* Including LilyPond files::
-* Text encoding::
-* Different editions from one source::
-@end menu 
-@node File structure
-@subsection File structure
+@node Input structure
+@section Input structure
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node A single music expression
-@subsection A single music expression
 
-UNTRANSLATED NODE: IGNORE ME
+@menu
+* Structure of a score::        
+* Multiple scores in a book::   
+* File structure::              
+@end menu
+
+@node Structure of a score
+@subsection Structure of a score
+
+@untranslated
+
 
 @node Multiple scores in a book
 @subsection Multiple scores in a book
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Extracting fragments of notation
-@subsection Extracting fragments of notation
 
-UNTRANSLATED NODE: IGNORE ME
+@node File structure
+@subsection File structure
+
+@untranslated
+
+
+@node Titles and headers
+@section Titles and headers
+
+@untranslated
+
+
+@menu
+* Creating titles::             
+* Custom titles::               
+* Reference to page numbers::   
+* Table of contents::           
+@end menu
+
+@node Creating titles
+@subsection Creating titles
+
+@untranslated
+
+
+@node Custom titles
+@subsection Custom titles
+
+@untranslated
+
+
+@node Reference to page numbers
+@subsection Reference to page numbers
+
+@untranslated
+
+
+@node Table of contents
+@subsection Table of contents
+
+@untranslated
+
+
+@node Working with input files
+@section Working with input files
+
+@untranslated
+
+
+@menu
+* Including LilyPond files::    
+* Different editions from one source::  
+* Text encoding::               
+* Displaying LilyPond notation::  
+@end menu
 
 @node Including LilyPond files
 @subsection Including LilyPond files
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Text encoding
-@subsection Text encoding
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Different editions from one source
 @subsection Different editions from one source
 
+@untranslated
+
+
+@menu
+* Using variables::             
+* Using tags::                  
+@end menu
+
+@node Using variables
+@unnumberedsubsubsec Using variables
+
+@untranslated
+
+
+@node Using tags
+@unnumberedsubsubsec Using tags
 @funindex \tag
 @cindex tag
-
+ 
 La commande @code{\tag} affecte un nom à des expressions musicales.
 Les expressions ainsi balisées pourront être filtrées par la suite.
 Ce mécanisme permet d'obtenir différentes versions à partir d'une même
@@ -79,7 +141,7 @@ source musicale.
 Dans l'exemple qui suit, nous obtenons deux versions du même extrait,
 l'une pour le conducteur, l'autre pour l'instrumentiste, et qui
 comportera les ornements. 
-
+ 
 @example
 c1
 <<
@@ -94,22 +156,29 @@ c1
 c1
 @end example
 
+@noindent
 Ce principe peut s'appliquer aux articulations, textes, etc.  Il
-suffit de positionner 
+suffit de positionner
+
 @example
 -\tag #@var{votre-balise}
 @end example
+
+@noindent
 avant l'articulation, comme ici :
+
 @example
 c1-\tag #'part ^4
 @end example
 
+@noindent 
 Ceci définira une note avec une indication de doigté conditionnelle.
-
+ 
 @cindex keepWithTag
 @cindex removeWithTag
 C'est grâce aux commandes @code{\keepWithTag} et @code{\removeWithTag}
 que vous filtrerez les expressions balisées.  Par exemple :
+
 @example
 <<
   @var{de la musique}
@@ -117,6 +186,8 @@ que vous filtrerez les expressions balisées.  Par exemple :
   \keepWithTag #'part @var{de la musique}
 >>
 @end example
+
+@noindent
 donnerait :
 
 @lilypondfile[ragged-right,quote]{tag-filter.ly}
@@ -125,7 +196,7 @@ Les arguments de la commande @code{\tag} doivent être un symbole (tel
 que @code{#'score} ou @code{#'part}), suivi d'une expression musicale.
 Vous pouvez utiliser de multiples balises dans un morceau en
 saisissant plusieurs @code{\tag}.
-
+ 
 @example
   \tag #'original-part \tag #'transposed-part @dots{}
 @end example
@@ -143,60 +214,129 @@ Lorsqu'elles comportent des silences, ceux-ci ne seront pas fusionnés
 si vous imprimez une partition avec les deux sections balisées.
 
 
-@node Common syntax issues TODO name?
-@section Common syntax issues TODO name?
+@node Text encoding
+@subsection Text encoding
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Controlling direction::
-* Distances and measurements MAYBE MOVE::
-@end menu
-
-@node Controlling direction
-@subsection Controlling direction
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Distances and measurements MAYBE MOVE
-@subsection Distances and measurements MAYBE MOVE
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Other stuffs TODO move?
-@section Other stuffs TODO move?
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Displaying LilyPond notation::
-* Skipping corrected music::
-* context list FIXME::
-* another thing FIXME::
-* Input modes FIXME::
-@end menu
 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
+
+@node Controlling output
+@section Controlling output
+
+@untranslated
+
+
+@menu
+* Extracting fragments of music::  
+* Skipping corrected music::    
+@end menu
+
+@node Extracting fragments of music
+@subsection Extracting fragments of music
+
+@untranslated
+
 
 @node Skipping corrected music
 @subsection Skipping corrected music
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node context list FIXME
-@subsection context list FIXME
 
-UNTRANSLATED NODE: IGNORE ME
+@node MIDI output
+@section MIDI output
 
-@node another thing FIXME
-@subsection another thing FIXME
+@untranslated
 
-UNTRANSLATED NODE: IGNORE ME
 
-@node Input modes FIXME
-@subsection Input modes FIXME
+@menu
+* Creating MIDI files::         
+* MIDI block::                  
+* What goes into the MIDI output?::  
+* Repeats in MIDI::             
+* Controlling MIDI dynamics::   
+@end menu
 
-UNTRANSLATED NODE: IGNORE ME
+@node Creating MIDI files
+@subsection Creating MIDI files
+
+@untranslated
+
+
+@unnumberedsubsubsec Instrument names
+@node MIDI block
+@subsection MIDI block
+
+@untranslated
+
+
+@node What goes into the MIDI output?
+@subsection What goes into the MIDI output?
+
+@untranslated
+
+
+@unnumberedsubsubsec Supported in MIDI
+@unnumberedsubsubsec Unsupported in MIDI
+
+@node Repeats in MIDI
+@subsection Repeats in MIDI
+
+@cindex reprises développées
+@funindex \unfoldRepeats
+
+Au prix de quelques réglages, les reprises de toutes sortes peuvent être
+rendues dans le fichier MIDI.  Il suffit pour cela de recourir à la
+fonction @code{\unfoldRepeats}, qui développe toutes les reprises.  En
+d'autre termes, @code{\unfoldRepeats} transforme toutes les reprises
+en reprises de type @code{unfold}.
+
+
+@lilypond[quote,verbatim,fragment,line-width=8.0\cm]
+\unfoldRepeats {
+  \repeat tremolo 8 {c'32 e' }
+  \repeat percent 2 { c''8 d'' }
+  \repeat volta 2 {c'4 d' e' f'}
+  \alternative {
+    { g' a' a' g' }
+    {f' e' d' c' }
+  }
+}
+\bar "|."
+@end lilypond
+
+
+Lorsque l'on veut utiliser @code{\unfoldRepeats} seulement pour le rendu
+MIDI, il faut établir deux blocs @code{\score} : un pour le MIDI, avec
+des reprises explicites, et l'autre pour la partition, avec des reprises
+notées sous forme de barres de reprise, de trémolo ou de symboles de
+pourcentage.  Par exemple
+
+@example
+\score @{
+ @var{..musique..}
+ \layout @{ ..  @}
+@}
+\score @{
+ \unfoldRepeats @var{..musique..}
+ \midi @{ ..  @}
+@}
+@end example
+
+
+@node Controlling MIDI dynamics
+@subsection Controlling MIDI dynamics
+
+@untranslated
+
+
+@unnumberedsubsubsec Dynamic marks
+@unnumberedsubsubsec Overall MIDI volume
+@unnumberedsubsubsec Equalizing different instruments (i)
+@unnumberedsubsubsec Equalizing different instruments (ii)

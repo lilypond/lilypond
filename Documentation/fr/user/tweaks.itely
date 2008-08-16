@@ -20,18 +20,138 @@ LilyPond offre de nombreuses possibilités de réglages, permettant de modifier
 quasiment chaque élément de votre partition.
 
 @menu
-* Moving objects::              
-* Fixing overlapping notation::  
+* Tweaking basics::             
+* The Internals Reference manual::  
+* Appearance of objects::       
+* Placement of objects::        
+* Collisions of objects::       
 * Common tweaks::               
-* Default files::               
-* Fitting music onto fewer pages::  
-* Advanced tweaks with Scheme::  
-* Avoiding tweaks with slower processing::  
+* Further tweaking::            
 @end menu
 
+@node Tweaking basics
+@section Tweaking basics
+
+@untranslated
+
+@menu
+* Introduction to tweaks::      
+* Objects and interfaces::      
+* Naming conventions of objects and properties::  
+* Tweaking methods::            
+@end menu
+
+@node Introduction to tweaks
+@subsection Introduction to tweaks
+
+@untranslated
+
+@node Objects and interfaces
+@subsection Objects and interfaces
+
+@untranslated
+
+@node Naming conventions of objects and properties
+@subsection Naming conventions of objects and properties
+
+@untranslated
+
+@node Tweaking methods
+@subsection Tweaking methods
+
+@untranslated
+
+@node The Internals Reference manual
+@section The Internals Reference manual
+
+@untranslated
+
+@menu
+* Properties of layout objects::  
+* Properties found in interfaces::  
+* Types of properties::         
+@end menu
+
+@node Properties of layout objects
+@subsection Properties of layout objects
+
+@untranslated
+
+@node Properties found in interfaces
+@subsection Properties found in interfaces
+
+@untranslated
+
+@node Types of properties
+@subsection Types of properties
+
+@untranslated
+
+@node Appearance of objects
+@section Appearance of objects
+
+@untranslated
+
+@menu
+* Visibility and color of objects::  
+* Size of objects::             
+* Length and thickness of objects::  
+@end menu
+
+@node Visibility and color of objects
+@subsection Visibility and color of objects
+
+@untranslated
+
+@node Size of objects
+@subsection Size of objects
+
+@untranslated
+
+@node Length and thickness of objects
+@subsection Length and thickness of objects
+
+@untranslated
+
+@node Placement of objects
+@section Placement of objects
+
+@untranslated
+
+@menu
+* Automatic behavior::          
+* Within-staff objects::        
+* Outside staff objects::       
+@end menu
+
+@node Automatic behavior
+@subsection Automatic behavior
+
+@untranslated
+
+@node Within-staff objects
+@subsection Within-staff objects
+
+@untranslated
+
+@node Outside staff objects
+@subsection Outside staff objects
+
+@untranslated
+
+
+@node Collisions of objects
+@section Collisions of objects
+
+
+@menu
+* Moving objects::              
+* Fixing overlapping notation::  
+* Real music example::          
+@end menu
 
 @node Moving objects
-@section Moving objects
+@subsection Moving objects
 
 Aussi surprenant que cela puisse paraître, LilyPond n'est pas parfait.
 Certains éléments sur la partition peuvent se chevaucher, ce qui est 
@@ -177,7 +297,7 @@ Dans ce même manuel : @ruser{The \override command}, @ref{Common tweaks}.
 
 
 @node Fixing overlapping notation
-@section Fixing overlapping notation
+@subsection Fixing overlapping notation
 
 Dans la section @ref{Moving objects}, nous avons vu comment
 déplacer un objet @code{TextScript}.  Ce même procédé peut être
@@ -220,6 +340,13 @@ les plus communs :
 @end multitable
 
 
+@node Real music example
+@subsection Real music example
+
+@untranslated
+
+
+@c DEPRECATED SECTION
 @node Common tweaks
 @section Common tweaks
 
@@ -355,8 +482,29 @@ l'unité staff-space.  Pour de plus amples informations,
 consultez les sections correspondantes de la Référence du programme.
 
 
-@node Default files
-@section Default files
+@node Further tweaking
+@section Further tweaking
+
+@menu
+* Other uses for tweaks::       
+* Using variables for tweaks::  
+* Other sources of information::  
+* Avoiding tweaks with slower processing::  
+* Advanced tweaks with Scheme::  
+@end menu
+
+@node Other uses for tweaks
+@subsection Other uses for tweaks
+
+@untranslated
+
+@node Using variables for tweaks
+@subsection Using variables for tweaks
+
+@untranslated
+
+@node Other sources of information
+@subsection Other sources of information
 
 La Référence du programme contient
 beaucoup d'informations sur LilyPond. Cependant vous pouvez en découvrir 
@@ -392,99 +540,22 @@ intéressants.  En effet les fichiers du type
 @file{ly/property-init.ly} ou encore @file{ly/declarations-init.ly}
 déterminent toutes les définitions avancées communes.
 
-@node Fitting music onto fewer pages
-@section Fitting music onto fewer pages
+@node Avoiding tweaks with slower processing
+@subsection Avoiding tweaks with slower processing
 
-Parfois, une partition peut se terminer avec seulement 
-un ou deux systèmes sur la dernière page. Ceci peut être ennuyeux
-surtout si vous constatez, en regardant les pages précédentes, qu'il
-reste encore beaucoup de place sur celles-ci.
+LilyPond peut effectuer des vérifications supplémentaires lors du 
+traitement des fichiers, cependant le rendu nécessitera alors plus de
+temps.  En contrepartie, il y aura moins d'ajustements manuels à réaliser.
 
-Si vous vous intéressez aux problèmes de mise en page,
-@code{annotate-spacing} peut alors être un outil d'une valeur
-inestimable.  Cette commande imprime les valeurs 
-de nombreuses commandes d'espacement concernant la mise en page.  
-Consultez @ruser{Displaying spacing} pour de plus amples informations.  À l'aide 
-des informations données par @code{annotate-spacing}, on peut 
-voir quelles marges il est souhaitable de modifier afin de résoudre le
-problème.
-
-
-En plus d'agir sur les marges, il existe d'autres possibilités
-qui permettent de gagner de la place.
-
-@itemize
-@item
-Demander à LilyPond de placer les systèmes aussi 
-près que possible les uns des autres (pour en disposer autant
-que possible sur une page), tout en répartissant les systèmes afin
-de ne pas laisser de blanc en bas de la dernière page.
-
+  
 @example
-\paper @{
-  between-system-padding = #0.1
-  between-system-space = #0.1
-  ragged-last-bottom = ##f
-  ragged-bottom = ##f
-@}
+%%  Ceci sert à s'assurer que les indications textuelles resteront à l'intérieur des marges de la page.
+\override Score.PaperColumn #'keep-inside-line = ##t 
 @end example
-
-@item
-Obliger LilyPond à mettre un certain nombre de systèmes
-par page.  Par exemple, si LilyPond veut placer onze systèmes dans une page,
-vous pouvez l'obliger à n'en mettre que dix.
-
-@example
-\paper @{
-  system-count = #10
-@}
-@end example
-
-@item
-Supprimer (ou réduire) les objets qui augmentent la hauteur du
-système.  C'est le cas en particulier de certaines reprises (avec des 
-alternatives) qui placent des crochets au dessus des portées. Si ces crochets 
-de reprise se poursuivent sur deux systèmes, ils prendront plus de
-place que s'ils sont regroupés sur un même système.
-
-Un autre exemple : déplacer les nuances qui @qq{débordent} d'un système.
-
-@lilypond[verbatim,quote,fragment]
-\relative c' {
-  e4 c g\f c
-  \override DynamicLineSpanner #'padding = #-1.8
-  \override DynamicText #'extra-offset = #'( -2.1 . 0)
-  e4 c g\f c
-}
-@end lilypond
-
-@item
-Modifier l'espacement vertical avec @code{SpacingSpanner}.  Reportez-vous à
-@ruser{Changing horizontal spacing} pour plus de détails.
-
-@lilypond[verbatim,quote]
-\score {
-  \relative c'' {
-    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
-    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
-  }
-  \layout {
-    \context {
-      \Score
-      \override SpacingSpanner
-                #'base-shortest-duration = #(ly:make-moment 1 4)
-    }
-  }
-}
-@end lilypond
-
-@end itemize
 
 
 @node Advanced tweaks with Scheme
-@section Advanced tweaks with Scheme
+@subsection Advanced tweaks with Scheme
 
 Nous avons déjà vu comment le résultat obtenu avec LilyPond peut être
 largement personnalisé à l'aide de commandes comme 
@@ -541,16 +612,3 @@ pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
 }
 @end lilypond
 
-
-@node Avoiding tweaks with slower processing
-@section Avoiding tweaks with slower processing
-
-LilyPond peut effectuer des vérifications supplémentaires lors du 
-traitement des fichiers, cependant le rendu nécessitera alors plus de
-temps.  En contrepartie, il y aura moins d'ajustements manuels à réaliser.
-
-  
-@example
-%%  Ceci sert à s'assurer que les indications textuelles resteront à l'intérieur des marges de la page.
-\override Score.PaperColumn #'keep-inside-line = ##t 
-@end example

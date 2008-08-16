@@ -1,21 +1,20 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 3975a6210f49b40850e3f5101aad1ea4b09883f0
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
-
 
 @node Templates
 @appendix Templates
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Single staff::
 * Piano templates::
 * String quartet::
@@ -23,11 +22,13 @@ UNTRANSLATED NODE: IGNORE ME
 * Ancient notation templates::
 * Jazz combo::
 * lilypond-book templates::
-@end menu 
+@end menu
+
 @node Single staff
 @appendixsec Single staff
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @appendixsubsec Notes only
 @appendixsubsec Notes and lyrics
@@ -36,7 +37,8 @@ UNTRANSLATED NODE: IGNORE ME
 @node Piano templates
 @appendixsec Piano templates
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @appendixsubsec Solo piano
 @appendixsubsec Piano and melody with lyrics
@@ -45,14 +47,16 @@ UNTRANSLATED NODE: IGNORE ME
 @node String quartet
 @appendixsec String quartet
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @appendixsubsec String quartet
 @appendixsubsec String quartet parts
 @node Vocal ensembles
 @appendixsec Vocal ensembles
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @appendixsubsec SATB vocal score
 @appendixsubsec SATB vocal score and automatic piano reduction
@@ -60,23 +64,25 @@ UNTRANSLATED NODE: IGNORE ME
 @node Ancient notation templates
 @appendixsec Ancient notation templates
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @appendixsubsec Transcription of mensural music
 @appendixsubsec Gregorian transcription template
 @node Jazz combo
 @appendixsec Jazz combo
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node lilypond-book templates
 @appendixsec lilypond-book templates
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @appendixsubsec LaTeX
 @appendixsubsec Texinfo
+@appendixsubsec xelatex
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@c -- SKELETON FILE --

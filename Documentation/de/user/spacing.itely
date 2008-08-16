@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
+    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,66 +11,71 @@
 @node Spacing issues
 @chapter Spacing issues
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Paper and pages::
 * Music layout::
-* Displaying spacing::
 * Breaks::
 * Vertical spacing::
 * Horizontal spacing::
-* Page layout MOVED FROM LM::
-@end menu 
+* Fitting music onto fewer pages::
+@end menu
+
 @node Paper and pages
 @section Paper and pages
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Paper size::
 * Page formatting::
-@end menu 
+@end menu
+
 @node Paper size
 @subsection Paper size
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Page formatting
 @subsection Page formatting
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Music layout
 @section Music layout
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Setting the staff size::
 * Score layout::
-@end menu 
+@end menu
+
 @node Setting the staff size
 @subsection Setting the staff size
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Score layout
 @subsection Score layout
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Displaying spacing
-@section Displaying spacing
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Breaks
 @section Breaks
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Line breaking::
 * Page breaking::
 * Optimal page breaking::
@@ -78,154 +83,239 @@ UNTRANSLATED NODE: IGNORE ME
 * Minimal page breaking::
 * Explicit breaks::
 * Using an extra voice for breaks::
-@end menu 
+@end menu
+
 @node Line breaking
 @subsection Line breaking
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Page breaking
 @subsection Page breaking
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Optimal page breaking
 @subsection Optimal page breaking
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Optimal page turning
 @subsection Optimal page turning
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Minimal page breaking
 @subsection Minimal page breaking
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Explicit breaks
 @subsection Explicit breaks
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Using an extra voice for breaks
 @subsection Using an extra voice for breaks
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Vertical spacing
 @section Vertical spacing
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Vertical spacing inside a system::
 * Vertical spacing between systems::
 * Explicit staff and system positioning::
 * Two-pass vertical spacing::
 * Vertical collision avoidance::
-@end menu 
+@end menu
+
 @node Vertical spacing inside a system
 @subsection Vertical spacing inside a system
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Vertical spacing between systems
 @subsection Vertical spacing between systems
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Explicit staff and system positioning
 @subsection Explicit staff and system positioning
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Two-pass vertical spacing
 @subsection Two-pass vertical spacing
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Vertical collision avoidance
 @subsection Vertical collision avoidance
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Horizontal spacing
 @section Horizontal Spacing
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Horizontal spacing overview::
 * New spacing area::
 * Changing horizontal spacing::
 * Line length::
 * Proportional notation::
-@end menu 
+@end menu
+
 @node Horizontal spacing overview
 @subsection Horizontal spacing overview
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node New spacing area
 @subsection New spacing area
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Changing horizontal spacing
 @subsection Changing horizontal spacing
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Line length
 @subsection Line length
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Proportional notation
 @subsection Proportional notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Page layout MOVED FROM LM
-@section Page layout MOVED FROM LM
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Introduction to layout::
-* Global sizes::
-* Line breaks::
-* Page breaks::
-* Fitting music onto fewer pages::
-@end menu 
-@node Introduction to layout
-@subsection Introduction to layout
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Global sizes
-@subsection Global sizes
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Line breaks
-@subsection Line breaks
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Page breaks
-@subsection Page breaks
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Fitting music onto fewer pages
-@subsection Fitting music onto fewer pages
+@section Fitting music onto fewer pages
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@menu
+* Displaying spacing::
+* Changing spacing::
+@end menu
+
+@node Displaying spacing
+@subsection Displaying spacing
+
+@untranslated
+
+
+@node Changing spacing
+@subsection Changing spacing
+
+Manchmal bleiben nur noch ein oder zwei Systeme auf der 
+letzten Seite übrig. Das ist immer ärgerlich, besonders 
+wenn es scheint, dass auf den vorigen Seiten genug Platz 
+ist, um die Systeme noch unterzubringen.
+
+Wenn man versucht, das Layout zu verändern, kommt einem 
+der Befehl @code{annotate-spacing} zu Hilfe. Mit diesem 
+Befehl erhält man die Werte von verschiedenen Abstandsbefehlen 
+ausgedruckt, mehr Information im Kapitel @ref{Displaying spacing}.
+Anhand dieser Angaben kann dann entschieden werden, welche 
+Werte verändert werden müssen.
+
+Neben Rändern gibt es nämlich weitere Optionen, Platz zu sparen:
+
+@itemize
+@item
+LilyPond kann die Systeme so dicht wie möglich platzieren (damit 
+so viele Systeme wie möglich auf eine Seite passen), aber sie 
+dann so anordnen, dass kein weißer Rand unten auf der Seite entsteht.
+
+@example
+\paper @{
+  between-system-padding = #0.1
+  between-system-space = #0.1
+  ragged-last-bottom = ##f
+  ragged-bottom = ##f
+@}
+@end example
+
+@item
+Die Anzahl der Systeme kann reduziert werden (wenn LilyPond 
+die Musik auf 11 Systeme verteilt, kann man die Benutzung von 
+nur 10 Systemen erzwingen).
+
+@example
+\paper @{
+  system-count = #10
+@}
+@end example
+
+@item
+Vermeidung von Objekten, die den vertikalen Abstand von Systemen 
+vergrößern, hilft oft. Die Verwendung von Klammern bei Wiederholungen 
+etwa braucht mehr Platz. Wenn die Noten innerhalb der Klammern  auf 
+zwei Systeme verteilt sind, brauchen sie mehr Platz, als wenn sie 
+nur auf einer Zeile gedruckt werden.
+
+Ein anderes Beispiel ist es, Dynamik-Zeichen, die besonders 
+weit @qq{hervorstehen}, zu verschieben.
+
+@lilypond[verbatim,quote,fragment]
+\relative c' {
+  e4 c g\f c
+  \override DynamicLineSpanner #'padding = #-1.8
+  \override DynamicText #'extra-offset = #'( -2.1 . 0)
+  e4 c g\f c
+}
+@end lilypond
+
+@item
+Die horizontalen Abstände können mit der 
+ @code{SpacingSpanner}-Eigenschaft verändert werden.  Siehe
+@ref{Changing horizontal spacing} für Einzelheiten.
+
+@lilypond[verbatim,quote]
+\score {
+  \relative c'' {
+    g4 e e2 | f4 d d2 | c4 d e f | g4 g g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+    d4 d d d | d4 e f2 | e4 e e e | e4 f g2 |
+    g4 e e2 | f4 d d2 | c4 e g g | c,1 |
+  }
+  \layout {
+    \context {
+      \Score
+      \override SpacingSpanner
+                #'base-shortest-duration = #(ly:make-moment 1 4)
+    }
+  }
+}
+@end lilypond
+
+@end itemize
+

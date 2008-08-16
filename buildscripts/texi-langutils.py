@@ -26,9 +26,9 @@ make_gettext = ('--gettext', '') in optlist   # --gettext    generate a node lis
 make_skeleton = ('--skeleton', '') in optlist # --skeleton   extract the node tree from a Texinfo source
 
 output_file = 'doc.pot'
-node_blurb = '''@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+
+# @untranslated should be defined as a macro in Texinfo source
+node_blurb = '''@untranslated
 '''
 doclang = ''
 head_committish = read_pipe ('git-rev-parse HEAD')
@@ -57,7 +57,7 @@ for x in optlist:
     elif x[0] == '-l': # -l ISOLANG  set documentlanguage to ISOLANG
         doclang = '; documentlanguage: ' + x[1]
 
-texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.+?)$|@(rglos){(.+?)}", re.M)
+texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(include|menu|end menu|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.*?)$|@(rglos){(.+?)}", re.M)
 
 texinfo_re = re.compile (r"^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.+?)$|@(rglos){(.+?)}", re.M)
 
@@ -104,19 +104,23 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                     g.write ('* ' + item[1] + '::\n')
                 elif output_file and item[4] == 'rglos':
                     output_file.write ('_(r"' + item[5] + '") # @rglos in ' + printedfilename + '\n')
+                elif item[2] == 'menu':
+                    g.write ('@menu\n')
+                elif item[2] == 'end menu':
+                    g.write ('@end menu\n\n')
                 else:
                     g.write ('@' + item[2] + ' ' + item[3] + '\n')
                     if node_trigger:
                         g.write (n_blurb)
                         node_trigger = False
-                    if not item[2] in ('include', 'menu', 'end menu'):
+                    elif item[2] == 'include':
+                        includes.append (item[3])
+                    else:
                         if output_file:
                             output_file.write ('# @' + item[2] + ' in ' + \
                                 printedfilename + '\n_(r"' + item[3].strip () + '")\n')
                         if item[2] == 'node':
                             node_trigger = True
-                    elif item[2] == 'include':
-                        includes.append (item[3])
             g.write (end_blurb)
             g.close ()
 

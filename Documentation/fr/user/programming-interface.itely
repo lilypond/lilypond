@@ -1,184 +1,210 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3975a6210f49b40850e3f5101aad1ea4b09883f0
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
-
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Music functions::
-* Programmer interfaces::
-* Building complicated functions::
-* Markup programmer interface::
-* Contexts for programmers::
-* Scheme procedures as properties::
-@end menu 
+
+@menu
+* Music functions::             
+* Programmer interfaces::       
+* Building complicated functions::  
+* Markup programmer interface::  
+* Contexts for programmers::    
+* Scheme procedures as properties::  
+@end menu
+
 @node Music functions
 @section Music functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Overview of music functions::
-* Simple substitution functions::
-* Paired substitution functions::
-* Mathematics in functions::
-* Void functions::
-* Functions without arguments::
-* Overview of available music functions::
-@end menu 
+
+@menu
+* Overview of music functions::  
+* Simple substitution functions::  
+* Paired substitution functions::  
+* Mathematics in functions::    
+* Void functions::              
+* Functions without arguments::  
+* Overview of available music functions::  
+@end menu
+
 @node Overview of music functions
 @subsection Overview of music functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Simple substitution functions
 @subsection Simple substitution functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Paired substitution functions
 @subsection Paired substitution functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Mathematics in functions
 @subsection Mathematics in functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Void functions
 @subsection Void functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Functions without arguments
 @subsection Functions without arguments
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Overview of available music functions
 @subsection Overview of available music functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @include identifiers.tely
 @node Programmer interfaces
 @section Programmer interfaces
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Input variables and Scheme::
-* Internal music representation::
-@end menu 
+
+@menu
+* Input variables and Scheme::  
+* Internal music representation::  
+@end menu
+
 @node Input variables and Scheme
 @subsection Input variables and Scheme
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Internal music representation
 @subsection Internal music representation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Building complicated functions
 @section Building complicated functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Displaying music expressions::
-* Music properties::
-* Doubling a note with slurs (example)::
-* Adding articulation to notes (example)::
-@end menu 
+
+@menu
+* Displaying music expressions::  
+* Music properties::            
+* Doubling a note with slurs (example)::  
+* Adding articulation to notes (example)::  
+@end menu
+
 @node Displaying music expressions
 @subsection Displaying music expressions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Music properties
 @subsection Music properties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Doubling a note with slurs (example)
 @subsection Doubling a note with slurs (example)
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Adding articulation to notes (example)
 @subsection Adding articulation to notes (example)
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Markup programmer interface
 @section Markup programmer interface
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Markup construction in Scheme::
-* How markups work internally::
-* New markup command definition::
-* New markup list command definition::
-@end menu 
+
+@menu
+* Markup construction in Scheme::  
+* How markups work internally::  
+* New markup command definition::  
+* New markup list command definition::  
+@end menu
+
 @node Markup construction in Scheme
 @subsection Markup construction in Scheme
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node How markups work internally
 @subsection How markups work internally
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node New markup command definition
 @subsection New markup command definition
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node New markup list command definition
 @subsection New markup list command definition
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Contexts for programmers
 @section Contexts for programmers
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Context evaluation::
-* Running a function on all layout objects::
-@end menu 
+
+@menu
+* Context evaluation::          
+* Running a function on all layout objects::  
+@end menu
+
 @node Context evaluation
 @subsection Context evaluation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Running a function on all layout objects
 @subsection Running a function on all layout objects
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Scheme procedures as properties
 @section Scheme procedures as properties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@c -- SKELETON FILE --

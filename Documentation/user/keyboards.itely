@@ -39,6 +39,14 @@ instruments.
 @node References for keyboards
 @unnumberedsubsubsec References for keyboards
 
+@cindex piano staves
+@cindex staves, piano
+@cindex staves, keyboard instruments
+@cindex staves, keyed instruments
+@cindex keyboard instrument staves
+@cindex keyed instrument staves
+@funindex PianoStaff
+
 Keyboard instruments are usually notated with Piano staves.  These
 are two or more normal staves coupled with a brace.  The same
 notation is also used for other keyed instruments.
@@ -53,6 +61,7 @@ music.
 Several common issues in keyboard music are covered elsewhere:
 
 @itemize
+
 @item Keyboard music usually contains multiple voices and the
 number of voices may change regularly; this is described in
 @ref{Collision resolution}.
@@ -110,6 +119,12 @@ Snippets:
 
 @knownissues
 
+@cindex keyboard music, centering dynamics
+@cindex dynamics, centered in keyboard music
+@cindex piano music, centering dynamics
+@cindex centered dynamics in piano music
+@funindex staff-padding
+
 Dynamics are not automatically centered, but workarounds do exist.  One
 option is the @q{piano centered dynamics} template under
 @rlearning{Piano templates}; another option is to increase the
@@ -127,6 +142,7 @@ objects}.
 @cindex cross-staff beams
 @cindex beams, cross-staff
 @funindex \change
+@funindex change
 
 Voices can be switched between staves manually, using the command
 
@@ -174,8 +190,8 @@ Learning Manual:
 @rlearning{Fixing overlapping notation}.
 
 Notation Reference:
-@ruser{Stems},
-@ruser{Automatic beams}.
+@ref{Stems},
+@ref{Automatic beams}.
 
 Snippets:
 @rlsr{Keyboards}.
@@ -192,6 +208,8 @@ Internals Reference:
 @cindex automatic staff changes
 @cindex staff changes, automatic
 @funindex \autochange
+@funindex autochange
+@funindex PianoStaff
 
 Voices can be made to switch automatically between the top and the
 bottom staff.  The syntax for this is
@@ -216,6 +234,11 @@ in advance.
   }
 }
 @end lilypond
+
+@cindex relative music and autochange
+@cindex autochange and relative music
+@funindex \relative
+@funindex relative
 
 A @code{\relative} section that is outside of @code{\autochange}
 has no effect on the pitches of the music, so if necessary, put
@@ -258,6 +281,8 @@ Internals Reference:
 
 @knownissues
 
+@cindex chords, splitting across staves with \autochange
+
 The staff switches may not end up in optimal places.  For high
 quality output, staff switches should be specified manually.
 
@@ -267,13 +292,21 @@ staff based on the first note named in the chord construct.
 @node Staff-change lines
 @unnumberedsubsubsec Staff-change lines
 
-@cindex staff-change lines
-@cindex cross-staff lines
-@cindex lines, staff-change follower
+@cindex staff-change line
+@cindex staff change line
+@cindex cross-staff line
+@cindex cross staff line
+@cindex line, staff-change follower
+@cindex line, cross-staff
+@cindex line, staff-change
 @cindex follow voice
 @cindex staff switching
 @cindex cross-staff
 @funindex followVoice
+@funindex \showStaffSwitch
+@funindex showStaffSwitch
+@funindex \hideStaffSwitch
+@funindex hideStaffSwitch
 
 Whenever a voice switches to another staff, a line connecting the
 notes can be printed automatically:
@@ -295,8 +328,6 @@ notes can be printed automatically:
 
 @predefined
 
-@funindex \showStaffSwitch
-@funindex \hideStaffSwitch
 @code{\showStaffSwitch}, @code{\hideStaffSwitch}.
 
 @seealso
@@ -313,9 +344,18 @@ Internals Reference:
 @unnumberedsubsubsec Cross-staff stems
 
 @cindex cross-staff notes
+@cindex cross staff notes
 @cindex notes, cross-staff
 @cindex cross-staff stems
+@cindex cross staff stems
 @cindex stems, cross-staff
+@cindex chords, cross-staff
+@cindex cross-staff chords
+@cindex cross staff chords
+@funindex Stem
+@funindex cross-staff
+@funindex length
+@funindex flag-style
 
 Chords that cross staves may be produced:
 
@@ -371,18 +411,27 @@ piano.
 
 @node Piano pedals
 @unnumberedsubsubsec Piano pedals
+
 @cindex piano pedals
 @cindex pedals, piano
 @cindex sustain pedal
 @cindex sostenuto pedal
 @cindex una corda
 @cindex tre corde
+@cindex sos.
+@cindex U.C.
 @funindex \sustainOn
+@funindex sustainOn
 @funindex \sustainOff
+@funindex sustainOff
 @funindex \sostenutoOn
+@funindex sostenutoOn
 @funindex \sostenutoOff
+@funindex sostenutoOff
 @funindex \unaCorda
+@funindex unaCorda
 @funindex \treCorde
+@funindex treCorde
 
 Pianos generally have three pedals that alter the way sound is
 produced: @notation{sustain}, @notation{sostenuto}
@@ -397,6 +446,17 @@ c4\sostenutoOn e g c,
 c4\unaCorda d e g
 <d fis a>1\treCorde
 @end lilypond
+
+@cindex pedal indication styles
+@cindex pedal indication, text
+@cindex pedal indication, bracket
+@cindex pedal indication, mixed
+@cindex pedal sustain style
+@cindex sustain pedal style
+@funindex pedalSustainStyle
+@funindex mixed
+@funindex bracket
+@funindex text
 
 There are three styles of pedal indications: text, bracket, and mixed.
 The sustain pedal and the una corda pedal use the text style by default
@@ -441,6 +501,8 @@ Internals Reference:
 @node Accordion
 @subsection Accordion
 
+@cindex accordion
+
 This section discusses notation that is unique to the accordion.
 
 @menu
@@ -452,6 +514,7 @@ This section discusses notation that is unique to the accordion.
 @cindex accordion discant symbols
 @cindex discant symbols, accordion
 @cindex accordion shifts
+@cindex accordion shift symbols
 
 Accordions are often built with more than one set of reeds that may be
 in unison with, an octave above, or an octave below the written pitch.
