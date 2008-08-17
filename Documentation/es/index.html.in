@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 6c2367741cbadcf378539e2a8a14b019b4955002
+    Translation of GIT committish: 845b79fc24484a9cbf1e0236c6b159e4c1ec7533
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -47,92 +47,110 @@
         <tr>
           <td class="left-column">
 	  <ul>
-	    <li>
-	    <a class="title" href="user/lilypond-learning/index.es.html">Manual de aprendizaje (MA)</a>
-	      <br>(comience por aquí)
+	     <li>
+	       <a class="title" href="user/lilypond-learning/index.es.html">Manual de aprendizaje</a><br>
+	       (también en <a class="title" href="user/lilypond-learning-big-page.html">una sola
+	       página</a> [en inglés] ~ 1.5 Mb, o en <a class="title" href="user/lilypond-learning.es.pdf">PDF</a>)<br>
+	       (comience por aquí)
 
-	   <li><a class="title" href="user/music-glossary/index.html">Glosario musical (GM)</a> multilingüe <br>
-(en <a class="title" href="user/music-glossary-big-page.html">una sola página</a> ~ 1 Mb,
-en <a class="title" href="user/music-glossary.pdf">PDF</a>)
-
-     <br>(para usuarios de habla no inglesa)
+	     <li>
+              <a class="title" href="user/music-glossary/index.html">Glosario musical</a> multilingüe<br>
+	      (también en <a class="title" href="user/music-glossary-big-page.html">una sola página</a> ~ 500 Kb,
+              o en <a class="title" href="user/music-glossary.pdf">PDF</a>)<br>
+              (para usuarios de habla no inglesa)
 	  </ul>
 	  </td>
 	  <td class="right-column">
 	  <ul>
             <li>
-	    <a class="title" href="topdocs/NEWS.html">Noticias</a>
- 	    <br>(cambios producidos desde el último<br>lanzamiento importante)
-
-<li><a class="title" href="../examples.html">Ejemplos</a>
-     <br>(ver algunos ejemplos)
-
+	      <a class="title" href="topdocs/NEWS.html">Noticias</a><br>
+              (cambios producidos desde el último<br>lanzamiento importante)
+	    <li>
+	      <a class="title" href="../examples.html">Ejemplos</a><br>
+              (ver algunos ejemplos)
 	  </ul>
 	  </td>
         </tr>
+
         <tr>
           <td valign="baseline" class="left-column">
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.es.html">Referencia de la notación (RN)</a> [parcialmente traducido]<br>
-(en <a class="title" href="user/lilypond-big-page.html">una sola página</a> [en inglés] ~ 4 Mb, <br>
-y en <a class="title" href="user/lilypond.es.pdf">PDF</a>)
-     <br>(escribir música con LilyPond)
-
-       <li>
- <a  class="title" href="user/lilypond-internals/index.html">Referencia de funcionamiento interno (RFI)</a> [en inglés]<br>
- (en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb)
-     <br>(definiciones para hacer trucos)
-	 
-  </ul>
-	  </td>
-	  <td valign="baseline" class="right-column">
+               <a class="title" href="user/lilypond/index.es.html">Referencia de la notación</a>
+	       [parcialmente traducido]<br>
+               (también en <a class="title" href="user/lilypond-big-page.html">una sola página</a> [en inglés] ~ 4 Mb,<br>
+	       o en <a class="title" href="user/lilypond.es.pdf">PDF</a>)<br>
+	       (escribir música con LilyPond)
+	    <li>
+	      <a class="title" href="user/lilypond-internals/index.html">Referencia de funcionamiento interno</a>
+	      [en inglés]<br>
+	      (también en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb)<br>
+	      (definiciones para hacer trucos)
+	  </ul>
+	</td>
+	<td valign="baseline" class="right-column">
           &nbsp;
 	  <ul>
-              <li>
-	    <a class="title" href="user/lilypond-program/index.es.html">Utilización del programa (UP)</a>
-(en <a class="title" href="user/lilypond-program-big-page.html">una sola página</a>,
-en <a class="title" href="user/lilypond-program.es.pdf">PDF</a>)
-	    <br>(cómo instalar y ejecutar el programa)
-
-<li><a class="title" href="../input/lsr/lilypond-snippets/index.html">Fragmentos de código</a>
-(en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">una sola página</a>,
-en <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
-     <br>(Trucos breves, consejos y ejemplos)
-
-	</ul>
-
-    </td><tr>
-        <tr>
-          <td valign="baseline" class="left-column">
-          &nbsp;
-	<ul>
-
-            <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
-              <br>(el sitio web)
             <li>
-	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Licencia</a>
-	      <br> (la GPL de GNU) 
+	      <a class="title" href="user/lilypond-program/index.es.html">Utilización del programa</a><br>
+	      (también en <a class="title" href="user/lilypond-program-big-page.html">una sola página</a>
+	      [en inglés], o en <a class="title" href="user/lilypond-program.es.pdf">PDF</a>)<br>
+	      (cómo instalar y ejecutar el programa)
+	    <li>
+	      <a class="title" href="../input/lsr/lilypond-snippets/index.html">Fragmentos de código</a><br>
+	      (también en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">una sola página</a>
+	      [en inglés] ~ 2 Mb, o en <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)<br>
+	      (Trucos breves, consejos y ejemplos)
+	  </ul>
+	</td>
+	</tr>
 
-	</ul>
-    </td><td class="right-column">
-          &nbsp;
-    <ul>
-        <li><a class="title"  href="THANKS.html">Agradecimientos</a>
-	<br>(a nuestros colaboradores)
-
-        <li><a class="title"  href="DEDICATION.html">Dedicatoria</a>
-	<br>(por Jan y Han-Wen)
-
+	<tr>
+          <td valign="baseline" class="left-column">
+            &nbsp;
+	  <ul>
+	    <li>
+	      <a class="title" href="devel.html">Recursos para desarrolladores</a><br>
+	      (documentos de interés para desarrolladores y colaboradores)
 	  </ul>
 	  </td>
-        </tr>
+	  <td class="right-column">
+            &nbsp;
+	  <ul>
+            <li>
+	      <a class="title"  href="translations.es.html">Estado de la traducción</a><br>
+	      (avance de las traducciones al español)
+	  </ul>
+	  </td>
+        </tr>	
+
+        <tr>
+          <td valign="baseline" class="left-column">
+            &nbsp;
+	<ul>
+	  <li>
+	    <a class="title"  href="http://lilypond.org/">lilypond.org</a><br>
+	    (el sitio web)
+	  <li>
+	    <a class="title" href="http://www.gnu.org/copyleft/gpl.html">Licencia</a><br>
+	    (la GPL de GNU)
+	</ul>
+	</td>
+	<td class="right-column">
+          &nbsp;
+	  <ul>
+	    <li><a class="title"  href="THANKS.html">Agradecimientos</a><br>
+	      (a nuestros colaboradores)
+	    <li><a class="title"  href="DEDICATION.html">Dedicatoria</a><br>
+	      (por Jan y Han-Wen)
+	  </ul>
+	</td>
+	</tr>
       </tbody>
     </table>
-    <p><strong>NOTA</strong>: como en todas las páginas HTML de esta
-      documentación, en la parte de abajo tiene enlaces a las traducciones
-      de esta página a otros idiomas.
-    </p>
+	<p><strong>NOTA</strong>: como en todas las páginas HTML de
+	esta documentación, en la parte de abajo tiene enlaces a las
+	traducciones de esta página a otros idiomas.</p>
   </body>
 </html>
