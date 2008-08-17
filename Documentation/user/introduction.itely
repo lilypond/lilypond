@@ -815,6 +815,12 @@ This book explains how to begin learning LilyPond, as well as
 explaining some key concepts in easy terms.  You should read these
 chapters in a linear fashion.
 
+There is a paragraph @strong{See also} at the end of each section,
+which contains cross-references to other sections: you should not
+follow these cross-references at first reading; when you have read all
+of the Learning Manual, you may want to read some sections again and
+follow cross-references for further reading.
+
 @itemize
 
 @item
@@ -870,7 +876,7 @@ all.
 @cindex foreign languages
 @cindex language
 
-@ref{Top,Music glossary,,music-glossary}:
+@rglosnamed{Top,Music glossary}
 this explains musical terms, and includes translations to various
 languages.  If you are not familiar with music notation or music
 terminology (especially if you are a non-native English speaker),
@@ -993,7 +999,7 @@ formats to the @code{.ly} format.
 @cindex snippets
 @cindex LSR
 
-@ref{Top,LilyPond Snippet List,,lilypond-snippets}: this shows a
+@rlsrnamed{Top,LilyPond Snippet List}: this shows a
 selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  All the snippets are in the public domain.
@@ -1011,7 +1017,7 @@ The list of snippets for each subsection of the Notation Reference
 @node About the Internals Reference (IR)
 @unnumberedsubsec About the Internals Reference (IR)
 
-@ref{Top,Internals Reference,,lilypond-internals}: this is a set
+@rinternalsnamed{Top,Internals Reference}: this is a set
 of heavily cross linked HTML pages which document the nitty-gritty
 details of each and every LilyPond class, object, and function.
 It is produced directly from the formatting definitions in the

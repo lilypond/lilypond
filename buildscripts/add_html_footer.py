@@ -13,12 +13,15 @@ import langdefs
 # see process_links()
 non_copied_pages = ['Documentation/user/out-www/lilypond-big-page',
                     'Documentation/user/out-www/lilypond-internals-big-page',
+                    'Documentation/user/out-www/lilypond-learning-big-page',
+                    'Documentation/user/out-www/lilypond-program-big-page',
                     'Documentation/user/out-www/music-glossary-big-page',
                     'out-www/examples',
                     'Documentation/topdocs',
                     'Documentation/bibliography',
                     'Documentation/out-www/THANKS',
                     'Documentation/out-www/DEDICATION',
+                    'Documentation/out-www/devel',
                     'input/']
 
 def _doc (s):
@@ -253,7 +256,7 @@ def add_html_footer (package_name = '',
     translation = langdefs.translation
     localtime = time.strftime ('%c %Z', time.localtime (time.time ()))
 
-    if re.search ("http://", mail_address):
+    if "http://" in mail_address:
         mail_address_url = mail_address
     else:
         mail_address_url= 'mailto:' + mail_address
@@ -262,6 +265,23 @@ def add_html_footer (package_name = '',
     branch_str = _doc ('stable-branch')
     if int (versiontup[1]) %  2:
         branch_str = _doc ('development-branch')
+
+    # Initialize dictionaries for string formatting
+    subst = {}
+    subst[''] = dict ([i for i in globals ().items() if type (i[1]) is str])
+    subst[''].update (dict ([i for i in locals ().items() if type (i[1]) is str]))
+    for l in translation:
+        e = langdefs.LANGDICT[l].webext
+        if e:
+            subst[e] = {}
+            for name in subst['']:
+                subst[e][name] = translation[l] (subst[''][name])
+    # Do deeper string formatting as early as possible,
+    # so only one '%' formatting pass is needed later
+    for e in subst:
+        subst[e]['footer_name_version'] = subst[e]['footer_name_version'] % subst[e]
+        subst[e]['footer_report_errors'] = subst[e]['footer_report_errors'] % subst[e]
+        subst[e]['footer_suggest_docs'] = subst[e]['footer_suggest_docs'] % subst[e]
 
     for prefix, ext_list in pages_dict.items ():
         for lang_ext in ext_list:
@@ -282,16 +302,8 @@ def add_html_footer (package_name = '',
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
                 # Add menu after stripping: must not have autoselection for language menu.
                 page_flavors = add_menu (page_flavors, prefix, available, target, translation)
-            subst = dict ([i for i in globals().items() if type (i[1]) is str])
-            subst.update (dict ([i for i in locals().items() if type (i[1]) is str]))
             for k in page_flavors:
-                if page_flavors[k][0] in translation:
-                    for name in subst:
-                        subst[name] = translation[page_flavors[k][0]] (subst[name])
-                subst['footer_name_version'] = subst['footer_name_version'] % subst
-                subst['footer_report_errors'] = subst['footer_report_errors'] % subst
-                subst['footer_suggest_docs'] = subst['footer_suggest_docs'] % subst
-                page_flavors[k][1] = page_flavors[k][1] % subst
+                page_flavors[k][1] = page_flavors[k][1] % subst[page_flavors[k][0]]
                 out_f = open (name_filter (k), 'w')
                 out_f.write (page_flavors[k][1])
                 out_f.close()

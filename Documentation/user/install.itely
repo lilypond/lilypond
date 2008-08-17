@@ -325,6 +325,17 @@ for more information, see @file{Documentation/user/README.txt} and
 
 @knownissues
 
+@code{-j} command-line option of @command{make} is unsupported for
+building the documentation.  As the most time consuming task is
+running LilyPond to build images of music, the makefile variable
+@code{CPU_COUNT} may be set in @file{local.make} or on the command line
+to the number of @code{.ly} files that LilyPond should process
+simultaneously, e.g. on a bi-processor or Dual core machine
+
+@example
+make CPU_COUNT=2 web
+@end example
+
 If source files have changed since last documentation build, output
 files that need to be rebuilt are normally rebuilt, even if you do not
 run @code{make web-clean} first.  However, building dependencies in the

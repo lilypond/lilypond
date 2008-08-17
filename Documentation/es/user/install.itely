@@ -74,7 +74,7 @@ win32-x86
 @node Compiling from source
 @section Compiling from source
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu 
 * Downloading source code::
@@ -87,12 +87,12 @@ UNTRANSLATED NODE: IGNORE ME
 @node Downloading source code
 @subsection Downloading source code
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Requirements
 @subsection Requirements
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @unnumberedsubsubsec Compilation
 @unnumberedsubsubsec Running requirements
@@ -100,24 +100,24 @@ UNTRANSLATED NODE: IGNORE ME
 @node Building LilyPond
 @subsection Building LilyPond
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @unnumberedsubsubsec Compiling
 @unnumberedsubsubsec Compiling for multiple platforms
 @node Building documentation without compiling LilyPond
 @subsection Building documentation without compiling LilyPond
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Testing LilyPond
 @subsection Testing LilyPond
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Problems
 @subsection Problems
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @unnumberedsubsubsec Bison 1.875
 @unnumberedsubsubsec Solaris

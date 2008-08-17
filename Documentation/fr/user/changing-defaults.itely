@@ -329,7 +329,7 @@ Ce changement étant appliqué @q{à la volée}, il n'affecte que le second grou
 
 Si l'argument @var{contexte} n'est pas spécifié, alors la propriété cherchera à s'appliquer
 dans le contexte le plus restreint où elle est employée : le plus souvent
- @context{ChordNames}, @context{Voice}, ou @context{Lyrics}.  Dans l'exemple suivant,
+ @code{ChordNames}, @code{Voice}, ou @code{Lyrics}.  Dans l'exemple suivant,
 
 @lilypond[quote,verbatim,relative=2,fragment]
 c8 c c c
@@ -353,8 +353,8 @@ R1*2
 @end lilypond
 
 Les contextes s'organisent de façon hiérarchique : aussi, lorsqu'un contexte de niveau
-supérieur est spécifié (par exemple @context{Staff}), la propriété sera modifée dans
-tous les contextes inférieurs (tous les contextes @context{Voice}, par exemple)
+supérieur est spécifié (par exemple @code{Staff}), la propriété sera modifée dans
+tous les contextes inférieurs (tous les contextes @code{Voice}, par exemple)
 qu'il contient.
 
 @funindex \unset
@@ -565,7 +565,7 @@ La commande suivante :
 @noindent
 rend les hampes plus épaisses (la valeur par défaut est 1.3, ce qui signifie qu'elles 
 sont 1,3 fois plus épaisses que les lignes de la portée).  Dans la mesure où nous avons
-indiqué @context{Staff} comme contexte, ce réglage ne s'appliquera qu'à la portée courante ;
+indiqué @code{Staff} comme contexte, ce réglage ne s'appliquera qu'à la portée courante ;
 les autres portées demeureront intactes.
 
 
@@ -578,10 +578,10 @@ c4
 @end lilypond
 
 La commande @code{\override} modifie donc la définition de l'objet @code{Stem}
-dans le contexte @context{Staff} ; toutes les hampes qui suivent seront affectées.
+dans le contexte @code{Staff} ; toutes les hampes qui suivent seront affectées.
 
 Tout comme avec la commande @code{\set}, l'argument @var{contexte} peut être omis, auquel
-cas le contexte par défaut (ici, @context{Voice}) sera employé.  La commande @code{\once}
+cas le contexte par défaut (ici, @code{Voice}) sera employé.  La commande @code{\once}
 permet de n'appliquer la modification qu'une seule fois.
 
 @lilypond[quote,fragment,verbatim,relative=2]
@@ -670,9 +670,9 @@ de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\contex
 @end example
 
 Le raccourci @code{\Staff} invoque les définitions inhérentes au contexte
-@context{Staff}, de façon à ce qu'elles puissent être modifiées.
+@code{Staff}, de façon à ce qu'elles puissent être modifiées.
 
-Les lignes suivantes affecteront toutes les portées (tous les contextes @context{Staff})
+Les lignes suivantes affecteront toutes les portées (tous les contextes @code{Staff})
 dans la partition.
 @example
 \set fontSize = #-2
@@ -717,12 +717,12 @@ avoir invoqué @code{\RemoveEmptyStaffContext} :
 @node Defining new contexts
 @subsection Defining new contexts
 
-Les contextes tels que @context{Staff} ou @code{Voice} sont faits
+Les contextes tels que @code{Staff} ou @code{Voice} sont faits
 de briques de constructions empilées.  En combinant divers graveurs,
 il est possible de créer de nouveaux types de contextes.
 
 Dans l'exemple suivant, on construit, de zéro, un nouveau contexte très
-semblable à @context{Voice}, mais qui n'imprime que des têtes de notes en forme
+semblable à @code{Voice}, mais qui n'imprime que des têtes de notes en forme
 de barres obliques au centre de la portée.  Un tel contexte, par exemple, peut
 servir à indiquer un passage improvisé dans un morceau de jazz.
 
@@ -771,9 +771,9 @@ En lieu et place des points (@dots{}), voici les éléments à saisir :
 \name ImproVoice
 @end example
 
-@item Comme il est très semblable à @context{Voice}, nous souhaitons que toutes les
-commandes associées au @context{Voice} déjà existant, restent valables.  D'où nécessité
-de la commande @code{\alias}, qui va l'associer au contexte @context{Voice} :
+@item Comme il est très semblable à @code{Voice}, nous souhaitons que toutes les
+commandes associées au @code{Voice} déjà existant, restent valables.  D'où nécessité
+de la commande @code{\alias}, qui va l'associer au contexte @code{Voice} :
 
 @example
 \alias Voice
@@ -835,9 +835,9 @@ Récapitulons -- on se retrouve avec le bloc suivant :
 
 @funindex \accepts
 Ce n'est pas tout.  En effet, on veut intégrer le nouveau contexte
-@context{ImproVoice} dans la hiérarchie des contextes.  Tout comme le
+@code{ImproVoice} dans la hiérarchie des contextes.  Tout comme le
 contexte @code{Voice}, sa place est au sein du contexte @code{Staff}.
-Nous allons donc modifier le contexte @context{Staff},
+Nous allons donc modifier le contexte @code{Staff},
 au moyen de la commande @code{\accepts} :
 
 @example
@@ -917,7 +917,7 @@ travaillent de concert.  Comme leurs noms anglais l'indiquent,
 (@code{Staff}), les paroles (@code{Lyrics}) et ainsi de suite ; puis
 @code{VerticalAlignment} synchronise verticalement ces différents groupes.
 En général, il n'y a qu'un seul @code{VerticalAlignment} pour l'ensemble
-de la partition, mais chaque contexte @context{Staff}, @context{Lyrics}, etc.
+de la partition, mais chaque contexte @code{Staff}, @code{Lyrics}, etc.
 possède son propre @code{VerticalAxisGroup}.
 
 
@@ -962,7 +962,7 @@ ressemblent en général à
 Pour élaborer un réglage de ce type, on a besoin de connaître précisément :
 
 @itemize
-@item le contexte : ici @context{Voice} (la voix).
+@item le contexte : ici @code{Voice} (la voix).
 @item l'objet à affecter : ici @code{Stem} (les hampes).
 @item la propriété à modifier : ici @code{thickness} (l'épaisseur du trait).
 @item la valeur désirée : ici @code{3.0} (par défaut, elle est de 1.3).
@@ -1302,7 +1302,7 @@ f
 @end lilypond
 
 
-Dans le cas présent, le réglage intervient dans le contexte @context{Voice},
+Dans le cas présent, le réglage intervient dans le contexte @code{Voice},
 ce qui pouvait également se déduire de la Référence du programme, où la page
 du graveur @rinternals{Fingering_engraver} indique :
 

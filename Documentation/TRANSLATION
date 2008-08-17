@@ -397,13 +397,17 @@ between files, without updating contents itself.  In other words, the
 game is catching where has gone each section.  In Learning manual, and
 in Notation Reference sections which have been revised in GDP, there
 may be completely new sections: in this case, copy @node and
-@section-command from English docs, and put the usual tricky line
-'UNTRANSLATED NODE: IGNORE ME'.  Note that it is not possible to
-exactly match subsections or subsubsections of documentation in
-English, when contents has been deeply revised; in this case, kee
-obsolete (sub)subsections in the translation.
+@section-command from English docs, and add the marker for
+untranslated status '@untranslated' on a single line.  Note that it is
+not possible to exactly match subsections or subsubsections of
+documentation in English, when contents has been deeply revised; in
+this case, keep obsolete (sub)subsections in the translation, marking
+them with a line '@c obsolete' just before the node.
 
-* Hints for Emacs users (without Emacs AucTeX installed)
+4) update sections finished in GDP; check sections status at GDP website.
+
+
+* Hints for Emacs users
 
 Emacs with Texinfo mode makes this step easier:
 

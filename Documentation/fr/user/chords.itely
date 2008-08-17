@@ -15,7 +15,7 @@
 @node Chord notation
 @section Chord notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Chord mode::
@@ -26,7 +26,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Chord mode
 @subsection Chord mode
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Chord mode overview::
@@ -212,12 +212,12 @@ car elle est indiquée en dernier :
 @node Extended and altered chords
 @unnumberedsubsubsec Extended and altered chords
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Displaying chords
 @subsection Displaying chords
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Printing chord names::
@@ -413,12 +413,12 @@ chiffrages étranges.
 @node Customizing chord names
 @unnumberedsubsubsec Customizing chord names
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Figured bass
 @subsection Figured bass
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Introduction to figured bass::
@@ -635,9 +635,9 @@ Référence du programme : les objets @rinternals{NewBassFigure},
 @node Entering figured bass
 @unnumberedsubsubsec Entering figured bass
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Displaying figured bass
 @unnumberedsubsubsec Displaying figured bass
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated

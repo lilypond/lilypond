@@ -11,9 +11,7 @@
 @node Text
 @section Text
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -25,9 +23,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Writing text
 @subsection Writing text
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -40,41 +36,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Text scripts
 @subsubsection Text scripts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Text spanners
 @subsubsection Text spanners
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Text marks
 @subsubsection Text marks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Separate text
 @subsubsection Separate text
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Formatting text
 @subsection Formatting text
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -89,57 +75,43 @@ UNTRANSLATED NODE: IGNORE ME
 @node Text markup introduction
 @subsubsection Text markup introduction
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Selecting font and font size
 @subsubsection Selecting font and font size
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Text alignment
 @subsubsection Text alignment
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Graphic notation inside markup
 @subsubsection Graphic notation inside markup
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Music notation inside markup
 @subsubsection Music notation inside markup
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Multi-page markup
 @subsubsection Multi-page markup
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Fonts
 @subsection Fonts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -150,17 +122,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Entire document fonts
 @subsubsection Entire document fonts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Single entry fonts
 @subsubsection Single entry fonts
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 

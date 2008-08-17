@@ -11,9 +11,7 @@
 @node Vocal music
 @section Vocal music
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -26,9 +24,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Common notation for vocals
 @subsection Common notation for vocals
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -41,41 +37,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node References for vocal music
 @subsubsection References for vocal music
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Setting simple songs
 @subsubsection Setting simple songs
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Entering lyrics
 @subsubsection Entering lyrics
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Working with lyrics and variables
 @subsubsection Working with lyrics and variables
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -91,65 +77,49 @@ UNTRANSLATED NODE: IGNORE ME
 @node Automatic syllable durations
 @subsubsection Automatic syllable durations
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Manual syllable durations
 @subsubsection Manual syllable durations
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Multiple syllables to one note
 @subsubsection Multiple syllables to one note
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Multiple notes to one syllable
 @subsubsection Multiple notes to one syllable
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Skipping notes
 @subsubsection Skipping notes
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Extenders and hyphens
 @subsubsection Extenders and hyphens
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Lyrics and repeats
 @subsubsection Lyrics and repeats
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Placement of lyrics
 @subsection Placement of lyrics
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -163,49 +133,37 @@ UNTRANSLATED NODE: IGNORE ME
 @node Divisi lyrics
 @subsubsection Divisi lyrics
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Lyrics independent of notes
 @subsubsection Lyrics independent of notes
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Chants
 @subsubsection Chants
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Spacing out syllables
 @subsubsection Spacing out syllables
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Centering lyrics between staves
 @subsubsection Centering lyrics between staves
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Stanzas
 @subsection Stanzas
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -220,33 +178,25 @@ UNTRANSLATED NODE: IGNORE ME
 @node Adding stanza numbers
 @subsubsection Adding stanza numbers
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Adding dynamics marks to stanzas
 @subsubsection Adding dynamics marks to stanzas
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Adding singers' names to stanzas
 @subsubsection Adding singers' names to stanzas
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Stanzas with different rhythms
 @subsubsection Stanzas with different rhythms
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @subsubheading Ignoring melismata
@@ -254,17 +204,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Printing stanzas at the end
 @subsubsection Printing stanzas at the end
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Printing stanzas at the end in multiple columns
 @subsubsection Printing stanzas at the end in multiple columns
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 
