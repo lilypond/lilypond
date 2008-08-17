@@ -70,18 +70,11 @@ Line thickness is given by @var{th}, fret & string spacing by
   (let* ((fret-count (+ (- (cadr fret-range) (car fret-range)) 1))
          (sl (* (+ fret-count 1) size))
          (sth (* size th))
-         (half-thickness (* sth 0.5))
          (gap (- size sth))
          (string-stencil
           (if (eq? orientation 'normal)
-              (ly:make-stencil
-               (list 'draw-line sth 0 0 0 sl)
-               (cons (- half-thickness) half-thickness)
-               (cons (- half-thickness) (+ sl half-thickness)))
-              (ly:make-stencil
-               (list 'draw-line sth 0 0 sl 0)
-               (cons (- half-thickness) (+ sl half-thickness))
-               (cons (- half-thickness) half-thickness)))))
+              (make-line-stencil sth 0 0 0 sl)
+              (make-line-stencil sth 0 0 sl 0))))
     (if (= string-count 1)
         string-stencil
         (if (eq? orientation 'normal)
@@ -125,16 +118,10 @@ fret & string spacing by @var{size}. Orientation is given by @var{orientation}"
          (sth (* size th))
          (half-thickness (* sth 0.5)))
     (if (eq? orientation 'normal)
-        (ly:make-stencil
-         (list 'draw-line sth half-thickness size
+        (make-line-stencil sth half-thickness size
                (- fret-length half-thickness) size)
-         (cons 0 fret-length)
-         (cons (- half-thickness) half-thickness))
-        (ly:make-stencil
-         (list 'draw-line sth 0 half-thickness
-               0 (- fret-length half-thickness))
-         (cons (- half-thickness) half-thickness)
-         (cons 0 fret-length)))))
+        (make-line-stencil sth 0 half-thickness
+               0 (- fret-length half-thickness)))))
 
 (define (draw-thick-zero-fret details string-count th size orientation)
   "Draw a thick zeroth fret for a fret diagram whose base fret is not 1."
@@ -381,25 +368,13 @@ Line thickness is given by @var{th}, fret & string spacing by
              (barre-stencil
               (if (eq? barre-type 'straight)
                   (if (eq? orientation 'normal)
-                      (ly:make-stencil
-                       (list
-                        'draw-line (* size dot-radius) left dot-center-y
-                        right dot-center-y)
-                       (cons left right)
-                       (cons (- dot-center-y scale-dot-radius)
-                             (+ dot-center-y scale-dot-radius)))
-                      (ly:make-stencil
-                       (list 'draw-line (* size dot-radius)
+                      (make-line-stencil scale-dot-radius left dot-center-y
+                                         right dot-center-y)
+                      (make-line-stencil scale-dot-radius
                              (* size barre-fret-coordinate)
                              (* size barre-start-string-coordinate)
                              (* size barre-fret-coordinate)
-                             (* size barre-end-string-coordinate))
-                       (cons (- (* size barre-fret-coordinate)
-                                scale-dot-radius)
-                             (+ (* size barre-fret-coordinate)
-                                scale-dot-radius))
-                       (cons (* size barre-start-string-coordinate)
-                             (* size barre-end-string-coordinate))))
+                             (* size barre-end-string-coordinate)))
                   (if (eq? orientation 'normal)
                       (ly:make-stencil
                        (list 'bezier-sandwich
