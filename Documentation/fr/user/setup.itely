@@ -11,9 +11,7 @@
 @node Setup
 @chapter Setup
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -25,9 +23,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Setup for specific Operating Systems
 @section Setup for specific Operating Systems
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -37,17 +33,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node MacOS X on the command-line
 @subsection MacOS X on the command-line
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Text editor support
 @section Text editor support
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -62,57 +54,43 @@ UNTRANSLATED NODE: IGNORE ME
 @node Emacs mode
 @subsection Emacs mode
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Vim mode
 @subsection Vim mode
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node jEdit
 @subsection jEdit
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node TexShop
 @subsection TexShop
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node TextMate
 @subsection TextMate
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node LilyKDE
 @subsection LilyKDE
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Point and click
 @section Point and click
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 

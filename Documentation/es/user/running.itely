@@ -11,9 +11,7 @@
 @node Running LilyPond
 @chapter Running LilyPond
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -27,17 +25,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Normal usage
 @section Normal usage
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Command-line usage
 @section Command-line usage
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -49,41 +43,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Invoking lilypond
 @subsection Invoking lilypond
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Command line options
 @subsection Command line options
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Environment variables
 @subsection Environment variables
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Error messages
 @section Error messages
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Updating files with convert-ly
 @section Updating with @command{convert-ly}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @subsection Command line options
@@ -94,17 +78,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Problems with convert-ly
 @subsection Problems with @code{convert-ly}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Reporting bugs
 @section Reporting bugs
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 

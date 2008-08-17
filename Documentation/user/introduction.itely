@@ -815,6 +815,12 @@ This book explains how to begin learning LilyPond, as well as
 explaining some key concepts in easy terms.  You should read these
 chapters in a linear fashion.
 
+There is a paragraph @strong{See also} at the end of each section,
+which contains cross-references to other sections: you should not
+follow these cross-references at first reading; when you have read all
+of the Learning Manual, you may want to read some sections again and
+follow cross-references for further reading.
+
 @itemize
 
 @item

@@ -34,9 +34,7 @@
 @node References for keyboards
 @subsubsection References for keyboards
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
@@ -77,7 +75,7 @@ manuell erzielt werden. Die Zeichenkette @var{Systembezeichnung} ist die
 Bezeichnung des Systems. Damit wird die aktuelle Stimme vom aktuellen 
 System zu dem System mit der @var{Systembezeichnung} gewechselt. 
 Üblicherweise ist die Systembezeichnung @code{"up"} oder
-@code{"down"}.  Dieses System (@context{Staff}), auf das verweisen wird, 
+@code{"down"}.  Dieses System (@code{Staff}), auf das verweisen wird, 
 muss auch wirklich existieren, weshalb die Aufstellung eines Klaviersystems 
 dann üblicherweise damit beginnt, die Systeme zu benennen. Hierbei können 
 natürlich beliebige Namen vergeben werden.
@@ -323,9 +321,7 @@ Im Handbuch: @ref{Laissez vibrer ties}
 @node Discant symbols
 @subsubsection Discant symbols
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml

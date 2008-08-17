@@ -11,9 +11,7 @@
 @node Install
 @chapter Install
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -24,18 +22,14 @@ UNTRANSLATED NODE: IGNORE ME
 @node Precompiled binaries
 @section Precompiled binaries
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @subsection Downloading
 @node Compiling from source
 @section Compiling from source
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -50,17 +44,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Downloading source code
 @subsection Downloading source code
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Requirements
 @subsection Requirements
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @unnumberedsubsubsec Compilation
@@ -69,9 +59,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Building LilyPond
 @subsection Building LilyPond
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @unnumberedsubsubsec Compiling
@@ -80,9 +68,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Building documentation
 @subsection Building documentation
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -93,33 +79,25 @@ UNTRANSLATED NODE: IGNORE ME
 @node Commands for building documentation
 @unnumberedsubsubsec Commands for building documentation
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Building documentation without compiling LilyPond
 @unnumberedsubsubsec Building documentation without compiling LilyPond
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Testing LilyPond
 @subsection Testing LilyPond
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Problems
 @subsection Problems
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @unnumberedsubsubsec Bison 1.875

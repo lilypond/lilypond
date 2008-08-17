@@ -26,9 +26,9 @@ make_gettext = ('--gettext', '') in optlist   # --gettext    generate a node lis
 make_skeleton = ('--skeleton', '') in optlist # --skeleton   extract the node tree from a Texinfo source
 
 output_file = 'doc.pot'
-node_blurb = '''@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+
+# @untranslated should be defined as a macro in Texinfo source
+node_blurb = '''@untranslated
 '''
 doclang = ''
 head_committish = read_pipe ('git-rev-parse HEAD')

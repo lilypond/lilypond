@@ -36,9 +36,7 @@
 @node References for keyboards
 @subsubsection References for keyboards
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
@@ -93,7 +91,7 @@ par définir les portées
 @end example
 
 
-avant d'insérer une mélodie au moyen d'un contexte @context{Voice} :
+avant d'insérer une mélodie au moyen d'un contexte @code{Voice} :
 
 @example
 \context Staff = bas
@@ -316,9 +314,7 @@ Dans ce manuel : @ref{Ties} @qq{laissez vibrer}.
 @node Discant symbols
 @subsubsection Discant symbols
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml

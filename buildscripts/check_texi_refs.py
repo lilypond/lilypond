@@ -143,8 +143,10 @@ else:
         return None
 
 
-ref_re = re.compile (r'@(ref|ruser|rlearning|rprogram|rglos)\{([^,\\]*?)\}(.)',
-                     re.DOTALL)
+ref_re = re.compile \
+    ('@(ref|ruser|rlearning|rprogram|rglos)(?:\\{(?P<ref>[^,\\\\\\}]+?)|\
+named\\{(?P<refname>[^,\\\\]+?),(?P<display>[^,\\\\\\}]+?))\\}(?P<last>.)',
+     re.DOTALL)
 node_include_re = re.compile (r'(?m)^@(node|include)\s+(.+?)$')
 
 whitespace_re = re.compile (r'\s+')
@@ -327,18 +329,24 @@ in the list)\n")
         t -= 1
     raise InteractionError ("%d retries limit exceeded" % retries)
 
+refs_count = 0
 
 def check_ref (manual, file, m):
-    global fixes_count, bad_refs_count
+    global fixes_count, bad_refs_count, refs_count
+    refs_count += 1
     bad_ref = False
     fixed = True
     type = m.group (1)
-    original_name = m.group (2)
+    original_name = m.group ('ref') or m.group ('refname')
     name = whitespace_re.sub (' ', original_name). strip ()
     newline_indices = manuals[manual]['newline_indices'][file]
     line = which_line (m.start (), newline_indices)
-    linebroken = '\n' in m.group (2)
-    next_char = m.group (3)
+    linebroken = '\n' in original_name
+    original_display_name = m.group ('display')
+    next_char = m.group ('last')
+    if original_display_name: # the xref has an explicit display name
+        display_linebroken = '\n' in original_display_name
+        display_name = whitespace_re.sub (' ', original_display_name). strip ()
     commented_out = is_commented_out \
         (m.start (), m.end (), manuals[manual]['comments_boundaries'][file])
     useful_fix = not outdir in file
@@ -433,7 +441,7 @@ and x-ref by index number or beginning of name:\n", [''.join ([i[0], ' ', i[1]])
                         fixed = True
 
         if not fixed:
-            # all previous automatic fixes attempts failed,
+            # all previous automatic fixing attempts failed,
             # ask user for substring to look in node names
             while True:
                 node_list = search_prompt ()
@@ -466,11 +474,29 @@ please fix the code source instead of generated documentation.\n")
 
     # compute returned string
     if new_name == name:
-        return ('@%s{%s}' % (type, original_name)) + next_char
+        if bad_ref and (options.interactive or options.auto_fix):
+            # only the type of the ref was fixed
+            fixes_count += 1
+        if original_display_name:
+            return ('@%snamed{%s,%s}' % (type, original_name, original_display_name)) + next_char
+        else:
+            return ('@%s{%s}' % (type, original_name)) + next_char
     else:
         fixes_count += 1
         (ref, n) = preserve_linebreak (new_name, linebroken)
-        return ('@%s{%s}' % (type, ref)) + next_char + n
+        if original_display_name:
+            if bad_ref:
+                stdout.write ("Current display name is `%s'\n")
+                display_name = raw_input \
+                    ("Enter a new display name or press enter to keep the existing name:\n") \
+                    or display_name
+                (display_name, n) = preserve_linebreak (display_name, display_linebroken)
+            else:
+                display_name = original_display_name
+            return ('@%snamed{%s,%s}' % (type, ref, display_name)) + \
+                next_char + n
+        else:
+            return ('@%s{%s}' % (type, ref)) + next_char + n
 
 
 log.write ("Checking cross-references...\n")
@@ -489,5 +515,5 @@ except InteractionError, instance:
     log.write ("Operation refused by user: %s\nExiting.\n" % instance)
     sys.exit (3)
 
-log.write ("Done: %d bad x-refs found, fixed %d.\n" %
-           (bad_refs_count, fixes_count))
+log.write ("Done: %d x-refs found, %d bad x-refs found, fixed %d.\n" %
+           (refs_count, bad_refs_count, fixes_count))

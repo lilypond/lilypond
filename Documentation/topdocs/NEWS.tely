@@ -85,26 +85,36 @@ are now available in the FretBoards context:
 @end lilypond
 
 @item
-A few syntax changes were made:
+The following syntax changes were made, in chronological order. In
+addition, fret diagram properties have been moved to
+@code{fret-diagram-details}, and @code{#'style} property is used to
+select solid/dashed lines instead of @code{#'dash-fraction}.
+
 @example
-2.11.23: #'break-align-symbol -> #'break-align-symbols
-2.11.35: scripts.caesura -> scripts.caesura.curved.
-Use #'style not #'dash-fraction to select solid/dashed lines.
-2.11.38: \setEasyHeads -> \easyHeadsOn, \fatText -> \textLengthOn,
+#'break-align-symbol -> #'break-align-symbols
+scripts.caesura -> scripts.caesura.curved
+\setEasyHeads -> \easyHeadsOn
+\easyHeadsOff (new command)
+\fatText -> \textLengthOn
 \emptyText -> \textLengthOff
-2.11.46: \set hairpinToBarline -> \override Hairpin #'to-barline
-2.11.48: \compressMusic -> \scaleDurations
-2.11.50: metronomeMarkFormatter uses text markup as second argument,
-fret diagram properties moved to fret-diagram-details.
-2.11.51: \octave -> \octaveCheck, \arpeggioUp -> \arpeggioArrowUp,
-\arpeggioDown -> \arpeggioArrowDown, \arpeggioNeutral -> \arpeggioNormal,
-\setTextCresc -> \crescTextCresc, \setTextDecresc -> \dimTextDecresc,
-\setTextDecr -> \dimTextDecr, \setTextDim -> \dimTextDim,
-\setHairpinCresc -> \crescHairpin, \setHairpinDecresc -> \dimHairpin,
-\sustainUp -> \sustainOff, \sustainDown -> \sustainOn
-\sostenutoDown -> \sostenutoOn, \sostenutoUp -> \sostenutoOff
-2.11.53: infinite-spacing-height -> extra-spacing-height
-2.11.55: #(set-octavation oct) -> \ottava #oct,
+\set hairpinToBarline -> \override Hairpin #'to-barline
+\compressMusic -> \scaleDurations
+\octave -> \octaveCheck
+\arpeggioUp -> \arpeggioArrowUp
+\arpeggioDown -> \arpeggioArrowDown
+\arpeggioNeutral -> \arpeggioNormal
+\setTextCresc -> \crescTextCresc
+\setTextDecresc -> \dimTextDecresc
+\setTextDecr -> \dimTextDecr
+\setTextDim -> \dimTextDim
+\setHairpinCresc -> \crescHairpin
+\setHairpinDecresc -> \dimHairpin
+\sustainUp -> \sustainOff
+\sustainDown -> \sustainOn
+\sostenutoDown -> \sostenutoOn
+\sostenutoUp -> \sostenutoOff
+infinite-spacing-height -> extra-spacing-height
+#(set-octavation oct) -> \ottava #oct
 \put-adjacent markup axis dir markup -> \put-adjacent axis dir markup markup
 @end example
 
@@ -127,15 +137,6 @@ using the @code{rounded-box} command.
 @command{lilypond-book} can run any program instead of @command{latex}
 to guess the line width, thanks to @code{--latex-program} command line
 option.
-
-@item
-@code{\setEasyHeads} has been renamed to @code{\easyHeadsOn}, and a new
-command @code{\easyHeadsOff} reverts note heads to normal heads.
-
-@item
-@code{\fatText}, @code{\emptyText} and @code{\compressMusic} have been
-renamed to @code{\textLengthOn}, @code{\textLengthOff} and
-@code{\scaleDurations}, respectively.
 
 @item
 Underlining is now possible with the @code{\underline} markup command.

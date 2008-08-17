@@ -11,9 +11,7 @@
 @node Scheme tutorial
 @appendix Scheme tutorial
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -23,9 +21,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Tweaking with Scheme
 @appendixsec Tweaking with Scheme
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 

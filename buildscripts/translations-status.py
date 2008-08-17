@@ -50,7 +50,7 @@ checkers_re = re.compile (r'^@c\s+Translation\s*checkers\s*:\s*(.*?)$',
                           re.M | re.I)
 status_re = re.compile (r'^@c\s+Translation\s*status\s*:\s*(.*?)$', re.M | re.I)
 post_gdp_re = re.compile ('post.GDP', re.I)
-untranslated_node_str = 'UNTRANSLATED NODE: IGNORE ME'
+untranslated_node_str = '@untranslated'
 skeleton_str = '-- SKELETON FILE --'
 
 section_titles_string = _doc ('Section titles')
