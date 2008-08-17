@@ -6,6 +6,8 @@
 
 %%%  Add basic chordshapes
 
+\version "2.11.56"
+
 \addChordShape #'f #"1-1-(;3-3;3-4;2-2;1-1;1-1-);"
 \addChordShape #'f:m #"1-1-(;3-3;3-4;1-1;1-1;1-1-);"
 \addChordShape #'f:7 #"1-1-(;3-3;1-1;2-2;1-1;1-1-);"
