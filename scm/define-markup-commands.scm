@@ -799,7 +799,7 @@ determines the space between each markup in @var{args}.
 @lilypond[verbatim,quote]
 \\markup {
   \\line {
-    A simple line of text
+    one two three
   }
 }
 @end lilypond"
@@ -825,13 +825,10 @@ equivalent to @code{\"fi\"}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\bold {
-    au
-    \\concat {
-      Mouv
-      \\super
-      t
-    }
+  \\concat {
+    one
+    two
+    three
   }
 }
 @end lilypond"
@@ -1232,10 +1229,10 @@ Align @code{arg} to its Y@tie{}center.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\arrow-head #X #RIGHT ##f
+  one
   \\vcenter
-  Centered
-  \\arrow-head #X #LEFT ##f
+  two
+  three
 }
 @end lilypond"
   (let* ((mol (interpret-markup layout props arg)))
@@ -1253,9 +1250,10 @@ Align @code{arg} to its X@tie{}center.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\hcenter
-    centered
+    two
+    three
   }
 }
 @end lilypond"
@@ -1274,9 +1272,10 @@ Align @var{arg} on its right edge.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\right-align
-    right-aligned
+    two
+    three
   }
 }
 @end lilypond"
@@ -1295,9 +1294,10 @@ Align @var{arg} on its left edge.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\left-align
-    left-aligned
+    two
+    three
   }
 }
 @end lilypond"
@@ -1316,26 +1316,28 @@ Align @var{arg} in @var{axis} direction to the @var{dir} side.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\general-align #X #LEFT
-    \\line { X, Left }
-    ↓
+    two
+    three
+    \\null
+    one
     \\general-align #X #CENTER
-    \\line { X, Center }
+    two
+    three
     \\null
     \\line {
-      \\arrow-head #X #RIGHT ##f
-      \\general-align #Y #DOWN
-      \\line { Y, Down }
-      \\arrow-head #X #LEFT ##f
+      one
+      \\general-align #Y #UP
+      two
+      three
     }
+    \\null
     \\line {
-      \\arrow-head #X #RIGHT ##f
+      one
       \\general-align #Y #3.2
-      \\line {
-        \\line { Y, Arbitrary alignment }
-      }
-      \\arrow-head #X #LEFT ##f
+      two
+      three
     }
   }
 }
@@ -1357,20 +1359,25 @@ alignment accordingly.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\halign #LEFT
-    Left
-    ↓
+    two
+    three
+    \\null
+    one
     \\halign #CENTER
-    Center
-    ↓
+    two
+    three
+    \\null
+    one
     \\halign #RIGHT
-    Right
-    ↓
-    \\halign #1.2
-    \\line {
-      Arbitrary alignment
-    }
+    two
+    three
+    \\null
+    one
+    \\halign #-5
+    two
+    three
   }
 }
 @end lilypond"
@@ -2736,10 +2743,10 @@ A negative @var{amount} indicates raising; see also @code{\\raise}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  default
-  \\lower #3 {
-    three spaces lower
-  }
+  one
+  \\lower #3
+  two
+  three
 }
 @end lilypond"
   (ly:stencil-translate-axis (interpret-markup layout props arg)
