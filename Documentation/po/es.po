@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-18 00:28+0200\n"
-"PO-Revision-Date: 2008-08-18 00:43+0200\n"
+"PO-Revision-Date: 2008-08-18 01:46+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español\n"
 "MIME-Version: 1.0\n"
@@ -28,9 +28,7 @@ msgstr ""
 #: add_html_footer.py:48
 #, python-format
 msgid "Report errors to <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
-msgstr ""
-"Informe de los fallos a <a href=\"%(mail_address_url)s\">%(mail_address)s</"
-"a>."
+msgstr "Informe de los fallos a través de la lista en español <a href=\"http://es.groups.yahoo.com/group/lilypond-es/\">lilypond-es</a>, o en inglés a través de <a href=\"%(mail_address_url)s\">%(mail_address)s</a>."
 
 #: add_html_footer.py:50
 #, python-format
