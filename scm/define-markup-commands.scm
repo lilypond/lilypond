@@ -274,12 +274,12 @@ circle of diameter@tie{}0 (i.e. sharp corners).
    (corner-radius 1)
    (font-size 0)
    (box-padding 0.5))
-  "@cindex enclosing text in a bow with rounded corners
+  "@cindex enclosing text in a box with rounded corners
    @cindex drawing boxes with rounded corners around text
 Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup; the @code{corner-radius} property
-makes possible to define another shape for the corners (default is 1).
+makes it possible to define another shape for the corners (default is 1).
 
 @lilypond[quote,verbatim,relative=2]
 c4^\\markup {
