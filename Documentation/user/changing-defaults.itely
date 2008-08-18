@@ -26,14 +26,7 @@ particular effect.
 @cindex Internals Reference
 
 The controls available for tuning are described in a separate
-document, the
-@iftex
-Internals Reference manual.
-@end iftex
-@ifnottex
-@ref{Top,Internals Reference,,lilypond-internals}.
-@end ifnottex
-That manual
+document: @rinternalsnamed{Top,the Internals Reference}.  That manual
 lists all different variables, functions and options available in
 LilyPond.  It is written as a HTML document, which is available
 @c leave the @uref as one long line.
