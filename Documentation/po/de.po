@@ -2,19 +2,19 @@
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Till Rettig <till.rettig@gmx.de>, 2007,2008
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-11 18:05+0200\n"
-"PO-Revision-Date: 2008-05-05 19:25+0300\n"
+"PO-Revision-Date: 2008-08-18 22:18+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: add_html_footer.py:44
 #, python-format
@@ -71,7 +71,7 @@ msgstr "Titel erstellen"
 #: translations-status.py:57
 #, python-format
 msgid " <p><i>Last updated %s</i></p>\n"
-msgstr ""
+msgstr "·<p><i>Zuletzt aktualisiert am·%s</i></p>\n"
 
 #: translations-status.py:58
 #, fuzzy
@@ -80,7 +80,7 @@ msgstr "Transposition"
 
 #: translations-status.py:58
 msgid "Translation checkers"
-msgstr ""
+msgstr "Übersetzungsüberprüfer"
 
 #: translations-status.py:59
 #, fuzzy
@@ -89,7 +89,7 @@ msgstr "Transposition"
 
 #: translations-status.py:59
 msgid "Up to date"
-msgstr ""
+msgstr "Aktuell"
 
 #: translations-status.py:60
 #, fuzzy
@@ -109,16 +109,16 @@ msgstr "Banjo-Tabulaturen"
 #: translations-status.py:65
 #, python-format
 msgid "partially (%(p)d %%)"
-msgstr ""
+msgstr "teilweise (%(p)d %%)"
 
 #: translations-status.py:67
 #, python-format
 msgid "partially translated (%(p)d %%)"
-msgstr ""
+msgstr "teilweise übersetzt (%(p)d·%%)"
 
 #: translations-status.py:68 translations-status.py:70
 msgid "yes"
-msgstr ""
+msgstr "ja"
 
 #: translations-status.py:69
 #, fuzzy
@@ -127,7 +127,7 @@ msgstr "transparent (durchsichtig)"
 
 #: translations-status.py:70 translations-status.py:71
 msgid "up to date"
-msgstr ""
+msgstr "aktuell"
 
 #: translations-status.py:72
 #, fuzzy
@@ -136,19 +136,19 @@ msgstr "Wiederholungen"
 
 #: translations-status.py:73
 msgid "partially up to date"
-msgstr ""
+msgstr "teilweise aktuell"
 
 #: translations-status.py:74
 msgid "N/A"
-msgstr ""
+msgstr "K/A"
 
 #: translations-status.py:75
 msgid "pre-GDP"
-msgstr ""
+msgstr "vor-GDP"
 
 #: translations-status.py:76
 msgid "post-GDP"
-msgstr ""
+msgstr "nach-GDP"
 
 #. -*- coding: utf-8 -*-
 #. @node in Documentation/user/lilypond-learning.tely
@@ -251,7 +251,7 @@ msgstr "Einleitung"
 #. @node in Documentation/es/user/introduction.itely
 #. @section in Documentation/es/user/introduction.itely
 msgid "Background"
-msgstr ""
+msgstr "Hintergrund"
 
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
@@ -337,7 +337,7 @@ msgstr "Handbuch zum Lernen (LH)"
 #. @node in Documentation/es/user/introduction.itely
 #. @unnumberedsubsec in Documentation/es/user/introduction.itely
 msgid "About the Music Glossary (MG)"
-msgstr ""
+msgstr "Über das Glossar musikalischer Begriffe (MG)"
 
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
@@ -356,7 +356,7 @@ msgstr "Notationsreferenz (NR)"
 #. @node in Documentation/es/user/introduction.itely
 #. @unnumberedsubsec in Documentation/es/user/introduction.itely
 msgid "About the Application Usage (AU)"
-msgstr ""
+msgstr "Über die Anwendungsbenutzung (AU)"
 
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
@@ -365,7 +365,7 @@ msgstr ""
 #. @node in Documentation/es/user/introduction.itely
 #. @unnumberedsubsec in Documentation/es/user/introduction.itely
 msgid "About the Snippet List (SL)"
-msgstr ""
+msgstr "Über die Schnipselliste (SL)"
 
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
@@ -389,11 +389,11 @@ msgstr "Andere Dokumentation"
 
 #. Documentation/user/tutorial.itely:225 (comment)
 msgid "set the starting point to middle C"
-msgstr ""
+msgstr "setze den Startpunkt auf das mittlere C"
 
 #. Documentation/user/tutorial.itely:256 (comment)
 msgid "one octave above middle C"
-msgstr ""
+msgstr "eine Oktave über dem mittleren C"
 
 #. Documentation/user/tutorial.itely:272 (comment)
 msgid "c is 1 staff space up, so is the c above"
