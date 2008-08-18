@@ -16,11 +16,11 @@ This section deals with general LilyPond input and output issues,
 rather than specific notation.
 
 @menu
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* MIDI output::
+* Input structure::             
+* Titles and headers::          
+* Working with input files::    
+* Controlling output::          
+* MIDI output::                 
 @end menu
 
 
@@ -31,9 +31,9 @@ The main format of input for LilyPond are text files.  By convention,
 these files end with @code{.ly}.
 
 @menu
-* Structure of a score::
-* Multiple scores in a book::
-* File structure::
+* Structure of a score::        
+* Multiple scores in a book::   
+* File structure::              
 @end menu
 
 
@@ -337,10 +337,10 @@ Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
 @menu
-* Creating titles::
-* Custom titles::
-* Reference to page numbers::
-* Table of contents::
+* Creating titles::             
+* Custom titles::               
+* Reference to page numbers::   
+* Table of contents::           
 @end menu
 
 
@@ -760,10 +760,10 @@ Init files: @file{../ly/@/toc@/-init@/.ly}.
 @section Working with input files
 
 @menu
-* Including LilyPond files::
-* Different editions from one source::
-* Text encoding::
-* Displaying LilyPond notation::
+* Including LilyPond files::    
+* Different editions from one source::  
+* Text encoding::               
+* Displaying LilyPond notation::  
 @end menu
 
 
@@ -885,8 +885,8 @@ the structure of the score will make it easier to change the
 structure while leaving the notation untouched.
 
 @menu
-* Using variables::
-* Using tags::
+* Using variables::             
+* Using tags::                  
 @end menu
 
 @node Using variables
@@ -1224,8 +1224,8 @@ lilypond file.ly >display.txt
 @section Controlling output
 
 @menu
-* Extracting fragments of music::
-* Skipping corrected music::
+* Extracting fragments of music::  
+* Skipping corrected music::    
 @end menu
 
 @node Extracting fragments of music
@@ -1332,11 +1332,12 @@ settings.  Therefore the midi file should not have more than 15 staves
 (or 14 if you do not use drums).  Other staves will remain silent.
 
 @menu
-* Creating MIDI files::
-* MIDI block::
-* What goes into the MIDI output?::
-* Repeats in MIDI::
-* Controlling MIDI dynamics::
+* Creating MIDI files::         
+* MIDI block::                  
+* What goes into the MIDI output?::  
+* Repeats in MIDI::             
+* Controlling MIDI dynamics::   
+* Percussion in MIDI::          
 @end menu
 
 @node Creating MIDI files
@@ -1865,5 +1866,41 @@ copied out and compiled to test microtones in your MIDI player.
 @end lilypond
 @end ignore
 
+
+@node Percussion in MIDI
+@subsection Percussion in MIDI
+
+@c FIXME: sorry Trevor, I know this is a complete mess.  :(
+
+But You should be aware,  that some percussion sounds cannot be
+reached via the  @code{DrumStaff} context. Pitched percussion
+sounds,  like
+Xylophone, Marimaphone, Vibraphone, Timpani, etc. are treated like
+"normal" instruments and You should input music for these
+instruments in a @code{Staff} context, not in a @code{DrumStaff}
+context.
+Too make it more complicated:
+some  non pitched percussion sounds  of the general midi standard,
+like "melodic-tom", "taiko-drum" "synth drum", etc. cannot
+be reached via midi-channel 10, so You should also  use for them a
+@code{ Staff} context, with "normal" pitches. And, last but not
+least,
+it should be mentioned, that there are lots of percussion
+instruments, which are note part of the general midi standard.
+If You want to  write for e.g. castanets, You have to find a
+substitution for this sound (or have a good sampler).
+But let us forget for this moment the limitations of midi and let
+us go on with some more examples, that show You how to write
+for percussion instruments with Lilypond:
+
+@c (no, seriously, there was no example here.  I didn't just forget
+@c to copy it.  -gp)
+
+
+
+@knownissues
+
+Because general MIDI does not contain rim shots, the sidestick is
+used for this purpose instead.
 
 
