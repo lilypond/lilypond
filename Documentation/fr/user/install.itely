@@ -55,9 +55,7 @@ mingw       - Windows x86
 @node Compiling from source
 @section Compiling from source
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @iftex
 Toute cette section ne sera pas traduite, car la compilation de LilyPond
 demande de maîtriser un minimum l'anglais ; reportez-vous donc à

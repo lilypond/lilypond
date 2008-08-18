@@ -13,7 +13,7 @@
 @node Ancient notation
 @section Ancient notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Introduction to ancient notation::
@@ -28,7 +28,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Introduction to ancient notation
 @subsection Introduction to ancient notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Ancient notation supported::
@@ -38,13 +38,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Ancient notation supported
 @subsubsection Ancient notation supported
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Alternative note signs
 @subsection Alternative note signs
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Ancient note heads::
@@ -610,7 +610,7 @@ eine Textbeschriftung (@code{\markup}).
 @node Additional note signs
 @subsection Additional note signs
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Ancient articulations::
@@ -1894,7 +1894,7 @@ Präfixen in arbiträrer Reihenfolge notiert werden kann.
 @node Pre-defined contexts
 @subsection Pre-defined contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Gregorian chant contexts::
@@ -1974,7 +1974,7 @@ werden kann. Siehe das folgende Beispiel:
 @node Transcribing ancient music
 @subsection Transcribing ancient music
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Ancient and modern from one source::
@@ -1987,31 +1987,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Ancient and modern from one source
 @subsubsection Ancient and modern from one source
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Incipits
 @subsubsection Incipits
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Mensurstriche layout
 @subsubsection Mensurstriche layout
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Transcribing Gregorian chant
 @subsubsection Transcribing Gregorian chant
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Editorial markings
 @subsection Editorial markings
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Annotational accidentals::
@@ -2053,5 +2053,5 @@ Programmreferenz: @rinternals{Accidental_engraver}-Setzer und das
 @node Baroque rhythmic notation
 @subsubsection Baroque rhythmic notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 

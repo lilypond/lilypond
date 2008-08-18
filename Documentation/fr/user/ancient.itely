@@ -11,7 +11,7 @@
 @node Ancient notation
 @section Ancient notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @menu
@@ -113,14 +113,14 @@ Voici les points que nous allons aborder :
 @node Ancient notation supported
 @subsubsection Ancient notation supported
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 
 @node Alternative note signs
 @subsection Alternative note signs
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @menu
@@ -681,7 +681,7 @@ plutôt un @code{\markup}.
 @node Additional note signs
 @subsection Additional note signs
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @menu
@@ -1967,7 +1967,7 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 @node Pre-defined contexts
 @subsection Pre-defined contexts
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @menu
@@ -2050,7 +2050,7 @@ lancer dans la saisie de votre chant comme ci-après :
 @node Transcribing ancient music
 @subsection Transcribing ancient music
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Ancient and modern from one source::  
@@ -2062,30 +2062,30 @@ UNTRANSLATED NODE: IGNORE ME
 @node Ancient and modern from one source
 @subsubsection Ancient and modern from one source
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Incipits
 @subsubsection Incipits
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Mensurstriche layout
 @subsubsection Mensurstriche layout
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Transcribing Gregorian chant
 @subsubsection Transcribing Gregorian chant
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Editorial markings
 @subsection Editorial markings
 
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Annotational accidentals::    
@@ -2131,5 +2131,5 @@ lancer dans la saisie de votre chant comme ci-après :
 @node Baroque rhythmic notation
 @subsubsection Baroque rhythmic notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 

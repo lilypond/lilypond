@@ -296,17 +296,17 @@ horizontal dans votre éditeur de texte !
 @node Nesting music expressions
 @subsection Nesting music expressions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Voices contain music
 @section Voices contain music
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * I'm hearing Voices::
@@ -317,7 +317,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node I'm hearing Voices
 @subsection I'm hearing Voices
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
@@ -445,7 +445,7 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @node Voices and vocals
 @subsection Voices and vocals
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Contexts and engravers
 @section Contexts and engravers
@@ -482,11 +482,11 @@ une altération n'a d'effet que sur une seule portée, tandis qu'une barre de me
 être synchronisée sur toute l'étendue verticale de la partition.
 
 LilyPond regroupe ces règles et ces fragments d'information dans des
-@emph{Contextes}.  Certains contextes sont les voix (contexte @context{Voice}),
-les portées (contexte @context{Staff}), ou la partition dans son ensemble
-(contexte @context{Score}).  Ils sont ordonnés hiérarchiquement : ainsi un
-contexte @context{Staff} peut contenir plusieurs contextes @context{Voice}, et un
-contexte @context{Score} peut contenir plusieurs contextes @context{Staff}.
+@emph{Contextes}.  Certains contextes sont les voix (contexte @code{Voice}),
+les portées (contexte @code{Staff}), ou la partition dans son ensemble
+(contexte @code{Score}).  Ils sont ordonnés hiérarchiquement : ainsi un
+contexte @code{Staff} peut contenir plusieurs contextes @code{Voice}, et un
+contexte @code{Score} peut contenir plusieurs contextes @code{Staff}.
 
 @quotation
 @image{context-example,5cm,,}
@@ -494,14 +494,14 @@ contexte @context{Score} peut contenir plusieurs contextes @context{Staff}.
 
 Chaque contexte est chargé de faire appliquer certaines règles de gravure,
 de créer certains objets, et de prendre en compte les propriétés qui leur
-sont associées.  Ainsi, le contexte @context{Voice} peut faire intervenir une
-altération accidentelle, puis le contexte @context{Staff} devra déterminer si
+sont associées.  Ainsi, le contexte @code{Voice} peut faire intervenir une
+altération accidentelle, puis le contexte @code{Staff} devra déterminer si
 cette dernière devra être imprimée ou non dans la suite de la mesure.  Les barres
-de mesure, enfin, sont alignées verticalement grâce au contexte @context{Score}.
+de mesure, enfin, sont alignées verticalement grâce au contexte @code{Score}.
 
 En revanche, dans une musique polymétrique, par exemple mélant une portée à 3/4
 et une autre à 4/4, les barres de mesures n'ont plus à être alignées : il faut alors 
-modifier les comportement par défaut des contextes @context{Score} et @context{Staff}.
+modifier les comportement par défaut des contextes @code{Score} et @code{Staff}.
 
 Dans une partition très simple, les contextes sont créés implicitement, et peuvent
 être ignorés.  Mais lorsqu'il s'agit de morceaux plus amples -- entendons par là tout
@@ -607,7 +607,7 @@ musique = @{ c4 c4 @}
 ponctuation = @{ s4-. s4-> @}
 @end example
 
-En les envoyant toutes deux dans le même contexte @context{Voice}, on les combine :
+En les envoyant toutes deux dans le même contexte @code{Voice}, on les combine :
 
 @example
 <<
@@ -648,13 +648,13 @@ Cette variante sert à des expressions musicales qui peuvent être interprétée
 plusieurs niveaux.  Par exemple, une commande telle que @code{\applyOutput} (voir
 @c FIXME: broken link
 @c @ruser{Running a function on all layout objects}) : si elle n'est pas associée avec
-@code{\context}, elle s'applique par défaut dans le contexte @context{Voice}.
+@code{\context}, elle s'applique par défaut dans le contexte @code{Voice}.
 
 @example
 \applyOutput #'@var{Contexte} #@var{fonction}   % s'applique dans le contexte Voice
 @end example
 
-Pour l'appliquer au contexte @context{Score} ou @context{Staff}, il faut utiliser :
+Pour l'appliquer au contexte @code{Score} ou @code{Staff}, il faut utiliser :
 
 @example
 \applyOutput #'Score #@var{fonction}
@@ -667,17 +667,17 @@ Pour l'appliquer au contexte @context{Score} ou @context{Staff}, il faut utilise
 @node Engravers explained
 @subsection Engravers explained
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Modifying context properties
 @subsection Modifying context properties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Extending the templates
@@ -886,10 +886,10 @@ celloMusic = \relative c {
 @node Four-part SATB vocal score
 @subsection Four-part SATB vocal score
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Building a score from scratch
 @subsection Building a score from scratch
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 

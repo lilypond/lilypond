@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 1440fffdf8579046cc2033b9c697a190b34b91e5
+    Translation of GIT committish: a88c1b861df238ad1c000e6a86926e6f19f2fedd
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,9 +12,11 @@
 
 @c   ***** Displaying text *****
 
-@c we need this since @q{\} doesn't work with makeinfo 4.8 --
-@c say @q{@value{backslash}} instead
-@set backslash \
+@c we need this since @q{\} doesn't work with makeinfo 4.11 --
+@c say @q{@bs{}} instead
+@macro bs
+\\
+@end macro
 
 @c to get decent quotes in `foo' and ``foo''
 @c  these need to be split up so that "@qq{foo}." looks nice.  :(
@@ -26,6 +28,15 @@
 @quotedblbase{}\TEXT\@quotedblleft{}
 @end macro
 
+@ifhtml
+@macro warning{TEXT}
+@cartouche
+@b{Achtung:} \TEXT\
+@end cartouche
+@end macro
+@end ifhtml
+
+@ifnothtml
 @macro warning{TEXT}
 @quotation
 @quotation
@@ -35,6 +46,7 @@
 @end quotation
 @end quotation
 @end macro
+@end ifnothtml
 
 @ifnotinfo
 @macro notation{TEXT}
@@ -107,12 +119,6 @@
 
 @end macro
 
-@c obsolete, remove when translation is fully updated
-@macro context{TEXT}
-@vindex \TEXT\
-@code{\TEXT\}@c should use rinternals
-@end macro
-
 @macro lydoctitle {TEXT}
 @emph{\TEXT\}
 
@@ -151,36 +157,33 @@
 
 
 
-@c  Definitions for references:
-@c     @rinternals
-@c     @rglos
-@c     @rprogram
-@c     @ruser
-@c     @rlearning
+@c   **** Links and references ****
 
-@ifhtml
-@c ***** HTML *****
+@c  Definitions for references:
+@c     @rglos
+@c     @rlearning
+@c     @ruser
+@c     @rprogram
+@c     @rlsr
+@c     @rinternals
+@c  all these also have a @...named version, which allows to specify the
+@c  displayed text for the reference as second argument
+
+@c ***** HTML + bigpage is a special case (other manual names), all other
+@c formats are treated similarly
+
+@ifnottex
 
 @ifset bigpage
-
-@macro rinternals{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page,Programmreferenz}
-@end macro
 
 @macro rglos{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,music-glossary-big-page,Glossar}
 @end macro
 
-@macro rprogram{TEXT}
+@macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-big-page,Programmbenutzung}
-@end macro
-
-@macro ruser{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-big-page,Benutzerhandbuch}
+@ref{\TEXT\,,\DISPLAY\,music-glossary-big-page,Glossar}
 @end macro
 
 @macro rlearning{TEXT}
@@ -188,34 +191,62 @@
 @ref{\TEXT\,,,lilypond-learning-big-page,Handbuch zum Lernen}
 @end macro
 
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning-big-page,Handbuch zum Lernen}
+@end macro
+
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-big-page,Benutzerhandbuch}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-big-page,Benutzerhandbuch}
+@end macro
+
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-program-big-page,Programmbenutzung}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-program-big-page,Programmbenutzung}
+@end macro
+
 @macro rlsr{TEXT}
 @ref{\TEXT\,,,lilypond-snippets-big-page,Beispiele}
 @end macro
 
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets-big-page,Beispiele}
+@end macro
+
+@macro rinternals{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals-big-page,Programmreferenz}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals-big-page,Programmreferenz}
+@end macro
 
 @end ifset
 
 
 @ifclear bigpage
 
-@macro rinternals{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Programmreferenz}
-@end macro
-
 @macro rglos{TEXT}
 @vindex \TEXT\
 @ref{\TEXT\,,,music-glossary,Glossar}
 @end macro
 
-@macro rprogram{TEXT}
+@macro rglosnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program,Programmbenutzung}
-@end macro
-
-@macro ruser{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond,Benutzerhandbuch}
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossar}
 @end macro
 
 @macro rlearning{TEXT}
@@ -223,121 +254,118 @@
 @ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
 @end macro
 
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning,Handbuch zum Lernen}
+@end macro
+
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond,Benutzerhandbuch}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond,Benutzerhandbuch}
+@end macro
+
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-program,Programmbenutzung}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-program,Programmbenutzung}
+@end macro
+
 @macro rlsr{TEXT}
 @ref{\TEXT\,,,lilypond-snippets,Beispiele}
 @end macro
 
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Beispiele}
+@end macro
+
+@macro rinternals{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-internals,Programmreferenz}
+@end macro
+
+@macro rinternalsnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Programmreferenz}
+@end macro
 
 @end ifclear
 
-@end ifhtml
-
-
-@ifdocbook
-@c ***** DOCBOOK-XML *****
-
-@macro rinternals{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Programmreferenz}
-@end macro
-
-@macro rglos{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,music-glossary,Glossar}
-@end macro
-
-@macro rprogram{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program,Programmbenutzung}
-@end macro
-
-@macro ruser{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond,Benutzerhandbuch}
-@end macro
-
-@macro rlearning{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
-@end macro
-
-@macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets,Beispiele}
-@end macro
-
-
-@end ifdocbook
-
-
-@ifinfo
-@c **** INFO ****
-
-@macro rinternals{NAME}
-@vindex \NAME\
-@inforef{\NAME\,,lilypond-internals,Programmreferenz}
-@end macro
-
-@macro rglos{NAME}
-@vindex \NAME\
-@inforef{\NAME\,,music-glossary,Glossar}
-@end macro
-
-@macro rprogram{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program,Programmbenutzung}
-@end macro
-
-@macro ruser{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond,Benutzerhandbuch}
-@end macro
-
-@macro rlearning{TEXT}
-@vindex \TEXT\
-@ref{\TEXT\,,,lilypond-learning,Handbuch zum Lernen}
-@end macro
-
-@macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets,Beispiele}
-@end macro
-
-
-@end ifinfo
+@end ifnottex
 
 
 @c **** TEX ****
 @iftex
+
+@macro rglos{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,music-glossary,Glossar}
+@end macro
+
+@macro rglosnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,music-glossary,Glossar}
+@end macro
+
+@macro rlearning{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-learning.de,Handbuch zum Lernen}
+@end macro
+
+@macro rlearningnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-learning.de,Handbuch zum Lernen}
+@end macro
+
+@macro ruser{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond.de,Benutzerhandbuch}
+@end macro
+
+@macro rusernamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond.de,Benutzerhandbuch}
+@end macro
+
+@macro rprogram{TEXT}
+@vindex \TEXT\
+@ref{\TEXT\,,,lilypond-program.de,Programmbenutzung}
+@end macro
+
+@macro rprogramnamed{TEXT,DISPLAY}
+@vindex \TEXT\
+@ref{\TEXT\,,\DISPLAY\,lilypond-program.de,Programmbenutzung}
+@end macro
+
+@macro rlsr{TEXT}
+@ref{\TEXT\,,,lilypond-snippets,Beispiele}
+@end macro
+
+@macro rlsrnamed{TEXT,DISPLAY}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Beispiele}
+@end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
 @code{\TEXT\}
 @end macro
 
-@macro rglos {TEXT}
+@macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,,music-glossary,Glossar}
+@code{\DISPLAY\}
 @end macro
-
-@macro rprogram{TEXT}
-@ref{\TEXT\,,,lilypond-program.de,Programmbenutzung}
-@end macro
-
-@macro ruser{TEXT}
-@ref{\TEXT\,,,lilypond.de,Benutzerhandbuch}
-@end macro
-
-@macro rlearning{TEXT}
-@ref{\TEXT\,,,lilypond-learning.de,Handbuch zum Lernen}
-@end macro
-
-@macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets,Beispiele}
-@end macro
-
 
 @end iftex
 
-@c Commands specific to translated docs
+@c **** Macros specific to translated docs ****
 
 @c ugh, cannot set/define global variable 'translationof' in some way?
 @iftex
@@ -359,3 +387,13 @@ Dieser Abschnitt wurde noch nicht übersetzt, bitte lesen Sie den
 Abschnitt im englischen Benutzerhandbuch.
 @end macro
 
+@ifhtml
+@macro untranslated
+UNTRANSLATED NODE: IGNORE ME
+@end macro
+@end ifhtml
+
+@ifnothtml
+@macro untranslated
+@end macro
+@end ifnothtml

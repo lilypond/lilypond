@@ -26,14 +26,7 @@ particular effect.
 @cindex Internals Reference
 
 The controls available for tuning are described in a separate
-document, the
-@iftex
-Internals Reference manual.
-@end iftex
-@ifnottex
-@ref{Top,Internals Reference,,lilypond-internals}.
-@end ifnottex
-That manual
+document: @rinternalsnamed{Top,the Internals Reference}.  That manual
 lists all different variables, functions and options available in
 LilyPond.  It is written as a HTML document, which is available
 @c leave the @uref as one long line.
@@ -73,13 +66,13 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 
 
 @menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Common properties::
-* Advanced tweaks::
-* Discussion of specific tweaks::
+* Interpretation contexts::     
+* Explaining the Internals Reference::  
+* Modifying properties::        
+* Useful concepts and properties::  
+* Common properties::           
+* Advanced tweaks::             
+* Discussion of specific tweaks::  
 @end menu
 
 
@@ -89,12 +82,12 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 This section describes what contexts are, and how to modify them.
 
 @menu
-* Contexts explained::
-* Creating contexts::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Aligning contexts::
+* Contexts explained::          
+* Creating contexts::           
+* Modifying context plug-ins::  
+* Changing context default settings::  
+* Defining new contexts::       
+* Aligning contexts::           
 @end menu
 
 
@@ -127,10 +120,10 @@ further explanation and with links to the IR.
 Contexts are arranged heirarchically:
 
 @menu
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
+* Score - the master of all contexts::  
+* Top-level contexts - staff containers::  
+* Intermediate-level contexts - staves::  
+* Bottom-level contexts - voices::  
 @end menu
 
 @node Score - the master of all contexts
@@ -540,7 +533,7 @@ time signature.
 @subsection Changing context default settings
 
 The adjustments of the previous subsections (
-@ref{The \set command}, @ref{Modifying context plug-ins}, and
+@ref{The set command}, @ref{Modifying context plug-ins}, and
 @ref{Overview of modifying properties}) can also be entered
 separately from the music in the @code{\layout} block,
 
@@ -702,7 +695,7 @@ The notes look like a slash, and have no stem,
 
 All these plug-ins have to cooperate, and this is achieved with a
 special plug-in, which must be marked with the keyword @code{\type}.
-This should always be @rinternals{Engraver_group},
+This should always be @code{Engraver_group}.
 
 @example
 \type "Engraver_group"
@@ -803,10 +796,10 @@ ossia = { f4 f f f }
 
 
 @menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
+* Navigating the program reference::  
+* Layout interfaces::           
+* Determining the grob property::  
+* Naming conventions::          
 @end menu
 
 @node Navigating the program reference
@@ -838,9 +831,9 @@ Internals Reference: @rinternals{Fingering}.
 @c  outdated info; probably will delete.
 @ignore
 This fragment points to two parts of the program reference: a page
-on @code{FingerEvent} and one on @code{Fingering}.
+on @code{FingeringEvent} and one on @code{Fingering}.
 
-The page on @code{FingerEvent} describes the properties of the music
+The page on @code{FingeringEvent} describes the properties of the music
 expression for the input @code{-2}.  The page contains many links
 forward.  For example, it says
 
@@ -856,7 +849,7 @@ plug-in, which says
 This engraver creates the following layout objects: @rinternals{Fingering}.
 @end quotation
 
-In other words, once the @code{FingerEvent}s are interpreted, the
+In other words, once the @code{FingeringEvent}s are interpreted, the
 @code{Fingering_engraver} plug-in will process them.
 @end ignore
 
@@ -902,7 +895,7 @@ Music types accepted: @rinternals{fingering-event}
 
 @item @rinternals{fingering-event}:
 Music event type @code{fingering-event} is in Music expressions named
-@rinternals{FingerEvent}
+@rinternals{FingeringEvent}
 @end itemize
 
 This path goes against the flow of information in the program: it
@@ -1124,11 +1117,11 @@ LP-specific?
 @section Modifying properties
 
 @menu
-* Overview of modifying properties::
-* The \set command::
-* The \override command::
-* \set versus \override::
-* Objects connected to the input::
+* Overview of modifying properties::  
+* The set command::             
+* The override command::        
+* set versus override::         
+* The tweak command::           
 @end menu
 
 
@@ -1246,7 +1239,7 @@ or crashes, or both.
 
 
 
-@node The \set command
+@node The set command
 @subsection The @code{\set} command
 
 @cindex properties
@@ -1371,7 +1364,7 @@ Translation @expansion{} Tunable context properties.
 
 
 
-@node The \override command
+@node The override command
 @subsection The @code{\override} command
 
 Commands which change output generally look like
@@ -1413,7 +1406,7 @@ We demonstrate how to glean this information from the notation manual
 and the program reference.
 
 
-@node \set versus \override
+@node set versus override
 @subsection @code{\set} vs. @code{\override}
 
 We have seen two methods of changing properties: @code{\set} and
@@ -1464,8 +1457,8 @@ objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
 
 
-@node Objects connected to the input
-@subsection Objects connected to the input
+@node The tweak command
+@subsection The @code{\tweak} command
 
 TODO: can't use \tweak in a variable
 
@@ -1518,10 +1511,10 @@ details.
 
 
 @menu
-* Input modes::
-* Direction and placement::
-* Distances and measurements::
-* Spanners::
+* Input modes::                 
+* Direction and placement::     
+* Distances and measurements::  
+* Spanners::                    
 @end menu
 
 @node Input modes
@@ -1737,16 +1730,11 @@ restricted to a sub-set of the spanners.
 @section Common properties
 
 @menu
-* Controlling visibility of objects::
-* Line styles::
-* Rotating objects::
-* Aligning objects::
+* Controlling visibility of objects::  
+* Line styles::                 
+* Rotating objects::            
+* Aligning objects::            
 @end menu
-
-@c TODO Add new subsection Shapes of objects
-@c which would include Slur shapes
-@c with a Known issue: can't modify shapes with 'control-points if there are
-@c more than one at the same musical moment
 
 @node Controlling visibility of objects
 @subsection Controlling visibility of objects
@@ -1768,11 +1756,11 @@ certain layout objects.  These are covered under Special
 considerations.
 
 @menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
+* Removing the stencil::        
+* Making objects transparent::  
+* Painting objects white::      
+* Using break-visibility::      
+* Special considerations::      
 @end menu
 
 
@@ -2256,8 +2244,8 @@ Both layout objects and elements of markup text can be rotated by
 any angle about any point, but the method of doing so differs.
 
 @menu
-* Rotating layout objects::
-* Rotating markup::
+* Rotating layout objects::     
+* Rotating markup::             
 @end menu
 
 @node Rotating layout objects
@@ -2322,10 +2310,10 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 @section Advanced tweaks
 
 @menu
-* Vertical grouping of grobs::
-* Modifying ends of spanners::
-* Modifying stencils::
-* Modifying shapes::
+* Vertical grouping of grobs::  
+* Modifying ends of spanners::  
+* Modifying stencils::          
+* Modifying shapes::            
 @end menu
 
 
@@ -2348,23 +2336,148 @@ VerticalAxisGroup.
 @subsection Modifying ends of spanners
 
 @c FIXME Write this section
+@c See earlier material in Line styles
 
 @node Modifying stencils
 @subsection Modifying stencils
 
-@c FIXME Write this section
+All layout objects have a @code{stencil} property which is part of
+the @code{grob-interface}.  By default, this property is usually
+set to a function specific to the object that is tailor-made to
+render the symbol which represents it in the output.  For example,
+the standard setting for the @code{stencil} property of the
+@code{MultiMeasureRest} object is @code{ly:multi-measure-rest::print}.
+
+The standard symbol for any object can be replaced by modifying the
+@code{stencil} property to reference a different, specially-written,
+procedure.  This requires a high level of knowledge of the internal
+workings of LilyPond, but there is an easier way which can often
+produce adequate results.
+
+This is to set the @code{stencil} property to the procedure which
+prints text -- @code{ly:text-interface::print} -- and to add a
+@code{text} property to the object which is set to contain the
+markup text which produces the required symbol.  Due to the
+flexibility of markup, much can be achieved -- see in particular
+@ref{Graphic notation inside markup}.
+
+The following example demonstrates this by changing the note head
+symbol to a cross within a circle.
+
+@lilypond[verbatim,quote]
+XinO = {
+  \once \override NoteHead  #'stencil = #ly:text-interface::print
+  \once \override NoteHead #'text = \markup {
+    \combine
+      \halign #-0.7 \draw-circle #0.85 #0.2 ##f
+      \musicglyph #"noteheads.s2cross"
+  }
+}
+\relative c'' {
+  a a \XinO a a
+}
+@end lilypond
+
+Any of the glyphs in the feta Font can be supplied to the
+@code{\musicglyph} markup command -- see @ref{The Feta font}.
+
+@c TODO Add inserting eps files or ref to later
+
+@c TODO Add inserting Postscript or ref to later
+
+@seealso
+
+Notation Reference:
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
+@ref{Text markup commands},
+@ref{The Feta font}.
+
 
 @node Modifying shapes
 @subsection Modifying shapes
 
-@c FIXME Write this section
-@c Discussion of Bezier curves and the control-points property
+@menu
+* Modifying ties and slurs::
+@end menu
+
+@node Modifying ties and slurs
+@unnumberedsubsubsec Modifying ties and slurs
+
+Ties, slurs and phrasing slurs are drawn as third-order Bézier
+curves.  If the shape of the tie or slur which is calculated
+automatically is not optimum, the shape may be modified manually by
+explicitly specifying the four control points required to define
+a third-order Bézier curve.
+
+Third-order or cubic Bézier curves are defined by four control
+points.  The first and fourth control points are precisely the
+starting and ending points of the curve.  The intermediate two
+control points define the shape.  Animations showing how the curve
+is drawn can be found on the web, but the following description
+may be helpful.  The curve starts from the first control point
+heading directly towards the second, gradually bending over to
+head towards the third and continuing to bend over to head towards
+the fourth, arriving there travelling directly from the third
+control point.  The curve is entirely contained in the
+quadrilateral defined by the four control points.
+
+Here is an example of a case where the tie is not optimum, and
+where @code{\tieDown} would not help.
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  { e1 ~ e }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+One way of improving this tie is to manually modify its control
+points, as follows.
+
+The coordinates of the Bézier control points are specified in units
+of staff-spaces.  The X@tie{}coordinate is relative to the reference
+point of the note to which the tie or slur is attached, and the
+Y@tie{}coordinate is relative to the staff center line.  The
+coordinates are entered as a list of four pairs of decimal numbers
+(reals).  One approach is to estimate the coordinates of the two
+end points, and then guess the two intermediate points.  The optimum
+values are then found by trial and error.
+
+It is useful to remember that a symmetric curve requires symmetric
+control points, and that Bézier curves have the useful property that
+transformations of the curve such as translation, rotation and
+scaling can be achieved by applying the same transformation to the
+curve's control points.
+
+For the example above the following override gives a satisfactory
+tie:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  \once \override Tie
+    #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+  { e1 ~ e1 }
+\\
+  { r4 <g c,> <g c,> <g c,>4  }
+>>
+@end lilypond
+
+@knownissues
+
+It is not possible to modify shapes of ties or slurs by changing
+the @code{control-points} property if there are more than one at
+the same musical moment, not even by using the @code{\tweak}
+command.
+
+
 
 @node Discussion of specific tweaks
 @section Discussion of specific tweaks
 
 @menu
-* old Contexts explained::
+* old Contexts explained::      
 @end menu
 
 

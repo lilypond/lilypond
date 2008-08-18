@@ -453,10 +453,10 @@ This section explains how to gather the information necessary
 to create complicated music functions.
 
 @menu
-* Displaying music expressions::  
-* Music properties::            
-* Doubling a note with slurs (example)::  
-* Adding articulation to notes (example)::  
+* Displaying music expressions::
+* Music properties::
+* Doubling a note with slurs (example)::
+* Adding articulation to notes (example)::
 @end menu
 
 
@@ -465,7 +465,6 @@ to create complicated music functions.
 
 @cindex internal storage
 @funindex \displayMusic
-@funindex \displayLilyMusic
 
 When writing a music function it is often instructive to inspect how
 a music expression is stored internally.  This can be done with the
@@ -577,6 +576,8 @@ of the @code{NoteEvent} object,
 @end example
 
 The note pitch can be changed by setting this 'pitch property,
+
+@funindex \displayLilyMusic
 
 @example
 #(set! (ly:music-property (first (ly:music-property someNote 'elements))

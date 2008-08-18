@@ -12,9 +12,7 @@
 @node General input and output
 @chapter General input and output
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -28,9 +26,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Input structure
 @section Input structure
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -42,33 +38,25 @@ UNTRANSLATED NODE: IGNORE ME
 @node Structure of a score
 @subsection Structure of a score
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Multiple scores in a book
 @subsection Multiple scores in a book
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node File structure
 @subsection File structure
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Titles and headers
 @section Titles and headers
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -81,41 +69,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Creating titles
 @subsection Creating titles
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Custom titles
 @subsection Custom titles
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Reference to page numbers
 @subsection Reference to page numbers
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Table of contents
 @subsection Table of contents
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Working with input files
 @section Working with input files
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -128,17 +106,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Including LilyPond files
 @subsection Including LilyPond files
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Different editions from one source
 @subsection Different editions from one source
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -149,9 +123,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Using variables
 @unnumberedsubsubsec Using variables
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Using tags
@@ -200,25 +172,19 @@ Prozent-Wiederholungen benutzt werden. Zum Beispiel:
 @node Text encoding
 @subsection Text encoding
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Controlling output
 @section Controlling output
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -229,25 +195,19 @@ UNTRANSLATED NODE: IGNORE ME
 @node Extracting fragments of music
 @subsection Extracting fragments of music
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Skipping corrected music
 @subsection Skipping corrected music
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node MIDI output
 @section MIDI output
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -261,26 +221,20 @@ UNTRANSLATED NODE: IGNORE ME
 @node Creating MIDI files
 @subsection Creating MIDI files
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @unnumberedsubsubsec Instrument names
 @node MIDI block
 @subsection MIDI block
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node What goes into the MIDI output?
 @subsection What goes into the MIDI output?
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @unnumberedsubsubsec Supported in MIDI
@@ -288,17 +242,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Repeats in MIDI
 @subsection Repeats in MIDI
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Controlling MIDI dynamics
 @subsection Controlling MIDI dynamics
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @unnumberedsubsubsec Dynamic marks
