@@ -62,6 +62,11 @@ note)."
  '(columns common-shortest-duration))
 
 (ly:add-interface
+ 'harp-pedal-interface
+ "A harp pedal diagram"
+ '(harp-pedal-details size thickness))
+
+(ly:add-interface
  'key-cancellation-interface
  "A key cancellation."
  '())
