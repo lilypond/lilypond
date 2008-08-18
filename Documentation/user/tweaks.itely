@@ -124,15 +124,15 @@ We met some object naming conventions previously, in
 @ref{Contexts and engravers}.  Here for reference is a list
 of the most common object and property types together with 
 the conventions for naming them and a couple of examples of 
-some real names.  We have used A to stand for any capitalized
-alphabetic character and aaa to stand for any number of
+some real names.  We have used @q{A} to stand for any capitalized
+alphabetic character and @q{aaa} to stand for any number of
 lower-case alphabetic characters.  Other characters are used
 verbatim. 
 
 @multitable @columnfractions .33 .33 .33
 @headitem Object/property type           
   @tab Naming convention
-  @tab Example
+  @tab Examples
 @item Contexts
   @tab Aaaa or AaaaAaaaAaaa
   @tab Staff, GrandStaff
@@ -170,7 +170,7 @@ properties.
 We have already met the commands @code{\set} and @code{\with},
 used to change the properties of @strong{contexts} and to remove
 and add @strong{engravers}, in
-@ref{Modifying context properties} and @ref{Adding
+@ref{Modifying context properties}, and @ref{Adding
 and removing engravers}.  We now must meet some more important
 commands.
 
@@ -185,17 +185,16 @@ how this is done.
 The general syntax of this command is:
 
 @example
-\override @emph{context}.@emph{layout_object} 
-  #'@emph{layout_property} = #@emph{value}
+\override @var{Context}.@var{LayoutObject} #'@var{layout-property} = #@var{value}
 @end example
 
 @noindent
-This will set the property with the name @emph{layout_property}
+This will set the property with the name @var{layout-property}
 of the layout object with the name
-@emph{layout_object}, which is a member of the @emph{context}
-context, to the value @emph{value}.
+@var{LayoutObject}, which is a member of the @var{Context}
+context, to the value @var{value}.
 
-The @emph{context} can be omitted (and usually is) when the
+The @var{Context} can be omitted (and usually is) when the
 required context is unambiguously implied and is one of lowest
 level contexts, i.e., @code{Voice}, @code{ChordNames} or
 @code{Lyrics}, and we shall omit it in many of the following
@@ -235,11 +234,11 @@ value; note, not its previous value if several @code{\override}
 commands have been issued.
 
 @example
-\revert @emph{context}.@emph{layout_object} #'@emph{layout_property}
+\revert @var{Context}.@var{LayoutObject} #'@var{layout-property}
 @end example
 
-Again, just like @emph{context} in the @code{\override} command,
-@emph{context} is often not needed.  It will be omitted
+Again, just like @var{Context} in the @code{\override} command,
+@var{Context} is often not needed.  It will be omitted
 in many of the following examples.  Here we revert the color
 of the note head to the default value for the final two notes:
 
@@ -294,7 +293,7 @@ within a chord, whereas @code{\tweak} affects just the following
 item in the input stream.
 
 Here's an example.  Suppose we wish to change the size of the
-middle note (the E) in a C major chord.  Let's first see what
+middle note head (the E) in a C major chord.  Let's first see what
 @code{\once \override} would do:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
@@ -304,7 +303,7 @@ middle note (the E) in a C major chord.  Let's first see what
   <c e g>
 @end lilypond
 
-We see the override affects @emph{all} the notes in the chord.
+We see the override affects @emph{all} the note heads in the chord.
 This is because all the notes of a chord occur at the same
 @emph{musical moment}, and the action of @code{\once} is to
 apply the override to all layout objects of the type specified
@@ -314,9 +313,9 @@ command itself.
 The @code{\tweak} command operates in a different way.  It acts
 on the immediately following item in the input stream.  However,
 it is effective only on objects which are created directly from
-the input stream, essentially note heads and articulations.
-(Objects such as stems and accidentals are created later and
-cannot be tweaked in this way).  Furthermore, when it is applied
+the input stream, essentially note heads and articulations;
+objects such as stems and accidentals are created later and
+cannot be tweaked in this way.  Furthermore, when it is applied
 to note heads these @emph{must} be within a chord, i.e., within
 single angle brackets, so to tweak a single note the @code{\tweak}
 command must be placed inside single angle brackets with the
@@ -335,10 +334,10 @@ of the @code{\override} command.  Neither the context nor the
 layout object should be specified; in fact, it would generate
 an error to do so.  These are both implied by the following
 item in the input stream.  So the general syntax of the
-@code{\tweak} command is simply:
+@code{\tweak} command is simply
 
 @example
-\tweak #'@emph{layout_property} = #@emph{value}
+\tweak #'@var{layout-property} = #@var{value}
 @end example
 
 A @code{\tweak} command can also be used to modify just one in
@@ -350,6 +349,7 @@ a ^Black
   -\tweak #'color #green _Green
 @end lilypond
 
+@noindent
 Note that the @code{\tweak} command must be preceded by an
 articulation mark as if it were an articulation itself.
 
@@ -381,10 +381,7 @@ printed in red on the first short tuplet bracket.
 }
 @end lilypond
 
-You can find more details of the @code{\tweak} command in
-@ruser{Objects connected to the input}.
-
-If nested tuplets do not begin at the same moment their
+If nested tuplets do not begin at the same moment, their
 appearance may be modified in the usual way with
 @code{\override} commands:
 
@@ -402,6 +399,11 @@ appearance may be modified in the usual way with
 \times 2/3 { c8[ c c]}
 }
 @end lilypond
+
+@seealso
+
+Notation Reference:
+@ruser{The tweak command}.
 
 
 @node The Internals Reference manual
@@ -449,7 +451,7 @@ yourself with just a little practice.
 Let's use a concrete example with a simple fragment of real
 music:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -472,7 +474,7 @@ this we must look in the Internals Reference, or IR for short.
 The IR for the version of LilyPond you are using may be found
 on the LilyPond website at @uref{http://lilypond.org}.  Go to the
 documentation page and click on the Internals Reference link.
-For learning purposes you should use the standard html version,
+For learning purposes you should use the standard HTML version,
 not the @q{one big page} or the PDF.  For the next few
 paragraphs to make sense you will need to actually do this
 as you read.
@@ -485,18 +487,17 @@ The page that appears lists all the layout objects used in your
 version of LilyPond, in alphabetic order.  Select the link to
 Slur, and the properties of Slurs are listed.
 
-(An alternative way of finding this page is from the Notation
-Reference.  On one of the pages that deals with slurs you may
-find a link to the Internals Reference.  This link will
-take you directly to this page, but often it is easier to go
-straight to the IR and search there.)
+An alternative way of finding this page is from the Notation
+Reference.  On one of the pages that deals with slurs you may find a
+link to the Internals Reference.  This link will take you directly to
+this page, but if you have an idea about the name of the layout object
+to be tweaked, it is easier to go straight to the IR and search there.
 
-This Slur page in the IR tells us first that Slur objects are 
-created by the 
-Slur_engraver.  Then it lists the standard settings.  Note
-these are @strong{not} in alphabetic order.  Browse down
-them looking for a property that might control the heaviness
-of slurs, and you should find
+This Slur page in the IR tells us first that Slur objects are created
+by the Slur_engraver.  Then it lists the standard settings.  Note
+these are @strong{not} in alphabetic order.  Browse down them looking
+for a property that might control the heaviness of slurs, and you
+should find
 
 @example
 @code{thickness} (number)
@@ -533,7 +534,7 @@ placed?}  While you are unsure and learning, the best
 answer is, @q{Within the music, before the first slur and
 close to it.}  Let's do that:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -597,7 +598,7 @@ is encountered, it is simply discarded.  So the command with
 @code{\once} must be
 repositioned as follows:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -631,7 +632,7 @@ heavier?  Well, we could use two commands, each preceded by
 @code{\once} placed immediately before each of the notes where
 the slurs begin:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -656,7 +657,7 @@ or we could omit the @code{\once} command and use the
 to return the @code{thickness} property to its default value
 after the second slur:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -687,6 +688,7 @@ sections of this Chapter, partly to introduce you to some of the
 additional features of the IR, and partly to give you more 
 practice in extracting information from it.  These examples will
 contain progressively fewer words of guidance and explanation. 
+
 
 @node Properties found in interfaces
 @subsection Properties found in interfaces

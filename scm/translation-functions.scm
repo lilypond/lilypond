@@ -334,12 +334,13 @@
      (if (note-string note)
 	 (set-fret note (note-string note))
 	 (let*
-	     ((string (find (lambda (string) (string-qualifies string
-							       (note-pitch note)))
-			      (reverse free-strings))))
-	   (if string
-	       (set-fret note string)
-	       (ly:warning "No string for pitch ~a (given frets ~a)" (note-pitch note)
+	     ((fit-string (find (lambda (string) 
+                               (string-qualifies string (note-pitch note)))
+			    free-strings)))
+	   (if fit-string
+	       (set-fret note fit-string)
+	       (ly:warning "No string for pitch ~a (given frets ~a)" 
+                           (note-pitch note)
 			   specified-frets))
 			   
 	       )))

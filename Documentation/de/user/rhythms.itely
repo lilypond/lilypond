@@ -409,7 +409,7 @@ Programmreferenz: @rinternals{SkipMusic}.
 @node Multi measure rests
 @subsubsection Multi measure rests
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Displaying rhythms
@@ -604,7 +604,7 @@ einfügen, um anzuzeigen, wo umgebrochen werden darf.
 @node Polymetric notation
 @subsubsection Polymetric notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Automatic note splitting
@@ -803,12 +803,12 @@ Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 @node Feathered beams
 @subsubsection Feathered beams
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Setting automatic beam behavior
 @subsubsection Setting automatic beam behavior
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Bars
@@ -965,7 +965,7 @@ Programmreferenz: @rinternals{BarLine} (auf Partitur
 @node Bar numbers
 @subsubsection Bar numbers
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Barnumber check
@@ -989,7 +989,7 @@ nicht mit dem Wert 123 übereinstimmt.
 @node Rehearsal marks
 @subsubsection Rehearsal marks
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Special rhythmic concerns
@@ -1221,17 +1221,17 @@ zu Fehlermeldungen oder Abstürzen kommen.
 @node Aligning to cadenzas
 @subsubsection Aligning to cadenzas
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Time administration
 @subsubsection Time administration
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Proportional notation (introduction)
 @subsubsection Proportional notation (introduction)
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 

@@ -26,7 +26,9 @@ draw the rectangle over the hairpin.
     \dynamicUp
     \override DynamicLineSpanner #'staff-padding = #4
     r2 r16 c'8.\pp r4
-  } \\ {
+  }
+  \\
+  {
     \override DynamicLineSpanner #'layer = #0
     des,2\mf\< ~
     \override TextScript #'layer = #2

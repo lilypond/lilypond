@@ -23,7 +23,7 @@ text.
 } % begin verbatim
 \relative c'' {
   c2
-  \override BreathingSign #'text = #(make-musicglyph-markup "scripts.rvarcomma")
+  \override BreathingSign #'text = \markup { \musicglyph #"scripts.rvarcomma" }
   \breathe
   d2
 }

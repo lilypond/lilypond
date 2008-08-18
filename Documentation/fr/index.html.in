@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: d8f1a358802cf74903eb2dfa7ce761ca4803c634
+    Translation of GIT committish: 71e3b387da99c298d837467f41c3097cb13c9f52
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -48,13 +48,16 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title"
-	      href="user/lilypond-learning/index.fr.html">Manuel d'initiation</a>
+	      <a class="title"
+		 href="user/lilypond-learning/index.fr.html">Manuel d'initiation</a>
+	      (partiellement traduit,<br>aussi en <a class="title" href="user/lilypond-learning-big-page.html">page
+	      unique en anglais</a> ~ 1,5 Mo, ou
+	      <a class="title" href="user/lilypond-learning.fr.pdf">au format PDF</a>)
 	      <br>&mdash; commencer ici
 	    <li><a class="title" href="user/music-glossary/index.html">Glossaire</a>
 	      multilingue<br>(aussi en
 	      <a class="title" href="user/music-glossary-big-page.html">page unique</a>
-	      ~ 1 Mb ou <a class="title" href="user/music-glossary.pdf">au format PDF</a>)
+	      ~ 500 ko, ou <a class="title" href="user/music-glossary.pdf">au format PDF</a>)
 	      <br>&mdash; vocabulaire théorique de la musique
 	  </ul>
 	  </td>
@@ -73,15 +76,15 @@
 	  <ul>
 	    <li>
 	      <a class="title" href="user/lilypond/index.fr.html">Manuel de notation</a>
-	      (partiellement traduit, aussi<br>en <a class="title"
+	      (partiellement traduit,<br>aussi en <a class="title"
 				href="user/lilypond-big-page.html">page unique
- 	        en anglais</a> ~ 4 Mb, ou
+ 	        en anglais</a> ~ 4 Mo, ou
 	        <a class="title" href="user/lilypond.fr.pdf">au format PDF</a>)
 		<br>&mdash; gravure de musique avec LilyPond
 	    <li>
 	      <a  class="title" href="user/lilypond-internals/index.html">Référence des propriétés internes</a>
 	      (en anglais, en <a class="title" href="user/lilypond-internals-big-page.html">page
-		unique</a> ~ 1 Mb)
+		unique</a> ~ 1 Mo)
 	      <br>&mdash; définitions pour les retouches
 	  </ul>
 	  </td>
@@ -90,12 +93,12 @@
 	  <ul>
             <li>
 	    <a class="title" href="user/lilypond-program/index.fr.html">Utilisation des programmes</a>
-(partiellement traduit, aussi<br>en <a class="title"
+(partiellement traduit,<br>aussi en <a class="title"
 		href="user/lilypond-program-big-page.html">page unique en anglais</a>, ou
 	    <a class="title" href="user/lilypond-program.fr.pdf">au format PDF</a>)
  	      <br>&mdash; installation et exécution des programmes
 	    <li><a class="title" href="../input/lsr/lilypond-snippets/index.html">Exemples de code</a>
-(en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">une seule grande page</a>,
+(en <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">page unique en anglais</a> ~ 2 Mo,
 au format <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
 	      <br>&mdash; petits trucs, astuces et exemples
 	  </ul>
@@ -110,12 +113,10 @@ au format <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
        </ul>
     </td><td class="right-column">
           &nbsp;
-<!-- TODO
-    <ul>
-        <li><a class="title"  href="translations.html">État des traductions</a>
-        <br>&mdash; avancement des traductions
-    </ul>
--->
+       <ul>
+         <li><a class="title"  href="translations.fr.html">État des traductions</a>
+           <br>&mdash; avancement des traductions en français
+       </ul>
          </td>
         </tr>
 	<tr>

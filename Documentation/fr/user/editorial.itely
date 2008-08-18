@@ -31,7 +31,6 @@
 * Hidden notes::                
 * Coloring objects::            
 * Parentheses::                 
-* Ambitus::                     
 * Stems::                       
 @end menu
 
@@ -262,7 +261,7 @@ normale ayant un nom similaire.
 
 Vous ne pouvez pas coloriser des notes à l'intérieur d'un accord avec
 @code{\override}. si besoin est, utilisez @code{\tweak}.  
-Pour plus de détails, consultez @ref{Objects connected to the input}.
+Pour plus de détails, consultez @ref{The tweak command}.
 
 
 @node Parentheses
@@ -289,100 +288,6 @@ comprendre qu'une seule note.
 @example
 < \parenthesize NOTE>
 @end example
-
-
-@node Ambitus
-@unnumberedsubsubsec Ambitus
-@cindex ambitus
-
-L'@emph{ambitus} est l'amplitude des hauteurs d'une voix donnée dans une
-partition.  Ce terme peut aussi désigner la tessiture qu'un instrument
-est capable d'atteindre.  Souvent, cet ambitus est imprimé au début des
-partitions vocales, afin que les exécutants puissent voir au premier
-coup d'oeil s'ils sont en mesure de tenir la partie en question.
-
-Pour exprimer l'ambitus d'une pièce, on indique avant la clé deux notes
-représentant la hauteur la plus basse et la plus haute.  Pour imprimer
-cet ambitus, il faut ajouter le graveur @rinternals{Ambitus_engraver}
-au contexte @rinternals{Voice}.  Ainsi,
-
-@example
-\layout @{
-  \context @{
-    \Voice
-    \consists Ambitus_engraver
-  @}
-@}
-@end example
-
-@noindent
-donne pour résultat
-
-@lilypond[quote,ragged-right]
-\layout {
-  \context {
-    \Staff
-    \consists Ambitus_engraver
-  }
-}
-
-\relative \new Staff {
-  as'' c e2 cis,2
-}
-@end lilypond
-
-Si plusieurs voix se trouvent sur une même portée, on peut attribuer le
-graveur @rinternals{Ambitus_engraver} au contexte @rinternals{Staff}
-plutôt qu'au contexte @rinternals{Voice} ; l'ambitus affiché sera
-alors celui de toutes les voix cumulées, non d'une seule des voix
-actives.
-
-@lilypond[verbatim,ragged-right,quote]
-\new Staff \with {
-  \consists "Ambitus_engraver"
-}
-<<
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c'' {
-    \override Ambitus #'X-offset = #-1.0
-    \voiceOne
-    c4 a d e f2
-  }
-  \new Voice \with {
-    \remove "Ambitus_engraver"
-  } \relative c' {
-    \voiceTwo
-    es4 f g as b2
-  }
->>
-@end lilypond
-
-@noindent
-Cet exemple met en œuvre une fonctionnalité avancée :
-
-@example
-\override Ambitus #'X-offset = #-1.0
-@end example
-
-@noindent
-Ce réglage déplace l'ambitus vers la gauche.  Le même résultat aurait pu
-être obtenu avec @code{extra-offset}, mais alors le système de mise en
-forme n'aurait pas attribué d'espace supplémentaire pour l'objet
-déplacé.
-
-@seealso
-
-Référence du programme : @rinternals{Ambitus},
-@rinternals{AmbitusLine}, @rinternals{AmbitusNoteHead},
-@rinternals{AmbitusAccidental}.
-
-Exemples : @rlsr{Pitches}, @rlsr{Vocal music}.
-
-@knownissues
-
-LilyPond ne gère pas les collisions entre plusieurs ambitus présents sur
-une même portée.
 
 
 @node Stems
@@ -422,11 +327,12 @@ a4 b c b
 @menu
 * Balloon help::                
 * Grid lines::                  
+* Analysis brackets::           
 * Blank music sheet::           
 @end menu
 
 @node Balloon help
-@subsubsection Balloon help
+@unnumberedsubsubsec Balloon help
 
 Vous pouvez marquer et nommer des éléments de notation à l'aide de
 bulles.  L'objectif premier de cette fonctionnalité est d'expliquer la
@@ -458,7 +364,7 @@ Référence du programme : @rinternals{text-balloon-interface}.
 
 
 @node Grid lines
-@subsubsection Grid lines
+@unnumberedsubsubsec Grid lines
 
 Vous pouvez tracer des lignes entre les portées, synchronisées avec
 les notes.
@@ -500,8 +406,41 @@ les notes.
 Exemples : @rlsr{Editorial annotations}.
 
 
+@node Analysis brackets
+@unnumberedsubsubsec Analysis brackets
+@cindex crochets
+@cindex crochets de phrasé
+@cindex analyse musicologique
+@cindex crochet de regroupement de notes
+
+On utilise des crochets en analyse musicale, pour indiquer la
+structure d'une pièce.  LilyPond permet d'utiliser une forme
+simplifiée de crochets horizontaux imbriqués, dans la mesure où le
+contexte @rinternals{Staff} comporte le graveur
+@rinternals{Horizontal_bracket_engraver}.  Un crochet s'ouvre avec
+@code{\startGroup}, et se ferme avec @code{\stopGroup}.
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    c4\startGroup\startGroup
+    c4\stopGroup
+    c4\startGroup
+    c4\stopGroup\stopGroup
+  }
+  \layout {
+    \context {
+      \Staff \consists "Horizontal_bracket_engraver"
+}}}
+@end lilypond
+
+@seealso
+
+Référence du programme : @rinternals{HorizontalBracket}.
+
+
 @node Blank music sheet
-@subsubsection Blank music sheet
+@unnumberedsubsubsec Blank music sheet
 
 @cindex Papier musique
 @cindex Portées, feuille blanche

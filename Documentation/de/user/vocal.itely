@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,167 +11,207 @@
 @node Vocal music
 @section Vocal music
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Simple lyrics::
+
+@menu
+* Common notation for vocals::
 * Aligning lyrics to a melody::
-* Vocals and variables::
-* Flexibility in placement::
-* Spacing vocals::
-* More about stanzas::
-@end menu 
-@node Simple lyrics
-@subsection Simple lyrics
+* Placement of lyrics::
+* Stanzas::
+@end menu
 
-UNTRANSLATED NODE: IGNORE ME
+@node Common notation for vocals
+@subsection Common notation for vocals
 
-@menu 
+@untranslated
+
+
+@menu
+* References for vocal music::
 * Setting simple songs::
 * Entering lyrics::
-@end menu 
+* Working with lyrics and variables::
+@end menu
+
+@node References for vocal music
+@subsubsection References for vocal music
+
+@untranslated
+
+
 @node Setting simple songs
 @subsubsection Setting simple songs
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Entering lyrics
 @subsubsection Entering lyrics
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
+
+@node Working with lyrics and variables
+@subsubsection Working with lyrics and variables
+
+@untranslated
+
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Automatic syllable durations::
-* Another way of entering lyrics::
-* Assigning more than one syllable to a single note::
-* More than one note on a single syllable::
+* Manual syllable durations::
+* Multiple syllables to one note::
+* Multiple notes to one syllable::
+* Skipping notes::
 * Extenders and hyphens::
-@end menu 
+* Lyrics and repeats::
+@end menu
+
 @node Automatic syllable durations
 @subsubsection Automatic syllable durations
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Another way of entering lyrics
-@subsubsection Another way of entering lyrics
 
-UNTRANSLATED NODE: IGNORE ME
+@node Manual syllable durations
+@subsubsection Manual syllable durations
 
-@node Assigning more than one syllable to a single note
-@subsubsection Assigning more than one syllable to a single note
+@untranslated
 
-UNTRANSLATED NODE: IGNORE ME
 
-@node More than one note on a single syllable
-@subsubsection More than one note on a single syllable
+@node Multiple syllables to one note
+@subsubsection Multiple syllables to one note
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
+
+@node Multiple notes to one syllable
+@subsubsection Multiple notes to one syllable
+
+@untranslated
+
+
+@node Skipping notes
+@subsubsection Skipping notes
+
+@untranslated
+
 
 @node Extenders and hyphens
 @subsubsection Extenders and hyphens
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Vocals and variables
-@subsection Vocals and variables
 
-UNTRANSLATED NODE: IGNORE ME
+@node Lyrics and repeats
+@subsubsection Lyrics and repeats
 
-@menu 
-* Working with lyrics and variables::
-@end menu 
-@node Working with lyrics and variables
-@subsubsection Working with lyrics and variables
+@untranslated
 
-UNTRANSLATED NODE: IGNORE ME
 
-@node Flexibility in placement
-@subsection Flexibility in placement
+@node Placement of lyrics
+@subsection Placement of lyrics
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
-* Lyrics to multiple notes of a melisma::
+
+@menu
 * Divisi lyrics::
-* Switching the melody associated with a lyrics line::
 * Lyrics independent of notes::
-@end menu 
-@node Lyrics to multiple notes of a melisma
-@subsubsection Lyrics to multiple notes of a melisma
-
-UNTRANSLATED NODE: IGNORE ME
+* Chants::
+* Spacing out syllables::
+* Centering lyrics between staves::
+@end menu
 
 @node Divisi lyrics
 @subsubsection Divisi lyrics
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Switching the melody associated with a lyrics line
-@subsubsection Switching the melody associated with a lyrics line
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Lyrics independent of notes
 @subsubsection Lyrics independent of notes
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Spacing vocals
-@subsection Spacing vocals
 
-UNTRANSLATED NODE: IGNORE ME
+@node Chants
+@subsubsection Chants
 
-@menu 
-* Spacing lyrics::
-@end menu 
-@node Spacing lyrics
-@subsubsection Spacing lyrics
+@untranslated
 
-UNTRANSLATED NODE: IGNORE ME
 
-@node More about stanzas
-@subsection More about stanzas
+@node Spacing out syllables
+@subsubsection Spacing out syllables
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@node Centering lyrics between staves
+@subsubsection Centering lyrics between staves
+
+@untranslated
+
+
+@node Stanzas
+@subsection Stanzas
+
+@untranslated
+
+
+@menu
 * Adding stanza numbers ::
-* Adding dynamics marks::
-* Adding singer names::
+* Adding dynamics marks to stanzas::
+* Adding singers' names to stanzas::
+* Stanzas with different rhythms::
 * Printing stanzas at the end ::
 * Printing stanzas at the end in multiple columns ::
-@end menu 
-@node Adding stanza numbers 
-@subsubsection Adding stanza numbers 
+@end menu
 
-UNTRANSLATED NODE: IGNORE ME
+@node Adding stanza numbers
+@subsubsection Adding stanza numbers
 
-@node Adding dynamics marks
-@subsubsection Adding dynamics marks
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Adding singer names
-@subsubsection Adding singer names
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Printing stanzas at the end 
-@subsubsection Printing stanzas at the end 
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Printing stanzas at the end in multiple columns 
-@subsubsection Printing stanzas at the end in multiple columns 
-
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@node Adding dynamics marks to stanzas
+@subsubsection Adding dynamics marks to stanzas
+
+@untranslated
+
+
+@node Adding singers' names to stanzas
+@subsubsection Adding singers' names to stanzas
+
+@untranslated
+
+
+@node Stanzas with different rhythms
+@subsubsection Stanzas with different rhythms
+
+@untranslated
+
+
+@subsubheading Ignoring melismata
+@subsubheading Switching to an alternative melody
+@node Printing stanzas at the end
+@subsubsection Printing stanzas at the end
+
+@untranslated
+
+
+@node Printing stanzas at the end in multiple columns
+@subsubsection Printing stanzas at the end in multiple columns
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

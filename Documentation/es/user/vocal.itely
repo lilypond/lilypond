@@ -583,7 +583,7 @@ se deben insertar a mano.
 @node Skipping notes
 @subsubsection Skipping notes
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Extenders and hyphens
 @subsubsection Extenders and hyphens
@@ -620,7 +620,7 @@ Referencia de funcionamiento interno: @rinternals{LyricExtender},
 @node Lyrics and repeats
 @subsubsection Lyrics and repeats
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Placement of lyrics
 @subsection Placement of lyrics
@@ -714,7 +714,7 @@ lyr = \lyricmode { I like my cat! }
 @node Chants
 @subsubsection Chants
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Spacing out syllables
@@ -763,7 +763,7 @@ completa, establezca la propiedad dentro del @q{layout} o disposición.
 @node Centering lyrics between staves
 @subsubsection Centering lyrics between staves
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Stanzas
 @subsection Stanzas
@@ -884,7 +884,7 @@ texto, tal y como se muestra a continuación:
     more slow -- ly
   }
   \new Lyrics \lyricsto "lahlah" {
-    \set ignoreMelismata = ##t % applies to "fas"
+    \set ignoreMelismata = ##t % se aplica al "fas"
     go fas -- ter
     \unset ignoreMelismata
     still

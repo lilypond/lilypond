@@ -52,9 +52,9 @@ A basic example of a LilyPond input file is
 
 @example
 \version @w{"@version{}"}
+\header @{ @}
 \score @{
   @var{...compound music expression...}  % all the music goes here!
-  \header @{ @}
   \layout @{ @}
   \midi @{ @}
 @}
@@ -156,22 +156,20 @@ things, such as
 @cindex midi
 
 @noindent
-Note that these three commands -- @code{\header}, @code{\layout}
-and @code{\midi} -- are special: unlike all other commands which
-begin with a backward slash (@code{\}) they are @emph{not} music
-expressions and are not part of any music expression.
-So they may be placed inside a @code{\score} block
-or outside it.  In fact, these commands are commonly placed
-outside the @code{\score} block -- for example, @code{\header}
-is often placed above the @code{\score} command because headers
-naturally appear at the top of a score.  That's just another
-shorthand that LilyPond accepts.
+Note that these three commands -- @code{\header}, @code{\layout} and
+@code{\midi} -- are special: unlike many other commands which begin
+with a backward slash (@code{\}) they are @emph{not} music expressions
+and are not part of any music expression.  So they may be placed
+inside a @code{\score} block or outside it.  In fact, these commands
+are commonly placed outside the @code{\score} block -- for example,
+@code{\header} is often placed above the @code{\score} command, as the
+example at the beginning of this section shows.
 
 Two more commands you have not previously seen are
 @code{\layout @{ @}} and @code{\midi @{@}}.  If these appear as
 shown they will cause LilyPond to produce a printed output and a
 MIDI output respectively.  They are described fully in the
-Notation Reference -- @ruser{Score layout} and
+Notation Reference -- @ruser{Score layout}, and
 @ruser{Creating MIDI files}.
 
 @cindex scores, multiple
@@ -188,7 +186,7 @@ separate output file.
 In summary:
 
 Every @code{\book} block creates a separate output file (e.g., a
-pdf file).  If you haven't explicitly added one, LilyPond wraps
+PDF file).  If you haven't explicitly added one, LilyPond wraps
 your entire input code in a @code{\book} block implicitly.
 
 Every @code{\score} block is a separate chunk of music within a
@@ -200,10 +198,6 @@ block inside a @code{\score} block affects only that @code{\score}
 block, but a @code{\layout} block outside of a @code{\score} block
 (and thus in a @code{\book} block, either explicitly or
 implicitly) will affect every @code{\score} in that @code{\book}.
-
-Every @code{\context} block will affect the named context (e.g.,
-@code{\StaffGroup}) throughout the block (@code{\score} or
-@code{\book}) in which it appears.
 
 For details see @ruser{Multiple scores in a book}.
 
@@ -251,9 +245,9 @@ For a complete definition of the input format, see
 @cindex Music expression, compound
 
 We saw the general organization of LilyPond input files in the
-previous section, @ref{How LilyPond input files work}.  But we seemed to
-skip over the most important part: how do we figure out what to
-write after @code{\score}?
+previous section, @ref{Introduction to the LilyPond file structure}.
+But we seemed to skip over the most important part: how do we figure
+out what to write after @code{\score}?
 
 We didn't skip over it at all.  The big mystery is simply that
 there @emph{is} no mystery.  This line explains it all:
@@ -264,7 +258,7 @@ there @emph{is} no mystery.  This line explains it all:
 
 @noindent
 To understand what is meant by a music expression and a compound
-music expression you may find it useful to review
+music expression, you may find it useful to review the tutorial,
 @ref{Music expressions explained}.  In that section, we saw how to
 build big music expressions from small pieces -- we started from
 notes, then chords, etc.  Now we're going to start from a big
@@ -299,16 +293,16 @@ it.  We @emph{do} need a singer and a piano, though.
 @}
 @end example
 
-Remember that we use @code{<< ... >>} instead of
-@code{@{ ... @}} to show simultaneous
-music.  And we definitely want to show the vocal part and piano
-part at the same time, not one after the other!  However, the
-@code{<< ... >>} construct is not really necessary for the Singer
-staff, as it contains only one music expression, but Staves often
-do require simultaneous Voices within them, so using
-@code{<< ... >>}
-rather than braces is a good habit to adopt. We'll add some real
-music later; for now let's just put in some dummy notes and lyrics.
+Remember that we use @code{<< ... >>} instead of @code{@{ ... @}} to
+show simultaneous music.  And we definitely want to show the vocal
+part and piano part at the same time, not one after the other!  Note
+that the @code{<< ... >>} construct is not really necessary for the
+Singer staff, as it contains only one sequential music expression;
+however, using @code{<< ... >>} instead of braces is still necessary
+if the music in the Staff is made of two simultaneous expressions,
+e.g. two simultaneous Voices, or a Voice with lyrics.  We'll add some
+real music later; for now let's just put in some dummy notes and
+lyrics.
 
 @lilypond[verbatim,quote,ragged-right]
 \score {
@@ -374,17 +368,21 @@ lower  = \relative c { b2 e2 }
 
 
 Be careful about the difference between notes, which are introduced
-with @code{\relative}, and lyrics, which are introduced with
+with @code{\relative} or which are directly included in a music
+expression, and lyrics, which are introduced with
 @code{\lyricmode}.  These are essential to tell LilyPond
 to interpret the following content as music and text
 respectively.
 
 When writing (or reading) a @code{\score} section, just take it
-slowly and carefully.  Start with the outer layer, then work on
-each smaller layer.  It also really helps to be strict with
-indentation -- make sure that each item on the same layer starts
+slowly and carefully.  Start with the outer level, then work on
+each smaller level.  It also really helps to be strict with
+indentation -- make sure that each item on the same level starts
 on the same horizontal position in your text editor.
 
+@seealso
+
+Notation Reference: @ruser{Structure of a score}.
 
 @node Nesting music expressions
 @subsection Nesting music expressions
@@ -392,12 +390,11 @@ on the same horizontal position in your text editor.
 @cindex staves, temporary
 @cindex ossias
 
-It is not essential to declare all staves at the beginning;
-they may be introduced temporarily at any point.  This is
-particularly useful for creating ossia sections
-(see @rglos{ossia}).  Here is a simple example showing how
-to introduce a new staff temporarily for the duration of
-three notes:
+It is not essential to declare all staves at the beginning; they may
+be introduced temporarily at any point.  This is particularly useful
+for creating ossia sections -- see @rglos{ossia}.  Here is a simple
+example showing how to introduce a new staff temporarily for the
+duration of three notes:
 
 @lilypond[verbatim,quote,ragged-right]
 \new Staff {
@@ -448,10 +445,14 @@ of a single Staff.  Here it says that the new staff should be
 placed above the staff called @qq{main} instead of the default
 position which is below.
 
+@seealso
+
 Ossia are often written without clef and without
 time signature and are usually in a smaller font.
 These require further commands which
-have not yet been introduced.  See @ref{Size of objects}
+have not yet been introduced.  See @ref{Size of objects},
+and @ruser{Ossia staves}.
+
 
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
@@ -473,11 +474,11 @@ let's first review the different types of bracket.
 @item @code{< .. >}
   @tab Encloses the notes of a chord
 @item @code{<< .. >>}
-  @tab Encloses concurrent or simultaneous sections
+  @tab Encloses simultaneous music expressions
 @item @code{( .. )}
   @tab Marks the start and end of a slur
 @item @code{\( .. \)}
-  @tab Marks the start and end of a phrase mark
+  @tab Marks the start and end of a phrasing slur
 @item @code{[ .. ]}
   @tab Marks the start and end of a manual beam
 @end multitable
@@ -586,7 +587,7 @@ Now we have two notes which start at the same time but have
 different durations: the quarter-note D and the eighth-note
 F-sharp.  How are these to be coded?  They cannot be written as
 a chord because all the notes in a chord must have the same
-duration.  And they cannot be written as two separate notes
+duration.  And they cannot be written as two sequential notes
 as they need to start at the same time.  This is when two
 voices are required.
 
@@ -742,8 +743,8 @@ note of the preceding chord.  So in
 @code{noteB} is relative to @code{noteA}                      @*
 @code{noteC} is relative to @code{noteB}, not @code{noteA};   @*
 @code{noteD} is relative to @code{noteB}, not @code{noteA} or
-@code{noteC}.                                                 @*
-@code{noteE} is relative to @code{noteD}, not @code{noteA}
+@code{noteC};                                                 @*
+@code{noteE} is relative to @code{noteD}, not @code{noteA}.
 
 An alternative way, which may be clearer if the notes in the
 voices are widely separated, is to place a @code{\relative}
@@ -883,21 +884,24 @@ and placing the music in voice four:
 @end lilypond
 
 @noindent
-We see that this fixes the stem direction, but exposes a
-problem sometimes encountered with multiple voices -- the
-stems of the notes in one voice can collide with the note heads
-in other voices.  In laying out the notes, LilyPond allows the
-notes or chords from two voices to occupy the same vertical
-note column provided the stems are in opposite directions, but
-the notes from the third and fourth voices are displaced to if
-necessary to avoid the note heads
-colliding.  This usually works well, but in this example the
-notes of the lowest voice are clearly not well placed by default.
-LilyPond provides several ways to adjust the horizontal placing
-of notes.  We are not quite ready yet to see how to correct this,
-so we shall leave this problem until a later section
-(see the force-hshift property in @ref{Fixing overlapping
-notation} )
+We see that this fixes the stem direction, but exposes a problem
+sometimes encountered with multiple voices -- the stems of the notes
+in one voice can collide with the note heads in other voices.  In
+laying out the notes, LilyPond allows the notes or chords from two
+voices to occupy the same vertical note column provided the stems are
+in opposite directions, but the notes from the third and fourth voices
+are displaced, if necessary, to avoid the note heads colliding.  This
+usually works well, but in this example the notes of the lowest voice
+are clearly not well placed by default. LilyPond provides several ways
+to adjust the horizontal placing of notes.  We are not quite ready yet
+to see how to correct this, so we shall leave this problem until a
+later section --- see the @code{force-hshift} property in @ref{Fixing
+overlapping notation}.
+
+@seealso
+
+Notation Reference: @ruser{Multiple voices}.
+
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
@@ -1124,6 +1128,11 @@ same direction are placed at the same position and both voices
 have no shift or the same shift specified, the error message
 @qq{Too many clashing note columns} will be produced.
 
+@seealso
+
+Notation Reference: @ruser{Multiple voices}.
+
+
 @node Voices and vocals
 @subsection Voices and vocals
 
@@ -1226,7 +1235,7 @@ in separate files should they become too long.
 
 @cindex hymn structure
 
-Here is a example of the first line of a hymn with four
+Here is an example of the first line of a hymn with four
 verses, set for SATB.  In this case the words for all four
 parts are the same.  Note how we use variables to separate the
 music notation and words from the staff structure.  See too
@@ -1458,6 +1467,11 @@ refrainwordsB = \lyricmode {
 }
 @end lilypond
 
+@seealso
+
+Notation Reference: @ruser{Vocal music}.
+
+
 @node Contexts and engravers
 @section Contexts and engravers
 
@@ -1546,6 +1560,11 @@ The names of all context types are formed from one or more
 words, each word being capitalized and joined immediately to the
 preceding word with no hyphen or underscore, e.g.,
 @code{GregorianTranscriptionStaff}.
+
+@seealso
+
+Notation Reference: @ruser{Contexts explained}.
+
 
 @node Creating contexts
 @subsection Creating contexts
@@ -1645,12 +1664,15 @@ context to distinguish it from other contexts of the same type,
 @end example
 
 Note the distinction between the name of the context type,
-@code{Staff}, @code{Voice}, etc, and
-the identifying name of a particular instance of that type,
-which can be any sequence of letters invented by the user.
-The identifying name is used to refer back to that particular
-instance of a context.  We saw this in use in the section on
-lyrics in @ref{Voices and vocals}.
+@code{Staff}, @code{Voice}, etc, and the identifying name of a
+particular instance of that type, which can be any sequence of letters
+and digits invented by the user.  The identifying name is used to
+refer back to that particular instance of a context.  We saw this in
+use in the section on lyrics, see @ref{Voices and vocals}.
+
+@seealso
+
+Notation Reference: @ruser{Creating contexts}.
 
 
 @node Engravers explained
@@ -1668,11 +1690,11 @@ about any.
 
 Engravers live and operate in Contexts.
 Engravers such as the @code{Metronome_mark_engraver}, whose
-action and output applies to the score as a whole, operate in
+action and output apply to the score as a whole, operate in
 the highest level context -- the @code{Score} context.
 
 The @code{Clef_engraver} and @code{Key_engraver} are to be
-found in every Staff Context, as different staves may require
+found in every @code{Staff} Context, as different staves may require
 different clefs and keys.
 
 The @code{Note_heads_engraver} and @code{Stem_engraver} live
@@ -1707,7 +1729,8 @@ from the name, or vice versa.
   @tab Engraves clefs
 @item Completion_heads_engraver
   @tab Splits notes which cross bar lines
-@item Dynamic_engraver
+@c The old Dynamic_engraver is deprecated. -jm
+@item New_dynamic_engraver
   @tab Creates hairpins and dynamic texts
 @item Forbid_line_break_engraver
   @tab Prevents line breaks if a musical element is still active
@@ -1731,6 +1754,10 @@ from the name, or vice versa.
 
 We shall see later how the output of LilyPond can be changed
 by modifying the action of Engravers.
+
+@seealso
+
+Internals reference: @rinternals{Engravers and performers}.
 
 
 @node Modifying context properties
@@ -1809,7 +1836,7 @@ in which context they operate.  Sometimes this is obvious,
 but occasionally it can be tricky.  If the wrong context
 is specified, no error message is produced, but the expected
 action will not take place.  For example, the
-@code{instrumentName} clearly lives in the Staff context, since
+@code{instrumentName} clearly lives in the @code{Staff} context, since
 it is the staff that is to be named.
 In this example the first staff is labelled, but not the second,
 because we omitted the context name.
@@ -1827,23 +1854,25 @@ because we omitted the context name.
 >>
 @end lilypond
 
-Remember the default context name is Voice, so the second
+Remember the default context name is @code{Voice}, so the second
 @code{\set} command set the property @code{instrumentName} in the
-Voice context to @qq{Alto}, but as LilyPond does not look
+@code{Voice} context to @qq{Alto}, but as LilyPond does not look
 for any such property in the @code{Voice} context, no
 further action took place.  This is not an error, and no error
 message is logged in the log file.
 
-Similarly, if the property name is mis-spelt no error message
-is produced, and clearly the expected action cannot be performed.
-If fact, you can set any (fictitious) @q{property} using any
-name you like in any context that exists by using the
-@code{\set} command.  But if the name is not
-known to LilyPond it will not cause any action to be taken.
-This is one of the reasons why it is highly recommended to
-use a context-sensitive editor with syntax highlighting for
-editing LilyPond input files, such as Vim, Jedit, ConTEXT or Emacs,
-since unknown property names will be highlighted differently.
+Similarly, if the property name is mis-spelt no error message is
+produced, and clearly the expected action cannot be performed.  If
+fact, you can set any (fictitious) @q{property} using any name you
+like in any context that exists by using the @code{\set} command.  But
+if the name is not known to LilyPond it will not cause any action to
+be taken.  Some text editors with special support for LilyPond input
+files document property names with bullets when you hover them with
+the mouse, like JEdit with LilyPondTool, or highlight unknown property
+names differently, like ConTEXT.  If you do not use an editor with
+such features, it is recommended to check the property name in the
+Internals Reference: see @rinternals{Tunable context properties}, or
+@rinternals{Contexts}.
 
 The @code{instrumentName} property will take effect only
 if it is set in the @code{Staff} context, but
@@ -1916,15 +1945,15 @@ f g
 a b
 @end lilypond
 
-We have now seen how to set the values of several different
-types of property.  Note that integers and numbers are always
-preceded by a hash sign, @code{#}, while a true or false value
-is specified by ##t and ##f, with two hash signs.  A text
-property should be enclosed in double quotation signs, as above,
-although we shall see later that text can actually be specified
-in a much more general way by using the very powerful
-@code{markup} command.
+We have now seen how to set the values of several different types of
+property.  Note that integers and numbers are always preceded by a
+hash sign, @code{#}, while a true or false value is specified by
+@code{##t} and @code{##f}, with two hash signs.  A text property
+should be enclosed in double quotation signs, as above, although we
+shall see later that text can actually be specified in a much more
+general way by using the very powerful @code{markup} command.
 
+@unnumberedsubsubsec Setting context properties with @code{\with}
 
 @funindex \with
 @cindex context properties, setting with \with
@@ -1963,9 +1992,56 @@ Properties set in this way may still be changed dynamically using
 
 The @code{fontSize} property is treated differently.  If this is
 set in a @code{\with} clause it effectively resets the default
-value of the font size.  If it is later changed with @code{\set}
+value of the font size.  If it is later changed with @code{\set},
 this new default value may be restored with the
 @code{\unset fontSize} command.
+
+@unnumberedsubsubsec Setting context properties with @code{\context}
+
+The values of context properties may be set in @emph{all} contexts
+of a particular type, such as all @code{Staff} contexts, with a single
+command.  The context type is identified by using its
+type name, like @code{Staff}, prefixed by a back-slash: @code{\Staff}.
+The statement which sets the property value is the same as that in a 
+@code{\with} block, introduced above.  It is placed in a
+@code{\context} block within a @code{\layout} block.  Each
+@code{\context} block will affect all contexts of the type specified
+throughout the @code{\score} or @code{\book} block in which the
+@code{\layout} block appears.  Here is a example to show the format:
+
+@lilypond[verbatim,quote]
+\score {
+  \new Staff {
+    \relative c'' {
+      cis4 e d ces
+    }
+  }
+  \layout {
+    \context {
+      \Staff
+      extraNatural = ##t
+    }
+  }
+}
+@end lilypond
+
+@noindent
+Context properties set in this way may be overridden for particular
+instances of contexts by statements in a @code{\with} block, and by
+@code{\set} commands embedded in music statements.
+
+@seealso
+
+Notation Reference:
+@ruser{Changing context default settings}.
+@c FIXME
+@c uncomment when backslash-node-name issue is resolved -pm
+@c @ruser{The set command}.
+
+Internals Reference:
+@rinternals{Contexts},
+@rinternals{Tunable context properties}.
+
 
 @node Adding and removing engravers
 @subsection Adding and removing engravers
@@ -1979,7 +2055,7 @@ this new default value may be restored with the
 We have seen that contexts each contain several engravers, each
 of which is responsible for producing a particular part of the
 output, like bar lines, staves, note heads, stems, etc.  If an
-engraver is removed from a context it can no longer produce its
+engraver is removed from a context, it can no longer produce its
 output.  This is a crude way of modifying the output, but it
 can sometimes be useful.
 
@@ -1989,10 +2065,9 @@ To remove an engraver from a single context we use the
 @code{\with} command placed immediately after the context creation
 command, as in the previous section.
 
-As an
-illustration let's repeat an example from the previous
-section with the staff lines removed.  Remember that the
-staff lines are produced by the Staff_symbol_engraver.
+As an illustration, let's repeat an example from the previous section
+with the staff lines removed.  Remember that the staff lines are
+produced by the @code{Staff_symbol_engraver}.
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff \with {
@@ -2014,15 +2089,15 @@ staff lines are produced by the Staff_symbol_engraver.
 Engravers can also be added to individual contexts.
 The command to do this is
 
-@code{\consists @emph{Engraver_name}},
+@code{\consists @var{Engraver_name}},
 
-placed inside a @code{\with} block.  Some vocal scores
-have an @rglos{ambitus} placed at the beginning of a
-staff to indicate the range of notes in that staff.
-The ambitus is produced by the @code{Ambitus_engraver},
-which is not normally included in any context.  If
-we add it to the @code{Voice} context it calculates
-the range from that voice only:
+@noindent
+placed inside a @code{\with} block.  Some vocal scores have an ambitus
+placed at the beginning of a staff to indicate the range of notes in
+that staff -- see @rglos{ambitus}.  The ambitus is produced by the
+@code{Ambitus_engraver}, which is not normally included in any
+context.  If we add it to the @code{Voice} context, it calculates the
+range from that voice only:
 
 @lilypond[quote,verbatim,ragged-right]
 \new Staff <<
@@ -2042,8 +2117,8 @@ the range from that voice only:
 @end lilypond
 
 @noindent
-but if we add the Ambitus engraver to the
-@code{Staff} context it calculates the range from all
+but if we add the ambitus engraver to the
+@code{Staff} context, it calculates the range from all
 the notes in all the voices on that staff:
 
 @lilypond[quote,verbatim,ragged-right]
@@ -2073,7 +2148,7 @@ individual contexts.  It is also possible to remove or add
 engravers to every context of a specific type by placing the
 commands in the appropriate context in a @code{\layout}
 block.  For example, if we wanted to show an ambitus for every
-staff in a four-staff score we could write
+staff in a four-staff score, we could write
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -2108,6 +2183,12 @@ for all contexts of a particular type by including the
 @code{\set} command in a @code{\context} block in the
 same way.
 
+@seealso
+
+Notation Reference: @ruser{Modifying context plug-ins},
+@ruser{Changing context default settings}.
+
+
 @node Extending the templates
 @section Extending the templates
 
@@ -2115,10 +2196,7 @@ You've read the tutorial, you know how to write music, you
 understand the fundamental concepts.  But how can you
 get the staves that you want?  Well, you can find lots of
 templates (see @ref{Templates}) which may give you a start.
-But what
-if you want something that isn't covered there?  Read on.
-
-TODO Add links to templates after they have been moved to LSR
+But what if you want something that isn't covered there?  Read on.
 
 @menu
 * Soprano and cello::
@@ -2246,7 +2324,7 @@ want the cello part to appear under the soprano part, we need to add
 underneath the soprano stuff.  We also need to add @code{<<} and
 @code{>>} around the music -- that tells LilyPond that there's
 more than one thing (in this case, two @code{Staves}) happening
-at once.  The @code{\score} looks like this now
+at once.  The @code{\score} looks like this now:
 
 @c Indentation in this example is deliberately poor
 @example
@@ -2304,6 +2382,11 @@ celloMusic = \relative c {
   \midi { }
 }
 @end lilypond
+
+@seealso
+
+The starting templates can be found in the @q{Templates} appendix,
+see @ref{Single staff}.
 
 
 @node Four-part SATB vocal score
@@ -2393,13 +2476,12 @@ lower = \relative c, {
 }
 @end lilypond
 
-None of the templates provides this layout exactly.  The
-nearest is @q{SATB vocal score and automatic piano reduction},
-but we need to change the layout and add a piano
-accompaniment which is not derived automatically from the
-vocal parts.  The variables holding the music and words for
-the vocal parts are fine, but we shall need to add variables for
-the piano reduction.
+None of the templates provides this layout exactly.  The nearest is
+@q{SATB vocal score and automatic piano reduction} -- see @ref{Vocal
+ensembles} -- but we need to change the layout and add a piano
+accompaniment which is not derived automatically from the vocal parts.
+The variables holding the music and words for the vocal parts are
+fine, but we shall need to add variables for the piano reduction.
 
 The order in which the contexts appear in the ChoirStaff of
 the template do not correspond with the order in the vocal
@@ -2572,7 +2654,7 @@ lower = \relative c, {
 
 @cindex template, writing your own
 
-After gaining some facility with writing LilyPond code you
+After gaining some facility with writing LilyPond code, you
 may find that it is easier to build a score from scratch
 rather than modifying one of the templates.  You can also
 develop your own style this way to suit the sort of music you
@@ -2615,7 +2697,7 @@ Next let's see what should go in the score block.
 We simply mirror the staff structure we want.
 Organ music is usually written on three staves,
 one for each manual and one for the pedals.  The
-manual staves should be bracketed together so we
+manual staves should be bracketed together, so we
 need to use a PianoStaff for them.  The first
 manual part needs two voices and the second manual
 part just one.
@@ -2659,20 +2741,20 @@ see what errors it generates.
 >>
 @end example
 
-It is not strictly necessary to use the simultaneous construct
+It is not necessary to use the simultaneous construct
 @code{<< .. >>} for the manual two staff and the pedal organ staff,
-since they contain only one music expression, but it does no harm
+since they contain only one music expression, but it does no harm,
 and always using angle brackets after @code{\new Staff} is a good
 habit to cultivate in case there are multiple voices.  The opposite
 is true for Voices: these should habitually be followed by braces
 @code{@{ .. @}} in case your music is coded in several variables
 which need to run consecutively.
 
-Let's add this structure to the score block, and adjust the
-indenting.  We also add the appropriate clefs, ensure the
-second voice stems point down with @code{\voiceTwo} and
-enter the time signature and key to each staff using our
-predefined variable, @code{\TimeKey}.
+Let's add this structure to the score block, and adjust the indenting.
+We also add the appropriate clefs, ensure stems, ties and slurs in
+each voice on the upper staff point to the right direction with
+@code{\voiceOne} and @code{\voiceTwo}, and enter the time signature
+and key to each staff using our predefined variable, @code{\TimeKey}.
 
 @example
 \score @{
@@ -2681,7 +2763,7 @@ predefined variable, @code{\TimeKey}.
       \new Staff = "ManualOne" <<
         \TimeKey  % set time signature and key
         \clef "treble"
-        \new Voice @{ \ManualOneVoiceOneMusic @}
+        \new Voice @{ \voiceOne \ManualOneVoiceOneMusic @}
         \new Voice @{ \voiceTwo \ManualOneVoiceTwoMusic @}
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
@@ -2732,7 +2814,7 @@ PedalOrganMusic = \relative c {
       \new Staff = "ManualOne" <<
         \TimeKey  % set time signature and key
         \clef "treble"
-        \new Voice { \ManualOneVoiceOneMusic }
+        \new Voice { \voiceOne \ManualOneVoiceOneMusic }
         \new Voice { \voiceTwo \ManualOneVoiceTwoMusic }
       >>  % end ManualOne Staff context
       \new Staff = "ManualTwo" <<
@@ -2749,10 +2831,5 @@ PedalOrganMusic = \relative c {
   >>
 }  % end Score context
 @end lilypond
-
-
-
-
-
 
 

@@ -1,78 +1,81 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 66dde21fe63499f32a718f6098abe70e1429059b
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
-
 
 @node Spacing issues
 @chapter Spacing issues
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Paper and pages::
 * Music layout::
-* Displaying spacing::
 * Breaks::
 * Vertical spacing::
 * Horizontal spacing::
-* Page layout MOVED FROM LM::
-@end menu 
+* Fitting music onto fewer pages::
+@end menu
+
 @node Paper and pages
 @section Paper and pages
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Paper size::
 * Page formatting::
-@end menu 
+@end menu
+
 @node Paper size
 @subsection Paper size
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Page formatting
 @subsection Page formatting
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Music layout
 @section Music layout
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Setting the staff size::
 * Score layout::
-@end menu 
+@end menu
+
 @node Setting the staff size
 @subsection Setting the staff size
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Score layout
 @subsection Score layout
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Displaying spacing
-@section Displaying spacing
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Breaks
 @section Breaks
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Line breaking::
 * Page breaking::
 * Optimal page breaking::
@@ -80,154 +83,160 @@ UNTRANSLATED NODE: IGNORE ME
 * Minimal page breaking::
 * Explicit breaks::
 * Using an extra voice for breaks::
-@end menu 
+@end menu
+
 @node Line breaking
 @subsection Line breaking
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Page breaking
 @subsection Page breaking
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Optimal page breaking
 @subsection Optimal page breaking
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Optimal page turning
 @subsection Optimal page turning
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Minimal page breaking
 @subsection Minimal page breaking
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Explicit breaks
 @subsection Explicit breaks
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Using an extra voice for breaks
 @subsection Using an extra voice for breaks
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Vertical spacing
 @section Vertical spacing
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Vertical spacing inside a system::
 * Vertical spacing between systems::
 * Explicit staff and system positioning::
 * Two-pass vertical spacing::
 * Vertical collision avoidance::
-@end menu 
+@end menu
+
 @node Vertical spacing inside a system
 @subsection Vertical spacing inside a system
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Vertical spacing between systems
 @subsection Vertical spacing between systems
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Explicit staff and system positioning
 @subsection Explicit staff and system positioning
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Two-pass vertical spacing
 @subsection Two-pass vertical spacing
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Vertical collision avoidance
 @subsection Vertical collision avoidance
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Horizontal spacing
 @section Horizontal Spacing
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Horizontal spacing overview::
 * New spacing area::
 * Changing horizontal spacing::
 * Line length::
 * Proportional notation::
-@end menu 
+@end menu
+
 @node Horizontal spacing overview
 @subsection Horizontal spacing overview
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node New spacing area
 @subsection New spacing area
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Changing horizontal spacing
 @subsection Changing horizontal spacing
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Line length
 @subsection Line length
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Proportional notation
 @subsection Proportional notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Page layout MOVED FROM LM
-@section Page layout MOVED FROM LM
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu 
-* Introduction to layout::
-* Global sizes::
-* Line breaks::
-* Page breaks::
-* Fitting music onto fewer pages::
-@end menu 
-@node Introduction to layout
-@subsection Introduction to layout
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Global sizes
-@subsection Global sizes
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Line breaks
-@subsection Line breaks
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Page breaks
-@subsection Page breaks
-
-UNTRANSLATED NODE: IGNORE ME
 
 @node Fitting music onto fewer pages
-@subsection Fitting music onto fewer pages
+@section Fitting music onto fewer pages
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+@menu
+* Displaying spacing::
+* Changing spacing::
+@end menu
+
+@node Displaying spacing
+@subsection Displaying spacing
+
+@untranslated
+
+
+@node Changing spacing
+@subsection Changing spacing
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

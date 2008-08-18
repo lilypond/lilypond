@@ -52,6 +52,11 @@ articulations, just like simple notes:
 <c e g>2 <c f a>4-> <e g c>-.
 @end lilypond
 
+Relative mode can be used for pitches in chords; the preceding pitch
+into the same chord is still used as a reference for relative pitches,
+but when a chord is completed, the reference pitch for relative mode
+is the first note of this chord --not the last note of the chord.
+
 For more information about chords, see @ref{Chord notation}.
 
 @seealso
@@ -138,23 +143,63 @@ multiple staves.
 @node Single-staff polyphony
 @unnumberedsubsubsec Single-staff polyphony
 
-To typeset parallel pieces of music that have the same rhythm, they
-can be combined into a single @code{Voice} context, thus forming
-chords.  To achieve this, enclose them in a simultaneous music
-construction:
+@c Already reordered as Carl suggested --FV
+The basic structure of code needed to achieve multiple, independent
+voices in a single staff is illustrated in the following example:
 
-@lilypond[quote,relative=2,verbatim]
-\new Voice <<
-  { e4 f8 d e16 f g8 d4 }
-  { c4 d8 b c16 d e8 b4 }
+@lilypond[quote,relative=3,verbatim]
+\new Staff <<
+  \new Voice = "first"
+    { \voiceOne r8 r16 g e8. f16 g8[ c,] f e16 d }
+  \new Voice= "second"
+    { \voiceTwo d16 c d8~ d16 b c8~ c16 b c8~ c16 b8. }
 >>
 @end lilypond
 
-This method leads to strange beamings and warnings if the pieces of
-music do not have the same rhythm.  To typeset multiple, truly
-independent voices in a single staff, the @code{<<@{...@} \\
-@{...@}>>} construction is used, where the two (or more) voices are
-separated by double backslashes.
+Here, voices are instantiated explicitly and are given a name. The
+@code{\voiceOne} ... @code{\voiceFour} commands set up the voices so
+that first and third voices get stems up, second and fourth voices get
+stems down, third and fourth voice note heads are horizontally
+shifted, and rests in the respective voices move to avoid collisions.
+
+Using the @code{\oneVoice} command, we can make a voice to be into the
+same @code{Voice} context before and after a temporary polyphonic
+passage.  For example:
+
+@example
+<< @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
+@end example
+
+This construct keeps a voice alive throughout the polyphonic section.
+Using the name given when created, this allows lyrics to be assigned
+to one consistent voice.
+
+@lilypond[quote, verbatim, relative=2]
+<<
+  \new Voice = "melody" {
+    a4
+    <<
+      {
+        \voiceOne
+        g f
+      }
+      \new Voice {
+        \voiceTwo
+        e d
+      }
+    >>
+    \oneVoice
+    e
+  }
+  \new Lyrics \lyricsto "melody" {
+  This is my song.
+  }
+>>
+@end lilypond
+
+The @code{<<@{...@} \\ @{...@}>>} construction can be used as a
+simplified method, where the two (or more) voices are separated by
+double backslashes.  Our first example could be typeset as follows:
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -164,11 +209,13 @@ separated by double backslashes.
 >>
 @end lilypond
 
-First and third voices get stems up, second and fourth voices get
-stems down, third and fourth voice noteheads are horizontally shifted,
-and rests move to avoid collisions.  In the following example, the
-intermediate voice has stems up, therefore we enter it in the third
-place, so it becomes voice three which has the stems up as desired.
+This syntax is simpler and can be used where it does not care that
+temporary voices are created and then discarded.  These implicitly
+created voices are given the settings equivalent to the effect of the
+@code{\voiceOne} ... @code{\voiceFour} commands, in the order in which
+they appear in the code.  In the following example, the intermediate
+voice has stems up, therefore we enter it in the third place, so it
+becomes voice three which has the stems up as desired.
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -183,20 +230,26 @@ place, so it becomes voice three which has the stems up as desired.
 Spacing rests are often used to avoid too many rests, as seen in the
 example above.
 
-The method exposed creates two new voices when the @code{<<@{...@} \\
-@{...@}>>} construction is found in the code; to temporally add only
-one additional voice to an existing one, it is necessary to
-instantiate that voice explicitly. For these purposes, the
-@code{\voiceOne} ... @code{\voiceFour}, and @code{\oneVoice} commands
-can be used:
+In all but simplest works it is advised to create explicit
+@code{Voice} contexts using the @code{\new} and @code{\context}
+commands as it is explained in @rlearning{Contexts and engravers} and
+@rlearning{Explicitly instantiating voices}.
 
-@example
-<< @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
-@end example
+In the special case that we want to typeset parallel pieces of music
+that have the same rhythm, we can combine them into a single
+@code{Voice} context, thus forming chords.  To achieve this, enclose
+them in a simple simultaneous music construction and make it to be an
+explicit voice:
 
-This is a better construction to keep the control of the voices, for
-example, to ease a consistent assign of lyrics to the proper voice
-context.
+@lilypond[quote,relative=2,verbatim]
+\new Voice <<
+  { e4 f8 d e16 f g8 d4 }
+  { c4 d8 b c16 d e8 b4 }
+>>
+@end lilypond
+
+This method leads to strange beamings and warnings if the pieces of
+music do not have the same rhythm.
 
 @predefined
 

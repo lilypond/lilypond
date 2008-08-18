@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 02cb8b672238eeb53bffa2240c87f23dd8ca9e60
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,20 +11,23 @@
 @node LilyPond-book
 @chapter @command{lilypond-book}: Integrating text and music
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * An example of a musicological document::
 * Integrating music and text::
 * Music fragment options::
 * Invoking lilypond-book::
 * Filename extensions::
 * Alternate methods of mixing text and music::
-@end menu 
+@end menu
+
 @node An example of a musicological document
 @section An example of a musicological document
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @subheading Input
 @subheading Processing
@@ -32,33 +35,39 @@ UNTRANSLATED NODE: IGNORE ME
 @node Integrating music and text
 @section Integrating music and text
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * LaTeX::
 * Texinfo::
 * HTML::
 * DocBook::
-@end menu 
+@end menu
+
 @node LaTeX
 @subsection @LaTeX{}
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Texinfo
 @subsection Texinfo
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node HTML
 @subsection HTML
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node DocBook
 @subsection DocBook
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @subheading Common conventions
 @subheading Including a LilyPond file
@@ -67,12 +76,14 @@ UNTRANSLATED NODE: IGNORE ME
 @node Music fragment options
 @section Music fragment options
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Invoking lilypond-book
 @section Invoking @command{lilypond-book}
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @subheading Format-specific instructions
 @subsubheading @LaTeX{}
@@ -81,34 +92,38 @@ UNTRANSLATED NODE: IGNORE ME
 @node Filename extensions
 @section Filename extensions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Alternate methods of mixing text and music
 @section Alternative methods of mixing text and music
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+
+@menu
 * Many quotes from a large score::
 * Inserting LilyPond output into OpenOffice.org::
 * Inserting LilyPond output into other programs::
-@end menu 
+@end menu
+
 @node Many quotes from a large score
 @subsection Many quotes from a large score
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Inserting LilyPond output into OpenOffice.org
 @subsection Inserting LilyPond output into OpenOffice.org
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
 
 @node Inserting LilyPond output into other programs
 @subsection Inserting LilyPond output into other programs
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
--- SKELETON FILE --
-When you actually translate this file, please remove these lines as
-well as all `UNTRANSLATED NODE: IGNORE ME' lines.
+
+@c -- SKELETON FILE --

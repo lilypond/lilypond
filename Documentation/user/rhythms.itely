@@ -267,7 +267,7 @@ Learning Manual: @rlearning{Tweaking methods}.
 Notation Reference:
 @ref{Time administration},
 @ref{Scaling durations},
-@ref{Objects connected to the input},
+@ref{The tweak command},
 @ref{Polymetric notation}.
 
 Snippets:
@@ -799,15 +799,12 @@ setting, resulting bar-check warnings may not be displayed.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {positioning-multi--measure-rests.ly}
 
-@c TODO -- convert to snippet
+@c TODO -- convert to snippet -- submitted to Neil
 Markups attached to a multi-measure rest will be centered above or
 below it.  Long markups attached to multi-measure rests do not cause
 the measure to expand. To expand a multi-measure rest to fit the markup,
 use a spacer rest with an attached markup before the multi-measure rest:
 
-@c -- music is somewhat compressed vertically.  I thought it
-@c    was good because the emphasis is not on the content
-@c    of the markup, but on the place the markup was attached -cs
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \compressFullBarRests
 \textLengthOn
@@ -1082,17 +1079,6 @@ Internal Reference:
 
 @cindex grace notes, in anacruses
 
-This command does not take into account grace notes at the start
-of the music.  If the pick-up starts with one or more grace
-notes, then the @code{\partial} should follow the grace note(s):
-
-@lilypond[verbatim,quote,ragged-right,relative,fragment]
-\grace f16
-\partial 4
-g4
-a2 g2
-@end lilypond
-
 The @code{\partial} command is intended to be used only at the
 beginning of a piece.  If you use it after the beginning, some
 odd warnings may occur.
@@ -1177,38 +1163,6 @@ to indicate where breaks can occur.
 Polymetric notation is supported, either explicitly or through
 clever use of markup features.
 
-@c Each of these examples uses \set or \override, and therefore
-@c by policy should be converted to a snippet.
-@c Do we want to have a section with a very brief (two-line 
-@c introduction, and have most of the content be in snippets?
-
-@strong{Alternating time signatures}
-
-Regularly alternating double time signatures are not supported
-explicitly, but they can be faked.  In the next example, the
-double time signature is created with markup text, while the
-real time signature is set in the usual way with @code{\time}.
-
-@lilypond[verbatim,ragged-right]
-% Create 9/8 split into 2/4 + 5/8
-tsMarkup = \markup {
-  \override #'(baseline-skip . 2) \number {
-    \column { "2" "4" }
-    \vcenter "+"
-    \bracket \column { "5" "8" }
-  }
-}
-
-{
-  \override Staff.TimeSignature #'stencil =
-    #ly:text-interface::print
-  \override Staff.TimeSignature #'text = #tsMarkup
-  \time 9/8
-  c'2 \bar ":" c'4 c'4.
-  c'2 \bar ":" c'4 c'4.
-}
-@end lilypond
-
 @strong{Staves with different time signatures, equal measure lengths}
 
 This notation can be created by setting a common time signature
@@ -1248,9 +1202,6 @@ staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
   }
 >> }
 @end lilypond
-
-@c I guess this example doesn't use \set or \override, and so
-@c could stay in the manual.
 
 @strong{Staves with different time signatures, unequal bar lengths}
 
@@ -1295,6 +1246,37 @@ moving the @code{Timing_translator} to the @code{Staff} context.
 >>
 @end lilypond
 
+@snippets
+
+@c TODO -- Convert to snippet. -- Sent to Neil 8/14/08
+
+@strong{Alternating time signatures}
+
+Regularly alternating double time signatures are not supported
+explicitly, but they can be faked.  In the next example, the
+double time signature is created with markup text, while the
+real time signature is set in the usual way with @code{\time}.
+
+@lilypond[verbatim,ragged-right]
+% Create 9/8 split into 2/4 + 5/8
+tsMarkup = \markup {
+  \override #'(baseline-skip . 2) \number {
+    \column { "2" "4" }
+    \vcenter "+"
+    \bracket \column { "5" "8" }
+  }
+}
+
+{
+  \override Staff.TimeSignature #'stencil =
+    #ly:text-interface::print
+  \override Staff.TimeSignature #'text = #tsMarkup
+  \time 9/8
+  c'2 \bar ":" c'4 c'4.
+  c'2 \bar ":" c'4 c'4.
+}
+@end lilypond
+
 
 @seealso
 
@@ -1312,7 +1294,7 @@ Snippets:
 
 Internals Reference:
 @rinternals{TimeSignature},
-@rinternals{Timing-translator},
+@rinternals{Timing_translator},
 @rinternals{Staff}.
 
 @knownissues
@@ -1350,13 +1332,6 @@ inserts ties.  One of its uses is to debug complex scores: if the
 measures are not entirely filled, then the ties show exactly how
 much each measure is off.
 
-To allow line breaking on the bar lines where the
-@code{Completion_heads_engraver} has inserted a split note, remove
-the @code{Forbid_line_break_engraver} too.
-
-TODO -- find example that shows the above paragraph.  I can't make
-the Forbid_line_break_engraver have any effect in my examples (cs).
-Does the Forbid_line_break_engraver still have the claimed effect?
 @seealso
 
 Music Glossary: @rglos{tie}
@@ -1391,16 +1366,116 @@ Sometimes you might want to show only the rhythm of a melody.  This
 can be done with the rhythmic staff.  All pitches of notes on such a
 staff are squashed, and the staff itself has a single line
 
-@c TODO Devise a more realistic example, perhaps with lyrics -td
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new RhythmicStaff {
-  \time 4/4
-  c4 e8 f g2 | r4 g r2 | g1 | r1 |
-}
+<<
+  \new RhythmicStaff {
+    \new Voice = "myRhythm" {
+      \time 4/4
+      c4 e8 f g2
+      r4 g g f
+      g1
+    }
+  }
+  \new Lyrics {
+    \lyricsto "myRhythm" {
+      This is my song
+      I like to sing
+    }
+  }
+>>
 @end lilypond
 
-TODO -- put example in with multiple lines as well (used for strumming
-rhythms in guitar)
+Guitar chord charts often show the strumming rhythms.  This can
+be done with the @code{Pitch_squash_engraver} and
+@code{\improvisationOn}.
+
+ 
+@lilypond[quote,verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 f g c
+    }
+  }
+
+  \new Voice \with {
+    \consists Pitch_squash_engraver
+  } \relative c'' {
+    \improvisationOn
+    c4 c8 c c4 c8 c
+    f4 f8 f f4 f8 f
+    g4 g8 g g4 g8 g
+    c4 c8 c c4 c8 c
+  }
+>>
+@end lilypond
+
+@predefined
+@code{\improvisationOn},
+@code{\improvisationOff}.
+
+@snippets
+@c TODO -- Convert to snippet;
+@c     tag for both Rhythms and Guitar? Move to @seealso?
+
+For guitar music, it is possible to show strum rhythms, along
+with melody notes, chord names, and fret diagrams.
+
+
+@lilypond[quote,verbatim]
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 f g c
+    }
+  }
+
+  \new FretBoards {
+    \chordmode {
+      c1 f g c
+    }
+  }
+
+  
+  \new Voice \with {
+    \consists Pitch_squash_engraver
+  } \relative c'' {
+    \improvisationOn
+    c4 c8 c c4 c8 c
+    f4 f8 f f4 f8 f
+    g4 g8 g g4 g8 g
+    c4 c8 c c4 c8 c
+  }
+
+
+  \new Voice = "melody" {
+    \relative c'' {
+      \improvisationOff
+      c2 e4 e4 
+      f2. r4
+      g2. a4
+      e4 c2.
+    }
+  }
+ 
+  \new Lyrics {
+    \lyricsto "melody" {
+      This is my song.
+      I like to sing.
+    }
+  }
+>>
+@end lilypond
+
+@seealso
+
+Snippets:
+@rlsr{Rhythms}.
+
+Internals Reference:
+@rinternals{RhythmicStaff},
+@rinternals{Pitch_squash_engraver}.
 
 @node Beams
 @subsection Beams
@@ -1446,6 +1521,9 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+@predefined
+@code{\autoBeamOff},
+@code{\autoBeamOn}.
 
 @snippets
 
@@ -1527,7 +1605,12 @@ f8 f''8 f8 f''8
 
 @seealso
 
-Notation Reference: @ref{Manual beams}, @ref{Setting automatic beam behavior}.
+Notation Reference: 
+@ref{Manual beams}, 
+@ref{Setting automatic beam behavior}.
+
+Installed Files:
+@file{scm/auto-beam.scm}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -2383,20 +2466,22 @@ For common tweaks to the positioning of rehearsal marks, see
 
 @seealso
 
-Snippets:
-@rlsr{Rhythms}.
+This manual: 
+@ref{The Feta font}, 
+@ref{Formatting text}.
 
-This manual: @ref{The Feta font}, @ref{Formatting text}.
-
-Internals Reference: @rinternals{RehearsalMark}.
-
-Init files: @file{scm/@/translation@/-functions@/.scm} contains
+Installed Files: 
+@file{scm/@/translation@/-functions@/.scm} contains
 the definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for
 other formatting functions.
 
-Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
+Snippets:
+@rlsr{Rhythms}.
 
+Internals Reference: @rinternals{RehearsalMark}.
+
+Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 
 @node Special rhythmic concerns
 @subsection Special rhythmic concerns
@@ -2417,42 +2502,35 @@ Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 @cindex appoggiatura
 @cindex acciaccatura
 
-Grace notes are ornaments that are written out. They are made with
-the @code{\grace} command.  By prefixing this keyword to a music
-expression, a new one is formed, which will be printed in a
-smaller font and takes up no logical time in a measure.
+Grace notes are ornaments that are written out. Grace notes
+are printed in a smaller font and take up no logical time 
+in a measure.
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 c4 \grace c16 c4
-\grace { c16[ d16] } c2 c4
+\grace { c16[ d16] } c2
 @end lilypond
 
-Two special forms of the @code{\grace} command exist.
-An @emph{acciaccatura}, which should be played as very short,
-is denoted by a slurred small note with a slashed stem.  The
-@emph{appoggiatura}, a grace note that takes a fixed fraction of the
-main note, is denoted as a slurred note in small print without
-a slash.  They are entered with the commands @code{\acciaccatura}
-and @code{\appoggiatura}, as demonstrated in the following
-example:
+Lilypond also supports two special types of grace notes, the 
+@emph{acciaccatura}--an unmeasured grace note indicated by a slurred 
+small note with a slashed stem--and the @emph{appoggiatura}, which 
+takes a fixed fraction of the main note and appears in small print 
+without a slash. 
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-b4 \acciaccatura d8 c4
+\grace c8 b4 
+\acciaccatura d8 c4
 \appoggiatura e8 d4
 \acciaccatura { g16[ f] } e4
 @end lilypond
-
-@noindent
-@code{\acciaccatura} and @code{\appoggiatura} start a slur,
-@code{\grace} does not.
 
 The placement of grace notes is synchronized between different
 staves.  In the following example, there are two sixteenth grace
 notes for every eighth grace note
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \grace { c16[ d e f] } e4 }
-   \new Staff { c4 \grace { g8[ b] } c4 } >>
+<< \new Staff { e2 \grace { c16[ d e f] } e2 }
+   \new Staff { c2 \grace { g8[ b] } c2 } >>
 @end lilypond
 
 @funindex \afterGrace
@@ -2464,39 +2542,50 @@ command.  It takes two arguments: the main note, and the grace
 notes following the main note.
 
 @lilypond[quote,ragged-right,verbatim,relative=2,fragment]
-c1 \afterGrace d1 { c16[ d] } c4
+c1 \afterGrace d1 { c16[ d] } c1
 @end lilypond
 
-This will put the grace notes after a @q{space} lasting 3/4 of the
-length of the main note.  The fraction 3/4 can be changed by
-setting @code{afterGraceFraction}, i.e.,
+This will put the grace notes after a space lasting 3/4 of the
+length of the main note.  The default fraction 3/4 can be changed by
+setting @code{afterGraceFraction}.  The following example shows
+the results from setting the space at the default,  at 15/16, and 
+finally at 1/2 of the main note.
 
-@example
-#(define afterGraceFraction (cons 7 8))
-@end example
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+<<
+  \new Staff {
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+  \new Staff {
+    #(define afterGraceFraction (cons 15 16))
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+  \new Staff {
+    #(define afterGraceFraction (cons 1 2))
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+>>
+@end lilypond
 
-@noindent
-will put the grace note at 7/8 of the main note.
-
-The same effect can be achieved manually by doing
+The space between the main note and the grace note may also be
+specified using spacers. The following example places the grace
+note after a space lasting 7/8 of the main note.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
   << { d1^\trill_( }
-     { s2 \grace { c16[ d] } } >>
-  c4)
+     { s2 s4. \grace { c16[ d] } } >>
+  c1)
 }
 @end lilypond
 
-@noindent
-By adjusting the duration of the skip note (here it is a
-half-note), the space between the main note and the grace
-may be adjusted.
-
 A @code{\grace} music expression will introduce special
 typesetting settings, for example, to produce smaller type, and
-set directions.  Hence, when introducing layout tweaks, they
-should be inside the grace expression, for example,
+set directions.  Hence, when introducing layout tweaks to
+override the special settings, they should be placed inside
+the grace expression. The overrides should also be reverted
+inside the grace expression. Here, the grace note's default stem
+direction is overriden and then reverted.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
@@ -2505,59 +2594,69 @@ should be inside the grace expression, for example,
     f16->
     \stemNeutral
   }
-  g4
+  g4 e c2
 }
 @end lilypond
 
-@noindent
-The overrides should also be reverted inside the grace expression.
+
+@cindex stem, with slash
+
+
+@snippets
+
+The slash through the stem found in @emph{acciaccatura}s can be applied 
+in other situations:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\relative c'' {
+  \override Stem #'stroke-style = #"grace"
+  c8( d2) e8( f4)
+}
+@end lilypond
 
 The layout of grace expressions can be changed throughout the
 music using the function @code{add-grace-property}.  The following
 example undefines the @code{Stem} direction for this grace, so
 that stems do not always point up.
 
-@example
-\new Staff @{
-  #(add-grace-property 'Voice 'Stem 'direction '())
-  @dots{}
-@}
-@end example
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\relative c'' {
+  \new Staff {
+    #(add-grace-property 'Voice 'Stem 'direction ly:stem::calc-direction)
+    #(remove-grace-property 'Voice 'Stem 'direction)
+    \new Voice {
+       \acciaccatura { f16 } g4 
+       \grace { d16[ e] } f4
+       \appoggiatura { a,32[ b c d] } e2
+    }
+  }
+}
+@end lilypond
 
-@noindent
 Another option is to change the variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
 @code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic},
 @code{stopAppoggiaturaMusic}.  The default values of these can be
-seen in the file @file{ly/@/grace@/-init@/.ly}.  By redefining
+seen in the file @code{ly/@/grace@/-init@/.ly}.  By redefining
 them other effects may be obtained.
 
-@cindex stem, with slash
+Grace notes may be forced to align with regular notes
+in other staves:
 
-@noindent
-The slash through the stem in @emph{acciaccatura}s can be obtained in
-other situations by @code{\override Stem  #'stroke-style =
-#"grace"}.
-
-
-@snippets
-
-Grace notes may be forced to use align with regular notes
-in other staves by setting @code{strict-grace-spacing} to
-##t:
-
-@lilypond[verbatim,quote,relative=2]
-<<
-  \override Score.SpacingSpanner #'strict-grace-spacing = ##t
-  \new Staff {
-    c4
-    \afterGrace c4 { c16[ c8 c16] }
-    c4 r
-  }
-  \new Staff {
-    c16 c c c c c c c c4 r
-  }
->>
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  <<
+    \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+    \new Staff {
+      c4
+      \afterGrace c4 { c16[ c8 c16] }
+      c4 r
+    }
+    \new Staff {
+      c16 c c c c c c c c4 r
+    }
+  >>
+}
 @end lilypond
 
 
@@ -2566,10 +2665,11 @@ in other staves by setting @code{strict-grace-spacing} to
 Music Glossary:
 @rglos{grace notes},
 @rglos{acciaccatura},
-@rglos{appoggiatura}
+@rglos{appoggiatura}.
 
-Snippets:
-@rlsr{Rhythms}.
+Installed Files: @file{ly/@/grace@/-init@/.ly}.
+
+Snippets: @rlsr{Rhythms}.
 
 Internals Reference: @rinternals{GraceMusic}.
 
@@ -2587,8 +2687,8 @@ synchronized.  Take care when you mix staves with grace notes and
 staves without, for example,
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \bar "|:" \grace c16 d4 }
-   \new Staff { c4 \bar "|:" d4 } >>
+<< \new Staff { e4 \bar "|:" \grace c16 d2. }
+   \new Staff { c4 \bar "|:" d2. } >>
 @end lilypond
 
 @noindent
@@ -2596,8 +2696,8 @@ This can be remedied by inserting grace skips of the corresponding
 durations in the other staves.  For the above example
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \bar "|:" \grace c16 d4 }
-   \new Staff { c4 \bar "|:" \grace s16 d4 } >>
+<< \new Staff { e4 \bar "|:" \grace c16 d2. }
+   \new Staff { c4 \bar "|:" \grace s16 d2. } >>
 @end lilypond
 
 Grace sections should only be used within sequential music
@@ -2619,20 +2719,19 @@ cadenza, otherwise they will start too soon or too late.
 A solution to this problem is to use the functions
 @code{mmrest-of-length} and @code{skip-of-length}.  These Scheme
 functions take a piece of music as argument, and generate a multi-measure
-rest or @code{\skip}, exactly as long as the piece.  The use of
-@code{mmrest-of-length} is demonstrated in the following example.
+rest or @code{\skip}, exactly as long as the piece.  
 
 @lilypond[verbatim,ragged-right,quote]
 cadenza = \relative c' {
-  c4 d8 << { e f g } \\ { d4. } >>
-  g4 f2 g4 g
+  c4 d8 e f g g4 
+  f2 g4 g
 }
 
 \new GrandStaff <<
-  \new Staff { \cadenza c'4 }
+  \new Staff { \cadenza c'1 }
   \new Staff {
     #(ly:export (mmrest-of-length cadenza))
-    c'4
+    c'1
   }
 >>
 @end lilypond
@@ -2724,3 +2823,4 @@ Snippets:
 
 Internals Reference: @rinternals{Timing_translator},
 @rinternals{Score}
+

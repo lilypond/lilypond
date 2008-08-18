@@ -43,7 +43,7 @@ c''2 f''4 d'' |  c''2  bes'4  a' | bes'2 a' | g'1 |
 
 Alto = { 
   \key f \major 
-  c'2 c'4 c' | d'4 c' c'2 | f'4. f'8 f'4 ges' | g'4 e' f'2 |
+  c'2 c'4 c' | d'4 c' c'2 | f'4. f'8 f'4 fis' | g'4 e' f'2 |
   f'2 f'4 f' |  f'2  g'4  f' | e'2 f' | e'1 | 
 }
 

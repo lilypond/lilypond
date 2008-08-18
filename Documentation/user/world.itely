@@ -276,8 +276,7 @@ beat, but in a manner that is difficult to match by adjusting
 automatic beaming.  You can override this by switching off
 automatic beaming and beaming the notes manually.  Where matching
 existing typeset music is not an issue, you may still want to
-adjust the beaming behaviour and/or using compound time
-signatures.
+adjust the beaming behaviour and/or use compound time signatures.
 
 @snippets
 

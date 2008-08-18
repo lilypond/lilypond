@@ -204,8 +204,7 @@ finden sich Kopien dieser und anderer Dokumentationsdateien.
 @menu
 * Musical notation::               Allgemeine Notation von Musik.
 * Specialist notation::            Notation, die nur für spezielle Zwecke eingesetzt wird.
-* Input syntax::                   Allgemeine Information über die Quelldateien von LilyPond.
-* Non-musical notation::           Alles, was nicht Musiknotation ist.
+* General input and output::       Allgemeine Information über die Quelldateien von LilyPond.
 * Spacing issues::                 Anzeige der Ausgabe auf dem Papier.
 * Changing defaults::              Das Notenbild verfeinern.
 * Interfaces for programmers::     Benutzung für Experten.
@@ -228,7 +227,6 @@ Anhänge
 @include specialist.itely
 
 @include input.itely
-@include non-music.itely
 @include spacing.itely
 
 @include changing-defaults.itely

@@ -1,5 +1,5 @@
-.PHONY : all clean config default dist doc exe help html lib TAGS\
-	 po
+.PHONY : all clean bin-clean config default dist doc exe help\
+         html lib TAGS po
 
 all:	 default
 	$(LOOP)
@@ -10,6 +10,16 @@ man:
 clean: local-clean
 	-rm -rf "./$(outdir)"
 	$(LOOP)
+
+ifeq (,$(findstring metafont,$(STEPMAKE_TEMPLATES)))
+bin-clean: local-bin-clean
+	-rm -rf "./$(outdir)"
+	$(LOOP)
+else
+bin-clean:
+endif
+
+local-bin-clean: local-clean
 
 ifneq ($(strip $(depth)),.)
 dist:
@@ -48,6 +58,7 @@ help: generic-help local-help
 	@echo -e "Generic targets:\n\
   all *       update everything except website documentation\n\
   clean *     remove all generated stuff in $(outdir)\n\
+  bin-clean * same as clean, except that mf/out is preserved\n\
   default     same as the empty target\n\
   exe         update all executables\n\
   help        this help\n\

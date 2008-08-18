@@ -169,8 +169,8 @@ individuales del acorde escribiéndolas después de las alturas.
 @end lilypond
 
 Las indicaciones de digitación se pueden situar manualmente encima o
-debajo del pentagrama, véase @ref{Controlling direction and
-placement}.
+debajo del pentagrama, véase @ref{Direction
+and placement}.
 
 @snippets
 
@@ -180,7 +180,7 @@ placement}.
 @seealso
 
 Referencia de la notación:
-@ref{Controlling direction and placement}
+@ref{Direction and placement}
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -305,8 +305,8 @@ gis4 a
 @seealso
 
 Referencia de la notación:
-@ref{List of colors}, @ref{Objects connected to
-the input}.
+@ref{List of colors}, @ref{The
+tweak command}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.
@@ -324,8 +324,8 @@ sea: @code{#blue}, azul, @code{#green}, verde, @code{#red}, rojo).
 
 
 Las notas de un acorde no se pueden colorear con @code{\override}; en
-su lugar utilice @code{\tweak}.  Consulte @ref{Objects connected to
-the input} para ver más detalles.
+su lugar utilice @code{\tweak}.  Consulte @ref{The
+tweak command} para ver más detalles.
 
 
 @node Parentheses
@@ -394,7 +394,7 @@ crean pero se hacen invisibles.
 
 @seealso
 Referencia de la notación:
-@ref{Controlling direction and placement}.
+@ref{Direction and placement}.
 
 Fragmentos de código:
 @rlsr{Editorial annotations}.

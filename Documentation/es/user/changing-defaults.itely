@@ -62,7 +62,7 @@ compás distinta.
 @item
 Disposición de la página: cambiar el aspecto visual del espaciado, los
 saltos de línea y las dimensiones de la página.  Estas modificaciones
-se discuten en @ref{Non-musical notation} y @ref{Spacing issues}.
+se discuten en @ref{General input and output} y @ref{Spacing issues}.
 @end itemize
 
 Internamente, LilyPond utiliza el lenguaje Scheme (un dialecto de
@@ -82,8 +82,6 @@ listas, cadenas y símbolos en Scheme.}
 * Useful concepts and properties::  
 * Common properties::           
 * Advanced tweaks::             
-* old The \override command::   
-* Discussion of specific tweaks::  
 @end menu
 
 
@@ -425,7 +423,7 @@ compás independiente.
 @node Changing context default settings
 @subsection Changing context default settings
 
-Los ajustes de las secciones previas ( @ref{The \set command},
+Los ajustes de las secciones previas ( @ref{The set command},
 @ref{Modifying context plug-ins} y @ref{Overview of modifying
 properties}) también se pueden escribir separados de la música dentro
 del bloque @code{\layout}:
@@ -962,17 +960,17 @@ El grabador Fingering_engraver es parte de los contextos: @dots{}
 @node Naming conventions
 @subsection Naming conventions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Modifying properties
 @section Modifying properties
 
 @menu
 * Overview of modifying properties::  
-* The \set command::            
-* The \override command::       
-* \set versus \override::       
-* Objects connected to the input::  
+* The set command::             
+* The override command::        
+* set versus override::         
+* The tweak command::           
 @end menu
 
 
@@ -1099,7 +1097,7 @@ valores Scheme de propiedades pueden producir cuelgues o salidas
 abruptas, o las dos cosas.
 
 
-@node The \set command
+@node The set command
 @subsection The @code{\set} command
 
 @cindex propiedades
@@ -1230,7 +1228,7 @@ usuario.
 
 
 
-@node The \override command
+@node The override command
 @subsection The @code{\override} command
 
 Las instrucciones que modifican la salida tienen por lo general un
@@ -1275,7 +1273,7 @@ causarína problemas.
 Mostraremos a continuación cómo localizar esta información en el
 manual de notación y en la referencia de funcionamiento interno.
 
-@node \set versus \override
+@node set versus override
 @subsection @code{\set} vs. @code{\override}
 
 Hemos visto dos formas de cambiar las propiedades: @code{\set} y
@@ -1328,8 +1326,8 @@ Al ser éste un cambio muy común, se creó la propiedad especial
 (modificada con @code{\set}).
 
 
-@node Objects connected to the input
-@subsection Objects connected to the input
+@node The tweak command
+@subsection The @code{\tweak} command
 
 @funindex \tweak
 
@@ -1580,7 +1578,7 @@ significan @qq{utilizar la dirección predeterminada}, como antes.
 @node Distances and measurements
 @subsection Distances and measurements
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Spanners
 @subsection Spanners
@@ -1769,8 +1767,6 @@ Referencia del programa:
 @end menu
 
 
-
-
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
 
@@ -1787,26 +1783,10 @@ partitura, pero cada @code{Staff}, @code{Lyrics}, etc. tiene su propio
 @node Modifying ends of spanners
 @subsection Modifying ends of spanners
 
+@untranslated
+
 
 @node Modifying stencils
 @subsection Modifying stencils
 
-@node old The \override command
-@section old The @code{\override} command
-
-UNTRANSLATED NODE: IGNORE ME
-
-@node Discussion of specific tweaks
-@section Discussion of specific tweaks
-
-UNTRANSLATED NODE: IGNORE ME
-
-@menu
-* old Contexts explained::      
-@end menu
-
-@node old Contexts explained
-@subsection old Contexts explained
-
-UNTRANSLATED NODE: IGNORE ME
-
+@untranslated

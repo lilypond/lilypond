@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d1124e0293b22f1d8accf4d418015b754d581fcf
+    Translation of GIT committish: 3d99a5d10c306d8ad13e536bf886cf49da2c0d2c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -482,11 +482,9 @@ través de las siguientes propiedades.
 
 El nombre de acorde se imprime normalmente como una letra para la
 fundamental con una alteración opcional.  La transformación de la nota
-en la letra se realiza por parte de esta funcióne la nota hThe
-transformation from pitch to letter is done by this function.  Los
-nombres de nota especiales (por ejemplo, la @q{H} alemana para un
-acorde de Si) se pueden producir almacenando una cunción nueva en esta
-propiedad.
+en la letra se realiza por parte de esta función.  Los nombres de nota
+especiales (por ejemplo, la @q{H} alemana para un acorde de Si) se
+pueden producir almacenando una cunción nueva en esta propiedad.
 
 @funindex majorSevenSymbol
 
@@ -918,7 +916,7 @@ instead of
 @c @rlearning{  }.
 
 @c Notation Reference:
-@c @ruser{  }.
+@c @ref{  }.
 
 @c Application Usage:
 @c @rprogram{  }.

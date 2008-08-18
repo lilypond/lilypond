@@ -1,0 +1,73 @@
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
+@c This file is part of lilypond.tely
+@ignore
+    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+
+    When revising a translation, copy the HEAD committish of the
+    version that you are working on.  See TRANSLATION for details.
+@end ignore
+
+
+@node World music
+@section World music
+
+@untranslated
+
+
+@menu
+* Arabic music::
+@end menu
+
+@node Arabic music
+@subsection Arabic music
+
+@untranslated
+
+
+@menu
+* References for Arabic music::
+* Arabic note names ::
+* Arabic key signatures::
+* Arabic time signatures::
+* Arabic music example::
+* Further reading::
+@end menu
+
+@node References for Arabic music
+@unnumberedsubsubsec References for Arabic music 
+
+@untranslated
+
+
+@node Arabic note names 
+@unnumberedsubsubsec Arabic note names 
+
+@untranslated
+
+
+@node Arabic key signatures
+@unnumberedsubsubsec Arabic key signatures 
+
+@untranslated
+
+
+@node Arabic time signatures
+@unnumberedsubsubsec Arabic time signatures 
+
+@untranslated
+
+
+@node Arabic music example
+@unnumberedsubsubsec Arabic music example 
+
+@untranslated
+
+
+@node Further reading
+@unnumberedsubsubsec Further reading
+
+@untranslated
+
+
+
+@c -- SKELETON FILE --

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: b9526773cf95ca29e3d3352c524718fc8e91c599
+    Translation of GIT committish: 3d99a5d10c306d8ad13e536bf886cf49da2c0d2c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,8 +11,8 @@
 @node Specialist notation
 @chapter Specialist notation
 
-This chapter explains how to create musical notation for specific
-types of instrument or in specific styles.
+Este capítulo explica cómo crear notación musical para instrumentos de
+un tipo específico o dentro de estilos específicos.
 
 @menu
 * Vocal music::
@@ -23,6 +23,7 @@ types of instrument or in specific styles.
 * Wind instruments::
 * Chord notation::
 * Ancient notation::
+* World music::
 @end menu
 
 @include vocal.itely
@@ -33,3 +34,4 @@ types of instrument or in specific styles.
 @include wind.itely
 @include chords.itely
 @include ancient.itely
+@include world.itely

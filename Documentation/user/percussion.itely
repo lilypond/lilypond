@@ -12,7 +12,7 @@
 @section Percussion
 
 @menu
-* Common notation for percussion::
+* Common notation for percussion::  
 @end menu
 
 @node Common notation for percussion
@@ -22,22 +22,39 @@ Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
 
 @menu
-* References for percussion::
-* Basic percussion notation::
-* Percussion staves::
-* Ghost notes::
+* References for percussion::   
+* Basic percussion notation::   
+* Drum rolls::                  
+* Pitched percussion::          
+* Percussion staves::           
+* Custom percussion staves::    
+* Ghost notes::                 
 @end menu
 
 @node References for percussion
 @subsubsection References for percussion
 
-@c TODO Add refs
-TBC
+TODO add more.
 
+@itemize
+
+@item Some percussion may be notated on a rhythmic staff; this is
+discussed in @ref{Showing melody rhythms}, and
+@ref{Instantiating new staves}.
+
+@item MIDI output is discussed in a separate section; please see
+@ref{Percussion in MIDI}.
+
+@end itemize
 
 @seealso
 
-Internals Reference: @rinternals{RhythmicStaff}.
+Notation Reference:
+@ref{Showing melody rhythms},
+@ref{Instantiating new staves}.
+@ref{Percussion in MIDI}.
+
+Snippets: @rlsr{Percussion}.
 
 
 @node Basic percussion notation
@@ -46,138 +63,66 @@ Internals Reference: @rinternals{RhythmicStaff}.
 @cindex percussion
 @cindex drums
 
-
 Percussion notes may be entered in @code{\drummode} mode, which is
-similar to the standard mode for entering notes.  Each piece of
-percussion has a full name and an abbreviated name, and both can
-be used in input files.  The simplest way to enter percussion notes
-is to use the @code{\drums} command, which creates the correct
-context and entry mode for percussion:
+similar to the standard mode for entering notes.  The simplest way
+to enter percussion notes is to use the @code{\drums} command,
+which creates the correct context and entry mode for percussion:
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,verbatim]
 \drums {
-  hihat hh bassdrum bd
+  hihat4 hh bassdrum bd
 }
 @end lilypond
 
 This is shorthand for:
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,verbatim]
 \new DrumStaff {
   \drummode {
-    hihat hh bassdrum bd
+    hihat4 hh bassdrum bd
   }
 }
 @end lilypond
 
-Note, that percussion clefs are added automatically in a
-@code{DrumStaff} context.  But it is possible to use other clefs
-if you want.
+Each piece of percussion has a full name and an abbreviated name,
+and both can be used in input files.  The full list of percussion
+note names may be found in @ref{Percussion notes}.
+
+Note that the normal notation of pitches (such as @code{cis4}) in
+a @code{DrumStaff} context will cause an error message.
+Percussion clefs are added automatically to a @code{DrumStaff}
+contex, but other clefs may also be used.
+
+There are a few issues concerning MIDI support for percussion
+instruments; for details please see @ref{Percussion in MIDI}.
+
+@seealso
+
+Notation Reference: @ref{Percussion in MIDI}, @ref{Percussion notes}.
+
+File: @file{ly/@/drumpitch@/-init@/.ly}
+
+Snippets: @rlsr{Percussion}.
 
 
-The complete list of drum names is in the init file
-@file{ly/@/drumpitch@/-init@/.ly}.
+@node Drum rolls
+@subsubsection Drum rolls
 
-Here is the list of abbreviations You can use in a drum Staff:
-
-@example
-   bda  acousticbassdrum
-   bd  bassdrum
-   ssh  hisidestick
-   ss  sidestick
-   ssl  losidestick
-   sna  acousticsnare
-   sn  snare
-   hc  handclap
-   sne  electricsnare
-   tomfl  lowfloortom
-   hhc  closedhihat
-   hh  hihat
-   tomfh  highfloortom
-   hhp  pedalhihat
-   toml  lowtom
-   hho  openhihat
-   hhho  halfopenhihat
-   tomml  lowmidtom
-   tommh  himidtom
-   cymca  crashcymbala
-   cymc  crashcymbal
-   tomh  hightom
-   cymra  ridecymbala
-   cymr  ridecymbal
-   cymch  chinesecymbal
-   rb  ridebell
-   tamb  tambourine
-   cyms  splashcymbal
-   cb  cowbell
-   cymcb  crashcymbalb
-   vibs  vibraslap
-   cymrb  ridecymbalb
-   bohm  mutehibongo
-   boh  hibongo
-   boho  openhibongo
-   bolm  mutelobongo
-   bol  lobongo
-   bolo  openlobongo
-   cghm  mutehiconga
-   cglm  muteloconga
-   cgho  openhiconga
-   cgh  hiconga
-   cglo  openloconga
-   cgl  loconga
-   timh  hitimbale
-   timl  lotimbale
-   agh  hiagogo
-   agl  loagogo
-   cab  cabasa
-   mar  maracas
-   whs  shortwhistle
-   whl  longwhistle
-   guis  shortguiro
-   guil  longguiro
-   gui  guiro
-   cl  claves
-   wbh  hiwoodblock
-   wbl  lowoodblock
-   cuim  mutecuica
-   cuio  opencuica
-   trim  mutetriangle
-   tri  triangle
-   trio  opentriangle
-   tt  tamtam
-   ua  oneup
-   ub  twoup
-   uc  threeup
-   ud  fourup
-   ue  fiveup
-   da  onedown
-   db  twodown
-   dc  threedown
-   dd  fourdown
-   de  fivedown
-@end example
-
-Note that the normal notation of pitches in a @code{DrumStaff}
-will cause an error message.
-
-
-
-Drum rolls are indicated with three slashes across the stem.
-For quarter notes or longer the three slashes are shown explicitly,
-eighth notes are shown with two slashes (the beam being the third),
-and drum rolls shorter than eighths have one stem slash to
+Drum rolls are indicated with three slashes across the stem.  For
+quarter notes or longer the three slashes are shown explicitly,
+eighth notes are shown with two slashes (the beam being the
+third), and drum rolls shorter than eighths have one stem slash to
 supplement the beams.  This is achieved with the tremolo notation,
-@code{:32}, see @ref{Tremolo repeats}.  Here's an example of
-some snare rolls:
+@code{:32}, as described in @ref{Tremolo repeats}.  Here is an
+example of some snare rolls:
 
-@lilypond[quote,ragged-right,verbatim]
-\new DrumStaff
-\drummode {
+@lilypond[quote,verbatim]
+\drums {
   \time 2/4
-  sn16 sn8 sn16 sn8 sn8:32~ |
-  sn8 sn8 sn4:32~ |
-  sn4 sn8 sn16 sn16 |
-  sn4 r4 |
+  sn16 sn8 sn16 sn8 sn8:32 ~
+  sn8 sn8 sn4:32 ~
+  sn4 sn8 sn16 sn16
+  sn4 r4
 }
 @end lilypond
 
@@ -185,68 +130,90 @@ Sticking can be indicated by placing @code{^"R"} or @code{^"L"}
 after the note.  The @code{staff-padding} property may be
 overridden to achieve a pleasing baseline.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,verbatim]
 \drums {
-	\repeat "unfold" 2 { sn16 ^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L"  sn^"R" sn^"R" }
-				
+  \repeat unfold 2 {
+    sn16 ^"L" sn^"R" sn^"L" sn^"L" sn^"R" sn^"L"  sn^"R" sn^"R"
+  }
 }
 @end lilypond
 
+@seealso
+
+Snippets: @rlsr{Percussion}.
+
+
+@node Pitched percussion
+@subsubsection Pitched percussion
+
+Certain pitched percussion instruments (e.g. xylophone,
+vibraphone, and timpani) are written using with normal staffs.
+This is covered in other sections of the manual.
 
 @seealso
 
-Internals Reference: @rinternals{note-event}.
+@c TODO: possibly link to an alternate section of NR 3.5, if
+@c "percussion in MIDI" gets a separate subsubsection for
+@c pitched percussion sounds.  -gp
+Notation Reference: @ref{Percussion in MIDI}.
+
+Snippets: @rlsr{Percussion}.
+
 
 @node Percussion staves
 @subsubsection Percussion staves
+
 @cindex percussion
 @cindex drums
 
 A percussion part for more than one instrument typically uses a
-multiline staff where each position in the staff refers to one piece
-of percussion.
+multiline staff where each position in the staff refers to one
+piece of percussion.  To typeset the music, the notes must be
+interpreted in @code{DrumStaff} and @code{DrumVoice} context.
 
-
-To typeset the music, the notes must be interpreted in a
-@rinternals{DrumStaff} and @rinternals{DrumVoice} contexts
-
-@lilypond[quote,ragged-right,verbatim]
-up = \drummode { crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat }
-down = \drummode { bassdrum4 snare8 bd r bd sn4 }
-  \new DrumStaff <<
-    \new DrumVoice { \voiceOne \up }
-    \new DrumVoice { \voiceTwo \down }
-  >>
+@lilypond[quote,verbatim]
+up = \drummode {
+  crashcymbal4 hihat8 halfopenhihat hh hh hh openhihat
+}
+down = \drummode {
+  bassdrum4 snare8 bd r bd sn4
+}
+\new DrumStaff <<
+  \new DrumVoice { \voiceOne \up }
+  \new DrumVoice { \voiceTwo \down }
+>>
 @end lilypond
 
 The above example shows verbose polyphonic notation.  The short
 polyphonic notation, described in @rlearning{I'm hearing Voices},
-can also be used if the @rinternals{DrumVoice}s are instantiated
-by hand first.  For example,
+can also be used if the voices are instantiated by hand first.
+For example,
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,verbatim]
 \new DrumStaff <<
-  \new DrumVoice = "1" { s1 *2 }
-  \new DrumVoice = "2" { s1 *2 }
+  \new DrumVoice = "1" { s1*2 }
+  \new DrumVoice = "2" { s1*2 }
   \drummode {
     bd4 sn4 bd4 sn4
-    <<
-      { \repeat unfold 16 hh16 }
-      \\
-      { bd4 sn4 bd4 sn4 }
-    >>
+    << {
+      \repeat unfold 16 hh16
+    } \\ {
+      bd4 sn4 bd4 sn4
+    } >>
   }
 >>
 @end lilypond
 
-
 There are also other layout possibilities.  To use these, set the
-property @code{drumStyleTable} in context @rinternals{DrumVoice}.
-The following variables have been predefined
+property @code{drumStyleTable} in context @code{DrumVoice}.  The
+following variables have been predefined:
 
+@c FIXME: decide what to do about this table.  (ie verbatim or not)
 @table @code
+
 @item drums-style
-This is the default.  It typesets a typical drum kit on a five-line staff
+This is the default.  It typesets a typical drum kit on a
+five-line staff:
 
 @lilypond[quote,line-width=10.0\cm]
 nam = \lyricmode {
@@ -275,13 +242,13 @@ mus = \drummode {
 }
 @end lilypond
 
-The drum scheme supports six different toms.  When there are fewer toms,
-simply select the toms that produce the desired result, i.e., to get toms
-on the three middle lines you use @code{tommh}, @code{tomml}, and
-@code{tomfh}.
+The drum scheme supports six different toms.  When there are fewer
+toms, simply select the toms that produce the desired result.  For
+example, to get toms on the three middle lines you use
+@code{tommh}, @code{tomml}, and @code{tomfh}.
 
 @item timbales-style
-This typesets timbales on a two line staff
+This typesets timbales on a two line staff:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { timh ssh timl ssl cb }
@@ -306,7 +273,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
 @end lilypond
 
 @item congas-style
-This typesets congas on a two line staff
+This typesets congas on a two line staff:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { cgh cgho cghm ssh cgl cglo cglm ssl }
@@ -332,7 +299,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
 @end lilypond
 
 @item bongos-style
-This typesets bongos on a two line staff
+This typesets bongos on a two line staff:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { boh boho bohm ssh bol bolo bolm ssl }
@@ -358,7 +325,7 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
 @end lilypond
 
 @item percussion-style
-To typeset all kinds of simple percussion on one line staves.
+To typeset all kinds of simple percussion on one line staves:
 
 @lilypond[quote,ragged-right]
 nam = \lyricmode { tri trio trim gui guis guil cb cl tamb cab mar hc }
@@ -381,10 +348,14 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 @end lilypond
 @end table
 
-If you do not like any of the predefined lists you can define your own
-list at the top of your file
 
-@lilypond[quote,ragged-right,verbatim]
+@node Custom percussion staves
+@subsubsection Custom percussion staves
+
+If you do not like any of the predefined lists you can define your
+own list at the top of your file.
+
+@lilypond[quote,verbatim]
 #(define mydrums '(
          (bassdrum     default   #f         -1)
          (snare        default   #f         0)
@@ -402,16 +373,149 @@ down = \drummode { bd4 sn bd toml8 toml }
 @end lilypond
 
 
+@snippets
+
+FIXME: MOVE ALL THESE TO LSR!  -gp
+
+Here are some examples:
+
+Two Woodblocks, entered with wbh (high woodblock) and wbl (low woodblock)
+
+@lilypond[quote,verbatim]
+#(define mydrums '(
+         (hiwoodblock     default   #t        3)
+         (lowoodblock       default   #t        -2)))
+	 %% These lines define the position of the woodblocks in the stave, if You like, You can change it 
+	 % or You can use  special note heads for the woodblocks.
+	 woodstaff = { \override Staff.StaffSymbol #'line-positions = #'(-2 3)  
+% this defines a staff with only two lines. It also defines the positions of the two lines
+	 \override Staff.BarLine #'bar-size  = #3 }
+	 %% this is neccessary. If not entered, the barline wuld be too short!
+ 
+ \new DrumStaff  {
+	 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+	 %% with this You load Your new drum style table
+	 \woodstaff 
+	 \drummode {
+	\time 2/4
+	wbl8 wbl16 wbl wbh 8 -> wbl |
+	wbl 8 wbl16  wbh ~ -> wbh wbl 16 r8 |
+	 }
+}
+@end lilypond
+
 @seealso
 
-Init files: @file{ly/@/drumpitch@/-init@/.ly}.
+Note that in this special case the length of the barline must
+altered with @code{\override Staff.BarLine #'bar-size #number}.
+Otherwise it would be too short. And You have also to define the
+positions of the to stafflines.  For more information about these
+delicate things have a look at @ref{Staff symbol}.
+
+
+A tambourine, entered with "tamb":
+
+@lilypond[quote,verbatim]
+ % tambourine-music is entered with "tamb"
+	tambustaff = { \override Staff.StaffSymbol #'line-positions = #'( 0 )   
+		\override Staff.BarLine #'bar-size  = #3 
+	\set DrumStaff.instrumentName="Tambourine"}
+ \new DrumStaff {
+	 \tambustaff 
+% broken
+%	 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+	 \drummode { \time 6/8
+		\repeat "unfold" 2 { tamb8. tamb16 tamb8 tamb tamb tamb | }
+		tamb4. tamb8 tamb tamb | tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
+		%% the trick with the scaled duration and the shorter rest is neccessary for the correct ending of the trill-span!
+				 }
+					 }
+
+@end lilypond 
+Music for Tam-Tam (entered with "tt"):
+
+@lilypond[quote,verbatim]
+ #(define mydrums '(
+         (tamtam     default   #t      0) ) )
+	tamtamstaff = { \override Staff.StaffSymbol #'line-positions = #'( 0 )   
+		\override Staff.BarLine #'bar-size  = #3 
+	\set DrumStaff.instrumentName="Tamtam"}
+ \new DrumStaff {
+	 \tamtamstaff
+	 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+	 \drummode { tt 1 \pp \laissezVibrer 
+				 } 
+					 }
+@end lilypond
+
+Two different bells, entered with "cb" (cowbell) and "rb" (ridebell)" 
+
+@lilypond[quote,verbatim]
+%% bells are enterd with:
+% "cb" (cowbell) and "rb" (ridebell)" 
+ #(define mydrums '(
+         (ridebell     default   #t        3 )
+         (cowbell       default   #t        -2)))
+	
+	 bellstaff = { \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)  
+		 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+	 \override Staff.BarLine #'bar-size  = #3   
+	 \set DrumStaff.instrumentName="Different Bells"}
+ 
+ \new DrumStaff  {
+	 \bellstaff
+	 \drummode {
+	\time 2/4
+	\repeat "unfold" 2 { rb 8 rb cb cb16  rb ~ -> | rb16  rb 8 rb 16 cb 8 cb | }
+	 }
+}
+@end lilypond
+
+Here an short example by maestro Stravinsky (from "L'hostire du Soldat")
+
+@lilypond[quote,verbatim]
+ #(define mydrums '(
+	  (bassdrum         default #t 4 ) 
+	 (snare              default #t -4 )
+         (tambourine     default   #t      0) ) )
+	 
+ global = { \time 3/8 s 4. \time 2/4 s 2 *2 \time 3/8 s 4. \time 2/4 s 2 }
+	 
+drumsA = { \context DrumVoice << {  \global }
+	{\drummode { 
+  \autoBeamOff 
+\stemDown sn 8 \stemUp tamb s8 |
+		 sn4 \stemDown sn4  |
+\stemUp tamb 8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8   |
+\stemDown sn 8 \stemUp tamb s8 |
+\stemUp sn4 s8 \stemUp tamb |
+	} } >> }
+drumsB = { \drummode { s 4 bd 8 s 2*2 s 4 bd8 s 4 bd8 s 8 } }
+	 
+\layout {
+		indent = #40
+} 
+
+ \score { 
+ \new StaffGroup
+ <<
+ \new DrumStaff 
+ {  \set DrumStaff.instrumentName= \markup { \column { "Tambourine" "et" "caisse claire s. timbre" } }
+ \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) \drumsA } 
+ \new DrumStaff 
+ { \set DrumStaff.instrumentName= "Grosse Caisse"
+ \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) \drumsB } 
+ >> 
+
+ }
+@end lilypond
+
+@seealso
+
+Snippets: @rlsr{Percussion}.
 
 Internals Reference: @rinternals{DrumStaff}, @rinternals{DrumVoice}.
 
-@knownissues
-
-Because general MIDI does not contain rim shots, the sidestick is used
-for this purpose instead.
 
 
 @c TODO: check name -gp
@@ -419,10 +523,9 @@ for this purpose instead.
 @subsubsection Ghost notes
 
 Ghost notes for drums and percussion may be created using the
-@code{\parenthesize} command detailed in @ref{Parentheses}.  However,
-the default @code{\drummode} does
-not include the @code{Parenthesis_engraver} plugin which allows
-this.
+@code{\parenthesize} command detailed in @ref{Parentheses}.
+However, the default @code{\drummode} does not include the
+@code{Parenthesis_engraver} plugin which allows this.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \new DrumStaff \with {
@@ -434,8 +537,8 @@ this.
     <<
       {
         hh8[ hh] <hh sn> hh16
-        < \parenthesize sn > hh < \parenthesize
-        sn > hh8 <hh sn> hh
+        < \parenthesize sn > hh
+        < \parenthesize sn > hh8 <hh sn> hh
       } \\ {
         bd4 r4 bd8 bd r8 bd
       }
@@ -448,5 +551,8 @@ this.
 Also note that you must add chords (@code{< >} brackets)
 around each @code{\parenthesize} statement.
 
+@seealso
+
+Snippets: @rlsr{Percussion}.
 
 

@@ -14,15 +14,16 @@
 
 @menu
 * Chord name chart::            
-* Common chord modifiers::
-* Predefined fretboard diagrams::
+* Common chord modifiers::      
+* Predefined fretboard diagrams::  
 * MIDI instruments::            
 * List of colors::              
 * The Feta font::               
 * Note head styles::            
 * Text markup commands::        
-* Text markup list commands::   
+* Text markup list commands::
 * List of articulations::       
+* Percussion notes::            
 * All context properties::      
 * Layout properties::           
 * Identifiers::                 
@@ -377,9 +378,7 @@ TODO
 
 The chart below shows the predefined fretboard diagrams.
 
-@ignore
-@lilypondfile{predefined-fretboard-diagrams.ly}
-@end ignore
+@lilypondfile{display-predefined-fretboards.ly}
 
 @node MIDI instruments
 @appendixsec MIDI instruments
@@ -595,8 +594,13 @@ The following styles may be used for note heads.
 
 Here is a chart showing all scripts available,
 
-@lilypondfile[ragged-right,quote]{script-chart.ly}
+@lilypondfile[quote]{script-chart.ly}
 
+
+@node Percussion notes
+@appendixsec Percussion notes
+
+@lilypondfile[quote]{percussion-chart.ly}
 
 
 @node All context properties

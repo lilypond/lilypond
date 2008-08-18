@@ -73,6 +73,15 @@
 @c NOTE: This is documentation-generate.scm, not macros.itexi
 
 
+@macro q{TEXT}
+@quoteleft{}\\TEXT\\@quoteright{}
+@end macro
+
+@macro qq{TEXT}
+@quotedblleft{}\\TEXT\\@quotedblright{}
+@end macro
+
+
 @ifhtml
 @c ***** HTML *****
 
@@ -83,22 +92,12 @@
 @cindex \\TEXT\\
 @end macro
 
-@macro glossaryref{TEXT}
-@vindex \\TEXT\\
-@ref{\\TEXT\\,,,music-glossary-big-page,Music Glossary}
-@end macro
-
 @end ifset
 
 @ifclear bigpage
 
 @macro ruser{NAME}
-@ref{\\NAME\\,,,lilypond}
-@cindex \\NAME\\
-@end macro
-
-@macro glossaryref{NAME}
-@ref{\\NAME\\,,,music-glossary}
+@ref{\\NAME\\,,,lilypond,Notation Reference}
 @cindex \\NAME\\
 @end macro
 
@@ -108,11 +107,6 @@
 @uref{source/\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
 @end macro
 
-@macro q{TEXT}
-@html
-&lsquo;\\TEXT\\&rsquo;
-@end html
-@end macro
 @end ifhtml
 
 
@@ -120,7 +114,7 @@
 @c ***** info *****
 
 @macro ruser{NAME}
-@ref{\\NAME\\,,,lilypond}
+@ref{\\NAME\\,,,lilypond,Notation Reference}
 @cindex \\NAME\\
 @end macro
 
@@ -128,9 +122,6 @@
 @file{\\DIR\\/\\NAME\\}
 @end macro
 
-@macro q{TEXT}
-`\\TEXT\\'
-@end macro
 @end ifinfo
 
 
@@ -145,9 +136,6 @@
 @file{\\DIR\\/\\NAME\\}@c
 @end macro
 
-@macro q{TEXT}
-`\\TEXT\\'
-@end macro
 @end iftex
 
 
