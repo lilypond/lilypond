@@ -427,7 +427,7 @@ Line thickness is given by @var{th}, fret & string spacing by
 
 (define-builtin-markup-command (fret-diagram-verbose layout props marking-list)
   (list?) ; argument type
-  fret-diagram ; markup type
+  instrument-specific-markup ; markup type
   ((align-dir -0.4) ; properties and defaults
    (size 1.0)
    (fret-diagram-details)
@@ -585,7 +585,7 @@ indications per string.
 
 (define-builtin-markup-command (fret-diagram layout props definition-string)
   (string?) ; argument type
-  fret-diagram ; markup category
+  instrument-specific-markup ; markup category
   (fret-diagram-verbose-markup) ; properties and defaults
   "Make a (guitar) fret diagram.  For example, say
 
@@ -751,7 +751,7 @@ Note: There is no limit to the number of fret indications per string.
 (define-builtin-markup-command
   (fret-diagram-terse layout props definition-string)
   (string?) ; argument type
-  fret-diagram ; markup category
+  instrument-specific-markup ; markup category
   (fret-diagram-verbose-markup) ; properties
   "Make a fret diagram markup using terse string-based syntax.
 

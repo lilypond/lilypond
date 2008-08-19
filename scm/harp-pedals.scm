@@ -26,7 +26,7 @@
 
 
 (define-builtin-markup-command (harp-pedal layout props definition-string) (string?)
-  music ; markup type for the documentation!
+  instrument-specific-markup ; markup type for the documentation!
   ((size 1.0)
    (harp-pedal-details)
    (thickness 0.5))
