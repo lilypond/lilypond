@@ -47,41 +47,43 @@ accidental.
 
 For determining when to print an accidental, several different rules
 are tried.  The rule that gives the highest number of accidentals is
-used.  Each rule consists of
+used.
+
+Each entry in the list is either a symbol or a procedure.
 
 @table @var
 
-@item context
-In which context is the rule applied.  For example, if @var{context}
-is @rinternals{Score} then all staves share accidentals, and if
-@var{context} is @rinternals{Staff} then all voices in the same staff
-share accidentals, but staves do not.
+@item symbol
+The symbol is the name of the context in which the following rules are to be
+applied. For example, if @var{context} is @internalsref{Score} then all
+staves share accidentals, and if @var{context} is @internalsref{Staff} then
+all voices in the same staff share accidentals, but staves do not.
 
-@item octavation
-Whether the accidental changes all octaves or only the current octave.
-Valid choices are 
+@item procedure
+The procedure represents an accidental rule to be applied to the previously
+specified context.
+
+The procedure takes the following arguments:
 
 @table @code
 
-@item same-octave
-This is the default algorithm.  Accidentals are typeset if the note
-changes the accidental of that note in that octave.  Accidentals lasts
-to the end of the measure and then as many measures as specified in the
-value.  This is, @code{1}@tie{}means to the end of next measure,
-@code{-1}@tie{}means to the end of previous measure (that is: no
-duration at all), etc.  @code{#t} means forever.
+@item context
+The current context to which the rule should be applied.
 
-@item any-octave
-Accidentals are typeset if the note is different from the previous note
-on the same pitch in any octave.  The value has same meaning as in
-@code{same-octave}.
+@item pitch
+The pitch of the note to be evaluated.
+
+@item barnum
+The current bar number.
+
+@item measurepos
+The current measure position.
 
 @end table
 
-@item laziness
-Over how many bar lines the accidental lasts.  If @var{laziness} is
-@code{-1} then the accidental is forgotten immediately, and if
-@var{laziness} is @code{#t} then the accidental lasts forever.
+The procedure returns a pair of booleans. The first states whether an extra
+natural should be added. The second states whether an accidental should be
+printed. @code{(#t . #f)} does not make sense.
 
 @end table")
      (autoBeamCheck ,procedure? "A procedure taking three
@@ -546,8 +548,8 @@ instrument name to.")
 signature change.")
      (localKeySignature ,list? "The key signature at this point in the
 measure.  The format is the same as for @code{keySignature}, but can
-also contain @code{((@var{octave} . @var{name}) . (@var{alter} .
-@var{barnumber}))} pairs.")
+also contain @code{((@var{octave} . @var{name}) . (@var{alter}
+@var{barnumber} . @var{measureposition}))} pairs.")
 
 
      (melismaBusy ,boolean? "Signifies whether a melisma is active.

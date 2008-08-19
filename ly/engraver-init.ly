@@ -548,7 +548,7 @@ automatically when an output definition (a @code{\score} or
   subdivideBeams = ##f
   allowBeamBreak = ##f
   extraNatural = ##t
-  autoAccidentals = #'(Staff (same-octave . 0))
+  autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave 0))
   autoCautionaries = #'()  
 
   printKeyCancellation = ##t
@@ -906,7 +906,7 @@ accommodated for typesetting a piece in mensural style."
   %% Accidentals are valid only once (same as
   %% #(set-accidental-style 'forget))
   extraNatural = ##f
-  autoAccidentals = #'(Staff (same-octave . -1))
+  autoAccidentals = #`(Staff ,(make-accidental-rule 'same-octave -1))
   autoCautionaries = #'()  
   printKeyCancellation = ##f
 }
