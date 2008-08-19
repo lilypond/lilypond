@@ -1680,6 +1680,179 @@ musicB = {
 }
 @end lilypond
 
+
+@item neo-modern
+
+@funindex neo-modern
+@cindex neo-modern accidental style
+@cindex accidental style, neo-modern
+
+This rule reproduces a common practice in contemporary music:
+accidentals are printed like with @code{modern}, but they are printed
+again if the same note appears later in the same measure -- except
+if the note is immediately repeated.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-cautionary
+
+@funindex neo-modern-cautionary
+@cindex neo-modern-cautionary accidental style
+@cindex accidental style, neo-modern-cautionary
+
+This rule is similar to @code{neo-modern}, but the extra
+accidentals are printed as cautionary accidentals.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item dodecaphonic
+
+@funindex dodecaphonic
+@cindex dodecaphonic accidental style
+@cindex dodecaphonic style, neo-modern
+
+This rule reflects a practice introduced by composers at
+the beginning of the 20th century, in an attempt to
+abolish the hierarchy between natural and non-natural notes.
+With this style, @emph{every} note gets an accidental sign,
+including natural signs.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'dodecaphonic)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'dodecaphonic)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
 @item no-reset
 
 @funindex no-reset
@@ -1744,7 +1917,8 @@ musicB = {
 This is the opposite of @code{no-reset}: Accidentals are not
 remembered at all -- and hence all accidentals are typeset
 relative to the key signature, regardless of what came before in
-the music:
+the music.  Unlike @code{dodecaphonic}, this rule never prints
+any naturals.
 
 @lilypond[quote]
 musicA = {
