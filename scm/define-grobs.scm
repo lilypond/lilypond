@@ -1860,6 +1860,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (text-script-interface
 				text-interface
+				instrument-specific-markup-interface
 				side-position-interface
 				font-interface))))))
 
