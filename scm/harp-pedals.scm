@@ -5,25 +5,6 @@
 ;;;; (c) 2008 Reinhold Kainhofer <reinhold@kainhofer.com>
 
 
-;;;; More verbose version, which takes a list of directions. It's commented
-;;;; out, because it has some issues (see below) and does not add any new
-;;;; functionality over \harp-pedal
-;; (define-builtin-markup-command (harp-pedal-verbose layout props pedal-list) (list?)
-;;   music ; markup type
-;;   ((size 1.0)
-;;    (harp-pedal-details)
-;;    (thickness 0.5))
-;;   "Make a harp pedal diagram containing the directions indicated in @var{pedal-list}.
-;;
-;;   For example,
-;;
-;; @example
-;; \\markup \\pedal-diagram-verbose #'(1 0 -1 #\\| 0 0 1 1)
-;; \\markup \\pedal-diagram-verbose #(list UP CENTER DOWN #\\| CENTER CENTER UP UP)
-;; @end example
-;; "
-;;   (make-harp-pedal layout props pedal-list))
-
 
 (define-builtin-markup-command (harp-pedal layout props definition-string) (string?)
   instrument-specific-markup ; markup type for the documentation!
@@ -69,20 +50,31 @@ divider) and @code{space-after-divider} (box spacing after the divider).
 \\markup \\harp-pedal #\"^-v|--ov^\"
 @end lilypond
 "
+  (make-harp-pedal layout props (harp-pedals-parse-string definition-string)))
 
-;; There is also a \harp-pedal-verbose version, which
-;; takes a list of -1/0/1 directions and a possible |. Unfortunately, it has some
-;; caveats:
+
+;; There is also a \harp-pedal-verbose version, which takes a list of -1/0/1
+;; directions, o and a possible |. It's commented out, because it has some
+;; issues (see below) and does not add any new functionality over \harp-pedal
+;; The caveats:
 ;;   1) the | cannot be given as a string "|" but as a character #\| and
 ;;      the "o" has to be given as #\o.
 ;;   2) if one wants to use directions like UP, CENTER or DOWN, one cannot use
 ;;      '(UP DOWN CENTER #\| ....), because the contents of that list are
 ;;      never evaluated to -1/0/1. Instead one has to explicitly create a
 ;;      list like (list UP DOWN CENTER #\| ....)
+;;
+;; (define-builtin-markup-command (harp-pedal-verbose layout props pedal-list) (list?)
+;;   instrument-specific-markup ; markup type
+;;   ((size 1.0)
+;;    (harp-pedal-details)
+;;    (thickness 0.5))
+;;   "Make a harp pedal diagram containing the directions indicated in @var{pedal-list}."
+;;   (make-harp-pedal layout props pedal-list))
 
-  (make-harp-pedal layout props (harp-pedals-parse-string definition-string)))
 
 
+;; Parse the harp pedal definition string into list of directions (-1/0/1), #\o and #\|
 (define (harp-pedals-parse-string definition-string)
  "Parse a harp pedals diagram string and return a list containing 1, 0, -1, #\\o or #\\|"
   (map (lambda (c)
@@ -94,6 +86,8 @@ divider) and @code{space-after-divider} (box spacing after the divider).
       (else c)))
     (string->list definition-string)))
 
+
+;; Analyze the pedal-list: Return (pedalcount . (divider positions))
 (define (harp-pedal-info pedal-list)
   (let check ((pedals pedal-list)
               (pedalcount 0)
@@ -106,6 +100,8 @@ divider) and @code{space-after-divider} (box spacing after the divider).
         ((#\|)    (check (cdr pedals) pedalcount (cons pedalcount dividerpositions)))
         (else     (check (cdr pedals) pedalcount dividerpositions))))))
 
+
+;; Sanity checks, spit out warning if pedal-list violates the conventions
 (define (harp-pedal-check pedal-list)
   "Perform some sanity checks for harp pedals (7 pedals, divider after third)"
   (let ((info (harp-pedal-info pedal-list)))
@@ -122,8 +118,6 @@ divider) and @code{space-after-divider} (box spacing after the divider).
 (define (make-harp-pedal layout props pedal-list)
   "Make a harp pedals diagram markup"
 
-
-  ; FIXME the size variable should be defined by a prop. lookup
   (harp-pedal-check pedal-list)
 
   (let* ((size (chain-assoc-get 'size props 1.2))
@@ -148,7 +142,7 @@ divider) and @code{space-after-divider} (box spacing after the divider).
                                      (space spacebeforedivider))
           ; Terminal condition of the recursion, return (final-x . stencil-list)
           (if (null? remaining)
-            (cons (+ prev-x space) stencils)
+            (cons (+ prev-x space) (reverse stencils))
 
             (case (car remaining)
               ((1 0 -1)  ; Pedal up/neutral/down
@@ -171,7 +165,7 @@ divider) and @code{space-after-divider} (box spacing after the divider).
                   (ly:warning "Unhandled entry in harp-pedal: ~a" (car remaining))
                   (process-pedal (cdr remaining) prev-x stencils circled space))))))
         (final-x (car result))
-        (stencils (reverse (cdr result))))
+        (stencils (cdr result)))
     ; Add the horizontal line and combine all stencils:
     (apply ly:stencil-add
       (cons
