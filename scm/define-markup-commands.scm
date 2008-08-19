@@ -42,13 +42,7 @@ A simple line.
                thickness))
         (x (car dest))
         (y (cdr dest)))
-    (ly:make-stencil
-     `(draw-line
-       ,th
-       0 0
-       ,x ,y)
-     (cons (min x 0) (max x 0))
-     (cons (min y 0) (max y 0)))))
+    (make-line-stencil th 0 0 x y)))
 
 (define-builtin-markup-command (draw-circle layout props radius thickness fill)
   (number? number? boolean?)
@@ -206,10 +200,7 @@ thickness and y offset.
          (x1 (car (ly:stencil-extent markup X)))
          (x2 (cdr (ly:stencil-extent markup X)))
          (y (* thick -2))
-         (line (ly:make-stencil
-                `(draw-line ,thick ,x1 ,y ,x2 ,y)
-                (cons (min x1 0) (max x2 0))
-                (cons thick thick))))
+         (line (make-line-stencil thick x1 y x2 y)))
     (ly:stencil-add markup line)))
 
 (define-builtin-markup-command (box layout props arg)
@@ -2530,11 +2521,9 @@ and continue with double letters.
          (num-y (interval-widen (cons center center) (abs dy)))
          (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
          (slash-stencil (if is-sane
-                            (ly:make-stencil
-                             `(draw-line ,thickness
-                                         ,(car num-x) ,(- (interval-center num-y) dy)
-                                         ,(cdr num-x) ,(+ (interval-center num-y) dy))
-                             num-x num-y)
+                            (make-line-stencil thickness 
+                                         (car num-x) (- (interval-center num-y) dy)
+                                         (cdr num-x) (+ (interval-center num-y) dy))
                             #f)))
     (if (ly:stencil? slash-stencil)
       (begin

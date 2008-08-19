@@ -148,10 +148,9 @@ installextradoc:
 	-$(INSTALLPY) -d $(DESTDIR)$(prefix)/doc/$(package)
 	cp -r $(EXTRA_DOC_FILES) $(prefix)/doc/$(package)
 
-include $(outdir)/dummy.dep $(wildcard $(outdir)/*.dep) # expect a warning here
+-include $(outdir)/dummy.dep $(wildcard $(outdir)/*.dep)
 
 $(outdir)/dummy.dep:
-	@echo please ignore innocent warning about dummy.dep
 	-mkdir -p $(outdir)
 	touch $(outdir)/dummy.dep
 	echo '*' > $(outdir)/.gitignore

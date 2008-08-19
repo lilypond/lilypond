@@ -328,6 +328,12 @@ indicate a raised 6th step.
 \new FiguredBass \figuremode { < 6\\ 5\\ > < 6/ > }
 @end lilypond
 
+@item Harp pedalling diagrams were added:
+
+@lilypond
+\markup \harp-pedal #"^v-|vv-o^"
+@end lilypond
+
 @end itemize
 
 

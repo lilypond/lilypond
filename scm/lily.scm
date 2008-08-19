@@ -338,6 +338,7 @@ The syntax is the same as `define*-public'."
 	    "encoding.scm"
 	    
 	    "fret-diagrams.scm"
+	    "harp-pedals.scm"
 	    "predefined-fretboards.scm"
             "define-markup-commands.scm"
 	    "define-grob-properties.scm"
