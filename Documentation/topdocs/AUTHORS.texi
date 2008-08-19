@@ -47,7 +47,7 @@ al-niente hairpins.
     Tablature support.
 @item @email{wl@@gnu.org, Werner Lemberg},
     @TeX{} glue code.
-@item @email{joeneeman@gmail.com, Joe Neeman}, 
+@item @email{joeneeman@@gmail.com, Joe Neeman}, 
     Constrained line breaking.
 @item @email{hanwen@@xs4all.nl, Han-Wen Nienhuys}, 
     @uref{http://www.xs4all.nl/~hanwen/},
