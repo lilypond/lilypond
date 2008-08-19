@@ -1187,6 +1187,12 @@ of the @code{#'direction} layout property.
                baseline-skip
                (interpret-markup-list layout props args)))
 
+(define (general-column align-dir baseline mols)
+  "Stack @var{mols} vertically, aligned to  @var{align-dir} horizontally."
+  
+  (let* ((aligned-mols (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols)))
+    (stack-lines -1 0.0 baseline aligned-mols)))
+
 (define-builtin-markup-command (center-align layout props args)
   (markup-list?)
   align
@@ -1205,9 +1211,47 @@ Put @code{args} in a centered column.
   }
 }
 @end lilypond"
-  (let* ((mols (interpret-markup-list layout props args))
-         (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
-    (stack-lines -1 0.0 baseline-skip cmols)))
+  (general-column CENTER baseline-skip (interpret-markup-list layout props args)))
+
+(define-builtin-markup-command (left-column layout props args)
+  (markup-list?)
+  align
+  ((baseline-skip))
+ "
+@cindex text columns, left-aligned 
+
+Put @code{args} in a left-aligned column.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\left-column {
+    one
+    two
+    three
+  }
+}
+@end lilypond"
+  (general-column LEFT baseline-skip (interpret-markup-list layout props args)))
+
+(define-builtin-markup-command (right-column layout props args)
+  (markup-list?)
+  align
+  ((baseline-skip))
+ "
+@cindex text columns, right-aligned
+
+Put @code{args} in a right-aligned column.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\right-column {
+    one
+    two
+    three
+  }
+}
+@end lilypond"
+  (general-column RIGHT baseline-skip (interpret-markup-list layout props args)))
 
 (define-builtin-markup-command (vcenter layout props arg)
   (markup?)
