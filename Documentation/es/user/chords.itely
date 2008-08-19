@@ -798,7 +798,7 @@ Fragmentos de código:
 @rlsr{Chords}.
 
 Referencia de funcionamiento interno:
-@rinternals{NewBassFigure},
+@rinternals{BassFigure},
 @rinternals{BassFigureAlignment},
 @rinternals{BassFigureLine},
 @rinternals{BassFigureBracket},
@@ -928,7 +928,7 @@ instead of
 @rlsr{Figured Bass}.
 
 Referencia de funcionamiento interno:
-@rinternals{NewBassFigure},
+@rinternals{BassFigure},
 @rinternals{BassFigureAlignment},
 @rinternals{BassFigureLine},
 @rinternals{BassFigureBracket},
