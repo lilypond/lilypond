@@ -7,6 +7,7 @@ OUT_PNG_IMAGES=$(SOURCE_PNG_IMAGES:$(top-src-dir)/Documentation/user/%.png=$(out
 
 TELY_FILES := $(call src-wildcard,*.tely)
 MASTER_TEXI_FILES := $(TELY_FILES:%.tely=$(outdir)/%.texi)
+BIG_PAGE_HTML_FILES := $(BIG_PAGE_MANUALS:%=$(outdir)/%-big-page.html)
 DEEP_HTML_FILES := $(TELY_FILES:%.tely=$(outdir)/%/index.html)
 PDF_FILES := $(TELY_FILES:%.tely=$(outdir)/%.pdf)
 
