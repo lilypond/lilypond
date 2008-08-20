@@ -355,12 +355,12 @@
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@code{\TEXT\}
+@ref{\TEXT\,,,lilypond-internals,Programmreferenz}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@code{\DISPLAY\}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Programmreferenz}
 @end macro
 
 @end iftex

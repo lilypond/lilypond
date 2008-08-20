@@ -373,12 +373,12 @@
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@code{\TEXT\}
+@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@code{\DISPLAY\}
+@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
 @end macro
 
 @end iftex

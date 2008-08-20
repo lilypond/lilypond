@@ -24,7 +24,8 @@ HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
  $(outdir)/lilypond-internals-big-page.html
 
 # todo: add latex.
-PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
+PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)\
+ $(outdir)/lilypond-internals.pdf
 
 MAIN_INFO_DOC = lilypond
 INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program lilypond-learning

@@ -326,12 +326,12 @@ program usage manual, @ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@code{\TEXT\}
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@code{\DISPLAY\}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
 @end macro
 
 @end iftex
