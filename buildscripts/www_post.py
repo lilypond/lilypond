@@ -10,7 +10,12 @@ import sys
 import os
 import re
 
-package_name, package_version, buildscript_dir, outdir, targets = sys.argv[1:]
+import langdefs
+
+import mirrortree
+import add_html_footer
+
+package_name, package_version, outdir, targets = sys.argv[1:]
 targets = targets.split (' ')
 outdir = os.path.normpath (outdir)
 doc_dirs = ['input', 'Documentation', outdir]
@@ -29,8 +34,6 @@ static_files = {
 <html><body>Redirecting to the documentation index...</body></html>\n'''
     }
 
-import langdefs
-
 for l in langdefs.LANGUAGES:
     static_files[os.path.join ('Documentation', 'user', outdir, l.file_name ('index', '.html'))] = \
                                   '<META HTTP-EQUIV="refresh" content="0;URL=../' + l.file_name ('index', '.html') + \
@@ -38,11 +41,6 @@ for l in langdefs.LANGUAGES:
 
 for f, contents in static_files.items ():
     open (f, 'w').write (contents)
-
-
-sys.path.append (buildscript_dir)
-import mirrortree
-import add_html_footer
 
 sys.stderr.write ("Mirrorring...\n")
 dirs, symlinks, files = mirrortree.walk_tree (

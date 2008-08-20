@@ -86,14 +86,14 @@ fix-xrefs:
 	$(DOCUMENTS_INCLUDES) $(buildscript-dir)/manuals_definitions.py
 
 check-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(CHECKED_FILES)
+	$(PYTHON) $(buildscript-dir)/check_translation.py $(CHECKED_FILES)
 
 update-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(buildscript-dir) $(CHECKED_FILES)
+	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(CHECKED_FILES)
 
 translation-status:
 	make -C po out=www messages
-	$(PYTHON) $(buildscript-dir)/translations-status.py $(buildscript-dir)
+	$(PYTHON) $(buildscript-dir)/translations-status.py
 
 local-help: extra-local-help
 

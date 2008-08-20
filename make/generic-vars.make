@@ -18,6 +18,7 @@ mi2mu-dir = $(src-depth)/mi2mu
 make-dir = $(src-depth)/make
 include-flower = $(src-depth)/flower/include
 
+export PYTHONPATH:=$(buildscript-dir):$(PYTHONPATH)
 
 LILYPOND_INCLUDES = $(include-flower) $(depth)/flower/$(outdir)
 

@@ -5,6 +5,9 @@ import optparse
 import os
 import sys
 
+import langdefs
+import buildlib
+
 verbose = 0
 lang = 'C'
 C = lang
@@ -53,7 +56,7 @@ def do_file (file_name, lang_codes, buildlib):
 def usage ():
     sys.stdout.write (r'''
 Usage:
-check-translation [--language=LANG] [--verbose] [--update] BUILDSCRIPT-DIR FILE...
+check-translation [--language=LANG] [--verbose] [--update] FILE...
 
 This script is licensed under the GNU GPL.
 ''')
@@ -83,20 +86,17 @@ def do_options ():
     lang = options.language
     update_mode = options.update_mode
     
-    return (files[0], files[1:])
+    return files
 
 def main ():
     global update_mode, text_editor
 
-    import_path, files = do_options ()
+    files = do_options ()
     if 'EDITOR' in os.environ:
         text_editor = os.environ['EDITOR']
     else:
         update_mode = False
     
-    sys.path.append (import_path)
-    import langdefs
-    import buildlib
     buildlib.verbose = verbose
 
     for i in files:
