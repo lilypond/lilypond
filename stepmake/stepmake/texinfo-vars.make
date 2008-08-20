@@ -13,10 +13,16 @@ TEXINFO_PAPERSIZE_OPTION= $(if $(findstring $(PAPERSIZE),a4),,-t @afourpaper)
 MAKEINFO_FLAGS = --enable-encoding
 MAKEINFO = LANG= $(MAKEINFO_PROGRAM) $(MAKEINFO_FLAGS)
 
+# texi2html xref map files
+XREF_MAPS_DIR=$(top-build-dir)/out/xref-maps
+XREF_MAPS_FILES=$(INFO_DOCS:%=$(XREF_MAPS_DIR)/%.xref-map)
+
+# texi2html flags
 ifneq ($(ISOLANG),) 
 TEXI2HTML_LANG = --lang=$(ISOLANG)
 endif
-TEXI2HTML_FLAGS += --css-ref=lilypond.css $(DOCUMENTATION_INCLUDES)
+TEXI2HTML_FLAGS += --css-ref=lilypond.css $(DOCUMENTATION_INCLUDES) \
+  --I=$(XREF_MAPS_DIR)
 TEXI2HTML_INIT = --init-file=$(top-src-dir)/lilypond-texi2html.init
 TEXI2HTML = $(TEXI2HTML_PROGRAM) $(TEXI2HTML_FLAGS) $(TEXI2HTML_LANG)
 

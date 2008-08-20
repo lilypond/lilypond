@@ -2,7 +2,7 @@
 
 default: $(INFO_FILES)
 
-local-WWW-2: $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.html))
+local-WWW-1: $(XREF_MAPS_FILES)
 
 local-doc: $(OUTTXT_FILES)
 

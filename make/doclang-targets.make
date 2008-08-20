@@ -1,6 +1,6 @@
 default:
 
-local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) $(XREF_MAP_FILES)
+local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) $(XREF_MAPS_FILES)
 
 # BIG_PAGE_HTML_FILES is defined differently in each language makefile
 local-WWW-2: $(DEEP_HTML_FILES) $(BIG_PAGE_HTML_FILES)

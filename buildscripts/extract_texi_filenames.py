@@ -1,6 +1,6 @@
 #!@PYTHON@
 # -*- coding: utf-8 -*-
-# extrace_texi_filenames.py
+# extract_texi_filenames.py
 
 # USAGE:  extract_texi_filenames.py [-o OUTDIR] FILES
 #
@@ -14,8 +14,9 @@
 # which is then used for the filename/anchor.
 #
 # If this script is run on a file texifile.texi, it produces a file
-# texifile.xref-map with tab-separated entries of the form
+# texifile[.LANG].xref-map with tab-separated entries of the form
 #        NODE\tFILENAME\tANCHOR
+# LANG is the document language in case it's not 'en'
 # Note: The filename does not have any extension appended!
 # This file can then be used by our texi2html init script to determine 
 # the correct file name and anchor for external refs
@@ -25,8 +26,6 @@ import re
 import os
 import getopt
 
-#import langdefs
-
 optlist, args = getopt.getopt (sys.argv[1:],'o:')
 files = args
 
@@ -35,6 +34,11 @@ for x in optlist:
     if x[0] == '-o':
         outdir = x[1]
 
+if not os.path.isdir (outdir):
+    if os.path.exists (outdir):
+        os.unlink (outdir)
+    os.makedirs (outdir)
+
 include_re = re.compile (r'@include ((?!../lily-).*?)\.texi$', re.M)
 whitespaces = re.compile (r'\s+')
 section_translation_re = re.compile (r'@(node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading|translationof) (.*?)\s*\n')
@@ -42,22 +46,30 @@ section_translation_re = re.compile (r'@(node|(?:unnumbered|appendix)(?:(?:sub){
 def expand_includes (m, filename):
     filepath = os.path.join (os.path.dirname (filename), m.group(1)) + '.texi'
     if os.path.exists (filepath):
-        return extract_sections (filepath)
+        return extract_sections (filepath)[1]
     else:
         print "Unable to locate include file " + filepath
         return ''
+
+lang_re = re.compile (r'^@documentlanguage (.+)', re.M)
 
 def extract_sections (filename):
     result = ''
     f = open (filename, 'r')
     page = f.read ()
     f.close()
+    # Search document language
+    m = lang_re.search (page)
+    if m and m.group (1) != 'en':
+        lang_suffix = '.' + m.group (1)
+    else:
+        lang_suffix = ''
     # Replace all includes by their list of sections and extract all sections
     page = include_re.sub (lambda m: expand_includes (m, filename), page)
     sections = section_translation_re.findall (page)
     for sec in sections:
         result += "@" + sec[0] + " " + sec[1] + "\n"
-    return result
+    return (lang_suffix, result)
 
 # Convert a given node name to its proper file name (normalization as explained
 # in the texinfo manual:
@@ -101,10 +113,10 @@ def create_texinfo_anchor (title):
     return texinfo_file_name (remove_texinfo (title))
 
 unnumbered_re = re.compile (r'unnumbered.*')
-def process_sections (filename, page):
+def process_sections (filename, lang_suffix, page):
     sections = section_translation_re.findall (page)
-    # TODO: Don't rely on the file having a 4-letter extension (texi)!!!
-    p = os.path.join (outdir, filename) [:-5] + '.xref-map'
+    basename = os.path.splitext (os.path.basename (filename))[0]
+    p = os.path.join (outdir, basename) + lang_suffix + '.xref-map'
     f = open (p, 'w')
 
     this_title = ''
@@ -152,5 +164,5 @@ def process_sections (filename, page):
 
 for filename in files:
     print "extract_texi_filenames.py: Processing %s" % filename
-    sections = extract_sections (filename)
-    process_sections (filename, sections)
+    (lang_suffix, sections) = extract_sections (filename)
+    process_sections (filename, lang_suffix, sections)

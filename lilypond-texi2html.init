@@ -328,7 +328,8 @@ sub split_at_numbered_sections($$$)
 sub lilypond_init_map ()
 {
     my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-    my $map_filename = "$docu_dir/${docu_name}.xref-map";
+    my $map_filename = main::locate_include_file ("${docu_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
+	|| main::locate_include_file ("${docu_name}.xref-map");
     $node_to_filename_map = load_map_file ($map_filename);
 }
 push @Texi2HTML::Config::command_handler_init, \&lilypond_init_map;
@@ -442,7 +443,8 @@ sub lilypond_external_href($$$)
     # Load the map if we haven't done so already
     if (!exists($translated_books{$map_name})) {
       my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
-      my $map_filename = "$docu_dir/${map_name}.xref-map";
+      my $map_filename = main::locate_include_file ("${map_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
+	  || main::locate_include_file ("${map_name}.xref-map");
       $translated_books{$map_name} = load_map_file ($map_filename);
     }
 

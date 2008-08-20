@@ -125,15 +125,12 @@ $(outdir)/%/source:
 	mkdir -p $(dir $@)
 	ln -sf $(depth)/.. $(@)
 
-local-WWW-1: $(MASTER_TEXI_FILES) $(MASTER_TEXI_FILES:%.texi=%.xref-map) $(outdir)/lilypond-snippets.xref-map $(PDF_FILES) info
+local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) info
 
 local-WWW-2: $(HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
-
-$(outdir)/lilypond-snippets.xref-map:
-	ln -fs ../../../input/lsr/$@ $@
 
 # lilypond.texi deps
 $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
