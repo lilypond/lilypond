@@ -55,8 +55,8 @@ Each entry in the list is either a symbol or a procedure.
 
 @item symbol
 The symbol is the name of the context in which the following rules are to be
-applied. For example, if @var{context} is @internalsref{Score} then all
-staves share accidentals, and if @var{context} is @internalsref{Staff} then
+applied. For example, if @var{context} is @rinternals{Score} then all
+staves share accidentals, and if @var{context} is @rinternals{Staff} then
 all voices in the same staff share accidentals, but staves do not.
 
 @item procedure
