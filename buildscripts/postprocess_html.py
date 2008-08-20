@@ -1,7 +1,7 @@
 #!@PYTHON@
 
 """
-Print a nice footer.
+Postprocess HTML files.
 """
 import re
 import os
@@ -235,11 +235,11 @@ def add_menu (page_flavors, prefix, available, target, translation):
     return page_flavors
 
 
-def add_html_footer (package_name = '',
-                     package_version = '',
-                     target = 'offline',
-                     name_filter = lambda s: s):
-    """Add header, footer to a number of HTML files
+def process_html_files (package_name = '',
+                        package_version = '',
+                        target = 'offline',
+                        name_filter = lambda s: s):
+    """Add header, footer and tweak links to a number of HTML files
 
     Arguments:
      package_name=NAME         set package_name to NAME

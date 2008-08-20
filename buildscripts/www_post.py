@@ -13,7 +13,7 @@ import re
 import langdefs
 
 import mirrortree
-import add_html_footer
+import postprocess_html
 
 package_name, package_version, outdir, targets = sys.argv[1:]
 targets = targets.split (' ')
@@ -89,10 +89,10 @@ if 'online' in targets:
     f.write ('#.htaccess\nDirectoryIndex index\n')
     f.close ()
 
-add_html_footer.build_pages_dict (html_files)
+postprocess_html.build_pages_dict (html_files)
 for t in targets:
     sys.stderr.write ("Processing HTML pages for %s target...\n" % t)
-    add_html_footer.add_html_footer (
+    postprocess_html.process_html_files (
         package_name = package_name,
         package_version = package_version,
         target = t,
