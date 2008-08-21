@@ -793,7 +793,7 @@ This section explains the different portions of the documentation.
 @menu
 * About the Learning Manual::  this manual introduces LilyPond, giving in-depth explanations of how to create notation.
 * About the Music Glossary::  this manual explains musical terms and gives translations of terms in other languages.
-* About the Notation Reference::  this manual is the main portion of the documentation.  It provides detailed information about creating notation.  This book assumes that the reader knows basic material covered in the LM and is familiar with the English musical terms presented in the MG.
+* About the Notation Reference::  this manual is the main portion of the documentation.  It provides detailed information about creating notation.  This book assumes that the reader knows basic material covered in the Learning Manual and is familiar with the English musical terms presented in the Musical Glossary.
 * About the Application Usage::  this discusses the actual programs and operating system-specific issues.
 * About the Snippet List::  this is a collection of short LilyPond examples.
 * About the Internals Reference::  this document gives reference information about LilyPond's internal structures, which is required for constructing tweaks.

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: c272bbe8cd02f6a2887a7e2e8ca39ce86546307f
+    Translation of GIT committish: 4f64fbb128ccedeaa5fdc9748d0bd408f095757c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -762,7 +762,7 @@ Esta sección explica la distintas partes de la documentación.
 @menu
 * About the Learning Manual::  este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
 * About the Music Glossary::  este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
-* About the Notation Reference::  este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el MA y que está familiarizado con los términos musicales ingleses presentados en el GM.
+* About the Notation Reference::  este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el Manual de aprendizaje y que está familiarizado con los términos musicales ingleses presentados en el Glosario musical.
 * About the Application Usage::  trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
 * About the Snippet List::  es una colección de ejemplos breves de LilyPond.
 * About the Internals Reference::  este documento proporciona información sobre la programación interna de LilyPond, que es necesaria para construir los trucos.
@@ -807,8 +807,9 @@ bastante comunes.  ¡Léalo antes de emprender proyectos grandes!
 
 @end itemize
 
-El MA contiene también apéndices que no forman parte de la lectura
-lineal recomendada.  Pueden ser útiles para una mirada posterior:
+El Manual de aprendizaje contiene también apéndices que no forman
+parte de la lectura lineal recomendada.  Pueden ser útiles para una
+mirada posterior:
 
 @itemize
 
@@ -884,7 +885,7 @@ explica cómo crear funciones musicales con Scheme.
 
 @end itemize
 
-El manual de RN también contiene unos apéndices con útiles tablas de
+El manual de Referencia de la notación también contiene unos apéndices con útiles tablas de
 referencia.
 
 
