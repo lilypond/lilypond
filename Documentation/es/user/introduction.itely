@@ -968,7 +968,7 @@ convierten una amplia variedad de formatos de música al formato
 @cindex LSR
 
 @c FIXME: check on kainhofer.
-@ref{Top,LilyPond Snippet List,,lilypond-snippets}:
+@rlsrnamed{Top,LilyPond Snippet List}:
 presenta un conjunto seleccionado de pfragmentos de código de LilyPond
 procedentes del @uref{http://lsr@/.dsi@/.unimi@/.it,Repositorio de
 Fragmentos de Código} (LSR).  Se encuentra en el dominio público.
