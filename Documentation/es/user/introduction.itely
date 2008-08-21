@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f6b77b196db5d80b891e133e58659095134424de
+    Translation of GIT committish: c272bbe8cd02f6a2887a7e2e8ca39ce86546307f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -760,25 +760,18 @@ Esta sección explica la distintas partes de la documentación.
 
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @menu
-* About the Learning Manual (LM)::  este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
-
-* About the Music Glossary (MG)::  este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
-
-* About the Notation Reference (NR)::  este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el MA y que está familiarizado con los términos musicales ingleses presentados en el GM.
-
-* About the Application Usage (AU)::  trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
-
-* About the Snippet List (SL)::  es una colección de ejemplos breves de LilyPond.
-
-* About the Internals Reference (IR)::  este documento proporciona información sobre la programación interna de LilyPond, que es necesaria para construir los trucos.
-
+* About the Learning Manual::  este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
+* About the Music Glossary::  este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
+* About the Notation Reference::  este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el MA y que está familiarizado con los términos musicales ingleses presentados en el GM.
+* About the Application Usage::  trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
+* About the Snippet List::  es una colección de ejemplos breves de LilyPond.
+* About the Internals Reference::  este documento proporciona información sobre la programación interna de LilyPond, que es necesaria para construir los trucos.
 * Other documentation::         existen algunas otras porciones de la documentación, como las Noticias y los archivos históricos de las listas de correo.
-
 @end menu
 
 
-@node About the Learning Manual (LM)
-@unnumberedsubsec About the Learning Manual (LM)
+@node About the Learning Manual
+@unnumberedsubsec About the Learning Manual
 
 Este libro explica cómo empezar a aprender LilyPond, así como algunos
 conceptos clave en términos sencillos.  Se recomienda leer estos
@@ -833,8 +826,8 @@ siquiera a tocar el Scheme.
 @end itemize
 
 
-@node About the Music Glossary (MG)
-@unnumberedsubsec About the Music Glossary (MG)
+@node About the Music Glossary
+@unnumberedsubsec About the Music Glossary
 
 @cindex frase idiomática
 @cindex jerga
@@ -848,8 +841,8 @@ la notación o la terminología musicales (especialmente si no es un
 anglófono nativo), es muy recomendable que consulte el glosario.
 
 
-@node About the Notation Reference (NR)
-@unnumberedsubsec About the Notation Reference (NR)
+@node About the Notation Reference
+@unnumberedsubsec About the Notation Reference
 
 Este libro explica todas las instrucciones de LilyPond que producen
 notación impresa.  Da por supuesto que el lector está familiarizado
@@ -922,8 +915,8 @@ un índice completo.
 
 @end itemize
 
-@node About the Application Usage (AU)
-@unnumberedsubsec About the Application Usage (AU)
+@node About the Application Usage
+@unnumberedsubsec About the Application Usage
 
 Este libro explica la manera de ejecutar el programa y cómo integrar
 la notación de LilyPond con otros programas.
@@ -961,8 +954,8 @@ convierten una amplia variedad de formatos de música al formato
 
 @end itemize
 
-@node About the Snippet List (SL)
-@unnumberedsubsec About the Snippet List (SL)
+@node About the Snippet List
+@unnumberedsubsec About the Snippet List
 
 @cindex snippets (fragmentos de código)
 @cindex LSR
@@ -980,12 +973,12 @@ desarrollo se tiene que añadir por separado.  Éstas se almacenan en
 @file{input/new/} dentro del árbol del código fuente de LilyPond.
 
 La lista de fragmentos de código para cada una de las subsecciones del
-Manual de Referencia de la Notación (RN) también se encuentran
+Manual de Referencia de la Notación también se encuentran
 enlazados desde la parte @strong{Véase también}.
 
 
-@node About the Internals Reference (IR)
-@unnumberedsubsec About the Internals Reference (IR)
+@node About the Internals Reference
+@unnumberedsubsec About the Internals Reference
 
 @c zzz
 

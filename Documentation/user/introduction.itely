@@ -1004,8 +1004,8 @@ demonstrates new features of a development version must be added
 separately.  These are stored in @file{input/new/} in the LilyPond
 source tree.
 
-The list of snippets for each subsection of the Notation Reference
-(NR) are also linked from the @strong{See also} portion.
+The list of snippets for each subsection of the Notation Reference are
+also linked from the @strong{See also} portion.
 
 
 @node About the Internals Reference
