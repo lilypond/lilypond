@@ -709,6 +709,21 @@ measure_position (Context const *context)
   return m;
 }
 
+/* Finds the measure position after a note of length DUR that
+   begins at the current measure position. */
+Moment
+measure_position (Context const *context, Duration const *dur)
+{
+  Moment pos = measure_position (context);
+  Rational dur_length = dur ? dur->get_length () : Rational (0);
+
+  Moment end_pos = pos.grace_part_ < Rational(0)
+    ? Moment(pos.main_part_, pos.grace_part_ + dur_length)
+    : Moment(pos.main_part_ + dur_length, 0);
+
+  return end_pos;
+}
+
 int
 measure_number (Context const *context)
 {

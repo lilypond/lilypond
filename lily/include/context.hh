@@ -9,12 +9,13 @@
 #ifndef CONTEXT_HH
 #define CONTEXT_HH
 
+#include "duration.hh"
+#include "lily-proto.hh"
 #include "listener.hh"
 #include "moment.hh"
+#include "scm-hash.hh"
 #include "std-vector.hh"
 #include "virtual-methods.hh"
-#include "scm-hash.hh"
-#include "lily-proto.hh"
 
 class Context
 {
@@ -139,6 +140,7 @@ Grob *get_current_rest (Context *voice);
 DECLARE_UNSMOB (Context, context);
 
 Moment measure_position (Context const *context);
+Moment measure_position (Context const *context, Duration const *dur);
 Rational measure_length (Context const *context);
 int measure_number (Context const *context);
 void set_context_property_on_children (Context *trans, SCM sym, SCM val);

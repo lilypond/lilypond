@@ -257,7 +257,7 @@ check_pitch_against_signature (SCM key_signature, Pitch const &pitch,
 // TODO: consider moving check_pitch_against_signature to SCM (in which case
 // we can delete this function).
 LY_DEFINE (ly_find_accidentals_simple, "ly:find-accidentals-simple", 5, 0, 0,
-	   (SCM keysig, SCM pp, SCM barnum, SCM laziness, SCM octaveness ),
+	   (SCM keysig, SCM pitch_scm, SCM barnum, SCM laziness, SCM octaveness ),
 	   "Checks the need for an accidental and a 'restore' accidental against a"
 	   " key signature.  The laziness is the number of bars for which reminder"
 	   " accidentals are used (ie. if laziness is zero, we only cancel accidentals"
@@ -266,7 +266,7 @@ LY_DEFINE (ly_find_accidentals_simple, "ly:find-accidentals-simple", 5, 0, 0,
 	   " 'any-octave and it specifies whether accidentals should be canceled in"
 	   " different octaves.")
 {
-  LY_ASSERT_TYPE (unsmob_pitch, pp, 2);
+  LY_ASSERT_TYPE (unsmob_pitch, pitch_scm, 2);
   LY_ASSERT_TYPE (scm_is_integer, barnum, 3);
   LY_ASSERT_TYPE (ly_is_symbol, octaveness, 5);
 
@@ -275,7 +275,7 @@ LY_DEFINE (ly_find_accidentals_simple, "ly:find-accidentals-simple", 5, 0, 0,
 
   SCM_ASSERT_TYPE (symbol_ok, octaveness, SCM_ARG5, __FUNCTION__, "'any-octave or 'same-octave");
 
-  Pitch * pitch = unsmob_pitch (pp);
+  Pitch *pitch = unsmob_pitch (pitch_scm);
 
   int bar_number = scm_to_int (barnum);
   bool ignore_octave = ly_symbol2scm ("any-octave") == octaveness; 
@@ -512,14 +512,8 @@ Accidental_engraver::stop_translation_timestep ()
       Rational a = pitch->get_alteration ();
       SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
 
-      Duration *dur = unsmob_duration (note->get_property ("duration"));
-      Rational dur_length = dur ? dur->get_length () : Rational (0);
-      Moment mp = robust_scm2moment (get_property ("measurePosition"), Moment (0));
-
-      Moment end_mp = mp.grace_part_ < Rational(0)
-	? Moment(mp.main_part_, mp.grace_part_ + dur_length)
-	: Moment(mp.main_part_ + dur_length, 0);
-
+      Moment end_mp = measure_position (context (),
+					unsmob_duration (note->get_property ("duration")));
       SCM position = scm_cons (scm_from_int (barnum), end_mp.smobbed_copy ());
 
       SCM localsig = SCM_EOL;
