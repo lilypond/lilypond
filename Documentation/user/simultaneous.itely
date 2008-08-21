@@ -160,7 +160,8 @@ Here, voices are instantiated explicitly and are given a name. The
 @code{\voiceOne} ... @code{\voiceFour} commands set up the voices so
 that first and third voices get stems up, second and fourth voices get
 stems down, third and fourth voice note heads are horizontally
-shifted, and rests in the respective voices move to avoid collisions.
+shifted, and rests in the respective voices are automatically moved to
+avoid collisions.
 
 Using the @code{\oneVoice} command, we can make a voice to be into the
 same @code{Voice} context before and after a temporary polyphonic
@@ -209,7 +210,7 @@ double backslashes.  Our first example could be typeset as follows:
 >>
 @end lilypond
 
-This syntax is simpler and can be used where it does not care that
+This syntax is simpler and can be used where it does not matter that
 temporary voices are created and then discarded.  These implicitly
 created voices are given the settings equivalent to the effect of the
 @code{\voiceOne} ... @code{\voiceFour} commands, in the order in which
@@ -230,7 +231,7 @@ becomes voice three which has the stems up as desired.
 Spacing rests are often used to avoid too many rests, as seen in the
 example above.
 
-In all but simplest works it is advised to create explicit
+In all but simplest works it is advisable to create explicit
 @code{Voice} contexts using the @code{\new} and @code{\context}
 commands as it is explained in @rlearning{Contexts and engravers} and
 @rlearning{Explicitly instantiating voices}.
