@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: fe52a9493b91e0d61a9d6f850b0a2f2a7015e6db
+    Translation of GIT committish: 795cef0889e9cf5da040f434fc9334ffe28ae87b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -241,14 +241,27 @@ Apéndices
 @node LilyPond command index
 @appendix LilyPond command index
 
-@c This index does blah blah blah.
+Este índice relaciona todas las instrucciones y palabras clave de
+LilyPond, con enlaces a aquellas secciones del manual que describen o
+se ocupan de su uso.  Cada uno de los enlaces consta de dos partes.
+La primera parte apunta a la situación exacta del manual en que
+aparece la instrucción o palabra clave; la segunda parte apunta al
+comienzo de la sección correspondiente del manual en la que aparece la
+instrucción o palabra clave.
 
 @printindex ky
 
 @node LilyPond index
 @appendix LilyPond index
 
-@c In contrast, this index does blaz blaz blaz.
+Además de todas las instrucciones y palabras clave de LilyPond, este
+índice es una lista de términos musicales y las palabras que tienen
+relación con cada uno de ellos, con enlaces a aquellas secciones del
+manual que describen o se ocupan de dicho término.  Cada uno de los
+enlaces consta de dos partes.  La primera parte apunta a la situación
+exacta del manual en que aparece el término; la segunda parte apunta
+al comienzo de la sección correspondiente del manual en la que se
+discute dicho término.
 
 @printindex cp
 
