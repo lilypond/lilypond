@@ -115,7 +115,7 @@ DEEP_HTML_FILES =\
 
 # Symlinks to refer to external source documents from split and non-split HTML
 source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossary/source \
- $(outdir)/lilypond-program/source $(outdir)/lilypond-learning/source
+ $(outdir)/lilypond-program/source $(outdir)/lilypond-learning/source $(outdir)/lilypond-internals/source
 
 $(outdir)/source:
 	@rm -f $(@)
