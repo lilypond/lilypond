@@ -924,14 +924,7 @@ großer Hilfe sein.
 @cindex Schnipsel
 @cindex LSR
 @item
-Die
-@ifhtml
-@uref{source/input/lsr/collated-files.html,Schnipsel}
-@end ifhtml
-@ifnothtml
-Schnipsel
-@end ifnothtml
-sind eine ausführliche Sammlung kurzer Beispiele, anhand derer Tricks, 
+Die @rlsrnamed{Top,Schnipsel} sind eine ausführliche Sammlung kurzer Beispiele, anhand derer Tricks, 
 Tipps und Spezialfunktionen von LilyPond demonstriert werden. Die meisten 
 dieser Schnipsel können auch im 
  @uref{http://lsr.dsi.unimi.it/,LilyPond Schnipsel

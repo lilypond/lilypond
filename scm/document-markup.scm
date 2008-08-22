@@ -49,8 +49,8 @@
     
     (string-append
      "\n\n@item @code{\\" c-name "} " signature-str
-     "\n@findex \\" f-name "\n"
-     
+     "\n@funindex \\" c-name "\n"
+     "\n@cindex \\" c-name "\n"    
      (if (string? doc-str)
          doc-str
          "")
@@ -66,11 +66,8 @@
  
 (define (markup-category-doc-node category)
   (let* ((category-string (symbol->string category))
-         (match (string-match "-" category-string))
-         (category-name (string-capitalize
-                         (if match
-                             (regexp-substitute #f match 'pre " " 'post)
-                             category-string)))
+         (category-name (string-capitalize (regexp-substitute/global #f
+                                        "-" category-string 'pre " " 'post)))
         (markup-functions (hashq-ref markup-functions-by-category
                                           category)))
     (make <texi-node>
@@ -97,7 +94,7 @@
     #:desc ""
     #:text "The following commands can all be used inside @code{\\markup @{ @}}."
     #:children (let* (;; when a new category is defined, update `ordered-categories'
-                      (ordered-categories '(font align graphic music fret-diagram other))
+                      (ordered-categories '(font align graphic music instrument-specific-markup other))
                       (raw-categories (hash-fold (lambda (category functions categories)
                                                    (cons category categories))
                                                  (list)

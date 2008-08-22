@@ -70,6 +70,17 @@
 	  (ly:stencil-combine-at-edge stil (other-axis axis) -1 rb padding))
     stil))
 
+(define-public (make-line-stencil width startx starty endx endy)
+  "Make a line stencil of given linewidth and set its extents accordingly"
+  (let ((xext (cons (min startx endx) (max startx endx)))
+        (yext (cons (min starty endy) (max starty endy))))
+    (ly:make-stencil
+      (list 'draw-line width startx starty endx endy)
+      ; Since the line has rounded edges, we have to / can safely add half the 
+      ; width to all coordinates!
+      (interval-widen xext (/ width 2))
+      (interval-widen yext (/ width 2)))))
+
 (define-public (make-filled-box-stencil xext yext)
   "Make a filled box."
   
