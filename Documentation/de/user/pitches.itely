@@ -224,28 +224,6 @@ d e fis g
 @end lilypond
 
 
-@commonprop
-
-Den Satzregeln für den Notensatz folgend wird ein Auflösungszeichen 
-dann ausgegeben, wenn ein vorhergehendes Versetzungszeichen rückgängig 
-gemacht werden soll. Um dieses Verhalten zu ändern, muss 
-@code{\set Staff.extraNatural = ##f} eingesetzt werden.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-ceses4 ces cis c
-\set Staff.extraNatural = ##f
-ceses4 ces cis c
-@end lilypond
-
-
-@seealso
-
-Programmreferenz: @rinternals{LedgerLineSpanner},
-@rinternals{NoteHead}.
-
-
-@unnumberedsubsubsec Micro tones
-
 @cindex Vierteltöne
 @cindex Vorzeichen, Vierteltöne
 @cindex Versetzungszeichen, Vierteltöne
@@ -256,23 +234,12 @@ Versetzungszeichen für Vierteltöne werden durch Anhängen der Endungen
 Tonhöhenbuchstaben erstellt. Das Beispiel zeigt eine in Vierteltönen 
 aufsteigende Serie vom kleinen C.
 
-@lilypond[verbatim,ragged-right,quote,relative=2,fragment]
-\set Staff.extraNatural = ##f
-ceseh ceh cih cisih
+@lilypond[verbatim,quote,relative=2]
+ceseh1 ces ceh c cih cis cisih
 @end lilypond
 
 Mikrotöne werden auch in die MIDI-Dateien geschrieben.
 
-
-
-@knownissues
-
-Es gibt keine allgemein anerkannten Standards für die 
-Notation von Dreiviertelton-Erniedrigungszeichen. LilyPonds
-Symbol entspricht also keinem Standard.
-
-
-@unnumberedsubsubsec Cautionary accidentals
 
 @cindex Versetzungszeichen, Erinnerung
 @cindex Versetzungszeichen, Warnung
@@ -297,10 +264,35 @@ cis cis cis! cis? c c? c! c
 @end lilypond
 
 
+@commonprop
+
+Den Satzregeln für den Notensatz folgend wird ein Auflösungszeichen 
+dann ausgegeben, wenn ein vorhergehendes Versetzungszeichen rückgängig 
+gemacht werden soll. Um dieses Verhalten zu ändern, muss 
+@code{\set Staff.extraNatural = ##f} eingesetzt werden.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+ceses4 ces cis c
+\set Staff.extraNatural = ##f
+ceses4 ces cis c
+@end lilypond
+
+
 @seealso
-Die automatische Setzung von Versetzungszeichen kann auf viele Arten 
-beeinflusst werden. Mehr Information dazu siehe
- @ref{Automatic accidentals}.
+
+Die automatische Setzung von Versetzungszeichen kann auf viele Arten
+beeinflusst werden. Mehr Information dazu siehe @ref{Automatic
+accidentals}.
+
+Programmreferenz: @rinternals{LedgerLineSpanner},
+@rinternals{NoteHead}.
+
+
+@knownissues
+
+Es gibt keine allgemein anerkannten Standards für die 
+Notation von Dreiviertelton-Erniedrigungszeichen. LilyPonds
+Symbol entspricht also keinem Standard.
 
 
 @node Note names in other languages
