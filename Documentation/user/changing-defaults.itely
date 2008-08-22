@@ -1116,12 +1116,17 @@ LP-specific?
 @node Modifying properties
 @section Modifying properties
 
+@c TODO change the menu and subsection node names to use
+@c backslash once the new macro to handle the refs
+@c is available.  Need to find and change all refs at
+@c the same time. -td
+
 @menu
-* Overview of modifying properties::  
-* The set command::             
-* The override command::        
-* set versus override::         
-* The tweak command::           
+* Overview of modifying properties::
+* The set command::
+* The override command::
+* The tweak command::
+* set versus override::
 @end menu
 
 
@@ -1406,6 +1411,56 @@ We demonstrate how to glean this information from the notation manual
 and the program reference.
 
 
+@node The tweak command
+@subsection The @code{\tweak} command
+
+FIXME expand to include all uses of \tweak
+TODO: can't use \tweak in a variable
+
+@funindex \tweak
+
+In some cases, it is possible to take a short-cut for tuning graphical
+objects.  For objects that result directly from a piece of the input,
+you can use the @code{\tweak} function, for example
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \tweak #'color #red d
+  g
+  \tweak #'duration-log #1  a
+>4-\tweak #'padding #10 -.
+@end lilypond
+
+As you can see, properties are set in the objects directly,
+without mentioning the grob name or context where this should be
+applied.
+
+This technique only works for objects that are directly connected to
+an @rinternals{Event} from the input, for example
+
+@itemize
+@item note heads, caused by chord-pitch (i.e., notes inside a chord)
+@item articulation signs, caused by articulation instructions
+@end itemize
+
+It notably does not work for stems and accidentals (these are caused
+by note heads, not by music events) or clefs (these are not caused by
+music inputs, but rather by the change of a property value).
+
+There are very few objects which are @emph{directly} connected to
+output.  A normal note (like @code{c4}) is not directly connected
+to output, so
+
+@example
+\tweak #'color #red c4
+@end example
+
+@noindent
+does not change color.  See @ref{Displaying music expressions}, for
+details.
+
+
 @node set versus override
 @subsection @code{\set} vs. @code{\override}
 
@@ -1457,64 +1512,15 @@ objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
 
 
-@node The tweak command
-@subsection The @code{\tweak} command
-
-TODO: can't use \tweak in a variable
-
-@funindex \tweak
-
-In some cases, it is possible to take a short-cut for tuning graphical
-objects.  For objects that result directly from a piece of the input,
-you can use the @code{\tweak} function, for example
-
-@lilypond[relative=2,fragment,verbatim,ragged-right]
-<
-  c
-  \tweak #'color #red d
-  g
-  \tweak #'duration-log #1  a
->4-\tweak #'padding #10 -.
-@end lilypond
-
-As you can see, properties are set in the objects directly,
-without mentioning the grob name or context where this should be
-applied.
-
-This technique only works for objects that are directly connected to
-an @rinternals{Event} from the input, for example
-
-@itemize
-@item note heads, caused by chord-pitch (i.e., notes inside a chord)
-@item articulation signs, caused by articulation instructions
-@end itemize
-
-It notably does not work for stems and accidentals (these are caused
-by note heads, not by music events) or clefs (these are not caused by
-music inputs, but rather by the change of a property value).
-
-There are very few objects which are @emph{directly} connected to
-output.  A normal note (like @code{c4}) is not directly connected
-to output, so
-
-@example
-\tweak #'color #red c4
-@end example
-
-@noindent
-does not change color.  See @ref{Displaying music expressions}, for
-details.
-
-
 @node Useful concepts and properties
 @section Useful concepts and properties
 
 
 @menu
-* Input modes::                 
-* Direction and placement::     
-* Distances and measurements::  
-* Spanners::                    
+* Input modes::
+* Direction and placement::
+* Distances and measurements::
+* Spanners::
 @end menu
 
 @node Input modes
