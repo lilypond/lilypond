@@ -258,13 +258,13 @@ check_pitch_against_signature (SCM key_signature, Pitch const &pitch,
 // we can delete this function).
 LY_DEFINE (ly_find_accidentals_simple, "ly:find-accidentals-simple", 5, 0, 0,
 	   (SCM keysig, SCM pitch_scm, SCM barnum, SCM laziness, SCM octaveness ),
-	   "Checks the need for an accidental and a 'restore' accidental against a"
-	   " key signature.  The laziness is the number of bars for which reminder"
-	   " accidentals are used (ie. if laziness is zero, we only cancel accidentals"
-	   " in the same bar; if laziness is three, we cancel accidentals up to three"
-	   " bars after they first appear.  Octaveness is either 'same-octave or"
-	   " 'any-octave and it specifies whether accidentals should be canceled in"
-	   " different octaves.")
+	   "Checks the need for an accidental and a @q{restore} accidental against a"
+	   " key signature.  The @var{laziness} is the number of bars for which reminder"
+	   " accidentals are used (ie. if @var{laziness} is zero, we only cancel accidentals"
+	   " in the same bar; if @var{laziness} is three, we cancel accidentals up to three"
+	   " bars after they first appear.  @var{octaveness} is either "
+	   " @code{'same-octave} or @code{'any-octave} and it specifies whether "
+	   " accidentals should be canceled in different octaves.")
 {
   LY_ASSERT_TYPE (unsmob_pitch, pitch_scm, 2);
   LY_ASSERT_TYPE (scm_is_integer, barnum, 3);

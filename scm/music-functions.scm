@@ -919,23 +919,17 @@ if appropriate.
 (define (key-entry-octave entry)
   "Return the octave of an entry in localKeySignature (or #f if the entry does not have
   an octave)."
-  (if (number? (car entry))
-      #f
-      (caar entry)))
+  (and (pair? (car entry)) (caar entry)))
 
 (define (key-entry-bar-number entry)
   "Return the bar number of an entry in localKeySignature (or #f if the entry does not
   have a bar number)."
-  (if (number? (car entry))
-      #f
-      (caddr entry)))
+  (and (pair? (car entry)) (caddr entry)))
 
 (define (key-entry-measure-position entry)
   "Return the measure position of an entry in localKeySignature (or #f if the entry does
   not have a measure position)."
-  (if (number? (car entry))
-      #f
-      (cdddr entry)))
+  (and (pair? (car entry)) (cdddr entry)))
 
 (define (key-entry-alteration entry)
   "Return the alteration of an entry in localKeySignature."
