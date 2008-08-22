@@ -12,8 +12,8 @@
 ###    (implemented by split_at_numbered_sections)
 ### -) Use our custom CSS file, with IE-specific fixes in another CSS file,
 ###    impelmented by lilypond_css_lines
-### -) TOC (folded, with the current page highlighted) in an iframe is added
-###    to every page; implemented by:
+### -) TOC (folded, with the current page highlighted) in an overflown <div>
+###    is added to every page; implemented by:
 ###           lilypond_print_element_header -- building of the TOC
 ###           lilypond_toc_body -- generation of customized TOC output
 ###           lilypond_print_page_head -- start <div id="main">
@@ -35,15 +35,19 @@
 ###    English title, since otherwise language-autoselection would break with
 ###    posted links.
 ###    Since it is then no longer possible to obtain the file name from the
-###    section title, I keep a sectionname<=>filename/anchor around. This way, 
-###    xrefs from other manuals can simply load that map and retrieve the 
+###    section title, I keep a sectionname<=>filename/anchor around. This way,
+###    xrefs from other manuals can simply load that map and retrieve the
 ###    correct file name for the link. Implemented in:
-###           lilypond_unknown (handling of @translationof, in case 
+###           lilypond_unknown (handling of @translationof, in case
 ###                             extract_texi_filenames.py messes up...)
 ###           split_at_numbered_sections (correct file name: use the map)
 ###           lilypond_init_map (read in the externally created map from disk)
-###           lilypond_external_href (load the map for xrefs, use the correct 
+###           lilypond_external_href (load the map for xrefs, use the correct
 ###                                   link target)
+### -) The HTML anchors for all sections are derived from the node name /
+###    section title (pre-generated in the .xref-map file). Implemented by:
+###           lilypond_node_file_name (adjust node anchors)
+###           split_at_numbered_sections (adjust section anchors)
 ###
 ###
 ### Useful helper functions:
@@ -68,6 +72,7 @@ $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::element_file_name    = \&split_at_numbered_sections;
+$Texi2HTML::Config::node_file_name       = \&lilypond_node_file_name;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
@@ -236,6 +241,36 @@ my $lastfilename;
 my $docnr = 0;
 my $node_to_filename_map = ();
 
+
+# modify the anchors for nodes, in particular, use the section<=>anchor map
+# from the .xref-map file and assign the pre-defined anchor to the node.
+# We don't want to split at nodes, so we don't return a valid file name
+# and just mis-use this function to change the node->{id}
+sub lilypond_node_file_name($$)
+{
+  my $node = shift;
+  my $type = shift;
+  my $node_name = main::remove_texi($node->{'texi'});
+
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
+    $node->{id} = $anchor;
+  } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" 
+           or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+     # Nothing to do
+  } else {
+    my $anchor = $node_name;
+    if ($node->{translationof}) {
+      $anchor = main::remove_texi($node->{translationof});
+    }
+    # normalize to the same file name as texinfo
+    $anchor = texinfo_file_name($anchor);
+    $node->{id} = $anchor;
+  }
+  return undef;
+}
+
+
 # This function makes sure that files are only generated for numbered sections,
 # but not for unnumbered ones. It is called after texi2html has done its own
 # splitting and simply returns the filename for the node given as first argument
@@ -245,7 +280,7 @@ my $node_to_filename_map = ();
 # according to node titles, which works by simply overriding the id element of
 # the $element hash.
 # If an external nodename<=>filename/anchor map file is found (loaded in
-# lilypond_init_out, use the externally created values, otherwise use the 
+# lilypond_init_out, use the externally created values, otherwise use the
 # same logic here.
 sub split_at_numbered_sections($$$)
 {
@@ -271,7 +306,12 @@ sub split_at_numbered_sections($$$)
     $filename .= ".$docu_ext" if (defined($docu_ext));
 
     $element->{id} = $anchor;
-    if ($filename eq $lastfilename) {
+    # unnumbered sections (except those at top-level!) always go to the same
+    # file as the previous numbered section
+    if (not ($element->{number}) and not ($lastfilename eq '') and ($element->{level} > 1)) {
+      $filename = $lastfilename;
+    }
+    if (($filename eq $lastfilename)) {
       $$element{doc_nr} = $docnr;
     } else {
       $docnr += 1;
@@ -292,7 +332,7 @@ sub split_at_numbered_sections($$$)
     # don't use texi2html's SECx.x default!
     my $sec_name = main::remove_texi($element->{'texi'});
     # if we have a node, use its name:
-    if ($element->{'node_ref'}->{'texi'} ne '') { 
+    if ($element->{'node_ref'}->{'texi'} ne '') {
       $sec_name = main::remove_texi($element->{'node_ref'}->{'texi'});
     }
     my $anchor = $sec_name;
@@ -321,8 +361,8 @@ sub split_at_numbered_sections($$$)
 }
 
 
-## Load the map file for the corrently processed texi file. We do this 
-#  (mis-)using a command init handler, since texi2html does not have any 
+## Load the map file for the corrently processed texi file. We do this
+#  using a command init handler, since texi2html does not have any
 #  other hooks that are called after THISDOC is filled but before phase 2
 #  of the texi2html conversion.
 sub lilypond_init_map ()
@@ -356,7 +396,7 @@ sub lilypond_external_ref($$$$$$)
   my $displaytext = '';
 
   # 1) if we have a cross ref name, that's the text to be displayed:
-  # 2) For the top node, use the (printable) name of the manual, unless we 
+  # 2) For the top node, use the (printable) name of the manual, unless we
   #    have an explicit cross ref name
   # 3) In all other cases use the section name
   if ($cross_ref ne '') {
@@ -430,9 +470,9 @@ sub lilypond_external_href($$$)
   my $original_func = \&t2h_default_external_href;
 
   # 1) Keep a hash of book->section_map
-  # 2) if not file in keys hash => try to load the map (assign empty map if 
+  # 2) if not file in keys hash => try to load the map (assign empty map if
   #    non-existent => will load only once!)
-  # 3) if node in the section=>(file, anchor) map, replace node_id and 
+  # 3) if node in the section=>(file, anchor) map, replace node_id and
   #    node_xhtml_id by the map's values
   # 4) call the t2h_default_external_href with these values (or the old ones if not found)
 
@@ -479,7 +519,7 @@ my @default_toc = [];
 # recursively generate the TOC entries for the element and its children (which
 # are only shown up to maxlevel. All ancestors of the current element are also
 # shown with their immediate children, irrespective of their level.
-# Unnumbered entries are only printed out if they are at top-level or their 
+# Unnumbered entries are only printed out if they are at top-level or their
 # parent element is an ancestor of the currently viewed node.
 sub generate_ly_toc_entries($$$$)
 {
