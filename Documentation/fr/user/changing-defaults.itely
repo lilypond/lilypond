@@ -880,7 +880,7 @@ Music types accepted: @rinternals{fingering-event}
 
 @item @rinternals{fingering-event}:
 Music event type @code{fingering-event} is in Music expressions named
-@rinternals{FingerEvent}
+@rinternals{FingeringEvent}
 @end itemize
 
 Ce cheminement se produit, bien sûr, en sens inverse : nous sommes ici partis

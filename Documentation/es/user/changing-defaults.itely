@@ -753,7 +753,7 @@ Tipos de música aceptados: @rinternals{fingering-event}
 
 @item @rinternals{fingering-event}:
 El tipo de evento musical @code{fingering-event} está descrito en
-Expresiones musicales con el nombre de @rinternals{FingerEvent}
+Expresiones musicales con el nombre de @rinternals{FingeringEvent}
 @end itemize
 
 Este camino se recorre en contra de la corriente de información del
