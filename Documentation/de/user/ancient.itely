@@ -86,7 +86,7 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 Für die Notation des Gregorianischen Chorals werden vom
-@rinternals{Gregorian_ligature_engraver} automatisch die richtigen Notenköpfe
+@rinternals{Vaticana_ligature_engraver} automatisch die richtigen Notenköpfe
 ausgewählt, so dass man den Stil nicht manuell setzen muss. Trotzdem kann
 der Stil manuell verändert werden, z. B. auf den Wert
 @code{vaticana_punctum}, um Punktum-Neumen zu produzieren. Gleichfalls erstellt
