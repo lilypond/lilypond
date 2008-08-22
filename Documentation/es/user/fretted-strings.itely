@@ -355,14 +355,10 @@ Referencia de funcionamiento interno:
 @c and include it somewhere -td
 
 @menu
-* Guitar tablatures::
 * Indicating position and barring::
+* Indicating harmonics and dampened notes::  
 @end menu
 
-@node Guitar tablatures
-@subsubsection Guitar tablatures
-
-@untranslated
 
 @node Indicating position and barring
 @subsubsection Indicating position and barring
@@ -387,6 +383,11 @@ pisarlas por completo.  Esto produce en el sonido un carácter
 percusivo y ruidoso, sin perder la altura de la nota original.  Su
 notación se realiza con cabezas en equis; se muestra en @ref{Special
 note heads}.
+
+@node Indicating harmonics and dampened notes
+@unnumberedsubsubsec Indicating harmonics and dampened notes
+
+@untranslated
 
 @node Banjo
 @subsection Banjo
