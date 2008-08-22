@@ -17,14 +17,14 @@
 
 
 @menu
-* How LilyPond files work::
+* How LilyPond input files work::
 * Voices contain music::
 * Contexts and engravers::
 * Extending the templates::
 @end menu
 
-@node How LilyPond files work
-@section How LilyPond files work
+@node How LilyPond input files work
+@section How LilyPond input files work
 
 La mise en forme des fichiers d'entrée de LilyPond est vraiment
 peu astreignante, afin d'offrir assez de souplesse aux utilisateurs

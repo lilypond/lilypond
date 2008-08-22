@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 0b3b41414fa52672d7d9416c265cd8d0568eef13
+   Translation of GIT committish: d7a9cbdc480e5b327ec53f287f22995e7a9c1a0f
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -58,7 +58,7 @@ LilyPond.
 @menu
 * Compiling a file::
 * Simple notation::
-* Working on text files::
+* Working on input files::
 * How to read the manual::
 @end menu
 
@@ -437,8 +437,8 @@ Manuel de notation : @ruser{Writing pitches},
 @ruser{Time signature}, @ruser{Clef}.
 
 
-@node Working on text files
-@subsection Working on text files
+@node Working on input files
+@subsection Working on input files
 
 Le traitement des fichiers source de LilyPond est semblable à celui du
 code de nombreux langages de programmation.  La casse est prise
@@ -542,7 +542,7 @@ quelques usages possibles des commentaires :
 @node How to read the manual
 @subsection How to read the manual
 
-Comme nous l'avons vu dans @ref{Working on text files}, un code
+Comme nous l'avons vu dans @ref{Working on input files}, un code
 LilyPond doit être encadré par des accolades @{ @} ou bien par
 @code{\relative c'' @{ ...  @}}.  Cependant, dans la suite de ce
 manuel, la plupart des exemples ne feront pas apparaître ces signes.
@@ -1823,6 +1823,13 @@ d'initiation part du principe que vous avez déjà bien assimilé la
 syntaxe de base de LilyPond.  Vous pouvez toujours survoler ces
 chapitres 3 à 5, et y revenir plus tard après avoir acquis de
 l'expérience.
+
+Dans ce tutoriel comme dans le reste de ce manuel, se trouve à chaque
+section un paragraphe @strong{Voir aussi} contenant des références
+vers d'autres sections : il est conseillé de ne pas les suivre en
+première lecture ; lorsque vous aurez lu l'ensemble du manuel
+d'initiation, vous pourrez en relisant certaines sections suivre ces
+références pour approfondir certains aspects.
 
 Si vous ne l'avez pas encore fait, lisez @ref{About the
 documentation}.  Les sources de documentation et d'information sur

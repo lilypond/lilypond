@@ -143,7 +143,6 @@ multiple staves.
 @node Single-staff polyphony
 @unnumberedsubsubsec Single-staff polyphony
 
-@c Already reordered as Carl suggested --FV
 The basic structure of code needed to achieve multiple, independent
 voices in a single staff is illustrated in the following example:
 
@@ -160,17 +159,21 @@ Here, voices are instantiated explicitly and are given a name. The
 @code{\voiceOne} ... @code{\voiceFour} commands set up the voices so
 that first and third voices get stems up, second and fourth voices get
 stems down, third and fourth voice note heads are horizontally
-shifted, and rests in the respective voices move to avoid collisions.
+shifted, and rests in the respective voices are automatically moved to
+avoid collisions.  Using the @code{\oneVoice} command, all the voice
+settings are put back to the neutral directions typical of a
+single-voice passage.
 
-Using the @code{\oneVoice} command, we can make a voice to be into the
-same @code{Voice} context before and after a temporary polyphonic
-passage.  For example:
+We can make a voice to be into the same @code{Voice} context before
+and after a temporary polyphonic passage.  For example, the following
+construct keeps a voice alive throughout the polyphonic section.  Said
+voice is the first one inside of the two-voice section, and the extra
+voice is the second one.
 
 @example
 << @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
 @end example
 
-This construct keeps a voice alive throughout the polyphonic section.
 Using the name given when created, this allows lyrics to be assigned
 to one consistent voice.
 
@@ -197,9 +200,13 @@ to one consistent voice.
 >>
 @end lilypond
 
-The @code{<<@{...@} \\ @{...@}>>} construction can be used as a
-simplified method, where the two (or more) voices are separated by
-double backslashes.  Our first example could be typeset as follows:
+Here, the \voiceOne and \voiceTwo commands help to make clear what
+settings does each voice receive.
+
+The @code{<<@{...@} \\ @{...@}>>} construction, where the two (or
+more) voices are separated by double backslashes, can be used as a
+simplified method to print multiple voices in a single staff.  Our
+first example could be typeset as follows:
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -209,7 +216,7 @@ double backslashes.  Our first example could be typeset as follows:
 >>
 @end lilypond
 
-This syntax is simpler and can be used where it does not care that
+This syntax is simpler and can be used where it does not matter that
 temporary voices are created and then discarded.  These implicitly
 created voices are given the settings equivalent to the effect of the
 @code{\voiceOne} ... @code{\voiceFour} commands, in the order in which
@@ -230,7 +237,7 @@ becomes voice three which has the stems up as desired.
 Spacing rests are often used to avoid too many rests, as seen in the
 example above.
 
-In all but simplest works it is advised to create explicit
+In all but simplest works it is advisable to create explicit
 @code{Voice} contexts using the @code{\new} and @code{\context}
 commands as it is explained in @rlearning{Contexts and engravers} and
 @rlearning{Explicitly instantiating voices}.
