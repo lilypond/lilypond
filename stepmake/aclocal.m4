@@ -452,7 +452,7 @@ AC_DEFUN(STEPMAKE_FLEXLEXER_LOCATION, [
 using namespace std;
 #include <FlexLexer.h>
 EOF
-	FLEXLEXER_FILE=`$CXX -E conftest.cc | \
+	FLEXLEXER_FILE=`eval $ac_cpp conftest.cc | \
 	  sed 's!# 1 "\(.*FlexLexer.h\)"!@FLEXLEXER@\1@@!g' | grep '@@' | \
 	  sed 's!.*@FLEXLEXER@\(.*\)@@.*$!\1!g' ` 1> /dev/null 2> /dev/null
 	rm conftest.cc
