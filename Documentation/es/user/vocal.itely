@@ -572,8 +572,8 @@ sección @rlearning{Vocal ensembles}.
 
 @seealso
 
-Referencia de funcionamiento interno:
-@rinternals{Melisma_translator}.
+@comment  Referencia de funcionamiento interno:
+@comment  @rinternals{Melisma_translator}.
 
 @knownissues
 
