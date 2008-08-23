@@ -29,17 +29,17 @@
 * String number indications::
 * Default tablatures::
 * Custom tablatures::
-* Fret diagrams::
+* Fret diagram markups::
 * Right hand fingerings::
 @end menu
 
 @node References for fretted strings
-@subsubsection References for fretted strings
+@unnumberedsubsubsec References for fretted strings
 
 @untranslated
 
 @node String number indications
-@subsubsection String number indications
+@unnumberedsubsubsec String number indications
 
 @cindex cuerda, número de la
 
@@ -77,7 +77,7 @@ Referencia de funcionamiento interno:
 @rinternals{StringNumber},
 
 @node Default tablatures
-@subsubsection Default tablatures
+@unnumberedsubsubsec Default tablatures
 
 @cindex tablatura, principios básicos
 @cindex tablatura predeterminada
@@ -168,7 +168,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 @end lilypond
 
 @node Custom tablatures
-@subsubsection Custom tablatures
+@unnumberedsubsubsec Custom tablatures
 
 @cindex tablaturas personalizadas
 
@@ -218,8 +218,8 @@ Referencia de funcionamiento interno:
 
 No se ha implementado ningún efecto especial de guitarra.
 
-@node Fret diagrams
-@subsubsection Fret diagrams
+@node Fret diagram markups
+@unnumberedsubsubsec Fret diagram markups
 
 @cindex trastes, diagramas de
 @cindex acordes, diagramas de
@@ -267,7 +267,7 @@ propiedades de los diagramas de trastes en
 @seealso
 
 @node Right hand fingerings
-@subsubsection Right hand fingerings
+@unnumberedsubsubsec Right-hand fingerings
 
 Se pueden introducir las digitaciones de la mano derecha de los
 acordes, usando @code{<@var{nota}-\rightHandFinger @var{dedo} >}.  TLa
@@ -355,17 +355,13 @@ Referencia de funcionamiento interno:
 @c and include it somewhere -td
 
 @menu
-* Guitar tablatures::
 * Indicating position and barring::
+* Indicating harmonics and dampened notes::  
 @end menu
 
-@node Guitar tablatures
-@subsubsection Guitar tablatures
-
-@untranslated
 
 @node Indicating position and barring
-@subsubsection Indicating position and barring
+@unnumberedsubsubsec Indicating position and barring
 
 Este ejemplo muestra cómo incluir indicaciones de posición y cejilla
 de guitarra:
@@ -388,6 +384,11 @@ percusivo y ruidoso, sin perder la altura de la nota original.  Su
 notación se realiza con cabezas en equis; se muestra en @ref{Special
 note heads}.
 
+@node Indicating harmonics and dampened notes
+@unnumberedsubsubsec Indicating harmonics and dampened notes
+
+@untranslated
+
 @node Banjo
 @subsection Banjo
 
@@ -396,7 +397,7 @@ note heads}.
 @end menu
 
 @node Banjo tablatures
-@subsubsection Banjo tablatures
+@unnumberedsubsubsec Banjo tablatures
 
 @cindex Banjo, tablaturas de
 

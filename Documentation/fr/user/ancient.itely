@@ -162,7 +162,7 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 Si vous écrivez en notation grégorienne, le
-@rinternals{Gregorian_ligature_engraver} se chargera de sélectionner
+@rinternals{Vaticana_ligature_engraver} se chargera de sélectionner
 les têtes de note appropriées ; il est donc inutile de spécifier le
 style à utiliser.  Vous pouvez cependant spécifier par exemple le style
 @code{vaticana_punctum} pour obtenir des neumes punctums.  De même,

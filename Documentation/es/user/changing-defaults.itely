@@ -588,7 +588,7 @@ Las notas parecen barras inclinadas y no tienen plica,
 
 Todos estos añadidos tienen que cooperar, y esto se consigue con un
 añadido especial, que se debe marcar con la palabra clave
-@code{\type}.  Este será siempre @rinternals{Engraver_group},
+@code{\type}.  Este será siempre @code{Engraver_group},
 
 @example
 \type "Engraver_group"
@@ -753,7 +753,7 @@ Tipos de música aceptados: @rinternals{fingering-event}
 
 @item @rinternals{fingering-event}:
 El tipo de evento musical @code{fingering-event} está descrito en
-Expresiones musicales con el nombre de @rinternals{FingerEvent}
+Expresiones musicales con el nombre de @rinternals{FingeringEvent}
 @end itemize
 
 Este camino se recorre en contra de la corriente de información del
@@ -1442,7 +1442,7 @@ véase @ref{Default tablatures}.
 
 Para crear diagramas de trastes encima de un pentagrama, escríbalos
 como elementos de marcado encima de las notas utilizando la
-instrucción @code{\fret-diagram}, véase @ref{Fret diagrams}.
+instrucción @code{\fret-diagram}, véase @ref{Fret diagram markups}.
 
 @strong{Modo de letra}
 

@@ -147,7 +147,7 @@ a'\longa a'\breve a'1 a'2 a'4 a'8 a'16
 @end lilypond
 
 Cuando se tipografía una pieza en notación de Canto Gregoriano, el grabador
-@rinternals{Gregorian_ligature_engraver} selecciona automáticamente
+@rinternals{Vaticana_ligature_engraver} selecciona automáticamente
 las cabezas adecuadas, de manera que no es necesario establecer el estilo de las cabezas
 explícitamente.  Aún así, el estilo de las cabezas se puede establecer, p.ej., a
 @code{vaticana_punctum} para producir neumas punctum.  De forma similar, se utiliza un grabador

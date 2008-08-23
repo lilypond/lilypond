@@ -360,7 +360,7 @@ et le texte de la bulle.
 
 @seealso
 
-Référence du programme : @rinternals{text-balloon-interface}.
+Référence du programme : @rinternals{balloon-interface}.
 
 
 @node Grid lines

@@ -1757,7 +1757,7 @@ by modifying the action of Engravers.
 
 @seealso
 
-Internals reference: @rinternals{Engravers and performers}.
+Internals reference: @rinternals{Engravers and Performers}.
 
 
 @node Modifying context properties

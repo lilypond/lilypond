@@ -729,7 +729,6 @@ R1*4
 @seealso
 
 Referencia de funcionamiento interno:
-@rinternals{MultiMeasureRestMusicGroup},
 @rinternals{MultiMeasureRest}.
 
 El objeto de presentación @rinternals{MultiMeasureRestNumber} es para
