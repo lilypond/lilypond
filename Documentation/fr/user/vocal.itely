@@ -560,7 +560,7 @@ section @rlearning{Vocal ensembles}.
 
 @seealso
 
-Référence du programme : @rinternals{Melisma_translator}.
+@comment  Référence du programme : @rinternals{Melisma_translator}.
 
 Exemples : @rlsr{Vocal music}.
 
