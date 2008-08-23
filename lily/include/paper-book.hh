@@ -31,11 +31,15 @@ public:
   SCM header_;
   SCM header_0_;
   SCM scores_;
+  SCM bookparts_;
   Output_def *paper_;
 
   Paper_book ();
 
+  Output_def *top_paper ();
+
   void add_score (SCM);
+  void add_bookpart (SCM);
   void add_performance (SCM);
 
   SCM performances () const;
@@ -47,7 +51,12 @@ public:
   Stencil book_title ();
   Stencil score_title (SCM);
   
+  void classic_output_aux (SCM output);
   void classic_output (SCM output_channel);
+  int output_aux (SCM output_channel,
+                  int first_page_number,
+                  bool is_first,
+                  bool is_last);
   void output (SCM output_channel);
 };
 

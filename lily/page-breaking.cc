@@ -253,14 +253,17 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
 
   SCM book = book_->self_scm ();
   int first_page_number
-    = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
+    = robust_scm2int (book_->paper_->c_variable ("part-first-page-number"), 1);
+  bool last_part = ly_scm2bool (book_->paper_->c_variable ("part-is-last"));
   SCM ret = SCM_EOL;
-  SCM label_page_table = SCM_EOL;
+  SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");
+  if (label_page_table == SCM_UNDEFINED)
+    label_page_table = SCM_EOL;
 
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
       SCM page_num = scm_from_int (i + first_page_number);
-      SCM last = scm_from_bool (i == lines_per_page.size () - 1);
+      SCM last = scm_from_bool (last_part && (i == lines_per_page.size () - 1));
       SCM rag = scm_from_bool (ragged () || (to_boolean (last)
 					     && ragged_last ()));
       SCM line_count = scm_from_int (lines_per_page[i]);
@@ -290,7 +293,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
       ret = scm_cons (page, ret);
       systems = scm_list_tail (systems, line_count);
     }
-  book_->paper_->set_variable (ly_symbol2scm ("label-page-table"), label_page_table);
+  book_->top_paper ()->set_variable (ly_symbol2scm ("label-page-table"), label_page_table);
   ret = scm_reverse (ret);
   return ret;
 }

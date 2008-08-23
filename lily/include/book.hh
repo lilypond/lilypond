@@ -24,6 +24,7 @@ public:
   SCM header_;
   Output_def *paper_;
   SCM scores_;
+  SCM bookparts_;
   SCM input_location_;
 
   Book (Book const &);
@@ -31,8 +32,15 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR(Book, Book);
   Book ();
   void add_score (SCM);
+  void add_bookpart ();
+  void add_bookpart (SCM);
+  void set_parent (Book *parent);
+  bool error_found ();
   Paper_book *process (Output_def *def_paper,
 		       Output_def *def_layout);
+  Paper_book *process (Output_def *default_paper,
+                       Output_def *default_layout,
+                       Output_def *parent_paper);
   void set_keys ();
 };
 

@@ -56,8 +56,22 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; parser <-> output hooks.
-
 		
+(define-public (collect-bookpart-for-book parser book-part)
+  "Toplevel book-part handler"
+  (define (add-bookpart book-part)
+    (ly:parser-define!
+       parser 'toplevel-bookparts
+       (cons book-part (ly:parser-lookup parser 'toplevel-bookparts))))
+  ;; If toplevel scores have been found before this \bookpart,
+  ;; add them first to a dedicated bookpart
+  (if (pair? (ly:parser-lookup parser 'toplevel-scores))
+      (begin
+        (add-bookpart (ly:make-book-part
+                       (ly:parser-lookup parser 'toplevel-scores)))
+        (ly:parser-define! parser 'toplevel-scores (list))))
+  (add-bookpart book-part))
+
 (define-public (collect-scores-for-book parser score)
   (ly:parser-define!
    parser 'toplevel-scores

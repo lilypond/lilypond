@@ -159,6 +159,7 @@ void set_music_properties (Music *p, SCM a);
 %token ALIAS "\\alias"
 %token ALTERNATIVE "\\alternative"
 %token BOOK "\\book"
+%token BOOKPART "\\bookpart"
 %token CHANGE "\\change"
 %token CHORDMODE "\\chordmode"
 %token CHORDS "\\chords"
@@ -306,6 +307,8 @@ If we give names, Bison complains.
 
 %type <book> book_block
 %type <book> book_body
+%type <book> bookpart_block
+%type <book> bookpart_body
 
 %type <i> bare_unsigned
 %type <scm> figured_bass_alteration
@@ -474,6 +477,12 @@ toplevel_expression:
 		scm_call_2 (proc, PARSER->self_scm (), book->self_scm ());
 		book->unprotect ();
 	}
+	| bookpart_block {
+		Book *bookpart = $1;
+		SCM proc = PARSER->lexer_->lookup_identifier ("toplevel-bookpart-handler");
+		scm_call_2 (proc, PARSER->self_scm (), bookpart->self_scm ());
+		bookpart->unprotect ();
+	}
 	| score_block {
 		Score *score = $1;
 		
@@ -562,6 +571,10 @@ identifier_init:
 		$1->unprotect ();
 	}
 	| book_block {
+		$$ = $1->self_scm ();
+		$1->unprotect ();
+	}
+	| bookpart_block {
 		$$ = $1->self_scm ();
 		$1->unprotect ();
 	}
@@ -664,6 +677,12 @@ book_body:
 		$$->paper_ = $2;
 		$2->unprotect ();
 	}
+	| book_body bookpart_block {
+		Book *bookpart = $2;
+		SCM proc = PARSER->lexer_->lookup_identifier ("book-bookpart-handler");
+		scm_call_2 (proc, $$->self_scm (), bookpart->self_scm ());
+		bookpart->unprotect ();
+	}
 	| book_body score_block {
 		Score *score = $2;
 		SCM proc = PARSER->lexer_->lookup_identifier ("book-score-handler");
@@ -689,8 +708,60 @@ book_body:
 	| book_body error {
 		$$->paper_ = 0;
 		$$->scores_ = SCM_EOL;
+		$$->bookparts_ = SCM_EOL;
 	}
 	| book_body object_id_setting {
+		$$->user_key_ = ly_scm2string ($2);
+	}
+	;
+
+bookpart_block:
+	BOOKPART '{' bookpart_body '}' {
+		$$ = $3;
+	}
+	;
+
+bookpart_body:
+	{
+		$$ = new Book;
+		$$->origin ()->set_spot (@$);
+	}
+	| BOOK_IDENTIFIER {
+		$$ = unsmob_book ($1);
+		$$->protect ();
+		$$->origin ()->set_spot (@$);
+	}
+	| bookpart_body paper_block {
+		$$->paper_ = $2;
+		$2->unprotect ();
+	}
+	| bookpart_body score_block {
+		Score *score = $2;
+		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-score-handler");
+		scm_call_2 (proc, $$->self_scm (), score->self_scm ());
+		score->unprotect ();
+	}
+	| bookpart_body composite_music {
+		Music *music = unsmob_music ($2);
+		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-music-handler");
+		scm_call_3 (proc, PARSER->self_scm (), $$->self_scm (), music->self_scm ());
+	}
+	| bookpart_body full_markup {
+		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-text-handler");
+		scm_call_2 (proc, $$->self_scm (), scm_list_1 ($2));
+	}
+	| bookpart_body full_markup_list {
+		SCM proc = PARSER->lexer_->lookup_identifier ("bookpart-text-handler");
+		scm_call_2 (proc, $$->self_scm (), $2);
+	}
+	| bookpart_body lilypond_header {
+		$$->header_ = $2;
+	}
+	| bookpart_body error {
+		$$->paper_ = 0;
+		$$->scores_ = SCM_EOL;
+	}
+	| bookpart_body object_id_setting {
 		$$->user_key_ = ly_scm2string ($2);
 	}
 	;
