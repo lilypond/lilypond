@@ -650,7 +650,7 @@ im @code{BassFigureAlignment} benutzt werden.
 
 @seealso
 
-Programmreferenz: @rinternals{NewBassFigure}-,
+Programmreferenz: @rinternals{BassFigure}-,
 @rinternals{BassFigureAlignment}-, @rinternals{BassFigureLine}-,
 @rinternals{BassFigureBracket}- und
 @rinternals{BassFigureContinuation}-Objekte und der
