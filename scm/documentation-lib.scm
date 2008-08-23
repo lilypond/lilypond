@@ -11,6 +11,7 @@
 	     (srfi srfi-1))
 
 (define-class <texi-node> ()
+  (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)
   (children #:init-value '() #:accessor node-children #:init-keyword #:children)
   (text #:init-value "" #:accessor node-text #:init-keyword #:text)
   (name #:init-value "" #:accessor node-name #:init-keyword #:name)
@@ -27,7 +28,7 @@
     "\n@node "
     (node-name node)
     "\n\n"
-    (if appendix
+    (if (or appendix (appendix? node))
         (texi-appendix-section-command level)
         (texi-section-command level))
     " "

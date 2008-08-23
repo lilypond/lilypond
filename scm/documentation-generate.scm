@@ -134,13 +134,14 @@ This is the program reference for version "
      (backend-doc-node)
      (all-scheme-functions-doc)
      (make <texi-node>
+       #:appendix #t
        #:name "Indices"
        #:text "
-@unnumberedsec Concept index
+@appendixsec Concept index
 
 @printindex cp
 
-@unnumberedsec Function index
+@appendixsec Function index
 
 @printindex fn
 
