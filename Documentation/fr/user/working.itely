@@ -80,7 +80,7 @@ de se rappeler quelle version de LilyPond on utilisait quelques
 années auparavant.  L'utilitaire @command{convert-ly} demande que vous
 spécifiiez la version de LilyPond vous utilisiez alors.
 
-@item @strong{Ajoutez des contrôles}: @ruser{Octavechecks}, et
+@item @strong{Ajoutez des contrôles}: @ruser{Octave checks}, et
 @ruser{Bar and bar number checks}.  Si vous avez ajouté des contrôles
 de loin en loin, et que vous faites une erreur, vous pourrez la
 retrouver plus rapidement.  @qq{De loin en loin}, qu'est-ce à dire ?
