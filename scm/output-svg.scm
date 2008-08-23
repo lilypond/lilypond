@@ -336,6 +336,17 @@
    `(stroke-width . ,thick)
    `(r . ,radius)))
 
+(define (ellipse x-radius y-radius thick is-filled)
+  (entity
+   'ellipse ""
+   '(stroke-linejoin . "round")
+   '(stroke-linecap . "round")
+   `(fill . ,(if is-filled "currentColor" "none"))
+   `(stroke . "currentColor")
+   `(stroke-width . ,thick)
+   `(rx . ,x-radius)
+   `(ry . ,y-radius)))
+
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
 
