@@ -150,20 +150,27 @@ divider) and @code{space-after-divider} (box spacing after the divider).
                         (stencil (make-filled-box-stencil
                                    (box-x-dimensions prev-x p space)
                                    (box-y-dimensions prev-x p space)))
-                                   ;(circle-stencil (if circled (rounded-box-stencil stencil 0.05 0.3 0.1 ) stencil))
-                                   (circle-stencil (if circled (circle-stencil stencil 0.05 0.2 ) stencil))
+                        (pedal-stencil 
+                          (if circled 
+                              (ellipse-stencil stencil 0.05 0.1 ) 
+                              stencil))
                         (new-prev-x (+ prev-x space box-width)))
-                      (process-pedal (cdr remaining) new-prev-x (cons circle-stencil stencils) #f space)))
+                    (process-pedal (cdr remaining) new-prev-x 
+                                   (cons pedal-stencil stencils) #f space)))
               ((#\|)  ; Divider line
                   (let* ((xpos (+ prev-x space))
                          (stencil (divider-stencil xpos))
                          (new-prev-x (+ prev-x space)))
-                    (process-pedal (cdr remaining) new-prev-x (cons stencil stencils) circled spaceafterdivider)))
+                    (process-pedal (cdr remaining) new-prev-x 
+                                   (cons stencil stencils) 
+                                   circled spaceafterdivider)))
               ((#\o)  ; Next pedal should be circled
                   (process-pedal (cdr remaining) prev-x stencils #t space))
               (else
-                  (ly:warning "Unhandled entry in harp-pedal: ~a" (car remaining))
-                  (process-pedal (cdr remaining) prev-x stencils circled space))))))
+                  (ly:warning "Unhandled entry in harp-pedal: ~a" 
+                              (car remaining))
+                  (process-pedal (cdr remaining) 
+                                 prev-x stencils circled space))))))
         (final-x (car result))
         (stencils (cdr result)))
     ; Add the horizontal line and combine all stencils:
