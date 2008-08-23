@@ -17,6 +17,7 @@
        dashed-slur
        dot
        draw-line
+       ellipse
        embedded-ps
        glyph-string
        named-glyph

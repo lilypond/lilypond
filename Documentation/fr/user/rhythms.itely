@@ -1521,7 +1521,7 @@ reprises. Voyez à ce sujet @ref{Repeats}.
 
 @seealso
 
-Dans ce manuel : @ref{Repeats}, @ref{System start delimiters}.
+Dans ce manuel : @ref{Repeats}, @ref{Grouping staves}.
 
 Référence du programme : @rinternals{BarLine} (faisant partie du
 contexte @rinternals{Staff}), @rinternals{SpanBar} (sur plusieurs
