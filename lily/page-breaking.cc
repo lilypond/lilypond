@@ -263,14 +263,14 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
   for (vsize i = 0; i < lines_per_page.size (); i++)
     {
       SCM page_num = scm_from_int (i + first_page_number);
-      SCM last = scm_from_bool (last_part && (i == lines_per_page.size () - 1));
-      SCM rag = scm_from_bool (ragged () || (to_boolean (last)
-					     && ragged_last ()));
+      bool last_from_part = (i == lines_per_page.size () - 1);
+      SCM last_from_book = scm_from_bool (last_part && last_from_part);
+      SCM rag = scm_from_bool (ragged () || (last_from_part && ragged_last ()));
       SCM line_count = scm_from_int (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
       SCM page = scm_apply_0 (make_page,
 			      scm_list_n (book, lines, page_num,
-					  rag, last, SCM_UNDEFINED));
+					  rag, last_from_book, SCM_UNDEFINED));
 
       /* collect labels */
       for (SCM l = lines ; scm_is_pair (l)  ; l = scm_cdr (l))

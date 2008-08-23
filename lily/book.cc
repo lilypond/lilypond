@@ -128,8 +128,10 @@ Book::set_parent (Book *parent)
     }
   paper_->parent_ = parent->paper_;
 
-  if (header_ == SCM_EOL)
+  if ((header_ == SCM_EOL) && (scm_is_null (parent->bookparts_)))
     {
+      /* If this is the first part, and it has no header, copy the 
+       * parent header */
       header_ = ly_make_anonymous_module (false);
       if (ly_is_module (parent->header_))
         ly_module_copy (header_, parent->header_);

@@ -381,18 +381,15 @@ Paper_book::get_system_specs ()
 {
   SCM system_specs = SCM_EOL;
   
-  if (ly_scm2bool (paper_->c_variable ("part-is-first")))
+  Stencil title = book_title ();
+  if (!title.is_empty ())
     {
-      Stencil title = book_title ();
-      if (!title.is_empty ())
-        {
-          SCM props = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
-          Prob *ps = make_paper_system (props);
-          paper_system_set_stencil (ps, title);
-          
-          system_specs = scm_cons (ps->self_scm (), system_specs);
-          ps->unprotect ();
-        }
+      SCM props = paper_->lookup_variable (ly_symbol2scm ("book-title-properties"));
+      Prob *ps = make_paper_system (props);
+      paper_system_set_stencil (ps, title);
+      
+      system_specs = scm_cons (ps->self_scm (), system_specs);
+      ps->unprotect ();
     }
 
   SCM page_properties
