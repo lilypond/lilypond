@@ -164,7 +164,7 @@ avoid collisions.  Using the @code{\oneVoice} command, all the voice
 settings are put back to the neutral directions typical of a
 single-voice passage.
 
-We can make a voice to be into the same @code{Voice} context before
+We can make a voice to be in the same @code{Voice} context before
 and after a temporary polyphonic passage.  For example, the following
 construct keeps a voice alive throughout the polyphonic section.  Said
 voice is the first one inside of the two-voice section, and the extra
@@ -234,7 +234,7 @@ becomes voice three which has the stems up as desired.
 >>
 @end lilypond
 
-Spacing rests are often used to avoid too many rests, as seen in the
+Spacer rests are often used to avoid too many rests, as seen in the
 example above.
 
 In all but simplest works it is advisable to create explicit
@@ -278,7 +278,8 @@ Learning Manual:
 @rlearning{Explicitly instantiating voices}.
 
 Notation Reference:
-@ref{Percussion staves}.
+@ref{Percussion staves},
+@ref{Invisible rests}.
 
 Snippets:
 @rlsr{Simultaneous notes}.
