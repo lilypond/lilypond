@@ -79,11 +79,11 @@ mingw       - Windows x86
 
 @untranslated
 
-@menu 
+@menu
 * Downloading source code::
 * Requirements::
 * Building LilyPond::
-* Building documentation without compiling LilyPond::
+* Building documentation::
 * Testing LilyPond::
 * Problems::
 @end menu 
