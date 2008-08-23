@@ -181,7 +181,7 @@ performance, page layout, MIDI results and warnings.  This helps to
 reduce the number of regression errors during development, resulting
 in more stable releases.
 
-See @uref{INSTALL.html#testing} for more information.
+See @uref{INSTALL.html#Testing-LilyPond} for more information.
 @item
 Nested properties, such as @code{details} in @code{Slur}, can be
 reverted as well.  The syntax for this is
