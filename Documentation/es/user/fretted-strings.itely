@@ -361,7 +361,7 @@ Referencia de funcionamiento interno:
 
 
 @node Indicating position and barring
-@subsubsection Indicating position and barring
+@unnumberedsubsubsec Indicating position and barring
 
 Este ejemplo muestra cómo incluir indicaciones de posición y cejilla
 de guitarra:

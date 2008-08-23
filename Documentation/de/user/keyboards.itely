@@ -32,7 +32,7 @@
 
 
 @node References for keyboards
-@subsubsection References for keyboards
+@unnumberedsubsubsec References for keyboards
 
 @untranslated
 @ifnothtml
@@ -40,7 +40,7 @@
 @end ifnothtml
 
 @node The piano staff
-@subsubsection The piano staff
+@unnumberedsubsubsec The piano staff
 
 Ein Pianosystem besteht aus zwei normalen Notensystemen, die durch 
 eine Klammer verbunden sind. Die Systeme sind verhältnismäßig 

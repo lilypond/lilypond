@@ -231,7 +231,7 @@ chargé des têtes de notes, et dans le contexte @code{Staff}, un graveur
 
 Vous trouverez une description exhaustive de chaque graveur dans
 @ifhtml
-@rinternals{Engravers}.
+@rinternals{Engravers and Performers}.
 @end ifhtml
 @ifnothtml
 Program reference @expansion Translation @expansion{} Engravers.
@@ -602,7 +602,7 @@ valeur@tie{}@code{0}, c'est-à-dire la ligne du milieu.
 
 @item Afin que tous ces graveurs puissent travailler de concert, on leur adjoint un
 sous-programme spécial, introduit par la commande @code{\type} : il s'agit de
-@rinternals{Engraver_group},
+@code{Engraver_group},
 
 @example
 \type "Engraver_group"

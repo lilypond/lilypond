@@ -125,8 +125,6 @@ Fragmentos de código:
 @rlsr{Editorial annotations}.
 
 Referencia de funcionamiento interno:
-@rinternals{fontSize},
-@rinternals{font-size},
 @rinternals{font-interface}.
 
 

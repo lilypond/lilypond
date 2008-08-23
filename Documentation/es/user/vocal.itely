@@ -1110,6 +1110,5 @@ text = \lyricmode {
 
 Referencia de funcionamiento interno:
 @rinternals{LyricText},
-@rinternals{StanzaNumber},
-@rinternals{VocalName}.
+@rinternals{StanzaNumber}.
 
