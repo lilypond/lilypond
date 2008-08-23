@@ -136,11 +136,11 @@ This is the program reference for version "
      (make <texi-node>
        #:name "Indices"
        #:text "
-@unnumbered Concept index
+@unnumberedsec Concept index
 
 @printindex cp
 
-@unnumbered Function index
+@unnumberedsec Function index
 
 @printindex fn
 
