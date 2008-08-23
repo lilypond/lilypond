@@ -4,9 +4,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: lilypond 2.11.56\n"
+"Project-Id-Version: lilypond 2.11.57\n"
 "Report-Msgid-Bugs-To: http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs\n"
-"POT-Creation-Date: 2008-08-17 15:57+0200\n"
+"POT-Creation-Date: 2008-08-23 18:49+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -455,12 +455,12 @@ msgid ""
 msgstr ""
 
 #: abc2ly.py:1351 convert-ly.py:79 etf2ly.py:1190 lilypond-book.py:195
-#: midi2ly.py:882 musicxml2ly.py:2170 main.cc:161
+#: midi2ly.py:882 musicxml2ly.py:2185 main.cc:161
 msgid "show version number and exit"
 msgstr ""
 
 #: abc2ly.py:1355 convert-ly.py:83 etf2ly.py:1186 lilypond-book.py:126
-#: midi2ly.py:861 musicxml2ly.py:2152 main.cc:150
+#: midi2ly.py:861 musicxml2ly.py:2167 main.cc:150
 msgid "show this help and exit"
 msgstr ""
 
@@ -477,7 +477,7 @@ msgid "preserve ABC's notion of beams"
 msgstr ""
 
 #: abc2ly.py:1363 convert-ly.py:120 etf2ly.py:1199 lilypond-book.py:202
-#: midi2ly.py:894 musicxml2ly.py:2225
+#: midi2ly.py:894 musicxml2ly.py:2240
 msgid "Report bugs via"
 msgstr ""
 
@@ -569,7 +569,7 @@ msgid ""
 "file.\n"
 msgstr ""
 
-#: etf2ly.py:1192 midi2ly.py:866 musicxml2ly.py:2218 main.cc:154 main.cc:159
+#: etf2ly.py:1192 midi2ly.py:866 musicxml2ly.py:2233 main.cc:154 main.cc:159
 msgid "FILE"
 msgstr ""
 
@@ -671,7 +671,7 @@ msgstr ""
 msgid "create PDF files for use with PDFTeX"
 msgstr ""
 
-#: lilypond-book.py:187 midi2ly.py:876 musicxml2ly.py:2175 main.cc:162
+#: lilypond-book.py:187 midi2ly.py:876 musicxml2ly.py:2190 main.cc:162
 msgid "be verbose"
 msgstr ""
 
@@ -886,70 +886,70 @@ msgstr ""
 msgid "unknown span type %s for %s"
 msgstr ""
 
-#: musicxml2ly.py:1207
+#: musicxml2ly.py:1222
 msgid "Unknown metronome mark, ignoring"
 msgstr ""
 
 #. TODO: Implement the other (more complex) way for tempo marks!
-#: musicxml2ly.py:1212
+#: musicxml2ly.py:1227
 msgid ""
 "Metronome marks with complex relations (<metronome-note> in MusicXML) are "
 "not yet implemented."
 msgstr ""
 
-#: musicxml2ly.py:1368
+#: musicxml2ly.py:1383
 #, python-format
 msgid "Unable to convert chord type %s to lilypond."
 msgstr ""
 
-#: musicxml2ly.py:1514
+#: musicxml2ly.py:1529
 #, python-format
 msgid "drum %s type unknown, please add to instrument_drumtype_dict"
 msgstr ""
 
-#: musicxml2ly.py:1518
+#: musicxml2ly.py:1533
 msgid "cannot find suitable event"
 msgstr ""
 
-#: musicxml2ly.py:1608
+#: musicxml2ly.py:1623
 #, python-format
 msgid "Negative skip %s"
 msgstr ""
 
-#: musicxml2ly.py:1760
+#: musicxml2ly.py:1775
 #, python-format
 msgid "Negative skip found: from %s to %s, difference is %s"
 msgstr ""
 
-#: musicxml2ly.py:1787
+#: musicxml2ly.py:1802
 #, python-format
 msgid "unexpected %s; expected %s or %s or %s"
 msgstr ""
 
-#: musicxml2ly.py:1897
+#: musicxml2ly.py:1912
 msgid "cannot have two simultaneous slurs"
 msgstr ""
 
-#: musicxml2ly.py:2035
+#: musicxml2ly.py:2050
 #, python-format
 msgid "cannot simultaneously have more than one mode: %s"
 msgstr ""
 
-#: musicxml2ly.py:2133
+#: musicxml2ly.py:2148
 msgid "Converting to LilyPond expressions..."
 msgstr ""
 
-#: musicxml2ly.py:2144
+#: musicxml2ly.py:2159
 msgid "musicxml2ly [OPTION]... FILE.xml"
 msgstr ""
 
-#: musicxml2ly.py:2146
+#: musicxml2ly.py:2161
 msgid ""
 "Convert MusicXML from FILE.xml to LilyPond input.\n"
 "If the given filename is -, musicxml2ly reads from the command line.\n"
 msgstr ""
 
-#: musicxml2ly.py:2156
+#: musicxml2ly.py:2171
 msgid ""
 "Copyright (c) 2005--2008 by\n"
 "    Han-Wen Nienhuys <hanwen@xs4all.nl>,\n"
@@ -957,74 +957,74 @@ msgid ""
 "    Reinhold Kainhofer <reinhold@kainhofer.com>\n"
 msgstr ""
 
-#: musicxml2ly.py:2181
+#: musicxml2ly.py:2196
 msgid "use lxml.etree; uses less memory and cpu time"
 msgstr ""
 
-#: musicxml2ly.py:2187
+#: musicxml2ly.py:2202
 msgid "input file is a zip-compressed MusicXML file"
 msgstr ""
 
-#: musicxml2ly.py:2193
+#: musicxml2ly.py:2208
 msgid "convert pitches in relative mode (default)"
 msgstr ""
 
-#: musicxml2ly.py:2198
+#: musicxml2ly.py:2213
 msgid "convert pitches in absolute mode"
 msgstr ""
 
-#: musicxml2ly.py:2201
+#: musicxml2ly.py:2216
 msgid "LANG"
 msgstr ""
 
-#: musicxml2ly.py:2203
+#: musicxml2ly.py:2218
 msgid ""
 "use a different language file 'LANG.ly' and corresponding pitch names, e.g. "
 "'deutsch' for deutsch.ly"
 msgstr ""
 
-#: musicxml2ly.py:2209
+#: musicxml2ly.py:2224
 msgid "do not convert directions (^, _ or -) for articulations, dynamics, etc."
 msgstr ""
 
-#: musicxml2ly.py:2215
+#: musicxml2ly.py:2230
 msgid ""
 "do not convert beaming information, use lilypond's automatic beaming instead"
 msgstr ""
 
-#: musicxml2ly.py:2223
+#: musicxml2ly.py:2238
 msgid "set output filename to FILE, stdout if -"
 msgstr ""
 
-#: musicxml2ly.py:2305
+#: musicxml2ly.py:2320
 #, python-format
 msgid "unknown part in part-list: %s"
 msgstr ""
 
-#: musicxml2ly.py:2367
+#: musicxml2ly.py:2382
 msgid "Input is compressed, extracting raw MusicXML data from stdin"
 msgstr ""
 
-#: musicxml2ly.py:2370
+#: musicxml2ly.py:2385
 #, python-format
 msgid "Input file %s is compressed, extracting raw MusicXML data"
 msgstr ""
 
-#: musicxml2ly.py:2400
+#: musicxml2ly.py:2415
 msgid "Reading MusicXML from Standard input ..."
 msgstr ""
 
-#: musicxml2ly.py:2402
+#: musicxml2ly.py:2417
 #, python-format
 msgid "Reading MusicXML from %s ..."
 msgstr ""
 
-#: musicxml2ly.py:2435
+#: musicxml2ly.py:2450
 #, python-format
 msgid "Output to `%s'"
 msgstr ""
 
-#: musicxml2ly.py:2497
+#: musicxml2ly.py:2512
 #, python-format
 msgid "Unable to find input file %s"
 msgstr ""
@@ -1319,7 +1319,7 @@ msgstr ""
 msgid "setting to zero"
 msgstr ""
 
-#: general-scheme.cc:422 output-ps.scm:61
+#: general-scheme.cc:422 output-ps.scm:62
 msgid "Found infinity or nan in output. Substituting 0.0"
 msgstr ""
 
@@ -2465,7 +2465,7 @@ msgstr ""
 msgid "program too old: %s (file requires: %s)"
 msgstr ""
 
-#: backend-library.scm:19 lily.scm:776 ps-to-png.scm:58
+#: backend-library.scm:19 lily.scm:777 ps-to-png.scm:58
 #, scheme-format
 msgid "Invoking `~a'..."
 msgstr ""
@@ -2509,16 +2509,16 @@ msgstr ""
 msgid "translator listens to nonexisting event class ~A"
 msgstr ""
 
-#: define-markup-commands.scm:608
+#: define-markup-commands.scm:599
 msgid "no systems found in \\score markup, does it have a \\layout block?"
 msgstr ""
 
-#: define-markup-commands.scm:2386
+#: define-markup-commands.scm:2428
 #, scheme-format
 msgid "Cannot find glyph ~a"
 msgstr ""
 
-#: define-markup-commands.scm:2697
+#: define-markup-commands.scm:2737
 #, scheme-format
 msgid "not a valid duration string: ~a"
 msgstr ""
@@ -2675,24 +2675,24 @@ msgstr ""
 msgid "wrong type for argument ~a.  Expecting ~a, found ~s"
 msgstr ""
 
-#: lily.scm:640
+#: lily.scm:641
 #, scheme-format
 msgid "job ~a terminated with signal: ~a"
 msgstr ""
 
-#: lily.scm:643
+#: lily.scm:644
 #, scheme-format
 msgid ""
 "logfile ~a (exit ~a):\n"
 "~a"
 msgstr ""
 
-#: lily.scm:668 lily.scm:766
+#: lily.scm:669 lily.scm:767
 #, scheme-format
 msgid "failed files: ~S"
 msgstr ""
 
-#: lily.scm:756
+#: lily.scm:757
 #, scheme-format
 msgid "Redirecting output to ~a..."
 msgstr ""
@@ -2756,7 +2756,7 @@ msgstr ""
 msgid "unknown accidental style: ~S"
 msgstr ""
 
-#: output-ps.scm:276
+#: output-ps.scm:285
 msgid "utf-8-string encountered in PS backend"
 msgstr ""
 
