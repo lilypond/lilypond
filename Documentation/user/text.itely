@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node Text
 @section Text
@@ -388,7 +388,7 @@ when using the commands explained in @ref{Text alignment}.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { \column { a bbbb \line { c d } } }
-c1^\markup { \center-align { a bbbb c } }
+c1^\markup { \center-column { a bbbb c } }
 c1^\markup { \line { a b c } }
 @end lilypond
 
@@ -398,9 +398,9 @@ expression.  In the following example, the first two
 @code{\markup} expressions are equivalent:
 
 @lilypond[quote,verbatim,fragment,relative=1]
-c1^\markup { \center-align { a bbb c } }
-c1^\markup { \center-align { a { bbb c } } }
-c1^\markup { \center-align { a \line { bbb c } } }
+c1^\markup { \center-column { a bbb c } }
+c1^\markup { \center-column { a { bbb c } } }
+c1^\markup { \center-column { a \line { bbb c } } }
 @end lilypond
 
 
@@ -607,7 +607,7 @@ be moved as a whole, using the syntax described in
 @cindex text, horizontal alignment
 @cindex horizontal text alignment
 @funindex \left-align
-@funindex \hcenter
+@funindex \center-align
 @funindex \right-align
 
 Markup objects may be aligned in different ways.  By default,
@@ -620,7 +620,7 @@ a1-\markup { poco }
 e'
 a,-\markup { \left-align poco }
 e'
-a,-\markup { \hcenter { poco } }
+a,-\markup { \center-align { poco } }
 e'
 a,-\markup { \right-align poco }
 @end lilypond
@@ -699,7 +699,7 @@ a'4 a g2 a
 @end lilypond
 
 @funindex \column
-@funindex \center-align
+@funindex \center-column
 
 @cindex multi-line markup
 @cindex multi-line text
@@ -717,7 +717,7 @@ is placed on its own line, either left-aligned or centered:
     \line { d e f }
   }
   \hspace #10
-  \center-align {
+  \center-column {
     a
     "b c"
     \line { d e f }
@@ -739,7 +739,7 @@ or any other markup expression:
 \markup {
   \fill-line {
     \line { William S. Gilbert }
-    \center-align {
+    \center-column {
       \huge \smallCaps "The Mikado"
       or
       \smallCaps "The Town of Titipu"
@@ -817,7 +817,7 @@ with graphics, as demonstrated in the following example.
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
-  \center-align {
+  \center-column {
     \circle Jack
     \box "in the box"
     \null
@@ -846,7 +846,7 @@ exhaustively described in @ref{Align}.
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
-  \center-align {
+  \center-column {
     \box "Charles Ives (1874 - 1954)"
     \null
     \box \pad-markup #2 "THE UNANSWERED QUESTION"
@@ -887,7 +887,7 @@ expression, such objects can be combined together:
     \filled-box #'(-4 . 4) #'(-0.5 . 0.5) #1
   \hspace #5
 
-  \center-align {
+  \center-column {
     \triangle ##t
     \combine
       \draw-line #'(0 . 4)

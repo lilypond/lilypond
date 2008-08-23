@@ -1193,7 +1193,7 @@ of the @code{#'direction} layout property.
   (let* ((aligned-mols (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols)))
     (stack-lines -1 0.0 baseline aligned-mols)))
 
-(define-builtin-markup-command (center-align layout props args)
+(define-builtin-markup-command (center-column layout props args)
   (markup-list?)
   align
   ((baseline-skip))
@@ -1204,7 +1204,7 @@ Put @code{args} in a centered column.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\center-align {
+  \\center-column {
     one
     two
     three
@@ -1273,7 +1273,7 @@ Align @code{arg} to its Y@tie{}center.
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-aligned-to mol Y CENTER)))
 
-(define-builtin-markup-command (hcenter layout props arg)
+(define-builtin-markup-command (center-align layout props arg)
   (markup?)
   align
   ()
@@ -1286,7 +1286,7 @@ Align @code{arg} to its X@tie{}center.
 \\markup {
   \\column {
     one
-    \\hcenter
+    \\center-align
     two
     three
   }
@@ -1568,7 +1568,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
                     (make-pad-to-box-markup
                      (cons (/ length -2) (/ length 2))
                      '(0 . 0)
-                     (make-hcenter-markup arg))))
+                     (make-center-align-markup arg))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property
