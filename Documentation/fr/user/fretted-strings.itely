@@ -33,7 +33,7 @@
 * String number indications::
 * Default tablatures::
 * Custom tablatures::
-* Fret diagrams::
+* Fret diagram markups::
 * Right hand fingerings::
 @end menu
 
@@ -199,8 +199,8 @@ Référence du programme : @rinternals{Tab_note_heads_engraver}.
 
 Aucun effet spécial de guitare n'a été implémenté à ce jour.
 
-@node Fret diagrams
-@unnumberedsubsubsec Fret diagrams
+@node Fret diagram markups
+@unnumberedsubsubsec Fret diagram markups
 
 @cindex schémas d'accords
 @cindex schémas de barrés
@@ -312,7 +312,7 @@ Référence du programme : @rinternals{StrokeFinger}
 @end menu
 
 @node Indicating position and barring
-@subsubsection Indicating position and barring
+@unnumberedsubsubsec Indicating position and barring
 
 Les doigtés de la main droite, dans les accords, peuvent être ajoutés au moyen
 de @code{@var{note}-\rightHandFinger @var{doigté}}
