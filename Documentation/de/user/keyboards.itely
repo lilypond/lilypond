@@ -59,7 +59,7 @@ dafür gibt es Lösungen, vgl. die
 
 
 @node Changing staff manually
-@subsubsection Changing staff manually
+@unnumberedsubsubsec Changing staff manually
 
 @cindex manuelle Systemwechsel
 @cindex Systemwechsel, manuell
@@ -102,7 +102,7 @@ daraufhin eingefügt.
 
 
 @node Changing staff automatically
-@subsubsection Changing staff automatically
+@unnumberedsubsubsec Changing staff automatically
 @cindex Automatischer Systemwechsel
 
 Stimmen können angewiesen werden, automatisch zwischen dem 
@@ -161,7 +161,7 @@ befinden.
 
 
 @node Staff-change lines
-@subsubsection Staff-change lines
+@unnumberedsubsubsec Staff-change lines
 
 @cindex Stimmkreuzung
 @cindex Systemwechsel von Stimmen
@@ -199,7 +199,7 @@ Programmreferenz: @rinternals{VoiceFollower}.
 
 
 @node Cross-staff stems
-@subsubsection Cross-staff stems
+@unnumberedsubsubsec Cross-staff stems
 
 @cindex Hälse über zwei Systeme
 @cindex System querende Hälse
@@ -239,7 +239,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 @end menu
 
 @node Piano pedals
-@subsubsection Piano pedals
+@unnumberedsubsubsec Piano pedals
 @cindex Pedalbezeichnung
 
 Klaviere haben Pedale, mit denen die Klangeigenschaften beeinflusst werden 
@@ -319,7 +319,7 @@ Im Handbuch: @ref{Laissez vibrer ties}
 @end menu
 
 @node Discant symbols
-@subsubsection Discant symbols
+@unnumberedsubsubsec Discant symbols
 
 @untranslated
 @ifnothtml

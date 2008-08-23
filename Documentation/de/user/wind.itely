@@ -27,16 +27,16 @@
 
 @menu
 * References for wind instruments::
-* Half-holes::
+* Fingerings::
 @end menu
 
 @node References for wind instruments
-@subsubsection References for wind instruments
+@unnumberedsubsubsec References for wind instruments
 
 @untranslated
 
-@node Half-holes
-@subsubsection Half-holes
+@node Fingerings
+@unnumberedsubsubsec Fingerings
 
 @untranslated
 
@@ -51,7 +51,7 @@
 @end menu
 
 @node Bagpipe definitions
-@subsubsection Bagpipe definitions
+@unnumberedsubsubsec Bagpipe definitions
 
 LilyPond besitzt spezielle Definitionen, mit der die Musik
 des schottischen Hochland-Dudelsacks notiert wird. Um sie
@@ -96,7 +96,7 @@ piobaireachd high g can be written @code{gflat} when it occurs in light
 music.
 
 @node Bagpipe example
-@subsubsection Bagpipe example
+@unnumberedsubsubsec Bagpipe example
 
 So sieht die bekannte Melodie Amazing Grace aus, wenn man sie für
 Dudelsack notiert.

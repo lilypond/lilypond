@@ -32,7 +32,7 @@ ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.
 @end menu
 
 @node Repeat types
-@subsubsection Repeat types
+@unnumberedsubsubsec Repeat types
 
 @cindex Wiederholungen
 
@@ -66,7 +66,7 @@ berücksichtigt. Diese Wiederholungen müssen innerhalb eines Stimmen
 
 
 @node Repeat syntax
-@subsubsection Repeat syntax
+@unnumberedsubsubsec Repeat syntax
 
 @cindex Klammer, Wiederholung
 @cindex Volta
@@ -219,7 +219,7 @@ Bindebögen nicht wiederholt.
 
 
 @node Manual repeat commands
-@subsubsection Manual repeat commands
+@unnumberedsubsubsec Manual repeat commands
 
 @funindex repeatCommands
 
@@ -272,7 +272,7 @@ Programmreferenz: @rinternals{VoltaBracket},
 @end menu
 
 @node Percent repeats
-@subsubsection Percent repeats
+@unnumberedsubsubsec Percent repeats
 
 @cindex Prozent-Wiederholungen
 @cindex Taktweise Wiederholungen
@@ -322,7 +322,7 @@ Programmreferenz: @rinternals{RepeatSlash},
 
 
 @node Tremolo repeats
-@subsubsection Tremolo repeats
+@unnumberedsubsubsec Tremolo repeats
 
 @cindex Tremolobalken
 
@@ -356,7 +356,7 @@ Programmreferenz: @rinternals{Beam}, @rinternals{StemTremolo}.
 
 
 @node Tremolo subdivisions
-@subsubsection Tremolo subdivisions
+@unnumberedsubsubsec Tremolo subdivisions
 
 @cindex Tremolozeichen
 @funindex tremoloFlags
