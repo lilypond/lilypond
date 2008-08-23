@@ -129,12 +129,17 @@ divider) and @code{space-after-divider} (box spacing after the divider).
         (box-hheight (* size (/ (assoc-get 'box-height details 1.0) 2))) ; half the box-height, saves some divisions by 2
         (spacebeforedivider (* size (assoc-get 'space-before-divider details 0.8))) ; full space between boxes before the first divider
         (spaceafterdivider (* size (assoc-get 'space-after-divider details 0.8))) ; full space between boxes
-        ;(spacebeforedivider (/ (+ box-width (* 8 spaceafterdivider)) 8))
+        (circle-thickness (* (ly:output-def-lookup layout 'line-thickness)
+                       (assoc-get 'circle-thickness details 0.5)))
+        (circle-x-padding (* size (assoc-get 'circle-x-padding details 0.15)))
+        (circle-y-padding (* size (assoc-get 'circle-y-padding details 0.2)))
         (box-x-dimensions (lambda (prev-x p space) (cons (+ prev-x space)
                                                    (+ prev-x space box-width))))
         (box-y-dimensions (lambda (prev-x p space) (cons (- (* p dy) box-hheight)
                                                          (+ (* p dy) box-hheight))))
-        (divider-stencil (lambda (xpos) (make-line-stencil line-width xpos (- 0 dy box-hheight) xpos (+ dy box-hheight))))
+        (divider-stencil (lambda (xpos) (make-line-stencil line-width
+                                                     xpos (- 0 dy box-hheight)
+                                                     xpos (+ dy box-hheight))))
         (result (let process-pedal  ((remaining pedal-list)
                                      (prev-x 0)
                                      (stencils '())
@@ -152,7 +157,8 @@ divider) and @code{space-after-divider} (box spacing after the divider).
                                    (box-y-dimensions prev-x p space)))
                         (pedal-stencil 
                           (if circled 
-                              (ellipse-stencil stencil 0.05 0.1 ) 
+                              (ellipse-stencil stencil circle-thickness 
+                                            circle-x-padding circle-y-padding)
                               stencil))
                         (new-prev-x (+ prev-x space box-width)))
                     (process-pedal (cdr remaining) new-prev-x 

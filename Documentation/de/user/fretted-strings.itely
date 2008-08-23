@@ -314,14 +314,9 @@ Program reference: @rinternals{StrokeFinger}
 @untranslated
 
 @menu
-* Guitar tablatures::
 * Indicating position and barring::
+* Indicating harmonics and dampened notes::  
 @end menu
-
-@node Guitar tablatures
-@unnumberedsubsubsec Guitar tablatures
-
-@untranslated
 
 @node Indicating position and barring
 @unnumberedsubsubsec Indicating position and barring
@@ -346,6 +341,12 @@ herunterzudrücken. Damit werden schlagzeugartige Geräusche erreicht,
 die aber noch die ursprüngliche Tonhöhe ahnen lassen. Diese Spielart
 wird mit Kreuz-Notenköpfen notiert, wie im Abschnitt @ref{Special note heads}
 gezeigt.
+
+@node Indicating harmonics and dampened notes
+@unnumberedsubsubsec Indicating harmonics and dampened notes
+
+@untranslated
+
 
 @node Banjo
 @subsection Banjo

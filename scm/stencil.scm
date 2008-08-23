@@ -155,12 +155,13 @@ encloses the contents.
 			    (interval-center x-ext)
 			    (interval-center y-ext))))))
 
-(define-public (ellipse-stencil stencil thickness padding)
-  "Add an ellipse around STENCIL, producing a new stencil."
+(define-public (ellipse-stencil stencil thickness x-padding y-padding)
+  "Add an ellipse around STENCIL, padded by the padding pair, 
+   producing a new stencil."
   (let* ((x-ext (ly:stencil-extent stencil X))
 	 (y-ext (ly:stencil-extent stencil Y))
-         (x-length (+ (interval-length x-ext) padding thickness))
-         (y-length (+ (interval-length y-ext) padding thickness))
+         (x-length (+ (interval-length x-ext) x-padding thickness))
+         (y-length (+ (interval-length y-ext) y-padding thickness))
          ;(aspect-ratio (/ x-length y-length))
          (x-radius (* 0.707 x-length) )
          (y-radius (* 0.707 y-length) )
