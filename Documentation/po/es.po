@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-08-23 18:33+0200\n"
-"PO-Revision-Date: 2008-08-18 01:46+0200\n"
+"POT-Creation-Date: 2008-08-23 22:05+0200\n"
+"PO-Revision-Date: 2008-08-24 01:05+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "Más inf."
 
 #: translations-status.py:62
 msgid "no"
-msgstr "ninguno"
+msgstr "no"
 
 #: translations-status.py:63
 msgid "not translated"
@@ -164,7 +164,7 @@ msgstr "Inicio"
 #. @top in Documentation/user/lilypond-learning.tely
 #. @top in Documentation/es/user/lilypond-learning.tely
 msgid "GNU LilyPond --- learning manual"
-msgstr "GNU LilyPond --- manual de aprendizaje"
+msgstr "GNU LilyPond: manual de aprendizaje"
 
 #. @node in Documentation/user/lilypond-learning.tely
 #. @appendix in Documentation/user/lilypond-learning.tely
@@ -1419,21 +1419,19 @@ msgstr "inferior"
 
 #. Documentation/user/fundamental.itely:614 (comment)
 msgid "Voice \\\"1\\\"                  Voice \\\"2\\\""
-msgstr ""
+msgstr "Voz \\\"1\\\"                  Voz \\\"2\\\""
 
 #. Documentation/user/fundamental.itely:624 (comment)
 msgid "Voice \\\"1\\\"             Voice \\\"2\\\""
-msgstr ""
+msgstr "Voz \\\"1\\\"             Voz \\\"2\\\""
 
 #. Documentation/user/fundamental.itely:639 (comment)
-#, fuzzy
 msgid "Voice \\\"1\\\""
-msgstr "Voz "
+msgstr "Voz \\\"1\\\""
 
 #. Documentation/user/fundamental.itely:644 (comment)
-#, fuzzy
 msgid "Voice \\\"2\\\""
-msgstr "Voz "
+msgstr "Voz \\\"2\\\""
 
 #. Documentation/user/fundamental.itely:662 (comment)
 #. Documentation/user/fundamental.itely:686 (comment)
@@ -1442,20 +1440,20 @@ msgstr "Voz principal"
 
 #. Documentation/user/fundamental.itely:664 (comment)
 msgid "Voice \\\"1\\\"     Voice \\\"2\\\"                 Voice \\\"3\\\""
-msgstr ""
+msgstr "Voz \\\"1\\\"     Voz \\\"2\\\"                 Voz \\\"3\\\""
 
 #. Documentation/user/fundamental.itely:688 (comment)
-#. Documentation/user/simultaneous.itely:653 (comment)
-#. Documentation/user/simultaneous.itely:678 (comment)
-#. Documentation/user/simultaneous.itely:705 (comment)
+#. Documentation/user/simultaneous.itely:654 (comment)
+#. Documentation/user/simultaneous.itely:679 (comment)
+#. Documentation/user/simultaneous.itely:706 (comment)
 msgid "Bar 1"
 msgstr "Compás 1"
 
 # También Líneas divisorias. FVD
 #. Documentation/user/fundamental.itely:699 (comment)
-#. Documentation/user/simultaneous.itely:658 (comment)
-#. Documentation/user/simultaneous.itely:683 (comment)
-#. Documentation/user/simultaneous.itely:711 (comment)
+#. Documentation/user/simultaneous.itely:659 (comment)
+#. Documentation/user/simultaneous.itely:684 (comment)
+#. Documentation/user/simultaneous.itely:712 (comment)
 msgid "Bar 2"
 msgstr "Compás 2"
 
@@ -1526,7 +1524,7 @@ msgstr "Iniciar la primera voz"
 #. Documentation/user/fundamental.itely:1196 (variable)
 #. Documentation/user/fundamental.itely:2579 (variable)
 #. Documentation/user/tweaks.itely:3170 (variable)
-#. Documentation/user/simultaneous.itely:699 (variable)
+#. Documentation/user/simultaneous.itely:700 (variable)
 msgid "global"
 msgstr "global"
 
@@ -2109,8 +2107,7 @@ msgstr "Aumentar solamente el grosor de la ligadura siguiente"
 
 #. Documentation/user/tweaks.itely:669 (comment)
 msgid "Revert thickness of all following slurs to default of 1.2"
-msgstr ""
-"Devolver el grosor de las ligaduras siguientes al valor predeterminado 1.2"
+msgstr "Devolver el grosor de las ligaduras siguientes al valor predeterminado 1.2"
 
 #. Documentation/user/tweaks.itely:1267 (comment)
 msgid "Don't print clefs in this staff"
@@ -2126,8 +2123,7 @@ msgstr "Reducir el tamaño de la fuente en un 24% aprox."
 
 #. Documentation/user/tweaks.itely:1386 (comment)
 msgid "Reduce stem length and line spacing to match"
-msgstr ""
-"Reducir la longitud de la plica y el espaciado de la línea en coincidencia"
+msgstr "Reducir la longitud de la plica y el espaciado de la línea en coincidencia"
 
 #. Documentation/user/tweaks.itely:1760 (comment)
 #. Documentation/user/tweaks.itely:1821 (comment)
@@ -2169,8 +2165,7 @@ msgstr "Detener el corchete de octava"
 
 #. Documentation/user/tweaks.itely:1826 (comment)
 msgid "Place following Ottava Bracket below Text Spanners"
-msgstr ""
-"Situar el corchete de octava ulterior por debajo de los extensores de texto"
+msgstr "Situar el corchete de octava ulterior por debajo de los extensores de texto"
 
 #. Documentation/user/tweaks.itely:1882 (comment)
 msgid "Cause notes to space out to accommodate text"
@@ -2587,8 +2582,7 @@ msgstr "la propiedad padding (relleno)"
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/es/user/tweaks.itely
 msgid "left-padding and right-padding"
-msgstr ""
-"left-padding y right-padding (relleno por la izquierda y por la derecha)"
+msgstr "left-padding y right-padding (relleno por la izquierda y por la derecha)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/es/user/tweaks.itely
@@ -3129,7 +3123,7 @@ msgstr "ADDENDUM: cómo utilizar esta licencia para sus documentos"
 #. @top in Documentation/user/lilypond-program.tely
 #. @top in Documentation/es/user/lilypond-program.tely
 msgid "GNU LilyPond --- program usage"
-msgstr "GNU LilyPond --- manual de utilización del programa"
+msgstr "GNU LilyPond: manual de utilización del programa"
 
 #. @node in Documentation/user/install.itely
 #. @chapter in Documentation/user/install.itely
@@ -4220,8 +4214,7 @@ msgstr "Establecer longitud de barra del subgrupo a semicorchea"
 
 #. Documentation/user/rhythms.itely:1698 (comment)
 msgid "end 1/16 beams for all time signatures at the 1/16 moment"
-msgstr ""
-"finalizar barras de semicorchea para todos los compases en el momento 1/16"
+msgstr "finalizar barras de semicorchea para todos los compases en el momento 1/16"
 
 #. Documentation/user/rhythms.itely:1702 (comment)
 msgid "end 1/32 beams for all time signatures at the 1/16 moment"
@@ -4263,8 +4256,7 @@ msgstr "Imprimir el número de compás cada dos compases"
 
 #. Documentation/user/rhythms.itely:2197 (comment)
 msgid "Prevent bar numbers at the end of a line and permit them elsewhere"
-msgstr ""
-"No poner números de compás al final de la línea, pero sí en otros lugares"
+msgstr "No poner números de compás al final de la línea, pero sí en otros lugares"
 
 #. Documentation/user/rhythms.itely:2201 (comment)
 #. Documentation/user/rhythms.itely:2227 (comment)
@@ -4908,15 +4900,15 @@ msgstr "simile"
 msgid "Tremolo repeats"
 msgstr "Repeticiones de trémolo"
 
-#. Documentation/user/simultaneous.itely:542 (variable)
+#. Documentation/user/simultaneous.itely:543 (variable)
 msgid "instrumentOne"
 msgstr "instrumentoUno"
 
-#. Documentation/user/simultaneous.itely:550 (variable)
+#. Documentation/user/simultaneous.itely:551 (variable)
 msgid "instrumentTwo"
 msgstr "instrumentoDos"
 
-#. Documentation/user/simultaneous.itely:717 (comment)
+#. Documentation/user/simultaneous.itely:718 (comment)
 msgid "Bar 3 ..."
 msgstr "Compás 3 ..."
 
@@ -5033,28 +5025,24 @@ msgstr "Escribir música en paralelo"
 
 #. Documentation/user/staff.itely:1048 (variable)
 #. Documentation/user/staff.itely:1063 (variable)
-#, fuzzy
 msgid "flute"
-msgstr "bemol"
+msgstr "flauta"
 
 #. Documentation/user/staff.itely:1078 (variable)
-#, fuzzy
 msgid "clarinet"
-msgstr "línea"
+msgstr "clarinete"
 
 #. Documentation/user/staff.itely:1173 (variable)
 msgid "oboe"
-msgstr ""
+msgstr "oboe"
 
 #. Documentation/user/staff.itely:1215 (variable)
-#, fuzzy
 msgid "piccolo"
-msgstr "fltin"
+msgstr "flautin"
 
 #. Documentation/user/staff.itely:1223 (variable)
-#, fuzzy
 msgid "cbassoon"
-msgstr "cbjo"
+msgstr "cfagot"
 
 #. @node in Documentation/user/staff.itely
 #. @section in Documentation/user/staff.itely
@@ -5240,8 +5228,7 @@ msgstr "Formateo de las notas de aviso"
 
 #. Documentation/user/editorial.itely:321 (comment)
 msgid "this is deliberate nonsense; note that the stems remain black"
-msgstr ""
-"esto no tiene sentido, intencionalmente. Observe que las plicas siguen negras"
+msgstr "esto no tiene sentido, intencionalmente. Observe que las plicas siguen negras"
 
 #. @node in Documentation/user/editorial.itely
 #. @section in Documentation/user/editorial.itely
@@ -5573,9 +5560,8 @@ msgid "lyr"
 msgstr "letra"
 
 #. Documentation/user/vocal.itely:1053 (comment)
-#, fuzzy
 msgid "applies to \\\"fas\\\""
-msgstr "se aplica a"
+msgstr "se aplica al \\\"fas\\\""
 
 #. Documentation/user/vocal.itely:1222 (comment)
 msgid "moves the column off the left margin; "
@@ -5595,9 +5581,8 @@ msgid "adds horizontal spacing between columns; "
 msgstr "añade espaciado horizontal entre columnas; "
 
 #. Documentation/user/vocal.itely:1240 (comment)
-#, fuzzy
 msgid "if they are still too close, add more \\\" \\\" pairs  "
-msgstr "si aún están muy juntas, añada más parejas "
+msgstr "si aún están muy juntas, añada más parejas \\\" \\\"  "
 
 #. Documentation/user/vocal.itely:1241 (comment)
 msgid "until the result looks good"
@@ -6307,33 +6292,36 @@ msgid ""
 "These lines define the position of the woodblocks in the stave, if You like, "
 "You can change it "
 msgstr ""
+"Estas líneas definen la posición de los bloques en la pauta, "
+"puede cambiarlo si quiere"
 
 #. Documentation/user/percussion.itely:389 (comment)
 msgid "or You can use  special note heads for the woodblocks."
-msgstr ""
+msgstr "o puede usar cabezas especiales para los bloques."
 
 #. Documentation/user/percussion.itely:391 (comment)
 msgid ""
 "this defines a staff with only two lines. It also defines the positions of "
 "the two lines"
 msgstr ""
+"Esto define una pauta con sólo dos líneas, también define las posiciones "
+"de las dos líneas"
 
 #. Documentation/user/percussion.itely:393 (comment)
 msgid "this is neccessary. If not entered, the barline wuld be too short!"
-msgstr ""
+msgstr "Esto es necesario. Si no se pone, la línea divisoria sería demasiado corta."
 
 #. Documentation/user/percussion.itely:397 (comment)
 msgid "with this You load Your new drum style table"
-msgstr ""
+msgstr "Con esto cargamos nuestra nueva tabla de estilos de percusión"
 
 #. Documentation/user/percussion.itely:419 (comment)
 msgid "tambourine-music is entered with \\\"tamb\\\""
-msgstr ""
+msgstr "La música para pandereta se introduce con \\\"tamb\\\""
 
 #. Documentation/user/percussion.itely:425 (comment)
-#, fuzzy
 msgid "broken"
-msgstr "llave o corchete"
+msgstr "roto"
 
 #. Documentation/user/percussion.itely:426 (comment)
 msgid "\\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) "
@@ -6344,22 +6332,24 @@ msgid ""
 "the trick with the scaled duration and the shorter rest is neccessary for "
 "the correct ending of the trill-span!"
 msgstr ""
+"El truco con la duración escalada y el silencio más corto es "
+"necesario para la correcta finalización del trino."
 
 #. Documentation/user/percussion.itely:454 (comment)
 msgid "bells are enterd with:"
-msgstr ""
+msgstr "Las campanas se introducen con:"
 
 #. Documentation/user/percussion.itely:455 (comment)
 msgid "\\\"cb\\\" (cowbell) and \\\"rb\\\" (ridebell)\\\" "
-msgstr ""
+msgstr "\\\"cb\\\" (cowbell, cencerro) y \\\"rb\\\" (ridebell, platillo)\\\" "
 
 #. Documentation/user/percussion.itely:484 (variable)
 msgid "drumsA"
-msgstr ""
+msgstr "percusionA"
 
 #. Documentation/user/percussion.itely:493 (variable)
 msgid "drumsB"
-msgstr ""
+msgstr "percusionB"
 
 #. @node in Documentation/user/percussion.itely
 #. @section in Documentation/user/percussion.itely
@@ -6408,13 +6398,12 @@ msgstr "Notación básica de percusión"
 #. @node in Documentation/user/percussion.itely
 #. @subsubsection in Documentation/user/percussion.itely
 msgid "Drum rolls"
-msgstr ""
+msgstr "Redobles"
 
 #. @node in Documentation/user/percussion.itely
 #. @subsubsection in Documentation/user/percussion.itely
-#, fuzzy
 msgid "Pitched percussion"
-msgstr "Percusión"
+msgstr "Percusión afinada"
 
 #. @node in Documentation/user/percussion.itely
 #. @subsubsection in Documentation/user/percussion.itely
@@ -6429,9 +6418,8 @@ msgstr "Pautas de percusión"
 
 #. @node in Documentation/user/percussion.itely
 #. @subsubsection in Documentation/user/percussion.itely
-#, fuzzy
 msgid "Custom percussion staves"
-msgstr "Pautas de percusión"
+msgstr "Pautas de percusión personalizadas"
 
 #. @node in Documentation/user/percussion.itely
 #. @subsubsection in Documentation/user/percussion.itely
@@ -7374,9 +7362,8 @@ msgstr "Balance entre instrumentos (i)"
 
 #. @node in Documentation/user/input.itely
 #. @subsection in Documentation/user/input.itely
-#, fuzzy
 msgid "Percussion in MIDI"
-msgstr "Percusión"
+msgstr "Percusión en MIDI"
 
 #. Documentation/user/spacing.itely:684 (comment)
 msgid "this does nothing"
@@ -7400,8 +7387,7 @@ msgstr "esta vez el texto estará más cerca del pentagrama"
 
 #. Documentation/user/spacing.itely:1462 (comment)
 msgid "by setting outside-staff-priority to a non-number, "
-msgstr ""
-"ajustando el valor de outside-staff-priority a algo que no sea un número, "
+msgstr "ajustando el valor de outside-staff-priority a algo que no sea un número, "
 
 #. Documentation/user/spacing.itely:1463 (comment)
 msgid "we disable the automatic collision avoidance"
@@ -7752,15 +7738,15 @@ msgstr "Mostrar el espaciado"
 msgid "Changing spacing"
 msgstr "Cambiar el espaciado"
 
-#. Documentation/user/changing-defaults.itely:1940 (comment)
+#. Documentation/user/changing-defaults.itely:1946 (comment)
 msgid "Remove bar line at the end of the current line"
 msgstr "Quitar la barra de compás al final de la línea en curso"
 
-#. Documentation/user/changing-defaults.itely:1986 (comment)
+#. Documentation/user/changing-defaults.itely:1992 (comment)
 msgid "Try to remove all key signatures"
 msgstr "Intentar quitar todas las armaduras"
 
-#. Documentation/user/changing-defaults.itely:2368 (variable)
+#. Documentation/user/changing-defaults.itely:2374 (variable)
 msgid "XinO"
 msgstr "X_O"
 
@@ -7960,20 +7946,6 @@ msgstr "La instrucción @code{\\override}"
 #. @node in Documentation/fr/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @node in Documentation/de/user/changing-defaults.itely
-msgid "set versus override"
-msgstr "set frente a override"
-
-#. @subsection in Documentation/user/changing-defaults.itely
-#. @subsection in Documentation/fr/user/changing-defaults.itely
-#. @subsection in Documentation/es/user/changing-defaults.itely
-#. @subsection in Documentation/de/user/changing-defaults.itely
-msgid "@code{\\set} vs. @code{\\override}"
-msgstr "@code{\\set} frente a @code{\\override}"
-
-#. @node in Documentation/user/changing-defaults.itely
-#. @node in Documentation/fr/user/changing-defaults.itely
-#. @node in Documentation/es/user/changing-defaults.itely
-#. @node in Documentation/de/user/changing-defaults.itely
 msgid "The tweak command"
 msgstr "La instrucción tweak"
 
@@ -7983,6 +7955,20 @@ msgstr "La instrucción tweak"
 #. @subsection in Documentation/de/user/changing-defaults.itely
 msgid "The @code{\\tweak} command"
 msgstr "La instrucción @code{\\tweak}"
+
+#. @node in Documentation/user/changing-defaults.itely
+#. @node in Documentation/fr/user/changing-defaults.itely
+#. @node in Documentation/es/user/changing-defaults.itely
+#. @node in Documentation/de/user/changing-defaults.itely
+msgid "set versus override"
+msgstr "set frente a override"
+
+#. @subsection in Documentation/user/changing-defaults.itely
+#. @subsection in Documentation/fr/user/changing-defaults.itely
+#. @subsection in Documentation/es/user/changing-defaults.itely
+#. @subsection in Documentation/de/user/changing-defaults.itely
+msgid "@code{\\set} vs. @code{\\override}"
+msgstr "@code{\\set} frente a @code{\\override}"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @section in Documentation/user/changing-defaults.itely
@@ -8668,9 +8654,8 @@ msgstr "Lista de articulaciones"
 
 #. @node in Documentation/user/notation-appendices.itely
 #. @appendixsec in Documentation/user/notation-appendices.itely
-#, fuzzy
 msgid "Percussion notes"
-msgstr "Pautas de percusión"
+msgstr "Notas de percusión"
 
 #. @node in Documentation/user/notation-appendices.itely
 #. @appendixsec in Documentation/user/notation-appendices.itely
@@ -8730,12 +8715,12 @@ msgstr "Hoja de referencia rápida"
 
 #. @top in Documentation/fr/user/lilypond-learning.tely
 msgid "GNU LilyPond --- manuel d'initiation"
-msgstr "GNU LilyPond --- manual de aprendizaje"
+msgstr ""
 
 #. @subsubheading in Documentation/fr/user/macros.itexi
 #. @subsubheading in Documentation/de/user/macros.itexi
 msgid "Commonly tweaked properties"
-msgstr "Propiedades trucadas frecuentemente"
+msgstr ""
 
 #. @subheading in Documentation/fr/user/tutorial.itely
 msgid "Hauteurs"
@@ -8766,7 +8751,7 @@ msgstr ""
 #. @node in Documentation/de/user/tweaks.itely
 #. @section in Documentation/de/user/tweaks.itely
 msgid "Common tweaks"
-msgstr "Trucos comunes"
+msgstr ""
 
 #. @node in Documentation/fr/user/working.itely
 #. @subsection in Documentation/fr/user/working.itely
@@ -8952,7 +8937,7 @@ msgstr "barítono"
 
 #. @top in Documentation/es/user/lilypond.tely
 msgid "GNU LilyPond --- El tipografiador de música"
-msgstr "GNU LilyPond --- El tipografiador de música"
+msgstr "GNU LilyPond: el tipografiador de música"
 
 #. @rglos in Documentation/es/user/pitches.itely
 msgid "semitone"
@@ -9080,80 +9065,3 @@ msgstr "Notas al pie"
 msgid "Table of Contents"
 msgstr "Índice general"
 
-#~ msgid "No time signature in the ossia staff"
-#~ msgstr "El ossia no tiene compás"
-
-#~ msgid "To use the setting globally, uncomment the following line:"
-#~ msgstr ""
-#~ "Para emplear el ajuste globalmente, quite el comentario de la línea "
-#~ "siguiente:"
-
-#~ msgid "\\override VerticalAxisGroup #'remove-first = ##t"
-#~ msgstr "\\override VerticalAxisGroup #'remove-first = ##t"
-
-#~ msgid ""
-#~ "To use the setting globally, comment this line, uncomment the line above"
-#~ msgstr ""
-#~ "Para emplear el ajuste globalmente, comente esta línea, descomente la "
-#~ "anterior"
-
-#~ msgid "smaller"
-#~ msgstr "menor"
-
-#~ msgid "setup a context for cue notes."
-#~ msgstr "preparar un contexto para las notas guía"
-
-#~ msgid "About the Learning Manual (LM)"
-#~ msgstr "Sobre el Manual de aprendizaje (MA)"
-
-#~ msgid "About the Music Glossary (MG)"
-#~ msgstr "Sobre el Glosario Musical (GM)"
-
-#~ msgid "About the Notation Reference (NR)"
-#~ msgstr "Sobre la Referencia de la notación (RN)"
-
-#~ msgid "About the Application Usage (AU)"
-#~ msgstr "Sobre el manual de Utilización del programa (UP)"
-
-#~ msgid "About the Snippet List (SL)"
-#~ msgstr "Sobre la lista de fragmentos de código (FC)"
-
-#~ msgid "About the Internals Reference (IR)"
-#~ msgstr "Sobre el Manual de Referencia de Funcionamiento Interno (RFI)"
-
-#~ msgid "Micro tones"
-#~ msgstr "Microtonos"
-
-#~ msgid "Cautionary accidentals"
-#~ msgstr "Alteraciones de precaución"
-
-#~ msgid "Augmentation dots"
-#~ msgstr "Puntillos"
-
-# Saltos? FVD
-#~ msgid "Skips"
-#~ msgstr "Desplazamientos"
-
-#~ msgid "Multi measure rests"
-#~ msgstr "Silencios multicompás"
-
-#~ msgid "Bar check"
-#~ msgstr "Comprobación del compás"
-
-#~ msgid "Barnumber check"
-#~ msgstr "Comprobación del número de compás"
-
-#~ msgid "Proportional notation (introduction)"
-#~ msgstr "Notación proporcional (introducción)"
-
-#~ msgid "Fret diagrams"
-#~ msgstr "Diagramas de trastes"
-
-#~ msgid "Half-holes"
-#~ msgstr "Medios agujeros"
-
-#~ msgid "Automatic notation"
-#~ msgstr "Notación automática"
-
-#~ msgid "Changing context properties on the fly"
-#~ msgstr "Cambiar las propiedades de un contexto al vuelo"
