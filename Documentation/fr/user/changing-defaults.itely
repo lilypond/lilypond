@@ -81,7 +81,8 @@ des listes, des chaînes de caractères ou des symboles, en Scheme.}
 Cette section traite des contextes.
 
 @menu
-* Changing context properties on the fly::  
+* Contexts explained::          
+* The set command::             
 * Modifying context plug-ins::  
 * Layout tunings within contexts::  
 * Changing context default settings::  
@@ -91,8 +92,14 @@ Cette section traite des contextes.
 @end menu
 
 
-@node Changing context properties on the fly
-@subsection Changing context properties on the fly
+@node Contexts explained
+@subsection Contexts explained
+
+@untranslated
+
+
+@node The set command
+@subsection The @code{\set} command
 
 @cindex propriétés
 @funindex \set
@@ -444,8 +451,8 @@ de ce fait interrompre, ou faire planter le programme -- ou bien les deux.
 @node Changing context default settings
 @subsection Changing context default settings
 
-Les réglages montrés dans les sous-sections @ref{Changing context
-properties on the fly}, @ref{Modifying context plug-ins} et
+Les réglages montrés dans les sous-sections @ref{The
+set command}, @ref{Modifying context plug-ins} et
 @ref{Layout tunings within contexts} peuvent également être saisis indépendamment
 de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\context} :
 

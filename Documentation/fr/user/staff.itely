@@ -23,6 +23,7 @@ seulement.
 
 @menu
 * Displaying staves::           
+* Modifying single staves::     
 * Writing parts::               
 @end menu
 
@@ -31,13 +32,19 @@ seulement.
 @subsection Displaying staves
 
 @menu
-* System start delimiters::     
-* Staff symbol::                
-* Hiding staves::               
+* Instantiating new staves::    
+* Grouping staves::             
+* Deeper nested staff groups::  
 @end menu
 
-@node System start delimiters
-@unnumberedsubsubsec System start delimiters
+@node Instantiating new staves
+@unnumberedsubsubsec Instantiating new staves
+
+@untranslated
+
+
+@node Grouping staves
+@unnumberedsubsubsec Grouping staves
 
 @cindex système, début de
 @cindex crochet vertical
@@ -126,6 +133,24 @@ en profondeur,
 >>
 @end lilypond
 
+@node Deeper nested staff groups
+@unnumberedsubsubsec Deeper nested staff groups
+
+@untranslated
+
+@node Modifying single staves
+@subsection Modifying single staves
+
+Cette section explique le réglage de la gravure de chaque portée,
+comme la taille de portée ou le nombre de lignes ; sont aussi décrits
+la suspension et la reprise de portées et les portées d'@emph{ossia}.
+
+
+@menu
+* Staff symbol::                
+* Ossia staves::                
+* Hiding staves::               
+@end menu
 
 @node Staff symbol
 @unnumberedsubsubsec Staff symbol
@@ -180,6 +205,12 @@ comme sur l'exemple suivant :
 Référence du programme : @rinternals{StaffSymbol}.
 
 Exemples : @rlsr{Staff notation}.
+
+
+@node Ossia staves
+@unnumberedsubsubsec Ossia staves
+
+@untranslated
 
 
 @node Hiding staves

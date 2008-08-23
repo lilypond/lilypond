@@ -814,4 +814,4 @@ et de parties séparées se trouvent dans le manuel : voir
 @ruser{Writing parts}.
 
 Les variables (@q{propriétés}) réglables sont abordées en détail dans
-@ruser{Changing context properties on the fly}.
+@ruser{The set command}.
