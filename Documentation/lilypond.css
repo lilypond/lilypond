@@ -22,13 +22,9 @@ h2 {
   font-size: x-large;
   color: #1d7b85;
 }
-.unnumberedsubsubsec {
+.unnumberedsubsubsec, .subsubheading {
   font-size: large;
   color: #1d7b85;
-}
-.subsubheading {
-  font-size: large;
-  color: #3b220d;
 }
 
 /***********************************************************/
