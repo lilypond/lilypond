@@ -174,11 +174,11 @@
      (make <texi-node>
        #:name "Indexes"
        #:text "
-@unnumbered Concept index
+@unnumberedsec Concept index
 
 @printindex cp
 
-@unnumbered Function index
+@unnumberedsec Function index
 
 @printindex fn
 
