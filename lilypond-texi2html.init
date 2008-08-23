@@ -72,7 +72,7 @@ $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::element_file_name    = \&split_at_numbered_sections;
-$Texi2HTML::Config::node_file_name       = \&lilypond_node_file_name;
+# $Texi2HTML::Config::node_file_name       = \&lilypond_node_file_name;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
@@ -245,7 +245,7 @@ my $node_to_filename_map = ();
 # modify the anchors for nodes, in particular, use the section<=>anchor map
 # from the .xref-map file and assign the pre-defined anchor to the node.
 # We don't want to split at nodes, so we don't return a valid file name
-# and just mis-use this function to change the node->{id}
+# and just mis-use this function to change the node->{'id'}
 sub lilypond_node_file_name($$)
 {
   my $node = shift;
@@ -254,7 +254,7 @@ sub lilypond_node_file_name($$)
 
   if (exists ($node_to_filename_map->{$node_name})) {
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
-    $node->{id} = $anchor;
+    $node->{'id'} = $anchor;
   } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" 
            or $type eq "stoc" or $type eq "foot" or $type eq "about") {
      # Nothing to do
@@ -265,7 +265,7 @@ sub lilypond_node_file_name($$)
     }
     # normalize to the same file name as texinfo
     $anchor = texinfo_file_name($anchor);
-    $node->{id} = $anchor;
+    $node->{'id'} = $anchor;
   }
   return undef;
 }
@@ -305,7 +305,8 @@ sub split_at_numbered_sections($$$)
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
     $filename .= ".$docu_ext" if (defined($docu_ext));
 
-    $element->{id} = $anchor;
+    $element->{'id'} = $anchor;
+#     $element->{'node_ref'}->{'id'} = $anchor;
     # unnumbered sections (except those at top-level!) always go to the same
     # file as the previous numbered section
     if (not ($element->{number}) and not ($lastfilename eq '') and ($element->{level} > 1)) {
@@ -341,7 +342,8 @@ sub split_at_numbered_sections($$$)
     }
     # normalize to the same file name as texinfo
     $anchor = texinfo_file_name($anchor);
-    $$element{id} = $anchor;
+    $element->{'id'} = $anchor;
+    $element->{'node_ref'}->{'id'} = $anchor;
     # Numbered sections will get a filename Node_title, unnumbered sections will use
     # the file name of the previous numbered section:
     if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
