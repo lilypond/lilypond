@@ -46,7 +46,6 @@
 ###                                   link target)
 ### -) The HTML anchors for all sections are derived from the node name /
 ###    section title (pre-generated in the .xref-map file). Implemented by:
-###           lilypond_node_file_name (adjust node anchors)
 ###           split_at_numbered_sections (adjust section anchors)
 ###
 ###
@@ -275,8 +274,10 @@ sub split_at_numbered_sections($$$)
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
     $filename .= ".$docu_ext" if (defined($docu_ext));
 
-    $element->{'id'} = $anchor;
-#     $element->{'node_ref'}->{'id'} = $anchor;
+    # need to override both target (used as anchor in links to this section) and
+    # id (used in the <a name=..> tag for this section)!
+    $element->{'id'} = $element->{'target'} = $anchor;
+
     # unnumbered sections (except those at top-level!) always go to the same
     # file as the previous numbered section
     if (not ($element->{number}) and not ($lastfilename eq '') and ($element->{level} > 1)) {
@@ -293,6 +294,9 @@ sub split_at_numbered_sections($$$)
 
   } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
     # TOC, footer, about etc. are called with undefined $element and $type == "toc"|"stoc"|"foot"|"about"
+    if ($type eq "top") {
+      $element->{'id'} = $element->{'target'} = "Top";
+    }
     return;
   } else {
     print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
@@ -312,8 +316,9 @@ sub split_at_numbered_sections($$$)
     }
     # normalize to the same file name as texinfo
     $anchor = texinfo_file_name($anchor);
-    $element->{'id'} = $anchor;
-    $element->{'node_ref'}->{'id'} = $anchor;
+    # need to override both target (used as anchor in links to this section) and
+    # id (used in the <a name=..> tag for this section)!
+    $element->{'id'} = $element->{'target'} = $anchor;
     # Numbered sections will get a filename Node_title, unnumbered sections will use
     # the file name of the previous numbered section:
     if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
