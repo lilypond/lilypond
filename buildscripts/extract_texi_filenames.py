@@ -41,7 +41,7 @@ if not os.path.isdir (outdir):
 
 include_re = re.compile (r'@include ((?!../lily-).*?)\.texi$', re.M)
 whitespaces = re.compile (r'\s+')
-section_translation_re = re.compile (r'@(node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading|translationof) (.*?)\s*\n')
+section_translation_re = re.compile (r'^@(node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading|translationof) (.*?)\s*$', re.MULTILINE)
 
 def expand_includes (m, filename):
     filepath = os.path.join (os.path.dirname (filename), m.group(1)) + '.texi'
