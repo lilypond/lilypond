@@ -30,7 +30,7 @@
 * Default tablatures::
 * Custom tablatures::
 * Fret diagram markups::
-* Right hand fingerings::
+* Right-hand fingerings::
 @end menu
 
 @node References for fretted strings
@@ -266,7 +266,7 @@ propiedades de los diagramas de trastes en
 
 @seealso
 
-@node Right hand fingerings
+@node Right-hand fingerings
 @unnumberedsubsubsec Right-hand fingerings
 
 Se pueden introducir las digitaciones de la mano derecha de los

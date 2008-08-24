@@ -600,7 +600,7 @@ Fragmentos de código:
 @end menu
 
 @node Glissando
-@subsubsection Glissando
+@unnumberedsubsubsec Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -655,7 +655,7 @@ contemplada.
 
 
 @node Arpeggio
-@subsubsection Arpeggio
+@unnumberedsubsubsec Arpeggio
 
 @cindex arpeggio
 @cindex acorde quebrado
@@ -753,7 +753,7 @@ No es posible mezclar arpegios conectados y no conectados en un
 
 
 @node Trills
-@subsubsection Trills
+@unnumberedsubsubsec Trills
 
 @cindex trinos
 @funindex \trill

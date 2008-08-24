@@ -31,7 +31,7 @@
 * Default tablatures::
 * Custom tablatures::
 * Fret diagram markups::
-* Right hand fingerings::
+* Right-hand fingerings::
 @end menu
 
 @node References for fretted strings
@@ -252,8 +252,8 @@ Schnittstelle für die Griffsymboleigenschaften findet sich unter
 Beispiele:
 @rlsr{Fretted strings}.
 
-@node Right hand fingerings
-@unnumberedsubsubsec Right hand fingerings
+@node Right-hand fingerings
+@unnumberedsubsubsec Right-hand fingerings
 
 Fingersatz für die rechte Hand in Akkorden kann notiert werden, indem
 der Befehl @code{@var{note}-\rightHandFinger @var{finger}}
