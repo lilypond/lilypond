@@ -47,6 +47,9 @@
 ### -) The HTML anchors for all sections are derived from the node name /
 ###    section title (pre-generated in the .xref-map file). Implemented by:
 ###           split_at_numbered_sections (adjust section anchors)
+### -) Use the standard footnote format "<sup>nr</sup> text" instead of the
+###    ugly format of texi2html (<h3>(nr)</h3><p>text</p>). Implemented in
+###           lilypond_foot_line_and_ref
 ###
 ###
 ### Useful helper functions:
@@ -70,6 +73,7 @@ package Texi2HTML::Config;
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
+$Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
 $Texi2HTML::Config::element_file_name    = \&split_at_numbered_sections;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
@@ -80,6 +84,7 @@ $Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
 $Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
 $Texi2HTML::Config::unknown              = \&lilypond_unknown;
 $Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
+$Texi2HTML::Config::foot_line_and_ref    = \&lilypond_foot_line_and_ref;
 
 # Examples should be formatted similar to quotes:
 $Texi2HTML::Config::complex_format_map->{'example'} = {
@@ -849,6 +854,46 @@ sub lilypond_print_navigation
     );
 
 
+
+
+
+#############################################################################
+###  FOOTNOTE FORMATTING
+#############################################################################
+
+# Format footnotes in a nicer way: Instead of printing the number in a separate
+# (nr) heading line, use the standard way of prepending <sup>nr</sup> immediately
+# before the fn text.
+sub lilypond_foot_line_and_ref($$$$$$$)
+{
+    my $number_in_doc = shift;
+    my $number_in_page = shift;
+    my $footnote_id = shift;
+    my $place_id = shift;
+    my $document_file = shift;
+    my $footnote_file = shift;
+    my $lines = shift;
+    my $state = shift;
+
+    if ($document_file eq $footnote_file)
+    {
+        $document_file = $footnote_file = '';
+    }
+    # FN number printed before the fn text:
+    my $tmptxt =  &$anchor($footnote_id, $document_file . "#$place_id",
+                   "<sup>$number_in_doc</sup>");
+    # unfortunately, the @$lines contain the already formatted footnote in the
+    # from <p>...</p>. This means that we have to modify this string and
+    # insert the FN number manually. The default (nr) on a separate line before
+    # the FN text is just plain ugly:
+    $lines->[0] =~ s/^<p>/<p>$tmptxt /;
+    # this is a bit obscure, this allows to add an anchor only if formatted
+    # as part of the document.
+    $place_id = '' if ($state->{'outside_document'} or $state->{'multiple_pass'});
+    # return FN lines and text to be inserted in the running text (link to FN)
+    return ($lines, &$anchor($place_id,  $footnote_file . "#$footnote_id",
+           "<sup>$number_in_doc</sup>"));
+}
 
 
 
