@@ -25,13 +25,13 @@
 
 
 @menu
-* Articulations::               
+* Articulations and ornamentations::               
 * Dynamics::                    
 * New dynamic marks::           
 @end menu
 
-@node Articulations
-@unnumberedsubsubsec Articulations
+@node Articulations and ornamentations
+@unnumberedsubsubsec Articulations and ornamentations
 
 @cindex Artikulationszeichen
 @cindex Beschriftung
@@ -629,7 +629,7 @@ Klaviersystem zu benutzen.
 @cindex Triller
 
 Kurze Triller können wie ein normales Artikulationszeichen eingegeben 
-werden, siehe @ref{Articulations}.
+werden, siehe @ref{Articulations and ornamentations}.
 
 Längere Triller werden mit den Befehlen @code{\startTrillSpan} zu 
 Beginn und @code{\stopTrillSpan} am Ende erstellt.

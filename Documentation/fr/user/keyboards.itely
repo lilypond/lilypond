@@ -26,7 +26,6 @@
 
 @menu
 * References for keyboards::    
-* The piano staff::             
 * Changing staff manually::     
 * Changing staff automatically::  
 * Staff-change lines::          
@@ -40,9 +39,6 @@
 @ifnothtml
 @englishref
 @end ifnothtml
-
-@node The piano staff
-@unnumberedsubsubsec The piano staff
 
 Les systèmes de piano comprennent deux portées réunies par une accolade.
 Les portées sont largement autonomes, mais il arrive que des voix passent
@@ -236,7 +232,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 @end menu
 
 @node Piano pedals
-@subsubsection Piano pedals
+@unnumberedsubsubsec Piano pedals
 @cindex Pédales
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
