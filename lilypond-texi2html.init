@@ -87,6 +87,12 @@ $Texi2HTML::Config::complex_format_map->{'example'} = {
   'end' => q{"</pre></blockquote>\n"},
  };
 
+%Texi2HTML::config::misc_pages_targets = (
+   'Overview' => 'Overview',
+   'Contents' => 'Contents',
+   'About' => 'About'
+);
+
 
 my @section_to_filename;
 
