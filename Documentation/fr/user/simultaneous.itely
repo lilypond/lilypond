@@ -88,7 +88,7 @@ seront pas imprimées de façon acceptable.  utilisez plutôt
 
 @menu
 * Basic polyphony::             
-* Collision Resolution::        
+* Collision resolution::        
 * Automatic part combining::    
 * Writing music in parallel::   
 @end menu
@@ -175,8 +175,8 @@ qui la précède immédiatement, sans tenir compte des différentes voix.
 pas à @code{noteB} ou @code{noteA}.
 
 
-@node Collision Resolution
-@unnumberedsubsubsec Collision Resolution
+@node Collision resolution
+@unnumberedsubsubsec Collision resolution
 
 D'ordinaire, les têtes de notes pointées et non-pointées ne sont pas
 fusionnées, mais lorsque la propriété @code{merge-differently-dotted} de
