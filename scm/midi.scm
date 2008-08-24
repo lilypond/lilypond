@@ -284,11 +284,11 @@ returns the program of the instrument
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
 
-(define-public (write-performances-midis performances basename)
+(define-public (write-performances-midis performances basename . rest)
   (let
       loop
     ((perfs performances)
-     (count 0))
+     (count (if (null? rest) 0 (car rest))))
 
 
     (if (pair?  perfs)

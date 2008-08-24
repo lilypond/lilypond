@@ -105,57 +105,64 @@ Paper_book::add_performance (SCM s)
   performances_ = scm_cons (s, performances_);
 }
 
-int
+void
 Paper_book::output_aux (SCM output_channel,
-                        int first_page_number,
                         bool is_first,
-                        bool is_last)
+                        bool is_last,
+                        int *first_page_number,
+                        int *first_performance_number)
 {
   if (scm_is_pair (performances_))
     {
       SCM proc = ly_lily_module_constant ("write-performances-midis");
  
-      scm_call_2 (proc, performances (), output_channel);
+      scm_call_3 (proc,
+                  performances (),
+                  output_channel,
+                  scm_long2num (*first_performance_number));
+      *first_performance_number += scm_ilength (performances_);
     }
 
   if (scm_is_pair (bookparts_))
     {
       bool is_first_part = is_first;
-      int page_number = first_page_number;
       for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
         if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
           {
             bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
-            page_number += pbookpart->output_aux (output_channel,
-                                                  page_number,
-                                                  is_first_part,
-                                                  is_last_part);
+            pbookpart->output_aux (output_channel,
+                                   is_first_part,
+                                   is_last_part,
+                                   first_page_number,
+                                   first_performance_number);
             is_first_part = false;
           }
-      return page_number;
     }
   else
     {
       if (scores_ == SCM_EOL)
-        return 0;
+        return;
       paper_->set_variable (ly_symbol2scm ("part-first-page-number"),
-                            scm_long2num (first_page_number));
+                            scm_long2num (*first_page_number));
       paper_->set_variable (ly_symbol2scm ("part-is-first"),
                             ly_bool2scm (is_first));
       paper_->set_variable (ly_symbol2scm ("part-is-last"),
                             ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
-      return scm_ilength (pages ());
+      *first_page_number += scm_ilength (pages ());
     }
 }
 
 void
 Paper_book::output (SCM output_channel)
 {
+  int first_page_number = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
+  int first_performance_number = 0;
   output_aux (output_channel,
-              robust_scm2int (paper_->c_variable ("first-page-number"), 1),
               true,
-              true);
+              true,
+              &first_page_number,
+              &first_performance_number);
 
   SCM scopes = SCM_EOL;
   if (ly_is_module (header_))
@@ -190,13 +197,17 @@ Paper_book::output (SCM output_channel)
 }
 
 void
-Paper_book::classic_output_aux (SCM output)
+Paper_book::classic_output_aux (SCM output,
+                                int *first_performance_number)
 {
   if (scm_is_pair (performances_))
     {
       SCM proc = ly_lily_module_constant ("write-performances-midis");
- 
-      scm_call_2 (proc, performances (), output);
+      scm_call_3 (proc,
+                  performances (),
+                  output,
+                  scm_long2num (*first_performance_number));
+      *first_performance_number += scm_ilength (performances_);
     }
   
   /* Generate all stencils to trigger font loads.  */
@@ -206,7 +217,8 @@ Paper_book::classic_output_aux (SCM output)
 void
 Paper_book::classic_output (SCM output)
 {
-  classic_output_aux (output);
+  int first_performance_number = 0;
+  classic_output_aux (output, &first_performance_number);
 
   SCM scopes = SCM_EOL;
   if (ly_is_module (header_))
