@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0184e537d7eda6265b92fe20f3565de0f0411869
+    Translation of GIT committish: fe52a9493b91e0d61a9d6f850b0a2f2a7015e6db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -157,6 +157,9 @@ Free Documentation License''.
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Éste es el manual de aprendizaje de GNU LilyPond, versión @version{}.
+Para ver más información acerca de la relación entre éste y el resto
+de los documentos, consulte @ref{About the documentation}.
+
 
 @cindex página web
 @cindex URL

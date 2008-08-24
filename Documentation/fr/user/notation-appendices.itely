@@ -32,17 +32,17 @@
 @node Chord name chart
 @appendixsec Chord name chart
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node MIDI instruments
 @appendixsec MIDI instruments
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node List of colors
 @appendixsec List of colors
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @subsubheading Normal colors
 @subsubheading X color names
@@ -53,12 +53,12 @@ UNTRANSLATED NODE: IGNORE ME
 @node The Feta font
 @appendixsec The Feta font
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Note head styles
 @appendixsec Note head styles
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @ignore
 Vous pouvez utiliser les commandes suivantes au sein d'un bloc
@@ -113,22 +113,22 @@ Voici la liste exhaustive des symboles :
 @node All context properties
 @appendixsec All context properties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Layout properties
 @appendixsec Layout properties
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Identifiers
 @appendixsec Identifiers
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Scheme functions
 @appendixsec Scheme functions
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated

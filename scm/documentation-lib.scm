@@ -11,6 +11,7 @@
 	     (srfi srfi-1))
 
 (define-class <texi-node> ()
+  (appendix #:init-value #f #:accessor appendix? #:init-keyword #:appendix)
   (children #:init-value '() #:accessor node-children #:init-keyword #:children)
   (text #:init-value "" #:accessor node-text #:init-keyword #:text)
   (name #:init-value "" #:accessor node-name #:init-keyword #:name)
@@ -21,13 +22,13 @@
    (node-name x)
    (node-desc x)))
 
-(define* (dump-node node port level #:optional (appendix #f))
+(define* (dump-node node port level)
   (display
    (string-append
     "\n@node "
     (node-name node)
     "\n\n"
-    (if appendix
+    (if (appendix? node)
         (texi-appendix-section-command level)
         (texi-section-command level))
     " "
@@ -41,7 +42,7 @@
 	      (node-children node)))
 	""))
    port)
-  (map (lambda (x) (dump-node x port (+ 1 level) appendix))
+  (map (lambda (x) (dump-node x port (+ 1 level)))
        (node-children node)))
 
 (define (processing name)

@@ -9,6 +9,8 @@
 
 @c \version "2.11.51"
 
+@c Translators: Frédéric Chiasson, Jean-Charles Malahieude
+
 @node Spacing issues
 @chapter Spacing issues
 
@@ -25,9 +27,7 @@
 @node Paper and pages
 @section Paper and pages
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -38,25 +38,19 @@ UNTRANSLATED NODE: IGNORE ME
 @node Paper size
 @subsection Paper size
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Page formatting
 @subsection Page formatting
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Music layout
 @section Music layout
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -67,25 +61,19 @@ UNTRANSLATED NODE: IGNORE ME
 @node Setting the staff size
 @subsection Setting the staff size
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Score layout
 @subsection Score layout
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Breaks
 @section Breaks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -101,65 +89,49 @@ UNTRANSLATED NODE: IGNORE ME
 @node Line breaking
 @subsection Line breaking
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Page breaking
 @subsection Page breaking
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Optimal page breaking
 @subsection Optimal page breaking
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Optimal page turning
 @subsection Optimal page turning
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Minimal page breaking
 @subsection Minimal page breaking
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Explicit breaks
 @subsection Explicit breaks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Using an extra voice for breaks
 @subsection Using an extra voice for breaks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Vertical spacing
 @section Vertical spacing
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -173,49 +145,37 @@ UNTRANSLATED NODE: IGNORE ME
 @node Vertical spacing inside a system
 @subsection Vertical spacing inside a system
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Vertical spacing between systems
 @subsection Vertical spacing between systems
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Explicit staff and system positioning
 @subsection Explicit staff and system positioning
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Two-pass vertical spacing
 @subsection Two-pass vertical spacing
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Vertical collision avoidance
 @subsection Vertical collision avoidance
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Horizontal spacing
 @section Horizontal Spacing
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -229,41 +189,70 @@ UNTRANSLATED NODE: IGNORE ME
 @node Horizontal spacing overview
 @subsection Horizontal spacing overview
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node New spacing area
 @subsection New spacing area
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Changing horizontal spacing
 @subsection Changing horizontal spacing
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Line length
 @subsection Line length
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Proportional notation
 @subsection Proportional notation
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+Les notes peuvent s'espacer proportionnellement en assignant une durée
+à @code{proportionalNotationDuration}
+
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+<<
+  \set Score.proportionalNotationDuration = #(ly:make-moment 1 16)
+  \new Staff { c8[ c c c c c]  c4 c2 r2 }
+  \new Staff { c2  \times 2/3 { c8 c c } c4 c1 }
+>>
+@end lilypond
+
+Manipuler cette propriété affectera l'espacement idéal uniquement pour
+des notes consécutives.  Pour obtenir une véritable notation
+proportionnelle, vous devrez tenir compte des réglages suivants :
+
+@itemize @bullet
+
+@item La véritable notation proportionnelle exige que des symboles
+puissent en écraser d'autres.  Pour y parvenir, il faut retirer le
+@rinternals{Separating_line_group_engraver} du contexte
+@rinternals{Staff}. 
+
+@item L'influence en matière d'espacement induite par le formatage
+(clés, barres de mesure, etc) s'annule en assignant
+@emph{vrai}@tie{}(#t) à la propriété @code{strict-note-spacing} de
+l'objet @rinternals{SpacingSpanner}.
+
+@item Les affinages optiques se règlent en assignant @emph{vrai} à la
+propriété @code{uniform-stretching} du @rinternals{SpacingSpanner}. 
+
+
+@end itemize
+
+@seealso
+
+Exemples : @rlsr{Spacing}.
+
+Le fichier @file{input/proportional.ly} illustre la notation
+proportionnelle stricte.
+
 
 
 @node Fitting music onto fewer pages
@@ -277,9 +266,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Displaying spacing
 @subsection Displaying spacing
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Changing spacing

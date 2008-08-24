@@ -7,13 +7,12 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.57"
 
 @node General input and output
 @chapter General input and output
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -27,9 +26,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Input structure
 @section Input structure
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -41,25 +38,19 @@ UNTRANSLATED NODE: IGNORE ME
 @node Structure of a score
 @subsection Structure of a score
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Multiple scores in a book
 @subsection Multiple scores in a book
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node File structure
 @subsection File structure
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Titles and headers
@@ -162,13 +153,13 @@ cualquier instrucción de marcado de texto (Véase @ref{Formatting text}).
 \book {
   \header {
     dedication = "dedicated to me"
-    title = \markup \center-align { "Title first line" "Title second line,
+    title = \markup \center-column { "Title first line" "Title second line,
 longer" }
     subtitle = "the subtitle,"
     subsubtitle = #(string-append "subsubtitle LilyPond version "
 (lilypond-version))
     poet = "Poet"
-    composer =  \markup \center-align { "composer" \small "(1847-1973)" }
+    composer =  \markup \center-column { "composer" \small "(1847-1973)" }
     texttranslator = "Text Translator"
     meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge
 "r" }
@@ -509,9 +500,7 @@ Archivos de inicio: @file{ly/@/toc@/-init@/.ly}.
 @node Working with input files
 @section Working with input files
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -524,17 +513,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Including LilyPond files
 @subsection Including LilyPond files
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Different editions from one source
 @subsection Different editions from one source
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -545,41 +530,31 @@ UNTRANSLATED NODE: IGNORE ME
 @node Using variables
 @unnumberedsubsubsec Using variables
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Using tags
 @unnumberedsubsubsec Using tags
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Text encoding
 @subsection Text encoding
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Controlling output
 @section Controlling output
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -590,17 +565,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Extracting fragments of music
 @subsection Extracting fragments of music
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Skipping corrected music
 @subsection Skipping corrected music
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node MIDI output
@@ -802,9 +773,7 @@ para la salida MIDI se encuentran definidos dentro de
 @node What goes into the MIDI output?
 @subsection What goes into the MIDI output?
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @unnumberedsubsubsec Supported in MIDI
 @unnumberedsubsubsec Unsupported in MIDI
@@ -854,9 +823,7 @@ y percent --repetición de compases--).  Por ejemplo,
 @node Controlling MIDI dynamics
 @subsection Controlling MIDI dynamics
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @unnumberedsubsubsec Dynamic marks

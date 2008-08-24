@@ -33,9 +33,6 @@ Script_interface::get_stencil (Grob *me, Direction d)
       return Font_interface::get_default_font (me)
 	->find_by_name ("scripts." + ly_scm2string (str));
     }
-  else if (key == ly_symbol2scm ("accordion"))
-    return Lookup::accordion (scm_cdr (s), 1.0,
-			      Font_interface::get_default_font (me));
   else
     assert (false);
 

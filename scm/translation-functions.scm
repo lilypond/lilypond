@@ -134,7 +134,7 @@
     ;;    (if (markup? fig-markup)
     ;;	(set!
     ;;	 fig-markup (markup #:translate (cons 1.0 0)
-    ;;			    #:hcenter fig-markup)))
+    ;;			    #:center-align fig-markup)))
 
     (if alt-markup
 	(set! fig-markup

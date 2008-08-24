@@ -34,17 +34,15 @@
 @end menu
 
 @node References for keyboards
-@subsubsection References for keyboards
+@unnumberedsubsubsec References for keyboards
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
 
 @node The piano staff
-@subsubsection The piano staff
+@unnumberedsubsubsec The piano staff
 
 Les systèmes de piano comprennent deux portées réunies par une accolade.
 Les portées sont largement autonomes, mais il arrive que des voix passent
@@ -60,7 +58,7 @@ piano} au chapitre @rlearning{Piano templates}.
 
 
 @node Changing staff manually
-@subsubsection Changing staff manually
+@unnumberedsubsubsec Changing staff manually
 
 @cindex changements de portées manuels
 @cindex changement de portée, manuel
@@ -93,7 +91,7 @@ par définir les portées
 @end example
 
 
-avant d'insérer une mélodie au moyen d'un contexte @context{Voice} :
+avant d'insérer une mélodie au moyen d'un contexte @code{Voice} :
 
 @example
 \context Staff = bas
@@ -102,7 +100,7 @@ avant d'insérer une mélodie au moyen d'un contexte @context{Voice} :
 
 
 @node Changing staff automatically
-@subsubsection Changing staff automatically
+@unnumberedsubsubsec Changing staff automatically
 @cindex Changement de portée automatique
 @cindex Automatique, changement de portée
 
@@ -163,7 +161,7 @@ vaut mieux indiquer soi-même ces changements.
 
 
 @node Staff-change lines
-@subsubsection Staff-change lines
+@unnumberedsubsubsec Staff-change lines
 
 @cindex voix entre deux portées
 @cindex changements de portée
@@ -200,7 +198,7 @@ Référence du programme : @rinternals{VoiceFollower}.
 
 
 @node Cross-staff stems
-@subsubsection Cross-staff stems
+@unnumberedsubsubsec Cross-staff stems
 
 @cindex hampe, enjambement portées
 @cindex distance entre deux portées de piano
@@ -314,11 +312,9 @@ Dans ce manuel : @ref{Ties} @qq{laissez vibrer}.
 @end menu
 
 @node Discant symbols
-@subsubsection Discant symbols
+@unnumberedsubsubsec Discant symbols
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml

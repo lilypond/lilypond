@@ -320,6 +320,36 @@ property.")
 
      (hair-thickness ,number? "Thickness of the thin line in a bar
 line.")
+     (harp-pedal-details ,list? "An alist of detailed grob properties
+for harp pedal diagrams.  Each alist entry consists of a
+(@code{property} . @code{value}) pair.
+The properties which can be included in harp-pedal-details
+include the following:
+@itemize @bullet
+@item
+@code{box-offset} -- Vertical shift of the center of flat / sharp pedal
+boxes above / below the horizontal line. Default value 0.8.
+@item
+@code{box-width} -- Width of each pedal box. Default value 0.4.
+@item
+@code{box-height} -- Height of each pedal box. Default value 1.0.
+@item
+@code{space-before-divider} -- Space between boxes before the first divider
+(so that the diagram can be made symmetric). Default value 0.8.
+@item
+@code{space-after-divider} -- Space between boxes after the first divider.
+Default value 0.8.
+@item
+@code{circle-thickness} -- Thickness (in unit of the line-thickness) of the
+ellipse around circled pedals. Default value 0.5.
+@item
+@code{circle-x-padding} -- Padding in X direction of the ellipse around
+circled pedals. Default value 0.15.
+@item
+@code{circle-y-padding} -- Padding in Y direction of the ellipse around
+circled pedals. Default value 0.2.
+@end itemize")
+
      (head-direction ,ly:dir? "Are the note heads left or right in a
 semitie?")
      (height ,ly:dimension? "Height of an object in

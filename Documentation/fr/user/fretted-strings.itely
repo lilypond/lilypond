@@ -15,7 +15,7 @@
 @node Fretted string instruments
 @section Fretted string instruments
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Common notation for fretted strings::
@@ -26,24 +26,24 @@ UNTRANSLATED NODE: IGNORE ME
 @node Common notation for fretted strings
 @subsection Common notation for fretted strings
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * References for fretted strings::
 * String number indications::
 * Default tablatures::
 * Custom tablatures::
-* Fret diagrams::
+* Fret diagram markups::
 * Right hand fingerings::
 @end menu
 
 @node References for fretted strings
-@subsubsection References for fretted strings
+@unnumberedsubsubsec References for fretted strings
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node String number indications
-@subsubsection String number indications
+@unnumberedsubsubsec String number indications
 
 @cindex cordes numérotées
 @cindex numéro de corde
@@ -62,7 +62,7 @@ Référence du programme : @rinternals{StringNumber}.
 Exemples : @rlsr{Fretted strings}.
 
 @node Default tablatures
-@subsubsection Default tablatures
+@unnumberedsubsubsec Default tablatures
 
 @cindex tablatures de base
 
@@ -152,7 +152,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 @end lilypond
 
 @node Custom tablatures
-@subsubsection Custom tablatures
+@unnumberedsubsubsec Custom tablatures
 
 @cindex tablatures, autres
 
@@ -199,8 +199,8 @@ Référence du programme : @rinternals{Tab_note_heads_engraver}.
 
 Aucun effet spécial de guitare n'a été implémenté à ce jour.
 
-@node Fret diagrams
-@subsubsection Fret diagrams
+@node Fret diagram markups
+@unnumberedsubsubsec Fret diagram markups
 
 @cindex schémas d'accords
 @cindex schémas de barrés
@@ -248,7 +248,7 @@ Par ailleurs, plusieurs propriétés permettent d'ajuster le graphisme
 Exemples : @rlsr{Fretted strings}.
 
 @node Right hand fingerings
-@subsubsection Right hand fingerings
+@unnumberedsubsubsec Right hand fingerings
 
 Les doigtés de la main droite, dans les accords, peuvent être ajoutés au moyen
 de @code{@var{note}-\rightHandFinger @var{doigté}}
@@ -304,20 +304,15 @@ Référence du programme : @rinternals{StrokeFinger}
 @node Guitar
 @subsection Guitar
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
-* Guitar tablatures::
 * Indicating position and barring::
+* Indicating harmonics and dampened notes::  
 @end menu
 
-@node Guitar tablatures
-@subsubsection Guitar tablatures
-
-UNTRANSLATED NODE: IGNORE ME
-
 @node Indicating position and barring
-@subsubsection Indicating position and barring
+@unnumberedsubsubsec Indicating position and barring
 
 Les doigtés de la main droite, dans les accords, peuvent être ajoutés au moyen
 de @code{@var{note}-\rightHandFinger @var{doigté}}
@@ -370,10 +365,15 @@ chaîne de caractères comme argument de @code{\rightHandFinger}.
 
 Référence du programme : @rinternals{StrokeFinger}
 
+@node Indicating harmonics and dampened notes
+@unnumberedsubsubsec Indicating harmonics and dampened notes
+
+@untranslated
+
 @node Banjo
 @subsection Banjo
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Banjo tablatures::

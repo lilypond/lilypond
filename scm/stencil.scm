@@ -70,6 +70,17 @@
 	  (ly:stencil-combine-at-edge stil (other-axis axis) -1 rb padding))
     stil))
 
+(define-public (make-line-stencil width startx starty endx endy)
+  "Make a line stencil of given linewidth and set its extents accordingly"
+  (let ((xext (cons (min startx endx) (max startx endx)))
+        (yext (cons (min starty endy) (max starty endy))))
+    (ly:make-stencil
+      (list 'draw-line width startx starty endx endy)
+      ; Since the line has rounded edges, we have to / can safely add half the 
+      ; width to all coordinates!
+      (interval-widen xext (/ width 2))
+      (interval-widen yext (/ width 2)))))
+
 (define-public (make-filled-box-stencil xext yext)
   "Make a filled box."
   
@@ -87,6 +98,18 @@
    (list 'circle radius thickness fill) 
    (cons (- out-radius) out-radius)
    (cons (- out-radius) out-radius))))
+
+(define-public (make-ellipse-stencil x-radius y-radius thickness fill)
+  "Make an ellipse of x radius @var{x-radius}, y radius @code{y-radius},
+    and thickness @var{thickness} with fill defined by @code{fill}."
+  (let*
+      ((x-out-radius (+ x-radius (/ thickness 2.0))) 
+       (y-out-radius (+ y-radius (/ thickness 2.0))) )
+    
+  (ly:make-stencil
+   (list 'ellipse x-radius y-radius thickness fill) 
+   (cons (- x-out-radius) x-out-radius)
+   (cons (- y-out-radius) y-out-radius))))
 
 (define-public (box-grob-stencil grob)
   "Make a box of exactly the extents of the grob.  The box precisely
@@ -118,16 +141,38 @@ encloses the contents.
 
 (define-public (circle-stencil stencil thickness padding)
   "Add a circle around STENCIL, producing a new stencil."
-  (let* ((x-ext (ly:stencil-extent stencil 0))
-	 (y-ext (ly:stencil-extent stencil 1))
-	 (diameter (max (- (cdr x-ext) (car x-ext))
-			(- (cdr y-ext) (car y-ext))))
+  (let* ((x-ext (ly:stencil-extent stencil X))
+	 (y-ext (ly:stencil-extent stencil Y))
+	 (diameter (max (interval-length x-ext)
+                        (interval-length y-ext))) 
 	 (radius (+ (/ diameter 2) padding thickness))
 	 (circle (make-circle-stencil radius thickness #f)))
 
     (ly:stencil-add
      stencil
      (ly:stencil-translate circle
+			   (cons
+			    (interval-center x-ext)
+			    (interval-center y-ext))))))
+
+(define-public (ellipse-stencil stencil thickness x-padding y-padding)
+  "Add an ellipse around STENCIL, padded by the padding pair, 
+   producing a new stencil."
+  (let* ((x-ext (ly:stencil-extent stencil X))
+	 (y-ext (ly:stencil-extent stencil Y))
+         (x-length (+ (interval-length x-ext) x-padding thickness))
+         (y-length (+ (interval-length y-ext) y-padding thickness))
+         ;(aspect-ratio (/ x-length y-length))
+         (x-radius (* 0.707 x-length) )
+         (y-radius (* 0.707 y-length) )
+	 ;(diameter (max (- (cdr x-ext) (car x-ext))
+	 ;		(- (cdr y-ext) (car y-ext))))
+	 ;(radius (+ (/ diameter 2) padding thickness))
+	 (ellipse (make-ellipse-stencil x-radius y-radius thickness #f)))
+
+    (ly:stencil-add
+     stencil
+     (ly:stencil-translate ellipse
 			   (cons
 			    (interval-center x-ext)
 			    (interval-center y-ext))))))

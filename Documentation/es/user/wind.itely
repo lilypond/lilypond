@@ -13,7 +13,7 @@
 @node Wind instruments
 @section Wind instruments
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Common notation for wind instruments::
@@ -23,27 +23,27 @@ UNTRANSLATED NODE: IGNORE ME
 @node Common notation for wind instruments
 @subsection Common notation for wind instruments
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * References for wind instruments::
-* Half-holes::
+* Fingerings::
 @end menu
 
 @node References for wind instruments
-@subsubsection References for wind instruments
+@unnumberedsubsubsec References for wind instruments
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@node Half-holes
-@subsubsection Half-holes
+@node Fingerings
+@unnumberedsubsubsec Fingerings
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Bagpipes
 @subsection Bagpipes
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Bagpipe definitions::

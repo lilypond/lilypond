@@ -27,7 +27,7 @@ l'écriture pour les cordes frottées.
 @node Common notation for unfretted strings
 @subsection Common notation for unfretted strings
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * References for unfretted strings::
@@ -36,12 +36,12 @@ UNTRANSLATED NODE: IGNORE ME
 @node References for unfretted strings
 @subsubsection References for unfretted strings
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Bowed instruments
 @subsection Bowed instruments
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * References for bowed strings::
@@ -64,7 +64,7 @@ par @code{\harmonic}.
 @node Plucked instruments
 @subsection Plucked instruments
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @menu
 * Harp::
@@ -73,5 +73,5 @@ UNTRANSLATED NODE: IGNORE ME
 @node Harp
 @subsubsection Harp
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 

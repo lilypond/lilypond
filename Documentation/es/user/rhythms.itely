@@ -255,7 +255,7 @@ Manual de aprendizaje:
 Referencia de la notación:
 @ref{Time administration},
 @ref{Scaling durations},
-@ref{Objects connected to the input},
+@ref{The tweak command},
 @ref{Polymetric notation}.
 
 Fragmentos de código:
@@ -350,7 +350,7 @@ polimétrica, véase @ref{Polymetric notation}.
 
 Referencia de la notación:
 @ref{Tuplets},
-@ref{Skips},
+@ref{Invisible rests},
 @ref{Polymetric notation}.
 
 Fragmentos de código:
@@ -518,7 +518,7 @@ una ligadura de expresión.
 
 @menu
 * Rests::                       
-* Skips::                       
+* Invisible rests::             
 * Full measure rests::          
 @end menu
 
@@ -580,8 +580,8 @@ número de glifos es limitado: hay silencios desde la garrapatea (128)
 hasta la máxima (8 redondas).
 
 
-@node Skips
-@subsubsection Skips
+@node Invisible rests
+@subsubsection Invisible rests
 
 @cindex Desplazamiento
 @cindex Silencio invisible
@@ -729,7 +729,6 @@ R1*4
 @seealso
 
 Referencia de funcionamiento interno:
-@rinternals{MultiMeasureRestMusicGroup},
 @rinternals{MultiMeasureRest}.
 
 El objeto de presentación @rinternals{MultiMeasureRestNumber} es para
@@ -963,7 +962,7 @@ para indicar dónde se pueden producir los saltos.
 @node Polymetric notation
 @subsubsection Polymetric notation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Automatic note splitting

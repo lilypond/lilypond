@@ -65,10 +65,10 @@ transposed just like chords entered using simultaneous music.
 Chord mode and note mode can be mixed in sequential music:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-<c e g>2 < g b d >
-\chordmode { c2 f}
-< c e g > < g' b d >
-\chordmode { f g}
+<c e g>2 <g b d>
+\chordmode { c2 f }
+<c e g>2 <g' b d>
+\chordmode { f2 g }
 @end lilypond
 
 
@@ -91,16 +91,16 @@ chord mode comes first, the note mode will create a new @code{Staff}
 context.
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
-\chordmode { c2 f}
-< c e g > < g' b d >
+\chordmode { c2 f }
+<c e g>2 <g' b d>
 @end lilypond
 
 To avoid this behavior, explicitly create the @code{Staff} context:
 
 @lilypond[verbatim,quote,ragged-right,relative=1]
 \new Staff {
-  \chordmode { c2 f}
-  < c e g > < g' b d >
+  \chordmode { c2 f }
+  <c e g>2  <g' b d>
 }
 @end lilypond
 
@@ -250,9 +250,9 @@ larger value is interpreted as 13.
 @lilypond[quote,ragged-right,fragment,verbatim,relative=1]
 \chordmode {
   c1:2 c:3 c:4 c:5
-  c:6 c:7 c:8 c:9
-  c:10 c:11 c:12 c:13
-  c:14
+  c1:6 c:7 c:8 c:9
+  c1:10 c:11 c:12 c:13
+  c1:14
 }
 @end lilypond
 
@@ -292,7 +292,7 @@ Added steps can be as high as desired.
 
 Added chord steps can be altered by suffixing a @code{-} or @code{+}
 sign to the number.  To alter a step that is automatically included
-as part of the basic chode structure, add it as an altered step.
+as part of the basic chord structure, add it as an altered step.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \chordmode {
@@ -441,7 +441,7 @@ of the mode of entry, unless there are inversions or added bass notes:
 @funindex{\chords}
 
 @code{\chords @{ ... @}} is a shortcut notation for
-@code{\new ChordNames @{\chordmode @{ ... @}@}}.
+@code{\new ChordNames @{ \chordmode @{ ... @} @}}.
 
 @lilypond[verbatim,quote,ragged-right, relative=1]
 \chords {
@@ -484,6 +484,8 @@ Snippets:
 
 Internals Reference:
 @rinternals{ChordNames},
+@rinternals{ChordName},
+@rinternals{Chord_name_engraver},
 @rinternals{Volta_engraver},
 @rinternals{Bar_engraver}.
 
@@ -546,7 +548,7 @@ this property.
 @item majorSevenSymbol
 
 This property contains the markup object used to follow the output
-of @code{chordRootNamer} to dentify a major 7 chord. Predefined
+of @code{chordRootNamer} to identify a major 7 chord. Predefined
 options are @code{whiteTriangleMarkup} and
 @code{blackTriangleMarkup}.
 
@@ -575,16 +577,16 @@ for a separator.
 
 This property is a list of pairs.  The first item in each pair
 is a set of pitches used to identify the steps present in the chord.
-The second item is a markups that will follow the @code{chordRootNamer}
+The second item is a markup that will follow the @code{chordRootNamer}
 output to create the chord name.
 
 @funindex chordPrefixSpacer
 @item chordPrefixSpacer
 
 The @q{m} for minor chords is usually printed immediately to the
-right of the root of the chord.  By setting
-@code{chordPrefixSpacer}, you can fix a spacer between the root
-and @q{m}.  The spacer is not used when the root is altered.
+right of the root of the chord.  A spacer can be placed between
+the root and @q{m} by setting @code{chordPrefixSpacer}.
+The spacer is not used when the root is altered.
 
 @end table
 
@@ -650,8 +652,8 @@ inversions or bass notes.
 
 @lilypond[quote,ragged-right,verbatim]
 myChords = \relative c' {
-  \chordmode{ c1 c/g c/f }
-  <c e g> <g c e> <f c' e g>
+  \chordmode { c1 c/g c/f }
+  <c e g>1 <g c e> <f c' e g>
 }
 <<
   \new ChordNames { \myChords }
@@ -709,7 +711,7 @@ entry of bass figures, and there is a context named
 in @code{Staff} contexts.
 
 @code{\figures@{ ... @}} is a shortcut notation for
-@code{\new FiguredBass @{\figuremode @{ ... @}@}}.
+@code{\new FiguredBass @{ \figuremode @{ ... @} @}}.
 
 
 Although the support for figured bass may superficially resemble chord
@@ -717,10 +719,12 @@ support, it is much simpler.  @code{\figuremode} mode simply
 stores the figures and the @code{FiguredBass} context prints them
 as entered.  There is no conversion to pitches.
 
+@ignore
 Figures are created as markup texts.  Any of the standard markup
 properties can be used to modify the display of figures.  For
 example, the vertical spacing of the figures may be set with
 @code{baseline-skip}.
+@end ignore
 
 @seealso
 
@@ -758,7 +762,7 @@ Accidentals (including naturals) can be added to figures:
 }
 @end lilypond
 
-Augmented and diminished steps can be indicated.
+Augmented and diminished steps can be indicated:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
@@ -767,12 +771,11 @@ Augmented and diminished steps can be indicated.
 @end lilypond
 
 A backward slash through a figure (typically used for raised
-sixth steps) can be created.
+sixth steps) can be created:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
-  <6>
-  <6\\>
+  <6> <6\\>
 }
 @end lilypond
 
@@ -788,7 +791,7 @@ Any text markup can be inserted as a figure:
 
 @lilypond[verbatim,quote,ragged-right,fragment]
 \figures {
-  <  \markup{ \tiny \number 6 \super (1)} 5 >
+  <\markup { \tiny \number 6 \super (1) } 5>
 }
 @end lilypond
 
@@ -802,14 +805,14 @@ Continuation lines can be used to indicate repeated figures:
 <<
   {
     \clef bass
-    e d c b,
-    e d c b,
+    e4 d c b,
+    e4 d c b,
   }
   \figures {
     \bassFigureExtendersOn
-    <6 4> <6 3> <7 3> <7 3>
+    <6 4>4 <6 3> <7 3> <7 3>
     \bassFigureExtendersOff
-    <6 4> <6 3> <7 3> <7 3>
+    <6 4>4 <6 3> <7 3> <7 3>
   }
 >>
 @end lilypond
@@ -822,11 +825,11 @@ unless the continuation lines have been explicitly terminated.
 <<
   \figures {
     \bassFigureExtendersOn
-    <6 4> <6 4> <6\! 4\!> <6 4>
+    <6 4>4 <6 4> <6\! 4\!> <6 4>
   }
   {
     \clef bass
-    d d c c
+    d4 d c c
   }
 >>
 @end lilypond
@@ -880,7 +883,7 @@ Raised sixth step
 @tab
 End of continuation line
 @tab
-@lilypond[line-width=1.5\cm]
+@lilypond[line-width=4\cm]
 <<
   \figures {
     \bassFigureExtendersOn
@@ -915,7 +918,7 @@ End of continuation line
 @c @rlearning{}.
 
 @c Notation Reference:
-@c @ruser{}.
+@c @ref{}.
 
 @c Application Usage:
 @c @rprogram{}.
@@ -985,7 +988,7 @@ figures is adjusted automatically.
 @end lilypond
 
 
-When added in a Staff context, figured bass can be displayed above
+When added in a @code{Staff} context, figured bass can be displayed above
 or below the staff.
 
 @lilypond[verbatim,ragged-right,fragment,quote]
@@ -1022,7 +1025,7 @@ or below the staff.
 @c @rlearning{}.
 
 @c Notation Reference:
-@c @ruser{}.
+@c @ref{}.
 
 @c Application Usage:
 @c @rprogram{}.
@@ -1051,19 +1054,19 @@ the bass line.
 <<
   {
     \clef bass
-    \repeat unfold 4 {f16. g32} f8. es16 d8 es
+    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
   }
   \figures {
     \bassFigureExtendersOn
     % The extenders are correct here, with the same rhythm as the bass
-    \repeat unfold 4 {<6 4->16. <6 4->32}
+    \repeat unfold 4 { <6 4->16. <6 4->32 }
     <5>8. r16 <6>8 <6\! 5->
   }
 >>
 <<
   {
     \clef bass
-    \repeat unfold 4 {f16. g32} f8. es16 d8 es
+    \repeat unfold 4 { f16. g32 } f8. es16 d8 es
   }
   \figures {
     \bassFigureExtendersOn
@@ -1079,10 +1082,10 @@ a different figure location can cause the figure positions to invert.
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
 <<
- { fis g g, e' }
+ { fis4 g g, e' }
   \figures {
     \bassFigureExtendersOn
-    <6 5> <5\! 4> < 5 _!> <6>
+    <6 5>4 <5\! 4> < 5 _!> <6>
   }
 >>
 @end lilypond
@@ -1092,11 +1095,11 @@ begins the extender line and turn them off at the end of the extender line.
 
 @lilypond[verbatim,ragged-right,fragment,quote,relative=1]
 <<
- { fis g g, e' }
+ { fis4 g g, e' }
   \figures {
-    <6 5> <5 4>
+    <6 5>4 <5 4>
     \bassFigureExtendersOn
-    < 5 _!> <6>
+    < 5 _!>4 <6>
     \bassFigureExtendersOff
   }
 >>

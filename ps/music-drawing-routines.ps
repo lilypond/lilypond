@@ -128,7 +128,7 @@ bind def
 	closepath fill
 } bind def
 
-% this is for drawing slurs.
+% this is for drawing slurs and barre-indicators.
 /draw_bezier_sandwich  % thickness controls
 {
 	gsave
@@ -165,6 +165,19 @@ bind def
 	ifelse
 } bind def
 
+/draw_ellipse % filled? x-radius y-radius thickness draw_ellipse
+{
+  setlinewidth % f? x-r y-r
+  /savematrix matrix currentmatrix def
+  scale % f?
+  currentpoint
+  1 0 rmoveto
+  1 0 360  arc closepath
+  savematrix setmatrix
+             { stroke_and_fill}
+             { stroke }
+  ifelse
+} bind def
 
 /draw_line % dx dy x1 y1 thickness draw_line
 {

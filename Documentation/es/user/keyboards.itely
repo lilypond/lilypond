@@ -31,17 +31,15 @@
 @end menu
 
 @node References for keyboards
-@subsubsection References for keyboards
+@unnumberedsubsubsec References for keyboards
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
 
 @node The piano staff
-@subsubsection The piano staff
+@unnumberedsubsubsec The piano staff
 
 Los sistemas de piano son dos pentagramas normales agrupados mediante
 una llave.  Los pentagramas son hasta cierto punto independientes,
@@ -60,7 +58,7 @@ que está en @rlearning{Piano templates}.
 
 
 @node Changing staff manually
-@subsubsection Changing staff manually
+@unnumberedsubsubsec Changing staff manually
 
 @cindex manual, cambio de pentagrama
 @cindex pentagrama, cambios manuales de
@@ -74,7 +72,7 @@ Las voces se pueden cambiar de pentagrama manualmente usando la instrucción
 La cadena @var{nombre_del_pentagrama} es el nombre del pentagrama.
 Cambia la voz actual de su pentagrama en curso al pentagrama de nombre
 @var{nombre_del_pentagrama}.  Por lo común @var{nombre_del_pentagrama}
-es @code{"up"} o @code{"down"}.  El @context{Staff} referido debe
+es @code{"up"} o @code{"down"}.  El @code{Staff} referido debe
 existir previamente, por ello normalmente la preparación de una
 partitura empezará por la preparación de los pentagramas,
 
@@ -90,7 +88,7 @@ partitura empezará por la preparación de los pentagramas,
 @end example
 
 
-y la @context{Voice} se inserta con posterioridad
+y la @code{Voice} se inserta con posterioridad
 
 @example
 \context Staff = down
@@ -99,7 +97,7 @@ y la @context{Voice} se inserta con posterioridad
 
 
 @node Changing staff automatically
-@subsubsection Changing staff automatically
+@unnumberedsubsubsec Changing staff automatically
 @cindex Cambio automático de pentagrama
 
 Se puede hacer que las voces cambien automáticamente entre los
@@ -161,7 +159,7 @@ los cambios de pentagrama.
 
 
 @node Staff-change lines
-@subsubsection Staff-change lines
+@unnumberedsubsubsec Staff-change lines
 
 @cindex seguimiento de voz
 @cindex pentagrama, cambio
@@ -198,7 +196,7 @@ Referencia de funcionamiento interno: @rinternals{VoiceFollower}.
 
 
 @node Cross-staff stems
-@subsubsection Cross-staff stems
+@unnumberedsubsubsec Cross-staff stems
 
 @cindex plica de pentagrama cruzado
 @cindex pentagrama cruzado, plica de
@@ -314,11 +312,9 @@ Referencia de la notación: @ref{Ties} (laissez vibrer).
 @end menu
 
 @node Discant symbols
-@subsubsection Discant symbols
+@unnumberedsubsubsec Discant symbols
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml

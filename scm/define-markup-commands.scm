@@ -42,13 +42,7 @@ A simple line.
                thickness))
         (x (car dest))
         (y (cdr dest)))
-    (ly:make-stencil
-     `(draw-line
-       ,th
-       0 0
-       ,x ,y)
-     (cons (min x 0) (max x 0))
-     (cons (min y 0) (max y 0)))))
+    (make-line-stencil th 0 0 x y)))
 
 (define-builtin-markup-command (draw-circle layout props radius thickness fill)
   (number? number? boolean?)
@@ -206,10 +200,7 @@ thickness and y offset.
          (x1 (car (ly:stencil-extent markup X)))
          (x2 (cdr (ly:stencil-extent markup X)))
          (y (* thick -2))
-         (line (ly:make-stencil
-                `(draw-line ,thick ,x1 ,y ,x2 ,y)
-                (cons (min x1 0) (max x2 0))
-                (cons thick thick))))
+         (line (make-line-stencil thick x1 y x2 y)))
     (ly:stencil-add markup line)))
 
 (define-builtin-markup-command (box layout props arg)
@@ -274,12 +265,12 @@ circle of diameter@tie{}0 (i.e. sharp corners).
    (corner-radius 1)
    (font-size 0)
    (box-padding 0.5))
-  "@cindex enclosing text in a bow with rounded corners
+  "@cindex enclosing text in a box with rounded corners
    @cindex drawing boxes with rounded corners around text
 Draw a box with rounded corners around @var{arg}.  Looks at @code{thickness},
 @code{box-padding} and @code{font-size} properties to determine line
 thickness and padding around the markup; the @code{corner-radius} property
-makes possible to define another shape for the corners (default is 1).
+makes it possible to define another shape for the corners (default is 1).
 
 @lilypond[quote,verbatim,relative=2]
 c4^\\markup {
@@ -799,7 +790,7 @@ determines the space between each markup in @var{args}.
 @lilypond[verbatim,quote]
 \\markup {
   \\line {
-    A simple line of text
+    one two three
   }
 }
 @end lilypond"
@@ -825,13 +816,10 @@ equivalent to @code{\"fi\"}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\bold {
-    au
-    \\concat {
-      Mouv
-      \\super
-      t
-    }
+  \\concat {
+    one
+    two
+    three
   }
 }
 @end lilypond"
@@ -1199,7 +1187,13 @@ of the @code{#'direction} layout property.
                baseline-skip
                (interpret-markup-list layout props args)))
 
-(define-builtin-markup-command (center-align layout props args)
+(define (general-column align-dir baseline mols)
+  "Stack @var{mols} vertically, aligned to  @var{align-dir} horizontally."
+  
+  (let* ((aligned-mols (map (lambda (x) (ly:stencil-aligned-to x X align-dir)) mols)))
+    (stack-lines -1 0.0 baseline aligned-mols)))
+
+(define-builtin-markup-command (center-column layout props args)
   (markup-list?)
   align
   ((baseline-skip))
@@ -1210,16 +1204,54 @@ Put @code{args} in a centered column.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\center-align {
+  \\center-column {
     one
     two
     three
   }
 }
 @end lilypond"
-  (let* ((mols (interpret-markup-list layout props args))
-         (cmols (map (lambda (x) (ly:stencil-aligned-to x X CENTER)) mols)))
-    (stack-lines -1 0.0 baseline-skip cmols)))
+  (general-column CENTER baseline-skip (interpret-markup-list layout props args)))
+
+(define-builtin-markup-command (left-column layout props args)
+  (markup-list?)
+  align
+  ((baseline-skip))
+ "
+@cindex text columns, left-aligned 
+
+Put @code{args} in a left-aligned column.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\left-column {
+    one
+    two
+    three
+  }
+}
+@end lilypond"
+  (general-column LEFT baseline-skip (interpret-markup-list layout props args)))
+
+(define-builtin-markup-command (right-column layout props args)
+  (markup-list?)
+  align
+  ((baseline-skip))
+ "
+@cindex text columns, right-aligned
+
+Put @code{args} in a right-aligned column.
+
+@lilypond[verbatim,quote]
+\\markup {
+  \\right-column {
+    one
+    two
+    three
+  }
+}
+@end lilypond"
+  (general-column RIGHT baseline-skip (interpret-markup-list layout props args)))
 
 (define-builtin-markup-command (vcenter layout props arg)
   (markup?)
@@ -1232,16 +1264,16 @@ Align @code{arg} to its Y@tie{}center.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\arrow-head #X #RIGHT ##f
+  one
   \\vcenter
-  Centered
-  \\arrow-head #X #LEFT ##f
+  two
+  three
 }
 @end lilypond"
   (let* ((mol (interpret-markup layout props arg)))
     (ly:stencil-aligned-to mol Y CENTER)))
 
-(define-builtin-markup-command (hcenter layout props arg)
+(define-builtin-markup-command (center-align layout props arg)
   (markup?)
   align
   ()
@@ -1253,9 +1285,10 @@ Align @code{arg} to its X@tie{}center.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
-    \\hcenter
-    centered
+    one
+    \\center-align
+    two
+    three
   }
 }
 @end lilypond"
@@ -1274,9 +1307,10 @@ Align @var{arg} on its right edge.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\right-align
-    right-aligned
+    two
+    three
   }
 }
 @end lilypond"
@@ -1295,9 +1329,10 @@ Align @var{arg} on its left edge.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\left-align
-    left-aligned
+    two
+    three
   }
 }
 @end lilypond"
@@ -1316,26 +1351,28 @@ Align @var{arg} in @var{axis} direction to the @var{dir} side.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\general-align #X #LEFT
-    \\line { X, Left }
-    ↓
+    two
+    three
+    \\null
+    one
     \\general-align #X #CENTER
-    \\line { X, Center }
+    two
+    three
     \\null
     \\line {
-      \\arrow-head #X #RIGHT ##f
-      \\general-align #Y #DOWN
-      \\line { Y, Down }
-      \\arrow-head #X #LEFT ##f
+      one
+      \\general-align #Y #UP
+      two
+      three
     }
+    \\null
     \\line {
-      \\arrow-head #X #RIGHT ##f
+      one
       \\general-align #Y #3.2
-      \\line {
-        \\line { Y, Arbitrary alignment }
-      }
-      \\arrow-head #X #LEFT ##f
+      two
+      three
     }
   }
 }
@@ -1357,20 +1394,25 @@ alignment accordingly.
 @lilypond[verbatim,quote]
 \\markup {
   \\column {
-    ↓
+    one
     \\halign #LEFT
-    Left
-    ↓
+    two
+    three
+    \\null
+    one
     \\halign #CENTER
-    Center
-    ↓
+    two
+    three
+    \\null
+    one
     \\halign #RIGHT
-    Right
-    ↓
-    \\halign #1.2
-    \\line {
-      Arbitrary alignment
-    }
+    two
+    three
+    \\null
+    one
+    \\halign #-5
+    two
+    three
   }
 }
 @end lilypond"
@@ -1526,7 +1568,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
                     (make-pad-to-box-markup
                      (cons (/ length -2) (/ length 2))
                      '(0 . 0)
-                     (make-hcenter-markup arg))))
+                     (make-center-align-markup arg))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; property
@@ -2523,11 +2565,9 @@ and continue with double letters.
          (num-y (interval-widen (cons center center) (abs dy)))
          (is-sane (and (interval-sane? num-x) (interval-sane? num-y)))
          (slash-stencil (if is-sane
-                            (ly:make-stencil
-                             `(draw-line ,thickness
-                                         ,(car num-x) ,(- (interval-center num-y) dy)
-                                         ,(cdr num-x) ,(+ (interval-center num-y) dy))
-                             num-x num-y)
+                            (make-line-stencil thickness 
+                                         (car num-x) (- (interval-center num-y) dy)
+                                         (cdr num-x) (+ (interval-center num-y) dy))
                             #f)))
     (if (ly:stencil? slash-stencil)
       (begin
@@ -2736,10 +2776,10 @@ A negative @var{amount} indicates raising; see also @code{\\raise}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  default
-  \\lower #3 {
-    three spaces lower
-  }
+  one
+  \\lower #3
+  two
+  three
 }
 @end lilypond"
   (ly:stencil-translate-axis (interpret-markup layout props arg)

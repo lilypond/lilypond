@@ -11,9 +11,7 @@
 @node LilyPond-book
 @chapter @command{lilypond-book}: Integrating text and music
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -28,9 +26,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node An example of a musicological document
 @section An example of a musicological document
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @subheading Input
@@ -39,9 +35,7 @@ UNTRANSLATED NODE: IGNORE ME
 @node Integrating music and text
 @section Integrating music and text
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -54,33 +48,25 @@ UNTRANSLATED NODE: IGNORE ME
 @node LaTeX
 @subsection @LaTeX{}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Texinfo
 @subsection Texinfo
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node HTML
 @subsection HTML
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node DocBook
 @subsection DocBook
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @subheading Common conventions
@@ -90,17 +76,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Music fragment options
 @section Music fragment options
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Invoking lilypond-book
 @section Invoking @command{lilypond-book}
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @subheading Format-specific instructions
@@ -110,17 +92,13 @@ UNTRANSLATED NODE: IGNORE ME
 @node Filename extensions
 @section Filename extensions
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Alternate methods of mixing text and music
 @section Alternative methods of mixing text and music
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @menu
@@ -132,25 +110,19 @@ UNTRANSLATED NODE: IGNORE ME
 @node Many quotes from a large score
 @subsection Many quotes from a large score
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Inserting LilyPond output into OpenOffice.org
 @subsection Inserting LilyPond output into OpenOffice.org
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Inserting LilyPond output into other programs
 @subsection Inserting LilyPond output into other programs
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 

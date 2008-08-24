@@ -1683,6 +1683,7 @@
 	(self-alignment-X . ,CENTER)
 	(self-alignment-Y . ,CENTER)
 	(script-priority . 100)
+	(avoid-slur . outside)
 	(font-encoding . fetaNumber)
 	(font-size . -5) 		; don't overlap when next to heads.
 	(meta . ((class . Item)
@@ -1859,6 +1860,7 @@
 	(meta . ((class . Item)
 		 (interfaces . (text-script-interface
 				text-interface
+				instrument-specific-markup-interface
 				side-position-interface
 				font-interface))))))
 

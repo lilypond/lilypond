@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node Expressive marks
 @section Expressive marks
@@ -408,7 +408,7 @@ brackets) can be created.  The syntax for markup mode is described
 in @ref{Formatting text}.
 
 @lilypond[verbatim,quote]
-roundF = \markup { \hcenter \concat { \bold { \italic ( }
+roundF = \markup { \center-align \concat { \bold { \italic ( }
            \dynamic f \bold { \italic ) } } }
 boxF = \markup { \bracket { \dynamic f } }
 \relative c' {
@@ -438,7 +438,7 @@ markup objects and hairpins that are attached to the same note
 head.
 
 @lilypond[verbatim,quote]
-roundF = \markup { \hcenter \concat {
+roundF = \markup { \center-align \concat {
            \normal-text { \bold { \italic ( } }
            \dynamic f
            \normal-text { \bold { \italic ) } } } }

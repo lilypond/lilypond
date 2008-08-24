@@ -791,29 +791,28 @@ This section explains the different portions of the documentation.
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @c This is actually a limitation of texi2html. -jm
 @menu
-* About the Learning Manual (LM)::  this manual introduces LilyPond, giving in-depth explanations of how to create notation.
-
-* About the Music Glossary (MG)::  this manual explains musical terms and gives translations of terms in other languages.
-
-* About the Notation Reference (NR)::  this manual is the main portion of the documentation.  It provides detailed information about creating notation.  This book assumes that the reader knows basic material covered in the LM and is familiar with the English musical terms presented in the MG.
-
-* About the Application Usage (AU)::  this discusses the actual programs and operating system-specific issues.
-
-* About the Snippet List (SL)::  this is a collection of short LilyPond examples.
-
-* About the Internals Reference (IR)::  this document gives reference information about LilyPond's internal structures, which is required for constructing tweaks.
-
+* About the Learning Manual::  this manual introduces LilyPond, giving in-depth explanations of how to create notation.
+* About the Music Glossary::  this manual explains musical terms and gives translations of terms in other languages.
+* About the Notation Reference::  this manual is the main portion of the documentation.  It provides detailed information about creating notation.  This book assumes that the reader knows basic material covered in the Learning Manual and is familiar with the English musical terms presented in the Musical Glossary.
+* About the Application Usage::  this discusses the actual programs and operating system-specific issues.
+* About the Snippet List::  this is a collection of short LilyPond examples.
+* About the Internals Reference::  this document gives reference information about LilyPond's internal structures, which is required for constructing tweaks.
 * Other documentation::         there are a few other portions of the documentation, such as News items and the mailist archives.
-
 @end menu
 
 
-@node About the Learning Manual (LM)
-@unnumberedsubsec About the Learning Manual (LM)
+@node About the Learning Manual
+@unnumberedsubsec About the Learning Manual
 
 This book explains how to begin learning LilyPond, as well as
 explaining some key concepts in easy terms.  You should read these
 chapters in a linear fashion.
+
+There is a paragraph @strong{See also} at the end of each section,
+which contains cross-references to other sections: you should not
+follow these cross-references at first reading; when you have read all
+of the Learning Manual, you may want to read some sections again and
+follow cross-references for further reading.
 
 @itemize
 
@@ -841,7 +840,7 @@ undertaking large projects!
 
 @end itemize
 
-The LM also contains appendices which are not part of the
+The Learning Manual also contains appendices which are not part of the
 recommended linear reading.  They may be useful for later
 viewing:
 
@@ -861,8 +860,8 @@ all.
 @end itemize
 
 
-@node About the Music Glossary (MG)
-@unnumberedsubsec About the Music Glossary (MG)
+@node About the Music Glossary
+@unnumberedsubsec About the Music Glossary
 
 @cindex idiom
 @cindex jargon
@@ -870,19 +869,19 @@ all.
 @cindex foreign languages
 @cindex language
 
-@ref{Top,Music glossary,,music-glossary}:
+@rglosnamed{Top,Music glossary}
 this explains musical terms, and includes translations to various
 languages.  If you are not familiar with music notation or music
 terminology (especially if you are a non-native English speaker),
 it is highly advisable to consult the glossary.
 
 
-@node About the Notation Reference (NR)
-@unnumberedsubsec About the Notation Reference (NR)
+@node About the Notation Reference
+@unnumberedsubsec About the Notation Reference
 
 This book explains all the LilyPond commands which produce
 notation.  It assumes that readers are familiar with the concepts
-in the Learning manual.
+in the Learning Manual.
 
 @itemize
 
@@ -919,7 +918,8 @@ explains how to create music functions with scheme.
 
 @end itemize
 
-The NR also contains appendices with useful reference charts.
+The Notation Reference also contains appendices with useful
+reference charts.
 
 @itemize
 
@@ -948,8 +948,8 @@ a complete index.
 @end itemize
 
 
-@node About the Application Usage (AU)
-@unnumberedsubsec About the Application Usage (AU)
+@node About the Application Usage
+@unnumberedsubsec About the Application Usage
 
 This book explains how to execute the programs and how to integrate
 LilyPond notation with other programs.
@@ -958,8 +958,8 @@ LilyPond notation with other programs.
 
 @item
 @rprogram{Install}:
-explains how to install LilyPond (including compilation if
-desired).
+explains how to install LilyPond, including compilation if
+desired.
 
 @item
 @rprogram{Setup}:
@@ -987,13 +987,13 @@ formats to the @code{.ly} format.
 @end itemize
 
 
-@node About the Snippet List (SL)
-@unnumberedsubsec About the Snippet List (SL)
+@node About the Snippet List
+@unnumberedsubsec About the Snippet List
 
 @cindex snippets
 @cindex LSR
 
-@ref{Top,LilyPond Snippet List,,lilypond-snippets}: this shows a
+@rlsrnamed{Top,LilyPond Snippet List}: this shows a
 selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}
 (LSR).  All the snippets are in the public domain.
@@ -1004,14 +1004,14 @@ demonstrates new features of a development version must be added
 separately.  These are stored in @file{input/new/} in the LilyPond
 source tree.
 
-The list of snippets for each subsection of the Notation Reference
-(NR) are also linked from the @strong{See also} portion.
+The list of snippets for each subsection of the Notation Reference are
+also linked from the @strong{See also} portion.
 
 
-@node About the Internals Reference (IR)
-@unnumberedsubsec About the Internals Reference (IR)
+@node About the Internals Reference
+@unnumberedsubsec About the Internals Reference
 
-@ref{Top,Internals Reference,,lilypond-internals}: this is a set
+@rinternalsnamed{Top,Internals Reference}: this is a set
 of heavily cross linked HTML pages which document the nitty-gritty
 details of each and every LilyPond class, object, and function.
 It is produced directly from the formatting definitions in the
@@ -1035,7 +1035,19 @@ very valuable.
 
 @itemize
 
-@item News: This is a summary of important changes
+@item
+@ifhtml
+@ifset bigpage
+@uref{../topdocs/NEWS.html,News}:
+@end ifset
+@ifclear bigpage
+@uref{../../topdocs/NEWS.html,News}:
+@end ifclear
+@end ifhtml
+@ifnothtml
+News:
+@end ifnothtml
+this is a summary of important changes
 and new features in LilyPond since the previous version.
 
 @item @uref{http://lists.gnu.org/archive/html/lilypond-user/, The
@@ -1054,20 +1066,19 @@ internals, the answer might be in these archives.
 music fragments embedded, the exact LilyPond input that was used
 to produce that image can be viewed by clicking the image.
 
-@item Init files: The location of the documentation files that are
+@item Init files: the location of the documentation files that are
 mentioned here can vary from system to system.  On occasion, this
-manual refers to initialization and example files.  Throughout
-this manual, we refer to input files relative to the top-directory
-of the source archive.  For example,
-@file{input/@/lsr/@/dirname/@/bla@/.ly} may refer to the file
-@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  On
-binary packages for the UNIX platform, the documentation and
-examples can typically be found somewhere below
+manual refers to initialization and example files.  Throughout this
+manual, we refer to input files relative to the top-directory of the
+source archive.  For example, @file{input/@/lsr/@/dirname/@/bla@/.ly}
+may refer to the file
+@file{lilypond@/2.x.y/@/input/@/lsr/@/dirname/@/bla@/.ly}.  On binary
+packages for the UNIX platform, the documentation and examples can
+typically be found somewhere below
 @file{/usr/@/share/@/doc/@/lilypond/}.  Initialization files, for
-example @file{scm/@/lily@/.scm}, or
-@file{ly/@/engraver@/-init@/.ly}, are usually found in the
-directory @file{/usr/@/share/@/lilypond/}.
+example @file{scm/@/lily@/.scm}, or @file{ly/@/engraver@/-init@/.ly},
+are usually found in the directory @file{/usr/@/share/@/lilypond/}.
+For more details, see @ref{Other sources of information}.
 
 @end itemize
-
 

@@ -1749,6 +1749,13 @@ Manual assumes that you are familiar with LilyPond input.  You may
 wish to skim these chapters right now, and come back to them after
 you have more experience.
 
+In this tutorial and in the rest of the Learning Manual, there is a
+paragraph @strong{See also} at the end of each section, which contains
+cross-references to other sections: you should not follow these
+cross-references at first reading; when you have read all of the
+Learning Manual, you may want to read some sections again and follow
+cross-references for further reading.
+
 If you have not done so already, @emph{please} read @ref{About the
 documentation}.  There is a lot of information about LilyPond, so
 newcomers often do not know where they should look for help.  If

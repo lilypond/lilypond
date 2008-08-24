@@ -560,7 +560,7 @@ section @rlearning{Vocal ensembles}.
 
 @seealso
 
-Référence du programme : @rinternals{Melisma_translator}.
+@comment  Référence du programme : @rinternals{Melisma_translator}.
 
 Exemples : @rlsr{Vocal music}.
 
@@ -572,9 +572,7 @@ alors prolonger vous-même les syllabes concernées.
 @node Skipping notes
 @subsubsection Skipping notes
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
@@ -613,9 +611,7 @@ Référence du programme : @rinternals{LyricExtender},
 @node Lyrics and repeats
 @subsubsection Lyrics and repeats
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
@@ -711,9 +707,7 @@ lyr = \lyricmode { I like my cat! }
 @node Chants
 @subsubsection Chants
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
@@ -764,9 +758,7 @@ dans le bloc @code{\layout}.
 @node Centering lyrics between staves
 @subsubsection Centering lyrics between staves
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
@@ -1115,5 +1107,5 @@ text = \lyricmode {
 @seealso
 
 Référence du programme : @rinternals{LyricText},
-@rinternals{StanzaNumber}, @rinternals{VocalName}.
+@rinternals{StanzaNumber}.
 

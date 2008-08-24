@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node Text
 @section Text
@@ -284,8 +284,8 @@ several music pieces, as described in
 
 Using a specific syntax, text blocks can be spread
 over multiple pages, making possible to print
-text documents or books -- and therefore to
-use LilyPond as a word processor.  This syntax is described in
+text documents or books (and therefore to
+use LilyPond as a word processor).  This syntax is described in
 @ref{Multi-page markup}.
 
 @predefined
@@ -345,7 +345,8 @@ specific syntax called @qq{markup mode}.
 
 The markup syntax is similar to LilyPond's usual syntax: a
 @code{\markup} expression is enclosed in curly braces @code{@{
-@dots{} @}}.
+@dots{} @}}.  A single word is regarded as a minimal expression,
+and therefore does not need to be enclosed with braces.
 
 Unlike simple @q{quoted text} indications, @code{\markup} blocks
 may contain nested expressions or specific commands,
@@ -353,7 +354,7 @@ entered using the backslash @code{\} character.
 Such commands only affect the first following expression.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-e1-\markup "intenso"
+e1-\markup intenso
 a2^\markup { poco \italic più forte  }
 c e1
 d2_\markup { \italic "string. assai" }
@@ -368,17 +369,17 @@ c
 @cindex printing special characters
 @cindex quoted text in markup mode
 
-A @code{\markup} block may also contain quoted text, which
-can be useful to print special characters such as @code{\} and @code{#},
-or even double quotation marks -- these have to be preceded
-with backslashes:
+A @code{\markup} block may also contain quoted text strings.
+Such strings are treated as minimal text expressions, and
+therefore any markup command or special character (such as
+@code{\} and @code{#}) will be printed verbatim without affecting
+the formatting of the text.  This syntax even allows to print
+double quotation marks, by preceding them with backslashes
 
 @lilypond[quote,verbatim,fragment,relative=1]
-\clef bass
-a^\markup "##\ LEPORELLO \##"
-a_\markup "Bravi! \"Cosa rara\"!"
-r a8 d
-cis a r4 r2
+d1^"\italic markup..."
+d_\markup \italic "... prints \"italic\" letters!"
+d d
 @end lilypond
 
 The way markup expressions are defined affects 
@@ -387,7 +388,7 @@ when using the commands explained in @ref{Text alignment}.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { \column { a bbbb \line { c d } } }
-c1^\markup { \center-align { a bbbb c } }
+c1^\markup { \center-column { a bbbb c } }
 c1^\markup { \line { a b c } }
 @end lilypond
 
@@ -397,9 +398,9 @@ expression.  In the following example, the first two
 @code{\markup} expressions are equivalent:
 
 @lilypond[quote,verbatim,fragment,relative=1]
-c1^\markup { \center-align { a bbb c } }
-c1^\markup { \center-align { a { bbb c } } }
-c1^\markup { \center-align { a \line { bbb c } } }
+c1^\markup { \center-column { a bbb c } }
+c1^\markup { \center-column { a { bbb c } } }
+c1^\markup { \center-column { a \line { bbb c } } }
 @end lilypond
 
 
@@ -606,12 +607,12 @@ be moved as a whole, using the syntax described in
 @cindex text, horizontal alignment
 @cindex horizontal text alignment
 @funindex \left-align
-@funindex \hcenter
+@funindex \center-align
 @funindex \right-align
 
 Markup objects may be aligned in different ways.  By default,
 a text indication is aligned on its left edge: in the following
-example, there's no difference
+example, there is no difference
 between the first and the second markup.
 
 @lilypond[quote,verbatim,fragment,relative=1]
@@ -619,7 +620,7 @@ a1-\markup { poco }
 e'
 a,-\markup { \left-align poco }
 e'
-a,-\markup { \hcenter { poco } }
+a,-\markup { \center-align { poco } }
 e'
 a,-\markup { \right-align poco }
 @end lilypond
@@ -697,6 +698,9 @@ d,^\markup {
 a'4 a g2 a
 @end lilypond
 
+@funindex \column
+@funindex \center-column
+
 @cindex multi-line markup
 @cindex multi-line text
 @cindex columns, text
@@ -713,7 +717,7 @@ is placed on its own line, either left-aligned or centered:
     \line { d e f }
   }
   \hspace #10
-  \center-align {
+  \center-column {
     a
     "b c"
     \line { d e f }
@@ -721,9 +725,13 @@ is placed on its own line, either left-aligned or centered:
 }
 @end lilypond
 
+@funindex \fill-line
+
+@cindex centering text on the page
+
 Similarly, a list of elements or expressions may be
-spread to fill the entire horizontal line width -- if there
-is only one element, it will be centered on the page.
+spread to fill the entire horizontal line width (if there
+is only one element, it will be centered on the page).
 These expressions can, in turn, include multi-line text
 or any other markup expression:
 
@@ -731,7 +739,7 @@ or any other markup expression:
 \markup {
   \fill-line {
     \line { William S. Gilbert }
-    \center-align {
+    \center-column {
       \huge \smallCaps "The Mikado"
       or
       \smallCaps "The Town of Titipu"
@@ -743,6 +751,12 @@ or any other markup expression:
   \fill-line { 1885 } 
 }
 @end lilypond
+
+@funindex \wordwrap
+@funindex \justify
+
+@cindex wordwrapped text
+@cindex justified text
 
 Long text indications can also be automatically wrapped
 accordingly to the given line width.  These will be
@@ -783,34 +797,142 @@ can be found in @ref{Align}.
 @node Graphic notation inside markup
 @subsubsection Graphic notation inside markup
 
-Graphics around text:
-\box
-\circle
+@cindex graphics, embedding
+@cindex drawing graphic objects
 
-(TODO: document padding commands here)
+Various graphic objects may be added to a score,
+using specific markup commands.
 
-\bracket
-\hbracket
+@funindex \box
+@funindex \circle
+@funindex \rounded-box
+@funindex \bracket
+@funindex \hbracket
 
-"Standalone" graphics:
+@cindex decorating text
+@cindex framing text
 
-\arrow-head
-\draw-line
-\draw-circle
-\filled-box
-\triangle
-\strut
+Some markup commands allow to decorate text elements
+with graphics, as demonstrated in the following example.
 
-\with-color
+@lilypond[quote,verbatim]
+\markup \fill-line {
+  \center-column {
+    \circle Jack
+    \box "in the box"
+    \null
+    \line {
+      Erik Satie
+      \hspace #3
+      \bracket "1866 - 1925"
+    }
+    \null
+    \rounded-box \bold Prelude
+  }
+}
+@end lilypond
 
+@funindex \pad-markup
+@funindex \pad-x
+@funindex \pad-to-box
+@funindex \pad-around
 
-Advanced graphics:
-\stencil
+@cindex padding around text
+@cindex text padding
 
-\postscript
-\epsfile
+Some commands may require to increase the padding around
+the text: this is achieved with some specific commands
+exhaustively described in @ref{Align}.
 
-\with-dimensions
+@lilypond[quote,verbatim]
+\markup \fill-line {
+  \center-column {
+    \box "Charles Ives (1874 - 1954)"
+    \null
+    \box \pad-markup #2 "THE UNANSWERED QUESTION"
+    \box \pad-x #8 "A Cosmic Landscape"
+    \null
+  }
+}
+\markup \column {
+  \line {
+    \hspace #10
+    \box \pad-to-box #'(-5 . 20) #'(0 . 5)
+      \bold "Largo to Presto"
+  }
+  \pad-around #3
+      "String quartet keeps very even time,
+Flute quartet keeps very uneven time."
+}
+@end lilypond
+
+@funindex \combine
+@funindex \draw-circle
+@funindex \filled-box
+@funindex \triangle
+@funindex \draw-line
+@funindex \arrow-head
+
+@cindex graphic notation
+@cindex symbols, non-musical
+
+Other graphic elements or symbols may be printed
+without requiring any text.  As with any markup
+expression, such objects can be combined together:
+
+@lilypond[quote,verbatim]
+\markup {
+  \combine
+    \draw-circle #4 #0.4 ##f
+    \filled-box #'(-4 . 4) #'(-0.5 . 0.5) #1
+  \hspace #5
+
+  \center-column {
+    \triangle ##t
+    \combine
+      \draw-line #'(0 . 4)
+      \arrow-head #Y #DOWN ##f
+  }
+}
+@end lilypond
+
+@funindex \epsfile
+@funindex \postscript
+
+@cindex embedded graphics
+@cindex images, embedding
+@cindex graphics, embedding
+@cindex postscript
+
+Advanced graphic features include the ability to
+include external image files converted to the
+Encapsulated PostScript format (@emph{eps}), or
+to directly embed graphics into the input file,
+using native PostScript code.
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c1^\markup {
+  \combine
+    \epsfile #X #10 #"./context-example.eps"
+    \postscript #"
+      -2 3 translate
+      2.7 2 scale
+      newpath
+      2 -1 moveto
+      4 -2 4 1 1 arct
+      4 2 3 3 1 arct
+      0 4 0 3 1 arct
+      0 0 1 -1 1 arct
+      closepath
+      stroke"
+  }
+c
+@end lilypond
+
+An exhaustive list of graphics-specific commands
+can be found in @ref{Graphic}.
+
+@c TODO: add @seealso (and link with NR Editorial)
 
 @node Music notation inside markup
 @subsubsection Music notation inside markup

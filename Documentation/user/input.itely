@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node General input and output
 @chapter General input and output
@@ -16,11 +16,11 @@ This section deals with general LilyPond input and output issues,
 rather than specific notation.
 
 @menu
-* Input structure::
-* Titles and headers::
-* Working with input files::
-* Controlling output::
-* MIDI output::
+* Input structure::             
+* Titles and headers::          
+* Working with input files::    
+* Controlling output::          
+* MIDI output::                 
 @end menu
 
 
@@ -31,9 +31,9 @@ The main format of input for LilyPond are text files.  By convention,
 these files end with @code{.ly}.
 
 @menu
-* Structure of a score::
-* Multiple scores in a book::
-* File structure::
+* Structure of a score::        
+* Multiple scores in a book::   
+* File structure::              
 @end menu
 
 
@@ -337,10 +337,10 @@ Almost all printed music includes a title and the composer's name;
 some pieces include a lot more information.
 
 @menu
-* Creating titles::
-* Custom titles::
-* Reference to page numbers::
-* Table of contents::
+* Creating titles::             
+* Custom titles::               
+* Reference to page numbers::   
+* Table of contents::           
 @end menu
 
 
@@ -428,13 +428,13 @@ may use any @ref{Formatting text}, commands in the header.
 \book {
   \header {
     dedication = "dedicated to me"
-    title = \markup \center-align { "Title first line" "Title second line,
+    title = \markup \center-column { "Title first line" "Title second line,
 longer" }
     subtitle = "the subtitle,"
     subsubtitle = #(string-append "subsubtitle LilyPond version "
 (lilypond-version))
     poet = "Poet"
-    composer =  \markup \center-align { "composer" \small "(1847-1973)" }
+    composer =  \markup \center-column { "composer" \small "(1847-1973)" }
     texttranslator = "Text Translator"
     meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge
 "r" }
@@ -760,10 +760,10 @@ Init files: @file{../ly/@/toc@/-init@/.ly}.
 @section Working with input files
 
 @menu
-* Including LilyPond files::
-* Different editions from one source::
-* Text encoding::
-* Displaying LilyPond notation::
+* Including LilyPond files::    
+* Different editions from one source::  
+* Text encoding::               
+* Displaying LilyPond notation::  
 @end menu
 
 
@@ -885,8 +885,8 @@ the structure of the score will make it easier to change the
 structure while leaving the notation untouched.
 
 @menu
-* Using variables::
-* Using tags::
+* Using variables::             
+* Using tags::                  
 @end menu
 
 @node Using variables
@@ -1224,8 +1224,8 @@ lilypond file.ly >display.txt
 @section Controlling output
 
 @menu
-* Extracting fragments of music::
-* Skipping corrected music::
+* Extracting fragments of music::  
+* Skipping corrected music::    
 @end menu
 
 @node Extracting fragments of music
@@ -1332,11 +1332,12 @@ settings.  Therefore the midi file should not have more than 15 staves
 (or 14 if you do not use drums).  Other staves will remain silent.
 
 @menu
-* Creating MIDI files::
-* MIDI block::
-* What goes into the MIDI output?::
-* Repeats in MIDI::
-* Controlling MIDI dynamics::
+* Creating MIDI files::         
+* MIDI block::                  
+* What goes into the MIDI output?::  
+* Repeats in MIDI::             
+* Controlling MIDI dynamics::   
+* Percussion in MIDI::          
 @end menu
 
 @node Creating MIDI files
@@ -1865,5 +1866,35 @@ copied out and compiled to test microtones in your MIDI player.
 @end lilypond
 @end ignore
 
+
+@node Percussion in MIDI
+@subsection Percussion in MIDI
+
+Percussion instruments are generally notated in a @code{DrumStaff}
+context and when notated in this way they are outputted correctly
+to MIDI channel@tie{}10, but some pitched percussion instruments,
+like the xylophone, marimba, vibraphone, timpani, etc., are
+treated like @qq{normal} instruments and music for these instruments
+should be entered in a normal @code{Staff} context, not a
+@code{DrumStaff} context, to obtain the correct MIDI output.
+
+Some non-pitched percussion sounds included in the general MIDI
+standard, like melodic tom, taiko drum, synth drum, etc., cannot
+be reached via MIDI channel@tie{}10, so the notation for such
+instruments should also be entered in a normal @code{Staff}
+context, using suitable normal pitches.
+
+Many percussion instruments are not included in the general MIDI
+standard, e.g. castanets.  The easiest, although unsatisfactory,
+method of producing some MIDI output when writing for such
+instruments is to substitute the nearest sound from the standard
+set.
+
+@c TODO Expand with examples, and any other issues
+
+@knownissues
+
+Because the general MIDI standard does not contain rim shots, the
+sidestick is used for this purpose instead.
 
 

@@ -38,7 +38,7 @@ montrer le rythme d'une mélodie.
 @subsubsection References for percussion
 
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 
 @node Basic percussion notation
@@ -302,8 +302,8 @@ grâce à la commande @code{\parenthesize} décrite dans
 @ref{Parentheses}. Cependant, le mode @code{\drummode} n'inclut pas par
 défaut le graveur @code{Parenthesis_engraver} qui permet d'imprimer ces
 signes.  Il faut donc l'ajouter explicitement dans la définition du
-contexte, suivant la manœuvre indiquée dans @ref{Changing context
-properties on the fly}.
+contexte, suivant la manœuvre indiquée dans @ref{The
+set command}.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
 \new DrumStaff \with {

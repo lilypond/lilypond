@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.11.57"
 \include "english.ly"
 
 #(set-global-staff-size 15)
@@ -24,7 +24,7 @@ fermataLong = \markup {
   \override #'(baseline-skip . 2) {
     \dir-column {
       \musicglyph #"scripts.ufermata"
-      \text \italic \hcenter long
+      \text \italic \center-align long
     }
   }
 }
@@ -134,11 +134,11 @@ fermataLong = \markup {
         s8 \!
         \stemDown
         \once \override Script #'direction = #UP
-        #(set-octavation 1)
+        \ottava #1
         \voiceOne
         \once \override PianoStaff.Arpeggio #'padding = #0.8
         <cs''' as''' cs''''>4. \arpeggio \fermata
-        #(set-octavation 0)
+        \ottava #0
         \bar "|."
       }
     >>

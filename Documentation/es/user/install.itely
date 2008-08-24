@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
+    Translation of GIT committish: 57d7c13e226c65c8db7282d777a386b88cea68b6
 
 
     When revising a translation, copy the HEAD committish of the
@@ -24,14 +24,16 @@
 @e nd html
 @end ignore
 
-Existen dos conjuntos de ediciones o lanzamientos de LilyPond: las ediciones estables y las
-ediciones inestables de desarrollo.  Las versiones estables tienen como número @q{menor} de versión un
-número par (es decir: 2.8, 2.10, 2.12, etc).  Las versiones de desarrollo
-tienen un número @q{menor} de versión impar (esto es: 2.7, 2.9,
-2.11, etc).
+Existen dos conjuntos de ediciones o lanzamientos de LilyPond: las
+ediciones estables y las ediciones inestables de desarrollo.  Las
+versiones estables tienen como número @q{menor} de versión un número
+par (es decir: 2.8, 2.10, 2.12, etc).  Las versiones de desarrollo
+tienen un número @q{menor} de versión impar (esto es: 2.7, 2.9, 2.11,
+etc).
 
-La compilación de LilyPond es un proceso muy enrevesado, por tanto recomendamos @strong{fervientemente}
-el uso de los archivos binarios precompilados.
+La compilación de LilyPond es un proceso muy enrevesado, por tanto
+recomendamos @strong{fervientemente} el uso de los archivos binarios
+precompilados.
 
 @menu
 * Precompiled binaries::        
@@ -44,23 +46,24 @@ el uso de los archivos binarios precompilados.
 
 @subsection Downloading
 
-Revise el enlace @uref{http://lilypond.org/web/install/} para ver información
-actualizada sobre los paquetes binarios para su plataforma.  Si su sistema operativo
-no está contemplado en dicha página general, consulte la lista completa
-que está en @uref{http://download.linuxaudio.org/lilypond/binaries/}
+Revise el enlace @uref{http://lilypond.org/web/install/} para ver
+información actualizada sobre los paquetes binarios para su
+plataforma.  Si su sistema operativo no está contemplado en dicha
+página general, consulte la lista completa que está en
+@uref{http://download.linuxaudio.org/lilypond/binaries/}
 
 Por el momento estamos creando archivos binarios para
 
 @example
-MacOSX-ppc
-MacOSX-x86
-freebsd-64
-freebsd-x86
-linux-64
-linux-arm
-linux-ppc
-linux-x86
-win32-x86
+darwin-ppc  - MacOS X powerpc
+darwin-x86  - MacOS X intel
+freebsd-64  - FreeBSD 6.x, x86_64
+freebsd-x86 - FreeBSD 4.x, x86
+linux-64    - Cualquier distribución de GNU/Linux, x86_64
+linux-arm   - Cualquier distribución de GNU/Linux, arm
+linux-ppc   - Cualquier distribución de GNU/Linux, powerpc
+linux-x86   - Cualquier distribución de GNU/Linux, x86
+mingw       - Windows x86
 @end example
 
 
@@ -74,53 +77,67 @@ win32-x86
 @node Compiling from source
 @section Compiling from source
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
-@menu 
+@menu
 * Downloading source code::
 * Requirements::
 * Building LilyPond::
-* Building documentation without compiling LilyPond::
+* Building documentation::
 * Testing LilyPond::
 * Problems::
 @end menu 
 @node Downloading source code
 @subsection Downloading source code
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Requirements
 @subsection Requirements
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @unnumberedsubsubsec Compilation
 @unnumberedsubsubsec Running requirements
 @unnumberedsubsubsec Building documentation
+@unnumberedsubsubsec Requirements for building documentation
 @node Building LilyPond
 @subsection Building LilyPond
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @unnumberedsubsubsec Compiling
 @unnumberedsubsubsec Compiling for multiple platforms
-@node Building documentation without compiling LilyPond
-@subsection Building documentation without compiling LilyPond
+@unnumberedsubsubsec Compiling outside the source tree
+@node Building documentation
+@subsection Building documentation
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
+
+@menu
+* Commands for building documentation:: Compilar e instalar la documentación.
+* Building documentation without compiling LilyPond:: Usar un binario de LilyPond ya instalado.
+@end menu
+
+@node Commands for building documentation
+@unnumberedsubsubsec Commands for building documentation
+
+@node Building documentation without compiling LilyPond
+@unnumberedsubsubsec Building documentation without compiling LilyPond
+
+@untranslated
 
 @node Testing LilyPond
 @subsection Testing LilyPond
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @node Problems
 @subsection Problems
 
-UNTRANSLATED NODE: IGNORE ME
+@untranslated
 
 @unnumberedsubsubsec Bison 1.875
 @unnumberedsubsubsec Solaris
 @unnumberedsubsubsec FreeBSD
 @unnumberedsubsubsec International fonts
-

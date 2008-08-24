@@ -23,6 +23,12 @@
 #include "output-def.hh"
 #include "pointer-group-interface.hh"
 
+static bool
+non_empty_barline (Grob *me)
+{
+  return Bar_line::has_interface (me) && !me->extent (me, X_AXIS).is_empty ();
+}
+
 /*
   TODO: detect hshifts due to collisions, and account for them in
   spacing?
@@ -80,7 +86,7 @@ Note_spacing::get_spacing (Grob *me, Item *right_col,
     {
       Grob *bar = Pointer_group_interface::find_grob (right_col,
 						      ly_symbol2scm ("elements"),
-						      Bar_line::has_interface);
+						      non_empty_barline);
 
       if (bar)
 	{

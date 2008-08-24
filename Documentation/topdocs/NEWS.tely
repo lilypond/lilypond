@@ -65,9 +65,15 @@ which scares away people.
 
 @end ignore
 
+@item Harp pedalling diagrams were added:
+
+@lilypond
+\markup \harp-pedal #"^v-|vv-o^"
+@end lilypond
+
 @item
 Predefined, user-configurable, transposable fret diagrams
-are now available in the FretBoards context:
+are now available in the @code{FretBoards} context:
 @lilypond[]
 \include "predefined-guitar-fretboards.ly"
 <<
@@ -85,28 +91,67 @@ are now available in the FretBoards context:
 @end lilypond
 
 @item
-A few syntax changes were made:
+The following syntax changes were made, in chronological order. In
+addition, fret diagram properties have been moved to
+@code{fret-diagram-details}, and @code{#'style} property is used to
+select solid/dashed lines instead of @code{#'dash-fraction}.
+
 @example
-2.11.23: #'break-align-symbol -> #'break-align-symbols
-2.11.35: scripts.caesura -> scripts.caesura.curved.
-Use #'style not #'dash-fraction to select solid/dashed lines.
-2.11.38: \setEasyHeads -> \easyHeadsOn, \fatText -> \textLengthOn,
+#'break-align-symbol -> #'break-align-symbols
+scripts.caesura -> scripts.caesura.curved
+\setEasyHeads -> \easyHeadsOn
+\easyHeadsOff (new command)
+\fatText -> \textLengthOn
 \emptyText -> \textLengthOff
-2.11.46: \set hairpinToBarline -> \override Hairpin #'to-barline
-2.11.48: \compressMusic -> \scaleDurations
-2.11.50: metronomeMarkFormatter uses text markup as second argument,
-fret diagram properties moved to fret-diagram-details.
-2.11.51: \octave -> \octaveCheck, \arpeggioUp -> \arpeggioArrowUp,
-\arpeggioDown -> \arpeggioArrowDown, \arpeggioNeutral -> \arpeggioNormal,
-\setTextCresc -> \crescTextCresc, \setTextDecresc -> \dimTextDecresc,
-\setTextDecr -> \dimTextDecr, \setTextDim -> \dimTextDim,
-\setHairpinCresc -> \crescHairpin, \setHairpinDecresc -> \dimHairpin,
-\sustainUp -> \sustainOff, \sustainDown -> \sustainOn
-\sostenutoDown -> \sostenutoOn, \sostenutoUp -> \sostenutoOff
-2.11.53: infinite-spacing-height -> extra-spacing-height
-2.11.55: #(set-octavation oct) -> \ottava #oct,
+\set hairpinToBarline -> \override Hairpin #'to-barline
+\compressMusic -> \scaleDurations
+\octave -> \octaveCheck
+\arpeggioUp -> \arpeggioArrowUp
+\arpeggioDown -> \arpeggioArrowDown
+\arpeggioNeutral -> \arpeggioNormal
+\setTextCresc -> \crescTextCresc
+\setTextDecresc -> \dimTextDecresc
+\setTextDecr -> \dimTextDecr
+\setTextDim -> \dimTextDim
+\setHairpinCresc -> \crescHairpin
+\setHairpinDecresc -> \dimHairpin
+\sustainUp -> \sustainOff
+\sustainDown -> \sustainOn
+\sostenutoDown -> \sostenutoOn
+\sostenutoUp -> \sostenutoOff
+infinite-spacing-height -> extra-spacing-height
+#(set-octavation oct) -> \ottava #oct
 \put-adjacent markup axis dir markup -> \put-adjacent axis dir markup markup
+\center-align -> \center-column
+\hcenter -> \center-align
 @end example
+
+@item Metronome marks can now also contain a textual description.  The
+duration and count (if given) are shown in parentheses after the text.
+
+@lilypond
+{
+  \tempo "Fast"
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo "Andante" 4 = 120
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo 4 = 100
+  c'4 c' c' c'
+  c'4 c' c' c'
+  \tempo "" 4 = 30
+  c'4 c' c' c'
+  c'4 c' c' c'
+}
+@end lilypond
+
+@item In figured bass you can now also use a backslash through a number to
+indicate a raised 6th step.
+
+@lilypond[ragged-right]
+\new FiguredBass \figuremode { < 6\\ 5\\ > < 6/ > }
+@end lilypond
 
 @item
 Arpeggios may now use ``parenthesis'' style brackets:
@@ -127,15 +172,6 @@ using the @code{rounded-box} command.
 @command{lilypond-book} can run any program instead of @command{latex}
 to guess the line width, thanks to @code{--latex-program} command line
 option.
-
-@item
-@code{\setEasyHeads} has been renamed to @code{\easyHeadsOn}, and a new
-command @code{\easyHeadsOff} reverts note heads to normal heads.
-
-@item
-@code{\fatText}, @code{\emptyText} and @code{\compressMusic} have been
-renamed to @code{\textLengthOn}, @code{\textLengthOff} and
-@code{\scaleDurations}, respectively.
 
 @item
 Underlining is now possible with the @code{\underline} markup command.
@@ -197,7 +233,7 @@ text on line spanners is no longer valid.
 
 @lilypond[]
 \relative c'' {
-  \override Glissando #'bound-details #'right #'text = \markup { \hcenter \bold down }
+  \override Glissando #'bound-details #'right #'text = \markup { \center-align \bold down }
   \override Glissando #'bound-details #'right #'Y = #-4
   \override Glissando #'bound-details #'right #'padding = #0.0
   \override Glissando #'bound-details #'left #'arrow = ##t
@@ -298,33 +334,6 @@ uneven vertical spacing.
     }
   }
 }
-@end lilypond
-
-@item Metronome marks can now also contain a textual description.  The
-duration and count (if given) are shown in parentheses after the text.
-
-@lilypond
-{
-  \tempo "Fast"
-  c'4 c' c' c'
-  c'4 c' c' c'
-  \tempo "Andante" 4 = 120
-  c'4 c' c' c'
-  c'4 c' c' c'
-  \tempo 4 = 100
-  c'4 c' c' c'
-  c'4 c' c' c'
-  \tempo "" 4 = 30
-  c'4 c' c' c'
-  c'4 c' c' c'
-}
-@end lilypond
-
-@item In figured bass you can now also use a backslash through a number to 
-indicate a raised 6th step.
-
-@lilypond[ragged-right]
-\new FiguredBass \figuremode { < 6\\ 5\\ > < 6/ > }
 @end lilypond
 
 @end itemize

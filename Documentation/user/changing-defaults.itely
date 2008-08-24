@@ -26,14 +26,7 @@ particular effect.
 @cindex Internals Reference
 
 The controls available for tuning are described in a separate
-document, the
-@iftex
-Internals Reference manual.
-@end iftex
-@ifnottex
-@ref{Top,Internals Reference,,lilypond-internals}.
-@end ifnottex
-That manual
+document: @rinternalsnamed{Top,the Internals Reference}.  That manual
 lists all different variables, functions and options available in
 LilyPond.  It is written as a HTML document, which is available
 @c leave the @uref as one long line.
@@ -73,13 +66,13 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 
 
 @menu
-* Interpretation contexts::
-* Explaining the Internals Reference::
-* Modifying properties::
-* Useful concepts and properties::
-* Common properties::
-* Advanced tweaks::
-* Discussion of specific tweaks::
+* Interpretation contexts::     
+* Explaining the Internals Reference::  
+* Modifying properties::        
+* Useful concepts and properties::  
+* Common properties::           
+* Advanced tweaks::             
+* Discussion of specific tweaks::  
 @end menu
 
 
@@ -89,12 +82,12 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 This section describes what contexts are, and how to modify them.
 
 @menu
-* Contexts explained::
-* Creating contexts::
-* Modifying context plug-ins::
-* Changing context default settings::
-* Defining new contexts::
-* Aligning contexts::
+* Contexts explained::          
+* Creating contexts::           
+* Modifying context plug-ins::  
+* Changing context default settings::  
+* Defining new contexts::       
+* Aligning contexts::           
 @end menu
 
 
@@ -127,10 +120,10 @@ further explanation and with links to the IR.
 Contexts are arranged heirarchically:
 
 @menu
-* Score - the master of all contexts::
-* Top-level contexts - staff containers::
-* Intermediate-level contexts - staves::
-* Bottom-level contexts - voices::
+* Score - the master of all contexts::  
+* Top-level contexts - staff containers::  
+* Intermediate-level contexts - staves::  
+* Bottom-level contexts - voices::  
 @end menu
 
 @node Score - the master of all contexts
@@ -540,7 +533,7 @@ time signature.
 @subsection Changing context default settings
 
 The adjustments of the previous subsections (
-@ref{The \set command}, @ref{Modifying context plug-ins}, and
+@ref{The set command}, @ref{Modifying context plug-ins}, and
 @ref{Overview of modifying properties}) can also be entered
 separately from the music in the @code{\layout} block,
 
@@ -702,7 +695,7 @@ The notes look like a slash, and have no stem,
 
 All these plug-ins have to cooperate, and this is achieved with a
 special plug-in, which must be marked with the keyword @code{\type}.
-This should always be @rinternals{Engraver_group},
+This should always be @code{Engraver_group}.
 
 @example
 \type "Engraver_group"
@@ -803,10 +796,10 @@ ossia = { f4 f f f }
 
 
 @menu
-* Navigating the program reference::
-* Layout interfaces::
-* Determining the grob property::
-* Naming conventions::
+* Navigating the program reference::  
+* Layout interfaces::           
+* Determining the grob property::  
+* Naming conventions::          
 @end menu
 
 @node Navigating the program reference
@@ -838,9 +831,9 @@ Internals Reference: @rinternals{Fingering}.
 @c  outdated info; probably will delete.
 @ignore
 This fragment points to two parts of the program reference: a page
-on @code{FingerEvent} and one on @code{Fingering}.
+on @code{FingeringEvent} and one on @code{Fingering}.
 
-The page on @code{FingerEvent} describes the properties of the music
+The page on @code{FingeringEvent} describes the properties of the music
 expression for the input @code{-2}.  The page contains many links
 forward.  For example, it says
 
@@ -856,7 +849,7 @@ plug-in, which says
 This engraver creates the following layout objects: @rinternals{Fingering}.
 @end quotation
 
-In other words, once the @code{FingerEvent}s are interpreted, the
+In other words, once the @code{FingeringEvent}s are interpreted, the
 @code{Fingering_engraver} plug-in will process them.
 @end ignore
 
@@ -902,7 +895,7 @@ Music types accepted: @rinternals{fingering-event}
 
 @item @rinternals{fingering-event}:
 Music event type @code{fingering-event} is in Music expressions named
-@rinternals{FingerEvent}
+@rinternals{FingeringEvent}
 @end itemize
 
 This path goes against the flow of information in the program: it
@@ -1123,12 +1116,17 @@ LP-specific?
 @node Modifying properties
 @section Modifying properties
 
+@c TODO change the menu and subsection node names to use
+@c backslash once the new macro to handle the refs
+@c is available.  Need to find and change all refs at
+@c the same time. -td
+
 @menu
 * Overview of modifying properties::
-* The \set command::
-* The \override command::
-* \set versus \override::
-* Objects connected to the input::
+* The set command::
+* The override command::
+* The tweak command::
+* set versus override::
 @end menu
 
 
@@ -1246,7 +1244,7 @@ or crashes, or both.
 
 
 
-@node The \set command
+@node The set command
 @subsection The @code{\set} command
 
 @cindex properties
@@ -1371,7 +1369,7 @@ Translation @expansion{} Tunable context properties.
 
 
 
-@node The \override command
+@node The override command
 @subsection The @code{\override} command
 
 Commands which change output generally look like
@@ -1413,7 +1411,57 @@ We demonstrate how to glean this information from the notation manual
 and the program reference.
 
 
-@node \set versus \override
+@node The tweak command
+@subsection The @code{\tweak} command
+
+FIXME expand to include all uses of \tweak
+TODO: can't use \tweak in a variable
+
+@funindex \tweak
+
+In some cases, it is possible to take a short-cut for tuning graphical
+objects.  For objects that result directly from a piece of the input,
+you can use the @code{\tweak} function, for example
+
+@lilypond[relative=2,fragment,verbatim,ragged-right]
+<
+  c
+  \tweak #'color #red d
+  g
+  \tweak #'duration-log #1  a
+>4-\tweak #'padding #10 -.
+@end lilypond
+
+As you can see, properties are set in the objects directly,
+without mentioning the grob name or context where this should be
+applied.
+
+This technique only works for objects that are directly connected to
+an @rinternals{Event} from the input, for example
+
+@itemize
+@item note heads, caused by chord-pitch (i.e., notes inside a chord)
+@item articulation signs, caused by articulation instructions
+@end itemize
+
+It notably does not work for stems and accidentals (these are caused
+by note heads, not by music events) or clefs (these are not caused by
+music inputs, but rather by the change of a property value).
+
+There are very few objects which are @emph{directly} connected to
+output.  A normal note (like @code{c4}) is not directly connected
+to output, so
+
+@example
+\tweak #'color #red c4
+@end example
+
+@noindent
+does not change color.  See @ref{Displaying music expressions}, for
+details.
+
+
+@node set versus override
 @subsection @code{\set} vs. @code{\override}
 
 We have seen two methods of changing properties: @code{\set} and
@@ -1462,55 +1510,6 @@ to computing properties using callback functions.
 entering @code{\override ... #'font-size} for all pertinent
 objects.  Since this is a common change, the special
 property (modified with @code{\set}) was created.
-
-
-@node Objects connected to the input
-@subsection Objects connected to the input
-
-TODO: can't use \tweak in a variable
-
-@funindex \tweak
-
-In some cases, it is possible to take a short-cut for tuning graphical
-objects.  For objects that result directly from a piece of the input,
-you can use the @code{\tweak} function, for example
-
-@lilypond[relative=2,fragment,verbatim,ragged-right]
-<
-  c
-  \tweak #'color #red d
-  g
-  \tweak #'duration-log #1  a
->4-\tweak #'padding #10 -.
-@end lilypond
-
-As you can see, properties are set in the objects directly,
-without mentioning the grob name or context where this should be
-applied.
-
-This technique only works for objects that are directly connected to
-an @rinternals{Event} from the input, for example
-
-@itemize
-@item note heads, caused by chord-pitch (i.e., notes inside a chord)
-@item articulation signs, caused by articulation instructions
-@end itemize
-
-It notably does not work for stems and accidentals (these are caused
-by note heads, not by music events) or clefs (these are not caused by
-music inputs, but rather by the change of a property value).
-
-There are very few objects which are @emph{directly} connected to
-output.  A normal note (like @code{c4}) is not directly connected
-to output, so
-
-@example
-\tweak #'color #red c4
-@end example
-
-@noindent
-does not change color.  See @ref{Displaying music expressions}, for
-details.
 
 
 @node Useful concepts and properties
@@ -1737,10 +1736,10 @@ restricted to a sub-set of the spanners.
 @section Common properties
 
 @menu
-* Controlling visibility of objects::
-* Line styles::
-* Rotating objects::
-* Aligning objects::
+* Controlling visibility of objects::  
+* Line styles::                 
+* Rotating objects::            
+* Aligning objects::            
 @end menu
 
 @node Controlling visibility of objects
@@ -1763,11 +1762,11 @@ certain layout objects.  These are covered under Special
 considerations.
 
 @menu
-* Removing the stencil::
-* Making objects transparent::
-* Painting objects white::
-* Using break-visibility::
-* Special considerations::
+* Removing the stencil::        
+* Making objects transparent::  
+* Painting objects white::      
+* Using break-visibility::      
+* Special considerations::      
 @end menu
 
 
@@ -2251,8 +2250,8 @@ Both layout objects and elements of markup text can be rotated by
 any angle about any point, but the method of doing so differs.
 
 @menu
-* Rotating layout objects::
-* Rotating markup::
+* Rotating layout objects::     
+* Rotating markup::             
 @end menu
 
 @node Rotating layout objects
@@ -2317,10 +2316,10 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 @section Advanced tweaks
 
 @menu
-* Vertical grouping of grobs::
-* Modifying ends of spanners::
-* Modifying stencils::
-* Modifying shapes::
+* Vertical grouping of grobs::  
+* Modifying ends of spanners::  
+* Modifying stencils::          
+* Modifying shapes::            
 @end menu
 
 
@@ -2484,7 +2483,7 @@ command.
 @section Discussion of specific tweaks
 
 @menu
-* old Contexts explained::
+* old Contexts explained::      
 @end menu
 
 

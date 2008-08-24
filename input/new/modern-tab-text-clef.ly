@@ -1,4 +1,4 @@
-\version "2.11.53"
+\version "2.11.57"
 
 \header {
   lsrtags = "staff-notation, fretted-strings"
@@ -16,7 +16,7 @@ TAB = \markup {
   \bold
   \huge
   \override #'(baseline-skip . 2.5)
-  \center-align {
+  \center-column {
     T
     A
     B

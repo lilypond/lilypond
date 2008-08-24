@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @c Translators: Jean-Charles Malahieude
 @c Translation checkers: Valentin Villenave, John Mandereau
@@ -531,17 +531,17 @@ En mode @emph{markup}, vous pouvez composer des expressions comme
 en mathématiques, des documents XML ou bien les expressions musicales.
 Vous pouvez empiler ces expressions grâce à la commande
 @code{\column}, ou les centrer par rapport à leur milieu avec
-@code{\center-align}. 
+@code{\center-column}. 
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { \column { a bbbb \line { c d } } }
-c1^\markup { \center-align { a bbbb c } }
+c1^\markup { \center-column { a bbbb c } }
 c1^\markup { \line { a b c } }
 @end lilypond
 
 Des listes non précédées de commande ne sont pas isolées. Ainsi, 
 @example
-\center-align @{ @{ a b @} @{ c d @} @}
+\center-column @{ @{ a b @} @{ c d @} @}
 @end example
 
 @noindent
@@ -549,7 +549,7 @@ Des listes non précédées de commande ne sont pas isolées. Ainsi,
 est la même expression que
 
 @example
-\center-align @{ a b c d @}
+\center-column @{ a b c d @}
 @end example
 
 @noindent
@@ -559,10 +559,10 @@ différencier les listes de mots.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 \textLengthOn
-c4^\markup{ \center-align { on three lines } }
-c4^\markup{ \center-align { "all one line" } }
-c4^\markup{ \center-align { { on three lines } } }
-c4^\markup{ \center-align { \line { on one line } } }
+c4^\markup{ \center-column { on three lines } }
+c4^\markup{ \center-column { "all one line" } }
+c4^\markup{ \center-column { { on three lines } } }
+c4^\markup{ \center-column { \line { on one line } } }
 @end lilypond
 
 Vous pouvez stocker les étiquettes textuelles en tant que variables,

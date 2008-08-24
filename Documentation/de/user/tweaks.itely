@@ -31,9 +31,7 @@ Notenfragment kann geändert werden.
 @node Tweaking basics
 @section Tweaking basics
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @menu
 * Introduction to tweaks::      
@@ -45,37 +43,27 @@ UNTRANSLATED NODE: IGNORE ME
 @node Introduction to tweaks
 @subsection Introduction to tweaks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Objects and interfaces
 @subsection Objects and interfaces
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Naming conventions of objects and properties
 @subsection Naming conventions of objects and properties
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Tweaking methods
 @subsection Tweaking methods
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node The Internals Reference manual
 @section The Internals Reference manual
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @menu
 * Properties of layout objects::  
@@ -86,30 +74,22 @@ UNTRANSLATED NODE: IGNORE ME
 @node Properties of layout objects
 @subsection Properties of layout objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Properties found in interfaces
 @subsection Properties found in interfaces
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Types of properties
 @subsection Types of properties
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Appearance of objects
 @section Appearance of objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @menu
 * Visibility and color of objects::  
@@ -120,30 +100,22 @@ UNTRANSLATED NODE: IGNORE ME
 @node Visibility and color of objects
 @subsection Visibility and color of objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Size of objects
 @subsection Size of objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Length and thickness of objects
 @subsection Length and thickness of objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Placement of objects
 @section Placement of objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @menu
 * Automatic behavior::          
@@ -154,23 +126,17 @@ UNTRANSLATED NODE: IGNORE ME
 @node Automatic behavior
 @subsection Automatic behavior
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Within-staff objects
 @subsection Within-staff objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Outside staff objects
 @subsection Outside staff objects
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @node Collisions of objects
@@ -371,9 +337,7 @@ aber die gebräuchlichsten finden sich hier:
 @node Real music example
 @subsection Real music example
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 
 @c DEPRECATED SECTION
@@ -530,16 +494,12 @@ im relevanten Teil der Programmreferenz.
 @node Other uses for tweaks
 @subsection Other uses for tweaks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
 
-@ifhtml
-UNTRANSLATED NODE: IGNORE ME
-@end ifhtml
+@untranslated
 
 @node Other sources of information
 @subsection Other sources of information
