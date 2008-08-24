@@ -8,7 +8,7 @@ the following systems, respectively."
 
 }
 
-\version "2.11.51"
+\version "2.11.57"
 \paper { left-margin = 3\cm }
 \score {
   \new StaffGroup <<
@@ -22,7 +22,7 @@ the following systems, respectively."
     }
     \new Staff {
       \override Staff . InstrumentName #'self-alignment-X = #CENTER
-      \set Staff . instrumentName = \markup \center-align {
+      \set Staff . instrumentName = \markup \center-column {
 	"Centered" "instrument name"
       }
       \set Staff . shortInstrumentName = "Centered"

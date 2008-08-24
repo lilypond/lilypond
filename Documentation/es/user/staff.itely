@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node Staff notation
 @section Staff notation
@@ -321,7 +321,7 @@ Si queremos centrar los nombres de instrumento, hemos de centrarlos todos
 { <<
 \new Staff {
   \set Staff.instrumentName = \markup {
-    \center-align { "Clarinetti"
+    \center-column { "Clarinetti"
       \line { "in B" \smaller \flat } } }
   c''1
 }

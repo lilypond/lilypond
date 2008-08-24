@@ -1,4 +1,4 @@
-\version "2.11.10"
+\version "2.11.57"
 \header {
   lsrtags = "pitches,staff-notation"
   texidoc = "Quotations take into account the transposition of both
@@ -30,7 +30,7 @@ quoteTest = {
 }
 
 {
-  \set Staff.instrumentName = \markup \center-align { Horn \line { in F } }
+  \set Staff.instrumentName = \markup \center-column { Horn \line { in F } }
   \quoteTest
   \transpose c' d' << \quoteTest s4_"up a tone" >>
 }

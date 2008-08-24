@@ -36,11 +36,11 @@
 
 (call-with-output-file "markup-commands.tely"
   (lambda (port)
-    (dump-node (markup-doc-node) port 2 #t)))
+    (dump-node (markup-doc-node) port 2)))
 
 (call-with-output-file "markup-list-commands.tely"
   (lambda (port)
-    (dump-node (markup-list-doc-node) port 2 #t)))
+    (dump-node (markup-list-doc-node) port 2)))
 
 (display 
  (identifiers-doc-string)
@@ -172,13 +172,14 @@
      (backend-doc-node)
      (all-scheme-functions-doc)
      (make <texi-node>
-       #:name "Indexes"
+       #:appendix #t
+       #:name "Indices"
        #:text "
-@unnumbered Concept index
+@appendixsec Concept index
 
 @printindex cp
 
-@unnumbered Function index
+@appendixsec Function index
 
 @printindex fn
 

@@ -1,7 +1,7 @@
-\version "2.10.0"
+\version "2.11.57"
 
 slashSeparator = \markup {
-  \hcenter
+  \center-align
   \vcenter \combine
   \beam #2.0 #0.5 #0.48
   \raise #0.7 \beam #2.0 #0.5 #0.48

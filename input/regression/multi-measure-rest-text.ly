@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.11.57"
 
 \header  {
 
@@ -17,7 +17,7 @@ measures stretch to accomodate wide texts.
 {
   \time 3/4
   \set Score.skipBars = ##t
-  R2._\markup { \center-align { \musicglyph  #"scripts.dfermata" \roman "Ad lib"  }  }
+  R2._\markup { \center-column { \musicglyph  #"scripts.dfermata" \roman "Ad lib"  }  }
   R2.^\fermataMarkup
   R2.^"4"
   R2.*3_\markup { \roman "a1b2c3" }

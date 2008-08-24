@@ -319,6 +319,28 @@ LY_DEFINE (ly_round_filled_box, "ly:round-filled-box",
 				   scm_to_double (blot)).smobbed_copy ();
 }
 
+LY_DEFINE (ly_round_filled_polygon, "ly:round-filled-polygon",
+           2, 0, 0,
+           (SCM points, SCM blot),
+           "Make a @code{Stencil} object that prints a black polygon with "
+           "corners at the points defined by @var{points} (list of coordinate "
+           "pairs) and roundness @var{blot}.")
+{
+  SCM_ASSERT_TYPE (scm_ilength (points) > 0, points, SCM_ARG1, __FUNCTION__, "list of coordinate pairs");
+  LY_ASSERT_TYPE (scm_is_number, blot, 2);
+  vector<Offset> pts;
+  for (SCM p = points; scm_is_pair (p); p = scm_cdr (p))
+    {
+      SCM scm_pt = scm_car (p);
+      if (scm_is_pair (scm_pt)) {
+        pts.push_back (ly_scm2offset (scm_pt));
+      } else {
+        // TODO: Print out warning
+      }
+    }
+  return Lookup::round_filled_polygon (pts, scm_to_double (blot)).smobbed_copy ();
+}
+
 LY_DEFINE (ly_register_stencil_expression, "ly:register-stencil-expression",
 	   1, 0, 0,
 	   (SCM symbol),

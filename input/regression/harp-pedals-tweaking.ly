@@ -17,4 +17,9 @@ harp-pedal-details properties of TextScript."
                   (space-before-divider . 0.1)
                   (space-after-divider . 1.2))) {
            \harp-pedal #"o^ovo-|vovo-o^"}
+  \revert Voice.TextScript #'harp-pedal-details #'box-width
+  \override Voice.TextScript #'harp-pedal-details #'circle-thickness = #3
+  \override Voice.TextScript #'harp-pedal-details #'circle-x-padding = #0.6
+  \override Voice.TextScript #'harp-pedal-details #'circle-y-padding = #-0.3
+  c1^\markup \harp-pedal #"o^ovo-|vovo-o^"
 }

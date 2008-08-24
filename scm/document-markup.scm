@@ -71,6 +71,7 @@
         (markup-functions (hashq-ref markup-functions-by-category
                                           category)))
     (make <texi-node>
+      #:appendix #t
       #:name category-name
       #:desc ""
       #:text (string-append
@@ -90,6 +91,7 @@
 
 (define (markup-doc-node)
   (make <texi-node>
+    #:appendix #t
     #:name "Text markup commands"
     #:desc ""
     #:text "The following commands can all be used inside @code{\\markup @{ @}}."
@@ -107,6 +109,7 @@
 
 (define (markup-list-doc-node)
   (make <texi-node>
+    #:appendix #t
     #:name "Text markup list commands"
     #:desc ""
     #:text (string-append

@@ -2,7 +2,7 @@
 \header {
 
 texidoc = "Fixed horizontal alignment of columns of text can be set using
-\left-column, \center-align and \right-column.
+\left-column, \center-column and \right-column.
 "
 
 }
@@ -15,7 +15,7 @@ texidoc = "Fixed horizontal alignment of columns of text can be set using
       three
     }
     \hspace #4
-    \center-align {
+    \center-column {
       one
       \left-align
       two
