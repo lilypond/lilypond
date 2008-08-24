@@ -99,7 +99,6 @@ mingw       - Windows x86
 
 @unnumberedsubsubsec Compilation
 @unnumberedsubsubsec Running requirements
-@unnumberedsubsubsec Building documentation
 @unnumberedsubsubsec Requirements for building documentation
 @node Building LilyPond
 @subsection Building LilyPond

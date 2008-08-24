@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.11.57"
 #(set-global-staff-size 15)
 \paper{
   ragged-right=##f
@@ -70,7 +70,7 @@ extendOff = \bassFigureExtendersOff
     \new Staff = "violone" {
       \set Staff.instrumentName = \markup {
         \hcenter-in #13 {
-          \center-align {
+          \center-column {
             Violone,
             \line { e Cembalo. }
           }

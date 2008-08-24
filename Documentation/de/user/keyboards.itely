@@ -23,7 +23,6 @@
 
 @menu
 * References for keyboards::    
-* The piano staff::             
 * Changing staff manually::     
 * Changing staff automatically::  
 * Staff-change lines::          
@@ -34,13 +33,6 @@
 @node References for keyboards
 @unnumberedsubsubsec References for keyboards
 
-@untranslated
-@ifnothtml
-@englishref
-@end ifnothtml
-
-@node The piano staff
-@unnumberedsubsubsec The piano staff
 
 Ein Pianosystem besteht aus zwei normalen Notensystemen, die durch 
 eine Klammer verbunden sind. Die Systeme sind verhältnismäßig 

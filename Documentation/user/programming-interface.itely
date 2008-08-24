@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -886,7 +886,7 @@ LilyPond markup syntax and Scheme markup syntax.
         @code{(markup markup1 markup2 ... )}
 @item @code{\command} @tab @code{#:command}
 @item @code{\variable} @tab @code{variable}
-@item @code{\center-align @{ ... @}} @tab @code{#:center-align ( ... )}
+@item @code{\center-column @{ ... @}} @tab @code{#:center-column ( ... )}
 @item @code{string} @tab @code{"string"}
 @item @code{#scheme-arg} @tab @code{scheme-arg}
 @end multitable

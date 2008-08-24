@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node Staff notation
 @section Staff notation
@@ -931,12 +931,12 @@ c1
 When two or more staff contexts are grouped together, the
 instrument names and short instrument names are centered by
 default.  To center multi-line instrument names,
-@code{\center-align} must be used:
+@code{\center-column} must be used:
 
 @lilypond[verbatim,quote,relative=2]
 <<
   \new Staff {
-    \set Staff.instrumentName = \markup \center-align {
+    \set Staff.instrumentName = \markup \center-column {
       Clarinetti
       \line { "in B" \smaller \flat }
     }

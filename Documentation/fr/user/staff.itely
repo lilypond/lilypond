@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -378,7 +378,7 @@ Si vous centrez le nom d'un instrument, il faudra le faire pour tous
 { <<
 \new Staff {
   \set Staff.instrumentName = \markup {
-    \center-align { "Clarinetti"
+    \center-column { "Clarinetti"
       \line { "in B" \smaller \flat } } }
   c''1
 }
