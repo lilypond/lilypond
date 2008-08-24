@@ -11,7 +11,7 @@ man: $(HELP2MAN_GROFFS)
 local-uninstall: uninstall-help2man
 
 uninstall-help2man:
-	$(foreach a, $(notdir $(MANGROFFS)), rm -f $(a) && ) true
+	$(foreach a, $(HELP2MAN_GROFFS), rm -f $(DESTDIR)$(mandir)/man1/$(notdir $(a)) && ) true
 	-rmdir $(DESTDIR)$(mandir)/man1
 
 

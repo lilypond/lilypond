@@ -60,12 +60,12 @@ local-uninstall-WWW:
 
 else # out!=www
 
-local-install-info: info
-	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 ## Can not have absolute symlinks because some binary packages build schemes
 ## install files in nonstandard root.  Best we can do is to notify the
 ## builder or packager.
+local-install-info: info
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	@echo
 	@echo "***************************************************************"
 	@echo "Please add or update the LilyPond direntries, do"
@@ -78,7 +78,13 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo
 	@echo "and read the extra instructions."
 	@echo
+
+local-uninstall-info:
+	-rmdir $(DESTDIR)$(package_infodir)
+
 else # installing directly into standard /usr/...
+local-install-info: info
+	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	$(foreach f,$(INFO_FILES),install-info --remove --info-dir=$(infodir) $(f) ; )true
 	install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
@@ -88,7 +94,13 @@ else # installing directly into standard /usr/...
 	@echo
 	@echo "    make out=www install-info "
 	@echo
-endif # installing into standard /usr/* root# installing into /usr/...
+
+local-uninstall-info:
+	$(foreach f,$(INFO_FILES),install-info --remove --info-dir=$(infodir) $(f) ; )true
+	-rmdir $(DESTDIR)$(infodir)
+	-rmdir $(DESTDIR)$(package_infodir)
+
+endif # installing into standard /usr/* root
 
 endif # out!=www
 
