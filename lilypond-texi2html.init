@@ -886,7 +886,7 @@ sub lilypond_foot_line_and_ref($$$$$$$)
     # from <p>...</p>. This means that we have to modify this string and
     # insert the FN number manually. The default (nr) on a separate line before
     # the FN text is just plain ugly:
-    $lines->[0] =~ s/^<p>/<p>$tmptxt /;
+    $lines->[0] =~ s/<p>/<p>$tmptxt /;
     # this is a bit obscure, this allows to add an anchor only if formatted
     # as part of the document.
     $place_id = '' if ($state->{'outside_document'} or $state->{'multiple_pass'});
