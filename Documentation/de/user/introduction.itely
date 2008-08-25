@@ -747,7 +747,7 @@ Die Dokumentation zu LilyPond ist unterteilt in mehrere Handbücher.
 * About the Application Usage::  Dieses Handbuch diskutiert den konkreten Aufruf des @q{lilypond} Programms, sowie Betriebssystem-spezifische Aspekte.
 * About the Snippet List::  Dies ist eine Sammlung von kurzen LilyPond Beispielen.
 * About the Internals Reference::  Dieses Dokument liefert Referenzwissen über LilyPonds interne Strukturen und ist vor allem bei der Erstellung von tiefergehenden Optimierungen und Anpassungen hilfreich.
-* Other documentation::         Es existiern noch etliche weitere Teile der Dokumentation, wie etwa die @q{Neueigkeiten} Seite oder das Archiv der Mailingliste.
+* Other documentation::         Es existieren noch etliche weitere Teile der Dokumentation, wie etwa die @q{Neueigkeiten} Seite oder das Archiv der Mailingliste.
 @end menu
 
 
@@ -758,7 +758,7 @@ Dieses Handbuch erklärt die Grundbegriffe von LilyPond und stellt
 die fundamentalen Konzepte hinter dem Programm vor. Diese Kapitel sollten
 in linearer Reihenfolge gelesen werden.
 
-Am Ende jedes Abschnitts findet sich an Absatz @strong{Siehe auch}, der
+Am Ende jedes Abschnitts findet sich ein Absatz @strong{Siehe auch}, der
 Kreuzreferenzen zu anderen Abschnitten enthält. Beim ersten Durchlesen
 empfiehlt es sich nicht, diesen gleich zu folgen, da meist noch
 zahlreiche Grundbegriffe zum Verständnis fehlen. Wenn Sie sich durch
@@ -860,17 +860,17 @@ erläutert allgemeine Informationen über die Eingabedateien von Lilypond und
 wie die Ausgabe gesteuert werden kann.
 
 @item
-@emph{@ruser{Spacing issues}},
+@emph{@ruser{Spacing issues}}:
 befasst sich mit globalen Fragen wie der Definition von Papierformaten 
 oder wie man Seitenumbrüche definiert.
 
 @item
-@emph{@ruser{Changing defaults}},
+@emph{@ruser{Changing defaults}}:
 erklärt, wie des Layout getrimmt werden kann um genau zum gewünschten Ergebnis 
 zu kommen.
 
 @item
-@emph{@ruser{Interfaces for programmers}},
+@emph{@ruser{Interfaces for programmers}}:
 demonstriert die Erstellung von musikalischen Funktionen.
 
 @end itemize
@@ -891,17 +891,17 @@ Farbbezeichnungen und die Zeichen der Feta-Schriftart gesammelt sind.
 
 @item
 Die
-@emph{@ruser{Cheat sheet}},
+@emph{@ruser{Cheat sheet}}
 zeigt die wichtigsten LilyPond-Befehle.
 
 @item
 Der
-@emph{@ruser{LilyPond command index}},
+@emph{@ruser{LilyPond command index}}
 listet alle Befehle auf, die mit @code{\} anfangen.
 
 @item
 Der 
-@emph{@ref{LilyPond index}},
+@emph{@ref{LilyPond index}}
 ist ein vollständiger Index.
 
 @end itemize
@@ -918,30 +918,30 @@ kann.
 @itemize @bullet
 
 @item
-@emph{@rprogram{Install}},
+@emph{@rprogram{Install}}:
 erklärt wie LilyPond installiert wird (inklusive Kompilation, wenn es 
 nötig sein sollte).
 
 @item
-@emph{@rprogram{Setup}},
+@emph{@rprogram{Setup}}:
 erklärt wie der Computer eingerichtet wird, damit LilyPond optimal genutzt 
 werden kann. Hierzu gehören etwa spezielle Umgebungen für bestimmte 
 Texteditoren.
 
 @item
-@emph{@rprogram{Running LilyPond}},
+@emph{@rprogram{Running LilyPond}}:
 zeigt, wie LilyPond und seine Hilfsprogramme gestartet werden. Zusätzlich 
 wird hier erklärt, wie Quelldateien von alten LilyPond-Versionen aktualisiert 
 werden können.
 
 @item
-@emph{@rprogram{LilyPond-book}},
+@emph{@rprogram{LilyPond-book}}:
 erklärt die Details, um einen Text mit eingefügten Notenbeispielen (wie 
 etwa dieses Handbuch) zu 
 erstellen.
 
 @item
-@emph{@rprogram{Converting from other formats}},
+@emph{@rprogram{Converting from other formats}}:
 erklärt, wie die Konvertierungsprogramme aufgerufen werden. Diese 
 Programme kommen mit LilyPond zusammen und konvertieren eine Vielzahl 
 von Notensatzformaten in das @code{.ly}-Format.
