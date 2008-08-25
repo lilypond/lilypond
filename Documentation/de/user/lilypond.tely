@@ -192,7 +192,7 @@ Free Documentation License''.
 
 Das ist das Benutzerhandbuch für GNU LilyPond Version @version{}.
 Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention
-dieses Handbuchs siehe @ref{About the documentation}.
+dieses Handbuchs siehe @rlearning{About the documentation}.
 
 @cindex Internetseite
 @cindex URL
