@@ -122,6 +122,9 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
 
+@item MetaFont (mf-nowin, mf, mfw or mfont binaries), usually packaged with 
+a @LaTeX{} distribution like tetex or texlive.
+
 @item @uref{http://www.lcdf.org/~eddietwo/type/#t1utils,t1utils}
 (version 1.33 or newer recommended).
 
