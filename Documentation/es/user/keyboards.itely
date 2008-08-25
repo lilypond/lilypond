@@ -23,7 +23,6 @@
 
 @menu
 * References for keyboards::    
-* The piano staff::             
 * Changing staff manually::     
 * Changing staff automatically::  
 * Staff-change lines::          
@@ -37,9 +36,6 @@
 @ifnothtml
 @englishref
 @end ifnothtml
-
-@node The piano staff
-@unnumberedsubsubsec The piano staff
 
 Los sistemas de piano son dos pentagramas normales agrupados mediante
 una llave.  Los pentagramas son hasta cierto punto independientes,
@@ -235,7 +231,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 @end menu
 
 @node Piano pedals
-@subsubsection Piano pedals
+@unnumberedsubsubsec Piano pedals
 @cindex Pedales
 
 El piano tiene pedales que alteran la forma en que se produce el

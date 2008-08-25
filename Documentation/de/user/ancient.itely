@@ -628,7 +628,7 @@ eine Textbeschriftung (@code{\markup}).
 @cindex articulations
 
 Zusätzlich zu den Standardartikulationszeichen, wie sie im Abschnitt
-@ref{Articulations} beschrieben werden, werden auch Artikulationszeichen
+@ref{Articulations and ornamentations} beschrieben werden, werden auch Artikulationszeichen
 für die Alte Musik zur Verfügung gestellt. Diese sind darauf hin geformt, dass
 sie mit der Notation des Editio Vaticana-Stils verwendet werden können.
 

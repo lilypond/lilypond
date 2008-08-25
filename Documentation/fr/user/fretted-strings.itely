@@ -34,7 +34,7 @@
 * Default tablatures::
 * Custom tablatures::
 * Fret diagram markups::
-* Right hand fingerings::
+* Right-hand fingerings::
 @end menu
 
 @node References for fretted strings
@@ -247,8 +247,8 @@ Par ailleurs, plusieurs propriétés permettent d'ajuster le graphisme
 
 Exemples : @rlsr{Fretted strings}.
 
-@node Right hand fingerings
-@unnumberedsubsubsec Right hand fingerings
+@node Right-hand fingerings
+@unnumberedsubsubsec Right-hand fingerings
 
 Les doigtés de la main droite, dans les accords, peuvent être ajoutés au moyen
 de @code{@var{note}-\rightHandFinger @var{doigté}}

@@ -324,7 +324,7 @@ unfold
 @end menu
 
 @node Percent repeats
-@subsubsection Percent repeats
+@unnumberedsubsubsec Percent repeats
 
 @cindex porcentaje, repeticiones de
 @cindex compás, repeticiones de
@@ -379,7 +379,7 @@ Referencia del programa:
 @rinternals{PercentRepeatedMusic}.
 
 @node Tremolo repeats
-@subsubsection Tremolo repeats
+@unnumberedsubsubsec Tremolo repeats
 
 @cindex barras de trémolo
 
