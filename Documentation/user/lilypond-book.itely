@@ -493,7 +493,7 @@ the following structure:
 </mediaobject>
 @end example
 
-Note that you can use mediaobject or inlinemediaobject as the outermost
+Note that you can use @code{mediaobject} or @code{inlinemediaobject} as the outermost
 element as you wish.
 
 @subheading Including LilyPond code
