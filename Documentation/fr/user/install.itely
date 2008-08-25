@@ -30,7 +30,7 @@ l'utilisations des binaires précompilés.
 @node Precompiled binaries
 @section Precompiled binaries
 
-@subsection Downloading
+@unnumberedsubsec Downloading
 
 Consultez @uref{http://lilypond.org/web/install/} pour connaître les
 derniers paquets binaires dipsonibles pour votre plateforme.  Si votre

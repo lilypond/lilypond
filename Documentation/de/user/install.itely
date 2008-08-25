@@ -32,7 +32,7 @@ empfehlen wir @strong{stark}, die vorkompilierten Binär-Pakete zu benutzen.
 @node Precompiled binaries
 @section Precompiled binaries
 
-@subsection Downloading
+@unnumberedsubsec Downloading
 
 
 Aktuelle Informationen zu vorkompilierten Binär-Paketen für Ihre Plattform

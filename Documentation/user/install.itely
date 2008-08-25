@@ -39,7 +39,7 @@ recommend using the precompiled binaries.
 @node Precompiled binaries
 @section Precompiled binaries
 
-@subsection Downloading
+@unnumberedsubsec Downloading
 
 Check out @uref{http://lilypond.org/web/install/} for up to date
 information on binary packages for your platform.  If your operating
