@@ -14,13 +14,6 @@
 @chapter Install
 @end ifclear
 
-@c  I don't know what this comment does.  Remove?  -gp
-@ignore
-@h tml
-<a name="download-source">
-@e nd html
-@end ignore
-
 There are two sets of releases for LilyPond: stable releases, and
 unstable development releases.  Stable versions have an even-numbered
 @q{minor} version number (i.e. 2.8, 2.10, 2.12, etc).  Development
@@ -261,6 +254,14 @@ mkdir lily-build && cd lily-build
 
 @end example
 
+
+@unnumberedsubsubsec Useful @command{make} variables
+
+If a less verbose build output if desired, the variable
+@code{QUIET_BUILD} may be set to @code{1} on @command{make} command
+line, or in @file{local.make} at top of the build tree.
+
+
 @node Building documentation
 @subsection Building documentation
 
@@ -326,6 +327,9 @@ documentation maintenance are available from @file{Documentation/};
 for more information, see @file{Documentation/user/README.txt} and
 @file{Documentation/TRANSLATION}.
 
+The makefile variable @code{QUIET_BUILD} may be set to @code{1} for a
+less verbose build output, just like for building the programs.
+
 @knownissues
 
 @code{-j} command-line option of @command{make} is unsupported for
@@ -333,7 +337,7 @@ building the documentation.  As the most time consuming task is
 running LilyPond to build images of music, the makefile variable
 @code{CPU_COUNT} may be set in @file{local.make} or on the command line
 to the number of @code{.ly} files that LilyPond should process
-simultaneously, e.g. on a bi-processor or Dual core machine
+simultaneously, e.g. on a bi-processor or dual core machine
 
 @example
 make CPU_COUNT=2 web
