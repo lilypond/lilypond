@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
+    Translation of GIT committish: b54fc6953a8d70a3c51e8c3d0cbf9b3fe9652d78
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -70,7 +70,12 @@ beginnt aber mit einem Überblick über bereits existente Praktiken.
 Das Quellenarchiv enthält eine ausführlichere Bib@TeX{}-Bibliographie mit 
 über 100 Titeln in 
 @ifhtml
+@ifset bigpage
+@uref{../bibliography/index.html, der Bibliographie}.
+@end ifset
+@ifclear bigpage
 @uref{../../bibliography/index.html, der Bibliographie}.
+@end ifclear
 @end ifhtml
 @ifnothtml
 @file{Documentation/@/bibliography/}.

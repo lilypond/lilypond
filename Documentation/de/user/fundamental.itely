@@ -1,20 +1,22 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: c60d0f3c72164f384ec8f7af90fdd8a66ab32b91
+    Translation of GIT committish: a8c28adaf60e575fa101c93b4fda7557741bfb86
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 @c \version "2.11.51"
-
+@c Translators: Till Rettig, Reinhold Kainhofer
 
 @node Fundamental concepts
 @chapter Fundamental concepts
 
-Dieses Kapitel behandelt das allgemeine Konzept von LilyPond
-und wie man  @code{\score}-Blöcke erstellt.
+Nachdem im Tutorial gezeigt wurde, wie aus einfachen Text-Dateien
+wunderschön formatierte Musiknoten erzeugt werden können, stellt
+dieses Kapitel die Konzepte und Techniken vor, wie auch komplexere
+Partituren erstellt werden können.
 
 @menu 
 * How LilyPond files work::
@@ -63,18 +65,103 @@ weglässt.
 }
 @end lilypond
 
-Jetzt kommt noch eine Ebene dazu: LilyPond-Code in der obigen Form 
-ist in Wirklichkeit auch wieder eine Abkürzung. Auch wenn man so 
-Dateien schreiben kann und sie auch korrekt gesetzt werden, heißt 
-der wirkliche Code, der hier gemeint ist, eigentlich:
+Eine komplette Definition des Eingabeformats findet sich
+im Kapitel @ruser{File structure}.
+
+@menu
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting music expressions::
+* On the un-nestedness of brackets and ties::
+@end menu
+
+@node Introduction to the LilyPond file structure
+@subsection Introduction to the LilyPond file structure
+
+@cindex Eingabeformat
+@cindex Dateistruktur
+
+Ein grundlegendes Beispiel einer Eingabedatei für LilyPond lautet:
 
 @example
+\version @w{"@version{}"}
+\header @{ @}
 \score @{
-  \relative c'' @{
-    c4 a b c
+  @var{...zusammengesetzter Musik-Austruck...}  % Die gesamte Musik kommt hier!
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+Aufgrund der Flexibilität von LilyPond gibt es viele Variationen dieses 
+Schemas, aber dieses Beispiel dient als einfacher Ausgangspunkt.
+
+@funindex \book
+@funindex \score
+@cindex book
+@cindex score
+
+Bisher hat noch keines der Beispiele den @code{\score@{@}}-Befehl
+benutzt, da Lilypond derartige zusätzliche Befehle automatisch
+bei Bedarf einfügt, wenn die Eingabedatei eine einfache Struktur 
+hat.
+
+Sehen wir uns als ein solches einfaches Beispiel an:
+
+@example
+\relative c'' @{
+  c4 a d c
+@}
+@end example
+
+@noindent
+Im Hintergrund kommen hier noch einige Ebenen dazu: LilyPond-Code 
+in der obigen Form ist in Wirklichkeit eine Abkürzung. Auch wenn man so 
+Dateien schreiben kann und sie auch korrekt gesetzt werden, heißt 
+der vollständige Code, der hier gemeint ist, eigentlich:
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        \relative c'' @{
+          c4 a b c
+        @}
+      @}
+    @}
+    \layout @{ @}
   @}
 @}
 @end example
+
+@noindent
+Mit anderen Worten: Wenn die Eingabedatei einen einfachen Musik-Ausdruck
+enthält, wird LilyPond die Datei so interpretieren, als ob dieser
+Ausdruck in den oben gezeigten Befehlen eingegeben wurde. Diese nötige 
+Stuktur wird automatisch im Speicher beim Aufruf von LilyPond erzeugt, 
+ohne dass der Benutzer davon etwas bemerkt.
+
+@cindex implicit contexts
+
+@strong{Ein Wort der Warnung ist jedoch angebracht!} Viele der Beispiele
+in der Dokumentation von LilyPond lassen die @code{\new Staff} und @code{\new Voice}
+Befehle zur Erzeugung einer Notenzeile und einer Stimme (beides ist in 
+LilyPond ein sogenannter Kontext) bewusst aus, 
+damit sie implizit von LilyPond im Speicher erzeugt werden.
+Für einfache Dokumente funktioniert das im Allgemeinen sehr gut, für 
+komplexere Partituren können dadurch aber unerwartete Ergebnisse 
+entstehen, teilweise sogar unerwartete leere Notenzeilen. Um 
+die entsprechenden Kontexte in diesem Fall explizit zu erzeugen, 
+siehe @ref{Contexts and engravers}.
+
+@warning{Wenn mehr als ein paar Zeilen an Musik eingegeben werden,
+empfielt es sich, die Notenzeilen und die Stimmen immer explizit
+mit @code{\new Staff} und @code{\new Voice} zu erzeugen.}
+
+Im Moment wollen wir aber zu unserem ersten Beispiel zurückkehren und
+nur den @code{\score}-Befehl näher betrachten.
 
 Eine Partitur (@code{\score}) muss immer mit einem musikalischen Ausdruck 
 beginnen. Das ist letztendlich alle Musik, angefangen bei einer 
@@ -85,7 +172,7 @@ Note bis hin zu einer riesigen Partitur mit vielen Notensystemen
 @example
 @{
   \new GrandStaff <<
-    hier die gesamte Partitur 
+    @var{...hier die gesamte Partitur...}
   >>
 @}
 @end example
@@ -106,11 +193,66 @@ Ein @code{\score} auch andere Dinge enthalten, wie etwa
 @}
 @end example
 
+@funindex \header
+@funindex \layout
+@funindex \midi
+@cindex header
+@cindex layout
+@cindex midi
+
 @noindent
-Viele setzen einige dieser Befehle außerhalb des 
-@code{\score}-Blocks, zum Beispiel wird der @code{\header} 
-sehr oft oberhalb der  @code{\score}-Umgebung gesetzt. Das 
+
+@noindent
+Wie man sieht sind die drei Befehle @code{\header}, @code{\layout} und
+@code{\midi} von spezieller Natur: Im Gegensatz zu vielen Anderen Befehlen, 
+die auch mit einem @code{\} beginnen, liefern sie @emph{keinen} Musikausdruck
+und sind auch nicht Teil eines musikalischen Ausdrucks. Daher können sie
+sowohl innerhalb eines @code{\score}-Blocks als auch außerhalb plaziert
+werden. Tatsächlich werden einige dieser Befehle meist außerhalb des 
+@code{\score}-Blocksgesetzt, zum Beispiel findet sich der @code{\header} 
+sehr oft oberhalb der @code{\score}-Umgebung. Das 
 funktioniert genauso gut.
+
+
+Zwei bisher noch nicht aufgetauchte Befehle sind 
+@code{\layout @{ @}} und @code{\midi @{@}}. Wenn sie in einer 
+Datei vorkommen, führt dies dazu, dass Lilypond eine druckfähige PDF-Datei
+bzw. eine MIDI-Datei erzeugt. Genauer beschrieben werden sie im 
+Benutzerhandbuch -- @ruser{Score layout}, and
+@ruser{Creating MIDI files}.
+
+@cindex Partituren, mehrfache
+
+Ihr LilyPond Code kann auch mehrere @code{\score}-Blöcke enthalten. 
+Jeder davon wird als eigenständige Partitur interpretiert, die 
+allerdings alle in dieselbe Ausgabedatei plaziert weden.
+Ein @code{\book}-Befehl ist nicht explizit notwendig -- er wird 
+implizit erzeugt. Wenn jedoch für jeden @code{\score}-Block in einer 
+einzigen @code{.ly}-Datei eine eigene Ausgabe-Datei erzeugt werden soll,
+dann muss jeder dieser Blöcke in einen eigenen @code{\book}-Block
+gesetzt werden: Jeder @code{\book}-Block erzeugt dann eine
+eigene Ausgabedatei.
+
+Zusammenfassung:
+
+Jeder @code{\book}-Block erzeugt eine eigene Ausgabedatei (z.B. eine
+PDF-Datei). Wenn Sie keinen derartigen Block explizit angegeben haben,
+setzt LilyPond den gesamten Dateiinhalt innerhalb eines einzigen 
+impliziten @code{\book}-Blocks.
+
+Jeder @code{\score}-Block beschreibt ein eigenständiges Musikstück 
+innerhalb des @code{\book}-Blocks.
+
+Jeder @code{\layout}-Block wirkt sich auf den @code{\score}- oder
+@code{\book}-Block aus, in dem er auftritt. So wirkt z.B. ein 
+@code{\layout}-Block innerhalb eines @code{\score}-Blocks nur auf 
+diesen einen Block und seinen gesamten Inhalt, ein @code{\layout}-Block 
+außerhalb eines @code{\score}-Blocks (und daher innerhalb des implizit 
+erzeugten oder explizit angegebenen @code{\book}-Blocks) jedoch auf 
+alle @code{\score}-Blocks innerhalb dieses @code{\book}-Blocks.
+
+Nähere Details finden sich im Abschnitt @ruser{Multiple scores in a book}.
+
 
 @cindex Variablen
 @cindex Bezeichner
@@ -129,33 +271,38 @@ melodie = \relative c' @{
 @end example
 
 Wenn LilyPond diese Datei analysiert, nimmt es den Inhalt
-von @code{melodie} (alles, was nach dem Gleichheitszeichen
-kommt) und fügt ihn immer dann ein, wenn ein @code{\melodie} 
+von @code{melodie} (alles nach dem Gleichheitszeichen) und 
+fügt ihn immer dann ein, wenn ein @code{\melodie} 
 vorkommt. Die Namen sind frei wählbar, die Variable kann genauso
 gut  @code{melodie}, @code{GLOBAL},
 @code{rechteHandklavier}, oder @code{foofoobarbaz} heißen. Für mehr
 Information siehe
 @ref{Saving typing with variables and functions}.
+Als Variablenname kann fast jeder beliebige Name benutzt werden,
+allerdings dürfen nur Buchstaben vorkommen (also keine Zahlen, Unterstriche,
+Sonderzeichen, etc.) und er darf nicht wie ein LilyPond-Befehl
+lauten. Die genauen Einschränkungen sind beschrieben in 
+@ruser{File structure}.
 
-Eine komplette Definition des Eingabeformats findet sich
-im Kapitel @ruser{File structure}.
+@seealso
 
-@menu
-* Introduction to the LilyPond file structure::
-* Score is a (single) compound musical expression::
-* Nesting music expressions::
-* On the un-nestedness of brackets and ties::
-@end menu
+Eine vollständige Definition des Eingabeformats findet sich in 
+@ruser{File structure}.
 
-@node Introduction to the LilyPond file structure
-@subsection Introduction to the LilyPond file structure
 
-@untranslated
 
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
 
-Im vorigen Kapitel, @ref{How LilyPond files work}, 
+@funindex \score
+@cindex score
+@cindex Partitur
+@cindex Musikstück
+@cindex zusammengesetzter Musikausdruck
+@cindex Musikausdruck, zusammengesetzter
+
+
+Im vorigen Kapitel, @ref{Introduction to the LilyPond file structure}, 
 wurde die allgemeine Struktur einer LilyPond-Quelldatei 
 beschrieben. Aber anscheinend haben wir die wichtigste 
 Frage ausgelassen, nämlich wie man herausfindet, was nach 
@@ -183,7 +330,7 @@ zerlegen lässt.
 \score @{
   @{   % diese Klammer startet den großen mus. Ausdruck
     \new GrandStaff <<
-      hier eine ganze Wagner-Oper einfügen
+      @var{...hier eine ganze Wagner-Oper einfügen...}
     >>
   @}   % diese Klammer beendet den Ausdruck
   \layout @{ @}
@@ -211,25 +358,32 @@ den Befehl weg. Wir brauchen aber einen Sänger und ein Klavier.
 
 Zur Erinnerung: mit @code{<<} und @code{>>} werden Noten gleichzeitig
 gesetzt; wir wollen ja auch Klavier- und Sängerstimme gleichzeitig 
-haben.
+und nicht hintereinander haben. Bei genauerem Hinsehen fällt auf, dass
+die @code{<< ... >>}-Konstruktion für die Notenzeile des Sängers eigentlich 
+nicht unbedingt nötig wäre, da sie ja nur einen (sequenzielle) musikalischen
+Ausdruck enthält, nämlich alle Noten des Sängers hintereinander. Daher
+könnte an sich auch einfach ein @code{@{...@}} benutzt werden. Die 
+Spitzklammern sind allerdings notwendig, sobald die Notenzeile mehrere
+parallelle Ausdrücke -- wie etwa zwei parallele Stimmen oder eine Stimme
+mit zugehörigem Text -- enthält. 
+Wir werden die Musik später in das Beispiel einfügen, im Moment begnügen 
+wir uns mit einigen Platzhalter-Noten und -Texten.
 
-@example
-\score @{
-  @{
-    <<
-      \new Staff = "Sänger" <<
-        \new Voice = "vocal" @{ @}
-      >>
-      \new Lyrics \lyricsto vocal \new Lyrics @{ @}
-      \new PianoStaff = "piano" <<
-        \new Staff = "upper" @{ @}
-        \new Staff = "lower" @{ @}
-      >>
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff = "Sänger" <<
+      \new Voice = "Singstimme" { c'1 }
+      \addlyrics { And }
     >>
-  @}
-  \layout @{ @}
-@}
-@end example
+    \new PianoStaff = "Klavier" <<
+      \new Staff = "oben" { }
+      \new Staff = "unten" { }
+    >>
+  >>
+  \layout { }
+}
+@end lilypond
 
 Jetzt haben wir viel mehr Details. Wir haben ein System (engl. staff) 
 für einen Sänger, in dem sich wieder eine Stimme (engl. voice) 
@@ -249,7 +403,7 @@ Klammern neben @code{\new Voice = vocal} könnte man
 
 @example
 \relative c'' @{
-  a4 b c d
+  r4 d8\noBeam g, c4 r
 @}
 @end example
 
@@ -259,32 +413,38 @@ verstehen, wie alles zusammenhängt. Darum bietet es sich an, Bezeichner
 (oder Variablen) zu verwenden.
 
 
-@example
-melodie = @{ @}
-text = @{ @}
-upper = @{ @}
-lower = @{ @}
-\score @{
-  @{
-    <<
-      \new Staff = "Sänger" <<
-        \new Voice = "vocal" @{ \melodie @}
-      >>
-      \new Lyrics \lyricsto vocal \new Lyrics @{ \text @}
-      \new PianoStaff = "piano" <<
-        \new Staff = "upper" @{ \upper @}
-        \new Staff = "lower" @{ \lower @}
-      >>
-    >>
-  @}
-  \layout @{ @}
-@}
-@end example
+@lilypond[verbatim,quote,ragged-right]
+melodie = \relative c'' { r4 d8\noBeam g, c4 r }
+text    = \lyricmode { And God said, }
+oben    = \relative c'' { <g d g,>2~ <g d g,> }
+unten   = \relative c { b2 e2 }
 
-@noindent
-Nochmal: der Bezeichner kann aller möglicher Text sein. Die 
-Einschränkungen sind in
-@ruser{File structure} genau aufgelistet.
+\score {
+  <<
+    \new Staff = "Sänger" <<
+      \new Voice = "Singstimme" { \melodie }
+      \addlyrics { \text }
+    >>
+    \new PianoStaff = "Klavier" <<
+      \new Staff = "oben" { \oben }
+      \new Staff = "unten" {
+        \clef "bass"
+        \unten
+      }
+    >>
+  >>
+  \layout { }
+}
+@end lilypond
+
+Achten Sie auf den Unterschied zwischen Noten, die mit @code{\relative}
+oder direkt in einem musikalischen Ausruck eingegeben werden, und 
+dem Text des Lieds, der innerhalb @code{\lyricmode} angegeben 
+werden muss. Diese Unterscheidung ist für LilyPond essentiell,
+um zu entscheiden, ob der folgende Inhalt als Musik oder Text 
+interpretiert werden soll. Wie könnte LilyPond sonst entscheiden, 
+ob @code{@{a b c@}} die drei Noten a, b und c darstellen soll oder
+den Text eines Lieds über das Alphabet!
 
 Beim Schreiben (oder Lesen) einer @code{\score}-Umgebung 
 sollte man langsam und sorgfältig vorgehen. Am besten fängt 
@@ -294,17 +454,163 @@ genau mit den Einzügen zu sein, so dass jede Zeile, die
 der gleichen Ebene angehört, wirklich horizontal an der 
 gleichen Stelle beginnt.
 
+@seealso
+
+Benutzerhandbuch: @ruser{Structure of a score}.
+
 
 @node Nesting music expressions
 @subsection Nesting music expressions
 
-@untranslated
+@cindex Notenzeilen, temporäre
+@cindex Ossia
 
-@ 
+Notenzeilen (die @q{Staff}-Kontexte) müssen nicht unbedingt gleib
+zu Beginn erzeugt werden -- sie können auch zu einem späteren
+Zeitpunkt eingeführt weden. Das ist vor allem nützlichm um 
+@rglosnamed{ossia,Ossias} zu erzeugen. Hier folgt ein kures Beispiel,
+wie eine zusätzliche temporäre Notenzeile für nur drei Noten erzeugt 
+werden kann:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff {
+        f8 f c
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Wie man sieht ist die Größe des Notenschlüssels dieselbe wie sie 
+auch bei einer Schlüsseländerung auftritt -- etwas kleiner als
+der Schlüssel am Beginn einer Notenzeile. Dies ist normal für
+Notenschlüssel, die innerhalb einer Notenzeile gesetzt werden.
+
+@cindex Notenzeile, Positionierung
+
+Der Ossia-Abschnitt kann auch oberhalb der Hauptnotenzeile
+gesetzt werden:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff = "Hauptzeile" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "Hauptzeile" }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Dieses Beispiel benutzt den @code{\with}-Befehl, der später noch
+genauer erklärt wird. Damit kann das Standardverhalten einer
+einzelnen Notenzeile geändert werden: Hier wird einfach angegeben,
+dass die neue Notenzeile oberhalb der bereits existierenden Zeile
+mit Namen @qq{Hauptzeile} plaziert werden soll, anstatt 
+standardmäßig unterhalb.
+
+@seealso
+
+Ossia werden oft ohne Notenschlüssel und Taktangabe gedruck, meist 
+auch etwas kleiner als die anderen Notenzeilen. Dies ist natürlich 
+auch in LilyPond möglich, benötigt aber Befehle, die bisher noch 
+nicht vorgestellt wurden. Siehe @ref{Size of objects}
+und @ruser{Ossia staves}.
+
+
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
-@untranslated
+@cindex Klammern, geschachtelt
+@cindex Schachtelung von Klammern
+
+Sie haben bisher zahlreiche verschiedene Arten von Klammern
+beim Schreiben von Musik mit LilyPond kennengelernt. Diese
+folgen verschiedenen Regeln, die zu Beginn vielleicht 
+verwirrend wirken. Bevor die genauen Regeln vorgestellt werden,
+wollen wir die diversen Klammerarten kurz rekapitulieren:
+
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .3 .7
+@headitem Klammerart
+  @tab Funktion
+@item @code{@{ .. @}}
+  @tab Umschließt ein sequenzielles Musiksegment
+@item @code{< .. >}
+  @tab Umschließt die Noten eines Akkords
+@item @code{<< .. >>}
+  @tab Umschließt parallele Musikausdrücke
+@item @code{( .. )}
+  @tab Markiert den Beginn und das Ende eines Haltebogens
+@item @code{\( .. \)}
+  @tab Markiert den Beginn und das Ende eines Phasierungsbogens
+@item @code{[ .. ]}
+  @tab Markiert den Beginn und das Ende eines manuell erzeugten Balkens
+@end multitable
+
+
+Zusätzlich sollten vielleicht noch einige weiter Konstruktionen
+erwähnt werden, die Noten auf irgendeine Art und Weise verbinden:
+Haltebögen (durch eine Tilde @code{~} markiert),
+Triolen (als @code{\times x/y @{..@}} geschrieben) und
+Vorschlagnoten (als @code{\grace@{..@}} notiert).
+
+Außerhalb von LilyPond fordert die übliche Benutzung von 
+Klammern, dass die entsprechenden Arten korrekt verschachtelt
+werden, wie z.B. in @code{<< [ @{ ( .. ) @} ] >>}. Die 
+schließenden Klammern kommen dabei in der umgekehrten Reihenfolge
+wie die öffnenden Klammern vor. Dies ist auch in LilyPond 
+ein @strong{Muss} für die drei Klammerarten, die in obiger 
+Tabelle mit dem Wort @q{Umschließt} beschrieben werden -- sie 
+müssen korrekt geschachtelt werden.
+Die restlichen Klammerarten (durch @q{Markiert} beschrieben),
+die Haltebögen und die Triolen brauchen jedoch mit den 
+anderen Klammerarten @strong{nicht} unbedingt korrekt 
+geschachtelt werden. Tatsächlich sind sie auch keine Klammern
+in dem Sinn, dass sie etwas umschließen, sondern viel mehr
+Indikatoren, an welcher Stelle ein bestimmtes musikalisches 
+Objekt beginnt oder endet.
+
+So kann also z.B. einen Phrasierungsbogen vor einem manuellen 
+Balken beginn, jedoch schon vor dem Ende des Balkens enden.
+Dies mag zwar musikalisch wenig Sinn ergeben, ist aber in LilyPond
+auch möglich:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+ { g8\( a b[ c b\) a] }
+@end lilypond
+
+Im Allgemeinen können die verschiedenen Klammerarten, Haltebögen,
+Triolen und Vorschlagnoten beliebig kombiniert werden.
+Das folgende Beispiel zeigt einen Balken, der in eine Triole reicht 
+(Zeile 1), eine Bindebogen, der ebenfalls in eine Triole 
+reicht (Zeile 2), einen Balken und einen Bindeboden in eine Triole,
+ein Haltebogen, der über zwei Triolen läuft, sowie einen 
+Phrasierungsbogen, der in einer Triole beginnt (Zeilen 3 und 4).
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  r16[ g16 \times 2/3 {r16 e'8] }
+  g16( a \times 2/3 {b d) e' }
+  g8[( a \times 2/3 {b d') e'~]}
+  \times 4/5 {e'32\( a b d' e'} a'4.\)
+}
+@end lilypond
+
 
 @node Voices contain music
 @section Voices contain music
@@ -324,6 +630,7 @@ gleichen Stelle beginnt.
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
+@c TODO: Move from simultaneous.itely
 @untranslated
 
 @node Voices and vocals

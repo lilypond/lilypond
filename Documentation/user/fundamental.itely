@@ -424,7 +424,7 @@ The ossia section may be placed above the staff
 as follows:
 
 @lilypond[verbatim,quote,ragged-right]
-\new Staff ="main" {
+\new Staff = "main" {
   \relative g' {
     r4 g8 g c4 c8 d |
     e4 r8

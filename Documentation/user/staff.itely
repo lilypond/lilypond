@@ -37,6 +37,7 @@ with either a bracket or a brace.
 * Deeper nested staff groups::
 @end menu
 
+
 @node Instantiating new staves
 @unnumberedsubsubsec Instantiating new staves
 
@@ -114,12 +115,12 @@ Music Glossary:
 Notation Reference:
 @ref{Creating contexts},
 @ref{Percussion staves},
+@ref{Showing melody rhythms},
 @ref{Default tablatures},
-@ref{Gregorian chant contexts},
-@ref{Mensural contexts},
-@ref{Staff symbol},
 @ref{Pre-defined contexts},
-@ref{Showing melody rhythms}.
+@ref{Staff symbol},
+@ref{Gregorian chant contexts},
+@ref{Mensural contexts}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -197,9 +198,9 @@ lines are connected between the staves.
 >>
 @end lilypond
 
-The @code{PianoStaff} is almost identical to a @code{GrandStaff},
-except that it supports printing the instrument name directly.
-For details, see @ref{Instrument names}.
+The @code{PianoStaff} is identical to a @code{GrandStaff}, except
+that it supports printing the instrument name directly.  For
+details, see @ref{Instrument names}.
 
 @lilypond[verbatim,quote,relative=2]
 \new PianoStaff <<
@@ -250,10 +251,10 @@ Snippets:
 
 Internals Reference:
 @rinternals{Staff},
+@rinternals{StaffGroup},
 @rinternals{ChoirStaff},
 @rinternals{GrandStaff},
 @rinternals{PianoStaff},
-@rinternals{StaffGroup},
 @rinternals{SystemStartBar},
 @rinternals{SystemStartBrace},
 @rinternals{SystemStartBracket},
@@ -276,8 +277,8 @@ Internals Reference:
 Two additional staff-group contexts are available that can be
 nested within a @code{StaffGroup} or @code{ChoirStaff} context:
 @code{InnerStaffGroup} and @code{InnerChoirStaff}.  These contexts
-create an additional bracket next to the original bracket of their
-parent staff group.
+create a bracket next to the original bracket of their parent
+staff group.
 
 An @code{InnerStaffGroup} is treated similarly to a
 @code{StaffGroup}; bar lines are connected between each stave
@@ -285,10 +286,10 @@ within the context:
 
 @lilypond[verbatim,quote,relative=2]
 \new StaffGroup <<
-  \new Staff { c2 c }
+  \new Staff { c2 c | c2 c }
   \new InnerStaffGroup <<
-    \new Staff { g2 g }
-    \new Staff { e2 e }
+    \new Staff { g2 g | g2 g }
+    \new Staff { e2 e | e2 e }
   >>
 >>
 @end lilypond
@@ -298,12 +299,12 @@ Bar lines are @emph{not} connected between staves of an
 
 @lilypond[verbatim,quote,relative=2]
 \new ChoirStaff <<
-  \new Staff { c2 c }
+  \new Staff { c2 c | c2 c }
   \new InnerChoirStaff <<
-    \new Staff { g2 g }
-    \new Staff { e2 e }
+    \new Staff { g2 g | g2 g }
+    \new Staff { e2 e | e2 e }
   >>
-  \new Staff { c1 }
+  \new Staff { c1 | c1 }
 >>
 @end lilypond
 
@@ -330,7 +331,8 @@ Internals Reference:
 @rinternals{ChoirStaff},
 @rinternals{SystemStartBar},
 @rinternals{SystemStartBrace},
-@rinternals{SystemStartBracket}.
+@rinternals{SystemStartBracket},
+@rinternals{SystemStartSquare}.
 
 
 @node Modifying single staves
@@ -366,11 +368,10 @@ sections are also described.
 @cindex spacing of ledger lines
 @cindex number of staff lines
 
-The grob @code{StaffSymbol} is responsible for drawing the lines
-of a staff.  Its properties can be altered in order to change the
-appearance of a staff, but they must be changed before the staff
-is created.  A staff may be started or stopped at any point in the
-score.
+The lines of a staff belong to the @code{StaffSymbol} grob.
+@code{StaffSymbol} properties can be modified to change the
+appearance of a staff, but they must be modified before the staff
+is created.
 
 The number of staff lines may be changed.  The clef position and
 the position of middle C may need to be modified to fit the new
@@ -385,10 +386,9 @@ staff.  For an explanation, refer to the snippet section in
 @end lilypond
 
 The vertical position of staff lines and the number of staff lines
-can be defined at the same time.  As the example shows, the
-positions of the notes are not influenced by the position of the
-staff lines.  Details for modifying this property are found in
-@rinternals{staff-symbol-interface}.
+can be defined at the same time.  As the following example shows,
+note positions are not influenced by the position of the staff
+lines.
 
 @warning{The @code{'line-positions} property overrides the
 @code{'line-count} property.  The number of staff lines is
@@ -402,7 +402,7 @@ for @code{'line-positions}}
 { a4 e' f b | d1 }
 @end lilypond
 
-The staff line thickness can be modified.  The thickness of ledger
+Staff line thickness can be modified.  The thickness of ledger
 lines and stems are also affected, since they depend on staff line
 thickness.
 
@@ -414,8 +414,7 @@ thickness.
 @end lilypond
 
 The thickness of ledger lines can be set independently of staff
-line thickness.  A description of this property is also found in
-@rinternals{staff-symbol-interface}.
+line thickness.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -444,6 +443,9 @@ by this setting.
 }
 { a4 e' f b | d1 }
 @end lilypond
+
+Further details about the properties of @code{StaffSymbol} listed
+above can be found here: @rinternals{staff-symbol-interface}.
 
 Modifications to staff properties in the middle of a score can be
 placed between @code{\stopStaff} and @code{\startStaff}:
@@ -817,30 +819,40 @@ format cue notes are also described.
 @cindex metronome marking with text
 @funindex \tempo
 
-Basic metronome markings can be entered as follows:
+A basic metronome mark is simple to write:
 
-@lilypond[verbatim,quote,relative=2]
-\tempo 2 = 120
-c1
+@lilypond[verbatim,quote,relative=1]
+\tempo 4 = 120
+c2 d
+e4. d8 c2
 @end lilypond
 
-Textual tempo indications can be used instead:
+Tempo indications with text can be used instead:
 
 @lilypond[verbatim,quote,relative=2]
 \tempo "Allegretto"
-d2 c
+c4 e d c
+b4. a16 b c4 r4
 @end lilypond
 
-The combination of a metronome marking and textual description
-will automatically place the metronome marking within parentheses:
+Combining a metronome mark and text will automatically place the
+metronome mark within parentheses:
 
 @lilypond[verbatim,quote,relative=2]
 \tempo "Allegro" 4 = 160
 g4 c d e
+d4 b g2
 @end lilypond
 
-To write a metronome marking in parentheses without the text,
-include an empty string in the input:
+In general, the text can be any markup object:
+
+@lilypond[verbatim,quote,relative=2]
+\tempo \markup { \italic Faster } 4 = 132
+a8-. r8 b-. r gis-. r a-. r
+@end lilypond
+
+A parenthesized metronome mark with no textual indication may be
+written by including an empty string in the input:
 
 @lilypond[verbatim,quote,relative=2]
 \tempo "" 8 = 96
@@ -955,8 +967,8 @@ default.  To center multi-line instrument names,
 The @code{indent} and @code{short-indent} settings specify the
 level of indentation for the first system and all succeeding
 systems, respectively.  They can be modified in the @code{\layout}
-block.  For longer instrument names or short instrument names, it
-may be useful to increase the @code{indent} and
+block.  For instrument names or short instrument names that are
+longer, it may be useful to increase the @code{indent} and
 @code{short-indent} settings:
 
 @lilypond[verbatim,quote]
@@ -1186,8 +1198,42 @@ In the above example, the @code{Voice} context had to be
 explicitly declared, or else the entire music expression would
 belong to the @code{CueVoice} context.
 
-@c TODO document \killCues
-@c TODO document instrumentCueName context property
+The name of the cued instrument can be printed by setting the
+@code{instrumentCueName} property.
+
+@lilypond[verbatim,quote]
+oboe = \relative c''' {
+  g4 r8 e16 f e4 d
+}
+\addQuote oboe { \oboe }
+
+\new Staff \relative c'' <<
+  \new CueVoice \with {
+    instrumentCueName = "ob."
+  }
+  \new Voice {
+    \cueDuring #"oboe" #UP { R1 }
+    g4. b8 d2
+  }
+>>
+@end lilypond
+
+The @code{\killCues} command is used to remove the cue notes from
+a music expression.
+
+@lilypond[verbatim,quote]
+flute = \relative c''' {
+  r2 cis2 r2 dis2
+}
+\addQuote flute { \flute }
+
+\new Voice \relative c'' {
+  \killCues {
+    \cueDuring #"flute" #UP { R1 }
+    g4. b8 d2
+  }
+}
+@end lilypond
 
 When typesetting cue notes, some guidelines should be followed:
 
@@ -1206,6 +1252,8 @@ undone.  For example, if the cued instrument plays in a different
 clef, the original clef should be stated once again.
 
 @end itemize
+
+@c FIXME explain syntax of \transposedCueDuring
 
 The @code{\transposedCueDuring} command is useful to add cues for
 instruments in a completely different register.  Having piccolo
@@ -1240,6 +1288,7 @@ Snippets:
 @rlsr{Staff notation}.
 
 Internals Reference:
+@rinternals{CueVoice},
 @rinternals{Voice}.
 
 
