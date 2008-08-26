@@ -51,22 +51,26 @@ dist-toplevel-txt-files:
 doc: 
 	$(MAKE) -C Documentation
 
-install-WWW:
-	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	rsync -rl $(outdir)/offline-root/ $(DESTDIR)$(webdir)
-	$(MAKE) -C Documentation/user local-install-WWW
-	$(MAKE) -C Documentation/user install-info
-	$(MAKE) -C input/lsr install-info
-
 install-help2man:
 	$(MAKE) -C scripts man install-help2man
 	$(MAKE) -C lily man install-help2man
+
+# All web targets, except info image symlinks and info docs are
+# installed in non-recursing target from TOP-SRC-DIR
+install-WWW:
+	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
+	rsync -rl $(outdir)/offline-root/ $(DESTDIR)$(webdir)
+	$(MAKE) -C Documentation/user install-info
+	$(MAKE) -C input/lsr install-info
 
 web-install:
 	$(MAKE) out=www install-WWW
 
 uninstall-WWW:
-	echo TODO
+	rm -rf $(DESTDIR)$(webdir)
+	-rmdir $(package_docdir)
+	$(MAKE) -C Documentation/user uninstall
+	$(MAKE) -C input/lsr uninstall
 
 web-uninstall:
 	$(MAKE) out=www uninstall-WWW

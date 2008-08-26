@@ -63,6 +63,7 @@ help: generic-help local-help
   exe         update all executables\n\
   help        this help\n\
   install *   install programs and data (prefix=$(prefix))\n\
+  uninstall*  uninstall programs and data\n\
   lib         update all libraries\n\
   web *       update website in directory \`out-www'\n\
   web-install * install website documentation in (webdir=$(webdir))\n\

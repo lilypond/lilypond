@@ -47,11 +47,6 @@ info: $(INFO_FILES)
 xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-internals.xml
 
 
-# All web targets, except info image symlinks and info docs are
-# installed in non-recursing target from TOP-SRC-DIR
-local-install-WWW: local-install-info
-local-uninstall-WWW: local-uninstall-info
-
 local-clean:
 	rm -f $(INFO_IMAGES_DIR)
 
