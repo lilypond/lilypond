@@ -436,13 +436,13 @@ Note heads with different dots may be merged:
 
 
 The collision on the second measure happens because
-@code{\merge-differently-headed} cannot successfully complete the
+@code{\mergeDifferentlyHeadedOn} cannot successfully complete the
 merge when three or more notes line up in the same column -- in
 fact, you will obtain a warning for this reason.  To allow the
 merge to work properly, apply a @code{\shift} to the note that
 should not be merged.  Here, @code{\shiftOn} is applied to move
 the top @code{g} out of the column, and
-@code{\merge-differently-headed} works properly.
+@code{\mergeDifferentlyHeadedOn} works properly.
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -515,7 +515,7 @@ Internals Reference:
 
 @knownissues
 
-When using @code{\merge-differently-headed} with an upstem eighth
+When using @code{\mergeDifferentlyHeadedOn} with an upstem eighth
 or a shorter note, and a downstem half note, the eighth note stem
 gets a slightly wrong offset because of the different width of the
 half note head symbol.
