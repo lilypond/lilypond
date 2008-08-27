@@ -10,10 +10,10 @@ Otherwise, it will break beams according to beatLength."
   \time 12/16
 
   % default beatLength is 1/16; beatGrouping for this time is '()
-  b16 b b b b b b b b b b b ; beatlength is used to breatk these beams
+  b16 b b b b b b b b b b b % beatlength is used to breatk these beams
   % use beatGrouping to get 1/8 groups
   \set Timing.beatGrouping = #'(2 2 2 2 2 2) % 6*2 = 12 so beatGrouping applies
-  b16 b b b b b b b b b b b  ;  beam groups are 1/8
+  b16 b b b b b b b b b b b  %  beam groups are 1/8
   % use beatLength to get 1/8 groups -- beatGrouping no longer applies
   \set Score.beatLength = #(ly:make-moment 2 16 )  % 12*2/16 = 24/16
                                                    % bad beatGrouping; use
