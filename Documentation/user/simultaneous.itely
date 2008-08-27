@@ -40,6 +40,7 @@ This section discusses simultaneous notes inside the same voice.
 
 @cindex chords
 @cindex brackets, angle
+@cindex relative pitch in chords
 @funindex <
 @funindex >
 @funindex <...>
@@ -87,7 +88,9 @@ staves.  To avoid this, use explicit chords instead as in
 @unnumberedsubsubsec Clusters
 
 @cindex cluster
+@cindex note cluster
 @funindex \makeClusters
+@funindex makeClusters
 
 A cluster indicates a continuous range of pitches to be played.  They
 can be denoted as the envelope of a set of notes.  They are entered by
@@ -142,6 +145,17 @@ multiple staves.
 
 @node Single-staff polyphony
 @unnumberedsubsubsec Single-staff polyphony
+
+@cindex single-staff polyphony
+@cindex polyphony, single-staff
+@cindex voice
+@cindex lyrics assigned to one voice
+@funindex \voiceOne
+@funindex voiceOne
+@funindex \voiceOne ... \voiceFour
+@funindex Voice
+@funindex \oneVoice
+@funindex oneVoice
 
 The basic structure of code needed to achieve multiple, independent
 voices in a single staff is illustrated in the following example:
@@ -260,15 +274,10 @@ music do not have the same rhythm.
 
 @predefined
 
-@funindex \voiceOne
 @code{\voiceOne},
-@funindex \voiceTwo
 @code{\voiceTwo},
-@funindex \voiceThree
 @code{\voiceThree},
-@funindex \voiceFour
 @code{\voiceFour},
-@funindex \oneVoice
 @code{\oneVoice}.
 
 @seealso
@@ -291,6 +300,11 @@ Snippets:
 @cindex voice styles
 @cindex styles, voice
 @cindex coloring voices
+@funindex \voiceOneStyle
+@funindex \voiceTwoStyle
+@funindex \voiceThreeStyle
+@funindex \voiceFourStyle
+@funindex \voiceNeutralStyle
 
 Voices may be given distinct colors and shapes, allowing them to be
 easily identified:
@@ -312,15 +326,12 @@ command is used.
 
 @predefined
 
-@funindex \voiceOneStyle
+
 @code{\voiceOneStyle},
-@funindex \voiceTwoStyle
+
 @code{\voiceTwoStyle},
-@funindex \voiceThreeStyle
 @code{\voiceThreeStyle},
-@funindex \voiceFourStyle
 @code{\voiceFourStyle},
-@funindex \voiceNeutralStyle
 @code{\voiceNeutralStyle}.
 
 @seealso
@@ -339,11 +350,29 @@ Snippets:
 @cindex merging notes
 @cindex note collisions
 @cindex collisions
-@funindex \shiftOn
-@funindex \shiftOnn
-@funindex \shiftOnnn
-@funindex \shiftOff
+@cindex shift note
+@cindex multiple voices
+@cindex voices, multiple
+@cindex polyphonic music
+@cindex shifting voices
+@cindex voices, multiple
 @cindex shift rest, automatic
+@funindex \shiftOn
+@funindex shiftOn
+@funindex \shiftOnn
+@funindex shiftOnn
+@funindex \shiftOnnn
+@funindex shiftOnnn
+@funindex \shiftOff
+@funindex shiftOff
+@funindex \mergeDifferentlyDottedOn
+@funindex mergeDifferentlyDottedOn
+@funindex \mergeDifferentlyDottedOff
+@funindex mergeDifferentlyDottedOff
+@funindex \mergeDifferentlyHeadedOn
+@funindex mergeDifferentlyHeadedOn
+@funindex \mergeDifferentlyHeadedOff
+@funindex mergeDifferentlyHeadedOff
 
 Note heads with equal durations are automatically merged, while
 note heads with unequal durations are not merged.  Rests opposite
@@ -405,16 +434,15 @@ Note heads with different dots may be merged:
 >>
 @end lilypond
 
-@cindex shift note
 
 The collision on the second measure happens because
-@code{merge-differently-headed} cannot successfully complete the
+@code{\merge-differently-headed} cannot successfully complete the
 merge when three or more notes line up in the same column -- in
 fact, you will obtain a warning for this reason.  To allow the
 merge to work properly, apply a @code{\shift} to the note that
 should not be merged.  Here, @code{\shiftOn} is applied to move
 the top @code{g} out of the column, and
-@code{merge-differently-headed} works properly.
+@code{\merge-differently-headed} works properly.
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -446,28 +474,17 @@ four) have @code{\shiftOn}.  @code{\shiftOnn} and
 Notes are only merged if they have opposing stem directions (i.e., in
 @code{Voice} 1 and 2).
 
-@cindex multiple voices
-@cindex polyphonic music
-@cindex shifting voices
 
 @predefined
 
-@funindex \mergeDifferentlyDottedOn
 @code{\mergeDifferentlyDottedOn},
-@funindex \mergeDifferentlyDottedOff
 @code{\mergeDifferentlyDottedOff},
-@funindex \mergeDifferentlyHeadedOn
 @code{\mergeDifferentlyHeadedOn},
-@funindex \mergeDifferentlyHeadedOff
 @code{\mergeDifferentlyHeadedOff}.
 
-@funindex \shiftOn
 @code{\shiftOn},
-@funindex \shiftOnn
 @code{\shiftOnn},
-@funindex \shiftOnnn
 @code{\shiftOnnn},
-@funindex \shiftOff
 @code{\shiftOff}.
 
 @snippets
@@ -498,7 +515,7 @@ Internals Reference:
 
 @knownissues
 
-When using @code{merge-differently-headed} with an upstem eighth
+When using @code{\merge-differently-headed} with an upstem eighth
 or a shorter note, and a downstem half note, the eighth note stem
 gets a slightly wrong offset because of the different width of the
 half note head symbol.
@@ -519,7 +536,10 @@ cluster notation (see @ref{Clusters}).
 @cindex automatic part combining
 @cindex part combiner
 @cindex combining parts
+@cindex a due part
+@cindex solo part
 @funindex \partcombine
+@funindex partcombine
 
 Automatic part combining is used to merge two parts of music onto
 a staff.  It is aimed at typesetting orchestral scores.  When the
@@ -563,15 +583,15 @@ instrumentTwo = \relative g' {
 >>
 @end lilypond
 
-The notes in the third measure appear only once, although they
-were specified in both parts.  Stem, slur, and tie directions are
-set automatically, depending whether there is a solo or unison.
-When needed in polyphony situations, the first part (with context
-called @code{one}) always gets up stems, while the second (called
-@code{two}) always gets down stems.  In solo situations, the parts
-get marked with @q{Solo} and @q{Solo II}, respectively.  The
-unisono (@notation{a due}) parts are marked by default with the
-text @qq{a2}.
+The notes in the third measure appear only once, although they were
+specified in both parts.  Stem, slur, and tie directions are set
+automatically, depending whether there is a solo or unison.  When
+needed in polyphony situations, the first part (with context called
+@code{one}) always gets up stems, while the second (called @code{two})
+always gets down stems.  In solo situations, the first and second
+parts get marked with @q{Solo} and @q{Solo II}, respectively.  The
+unisono (@notation{a due}) parts are marked by default with the text
+@qq{a2}.
 
 Both arguments to @code{\partcombine} will be interpreted as
 @code{Voice} contexts.  If using relative octaves,
@@ -635,8 +655,10 @@ events in those will be ignored.
 @node Writing music in parallel
 @unnumberedsubsubsec Writing music in parallel
 
-@cindex Writing music in parallel
-@cindex Interleaved music
+@cindex writing music in parallel
+@cindex interleaved music
+@cindex parallel music
+@funindex \parallelMusic
 @funindex parallelMusic
 
 Music for multiple parts can be interleaved in input code.  The
