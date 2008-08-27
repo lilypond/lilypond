@@ -308,11 +308,13 @@ Slur::outside_slur_callback (SCM grob, SCM offset_scm)
     }
 
   Real avoidance_offset = 0.0;
-  for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
-    if (consider[k]) 
-      avoidance_offset = dir * (max (dir * avoidance_offset,
-				     dir * (ys[k] - yext[-dir] + dir * slur_padding)));
-  
+  if (do_shift)
+    {
+      for (int d = LEFT, k = 0; d <= RIGHT; d++, k++)
+	if (consider[k])
+	  avoidance_offset = dir * (max (dir * avoidance_offset,
+					 dir * (ys[k] - yext[-dir] + dir * slur_padding)));
+    }
   return scm_from_double (offset + avoidance_offset);
 }
 
