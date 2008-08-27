@@ -108,7 +108,7 @@ New_fingering_engraver::acknowledge_rhythmic_head (Grob_info inf)
 	{
 	  inf.grob ()->set_property ("style", ly_symbol2scm ("harmonic"));
 	  Grob *d = unsmob_grob (inf.grob ()->get_object ("dot"));
-	  if (d)
+	  if (d && !to_boolean (get_property ("harmonicDots")))
 	    d->suicide ();
 	}
     }
@@ -358,6 +358,7 @@ ADD_TRANSLATOR (New_fingering_engraver,
 
 		/* read */
 		"fingeringOrientations "
+		"harmonicDots "
 		"strokeFingerOrientations "
 		"stringNumberOrientations ",
 		
