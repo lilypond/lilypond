@@ -186,5 +186,4 @@ web:
 	$(MAKE) out=www WWW-post
 
 web-clean:
-	find -name out-www | xargs rm -rf
 	$(MAKE) out=www clean
