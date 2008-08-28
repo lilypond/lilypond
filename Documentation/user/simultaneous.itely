@@ -214,7 +214,7 @@ to one consistent voice.
 >>
 @end lilypond
 
-Here, the \voiceOne and \voiceTwo commands help to make clear what
+Here, the @code{\voiceOne} and @code{\voiceTwo} commands help to make clear what
 settings does each voice receive.
 
 The @code{<<@{...@} \\ @{...@}>>} construction, where the two (or
