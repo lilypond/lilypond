@@ -1,17 +1,47 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: b54fc6953a8d70a3c51e8c3d0cbf9b3fe9652d78
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c Translators: Reinhold Kainhofer
 
 @node LilyPond-book
 @chapter @command{lilypond-book}: Integrating text and music
 
-@untranslated
+
+Wenn Sie in ein Dokument Bilder von Musiknoten einfügen möchten, so können
+Sie genauso machen, wie Sie andere Bilder einfügen würden: Die Bilder
+werden getrennt vom Dokument im PostScript oder PNG Format erstellt
+und können dann in @LaTeX{} oder HTML inkludiert werden.
+
+@command{lilypond-book} automatisiert diesen Prozess: Dieses
+Programm extrahiert Musik-Schnipsel aus Ihrem Dokument, 
+ruft @command{lilypond} auf und fügt die resultierenden Bilder
+in Ihr Dokument ein. Die Länge der Zeilen und die Schriftgroße
+werden dabei Ihrem Dokument angepasst.
+
+@command{lilypond-book} ist ein eigenständiges Programm und wird 
+üblicherweise von der Kommandozeile aufgerufen. Nähere Informationen
+hierzu finden sich in @ref{Command-line usage}.
+
+Dieses Vorgehen kann bei @LaTeX{}, HTML, Texinfo oder DocBook Dokumenten
+angewendet werden.
+
+@cindex texinfo
+@cindex latex
+@cindex texinfo
+@cindex texi
+@cindex html
+@cindex docbook
+@cindex Dokument, Musik einfügen in
+@cindex HTML, Musik in
+@cindex Texinfo, Musik in
+@cindex DocBook, Musik in
+@cindex @LaTeX{}, Musik in
 
 
 @menu
@@ -26,16 +56,121 @@
 @node An example of a musicological document
 @section An example of a musicological document
 
-@untranslated
 
+@cindex Musikwissenschaft
+
+Zahlreiche Texte enthalten Musikbeispiele: musikwissenschaftliche
+Abhandlungen, Liederbücher oder Handbücher wie dieses. Solche 
+Texte können händisch erzeugt werden, indem einfach die Musikbeispiele
+als Grafik (PostScript, PNG, GIF, etc.) im Textverarbeitungsprogramm
+eingefügt werden. Für HTML, @LaTeX{}, Texinfo und DocBook Dokumente
+existiert jedoch ein Weg, dies automatisiert durchzuführen.
+
+Das Programm @code{lilypond-book} extrahiert die Musikfragmente aus
+dem Dokument, formatiert sie automatisiert in eine Grafik und fügt die 
+resultierenden Notenbeispiele dann wieder in das Dokument ein. Dies soll
+hier an einem einfachen @LaTeX{}-Beispiel verdeutlicht werden. Das Beispiel
+selbst enthält schon Erklärungen, sodass wir es hier nicht weiter diskutieren
+müssen.
 
 @subheading Input
+
+@quotation
+@verbatim
+\documentclass[a4paper]{article}
+
+\begin{document}
+
+Dokumente für \verb+lilypond-book+ können Musik und Text nach Belieben
+kombinieren. Zum Beispiel:
+
+\begin{lilypond}
+\relative c' {
+  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+}
+\end{lilypond}
+
+Optionen für \verb+lilypond+ werden dabei in eckige Klammern gesetzt.
+
+\begin[fragment,quote,staffsize=26,verbatim]{lilypond}
+  c'4 f16
+\end{lilypond}
+
+Größere Beispiele können auch in einer eigenständigen Datei gespeichert
+und dann mit \verb+\lilypondfile+ eingebunden werden.
+
+\lilypondfile[quote,noindent]{screech-boink.ly}
+
+(Falls nötig kann screech-boink.ly durch eine beliebige andere .ly 
+Datei im selben Verzeichnis wie diese Datei ersetzt werden.)
+
+\end{document}
+@end verbatim
+@end quotation
+
 @subheading Processing
+
+Speichern Sie den obigen @LaTeX{} Quellcode in eine Datei @file{lilybook.lytex}
+und führen Sie dann in der Kommandozeile folgende Befehle aus:
+
+@c keep space after @version{} so TeX doesn't choke
+@example
+lilypond-book --output=out --pdf lilybook.lytex
+@emph{lilypond-book (GNU LilyPond) @version{} }
+@emph{Reading lilybook.lytex...}
+@emph{..(viele Ausgabezeilen entfernt)..}
+@emph{Compiling lilybook.tex...}
+cd out
+pdflatex lilybook
+@emph{..(viele Ausgabezeilen entfernt)..}
+xpdf lilybook
+@emph{(Ersetzen Sie @command{xpdf} durch Ihren PDF-Betrachter)}
+@end example
+
+Die Ausführung von @command{lilypond-book} und @command{latex} erzeugt
+zahlreiche temporäre Dateien, die das Arbeitsverzeichnis unnötig 
+vollstopfen würden. Daher empfiehlt sich die Benutzung der @code{--output=@var{dir}}
+Option, wodurch die Dateien im Unterverzeichnis @file{dir} erzeugt werden.
+
+Das Endresultat des obigen @LaTeX{} Beispiels ist im nächsten Abschnitt
+zu sehen.@footnote{Da dieses Handbuch mit Texinfo erzeugt wurde,
+kann sich das Aussehen des Beispiels leicht von dem mit @LaTeX{} 
+erzeugten unterscheiden.}
+
+@page
+
 @subheading Output
+
+Dokumente für @command{lilypond-book} können Musik und Text nach Belieben
+kombinieren. Zum Beispiel:
+
+@lilypond
+\relative c' {
+  c2 g'2 \times 2/3 { f8 e d } c'2 g4
+}
+@end lilypond
+
+Optionen für @command{lilypond} werden dabei in eckige Klammern gesetzt.
+
+@lilypond[fragment,quote,staffsize=26,verbatim]
+c'4 f16
+@end lilypond
+
+Größere Beispiele können auch in einer eigenständigen Datei gespeichert
+und dann mit @code{\lilypondfile} eingebunden werden.
+
+@lilypondfile[quote,noindent]{screech-boink.ly}
+
+
+@page
+
+
+
 @node Integrating music and text
 @section Integrating music and text
 
-@untranslated
+In diesem Abschnitt soll die Integration von LilyPond mit den 
+verschiedenen Dateiformaten detailliert erläutert werden.
 
 
 @menu
@@ -48,31 +183,377 @@
 @node LaTeX
 @subsection @LaTeX{}
 
-@untranslated
+
+@LaTeX{} ist der de-facto Standard zur Publikation von wissenschaftlichen Texten
+in Naturwissenschaft und Technik. Es basiert auf dem Schriftsetzer @TeX{},
+der die bestmögliche Typographie erzeugt.
+
+Siehe die @uref{http://@/www@/.ctan@/.org/@/tex@/-archive/@/info/@/lshort/@/german/,
+@emph{@LaTeX{}2e-Kurzbeschreibung}} für eine Einführung in die 
+Benutzung von @LaTeX{}.
+
+Musikbeispiele können eingegeben werden als
+
+@example
+\begin[Optionen,kommen,]@{lilypond@}
+  IHR LILYPOND QUELLCODE
+\end@{lilypond@}
+@end example
+
+@noindent
+oder
+
+@example
+\lilypondfile[Optionen,kommen,hier]@{@var{Dateiname}@}
+@end example
+
+@noindent
+oder
+
+@example
+\lilypond@{ IHR LILYPOND QUELLCODE @}
+@end example
+
+Der Aufruf von @command{lilypond-book} liefert eine Datei, die dann mit 
+@LaTeX{} weiter verarbeitet werden kann.
+
+Dies soll hier an einigen Beispielen gezeigt werden. Die @code{lilypond} Umgebung
+
+@example
+\begin[quote,fragment,staffsize=26]@{lilypond@}
+  c' d' e' f' g'2 g'2
+\end@{lilypond@}
+@end example
+
+@noindent
+erzeugt
+
+@lilypond[quote,fragment,staffsize=26]
+c' d' e' f' g'2 g'2
+@end lilypond
+
+Die Kurzversion
+
+@example
+\lilypond[quote,fragment,staffsize=11]@{<c' e' g'>@}
+@end example
+
+@noindent
+erzeugt
+
+@lilypond[quote,fragment,staffsize=11]{<c' e' g'>}
+
+@noindent
+Innerhalb des @code{\lilypond@{@}} Befehls dürfen keine geschwungenen
+Klammern @code{@{} oder @code{@}} vorkommen, weshalb dieser Befehl 
+nur mit der @code{fragment} Option Sinn macht.
+
+Die Standardzeilenlänge wird bestimmt, indem die Angaben in der Dokumentpräambel,
+also dem Teil der @LaTeX{} Datei vor dem @code{\begin@{document@}}, 
+analysiert werden. Der @command{lilypond-book} Befehl sendet diese
+Angaben an @LaTeX{}, um herauszufinden, wie breit der Text tatsächlich 
+ist. Die Breite der Notenzeilen wird dann an diese Textbreite angepasst.
+Ein derartig heuristischer Algorithmus kann natürlich auch versagen,
+wobei man in diesem Fall die Breite auch explizit durch die 
+@code{line-width} Option des @code{\lilypond@{@}} oder @code{\begin@{lilypond@}}
+Befehls angeben kann.
+
+@cindex titling and lilypond-book
+@cindex \header in @LaTeX{} documents
+
+Jedes Musikbeispiele ruft die folgenden Makros auf, wenn sie vom Benutzer
+definiert wurden:
+
+@itemize bullet
+@item @code{\preLilyPondExample} -- wird vor der Musik aufgerufen,
+
+@item @code{\postLilyPondExample} -- wird nach der Musik aufgerufen,
+
+@item @code{\betweenLilyPondSystem[1]} -- wird zwischen den einzelnen
+Systemen aufgerufen, wenn @code{lilypond-book} das Beispiel in verschiedene
+PostScript Dateien getrennt hat. Dieser @LaTeX{}-Befehl muss so definiert
+werden, dass er genau ein Argument erhält, nämlich die Zahl der bereits 
+in @LaTeX{} eingefügten Dateien dieses Beispiels. Als Standard wird einfach 
+ein @code{\linebreak} eingefügt.
+@end itemize
+
+@ignore
+Broken stuff.  :(
+
+@cindex Latex, Feta Schriftart
+@cindex fetachar
+
+Um Zeichen wie Auflösungszeichen, Kreuze, Fermaten etc. aus der Feta-Schriftart
+von LilyPond in @LaTeX{} einzufügen, muss @code{\input@{titledefs@}} benutzt werden,
+wodurch dann der Befehl @code{\fetachar} zur Verfügung steht.
+
+@example
+\documentclass[a4paper]@{article@}
+
+\input@{titledefs@}
+
+\begin@{document@}
+
+\fetachar\fetasharp
+
+\end@{document@}
+@end example
+
+Die Namen der Symbole sind in der Datei @file{feta20.tex} definiert. Sie finden 
+den Pfad zu dieser Datei mit dem Befehl
+
+@example
+kpsewhich feta20.tex
+@end example
+
+@end ignore
+
+@snippets
+
+Manchmal ist es nötig, Musikelemente wie Halte- oder Bindebögen so darzustellen,
+als ob sie am Ende des Musikausschnitten noch weitergehen würden. Eine solche
+Ausgabe kann erreicht werden, indem ein Zeilenumbruch in die Notenzeile
+eingefügt wird und die Ausgabe der folgenden Notenzeile unterdrückt wird.
+
+In @LaTeX{} wird dazu der Befehl @code{\betweenLilyPondSystem} einfach derartig
+programmiert, dass die Ausgabe der einzelnen Notensysteme abgebrochen wird,
+sobald die gewünschte Anzahl an Systemen erreicht ist. Da 
+@code{\betweenLilyPondSystem} zum ersten Mal nach dem ersten System aufgerufen 
+wird, ist die Ausgabe nur eines Systems trivial.
+
+@example
+\def\betweenLilyPondSystem#1@{\endinput@}
+
+\begin[fragment]@{lilypond@}
+  c'1\( e'( c'~ \break c' d) e f\)
+\end@{lilypond@}
+@end example
+
+Um eine größere Zahl an System nötig, dann muss dementsprechend eine 
+@TeX{}-Bedingung vor dem @code{\endinput} benutzt werden:
+
+@example
+\def\betweenLilyPondSystem#1@{
+    \ifnum##1<2\else\endinput\fi
+@}
+@end example
+
+Dieses Beispiel bricht nach genau zwei ausgegebenen Notenzeilen ab. 
+Für eine andere Anzahl braucht nur @q{2} durch die entsprechende 
+Anzahl ersetzt werden.
+
+Die Definition von @code{\betweenLilyPondSystem} bleibt gültig,
+bis @TeX{} die aktuelle Umgebung in @LaTeX{} verlässt oder der 
+Befehl durch eine neue Definition überschrieben wird. 
+Dies kann etwa folgendermaßen in der @LaTeX{}-Datei geschehen:
+
+@example
+\let\betweenLilyPondSystem\undefined
+@end example
+
+Obige Definition von @code{\betweenLilyPondSystem} kann durch die 
+Definition eines @TeX{}-Makros auch verallgemeinert werden, 
+
+@example
+\def\onlyFirstNSystems#1@{
+    \def\betweenLilyPondSystem##1@{\ifnum##1<#1\else\endinput\fi@}
+@}
+@end example
+
+@noindent
+wobei diesem Makro @code{\onlyFirstNSystems} einfach die Anzahl der 
+gewünschten Systeme übergeben wird:
+
+@example
+\onlyFirstNSystems@{3@}
+\begin@{lilypond@}...\end@{lilypond@}
+\onlyFirstNSystems@{1@}
+\begin@{lilypond@}...\end@{lilypond@}
+@end example
+
+@seealso
+@command{lilypond-book} stellt auch zahlreiche Kommandozeilen-Optionen zur 
+Verfügung. Für eine Liste dieser Optionen und andere hilfreiche Details zur
+Verarbeitung von @LaTeX{}-Dokumenten, siehe @ref{Invoking lilypond-book}.
+
+
 
 
 @node Texinfo
 @subsection Texinfo
 
-@untranslated
+Texinfo ist das Standard-Dokumentationsformat des GNU Projekts. Ein Beispiel 
+für ein Dokument im Texinfo Format ist dieses Handbuch, wobei die HTML-, PDF- und 
+Info-Versionen alle aus demselben Texinfo Dokument erzeugt werden.
+
+In der Eingabedatei wir Musik eingegeben als
+
+@example
+@@lilypond[Optionen,kommen,hier]
+  IHR LILYPOND QUELLCODE
+@@end lilypond
+@end example
+
+@noindent
+oder
+
+@example
+@@lilypond[Optionen,kommen,hier]@{ IHR LILYPOND QUELLCODE @}
+@end example
+
+@noindent
+oder
+
+@example
+@@lilypondfile[Optionen,kommen,hier]@{@var{Dateiname}@}
+@end example
+
+Wenn @command{lilypond-book} eine derartige Datei verarbeitet, 
+wird eine Texinfo-Datei mit der Erweiterung @file{.texi} erzeugt,
+die @code{@@image} Befehle für die Ausgabe nach HTML, Info und PDF 
+enthält. @command{lilypond-book} erzeugt die entsprechenden Grafiken
+der Musikbeispiele im EPS- und PDF-Format für die Ausgabe nach PDF 
+und im PNG-Format für die Ausgabe nach HTML und Info.
+
+Hier sollen zwei einfache Beispiele gezeigt werden. Eine @code{lilypond} Umgebung
+
+@example
+@@lilypond[fragment]
+c' d' e' f' g'2 g'
+@@end lilypond
+@end example
+
+@noindent
+erzeugt
+
+@lilypond[fragment]
+c' d' e' f' g'2 g'
+@end lilypond
+
+Die Kurzversion
+
+@example
+@@lilypond[fragment,staffsize=11]@{<c' e' g'>@}
+@end example
+
+@noindent
+erzeugt
+
+@lilypond[fragment,staffsize=11]{<c' e' g'>}
+
+Im Gegensatz zu @LaTeX{} erzeugt @code{@@lilypond@{...@}} allerdings keine Grafik
+im Fließtext, sondern setzt sie immer in einen eigenen Absatz.
 
 
 @node HTML
 @subsection HTML
 
-@untranslated
+Musik wird eingegeben als
+
+@example
+<lilypond fragment relative=2>
+\key c \minor c4 es g2
+</lilypond>
+@end example
+
+@noindent
+@command{lilypond-book} erzeugt dann daraus eine HTML-Datei mit den entsprechenden
+@code{<image>} Tags für die Musikbeispiele in jeweils einem eigenen Absatz.
+
+
+@lilypond[fragment,relative=2]
+\key c \minor c4 es g2
+@end lilypond
+
+Für Grafiken im Fließtext kann @code{<lilypond ... />} benutzt werden, wobei 
+die Optionen durch einen Doppelpunkt von der Musik getrennt angegeben werden.
+
+@example
+Musik <lilypond relative=2: a b c/> in derselben Zeile.
+@end example
+
+Um Dateien mit Musik einzubinden, kann folgendermaßen vorgegangen werden:
+
+@example
+<lilypondfile @var{Option1} @var{Option2} ...>@var{Dateiname}</lilypondfile>
+@end example
+
 
 
 @node DocBook
 @subsection DocBook
 
-@untranslated
 
+Bei der Einbindung von Musik im LilyPond-Format in DocBook soll die 
+Konformität unseres DocBook Dokuments erhalten bleiben und damit 
+die Bearbeiten mit DocBook-Editoren sowie die Validierung weiter
+möglich bleiben. Aus diesem Grund werden in DocBook keine eigenen Tags
+wie in HTML benutzt, sondern die von den vorhandenen DocBook-Elementen
+vorgegebenen Konventionen entsprechend benützt.
 
 @subheading Common conventions
+
+Für die Einbindung von LilyPond Code werden in allen Fällen die 
+@code{mediaobject} und @code{inlinemediaobject} Elemente benutzt,
+die unsere Beispiele in einem eigenen Absatz oder im Fließtext 
+einfügen. Die Optionen zur Formatierung mit LilyPond werden dabei 
+in der @code{role} Eigenschaft des innersten Elements angegeben,
+wie im nächsten Abschnitt gezeigt wird. Die DocBook Datei, die 
+dann von @command{lilypond-book} verarbeitet wird, sollte der Klarheit 
+halber die  Dateierweiterung @file{.lyxml} (jedenfalls nicht 
+@file{.xml}) besitzen.
+
 @subheading Including a LilyPond file
+
+Dies ist der einfachste Fall: Die LilyPond-Datei besitzt die Erweiterung 
+@file{.ly} und wird einfach als @code{imageobject} eingebettet:
+
+@example
+<mediaobject>
+  <imageobject>
+    <imagedata fileref="music1.ly" role="printfilename" />
+  </imageobject>
+</mediaobject>
+@end example
+
+Für das äußerste Element kann je nach Bedarf @code{mediaobject} oder 
+@code{inlinemediaobject} benutzt werden.
+
 @subheading Including LilyPond code
+
+Die Einbindung von LilyPond-Code direkt in der DocBook-Datei ist 
+durch die Benutzung von @code{programlisting} möglich,
+wobei die Sprache auf @code{lilypond} gesetzt wird:
+
+@example
+<inlinemediaobject>
+  <textobject>
+    <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
+\context Staff \with @{
+  \remove Time_signature_engraver
+  \remove Clef_engraver@} 
+  @{ c4( fis) @}
+    </programlisting>
+  </textobject>
+</inlinemediaobject>
+@end example
+
+Das äußerste Element ist also @code{mediaobject} oder
+@code{inlinemediaobject}, welches ein @code{textobject} mit dem 
+@code{programlisting} enthält.
+
 @subheading Processing the DocBook document
+
+Der Aufruf von @command{lilypond-book} mit der @file{.lyxml}-Datei
+erzeugt ein gültiges DocBook-Dokument mit der Erweiterung @file{.xml},
+welches normal weiterverarbeitet werden kann. Bei Benutzung von
+@uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex} wird daraus
+automatisch eine PDF-Datei erzeugt. Für die Erzeugung von HTML (HTML 
+Help, JavaHelp, etc.) können die offiziellen DocBook XSL-Stylesheets
+benutzt werden. Eventuell müssen dafür allerdings kleinere Anpassungen
+vorgenommen werden.
+
+
 @node Music fragment options
 @section Music fragment options
 
@@ -98,7 +579,9 @@
 @node Alternate methods of mixing text and music
 @section Alternative methods of mixing text and music
 
-@untranslated
+Dieser Abschnitt stellt Methoden vor, wie Text und Musik auf andere 
+Weise kombiniert werden können als dies durch @command{lilypond-book}
+automatisiert geschieht.
 
 
 @menu
@@ -110,20 +593,53 @@
 @node Many quotes from a large score
 @subsection Many quotes from a large score
 
-@untranslated
+Wenn aus einer großen Partitur viele kleine Fragmente eingefügt 
+werden sollen, kann dazu das @q{clip systems} Feature benutzt werden. 
+Siehe @ruser{Extracting fragments of music}.
 
 
 @node Inserting LilyPond output into OpenOffice.org
 @subsection Inserting LilyPond output into OpenOffice.org
 
-@untranslated
+Musik im LilyPond-Format kann in OpenOffice.org eingefügt werden mittels
+@uref{http://@/ooolilypond@/.sourceforge@/.net@/,OOoLilyPond}.
 
 
 @node Inserting LilyPond output into other programs
 @subsection Inserting LilyPond output into other programs
 
-@untranslated
+Im die Ausgabe von LilyPond in anderen Programmen einzufügen,
+sollte @code{lilypond} benutzt werden. Jedes Beispiel muss 
+getrennt manuell erzeugt und ins Dokument eingefügt werden; 
+für letzteres schlagen Sie bitte im Handbuch Ihrer 
+Textverarbeitungs-Software nach. Die meisten Programme 
+unterstützen das Einfügen von Grafiken im @file{PNG}-, @file{EPS}- 
+oder @file{PDF}-Format.
 
+Um den leeren Rand um die Notenzeilen zu verringern, können folgende 
+Einstellungen benutzt werden:
+
+@example
+\paper@{
+  indent=0\mm
+  line-width=120\mm
+  oddFooterMarkup=##f
+  oddHeaderMarkup=##f
+  bookTitleMarkup = ##f
+  scoreTitleMarkup = ##f
+@}
+
+@{ c1 @}
+@end example
+
+Eine @file{EPS}-Datei kann mit folgendem Befehl erzeugt werden:
+
+@example
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   Dateiname.ly
+
+Eine @file{PNG}-Datei mittels:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png Dateiname.ly
+@end example
 
 
 @c -- SKELETON FILE --

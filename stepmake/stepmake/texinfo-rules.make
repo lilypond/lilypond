@@ -13,7 +13,7 @@
 # prerequisite, otherwise %.info are always outdated (because older
 # than $(outdir), hence this .dep file
 
-$(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep: $(INFO_DOCS:%=$(outdir)/%.texi)
+$(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep: $(INFO_DOCS:%=$(outdir)/%.texi)
 ifneq ($(INFO_IMAGES_DIR),)
 	rm -f $(INFO_IMAGES_DIR)
 	ln -s $(outdir) $(INFO_IMAGES_DIR)
@@ -23,7 +23,7 @@ ifneq ($(INFO_IMAGES_DIR),)
 endif
 	touch $@
 
-$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.itexi
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
@@ -68,4 +68,5 @@ $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo $(TOPLEVEL_VERSION)>> $@
 	echo '@end macro'>> $@
 
-.SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi
+.SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
+  $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep

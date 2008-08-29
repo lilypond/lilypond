@@ -64,9 +64,8 @@ msgstr ""
 "im englischen Benutzerhandbuch."
 
 #: translations-status.py:56
-#, fuzzy
 msgid "Section titles"
-msgstr "Titel erstellen"
+msgstr "Überschriften"
 
 #: translations-status.py:57
 #, python-format
@@ -74,37 +73,32 @@ msgid " <p><i>Last updated %s</i></p>\n"
 msgstr "·<p><i>Zuletzt aktualisiert am·%s</i></p>\n"
 
 #: translations-status.py:58
-#, fuzzy
 msgid "Translators"
-msgstr "Transposition"
+msgstr "Übersetzer"
 
 #: translations-status.py:58
 msgid "Translation checkers"
 msgstr "Übersetzungsüberprüfer"
 
 #: translations-status.py:59
-#, fuzzy
 msgid "Translated"
-msgstr "Transposition"
+msgstr "Übersetzt"
 
 #: translations-status.py:59
 msgid "Up to date"
 msgstr "Aktuell"
 
 #: translations-status.py:60
-#, fuzzy
 msgid "Other info"
 msgstr "Mehr Information"
 
 #: translations-status.py:62
-#, fuzzy
 msgid "no"
-msgstr "normal"
+msgstr "nein"
 
 #: translations-status.py:63
-#, fuzzy
 msgid "not translated"
-msgstr "Banjo-Tabulaturen"
+msgstr "nicht übersetzt"
 
 #: translations-status.py:65
 #, python-format
@@ -121,18 +115,16 @@ msgid "yes"
 msgstr "ja"
 
 #: translations-status.py:69
-#, fuzzy
 msgid "translated"
-msgstr "transparent (durchsichtig)"
+msgstr "übersetzt"
 
 #: translations-status.py:70 translations-status.py:71
 msgid "up to date"
 msgstr "aktuell"
 
 #: translations-status.py:72
-#, fuzzy
 msgid "partially"
-msgstr "Wiederholungen"
+msgstr "teilweise"
 
 #: translations-status.py:73
 msgid "partially up to date"
@@ -316,9 +308,8 @@ msgstr "Beispielanwendung"
 #. @section in Documentation/es/user/introduction.itely
 #. @node in Documentation/de/user/introduction.itely
 #. @section in Documentation/de/user/introduction.itely
-#, fuzzy
 msgid "About the documentation"
-msgstr "Andere Dokumentation"
+msgstr "Über die Dokumentation"
 
 #. @node in Documentation/user/introduction.itely
 #. @unnumberedsubsec in Documentation/user/introduction.itely
@@ -386,7 +377,6 @@ msgstr "Die Referenz der Programminterna"
 #. @unnumberedsubsec in Documentation/fr/user/introduction.itely
 #. @node in Documentation/es/user/introduction.itely
 #. @unnumberedsubsec in Documentation/es/user/introduction.itely
-#, fuzzy
 msgid "Other documentation"
 msgstr "Andere Dokumentation"
 
@@ -1439,14 +1429,12 @@ msgid "Voice \\\"1\\\"             Voice \\\"2\\\""
 msgstr ""
 
 #. Documentation/user/fundamental.itely:639 (comment)
-#, fuzzy
 msgid "Voice \\\"1\\\""
-msgstr "Stimme 1"
+msgstr ""
 
 #. Documentation/user/fundamental.itely:644 (comment)
-#, fuzzy
 msgid "Voice \\\"2\\\""
-msgstr "Stimme 1"
+msgstr ""
 
 #. Documentation/user/fundamental.itely:662 (comment)
 #. Documentation/user/fundamental.itely:686 (comment)
@@ -1607,7 +1595,7 @@ msgstr "StropheVier"
 #. Documentation/user/fundamental.itely:1414 (variable)
 #, fuzzy
 msgid "versenotes"
-msgstr "Verzierungen"
+msgstr ""
 
 #. Documentation/user/fundamental.itely:1306 (variable)
 #. Documentation/user/fundamental.itely:1367 (variable)
@@ -1620,13 +1608,13 @@ msgstr "StropheVier"
 #. Documentation/user/fundamental.itely:1419 (variable)
 #, fuzzy
 msgid "refrainnotesA"
-msgstr "Umgebungen erstellen"
+msgstr ""
 
 #. Documentation/user/fundamental.itely:1362 (variable)
 #. Documentation/user/fundamental.itely:1423 (variable)
 #, fuzzy
 msgid "refrainnotesB"
-msgstr "Umgebungen erstellen"
+msgstr ""
 
 #. Documentation/user/fundamental.itely:1370 (variable)
 #. Documentation/user/fundamental.itely:1431 (variable)
@@ -1836,9 +1824,8 @@ msgid "end PianoStaff context"
 msgstr "Klaviersystem beenden"
 
 #. Documentation/user/fundamental.itely:2830 (comment)
-#, fuzzy
 msgid "end PedalOrgan Staff context"
-msgstr "Klaviersystem beenden"
+msgstr "Orgelsystem beenden"
 
 #. Documentation/user/fundamental.itely:2832 (comment)
 msgid "end Score context"
@@ -2304,12 +2291,10 @@ msgid "emphasize"
 msgstr ""
 
 #. Documentation/user/tweaks.itely:3165 (variable)
-#, fuzzy
 msgid "normal"
 msgstr "normal"
 
 #. Documentation/user/tweaks.itely:3171 (variable)
-#, fuzzy
 msgid "SopranoMusic"
 msgstr "SopranNoten"
 

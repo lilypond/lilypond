@@ -28,12 +28,12 @@ von mehr als einer Stimme pro System.
 @subsection Single voice
 
 @menu
-* Chords::                      
+* Chorded notes::                      
 * Clusters::                    
 @end menu
 
-@node Chords
-@unnumberedsubsubsec Chords
+@node Chorded notes
+@unnumberedsubsubsec Chorded notes
 
 @cindex Akkorde
 
@@ -62,7 +62,7 @@ Siehe @ref{Chord notation} für mehr Information.
 @menu
 * Basic polyphony::             
 * Explicitly instantiating voices::  
-* Collision Resolution::        
+* Collision resolution::        
 * Automatic part combining::    
 * Writing music in parallel::   
 @end menu
@@ -279,8 +279,8 @@ voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 @end lilypond
 
 
-@node Collision Resolution
-@unnumberedsubsubsec Collision Resolution
+@node Collision resolution
+@unnumberedsubsubsec Collision resolution
 
 Normalerweise werden Notenköpfe mit einer unterschiedlichen Anzahl 
 von Punktierungen nicht verschmolzen, aber wenn die Objekt-Eigenschaft 

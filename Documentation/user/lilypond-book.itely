@@ -256,7 +256,7 @@ the user:
 @item @code{\postLilyPondExample} called after the music,
 
 @item @code{\betweenLilyPondSystem[1]} is called between systems if
-@code{lilypond-book} has split the snippet into several postscript
+@code{lilypond-book} has split the snippet into several PostScript
 files.  It must be defined as taking one parameter and will be
 passed the number of files already included in this snippet.
 The default is to simply insert a @code{\linebreak}.
@@ -493,8 +493,8 @@ the following structure:
 </mediaobject>
 @end example
 
-Note that you can use mediaobject or inlinemediaobject as the outermost
-element as you wish.
+Note that you can use @code{mediaobject} or @code{inlinemediaobject} 
+as the outermost element as you wish.
 
 @subheading Including LilyPond code
 
@@ -976,14 +976,14 @@ the automated method with @command{lilypond-book}.
 @end menu
 
 @node Many quotes from a large score
-@subsection Many quotes from a large score
+@unnumberedsubsec Many quotes from a large score
 
 If you need to quote many fragments from a large score, you can also use
 the clip systems feature, see @ruser{Extracting fragments of music}.
 
 
 @node Inserting LilyPond output into OpenOffice.org
-@subsection Inserting LilyPond output into OpenOffice.org
+@unnumberedsubsec Inserting LilyPond output into OpenOffice.org
 
 @cindex OpenOffice.org
 
@@ -992,7 +992,7 @@ LilyPond notation can be added to OpenOffice.org with
 
 
 @node Inserting LilyPond output into other programs
-@subsection Inserting LilyPond output into other programs
+@unnumberedsubsec Inserting LilyPond output into other programs
 
 To insert LilyPond output in other programs, use @code{lilypond}
 instead of @code{lilypond-book}.  Each example must be created
@@ -1016,12 +1016,12 @@ the following options
 @{ c1 @}
 @end example
 
-To produce a useful EPS file, use
+To produce a useful @file{EPS} file, use
 
 @example
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts   myfile.ly
 
-PNG:
+@file{PNG}:
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png myfile.ly
 @end example
 

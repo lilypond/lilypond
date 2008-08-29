@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 90fd19c1e2a433d6657cf7270cf0d1932cb4934a
+    Translation of GIT committish: b54fc6953a8d70a3c51e8c3d0cbf9b3fe9652d78
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -54,12 +54,12 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="user/lilypond-learning/index.de.html">Handbuch zum Lernen (LM)</a>
+	    <a class="title" href="user/lilypond-learning/index.de.html">Handbuch zum Lernen</a>
 	      <br>(F&uuml;r den ersten Anfang.)
 
  
  <li><a class="title" href="user/music-glossary/index.html">Glossar</a>
- (auf <a class="title" href="user/music-glossary-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb,
+ (auf <a class="title" href="user/music-glossary-big-page.html">einer gro&szlig;en Seite</a> ~ 500 kB,
  als <a class="title" href="user/music-glossary.pdf">PDF</a>)
  
       <br>(&Uuml;bersetzung von musikalischen Begriffen aus dem Englischen in andere Sprachen.)
@@ -81,13 +81,13 @@
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.de.html">Benutzerhandbuch (NR)</a>
- (auf <a class="title" href="user/lilypond-big-page.html">einer gro&szlig;en Seite</a> ~ 4 Mb,
+<a class="title" href="user/lilypond/index.de.html">Benutzerhandbuch</a>
+ (auf <a class="title" href="user/lilypond-big-page.html">einer gro&szlig;en Seite</a> ~ 4 MB,
  als <a class="title" href="user/lilypond.de.pdf">PDF</a>)
       <br>(Notation mit LilyPond setzen.)
 
         <li>
-  <a  class="title" href="user/lilypond-internals/index.html">Programmreferenz (IR)</a>
+  <a  class="title" href="user/lilypond-internals/index.html">Programmreferenz</a>
   (auf <a class="title" href="user/lilypond-internals-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb)
       <br>(Definitionen, wie die Standardeinstellungen ver&auml;ndert k&ouml;nnen.)
          
@@ -97,7 +97,7 @@
           &nbsp;
 	  <ul>
 	  <li>
-            <a class="title" href="user/lilypond-program/index.de.html">Programmbenutzung (AU)</a>
+            <a class="title" href="user/lilypond-program/index.de.html">Programmbenutzung</a>
  (auf <a class="title" href="user/lilypond-program-big-page.html">einer gro&szlig;en Seite</a>,
  als <a class="title" href="user/lilypond-program.de.pdf">PDF</a>)
             <br>(Wie das Programm installiert und gestartet wird.)
@@ -119,12 +119,10 @@ als <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
        </ul>
     </td><td class="right-column">
           &nbsp;
-<!-- TODO
-    <ul>
-        <li><a class="title"  href="translations.html">Translations status</a>
-        <br>(see translations progress)
-    </ul>
--->
+	<ul>
+          <li><a class="title"  href="translations.html">&Uuml;bersetzungsstatus</a>
+          <br>(siehe Fortschritt der &Uuml;bersetzungen)
+	</ul>
          </td>
         </tr>
 

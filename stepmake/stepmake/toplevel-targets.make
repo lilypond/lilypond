@@ -52,6 +52,7 @@ dist:
 
 local-help:
 	@echo -e "\
+  web-uninstall  remove installed documentation with images\n\
   config      rerun configure\n\
   dist        roll tarball: $(depth)/$(outdir)/$(distname).tar.gz\n\
   distclean   also remove configure output\n\

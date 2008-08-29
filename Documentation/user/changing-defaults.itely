@@ -1414,52 +1414,141 @@ and the program reference.
 @node The tweak command
 @subsection The @code{\tweak} command
 
-FIXME expand to include all uses of \tweak
-TODO: can't use \tweak in a variable
-
 @funindex \tweak
+@cindex tweaking
 
-In some cases, it is possible to take a short-cut for tuning graphical
-objects.  For objects that result directly from a piece of the input,
-you can use the @code{\tweak} function, for example
+In some cases, it is possible to take a short-cut for tuning
+graphical objects.  For objects that are created directly from
+an item in the input file, you can use the @code{\tweak} command.
+For example:
 
-@lilypond[relative=2,fragment,verbatim,ragged-right]
-<
-  c
-  \tweak #'color #red d
+@lilypond[relative=2,verbatim]
+< c
+  \tweak #'color #red
+  d
   g
-  \tweak #'duration-log #1  a
->4-\tweak #'padding #10 -.
+  \tweak #'duration-log #1
+  a
+> 4
+-\tweak #'padding #8
+-^
 @end lilypond
 
-As you can see, properties are set in the objects directly,
-without mentioning the grob name or context where this should be
-applied.
+@cindex chord, modifying one note in
 
-This technique only works for objects that are directly connected to
-an @rinternals{Event} from the input, for example
+But the main use of the @code{\tweak} command is to modify just
+one of a number of notation elements which start at the same musical
+moment, like the notes of a chord, or tuplet brackets which start
+at the same time.
 
-@itemize
-@item note heads, caused by chord-pitch (i.e., notes inside a chord)
-@item articulation signs, caused by articulation instructions
-@end itemize
+For an introduction to the syntax and uses of the tweak command
+see @rlearning{Tweaking methods}.
 
-It notably does not work for stems and accidentals (these are caused
-by note heads, not by music events) or clefs (these are not caused by
-music inputs, but rather by the change of a property value).
+The @code{\tweak} command sets a property in the following object
+directly, without requiring the grob name or context to be
+specified.  For this to work, it is necessary for the @code{\tweak}
+command to remain immediately adjacent to the object to which it is
+to apply after the input file has been converted to a music stream.
+This is often not the case, as many additional elements are inserted
+into the music stream implicitly.  For example, when a note which is
+not part of a chord is processed, Lilypond implicitly inserts a
+@code{ChordEvent} event before the note, so separating the tweak
+from the note.  However, if chord symbols are placed round the
+tweak and the note, the @code{\tweak} command comes after the
+@code{ChordEvent} in the music stream, so remaining adjacent to the
+note, and able to modify it.
 
-There are very few objects which are @emph{directly} connected to
-output.  A normal note (like @code{c4}) is not directly connected
-to output, so
+So, this works:
 
-@example
-\tweak #'color #red c4
-@end example
+@lilypond[relative=2,verbatim,quote]
+<\tweak #'color #red c>4
+@end lilypond
 
 @noindent
-does not change color.  See @ref{Displaying music expressions}, for
-details.
+but this does not:
 
+@lilypond[relative=2,verbatim,quote]
+\tweak #'color #red c4
+@end lilypond
+
+When several similar items are placed at the same musical moment,
+the @code{\override} command cannot be used to modify just one of
+them -- this is where the @code{\tweak} command must be used.
+Items which may appear more than once at the same musical moment
+include the following:
+
+@c TODO expand to include any further uses of \tweak
+@itemize
+@item note heads of notes inside a chord
+@item articulation signs on a single note
+@item ties between notes in a chord
+@item tuplet brackets starting at the same time
+@end itemize
+
+@c TODO add examples of these
+
+@noindent
+and @code{\tweak} may be used to modify any single occurrence of
+these items.
+
+Notably the @code{\tweak} command cannot be used to modify stems,
+beams or accidentals, since these are generated later by note heads,
+rather than by music elements in the input stream.  Nor can a
+@code{\tweak} command be used to modify clefs or time signatures,
+since these become separated from any preceding @code{\tweak}
+command in the input stream by the automatic insertion of extra
+elements required to specify the context.
+
+But the @code{\tweak} command can be used as an alternative to
+the @code{\override} command to modify those notational elements
+that do not cause any additional implicit elements to be added
+before them in the music stream.  For example, slurs may be
+modified in this way:
+
+@lilypond[verbatim,quote,relative=1]
+c-\tweak #'thickness #5 ( d e f)
+@end lilypond
+
+Also several @code{\tweak} commands may be placed before a
+notational element -- all affect it:
+
+@lilypond[verbatim,quote,relative=1]
+c
+-\tweak #'style #'dashed-line
+-\tweak #'dash-fraction #0.2
+-\tweak #'thickness #3
+-\tweak #'color #red
+ \glissando
+f'
+@end lilypond
+
+The music stream which is generated from a section of an input file,
+including any automatically inserted elements, may be examined,
+see @ref{Displaying music expressions}.  This may be helpful in
+determining what may be modified by a @code{\tweak} command.
+
+@seealso
+
+Learning Manual:
+@rlearning{Tweaking methods}.
+
+Notation Reference:
+@ref{Displaying music expressions}.
+
+@knownissues
+
+@cindex tweaks in a variable
+The @code{\tweak} command cannot be used inside a variable.
+
+@cindex tweaks in lyrics
+The @code{\tweak} commands cannot be used in @code{\lyricmode}.
+
+@cindex tweaking control points
+@cindex control points, tweaking
+
+The @code{\tweak} command cannot be used to modify the control
+points of just one of several ties in a chord, other than the first
+one encountered in the input file.
 
 @node set versus override
 @subsection @code{\set} vs. @code{\override}
