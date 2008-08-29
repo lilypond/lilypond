@@ -234,6 +234,8 @@ for the full staff.")
 
      (harmonicAccidentals ,boolean? "If set, harmonic notes in chords
 get accidentals.")
+     (harmonicDots ,boolean? "If set, harmonic notes in dotted chords get
+dots.")
      (highStringOne ,boolean? "Whether the first string is the string
 with highest pitch on the instrument.  This used by the automatic
 string selector for tablature notation.")
