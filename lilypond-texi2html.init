@@ -40,13 +40,14 @@
 ###    correct file name for the link. Implemented in:
 ###           lilypond_unknown (handling of @translationof, in case
 ###                             extract_texi_filenames.py messes up...)
-###           split_at_numbered_sections (correct file name: use the map)
+###           lilypond_element_file_name (correct file name: use the map)
+###           lilypond_element_target_name (correct anchor: use the map)
 ###           lilypond_init_map (read in the externally created map from disk)
 ###           lilypond_external_href (load the map for xrefs, use the correct
 ###                                   link target)
 ### -) The HTML anchors for all sections are derived from the node name /
 ###    section title (pre-generated in the .xref-map file). Implemented by:
-###           split_at_numbered_sections (adjust section anchors)
+###           lilypond_element_target_name (adjust section anchors)
 ### -) Use the standard footnote format "<sup>nr</sup> text" instead of the
 ###    ugly format of texi2html (<h3>(nr)</h3><p>text</p>). Implemented in
 ###           lilypond_foot_line_and_ref
@@ -74,7 +75,8 @@ $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
-$Texi2HTML::Config::element_file_name    = \&split_at_numbered_sections;
+$Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+$Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
 $Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
@@ -262,7 +264,7 @@ my $node_to_filename_map = ();
 # If an external nodename<=>filename/anchor map file is found (loaded in
 # lilypond_init_out, use the externally created values, otherwise use the
 # same logic here.
-sub split_at_numbered_sections($$$)
+sub lilypond_element_file_name($$$)
 {
   my $element = shift;
   my $type = shift;
@@ -285,10 +287,6 @@ sub split_at_numbered_sections($$$)
     (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
     $filename .= ".$docu_ext" if (defined($docu_ext));
 
-    # need to override both target (used as anchor in links to this section) and
-    # id (used in the <a name=..> tag for this section)!
-    $element->{'id'} = $element->{'target'} = $anchor;
-
     # unnumbered sections (except those at top-level!) always go to the same
     # file as the previous numbered section
     if (not ($element->{number}) and not ($lastfilename eq '') and ($element->{level} > 1)) {
@@ -304,36 +302,20 @@ sub split_at_numbered_sections($$$)
     return $filename;
 
   } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
-    # TOC, footer, about etc. are called with undefined $element and $type == "toc"|"stoc"|"foot"|"about"
-    if ($type eq "top") {
-      $element->{'id'} = $element->{'target'} = "Top";
-    }
     return;
   } else {
     print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
         unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec')
                or ($node_name =~ /NOT REALLY USED/);
 
-    # derive the name of the anchor (i.e. the part after # in the links!),
-    # don't use texi2html's SECx.x default!
-    my $sec_name = main::remove_texi($element->{'texi'});
-    # if we have a node, use its name:
-    if ($element->{'node_ref'}->{'texi'} ne '') {
-      $sec_name = main::remove_texi($element->{'node_ref'}->{'texi'});
-    }
-    my $anchor = $sec_name;
-    if ($element->{translationof}) {
-      $anchor = main::remove_texi($$element{translationof});
-    }
-    # normalize to the same file name as texinfo
-    $anchor = texinfo_file_name($anchor);
-    # need to override both target (used as anchor in links to this section) and
-    # id (used in the <a name=..> tag for this section)!
-    $element->{'id'} = $element->{'target'} = $anchor;
     # Numbered sections will get a filename Node_title, unnumbered sections will use
     # the file name of the previous numbered section:
     if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
-      my $filename = $anchor;
+      # normalize to the same file name as texinfo
+      if ($element->{translationof}) {
+        $node_name = main::remove_texi($element->{translationof});
+      }
+      my $filename = texinfo_file_name($node_name);
       $filename .= ".$docu_ext" if (defined($docu_ext));
       $docnr += 1;
       $$element{doc_nr} = $docnr;
@@ -346,6 +328,34 @@ sub split_at_numbered_sections($$$)
   }
 
   return;
+}
+
+sub lilypond_element_target_name($$$)
+{
+  my $element = shift;
+  my $target = shift;
+  my $id = shift;
+  # Target is based on node name (or sec name for secs without node attached)
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the anchor here. 
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, $target) = @{$node_to_filename_map->{$node_name}};
+  } else {
+    my $anchor = $node_name;
+    if ($element->{translationof}) {
+      $anchor = main::remove_texi($element->{translationof});
+    }
+    # normalize to the same file name as texinfo
+    $target = texinfo_file_name($anchor);
+  }
+  # TODO: Once texi2html correctly prints out the target and not the id for
+  #       the sections, change this back to ($id, $target)
+  return ($target, $target);
 }
 
 
@@ -524,7 +534,7 @@ sub generate_ly_toc_entries($$$$)
   my $ind = '  ' x $level;
   my $this_css_class = $is_parent_of_current ? " class=\"toc_current\"" : "";
 
-  my $entry = "$ind<li$this_css_class>" . &$anchor ($element->{'tocid'}, "$element->{'file'}#$element->{'id'}",$element->{'text'});
+  my $entry = "$ind<li$this_css_class>" . &$anchor ($element->{'tocid'}, "$element->{'file'}#$element->{'target'}",$element->{'text'});
 
   my $children = $element->{'section_childs'};
   # Don't add unnumbered entries, unless they are at top-level or a parent of the current!
