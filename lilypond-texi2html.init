@@ -2,7 +2,8 @@
 
 ### texi2html customization script for Lilypond
 ### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
-###         Some code parts copied from texi2html and adapted.
+###         Some code parts copied from texi2html and adapted. These functions
+###         were written mainly by Patrice Dumas
 ### License: GPLv2+
 ###
 ###
@@ -50,7 +51,9 @@
 ###           lilypond_element_target_name (adjust section anchors)
 ### -) Use the standard footnote format "<sup>nr</sup> text" instead of the
 ###    ugly format of texi2html (<h3>(nr)</h3><p>text</p>). Implemented in
-###           lilypond_foot_line_and_ref
+###           makeinfo_like_foot_line_and_ref
+###           makeinfo_like_foot_lines
+###           makeinfo_like_paragraph
 ###
 ###
 ### Useful helper functions:
@@ -86,7 +89,12 @@ $Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
 $Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
 $Texi2HTML::Config::unknown              = \&lilypond_unknown;
 $Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
-$Texi2HTML::Config::foot_line_and_ref    = \&lilypond_foot_line_and_ref;
+# $Texi2HTML::Config::foot_line_and_ref    = \&lilypond_foot_line_and_ref;
+$Texi2HTML::Config::foot_line_and_ref  = \&makeinfo_like_foot_line_and_ref;
+$Texi2HTML::Config::foot_lines         = \&makeinfo_like_foot_lines;
+$Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
+
+
 
 # Examples should be formatted similar to quotes:
 $Texi2HTML::Config::complex_format_map->{'example'} = {
@@ -874,37 +882,117 @@ sub lilypond_print_navigation
 # Format footnotes in a nicer way: Instead of printing the number in a separate
 # (nr) heading line, use the standard way of prepending <sup>nr</sup> immediately
 # before the fn text.
-sub lilypond_foot_line_and_ref($$$$$$$)
+
+
+# The following code is copied from texi2html's examples/makeinfo.init and 
+# should be updated when texi2html makes some changes there!
+
+my $makekinfo_like_footnote_absolute_number = 0;
+
+sub makeinfo_like_foot_line_and_ref($$$$$$$$)
 {
-    my $number_in_doc = shift;
-    my $number_in_page = shift;
-    my $footnote_id = shift;
-    my $place_id = shift;
-    my $document_file = shift;
+    my $foot_num = shift;
+    my $relative_num = shift;
+    my $footid = shift;
+    my $docid = shift;
+    my $from_file = shift;
     my $footnote_file = shift;
     my $lines = shift;
     my $state = shift;
+    
+    $makekinfo_like_footnote_absolute_number++;
 
-    if ($document_file eq $footnote_file)
-    {
-        $document_file = $footnote_file = '';
-    }
-    # FN number printed before the fn text:
-    my $tmptxt =  &$anchor($footnote_id, $document_file . "#$place_id",
-                   "<sup>$number_in_doc</sup>");
-    # unfortunately, the @$lines contain the already formatted footnote in the
-    # from <p>...</p>. This means that we have to modify this string and
-    # insert the FN number manually. The default (nr) on a separate line before
-    # the FN text is just plain ugly:
-    $lines->[0] =~ s/<p>/<p>$tmptxt /;
     # this is a bit obscure, this allows to add an anchor only if formatted
     # as part of the document.
-    $place_id = '' if ($state->{'outside_document'} or $state->{'multiple_pass'});
-    # return FN lines and text to be inserted in the running text (link to FN)
-    return ($lines, &$anchor($place_id,  $footnote_file . "#$footnote_id",
-           "<sup>$number_in_doc</sup>"));
+    $docid = '' if ($state->{'outside_document'} or $state->{'multiple_pass'});
+
+    if ($from_file eq $footnote_file)
+    { 
+        $from_file = $footnote_file = '';
+    }
+
+    my $foot_anchor = "<sup>" . &$anchor($docid, "$footnote_file#$footid", $relative_num) . "</sup>";
+    $foot_anchor = &$anchor($docid, "$footnote_file#$footid", "($relative_num)") if ($state->{'preformatted'});
+
+#    unshift @$lines, "<li>";
+#    push @$lines, "</li>\n";
+    return ($lines, $foot_anchor);
 }
 
+sub makeinfo_like_foot_lines($)
+{
+    my $lines = shift;
+    unshift @$lines, "<hr>\n<h4>$Texi2HTML::I18n::WORDS->{'Footnotes_Title'}</h4>\n";
+#<ol type=\"1\">\n";
+#    push @$lines, "</ol>";
+    return $lines;
+}
+
+my %makekinfo_like_paragraph_in_footnote_nr;
+
+sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
+{
+    my $text = shift;
+    my $align = shift;
+    my $indent = shift;
+    my $paragraph_command = shift;
+    my $paragraph_command_formatted = shift;
+    my $paragraph_number = shift;
+    my $format = shift;
+    my $item_nr = shift;
+    my $enumerate_style = shift;
+    my $number = shift;
+    my $command_stack_at_end = shift;
+    my $command_stack_at_begin = shift;
+    my $state = shift;
+#print STDERR "format: $format\n" if (defined($format));
+#print STDERR "paragraph @$command_stack_at_end; @$command_stack_at_begin\n";
+    $paragraph_command_formatted = '' if (!defined($paragraph_command_formatted) or
+          exists($special_list_commands{$format}->{$paragraph_command}));
+    return '' if ($text =~ /^\s*$/);
+    foreach my $style(t2h_collect_styles($command_stack_at_begin))
+    {
+       $text = t2h_begin_style($style, $text);
+    }
+    foreach my $style(t2h_collect_styles($command_stack_at_end))
+    {
+       $text = t2h_end_style($style, $text);
+    }
+    if (defined($paragraph_number) and defined($$paragraph_number))
+    {
+         $$paragraph_number++;
+         return $text  if (($format eq 'itemize' or $format eq 'enumerate') and
+            ($$paragraph_number == 1));
+    }
+    my $open = '<p';
+    if ($align)
+    {
+        $open .= " align=\"$paragraph_style{$align}\"";
+    }
+    my $footnote_text = '';
+    if (defined($command_stack_at_begin->[0]) and $command_stack_at_begin->[0] eq 'footnote')
+    {
+        my $state = $Texi2HTML::THISDOC{'state'};
+        $makekinfo_like_paragraph_in_footnote_nr{$makekinfo_like_footnote_absolute_number}++;
+        if ($makekinfo_like_paragraph_in_footnote_nr{$makekinfo_like_footnote_absolute_number} <= 1)
+        {
+           $open.=' class="footnote"';
+           my $document_file = $state->{'footnote_document_file'};
+           if ($document_file eq $state->{'footnote_footnote_file'})
+           {
+               $document_file = '';
+           }
+           my $docid = $state->{'footnote_place_id'};
+           my $doc_state = $state->{'footnote_document_state'};
+           $docid = '' if ($doc_state->{'outside_document'} or $doc_state->{'multiple_pass'});
+           my $foot_label = &$anchor($state->{'footnote_footnote_id'}, 
+                 $document_file . "#$state->{'footnote_place_id'}", 
+                 "$state->{'footnote_number_in_page'}");
+           $footnote_text = "<small>[${foot_label}]</small> ";
+        }
+    }
+    return $open.'>'.$footnote_text.$text.'</p>';
+}
 
 
 #############################################################################
