@@ -127,14 +127,11 @@ Book::set_parent (Book *parent)
       paper_->unprotect ();
     }
   paper_->parent_ = parent->paper_;
-
-  if ((header_ == SCM_EOL) && (scm_is_null (parent->bookparts_)))
+  /* If this part is the first child of parent, copy its header */
+  if (ly_is_module (parent->header_) && (scm_is_null (parent->bookparts_)))
     {
-      /* If this is the first part, and it has no header, copy the 
-       * parent header */
       header_ = ly_make_anonymous_module (false);
-      if (ly_is_module (parent->header_))
-        ly_module_copy (header_, parent->header_);
+      ly_module_copy (header_, parent->header_);
     }
 }
 
@@ -143,6 +140,7 @@ Book::add_bookpart ()
 {
   if (scm_is_pair (scores_))
     {
+      warning ("add_bookpart");
       /* If scores have been added to this book, add them to a child 
        * book part */
       Book *part = new Book;
@@ -191,12 +189,12 @@ Book::process (Output_def *default_paper,
 Paper_book *
 Book::process (Output_def *default_paper,
 	       Output_def *default_layout,
-               Output_def *parent_paper)
+               Paper_book *parent_part)
 {
   Output_def *paper = paper_ ? paper_ : default_paper;
 
   /* If top book, recursively check score errors */
-  if (!parent_paper && error_found ())
+  if (!parent_part && error_found ())
     return 0;
 
   if (!paper)
@@ -206,8 +204,11 @@ Book::process (Output_def *default_paper,
   Real scale = scm_to_double (paper->c_variable ("output-scale"));
   Output_def *scaled_bookdef = scale_output_def (paper, scale);
   paper_book->paper_ = scaled_bookdef;
-  if (parent_paper)
-    paper_book->paper_->parent_ = parent_paper;
+  if (parent_part)
+    {
+      paper_book->parent_ = parent_part;
+      paper_book->paper_->parent_ = parent_part->paper_;
+    }
   paper_book->header_ = header_;
 
   if (scm_is_pair (bookparts_))
@@ -219,7 +220,7 @@ Book::process (Output_def *default_paper,
           if (Book *book = unsmob_book (scm_car (p)))
             {
               Paper_book *paper_book_part = book
-                ->process (paper, default_layout, paper_book->paper_);
+                ->process (paper, default_layout, paper_book);
               if (paper_book_part)
                 paper_book->add_bookpart (paper_book_part->self_scm ());
             }

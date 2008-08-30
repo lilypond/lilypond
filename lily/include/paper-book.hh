@@ -32,6 +32,7 @@ public:
   SCM header_0_;
   SCM scores_;
   SCM bookparts_;
+  Paper_book *parent_;
   Output_def *paper_;
 
   Paper_book ();

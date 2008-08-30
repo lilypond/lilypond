@@ -32,6 +32,7 @@ Paper_book::Paper_book ()
   systems_ = SCM_BOOL_F;
 
   paper_ = 0;
+  parent_ = 0;
   smobify_self ();
 }
 
@@ -49,6 +50,8 @@ Paper_book::mark_smob (SCM smob)
   Paper_book *b = (Paper_book *) SCM_CELL_WORD_1 (smob);
   if (b->paper_)
     scm_gc_mark (b->paper_->self_scm ());
+  if (b->parent_)
+    scm_gc_mark (b->parent_->self_scm ());
   scm_gc_mark (b->header_);
   scm_gc_mark (b->header_0_);
   scm_gc_mark (b->pages_);

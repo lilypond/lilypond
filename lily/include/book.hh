@@ -40,7 +40,7 @@ public:
 		       Output_def *def_layout);
   Paper_book *process (Output_def *default_paper,
                        Output_def *default_layout,
-                       Output_def *parent_paper);
+                       Paper_book *parent_part);
   void set_keys ();
 };
 
