@@ -39,6 +39,12 @@ LilyPond.
 @node Engraving
 @unnumberedsubsec Engraving
 
+@cindex engraving
+@cindex typography, music
+@cindex music typography
+@cindex plate engraving
+@cindex music engraving
+
 The art of music typography is called @emph{(plate) engraving}.
 The term derives from the traditional process of music printing.
 Just a few decades ago, sheet music was made by cutting and
@@ -188,6 +194,7 @@ music = {
 
 @cindex regular rhythms
 @cindex regular spacing
+@cindex spacing, regular
 
 Each bar in the fragment only uses notes that are played in a
 constant rhythm.  The spacing should reflect that.  Unfortunately,
@@ -201,7 +208,6 @@ of the notes.  The upper two measures are printed with this
 correction, the lower two measures without, forming
 down-stem/@/up-stem clumps of notes.
 
-@cindex typography
 
 Musicians are usually more absorbed with performing than with
 studying the looks of a piece of music, so nitpicking about
@@ -241,6 +247,9 @@ to see and love to play from.
 @node Automated engraving
 @unnumberedsubsec Automated engraving
 
+@cindex engraving, automated
+@cindex automated engraving
+
 How do we go about implementing typography?  If craftsmen need
 over ten years to become true masters, how could we simple hackers
 ever write a program to take over their jobs?
@@ -278,6 +287,8 @@ music notation works.
 
 @end itemize
 
+@cindex Scheme programming language
+
 These problems have been addressed by integrating an interpreter
 for the Scheme programming language and rewriting parts of
 LilyPond in Scheme.  The current formatting architecture is built
@@ -303,6 +314,10 @@ chord has all directions up (right).
    \stemUp <e g b>4^>-\arpeggio
 }
 @end lilypond
+
+@cindex score formatting
+@cindex formatting a score
+@cindex formatting rules
 
 @noindent
 The process of formatting a score consists of reading and writing
@@ -383,6 +398,8 @@ changed during the music fragment.
 
 @cindex engraving
 @cindex typography
+@cindex engraver
+@cindex plug-in
 
 The formatting process decides where to place symbols.  However,
 this can only be done once it is decided @emph{what} symbols
@@ -539,6 +556,10 @@ signature, and key signature, we get a complete piece of notation.
 \score { \topVoice }
 @end lilypond
 
+@cindex polyphony
+@cindex engraving multiple voices
+@cindex contexts
+
 This system works well for monophonic music, but what about
 polyphony?  In polyphonic notation, many voices can share a staff.
 
@@ -574,6 +595,9 @@ Internals Reference: @rinternals{Contexts}.
 
 @node Music representation
 @unnumberedsubsec Music representation
+
+@cindex syntax
+@cindex recursive structures
 
 Ideally, the input format for any high-level formatting system is
 an abstract description of the content.  In this case, that would
@@ -670,6 +694,9 @@ the source code.
 
 @node Example applications
 @unnumberedsubsec Example applications
+
+@cindex simple examples
+@cindex examples, simple
 
 We have written LilyPond as an experiment of how to condense the
 art of music engraving into a computer program.  Thanks to all
@@ -788,6 +815,13 @@ makes it easy to mix music and text in documents.
 
 This section explains the different portions of the documentation.
 
+@cindex Learning Manual
+@cindex Music Glossary
+@cindex Notation Reference
+@cindex Application Usage
+@cindex Snippet List
+@cindex Internals Reference
+
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @c This is actually a limitation of texi2html. -jm
 @menu
@@ -803,6 +837,8 @@ This section explains the different portions of the documentation.
 
 @node About the Learning Manual
 @unnumberedsubsec About the Learning Manual
+
+@cindex Learning Manual
 
 This book explains how to begin learning LilyPond, as well as
 explaining some key concepts in easy terms.  You should read these
@@ -863,6 +899,7 @@ all.
 @node About the Music Glossary
 @unnumberedsubsec About the Music Glossary
 
+@cindex Music Glossary
 @cindex idiom
 @cindex jargon
 @cindex terminology
@@ -878,6 +915,11 @@ it is highly advisable to consult the glossary.
 
 @node About the Notation Reference
 @unnumberedsubsec About the Notation Reference
+
+@cindex Notation Reference
+@cindex appendices
+@cindex reference charts
+@cindex charts, reference
 
 This book explains all the LilyPond commands which produce
 notation.  It assumes that readers are familiar with the concepts
@@ -951,6 +993,9 @@ a complete index.
 @node About the Application Usage
 @unnumberedsubsec About the Application Usage
 
+@cindex Application Usage
+@cindex integrating LilyPond with other programs
+
 This book explains how to execute the programs and how to integrate
 LilyPond notation with other programs.
 
@@ -992,6 +1037,8 @@ formats to the @code{.ly} format.
 
 @cindex snippets
 @cindex LSR
+@cindex Snippet List
+@cindex LilyPond Snippet Repository
 
 @rlsrnamed{Top,LilyPond Snippet List}: this shows a
 selected set of LilyPond snippets from the
@@ -1010,6 +1057,8 @@ also linked from the @strong{See also} portion.
 
 @node About the Internals Reference
 @unnumberedsubsec About the Internals Reference
+
+@cindex Internals Reference
 
 @rinternalsnamed{Top,Internals Reference}: this is a set
 of heavily cross linked HTML pages which document the nitty-gritty
