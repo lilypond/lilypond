@@ -67,9 +67,9 @@
   ;; add them first to a dedicated bookpart
   (if (pair? (ly:parser-lookup parser 'toplevel-scores))
       (begin
-        (add-bookpart (ly:make-book-part
-                       (ly:parser-lookup parser 'toplevel-scores)))
-        (ly:parser-define! parser 'toplevel-scores (list))))
+	(add-bookpart (ly:make-book-part
+		       (ly:parser-lookup parser 'toplevel-scores)))
+	(ly:parser-define! parser 'toplevel-scores (list))))
   (add-bookpart book-part))
 
 (define-public (collect-scores-for-book parser score)
@@ -77,7 +77,7 @@
    parser 'toplevel-scores
    (cons score (ly:parser-lookup parser 'toplevel-scores))))
 
-(define (collect-music-aux score-handler parser music)
+(define-public (collect-music-aux score-handler parser music)
   (define (music-property symbol)
     (let ((value (ly:music-property music symbol)))
       (if (not (null? value))
