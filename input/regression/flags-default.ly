@@ -1,4 +1,5 @@
 \version "2.11.57"
+#(set-global-staff-size 17)
 
 \header {
   texidoc = "Default flag styles: '(), 'mensural and 'no-flag.
@@ -8,6 +9,9 @@
   All three lines should be absolutely identical."
 }
 
+\paper {
+  line-width = 18\cm
+}
 
 % test notes, which will be shown in different style:
 testnotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64 c''8 d''16 c''32 d''64 \acciaccatura {c''8} d''64  }
