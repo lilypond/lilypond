@@ -1854,6 +1854,7 @@ marking the begin and end point with @code{[} and @code{]}
 }
 @end lilypond
 
+@funindex \noBeam
 
 Individual notes may be marked with @code{\noBeam} to prevent them
 from being beamed:
@@ -2699,6 +2700,11 @@ durations in the other staves.  For the above example
 << \new Staff { e4 \bar "|:" \grace c16 d2. }
    \new Staff { c4 \bar "|:" \grace s16 d2. } >>
 @end lilypond
+
+Predefined commands, like @code{\voiceOne}, which are intended to
+change the behaviour of the notation after a grace note, may not
+be effective if placed immediately before the grace note -- they
+should be placed after it.
 
 Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not

@@ -204,11 +204,16 @@ problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
 item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
+     (flag ,ly:stencil? "A function returning the full flag stencil for
+the @code{Stem}, which is passed to the function as the only argument.
+The default ly:stem::calc-stencil function uses the @code{flag-style}
+property to determine the correct glyph for the
+flag. By providing your own function, you can create arbitrary flags.")
      (flag-count ,number? "The number of tremolo beams.")
-     (flag-style ,symbol? "A string determining what style of flag
-glyph is typeset on a @code{Stem}.  Valid options include @code{()}
-and @code{mensural}.  Additionally, @code{no-flag} switches off the
-flag.")
+     (flag-style ,symbol? "A symbol determining what style of flag
+glyph is typeset on a @code{Stem}.  Valid options include @code{'()} for
+standard flags, @code{'mensural} and @code{'no-flag}, which switches off 
+the flag.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Options include: @code{fetaMusic},
 @code{fetaNumber}, @code{TeX-text}, @code{TeX-math},
