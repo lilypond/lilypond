@@ -20,14 +20,14 @@ zu lesen.
 
 
 @menu
-* Suggestions for writing LilyPond files::  
+* Suggestions for writing LilyPond input files::  
 * When things don't work::      
 * Scores and parts::            
 @end menu
 
 
-@node Suggestions for writing LilyPond files
-@section Suggestions for writing LilyPond files
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
 
 Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben -- 
 nicht 

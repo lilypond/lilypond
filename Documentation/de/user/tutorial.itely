@@ -534,7 +534,7 @@ Kommentar. Alles, was von @code{%@{}
 und @code{%@}} umgeben ist, wird ignoriert. Das heißt,
 dass sich ein Block-Kommentar nicht ein einem anderen
 Blockkommentar befinden kann. Wenn Sie das versuchen sollten,
-beendet schon das erste @code[%@}} \ėmph{beide} 
+beendet schon das erste @code{%@}} @emph{beide} 
 Block-Kommentare. Das folgende Beispiel zeigt eine
 mögliche Anwendung von Kommentaren:
 
@@ -575,7 +575,7 @@ Quellcode kopieren und in eine Textdatei einfügen, aber Sie
 Warum werden die Klammern hier meist weggelassen? Die meisten
 der Beispiele können in ein längeres Musikstück hineinkopiert
 werden, und dann ist es natürlich nicht sinnvoll, wenn auch noch
-@w{@code{\relative c'' @{ @}}} dazukommt; ein  {@code{\relative} darf
+@w{@code{\relative c'' @{ @}}} dazukommt; ein @code{\relative} darf
 nicht innerhalb eines anderen @code{\relative} gesetzt werden,
 deshalb wird es hier weggelassen, damit die Beispiele auch innerhalb
 eines anderen Kontextes funktionieren. Wenn bei jedem 
@@ -614,7 +614,8 @@ cut-&-pastable section} bis ganz zum Ende der Datei.
 @seealso
 
 Mehr Hinweise dazu, wie LilyPond-Eingabedateien konstruiert werden 
-sollten, finden sich in @ref{Suggestions for writing LilyPond input files}. Es ist aber wahrscheinlich am Besten, zuerst
+sollten, finden sich in @ref{Suggestions for writing LilyPond input files}. 
+Es ist aber wahrscheinlich am Besten, zuerst
 die gesamte Übung zu lesen.
 
 
