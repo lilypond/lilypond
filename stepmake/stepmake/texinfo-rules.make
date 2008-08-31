@@ -26,14 +26,31 @@ endif
 $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
+ifeq (,$(findstring texi2html,$(MISSING_OPTIONAL)))
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $< 
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
-
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
 	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+
+$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
+	mkdir -p $(dir $@)
+	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
+	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+
+else # Rules using makeinfo follow
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
+	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
+
+$(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.itexi
+	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
+
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I $(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+endif
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
@@ -43,11 +60,6 @@ $(outdir)/%.pdf.omf: %.texi
 
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
-
-$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
-	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
-	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
