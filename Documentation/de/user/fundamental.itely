@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: a8c28adaf60e575fa101c93b4fda7557741bfb86
+    Translation of GIT committish: 86df5f5861aa3bd43c425064edc5a839a9f4de5b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -987,8 +987,245 @@ Notationsreferenz: @ruser{Multiple voices}.
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
-@c TODO: Move from simultaneous.itely
-@untranslated
+@funindex \voiceOne
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
+@funindex \oneVoice
+@funindex \new Voice
+@cindex Voice context, erstellen von
+@cindex Stimmenkontexte, erstellen von
+
+Voice-Kontexte können auch manuell innerhalb 
+eines @code{<< >>}-Abschnittes initiiert werden. Mit den Befehlen 
+@code{\voiceOne} bis hin zu @code{\voiceFour} kann jeder Stimme 
+entsprechendes Verhalten von vertikaler Verschiebung und Richtung 
+von Hälsen und anderen Objekten hinzugefügt werden. In längeren 
+Partituren können die Stimmen damit besser auseinander gehalten 
+werden.
+
+Die @code{<< \\ >>}-Konstruktion, die wir im vorigen Abschnitt
+verwendet haben:
+
+@example
+\new Staff @{
+  \relative c' @{
+    << @{ e4 f g a @} \\ @{ c,4 d e f @} >>
+  @}
+@}
+@end example
+
+@noindent
+ist identisch mit
+
+@example
+\new Staff <<
+  \new Voice = "1" @{ \voiceOne \relative c' @{ e4 f g a @} @}
+  \new Voice = "2" @{ \voiceTwo \relative c' @{ c4 d e f @} @}
+>>
+@end example
+
+Beide würden folgendes Notenbild erzeugen:
+
+@c The following example should not display the code
+@lilypond[ragged-right,quote]
+\new Staff <<
+  \new Voice = "1" { \voiceOne \relative c' { e4 f g a } }
+  \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
+>>
+@end lilypond
+
+Der @code{\voiceXXX}-Befehl setzt die Richtung von Hälsen, 
+Bögen, Artikulationszeichen, Text, Punktierungen und Fingersätzen. 
+ @code{\voiceOne} und @code{\voiceThree} lassen diese Objekte 
+ nach oben zeigen, 
+ @code{\voiceTwo} und @code{\voiceFour}
+dagegen lassen sie abwärts zeigen. Diese Befehle erzeugen eine
+horizontale Verschiebung, wenn es erforderlich ist, um Zusammenstöße
+zu vermeiden. Der Befehl 
+@code{\oneVoice} stellt wieder auf das normale Verhalten um.
+
+Schauen wir uns in einigen einfachen Beispielen an, was genau
+die Befehle @code{\oneVoice}, @code{\voiceOne} und @code{voiceTwo}
+mit Text, Bögen und Dynamikbezeichnung anstellen:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  % Default behavior or behavior after \oneVoice
+  c d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceOne
+  c d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c, d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceTwo
+  c d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c, d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+Schauen wir und nun drei unterschiedliche Arten an, den gleichen
+Abschnitt polyphoner Musik zu notieren, jede Art mit ihren 
+Vorteilen in unterschiedlichen Situationen. Wir benutzen dabei
+das Beispiel vom vorherigen Abschnitt.
+
+Ein Ausdruck, der direkt innerhalb einer @code{<< >>}-Umgebung 
+auftritt, gehört der Hauptstimme an. Das ist nützlich, wenn zusätzliche 
+Stimme auftreten, während die Hauptstimme sich fortsetzt. Hier also 
+eine bessere Version des Beispiels aus dem vorigen Abschnitt. Die 
+farbigen Kreuz-Notenköpfe zeigen, dass die Hauptstimme sich jetzt in 
+einem einzigen Stimmen (@code{voice})-Kontext befindet. Somit kann ein
+Phrasierungsbogen ober sie gesetzt werden.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \voiceOneStyle
+  % The following notes are monophonic
+  c16^( d e f
+  % Start simultaneous section of three voices
+  <<
+    % Continue the main voice in parallel
+    { g4 f e | d2 e2) }
+    % Initiate second voice
+    \new Voice {
+      % Set stems, etc, down
+      \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+    }
+    % Initiate third voice
+    \new Voice {
+      % Set stems, etc, up
+      \voiceThree
+      s2. | s4 b4 c2
+    }
+  >>
+}
+@end lilypond
+
+@cindex Verschachteln von musikalischen Ausdrücken
+@cindex Verschachteln von gleichzeitigen Ausdrücken
+@cindex Ausdrücke, Verschachteln von
+
+@cindex Stimmen, temporär
+@cindex Stimmen, Verschachteln von
+
+Tiefer verschachtelte polyphone Konstrukte sind möglich, und
+wenn eine Stimme nur kurz auftaucht, kann das der bessere Weg
+sein, Noten zu setzen:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  <<
+    { g4 f e | d2 e2) }
+    \new Voice {
+      \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice {
+          \voiceThree
+          s4 b4 c2
+        }
+      >>
+    }
+  >>
+}
+@end lilypond
+
+@cindex Platzhalternoten
+@cindex unsichtbare Noten
+@cindex Noten verstecken
+
+Diese Methode, neue Stimmen kurzzeitig zu verschachteln, bietet sich
+an, wenn nur sehr kleine Abschnitte polyphonisch gesetzt sind. Wenn
+aber die ganze Partitur polyphon ist, ist es meistens klarer, direkt
+unterschiedliche Stimmen über die gesamte Partitur hinweg einzusetzen.
+Hierbei kann man mit unsichtbaren Noten dann die Stellen überspringen,
+an denen die Stimme nicht auftaucht, wie etwa hier:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' <<
+  % Initiate first voice
+  \new Voice {
+    \voiceOne
+    c16^( d e f g4 f e | d2 e2) |
+  }
+  % Initiate second voice
+  \new Voice {
+    % Set stems, etc, down
+    \voiceTwo
+    s4 r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 |
+  }
+  % Initiate third voice
+  \new Voice {
+    % Set stems, etc, up
+    \voiceThree
+    s1 | s4 b4 c2 |
+  }
+>>
+@end lilypond
+
+@subsubheading Note columns
+
+@cindex Notenkolumne
+@cindex Vertikale Position
+@cindex shift-Befehle
+@cindex Verschieben von Noten
+@funindex \shiftOff
+@funindex \shiftOn
+@funindex \shiftOnn
+@funindex \shiftOnnn
+
+Dicht notierte Noten in einem Akkord, oder Noten auf der gleichen
+Taktzeit aber in unterschiedlichen Stimmen, werden in zwei, manchmal
+auch mehreren Kolumnen getzt, um die Noten am Überschneiden zu 
+hindern. Wir bezeichnen sie als Notenkolumnen. Jede Stimme hat
+eine eigene Kolumne, und ein stimmenabhängiger Verschiebunsbefehl (engl.
+shift) wird eingesetzt, wenn eine Kollision auftreten könnte. 
+Das zeigt das Beispiel oben. Im zweiten Takt wird das C der zweiten
+Stimme nach rechts verschoben, relativ gesehen zum D der ersten Stimme,
+und im letzten Akkord wird das C der dritten Stimme auch nach 
+rechts verschoben im Verhältnis zu den anderen Stimmen.
+
+Die Befehle @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn} und
+@code{\shiftOff} bestimmen den Grad, zu dem Noten und Akkorde
+verschoben werden sollen, wenn sich sonst eine Kollision nicht
+vermeiden ließe. Die Standardeinstellung ist, dass die äußeren
+Stimmen (also normalerweise Stimme 1 und 2) @code{\shiftOff}
+eingestellt haben, während für die inneren Stimmen (3 und 4)
+@code{\shiftOn} eingeschaltet ist. Wenn eine Verschiebung
+auftritt, werden Stimmen 1 und 3 nach rechts und Stimmen 2 und 4
+nach links verschoben.
+
+@code{\shiftOnn} und @code{\shiftOnnn} definieren weitere
+Verschiebungsebenen, die man kurzzeitig anwählen kann, um
+Zusammenstöße in komplexen Situationen aufzulösen, siehe auch
+@ref{Real music example}.
+
+Eine Notenkolumne kann nur eine Note (oder einen Akkord) von
+einer Stimme mit Hälsen nach oben und eine Note (oder einen
+Akkord) von einer Stimme mit Hälsen nach unten tragen. Wenn
+Noten von zwei Stimmen mit den Hälsen in die gleiche Richtung
+an der selben Stelle auftreten und in beiden Stimmen ist
+keine Verschiebung oder die gleiche Verschiebungsebene
+definiert, wird die Fehlermeldung 
+@qq{zu viele kollidierende Notenspalten werden ignoriert}
+ausgegeben.
+
+@seealso
+
+Notationsreferenz: @ruser{Multiple voices}.
 
 @node Voices and vocals
 @subsection Voices and vocals
