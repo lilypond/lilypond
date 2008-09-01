@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 32999478bafbc28de49fb526a49a624c9e281edf
+    Translation of GIT committish: 023d49bb18cbc21a03e7711186d961b8b4fc5e80
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -549,7 +549,7 @@ erzeugt ein gültiges DocBook-Dokument mit der Erweiterung @file{.xml},
 welches normal weiterverarbeitet werden kann. Bei Benutzung von
 @uref{http://@/dblatex@/.sourceforge@/.net@/,dblatex} wird daraus
 automatisch eine PDF-Datei erzeugt. Für die Erzeugung von HTML (HTML 
-Help, JavaHelp, etc.) können die offiziellen DocBook XSL-Stylesheets
+Hilfe, JavaHelp, etc.) können die offiziellen DocBook XSL-Stylesheets
 benutzt werden. Eventuell müssen dafür allerdings kleinere Anpassungen
 vorgenommen werden.
 
@@ -634,7 +634,7 @@ Option hat nur Einfluss auf den Einzug von Notenzeilen und Text im
 Musikfragment, nicht jedoch auf den restlichen Text des Dokuments.
 
 @item noindent
-Setzt den einzug des ersten Notensystems auf 0. Diese
+Setzt den Einzug des ersten Notensystems auf 0. Diese
 Option hat nur Einfluss auf den Einzug von Notenzeilen und Text im 
 Musikfragment, nicht jedoch auf den restlichen Text des Dokuments. Dies 
 ist die Standardeinstellung, insofern ist diese Option im Normalfall 
@@ -655,7 +655,7 @@ Benutzt relative Oktavenbezeichnungen. Standardmäßig werden Noten relativ
 zum mittleren C angegeben. Das optionale ganzzahlige Argument 
 gibt die Oktave der ersten Note an, wobei die Standardeinstellung von 
 @code{1} das mittlere C bedeutet. Die @code{relative} Option macht nur
-Sinn in Verbindung mit der @code{fragmend} Option, weshalb @code{fragment}
+Sinn in Verbindung mit der @code{fragment} Option, weshalb @code{fragment}
 automatisch durch die Angabe der @code{relative} Option impliziert wird. 
 Eine explizite Angabe der @code{(no)fragment} Option hat keinen Effekt.
 @end table
@@ -667,7 +667,7 @@ spezialisierte Optionen zur Verfügung:
 @table @code
 @item verbatim
 Der LilyPond-Code im LilyPond-Kommando wird zum einen benutzt, um das
-Musikfragment in eine Grafik mit schönem Notensatz zu konvertiern,
+Musikfragment in eine Grafik mit schönem Notensatz zu konvertieren,
 andererseits aber auch wörtlich in das Dokument eingefügt. Dies 
 geschieht in einem @q{verbatim}-Block, gefolgt vom Text einer 
 möglicherweise angegebenen @code{intertext} Option@footnote{Die
@@ -713,7 +713,7 @@ Kommandozeilenoption @option{--header=@/texidoc} für eine Datei
 @code{\header}-Block, so wird dessen Inhalt in die Datei 
 @file{foo@/.texidoc} ausgegeben. Die @code{texidoc} Option veranlasst 
 @code{lilypond-book}, den Inhalt dieser @file{.texidoc} Dateien innerhalb 
-eines Dokumentations-Blocks direkt vor dem Musikfragment in das aktuelle 
+eines Dokumentationsblocks direkt vor dem Musikfragment in das aktuelle 
 Dokument einzufügen.
 
 Enthält also die Datei @file{foo@/.ly} etwa den LilyPond-Code
@@ -784,19 +784,242 @@ Schriftarten benutzt, die @LaTeX{} nicht selbst findet.
 @node Invoking lilypond-book
 @section Invoking @command{lilypond-book}
 
-@untranslated
+@command{lilypond-book} erzeugt abhängig vom Ausgabeformat eine Datei mit 
+einer der folgenden Dateierweiterungen: @file{.tex}, @file{.texi}, 
+@file{.html} oder @file{.xml}. Alle @file{.tex}, @file{.texi} und
+@file{.xml} Dateien müssen noch mit den entsprechenden Programmen (@LaTeX{}, 
+DocBook, etc.) weiter verarbeitet werden, um druckfähige Dateien zu erhalten.
 
 
 @subheading Format-specific instructions
+
 @subsubheading @LaTeX{}
+
+Es existieren zwei Methoden, Ihr @LaTeX{}-Dokument weiter zu verarbeiten,
+um zu einer druck- oder publikationsfähigen Datei zu gelangen:
+Zum einen die direkte Erzeugung einer PDF-Datei mit PDF@LaTeX{}, zum 
+anderen die Erzeugung einer DVI daraus einer PostScript-Datei mittels 
+@LaTeX{} und einem DVI-nach-PostScript Konverters wie @command{dvips}.
+Die erste Methode ist einfacher und daher empfehlenswert.@footnote{Manchmal
+kann eine Datei entweder von PDF@LaTeX{} oder von @LaTeX{} nicht korrekt
+verarbeitet werden, weshalb hier beide Methoden beschrieben werden.} Welche
+Methode auch immer benutzt wird, die Konvertierung zwischen PostScript und
+PDF kann leicht mit Hilfsprogrammen wie @command{ps2pdf} und @command{pdf2ps} 
+(aus dem Ghostscript Paket) erfolgen.
+
+Um eine PDF-Datei mittels PDF@LaTeX{} zu erzeugen, kann folgendermaßen 
+vorgegangen werden:
+
+@example
+lilypond-book --pdf Ihre_Datei.pdftex
+pdflatex Ihre_Datei.tex
+@end example
+
+@cindex Konturschriften
+@cindex Type1 Schriften
+@cindex dvips
+@cindex Aufruf von dvips
+Um eine PDF-Datei mittels @LaTeX{}/@command{dvips}/@command{ps2pdf} zu
+erhalten, sind folgende Befehle nötig:
+
+@example
+lilypond-book Ihre_Datei.lytex
+latex Ihre_Datei.tex
+dvips -Ppdf Ihre_Datei.dvi
+ps2pdf Ihre_Datei.ps
+@end example
+
+@noindent
+Die @file{.dvi}-Datei, die beim Aufruf von @command{latex} erzeugt wird,
+scheint keine Notenköpfe zu enthalten, was in Ordnung ist. Wenn Sie die
+Datei wie beschrieben weiter verarbeiten, erscheinen die Notenköpfe korrekt
+in den @file{.ps} und @file{.pdf} Dateien.
+
+Der Aufruf von @command{dvips} kann einige Warnungen über fehlende 
+Schriftarten ausgeben. Auch dies ist in Ordnung und kann ignoriert werden.
+
+Wenn Sie in der @LaTeX{}-Datei das Papierformat auf Querformat eingestellt
+haben, vergessen Sie nicht auf die @code{-t landscape} Option beim 
+Aufruf von @command{dvips}.
+
+
 @subsubheading Texinfo
+
+Um ein von @command{lilypond-book} erzeugtes Texinfo-Dokument zu 
+verarbeiten, gehen Sie wie für alle anderen Texinfo-Dokumente vor: 
+Rufen Sie -- abhängig vom gewünschten Ausgabeformat -- eines der Programme
+@command{texi2pdf}, @command{texi2dvi}, @command{makeinfo} oder 
+@command{texi2html} auf.
+
+@ifinfo
+@xref{Format with texi2dvi, , , texinfo, GNU Texinfo}, und @ref{Creating
+an Info File, , , texinfo, GNU Texinfo}.
+@end ifinfo
+@ifnotinfo
+Die Dokumentation von Texinfo liefert dazu nähere Informationen.
+@end ifnotinfo
+
+
 @subheading Command line options
+
+@command{lilypond-book} unterstützt die folgenden Kommandozeilenoptionen:
+
+@table @code
+@item -f @var{Format}
+@itemx --format=@var{Format}
+Gibt das Format des Eingabedokuments an: @code{html}, @code{latex},
+@code{texi} (Standardeinstellung), @code{texi-html} oder @code{docbook}. 
+Ist diese Option nicht angegeben, versucht @command{lilypond-book} das 
+Format anhand des Dateinamens zu bestimmen. Im Moment bedeutet @code{texi} 
+praktisch dasselbe wie @code{texi-html}.
+
+@c This complicated detail is not implemented, comment it out -jm
+@ignore
+The @code{texi} document type produces a Texinfo file with music
+fragments in the printed output only.  For getting images in the HTML
+version, the format @code{texi-html} must be used instead.
+@end ignore
+
+@item -F @var{Filter}
+@itemx --filter=@var{Filter}
+Leitet die Musikfragmente durch das Programm @var{filter} anstatt sie
+mit Lilypond zu einer Grafik zu verarbeiten. @option{--filter} und 
+@option{--process} kann nicht gleichzeigt benutzt werden. Beispielaufruf:
+
+@example
+lilypond-book --filter='convert-ly --from=2.0.0 -' Mein-Buch.tely
+@end example
+
+@item -h
+@itemx --help
+Gibt eine kurze Hilfemeldung aus.
+
+@item -I @var{Pfad}
+@itemx --include=@var{Pfad}
+Fügt @var{Pfad} zu den Include-Pfaden hinzu. @command{lilypond-book} sucht 
+auch in allen Include-Pfaden nach bereits erstellten Grafiken für die
+Musikfragmente. Wird das aktuelle Fragment gefunden und hat sich seit der
+letzten Erstellung nicht geändert, wird es nicht erneut erzeugt. Bei manchen
+der Programme zur Weiterverarbeitung wie etwa @command{makeinfo} oder 
+@command{latex} muss dieselbe @code{-I @var{Pfad}} Option angegeben werden,
+damit das entsprechende Programm die Grafiken ebenso findet.
+
+@item -o @var{Verzeichnis}
+@itemx --output=@var{Verzeichnis}
+Erzeugt die Ausgabedateien in @var{Verzeichnis}. Der Aufruf von 
+@command{lilypond-book} erzeugt zahlreiche kleine Dateien, die von 
+LilyPond, @command{latex}, @command{makeinfo} etc. dann weiter benützt 
+werden. Um zu vermeiden, dass das Quellenverzeichnis durch diese 
+Dateien unübersichtlich wird, kann die @option{--output} Option benutzt
+werden. Vor dem Aufruf von @command{latex} oder @command{makeinfo}
+sollten Sie in dieses Verzeichnis wechseln.
+
+@example
+lilypond-book --output=out IhreDatei.lytex
+cd out
+...
+@end example
+
+@itemx --skip-lily-check
+Nicht mit einer Fehlermeldung abbrechen, wenn keine Ausgabe von LilyPond
+gefunden wird. Dies wird benutzt für Dokumentation ohne Grafiken.
+
+@itemx --skip-png-check
+Nicht mit einer Fehlermeldung abbrechen, wenn für die EPS-Dateien keine
+PNG-Grafiken gefunden werden. Dies wird benutzt für Dokumentation ohne 
+Grafiken.
+
+@itemx --lily-output-dir=@var{Verzeichnis}
+Schreibt @file{lily-XXX} Dateien nach @var{Verzeichnis} und erzeugt
+im mit @code{--output} angegebenen Verzeichnis Verknüpfungen darauf.
+Diese Option ist nützlich, um Zeit zu sparen, wenn Dokumente in 
+verschiedenen Verzeichnissen viele identische Musikfragmente
+enthalten.
+
+@itemx --info-images-dir=@var{Verzeichnis}
+Formatiert die Texinfo-Ausgabe dergestalt, dass Info in @var{Verzeichnis}
+nach den Grafiken zu den Musikfragmenten sucht.
+
+@itemx --latex-program=@var{Programm}
+Führt @command{Programm} anstelle von @command{latex} aus. Dies ist
+nützlichen, wenn das Dokument mit einer anderen @LaTeX{}-Variante
+wie etwa @command{xelatex} verarbeitet werden soll.
+
+@itemx --left-padding=@var{Einrückung}
+Fügt @var{Einrückung} als zusätzlichen Einzug in die EPS-Box ein.
+@var{Einrückung} wird in Millimetern angegeben, die Standardeinstellung
+is 3.0 Millimeter. Diese Option kann benutzt werden, wenn die Notenzeilen
+über den Rand des Dokuments hinausstehen.
+
+Die Breite eines eng ausgeschnittenen Notensystems kann variieren 
+aufgrund von Notationselementen, die über den linken Rand hinausstehen,
+wie etwa Taktzahlen und Bezeichnungen der Instrumente. Diese Option 
+verkürzt die Notenzeile und verschiebt sie um denselben Betrag nach
+rechts.
+
+
+@item -P @var{Kommando}
+@itemx --process=@var{Kommando}
+Verarbeitet LilyPond-Fragmente mit @var{Kommando} anstelle des
+Standardbefehls @code{lilypond}. @code{--filter} und @code{--process}
+können nicht gleichzeitig angegeben werden.
+
+@item --pdf
+Erzeugt PDF-Dateien mit PDF@LaTeX{}.
+
+@item -V
+@itemx --verbose
+Gibt ausführliche informative Meldungen aus.
+
+@item -v
+@itemx --version
+Gibt die Versionsnummer aus.
+@end table
+
+@knownissues
+
+Der Texinfo-Befehl @code{@@pagesizes} wird ignoriert. Ebenso werden
+@LaTeX{}-Befehle ignoriert, die den Seitenrand oder die Zeilenlänge
+nach der Dokumentpräambel verändern.
+
+Nur der erste @code{\score}-Block eines LilyPond-Fragments wird verarbeitet.
 
 
 @node Filename extensions
 @section Filename extensions
 
-@untranslated
+Für die Eingabedatei kann zwar jede beliebige Dateinamenserweiterung benutzt 
+werden, allerdings muss bei Verwendung einer nicht bekannten Erweiterung
+das Ausgabeformat explizit an @command{lilypond-book} angegeben werden. 
+Details dazu finden sich im Abschnitt @ref{Invoking lilypond-book}.  
+Wird eine bekannte Erweiterung benutzt, wählt @command{lilypond-book} 
+automatisch das richtige Ausgabeformat basierend auf der Erweiterung der 
+Eingabedatei:
+
+@quotation
+@multitable @columnfractions .2 .5
+@item @strong{Erweiterung} @tab @strong{Ausgabeformat}
+@item
+@item @file{.html} @tab HTML
+@item @file{.itely} @tab Texinfo
+@item @file{.latex} @tab @LaTeX{}
+@item @file{.lytex} @tab @LaTeX{}
+@item @file{.lyxml} @tab DocBook
+@item @file{.tely} @tab Texinfo
+@item @file{.tex} @tab @LaTeX{}
+@item @file{.texi} @tab Texinfo
+@item @file{.texinfo} @tab Texinfo
+@item @file{.xml} @tab HTML
+@end multitable
+@end quotation
+
+Wird dieselbe Erweiterung für die Eingabedatei wie für die Ausgabedatei
+benutzt und befindet sich die Eingabedatei im aktuellen Arbeitsverzeichnis 
+von @command{lilypond-book}, muss die @code{--output} Option für 
+@command{lilypond-book} benutzt werden. Anderenfalls würde 
+@command{lilypond-book} ja die Eingabedatei überschreiben, weshalb das 
+Programm in diesem Fall mit einer Fehlermeldung wie @qq{Fehler: Ausgabe 
+würde Eingabedatei überschreiben; verwenden Sie --output.} abbricht.
 
 
 @node Alternate methods of mixing text and music
@@ -865,4 +1088,3 @@ lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png Dateiname.ly
 @end example
 
 
-@c -- SKELETON FILE --
