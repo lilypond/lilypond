@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: b54fc6953a8d70a3c51e8c3d0cbf9b3fe9652d78
+    Translation of GIT committish: 579452b61befcfd488fe53eda9a4b7166edca3d8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -54,11 +54,11 @@
           <td class="left-column">
 	  <ul>
 	    <li>
-	    <a class="title" href="user/lilypond-learning/index.de.html">Handbuch zum Lernen</a>
+	    <a class="title" href="user/lilypond-learning/index.de.html">Handbuch zum Lernen (LM)</a>
 	      <br>(F&uuml;r den ersten Anfang.)
 
  
- <li><a class="title" href="user/music-glossary/index.html">Glossar</a>
+ <li><a class="title" href="user/music-glossary/index.html">Musikglossar (MG)</a>
  (auf <a class="title" href="user/music-glossary-big-page.html">einer gro&szlig;en Seite</a> ~ 500 kB,
  als <a class="title" href="user/music-glossary.pdf">PDF</a>)
  
@@ -81,13 +81,13 @@
           &nbsp;
 	  <ul>
 	    <li>
-<a class="title" href="user/lilypond/index.de.html">Benutzerhandbuch</a>
+<a class="title" href="user/lilypond/index.de.html">Notationsreferenz (NR)</a>
  (auf <a class="title" href="user/lilypond-big-page.html">einer gro&szlig;en Seite</a> ~ 4 MB,
  als <a class="title" href="user/lilypond.de.pdf">PDF</a>)
       <br>(Notation mit LilyPond setzen.)
 
         <li>
-  <a  class="title" href="user/lilypond-internals/index.html">Programmreferenz</a>
+  <a  class="title" href="user/lilypond-internals/index.html">Referenz der Interna (IR)</a>
   (auf <a class="title" href="user/lilypond-internals-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb)
       <br>(Definitionen, wie die Standardeinstellungen ver&auml;ndert k&ouml;nnen.)
          
@@ -97,7 +97,7 @@
           &nbsp;
 	  <ul>
 	  <li>
-            <a class="title" href="user/lilypond-program/index.de.html">Programmbenutzung</a>
+            <a class="title" href="user/lilypond-program/index.de.html">Anwendungsbenutzung (AU)</a>
  (auf <a class="title" href="user/lilypond-program-big-page.html">einer gro&szlig;en Seite</a>,
  als <a class="title" href="user/lilypond-program.de.pdf">PDF</a>)
             <br>(Wie das Programm installiert und gestartet wird.)

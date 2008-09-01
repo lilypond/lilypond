@@ -121,12 +121,12 @@ Word counts (excluding lilypond snippets) are given for each file.
 
 -2- Introduction and beginning of Application Usage
 411   user/preface.itely
-3743  user/introduction.itely
+3855  user/introduction.itely
 390   user/lilypond-program.tely
-1745  user/install.itely (partial translation)
+1821  user/install.itely (partial translation)
 1057  user/setup.itely
-2879  user/running.itely
-10225 total
+2877  user/running.itely
+10411 total
 
 -3- Learning manual
 10050 user/fundamental.itely -- Fundamental concepts
@@ -139,11 +139,11 @@ Word counts (excluding lilypond snippets) are given for each file.
 674   user/lilypond.tely
 91    user/notation.itely -- Musical notation
 2948  user/pitches.itely
-6678  user/rhythms.itely
+6716  user/rhythms.itely
 1119  user/expressive.itely
 556   user/repeats.itely
-1236  user/simultaneous.itely
-1287  user/staff.itely
+1276  user/simultaneous.itely
+1536  user/staff.itely
 902   user/editorial.itely
 2303  user/text.itely
 73    user/specialist.itely -- Specialist notation
@@ -158,16 +158,16 @@ Word counts (excluding lilypond snippets) are given for each file.
 5603  user/input.itely -- Input syntax
 2164  user/non-music.itely -- Non-musical notation
 7896  user/spacing.itely -- Spacing issues
-9212  user/changing-defaults.itely -- Changing defaults
+9605  user/changing-defaults.itely -- Changing defaults
 5218  user/programming-interface.itely -- Interfaces for programmers
 1155  user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-59602 total
+60322 total
 
 -5- Application usage
 3175  user/lilypond-book.itely -- LilyPond-book
-995   user/converters.itely -- Converting from other formats
-4170  total
+1147  user/converters.itely -- Converting from other formats
+4322  total
 
 -6- Appendices whose translation is optional
 310   user/literature.itely

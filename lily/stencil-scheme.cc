@@ -276,8 +276,8 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 {
   LY_ASSERT_TYPE (is_axis, a, 1);
   LY_ASSERT_TYPE (is_number_pair, iv, 2);
-  LY_ASSERT_TYPE (scm_is_number, t,3);
-  LY_ASSERT_TYPE (scm_is_number, p,4);
+  LY_ASSERT_TYPE (scm_is_number, t, 3);
+  LY_ASSERT_TYPE (scm_is_number, p, 4);
 
   return Lookup::bracket ((Axis)scm_to_int (a), ly_scm2interval (iv),
 			  scm_to_double (t),
@@ -293,7 +293,7 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
   Stencil *s = unsmob_stencil (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
   LY_ASSERT_TYPE (scm_is_number, angle, 2);
-  LY_ASSERT_TYPE (scm_is_number, x,3);
+  LY_ASSERT_TYPE (scm_is_number, x, 3);
   LY_ASSERT_TYPE (scm_is_number, y, 4);
   Real a = scm_to_double (angle);
   Real x_off = scm_to_double (x);
