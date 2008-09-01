@@ -1,12 +1,49 @@
 <html>
 <!--
-    Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
+    Translation of GIT committish: 598a7ff07bb4752ea9169e592e3369016f014b57
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 !-->
+<head>
+  <title>LilyPond-Dokumentation &ndash; Status der deutschen &Uuml;bersetzung</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
 
 <body>
+<p><a href="index.html">Zur&uuml;ck zur Dokumentations-Hauptseite</a></p>
+
+<h1>LilyPond-Dokumentation &ndash; Status der deutschen &Uuml;bersetzung</h1>
+
+<p>Dies ist ein &Uuml;berblick &uuml;ber die Abschnitte der LilyPond 
+  @TOPLEVEL_VERSION@ -Dokumentation, die auf deutsch &uuml;bersetzt
+  sind. F&uuml;r jeden Abschnitt der Dokumentation findet sich die Anzahl
+  der W&ouml;rter in Klammern, wer die &Uuml;bersetzungsarbeit geleistet
+  hat und wer die &Uuml;bersetzung gepr&uuml;ft hat (Pr&uuml;fer sind
+  mit einer kleineren Schriftgr&ouml;&szlig;e dargestellt), wie viel
+  des urspr&uuml;nglichen englischen Abschnitts &uuml;bersetzt wurde,
+  wie aktuell die &Uuml;bersetzung ist und ob die &Uuml;bersetzung schon
+  aktualisiert wurde, nachdem das Grand Documenation Project (GDP)
+  begonnen wurde.
+</p>
+
+<p>Bitte beachten Sie, dass im Rahmen des GDP sehr viele &Auml;nderungen
+  in der englischen Dokumentation vorgenommen wurden. Die deutsche
+  &Uuml;bersetzung ist deshalb nicht vollst&auml;ndig aktuell. Das bedeutet
+  nicht, dass die aktuelle &Uuml;bersetzung sich nicht auf die aktuelle
+  LilyPond-Version beziehen w&uuml;rde, sondern nur, dass sie nicht in 
+  Allem mit der englischen Version &uuml;bereinstimmt. Wir geben unser 
+  Bestes, um die &uuml;bersetzte Dokumentation mit allen Syntax-&Auml;nderungen
+  zu aktualisieren; Kapitel f&uuml;r Kapitel wird dann vollst&auml;ndig
+  &uuml;bersetzt werden, wenn das entsprechende englische Kapitel vom
+  GDP verbessert wurde.
+</p>
+
+<p>Wenn Sie &Auml;nderungsvorschl&auml;ge oder Korrekturen melden wollen
+  oder sich an der &Uuml;bersetzungsarbeit beteiligen wollen, schreiben
+  Sie bitte eine E-Mail an die Entwicklerliste 
+  <a href="http://lists.gnu.org/mailman/listinfo/lilypond-devel">lilypond-devel@gnu.org</a>.
+</p>
 
 </body>
 </html>
