@@ -94,10 +94,13 @@ def build_pages_dict (filelist):
 def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
-splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
+splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|\
+Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|\
+lilypond-learning))/')
 
 snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
-user_ref_re = re.compile (r'href="(?:\.\./)?lilypond(-internals|-learning|-program|(?!-snippets))')
+user_ref_re = re.compile ('href="(?:[.][.])?lilypond\
+(-internals|-learning|-program|(?!-snippets))')
 
 ## Windows does not support symlinks.
 # This function avoids creating symlinks for splitted HTML manuals
@@ -177,12 +180,15 @@ def find_translations (prefix, lang_ext):
         if lang_ext != e:
             if e in pages_dict[prefix]:
                 available.append (l)
-            elif lang_ext == '' and l.enabled and reduce (operator.and_, [not prefix.startswith (s) for s in non_copied_pages]):
+            elif lang_ext == '' and l.enabled and reduce (operator.and_,
+                                                          [not prefix.startswith (s)
+                                                           for s in non_copied_pages]):
                 # English version of missing translated pages will be written
                 missing.append (e)
     return available, missing
 
-online_links_re = re.compile ('''(href|src)=['"]([^/][.]*[^.:'"]*)([.]html|[.]png)(#[^"']*|)['"]''')
+online_links_re = re.compile ('''(href|src)=['"]([^/][.]*[^.:'"]*)\
+([.]html|[.]png)(#[^"']*|)['"]''')
 offline_links_re = re.compile ('''href=['"]([^/][.]*[^.:'"]*)([.]html)(#[^"']*|)['"]''')
 big_page_name_re = re.compile ('''(.+?)-big-page''')
 
@@ -313,7 +319,7 @@ def process_html_files (package_name = '',
             ### add footer
             if footer_tag_re.search (s) == None:
                 s = add_footer (s, footer_tag + footer)
-                
+
                 available, missing = find_translations (prefix, lang_ext)
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
                 # Add menu after stripping: must not have autoselection for language menu.

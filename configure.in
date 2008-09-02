@@ -126,8 +126,6 @@ AC_MSG_RESULT(Must have patched GUILE rational support. See INSTALL.txt))
 CPPFLAGS="$save_CPPFLAGS"
 
 
-# We check for makeinfo below, too. Really duplicate that check?
-## STEPMAKE_MAKEINFO(REQUIRED, 4.11)
 STEPMAKE_PYTHON_DEVEL(REQUIRED)
 
 STEPMAKE_PATH_PROG(GHOSTSCRIPT, gs, OPTIONAL, 8.15)

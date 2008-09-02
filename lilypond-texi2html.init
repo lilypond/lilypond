@@ -350,7 +350,7 @@ sub lilypond_element_target_name($$$)
   }
 
   # If we have an entry in the section<=>filename map, use that one, otherwise
-  # generate the anchor here. 
+  # generate the anchor here.
   if (exists ($node_to_filename_map->{$node_name})) {
     (my $filename, $target) = @{$node_to_filename_map->{$node_name}};
   } else {
@@ -884,7 +884,7 @@ sub lilypond_print_navigation
 # before the fn text.
 
 
-# The following code is copied from texi2html's examples/makeinfo.init and 
+# The following code is copied from texi2html's examples/makeinfo.init and
 # should be updated when texi2html makes some changes there!
 
 my $makekinfo_like_footnote_absolute_number = 0;
@@ -899,7 +899,7 @@ sub makeinfo_like_foot_line_and_ref($$$$$$$$)
     my $footnote_file = shift;
     my $lines = shift;
     my $state = shift;
-    
+
     $makekinfo_like_footnote_absolute_number++;
 
     # this is a bit obscure, this allows to add an anchor only if formatted
@@ -907,7 +907,7 @@ sub makeinfo_like_foot_line_and_ref($$$$$$$$)
     $docid = '' if ($state->{'outside_document'} or $state->{'multiple_pass'});
 
     if ($from_file eq $footnote_file)
-    { 
+    {
         $from_file = $footnote_file = '';
     }
 
@@ -985,8 +985,8 @@ sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
            my $docid = $state->{'footnote_place_id'};
            my $doc_state = $state->{'footnote_document_state'};
            $docid = '' if ($doc_state->{'outside_document'} or $doc_state->{'multiple_pass'});
-           my $foot_label = &$anchor($state->{'footnote_footnote_id'}, 
-                 $document_file . "#$state->{'footnote_place_id'}", 
+           my $foot_label = &$anchor($state->{'footnote_footnote_id'},
+                 $document_file . "#$state->{'footnote_place_id'}",
                  "$state->{'footnote_number_in_page'}");
            $footnote_text = "<small>[${foot_label}]</small> ";
         }

@@ -18,7 +18,7 @@ XREF_MAPS_DIR=$(top-build-dir)/out/xref-maps
 XREF_MAPS_FILES=$(INFO_DOCS:%=$(XREF_MAPS_DIR)/%.xref-map)
 
 # texi2html flags
-ifneq ($(ISOLANG),) 
+ifneq ($(ISOLANG),)
 TEXI2HTML_LANG = --lang=$(ISOLANG)
 endif
 TEXI2HTML_FLAGS += --css-ref=lilypond.css $(DOCUMENTATION_INCLUDES) \

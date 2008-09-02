@@ -288,20 +288,12 @@
 @ref{\TEXT\,,\DISPLAY\,lilypond-learning,Learning Manual}
 @end macro
 
-@macro rlearningnamed{TEXT,DISPLAY}
-learning manual, @ref{\TEXT\,,\DISPLAY\,lilypond-learning,Learning Manual}
-@end macro
-
 @macro ruser{TEXT}
 @ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY,DISPLAY}
+@macro rusernamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
-@end macro
-
-@macro rusernamed{TEXT,DISPLAY,DISPLAY}
-notation reference, @ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
 @end macro
 
 @macro rprogram{TEXT}
@@ -310,10 +302,6 @@ notation reference, @ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
-@end macro
-
-@macro rprogramnamed{TEXT,DISPLAY}
-program usage manual, @ref{\TEXT\,,\DISPLAY\,lilypond-program,Application Usage}
 @end macro
 
 @macro rlsr{TEXT}
