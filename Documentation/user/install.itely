@@ -115,7 +115,8 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
 
-@item MetaFont (mf-nowin, mf, mfw or mfont binaries) and MetaPost
+@item @uref{http://metafont.tutorial.free.fr/,MetaFont} (mf-nowin, mf, mfw or 
+mfont binaries) and @uref{http://cm.bell-labs.com/who/hobby/MetaPost.html,MetaPost}
 (mpost binary), usually packaged with a @LaTeX{} distribution like
 tetex or texlive.
 

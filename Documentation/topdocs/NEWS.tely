@@ -65,6 +65,40 @@ which scares away people.
 
 @end ignore
 
+@item Flags can now be generated with Scheme-code using the @code{'flag} Stem
+grob property. Existing scores will work without change.
+@lilypond
+testnotes = { \autoBeamOff c'8 d'16 c''8 d''16 }
+
+#(define (inverted-flag stem-grob)
+  (let* ((dir (if (eqv? (ly:grob-property stem-grob 'direction) UP) "d" "u"))
+         (flag (retrieve-glyph-flag "" dir "" stem-grob))
+         (stroke-style (ly:grob-property stem-grob 'stroke-style))
+         (stencil (if (null? stroke-style) flag
+                         (add-stroke-glyph flag stem-grob dir stroke-style ""))))
+    (ly:stencil-rotate stencil 180 -1 -1)))
+
+#(define-public (weight-flag stem-grob)
+  (let* ((log (- (ly:grob-property stem-grob 'duration-log) 2))
+         (is-up (eqv? (ly:grob-property stem-grob 'direction) UP))
+         (yext (if is-up (cons (* log -0.8) 0) (cons 0 (* log 0.8))))
+         (flag-stencil (make-filled-box-stencil '(-0.4 . 0.4) yext))
+         (stroke-style (ly:grob-property stem-grob 'stroke-style))
+         (stroke-stencil (if (equal? stroke-style "grace") (make-line-stencil 0.2 -0.9 -0.4 0.9 -0.4) empty-stencil)))
+    (ly:stencil-add flag-stencil stroke-stencil)))
+
+{
+  \time 3/8
+  \override Stem #'flag = #weight-flag
+  \testnotes
+
+  \override Stem #'flag = #inverted-flag
+  \testnotes
+
+}
+
+@end lilypond
+
 @item Harp pedalling diagrams were added:
 
 @lilypond

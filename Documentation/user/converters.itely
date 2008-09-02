@@ -98,15 +98,15 @@ Set default key.  @math{@var{acc} > 0} sets number of sharps;
 Write output to @var{file}.
 
 @item -s, --start-quant=@var{DUR}
-Quantize note starts on DUR.
+Quantize note starts on @var{DUR}.
 
 @item -t, --allow-tuplet=@var{DUR}*@var{NUM}/@var{DEN}
 Allow tuplet durations @var{DUR}*@var{NUM}/@var{DEN}.
 
-@item -V, --verbose
+@item -v, --verbose
 Be verbose.
 
-@item -v, --version
+@item -V, --version
 Print version number.
 
 @item -w, --warranty
@@ -127,25 +127,68 @@ to a single duration and add phrase markings or pedal indicators.
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
-@uref{http://@/www.@/recordare@/.com/xml@/.html,MusicXML} is an XML dialect
+@cindex MusicXML
+
+@uref{http://@/www.@/musicxml@/.org/,MusicXML} is an XML dialect
 for representing music notation.
 
-@command{musicxml2ly} extracts the notes from part-wise MusicXML
-files, and writes it to a .ly file.  It is invoked from the command-line.
+@command{musicxml2ly} extracts the notes, articulations, score structure,
+lyrics, etc. from part-wise MusicXML files, and writes them to a .ly
+file.  It is invoked from the command-line.
+
+
+It is invoked from the command-line as follows,
+@example
+musicxml2ly [@var{option}]@dots{} @var{xml-file}
+@end example
 
 Note that by @q{command-line}, we mean the command line of the
 operating system.  See @ref{Converting from other formats}, for
 more information about this.
 
+If the given filename is @file{-}, @command{musicxml2ly} reads input 
+from the command line.
+
 The following options are supported by @command{musicxml2ly}:
 
 @table @code
+@item -a, --absolute
+convert pitches in absolute mode.
+
 @item -h,--help
 print usage and option summary.
+
+@item -l, --language=LANG
+use a different language file 'LANG.ly' and corresponding pitch names,
+e.g. 'deutsch' for deutsch.ly and German note names.
+
+@item --lxml
+use the lxml.etree Python package for XML-parsing; uses less memory and cpu time.
+
+@item --nd --no-articulation-directions
+do not convert directions (@code{^}, @code{_} or @code{-}) for
+articulations, dynamics, etc.
+
+@item --no-beaming
+do not convert beaming information, use LilyPond's automatic 
+beaming instead.
+
 @item -o,--output=@var{file}
-set output filename to @var{file}. (default: print to stdout)
-@item -v,--version
+set output filename to @var{file}.  If @var{file} is @file{-}, the output
+will be printed on stdout.  If not given, @var{xml-file}@file{.ly} will
+be used.
+
+@item -r,--relative
+convert pitches in relative mode (default).
+
+@item -v,--verbose
+be verbose.
+
+@item --version
 print version information.
+
+@item -z,--compressed
+input file is a zip-compressed MusicXML file.
 @end table
 
 
@@ -157,7 +200,7 @@ print version information.
 ABC is a fairly simple ASCII based format.  It is described at the ABC site:
 
 @quotation
-@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/abc2mtex/@/abc@/.txt}.
+@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html}.
 @end quotation
 
 @command{abc2ly} translates from ABC to LilyPond.  It is invoked as follows:
@@ -169,11 +212,15 @@ abc2ly [@var{option}]@dots{} @var{abc-file}
 The following options are supported by @command{abc2ly}:
 
 @table @code
+@item -b,--beams=None
+preserve ABC's notion of beams
 @item -h,--help
 this help
 @item -o,--output=@var{file}
 set output filename to @var{file}.
-@item -v,--version
+@item -s,--strict
+be strict about success
+@item --version
 print version information.
 @end table
 
@@ -237,9 +284,9 @@ The following options are supported by @command{etf2ly}:
 @table @code
 @item -h,--help
 this help
-@item -o,--output=FILE
-set output filename to FILE
-@item -v,--version
+@item -o,--output=@var{FILE}
+set output filename to @var{FILE}
+@item --version
 version information
 @end table
 
@@ -270,7 +317,7 @@ monophonic MIDI to LilyPond converter.
 @uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi}, an
 Emacs major mode.
 @item
-@uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, which imports
+@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, which imports
 @uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
 @item
 @uref{http://@/noteedit@/.berlios@/.de,NoteEdit}
@@ -283,10 +330,10 @@ which imports MIDI
 a LISP library to generate music notation 
 @item
 @uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml},
-has experimental export for lilypond.
+has experimental export for LilyPond.
 @item
-@uref{http://www.tuxguitar.com.ar/}, can export to lilypond.
+@uref{http://www.tuxguitar.com.ar/}, can export to LilyPond.
 @item
-@uref{http://musescore.org} can also export to lilypond.
+@uref{http://musescore.org} can also export to LilyPond.
 @end itemize
 

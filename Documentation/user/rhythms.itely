@@ -1854,6 +1854,7 @@ marking the begin and end point with @code{[} and @code{]}
 }
 @end lilypond
 
+@funindex \noBeam
 
 Individual notes may be marked with @code{\noBeam} to prevent them
 from being beamed:

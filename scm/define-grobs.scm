@@ -1625,6 +1625,7 @@
 	(length . ,ly:stem::calc-length)
 	(thickness . 1.3)
 	(cross-staff . ,ly:stem::calc-cross-staff)
+	(flag . ,ly:stem::calc-flag)
 	(details
 	 . (
 	    ;; 3.5 (or 3 measured from note head) is standard length
