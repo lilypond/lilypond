@@ -182,8 +182,19 @@ def find_translations (prefix, lang_ext):
                 missing.append (e)
     return available, missing
 
-online_links_re = re.compile ('''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html|.png)(#[^"\']*|)[\'"]''')
-offline_links_re = re.compile ('''href=[\'"]([^/][.]*[^.:\'"]*)(.html)(#[^"\']*|)[\'"]''')
+online_links_re = re.compile ('''(href|src)=['"]([^/][.]*[^.:'"]*)([.]html|[.]png)(#[^"']*|)['"]''')
+offline_links_re = re.compile ('''href=['"]([^/][.]*[^.:'"]*)([.]html)(#[^"']*|)['"]''')
+big_page_name_re = re.compile ('''(.+?)-big-page''')
+
+def process_i18n_big_page_links (match, prefix, lang_ext):
+    big_page_name = big_page_name_re.match (match.group (1))
+    if big_page_name:
+        destination_path = os.path.normpath (os.path.join (os.path.dirname (prefix),
+                                                           big_page_name.group (0)))
+        if not lang_ext in pages_dict[destination_path]:
+            return match.group (0)
+    return 'href="' + match.group (1) + '.' + lang_ext \
+        + match.group (2) + match.group (3) + '"'
 
 def process_links (s, prefix, lang_ext, file_name, missing, target):
     page_flavors = {}
@@ -196,7 +207,7 @@ def process_links (s, prefix, lang_ext, file_name, missing, target):
     elif target == 'offline':
         # in LANG doc index: don't rewrite .html suffixes
         # as not all .LANG.html pages exist;
-        # the doc index should be translated and contain the right links
+        # the doc index should be translated and contain links with the right suffixes
         if prefix == 'Documentation/out-www/index':
             page_flavors[file_name] = [lang_ext, s]
         elif lang_ext == '':
@@ -205,9 +216,18 @@ def process_links (s, prefix, lang_ext, file_name, missing, target):
                 page_flavors[langdefs.lang_file_name (prefix, e, '.html')] = \
                     [e, offline_links_re.sub ('href="\\1.' + e + '\\2\\3"', s)]
         else:
-            page_flavors[file_name] = \
-                [lang_ext,
-                 offline_links_re.sub ('href="\\1.' + lang_ext + '\\2\\3"', s)]
+            # For saving bandwidth and disk space, we don't duplicate big pages
+            # in English, so we must process translated big pages links differently.
+            if 'big-page' in prefix:
+                page_flavors[file_name] = \
+                    [lang_ext,
+                     offline_links_re.sub \
+                         (lambda match: process_i18n_big_page_links (match, prefix, lang_ext),
+                          s)]
+            else:
+                page_flavors[file_name] = \
+                    [lang_ext,
+                     offline_links_re.sub ('href="\\1.' + lang_ext + '\\2\\3"', s)]
     return page_flavors
 
 def add_menu (page_flavors, prefix, available, target, translation):
@@ -230,7 +250,6 @@ def add_menu (page_flavors, prefix, available, target, translation):
         if language_menu:
             language_available = t (lang_available) % language_menu
             languages = LANGUAGES_TEMPLATE % vars ()
-        # put language menu before '</body>' and '</html>' tags
         page_flavors[k][1] = add_footer (page_flavors[k][1], languages)
     return page_flavors
 
