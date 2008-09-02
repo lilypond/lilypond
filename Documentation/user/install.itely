@@ -181,7 +181,7 @@ or lyrics.
 You can view the documentation online at
 @uref{http://lilypond.org/doc/}, but you can also build it locally.
 This process requires a successful compile of LilyPond, and some
-additional tools and packages
+additional tools and packages:
 
 @itemize
 @item The @uref{http://netpbm.sourceforge.net/,netpbm utilities}
@@ -194,6 +194,10 @@ and the patch from
 @uref{http://bugs.ghostscript.com/show_bug.cgi?id=688017}, or use
 a release of Ghostscript which includes these patches, for example
 8.60 or newer.
+@item @uref{http://www.nongnu.org/texi2html/,Texi2HTML} 1.79 or newer
+is strongly recommended to build documentation in HTML; support for
+building HTML documentation using @command{makeinfo} from GNU Texinfo
+is deprecated.
 @end itemize
 
 
