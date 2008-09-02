@@ -1483,7 +1483,7 @@ manuell eingrenzen, damit sie der üblichen Notationsweise
 für Gesang entspricht. Für Einzelheiten siehe 
 @ref{Automatic and manual beams}.
 
-@lilypond[verbatin,quote]
+@lilypond[verbatim,quote]
 <<
   \relative c'' {
     \key g \major
