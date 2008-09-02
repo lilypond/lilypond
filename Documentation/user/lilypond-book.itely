@@ -740,7 +740,7 @@ directory part of the file path is stripped.
 
 @item fontload
 This option includes fonts in all of the generated EPS-files for this
-snippet.  This should be used if the snippet uses any font that @LaTeX
+snippet.  This should be used if the snippet uses any font that @LaTeX{}
 cannot find on its own.
 
 @end table
@@ -909,7 +909,7 @@ Process LilyPond snippets using @var{command}.  The default command is
 @code{--process} at the same time.
 
 @item --pdf
-Create PDF files for use with PDFLaTeX.
+Create PDF files for use with PDF@LaTeX{}.
 
 @item -V
 @itemx --verbose
