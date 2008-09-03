@@ -112,7 +112,7 @@ Quantisiert den Beginn der Noten zu Vielfachen von @var{LÄNGE}.
 Erlaubt Tuplet-Dauern der Form @var{DUR}*@var{NUM}/@var{DEN}.
 
 @item -V, --verbose
-Gibt zusätzliche Debug-Informationen während der Konvertierung aus.
+Gibt ausführliche informative Meldungen während der Konvertierung aus.
 
 @item -v, --version
 Gibt die Versionsnummer aus.
@@ -195,7 +195,7 @@ erfolgt die Ausgabe in die Datei @var{XML-Datei}@file{.ly}.
 Konvertiert in relative Tonhöhen. (Standardeinstellung)
 
 @item -v, --verbose
-Gibt zusätzliche Debug-Informationen während der Konvertierung aus.
+Gibt ausführliche informative Meldungen während der Konvertierung aus.
 
 @item --version
 Gibt die Versionsnummer aus.

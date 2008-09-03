@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 86df5f5861aa3bd43c425064edc5a839a9f4de5b
+    Translation of GIT committish: 598a7ff07bb4752ea9169e592e3369016f014b57
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1227,15 +1227,372 @@ ausgegeben.
 
 Notationsreferenz: @ruser{Multiple voices}.
 
+
 @node Voices and vocals
 @subsection Voices and vocals
 
-@untranslated
+Die Notation von Vokalmusik ihre eigene Schwierigkeit, nämlich
+die Kombination von zwei Ausdrücken: den Noten und dem Text.
+Achtung: Der Gesangstext wird auf Englisch @qq{lyrics} genannt.
+
+
+@funindex \new Lyrics
+@funindex \lyricsto
+@cindex Lyrics context, erstellen
+@cindex Gesangtext, Verbindung mit Noten
+
+Wir haben schon den @code{\addlyrics@{@}}-Befehl betrachtet,
+mit dem einfache Partituren gut erstellt werden können. 
+Diese Methode ist jedoch recht eingeschränkt. Wenn der Notensatz
+komplexer wird, muss der Gesangstext mit einem neuen
+@code{Lyrics}-Kontext begonnen werden (mit dem Befehl
+@code{\new Lyrics}) und durch den Befehl @code{\lyricsto@{@}}
+mit einer bestimmten Stimme verknüpft werden, indem die
+Bezeichnung der Stimme benutzt wird.
+
+@lilypond[quote,verbatim,fragment]
+<<
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+  \new Lyrics \lyricsto "one" {
+    No more let sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+Beachten Sie, dass der Notentext nur mit einem @code{Voice}-Kontext
+verknüpft werden kann, nicht mit einem @code{Staff}-Kontext.
+In diesem Fall also müssen Sie ein System (@code{Staff}) und 
+eine Stimme (@code{Voice}) explizit erstellen, damit alles 
+funktioniert.
+
+@cindex Gesangstext und Balken
+@cindex Text und Balken
+@cindex Balken und Text
+@funindex \autoBeamOff
+
+Die automatischen Balken, die LilyPond in der Standardeinstellung
+setzt, eignen sich sehr gut für instrumentale Musik, aber nicht
+so gut für Musik mit Text, wo man entweder gar keine Balken 
+benutzt oder sie einsetzt, um Melismen zu verdeutlichen.
+Im Beispiel oben wird deshalb der Befehl @code{\autoBeamOff}
+eingesetzt um die automatischen Balken (engl. beam) auszuschalten.
+
+@funindex \new ChoirStaff
+@funindex \lyricmode
+@cindex Vokalpartitur, Aufbau
+@cindex Chorpartitur, Aufbau
+
+Wir wollen das frühere Beispiel von @notation{Judas Maccabæus}
+benutzen, um diese flexiblere Technik für Gesangstexte
+zu illustrieren. Das Beispiel wurde so umgeformt, dass jetzt
+Variablen eingesetzt werden, um den Text und die Noten
+von der Partiturstruktur zu trennen. Es wurde zusätzlich
+eine Chorpartiturklammer hinzugefügt. Der Gesangtext muss mit
+@code{\lyricmode} eingegeben werden, damit er als Text und
+nicht als Noten interpretiert werden kann.
+
+@lilypond[quote,verbatim]
+global = { \time 6/8 \partial 8 \key f \major}
+SopOneMusic = \relative c'' {
+  c8 | c([ bes)] a a([ g)] f | f'4. b, | c4.~ c4 }
+SopTwoMusic = \relative c' {
+  r8 | r4. r4 c8 | a'([ g)] f f([ e)] d | e([ d)] c bes' }
+SopOneLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, __ }
+SopTwoLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "SopOne" {
+        \global
+        \SopOneMusic
+      }
+      \new Lyrics \lyricsto "SopOne" {
+        \SopOneLyrics
+      }
+    >>
+    \new Staff <<
+      \new Voice = "SopTwo" {
+        \global
+        \SopTwoMusic
+      }
+      \new Lyrics \lyricsto "SopTwo" {
+        \SopTwoLyrics
+      }
+    >>
+  >>
+}
+@end lilypond
+
+Dies ist die Grundstruktur für alle Chorpartituren. Mehr
+Systeme können hinzugefügt werden, wenn sie gebraucht werden, mehr
+Stimmen können zu jedem System hinzugefügt werden, mehr
+Strophen können zum Text hinzugefügt werden, und schließlich
+können die Variablen schnell in eine eigene Datei verschoben 
+werden, wenn sie zu lang werden sollten.
+
+@cindex Choralnotation
+@cindex Hymnus-Notation
+
+Hier ein Beispiel der ersten Zeile eines Chorals mit vier
+Strophen für gemischten Chor. In diesem Fall ist der Text
+für alle vier Stimmen identisch. Beachten Sie, wie die
+Variablen eingesetzt werden, um Inhalt (Noten und Text) und Form
+(die Partitur) voneinander zu trennen. Eine Variable wurde
+eingesetzt, um die Elemente, die auf beiden Systemen auftauchen,
+aufzunehmen, nämlich Taktart und Tonart. Solch eine 
+Variable wird oft auch mit @qq{global} bezeichnet.
+
+@lilypond[quote,verbatim]
+TimeKey = { \time 4/4 \partial 4 \key c \major}
+SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+VerseOne   = \lyricmode {
+  E -- | ter -- nal fa -- ther, | strong to save, }
+VerseTwo   = \lyricmode {
+  O | Christ, whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode {
+  O | Ho -- ly Spi -- rit, | who didst brood }
+VerseFour  = \lyricmode {
+  O | Tri -- ni -- ty of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Sop"  { \voiceOne \TimeKey \SopMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Sop" { \VerseOne   }
+      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
+      \new Lyrics \lyricsto "Sop" { \VerseThree }
+      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+    >>
+  >>
+}
+@end lilypond
+
+@cindex Strophe und Refrain
+@cindex Refrain
+
+Dieser Abschnitt schließt mit einem Beispiel, das eine Solo-Strophe
+mit anschließendem zweistimmigem Refrain auf zwei Systemen zeigt.
+Die Positionierung des einstimmigen Abschnitss und der mehrstimmigen
+Stelle ist etwas kompliziert; es braucht etwas Aufmerksamkeit,
+um der Erklärung folgen zu können.
+
+Beginnen wir mit einer @code{score}-Umgebung, in der eine
+Chorpartitur (@code{ChoirStaff}) gesetzt wird. Die Partitur soll
+schließlich mit der eckigen Klammer beginnen.
+Normalerweise bräuchten wir spitze Klammern im Quelltext
+nach dem @code{\new ChoirStaff}, damit die Systeme paralell
+gesetzt werden, aber hier wollen wir diese Parallelsierung
+ja erst nach dem Solo. Also benutzen wir geschweifte Klammern.
+Innerhalb der Chorpartitur erstellen wir zuerst das System, 
+das die Strophe enthält. Es braucht Noten und Text parallel,
+also setzen wir hier die spitzen Klammern um @code{\new Voice} 
+und @code{\new Lyrics}.
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+\score {
+  \new Choirstaff {
+    \new Staff <<
+      \new Voice = "verse" {
+        \versenotes \break
+      }
+      \new Lyrics \lyricsto verse {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+@noindent
+Damit erhalten wir die Strophe.
+
+Jetzt soll @notation{refrainA} auf dem selben System gesetzt
+werden, während gleichzeitig in einem neuen System darunter 
+@notation{refrainB} gesetzt wird. Damit die Oberstimme das
+gleiche System benutzt, muss alles direkt auf den Zeilenumbruchbefehl
+(@code{\break} folgen, innerhalb der @notation{verse}-Stimme.
+Ja, tatsächlich, @emph{innerhalb} der @notation{verse}-Stimme.
+Hier haben wir diese parallele Stelle isoliert. Weitere Systeme
+könnten auf die gleiche Weise hinzugefügt werden.
+
+@example
+<<
+  \refrainnotesA
+  \new Lyrics \lyricsto verse @{
+    \refrainwordsA
+  @}
+  \new Staff <<
+    \new Voice = "refrainB" @{
+      \refrainnotesB
+    @}
+    \new Lyrics \lyricsto "refrainB" @{
+      \refrainwordsB
+    @}
+  >>
+>>
+@end example
+
+Nun schließlich das Resultat mit zwei Systemen für den Refrain,
+man kann gut sehen, wie sich die parallele Stelle innherhalb
+der @notation{verse}-Stimme befindet.
+
+@lilypond[quote,verbatim, ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new ChoirStaff {
+    \new Staff <<
+      \new Voice = "verse" {
+        \versenotes \break
+        <<
+          \refrainnotesA
+          \new Lyrics \lyricsto "verse" {
+            \refrainwordsA
+          }
+          \new Staff <<
+            \new Voice = "refrainB" {
+              \refrainnotesB
+            }
+            \new Lyrics \lyricsto "refrainB" {
+              \refrainwordsB
+            }
+          >>
+        >>
+      }
+      \new Lyrics \lyricsto "verse" {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+@cindex book, Benutzung von
+@funindex \book
+
+Dies ist zwar eine interessante und nützliche Übung um zu
+verstehen, wie sequentielle und parallele Notationsumgebungen
+funktionieren, in der Praxis würde man diesen Code aber
+vielleicht eher in zwei @code{\score}-Umgebungen trennnen
+und diese dann innerhalb einer @code{\book}-Umgebung
+einsetzen, wie im folgenden Beispiel demonstriert:
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new Staff <<
+    \new Voice = "verse" {
+      \versenotes
+    }
+    \new Lyrics \lyricsto "verse" {
+      \versewords
+    }
+  >>
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "refrainA" {
+        \refrainnotesA
+      }
+      \new Lyrics \lyricsto "refrainA" {
+        \refrainwordsA
+      }
+    >>
+    \new Staff <<
+      \new Voice = "refrainB" {
+        \refrainnotesB
+      }
+      \new Lyrics \lyricsto "refrainB" {
+        \refrainwordsB
+      }
+    >>
+  >>
+}
+@end lilypond
+
+@seealso
+
+Notation Reference: @ruser{Vocal music}.
+
 
 @node Contexts and engravers
 @section Contexts and engravers
 
-@untranslated
+Kontexte und Engraver (@qq{Stempel}) sind in den vorherigen
+Abschnitten schon aufgetaucht; hier wollen wir uns ihnen
+nun etwas ausführlicher widmen, denn sie sind sehr
+wichtig, um Feineinstellungen in der LilyPond-Notenausgabe
+vornehmen zu können.
 
 @menu 
 * Contexts explained::
