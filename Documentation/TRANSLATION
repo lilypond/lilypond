@@ -114,19 +114,19 @@ Word counts (excluding lilypond snippets) are given for each file.
 412   user/lilypond-learning.tely
 5746  user/tutorial.itely
 23    user/dedication.itely
-407   user/macros.itexi
-222   index.html.in
+409   user/macros.itexi
+224   index.html.in
 3473  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
-10283 total
+10287 total
 
 -2- Introduction and beginning of Application Usage
 411   user/preface.itely
 3855  user/introduction.itely
 390   user/lilypond-program.tely
-1821  user/install.itely (partial translation)
+1846  user/install.itely (partial translation)
 1057  user/setup.itely
 2877  user/running.itely
-10411 total
+10436 total
 
 -3- Learning manual
 10050 user/fundamental.itely -- Fundamental concepts

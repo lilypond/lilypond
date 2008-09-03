@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Sun Aug 31 22:37:08 UTC 2008
+ <p><i>Last updated Wed Sep  3 13:36:01 UTC 2008
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -127,7 +127,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Till Rettig<br>
    Reinhold Kainhofer<br>
-   <span style="background-color: #dfef77">partially translated (44 %)</span><br>
+   <span style="background-color: #dfef77">partially translated (52 %)</span><br>
    <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Francisco Vila<br>
@@ -174,7 +174,7 @@ translations.template.html.in; DO NOT EDIT !-->
  </tr>
  <tr align="left">
   <td>A Templates<br>(483)</td>
-  <td>   <span style="background-color: #d0f0f8">not translated</span><br>
+  <td>   <span style="background-color: #dfef77">partially translated (11 %)</span><br>
   </td>
   <td>Till Rettig<br>
    <span style="background-color: #1fff1f">translated</span><br>
@@ -224,17 +224,17 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
  </tr>
  <tr align="left">
-  <td>1 Install<br>(1821)</td>
+  <td>1 Install<br>(1846)</td>
   <td>John Mandereau<br>
    Jean-Charles Malahieude<br>
    <span style="background-color: #dfef77">partially translated (9 %)</span><br>
-   <span style="background-color: #dbff38">partially up to date</span><br>
+   <span style="background-color: #e1ff39">partially up to date</span><br>
   </td>
   <td>   <span style="background-color: #dfef77">partially translated (5 %)</span><br>
   </td>
   <td>Francisco Vila<br>
-   <span style="background-color: #dfef77">partially translated (28 %)</span><br>
-   <span style="background-color: #2cff20">partially up to date</span><br>
+   <span style="background-color: #dfef77">partially translated (27 %)</span><br>
+   <span style="background-color: #33ff21">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
@@ -263,11 +263,13 @@ translations.template.html.in; DO NOT EDIT !-->
   <td>4 @command{lilypond-book}: Integrating text and music<br>(3175)</td>
   <td>   <span style="background-color: #d0f0f8">not translated</span><br>
   </td>
-  <td>   <span style="background-color: #dfef77">partially translated (95 %)</span><br>
+  <td>Reinhold Kainhofer<br>
+   <span style="background-color: #1fff1f">translated</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #4efe25">partially up to date</span><br>
+   <span style="background-color: #54ff26">partially up to date</span><br>
   </td>
  </tr>
  <tr align="left">
