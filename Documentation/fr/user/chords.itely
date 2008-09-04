@@ -626,7 +626,7 @@ propriété @code{stacking-dir} de l'objet @code{BassFigureAlignment}.
 
 @seealso
 
-Référence du programme : les objets @rinternals{NewBassFigure},
+Référence du programme : les objets @rinternals{BassFigure},
 @rinternals{BassFigureAlignment}, @rinternals{BassFigureLine},
 @rinternals{BassFigureBracket} et
 @rinternals{BassFigureContinuation}, ainsi que le contexte

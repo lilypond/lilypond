@@ -56,8 +56,10 @@ local-uninstall-WWW: local-uninstall-info
 local-clean:
 	rm -f $(INFO_IMAGES_DIR)
 
-local-WWW: info $(outdir)/lilypond-snippets.pdf \
-  $(outdir)/lilypond-snippets/index.html \
+local-WWW-1: info $(outdir)/lilypond-snippets.pdf \
+  $(outdir)/lilypond-snippets.texi
+
+local-WWW-2: $(outdir)/lilypond-snippets/index.html \
   $(outdir)/lilypond-snippets-big-page.html \
   $(source-links)
 

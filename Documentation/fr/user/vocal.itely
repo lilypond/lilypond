@@ -560,7 +560,7 @@ section @rlearning{Vocal ensembles}.
 
 @seealso
 
-Référence du programme : @rinternals{Melisma_translator}.
+@comment  Référence du programme : @rinternals{Melisma_translator}.
 
 Exemples : @rlsr{Vocal music}.
 
@@ -1107,5 +1107,5 @@ text = \lyricmode {
 @seealso
 
 Référence du programme : @rinternals{LyricText},
-@rinternals{StanzaNumber}, @rinternals{VocalName}.
+@rinternals{StanzaNumber}.
 

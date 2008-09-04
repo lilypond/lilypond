@@ -326,12 +326,12 @@
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@code{\TEXT\}
+@ref{\TEXT\,,,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@code{\DISPLAY\}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referencia de Funcionamiento Interno}
 @end macro
 
 @end iftex

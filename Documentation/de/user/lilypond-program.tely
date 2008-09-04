@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
+    Translation of GIT committish: b54fc6953a8d70a3c51e8c3d0cbf9b3fe9652d78
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -24,8 +24,8 @@
 
 @c don't remove this comment.
 @ignore
-@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription User manual of the LilyPond music engraving system
+@omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen und Graham Percival
+@omfdescription Programmbenutzung des LilyPond-Musiksatzsystems
 @omftype program usage
 @omfcategory Applications|Publishing
 @omflanguage German
@@ -156,9 +156,10 @@ Free Documentation License''.
 @ifnottex
 @node Top
 @top GNU LilyPond -- Programmbenutzung
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Das ist das Handbuch zur Programmbenutzung für GNU LilyPond Version @version{}.
+Für einen Überblick über die gesamte Dokumentation von LilyPond und die Intention
+dieses Handbuchs siehe @rlearning{About the documentation}.
 
 @cindex Internetseite
 @cindex URL

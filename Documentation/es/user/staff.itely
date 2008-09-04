@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node Staff notation
 @section Staff notation
@@ -224,7 +224,7 @@ francesa.
 @end menu
 
 @node Metronome marks
-@subsubsection Metronome marks
+@unnumberedsubsubsec Metronome marks
 
 @cindex Tempo
 @cindex pulsos por minuto
@@ -284,7 +284,7 @@ más lejos del pentagrama.
 
 
 @node Instrument names
-@subsubsection Instrument names
+@unnumberedsubsubsec Instrument names
 
 En una partitura orquestal, los nombres de los instrumentos se imprimen en el lado izquierdo
 de los pentagramas.
@@ -321,7 +321,7 @@ Si queremos centrar los nombres de instrumento, hemos de centrarlos todos
 { <<
 \new Staff {
   \set Staff.instrumentName = \markup {
-    \center-align { "Clarinetti"
+    \center-column { "Clarinetti"
       \line { "in B" \smaller \flat } } }
   c''1
 }
@@ -386,7 +386,7 @@ Referencia del programa: @rinternals{InstrumentName}.
 
 
 @node Quoting other voices
-@subsubsection Quoting other voices
+@unnumberedsubsubsec Quoting other voices
 
 @cindex guías
 
@@ -489,7 +489,7 @@ Referencia del programa:
 
 
 @node Formatting cue notes
-@subsubsection Formatting cue notes
+@unnumberedsubsubsec Formatting cue notes
 
 @cindex guía, formateo de las notas
 

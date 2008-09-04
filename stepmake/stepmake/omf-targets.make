@@ -11,6 +11,6 @@ omf-local-install: $(OMF_FILES)
 local-uninstall: omf-local-uninstall
 
 omf-local-uninstall:
-	rm -f $(foreach i, $(OMF_FILES), $(DESTDIR)$(local_package_omfdir)/$(i))
+	rm -f $(foreach i, $(OMF_FILES), $(DESTDIR)$(local_package_omfdir)/$(notdir $(i)))
 	-rmdir $(DESTDIR)$(local_package_omfdir)
 

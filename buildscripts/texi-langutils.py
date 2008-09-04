@@ -89,7 +89,8 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                                                str (i + 1) + ' (variable)\n_(r"' + var + '")\n')
                         elif comment:
                             output_file.write ('# ' + printedfilename + ':' + \
-                                               str (i + 1) + ' (comment)\n_(r"' + comment + '")\n')
+                                               str (i + 1) + ' (comment)\n_(r"' + \
+                                               comment.replace ('"', '\\"') + '")\n')
 
         # process Texinfo node names and section titles
         if write_skeleton:
@@ -139,7 +140,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
             for item in includes:
                 process_texi (os.path.join (dir, item.strip ()), i_blurb, n_blurb, write_skeleton, topfile, output_file, scan_ly)
     except IOError, (errno, strerror):
-        sys.stderr.write ("I/O error(%s): %s: %s" % (errno, texifilename, strerror))
+        sys.stderr.write ("I/O error(%s): %s: %s\n" % (errno, texifilename, strerror))
 
 
 if intro_blurb != '':

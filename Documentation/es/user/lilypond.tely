@@ -1,12 +1,12 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0184e537d7eda6265b92fe20f3565de0f0411869
+    Translation of GIT committish: 795cef0889e9cf5da040f434fc9334ffe28ae87b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 @setfilename lilypond.info
-@settitle Manual del usuario de GNU LilyPond
+@settitle Referencia de la notación de GNU LilyPond
 @documentencoding UTF-8
 @documentlanguage es
 
@@ -60,7 +60,7 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @c don't remove this comment.
 @ignore
 @omfcreator Han-Wen Nienhuys, Jan Nieuwenhuizen and Graham Percival
-@omfdescription User manual of the LilyPond music engraving system
+@omfdescription Notation Reference of the LilyPond music engraving system
 @omftype user manual
 @omfcategory Applications|Publishing
 @omflanguage Spanish
@@ -189,6 +189,8 @@ Free Documentation License''.
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Éste es el manual del usuario del programa GNU LilyPond versión @version{}.
+Para ver más información sobre la relación entre éste y el resto de
+los documentos, consulte @rlearning{About the documentation}.
 
 @cindex web, sitio
 @cindex URL
@@ -202,8 +204,8 @@ de la presente documentación y de otras.
 @c TRANSLATE ME
 @menu
 * Musical notation::               Notación musical.
-* Specialist notation::            Notación especializada.
-* General input and output::       General information about LilyPond input and output.
+* Specialist notation::            Notación que solamente se utiliza para propósitos específicos.
+* General input and output::       Información general sobre la salida y la entrada de LlilyPond.
 * Spacing issues::                 Presentación de la salida sobre papel.
 * Changing defaults::              Ajuste fino de la salida.
 * Interfaces for programmers::     Utilización por expertos.
@@ -239,10 +241,27 @@ Apéndices
 @node LilyPond command index
 @appendix LilyPond command index
 
+Este índice relaciona todas las instrucciones y palabras clave de
+LilyPond, con enlaces a aquellas secciones del manual que describen o
+se ocupan de su uso.  Cada uno de los enlaces consta de dos partes.
+La primera parte apunta a la situación exacta del manual en que
+aparece la instrucción o palabra clave; la segunda parte apunta al
+comienzo de la sección correspondiente del manual en la que aparece la
+instrucción o palabra clave.
+
 @printindex ky
 
 @node LilyPond index
 @appendix LilyPond index
+
+Además de todas las instrucciones y palabras clave de LilyPond, este
+índice es una lista de términos musicales y las palabras que tienen
+relación con cada uno de ellos, con enlaces a aquellas secciones del
+manual que describen o se ocupan de dicho término.  Cada uno de los
+enlaces consta de dos partes.  La primera parte apunta a la situación
+exacta del manual en que aparece el término; la segunda parte apunta
+al comienzo de la sección correspondiente del manual en la que se
+discute dicho término.
 
 @printindex cp
 

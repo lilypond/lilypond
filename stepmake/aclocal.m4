@@ -452,7 +452,7 @@ AC_DEFUN(STEPMAKE_FLEXLEXER_LOCATION, [
 using namespace std;
 #include <FlexLexer.h>
 EOF
-	FLEXLEXER_FILE=`$CXX -E conftest.cc | \
+	FLEXLEXER_FILE=`eval $ac_cpp conftest.cc | \
 	  sed 's!# 1 "\(.*FlexLexer.h\)"!@FLEXLEXER@\1@@!g' | grep '@@' | \
 	  sed 's!.*@FLEXLEXER@\(.*\)@@.*$!\1!g' ` 1> /dev/null 2> /dev/null
 	rm conftest.cc
@@ -1082,6 +1082,7 @@ AC_DEFUN(STEPMAKE_TEXMF_DIRS, [
 
 AC_DEFUN(STEPMAKE_TEXMF, [
     STEPMAKE_PROGS(METAFONT, mf-nowin mf mfw mfont, $1)
+    STEPMAKE_PROGS(METAPOST, mpost, $1)
     # STEPMAKE_PROGS(INIMETAFONT, inimf inimfont "$METAFONT -ini", $1)
 
     AC_MSG_CHECKING(for working metafont mode)

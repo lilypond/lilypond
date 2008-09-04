@@ -70,217 +70,10 @@ des listes, des chaînes de caractères ou des symboles, en Scheme.}
 
 
 @menu
-* Automatic notation::          
 * Interpretation contexts::     
 * The override command::        
 @end menu
 
-
-@node Automatic notation
-@section Automatic notation
-
-Cette section s'intéresse au réglage de l'impression automatique des
-ligatures.
-
-@menu
-* Setting automatic beam behavior::  
-@end menu
-
-@node Setting automatic beam behavior
-@subsection Setting automatic beam behavior
-
-@funindex autoBeamSettings
-@funindex (end * * * *)
-@funindex (begin * * * *)
-@cindex ligatures automatiques, réglage
-@cindex réglage des ligatures automatiques
-
-@c [TODO: use \applyContext]
-
-Dans les métriques courantes, les ligatures automatiques peuvent commencer
-sur n'importe quelle note, mais ne peuvent se terminer qu'à certains points précis
-dans la mesure : sur une pulsation, ou après toute durée spécifiée par les propriétés
-nommées @code{autoBeamSettings}.  Ces propriétés consistent en une liste de règles
-relatives au début ou à la fin des ligatures.  Par défaut, elles sont définies dans
-le fichier
-@file{scm/@/auto@/-beam@/.scm}.
-
-On peut ajouter à cette liste une nouvelle règle, au moyen de la commande
-@example
-#(override-auto-beam-setting '(extrémité p q n m) a b [contexte])
-@end example
-
-@itemize @bullet
-
-@item @code{extrémité} désigne le début (@code{begin}) ou la fin (@code{end}) de la ligature.
-
-@item @code{p/q} désigne la valeur rythmique de la note que l'on veut affecter, ou de la
-plus brève des notes concernées.  Si cette règle doit s'appliquer à toutes les ligatures,
-remplacez @code{p} et @code{q} par des étoiles @qq{@code{*}}.
-
-
-@item @code{n/m} est le chiffre de mesure dans lequel la règle doit
-s'appliquer.  Si celle-ci doit s'appliquer dans toutes les métriques,
-remplacez @code{n} et @code{m} par des étoiles @qq{@code{*}}.
-
-@item @code{a/b} est l'emplacement, dans la mesure, auquel les ligatures doivent
-débuter ou s'achever (suivant la valeur @q{extrémité} que nous venons de voir).
-
-
-@item @code{contexte} est un argument facultatif, qui détermine le contexte dans lequel
-la règle doit s'appliquer.  Par défaut, il s'agit de @code{'Voice}.
-@code{#(score-override-auto-beam-setting '(A B C D) E F)} équivaut à
-@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}.
-
-@end itemize
-
-Par exemple, si l'on veut que les ligatures s'achèvent toujours après la première noire :
-
-
-@example
-#(override-auto-beam-setting '(end * * * *) 1 4)
-@end example
-
-On peut obliger une règle de ligatures à ne s'appliquer qu'à des groupes dont la note
-la plus brève est d'une valeur précise :
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\time 2/4
-#(override-auto-beam-setting '(end 1 16 * *) 1 16)
-a16 a a a a a a a |
-a32 a a a a16 a a a a a |
-#(override-auto-beam-setting '(end 1 32 * *) 1 16)
-a32 a a a a16 a a a a a |
-@end lilypond
-
-On peut obliger une règle de ligatures à ne s'appliquer que pour un chiffre de mesure
-précis :
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\time 5/8
-#(override-auto-beam-setting '(end * * 5 8) 2 8)
-c8 c d d d
-\time 4/4
-e8 e f f e e d d
-\time 5/8
-c8 c d d d
-@end lilypond
-
-Enfin, on peut désactiver une règle de ligatures au moyen du réglage suivant :
-
-@example
-#(revert-auto-beam-setting '(extrémité p q n m) a b [contexte])
-@end example
-
-@noindent
-@code{extrémité}, @code{p}, @code{q}, @code{n}, @code{m}, @code{a}, @code{b} et @code{contexte}
-étant les mêmes que plus haut.  Il est même possible de désactiver des règles que l'on n'a pas
-explicitement créées : les règles par défaut, qui se trouvent dans le fichier @file{scm/@/auto@/-beam@/.scm}.
-
-
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\time 4/4
-a16 a a a a a a a a a a a a a a a
-#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
-a16 a a a a a a a a a a a a a a a
-@end lilypond
-
-La commande @code{revert-auto-beam-setting} requiert exactement les mêmes arguments
-que la règle d'origine.  En d'autres termes, les étoiles ne seront pas prises en compte ici.
-
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-\time 1/4
-#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
-a16 a a a
-#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % ceci ne désactive pas la règle !
-a a a a
-#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % ceci marche
-a a a a
-@end lilypond
-
-
-
-@c TODO:  old material -- not covered by above stuff, I think.
-Si, dans une mesure à 5/4, l'on veut que les ligatures soient regroupées temps par temps,
-il est nécessaire d'indiquer toutes les terminaisons de ligatures.
-@example
-#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
-#(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
-#(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
-#(override-auto-beam-setting '(end * * * *) 5 4 'Staff)
-@dots{}
-@end example
-
-La même syntaxe peut servir à définir les points de départ des ligatures.
-Dans l'exemple suivant, les ligatures automatiques  ne peuvent se terminer 
-que sur une noire pointée.
-@example
-#(override-auto-beam-setting '(end * * * *) 3 8)
-#(override-auto-beam-setting '(end * * * *) 1 2)
-#(override-auto-beam-setting '(end * * * *) 7 8)
-@end example
-@c ???? Je n'y comprends rien --vv
-Dans une mesure à 4/4, cela implique que les ligatures ne peuvent se terminer que sur
-la troisième croche, ou sur le quatrième temps (après la valeur de deux fois trois croches).
-
-Si une ligature se fait de manière inattendue, pensez à vérifer les règles automatiques
-dans le fichier @file{scm/@/auto@/-beam@/.scm} pour rechercher d'éventuels conflits, dans
-la mesure ou les règles par défaut s'ajoutent à vos propres règles.  Il est alors nécessaire
-de désactiver toute règle par défaut conduisant à des ligatures indésirables.
-
-Ainsi, pour obtenir des ligatures en groupes de @code{(3 4 3 2)} croches, dans une mesure à 12/8,
-il faudra préalablement utiliser :
-
-@example
-%%% annulons les réglages par défaut relatifs à 12/8, dans scm/auto-beam.scm 
-#(revert-auto-beam-setting '(end * * 12 8) 3 8)
-#(revert-auto-beam-setting '(end * * 12 8) 3 4)
-#(revert-auto-beam-setting '(end * * 12 8) 9 8)
-
-%%% puis ajoutons nos propres règles
-#(override-auto-beam-setting '(end 1 8 12 8) 3 8)
-#(override-auto-beam-setting '(end 1 8 12 8) 7 8)
-#(override-auto-beam-setting '(end 1 8 12 8) 10 8)
-@end example
-
-@cindex ligatures automatiques
-@cindex groupes de notes
-@funindex autoBeaming
-@cindex paroles
-
-Si des ligatures sont utilisées dans les paroles d'une chanson (pour indiquer des mélismes),
-les ligatures automatiques doivent être désactivées, avec @code{\autoBeamOff}.
-
-
-@predefined
-
-@funindex \autoBeamOff
-@code{\autoBeamOff},
-@funindex \autoBeamOn
-@code{\autoBeamOn}.
-
-@commonprop
-
-Les groupes de notes reliées par les ligatures peuvent être spécifiés au moyen
-de la propriété @code{beatGrouping}.
-
-@lilypond[quote,verbatim,relative=2,fragment,ragged-right]
-\time 5/16
-\set beatGrouping = #'(2 3)
-c8[^"(2+3)" c16 c8]
-\set beatGrouping = #'(3 2)
-c8[^"(3+2)" c16 c8]
-@end lilypond
-
-
-@knownissues
-
-Si une partition se termine alors qu'une ligature automatique est restée inachevée,
-cette dernière ligature ne sera pas imprimée du tout.  C'est également valable dans
-le cas d'une musique polyphonique, saisie avec la syntaxe @code{<< @dots{} \\ @dots{}
->>}, où une voix se terminerait sans que la dernière ligature
-soit achevée.
 
 @node Interpretation contexts
 @section Interpretation contexts
@@ -288,7 +81,8 @@ soit achevée.
 Cette section traite des contextes.
 
 @menu
-* Changing context properties on the fly::  
+* Contexts explained::          
+* The set command::             
 * Modifying context plug-ins::  
 * Layout tunings within contexts::  
 * Changing context default settings::  
@@ -298,8 +92,14 @@ Cette section traite des contextes.
 @end menu
 
 
-@node Changing context properties on the fly
-@subsection Changing context properties on the fly
+@node Contexts explained
+@subsection Contexts explained
+
+@untranslated
+
+
+@node The set command
+@subsection The @code{\set} command
 
 @cindex propriétés
 @funindex \set
@@ -438,7 +238,7 @@ chargé des têtes de notes, et dans le contexte @code{Staff}, un graveur
 
 Vous trouverez une description exhaustive de chaque graveur dans
 @ifhtml
-@rinternals{Engravers}.
+@rinternals{Engravers and Performers}.
 @end ifhtml
 @ifnothtml
 Program reference @expansion Translation @expansion{} Engravers.
@@ -651,8 +451,8 @@ de ce fait interrompre, ou faire planter le programme -- ou bien les deux.
 @node Changing context default settings
 @subsection Changing context default settings
 
-Les réglages montrés dans les sous-sections @ref{Changing context
-properties on the fly}, @ref{Modifying context plug-ins} et
+Les réglages montrés dans les sous-sections @ref{The
+set command}, @ref{Modifying context plug-ins} et
 @ref{Layout tunings within contexts} peuvent également être saisis indépendamment
 de la musique dans le bloc @code{\layout}, au moyen de la commande @code{\context} :
 
@@ -809,7 +609,7 @@ valeur@tie{}@code{0}, c'est-à-dire la ligne du milieu.
 
 @item Afin que tous ces graveurs puissent travailler de concert, on leur adjoint un
 sous-programme spécial, introduit par la commande @code{\type} : il s'agit de
-@rinternals{Engraver_group},
+@code{Engraver_group},
 
 @example
 \type "Engraver_group"
@@ -1087,7 +887,7 @@ Music types accepted: @rinternals{fingering-event}
 
 @item @rinternals{fingering-event}:
 Music event type @code{fingering-event} is in Music expressions named
-@rinternals{FingerEvent}
+@rinternals{FingeringEvent}
 @end itemize
 
 Ce cheminement se produit, bien sûr, en sens inverse : nous sommes ici partis

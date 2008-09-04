@@ -20,14 +20,14 @@ zu lesen.
 
 
 @menu
-* Suggestions for writing LilyPond files::  
+* Suggestions for writing LilyPond input files::  
 * When things don't work::      
 * Scores and parts::            
 @end menu
 
 
-@node Suggestions for writing LilyPond files
-@section Suggestions for writing LilyPond files
+@node Suggestions for writing LilyPond input files
+@section Suggestions for writing LilyPond input files
 
 Jetzt sind Sie so weit, größere Stücke mit LilyPond zu schreiben -- 
 nicht 
@@ -82,14 +82,13 @@ frustrierend sein kann zu erinnern, welche Programmversion man etwa
 vor einem Jahr verwendet hat. Auch @code{convert-ly} benötigt die 
 Versionsnummer.
 
-@item @strong{Benutzen Sie Überprüfungen}: @ruser{Bar check}, 
-@ruser{Octave checks} und
-@ruser{Barnumber check}.  Wenn Sie hier und da diese Überprüfungen 
-einfügen, finden Sie einen möglichen Fehler weit schneller. Wie oft 
-aber 
-ist @qq{hier und da}? Das hängt von der Komplexität der Musik ab. Bei 
-einfachen Stücken reicht es vielleicht ein- oder zweimal, in sehr
-komplexer Musik sollte man sie vielleicht in jeden Takt einfügen.
+@item @strong{Benutzen Sie Überprüfungen}: @ruser{Octave checks}, und
+@ruser{Bar and bar number checks}.  Wenn Sie hier und da diese
+Überprüfungen einfügen, finden Sie einen möglichen Fehler weit
+schneller. Wie oft aber ist @qq{hier und da}?  Das hängt von der
+Komplexität der Musik ab. Bei einfachen Stücken reicht es vielleicht
+ein- oder zweimal, in sehr komplexer Musik sollte man sie vielleicht
+in jeden Takt einfügen.
 
 @item @strong{Ein Takt pro Textzeile}. Wenn irgendetwas kompliziertes 
 vorkommt, entweder in der Musik selber oder in der Anpassung der 

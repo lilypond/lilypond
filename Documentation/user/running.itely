@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 
 @node Running LilyPond
@@ -16,7 +16,7 @@
 This chapter details the technicalities of running LilyPond.
 
 @menu
-* Normal usage::                
+* Normal usage::
 * Command-line usage::
 * Error messages::
 * Updating files with convert-ly::
@@ -75,17 +75,17 @@ When invoked with a filename that has no extension, the @file{.ly}
 extension is tried first.  To read input from stdin, use a
 dash (@code{-}) for @var{file}.
 
-When @file{filename.ly} is processed it will produce
-@file{filename.tex} as output (or @file{filename.ps} for PostScript
-output).  If @file{filename.ly} contains more than one @code{\score}
-block, then the rest of the scores will be output in numbered files,
-starting with @file{filename-1.tex}.  Several files can be specified;
+When @file{filename.ly} is processed it will produce @file{filename.ps}
+and @file{filename.pdf} as output.  Several files can be specified;
 they will each be processed independently.  @footnote{The status of
 GUILE is not reset after processing a @code{.ly} file, so be careful
 not to change any system defaults from within Scheme.}
 
-In addition, the value of @code{output-suffix} will be inserted between
-the basename and the number.  An input file containing
+If @file{filename.ly} contains more than one @code{\score}
+block, then the rest of the scores will be output in numbered files,
+starting with @file{filename-1.pdf}.  In addition, the value of
+@code{output-suffix} will be inserted between the basename and the
+number.  An input file containing
 
 @example
 #(define output-suffix "violin")
@@ -95,8 +95,8 @@ the basename and the number.  An input file containing
 @end example
 
 @noindent
-will output @var{base}@file{-violin.ps} and
-@var{base}@file{-cello-1.ps}.
+will output @var{base}@file{-violin.pdf} and
+@var{base}@file{-cello-1.pdf}.
 
 
 @node Command line options
@@ -460,9 +460,9 @@ A line-break is inserted in the offending line to indicate the column
 where the error was found.  For example,
 
 @example
-test.ly:2:19: error: not a duration: 5:
-  @{ c'4 e'5
-             g' @}
+test.ly:2:19: error: not a duration: 5
+  @{ c'4 e'
+           5 g' @}
 @end example
 
 These locations are LilyPond's best guess about where the warning or

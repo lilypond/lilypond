@@ -1157,6 +1157,21 @@ def musicxml_rehearsal_to_ly_mark (mxl_event):
     ev = musicexp.MarkEvent ("\\markup { %s }" % text)
     return ev
 
+def musicxml_harp_pedals_to_ly (mxl_event):
+    count = 0
+    result = "\\harp-pedal #\""
+    for t in mxl_event.get_named_children ('pedal-tuning'):
+      alter = t.get_named_child ('pedal-alter')
+      if alter:
+        val = int (alter.get_text ().strip ())
+        result += {1: "v", 0: "-", -1: "^"}.get (val, "")
+      count += 1
+      if count == 3:
+        result += "|"
+    ev = musicexp.MarkupEvent ()
+    ev.contents = result + "\""
+    return ev
+
 def musicxml_eyeglasses_to_ly (mxl_event):
     needed_additional_definitions.append ("eyeglasses")
     return musicexp.MarkEvent ("\\eyeglasses")
@@ -1222,7 +1237,7 @@ directions_dict = {
 #     'damp' : ???
 #     'damp-all' : ???
     'eyeglasses': musicxml_eyeglasses_to_ly,
-#     'harp-pedals' : ???
+    'harp-pedals' : musicxml_harp_pedals_to_ly,
 #     'image' : ???
     'metronome' : musicxml_metronome_to_ly,
     'rehearsal' : musicxml_rehearsal_to_ly_mark,

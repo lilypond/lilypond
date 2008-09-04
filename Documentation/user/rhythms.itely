@@ -1094,7 +1094,7 @@ odd warnings may occur.
 @cindex unmetered music
 
 Bar lines and bar numbers are calculated automatically.  For
-unmetered music (cadenzas, for example), this is not desirable.
+unmetered music (some cadenzas, for example), this is not desirable.
 To turn off automatic calculation of bar lines and bar numbers,
 use the command @code{\cadenzaOn}, and use @code{\cadenzaOff} 
 to turn them on again.
@@ -1854,6 +1854,7 @@ marking the begin and end point with @code{[} and @code{]}
 }
 @end lilypond
 
+@funindex \noBeam
 
 Individual notes may be marked with @code{\noBeam} to prevent them
 from being beamed:
@@ -2700,6 +2701,11 @@ durations in the other staves.  For the above example
    \new Staff { c4 \bar "|:" \grace s16 d2. } >>
 @end lilypond
 
+Predefined commands, like @code{\voiceOne}, which are intended to
+change the behaviour of the notation after a grace note, may not
+be effective if placed immediately before the grace note -- they
+should be placed after it.
+
 Grace sections should only be used within sequential music
 expressions.  Nesting or juxtaposing grace sections is not
 supported, and might produce crashes or other errors.
@@ -2712,31 +2718,39 @@ supported, and might produce crashes or other errors.
 @cindex aligning to cadenza
 
 In an orchestral context, cadenzas present a special problem: when
-constructing a score that includes a cadenza, all other
-instruments should skip just as many notes as the length of the
-cadenza, otherwise they will start too soon or too late.
+constructing a score that includes a measured cadenza or other solo
+passage, all other instruments should skip just as many notes as the 
+length of the cadenza, otherwise they will start too soon or too late. 
 
-A solution to this problem is to use the functions
+One solution to this problem is to use the functions
 @code{mmrest-of-length} and @code{skip-of-length}.  These Scheme
-functions take a piece of music as argument, and generate a multi-measure
-rest or @code{\skip}, exactly as long as the piece.  
+functions take a defined piece of music as an argument and generate a 
+multi-measure rest or @code{\skip} exactly as long as the piece.  
 
 @lilypond[verbatim,ragged-right,quote]
-cadenza = \relative c' {
+MyCadenza = \relative c' {
   c4 d8 e f g g4 
   f2 g4 g
 }
 
 \new GrandStaff <<
-  \new Staff { \cadenza c'1 }
+  \new Staff { 
+    \MyCadenza c'1 
+    \MyCadenza c'1
+  }
   \new Staff {
-    #(ly:export (mmrest-of-length cadenza))
+    #(ly:export (mmrest-of-length MyCadenza))
+    c'1
+    #(ly:export (skip-of-length MyCadenza))
     c'1
   }
 >>
 @end lilypond
 
 @seealso
+
+Music Glossary:
+@rglos{cadenza}.
 
 Snippets:
 @rlsr{Rhythms}.

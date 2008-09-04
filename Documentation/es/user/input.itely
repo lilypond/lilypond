@@ -7,6 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.57"
 
 @node General input and output
 @chapter General input and output
@@ -152,13 +153,13 @@ cualquier instrucción de marcado de texto (Véase @ref{Formatting text}).
 \book {
   \header {
     dedication = "dedicated to me"
-    title = \markup \center-align { "Title first line" "Title second line,
+    title = \markup \center-column { "Title first line" "Title second line,
 longer" }
     subtitle = "the subtitle,"
     subsubtitle = #(string-append "subsubtitle LilyPond version "
 (lilypond-version))
     poet = "Poet"
-    composer =  \markup \center-align { "composer" \small "(1847-1973)" }
+    composer =  \markup \center-column { "composer" \small "(1847-1973)" }
     texttranslator = "Text Translator"
     meter = \markup { \teeny "m" \tiny "e" \normalsize "t" \large "e" \huge
 "r" }

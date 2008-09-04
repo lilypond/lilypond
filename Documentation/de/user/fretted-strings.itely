@@ -30,17 +30,17 @@
 * String number indications::
 * Default tablatures::
 * Custom tablatures::
-* Fret diagrams::
-* Right hand fingerings::
+* Fret diagram markups::
+* Right-hand fingerings::
 @end menu
 
 @node References for fretted strings
-@subsubsection References for fretted strings
+@unnumberedsubsubsec References for fretted strings
 
 @untranslated
 
 @node String number indications
-@subsubsection String number indications
+@unnumberedsubsubsec String number indications
 
 @cindex String numbers
 
@@ -61,7 +61,7 @@ Beispiele:
 @rlsr{Fretted strings}.
 
 @node Default tablatures
-@subsubsection Default tablatures
+@unnumberedsubsubsec Default tablatures
 
 @cindex Tablatures basic
 
@@ -149,7 +149,7 @@ melodia = \partcombine { e4 g g g }{ e4 e e e }
 @end lilypond
 
 @node Custom tablatures
-@subsubsection Custom tablatures
+@unnumberedsubsubsec Custom tablatures
 
 @cindex Non-guitar tablatures
 
@@ -196,8 +196,8 @@ Programmreferenz: @rinternals{Tab_note_heads_engraver}.
 
 Spezialeffekte für Gitarren sind noch nicht implementiert.
 
-@node Fret diagrams
-@subsubsection Fret diagrams
+@node Fret diagram markups
+@unnumberedsubsubsec Fret diagram markups
 
 @cindex Fret-Diagramme
 @cindex Griffsymbole
@@ -252,8 +252,8 @@ Schnittstelle für die Griffsymboleigenschaften findet sich unter
 Beispiele:
 @rlsr{Fretted strings}.
 
-@node Right hand fingerings
-@subsubsection Right hand fingerings
+@node Right-hand fingerings
+@unnumberedsubsubsec Right-hand fingerings
 
 Fingersatz für die rechte Hand in Akkorden kann notiert werden, indem
 der Befehl @code{@var{note}-\rightHandFinger @var{finger}}
@@ -314,17 +314,12 @@ Program reference: @rinternals{StrokeFinger}
 @untranslated
 
 @menu
-* Guitar tablatures::
 * Indicating position and barring::
+* Indicating harmonics and dampened notes::  
 @end menu
 
-@node Guitar tablatures
-@subsubsection Guitar tablatures
-
-@untranslated
-
 @node Indicating position and barring
-@subsubsection Indicating position and barring
+@unnumberedsubsubsec Indicating position and barring
 
 Dieses Beispiel zeigt, wie Griff - und Barre-Angaben
 eingefügt werden können.
@@ -347,6 +342,12 @@ die aber noch die ursprüngliche Tonhöhe ahnen lassen. Diese Spielart
 wird mit Kreuz-Notenköpfen notiert, wie im Abschnitt @ref{Special note heads}
 gezeigt.
 
+@node Indicating harmonics and dampened notes
+@unnumberedsubsubsec Indicating harmonics and dampened notes
+
+@untranslated
+
+
 @node Banjo
 @subsection Banjo
 
@@ -357,7 +358,7 @@ gezeigt.
 @end menu
 
 @node Banjo tablatures
-@subsubsection Banjo tablatures
+@unnumberedsubsubsec Banjo tablatures
 
 @cindex Banjo tablatures
 

@@ -17,8 +17,8 @@
 @end macro
 
 @c to get decent quotes in `foo' and ``foo''
-@c  these need to be split up so that "@qq{foo}." looks nice.  :(
-@iftex
+@c FIXME: use thin spaces for @qq
+@ifnotinfo
 @macro q{TEXT}
 @quoteleft{}\TEXT\@quoteright{}
 @end macro
@@ -26,8 +26,7 @@
 @macro qq{TEXT}
 @guillemetleft{}@tie{}\TEXT\@tie{}@guillemetright{}
 @end macro
-@end iftex
-
+@end ifnotinfo
 
 @ifinfo
 @macro q{TEXT}
@@ -39,35 +38,6 @@
 @end macro
 @end ifinfo
 
-
-@ifhtml
-@macro q{TEXT}
-@html
-&lsquo;\TEXT\&rsquo;
-@end html
-@end macro
-
-@macro qq{TEXT}
-@html
-&laquo;<font size="-4">&nbsp;</font>\TEXT\<font size="-4">&nbsp;</font>&raquo;
-@end html
-@end macro
-@end ifhtml
-
-
-@ifdocbook
-@macro q{TEXT}
-@xml
-&lsquo;\TEXT\&rsquo;
-@end xml
-@end macro
-
-@macro qq{TEXT}
-@xml
-&laquo;<font size="-4">&nbsp;</font>\TEXT\<font size="-4">&nbsp;</font>&raquo;
-@end xml
-@end macro
-@end ifdocbook
 
 @ifhtml
 @macro warning{TEXT}
@@ -373,12 +343,12 @@
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@code{\TEXT\}
+@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@code{\DISPLAY\}
+@ref{\TEXT\,,,lilypond-internals,Référence des propriétés internes}
 @end macro
 
 @end iftex

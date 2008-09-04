@@ -191,14 +191,25 @@ Appendices
 @node LilyPond command index
 @appendix LilyPond command index
 
-This index does blah blah blah.
+This index lists all the LilyPond commands and keywords with links
+to those sections of the manual which describe or discuss their
+use.  Each link is in two parts.  The first part points to the
+exact location in the manual where the command or keyword appears;
+the second part points to the start of the section of the manual
+in which the command or keyword appears.
 
 @printindex ky
 
 @node LilyPond index
 @appendix LilyPond index
 
-In contrast, this index does blaz blaz blaz.
+In addition to all the LilyPond commands and keywords, this index
+lists musical terms and words which relate to each of them, with
+links to those sections of the manual which describe or discuss
+that topic.  Each link is in two parts.  The first part points to
+the exact location in the manual where the topic appears; the
+second part points to the start of the section of the manual where
+that topic is discussed.
 
 @printindex cp
 

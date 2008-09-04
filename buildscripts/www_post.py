@@ -10,7 +10,12 @@ import sys
 import os
 import re
 
-package_name, package_version, buildscript_dir, outdir, targets = sys.argv[1:]
+import langdefs
+
+import mirrortree
+import postprocess_html
+
+package_name, package_version, outdir, targets = sys.argv[1:]
 targets = targets.split (' ')
 outdir = os.path.normpath (outdir)
 doc_dirs = ['input', 'Documentation', outdir]
@@ -29,8 +34,6 @@ static_files = {
 <html><body>Redirecting to the documentation index...</body></html>\n'''
     }
 
-import langdefs
-
 for l in langdefs.LANGUAGES:
     static_files[os.path.join ('Documentation', 'user', outdir, l.file_name ('index', '.html'))] = \
                                   '<META HTTP-EQUIV="refresh" content="0;URL=../' + l.file_name ('index', '.html') + \
@@ -39,17 +42,12 @@ for l in langdefs.LANGUAGES:
 for f, contents in static_files.items ():
     open (f, 'w').write (contents)
 
-
-sys.path.append (buildscript_dir)
-import mirrortree
-import add_html_footer
-
 sys.stderr.write ("Mirrorring...\n")
 dirs, symlinks, files = mirrortree.walk_tree (
     tree_roots = doc_dirs,
     process_dirs = outdir,
     exclude_dirs = '(^|/)(' + r'|po|out|out-test|.*?[.]t2d|\w*?-root)(/|$)|Documentation/(' + '|'.join ([l.code for l in langdefs.LANGUAGES]) + ')',
-    find_files = r'.*?\.(?:midi|html|pdf|png|txt|ly|signature)$|VERSION',
+    find_files = r'.*?\.(?:midi|html|pdf|png|txt|ly|signature|css)$|VERSION',
     exclude_files = r'lily-[0-9a-f]+.*\.(pdf|txt)')
 
 # actual mirrorring stuff
@@ -91,10 +89,10 @@ if 'online' in targets:
     f.write ('#.htaccess\nDirectoryIndex index\n')
     f.close ()
 
-add_html_footer.build_pages_dict (html_files)
+postprocess_html.build_pages_dict (html_files)
 for t in targets:
     sys.stderr.write ("Processing HTML pages for %s target...\n" % t)
-    add_html_footer.add_html_footer (
+    postprocess_html.process_html_files (
         package_name = package_name,
         package_version = package_version,
         target = t,

@@ -26,7 +26,6 @@
 
 @menu
 * References for keyboards::    
-* The piano staff::             
 * Changing staff manually::     
 * Changing staff automatically::  
 * Staff-change lines::          
@@ -34,15 +33,12 @@
 @end menu
 
 @node References for keyboards
-@subsubsection References for keyboards
+@unnumberedsubsubsec References for keyboards
 
 @untranslated
 @ifnothtml
 @englishref
 @end ifnothtml
-
-@node The piano staff
-@subsubsection The piano staff
 
 Les systèmes de piano comprennent deux portées réunies par une accolade.
 Les portées sont largement autonomes, mais il arrive que des voix passent
@@ -58,7 +54,7 @@ piano} au chapitre @rlearning{Piano templates}.
 
 
 @node Changing staff manually
-@subsubsection Changing staff manually
+@unnumberedsubsubsec Changing staff manually
 
 @cindex changements de portées manuels
 @cindex changement de portée, manuel
@@ -100,7 +96,7 @@ avant d'insérer une mélodie au moyen d'un contexte @code{Voice} :
 
 
 @node Changing staff automatically
-@subsubsection Changing staff automatically
+@unnumberedsubsubsec Changing staff automatically
 @cindex Changement de portée automatique
 @cindex Automatique, changement de portée
 
@@ -161,7 +157,7 @@ vaut mieux indiquer soi-même ces changements.
 
 
 @node Staff-change lines
-@subsubsection Staff-change lines
+@unnumberedsubsubsec Staff-change lines
 
 @cindex voix entre deux portées
 @cindex changements de portée
@@ -198,7 +194,7 @@ Référence du programme : @rinternals{VoiceFollower}.
 
 
 @node Cross-staff stems
-@subsubsection Cross-staff stems
+@unnumberedsubsubsec Cross-staff stems
 
 @cindex hampe, enjambement portées
 @cindex distance entre deux portées de piano
@@ -236,7 +232,7 @@ noFlag = \once \override Stem #'flag-style = #'no-flag
 @end menu
 
 @node Piano pedals
-@subsubsection Piano pedals
+@unnumberedsubsubsec Piano pedals
 @cindex Pédales
 
 Le piano possède deux pédales, parfois trois, permettant de modifier
@@ -312,7 +308,7 @@ Dans ce manuel : @ref{Ties} @qq{laissez vibrer}.
 @end menu
 
 @node Discant symbols
-@subsubsection Discant symbols
+@unnumberedsubsubsec Discant symbols
 
 @untranslated
 @ifnothtml

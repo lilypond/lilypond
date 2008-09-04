@@ -25,13 +25,13 @@
 
      (if (pair? uprops)
 	 (string-append
-	  "\n\n@unnumberedsubsubsec User settable properties:\n"
+	  "\n\n@subsubheading User settable properties:\n"
 	  (description-list->texi user-propdocs #t))
 	 "")
 
      (if (pair? iprops)
 	 (string-append
-	  "\n\n@unnumberedsubsubsec Internal properties:\n"
+	  "\n\n@subsubheading Internal properties:\n"
 	  (description-list->texi internal-propdocs #t))
 	 ""))))
 

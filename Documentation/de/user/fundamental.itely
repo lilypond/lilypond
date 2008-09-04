@@ -1,20 +1,22 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: c60d0f3c72164f384ec8f7af90fdd8a66ab32b91
+    Translation of GIT committish: 598a7ff07bb4752ea9169e592e3369016f014b57
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 @c \version "2.11.51"
-
+@c Translators: Till Rettig, Reinhold Kainhofer
 
 @node Fundamental concepts
 @chapter Fundamental concepts
 
-Dieses Kapitel behandelt das allgemeine Konzept von LilyPond
-und wie man  @code{\score}-Blöcke erstellt.
+Nachdem im Tutorial gezeigt wurde, wie aus einfachen Text-Dateien
+wunderschön formatierte Musiknoten erzeugt werden können, stellt
+dieses Kapitel die Konzepte und Techniken vor, wie auch komplexere
+Partituren erstellt werden können.
 
 @menu 
 * How LilyPond files work::
@@ -63,18 +65,103 @@ weglässt.
 }
 @end lilypond
 
-Jetzt kommt noch eine Ebene dazu: LilyPond-Code in der obigen Form 
-ist in Wirklichkeit auch wieder eine Abkürzung. Auch wenn man so 
-Dateien schreiben kann und sie auch korrekt gesetzt werden, heißt 
-der wirkliche Code, der hier gemeint ist, eigentlich:
+Eine komplette Definition des Eingabeformats findet sich
+im Kapitel @ruser{File structure}.
+
+@menu
+* Introduction to the LilyPond file structure::
+* Score is a (single) compound musical expression::
+* Nesting music expressions::
+* On the un-nestedness of brackets and ties::
+@end menu
+
+@node Introduction to the LilyPond file structure
+@subsection Introduction to the LilyPond file structure
+
+@cindex Eingabeformat
+@cindex Dateistruktur
+
+Ein grundlegendes Beispiel einer Eingabedatei für LilyPond lautet:
 
 @example
+\version @w{"@version{}"}
+\header @{ @}
 \score @{
-  \relative c'' @{
-    c4 a b c
+  @var{...zusammengesetzter Musik-Ausdruck...}  % Die gesamte Musik kommt hier!
+  \layout @{ @}
+  \midi @{ @}
+@}
+@end example
+
+@noindent
+Aufgrund der Flexibilität von LilyPond gibt es viele Variationen dieses 
+Schemas, aber dieses Beispiel dient als einfacher Ausgangspunkt.
+
+@funindex \book
+@funindex \score
+@cindex book
+@cindex score
+
+Bisher hat noch keines der Beispiele den @code{\score@{@}}-Befehl
+benutzt, da Lilypond derartige zusätzliche Befehle automatisch
+bei Bedarf einfügt, wenn die Eingabedatei eine einfache Struktur 
+hat.
+
+Sehen wir uns als ein solches einfaches Beispiel an:
+
+@example
+\relative c'' @{
+  c4 a d c
+@}
+@end example
+
+@noindent
+Im Hintergrund kommen hier noch einige Ebenen dazu: LilyPond-Code 
+in der obigen Form ist in Wirklichkeit eine Abkürzung. Auch wenn man so 
+Dateien schreiben kann und sie auch korrekt gesetzt werden, heißt 
+der vollständige Code, der hier gemeint ist, eigentlich:
+
+@example
+\book @{
+  \score @{
+    \new Staff @{
+      \new Voice @{
+        \relative c'' @{
+          c4 a b c
+        @}
+      @}
+    @}
+    \layout @{ @}
   @}
 @}
 @end example
+
+@noindent
+Mit anderen Worten: Wenn die Eingabedatei einen einfachen Musik-Ausdruck
+enthält, wird LilyPond die Datei so interpretieren, als ob dieser
+Ausdruck in den oben gezeigten Befehlen eingegeben wurde. Diese nötige 
+Stuktur wird automatisch im Speicher beim Aufruf von LilyPond erzeugt, 
+ohne dass der Benutzer davon etwas bemerkt.
+
+@cindex Implizite Kontexte
+
+@strong{Ein Wort der Warnung ist jedoch angebracht!} Viele der Beispiele
+in der Dokumentation von LilyPond lassen die @code{\new Staff} und @code{\new Voice}
+Befehle zur Erzeugung einer Notenzeile und einer Stimme (beides ist in 
+LilyPond ein sogenannter Kontext) bewusst aus, 
+damit sie implizit von LilyPond im Speicher erzeugt werden.
+Für einfache Dokumente funktioniert das im Allgemeinen sehr gut, für 
+komplexere Partituren können dadurch aber unerwartete Ergebnisse 
+entstehen, teilweise sogar unerwartete leere Notenzeilen. Um 
+die entsprechenden Kontexte in diesem Fall explizit zu erzeugen, 
+siehe @ref{Contexts and engravers}.
+
+@warning{Wenn mehr als ein paar Zeilen an Musik eingegeben werden,
+empfielt es sich, die Notenzeilen und die Stimmen immer explizit
+mit @code{\new Staff} und @code{\new Voice} zu erzeugen.}
+
+Im Moment wollen wir aber zu unserem ersten Beispiel zurückkehren und
+nur den @code{\score}-Befehl näher betrachten.
 
 Eine Partitur (@code{\score}) muss immer mit einem musikalischen Ausdruck 
 beginnen. Das ist letztendlich alle Musik, angefangen bei einer 
@@ -85,7 +172,7 @@ Note bis hin zu einer riesigen Partitur mit vielen Notensystemen
 @example
 @{
   \new GrandStaff <<
-    hier die gesamte Partitur 
+    @var{...hier die gesamte Partitur...}
   >>
 @}
 @end example
@@ -106,11 +193,67 @@ Ein @code{\score} auch andere Dinge enthalten, wie etwa
 @}
 @end example
 
+@funindex \header
+@funindex \layout
+@funindex \midi
+@cindex header
+@cindex midi
+@cindex Layout
+@cindex Kopfzeile
+
 @noindent
-Viele setzen einige dieser Befehle außerhalb des 
-@code{\score}-Blocks, zum Beispiel wird der @code{\header} 
-sehr oft oberhalb der  @code{\score}-Umgebung gesetzt. Das 
+
+@noindent
+Wie man sieht sind die drei Befehle @code{\header}, @code{\layout} und
+@code{\midi} von spezieller Natur: Im Gegensatz zu vielen Anderen Befehlen, 
+die auch mit einem @code{\} beginnen, liefern sie @emph{keinen} Musikausdruck
+und sind auch nicht Teil eines musikalischen Ausdrucks. Daher können sie
+sowohl innerhalb eines @code{\score}-Blocks als auch außerhalb plaziert
+werden. Tatsächlich werden einige dieser Befehle meist außerhalb des 
+@code{\score}-Blocksgesetzt, zum Beispiel findet sich der @code{\header} 
+sehr oft oberhalb der @code{\score}-Umgebung. Das 
 funktioniert genauso gut.
+
+
+Zwei bisher noch nicht aufgetauchte Befehle sind 
+@code{\layout @{ @}} und @code{\midi @{@}}. Wenn sie in einer 
+Datei vorkommen, führt dies dazu, dass Lilypond eine druckfähige PDF-Datei
+bzw. eine MIDI-Datei erzeugt. Genauer beschrieben werden sie im 
+Benutzerhandbuch -- @ruser{Score layout} und
+@ruser{Creating MIDI files}.
+
+@cindex Partituren, mehrfache
+
+Ihr LilyPond Code kann auch mehrere @code{\score}-Blöcke enthalten. 
+Jeder davon wird als eigenständige Partitur interpretiert, die 
+allerdings alle in dieselbe Ausgabedatei plaziert weden.
+Ein @code{\book}-Befehl ist nicht explizit notwendig -- er wird 
+implizit erzeugt. Wenn jedoch für jeden @code{\score}-Block in einer 
+einzigen @code{.ly}-Datei eine eigene Ausgabe-Datei erzeugt werden soll,
+dann muss jeder dieser Blöcke in einen eigenen @code{\book}-Block
+gesetzt werden: Jeder @code{\book}-Block erzeugt dann eine
+eigene Ausgabedatei.
+
+Zusammenfassung:
+
+Jeder @code{\book}-Block erzeugt eine eigene Ausgabedatei (z.B. eine
+PDF-Datei). Wenn Sie keinen derartigen Block explizit angegeben haben,
+setzt LilyPond den gesamten Dateiinhalt innerhalb eines einzigen 
+impliziten @code{\book}-Blocks.
+
+Jeder @code{\score}-Block beschreibt ein eigenständiges Musikstück 
+innerhalb des @code{\book}-Blocks.
+
+Jeder @code{\layout}-Block wirkt sich auf den @code{\score}- oder
+@code{\book}-Block aus, in dem er auftritt. So wirkt z.B. ein 
+@code{\layout}-Block innerhalb eines @code{\score}-Blocks nur auf 
+diesen einen Block und seinen gesamten Inhalt, ein @code{\layout}-Block 
+außerhalb eines @code{\score}-Blocks (und daher innerhalb des implizit 
+erzeugten oder explizit angegebenen @code{\book}-Blocks) jedoch auf 
+alle @code{\score}-Blocks innerhalb dieses @code{\book}-Blocks.
+
+Nähere Details finden sich im Abschnitt @ruser{Multiple scores in a book}.
+
 
 @cindex Variablen
 @cindex Bezeichner
@@ -129,33 +272,36 @@ melodie = \relative c' @{
 @end example
 
 Wenn LilyPond diese Datei analysiert, nimmt es den Inhalt
-von @code{melodie} (alles, was nach dem Gleichheitszeichen
-kommt) und fügt ihn immer dann ein, wenn ein @code{\melodie} 
+von @code{melodie} (alles nach dem Gleichheitszeichen) und 
+fügt ihn immer dann ein, wenn ein @code{\melodie} 
 vorkommt. Die Namen sind frei wählbar, die Variable kann genauso
 gut  @code{melodie}, @code{GLOBAL},
 @code{rechteHandklavier}, oder @code{foofoobarbaz} heißen. Für mehr
 Information siehe
 @ref{Saving typing with variables and functions}.
+Als Variablenname kann fast jeder beliebige Name benutzt werden,
+allerdings dürfen nur Buchstaben vorkommen (also keine Zahlen, Unterstriche,
+Sonderzeichen, etc.) und er darf nicht wie ein LilyPond-Befehl
+lauten. Die genauen Einschränkungen sind beschrieben in 
+@ruser{File structure}.
 
-Eine komplette Definition des Eingabeformats findet sich
-im Kapitel @ruser{File structure}.
+@seealso
 
-@menu
-* Introduction to the LilyPond file structure::
-* Score is a (single) compound musical expression::
-* Nesting music expressions::
-* On the un-nestedness of brackets and ties::
-@end menu
-
-@node Introduction to the LilyPond file structure
-@subsection Introduction to the LilyPond file structure
-
-@untranslated
+Eine vollständige Definition des Eingabeformats findet sich in 
+@ruser{File structure}.
 
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
 
-Im vorigen Kapitel, @ref{How LilyPond files work}, 
+@funindex \score
+@cindex score
+@cindex Partitur
+@cindex Musikstück
+@cindex zusammengesetzter Musikausdruck
+@cindex Musikausdruck, zusammengesetzter
+
+
+Im vorigen Kapitel, @ref{Introduction to the LilyPond file structure}, 
 wurde die allgemeine Struktur einer LilyPond-Quelldatei 
 beschrieben. Aber anscheinend haben wir die wichtigste 
 Frage ausgelassen, nämlich wie man herausfindet, was nach 
@@ -163,7 +309,6 @@ dem @code{\score} geschrieben werden soll.
 
 In Wirklichkeit ist das aber gar kein Geheimnis. Diese 
 Zeile ist die Antwort:
-
 
 @quotation
 @emph{Eine Partitur fängt immer mit @code{\score} an, gefolgt 
@@ -183,7 +328,7 @@ zerlegen lässt.
 \score @{
   @{   % diese Klammer startet den großen mus. Ausdruck
     \new GrandStaff <<
-      hier eine ganze Wagner-Oper einfügen
+      @var{...hier eine ganze Wagner-Oper einfügen...}
     >>
   @}   % diese Klammer beendet den Ausdruck
   \layout @{ @}
@@ -211,25 +356,32 @@ den Befehl weg. Wir brauchen aber einen Sänger und ein Klavier.
 
 Zur Erinnerung: mit @code{<<} und @code{>>} werden Noten gleichzeitig
 gesetzt; wir wollen ja auch Klavier- und Sängerstimme gleichzeitig 
-haben.
+und nicht hintereinander haben. Bei genauerem Hinsehen fällt auf, dass
+die @code{<< ... >>}-Konstruktion für die Notenzeile des Sängers eigentlich 
+nicht unbedingt nötig wäre, da sie ja nur einen (sequenzielle) musikalischen
+Ausdruck enthält, nämlich alle Noten des Sängers hintereinander. Daher
+könnte an sich auch einfach ein @code{@{...@}} benutzt werden. Die 
+Spitzklammern sind allerdings notwendig, sobald die Notenzeile mehrere
+parallelle Ausdrücke -- wie etwa zwei parallele Stimmen oder eine Stimme
+mit zugehörigem Text -- enthält. 
+Wir werden die Musik später in das Beispiel einfügen, im Moment begnügen 
+wir uns mit einigen Platzhalter-Noten und -Texten.
 
-@example
-\score @{
-  @{
-    <<
-      \new Staff = "Sänger" <<
-        \new Voice = "vocal" @{ @}
-      >>
-      \new Lyrics \lyricsto vocal \new Lyrics @{ @}
-      \new PianoStaff = "piano" <<
-        \new Staff = "upper" @{ @}
-        \new Staff = "lower" @{ @}
-      >>
+@lilypond[verbatim,quote,ragged-right]
+\score {
+  <<
+    \new Staff = "Sänger" <<
+      \new Voice = "Singstimme" { c'1 }
+      \addlyrics { And }
     >>
-  @}
-  \layout @{ @}
-@}
-@end example
+    \new PianoStaff = "Klavier" <<
+      \new Staff = "oben" { }
+      \new Staff = "unten" { }
+    >>
+  >>
+  \layout { }
+}
+@end lilypond
 
 Jetzt haben wir viel mehr Details. Wir haben ein System (engl. staff) 
 für einen Sänger, in dem sich wieder eine Stimme (engl. voice) 
@@ -243,13 +395,11 @@ dann wiederum zwei eigene Systeme ("upper" für die rechte Hand und
 für die linke) erstellt werden.
 
 Jetzt könnte man in diese Umgebung Noten einfügen. Innerhalb der 
-geschweiften 
-Klammern neben @code{\new Voice = vocal} könnte man
-
+geschweiften Klammern neben @code{\new Voice = vocal} könnte man
 
 @example
 \relative c'' @{
-  a4 b c d
+  r4 d8\noBeam g, c4 r
 @}
 @end example
 
@@ -258,33 +408,38 @@ der @code{\score}-Abschnitt sehr lang und es wird ziemlich schwer zu
 verstehen, wie alles zusammenhängt. Darum bietet es sich an, Bezeichner 
 (oder Variablen) zu verwenden.
 
+@lilypond[verbatim,quote,ragged-right]
+melodie = \relative c'' { r4 d8\noBeam g, c4 r }
+text    = \lyricmode { And God said, }
+oben    = \relative c'' { <g d g,>2~ <g d g,> }
+unten   = \relative c { b2 e2 }
 
-@example
-melodie = @{ @}
-text = @{ @}
-upper = @{ @}
-lower = @{ @}
-\score @{
-  @{
-    <<
-      \new Staff = "Sänger" <<
-        \new Voice = "vocal" @{ \melodie @}
-      >>
-      \new Lyrics \lyricsto vocal \new Lyrics @{ \text @}
-      \new PianoStaff = "piano" <<
-        \new Staff = "upper" @{ \upper @}
-        \new Staff = "lower" @{ \lower @}
-      >>
+\score {
+  <<
+    \new Staff = "Sänger" <<
+      \new Voice = "Singstimme" { \melodie }
+      \addlyrics { \text }
     >>
-  @}
-  \layout @{ @}
-@}
-@end example
+    \new PianoStaff = "Klavier" <<
+      \new Staff = "oben" { \oben }
+      \new Staff = "unten" {
+        \clef "bass"
+        \unten
+      }
+    >>
+  >>
+  \layout { }
+}
+@end lilypond
 
-@noindent
-Nochmal: der Bezeichner kann aller möglicher Text sein. Die 
-Einschränkungen sind in
-@ruser{File structure} genau aufgelistet.
+Achten Sie auf den Unterschied zwischen Noten, die mit @code{\relative}
+oder direkt in einem musikalischen Ausruck eingegeben werden, und 
+dem Text des Lieds, der innerhalb @code{\lyricmode} angegeben 
+werden muss. Diese Unterscheidung ist für LilyPond essentiell,
+um zu entscheiden, ob der folgende Inhalt als Musik oder Text 
+interpretiert werden soll. Wie könnte LilyPond sonst entscheiden, 
+ob @code{@{a b c@}} die drei Noten a, b und c darstellen soll oder
+den Text eines Lieds über das Alphabet!
 
 Beim Schreiben (oder Lesen) einer @code{\score}-Umgebung 
 sollte man langsam und sorgfältig vorgehen. Am besten fängt 
@@ -294,47 +449,1150 @@ genau mit den Einzügen zu sein, so dass jede Zeile, die
 der gleichen Ebene angehört, wirklich horizontal an der 
 gleichen Stelle beginnt.
 
+@seealso
+
+Benutzerhandbuch: @ruser{Structure of a score}.
+
 
 @node Nesting music expressions
 @subsection Nesting music expressions
 
-@untranslated
+@cindex Notenzeilen, temporäre
+@cindex Ossia
 
-@ 
+Notenzeilen (die @q{Staff}-Kontexte) müssen nicht unbedingt gleib
+zu Beginn erzeugt werden -- sie können auch zu einem späteren
+Zeitpunkt eingeführt weden. Das ist vor allem nützlichm um 
+@rglosnamed{ossia,Ossias} zu erzeugen. Hier folgt ein kures Beispiel,
+wie eine zusätzliche temporäre Notenzeile für nur drei Noten erzeugt 
+werden kann:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff {
+        f8 f c
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Wie man sieht, ist die Größe des Notenschlüssels dieselbe, wie sie 
+auch bei einer Schlüsseländerung auftritt -- etwas kleiner als
+der Schlüssel am Beginn einer Notenzeile. Dies ist normal für
+Notenschlüssel, die innerhalb einer Notenzeile gesetzt werden.
+
+@cindex Notenzeile, Positionierung
+
+Der Ossia-Abschnitt kann auch oberhalb der Hauptnotenzeile
+gesetzt werden:
+
+@lilypond[verbatim,quote,ragged-right]
+\new Staff = "Hauptzeile" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "Hauptzeile" }
+      { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Dieses Beispiel benutzt den @code{\with}-Befehl, der später noch
+genauer erklärt wird. Damit kann das Standardverhalten einer
+einzelnen Notenzeile geändert werden: Hier wird einfach angegeben,
+dass die neue Notenzeile oberhalb der bereits existierenden Zeile
+mit Namen @qq{Hauptzeile} plaziert werden soll, anstatt 
+standardmäßig unterhalb.
+
+@seealso
+
+Ossia werden oft ohne Notenschlüssel und Taktangabe gedruck, meist 
+auch etwas kleiner als die anderen Notenzeilen. Dies ist natürlich 
+auch in LilyPond möglich, benötigt aber Befehle, die bisher noch 
+nicht vorgestellt wurden. Siehe @ref{Size of objects}
+und @ruser{Ossia staves}.
+
+
 @node On the un-nestedness of brackets and ties
 @subsection On the un-nestedness of brackets and ties
 
-@untranslated
+@cindex Klammern, geschachtelt
+@cindex Schachtelung von Klammern
+
+Sie haben bisher zahlreiche verschiedene Arten von Klammern
+beim Schreiben von Musik mit LilyPond kennengelernt. Diese
+folgen verschiedenen Regeln, die zu Beginn vielleicht 
+verwirrend wirken. Bevor die genauen Regeln vorgestellt werden,
+wollen wir die diversen Klammerarten kurz rekapitulieren:
+
+@c attempt to force this onto a new page
+@need 50
+@multitable @columnfractions .3 .7
+@headitem Klammerart
+  @tab Funktion
+@item @code{@{ .. @}}
+  @tab Umschließt ein sequenzielles Musiksegment
+@item @code{< .. >}
+  @tab Umschließt die Noten eines Akkords
+@item @code{<< .. >>}
+  @tab Umschließt parallele Musikausdrücke
+@item @code{( .. )}
+  @tab Markiert den Beginn und das Ende eines Haltebogens
+@item @code{\( .. \)}
+  @tab Markiert den Beginn und das Ende eines Phasierungsbogens
+@item @code{[ .. ]}
+  @tab Markiert den Beginn und das Ende eines manuell erzeugten Balkens
+@end multitable
+
+
+Zusätzlich sollten vielleicht noch einige weiter Konstruktionen
+erwähnt werden, die Noten auf irgendeine Art und Weise verbinden:
+Haltebögen (durch eine Tilde @code{~} markiert),
+Triolen (als @code{\times x/y @{..@}} geschrieben) und
+Vorschlagnoten (als @code{\grace@{..@}} notiert).
+
+Außerhalb von LilyPond fordert die übliche Benutzung von 
+Klammern, dass die entsprechenden Arten korrekt verschachtelt
+werden, wie z.B. in @code{<< [ @{ ( .. ) @} ] >>}. Die 
+schließenden Klammern kommen dabei in der umgekehrten Reihenfolge
+wie die öffnenden Klammern vor. Dies ist auch in LilyPond 
+ein @strong{Muss} für die drei Klammerarten, die in obiger 
+Tabelle mit dem Wort @q{Umschließt} beschrieben werden -- sie 
+müssen korrekt geschachtelt werden.
+Die restlichen Klammerarten (durch @q{Markiert} beschrieben),
+die Haltebögen und die Triolen brauchen jedoch mit den 
+anderen Klammerarten @strong{nicht} unbedingt korrekt 
+geschachtelt werden. Tatsächlich sind sie auch keine Klammern
+in dem Sinn, dass sie etwas umschließen, sondern viel mehr
+Indikatoren, an welcher Stelle ein bestimmtes musikalisches 
+Objekt beginnt oder endet.
+
+So kann also z.B. einen Phrasierungsbogen vor einem manuellen 
+Balken beginn, jedoch schon vor dem Ende des Balkens enden.
+Dies mag zwar musikalisch wenig Sinn ergeben, ist aber in LilyPond
+auch möglich:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+ { g8\( a b[ c b\) a] }
+@end lilypond
+
+Im Allgemeinen können die verschiedenen Klammerarten, Haltebögen,
+Triolen und Vorschlagnoten beliebig kombiniert werden.
+Das folgende Beispiel zeigt einen Balken, der in eine Triole reicht 
+(Zeile 1), eine Bindebogen, der ebenfalls in eine Triole 
+reicht (Zeile 2), einen Balken und einen Bindeboden in eine Triole,
+ein Haltebogen, der über zwei Triolen läuft, sowie einen 
+Phrasierungsbogen, der in einer Triole beginnt (Zeilen 3 und 4).
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  r16[ g16 \times 2/3 {r16 e'8] }
+  g16( a \times 2/3 {b d) e' }
+  g8[( a \times 2/3 {b d') e'~]}
+  \times 4/5 {e'32\( a b d' e'} a'4.\)
+}
+@end lilypond
+
 
 @node Voices contain music
 @section Voices contain music
 
-@untranslated
+Sänger brauchen Stimmen zum Singen, und LilyPond braucht sie auch:
+in der Tat sind alle Noten für alle Instrumente in einer Partitur
+innerhalb von Stimmen gesetzt. Die Stimme ist das grundlegendste Prinzip
+von LilyPond.
 
 @menu 
 * I'm hearing Voices::
 * Explicitly instantiating voices::
 * Voices and vocals::
 @end menu 
+
 @node I'm hearing Voices
 @subsection I'm hearing Voices
 
-@untranslated
+@cindex Polyphonie
+@cindex Ebenen
+@cindex mehrere Stimmen
+@cindex Voice context
+@cindex context, Voice
+@cindex Kontext, Stimme
+@cindex Stimmenkontext
+@cindex gleichzeitige Noten
+@cindex Noten gleichzeitig
+
+Die grundegendsten und innersten Ebenen ein einer LilyPond-Partitur
+werden @qq{Voice context} (Stimmenkontext) oder auch nur @qq{Voice}
+(Stimme) genannt. Stimmen werden in anderen Notationsprogrammen
+manchmal auch als @qq{layer} (Ebene) bezeichnet.
+
+Tatsächlich ist die Stimmenebene die einzige, die wirklich Noten 
+enthalten kann. Wenn kein Stimmenkontext explizit erstellt wird, 
+wird er automatisch erstellt, wie am Anfang dieses Kapitels
+gezeigt. Manche Instrumente wie etwa die Oboe können nur eine
+Note gleichzeitig spielen. Noten für solche Instrumente sind
+monophon und brauchen nur eine einzige Stimme. Instrumente, die
+mehrere Noten gleichzeitig spielen können, wie das Klavier, brauchen
+dagegeben oft mehrere Stimmen, um die verschiedenen gleichzeitig
+erklingenden Noten mit oft unterschiedlichen Rhythmen darstellen 
+zu können.
+
+Eine einzelne Stimme kann natürlich auch vielen Noten in einem Akkord
+enhalten -- wann also braucht man dann mehrere Stimmen? Schauen wir
+uns zuerst dieses Beispiel mit vier Akkorden an:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+\key g \major
+<d g>4 <d fis> <d a'> <d g>
+@end lilypond
+
+Das kann ausgedrückt werden, indem man die einfachen spitzen Klammern
+@code{< ... >} benützt, um Akkorde anzuzeigen. Hierfür braucht man
+nur eine Stimme. Aber gesetzt der Fall das Fis sollte eigentlich
+eine Achtelnote sein, gefolgt von einer Achtelnote G (als Durchgangsnote
+hin zum A)? Hier haben wir also zwei Noten, die zur gleichen Zeit
+beginnen, aber unterschiedliche Dauern haben: die Viertelnote D und die
+Achtelnote Fis. Wie können sie notiert werden? Als Akkord kann man sie 
+nicht schreiben, weil alle Noten in einem Akkord die gleiche Länge besitzen
+müssen. Sie können auch nicht als aufeinanderfolgende Noten geschrieben
+werden, denn sie beginnen ja zur selben Zeit. In diesem Fall also brauchen
+wir zwei Stimmen.
+
+Wie aber wird das in der LilyPond-Syntax ausgedrückt?
+
+@funindex << \\ >>
+@funindex \\
+
+Die einfachste Art, Fragmente mit mehr als einer Stimme auf einem System
+zu notieren, ist, die Stimmen nacheinander (jeweils mit den Klammern
+@code{@{ ... @}}) zu schreiben und dann mit den spitzen Klammern
+(@code{<<...>>}) simultan zu kombinieren. Die beiden Fragmente müssen
+zusätzlich noch mit zwei Backslash-Zeichen (@code{\\}) voneinander
+getrennt werden, damit sie als zwei unterschiedliche Stimmen erkannt 
+werden. Ohne diese Trenner würden sie als eine einzige Stimme notiert
+werden. Diese Technik ist besonders dann angebracht, wenn es sich bei
+den Noten um hauptsächlich homophone Musik handelt, in der hier und da
+polyphone Stellen vorkommen.
+
+So sieht es aus, wenn die Akkorde in zwei Stimmen aufgeteilt werden
+und zur Durchgangsnote noch ein Bogen hinzugefügt wird:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key g \major
+%    Voice "1"                  Voice "2"
+<< { g4 fis8( g) a4 g }    \\ { d4 d d d }  >> |
+@end lilypond
+
+Beachte, dass die Hälse der zweiten Stimme nun nach unten zeigen.
+
+Hier ein anderes Beispiel:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key d \minor
+%    Voice "1"             Voice "2"
+<< { r4 g g4. a8 }    \\ { d,2 d4 g }       >> |
+<< { bes4 bes c bes } \\ { g4 g g8( a) g4 } >> |
+<< { a2. r4 }         \\ { fis2. s4 }       >> |
+@end lilypond
+
+Es ist nicht notwendig, für jeden Takt eine eigene
+@code{<< \\ >>}-Konstruktion zu benutzen. Bei Musik mit nur wenigen
+Noten pro Takt kann es die Quelldatei besser lesbar machen, aber
+wenn in einem Takt viele Noten vorkommen, kann man die gesamten Stimmen
+separat schreiben, wie hier:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\key d \minor
+<< {
+  % Voice "1"
+  r4 g g4. a8 |
+  bes4 bes c bes |
+  a2. r4 |
+} \\ {
+  % Voice "2"
+  d,2 d4 g |
+  g4 g g8( a) g4 |
+  fis2. s4 |
+} >>
+@end lilypond
+
+Dieses Beispiel hat nur zwei Stimmen, aber die gleiche Konstruktion kann
+angewendet werden, wenn man drei oder mehr Stimmen hat, indem man weitere
+Backslash-Trenner hinzufügt.
+
+Die Stimmenkontexte tragen die Namen @code{"1"}, @code{"2"} usw. In jedem
+dieser Kontexte wird die vertikale Ausrichtung von Hälsen, Bögen, Dynamik-Zeichen
+usw. entsprechend ausgerichtet.
+
+@lilypond[quote,verbatim,fragment]
+\new Staff \relative c' {
+  % Main voice
+  c16 d e f
+  %    Voice "1"     Voice "2"                 Voice "3"
+  << { g4 f e } \\ { r8 e4 d c8 ~ } >> |
+  << { d2 e2 }  \\ { c8 b16 a b8 g ~ g2 } \\ { s4 b4 c2 } >> |
+}
+@end lilypond
+
+Diese Stimmen sind alle getrennt von der Hauptstimme, die die Noten 
+außerhalb der @code{<< .. >>}-Konstruktion beinhaltet. Lassen wir es
+uns die @emph{simultane Konstruktion} nennen. Bindebögen und Legatobögen
+können nur Noten in der selben Stimmen miteinander verbinden und können
+also somit nicht aus der simultanen Konstruktion hinausreichen. Umgekehrt
+gilt, dass parallele Stimmen aus eigenen simultanen Konstruktionen auf
+dem gleichen Notensystem die gleiche Stimme sind. Auch andere, mit dem
+Stimmenkontext verknüpfte Eigenschaften erstrecken sich auf alle
+simultanen Konstrukte. Hier das gleiche Beispiel, aber mit unterschiedlichen Farben für die Notenköpfe der unterschiedlichen Stimmen.
+Beachten Sie, dass Änderungen in einer Stimme sich nicht auf die anderen
+Stimmen erstrecken, aber sie sind weiterhin in der selben Stimme vorhanden,
+auch noch später im Stück. Beachten Sie auch, dass übergebundene Noten
+über die gleiche Stimme in zwei Konstrukten verteilt werden können, wie
+hier an der blauen Dreieckstimme gezeigt.
+
+@lilypond[quote,verbatim]
+\new Staff \relative c' {
+  % Main voice
+  c16 d e f
+  << % Bar 1
+    {
+      \voiceOneStyle
+      g4 f e
+    }
+  \\
+    {
+      \voiceTwoStyle
+      r8 e4 d c8 ~
+    }
+  >>
+  << % Bar 2
+     % Voice 1 continues
+    { d2 e2 }
+  \\
+     % Voice 2 continues
+    { c8 b16 a b8 g ~ g2 }
+  \\
+    {
+      \voiceThreeStyle
+      s4 b4 c2
+    }
+  >>
+}
+@end lilypond
+
+@funindex \voiceOneStyle
+@funindex \voiceTwoStyle
+@funindex \voiceThreeStyle
+@funindex \voiceFourStyle
+@funindex \voiceNeutralStyle
+
+Die Befehle @code{\voiceXXXStyle} sind vor allem dazu da, um in
+pädagogischen Dokumenten wie diesem hier angewandt zu werden.
+Sie verändern die Farbe des Notenkopfes, des Halses und des Balkens, und
+zusätzlich die Form des Notenkopfes, damit die einzelnen Stimmen
+einfach auseinander gehalten werden können. Die erste Stimme ist als
+rote Raute definiert, die zweite Stimme als blaue Dreiecke, die dritte
+Stimme als grüne Kreise mit Kreuz und die vierte Stimme (die hier nicht
+benutzt wird) hat dunkelrote Kreuze. @code{\voiceNeutralStyle} (hier auch
+nicht benutzt) macht diese Änderungen rückgängig. Später soll gezeigt
+werden, wie Befehle wie diese vom Benutzer selber erstellt werden 
+können. Siehe auch @ref{Visibility and color of objects} und
+@ref{Using variables for tweaks}.
+
+Polyphonie ändert nicht die Verhältnisse der Noten innerhalb eines
+@code{\relative @{ @}}-Blocks. Jede Note wird weiterhin relativ zu 
+der vorherigen Note errechnet, oder relativ zur ersten Note des vorigen
+Akkords. So ist etwa hier
+
+@example
+\relative c' @{ NoteA << < NoteB NoteC > \\ NoteD >> NoteE @}
+@end example
+
+@noindent
+@code{NoteB} bezüglich @code{NoteA}                      @*
+@code{NoteC} bezüglich @code{NoteB}, nicht @code{noteA};   @*
+@code{NoteD} bezüglich @code{NoteB}, nicht @code{NoteA} oder
+@code{NoteC};                                                 @*
+@code{NoteE} bezüglich @code{NoteD}, nicht @code{NoteA} errechnet.
+
+Eine andere Möglichkeit ist, den @code{\relative}-Befehl vor jede
+Stimme zu stellen. Das bietet sich an, wenn die Stimmen weit voneinander
+entfernt sind.
+
+@example
+\relative c' @{ NoteA ... @}
+<<
+  \relative c'' @{ < NoteB NoteC > ... @}
+\\
+  \relative g' @{ NoteD ... @}
+>>
+\relative c' @{ NoteE ... @}
+@end example
+
+Zum Schluss wollen wir die Stimmen in einem etwas komplizierteren Stück
+analysieren. Hier die Noten der ersten zwei Takte von Chopins
+@notation{Deux Nocturnes}, Op. 32. Dieses Beispiel soll später in diesem
+und dem nächsten Kapitel benutzt werden, um verschiedene Techniken,
+Notation zu erstellen, zu demonstrieren. Ignorieren Sie deshalb an diesem
+Punkt alles in folgendem Code, das Ihnen seltsam vorkommt, und konzentrieren
+Sie sich auf die Noten und die Stimmen. Die komplizierten Dinge werden
+in späteren Abschnitten erklärt werden.
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  << % Voice one
+    { c2 aes4. bes8 }
+  \\ % Voice two
+    { aes2 f4 fes }
+  \\ % No voice three
+  \\ % Voice four
+    {
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+Die Richtung der Hälse wird  oft benutzt, um anzuzeigen, dass zwei 
+gleichzeitige Melodien sich fortsetzen. Hier zeigen die Hälse aller
+oberen Noten nach oben und die Hälse aller unteren Noten nach unten.
+Das ist der erste Anhaltspunkt, dass mehr als eine Stimme benötigt 
+wird.
+
+Aber die wirkliche Notwendigkeit für mehrere Stimmen tritt erst
+dann auf, wenn unterschiedliche Noten gleichzeitig erklingen, aber
+unterschiedliche Dauern besitzen. Schauen Sie sich die Noten 
+auf dem dritten Schlag im ersten Takt an. Das As ist eine punktierte
+Viertel, das F ist eine Viertel und das Des eine Halbe. Sie können
+nicht als Akkord geschrieben werden, denn alle Noten in einem Akkord
+besitzen die gleiche Dauer. Sie können aber auch nicht nacheinander
+geschrieben werden, denn sie beginnen auf der gleichen Taktzeit. Dieser
+Taktabschnitt benötigt drei Stimmen, und normalerweise schreibt man
+drei Stimmen für den ganzen Takt, wie im Beispiel unten zu sehen ist;
+hier sind unterschiedliche Köpfe und Farben für die verschiedenen Stimmen
+eingesetzt. Nocheinmal: der Quellcode für dieses Beispiel wird später 
+erklärt werden, deshalb ignorieren Sie alles, was Sie hier nicht 
+verstehen können.
+
+@c The following should appear as music without code
+@c The three voice styles should be defined in -init
+@lilypond[quote,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { % Voice one
+      \voiceOneStyle
+      c2 aes4. bes8
+    }
+  \\  % Voice two
+    { \voiceTwoStyle
+      aes2 f4 fes
+    }
+  \\  % No Voice three (we want stems down)
+  \\  % Voice four
+    { \voiceThreeStyle
+      % Ignore these for now - they are explained in Ch 4
+      \once \override NoteColumn #'force-hshift = #0
+      <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+Versuchen wir also, diese Musik selber zu notieren. Wie wir sehen 
+werden, beinhaltet das einige Schwierigkeiten. Fangen wir an, wie
+wir es gelernt haben, indem wir mit der @code{<< \\  >>}-Konstruktion
+die drei Stimmen des ersten Taktes notieren:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\ { aes2 f4 fes } \\ { <ees c>2 des2 }
+  >>
+  <c ees aes c>1
+}
+@end lilypond
+
+@cindex Hals nach unten
+@cindex Hals nach oben
+@cindex Notenhals, Richtung
+@cindex Richtung des Notenhalses
+
+Die Richtung des Notenhalses wird automatisch zugewiesen; die ungeraden
+Stimmen tragen Hälse nach oben, die gerade Hälse nach unten. Die Hälse
+für die Stimmen 1 und 2 stimmen, aber die Hälse in der dritten Stimme
+sollen in diesem Beispiel eigentlich nach unten zeigen. Wir können das
+korrigieren, indem wir die dritte Stimme einfach auslassen und die
+Noten in die vierte Stimme verschieben:
+
+@c KEEP LY
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  << % erste Stimme
+    { c2 aes4. bes8 }
+  \\ % zweite Stimme
+    { aes2 f4 fes   }
+  \\ % Stimme drei auslassen
+  \\ % vierte Stimme
+    { <ees c>2 des2 }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+Wie zu sehen ist, ändert das die Richtung der Hälse, aber zeigt ein
+anderes Problem auf, auf das man manchmal bei mehreren Stimmen stößt:
+Die Hälse einer Stimme können mit den Hälsen anderer Stimmen kollidieren.
+LilyPond erlaubt Noten in verschiedenen Stimmen sich auf der gleichen
+vertikalen Position zu befinden, wenn die Hälse in entgegengesetzte
+Richtungen zeigen, und positioniert die dritte und vierte Stimme dann
+so, dass Zusammenstöße möglichst vermieden werden. Das funktioniert
+gewöhnlich recht gut, aber in diesem Beispiel sind die Noten der untersten
+Stimme eindeutig standardmäßig schlecht positioniert. LilyPond bietet
+verschiedene Möglichkeiten, die horizontale Position von Noten
+anzupassen. Wir sind aber noch nicht so weit, dass wir diese Funktionen
+anwenden könnten. Darum heben wir uns das Problem für einen späteren Abschnitt auf; siehe @code{force-hshift}-Eigenschaft in @ref{Fixing
+overlapping notation}.
+
+@seealso
+
+Notationsreferenz: @ruser{Multiple voices}.
+
 
 @node Explicitly instantiating voices
 @subsection Explicitly instantiating voices
 
-@untranslated
+@funindex \voiceOne
+@funindex \voiceTwo
+@funindex \voiceThree
+@funindex \voiceFour
+@funindex \oneVoice
+@funindex \new Voice
+@cindex Voice context, erstellen von
+@cindex Stimmenkontexte, erstellen von
+
+Voice-Kontexte können auch manuell innerhalb 
+eines @code{<< >>}-Abschnittes initiiert werden. Mit den Befehlen 
+@code{\voiceOne} bis hin zu @code{\voiceFour} kann jeder Stimme 
+entsprechendes Verhalten von vertikaler Verschiebung und Richtung 
+von Hälsen und anderen Objekten hinzugefügt werden. In längeren 
+Partituren können die Stimmen damit besser auseinander gehalten 
+werden.
+
+Die @code{<< \\ >>}-Konstruktion, die wir im vorigen Abschnitt
+verwendet haben:
+
+@example
+\new Staff @{
+  \relative c' @{
+    << @{ e4 f g a @} \\ @{ c,4 d e f @} >>
+  @}
+@}
+@end example
+
+@noindent
+ist identisch mit
+
+@example
+\new Staff <<
+  \new Voice = "1" @{ \voiceOne \relative c' @{ e4 f g a @} @}
+  \new Voice = "2" @{ \voiceTwo \relative c' @{ c4 d e f @} @}
+>>
+@end example
+
+Beide würden folgendes Notenbild erzeugen:
+
+@c The following example should not display the code
+@lilypond[ragged-right,quote]
+\new Staff <<
+  \new Voice = "1" { \voiceOne \relative c' { e4 f g a } }
+  \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
+>>
+@end lilypond
+
+Der @code{\voiceXXX}-Befehl setzt die Richtung von Hälsen, 
+Bögen, Artikulationszeichen, Text, Punktierungen und Fingersätzen. 
+ @code{\voiceOne} und @code{\voiceThree} lassen diese Objekte 
+ nach oben zeigen, 
+ @code{\voiceTwo} und @code{\voiceFour}
+dagegen lassen sie abwärts zeigen. Diese Befehle erzeugen eine
+horizontale Verschiebung, wenn es erforderlich ist, um Zusammenstöße
+zu vermeiden. Der Befehl 
+@code{\oneVoice} stellt wieder auf das normale Verhalten um.
+
+Schauen wir uns in einigen einfachen Beispielen an, was genau
+die Befehle @code{\oneVoice}, @code{\voiceOne} und @code{voiceTwo}
+mit Text, Bögen und Dynamikbezeichnung anstellen:
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  % Default behavior or behavior after \oneVoice
+  c d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceOne
+  c d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c, d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+@lilypond[quote,ragged-right,verbatim]
+\relative c'{
+  \voiceTwo
+  c d8 ~ d e4 ( f g a ) b-> c
+  \oneVoice
+  c, d8 ~ d e4 ( f g a ) b-> c
+}
+@end lilypond
+
+Schauen wir und nun drei unterschiedliche Arten an, den gleichen
+Abschnitt polyphoner Musik zu notieren, jede Art mit ihren 
+Vorteilen in unterschiedlichen Situationen. Wir benutzen dabei
+das Beispiel vom vorherigen Abschnitt.
+
+Ein Ausdruck, der direkt innerhalb einer @code{<< >>}-Umgebung 
+auftritt, gehört der Hauptstimme an. Das ist nützlich, wenn zusätzliche 
+Stimme auftreten, während die Hauptstimme sich fortsetzt. Hier also 
+eine bessere Version des Beispiels aus dem vorigen Abschnitt. Die 
+farbigen Kreuz-Notenköpfe zeigen, dass die Hauptstimme sich jetzt in 
+einem einzigen Stimmen (@code{voice})-Kontext befindet. Somit kann ein
+Phrasierungsbogen ober sie gesetzt werden.
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  \voiceOneStyle
+  % The following notes are monophonic
+  c16^( d e f
+  % Start simultaneous section of three voices
+  <<
+    % Continue the main voice in parallel
+    { g4 f e | d2 e2) }
+    % Initiate second voice
+    \new Voice {
+      % Set stems, etc, down
+      \voiceTwo
+      r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2
+    }
+    % Initiate third voice
+    \new Voice {
+      % Set stems, etc, up
+      \voiceThree
+      s2. | s4 b4 c2
+    }
+  >>
+}
+@end lilypond
+
+@cindex Verschachteln von musikalischen Ausdrücken
+@cindex Verschachteln von gleichzeitigen Ausdrücken
+@cindex Ausdrücke, Verschachteln von
+
+@cindex Stimmen, temporär
+@cindex Stimmen, Verschachteln von
+
+Tiefer verschachtelte polyphone Konstrukte sind möglich, und
+wenn eine Stimme nur kurz auftaucht, kann das der bessere Weg
+sein, Noten zu setzen:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' {
+  c16^( d e f
+  <<
+    { g4 f e | d2 e2) }
+    \new Voice {
+      \voiceTwo
+      r8 e4 d c8 ~ |
+      <<
+        {c8 b16 a b8 g ~ g2}
+        \new Voice {
+          \voiceThree
+          s4 b4 c2
+        }
+      >>
+    }
+  >>
+}
+@end lilypond
+
+@cindex Platzhalternoten
+@cindex unsichtbare Noten
+@cindex Noten verstecken
+
+Diese Methode, neue Stimmen kurzzeitig zu verschachteln, bietet sich
+an, wenn nur sehr kleine Abschnitte polyphonisch gesetzt sind. Wenn
+aber die ganze Partitur polyphon ist, ist es meistens klarer, direkt
+unterschiedliche Stimmen über die gesamte Partitur hinweg einzusetzen.
+Hierbei kann man mit unsichtbaren Noten dann die Stellen überspringen,
+an denen die Stimme nicht auftaucht, wie etwa hier:
+
+@lilypond[quote,ragged-right,verbatim]
+\new Staff \relative c' <<
+  % Initiate first voice
+  \new Voice {
+    \voiceOne
+    c16^( d e f g4 f e | d2 e2) |
+  }
+  % Initiate second voice
+  \new Voice {
+    % Set stems, etc, down
+    \voiceTwo
+    s4 r8 e4 d c8 ~ | c8 b16 a b8 g ~ g2 |
+  }
+  % Initiate third voice
+  \new Voice {
+    % Set stems, etc, up
+    \voiceThree
+    s1 | s4 b4 c2 |
+  }
+>>
+@end lilypond
+
+@subsubheading Note columns
+
+@cindex Notenkolumne
+@cindex Vertikale Position
+@cindex shift-Befehle
+@cindex Verschieben von Noten
+@funindex \shiftOff
+@funindex \shiftOn
+@funindex \shiftOnn
+@funindex \shiftOnnn
+
+Dicht notierte Noten in einem Akkord, oder Noten auf der gleichen
+Taktzeit aber in unterschiedlichen Stimmen, werden in zwei, manchmal
+auch mehreren Kolumnen getzt, um die Noten am Überschneiden zu 
+hindern. Wir bezeichnen sie als Notenkolumnen. Jede Stimme hat
+eine eigene Kolumne, und ein stimmenabhängiger Verschiebunsbefehl (engl.
+shift) wird eingesetzt, wenn eine Kollision auftreten könnte. 
+Das zeigt das Beispiel oben. Im zweiten Takt wird das C der zweiten
+Stimme nach rechts verschoben, relativ gesehen zum D der ersten Stimme,
+und im letzten Akkord wird das C der dritten Stimme auch nach 
+rechts verschoben im Verhältnis zu den anderen Stimmen.
+
+Die Befehle @code{\shiftOn}, @code{\shiftOnn}, @code{\shiftOnnn} und
+@code{\shiftOff} bestimmen den Grad, zu dem Noten und Akkorde
+verschoben werden sollen, wenn sich sonst eine Kollision nicht
+vermeiden ließe. Die Standardeinstellung ist, dass die äußeren
+Stimmen (also normalerweise Stimme 1 und 2) @code{\shiftOff}
+eingestellt haben, während für die inneren Stimmen (3 und 4)
+@code{\shiftOn} eingeschaltet ist. Wenn eine Verschiebung
+auftritt, werden Stimmen 1 und 3 nach rechts und Stimmen 2 und 4
+nach links verschoben.
+
+@code{\shiftOnn} und @code{\shiftOnnn} definieren weitere
+Verschiebungsebenen, die man kurzzeitig anwählen kann, um
+Zusammenstöße in komplexen Situationen aufzulösen, siehe auch
+@ref{Real music example}.
+
+Eine Notenkolumne kann nur eine Note (oder einen Akkord) von
+einer Stimme mit Hälsen nach oben und eine Note (oder einen
+Akkord) von einer Stimme mit Hälsen nach unten tragen. Wenn
+Noten von zwei Stimmen mit den Hälsen in die gleiche Richtung
+an der selben Stelle auftreten und in beiden Stimmen ist
+keine Verschiebung oder die gleiche Verschiebungsebene
+definiert, wird die Fehlermeldung 
+@qq{zu viele kollidierende Notenspalten werden ignoriert}
+ausgegeben.
+
+@seealso
+
+Notationsreferenz: @ruser{Multiple voices}.
+
 
 @node Voices and vocals
 @subsection Voices and vocals
 
-@untranslated
+Die Notation von Vokalmusik ihre eigene Schwierigkeit, nämlich
+die Kombination von zwei Ausdrücken: den Noten und dem Text.
+Achtung: Der Gesangstext wird auf Englisch @qq{lyrics} genannt.
+
+
+@funindex \new Lyrics
+@funindex \lyricsto
+@cindex Lyrics context, erstellen
+@cindex Gesangtext, Verbindung mit Noten
+
+Wir haben schon den @code{\addlyrics@{@}}-Befehl betrachtet,
+mit dem einfache Partituren gut erstellt werden können. 
+Diese Methode ist jedoch recht eingeschränkt. Wenn der Notensatz
+komplexer wird, muss der Gesangstext mit einem neuen
+@code{Lyrics}-Kontext begonnen werden (mit dem Befehl
+@code{\new Lyrics}) und durch den Befehl @code{\lyricsto@{@}}
+mit einer bestimmten Stimme verknüpft werden, indem die
+Bezeichnung der Stimme benutzt wird.
+
+@lilypond[quote,verbatim,fragment]
+<<
+  \new Voice = "one" \relative c'' {
+    \autoBeamOff
+    \time 2/4
+    c4 b8. a16 g4. f8 e4 d c2
+  }
+  \new Lyrics \lyricsto "one" {
+    No more let sins and sor -- rows grow.
+  }
+>>
+@end lilypond
+
+Beachten Sie, dass der Notentext nur mit einem @code{Voice}-Kontext
+verknüpft werden kann, nicht mit einem @code{Staff}-Kontext.
+In diesem Fall also müssen Sie ein System (@code{Staff}) und 
+eine Stimme (@code{Voice}) explizit erstellen, damit alles 
+funktioniert.
+
+@cindex Gesangstext und Balken
+@cindex Text und Balken
+@cindex Balken und Text
+@funindex \autoBeamOff
+
+Die automatischen Balken, die LilyPond in der Standardeinstellung
+setzt, eignen sich sehr gut für instrumentale Musik, aber nicht
+so gut für Musik mit Text, wo man entweder gar keine Balken 
+benutzt oder sie einsetzt, um Melismen zu verdeutlichen.
+Im Beispiel oben wird deshalb der Befehl @code{\autoBeamOff}
+eingesetzt um die automatischen Balken (engl. beam) auszuschalten.
+
+@funindex \new ChoirStaff
+@funindex \lyricmode
+@cindex Vokalpartitur, Aufbau
+@cindex Chorpartitur, Aufbau
+
+Wir wollen das frühere Beispiel von @notation{Judas Maccabæus}
+benutzen, um diese flexiblere Technik für Gesangstexte
+zu illustrieren. Das Beispiel wurde so umgeformt, dass jetzt
+Variablen eingesetzt werden, um den Text und die Noten
+von der Partiturstruktur zu trennen. Es wurde zusätzlich
+eine Chorpartiturklammer hinzugefügt. Der Gesangtext muss mit
+@code{\lyricmode} eingegeben werden, damit er als Text und
+nicht als Noten interpretiert werden kann.
+
+@lilypond[quote,verbatim]
+global = { \time 6/8 \partial 8 \key f \major}
+SopOneMusic = \relative c'' {
+  c8 | c([ bes)] a a([ g)] f | f'4. b, | c4.~ c4 }
+SopTwoMusic = \relative c' {
+  r8 | r4. r4 c8 | a'([ g)] f f([ e)] d | e([ d)] c bes' }
+SopOneLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, __ }
+SopTwoLyrics = \lyricmode {
+  Let | flee -- cy flocks the | hills a -- dorn, }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "SopOne" {
+        \global
+        \SopOneMusic
+      }
+      \new Lyrics \lyricsto "SopOne" {
+        \SopOneLyrics
+      }
+    >>
+    \new Staff <<
+      \new Voice = "SopTwo" {
+        \global
+        \SopTwoMusic
+      }
+      \new Lyrics \lyricsto "SopTwo" {
+        \SopTwoLyrics
+      }
+    >>
+  >>
+}
+@end lilypond
+
+Dies ist die Grundstruktur für alle Chorpartituren. Mehr
+Systeme können hinzugefügt werden, wenn sie gebraucht werden, mehr
+Stimmen können zu jedem System hinzugefügt werden, mehr
+Strophen können zum Text hinzugefügt werden, und schließlich
+können die Variablen schnell in eine eigene Datei verschoben 
+werden, wenn sie zu lang werden sollten.
+
+@cindex Choralnotation
+@cindex Hymnus-Notation
+
+Hier ein Beispiel der ersten Zeile eines Chorals mit vier
+Strophen für gemischten Chor. In diesem Fall ist der Text
+für alle vier Stimmen identisch. Beachten Sie, wie die
+Variablen eingesetzt werden, um Inhalt (Noten und Text) und Form
+(die Partitur) voneinander zu trennen. Eine Variable wurde
+eingesetzt, um die Elemente, die auf beiden Systemen auftauchen,
+aufzunehmen, nämlich Taktart und Tonart. Solch eine 
+Variable wird oft auch mit @qq{global} bezeichnet.
+
+@lilypond[quote,verbatim]
+TimeKey = { \time 4/4 \partial 4 \key c \major}
+SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+VerseOne   = \lyricmode {
+  E -- | ter -- nal fa -- ther, | strong to save, }
+VerseTwo   = \lyricmode {
+  O | Christ, whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode {
+  O | Ho -- ly Spi -- rit, | who didst brood }
+VerseFour  = \lyricmode {
+  O | Tri -- ni -- ty of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Sop"  { \voiceOne \TimeKey \SopMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Sop" { \VerseOne   }
+      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
+      \new Lyrics \lyricsto "Sop" { \VerseThree }
+      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TimeKey \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+    >>
+  >>
+}
+@end lilypond
+
+@cindex Strophe und Refrain
+@cindex Refrain
+
+Dieser Abschnitt schließt mit einem Beispiel, das eine Solo-Strophe
+mit anschließendem zweistimmigem Refrain auf zwei Systemen zeigt.
+Die Positionierung des einstimmigen Abschnitss und der mehrstimmigen
+Stelle ist etwas kompliziert; es braucht etwas Aufmerksamkeit,
+um der Erklärung folgen zu können.
+
+Beginnen wir mit einer @code{score}-Umgebung, in der eine
+Chorpartitur (@code{ChoirStaff}) gesetzt wird. Die Partitur soll
+schließlich mit der eckigen Klammer beginnen.
+Normalerweise bräuchten wir spitze Klammern im Quelltext
+nach dem @code{\new ChoirStaff}, damit die Systeme paralell
+gesetzt werden, aber hier wollen wir diese Parallelsierung
+ja erst nach dem Solo. Also benutzen wir geschweifte Klammern.
+Innerhalb der Chorpartitur erstellen wir zuerst das System, 
+das die Strophe enthält. Es braucht Noten und Text parallel,
+also setzen wir hier die spitzen Klammern um @code{\new Voice} 
+und @code{\new Lyrics}.
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+\score {
+  \new Choirstaff {
+    \new Staff <<
+      \new Voice = "verse" {
+        \versenotes \break
+      }
+      \new Lyrics \lyricsto verse {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+@noindent
+Damit erhalten wir die Strophe.
+
+Jetzt soll @notation{refrainA} auf dem selben System gesetzt
+werden, während gleichzeitig in einem neuen System darunter 
+@notation{refrainB} gesetzt wird. Damit die Oberstimme das
+gleiche System benutzt, muss alles direkt auf den Zeilenumbruchbefehl
+(@code{\break} folgen, innerhalb der @notation{verse}-Stimme.
+Ja, tatsächlich, @emph{innerhalb} der @notation{verse}-Stimme.
+Hier haben wir diese parallele Stelle isoliert. Weitere Systeme
+könnten auf die gleiche Weise hinzugefügt werden.
+
+@example
+<<
+  \refrainnotesA
+  \new Lyrics \lyricsto verse @{
+    \refrainwordsA
+  @}
+  \new Staff <<
+    \new Voice = "refrainB" @{
+      \refrainnotesB
+    @}
+    \new Lyrics \lyricsto "refrainB" @{
+      \refrainwordsB
+    @}
+  >>
+>>
+@end example
+
+Nun schließlich das Resultat mit zwei Systemen für den Refrain,
+man kann gut sehen, wie sich die parallele Stelle innherhalb
+der @notation{verse}-Stimme befindet.
+
+@lilypond[quote,verbatim, ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new ChoirStaff {
+    \new Staff <<
+      \new Voice = "verse" {
+        \versenotes \break
+        <<
+          \refrainnotesA
+          \new Lyrics \lyricsto "verse" {
+            \refrainwordsA
+          }
+          \new Staff <<
+            \new Voice = "refrainB" {
+              \refrainnotesB
+            }
+            \new Lyrics \lyricsto "refrainB" {
+              \refrainwordsB
+            }
+          >>
+        >>
+      }
+      \new Lyrics \lyricsto "verse" {
+        \versewords
+      }
+    >>
+  }
+}
+@end lilypond
+
+@cindex book, Benutzung von
+@funindex \book
+
+Dies ist zwar eine interessante und nützliche Übung um zu
+verstehen, wie sequentielle und parallele Notationsumgebungen
+funktionieren, in der Praxis würde man diesen Code aber
+vielleicht eher in zwei @code{\score}-Umgebungen trennnen
+und diese dann innerhalb einer @code{\book}-Umgebung
+einsetzen, wie im folgenden Beispiel demonstriert:
+
+@lilypond[quote,verbatim,ragged-right]
+versenotes = \relative c'' {
+  \clef "treble"
+  \key g \major
+  \time 3/4 g g g b b b
+}
+refrainnotesA = \relative c'' {
+  \time 2/4
+  c c g g \bar "|."
+}
+refrainnotesB = \relative c {
+  \clef "bass"
+  \key g \major
+  c e d d
+}
+versewords = \lyricmode {
+  One two three four five six
+}
+refrainwordsA = \lyricmode {
+  la la la la
+}
+refrainwordsB = \lyricmode {
+  dum dum dum dum
+}
+\score {
+  \new Staff <<
+    \new Voice = "verse" {
+      \versenotes
+    }
+    \new Lyrics \lyricsto "verse" {
+      \versewords
+    }
+  >>
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \new Voice = "refrainA" {
+        \refrainnotesA
+      }
+      \new Lyrics \lyricsto "refrainA" {
+        \refrainwordsA
+      }
+    >>
+    \new Staff <<
+      \new Voice = "refrainB" {
+        \refrainnotesB
+      }
+      \new Lyrics \lyricsto "refrainB" {
+        \refrainwordsB
+      }
+    >>
+  >>
+}
+@end lilypond
+
+@seealso
+
+Notation Reference: @ruser{Vocal music}.
+
 
 @node Contexts and engravers
 @section Contexts and engravers
 
-@untranslated
+Kontexte und Engraver (@qq{Stempel}) sind in den vorherigen
+Abschnitten schon aufgetaucht; hier wollen wir uns ihnen
+nun etwas ausführlicher widmen, denn sie sind sehr
+wichtig, um Feineinstellungen in der LilyPond-Notenausgabe
+vornehmen zu können.
 
 @menu 
 * Contexts explained::

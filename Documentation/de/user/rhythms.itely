@@ -30,9 +30,9 @@ This section discusses rhythms, durations, and bars.
 
 @menu
 * Durations::                   
-* Augmentation dots::           
 * Tuplets::                     
 * Scaling durations::           
+* Ties::                        
 @end menu
 
 @node Durations
@@ -96,9 +96,6 @@ für die erste Note ist eine Viertel.
 { a a a2 a a4 a a1 a }
 @end lilypond
 
-
-@node Augmentation dots
-@subsubsection Augmentation dots
 
 @funindex .
 @cindex Punktierung
@@ -310,13 +307,143 @@ b16*4 c4
 Abschnitt @ref{Tuplets}
 
 
+@node Ties
+@subsubsection Ties
+
+@cindex Bindebogen
+@cindex Überbindung
+@funindex ~
+
+Ein Bindebogen verbindet zwei benachbarte Noten der selben 
+Tonhöhe. Als Resultat wird die Dauer der Notenlänge verlängert. 
+Bindebögen dürfen nicht mit Legatobögen verwechselt werden, durch 
+die die Vortragsart bezeichnet wird, noch mit Phrasierungsbögen, 
+die musikalische Phrasen anzeigen. Eine Bindebogen wird mit der 
+Tilde @code{~} (AltGr++) notiert.
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+e' ~ e' <c' e' g'> ~ <c' e' g'>
+@end lilypond
+
+Wenn ein Bindebogen an einen Akkord gehängt wird, werden alle Noten 
+dieses Akkordes übergebunden. Wenn kein Notenkopf passt, wird auch 
+kein Bogen erzeugt. Noten in Akkorden können auch einzeln übergebunden 
+werden, indem sie innerhalb des Akkordes hinter die entsprechende Note 
+geschrieben werden.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
+<c~ e g~ b> <c e g b>
+@end lilypond
+
+Ein Bindebogen ist nur eine andere Art, die Notendauer zu verlängern, 
+ähnlich wie die Punktierung. Im nächsten Beispiel sind zwei Arten gezeigt, 
+die gleiche Notenlänge zu notieren:
+
+@lilypond[quote,fragment,ragged-right]
+\time 3/4 c'2. c'2 ~ c'4
+@end lilypond
+
+@noindent
+Bindebögen werden verwendet, wenn die Note entweder über die Taktgrenze 
+hinausragt, oder wenn Punktierung nicht benutzt werden kann, um die 
+Verlängerung anzuzeigen. Wenn man Überbindungen verwendet, sollten 
+größere Notenwerte an die Unterteilungen des Taktes angepasst werden.
+
+@lilypond[fragment,quote,ragged-right]
+\relative {
+  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4
+}
+@end lilypond
+
+Wenn sehr viele Noten über die Taktgrenzen hinüber angebunden 
+werden müssen, ist es oft einfacher, die automatische Aufteilung 
+von Noten einzusetzen (siehe @ref{Automatic note splitting}). Mit 
+dieser Funktion werden automatisch lange Noten aufgeteilt und über 
+die Taktgrenze übergebunden.
+
+@funindex \repeatTie
+
+Wenn die zweite Variante einer Wiederholung mit einer Überbindung 
+anfängt, muss der Bindebogen wiederholt werden. Dass geschieht durch 
+den Befehl @code{\repeatTie}.
+
+@lilypond[fragment,quote,ragged-right,relative=2]
+r <c e g>\repeatTie
+@end lilypond
+
+@cindex Volta und Überbindung
+@cindex Wiederholung und Überbindung
+
+@commonprop
+
+Bindebögen werden teilweise verwendet, um Arpeggien auszuschreiben. 
+In diesem Fall müssen mehrere übergebundene Noten nacheinander 
+erscheinen. Das ist möglich, indem die @code{tieWaitForNote}-Eigenschaft 
+auf wahr (##t) gesetzt wird. Diese Funktion ist auch nützlich, um 
+ein Tremolo an einen Akkord zu binden. Siehe das Beispiel:
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+\set tieWaitForNote = ##t
+\grace { c16[~ e~ g]~ } <c, e g>2
+\repeat tremolo 8 { c32~ c'~ } <c c,>1
+e8~ c~ a~ f~ <e' c a f>2
+@end lilypond
+
+Bindebögen können manuell gesetzt werden, indem die 
+@code{tie-configuration}-Eigenschaft verändert wird. 
+Die erste Zahl zeigt den Abstand von der Mitte des 
+Notensystems in Notenlinienzwischenräumen, die zweite 
+die Richtung (1=nach oben, -1=nach unten).
+
+@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
+<c e g>2~ <c e g> |
+\override TieColumn #'tie-configuration =
+  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
+<c e g>~ <c e g> |
+@end lilypond
+
+
+@predefined
+
+
+@funindex \tieUp
+@code{\tieUp},
+@funindex \tieDown
+@code{\tieDown},
+@funindex \tieNeutral
+@code{\tieNeutral},
+@funindex \tieDotted
+@code{\tieDotted},
+@funindex \tieDashed
+@code{\tieDashed},
+@funindex \tieSolid
+@code{\tieSolid}.
+
+
+@seealso
+
+Im Handbuch: @ref{Automatic note splitting}.
+
+Programmreferenz: @rinternals{Tie}.
+
+
+@knownissues
+
+Der Wechsel zwischen Systemen bei aktiver Überbindung produziert keinen 
+gekrümmten Bogen.
+
+Änderung von Schlüssel oder Oktavierung zwischen übergebundenen Noten 
+ist nicht richtig definiert. In diesen Fällen kann es besser sein, einen 
+Legatobogen zu verwenden.
+
+
 @node Writing rests
 @subsection Writing rests
 
 @menu
 * Rests::                       
-* Skips::                       
-* Multi measure rests::         
+* Invisible rests::             
+* Full measure rests::          
 @end menu
 
 @node Rests
@@ -336,7 +463,7 @@ Pausen, die ganze Takte ausfüllen und in der Taktmitte zentriert
 werden sollen, müssen als mehrtaktige Pausen eingegeben werden. 
 Sie können sowohl für einen einzigen Takt als auch für mehrere 
 Takte verwendet werden, Näheres im Abschnitt
-@ref{Multi measure rests}.
+@ref{Full measure rests}.
 
 Um die vertikale Position einer Pause explizit festzulegen, 
 kann eine Note eingegeben werden, gefolgt vom Befehl @code{\rest}. 
@@ -358,8 +485,8 @@ Auflösung von Zusammenstößen diese Pausen nicht mit einbezieht.
 Programmreferenz: @rinternals{Rest}.
 
 
-@node Skips
-@subsubsection Skips
+@node Invisible rests
+@subsubsection Invisible rests
 
 @cindex Skip
 @cindex Überspringen von Zeichen
@@ -406,8 +533,8 @@ Das Fragment @code{@{ \skip 4 @}} würde nur eine leere Seite produzieren.
 Programmreferenz: @rinternals{SkipMusic}.
 
 
-@node Multi measure rests
-@subsubsection Multi measure rests
+@node Full measure rests
+@subsubsection Full measure rests
 
 @untranslated
 
@@ -416,12 +543,12 @@ Programmreferenz: @rinternals{SkipMusic}.
 @subsection Displaying rhythms
 
 @menu
-* Time signature::
-* Upbeats::
-* Unmetered music::
-* Polymetric notation::
-* Automatic note splitting::
-* Showing melody rhythms::
+* Time signature::              
+* Upbeats::                     
+* Unmetered music::             
+* Polymetric notation::         
+* Automatic note splitting::    
+* Showing melody rhythms::      
 @end menu
 
 @node Time signature
@@ -678,10 +805,10 @@ Programmreferenz:
 @subsection Beams
 
 @menu
-* Automatic beams::
-* Manual beams::
-* Feathered beams::
-* Setting automatic beam behavior::
+* Automatic beams::             
+* Setting automatic beam behavior::  
+* Manual beams::                
+* Feathered beams::             
 @end menu
 
 @node Automatic beams
@@ -710,6 +837,12 @@ damit sie nicht mit einem Balken versehen werden.
 @seealso
 
 Programmreferenz: @rinternals{Beam}.
+
+
+@node Setting automatic beam behavior
+@subsubsection Setting automatic beam behavior
+
+@untranslated
 
 
 @node Manual beams
@@ -805,71 +938,17 @@ Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 
 @untranslated
 
-@node Setting automatic beam behavior
-@subsubsection Setting automatic beam behavior
-
-@untranslated
-
 
 @node Bars
 @subsection Bars
 
 
 @menu
-* Bar check::
-* Bar lines::
-* Bar numbers::
-* Barnumber check::
-* Rehearsal marks::
+* Bar lines::                   
+* Bar numbers::                 
+* Bar and bar number checks::   
+* Rehearsal marks::             
 @end menu
-
-@node Bar check
-@subsubsection Bar check
-
-@cindex Taktüberprüfung
-@funindex barCheckSynchronize
-@funindex |
-
-Die Taktüberprüfung hilft, Fehler in den Notendauern zu entdecken. 
-Eine Taktüberprüfung wird mit dem Taktstrichsymbol @qq{|} (Taste AltGr+<) 
-eingegeben. Immer, wenn LilyPond bei der Ausgabe des Notendrucks 
-auf dieses Zeichen stößt, sollte hier in den Noten auch ein 
-Taktstrich erscheinen. Wenn das nicht der Fall ist, wird eine Warnung 
-ausgegeben. Im nächsten Beispiel resultiert die zweite Taktüberprüfung 
-in einer Fehlermeldung.
-
-@example
-\time 3/4 c2 e4 | g2 |
-@end example
-
-Taktüberprüfungen können auch in Liedtexten verwendet werden:
-
-@example
-\lyricmode @{
-  \time 2/4
-  Twin -- kle | Twin -- kle
-@}
-@end example
-
-Eine Taktüberprüfung gilt als nicht bestanden, wenn die Notenwerte 
-nicht stimmen. Besonders in mehrstimmiger komplizierter Musik können 
-solche falschen Notenwerte die ganze Partitur durcheinander bringen. 
-Es lohnt sich also, die Fehlersuche damit zu beginnen, nicht bestandene 
-Taktüberprüfungen zu kontrollieren.
-
-@funindex |
-@funindex pipeSymbol
-
-Es ist auch möglich, die Bedeutung des Symbols @code{|} umzudefinieren. 
-Das geschieht, indem man der Pipe (@code{pipeSymbol} einen musikalischen 
-Ausdruck zuweist:
-
-@lilypond[quote,ragged-right,verbatim]
-pipeSymbol = \bar "||"
-
-{ c'2 c' | c'2 c' }
-@end lilypond
-
 
 @node Bar lines
 @subsubsection Bar lines
@@ -968,8 +1047,53 @@ Programmreferenz: @rinternals{BarLine} (auf Partitur
 @untranslated
 
 
-@node Barnumber check
-@subsubsection Barnumber check
+@node Bar and bar number checks
+@subsubsection Bar and bar number checks
+
+@cindex Taktüberprüfung
+@funindex barCheckSynchronize
+@funindex |
+
+Die Taktüberprüfung hilft, Fehler in den Notendauern zu entdecken. 
+Eine Taktüberprüfung wird mit dem Taktstrichsymbol @qq{|} (Taste AltGr+<) 
+eingegeben. Immer, wenn LilyPond bei der Ausgabe des Notendrucks 
+auf dieses Zeichen stößt, sollte hier in den Noten auch ein 
+Taktstrich erscheinen. Wenn das nicht der Fall ist, wird eine Warnung 
+ausgegeben. Im nächsten Beispiel resultiert die zweite Taktüberprüfung 
+in einer Fehlermeldung.
+
+@example
+\time 3/4 c2 e4 | g2 |
+@end example
+
+Taktüberprüfungen können auch in Liedtexten verwendet werden:
+
+@example
+\lyricmode @{
+  \time 2/4
+  Twin -- kle | Twin -- kle
+@}
+@end example
+
+Eine Taktüberprüfung gilt als nicht bestanden, wenn die Notenwerte 
+nicht stimmen. Besonders in mehrstimmiger komplizierter Musik können 
+solche falschen Notenwerte die ganze Partitur durcheinander bringen. 
+Es lohnt sich also, die Fehlersuche damit zu beginnen, nicht bestandene 
+Taktüberprüfungen zu kontrollieren.
+
+@funindex |
+@funindex pipeSymbol
+
+Es ist auch möglich, die Bedeutung des Symbols @code{|} umzudefinieren. 
+Das geschieht, indem man der Pipe (@code{pipeSymbol} einen musikalischen 
+Ausdruck zuweist:
+
+@lilypond[quote,ragged-right,verbatim]
+pipeSymbol = \bar "||"
+
+{ c'2 c' | c'2 c' }
+@end lilypond
+
 
 Wenn man größere Musikstücke kopiert, kann es hilfreich sein, wenn 
 LilyPond überprüft, ob die Taktnummer, in der Sie gerade kopieren, 
@@ -997,10 +1121,9 @@ nicht mit dem Wert 123 übereinstimmt.
 
 
 @menu
-* Grace notes::
-* Aligning to cadenzas::
-* Time administration::
-* Proportional notation (introduction)::
+* Grace notes::                 
+* Aligning to cadenzas::        
+* Time administration::         
 @end menu
 
 @node Grace notes
@@ -1226,12 +1349,6 @@ zu Fehlermeldungen oder Abstürzen kommen.
 
 @node Time administration
 @subsubsection Time administration
-
-@untranslated
-
-
-@node Proportional notation (introduction)
-@subsubsection Proportional notation (introduction)
 
 @untranslated
 

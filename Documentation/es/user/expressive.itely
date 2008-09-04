@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.57"
 
 @node Expressive marks
 @section Expressive marks
@@ -30,7 +30,7 @@
 @end menu
 
 @node Articulations and ornamentations
-@subsubsection Articulations and ornamentations
+@unnumberedsubsubsec Articulations and ornamentations
 
 @cindex articulaciones
 @cindex guiones
@@ -144,7 +144,7 @@ representación de MIDI de la música.
 
 
 @node Dynamics
-@subsubsection Dynamics
+@unnumberedsubsubsec Dynamics
 
 @cindex dinámica
 @cindex matices absolutos
@@ -351,7 +351,7 @@ Referencia de funcionamiento interno:
 
 
 @node New dynamic marks
-@subsubsection New dynamic marks
+@unnumberedsubsubsec New dynamic marks
 
 @cindex indicaciones dinámicas nuevas
 @cindex dinámicas, indicaciones, nuevas
@@ -412,7 +412,7 @@ Fragmentos de código:
 @end menu
 
 @node Slurs
-@subsubsection Slurs
+@unnumberedsubsubsec Slurs
 
 @cindex ligaduras de expresión
 
@@ -477,7 +477,7 @@ Referencia de funcionamiento interno:
 
 
 @node Phrasing slurs
-@subsubsection Phrasing slurs
+@unnumberedsubsubsec Phrasing slurs
 
 @cindex ligaduras de fraseo
 @cindex marcas de fraseo
@@ -527,7 +527,7 @@ Referencia de funcionamiento interno:
 
 
 @node Breath marks
-@subsubsection Breath marks
+@unnumberedsubsubsec Breath marks
 
 @cindex respiraciones
 @funindex \breathe
@@ -555,7 +555,7 @@ Referencia de funcionamiento interno:
 
 
 @node Falls and doits
-@subsubsection Falls and doits
+@unnumberedsubsubsec Falls and doits
 
 Se pueden expresar @notation{caídas} y @notation{subidas} de tono
 (falls y doits) añadidas a las notas mediante la instrucción
@@ -600,7 +600,7 @@ Fragmentos de código:
 @end menu
 
 @node Glissando
-@subsubsection Glissando
+@unnumberedsubsubsec Glissando
 
 @cindex glissando
 @funindex \glissando
@@ -655,7 +655,7 @@ contemplada.
 
 
 @node Arpeggio
-@subsubsection Arpeggio
+@unnumberedsubsubsec Arpeggio
 
 @cindex arpeggio
 @cindex acorde quebrado
@@ -753,7 +753,7 @@ No es posible mezclar arpegios conectados y no conectados en un
 
 
 @node Trills
-@subsubsection Trills
+@unnumberedsubsubsec Trills
 
 @cindex trinos
 @funindex \trill

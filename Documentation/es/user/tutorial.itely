@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: cdc64521eae526d00440d0ac9bb5e64fdae97727
+    Translation of GIT committish: e8890f9d4d52772228663727f84021fbcfecd221
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -16,14 +16,13 @@ Tutorial guidelines:  (different from policy.txt!)
   or
     @lilypond[verbatim,quote,relative=2]
 
-  Don't use any other relative=X commands (make it a non-fragment
-  example), and don't use fragment without relative=2.
+  Don't use any other relative=X commands.
 
 - use "aes" and "ees" instead of "as" and "es".  I know it's not
   correct Dutch naming, but let's not confuse people with this
   until we get to the Basic notation chapter.
 
-- Add "Music Glossary: @rglos{foo}" to the _top_ of the relevant
+- Add "Music Glossary: @rglos{foo}" to the *top* of the relevant
   portions of the tutorial.
 
 @end ignore
@@ -238,7 +237,8 @@ nota está comprendida dentro de tan sólo un espacio de pentagrama
 desde la nota anterior.
 
 @lilypond[verbatim,quote]
-\relative c' {  % set the starting point to middle C
+% set the starting point to middle C
+\relative c' {
   c d e f
   g a b c
 }
@@ -269,7 +269,8 @@ la instrucción @w{@code{\relative c' @{}}, podemos cambiar la octava
 de inicio:
 
 @lilypond[verbatim,quote]
-\relative c'' {  % one octave above middle C
+% one octave above middle C
+\relative c'' {
   e c a c
 }
 @end lilypond
@@ -938,8 +939,6 @@ a8[ ais] d[ ees r d] a b
 Si quiere desactivar completamente el barrado automático o para una
 sección extensa de música, utilice la instrucción @code{\autoBeamOff}
 para apagarlo y @code{\autoBeamOn} para activarlo de nuevo.
-@c It will usually be necessary to manually beam music
-@c with lyrics.
 
 @lilypond[verbatim,quote,relative=2]
 \autoBeamOff
@@ -1587,22 +1586,22 @@ La solución sencilla que utiliza @code{\addlyrics} se puede usar para
 poner letra a más de un pentagrama.  Aquí aparece un ejemplo sacado
 del @notation{Judas Macabeo} de Haendel:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 <<
-  {
-    \time 6/8
-    \partial 8
-  }
   \relative c'' {
     \key f \major
-    c8 c([ bes)] a a([ g)] f f'4. b, c4.~ c4
+    \time 6/8
+    \partial 8
+    c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn, __
   }
   \relative c' {
     \key f \major
-    r8 r4. r4 c8 a'([ g)] f f([ e)] d e([ d)] c bes'4
+    \time 6/8
+    \partial 8
+    r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn,
@@ -1610,9 +1609,9 @@ del @notation{Judas Macabeo} de Haendel:
 >>
 @end lilypond
 
-@noindent
-pero cualquier partitura de una complejidad mayor que la de este
-sencillo ejemplo se hace mejor separando la letra de la estructura de
+
+Cualquier partitura de una complejidad mayor que la de este sencillo
+ejemplo se hace mejor separando la letra de la estructura de
 pentagramas mediante variables (expresiones con nombre).  Éstas se
 tratan en @ref{Organizing pieces with variables}.
 
@@ -1659,13 +1658,17 @@ posteriormente colocando una barra invertida delante del nombre
 (@code{\musicaConNombre}, igual que una orden normal de LilyPond). 
 
 @lilypond[verbatim,quote]
-violin = \new Staff { \relative c'' {
-  a4 b c b
-}}
-cello = \new Staff { \relative c {
-  \clef bass
-  e2 d
-}}
+violin = \new Staff {
+  \relative c'' {
+    a4 b c b
+  }
+}
+cello = \new Staff {
+  \relative c {
+    \clef bass
+    e2 d
+  }
+}
 {
   <<
     \violin
@@ -1673,6 +1676,7 @@ cello = \new Staff { \relative c {
   >>
 }
 @end lilypond
+
 
 @noindent
 El nombre de una variable debe consistir enteramente en caracteres
@@ -1708,10 +1712,12 @@ lugares.  El siguiente ejemplo utiliza las variables anteriores:
 
 @example
 \paper @{
-  \papelAcinco
-  line-width = \ancho
+  \aFivePaper
+  line-width = \width
 @}
-@{ c4^\nombre @}
+@{
+  c4^\name
+@}
 @end example
 
 
@@ -1732,7 +1738,7 @@ LilyPond.
 
 Estas anotaciones hacen menos problemáticas las subsiguientes
 actualizaciones de LilyPond.  Los cambios en la sintaxis se tratan
-mediante un programa especial, @file{convert-ly}, y utiliza
+mediante un programa especial, @command{convert-ly}, y utiliza
 @code{\version} para determinar qué reglas hay que aplicar.  Para ver
 más detalles, consulte @rprogram{Updating files with convert-ly}).
 
@@ -1743,7 +1749,7 @@ más detalles, consulte @rprogram{Updating files with convert-ly}).
 La información sobre el título, autor, número de Opus y similares se
 escriben en el bloque @code{\header}.  Éste se encuentra fuera de la
 expresión musical principal; el bloque @code{\header} normalmente se
-sitúa por debajo del @ref{Version number}.
+sitúa por debajo del número de versión.
 
 @example
 \version @w{"@version{}"}
@@ -1842,9 +1848,6 @@ archivos de LilyPond generados por ordenador.
 @node After the tutorial
 @subsection After the tutorial
 
-@c FIXME: rewrite slightly after the rest of the LM has been
-@c stabilized.  Translators, ignore this section for now.
-
 Después de terminar el tutorial, quizá debería probar a escribir una o
 dos piezas.  Comience con una de las plantillas del @ref{Templates} y
 añada algunas notas.  Si necesita un tipo de notación que no ha sido
@@ -1860,3 +1863,16 @@ da por sentado que está familiarizado con la entrada de LilyPond.
 Puede saltarse estos capítulos ahora y volver a ellos cuando haya
 adquirido más experiencia.
 
+En este tutorial y en el resto del Manual de aprendizaje, existe un
+apartado @strong{Véase también} al final de cada una de las secciones,
+que contiene referencias cruzadas a otras secciones: no siga estas
+referencias durante la primera lectura; cuando haya leído el Manual de
+aprendizaje completo, quizá desee releer ciertas secciones y seguir
+las referencias cruzadas para obtener más información.
+
+Si no lo ha hecho aún, le @emph{rogamos} que lea @ref{About the
+documentation}.  Existe una gran cantidad de información sobre
+LilyPond, de manera que los recién llegados con frecuencia no saben
+exactamente dónde deben buscar la ayuda.  Si emplea cinco minutos en
+leer cuidadosamente esta sección ¡se ahorrará horas de frustración
+buscando en el sitio equivocado!

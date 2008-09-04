@@ -1,11 +1,12 @@
 #!@PYTHON@
 
 """
-Print a nice footer.
+Postprocess HTML files.
 """
 import re
 import os
 import time
+import operator
 
 import langdefs
 
@@ -53,18 +54,21 @@ mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bug
 suggest_Docs_url = 'http://lilypond.org/web/devel/participating/documentation-adding'
 
 header_tag = '<!-- header_tag -->'
+header_tag_re = re.compile (header_tag)
+
 footer_tag = '<!-- footer_tag -->'
+footer_tag_re = re.compile (footer_tag)
 
 lang_available = _doc ("Other languages: %s.")
 browser_lang = _doc ('About <A HREF="%s">automatic language selection</A>.')
 browser_language_url = "/web/about/browser-language"
 
 LANGUAGES_TEMPLATE = '''
-<P>
+<p id="languages">
  %(language_available)s
- <BR>
+ <br/>
  %(browser_language)s
-</P>
+</p>
 '''
 
 
@@ -90,10 +94,13 @@ def build_pages_dict (filelist):
 def source_links_replace (m, source_val):
     return 'href="' + os.path.join (source_val, m.group (1)) + '"'
 
-splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|lilypond-learning))/')
+splitted_docs_re = re.compile ('(input/lsr/out-www/lilypond-snippets|\
+Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|\
+lilypond-learning))/')
 
 snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
-user_ref_re = re.compile (r'href="(?:\.\./)?lilypond(|-internals|-learning|-program)')
+user_ref_re = re.compile ('href="(?:[.][.])?lilypond\
+(-internals|-learning|-program|(?!-snippets))')
 
 ## Windows does not support symlinks.
 # This function avoids creating symlinks for splitted HTML manuals
@@ -115,57 +122,53 @@ def hack_urls (s, prefix):
     source_val = os.readlink (source_path)
     return re.sub ('href="source/(.*?)"', lambda m: source_links_replace (m, source_val), s)
 
+body_tag_re = re.compile ('(?i)<body([^>]*)>')
+html_tag_re = re.compile ('(?i)<html>')
+doctype_re = re.compile ('(?i)<!DOCTYPE')
+doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
+
 def add_header (s):
-    """Add header (<BODY> and doctype)"""
-    if re.search (header_tag, s) == None:
-        body = '<BODY BGCOLOR=WHITE TEXT=BLACK>'
-        s = re.sub ('(?i)<body>', body, s)
-        if re.search ('(?i)<BODY', s):
-            s = re.sub ('(?i)<body[^>]*>', body + header, s, 1)
-        elif re.search ('(?i)<html', s):
-            s = re.sub ('(?i)<html>', '<HTML>' + header, s, 1)
-        else:
-            s = header + s
+    """Add header (<body> and doctype)"""
+    if header_tag_re.search (s) == None:
+        body = '<body bgcolor="white" text="black" \\1>'
+        (s, n) = body_tag_re.subn (body + header, s, 1)
+        if not n:
+            (s, n) = html_tag_re.subn ('<html>' + header, s, 1)
+            if not n:
+                s = header + s
 
         s = header_tag + '\n' + s
 
-        if re.search ('(?i)<!DOCTYPE', s) == None:
-            doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
+        if doctype_re.search (s) == None:
             s = doctype + s
         return s
+
+title_tag_re = re.compile ('.*?<title>(.*?)</title>', re.DOTALL)
+AT_web_title_re = re.compile ('@WEB-TITLE@')
 
 def add_title (s):
     # urg
     # maybe find first node?
     fallback_web_title = '-- --'
-    m = re.match ('.*?<title>(.*?)</title>', s, re.DOTALL)
+    m = title_tag_re.match (s)
     if m:
         fallback_web_title = m.group (1)
-    s = re.sub ('@WEB-TITLE@', fallback_web_title, s)
+    s = AT_web_title_re.sub (fallback_web_title, s)
     return s
 
-info_nav_bar = re.compile (r'<div class="node">\s*<p>\s*<a name=".+?"></a>(.+?)<hr>\s*</div>', re.M | re.S)
-info_footnote_hr = re.compile (r'<hr>\s*(</div>)?\s*</body>', re.M | re.I)
+footer_insert_re = re.compile ('<!--\s*FOOTER\s*-->')
+end_body_re = re.compile ('(?i)</body>')
+end_html_re = re.compile ('(?i)</html>')
 
-def add_footer (s):
-    """add footer
-
-also add navigation bar to bottom of Info HTML pages"""
-    m = info_nav_bar.search (s)
-    if m:
-        # avoid duplicate <hr> in case there are footnotes at the end of the Info HTML page
-        if info_footnote_hr.search (s):
-            custom_footer = '<div class="node">\n<p>' + m.group (1) + '</div>\n' + footer
-        else:
-            custom_footer = '<br><hr>\n<div class="node">\n<p>' + m.group (1) + '</div>\n' + footer
-    else:
-        custom_footer = footer
-    if re.search ('(?i)</body', s):
-        s = re.sub ('(?i)</body>', footer_tag + custom_footer + '\n' + '</BODY>', s, 1)
-    elif re.search ('(?i)</html', s):                
-        s = re.sub ('(?i)</html>', footer_tag + custom_footer + '\n' + '</HTML>', s, 1)
-    else:
-        s += footer_tag + custom_footer + '\n'
+def add_footer (s, footer_text):
+    """add footer"""
+    (s, n) = footer_insert_re.subn (footer_text + '\n' + '<!-- FOOTER -->', s, 1)
+    if not n:
+        (s, n) = end_body_re.subn (footer_text + '\n' + '</body>', s, 1)
+    if not n:
+        (s, n) = end_html_re.subn (footer_text + '\n' + '</html>', s, 1)
+    if not n:
+        s += footer_text + '\n'
     return s
 
 def find_translations (prefix, lang_ext):
@@ -177,10 +180,27 @@ def find_translations (prefix, lang_ext):
         if lang_ext != e:
             if e in pages_dict[prefix]:
                 available.append (l)
-            elif lang_ext == '' and l.enabled and reduce (lambda x, y: x and y, [not prefix.startswith (s) for s in non_copied_pages]):
+            elif lang_ext == '' and l.enabled and reduce (operator.and_,
+                                                          [not prefix.startswith (s)
+                                                           for s in non_copied_pages]):
                 # English version of missing translated pages will be written
                 missing.append (e)
     return available, missing
+
+online_links_re = re.compile ('''(href|src)=['"]([^/][.]*[^.:'"]*)\
+([.]html|[.]png)(#[^"']*|)['"]''')
+offline_links_re = re.compile ('''href=['"]([^/][.]*[^.:'"]*)([.]html)(#[^"']*|)['"]''')
+big_page_name_re = re.compile ('''(.+?)-big-page''')
+
+def process_i18n_big_page_links (match, prefix, lang_ext):
+    big_page_name = big_page_name_re.match (match.group (1))
+    if big_page_name:
+        destination_path = os.path.normpath (os.path.join (os.path.dirname (prefix),
+                                                           big_page_name.group (0)))
+        if not lang_ext in pages_dict[destination_path]:
+            return match.group (0)
+    return 'href="' + match.group (1) + '.' + lang_ext \
+        + match.group (2) + match.group (3) + '"'
 
 def process_links (s, prefix, lang_ext, file_name, missing, target):
     page_flavors = {}
@@ -188,24 +208,32 @@ def process_links (s, prefix, lang_ext, file_name, missing, target):
         # Strip .html, .png suffix for auto language selection (content
         # negotiation).  The menu must keep the full extension, so do
         # this before adding the menu.
-        page_flavors[file_name] = [lang_ext, re.sub (
-            '''(href|src)=[\'"]([^/][.]*[^.:\'"]*)(.html|.png)(#[^"\']*|)[\'"]''',
-            '\\1="\\2\\4"', s)]
+        page_flavors[file_name] = \
+            [lang_ext, online_links_re.sub ('\\1="\\2\\4"', s)]
     elif target == 'offline':
-        # in LANG doc index: don't rewrite .html suffixes as not all .LANG.html pages exist
-        # the doc index should be translated and contain the right links
+        # in LANG doc index: don't rewrite .html suffixes
+        # as not all .LANG.html pages exist;
+        # the doc index should be translated and contain links with the right suffixes
         if prefix == 'Documentation/out-www/index':
             page_flavors[file_name] = [lang_ext, s]
         elif lang_ext == '':
             page_flavors[file_name] = [lang_ext, s]
             for e in missing:
-                page_flavors[langdefs.lang_file_name (prefix, e, '.html')] = [e, re.sub (
-                    '''href=[\'"]([^/][.]*[^.:\'"]*)(.html)(#[^"\']*|)[\'"]''',
-                    'href="\\1.' + e + '\\2\\3"', s)]
+                page_flavors[langdefs.lang_file_name (prefix, e, '.html')] = \
+                    [e, offline_links_re.sub ('href="\\1.' + e + '\\2\\3"', s)]
         else:
-            page_flavors[file_name] = [lang_ext, re.sub (
-                '''href=[\'"]([^/][.]*[^.:\'"]*)(.html)(#[^"\']*|)[\'"]''',
-                'href="\\1.' + lang_ext + '\\2\\3"', s)]
+            # For saving bandwidth and disk space, we don't duplicate big pages
+            # in English, so we must process translated big pages links differently.
+            if 'big-page' in prefix:
+                page_flavors[file_name] = \
+                    [lang_ext,
+                     offline_links_re.sub \
+                         (lambda match: process_i18n_big_page_links (match, prefix, lang_ext),
+                          s)]
+            else:
+                page_flavors[file_name] = \
+                    [lang_ext,
+                     offline_links_re.sub ('href="\\1.' + lang_ext + '\\2\\3"', s)]
     return page_flavors
 
 def add_menu (page_flavors, prefix, available, target, translation):
@@ -228,21 +256,15 @@ def add_menu (page_flavors, prefix, available, target, translation):
         if language_menu:
             language_available = t (lang_available) % language_menu
             languages = LANGUAGES_TEMPLATE % vars ()
-        # put language menu before '</body>' and '</html>' tags
-        if re.search ('(?i)</body', page_flavors[k][1]):
-            page_flavors[k][1] = re.sub ('(?i)</body>', languages + '</BODY>', page_flavors[k][1], 1)
-        elif re.search ('(?i)</html', page_flavors[k][1]):
-            page_flavors[k][1] = re.sub ('(?i)</html>', languages + '</HTML>', page_flavors[k][1], 1)
-        else:
-            page_flavors[k][1] += languages
+        page_flavors[k][1] = add_footer (page_flavors[k][1], languages)
     return page_flavors
 
 
-def add_html_footer (package_name = '',
-                     package_version = '',
-                     target = 'offline',
-                     name_filter = lambda s: s):
-    """Add header, footer to a number of HTML files
+def process_html_files (package_name = '',
+                        package_version = '',
+                        target = 'offline',
+                        name_filter = lambda s: s):
+    """Add header, footer and tweak links to a number of HTML files
 
     Arguments:
      package_name=NAME         set package_name to NAME
@@ -290,14 +312,14 @@ def add_html_footer (package_name = '',
             s = in_f.read()
             in_f.close()
 
-            s = re.sub ('%', '%%', s)
+            s = s.replace ('%', '%%')
             s = hack_urls (s, prefix)
             s = add_header (s)
 
             ### add footer
-            if re.search (footer_tag, s) == None:
-                s = add_footer (s)
-                
+            if footer_tag_re.search (s) == None:
+                s = add_footer (s, footer_tag + footer)
+
                 available, missing = find_translations (prefix, lang_ext)
                 page_flavors = process_links (s, prefix, lang_ext, file_name, missing, target)
                 # Add menu after stripping: must not have autoselection for language menu.

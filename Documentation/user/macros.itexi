@@ -292,7 +292,7 @@
 @ref{\TEXT\,,,lilypond,Notation Reference}
 @end macro
 
-@macro rusernamed{TEXT,DISPLAY,DISPLAY}
+@macro rusernamed{TEXT,DISPLAY}
 @ref{\TEXT\,,\DISPLAY\,lilypond,Notation Reference}
 @end macro
 
@@ -314,12 +314,12 @@
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@code{\TEXT\}
+@ref{\TEXT\,,,lilypond-internals,Internals Reference}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@code{\DISPLAY\}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Internals Reference}
 @end macro
 
 @end iftex

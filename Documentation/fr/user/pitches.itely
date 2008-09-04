@@ -219,19 +219,6 @@ d e fis g
 @end lilypond
 
 
-@snippets
-
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
-{preventing-extra-naturals-from-being-automatically-added.ly}
-
-@seealso
-
-Référence du programme : @rinternals{LedgerLineSpanner},
-@rinternals{NoteHead}.
-
-
-@unnumberedsubsubsec Micro tones
-
 @cindex quarts de ton
 @cindex demi-bémols, demi-dièses
 
@@ -239,21 +226,12 @@ Les demi-bémols et demi-dièses s'écrivent en ajoutant respectivement
 @code{-eh} et @code{-ih}. Voici une série de dos altérés en hauteurs
 croissantes :
 
-@lilypond[verbatim,ragged-right,quote,relative=2,fragment]
-\set Staff.extraNatural = ##f
-ceseh ceh cih cisih
+@lilypond[verbatim,quote,relative=2]
+ceseh1 ces ceh c cih cis cisih
 @end lilypond
 
 Les micro-intervalles sont aussi exportés dans le fichier MIDI.
 
-@knownissues
-
-Il n'y a pas de standard universellement accepté pour noter le bémol et
-demi (qui abaisse la hauteur trois quarts de ton), le symbole de
-LilyPond n'est donc conforme à aucun standard.
-
-
-@unnumberedsubsubsec Cautionary accidentals
 
 @cindex altération, de précaution
 @cindex altération, entre parenthèses
@@ -275,10 +253,27 @@ cis cis cis! cis? c c? c! c
 @end lilypond
 
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{preventing-extra-naturals-from-being-automatically-added.ly}
+
+
 @seealso
+
+Référence du programme : @rinternals{LedgerLineSpanner},
+@rinternals{NoteHead}.
 
 L'impression automatique des altérations peut être affinée de plusieurs
 manières.  Pour plus d'information, voir @ref{Automatic accidentals}.
+
+
+@knownissues
+
+Il n'y a pas de standard universellement accepté pour noter le bémol et
+demi (qui abaisse la hauteur trois quarts de ton), le symbole de
+LilyPond n'est donc conforme à aucun standard.
+
 
 
 @node Note names in other languages

@@ -204,11 +204,16 @@ problem, we pad each item by this amount (by adding the @q{car} on the
 left side of the item and adding the @q{cdr} on the right side of the
 item).  In order to make a grob take up no horizontal space at all,
 set this to @code{(+inf.0 . -inf.0)}.")
+     (flag ,ly:stencil? "A function returning the full flag stencil for
+the @code{Stem}, which is passed to the function as the only argument.
+The default ly:stem::calc-stencil function uses the @code{flag-style}
+property to determine the correct glyph for the
+flag. By providing your own function, you can create arbitrary flags.")
      (flag-count ,number? "The number of tremolo beams.")
-     (flag-style ,symbol? "A string determining what style of flag
-glyph is typeset on a @code{Stem}.  Valid options include @code{()}
-and @code{mensural}.  Additionally, @code{no-flag} switches off the
-flag.")
+     (flag-style ,symbol? "A symbol determining what style of flag
+glyph is typeset on a @code{Stem}.  Valid options include @code{'()} for
+standard flags, @code{'mensural} and @code{'no-flag}, which switches off 
+the flag.")
      (font-encoding ,symbol? "The font encoding is the broadest
 category for selecting a font.  Options include: @code{fetaMusic},
 @code{fetaNumber}, @code{TeX-text}, @code{TeX-math},
@@ -320,6 +325,36 @@ property.")
 
      (hair-thickness ,number? "Thickness of the thin line in a bar
 line.")
+     (harp-pedal-details ,list? "An alist of detailed grob properties
+for harp pedal diagrams.  Each alist entry consists of a
+(@code{property} . @code{value}) pair.
+The properties which can be included in harp-pedal-details
+include the following:
+@itemize @bullet
+@item
+@code{box-offset} -- Vertical shift of the center of flat / sharp pedal
+boxes above / below the horizontal line. Default value 0.8.
+@item
+@code{box-width} -- Width of each pedal box. Default value 0.4.
+@item
+@code{box-height} -- Height of each pedal box. Default value 1.0.
+@item
+@code{space-before-divider} -- Space between boxes before the first divider
+(so that the diagram can be made symmetric). Default value 0.8.
+@item
+@code{space-after-divider} -- Space between boxes after the first divider.
+Default value 0.8.
+@item
+@code{circle-thickness} -- Thickness (in unit of the line-thickness) of the
+ellipse around circled pedals. Default value 0.5.
+@item
+@code{circle-x-padding} -- Padding in X direction of the ellipse around
+circled pedals. Default value 0.15.
+@item
+@code{circle-y-padding} -- Padding in Y direction of the ellipse around
+circled pedals. Default value 0.2.
+@end itemize")
+
      (head-direction ,ly:dir? "Are the note heads left or right in a
 semitie?")
      (height ,ly:dimension? "Height of an object in

@@ -51,22 +51,26 @@ dist-toplevel-txt-files:
 doc: 
 	$(MAKE) -C Documentation
 
-install-WWW:
-	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
-	rsync -rl $(outdir)/offline-root/ $(DESTDIR)$(webdir)
-	$(MAKE) -C Documentation/user local-install-WWW
-	$(MAKE) -C Documentation/user install-info
-	$(MAKE) -C input/lsr install-info
-
 install-help2man:
 	$(MAKE) -C scripts man install-help2man
 	$(MAKE) -C lily man install-help2man
+
+# All web targets, except info image symlinks and info docs are
+# installed in non-recursing target from TOP-SRC-DIR
+install-WWW:
+	-$(INSTALL) -m 755 -d $(DESTDIR)$(webdir)
+	rsync -rl $(outdir)/offline-root/ $(DESTDIR)$(webdir)
+	$(MAKE) -C Documentation/user install-info
+	$(MAKE) -C input/lsr install-info
 
 web-install:
 	$(MAKE) out=www install-WWW
 
 uninstall-WWW:
-	echo TODO
+	rm -rf $(DESTDIR)$(webdir)
+	-rmdir $(package_docdir)
+	$(MAKE) -C Documentation/user uninstall
+	$(MAKE) -C input/lsr uninstall
 
 web-uninstall:
 	$(MAKE) out=www uninstall-WWW
@@ -82,12 +86,12 @@ final-install:
 # For both online and offline docs, issue `make web WEB_TARGETS="offline online"'
 WEB_TARGETS = offline
 
-local-WWW-post:
+WWW-post:
 # need UTF8 setting in case this is hosted on a website. 
 	echo -e 'AddDefaultCharset utf-8\nAddCharset utf-8 .html\nAddCharset utf-8 .en\nAddCharset utf-8 .nl\nAddCharset utf-8 .txt\n' > $(top-build-dir)/.htaccess
 	$(PYTHON) $(buildscript-dir)/mutopia-index.py -o $(outdir)/examples.html input/
 	find $(outdir) -name '*-root' | xargs rm -rf
-	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(buildscript-dir) $(outdir) "$(WEB_TARGETS)"
+	$(PYTHON) $(buildscript-dir)/www_post.py $(PACKAGE_NAME) $(TOPLEVEL_VERSION) $(outdir) "$(WEB_TARGETS)"
 	find $(outdir)/offline-root -type l -delete
 
 

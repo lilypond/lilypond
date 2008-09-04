@@ -1,0 +1,183 @@
+/***********************************************************/
+/*                  PAGE-WIDE SETTINGS                     */
+/**********************************************************/
+
+html {
+  height:100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-size: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/***********************************************************/
+/*                      HEADERS                            */
+/***********************************************************/
+h2 {
+  font-size: x-large;
+  color: #1d7b85;
+}
+.unnumberedsubsubsec, .subsubheading {
+  font-size: large;
+  color: #1d7b85;
+}
+
+/***********************************************************/
+/*                       LINKS                             */
+/***********************************************************/
+a {
+  color: #344242;
+}
+a:visited {
+  color: #666666;
+}
+a:active {
+  color: #00cccc;
+}
+a:hover {
+  color: #1d7b85;
+  text-decoration:underline;
+}
+
+/***********************************************************/
+/*                  BLOCK FORMATTING                       */
+/***********************************************************/
+blockquote {
+  border: 1px solid #cccccc;
+  padding: 3px;
+  width: 40em;
+}
+.verbatim, .example {
+  font-family: "Courier New",Courier,monospace;
+}
+hr {
+  border:  none;
+  height: 1px;
+  color: #666666;
+  background-color: #666666;
+}
+table.cartouche {
+  border: 2px dotted #cccccc;
+  margin-left: auto;
+  margin-right: auto;
+  width: 85%;
+}
+table.cartouche td {
+  border: none;
+}
+
+/***********************************************************/
+/*                    MAIN CONTENT                         */
+/***********************************************************/
+
+div#main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 27%;
+  padding: 0 1em;
+  margin: 0;
+  overflow: auto;
+}
+
+#languages {
+  padding-bottom: 1em;
+}
+
+/***********************************************************/
+/*                    TOC SIDEBAR                          */
+/***********************************************************/
+
+div#tocframe {
+  position:      absolute;
+  top:           0;
+  right: 73%;
+  bottom: 0;
+  left:          0;
+  padding:       5px;
+  padding-bottom: 0;
+  margin: 0;
+  overflow:      auto;
+  background-color: #FFFACD;
+  z-index:100;
+  list-style-type: none;
+}
+
+@media screen {
+  body>div#tocframe {
+    position: fixed
+    }
+  }
+
+#tocframe .contents {
+  width: 100%;
+  padding-bottom: 0.25em;
+  border: none;
+  margin: 0em;
+  background-color: transparent;
+  list-style-type: none;
+}
+
+#tocframe ul.toc {
+  padding-left: 0px;
+  margin-left: 0px;
+}
+#tocframe ul.toc li {
+ padding-left: 0px;
+  margin-left: 0px;
+  list-style-type: none;
+}
+#tocframe ul.toc > li {
+  font-size: 12px;
+}
+#tocframe ul.toc li li {
+  padding-left: 15px;
+}
+li.toc_current {
+  font-weight: bold;
+  font-style: italic;
+}
+
+li.toc_current ul {
+  font-weight: normal;
+  font-style: normal;
+  background: transparent;
+}
+
+
+
+
+/***********************************************************/
+/*                     NAVIGATION                          */
+/***********************************************************/
+
+.nav_table {
+  width: 100%;
+  background-color: #CCC;
+  border: 0;
+  margin-top: 4px;
+  left: auto;
+  right: auto;
+  font-size: 0.8em;
+}
+
+
+
+
+
+
+/***********************************************************/
+/*               OVERRIDES FOR PRINTING...                 */
+/***********************************************************/
+@media print {
+  /* Hide the sidebar: */
+  body { padding-left: 0; }
+  #tocframe { display: none; }
+  .nav_table { display: none; }
+}
