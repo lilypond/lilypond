@@ -1605,12 +1605,207 @@ vornehmen zu können.
 @node Contexts explained
 @subsection Contexts explained
 
-@untranslated
+@cindex Kontexte erklärt
+
+Wenn Noten gesetzt werden, müssen viele Elemente zu der Notenausgabe
+hinzugefügt werden,
+die im Quellcode gar nicht explizit vorkommen. Vergleichen Sie
+etwa den Quellcode und die Notenausgabe des folgenden Beispiels:
+
+@lilypond[quote,verbatim,relative=2,fragment]
+cis4 cis2. g4
+@end lilypond
+
+Der Quellcode ist sehr kurz und knapp, während in der
+Notenausgabe Taktlinien, Vorzeichen, ein Schlüssel und
+eine Taktart hinzugefügt wurden. Während LilyPond
+den Eingabetext @emph{interpretiert}, wird die
+musikalische Information in zeitlicher Reihenfolge
+inspiziert, etwa wie man eine Partitur von links nach
+rechts liest. Während das Programm den Code liest,
+merkt es sich, wo sich Taktgrenzen befinden und
+für welche Tonhöhen Versetzungszeichen gesetzt werden
+müssen. Diese Information muss auf mehreren Ebenen
+gehandhabt werden, denn Versetzungszeichen etwa
+beziehen sich nur auf ein System, Taktlinien dagegen
+üblicherweise auf die gesamte Partitur.
+
+Innerhalb von LilyPond sind diese Regeln und 
+Informationshappen in @emph{Kontexten} (engl.
+contexts) gruppiert. Wir sind schon auf den
+@code{Voice} (Stimmen)-Kontext gestoßen. Daneben
+gibt es noch die @code{Staff} (Notensystem-) und
+@code{Score} (Partitur-) Kontexte. Kontexte sind
+hierarchisch geschichtet um die hierarchische
+Struktur einer Partitur zu spiegeln. Ein @code{Staff}-Kontext
+kann zum Beispiel viele @code{Voice}-Kontexte beinhalten,
+und ein @code{Score}-Kontext kann viele
+@code{Staff}-Kontexte beinhalten.
+
+@quotation
+@sourceimage{context-example,5cm,,}
+@end quotation
+
+Jeder Kontext hat die Aufgabe, bestimmte Notationsregeln
+zu erzwingen, bestimmte Notationsobjekte zu erstellen und
+verbundene Elemente zu ordnen. Der @code{Voice}-Kontext
+zum Beispiel kann eine Vorzeichenregel einführen und der
+@code{Staff}-Kontext hält diese Regel dann aufrecht, um
+einzuordenen, ob ein Versetzungszeichen gesetzt werden
+muss oder nicht.
+
+Ein anderes Beispiel: die Synchronisation der Taktlinien ist
+standardmäßig im @code{Score}-Kontext verankert. Manchmal sollen
+die Systeme einer Partitur aber unterschiedliche Taktarten
+enthalten, etwa in einer polymetrischen Partitur mit 
+4/4- und 3/4-Takt. In diesem Fall müssen also die Standardeinstellungen
+der @code{Score}- und @code{Staff}-Kontexte verändert werden.
+
+In einfachen Partituren werden die Kontexte implizit erstellt,
+und es kann sein, dass Sie sich dessen gar nicht bewusst sind.
+Für etwas größere Projekte, etwa mit vielen Systemen, müssen
+die Kontexte aber explizit erstellt werden, um sicher zu gehen,
+dass man auch wirklich die erwünschte Zahl an Systemen in der
+richtigen Reihenfolge erhält. Wenn Stücke mit spezialisierter
+Notation gesetzt werden sollen, ist es üblich, die existierenden
+Kontexte zu verändern oder gar gänzlich neue zu definieren.
+
+Zusätzlich zu den @code{Score,} @code{Staff} und
+@code{Voice}-Kontexten gibt es noch Kontexte, die zwischen
+der Partitur- und Systemebene liegen und Gruppen von Systemen
+kontrollieren. Das sind beispielsweise der 
+@code{PianoStaff} und @code{ChoirStaff}-Kontext. Es gibt zusätzlich
+alternative Kontexte für Systeme und Stimmen sowie eigene Kontexte
+für Gesangstexte, Perkussion, Griffsymbole, Generalbass usw.
+
+Die Bezeichnungen all dieser Kontexte werden von einem oder mehreren
+englischen
+Wörtern gebildet, dabei wird jedes Wort mit einem Großbuchstaben
+begonnen und direkt an das folgende ohne Bindestrich oder Unterstrich
+angeschlossen, etwa 
+@code{GregorianTranscriptionStaff}.
+
+@seealso
+
+Notationreferenz: @ruser{Contexts explained}.
+
 
 @node Creating contexts
 @subsection Creating contexts
 
-@untranslated
+@funindex \new
+@cindex Neue Kontexte
+@cindex Erstellen von Kontexten
+@cindex Kontexte, Erstellen
+
+Es gibt nur einen Kontext der obersten Ebene: der 
+@code{Score}-Kontext. Er wird mit dem @code{\score}-Befehl, 
+oder -- in einfacheren Partituren -- automatisch
+erstellt.
+
+Wenn nur ein System vorhanden ist, kann man es ruhig
+LilyPond überlassen, die @code{Voice}- und @code{Staff}-Kontexte
+zu erstellen, aber für komplexere Partituren ist es notwendig, 
+sie mit einem Befehl zu erstellen. Der einfachste Befehl 
+hierzu ist @code{\new}. Er wird dem musikalischen Ausdruck 
+vorangestellt, etwa so:
+
+@example
+\new @var{Typ} @var{musikalischer Ausdruck}
+@end example
+
+@noindent
+wobei @var{Typ} eine Kontextbezeichnung (wie etwa @code{Staff} oder
+@code{Voice}) ist. Dieser Befehl erstellt einen neuen Kontext und
+beginnt, den @var{muskalischen Ausdruck} innherhalb dieses
+Kontexts auszuwerten.
+
+Beachten Sie, dass es keinen @code{\new Score}-Befehl gibt: der
+Partitur-Kontext der obersten Ebene wird mit dem Befehl @code{\score}
+begonnen.
+
+Wir haben schon viele explizite Beispiel gesehen, in denen
+neue @code{Staff}- und @code{Voice}-Kontexte erstellt wurden, aber
+um noch einmal ins Gedächtnis zu rufen, wie diese Befehle benutzt
+werden, hier ein kommentiertes Beispiel aus dem richtigen Leben:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {  % start of single compound music expression
+  <<  % start of simultaneous staves section
+    \time 2/4
+    \new Staff {  % create RH staff
+      \key g \minor
+      \clef "treble"
+      \new Voice {  % create voice for RH notes
+        \relative c'' {  % start of RH notes
+          d4 ees16 c8. |
+          d4 ees16 c8. |
+        }  % end of RH notes
+      }  % end of RH voice
+    }  % end of RH staff
+    \new Staff <<  % create LH staff; needs two simultaneous voices
+      \key g \minor
+      \clef "bass"
+      \new Voice {  % create LH voice one
+        \voiceOne
+        \relative g {  % start of LH voice one notes
+          g8 <bes d> ees, <g c> |
+          g8 <bes d> ees, <g c> |
+        }  % end of LH voice one notes
+      }  % end of LH voice one
+      \new Voice {  % create LH voice two
+        \voiceTwo
+        \relative g {  % start of LH voice two notes
+          g4 ees |
+          g4 ees |
+        }  % end of LH voice two notes
+      }  % end of LH voice two
+    >>  % end of LH staff
+  >>  % end of simultaneous staves section
+}  % end of single compound music expression
+@end lilypond
+
+(Beachten Sie, dass wir hier alle Zeilen, die eine neue
+Umgebung entweder mit einer geschweiften Klammer (@code{@{})
+oder doppelten spitzen Klammern (@code{<<}) öffnen, mit
+jeweils zwei Leerzeichen, und die entsprechenden 
+schließenden Klammern mit der gleichen Anzahl Leerzeichen
+eingerückt werden. Dies ist nicht erforderlich, es wird aber
+zu einem großen Teil die nicht passenden Klammerpaar-Fehler
+eliminieren und ist darum sehr empfohlen. Es macht es 
+möglich, die Struktur einer Partitur auf einen Blick zu
+verstehen, und alle nicht passenden Klammern 
+erschließen sich schnell. Beachten Sie auch, dass das
+untere Notensystem mit eckigen Klammern erstellt wird,
+denn innerhalb dieses Systems brauchen wir zwei Stimmen,
+um die Noten darzustellen. Das obere System braucht
+nur einen einzigen musikalischen Ausdruck und ist deshalb
+von geschweiften Klammern umschlossen.)
+
+@cindex Kontexte, Benennung
+@cindex Bennenung von Kontexten
+
+Der @code{\new}-Befehl kann einem Kontext auch einen
+Namen zur Identifikation geben, um ihn von anderen Kontexten des
+selben Typs zu unterscheiden:
+
+@example
+\new @var{Typ} = @var{Name} @var{musikalischer Ausdruck}
+@end example
+
+Beachten Sie den Unterschied zwischen der Bezeichnung des
+Kontexttyps (@code{Staff}, @code{Voice}, usw.) und dem
+Namen, der aus beliebigen Buchstaben (@strong{Achtung: keine
+Zahlen}) bestehen kann
+und vom Benutzer frei erfunden werden kann. Der Name wird
+benutzt, um später auf genau diesen spezifischen Kontext 
+zu verweisen. Dieses Vorgehen wurde schon in dem Abschnitt
+zu Gesangstexten angewandt, siehe @ref{Voices and vocals}.
+
+@seealso
+
+Notationreferenz: @ruser{Creating contexts}.
+
 
 @node Engravers explained
 @subsection Engravers explained
