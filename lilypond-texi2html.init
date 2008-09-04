@@ -233,19 +233,19 @@ sub lilypond_css_lines ($$)
 {
     my $import_lines = shift;
     my $rule_lines = shift;
-    return if (defined($CSS_LINES));
+    return if (defined($Texi2HTML::THISDOC{'CSS_LINES'}));
     if (@$rule_lines or @$import_lines)
     {
-        $CSS_LINES = "<style type=\"text/css\">\n<!--\n";
-        $CSS_LINES .= join('',@$import_lines) . "\n" if (@$import_lines);
-        $CSS_LINES .= join('',@$rule_lines) . "\n" if (@$rule_lines);
-        $CSS_LINES .= "-->\n</style>\n";
+        $Texi2HTML::THISDOC{'CSS_LINES'} = "<style type=\"text/css\">\n<!--\n";
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$import_lines) . "\n" if (@$import_lines);
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$rule_lines) . "\n" if (@$rule_lines);
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "-->\n</style>\n";
     }
     foreach my $ref (@CSS_REFS)
     {
-        $CSS_LINES .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\">\n";
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\">\n";
     }
-    $CSS_LINES .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
 }
 
 
