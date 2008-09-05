@@ -12,29 +12,31 @@
 @node Changing defaults
 @chapter Changing defaults
 
-@strong{N.B. This Chapter is under heavy development at present.}
+@strong{N.B. This Chapter is still being developed at present.}
 
-The purpose of LilyPond's design is to provide the finest output
-quality as a default.  Nevertheless, it may happen that you need to
+The purpose of LilyPond's design is to provide the finest quality
+output by default.  Nevertheless, it may happen that you need to
 change this default layout.  The layout is controlled through a large
-number of proverbial @q{knobs and switches.}  This chapter does not
-list each and every knob.  Rather, it outlines what groups of controls
-are available and explains how to lookup which knob to use for a
-particular effect.
-
+number of @q{knobs and switches} collectively called @q{properties}.
+A tutorial introduction to accessing and modifying these properties
+can be found in the Learning Manual, see @rlearning{Tweaking output}.
+This should be read first.  This chapter covers similar ground, but
+in a style more appropriate to a reference manual.
 
 @cindex Internals Reference
 
-The controls available for tuning are described in a separate
-document: @rinternalsnamed{Top,the Internals Reference}.  That manual
-lists all different variables, functions and options available in
-LilyPond.  It is written as a HTML document, which is available
+The definitive description of the controls available for tuning can
+be found in a separate document: @rinternalsnamed{Top,the Internals
+Reference}.  That manual lists all the variables, functions and
+options available in LilyPond.  It is written as a HTML document,
+which is available
 @c leave the @uref as one long line.
 @uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
-but is also included with the LilyPond documentation package.
+and is also included with the LilyPond documentation package.
 
 @c TODO The following is at variance to what actually follows.  Fix -td
 
+@ignore
 There are four areas where the default settings may be changed:
 
 @itemize
@@ -64,15 +66,17 @@ introduced in a @code{.ly} file with the hash mark
 @code{#}.@footnote{@rlearning{Scheme tutorial}, contains a short tutorial
 on entering numbers, lists, strings, and symbols in Scheme.}
 
+@end ignore
+
 
 @menu
-* Interpretation contexts::     
-* Explaining the Internals Reference::  
-* Modifying properties::        
-* Useful concepts and properties::  
-* Common properties::           
-* Advanced tweaks::             
-* Discussion of specific tweaks::  
+* Interpretation contexts::
+* Explaining the Internals Reference::
+* Modifying properties::
+* Useful concepts and properties::
+* Common properties::
+* Advanced tweaks::
+* Discussion of specific tweaks::
 @end menu
 
 
