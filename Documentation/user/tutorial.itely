@@ -482,7 +482,7 @@ Notation Reference: @ruser{Writing pitches},
 
 @funindex { ... }
 @funindex %
-@funindex %{ ... %}
+@funindex %@{ ... %@}
 
 LilyPond input files are similar to source files in many common
 programming languages.  They are case sensitive, and white-space
