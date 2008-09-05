@@ -1666,7 +1666,7 @@ context to distinguish it from other contexts of the same type,
 Note the distinction between the name of the context type,
 @code{Staff}, @code{Voice}, etc, and the identifying name of a
 particular instance of that type, which can be any sequence of letters
-and digits invented by the user.  The identifying name is used to
+(@code{strong}{No digits!}) invented by the user.  The identifying name is used to
 refer back to that particular instance of a context.  We saw this in
 use in the section on lyrics, see @ref{Voices and vocals}.
 
