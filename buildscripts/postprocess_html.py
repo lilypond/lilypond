@@ -99,7 +99,7 @@ Documentation/user/out-www/(lilypond|music-glossary|lilypond-program|\
 lilypond-learning))/')
 
 snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
-user_ref_re = re.compile ('href="(?:[.][.])?lilypond\
+user_ref_re = re.compile ('href="(?:\.\./)?lilypond\
 (-internals|-learning|-program|(?!-snippets))')
 
 ## Windows does not support symlinks.
