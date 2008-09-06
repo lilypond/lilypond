@@ -1,5 +1,5 @@
 \header { texidoc = "Deeply nested system braces, brackets, etc., may be
-  created with the @code{systemStaratDelimiterHierarchy} property."
+  created with the @code{systemStartDelimiterHierarchy} property."
 }
 
 \version "2.11.56"
