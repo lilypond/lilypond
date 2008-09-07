@@ -31,7 +31,7 @@ Balloon_interface::print (SCM smob)
   Grob *p = me->get_parent (X_AXIS);
   
   Offset off (me->relative_coordinate (p, X_AXIS),
-	     me->relative_coordinate (p, Y_AXIS));
+	      me->relative_coordinate (p, Y_AXIS));
 
   Box b (p->extent (p, X_AXIS),
 	 p->extent (p, Y_AXIS));
@@ -46,7 +46,7 @@ Balloon_interface::print (SCM smob)
   SCM chain = Font_interface::text_font_alist_chain (me);
 
   SCM stencil = Text_interface::interpret_markup (me->layout ()->self_scm (),
-					       chain, bt);
+						  chain, bt);
 
   Stencil *text_stil = unsmob_stencil (stencil);
 

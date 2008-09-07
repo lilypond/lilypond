@@ -1,5 +1,5 @@
 /*
-  accidental-engraver.cc -- implement accidental_engraver
+  accidental-engraver.cc -- implement Accidental_engraver
 
   source file of the GNU LilyPond music typesetter
 

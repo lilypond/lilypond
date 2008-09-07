@@ -109,7 +109,7 @@ Accidental_interface::accurate_boxes (Grob *me, Grob **common)
 	    really close.
 	  */
 	  Direction bulb_dir =
-	    glyph_name=="accidentals.mirroredflat" ? LEFT : RIGHT;
+	    glyph_name == "accidentals.mirroredflat" ? LEFT : RIGHT;
 	  stem[X_AXIS][bulb_dir] = stem[X_AXIS].center ();
 
 	  /*

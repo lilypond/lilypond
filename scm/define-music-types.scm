@@ -660,7 +660,7 @@ Syntax: @code{\\\\}")
 
 (define-safe-public (make-music name . music-properties)
   "Create a music object of given name, and set its properties
-according to @code{music-properties}, a list of alterning property symbols
+according to @code{music-properties}, a list of alternating property symbols
 and values. E.g:
   (make-music 'OverrideProperty
 	      'symbol 'Stem
@@ -690,6 +690,6 @@ and values. E.g:
 			 (cdr handle)
 			 (begin
 			   (ly:warning (_ "unknown repeat type `~S'") name)
-			   (ly:warning (_ "See music-types.scm for supported repeats"))
+			   (ly:warning (_ "See define-music-types.scm for supported repeats"))
 			   'VoltaRepeatedMusic))))
     (make-music music-name)))

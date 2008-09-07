@@ -68,7 +68,8 @@ Accidental_placement::split_accidentals (Grob *accs,
       {
 	Grob *a = unsmob_grob (scm_car (s));
 
-	if (unsmob_grob (a->get_object ("tie")) && !to_boolean (a->get_property ("forced")))
+	if (unsmob_grob (a->get_object ("tie"))
+	    && !to_boolean (a->get_property ("forced")))
 	  break_reminder->push_back (a);
 	else
 	  real_acc->push_back (a);
