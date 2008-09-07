@@ -2402,17 +2402,295 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 @node Aligning objects
 @subsection Aligning objects
 
-@c FIXME Write this section
+Graphical objects which support the @code{self-alignment-interface} and/or
+the @code{side-position-interface} can be
+aligned to a previously placed object in a variety of ways.  For a list of these objects, see
+@rinternals{self-alignment-interface} and @rinternals{side-position-interface}.
 
+All graphical objects have a reference point, a horizontal extent and a
+vertical extent.  The horizontal extent is a pair of numbers
+giving the displacements from the reference point of the left and
+right edges, displacements to the left being negative.  The
+vertical extent is a pair of numbers giving the displacement from
+the reference point to the bottom and top edges, displacements down
+being negative.
+
+An object's position on a staff is given by the values of the
+@code{X-offset} and @code{Y-offset} properties.  The value of
+@code{X-offset} gives the displacement from the x coordinate of
+the reference point of the parent object, and the value of
+@code{Y-offset} gives the displacement from the center line of the
+staff.   The values of @code{X-offset} and
+@code{Y-offset} may be set directly or may be set to be calculated
+by procedures in order to achieve alignment with the parent object
+in several ways.
+
+@warning{Many objects have special positioning considerations which
+cause any setting of @code{X-offset} or @code{Y-offset} to be
+ignored or modified, even though the object supports the
+@code{self-alignment-interface}.}
+
+For example, an accidental can be repositioned
+vertically by setting @code{Y-offset} but any changes to
+@code{X-offset} have no effect.
+
+Rehearsal marks may be aligned with
+breakable objects such as bar lines, clef symbols, time signature
+symbols and key signatures.  There are special properties to be
+found in the @code{break-aligned-interface} for positioning rehearsal
+marks on such objects.
+
+@menu
+* Setting @code{X-offset} and @code{Y-offset} directly::
+* Using the @code{side-position-interface}::
+* Using the @code{self-alignment-interface}::
+* Using the @code{break-aligned-interface}::
+@end menu
+
+@node Setting @code{X-offset} and @code{Y-offset} directly
+@unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
+
+Numerical values may be given to the @code{X-offset} and @code{Y-offset}
+properties of many objects.  The following example shows three
+notes with the default fingering position and the positions with @code{X-offset}
+and @code{Y-offset} modified.
+
+@lilypond[verbatim,quote,relative=2]
+a-3
+a
+-\tweak #'X-offset #0
+-\tweak #'Y-offset #0
+-3
+a
+-\tweak #'X-offset #-1
+-\tweak #'Y-offset #1
+-3
+@end lilypond
+
+@c TODO write more
+
+@node Using the @code{side-position-interface}
+@unnumberedsubsubsec Using the @code{side-position-interface}
+
+An object which supports the @code{side-position-interface} can be
+placed next to its parent object so that
+the specified edges of the two objects touch.  The object may be
+placed above, below, to the right or to the left of the parent.
+The parent cannot be specified; it is determined by the order of
+elements in the input stream.  Most objects have the associated
+note head as their parent.
+
+The values of the @code{side-axis} and @code{direction} properties
+determine where the object is to be placed, as follows:
+
+@c TODO add an example of each to the table
+
+@multitable @columnfractions .3 .3 .3
+@headitem @code{side-axis}  @tab @code{direction}  @tab
+@headitem property          @tab property          @tab Placement
+
+@item     @code{0}          @tab @code{-1}         @tab left
+@item     @code{0}          @tab @code{1}          @tab right
+@item     @code{1}          @tab @code{-1}         @tab below
+@item     @code{1}          @tab @code{1}          @tab above
+
+@end multitable
+
+When @code{side-axis} is @code{0}, @code{X-offset} should be set to
+the procedure @code{ly:side-position-interface::x-aligned-side}.
+This procedure will return the correct value of @code{X-offset} to
+place the object to the left or right side of the parent according
+to value of @code{direction}.
+
+When @code{side-axis} is @code{1}, @code{Y-offset} should be set to
+the procedure @code{ly:side-position-interface::y-aligned-side}.
+This procedure will return the correct value of @code{Y-offset} to
+place the object to the top or bottom of the parent according
+to value of @code{direction}.
+
+@c TODO Add examples
+
+@node Using the @code{self-alignment-interface}
+@unnumberedsubsubsec Using the @code{self-alignment-interface}
+
+@emph{Self-aligning objects horizontally}
+
+The horizontal alignment of an object which supports the
+@code{self-alignment-interface} is controlled by the value of
+the @code{self-alignment-X} property, provided the object's
+@code{X-offset} property is set to
+@code{ly:self-alignment-interface::x-aligned-on-self}.
+@code{self-alignment-X}  may be given any
+real value, in units of half the total X extent of the
+object.  Negative values move the object to the right, positive
+to the left.  A value of @code{0} centers the object on the
+reference point of its parent, a value of @code{-1} aligns the
+left edge of the object on the reference point of its parent,
+and a value of @code{1} aligns the right edge of the object on the
+reference point of its parent.  The symbols @code{LEFT},
+@code{CENTER} and @code{RIGHT} may be used instead of the values
+@code{-1, 0, 1} respectively.
+
+Normally the @code{\override} command would be used to modify the
+value of @code{self-alignment-X}, but the @code{\tweak} command
+can be used to separately align several annotations on a single
+note:
+
+@lilypond[quote,verbatim,relative=1]
+a'
+-\tweak #'self-alignment-X #-1
+^"left-aligned"
+-\tweak #'self-alignment-X #0
+^"center-aligned"
+-\tweak #'self-alignment-X #RIGHT
+^"right-aligned"
+-\tweak #'self-alignment-X #-2.5
+^"aligned further to the right"
+@end lilypond
+
+@emph{Self-aligning objects vertically}
+
+Objects may be aligned vertically in an analogous way to aligning
+them horizontally if the @code{Y-offset} property is set to
+@code{ly:self-alignment-interface::y-aligned-on-self}.  However,
+other mechanisms are often involved in vertical alignment: the
+value of @code{Y-offset} is just one variable taken into account.
+This may make adjusting the value of some objects tricky.
+The units are just half the vertical extent of the object, which
+is usually quite small, so quite large numbers may be required.
+A value of @code{-1} aligns the lower edge of the object with
+the reference point of the parent object, a value of @code{0}
+aligns the center of the object with the reference point of the
+parent, and a value of @code{1} aligns the top edge of the object
+with the reference point of the parent.  The symbols @code{DOWN},
+@code{CENTER}, @code{UP} may be substituted for @code{-1, 0, 1}
+respectively.
+
+@emph{Self-aligning objects in both directions}
+
+By setting both @code{X-offset} and @code{Y-offset}, an object may
+be aligned in both directions simultaneously.
+
+The following example shows how to adjust a fingering mark so
+that it nestles close to the note head.
+
+@lilypond[quote,verbatim,relative=2]
+a
+-\tweak #'self-alignment-X #0.5  % move horizontally left
+-\tweak #'Y-offset #ly:self-alignment-interface::y-aligned-on-self
+-\tweak #'self-alignment-Y #-1  % move vertically up
+-3  % third finger
+@end lilypond
+
+@ignore
+@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+The @code{aligned-on-parent} procedures are used in the same way
+as the @code{aligned-on-self} procedures, they difference being
+that they permit an object to be aligned with the @emph{edges} of
+the parent rather than the parent's reference point.  The following
+example shows the difference:
+
+@c TODO Add example
+
+@lilypond[verbatim,quote]
+@end lilypond
+
+@end ignore
+
+@ignore
+@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+@end ignore
+
+@c TODO The align-interface, BassFigureAlignment and VerticalAlignment
+
+@node Using the @code{break-aligned-interface}
+@unnumberedsubsubsec Using the @code{break-aligned-interface}
+
+Rehearsal marks may be aligned with notation objects other
+than bar lines.  These objects include @code{ambitus},
+@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
+@code{left-edge}, @code{key-cancellation}, @code{key-signature}, and
+@code{time-signature}.
+
+By default, rehearsal marks will be horizontally centered above the
+object:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+% the RehearsalMark will be centered above the Clef
+\override Score.RehearsalMark #'break-align-symbols = #'(clef)
+\key a \major
+\clef treble
+\mark "↓"
+e
+% the RehearsalMark will be centered above the TimeSignature
+\override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+\key a \major
+\clef treble
+\time 3/4
+\mark "↓"
+e2.
+@end lilypond
+
+The alignment of the rehearsal mark relative to the notation object
+can be changed, as shown in the following example.  In a score with
+multiple staves, this setting should be done for all the staves.
+
+@lilypond[verbatim,quote,relative=1]
+% The RehearsalMark will be centered above the KeySignature
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\key a \major
+\clef treble
+\time 4/4
+\mark "↓"
+e1
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+\once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
+\mark "↓"
+\key a \major
+e
+% The RehearsalMark will be aligned with the right edge of the KeySignature
+\once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
+\key a \major
+\mark "↓"
+e
+@end lilypond
+
+The rehearsal mark can also be offset to the right or left of the left edge
+by an arbitrary amount.  The units are staff-spaces:
+
+@lilypond[verbatim,quote,relative=1]
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+% and then shifted right by 3.5 staff-spaces
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\once \override Score.KeySignature #'break-align-anchor = #3.5
+\key a \major
+\mark "↓"
+e
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+% and then shifted left by 2 staff-spaces
+\once \override Score.KeySignature #'break-align-anchor = #-2
+\key a \major
+\mark "↓"
+e
+@end lilypond
 
 @node Advanced tweaks
 @section Advanced tweaks
 
 @menu
-* Vertical grouping of grobs::  
-* Modifying ends of spanners::  
-* Modifying stencils::          
-* Modifying shapes::            
+* Vertical grouping of grobs::
+* Modifying ends of spanners::
+* Modifying stencils::
+* Modifying shapes::
 @end menu
 
 
