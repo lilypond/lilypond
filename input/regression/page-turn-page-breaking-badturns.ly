@@ -1,6 +1,6 @@
-\version "2.11.51"
+\version "2.11.58"
 
-\header{
+\header {
     texidoc="If there are no good places to have a page turn,
 the optimal-breaker will just have to recover gracefully. This
 should appear on 3 pages.
@@ -10,7 +10,7 @@ should appear on 3 pages.
 \book {
   \paper {
     #(define page-breaking ly:page-turn-breaking)
-    paper-height = #65
+    paper-height = #60
     print-page-number = ##t
   }
 

@@ -2122,28 +2122,29 @@ Sometimes you can end up with one or two staves on a second
 if you look at previous pages and it looks like there is plenty
 of room left on those.
 
-When investigating layout issues, @code{annotate-spacing} is
-an invaluable tool.  This command prints the values of various
-layout spacing commands; for more details see the following
-section, @ref{Displaying spacing}.
+When investigating layout issues, @code{annotate-spacing} is an
+invaluable tool.  This command prints the values of various layout
+spacing variables; for more details see the following section,
+@ref{Displaying spacing}.
 
 @menu
 * Displaying spacing::
 * Changing spacing::
 @end menu
 
+
 @node Displaying spacing
 @subsection Displaying spacing
 
 @funindex annotate-spacing
-@cindex Spacing, display of properties
+@cindex spacing, display of layout
 
-To graphically display the dimensions of vertical properties that may
-be altered for page formatting, set @code{annotate-spacing} in the
-@code{\paper} block, like this:
+To graphically display the dimensions of vertical layout variables
+that may be altered for page formatting, set
+@code{annotate-spacing} in the @code{\paper} block:
 
 @c need to have \book{} otherwise we get the separate systems. -hwn
-@lilypond[verbatim]
+@lilypond[verbatim,quote]
 #(set-default-paper-size "a6" 'landscape)
 \book {
   \score { { c4 } }
@@ -2151,31 +2152,31 @@ be altered for page formatting, set @code{annotate-spacing} in the
 }
 @end lilypond
 
-
-@c  TODO: really bad vagueness due to bug in annotate-spacing.  -gp
 @noindent
-Some unit dimensions are measured in staff spaces, while others
-are measured in millimeters.
-The pairs
-(@var{a},@var{b}) are intervals, where @var{a} is the lower edge and
-@var{b} the upper edge of the interval.
+All layout dimensions are displayed in staff spaces, regardless of
+the units specified in the @code{\paper} or @code{\layout} block.
+For example, @code{paper-height} has a value of 59.75 staff
+spaces, using the default staff size of 20 points, which is
+equivalent to 148 millimeters, the height of @code{a6} paper in
+landscape orientation.  The pairs (@var{a},@var{b}) are intervals,
+where @var{a} is the lower edge and @var{b} the upper edge of the
+interval.
+
 
 @node Changing spacing
 @subsection Changing spacing
 
-From the output of @code{annotate-spacing}, we can
-see which margins we may wish to alter.
-
-@c TODO add info about or pointers to margin settings
+The output of @code{annotate-spacing} reveals vertical dimensions
+in great detail.  For details about modifying margins and other
+layout variables, see @ref{Page formatting}.
 
 Other than margins, there are a few other options to save space:
 
 @itemize
 @item
-You may tell LilyPond to place systems as close together as
-possible (to fit as many systems as possible onto a page), but
-then to space those systems out so that there is no blank
-space at the bottom of the page.
+Force systems to move as close together as possible (to fit as
+many systems as possible onto a page) while being spaced so that
+there is no blank space at the bottom of the page.
 
 @example
 \paper @{
@@ -2187,9 +2188,9 @@ space at the bottom of the page.
 @end example
 
 @item
-You may force the number of systems (i.e., if LilyPond wants
-to typeset some music with 11 systems, you could force it to
-use 10).
+Force the number of systems.  For example, if the default layout
+has 11 systems, the following assignment will force a layout with
+10 systems.
 
 @example
 \paper @{
@@ -2198,27 +2199,25 @@ use 10).
 @end example
 
 @item
-Avoid (or reduce) objects which increase the vertical size of
-a system.  For example, volta repeats (or alternate repeats)
-require extra space.  If these repeats are spread over two
-systems, they will take up more space than one system with
-the volta repeats and another system without.
+Avoid (or reduce) objects that increase the vertical size of a
+system.  For example, volta repeats (or alternate repeats) require
+extra space.  If these repeats are spread over two systems, they
+will take up more space than one system with the volta repeats and
+another system without.  For example, dynamics that @q{stick out} of
+a system can be moved closer to the staff:
 
-Another example is moving dynamics which @q{stick out} of
-a system, as in the second bar here:
-
-@lilypond[verbatim,quote,fragment,ragged-right,relative=1]
+@lilypond[verbatim,quote,relative=1]
 e4 c g\f c
 \override DynamicText #'extra-offset = #'( -2.2 . 2.0)
 e4 c g\f c
 @end lilypond
 
 @item
-Alter the horizontal spacing via @code{SpacingSpanner}.  See
-@ref{Changing horizontal spacing}, for more details.  Here's
-an example first showing the default behavior:
+Alter the horizontal spacing via @code{SpacingSpanner}.  For more
+details, see @ref{Changing horizontal spacing}.  The following
+example illustrates the default spacing:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \score {
   \relative c'' {
     g4 e e2 |
@@ -2231,11 +2230,12 @@ an example first showing the default behavior:
 @end lilypond
 
 @noindent
-and now with @code{common-shortest-duration} increased from the
-value of @code{1/4} (a quarter note is the most common in this
-example) to @code{1/2}:
+The next example modifies @code{common-shortest-duration} from a
+value of @code{1/4} to @code{1/2}.  The quarter note is the most
+common and shortest duration in this example, so by making this
+duration longer, a @q{squeezing} effect occurs:
 
-@lilypond[verbatim,quote,ragged-right]
+@lilypond[verbatim,quote]
 \score {
   \relative c'' {
     g4 e e2 |
@@ -2248,18 +2248,22 @@ example) to @code{1/2}:
     \context {
       \Score
       \override SpacingSpanner
-                #'common-shortest-duration = #(ly:make-moment 1 2)
+        #'common-shortest-duration = #(ly:make-moment 1 2)
     }
   }
 }
 @end lilypond
 
 @noindent
-Note that this override cannot be modified dynamically, so it must
-always be placed in a @code{\context@{..@}} block so that it applies
-to the whole score.
+The @code{common-shortest-duration} property cannot be modified
+dynamically, so it must always be placed in a @code{\context}
+block so that it applies to the whole score.
 
 @end itemize
 
 
+@seealso
 
+Notation Reference:
+@ref{Page formatting},
+@ref{Changing horizontal spacing}.
