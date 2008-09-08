@@ -893,7 +893,7 @@ Time signatures are printed at the beginning of a piece
 and whenever the time signature changes.  If a change takes place
 at the end of a line a warning time signature sign is printed
 there.  This default behavior may be changed, see
-@ref{Controlling visibility of objects}.
+@ref{Visibility of objects}.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \time 2/4
@@ -1133,7 +1133,7 @@ Music Glossary:
 @rglos{cadenza}
 
 Notation Reference:
-@ref{Controlling visibility of objects}
+@ref{Visibility of objects}
 
 Snippets:
 @rlsr{Rhythms}.

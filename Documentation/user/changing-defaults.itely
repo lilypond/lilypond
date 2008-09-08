@@ -74,7 +74,6 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 * Explaining the Internals Reference::
 * Modifying properties::
 * Useful concepts and properties::
-* Common properties::
 * Advanced tweaks::
 * Discussion of specific tweaks::
 @end menu
@@ -121,13 +120,15 @@ further explanation and with links to the IR.
 
 @c TODO Add introduction which explains contexts in generality  -td
 
+@c TODO Describe propagation of property values -td
+
 Contexts are arranged heirarchically:
 
 @menu
-* Score - the master of all contexts::  
-* Top-level contexts - staff containers::  
-* Intermediate-level contexts - staves::  
-* Bottom-level contexts - voices::  
+* Score - the master of all contexts::
+* Top-level contexts - staff containers::
+* Intermediate-level contexts - staves::
+* Bottom-level contexts - voices::
 @end menu
 
 @node Score - the master of all contexts
@@ -1614,6 +1615,9 @@ property (modified with @code{\set}) was created.
 * Direction and placement::
 * Distances and measurements::
 * Spanners::
+* Visibility of objects::
+* Line styles::
+* Rotating objects::
 @end menu
 
 @node Input modes
@@ -1810,9 +1814,11 @@ TrillPitchGroup - not tried
 @node Distances and measurements
 @subsection Distances and measurements
 
-DISCUSS after working on other sections.
+To be written
 
-TODO: staff spaces.  Maybe move into tweaks?
+@c FIXME DISCUSS after working on other sections.
+
+@c TODO: staff spaces.  Maybe move into tweaks?
 
 
 @node Spanners
@@ -1825,18 +1831,112 @@ have special properties to control their appearance and behaviour.
 Some of these properties are common to all spanners; others are
 restricted to a sub-set of the spanners.
 
-@node Common properties
-@section Common properties
+The information that determines the end-points of spanners is computed
+on-the-fly, but it is possible to override these:
 
-@menu
-* Controlling visibility of objects::  
-* Line styles::                 
-* Rotating objects::            
-* Aligning objects::            
-@end menu
+@c TODO change and extend example
 
-@node Controlling visibility of objects
-@subsection Controlling visibility of objects
+@lilypond[relative=2,ragged-right,verbatim,fragment]
+e2 \glissando f
+\once \override Glissando #'bound-details #'right #'Y = #-2
+e2 \glissando f
+@end lilypond
+
+
+The following properties can be used for the left and right
+@code{bound-details}:
+
+@table @code
+@item Y
+This sets the Y-coordinate of the end point, in staff space.  By
+default, it is the center of the bound object, so for a glissando
+it points to the vertical center of the note head.
+
+For horizontal spanners, such as text spanner and trill spanners,
+it is hardcoded to 0.
+
+@item attach-dir
+This determines where the line starts and ends in X-direction,
+relative to the bound object.  So, a value of @code{-1} (or
+@code{LEFT}) makes the line start/end at the left side of the note
+head it is attached to.
+
+@item X
+This is the absolute coordinate of the end point.  It is usually
+computed on the fly, and there is little use in overriding it.
+
+@item stencil
+Line spanners may have symbols at the beginning or end, which is
+contained in this sub-property.  This is for internal use, it is
+recommended to use @code{text}.
+
+@item text
+This is a markup that is evaluated to yield stencil.  It is used
+to put @i{cresc.} and @i{tr} on horizontal spanners.
+
+@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+\override TextSpanner #'bound-details #'left #'text
+   = \markup { \small \bold Slower }
+c2\startTextSpan b c a\stopTextSpan
+@end lilypond
+
+@item stencil-align-dir-y
+@item stencil-offset
+Without setting this, the stencil is simply put there at the
+end-point, as defined by the @code{X} and @code{Y} sub properties.
+Setting either @code{stencil-align-dir-y} or @code{stencil-offset}
+will move the symbol at the edge relative to the end point of the
+line
+
+@lilypond[relative=1,fragment,verbatim]
+\override TextSpanner #'bound-details
+  #'left #'stencil-align-dir-y = #DOWN
+\override TextSpanner #'bound-details
+  #'right #'stencil-align-dir-y = #UP
+
+\override TextSpanner #'bound-details
+  #'left #'text = #"gggg"
+\override TextSpanner #'bound-details
+  #'right #'text = #"hhhh"
+c4^\startTextSpan c c c \stopTextSpan
+@end lilypond
+
+@item arrow
+Setting this sub property to @code{#t} produce an arrowhead at the
+end of the line.
+
+@item padding
+This sub property controls the space between the specified
+end-point of the line and the actual end.  Without padding, a
+glissando would start and end in the center of each note head.
+
+@end table
+
+The music function \endSpanners terminates spanners and hairpins
+after exactly one note.
+
+@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+\endSpanners
+c2 \startTextSpan c2
+c2 \< c2
+@end lilypond
+
+When using \endSpanners it is not necessary to close
+\startTextSpan with \stopTextSpan, nor is it necessary to close
+hairpins with \!.
+
+
+
+@seealso
+
+Internals Reference: @rinternals{TextSpanner},
+@rinternals{Glissando}, @rinternals{VoiceFollower},
+@rinternals{TrillSpanner},
+@rinternals{line-spanner-interface}.
+
+
+@node Visibility of objects
+@subsection Visibility of objects
 
 @cindex objects, visibility of
 @cindex grobs, visibility of
@@ -2214,8 +2314,9 @@ d,2 \glissando d'2
 
 The information that determines the end-points is computed
 on-the-fly for every graphic object, but it is possible to
-override these.
+override these:
 
+@c FIXME Complete
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 e2 \glissando f
 \once \override Glissando #'bound-details #'right #'Y = #-2
@@ -2243,98 +2344,7 @@ c1 \glissando \break
 f1
 @end lilypond
 
-The following properties can be used for the
-
-@table @code
-@item Y
-This sets the Y-coordinate of the end point, in staff space.  By
-default, it is the center of the bound object, so for a glissando
-it points to the vertical center of the note head.
-
-For horizontal spanners, such as text spanner and trill spanners,
-it is hardcoded to 0.
-
-@item attach-dir
-This determines where the line starts and ends in X-direction,
-relative to the bound object.  So, a value of @code{-1} (or
-@code{LEFT}) makes the line start/end at the left side of the note
-head it is attached to.
-
-@item X
-This is the absolute coordinate of the end point.  It is usually
-computed on the fly, and there is little use in overriding it.
-
-@item stencil
-Line spanners may have symbols at the beginning or end, which is
-contained in this sub-property.  This is for internal use, it is
-recommended to use @code{text}.
-
-@item text
-This is a markup that is evaluated to yield stencil.  It is used
-to put @i{cresc.} and @i{tr} on horizontal spanners.
-
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-\override TextSpanner #'bound-details #'left #'text
-   = \markup { \small \bold Slower }
-c2\startTextSpan b c a\stopTextSpan
-@end lilypond
-
-@item stencil-align-dir-y
-@item stencil-offset
-Without setting this, the stencil is simply put there at the
-end-point, as defined by the @code{X} and @code{Y} sub properties.
-Setting either @code{stencil-align-dir-y} or @code{stencil-offset}
-will move the symbol at the edge relative to the end point of the
-line
-
-@lilypond[relative=1,fragment,verbatim]
-\override TextSpanner #'bound-details
-  #'left #'stencil-align-dir-y = #DOWN
-\override TextSpanner #'bound-details
-  #'right #'stencil-align-dir-y = #UP
-
-\override TextSpanner #'bound-details
-  #'left #'text = #"gggg"
-\override TextSpanner #'bound-details
-  #'right #'text = #"hhhh"
-c4^\startTextSpan c c c \stopTextSpan
-@end lilypond
-
-@item arrow
-Setting this sub property to @code{#t} produce an arrowhead at the
-end of the line.
-
-@item padding
-This sub property controls the space between the specified
-end-point of the line and the actual end.  Without padding, a
-glissando would start and end in the center of each note head.
-
-@end table
-
-@c TODO: Move to 5.4.4
-
-The music function \endSpanners terminates spanners and hairpins
-after exactly one note.
-
-@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
-\endSpanners
-c2 \startTextSpan c2
-c2 \< c2
-@end lilypond
-
-When using \endSpanners it is not necessary to close
-\startTextSpan with \stopTextSpan, nor is it necessary to close
-hairpins with \!.
-
-
-
-@seealso
-
-Internals Reference: @rinternals{TextSpanner},
-@rinternals{Glissando}, @rinternals{VoiceFollower},
-@rinternals{TrillSpanner},
-@rinternals{line-spanner-interface}.
-
+For more details, see @ref{Spanners}.
 
 @node Rotating objects
 @subsection Rotating objects
@@ -2343,8 +2353,8 @@ Both layout objects and elements of markup text can be rotated by
 any angle about any point, but the method of doing so differs.
 
 @menu
-* Rotating layout objects::     
-* Rotating markup::             
+* Rotating layout objects::
+* Rotating markup::
 @end menu
 
 @node Rotating layout objects
@@ -2398,6 +2408,15 @@ des^\markup { \rotate #30 "a D-Flat" }
 fis^\markup { \rotate #30 "an F-Sharp" }
 @end lilypond
 
+@node Advanced tweaks
+@section Advanced tweaks
+
+@menu
+* Aligning objects::
+* Vertical grouping of grobs::
+* Modifying stencils::
+* Modifying shapes::
+@end menu
 
 @node Aligning objects
 @subsection Aligning objects
@@ -2683,17 +2702,6 @@ e
 e
 @end lilypond
 
-@node Advanced tweaks
-@section Advanced tweaks
-
-@menu
-* Vertical grouping of grobs::
-* Modifying ends of spanners::
-* Modifying stencils::
-* Modifying shapes::
-@end menu
-
-
 
 
 @node Vertical grouping of grobs
@@ -2708,12 +2716,6 @@ grouped together by VerticalAxisGroup.  There is usually only one
 VerticalAlignment per score but every Staff, Lyrics, etc. has its own
 VerticalAxisGroup.
 
-
-@node Modifying ends of spanners
-@subsection Modifying ends of spanners
-
-@c FIXME Write this section
-@c See earlier material in Line styles
 
 @node Modifying stencils
 @subsection Modifying stencils
@@ -2853,75 +2855,6 @@ command.
 @node Discussion of specific tweaks
 @section Discussion of specific tweaks
 
-@menu
-* old Contexts explained::      
-@end menu
-
-
-@node old Contexts explained
-@subsection old Contexts explained
-
-@c FIXME Delete this section?  It is in LM
-@c Or leave heading and go on from LM?
-
-When music is printed, a lot of notational elements must be added to the
-output.  For example, compare the input and output of the following example:
-
-@lilypond[quote,verbatim,relative=2,fragment]
-cis4 cis2. g4
-@end lilypond
-
-The input is rather sparse, but in the output, bar lines, accidentals,
-clef, and time signature are added.  LilyPond @emph{interprets} the
-input.  During this step, the musical information is inspected in time
-order, similar to reading a score from left to right.  While reading
-the input, the program remembers where measure boundaries are, and which
-pitches require explicit accidentals.  This information can be presented on
-several levels.  For example, the effect of an accidental is limited
-to a single staff, while a bar line must be synchronized across the
-entire score.
-
-Within LilyPond, these rules and bits of information are grouped in
-@emph{Contexts}.  Some examples of contexts are @code{Voice},
-@code{Staff}, and @code{Score}.  They are hierarchical, for
-example: a @code{Staff} can contain many @code{Voice}s, and a
-@code{Score} can contain many @code{Staff} contexts.
-
-@quotation
-@sourceimage{context-example,5cm,,}
-@end quotation
-
-Each context has the responsibility for enforcing some notation rules,
-creating some notation objects and maintaining the associated
-properties.  For example, the @code{Voice} context may introduce an
-accidental and then the @code{Staff} context maintains the rule to
-show or suppress the accidental for the remainder of the measure.  The
-synchronization of bar lines is handled at @code{Score} context.
-
-However, in some music we may not want the bar lines to be
-synchronized -- consider a polymetric score in 4/4 and 3/4 time.  In
-such cases, we must modify the default settings of the @code{Score}
-and @code{Staff} contexts.
-
-For very simple scores, contexts are created implicitly, and you need
-not be aware of them.  For larger pieces, such as anything with more
-than one staff, they must be
-created explicitly to make sure that you get as many staves as you
-need, and that they are in the correct order.  For typesetting pieces
-with specialized notation, it can be useful to modify existing or
-to define new contexts.
-
-
-A complete description of all available contexts is in the program
-reference, see
-@ifhtml
-@rinternals{Contexts}.
-@end ifhtml
-@ifnothtml
-Translation @expansion{} Context.
-@end ifnothtml
-
-@c [TODO: describe propagation]
-
+@c TODO What should go in here?
 
 
