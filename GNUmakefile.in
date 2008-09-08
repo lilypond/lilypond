@@ -22,7 +22,7 @@ TOPDOC_FILES = AUTHORS INSTALL README NEWS
 TOPDOC_TXT_FILES = $(addprefix $(top-build-dir)/Documentation/topdocs/$(outdir)/,$(addsuffix .txt,$(TOPDOC_FILES)))
 IN_FILES := $(call src-wildcard,*.in)
 
-EXTRA_DIST_FILES = VERSION .gitignore SConstruct \
+EXTRA_DIST_FILES = VERSION .gitignore SConstruct lilypond-texi2html.init \
   $(README_FILES) $(SCRIPTS) $(IN_FILES) 
 INSTALLATION_DIR=$(local_lilypond_datadir)
 INSTALLATION_FILES=$(config_make) VERSION
