@@ -21,7 +21,7 @@ using namespace std;
 char *
 pfb2pfa (Byte const *pfb, int length)
 {
-  char *out = new char[1];
+  char *out = (char*) malloc(sizeof(char));
   int olen = 0;
 
   Byte const *p = pfb;
