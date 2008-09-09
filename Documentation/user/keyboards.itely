@@ -363,7 +363,7 @@ Chords that cross staves may be produced:
 \new PianoStaff <<
   \new Staff {
     \relative c' {
-      f8 e4 d8 <f bes,>2
+      f8 e4 d8 d f e4
     }
   }
   \new Staff {
@@ -376,11 +376,12 @@ Chords that cross staves may be produced:
         \override Stem #'length = #12
         % do not print extra flags
         \override Stem #'flag-style = #'no-flag
-        a8 g4 f8
+        % prevent beaming as needed
+        a8 g4 f8 f bes\noBeam g4
       }
       \\
       {
-        f,2 d'
+        f,2 bes4 c
       } >>
     }
   }

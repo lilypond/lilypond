@@ -70,79 +70,7 @@
 		  "(lilypond/lilypond-internals.info)")
   "
 
-@c NOTE: This is documentation-generate.scm, not macros.itexi
-
-
-@macro q{TEXT}
-@quoteleft{}\\TEXT\\@quoteright{}
-@end macro
-
-@macro qq{TEXT}
-@quotedblleft{}\\TEXT\\@quotedblright{}
-@end macro
-
-
-@ifhtml
-@c ***** HTML *****
-
-@ifset bigpage
-
-@macro ruser{TEXT}
-@ref{\\TEXT\\,,,lilypond-big-page,Notation Reference}
-@cindex \\TEXT\\
-@end macro
-
-@end ifset
-
-@ifclear bigpage
-
-@macro ruser{NAME}
-@ref{\\NAME\\,,,lilypond,Notation Reference}
-@cindex \\NAME\\
-@end macro
-
-@end ifclear
-
-@macro inputfileref{DIR,NAME}
-@uref{source/\\DIR\\/out-www/collated-files.html#\\NAME\\,@file{\\DIR\\/\\NAME\\}}@c
-@end macro
-
-@end ifhtml
-
-
-@ifinfo
-@c ***** info *****
-
-@macro ruser{NAME}
-@ref{\\NAME\\,,,lilypond,Notation Reference}
-@cindex \\NAME\\
-@end macro
-
-@macro inputfileref{DIR,NAME}
-@file{\\DIR\\/\\NAME\\}
-@end macro
-
-@end ifinfo
-
-
-@iftex
-@c ***** TeX *****
-
-@macro ruser{NAME}
-@ref{\\NAME\\}@c
-@end macro
-
-@macro inputfileref{DIR,NAME}@c
-@file{\\DIR\\/\\NAME\\}@c
-@end macro
-
-@end iftex
-
-
-@macro rinternals{NAME}
-@ref{\\NAME\\}
-@end macro
-
+@include macros.texi
 
 @ignore
 @omftitle LilyPond internals
@@ -153,15 +81,49 @@
 @omfcategory Applications|Publishing
 @end ignore
 
+@iftex
+@afourpaper
+@c don't replace quotes with directed quotes
+@tex
+\\gdef\\SETtxicodequoteundirected{Foo}
+\\gdef\\SETtxicodequotebacktick{Bla}
+@end tex
+@end iftex
 
+@ifhtml
+This document is also available as a
+@uref{source/Documentation/user/lilypond-internals.pdf,PDF} and as
+@uref{source/Documentation/user/lilypond-internals-big-page.html,one big page}.
+@end ifhtml
+
+@finalout
+
+@titlepage
+@title LilyPond
+@subtitle The music typesetter
+@titlefont{Internals Reference}
+@author The LilyPond development team
+
+Copyright @copyright{} 1999--2008 by the authors
+
+@vskip 20pt
+
+For LilyPond version @version{}
+@end titlepage
+
+@contents
+
+@ifnottex
 ")
  out-port)
 
 (define top-node
   (make <texi-node>
     #:name "Top"
-    #:text 
-    (string-append  "This is the program reference for version "
+    #:text
+    (string-append  "
+@end ifnottex
+This is the program reference for version "
 		    (lilypond-version)
 		    " of LilyPond, the GNU music typesetter.")
 

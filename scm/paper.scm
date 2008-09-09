@@ -6,12 +6,33 @@
 
 (define-public (set-paper-dimension-variables mod)
   (module-define! mod 'dimension-variables
-		  '(pt mm cm in staff-height staff-space
-		       page-top-space
-		       between-system-space between-system-padding
-		       line-width indent short-indent paper-width paper-height horizontal-shift
-		       staff-space line-thickness ledgerline-thickness
-		       blot-diameter left-margin right-margin)))
+		  '(after-title-space
+		    before-title-space
+		    between-system-padding
+		    between-system-space
+		    between-title-space
+		    blot-diameter
+		    bottom-margin
+		    cm
+		    foot-separation
+		    head-separation
+		    horizontal-shift
+		    in
+		    indent
+		    ledger-line-thickness
+		    left-margin
+		    line-thickness
+		    line-width
+		    mm
+		    page-top-space
+		    paper-height
+		    paper-width
+		    pt
+		    right-margin
+		    short-indent
+		    staff-height
+		    staff-space
+		    top-margin)))
 
 (define (calc-line-thickness staff-space pt)
   ;; linear interpolation.
@@ -50,7 +71,7 @@
     (setm! 'line-thickness (calc-line-thickness ss pt))
 
     ;;  sync with feta  
-    (setm! 'ledgerline-thickness (+ (* 0.5 pt) (/ ss 10)))
+    (setm! 'ledger-line-thickness (+ (* 0.5 pt) (/ ss 10)))
 
     ;;  sync with feta  
     (setm! 'blot-diameter (* 0.4 pt))

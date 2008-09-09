@@ -1,0 +1,1008 @@
+#!/usr/bin/env perl
+
+### texi2html customization script for Lilypond
+### Author: Reinhold Kainhofer <reinhold@kainhofer.com>, 2008.
+###         Some code parts copied from texi2html and adapted. These functions
+###         were written mainly by Patrice Dumas
+### License: GPLv2+
+###
+###
+### Features implemented here:
+### -) For split manuals, the main page is index.html.
+### -) All @unnumbered* sections are placed into the same file
+###    (implemented by split_at_numbered_sections)
+### -) Use our custom CSS file, with IE-specific fixes in another CSS file,
+###    impelmented by lilypond_css_lines
+### -) TOC (folded, with the current page highlighted) in an overflown <div>
+###    is added to every page; implemented by:
+###           lilypond_print_element_header -- building of the TOC
+###           lilypond_toc_body -- generation of customized TOC output
+###           lilypond_print_page_head -- start <div id="main">
+###           print_lilypond_page_foot -- closing id=main, output of footer & TOC
+### -) External refs are formatted only as "Text of the node" (not as >>see
+###    "NODE" section "SECTION" in "BOOK"<< like with default texi2html). Also,
+###    the leading "(book-name)" is removed.
+###    Implemented by overriding lilypond_external_ref
+### -) Navigation bars on top/bottom of the page and between sections are not
+###    left-aligned, but use a combination of left/center/right aligned table
+###    cells; For this, I heavily extend the texi2html code to allow for
+###    differently aligned cells and for multi-line tables);
+###    Implemented in lilypond_print_navigation
+### -) Different formatting than the default: example uses the same formatting
+###    as quote.
+### -) Allow translated section titles: All section titles can be translated,
+###    the original (English) title is associated with @translationof. This is
+###    needed, because the file name / anchor is generated from the original
+###    English title, since otherwise language-autoselection would break with
+###    posted links.
+###    Since it is then no longer possible to obtain the file name from the
+###    section title, I keep a sectionname<=>filename/anchor around. This way,
+###    xrefs from other manuals can simply load that map and retrieve the
+###    correct file name for the link. Implemented in:
+###           lilypond_unknown (handling of @translationof, in case
+###                             extract_texi_filenames.py messes up...)
+###           lilypond_element_file_name (correct file name: use the map)
+###           lilypond_element_target_name (correct anchor: use the map)
+###           lilypond_init_map (read in the externally created map from disk)
+###           lilypond_external_href (load the map for xrefs, use the correct
+###                                   link target)
+### -) The HTML anchors for all sections are derived from the node name /
+###    section title (pre-generated in the .xref-map file). Implemented by:
+###           lilypond_element_target_name (adjust section anchors)
+### -) Use the standard footnote format "<sup>nr</sup> text" instead of the
+###    ugly format of texi2html (<h3>(nr)</h3><p>text</p>). Implemented in
+###           makeinfo_like_foot_line_and_ref
+###           makeinfo_like_foot_lines
+###           makeinfo_like_paragraph
+###
+###
+### Useful helper functions:
+### -) texinfo_file_name($node_name): returns a texinfo-compatible file name
+###    for the given string $node_name (whitespace trimmed/replaced by -,
+###    non-standard chars replaced by _xxxx (ascii char code) and forced to
+###    start with a letter by prepending t_g if necessary)
+
+
+package Texi2HTML::Config;
+
+
+
+
+
+#############################################################################
+###  SETTINGS FOR TEXI2HTML
+#############################################################################
+
+@Texi2HTML::Config::CSS_REFS      = ("lilypond.css");
+$Texi2HTML::Config::USE_ACCESSKEY = 1;
+$Texi2HTML::Config::USE_LINKS     = 1;
+$Texi2HTML::Config::USE_REL_REV   = 1;
+$Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
+$Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+$Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
+$Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
+$Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
+$Texi2HTML::Config::print_navigation     = \&lilypond_print_navigation;
+$Texi2HTML::Config::external_ref         = \&lilypond_external_ref;
+$Texi2HTML::Config::external_href        = \&lilypond_external_href;
+$Texi2HTML::Config::toc_body             = \&lilypond_toc_body;
+$Texi2HTML::Config::css_lines            = \&lilypond_css_lines;
+$Texi2HTML::Config::unknown              = \&lilypond_unknown;
+$Texi2HTML::Config::print_page_head      = \&lilypond_print_page_head;
+# $Texi2HTML::Config::foot_line_and_ref    = \&lilypond_foot_line_and_ref;
+$Texi2HTML::Config::foot_line_and_ref  = \&makeinfo_like_foot_line_and_ref;
+$Texi2HTML::Config::foot_lines         = \&makeinfo_like_foot_lines;
+$Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
+
+
+
+# Examples should be formatted similar to quotes:
+$Texi2HTML::Config::complex_format_map->{'example'} = {
+  'begin' => q{"<blockquote><pre class=\"example\">"},
+  'end' => q{"</pre></blockquote>\n"},
+ };
+
+%Texi2HTML::config::misc_pages_targets = (
+   'Overview' => 'Overview',
+   'Contents' => 'Contents',
+   'About' => 'About'
+);
+
+
+my @section_to_filename;
+
+
+
+
+#############################################################################
+###  DEBUGGING
+#############################################################################
+
+use Data::Dumper;
+$Data::Dumper::Maxdepth = 2;
+
+sub print_element_info($)
+{
+  my $element = shift;
+  print "~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+  print "Element: $element\n";
+  print Dumper($element);
+}
+
+
+
+
+
+#############################################################################
+###  HELPER FUNCTIONS
+#############################################################################
+
+# Convert a given node name to its proper file name (normalization as explained
+# in the texinfo manual:
+# http://www.gnu.org/software/texinfo/manual/texinfo/html_node/HTML-Xref-Node-Name-Expansion.html
+sub texinfo_file_name($)
+{
+  my $text = shift;
+  my $result = '';
+  # File name normalization by texinfo:
+  # 1/2: letters and numbers are left unchanged
+  # 3/4: multiple, leading and trailing whitespace is removed
+  $text = main::normalise_space($text);
+  # 5/6: all remaining spaces are converted to '-', all other 7- or 8-bit
+  #      chars are replaced by _xxxx (xxxx=ascii character code)
+  while ($text ne '') {
+    if ($text =~ s/^([A-Za-z0-9]+)//o) { # number or letter stay unchanged
+      $result .= $1;
+    } elsif ($text =~ s/^ //o) { # space -> '-'
+      $result .= '-';
+    } elsif ($text =~ s/^(.)//o) { # Otherwise use _xxxx (ascii char code)
+      my $ccode = ord($1);
+      if ( $ccode <= 0xFFFF ) {
+        $result .= sprintf("_%04x", $ccode);
+      } else {
+        $result .= sprintf("__%06x", $ccode);
+      }
+    }
+  }
+  # 7: if name does not begin with a letter, prepend 't_g' (so it starts with a letter)
+  if ($result !~ /^[a-zA-Z]/) {
+    $result = 't_g' . $result;
+  }
+  # DONE
+  return $result
+}
+
+
+# Load a file containing a nodename<=>filename map (tab-sepatared, i.e.
+# NODENAME\tFILENAME\tANCHOR
+# Returns a ref to a hash "Node title" => ["FilenameWithoutExt", "Anchor"]
+sub load_map_file ($)
+{
+    my $mapfile = shift;
+    my $node_map = ();
+
+    if (open(XREFFILE, $mapfile)) {
+        my $line;
+        while ( $line = <XREFFILE> ) {
+            # parse the tab-separated entries and insert them into the map:
+            chomp($line);
+            my @entries = split(/\t/, $line);
+            if (scalar (@entries) == 3) {
+              $node_map->{$entries[0]} = [$entries[1], $entries[2]];
+            } else {
+              print STDERR "Invalid entry in the node file $mapfile: $line\n";
+            }
+        }
+        close (XREFFILE);
+    } else {
+        print STDERR "WARNING: Unable to load the map file $mapfile\n";
+    }
+    return $node_map;
+}
+
+
+# Split the given path into dir and basename (with .texi removed). Used mainly
+# to get the path/basename of the original texi input file
+sub split_texi_filename ($)
+{
+  my $docu = shift;
+  my $docu_dir, $docu_name;
+  if ($docu =~ /(.*\/)/) {
+    chop($docu_dir = $1);
+    $docu_name = $docu;
+    $docu_name =~ s/.*\///;
+  } else {
+     $docu_dir = '.';
+     $docu_name = $docu;
+  }
+  $docu_name =~ s/\.te?x(i|info)?$//;
+  return ($docu_dir, $docu_name);
+}
+
+
+
+
+
+#############################################################################
+###  CSS HANDLING
+#############################################################################
+
+# Include our standard CSS file, not hard-coded CSS code directly in the HTML!
+# For IE, conditionally include the lilypond-ie-fixes.css style sheet
+sub lilypond_css_lines ($$)
+{
+    my $import_lines = shift;
+    my $rule_lines = shift;
+    return if (defined($Texi2HTML::THISDOC{'CSS_LINES'}));
+    if (@$rule_lines or @$import_lines)
+    {
+        $Texi2HTML::THISDOC{'CSS_LINES'} = "<style type=\"text/css\">\n<!--\n";
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$import_lines) . "\n" if (@$import_lines);
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= join('',@$rule_lines) . "\n" if (@$rule_lines);
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "-->\n</style>\n";
+    }
+    foreach my $ref (@CSS_REFS)
+    {
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\">\n";
+    }
+    $Texi2HTML::THISDOC{'CSS_LINES'} .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
+}
+
+
+
+
+
+#############################################################################
+###  SPLITTING BASED ON NUMBERED SECTIONS
+#############################################################################
+
+my $lastfilename;
+my $docnr = 0;
+my $node_to_filename_map = ();
+
+
+# This function makes sure that files are only generated for numbered sections,
+# but not for unnumbered ones. It is called after texi2html has done its own
+# splitting and simply returns the filename for the node given as first argument
+# Nodes with the same filename will be printed out to the same filename, so
+# this really all we need. Also, make sure that the file names for sections
+# are derived from the section title. We also might want to name the anchors
+# according to node titles, which works by simply overriding the id element of
+# the $element hash.
+# If an external nodename<=>filename/anchor map file is found (loaded in
+# lilypond_init_out, use the externally created values, otherwise use the
+# same logic here.
+sub lilypond_element_file_name($$$)
+{
+  my $element = shift;
+  my $type = shift;
+  my $docu_name = shift;
+  my $docu_ext = $Texi2HTML::Config::EXTENSION;
+
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  # the snippets page does not use nodes for the snippets, so in this case
+  # we'll have to use the section name!
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the filename/anchor here. In the latter case, external manuals
+  # will not be able to retrieve the file name for xrefs!!! Still, I already
+  # had that code, so I'll leave it in in case something goes wrong with the
+  # extract_texi_filenames.py script in the lilypond build process!
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, my $anchor) = @{$node_to_filename_map->{$node_name}};
+    $filename .= ".$docu_ext" if (defined($docu_ext));
+
+    # unnumbered sections (except those at top-level!) always go to the same
+    # file as the previous numbered section
+    if (not ($element->{number}) and not ($lastfilename eq '') and ($element->{level} > 1)) {
+      $filename = $lastfilename;
+    }
+    if (($filename eq $lastfilename)) {
+      $$element{doc_nr} = $docnr;
+    } else {
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+    }
+    return $filename;
+
+  } elsif ($type eq "top" or $type eq "toc" or $type eq "doc" or $type eq "stoc" or $type eq "foot" or $type eq "about") {
+    return;
+  } else {
+    print STDERR "WARNING: Node '$node_name' was NOT found in the map\n"
+        unless ($node_name eq '') or ($element->{'tag'} eq 'unnumberedsec')
+               or ($node_name =~ /NOT REALLY USED/);
+
+    # Numbered sections will get a filename Node_title, unnumbered sections will use
+    # the file name of the previous numbered section:
+    if (($element->{number}) or ($lastfilename eq '') or ($element->{level} == 1)) {
+      # normalize to the same file name as texinfo
+      if ($element->{translationof}) {
+        $node_name = main::remove_texi($element->{translationof});
+      }
+      my $filename = texinfo_file_name($node_name);
+      $filename .= ".$docu_ext" if (defined($docu_ext));
+      $docnr += 1;
+      $$element{doc_nr} = $docnr;
+      $lastfilename = $filename;
+      return $filename;
+    } else {
+      $$element{doc_nr} = $docnr;
+      return $lastfilename;
+    }
+  }
+
+  return;
+}
+
+sub lilypond_element_target_name($$$)
+{
+  my $element = shift;
+  my $target = shift;
+  my $id = shift;
+  # Target is based on node name (or sec name for secs without node attached)
+  my $node_name = main::remove_texi($element->{'node_ref'}->{'texi'});
+  if ($node_name eq '') {
+    $node_name = main::remove_texi($element->{'texi'});
+  }
+
+  # If we have an entry in the section<=>filename map, use that one, otherwise
+  # generate the anchor here.
+  if (exists ($node_to_filename_map->{$node_name})) {
+    (my $filename, $target) = @{$node_to_filename_map->{$node_name}};
+  } else {
+    my $anchor = $node_name;
+    if ($element->{translationof}) {
+      $anchor = main::remove_texi($element->{translationof});
+    }
+    # normalize to the same file name as texinfo
+    $target = texinfo_file_name($anchor);
+  }
+  # TODO: Once texi2html correctly prints out the target and not the id for
+  #       the sections, change this back to ($id, $target)
+  return ($target, $target);
+}
+
+
+## Load the map file for the corrently processed texi file. We do this
+#  using a command init handler, since texi2html does not have any
+#  other hooks that are called after THISDOC is filled but before phase 2
+#  of the texi2html conversion.
+sub lilypond_init_map ()
+{
+    my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+    my $map_filename = main::locate_include_file ("${docu_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
+	|| main::locate_include_file ("${docu_name}.xref-map");
+    $node_to_filename_map = load_map_file ($map_filename);
+}
+push @Texi2HTML::Config::command_handler_init, \&lilypond_init_map;
+
+
+
+#############################################################################
+###  CLEANER LINK TITLE FOR EXTERNAL REFS
+#############################################################################
+
+# The default formatting of external refs returns e.g.
+# "(lilypond-internals)Timing_translator", so we remove all (...) from the
+# file_and_node argument. Also, we want only a very simple format, so we don't
+# even call the default handler!
+sub lilypond_external_ref($$$$$$)
+{
+  my $type = shift;
+  my $section = shift;
+  my $book = shift;
+  my $file_node = shift;
+  my $href = shift;
+  my $cross_ref = shift;
+
+  my $displaytext = '';
+
+  # 1) if we have a cross ref name, that's the text to be displayed:
+  # 2) For the top node, use the (printable) name of the manual, unless we
+  #    have an explicit cross ref name
+  # 3) In all other cases use the section name
+  if ($cross_ref ne '') {
+    $displaytext = $cross_ref;
+  } elsif (($section eq '') or ($section eq 'Top')) {
+    $displaytext = $book;
+  } else {
+    $displaytext = $section;
+  }
+
+  $displaytext = &$anchor('', $href, $displaytext) if ($displaytext ne '');
+  return &$I('%{node_file_href}', { 'node_file_href' => $displaytext });
+
+#  Default: format as "see <a ..>NODE</a> section 'SECTION' in BOOK". We don't want this!
+#   return t2h_default_external_ref($type, $section, $book, $file_node, $href, $cross_ref);
+}
+
+
+
+
+
+#############################################################################
+###  HANDLING TRANSLATED SECTIONS: handle @translationof, secname<->filename
+###                  map stored on disk, xrefs in other manuals load that map
+#############################################################################
+
+
+# Try to make use of @translationof to generate files according to the original
+# English section title...
+sub lilypond_unknown($$$$$)
+{
+    my $macro = shift;
+    my $line = shift;
+    my $pass = shift;
+    my $stack = shift;
+    my $state = shift;
+
+    # the @translationof macro provides the original English section title,
+    # which should be used for file/anchor naming, while the title will be
+    # translated to each language
+    # It is already used by extract_texi_filenames.py, so this should not be
+    # necessary here at all. Still, I'll leave the code in just in case the
+    # python script messed up ;-)
+    if ($pass == 1 and $macro eq "translationof") {
+      if (ref($state->{'element'}) eq 'HASH') {
+        $state->{'element'}->{'translationof'} = main::normalise_space($line);
+      }
+      return ('', true, undef, undef);
+    } else {
+      return t2h_default_unknown($macro, $line, $pass, $stack, $state);
+    }
+}
+
+
+
+
+my %translated_books = ();
+# Construct a href to an external source of information.
+# node is the node with texinfo @-commands
+# node_id is the node transliterated and transformed as explained in the
+#         texinfo manual
+# node_xhtml_id is the node transformed such that it is unique and can
+#     be used to make an html cross ref as explained in the texinfo manual
+# file is the file in '(file)node'
+sub lilypond_external_href($$$)
+{
+  my $node = shift;
+  my $node_id = shift;
+  my $node_hxmlt_id = shift;
+  my $file = shift;
+  my $original_func = \&t2h_default_external_href;
+
+  # 1) Keep a hash of book->section_map
+  # 2) if not file in keys hash => try to load the map (assign empty map if
+  #    non-existent => will load only once!)
+  # 3) if node in the section=>(file, anchor) map, replace node_id and
+  #    node_xhtml_id by the map's values
+  # 4) call the t2h_default_external_href with these values (or the old ones if not found)
+
+  if (($node_id ne '') and defined($file) and ($node_id ne 'Top')) {
+    my $map_name = $file;
+    $map_name =~ s/-big-page//;
+
+    # Load the map if we haven't done so already
+    if (!exists($translated_books{$map_name})) {
+      my ($docu_dir, $docu_name) = split_texi_filename ($Texi2HTML::THISDOC{'input_file_name'});
+      my $map_filename = main::locate_include_file ("${map_name}.$Texi2HTML::THISDOC{current_lang}.xref-map")
+	  || main::locate_include_file ("${map_name}.xref-map");
+      $translated_books{$map_name} = load_map_file ($map_filename);
+    }
+
+    # look up translation. use these values instead of the old filename/anchor
+    my $section_name_map = $translated_books{$map_name};
+    my $node_text = main::remove_texi($node);
+    if (defined($section_name_map->{$node_text})) {
+      ($node_id, $node_hxmlt_id) = @{$section_name_map->{$node_text}};
+    } else {
+      print STDERR "WARNING: Unable to find node '$node_text' in book $map_name.\n";
+    }
+  }
+
+  if (defined $file) {
+    return &$original_func($node, $node_id, $node_hxmlt_id, $file);
+  } else {
+    return &$original_func($node, $node_id, $node_hxmlt_id);
+  }
+}
+
+
+
+
+
+#############################################################################
+###  CUSTOM TOC FOR EACH PAGE (in a frame on the left)
+#############################################################################
+
+my $page_toc_depth = 2;
+my @default_toc = [];
+
+# recursively generate the TOC entries for the element and its children (which
+# are only shown up to maxlevel. All ancestors of the current element are also
+# shown with their immediate children, irrespective of their level.
+# Unnumbered entries are only printed out if they are at top-level or their
+# parent element is an ancestor of the currently viewed node.
+sub generate_ly_toc_entries($$$$)
+{
+  my $element = shift;
+  my $element_path = shift;
+  my $maxlevel = shift;
+  my $always_show_unnumbered_children = shift;
+  # Skip undefined sections, plus all sections generated by index splitting
+  return() if (not defined($element) or exists($element->{'index_page'}));
+  my @result = ();
+  my $level = $element->{'toc_level'};
+  my $is_parent_of_current = $element->{'id'} && $element_path->{$element->{'id'}};
+  my $print_children = ( ($level < $maxlevel) or $is_parent_of_current );
+  my $ind = '  ' x $level;
+  my $this_css_class = $is_parent_of_current ? " class=\"toc_current\"" : "";
+
+  my $entry = "$ind<li$this_css_class>" . &$anchor ($element->{'tocid'}, "$element->{'file'}#$element->{'target'}",$element->{'text'});
+
+  my $children = $element->{'section_childs'};
+  # Don't add unnumbered entries, unless they are at top-level or a parent of the current!
+  if (not ($element->{'number'} or $always_show_unnumbered_children)) {
+    return @result;
+  }
+  if ( $print_children and defined($children) and (ref($children) eq "ARRAY") ) {
+    push (@result, $entry);
+    my @child_result = ();
+    foreach (@$children) {
+      push (@child_result, generate_ly_toc_entries($_, $element_path, $maxlevel, $is_parent_of_current));
+    }
+    # if no child nodes were generated, e.g. for the index, where expanded pages
+    # are ignored, don't generate a list at all...
+    if (@child_result) {
+      push (@result, "\n$ind<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
+      push (@result, @child_result);
+      push (@result, "$ind</ul></li>\n");
+    }
+  } else {
+    push (@result, $entry . "</li>\n");
+  }
+  return @result;
+}
+
+
+# Print a customized TOC, containing only the first two levels plus the whole
+# path to the current page
+sub lilypond_generate_page_toc_body($)
+{
+    my $element = shift;
+    my $current_element = $element;
+    my %parentelements;
+    $parentelements{$element->{'id'}} = 1;
+    # Find the path to the current element
+    while ( defined($current_element->{'sectionup'}) and
+           ($current_element->{'sectionup'} ne $current_element) )
+    {
+      $parentelements{$current_element->{'sectionup'}->{'id'}} = 1
+              if ($current_element->{'sectionup'}->{'id'} ne '');
+      $current_element = $current_element->{'sectionup'};
+    }
+    return () if not defined($current_element);
+    # Create the toc entries recursively
+    my @toc_entries = ("<div class=\"contents\">\n", "<ul$NO_BULLET_LIST_ATTRIBUTE>\n");
+    my $children = $current_element->{'section_childs'};
+    foreach ( @$children ) {
+      push (@toc_entries, generate_ly_toc_entries($_, \%parentelements, $page_toc_depth, False));
+    }
+    push (@toc_entries, "</ul>\n");
+    push (@toc_entries, "</div>\n");
+    return @toc_entries;
+}
+
+sub lilypond_print_toc_div ($$)
+{
+  my $fh = shift;
+  my $tocref = shift;
+  my @lines = @$tocref;
+  # use default TOC if no custom lines have been generated
+  @lines = @default_toc if (not @lines);
+  if (@lines) {
+    print $fh "\n\n<div id=\"tocframe\">\n";
+    print $fh '<h4> ' . $Texi2HTML::NAME{'Contents'}  . "</h4>\n";
+    foreach my $line (@lines) {
+      print $fh $line;
+    }
+    print $fh "</div>\n\n";
+  }
+}
+
+# Create the custom TOC for this page (partially folded, current page is
+# highlighted) and store it in a global variable. The TOC is written out after
+# the html contents (but positioned correctly using CSS), so that browsers with
+# css turned off still show the contents first.
+our @this_page_toc = ();
+sub lilypond_print_element_header
+{
+  my $fh = shift;
+  my $first_in_page = shift;
+  my $previous_is_top = shift;
+  if ($first_in_page and not @this_page_toc) {
+    if (defined($Texi2HTML::THIS_ELEMENT)) {
+      # Create the TOC for this page
+      @this_page_toc = lilypond_generate_page_toc_body($Texi2HTML::THIS_ELEMENT);
+    }
+  }
+  return T2H_DEFAULT_print_element_header( $fh, $first_in_page, $previous_is_top);
+}
+
+# Generate the HTML output for the TOC
+sub lilypond_toc_body($)
+{
+    my $elements_list = shift;
+    # Generate a default TOC for pages without THIS_ELEMENT
+    @default_toc = lilypond_generate_page_toc_body(@$elements_list[0]);
+    return T2H_GPL_toc_body($elements_list);
+}
+
+# Print out the TOC in a <div> at the beginning of the page
+sub lilypond_print_page_head($)
+{
+    my $fh = shift;
+    T2H_DEFAULT_print_page_head($fh);
+    print $fh "<div id=\"main\">\n";
+}
+
+# Print out the TOC in a <div> at the end of th page, which will be formatted as a
+# sidebar mimicking a TOC frame
+sub print_lilypond_page_foot($)
+{
+  my $fh = shift;
+  my $program_string = &$program_string();
+  print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
+  print $fh "<!-- FOOTER -->\n\n";
+  print $fh "<!-- end div#main here -->\n</div>\n\n";
+
+  # Print the TOC frame and reset the TOC:
+  lilypond_print_toc_div ($fh, \@this_page_toc);
+  @this_page_toc = ();
+
+  # Close the page:
+  print $fh "</body>\n</html>\n";
+}
+
+
+
+
+
+#############################################################################
+###  NICER / MORE FLEXIBLE NAVIGATION PANELS
+#############################################################################
+
+sub get_navigation_text
+{
+  my $button = shift;
+  my $text = $NAVIGATION_TEXT{$button};
+  if ( ($button eq 'Back') or ($button eq 'FastBack') ) {
+    $text = $text . $Texi2HTML::NODE{$button} . "&nbsp;";
+  } elsif ( ($button eq 'Forward') or ($button eq 'FastForward') ) {
+    $text = "&nbsp;" . $Texi2HTML::NODE{$button} . $text;
+  } elsif ( $button eq 'Up' ) {
+    $text = "&nbsp;".$text.":&nbsp;" . $Texi2HTML::NODE{$button} . "&nbsp;";
+  }
+  return $text;
+}
+
+
+# Don't automatically create left-aligned table cells for every link, but
+# instead create a <td> only on an appropriate '(left|right|center)-aligned-cell-n'
+# button text. It's alignment as well as the colspan will be taken from the
+# name of the button. Also, add 'newline' button text to create a new table
+# row. The texts of the buttons are generated by get_navigation_text and
+# will contain the name of the next/previous section/chapter.
+sub lilypond_print_navigation
+{
+    my $fh = shift;
+    my $buttons = shift;
+    my $vertical = shift;
+    my $spacing = 1;
+#     print $fh '<table cellpadding="', $spacing, '" cellspacing="', $spacing,
+#       "\" border=\"0\" class=\"nav_table\">\n";
+    print $fh "<table class=\"nav_table\">\n";
+
+    print $fh "<tr>" unless $vertical;
+    my $beginofline = 1;
+    foreach my $button (@$buttons)
+    {
+        print $fh qq{<tr valign="top" align="left">\n} if $vertical;
+        # Allow (left|right|center)-aligned-cell and newline as buttons!
+        if ( $button =~ /^(.*)-aligned-cell-(.*)$/ )
+        {
+          print $fh qq{</td>} unless $beginofline;
+          print $fh qq{<td valign="middle" align="$1" colspan="$2">};
+          $beginofline = 0;
+        }
+        elsif ( $button eq 'newline' )
+        {
+          print $fh qq{</td>} unless $beginofline;
+          print $fh qq{</tr>};
+          print $fh qq{<tr>};
+          $beginofline = 1;
+
+        }
+        elsif (ref($button) eq 'CODE')
+        {
+            &$button($fh, $vertical);
+        }
+        elsif (ref($button) eq 'SCALAR')
+        {
+            print $fh "$$button" if defined($$button);
+        }
+        elsif (ref($button) eq 'ARRAY')
+        {
+            my $text = $button->[1];
+            my $button_href = $button->[0];
+            # verify that $button_href is simple text and text is a reference
+            if (defined($button_href) and !ref($button_href)
+               and defined($text) and (ref($text) eq 'SCALAR') and defined($$text))
+            {             # use given text
+                if ($Texi2HTML::HREF{$button_href})
+                {
+                  my $anchor_attributes = '';
+                  if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button_href})) and ($BUTTONS_ACCESSKEY{$button_href} ne ''))
+                  {
+                      $anchor_attributes = "accesskey=\"$BUTTONS_ACCESSKEY{$button_href}\"";
+                  }
+                  if ($USE_REL_REV and (defined($BUTTONS_REL{$button_href})) and ($BUTTONS_REL{$button_href} ne ''))
+                  {
+                      $anchor_attributes .= " rel=\"$BUTTONS_REL{$button_href}\"";
+                  }
+                  print $fh "" .
+                        &$anchor('',
+                                    $Texi2HTML::HREF{$button_href},
+                                    get_navigation_text($$text),
+                                    $anchor_attributes
+                                   );
+                }
+                else
+                {
+                  print $fh get_navigation_text($$text);
+                }
+            }
+        }
+        elsif ($button eq ' ')
+        {                       # handle space button
+            print $fh
+                ($ICONS && $ACTIVE_ICONS{' '}) ?
+                    &$button_icon_img($BUTTONS_NAME{$button}, $ACTIVE_ICONS{' '}) :
+                        $NAVIGATION_TEXT{' '};
+            #next;
+        }
+        elsif ($Texi2HTML::HREF{$button})
+        {                       # button is active
+            my $btitle = $BUTTONS_GOTO{$button} ?
+                'title="' . $BUTTONS_GOTO{$button} . '"' : '';
+            if ($USE_ACCESSKEY and (defined($BUTTONS_ACCESSKEY{$button})) and ($BUTTONS_ACCESSKEY{$button} ne ''))
+            {
+                $btitle .= " accesskey=\"$BUTTONS_ACCESSKEY{$button}\"";
+            }
+            if ($USE_REL_REV and (defined($BUTTONS_REL{$button})) and ($BUTTONS_REL{$button} ne ''))
+            {
+                $btitle .= " rel=\"$BUTTONS_REL{$button}\"";
+            }
+            if ($ICONS && $ACTIVE_ICONS{$button})
+            {                   # use icon
+                print $fh '' .
+                    &$anchor('',
+                        $Texi2HTML::HREF{$button},
+                        &$button_icon_img($BUTTONS_NAME{$button},
+                                   $ACTIVE_ICONS{$button},
+                                   $Texi2HTML::SIMPLE_TEXT{$button}),
+                        $btitle
+                      );
+            }
+            else
+            {                   # use text
+                print $fh
+                    '[' .
+                        &$anchor('',
+                                    $Texi2HTML::HREF{$button},
+                                    get_navigation_text ($button),
+                                    $btitle
+                                   ) .
+                                       ']';
+            }
+        }
+        else
+        {                       # button is passive
+            print $fh
+                $ICONS && $PASSIVE_ICONS{$button} ?
+                    &$button_icon_img($BUTTONS_NAME{$button},
+                                          $PASSIVE_ICONS{$button},
+                                          $Texi2HTML::SIMPLE_TEXT{$button}) :
+
+                                              "[" . get_navigation_text($button) . "]";
+        }
+        print $fh "</td>\n" if $vertical;
+        print $fh "</tr>\n" if $vertical;
+    }
+    print $fh "</td>" unless $beginofline;
+    print $fh "</tr>" unless $vertical;
+    print $fh "</table>\n";
+}
+
+
+@Texi2HTML::Config::SECTION_BUTTONS =
+    ('left-aligned-cell-1', 'FastBack',
+     'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
+     'right-aligned-cell-1', 'FastForward',
+     'newline',
+     'left-aligned-cell-2', 'Back',
+     'center-aligned-cell-1', 'Up',
+     'right-aligned-cell-2', 'Forward'
+    );
+
+# buttons for misc stuff
+@Texi2HTML::Config::MISC_BUTTONS = ('center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About');
+
+# buttons for chapter file footers
+# (and headers but only if SECTION_NAVIGATION is false)
+@Texi2HTML::Config::CHAPTER_BUTTONS =
+    ('left-aligned-cell-1', 'FastBack',
+     'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
+     'right-aligned-cell-1', 'FastForward',
+    );
+
+# buttons for section file footers
+@Texi2HTML::Config::SECTION_FOOTER_BUTTONS =
+    ('left-aligned-cell-1', 'FastBack',
+     'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
+     'right-aligned-cell-1', 'FastForward',
+     'newline',
+     'left-aligned-cell-2', 'Back',
+     'center-aligned-cell-1', 'Up',
+     'right-aligned-cell-2', 'Forward'
+    );
+
+@Texi2HTML::Config::NODE_FOOTER_BUTTONS =
+    ('left-aligned-cell-1', 'FastBack',
+     'center-aligned-cell-3', 'Top', 'Contents', 'Index', 'About',
+     'right-aligned-cell-1', 'FastForward',
+     'newline',
+     'left-aligned-cell-2', 'Back',
+     'center-aligned-cell-1', 'Up',
+     'right-aligned-cell-2', 'Forward'
+    );
+
+
+
+
+
+#############################################################################
+###  FOOTNOTE FORMATTING
+#############################################################################
+
+# Format footnotes in a nicer way: Instead of printing the number in a separate
+# (nr) heading line, use the standard way of prepending <sup>nr</sup> immediately
+# before the fn text.
+
+
+# The following code is copied from texi2html's examples/makeinfo.init and
+# should be updated when texi2html makes some changes there!
+
+my $makekinfo_like_footnote_absolute_number = 0;
+
+sub makeinfo_like_foot_line_and_ref($$$$$$$$)
+{
+    my $foot_num = shift;
+    my $relative_num = shift;
+    my $footid = shift;
+    my $docid = shift;
+    my $from_file = shift;
+    my $footnote_file = shift;
+    my $lines = shift;
+    my $state = shift;
+
+    $makekinfo_like_footnote_absolute_number++;
+
+    # this is a bit obscure, this allows to add an anchor only if formatted
+    # as part of the document.
+    $docid = '' if ($state->{'outside_document'} or $state->{'multiple_pass'});
+
+    if ($from_file eq $footnote_file)
+    {
+        $from_file = $footnote_file = '';
+    }
+
+    my $foot_anchor = "<sup>" . &$anchor($docid, "$footnote_file#$footid", $relative_num) . "</sup>";
+    $foot_anchor = &$anchor($docid, "$footnote_file#$footid", "($relative_num)") if ($state->{'preformatted'});
+
+#    unshift @$lines, "<li>";
+#    push @$lines, "</li>\n";
+    return ($lines, $foot_anchor);
+}
+
+sub makeinfo_like_foot_lines($)
+{
+    my $lines = shift;
+    unshift @$lines, "<hr>\n<h4>$Texi2HTML::I18n::WORDS->{'Footnotes_Title'}</h4>\n";
+#<ol type=\"1\">\n";
+#    push @$lines, "</ol>";
+    return $lines;
+}
+
+my %makekinfo_like_paragraph_in_footnote_nr;
+
+sub makeinfo_like_paragraph ($$$$$$$$$$$$$)
+{
+    my $text = shift;
+    my $align = shift;
+    my $indent = shift;
+    my $paragraph_command = shift;
+    my $paragraph_command_formatted = shift;
+    my $paragraph_number = shift;
+    my $format = shift;
+    my $item_nr = shift;
+    my $enumerate_style = shift;
+    my $number = shift;
+    my $command_stack_at_end = shift;
+    my $command_stack_at_begin = shift;
+    my $state = shift;
+#print STDERR "format: $format\n" if (defined($format));
+#print STDERR "paragraph @$command_stack_at_end; @$command_stack_at_begin\n";
+    $paragraph_command_formatted = '' if (!defined($paragraph_command_formatted) or
+          exists($special_list_commands{$format}->{$paragraph_command}));
+    return '' if ($text =~ /^\s*$/);
+    foreach my $style(t2h_collect_styles($command_stack_at_begin))
+    {
+       $text = t2h_begin_style($style, $text);
+    }
+    foreach my $style(t2h_collect_styles($command_stack_at_end))
+    {
+       $text = t2h_end_style($style, $text);
+    }
+    if (defined($paragraph_number) and defined($$paragraph_number))
+    {
+         $$paragraph_number++;
+         return $text  if (($format eq 'itemize' or $format eq 'enumerate') and
+            ($$paragraph_number == 1));
+    }
+    my $open = '<p';
+    if ($align)
+    {
+        $open .= " align=\"$paragraph_style{$align}\"";
+    }
+    my $footnote_text = '';
+    if (defined($command_stack_at_begin->[0]) and $command_stack_at_begin->[0] eq 'footnote')
+    {
+        my $state = $Texi2HTML::THISDOC{'state'};
+        $makekinfo_like_paragraph_in_footnote_nr{$makekinfo_like_footnote_absolute_number}++;
+        if ($makekinfo_like_paragraph_in_footnote_nr{$makekinfo_like_footnote_absolute_number} <= 1)
+        {
+           $open.=' class="footnote"';
+           my $document_file = $state->{'footnote_document_file'};
+           if ($document_file eq $state->{'footnote_footnote_file'})
+           {
+               $document_file = '';
+           }
+           my $docid = $state->{'footnote_place_id'};
+           my $doc_state = $state->{'footnote_document_state'};
+           $docid = '' if ($doc_state->{'outside_document'} or $doc_state->{'multiple_pass'});
+           my $foot_label = &$anchor($state->{'footnote_footnote_id'},
+                 $document_file . "#$state->{'footnote_place_id'}",
+                 "$state->{'footnote_number_in_page'}");
+           $footnote_text = "<small>[${foot_label}]</small> ";
+        }
+    }
+    return $open.'>'.$footnote_text.$text.'</p>';
+}
+
+
+#############################################################################
+###  OTHER SETTINGS
+#############################################################################
+
+# For split pages, use index.html as start page!
+if ($Texi2HTML::Config::SPLIT eq 'section') {
+  $Texi2HTML::Config::TOP_FILE = 'index.html';
+}
+
+
+return 1;

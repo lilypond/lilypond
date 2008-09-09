@@ -21,5 +21,4 @@ endif # PLATFORM_WINDOWS
 local-dist: $(icon) 
 xgifs: $(OUTGIF_FILES)
 pngs: $(OUTPNG_FILES)
-local-WWW: $(OUTPNG_FILES)
-
+local-WWW-1: $(OUTPNG_FILES)

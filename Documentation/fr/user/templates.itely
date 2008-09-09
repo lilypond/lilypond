@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: dd7767dcac679762a47fb629fd8e516d9ac954b4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,7 +11,9 @@
 @node Templates
 @appendix Templates
 
-@untranslated
+Cette annexe du manuel propose des patrons de partition Lilypond, prets à
+l'emploi.  Il vous suffira d'y ajouter quelques notes, de lancer
+LilyPond, et d'aprécier le résultat.
 
 
 @menu

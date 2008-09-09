@@ -1,5 +1,5 @@
 /*
-  mark-engraver.cc -- implement Metronome_mark_engraver
+  metronome-engraver.cc -- implement Metronome_mark_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -20,10 +20,6 @@ using namespace std;
 
 #include "translator.icc"
 
-/**
-   put stuff over or next to  bars.  Examples: bar numbers, marginal notes,
-   rehearsal marks.
-*/
 class Metronome_mark_engraver : public Engraver
 {
 public:

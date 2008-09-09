@@ -61,6 +61,11 @@ This section gives a basic introduction to working with LilyPond.
 @node Compiling a file
 @subsection Compiling a file
 
+@cindex compiling
+@cindex first example
+@cindex example, first
+@cindex case sensitive
+
 @qq{Compiling} is the term used for processing an input file
 in LilyPond format to produce a file which can be printed and
 (optionally) a MIDI file which can be played.  LilyPond input
@@ -94,7 +99,6 @@ be omitted in some examples in this manual, but don't forget them
 in your own music!  For more information about the display of
 examples in the manual, see @ref{How to read the manual}.}
 
-@cindex case sensitive
 In addition, LilyPond input is @strong{case sensitive}.
 @w{@code{@{ c d e @}}} is valid input; @w{@code{@{ C D E @}}} will
 produce an error message.
@@ -105,6 +109,13 @@ produce an error message.
 
 @cindex PDF file
 @cindex viewing music
+@cindex text editors
+@cindex running LilyPond under MacOS X
+@cindex MacOS X, running LilyPond
+@cindex running LilyPond under Windows
+@cindex Windows, running LilyPond
+@cindex running LilyPond under Unix
+@cindex Unix, running LilyPond
 
 In this section we will explain what commands to run and how to
 view or print the output.
@@ -192,6 +203,9 @@ Converting to `test.pdf'...
 @node Simple notation
 @subsection Simple notation
 
+@cindex simple notation
+@cindex notation, simple
+
 LilyPond will add some notation elements automatically.  In the
 next example, we have only specified four pitches, but LilyPond
 has added a clef, time signature, and rhythms.
@@ -208,6 +222,18 @@ values are useful.
 
 
 @subheading Pitches
+
+@cindex pitches
+@cindex relative mode
+@cindex quote, single
+@cindex comma
+@cindex accidentals and relative mode
+@cindex relative mode, and accidentals
+
+@funindex \relative
+@funindex relative
+@funindex '
+@funindex ,
 
 Music Glossary: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
@@ -306,6 +332,15 @@ this.
 
 @subheading Durations (rhythms)
 
+@cindex note durations
+@cindex durations
+@cindex rhythms
+@cindex whole note
+@cindex half note
+@cindex quarter note
+@cindex dotted note
+@cindex notating durations
+
 Music Glossary: @rglos{beam}, @rglos{duration},
 @rglos{whole note}, @rglos{half note}, @rglos{quarter note},
 @rglos{dotted note}.
@@ -341,6 +376,9 @@ explicitly (i.e., with a number).
 
 @subheading Rests
 
+@cindex rest
+@cindex notating rests
+
 Music Glossary: @rglos{rest}.
 
 A @notation{rest} is entered just like a note with the name
@@ -355,6 +393,11 @@ A @notation{rest} is entered just like a note with the name
 
 
 @subheading Time signature
+
+@cindex time signature
+
+@funindex \time
+@funindex time
 
 Music Glossary: @rglos{time signature}.
 
@@ -374,6 +417,15 @@ command:
 
 
 @subheading Clef
+
+@cindex clef
+@cindex treble
+@cindex alto
+@cindex tenor
+@cindex bass
+
+@funindex \clef
+@funindex clef
 
 Music Glossary: @rglos{clef}.
 
@@ -417,6 +469,21 @@ Notation Reference: @ruser{Writing pitches},
 @node Working on input files
 @subsection Working on input files
 
+@cindex curly braces
+@cindex braces, curly
+@cindex comments
+@cindex line comment
+@cindex comment, line
+@cindex block comment
+@cindex comment, line
+@cindex case sensitive
+@cindex whitespace insensitive
+@cindex expressions
+
+@funindex { ... }
+@funindex %
+@funindex %@{ ... %@}
+
 LilyPond input files are similar to source files in many common
 programming languages.  They are case sensitive, and white-space
 is generally ignored.  Expressions are formed with curly braces
@@ -428,7 +495,6 @@ explain what all these terms mean:
 
 @itemize
 
-@cindex case sensitive
 @item
 @strong{Case sensitive}:
 it matters whether you enter a letter in lower case (e.g.
@@ -514,6 +580,16 @@ comments:
 @node How to read the manual
 @subsection How to read the manual
 
+@cindex how to read the manual
+@cindex manual, reading
+@cindex reading the manual
+@cindex examples, clickable
+@cindex clickable examples
+@cindex tips for constructing files
+@cindex templates
+@cindex constructing files, tips
+@cindex files, tips for constructing
+
 LilyPond input must be surrounded by @{ @} marks or a
 @w{@code{\relative c'' @{ ... @}}}, as we saw in @ref{Working on
 input files}.  For the rest of this manual, most examples will
@@ -587,6 +663,20 @@ on one staff.
 
 @subheading Accidentals
 
+@cindex accidentals
+@cindex accidentals and key signatures
+@cindex sharp
+@cindex double sharp
+@cindex sharp, double
+@cindex flat
+@cindex double flat
+@cindex flat, double
+
+@funindex es
+@funindex is
+@funindex eses
+@funindex isis
+
 Music Glossary: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
@@ -604,6 +694,20 @@ cis1 ees fisis, aeses
 
 @cindex key signature, setting
 @subheading Key signatures
+
+@cindex key signature
+@cindex major
+@cindex minor
+@cindex accidentals and key signature
+@cindex content vs. layout
+@cindex layout vs. content
+
+@funindex \key
+@funindex key
+@funindex \major
+@funindex major
+@funindex \minor
+@funindex minor
 
 Music Glossary: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
@@ -683,8 +787,17 @@ Music Glossary: @rglos{Pitch names}.
 @node Ties and slurs
 @subsection Ties and slurs
 
-@cindex ties
+@cindex tie
+@cindex slur
+@cindex slur, phrasing
+@cindex phrasing slur
+
+@funindex ~
+@funindex ( ... )
+@funindex \( ... \)
+
 @subheading Ties
+
 
 Music Glossary: @rglos{tie}.
 
@@ -696,8 +809,8 @@ g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
 
-@cindex slurs
 @subheading Slurs
+
 
 Music Glossary: @rglos{slur}.
 
@@ -709,8 +822,6 @@ starting note and ending note are marked with @code{(} and
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@cindex slurs, phrasing
-@cindex phrasing slurs
 @subheading Phrasing slurs
 
 Music Glossary: @rglos{slur}, @rglos{phrasing}.
@@ -750,10 +861,12 @@ Notation Reference: @ruser{Ties}, @ruser{Slurs},
 @node Articulation and dynamics
 @subsection Articulation and dynamics
 
-@cindex articulation
-@cindex accents
-@cindex staccato
+
 @subheading Articulations
+
+@cindex articulation
+@cindex accent
+@cindex staccato
 
 Music Glossary: @rglos{articulation}.
 
@@ -764,8 +877,12 @@ dash @code{-} and a single character:
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
-@cindex fingering
 @subheading Fingerings
+
+@cindex fingering
+
+@funindex ^
+@funindex _
 
 Music Glossary: @rglos{fingering}.
 
@@ -788,6 +905,23 @@ c_-^1 d^. f^4_2-> e^-_+
 
 @subheading Dynamics
 
+@cindex dynamics
+@cindex decrescendo
+@cindex crescendo
+
+@funindex \f
+@funindex \ff
+@funindex \mp
+@funindex \p
+@funindex \mf
+@funindex \pp
+@funindex \<
+@funindex <
+@funindex \>
+@funindex >
+@funindex \!
+@funindex !
+
 Music Glossary: @rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
 
@@ -798,9 +932,6 @@ backslash) to the note:
 c\ff c\mf c\p c\pp
 @end lilypond
 
-@cindex dynamics
-@cindex decrescendo
-@cindex crescendo
 
 @notation{Crescendi} and @notation{decrescendi} are started with
 the commands @code{\<} and @code{\>}.  The next dynamics sign, for
@@ -819,6 +950,13 @@ Notation Reference: @ruser{Articulations and ornamentations},
 
 @node Adding text
 @subsection Adding text
+
+@cindex text, adding
+@cindex adding text
+@cindex markup
+
+@funindex \markup
+@funindex markup
 
 Text may be added to your scores:
 
@@ -844,9 +982,23 @@ Notation Reference: @ruser{Writing text}.
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
+@cindex beaming
+@cindex automatic beams
+@cindex manual beams
+@cindex beams, automatic
+@cindex beams, manual
+@cindex beams, by hand
+
+@funindex [ ... ]
+@funindex [
+@funindex ]
+@funindex \autoBeamOff
+@funindex autoBeamOff
+@funindex \autoBeamOn
+@funindex autoBeamOn
+
 Music Glossary: @rglos{beam}.
 
-@cindex beams, by hand
 All @notation{beams} are drawn automatically:
 
 @lilypond[verbatim,quote,relative=2]
@@ -881,10 +1033,14 @@ Notation Reference: @ruser{Automatic beams}, @ruser{Manual beams}.
 @node Advanced rhythmic commands
 @subsection Advanced rhythmic commands
 
+@subheading Partial measure
+
 @cindex pickup
 @cindex anacrusis
 @cindex partial measure
-@subheading Partial measure
+
+@funindex \partial
+@funindex partial
 
 Music Glossary: @rglos{anacrusis}.
 
@@ -897,9 +1053,13 @@ is a quarter note pickup and @code{\partial 8} an eighth note.
 f8 c2 d
 @end lilypond
 
+@subheading Tuplets
+
 @cindex tuplets
 @cindex triplets
-@subheading Tuplets
+
+@funindex \times
+@funindex times
 
 Music Glossary: @rglos{note value}, @rglos{triplet}.
 
@@ -916,10 +1076,18 @@ Triplets make notes occupy 2/3 of their notated duration, so a
 \times 2/3 { d4 a8 }
 @end lilypond
 
+@subheading Grace notes
+
 @cindex grace notes
 @cindex acciaccatura
 @cindex appoggiatura
-@subheading Grace notes
+
+@funindex \grace
+@funindex grace
+@funindex \acciaccatura
+@funindex acciaccatura
+@funindex \appoggiatura
+@funindex acciaccatura
 
 Music Glossary: @rglos{grace notes}, @rglos{acciaccatura},
 @rglos{appoggiatura}.
@@ -963,6 +1131,11 @@ than one voice on the same staff.
 @node Music expressions explained
 @subsection Music expressions explained
 
+@cindex music expression
+@cindex expression, music
+@cindex compound music expression
+@cindex music expression, compound
+
 In LilyPond input files, music is represented by @emph{music
 expressions}.  A single note is a music expression:
 
@@ -986,8 +1159,6 @@ one).  The result is another music expression:
 { { a4 g } f g }
 @end lilypond
 
-@cindex expression
-@cindex music expression
 @subheading Analogy: mathematical expressions
 
 This mechanism is similar to mathematical formulas: a big formula
@@ -1015,6 +1186,21 @@ polyphonic scores.
 
 
 @subheading Simultaneous music expressions: multiple staves
+
+@cindex multiple staves
+@cindex staves, multiple
+@cindex polyphony
+@cindex combining expressions in parallel
+@cindex parallel expressions
+@cindex expressions, parallel
+@cindex relative notes and simultaneous music
+@cindex relative notes and parallel expressions
+@cindex simultaneous music and relative notes
+@cindex parallel expressions and relative notes
+
+@funindex <<
+@funindex >>
+@funindex << ... >>
 
 Music Glossary: @rglos{polyphony}.
 
@@ -1063,6 +1249,22 @@ than one staff.
 
 @node Multiple staves
 @subsection Multiple staves
+
+@cindex multiple staves
+@cindex staves, multiple
+@cindex context
+@cindex context, notation
+@cindex notation context
+
+@funindex \new Staff
+@funindex new Staff
+@funindex Staff
+@funindex \new
+@funindex new
+@funindex Score
+@funindex Voice
+@funindex Lyrics
+@funindex ChordNames
 
 LilyPond input files are constructed out of music expressions, as
 we saw in @ref{Music expressions explained}.  If the score begins
@@ -1121,8 +1323,16 @@ than polyrhythmic scores.
 @subsection Staff groups
 
 @cindex piano staff
+@cindex staff, piano
 @cindex choir staff
+@cindex staff, choir
 @cindex grand staff
+@cindex staff, grand
+@cindex staff group
+
+@funindex PianoStaff
+@funindex GrandStaff
+@funindex ChoirStaff
 
 Music Glossary: @rglos{brace}.
 
@@ -1166,6 +1376,11 @@ Notation Reference: @ruser{Keyboard instruments},
 @subsection Combining notes into chords
 
 @cindex chords
+@cindex note durations in chords
+
+@funindex <
+@funindex >
+@funindex < ... >
 
 Music Glossary: @rglos{chord}.
 
@@ -1197,7 +1412,16 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 
 @cindex polyphony
 @cindex multiple voices
-@cindex voices, more -- on a staff
+@cindex voices, more on one staff
+@cindex single staff polyphony
+@cindex spacer rest
+@cindex rest, spacer
+
+@funindex << ... \\ ... >>
+@funindex <<
+@funindex \\
+@funindex >>
+
 When different melodic lines are combined on a single staff they
 are printed as polyphonic voices; each voice has its own stems,
 slurs and beams, and the top voice has the stems up, while the
@@ -1267,6 +1491,9 @@ This section introduces vocal music and simple song sheets.
 @cindex lyrics
 @cindex songs
 
+@funindex \addlyrics
+@funindex addlyrics
+
 Music Glossary: @rglos{lyrics}.
 
 Here is the start of the melody to a nursery
@@ -1305,12 +1532,16 @@ same time.
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
 
-Music Glossary: @rglos{melisma}, @rglos{extender line}.
-
 @cindex melisma
 @cindex extender line
 @cindex hyphens
 @cindex underscore
+@cindex lyrics, aligning
+@cindex aligning lyrics
+@cindex lyrics, multi-syllable words
+@cindex words with multiple syllables in lyrics
+
+Music Glossary: @rglos{melisma}, @rglos{extender line}.
 
 The next line in the nursery rhyme is @notation{The moon doth
 shine as bright as day}.  Let's extend it:
@@ -1472,6 +1703,9 @@ Notation Reference: @ruser{Vocal music}.
 @node Lyrics to multiple staves
 @subsection Lyrics to multiple staves
 
+@cindex lyrics and multiple staves
+@cindex multiple staves and lyrics
+
 The simple approach using @code{\addlyrics} can be used for
 placing lyrics under more than one staff.  Here is an
 example from Handel's @notation{Judas Maccabæus}:
@@ -1528,6 +1762,16 @@ introduction to the rest of the manual.
 
 @node Organizing pieces with variables
 @subsection Organizing pieces with variables
+
+@cindex variables
+@cindex variables, defining
+@cindex identifiers
+@cindex macros
+@cindex assigning variables
+@cindex using variables
+@cindex variables, using
+@cindex variables, characters allowed in
+@cindex characters allowed in variables
 
 When all of the elements discussed earlier are combined to produce
 larger files, the music expressions get a lot bigger.  In
@@ -1613,6 +1857,17 @@ places.  The following example uses the above variables:
 @subsection Version number
 
 @cindex versioning
+@cindex version
+@cindex version number
+@cindex upgrades
+@cindex future upgrades
+@cindex updating files
+@cindex files, updating
+
+@funindex \version
+@funindex version
+@funindex convert-ly
+
 The @code{\version} statement records the version of LilyPond that
 was used to write the file:
 
@@ -1632,6 +1887,13 @@ determine what rules to apply.  For details, see
 
 @node Adding titles
 @subsection Adding titles
+
+@cindex title
+@cindex headers
+@cindex header block
+
+@funindex \header
+@funindex header
 
 The title, composer, opus number, and similar information are
 entered in the @code{\header} block.  This exists outside of the
@@ -1658,6 +1920,13 @@ above the music.  More information on titling can be found in
 
 @node Absolute note names
 @subsection Absolute note names
+
+@cindex note names
+@cindex note names, absolute
+@cindex absolute mode
+@cindex absolute values for pitches
+@cindex pitches, absolute values
+@cindex absolute note names
 
 So far we have always used @code{\relative} to define pitches.
 This is the easiest way to enter most music, but another way of

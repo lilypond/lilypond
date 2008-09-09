@@ -7,7 +7,7 @@ STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
 README_TOP_FILES= DEDICATION THANKS
-EXTRA_DIST_FILES= texinfo.css TRANSLATION
+EXTRA_DIST_FILES= texinfo.css lilypond.css lilypond-ie-fixes.css TRANSLATION
 
 include $(depth)/make/stepmake.make
 
@@ -16,7 +16,7 @@ OUT_HTML_FILES= $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
 
 default: local-doc
 
-local-WWW: txt-to-html $(OUT_HTML_FILES)
+local-WWW-2: txt-to-html $(OUT_HTML_FILES)
 
 local-WWW-clean: deep-WWW-clean
 
@@ -86,14 +86,14 @@ fix-xrefs:
 	$(DOCUMENTS_INCLUDES) $(buildscript-dir)/manuals_definitions.py
 
 check-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py $(buildscript-dir) $(CHECKED_FILES)
+	$(PYTHON) $(buildscript-dir)/check_translation.py $(CHECKED_FILES)
 
 update-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(buildscript-dir) $(CHECKED_FILES)
+	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(CHECKED_FILES)
 
 translation-status:
 	make -C po out=www messages
-	$(PYTHON) $(buildscript-dir)/translations-status.py $(buildscript-dir)
+	$(PYTHON) $(buildscript-dir)/translations-status.py
 
 local-help: extra-local-help
 

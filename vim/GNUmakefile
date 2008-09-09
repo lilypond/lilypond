@@ -27,8 +27,9 @@ local-install:
 local-uninstall:
 	for a in compiler ftdetect ftplugin indent syntax; do \
 		rm $(DESTDIR)$(vimdir)/$$a/lilypond.vim ; \
-		-rmdir -p $(DESTDIR)$(vimdir)/$$a ; \
+		rmdir $(DESTDIR)$(vimdir)/$$a; \
 	done
+	-rmdir -p $(DESTDIR)$(vimdir)
 
 $(LILYPOND_WORDS):
 	cd $(top-src-dir) && $(PYTHON) buildscripts/lilypond-words.py --words --vim --dir=$(top-build-dir)/vim/$(outconfbase)

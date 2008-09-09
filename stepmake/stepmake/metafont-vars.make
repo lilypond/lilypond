@@ -11,3 +11,9 @@ MF2PT1_OPTIONS=--rounding=0.0001 \
                --family=$(notdir $(<:%.mf=%)) \
                --fullname=$(notdir $(<:%.mf=%)) \
                --name=$(notdir $(<:%.mf=%))
+
+ifdef QUIET_BUILD
+METAFONT_QUIET = >/dev/null
+else
+METAFONT_QUIET =
+endif

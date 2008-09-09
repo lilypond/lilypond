@@ -224,7 +224,7 @@ francesa.
 @end menu
 
 @node Metronome marks
-@subsubsection Metronome marks
+@unnumberedsubsubsec Metronome marks
 
 @cindex Tempo
 @cindex pulsos por minuto
@@ -284,7 +284,7 @@ más lejos del pentagrama.
 
 
 @node Instrument names
-@subsubsection Instrument names
+@unnumberedsubsubsec Instrument names
 
 En una partitura orquestal, los nombres de los instrumentos se imprimen en el lado izquierdo
 de los pentagramas.
@@ -386,7 +386,7 @@ Referencia del programa: @rinternals{InstrumentName}.
 
 
 @node Quoting other voices
-@subsubsection Quoting other voices
+@unnumberedsubsubsec Quoting other voices
 
 @cindex guías
 
@@ -489,7 +489,7 @@ Referencia del programa:
 
 
 @node Formatting cue notes
-@subsubsection Formatting cue notes
+@unnumberedsubsubsec Formatting cue notes
 
 @cindex guía, formateo de las notas
 

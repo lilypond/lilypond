@@ -19,27 +19,51 @@
 @unnumberedsec \TEXT\
 @end macro
 
-@ifnottex
+@ifhtml
+
+@ifset bigpage
+
+@macro rlearning{NAME}
+See also Learning Manual, section
+@ref{\NAME\,,,lilypond-learning-big-page,Learning Manual}.
+@end macro
+
 @macro ruser{NAME}
 These snippets illustrate the Notation Reference,
-section @ref{\NAME\,,,lilypond,Notation Reference}.
+section @ref{\NAME\,,,lilypond-big-page,Notation Reference}.
 @end macro
+
+@end ifset
+
+
+@ifclear bigpage
 
 @macro rlearning{NAME}
 See also Learning Manual, section
 @ref{\NAME\,,,lilypond-learning,Learning Manual}.
 @end macro
-@end ifnottex
 
-@iftex
 @macro ruser{NAME}
-These snippets illustrate @ref{\NAME\,,,lilypond,Notation Reference}.
+These snippets illustrate the Notation Reference,
+section @ref{\NAME\,,,lilypond,Notation Reference}.
 @end macro
+
+@end ifclear
+
+@end ifhtml
+
+
+@ifnothtml
 
 @macro rlearning{NAME}
 See also @ref{\NAME\,,,lilypond-learning,Learning Manual}.
 @end macro
-@end iftex
+
+@macro ruser{NAME}
+These snippets illustrate @ref{\NAME\,,,lilypond,Notation Reference}.
+@end macro
+
+@end ifnothtml
 
 @dircategory GNU LilyPond --- the music typesetter
 @direntry
@@ -135,6 +159,8 @@ Other collections
 * MIDI::
 * Templates::
 @end menu
+
+@contents
 
 
 @c Please take care of naming every .itely

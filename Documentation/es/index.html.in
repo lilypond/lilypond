@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 845b79fc24484a9cbf1e0236c6b159e4c1ec7533
+    Translation of GIT committish: e4efdde559c7169b03591e24b2c1e2ef14b6f059
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -49,8 +49,8 @@
 	  <ul>
 	     <li>
 	       <a class="title" href="user/lilypond-learning/index.es.html">Manual de aprendizaje</a><br>
-	       (también en <a class="title" href="user/lilypond-learning-big-page.html">una sola
-	       página</a> [en inglés] ~ 1.5 Mb, o en <a class="title" href="user/lilypond-learning.es.pdf">PDF</a>)<br>
+	       (también en <a class="title" href="user/lilypond-learning-big-page.es.html">una sola
+	       página</a> ~ 1.5 Mb, o en <a class="title" href="user/lilypond-learning.es.pdf">PDF</a>)<br>
 	       (comience por aquí)
 
 	     <li>
@@ -85,7 +85,7 @@
 	    <li>
 	      <a class="title" href="user/lilypond-internals/index.html">Referencia de funcionamiento interno</a>
 	      [en inglés]<br>
-	      (también en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb)<br>
+	      (también en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb, o en <a class="title" href="user/lilypond-internals.es.pdf">PDF</a>)<br>
 	      (definiciones para hacer trucos)
 	  </ul>
 	</td>

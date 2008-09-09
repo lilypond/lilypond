@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: 4ac76531a06d6b6836b67d3650b57a2f58d1108f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,7 +11,7 @@
 @node Running LilyPond
 @chapter Running LilyPond
 
-@untranslated
+Dieses Kapitel behandelt die technischen Details, wie Lilypond ausgeführt werden kann.
 
 
 @menu
@@ -25,13 +25,29 @@
 @node Normal usage
 @section Normal usage
 
-@untranslated
+Die meisten Benutzer führen LilyPond von einer graphischen Benutzeroberfläche
+aus. Siehe @rlearning{First steps}, falls Sie dies nicht bereits getan haben.
 
 
 @node Command-line usage
 @section Command-line usage
 
-@untranslated
+Dieser Abschnitt enthält zusätzliche Informationen, wie Sie LilyPond
+von der Kommandozeile ausführen können.  Dies kann erforderlich sein,
+um etwa zusätzliche Optionen an das Programm zu übergeben.  Außerdem
+sind einige Zusatzprogramme (wie etwa @code{midi2ly}) nur von der
+Kommandozeile verfügbar.
+
+Unter @q{Kommandozeile} verstehen wir die Kommandozeile des jeweiligen
+Betriebssystems. Windows Benutzern ist sie vielleicht eher unter den
+englischen Begriffen @q{DOS shell} oder @q{command shell} bekannt.
+MacOS@tie{}X Benutzer kennen sie eher unter @q{Terminal} oder @q{Konsole}.
+Sie sollten auch den Abschnitt @ref{MacOS X on the command-line} konsultieren.
+
+Wie die Kommandozeile im jeweiligen Betriebssystem benutzt werden kann,
+soll in diesem Handbuch nicht näher beschrieben werden. Sehen Sie bitte
+im Handbuch Ihres Betriebssystems nach oder informieren Sie sich im
+Internet, wenn Sie mit der Kommandozeile nicht vertraut sind.
 
 
 @menu
@@ -43,7 +59,48 @@
 @node Invoking lilypond
 @subsection Invoking lilypond
 
-@untranslated
+@cindex LilyPond aufrufen
+@cindex Kommandozeilen-Optionen
+@cindex Optionen an der Kommandozeile
+
+Das @command{lilypond} Programm kann folgendermaßen von der Kommandozeile
+aufgerufen werden.
+
+@example
+lilypond [@var{Option}]@dots{} @var{Dateiname}@dots{}
+@end example
+
+
+Wird ein @file{Dateiname} ohne Erweiterung angegeben, so wird @file{.ly} als
+Standarderweiterung für LilyPond-Dateien benutzt.  Um Daten von
+@code{stdin} einzulesen, benutzen Sie einfach einen Bindestrich (@code{-})
+als @var{Dateiname}.
+
+Wenn Lilypond die Datei @file{Dateiname.ly} verarbeitet, werden daraus
+die Dateien @file{Dateiname.ps} und @file{Dateiname.pdf} erzeugt.
+Es können an @code{lilypond} auch mehrere @file{.ly} Dateien übergeben
+werden, die dann einzeln und voneinander unabhängig abgearbeitet
+werden.@footnote{Der Zustand von GUILE wird allerdings nicht nach
+jeder Datei zurückgesetzt, sodass Achtung geboten ist, wenn in einer
+Datei globale Änderungen von Scheme aus durchgeführt werden.}
+
+Falls @file{Dateiname.ly} mehr als einen @code{\score}-Block enthält,
+werden die weiteren Stücke in durchnummerierte Dateien der Form
+@file{Dateiname-1.pdf} ausgegeben.  Zusätzlich wird der Wert der
+Variable @code{output-suffix} zwischen den ursprünglichen Dateienamen
+und der Zahl eingefügt.  Eine Lilypond-Datei @var{Dateiname.ly} mit dem Inhalt
+
+@example
+#(define output-suffix "Geige")
+\book @{ @dots{} @}
+#(define output-suffix "Cello")
+\book @{ @dots{} @}
+@end example
+
+@noindent
+erzeigt daher die Dateien @var{Dateiname}@file{-Geige.pdf} und
+@var{Dateiname}@file{-Cello-1.pdf}.
+
 
 
 @node Command line options
@@ -55,13 +112,109 @@
 @node Environment variables
 @subsection Environment variables
 
-@untranslated
+@cindex LANG
+@cindex LILYPOND_DATADIR
+
+@command{lilypond} erkennt und benützt die folgenden Umgebungsvariablen:
+@table @code
+@item LILYPOND_DATADIR
+Diese Variable gibt das Verzeichnis an, wo Lilypond seine eigenen Dateien,
+Meldungen und Übersetzungen finden kann.  Dieses Verzeichnis sollte
+Unterverzeichnisse @file{ly/}, @file{ps/}, @file{tex/}, etc. beinhalten.
+
+@item LANG
+Gibt die Sprache an, in der Warnungen und Fehlermeldungen ausgegeben werden.
+
+@item LILYPOND_GC_YIELD
+Mit dieser Variable (mit Werten zwischen 0 und 100) kann die Feinabstimmung
+zwischen dem Bedarf an Hauptspeicher und Rechenleistung bei der Ausführung
+von LilyPond durchgeführt werden.  Bei höheren Werten benutzt LilyPond
+mehr Hauptspeicher, benötigt aber weniger Prozessor-Leistung.  Bei
+niedrigeren Werten wird mehr Prozessor-Zeit, dafür weniger Hauptspeicher
+benötigt.  Voreinstellung ist ein Wert von @code{70}.
+
+@end table
 
 
 @node Error messages
 @section Error messages
 
-@untranslated
+@cindex error messages
+Während der Verarbeitung einer Dateien können diverse Meldungen an der
+Kommandozeile auftreten:
+
+@table @emph
+
+@item Warnung
+@cindex Warnung
+Irgendetwas ist verdächtig.  Wenn Sie etwas Ungewöhnliches in Ihrer
+Datei durchführen, dann werden Sie die Meldung verstehen und können
+sie gegebenenfalls ignorieren.  Im Normalfall jedoch bedeutet eine
+Warnung, dass mit Ihrer Datei etwas nicht stimmt, LilyPond jedoch
+trotzdem versucht, die Datei soweit wie möglich korrekt zu übersetzen.
+
+@item Fehler
+@cindex Fehler
+Irgendetwas stimmt definitiv nicht.  Der aktuelle Bearbeitungsschritt
+(Einlesen, Interpretieren oder Formatieren der Datei) wird noch fertig
+ausgeführt, danach bricht die Bearbeitung aber ab.
+
+@item Fataler Fehler
+@cindex Fataler Fehler
+Irgendetwas stimmt definitiv nicht und LilyPond kann nicht weiter
+ausgeführt werden.  Dies ist nur sehr selten der Fall, meist sind
+die Schriftarten nicht korrekt installiert.
+
+@item Scheme Fehler
+@cindex Fehlerprotokoll, Scheme
+@cindex Scheme Fehler
+Fehler, die während der Ausführung von Scheme-Code auftreten, werden
+vom Scheme-Interpreter aufgefangen und an der Kommandozeile ausgegeben.
+Wenn Sie LilyPond mit der @code{--verbose} Option (auch @code{-V})
+ausführen, wird der sogennante @q{Call trace} ausgegeben, der die
+aufgerufenen Funktionen zur Zeit des Fehlers angibt.
+
+@item Programmierfehler
+@cindex Programmierfehler
+Eine interne Inkonsistenz ist aufgetreten.  Diese Fehlermeldungen
+sollen den Programmierern die Fehlersuche erleichtern und
+können meistens einfach ignoriert werden.  In manchen Fällen werden
+so viele Meldungen ausgegeben, dass die Lesbarkeit der restliche
+Ausgabe davon beeinträchtigt wird.
+
+@item Abgebrochen (core dumped)
+Dies bezeichnet einen ernsten Programmierfehler, der das Programm
+zum Absturz gebracht hat.  Solche Fehler werden als kritisch angesehen.
+Falls daher einer auftritt, senden Sie bitte einen Bug-Report!
+@end table
+
+@cindex Fehlermeldung, Format
+@cindex Form der Fehlermeldungen
+Wenn Warnungen oder Fehlermeldungen mit einer konkreten Stelle in der
+Eingabedatei verknüpft werden können, dann hat die Meldung die folgende
+Form:
+
+@example
+@var{Dateiname}:@var{Zeile}:@var{Spalte}: @var{Meldung}
+@var{Fehlerhafte Eingabezeile}
+@end example
+
+Ein Zeilenumbruch wird in der fehlerhaften Zeile an jener Stelle eingefügt,
+wo der Fehler aufgetreten ist.  Zum Beispiel
+
+@example
+test.ly:2:19: Fehler: keine gültige Dauer: 5
+  @{ c'4 e'
+             5 g' @}
+@end example
+
+Diese Stellen sind LilyPonds Vermutung, wo die Warnung oder der Fehler
+aufgetreten ist, allerdings treten Warnungen und Fehler ja gerade in
+unerwarteten Fällen auf.  Manchmal kann Lilypond auch eine fehlerhafte
+Stelle zwar noch problemlos verarbeiten, ein paar Zeilen später wirkt
+sich der Fehler aber dann doch noch aus.  In solchen Fällen, wo Sie in
+der angegebenen Zeile keinen Fehler erkenn, sollten Sie auch die Zeilen
+oberhalb der angegebenen Stelle genauer unter die Lupe nehmen.
 
 
 @node Updating files with convert-ly
@@ -84,7 +237,26 @@
 @node Reporting bugs
 @section Reporting bugs
 
-@untranslated
+
+@cindex Fehler
+@cindex Fehler melden
+
+Wenn Sie eine Datei haben, die zu einem Absturz von LilyPond oder zu einer
+fehlerhaften Ausgabe führt, so ist dies ein @q{Bug}.  Die List der aktuell
+bekannten derartigen Fehler findet sich in unserem @q{Google Bug Tracker}:
+
+@uref{http://code.google.com/p/lilypond/issues/list}
+
+Wenn Sie einen Fehler gefunden haben, der noch nicht aufgelistet ist, melden
+Sie dies bitte anhand der Anweisungen auf der Seite
+
+@uref{http://lilypond.org/web/devel/participating/bugs}
+
+Wenn Sie Beispieldateien für den Fehler erstellen, versuchen Sie bitte, die
+Datei möglichst minimal zu halten und nur jenen LilyPond Code aufzunehmen,
+der auch wirklich für den Fehler verantwortlich ist.  Meldungen mit
+Beispieldateien, die nicht minimal sind, können wir meist aus Zeitgründen
+nicht effektiv bearbeiten.
 
 
 

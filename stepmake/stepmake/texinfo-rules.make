@@ -13,7 +13,7 @@
 # prerequisite, otherwise %.info are always outdated (because older
 # than $(outdir), hence this .dep file
 
-$(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep: $(INFO_DOCS:%=$(outdir)/%.texi)
+$(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep: $(INFO_DOCS:%=$(outdir)/%.texi)
 ifneq ($(INFO_IMAGES_DIR),)
 	rm -f $(INFO_IMAGES_DIR)
 	ln -s $(outdir) $(INFO_IMAGES_DIR)
@@ -23,14 +23,34 @@ ifneq ($(INFO_IMAGES_DIR),)
 endif
 	touch $@
 
-$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir.dep $(outdir)/version.itexi
+$(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep $(outdir)/version.itexi
 	$(MAKEINFO) -I$(outdir) --output=$@ $<
 
+ifeq (,$(findstring texi2html,$(MISSING_OPTIONAL)))
+$(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
+	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $<
+	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+
+$(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
+	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
+	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+
+$(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
+	mkdir -p $(dir $@)
+	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
+	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
+
+else # Rules using makeinfo follow
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split -D bigpage --no-headers $<
 
 $(outdir)/%.html: $(outdir)/%.texi $(outdir)/version.itexi
 	$(MAKEINFO) -I $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $<
+
+$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
+	mkdir -p $(dir $@)
+	$(MAKEINFO) -I $(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+endif
 
 $(outdir)/%.html.omf: %.texi
 	$(call GENERATE_OMF,html)
@@ -40,10 +60,6 @@ $(outdir)/%.pdf.omf: %.texi
 
 $(outdir)/%.ps.gz.omf: %.texi
 	$(call GENERATE_OMF,ps.gz)
-
-$(outdir)/%/index.html: $(outdir)/%.texi $(outdir)/version.itexi
-	mkdir -p $(dir $@)
-	$(MAKEINFO) -I $(outdir) --output=$(dir $@) --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 
 $(outdir)/%.pdf: $(outdir)/%.texi $(outdir)/version.itexi
 	cd $(outdir); texi2pdf $(TEXI2PDF_FLAGS) --batch $(TEXINFO_PAPERSIZE_OPTION) $(<F)
@@ -55,9 +71,14 @@ $(outdir)/%.texi: %.texi
 	rm -f $@
 	cp $< $@
 
+$(XREF_MAPS_DIR)/%.xref-map: $(outdir)/%.texi
+	$(PYTHON) $(buildscript-dir)/extract_texi_filenames.py -o $(XREF_MAPS_DIR) $<
+
+
 $(outdir)/version.%: $(top-src-dir)/VERSION
 	echo '@macro version'> $@
 	echo $(TOPLEVEL_VERSION)>> $@
 	echo '@end macro'>> $@
 
-.SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi
+.SECONDARY: $(outdir)/version.itexi $(outdir)/version.texi \
+  $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-dep

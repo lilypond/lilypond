@@ -16,10 +16,19 @@
 
 struct Scale
 {
-  vector<Rational> step_tones_;
-  Scale ();
+public:
+  Scale (vector<Rational> const&);
   Scale (Scale const&);
+
+  Rational tones_at_step (int step, int octave = 0) const;
+  Rational step_size (int step) const;
+  int step_count () const;
+  int normalize_step (int step) const;
+
   DECLARE_SMOBS (Scale);
+
+private:
+  vector<Rational> step_tones_;
 };
 
 extern Scale *default_global_scale;

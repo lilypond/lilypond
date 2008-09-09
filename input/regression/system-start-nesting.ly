@@ -1,9 +1,8 @@
-\header { texidoc = "Deeply nested system braces/brackets/etc. may be created with the
-  @code{Nested_system_start_delimiter_engraver}"
-
+\header { texidoc = "Deeply nested system braces, brackets, etc., may be
+  created with the @code{systemStartDelimiterHierarchy} property."
 }
 
-\version "2.11.51"
+\version "2.11.56"
 
 \paper {
   ragged-right = ##t

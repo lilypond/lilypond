@@ -337,6 +337,7 @@ The syntax is the same as `define*-public'."
 	    "font.scm"
 	    "encoding.scm"
 	    
+	    "flag-styles.scm"
 	    "fret-diagrams.scm"
 	    "harp-pedals.scm"
 	    "predefined-fretboards.scm"

@@ -1,14 +1,12 @@
 .PHONY: download mutopia png ps scores tar
 
 .PRECIOUS: $(outdir)/%.ps $(outdir)/%-book.ps
-.PRECIOUS: $(outdir)-letter/%.dvi $(outdir)-letter/%.ps
+.PRECIOUS: $(outdir)-letter/%.ps
 
 
 all: $(OUT_FILES)
 
-# we want dvi_examples as well, because they get thrown away otherwise
-# incurring another costly lilypond run.
-local-WWW: $(ly_examples) $(pdf_examples) $(png_examples)
+local-WWW-1: $(ly_examples) $(pdf_examples) $(png_examples)
 
 tar:
 	mkdir -p $(outdir)/$(tarball)
@@ -24,7 +22,7 @@ scores: $(score_ps)
 	$(MAKE) ps_examples="$<" ps
 
 local-mutopia:
-	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW $(mutopia-letter)
+	$(MAKE) examples="$(mutopia-examples)" PAPERSIZE=letter local-WWW-1 $(mutopia-letter)
 
 mutopia: local-mutopia
 	$(LOOP)

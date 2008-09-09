@@ -424,7 +424,7 @@ The ossia section may be placed above the staff
 as follows:
 
 @lilypond[verbatim,quote,ragged-right]
-\new Staff ="main" {
+\new Staff = "main" {
   \relative g' {
     r4 g8 g c4 c8 d |
     e4 r8
@@ -1665,8 +1665,11 @@ context to distinguish it from other contexts of the same type,
 
 Note the distinction between the name of the context type,
 @code{Staff}, @code{Voice}, etc, and the identifying name of a
-particular instance of that type, which can be any sequence of letters
-and digits invented by the user.  The identifying name is used to
+particular instance of that type, which can be any sequence of letters 
+invented by the user.  Digits and spaces can also be used in the 
+identifying name, but then it has to be placed in quotes,
+i.e. @code{\new Staff = "MyStaff 1" @var{music-expression}}.
+The identifying name is used to
 refer back to that particular instance of a context.  We saw this in
 use in the section on lyrics, see @ref{Voices and vocals}.
 
@@ -1862,7 +1865,7 @@ further action took place.  This is not an error, and no error
 message is logged in the log file.
 
 Similarly, if the property name is mis-spelt no error message is
-produced, and clearly the expected action cannot be performed.  If
+produced, and clearly the expected action cannot be performed.  In
 fact, you can set any (fictitious) @q{property} using any name you
 like in any context that exists by using the @code{\set} command.  But
 if the name is not known to LilyPond it will not cause any action to

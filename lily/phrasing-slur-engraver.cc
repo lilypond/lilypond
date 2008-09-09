@@ -50,6 +50,7 @@ protected:
   DECLARE_ACKNOWLEDGER (script);
   DECLARE_ACKNOWLEDGER (text_script);
   DECLARE_ACKNOWLEDGER (tie);
+  DECLARE_ACKNOWLEDGER (tuplet_number);
   DECLARE_TRANSLATOR_LISTENER (phrasing_slur);
 
   void stop_translation_timestep ();
@@ -127,6 +128,12 @@ Phrasing_slur_engraver::acknowledge_tie (Grob_info info)
 }
 
 void
+Phrasing_slur_engraver::acknowledge_tuplet_number (Grob_info info)
+{
+  acknowledge_extra_object (info);
+}
+
+void
 Phrasing_slur_engraver::acknowledge_slur (Grob_info info)
 {
   acknowledge_extra_object (info);
@@ -175,6 +182,7 @@ ADD_ACKNOWLEDGER (Phrasing_slur_engraver, slur);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, text_script);
 ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tie);
+ADD_ACKNOWLEDGER (Phrasing_slur_engraver, tuplet_number);
 
 ADD_TRANSLATOR (Phrasing_slur_engraver,
 		/* doc */

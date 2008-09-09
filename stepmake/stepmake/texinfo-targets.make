@@ -2,7 +2,7 @@
 
 default: $(INFO_FILES)
 
-local-WWW: $(addprefix $(outdir)/,$(TEXI_FILES:.texi=.html))
+local-WWW-1: $(XREF_MAPS_FILES)
 
 local-doc: $(OUTTXT_FILES)
 
@@ -31,12 +31,12 @@ ifeq ($(out),www)
 # This builds all .info targets with images, in out-www.
 # Viewable with a recent Emacs, doing: C-u C-h i out-www/lilypond.info
 
-local-install-info: info
-	-$(INSTALL) -d $(DESTDIR)$(infodir)
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 ## Can not have absolute symlinks because some binary packages build schemes
 ## install files in nonstandard root.  Best we can do is to notify the
 ## builder or packager.
+local-install-info: info
+	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	@echo
 	@echo "***************************************************************"
 	@echo "Please add or update the LilyPond direntries, do"
@@ -48,24 +48,31 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo "    (cd $(infodir) && ln -sfT ../doc/lilypond/html/$(DEST_INFO_IMAGES_SUBDIR) $(INFO_IMAGES_DIR))"
 	@echo "or add something like that to the postinstall script."
 	@echo
+
+local-uninstall-info:
+	-rmdir $(DESTDIR)$(infodir)
+
 else # installing directly into standard /usr/...
+local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	$(foreach f,$(INFO_FILES),install-info --remove --info-dir=$(infodir) $(f) ; )true
 	install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
 	cd $(infodir) && ln -sfT $(webdir)/$(DEST_INFO_IMAGES_SUBDIR) $(INFO_IMAGES_DIR)
-endif # installing directly into standard /usr/...
 
-local-uninstall-WWW:
+local-uninstall-info:
+	$(foreach f,$(INFO_FILES),install-info --remove --info-dir=$(infodir) $(f) ; )true
 	rm -f $(infodir)/$(INFO_IMAGES_DIR)
+
+endif # installing directly into standard /usr/...
 
 else # out!=www
 
-local-install-info: info
-	-$(INSTALL) -d $(DESTDIR)$(package_infodir)
 ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 ## Can not have absolute symlinks because some binary packages build schemes
 ## install files in nonstandard root.  Best we can do is to notify the
 ## builder or packager.
+local-install-info: info
+	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	@echo
 	@echo "***************************************************************"
 	@echo "Please add or update the LilyPond direntries, do"
@@ -78,7 +85,12 @@ ifneq ($(patsubst %/local,%,$(DESTDIR)$(prefix)),/usr)
 	@echo
 	@echo "and read the extra instructions."
 	@echo
+
+local-uninstall-info:
+	-rmdir $(DESTDIR)$(infodir)
+
 else # installing directly into standard /usr/...
+local-install-info: info
 	-$(INSTALL) -d $(DESTDIR)$(infodir)
 	$(foreach f,$(INFO_FILES),install-info --remove --info-dir=$(infodir) $(f) ; )true
 	install-info --info-dir=$(infodir) $(outdir)/$(MAIN_INFO_DOC).info
@@ -88,7 +100,11 @@ else # installing directly into standard /usr/...
 	@echo
 	@echo "    make out=www install-info "
 	@echo
-endif # installing into standard /usr/* root# installing into /usr/...
+
+local-uninstall-info:
+	$(foreach f,$(INFO_FILES),install-info --remove --info-dir=$(infodir) $(f) ; )true
+
+endif # installing into standard /usr/* root
 
 endif # out!=www
 

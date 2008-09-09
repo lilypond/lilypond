@@ -19,18 +19,14 @@ import string
 import os
 
 import langdefs
+import buildlib
 
 def progress (str):
     sys.stderr.write (str + '\n')
 
 progress ("translations-status.py")
 
-buildscript_dir = sys.argv[1]
-
 _doc = lambda s: s
-
-sys.path.append (buildscript_dir)
-import buildlib
 
 # load gettext messages catalogs
 translation = langdefs.translation

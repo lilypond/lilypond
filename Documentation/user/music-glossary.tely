@@ -37,7 +37,7 @@ and as @uref{source/Documentation/user/music-glossary-big-page.html,one big page
 @author Jan Nieuwenhuizen   @c Dutch glossary
 
 @c Fixes by Jean-Pierre Coulon and `Dirk', alphabetized by last name, KK, 10/07
-@c Updates to the German translation by Till Rettig, 12/07
+@c Updates to the German translation by Till Rettig, 2007-2008
 
 Copyright @copyright{} 1999--2007 by the authors
 
@@ -128,6 +128,9 @@ documentation, see @rlearning{About the documentation}.
 * Duration names notes and rests::  
 * Pitch names::                 
 @end menu
+
+@contents
+
 
 @node Musical terms A-Z
 @chapter Musical terms A-Z
@@ -496,7 +499,7 @@ Languages in this order.
 ES: a dos,
 I: a due,
 F: à deux,
-D: ?,
+D: a due, zu zweit
 NL: ?,
 DK: ?,
 S: ?,
@@ -656,7 +659,7 @@ D: Alteration,
 NL: verhoging of verlaging,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kromaattinen merkki, muunnemerkki.
 
 An alteration is the modification, raising or lowering, of a note's
 pitch.  It is established by an @ref{accidental}.
@@ -933,11 +936,11 @@ FI: ylinouseva intervalli.
 ES: ?,
 I: ?,
 F: ?,
-D: ?,
+D: Augmentation,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: augmentaatio, harvennus.
 
 @c TODO: add definition.
 
@@ -1212,7 +1215,7 @@ Angular brackets for connecting parts in an orchestral or choral score:
 ES: corchete,
 I: ?,
 F: ?,
-D: ?,
+D: Klammer,
 NL: ?,
 DK: ?,
 S: ?,
@@ -1865,7 +1868,7 @@ same note derived from some other tuning method.
 ES: compasillo,
 I: ?,
 F: ?,
-D: ?,
+D: Vier-Viertel-Takt,
 NL: ?,
 DK: ?,
 S: ?,
@@ -1921,11 +1924,11 @@ Intervals larger than an octave.
 ES: compás compuesto, compás de subdivisión ternaria,
 I: ?,
 F: ?,
-D: ?,
+D: Dreiertakt,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kolmijakoinen rytmi.
 
 A meter that includes a triplet subdivision within the beat, such as
 6/8, 9/8, 12/8.
@@ -1941,7 +1944,7 @@ A meter that includes a triplet subdivision within the beat, such as
 ES: compás compuesto, compás de amalgama (def. 2),
 I: ?,
 F: ?,
-D: ?,
+D: Dreiertakt, Wechseltakt,
 NL: ?,
 DK: ?,
 S: ?,
@@ -1993,7 +1996,7 @@ A time signature that additively combines two or more unequal meters, e.g.
 ES: en Do, afinación de concierto,
 I: ?,
 F: ?,
-D: ?,
+D: Kammerton,
 NL: ?,
 DK: ?,
 S: ?,
@@ -2627,11 +2630,11 @@ FI: diminuendo, hiljentyen.
 ES: ?,
 I: ?,
 F: ?,
-D: ?,
+D: Diminution, Verkleinerung,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: diminuutio, tihennys.
 
 @c TODO: add definition
 
@@ -2713,7 +2716,7 @@ FI: dissonanssi, dissonoiva intervalli, riitasointi.
 ES: ?,
 I: ?,
 F: ?,
-D: ?,
+D: Divisio,
 NL: ?,
 DK: ?,
 S: ?,
@@ -2952,7 +2955,7 @@ FI: kaksoisylennysmerkki.
 ES: ?,
 I: ?,
 F: ?,
-D: ?,
+D: Doppeltakt, Wechseltakt,
 NL: ?,
 DK: ?,
 S: ?,
@@ -3039,7 +3042,7 @@ D: Dynamik, Lautstärke,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: dynamiikka, voimakkuusvaihtelut.
 
 The aspect of music relating to degrees of loudness, or changes from
 one degree to another.  The terms, abbreviations, and symbols used to
@@ -3126,7 +3129,7 @@ indicate this information are called dynamic marks.
 ES: sinalefa,
 I: ?,
 F: ?,
-D: ?,
+D: Elision, Auslassung,
 NL: ?,
 DK: ?,
 S: ?,
@@ -3545,11 +3548,11 @@ less than a quarter note.  The number of flags determines the
 ES: ?,
 I: ?,
 F: ?,
-D: ?,
+D: Flageolett,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: flageoletti.
 
 An articulation for string players that means the note or passage is to
 be played in harmonics.
@@ -3633,7 +3636,7 @@ FI: kvartti.
 ES: partitura a la francesa,
 I: ?,
 F: ?,
-D: ?,
+D: Partitur (ohne leere Takte),
 NL: ?,
 DK: ?,
 S: ?,
@@ -3659,7 +3662,7 @@ you may wish to procure a copy of their style manual.
 ES: pentagrama a la francesa,
 I: ?,
 F: ?,
-D: ?,
+D: Notensystem (ohne leere Takte),
 NL: ?,
 DK: ?,
 S: ?,
@@ -3680,7 +3683,7 @@ an @emph{ossia} staff.
 ES: pentagramas a la francesa,
 I: ?,
 F: ?,
-D: ?,
+D: Notensysteme (ohne leere Takte),
 NL: ?,
 DK: ?,
 S: ?,
@@ -3998,7 +4001,7 @@ D: Flageolett-Töne,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: yläsävelsarjan flageoletti-ääni.
 
 The general class of pitches produced by sounding the second or higher
 harmonic of a tone producer: string, column of air, and so on.
@@ -4065,10 +4068,10 @@ Three note harmony @ref{chord}.
 ES: hemiolia,
 I: ?,
 F: ?,
-D: ?,
+D: Hemiole,
 NL: ?,
 DK: ?,
-S: ?,
+S: hemiol,
 FI: ?.
 
 [From Greek: in Latin, @emph{sesquialtera}] The ratio 3:2. Refers to
@@ -4253,11 +4256,11 @@ addition of such two intervals forms an octave.
 ES: ?,
 I: ?,
 F: inversion,
-D: ?,
+D: Umkehrung (Akkord),
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: (kolmisoinnun) käännös.
 
 When the bass is not the same as the root, the chord is inverted. The number
 of inversions that a chord can have is one fewer than the number of
@@ -4372,7 +4375,7 @@ key of the music.
 ES: dejar vibrar,
 I: ?,
 F: laissez vibrer,
-D: ?,
+D: Laissez vibrer, klingen lassen,
 NL: ?,
 DK: ?,
 S: ?,
@@ -4552,7 +4555,7 @@ FI: viiva, nuottiviiva.
 ES: en su lugar,
 I: loco,
 F: ?,
-D: ?,
+D: loco,
 NL: ?,
 DK: ?,
 S: ?,
@@ -4616,13 +4619,12 @@ Note value: double length of @ref{breve}.
 ES: ligadura de letra,
 I: ?,
 F: ?,
-D: Textbindung,
+D: Bindestrich,
 NL: ?,
 DK: ?,
 S: ?,
 FI: ?.
 
-@c TODO: add languages
 
 @seealso
 
@@ -4768,12 +4770,10 @@ sung on one syllable, especially as applied to liturgical chant.
 @node melisma line
 @section melisma line
 
-@c TODO: add languages
-
 ES: línea de melisma,
 I: ?,
 F: ?,
-D: ?,
+D: Melismastrich,
 NL: ?,
 DK: ?,
 S: ?,
@@ -4795,16 +4795,14 @@ FI: ?.
 @node mensural notation
 @section mensural notation
 
-@c TODO: add languages
-
 ES: notación mensural,
 I: ?,
 F: ?,
-D: ?,
+D: Mensuralnotation,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: mensuraalinuottikirjoitus.
 
 A system of duration notation whose principles were first established in the
 mid-13th century, and that (with various changes) remained in use until about
@@ -5482,7 +5480,7 @@ bracket, or @samp{loco} see octave marking.
 ES: indicación de octava,
 I: ?,
 F: ?,
-D: ?,
+D: Oktavierungszeichen,
 NL: ?,
 DK: ?,
 S: ?,
@@ -5869,11 +5867,11 @@ the strings.
 ES: compás polimétrico,
 I: ?,
 F: ?,
-D: ?,
+D: Polymetrik,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: polymetriikka.
 
 @itemize
 
@@ -5894,11 +5892,11 @@ FI: ?.
 ES: polimétrico,
 I: ?,
 F: ?,
-D: ?,
+D: polymetrisch,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: polymetrinen.
 
 Using two or more metric frameworks simultaneously or in alternation.
 
@@ -5913,11 +5911,11 @@ Using two or more metric frameworks simultaneously or in alternation.
 ES: compás polimétrico,
 I: ?,
 F: ?,
-D: ?,
+D: polymetrische Taktart,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: polymetrinen tahtiosoitus.
 
 A time signature that indicates regularly alternating polymetric time.
 
@@ -5974,7 +5972,7 @@ denotes the highest possible degree of speed.
 ES: proporción,
 I: proprozione (?),
 F: proportion,
-D: ?,
+D: Proportion, proportio,
 NL: ?,
 DK: ?,
 S: ?,
@@ -6135,7 +6133,7 @@ D: Viertelton,
 NL: kwart toon,
 DK: ?,
 S: kvartston,
-FI: ?.
+FI: neljännes sävelaskel.
 
 An interval equal to half a semitone.
 
@@ -6535,11 +6533,11 @@ FI: korotusmerkki.
 ES: simile,
 I: simile,
 F: ?,
-D: ?,
+D: simile, gleichartig,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: samaan tapaan.
 
 [From It, @q{in the same manner}] Performance direction: the music thus marked
 is to be played in the same manner (i.e. with the same articulations, dynamics,
@@ -6556,11 +6554,11 @@ TODO: Where else could I refer the reader?
 ES: compás simple, compás de subdivisión binaria,
 I: ?,
 F: ?,
-D: ?,
+D: Zweiertakt,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: tasajakoinen rytmi.
 
 A meter in which the basic beat is subdivided in two: that is, a meter
 that does not include triplet subdivision of the beat.
@@ -6868,11 +6866,11 @@ whole note.
 ES: ?,
 I: stringendo,
 F: ?,
-D: ?,
+D: Stringendo, steigernd,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: stringendo, kiihtyen.
 
 [It, @q{pressing}].  Pressing, urging, or hastening the time, as to a
 climax.
@@ -7206,7 +7204,7 @@ FI: terssi.
 @item ES: fusa
 @item I: biscroma
 @item F: triple croche
-@item D: Zweiunddreissigstel, Zweiunddreissigstelnote
+@item D: Zweiunddreißigstel, Zweiunddreißigstelnote
 @item NL: twee-endertig@-ste (32e) noot
 @item DK: toogtredivtedelsnode
 @item S: trettiotvåondelsnot
@@ -7341,11 +7339,11 @@ The first @ref{scale degree}.
 ES: instrumento transpositor,
 I: ?,
 F: ?,
-D: ?,
+D: transponierende Instrumente,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: transponoivat soitimet.
 
 Instruments whose notated pitch is different from their sounded pitch.  Except
 for those whose notated and sounding pitches differ by one or more octaves (to
@@ -7677,7 +7675,7 @@ FI: ääni, lauluääni.
 ES: vez, primera y segunda vez,
 I: volta,
 F: ?,
-D: ?,
+D: Volta, Wiederholungsklammer,
 NL: ?,
 DK: ?,
 S: ?,
@@ -8226,6 +8224,8 @@ Edition 1974.
 @item Webster's Revised Unabridged Dictionary, Springfield 1913.
 
 @item Felix Krohn, Lyhyt musiikkioppi, Porvoo, Helsinki, 1976.
+
+@item Henna Mikkonen, Suvi Rimpiläinen, Konsertissa kävijän taskusanasto, Jyväskylä, 2003
 
 @end itemize
 

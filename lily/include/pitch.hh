@@ -33,6 +33,8 @@ private:
   void transpose (Pitch);
   void up_to (int);
   void down_to (int);
+  void normalize_octave ();
+  void normalize_alteration ();
   void normalize ();
 
 public:

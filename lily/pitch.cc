@@ -22,7 +22,7 @@ Pitch::Pitch (int o, int n, Rational a)
   alteration_ = a;
   octave_ = o;
   scale_ = default_global_scale; 
-  normalize ();
+  normalize_octave ();
 }
 
 /* FIXME: why is octave == 0 and default not middleC ? */
@@ -53,30 +53,13 @@ Pitch::compare (Pitch const &m1, Pitch const &m2)
 int
 Pitch::steps () const
 {
-  return notename_ + octave_ * scale_->step_tones_.size ();
+  return notename_ + octave_ * scale_->step_count ();
 }
 
 Rational
 Pitch::tone_pitch () const
 {
-  int o = octave_;
-  int n = notename_;
-  while (n < 0)
-    {
-      n += scale_->step_tones_.size ();
-      o--;
-    }
-
-  /*
-    we're effictively hardcoding the octave to 6 whole-tones,
-    which is as arbitrary as coding it to 1200 cents
-  */
-  Rational tones ((o + n / scale_->step_tones_.size ()) * 6, 1);
-  tones += scale_->step_tones_[n % scale_->step_tones_.size ()];
-
-  tones += alteration_;
-  
-  return tones;
+  return scale_->tones_at_step (notename_, octave_) + alteration_;
 }
 
 /* Calculate pitch height in 12th octave steps.  Don't assume
@@ -94,48 +77,36 @@ Pitch::rounded_quartertone_pitch () const
 }
 
 void
-Pitch::normalize ()
+Pitch::normalize_octave ()
 {
-  Rational pitch = tone_pitch ();
-  while (notename_ >= (int) scale_->step_tones_.size ())
-    {
-      notename_ -= scale_->step_tones_.size ();
-      octave_++;
-      alteration_ -= tone_pitch () - pitch;
-    }
-  while (notename_ < 0)
-    {
-      notename_ += scale_->step_tones_.size ();
-      octave_--;
-      alteration_ -= tone_pitch () - pitch;
-    }
+  int normalized_step = notename_ % scale_->step_count ();
+  if (normalized_step < 0)
+    normalized_step += scale_->step_count ();
 
+  octave_ += (notename_ - normalized_step) / scale_->step_count ();
+  notename_ = normalized_step;
+}
+
+void
+Pitch::normalize_alteration ()
+{
   while (alteration_ > Rational (1))
     {
-      if (notename_ == int (scale_->step_tones_.size ()))
-	{
-	  notename_ = 0;
-	  octave_++;
-	}
-      else
-	notename_++;
-
-      alteration_ = Rational (0);
-      alteration_ -= tone_pitch () - pitch;
+      alteration_ -= scale_->step_size (notename_);
+      notename_++;
     }
   while (alteration_ < Rational (-1))
     {
-      if (notename_ == 0)
-	{
-	  notename_ = scale_->step_tones_.size ();
-	  octave_--;
-	}
-      else
-	notename_--;
-
-      alteration_ = 0;
-      alteration_ -= tone_pitch () - pitch;
+      notename_--;
+      alteration_ += scale_->step_size (notename_);
     }
+}
+
+void
+Pitch::normalize ()
+{
+  normalize_alteration ();
+  normalize_octave ();
 }
 
 void
@@ -147,7 +118,7 @@ Pitch::transpose (Pitch delta)
   notename_ += delta.notename_;
   alteration_ += new_alter - tone_pitch ();
 
-  normalize ();
+  normalize_octave ();
 }
 
 Pitch
@@ -170,7 +141,7 @@ char const *accname[] = {"eses", "eseh", "es", "eh", "",
 string
 Pitch::to_string () const
 {
-  int n = (notename_ + 2) % scale_->step_tones_.size ();
+  int n = (notename_ + 2) % scale_->step_count ();
   string s = ::to_string (char (n + 'a'));
   Rational qtones = alteration_ * Rational (4,1);
   int qt = int (rint (Real (qtones)));

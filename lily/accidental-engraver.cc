@@ -1,5 +1,5 @@
 /*
-  accidental-engraver.cc -- implement accidental_engraver
+  accidental-engraver.cc -- implement Accidental_engraver
 
   source file of the GNU LilyPond music typesetter
 
@@ -9,16 +9,17 @@
 
 #include "accidental-placement.hh"
 #include "arpeggio.hh"
-#include "spanner.hh"
 #include "context.hh"
-#include "item.hh"
+#include "duration.hh"
 #include "engraver.hh"
 #include "international.hh"
+#include "item.hh"
 #include "pitch.hh"
 #include "protected-scm.hh"
 #include "rhythmic-head.hh"
 #include "separation-item.hh"
 #include "side-position-interface.hh"
+#include "spanner.hh"
 #include "stream-event.hh"
 #include "tie.hh"
 #include "warn.hh"
@@ -141,7 +142,7 @@ recent_enough (int bar_number, SCM alteration_def, SCM laziness)
       || laziness == SCM_BOOL_T)
     return true;
 
-  return (bar_number <= scm_to_int (scm_cdr (alteration_def)) + scm_to_int (laziness));
+  return (bar_number <= scm_to_int (scm_cadr (alteration_def)) + scm_to_int (laziness));
 }
 
 static Rational
@@ -171,11 +172,25 @@ struct Accidental_result
   bool need_acc;
   bool need_restore;
 
-  Accidental_result () {
+  Accidental_result ()
+  {
     need_restore = need_acc = false;
   }
 
-  int score () const {
+  Accidental_result (bool restore, bool acc)
+  {
+    need_restore = restore;
+    need_acc = acc;
+  }
+
+  Accidental_result (SCM scm)
+  {
+    need_restore = to_boolean (scm_car (scm));
+    need_acc = to_boolean (scm_cdr (scm));
+  }
+
+  int score () const
+  {
     return need_acc ? 1 : 0
       + need_restore ? 1 : 0;
   }
@@ -239,12 +254,46 @@ check_pitch_against_signature (SCM key_signature, Pitch const &pitch,
   return result;
 }
 
+// TODO: consider moving check_pitch_against_signature to SCM (in which case
+// we can delete this function).
+LY_DEFINE (ly_find_accidentals_simple, "ly:find-accidentals-simple", 5, 0, 0,
+	   (SCM keysig, SCM pitch_scm, SCM barnum, SCM laziness, SCM octaveness ),
+	   "Checks the need for an accidental and a @q{restore} accidental against a"
+	   " key signature.  The @var{laziness} is the number of bars for which reminder"
+	   " accidentals are used (ie. if @var{laziness} is zero, we only cancel accidentals"
+	   " in the same bar; if @var{laziness} is three, we cancel accidentals up to three"
+	   " bars after they first appear.  @var{octaveness} is either "
+	   " @code{'same-octave} or @code{'any-octave} and it specifies whether "
+	   " accidentals should be canceled in different octaves.")
+{
+  LY_ASSERT_TYPE (unsmob_pitch, pitch_scm, 2);
+  LY_ASSERT_TYPE (scm_is_integer, barnum, 3);
+  LY_ASSERT_TYPE (ly_is_symbol, octaveness, 5);
+
+  bool symbol_ok = octaveness == ly_symbol2scm ("any-octave") ||
+    octaveness == ly_symbol2scm ("same-octave");
+
+  SCM_ASSERT_TYPE (symbol_ok, octaveness, SCM_ARG5, __FUNCTION__, "'any-octave or 'same-octave");
+
+  Pitch *pitch = unsmob_pitch (pitch_scm);
+
+  int bar_number = scm_to_int (barnum);
+  bool ignore_octave = ly_symbol2scm ("any-octave") == octaveness; 
+  Accidental_result result = check_pitch_against_signature (keysig, *pitch, bar_number,
+							    laziness, ignore_octave);
+
+  return scm_cons (scm_from_bool (result.need_restore), scm_from_bool (result.need_acc));
+}
+
 static
 Accidental_result
 check_pitch_against_rules (Pitch const &pitch, Context *origin,
-				 SCM rules, int bar_number)
+			   SCM rules, int bar_number, SCM measurepos)
 {
   Accidental_result result;
+  SCM pitch_scm = pitch.smobbed_copy ();
+  SCM barnum_scm = scm_from_int (bar_number);
+
   if (scm_is_pair (rules) && !scm_is_symbol (scm_car (rules)))
     warning (_f ("accidental typesetting list must begin with context-name: %s",
 		 ly_scm2string (scm_car (rules)).c_str ()));
@@ -253,28 +302,15 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin,
        rules = scm_cdr (rules))
     {
       SCM rule = scm_car (rules);
-      if (scm_is_pair (rule))
+      if (ly_is_procedure (rule))
 	{
-	  SCM type = scm_car (rule);
-	  SCM laziness = scm_cdr (rule);
-	  SCM localsig = origin->get_property ("localKeySignature");
+	  SCM rule_result_scm = scm_call_4 (rule, origin->self_scm (),
+					    pitch_scm, barnum_scm, measurepos);
 
-	  bool same_octave
-	    = (ly_symbol2scm ("same-octave") == type);
-	  bool any_octave
-	    = (ly_symbol2scm ("any-octave") == type);
+	  Accidental_result rule_result (rule_result_scm);
 
-	  if (same_octave || any_octave)
-	    {
-	      Accidental_result rule_result = check_pitch_against_signature
-		(localsig, pitch, bar_number, laziness, any_octave);
-
-	      result.need_acc |= rule_result.need_acc;
-	      result.need_restore |= rule_result.need_restore;
-	    }
-	  else
-	    warning (_f ("ignoring unknown accidental rule: %s",
-			 ly_symbol2string (type).c_str ()));
+	  result.need_acc |= rule_result.need_acc;
+	  result.need_restore |= rule_result.need_restore;
 	}
 
       /* if symbol then it is a context name.  Scan parent contexts to
@@ -289,8 +325,8 @@ check_pitch_against_rules (Pitch const &pitch, Context *origin,
 	    origin = dad;
 	}
       else
-	warning (_f ("pair or context-name expected for accidental rule, found %s",
-		     ly_scm2string (rule).c_str ()));
+	warning (_f ("procedure or context-name expected for accidental rule, found %s",
+		     print_scm_val (rule).c_str ()));
     }
 
   return result;
@@ -303,6 +339,7 @@ Accidental_engraver::process_acknowledged ()
     {
       SCM accidental_rules = get_property ("autoAccidentals");
       SCM cautionary_rules = get_property ("autoCautionaries");
+      SCM measure_position = get_property ("measurePosition");
       int barnum = measure_number (context());
 
       for (vsize i = 0; i < accidentals_.size (); i++)
@@ -318,10 +355,10 @@ Accidental_engraver::process_acknowledged ()
 	  if (!pitch)
 	    continue;
 
-	  Accidental_result acc = check_pitch_against_rules (*pitch, origin,
-							     accidental_rules, barnum);
-	  Accidental_result caut = check_pitch_against_rules (*pitch, origin,
-							      cautionary_rules, barnum);
+	  Accidental_result acc = check_pitch_against_rules (*pitch, origin, accidental_rules,
+							     barnum, measure_position);
+	  Accidental_result caut = check_pitch_against_rules (*pitch, origin, cautionary_rules,
+							      barnum, measure_position);
 
 	  bool cautionary = to_boolean (note->get_property ("cautionary"));
 	  if (caut.score () > acc.score ())
@@ -475,6 +512,10 @@ Accidental_engraver::stop_translation_timestep ()
       Rational a = pitch->get_alteration ();
       SCM key = scm_cons (scm_from_int (o), scm_from_int (n));
 
+      Moment end_mp = measure_position (context (),
+					unsmob_duration (note->get_property ("duration")));
+      SCM position = scm_cons (scm_from_int (barnum), end_mp.smobbed_copy ());
+
       SCM localsig = SCM_EOL;
       while (origin
 	     && origin->where_defined (ly_symbol2scm ("localKeySignature"), &localsig))
@@ -487,8 +528,8 @@ Accidental_engraver::stop_translation_timestep ()
 		Remember an alteration that is different both from
 		that of the tied note and of the key signature.
 	      */
-	      localsig = ly_assoc_prepend_x (localsig, key, scm_cons (ly_symbol2scm ("tied"),
-								      scm_from_int (barnum)));
+	      localsig = ly_assoc_prepend_x (localsig, key,scm_cons (ly_symbol2scm ("tied"),
+								     position));
 
 	      change = true;
 	    }
@@ -499,8 +540,8 @@ Accidental_engraver::stop_translation_timestep ()
 		noteheads with the same notename.
 	      */
 	      localsig = ly_assoc_prepend_x (localsig, key,
-					   scm_cons (ly_rational2scm (a),
-						     scm_from_int (barnum)));
+					     scm_cons (ly_rational2scm (a),
+						       position));
 	      change = true;
 	    }
 
@@ -603,6 +644,7 @@ ADD_TRANSLATOR (Accidental_engraver,
 		"internalBarNumber "
 		"extraNatural "
 		"harmonicAccidentals "
+		"keySignature "
 		"localKeySignature ",
 
 		/* write */

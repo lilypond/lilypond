@@ -44,7 +44,7 @@ precompilados.
 @node Precompiled binaries
 @section Precompiled binaries
 
-@subsection Downloading
+@unnumberedsubsec Downloading
 
 Revise el enlace @uref{http://lilypond.org/web/install/} para ver
 información actualizada sobre los paquetes binarios para su
@@ -99,7 +99,6 @@ mingw       - Windows x86
 
 @unnumberedsubsubsec Compilation
 @unnumberedsubsubsec Running requirements
-@unnumberedsubsubsec Building documentation
 @unnumberedsubsubsec Requirements for building documentation
 @node Building LilyPond
 @subsection Building LilyPond

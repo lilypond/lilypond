@@ -14,13 +14,6 @@
 @chapter Install
 @end ifclear
 
-@c  I don't know what this comment does.  Remove?  -gp
-@ignore
-@h tml
-<a name="download-source">
-@e nd html
-@end ignore
-
 There are two sets of releases for LilyPond: stable releases, and
 unstable development releases.  Stable versions have an even-numbered
 @q{minor} version number (i.e. 2.8, 2.10, 2.12, etc).  Development
@@ -39,7 +32,7 @@ recommend using the precompiled binaries.
 @node Precompiled binaries
 @section Precompiled binaries
 
-@subsection Downloading
+@unnumberedsubsec Downloading
 
 Check out @uref{http://lilypond.org/web/install/} for up to date
 information on binary packages for your platform.  If your operating
@@ -122,6 +115,11 @@ FOO-devel, libFOO-dev or FOO-dev package too.
 
 @item @uref{http://fontforge.sf.net/,FontForge} 20060125 or newer.
 
+@item @uref{http://metafont.tutorial.free.fr/,MetaFont} (mf-nowin, mf, mfw or 
+mfont binaries) and @uref{http://cm.bell-labs.com/who/hobby/MetaPost.html,MetaPost}
+(mpost binary), usually packaged with a @LaTeX{} distribution like
+tetex or texlive.
+
 @item @uref{http://www.lcdf.org/~eddietwo/type/#t1utils,t1utils}
 (version 1.33 or newer recommended).
 
@@ -183,7 +181,7 @@ or lyrics.
 You can view the documentation online at
 @uref{http://lilypond.org/doc/}, but you can also build it locally.
 This process requires a successful compile of LilyPond, and some
-additional tools and packages
+additional tools and packages:
 
 @itemize
 @item The @uref{http://netpbm.sourceforge.net/,netpbm utilities}
@@ -196,6 +194,10 @@ and the patch from
 @uref{http://bugs.ghostscript.com/show_bug.cgi?id=688017}, or use
 a release of Ghostscript which includes these patches, for example
 8.60 or newer.
+@item @uref{http://www.nongnu.org/texi2html/,Texi2HTML} 1.79 or newer
+is strongly recommended to build documentation in HTML; support for
+building HTML documentation using @command{makeinfo} from GNU Texinfo
+is deprecated.
 @end itemize
 
 
@@ -257,6 +259,14 @@ mkdir lily-build && cd lily-build
 @var{sourcedir}/configure --srcdir=@var{sourcedir}
 
 @end example
+
+
+@unnumberedsubsubsec Useful @command{make} variables
+
+If a less verbose build output if desired, the variable
+@code{QUIET_BUILD} may be set to @code{1} on @command{make} command
+line, or in @file{local.make} at top of the build tree.
+
 
 @node Building documentation
 @subsection Building documentation
@@ -323,6 +333,9 @@ documentation maintenance are available from @file{Documentation/};
 for more information, see @file{Documentation/user/README.txt} and
 @file{Documentation/TRANSLATION}.
 
+The makefile variable @code{QUIET_BUILD} may be set to @code{1} for a
+less verbose build output, just like for building the programs.
+
 @knownissues
 
 @code{-j} command-line option of @command{make} is unsupported for
@@ -330,7 +343,7 @@ building the documentation.  As the most time consuming task is
 running LilyPond to build images of music, the makefile variable
 @code{CPU_COUNT} may be set in @file{local.make} or on the command line
 to the number of @code{.ly} files that LilyPond should process
-simultaneously, e.g. on a bi-processor or Dual core machine
+simultaneously, e.g. on a bi-processor or dual core machine
 
 @example
 make CPU_COUNT=2 web

@@ -16,11 +16,16 @@ OUT_PNG_IMAGES=$(OUT_PDF_IMAGES:%.pdf=%.png)
 
 OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
  $(ITELY_FILES:%.itely=$(outdir)/%.texi)
+
+MASTER_TEXI_FILES = $(TELY_FILES:%.tely=$(outdir)/%.texi)\
+ $(outdir)/lilypond-internals.texi
+
 HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
  $(outdir)/lilypond-internals-big-page.html
 
 # todo: add latex.
-PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)
+PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)\
+ $(outdir)/lilypond-internals.pdf
 
 MAIN_INFO_DOC = lilypond
 INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
@@ -47,11 +52,6 @@ info: $(INFO_FILES)
 xml: $(outdir)/lilypond/lilypond.xml $(outdir)/lilypond-internals/lilypond-internals.xml
 
 
-# All web targets, except info image symlinks and info docs are
-# installed in non-recursing target from TOP-SRC-DIR
-local-install-WWW: local-install-info
-local-uninstall-WWW: local-uninstall-info
-
 local-clean:
 	rm -f $(INFO_IMAGES_DIR)
 
@@ -63,8 +63,6 @@ extra-local-help:
   xml	      update Docbook xml documentation\n\
 "
 
-# Generic rule using % twice not possible?
-# $(outdir)/%/%.html: $(outdir)/%.texi
 $(outdir)/lilypond.texi: $(outdir)/lilypond-internals.texi
 
 #
@@ -112,7 +110,7 @@ DEEP_HTML_FILES =\
 
 # Symlinks to refer to external source documents from split and non-split HTML
 source-links = $(outdir)/source $(outdir)/lilypond/source $(outdir)/music-glossary/source \
- $(outdir)/lilypond-program/source $(outdir)/lilypond-learning/source
+ $(outdir)/lilypond-program/source $(outdir)/lilypond-learning/source $(outdir)/lilypond-internals/source
 
 $(outdir)/source:
 	@rm -f $(@)
@@ -123,12 +121,12 @@ $(outdir)/%/source:
 	mkdir -p $(dir $@)
 	ln -sf $(depth)/.. $(@)
 
-local-WWW: $(HTML_FILES) $(DEEP_HTML_FILES)\
- $(datafiles) $(PDF_FILES) $(source-links) info
+local-WWW-1: $(MASTER_TEXI_FILES) $(PDF_FILES) info
+
+local-WWW-2: $(HTML_FILES) $(DEEP_HTML_FILES) $(source-links)
 
 $(outdir)/%.bib: %.bib
 	ln -f $< $@
-
 
 # lilypond.texi deps
 $(top-build-dir)/mf/$(outconfbase)/feta16list.ly:
@@ -145,10 +143,5 @@ $(outdir)/lilypond.texi $(outdir)/lilypond-program.texi $(outdir)/lilypond-learn
 
 $(outdir)/lilypond-internals.texi: $(LILYPOND_BINARY)
 	cd $(outdir) && $(LILYPOND_BINARY) --verbose $(top-src-dir)/ly/generate-documentation
-
-
-## unused
-$(outdir)/interfaces.itexi: dummy
-	cd $(outdir) && lilypond $(top-src-dir)/ly/generate-interface-doc
 
 .SECONDARY:
