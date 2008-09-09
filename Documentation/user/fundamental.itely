@@ -7,8 +7,6 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
-
 @node Fundamental concepts
 @chapter Fundamental concepts
 
@@ -65,7 +63,9 @@ There are many variations of this basic pattern, but this
 example serves as a useful starting place.
 
 @funindex \book
+@funindex book
 @funindex \score
+@funindex score
 @cindex book
 @cindex score
 
@@ -103,6 +103,7 @@ LilyPond will interpret the file as though the music expression
 was wrapped up inside the commands shown above.
 
 @cindex implicit contexts
+@cindex contexts, implicit
 
 @strong{A word of warning!}  Many of the examples in the LilyPond
 documentation will omit the @code{\new Staff} and @code{\new Voice}
@@ -149,8 +150,11 @@ things, such as
 @end example
 
 @funindex \header
+@funindex header
 @funindex \layout
+@funindex layout
 @funindex \midi
+@funindex midi
 @cindex header
 @cindex layout
 @cindex midi
@@ -173,6 +177,10 @@ Notation Reference -- @ruser{Score layout}, and
 @ruser{Creating MIDI files}.
 
 @cindex scores, multiple
+@cindex book block, implicit
+@cindex implicit book block
+@funindex \book
+@funindex book
 
 You may code multiple @code{\score} blocks.  Each will be
 treated as a separate score, but they will be all combined into
@@ -191,6 +199,8 @@ your entire input code in a @code{\book} block implicitly.
 
 Every @code{\score} block is a separate chunk of music within a
 @code{\book} block.
+
+@cindex layout block, effect of location
 
 Every @code{\layout} block affects the @code{\score} or
 @code{\book} block in which it appears -- i.e., a @code{\layout}
@@ -240,9 +250,12 @@ For a complete definition of the input format, see
 @subsection Score is a (single) compound musical expression
 
 @funindex \score
+@funindex score
 @cindex score
-@cindex Compound music expression
-@cindex Music expression, compound
+@cindex contents of a score block
+@cindex score block, contents of
+@cindex compound music expression
+@cindex music expression, compound
 
 We saw the general organization of LilyPond input files in the
 previous section, @ref{Introduction to the LilyPond file structure}.
@@ -286,7 +299,7 @@ it.  We @emph{do} need a singer and a piano, though.
   <<
     \new Staff = "singer" <<
     >>
-    \new PianoStaff = piano <<
+    \new PianoStaff = "piano" <<
     >>
   >>
   \layout @{ @}
@@ -328,7 +341,7 @@ staff: it contains an upper staff (right hand) and a lower staff
 (left hand).
 
 At this stage, we could start filling in notes.  Inside the curly
-braces next to @code{\new Voice = vocal}, we could start writing
+braces next to @code{\new Voice = "vocal"}, we could start writing
 
 @example
 \relative c'' @{
@@ -388,6 +401,7 @@ Notation Reference: @ruser{Structure of a score}.
 @subsection Nesting music expressions
 
 @cindex staves, temporary
+@cindex temporary staves
 @cindex ossias
 
 It is not essential to declare all staves at the beginning; they may
@@ -458,6 +472,8 @@ and @ruser{Ossia staves}.
 @subsection On the un-nestedness of brackets and ties
 
 @cindex brackets, nesting
+@cindex bracket types
+@cindex brackets, enclosing vs. marking
 
 You have already met a number of different types of bracket in
 writing the input file to LilyPond.  These obey different rules
@@ -494,14 +510,12 @@ the different types to be properly nested, like this,
 encountered in exactly the opposite order to the opening
 brackets.  This @strong{is} a requirement for the three types of
 bracket described by the word @q{Encloses} in the table above --
-they must nest properly.
-However, the remaining brackets, described with the word
-@q{Marks} in the table above together with ties and tuplets,
-do @strong{not} have to nest
-properly with any of the brackets.  In fact, these are not
-brackets in the sense that
-they enclose something -- they are simply markers to indicate
-where something starts and ends.
+they must nest properly.  However, the remaining brackets,
+described with the word @q{Marks} in the table above together
+with ties and tuplets, do @strong{not} have to nest properly
+with any of the brackets.  In fact, these are not brackets in
+the sense that they enclose something -- they are simply
+markers to indicate where something starts and ends.
 
 So, for example, a phrasing slur can start before a manually
 inserted beam and end before the end of the beam -- not very
@@ -549,10 +563,15 @@ of all LilyPond's concepts.
 @cindex polyphony
 @cindex layers
 @cindex multiple voices
+@cindex voices, multiple
 @cindex Voice context
 @cindex context, Voice
 @cindex simultaneous music
+@cindex music, simultaneous
 @cindex concurrent music
+@cindex music, concurrent
+@cindex voices vs. chords
+@cindex chords vs. voices
 
 The lowest, most fundamental or innermost layers in a LilyPond
 score are called @q{Voice contexts} or just @q{Voices} for short.
@@ -649,6 +668,11 @@ separately, like this:
 @end lilypond
 
 
+@cindex voices, naming
+@cindex voices crossing brackets
+@cindex slurs crossing brackets
+@cindex ties crossing brackest
+
 This example has just two voices, but the same construct may be
 used to encode three or more voices by adding more back-slash
 separators.
@@ -730,6 +754,9 @@ user.
 See @ref{Visibility and color of objects} and
 @ref{Using variables for tweaks}.
 
+@cindex polyphony and relative note entry
+@cindex relative note entry and polyphony
+
 Polyphony does not change the relationship of notes within a
 @code{\relative @{ @}} block.  Each note is still calculated
 relative to the note immediately preceding it, or to the first
@@ -760,15 +787,14 @@ command at the start of each voice:
 \relative c' @{ noteE ... @}
 @end example
 
-Let us finally analyze the voices in a more complex piece of
-music.  Here are
-the notes from the first two bars of the second of Chopin's
-Deux Nocturnes, Op 32.  This example will be used at later
-stages in this and the next chapter to illustrate several
-techniques for producing notation, so please ignore for now
-anything in the underlying code which looks mysterious and
-concentrate just on the music and the voices -- the
-complications will all be explained in later sections.
+Let us finally analyze the voices in a more complex piece of music.
+Here are the notes from the first two bars of the second of Chopin's
+Deux Nocturnes, Op 32.  This example will be used at later stages in
+this and the next chapter to illustrate several techniques for
+producing notation, so please ignore for now anything in the
+underlying code which looks mysterious and concentrate just on the
+music and the voices -- the complications will all be explained in
+later sections.
 
 @c The following should appear as music without code
 @lilypond[quote,ragged-right]
@@ -792,12 +818,11 @@ complications will all be explained in later sections.
 }
 @end lilypond
 
-The direction of the stems is often used to indicate the
-continuity of two simultaneous melodic lines.  Here the
-stems of the highest notes are all pointing up and the
-stems of the lower notes are all pointing down.
-This is the first indication that more than one voice
-is required.
+The direction of the stems is often used to indicate the continuity of
+two simultaneous melodic lines.  Here the stems of the highest notes
+are all pointing up and the stems of the lower notes are all pointing
+down.  This is the first indication that more than one voice is
+required.
 
 But the real need for multiple voices arises when notes
 which start at the same time have different durations.
@@ -859,6 +884,8 @@ enter the music of the first bar in three voices:
 @end lilypond
 
 @cindex stem down
+@cindex voices and stem directions
+@cindex stem directions and voices
 @cindex stem up
 
 The stem directions are automatically assigned with the
@@ -907,12 +934,17 @@ Notation Reference: @ruser{Multiple voices}.
 @subsection Explicitly instantiating voices
 
 @funindex \voiceOne
+@funindex voiceOne
 @funindex \voiceTwo
+@funindex voiceTwo
 @funindex \voiceThree
+@funindex voiceThree
 @funindex \voiceFour
+@funindex voiceFour
 @funindex \oneVoice
+@funindex oneVoice
 @funindex \new Voice
-@cindex Voice contexts, creating
+@cindex voice contexts, creating
 
 Voice contexts can also be created manually
 inside a @code{<< >>} block to create polyphonic music, using
@@ -951,6 +983,9 @@ Both of the above would produce
   \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
 >>
 @end lilypond
+
+@cindex voices, reverting to single
+@cindex reverting to a single voice
 
 The @code{\voiceXXX} commands set the direction of stems, slurs,
 ties, articulations, text annotations, augmentation dots of dotted
@@ -1029,7 +1064,7 @@ permitting a phrasing slur to be drawn over them.
 
 @cindex nesting music expressions
 @cindex nesting simultaneous constructs
-
+@cindex nesting voices
 @cindex voices, temporary
 @cindex voices, nesting
 
@@ -1091,11 +1126,17 @@ as here:
 @subsubheading Note columns
 
 @cindex note column
+@cindex note collisions
+@cindex collisions, notes
 @cindex shift commands
 @funindex \shiftOff
+@funindex shiftOff
 @funindex \shiftOn
+@funindex shiftOn
 @funindex \shiftOnn
+@funindex shiftOnn
 @funindex \shiftOnnn
+@funindex shiftOnnn
 
 Closely spaced notes in a chord, or notes occurring at the same
 time in different voices, are arranged in two, occasionally more,
@@ -1114,7 +1155,7 @@ chords of the voice should be shifted if a collision
 would otherwise occur. By default, the outer voices (normally
 voices one and two) have @code{\shiftOff} specified, while the
 inner voices (three and four) have @code{\shiftOn} specified.
-When a shift is applied, Voices one and three are shifted to
+When a shift is applied, voices one and three are shifted to
 the right and voices two and four to the left.
 
 @code{\shiftOnn} and @code{\shiftOnnn} define further shift
@@ -1141,6 +1182,8 @@ expressions -- notes and lyrics.
 
 @funindex \new Lyrics
 @funindex \lyricsto
+@funindex lyricsto
+@funindex Lyrics
 @cindex Lyrics context, creating
 @cindex lyrics, linking to voice
 
@@ -1173,6 +1216,7 @@ explicitly.
 @cindex lyrics and beaming
 @cindex beaming and lyrics
 @funindex \autoBeamOff
+@funindex autoBeamOff
 
 The automatic beaming which LilyPond uses by default works well
 for instrumental music, but not so well for music with lyrics,
@@ -1181,8 +1225,11 @@ melismata in the lyrics.  In the example above we use the command
 @code{\autoBeamOff} to turn off the automatic beaming.
 
 @funindex \new ChoirStaff
+@funindex ChoirStaff
 @funindex \lyricmode
+@funindex lyricmode
 @cindex vocal score structure
+@cindex choir staff
 
 Let us reuse the earlier example from Judas Maccabæus to
 illustrate this more flexible technique.  We first recast
@@ -1227,13 +1274,16 @@ SopTwoLyrics = \lyricmode {
 }
 @end lilypond
 
-This is the basic structure of all vocal scores.  More staves may
-be added as required, more voices may be added to the staves,
-more verses may be added to the lyrics,
-and the variables containing the music can easily be placed
-in separate files should they become too long.
+This is the basic structure of all vocal scores.  More staves may be
+added as required, more voices may be added to the staves, more verses
+may be added to the lyrics, and the variables containing the music can
+easily be placed in separate files should they become too long.
 
 @cindex hymn structure
+@cindex SATB structure
+@cindex vocal scores with multiple verses
+@cindex multiple vocal verses
+@cindex verses, multiple vocal
 
 Here is an example of the first line of a hymn with four
 verses, set for SATB.  In this case the words for all four
@@ -1403,6 +1453,7 @@ refrainwordsB = \lyricmode {
 
 @cindex book, example of using
 @funindex \book
+@funindex book
 
 However, although this is an interesting and useful exercise to
 help you to understand how sequential and simultaneous blocks work,
