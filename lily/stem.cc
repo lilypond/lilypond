@@ -628,8 +628,13 @@ Stem::calc_flag (SCM smob)
       string stroke_style = ly_scm2string (stroke_style_scm);
       if (!stroke_style.empty ())
         {
-          string font_char = to_string (dir) + stroke_style;
+          string font_char = flag_style + to_string (dir) + stroke_style;
           Stencil stroke = fm->find_by_name ("flags." + font_char);
+          if (stroke.is_empty ())
+            {
+              font_char = to_string (dir) + stroke_style;
+              stroke = fm->find_by_name ("flags." + font_char);
+            }
           if (stroke.is_empty ())
             me->warning (_f ("flag stroke `%s' not found", font_char));
           else
