@@ -205,6 +205,12 @@ def get_option_parser ():
 
 lilypond_binary = os.path.join ('@bindir@', 'lilypond')
 
+# If we are called with full path, try to use lilypond binary
+# installed in the same path; this is needed in GUB binaries, where
+# @bindir is always different from the installed binary path.
+if 'bindir' in globals () and bindir:
+    lilypond_binary = os.path.join (bindir, 'lilypond')
+
 # Only use installed binary when we are installed too.
 if '@bindir@' == ('@' + 'bindir@') or not os.path.exists (lilypond_binary):
     lilypond_binary = 'lilypond'
