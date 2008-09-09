@@ -177,7 +177,7 @@ aufgerufenen Funktionen zur Zeit des Fehlers angibt.
 @item Programmierfehler
 @cindex Programmierfehler
 Eine interne Inkonsistenz ist aufgetreten.  Diese Fehlermeldungen
-sind sollen den Programmierern die Fehlersuche erleichtern und
+sollen den Programmierern die Fehlersuche erleichtern und
 können meistens einfach ignoriert werden.  In manchen Fällen werden
 so viele Meldungen ausgegeben, dass die Lesbarkeit der restliche
 Ausgabe davon beeinträchtigt wird.
