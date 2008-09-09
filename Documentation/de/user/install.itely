@@ -66,80 +66,9 @@ mingw       - Windows x86
 @node Compiling from source
 @section Compiling from source
 
-@untranslated
+LilyPond kann auch selbst direkt aus dem Quellcode des git-Depots 
+kompiliert werden. Da jedoch für die Kompilierung definitiv 
+Englisch-Kenntnisse vorhanden sein müssen, soll hier lediglich auf die 
+englische Dokumentation verwiesen werden.
+@c TODO: How do I insert a link to the English docs???
 
-
-@menu
-* Downloading source code::
-* Requirements::
-* Building LilyPond::
-* Building documentation::
-* Testing LilyPond::
-* Problems::
-@end menu
-
-@node Downloading source code
-@subsection Downloading source code
-
-@untranslated
-
-
-@node Requirements
-@subsection Requirements
-
-@untranslated
-
-
-@unnumberedsubsubsec Compilation
-@unnumberedsubsubsec Running requirements
-@unnumberedsubsubsec Requirements for building documentation
-@node Building LilyPond
-@subsection Building LilyPond
-
-@untranslated
-
-
-@unnumberedsubsubsec Compiling
-@unnumberedsubsubsec Compiling for multiple platforms
-@unnumberedsubsubsec Compiling outside the source tree
-@node Building documentation
-@subsection Building documentation
-
-@untranslated
-
-
-@menu
-* Commands for building documentation::
-* Building documentation without compiling LilyPond::
-@end menu
-
-@node Commands for building documentation
-@unnumberedsubsubsec Commands for building documentation
-
-@untranslated
-
-
-@node Building documentation without compiling LilyPond
-@unnumberedsubsubsec Building documentation without compiling LilyPond
-
-@untranslated
-
-
-@node Testing LilyPond
-@subsection Testing LilyPond
-
-@untranslated
-
-
-@node Problems
-@subsection Problems
-
-@untranslated
-
-
-@unnumberedsubsubsec Bison 1.875
-@unnumberedsubsubsec Solaris
-@unnumberedsubsubsec FreeBSD
-@unnumberedsubsubsec International fonts
-
-@c -- SKELETON FILE --
