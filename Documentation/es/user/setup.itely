@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: b258483467822a7fee6ec2d060e67e209e456582
+    Translation of GIT committish: d2956a4fd79a17f6b5b3ed8000678e460d1a580f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -105,6 +105,7 @@ Existe apoyo por parte de varios editores de texto para LilyPond.
 * jEdit::                       
 * TexShop::                     
 * TextMate::                    
+* LilyKDE::
 @end menu
 
 @node Emacs mode
@@ -197,6 +198,23 @@ svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
 @end example
 
 
+@node LilyKDE
+@subsection LilyKDE
+
+@uref{http://lilykde.googlecode.com/,LilyKDE} es un plugin o
+complemento para el editor de texto de KDE,
+@uref{http://kate-editor.org/,Kate}.  Tiene un potente Asistente de
+Partitura para preparar rápidamente un documento de LilyPond, y un
+visor de PDF incluido.
+
+LilyKDE puede utilizar
+@uref{http://www.volny.cz/smilauer/rumor/,Rumor}, de manera que se
+puede introducir la música tocando sobre un teclado MIDI.
+
+Otras posibilidades son el enguionado de la letra y la ejecución de
+LilyPond sobre varios archivos de una sola vez desde dentro del
+administrador de archivos de KDE.
+
 
 @node Point and click
 @section Point and click
@@ -232,28 +250,29 @@ y lanza un navegador de web para el resto.  Comprueba la variable de entorno
 @item emacs
   esto invoca a
 @example
-emacsclient --no-wait +@var{line}:@var{column} @var{file}
+emacsclient --no-wait +@var{línea}:@var{columna} @var{archivo}
 @end example
 @item vim
   esto invoca a
 @example
-gvim --remote +:@var{line}:norm@var{char} @var{file}
+gvim --remote +:@var{línea}:norm@var{carácter} @var{archivo}
 @end example
 
 @item nedit
 esto invoca a
 @example
-  nc -noask +@var{line} @var{file}'
+  nc -noask +@var{línea} @var{archivo}'
 @end example
 @end table
 
-La variable de entorno @code{LYEDITOR} se utiliza para sobreescribir esto. Contiene
-la instrucción de línea de órdenes para abrir el editor, donde @code{%(file)s},
-@code{%(column)s}, @code{%(line)s} se sustituye por el archivo, columna y
-línea respectivamente. El ajuste
+La variable de entorno @code{LYEDITOR} se utiliza para sobreescribir
+esto. Contiene la instrucción de línea de órdenes para abrir el
+editor, donde @code{%(archivo)s}, @code{%(columna)s} y
+@code{%(línea)s} se sustituyen por el archivo, columna y línea
+respectivamente. El ajuste
 
 @example
-emacsclient --no-wait +%(line)s:%(column)s %(file)s
+emacsclient --no-wait +%(línea)s:%(columna)s %(archivo)s
 @end example
 
 @noindent
@@ -268,14 +287,27 @@ reducir el tamaño de los archivos PDF y PS, la posibilidad de apuntar y pulsar 
 escribiendo
 
 @example
-#(ly:set-option 'point-and-click #f)
+\pointAndClickOff
 @end example
 
 @noindent
-dentro de un archivo @file{.ly}.  De forma alternativa, puede pasarlo como una opción de
-la linea de órdenes
+dentro de un archivo @file{.ly}.  Se puede activar explícitamente la
+posibilidad de apuntar y pulsar con
 
 @example
-lilypond -dno-point-and-click file.ly
+\pointAndClickOn
 @end example
+
+De forma alternativa, puede desactivar la posibilidad de apuntar y
+pulsar con una opción de la línea de órdenes:
+
+@example
+lilypond -dno-point-and-click archivo.ly
+@end example
+
+@warning{Recuerde desactivar siempre la posibilidad Apuntar y pulsar
+en cualquier archivo de LilyPond que vaya a ser distribuido, para
+evitar incluir información de rutas de archivo relativas a su equipo
+dentro del archivo .pdf, lo que puede plantear un problema de
+seguridad.}
 
