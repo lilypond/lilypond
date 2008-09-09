@@ -65,6 +65,30 @@ which scares away people.
 
 @end ignore
 
+@item Three automatic accidentals rules have been added: @code{neo-modern},
+@code{neo-modern-cautionary} and @code{dodecaphonic}.  The following
+example illustrates @code{neo-modern} rule.
+@lilypond[]
+notes = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, fis>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+\new Staff {
+  #(set-accidental-style 'neo-modern)
+  \notes
+}
+@end lilypond
+
 @item Flags can now be generated with Scheme-code using the @code{'flag} Stem
 grob property. Existing scores will work without change.
 @lilypond
