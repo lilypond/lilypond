@@ -1601,7 +1601,7 @@ def process_snippets (cmd, snippets,
                          'snippet-names-%d.ly' % checksum)
     file (name, 'wb').write (contents)
 
-    system_in_directory (' '.join ([cmd, name]),
+    system_in_directory (' '.join ([cmd, ly.mkarg (name)]),
                          lily_output_dir)
             
         
