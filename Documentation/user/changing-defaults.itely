@@ -1825,54 +1825,226 @@ To be written
 @subsection Spanners
 
 Many objects of musical notation extend over several notes or even
-several bars.  Examples are crescendi, trills, tuplet brackets, and
-volta repeat brackets.  Such objects are called @qq{spanners}, and
-have special properties to control their appearance and behaviour.
-Some of these properties are common to all spanners; others are
-restricted to a sub-set of the spanners.
+several bars.  Examples are slurs, beams, tuplet brackets, volta
+repeat brackets, crescendi, trills, and glissandi.  Such objects
+are collectively called @qq{spanners}, and have special properties to control
+their appearance and behaviour.  Some of these properties are common
+to all spanners; others are restricted to a sub-set of the spanners.
 
-The information that determines the end-points of spanners is computed
-on-the-fly, but it is possible to override these:
+All spanners support the @code{spanner-interface}.  A few, esentially
+those that draw a straight line between the two objects, support in
+addition the @code{line-spanner-interface}.
 
-@c TODO change and extend example
+@unnumberedsubsubsec Using the @code{spanner-interface}
+
+This interface provides two properties that apply to several spanners.
+
+@strong{@i{The @code{minimum-length} property}}
+
+The minimum length of the spanner is specified by the
+@code{minimum-length} property.  Increasing this usually has the
+necessary effect of increasing the spacing of the notes between the
+two end points.  However, this override has no effect on
+many spanners, as their length is determined by other considerations.
+A few examples where it is effective are shown below.
+
+@ignore
+Works for:
+  Tie
+  MultiMeasureRest
+  Hairpin
+  Slur
+  PhrasingSlur
+
+Works as long as callback is made:
+  Glissando
+  Beam
+
+Works not at all for:
+  LyricSpace
+  LyricHyphen
+  LyricExtender
+  TextSpanner
+  System
+
+@end ignore
+
+@lilypond[verbatim,quote,relative=2]
+a~a
+a
+% increase the length of the tie
+-\tweak #'minimum-length #5
+~a
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+a1
+\compressFullBarRests
+R1*23
+% increase the length of the rest bar
+\once \override MultiMeasureRest #'minimum-length = #20
+R1*23
+a1
+@end lilypond
+
+@lilypond[verbatim,quote,relative=2]
+a \< a a a \!
+% increase the length of the hairpin
+\override Hairpin #'minimum-length = #20
+a \< a a a \!
+@end lilypond
+
+This override can also be used to increase the length of slurs and
+phrasing slurs:
+
+@lilypond[verbatim,quote,relative=2]
+a( a)
+a
+-\tweak #'minimum-length #5
+( a)
+
+a\( a\)
+a
+-\tweak #'minimum-length #5
+\( a\)
+@end lilypond
+
+For some layout objects, the @code{minimum-length} property becomes
+effective only if the @code{set-spacing-rods} procedure is called
+explicitly.  To do this, the @code{springs-and-rods} property should
+be set to @code{ly:spanner::set-spacing-rods}.   For example,
+the minimum length of a glissando has no effect unless the
+@code{springs-and-rods} property is set:
+
+@lilypond[verbatim,quote,relative=1]
+% default
+e \glissando c'
+
+% not effective alone
+\once \override Glissando #'minimum-length = #20
+e, \glissando c'
+
+% effective only when both overrides are present
+\once \override Glissando #'minimum-length = #20
+\once \override Glissando #'springs-and-rods = #ly:spanner::set-spacing-rods
+e, \glissando c'
+@end lilypond
+
+The same is true of the @code{Beam} object:
+
+@lilypond[verbatim,quote,relative=1]
+% not effective alone
+\once \override Beam #'minimum-length = #20
+e8 e e e
+
+% effective only when both overrides are present
+\once \override Beam #'minimum-length = #20
+\once \override Beam #'springs-and-rods = #ly:spanner::set-spacing-rods
+e8 e e e
+@end lilypond
+
+@strong{@i{The @code{to-barline} property}}
+
+The second useful property of the @code{spanner-interface} is
+@code{to-barline}.  By default this is true, causing hairpins and
+other spanners which are terminated on the first note of a measure to
+end instead on the immediately preceding bar line.  If set to false,
+the spanner will extend beyond the bar line and end on the note
+itself:
+
+@lilypond[verbatim,quote,relative=2]
+a \< a a a a \! a a a \break
+\override Hairpin #'to-barline = ##f
+a \< a a a a \! a a a
+@end lilypond
+
+This property is not effective for all spanners.  For example,
+seting it to @code{#t} has no effect on slurs or phrasing slurs
+or on other spanners for which terminating on the bar line would
+not be meaningful.
+
+@unnumberedsubsubsec Using the @code{line-spanner-interface}
+
+Objects which support the @code{line-spanner-interface} include
+
+@itemize
+@item @code{DynamicTextSpanner}
+@item @code{Glissando}
+@item @code{TextSpanner}
+@item @code{TrillSpanner}
+@item @code{VoiceFollower}
+@end itemize
+
+The routine responsible for drawing the stencils for these spanners is
+@code{ly:line-interface::print}.  This routine determines the
+exact location of the two end points and draws a line
+between them, in the style requested.  The locations of the two
+end points of the spanner are computed on-the-fly, but it is
+possible to override their Y-coordinates.  The
+properties which need to be specified are nested
+two levels down within the property hierarchy, but the syntax of
+the @code{\override} command is quite simple:
+
+@lilypond[relative=2,quote,verbatim]
+e2 \glissando b
+\once \override Glissando #'bound-details #'left #'Y = #3
+\once \override Glissando #'bound-details #'right #'Y = #-2
+e2 \glissando b
+@end lilypond
+
+The units for the @code{Y} property are @code{staff-space}s,
+with the center line of the staff being the zero point.
+For the glissando, this is the value for @code{Y} at the
+X-coordinate corresponding to the center point of each note head,
+if the line is imagined to be extended to there.
+
+If @code{Y} is not set, the value is computed from the vertical
+position of the corresponding attachment point of the spanner.
+
+In case of a line break, the values for the end points are
+specified by the @code{left-broken} and @code{right-broken}
+sub-lists of @code{bound-details}.  For example:
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
-e2 \glissando f
-\once \override Glissando #'bound-details #'right #'Y = #-2
-e2 \glissando f
+\override Glissando #'breakable = ##t
+\override Glissando #'bound-details #'right-broken #'Y = #-3
+c1 \glissando \break
+f1
 @end lilypond
 
 
-The following properties can be used for the left and right
-@code{bound-details}:
+A number of further properties of the @code{left} and
+@code{right} sub-lists of the @code{bound-details} property
+may be modified in the same way as @code{Y}:
 
 @table @code
 @item Y
-This sets the Y-coordinate of the end point, in staff space.  By
-default, it is the center of the bound object, so for a glissando
-it points to the vertical center of the note head.
+This sets the Y-coordinate of the end point, in @code{staff-space}s
+offset from the staff center line.  By default, it is the center of
+the bound object, so a glissando points to the vertical center of
+the note head.
 
-For horizontal spanners, such as text spanner and trill spanners,
+For horizontal spanners, such as text spanners and trill spanners,
 it is hardcoded to 0.
 
 @item attach-dir
-This determines where the line starts and ends in X-direction,
+This determines where the line starts and ends in the X-direction,
 relative to the bound object.  So, a value of @code{-1} (or
 @code{LEFT}) makes the line start/end at the left side of the note
 head it is attached to.
 
 @item X
-This is the absolute coordinate of the end point.  It is usually
-computed on the fly, and there is little use in overriding it.
+This is the absolute X-coordinate of the end point.  It is usually
+computed on the fly, and overriding it has little useful effect.
 
 @item stencil
 Line spanners may have symbols at the beginning or end, which is
-contained in this sub-property.  This is for internal use, it is
-recommended to use @code{text}.
+contained in this sub-property.  This is for internal use; it is
+recommended that @code{text} be used instead.
 
 @item text
-This is a markup that is evaluated to yield stencil.  It is used
-to put @i{cresc.} and @i{tr} on horizontal spanners.
+This is a markup that is evaluated to yield the stencil.  It is used
+to put @i{cresc.}, @i{tr} and other text on horizontal spanners.
 
 @lilypond[quote,ragged-right,fragment,relative=2,verbatim]
 \override TextSpanner #'bound-details #'left #'text
@@ -1882,48 +2054,58 @@ c2\startTextSpan b c a\stopTextSpan
 
 @item stencil-align-dir-y
 @item stencil-offset
-Without setting this, the stencil is simply put there at the
-end-point, as defined by the @code{X} and @code{Y} sub properties.
-Setting either @code{stencil-align-dir-y} or @code{stencil-offset}
-will move the symbol at the edge relative to the end point of the
-line
+Without setting one of these, the stencil is simply put at the
+end-point, centered on the line, as defined by the @code{X} and
+@code{Y} sub-properties.  Setting either @code{stencil-align-dir-y}
+or @code{stencil-offset} will move the symbol at the edge vertically
+relative to the end point of the line:
 
 @lilypond[relative=1,fragment,verbatim]
 \override TextSpanner #'bound-details
-  #'left #'stencil-align-dir-y = #DOWN
+  #'left #'stencil-align-dir-y = #-2
 \override TextSpanner #'bound-details
   #'right #'stencil-align-dir-y = #UP
 
 \override TextSpanner #'bound-details
-  #'left #'text = #"gggg"
+  #'left #'text = #"ggg"
 \override TextSpanner #'bound-details
-  #'right #'text = #"hhhh"
+  #'right #'text = #"hhh"
 c4^\startTextSpan c c c \stopTextSpan
 @end lilypond
 
+Note that negative values move the text @emph{up}, contrary to the
+effect that might be expected, as a value of @code{-1} or
+@code{DOWN} means align the @emph{bottom} edge of the text with
+the spanner line.  A value of @code{1} or @code{UP} aligns
+the top edge of the text with the spanner line.
+
 @item arrow
-Setting this sub property to @code{#t} produce an arrowhead at the
+Setting this sub-property to @code{#t} produces an arrowhead at the
 end of the line.
 
 @item padding
-This sub property controls the space between the specified
-end-point of the line and the actual end.  Without padding, a
+This sub-property controls the space between the specified
+end point of the line and the actual end.  Without padding, a
 glissando would start and end in the center of each note head.
 
 @end table
 
-The music function \endSpanners terminates spanners and hairpins
-after exactly one note.
+The music function @code{\endSpanners} terminates the spanner
+which starts on the immediately following note prematurely.  It
+is terminated after exactly one note, or at the following bar line
+if @code{to-barline} is true and a bar line occurs before the next
+note.
 
 @lilypond[verbatim,quote,ragged-right,relative=2,fragment]
 \endSpanners
-c2 \startTextSpan c2
-c2 \< c2
+c2 \startTextSpan c2 c2
+\endSpanners
+c2 \< c2 c2
 @end lilypond
 
-When using \endSpanners it is not necessary to close
+When using @code{\endSpanners} it is not necessary to close
 \startTextSpan with \stopTextSpan, nor is it necessary to close
-hairpins with \!.
+hairpins with @code{\!}.
 
 
 
@@ -2281,10 +2463,6 @@ Learning Manual:
 @node Line styles
 @subsection Line styles
 
-@c TODO: split the following explanations between expressive marks and
-@c text-related stuff. Perhaps create a new subsection named
-@c "Spanner limits", "Spanner boundaries"? -vv
-
 Some performance indications, e.g., @i{rallentando} and
 @i{accelerando} and @i{trills} are written as text and are
 extended over many measures with lines, sometimes dotted or wavy.
@@ -2294,11 +2472,11 @@ texts and the lines, and tuning their behavior is therefore also
 done in the same way.  It is done with a spanner, and the routine
 responsible for drawing the spanners is
 @code{ly:line-interface::print}.  This routine determines the
-exact location of the two @i{span points} and draws a line in
-between, in the style requested.
+exact location of the two @i{span points} and draws a line
+between them, in the style requested.
 
-Here is an example of the different line styles available, and how
-to tune them.
+Here is an example showing the different line styles available,
+and how to tune them.
 
 @lilypond[relative=2,ragged-right,verbatim,fragment]
 d2 \glissando d'2
@@ -2312,7 +2490,7 @@ d,2 \glissando d'2
 d,2 \glissando d'2
 @end lilypond
 
-The information that determines the end-points is computed
+The locations of the end-points of the spanner are computed
 on-the-fly for every graphic object, but it is possible to
 override these:
 
@@ -2323,28 +2501,15 @@ e2 \glissando f
 e2 \glissando f
 @end lilypond
 
-The @code{Glissando} object, like any other using the
-@code{ly:line-interface::print} routine, carries a nested
-association list.  In the above statement, the value for @code{Y}
-is set to @code{-2} for the association list corresponding to the
-right end point.  Of course, it is also possible to adjust the
-left side with @code{left} instead of @code{right}.
+The value for @code{Y} is set to @code{-2} for the right end
+point.  The left side may be similarly adjusted by specifying
+@code{left} instead of @code{right}.
 
 If @code{Y} is not set, the value is computed from the vertical
-position of right attachment point of the spanner.
+position of the left and right attachment points of the spanner.
 
-In case of a line break, the values for the span-points are
-extended with contents of the @code{left-broken} and
-@code{right-broken} sublists, for example
-
-@lilypond[relative=2,ragged-right,verbatim,fragment]
-\override Glissando #'breakable = ##T
-\override Glissando #'bound-details #'right-broken #'Y = #-3
-c1 \glissando \break
-f1
-@end lilypond
-
-For more details, see @ref{Spanners}.
+Other adjustments of spanners are possible, for details, see
+@ref{Spanners}.
 
 @node Rotating objects
 @subsection Rotating objects
