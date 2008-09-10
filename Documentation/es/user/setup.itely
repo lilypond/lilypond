@@ -17,9 +17,9 @@ LilyPond y otros programas.  Este capítulo se puede tratar tranquilamente como 
 lea solamente las secciones que le interesen.
 
 @menu
-* Setup for specific Operating Systems::  
-* Text editor support::         
-* Point and click::             
+* Setup for specific Operating Systems::
+* Text editor support::
+* Point and click::
 @end menu
 
 
@@ -30,7 +30,7 @@ Esta sección explica cómo realizar puestas a punto adicionales para sistemas o
 específicos.
 
 @menu
-* MacOS X on the command-line::  
+* MacOS X on the command-line::
 @end menu
 
 
@@ -100,11 +100,11 @@ Fíjese en que @var{ruta/hacia} será por lo general @code{/Applications/}.
 Existe apoyo por parte de varios editores de texto para LilyPond.
 
 @menu
-* Emacs mode::                  
-* Vim mode::                    
-* jEdit::                       
-* TexShop::                     
-* TextMate::                    
+* Emacs mode::
+* Vim mode::
+* jEdit::
+* TexShop::
+* TextMate::
 * LilyKDE::
 @end menu
 

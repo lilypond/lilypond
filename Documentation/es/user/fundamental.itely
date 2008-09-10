@@ -19,10 +19,10 @@ conceptos y técnicas que se requieren para producir partituras
 igualmente bellas pero más complejas.
 
 @menu
-* How LilyPond files work::  
-* Voices contain music::     
-* Contexts and engravers::   
-* Extending the templates::  
+* How LilyPond files work::
+* Voices contain music::
+* Contexts and engravers::
+* Extending the templates::
 @end menu
 
 
@@ -559,9 +559,9 @@ siempre contenida dentro de una voz --el concepto de LilyPond más
 fundamental de todos--.
 
 @menu
-* I'm hearing Voices::       
+* I'm hearing Voices::
 * Explicitly instantiating voices::
-* Voices and vocals::        
+* Voices and vocals::
 @end menu
 
 @node I'm hearing Voices
@@ -1518,9 +1518,9 @@ más detalle, pues son importantes en el ajuste fino de la salida de
 LilyPond.
 
 @menu
-* Contexts explained::       
-* Creating contexts::        
-* Engravers explained::      
+* Contexts explained::
+* Creating contexts::
+* Engravers explained::
 * Modifying context properties::
 * Adding and removing engravers::
 @end menu
@@ -2268,7 +2268,7 @@ contemplado aquí? Continúe leyendo.
 
 
 @menu
-* Soprano and cello::        
+* Soprano and cello::
 * Four-part SATB vocal score::
 * Building a score from scratch::
 @end menu

@@ -29,8 +29,8 @@ recomendamos @strong{fervientemente} el uso de los archivos binarios
 precompilados.
 
 @menu
-* Precompiled binaries::       
-* Compiling from source::      
+* Precompiled binaries::
+* Compiling from source::
 @end menu
 
 
@@ -73,12 +73,12 @@ mingw       - Windows x86
 @untranslated
 
 @menu
-* Downloading source code::    
-* Requirements::               
-* Building LilyPond::          
-* Building documentation::     
-* Testing LilyPond::           
-* Problems::                   
+* Downloading source code::
+* Requirements::
+* Building LilyPond::
+* Building documentation::
+* Testing LilyPond::
+* Problems::
 @end menu
 @node Downloading source code
 @subsection Downloading source code

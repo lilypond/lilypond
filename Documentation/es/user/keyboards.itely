@@ -18,9 +18,9 @@ Esta sección se ocupa de varios aspectos de la notación musical que
 son exclusivos de los instrumentos de teclado.
 
 @menu
-* Common notation for keyboards::  
-* Piano::                       
-* Accordion::                   
+* Common notation for keyboards::
+* Piano::
+* Accordion::
 @end menu
 
 @node Common notation for keyboards
@@ -30,11 +30,11 @@ Esta sección trata aspectos de notación que pueden aparecer en casi
 todos los instrumentos de teclado.
 
 @menu
-* References for keyboards::    
-* Changing staff manually::     
-* Changing staff automatically::  
-* Staff-change lines::          
-* Cross-staff stems::           
+* References for keyboards::
+* Changing staff manually::
+* Changing staff automatically::
+* Staff-change lines::
+* Cross-staff stems::
 @end menu
 
 @node References for keyboards
@@ -418,7 +418,7 @@ Esta sección trata de aspectos de la notación directamente
 relacionados con el piano.
 
 @menu
-* Piano pedals::                
+* Piano pedals::
 @end menu
 
 @node Piano pedals
