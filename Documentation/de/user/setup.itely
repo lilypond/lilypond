@@ -1,13 +1,15 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 76de7e168dbc9ffc7671d99663c5ce50dae42abb
+    Translation of GIT committish: cdb8fdf689c58f742333f4bf4f92cbfae2e01a5b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
 @c \version "2.11.51"
+
+@c Translators: Till Rettig, Reinhold Kainhofer
 
 @node Setup
 @chapter Setup
@@ -38,13 +40,14 @@ Dieser Abschnitt erklärt zusätzliche Einstellungen für bestimmte Betriebssyst
 @subsection MacOS X on the command-line
 
 Die Skripte (wie lilypond-book, convert-ly, abc2ly und sogar
-lilypond selber) sind innerhalb der MacOS X .app enthalten. Sie können 
+lilypond selber) sind innerhalb der .app-Datei für MacOS@tie{}X enthalten. Sie können 
 auf der Kommandozeile direkt aufgerufen werden, etwa
 
 @example
 @var{Pfad/zu}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
 
+@noindent
 Entsprechend funktionieren auch die anderen Skripte wie lilypond-book, 
 convert-ly, abc2ly usw.
 
@@ -106,6 +109,7 @@ Verschiedene Texteditoren haben Unterstützung für LilyPond.
 * jEdit::                       
 * TexShop::                     
 * TextMate::                    
+* LilyKDE::                     
 @end menu
 
 @node Emacs mode
@@ -187,7 +191,7 @@ Installationsanweisungen finden sich unter
 
 Der 
 @uref{http://@/www@/.uoregon@/.edu/~koch/texshop/index@/.html,TexShop}-Editor 
-für Mac OS X kann erweitert werden, um LilyPond, lilypond-book und convert-ly aus dem
+für MacOS@tie{}X kann erweitert werden, um LilyPond, lilypond-book und convert-ly aus dem
 Editor heraus zu starten. Die Erweiterung findet sich unter
 @uref{http://@/www@/.dimi@/.uniud@/.it/vitacolo/freesoftware@/.html}.
 
@@ -207,6 +211,23 @@ svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
 ausführt.
 
 
+@node LilyKDE
+@subsection LilyKDE
+
+@uref{http://lilykde.googlecode.com/,LilyKDE} ist eine Erweiterung für 
+den Texteditor @uref{http://kate-editor.org/,Kate} für KDE. LilyKDE
+beinhaltet einen mächtigen Assistenten, mit dem sehr schnell neue
+LilyPond-Dokumente erstellt werden könne, sowie einen eingebetteten
+PDF-Betrachter.
+
+LilyKDE benutzt auch @uref{http://www.volny.cz/smilauer/rumor/,Rumor},
+um Musik direkt von einem MIDI-Keyboard einzulesen.
+
+Weitere Fähigkeiten von LilyKDE sind Silbentrennung für Liedtexte oder
+die Möglichkeit, LilyPond gleichzeitig mit mehreren Eingabedateien vom
+KDE Dateimanager aus aufzurufen.
+
+
 @node Point and click
 @section Point and click
 @cindex Point and click
@@ -222,8 +243,8 @@ einen Texteditor mit dem Cursor an der richtigen Stelle öffnet.
 Damit diese Kettenreaktion funktioniert, müssen Sie ihrem PDF-Programm
 mit dem Skript @file{lilypond-invoke-editor} beibringen, Hyperlinks zu folgen.
 
-Im Falle von Xpdf auf einer Unix-Maschine sollte folgende Zeile in der Datei
-@file{xpdfrc}@footnote{Unter Unix befindet sich diese Datei entweder in
+Im Falle von Xpdf auf einer UNIX-Maschine sollte folgende Zeile in der Datei
+@file{xpdfrc}@footnote{Unter UNIX befindet sich diese Datei entweder in
 @file{/etc/xpdfrc} oder als @file{.xpdfrc} in Ihrem Heim-Verzeichnis.} stehen.
 
 @example
@@ -276,14 +297,25 @@ Größe der PDF- und PS-Dateien zu verringern, kann point and click
 ausgeschaltet werden, indem die Zeile
 
 @example
-#(ly:set-option 'point-and-click #f)
+\pointAndClickOff
 @end example
 
 @noindent
-in der @file{.ly}-Datei gesetzt wird. Alternativ erreichen Sie das auch mit einer
-Kommandozeilenoption:
+in der @file{.ly}-Datei gesetzt wird. Point and Click kann auch explizit
+eingeschaltet werden durch die Zeile:
+
+@example
+\pointAndClickOn
+@end example
+
+Alternativ können Sie Point and Click auch mit einer
+Kommandozeilenoption ausschalten:
 
 @example
 lilypond -dno-point-and-click file.ly
 @end example
 
+@warning{Sie sollten Point and Click immer für Dateien ausschalten, die 
+Sie an andere Personen weitergeben möchten. Anderenfalls werden
+Pfadinformationen Ihres Computers in die PDF-Datei kopiert, was ein
+potentielles Sicherheitsrisiko darstellt.}
