@@ -638,8 +638,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	       (base (cadr l)))
 	  (LilyPond-command-expand
 	   (concat (substring string 0 b)
-		   dir
-		   base
+		   (shell-quote-argument (concat dir base))
 		   (let ((entry (assoc (substring string b e)
 				       LilyPond-expand-alist)))
 		     (if entry (cdr entry) ""))
