@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: e8890f9d4d52772228663727f84021fbcfecd221
+    Translation of GIT committish: c51cf4f12e36e3887eb5ec5b222b63bf745415f3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -53,15 +53,20 @@ bella, que contenga notación musical usual.
 Esta sección le ofrece una introducción básica al trabajo con LilyPond.
 
 @menu
-* Compiling a file::            
-* Simple notation::             
+* Compiling a file::
+* Simple notation::
 * Working on input files::
-* How to read the manual::      
+* How to read the manual::
 @end menu
 
 
 @node Compiling a file
 @subsection Compiling a file
+
+@cindex compilación
+@cindex ejemplo inicial
+@cindex inicial, ejemplo
+@cindex mayúsculas, sensible a
 
 @qq{Compilación} es una palabra que significa procesar un texto de
 entrada en formato de LilyPond para producir un archivo que se puede
@@ -97,8 +102,6 @@ presente manual ¡pero no las omita en su propia música!  Para ver más
 información sobre la presentación de los ejemplos del manual, consulte
 @ref{How to read the manual}.}
 
-
-@cindex sensible a las mayúsculas
 Además, la entrada de LilyPond es @strong{sensible a las mayúsculas}.
 @code{ @{ c d e @}} es una entrada válida; @code{@{ C D E @}} produce
 un mensaje de error.
@@ -109,6 +112,13 @@ un mensaje de error.
 
 @cindex PDF, archivo
 @cindex ver la música
+@cindex editores de texto
+@cindex ejecutar LilyPond bajo MacOS X
+@cindex MacOS X, ejecutar LilyPond
+@cindex ejecutar LilyPond bajo Windows
+@cindex Windows, ejecutar LilyPond
+@cindex ejecutar LilyPond bajo UNIX
+@cindex UNIX, ejecutar LilyPond
 
 En esta sección vamos a explicar qué órdenes hay que ejecutar y cómo,
 para ver o imprimir el resultado.
@@ -201,6 +211,9 @@ Convirtiendo a `prueba.pdf'...
 @node Simple notation
 @subsection Simple notation
 
+@cindex sencilla, notación
+@cindex notación sencilla
+
 LilyPond añadirá ciertos elementos de notación de manera automática.
 En el siguiente ejemplo hemos especificado solamente cuatro alturas,
 pero LilyPond ha añadido la clave, el compás y las duraciones.
@@ -217,6 +230,21 @@ automáticos son adecuados.
 
 
 @subheading Pitches
+
+@cindex alturas
+@cindex notas
+@cindex relativo, modo
+@cindex apóstrofe
+@cindex comilla simple
+@cindex coma
+@cindex alteraciones y modo relativo
+@cindex relativo, modo, alteraciones y
+
+@funindex \relative
+@funindex relative
+@funindex '
+@funindex ,
+
 
 Glosario musical:
 @rglos{pitch},
@@ -326,6 +354,16 @@ de esta forma.
 
 @subheading Durations (rhythms)
 
+@cindex duraciones de las notas
+@cindex notas, duraciones de
+@cindex ritmos
+@cindex redonda
+@cindex blanca
+@cindex negra
+@cindex figura con puntillo
+@cindex puntillo
+@cindex notación de las duraciones
+
 Glosario musical:
 @rglos{beam},
 @rglos{duration},
@@ -366,6 +404,9 @@ especificar de forma explícita (es decir: mediante un número).
 
 @subheading Rests
 
+@cindex silencio
+@cindex notación de los silencios
+
 Glosario musical:
 @rglos{rest}.
 
@@ -381,6 +422,11 @@ nombre @code{r}@tie{}:
 
 
 @subheading Time signature
+
+@cindex compás, indicación de
+
+@funindex \time
+@funindex time
 
 Glosario musical:
 @rglos{time signature}.
@@ -401,6 +447,19 @@ La @notation{indicación de compás} se puede establecer con la orden
 
 
 @subheading Clef
+
+@cindex clave
+@cindex sol, clave de
+@cindex do en tercera, clave de
+@cindex do en cuarta, clave de
+@cindex fa, clave de
+@cindex treble
+@cindex alto
+@cindex tenor
+@cindex bass
+
+@funindex \clef
+@funindex clef
 
 Glosario musical:
 @rglos{clef}.
@@ -449,6 +508,19 @@ Referencia de la notación:
 @node Working on input files
 @subsection Working on input files
 
+@cindex llaves
+@cindex comentarios
+@cindex línea, comentario de
+@cindex comentario de línea
+@cindex bloque, comentario de
+@cindex mayúsculas, sensible a
+@cindex espacios, insensible a
+@cindex expresiones
+
+@funindex { ... }
+@funindex %
+@funindex %@{ ... %@}
+
 Los archivos de entrada de LilyPond son como los archivos fuente de
 muchos lenguajes de programación corrientes.  Son sensibles a las
 mayúsculas e insensibles al número de espacios Las expresiones se
@@ -460,7 +532,6 @@ continuación explicaremos el significado de todos estos términos:
 
 @itemize
 
-@cindex Sensible a las mayúsculas
 @item
 @strong{Sensible a las mayúsculas}: tiene importancia el hecho de que
 introduzca una letra en minúsculas (p.ej. @w{@code{a, b, s, t}}) o en
@@ -548,6 +619,16 @@ fragmento muestra algunos posibles usos para los comentarios:
 @node How to read the manual
 @subsection How to read the manual
 
+@cindex cómo leer el manual
+@cindex manual, lectura del
+@cindex leer el manual
+@cindex ejemplos, pulsar
+@cindex pulsar sobre los ejemplos
+@cindex consejos para construir archivos
+@cindex plantillas
+@cindex construir archivos, consejos
+@cindex archivos, consejos para construir
+
 Como ya vimos en @ref{Working on input files}, el código de entrada de
 LilyPond debe estar rodeado de llaves @{ @} o de @w{@code{\relative
 c'' @{ ... @}}}.  Durante el resto del presente manual, la mayor parte
@@ -609,12 +690,12 @@ Esta sección es una introducción a la notación corriente que se utiliza para 
 o un pentagrama.
 
 @menu
-* Accidentals and key signatures::  
-* Ties and slurs::              
-* Articulation and dynamics::   
-* Adding text::                 
-* Automatic and manual beams::  
-* Advanced rhythmic commands::  
+* Accidentals and key signatures::
+* Ties and slurs::
+* Articulation and dynamics::
+* Adding text::
+* Automatic and manual beams::
+* Advanced rhythmic commands::
 @end menu
 
 
@@ -622,6 +703,21 @@ o un pentagrama.
 @subsection Accidentals and key signatures
 
 @subheading Accidentals
+
+@cindex accidentales, alteraciones
+@cindex alteraciones
+@cindex alteraciones y armaduras
+@cindex sostenido
+@cindex doble sostenido
+@cindex sostenido, doble
+@cindex bemol
+@cindex doble bemol
+@cindex bemol, doble
+
+@funindex es
+@funindex is
+@funindex eses
+@funindex isis
 
 Glosario musical:
 @rglos{sharp},
@@ -645,6 +741,21 @@ cis1 ees fisis, aeses
 
 @cindex tonalidad, armadura de la, establecer
 @subheading Key signatures
+
+@cindex tonalidad, armadura de
+@cindex armadura
+@cindex mayor
+@cindex menor
+@cindex alteraciones y armadura
+@cindex contenido frente a presentación
+@cindex presentación frente a contenido
+
+@funindex \key
+@funindex key
+@funindex \major
+@funindex major
+@funindex \minor
+@funindex minor
 
 Glosario musical:
 @rglos{key signature},
@@ -736,7 +847,15 @@ Glosario musical:
 @node Ties and slurs
 @subsection Ties and slurs
 
-@cindex ligaduras de unión
+@cindex ligadura de unión
+@cindex ligadura de expresión
+@cindex ligadura de fraseo
+@cindex fraseo, ligadura de
+
+@funindex ~
+@funindex ( ... )
+@funindex \( ... \)
+
 @subheading Ties
 
 Glosario musical:
@@ -750,7 +869,6 @@ g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
 
-@cindex ligaduras de expresión
 @subheading Slurs
 
 Glosario musical:
@@ -764,8 +882,6 @@ respectivamente.
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
-@cindex fraseo, ligaduras de
-@cindex ligaduras de fraseo
 @subheading Phrasing slurs
 
 Glosario musical:
@@ -815,10 +931,11 @@ Referencia de la notación:
 @node Articulation and dynamics
 @subsection Articulation and dynamics
 
-@cindex articulación
-@cindex acentos
-@cindex staccato
 @subheading Articulations
+
+@cindex articulación
+@cindex acento
+@cindex staccato
 
 Glosario musical:
 @rglos{articulation}.
@@ -830,8 +947,12 @@ notas utilizando un guión @code{-} seguido de un carácter único:
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
-@cindex digitaciones
 @subheading Fingerings
+
+@cindex digitaciones
+
+@funindex ^
+@funindex _
 
 Glosario musical:
 @rglos{fingering}.
@@ -855,6 +976,24 @@ c_-^1 d^. f^4_2-> e^-_+
 
 @subheading Dynamics
 
+@cindex dinámica, indicaciones de
+@cindex matices
+@cindex decrescendo
+@cindex crescendo
+
+@funindex \f
+@funindex \ff
+@funindex \mp
+@funindex \p
+@funindex \mf
+@funindex \pp
+@funindex \<
+@funindex <
+@funindex \>
+@funindex >
+@funindex \!
+@funindex !
+
 Glosario musical:
 @rglos{dynamics},
 @rglos{crescendo},
@@ -866,10 +1005,6 @@ añadiendo las marcas (con una barra invertida) a la nota:
 @lilypond[verbatim,quote,relative=2]
 c\ff c\mf c\p c\pp
 @end lilypond
-
-@cindex expresiones dinámicas
-@cindex decrescendo
-@cindex crescendo
 
 Los @notation{crescendi} y @notation{decrescendi} comienzan con las
 órdenes @code{\<} y @code{\>}.  La siguiente indicación de matiz, como
@@ -890,6 +1025,13 @@ Referencia de la notación:
 
 @node Adding text
 @subsection Adding text
+
+@cindex texto, añadir
+@cindex añadir texto
+@cindex marcado
+
+@funindex \markup
+@funindex markup
 
 Es posible añadir texto a la partitura:
 
@@ -916,10 +1058,23 @@ Referencia de la notación:
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
+@cindex barras de corchea
+@cindex barrado
+@cindex automáticas, barras
+@cindex manuales, barras
+@cindex barras automáticas
+@cindex barras manuales
+
+@funindex [ ... ]
+@funindex [
+@funindex ]
+@funindex \autoBeamOff
+@funindex autoBeamOff
+@funindex \autoBeamOn
+@funindex autoBeamOn
+
 Glosario musical:
 @rglos{beam}.
-
-@cindex barras, establecimiento manual
 
 Todas las @notation{barras} de las figuras se dibujan automáticamente:
 
@@ -957,9 +1112,13 @@ Referencia de la notación:
 @node Advanced rhythmic commands
 @subsection Advanced rhythmic commands
 
+@subheading Partial measure
+
 @cindex anacrusa
 @cindex compás parcial
-@subheading Partial measure
+
+@funindex \partial
+@funindex partial
 
 Glosario musical:
 @rglos{anacrusis}.
@@ -973,9 +1132,13 @@ anacrusa de negra y @code{\partial 8} de corchea.
 f8 c2 d
 @end lilypond
 
+@subheading Tuplets
+
 @cindex grupos especiales
 @cindex tresillos
-@subheading Tuplets
+
+@funindex \times
+@funindex times
 
 Glosario musical:
 @rglos{note value},
@@ -994,10 +1157,18 @@ expresa, por tanto un @notation{tresillo} lleva una fracción de 2/3:
 \times 2/3 { d4 a8 }
 @end lilypond
 
+@subheading Grace notes
+
 @cindex notas de adorno
 @cindex acciaccatura
 @cindex appoggiatura
-@subheading Grace notes
+
+@funindex \grace
+@funindex grace
+@funindex \acciaccatura
+@funindex acciaccatura
+@funindex \appoggiatura
+@funindex acciaccatura
 
 Glosario musical:
 @rglos{grace notes},
@@ -1047,6 +1218,11 @@ de una voz en el mismo pentagrama.
 @node Music expressions explained
 @subsection Music expressions explained
 
+@cindex musical, expresión
+@cindex expresión musical
+@cindex compuesta, expresión musical
+@cindex musical, expresión, compuesta
+
 En los archivos de entrada de LilyPond, la música se representa
 mediante @emph{expresiones musicales}.  Una sola nota es una expresión
 musical:
@@ -1072,8 +1248,6 @@ musical:
 { { a4 g } f g }
 @end lilypond
 
-@cindex expresión
-@cindex expresión musical
 @subheading Analogy: mathematical expressions
 
 Este mecanismo es semejante a las fórmulas matemáticas: una fórmula
@@ -1102,6 +1276,21 @@ hace necesario para músicas complejas como las partituras polifónicas.
 
 
 @subheading Simultaneous music expressions: multiple staves
+
+@cindex varios pentagramas
+@cindex pentagramas, varios
+@cindex polifonía
+@cindex combinar expresiones en paralelo
+@cindex paralelas, expresiones
+@cindex expresiones paralelas
+@cindex relativo, modo, música simultánea y
+@cindex relativo, modo, expresiones paralelas y
+@cindex simultánea, música, modo relativo y
+@cindex paralelas, expresiones, modo relativo y
+
+@funindex <<
+@funindex >>
+@funindex << ... >>
 
 Glosario musical:
 @rglos{polyphony}.
@@ -1153,6 +1342,22 @@ pentagrama.
 
 @node Multiple staves
 @subsection Multiple staves
+
+@cindex varios pentagramas
+@cindex pentagramas, varios
+@cindex contexto
+@cindex contexto de notación
+@cindex notación, contexto de
+
+@funindex \new Staff
+@funindex new Staff
+@funindex Staff
+@funindex \new
+@funindex new
+@funindex Score
+@funindex Voice
+@funindex Lyrics
+@funindex ChordNames
 
 Como ya hemos visto en @ref{Music expressions explained}, los
 archivos de entrada para LilyPond se construyen a base de expresiones
@@ -1211,9 +1416,16 @@ partituras polirrítmicas.
 @node Staff groups
 @subsection Staff groups
 
-@cindex piano staff
-@cindex choir staff
-@cindex grand staff
+@cindex sistema de piano
+@cindex piano, sistema de
+@cindex sistema de coro
+@cindex coro, sistema de
+@cindex grupo de pentagramas
+@cindex pentagramas, grupo de
+
+@funindex PianoStaff
+@funindex GrandStaff
+@funindex ChoirStaff
 
 Glosario musical:
 @rglos{brace}.
@@ -1260,6 +1472,11 @@ Referencia de la notación:
 @subsection Combining notes into chords
 
 @cindex acordes
+@cindex duraciones de notas en acordes
+
+@funindex <
+@funindex >
+@funindex < ... >
 
 Glosario musical:
 @rglos{chord}.
@@ -1295,7 +1512,15 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 
 @cindex polifonía
 @cindex varias voces
-@cindex voces, más (en un solo pentagrama)
+@cindex voces, más, en un solo pentagrama
+@cindex único, polifonía en pentagrama
+@cindex separador, silencio
+@cindex silencio separador
+
+@funindex << ... \\ ... >>
+@funindex <<
+@funindex \\
+@funindex >>
 
 Cuando distintas líneas melódicas se combinan sobre un solo
 pentagrama, se imprimen como voces polifónicas; cada voz lleva sus
@@ -1369,6 +1594,9 @@ canción sencillas.
 @cindex letra
 @cindex canciones
 
+@funindex \addlyrics
+@funindex addlyrics
+
 Glosario musical:
 @rglos{lyrics}.
 
@@ -1407,14 +1635,18 @@ para expresar que la música y la letra han de suceder al mismo tiempo.
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
 
-Glosario musical:
-@rglos{melisma},
-@rglos{extender line}.
-
 @cindex melisma
 @cindex línea de extensión
 @cindex guión
 @cindex guión bajo
+@cindex letra, alineación de
+@cindex alineación de la letra
+@cindex letra, palabras polisílabas
+@cindex palabras polisílabas en la letra
+
+Glosario musical:
+@rglos{melisma},
+@rglos{extender line}.
 
 La siguiente línea de la canción infantil es @notation{The moon doth
 shine as bright as day}.  A continuación vamos a ampliarla:
@@ -1424,7 +1656,7 @@ shine as bright as day}.  A continuación vamos a ampliarla:
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
+    d4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c b a d4 b8 g4.
   }
   \addlyrics {
@@ -1446,14 +1678,14 @@ ligadura de expresión sobre ellas (véase @ref{Ties and slurs}):
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
+    d4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c( b) a d4 b8 g4.
   }
   \addlyrics {
     Girls and boys come out to play,
     The moon doth shine as bright as day;
   }
->> 
+>>
 @end lilypond
 
 Ahora la letra se alinea correctamente con las notas, pero el barrado
@@ -1487,14 +1719,14 @@ melisma:
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
+    d4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c[ b] a d4 b8 g4.
   }
   \addlyrics {
     Girls and boys come out to play,
     The moon doth shine _ as bright as day;
   }
->> 
+>>
 @end lilypond
 
 Si una sílaba se extiende sobre varias notas o una sola nota muy
@@ -1509,11 +1741,11 @@ del @notation{Lamento de Dido}, de @notation{Dido y Eneas} de Purcell:
   \relative c'' {
     \key g \minor
     \time 3/2
-    g2 a bes bes( a) 
+    g2 a bes bes( a)
     b c4.( bes8 a4. g8 fis4.) g8 fis1
   }
   \addlyrics {
-    When I am laid, 
+    When I am laid,
     am laid __ in earth,
   }
 >>
@@ -1536,11 +1768,11 @@ las notas.
     \key g \major
     \time 3/4
     \partial 4
-    d4 g4 g a8( b) g4 g4 
+    d4 g4 g a8( b) g4 g4
     b8( c) d4 d e4 c2
   }
   \addlyrics {
-    A -- way in a __ man -- ger, 
+    A -- way in a __ man -- ger,
     no __ crib for a bed, __
   }
 >>
@@ -1581,6 +1813,9 @@ Referencia de la notación:
 
 @node Lyrics to multiple staves
 @subsection Lyrics to multiple staves
+
+@cindex letra y varios pentagramas
+@cindex varios pentagramas y letra
 
 La solución sencilla que utiliza @code{\addlyrics} se puede usar para
 poner letra a más de un pentagrama.  Aquí aparece un ejemplo sacado
@@ -1639,6 +1874,16 @@ del manual.
 @node Organizing pieces with variables
 @subsection Organizing pieces with variables
 
+@cindex variables
+@cindex variables, definir
+@cindex identificadores
+@cindex macros
+@cindex assignación de variables
+@cindex uso de las variables
+@cindex variables, uso de
+@cindex variables, caracteres permitidos en
+@cindex caracteres permitidos en variables
+
 Cuando los elementos que hemos discutido anteriormente se combinan
 para producir archivos mayores, las expresiones musicales se hacen
 enormes.  En música polifónica con muchos pentagramas, los archivos de
@@ -1655,7 +1900,7 @@ musicaConNombre = @{ @dots{} @}
 
 El contenido de la expresión musical @code{musicaConNombre} se puede usar
 posteriormente colocando una barra invertida delante del nombre
-(@code{\musicaConNombre}, igual que una orden normal de LilyPond). 
+(@code{\musicaConNombre}, igual que una orden normal de LilyPond).
 
 @lilypond[verbatim,quote]
 violin = \new Staff {
@@ -1724,7 +1969,18 @@ lugares.  El siguiente ejemplo utiliza las variables anteriores:
 @node Version number
 @subsection Version number
 
-@cindex indicación de la versión
+@cindex versión
+@cindex versión, indicación de
+@cindex versión, número de
+@cindex actualizaciones
+@cindex futuras, actualizaciones
+@cindex actualizar archivos
+@cindex archivos, actualización de
+
+@funindex \version
+@funindex version
+@funindex convert-ly
+
 La indicación @code{\version} deja registrado para qué versión de
 LilyPond se escribió el archivo:
 
@@ -1745,6 +2001,13 @@ más detalles, consulte @rprogram{Updating files with convert-ly}).
 
 @node Adding titles
 @subsection Adding titles
+
+@cindex título
+@cindex cabeceras
+@cindex bloque de cabeceras
+
+@funindex \header
+@funindex header
 
 La información sobre el título, autor, número de Opus y similares se
 escriben en el bloque @code{\header}.  Éste se encuentra fuera de la
@@ -1771,6 +2034,13 @@ en @ruser{Creating titles}.
 
 @node Absolute note names
 @subsection Absolute note names
+
+@cindex notas, nombres de
+@cindex notas, nombres absolutos de
+@cindex absoluto, modo
+@cindex absolutos, valores de altura
+@cindex alturas, valores absolutos de
+@cindex absolutos, nombres de nota
 
 Hasta el momento siempre hemos utilizado @code{\relative} para definir
 las alturas.  Ésta es la forma más sencilla de escribir la mayor parte
