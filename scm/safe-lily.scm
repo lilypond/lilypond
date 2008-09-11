@@ -120,6 +120,7 @@
    ly:spanner-broken-into
    ly:spanner-bound
    ly:spanner?
+   ly:staff-symbol-line-thickness
    ly:stencil-add
    ly:stencil-aligned-to
    ly:stencil-combine-at-edge
