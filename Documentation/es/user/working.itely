@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 23542761090f167ad42dbff7ef11d44a9c1374ac
+    Translation of GIT committish: 44ece5716678c487c07dbf77c9f3308b5dec06e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,9 +19,9 @@ que lea este capítulo.
 
 
 @menu
-* Suggestions for writing LilyPond files::  
-* When things don't work::      
-* Scores and parts::            
+* Suggestions for writing LilyPond files::
+* When things don't work::
+* Scores and parts::
 @end menu
 
 
@@ -58,11 +58,11 @@ fáciles (o más difíciles) de actualizar.
 @end itemize
 
 @menu
-* General suggestions::         
-* Typesetting existing music::  
-* Large projects::              
-* Saving typing with variables and functions::  
-* Style sheets::                
+* General suggestions::
+* Typesetting existing music::
+* Large projects::
+* Saving typing with variables and functions::
+* Style sheets::
 @end menu
 
 
@@ -212,9 +212,9 @@ hornNotes = \relative c'' { c4 b dis c }
 Incluso se dará cuenta de que esto puede ser útil en música minimalista:
 
 @lilypond[quote,verbatim,ragged-right]
-fragA = \relative c'' { a4 a8. b16 }
-fragB = \relative c'' { a8. gis16 ees4 }
-violin = \new Staff { \fragA \fragA \fragB \fragA }
+fragmentA = \relative c'' { a4 a8. b16 }
+fragmentB = \relative c'' { a8. gis16 ees4 }
+violin = \new Staff { \fragmentA \fragmentA \fragmentB \fragmentA }
 \score {
   {
     \violin
@@ -263,6 +263,9 @@ violin = \relative c'' @{
   @}
 @}
 @end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
 
 Hasta ahora hemos contemplado la sustitución estática: cuando LilyPond
 se encuentra con @code{\padText}, lo sustituye con aquello que
@@ -550,13 +553,14 @@ Yo utilizo media docena de archivos de
 \include "../iniciar/iniciar-papel.ly"
 @end example
 
+
 @node When things don't work
 @section When things don't work
 
 @menu
-* Updating old files::          
-* Troubleshooting (taking it all apart)::  
-* Minimal examples::            
+* Updating old files::
+* Troubleshooting (taking it all apart)::
+* Minimal examples::
 @end menu
 
 @node Updating old files

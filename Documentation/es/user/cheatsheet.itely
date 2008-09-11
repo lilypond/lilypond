@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: b9526773cf95ca29e3d3352c524718fc8e91c599
+    Translation of GIT committish: 44ece5716678c487c07dbf77c9f3308b5dec06e3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -36,7 +36,7 @@ c1 c2 c8 c16
 @tab
 @lilypond[fragment,relative=2,notime]
 \override Staff.Clef #'break-visibility = #all-invisible
-c4. c4..  
+c4. c4..
 @end lilypond
 
 @item @code{c d e f g a b }
@@ -67,7 +67,7 @@ s4_" "
 @tab compás
 @tab
 @lilypond[fragment]
-\override Staff.Clef #'transparent = ##t 
+\override Staff.Clef #'transparent = ##t
 \time 3/4
 s4_" "
 \time 4/4
@@ -76,7 +76,7 @@ s16_" "
 
 
 @item @code{r4 r8}
-@tab silencio 
+@tab silencio
 @tab
 @lilypond[relative=2,notime,fragment]
 \override Staff.Clef #'break-visibility = #all-invisible
@@ -98,7 +98,7 @@ d ~ d
 @lilypond[notime,fragment]
 \clef treble
 \key es \major
-s4 
+s4
 @end lilypond
 
 @item @var{note}@code{'}
@@ -167,7 +167,7 @@ a8-[ b-]
    } >>
 @end lilypond
 
-  
+
 @item @code{c-> c-.}
 @tab articulaciones
 @tab
@@ -178,7 +178,7 @@ c-> c-.
 
 
 @item @code{c2\mf c\sfz}
-@tab dinámica
+@tab matices dinámicos
 @tab
 @lilypond[fragment,relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
@@ -212,7 +212,7 @@ a\> a a\!
 @tab
 @lilypond[fragment,relative=2]
 \set Staff.implicitTimeSignatureVisibility = #all-invisible
-<c e> 
+<c e>
 @end lilypond
 
 
@@ -263,7 +263,7 @@ twinkle
 <<
    { g'1 g }
   \new Lyrics \lyricsto "" { twin -- kle }
->> 
+>>
 @end lilypond
 
 @item @code{\chordmode @{ c:dim f:maj7 @}}
