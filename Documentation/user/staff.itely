@@ -27,7 +27,7 @@ performance marks to single staves.
 @node Displaying staves
 @subsection Displaying staves
 
-This section shows the different possibilities of creating and
+This section describes the different methods of creating and
 grouping staves, which are marked at the beginning of each line
 with either a bracket or a brace.
 
@@ -101,9 +101,8 @@ There are two staff contexts specific for the notation of ancient
 music: @code{MensuralStaff} and @code{VaticanaStaff}.  They are
 described in @ref{Pre-defined contexts}.
 
-Staves can be started or stopped at any point in the score.  The
-commands @code{\startStaff} and @code{\stopStaff} are used for
-this purpose.  For details, see @ref{Staff symbol}.
+New single staff contexts may be defined.  For details, see
+@ref{Defining new contexts}.
 
 
 @seealso
@@ -120,7 +119,8 @@ Notation Reference:
 @ref{Pre-defined contexts},
 @ref{Staff symbol},
 @ref{Gregorian chant contexts},
-@ref{Mensural contexts}.
+@ref{Mensural contexts},
+@ref{Defining new contexts}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -217,6 +217,9 @@ Each staff group context sets the property
 @code{SystemStartSquare}, is also available, but it must be
 explicitly specified.
 
+New staff group contexts may be defined.  For details, see
+@ref{Defining new contexts}.
+
 
 @snippets
 
@@ -244,7 +247,8 @@ Music Glossary:
 @rglos{grand staff}.
 
 Notation Reference:
-@ref{Instrument names}.
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -308,6 +312,9 @@ Bar lines are @emph{not} connected between staves of an
 >>
 @end lilypond
 
+New nested staff group contexts can be defined.  For details, see
+@ref{Defining new contexts}.
+
 
 @snippets
 
@@ -319,7 +326,8 @@ Bar lines are @emph{not} connected between staves of an
 
 Notation Reference:
 @ref{Grouping staves},
-@ref{Instrument names}.
+@ref{Instrument names},
+@ref{Defining new contexts}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -392,7 +400,7 @@ note positions are not influenced by the staff line positions.
 @warning{The @code{'line-positions} property overrides the
 @code{'line-count} property.  The number of staff lines is
 implicitly defined by the number of elements in the list of values
-for @code{'line-positions}}
+for @code{'line-positions}.}
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -422,8 +430,8 @@ thickness.
 { e4 d c b }
 @end lilypond
 
-The distance between staff lines can be changed.  This setting has
-influence on ledger lines as well.
+The distance between staff lines can be changed.  This setting
+affects the spacing of ledger lines as well.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -433,8 +441,8 @@ influence on ledger lines as well.
 @end lilypond
 
 The width of a staff can be modified.  The unit is one staff
-space.  The spacing of objects inside the staff is not influenced
-by this setting.
+space.  The spacing of objects inside the staff is not affected by
+this setting.
 
 @lilypond[verbatim,quote,relative=1]
 \new Staff \with {
@@ -464,6 +472,20 @@ b2 b
 a2 a
 @end lilypond
 
+@cindex stopping a staff
+
+@noindent
+In general, @code{\startStaff} and @code{\stopStaff} can be used
+to stop or start a staff in the middle of a score.
+
+@lilypond[verbatim,quote,relative=2]
+c4 b a2
+\stopStaff
+b4 c d2
+\startStaff
+e4 d c2
+@end lilypond
+
 
 @predefined
 
@@ -485,7 +507,7 @@ Music Glossary:
 @rglos{staff}.
 
 Notation Reference:
-@ref{Displaying pitches}.
+@ref{Clef}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -525,6 +547,7 @@ staff in the appropriate location:
 }
 @end lilypond
 
+@noindent
 However, the above example is usually not the desired result.  To
 create ossia staves that are above the original staff, have no
 time signature or clef, and have a smaller font size, tweaks must
@@ -596,47 +619,6 @@ example.
 >>
 @end lilypond
 
-@c The following is the legacy "ossia.ly" example
-@c
-@c I don't think this method is very efficient.
-@c I'm commenting it out for now.  -pm
-
-@ignore
-
-@ lilypond[verbatim,quote]
-<<
-  \new Staff \with
-  {
-    %No time signature in the ossia staff
-    \remove "Time_signature_engraver"
-    fontSize = #-3
-    \override StaffSymbol #'staff-space = #(magstep -3)
-    \override StaffSymbol #'thickness = #(magstep -3)
-    firstClef = ##f
-  }
-  \relative c'' {
-    \stopStaff
-    \skip 2
-
-    \startStaff
-    \clef treble
-    bes8[^"ossia" g bes g]
-    \stopStaff
-
-    s2
-
-    \startStaff
-    f8 d g4
-  }
-  \new Staff \relative c'' {
-    \time 2/4
-    c4 c g' g a a g2
-  }
->>
-@ end lilypond
-
-@end ignore
-
 Using the @code{\RemoveEmptyStaffContext} command to create ossia
 staves may be used as an alternative.  This method is most
 convenient when ossia staves occur immediately following a line
@@ -697,7 +679,7 @@ Learning Manual:
 @rlearning{Length and thickness of objects}.
 
 Notation Reference:
-@ref{Setting the staff size}.
+@ref{Hiding staves}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -732,11 +714,11 @@ alternative, @code{\stopStaff} may be used.
 Empty staves can be hidden by setting the
 @code{\RemoveEmptyStaffContext} command in the @code{\layout}
 block.  In orchestral scores, this style is known as @q{Frenched
-Score}.  By default, this command hides all empty staves in a
-score except for those in the first system.
+Score}.  By default, this command hides and removes all empty
+staves in a score except for those in the first system.
 
 @warning{An empty staff may only include multi-measure rests,
-skips, spacer rests, or a combination of these.}
+skips, spacer rests, or a combination of these elements.}
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -744,6 +726,7 @@ skips, spacer rests, or a combination of these.}
     \RemoveEmptyStaffContext
   }
 }
+
 \relative c' <<
   \new Staff {
     e4 f g a \break
@@ -760,6 +743,7 @@ skips, spacer rests, or a combination of these.}
 
 @cindex ossia
 
+@noindent
 @code{\RemoveEmptyStaffContext} can also be used to create ossia
 sections for a staff.  For details, see @ref{Ossia staves}.
 
@@ -804,7 +788,21 @@ Internals Reference:
 @rinternals{FiguredBass},
 @rinternals{Lyrics},
 @rinternals{Staff},
-@rinternals{VerticalAxisGroup}.
+@rinternals{VerticalAxisGroup},
+@rinternals{Staff_symbol_engraver}.
+
+
+@knownissues
+
+Removing @code{Staff_symbol_engraver} also hides bar lines.  If
+bar line visibility is forced, formatting errors may occur.  In
+this case, use the following overrides instead of removing the
+engraver:
+
+@example
+\override StaffSymbol #'stencil = ##f
+\override NoteHead #'no-ledgers = ##t
+@end example
 
 
 @node Writing parts
@@ -927,7 +925,7 @@ Internals Reference:
 @cindex instrument names
 @cindex instrument names, short
 
-Instrument names can be printed on the left side of staves for the
+Instrument names can be printed on the left side of staves in the
 @code{Staff} and @code{PianoStaff} contexts.  The value of
 @code{instrumentName} is used for the first staff, and the value
 of @code{shortInstrumentName} is used for all succeeding staves.
@@ -978,10 +976,8 @@ default.  To center multi-line instrument names,
 
 However, if the instrument names are longer, the instrument names
 in a staff group may not be centered unless the @code{indent} and
-@code{short-indent} settings are increased.  The @code{indent} and
-@code{short-indent} settings are modified in the @code{\layout}
-block and specify the level of indentation for the first system
-and all succeeding systems, respectively.
+@code{short-indent} settings are increased.  For details about
+these settings, see @ref{Page formatting}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -1025,10 +1021,48 @@ c1 c c c \break
 c1 c c c \break
 @end lilypond
 
+@cindex instrument switch
+@cindex switching instruments
+
+If an instrument @emph{switch} is needed,
+@code{\addInstrumentDefinition} may be used in combination with
+@code{\instrumentSwitch} to create a detailed list of the
+necessary changes for the switch.  The
+@code{\addInstrumentDefinition} command has two arguments: an
+identifying string, and an alist of context properties and values
+to be used for the instrument.  It must be placed in the toplevel
+scope.  @code{\instrumentSwitch} is used in the music expression
+to declare the instrument switch:
+
+@lilypond[verbatim,quote,ragged-right]
+\addInstrumentDefinition #"contrabassoon"
+  #`((instrumentTransposition . ,(ly:make-pitch -1 0 0))
+     (shortInstrumentName . "Cbsn.")
+     (clefGlyph . "clefs.F")
+     (middleCPosition . 6)
+     (clefPosition . 2)
+     (instrumentCueName . ,(make-bold-markup "cbsn."))
+     (midiInstrument . "bassoon"))
+
+\new Staff \with {
+  instrumentName = "Bassoon"
+}
+\relative c' {
+  \clef tenor
+  \compressFullBarRests
+  c2 g'
+  R1*16
+  \instrumentSwitch "contrabassoon"
+  c,,2 g \break
+  c,1 ~ | c1
+}
+@end lilypond
+
 
 @seealso
 
 Notation Reference:
+@ref{Page formatting},
 @ref{Modifying context plug-ins}.
 
 Snippets:
@@ -1048,28 +1082,28 @@ Internals Reference:
 @cindex fragments
 @cindex cue notes
 
-Quotations allow fragments of other parts to be inserted directly
-into a music expression.  Before a part can be quoted, the
-@code{\addQuote} command must be used to initialize the quoted
-fragment.  This command must be used in the toplevel scope.  The
-first argument is an identifying string, and the second is a music
-expression:
+Fragments of other parts can be inserted directly into a music
+expression; this is called @emph{quotation}.  Before a part can be
+quoted, the @code{\addQuote} command must be used to initialize
+the quoted fragment.  This command must be used in the toplevel
+scope.  The first argument is an identifying string, and the
+second is a music expression:
 
 @example
-flute = \relative c' @{
-  f4 fis g gis
+flute = \relative c'' @{
+  a4 gis g gis
 @}
 \addQuote "flute" @{ \flute @}
 @end example
 
-The @code{\quoteDuring} command may then be used to indicate when
-the quotation should take place.  The corresponding measures from
-the quotation are inserted into the music expression.  The syntax
-is similar to @code{\addQuote}:
+The @code{\quoteDuring} command is used to indicate when the
+quotation should take place.  The corresponding measures from the
+quotation are inserted into the music expression.  The syntax is
+similar to @code{\addQuote}:
 
 @lilypond[verbatim,quote]
-flute = \relative c' {
-  f4 fis g gis
+flute = \relative c'' {
+  a4 gis g gis
 }
 \addQuote "flute" { \flute }
 
@@ -1083,8 +1117,8 @@ anything but a spacer rest or multi-measure rest, a polyphonic
 situation is created, which is often not desirable:
 
 @lilypond[verbatim,quote]
-flute = \relative c' {
-  f4 fis g gis
+flute = \relative c'' {
+  a4 gis g gis
 }
 \addQuote "flute" { \flute }
 
@@ -1094,13 +1128,14 @@ flute = \relative c' {
 @end lilypond
 
 Quotations recognize instrument transposition settings for both
-the source and target instruments if they are specified using the
-@code{\transposition} command:
+the source and target instruments if the @code{\transposition}
+command is used.  For details about @code{\transposition}, see
+@ref{Instrument transpositions}.
 
 @lilypond[verbatim,quote]
-clarinet = \relative c' {
+clarinet = \relative c'' {
   \transposition bes
-  f4 fis g gis
+  a4 gis g gis
 }
 \addQuote "clarinet" { \clarinet }
 
@@ -1108,6 +1143,10 @@ clarinet = \relative c' {
   c4 cis \quoteDuring #"clarinet" { s2 }
 }
 @end lilypond
+
+It is possible to tag quotations with unique names in order to
+process them in different ways.  For details about this procedure,
+see @ref{Using tags}.
 
 @c add to snippets, possibly.  It might already be there.  -pm
 @c
@@ -1139,7 +1178,8 @@ clarinet = \relative c' {
 @seealso
 
 Notation Reference:
-@ref{Instrument transpositions}.
+@ref{Instrument transpositions},
+@ref{Using tags}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -1175,7 +1215,7 @@ written entirely in lower-case letters: @code{\addquote}.
 @cindex quoting other voices
 @cindex cues, formatting
 
-The previous section explains how to quote other voices.  The
+The previous section explains how to create quotations.  The
 @code{\cueDuring} command is a more specialized form of
 @code{\quoteDuring}, being particularly useful for inserting cue
 notes into a part.  The syntax is as follows:
@@ -1205,12 +1245,13 @@ oboe = \relative c'' {
 }
 @end lilypond
 
+@noindent
 In the above example, the @code{Voice} context had to be
 explicitly declared, or else the entire music expression would
 belong to the @code{CueVoice} context.
 
 The name of the cued instrument can be printed by setting the
-@code{instrumentCueName} property.
+@code{instrumentCueName} property in the @code{CueVoice} context.
 
 @lilypond[verbatim,quote]
 oboe = \relative c''' {
@@ -1229,8 +1270,16 @@ oboe = \relative c''' {
 >>
 @end lilypond
 
-The @code{\killCues} command is used to remove the cue notes from
-a music expression.
+In addition to printing the name of the cued instrument, when cue
+notes end, the name of the original instrument should be printed,
+and any other changes introduced by the cued part should be
+undone.  This can be accomplished by using
+@code{\addInstrumentDefinition} and @code{\instrumentSwitch}.  For
+an example and explanation, see @ref{Instrument names}.
+
+The @code{\killCues} command removes cue notes from a music
+expression.  This can be useful if cue notes need to be removed
+from a part but may be restored at a later time.
 
 @lilypond[verbatim,quote]
 flute = \relative c''' {
@@ -1246,29 +1295,11 @@ flute = \relative c''' {
 }
 @end lilypond
 
-When typesetting cue notes, some guidelines should be followed:
-
-@itemize
-@item
-The instrument playing the cue should be clearly marked on the
-score.
-
-@item
-When the cue notes end, the name of the original instrument should
-be indicated.
-
-@item
-Any other changes introduced by the cued part should also be
-undone.  For example, if the cued instrument plays in a different
-clef, the original clef should be stated once again.
-
-@end itemize
-
-The @code{\transposedCueDuring} command is useful to add cues for
-instruments in a completely different register.  The syntax is
-similar to @code{\cueDuring}, but it requires one more argument to
-specify the transposition of the cued instrument.  For more
-information about transposition, see
+The @code{\transposedCueDuring} command is useful for adding
+instrumental cues from a completely different register.  The
+syntax is similar to @code{\cueDuring}, but it requires one extra
+argument to specify the transposition of the cued instrument.  For
+more information about transposition, see
 @ref{Instrument transpositions}.
 
 @lilypond[verbatim,quote]
@@ -1293,11 +1324,17 @@ cbassoon = \relative c, {
 >>
 @end lilypond
 
+It is possible to tag cued parts with unique names in order to
+process them in different ways.  For details about this procedure,
+see @ref{Using tags}.
+
 
 @seealso
 
 Notation Reference:
-@ref{Instrument transpositions}.
+@ref{Instrument transpositions},
+@ref{Instrument names},
+@ref{Using tags}.
 
 Snippets:
 @rlsr{Staff notation}.
@@ -1309,5 +1346,5 @@ Internals Reference:
 
 @knownissues
 
-Collisions are not checked between @code{Voice} and
-@code{CueVoice} contexts.
+Collisions can occur with rests, when using @code{\cueDuring},
+between @code{Voice} and @code{CueVoice} contexts.
