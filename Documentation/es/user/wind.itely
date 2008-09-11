@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d2956a4fd79a17f6b5b3ed8000678e460d1a580f
+    Translation of GIT committish: ef03dc06eff26d6d0792107f17c8390e09a85039
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -163,7 +163,7 @@ Fragmentos de código:
 @rlsr{Winds}.
 
 @node Bagpipe example
-@subsubsection Bagpipe example
+@unnumberedsubsubsec Bagpipe example
 
 @cindex gaita, ejemplo de
 @cindex Amazing Grace, ejemplo de gaita
@@ -207,3 +207,7 @@ gaita.
   \bar "|."
 }
 @end lilypond
+
+@seealso
+Fragmentos de código:
+@rlsr{Winds}.
