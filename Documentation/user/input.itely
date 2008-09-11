@@ -287,7 +287,7 @@ foo = @{ c4 d e d @}
 @end example
 
 This can be used later on in the file by entering @code{\foo}.  The
-name of an variable should have alphabetic characters only; no
+name of a variable should have alphabetic characters only; no
 numbers, underscores or dashes.
 
 @end itemize
@@ -373,32 +373,32 @@ Subsubtitle, centered below the subtitle.
 
 @funindex poet
 @item poet
-Name of the poet, flush-left below the subtitle.
+Name of the poet, flush-left below the subsubtitle.
+
+@funindex instrument
+@item instrument
+Name of the instrument, centered below the subsubtitle.  Also
+centered at the top of pages (other than the first page).
 
 @funindex composer
 @item composer
-Name of the composer, flush-right below the subtitle.
+Name of the composer, flush-right below the subsubtitle.
 
 @funindex meter
 @item meter
 Meter string, flush-left below the poet.
 
-@funindex opus
-@item opus
-Name of the opus, flush-right below the composer.
-
 @funindex arranger
 @item arranger
-Name of the arranger, flush-right below the opus.
-
-@funindex instrument
-@item instrument
-Name of the instrument, centered below the arranger.  Also
-centered at the top of pages (other than the first page).
+Name of the arranger, flush-right below the composer.
 
 @funindex piece
 @item piece
-Name of the piece, flush-left below the instrument.
+Name of the piece, flush-left below the meter.
+
+@funindex opus
+@item opus
+Name of the opus, flush-right below the arranger.
 
 @cindex page breaks, forcing
 @funindex breakbefore
