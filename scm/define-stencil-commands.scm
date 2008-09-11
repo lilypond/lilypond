@@ -21,6 +21,7 @@
        embedded-ps
        glyph-string
        named-glyph
+       oval
        path
        polygon
        repeat-slash
