@@ -30,7 +30,7 @@ LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
            "Return whether @var{pos} is on a line of the staff associated with the the grob @var{sg} (even on an extender line).")
 {
   LY_ASSERT_SMOB (Grob, sg, 1);
-  LY_ASSERT_TYPE (scm_is_number, spos, 1);
+  LY_ASSERT_TYPE (scm_is_number, spos, 2);
   Grob *g = unsmob_grob (sg);
   Grob *st = Staff_symbol_referencer::get_staff_symbol (g);
   int pos = scm_to_int (spos);
