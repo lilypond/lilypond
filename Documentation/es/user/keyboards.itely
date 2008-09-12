@@ -103,7 +103,7 @@ Manual de aprendizaje:
 @rlearning{Other uses for tweaks}.
 
 Referencia de la notación:
-@ref{Grouping staves},
+@c @ref{Grouping staves},
 @ref{Instrument names},
 @ref{Collision resolution},
 @ref{Writing music in parallel},

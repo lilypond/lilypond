@@ -1047,7 +1047,6 @@ subsección @b{Véase también}, que hace referencia a la documentación
 generada.  En el documento HTML, estas subsecciones llevan enlaces que
 se pueden seguir, pulsando sobre ellos.
 
-@end itemize
 
 @node Other documentation
 @unnumberedsubsec Other documentation
