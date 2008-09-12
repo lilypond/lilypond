@@ -11,6 +11,7 @@ body {
   padding: 0;
   height: 100%;
   font-size: 100%;
+  font-family: "Century Schoolbook L", Georgia, serif;
   margin-right: auto;
   margin-left: auto;
 }
@@ -18,31 +19,29 @@ body {
 /***********************************************************/
 /*                      HEADERS                            */
 /***********************************************************/
+h4 {
+  color: #151959;
+}
+
+h3 {
+    color: #151959;
+}
+
 h2 {
   font-size: x-large;
-  color: #1d7b85;
+  color: #151959;
 }
 .unnumberedsubsubsec, .subsubheading {
   font-size: large;
-  color: #1d7b85;
+  color: #151959;
 }
 
 /***********************************************************/
 /*                       LINKS                             */
 /***********************************************************/
-a {
-  color: #344242;
-}
-a:visited {
-  color: #666666;
-}
-a:active {
-  color: #00cccc;
-}
-a:hover {
-  color: #1d7b85;
-  text-decoration:underline;
-}
+a:link, a:visited, a:hover, a:active {color:#2E5479; text-decoration: none;}
+a:hover {text-decoration: underline;}
+a:active {color:#CCF;}
 
 /***********************************************************/
 /*                  BLOCK FORMATTING                       */
@@ -104,7 +103,7 @@ div#tocframe {
   padding-bottom: 0;
   margin: 0;
   overflow:      auto;
-  background-color: #FFFACD;
+  background-color: #E7EFE3;
   z-index:100;
   list-style-type: none;
 }
@@ -122,6 +121,16 @@ div#tocframe {
   margin: 0em;
   background-color: transparent;
   list-style-type: none;
+}
+
+#tocframe a, #tocframe a:visited, #tocframe a:active {
+  color: #1B3313;
+  text-decoration: none;
+}
+
+#tocframe a:hover {
+  color: #2E5479;
+  text-decoration:underline;
 }
 
 #tocframe ul.toc {
@@ -159,7 +168,7 @@ li.toc_current ul {
 
 .nav_table {
   width: 100%;
-  background-color: #CCC;
+  background-color: #CCD3CC;
   border: 0;
   margin-top: 4px;
   left: auto;
