@@ -132,7 +132,7 @@ at the top of the @code{.ly} file.
 which formats should be written.  Choices for @code{format} are
 @code{svg}, @code{ps}, @code{pdf}, @code{png}, @code{tex}, @code{dvi}.
 
-Example: @code{lilypond -fpng filename.ly}
+Example: @code{lilypond -fpng @var{filename}.ly}
 
 
 
@@ -198,7 +198,7 @@ disables the use of backslashes in @TeX{} strings.
 In safe mode, it is not possible to import LilyPond variables
 into Scheme.
 
-safe does @emph{not} detect resource overuse.  It is still possible to
+@code{-dsafe} does @emph{not} detect resource overuse.  It is still possible to
 make the program hang indefinitely, for example by feeding cyclic data
 structures into the backend.  Therefore, if using LilyPond on a
 publicly accessible webserver, the process should be limited in both
@@ -232,7 +232,7 @@ currently missing due to heavy restructuring of the source code.
 @file{EPS} file, without fonts, and as one collated @file{EPS} file with
 all pages (systems) including fonts.
 
-This mode is used by default by lilypond-book.
+This mode is used by default by @command{lilypond-book}.
 
 @item svg
  for SVG (Scalable Vector Graphics).  This dumps every page as a separate
@@ -241,14 +241,14 @@ This mode is used by default by lilypond-book.
   You need a SVG viewer which supports embedded fonts, or a SVG
   viewer which is able to replace the embedded fonts with OTF fonts.
   Under UNIX, you may use @uref{http://www.inkscape.org,Inkscape}
-  (version 0.42 or later), after copying the OTF fonts in directory
-  @file{PATH/TO/share/lilypond/VERSION/fonts/otf/} to @file{~/.fonts/}.
+  (version 0.42 or later), after copying the OTF fonts from the LilyPond directory
+  (typically @file{/usr/share/lilypond/VERSION/fonts/otf/}) to @file{~/.fonts/}.
 @item scm
  for a dump of the raw, internal Scheme-based drawing commands.
 @cindex Scheme dump
 @end table
 
-Example: @code{lilypond -dbackend=svg filename.ly}
+Example: @code{lilypond -dbackend=svg @var{filename}.ly}
 
 @cindex output format, setting
 
@@ -266,8 +266,8 @@ useful in combination with @code{-dpreview}.
 @item -h,--help
 Show a summary of usage.
 
-@item -H,--header=FIELD
-Dump a header field to file BASENAME.FIELD
+@item -H,--header=@var{FIELD}
+Dump a header field to file @file{BASENAME.@var{FIELD}}.
 
 @item --include, -I=@var{directory}
 Add @var{directory} to the search path for input files.
@@ -279,7 +279,7 @@ Set init file to @var{file} (default: @file{init.ly}).
 
 @item -o,--output=@var{FILE}
 Set the default output file to @var{FILE}.  The appropriate
-suffix will be added (ie @code{.pdf} for pdf, @code{.tex}
+suffix will be added (i.e. @code{.pdf} for pdf, @code{.tex}
 for tex, etc).
 
 @item --ps

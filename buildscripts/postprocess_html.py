@@ -1,7 +1,8 @@
 #!@PYTHON@
 
 """
-Postprocess HTML files.
+Postprocess HTML files:
+add footer, tweak links, add language selection menu.
 """
 import re
 import os

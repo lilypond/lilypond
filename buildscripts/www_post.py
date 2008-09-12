@@ -3,7 +3,7 @@
 ## This is www_post.py. This script is the main stage
 ## of toplevel GNUmakefile local-WWW-post target.
 
-# USAGE: www_post PACKAGE_NAME TOPLEVEL_VERSION BUILDSCRIPT-DIR OUTDIR TARGETS
+# USAGE: www_post PACKAGE_NAME TOPLEVEL_VERSION OUTDIR TARGETS
 # please call me from top of the source directory
 
 import sys
