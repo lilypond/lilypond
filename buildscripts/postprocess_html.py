@@ -33,16 +33,15 @@ header = r"""
 """
 
 footer = '''
-<div style="background-color: #e8ffe8; padding: 2; border: #c0ffc0 1px solid;">
+<div class="footer">
 <p>
-<font size="-1">
 %(footer_name_version)s
 <br>
 <address>
 %(footer_report_errors)s </address>
 <br>
 %(footer_suggest_docs)s
-</font>
+<br>
 </p>
 </div>
 '''
@@ -127,11 +126,14 @@ body_tag_re = re.compile ('(?i)<body([^>]*)>')
 html_tag_re = re.compile ('(?i)<html>')
 doctype_re = re.compile ('(?i)<!DOCTYPE')
 doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
+css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" href="[^">]*?lilypond.css">')
+end_head_tag_re = re.compile ('(?i)</head>')
+css_link = '<link rel="stylesheet" type="text/css" href="%sDocumentation/lilypond.css">\n'
 
-def add_header (s):
-    """Add header (<body> and doctype)"""
+def add_header (s, prefix):
+    """Add header (<body>, doctype and CSS)"""
     if header_tag_re.search (s) == None:
-        body = '<body bgcolor="white" text="black" \\1>'
+        body = '<body\\1>'
         (s, n) = body_tag_re.subn (body + header, s, 1)
         if not n:
             (s, n) = html_tag_re.subn ('<html>' + header, s, 1)
@@ -142,6 +144,10 @@ def add_header (s):
 
         if doctype_re.search (s) == None:
             s = doctype + s
+
+        if css_re.search (s) == None:
+            depth = (prefix.count ('/') - 1) * '../'
+            s = end_head_tag_re.sub ((css_link % depth) + '</head>', s)
         return s
 
 title_tag_re = re.compile ('.*?<title>(.*?)</title>', re.DOTALL)
@@ -315,7 +321,7 @@ def process_html_files (package_name = '',
 
             s = s.replace ('%', '%%')
             s = hack_urls (s, prefix)
-            s = add_header (s)
+            s = add_header (s, prefix)
 
             ### add footer
             if footer_tag_re.search (s) == None:

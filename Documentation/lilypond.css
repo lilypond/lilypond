@@ -11,29 +11,24 @@ body {
   padding: 0;
   height: 100%;
   font-size: 100%;
-  font-family: "Century Schoolbook L", Georgia, serif;
   margin-right: auto;
   margin-left: auto;
+  color: black;
+  background-color: white;
 }
 
 /***********************************************************/
 /*                      HEADERS                            */
 /***********************************************************/
-h4 {
+h4, h3, h2, .unnumberedsubsubsec, .subsubheading {
   color: #151959;
-}
-
-h3 {
-    color: #151959;
 }
 
 h2 {
   font-size: x-large;
-  color: #151959;
 }
 .unnumberedsubsubsec, .subsubheading {
   font-size: large;
-  color: #151959;
 }
 
 /***********************************************************/
@@ -41,13 +36,13 @@ h2 {
 /***********************************************************/
 a:link, a:visited, a:hover, a:active {color:#2E5479; text-decoration: none;}
 a:hover {text-decoration: underline;}
-a:active {color:#CCF;}
+a:active {color:#CCCCFF;}
 
 /***********************************************************/
 /*                  BLOCK FORMATTING                       */
 /***********************************************************/
 blockquote {
-  border: 1px solid #cccccc;
+  border: 1px solid #CCCCCC;
   padding: 3px;
   width: 40em;
 }
@@ -61,7 +56,7 @@ hr {
   background-color: #666666;
 }
 table.cartouche {
-  border: 2px dotted #cccccc;
+  border: 2px dotted #CCCCCC;
   margin-left: auto;
   margin-right: auto;
   width: 85%;
@@ -166,6 +161,19 @@ li.toc_current ul {
 /*                     NAVIGATION                          */
 /***********************************************************/
 
+div.header {
+  background-color: #E8FFE8;
+  padding: 2;
+  border: #C0FFC0 1px solid;
+  text-align: center;
+}
+
+h1.header {
+  font-weight: bold;
+  font-family: avantgarde, sans-serif;
+  font-size: 220%;
+}
+
 .nav_table {
   width: 100%;
   background-color: #CCD3CC;
@@ -176,13 +184,17 @@ li.toc_current ul {
   font-size: 0.8em;
 }
 
-
-
+.footer {
+  background-color: #E8FFE8;
+  padding: 5;
+  border: #C0FFC0 1px solid;
+  font-size: 80%;
+}
 
 
 
 /***********************************************************/
-/*               OVERRIDES FOR PRINTING...                 */
+/*               OVERRIDES FOR PRINTING                    */
 /***********************************************************/
 @media print {
   /* Hide the sidebar: */
