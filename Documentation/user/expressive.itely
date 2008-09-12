@@ -40,6 +40,7 @@ Methods to create new dynamic markings are also discussed.
 @unnumberedsubsubsec Articulations and ornamentations
 
 @cindex articulations
+@cindex ornamentation
 @cindex scripts
 @cindex ornaments
 @cindex espressivo
@@ -48,6 +49,7 @@ Methods to create new dynamic markings are also discussed.
 @cindex downbow
 @cindex foot marks
 @cindex organ pedal marks
+@cindex pedal marks, organ
 @cindex turn
 @cindex open
 @cindex stopped
@@ -64,6 +66,8 @@ Methods to create new dynamic markings are also discussed.
 @cindex segno
 @cindex coda
 @cindex varcoda
+
+@funindex -
 
 A variety of symbols that denote articulations, ornamentations,
 and other performance indications can be attached to a note using
@@ -82,7 +86,6 @@ c1\fermata
 @end lilypond
 
 @cindex marcato
-@cindex stopped
 @cindex tenuto
 @cindex staccatissimo
 @cindex accent
@@ -146,6 +149,7 @@ Internals Reference:
 @cindex absolute dynamics
 @cindex dynamics
 @cindex dynamics, absolute
+
 @funindex \ppppp
 @funindex ppppp
 @funindex \pppp
@@ -201,11 +205,15 @@ c2_\spp c^\ff
 @cindex hairpin
 @cindex crescendo
 @cindex decrescendo
+@cindex diminuendo
+
 @funindex \<
 @funindex \>
 @funindex \!
 @funindex \cr
+@funindex cr
 @funindex \decr
+@funindex decr
 
 A @notation{crescendo} mark is started with @code{\<} and
 terminated with @code{\!}, an absolute dynamic, or an additional
@@ -237,6 +245,7 @@ c4\< c\! d\> e\!
 @end lilypond
 
 @cindex espressivo articulation
+
 @funindex \espressivo
 @funindex espressivo
 
@@ -249,9 +258,7 @@ c2 b4 a
 g1\espressivo
 @end lilypond
 
-@cindex crescendo
-@cindex decrescendo
-@cindex diminuendo
+
 @funindex \crescTextCresc
 @funindex crescTextCresc
 @funindex \dimTextDecresc
@@ -290,6 +297,7 @@ aligned with dynamics, see @ref{New dynamic marks}.
 
 @cindex dynamics, vertical positioning
 @cindex vertical positioning of dynamics
+
 @funindex DynamicLineSpanner
 
 Vertical positioning of dynamics is handled by
@@ -307,23 +315,11 @@ Vertical positioning of dynamics is handled by
 @funindex \dynamicNeutral
 @funindex dynamicNeutral
 @code{\dynamicNeutral},
-@funindex \crescTextCresc
-@funindex crescTextCresc
 @code{\crescTextCresc},
-@funindex \dimTextDim
-@funindex dimTextDim
 @code{\dimTextDim},
-@funindex \dimTextDecr
-@funindex dimTextDecr
 @code{\dimTextDecr},
-@funindex \dimTextDecresc
-@funindex dimTextDecresc
 @code{\dimTextDecresc},
-@funindex \crescHairpin
-@funindex crescHairpin
 @code{\crescHairpin},
-@funindex \dimHairpin
-@funindex dimHairpin
 @code{\dimHairpin}.
 
 
