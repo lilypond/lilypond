@@ -666,8 +666,8 @@
 			  
 			  (left . ((attach-dir .  ,LEFT)
 				   (Y . 0)
-				   (stencil-offset . (0 . -0.5))
-				   (padding . 0.5)
+				   (stencil-offset . (-0.75 . -0.5))
+				   (padding . 0.75)
 				   ))
 			  (left-broken . ((attach-dir .  ,RIGHT)
 				   ))
