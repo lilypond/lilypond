@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 428e134611498913292fb4903602fec97a8a9b65
+    Translation of GIT committish: 29cfaa52797fccf18ae4f25da5e828d10b46b65a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -137,7 +137,7 @@ Qué formatos se tienen que escribir.  Como @code{formato} se puede
 elegir entre @code{svg}, @code{ps}, @code{pdf}, @code{png}, @code{tex}
 y @code{dvi}.
 
-Ejemplo: @code{lilypond -fpng archivo.ly}
+Ejemplo: @code{lilypond -fpng @var{archivo}.ly}
 
 @item -d,--define-default=@var{variable}=@var{valor}
 Establece la opción interna del programa @var{variable} al valor de
@@ -205,10 +205,10 @@ inhabilita el uso de barras invertidas en las cadenas de @TeX{}.
 En el modo seguro, no es posible la importación de variables de
 LilyPond dentro de Scheme.
 
-safe @emph{no} detecta la sobreutilización de recursos.  Aún es
-posible hacer que el programa se cuelgue indefinidamente, por ejemplo
-alimentándo el backend con estructuras de datos cíclicas.  Por tanto,
-si se está utilizando LilyPond sobre un servidor web accesible
+@code{-dsafe} @emph{no} detecta la sobreutilización de recursos.  Aún
+es posible hacer que el programa se cuelgue indefinidamente, por
+ejemplo alimentándo el backend con estructuras de datos cíclicas.  Por
+tanto, si se está utilizando LilyPond sobre un servidor web accesible
 públicamente, el proceso debe limitarse tanto en el uso de CPU como de
 memoria.
 
@@ -246,7 +246,8 @@ páginas/sistemas como un archivo @file{EPS} distinto, sin tipografías,
 y como un solo archivo @file{EPS} encuadernado con todas las
 páginas/sistemas con las tipografías incluidas.
 
-Este modo se usa de forma predeterminada por parte de lilypond-book.
+Este modo se usa de forma predeterminada por parte de
+@command{lilypond-book}.
 
 @item svg
  para obtener SVG (gráficos vectoriales escalables).  Vuelca cada
@@ -257,16 +258,16 @@ incrustadas.
 incrustadas, o un visor de SVG que pueda sustituir las tipografías
 incrustadas por tipografías OTF.  Bajo UNIX, puede usar
 @uref{http://www.inkscape.org,Inkscape} (versión 0.42 o posterior),
-después de copiar las tipografías OTF que están en el directorio
-@file{RUTA/HACIA/share/lilypond/VERSIÓN/fonts/otf/} al directorio
-@file{~/.fonts/}.
+después de copiar las tipografías OTF del directorio de LilyPond (que
+normalmente es @file{/usr/share/lilypond/VERSIÓN/fonts/otf/}) al
+directorio @file{~/.fonts/}.
 @item scm
  para obtener un volcado de las instrucciones internas de dibujo
 basadas en Scheme, en bruto.
 @cindex Scheme, volcado de
 @end table
 
-Ejemplo: @code{lilypond -dbackend=svg archivo.ly}
+Ejemplo: @code{lilypond -dbackend=svg @var{archivo}.ly}
 
 @cindex salida, establecer el formato de
 
@@ -285,8 +286,8 @@ Generar las páginas completas, el ajuste predeterminado.
 @item -h,--help
 Mostrar un resumen de las formas de utilización.
 
-@item -H,--header=CAMPO
-Volcar un campo de cabecera al archivo NOMBREBASE.CAMPO
+@item -H,--header=@var{CAMPO}
+Volcar un campo de cabecera al archivo @file{NOMBREBASE.@var{CAMPO}}
 
 @item --include, -I=@var{directorio}
 Añadir el @var{directorio} a la ruta de búsqueda de archivos de
