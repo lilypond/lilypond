@@ -58,6 +58,12 @@ to_string (unsigned u)
 }
 
 string
+to_string (I64 b, char const *format)
+{
+  return String_convert::i64_string (b, format);
+}
+
+string
 to_string (char const *format, ...)
 {
   va_list args;
