@@ -1,4 +1,4 @@
-\version "2.11.58"
+\version "2.11.59"
 
 \header {
   texidoc = "The left bound text of dynamic text spanners is
