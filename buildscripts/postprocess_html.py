@@ -194,9 +194,11 @@ def find_translations (prefix, lang_ext):
                 missing.append (e)
     return available, missing
 
-online_links_re = re.compile ('''(href|src)=['"]([^/][.]*[^.:'"]*)\
+online_links_re = re.compile ('''(href|src)=['"]\
+((?!Compiling-from-source.html")[^/][.]*[^.:'"]*)\
 ([.]html|[.]png)(#[^"']*|)['"]''')
-offline_links_re = re.compile ('''href=['"]([^/][.]*[^.:'"]*)([.]html)(#[^"']*|)['"]''')
+offline_links_re = re.compile ('href=[\'"]\
+((?!Compiling-from-source.html")[^/][.]*[^.:\'"]*)([.]html)(#[^"\']*|)[\'"]')
 big_page_name_re = re.compile ('''(.+?)-big-page''')
 
 def process_i18n_big_page_links (match, prefix, lang_ext):
