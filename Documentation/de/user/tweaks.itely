@@ -1,5 +1,5 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-learning.tely
 @ignore
     Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
 
@@ -31,8 +31,6 @@ Notenfragment kann geändert werden.
 @node Tweaking basics
 @section Tweaking basics
 
-@untranslated
-
 @menu
 * Introduction to tweaks::      
 * Objects and interfaces::      
@@ -43,7 +41,28 @@ Notenfragment kann geändert werden.
 @node Introduction to tweaks
 @subsection Introduction to tweaks
 
-@untranslated
+@qq{Optimierung} (engl. tweaking) ist ein LilyPond-Begriff für die
+verschiedenen Methoden, die Aktionen zu beeinflussen, die während
+der Kompilation einer Notationsdatei vorgenommen werden sowie auf
+das Notenbild einzuwirken. Einige dieser Opitmierungen sind sehr 
+einfach, andere dagegen recht komplex. Aber insgesamt erlaubt das
+System an Optimierungen so gut wie alle möglichen Erscheindungsformen
+für die Notenausgabe.
+
+In diesem Abschnitt werden die grundlegenden Konzepte vorgestellt,
+um die Optimierung zu verstehen. Später soll eine Anzahl von fertigen
+Befehlen bereitgestellt werden, die einfach in die Quelldatei
+kopiert werden können um den selben Effekt wie im Beispiel
+zu erhalten. Gleichzeitig zeigen diese Beispiele, wie die Befehle
+konstruiert werden, so dass Sie in der Lage sein werden, eigene
+Befehle auf dieser Grundlage zu entwickeln.
+
+Bevor Sie mit diesem Kapitel beginnen, könnte Sie ein Blick in den
+Abschnitt @ref{Contexts and engravers} interessieren, dann
+Kontexte und Engraver sowie die Eigenschaften, die mit ihnen 
+verknüpft sind, sind die Voraussetzung, um die Funktionsweise
+von Optimierungen verstehen zu können.
+
 
 @node Objects and interfaces
 @subsection Objects and interfaces
