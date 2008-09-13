@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 2b481d6f71b2033f218a28cd8476bd1617c7b391
+    Translation of GIT committish: 4d5a7de63d4f5d4d94d9339e20a46840e0498031
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1673,6 +1673,7 @@ Referencia de la notación:
 @subsection Creating contexts
 
 @funindex \new
+@funindex new
 @cindex nuevos contextos
 @cindex creación de contextos
 @cindex contextos, creación de
@@ -1882,7 +1883,9 @@ Referencia de funcionamiento interno:
 @cindex contexto, propiedades de, modificación
 @cindex modificar las propiedades de contexto
 @funindex \set
+@funindex set
 @funindex \unset
+@funindex unset
 
 Los contextos se responsabilizan de mantener los valores de un cierto
 número de @emph{properties} de contexto.  Muchas de ellas se pueden
@@ -1947,6 +1950,9 @@ antes de la @code{t} o la @code{f}, y antes del @emph{valor} dentro de
 la sentencia @code{\set}.  Así pues, cuando se está escribiendo un
 valor Booleano, hay que escribir dos signos de cuadradillo, por
 ejemplo: @code{##t}.
+
+@cindex propiedades que funcionan en contextos
+@cindex establecer propiedades en contextos
 
 Antes de poder establecer cualquiera de estas propiedades, tenemos que
 saber en qué contexto operan.  A veces es algo obvio, pero en
@@ -2079,6 +2085,7 @@ mucho más general utilizando la potentísima instrucción @code{markup}.
 @unnumberedsubsubsec Setting context properties with @code{\with}
 
 @funindex \with
+@funindex with
 @cindex contexto, propiedades de, establecimiento con \with
 
 Las propiedades de contexto también se pueden establecer en el momento
@@ -2115,6 +2122,10 @@ Las propiedades ajustadas de esta manera aún pueden cambiarse
 dinámicamente utilizando @code{\set} y ser devueltas a sus valores
 predeterminados mediante @code{\unset}.
 
+@cindex fontSize (tamaño de la tipografía)
+@cindex fuente, tamaño de la
+@cindex tamaño de la fuente
+
 La propiedad @code{fontSize} se trata de forma distinta.  Si se ajusta
 dentro de una cláusula @code{\with}, tiene el efecto de reiniciar el
 valor predeterminado del tamaño de la fuente tipográfica.  Si más
@@ -2122,6 +2133,10 @@ tarde se modifica con @code{\set}, este nuevo valor predeterminado
 puede restablecerse con la instrucción @code{\unset fontSize}.
 
 @unnumberedsubsubsec Setting context properties with @code{\context}
+
+@cindex contextos, establecer propiedades de, con \context
+@funindex \context
+@funindex context
 
 Los valores de propiedad de los contextos se pueden establecer para
 @emph{todos} los contextos de un tipo determinado, como por ejemplo
@@ -2174,11 +2189,15 @@ Referencia de funcionamiento interno:
 @node Adding and removing engravers
 @subsection Adding and removing engravers
 
-@cindex Grabadores, adición
-@cindex Grabadores, eliminación
+@cindex grabadores, adición
+@cindex grabadores, eliminación
+@cindex adición de grabadores
+@cindex eliminación de grabadores
 
 @funindex \consists
+@funindex consists
 @funindex \remove
+@funindex remove
 
 Hemos visto que cada uno de los contextos contiene varios grabadores,
 cada uno de los cuales a su vez es responsable de la producción de una
@@ -2270,6 +2289,9 @@ pentagrama:
 
 @subsubheading Changing all contexts of the same type
 
+@funindex \layout
+@funindex layout
+
 Los ejemplos anteriores muestran la manera de eliminar o añadir
 grabadores a los contextos individuales.  También es posible eliminar
 o añadir grabadores a todos los contextos de un tipo específico,
@@ -2339,6 +2361,7 @@ contemplado aquí? Continúe leyendo.
 @subsection Soprano and cello
 
 @cindex plantilla, modificar
+@cindex modificar plantillas
 
 Para empezar, tome la plantilla que le parezca más parecida a aquello
 que quiere conseguir.  Digamos que quiere escribir algo para soprano y
@@ -2788,6 +2811,9 @@ lower = \relative c, {
 @subsection Building a score from scratch
 
 @cindex plantilla, escribir su propia
+@cindex ejemplo de escritura de una partitura
+@cindex escribir una partitura, ejemplo
+@cindex partitura, ejemplo de escritura
 
 Después de adquirir algo de soltura en la escritura del código de
 LilyPond, se dará cuenta de que es más fácil construir completamente
