@@ -1162,10 +1162,19 @@
 	(side-axis . ,Y)
 	(stencil . ,ly:text-interface::print)
 	(Y-offset . ,ly:side-position-interface::y-aligned-side)
+	(X-offset . ,(ly:make-simple-closure
+		      `(,+
+			,(ly:make-simple-closure
+			  (list ly:break-alignable-interface::self-align-callback))
+			,(ly:make-simple-closure
+			  (list ly:self-alignment-interface::x-aligned-on-self)))))
+	(self-alignment-X . -1)
+	(break-align-symbols . (time-signature))
 	(meta . ((class . Item)
 		 (interfaces . (font-interface
 				metronome-mark-interface
 				side-position-interface
+				break-alignable-interface
 				text-interface))))))
 
     (MultiMeasureRest
@@ -2091,6 +2100,7 @@
 	(break-align-anchor
 	 . ,ly:break-aligned-interface::calc-extent-aligned-anchor)
 	(break-align-symbol . time-signature)
+	(break-align-anchor-alignment . ,LEFT)
 	(break-visibility . ,all-visible)
 	(extra-spacing-height . (-1.0 . 1.0))
 	(non-musical . #t)

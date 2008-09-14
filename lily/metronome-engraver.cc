@@ -42,6 +42,9 @@ protected:
   SCM last_duration_;
   SCM last_count_;
   SCM last_text_;
+
+  DECLARE_ACKNOWLEDGER (break_aligned);
+  DECLARE_ACKNOWLEDGER (break_alignment);
   
 protected:
   virtual void derived_mark () const;
@@ -66,12 +69,42 @@ Metronome_mark_engraver::derived_mark () const
 }
 
 void
+Metronome_mark_engraver::acknowledge_break_aligned (Grob_info inf)
+{
+  Grob *s = inf.grob ();
+  if (text_
+      && !text_->get_parent (X_AXIS)
+      && dynamic_cast<Item *> (s)
+      && (s->get_property_data ("break-align-symbol")
+	  == text_->get_property_data ("break-align-symbol")))
+    text_->set_parent (s, X_AXIS);
+}
+
+void
+Metronome_mark_engraver::acknowledge_break_alignment (Grob_info inf)
+{
+  Grob *s = inf.grob ();
+  if (text_
+      && dynamic_cast<Item *> (s))
+    {
+      text_->set_parent (s, X_AXIS);
+    }
+}
+
+
+void
 Metronome_mark_engraver::stop_translation_timestep ()
 {
   if (text_)
     {
-      Grob *mc = unsmob_grob (get_property ("currentMusicalColumn"));
-      text_->set_parent (mc, X_AXIS);
+      /*
+	Problem: how to set musical columns as parent
+	when there's no breakable object of interest nearby?
+	We don't want metronome marks aligned to paper columns.
+       
+	Grob *mc = unsmob_grob (get_property ("currentMusicalColumn"));
+	text_->set_parent (mc, X_AXIS);
+      */
       text_->set_object ("side-support-elements",
 			 grob_list_to_grob_array (get_property ("stavesFound")));
       text_ = 0;
@@ -107,6 +140,11 @@ Metronome_mark_engraver::process_music ()
   last_count_ = count;
   last_text_ = text;
 }
+
+
+
+ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_aligned);
+ADD_ACKNOWLEDGER (Metronome_mark_engraver, break_alignment);
 
 ADD_TRANSLATOR (Metronome_mark_engraver,
 		/* doc */
