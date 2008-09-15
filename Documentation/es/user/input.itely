@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: 1d64963847973b27eeff0129094fde8541c29f6f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,8 +12,8 @@
 @node General input and output
 @chapter General input and output
 
-@untranslated
-
+Esta sección trata de asuntos relacionados con la entrada y salida
+generales de LilyPond, más que con la notación específica.
 
 @menu
 * Input structure::             
@@ -26,8 +26,8 @@
 @node Input structure
 @section Input structure
 
-@untranslated
-
+El formato principal de entrada para LilyPond son archivos de texto.
+Por convenio, el nombre de estos archivos termina en @code{.ly}.
 
 @menu
 * Structure of a score::        
@@ -500,9 +500,6 @@ Archivos de inicio: @file{ly/@/toc@/-init@/.ly}.
 @node Working with input files
 @section Working with input files
 
-@untranslated
-
-
 @menu
 * Including LilyPond files::    
 * Different editions from one source::  
@@ -519,8 +516,15 @@ Archivos de inicio: @file{ly/@/toc@/-init@/.ly}.
 @node Different editions from one source
 @subsection Different editions from one source
 
-@untranslated
-
+Se encuentran disponibles varios mecanismos para facilitar la
+producción de distintas versiones de una partitura a partir de la
+misma fuente musical.  Las variables son quizá más útiles para
+combinar secciones extensas de música y/o anotaciones de diversas
+formas, mientras que las etiquetas son más útiles para seleccionar una
+de entra varias secciones de música más cortas.  Cualquiera que sea el
+método utilizado, la separación de la notación de la estructura de la
+partitura hará que sea más fácil cambiar la estructura dejando intacta
+la notación.
 
 @menu
 * Using variables::             
@@ -553,9 +557,6 @@ Archivos de inicio: @file{ly/@/toc@/-init@/.ly}.
 
 @node Controlling output
 @section Controlling output
-
-@untranslated
-
 
 @menu
 * Extracting fragments of music::  
@@ -595,7 +596,7 @@ escuchar la salida MIDI.
 
 @knownissues
 
-Muchhos efectos con interés musical como el swing, la articulación, el
+Muchos efectos con interés musical como el swing, la articulación, el
 fraseo, etc., no se traducen al midi.
 
 La salida midi reserva un canal para cada pentagrama, y uno más para
@@ -773,8 +774,6 @@ para la salida MIDI se encuentran definidos dentro de
 @node What goes into the MIDI output?
 @subsection What goes into the MIDI output?
 
-@untranslated
-
 @unnumberedsubsubsec Supported in MIDI
 @unnumberedsubsubsec Unsupported in MIDI
 
@@ -823,10 +822,18 @@ y percent --repetición de compases--).  Por ejemplo,
 @node Controlling MIDI dynamics
 @subsection Controlling MIDI dynamics
 
-@untranslated
-
+La dinámica en el MIDI está implementada por medio del intérprete
+Dynamic_performer que reside de forma predeterminada dentro del
+contexto Voice.  Es posible controlar el volumen MIDI general, el
+volumen relativo de los matices dinámicos y el volumen relativo de los
+distintos instrumentos.
 
 @unnumberedsubsubsec Dynamic marks
 @unnumberedsubsubsec Overall MIDI volume
 @unnumberedsubsubsec Equalizing different instruments (i)
 @unnumberedsubsubsec Equalizing different instruments (ii)
+
+@node Percussion in MIDI
+@subsection Percussion in MIDI
+
+@untranslated

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 90541cc59a99d0b53baccedc0327748b760fce68
+    Translation of GIT committish: 4be1308672c6f8efbe660c9eddc0a6a167c9ad31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -71,7 +71,12 @@ tradicional.
 El archivo de código fuente incluye una bibliografía de Bib@TeX{} más elaborada con más de
 100 elementos, en
 @ifhtml
+@ifset bigpage
+@uref{../bibliography/index.html, the bibliography}.
+@end ifset
+@ifclear bigpage
 @uref{../../bibliography/index.html, the bibliography}.
+@end ifclear
 @end ifhtml
 @ifnothtml
 @file{Documentation/@/bibliography/}.

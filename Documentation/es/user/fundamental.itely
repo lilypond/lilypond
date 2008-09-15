@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 54fcdc3c1f2550992fb811183122fc1c33ff714c
+    Translation of GIT committish: 4d5a7de63d4f5d4d94d9339e20a46840e0498031
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,15 +19,15 @@ conceptos y técnicas que se requieren para producir partituras
 igualmente bellas pero más complejas.
 
 @menu
-* How LilyPond files work::
+* How LilyPond input files work::
 * Voices contain music::
 * Contexts and engravers::
 * Extending the templates::
 @end menu
 
 
-@node How LilyPond files work
-@section How LilyPond files work
+@node How LilyPond input files work
+@section How LilyPond input files work
 
 El formato de entrada de LilyPond es bastante libre en su forma y
 concede a los usuarios con experiencia mucha flexibilidad para
@@ -69,9 +69,11 @@ Existen muchas variaciones de este esquema básico, pero el ejemplo
 constituye un útil punto de partida.
 
 @funindex \book
+@funindex book
 @funindex \score
-@cindex book
-@cindex score
+@funindex score
+@cindex book (libro)
+@cindex score (partitura)
 @cindex libro
 @cindex partitura
 
@@ -111,6 +113,7 @@ estuviera rodeada por un envoltorio hecho por las instrucciones que
 acabamos de ver.
 
 @cindex contextos implícitos
+@cindex implícitos, contextos
 
 @strong{¡Advertencia!}  Muchos de los ejemplos que aparecen en la
 documentación de LilyPond omiten las instrucciones @code{\new Staff} y
@@ -160,8 +163,11 @@ cosas, tales como
 @end example
 
 @funindex \header
+@funindex header
 @funindex \layout
+@funindex layout
 @funindex \midi
+@funindex midi
 @cindex header
 @cindex layout
 @cindex midi
@@ -187,6 +193,10 @@ Referencia de la notación, en @ruser{Score layout} y en
 @ruser{Creating MIDI files}.
 
 @cindex partituras, varias
+@cindex book, bloque implícito
+@cindex implícito, bloque book
+@funindex \book
+@funindex book
 
 Podemos escribir varios bloques @code{\score}.  Cada uno de ellos
 recibirá el mismo tratamiento que una partitura independiente, pero se
@@ -206,6 +216,8 @@ LilyPond envuelve todo nuestro código de entrada dentro de un bloque
 
 Cada bloque @code{\score} es un trozo de música separado dentro de un
 bloque @code{\book}.
+
+@cindex layout, efecto de la situación del bloque
 
 Cada bloque @code{\layout} afecta al bloque @code{\score} o
 @code{\book} dentro del cual aparece (es decir, un bloque
@@ -245,7 +257,6 @@ nombres de instrucción de LilyPond.  Las limitaciones exactas que
 afectan a los nombres de variable se detallan en @ruser{File
 structure}.
 
-
 @seealso
 
 Para ver una definición completa del formato del código de entrada,
@@ -254,11 +265,15 @@ consulte @ruser{File structure}.
 @node Score is a (single) compound musical expression
 @subsection Score is a (single) compound musical expression
 
-@cindex expresión musical compuesta
-@cindex música, expresión compuesta de
-@funindex \score
 @cindex score
 @cindex partitura
+@cindex contenido del bloque score
+@cindex score, contenido del bloque
+@cindex compuesta, expresión musical
+@cindex musical, expresión, compuesta
+@cindex expresión musical compuesta
+@funindex \score
+@funindex score
 
 En la sección anterior, @ref{Introduction to the LilyPond file
 structure}, hemos podido ver la organización general de los archivos
@@ -305,7 +320,7 @@ piano.
   <<
     \new Staff = "cantante" <<
     >>
-    \new PianoStaff = piano <<
+    \new PianoStaff = "piano" <<
     >>
   >>
   \layout @{ @}
@@ -347,7 +362,7 @@ canción.  También tenemos una pauta de piano: contiene un pentagrama
 superior (mano derecha) y un pentagrama inferior (mano izquierda).
 
 En este momento podríamos comenzar a meter las notas.  Dentro de las
-llaves que siguen a @code{\new Voice = vocal}, podríamos empezar
+llaves que siguen a @code{\new Voice = "vocal"}, podríamos empezar
 escribiendo
 
 @example
@@ -407,6 +422,10 @@ Referencia de la notación:
 
 @node Nesting music expressions
 @subsection Nesting music expressions
+
+@cindex pentagramas temporales
+@cindex temporales, pentagramas
+@cindex ossias
 
 No es esencial declarar todos los pentagramas al comienzo; se pueden
 crear temporalmente en cualquier momento.  Esto es de especial
@@ -476,6 +495,11 @@ necesitaría más instrucciones que aún no se han visto.  Véase
 @subsection On the un-nestedness of brackets and ties
 
 @cindex corchetes y paréntesis, anidado de
+@cindex corchetes y paréntesis, tipos de
+@cindex corchetes y paréntesis, encerrar frente a marcar
+@cindex paréntesis y corchetes, anidado de
+@cindex paréntesis y corchetes, tipos de
+@cindex paréntesis y corchetes, encerrar frente a marcar
 
 En la escritura del archivo de entrada de LilyPond, hemos podido ver
 algunos tipos de paréntesis, llaves o ángulos de distintos tipos.
@@ -569,10 +593,14 @@ fundamental de todos--.
 
 @cindex polifonía
 @cindex capas
+@cindex varias voces
+@cindex voces, varias
 @cindex Voice (voz), contexto de
-@cindex contexto de voz
+@cindex contexto Voice (de voz)
 @cindex simultánea, música
 @cindex concurrente, música
+@cindex voces frente a acordes
+@cindex acordes frente a voces
 
 De las capas más profundas de una partitura de LilyPond, las más bajas
 y más fundamentales reciben el nombre de @q{Voice contexts}
@@ -668,6 +696,9 @@ voces separadas, de la siguiente manera:
 } >>
 @end lilypond
 
+@cindex voces, nombrado de
+@cindex voces que cruzan corchetes
+@cindex ligaduras que cruzan corchetes
 
 Este ejemplo tiene sólo dos voces, pero la misma construcción se puede
 usar para codificar tres o más voces mediante la adición de más
@@ -752,6 +783,8 @@ Veremos más adelante cómo el usuario puede crear instrucciones como
 @ref{Visibility and color of objects} y
 @ref{Using variables for tweaks}.
 
+@cindex polifonía y modo relativo
+@cindex relativo, modo, polifonía y
 
 La polifonía no cambia la relación de las notas dentro de un bloque
 @code{\relative @{ @}}.  La altura de cada nota aún se calcula con
@@ -879,6 +912,8 @@ introducir la música del primer compás en tres voces:
 @end lilypond
 
 @cindex plica abajo
+@cindex voces y dirección de las plicas
+@cindex plicas, voces y dirección de las
 @cindex plica arriba
 
 Las direcciones de las plicas se asignan automáticamente de forma que
@@ -930,10 +965,15 @@ Referencia de la notación:
 
 
 @funindex \voiceOne
+@funindex voiceOne
 @funindex \voiceTwo
+@funindex voiceTwo
 @funindex \voiceThree
+@funindex voiceThree
 @funindex \voiceFour
+@funindex voiceFour
 @funindex \oneVoice
+@funindex oneVoice
 @funindex \new Voice
 @cindex contextos de voz, creación de
 
@@ -974,6 +1014,9 @@ Los dos ejemplos anteriores producirán:
   \new Voice = "2" { \voiceTwo \relative c' { c4 d e f } }
 >>
 @end lilypond
+
+@cindex voces, retorno a única
+@cindex retorno a voz única
 
 Las instrucciones @code{\voiceXXX} establecen la dirección de las
 plicas, ligaduras de expresión, ligaduras de prolongación,
@@ -1055,7 +1098,7 @@ pueda trazar una ligadura por encima de ellas.
 
 @cindex anidado de expresiones musicales
 @cindex anidado de construcciones simultáneas
-
+@cindex anidado de voces
 @cindex voces temporales
 @cindex voces, anidado de
 
@@ -1113,12 +1156,20 @@ que una voz está en silencio, como aquí:
 >>
 @end lilypond
 
+@subsubheading Note columns
+
 @cindex columna de notas
+@cindex colisiones de notas
+@cindex notas, colisiones de
 @cindex desplazamiento, instrucciones de
 @funindex \shiftOff
+@funindex shiftOff
 @funindex \shiftOn
+@funindex shiftOn
 @funindex \shiftOnn
+@funindex shiftOnn
 @funindex \shiftOnnn
+@funindex shiftOnnn
 
 Las notas cercanas de un acorde, o las notas que se producen al mismo
 tiempo en distintas voces, se disponen en dos (y ocasionalmente más)
@@ -1168,6 +1219,8 @@ dos expresiones, a saber, las notas y la letra.
 
 @funindex \new Lyrics
 @funindex \lyricsto
+@funindex lyricsto
+@funindex Lyrics
 @cindex Lyrics, creación de un contexto
 @cindex letra, creación de un contexto de
 @cindex letra, enlazar con una voz
@@ -1200,6 +1253,7 @@ explícitamente.
 @cindex letra y barrado
 @cindex barrado y letra
 @funindex \autoBeamOff
+@funindex autoBeamOff
 
 El barrado automático que LilyPond usa de forma predeterminada
 funciona bien para la música instrumental, pero no tan bien para
@@ -1209,8 +1263,11 @@ ejemplo anterior hemos utilizado la instrucción @code{\autoBeamOff}
 para desactivar el barrado automático.
 
 @funindex \new ChoirStaff
+@funindex ChoirStaff
 @funindex \lyricmode
+@funindex lyricmode
 @cindex vocal, estructura de una partitura
+@cindex coro, sistema de
 
 Ahora vamos a reutilizar el ejemplo anterior de «Judas Macabeo» para
 ilustrar esta técnica más flexible.  Primero la reescribiremos para
@@ -1262,6 +1319,10 @@ contienen la música se pueden colocar fácilmente en archivos separados
 cuando se hagan demasiado largos.
 
 @cindex himno, estructura de
+@cindex SATB, estructura de
+@cindex vocal, partitura, varias estrofas
+@cindex varias estrofas vocales
+@cindex estrofas, varias, vocales
 
 A continuación podemos ver un ejemplo final de la primera línea de un
 himno con cuatro estrofas, para coro SATB.  En este caso la letra de
@@ -1439,6 +1500,7 @@ refrainwordsB = \lyricmode {
 @cindex libro
 @cindex book, ejemplo de su uso
 @funindex \book
+@funindex book
 
 Sin embargo, y aunque esto es un interesante y útil ejercicio
 destinado a ayudarle a comprender cómo funcionan los bloques
@@ -1611,6 +1673,7 @@ Referencia de la notación:
 @subsection Creating contexts
 
 @funindex \new
+@funindex new
 @cindex nuevos contextos
 @cindex creación de contextos
 @cindex contextos, creación de
@@ -1820,7 +1883,9 @@ Referencia de funcionamiento interno:
 @cindex contexto, propiedades de, modificación
 @cindex modificar las propiedades de contexto
 @funindex \set
+@funindex set
 @funindex \unset
+@funindex unset
 
 Los contextos se responsabilizan de mantener los valores de un cierto
 número de @emph{properties} de contexto.  Muchas de ellas se pueden
@@ -1885,6 +1950,9 @@ antes de la @code{t} o la @code{f}, y antes del @emph{valor} dentro de
 la sentencia @code{\set}.  Así pues, cuando se está escribiendo un
 valor Booleano, hay que escribir dos signos de cuadradillo, por
 ejemplo: @code{##t}.
+
+@cindex propiedades que funcionan en contextos
+@cindex establecer propiedades en contextos
 
 Antes de poder establecer cualquiera de estas propiedades, tenemos que
 saber en qué contexto operan.  A veces es algo obvio, pero en
@@ -2017,6 +2085,7 @@ mucho más general utilizando la potentísima instrucción @code{markup}.
 @unnumberedsubsubsec Setting context properties with @code{\with}
 
 @funindex \with
+@funindex with
 @cindex contexto, propiedades de, establecimiento con \with
 
 Las propiedades de contexto también se pueden establecer en el momento
@@ -2053,6 +2122,10 @@ Las propiedades ajustadas de esta manera aún pueden cambiarse
 dinámicamente utilizando @code{\set} y ser devueltas a sus valores
 predeterminados mediante @code{\unset}.
 
+@cindex fontSize (tamaño de la tipografía)
+@cindex fuente, tamaño de la
+@cindex tamaño de la fuente
+
 La propiedad @code{fontSize} se trata de forma distinta.  Si se ajusta
 dentro de una cláusula @code{\with}, tiene el efecto de reiniciar el
 valor predeterminado del tamaño de la fuente tipográfica.  Si más
@@ -2060,6 +2133,10 @@ tarde se modifica con @code{\set}, este nuevo valor predeterminado
 puede restablecerse con la instrucción @code{\unset fontSize}.
 
 @unnumberedsubsubsec Setting context properties with @code{\context}
+
+@cindex contextos, establecer propiedades de, con \context
+@funindex \context
+@funindex context
 
 Los valores de propiedad de los contextos se pueden establecer para
 @emph{todos} los contextos de un tipo determinado, como por ejemplo
@@ -2112,11 +2189,15 @@ Referencia de funcionamiento interno:
 @node Adding and removing engravers
 @subsection Adding and removing engravers
 
-@cindex Grabadores, adición
-@cindex Grabadores, eliminación
+@cindex grabadores, adición
+@cindex grabadores, eliminación
+@cindex adición de grabadores
+@cindex eliminación de grabadores
 
 @funindex \consists
+@funindex consists
 @funindex \remove
+@funindex remove
 
 Hemos visto que cada uno de los contextos contiene varios grabadores,
 cada uno de los cuales a su vez es responsable de la producción de una
@@ -2208,6 +2289,9 @@ pentagrama:
 
 @subsubheading Changing all contexts of the same type
 
+@funindex \layout
+@funindex layout
+
 Los ejemplos anteriores muestran la manera de eliminar o añadir
 grabadores a los contextos individuales.  También es posible eliminar
 o añadir grabadores a todos los contextos de un tipo específico,
@@ -2277,6 +2361,7 @@ contemplado aquí? Continúe leyendo.
 @subsection Soprano and cello
 
 @cindex plantilla, modificar
+@cindex modificar plantillas
 
 Para empezar, tome la plantilla que le parezca más parecida a aquello
 que quiere conseguir.  Digamos que quiere escribir algo para soprano y
@@ -2602,7 +2687,7 @@ solista}:
 
 @example
 \new PianoStaff <<
-  \set PianoStaff.instrumentName = "Piano  "
+  \set PianoStaff.instrumentName = "Piano"
   \new Staff = "superior" \superior
   \new Staff = "inferior" \inferior
 >>
@@ -2638,7 +2723,7 @@ Los grupos ChoirStaff y PianoStaff se deben combinar utilizando
   >>  % fin del ChoirStaff
 
   \new PianoStaff <<
-    \set PianoStaff.instrumentName = "Piano  "
+    \set PianoStaff.instrumentName = "Piano"
     \new Staff = "upper" \upper
     \new Staff = "lower" \lower
   >>
@@ -2713,7 +2798,7 @@ lower = \relative c, {
     >>  % end ChoirStaff
 
     \new PianoStaff <<
-      \set PianoStaff.instrumentName = "Piano  "
+      \set PianoStaff.instrumentName = "Piano"
       \new Staff = "upper" \upper
       \new Staff = "lower" \lower
     >>
@@ -2726,6 +2811,9 @@ lower = \relative c, {
 @subsection Building a score from scratch
 
 @cindex plantilla, escribir su propia
+@cindex ejemplo de escritura de una partitura
+@cindex escribir una partitura, ejemplo
+@cindex partitura, ejemplo de escritura
 
 Después de adquirir algo de soltura en la escritura del código de
 LilyPond, se dará cuenta de que es más fácil construir completamente

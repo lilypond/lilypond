@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 54ddd0943ae763043343f0726af7a6e2ac427ad5
+    Translation of GIT committish: 0fbe887e9bd532a47eb02687df4d56f47fe930c1
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -12,7 +12,8 @@
 @node Unfretted string instruments
 @section Unfretted string instruments
 
-@untranslated
+Esta sección incluye información adicional para la escritura de música
+para instrumentos de cuerda sin trastes.
 
 @menu
 * Common notation for unfretted strings::
@@ -23,8 +24,6 @@
 @node Common notation for unfretted strings
 @subsection Common notation for unfretted strings
 
-@untranslated
-
 @menu
 * References for unfretted strings::
 @end menu
@@ -32,12 +31,10 @@
 @node References for unfretted strings
 @subsubsection References for unfretted strings
 
-@untranslated
+Continuará...
 
 @node Bowed instruments
 @subsection Bowed instruments
-
-@untranslated
 
 @menu
 * References for bowed strings::
@@ -55,10 +52,10 @@ introducen marcando la nota que es un armónico mediante @code{\harmonic}.
 <c g'\harmonic>4
 @end lilypond
 
+
 @node Plucked instruments
 @subsection Plucked instruments
 
-@untranslated
 
 @menu
 * Harp::
@@ -67,5 +64,5 @@ introducen marcando la nota que es un armónico mediante @code{\harmonic}.
 @node Harp
 @subsubsection Harp
 
-@untranslated
+Continuará...
 

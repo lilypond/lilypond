@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-23 18:33+0200\n"
-"PO-Revision-Date: 2008-08-30 23:37+0300\n"
+"PO-Revision-Date: 2008-09-12 21:30+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -2503,7 +2503,7 @@ msgstr "Automatisches Verhalten"
 #. @node in Documentation/de/user/tweaks.itely
 #. @subsection in Documentation/de/user/tweaks.itely
 msgid "Within-staff objects"
-msgstr "withing-staff (Objekte innerhalb des Notensystems)"
+msgstr "within-staff (Objekte innerhalb des Notensystems)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/es/user/tweaks.itely
