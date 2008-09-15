@@ -1,12 +1,12 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: fe52a9493b91e0d61a9d6f850b0a2f2a7015e6db
+    Translation of GIT committish: 0380ecf564c664ec8979142a95c918ce09f3ab6a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 @setfilename lilypond-learning.info
-@settitle GNU LilyPond Learning Manual
+@settitle Manual de aprendizaje de GNU LilyPond
 @documentencoding UTF-8
 @documentlanguage es
 
@@ -119,7 +119,7 @@ Free Documentation License''.
 
 @c TRANSLATE ME
 @ifnottex
-Este archivo es la documentación sobre la utilización del programa GNU LilyPond.
+Este archivo es la documentación de GNU LilyPond orientada a quienes empiezan con el programa.
 
 Copyright @copyright{} 1999--2007 por los autores
 
@@ -153,7 +153,7 @@ Free Documentation License''.
 @c TRANSLATE ME
 @ifnottex
 @node Top
-@top GNU LilyPond --- learning manual
+@top GNU LilyPond: manual de aprendizaje
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Éste es el manual de aprendizaje de GNU LilyPond, versión @version{}.
