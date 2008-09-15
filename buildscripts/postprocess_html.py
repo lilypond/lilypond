@@ -148,7 +148,7 @@ def add_header (s, prefix):
         if css_re.search (s) == None:
             depth = (prefix.count ('/') - 1) * '../'
             s = end_head_tag_re.sub ((css_link % depth) + '</head>', s)
-        return s
+    return s
 
 title_tag_re = re.compile ('.*?<title>(.*?)</title>', re.DOTALL)
 AT_web_title_re = re.compile ('@WEB-TITLE@')
