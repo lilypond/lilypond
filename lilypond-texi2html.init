@@ -656,7 +656,7 @@ sub print_lilypond_page_foot($)
 {
   my $fh = shift;
   my $program_string = &$program_string();
-  print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
+#   print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
   print $fh "<!-- FOOTER -->\n\n";
   print $fh "<!-- end div#main here -->\n</div>\n\n";
 
