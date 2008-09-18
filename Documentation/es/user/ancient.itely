@@ -88,7 +88,7 @@ contextos predefinidos de voz y de pentagrama específicos del estilo,
 y nos permiten ir directamente a la introducción de las notas:
 
 @itemize
-@item @ref{Gregorian Chant contexts},
+@item @ref{Gregorian chant contexts},
 @item @ref{Mensural contexts}.
 @end itemize
 

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 29cfaa52797fccf18ae4f25da5e828d10b46b65a
+    Translation of GIT committish: dfae8d829c653d1c011f8823cd51d09c33400b66
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -609,7 +609,7 @@ Imprimir la ayuda de la utilización.
 @node Problems with convert-ly
 @subsection Problems with @code{convert-ly}
 
-No se manejan todos los cambios en el lenguaje.  S´olo se puede
+No se manejan todos los cambios en el lenguaje.  Sólo se puede
 especificar una opción de salida.  La actualización automática de
 Scheme y los interfaces Scheme de LilyPond es bastante improbable;
 prepárese para trucar el código de Scheme a mano.

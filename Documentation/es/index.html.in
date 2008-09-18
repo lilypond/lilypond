@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: e4efdde559c7169b03591e24b2c1e2ef14b6f059
+    Translation of GIT committish: 726453e7d62a4c11b9bf74d80d76b6c9724fe2f8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,28 +13,20 @@
           content="Top-level index to the standard documentation for
                    LilyPond @TOPLEVEL_VERSION@">
     <style type="text/css">
-    .navigation         { background-color: #e8ffe8;
-   	                  padding: 2; border: #c0ffc0 1px solid;
-			  text-align: center;
-                          font-weight: bold;
-                          font-family: avantgarde, sans-serif;
-                          font-size: 110%; }
       a.title { font-weight: bold; font-size: 110%; }
       ul { margin-left: 1em; padding: 0pt; border: 0pt; }
       ul li { margin-top: 0.2em; }
       td.left-column { padding-right: 1em; }
       td.right-column { padding-left: 1em; }
-      hr { border:0; height:1; color: #000000; background-color: #000000; }
-    </style> 
+    </style>
   </head>
-  
-  <body>
-        
-	<div class="navigation">
-	  <h1>Documentación de LilyPond</h1>
-	</div>
-    <div align="center" class="titlepage">
 
+  <body>
+    <div class="header">
+	  <h1 class="header">Documentación de LilyPond</h1>
+	</div>
+
+    <div align="center">
       <p>
 	<strong>Versión @TOPLEVEL_VERSION@</strong>
 	<br>
@@ -85,7 +77,7 @@
 	    <li>
 	      <a class="title" href="user/lilypond-internals/index.html">Referencia de funcionamiento interno</a>
 	      [en inglés]<br>
-	      (también en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb, o en <a class="title" href="user/lilypond-internals.es.pdf">PDF</a>)<br>
+	      (también en <a class="title" href="user/lilypond-internals-big-page.html">una sola página</a> ~ 1 Mb, o en <a class="title" href="user/lilypond-internals.pdf">PDF</a>)<br>
 	      (definiciones para hacer trucos)
 	  </ul>
 	</td>
@@ -123,7 +115,7 @@
 	      (avance de las traducciones al español)
 	  </ul>
 	  </td>
-        </tr>	
+        </tr>
 
         <tr>
           <td valign="baseline" class="left-column">
