@@ -1,12 +1,12 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: fe52a9493b91e0d61a9d6f850b0a2f2a7015e6db
+    Translation of GIT committish: c5692ebfd28493444a1669cd550b2430bb2ba29a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 @setfilename lilypond-program.info
-@settitle GNU LilyPond program usage
+@settitle GNU LilyPond: manual de utilización del programa
 @documentencoding UTF-8
 @documentlanguage es
 
@@ -35,8 +35,8 @@
 
 @ifhtml
 Este documento está disponible también en formato
-@uref{source/Documentation/user/lilypond-program.pdf,PDF} y como
-@uref{source/Documentation/user/lilypond-program-big-page.html,una sola página}.
+@uref{source/Documentation/user/lilypond-program.es.pdf,PDF} y como
+@uref{source/Documentation/user/lilypond-program-big-page.html,una sola página} [en inglés].
 @end ifhtml
 
 
@@ -152,7 +152,7 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- program usage
+@top GNU LilyPond: utilización del programa
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 El presente documento es el manual de utilización del programa GNU

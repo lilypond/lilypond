@@ -347,6 +347,26 @@
    `(rx . ,x-radius)
    `(ry . ,y-radius)))
 
+(define (oval x-radius y-radius thick is-filled)
+  (let ((x-max x-radius)
+        (x-min (- x-radius))
+        (y-max y-radius)
+        (y-min (- y-radius)))
+    (entity
+     'path ""
+     '(stroke-linejoin . "round")
+     '(stroke-linecap . "round")
+     `(fill . ,(if is-filled "currentColor" "none"))
+     `(stroke . "currentColor")
+     `(stroke-width . ,thick)
+     `(d . ,(ly:format "M~4f,~4f C~4f,~4f  ~4f,~4f ~4f,~4f S~4f,~4f ~4f,~4f" 
+               x-max 0
+               x-max y-max
+               x-min y-max
+               x-min 0
+               x-max y-min
+               x-max 0)))))
+
 (define (text font string)
   (dispatch `(fontify ,font ,(entity 'tspan (string->entities string)))))
 

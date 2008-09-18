@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: dabf7bb1b7064e759076cb5b3b97024bf32f33dd
+    Translation of GIT committish: 4be1308672c6f8efbe660c9eddc0a6a167c9ad31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -103,7 +103,7 @@ Manual de aprendizaje:
 @rlearning{Other uses for tweaks}.
 
 Referencia de la notación:
-@ref{Grouping staves},
+@c @ref{Grouping staves},
 @ref{Instrument names},
 @ref{Collision resolution},
 @ref{Writing music in parallel},

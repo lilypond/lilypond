@@ -80,26 +80,26 @@ Stencil::rotate (Real a, Offset off)
 }
 
 /*
-  Rotate this stencil around the point RELATIVE_OFF.
+  Rotate this stencil around the point ABSOLUTE_OFF.
 
-  RELATIVE_OFF is measured in terms of the extent of the stencil, so
-  -1 = LEFT/DOWN edge, 1 = RIGHT/UP edge.
  */
 void
-Stencil::rotate_degrees (Real a, Offset relative_off)
+Stencil::rotate_degrees_absolute (Real a, Offset absolute_off)
 {
-  const Real x_cen = extent (X_AXIS).center ();
-  const Real y_cen = extent (Y_AXIS).center ();
-
-  /*
-   * Calculate the center of rotation
-   */
-  const Real x = x_cen + relative_off[X_AXIS] * x_cen;
-  const Real y = y_cen + relative_off[Y_AXIS] * y_cen;
+  const Real x = absolute_off[X_AXIS];
+  const Real y = absolute_off[Y_AXIS];
 
   /*
    * Build scheme expression (processed in stencil-interpret.cc)
    */
+  /* TODO: by hanwenn 2008/09/10 14:38:56:
+   * in effect, this copies the underlying expression.  It might be a
+   * little bit nicer to mirror this in the api, ie. make a
+   *         Stencil::rotated()
+   * and have Stencil::rotate be an abbrev of
+   *         *this = rotated()
+   */
+
   expr_ = scm_list_n (ly_symbol2scm ("rotate-stencil"),
 		      scm_list_2 (scm_from_double (a),
 		      scm_cons (scm_from_double (x), scm_from_double (y))),
@@ -108,16 +108,36 @@ Stencil::rotate_degrees (Real a, Offset relative_off)
   /*
    * Calculate the new bounding box
    */
+  Box shifted_box = extent_box ();
+  shifted_box.translate (-absolute_off);
+
   vector<Offset> pts;
-  pts.push_back (Offset (-x_cen, -y_cen));
-  pts.push_back (Offset (x_cen, -y_cen));
-  pts.push_back (Offset (x_cen, y_cen));
-  pts.push_back (Offset (-x_cen, y_cen));
+  pts.push_back (Offset (shifted_box.x ().at(LEFT), shifted_box.y ().at(DOWN)));
+  pts.push_back (Offset (shifted_box.x ().at(RIGHT), shifted_box.y ().at(DOWN)));
+  pts.push_back (Offset (shifted_box.x ().at(RIGHT), shifted_box.y ().at(UP)));
+  pts.push_back (Offset (shifted_box.x ().at(LEFT), shifted_box.y ().at(UP)));
 
   const Offset rot = complex_exp (Offset (0, a * M_PI / 180.0));
   dim_.set_empty ();
   for (vsize i = 0; i < pts.size (); i++)
-    dim_.add_point (pts[i] * rot + Offset (x_cen, y_cen));
+    dim_.add_point (pts[i] * rot + absolute_off);
+}
+
+/*
+  Rotate this stencil around the point RELATIVE_OFF.
+
+  RELATIVE_OFF is measured in terms of the extent of the stencil, so
+  -1 = LEFT/DOWN edge, 1 = RIGHT/UP edge.
+ */
+void
+Stencil::rotate_degrees (Real a, Offset relative_off)
+{
+  /*
+   * Calculate the center of rotation
+   */
+  const Real x = extent (X_AXIS).linear_combination (relative_off[X_AXIS]);
+  const Real y = extent (Y_AXIS).linear_combination (relative_off[Y_AXIS]);
+  rotate_degrees_absolute (a, Offset (x, y));
 }
 
 void

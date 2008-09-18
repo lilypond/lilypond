@@ -165,6 +165,20 @@ bind def
 	ifelse
 } bind def
 
+/draw_oval % filled? x-radius y-radius thickness draw_ellipse
+{
+  setlinewidth % f? x-r y-r
+  /yrad exch def
+  /xrad exch def
+  xrad 0 rmoveto
+  0 yrad -2 xrad mul dup yrad exch 0 rcurveto
+  0 yrad neg dup 2 xrad mul dup 3 1 roll 0 rcurveto
+  closepath
+      { stroke_and_fill}
+      { stroke }
+  ifelse
+} bind def
+
 /draw_ellipse % filled? x-radius y-radius thickness draw_ellipse
 {
   setlinewidth % f? x-r y-r

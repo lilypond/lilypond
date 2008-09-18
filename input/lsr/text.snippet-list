@@ -17,6 +17,7 @@ aligning-marks-with-various-notation-objects.ly
 markup-lines.ly
 piano-template-with-centered-lyrics.ly
 creating-simultaneous-rehearsal-marks.ly
+multi--measure-rest-markup.ly
 three-sided-box.ly
 utf-8.ly
 blanking-staff-lines-using-the--whiteout-command.ly

@@ -26,7 +26,7 @@ testnotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64 c''8 d''1
          (stroke-style (ly:grob-property stem-grob 'stroke-style))
          (stencil (if (null? stroke-style) flag
                          (add-stroke-glyph flag stem-grob dir stroke-style ""))))
-    (ly:stencil-rotate stencil 180 -1 -1)))
+    (ly:stencil-rotate-absolute stencil 180 0 0)))
 
 {
   \override Score.RehearsalMark #'self-alignment-X = #LEFT

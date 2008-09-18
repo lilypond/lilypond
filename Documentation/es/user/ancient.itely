@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 44ece5716678c487c07dbf77c9f3308b5dec06e3
+    Translation of GIT committish: 4be1308672c6f8efbe660c9eddc0a6a167c9ad31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -88,7 +88,7 @@ contextos predefinidos de voz y de pentagrama específicos del estilo,
 y nos permiten ir directamente a la introducción de las notas:
 
 @itemize
-@item @ref{Gregorian Chant contexts},
+@item @ref{Gregorian chant contexts},
 @item @ref{Mensural contexts}.
 @end itemize
 

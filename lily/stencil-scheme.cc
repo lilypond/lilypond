@@ -288,7 +288,8 @@ LY_DEFINE (ly_bracket, "ly:bracket",
 LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
 	   4, 0, 0, (SCM stil, SCM angle, SCM x, SCM y),
 	   "Return a stencil @var{stil} rotated @var{angle} degrees around"
-	   " point (@var{x}, @var{y}).")
+	   " the relative offset (@var{x}, @var{y}). E.g. an offset of"
+	   " (-1, 1) will rotate the stencil around the left upper corner.")
 {
   Stencil *s = unsmob_stencil (stil);
   LY_ASSERT_SMOB (Stencil, stil, 1);
@@ -302,6 +303,26 @@ LY_DEFINE (ly_stencil_rotate, "ly:stencil-rotate",
   SCM new_s = s->smobbed_copy ();
   Stencil *q = unsmob_stencil (new_s);
   q->rotate_degrees (a, Offset (x_off, y_off));
+  return new_s;
+}
+
+LY_DEFINE (ly_stencil_rotate_absolute, "ly:stencil-rotate-absolute",
+	   4, 0, 0, (SCM stil, SCM angle, SCM x, SCM y),
+	   "Return a stencil @var{stil} rotated @var{angle} degrees around"
+	   " point (@var{x}, @var{y}), given in absolute coordinates.")
+{
+  Stencil *s = unsmob_stencil (stil);
+  LY_ASSERT_SMOB (Stencil, stil, 1);
+  LY_ASSERT_TYPE (scm_is_number, angle, 2);
+  LY_ASSERT_TYPE (scm_is_number, x, 3);
+  LY_ASSERT_TYPE (scm_is_number, y, 4);
+  Real a = scm_to_double (angle);
+  Real x_off = scm_to_double (x);
+  Real y_off = scm_to_double (y);
+
+  SCM new_s = s->smobbed_copy ();
+  Stencil *q = unsmob_stencil (new_s);
+  q->rotate_degrees_absolute (a, Offset (x_off, y_off));
   return new_s;
 }
 

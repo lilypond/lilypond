@@ -157,7 +157,7 @@ divider) and @code{space-after-divider} (box spacing after the divider).
                                    (box-y-dimensions prev-x p space)))
                         (pedal-stencil 
                           (if circled 
-                              (ellipse-stencil stencil circle-thickness 
+                              (oval-stencil stencil circle-thickness 
                                             circle-x-padding circle-y-padding)
                               stencil))
                         (new-prev-x (+ prev-x space box-width)))

@@ -382,25 +382,32 @@ Here are some examples:
 Two Woodblocks, entered with wbh (high woodblock) and wbl (low woodblock)
 
 @lilypond[quote,verbatim]
-#(define mydrums '(
-         (hiwoodblock     default   #t        3)
-         (lowoodblock       default   #t        -2)))
-	 %% These lines define the position of the woodblocks in the stave, if You like, You can change it 
-	 % or You can use  special note heads for the woodblocks.
-	 woodstaff = { \override Staff.StaffSymbol #'line-positions = #'(-2 3)  
-% this defines a staff with only two lines. It also defines the positions of the two lines
-	 \override Staff.BarLine #'bar-size  = #3 }
-	 %% this is neccessary. If not entered, the barline wuld be too short!
+% These lines define the position of the woodblocks in the stave;
+% if you like, you can change it or you can use special note heads
+% for the woodblocks.
+#(define mydrums '((hiwoodblock default #t  3)
+                   (lowoodblock default #t -2)))
+
+woodstaff = {
+  % This defines a staff with only two lines.
+  % It also defines the positions of the two lines.
+  \override Staff.StaffSymbol #'line-positions = #'(-2 3)
+
+  % This is neccessary; if not entered, the barline wuld be too short!
+  \override Staff.BarLine #'bar-size = #3
+}
  
- \new DrumStaff  {
-	 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
-	 %% with this You load Your new drum style table
-	 \woodstaff 
-	 \drummode {
-	\time 2/4
-	wbl8 wbl16 wbl wbh 8 -> wbl |
-	wbl 8 wbl16  wbh ~ -> wbh wbl 16 r8 |
-	 }
+\new DrumStaff {
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+
+  % with this you load your new drum style table
+  \woodstaff 
+
+  \drummode {
+    \time 2/4
+    wbl8 wbl16 wbl wbh8-> wbl |
+    wbl8 wbl16 wbh-> ~ wbh wbl16 r8 |
+  }
 }
 @end lilypond
 
@@ -412,102 +419,134 @@ Otherwise it would be too short. And You have also to define the
 positions of the to stafflines.  For more information about these
 delicate things have a look at @ref{Staff symbol}.
 
-
-A tambourine, entered with "tamb":
+A tambourine, entered with @q{tamb}:
 
 @lilypond[quote,verbatim]
- % tambourine-music is entered with "tamb"
-	tambustaff = { \override Staff.StaffSymbol #'line-positions = #'( 0 )   
-		\override Staff.BarLine #'bar-size  = #3 
-	\set DrumStaff.instrumentName="Tambourine"}
- \new DrumStaff {
-	 \tambustaff 
-% broken
-%	 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
-	 \drummode { \time 6/8
-		\repeat "unfold" 2 { tamb8. tamb16 tamb8 tamb tamb tamb | }
-		tamb4. tamb8 tamb tamb | tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
-		%% the trick with the scaled duration and the shorter rest is neccessary for the correct ending of the trill-span!
-				 }
-					 }
+tambustaff = {
+  \override Staff.StaffSymbol #'line-positions = #'( 0 )   
+  \override Staff.BarLine #'bar-size = #3
+  \set DrumStaff.instrumentName = "Tambourine"
+}
 
+\new DrumStaff {
+  \tambustaff 
+  % broken
+  % \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+
+  \drummode {
+    \time 6/8
+    \repeat "unfold" 2 { tamb8. tamb16 tamb8 tamb tamb tamb | }
+    tamb4. tamb8 tamb tamb |
+    % the trick with the scaled duration and the shorter rest
+    % is neccessary for the correct ending of the trill-span!
+    tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
+  }
+}
 @end lilypond 
-Music for Tam-Tam (entered with "tt"):
+
+Music for Tam-Tam (entered with @q{tt}):
 
 @lilypond[quote,verbatim]
- #(define mydrums '(
-         (tamtam     default   #t      0) ) )
-	tamtamstaff = { \override Staff.StaffSymbol #'line-positions = #'( 0 )   
-		\override Staff.BarLine #'bar-size  = #3 
-	\set DrumStaff.instrumentName="Tamtam"}
- \new DrumStaff {
-	 \tamtamstaff
-	 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
-	 \drummode { tt 1 \pp \laissezVibrer 
-				 } 
-					 }
-@end lilypond
+#(define mydrums '((tamtam default #t 0)))
 
-Two different bells, entered with "cb" (cowbell) and "rb" (ridebell)" 
+tamtamstaff = {
+  \override Staff.StaffSymbol #'line-positions = #'( 0 )   
+  \override Staff.BarLine #'bar-size = #3
+  \set DrumStaff.instrumentName = "Tamtam"
+}
 
-@lilypond[quote,verbatim]
-%% bells are enterd with:
-% "cb" (cowbell) and "rb" (ridebell)" 
- #(define mydrums '(
-         (ridebell     default   #t        3 )
-         (cowbell       default   #t        -2)))
-	
-	 bellstaff = { \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)  
-		 \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
-	 \override Staff.BarLine #'bar-size  = #3   
-	 \set DrumStaff.instrumentName="Different Bells"}
- 
- \new DrumStaff  {
-	 \bellstaff
-	 \drummode {
-	\time 2/4
-	\repeat "unfold" 2 { rb 8 rb cb cb16  rb ~ -> | rb16  rb 8 rb 16 cb 8 cb | }
-	 }
+\new DrumStaff {
+  \tamtamstaff
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+
+  \drummode {
+    tt 1 \pp \laissezVibrer 
+  } 
 }
 @end lilypond
 
-Here an short example by maestro Stravinsky (from "L'hostire du Soldat")
+Two different bells, entered with @q{cb} (cowbell) and @q{rb} (ridebell)
 
 @lilypond[quote,verbatim]
- #(define mydrums '(
-	  (bassdrum         default #t 4 ) 
-	 (snare              default #t -4 )
-         (tambourine     default   #t      0) ) )
-	 
- global = { \time 3/8 s 4. \time 2/4 s 2 *2 \time 3/8 s 4. \time 2/4 s 2 }
-	 
-drumsA = { \context DrumVoice << {  \global }
-	{\drummode { 
-  \autoBeamOff 
-\stemDown sn 8 \stemUp tamb s8 |
-		 sn4 \stemDown sn4  |
-\stemUp tamb 8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8   |
-\stemDown sn 8 \stemUp tamb s8 |
-\stemUp sn4 s8 \stemUp tamb |
-	} } >> }
-drumsB = { \drummode { s 4 bd 8 s 2*2 s 4 bd8 s 4 bd8 s 8 } }
-	 
+#(define mydrums '((ridebell default #t  3)
+                   (cowbell  default #t -2)))
+
+bellstaff = {
+  \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)  
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+  \override Staff.BarLine #'bar-size = #3
+  \set DrumStaff.instrumentName = "Different Bells"
+}
+ 
+\new DrumStaff {
+  \bellstaff
+  \drummode {
+    \time 2/4
+    \repeat "unfold" 2 { rb8 rb cb cb16 rb-> ~ |
+                         rb16 rb8 rb16 cb8 cb | }
+  }
+}
+@end lilypond
+
+Here an short example by maestro Stravinsky (from @q{L'histoire du Soldat})
+
+@lilypond[quote,verbatim]
+#(define mydrums '((bassdrum   default #t  4)
+                   (snare      default #t -4)
+                   (tambourine default #t  0)))
+
+global = {
+  \time 3/8 s4.
+  \time 2/4 s2*2
+  \time 3/8 s4.
+  \time 2/4 s2
+}
+ 
+drumsA = {
+  \context DrumVoice <<
+    { \global }
+    { \drummode {
+        \autoBeamOff 
+        \stemDown sn8 \stemUp tamb s8 |
+        sn4 \stemDown sn4 |
+        \stemUp tamb8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8 |
+        \stemDown sn8 \stemUp tamb s8 |
+        \stemUp sn4 s8 \stemUp tamb
+      }
+    }
+  >>
+}
+
+drumsB = {
+  \drummode {
+    s4 bd8 s2*2 s4 bd8 s4 bd8 s8
+  }
+}
+ 
 \layout {
-		indent = #40
+  indent = #40
 } 
 
- \score { 
- \new StaffGroup
- <<
- \new DrumStaff 
- {  \set DrumStaff.instrumentName= \markup { \column { "Tambourine" "et" "caisse claire s. timbre" } }
- \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) \drumsA } 
- \new DrumStaff 
- { \set DrumStaff.instrumentName= "Grosse Caisse"
- \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) \drumsB } 
- >> 
+\score { 
+  \new StaffGroup <<
+    \new DrumStaff {
+      \set DrumStaff.instrumentName = \markup {
+        \column {
+          "Tambourine"
+          "et"
+          "caisse claire s. timbre"
+        }
+      }
+      \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+      \drumsA
+    } 
 
- }
+   \new DrumStaff {
+     \set DrumStaff.instrumentName = "Grosse Caisse"
+     \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+     \drumsB }
+  >> 
+}
 @end lilypond
 
 @seealso
@@ -554,5 +593,3 @@ around each @code{\parenthesize} statement.
 @seealso
 
 Snippets: @rlsr{Percussion}.
-
-

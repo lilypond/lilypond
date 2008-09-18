@@ -54,15 +54,31 @@ mingw       - Windows x86
 @end example
 
 
+@node Compiling from source
+@section Compiling from source
+
+@ignore
+You can also compile LilyPond directly from the source code. This
+requires that you can read English, so this section is not
+translated.  If you really want to compile LilyPond, see
+@iftex
+@c DO NOT translate the following line at all.
+@ref{Compiling from source,,,lilypond-program,Application Usage}.
+@end iftex
+@ifhtml
+@c Please translate the following line (but not the .html file name)
+the @uref{Compiling-from-source.html,documentation in English}.
+@end ifhtml
+@end ignore
+
 @c TRANSLATORS:
 @c   Please **do not** translate anything below this line.  Users
-@c   should not be compiling LilyPond themselves; if they really 
+@c   should not be compiling LilyPond themselves; if they really
 @c   want to do so, they should be able to read the English docs,
 @c   because they'll probably need to ask questions in English
 @c   on the -devel list.   -gp
-
-@node Compiling from source
-@section Compiling from source
+@c Instead, please uncomment and translate the paragraph above,
+@c and remove all stuff (menu, nodes, contents) below this line.
 
 @menu
 * Downloading source code::     
