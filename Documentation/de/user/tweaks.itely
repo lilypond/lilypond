@@ -487,7 +487,9 @@ aus der Referenz zu entnehmen, die Sie benötigen.
 @c For German users
 Beachten Sie, dass die Referenz der Interna nur auf Englisch
 existiert. Um die Eigenschaftsbezeichnung eines bestimmten
-Objektes zu finden, können Sie das @rglosnamed{Top,Glossar}
+Objektes zu finden, können Sie das Glossar (siehe
+@c  @r glos{Music Glossary})
+  @ref{Music Glossary,,,music-glossary,Musikglossar})
  verwenden, in dem
 die englischen Begriffe in viele andere Sprachen übersetzt sind.
 
