@@ -1,5 +1,5 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-learning.tely
 @ignore
     Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
 
@@ -31,8 +31,6 @@ Notenfragment kann geändert werden.
 @node Tweaking basics
 @section Tweaking basics
 
-@untranslated
-
 @menu
 * Introduction to tweaks::      
 * Objects and interfaces::      
@@ -43,22 +41,405 @@ Notenfragment kann geändert werden.
 @node Introduction to tweaks
 @subsection Introduction to tweaks
 
-@untranslated
+@qq{Optimierung} (engl. tweaking) ist ein LilyPond-Begriff für die
+verschiedenen Methoden, die Aktionen zu beeinflussen, die während
+der Kompilation einer Notationsdatei vorgenommen werden sowie auf
+das Notenbild einzuwirken. Einige dieser Opitmierungen sind sehr 
+einfach, andere dagegen recht komplex. Aber insgesamt erlaubt das
+System an Optimierungen so gut wie alle möglichen Erscheindungsformen
+für die Notenausgabe.
+
+In diesem Abschnitt werden die grundlegenden Konzepte vorgestellt,
+um die Optimierung zu verstehen. Später soll eine Anzahl von fertigen
+Befehlen bereitgestellt werden, die einfach in die Quelldatei
+kopiert werden können um den selben Effekt wie im Beispiel
+zu erhalten. Gleichzeitig zeigen diese Beispiele, wie die Befehle
+konstruiert werden, so dass Sie in der Lage sein werden, eigene
+Befehle auf dieser Grundlage zu entwickeln.
+
+Bevor Sie mit diesem Kapitel beginnen, könnte Sie ein Blick in den
+Abschnitt @ref{Contexts and engravers} interessieren, dann
+Kontexte und Engraver sowie die Eigenschaften, die mit ihnen 
+verknüpft sind, sind die Voraussetzung, um die Funktionsweise
+von Optimierungen verstehen zu können.
+
 
 @node Objects and interfaces
 @subsection Objects and interfaces
 
-@untranslated
+@cindex Objekte
+@cindex Grobs
+@cindex Spanners
+@cindex Interfaces
+@cindex Strecker
+@cindex Schnittstellen
+
+Optimierung bedeutet, die internen Operationen und Strukturen
+des LilyPond-Programmes zu verändern, darum sollen hier
+zunächst die wichtigesten Begriffe erklärt werden, die zur
+Beschreibung dieser Operationen und Strukturen benutzt werden.
+
+Der Begriff @qq{Objekt} ist ein allgemeiner Begriff, mit dem
+die Vielzahl an internen Strukturen bezeichnet wird, die LilyPond
+während der Bearbeitung des Quelltextes erstellt. Wenn etwa
+ein Befehl wie @code{\new Staff} auftritt, wird ein neues Objekt
+vom Typ @code{Staff} erstellt. Dieses Objekt @code{Staff} enthält
+dann alle Eigenschaften, die mit diesem speziellen Notensystem
+verknüpft sind, wie beispielsweise seine Bezeichnung, Tonart und
+spezifische Angaben über die Engraver, die innerhalb dieses Systems
+eingesetzt werden. Für alle anderen Kontexte gibt es genauso
+Objekte, die deren Eigenschaften beinhalten, beispielsweise für
+@code{Voice}-Objekte, @code{Score}-Objekte, @code{Lyrics}-Objekte,
+aber auch für Objekte, die Notationselemente wie die Taktlinien,
+Notenköpfe, Bögen und Dynamikbezeichnung enthalten. Jedes
+Objekt hat eine eigene Gruppe an Eigenschaftswerten.
+
+Bestimmte Objekttypen tragen besondere Bezeichnungen. Objekte, die
+Notationselemente der gesetzten Ausgabe repräsentieren, also
+Notenköpfe, Hälse, Bögen, Fingersatz, Schlüssel usw., werden
+@qq{Layout-Objekte}, oft auch @qq{Graphische Objekte} genannt.
+Daraus resultiert die künstliche Abkürzung @qq{Grob}.
+Diese sind auch Objekte im allgemeinen Sinn und haben genauso
+Eigenschaften, die mit ihnen verknüpft sind, wie etwa Größe, Position,
+Farbe usw.
+
+Einige Layout-Objekte sind etwas spezieller. Phrasierungsbögen,
+Crescendo-Klammern, Oktavierungszeichen und viele andere
+Grobs sind nicht an einer Stelle plaziert -- sie haben vielmehr
+einen Anfangspunkt, einen Endpunkt und eventuell noch andere
+Eigenschaften, die ihre Form bestimmen. Objekte mit solch
+einer erweiterten Gestalt werden als
+@qq{Strecker} (engl. Spanners)
+bezeichnet.
+
+Es bleibt uns noch übrig zu erklären, was @qq{Schnittstellen}
+(engl. interface) sind. Wenn auch viele Objekte sehr unterschiedlich
+sind, haben sie doch oft gemeinsame Eigenschaften, die auf 
+die gleiche Weise verarbeitet werden.  Alle Grobs beispielsweise
+haben eine Farbe, eine Größe, eine Position usw. und alle
+diese Eigenschaften werden von LilyPond auf die gleiche Weise
+verarbeitet, während der Quelltext in Notensatz umgesetzt wird.
+Um die internen Operationen zu vereinfachen, sind alle diese
+gemeinsamen Prozesse und Eigenschaften in einem Objekt
+mit der Bezeichnung @code{grob-interface} (Schnittstelle eines
+graphischen Objektes) zusammengefasst. Es gibt viele andere
+Gruppen gemeinsamer Eigenschaften, die jede eine Bezeichnung
+besitzen, welche auf @code{-interface} endet. Insgesamt 
+gibt es über 100 dieser Schnittstellen. Wir werden später sehen,
+was es damit auf sich hat.
+
+Dies waren die Hauptbegriffe, die in diesem Kapitel zur Anwendung
+kommen sollen.
+
 
 @node Naming conventions of objects and properties
 @subsection Naming conventions of objects and properties
 
-@untranslated
+Es wurden schon früher einige Regeln zur Benennung von
+Objekten vorgestellt, siehe
+@ref{Contexts and engravers}. Hier eine Referenzliste der
+häufigsten Objekt- und Eigenschaftsbezeichnungen mit 
+den Regeln für ihre Bezeichnung und 
+illustrierenden echten Bezeichnungen. Es wurde @qq{A}
+für einen beliebigen Großbuchstaben und @qq{aaa} für eine
+beliebige Anzahl an Kleinbuchstaben eingesetzt. Andere 
+Zeichen werden explizit angegeben.
+
+@multitable @columnfractions .33 .33 .33
+@headitem Objekt-/Eigenschaftstyp           
+  @tab Naming convention
+  @tab Beispiele
+@item Kontexte
+  @tab Aaaa oder AaaaAaaaAaaa
+  @tab Staff, GrandStaff
+@item Layout-Objekte
+  @tab Aaaa oder AaaaAaaaAaaa
+  @tab Slur, NoteHead
+@item Engraver
+  @tab Aaaa_aaa_engraver
+  @tab Clef_engraver, Note_heads_engraver
+@item Schnittstellen
+  @tab aaa-aaa-interface
+  @tab grob-interface, break-aligned-interface 
+@item Kontext-Eigenschaften
+  @tab aaa oder aaaAaaaAaaa
+  @tab alignAboveContext, skipBars
+@item Layout-Objekt-Eigenschaften
+  @tab aaa oder aaa-aaa-aaa
+  @tab direction, beam-thickness
+@end multitable
+
+Es wird bald ersichtlich werden, dass die Eigenschaften von 
+unterschiedlichen Objekttypen mit unterschiedlichen Befehlen
+geändert werden. Deshalb ist es nützlich, aus der
+Schreibweise zu erkennen, um was
+für ein Objekt es sich handelt, um den entsprechenden
+Befehl einsetzen zu können.
+
 
 @node Tweaking methods
 @subsection Tweaking methods
 
-@untranslated
+@strong{Der \override-Befehl}
+
+@cindex override-Befehl
+@funindex \override
+
+Wir haben uns schon mit den Befehlen @code{\set}
+und @code{\with} bekannt gemacht, mit welchen
+Eigenschaften von @strong{Kontexten} verändert
+und @strong{Engraver} entfernt oder hinzugefügt 
+werden können. Siehe dazu 
+@ref{Modifying context properties} und @ref{Adding
+and removing engravers}. Jetzt wollen wir uns weitere
+wichtige Befehle anschauen.
+
+Der Befehl, um die Eigenschaften von @strong{Layout-Objekten}
+zu ändern, ist @code{\override}. Weil dieser Befehl interne
+Eigenschaften tief in der Programmstruktur von LilyPond 
+verändern muss, ist seine Syntax nicht so einfach wie die der
+bisherigen Befehle. Man muss genau wissen, welche Eigenschaft
+welches Objektes in welchem Kontext geändert werder soll,
+und welches der neu zu setzende Wert dann ist. Schauen wir
+uns an, wie das vor sich geht.
+
+Die allgemeine Syntax dieses Befehles ist:
+
+@example
+\override @var{Kontext}.@var{LayoutObjekt} #'@var{layout-eigenschaft} = #@var{Wert}
+@end example
+
+@noindent
+Damit wir die Eigenschaft mit der Bezeichnung @var{layout-property}
+das Layout-Objektes mit der Bezeichnung@var{LayoutObject},
+welches ein Mitglied des @var{Kontext}-Kontextes ist, auf den
+Wert @var{value}.
+
+Der @var{Kontext} kann (und wird auch normalerweise) ausgelassen
+werden, wenn der benötigte Kontext eindeutig impliziert ist und einer
+der untersten Kontexte ist, also etwa @code{Voice}, @code{ChordNames}
+oder @code{Lyrics}. Auch in diesem Text wird der Kontext oft ausgelassen
+werden. Später soll gezeigt werden, in welchen Fällen er ausdrücklich
+definiert werden muss.
+
+Spätere Abschnitte behandeln umfassend Eigenschaften und ihre
+Werte, aber um ihre Funktion und ihr Format zu demonstrieren,
+werden wir hier nur einige einfache Eigenschaften und Werte einsetzen,
+die einfach zu verstehen sind.
+
+Für den Moment könne Sie die @code{#'}-Zeichen ignorieren, die vor jeder
+Layout-Eigenschaft, und die @code{#}-Zeichen, die vor jedem Wert
+stehen. Sie müssen immer in genau dieser Form geschrieben werden.
+Das ist der am häufigsten gebrauchte Befehl für die Optimierung,
+und der größte Teil dieses Abschnittes wird dazu benutzt, seine Benutzung
+zu erläutern. Hier ein einfaches Beispiel, um die Farbe des Notenkopfes
+zu ändern:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\override NoteHead #'color = #red
+e f g
+\override NoteHead #'color = #green
+a b c
+@end lilypond
+
+@strong{Der \revert-Befehl}
+
+@cindex revert-Befehl
+@funindex \revert
+
+Wenn eine Eigenschaft einmal überschrieben wurde, wird ihr
+neuer Wert so lange bewahrt, bis er noch einmal überschrieben
+wird oder ein @code{\revert}-Befehl vorkommt. Der
+@code{\revert}-Befehl hat die folgende Syntax und setzt den
+Wert der Eigenschaft zurück auf den Standardwert, nicht
+jedoch auf den vorigen Wert, wenn mehrere 
+@code{\override}-Befehle benutzt wurden.
+
+@example
+\revert @var{Kontext}.@var{LayoutObjekt} #'@var{layout-eigenschaft}
+@end example
+
+Wiederum, genauso wie der @var{Kontext} bei dem @code{\override}-Befehl,
+wird @var{Kontext} oft nicht benötigt. Er wird in vielen der folgenden
+Beispiele ausgelassen. Im nächsten Beispiel wird die Farbe des Notenkopfes
+wieder auf den Standardwert für die letzten zwei Noten gesetzt.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\override NoteHead #'color = #red
+e f g
+\override NoteHead #'color = #green
+a
+\revert NoteHead #'color
+b c
+@end lilypond
+
+@strong{\once-Präfix}
+
+Sowohl der @code{\override}-Befehl als auch der @code{\set}-Befehl können mit
+dem Präfix @code{\once} (@emph{einmal}) versehen werden. Dadurch wird
+der folgende @code{\override}- oder @code{\set}-Befehl nur für den aktuellen
+Musik-Moment wirksam, bevor sich wieder der Standard einstellt. Am gleichen
+Beispiel demonstriert, kann damit die Farbe eines einzelnen Notenkopfes
+geändert werden:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+c d
+\once \override NoteHead #'color = #red
+e f g
+\once \override NoteHead #'color = #green
+a b c
+@end lilypond
+
+@strong{Der \overrideProperty-Befehl}
+
+@cindex overrideProperty-Befehl
+@funindex \overrideProperty
+
+Es gibt eine andere Form des @code{override}-Befehls,
+@code{\overrideProperty} (überschreibe Eigenschaft), 
+welcher ab und zu benötigt wird. Es wird hier nur der
+Vollständigkeit halber erwähnt, sein Einsatz wird demonstriert
+in @ruser{Difficult tweaks}.
+@c Maybe explain in a later iteration  -td
+
+@strong{Der \tweak-Befehl}
+
+@cindex tweak-Befehl
+@funindex \tweak
+
+Der letzte Optimierungsbefehl in LilyPond ist @code{\tweak}
+(engl. optimieren). Er wird eingesetzt um Eigenschaften
+von Objekten zu verändern, die zum selben Musik-Moment
+auftreten, wie etwa die Noten eines Akkordes. Ein
+@code{\override} würde alle Noten des Akkords beeinflussen,
+während mit @code{\tweak} nur das nächste Objekt der
+Eingabe geändert wird.
+
+Hier ein Beispiel. Angenommen, die Größe des mittleren 
+Notenkopfes (ein E) in einem C-Dur-Akkord soll geändert 
+werden. Schauen wir zuerst, was wir mit 
+@code{\once \override} erhalten:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+  <c e g>4
+  \once \override NoteHead #'font-size = #-3
+  <c e g>
+  <c e g>
+@end lilypond
+
+Wie man sehen kann, beeinflusst @code{override} @emph{alle} 
+Notenköpfe des Akkordes. Das liegt daran, dass alle die Noten
+eines Akkordes zum selben Musik-Moment auftreten und
+die Funktion von @code{\once} ist es, die Optimierung auf
+an allen Objekten auszuführen, die zum selben Musik-Moment
+auftreten wie der @code{\override}-Befehl.
+
+Der @code{\tweak}-Befehl funktioniert anders. Er bezieht sich
+auf das direkt folgende Element in der Eingabe-Datei. Es wirkt
+aber auch nur mit Objekten, die direkt von der Eingabe kreirt
+werden, insbesondere Notenköpfe und Artikulationszeichen.
+Objekte wie etwa Hälse oder Versetzungszeichen werden erst
+später erstellt und lassen sich nicht auf diese Weise ändern.
+Zusätzlich @emph{müssen} sich etwa Notenköpfe innerhalb
+eines Akkordes befinden, d. h. sie müssen von einfachen spitzen
+Klammern umschlossen sein. Um also eine einzelne Note
+mit @code{\tweak} zu verändern, muss der Befehl innerhalb
+der spitzen Klammern zusammen mit der Note eingegeben werden.
+
+Um also zu unserem Beispiel zurückzukommen, könnte man die
+mittlere Note eines Akkordes auf diese Weise ändern:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+  <c e g>4
+  <c \tweak #'font-size #-3 e g>4
+@end lilypond
+
+Beachten Sie, dass die Syntax des @code{\tweak}-Befehls sich
+von der des @code{\override}-Befehls unterscheidet. Weder
+Kontext noch Layout-Objekt konnen angegeben werden, denn 
+das würde zu einem Fehler führen. Beide Angaben sind 
+durch das folgende Element impliziert. Die verallgemeinerte
+Syntax des @code{\tweak}-Befehls ist also einfach
+
+@example
+\tweak #'@var{layout-eigenschaft} = #@var{Wert}
+@end example
+
+Ein @code{\tweak}-Befehl kann auch benutzt werden, um nur 
+eine von mehreren Artikulationen zu ändern, wie im nächsten
+Beispiel zu sehen ist.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+a ^Black
+  -\tweak #'color #red ^Red
+  -\tweak #'color #green _Green
+@end lilypond
+
+@noindent
+Beachten Sie, dass dem @code{\tweak}-Befehl ein Artikulationsmodifikartor
+vorangestellt werden muss, ganz als ob er selbst ein Artikulationszeichen
+wäre.
+
+@cindex Triolen, geschachtelt
+@cindex N-tolen, geschachtelt
+@cindex Klammer, Triole
+@cindex Triolenklammer
+@cindex N-tolenklammer
+@cindex Komplizierte Rhythmen, Schachtelung von
+@funindex TupletBracket
+
+Der @code{\tweak}-Befehl muss auch benutzt werden, wenn das
+Aussehen einer vor mehreren geschachtelten Triolenklammern
+geändert werden soll, die zum selben Zeitpunkt beginnen.
+Im folgenden Beispiel beginnen die lange Klammer und die
+erste Triolenklammer zum selben Zeitpunkt, sodass ein
+@code{\override}-Befehl sich auf beide beziehen würde.
+In dem Beispiel wird @code{\tweak} benutzt, um zwischen
+ihnen zu unterscheiden. Der erste @code{\tweak}Befehl
+gibt an, dass die lange Klammer über den Noten gesetzt
+werden soll, und der zweite, dass die Zahl der rhythmischen
+Aufteilung für die erste der kurzen Klammern in rot
+gesetzt wird.
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\tweak #'direction #up
+\times 4/3 {
+  \tweak #'color #red
+  \times 2/3 { c8[ c8 c8] }
+  \times 2/3 { c8[ c8 c8] }
+  \times 2/3 { c8[ c8 c8] }
+}
+@end lilypond
+
+Wenn geschachtelte N-tolen nicht zum gleichen Zeitpunkt 
+beginnen, kann ihr Aussehen auf die übliche Art mit dem
+@code{\override}-Befehl geändert werden:
+
+@c NOTE Tuplet brackets collide if notes are high on staff
+@c See issue 509
+@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
+\times 2/3 { c8[ c c]}
+\once \override TupletNumber
+  #'text = #tuplet-number::calc-fraction-text
+\times 2/3 {
+  c[ c]
+  c[ c]
+  \once \override TupletNumber #'transparent = ##t
+  \times 2/3 { c8[ c c] }
+\times 2/3 { c8[ c c]}
+}
+@end lilypond
+
+@seealso
+
+Notationsreferenz:
+@ruser{The tweak command}.
+
+
+
+
 
 @node The Internals Reference manual
 @section The Internals Reference manual
