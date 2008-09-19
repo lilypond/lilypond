@@ -57,6 +57,7 @@ public:
   Rational ();
   Rational (int);
   Rational (I64);
+  Rational (U64);
   explicit Rational (I64, I64);
   explicit Rational (double);
   Rational (Rational const &r) { copy (r);}
@@ -101,6 +102,6 @@ ostream &
 operator << (ostream &, Rational);
 #endif
 
-const Rational infinity_rat (LLONG_MAX);
+const Rational infinity_rat (U64_MAX);
 
 #endif // RATIONAL_HH
