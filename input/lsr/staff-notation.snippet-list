@@ -21,5 +21,6 @@ use-square-bracket-at-the-start-of-a-staff-group.ly
 quoting-another-voice-with-transposition.ly
 letter-tablature-formatting.ly
 inserting-score-fragments-above-a-staff,-as-markups.ly
+tick-bar-lines.ly
 volta-below-chords.ly
 nesting-staves.ly
