@@ -281,11 +281,11 @@ Internals Reference:
 Two additional staff-group contexts are available that can be
 nested within a @code{StaffGroup} or @code{ChoirStaff} context:
 @code{InnerStaffGroup} and @code{InnerChoirStaff}.  These contexts
-create a bracket next to the original bracket of their parent
-staff group.
+create a new bracket adjacent to the bracket of their parent staff
+group.
 
 An @code{InnerStaffGroup} is treated similarly to a
-@code{StaffGroup}; bar lines are connected between each stave
+@code{StaffGroup}; bar lines are connected between each staff
 within the context:
 
 @lilypond[verbatim,quote,relative=2]
@@ -877,7 +877,10 @@ d4 g e c
 
 @c perhaps also an example of how to move it horizontally?
 
-@c TODO add snippet to LSR -pm
+@c TODO add snippet when ready
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {changing-the-tempo-without-a-visible-metronome-mark.ly}
+
 To change the tempo in the MIDI output without printing anything,
 make the metronome marking invisible
 
@@ -885,7 +888,10 @@ make the metronome marking invisible
 \once \override Score.MetronomeMark #'transparent = ##t
 @end example
 
-@c TODO add snippet to LSR -pm
+@c TODO add snippet when ready
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {creating-metronome-marks-in-markup-mode.ly}
+
 To print other metronome markings, use these markup commands
 
 @lilypond[verbatim,quote,relative=1]
@@ -977,7 +983,7 @@ default.  To center multi-line instrument names,
 However, if the instrument names are longer, the instrument names
 in a staff group may not be centered unless the @code{indent} and
 @code{short-indent} settings are increased.  For details about
-these settings, see @ref{Page formatting}.
+these settings, see @ref{Horizontal dimensions}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
@@ -1062,7 +1068,7 @@ to declare the instrument switch:
 @seealso
 
 Notation Reference:
-@ref{Page formatting},
+@ref{Horizontal dimensions},
 @ref{Modifying context plug-ins}.
 
 Snippets:
@@ -1148,28 +1154,17 @@ It is possible to tag quotations with unique names in order to
 process them in different ways.  For details about this procedure,
 see @ref{Using tags}.
 
-@c add to snippets, possibly.  It might already be there.  -pm
-@c
-@c The type of events that are present in the quoted music can be
-@c trimmed with the @code{quotedEventTypes} property.  The default
-@c value is @code{(note-event rest-event)}, which means that only
-@c notes and rests of the quoted voice end up in the
-@c @code{\quoteDuring}.  Setting
-@c
-@c @example
-@c \set Staff.quotedEventTypes =
-@c        #'(note-event articulation-event dynamic-event)
-@c @end example
-@c
-@c @noindent
-@c will quote notes (but no rests), together with scripts and
-@c dynamics.
-
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {quoting-another-voice-with-transposition.ly}
+
+@cindex note-event
+@cindex articulation-event
+@cindex dynamic-event
+@cindex rest-event
+@funindex quotedEventTypes
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {quoting-another-voice.ly}
