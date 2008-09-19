@@ -18,10 +18,10 @@ En esta sección se discute cómo especificar la altura de las notas.
 Este proceso se compone de tres fases: entrada, modificación y salida.
 
 @menu
-* Writing pitches::             
-* Changing multiple pitches::   
-* Displaying pitches::          
-* Note heads::                  
+* Writing pitches::
+* Changing multiple pitches::
+* Displaying pitches::
+* Note heads::
 @end menu
 
 
@@ -34,10 +34,10 @@ correspondiente: el modo absoluto y el relativo.  En casi todas las
 ocasiones, será más práctico el modo relativo.
 
 @menu
-* Absolute octave entry::       
-* Relative octave entry::       
-* Accidentals::                 
-* Note names in other languages::  
+* Absolute octave entry::
+* Relative octave entry::
+* Accidentals::
+* Note names in other languages::
 @end menu
 
 
@@ -347,7 +347,7 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Automatic accidentals},
-@ref{Musica ficta accidentals},
+@ref{Annotational accidentals},
 @ref{Note names in other languages}.
 
 Fragmentos de código:
@@ -484,8 +484,8 @@ Esta sección trata de la manera de modificar las alturas.
 
 
 @menu
-* Octave checks::               
-* Transpose::                   
+* Octave checks::
+* Transpose::
 @end menu
 
 
@@ -695,12 +695,12 @@ Esta sección trata de cómo alterar la presentación de la altura de las
 notas.
 
 @menu
-* Clef::                        
-* Key signature::               
-* Ottava brackets::             
-* Instrument transpositions::   
-* Automatic accidentals::       
-* Ambitus::                     
+* Clef::
+* Key signature::
+* Ottava brackets::
+* Instrument transpositions::
+* Automatic accidentals::
+* Ambitus::
 @end menu
 
 @node Clef
@@ -1845,10 +1845,10 @@ varias indicaciones de ámbito simultáneas en distintas voces.
 Esta sección propone formas de alterar las cabezas de las figuras.
 
 @menu
-* Special note heads::          
-* Easy notation note heads::    
-* Shape note heads::            
-* Improvisation::               
+* Special note heads::
+* Easy notation note heads::
+* Shape note heads::
+* Improvisation::
 @end menu
 
 @node Special note heads

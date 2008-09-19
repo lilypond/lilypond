@@ -360,12 +360,14 @@ not followed by punctuation\n" % (file, line, name))
     explicit_type = type
     new_name = name
 
-    if type != 'ref' and type == manual and not commented_out and useful_fix:
+    if type != 'ref' and type == manual and not commented_out:
+        fixed = False
         bad_ref = True
-        stdout.write ("\n%s: %d: `%s': external %s x-ref should be internal\n"
-                      % (file, line, name, type))
-        if options.auto_fix or yes_prompt ("Fix this?"):
-            type = 'ref'
+        if useful_fix:
+            stdout.write ("\n%s: %d: `%s': external %s x-ref should be internal\n"
+                          % (file, line, name, type))
+            if options.auto_fix or yes_prompt ("Fix this?"):
+                type = 'ref'
 
     if type == 'ref':
         explicit_type = manual
@@ -375,10 +377,10 @@ not followed by punctuation\n" % (file, line, name))
         fixed = False
         stdout.write ('\n')
         if type == 'ref':
-            stdout.write ("%s: %d: `%s': wrong internal x-ref\n"
+            stdout.write ("[1;31m%s: %d: `%s': wrong internal x-ref[0m\n"
                           % (file, line, name))
         else:
-            stdout.write ("%s: %d: `%s': wrong external `%s' x-ref\n"
+            stdout.write ("[1;31m%s: %d: `%s': wrong external `%s' x-ref[0m\n"
                           % (file, line, name, type))
         # print context
         stdout.write ('--\n' + manuals[manual]['contents'][file]
@@ -393,11 +395,11 @@ not followed by punctuation\n" % (file, line, name))
             if name in manuals[k]['nodes']:
                 if k == manual:
                     found = ['ref']
-                    stdout.write ("  found as internal x-ref\n")
+                    stdout.write ("[1;32m  found as internal x-ref[0m\n")
                     break
                 else:
                     found.append (k)
-                    stdout.write ("  found as `%s' x-ref\n" % k)
+                    stdout.write ("[1;32m  found as `%s' x-ref[0m\n" % k)
 
         if (len (found) == 1
             and (options.auto_fix or yes_prompt ("Fix this x-ref?"))):
@@ -476,13 +478,13 @@ please fix the code source instead of generated documentation.\n")
     if new_name == name:
         if bad_ref and (options.interactive or options.auto_fix):
             # only the type of the ref was fixed
-            fixes_count += 1
+            fixes_count += int (fixed)
         if original_display_name:
             return ('@%snamed{%s,%s}' % (type, original_name, original_display_name)) + next_char
         else:
             return ('@%s{%s}' % (type, original_name)) + next_char
     else:
-        fixes_count += 1
+        fixes_count += int (fixed)
         (ref, n) = preserve_linebreak (new_name, linebroken)
         if original_display_name:
             if bad_ref:
@@ -515,5 +517,5 @@ except InteractionError, instance:
     log.write ("Operation refused by user: %s\nExiting.\n" % instance)
     sys.exit (3)
 
-log.write ("Done: %d x-refs found, %d bad x-refs found, fixed %d.\n" %
+log.write ("[1;36mDone: %d x-refs found, %d bad x-refs found, fixed %d.[0m\n" %
            (refs_count, bad_refs_count, fixes_count))

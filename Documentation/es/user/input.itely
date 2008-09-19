@@ -16,11 +16,11 @@ Esta sección trata de asuntos relacionados con la entrada y salida
 generales de LilyPond, más que con la notación específica.
 
 @menu
-* Input structure::             
-* Titles and headers::          
-* Working with input files::    
-* Controlling output::          
-* MIDI output::                 
+* Input structure::
+* Titles and headers::
+* Working with input files::
+* Controlling output::
+* MIDI output::
 @end menu
 
 @node Input structure
@@ -30,9 +30,9 @@ El formato principal de entrada para LilyPond son archivos de texto.
 Por convenio, el nombre de estos archivos termina en @code{.ly}.
 
 @menu
-* Structure of a score::        
-* Multiple scores in a book::   
-* File structure::              
+* Structure of a score::
+* Multiple scores in a book::
+* File structure::
 @end menu
 
 @node Structure of a score
@@ -60,10 +60,10 @@ Casi toda la música impresa tiene un título y el nombre del
 compositor; ciertas piezas tienen mucha más información.
 
 @menu
-* Creating titles::             
-* Custom titles::               
-* Reference to page numbers::   
-* Table of contents::           
+* Creating titles::
+* Custom titles::
+* Reference to page numbers::
+* Table of contents::
 @end menu
 
 @node Creating titles
@@ -393,11 +393,11 @@ la jerarquía del código, o dentro de una expresión musical.
 \pageBreak
 
 \tocItem \markup "Primera partitura"
-\score { 
+\score {
   {
     c'  % ...
     \tocItem \markup "Un punto concreto dentro de la primera partitura"
-    d'  % ... 
+    d'  % ...
   }
 }
 
@@ -454,7 +454,7 @@ nombres de los actos de una ópera en el índice general:
   }
 }
 
-tocAct = 
+tocAct =
 #(define-music-function (parser location text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 @end verbatim
@@ -469,7 +469,7 @@ tocAct =
   }
 }
 
-tocAct = 
+tocAct =
 #(define-music-function (parser location text) (markup?)
    (add-toc-item! 'tocActMarkup text))
 
@@ -501,10 +501,10 @@ Archivos de inicio: @file{ly/@/toc@/-init@/.ly}.
 @section Working with input files
 
 @menu
-* Including LilyPond files::    
-* Different editions from one source::  
-* Text encoding::               
-* Displaying LilyPond notation::  
+* Including LilyPond files::
+* Different editions from one source::
+* Text encoding::
+* Displaying LilyPond notation::
 @end menu
 
 @node Including LilyPond files
@@ -527,8 +527,8 @@ partitura hará que sea más fácil cambiar la estructura dejando intacta
 la notación.
 
 @menu
-* Using variables::             
-* Using tags::                  
+* Using variables::
+* Using tags::
 @end menu
 
 @node Using variables
@@ -559,8 +559,8 @@ la notación.
 @section Controlling output
 
 @menu
-* Extracting fragments of music::  
-* Skipping corrected music::    
+* Extracting fragments of music::
+* Skipping corrected music::
 @end menu
 
 @node Extracting fragments of music
@@ -611,11 +611,12 @@ funcionan, se encuentra
 
 
 @menu
-* Creating MIDI files::         
-* MIDI block::                  
-* What goes into the MIDI output?::  
-* Repeats in MIDI::             
-* Controlling MIDI dynamics::   
+* Creating MIDI files::
+* MIDI block::
+* What goes into the MIDI output?::
+* Repeats in MIDI::
+* Controlling MIDI dynamics::
+* Percussion in MIDI::
 @end menu
 
 @node Creating MIDI files
