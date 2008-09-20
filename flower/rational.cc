@@ -76,6 +76,13 @@ Rational::Rational (I64 n)
   den_ = 1;
 }
 
+Rational::Rational (U64 n)
+{
+  sign_ = 1;
+  num_ = n;
+  den_ = 1;
+}
+
 Rational::Rational (int n)
 {
   sign_ = ::sign (n);

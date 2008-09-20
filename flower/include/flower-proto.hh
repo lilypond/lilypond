@@ -38,6 +38,10 @@ typedef unsigned U32;
 typedef int I32;
 typedef unsigned long long U64;
 
+/* We should really use LLONG_MAX; unfortunately, this appears not to
+   be defined for the gub x-compiler.
+*/
+const U64 U64_MAX = (~0ULL);
 
 struct File_storage;
 struct Mapped_file_storage;
