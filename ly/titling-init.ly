@@ -25,7 +25,7 @@ tagline = \markup {
 }
 
 #(define (print-all-headers layout props arg)
-  (if (eq? (ly:output-def-lookup layout 'printallheaders) #t)
+  (if (eq? (ly:output-def-lookup layout 'print-all-headers) #t)
    (interpret-markup layout props arg)
    empty-stencil))
 

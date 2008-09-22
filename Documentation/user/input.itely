@@ -498,14 +498,14 @@ Note that the music expression must come before the @code{\header}.
 }
 @end lilypond
 
-@funindex printallheaders
+@funindex print-all-headers
 @noindent
 You may change this behavior (and print all the headers when defining
 @code{\header} inside @code{\score}) by using
 
 @example
 \paper@{
-  printallheaders=##t
+  print-all-headers = ##t
 @}
 @end example
 

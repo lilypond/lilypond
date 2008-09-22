@@ -225,7 +225,7 @@ del @code{\header}.
 }
 @end lilypond
 
-@funindex printallheaders
+@funindex print-all-headers
 @noindent
 Se puede cambiar este comportamiento (e imprimir todas las cabeceras
 cuando la cabecera @code{\header} está definida dentro del bloque
@@ -233,7 +233,7 @@ cuando la cabecera @code{\header} está definida dentro del bloque
 
 @example
 \paper@{
-  printallheaders=##t
+  print-all-headers = ##t
 @}
 @end example
 

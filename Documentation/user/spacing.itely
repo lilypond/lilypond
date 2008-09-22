@@ -508,8 +508,8 @@ The relative importance of page (vertical) spacing and line
 (horizontal) spacing.  High values will make page spacing more
 important.  Default: @code{#10}.
 
-@item printallheaders
-@funindex printallheaders
+@item print-all-headers
+@funindex print-all-headers
 
 If set to true, this will print all headers for each \score in the
 output.  Normally only the piece and opus header variables are

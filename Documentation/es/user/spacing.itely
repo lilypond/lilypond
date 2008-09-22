@@ -460,8 +460,8 @@ espaciado (horizontal) de las líneas.  Los valores altos hacen que el
 espaciado de la página tenga más importancia.  Predeterminado:
 @code{#10}.
 
-@item printallheaders
-@funindex printallheaders
+@item print-all-headers
+@funindex print-all-headers
 
 Si está establecido a un valor verdadero, imprime todas las cabeceras
 para cada una de las @code{\score} en la salida impresa.  Normalmente

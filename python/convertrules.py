@@ -2807,6 +2807,11 @@ def conv (str):
     str = re.sub (r"hcenter(\s+)", r"center-align\1", str)
     return str
 
+@rule ((2, 11, 60), "printallheaders -> print-all-headers")
+def conv (str):
+    str = re.sub (r"printallheaders", r"print-all-headers", str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
