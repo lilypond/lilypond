@@ -1052,27 +1052,35 @@ Snippets:
 @node Multi-page markup
 @subsubsection Multi-page markup
 
-Whereas @code{\markup} is used to enter a non-breakable block of
-text, @code{\markuplines} can be used at top-level to enter lines
-of text that can spread over multiple pages:
+Although standard markup objects are not breakable, a
+specific syntax allows to enter lines of text that can
+spread over multiple pages:
 
-@verbatim
+@lilypond[quote,verbatim]
 \markuplines {
   \justified-lines {
     A very long text of justified lines.
     ...
   }
-  \justified-lines {
+  \wordwrap-lines {
     An other very long paragraph.
     ...
   }
   ...
 }
-@end verbatim
+@end lilypond
 
-@code{\markuplines} accepts a list of markup, that is either the
-result of a markup list command, or a list of markups or of markup
-lists.  The built-in mInstrument Specific Markup	  	 arkup list commands are described in
+This specific syntax accepts a list of markups, that can be
+@itemize
+@item
+the result of a markup list command,
+@item
+a list of markups,
+@item
+a list of markup lists.
+@end itemize
+
+An exhaustive list of markup list commands can be found in
 @ref{Text markup list commands}.
 
 @seealso
