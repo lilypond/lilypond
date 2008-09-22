@@ -45,6 +45,7 @@ instruments.
 @cindex staves, keyed instruments
 @cindex keyboard instrument staves
 @cindex keyed instrument staves
+
 @funindex PianoStaff
 
 Keyboard instruments are usually notated with Piano staves.  These
@@ -141,6 +142,7 @@ objects}.
 @cindex notes, cross-staff
 @cindex cross-staff beams
 @cindex beams, cross-staff
+
 @funindex \change
 @funindex change
 
@@ -207,6 +209,7 @@ Internals Reference:
 @cindex changing staff automatically
 @cindex automatic staff changes
 @cindex staff changes, automatic
+
 @funindex \autochange
 @funindex autochange
 @funindex PianoStaff
@@ -237,6 +240,7 @@ in advance.
 
 @cindex relative music and autochange
 @cindex autochange and relative music
+
 @funindex \relative
 @funindex relative
 
@@ -300,8 +304,10 @@ staff based on the first note named in the chord construct.
 @cindex line, cross-staff
 @cindex line, staff-change
 @cindex follow voice
+@cindex voice, following
 @cindex staff switching
 @cindex cross-staff
+
 @funindex followVoice
 @funindex \showStaffSwitch
 @funindex showStaffSwitch
@@ -352,6 +358,7 @@ Internals Reference:
 @cindex chords, cross-staff
 @cindex cross-staff chords
 @cindex cross staff chords
+
 @funindex Stem
 @funindex cross-staff
 @funindex length
@@ -416,11 +423,14 @@ piano.
 @cindex piano pedals
 @cindex pedals, piano
 @cindex sustain pedal
+@cindex pedal, sustain
 @cindex sostenuto pedal
+@cindex pedal, sostenuto
 @cindex una corda
 @cindex tre corde
 @cindex sos.
 @cindex U.C.
+
 @funindex \sustainOn
 @funindex sustainOn
 @funindex \sustainOff
@@ -454,6 +464,7 @@ c4\unaCorda d e g
 @cindex pedal indication, mixed
 @cindex pedal sustain style
 @cindex sustain pedal style
+
 @funindex pedalSustainStyle
 @funindex mixed
 @funindex bracket
@@ -512,6 +523,7 @@ This section discusses notation that is unique to the accordion.
 
 @node Discant symbols
 @unnumberedsubsubsec Discant symbols
+
 @cindex accordion discant symbols
 @cindex discant symbols, accordion
 @cindex accordion shifts
