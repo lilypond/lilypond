@@ -177,7 +177,7 @@ Internals Reference: @rinternals{TextSpanner}.
 @cindex bar lines, symbols on
 @funindex \mark
 
-Various text elements can be added to a score using
+Various text elements may be added to a score using
 the syntax described in @ref{Rehearsal marks}:
 
 @c \mark needs to be placed on a separate line (it's not
@@ -383,7 +383,7 @@ d d
 @end lilypond
 
 The way markup expressions are defined affects 
-how these expressions will stacked, centered and aligned
+how these expressions will be stacked, centered and aligned
 when using the commands explained in @ref{Text alignment}.
 
 @lilypond[quote,verbatim,fragment,relative=1]
@@ -404,7 +404,7 @@ c1^\markup { \center-column { a \line { bbb c } } }
 @end lilypond
 
 
-Markups can be stored in variables.  These variables may be
+Markups can be stored in variables.  Such variables may be
 directly attached to notes:
 
 @lilypond[quote,verbatim]
@@ -651,7 +651,7 @@ for instance in @ref{Text marks},
 @funindex \raise
 @funindex \lower
 
-Vertical alignment is a bit more complex. As stated above,
+Vertical alignment is a bit more complex.  As stated above,
 markup objects can be moved as a whole; however, it is also
 possible to move specific elements inside a markup block.
 In this case, the element to be moved needs to be preceded
@@ -937,63 +937,112 @@ can be found in @ref{Graphic}.
 @node Music notation inside markup
 @subsubsection Music notation inside markup
 
-Notes can be printed in markup mode blah blah:
+Various musical notation elements may be added
+to a score, inside a markup object.
 
-\note	
-\note-by-number
+Notes and accidentals can be entered using specific
+commands:
 
-Accidental symbols can be obtained easily:
+@lilypond[quote,verbatim,fragment,relative=2]
+a2 a^\markup {
+  \note #"4" #1
+  =
+  \note-by-number #1 #1 #1.5
+}
+b1_\markup {
+  \natural \semiflat \flat
+  \sesquiflat \doubleflat
+}
+\glissando
+a1_\markup {
+  \natural \semisharp \sharp
+  \sesquisharp \doublesharp
+}
+\glissando b
+@end lilypond
 
-\doubleflat
-\sesquiflat
-\flat
-\semiflat
-\natural
-\semisharp
-\sharp
-\sesquisharp
-\doublesharp
+Other notation objects may also be printed
+in markup mode:
 
-Some other notation objects blah blah
+@lilypond[quote,verbatim,fragment,relative=1]
+g1 bes
+ees-\markup {
+  \finger 4
+  \tied-lyric #"~"
+  \finger 1
+}
+fis_\markup { \dynamic rf }
+bes^\markup {
+  \beam #8 #0.1 #0.5
+}
+cis
+d-\markup {
+  \markalphabet #8
+  \markletter #8
+}
+@end lilypond 
 
-\beam
-\finger
-\dynamic
-\tied-lyric
-\markalphabet
-\markletter
-@c TODO: add \text here? -vv
+More generally, any available musical symbol may be
+included separately in a markup object, using the
+following syntax:
 
-Any musical symbol can be printed
-
-\musicglyph
+@lilypond[quote,verbatim,fragment,relative=2]
+c2
+c'^\markup { \musicglyph #"eight" }
+c,4
+c,8._\markup { \musicglyph #"clefs.G_change" }
+c16
+c2^\markup { \musicglyph #"timesig.neomensural94" }
+@end lilypond
 @c TODO: add \lookup here? -vv
 
+@noindent
+An exhaustive list of these symbols and their names can
+be found in @ref {The Feta font}.
 
-The markup mode has support for fret diagrams:
+The markup mode also supports diagrams for specific
+instruments:
 
-\fret-diagram 
-\fret-diagram-terse
-\fret-diagram-verbose
-
-An entire @code{\score} block can even be nested in a @code{\markup}
-block.  In such a case, the @code{\score} must contain a @code{\layout} block.
-
-
-\score
-
-
-@lilypond[quote,verbatim,ragged-right]
-\relative {
-  c4 d^\markup {
-    \score {
-      \relative { c4 d e f }
-      \layout { }
-    }
-  }
-  e f
+@lilypond[quote,verbatim,fragment,relative=2]
+c1^\markup {
+  \fret-diagram-terse #"x;x;o;2;3;2;"
+}
+c^\markup {
+  \harp-pedal #"^-v|--ov^"
+}
+c
+c^\markup {
+  \combine
+    \musicglyph #"accordion.accDiscant"
+    \combine
+      \raise #0.5 \musicglyph #"accordion.accDot"
+      \raise #1.5 \musicglyph #"accordion.accDot"
 }
 @end lilypond
+
+@c The accordion diagram is actually taken from a snippet.
+
+@noindent
+Such diagrams are documented in @ref{Instrument Specific Markup}.
+
+A whole score can even be nested inside a markup object.
+In such a case, the nested @code{\score} block must
+contain a @code{\layout} block, as demonstrated here:
+
+@lilypond[quote,verbatim,fragment,relative=1]
+c4 d^\markup {
+  \score {
+    \relative { c4 d e f }
+    \layout { }
+  }
+}
+e f |
+c d e f
+@end lilypond
+
+An exhaustive list of music notation related commands can be
+found in @ref{Music}.
+
 
 @seealso
 
@@ -1023,7 +1072,7 @@ of text that can spread over multiple pages:
 
 @code{\markuplines} accepts a list of markup, that is either the
 result of a markup list command, or a list of markups or of markup
-lists.  The built-in markup list commands are described in
+lists.  The built-in mInstrument Specific Markup	  	 arkup list commands are described in
 @ref{Text markup list commands}.
 
 @seealso
