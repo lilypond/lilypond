@@ -1116,7 +1116,7 @@ use GrandStaff as a context. "
 				   '()
 				   context))
       (else
-       (ly:warning (_ "unknown accidental style: ~S" style))
+       (ly:warning (_ "unknown accidental style: ~S") style)
        (make-sequential-music '()))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
