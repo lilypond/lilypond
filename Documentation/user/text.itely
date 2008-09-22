@@ -998,7 +998,7 @@ c2^\markup { \musicglyph #"timesig.neomensural94" }
 
 @noindent
 An exhaustive list of these symbols and their names can
-be found in @ref {The Feta font}.
+be found in @ref{The Feta font}.
 
 The markup mode also supports diagrams for specific
 instruments:
