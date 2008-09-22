@@ -804,10 +804,6 @@ Notation Reference:
 Snippets:
 @rlsr{Expressive marks}.
 
-@c FIXME: I need to figure out what's up with these.  -gp
-@c @lsr{expressive,glissando.ly},
-@c @lsr{expressive,line-styles.ly}
-
 Internals Reference:
 @rinternals{Glissando}.
 
