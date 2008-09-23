@@ -145,10 +145,32 @@ Bar_line::compound_barline (Grob *me, string str, Real h,
       m.add_at_edge (X_AXIS, RIGHT, thick, kern);
       m.add_at_edge (X_AXIS, RIGHT, colon, kern);
     }
+  else if (str == ":|.|:")
+    {
+      m.add_at_edge (X_AXIS, LEFT, thick, 0);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
+      m.add_at_edge (X_AXIS, RIGHT, colon, kern);
+
+    }
+  else if (str == ":|.:")
+    {
+      m.add_at_edge (X_AXIS, LEFT, thick, 0);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
+      m.add_at_edge (X_AXIS, LEFT, colon, kern);
+      m.add_at_edge (X_AXIS, RIGHT, colon, kern);
+    }
   else if (str == ".|.")
     {
       m.add_at_edge (X_AXIS, LEFT, thick, thinkern);
       m.add_at_edge (X_AXIS, RIGHT, thick, kern);
+    }
+  else if (str == "|.|")
+    {
+      m.add_at_edge (X_AXIS, LEFT, thick, 0);
+      m.add_at_edge (X_AXIS, LEFT, thin, kern);
+      m.add_at_edge (X_AXIS, RIGHT, thin, kern);
     }
   else if (str == "||")
     {

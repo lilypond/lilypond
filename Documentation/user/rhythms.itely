@@ -2031,11 +2031,11 @@ with the end of a measure the specified bar line is inserted at that
 point in the printed output.  Such insertions do not affect
 the calculation and placement of subsequent automatic bar lines.
 
-The simple bar line and four types of double bar line are available
+The simple bar line and five types of double bar line are available
 for manual insertion:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|." d
+f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
 @end lilypond
 
 @noindent
@@ -2046,10 +2046,10 @@ f1 \bar ":" g \bar "dashed" a
 @end lilypond
 
 @noindent
-and three types of repeat bar line:
+and five types of repeat bar line:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-f1 \bar "|:" g \bar ":|:" a \bar ":|" b
+f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
 @end lilypond
 
 @cindex repeats

@@ -513,6 +513,7 @@ automatically when an output definition (a @code{\score} or
   decrescendoSpanner = #'hairpin
   
   defaultBarType = #"|"
+  doubleRepeatType = #":|:"
   barNumberVisibility = #first-bar-number-invisible
   automaticBars = ##t
   
