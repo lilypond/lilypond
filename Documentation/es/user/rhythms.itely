@@ -189,9 +189,8 @@ tresillo, en el que 3 notas tienen el valor de 2, por tanto las notas
 duran 2/3 de su valor escrito
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-a2 \times 2/3 {b4 b b}
-c4 c \times 2/3 {b4 a g}
-
+a2 \times 2/3 { b4 b b }
+c4 c \times 2/3 { b4 a g }
 @end lilypond
 
 @funindex \tupletUp
@@ -225,9 +224,8 @@ grupo especial, véase @ref{Scaling durations}.
 
 @snippets
 
-@cindex tuplet formatting
-@cindex triplet formatting
-
+@cindex grupos especiales, formato de
+@cindex tresillos, formato de
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
@@ -313,19 +311,11 @@ compases, como por ejemplo @code{s1*23}.
 
 De la misma forma, se pueden comprimir por una fracción trozos de
 música más largos, como si cada nota, acorde o silencio tuviera la
-fracción como multiplicador.  La sintaxis general de la iinstrucción
-que lo hace es:
-
-@example
-\scaleDurations #'(@emph{numerador} . @emph{denominador}) @{ @emph{música} @}
-@end example
-
-@noindent
-Esto dejará intacta la apariencia de la @emph{música}, pero la
-duración interna de las notas se multiplicará por la fracción
-@emph{numerador}/@emph{denominador}.  Los espacios que rodean el punto
-son necesarios.  He aquí un ejemplo que muestra cómo se puede
-comprimir y expandir la música:
+fracción como multiplicador.  Esto dejará intacta la apariencia de la
+@emph{música}, pero la duración interna de las notas se multiplicará
+por la fracción @emph{numerador}/@emph{denominador}.  Los espacios que
+rodean el punto son necesarios.  He aquí un ejemplo que muestra cómo
+se puede comprimir y expandir la música:
 
 @lilypond[quote,fragment,relative=2,ragged-right,verbatim]
 \time 2/4
@@ -345,7 +335,6 @@ comprimir y expandir la música:
 Una aplicación de esta instrucción se encuentra en la notación
 polimétrica, véase @ref{Polymetric notation}.
 
-
 @seealso
 
 Referencia de la notación:
@@ -355,7 +344,6 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Rhythms}.
-
 
 
 @node Ties
@@ -377,7 +365,7 @@ Se introduce una ligadura de unión usando el símbolo de la tilde curva
 @code{~}
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-e' ~ e'
+e'2 ~ e'
 @end lilypond
 
 @noindent
@@ -388,13 +376,14 @@ subdivisiones del compás de mayor duración:
 
 @c KEEP LY
 @lilypond[fragment,quote,ragged-right]
-\relative {
-  r8^"sí" c8 ~ c2 r4 | r8^"no" c2 ~ c8 r4
+\relative c' {
+  r8^"sí" c8 ~ c2 r4 |
+  r8^"not" c2 ~ c8 r4
 }
 @end lilypond
 
-Si necesita ligar muchas notas a través de las líneas divisorias,
-podría resultarle más fácil utilizar la división automática de las
+Si necesitamos ligar muchas notas a través de las líneas divisorias,
+nos podría resultar más fácil utilizar la división automática de las
 notas, véase @ref{Automatic note splitting}.  Este mecanismo divide
 automáticamente las notas largas y las liga a través de las barras de
 compás.
@@ -439,10 +428,9 @@ vibrar) indican que las notas no se deben apagar al final.  Se usan en
 la notación para piano, arpa y otros instrumentos de cuerda y
 percusión.  Se pueden introducir de la siguiente manera:
 
-@lilypond[fragment,ragged-right,verbatim,relative=1]
-<c f g>\laissezVibrer
+@lilypond[fragment,quote,ragged-right,verbatim,relative=1]
+<c f g>1\laissezVibrer
 @end lilypond
-
 
 @cindex ligaduras, colocación
 @funindex \tieUp
@@ -452,7 +440,6 @@ percusión.  Se pueden introducir de la siguiente manera:
 Es posible controlar la colocación vertical de las ligaduras de unión;
 véase la sección de instrucciones predefinidas, o para ver más
 detalles, consulte @ref{Direction and placement}.
-
 
 @cindex ligaduras, apariencia
 @funindex \tieDotted
@@ -471,7 +458,6 @@ véase la sección de instrucciones predefinidas.
 @code{\tieDashed},
 @code{\tieSolid},
 @code{\repeatTie}.
-
 
 @snippets
 
@@ -499,9 +485,7 @@ Referencia de funcionamiento interno:
 @rinternals{TieColumn},
 @rinternals{Tie}.
 
-
 @knownissues
-
 
 Un cambio de pentagrama cuando hay una ligadura activa no producirá
 una ligadura inclinada.
@@ -509,9 +493,6 @@ una ligadura inclinada.
 Los cambios de clave o de octava durante una ligadura de unión no
 están bien definidos realmente.  En estos casos puede ser preferible
 una ligadura de expresión.
-
-
-
 
 @node Writing rests
 @subsection Writing rests
