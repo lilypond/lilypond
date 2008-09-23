@@ -533,6 +533,21 @@ time signature.
 >>
 @end lilypond
 
+@knownissues
+
+Usually the order in which the engravers are specified
+does not matter, but in a few special cases the order
+is important, for example where one engraver writes
+a property and another reads it, or where one engraver
+creates a grob and another must process it.  The order in
+which the engravers are specified is the order in which
+they are called to carry out their processing.
+
+The following orderings are important: the
+@code{Bar_engraver} must normally be first, and
+the @code{New_fingering_engraver} must come before
+the @code{Script_column_engraver}.  There may be others
+with ordering dependencies.
 
 @node Changing context default settings
 @subsection Changing context default settings
