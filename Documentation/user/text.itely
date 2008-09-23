@@ -424,14 +424,17 @@ An exhaustive list of @code{\markup}-specific commands can be found in
 
 @seealso
 
-This manual: @ref{Text markup commands}.
+Notation Reference:
+@ref{Text markup commands}.
 
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{TextScript}.
+Internals Reference:
+@rinternals{TextScript}.
 
-Init files: @file{scm/@/new@/-markup@/.scm}.
+Installed files:
+@file{scm/@/markup@/.scm}.
 
 
 @knownissues
@@ -587,7 +590,21 @@ Defining custom font sets is also possible, as explained in
 @code{\large},
 @code{\huge}.
 
-@c TODO: add @seealso
+@seealso
+Notation Reference:
+@ref{Font},
+@ref{New dynamic marks},
+@ref{Manual repeat marks},
+@ref{Fonts}.
+
+Snippets:
+@rlsr{Text}.
+
+Internals Reference:
+@rinternals{TextScript}.
+
+Installed files:
+@file{scm/@/define@/-markup@/-commands@/.scm}.
 
 
 @node Text alignment
@@ -601,7 +618,7 @@ inside a @code{\markup} block.  Markup objects can also
 be moved as a whole, using the syntax described in
 @rlearning{Moving objects}.
 
-@c The padding commands should be mentioned on this page, but
+@c Padding commands should be mentioned on this page, but
 @c most of these require \box to be more clearly illustrated. -vv
 
 @cindex text, horizontal alignment
@@ -627,7 +644,7 @@ a,-\markup { \right-align poco }
 
 @funindex \halign
 
-The horizontal alignment may be fine-tuned
+Horizontal alignment may be fine-tuned
 using a numeric value:
 
 @lilypond[quote,verbatim,fragment,relative=1]
@@ -792,7 +809,22 @@ the following example.
 An exhaustive list of text alignment commands
 can be found in @ref{Align}.
 
-@c TODO: add @seealso
+@seealso
+Learning Manual:
+@rlearning{Moving objects}.
+
+Notation Reference:
+@ref{Align},
+@ref{Text marks}.
+
+Snippets:
+@rlsr{Text}.
+
+Internals Reference: @rinternals{TextScript}.
+
+Installed files:
+@file{scm/@/define@/-markup@/-commands@/.scm}.
+
 
 @node Graphic notation inside markup
 @subsubsection Graphic notation inside markup
@@ -932,7 +964,19 @@ c
 An exhaustive list of graphics-specific commands
 can be found in @ref{Graphic}.
 
-@c TODO: add @seealso (and link with NR Editorial)
+@seealso
+Notation Reference:
+@ref{Graphic},
+@ref{Editorial annotations}.
+
+Snippets:
+@rlsr{Text}.
+
+Internals Reference: @rinternals{TextScript}.
+
+Installed files:
+@file{scm/@/define@/-markup@/-commands@/.scm},
+@file{scm/@/stencil@/.scm}.
 
 @node Music notation inside markup
 @subsubsection Music notation inside markup
@@ -1043,11 +1087,20 @@ c d e f
 An exhaustive list of music notation related commands can be
 found in @ref{Music}.
 
-
 @seealso
+Notation Reference:
+@ref{Music},
+@ref{The Feta font}.
 
 Snippets:
 @rlsr{Text}.
+
+Internals Reference: @rinternals{TextScript}.
+
+Installed files:
+@file{scm/@/define@/-markup@/-commands@/.scm},
+@file{scm/@/fret@/-diagrams@/.scm},
+@file{scm/@/harp@/-pedals@/.scm}.
 
 @node Multi-page markup
 @subsubsection Multi-page markup
@@ -1084,15 +1137,19 @@ An exhaustive list of markup list commands can be found in
 @ref{Text markup list commands}.
 
 @seealso
-
-This manual: @ref{Text markup list commands}, @ref{New
-markup list command definition}.
+Notation Reference:
+@ref{Text markup list commands},
+@ref{New markup list command definition}.
 
 Snippets:
 @rlsr{Text}.
 
-@predefined
+Internals Reference: @rinternals{TextScript}.
 
+Installed files:
+@file{scm/@/define@/-markup@/-commands@/.scm}.
+
+@predefined
 @funindex \markuplines
 @code{\markuplines}
 
