@@ -497,6 +497,9 @@ una ligadura de expresión.
 @node Writing rests
 @subsection Writing rests
 
+Los silencios se escriben como parte de la música dentro de las
+expresiones musicales.
+
 @menu
 * Rests::                       
 * Invisible rests::             
@@ -505,40 +508,64 @@ una ligadura de expresión.
 
 @node Rests
 @subsubsection Rests
-@cindex Silencios
 
+@cindex silencio
+@cindex silencios, indocar duraciones
+@cindex maxima
+@cindex longa
+@cindex breve
 @funindex \rest
 @funindex r
+@funindex \maxima
+@funindex \longa
+@funindex \breve
 
-Los silencios se introducen como notas con el nombre @code{r}
+Los silencios se introducen como notas con el nombre @code{r}.  Las
+duraciones mayores que la redonda utilizan las instrucciones
+predefinidas que se muestran aquí:
 
+@c \time 16/1 is used to avoid spurious bar lines
+@c and long tracts of empty measures
 @lilypond[fragment,quote,ragged-right,verbatim]
-r1 r2 r4 r8
+\new Staff {
+  % These two lines are just to prettify this example
+  \time 16/1
+  \override Staff.TimeSignature #'stencil = ##f
+  % Print a maxima rest, equal to four breves
+  r\maxima
+  % Print a longa rest, equal to two breves
+  r\longa
+  % Print a breve rest
+  r\breve
+  r1 r2 r4 r8 r16 r32 r64 r128
+}
 @end lilypond
 
-Los silencios de un compás centrados en medio del compás,
-se deben hacer con silencios multicompás.  Se pueden usar para 
-un solo compás así como para muchos compases, y se tratan en
-@ref{Full measure rests}.
+@cindex silencios multicompás
+@cindex silencios de compás completo
 
-Para especificar explícitamente la posición vertical de un silencio, escriba una nota
-seguida de @code{\rest}.  Se colocará un silencio en la posición en que debería
-aparecer la nota:
+Los silencios de un compás, centrados en medio del compás, se deben
+hacer con silencios multicompás.  Se pueden usar para un solo compás
+así como para muchos compases, y se tratan en @ref{Full measure
+rests}.
 
-@lilypond[fragment,quote,ragged-right,verbatim]
-a'4\rest d'4\rest
+@cindex silencio, especificar la posición vertical
+
+Para especificar explícitamente la posición vertical de un silencio,
+escriba una nota seguida de @code{\rest}.  Se colocará un silencio en
+la posición en que debería aparecer la nota.  Esto posibilita la
+aplicación manual precisa de formato a la música polifónica, ya que el
+formateador automático de colisiones de silencios no mueve estos
+silencios.
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+a4\rest d4\rest
 @end lilypond
-
-@noindent
-Esto hace mucho más sencillo el formateo de
-la música polifónica,
-porque el formateador automático de colisiones de silencios se olvidará de ellos.
 
 @snippets
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {rest-styles.ly}
-
 
 @seealso
 
@@ -550,7 +577,6 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{Rest}.
-
 
 @knownissues
 
@@ -564,44 +590,63 @@ hasta la máxima (8 redondas).
 @node Invisible rests
 @subsubsection Invisible rests
 
-@cindex Desplazamiento
-@cindex Silencio invisible
-@cindex Nota de espaciado
-@funindex \skip
+@cindex desplazamiento
+@cindex silencio invisible
+@cindex invisible, silencio
+@cindex nota de espaciado
 @funindex s
+@funindex \skip
 
-Un silencio invisible -- también conocido como @q{skip} (desplazamiento) --
-se puede introducir como una nota con el nombre @code{s} o con @code{\skip @var{duración}}
+Un silencio invisible (también conocido como @q{skip} o
+desplazamiento) se puede introducir como una nota con el
+nombre@tie{}@code{s}:
 
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-a4 a4 s4 a4 \skip 1 a4
+@lilypond[verbatim,quote,relative=2]
+c4 c s c
+s2 c
 @end lilypond
 
-La sintaxis de @code{s} sólo está disponible en el modo de notas y en el modo de acordes.
-En otras situaciones, por ejemplo, cuando se introduce la letra, debe
-usar el comando @code{\skip}
+@cindex letra, desplazamiento de
 
-@lilypond[quote,ragged-right,verbatim]
+Los silencios de separación sólo están disponible en el modo de notas
+y en el modo de acordes.  En otras situaciones, por ejemplo, cuando se
+introduce la letra, se usa la instrucción @code{\skip} para producir
+un desplazamiento de una cierta magnitud temporal.  @code{\skip}
+requiere una duración explícita.
+
+@lilypond[quote,ragged-right,verbatim,relative=2]
 <<
-  \relative { a'2 a2 }
-  \new Lyrics \lyricmode { \skip 2 bla2 }
+  {
+    a2 \skip2 a2 a2
+  }
+  \new Lyrics {
+    \lyricmode {
+      foo2 \skip 1 bla2
+    }
+  }
 >>
 @end lilypond
 
-El comando skip es un mero contenedor musical vacío.  No produce
-ninguna salida, ni siguiera una salida transparente.
+Un silencio de separación produce implícitamente contextos
+@code{Staff} y @code{Voice} si no existe ninguno, igual que las notas
+y los silencios normales:
 
-El comando de desplazamiento @code{s} crea una @rinternals{Staff} y una
-@rinternals{Voice} cuando es necesario, de forma similar a los comandos de nota y de silencio.
-Por ejemplo, el fragmento siguiente produce un pentagrama vacío.
-
-@lilypond[quote,ragged-right,verbatim]
-{ s4 }
+@lilypond[quote,verbatim,fragment]
+s1 s s
 @end lilypond
 
-El fragmento @code{@{ \skip 4 @} } produciría una página vacía.
+@code{\skip} tan sólo desplaza un tiempo musical; no produce ninguna
+salida, de ninguna clase.
+
+@lilypond[quote,verbatim,fragment]
+% This is valid input, but does nothing
+\skip 1 \skip1 \skip 1
+@end lilypond
 
 @seealso
+
+Fragmentos de código:
+@rlsr{Rhythms}.
 
 Referencia de funcionamiento interno:
 @rinternals{SkipMusic}.
@@ -617,79 +662,117 @@ Referencia de funcionamiento interno:
 @cindex redonda, silencios de, para un compás completo
 @funindex R
 
-Los silencios de un compás completo (o muchos compases) se escriben como @code{R}.  Esto está
-indicado específicamente para silencios de compás completo y para escribir particellas: el silencio
-se puede expandir de forma que rellene una partitura con silencios, o se puede imprimir como un solo silencio multicompás.
-Esta expansión se controla por medio de la propiedad
-@code{Score.skipBars}.  Si está establecido al valor true, los compases vacíos no se
-expandirán, y se añadirá automáticamente el número correspondiente
+Los silencios de uno o más compases completos se introducen como notas
+con el nombre @code{R} en mayúscula:
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-\time 4/4 r1 | R1 | R1*2 \time 3/4 R2. \time 2/4 R2 \time 4/4
-\set Score.skipBars = ##t R1*17 R1*4
+@lilypond[quote,fragment,verbatim,relative=2]
+% Rest measures contracted to single measure
+\compressFullBarRests
+R1*4
+R1*24
+R1*4
+b2^"Tutti" b4 a4
 @end lilypond
 
-El número @code{1} de @code{R1} es similar a la notación de la duración que se usa para las
-notas.  De aquí que para indicaciones de compás distintas al 4/4, tengamos que escribir
-otras duraciones.  Esto se puede hacer con puntillos de prolongación o con fracciones
+La duración de los silencios de compás completo es idéntica a la
+notación de la duración que se usa para las notas.  La duración de un
+silencio multi-compás debe ser siempre un número entero de compases,
+por lo que con frecuencia han de utilizarse puntillos o fracciones:
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\set Score.skipBars = ##t
+\compressFullBarRests
+\time 2/4
+R1 | R2 |
 \time 3/4
-R2. | R2.*2
+R2. | R2.*2 |
 \time 13/8
-R1*13/8
-R1*13/8*12 |
-\time 10/8 R4*5*4 |
+R1*13/8 | R1*13/8*12 |
+\time 10/8
+R4*5*4 |
 @end lilypond
 
-Una @code{R} que dura un solo compás se imprime como un silencio de redonda o breve,
-centrado en el compás independientemente de la indicación de compás.
-
-Si hay sólo algunos compases de silencio, LilyPond imprime @q{silencios eclesiásticos}
-(un conjunto de pequeños rectángulos) en el pentagrama.  Para sustituirlos con silencios ordinarios,
-utilice @code{MultiMeasureRest.expand-limit}.
+Un silencio de un compás completo se imprime como un silencio de
+redonda o de breve, centrado en el compás, según el tipo de compás
+vigente.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
-\set Score.skipBars = ##t
-R1*2 | R1*5 | R1*9
-\override MultiMeasureRest #'expand-limit = 1
-R1*2 | R1*5 | R1*9
+\time 4/4
+R1 |
+\time 6/4
+R1*3/2 |
+\time 8/4
+R1*2 |
 @end lilypond
 
-@cindex texto sobre silencios multicompás
-@cindex textual, inscripción, sobre silencios multicompás
-@cindex calderón sobre silencios multicompás
+@cindex multicompás, silencios, expansión de
+@cindex multicompás, silencios, contracción de
+@funindex \expandFullBarRests
+@funindex \compressFullBarRests
 
-Se pueden añadir textos a los silencios multicompás utilizando la sintaxis
-@var{nota}-@code{marca} de @ref{Formatting text}.
-Hay una variable (@code{\fermataMarkup}) para añadir
-calderones
+De forma predeterminada un silencio multicompás se expande en la
+partitura impresa para mostrar explícitamente todos los compases de
+silencio.  De forma alternatica, un silencio multicompás se puede
+presentar como un solo compás que contiene un símbolo de silencio
+multicompás, con el número de compases impreso encima del compás:
+
+@lilypond[quote,ragged-right,fragment,verbatim]
+% Default behavior
+\time 3/4 r2. | R2.*2 |
+\time 2/4 R2 |
+\time 4/4
+% Rest measures contracted to single measure
+\compressFullBarRests
+r1 | R1*17 | R1*4 |
+% Rest measures expanded
+\expandFullBarRests
+\time 3/4
+R2.*2 |
+@end lilypond
+
+
+@cindex texto sobre un silencio multicompás
+@cindex multicompás, silencio, adjuntar texto
+@cindex inscripción sobre un silencio multicompás
+@cindex multicompás, silencios, inscripción en
+@cindex calderón sobre un silencio multicompás
+@cindex multicompás, silencio, aplicar un calderón a
+
+Se pueden añadir elementos de marcado a los silencios multicompás.  Se
+proporciona la instrucción predefinida @code{\fermataMarkup} para
+añadir calderones.
 
 @lilypond[quote,ragged-right,verbatim,fragment]
-\set Score.skipBars = ##t
+\compressFullBarRests
 \time 3/4
 R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
 @end lilypond
 
-¡Advertencia!  Este texto se crea por parte de @code{MultiMeasureRestText}, no de
-@code{TextScript}.
+@warning{ Los elementos de marcado que se añaden a un silencio
+multicompás son objetos del tipo @code{MultiMeasureRestText}, no
+@code{TextScript}.  Las sobreescrituras de propiedades deben ir
+dirigidas hacia el objeto correcto, o se ignorarán.  Véase el ejemplo
+siguiente.  }
 
 @lilypond[quote,ragged-right,verbatim,fragment]
+% This fails, as the wrong object name is specified
 \override TextScript #'padding = #5
-R1^"low"
+R1^"wrong"
+% This is correct and works
 \override MultiMeasureRestText #'padding = #5
-R1^"high"
+R1^"right"
 @end lilypond
 
-Si queremos poner texto a la izquierda de un silencio multicompás,
-adjuntamos el texto a una nota de salto de longitud cero, esto es
+Cuando un silencio multicompás sigue inmediatamente al establecimiento
+de un compás parcial con @code{\partial}, es posible que no se emitan
+las advertencias correspondientes de comprobación de compás.
 
-@example
-s1*0^"Allegro"
-R1*4
-@end example
+@predefined
+@code{\textLengthOn},
+@code{\textLengthOff},
+@code{\fermataMarkup},
+@code{\compressFullBarRests},
+@code{\expandFullBarRests}.
 
 @snippets
 
@@ -706,38 +789,69 @@ R1*4
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {positioning-multi--measure-rests.ly}
 
+@c TODO -- convert to snippet -- submitted to Neil
+Los elementos de marcado aplicados a un silencio multicompás se
+centran encima o debajo de éste.  Los elementos de marcado extensos
+que se adjuntan a silencios multicompás no producen la expansión del
+compás.  Para expandir un silencio multicompás de forma que quepa todo
+el marcado, utilice un silencio de separación con un marcado aplicado
+antes del silencio multicompás:
+
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\compressFullBarRests
+\textLengthOn
+s1*0^\markup { [MAJOR GENERAL] }
+R1*19
+s1*0_\markup { \italic { Cue: ... it is yours } }
+s1*0^\markup { A }
+R1*30^\markup { [MABEL] }
+\textLengthOff
+c4^\markup { CHORUS } d f c
+@end lilypond
+
+@noindent
+Observe que el silencio separador produce la inserción de un compás.
+El texto aplicado a un siencio sparador de esta forma se alinea por la
+izquierda a la posición en que la nota estaría situada dentro del
+compás, pero si la longitud del compás está determinada por la
+longitud del texto, éste aparecerá centrado.
 
 @seealso
 
-Referencia de funcionamiento interno:
-@rinternals{MultiMeasureRest}.
+Glosario musical:
+@rglos{multi-measure rest}.
 
-El objeto de presentación @rinternals{MultiMeasureRestNumber} es para
-el número por defecto, y @rinternals{MultiMeasureRestText} para los
-textos definidos por el usuario.
+Referencia de la notación:
+@ref{Durations},
+@ref{Text},
+@ref{Formatting text},
+@ref{Text scripts}.
+
+Fragmentos de código:
+@rlsr{Rhythms}.
+
+Referencia de funcionamiento interno:
+@rinternals{MultiMeasureRest},
+@rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestText}.
 
 
 @knownissues
 
-No se pueden usar digitaciones (p.ej. @code{R1-4}) para poner números
-encima de los silencios multicompás.  Y la altura de los silencios
-multicompás (o silencios centrados en el pentagrama) no se puede
-modificar.
+Si se trata de usar digitaciones (p. ej., @code{R1*10-4}) para poner
+números encima de los silencios multicompás, la cifra de la digitación
+(el 4) puede chocar con el número del compás (aquí el 10).
 
-@cindex silencios condensados
+@cindex condensar silencios
+@cindex silencio normal, condensar
 
 No hay ninguna forma de condensar automáticamente muchos silencios en
-un solo silencio multicompás.  Los silencios multicompás no toman
-parte en las comprobaciones de colisión de silencios.
+un solo silencio multicompás.  
 
-Tenga cuidado al escribir silencios multicompás seguidos por redondas.
-El código siguiente introduce dos notas que tienen una duración de
-cuatro compases cada una
-@example
-R1*4 cis cis
-@end example
-Cuando @code{skipBars} esté establecido, el aspecto del resultado será
-correcto, pero la numeración de los compases estará desactivada.
+@cindex silencio, colisiones de
+
+Los silencios multicompás no toman parte en las colisiones de
+silencios.
 
 
 @node Displaying rhythms
