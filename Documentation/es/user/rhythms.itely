@@ -1135,17 +1135,175 @@ para indicar dónde se pueden producir los saltos.
 @node Polymetric notation
 @subsubsection Polymetric notation
 
-@untranslated
+@cindex double time signatures
+@cindex signatures, polymetric
+@cindex polymetric signatures
+@cindex meter, polymetric
+
+Está contemplada la notación polimétrica, ya sea explícitamente o a
+través de un uso inteligente de las posibilidades de marcado.
+
+@strong{Pentagramas con distintas indicaciones de compás, compases de
+igual longitud}
+
+Se puede crear esta notación estableciendo una indicación de compás
+común para cada pentagrama per sustituyendo el símbolo manualmente
+mediante el establecimiento de @code{timeSignatureFraction} a la
+fracción deseada y escalando las duraciones impresas en cada
+pentagrama a la indicación de compás común.  Esto se hace con
+@code{\scaleDurations}, que se usa de una forma similar a
+@code{\times}, pero no crea un corchete de grupo especial, véase
+@ref{Scaling durations}.
+
+En este ejemplo, se usa en paralelo música con compases de 3/4, 9/8 y
+10/8.  En el segundo pentagrama, las duraciones mostradas se
+multiplican por 2/3, pues 2/3 * 9/8 = 3/4, y en el tercer pentagrama,
+las duraciones que se muestran están multiplicadas por 3/5, pues 3/5 *
+10/8 = 3/4.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\relative c' { <<
+  \new Staff {
+    \time 3/4
+    c4 c c |
+    c c c |
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(9 . 8)
+    \scaleDurations #'(2 . 3)
+      \repeat unfold 6 { c8[ c c] }
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(10 . 8)
+    \scaleDurations #'(3 . 5) {
+      \repeat unfold 2 { c8[ c c] }
+      \repeat unfold 2 { c8[ c] } |
+      c4. c4. \times 2/3 { c8 c c } c4
+    }
+  }
+>> }
+@end lilypond
+
+@strong{Pentagramas con distinas indicaciones de compás y longitudes
+de compás distintas}
+
+Se puede dar a cada pentagrama su propia indicación de compás
+independiente trasladando el grabador @code{Timing_translator} al
+contexto de @code{Staff}.
+
+@lilypond[quote,verbatim,ragged-right]
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  }
+}
+
+% Now each staff has its own time signature.
+
+\relative c' <<
+  \new Staff {
+    \time 3/4
+    c4 c c |
+    c c c |
+  }
+  \new Staff {
+    \time 2/4
+    c4 c |
+    c c |
+    c c |
+  }
+  \new Staff {
+    \time 3/8
+    c4. |
+    c8 c c |
+    c4. |
+    c8 c c |
+  }
+>>
+@end lilypond
+
+@snippets
+
+@c TODO -- Convert to snippet. -- Sent to Neil 8/14/08
+
+@strong{Compases alternantes}
+
+Los compases dobles que se alternan regularmente no están contemplados
+explícitamente, pero se pueden falsificar.  En el ejemplo siguiente,
+el compás doble se crea mediante texto de marcado, mientras que el
+compás real se establece de la manera usual con @code{\time}.
+
+@lilypond[verbatim,ragged-right]
+% Create 9/8 split into 2/4 + 5/8
+tsMarkup = \markup {
+  \override #'(baseline-skip . 2) \number {
+    \column { "2" "4" }
+    \vcenter "+"
+    \bracket \column { "5" "8" }
+  }
+}
+
+{
+  \override Staff.TimeSignature #'stencil =
+    #ly:text-interface::print
+  \override Staff.TimeSignature #'text = #tsMarkup
+  \time 9/8
+  c'2 \bar ":" c'4 c'4.
+  c'2 \bar ":" c'4 c'4.
+}
+@end lilypond
+
+
+@seealso
+
+Glosario musical:
+@rglos{polymetric},
+@rglos{polymetric time signature},
+@rglos{meter}.
+
+Referencia de la notación:
+@ref{Scaling durations}
+
+Fragmentos de código:
+@rlsr{Rhythms}.
+@c Is this still permitted?
+@c @lsr{contemporary,compound-time-signature}
+
+Referencia de funcionamiento interno:
+@rinternals{TimeSignature},
+@rinternals{Timing_translator},
+@rinternals{Staff}.
+
+@knownissues
+
+Al usar distintos compases en paralelo, las notas que están en el
+mismo instante de tiempo se colocan en la misma posición horizontal.
+Sin embargo, las barras de compás en los distintos pentagramas harán
+que el espaciado de notas sea menos regular en cada pentagrama
+individual de lo que sería normal sin las distintas indicaciones de
+compás.
 
 
 @node Automatic note splitting
 @subsubsection Automatic note splitting
 
+@cindex notas, división de
+@cindex división de notas
+
 Las notas largas se pueden convertir automáticamente en notas ligadas.
-Se hace mediante la sustitución del @rinternals{Note_heads_engraver}
-por el @rinternals{Completion_heads_engraver}.  En los siguientes
-ejemplos, las notas que atraviesan la barra de compás se dividen y se
-unen mediante una ligadura.
+Se hace mediante la sustitución del @code{Note_heads_engraver} por el
+@code{Completion_heads_engraver}.  En el ejemplo siguiente, las notas
+que atraviesan la barra de compás se dividen y se unen mediante una
+ligadura.
 
 @lilypond[quote,fragment,verbatim,relative=1,line-width=12\cm]
 \new Voice \with {
@@ -1161,25 +1319,33 @@ inserta ligaduras.  Uno de sus usos es depurar partituras complejas:
 si los compases no están completos, las ligaduras mostrarán
 exactamente cuánto le falta a cada compás.
 
-Si quiere permitir el salto de línea en las barras de compás en las
-que @rinternals{Completion_heads_engraver} divide las notas, debe
-eliminar también @rinternals{Forbid_line_break_engraver}.
+@seealso
 
+Glosario musical:
+@rglos{tie}
+
+Manual de aprendizaje:
+@rlearning{Engravers explained},
+@rlearning{Adding and removing engravers}.
+
+Fragmentos de código:
+@rlsr{Rhythms}.
+
+Referencia de funcionamiento interno:
+@rinternals{Note_heads_engraver},
+@rinternals{Completion_heads_engraver},
+@rinternals{Forbid_line_break_engraver}.
 
 @knownissues
 
 No todas las duraciones (sobre todo las que contienen grupos
 especiales) se pueden representar exactamente con notas normales y
-puntillos, pero el grabador nunca insertará grupos especiales.
+puntillos, pero el grabador @code{Completion_heads_engraver} nunca
+insertará grupos especiales.
 
 @code{Completion_heads_engraver} afecta sólo a las notas; no divide
 silencios.
 
-
-@seealso
-
-Referencia de funcionamiento interno:
-@rinternals{Completion_heads_engraver}.
 
 @node Showing melody rhythms
 @subsubsection Showing melody rhythms
@@ -1189,13 +1355,114 @@ Esto se puede hacer con un pentagrama de ritmo.  Todas las alturas de
 las notas se convierten en barras inclinadas, y el pentagrama tiene
 una sola línea:
 
-@c TODO Devise a more realistic example, perhaps with lyrics -td
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new RhythmicStaff {
-  \time 4/4
-  c4 e8 f g2 | r4 g r2 | g1 | r1 |
-}
+<<
+  \new RhythmicStaff {
+    \new Voice = "myRhythm" {
+      \time 4/4
+      c4 e8 f g2
+      r4 g g f
+      g1
+    }
+  }
+  \new Lyrics {
+    \lyricsto "myRhythm" {
+      This is my song
+      I like to sing
+    }
+  }
+>>
 @end lilypond
+
+Las tablas de acordes de guitarra ofrecen a menudo los ritmos de
+rasgueado.  Esto se puede hacer con el grabador
+@code{Pitch_squash_engraver} y @code{\improvisationOn}.
+
+ @lilypond[quote,verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 f g c
+    }
+  }
+
+  \new Voice \with {
+    \consists Pitch_squash_engraver
+  } \relative c'' {
+    \improvisationOn
+    c4 c8 c c4 c8 c
+    f4 f8 f f4 f8 f
+    g4 g8 g g4 g8 g
+    c4 c8 c c4 c8 c
+  }
+>>
+@end lilypond
+
+@predefined
+@code{\improvisationOn},
+@code{\improvisationOff}.
+
+@snippets
+@c TODO -- Convert to snippet;
+@c     tag for both Rhythms and Guitar? Move to @seealso?
+
+Para la música de guiratta, es posible mostrar los ritmos de rasgueo,
+además de las notas de la melodía, acordes y diagramas de posiciones.
+
+@lilypond[quote,verbatim]
+\include "predefined-guitar-fretboards.ly"
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 f g c
+    }
+  }
+
+  \new FretBoards {
+    \chordmode {
+      c1 f g c
+    }
+  }
+
+  
+  \new Voice \with {
+    \consists Pitch_squash_engraver
+  } \relative c'' {
+    \improvisationOn
+    c4 c8 c c4 c8 c
+    f4 f8 f f4 f8 f
+    g4 g8 g g4 g8 g
+    c4 c8 c c4 c8 c
+  }
+
+
+  \new Voice = "melody" {
+    \relative c'' {
+      \improvisationOff
+      c2 e4 e4 
+      f2. r4
+      g2. a4
+      e4 c2.
+    }
+  }
+ 
+  \new Lyrics {
+    \lyricsto "melody" {
+      This is my song.
+      I like to sing.
+    }
+  }
+>>
+@end lilypond
+
+@seealso
+
+Fragmentos de código:
+@rlsr{Rhythms}.
+
+Referencia de funcionamiento interno:
+@rinternals{RhythmicStaff},
+@rinternals{Pitch_squash_engraver}.
 
 @node Beams
 @subsection Beams
@@ -1243,6 +1510,9 @@ c4 c8 c8. c16 c8.
 c16 c8
 @end lilypond
 
+@predefined
+@code{\autoBeamOff},
+@code{\autoBeamOn}.
 
 @snippets
 
@@ -1328,6 +1598,9 @@ Referencia de la notación:
 @ref{Manual beams},
 @ref{Setting automatic beam behavior}.
 
+Archivos instalados:
+@file{scm/auto-beam.scm}.
+
 Fragmentos de código:
 @rlsr{Rhythms}.
 
@@ -1366,7 +1639,10 @@ comenzar y teminar las barras.  Las reglas predeterminadas de
 
 Para poder añadir una regla a la lista, utilice
 @example
-#(override-auto-beam-setting '(be p q n m) a b [contexto])
+#(override-auto-beam-setting 
+  '(beam-limit beam-numerator  beam-denominator
+     time-signature-numerator time-signature-denominator) 
+  moment-numerator moment-denominator [context])
 @end example
 
 @itemize
