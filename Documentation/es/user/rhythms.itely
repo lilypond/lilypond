@@ -873,50 +873,94 @@ silencios.
 @cindex metro, medida
 @funindex \time
 
-La indicación de compás indica el metro de la pieza: su patrón regular
-de partes fuertes y débiles.  Se denota por una fracción al comienzo
-del pentagrama.
+La indicación de compás se establece como sigue:
 
-La indicación de compás se establece mediante el comando @code{\time}
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\time 2/4 c'2 \time 3/4 c'2.
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c2
+\time 3/4 c2.
 @end lilypond
 
-@commonprop
+@cindex compás, visibilidad de la indicación de
 
-Se puede personalizar el símbolo que se imprime mediante la propiedad
-@code{style}.  Un valor de @code{#'()} produce un estilo de fracción
-para los compases de 4/4 y de 2/2,
+La indicación de compás se imprime al comienzo de una pieza y siempre
+que hay un cambio de compás.  Si se produce un cambio al final de una
+línea, se imprime una indicación de advertencia en dicho lugar.  Se
+puede modificar este comportamiento predeterminado, véase
+@ref{Visibility of objects}.
 
-@lilypond[fragment,quote,ragged-right,verbatim]
-\time 4/4 c'1
-\time 2/2 c'1
-\override Staff.TimeSignature #'style = #'()
-\time 4/4 c'1
-\time 2/2 c'1
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4
+c2 c
+\break
+c c
+\break
+\time 4/4
+c c c c
 @end lilypond
 
-Existen otras muchas opciones para su presentación.  Para ver más
-ejemplos, consulte @ref{Ancient time signatures}.
+@cindex compás, estilo de la indicación de
+@funindex \numericTimeSignature
+@funindex \defaultTimeSignature
 
+El símbolo de compás que se usa en 2/2 y 4/4 se puede cambiar a un
+estilo numérico:
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+% Default style
+\time 4/4 c1
+\time 2/2 c1
+% Change to numeric style
+\numericTimeSignature
+\time 4/4 c1
+\time 2/2 c1
+% Revert to default style
+\defaultTimeSignature
+\time 4/4 c1
+\time 2/2 c1
+@end lilypond
+
+Las indicaciones de compás de la música antigua se tratan en
+@ref{Ancient time signatures}.
+
+@predefined
+
+@code{\numericTimeSignature},
+@code{\defaultTimeSignature}.
+
+@snippets
+
+@c TODO Send as snippet called "setting measure and beat lengths"
+@c      when example is added
 @code{\time} establece las propiedades @code{timeSignatureFraction},
 @code{beatLength} y @code{measureLength} en el contexto @code{Timing},
-cuyo nombre alternativo normalmente es @rinternals{Score}.  La
-propiedad @code{measureLength} determina el lugar en que se deben
-insertar las barras de compás y cómo se generan las barras de corchea
-automáticas.  La modificación del valor de
-@code{timeSignatureFraction} también provoca que se imprima el
-símbolo.
+que normalmente tiene el alias @code{Score}.  La modificación del
+valor de @code{timeSignatureFraction} hace que se imprima la nueva
+indicación de compás sin que cambien las otras propieadades.  La
+propiedad @code{measureLength} determina dónde se deben insertar
+líneas divisorias, y con @code{beatLength}, cómo se deben generar las
+barras de corchea automáticas.
 
-Están disponibles más opciones a través de la función de Scheme
-@code{set-time-signature}.  En combinación con el grabador
-@rinternals{Measure_grouping_engraver} (agrupación de compases),
-creará signos de @rinternals{MeasureGrouping}.  Estos signos facilitan
-la lectura de música moderna rítmicamente compleja.  En el siguiente
-ejemplo el compás de 9/8 se subdivide en 2, 2, 2 y 3.  Esto se pasa a
-@code{set-time-signature} como un tercer argumento con el valor
-@code{(2 2 2 3)}
+@c TODO Add example of using beatLength.
+@c beatLength is broken - see bug 511
+
+@c End of snippet
+
+@cindex measure groupings
+@cindex beats, grouping
+@cindex grouping beats
+@cindex measure sub-grouping
+
+@c TODO Sent as snippet called "grouping beats" 25 Mar 08
+Las opciones para agrupar partes de un compás están disponibles a
+través de la funcción de Scheme @code{set-time-signature}, que toma
+tres argumentos: el número de pulsos, longitud del pulso, y agrupación
+interna de los pulsos en el compás.  Si el grabador
+@rinternals{Measure_grouping_engraver} está incluido, la función
+también creará símbolos de @rinternals{MeasureGrouping}.  Tales
+símbolos facilitan la lectura de música moderna rítmicamente compleja.
+En el ejemplo, el compás de 9/8 se subdivide en 2 + 2 + 2 + 3.  Esto
+se pasa a @code{set-time-signature} como tercer argumento: @code{'(2 2
+2 3)}:
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -934,9 +978,7 @@ ejemplo el compás de 9/8 se subdivide en 2, 2, 2 y 3.  Esto se pasa a
   }
 }
 @end lilypond
-
-
-@snippets
+@c TODO End of snippet called "grouping beats"
 
 @cindex compuesto, indicaciones de compás
 @cindex compás compuesto, indicaciones de
@@ -946,13 +988,19 @@ ejemplo el compás de 9/8 se subdivide en 2, 2, 2 y 3.  Esto se pasa a
 
 @seealso
 
+Glosario musical:
+@rglos{time signature}
+
+Referencia de la notación:
+@ref{Ancient time signatures},
+@ref{Time administration}.
+
+Fragmentos de código:
+@rlsr{Rhythms}.
+
 Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
-
-Ejemplos:
-@rlsr{Rhythms}.
-
 
 @knownissues
 
@@ -967,29 +1015,37 @@ especificada con @code{set-time-signature}.
 @cindex parte al alzar
 @cindex compás parcial
 @cindex parcial, compás
-@cindex acortar compases
+@cindex compás, cambiar la longitud del
+@funindex measurePosition
 @funindex \partial
 
 Los compases parciales como las anacrusas o partes al alzar se
-escriben usando la construcción
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\partial 16*5 c16 cis d dis e | a2. c,4 | b2
-@end lilypond
-
-La sintaxis de este comando es la siguiente:
+escriben usando la instrucción @code{\partial}, con la sintaxis
 
 @example
 \partial @var{duración}
 @end example
 
 donde @code{duración} es el valor rítmico que se se debe añadir antes
-del siguiente compás.
+del comienzo del siguiente compás completo:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\partial 4 e4 |
+a2. c,4 |
+@end lilypond
+
+El compás parcial puede ser de cualquier duración menor de un compás
+completo:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\partial 8*3 c8 d e |
+a2. c,4 |
+@end lilypond
 
 Esto se traduce internamente a
 
 @example
-\set Timing.measurePosition = -@var{longitud de la duración}
+\set Timing.measurePosition = -@var{duración}
 @end example
 
 La propiedad @code{measurePosition} contiene un número racional que
@@ -997,19 +1053,9 @@ indica qué parte del compás ha transcurrido hasta el momento.  Observe
 que es un número negativo; @code{\partial 4} se traduce internamente
 con el significado de @qq{queda un valor de negra en este compás}.
 
-
 @knownissues
 
-Este comando no tiene en cuenta las notas de adorno al comienzo de la
-música.  Cuando una pieza comienza con notas de adorno en la anacrusa,
-el @code{\partial} debe escribirse después de las notas de adorno
-
-@lilypond[verbatim,quote,ragged-right,relative,fragment]
-\grace f16
-\partial 4
-g4
-a2 g2
-@end lilypond
+@cindex grace notes, in anacruses
 
 El uso de @code{\partial} está previsto solamente para el comienzo de
 una pieza.  Si se emplea después del comienzo se obtendrán varias
@@ -1020,14 +1066,17 @@ advertencias desagradables.
 @subsubsection Unmetered music
 
 @cindex cadencia
+@cindex líneas divisorias, quitar
+@cindex numeración de compases, quitar
+@cindex música sin metro
 @funindex \cadenzaOn
 @funindex \cadenzaOff
 
 Las líneas divisorias y los números de compás se calculan
 automáticamente.  Para música sin compasear (por ejemplo cadencias),
 esto no es deseable.  Para desactivar las barras y los números de
-compás automáticos, utilice los comandos @code{\cadenzaOn} y
-@code{\cadenzaOff}.
+compás automáticos, utilice la instrucción @code{\cadenzaOn}, y para
+activarlos de nuevo use @code{\cadenzaOff}.
 
 @lilypond[verbatim,quote,ragged-right,relative=2,fragment]
 c4 d e d
@@ -1038,10 +1087,39 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
+La numeración de compases se continúa al final de la cadencia como si
+la cadencia no existiera:
+
+@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+% Show all bar numbers
+\override Score.BarNumber #'break-visibility = #all-visible
+c4 d e d
+\cadenzaOn
+c4 c d8 d d f4 g4.
+\cadenzaOff
+\bar "|"
+d4 e d c
+@end lilypond
+
+@predefined
+
+@code{\cadenzaOn},
+@code{\cadenzaOff}.
+
+@seealso
+
+Glosario musical:
+@rglos{cadenza}
+
+Referencia de la notación:
+@ref{Visibility of objects}
+
+Fragmentos de código:
+@rlsr{Rhythms}.
 
 @knownissues
 
-LilyPond insertará saltos de línea y de página solamente en las barras
+LilyPond inserta saltos de línea y de página solamente en las barras
 de compás.  A menos que la música sin compasear acabe antes del final
 de la línea del pentagrama, tendrá que insertar barras de compás
 invisibles
