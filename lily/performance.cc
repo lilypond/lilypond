@@ -94,7 +94,6 @@ Performance::write_output (string out) const
 
   /* Maybe a bit crude, but we had this before */
   File_name file_name (out);
-  file_name.ext_ = "midi";
   out = file_name.to_string ();
 
   Midi_stream midi_stream (out);
