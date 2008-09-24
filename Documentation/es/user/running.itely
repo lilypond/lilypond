@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: dfae8d829c653d1c011f8823cd51d09c33400b66
+    Translation of GIT committish: e249209ae8c9efcd4140d152607aeec9115844aa
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -56,15 +56,15 @@ documentos sobre este tema si no le resulta familiar la línea de
 
 @menu
 * Invoking lilypond::
-* Command line options::
+* Command line options for lilypond::
 * Environment variables::
 @end menu
 
 @node Invoking lilypond
-@subsection Invoking lilypond
+@subsection Invoking @command{lilypond}
 
-@cindex invocar a LilyPond
-@cindex opciones de la línea de órdenes
+@cindex invocar @command{lilypond}
+@cindex opciones de la línea de órdenes para @command{lilypond}
 @cindex órdenes, opciones de la línea de
 
 El ejecutable @command{lilypond} se puede llamar desde la línea de
@@ -103,8 +103,8 @@ producirá como salida @var{base}@file{-violin.pdf} y
 @var{base}@file{-cello-1.pdf}.
 
 
-@node Command line options
-@subsection Command line options
+@node Command line options for lilypond
+@subsection Command line options for @command{lilypond}
 
 Están contempladas las siguientes opciones:
 
@@ -174,6 +174,7 @@ Esta opción establece el tamaño predeterminado del papel,
 Observe que la cadena se debe incluir dentro de comillas escapadas
 ( @code{\"} ).
 
+@c Match " in previous line to help context-sensitive editors
 
 @item safe
 No confiar en la entrada @code{.ly}.
@@ -509,7 +510,7 @@ de comprobar una o dos líneas por encima de la posición indicada.
 
 
 @node Updating files with convert-ly
-@section Updating with @command{convert-ly}
+@section Updating files with @command{convert-ly}
 
 @cindex actualización de un archivo de LilyPond
 @cindex version
@@ -538,7 +539,13 @@ menú @code{Compilar > Actualizar sintaxis}.
 Si no hay cambios en miarchivo.ly y se crea el archivo llamado
 miarchivo.ly.NEW, entonces miarchivo.ly ya está actualizado.
 
-@subsection Command line options
+@menu
+* Command line options for convert-ly::
+* Problems with convert-ly::
+@end menu
+
+@node Command line options for convert-ly
+@subsection Command line options for @command{convert-ly}
 
 @command{convert-ly} convierte siempre al últimmo cambio de sintaxis
 que puede manejar.  Eesto supone que el número de @code{\version} que
@@ -599,11 +606,6 @@ se convierte a la última versión disponible.
 @item -h, --help
 Imprimir la ayuda de la utilización.
 @end table
-
-
-@menu
-* Problems with convert-ly::
-@end menu
 
 
 @node Problems with convert-ly

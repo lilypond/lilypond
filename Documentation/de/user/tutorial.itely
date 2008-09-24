@@ -867,7 +867,7 @@ Glossar: @rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
 
 Die Dynamik innerhalb eines Stückes wird eingegeben, indem man
-die Markierungen (mit einem Backslash, @q{@value{backslash}}) an 
+die Markierungen (mit einem Backslash) an 
 die Note hängt:
 
 @lilypond[verbatim,quote,relative=2]
