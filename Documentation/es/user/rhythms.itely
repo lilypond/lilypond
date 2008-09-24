@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: b9d7f2392b815947674db6c6181e9fb550842fab
+    Translation of GIT committish: aa5bccb0e775ecd97a0731d910d7b03076a9f388
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -17,12 +17,12 @@ Esta sección trata de los ritmos, los silencios, las duraciones, las
 barras y los compases.
 
 @menu
-* Writing rhythms::             
-* Writing rests::               
-* Displaying rhythms::          
-* Beams::                       
-* Bars::                        
-* Special rhythmic concerns::   
+* Writing rhythms::
+* Writing rests::
+* Displaying rhythms::
+* Beams::
+* Bars::
+* Special rhythmic concerns::
 @end menu
 
 
@@ -30,10 +30,10 @@ barras y los compases.
 @subsection Writing rhythms
 
 @menu
-* Durations::                   
-* Tuplets::                     
-* Scaling durations::           
-* Ties::                        
+* Durations::
+* Tuplets::
+* Scaling durations::
+* Ties::
 @end menu
 
 @node Durations
@@ -136,18 +136,18 @@ and placement}.
 @seealso
 
 Glosario musical:
-@rglos{breve}, 
-@rglos{longa}, 
+@rglos{breve},
+@rglos{longa},
 @rglos{note value},
 @rglos{Duration names notes and rests}.
 
 Referencia de la notación:
-@ref{Automatic beams}, 
+@ref{Automatic beams},
 @ref{Ties},
-@ref{Writing rhythms}, 
-@ref{Writing rests}, 
+@ref{Writing rhythms},
+@ref{Writing rests},
 @ref{Vocal music},
-@ref{Ancient notation}, 
+@ref{Ancient notation},
 @ref{Proportional notation}.
 
 Fragmentos de código:
@@ -501,9 +501,9 @@ Los silencios se escriben como parte de la música dentro de las
 expresiones musicales.
 
 @menu
-* Rests::                       
-* Invisible rests::             
-* Full measure rests::          
+* Rests::
+* Invisible rests::
+* Full measure rests::
 @end menu
 
 @node Rests
@@ -846,7 +846,7 @@ números encima de los silencios multicompás, la cifra de la digitación
 @cindex silencio normal, condensar
 
 No hay ninguna forma de condensar automáticamente muchos silencios en
-un solo silencio multicompás.  
+un solo silencio multicompás.
 
 @cindex silencio, colisiones de
 
@@ -858,12 +858,12 @@ silencios.
 @subsection Displaying rhythms
 
 @menu
-* Time signature::              
-* Upbeats::                     
-* Unmetered music::             
-* Polymetric notation::         
-* Automatic note splitting::    
-* Showing melody rhythms::      
+* Time signature::
+* Upbeats::
+* Unmetered music::
+* Polymetric notation::
+* Automatic note splitting::
+* Showing melody rhythms::
 @end menu
 
 @node Time signature
@@ -1424,7 +1424,7 @@ además de las notas de la melodía, acordes y diagramas de posiciones.
     }
   }
 
-  
+
   \new Voice \with {
     \consists Pitch_squash_engraver
   } \relative c'' {
@@ -1439,13 +1439,13 @@ además de las notas de la melodía, acordes y diagramas de posiciones.
   \new Voice = "melody" {
     \relative c'' {
       \improvisationOff
-      c2 e4 e4 
+      c2 e4 e4
       f2. r4
       g2. a4
       e4 c2.
     }
   }
- 
+
   \new Lyrics {
     \lyricsto "melody" {
       This is my song.
@@ -1468,10 +1468,10 @@ Referencia de funcionamiento interno:
 @subsection Beams
 
 @menu
-* Automatic beams::             
-* Setting automatic beam behavior::  
-* Manual beams::                
-* Feathered beams::             
+* Automatic beams::
+* Setting automatic beam behavior::
+* Manual beams::
+* Feathered beams::
 @end menu
 
 @node Automatic beams
@@ -1639,9 +1639,9 @@ comenzar y teminar las barras.  Las reglas predeterminadas de
 
 Para poder añadir una regla a la lista, utilice
 @example
-#(override-auto-beam-setting 
+#(override-auto-beam-setting
   '(límite-barra numerador-barra denominador-barra
-     numerador-compás denominador-compás) 
+     numerador-compás denominador-compás)
   numerador-momento denominador-momento [contexto])
 @end example
 
@@ -1712,9 +1712,9 @@ También podemos eliminar una regla de fin de barrado previamente
 establecida usando
 
 @example
-#(revert-auto-beam-setting 
+#(revert-auto-beam-setting
   '(beam-limit beam-numerator  beam-denominator
-     time-signature-numerator time-signature-denominator) 
+     time-signature-numerator time-signature-denominator)
   moment-numerator moment-denominator [context])
 @end example
 
@@ -1942,10 +1942,10 @@ Fragmentos de código:
 @subsection Bars
 
 @menu
-* Bar lines::                   
-* Bar numbers::                 
-* Bar and bar number checks::   
-* Rehearsal marks::             
+* Bar lines::
+* Bar numbers::
+* Bar and bar number checks::
+* Rehearsal marks::
 @end menu
 
 
@@ -2129,28 +2129,102 @@ c1 c c c
 @funindex barNumberVisibility
 @cindex bar numbers, regular spacing
 
-Los números de compás sólo se pueden imprimir en las líneas
-divisorias; para imprimir un número de compás al principio de la
-pieza, se debe añadir una línea divisoria vacía
+Los números de compás se pueden tipografiar a intervalos regulares en
+vez de al principio de cada línea.  Para hacerlo se debe sobreescribir
+el comportamiento predeterminado de forma que se puedan imprimir en
+otros lugares.  Esto viene controlado por la propiedad
+@code{break-visibility} de @code{BarNumber}.  Toma tres valores que se
+pueden fijar al valor @code{#t} o @code{#f} para especificar si el
+número de compás correspondiente es visible o no.  El orden de los
+tres valores es @code{visible al final de la línea}, @code{visible en
+mitad de la línea}, @code{visible al principio de la línea}.  En el
+ejemplo siguiente se imprimen los números de compás en todos los
+sitios posibles:
 
 @lilypond[verbatim,ragged-right,quote,fragment,relative]
-\set Score.currentBarNumber = #50
-\bar ""
-\repeat unfold 4 {c4 c c c} \break
-\repeat unfold 4 {c4 c c c}
+\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
+\set Score.currentBarNumber = #11
+\bar ""  % Permit first bar number to be printed
+c1 c c c
+\break
+c c c c
 @end lilypond
 
-Los números de compás se pueden tipografiar a intervalos regulares en
-vez de al principio de cada línea.
+@c  All the rest of these examples will be added to LSR
+@c  and moved into the Snippets.  -gp
 
-@c Esto queda ilustrado en el ejemplo
-@c siguiente, cuyo código fuente se encuentra disponible como
-@c @lsr{staff,making-bar-numbers-appear-at-regular-intervals.ly}.
+@noindent
+y aquí los números de compás se imprimen cada dos compases excepto al
+final de la línea:
 
-@c @lilypondfile[ragged-right,quote]{bar-number-regular-interval.ly}
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\override Score.BarNumber #'break-visibility = #'#(#f #t #t)
+\set Score.currentBarNumber = #11
+\bar ""  % Permit first bar number to be printed
+% Print a bar number every second measure
+\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
+c1 c c c c
+\break
+c c c c c
+@end lilypond
+
+@cindex compás, número de, formato
+@cindex número de compases, formato de
+
+Se puede cambiar el tamaño del número de compás.  Esto queda ilustrado
+en el siguiente ejemplo, que también muestra cómo encerrar los números
+de compás en rectángulos y circunferencias, y ofrece una forma
+alternativa de especificar @code{#(#f #t #t)} para
+@code{break-visibility}.
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+% Prevent bar numbers at the end of a line and permit them elsewhere
+\override Score.BarNumber #'break-visibility
+  = #end-of-line-invisible
+
+% Increase the size of the bar number by 2
+\override Score.BarNumber #'font-size = #2
+\repeat unfold 3 { c1 } \bar "|"
+
+% Draw a box round the following bar number(s)
+\override Score.BarNumber  #'stencil
+  = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
+\repeat unfold 3 { c1 } \bar "|"
+
+% Draw a circle round the following bar number(s)
+\override Score.BarNumber  #'stencil
+  = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
+\repeat unfold 4 { c1 } \bar "|."
+@end lilypond
+
+@cindex bar number alignment
+
+Los números de compás están alineados de forma predeterminada por la
+izquierda a su objeto padre.  Esto suele corresponder al límite
+izquierdo de una línea o, si los números se imprimen dentro de la
+línea, la divisoria izquierda del compás.  Los números también se
+pueden colocar directamente sobre la línea divisoria o alinearse por
+la derecha con ella:
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\set Score.currentBarNumber = #111
+\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
+% Increase the size of the bar number by 2
+\override Score.BarNumber #'font-size = #2
+% Print a bar number every second measure
+\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
+c1 c1
+% Center-align bar numbers
+\override Score.BarNumber #'self-alignment-X = #0
+c1 c1
+% Right-align bar numbers
+\override Score.BarNumber #'self-alignment-X = #-1
+c1 c1
+@end lilypond
 
 Los números de compás se pueden suprimir completamente quitando el
-grabador de números de compás de la partitura.
+grabador @code{Bar_number_engraver} de números de compás del contexto
+de partitura @code{Score}.
 
 @lilypond[verbatim,ragged-right,quote]
 \layout {
@@ -2160,20 +2234,18 @@ grabador de números de compás de la partitura.
   }
 }
 \relative c''{
-c4 c c c \break
-c4 c c c
+  c4 c c c \break
+  c4 c c c
 }
 @end lilypond
 
-
 @seealso
-
-Referencia de funcionamiento interno:
-@rinternals{BarNumber}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
 
+Referencia de funcionamiento interno:
+@rinternals{BarNumber}.
 
 @knownissues
 
@@ -2181,6 +2253,19 @@ Los números de compás pueden colisionar con el corchete
 @rinternals{StaffGroup}, si hay uno en la parte de arriba.  Para
 solucionarlo, se puede usar la propiedad de relleno @code{padding} de
 @rinternals{BarNumber} para colocar el número correctamente.
+
+Los números de compás solamente se pueden imprimir en las líneas
+divisorias; para imprimir un número de compás al principio de la
+pieza, se debe insertar allí una barra de compás vacía, y se debe
+poner un valor distinto a @code{1} en @code{currentBarNumber}:
+
+@lilypond[verbatim,ragged-right,quote,fragment,relative]
+\set Score.currentBarNumber = #50
+\bar ""
+c1 c c c
+c1 c c c
+\break
+@end lilypond
 
 
 @node Bar and bar number checks
@@ -2218,6 +2303,11 @@ completamente, sobre todo si la música es polifónica, por ello el
 mejor sitio para empezar a corregir la entrada es hacer un barrido en
 busca de comprobaciones de compás fallidas y duraciones incorrectas.
 
+Si varias comprobaciones de compás corresponden al mismo intervalo
+musical, sólo se imprime el primer mensaje de advertencia.  Esto
+permite que la advertencia se centre en la fuente del error de cuenta
+de tiempo.
+
 @funindex |
 @funindex pipeSymbol
 
@@ -2252,6 +2342,11 @@ por ejemplo:
 @noindent
 imprimirá una advertencia si el @code{currentBarNumber} (número del
 compás actual) no es 123 cuando se procesa.
+
+@seealso
+
+Fragmentos de código:
+@rlsr{Rhythms}.
 
 
 @node Rehearsal marks
@@ -2361,20 +2456,20 @@ ensayo, consulte @ref{Text marks}.
 
 @seealso
 
-Fragmentos de código:
-@rlsr{Rhythms}.
-
-En este manual:
+Referencia de la notación:
 @ref{The Feta font},
 @ref{Formatting text}.
-
-Referencia de funcionamiento interno:
-@rinternals{RehearsalMark}.
 
 Archivos de inicio: @file{scm/@/translation@/-functions@/.scm}
 contiene la definición de @code{format-mark-numbers} y de
 @code{format-mark-letters}.  Se pueden usar como inspiración para
 escribir otras funciones de formateo.
+
+Fragmentos de código:
+@rlsr{Rhythms}.
+
+Referencia de funcionamiento interno:
+@rinternals{RehearsalMark}.
 
 @c Ejemplos: @c @lsr{parts,rehearsal-mark-numbers.ly}
 
@@ -2382,11 +2477,10 @@ escribir otras funciones de formateo.
 @node Special rhythmic concerns
 @subsection Special rhythmic concerns
 
-
 @menu
-* Grace notes::                 
-* Aligning to cadenzas::        
-* Time administration::         
+* Grace notes::
+* Aligning to cadenzas::
+* Time administration::
 @end menu
 
 @node Grace notes
@@ -2398,110 +2492,91 @@ escribir otras funciones de formateo.
 @cindex appoggiatura
 @cindex acciaccatura
 
-Los mordentes y notas de adorno son ornamentos escritos.  El más común es la
-acciaccatura o mordente de una nota, que se debe tocar muy corta.  Se
-denota mediante una corchea pequeña, ligada, con un corchete tachado o
-atravesado por una barrita.  La appoggiatura es una nota de adorno que
-toma una fracción fija de la nota principal, y se denota como una nota
-pequeña, ligada, sin tachar.  Ambas se introducen con los comandos
-@code{\acciaccatura} y @code{\appoggiatura}, como se muestra en el ejemplo siguiente
-
-@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-b4 \acciaccatura d8 c4 \appoggiatura e8 d4
-\acciaccatura { g16[ f] } e4
-@end lilypond
-
-Ambas son formas especiales del comando @code{\grace}.  Al anteponer
-esta palabra a una expresión musical se crea una nueva expresión, que
-se imprime en un tipo más pequeño y no ocupa ningún tiempo lógico en el compás.
+Los mordentes y notas de adorno son ornamentos escritos. Se imprimen
+en un tipo más pequeño y no ocupan ningún tiempo lógico en el
+compás.
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
 c4 \grace c16 c4
-\grace { c16[ d16] } c2 c4
+\grace { c16[ d16] } c2
 @end lilypond
 
-@noindent
-Al contrario que @code{\acciaccatura} y @code{\appoggiatura}, el comando
-@code{\grace} no inicia una ligadura.
-
-@cindex timing, internal
-
-Internamente, la cuenta del tiempo para las notas de adorno se hace
-utilizando un segundo contador, el contador @q{de adorno}.  Cada
-instante en el tiempo comprende dos números racionales: uno denota el
-tiempo lógico, y el otro denota el tiempo de adorno.  El ejemplo
-anterior se muestra a continuación con vectores de tiempo
-
-@lilypond[quote,ragged-right]
-<<
-  \relative c''{
-    c4 \grace c16 c4 \grace {
-    c16[ d16] } c2 c4
-  }
-  \new Lyrics \lyricmode {
-    \override LyricText #'font-family = #'typewriter
-
-    \markup { (0,0) } 4
-    \grace { \markup {
-      ( \fraction 1 4 , \fraction -1 16 ) } 16 }
-    \markup { (\fraction 1 4 , 0 ) } 4
-    \grace {
-      \markup { (\fraction 2 4 , \fraction "-1" 8 ) } 16
-      \markup { (\fraction 2 4 , \fraction "-1" 16 ) } 16
-    }
-    \markup { ( \fraction 2 4 , 0 ) }
-  }
->>
-@end lilypond
-
-La colocación de las notas de adorno se sincroniza entre los distintos
-pentagramas.  En el siguiente ejemplo, hay dos semicorcheas de adorno
-por cada corchea de adorno
+Lilypond también contempla dos tipos especiales de notas de adorno, la
+@emph{acciaccatura} o mordente de una nota (una nota de adorno sin
+medida que se indica mediante una pequeña nota ligada y con el
+corchete tachado) y la @emph{appoggiatura}, que toma una fracción fija
+de la nota principal, y se denota como una nota pequeña, ligada, sin
+tachar.
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \grace { c16[ d e f] } e4 }
-   \new Staff { c4 \grace { g8[ b] } c4 } >>
+\grace c8 b4
+\acciaccatura d8 c4
+\appoggiatura e8 d4
+\acciaccatura { g16[ f] } e4
+@end lilypond
+
+La colocación de notas de adorno se sincroniza entre los distintos
+pentagramas.  En el siguiente ejemplo, hay dos semicorcheas de adorno
+por cada corchea de adorno:
+
+@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+<< \new Staff { e2 \grace { c16[ d e f] } e2 }
+   \new Staff { c2 \grace { g8[ b] } c2 } >>
 @end lilypond
 
 @funindex \afterGrace
 
-Si quiere acabar una nota con un adorno, use el comando
-@code{\afterGrace}.  Toma dos argumentos: la nota principal y las
+@cindex adorno, seguimiento de notas de
+
+Si queremos terminar una nota con un adorno, usamos la instrucción
+@code{\afterGrace}.  Toma dos argumentos: la nota principal, y las
 notas de adorno que siguen a la nota principal.
 
-@lilypond[ragged-right, verbatim,relative=2,fragment]
-c1 \afterGrace d1 { c16[ d] } c4
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+c1 \afterGrace d1 { c16[ d] } c1
 @end lilypond
 
-Esto pondrá las notas de adorno después de un @q{espacio} que dura 3/4
-de la longitud de la nota principal.  La fracción 3/4 se puede cambiar
-estableciendo @code{afterGraceFraction}, por ejemplo
+Esto pone las notas de adorno después de un espacio que dura 3/4 de la
+longitud de la nota principal.  La fracción predeterminada de 3/4 se
+puede cambiar estableciendo @code{afterGraceFraction}.  El ejemplo
+siguiente muestra el resultado de establecer el espacio en su valor
+predeterminado, en 15/16, y por último en 1/2 de la nota principal.
 
-@example
-#(define afterGraceFraction (cons 7 8))
-@end example
+@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+<<
+  \new Staff {
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+  \new Staff {
+    #(define afterGraceFraction (cons 15 16))
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+  \new Staff {
+    #(define afterGraceFraction (cons 1 2))
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+>>
+@end lilypond
 
-@noindent
-pondrá la nota de adorno a 7/8 de la nota principal.
-
-Se puede conseguir el mismo efecto de forma manual haciendo
+El espacio entre la nota principal y la de adorno también se puede
+especificar usando espaciadores. El ejemplo siguiente sitúa la nota de
+adorno después de un espacio que dura 7/8 de la nota principal.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
   << { d1^\trill_( }
-     { s2 \grace { c16[ d] } } >>
-  c4)
+     { s2 s4. \grace { c16[ d] } } >>
+  c1)
 }
 @end lilypond
-
-@noindent
-Ajustando la duración de la nota de desplazamiento (aquí es una
-blanca), se ajusta el espacio entre la nota principal y la de adorno.
 
 Una expresión musical @code{\grace} introduce ajustes de tipografía
 especiales, por ejemplo para producir un tipo más pequeño y para fijar
 las direcciones.  Por ello, cuando se introducen trucos para la
-presentación, deben ir dentro de la expresión de adorno, por ejemplo:
+presentación, deben ir dentro de la expresión de adorno. Las
+sobreescrituras se deben también revertir dentro de la expresión de
+adorno. Aquí, la dirección predeterminada de la plica de la nota de
+adorno se sobreescribe y luego se revierte.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \new Voice {
@@ -2510,13 +2585,25 @@ presentación, deben ir dentro de la expresión de adorno, por ejemplo:
     f16->
     \stemNeutral
   }
-  g4
+  g4 e c2
 }
 @end lilypond
 
-@noindent
-Las sobreescrituras (overrides) también se deben deshacer dentro de la
-expresión de adorno.
+
+@cindex stem, with slash
+
+
+@snippets
+
+El trazo inclinado que atraviesa al corchete de las
+@emph{acciaccatura}s se puede aplicar en otras situaciones:
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\relative c'' {
+  \override Stem #'stroke-style = #"grace"
+  c8( d2) e8( f4)
+}
+@end lilypond
 
 La disposición de las expresiones de adorno se pueden cambiar a lo
 largo de la música usando la función @code{add-grace-property}.  El
@@ -2524,59 +2611,69 @@ siguiente ejemplo suprime la definición de la dirección de la
 @code{Stem} (plica) para este adorno, y así las plicas no siempre
 apuntan hacia arriba.
 
-@example
-\new Staff @{
-  #(add-grace-property 'Voice 'Stem 'direction '())
-  @dots{}
-@}
-@end example
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\relative c'' {
+  \new Staff {
+    #(add-grace-property 'Voice 'Stem 'direction ly:stem::calc-direction)
+    #(remove-grace-property 'Voice 'Stem 'direction)
+    \new Voice {
+       \acciaccatura { f16 } g4
+       \grace { d16[ e] } f4
+       \appoggiatura { a,32[ b c d] } e2
+    }
+  }
+}
+@end lilypond
 
-@noindent
 Otra opción es modificar las variables @code{startGraceMusic},
 @code{stopGraceMusic}, @code{startAcciaccaturaMusic},
 @code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} y
-@code{stopAppoggiaturaMusic}.  Hay más información en el archivo
-@file{ly/@/grace@/-init@/.ly}.
-
-@noindent
-La barrita que cruza el corchete de las acciaccaturas se puede obtener
-en otras situaciones mediante @code{\override Stem #'stroke-style =
-#"grace"}.
-
-
-@commonprop
+@code{stopAppoggiaturaMusic}.  Sus valores predeterminados están en el
+archivo @file{ly/@/grace@/-init@/.ly}.  Al redefinirlos se pueden
+obtener otros efectos.
 
 Se puede forzar la alineación de las notas de adorno con las notas
-normales de los otros pentagramasGrace notes may be forced to use
-align with regular notes estableciendo @code{strict-grace-spacing} al
-valor ##t:
+normales de los otros pentagramas:
 
-@lilypond[verbatim,quote,relative=2]
-<<
-  \override Score.SpacingSpanner #'strict-grace-spacing = ##t
-  \new Staff {
-    c4
-    \afterGrace c4 { c16[ c8 c16] }
-    c4 r
-  }
-  \new Staff {
-    c16 c c c c c c c c4 r
-  }
->>
+@lilypond[verbatim,quote,ragged-right]
+\relative c'' {
+  <<
+    \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+    \new Staff {
+      c4
+      \afterGrace c4 { c16[ c8 c16] }
+      c4 r
+    }
+    \new Staff {
+      c16 c c c c c c c c4 r
+    }
+  >>
+}
 @end lilypond
 
 
 @seealso
 
+Glosario musical:
+@rglos{grace notes},
+@rglos{acciaccatura},
+@rglos{appoggiatura}.
+
+Archivos de inicio:
+@file{ly/@/grace@/-init@/.ly}.
+
+Fragmentos de código:
+@rlsr{Rhythms}.
+
 Referencia de funcionamiento interno:
 @rinternals{GraceMusic}.
 
-
 @knownissues
 
-Una partitura que comienza con una expresión @code{\grace} requiere
-una declaración explícita @code{\new Voice} pues en caso contrario la
-nota principal y la de adorno acabarán en pentagramas distintos.
+Una @emph{acciaccatura} de varias notas con una barra se imprime sin
+tachar, y tiene exactamente la misma apariencia que una
+@emph{appoggiatura} de varias notas con barra.
+@c TODO Add link to LSR snippet to add slash when available
 
 La sincronización de las notas de adorno también puede acarrear
 sorpresas.  La notación de pentagramas, como armaduras, líneas
@@ -2584,8 +2681,8 @@ divisorias, etc., se sincronizan también.  Ponga cuidado cuando mezcle
 pentagramas con adornos y sin adornos, por ejemplo
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \bar "|:" \grace c16 d4 }
-   \new Staff { c4 \bar "|:" d4 } >>
+<< \new Staff { e4 \bar "|:" \grace c16 d2. }
+   \new Staff { c4 \bar "|:" d2. } >>
 @end lilypond
 
 @noindent
@@ -2594,9 +2691,14 @@ duraciones correspondientes en los otros pentagramas.  Para el ejemplo
 anterior
 
 @lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \bar "|:" \grace c16 d4 }
-   \new Staff { c4 \bar "|:" \grace s16 d4 } >>
+<< \new Staff { e4 \bar "|:" \grace c16 d2. }
+   \new Staff { c4 \bar "|:" \grace s16 d2. } >>
 @end lilypond
+
+Las instrucciones predefinidas, como @code{\voiceOne}, que están
+orientadas a la realización de cambios en el comportamiento de la
+notación, pueden no ser efectivas si se escriben inmediatamente antes
+de la nota de adorno; se deben escribir después de ella.
 
 Las secciones de adorno sólo se deben usar dentro de expresiones de
 música secuenciales.  No están contemplados el anidado ni la
@@ -2608,6 +2710,10 @@ errores.
 @node Aligning to cadenzas
 @subsubsection Aligning to cadenzas
 
+@cindex cadenza (cadencia)
+@cindex cadenza (cadencia), alinear a
+@cindex alineación a una cadenza (cadencia)
+
 En un contexto orquestal, las cadenzas presentan un problema especial:
 al construir una partitura que tiene una cadenza, todos los demás
 instrumentos deben saltar tantas notas como la longitud de la cadenza,
@@ -2616,23 +2722,35 @@ pues en caso contrario empezarán demasiado pronto o tarde.
 Una solución a este problema son las funciones @code{mmrest-of-length}
 y @code{skip-of-length}.  Estas funciones de Scheme toman un fragmento
 de música como argumento y generan un @code{\skip} o silencio
-multicompás, de la longitud exacta del fragmento.  El uso de
-@code{mmrest-of-length} se muestra en el ejemplo siguiente.
+multicompás, de la longitud exacta del fragmento.
 
 @lilypond[verbatim,ragged-right,quote]
-cadenza = \relative c' {
-  c4 d8 << { e f g } \\ { d4. } >>
-  g4 f2 g4 g
+MyCadenza = \relative c' {
+  c4 d8 e f g g4
+  f2 g4 g
 }
 
 \new GrandStaff <<
-  \new Staff { \cadenza c'4 }
   \new Staff {
-    #(ly:export (mmrest-of-length cadenza))
-    c'4
+    \MyCadenza c'1
+    \MyCadenza c'1
+  }
+  \new Staff {
+    #(ly:export (mmrest-of-length MyCadenza))
+    c'1
+    #(ly:export (skip-of-length MyCadenza))
+    c'1
   }
 >>
 @end lilypond
+
+@seealso
+
+Glosario musical:
+@rglos{cadenza}.
+
+Fragmentos de código:
+@rlsr{Rhythms}.
 
 
 @node Time administration
@@ -2705,10 +2823,11 @@ duración de la fracción n/m de una redonda.  Por ejemplo,
 @code{ly:make-moment 1 8} es una duración de una corchea y
 @code{ly:make-moment 7 16} es la duración de siete semicorcheas.
 
-
 @seealso
 
-En este manual: @ref{Bar numbers}, @ref{Unmetered music}
+Referencia de la notación:
+@ref{Bar numbers},
+@ref{Unmetered music}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
