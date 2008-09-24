@@ -12,6 +12,24 @@
 @node Notation manual tables
 @appendix Notation manual tables
 
+@c Please do not delete the following @ignore block.
+@ignore
+Note for editors and translators: In the following menu, two entries
+are needed to link to a pair of automatically generated sections.
+Please keep them and, if using emacs, do not run
+texinfo-all-menus-update without manually restoring them back. These
+menu entries are:
+
+* Text markup commands::
+* Text markup list commands::
+
+and they should go just after
+* Note head styles::
+
+and just before
+* List of articulations::
+@end ignore
+
 @menu
 * Chord name chart::            
 * MIDI instruments::            

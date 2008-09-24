@@ -37,7 +37,7 @@ and as @uref{source/Documentation/user/music-glossary-big-page.html,one big page
 @author Jan Nieuwenhuizen   @c Dutch glossary
 
 @c Fixes by Jean-Pierre Coulon and `Dirk', alphabetized by last name, KK, 10/07
-@c Updates to the German translation by Till Rettig, 2007-2008
+@c Updates to the German translation by Till Rettig, 12/07
 
 Copyright @copyright{} 1999--2007 by the authors
 
@@ -124,13 +124,10 @@ documentation, see @rlearning{About the documentation}.
 @end macro
 
 @menu
-* Musical terms A-Z::           
-* Duration names notes and rests::  
-* Pitch names::                 
+* Musical terms A-Z::
+* Duration names notes and rests::
+* Pitch names::
 @end menu
-
-@contents
-
 
 @node Musical terms A-Z
 @chapter Musical terms A-Z
@@ -149,328 +146,331 @@ Languages in this order.
 @end itemize
 
 @menu
-* A::                           
-* a due::                       
-* accelerando::                 
-* accent::                      
-* accessory::                   
-* acciaccatura::                
-* accidental::                  
-* adagio::                      
-* allegro::                     
-* alteration::                  
-* alto::                        
-* alto clef::                   
-* ambitus::                     
-* anacrusis::                   
-* ancient minor scale::         
-* andante::                     
-* appoggiatura::                
-* arpeggio::                    
-* articulation::                
-* ascending interval::          
-* augmented interval::          
-* augmentation::                
-* autograph::                   
-* B::                           
-* backfall::                    
-* bar::                         
-* bar line::                    
-* baritone::                    
-* baritone clef::               
-* bass::                        
-* bass clef::                   
-* beam::                        
-* beat::                        
-* beat repeat::                 
-* bind::                        
-* brace::                       
-* bracket::                     
-* brass::                       
-* breath mark::                 
-* breve::                       
-* C::                           
-* C clef::                      
-* cadence::                     
-* cadenza::                     
-* canon::                       
-* cent::                        
-* central C::                   
-* chord::                       
-* chromatic scale::             
-* chromaticism::                
-* church mode::                 
-* clef::                        
-* cluster::                     
-* comma::                       
-* common meter::                
-* common time::                 
-* complement::                  
-* compound interval::           
-* compound meter::              
-* compound time::               
-* concert pitch::               
-* conjunct movement::           
-* consonance::                  
-* contralto::                   
-* copying music::               
-* counterpoint::                
-* countertenor::                
-* crescendo::                   
-* cue-notes::                   
-* custos::                      
-* D::                           
-* da capo::                     
-* dal segno::                   
-* decrescendo::                 
-* descending interval::         
-* diatonic scale::              
-* didymic comma::               
-* diminished interval::         
-* diminuendo::                  
-* diminution::                  
-* direct::                      
-* disjunct movement::           
-* dissonance::                  
-* dissonant interval::          
-* divisio::                     
-* doit::                        
-* dominant::                    
-* dominant ninth chord::        
-* dominant seventh chord::      
-* dorian mode::                 
-* dot (augmentation dot)::      
-* dotted note::                 
-* double appoggiatura::         
-* double bar line::             
-* double dotted note::          
-* double flat::                 
-* double sharp::                
-* double time signature::       
-* double trill::                
-* duple meter::                 
-* duplet::                      
-* duration::                    
-* dynamics::                    
-* E::                           
-* ecclesiastical mode::         
-* eighth note::                 
-* eighth rest::                 
-* elision::                     
-* embellishment::               
-* engraving::                   
-* enharmonic::                  
-* equal temperament::           
-* expression mark::             
-* extender line::               
-* F::                           
-* F clef::                      
-* fall::                        
-* feathered beam::              
-* fermata::                     
-* fifth::                       
-* figured bass::                
-* fingering::                   
-* flag::                        
-* flageolet::                   
-* flat::                        
-* forefall::                    
-* forte::                       
-* fourth::                      
-* Frenched score::              
-* Frenched staff::              
-* Frenched staves::             
-* fugue::                       
-* functional harmony::          
-* G::                           
-* G clef::                      
-* glissando::                   
-* grace notes::                 
-* grand staff::                 
-* grave::                       
-* gruppetto::                   
-* H::                           
-* hairpin::                     
-* half note::                   
-* half rest::                   
-* harmonic cadence::            
-* harmonics::                   
-* harmony::                     
-* hemiola::                     
-* homophony::                   
-* hymn meter::                  
-* interval::                    
-* inversion::                   
-* inverted interval::           
-* just intonation::             
-* key::                         
-* key signature::               
-* laissez vibrer::              
-* largo::                       
-* leading note::                
-* ledger line::                 
-* legato::                      
-* legato curve::                
-* leger line::                  
-* ligature::                    
-* lilypond::                    
-* line::                        
-* loco::                        
-* long appoggiatura::           
-* longa::                       
-* lyric tie::                   
-* lyrics::                      
-* major::                       
-* major interval::              
-* meantone temperament::        
-* measure::                     
-* measure repeat::              
-* mediant::                     
-* melisma::                     
-* melisma line::                
-* melodic cadence::             
-* mensural notation::           
-* meter::                       
-* metronome::                   
-* metronome mark::              
-* metronomic indication::       
-* mezzo-soprano::               
-* middle C::                    
-* minor::                       
-* minor interval::              
-* mixolydian mode::             
-* mode::                        
-* modulation::                  
-* mordent::                     
-* motif::                       
-* motive::                      
-* movement::                    
-* multi-measure rest::          
-* natural::                     
-* neighbour tones::             
-* ninth::                       
-* non-legato::                  
-* note::                        
-* note head::                   
-* note names::                  
-* note value::                  
-* octavation::                  
-* octave::                      
-* octave mark::                 
-* octave marking::              
-* octave sign::                 
-* ornament::                    
-* ossia::                       
-* part::                        
-* pause::                       
-* pennant::                     
-* percent repeat::              
-* percussion::                  
-* perfect interval::            
-* phrase::                      
-* phrasing::                    
-* piano::                       
-* pickup::                      
-* pitch::                       
-* pizzicato::                   
-* polymeter::                   
-* polymetric::                  
-* polymetric time signature::   
-* polyphony::                   
-* portato::                     
-* presto::                      
-* proportion::                  
-* Pythagorean comma::           
-* quadruplet::                  
-* quality::                     
-* quarter note::                
-* quarter rest::                
-* quarter tone::                
-* quintuplet::                  
-* rallentando::                 
-* relative key::                
-* repeat::                      
-* rest::                        
-* rhythm::                      
-* ritardando::                  
-* ritenuto::                    
-* scale::                       
-* scale degree::                
-* scordatura::                  
-* score::                       
-* second::                      
-* semitone::                    
-* seventh::                     
-* sextolet::                    
-* sextuplet::                   
-* shake::                       
-* sharp::                       
-* simile::                      
-* simple meter::                
-* sixteenth note::              
-* sixteenth rest::              
-* sixth::                       
-* sixty-fourth note::           
-* sixty-fourth rest::           
-* slash repeat::                
-* slur::                        
-* solmization::                 
-* sonata::                      
-* sonata form::                 
-* song texts::                  
-* soprano::                     
-* staccato::                    
-* staff::                       
-* staves::                      
-* stem::                        
-* stringendo::                  
-* strings::                     
-* strong beat::                 
-* subdominant::                 
-* submediant::                  
-* subtonic::                    
-* sul G::                       
-* superdominant::               
-* supertonic::                  
-* symphony::                    
-* syncopation::                 
-* syntonic comma::              
-* system::                      
-* temperament::                 
-* tempo indication::            
-* tenor::                       
-* tenth::                       
-* tenuto::                      
-* third::                       
-* thirty-second note::          
-* thirty-second rest::          
-* thorough bass::               
-* tie::                         
-* time::                        
-* time signature::              
-* tone::                        
-* tonic::                       
-* transposing instrument::      
-* transposition::               
-* treble clef::                 
-* tremolo::                     
-* triad::                       
-* trill::                       
-* triple meter::                
-* triplet::                     
-* tritone::                     
-* tuning fork::                 
-* tuplet::                      
-* turn::                        
-* unison::                      
-* upbeat::                      
-* voice::                       
-* volta::                       
-* weak beat::                   
-* whole note::                  
-* whole rest::                  
-* whole tone::                  
-* woodwind::                    
+* A::
+* a due::
+* accelerando::
+* accent::
+* accessory::
+* acciaccatura::
+* accidental::
+* adagio::
+* al niente::
+* allegro::
+* alteration::
+* alto::
+* alto clef::
+* ambitus::
+* anacrusis::
+* ancient minor scale::
+* andante::
+* appoggiatura::
+* arpeggio::
+* articulation::
+* ascending interval::
+* augmentation::
+* augmented interval::
+* autograph::
+* B::
+* backfall::
+* bar::
+* bar line::
+* baritone::
+* baritone clef::
+* bass::
+* bass clef::
+* beam::
+* beat::
+* beat repeat::
+* bind::
+* brace::
+* bracket::
+* brass::
+* breath mark::
+* breve::
+* C::
+* C clef::
+* cadence::
+* cadenza::
+* canon::
+* cent::
+* central C::
+* chord::
+* chromatic scale::
+* chromaticism::
+* church mode::
+* clef::
+* cluster::
+* comma::
+* common meter::
+* common time::
+* complement::
+* compound interval::
+* compound meter::
+* compound time::
+* concert pitch::
+* conjunct movement::
+* consonance::
+* contralto::
+* copying music::
+* counterpoint::
+* countertenor::
+* crescendo::
+* cue-notes::
+* custos::
+* D::
+* da capo::
+* dal niente::
+* dal segno::
+* decrescendo::
+* descending interval::
+* diatonic scale::
+* didymic comma::
+* diminished interval::
+* diminuendo::
+* diminution::
+* direct::
+* disjunct movement::
+* dissonance::
+* dissonant interval::
+* divisio::
+* doit::
+* dominant::
+* dominant ninth chord::
+* dominant seventh chord::
+* dorian mode::
+* dot (augmentation dot)::
+* dotted note::
+* double appoggiatura::
+* double bar line::
+* double dotted note::
+* double flat::
+* double sharp::
+* double time signature::
+* double trill::
+* duple meter::
+* duplet::
+* duration::
+* dynamics::
+* E::
+* ecclesiastical mode::
+* eighth note::
+* eighth rest::
+* elision::
+* embellishment::
+* engraving::
+* enharmonic::
+* equal temperament::
+* expression mark::
+* extender line::
+* F::
+* F clef::
+* fall::
+* feathered beam::
+* fermata::
+* fifth::
+* figured bass::
+* fingering::
+* flag::
+* flageolet::
+* flat::
+* forefall::
+* forte::
+* fourth::
+* Frenched score::
+* Frenched staff::
+* Frenched staves::
+* fugue::
+* functional harmony::
+* G::
+* G clef::
+* glissando::
+* grace notes::
+* grand staff::
+* grave::
+* gruppetto::
+* H::
+* hairpin::
+* half note::
+* half rest::
+* harmonic cadence::
+* harmonics::
+* harmony::
+* hemiola::
+* homophony::
+* hymn meter::
+* interval::
+* inversion::
+* inverted interval::
+* just intonation::
+* key::
+* key signature::
+* laissez vibrer::
+* largo::
+* leading note::
+* ledger line::
+* legato::
+* legato curve::
+* leger line::
+* ligature::
+* lilypond::
+* line::
+* loco::
+* long appoggiatura::
+* longa::
+* lyric tie::
+* lyrics::
+* major::
+* major interval::
+* meantone temperament::
+* measure::
+* measure repeat::
+* mediant::
+* melisma::
+* melisma line::
+* melodic cadence::
+* mensural notation::
+* meter::
+* metronome::
+* metronome mark::
+* metronomic indication::
+* mezzo::
+* mezzo-soprano::
+* middle C::
+* minor::
+* minor interval::
+* mixolydian mode::
+* mode::
+* modulation::
+* mordent::
+* motif::
+* motive::
+* movement::
+* multi-measure rest::
+* natural::
+* neighbour tones::
+* ninth::
+* non-legato::
+* note::
+* note head::
+* note names::
+* note value::
+* octavation::
+* octave::
+* octave mark::
+* octave marking::
+* octave sign::
+* ornament::
+* ossia::
+* part::
+* pause::
+* pennant::
+* percent repeat::
+* percussion::
+* perfect interval::
+* phrase::
+* phrasing::
+* piano::
+* pickup::
+* pitch::
+* pizzicato::
+* polymeter::
+* polymetric::
+* polymetric time signature::
+* polyphony::
+* portato::
+* presto::
+* proportion::
+* Pythagorean comma::
+* quadruplet::
+* quality::
+* quarter note::
+* quarter rest::
+* quarter tone::
+* quintuplet::
+* rallentando::
+* relative key::
+* repeat::
+* rest::
+* rhythm::
+* ritardando::
+* ritenuto::
+* scale::
+* scale degree::
+* scordatura::
+* score::
+* second::
+* semitone::
+* seventh::
+* sextolet::
+* sextuplet::
+* shake::
+* sharp::
+* simile::
+* simple meter::
+* sixteenth note::
+* sixteenth rest::
+* sixth::
+* sixty-fourth note::
+* sixty-fourth rest::
+* slash repeat::
+* slur::
+* solmization::
+* sonata::
+* sonata form::
+* song texts::
+* soprano::
+* staccato::
+* staff::
+* staves::
+* stem::
+* stringendo::
+* strings::
+* strong beat::
+* subdominant::
+* submediant::
+* subtonic::
+* sul G::
+* superdominant::
+* supertonic::
+* symphony::
+* syncopation::
+* syntonic comma::
+* system::
+* temperament::
+* tempo indication::
+* tenor::
+* tenth::
+* tenuto::
+* third::
+* thirty-second note::
+* thirty-second rest::
+* thorough bass::
+* tie::
+* time::
+* time signature::
+* tone::
+* tonic::
+* transposing instrument::
+* transposition::
+* treble clef::
+* tremolo::
+* triad::
+* trill::
+* triple meter::
+* triplet::
+* tritone::
+* tuning fork::
+* tuplet::
+* turn::
+* unison::
+* upbeat::
+* voice::
+* volta::
+* weak beat::
+* whole note::
+* whole rest::
+* whole tone::
+* woodwind::
 @end menu
 
 
@@ -499,13 +499,13 @@ Languages in this order.
 ES: a dos,
 I: a due,
 F: à deux,
-D: a due, zu zweit
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
 FI: ?.
 
-Abbreviated @samp{a2} or @samp{a 2}.
+Abbreviated @notation{a2} or @notation{a 2}.
 
 @enumerate
 
@@ -536,7 +536,9 @@ DK: accelerando,
 S: accelerando,
 FI: accelerando, kiihdyttäen.
 
-Increase tempo.
+[Italian: @q{speed up, accelerate}.]
+
+Increase tempo
 
 
 @node accent
@@ -620,7 +622,7 @@ DK: adagio,
 S: adagio,
 FI: adagio, hitaasti.
 
-It.@: comfortable, easy.
+[Italian: @q{comfortable, easy}.]
 
 @itemize
 
@@ -631,6 +633,53 @@ It.@: comfortable, easy.
 of @ref{sonata}s, symphonies, etc.
 
 @end itemize
+
+
+@node al niente
+@section al niente
+
+ES: ?,
+I: al niente,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[Italian: @q{to nothing}.]  Used with @notation{decrescendo} to indicate
+that the sound should fade away to nothing.
+
+@notation{Al niente} is indicated by circling the tip of the hairpin:
+
+@lilypond[fragment,ragged-right]
+\relative c'' {
+  \override Hairpin #'circled-tip = ##t
+  c1\<
+  c2\> c\<
+  c1\!
+}
+@end lilypond
+
+or with the actual phrase @notation{al niente}.  This may be easier with
+text markup, rather than as part of the @notation{decrescendo} text:
+
+@lilypond[fragment,ragged-right]
+\relative c'' {
+  \dimTextDecresc
+  c1~\>
+  c~
+  c\!-\markup { \italic "al niente" }
+}
+@end lilypond
+
+Since one does not crescendo @emph{to} nothing, it is not correct to use
+@notation{al niente} with the word @notation{crescendo}.  Instead, one
+should use @emph{dal niente} (@notation{@b{from} nothing}).
+
+@seealso
+
+@ref{crescendo}, @ref{decrescendo}, @ref{hairpin}.
 
 
 @node allegro
@@ -645,7 +694,7 @@ DK: allegro,
 S: allegro,
 FI: allegro, nopeasti.
 
-It.@: cheerful.  Quick tempo.  Also used as a title for pieces in a quick
+[Italian: cheerful.]  Quick tempo.  Also used as a title for pieces in a quick
 tempo, especially the first and last movements of a @ref{sonata}.
 
 
@@ -659,7 +708,7 @@ D: Alteration,
 NL: verhoging of verlaging,
 DK: ?,
 S: ?,
-FI: kromaattinen merkki, muunnemerkki.
+FI: ?.
 
 An alteration is the modification, raising or lowering, of a note's
 pitch.  It is established by an @ref{accidental}.
@@ -760,6 +809,8 @@ NL: authentieke mineurtoonladder,
 DK: ren mol,
 S: ren mollskala,
 FI: luonnollinen molliasteikko.
+
+Also called @q{natural minor scale}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -936,11 +987,11 @@ FI: ylinouseva intervalli.
 ES: ?,
 I: ?,
 F: ?,
-D: Augmentation,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: augmentaatio, harvennus.
+FI: ?.
 
 @c TODO: add definition.
 
@@ -990,7 +1041,7 @@ emulate engraving. This required more skill than did engraving.
 
 @seealso
 
-@ref{Pitch names}
+@ref{H}, @ref{Pitch names}
 
 
 @node backfall
@@ -1215,7 +1266,7 @@ Angular brackets for connecting parts in an orchestral or choral score:
 ES: corchete,
 I: ?,
 F: ?,
-D: Klammer,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -1868,7 +1919,7 @@ same note derived from some other tuning method.
 ES: compasillo,
 I: ?,
 F: ?,
-D: Vier-Viertel-Takt,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -1924,11 +1975,11 @@ Intervals larger than an octave.
 ES: compás compuesto, compás de subdivisión ternaria,
 I: ?,
 F: ?,
-D: Dreiertakt,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: kolmijakoinen rytmi.
+FI: ?.
 
 A meter that includes a triplet subdivision within the beat, such as
 6/8, 9/8, 12/8.
@@ -1944,7 +1995,7 @@ A meter that includes a triplet subdivision within the beat, such as
 ES: compás compuesto, compás de amalgama (def. 2),
 I: ?,
 F: ?,
-D: Dreiertakt, Wechseltakt,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -1996,7 +2047,7 @@ A time signature that additively combines two or more unequal meters, e.g.
 ES: en Do, afinación de concierto,
 I: ?,
 F: ?,
-D: Kammerton,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -2212,7 +2263,7 @@ S: crescendo,
 FI: cresendo, voimistuen.
 
 Increasing volume.  Indicated by a rightwards opening horizontal wedge
-(hairpin) or the abbreviation @samp{cresc.}.
+(hairpin) or the abbreviation @notation{cresc.}.
 
 @lilypond[fragment,ragged-right]
 \key g \major \time 4/4
@@ -2312,8 +2363,28 @@ DK: da capo,
 S: da capo,
 FI: da capo, alusta.
 
-Abbreviated @samp{D.C.}.  Indicates that the piece is to be repeated from
+Abbreviated @notation{D.C.}.  Indicates that the piece is to be repeated from
 the beginning to the end or to a certain place marked @emph{fine}.
+
+
+@node dal niente
+@section dal niente
+
+ES: ?,
+I: dal niente,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[Italian: @q{from nothing}.]  Used with @notation{crescendo} to indicate
+that the sound should gradually increase from nothing.
+
+@seealso
+
+@ref{al niente}.
 
 
 @node dal segno
@@ -2328,8 +2399,9 @@ DK: dal segno,
 S: dal segno,
 FI: dal segno, lähtien merkistä.
 
-Abbreviated @samp{D.S.}.  Repetition, not from the beginning, but from
-another place frequently near the beginning marked by a sign:
+Abbreviated @notation{D.S.}.  Repetition, not from the beginning, but from
+another place frequently near the beginning marked by a sign
+(@notation{segno}):
 
 @lilypond[fragment,ragged-right]
 %\override TextScript #'font-style = #'large
@@ -2357,7 +2429,7 @@ S: decrescendo,
 FI: decresendo, hiljentyen.
 
 Decreasing tone volume.  Indicated by a leftwards opening horizontal
-wedge (hairpin) or the abbreviation @samp{decresc.}.
+wedge (hairpin) or the abbreviation @notation{decresc.}.
 
 @lilypond[fragment,ragged-right]
 \relative c'' {
@@ -2630,11 +2702,11 @@ FI: diminuendo, hiljentyen.
 ES: ?,
 I: ?,
 F: ?,
-D: Diminution, Verkleinerung,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: diminuutio, tihennys.
+FI: ?.
 
 @c TODO: add definition
 
@@ -2716,7 +2788,7 @@ FI: dissonanssi, dissonoiva intervalli, riitasointi.
 ES: ?,
 I: ?,
 F: ?,
-D: Divisio,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -2955,7 +3027,7 @@ FI: kaksoisylennysmerkki.
 ES: ?,
 I: ?,
 F: ?,
-D: Doppeltakt, Wechseltakt,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -3042,7 +3114,7 @@ D: Dynamik, Lautstärke,
 NL: ?,
 DK: ?,
 S: ?,
-FI: dynamiikka, voimakkuusvaihtelut.
+FI: ?.
 
 The aspect of music relating to degrees of loudness, or changes from
 one degree to another.  The terms, abbreviations, and symbols used to
@@ -3129,7 +3201,7 @@ indicate this information are called dynamic marks.
 ES: sinalefa,
 I: ?,
 F: ?,
-D: Elision, Auslassung,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -3288,8 +3360,8 @@ single extender line to indicate the latter case.
 @item
 In string music to indicate that all notes in the passage thus indicated should
 be played on the same string.  On the violin, for example, a series of notes to
-be played on the G string would be indicated @samp{sul G}, another series to be
-played on the D string would be indicated @samp{sul D}, and so on.
+be played on the G string would be indicated @notation{sul G}, another series to be
+played on the D string would be indicated @notation{sul D}, and so on.
 
 @item
 With an octave mark to indicate that a passage is to be played higher or lower
@@ -3548,11 +3620,11 @@ less than a quarter note.  The number of flags determines the
 ES: ?,
 I: ?,
 F: ?,
-D: Flageolett,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: flageoletti.
+FI: ?.
 
 An articulation for string players that means the note or passage is to
 be played in harmonics.
@@ -3609,9 +3681,14 @@ DK: forte,
 S: forte,
 FI: forte, voimakkaasti.
 
-Loud, abbreviated @samp{@b{f}}, @emph{fortissimo} (@samp{@b{ff}}) very loud,
-@emph{mezzo forte} (@samp{@b{mf}}) medium loud.
+[Italian: @q{loud}.]
 
+Abbreviated @notation{@b{f}}.  Variants include:
+
+@itemize
+@item @emph{mezzo forte}, medium loud (notated @notation{@b{mf}}),
+@item @emph{fortissimo}, very loud (notated @notation{@b{ff}}).
+@end itemize
 
 @node fourth
 @section fourth
@@ -3636,7 +3713,7 @@ FI: kvartti.
 ES: partitura a la francesa,
 I: ?,
 F: ?,
-D: Partitur (ohne leere Takte),
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -3662,7 +3739,7 @@ you may wish to procure a copy of their style manual.
 ES: pentagrama a la francesa,
 I: ?,
 F: ?,
-D: Notensystem (ohne leere Takte),
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -3683,7 +3760,7 @@ an @emph{ossia} staff.
 ES: pentagramas a la francesa,
 I: ?,
 F: ?,
-D: Notensysteme (ohne leere Takte),
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -3895,9 +3972,9 @@ Slow, solemn.
 @item FI: H, h
 @end itemize 
 
-Letter name used for @samp{B natural} in German and Scandinavian
-usage.  In the standard usage of these countries, @samp{B} means
-@samp{B flat}.
+Letter name used for @notation{B natural} in German and Scandinavian
+usage.  In the standard usage of these countries, @notation{B} means
+@notation{B flat}.
 
 @seealso
 
@@ -3909,6 +3986,14 @@ usage.  In the standard usage of these countries, @samp{B} means
 
 Graphical version of the @notation{crescendo} and @notation{decrescendo}
 dynamic marks.
+
+@lilypond[fragment,ragged-right]
+\relative c'' {
+  c1\<
+  c2\> c\<
+  c1\!
+}
+@end lilypond
 
 @seealso
 
@@ -4001,7 +4086,7 @@ D: Flageolett-Töne,
 NL: ?,
 DK: ?,
 S: ?,
-FI: yläsävelsarjan flageoletti-ääni.
+FI: ?.
 
 The general class of pitches produced by sounding the second or higher
 harmonic of a tone producer: string, column of air, and so on.
@@ -4068,10 +4153,10 @@ Three note harmony @ref{chord}.
 ES: hemiolia,
 I: ?,
 F: ?,
-D: Hemiole,
+D: ?,
 NL: ?,
 DK: ?,
-S: hemiol,
+S: ?,
 FI: ?.
 
 [From Greek: in Latin, @emph{sesquialtera}] The ratio 3:2. Refers to
@@ -4256,18 +4341,18 @@ addition of such two intervals forms an octave.
 ES: ?,
 I: ?,
 F: inversion,
-D: Umkehrung (Akkord),
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: (kolmisoinnun) käännös.
+FI: ?.
 
 When the bass is not the same as the root, the chord is inverted. The number
 of inversions that a chord can have is one fewer than the number of
 constituent notes. Triads, for example, (having three constituent notes) can
 have three positions, two of which are inversions:
 
-@table @strong
+@table @code
 @item Root position
 The root note is in the bass, and above that are the third and the fifth. A
 triad built on the first scale degree, for example, is marked @notation{I}.
@@ -4375,14 +4460,14 @@ key of the music.
 ES: dejar vibrar,
 I: ?,
 F: laissez vibrer,
-D: Laissez vibrer, klingen lassen,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
 FI: ?.
 
 [From French, @q{Let vibrate}].  Most frequently associated with harp
-parts. Marked @samp{l.v.} in the score.
+parts. Marked @notation{l.v.} in the score.
 
 
 @node largo
@@ -4555,7 +4640,7 @@ FI: viiva, nuottiviiva.
 ES: en su lugar,
 I: loco,
 F: ?,
-D: loco,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -4619,12 +4704,13 @@ Note value: double length of @ref{breve}.
 ES: ligadura de letra,
 I: ?,
 F: ?,
-D: Bindestrich,
+D: Textbindung,
 NL: ?,
 DK: ?,
 S: ?,
 FI: ?.
 
+@c TODO: add languages
 
 @seealso
 
@@ -4770,10 +4856,12 @@ sung on one syllable, especially as applied to liturgical chant.
 @node melisma line
 @section melisma line
 
+@c TODO: add languages
+
 ES: línea de melisma,
 I: ?,
 F: ?,
-D: Melismastrich,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -4795,14 +4883,16 @@ FI: ?.
 @node mensural notation
 @section mensural notation
 
+@c TODO: add languages
+
 ES: notación mensural,
 I: ?,
 F: ?,
-D: Mensuralnotation,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: mensuraalinuottikirjoitus.
+FI: ?.
 
 A system of duration notation whose principles were first established in the
 mid-13th century, and that (with various changes) remained in use until about
@@ -5027,8 +5117,8 @@ DK: metronomtal,
 S: metronomangivelse,
 FI: metronomiosoitus.
 
-Exact tempo indication (in beats per minute).  Abbreviated @samp{M.M.} or
-@samp{MM}, which is short for Mälzels Metronom (or Mälzel's Mark,
+Exact tempo indication (in beats per minute).  Abbreviated @notation{M.M.} or
+@notation{MM}, which is short for Mälzels Metronom (or Mälzel's Mark,
 @emph{anglice}).
 
 @seealso
@@ -5044,6 +5134,41 @@ Exact tempo indication (in beats per minute).  Abbreviated @samp{M.M.} or
 @ref{metronome mark}
 
 
+@node mezzo
+@section mezzo
+
+ES: ?,
+I: mezzo,
+F: ?,
+D: ?,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[Italian: @q{medium}.]
+
+Used to qualify other indications, such as:
+
+@itemize
+
+@item Dynamics
+  @itemize
+  @item @notation{mezzo piano} is @q{medium quiet} (that is, not as quiet as
+  @notation{piano})
+  @item @notation{mezzo forte} is @q{medium loud} (that is, not as loud as
+  @notation{forte})
+  @end itemize
+
+@item Voice
+  @itemize
+  @item Pitchwise, a mezzo-soprano's voice lies between that of contraltos and
+  sopranos
+  @end itemize
+
+@end itemize
+
+
 @node mezzo-soprano
 @section mezzo-soprano
 
@@ -5056,7 +5181,11 @@ DK: mezzosopran,
 S: mezzosopran,
 FI: mezzosopraano.
 
-The female voice between @ref{soprano} and @ref{contralto}.
+The female voice between soprano and contralto.
+
+@seealso
+
+@ref{soprano}, @ref{contralto}.
 
 
 @node middle C
@@ -5464,10 +5593,10 @@ DK: oktav,
 S: oktav,
 FI: oktaavi.
 
-The interval of an octave, sometimes abbreviated @samp{8ve}.
+The interval of an octave, sometimes abbreviated @notation{8ve}.
 
-For uses like @emph{all'ottava} or @emph{8va} with an extender line or
-bracket, or @samp{loco} see octave marking.
+For uses like @notation{all'ottava} or @notation{8va} with an extender line or
+bracket, or @notation{loco} see octave marking.
 
 @seealso
 
@@ -5480,7 +5609,7 @@ bracket, or @samp{loco} see octave marking.
 ES: indicación de octava,
 I: ?,
 F: ?,
-D: Oktavierungszeichen,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -5491,38 +5620,40 @@ or bracket) to indicate that the music is to be played in a different octave:
 
 @itemize
 
-@item @samp{15ma}: play two octaves higher
-@item @samp{8va}: play one octave higher
-@item @samp{8vb}: play one octave lower
-@item @samp{8va} (written below the passage): same as @samp{8vb}
-@item @samp{15vb}: play two octaves lower
-@item @samp{15va} (written below the passage): same as @samp{15vb}
+@item @notation{15ma}: play two octaves higher
+@item @notation{8va}: play one octave higher
+@item @notation{8vb}: play one octave lower
+@item @notation{8va} (written below the passage): unusual, same as
+@notation{8vb}
+@item @notation{15vb}: play two octaves lower
+@item @notation{15va} (written below the passage): unusual, same as
+@notation{15vb}
 
 @end itemize
 
 For longer passages, it may be more practical to mark the octave change at the
 beginning with a phrase (see the list below for examples), but without a bracket
 or extender line.  Then, when the music returns to the written pitch, the octave
-change is cancelled with the word @emph{loco} (q.v.).
+change is cancelled with the word @notation{loco} (q.v.).
 
 To parallel the list above:
 
 @itemize
 
-@item @samp{15ma}: @emph{alla quindicesima (alta)}
-@item @samp{8va}: @emph{all'ottava} or @emph{ottava sopra}
-@item @samp{8vb}: @emph{ottava bassa}, @emph{ottava sotto}
-@item @samp{15vb}: @emph{alla quindicesima (bassa)}
+@item @notation{15ma}: @notation{alla quindicesima (alta)}
+@item @notation{8va}: @notation{all'ottava} or @notation{ottava sopra}
+@item @notation{8vb}: @notation{all'ottava bassa}, @notation{ottava sotto}
+@item @notation{15vb}: @notation{alla quindicesima (bassa)}
 
 @end itemize
 
-In the phrases above, @emph{quindicesima} is sometimes replaced with
-@emph{quindecima}, which is Latin.
+In the phrases above, @notation{quindicesima} is sometimes replaced with
+@notation{quindecima}, which is Latin.
 
-Finally, the music on an entire staff can be marked to be played in a different
-octave by putting an 8 or 15 above or below the clef at the beginning.  This
-octave mark can be applied to any clef, but it is most frequently used with the
-G and F clefs.
+Finally, the music on an entire staff can be marked to be played in a
+different octave by putting a small 8 or 15 above or below the clef at the
+beginning.  This octave mark can be applied to any clef, but it is most
+frequently used with the G and F clefs.
 
 @seealso
 
@@ -5867,11 +5998,11 @@ the strings.
 ES: compás polimétrico,
 I: ?,
 F: ?,
-D: Polymetrik,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: polymetriikka.
+FI: ?.
 
 @itemize
 
@@ -5892,11 +6023,11 @@ FI: polymetriikka.
 ES: polimétrico,
 I: ?,
 F: ?,
-D: polymetrisch,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: polymetrinen.
+FI: ?.
 
 Using two or more metric frameworks simultaneously or in alternation.
 
@@ -5911,11 +6042,11 @@ Using two or more metric frameworks simultaneously or in alternation.
 ES: compás polimétrico,
 I: ?,
 F: ?,
-D: polymetrische Taktart,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: polymetrinen tahtiosoitus.
+FI: ?.
 
 A time signature that indicates regularly alternating polymetric time.
 
@@ -5972,7 +6103,7 @@ denotes the highest possible degree of speed.
 ES: proporción,
 I: proprozione (?),
 F: proportion,
-D: Proportion, proportio,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -6133,7 +6264,7 @@ D: Viertelton,
 NL: kwart toon,
 DK: ?,
 S: kvartston,
-FI: neljännes sävelaskel.
+FI: ?.
 
 An interval equal to half a semitone.
 
@@ -6533,11 +6664,11 @@ FI: korotusmerkki.
 ES: simile,
 I: simile,
 F: ?,
-D: simile, gleichartig,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: samaan tapaan.
+FI: ?.
 
 [From It, @q{in the same manner}] Performance direction: the music thus marked
 is to be played in the same manner (i.e. with the same articulations, dynamics,
@@ -6554,11 +6685,11 @@ TODO: Where else could I refer the reader?
 ES: compás simple, compás de subdivisión binaria,
 I: ?,
 F: ?,
-D: Zweiertakt,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: tasajakoinen rytmi.
+FI: ?.
 
 A meter in which the basic beat is subdivided in two: that is, a meter
 that does not include triplet subdivision of the beat.
@@ -6866,11 +6997,11 @@ whole note.
 ES: ?,
 I: stringendo,
 F: ?,
-D: Stringendo, steigernd,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: stringendo, kiihtyen.
+FI: ?.
 
 [It, @q{pressing}].  Pressing, urging, or hastening the time, as to a
 climax.
@@ -7204,7 +7335,7 @@ FI: terssi.
 @item ES: fusa
 @item I: biscroma
 @item F: triple croche
-@item D: Zweiunddreißigstel, Zweiunddreißigstelnote
+@item D: Zweiunddreissigstel, Zweiunddreissigstelnote
 @item NL: twee-endertig@-ste (32e) noot
 @item DK: toogtredivtedelsnode
 @item S: trettiotvåondelsnot
@@ -7339,11 +7470,11 @@ The first @ref{scale degree}.
 ES: instrumento transpositor,
 I: ?,
 F: ?,
-D: transponierende Instrumente,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: transponoivat soitimet.
+FI: ?.
 
 Instruments whose notated pitch is different from their sounded pitch.  Except
 for those whose notated and sounding pitches differ by one or more octaves (to
@@ -7675,7 +7806,7 @@ FI: ääni, lauluääni.
 ES: vez, primera y segunda vez,
 I: volta,
 F: ?,
-D: Volta, Wiederholungsklammer,
+D: ?,
 NL: ?,
 DK: ?,
 S: ?,
@@ -8149,12 +8280,12 @@ the lilypond-user discussion list.
 @node Pitch names
 @chapter Pitch names
 
-@c -is/-es endings for Danish per Rune Zedeler
-@c		and for Finnish per Risto Vääräniemi
+@c -is/-es endings for Danish per Rune Zedeler, pace
+@c and for Finnish per Risto Vääräniemi
 @c -iss/-ess endings for Swedish per Mats Bengtsson
 @c @columnfractions .105 .145 .125 .125 .125 .125 .125 .125 -->
 
-@multitable {c-sharp} {do sostenido} {do diesis} {ut dièse} {Cis} {cis} {cis} {ciss} {cis}
+@multitable {g-sharp} {sol sostenido} {sol diesis} {sol dièse} {Gis} {gis} {gis} {giss} {gis}
 @headitem EN
   @tab ES @tab I @tab F @tab D
   @tab NL @tab DK @tab S @tab FI
@@ -8202,30 +8333,32 @@ the lilypond-user discussion list.
 
 
 @menu
-* Literature used::             
+* Literature used::
 @end menu
 
 @node Literature used
 @unnumberedsec Literature used
 
 @itemize
-@item The Harvard Dictionary of Music, London 1944.  Many more or less
-literal quotes from its articles have been included into the item
-explanation texts.
+@item Apel, Willi, ed. @cite{The Harvard Dictionary of Music}.
+Cambridge: Belknap Press (Harvard University Press), 1944.
 
-@item Hugo Riemanns Musiklexicon, Berlin 1929.
+@item Krohn, Felix. @cite{Lyhyt musiikkioppi}. Porvoo, Helsinki, Finland:
+WSOY, 1976.
 
-@item Polyglottes Wörterbuch der musikalischen Terminologie, Kassel
-1980.
+@item Leuchtmann, Horst, ed. @cite{Polyglottes Wörterbuch der musikalischen
+Terminologie}. Kassel, 1980.
 
-@item Oxford Advanced Learner's Dictionary of Current English, Third
-Edition 1974.
+@item Randall, Don, ed. @cite{The New Harvard Dictionary of Music}.
+Cambridge: Belknap Press (Harvard University Press), 1986.
 
-@item Webster's Revised Unabridged Dictionary, Springfield 1913.
+@item Riemann, Hugo. @cite{Musik-lexicon}. Berlin, 1929.
 
-@item Felix Krohn, Lyhyt musiikkioppi, Porvoo, Helsinki, 1976.
+@item Hornby, Albert Sydney. @cite{Oxford Advanced Learner's Dictionary of
+Current English}, 3rd ed. London: Oxford University Press, 1974.
 
-@item Henna Mikkonen, Suvi Rimpiläinen, Konsertissa kävijän taskusanasto, Jyväskylä, 2003
+@item Porter, Noah. @cite{Webster's Revised Unabridged Dictionary}.
+Springfield, Massachusetts: G. & C. Merriam Company, 1913.
 
 @end itemize
 

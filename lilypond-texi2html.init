@@ -74,6 +74,9 @@ package Texi2HTML::Config;
 #############################################################################
 
 @Texi2HTML::Config::CSS_REFS      = ("lilypond.css");
+@Texi2HTML::Config::ALT_CSS_REFS      = ( 
+    {FILENAME => "lilypond-mccarty.css", TITLE=>"Patrick McCarty's design"}
+);
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
@@ -244,6 +247,10 @@ sub lilypond_css_lines ($$)
     foreach my $ref (@CSS_REFS)
     {
         $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\">\n";
+    }
+    foreach my $ref (@ALT_CSS_REFS)
+    {
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"$ref->{FILENAME}\">\n";
     }
     $Texi2HTML::THISDOC{'CSS_LINES'} .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
 }
@@ -656,7 +663,7 @@ sub print_lilypond_page_foot($)
 {
   my $fh = shift;
   my $program_string = &$program_string();
-  print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
+#   print $fh "<p><font size='-1'>$program_string</font><br>$PRE_BODY_CLOSE</p>\n";
   print $fh "<!-- FOOTER -->\n\n";
   print $fh "<!-- end div#main here -->\n</div>\n\n";
 

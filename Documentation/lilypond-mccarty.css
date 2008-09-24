@@ -1,0 +1,361 @@
+/**********************************************************/
+/*                  PAGE-WIDE SETTINGS                    */
+/**********************************************************/
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  font-size: 100%;
+  line-height: 1.125em;
+  color: black;
+  background-color: white;
+}
+
+
+/***********************************************************/
+/*                      HEADERS                            */
+/***********************************************************/
+
+.chapter, .section, .subsection,
+.appendix, .appendixsec, .appendixsubsec,
+.unnumberedsubsubsec, .subsubheading {
+  color: #248;
+  border-bottom: 1px dashed black;
+  padding-bottom: 0.3em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.settitle {
+  background-color: #be6;
+  font-size: 2em;
+  text-align: center;
+  margin: 0;
+  padding: 0.75em;
+  border: 1px solid #7a2;
+  border-width: 0 0 1px 0;
+}
+
+.chapter {
+  font-size: 1.8em;
+}
+
+.section {
+  font-size: 1.6em;
+}
+
+.subsection {
+  font-size: 1.4em;
+}
+
+.unnumberedsubsubsec {
+  font-size: 1.25em;
+}
+
+.subsubheading {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+/***********************************************************/
+/*                       LINKS                             */
+/***********************************************************/
+
+a:link {
+  color: #344;
+}
+
+a:visited {
+  color: #850;
+}
+
+a:active {
+  color: #7d1;
+}
+
+a:hover {
+  color: #c71;
+}
+
+/***********************************************************/
+/*                  BLOCK FORMATTING                       */
+/***********************************************************/
+
+blockquote {
+  width: 96%;
+  padding: 0;
+  border: 1px solid #7a2;
+  border-left: 5px solid #9c4;
+  margin: 1em auto;
+}
+
+blockquote p {
+  padding: 1em;
+  margin: 0;
+}
+
+blockquote blockquote {
+  border: none;
+}
+
+.verbatim, .example .example {
+  font-size: 1em;
+  padding: 1em;
+  margin: 0;
+}
+
+.example {
+  padding: 0;
+  margin: 0;
+}
+
+hr {
+  height: 0;
+  padding: 0;
+  border: 0;
+  margin: 1em 0 0 0;
+  text-indent: -999em;
+}
+
+table.cartouche {
+  background: #eee;
+  width: 85%;
+  padding: 0 0.5em;
+  border: 2px solid #8e3;
+  margin: 0 auto 1em;
+}
+
+table.cartouche p {
+  padding: 1em;
+  margin: 0;
+}
+
+table.cartouche td {
+  border: none;
+}
+
+/***********************************************************/
+/*                    MAIN CONTENT                         */
+/***********************************************************/
+
+div#main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 27%;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+
+div#main li {
+  padding-right: 1em;
+}
+
+h1, h2, h3, h4, p, table, address, dt {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+#languages {
+  padding: 1em;
+  margin: 0;
+}
+
+pre.menu-comment {
+  font-size: 1em;
+  padding-top: 1em;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+/***********************************************************/
+/*                    TOC SIDEBAR                          */
+/***********************************************************/
+
+div#tocframe {
+  position: absolute;
+  top: 0;
+  right: 73%;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  background-color: #eee;
+  z-index: 100;
+  list-style-type: none;
+  font-size: 0.83em;
+  line-height: 1.4em;
+}
+
+@media screen {
+  body > div#tocframe {
+    position: fixed
+  }
+}
+
+/* This is an interesting debate.
+ * In div#main, I think links should be
+ * underlined, but it would be safe to
+ * take text-decoration away from links in
+ * div#tocframe.  I like the hover underline
+ * effect though.
+ *
+#tocframe a:link, #tocframe a:visited {
+  text-decoration: none;
+}
+
+#tocframe a:hover {
+  text-decoration: underline;
+}
+  */
+
+div#tocframe h4 {
+  font-size: 1em;
+  font-weight: normal;
+  color: #344;
+  background-color: #bbb;
+  padding: 2px 0 1px 1em;
+  border-top: 5px solid #677;
+  border-bottom: 1px solid #788;
+  margin: 0;
+}
+
+#tocframe .contents {
+  background-color: transparent;
+  list-style-type: none;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+#tocframe ul.toc {
+  padding: 1em 0.5em;
+  list-style-type: none;
+  margin: 0;
+}
+
+#tocframe ul.toc ul.toc {
+  padding: 0;
+  margin: 0;
+}
+
+#tocframe ul.toc li {
+  padding: 0;
+  margin: 0;
+}
+
+#tocframe ul.toc > li {
+  font-size: 1em;
+}
+
+#tocframe ul.toc li li {
+  padding-left: 1em;
+}
+
+li.toc_current {
+  font-weight: bold;
+  font-style: italic;
+}
+
+li.toc_current ul {
+  font-weight: normal;
+  font-style: normal;
+  background: transparent;
+}
+
+
+/***********************************************************/
+/*                     NAVIGATION                          */
+/***********************************************************/
+
+.nav_table {
+  width: 100%;
+  background-color: #bbb;
+  font-size: 0.8em;
+  padding: 0;
+  border: 0;
+  border-top: 5px solid #677;
+  border-bottom: 1px solid #788;
+  margin: 0;
+}
+
+div.header {
+  background-color: #be6;
+  text-align: center;
+  padding: 0.5em;
+  margin: 0;
+  height: auto;
+}
+
+div.header h1 {
+  padding: 0.5em;
+  margin: 0;
+}
+
+div.subheader {
+  background-color: #ddd;
+  padding: 0;
+  border-top: 5px solid #899;
+  border-bottom: 1px solid #9aa;
+  margin: 0;
+  text-align: center;
+}
+
+div.subheader p {
+  padding: 0.5em;
+  margin: 0;
+}
+
+table#navigation {
+  line-height: 1.5;
+  padding: 0;
+  margin: 1em auto;
+}
+
+table#navigation td {
+  padding: 0.5em 0.75em;
+}
+
+table#navigation ul {
+  padding-left: 0.5em;
+  margin-bottom: 1em;
+}
+
+table .title {
+  font-weight: bold;
+}
+
+.footer {
+  background-color: #dfa;
+  border: 0;
+  border-top: 1px solid #8a5;
+  border-bottom: 5px solid #ac7;
+  padding: 0.4em 0;
+  font-size: 0.8em;
+  text-indent: 1em;
+}
+
+.footer p {
+  line-height: 1.5;
+  padding: 0;
+  margin: 0 0.25em;
+}
+
+/***********************************************************/
+/*               OVERRIDES FOR PRINTING                    */
+/***********************************************************/
+
+@media print {
+  /* Hide the sidebar: */
+  body { padding-left: 0; }
+  #tocframe { display: none; }
+  .nav_table { display: none; }
+}

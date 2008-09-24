@@ -26,7 +26,7 @@ stemOff = { \override Staff.Stem #'transparent = ##t }
   \new Staff \with { \remove "Time_signature_engraver" }
   {
     \key g \minor
-    \set Score.timing = ##f
+    \cadenzaOn
     \stemOff a'\breve bes'4 g'4
     \stemOn a'2 \bar "||"
     \stemOff a'\breve g'4 a'4
