@@ -60,6 +60,10 @@ new-lang:
 
 CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??')
 
+ifneq ($(NO_COLOR),)
+CHECK_TRANSLATION_FLAGS = --no-color
+endif
+
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
 	$(PYTHON) $(buildscript-dir)/texi-langutils.py -d $(outdir) -l $(ISOLANG) --skeleton $(TELY_FILES:$(ISOLANG)/user/%.tely=../user/%.tely)
@@ -92,10 +96,10 @@ fix-xrefs:
 	$(DOCUMENTS_INCLUDES) $(buildscript-dir)/manuals_definitions.py
 
 check-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py $(CHECKED_FILES)
+	$(PYTHON) $(buildscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
 
 update-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(CHECKED_FILES)
+	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
 
 translation-status:
 	make -C po out=www messages

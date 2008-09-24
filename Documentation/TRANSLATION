@@ -299,6 +299,11 @@ Small tip: to see only which files need to be updated, do
 
     make ISOLANG=<MY_LANGUAGE> check-translation | grep 'diff --git'
 
+To avoid printing terminal colors control characters, which is often
+desirable when you redirect output to a file, run
+
+    make ISOLANG=<MY_LANGUAGE> NO_COLOR=1 check-translation
+
 
 Global state of the translation is recorded in
 Documentation/translations.html.in, which is used to generate
