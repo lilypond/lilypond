@@ -1027,8 +1027,9 @@ d-\markup {
 @end lilypond 
 
 More generally, any available musical symbol may be
-included separately in a markup object, using the
-following syntax:
+included separately in a markup object, as demonstrated
+below; an exhaustive list of these symbols and their
+names can be found in @ref{The Feta font}.
 
 @lilypond[quote,verbatim,fragment,relative=2]
 c2
@@ -1041,8 +1042,8 @@ c2^\markup { \musicglyph #"timesig.neomensural94" }
 @c TODO: add \lookup here? -vv
 
 @noindent
-An exhaustive list of these symbols and their names can
-be found in @ref{The Feta font}.
+Another way of including non-text glyphs is described
+in @ref{Fonts explained}.
 
 The markup mode also supports diagrams for specific
 instruments:
@@ -1067,7 +1068,8 @@ c^\markup {
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-Such diagrams are documented in @ref{Instrument Specific Markup}.
+@c VV: don't know what you intend here  -td
+@c Such diagrams are documented in @ref{Instrument Specific Markup}.
 
 A whole score can even be nested inside a markup object.
 In such a case, the nested @code{\score} block must
@@ -1085,12 +1087,13 @@ c d e f
 @end lilypond
 
 An exhaustive list of music notation related commands can be
-found in @ref{Music}.
+found in @ref{Music notation inside markup}.
 
 @seealso
 Notation Reference:
-@ref{Music},
-@ref{The Feta font}.
+@ref{Music notation inside markup},
+@ref{The Feta font},
+@ref{Fonts explained}.
 
 Snippets:
 @rlsr{Text}.
@@ -1157,28 +1160,174 @@ Installed files:
 @node Fonts
 @subsection Fonts
 
+This section presents the way fonts are handled,
+and how they may be changed in scores.
+
 @menu
-* Entire document fonts::       
-* Single entry fonts::          
+* Fonts explained::
+* Single entry fonts::
+* Entire document fonts::
 @end menu
+
+@node Fonts explained
+@subsubsection Fonts explained
+
+@cindex Pango
+@cindex fonts, explained
+@funindex font-interface
+
+Fonts are handled through several libraries.
+FontConfig is used to detect available fonts on the system;
+the selected fonts are rendered using Pango.
+
+Music notation fonts can be described as a set of
+specific glyphs, ordered in several families.
+The following syntax allows to directly use various
+LilyPond @code{feta} non-text fonts in markup mode:
+
+@lilypond[quote,verbatim,fragment,relative=2]
+a1^\markup {
+  \vcenter {
+    \override #'(font-encoding . fetaBraces)
+    \lookup #"brace120"
+    \override #'(font-encoding . fetaNumber)
+    \column { 1 3 }
+    \override #'(font-encoding . fetaDynamic)
+    sf
+    \override #'(font-encoding . fetaMusic)
+    \lookup #"noteheads.s0petrucci"
+  }
+}
+@end lilypond
+
+@noindent
+A simpler, but more limited syntax is also described in
+@ref{Music notation inside markup}.
+
+Three families of text fonts are made available: the
+@emph{roman} (serif) font, that defaults to New Century
+Schoolbook, the @emph{sans} font and the monospaced
+@emph{typewriter} font -- these last two families are
+determined by the Pango installation.
+
+Each family may include different shapes and series.
+The following example demonstrates the ability to select
+alternate families, shapes, series and sizes:
+
+@lilypond[quote,verbatim,fragment,relative=2]
+  \override Score.RehearsalMark #'font-family = #'typewriter
+  \mark \markup "Ouverture"
+  \key d \major
+  \override  Voice.TextScript #'font-shape = #'italic
+  \override  Voice.TextScript #'font-series = #'bold
+  d''2.^\markup "Allegro"
+  r4
+@end lilypond
+
+@noindent
+A similar syntax may be used in markup mode, however in this case
+it is preferable to use the simpler syntax explained in
+@ref{Selecting font and font size}:
+
+@lilypond[quote,verbatim]
+\markup {
+  \column {
+    \line {
+      \override #'(font-shape . italic)
+      \override #'(font-size . 4)
+      Idomeneo,
+    }
+    \line {
+      \override #'(font-family . typewriter)
+      {
+        \override #'(font-series . bold)
+        re
+        di
+      }
+      \override #'(font-family . sans)
+      Creta
+    }
+  }
+}
+@end lilypond
+
+@ignore
+@c FIXME: This needs an example -vv
+
+The size of the font may be set with the @code{font-size}
+property.  The resulting size is taken relative to the
+@code{text-font-size} as defined in the @code{\paper} block.
+@end ignore
+
+Although it is easy to switch between preconfigured fonts,
+it is also possible to use other fonts, as explained in the
+following sections: @ref{Single entry fonts} and
+@ref{Entire document fonts}.
+
+@seealso
+Notation Reference:
+@ref{The Feta font},
+@ref{Music notation inside markup},
+@ref{Selecting font and font size},
+@ref{Font}.
+
+@node Single entry fonts
+@subsubsection Single entry fonts
+
+Any font that is installed on the operating system and recognized
+by FontConfig may be used in a score, using the following syntax:
+
+@lilypond[quote,verbatim,fragment,relative=1]
+\override Staff.TimeSignature #'font-name = #"Charter"
+\override Staff.TimeSignature #'font-size = #2
+\time 3/4
+
+c1_\markup {
+  \override #'(font-name . "Vera Bold")
+    { Vera Bold }
+}
+@end lilypond
+
+@funindex show-available-fonts
+
+The following command displays a list of all available fonts
+on the operating system:
+
+@example
+lilypond -dshow-available-fonts x
+@end example
+
+@noindent
+The last argument of the command can be anything, but has to be
+present.
+
+@seealso
+Notation Reference:
+@ref{Fonts explained},
+@ref{Entire document fonts}.
+
+Snippets:
+@rlsr{Text}.
+
+Installed files:
+@file{lily/@/font@/-config@/-scheme@/.cc}.
 
 @node Entire document fonts
 @subsubsection Entire document fonts
 
-It is also possible to change the default font family for the
-entire document.  This is done by calling the
-@code{make-pango-font-tree} from within the @code{\paper} block.
-The function takes names for the font families to use for roman,
-sans serif and monospaced text.  For example,
+
+It is possible to change the default font families for the
+entire document.  In such a case, the following syntax has
+to be used, by providing three font families that will be
+respectively used as @emph{roman}, @emph{sans} and @emph{typewriter}
+fonts, as explained in @ref{Fonts explained}.
 
 @cindex font families, setting
-@cindex Pango
+@funindex make-pango-font-tree
 
-
-@lilypond[verbatim]
+@lilypond[verbatim,quote]
 \paper  {
   myStaffSize = #20
-
   #(define fonts
     (make-pango-font-tree "Times New Roman"
                           "Nimbus Sans"
@@ -1186,98 +1335,21 @@ sans serif and monospaced text.  For example,
                            (/ myStaffSize 20)))
 }
 
-{
-  c'^\markup { roman: foo \sans bla \typewriter bar }
+\relative c'{
+  c1-\markup {
+    roman,
+    \sans sans,
+    \typewriter typewriter. }
 }
 @end lilypond
 
 @c we don't do Helvetica / Courier, since GS incorrectly loads
 @c Apple TTF fonts
 
-
-@node Single entry fonts
-@subsubsection Single entry fonts
-
-@cindex font selection
-@cindex font magnification
-@funindex font-interface
-
-By setting the object properties described below, you can select a
-font from the preconfigured font families.  LilyPond has default
-support for the feta music fonts.  Text fonts are selected through
-Pango/FontConfig.  The serif font defaults to New Century
-Schoolbook, the sans and typewriter to whatever the Pango
-installation defaults to.
-
-
-@itemize
-@item @code{font-encoding}
-is a symbol that sets layout of the glyphs.  This should only be
-set to select different types of non-text fonts, e.g.
-
-@code{fetaBraces} for piano staff braces, @code{fetaMusic} the
-standard music font, including ancient glyphs, @code{fetaDynamic}
-for dynamic signs and @code{fetaNumber} for the number font.
-
-@item @code{font-family}
-is a symbol indicating the general class of the typeface.
-Supported are @code{roman} (Computer Modern), @code{sans}, and
-@code{typewriter}.
-
-@item @code{font-shape}
-is a symbol indicating the shape of the font.  There are typically
-several font shapes available for each font family.  Choices are
-@code{italic}, @code{caps}, and @code{upright}.
-
-@item @code{font-series}
-is a symbol indicating the series of the font.  There are
-typically several font series for each font family and shape.
-Choices are @code{medium} and @code{bold}.
-
-@end itemize
-
-Fonts selected in the way sketched above come from a predefined
-style sheet.  If you want to use a font from outside the style
-sheet, then set the @code{font-name} property,
-
-@lilypond[fragment,verbatim]
-{
-  \override Staff.TimeSignature #'font-name = #"Charter"
-  \override Staff.TimeSignature #'font-size = #2
-  \time 3/4
-  c'1_\markup {
-    \override #'(font-name . "Vera Bold")
-      { This text is in Vera Bold }
-  }
-}
-@end lilypond
-
-@noindent
-Any font can be used, as long as it is available to
-Pango/FontConfig.  To get a full list of all available fonts, run
-the command
-
-@example
-lilypond -dshow-available-fonts blabla
-@end example
-
-(the last argument of the command can be anything, but has to be
-present).
-
-
-The size of the font may be set with the @code{font-size}
-property.  The resulting size is taken relative to the
-@code{text-font-size} as defined in the @code{\paper} block.
-
-@cindex font size
-@cindex font magnification
-
-
-
-
 @seealso
-
-Snippets:
-@rlsr{Text}.
-
+Notation Reference:
+@ref{Fonts explained},
+@ref{Single entry fonts},
+@ref{Selecting font and font size},
+@ref{Font}.
 
