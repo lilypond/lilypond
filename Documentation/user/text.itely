@@ -1068,8 +1068,7 @@ c^\markup {
 @c The accordion diagram is actually taken from a snippet.
 
 @noindent
-@c VV: don't know what you intend here  -td
-@c Such diagrams are documented in @ref{Instrument Specific Markup}.
+Such diagrams are documented in @ref{Instrument Specific Markup}.
 
 A whole score can even be nested inside a markup object.
 In such a case, the nested @code{\score} block must
@@ -1087,11 +1086,11 @@ c d e f
 @end lilypond
 
 An exhaustive list of music notation related commands can be
-found in @ref{Music notation inside markup}.
+found in @ref{Music}.
 
 @seealso
 Notation Reference:
-@ref{Music notation inside markup},
+@ref{Music},
 @ref{The Feta font},
 @ref{Fonts explained}.
 
