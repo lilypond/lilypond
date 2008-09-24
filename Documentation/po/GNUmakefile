@@ -8,7 +8,7 @@ include $(depth)/make/stepmake.make
 doc-localedir=$(outdir)
 LANGS = $(shell $(PYTHON) $(top-src-dir)/python/langdefs.py)
 DOMAIN=lilypond-doc
-DOC_PO_SOURCES = add_html_footer.py texi-gettext.py translations-status.py
+DOC_PO_SOURCES = postprocess_html.py texi-gettext.py translations-status.py
 TELY_FILES = $(shell ls $(depth)/Documentation/user/lilypond*.tely)
 TELY_FILES += $(foreach l, $(LANGS), $(shell ls $(depth)/Documentation/$(l)/user/lilypond*.tely))
 
