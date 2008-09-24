@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-08-23 18:33+0200\n"
-"PO-Revision-Date: 2008-09-12 21:30+0300\n"
+"PO-Revision-Date: 2008-09-24 21:30+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgid ""
 "English."
 msgstr ""
 "Dieser Abschnitt wurde noch nicht übersetzt, bitte lesen Sie den Abschnitt "
-"im englischen Benutzerhandbuch."
+"in der englischen Notationsreferenz."
 
 #: translations-status.py:56
 msgid "Section titles"
@@ -1594,7 +1594,7 @@ msgstr "StrophenNoten"
 #. Documentation/user/fundamental.itely:1367 (variable)
 #. Documentation/user/fundamental.itely:1428 (variable)
 msgid "versewords"
-msgstr "SrophenText"
+msgstr "StrophenText"
 
 #. Documentation/user/fundamental.itely:1358 (variable)
 #. Documentation/user/fundamental.itely:1419 (variable)
@@ -2001,7 +2001,7 @@ msgstr "Was sind Engraver?"
 #. @node in Documentation/de/user/fundamental.itely
 #. @subsection in Documentation/de/user/fundamental.itely
 msgid "Modifying context properties"
-msgstr "Umgebungs-Eignschaften verändern"
+msgstr "Kontexteigenschaften verändern"
 
 #. @unnumberedsubsubsec in Documentation/user/fundamental.itely
 #. @unnumberedsubsubsec in Documentation/fr/user/fundamental.itely
@@ -2011,7 +2011,7 @@ msgstr "Kontexteigenschaften mit @code{\\with} setzen"
 #. @unnumberedsubsubsec in Documentation/user/fundamental.itely
 #. @unnumberedsubsubsec in Documentation/fr/user/fundamental.itely
 msgid "Setting context properties with @code{\\context}"
-msgstr "Umgebungseigenschaften mit @code{\\context} setzen"
+msgstr "Kontexteigenschaften mit @code{\\context} setzen"
 
 #. @node in Documentation/user/fundamental.itely
 #. @subsection in Documentation/user/fundamental.itely

@@ -831,7 +831,7 @@ oder @code{font-shape}. Andere sind besondere Werte,
 die an Eigenschaften übergeben werden können, wie
 @code{italic}. Im Unterschied hierzu gibt es auch beliebige
 Zeichenketten, die immer mit Anführungszeichen, also
-als @code{"Zeichenkette" auftreten.
+als @code{"Zeichenkette"} auftreten.
 
 Gut, der @code{\override}-Befehl, mit dem der Gesangstext
 kursiv gesetzt wird, lautet:
@@ -1026,7 +1026,7 @@ Diese Eigenschaft kontrolliert die Erscheinung der Taktlinien,
 indem sie das Symbol bestimmt, das ausgegeben werden soll.
 Wie bei vielen anderen Eigenschaften auch, kann sie so
 eingestellt werden, dass sie nichts ausgibt, indem ihr Wert
-auf @code{#f} (falsch} gesetzt wird.  Ein Versuch also,
+auf @code{#f} (falsch) gesetzt wird.  Ein Versuch also,
 wie vorher, indem wir den impliziten Kontext (@code{Voice})
 auslassen:
 
