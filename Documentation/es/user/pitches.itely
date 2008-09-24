@@ -266,7 +266,7 @@ información, consulte @rlearning{Accidentals and key signatures}.}
 @cindex doble bemol
 @cindex bemol, doble
 @cindex becuadro
-@condex natural, nota
+@cindex natural, nota
 
 Se escribe una nota @notation{sostenida} añadiendo @code{is} al nombre
 de la nota, y un @notation{bemol} añadiendo @code{es}.  Como es de

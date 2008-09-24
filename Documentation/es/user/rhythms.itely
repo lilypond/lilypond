@@ -69,7 +69,7 @@ desactivado.
 
 @c not strictly "writing rhythms"; more of a "displaying" thing,
 @c but it's ok here.  -gp
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \time 8/1
 \autoBeamOff
 c\longa c\breve c1 c2
@@ -1378,7 +1378,7 @@ Las tablas de acordes de guitarra ofrecen a menudo los ritmos de
 rasgueado.  Esto se puede hacer con el grabador
 @code{Pitch_squash_engraver} y @code{\improvisationOn}.
 
- @lilypond[quote,verbatim]
+@lilypond[quote,verbatim]
 <<
   \new ChordNames {
     \chordmode {
