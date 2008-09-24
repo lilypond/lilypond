@@ -1640,26 +1640,29 @@ comenzar y teminar las barras.  Las reglas predeterminadas de
 Para poder añadir una regla a la lista, utilice
 @example
 #(override-auto-beam-setting 
-  '(beam-limit beam-numerator  beam-denominator
-     time-signature-numerator time-signature-denominator) 
-  moment-numerator moment-denominator [context])
+  '(límite-barra numerador-barra denominador-barra
+     numerador-compás denominador-compás) 
+  numerador-momento denominador-momento [contexto])
 @end example
 
 @itemize
 
-@item @code{be} es @code{begin} o bien @code{end}.
+@item @code{límite-barra} es el tipo de límte de barra automática que se
+define, @code{begin} o bien @code{end}.
 
-@item @code{p/q} es la duración de la nota para la que quiere añadir una
-regla.  Se considera que una barra tiene la duración de su nota más
-breve.  Ajuste @code{p} y @code{q} a @code{'*'} para que esto se
-aplique a cualquier barra.
+@item @code{numerador-barra/denominador-barra} es la duración de la barra
+para la que quiere añadir una regla.  Se considera que una barra tiene
+la duración de su nota más breve.  Ajuste @code{numerador-barra} y
+@code{denominador-barra} a @code{'*'} para que esto se aplique a las
+barras de cualquier duración.
 
-@item @code{n/m} es la indicación de compás al que se aplica esta regla.
-Ajuste @code{n} y @code{m} a @code{'*'} para hacer que se aplique a
-cualquier tipo de compás.
+@item @code{numerador-compás/denominador-compás} es la indicación de compás
+al que se aplica esta regla.  Ajuste @code{numerador-compás} y
+@code{denominador-compás} a @code{'*'} para hacer que esta regla se
+aplique a cualquier tipo de compás.
 
-@item @code{a/b} es la posición dentro del compás en que la barra debe
-comenzar o acabar.
+@item @code{numerador-momento/denominador-momento} es la posición dentro del
+compás en que la barra debe comenzar o acabar.
 
 @item @code{contexto} es opcional, y especifica el contexto en que se debe
 hacer el cambio.  El valor predeterminado es @code{'Voice}.
@@ -1670,7 +1673,7 @@ equivalente a @code{#(override-auto-beam-setting '(A B C D) E F
 
 @end itemize
 
-Por ejemplo, si las barras automáticas siempre debe terminar sobre la
+Por ejemplo, si las barras automáticas siempre deben terminar sobre la
 primera negra, use
 
 @example
@@ -1682,9 +1685,11 @@ sobre barras cuya nota más breve es una cierta duración:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 2/4
+% end 1/16 beams for all time signatures at the 1/16 moment
 #(override-auto-beam-setting '(end 1 16 * *) 1 16)
 a16 a a a a a a a |
 a32 a a a a16 a a a a a |
+% end 1/32 beams for all time signatures at the 1/16 moment
 #(override-auto-beam-setting '(end 1 32 * *) 1 16)
 a32 a a a a16 a a a a a |
 @end lilypond
@@ -1694,6 +1699,7 @@ en ciertos tipos de compás:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 5/8
+% end beams of all durations in 5/8 time signature at the 2/8 moment
 #(override-auto-beam-setting '(end * * 5 8) 2 8)
 c8 c d d d
 \time 4/4
@@ -1706,18 +1712,24 @@ También podemos eliminar una regla de fin de barrado previamente
 establecida usando
 
 @example
-#(revert-auto-beam-setting '(be p q n m) a b [contexto])
+#(revert-auto-beam-setting 
+  '(beam-limit beam-numerator  beam-denominator
+     time-signature-numerator time-signature-denominator) 
+  moment-numerator moment-denominator [context])
 @end example
 
 @noindent
-@code{be}, @code{p}, @code{q}, @code{n}, @code{m}, @code{a}, @code{b}
-y @code{context} son los mismos que antes.  Observe que las reglas
-predeteminadas se especifican en @file{scm/@/auto@/-beam@/.scm}, así
-que podemos revertir las reglas que no hayamos creado explícitamente.
+@code{límite-barra}, @code{numerador-barra}, @code{denominador-barra},
+@code{numerador-compás}, @code{denominador-compás},
+@code{numerador-momento}, @code{denominador-momento} y @code{contexto}
+son los mismos que antes.  Observe que las reglas predeteminadas se
+especifican en @file{scm/@/auto@/-beam@/.scm}, así que podemos
+revertir las reglas que no hayamos creado explícitamente.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \time 4/4
 a16 a a a a a a a a a a a a a a a
+% undo a rule ending 1/16 beams in 4/4 time at 1/4 moment
 #(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
 a16 a a a a a a a a a a a a a a a
 @end lilypond
@@ -1735,8 +1747,6 @@ a a a a
 #(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
 a a a a
 @end lilypond
-
-
 
 @c TODO:  old material -- not covered by above stuff, I think.
 Si las barras automáticas han de terminar en cada negra de un compás
@@ -1844,9 +1854,6 @@ resulten unidas por una barra:
 \time 2/4 c8 c\noBeam c c
 @end lilypond
 
-@funindex ]
-@funindex [
-
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
@@ -1868,9 +1875,7 @@ izquierdo, es decir, la barra de corchea del grupo como un todo.
 }
 @end lilypond
 
-
 @snippets
-
 
 
 @node Feathered beams
@@ -1885,7 +1890,6 @@ cambiar el tempo general de la pieza.  El ámbito de la barra progrsiva
 se debe indicar manualmente usando @code{[} y @code{]}, el efecto de
 ángulo de la barra se inicia especificando una dirección en la
 propiedad @code{grow-direction} del objeto @code{Beam}.
-
 
 Si queremos que la colocación de las notas y el sonido de la salida
 MIDI refleje el ritardando o accelerando indicado por la barra
@@ -1937,7 +1941,6 @@ Fragmentos de código:
 @node Bars
 @subsection Bars
 
-
 @menu
 * Bar lines::                   
 * Bar numbers::                 
@@ -1946,38 +1949,50 @@ Fragmentos de código:
 @end menu
 
 
-
 @node Bar lines
 @subsubsection Bar lines
 
-@cindex Barras de compás
+@cindex barras de compás
 @funindex \bar
 @cindex líneas divisorias
 @cindex repetición, barras de
 
 Las líneas divisorias delimitan a los compases pero también se pueden
-usar para indicar las repeticiones.  Normalmente se insertan de manera
-automática.  Los saltos de línea solamente pueden producirse sobre las
-barras de compás.
+usar para indicar las repeticiones.  Normalmente, las líneas
+divisorias normales se insertan de manera automática en la salida
+impresa en lugares que están basados en el compás actual.
 
-Se pueden forzar tipos especiales de línea divisoria con 
-el comando @code{\bar}
+Las barras de compás sencillas insertadas automáticamente se pueden
+cambiar por otros tipos con la instrucción @code{\bar}.  Por ejemplo,
+se suele poner una doble barra de cierre al final de la pieza:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-c4 \bar "|:" c4
+@lilypond[quote,ragged-right,relative=1,fragment,verbatim]
+e4 d c2 \bar "|."
 @end lilypond
 
-Se encuentran disponibles los siguientes tipos de barra:
+@c TODO -- make this warning more clear.  What does it mean?
+@warning{Una duración incorrecta lleva a un formato defectuoso en la
+música.}
 
-@c @lilypondfile[ragged-right,quote]{bar-lines.ly}
+@c TODO -- check this.  I think this behavior no longer happens
+@c with completion_heads_engraver, but it may with note_heads_engraver
+@c Make an example showing the problem
 
-Además se puede especificar @code{"||:"}, que equivale a @code{"|:"}
-excepto en los saltos de línea, en que produce una doble barra al
-final de la línea y una repetición izquierda (de comienzo) al
-principio de la línea siguiente.
+No deja de ser válida la última nota de un compás si no termina sobre
+la línea divisoria automática: se supone que la nota se prolonga sobre
+el compás siguiente.  Pero una secuencia larga de dichos compases
+prolongados puede hacer que la música aparezca comprimida o incluso
+que se salga de la página.  Esto es a causa de que los saltos de línea
+automáticos solamente se producen al final de compases completos, es
+decir, cuando el final de una nota coincide con el final del compás.
 
-Para permitir un salto de línea donde no hay ninguna línea divisoria
-visible, utilice
+@cindex línea, saltos
+@cindex líneas divisorias invisibles
+@cindex compás, barras invisibles de
+
+También se permiten saltos de línea en las barras insertadas
+manualmente incluso dentro de compases incompletos.  Para permitir un
+salto de línea donde no hay ninguna línea divisoria visible, utilice
 
 @example
 \bar ""
@@ -1985,12 +2000,64 @@ visible, utilice
 
 @noindent
 De esta manera se insertará una barra invisible de compás y se hará
-posible el salto de línea en este punto (sin incrementar el contador
-de los números de compás).
+posible el salto de línea en este punto, sin forzarlo. No se
+incrementa el contador de los números de compás.  Para forzar un salto
+de línea, consulte @ref{Line breaking}.
 
-En las partituras con muchos pentagramas, un comando @code{\bar} en
-uno de ellos se aplica automáticamente a todos los demás.  Las líneas
-resultantes se conectan entre los distintos pentagramas de un
+Este y otras líneas divisorias especiales se pueden insertar
+manualmente en cualquier punto.  Cuando coinciden con el final de un
+compás, sustituyen a la línea divisoria simple que se habría insertado
+automáticamente en dicho lugar.  Cuando no coinciden con el final de
+un compás, se inserta la línea especificada en ese punto en la salida
+impresa.  Dichas inserciones no afectan al cálculo y colocación de las
+líneas divisorias automáticas subsiguientes.
+
+Están disponibles para su inserción manual la línea divisoria simple y
+cuatro tipos de doble barra:
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|." d
+@end lilypond
+
+@noindent
+así como la barra de puntos y la discontinua:
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+f1 \bar ":" g \bar "dashed" a
+@end lilypond
+
+@noindent
+and three types of repeat bar line:
+
+@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+f1 \bar "|:" g \bar ":|:" a \bar ":|" b
+@end lilypond
+
+@cindex repeats
+
+Aunque se pueden insertar manualmente barras de compás con significado
+de repeticiones, no se reconocen como repeticiones por parte de
+LilyPond.  Las secciones repetidas se introducen mejor utilizando las
+diversas instrucciones de repetición (véase @ref{Repeats}), que
+imprimen automáticamente las barras correspondientes.
+
+Además se puede especificar @code{"||:"}, que equivale a @code{"|:"}
+excepto en los saltos de línea, en que produce una doble barra al
+final de la línea y una repetición izquierda (de comienzo) al
+principio de la línea siguiente.
+
+@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
+\override Score.RehearsalMark #'padding = #3
+c c c c
+\bar "||:"
+c c c c \break
+\bar "||:"
+c c c c
+@end lilypond
+
+En las partituras con muchos pentagramas, una instrucción @code{\bar}
+en uno de ellos se aplica automáticamente a todos los demás.  Las
+líneas resultantes se conectan entre los distintos pentagramas de un
 @code{StaffGroup}, @code{PianoStaff} o @code{GrandStaff}.
 
 @lilypond[quote,ragged-right,fragment,verbatim]
@@ -2007,37 +2074,34 @@ resultantes se conectan entre los distintos pentagramas de un
 >>
 @end lilypond
 
-
-@commonprop
+@snippets
 
 @funindex whichBar
-@funindex repeatCommands
 @funindex defaultBarType
 
-El comando @code{\bar }@var{tipo_de_barra} es una forma corta de hacer
-@code{\set Timing.whichBar = }@var{tipo_de_barra}.  Cuando
+La instrucción @code{\bar }@var{tipo_de_barra} es una forma corta de
+hacer @code{\set Timing.whichBar = }@var{tipo_de_barra}.  Cuando
 @code{whichBar} se establece con el valor de una cadena, se crea una
 línea divisoria de ese tipo.
 
-Una línea divisoria se crea cuando se establece la propiedad
-@code{whichBar}.  Al comienzo del compás su valor se toma de
-@code{Timing.defaultBarType}.  Los contenidos de los
-@code{repeatCommands} se utilizan para sobreescribir a las barras de
-compás por omisión.
-
-Le recomendamos que utilice siempre @code{\repeat} para hacer
-repeticiones.  Consulte @ref{Repeats}.
-
+El tipo de barra predeterminado que se usa para las líneas divisorias
+insertadas automáticamente es @code{"|"}.  Se puede cambiar en
+cualquier momento con @code{\set Timing.defaultBarType =
+}@var{bartype}.
 
 @seealso
 
 Referencia de la notación:
-@ref{Repeats},
-@ref{System start delimiters}.
+@ref{Line breaking},
+@ref{Repeats}.
 
-Referencia de funcionamiento interno:
-@rinternals{BarLine} (creada al nivel de @rinternals{Staff} (pentagrama)),
-@rinternals{SpanBar} (a través de los pentagramas).
+Fragmentos de código:
+@rlsr{Rhythms}.
+
+Referencia de funcionamiento interno: @rinternals{BarLine} (creada al
+nivel de @rinternals{Staff} (pentagrama)), @rinternals{SpanBar} (a
+través de los pentagramas), @rinternals{Timing_translator} (para las
+propiedades del contador de tiempo Timing).
 
 
 @node Bar numbers
@@ -2059,7 +2123,6 @@ c1 c c c
 \set Score.currentBarNumber = #50
 c1 c c c
 @end lilypond
-
 
 @snippets
 
