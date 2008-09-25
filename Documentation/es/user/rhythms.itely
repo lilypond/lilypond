@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: aa5bccb0e775ecd97a0731d910d7b03076a9f388
+    Translation of GIT committish: 8e48602c7c2b3c58a940aff009eba2b83912a1b4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2013,10 +2013,10 @@ impresa.  Dichas inserciones no afectan al cálculo y colocación de las
 líneas divisorias automáticas subsiguientes.
 
 Están disponibles para su inserción manual la línea divisoria simple y
-cuatro tipos de doble barra:
+cinco tipos de doble barra:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|." d
+f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
 @end lilypond
 
 @noindent
@@ -2027,10 +2027,10 @@ f1 \bar ":" g \bar "dashed" a
 @end lilypond
 
 @noindent
-and three types of repeat bar line:
+y cinco tipos de barra de repetición:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-f1 \bar "|:" g \bar ":|:" a \bar ":|" b
+f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
 @end lilypond
 
 @cindex repeats
