@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-09-25 00:01+0200\n"
-"PO-Revision-Date: 2008-09-25 00:22+0200\n"
+"PO-Revision-Date: 2008-09-25 11:15+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español\n"
 "MIME-Version: 1.0\n"
@@ -2482,7 +2482,7 @@ msgstr "Visibilidad y color de los objetos"
 #. @subheading in Documentation/es/user/tweaks.itely
 #. @subheading in Documentation/de/user/tweaks.itely
 msgid "stencil"
-msgstr "sello"
+msgstr "stencil (sello)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/es/user/tweaks.itely
@@ -2494,7 +2494,7 @@ msgstr "break-visibility (visibilidad en el salto)"
 #. @subheading in Documentation/es/user/tweaks.itely
 #. @subheading in Documentation/de/user/tweaks.itely
 msgid "transparent"
-msgstr "transparente"
+msgstr "transparent (transparente)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/es/user/tweaks.itely
