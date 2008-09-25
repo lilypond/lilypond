@@ -1,0 +1,19 @@
+  texidoces = "
+El fragmento de código \"Plantilla de cuarteto de cuerda\" produce un
+resultado satisfactorio para el cuarteto, pero ¿y si tenemos que
+imprimir las particellas? Esta nueva plantilla muestra cómo usar la
+funcionalidad @code{\\tag} (etiqueta) para dividir fácilmente una
+pieza en particellas indicviduales.
+
+Tenemos que dividir esta plantilla en archivos independientes; los
+nombres de archivo están dentro de los comentarios al principio de
+cada archivo. @code{piece.ly} contiene todas las definiciones de
+música. Los otros archivos (@code{score.ly}, @code{vn1.ly},
+@code{vn2.ly}, @code{vla.ly} y @code{vlc.ly}) producen la particella
+correspondiente.
+
+¡No olvide quitar los comentarios que hemos especificado cuando use
+los archivos independientes!
+
+"
+  doctitlees = "Plantilla de cuarteto de cuerda con particellas independientes"

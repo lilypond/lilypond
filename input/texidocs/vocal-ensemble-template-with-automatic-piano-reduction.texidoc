@@ -1,0 +1,10 @@
+  texidoces = "
+Esta plantilla añade una reducción de piano automática a la partitura
+vocal SATB estándar que se mostró en la \"Plantilla de conjunto
+vocal\". Esto presenta uno de los puntos fuertes de LilyPond: podemos
+usar una definición de música más de una vez. Si se hace cualquier
+cambio en las notas de la parte vocal (digamos @code{tenorMusic}),
+entonces los cambios se aplicarán también a la reducción de piano.
+
+"
+  doctitlees = "Plantilla de conjunto vocal con reducción de piano automática"
