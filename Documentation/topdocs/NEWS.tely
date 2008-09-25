@@ -65,7 +65,29 @@ which scares away people.
 
 @end ignore
 
-@item Three automatic accidentals rules have been added: @code{neo-modern},
+@item
+The file extension for MIDI can be set using the command-line
+program default @code{midi-extension}.  For Windows, the default
+extension has been changed to @code{.mid}.
+
+@item
+Two variations on the default double repeat bar line are now available.
+@lilypond[]
+{
+  \set Score.doubleRepeatType = #":|.:"
+  \repeat volta 2 {
+    c'1
+  }
+  \repeat volta 2 {
+    c'1
+  } 
+  \bar ":|.|:"
+  c'1
+}
+@end lilypond
+
+@item
+Three automatic accidentals rules have been added: @code{neo-modern},
 @code{neo-modern-cautionary} and @code{dodecaphonic}.  The following
 example illustrates @code{neo-modern} rule.
 @lilypond[]
@@ -89,18 +111,26 @@ notes = {
 }
 @end lilypond
 
-@item Flags can now be generated with Scheme-code using the @code{'flag} Stem
-grob property. Existing scores will work without change.
-@lilypond
-testnotes = { \autoBeamOff c'8 d'16 c''8 d''16 }
+@item
+Flags can now be generated with Scheme-code using the @code{'flag}
+@code{Stem} grob property.  Existing scores will work without change.
+@lilypond[]
+testnotes = {
+  \autoBeamOff
+  c'8 d'16 c''8 d''16
+}
 
 #(define (inverted-flag stem-grob)
   (let* ((dir (if (eqv? (ly:grob-property stem-grob 'direction) UP) "d" "u"))
          (flag (retrieve-glyph-flag "" dir "" stem-grob))
+         (line-thickness (ly:staff-symbol-line-thickness stem-grob))
+         (stem-thickness (ly:grob-property stem-grob 'thickness))
+         (stem-width (* line-thickness stem-thickness))
          (stroke-style (ly:grob-property stem-grob 'stroke-style))
          (stencil (if (null? stroke-style) flag
-                         (add-stroke-glyph flag stem-grob dir stroke-style ""))))
-    (ly:stencil-rotate-absolute stencil 180 -0.05 0)))
+                         (add-stroke-glyph flag stem-grob dir stroke-style "")))
+                         (rotated-flag (ly:stencil-rotate-absolute stencil 180 0 0)))
+    (ly:stencil-translate rotated-flag (cons (- (/ stem-width 2))  0))))
 
 #(define-public (weight-flag stem-grob)
   (let* ((log (- (ly:grob-property stem-grob 'duration-log) 2))
@@ -118,15 +148,14 @@ testnotes = { \autoBeamOff c'8 d'16 c''8 d''16 }
 
   \override Stem #'flag = #inverted-flag
   \testnotes
-
 }
-
 @end lilypond
 
-@item Harp pedalling diagrams were added:
+@item
+Harp pedalling diagrams were added:
 
-@lilypond
-\markup \harp-pedal #"^v-|vv-o^"
+@lilypond[]
+\markup { \harp-pedal #"^v-|vv-o^" }
 @end lilypond
 
 @item
@@ -136,13 +165,15 @@ are now available in the @code{FretBoards} context:
 \include "predefined-guitar-fretboards.ly"
 <<
   \new ChordNames {
-   \chordmode {
-      c1 \transpose c e { c }
+    \chordmode {
+      c1
+      \transpose c e { c }
     }
   }
   \new FretBoards {
     \chordmode {
-      c1 \transpose c e { c }
+      c1
+      \transpose c e { c }
     }
   }
 >>
@@ -151,11 +182,11 @@ are now available in the @code{FretBoards} context:
 @item
 The following syntax changes were made, in chronological order. In
 addition, fret diagram properties have been moved to
-@code{fret-diagram-details}, and @code{#'style} property is used to
-select solid/dashed lines instead of @code{#'dash-fraction}.
+@code{fret-diagram-details}, and the @code{#'style} property is
+used to select solid/dashed lines instead of @code{#'dash-fraction}.
 
 @example
-#'break-align-symbol -> #'break-align-symbols
+'break-align-symbol -> 'break-align-symbols
 scripts.caesura -> scripts.caesura.curved
 \setEasyHeads -> \easyHeadsOn
 \easyHeadsOff (new command)
@@ -177,17 +208,21 @@ scripts.caesura -> scripts.caesura.curved
 \sustainDown -> \sustainOn
 \sostenutoDown -> \sostenutoOn
 \sostenutoUp -> \sostenutoOff
-infinite-spacing-height -> extra-spacing-height
+'infinite-spacing-height -> 'extra-spacing-height
 #(set-octavation oct) -> \ottava #oct
 \put-adjacent markup axis dir markup -> \put-adjacent axis dir markup markup
+\pointAndClickOn (new command)
+\pointAndClickOff (new command)
 \center-align -> \center-column
 \hcenter -> \center-align
+printallheaders -> print-all-headers
 @end example
 
-@item Metronome marks can now also contain a textual description.  The
+@item
+Metronome marks can now also contain a textual description.  The
 duration and count (if given) are shown in parentheses after the text.
 
-@lilypond
+@lilypond[]
 {
   \tempo "Fast"
   c'4 c' c' c'
@@ -204,27 +239,33 @@ duration and count (if given) are shown in parentheses after the text.
 }
 @end lilypond
 
-@item In figured bass you can now also use a backslash through a number to
+@item
+In figured bass you can now also use a backslash through a number to
 indicate a raised 6th step.
 
-@lilypond[ragged-right]
+@lilypond[]
 \new FiguredBass \figuremode { < 6\\ 5\\ > < 6/ > }
 @end lilypond
 
 @item
 Arpeggios may now use ``parenthesis'' style brackets:
 
-@lilypond[relative,ragged-right]
-  \override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
+@lilypond[relative=1]
+\override Arpeggio #'stencil = #ly:arpeggio::brew-chord-slur
 
-  % Note: does not work for cross staff arpeggios.
-  \override Arpeggio #'X-extent = #ly:grob::stencil-width
-  <c g' c>2\arpeggio ~ c
+% Note: does not work for cross-staff arpeggios.
+\override Arpeggio #'X-extent = #ly:grob::stencil-width
+<c g' c>2\arpeggio ~ c
 @end lilypond
 
 @item
+Single-system scores are now naturally spaced instead of being
+stretched to fill the line width.  This can be changed by setting
+@code{ragged-right = ##f}.
+
+@item
 Enclosing text within boxes with rounded corners is now possible,
-using the @code{rounded-box} command.
+using the @code{\rounded-box} markup command.
 
 @item
 @command{lilypond-book} can run any program instead of @command{latex}
@@ -240,7 +281,7 @@ the paper block, the number of pages that will be used.
 
 @item
 A new page breaking function, @code{ly:minimal-breaking}, is dedicated
-to books with many pages or a lot of texts.
+to books with many pages or a lot of text.
 
 @item
 A table of contents is included using @code{\markuplines \table-of-contents}.
@@ -248,18 +289,18 @@ Elements are added to it using the @code{\tocItem} command.
 
 @item
 Text spreading over several pages is entered using the
-@code{\markuplines} keyword. Builtin markup list commands, such as
+@code{\markuplines} keyword.  Builtin markup list commands, such as
 @code{\justified-lines} or @code{\wordwrap-lines} may be used, and new
 ones created using the @code{define-markup-list-command} Scheme macro.
 
 @item
 Particular points of a book may be marked with the @code{\label}
-command. Then, the page where these points are placed can be refered to
-using the @code{\page-ref} markup command.
+command.  Then, the page where these points are placed can be
+referred to using the @code{\page-ref} markup command.
 
 @item
 Page breaking and page turning commands (@code{\pageBreak},
-@code{\noPageBreak}, etc) can be used at top-level, between scores and
+@code{\noPageBreak}, etc.) can be used at top-level, between scores and
 top-level markups.
 
 @item
@@ -269,14 +310,15 @@ The following options are now changed as a @code{-d} sub-option:
 option does not exist any more.
 
 @item
-Improved testing procedure now catch changes in CPU and memory
+Improved testing procedures now catch changes in CPU and memory
 performance, page layout, MIDI results and warnings.  This helps to
 reduce the number of regression errors during development, resulting
 in more stable releases.
 
 See @uref{INSTALL.html#Testing-LilyPond} for more information.
+
 @item
-Nested properties, such as @code{details} in @code{Slur}, can be
+Nested properties, such as @code{'details} in @code{Slur}, can be
 reverted as well.  The syntax for this is
 
 @example
@@ -306,16 +348,15 @@ text on line spanners is no longer valid.
 
 This feature was sponsored by Trevor Bača.
 
- 
 @item
-The environment variable LILYPONDPREFIX has been renamed to
-LILYPOND_DATADIR.
+The environment variable @code{LILYPONDPREFIX} has been renamed
+@code{LILYPOND_DATADIR}.
 
 @item
 Notes or rests, such as a typical end note, that fill an entire
 measure are preceded by some more space.
 
-@lilypond[ragged-right]
+@lilypond[]
 \relative c' {
   \time 4/4
   s1
@@ -325,61 +366,64 @@ measure are preceded by some more space.
 }
 @end lilypond
 
-@item All @code{\score}s in a lilypond-book fragment are now inserted
-into the document. Also, toplevel markups don't result in an entire
+@item
+All @code{\score}s in a lilypond-book fragment are now inserted
+into the document.  Also, toplevel markups don't result in an entire
 page.
 
-@item Alterations (such as a sharp and flat) may now be arbitrary
-fractions. This allows some forms of microtonal music.  For example,
+@item
+Alterations (such as a sharp or flat) may now be arbitrary
+fractions.  This allows some forms of microtonal music.  For example,
 Turkish makam music uses 1/9th tone alterations.
 
 @lilypondfile{makam.ly}
 
+@item
+Tie directions may be set with @code{^~} and @code{_~}.
 
+@item
+Tablature now supports harmonics and slides:
 
-@item Tie directions may be set with @code{^~} and @code{_~}
-
-@item Tablature now supports harmonics and slides,
-
-@lilypond[fragment,ragged-right,relative=1]
-\new TabVoice
-{
-    <c g'\harmonic> d\2\glissando e\2
+@lilypond[relative=1]
+\new TabVoice {
+  <c g'\harmonic>4 d\2\glissando e2\2
 }
 @end lilypond
 
 This feature was sponsored by Mike Amundsen
 
-@item Horizontal spacing now follows object outlines more
-accurately. This allows tighter horizontal spacing.
+@item
+Horizontal spacing now follows object outlines more accurately.
+This allows tighter horizontal spacing.
 
-@lilypond[fragment,ragged-right]
+@lilypond[]
 {
-  \stemUp c''4...*1/2
-  ceses'!
+  \stemUp
+  c''4... ceses'! s16
 }
 @end lilypond
 
+@item
+Objects that belong outside of the staff are now positioned
+automatically to avoid collisions.
 
-@item Objects that belong outside of the staff are
-now positioned automatically to avoid collisions.
-
-@lilypond[fragment,ragged-right,relative=1]
-  c''
-  \once \override TextScript #'self-alignment-X = #CENTER
-  a,^"this doesn't collide with the c"
-  b^"this goes above the previous markup"
-  a8_"this goes below the dynamic"
-  a\f
+@lilypond[relative=1]
+c''4
+\once \override TextScript #'self-alignment-X = #CENTER
+a,4^"this doesn't collide with the c"
+b4^"this goes above the previous markup"
+a8_"this goes below the dynamic"
+a8\f
 @end lilypond
 
-@item Staves are spaced vertically using a skyline algorithm. This helps to avoid
-uneven vertical spacing.
+@item
+Staves are spaced vertically using a skyline algorithm.  This helps
+prevent uneven vertical spacing.
 
 @lilypond[ragged-right]
 
 %% todo: fix 'landscape PDF.
-#(set-default-paper-size "a6" )
+#(set-default-paper-size "a6")
 \header {
   tagline = ##f
 }
@@ -387,8 +431,10 @@ uneven vertical spacing.
 \book {
   \score {
     {
-      a,,1 | a'4 b' c'' d'' \break
-      \repeat unfold 2 {a' b' c'' d''} | b''''1
+      a,,1
+      a'4 b' c'' d'' \break
+      \repeat unfold 2 { a'4 b' c'' d''}
+      b''''1
     }
   }
 }
