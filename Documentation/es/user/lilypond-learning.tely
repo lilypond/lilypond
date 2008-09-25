@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0380ecf564c664ec8979142a95c918ce09f3ab6a
+    Translation of GIT committish: 576140f04b84d2c75be3905f2d998e90038c50c5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -56,13 +56,13 @@ Este documento también está disponible como
 
 Copyright @copyright{} 1999--2007 por los autores
 
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
 @emph{La traducción de la siguiente nota de copyright se ofrece como
 cortesía para las personas de habla no inglesa, pero únicamente la
 nota en inglés tiene validez legal.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
 
 @quotation
 Se otorga permiso para copiar, distribuir y/o modificar este documento
@@ -90,13 +90,13 @@ Para LilyPond versión @version{}
 @copying
 Copyright @copyright{} 1999--2007 por los autores
 
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
 @emph{La traducción de la siguiente nota de copyright se ofrece como
 cortesía para las personas de habla no inglesa, pero únicamente la
 nota en inglés tiene validez legal.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
 
 @quotation
 Se otorga permiso para copiar, distribuir y/o modificar este documento
@@ -123,13 +123,13 @@ Este archivo es la documentación de GNU LilyPond orientada a quienes empiezan c
 
 Copyright @copyright{} 1999--2007 por los autores
 
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
-
 @emph{La traducción de la siguiente nota de copyright se ofrece como
 cortesía para las personas de habla no inglesa, pero únicamente la
 nota en inglés tiene validez legal.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
 
 @quotation
 Se otorga permiso para copiar, distribuir y/o modificar este documento
