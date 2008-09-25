@@ -1829,11 +1829,56 @@ TrillPitchGroup - not tried
 @node Distances and measurements
 @subsection Distances and measurements
 
-To be written
+@cindex distances, absolute
+@cindex distances, scaled
 
-@c FIXME DISCUSS after working on other sections.
+@funindex \mm
+@funindex \cm
+@funindex \in
+@funindex \pt
 
-@c TODO: staff spaces.  Maybe move into tweaks?
+Distances in LilyPond are of two types: absolute and scaled.
+
+Absolute distances are used for specifying margins, indents, and
+other page layout details, and are by default specified in
+millimeters.  Distances may be specified in other units by
+following the quantity by @code{\mm}, @code{\cm},
+@code{\in}@tie{}(inches), or @code{\pt}@tie{}(points - 1/72 inch).
+Page layout is described in detail in @ref{Page formatting}.
+
+Scaled distances are always specified in units of the staff-space
+or, rarely, the half staff-space.  The staff-space is the distance
+between two adjacent staff lines.  The default value can be changed
+globally by setting the global staff size, or it can be overridden
+locally by changing the @code{staff-space} property of
+@code{StaffSymbol}.  Scaled distances automatically scale with any
+change to the either the global staff size or the
+@code{staff-space} property of @code{StaffSymbol}, but fonts scale
+automatically only with changes to the global staff size.
+The global staff size thus enables the overall size of a rendered
+score to be easily varied.  For the methods of setting the global
+staff size see @ref{Setting the staff size}.
+
+@funindex magstep
+
+If just a section of a score needs to be rendered to a different
+scale, for example an ossia section or a footnote, the global staff
+size cannot simply be changed as this would affect the entire score.
+In such cases the change in size is made by overriding both the
+@code{staff-space} property of @code{StaffSymbol} and the size of
+the fonts.  A Scheme function, @code{magstep}, is available to
+convert from a font size change to the equivalent change in
+@code{staff-space}.  For an explanation and an example of its use,
+see @rlearning{Length and thickness of objects}.
+
+@seealso
+
+Learning Manual:
+@rlearning{Length and thickness of objects}.
+
+Notation Reference:
+@ref{Page formatting},
+@ref{Setting the staff size}.
 
 
 @node Spanners
