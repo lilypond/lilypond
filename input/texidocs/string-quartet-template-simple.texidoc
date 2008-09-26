@@ -4,3 +4,9 @@ una sección @code{\\global} para el compás y la armadura
 
 "
   doctitlees = "Plantilla de cuarteto de cuerda (sencilla)"
+  
+  texidocde = "
+Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier 
+wird auch eine @qq{@code{\global}}-Variable für Taktart und 
+Vorzeichen benutzt.
+"

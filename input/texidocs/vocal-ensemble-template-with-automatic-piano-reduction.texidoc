@@ -8,3 +8,11 @@ entonces los cambios se aplicarán también a la reducción de piano.
 
 "
   doctitlees = "Plantilla de conjunto vocal con reducción de piano automática"
+  
+  texidocde = "
+In diesem Beispiel wird ein automatischer Klavierauszug zu der 
+Chorpartitur hinzugefügt. Das zeigt eine der Stärken von LilyPond
+-- man kann eine Variable mehr als einmal benutzen. Wenn Sie 
+irgendeine Änderung an einer Chorstimme vornehmen, (etwa 
+tenorMusic), verändert sich auch der Klavierauszug entsprechend.
+"

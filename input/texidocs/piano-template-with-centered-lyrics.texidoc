@@ -4,3 +4,9 @@ se puede centrar entre los pentagramas de un sistema de piano.
 
 "
   doctitlees = "Plantilla de piano con letra centrada"
+  
+  texidocde = "
+Anstatt ein eigenes System für Melodie und Text zu schreiben, können 
+Sie den Text auch zwischen die beiden Klaviersysteme schreiben
+(und damit das zusätzliche System für die Gesangstimme auslassen).
+"

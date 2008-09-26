@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
-@c This file is part of lilypond.tely
+@c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 2ae5726ea4fcbcd40e42678db32d7da3227ef44a
+    Translation of GIT committish: d650ba9e33bf95a14c8b99882142d04acf8435d5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -17,7 +17,7 @@ LilyPond-Partitur schon eingerichtet ist. Sie müssen nur noch Ihre
 Noten einfügen, die Datei mit LilyPond übersetzen und sich an dem 
 schönen Notenbild erfreuen!
 
-@c bad node name for ancient notation to avoid confict
+@c bad node name for ancient notation to avoid conflict
 @menu
 * Single staff::                
 * Piano templates::             
@@ -31,537 +31,71 @@ schönen Notenbild erfreuen!
 
 @node Single staff
 @appendixsec Single staff
+
 @appendixsubsec Notes only
 
-Das erste Beispiel zeigt ein Notensystem mit Noten, passend für ein 
-Soloinstrument oder ein Melodiefragment. Kopieren Sie es und fügen 
-Sie es in Ihre Datei ein, schreiben Sie die Noten hinzu, und Sie haben 
-eine vollständige Notationsdatei.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+{single-staff-template-with-only-notes.ly}
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-melody = \relative c' {
-   \clef treble
-   \key c \major
-   \time 4/4
-
-   a4 b c d
-}
-
-\score {
-   \new Staff \melody
-   \layout { }
-   \midi {}
-}
-@end lilypond
 
 @appendixsubsec Notes and lyrics
 
-Das nächste Beispiel zeigt eine einfache Melodie mit Text. Kopieren 
-Sie es in Ihre Datei, fügen Sie Noten und Text hinzu und übersetzen 
-Sie es mit LilyPond. In dem Beispiel wird die automatische 
-Balkenverbindung ausgeschaltet (mit dem Befehl @code{\autoBeamOff}), 
-wie es für Vokalmusik üblich ist. 
-Wenn Sie die Balken wieder einschalten wollen, müssen Sie die 
-entsprechende Zeile entweder ändern oder auskommentieren.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,addversion]
+{single-staff-template-with-notes-and-lyrics.ly}
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-melody = \relative c' {
-   \clef treble
-   \key c \major
-   \time 4/4
-
-   a4 b c d
-}
-
-text = \lyricmode {
-   Aaa Bee Cee Dee
-}
-
-\score{
-   <<
-      \new Voice = "one" {
-         \autoBeamOff
-         \melody
-      }
-      \new Lyrics \lyricsto "one" \text
-   >>
-   \layout { }
-   \midi { }
-}
-@end lilypond
 
 @appendixsubsec Notes and chords
 
-Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben? Hier ist 
-das richtige Beispiel für Sie!
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{single-staff-template-with-notes-and-chords.ly}
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-melody = \relative c' {
-   \clef treble
-   \key c \major
-   \time 4/4
-
-   f4 e8[ c] d4 g |
-   a2 ~ a2 |
-}
-
-harmonies = \chordmode {
-   c4:m f:min7 g:maj c:aug d2:dim b:sus
-}
-
-\score {
-   <<
-      \new ChordNames {
-         \set chordChanges = ##t
-         \harmonies
-      }
-   \new Staff \melody
-   >>
-
-   \layout{ }
-   \midi { }
-}
-@end lilypond
 
 @appendixsubsec Notes, lyrics, and chords.
 
-Mit diesem Beispiel können Sie einen Song mit Melodie, 
-Text und Akkorden schreiben.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{single-staff-template-with-notes,-lyrics,-and-chords.ly}
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-melody = \relative c' {
-   \clef treble
-   \key c \major
-   \time 4/4
-
-   a b c d
-}
-
-text = \lyricmode {
-   Aaa Bee Cee Dee
-}
-
-harmonies = \chordmode {
-   a2 c2
-}
-
-\score {
-   <<
-      \new ChordNames {
-         \set chordChanges = ##t
-         \harmonies
-      }
-   \new Voice = "one" {
-      \autoBeamOff
-      \melody
-   }
-   \new Lyrics \lyricsto "one" \text
-   >>
-   \layout { }
-   \midi { }
-}
-@end lilypond
 
 @node Piano templates
 @appendixsec Piano templates
+
 @appendixsubsec Solo piano
 
-Hier kommt ein einfaches Klaviersystem.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-simple.ly}
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-upper = \relative c'' {
-   \clef treble
-   \key c \major
-   \time 4/4
-
-   a b c d
-}
-
-lower = \relative c {
-   \clef bass
-   \key c \major
-   \time 4/4
-
-   a2 c
-}
-
-\score {
-   \new PianoStaff <<
-      \set PianoStaff.instrumentName = "Piano  "
-      \new Staff = "upper" \upper
-      \new Staff = "lower" \lower
-   >>
-   \layout { }
-   \midi { }
-}
-@end lilypond
 
 @appendixsubsec Piano and melody with lyrics
 
-Das nächste Beispiel ist typisch für ein Lied: Im oberen System die 
-Melodie mit Text, darunter Klavierbegleitung.
-
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-melody = \relative c'' {
-   \clef treble
-   \key c \major
-   \time 4/4
-
-   a b c d
-}
-
-text = \lyricmode {
-   Aaa Bee Cee Dee
-}
-
-upper = \relative c'' {
-   \clef treble
-   \key c \major
-   \time 4/4
-
-   a b c d
-}
-
-lower = \relative c {
-   \clef bass
-   \key c \major
-   \time 4/4
-
-   a2 c
-}
-
-\score {
-   <<
-      \new Voice = "mel" {
-          \autoBeamOff
-          \melody
-      }
-      \new Lyrics \lyricsto mel \text
-
-      \new PianoStaff <<
-         \new Staff = "upper" \upper
-         \new Staff = "lower" \lower
-      >>
-   >>
-   \layout {
-      \context { \RemoveEmptyStaffContext }
-   }
-   \midi { }
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-melody-and-lyrics.ly}
 
 
 @appendixsubsec Piano centered lyrics
 
-Anstatt ein eigenes System für Melodie und Text zu schreiben, können 
-Sie den Text auch zwischen die beiden Klaviersysteme schreiben
-(und damit das zusätzliche System für die Gesangstimme auslassen).
-
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-upper = \relative c'' {
-   \clef treble
-   \key c \major
-   \time 4/4
-
-   a b c d
-}
-
-lower = \relative c {
-   \clef bass
-   \key c \major
-   \time 4/4
-
-   a2 c
-}
-
-text = \lyricmode {
-   Aaa Bee Cee Dee
-}
-
-\score {
-  \new GrandStaff <<
-    \new Staff = upper { \new Voice = "singer" \upper }
-    \new Lyrics \lyricsto "singer" \text
-    \new Staff = lower {
-      \clef bass
-      \lower
-    }
-  >>
-  \layout {
-    \context { \GrandStaff \accepts "Lyrics" }
-    \context { \Lyrics \consists "Bar_engraver" }
-  }
-  \midi { }
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-centered-lyrics.ly}
 
 
 @appendixsubsec Piano centered dynamics
 
-In der meisten Klaviernotation werden die Dynamikzeichen zwischen 
-den beiden Systemen zentriert. Für LilyPond muss man die Einstellungen 
-etwas anpassen, aber Sie können ja das angepasste Beispiel von hier 
-kopieren.
-
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-upper = \relative c'' {
-  \clef treble
-  \key c \major
-  \time 4/4
-
-  a b c d
-}
-
-lower = \relative c {
-  \clef bass
-  \key c \major
-  \time 4/4
-
-  a2 c
-}
-
-dynamics = {
-  s2\fff\> s4
-  s\!\pp
-}
-
-pedal = {
-  s2\sustainOn s2\sustainOff
-}
-
-\score {
-  \new PianoStaff <<
-    \new Staff = "upper" \upper
-    \new Dynamics = "dynamics" \dynamics
-    \new Staff = "lower" <<
-      \clef bass
-      \lower
-    >>
-    \new Dynamics = "pedal" \pedal
-  >>
-  \layout {
-    \context {
-      \type "Engraver_group"
-      \name Dynamics
-      \alias Voice % So that \cresc works, for example.
-      \consists "Output_property_engraver"
-
-      \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
-      \override DynamicLineSpanner #'Y-offset = #0
-      pedalSustainStrings = #'("Ped." "*Ped." "*")
-      pedalUnaCordaStrings = #'("una corda" "" "tre corde")
-
-      \consists "Piano_pedal_engraver"
-      \consists "Script_engraver"
-      \consists "Dynamic_engraver"
-      \consists "Text_engraver"
-
-      \override TextScript #'font-size = #2
-      \override TextScript #'font-shape = #'italic
-
-      \consists "Skip_event_swallow_translator"
-
-      \consists "Axis_group_engraver"
-    }
-    \context {
-      \PianoStaff
-      \accepts Dynamics
-    }
-  }
-}
-\score {
-  \new PianoStaff <<
-    \new Staff = "upper" << \upper \dynamics >>
-    \new Staff = "lower" << \lower \dynamics >>
-    \new Dynamics = "pedal" \pedal
-  >>
-  \midi {
-    \context {
-      \type "Performer_group"
-      \name Dynamics
-      \consists "Piano_pedal_performer"
-    }
-    \context {
-      \PianoStaff
-      \accepts Dynamics
-    }
-  }
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{piano-template-with-centered-dynamics.ly}
 
 
 @node String quartet
 @appendixsec String quartet
+
 @appendixsubsec String quartet
 
-Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier 
-wird auch eine @qq{@code{\global}}-Variable für Taktart und 
-Vorzeichen benutzt.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{string-quartet-template-simple.ly}
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-
-global= {
-  \time 4/4
-  \key c \major
-}
-
-violinOne = \new Voice { \relative c''{
-  \set Staff.instrumentName = "Violin 1 "
-
-  c2 d e1
-
-\bar "|." }}
-violinTwo = \new Voice { \relative c''{
-  \set Staff.instrumentName = "Violin 2 "
-
-  g2 f e1
-
-\bar "|." }}
-viola = \new Voice { \relative c' {
-  \set Staff.instrumentName = "Viola "
-  \clef alto
-
-  e2 d c1
-
-\bar "|." }}
-cello = \new Voice { \relative c' {
-  \set Staff.instrumentName = "Cello     "
-  \clef bass
-
-  c2 b a1
-
-\bar "|."}}
-
-\score {
-   \new StaffGroup <<
-      \new Staff << \global \violinOne >>
-      \new Staff << \global \violinTwo >>
-      \new Staff << \global \viola >>
-      \new Staff << \global \cello >>
-   >>
-   \layout { }
-   \midi { }
-}
-@end lilypond
 
 @appendixsubsec String quartet parts
 
-Mit diesem Beispiel können Sie ein schönes Streichquartett notieren, 
-aber wie gehen Sie vor, wenn Sie Stimmen brauchen? Das Beispiel 
-oben hat gezeigt, wie Sie mit Variablen einzelne Abschnitte getrennt 
-voneinander notieren können. Im nächsten Beispiel wird nun 
-gezeigt, wie Sie mit diesen Variablen einzelne Stimmen erstellen.
-
-Sie müssen das Beispiel in einzelne Dateien aufteilen; die Dateinamen
-sind in den Kommentaren am Anfang jeder Datei enthalten.  @code{piece.ly}
-enthält die Noten. Die anderen Dateien -- @code{score.ly},
-@code{vn1.ly}, @code{vn2.ly}, @code{vla.ly} und
-@code{vlc.ly} -- erstellen daraus die entsprechenden Stimmen bzw. die 
-Partitur (@code{score.ly}). Mit @code{\tag} wird den Stimmen ein Name 
-zugewiesen, auf den zurückgegriffen werden kann.
-
-@verbatim
-%%%%% piece.ly
-\version "2.11.51"
-
-global= {
-  \time 4/4
-  \key c \major
-}
-
-Violinone = \new Voice { \relative c''{
-  \set Staff.instrumentName = "Violin 1 "
-
-  c2 d e1
-
-\bar "|." }}   %*********************************
-Violintwo = \new Voice { \relative c''{
-  \set Staff.instrumentName = "Violin 2 "
-
-  g2 f e1
-
-\bar "|." }}   %*********************************
-Viola = \new Voice { \relative c' {
-  \set Staff.instrumentName = "Viola "
-  \clef alto
-
-  e2 d c1
-
-\bar "|." }}   %*********************************
-Cello = \new Voice { \relative c' {
-  \set Staff.instrumentName = "Cello     "
-  \clef bass
-
-  c2 b a1
-
-\bar "|."}}   %**********************************
-
-music = {
-  <<
-    \tag #'score \tag #'vn1 \new Staff { << \global \Violinone >> }
-    \tag #'score \tag #'vn2 \new Staff { << \global \Violintwo>> }
-    \tag #'score \tag #'vla \new Staff { << \global \Viola>> }
-    \tag #'score \tag #'vlc \new Staff { << \global \Cello>> }
-  >>
-}
-
-
-
-%%%%% score.ly
-\version "2.11.51"
-\include "piece.ly"
-#(set-global-staff-size 14)
-\score {
-  \new StaffGroup \keepWithTag #'score \music
-  \layout { }
-  \midi { }
-}
-
-
-%%%%% vn1.ly
-\version "2.11.51"
-\include "piece.ly"
-\score {
-  \keepWithTag #'vn1 \music
-  \layout { }
-}
-
-
-%%%%% vn2.ly
-\version "2.11.51"
-\include "piece.ly"
-\score {
-  \keepWithTag #'vn2 \music
-  \layout { }
-}
-
-
-%%%%% vla.ly
-\version "2.11.51"
-\include "piece.ly"
-\score {
-  \keepWithTag #'vla \music
-  \layout { }
-}
-
-
-%%%%% vlc.ly
-\version "2.11.51"
-\include "piece.ly"
-\score {
-  \keepWithTag #'vlc \music
-  \layout { }
-}
-@end verbatim
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{string-quartet-template-with-separate-parts.ly}
 
 
 @node Vocal ensembles
@@ -569,868 +103,44 @@ music = {
 
 @appendixsubsec SATB vocal score
 
-Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren 
-Stücken ist es oft sinnvoll, eine allgemeine Variable zu bestimmen, 
-die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa 
-sind fast immer gleich in allen Stimmen.
-
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-global = {
-   \key c \major
-   \time 4/4
-}
-
-sopMusic = \relative c'' {
-   c4 c c8[( b)] c4
-}
-sopWords = \lyricmode {
-   hi hi hi hi
-}
-
-altoMusic = \relative c' {
-   e4 f d e
-}
-altoWords =\lyricmode {
-   ha ha ha ha
-}
-
-tenorMusic = \relative c' {
-   g4 a f g
-}
-tenorWords = \lyricmode {
-   hu hu hu hu
-}
-
-bassMusic = \relative c {
-   c4 c g c
-}
-bassWords = \lyricmode {
-   ho ho ho ho
-}
-
-\score {
-   \new ChoirStaff <<
-      \new Lyrics = sopranos { s1 }
-      \new Staff = women <<
-         \new Voice =
-           "sopranos" { \voiceOne << \global \sopMusic >> }
-         \new Voice =
-           "altos" { \voiceTwo << \global \altoMusic >> }
-      >>
-      \new Lyrics = "altos" { s1 }
-      \new Lyrics = "tenors" { s1 }
-      \new Staff = men <<
-         \clef bass
-         \new Voice =
-           "tenors" { \voiceOne <<\global \tenorMusic >> }
-         \new Voice =
-           "basses" { \voiceTwo <<\global \bassMusic >> }
-      >>
-      \new Lyrics = basses { s1 }
-
-      \context Lyrics = sopranos \lyricsto sopranos \sopWords
-      \context Lyrics = altos \lyricsto altos \altoWords
-      \context Lyrics = tenors \lyricsto tenors \tenorWords
-      \context Lyrics = basses \lyricsto basses \bassWords
-   >>
-
-   \layout {
-      \context {
-         % a little smaller so lyrics
-         % can be closer to the staff
-         \Staff
-         \override VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
-      }
-   }
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template.ly}
 
 
 @appendixsubsec SATB vocal score and automatic piano reduction
 
-In diesem Beispiel wird ein automatischer Klavierauszug zu der 
-Chorpartitur hinzugefügt. Das zeigt eine der Stärken von LilyPond
--- man kann eine Variable mehr als einmal benutzen. Wenn Sie 
-irgendeine Änderung an einer Chorstimme vornehmen, (etwa 
-tenorMusic), verändert sich auch der Klavierauszug entsprechend.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-automatic-piano-reduction.ly}
 
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-global = {
-   \key c \major
-   \time 4/4
-}
-
-sopMusic = \relative c'' {
-   c4 c c8[( b)] c4
-}
-sopWords = \lyricmode {
-   hi hi hi hi
-}
-
-altoMusic = \relative c' {
-   e4 f d e
-}
-altoWords =\lyricmode {
-   ha ha ha ha
-}
-
-tenorMusic = \relative c' {
-   g4 a f g
-}
-tenorWords = \lyricmode {
-   hu hu hu hu
-}
-
-bassMusic = \relative c {
-   c4 c g c
-}
-bassWords = \lyricmode {
-   ho ho ho ho
-}
-
-\score {
-  <<
-    \new ChoirStaff <<
-      \new Lyrics = sopranos { s1 }
-      \new Staff = women <<
-        \new Voice =
-          "sopranos" { \voiceOne << \global \sopMusic >> }
-        \new Voice =
-          "altos" { \voiceTwo << \global \altoMusic >> }
-      >>
-      \new Lyrics = "altos" { s1 }
-      \new Lyrics = "tenors" { s1 }
-      \new Staff = men <<
-        \clef bass
-        \new Voice =
-          "tenors" { \voiceOne <<\global \tenorMusic >> }
-        \new Voice =
-          "basses" { \voiceTwo <<\global \bassMusic >> }
-      >>
-      \new Lyrics = basses { s1 }
-
-      \context Lyrics = sopranos \lyricsto sopranos \sopWords
-      \context Lyrics = altos \lyricsto altos \altoWords
-      \context Lyrics = tenors \lyricsto tenors \tenorWords
-      \context Lyrics = basses \lyricsto basses \bassWords
-    >>
-  \new PianoStaff <<
-    \new Staff <<
-      \set Staff.printPartCombineTexts = ##f
-      \partcombine
-      << \global \sopMusic >>
-      << \global \altoMusic >>
-    >>
-    \new Staff <<
-      \clef bass
-      \set Staff.printPartCombineTexts = ##f
-      \partcombine
-      << \global \tenorMusic >>
-      << \global \bassMusic >>
-    >>
-   >>
-  >>
-  \layout {
-    \context {
-      % a little smaller so lyrics
-      % can be closer to the staff
-      \Staff
-        \override VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
-    }
-  }
-}
-@end lilypond
 
 @appendixsubsec SATB with aligned contexts
 
-In diesem Beispiel werden die Texte mit den Befehlen 
-@code{alignAboveContext} und @code{alignBelowContext}
-über und unter dem System angeordnet.
-
-@lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
-global = {
-  \key c \major
-  \time 4/4
-}
-
-sopMusic = \relative c'' {
-  c4 c c8[( b)] c4
-}
-sopWords = \lyricmode {
-  hi hi hi hi
-}
-
-altoMusic = \relative c' {
-  e4 f d e
-}
-altoWords =\lyricmode {
-  ha ha ha ha
-}
-
-tenorMusic = \relative c' {
-  g4 a f g
-}
-tenorWords = \lyricmode {
-  hu hu hu hu
-}
-
-bassMusic = \relative c {
-  c4 c g c
-}
-bassWords = \lyricmode {
-  ho ho ho ho
-}
-
-\score {
-  \new ChoirStaff <<
-     \new Staff = women <<
-        \new Voice =
-          "sopranos" { \voiceOne << \global \sopMusic >> }
-        \new Voice =
-          "altos" { \voiceTwo << \global \altoMusic >> }
-     >>
-     \new Lyrics \with {alignAboveContext=women} \lyricsto sopranos \sopWords
-     \new Lyrics \with {alignBelowContext=women} \lyricsto altos \altoWords
-% we could remove the line about this with the line below, since we want
-% the alto lyrics to be below the alto Voice anyway.
-%    \new Lyrics \lyricsto altos \altoWords
-
-     \new Staff = men <<
-        \clef bass
-        \new Voice =
-          "tenors" { \voiceOne <<\global \tenorMusic >> }
-        \new Voice =
-          "basses" { \voiceTwo <<\global \bassMusic >> }
-     >>
-
-     \new Lyrics \with {alignAboveContext=men} \lyricsto tenors \tenorWords
-     \new Lyrics \with {alignBelowContext=men} \lyricsto basses \bassWords
-% again, we could replace the line above this with the line below.
-%    \new Lyrics \lyricsto basses \bassWords
-  >>
-
-  \layout {
-     \context {
-        % a little smaller so lyrics
-        % can be closer to the staff
-        \Staff
-        \override VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
-     }
-  }
-}
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 
-\score {
-  \new ChoirStaff <<
-     \new Staff = women <<
-        \new Voice =
-          "sopranos" { \voiceOne << \global \sopMusic >> }
-        \new Voice =
-          "altos" { \voiceTwo << \global \altoMusic >> }
-     >>
-
-     \new Lyrics \with {alignAboveContext=women} \lyricsto sopranos \sopWords
-     \new Lyrics \lyricsto altos \altoWords
-
-     \new Staff = men <<
-        \clef bass
-        \new Voice =
-          "tenors" { \voiceOne <<\global \tenorMusic >> }
-        \new Voice =
-          "basses" { \voiceTwo <<\global \bassMusic >> }
-     >>
-
-     \new Lyrics \with {alignAboveContext=men} \lyricsto tenors \tenorWords
-     \new Lyrics \lyricsto basses \bassWords
-  >>
-
-  \layout {
-     \context {
-        % a little smaller so lyrics
-        % can be closer to the staff
-        \Staff
-        \override VerticalAxisGroup #'minimum-Y-extent = #'(-3 . 3)
-     }
-  }
-} 
-@end lilypond
-
-
-@c bad node name to avoid node name confict
+@c bad node name to avoid node name conflict
 @node Ancient notation templates
 @appendixsec Ancient notation templates
 
 @appendixsubsec Transcription of mensural music
 
-Bei der Transkription von Mensuralmusik ist es oft erwünscht, ein 
-Incipit an den Anfang des Stückes zu stellen, damit klar ist, wie 
-Tempo und Schlüssel in der Originalnotation gesetzt waren. Während 
-heutzutage Musiker an Taktlinien gewöhnt sind, um Rhythmen schneller 
-zu erkennen, wurden diese in der Mensuralmusik nicht verwendet. 
-Tatsächlich ändern sich die Rhythmen auch oft alle paar Noten. Als 
-ein Kompromiss werden die Notenlinien nicht auf dem System, sondern 
-zwischen den Systemen geschrieben.
-
-@lilypond[quote,verbatim,line-width=11.0\cm]
-\version "2.11.51"
-
-global = {
-  \set Score.skipBars = ##t
-
-  % incipit
-  \once \override Score.SystemStartBracket #'transparent = ##t
-  \override Score.SpacingSpanner #'spacing-increment = #1.0 % tight spacing
-  \key f \major
-  \time 2/2
-  \once \override Staff.TimeSignature #'style = #'neomensural
-  \override Voice.NoteHead #'style = #'neomensural
-  \override Voice.Rest #'style = #'neomensural
-  \set Staff.printKeyCancellation = ##f
-  \cadenzaOn % turn off bar lines
-  \skip 1*10
-  \once \override Staff.BarLine #'transparent = ##f
-  \bar "||"
-  \skip 1*1 % need this extra \skip such that clef change comes
-            % after bar line
-  \bar ""
-
-  % main
-  \revert Score.SpacingSpanner #'spacing-increment % CHECK: no effect?
-  \cadenzaOff % turn bar lines on again
-  \once \override Staff.Clef #'full-size-change = ##t
-  \set Staff.forceClef = ##t
-  \key g \major
-  \time 4/4
-  \override Voice.NoteHead #'style = #'default
-  \override Voice.Rest #'style = #'default
-
-  % FIXME: setting printKeyCancellation back to #t must not
-  % occur in the first bar after the incipit.  Dto. for forceClef.
-  % Therefore, we need an extra \skip.
-  \skip 1*1
-  \set Staff.printKeyCancellation = ##t
-  \set Staff.forceClef = ##f
-
-  \skip 1*7 % the actual music
-
-  % let finis bar go through all staves
-  \override Staff.BarLine #'transparent = ##f
-
-  % finis bar
-  \bar "|."
-}
-
-discantusNotes = {
-  \transpose c' c'' {
-    \set Staff.instrumentName = "Discantus  "
-
-    % incipit
-    \clef "neomensural-c1"
-    c'1. s2   % two bars
-    \skip 1*8 % eight bars
-    \skip 1*1 % one bar
-
-    % main
-    \clef "treble"
-    d'2. d'4 |
-    b e' d'2 |
-    c'4 e'4.( d'8 c' b |
-    a4) b a2 |
-    b4.( c'8 d'4) c'4 |
-    \once \override NoteHead #'transparent = ##t c'1 |
-    b\breve |
-  }
-}
-
-discantusLyrics = \lyricmode {
-  % incipit
-  IV-
-
-  % main
-  Ju -- bi -- |
-  la -- te De -- |
-  o, om --
-  nis ter -- |
-  ra, __ om- |
-  "..." |
-  -us. |
-}
-
-altusNotes = {
-  \transpose c' c'' {
-    \set Staff.instrumentName = "Altus  "
-
-    % incipit
-    \clef "neomensural-c3"
-    r1        % one bar
-    f1. s2    % two bars
-    \skip 1*7 % seven bars
-    \skip 1*1 % one bar
-
-    % main
-    \clef "treble"
-    r2 g2. e4 fis g | % two bars
-    a2 g4 e |
-    fis g4.( fis16 e fis4) |
-    g1 |
-    \once \override NoteHead #'transparent = ##t g1 |
-    g\breve |
-  }
-}
-
-altusLyrics = \lyricmode {
-  % incipit
-  IV-
-
-  % main
-  Ju -- bi -- la -- te | % two bars
-  De -- o, om -- |
-  nis ter -- ra, |
-  "..." |
-  -us. |
-}
-
-tenorNotes = {
-  \transpose c' c' {
-    \set Staff.instrumentName = "Tenor  "
-
-    % incipit
-    \clef "neomensural-c4"
-    r\longa   % four bars
-    r\breve   % two bars
-    r1        % one bar
-    c'1. s2   % two bars
-    \skip 1*1 % one bar
-    \skip 1*1 % one bar
-
-    % main
-    \clef "treble_8"
-    R1 |
-    R1 |
-    R1 |
-    r2 d'2. d'4 b e' | % two bars
-    \once \override NoteHead #'transparent = ##t e'1 |
-    d'\breve |
-  }
-}
-
-tenorLyrics = \lyricmode {
-  % incipit
-  IV-
-
-  % main
-  Ju -- bi -- la -- te | % two bars
-  "..." |
-  -us. |
-}
-
-bassusNotes = {
-  \transpose c' c' {
-    \set Staff.instrumentName = "Bassus  "
-
-    % incipit
-    \clef "bass"
-    r\maxima  % eight bars
-    f1. s2    % two bars
-    \skip 1*1 % one bar
-
-    % main
-    \clef "bass"
-    R1 |
-    R1 |
-    R1 |
-    R1 |
-    g2. e4 |
-    \once \override NoteHead #'transparent = ##t e1 |
-    g\breve |
-  }
-}
-
-bassusLyrics = \lyricmode {
-  % incipit
-  IV-
-
-  % main
-  Ju -- bi- |
-  "..." |
-  -us. |
-}
-
-\score {
-  \new StaffGroup = choirStaff <<
-    \new Voice =
-      "discantusNotes" << \global \discantusNotes >>
-    \new Lyrics =
-      "discantusLyrics" \lyricsto discantusNotes { \discantusLyrics }
-    \new Voice =
-      "altusNotes" << \global \altusNotes >>
-    \new Lyrics =
-      "altusLyrics" \lyricsto altusNotes { \altusLyrics }
-    \new Voice =
-      "tenorNotes" << \global \tenorNotes >>
-    \new Lyrics =
-      "tenorLyrics" \lyricsto tenorNotes { \tenorLyrics }
-    \new Voice =
-      "bassusNotes" << \global \bassusNotes >>
-    \new Lyrics =
-      "bassusLyrics" \lyricsto bassusNotes { \bassusLyrics }
-  >>
-  \layout {
-    \context {
-      \Score
-
-      % no bars in staves
-      \override BarLine #'transparent = ##t
-
-      % incipit should not start with a start delimiter
-      \remove "System_start_delimiter_engraver"
-    }
-    \context {
-      \Voice
-
-      % no slurs
-      \override Slur #'transparent = ##t
-
-      % Comment in the below "\remove" command to allow line
-      % breaking also at those barlines where a note overlaps
-      % into the next bar.  The command is commented out in this
-      % short example score, but especially for large scores, you
-      % will typically yield better line breaking and thus improve
-      % overall spacing if you comment in the following command.
-      %\remove "Forbid_line_break_engraver"
-    }
-  }
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-mensural-music.ly}
 
 
 @appendixsubsec Gregorian transcription template
 
-Dieses Beispiel zeigt eine moderne Transkription des Gregorianischen 
-Chorals. Hier gibt es keine Takte, keine Notenhälse und es werden nur 
-halbe und Viertelnoten verwendet. Zusätzliche Zeichen zeigen die 
-Länge von Pausen an.
-
-@lilypond[quote,verbatim,ragged-right]
-\include "gregorian-init.ly"
-\version "2.11.51"
-
-chant = \relative c' {
-  \set Score.timing = ##f
-  f4 a2 \divisioMinima
-  g4 b a2 f2 \divisioMaior
-  g4( f) f( g) a2 \finalis
-}
-
-verba = \lyricmode {
-  Lo -- rem ip -- sum do -- lor sit a -- met
-}
-
-\score {
-  \new Staff <<
-    \new Voice = "melody" {
-      \chant
-    }
-    \new Lyrics = "one" \lyricsto melody \verba
-  >>
-
-  \layout {
-    \context {
-      \Staff
-      \remove "Time_signature_engraver"
-      \remove "Bar_engraver"
-      \override Stem #'transparent = ##t
-    }
-    \context {
-      \Voice
-      \override Stem #'length = #0
-    }
-    \context {
-      \Score
-      barAlways = ##t
-    }
-  }
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{ancient-notation-template----modern-transcription-of-gregorian-music.ly}
 
 
 @node Jazz combo
 @appendixsec Jazz combo
 
-Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung: 
-Alle Instrumente sind in @code{\key c \major} (C-Dur) notiert. Das bezieht sich 
-auf die klingende Musik: LilyPond transponiert die Tonart automatisch, wenn 
-sich die Noten innerhalb eines @code{\transpose}-Abschnitts befinden.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+{jazz-combo-template.ly}
 
-@c TODO must clean up this jazz combo example
-@c   - transpositions stated in names (ie "trumpet in Bb" or whatever)
-@c   - one global section, instead of "global" (time) and "key"
-@c   - does it need those wierd macros?  sl, nsl, etc.
-@c   - maybe ask Amelie Zapf to clean it up, or whether I should just
-@c     make whatever changes I feel like.
-
-@c FIXME: produces a warning ; key change merge.
-@c The `line-width' argument is for the \header.
-
-@lilypond[quote,verbatim,ragged-right,line-width]
-\version "2.11.51"
-\header {
-  title = "Song"
-  subtitle = "(tune)"
-  composer = "Me"
-  meter = "moderato"
-  piece = "Swing"
-  tagline = \markup {
-    \column {
-      "LilyPond example file by Amelie Zapf,"
-      "Berlin 07/07/2003"
-    }
-  }
-  texidoc = "Jazz tune for combo
-             (horns, guitar, piano, bass, drums)."
-}
-
-#(set-global-staff-size 16)
-\include "english.ly"
-
-%%%%%%%%%%%% Some macros %%%%%%%%%%%%%%%%%%%
-
-sl = {
-  \override NoteHead #'style = #'slash
-  \override Stem #'transparent = ##t
-}
-nsl = {
-  \revert NoteHead #'style
-  \revert Stem #'transparent
-}
-cr = \override NoteHead #'style = #'cross
-ncr = \revert NoteHead #'style
-
-%% insert chord name style stuff here.
-
-jzchords = { }
-
-
-%%%%%%%%%%%% Keys'n'thangs %%%%%%%%%%%%%%%%%
-
-global = {
-  \time 4/4
-}
-
-Key = { \key c \major }
-
-% ############ Horns ############
-
-% ------ Trumpet ------
-trpt = \transpose c d \relative c'' {
-  \Key
-  c1 c c
-}
-trpharmony = \transpose c' d {
-  \jzchords
-}
-trumpet = {
-  \global
-  \set Staff.instrumentName = #"Trumpet"
-  \clef treble
-  <<
-    \trpt
-  >>
-}
-
-% ------ Alto Saxophone ------
-alto = \transpose c a \relative c' {
-  \Key
-  c1 c c
-}
-altoharmony = \transpose c' a {
-  \jzchords
-}
-altosax = {
-  \global
-  \set Staff.instrumentName = #"Alto Sax"
-  \clef treble
-  <<
-    \alto
-  >>
-}
-
-% ------ Baritone Saxophone ------
-bari = \transpose c a' \relative c {
-  \Key
-  c1 c \sl d4^"Solo" d d d \nsl
-}
-bariharmony = \transpose c' a \chordmode {
-  \jzchords s1 s d2:maj e:m7
-}
-barisax = {
-  \global
-  \set Staff.instrumentName = #"Bari Sax"
-  \clef treble
-  <<
-    \bari
-  >>
-}
-
-% ------ Trombone ------
-tbone = \relative c {
-  \Key
-  c1 c c
-}
-tboneharmony = \chordmode {
-  \jzchords
-}
-trombone = {
-  \global
-  \set Staff.instrumentName = #"Trombone"
-  \clef bass
-  <<
-    \tbone
-  >>
-}
-
-% ############ Rhythm Section #############
-
-% ------ Guitar ------
-gtr = \relative c'' {
-  \Key
-  c1 \sl b4 b b b \nsl c1
-}
-gtrharmony = \chordmode {
-  \jzchords
-  s1 c2:min7+ d2:maj9
-}
-guitar = {
-  \global
-  \set Staff.instrumentName = #"Guitar"
-  \clef treble
-  <<
-    \gtr
-  >>
-}
-
-%% ------ Piano ------
-rhUpper = \relative c'' {
-  \voiceOne
-  \Key
-  c1 c c
-}
-rhLower = \relative c' {
-  \voiceTwo
-  \Key
-  e1 e e
-}
-
-lhUpper = \relative c' {
-  \voiceOne
-  \Key
-  g1 g g
-}
-lhLower = \relative c {
-  \voiceTwo
-  \Key
-  c1 c c
-}
-
-PianoRH = {
-  \clef treble
-  \global
-  \set Staff.midiInstrument = "acoustic grand"
-  <<
-    \new Voice = "one" \rhUpper
-    \new Voice = "two" \rhLower
-  >>
-}
-PianoLH = {
-  \clef bass
-  \global
-  \set Staff.midiInstrument = "acoustic grand"
-  <<
-    \new Voice = "one" \lhUpper
-    \new Voice = "two" \lhLower
-  >>
-}
-
-piano = {
-  <<
-    \set PianoStaff.instrumentName = #"Piano"
-    \new Staff = "upper" \PianoRH
-    \new Staff = "lower" \PianoLH
-  >>
-}
-
-% ------ Bass Guitar ------
-Bass = \relative c {
-  \Key
-  c1 c c
-}
-bass = {
-  \global
-  \set Staff.instrumentName = #"Bass"
-  \clef bass
-  <<
-    \Bass
-  >>
-}
-
-% ------ Drums ------
-up = \drummode {
-  hh4 <hh sn>4 hh <hh sn> hh <hh sn>4
-  hh4 <hh sn>4
-  hh4 <hh sn>4
-  hh4 <hh sn>4
-}
-
-down = \drummode {
-  bd4 s bd s bd s bd s bd s bd s
-}
-
-drumContents = {
-  \global
-  <<
-    \set DrumStaff.instrumentName = #"Drums"
-    \new DrumVoice { \voiceOne \up }
-    \new DrumVoice { \voiceTwo \down }
-  >>
-}
-
-%%%%%%%%% It All Goes Together Here %%%%%%%%%%%%%%%%%%%%%%
-
-\score {
-  <<
-    \new StaffGroup = "horns" <<
-      \new Staff = "trumpet" \trumpet
-      \new Staff = "altosax" \altosax
-      \new ChordNames = "barichords" \bariharmony
-      \new Staff = "barisax" \barisax
-      \new Staff = "trombone" \trombone
-    >>
-
-    \new StaffGroup = "rhythm" <<
-      \new ChordNames = "chords" \gtrharmony
-      \new Staff = "guitar" \guitar
-      \new PianoStaff = "piano" \piano
-      \new Staff = "bass" \bass
-      \new DrumStaff { \drumContents }
-    >>
-  >>
-
-  \layout {
-    \context { \RemoveEmptyStaffContext }
-    \context {
-      \Score
-      \override BarNumber #'padding = #3
-      \override RehearsalMark #'padding = #2
-      skipBars = ##t
-    }
-  }
-
-  \midi { }
-}
-@end lilypond
 
 @ignore
 
@@ -1558,3 +268,59 @@ d4 c b a
 
 @@bye
 @end example
+
+
+@appendixsubsec xelatex
+
+@verbatim
+\documentclass{article}
+\usepackage{ifxetex}
+\ifxetex
+%xetex specific stuff
+\usepackage{xunicode,fontspec,xltxtra}
+\setmainfont[Numbers=OldStyle]{Times New Roman}
+\setsansfont{Arial}
+\else
+%This can be empty if you are not going to use pdftex
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}%Times
+\usepackage{helvet}%Helvetica
+\fi
+%Here you can insert all packages that pdftex also understands
+\usepackage[ngerman,finnish,english]{babel}
+\usepackage{graphicx}
+
+\begin{document}
+\title{A short document with LilyPond and xelatex}
+\maketitle
+
+Normal \textbf{font} commands inside the \emph{text} work,
+because they \textsf{are supported by \LaTeX{} and XeteX.}
+If you want to use specific commands like \verb+\XeTeX+, you
+should include them again in a \verb+\ifxetex+ environment.
+You can use this to print the \ifxetex \XeTeX{} command \else
+XeTeX command \fi which is not known to normal \LaTeX .
+
+In normal text you can easily use LilyPond commands, like this:
+
+\begin{lilypond}
+{a2 b c'8 c' c' c'}
+\end{lilypond}
+
+\noindent
+and so on.
+
+The fonts of snippets set with LilyPond will have to be set from
+inside 
+of the snippet. For this you should read the AU on how to use
+lilypond-book.
+
+\selectlanguage{ngerman}
+Auch Umlaute funktionieren ohne die \LaTeX -Befehle, wie auch alle
+anderen
+seltsamen Zeichen: ß,ł,ã,č,я,щ, wenn sie von der Schriftart
+unterstützt werden.
+\end{document}
+@end verbatim
+

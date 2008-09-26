@@ -7,3 +7,13 @@ dentro de una sección @code{\\transpose}.
 
 "
   doctitlees = "Plantilla para combo de jazz"
+  
+  texidocde = "
+Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung: 
+Alle Instrumente sind in @code{\key c \major} (C-Dur) notiert. Das bezieht sich 
+auf die klingende Musik: LilyPond transponiert die Tonart automatisch, wenn 
+sich die Noten innerhalb eines @code{\transpose}-Abschnitts befinden.
+
+"
+
+  doctitlede = "Vorlage für Jazz-Combo"
