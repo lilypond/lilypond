@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 579452b61befcfd488fe53eda9a4b7166edca3d8
+    Translation of GIT committish: 9700b86dcfbe60138b4a3f83d98578bcddfbbc08
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -55,6 +55,8 @@
 	  <ul>
 	    <li>
 	    <a class="title" href="user/lilypond-learning/index.de.html">Handbuch zum Lernen (LM)</a>
+	    (auf <a class="title" href="user/lilypond-learning-big-page.html">einer gro&szlig;en Seite</a> ~ 1.5 MB,
+als <a class="title" href="user/lilypond-learning.de.pdf">PDF</a>)
 	      <br>(F&uuml;r den ersten Anfang.)
 
  
