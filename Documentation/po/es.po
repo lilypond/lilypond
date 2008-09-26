@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-09-25 00:01+0200\n"
-"PO-Revision-Date: 2008-09-25 11:15+0200\n"
+"POT-Creation-Date: 2008-09-26 17:12+0200\n"
+"PO-Revision-Date: 2008-09-26 17:17+0200\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español\n"
 "MIME-Version: 1.0\n"
@@ -3161,7 +3161,7 @@ msgstr "Licencia de documentación libre de GNU"
 
 #. @subheading in Documentation/user/fdl.itexi
 msgid "ADDENDUM: How to use this License for your documents"
-msgstr "ADDENDUM: cómo utilizar esta licencia para sus documentos"
+msgstr ""
 
 #. @top in Documentation/user/lilypond-program.tely
 msgid "GNU LilyPond --- program usage"
@@ -3176,7 +3176,7 @@ msgstr "GNU LilyPond: manual de utilización del programa"
 #. @node in Documentation/de/user/install.itely
 #. @chapter in Documentation/de/user/install.itely
 msgid "Install"
-msgstr "Instalar"
+msgstr "Instalación"
 
 #. @node in Documentation/user/install.itely
 #. @section in Documentation/user/install.itely
@@ -3300,7 +3300,7 @@ msgstr "Tipografías internacionales"
 #. @node in Documentation/de/user/setup.itely
 #. @chapter in Documentation/de/user/setup.itely
 msgid "Setup"
-msgstr "Instalación (Setup)"
+msgstr "Configuración"
 
 #. @node in Documentation/user/setup.itely
 #. @section in Documentation/user/setup.itely
@@ -3550,7 +3550,7 @@ msgstr "LilyPond-book"
 #. @chapter in Documentation/es/user/lilypond-book.itely
 #. @chapter in Documentation/de/user/lilypond-book.itely
 msgid "@command{lilypond-book}: Integrating text and music"
-msgstr "@command{lilypond-book}: Integrar texto y música"
+msgstr "@command{lilypond-book}: integrar texto y música"
 
 #. @node in Documentation/user/lilypond-book.itely
 #. @section in Documentation/user/lilypond-book.itely
@@ -4722,10 +4722,12 @@ msgid "portato"
 msgstr "portato"
 
 #. @rglos in Documentation/user/expressive.itely
+#. @rglos in Documentation/es/user/expressive.itely
 msgid "al niente"
 msgstr "al niente"
 
 #. @rglos in Documentation/user/expressive.itely
+#. @rglos in Documentation/es/user/expressive.itely
 msgid "hairpin"
 msgstr "regulador"
 
@@ -4775,10 +4777,12 @@ msgid "Falls and doits"
 msgstr "Caídas y elevaciones"
 
 #. @rglos in Documentation/user/expressive.itely
+#. @rglos in Documentation/es/user/expressive.itely
 msgid "fall"
 msgstr "caída"
 
 #. @rglos in Documentation/user/expressive.itely
+#. @rglos in Documentation/es/user/expressive.itely
 msgid "doit"
 msgstr "elevación"
 
@@ -9111,14 +9115,6 @@ msgstr ""
 #. @rglos in Documentation/es/user/pitches.itely
 msgid "semitone"
 msgstr "semitono"
-
-#. @rglos in Documentation/es/user/expressive.itely
-msgid "falls"
-msgstr "caídas"
-
-#. @rglos in Documentation/es/user/expressive.itely
-msgid "doits"
-msgstr "elevaciones"
 
 #. @node in Documentation/es/user/staff.itely
 #. @subsubsection in Documentation/es/user/staff.itely
