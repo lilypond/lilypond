@@ -5,3 +5,10 @@ un archivo, escriba las notas y ¡ya está!
 
 "
   doctitlees = "Plantilla de un solo pentagrama, con notas únicamente"
+  
+  texidocde = "
+Das erste Beispiel zeigt ein Notensystem mit Noten, passend für ein 
+Soloinstrument oder ein Melodiefragment. Kopieren Sie es und fügen 
+Sie es in Ihre Datei ein, schreiben Sie die Noten hinzu, und Sie haben 
+eine vollständige Notationsdatei.
+"

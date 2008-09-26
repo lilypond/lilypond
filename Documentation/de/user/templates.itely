@@ -115,7 +115,7 @@ schönen Notenbild erfreuen!
 
 @appendixsubsec SATB with aligned contexts
 
-lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc]
 {vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly}
 
 

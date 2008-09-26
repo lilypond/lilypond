@@ -7,3 +7,10 @@ voces se reagrupan en sólo dos pentagramas.
 
 "
   doctitlees = "Plantilla de conjunto vocal"
+  
+  texidocde = "
+Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren 
+Stücken ist es oft sinnvoll, eine allgemeine Variable zu bestimmen, 
+die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa 
+sind fast immer gleich in allen Stimmen.
+"
