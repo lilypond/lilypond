@@ -970,7 +970,7 @@ drawing, as demonstrated below:
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup {
   \combine
-    \epsfile #X #10 #"./Documents/git/Documentation/user/context-example.eps"
+    \epsfile #X #10 #"./context-example.eps"
     \with-dimensions #'(0 . 6) #'(0 . 10)
     \postscript #"
       -2 3 translate
