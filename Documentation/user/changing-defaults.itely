@@ -12,8 +12,6 @@
 @node Changing defaults
 @chapter Changing defaults
 
-@strong{N.B. This Chapter is still being developed at present.}
-
 The purpose of LilyPond's design is to provide the finest quality
 output by default.  Nevertheless, it may happen that you need to
 change this default layout.  The layout is controlled through a large
@@ -34,39 +32,12 @@ which is available
 @uref{http://@/lilypond@/.org/@/doc/@/stable/@/Documentation/@/user/@/lilypond@/-internals/,on@/-line},
 and is also included with the LilyPond documentation package.
 
-@c TODO The following is at variance to what actually follows.  Fix -td
-
-@ignore
-There are four areas where the default settings may be changed:
-
-@itemize
-@item
-Automatic notation: changing the automatic creation of notation
-elements.  For example, changing the beaming rules.
-
-@item
-Output: changing the appearance of individual
-objects.  For example, changing stem directions or the location of
-subscripts.
-
-@item
-Context: changing aspects of the translation from music events to
-notation.  For example, giving each staff a separate time signature.
-
-@item
-Page layout: changing the appearance of the spacing, line
-breaks, and page dimensions.  These modifications are discussed
-@c in @ref{notation}, and @ref{Spacing issues}.
-@end itemize
-
 Internally, LilyPond uses Scheme (a LISP dialect) to provide
 infrastructure.  Overriding layout decisions in effect accesses the
 program internals, which requires Scheme input.  Scheme elements are
 introduced in a @code{.ly} file with the hash mark
 @code{#}.@footnote{@rlearning{Scheme tutorial}, contains a short tutorial
 on entering numbers, lists, strings, and symbols in Scheme.}
-
-@end ignore
 
 
 @menu
@@ -75,7 +46,6 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 * Modifying properties::
 * Useful concepts and properties::
 * Advanced tweaks::
-* Discussion of specific tweaks::
 @end menu
 
 
@@ -90,7 +60,7 @@ This section describes what contexts are, and how to modify them.
 * Modifying context plug-ins::  
 * Changing context default settings::  
 * Defining new contexts::       
-* Aligning contexts::           
+* Aligning contexts::
 @end menu
 
 
@@ -168,11 +138,11 @@ connected vertically.
 
 @strong{@emph{PianoStaff}}
 
-TODO No longer correct?  Check.  -td
-
+@c TODO No longer correct?  Check.  -td
 Just like GrandStaff but with a forced distance between the
 staves, so cross staff beaming and slurring can be used.
 
+@ignore
 @strong{@emph{InnerStaffGroup}}
 
 TODO  -td
@@ -180,6 +150,8 @@ TODO  -td
 @strong{@emph{InnerChoirStaff}}
 
 TODO  -td
+
+@end ignore
 
 @node Intermediate-level contexts - staves
 @unnumberedsubsubsec Intermediate-level contexts - staves
@@ -260,8 +232,7 @@ be created implicitly.
 
 Typesets chord names.
 
-------------------------------
-
+@ignore
 TODO
 
 Then the following, which I don't know what to do with:
@@ -284,6 +255,7 @@ documented.
         Silently discards all musical information given to this
 context.
 
+@end ignore
 
 @node Creating contexts
 @subsection Creating contexts
@@ -618,7 +590,7 @@ after calling @code{\RemoveEmptyStaffContext}, ie
 @}
 @end example
 
-TODO: add \with in here.
+@c TODO: add \with in here.
 
 
 
@@ -3079,10 +3051,5 @@ the same musical moment, not even by using the @code{\tweak}
 command.
 
 
-
-@node Discussion of specific tweaks
-@section Discussion of specific tweaks
-
-@c TODO What should go in here?
 
 
