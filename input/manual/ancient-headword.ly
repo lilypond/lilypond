@@ -1,4 +1,4 @@
-\version "2.11.57"
+\version "2.11.61"
 
 #(set-global-staff-size 15)
 \paper{
@@ -14,7 +14,7 @@
   }
 }
 
-\include "gregorian-init.ly" 
+\include "gregorian.ly" 
 
 \score {
   <<

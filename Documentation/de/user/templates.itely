@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Templates
 @appendix Templates
@@ -39,7 +39,7 @@ Sie es in Ihre Datei ein, schreiben Sie die Noten hinzu, und Sie haben
 eine vollständige Notationsdatei.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -66,7 +66,7 @@ Wenn Sie die Balken wieder einschalten wollen, müssen Sie die
 entsprechende Zeile entweder ändern oder auskommentieren.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -98,7 +98,7 @@ Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben? Hier ist
 das richtige Beispiel für Sie!
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -132,7 +132,7 @@ Mit diesem Beispiel können Sie einen Song mit Melodie,
 Text und Akkorden schreiben.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 melody = \relative c' {
    \clef treble
    \key c \major
@@ -173,7 +173,7 @@ harmonies = \chordmode {
 Hier kommt ein einfaches Klaviersystem.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -207,7 +207,7 @@ Das nächste Beispiel ist typisch für ein Lied: Im oberen System die
 Melodie mit Text, darunter Klavierbegleitung.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 melody = \relative c'' {
    \clef treble
    \key c \major
@@ -264,7 +264,7 @@ Sie den Text auch zwischen die beiden Klaviersysteme schreiben
 (und damit das zusätzliche System für die Gesangstimme auslassen).
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 upper = \relative c'' {
    \clef treble
    \key c \major
@@ -311,7 +311,7 @@ etwas anpassen, aber Sie können ja das angepasste Beispiel von hier
 kopieren.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 upper = \relative c'' {
   \clef treble
   \key c \major
@@ -407,7 +407,7 @@ wird auch eine @qq{@code{\global}}-Variable für Taktart und
 Vorzeichen benutzt.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 
 global= {
   \time 4/4
@@ -471,7 +471,7 @@ zugewiesen, auf den zurückgegriffen werden kann.
 
 @verbatim
 %%%%% piece.ly
-\version "2.11.51"
+\version "2.11.61"
 
 global= {
   \time 4/4
@@ -517,7 +517,7 @@ music = {
 
 
 %%%%% score.ly
-\version "2.11.51"
+\version "2.11.61"
 \include "piece.ly"
 #(set-global-staff-size 14)
 \score {
@@ -528,7 +528,7 @@ music = {
 
 
 %%%%% vn1.ly
-\version "2.11.51"
+\version "2.11.61"
 \include "piece.ly"
 \score {
   \keepWithTag #'vn1 \music
@@ -537,7 +537,7 @@ music = {
 
 
 %%%%% vn2.ly
-\version "2.11.51"
+\version "2.11.61"
 \include "piece.ly"
 \score {
   \keepWithTag #'vn2 \music
@@ -546,7 +546,7 @@ music = {
 
 
 %%%%% vla.ly
-\version "2.11.51"
+\version "2.11.61"
 \include "piece.ly"
 \score {
   \keepWithTag #'vla \music
@@ -555,7 +555,7 @@ music = {
 
 
 %%%%% vlc.ly
-\version "2.11.51"
+\version "2.11.61"
 \include "piece.ly"
 \score {
   \keepWithTag #'vlc \music
@@ -575,7 +575,7 @@ die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa
 sind fast immer gleich in allen Stimmen.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 global = {
    \key c \major
    \time 4/4
@@ -656,7 +656,7 @@ irgendeine Änderung an einer Chorstimme vornehmen, (etwa
 tenorMusic), verändert sich auch der Klavierauszug entsprechend.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 global = {
    \key c \major
    \time 4/4
@@ -750,7 +750,7 @@ In diesem Beispiel werden die Texte mit den Befehlen
 über und unter dem System angeordnet.
 
 @lilypond[quote,verbatim,ragged-right]
-\version "2.11.51"
+\version "2.11.61"
 global = {
   \key c \major
   \time 4/4
@@ -875,7 +875,7 @@ ein Kompromiss werden die Notenlinien nicht auf dem System, sondern
 zwischen den Systemen geschrieben.
 
 @lilypond[quote,verbatim,line-width=11.0\cm]
-\version "2.11.51"
+\version "2.11.61"
 
 global = {
   \set Score.skipBars = ##t
@@ -1115,8 +1115,8 @@ halbe und Viertelnoten verwendet. Zusätzliche Zeichen zeigen die
 Länge von Pausen an.
 
 @lilypond[quote,verbatim,ragged-right]
-\include "gregorian-init.ly"
-\version "2.11.51"
+\include "gregorian.ly"
+\version "2.11.61"
 
 chant = \relative c' {
   \set Score.timing = ##f
@@ -1176,7 +1176,7 @@ sich die Noten innerhalb eines @code{\transpose}-Abschnitts befinden.
 @c The `line-width' argument is for the \header.
 
 @lilypond[quote,verbatim,ragged-right,line-width]
-\version "2.11.51"
+\version "2.11.61"
 \header {
   title = "Song"
   subtitle = "(tune)"
@@ -1452,7 +1452,7 @@ violin concerto as TchaikovskyPI, whereas perhaps you wish to print
 
 @ The `line-width' is for \header.
 @li lypond[quote,verbatim,ragged-right,line-width]
-\version "2.11.51"
+\version "2.11.61"
 \header {
   dedication = "dedication"
   title = "Title"

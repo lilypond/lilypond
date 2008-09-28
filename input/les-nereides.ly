@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.11.61"
 
 \header {
     composer = "ARTHUR GRAY"
@@ -46,7 +46,7 @@ treble = \new Voice \relative c''{
     \slurUp
     \set PianoStaff.connectArpeggios = ##t
 
-    #(set-octavation 1)
+    \ottava #1
 
     \tieUp
     cis''''4^\markup { \small \italic "m.g." }\arpeggio~
@@ -55,7 +55,7 @@ treble = \new Voice \relative c''{
 	\revert Stem #'direction
 	
 	a16[-5_( fis dis]
-	#(set-octavation 0)
+	\ottava #0
 	
 	cis32[ a-1 fis-4 dis]   cis[ a  fis)-2]
 				% the small grace in lower staff comes after us

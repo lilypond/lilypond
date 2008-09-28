@@ -9,9 +9,9 @@ Choices are @code{divisioMinima}, @code{divisioMaior},
 
 " }
 
-\version "2.11.57"
+\version "2.11.61"
 
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 
 \score {
   <<

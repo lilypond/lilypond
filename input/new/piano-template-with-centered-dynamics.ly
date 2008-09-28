@@ -1,4 +1,4 @@
-\version "2.11.35"
+\version "2.11.61"
 
 \header {
   lsrtags = "expressive-marks,keyboards,template"
@@ -31,7 +31,7 @@ dynamics = {
 }
 
 pedal = {
-  s2\sustainDown s\sustainUp
+  s2\sustainOn s\sustainOff
 }
 
 \score {

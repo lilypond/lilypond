@@ -1,4 +1,4 @@
-\version "2.11.57"
+\version "2.11.61"
 \header {
   lsrtags = "pitches,staff-notation"
   texidoc = "Quotations take into account the transposition of both

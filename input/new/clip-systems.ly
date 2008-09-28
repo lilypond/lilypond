@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.61"
 \header {
   lsrtags = "paper-and-layout"  % a new tag like "Mixing text and music" or
 % "Special output" might be more adequate -jm

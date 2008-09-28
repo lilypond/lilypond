@@ -75,7 +75,7 @@ repeatTie = #(make-music 'RepeatTieEvent)
 		  
 \include "grace-init.ly"
 \include "midi-init.ly"
-\include "paper-defaults.ly"
+\include "paper-defaults-init.ly"
 
 \layout {
     mm = #(ly:output-def-lookup $defaultpaper 'mm)

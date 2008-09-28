@@ -1,4 +1,4 @@
-\version "2.11.33"
+\version "2.11.61"
 \header {
   lsrtags = "pitches"
   texidoc = "This example uses some Scheme code to enforce enharmonic

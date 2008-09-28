@@ -149,9 +149,12 @@ au format <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
         </tr>
       </tbody>
     </table>
-    <p><strong>NOTE</strong>&nbsp;: vous pouvez trouver, au bas de
-    chaque page de cette documentation, des liens vers les traductions
-    disponibles.
+    <p>
+      Toute la documentation répertoriée sur cette page est
+      téléchargeable, dans une archive compressée&nbsp;:
+      <a href="http://download.linuxaudio.org/lilypond/binaries/documentation/lilypond-@VERSION@-1.documentation.tar.bz2">téléchargement</a>.
+      <br>Vous pouvez trouver, au bas de chaque page de cette
+      documentation, des liens vers les traductions disponibles.
     </p>
   </body>
 </html>

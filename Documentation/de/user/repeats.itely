@@ -6,13 +6,12 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Repeats
 @section Repeats
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-{repeats-headword.ly}
+@lilypondfile[quote]{repeats-headword.ly}
 
 Wiederholung ist ein zentrales Konzept in der Musik, und es gibt eine 
 ganze Vielzahl von Notationsmöglichkeiten für Wiederholungen.

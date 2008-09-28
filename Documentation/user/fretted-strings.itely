@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.53"
+@c \version "2.11.61"
 
 @node Fretted string instruments
 @section Fretted string instruments

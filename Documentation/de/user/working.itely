@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Working on LilyPond projects
 @chapter Working on LilyPond projects
@@ -75,7 +75,7 @@ Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
 @item @strong{Schreiben Sie immer mit @code{\version} die 
 Versionsnummer 
 in jede Datei}. Beachten Sie, dass in allen Vorlagen die Versionsnummer  
-@code{\version "2.11.51"} eingetragen ist. Es empfiehlt sich, in alle 
+@code{\version "2.11.61"} eingetragen ist. Es empfiehlt sich, in alle 
 Dateien, unabhängig von ihrer Größe, den @code{\version}-Befehl 
 einzufügen. Persönliche Erfahrung hat gezeigt, dass es ziemlich 
 frustrierend sein kann zu erinnern, welche Programmversion man etwa 
@@ -557,7 +557,7 @@ für meine Projekte. Jede Notationsdatei fängt an mit
 
 @example
 %%%   global.ly
-\version "2.11.51"
+\version "2.11.61"
 #(ly:set-option 'point-and-click #f)
 \include "../init/init-defs.ly"
 \include "../init/init-layout.ly"
