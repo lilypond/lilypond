@@ -1853,6 +1853,68 @@ musicB = {
 @end lilypond
 
 
+@item teaching
+
+@funindex teaching
+@cindex teaching accidental style
+@cindex accidental style, teaching
+
+This rule is intended for students, and makes it easy to create
+scale sheets with automagically created cautionary accidentals.
+Accidentals are printed like with @code{modern}, but cautionary
+accidentals are added for all sharp or flat tones specified by the
+key signature, except if the note is immediately repeated.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicA
+    }
+    \context Staff = "down" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+
 @item no-reset
 
 @funindex no-reset
