@@ -18,8 +18,11 @@ There are other tools that produce LilyPond input, for example GUI
 sequencers and XML converters.  Refer to the
 @uref{http://@/lilypond@/.org,website} for more details.
 
-These are separate programs from @command{lilypond} itself, and are run
-on the command-line; see @ref{Command-line usage} for more information.
+These are separate programs from @command{lilypond} itself, and are
+run on the command line; see @ref{Command-line usage} for more
+information.  If you have MacOS 10.3 or 10.4 and you have trouble
+running some of these scripts, e.g. @code{convert-ly}, see @ref{Setup
+for MacOS X}.
 
 
 @knownissues

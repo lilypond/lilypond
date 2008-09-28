@@ -47,11 +47,16 @@ darwin-x86  - MacOS X intel
 freebsd-64  - FreeBSD 6.x, x86_64
 freebsd-x86 - FreeBSD 4.x, x86
 linux-64    - Any GNU/Linux distribution, x86_64
-linux-arm   - Any GNU/Linux distribution, arm
 linux-ppc   - Any GNU/Linux distribution, powerpc
 linux-x86   - Any GNU/Linux distribution, x86
 mingw       - Windows x86
 @end example
+
+@knownissues
+
+If you have MacOS 10.3 or 10.4 and you would like to use Python
+scripts such as @command{convert-ly} and @command{lilypond-book}, see
+@ref{Setup for MacOS X}.
 
 
 @node Compiling from source

@@ -30,15 +30,39 @@ This section explains how to perform additional setup for specific
 operating systems.
 
 @menu
-* MacOS X on the command-line::  
+* Setup for MacOS X::  
 @end menu
 
+@node Setup for MacOS X
+@subsection Setup for MacOS X
 
-@node MacOS X on the command-line
-@subsection MacOS X on the command-line
+@subsubheading Using Python scripts on MacOS 10.3 or 10.4
 
-The scripts (such as lilypond-book, convert-ly, abc2ly, and even
-lilypond itself) are included inside the .app file for MacOS@tie{}X.  They can be run from
+LilyPond binaries for MacOS X do not provide Python, but Python 2.4 or
+newer is required by @command{convert-ly}.  Therefore, if you use MacOS
+10.3 or 10.4, you must install a newer Python version from
+@uref{http://python.org/download/}, then edit the first line of
+@command{convert-ly} and @command{lilypond-book} as follows: if the
+Python binary you just installed is in your @var{PATH}, the first line
+should be
+
+@example
+#!/usr/bin/env python
+@end example
+
+@noindent
+otherwise it should be
+
+@example
+#!@var{/path/to/newly_installed/python}
+@end example
+
+
+@subsubheading MacOS X on the command line
+
+The scripts --- such as @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly}, and even @command{lilypond} itself --- are included
+inside the @code{.app} file for MacOS@tie{}X.  They can be run from
 the command line by invoking them directly, e.g.
 
 @example
@@ -47,7 +71,7 @@ the command line by invoking them directly, e.g.
 
 @noindent
 The same is true of the other scripts in that directory, including
-lilypond-book, convert-ly, abc2ly, etc.
+@command{lilypond-book}, @command{convert-ly}, @command{abc2ly}, etc.
 
 Alternatively, you may create scripts which add the path
 automatically.  Create a directory to store these scripts,

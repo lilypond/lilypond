@@ -24,10 +24,13 @@ program extracts snippets of music from your document, runs
 substituted for the music.  The line width and font size definitions for
 the music are adjusted to match the layout of your document.
 
-This is a separate program from @command{lilypond} itself, and is run on
-the command-line; for more information, see @ref{Command-line usage}.
+This is a separate program from @command{lilypond} itself, and is run
+on the command line; for more information, see @ref{Command-line
+usage}.  If you have MacOS 10.3 or 10.4 and you have trouble running
+@code{lilypond-book}, see @ref{Setup for MacOS X}.
 
-This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook documents.
+This procedure may be applied to @LaTeX{}, HTML, Texinfo or DocBook
+documents.
 
 @cindex texinfo
 @cindex latex
