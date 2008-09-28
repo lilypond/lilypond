@@ -15,6 +15,10 @@ immediately repeated
 @item
 'neo-modern-cautionary style acts like neo-modern,
 adding cautionary parentheses around accidentals.
+@item
+'teaching prints accidentals normally, but adds
+cautionary accidentals when an accidental is
+already included in the key signature.
 @end itemize
 
 Both scores should show the same accidentals.
