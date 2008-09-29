@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 4be1308672c6f8efbe660c9eddc0a6a167c9ad31
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -30,24 +30,51 @@ Esta sección explica cómo realizar puestas a punto adicionales para sistemas o
 específicos.
 
 @menu
-* MacOS X on the command-line::
+* Setup for MacOS X::
 @end menu
 
+@node Setup for MacOS X
+@subsection Setup for MacOS X
 
-@node MacOS X on the command-line
-@subsection MacOS X on the command-line
+@subsubheading Using Python scripts on MacOS 10.3 or 10.4
 
-Los «scripts» (guiones como lilypond-book, convert-ly, abc2ly e incluso
-el propio lilypond) van incluidos dentro del archivo de aplicación .app de MacOS X. Se pueden ejecutar a partir de
-la línea de órdenes invocándolos directamente, p.ej.
+Los archivos binarios de LilyPond para MacOS X no incluyen Python,
+pero se necesita Python 2.4 o posterior por parte de
+@command{convert-ly}.  Por ello, si usamos MacOS 10.3 o 10.4, debemos
+instalar una versión de Python más reciente desde
+@uref{http://python.org/download/}, y luego editar la primera línea de
+@command{convert-ly} y @command{lilypond-book} como sigue: si el
+binario de Python que hemos instalado está en nuestro @var{PATH}, la
+primera línea debe ser
+
+@example
+#!/usr/bin/env python
+@end example
+
+@noindent
+en caso contrario, debe ser
+
+@example
+#!@var{/path/to/newly_installed/python}
+@end example
+
+
+@subsubheading MacOS X on the command line
+
+Los «scripts» (guiones como @command{lilypond-book},
+@command{convert-ly}, @command{abc2ly} e incluso el propio
+@command{lilypond}) van incluidos dentro del archivo de aplicación
+.app de MacOS X. Se pueden ejecutar a partir de la línea de órdenes
+invocándolos directamente, p.ej.
 
 @example
 @var{ruta/hacia}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
 
 @noindent
-Lo mismo vale para otros scripts de ese directorio, incluidos los guiones
-lilypond-book, convert-ly, abc2ly, etc.
+Lo mismo vale para otros scripts de ese directorio, incluidos los
+guiones @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly}, etc.
 
 Como alternativa, puede crear scripts que añadan la ruta
 automáticamente.  Cree un directorio para guardar estos guiones,
