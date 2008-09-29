@@ -8,25 +8,27 @@
 
 @c \version "2.11.61"
 
-@node Keyboard instruments
-@section Keyboard instruments
+@node Keyboard and other many-stringed instruments
+@section Keyboard and other many-stringed instruments
 
 @lilypondfile[quote]{keyboard-headword.ly}
 
 This section discusses several aspects of music notation that are unique
-to keyboard instruments.
+to keyboard instruments and other instruments with many strings, such as
+the harp.
 
 @menu
 * Common notation for keyboards::
 * Piano::
 * Accordion::
+* Harp::
 @end menu
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
 
-This section discusses notation issues that may arise for most keyboard
-instruments.
+This section discusses notation issues that may arise for most
+many-stringed instruments.
 
 @menu
 * References for keyboards::
@@ -545,3 +547,27 @@ come into use to simplify the performance instructions.
 
 Snippets:
 @rlsr{Keyboards}.
+
+
+@node Harp
+@subsection Harp
+
+TBC
+
+@ignore
+Some possibilities:
+- glissandi
+- tremolo (for bisbigliando)
+- natural harmonics
+- directional arpeggio and non-arpeggio
+- workaroung for keeping both staves visible in an orchestral
+  score,
+http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
+and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+
+An LSR snippet could be used to demonstrate the main items; in the
+case of glissandi, it would be desirable to have a demonstration
+of different styles.
+
+@end ignore
+
