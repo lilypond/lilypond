@@ -1,4 +1,4 @@
-\version "2.11.26"
+\version "2.11.61"
 \header {
   lsrtags = "spacing"
   texidoc = "Page labels may be placed inside music or at top-level,

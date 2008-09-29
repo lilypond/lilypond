@@ -1,4 +1,4 @@
-\version "2.11.47"
+\version "2.11.61"
 \header {
   lsrtags = "repeats,staff-notation,chords"
   texidoc = "By adding the @code{Volta_engraver} to the relevant

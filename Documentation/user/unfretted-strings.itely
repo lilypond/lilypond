@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Unfretted string instruments
 @section Unfretted string instruments
@@ -15,41 +15,16 @@ This section includes extra information for writing for unfretted
 string instruments.
 
 @menu
-* Common notation for unfretted strings::  
-* Bowed instruments::           
-* Plucked instruments::         
+* Common notation for unfretted strings::
 @end menu
 
 @node Common notation for unfretted strings
 @subsection Common notation for unfretted strings
 
-@menu
-* References for unfretted strings::  
-@end menu
-
-@node References for unfretted strings
-@subsubsection References for unfretted strings
-
-@c TODO Add refs to fingerings, \thumb
-@c TODO Add multiple fingering indications?
-TBC
-
-@c TODO Decide whether to resurrect Bowed instruments subsection
-@c and if so which of the above should go there
-
-@node Bowed instruments
-@subsection Bowed instruments
-
-@menu
-* References for bowed strings::  
-@end menu
-
-@node References for bowed strings
-@subsubsection References for bowed strings
-
-@c link to slurs, articulation (for \upbow \downbow).  maybe
-@c an example as well.
-@c TODO Add snippet showing pizzicato markings
+@c TODO
+@c fingerings, \thumb, an example as well
+@c multiple fingering indications?
+@c snap pizzicato marking
 
 @cindex artificial harmonics
 
@@ -61,31 +36,11 @@ are entered by marking the harmonic pitch with @code{\harmonic}.
 @end lilypond
 
 
-@node Plucked instruments
-@subsection Plucked instruments
-
-
-@menu
-* Harp::                        
-@end menu
-
-@node Harp
-@subsubsection Harp
+@unnumberedsubsubsec References for unfretted strings
 
 TBC
 
-Some possibilities:
-- glissandi
-- tremolo (for bisbigliando)
-- natural harmonics
-- directional arpeggio and non-arpeggio
-- workaroung for keeping both staves visible in an orchestral
-  score,
-http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
-and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
-
-An LSR snippet could be used to demonstrate the main items; in the
-case of glissandi, it would be desirable to have a demonstration
-of different styles.
-
+@c TODO
+@c link to slurs, articulation (for \upbow \downbow)
+@c link to string quartet templates
 

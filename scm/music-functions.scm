@@ -974,6 +974,23 @@ if appropriate.
 	  (cons #f (not (or (equal? acc key-acc)
 			    (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
+(define-public (teaching-accidental-rule context pitch barnum measurepos)
+  "an accidental rule that typesets a cautionary accidental
+  if it is included in the key signature AND does not directly follow
+  a note on the same staff-line."
+  (let* ((keysig (ly:context-property context 'localKeySignature))
+	 (entry (find-pitch-entry keysig pitch #t #t)))
+    (if (equal? #f entry)
+	(cons #f #f)
+	(let* ((global-entry (find-pitch-entry keysig pitch #f #f))
+	       (key-acc (if (equal? global-entry #f)
+			    0
+			    (key-entry-alteration global-entry)))
+	       (acc (ly:pitch-alteration pitch))
+	       (entrymp (key-entry-measure-position entry))
+	       (entrybn (key-entry-bar-number entry)))
+	  (cons #f (not (or (equal? acc key-acc)
+			    (and (equal? entrybn barnum) (equal? entrymp measurepos)))))))))
 
 (define-public (set-accidentals-properties extra-natural
 					   auto-accs auto-cauts
@@ -1095,6 +1112,15 @@ use GrandStaff as a context. "
 				           ,(make-accidental-rule 'any-octave 0)
 					   ,(make-accidental-rule 'same-octave 1))
 				   pcontext))
+
+      ;; same as modern, but cautionary accidentals are printed for all sharp or flat
+      ;; tones specified by the key signature.  
+       ((equal? style 'teaching)
+       (set-accidentals-properties #f
+				    `(Staff ,(make-accidental-rule 'same-octave 0))
+				    `(Staff ,(make-accidental-rule 'same-octave 1)
+				           ,teaching-accidental-rule)
+				   context))
       
       ;; do not set localKeySignature when a note alterated differently from
       ;; localKeySignature is found.

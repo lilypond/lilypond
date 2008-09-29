@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 @node Text
 @section Text
@@ -20,19 +20,17 @@ formatting) in music scores.
 Some text elements that are not dealt with here are discussed in other
 specific sections: @ref{Vocal music}, @ref{Titles and headers}.
 
-
-@cindex Text, other languages
-@warning{To write accented and special text (such as characters
-from other languages), simply insert the characters directly into
-the LilyPond file.  The file must be saved as UTF-8.  For more
-information, see @ref{Text encoding}.}
-
 @menu
 * Writing text::                
 * Formatting text::             
 * Fonts::                       
 @end menu
 
+@cindex Text, other languages
+@warning{To write accented and special text (such as characters
+from other languages), simply insert the characters directly into
+the LilyPond file.  The file must be saved as UTF-8.  For more
+information, see @ref{Text encoding}.}
 
 @node Writing text
 @subsection Writing text
@@ -55,9 +53,9 @@ This section introduces different ways of adding text to a score.
 @cindex non-empty texts
 @cindex quoted text
 
-Simple @q{quoted text} indications may be added
+Simple @qq{quoted text} indications may be added
 to a score, as demonstrated in the following example.
-Such indications can be manually placed
+Such indications may be manually placed
 above or below the staff, using the
 syntax described in @ref{Direction and
 placement}.
@@ -96,13 +94,15 @@ a4_"scherzando" f
 
 @seealso
 
-Notation Reference: @ref{Formatting text},
+Notation Reference:
+@ref{Formatting text},
 @ref{Direction and placement}.
 
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{TextScript}.
+Internals Reference:
+@rinternals{TextScript}.
 
 @knownissues
 
@@ -124,7 +124,7 @@ default; to enable it, use
 Some performance indications, e.g., @notation{rallentando} or
 @notation{accelerando}, are written as text and are extended over
 multiple notes with dotted lines.
-Such objects, called @q{spanners}, may be created
+Such objects, called @qq{spanners}, may be created
 from one note to another using the following syntax:
 
 @lilypond[verbatim,quote,ragged-right,fragment,relative=2]
@@ -160,12 +160,15 @@ object property.  This syntax is described in @ref{Line styles}.
 
 @seealso
 
-Notation Reference: @ref{Line styles}.
+Notation Reference:
+@ref{Line styles},
+@ref{Dynamics}.
 
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{TextSpanner}.
+Internals Reference:
+@rinternals{TextSpanner}.
 
 
 @node Text marks
@@ -191,14 +194,24 @@ c c c
 
 This syntax makes it possible to put any text on a bar line;
 more complex text formatting may be added using a @code{\markup}
-block, as described in @ref{Formatting text}.  This can be used to print
-signs like coda, segno or fermata, by specifying the appropriate
-symbol name:
+block, as described in @ref{Formatting text}:
 
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-c1
+@lilypond[fragment,quote,ragged-right,verbatim,relative=1]
+<c e>1
+\mark \markup { \italic { colla parte } }
+<d f>2 <e g>
+<c f aes>1
+@end lilypond
+
+@noindent
+This syntax also allows to print special signs, like coda, segno
+or fermata, by specifying the appropriate symbol name as explained in
+@ref{Music notation inside markup}:
+
+@lilypond[fragment,quote,ragged-right,verbatim,relative=1]
+<f bes>2 <d aes'>
 \mark \markup { \musicglyph #"scripts.ufermata" }
-c1
+<e g>1
 @end lilypond
 
 @noindent
@@ -229,13 +242,17 @@ c  c
 
 @seealso
 
-Notation Reference: @ref{Rehearsal marks},
-@ref{Formatting text}, @ref{The Feta font}.
+Notation Reference:
+@ref{Rehearsal marks},
+@ref{Formatting text},
+@ref{Music notation inside markup},
+@ref{The Feta font}.
 
 Snippets:
 @rlsr{Text}.
 
-Internals Reference: @rinternals{RehearsalMark}.
+Internals Reference:
+@rinternals{RehearsalMark}.
 
 @knownissues
 @c  To be removed when Issue 69 in the tracker gets fixed. -vv
@@ -283,7 +300,7 @@ several music pieces, as described in
 @end lilypond
 
 Using a specific syntax, text blocks can be spread
-over multiple pages, making possible to print
+over multiple pages, making it possible to print
 text documents or books (and therefore to
 use LilyPond as a word processor).  This syntax is described in
 @ref{Multi-page markup}.
@@ -348,7 +365,7 @@ The markup syntax is similar to LilyPond's usual syntax: a
 @dots{} @}}.  A single word is regarded as a minimal expression,
 and therefore does not need to be enclosed with braces.
 
-Unlike simple @q{quoted text} indications, @code{\markup} blocks
+Unlike simple @qq{quoted text} indications, @code{\markup} blocks
 may contain nested expressions or specific commands,
 entered using the backslash @code{\} character.
 Such commands only affect the first following expression.
@@ -680,14 +697,17 @@ point, and therefore is not moved.
 @lilypond[quote,verbatim,fragment,relative=1]
 d2^\markup { 
   Acte I
-  \raise #2 { Scène 1 } }
+  \raise #2 { Scène 1 }
+}
 a'
 g_\markup {
   \null
-  \lower #4 \bold { Très modéré } }
+  \lower #4 \bold { Très modéré }
+}
 a
 d,^\markup {
-  \raise #4 \italic { Une forêt. } }
+  \raise #4 \italic { Une forêt. }
+}
 a'4 a g2 a
 @end lilypond
 
@@ -703,15 +723,18 @@ anchor point:
 @lilypond[quote,verbatim,fragment,relative=1]
 d2^\markup {
   Acte I
-  \translate #'(-1 . 2) "Scène 1" }
+  \translate #'(-1 . 2) "Scène 1"
+}
 a'
 g_\markup {
   \null
-  \general-align #Y #3.2 \bold "Très modéré" }
+  \general-align #Y #3.2 \bold "Très modéré"
+}
 a
 d,^\markup {
   \null
-  \translate-scaled #'(-1 . 2) \teeny "Une forêt." }
+  \translate-scaled #'(-1 . 2) \teeny "Une forêt."
+}
 a'4 a g2 a
 @end lilypond
 
@@ -940,12 +963,15 @@ Advanced graphic features include the ability to
 include external image files converted to the
 Encapsulated PostScript format (@emph{eps}), or
 to directly embed graphics into the input file,
-using native PostScript code.
+using native PostScript code.  In such a case, it
+may be useful to explicitely specify the size of the
+drawing, as demonstrated below:
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup {
   \combine
     \epsfile #X #10 #"./context-example.eps"
+    \with-dimensions #'(0 . 6) #'(0 . 10)
     \postscript #"
       -2 3 translate
       2.7 2 scale
@@ -1042,7 +1068,7 @@ c2^\markup { \musicglyph #"timesig.neomensural94" }
 @c TODO: add \lookup here? -vv
 
 @noindent
-Another way of including non-text glyphs is described
+Another way of printing non-text glyphs is described
 in @ref{Fonts explained}.
 
 The markup mode also supports diagrams for specific

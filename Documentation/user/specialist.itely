@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Specialist notation
 @chapter Specialist notation
@@ -16,7 +16,7 @@ types of instrument or in specific styles.
 
 @menu
 * Vocal music::
-* Keyboard instruments::
+* Keyboard and other many-stringed instruments::
 * Unfretted string instruments::
 * Fretted string instruments::
 * Percussion::

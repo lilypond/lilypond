@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Ancient notation
 @section Ancient notation
@@ -19,13 +19,15 @@
 @cindex Petrucci
 @cindex mensural
 
+
 @menu
 * Introduction to ancient notation::  
 * Alternative note signs::      
-* Additional note signs::       
+* Additional signs for Gregorian chant::
+* Ligatures::
+* Annotational accidentals (musica ficta)::
 * Pre-defined contexts::        
 * Transcribing ancient music::  
-* Editorial markings::          
 @end menu
 
 
@@ -33,15 +35,102 @@
 @subsection Introduction to ancient notation
 
 @menu
-* Ancient notation supported::  
+* Overview of the supported styles::
+* Predefined contexts::
+* Alternative and additional signs::
+* Figured bass notation::
 @end menu
 
 
-@node Ancient notation supported
-@subsubsection Ancient notation supported
+@c @node Ancient notation supported
+@c @subsection Ancient notation supported
 
 Support for ancient notation includes features for mensural notation and
 Gregorian chant notation, as well as limited support for figured bass notation.
+
+
+@node Overview of the supported styles
+@unnumberedsubsubsec Overview of the supported styles
+
+Note heads and flags, accidentals, time signatures, rests, and
+other features can be changed to emulate several different styles
+of ancient notation:
+
+
+@itemize
+@item @emph{Editio Vaticana} is a complete style for
+Gregorian chant, following the appearance of the Solesmes
+editions, the official chant books of the Vatican since 1904.
+Lilypond has support for all the notational signs used in this
+style, including ligatures, @emph{custodes}, and special signs
+such as the quilisma and the oriscus.
+
+@item The @emph{Editio Medicaea} style offers certain features
+used in the Medicaea (or Ratisbona) editions which were used prior
+to the Solesmes editions.  The most significant differences from
+the @emph{Vaticana} style are the clefs, which have
+downward-slanted strokes, and the noteheads, which are square and
+regular.
+
+@item The @emph{Hufnagel} (@qq{horseshoe nail}) style mimics the
+writing style in chant manuscripts from Germany and Central Europe
+during the middle ages.  It is named after the basic note shape
+(the @emph{virga}), which looks like a small nail.
+
+@item The @code{mensural} and @code{petrucci} styles aim to
+emulate the appearance of late-medieval and renaissance
+manuscripts and prints of mensural music.  The @emph{Mensural}
+style most closely resembles the writing style used in
+late-medieval and early renaissance manuscripts, with its small
+and narrow, diamond-shaped noteheads and its rests which approach
+a hand-drawn style.
+
+@item The @emph{Neomensural} style is a modernized and
+stylized version of the former: the noteheads are broader and the
+rests are made up of straight lines.  This style is particularly
+suited, e.g., for incipits of transcribed pieces of mensural
+music.
+
+@item The @emph{petrucci} style is named after Ottaviano Petrucci
+(1466-1539), the first printer to use movable type for music (in
+his @emph{Harmonice musices odhecaton}, 1501).  The style uses
+larger note heads than the other mensural styles.
+
+@item @emph{Baroque} and @emph{Classical} are not complete styles
+but differ from the default style only in some details: certain
+noteheads (Baroque) and the quarter rest (Classical).
+
+@end itemize
+
+Only the mensural style has alternatives for all aspects of the
+notation.  Thus, there are no rests or flags in the Gregorian
+styles, since these signs are not used in plainchant notation, and
+the Petrucci style has no flags or accidentals of its own.  Each
+feature can be changed independently of the others, so that one
+can use mensural flags, petrucci noteheads, classical rests and
+vaticana clefs in the same piece, if one wishes.
+
+@node Predefined contexts
+@unnumberedsubsubsec Predefined contexts
+
+For Gregorian chant and mensural notation, there are pre-defined
+voice and staff contexts available, which set all the various
+notation signs to values suitable for these styles.  If one is
+satisfied with these defaults, one can proceed directly with note
+entry without worrying about the details on how to customize a
+context.
+
+See @ref{Pre-defined contexts}.
+
+
+@itemize
+@item @ref{Gregorian chant contexts},
+@item @ref{Mensural contexts}.
+@end itemize
+
+
+@node Alternative and additional signs
+@unnumberedsubsubsec Alternative and additional signs
 
 Many graphical objects provide a @code{style} property, see
 
@@ -76,15 +165,8 @@ notational concepts are introduced specifically for ancient notation,
 @item @ref{Ligatures}.
 @end itemize
 
-To start typesetting without worrying too much about the details on how to
-customize a context, there are predefined contexts for Gregorian chant and
-mensural notation.  They set up predefined style-specific voice and staff
-contexts, and allow one to proceed directly with note entry:
-
-@itemize
-@item @ref{Gregorian chant contexts},
-@item @ref{Mensural contexts}.
-@end itemize
+@node Figured bass notation
+@unnumberedsubsubsec Figured bass notation
 
 There is limited support for figured bass notation from the Baroque period:
 
@@ -93,6 +175,7 @@ There is limited support for figured bass notation from the Baroque period:
 @end itemize
 
 @c Here are all subtopics at a glance:
+
 
 
 @node Alternative note signs
@@ -109,7 +192,7 @@ There is limited support for figured bass notation from the Baroque period:
 
 
 @node Ancient note heads
-@subsubsection Ancient note heads
+@unnumberedsubsubsec Ancient note heads
 
 @cindex note heads, ancient
 
@@ -133,13 +216,10 @@ the @code{baroque} style by:
 @item Centering the stems on the note heads.
 @end itemize
 
-The @code{mensural} and @code{petrucci} styles aim to emulate the appearance
-of historic printed music.  The @code{petrucci} style uses larger note
-heads.
 
-The following example demonstrates the @code{petrucci} style
+The following example demonstrates the @code{petrucci} style:
 
-@c Renaissance music doesn't use bar lines ... but they do help to
+@c Renaissance music doesn't use bar lines ...  but they do help to
 @c separate the notes for easier identification.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
@@ -147,28 +227,29 @@ The following example demonstrates the @code{petrucci} style
 \autoBeamOff
 \override NoteHead #'style = #'petrucci
 a'\maxima a'\longa a'\breve a'1 a'2 a'4 a'8 a'16 a'
+
 @end lilypond
 
 When typesetting a piece in Gregorian chant notation, the
-@rinternals{Vaticana_ligature_engraver} automatically selects the proper
-note heads, so there is no need to explicitly set the note head style. 
-Still, the note head style can be set, e.g., to @code{vaticana_punctum} to
-produce punctum neumes.  Similarly, the
-@rinternals{Mensural_ligature_engraver} automatically assembles mensural
-ligatures.  See @ref{Ligatures}, for how ligature engravers work.
+@rinternals{Vaticana_ligature_engraver} automatically selects the
+proper note heads, so there is no need to explicitly set the note
+head style.  Still, the note head style can be set, e.g., to
+@code{vaticana_punctum} to produce punctum neumes.  Similarly, the
+@rinternals{Mensural_ligature_engraver} automatically assembles
+mensural ligatures.  See @ref{Ligatures}, for how ligature
+engravers work.
 
 @seealso
 
-@ref{Note head styles}, gives an overview of all available note head styles.
+@ref{Note head styles} gives an overview of all available note head styles.
 
 
 @node Ancient accidentals
-@subsubsection Ancient accidentals
+@unnumberedsubsubsec Ancient accidentals
 
 @cindex accidentals
 
-Use the @code{glyph-name-alist} property of grob @rinternals{Accidental} and
-@rinternals{KeySignature} to select ancient accidentals.
+Four different accidental styles for ancient music are available:
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
@@ -212,47 +293,55 @@ Use the @code{glyph-name-alist} property of grob @rinternals{Accidental} and
 As shown, not all accidentals are supported by each style.  When
 trying to access an unsupported accidental, LilyPond will switch to a
 different style, as demonstrated in
-@c @lsr{ancient,ancient-accidentals.ly}.
+@c @lsr{Ancient}.
 
-Similarly to local accidentals, the style of the key signature can be
-controlled by the @code{glyph-name-alist} property of the
-@rinternals{KeySignature} grob.
+The style for accidentals and key signatures is controlled by the
+@code{glyph-name-alist} property of the  grobs @rinternals{Accidental} and
+@rinternals{KeySignature}, respectively; e.g.:
+
+@code{\override Staff.Accidental #'glyph-name-alist =
+#alteration-mensural-glyph-name-alist}
 
 @seealso
 
 Notation Reference: @ref{Pitches}, @ref{Accidentals}, and
-@ref{Automatic accidentals}, give a general introduction of the use of
-accidentals.  @ref{Key signature}, gives a general introduction of
+@ref{Automatic accidentals} give a general introduction of the use of
+accidentals.  @ref{Key signature} gives a general introduction of
 the use of key signatures.
 
 Internals Reference: @rinternals{KeySignature}.
 
 
 @node Ancient rests
-@subsubsection Ancient rests
+@unnumberedsubsubsec Ancient rests
 
 @cindex rests, ancient
 
 Use the @code{style} property of grob @rinternals{Rest} to select
 ancient rests.   Supported styles are @code{classical},
 @code{neomensural}, and @code{mensural}.  @code{classical} differs
-from the @code{default} style only in that the quarter rest looks like
-a horizontally mirrored 8th rest.  The @code{neomensural} style suits
-well for, e.g., the incipit of a transcribed mensural piece of music.
-The @code{mensural} style finally mimics the appearance of rests as
-in historic prints of the 16th century.
+from the @code{default} style only in that the quarter rest looks
+like a horizontally mirrored 8th rest.  The @code{mensural} and
+the @code{neomensural} styles mimic the appearance of rests in
+manuscripts and prints up to the 16th century.
 
-The following example demonstrates the @code{neomensural} style
+The following example demonstrates the @code{mensural} and
+@code{neomensural} styles:
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \set Score.skipBars = ##t
+\override Rest #'style = #'classical
+r\longa^"classical" r\breve r1 r2 r4 r8 r16
+\override Rest #'style = #'mensural
+r\longa^"mensural" r\breve r1 r2 r4 r8 r16
 \override Rest #'style = #'neomensural
-r\longa r\breve r1 r2 r4 r8 r16
+r\longa^"neomensural" r\breve r1 r2 r4 r8 r16 \break
 @end lilypond
 
 There are no 32th and 64th rests specifically for the mensural or
 neo-mensural style.  Instead, the rests from the default style will be
-taken.  See @c @lsr{pitches,rests} for a chart of all rests.
+taken.
+@c See @lsr{pitches,rests} for a chart of all rests.
 
 There are no rests in Gregorian chant notation; instead, it uses
 @ref{Divisiones}.
@@ -264,20 +353,24 @@ rests.
 
 
 @node Ancient clefs
-@subsubsection Ancient clefs
+@unnumberedsubsubsec Ancient clefs
 
 @cindex clefs
 
 LilyPond supports a variety of clefs, many of them ancient.
 
-The following table shows all ancient clefs that are supported via the
-@code{\clef} command.  Some of the clefs use the same glyph, but
-differ only with respect to the line they are printed on.  In such
-cases, a trailing number in the name is used to enumerate these clefs.
-Still, you can manually force a clef glyph to be typeset on an
-arbitrary line, as described in @ref{Clef}.  The note printed to the
-right side of each clef in the example column denotes the @code{c'}
-with respect to that clef.
+The following table shows all ancient clefs that are supported via
+the @code{\clef} command.  Some of the clefs use the same glyph,
+but differ only with respect to the line they are printed on.  In
+such cases, a trailing number in the name is used to enumerate
+these clefs, numbered from the lowest to the highest line.  Still,
+you can manually force a clef glyph to be typeset on an arbitrary
+line, as described in @ref{Clef}.  The note printed to the right
+side of each clef in the example column denotes the @code{c'} with
+respect to that clef.
+
+Petrucci used C clefs with differently balanced left-side vertical
+beams, depending on which staff line it is printed.
 
 @multitable @columnfractions .4 .4 .2
 @item
@@ -288,7 +381,7 @@ with respect to that clef.
 @b{Example}
 
 @item
-modern style mensural C clef
+neomensural C clef
 @tab
 @code{neomensural-c1}, @code{neomensural-c2},@*
 @code{neomensural-c3}, @code{neomensural-c4}
@@ -298,7 +391,7 @@ modern style mensural C clef
 @end lilypond
 
 @item
-petrucci style mensural C clefs, for use on different staff lines
+petrucci style C clefs, for use on different staff lines
 (the examples show the 2nd staff line C clef)
 @tab
 @code{petrucci-c1}, @code{petrucci-c2},@*
@@ -312,7 +405,7 @@ petrucci style mensural C clefs, for use on different staff lines
 @end lilypond
 
 @item
-petrucci style mensural F clef
+petrucci style F clef
 @tab
 @code{petrucci-f}
 @tab
@@ -323,7 +416,7 @@ petrucci style mensural F clef
 @end lilypond
 
 @item
-petrucci style mensural G clef
+petrucci style G clef
 @tab
 @code{petrucci-g}
 @tab
@@ -334,7 +427,7 @@ petrucci style mensural G clef
 @end lilypond
 
 @item
-historic style mensural C clef
+mensural C clef
 @tab
 @code{mensural-c1}, @code{mensural-c2},@*
 @code{mensural-c3}, @code{mensural-c4}
@@ -346,7 +439,7 @@ historic style mensural C clef
 @end lilypond
 
 @item
-historic style mensural F clef
+mensural F clef
 @tab
 @code{mensural-f}
 @tab
@@ -357,7 +450,7 @@ historic style mensural F clef
 @end lilypond
 
 @item
-historic style mensural G clef
+mensural G clef
 @tab
 @code{mensural-g}
 @tab
@@ -430,7 +523,7 @@ Editio Medicaea style fa clef
 @end lilypond
 
 @item
-historic style hufnagel do clef
+hufnagel style do clef
 @tab
 @code{hufnagel-do1}, @code{hufnagel-do2},@*
 @code{hufnagel-do3}
@@ -446,7 +539,7 @@ historic style hufnagel do clef
 @end lilypond
 
 @item
-historic style hufnagel fa clef
+hufnagel style fa clef
 @tab
 @code{hufnagel-fa1}, @code{hufnagel-fa2}
 @tab
@@ -461,7 +554,7 @@ historic style hufnagel fa clef
 @end lilypond
 
 @item
-historic style hufnagel combined do/fa clef
+hufnagel style combined do/fa clef
 @tab
 @code{hufnagel-do-fa}
 @tab
@@ -475,20 +568,6 @@ historic style hufnagel combined do/fa clef
 @end lilypond
 @end multitable
 
-@emph{Modern} or @emph{Neo-mensural style} means @qq{as is typeset in
-modern editions of transcribed mensural music.}
-
-@emph{Petrucci style} means @qq{inspired by music published by the famous
-engraver Petrucci (1466-1539).}
-
-@emph{Historic style} means @qq{as was typeset or written in historic
-editions other than those of Petrucci.}
-
-@emph{Editio XXX style} means @qq{as is/was printed in Editio XXX.}
-
-Petrucci used C clefs with differently balanced left-side vertical
-beams, depending on which staff line it is printed.
-
 @seealso
 
 Notation Reference: see @ref{Clef}.
@@ -499,13 +578,13 @@ The mensural g clef is mapped to the Petrucci g clef.
 
 
 @node Ancient flags
-@subsubsection Ancient flags
+@unnumberedsubsubsec Ancient flags
 
 @cindex flags
 
 Use the @code{flag-style} property of grob @rinternals{Stem} to
 select ancient flags.  Besides the @code{default} flag style,
-only the @code{mensural} style is supported
+only the @code{mensural} style is supported.
 
 @lilypond[quote,fragment,ragged-right,verbatim]
 \override Stem #'flag-style = #'mensural
@@ -519,10 +598,11 @@ c''8 d''8 e''8 f''8 c''16 d''16 e''16 f''16 c''32 d''32 e''32 f''32
 Note that the innermost flare of each mensural flag always is
 vertically aligned with a staff line.
 
-There is no particular flag style for neo-mensural notation.  Hence,
-when typesetting the incipit of a transcribed piece of mensural
-music, the default flag style should be used.  There are no flags in
-Gregorian chant notation.
+There is no particular flag style for neo-mensural or Petrucci notation.
+@c Hence,
+@c when typesetting the incipit of a transcribed piece of mensural
+@c music, the default flag style should be used.
+There are no flags in Gregorian chant notation.
 
 @seealso
 
@@ -541,7 +621,7 @@ scope for mensural notation).
 
 
 @node Ancient time signatures
-@subsubsection Ancient time signatures
+@unnumberedsubsubsec Ancient time signatures
 
 @cindex mensuration sign
 @cindex time signatures
@@ -597,14 +677,11 @@ chosen according to the following table
 }
 @end lilypond
 
-Use the @code{style} property of grob @rinternals{TimeSignature} to
-select ancient time signatures.  Supported styles are
+Use the @code{style} property of grob @rinternals{TimeSignature}
+to select ancient time signatures.  Supported styles are
 @code{neomensural} and @code{mensural}.  The above table uses the
-@code{neomensural} style.  This style is appropriate for the
-incipit of transcriptions of mensural pieces.  The @code{mensural}
-style mimics the look of historical printings of the 16th century.
-
-The following examples show the differences in style,
+@code{neomensural} style.  The following examples show the
+differences in style:
 
 @lilypond[ragged-right,fragment,relative=1,quote]
 {
@@ -650,44 +727,41 @@ breveTP = #(ly:make-duration -1 0 3 2)
 @noindent
 This sets @code{breveTP} to 3/2 times 2 = 3 times a whole note.
 
-The @code{old6/8alt} symbol (an alternate symbol for 6/8) is not
-addressable with @code{\time}.  Use a @code{\markup} instead
+The @code{mensural68alt} and @code{neomensural68alt} symbols
+(alternate symbols for 6/8) are not addressable with @code{\time}.
+Use @code{\markup @{\musicglyph #"timesig.mensural68alt" @}} instead.
 
-
-@node Additional note signs
-@subsection Additional note signs
+@node Additional signs for Gregorian chant
+@subsection Additional signs for Gregorian chant
 
 @menu
 * Ancient articulations::       
 * Custodes::                    
 * Divisiones::                  
-* Ligatures::                   
-* White mensural ligatures::    
-* Gregorian square neumes ligatures::  
 @end menu
 
 
 @node Ancient articulations
-@subsubsection Ancient articulations
+@unnumberedsubsubsec Ancient articulations
 
 @cindex articulations
 
 In addition to the standard articulation signs described in
 section @ref{Articulations and ornamentations}, articulation signs
-for ancient notation are provided.  These are specifically
-designed for use with notation in Editio Vaticana style.
+specifically designed for use with notation in @emph{Editio
+Vaticana} style are provided.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \new VaticanaVoice {
     \override TextScript #'font-family = #'typewriter
     \override TextScript #'font-shape = #'upright
     \override Script #'padding = #-0.1
-    a\ictus_"ictus" \break
-    a\circulus_"circulus" \break
-    a\semicirculus_"semicirculus" \break
-    a\accentus_"accentus" \break
+    a\ictus_"ictus " \break
+    a\circulus_"circulus " \break
+    a\semicirculus_"semicirculus " \break
+    a\accentus_"accentus " \break
     \[ a_"episem" \episemInitium \pes b \flexa a b \episemFinis \flexa a \]
   }
 }
@@ -702,30 +776,32 @@ TODO: nothing here yet ...
 Some articulations are vertically placed too closely to the
 corresponding note heads.
 
-The episem line is not displayed in many cases.  If it is displayed,
-the right end of the episem line is often too far to the right.
+The episema line is not displayed in many cases.  If it is displayed,
+the right end of the episema line is often too far to the right.
 
 
 @node Custodes
-@subsubsection Custodes
+@unnumberedsubsubsec Custodes
 
 @cindex custos
 @cindex custodes
 
-A @emph{custos} (plural: @emph{custodes}; Latin word for @q{guard}) is a
+A @emph{custos} (plural: @emph{custodes}; Latin word for @qq{guard}) is a
 symbol that appears at the end of a staff.  It anticipates the pitch
-of the first note(s) of the following line thus helping the performer
+of the first note of the following line, thus helping the performer
 to manage line breaks during performance.
 
-Custodes were frequently used in music notation until the 17th
-century.  Nowadays, they have survived only in a few particular forms
-of musical notation such as contemporary editions of Gregorian chant
-like the @emph{editio vaticana}.  There are different custos glyphs
-used in different flavors of notational style.
+Custodes were frequently used in music notation until the
+seventeenth century.  Nowadays, they have survived only in a few
+particular forms of musical notation such as contemporary editions
+of Gregorian chant like the @emph{Editio Vaticana}.  There are
+different custos glyphs used in different flavors of notational
+style.
 
 For typesetting custodes, just put a @rinternals{Custos_engraver} into the
 @rinternals{Staff} context when declaring the @code{\layout} block,
-as shown in the following example
+and change the style of the custos with an @code{\override} if
+desired, as shown in the following example:
 
 @example
 \layout @{
@@ -783,19 +859,19 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 Internals Reference: @rinternals{Custos}.
 
 Examples:
-@c @lsr{ancient,custodes@/.ly}.
+@c @lsr{Ancient}.
 
 
 @node Divisiones
-@subsubsection Divisiones
+@unnumberedsubsubsec Divisiones
 
 @cindex divisio
 @cindex divisiones
 @cindex finalis
 
 A @emph{divisio} (plural: @emph{divisiones}; Latin word for
-@q{division}) is a staff context symbol that is used to structure
-Gregorian music into phrases and sections.  The musical meaning of
+@q{division}) is a staff context symbol that is used to indicate
+the phrase and section structure of Gregorian music.  The musical meaning of
 @emph{divisio minima}, @emph{divisio maior}, and @emph{divisio maxima}
 can be characterized as short, medium, and long pause, somewhat like
 the breathmarks from @ref{Breath marks}.  The @emph{finalis} sign not
@@ -833,26 +909,33 @@ Notation Reference: @ref{Breath marks}.
 
 Internals Reference: @rinternals{BreathingSign}.
 
-Examples: @c @lsr{expressive,breathing-sign.ly}.
+@c Examples: @lsr{Ancient}.
 
 
 @node Ligatures
-@subsubsection Ligatures
+@subsection Ligatures
+
+@menu
+* White mensural ligatures::
+* Gregorian square neumes ligatures::
+@end menu
 
 @cindex Ligatures
 
 @c TODO: Should double check if I recalled things correctly when I wrote
 @c down the following paragraph by heart.
 
-A ligature is a graphical symbol that represents at least two distinct
-notes.  Ligatures originally appeared in the manuscripts of Gregorian
-chant notation to denote ascending or descending sequences of notes.
+A ligature is a graphical symbol that represents at least two
+distinct notes.  Ligatures originally appeared in the manuscripts
+of Gregorian chant notation to denote ascending or descending
+sequences of notes on the same syllable.  They are also used in
+mensural notation.
 
 Ligatures are entered by enclosing them in @code{\[} and @code{\]}.
 Some ligature styles may need additional input syntax specific for
 this particular type of ligature.  By default, the
 @rinternals{LigatureBracket} engraver just puts a square bracket
-above the ligature
+above the ligature.
 
 @lilypond[quote,ragged-right,verbatim]
 \transpose c c' {
@@ -862,10 +945,13 @@ above the ligature
 }
 @end lilypond
 
-To select a specific style of ligatures, a proper ligature engraver
-has to be added to the @rinternals{Voice} context, as explained in
-the following subsections.   Only white mensural ligatures
-are supported with certain limitations.
+Two other ligature styles are available: the Vaticana for
+Gregorian chant, and the Mensural for mensural music (Only white
+mensural ligatures are supported for mensural music, and with
+certain limitations).  To use any of these styles, the default
+@code{Ligature_bracket_engraver} has to be replaced by one of the
+specialized ligature engravers in the @rinternals{Voice} context,
+as explained in the following subsections.
 
 @seealso
 
@@ -891,24 +977,19 @@ function
 @end example
 with the same effect and is believed to be stable.
 
-@menu
-* White mensural ligatures::
-* Gregorian square neumes ligatures::
-@end menu
-
 
 @node White mensural ligatures
-@subsubsection White mensural ligatures
+@unnumberedsubsubsec White mensural ligatures
 
 @cindex Mensural ligatures
 @cindex White mensural ligatures
 
 There is limited support for white mensural ligatures.
 
-To engrave white mensural ligatures, in the layout block put the
-@rinternals{Mensural_ligature_engraver} into the
-@rinternals{Voice} context, and remove the
-@rinternals{Ligature_bracket_engraver}, like this
+To engrave white mensural ligatures, in the layout block, replace
+the @rinternals{Ligature_bracket_engraver} with the
+@rinternals{Mensural_ligature_engraver} in the @rinternals{Voice}
+context:
 
 @example
 \layout @{
@@ -930,18 +1011,18 @@ automatic transcription of the ligatures.
 
 For example,
 
-@example
-\set Score.timing = ##f
-\set Score.defaultBarType = "empty"
-\override NoteHead #'style = #'neomensural
-\override Staff.TimeSignature #'style = #'neomensural
-\clef "petrucci-g"
-\[ c'\maxima g \]
-\[ d\longa c\breve f e d \]
-\[ c'\maxima d'\longa \]
-\[ e'1 a g\breve \]
-@end example
-@lilypond[quote,ragged-right]
+@c @example
+@c \set Score.timing = ##f
+@c \set Score.defaultBarType = "empty"
+@c \override NoteHead #'style = #'neomensural
+@c \override Staff.TimeSignature #'style = #'neomensural
+@c \clef "petrucci-g"
+@c \[ c'\maxima g \]
+@c \[ d\longa c\breve f e d \]
+@c \[ c'\maxima d'\longa \]
+@c \[ e'1 a g\breve \]
+@c @end example
+@lilypond[quote,ragged-right,verbatim]
 \score {
   \transpose c c' {
     \set Score.timing = ##f
@@ -992,7 +1073,7 @@ Horizontal spacing is poor.
 
 
 @node Gregorian square neumes ligatures
-@subsubsection Gregorian square neumes ligatures
+@unnumberedsubsubsec Gregorian square neumes ligatures
 
 @cindex Square neumes ligatures
 @cindex Gregorian square neumes ligatures
@@ -1001,7 +1082,7 @@ There is limited support for Gregorian square neumes notation
 (following the style of the Editio Vaticana).  Core ligatures can
 already be typeset, but essential issues for serious typesetting are
 still lacking, such as (among others) horizontal alignment of multiple
-ligatures, lyrics alignment and proper handling of accidentals.
+ligatures, lyrics alignment, and proper handling of accidentals.
 
 
 The following table contains the extended neumes table of the 2nd
@@ -1027,19 +1108,19 @@ Deminutae}
 
 @c TODO: \layout block is identical in all of the below examples.
 @c Therefore, it should somehow be included rather than duplicated all
-@c the time. --jr
+@c the time.  --jr
 
 @c why not make variables in ly/engraver-init.ly? --hwn
 
 @c Because it's just used to typeset plain notes without
 @c a staff for demonstration purposes rather than something
-@c special of Gregorian chant notation. --jr
+@c special of Gregorian chant notation.  --jr
 
 @item
 @code{1. Punctum}
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Punctum
@@ -1054,7 +1135,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Punctum Auctum Ascendens
@@ -1073,7 +1154,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Punctum Inclinatum Parvum
@@ -1087,7 +1168,7 @@ Deminutae}
 @code{2. Virga}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Virga
@@ -1103,7 +1184,7 @@ Deminutae}
 @code{3. Apostropha vel Stropha}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Stropha
@@ -1114,7 +1195,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Stropha Aucta
@@ -1129,7 +1210,7 @@ Deminutae}
 @code{4. Oriscus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Oriscus
@@ -1145,7 +1226,7 @@ Deminutae}
 @code{5. Clivis vel Flexa}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Clivis vel Flexa
@@ -1156,7 +1237,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Clivis Aucta Descendens
@@ -1171,7 +1252,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Cephalicus
@@ -1185,7 +1266,7 @@ Deminutae}
 @code{6. Podatus vel Pes}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Podatus vel Pes
@@ -1196,7 +1277,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Auctus Descendens
@@ -1211,7 +1292,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Epiphonus
@@ -1225,7 +1306,7 @@ Deminutae}
 @code{7. Pes Quassus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Quassus
@@ -1236,7 +1317,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Quassus Auctus Descendens
@@ -1251,7 +1332,7 @@ Deminutae}
 @code{8. Quilisma Pes}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Quilisma Pes
@@ -1262,7 +1343,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Quilisma Pes Auctus Descendens
@@ -1277,7 +1358,7 @@ Deminutae}
 @code{9. Podatus Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Initio Debilis
@@ -1288,7 +1369,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Auctus Descendens Initio Debilis
@@ -1303,7 +1384,7 @@ Deminutae}
 @code{10. Torculus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus
@@ -1314,7 +1395,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Auctus Descendens
@@ -1325,7 +1406,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Deminutus
@@ -1339,7 +1420,7 @@ Deminutae}
 @code{11. Torculus Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Initio Debilis
@@ -1350,7 +1431,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Auctus Descendens Initio Debilis
@@ -1361,7 +1442,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Deminutus Initio Debilis
@@ -1375,7 +1456,7 @@ Deminutae}
 @code{12. Porrectus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Porrectus
@@ -1386,7 +1467,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Porrectus Auctus Descendens
@@ -1397,7 +1478,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Porrectus Deminutus
@@ -1411,7 +1492,7 @@ Deminutae}
 @code{13. Climacus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Climacus
@@ -1423,7 +1504,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Climacus Auctus
@@ -1434,7 +1515,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Climacus Deminutus
@@ -1448,7 +1529,7 @@ Deminutae}
 @code{14. Scandicus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Scandicus
@@ -1459,7 +1540,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Scandicus Auctus Descendens
@@ -1470,7 +1551,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Scandicus Deminutus
@@ -1484,7 +1565,7 @@ Deminutae}
 @code{15. Salicus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Salicus
@@ -1495,7 +1576,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Salicus Auctus Descendens
@@ -1510,7 +1591,7 @@ Deminutae}
 @code{16. Trigonus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Trigonus
@@ -1882,7 +1963,7 @@ note that you can say @code{\augmentum @{a g@}} as a shortcut for
 @code{\augmentum a \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \new VaticanaVoice {
     \[ \augmentum a \flexa \augmentum g \]
@@ -1947,6 +2028,74 @@ unary music function, such that @code{\augmentum} can be intermixed
 with head prefixes in arbitrary order.
 
 
+@node Annotational accidentals (musica ficta)
+@subsection Annotational accidentals (musica ficta)
+
+In European music from before about 1600, singers were expected to
+chromatically alter notes at their own initiative according to
+certain rules.  This is called @notation{musica ficta}.  In modern
+transcriptions, these accidentals are usually printed over the
+note.
+
+@cindex Accidental, musica ficta
+@cindex Musica ficta
+
+Support for such suggested accidentals is included, and can be
+switched on by setting @code{suggestAccidentals} to true.
+
+@funindex suggestAccidentals
+
+@lilypond[verbatim,fragment,relative=1]
+fis gis
+\set suggestAccidentals = ##t
+ais bis
+@end lilypond
+
+This will treat @emph{every} subsequent accidental as @emph{musica
+ficta} until it is unset with @code{\set suggestAccidentals =
+##f}.  A more convenient way is to use @code{\once}, or to define
+a macro: @code{ficta = @{ \once \set suggestAccidentals = ##t @}}
+and simply use @code{\ficta} @emph{note}:
+
+@c @lilypond[quote,relative=1]
+@c \score {
+  @c \new MensuralVoice  {
+	@c \once \set suggestAccidentals = ##t bes4 a2 g2
+	@c \once \set suggestAccidentals = ##t fis8
+	@c \once \set suggestAccidentals = ##t e! fis2 g1
+  @c }
+@c }
+@c @end lilypond
+
+@lilypond[quote,verbatim]
+ficta = { \once \set suggestAccidentals = ##t }
+\score { \relative c''
+  \new MensuralVoice  {
+	\once \set suggestAccidentals = ##t
+  bes4 a2 g2 \ficta fis8 \ficta e! fis2 g1
+  }
+}
+@end lilypond
+
+@c @lilypond[quote,ragged-right]
+@c ossia = { f4 f f f }
+@c \score{
+  @c \relative c' \new Staff = "main" {
+    @c c4 c c c
+    @c <<
+      @c \new Staff \with {alignAboveContext=main} \ossia
+      @c { d8 f d f d f d f }
+    @c >>
+  @c }
+@c }
+@c @end lilypond
+
+@seealso
+
+Internals Reference: @rinternals{Accidental_engraver} engraver and
+the @rinternals{AccidentalSuggestion} object.
+
+
 @node Pre-defined contexts
 @subsection Pre-defined contexts
 
@@ -1957,7 +2106,7 @@ with head prefixes in arbitrary order.
 
 
 @node Gregorian chant contexts
-@subsubsection Gregorian chant contexts
+@unnumberedsubsubsec Gregorian chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -1967,10 +2116,10 @@ The predefined @code{VaticanaVoiceContext} and
 Gregorian chant in the style of the Editio Vaticana.  These contexts
 initialize all relevant context properties and grob properties to
 proper values, so you can immediately go ahead entering the chant, as
-the following excerpt demonstrates
+the following excerpt demonstrates:
 
 @lilypond[quote,ragged-right,packed,verbatim]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   <<
     \new VaticanaVoice = "cantus" {
@@ -1994,7 +2143,7 @@ the following excerpt demonstrates
 TODO: nothing here yet ...
 
 @node Mensural contexts
-@subsubsection Mensural contexts
+@unnumberedsubsubsec Mensural contexts
 
 @cindex MensuralVoiceContext
 @cindex MensuralStaffContext
@@ -2004,7 +2153,7 @@ The predefined @code{MensuralVoiceContext} and
 mensural style.  These contexts initialize all relevant context
 properties and grob properties to proper values, so you can
 immediately go ahead entering the chant, as the following excerpt
-demonstrates
+demonstrates:
 
 @lilypond[quote,ragged-right,verbatim]
 \score {
@@ -2039,11 +2188,13 @@ TODO: nothing here yet ...
 * Incipits::                    
 * Mensurstriche layout::        
 * Transcribing Gregorian chant::  
+* Editorial markings::
+* Baroque rhythmic notation::
 @end menu
 
 
 @node Ancient and modern from one source
-@subsubsection Ancient and modern from one source
+@unnumberedsubsubsec Ancient and modern from one source
 
 @c TODO Add text
 @c Here among others the snippets about reducing note length
@@ -2055,7 +2206,7 @@ TBC
 
 
 @node Incipits
-@subsubsection Incipits
+@unnumberedsubsubsec Incipits
 
 @c TODO Add text
 @c clefs, mensuration signs etc from lsr and -user
@@ -2067,7 +2218,7 @@ TBC
 @c ... and reference to other sections ...
 
 @node Mensurstriche layout
-@subsubsection Mensurstriche layout
+@unnumberedsubsubsec Mensurstriche layout
 
 @c TODO Add text
 @c from lsr and -user
@@ -2079,7 +2230,7 @@ TBC
 
 
 @node Transcribing Gregorian chant
-@subsubsection Transcribing Gregorian chant
+@unnumberedsubsubsec Transcribing Gregorian chant
 
 @c TODO Add text
 @c extract from 1.6.1.1
@@ -2091,54 +2242,17 @@ TBC
 
 
 @node Editorial markings
-@subsection Editorial markings
+@unnumberedsubsubsec Editorial markings
 
 @menu
-* Annotational accidentals::    
+* Annotational accidentals (musica ficta)::
 * Baroque rhythmic notation::   
 @end menu
 
 
-@node Annotational accidentals
-@subsubsection Annotational accidentals
-
-In European music from before about 1600, singers were often
-expected to chromatically alter notes at their own initiative.
-This is called @notation{musica ficta}.  In modern transcriptions, these
-accidentals are usually printed over the note.
-
-@cindex Accidental, musica ficta
-@cindex Musica ficta
-
-Support for such suggested accidentals is included, and can be
-switched on by setting @code{suggestAccidentals} to true.
-
-@funindex suggestAccidentals
-
-@lilypond[verbatim,fragment,relative=1]
-fis gis
-\set suggestAccidentals = ##t
-ais bis
-@end lilypond
-
-This will treat @emph{every} subsequent accidental as @emph{musica ficta}
-until it is unset with @code{\set suggestAccidentals = ##f}.  A more
-convenient way is to use @code{\once}:
-
-@lilypond[verbatim,fragment,relative=1]
-fis gis
-\once \set suggestAccidentals = ##t
-ais ais bis
-@end lilypond
-
-@seealso
-
-Internals Reference: @rinternals{Accidental_engraver} engraver and
-the @rinternals{AccidentalSuggestion} object.
-
 
 @node Baroque rhythmic notation
-@subsubsection Baroque rhythmic notation
+@unnumberedsubsubsec Baroque rhythmic notation
 
 @c TODO Add text
 @c try Till Rettig
@@ -2150,8 +2264,8 @@ the @rinternals{AccidentalSuggestion} object.
 @c TODO Add example of this:
 @c I was referring to e.g. notated a8. a16, which should, if I
 @c remember correctly, be interpreted more like a8.. a32 (in the french
-@c style). The editor might want to show that rythmic figure above the
-@c staff as an hint to performers. (Karl Hammer)
+@c style).  The editor might want to show that rythmic figure above the
+@c staff as an hint to performers.  (Karl Hammer)
 
 
 TBC

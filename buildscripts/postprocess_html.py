@@ -196,7 +196,7 @@ def find_translations (prefix, lang_ext):
 
 online_links_re = re.compile ('''(href|src)=['"]\
 ((?!Compiling-from-source.html")[^/][.]*[^.:'"]*)\
-([.]html|[.]png)(#[^"']*|)['"]''')
+([.]html)(#[^"']*|)['"]''')
 offline_links_re = re.compile ('href=[\'"]\
 ((?!Compiling-from-source.html")[^/][.]*[^.:\'"]*)([.]html)(#[^"\']*|)[\'"]')
 big_page_name_re = re.compile ('''(.+?)-big-page''')
@@ -214,7 +214,7 @@ def process_i18n_big_page_links (match, prefix, lang_ext):
 def process_links (s, prefix, lang_ext, file_name, missing, target):
     page_flavors = {}
     if target == 'online':
-        # Strip .html, .png suffix for auto language selection (content
+        # Strip .html, suffix for auto language selection (content
         # negotiation).  The menu must keep the full extension, so do
         # this before adding the menu.
         page_flavors[file_name] = \

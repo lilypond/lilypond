@@ -20,7 +20,7 @@
 (define-public PLATFORM
   (string->symbol
    (string-downcase
-    (utsname:sysname (uname)))))
+    (car (string-tokenize (utsname:sysname (uname)))))))
 
 (define scheme-options-definitions
   `(

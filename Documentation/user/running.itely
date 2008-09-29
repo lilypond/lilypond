@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 
 @node Running LilyPond
@@ -42,8 +42,8 @@ as @code{midi2ly}) which are only available on the command-line.
 By @q{command-line}, we mean the command line in the operating system.
 Windows users might be more familiar with the terms @q{DOS shell} or
 @q{command shell}; MacOS@tie{}X users might be more familiar with the terms
-@q{terminal} or @q{console}.  They should also consult @ref{MacOS X
-on the command-line}.
+@q{terminal} or @q{console}.  They should also consult @ref{Setup
+for MacOS X}.
 
 Describing how to use this part of an operating system is outside the
 scope of this manual; please consult other documentation on this topic

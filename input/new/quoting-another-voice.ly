@@ -1,4 +1,4 @@
-\version "2.11.10"
+\version "2.11.61"
 \header {
   lsrtags = "staff-notation"
   texidoc = "The @code{quotedEventTypes} property determines the

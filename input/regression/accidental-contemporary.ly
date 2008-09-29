@@ -15,6 +15,10 @@ immediately repeated
 @item
 'neo-modern-cautionary style acts like neo-modern,
 adding cautionary parentheses around accidentals.
+@item
+'teaching prints accidentals normally, but adds
+cautionary accidentals when an accidental is
+already included in the key signature.
 @end itemize
 
 Both scores should show the same accidentals.
@@ -32,6 +36,9 @@ Both scores should show the same accidentals.
     gis8 a gis gis g' gis gis,, a'
     #(set-accidental-style 'neo-modern-cautionary)
     eis fis eis eis g2
+    #(set-accidental-style 'teaching)
+    \key e \major
+    e8 eis fis fis gis2
   }
 }
 
@@ -42,5 +49,7 @@ Both scores should show the same accidentals.
     gis!4 a! g! gisis!
     gis!8 a gis! gis g'! gis! gis,,! a'
     eis! fis! eis? eis g?2
+    \key e \major
+    e8 eis! fis? fis gis?2
   }
 }
