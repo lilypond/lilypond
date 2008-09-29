@@ -1,4 +1,4 @@
-  texidoc = "
+  texidoces = "
 Para las improvisaciones o @emph{taqasim} que son libres durante unos
 momentos, se puede omitir la indicación de compás y se puede usar
 @code{\cadenzaOn}.  Podría ser necesario ajustar el estilo de
@@ -7,4 +7,4 @@ hará que la alteración aparezca una sola vez.  He aquí un ejemplo de
 cómo podría ser el comienzo de una improvisación @emph{hijaz}:
 
 "
-doctitle = "Improvisación de música árabe"
+doctitlees = "Improvisación de música árabe"
