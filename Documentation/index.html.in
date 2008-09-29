@@ -145,9 +145,15 @@ in <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
         </tr>
       </tbody>
     </table>
-    <p><strong>NOTE</strong>: like every HTML page in this
-      documentation, you can find at bottom links to translations of
-      this page in other languages.
+    <p>
+      All the documentation you read from this page is available for <strong>download</strong>.
+      <a href="http://download.linuxaudio.org/lilypond/binaries/documentation/lilypond-@TOPLEVEL_VERSION@-1.documentation.tar.bz2">Download
+	the tarball</a>.
+    </p>
+    <p>
+      Like every HTML page in this documentation, you can find at
+      bottom links to <strong>translations</strong> of this page in
+      other languages.
     </p>
   </body>
 </html>
