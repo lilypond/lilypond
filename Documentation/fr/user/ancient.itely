@@ -703,7 +703,7 @@ En plus des signes d'articulation standards décrits à la section
 ancienne.  Elles sont spécifiquement destinées au style Editio Vaticana.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \new VaticanaVoice {
     \override TextScript #'font-family = #'typewriter
@@ -1056,7 +1056,7 @@ Deminutae}
 @code{1. Punctum}
 @tab
 @lilypond[staffsize=26,line-width=1.5\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Punctum
@@ -1071,7 +1071,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=2.5\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Punctum Auctum Ascendens
@@ -1090,7 +1090,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Punctum Inclinatum Parvum
@@ -1104,7 +1104,7 @@ Deminutae}
 @code{2. Virga}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Virga
@@ -1120,7 +1120,7 @@ Deminutae}
 @code{3. Apostropha vel Stropha}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Stropha
@@ -1131,7 +1131,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Stropha Aucta
@@ -1146,7 +1146,7 @@ Deminutae}
 @code{4. Oriscus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Oriscus
@@ -1162,7 +1162,7 @@ Deminutae}
 @code{5. Clivis vel Flexa}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Clivis vel Flexa
@@ -1173,7 +1173,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Clivis Aucta Descendens
@@ -1188,7 +1188,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Cephalicus
@@ -1202,7 +1202,7 @@ Deminutae}
 @code{6. Podatus vel Pes}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Podatus vel Pes
@@ -1213,7 +1213,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=2.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Auctus Descendens
@@ -1228,7 +1228,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Epiphonus
@@ -1242,7 +1242,7 @@ Deminutae}
 @code{7. Pes Quassus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Quassus
@@ -1253,7 +1253,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Quassus Auctus Descendens
@@ -1268,7 +1268,7 @@ Deminutae}
 @code{8. Quilisma Pes}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Quilisma Pes
@@ -1279,7 +1279,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Quilisma Pes Auctus Descendens
@@ -1294,7 +1294,7 @@ Deminutae}
 @code{9. Podatus Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Initio Debilis
@@ -1305,7 +1305,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Pes Auctus Descendens Initio Debilis
@@ -1320,7 +1320,7 @@ Deminutae}
 @code{10. Torculus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus
@@ -1331,7 +1331,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Auctus Descendens
@@ -1342,7 +1342,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Deminutus
@@ -1356,7 +1356,7 @@ Deminutae}
 @code{11. Torculus Initio Debilis}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Initio Debilis
@@ -1367,7 +1367,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Auctus Descendens Initio Debilis
@@ -1378,7 +1378,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Torculus Deminutus Initio Debilis
@@ -1392,7 +1392,7 @@ Deminutae}
 @code{12. Porrectus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Porrectus
@@ -1403,7 +1403,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Porrectus Auctus Descendens
@@ -1414,7 +1414,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Porrectus Deminutus
@@ -1428,7 +1428,7 @@ Deminutae}
 @code{13. Climacus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Climacus
@@ -1440,7 +1440,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Climacus Auctus
@@ -1451,7 +1451,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Climacus Deminutus
@@ -1465,7 +1465,7 @@ Deminutae}
 @code{14. Scandicus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Scandicus
@@ -1476,7 +1476,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Scandicus Auctus Descendens
@@ -1487,7 +1487,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Scandicus Deminutus
@@ -1501,7 +1501,7 @@ Deminutae}
 @code{15. Salicus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Salicus
@@ -1512,7 +1512,7 @@ Deminutae}
 @end lilypond
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Salicus Auctus Descendens
@@ -1527,7 +1527,7 @@ Deminutae}
 @code{16. Trigonus}
 @tab
 @lilypond[staffsize=26,line-width=1.0\cm]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \transpose c c' {
     % Trigonus
@@ -1899,7 +1899,7 @@ c} ou @code{\augmentum @{\virga c@}}.  Par ailleurs, l'expression
 @code{\augmentum a \augmentum g}.
 
 @lilypond[quote,ragged-right,verbatim]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   \new VaticanaVoice {
     \[ \augmentum a \flexa \augmentum g \]
@@ -1989,7 +1989,7 @@ valeurs adéquates, de telle sorte que vous pouvez tout de suite vous
 lancer dans la saisie de votre chant, comme ci-dessous :
 
 @lilypond[quote,ragged-right,packed,verbatim]
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 \score {
   <<
     \new VaticanaVoice = "cantus" {

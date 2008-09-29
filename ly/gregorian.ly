@@ -219,7 +219,7 @@ ligature = #(define-music-function
 % over there, leave the style-independent Gregorian stuff here, and let
 % the style-specific file (vaticana-init.ly) include this file.  The
 % user then will have to include vaticana-init.ly instead of
-% gregorian-init.ly.
+% gregorian.ly.
 %
 \layout {
     indent = 0.0
