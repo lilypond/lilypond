@@ -56,7 +56,7 @@ mingw       - Windows x86
 
 If you have MacOS 10.3 or 10.4 and you would like to use Python
 scripts such as @command{convert-ly} and @command{lilypond-book}, see
-@ref{Setup for MacOS X}.
+@ref{Setup for MacOS X,,,lilypond-program,Application Usage}.
 
 
 @node Compiling from source
