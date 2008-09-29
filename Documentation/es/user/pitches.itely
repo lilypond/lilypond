@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 6352a58457f94f9741fb297f737b1d8e3d543c74
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -354,7 +354,7 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Automatic accidentals},
-@ref{Annotational accidentals},
+@ref{Annotational accidentals (musica ficta)},
 @ref{Note names in other languages}.
 
 Fragmentos de código:
@@ -1859,6 +1859,68 @@ musicB = {
   >>
 }
 @end lilypond
+
+@item teaching (enseñanza)
+
+@funindex teaching
+@cindex teaching (enzeñanza), estilo de alteraciones
+@cindex alteraciones, estilo teaching (enseñanza)
+
+Esta regla está pensada para estudiantes, y hace más sencillo crear
+hojas de escalas con alteraciones de precaución creadas
+automáticamente.  Las alteraciones se imprimen como en el estilo
+@code{modern}, pero se añaden alteraciones de precaución para todas
+las notas sostenidas o bemoles especificadas por la armadura, excepto
+si la nota se repite inmediatamente.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicA
+    }
+    \context Staff = "down" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
 
 @item no-reset (no restablecer)
 
