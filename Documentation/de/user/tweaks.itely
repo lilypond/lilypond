@@ -1280,17 +1280,270 @@ Engraver normalerweise befindet.
 @node Size of objects
 @subsection Size of objects
 
-@untranslated
+Als Startpunkt wollen wir wieder ein früheres Beispiel
+wählen, siehe @ref{Nesting music expressions}. Hier wurde
+ein neues Notensystem erstellt, wie man es für ein @rglos{ossia}
+braucht.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+       \relative g' {
+         r4 g8 g c4 c8 d |
+         e4 r8
+         <<
+           { f c c }
+           \new Staff \with {
+             alignAboveContext = "main" }
+           { f8 f c }
+         >>
+         r4 |
+       }
+     }
+@end lilypond
+
+Ossia-Systeme werden normalerweise ohne Schlüssel und Taktangabe
+geschrieben, und sie werden etwas kleiner als das Hauptsystem gesetzt.
+Wie man Schlüssel und Taktangabe entfernt, wissen wir schon:
+wir setzen den Stencil von beiden auf @code{#f}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+      }
+      {
+        \override Staff.Clef #'stencil = ##f
+        \override Staff.TimeSignature #'stencil = ##f
+        { f8 f c }
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+wobei ein zusätzliches Klammerpaar nach der @code{\with}-Konstruktion
+erforderlich ist um sicherzugehen, dass die Modifikation und 
+die Noten sich auch auf das Ossia-System beziehen.
+
+Was für einen Unterschied macht es, ob man den @code{Staff}-Kontext
+mit @code{\with} verändert, oder ob man die Stencils mit 
+@code{\override} beeinflusst?  Der größte Unterschied liegt
+darin, dass Änderungen, die mit @code{\with} eingeführt werden,
+während der Erstellung des Kontextes miterzeugt werden und
+als @strong{Standardeinstellungen} für diesen Kontext während seiner
+gesamten Dauer gelten, während @code{\set}- oder @code{\override}-Befehle
+dynamisch in die Noten eingebettet werden -- sie führen die
+Änderungen synchron mit einem bestimmten Zeitpunkt in 
+der Musik aus.  Wenn die Änderungen mit  @code{\unset}
+oder @code{\revert} rückgängig gemacht werden, werden
+wieder die Standardwerte eingesetzt, die also die sind, die
+mit einer @code{\with}-Konstruktion definiert wurden, oder
+wenn hier keine definiert worden sind, die normalen
+Standardwerte.
+
+Manche Kontexteigenschaften können nur ein einer
+@code{\with}-Konstruktion verändert werden.  Das sind
+Eigenschaften, die nicht sinnvoll mitten im System geändert
+werden können.  @code{alignAboveContext} (Orientierung
+über dem Kontext) und die Parallele,
+@code{alignBelowContext} (Orientierung unter dem Kontext)
+sind zwei derartige Eigenschaften -- wenn das Notensystem
+einmal erstellt wurde, ist die Orientierung schon bestimmt
+und es wäre nicht sinnvoll, sie später zu ändern.
+
+Die Standardwerte für Layout-Objekt-Eigenschaften können
+auch in der @code{\with}-Konstruktion gesetzt werden.
+Benutzen Sie einfach den normalen @code{\override}-Befehl
+ohne den Kontext, denn der Kontext ist eindeutig definiert
+durch die Stelle, an welcher sich @code{\with} befindet.
+Wenn an dieser Stelle ein Kontext angegeben wird, produziert LilyPond
+eine Fehlermeldung.
+
+Das obige Beispiel könnte also auch so aussehen:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        % Don't print clefs in this staff
+        \override Clef #'stencil = ##f
+        % Don't print time signatures in this staff
+        \override TimeSignature #'stencil = ##f
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Nun können wir daran gehen, auch wirklich die
+Größe der Objekte zu ändern.
+
+Manche Layout-Objekte werden aus Glyphen erstellt,
+die sich in einer Schriftartdatei befinden.  Dazu gehören
+die Notenköpfe, Versetzungszeichen, Text, Schlüssel,
+Taktbezeichnung, Dynamik und Gesangstext.  Ihre
+Größe wird verändert, indem die
+@code{font-size}- (Schriftgröße)-Eigenschaft geändert wird, wie
+wir bald sehen werden.  Andere Layout-Objekte, wie
+Bögen -- oder allgemein Strecker-Objekte -- werden
+individuell gezeichnet, es gibt dazu also keine 
+@code{font-size}, die mit ihnen verknüpft wäre.
+Weitere Eigenschaften wie die Länge von Hälsen und
+Taktlinien, Dicke von Balken und anderen Linien und 
+der Abstand der Notenlinien voneinander müssen auf
+spezielle Weise verändert werden.
+
+In unserem Ossia-Beispiel wollen wir zuerst die
+Schriftgröße verändern.  Das ist auf zwei Arten möglich. 
+Entweder wir ändern die Schriftgröße für jede Objektart
+mit einem eigenen Befehl, etwa:
+
+@example
+\override NoteHead #'font-size = #-2
+@end example
+
+@noindent
+oder wir ändern die Größe aller Schriftobjekte, indem wir
+den Wert einer besonderen Eigenschaft, @code{fontSize},
+mit dem @code{\set}-Befehl bestimmen oder sie in 
+eine @code{\with}-Konstruktion (ohne @code{\set} einschließen.
+
+@example
+\set fontSize = #-2
+@end example
+
+Beide Beispiele reduzieren die Schriftgröße um zwei Schritte
+im Vergleich zum vorigen Wert, wobei jeder Schritt die
+Schriftgröße um etwa 12% verändert.
+
+Setzen wir das also in unserem Ossia-Beispiel ein:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        % Reduce all font sizes by ~24%
+        fontSize = #-2
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Das sieht aber immer noch nicht richtig aus.  Die Notenköpfe
+und Fähnchen sind kleiner, aber die Hälse im Vergleich
+dazu zu lang und die Notenlinien zu weit auseinander.
+Sie müssen auch proportional zur Schriftart verkleinert
+werden.  Der nächste Abschnitt behandelt diese Anpassung.
 
 @node Length and thickness of objects
 @subsection Length and thickness of objects
 
-@untranslated
+@cindex Entfernungen
+@cindex Dicke
+@cindex Länge
+@cindex magstep
+@cindex Größe, verändern
+@cindex Notenhalslänge, verändern
+@cindex Hälse, Länge verändern
+@cindex Notenlinien, Länge verändern
+
+Abstände und Längen werden in LilyPond üblicherweise
+in Notenlinienabständen (engl. staff-spaces) gemessen. 
+Das ist der Abstand zwischen zwei Notenlinien im System.
+Die meisten Dicken (engl. thickness) dagegen werden in
+einer internen Einheit Linien-Dicke (engl. line-thickness)
+gemessen.  Die Linien von Dynamikklammern zum Beispiel
+haben standardmäßig eine Dicke von einer Einheit
+@code{line-thickness}, während die Dicke eines
+Notenhalses 1,3 ist.  Beachten Sie jedoch, dass sich
+manche Dicken anders verhalten: die Dicke von
+Balken etwa wird in Notenlinienabständen gemessen.
+
+Wie also werden Längen skaliert um der Schriftgröße
+zu entsprechen?  Das kann mit einer besonderen Funktion
+@code{magstep} vorgenommen werden, die genau für
+diesen Zweck vorhanden ist.  Sie nimmt ein Argument auf,
+die Änderung der Schriftgröße (#-2 im obigen Beispiel)
+und gibt einen Skalierungsfaktor aus, der dazu dient,
+Objekte proportionell zueinander zu verändern.  So wird
+sie benutzt:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        fontSize = #-2
+        % Reduce stem length and line spacing to match
+        \override StaffSymbol #'staff-space = #(magstep -2)
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Da die Länge eines Halses und viele andere Längeneigenschaften
+relativ zum Wert des Notenlinienabstands (@code{staff-space})
+errechnet werden, werden sie auch automatisch verkleinert.
+Das wirkt sich jedoch nur auf die vertikale Skalierung des Ossias
+aus -- die horizontale Skala ist durch das Layout des Haupsystems
+bestimmt und wird also von diesen Größenänderungen nicht
+betroffen.  Wenn natürlich die Größe der gesamten Noten reduziert
+würde, würde sich auch die horizontalen Abstände ändern.  Dass
+wird später im Layout-Abschnitt betrachtet.
+
+Mit dieser Änderung ist unser Ossia fertig.  Die Größen und Längen
+aller anderen Objekte können auf analoge Weise geändert
+werden.
+
+Für kleine Größenänderungen, wie in dem obigen Beispiel,
+braucht die Dicke der verschiedenen Linien, wie Taktlinien,
+Notenlinien, Balken, Dynamikklammern usw. normalerweise
+keine spezielle Anpassung.  Wenn die Dicke eines bestimmten
+Layout-Objektes angepasst werden muss, kann man das erreichen,
+indem die entsprechende @code{thickness}-Eigenschaft des
+Objekts mit @code{\override} verändert wird.  Ein Beispiel,
+wie man die Dicke von Bögen ändert, wurde schon gezeigt,
+siehe @ref{Properties of layout objects}.  Die Dicke aller
+gezeichneten Objekte (die also nicht aus einer Schriftart 
+stammen) können auf gleiche Weise geändert werden.
+
 
 @node Placement of objects
 @section Placement of objects
-
-@untranslated
 
 @menu
 * Automatic behavior::          
@@ -1301,12 +1554,288 @@ Engraver normalerweise befindet.
 @node Automatic behavior
 @subsection Automatic behavior
 
-@untranslated
+Es gibt Objekte der Notation, die zum Notensystem gehören, und
+andere, die außerhalb des Systems gesetzt werden müssen.  Sie
+werden @code{within-staff}-Objekte bzw.
+@code{outside-staff}-Objekte genannt.
+
+@code{within-staff}-Objekte werden innerhalb des Notensystems
+(engl. staff) gesetzt: Notenköpfe, Hälse, Versetzungszeichen
+usw.  Ihre Position ist üblicherweise durch die notierte Musik
+bestimmt -- sie werden vertikal auf bestimmten Linien notiert
+oder sind an andere Objekte gebunden, die vertikal festgelegt
+sind.  Kollisionen von Notenköpfen, Hälsen und Versetzungszeichen
+werden normalerweise automatisch vermieden.  Es gibt 
+Befehle, um dieses automatische Verhalten zu verändern, wie
+unten gezeigt werden soll.
+
+Objekte, die außerhalb des Notensystems gesetzt werden, sind
+unter Anderem Übungsmarkierungen, Text und Dynamikzeichen.
+LilyPonds Regel für ihre vertikale Positionierung lautet, sie so nah wie
+möglich am Notensystem zu setzen, aber nicht so nah, dass
+sie mit anderen Objekten kollidieren.  Dabei wird die
+@code{outside-staff-priority}-(Priorität außerhalb des Notensystems)-Eigenschaft
+eingesetzt, um die Reihenfolge zu bestimmen, in denen Objekte gesetzt werden 
+sollen.
+
+Zuerst werden alle Innersystemobjekte von LilyPond gesetzt.
+Dann werden die Objekte außerhalb des Systems nach
+ihrer 
+@code{outside-staff-priority} geordnet.  Die @code{outside-staff}-Objekte
+werden dann nacheinander gesetzt, mit der niedrigsten
+Priorität beginnend, und so gesetzt, dass sie nicht mit anderen
+Objekten kollidieren, die schon gesetzt wurden.  Wenn also zwei
+@code{outside-staff}-Objekte um den selben Platz streiten,
+wird das mit der geringeren @code{outside-staff-priority} näher
+am System gesetzt werden.  Wenn zwei Objekte die selbe Priorität
+haben, wird das näher am System gesetzt, welches zuerst
+auftritt.
+
+Im folgenden Beispiel haben alle Textbeschriftungen die gleiche
+Priorität (weil sie nicht explizit gesetzt worden ist).  Beachten Sie,
+dass @qq{Text3} wieder dicht am System gesetzt wurde, weil
+er unter @qq{Text2} passt.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+Notensysteme werden in den Standardeinstellungen auch so dicht
+beeinander gesetzt wie es möglich ist (mit einem minimalen Abstand).
+Wenn Noten sehr weit aus einem System herausragen, zwingen sie
+das nächste System weiter weg, wenn eine Kollision drohen würde.
+Im nächsten Beispiel sehen Sie, wie Noten auf zwei Systemen
+@qq{ineinander greifen}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff {
+    \relative c' { c a, }
+  }
+  \new Staff {
+    \relative c'''' { c a, }
+  }
+>>
+@end lilypond 
+
 
 @node Within-staff objects
 @subsection Within-staff objects
 
-@untranslated
+Es wurde schon gezeigt, wie die Befehle @code{\voiceXXX} die Richtung
+von Bögen, Fingersatz und allen anderen Objekten beeinflusst,
+die von der Richtung der Notenhälsen abhängen.  Diese Befehle
+sind nötig, wenn polyphone Musik geschrieben wird, damit sich 
+die einzelnen Melodielinien klar abzeichnen.  Es kann aber von Zeit
+zu Zeit nötig sein, dieses automatische Verhalten zu verändern.  Das
+kann entweder für ganze Abschnitte, aber genauso auch nur für eine
+einzelne Note vorgenommen werden.  Die Eigenschaft, die die Richtung
+bestimmt, ist die @code{direction}-Eigenschaft jedes Layout-Objekts.
+Es soll erst erklärt werden, was sie bewirkt und dann eine Anzahl
+an fertigen Befehlen für die üblicheren Situationen präsentiert werden,
+mit denen Sie gleich loslegen können.
+
+Manche Layout-Objekte, wie Legato- und Bindebögen, biegen sich
+oder zeigen entweder nach oben oder nach unten, andere, wie
+Hälse und Fähnchen, verändern auch die Position rechts oder links,
+je nach der Richtung, in die sie zeigen.  Das wird automatisch 
+berücksichtigt, wenn die @code{direction}-Eigenschaft verändert
+wird.
+
+Das folgende Beispiel zeigt im ersten Takt die Standardeinstellung
+für Hälse, die bei hohen Noten nach unten zeigen und bei tiefen
+noten nach oben. Im nächsten Takt werden alle Hälse nach unten
+gezwungen, im dritten Takt nach oben, und im vierten wird wieder
+der Standard eingestellt.
+
+@lilypond[quote,verbatim,relative=2]
+a4 g c a
+\override Stem #'direction = #DOWN
+a g c a
+\override Stem #'direction = #UP
+a g c a
+\revert Stem #'direction
+a g c a
+@end lilypond
+
+Hier werden die Konstanten @code{DOWN} und @code{UP}
+eingesetzt.  Sie haben die Werte @code{-1} bwz. @code{+1}, und
+diese numerischen Werte können ebenso benutzt werden.  Auch
+der Wert @code{0} kann in manchen Fällen benutzt werden.  Er
+bedeutet für die Hälse das gleiche wie @code{UP}, für einige
+andere Objekte jedoch @qq{zentiert}.  Es gibt hierzu die Konstante
+@code{CENTER}, die den Wert @code{0} hat.
+
+Es gibt aber einfachere Befehle, die normalerweise benutzt werden.
+Hier eine Tabelle der häufigsten.
+
+@multitable @columnfractions .2 .2 .25 .35
+@headitem Runter/Links
+  @tab Rauf/Rechts
+  @tab Rückgängig
+  @tab Wirkung
+@item @code{\arpeggioArrowDown}
+  @tab @code{\arpeggioArrowUp}
+  @tab @code{\arpeggioNormal}
+  @tab Arpeggio mit Pfeil nach unten, oben oder ohne Pfeil
+@item @code{\dotsDown}
+  @tab @code{\dotsUp}
+  @tab @code{\dotsNeutral}
+  @tab Richtung der Verschiebung eines Punktes, um Notenlinien zu vermeiden
+@item @code{\dynamicDown}
+  @tab @code{\dynamicUp}
+  @tab @code{\dynamicNeutral}
+  @tab Position der Dynamik-Bezeichnung relativ zum System
+@item @code{\phrasingSlurDown}
+  @tab @code{\phrasingSlurUp}
+  @tab @code{\phrasingSlurNeutral}
+  @tab Befehl für Richtung von Phrasierungsbögen
+@item @code{\slurDown}
+  @tab @code{\slurUp}
+  @tab @code{\slurNeutral}
+  @tab Befehl für Richtung von Legatobögen
+@item @code{\stemDown}
+  @tab @code{\stemUp}
+  @tab @code{\stemNeutral}
+  @tab Befehl für Richtung von Hälsen
+@item @code{\textSpannerDown}
+  @tab @code{\textSpannerUp}
+  @tab @code{\textSpannerNeutral}
+  @tab Position von Textbeschrifungen, die als Strecker eingegeben werden
+@item @code{\tieDown}
+  @tab @code{\tieUp}
+  @tab @code{\tieNeutral}
+  @tab Befehl für Richtung von Bindebögen
+@item @code{\tupletDown}
+  @tab @code{\tupletUp}
+  @tab @code{\tupletNeutral}
+  @tab Befehl für Richtung von Klammern/Zahlen der N-tolen
+@end multitable
+
+Diese vordefinierten Befehl können allerdings @strong{nicht}
+zusammen mit @code{\once} benutzt werden.  Wenn Sie die
+Wirkung eines Befehl auf eine einzige Noten begrenzen wollen,
+müssen Sie den entsprechenden
+@code{\once \override}-Befehl benutzen oder den definierten
+Befehl, gefolgt von dem entsprechenden neutralisierenden
+@code{xxxNeutral}-Befehl nach der Note.
+
+@subheading Fingering
+@cindex Fingersatz, Positionierung
+
+Die Positionierung von Fingersatz wird beeinflusst vom Wert
+seiner @code{direction}-Eigenschaft, aber es gibt auch hier
+besondere Befehle, mit denen der Fingersatz von einzelnen
+Noten in Akkorden kontrolliert werden kann, wobei mögliche
+Positionen über, unter der Note und rechts bzw. links von
+ihr sind.
+
+Zunächst die Wirkungsweise von @code{direction} auf
+den Fingersatz: im ersten Takt der Standard, dann
+die Wirkung von @code{DOWN} (runter) und @code{UP}
+(hinauf).
+
+@lilypond[quote,verbatim,relative=2]
+c-5 a-3 f-1 c'-5
+\override Fingering #'direction = #DOWN
+c-5 a-3 f-1 c'-5
+\override Fingering #'direction = #UP
+c-5 a-3 f-1 c'-5
+@end lilypond
+
+So kann die Fingersatzposition für einzelne Noten
+kontrolliert werden, aber das funktioniert nicht für Akkorde.
+Anstelle dessen wird der Fingersatz automatisch entweder
+über oder unter dem Akkord gesetzt:
+
+@lilypond[quote,verbatim,relative=2]
+<c-5 g-3>
+<c-5 g-3 e-2>
+<c-5 g-3 e-2 c-1>
+@end lilypond
+
+Bessere Kontrolle über die Positionierung von Fingersatz für
+einzelne Noten in einem Akkord ist mit dem
+@code{\set fingeringOrientations}-Befehl möglich.  Die Syntax
+lautet:
+
+@example
+@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+@end example
+
+@noindent
+@code{\set}wird benutzt, weil @code{fingeringOrientations} eine
+Eigenschaft des @code{Voice}-Kontextes ist, erstellt und eingesetzt
+vom @code{New_fingering_engraver}.
+
+Die Eigenschaft kann als Wert eine Liste mit einem bis drei Eintragen
+haben.  Damit wird bestimmt, ob Fingersatz oberhalb gesetzt
+werden kann (wenn @code{up} in der Liste auftaucht), darunter
+(wenn@code{down} auftaucht), links (wenn @code{left} auftaucht)
+oder rechts (wenn @code{right} auftaucht).  Wenn andererseits
+ein Wert nicht auftaucht, wir auch kein Fingersatz in dieser Richtung
+gesetzt.  LilyPond nimmt diese Beschränkung als Bedingung und
+errechnet die besten Positionen für die Noten des nächsten Akkordes.
+Die seitliche Positionierung kann nur auf einer Seite des Akkordes
+geschehen, nicht auf beiden gleichzeitig, es kann also nur entweder
+@code{left} oder @code{right} auftreten, nicth beide gleichzeitig.
+
+Damit eine einzelne Note mit diesem Befehl beeinflusst werden
+kann, muss sie als ein @qq{Ein-Noten-Akkord} geschrieben
+werden, indem einfache spitze Klammern um die Note positioniert
+werden.
+
+Hier ein paar Beispiele:
+
+@lilypond[quote,verbatim,relative=1]
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond 
+
+@noindent
+Wenn die Fingersatzbezeichnung zu gedrungen aussieht,
+kann auch die Schriftgröße (@code{font-size}) verringert
+werden.  Der Standardwert kann aus dem
+@code{Fingering}-Objekt in der IR entnommen werden,
+er ist @code{-5}, versuchen wir es also mit @code{-7}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\override Fingering #'font-size = #-7
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond
+
+
+
 
 @node Outside staff objects
 @subsection Outside staff objects

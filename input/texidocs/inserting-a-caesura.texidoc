@@ -1,0 +1,7 @@
+  texidoces = "
+Las marcas de cesura se pueden crear sobreescribiendo la propiedad
+@code{'text} del objeto @code{BreathingSign}.  También está disponible
+una marca de cesura curva.
+
+"
+  doctitlees = "Insertar una cesura"
