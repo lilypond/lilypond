@@ -1,0 +1,6 @@
+  texidoces = "
+Se puede imprimir una línea divisoria de la forma @code{|:} al
+principio de la pieza, sobreescribiendo la propiedad correspondiente:
+
+"
+  doctitlees = "Imprimir puntos de repetición al prinicpio de la pieza"
