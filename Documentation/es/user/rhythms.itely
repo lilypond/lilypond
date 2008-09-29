@@ -1406,7 +1406,7 @@ rasgueado.  Esto se puede hacer con el grabador
 @c TODO -- Convert to snippet;
 @c     tag for both Rhythms and Guitar? Move to @seealso?
 
-Para la música de guiratta, es posible mostrar los ritmos de rasgueo,
+Para la música de guitarra, es posible mostrar los ritmos de rasgueo,
 además de las notas de la melodía, acordes y diagramas de posiciones.
 
 @lilypond[quote,verbatim]
@@ -1886,7 +1886,7 @@ izquierdo, es decir, la barra de corchea del grupo como un todo.
 
 Las barras progresivas se usan para indicar que un pequeño grupo de
 notas se debe tocar a una velocidad creciente (o decreciente), sin
-cambiar el tempo general de la pieza.  El ámbito de la barra progrsiva
+cambiar el tempo general de la pieza.  El ámbito de la barra progresiva
 se debe indicar manualmente usando @code{[} y @code{]}, el efecto de
 ángulo de la barra se inicia especificando una dirección en la
 propiedad @code{grow-direction} del objeto @code{Beam}.
