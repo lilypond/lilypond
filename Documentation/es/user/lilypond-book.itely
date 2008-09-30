@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 83b79ca13f14bdc7a16cc406b3929ade6b618a78
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -29,7 +29,9 @@ que coincidan con los ajustes de su documento.
 
 Es un programa distinto a @command{lilypond} propiamente dicho, y se
 ejecuta sobre la línea de órdenes; para ver más información, consulte
-@ref{Command-line usage}.
+@ref{Command-line usage}.  Si tiene MacOS 10.3 o 10.4 y experimenta
+algún problema al ajecutar @code{lilypond-book}, consulte @ref{Setup
+for MacOS X}.
 
 Este procedimiento se puede aplicar a documentos de @LaTeX{}, HTML,
 Texinfo o DocBook.

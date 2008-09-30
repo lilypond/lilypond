@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 0fbe887e9bd532a47eb02687df4d56f47fe930c1
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -17,31 +17,10 @@ para instrumentos de cuerda sin trastes.
 
 @menu
 * Common notation for unfretted strings::
-* Bowed instruments::
-* Plucked instruments::
 @end menu
 
 @node Common notation for unfretted strings
 @subsection Common notation for unfretted strings
-
-@menu
-* References for unfretted strings::
-@end menu
-
-@node References for unfretted strings
-@subsubsection References for unfretted strings
-
-Continuará...
-
-@node Bowed instruments
-@subsection Bowed instruments
-
-@menu
-* References for bowed strings::
-@end menu
-
-@node References for bowed strings
-@subsubsection References for bowed strings
 
 @cindex armónicos artificiales
 
@@ -52,17 +31,7 @@ introducen marcando la nota que es un armónico mediante @code{\harmonic}.
 <c g'\harmonic>4
 @end lilypond
 
-
-@node Plucked instruments
-@subsection Plucked instruments
-
-
-@menu
-* Harp::
-@end menu
-
-@node Harp
-@subsubsection Harp
+@unnumberedsubsubsec References for unfretted strings
 
 Continuará...
 

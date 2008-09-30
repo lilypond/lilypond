@@ -1,5 +1,4 @@
   texidoces = "
-
 Mediante el establecimiento de la propiedad @code{Y-extent} a un valor
 adecuado, todos los objetos @code{DynamicLineSpanner} (reguladores e
 indicaciones dinámicas textuales) se pueden alinear con un punto de

@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 576140f04b84d2c75be3905f2d998e90038c50c5
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -46,8 +46,7 @@ sistema operativo.  Los usuarios de Windows posiblemente estén más
 familiarizados con los términos @q{ventana de MS-DOS} o @q{línea de
 comandos}; Los usuarios de MacOS@tie{}X puede que estén más
 familiarizados con los términos @q{terminal} o @q{consola}.  Éstos
-deberían consultar también el apartado @ref{MacOS X on the
-command-line}.
+deberían consultar también el apartado @ref{Setup for MacOS X}.
 
 La descripción del uso de esta parte de los sistemas operativos se
 sale del ámbito de este manuual; le rogamos que consulte otros

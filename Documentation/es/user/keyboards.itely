@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4be1308672c6f8efbe660c9eddc0a6a167c9ad31
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,25 +9,27 @@
 
 @c \version "2.11.61"
 
-@node Keyboard instruments
-@section Keyboard instruments
+@node Keyboard and other many-stringed instruments
+@section Keyboard and other many-stringed instruments
 
 @lilypondfile[quote]{keyboard-headword.ly}
 
 Esta sección se ocupa de varios aspectos de la notación musical que
-son exclusivos de los instrumentos de teclado.
+son exclusivos de los instrumentos de teclado y otros instrumentos con
+muchas cuerdas, como el arpa.
 
 @menu
 * Common notation for keyboards::
 * Piano::
 * Accordion::
+* Harp::
 @end menu
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
 
 Esta sección trata aspectos de notación que pueden aparecer en casi
-todos los instrumentos de teclado.
+todos los instrumentos que tengan muchas cuerdas.
 
 @menu
 * References for keyboards::
@@ -45,6 +47,7 @@ todos los instrumentos de teclado.
 @cindex pentagramas de instrumentos de teclado
 @cindex teclado, pentagramas para instrumentos de
 @cindex tecla, pentagramas para instrumentos de
+
 @funindex PianoStaff
 
 La notación de los instrumentos de teclado se suele realizar con
@@ -126,6 +129,7 @@ Fragmentos de código:
 @cindex dinámica, indicaciones de, centradas para música de teclado
 @cindex piano, dinámica centrada para música de
 @cindex centrar indicaciones dinámicas en música para piano
+
 @funindex staff-padding
 
 Los matices no se colocan centrados, pero se pueden utilizar ciertas
@@ -145,6 +149,7 @@ estudia en @rlearning{Moving objects}.
 @cindex notes de pentagrama cruzado
 @cindex barras de pentagrama cruzado
 @cindex cruzado, pentagrama, barras de
+
 @funindex \change
 @funindex change
 
@@ -212,6 +217,7 @@ Referencia de funcionamiento interno:
 @cindex cambio automático de pentagrama
 @cindex automático, cambio de pentagrama
 @cindex pentagrama, cambio automático de
+
 @funindex \autochange
 @funindex autochange
 @funindex PianoStaff
@@ -243,6 +249,7 @@ adelantado.
 
 @cindex relativo, modo, autocambiador y
 @cindex autocambiador y el modo relativo
+
 @funindex \relative
 @funindex relative
 
@@ -309,8 +316,10 @@ construcción del acorde.
 @cindex línea de seguimiento de pentagrama
 @cindex línea de cambio de pentagrama
 @cindex seguimiento de voz
+@cindex voz, seguimiento de
 @cindex pentagrama, cambio de
 @cindex cruzado, pentagrama
+
 @funindex followVoice
 @funindex \showStaffSwitch
 @funindex showStaffSwitch
@@ -363,6 +372,7 @@ Referencia de funcionamiento interno:
 @cindex notas de pentagrama cruzado
 @cindex plicas de pentagrama cruzado
 @cindex acordes de pentagrama cruzado
+
 @funindex Stem
 @funindex cross-staff
 @funindex length
@@ -428,6 +438,7 @@ relacionados con el piano.
 @cindex pedales de piano
 @cindex pedal forte
 @cindex pedal derecho
+@cindex pedal sostenuto
 @cindex derecho, pedal
 @cindex forte, pedal
 @cindex sostenuto, pedal
@@ -435,6 +446,7 @@ relacionados con el piano.
 @cindex tre corde
 @cindex sos.
 @cindex U.C.
+
 @funindex \sustainOn
 @funindex sustainOn
 @funindex \sustainOff
@@ -471,6 +483,7 @@ c4\unaCorda d e g
 @cindex pedal, indicación mixta
 @cindex pedal de mantenimiento, estilo de
 @cindex mantenimiento, pedal, estilos de
+
 @funindex pedalSustainStyle
 @funindex mixed
 @funindex bracket
@@ -556,3 +569,8 @@ ejecución.
 Fragmentos de código:
 @rlsr{Keyboards}.
 
+
+@node Harp
+@subsection Harp
+
+Continuará...

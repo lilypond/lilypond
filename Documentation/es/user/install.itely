@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: c5692ebfd28493444a1669cd550b2430bb2ba29a
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
 
     When revising a translation, copy the HEAD committish of the
@@ -53,12 +53,16 @@ darwin-x86  - MacOS X intel
 freebsd-64  - FreeBSD 6.x, x86_64
 freebsd-x86 - FreeBSD 4.x, x86
 linux-64    - Cualquier distribución de GNU/Linux, x86_64
-linux-arm   - Cualquier distribución de GNU/Linux, arm
 linux-ppc   - Cualquier distribución de GNU/Linux, powerpc
 linux-x86   - Cualquier distribución de GNU/Linux, x86
 mingw       - Windows x86
 @end example
 
+@knownissues
+
+Si tiene MacOS 10.3 o 10.4 y quiere usar guiones de Python como
+@command{convert-ly} y @command{lilypond-book}, consulte @ref{Setup
+for MacOS X,,,lilypond-program,Application Usage}.
 
 @node Compiling from source
 @section Compiling from source
