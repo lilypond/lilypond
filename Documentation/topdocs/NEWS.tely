@@ -32,11 +32,8 @@ See user manual, \NAME\
 
 @finalout
 
-@ifnottex
 @node Top
-@top
-@end ifnottex
-@unnumbered New features in 2.11 since 2.10
+@top New features in 2.11 since 2.10
 
 @ifhtml
 This document is also available in @uref{NEWS.pdf,PDF}. It's part of
