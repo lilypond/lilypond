@@ -82,6 +82,7 @@ package Texi2HTML::Config;
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
+$Texi2HTML::Config::SPLIT_INDEX   = 0;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
 if ($Texi2HTML::Config::SPLIT eq 'section') {
   $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
