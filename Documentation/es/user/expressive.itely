@@ -823,7 +823,7 @@ contemplada.
 @funindex arpeggioNormal
 
 Un signo de @notation{acorde arpegiado} (conocido también como acorde
-quebrado}) sobre un acorde, se denota adjuntando @code{\arpeggio} al
+quebrado) sobre un acorde, se denota adjuntando @code{\arpeggio} al
 acorde:
 
 @lilypond[verbatim,quote,relative=1]
