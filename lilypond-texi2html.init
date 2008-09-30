@@ -73,9 +73,11 @@ package Texi2HTML::Config;
 ###  SETTINGS FOR TEXI2HTML
 #############################################################################
 
-@Texi2HTML::Config::CSS_REFS      = ("lilypond.css");
-@Texi2HTML::Config::ALT_CSS_REFS      = ( 
-    {FILENAME => "lilypond-mccarty.css", TITLE=>"Patrick McCarty's design"}
+@Texi2HTML::Config::CSS_REFS      = (
+    {FILENAME => "lilypond.css", TITLE => "Default Style" }
+);
+@Texi2HTML::Config::ALT_CSS_REFS      = (
+    {FILENAME => "lilypond-mccarty.css", TITLE => "Patrick McCarty's design"}
 );
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
@@ -248,7 +250,7 @@ sub lilypond_css_lines ($$)
     }
     foreach my $ref (@CSS_REFS)
     {
-        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\" title=\"Default style\">\n";
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"$ref->{FILENAME}\">\n";
     }
     foreach my $ref (@ALT_CSS_REFS)
     {
