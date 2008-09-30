@@ -8,14 +8,17 @@
 
 @c \version "2.11.61"
 
-@node Keyboard and other many-stringed instruments
-@section Keyboard and other many-stringed instruments
+@node Keyboard and other multi-staff instruments
+@section Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{keyboard-headword.ly}
 
-This section discusses several aspects of music notation that are unique
-to keyboard instruments and other instruments with many strings, such as
-the harp.
+This section discusses several aspects of music notation that are
+unique to keyboard instruments and other instruments notated on
+many staves, such as harps and vibraphones.  For the purposes of
+this section this entire group of multi-staff instruments is called
+@qq{keyboards} for short, even though some of them do not have a
+keyboard.
 
 @menu
 * Common notation for keyboards::
