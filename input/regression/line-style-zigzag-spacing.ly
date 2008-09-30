@@ -1,8 +1,8 @@
-\version "2.11.57"
+\version "2.11.61"
 
 \header {
-  texidoc = "Setting zigzag style for spanners does not cause
-spacing problems: in this example, the first text markup and
+  texidoc = "Setting @code{'zigzag} style for spanners does not
+cause spacing problems: in this example, the first text markup and
 zigzag trillspanner have the same outside staff positioning as
 the second markup and default trillspanner.
 "

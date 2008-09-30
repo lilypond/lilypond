@@ -1,4 +1,4 @@
-\version "2.11.57"
+\version "2.11.61"
 \header {
 
 texidoc = "Several automatic accidental rules
@@ -6,17 +6,17 @@ aim to reproduce contemporary music notation
 practices:
 @itemize
 @item
-'dodecaphonic style prints accidentals on every
+@code{'dodecaphonic} style prints accidentals on every
 note (including naturals)
 @item
-'neo-modern style prints accidentals on every note
+@code{'neo-modern style} prints accidentals on every note
 (not including naturals), except when a note is
 immediately repeated
 @item
-'neo-modern-cautionary style acts like neo-modern,
+@code{'neo-modern-cautionary} style acts like neo-modern,
 adding cautionary parentheses around accidentals.
 @item
-'teaching prints accidentals normally, but adds
+@code{'teaching} prints accidentals normally, but adds
 cautionary accidentals when an accidental is
 already included in the key signature.
 @end itemize
