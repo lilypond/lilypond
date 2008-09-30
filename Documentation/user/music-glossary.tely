@@ -8276,7 +8276,7 @@ the lilypond-user discussion list.
 @c -iss/-ess endings for Swedish per Mats Bengtsson
 @c @columnfractions .105 .145 .125 .125 .125 .125 .125 .125 -->
 
-@multitable {g-sharp} {sol sostenido} {sol diesis} {sol dièse} {Gis} {gis} {gis} {giss} {gis}
+@multitable {@strong{e-sharp} = f} {sol sostenido} {sol bemolle} {sol bémol} {Gis} {gis} {gis} {giss} {gis}
 @headitem EN
   @tab ES @tab I @tab F @tab D
   @tab NL @tab DK @tab S @tab FI
