@@ -34,21 +34,18 @@ header = r"""
 
 footer = '''
 <div class="footer">
-<p>
+<p class="footer_version">
 %(footer_name_version)s
-<br>
-<address>
-%(footer_report_errors)s </address>
-<br>
-%(footer_suggest_docs)s
-<br>
+</p>
+<p class="footer_report">
+%(footer_report_links)s
 </p>
 </div>
 '''
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
-footer_report_errors = _doc ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.')
 # ugh, must not have "_doc" in strings because it is naively replaced with "_" in hacked gettext process
-footer_suggest_docs = _doc ('Your <a href="%(suggest_Docs_url)s">suggestions for the documentation</a> are welcome.')
+footer_report_links = _doc ('Your <a href="%(suggest_Docs_url)s">suggestions for the documentation</a> are welcome, please report errors to our <a href="%(mail_address_url)s">bug list</a>.')
+
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
 suggest_Docs_url = 'http://lilypond.org/web/devel/participating/documentation-adding'
@@ -311,8 +308,7 @@ def process_html_files (package_name = '',
     # so only one '%' formatting pass is needed later
     for e in subst:
         subst[e]['footer_name_version'] = subst[e]['footer_name_version'] % subst[e]
-        subst[e]['footer_report_errors'] = subst[e]['footer_report_errors'] % subst[e]
-        subst[e]['footer_suggest_docs'] = subst[e]['footer_suggest_docs'] % subst[e]
+        subst[e]['footer_report_links'] = subst[e]['footer_report_links'] % subst[e]
 
     for prefix, ext_list in pages_dict.items ():
         for lang_ext in ext_list:
