@@ -32,9 +32,9 @@ Plusieurs solutions existent pour ajouter des paroles ; nous les
 examinerons par degré croissant de complexité.
 
 @menu
-* Common notation for vocals::  
+* Entering lyrics::  
 * Aligning lyrics to a melody::  
-* Placement of lyrics::         
+* Specific uses of lyrics::         
 * Stanzas::                     
 @end menu
 
@@ -62,66 +62,19 @@ Pour que les paroles évitent également les barres de mesure, ajoutez
 @end example
 
 
-@node Common notation for vocals
-@subsection Common notation for vocals
+@node Entering lyrics
+@subsection Entering lyrics
 
 @menu
-* References for vocal music::  
-* Setting simple songs::        
-* Entering lyrics::             
-* Working with lyrics and variables::  
+* Lyrics explained::
+* Setting simple songs::
+* Working with lyrics and variables::
+* References for vocal music::
 @end menu
 
-@node References for vocal music
-@subsubsection References for vocal music
 
-@c TODO Add @refs
-
-Le @emph{parlato} est du texte scandé en rythme, mais sans hauteurs
-définies ; il est indiqué par des notes en croix, à l'instar des
-percussions --- voir @ref{Special note heads}.
-
-
-@node Setting simple songs
-@subsubsection Setting simple songs
-
-@cindex \addlyrics
-
-Le plus simple pour ajouter des paroles à une mélodie est d'adjoindre 
-
-@example
-\addlyrics @{ @var{les paroles} @}
-@end example
-
-@noindent
-à la mélodie.  En voici un exemple :
-
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative { c2 e4 g2. }
-\addlyrics { play the game }
-@end lilypond
-
-On peut ajouter davantage de couplets en multipliant le nombre de
-sections @code{\addlyrics}.
-
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative { c2 e4 g2. }
-\addlyrics { play the game }
-\addlyrics { speel het spel }
-\addlyrics { joue le jeu }
-@end lilypond
-
-Cependant, la commande @code{\addlyrics} ne peut gérer les
-constructions polyphoniques.  Dans ce cas, mieux vaut employer
-@code{\lyricsto} et @code{\lyricmode}, comme nous le verrons dans
-@ref{Entering lyrics}. 
-
-
-
-@node Entering lyrics
-@subsubsection Entering lyrics
+@node Lyrics explained
+@subsubsection Lyrics explained
 
 @cindex paroles
 @funindex \lyricmode
@@ -257,6 +210,43 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 Référence du programme : @rinternals{LyricText}, @rinternals{LyricSpace}.
 
 
+@node Setting simple songs
+@subsubsection Setting simple songs
+
+@cindex \addlyrics
+
+Le plus simple pour ajouter des paroles à une mélodie est d'adjoindre 
+
+@example
+\addlyrics @{ @var{les paroles} @}
+@end example
+
+@noindent
+à la mélodie.  En voici un exemple :
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative { c2 e4 g2. }
+\addlyrics { play the game }
+@end lilypond
+
+On peut ajouter davantage de couplets en multipliant le nombre de
+sections @code{\addlyrics}.
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative { c2 e4 g2. }
+\addlyrics { play the game }
+\addlyrics { speel het spel }
+\addlyrics { joue le jeu }
+@end lilypond
+
+Cependant, la commande @code{\addlyrics} ne peut gérer les
+constructions polyphoniques.  Dans ce cas, mieux vaut employer
+@code{\lyricsto} et @code{\lyricmode}, comme nous le verrons dans
+@ref{Lyrics explained}. 
+
+
 @node Working with lyrics and variables
 @subsubsection Working with lyrics and variables
 
@@ -317,6 +307,16 @@ Le résultat donnera ainsi quelque chose comme
 
 Référence du programme : @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.  
+
+
+@node References for vocal music
+@subsubsection References for vocal music
+
+@c TODO Add @refs
+
+Le @emph{parlato} est du texte scandé en rythme, mais sans hauteurs
+définies ; il est indiqué par des notes en croix, à l'instar des
+percussions --- voir @ref{Special note heads}.
 
 
 
@@ -616,8 +616,8 @@ Référence du programme : @rinternals{LyricExtender},
 @englishref
 @end ifnothtml
 
-@node Placement of lyrics
-@subsection Placement of lyrics
+@node Specific uses of lyrics
+@subsection Specific uses of lyrics
 
 Une même mélodie peut se voir traitée différemment suivant les couplets.
 La commande @code{\lyricsto} permet de prendre en compte ces variantes.

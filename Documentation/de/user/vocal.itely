@@ -15,27 +15,28 @@
 
 
 @menu
-* Common notation for vocals::
+* Entering lyrics::
 * Aligning lyrics to a melody::
-* Placement of lyrics::
+* Specific uses of lyrics::
 * Stanzas::
 @end menu
 
-@node Common notation for vocals
-@subsection Common notation for vocals
+@node Entering lyrics
+@subsection Entering lyrics
 
 @untranslated
 
 
 @menu
-* References for vocal music::
+* Lyrics explained::
 * Setting simple songs::
-* Entering lyrics::
 * Working with lyrics and variables::
+* References for vocal music::
 @end menu
 
-@node References for vocal music
-@subsubsection References for vocal music
+
+@node Lyrics explained
+@subsubsection Lyrics explained
 
 @untranslated
 
@@ -45,15 +46,13 @@
 
 @untranslated
 
-
-@node Entering lyrics
-@subsubsection Entering lyrics
+@node Working with lyrics and variables
+@subsubsection Working with lyrics and variables
 
 @untranslated
 
-
-@node Working with lyrics and variables
-@subsubsection Working with lyrics and variables
+@node References for vocal music
+@subsubsection References for vocal music
 
 @untranslated
 
@@ -116,8 +115,8 @@
 @untranslated
 
 
-@node Placement of lyrics
-@subsection Placement of lyrics
+@node Specific uses of lyrics
+@subsection Specific uses of lyrics
 
 @untranslated
 
