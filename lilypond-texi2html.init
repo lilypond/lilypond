@@ -612,8 +612,13 @@ sub lilypond_print_toc_div ($$)
   # use default TOC if no custom lines have been generated
   @lines = @default_toc if (not @lines);
   if (@lines) {
+  
     print $fh "\n\n<div id=\"tocframe\">\n";
-    print $fh '<h4> ' . $Texi2HTML::NAME{'Contents'}  . "</h4>\n";
+    print $fh '<h4 class="toc_header"> ' . &$anchor('',
+                                    $Texi2HTML::HREF{'Top'},
+                                    $Texi2HTML::NAME{'Top'},
+                                    'title="Start of the manual"'
+                                   ) . "</h4>\n";
     foreach my $line (@lines) {
       print $fh $line;
     }
