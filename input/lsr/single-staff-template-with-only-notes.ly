@@ -5,6 +5,21 @@
 \header {
   lsrtags = "template"
 
+  texidoces = "
+Esta plantilla simple prepara un pentagrama con notas, adecuado para
+un instrumento solista o un fragmento melódico. Córtelo y péguelo en
+un archivo, escriba las notas y ¡ya está!
+
+"
+  doctitlees = "Plantilla de un solo pentagrama, con notas únicamente"
+  
+  texidocde = "
+Das erste Beispiel zeigt ein Notensystem mit Noten, passend für ein 
+Soloinstrument oder ein Melodiefragment. Kopieren Sie es und fügen 
+Sie es in Ihre Datei ein, schreiben Sie die Noten hinzu, und Sie haben 
+eine vollständige Notationsdatei.
+"
+
   texidoc = "
 This very simple template gives you a staff with notes, suitable for a
 solo instrument or a melodic fragment. Cut and paste this into a file,

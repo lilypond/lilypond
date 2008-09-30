@@ -6,7 +6,7 @@
   texidoces = "
 Los nombres de instrumento se imprimen generalmente a la izquierda de
 los pentagramas.  Para alinear los nombres de varios instrumentos
-distintos, sitúelos dentro de un bloque @code{\markup} y utilice una
+distintos, sitúelos dentro de un bloque @code{\\markup} y utilice una
 de las siguientes posiblidades:
 
 *
@@ -15,14 +15,14 @@ de las siguientes posiblidades:
   
 *
     Nombres de instrumento centrados: la utilización de la instrucción
-    @code{\hcenter-in #n} sitúa los nombres de instrumento dentro de
+    @code{\\hcenter-in #n} sitúa los nombres de instrumento dentro de
     un rectángulo separado, donde @code{n} es la anchura del
     rectángulo
   
 * 
     Nombres de instrumento alineados por la izquierda: los nombres se
     imprimen en la parte superior de un rectángulo vacío, utilizando
-    la instrucción @code{\combine} con un objeto @code{\hspace #n}.
+    la instrucción @code{\\combine} con un objeto @code{\\hspace #n}.
 
 "
   doctitlees = "Alinear y centrar los nombres de instrumento"

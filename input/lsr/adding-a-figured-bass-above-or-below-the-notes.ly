@@ -15,7 +15,7 @@ dentro de un contexto @code{Staff}). Se puede elegir entre
 centrado) y @code{#DOWN} (o @code{#-1}, abajo).
 
 Como podemos ver, esta propiedad se puede cambiar tantas veces
-como queramos. Utilice @code{\once \override} si no quiere que el
+como queramos. Utilice @code{\\once \\override} si no quiere que el
 truco se aplique a toda la partitura.
 
 "

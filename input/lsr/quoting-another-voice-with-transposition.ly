@@ -7,7 +7,7 @@ transposición de la fuente tanto como la del destino.  En este
 ejemplo, todos los instrumentos interpreta una nota con el sonido
 del Do central; el destino de un instrumento transpositor en Fa.
 La parte de destino se puede transponer utilizando
-@code{\transpose}.  En este caso se transportan todas las notas
+@code{\\transpose}.  En este caso se transportan todas las notas
 (incluidas las citadas).
 
 "
@@ -43,7 +43,8 @@ quoteTest = {
 }
 
 {
-  \set Staff.instrumentName = \markup \center-column { Horn \line { in F } }
+  \set Staff.instrumentName =
+    \markup \center-column { Horn \line { in F } }
   \quoteTest
   \transpose c' d' << \quoteTest s4_"up a tone" >>
 }

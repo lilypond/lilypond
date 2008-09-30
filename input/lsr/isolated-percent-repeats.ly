@@ -5,6 +5,14 @@
 \header {
   lsrtags = "repeats"
 
+  texidoces = "
+También se pueden imprimir símbolos de porcentaje sueltos.  Esto se
+hace introduciendo un silencio multicompás con una función de
+impresión distinta:
+
+"
+  doctitlees = "Símbolos de porcentaje sueltos"
+
   texidoc = "
 Isolated percents can also be printed.  This is done by entering a
 multi-measure rest with a different print function:

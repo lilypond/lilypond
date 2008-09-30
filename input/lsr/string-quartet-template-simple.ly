@@ -5,6 +5,19 @@
 \header {
   lsrtags = "unfretted-strings, template"
 
+  texidoces = "
+Esta plantilla muestra un cuarteto de cuerda normal. También utiliza
+una sección @code{\\global} para el compás y la armadura
+
+"
+  doctitlees = "Plantilla de cuarteto de cuerda (sencilla)"
+  
+  texidocde = "
+Dieses Beispiel demonstriert die Partitur für ein Streichquartett. Hier 
+wird auch eine @qq{@code{\global}}-Variable für Taktart und 
+Vorzeichen benutzt.
+"
+
   texidoc = "
 This template demonstrates a simple string quartet. It also uses a
 @code{\\global} section for time and key signatures

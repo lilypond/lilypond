@@ -5,6 +5,20 @@
 \header {
   lsrtags = "keyboards, template"
 
+  texidoces = "
+Presentamos a continuación una plantilla de piano sencilla con algunas
+notas.
+
+"
+  doctitlees = "Plantilla de piano (sencilla)"
+  
+  texidocde = "
+Hier ein einfaches Klaviersystem.
+
+"
+
+  doctitlees = "Vorlage für einfache Klaviernotation"
+
   texidoc = "
 Here is a simple piano staff with some notes.
 

@@ -10,8 +10,8 @@
 only for coordination and is not meant to imply any rhythmic stress.
 
 This snippet uses overrides for the @code{'bar-size} and
-@code{'extra-offset} properties of @code{BarLine} to
-determine, respectively, the tick size and its vertical placement.
+@code{'extra-offset} properties of @code{BarLine} to determine,
+respectively, the tick size and its vertical placement.
 
 "
   doctitle = "Tick bar lines"

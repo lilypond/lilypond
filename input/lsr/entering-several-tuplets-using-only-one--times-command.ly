@@ -5,16 +5,16 @@
 \header {
   lsrtags = "rhythms"
 
- doctitlees = "Escribir varios grupos especiales usando una sola instrucción \times"
+ doctitlees = "Escribir varios grupos especiales usando una sola instrucción \\times"
  texidoces = "
 La propiedad @code{tupletSpannerDuration} establece cuánto debe durar
 cada grupo de valoración especial contenido dentro del corchete que
-aparece después de @code{\times}.  Así, se pueden escribir muchos
-tresillos seguidos dentro de una sola expresión @code{\times},
+aparece después de @code{\\times}.  Así, se pueden escribir muchos
+tresillos seguidos dentro de una sola expresión @code{\\times},
 ahorrando trabajo de teclado.
 
 En el ejemplo se muestran dos tresillos, aunque se ha escrito
-@code{\times} una sola vez.
+@code{\\times} una sola vez.
 
 
 Para ver más inforamción sobre @code{make-moment}, véase

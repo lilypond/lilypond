@@ -7,7 +7,7 @@
 
   texidoces = "
 Mediante la utilización de las potentes herramientas preconfiguradas
-como la función @code{\drummode} y el contexto @code{DrumStaff}, la
+como la función @code{\\drummode} y el contexto @code{DrumStaff}, la
 introducción de partes para percusión es muy fácil: las percusiones se
 sitúan en sus propias posiciones de pentagrama (con una clave
 especial) y tienen las cabezas correspondientes al instrumento.  Es

@@ -5,6 +5,18 @@
 \header {
   lsrtags = "vocal-music, keyboards, template"
 
+  texidoces = "
+He aquí el típico formato dde una canción: un pentagrama con la
+melodía y la letra, y el acompañamiento de piano por debajo.
+
+"
+  doctitlees = "Plantilla de piano con melodía y letra"
+  
+  texidocde = "
+as nächste Beispiel ist typisch für ein Lied: Im oberen System die 
+Melodie mit Text, darunter Klavierbegleitung.
+"
+
   texidoc = "
 Here is a typical song format: one staff with the melody and lyrics,
 with piano accompaniment underneath. 

@@ -5,6 +5,16 @@
 \header {
   lsrtags = "repeats"
 
+  texidoces = "
+De forma predeterminada, los corchetes de primera y segunda vez se
+trazan encima de los finales alternativos completos, pero es posible
+acortartlos estableciendo un valor cierto para
+@code{voltaSpannerDuration}.  En el ejemplo siguiente, el corchete
+sólo dura un compás, que corresponde a una duración de 3/4.
+
+"
+  doctitlees = "Shortening volta brackets"
+
   texidoc = "
 By default, the volta brackets will be drawn over all of the
 alternative music, but it is possible to shorten them by setting

@@ -10,7 +10,7 @@
 
 De forma predeterminada sólo se imprime el numerador del grupo
 especial sobre el corchete de grupo, es decir, el denominador del
-argumento de la instrucción @code{\times}. De forma alternativa, se
+argumento de la instrucción @code{\\times}. De forma alternativa, se
 puede imprimr un quebrado en la forma numerador:denominador del número
 del grupo, o eliminar el número.
 

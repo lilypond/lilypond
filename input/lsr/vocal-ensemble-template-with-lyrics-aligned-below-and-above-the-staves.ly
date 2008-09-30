@@ -13,6 +13,12 @@ colocan utilizando @code{alignAboveContext} y
 
 "
   doctitlees = "Plantilla para conjunto vocal con letras alineadas encima y debajo de los pentagramas"
+  
+  texidocde = "
+In diesem Beispiel werden die Texte mit den Befehlen 
+@code{alignAboveContext} und @code{alignBelowContext}
+über und unter dem System angeordnet.
+"
 
   texidoc = "
 This template is basically the same as the simple \"Vocal ensemble\"

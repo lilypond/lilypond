@@ -6,7 +6,7 @@
   lsrtags = "expressive-marks"
 
   texidoces = "
-La función @code{\parenthesize} es un truco especial que encierra
+La función @code{\\parenthesize} es un truco especial que encierra
 objetos entre paréntesis.  El grob asociado es
 @code{Score.ParenthesesItem}.
 

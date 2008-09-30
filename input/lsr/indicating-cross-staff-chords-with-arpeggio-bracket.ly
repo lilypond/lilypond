@@ -5,6 +5,18 @@
 \header {
   lsrtags = "keyboards"
 
+  texidoces = "
+Un corchete de arpegio puede indicar que se tienen que tocadr con la
+misma mano notas que están en dos pentagramas distintos. Para hacerlo,
+el @code{PianoStaff} se debe configurar para que acepte símbolos de
+arpegio de pentagrama cruzado y los símbolos de arpegio se deben
+configurar a la forma de corchete en el contexto de @code{PianoStaff}.
+
+(Debussy, Les collines d’Anacapri, m. 65)
+
+"
+  doctitlees = "Indicar acordes de pentagrama cruzado con corchetes de arpegio"
+
   texidoc = "
 An arpeggio bracket can indicate that notes on two different staves are
 to be played with the same hand. In order to do this, the

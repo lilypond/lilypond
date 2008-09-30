@@ -6,7 +6,7 @@
   lsrtags = "expressive-marks, text, tweaks-and-overrides"
 
   texidoces = "
-Las instrucciones @code{\startTextSpan} y @code{\stopTextSpan}
+Las instrucciones @code{\\startTextSpan} y @code{\\stopTextSpan}
 permiten la creación de elementos de extensión textuales tan
 fácilmente como indicaciones de pedal u
 octavaciones. Sobreescribimos ciertas propiedades del objeto

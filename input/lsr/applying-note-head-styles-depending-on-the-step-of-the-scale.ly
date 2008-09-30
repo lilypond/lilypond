@@ -19,8 +19,8 @@ de nota latinos trambién se permiten).
 
 Dicho esto, para imitar antiguos cancioneros americanos, existen
 varios estilos predefinidos de cabezas de nota disponibles a través de
-instrucciones de abreviatura como @code{\aikenHeads} o
-@code{\sacredHarpHeads}.
+instrucciones de abreviatura como @code{\\aikenHeads} o
+@code{\\sacredHarpHeads}.
 
 Este ejemplo muestra distintas formas de obtener cabezas de notas con
 forma, y muestra la capacidad de transportar una melodía sin perder la

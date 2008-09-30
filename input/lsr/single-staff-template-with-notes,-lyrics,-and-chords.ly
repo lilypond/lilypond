@@ -11,6 +11,11 @@ letra y acordes.
 
 "
   doctitlees = "Plantilla de pentagrama único con música, letra y acordes"
+  
+  texidocde = "
+Mit diesem Beispiel können Sie einen Song mit Melodie, 
+Text und Akkorden schreiben.
+"
 
   texidoc = "
 This template allows the preparation of a song with melody, words, and
