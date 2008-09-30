@@ -119,11 +119,11 @@ For LilyPond version @version{}
 
 (define top-node
   (make <texi-node>
-    #:name "Top"
+    #:name "GNU LilyPond -- Internals Reference"
     #:text
     (string-append  "
 @end ifnottex
-This is the program reference for version "
+This is the Internals Reference (IR) for version "
 		    (lilypond-version)
 		    " of LilyPond, the GNU music typesetter.")
 

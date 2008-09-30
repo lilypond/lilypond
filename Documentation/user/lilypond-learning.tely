@@ -99,7 +99,7 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- learning manual
+@top GNU LilyPond --- Learning Manual
 
 This is the Learning Manual (LM) for GNU LilyPond version @version{}.
 For more information about how this fits with the other

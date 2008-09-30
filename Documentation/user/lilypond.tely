@@ -133,7 +133,8 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- The music typesetter
+@top GNU LilyPond --- Notation Reference
+@titlefont The music typesetter
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 This is the Notation Reference (NR) for GNU LilyPond version @version{}.

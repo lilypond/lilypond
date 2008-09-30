@@ -99,7 +99,7 @@ Free Documentation License''.
 
 @ifnottex
 @node Top
-@top GNU LilyPond --- program usage
+@top GNU LilyPond --- Application Usage
 @c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 This is the Application Usage (AU) manual for GNU LilyPond version @version{}.
