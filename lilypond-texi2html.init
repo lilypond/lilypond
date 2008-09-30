@@ -81,7 +81,9 @@ $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
 $Texi2HTML::Config::USE_REL_REV   = 1;
 $Texi2HTML::Config::SEPARATED_FOOTNOTES = 0; # Print footnotes on same page, not separated
-$Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+if ($Texi2HTML::Config::SPLIT eq 'section') {
+  $Texi2HTML::Config::element_file_name    = \&lilypond_element_file_name;
+}
 $Texi2HTML::Config::element_target_name  = \&lilypond_element_target_name;
 $Texi2HTML::Config::print_element_header = \&lilypond_print_element_header;
 $Texi2HTML::Config::print_page_foot      = \&print_lilypond_page_foot;
@@ -633,7 +635,6 @@ sub lilypond_print_toc_div ($$)
 our @this_page_toc = ();
 sub lilypond_print_element_header
 {
-  my $fh = shift;
   my $first_in_page = shift;
   my $previous_is_top = shift;
   if ($first_in_page and not @this_page_toc) {
@@ -642,7 +643,7 @@ sub lilypond_print_element_header
       @this_page_toc = lilypond_generate_page_toc_body($Texi2HTML::THIS_ELEMENT);
     }
   }
-  return T2H_DEFAULT_print_element_header( $fh, $first_in_page, $previous_is_top);
+  return T2H_DEFAULT_print_element_header( $first_in_page, $previous_is_top);
 }
 
 # Generate the HTML output for the TOC
@@ -711,48 +712,45 @@ sub get_navigation_text
 # will contain the name of the next/previous section/chapter.
 sub lilypond_print_navigation
 {
-    my $fh = shift;
     my $buttons = shift;
     my $vertical = shift;
     my $spacing = 1;
-#     print $fh '<table cellpadding="', $spacing, '" cellspacing="', $spacing,
-#       "\" border=\"0\" class=\"nav_table\">\n";
-    print $fh "<table class=\"nav_table\">\n";
+    my $result = "<table class=\"nav_table\">\n";
 
-    print $fh "<tr>" unless $vertical;
+    $result .= "<tr>" unless $vertical;
     my $beginofline = 1;
     foreach my $button (@$buttons)
     {
-        print $fh qq{<tr valign="top" align="left">\n} if $vertical;
+        $result .= qq{<tr valign="top" align="left">\n} if $vertical;
         # Allow (left|right|center)-aligned-cell and newline as buttons!
         if ( $button =~ /^(.*)-aligned-cell-(.*)$/ )
         {
-          print $fh qq{</td>} unless $beginofline;
-          print $fh qq{<td valign="middle" align="$1" colspan="$2">};
+          $result .= qq{</td>} unless $beginofline;
+          $result .= qq{<td valign="middle" align="$1" colspan="$2">};
           $beginofline = 0;
         }
         elsif ( $button eq 'newline' )
         {
-          print $fh qq{</td>} unless $beginofline;
-          print $fh qq{</tr>};
-          print $fh qq{<tr>};
+          $result .= qq{</td>} unless $beginofline;
+          $result .= qq{</tr>};
+          $result .= qq{<tr>};
           $beginofline = 1;
 
         }
         elsif (ref($button) eq 'CODE')
         {
-            &$button($fh, $vertical);
+            $result .= &$button($vertical);
         }
         elsif (ref($button) eq 'SCALAR')
         {
-            print $fh "$$button" if defined($$button);
+            $result .= "$$button" if defined($$button);
         }
         elsif (ref($button) eq 'ARRAY')
         {
             my $text = $button->[1];
             my $button_href = $button->[0];
             # verify that $button_href is simple text and text is a reference
-            if (defined($button_href) and !ref($button_href)
+            if (defined($button_href) and !ref($button_href) 
                and defined($text) and (ref($text) eq 'SCALAR') and defined($$text))
             {             # use given text
                 if ($Texi2HTML::HREF{$button_href})
@@ -766,7 +764,7 @@ sub lilypond_print_navigation
                   {
                       $anchor_attributes .= " rel=\"$BUTTONS_REL{$button_href}\"";
                   }
-                  print $fh "" .
+                  $result .=  "" .
                         &$anchor('',
                                     $Texi2HTML::HREF{$button_href},
                                     get_navigation_text($$text),
@@ -775,13 +773,13 @@ sub lilypond_print_navigation
                 }
                 else
                 {
-                  print $fh get_navigation_text($$text);
+                  $result .=  get_navigation_text($$text);
                 }
             }
         }
         elsif ($button eq ' ')
         {                       # handle space button
-            print $fh
+            $result .= 
                 ($ICONS && $ACTIVE_ICONS{' '}) ?
                     &$button_icon_img($BUTTONS_NAME{$button}, $ACTIVE_ICONS{' '}) :
                         $NAVIGATION_TEXT{' '};
@@ -801,7 +799,7 @@ sub lilypond_print_navigation
             }
             if ($ICONS && $ACTIVE_ICONS{$button})
             {                   # use icon
-                print $fh '' .
+                $result .= '' .
                     &$anchor('',
                         $Texi2HTML::HREF{$button},
                         &$button_icon_img($BUTTONS_NAME{$button},
@@ -812,11 +810,11 @@ sub lilypond_print_navigation
             }
             else
             {                   # use text
-                print $fh
+                $result .= 
                     '[' .
                         &$anchor('',
                                     $Texi2HTML::HREF{$button},
-                                    get_navigation_text ($button),
+                                    get_navigation_text($button),
                                     $btitle
                                    ) .
                                        ']';
@@ -824,7 +822,7 @@ sub lilypond_print_navigation
         }
         else
         {                       # button is passive
-            print $fh
+            $result .= 
                 $ICONS && $PASSIVE_ICONS{$button} ?
                     &$button_icon_img($BUTTONS_NAME{$button},
                                           $PASSIVE_ICONS{$button},
@@ -832,12 +830,13 @@ sub lilypond_print_navigation
 
                                               "[" . get_navigation_text($button) . "]";
         }
-        print $fh "</td>\n" if $vertical;
-        print $fh "</tr>\n" if $vertical;
+        $result .= "</td>\n" if $vertical;
+        $result .= "</tr>\n" if $vertical;
     }
-    print $fh "</td>" unless $beginofline;
-    print $fh "</tr>" unless $vertical;
-    print $fh "</table>\n";
+    $result .= "</td>" unless $beginofline;
+    $result .= "</tr>" unless $vertical;
+    $result .= "</table>\n";
+    return $result;
 }
 
 
