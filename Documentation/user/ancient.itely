@@ -160,7 +160,7 @@ satisfied with these defaults, one can proceed directly with note
 entry without worrying about the details on how to customize a
 context.  See one of the  pre-defined contexts
 @code{VaticanaVoice}, @code{VaticanaStaff}, @code{MensuralVoice},
-and @code{MensuralStaff}. See
+and @code{MensuralStaff}. See further
 
 @itemize
 @item @ref{Gregorian chant contexts},
@@ -233,6 +233,8 @@ postfix style @code{note\[ ... note\]}.
 @c with the same effect and is believed to be stable.
 
 @c TODO: this does not seem to work at the moment.
+ @c -- eo
+
 
 
 @c {{{2 Custodes
@@ -741,32 +743,22 @@ Notation Reference: @ref{Rests}, gives a general introduction into the use of
 rests.
 
 
-@c {{{2Mensural accidentals
-@node Mensural accidentals
-@unnumberedsubsubsec Mensural accidentals
+@c {{{2Mensural accidentals and key signatures
+@node Mensural accidentals and key signatures
+@unnumberedsubsubsec Mensural accidentals and key signatures
 
 @cindex accidentals
+@cindex key signature
 
-Four different accidental styles for ancient music are available:
+The @code{mensural} style provides a sharp and a flat sign
+different from the default style. If called for, the natural sign
+will be taken from the @code{vaticana} style.
 
 @lilypond[quote,ragged-right,staffsize=26]
 \score {
 {
   \textLengthOn
   s^\markup {
-    \column {
-      "vaticana"
-      \line { " " \musicglyph #"accidentals.vaticana-1"
-        " " \musicglyph #"accidentals.vaticana0" }
-    }
-    \column {
-      "medicaea"
-      \line { " " \musicglyph #"accidentals.medicaea-1" }
-    }
-    \column {
-      "hufnagel"
-      \line { " " \musicglyph #"accidentals.hufnagel-1" }
-    }
     \column {
       "mensural"
       \line { " " \musicglyph #"accidentals.mensural-1"
@@ -787,11 +779,6 @@ Four different accidental styles for ancient music are available:
   }
 }
 @end lilypond
-
-As shown, not all accidentals are supported by each style.  When
-trying to access an unsupported accidental, LilyPond will switch to a
-different style, as demonstrated in
-@rlsr{Ancient}.
 
 The style for accidentals and key signatures is controlled by the
 @code{glyph-name-alist} property of the  grobs @rinternals{Accidental} and
@@ -957,6 +944,7 @@ Horizontal spacing is poor.
 @menu
 * Gregorian chant contexts::
 * Gregorian clefs::
+* Gregorian accidentals and key signatures::
 * Divisiones::
 * Gregorian articulation signs::
 * Augmentum dots (@emph{morae})::
@@ -1147,6 +1135,71 @@ hufnagel style combined do/fa clef
 
 Notation Reference: see @ref{Clef}.
 
+@c {{{2 Gregorian accidentals and key signatures
+@node Gregorian accidentals and key signatures
+@unnumberedsubsubsec Gregorian accidentals and key signatures
+
+@cindex accidentals
+@cindex key signature
+
+Accidentals for the three different Gregorian styles are available:
+
+@lilypond[quote,ragged-right,staffsize=26]
+\score {
+{
+  \textLengthOn
+  s^\markup {
+    \column {
+      "vaticana"
+      \line { " " \musicglyph #"accidentals.vaticana-1"
+        " " \musicglyph #"accidentals.vaticana0" }
+    }
+    \column {
+      "medicaea"
+      \line { " " \musicglyph #"accidentals.medicaea-1" }
+    }
+    \column {
+      "hufnagel"
+      \line { " " \musicglyph #"accidentals.hufnagel-1" }
+    }
+  }
+}
+\layout {
+  interscoreline = 1
+  \context { \Score \remove "Bar_number_engraver" }
+  \context { \Staff
+      \remove "Clef_engraver"
+      \remove "Key_engraver"
+      \remove "Time_signature_engraver"
+      \remove "Staff_symbol_engraver"
+      \override VerticalAxisGroup #'minimum-Y-extent = ##f
+    }
+  }
+}
+@end lilypond
+
+As shown, not all accidentals are supported by each style.  When
+trying to access an unsupported accidental, LilyPond will switch to a
+different style.
+
+@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+@c {ancient-accidentals.ly}
+
+The style for accidentals and key signatures is controlled by the
+@code{glyph-name-alist} property of the  grobs @rinternals{Accidental} and
+@rinternals{KeySignature}, respectively; e.g.:
+
+@code{\override Staff.Accidental #'glyph-name-alist =
+#alteration-mensural-glyph-name-alist}
+
+@seealso
+
+Notation Reference: @ref{Pitches}, @ref{Accidentals}, and
+@ref{Automatic accidentals} give a general introduction of the use of
+accidentals.  @ref{Key signature} gives a general introduction of
+the use of key signatures.
+
+Internals Reference: @rinternals{KeySignature}.
 
 @c {{{2Divisiones
 @node Divisiones
@@ -1278,6 +1331,13 @@ already be typeset, but essential issues for serious typesetting are
 still lacking, such as (among others) horizontal alignment of multiple
 ligatures, lyrics alignment, and proper handling of accidentals.
 
+The support for Gregorian neumes is enabled by @code{\include}ing
+"gregorian.ly" at the beginning of the file. This makes available
+a number of extra commands to produce the neume symbols used in
+plainchant notation.
+
+
+
 Note heads can be @emph{modified} and/or @emph{joined}.
 
 @itemize
@@ -1306,7 +1366,6 @@ with any of the following commands:
 @code{\cavum},
 @funindex \linea
 @code{\linea}.
-A note name without any qualifiers will produce a @emph{punctum}.
 
 @item Ligatures, properly speaking (i.e. notes joined together), are
 produced by placing one of the joining commands @code{pes} or
@@ -1314,10 +1373,15 @@ produced by placing one of the joining commands @code{pes} or
 @emph{between} the notes to be joined.
 @end itemize
 
-All neumes are in principle considered as ligatures, even the
-single-note neumes @emph{punctum} and @emph{virga}, and should
-therefore be placed between @code{\[...\]}.
+A note name without any qualifiers will produce a @emph{punctum}.
+All other neumes, including the single-note neumes with a
+different shape such as the @emph{virga}, are in principle
+considered as ligatures and should therefore be placed
+between @code{\[...\]}.
+@c Regarding the @emph{punctum}, @code{b} and @code{\[ b \]} are
+@c equivalent.
 
+@noindent
 Single-note neumes:
 
 @itemize
@@ -1334,22 +1398,26 @@ lines on either side of the note.
 produced by the modifier @code{\virga}.
 @end itemize
 
-@c On ligatures
+@noindent
+Ligatures
 
-Unlike most other neumes notation systems, the input language for
-neumes does not reflect the typographical appearance, but is designed
-to focus on musical meaning.  For example, @code{\[ a \pes b
-\flexa g \]} produces a Torculus consisting of three Punctum heads,
-while @code{\[ a \flexa g \pes b \]} produces a Porrectus with a
-curved flexa shape and only a single Punctum head.  There is no
-command to explicitly typeset the curved flexa shape; the decision of
-when to typeset a curved flexa shape is based on the musical
-input.  The idea of this approach is to separate the musical aspects
-of the input from the notation style of the output.  This way, the
-same input can be reused to typeset the same music in a different
-style of Gregorian chant notation.
+Unlike most other neumes notation systems, the typographical
+appearance of ligatures is not directly dictated by the input
+commands, but follows certain conventions dependent on musical
+meaning. For example, a three-note ligature with the musical shape
+low-high-low, such as @code{\[ a \pes b \flexa g \]}, produces a
+Torculus consisting of three Punctum heads, while the shape
+high-low-high, such as @code{\[ a \flexa g \pes b \]}, produces a
+Porrectus with a curved flexa shape and only a single Punctum
+head.  There is no command to explicitly typeset the curved flexa
+shape; the decision of when to typeset a curved flexa shape is
+based on the musical input.  The idea of this approach is to
+separate the musical aspects of the input from the notation style
+of the output.  This way, the same input can be reused to typeset
+the same music in a different style of Gregorian chant notation.
 
-@c Liquescent neumes
+@noindent
+Liquescent neumes
 
 Another main category of notes in Gregorian chant is the so-called
 liquescent neumes. They are used under certain circumstances at
@@ -1369,7 +1437,8 @@ with @code{\auctus} and one of the direction markers
 @code{\descendens} or @code{\ascendens}, e.g. @code{ \[ \auctus
 \descendens a \] }.
 
-@c Special signs
+@noindent
+Special signs
 
 A third category of signs is made up of a small number of signs
 with a special meaning (which, incidentally, in most cases is only
@@ -1396,13 +1465,14 @@ perfectly possible to make a single-note quilisma.
 @c neume table
 
 The following table shows a limited, but still representative pool
-of Gregorian ligature examples, with the code fragments that
-produce the ligatures. The the extended neumes table of the 2nd
-volume of the Antiphonale Romanum (@emph{Liber Hymnarius}), published
-1983 by the monks of Solesmes  The second column
-gives the name of the ligature.  The third column shows the code
-fragment that produces this ligature, using @code{g}, @code{a},
-and @code{b} as example pitches.
+of Gregorian ligatures, together with the code fragments that
+produce the ligatures. The table is based on the extended neumes
+table of the 2nd volume of the Antiphonale Romanum (@emph{Liber
+Hymnarius}), published 1983 by the monks of Solesmes.  The first
+column gives the name of the ligature, with the main form in
+boldface and the liquescent forms in italics.  The third column
+shows the code fragment that produces this ligature, using
+@code{g}, @code{a}, and @code{b} as example pitches.
 
 
 @b{Single-note neums}
@@ -2207,7 +2277,6 @@ with head prefixes in arbitrary order.
 * Transcribing Gregorian chant::
 * Ancient and modern from one source::
 * Editorial markings::
-* Baroque rhythmic notation::
 @end menu
 
 Working with ancient music frequently involves particular tasks
@@ -2255,8 +2324,9 @@ orientation aids that bar lines give.
 @lilypondfile[verbatim,lilyquote,texidoc]
 {mensurstriche-layout-bar-lines-between-the-staves.ly}
 
-This simple setup will take care of the
-@c TODO Add text
+@c This simple setup will take care of the
+@c TODO Add text about lyrics to the lowest line, to be placed
+@c outside the StaffGroup.
 @c from lsr and -user
 TBC
 
@@ -2296,87 +2366,8 @@ TBC
 @unnumberedsubsubsec Editorial markings
 
 @c {{{2Baroque rhythmic notation
-@node Baroque rhythmic notation
-@unnumberedsubsubsec Baroque rhythmic notation
-
-@c TODO Add text
-@c try Till Rettig
-@c Add example of white noteheads:
-@c In the french baroque some composers used white noteheads in slow pieces,
-@c mainly in 3/2-time.  A quarter looks there like a eighth with a white
-@c notehead.  (Franz-Rudolf Kuhnen)
-
-@c TODO Add example of this:
-@c I was referring to e.g. notated a8. a16, which should, if I
-@c remember correctly, be interpreted more like a8.. a32 (in the french
-@c style).  The editor might want to show that rythmic figure above the
-@c staff as an hint to performers.  (Karl Hammer)
-
-
-TBC
-
-@seealso
-
-@c ... and reference to other sections ...
-
-@c {{{2Mensurstriche layout
-@node Mensurstriche layout
-@unnumberedsubsubsec Mensurstriche layout
-
-@emph{Mensurstriche} (@q{mensuration lines}) is the accepted term
-for bar lines that are drawn between the staves of a system but
-not through the staves themselves. It is a common way to preserve
-the rhythmic appearance of the original, i.e. not having to break
-syncopated notes at bar lines, while still providing the
-orientation aids that bar lines give.
-
-
-@lilypondfile[verbatim,lilyquote,texidoc]
-{mensurstriche-layout-bar-lines-between-the-staves.ly}
-
-This simple setup will take care of the
-@c TODO Add text
-@c from lsr and -user
-TBC
-
-@seealso
-
-@c ... and reference to other sections ...
-
-
-@c {{{2Transcribing Gregorian chant
-@node Transcribing Gregorian chant
-@unnumberedsubsubsec Transcribing Gregorian chant
-
-@c TODO Add text
-@c extract from 1.6.1.1
-TBC
-
-@seealso
-
-@c ... and reference to other sections ...
-
-
-@c {{{2Ancient and modern from one source
-@node Ancient and modern from one source
-@unnumberedsubsubsec Ancient and modern from one source
-
-@c TODO Add text
-@c Here among others the snippets about reducing note length
-TBC
-
-@seealso
-
-@c ... and reference to other sections ...
-
-
-@c {{{2Editorial markings
-@node Editorial markings
-@unnumberedsubsubsec Editorial markings
-
-@c {{{2Baroque rhythmic notation
-@node Baroque rhythmic notation
-@unnumberedsubsubsec Baroque rhythmic notation
+@c @node Baroque rhythmic notation
+@c @unnumberedsubsubsec Baroque rhythmic notation
 
 @c TODO Add text
 @c try Till Rettig
