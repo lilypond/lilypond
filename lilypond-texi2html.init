@@ -74,10 +74,10 @@ package Texi2HTML::Config;
 #############################################################################
 
 @Texi2HTML::Config::CSS_REFS      = (
-    {FILENAME => "lilypond.css", TITLE => "Default Style" }
+    {FILENAME => "lilypond-mccarty.css", TITLE => "Patrick McCarty's design"}
 );
 @Texi2HTML::Config::ALT_CSS_REFS      = (
-    {FILENAME => "lilypond-mccarty.css", TITLE => "Patrick McCarty's design"}
+    {FILENAME => "lilypond.css", TITLE => "Andrew Hawryluk's design" }
 );
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;
