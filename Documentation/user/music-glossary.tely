@@ -68,30 +68,19 @@ Copyright @copyright{} 1999--2007 by the authors
 
 This glossary was brought you by
 
-@table @code
-@item Adrian Mariano
-Italian glossary,
-@item Bjoern Jacke
-German glossary,
-@item Christian Mondrup
-Original author of LilyPond glossary, Danish glossary,
-@item David González
-Spanish glossary,
-@item François Pinard
-Original glossary of GNU music project, French glossary,
-@item Han-Wen Nienhuys
-Dutch glossary,
-@item Heikki Junes
-Finnish glossary translations,
-@item Jan Nieuwenhuizen
-Dutch glossary,
-@item Kurtis Kroon
-English glossary,
-@item Mats Bengtsson
-Swedish glossary,
-@item Neil Jerram
-English glossary translations.
-@end table
+@multitable {Jan Nieuwenhuizen} {Original glossary of GNU music project, French glossary,}
+@item Adrian Mariano @tab Italian glossary,
+@item Bjoern Jacke @tab German glossary,
+@item Christian Mondrup @tab Original author of LilyPond glossary, Danish glossary,
+@item David González @tab Spanish glossary,
+@item François Pinard @tab Original glossary of GNU music project, French glossary,
+@item Han-Wen Nienhuys @tab Dutch glossary,
+@item Heikki Junes @tab Finnish glossary translations,
+@item Jan Nieuwenhuizen @tab Dutch glossary,
+@item Kurtis Kroon @tab English glossary,
+@item Mats Bengtsson @tab Swedish glossary,
+@item Neil Jerram @tab English glossary translations.
+@end multitable
 @*
 Copyright 1999--2007 by the authors
 
