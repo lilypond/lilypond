@@ -927,8 +927,8 @@ changed to a numeric style:
 @end lilypond
 
 
-Ancient time signatures are covered in
-@ref{Ancient time signatures}.
+Mensural time signatures are covered in
+@ref{Mensural time signatures}.
 
 @predefined
 
@@ -1000,7 +1000,7 @@ Music Glossary:
 @rglos{time signature}
 
 Notation Reference:
-@ref{Ancient time signatures},
+@ref{Mensural time signatures},
 @ref{Time administration}.
 
 Snippets:
