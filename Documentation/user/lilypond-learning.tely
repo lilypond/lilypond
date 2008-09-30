@@ -31,6 +31,11 @@
 @omflanguage English
 @end ignore
 
+@ifnottex
+@node Top
+@top GNU LilyPond --- Learning Manual
+@end ifnottex
+
 
 @ifhtml
 This document is also available as a
@@ -98,9 +103,6 @@ Free Documentation License''.
 @end ifnottex
 
 @ifnottex
-@node Top
-@top GNU LilyPond --- Learning Manual
-
 This is the Learning Manual (LM) for GNU LilyPond version @version{}.
 For more information about how this fits with the other
 documentation, see @ref{About the documentation}.

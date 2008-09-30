@@ -90,12 +90,6 @@
 @end tex
 @end iftex
 
-@ifhtml
-This document is also available as a
-@uref{source/Documentation/user/lilypond-internals.pdf,PDF} and as
-@uref{source/Documentation/user/lilypond-internals-big-page.html,one big page}.
-@end ifhtml
-
 @finalout
 
 @titlepage
@@ -113,16 +107,21 @@ For LilyPond version @version{}
 
 @contents
 
-@ifnottex
-")
+@ifnottex")
  out-port)
 
 (define top-node
   (make <texi-node>
     #:name "GNU LilyPond -- Internals Reference"
     #:text
-    (string-append  "
-@end ifnottex
+    (string-append  "@end ifnottex
+
+@ifhtml
+This document is also available as a
+@uref{source/Documentation/user/lilypond-internals.pdf,PDF} and as
+@uref{source/Documentation/user/lilypond-internals-big-page.html,one big page}.
+@end ifhtml
+
 This is the Internals Reference (IR) for version "
 		    (lilypond-version)
 		    " of LilyPond, the GNU music typesetter.")
