@@ -43,7 +43,7 @@ notation. See
 
 @itemize
 @item @ref{Mensural note heads},
-@item @ref{Mensural accidentals},
+@item @ref{Mensural accidentals and key signatures},
 @item @ref{Mensural rests},
 @item @ref{Mensural clefs},
 @item @ref{Gregorian clefs},
@@ -233,7 +233,7 @@ postfix style @code{note\[ ... note\]}.
 @c with the same effect and is believed to be stable.
 
 @c TODO: this does not seem to work at the moment.
- @c -- eo
+@c -- eo
 
 
 
@@ -338,7 +338,7 @@ Baroque period; see @ref{Figured bass}.
 * Mensural note heads::
 * Mensural flags::
 * Mensural rests::
-* Mensural accidentals::
+* Mensural accidentals and key signatures::
 * Annotational accidentals (@emph{musica ficta})::
 * White mensural ligatures::
 @end menu
