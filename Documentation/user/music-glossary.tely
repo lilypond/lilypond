@@ -102,6 +102,7 @@ This is the Music Glossary (MG) for GNU LilyPond version @version{}.
 For more information about how this fits with the other
 documentation, see @rlearning{About the documentation}.
 
+@shortcontents
 
 @c arrowref
 @macro aref{word}
