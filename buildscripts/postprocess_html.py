@@ -123,7 +123,7 @@ body_tag_re = re.compile ('(?i)<body([^>]*)>')
 html_tag_re = re.compile ('(?i)<html>')
 doctype_re = re.compile ('(?i)<!DOCTYPE')
 doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
-css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" href="[^">]*?lilypond.css">')
+css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" href="[^">]*?lilypond.css"([^>]*)>')
 end_head_tag_re = re.compile ('(?i)</head>')
 css_link = '<link rel="stylesheet" type="text/css" href="%sDocumentation/lilypond.css">\n'
 

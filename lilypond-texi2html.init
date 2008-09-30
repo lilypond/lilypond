@@ -246,11 +246,11 @@ sub lilypond_css_lines ($$)
     }
     foreach my $ref (@CSS_REFS)
     {
-        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\">\n";
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"stylesheet\" type=\"text/css\" href=\"$ref\" title=\"Default style\">\n";
     }
     foreach my $ref (@ALT_CSS_REFS)
     {
-        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" title=\"$ref->{TITLE}\" href=\"$ref->{FILENAME}\">\n";
+        $Texi2HTML::THISDOC{'CSS_LINES'} .= "<link rel=\"alternate stylesheet\" type=\"text/css\" href=\"$ref->{FILENAME}\" title=\"$ref->{TITLE}\">\n";
     }
     $Texi2HTML::THISDOC{'CSS_LINES'} .= "<!--[if lte IE 7]>\n<link href=\"lilypond-ie-fixes.css\" rel=\"stylesheet\" type=\"text/css\">\n<![endif]-->\n";
 }
