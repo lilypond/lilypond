@@ -46,7 +46,7 @@ This section introduces different ways of adding text to a score.
 
 
 @node Text scripts
-@subsubsection Text scripts
+@unnumberedsubsubsec Text scripts
 
 @cindex Text scripts
 @cindex text items, non-empty
@@ -117,7 +117,7 @@ default; to enable it, use
 
 
 @node Text spanners
-@subsubsection Text spanners
+@unnumberedsubsubsec Text spanners
 
 @cindex Text spanners
 
@@ -172,7 +172,7 @@ Internals Reference:
 
 
 @node Text marks
-@subsubsection Text marks
+@unnumberedsubsubsec Text marks
 
 @cindex coda on bar line
 @cindex segno on bar line
@@ -262,7 +262,7 @@ there is no next line), then the mark will not be printed at
 all.
 
 @node Separate text
-@subsubsection Separate text
+@unnumberedsubsubsec Separate text
 
 @cindex separate text
 @cindex standalone text
@@ -346,7 +346,7 @@ using the @code{\markup} mode specific syntax.
 @end menu
 
 @node Text markup introduction
-@subsubsection Text markup introduction
+@unnumberedsubsubsec Text markup introduction
 
 @cindex markup
 @cindex text markup
@@ -460,7 +460,7 @@ Syntax errors for markup mode can be confusing.
 
 
 @node Selecting font and font size
-@subsubsection Selecting font and font size
+@unnumberedsubsubsec Selecting font and font size
 
 @cindex font switching
 @funindex \italic
@@ -625,7 +625,7 @@ Installed files:
 
 
 @node Text alignment
-@subsubsection Text alignment
+@unnumberedsubsubsec Text alignment
 
 @cindex text, aligning
 @cindex aligning text
@@ -850,7 +850,7 @@ Installed files:
 
 
 @node Graphic notation inside markup
-@subsubsection Graphic notation inside markup
+@unnumberedsubsubsec Graphic notation inside markup
 
 @cindex graphics, embedding
 @cindex drawing graphic objects
@@ -1005,7 +1005,7 @@ Installed files:
 @file{scm/@/stencil@/.scm}.
 
 @node Music notation inside markup
-@subsubsection Music notation inside markup
+@unnumberedsubsubsec Music notation inside markup
 
 Various musical notation elements may be added
 to a score, inside a markup object.
@@ -1131,7 +1131,7 @@ Installed files:
 @file{scm/@/harp@/-pedals@/.scm}.
 
 @node Multi-page markup
-@subsubsection Multi-page markup
+@unnumberedsubsubsec Multi-page markup
 
 Although standard markup objects are not breakable, a
 specific syntax allows to enter lines of text that can
@@ -1195,7 +1195,7 @@ and how they may be changed in scores.
 @end menu
 
 @node Fonts explained
-@subsubsection Fonts explained
+@unnumberedsubsubsec Fonts explained
 
 @cindex Pango
 @cindex fonts, explained
@@ -1297,7 +1297,7 @@ Notation Reference:
 @ref{Font}.
 
 @node Single entry fonts
-@subsubsection Single entry fonts
+@unnumberedsubsubsec Single entry fonts
 
 Any font that is installed on the operating system and recognized
 by FontConfig may be used in a score, using the following syntax:
@@ -1338,7 +1338,7 @@ Installed files:
 @file{lily/@/font@/-config@/-scheme@/.cc}.
 
 @node Entire document fonts
-@subsubsection Entire document fonts
+@unnumberedsubsubsec Entire document fonts
 
 
 It is possible to change the default font families for the

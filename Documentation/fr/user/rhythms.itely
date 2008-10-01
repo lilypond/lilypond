@@ -40,7 +40,7 @@ et de mesure.
 @end menu
 
 @node Durations
-@subsubsection Durations
+@unnumberedsubsubsec Durations
 
 @cindex durées
 @funindex \longa
@@ -131,7 +131,7 @@ Référence du programme : @rinternals{Dots}, @rinternals{DotColumn}.
 
 
 @node Tuplets
-@subsubsection Tuplets
+@unnumberedsubsubsec Tuplets
 
 @cindex nolets
 @cindex triolets
@@ -283,7 +283,7 @@ Référence du programme : @rinternals{TupletBracket},
 
 
 @node Scaling durations
-@subsubsection Scaling durations
+@unnumberedsubsubsec Scaling durations
 
 Vous pouvez altérer la durée des notes en leur joignant une fraction
 @var{N/M}, donnant @q{@code{*}@var{N/M}} --- ou @q{@code{*}@var{N}} si
@@ -307,7 +307,7 @@ Dans ce manuel : @ref{Tuplets}.
 
 
 @node Ties
-@subsubsection Ties
+@unnumberedsubsubsec Ties
 
 @cindex liaison de prolongation
 @funindex ~
@@ -466,7 +466,7 @@ legato.
 @end menu
 
 @node Rests
-@subsubsection Rests
+@unnumberedsubsubsec Rests
 @cindex silences
 
 @funindex \rest
@@ -503,7 +503,7 @@ Référence du programme : @rinternals{Rest}.
 
 
 @node Invisible rests
-@subsubsection Invisible rests
+@unnumberedsubsubsec Invisible rests
 
 @cindex sauts de durée
 @cindex silences invisibles
@@ -548,7 +548,7 @@ Référence du programme : @rinternals{SkipMusic}.
 
 
 @node Full measure rests
-@subsubsection Full measure rests
+@unnumberedsubsubsec Full measure rests
 
 @cindex mesures à compter
 @cindex mesure entière de silence
@@ -682,7 +682,7 @@ la numérotation des mesures sera suspendue.
 @end menu
 
 @node Time signature
-@subsubsection Time signature
+@unnumberedsubsubsec Time signature
 
 @cindex chiffrage de mesure
 @cindex chiffre indicateur de mesure
@@ -765,7 +765,7 @@ spécifiés par @code{set-time-signature}.
 
 
 @node Upbeats
-@subsubsection Upbeats
+@unnumberedsubsubsec Upbeats
 
 @cindex anacrouse
 @cindex levée
@@ -823,7 +823,7 @@ s'afficher.
 
 
 @node Unmetered music
-@subsubsection Unmetered music
+@unnumberedsubsubsec Unmetered music
 
 @cindex cadence
 @funindex \cadenzaOn
@@ -859,7 +859,7 @@ endroit un saut de ligne peut intervenir.
 
 
 @node Polymetric notation
-@subsubsection Polymetric notation
+@unnumberedsubsubsec Polymetric notation
 
 @cindex métrique composite
 @cindex composite, métrique
@@ -1020,7 +1020,7 @@ fausser l'espacement régulier.
 
 
 @node Automatic note splitting
-@subsubsection Automatic note splitting
+@unnumberedsubsubsec Automatic note splitting
 
 On peut convertir automatiquement les notes longues en notes liées.  Il
 faut pour cela remplacer le graveur @rinternals{Note_heads_engraver}
@@ -1062,7 +1062,7 @@ divise pas les silences.
 Référence du programme : @rinternals{Completion_heads_engraver}.
 
 @node Showing melody rhythms
-@subsubsection Showing melody rhythms
+@unnumberedsubsubsec Showing melody rhythms
 
 Au moyen d'une portée rythmique -- @q{rhythmic staff} en anglais -- on
 peut montrer seulement le rythme d'une mélodie : toutes les notes sont
@@ -1090,7 +1090,7 @@ Référence du programme : @rinternals{RhythmicStaff}.
 @end menu
 
 @node Automatic beams
-@subsubsection Automatic beams
+@unnumberedsubsubsec Automatic beams
 
 LilyPond décide automatiquement de la manière de grouper les notes et
 d'imprimer les ligatures.
@@ -1118,7 +1118,7 @@ Référence du programme : @rinternals{Beam}.
 
 
 @node Setting automatic beam behavior
-@subsubsection Setting automatic beam behavior
+@unnumberedsubsubsec Setting automatic beam behavior
 
 @funindex autoBeamSettings
 @funindex (end * * * *)
@@ -1315,7 +1315,7 @@ soit achevée.
 
 
 @node Manual beams
-@subsubsection Manual beams
+@unnumberedsubsubsec Manual beams
 
 @cindex groupements de note manuels
 @cindex ligatures manuelles
@@ -1403,7 +1403,7 @@ les notes, contrairement aux textes ou aux altérations.
 
 
 @node Feathered beams
-@subsubsection Feathered beams
+@unnumberedsubsubsec Feathered beams
 
 Les ligatures en soufflet s'obtiennent en définissant la propriété
 @code{grow-direction} d'une barre de ligature.  La fonction
@@ -1435,7 +1435,7 @@ courts extraits.
 @end menu
 
 @node Bar lines
-@subsubsection Bar lines
+@unnumberedsubsubsec Bar lines
 
 @cindex barres de mesure
 @funindex \bar
@@ -1529,7 +1529,7 @@ portées).
 
 
 @node Bar numbers
-@subsubsection Bar numbers
+@unnumberedsubsubsec Bar numbers
 
 @cindex Mesure, numéro de
 @cindex numéros de mesure
@@ -1604,7 +1604,7 @@ positionnement.
 
 
 @node Bar and bar number checks
-@subsubsection Bar and bar number checks
+@unnumberedsubsubsec Bar and bar number checks
 
 @cindex vérification des limites de mesure
 @cindex mesures, vérification des limites
@@ -1661,7 +1661,7 @@ point (variable @code{currentBarNumber}) n'est pas 123.
 
 
 @node Rehearsal marks
-@subsubsection Rehearsal marks
+@unnumberedsubsubsec Rehearsal marks
 
 @cindex Repères, indication de
 @funindex \mark
@@ -1777,7 +1777,7 @@ Exemples : @rlsr{Rhythms}, @rlsr{Expressive marks}.
 @end menu
 
 @node Grace notes
-@subsubsection Grace notes
+@unnumberedsubsubsec Grace notes
 
 @funindex \grace
 @cindex ornements
@@ -1994,7 +1994,7 @@ code peut échouer ou produire des erreurs.
 
 
 @node Aligning to cadenzas
-@subsubsection Aligning to cadenzas
+@unnumberedsubsubsec Aligning to cadenzas
 
 Dans un contexte orchestral, une cadence constitue un problème
 spécifique.  Lors du montage d'une partition contenant une cadence,
@@ -2025,7 +2025,7 @@ cadenza = \relative c' {
 
 
 @node Time administration
-@subsubsection Time administration
+@unnumberedsubsubsec Time administration
 
 @cindex temps, gestion du
 

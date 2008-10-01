@@ -53,7 +53,7 @@
 @end menu
 
 @node Bagpipe definitions
-@subsubsection Bagpipe definitions
+@unnumberedsubsubsec Bagpipe definitions
 
 LilyPond inclut des définitions spécifiques destinées à la notation pour
 cornemuse écossaise ; pour les utiliser, il suffit d'ajouter
@@ -97,7 +97,7 @@ ou un défilé, peut survenir un sol aigu, au doux nom de
 @qq{piobaireachd}, et que l'on indiquera par @code{gflat}.
 
 @node Bagpipe example
-@subsubsection Bagpipe example
+@unnumberedsubsubsec Bagpipe example
 
 Et voici en guise d'exemple, à quoi ressemble le chant populaire
 @emph{Amazing Grace}, noté dans l'idiome de la cornemuse.

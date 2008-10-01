@@ -111,7 +111,7 @@ Voici les points que nous allons aborder :
 @end menu
 
 @node Ancient notation supported
-@subsubsection Ancient notation supported
+@unnumberedsubsubsec Ancient notation supported
 
 @untranslated
 
@@ -133,7 +133,7 @@ Voici les points que nous allons aborder :
 @end menu
 
 @node Ancient note heads
-@subsubsection Ancient note heads
+@unnumberedsubsubsec Ancient note heads
 
 @cindex têtes de note, musique ancienne
 
@@ -178,7 +178,7 @@ consultez @ref{Note head styles}.
 
 
 @node Ancient accidentals
-@subsubsection Ancient accidentals
+@unnumberedsubsubsec Ancient accidentals
 
 @cindex altérations
 
@@ -246,7 +246,7 @@ Exemples : @rlsr{Ancient notation}.
 
 
 @node Ancient rests
-@subsubsection Ancient rests
+@unnumberedsubsubsec Ancient rests
 
 @cindex silences, musique ancienne
 
@@ -283,7 +283,7 @@ sont exposés dans @ref{Rests}.
 
 
 @node Ancient clefs
-@subsubsection Ancient clefs
+@unnumberedsubsubsec Ancient clefs
 
 @cindex clefs
 @cindex clés
@@ -523,7 +523,7 @@ La clé de sol mensurale est calquée sur celle de Petrucci.
 
 
 @node Ancient flags
-@subsubsection Ancient flags
+@unnumberedsubsubsec Ancient flags
 
 @cindex crochets
 
@@ -564,7 +564,7 @@ pas prévues pour être appliquées à la notation mensurale.
 
 
 @node Ancient time signatures
-@subsubsection Ancient time signatures
+@unnumberedsubsubsec Ancient time signatures
 
 @cindex métrique
 
@@ -694,7 +694,7 @@ plutôt un @code{\markup}.
 @end menu
 
 @node Ancient articulations
-@subsubsection Ancient articulations
+@unnumberedsubsubsec Ancient articulations
 
 @cindex articulations
 
@@ -728,7 +728,7 @@ l'est, son extension à droite est trop longue.
 
 
 @node Custodes
-@subsubsection Custodes
+@unnumberedsubsubsec Custodes
 
 @cindex custos
 @cindex custodes
@@ -808,7 +808,7 @@ Exemples : @rlsr{Ancient notation}.
 
 
 @node Divisiones
-@subsubsection Divisiones
+@unnumberedsubsubsec Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -859,7 +859,7 @@ Exemples : @rlsr{Winds}.
 
 
 @node Ligatures
-@subsubsection Ligatures
+@unnumberedsubsubsec Ligatures
 
 @cindex Ligatures
 
@@ -916,7 +916,7 @@ qui produit le même résultat, et dont la pérennité est assurée.
 * White mensural ligatures::
 * Gregorian square neumes ligatures::
 @node White mensural ligatures
-@subsubsection White mensural ligatures
+@unnumberedsubsubsec White mensural ligatures
 
 
 @cindex Ligatures mensurales
@@ -1009,7 +1009,7 @@ L'espacement horizontal n'est pas des meilleurs.
 
 
 @node Gregorian square neumes ligatures
-@subsubsection Gregorian square neumes ligatures
+@unnumberedsubsubsec Gregorian square neumes ligatures
 
 @cindex neumes carrés et ligatures
 @cindex grégorien, ligatures de neumes carrés
@@ -1976,7 +1976,7 @@ s'intégrer avec d'autres préfixes dans n'importe quel ordre.
 @end menu
 
 @node Gregorian chant contexts
-@subsubsection Gregorian chant contexts
+@unnumberedsubsubsec Gregorian chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -2012,7 +2012,7 @@ lancer dans la saisie de votre chant, comme ci-dessous :
 
 
 @node Mensural contexts
-@subsubsection Mensural contexts
+@unnumberedsubsubsec Mensural contexts
 
 
 @cindex MensuralVoiceContext
@@ -2060,23 +2060,23 @@ lancer dans la saisie de votre chant comme ci-après :
 @end menu
 
 @node Ancient and modern from one source
-@subsubsection Ancient and modern from one source
+@unnumberedsubsubsec Ancient and modern from one source
 
 @untranslated
 
 @node Incipits
-@subsubsection Incipits
+@unnumberedsubsubsec Incipits
 
 @untranslated
 
 
 @node Mensurstriche layout
-@subsubsection Mensurstriche layout
+@unnumberedsubsubsec Mensurstriche layout
 
 @untranslated
 
 @node Transcribing Gregorian chant
-@subsubsection Transcribing Gregorian chant
+@unnumberedsubsubsec Transcribing Gregorian chant
 
 @untranslated
 
@@ -2093,7 +2093,7 @@ lancer dans la saisie de votre chant comme ci-après :
 @end menu
 
 @node Annotational accidentals
-@subsubsection Annotational accidentals
+@unnumberedsubsubsec Annotational accidentals
 
 
 @cindex MensuralVoiceContext
@@ -2129,7 +2129,7 @@ lancer dans la saisie de votre chant comme ci-après :
 
 
 @node Baroque rhythmic notation
-@subsubsection Baroque rhythmic notation
+@unnumberedsubsubsec Baroque rhythmic notation
 
 @untranslated
 

@@ -30,13 +30,13 @@ se puede utilizar para mostrar los valores rítmicos una melodía.
 @end menu
 
 @node References for percussion
-@subsubsection References for percussion
+@unnumberedsubsubsec References for percussion
 
 @untranslated
 
 
 @node Basic percussion notation
-@subsubsection Basic percussion notation
+@unnumberedsubsubsec Basic percussion notation
 
 @cindex percusión
 @cindex batería
@@ -103,7 +103,7 @@ Referencia del programa:
 @rinternals{note-event}.
 
 @node Percussion staves
-@subsubsection Percussion staves
+@unnumberedsubsubsec Percussion staves
 @cindex percusión
 @cindex batería
 
@@ -329,7 +329,7 @@ shot), para este propósito se usa el golpe lateral de baqueta
 
 @c FIXME: check name -gp
 @node Ghost notes
-@subsubsection Ghost notes
+@unnumberedsubsubsec Ghost notes
 
 Las notas fantasma para la batería e instrumentos de percusión se
 pueden crear utilizando la instrucción @code{\parenthesize} detallada

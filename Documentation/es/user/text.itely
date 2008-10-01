@@ -49,7 +49,7 @@ partitura.
 @end menu
 
 @node Text scripts
-@subsubsection Text scripts
+@unnumberedsubsubsec Text scripts
 
 @cindex Texto, inscripciones de
 @cindex texto, elementos no vacíos de
@@ -118,7 +118,7 @@ para habilitarlos, utilice
 
 
 @node Text spanners
-@subsubsection Text spanners
+@unnumberedsubsubsec Text spanners
 
 @cindex text spanners
 
@@ -173,7 +173,7 @@ Referencia de funcionamiento interno:
 
 
 @node Text marks
-@subsubsection Text marks
+@unnumberedsubsubsec Text marks
 
 @cindex coda sobre la línea divisoria
 @cindex segno sobre la línea divisoria
@@ -248,7 +248,7 @@ Si se introduce una llamada al final del último compás de la partitura
 (donde no hay línea siguiente), la llamada no se imprime en absoluto.
 
 @node Separate text
-@subsubsection Separate text
+@unnumberedsubsubsec Separate text
 
 @cindex separate text
 @cindex standalone text
@@ -333,7 +333,7 @@ usando la sintaxis específica del modo de @code{\markup}.
 @end menu
 
 @node Text markup introduction
-@subsubsection Text markup introduction
+@unnumberedsubsubsec Text markup introduction
 
 @cindex marcado
 @cindex texto, marcado de
@@ -455,27 +455,27 @@ confusión.
 
 
 @node Selecting font and font size
-@subsubsection Selecting font and font size
+@unnumberedsubsubsec Selecting font and font size
 
 @untranslated
 
 @node Text alignment
-@subsubsection Text alignment
+@unnumberedsubsubsec Text alignment
 
 @untranslated
 
 @node Graphic notation inside markup
-@subsubsection Graphic notation inside markup
+@unnumberedsubsubsec Graphic notation inside markup
 
 @untranslated
 
 @node Music notation inside markup
-@subsubsection Music notation inside markup
+@unnumberedsubsubsec Music notation inside markup
 
 @untranslated
 
 @node Multi-page markup
-@subsubsection Multi-page markup
+@unnumberedsubsubsec Multi-page markup
 
 Así como @code{\markup} se utiliza para introducir un bloque de texto
 no divisible en líneas, se puede usar @code{\markuplines} en el nivel
@@ -529,7 +529,7 @@ Fragmentos de código:
 @end menu
 
 @node Entire document fonts
-@subsubsection Entire document fonts
+@unnumberedsubsubsec Entire document fonts
 
 También es posible cambiar la familia predeterminada de la fuente
 tipográfica para todo el documento.  Se hace llamando a la función
@@ -563,7 +563,7 @@ ejemplo:
 
 
 @node Single entry fonts
-@subsubsection Single entry fonts
+@unnumberedsubsubsec Single entry fonts
 
 @cindex fuente, selección
 @cindex fuente, ampliación

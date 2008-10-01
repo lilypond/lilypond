@@ -39,7 +39,7 @@
 
 
 @node Ancient notation supported
-@subsubsection Ancient notation supported
+@unnumberedsubsubsec Ancient notation supported
 
 El tratamiento de la notación antigua incluye posibilidades orientadas
 a la notación mensural y de Canto Gregoriano.  También se contempla de
@@ -116,7 +116,7 @@ apareció en el período barroco.
 
 
 @node Ancient note heads
-@subsubsection Ancient note heads
+@unnumberedsubsubsec Ancient note heads
 
 @cindex cabezas de nota antiguas
 
@@ -176,7 +176,7 @@ totalidad de los estilos de cabeza disponibles.
 
 
 @node Ancient accidentals
-@subsubsection Ancient accidentals
+@unnumberedsubsubsec Ancient accidentals
 
 @cindex alteraciones accidentales
 
@@ -245,7 +245,7 @@ Referencia de funcionamiento interno:
 
 
 @node Ancient rests
-@subsubsection Ancient rests
+@unnumberedsubsubsec Ancient rests
 
 @cindex silencios antiguos
 
@@ -283,7 +283,7 @@ al uso de los silencios.
 
 
 @node Ancient clefs
-@subsubsection Ancient clefs
+@unnumberedsubsubsec Ancient clefs
 
 @cindex claves
 
@@ -527,7 +527,7 @@ Petrucci.
 
 
 @node Ancient flags
-@subsubsection Ancient flags
+@unnumberedsubsubsec Ancient flags
 
 @cindex corchetes
 
@@ -566,7 +566,7 @@ disposición avanzadas de la notación clásica (que, de todas formas,
 por lo común se encuentra fuera del ámbito de la notación mensural).
 
 @node Ancient time signatures
-@subsubsection Ancient time signatures
+@unnumberedsubsubsec Ancient time signatures
 
 @cindex compás, indicación de
 @cindex mensuración, símbolo
@@ -698,7 +698,7 @@ un elemento de marcado @code{\markup}.
 
 
 @node Ancient articulations
-@subsubsection Ancient articulations
+@unnumberedsubsubsec Ancient articulations
 
 @cindex articulaciones
 
@@ -734,7 +734,7 @@ el extremo derecho de la línea episemática se encuentra a menudo
 demasiado lejos hacia la derecha.
 
 @node Custodes
-@subsubsection Custodes
+@unnumberedsubsubsec Custodes
 
 @cindex custos
 @cindex custodias
@@ -819,7 +819,7 @@ Ejemplos:
 
 
 @node Divisiones
-@subsubsection Divisiones
+@unnumberedsubsubsec Divisiones
 
 @cindex divisio
 @cindex divisiones
@@ -875,7 +875,7 @@ Ejemplos:
 
 
 @node Ligatures
-@subsubsection Ligatures
+@unnumberedsubsubsec Ligatures
 
 @cindex ligaduras
 
@@ -937,7 +937,7 @@ que causa el mismo efecto y se supone que es lo bastante estable.
 
 
 @node White mensural ligatures
-@subsubsection White mensural ligatures
+@unnumberedsubsubsec White mensural ligatures
 
 @cindex ligaduras mensurales
 @cindex ligaduras mensurales blancas
@@ -1029,7 +1029,7 @@ transcribe de la siguiente manera:
 El espaciado horizontal es pobre.
 
 @node Gregorian square neumes ligatures
-@subsubsection Gregorian square neumes ligatures
+@unnumberedsubsubsec Gregorian square neumes ligatures
 
 @cindex ligaduras de neumas cuadrados
 @cindex ligaduras gregorianas de neumas cuadrados
@@ -1999,7 +1999,7 @@ con los prefijos de cabeza en un orden arbitrario.
 
 
 @node Gregorian chant contexts
-@subsubsection Gregorian chant contexts
+@unnumberedsubsubsec Gregorian chant contexts
 
 @cindex VaticanaVoiceContext
 @cindex VaticanaStaffContext
@@ -2034,7 +2034,7 @@ como lo demuestra el siguiente fragmento
 
 
 @node Mensural contexts
-@subsubsection Mensural contexts
+@unnumberedsubsubsec Mensural contexts
 
 @cindex MensuralVoiceContext
 @cindex MensuralStaffContext
@@ -2078,7 +2078,7 @@ a escribir el canto, como lo demuestra el siguiente fragmento
 
 
 @node Ancient and modern from one source
-@subsubsection Ancient and modern from one source
+@unnumberedsubsubsec Ancient and modern from one source
 
 @c TODO Add text
 @c Here among others the snippets about reducing note length
@@ -2090,7 +2090,7 @@ Continuará...
 
 
 @node Incipits
-@subsubsection Incipits
+@unnumberedsubsubsec Incipits
 
 @c TODO Add text
 @c clefs, mensuration signs etc from lsr and -user
@@ -2102,7 +2102,7 @@ Continuará...
 @c ... and reference to other sections ...
 
 @node Mensurstriche layout
-@subsubsection Mensurstriche layout
+@unnumberedsubsubsec Mensurstriche layout
 
 @c TODO Add text
 @c from lsr and -user
@@ -2114,7 +2114,7 @@ Continuará...
 
 
 @node Transcribing Gregorian chant
-@subsubsection Transcribing Gregorian chant
+@unnumberedsubsubsec Transcribing Gregorian chant
 
 @c TODO Add text
 @c extract from 1.6.1.1
@@ -2135,7 +2135,7 @@ Continuará...
 
 
 @node Annotational accidentals
-@subsubsection Annotational accidentals
+@unnumberedsubsubsec Annotational accidentals
 
 En la música europea de hasta aprox. 1600, se esperaba de los
 cantantes que alterasen cromáticamente ciertas notas de acuerdo con su
@@ -2164,7 +2164,7 @@ el grabador @rinternals{Accidental_engraver}
 y el objeto @rinternals{AccidentalSuggestion}.
 
 @node Baroque rhythmic notation
-@subsubsection Baroque rhythmic notation
+@unnumberedsubsubsec Baroque rhythmic notation
 
 @c TODO Add text
 @c try Till Rettig

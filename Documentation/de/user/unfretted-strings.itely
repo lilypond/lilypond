@@ -30,7 +30,7 @@
 @end menu
 
 @node References for unfretted strings
-@subsubsection References for unfretted strings
+@unnumberedsubsubsec References for unfretted strings
 
 @untranslated
 
@@ -44,7 +44,7 @@
 @end menu
 
 @node References for bowed strings
-@subsubsection References for bowed strings
+@unnumberedsubsubsec References for bowed strings
 
 @cindex Flageolett
 
@@ -66,7 +66,7 @@ Befehl @code{\harmonic} markiert wird.
 @end menu
 
 @node Harp
-@subsubsection Harp
+@unnumberedsubsubsec Harp
 
 @untranslated
 

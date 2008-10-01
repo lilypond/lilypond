@@ -35,14 +35,14 @@ montrer le rythme d'une mélodie.
 @end menu
 
 @node References for percussion
-@subsubsection References for percussion
+@unnumberedsubsubsec References for percussion
 
 
 @untranslated
 
 
 @node Basic percussion notation
-@subsubsection Basic percussion notation
+@unnumberedsubsubsec Basic percussion notation
 
 
 @cindex percussions
@@ -72,7 +72,7 @@ Référence du Programme : @rinternals{note-event}.
 
 
 @node Percussion staves
-@subsubsection Percussion staves
+@unnumberedsubsubsec Percussion staves
 
 
 @cindex percussions
@@ -294,7 +294,7 @@ sur le bord de la caisse claire --- donc ils sont remplacés par des
 
 
 @node Ghost notes
-@subsubsection Ghost notes
+@unnumberedsubsubsec Ghost notes
 
 
 Des notes fantômes peuvent être créées pour les parties de percussion,

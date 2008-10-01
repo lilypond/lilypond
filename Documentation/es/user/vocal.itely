@@ -76,7 +76,7 @@ Para hacer que la letra evite las líneas divisorias también, utilice
 
 
 @node Lyrics explained
-@subsubsection Lyrics explained
+@unnumberedsubsubsec Lyrics explained
 
 @cindex letra
 @funindex \lyricmode
@@ -222,7 +222,7 @@ Referencia de funcionamiento interno: @rinternals{LyricText},
 
 
 @node Setting simple songs
-@subsubsection Setting simple songs
+@unnumberedsubsubsec Setting simple songs
 
 @cindex \addlyrics
 
@@ -258,7 +258,7 @@ polifonía.  Para estos casos tendrá que usar @code{\lyricsto} y
 
 
 @node Working with lyrics and variables
-@subsubsection Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
 
 @cindex letra, identificadores de
 
@@ -318,7 +318,7 @@ Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}, @rinternals{Lyrics}.
 
 @node References for vocal music
-@subsubsection References for vocal music
+@unnumberedsubsubsec References for vocal music
 
 @c TODO Add @refs
 
@@ -366,7 +366,7 @@ o especificando la duración de cada sílaba explícitamente, utilizando
 @end menu
 
 @node Automatic syllable durations
-@subsubsection Automatic syllable durations
+@unnumberedsubsubsec Automatic syllable durations
 
 @cindex duraciones automáticas de las sílabas
 @cindex letra y melodías
@@ -423,7 +423,7 @@ es lo mismo que
 @end example
 
 @node Manual syllable durations
-@subsubsection Manual syllable durations
+@unnumberedsubsubsec Manual syllable durations
 
 El texto también se puede introducir sin @code{\addlyrics} ni
 @code{\lyricsto}.  En este caso, las sílabas se escriben como notas
@@ -467,7 +467,7 @@ Referencia de funcionamiento interno: @rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
-@subsubsection Multiple syllables to one note
+@unnumberedsubsubsec Multiple syllables to one note
 
 
 @funindex _
@@ -498,7 +498,7 @@ Referencia de funcionamiento interno: @rinternals{LyricCombineMusic}.
 
 
 @node Multiple notes to one syllable
-@subsubsection Multiple notes to one syllable
+@unnumberedsubsubsec Multiple notes to one syllable
 
 @cindex melisma
 @cindex melismata
@@ -581,12 +581,12 @@ Los melismas no se detectan automáticamente, y las líneas de extensión
 se deben insertar a mano.
 
 @node Skipping notes
-@subsubsection Skipping notes
+@unnumberedsubsubsec Skipping notes
 
 @untranslated
 
 @node Extenders and hyphens
-@subsubsection Extenders and hyphens
+@unnumberedsubsubsec Extenders and hyphens
 
 @cindex melisma
 @cindex extender
@@ -618,7 +618,7 @@ Referencia de funcionamiento interno: @rinternals{LyricExtender},
 
 
 @node Lyrics and repeats
-@subsubsection Lyrics and repeats
+@unnumberedsubsubsec Lyrics and repeats
 
 @untranslated
 
@@ -639,7 +639,7 @@ mediante @code{\lyricsto}.
 
 
 @node Divisi lyrics
-@subsubsection Divisi lyrics
+@unnumberedsubsubsec Divisi lyrics
 
 Puede presentar letras alternativas (o divisi) nombrando contextos de
 voz y aplicando la letra a los mencionados contextos específicos.
@@ -684,7 +684,7 @@ sección que se repite.
 
 
 @node Lyrics independent of notes
-@subsubsection Lyrics independent of notes
+@unnumberedsubsubsec Lyrics independent of notes
 
 En cierta música vocal compleja, podría ser deseable colocar la letra
 de forma totalmente independiente de las notas.  La música que se
@@ -712,13 +712,13 @@ lyr = \lyricmode { I like my cat! }
 @end lilypond
 
 @node Chants
-@subsubsection Chants
+@unnumberedsubsubsec Chants
 
 @untranslated
 
 
 @node Spacing out syllables
-@subsubsection Spacing out syllables
+@unnumberedsubsubsec Spacing out syllables
 
 @cindex Espaciado de la letra
 @cindex Letra, aumentar el espaciado
@@ -761,7 +761,7 @@ completa, establezca la propiedad dentro del @q{layout} o disposición.
 @end lilypond
 
 @node Centering lyrics between staves
-@subsubsection Centering lyrics between staves
+@unnumberedsubsubsec Centering lyrics between staves
 
 @untranslated
 
@@ -779,7 +779,7 @@ completa, establezca la propiedad dentro del @q{layout} o disposición.
 
 
 @node Adding stanza numbers 
-@subsubsection Adding stanza numbers 
+@unnumberedsubsubsec Adding stanza numbers 
 
 @cindex verso, número de
 
@@ -803,7 +803,7 @@ Estos números aparecerán inmediatamente antes de la primera sílaba.
 
 
 @node Adding dynamics marks to stanzas
-@subsubsection Adding dynamics marks to stanzas
+@unnumberedsubsubsec Adding dynamics marks to stanzas
 
 Los versos que difieren en su sonoridad se pueden especificar
 escribiendo una indicación dinámica antes de cada verso.  En LilyPond,
@@ -831,7 +831,7 @@ text = {
 
 
 @node Adding singers' names to stanzas
-@subsubsection Adding singers' names to stanzas
+@unnumberedsubsubsec Adding singers' names to stanzas
 
 @cindex cantante, nombre del
 @cindex nombre del cantante
@@ -856,7 +856,7 @@ versión abreviada como @code{shortVocalName}.
 
 
 @node Stanzas with different rhythms
-@subsubsection Stanzas with different rhythms
+@unnumberedsubsubsec Stanzas with different rhythms
 
 @subsubheading Ignoring melismata
 
@@ -994,7 +994,7 @@ asignación de @code{lahlah} a @code{associatedVoice}.
 
 
 @node Printing stanzas at the end
-@subsubsection Printing stanzas at the end
+@unnumberedsubsubsec Printing stanzas at the end
 
 En ocasiones es conveniente tener un verso ajustado a la música, y el
 resto añadido en forma de estrofa al final de la pieza.  Esto se puede
@@ -1038,7 +1038,7 @@ its fleece was white as snow.
 
 
 @node Printing stanzas at the end in multiple columns
-@subsubsection Printing stanzas at the end in multiple columns
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns
 
 Cuando una pieza tiene muchos versos, a menudo se imprimen en varias
 columnas a lo largo de toda la página. Con frecuencia un número de

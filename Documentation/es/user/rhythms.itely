@@ -37,7 +37,7 @@ barras y los compases.
 @end menu
 
 @node Durations
-@subsubsection Durations
+@unnumberedsubsubsec Durations
 
 @cindex duración de las notas
 @cindex notas, duración de
@@ -168,7 +168,7 @@ garrapatea (128) hasta el de máxima (8 redondas).
 
 
 @node Tuplets
-@subsubsection Tuplets
+@unnumberedsubsubsec Tuplets
 
 @cindex grupos especiales
 @cindex tresillos
@@ -274,7 +274,7 @@ se pueden colocar dentro de los corchetes de grupo especial.
 
 
 @node Scaling durations
-@subsubsection Scaling durations
+@unnumberedsubsubsec Scaling durations
 
 @cindex scaling durations
 @cindex durations, scaling
@@ -347,7 +347,7 @@ Fragmentos de código:
 
 
 @node Ties
-@subsubsection Ties
+@unnumberedsubsubsec Ties
 
 @cindex ligadura de unión
 @funindex ~
@@ -507,7 +507,7 @@ expresiones musicales.
 @end menu
 
 @node Rests
-@subsubsection Rests
+@unnumberedsubsubsec Rests
 
 @cindex silencio
 @cindex silencios, indocar duraciones
@@ -588,7 +588,7 @@ hasta la máxima (8 redondas).
 
 
 @node Invisible rests
-@subsubsection Invisible rests
+@unnumberedsubsubsec Invisible rests
 
 @cindex desplazamiento
 @cindex silencio invisible
@@ -653,7 +653,7 @@ Referencia de funcionamiento interno:
 
 
 @node Full measure rests
-@subsubsection Full measure rests
+@unnumberedsubsubsec Full measure rests
 
 @cindex multicompás, silencios
 @cindex compás completo, silencios de
@@ -867,7 +867,7 @@ silencios.
 @end menu
 
 @node Time signature
-@subsubsection Time signature
+@unnumberedsubsubsec Time signature
 
 @cindex Indicación de compás
 @cindex metro, medida
@@ -1009,7 +1009,7 @@ especificada con @code{set-time-signature}.
 
 
 @node Upbeats
-@subsubsection Upbeats
+@unnumberedsubsubsec Upbeats
 
 @cindex anacrusa
 @cindex parte al alzar
@@ -1063,7 +1063,7 @@ advertencias desagradables.
 
 
 @node Unmetered music
-@subsubsection Unmetered music
+@unnumberedsubsubsec Unmetered music
 
 @cindex cadencia
 @cindex líneas divisorias, quitar
@@ -1133,7 +1133,7 @@ para indicar dónde se pueden producir los saltos.
 
 
 @node Polymetric notation
-@subsubsection Polymetric notation
+@unnumberedsubsubsec Polymetric notation
 
 @cindex double time signatures
 @cindex signatures, polymetric
@@ -1294,7 +1294,7 @@ compás.
 
 
 @node Automatic note splitting
-@subsubsection Automatic note splitting
+@unnumberedsubsubsec Automatic note splitting
 
 @cindex notas, división de
 @cindex división de notas
@@ -1348,7 +1348,7 @@ silencios.
 
 
 @node Showing melody rhythms
-@subsubsection Showing melody rhythms
+@unnumberedsubsubsec Showing melody rhythms
 
 A veces podemos querer mostrar solamente el ritmo de una melodía.
 Esto se puede hacer con un pentagrama de ritmo.  Todas las alturas de
@@ -1475,7 +1475,7 @@ Referencia de funcionamiento interno:
 @end menu
 
 @node Automatic beams
-@subsubsection Automatic beams
+@unnumberedsubsubsec Automatic beams
 
 De manera predeterminada, las barras de corchea se insertan
 automáticamente:
@@ -1617,7 +1617,7 @@ Las barras pueden colisionar con las cabezas de las notas y las
 alteraciones accidentales de las otras voces.
 
 @node Setting automatic beam behavior
-@subsubsection Setting automatic beam behavior
+@unnumberedsubsubsec Setting automatic beam behavior
 
 @funindex autoBeamSettings
 @funindex (end * * * *)
@@ -1826,7 +1826,7 @@ Fragmentos de código:
 
 
 @node Manual beams
-@subsubsection Manual beams
+@unnumberedsubsubsec Manual beams
 
 @cindex barras manuales
 @funindex ]
@@ -1879,7 +1879,7 @@ izquierdo, es decir, la barra de corchea del grupo como un todo.
 
 
 @node Feathered beams
-@subsubsection Feathered beams
+@unnumberedsubsubsec Feathered beams
 
 @cindex barras progresivas
 @funindex \featherDurations
@@ -1950,7 +1950,7 @@ Fragmentos de código:
 
 
 @node Bar lines
-@subsubsection Bar lines
+@unnumberedsubsubsec Bar lines
 
 @cindex barras de compás
 @funindex \bar
@@ -2105,7 +2105,7 @@ propiedades del contador de tiempo Timing).
 
 
 @node Bar numbers
-@subsubsection Bar numbers
+@unnumberedsubsubsec Bar numbers
 
 @cindex compás, números de
 @cindex números de compás
@@ -2269,7 +2269,7 @@ c1 c c c
 
 
 @node Bar and bar number checks
-@subsubsection Bar and bar number checks
+@unnumberedsubsubsec Bar and bar number checks
 
 @cindex compás, comprobación de
 @funindex barCheckSynchronize
@@ -2350,7 +2350,7 @@ Fragmentos de código:
 
 
 @node Rehearsal marks
-@subsubsection Rehearsal marks
+@unnumberedsubsubsec Rehearsal marks
 
 @cindex ensayo, letras de
 @cindex letras de ensayo
@@ -2484,7 +2484,7 @@ Referencia de funcionamiento interno:
 @end menu
 
 @node Grace notes
-@subsubsection Grace notes
+@unnumberedsubsubsec Grace notes
 
 @funindex \grace
 @cindex ornamentos
@@ -2708,7 +2708,7 @@ errores.
 
 
 @node Aligning to cadenzas
-@subsubsection Aligning to cadenzas
+@unnumberedsubsubsec Aligning to cadenzas
 
 @cindex cadenza (cadencia)
 @cindex cadenza (cadencia), alinear a
@@ -2754,7 +2754,7 @@ Fragmentos de código:
 
 
 @node Time administration
-@subsubsection Time administration
+@unnumberedsubsubsec Time administration
 
 @cindex tiempo, administración
 @cindex tiempo, control del (dentro de la partitura)

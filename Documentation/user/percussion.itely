@@ -32,7 +32,7 @@ also be used to show the rhythms of melodies.
 @end menu
 
 @node References for percussion
-@subsubsection References for percussion
+@unnumberedsubsubsec References for percussion
 
 TODO add more.
 
@@ -58,7 +58,7 @@ Snippets: @rlsr{Percussion}.
 
 
 @node Basic percussion notation
-@subsubsection Basic percussion notation
+@unnumberedsubsubsec Basic percussion notation
 
 @cindex percussion
 @cindex drums
@@ -106,7 +106,7 @@ Snippets: @rlsr{Percussion}.
 
 
 @node Drum rolls
-@subsubsection Drum rolls
+@unnumberedsubsubsec Drum rolls
 
 Drum rolls are indicated with three slashes across the stem.  For
 quarter notes or longer the three slashes are shown explicitly,
@@ -144,7 +144,7 @@ Snippets: @rlsr{Percussion}.
 
 
 @node Pitched percussion
-@subsubsection Pitched percussion
+@unnumberedsubsubsec Pitched percussion
 
 Certain pitched percussion instruments (e.g. xylophone,
 vibraphone, and timpani) are written using with normal staffs.
@@ -161,7 +161,7 @@ Snippets: @rlsr{Percussion}.
 
 
 @node Percussion staves
-@subsubsection Percussion staves
+@unnumberedsubsubsec Percussion staves
 
 @cindex percussion
 @cindex drums
@@ -350,7 +350,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
 
 
 @node Custom percussion staves
-@subsubsection Custom percussion staves
+@unnumberedsubsubsec Custom percussion staves
 
 If you do not like any of the predefined lists you can define your
 own list at the top of your file.
@@ -559,7 +559,7 @@ Internals Reference: @rinternals{DrumStaff}, @rinternals{DrumVoice}.
 
 @c TODO: check name -gp
 @node Ghost notes
-@subsubsection Ghost notes
+@unnumberedsubsubsec Ghost notes
 
 Ghost notes for drums and percussion may be created using the
 @code{\parenthesize} command detailed in @ref{Parentheses}.

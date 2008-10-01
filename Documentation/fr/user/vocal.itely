@@ -74,7 +74,7 @@ Pour que les paroles évitent également les barres de mesure, ajoutez
 
 
 @node Lyrics explained
-@subsubsection Lyrics explained
+@unnumberedsubsubsec Lyrics explained
 
 @cindex paroles
 @funindex \lyricmode
@@ -211,7 +211,7 @@ Référence du programme : @rinternals{LyricText}, @rinternals{LyricSpace}.
 
 
 @node Setting simple songs
-@subsubsection Setting simple songs
+@unnumberedsubsubsec Setting simple songs
 
 @cindex \addlyrics
 
@@ -248,7 +248,7 @@ constructions polyphoniques.  Dans ce cas, mieux vaut employer
 
 
 @node Working with lyrics and variables
-@subsubsection Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
 
 @cindex paroles, variables
 
@@ -310,7 +310,7 @@ Référence du programme : @rinternals{LyricCombineMusic},
 
 
 @node References for vocal music
-@subsubsection References for vocal music
+@unnumberedsubsubsec References for vocal music
 
 @c TODO Add @refs
 
@@ -359,7 +359,7 @@ contexte @code{\lyricmode}
 @end menu
 
 @node Automatic syllable durations
-@subsubsection Automatic syllable durations
+@unnumberedsubsubsec Automatic syllable durations
 
 @cindex durée automatique des syllabes
 @cindex paroles et mélodies
@@ -415,7 +415,7 @@ est exactement la même chose que
 @end example
 
 @node Manual syllable durations
-@subsubsection Manual syllable durations
+@unnumberedsubsubsec Manual syllable durations
 
 On peut aussi se passer de @code{\addlyrics} et de @code{\lyricsto} pour
 saisir des paroles.  Dans ce cas, les syllabes sont entrées comme des
@@ -458,7 +458,7 @@ Référence du programme : @rinternals{Lyrics}.
 
 
 @node Multiple syllables to one note
-@subsubsection Multiple syllables to one note
+@unnumberedsubsubsec Multiple syllables to one note
 
 @funindex _
 @cindex liaisons, dans les paroles
@@ -487,7 +487,7 @@ Référence du programme : @rinternals{LyricCombineMusic}.
 @c the new title might be more self-explanatory
 
 @node Multiple notes to one syllable
-@subsubsection Multiple notes to one syllable
+@unnumberedsubsubsec Multiple notes to one syllable
 
 @cindex mélisme
 @cindex vocalise
@@ -570,7 +570,7 @@ Certains mélismes ne sont pas détectés automatiquement ; vous devrez
 alors prolonger vous-même les syllabes concernées.
 
 @node Skipping notes
-@subsubsection Skipping notes
+@unnumberedsubsubsec Skipping notes
 
 @untranslated
 @ifnothtml
@@ -578,7 +578,7 @@ alors prolonger vous-même les syllabes concernées.
 @end ifnothtml
 
 @node Extenders and hyphens
-@subsubsection Extenders and hyphens
+@unnumberedsubsubsec Extenders and hyphens
 
 @cindex mélisme
 @cindex extenseur
@@ -609,7 +609,7 @@ Référence du programme : @rinternals{LyricExtender},
 
 
 @node Lyrics and repeats
-@subsubsection Lyrics and repeats
+@unnumberedsubsubsec Lyrics and repeats
 
 @untranslated
 @ifnothtml
@@ -631,7 +631,7 @@ La commande @code{\lyricsto} permet de prendre en compte ces variantes.
 @end menu
 
 @node Divisi lyrics
-@subsubsection Divisi lyrics
+@unnumberedsubsubsec Divisi lyrics
 
 En donnant un nom à chaque voix et en leur attribuant spécifiquement
 des paroles, on peut créer des paroles alternatives --- également
@@ -675,7 +675,7 @@ Cette astuce permet de faire varier les paroles lorsqu'une section est reprise.
 @end lilypond
 
 @node Lyrics independent of notes
-@subsubsection Lyrics independent of notes
+@unnumberedsubsubsec Lyrics independent of notes
 
 Dans certaines musiques vocales assez complexes, on peut avoir intérêt à
 imprimer les paroles indépendamment des notes.  La mélodie sur laquelle
@@ -705,7 +705,7 @@ lyr = \lyricmode { I like my cat! }
 @end lilypond
 
 @node Chants
-@subsubsection Chants
+@unnumberedsubsubsec Chants
 
 @untranslated
 @ifnothtml
@@ -713,7 +713,7 @@ lyr = \lyricmode { I like my cat! }
 @end ifnothtml
 
 @node Spacing out syllables
-@subsubsection Spacing out syllables
+@unnumberedsubsubsec Spacing out syllables
 
 @cindex espacer des paroles
 @cindex paroles, accroître l'espacement
@@ -756,7 +756,7 @@ dans le bloc @code{\layout}.
 @end lilypond
 
 @node Centering lyrics between staves
-@subsubsection Centering lyrics between staves
+@unnumberedsubsubsec Centering lyrics between staves
 
 @untranslated
 @ifnothtml
@@ -778,7 +778,7 @@ dans le bloc @code{\layout}.
 
 
 @node Adding stanza numbers
-@subsubsection Adding stanza numbers
+@unnumberedsubsubsec Adding stanza numbers
 
 @cindex numéro de couplet
 
@@ -801,7 +801,7 @@ On peut ajouter un numéro aux couplets en définissant la variable
 Ces numéros se placeront juste avant le début de la première syllabe.
 
 @node Adding dynamics marks to stanzas
-@subsubsection Adding dynamics marks to stanzas
+@unnumberedsubsubsec Adding dynamics marks to stanzas
 
 Lorsque des couplets ont des nuances différentes, vous pouvez ajouter
 une nuance devant chaque numéro.  L'objet @code{StanzaNumber} contient
@@ -827,7 +827,7 @@ text = {
 @end lilypond
 
 @node Adding singers' names to stanzas
-@subsubsection Adding singers' names to stanzas
+@unnumberedsubsubsec Adding singers' names to stanzas
 
 @cindex nom de personnage
 @cindex nom du chanteur
@@ -850,7 +850,7 @@ abrégée.
 @end lilypond
 
 @node Stanzas with different rhythms
-@subsubsection Stanzas with different rhythms
+@unnumberedsubsubsec Stanzas with different rhythms
 
 @subsubheading Mélismes dans certaines strophes seulement
 
@@ -990,7 +990,7 @@ la valeur @code{lahlah}.
 
 
 @node Printing stanzas at the end
-@subsubsection Printing stanzas at the end
+@unnumberedsubsubsec Printing stanzas at the end
 
 Il peut parfois s'avérer opportun d'aligner un seul couplet sur la
 mélodie, et de présenter tous les autres en bloc à la fin du morceau.
@@ -1035,7 +1035,7 @@ its fleece was white as snow.
 @end lilypond
 
 @node Printing stanzas at the end in multiple columns 
-@subsubsection Printing stanzas at the end in multiple columns
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns
 
 Si les couplets sont vraiment nombreux, il est possible de les imprimer
 sur plusieurs colonnes.  De plus, l'exemple suivant vous montrera

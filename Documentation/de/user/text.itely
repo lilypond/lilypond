@@ -34,25 +34,25 @@
 @end menu
 
 @node Text scripts
-@subsubsection Text scripts
+@unnumberedsubsubsec Text scripts
 
 @untranslated
 
 
 @node Text spanners
-@subsubsection Text spanners
+@unnumberedsubsubsec Text spanners
 
 @untranslated
 
 
 @node Text marks
-@subsubsection Text marks
+@unnumberedsubsubsec Text marks
 
 @untranslated
 
 
 @node Separate text
-@subsubsection Separate text
+@unnumberedsubsubsec Separate text
 
 @untranslated
 
@@ -73,37 +73,37 @@
 @end menu
 
 @node Text markup introduction
-@subsubsection Text markup introduction
+@unnumberedsubsubsec Text markup introduction
 
 @untranslated
 
 
 @node Selecting font and font size
-@subsubsection Selecting font and font size
+@unnumberedsubsubsec Selecting font and font size
 
 @untranslated
 
 
 @node Text alignment
-@subsubsection Text alignment
+@unnumberedsubsubsec Text alignment
 
 @untranslated
 
 
 @node Graphic notation inside markup
-@subsubsection Graphic notation inside markup
+@unnumberedsubsubsec Graphic notation inside markup
 
 @untranslated
 
 
 @node Music notation inside markup
-@subsubsection Music notation inside markup
+@unnumberedsubsubsec Music notation inside markup
 
 @untranslated
 
 
 @node Multi-page markup
-@subsubsection Multi-page markup
+@unnumberedsubsubsec Multi-page markup
 
 @untranslated
 
@@ -120,13 +120,13 @@
 @end menu
 
 @node Entire document fonts
-@subsubsection Entire document fonts
+@unnumberedsubsubsec Entire document fonts
 
 @untranslated
 
 
 @node Single entry fonts
-@subsubsection Single entry fonts
+@unnumberedsubsubsec Single entry fonts
 
 @untranslated
 

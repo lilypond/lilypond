@@ -29,7 +29,7 @@
 @end menu
 
 @node System start delimiters
-@subsubsection System start delimiters
+@unnumberedsubsubsec System start delimiters
 
 @cindex comienzo del sistema
 @cindex Pentagramas, varios
@@ -117,7 +117,7 @@ Los delimitadores del comienzo del sistema se pueden anidar muchas veces:
 
 
 @node Staff symbol
-@subsubsection Staff symbol
+@unnumberedsubsubsec Staff symbol
 
 @cindex ajuste del símbolo del pentagrama
 
@@ -166,7 +166,7 @@ Fragmentos de código:
 
 
 @node Hiding staves
-@subsubsection Hiding staves
+@unnumberedsubsubsec Hiding staves
 
 @cindex francesa, partituras a la
 @cindex ocultación de pentagramas

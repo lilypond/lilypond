@@ -37,7 +37,7 @@ that the lyrics will be aligned with the notes of their melody.
 
 
 @node Lyrics explained
-@subsubsection Lyrics explained
+@unnumberedsubsubsec Lyrics explained
 
 @cindex lyrics
 @funindex \lyricmode
@@ -187,7 +187,7 @@ Internals Reference:
 
 
 @node Setting simple songs
-@subsubsection Setting simple songs
+@unnumberedsubsubsec Setting simple songs
 
 @cindex \addlyrics
 
@@ -225,7 +225,7 @@ introduced in @ref{Lyrics explained}.
 @c such as "advanced lyric syntax" or whatever -vv
 
 @node Working with lyrics and variables
-@subsubsection Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
 
 @cindex lyrics, variables
 
@@ -319,7 +319,7 @@ Internals Reference:
 
 
 @node References for vocal music
-@subsubsection References for vocal music
+@unnumberedsubsubsec References for vocal music
 
 TBC
 @c TODO Add @refs
@@ -378,7 +378,7 @@ explicitly, using @code{\lyricmode}
 @end menu
 
 @node Automatic syllable durations
-@subsubsection Automatic syllable durations
+@unnumberedsubsubsec Automatic syllable durations
 
 @cindex automatic syllable durations
 @cindex lyrics and melodies
@@ -440,7 +440,7 @@ is the same as
 @end example
 
 @node Manual syllable durations
-@subsubsection Manual syllable durations
+@unnumberedsubsubsec Manual syllable durations
 
 Lyrics can also be entered without @code{\addlyrics} or
 @code{\lyricsto}.  In this case,
@@ -484,7 +484,7 @@ Internals Reference:
 
 
 @node Multiple syllables to one note
-@subsubsection Multiple syllables to one note
+@unnumberedsubsubsec Multiple syllables to one note
 
 
 @funindex _
@@ -516,7 +516,7 @@ Internals Reference:
 
 
 @node Multiple notes to one syllable
-@subsubsection Multiple notes to one syllable
+@unnumberedsubsubsec Multiple notes to one syllable
 
 @cindex melisma
 @cindex melismata
@@ -606,7 +606,7 @@ Melismata are not detected automatically, and extender lines must be
 inserted by hand.
 
 @node Skipping notes
-@subsubsection Skipping notes
+@unnumberedsubsubsec Skipping notes
 
 Making a lyric line run slower than the melody can be achieved by
 inserting @code{\skip}s into the lyrics.  For every @code{\skip}, 
@@ -626,7 +626,7 @@ For example,
 
 
 @node Extenders and hyphens
-@subsubsection Extenders and hyphens
+@unnumberedsubsubsec Extenders and hyphens
 
 @cindex melisma
 @cindex extender
@@ -664,7 +664,7 @@ Internals Reference:
 @rinternals{LyricHyphen}
 
 @node Lyrics and repeats
-@subsubsection Lyrics and repeats
+@unnumberedsubsubsec Lyrics and repeats
 
 @c TODO New section.  Add text
 TBC
@@ -690,7 +690,7 @@ differing ways.  Such variations can still be captured with
 
 
 @node Divisi lyrics
-@subsubsection Divisi lyrics
+@unnumberedsubsubsec Divisi lyrics
 
 You can display alternate (or divisi) lyrics by naming voice
 contexts and attaching lyrics to those specific contexts.
@@ -736,7 +736,7 @@ section.
 
 
 @node Lyrics independent of notes
-@subsubsection Lyrics independent of notes
+@unnumberedsubsubsec Lyrics independent of notes
 
 @cindex Devnull context
 
@@ -778,13 +778,13 @@ the implicit melismata get ignored.
 
 
 @node Chants
-@subsubsection Chants
+@unnumberedsubsubsec Chants
 
 @c TODO Add text from lsr and -user
 TBC
 
 @node Spacing out syllables
-@subsubsection Spacing out syllables
+@unnumberedsubsubsec Spacing out syllables
 
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
@@ -869,7 +869,7 @@ To make lyrics avoid bar lines as well, use
 
 
 @node Centering lyrics between staves
-@subsubsection Centering lyrics between staves
+@unnumberedsubsubsec Centering lyrics between staves
 
 @c TODO Add text from -user
 TBC
@@ -888,7 +888,7 @@ TBC
 
 
 @node Adding stanza numbers
-@subsubsection Adding stanza numbers
+@unnumberedsubsubsec Adding stanza numbers
 
 @cindex stanza number
 
@@ -943,7 +943,7 @@ stanzaOneThree =  {
 @end ignore
 
 @node Adding dynamics marks to stanzas
-@subsubsection Adding dynamics marks to stanzas
+@unnumberedsubsubsec Adding dynamics marks to stanzas
 
 Stanzas differing in loudness may be indicated by putting a
 dynamics mark before each stanza.  In LilyPond, everything coming in
@@ -969,7 +969,7 @@ text = {
 @end lilypond
 
 @node Adding singers' names to stanzas
-@subsubsection Adding singers' names to stanzas
+@unnumberedsubsubsec Adding singers' names to stanzas
 
 @cindex singer name
 @cindex name of singer
@@ -991,7 +991,7 @@ the line, just like instrument names.  They are created by setting
 @end lilypond
 
 @node Stanzas with different rhythms
-@subsubsection Stanzas with different rhythms
+@unnumberedsubsubsec Stanzas with different rhythms
 
 @subsubheading Ignoring melismata
 
@@ -1118,7 +1118,7 @@ The underlay is switched back to the starting situation by assigning
 
 
 @node Printing stanzas at the end
-@subsubsection Printing stanzas at the end
+@unnumberedsubsubsec Printing stanzas at the end
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -1163,7 +1163,7 @@ its fleece was white as snow.
 
 
 @node Printing stanzas at the end in multiple columns
-@subsubsection Printing stanzas at the end in multiple columns
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page.  An outdented verse number often
