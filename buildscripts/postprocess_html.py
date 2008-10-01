@@ -125,7 +125,14 @@ doctype_re = re.compile ('(?i)<!DOCTYPE')
 doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
 css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" ([^>]*)href="[^">]*?lilypond.*\.css"([^>]*)>')
 end_head_tag_re = re.compile ('(?i)</head>')
-css_link = '<link rel="stylesheet" type="text/css" href="%sDocumentation/lilypond.css">\n'
+css_link = """    <link rel="stylesheet" type="text/css" title="Patrick McCarty's design" href="%(rel)sDocumentation/lilypond-mccarty.css">
+    <link rel="alternate stylesheet" type="text/css" href="%(rel)sDocumentation/lilypond.css" title="Andrew Hawryluk's design">
+    <link rel="alternate stylesheet" type="text/css" href="%(rel)sDocumentation/lilypond-blue.css" title="Kurt Kroon's blue design">
+    <!--[if lte IE 7]>
+    <link href="%(rel)sDocumentation/lilypond-ie-fixes.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+"""
+
 
 def add_header (s, prefix):
     """Add header (<body>, doctype and CSS)"""
@@ -144,7 +151,7 @@ def add_header (s, prefix):
 
         if css_re.search (s) == None:
             depth = (prefix.count ('/') - 1) * '../'
-            s = end_head_tag_re.sub ((css_link % depth) + '</head>', s)
+            s = end_head_tag_re.sub ((css_link % {'rel': depth}) + '</head>', s)
     return s
 
 title_tag_re = re.compile ('.*?<title>(.*?)</title>', re.DOTALL)

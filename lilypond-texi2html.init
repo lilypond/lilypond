@@ -77,7 +77,8 @@ package Texi2HTML::Config;
     {FILENAME => "lilypond-mccarty.css", TITLE => "Patrick McCarty's design"}
 );
 @Texi2HTML::Config::ALT_CSS_REFS      = (
-    {FILENAME => "lilypond.css", TITLE => "Andrew Hawryluk's design" }
+    {FILENAME => "lilypond.css", TITLE => "Andrew Hawryluk's design" },
+    {FILENAME => "lilypond-blue.css", TITLE => "Kurt Kroon's blue design" },
 );
 $Texi2HTML::Config::USE_ACCESSKEY = 1;
 $Texi2HTML::Config::USE_LINKS     = 1;

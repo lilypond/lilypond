@@ -12,11 +12,6 @@
     <meta name="description"
           content="Top-level index to the standard documentation for
                    LilyPond @TOPLEVEL_VERSION@">
-<link rel="stylesheet" type="text/css" href="lilypond.css" title="Default Style">
-<link rel="alternate stylesheet" type="text/css" title="Patrick McCarty's design" href="lilypond-mccarty.css">
-<!--[if lte IE 7]>
-<link href="lilypond-ie-fixes.css" rel="stylesheet" type="text/css">
-<![endif]-->
   </head>
   
   <body>
