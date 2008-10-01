@@ -1,12 +1,12 @@
 creating-blank-staves.ly
-vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly
+chant-or-psalms-notation.ly
 changing-time-signatures-inside-a-polymetric-section-using-scaledurations.ly
 adding-a-figured-bass-above-or-below-the-notes.ly
 adding-an-extra-staff-at-a-line-break.ly
 adding-an-extra-staff.ly
-chant-or-psalms-notation.ly
-use-square-bracket-at-the-start-of-a-staff-group.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
-engravers-one-by-one.ly
 changing-midi-output-to-one-channel-per-voice.ly
+engravers-one-by-one.ly
+use-square-bracket-at-the-start-of-a-staff-group.ly
+vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly
 nesting-staves.ly

@@ -1,0 +1,9 @@
+  texidoces = "
+La alineación horizontal de la letra se puede ajustar sobreescribiendo
+la propiedad @code{self-alignment-X} del objeto @code{LyricText}.
+@code{#-1} es izquierda, @code{#0} es centrado y @code{#1} es derecha;
+sin embargo, puede usar también @code{#LEFT}, @code{#CENTER} y
+@code{#RIGHT}.
+
+"
+  doctitlees = "Alineación de la letra"

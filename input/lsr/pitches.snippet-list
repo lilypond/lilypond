@@ -1,4 +1,3 @@
-makam.ly
 adding-ambitus-per-voice.ly
 applying-note-head-styles-depending-on-the-step-of-the-scale.ly
 transposing-pitches-with-minimum-accidentals-smart-transpose.ly
@@ -7,6 +6,7 @@ tweaking-clef-properties.ly
 preventing-extra-naturals-from-being-automatically-added.ly
 ambitus-with-multiple-voices.ly
 generating-random-notes.ly
+makam-example.ly
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly
 quoting-another-voice-with-transposition.ly
