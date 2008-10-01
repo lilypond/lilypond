@@ -373,7 +373,7 @@ Alterations (such as a sharp or flat) may now be arbitrary
 fractions.  This allows some forms of microtonal music.  For example,
 Turkish makam music uses 1/9th tone alterations.
 
-@lilypondfile{makam.ly}
+@lilypondfile{makam-example.ly}
 
 @item
 Tie directions may be set with @code{^~} and @code{_~}.

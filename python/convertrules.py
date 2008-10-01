@@ -2817,6 +2817,11 @@ def conv (str):
     str = re.sub (r'\\include(\s+)"gregorian-init.ly"', r'\\include\1"gregorian.ly"', str)
     return str
 
+@rule ((2, 11, 62), "makam-init.ly -> makam.ly")
+def conv (str):
+    str = re.sub (r'\\include(\s+)"makam-init.ly"', r'\\include\1"makam.ly"', str)
+    return str
+
 # Guidelines to write rules (please keep this at the end of this file)
 #
 # - keep at most one rule per version; if several conversions should be done,
