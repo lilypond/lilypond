@@ -7,8 +7,8 @@
 
   texidoces = "
 Los símbolos específicos de acordeón discanto se escriben mediante
-@code{\markup}. Se puede trucar la colocación vertical de los
-símbolos modificando los argumentos de @code{\raise}.
+@code{\\markup}. Se puede trucar la colocación vertical de los
+símbolos modificando los argumentos de @code{\\raise}.
 
 "
   doctitlees = "Símbolos de acordeón discanto"

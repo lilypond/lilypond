@@ -7,7 +7,7 @@
 
   texidoces = "
 Aunque la manera más fácil de añadir paréntesis a una indicación
-de dinámica es utilizar un bloque @code{\markup}, este método
+de dinámica es utilizar un bloque @code{\\markup}, este método
 tiene un inconveniente: los objetos que se crean se comportarán
 como elementos de marcado de texto y no como indicaciones
 dinámicas.
@@ -18,7 +18,7 @@ programador de elementos de marcado\"), en combinación con la
 función @code{make-dynamic-script}. De esta forma, el elemento de
 marcado se tratará como una indicación dinámica, y por tanto
 seguirá siendo compatible con instrucciones como
-@code{\dynamicUp} o @code{\dynamicDown}.
+@code{\\dynamicUp} o @code{\\dynamicDown}.
 
 "
   doctitlees = "Crear indicaciones dinámicas \"verdaderas\" entre paréntesis"

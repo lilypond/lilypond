@@ -5,6 +5,26 @@
 \header {
   lsrtags = "keyboards, percussion, fretted-strings, template"
 
+  texidoces = "
+Ésta es una plantilla bastante avanzada, para un conjunto de
+jazz. Observe que la notación de todos los instrumentos está en
+@code{\\key c \\major} (Do mayor). Esto se refiere al tono de
+concierto; la armadura se transporta automáticamente si la música está
+dentro de una sección @code{\\transpose}.
+
+"
+  doctitlees = "Plantilla para combo de jazz"
+  
+  texidocde = "
+Hier ist ein ziemlich kompliziertes Beispiel für ein Jazz-Ensemble. Achtung: 
+Alle Instrumente sind in @code{\key c \major} (C-Dur) notiert. Das bezieht sich 
+auf die klingende Musik: LilyPond transponiert die Tonart automatisch, wenn 
+sich die Noten innerhalb eines @code{\transpose}-Abschnitts befinden.
+
+"
+
+  doctitlede = "Vorlage für Jazz-Combo"
+
   texidoc = "
 This is quite an advanced template, for a jazz ensemble. Note that all
 instruments are notated in @code{\\key c \\major}. This refers to the

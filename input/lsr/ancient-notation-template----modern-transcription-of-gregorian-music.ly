@@ -14,6 +14,13 @@ especiales que indican silencios de distintas longitudes.
 "
 
   doctitlees = "Plantilla para notación de música antigua (transcripción moderna de Canto Gregoriano)"
+  
+  texidocde = "
+Dieses Beispiel zeigt eine moderne Transkription des Gregorianischen 
+Chorals. Hier gibt es keine Takte, keine Notenhälse und es werden nur 
+halbe und Viertelnoten verwendet. Zusätzliche Zeichen zeigen die 
+Länge von Pausen an.
+"
 
   texidoc = "
 This example demonstrates how to do modern transcription of Gregorian

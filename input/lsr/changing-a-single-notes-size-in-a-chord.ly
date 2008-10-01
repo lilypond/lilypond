@@ -7,12 +7,12 @@
 
   texidoces = "
 Se pueden modificar notas individuales de un acorde con la
-instrucción @code{\tweak}, alterando la propiedad
+instrucción @code{\\tweak}, alterando la propiedad
 @code{font-size}.
 
 Dentro de un acorde (entre ángulos simples @code{< >}), antes de
 la nota que queremos alterar, situamos la instrucción
-@code{\tweak} seguida por @code{#'font-size} y definimos el
+@code{\\tweak} seguida por @code{#'font-size} y definimos el
 tamaño adecuado como @code{#-2} (una cabeza pequeña).
 
 "

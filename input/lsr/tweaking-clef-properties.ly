@@ -7,7 +7,7 @@
 
 doctitlees = "Trucaje de las propiedades de clave"
 texidoces = "
-La instrucción @code{\clef \"treble_8\"} equivale a un ajuste de
+La instrucción @code{\\clef \"treble_8\"} equivale a un ajuste de
 @code{clefGlyph}, @code{clefPosition} (que controla la posición
 vertical de la clave), @code{middleCPosition} y
 @code{clefOctavation}. Se imprime una clave cada vez que se
@@ -33,7 +33,7 @@ la clave de advertencia al final de la línea anterior, se puede
 quitar estableciendo el valor de la propiedad
 @code{explicitClefVisibility} de @code{Staff}, a
 @code{end-of-line-invisible}. El comportamiento predeterminado se
-puede recuperar con @code{\unset Staff.explicitClefVisibility}.
+puede recuperar con @code{\\unset Staff.explicitClefVisibility}.
 
 Los siguientes ejemplos muestran las posibilidades cuando se
 ajustan estas propiedades manualmente.  En la primera línea, los

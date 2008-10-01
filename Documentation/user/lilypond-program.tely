@@ -32,6 +32,12 @@
 @end ignore
 
 
+@ifnottex
+@node Top
+@top GNU LilyPond --- Application Usage
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+@end ifnottex
+
 @ifhtml
 This document is also available as a
 @uref{source/Documentation/user/lilypond-program.pdf,PDF} and as
@@ -98,10 +104,6 @@ Free Documentation License''.
 @end ifnottex
 
 @ifnottex
-@node Top
-@top GNU LilyPond --- program usage
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
-
 This is the Application Usage (AU) manual for GNU LilyPond version @version{}.
 For more information about how this fits with the other
 documentation, see @rlearning{About the documentation}.

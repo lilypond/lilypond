@@ -5,6 +5,14 @@
 \header {
   lsrtags = "text"
 
+  texidoces = "
+Aunque normalmente las marcas de texto sólo se imprimen sobre el
+pentagrama superior, también se pueden imprimir en otro pentagrama
+cualquiera.
+
+"
+  doctitlees = "Imprimir marcas en cualquier pentagrama"
+
   texidoc = "
 Although text marks are normally only printed above the topmost staff,
 they may also be printed on every staff.

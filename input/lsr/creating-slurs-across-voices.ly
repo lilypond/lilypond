@@ -10,7 +10,7 @@ En determinadas situaciones es necesario crear ligaduras de
 expresión entre notas que están en voces distintas.
 
 La solución es añadir notas invisibles a una de las voces
-utilizando @code{\hideNotes}.
+utilizando @code{\\hideNotes}.
 
 Este ejemplo es el compás 235 de la Chacona de la segunda Partita
 para violín solo, BWV 1004, de Bach.

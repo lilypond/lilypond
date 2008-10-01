@@ -13,6 +13,11 @@ melodía y acordes?  ¡No busque más!
 
 doctitlees = "Plantilla de pentagrama único con música y acordes"
 
+  texidocde = "
+Wollen Sie ein Liedblatt mit Melodie und Akkorden schreiben?  Hier ist 
+das richtige Beispiel für Sie!
+"
+
   texidoc = "
 Want to prepare a lead sheet with a melody and chords? Look no further!
 

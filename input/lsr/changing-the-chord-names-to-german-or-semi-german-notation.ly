@@ -8,8 +8,8 @@
   texidoces = "
 La nomenclatura inglesa (predeterminada) para los acordes del
 cifrado americano se puede cambiar por la alemana
-(@code{\germanChords} sustituye B y Bes por H y B) o por la semi-alemana
-(@code{\semiGermanChords} sustituye B y Bes por H y Bb).
+(@code{\\germanChords} sustituye B y Bes por H y B) o por la semi-alemana
+(@code{\\semiGermanChords} sustituye B y Bes por H y Bb).
 
 "
   doctitlees = "Cambiar la nomenclatura de los acordes del cifrado americano por la notación alemana o semi-alemana"

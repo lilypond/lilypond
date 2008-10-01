@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9700b86dcfbe60138b4a3f83d98578bcddfbbc08
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -823,7 +823,7 @@ contemplada.
 @funindex arpeggioNormal
 
 Un signo de @notation{acorde arpegiado} (conocido también como acorde
-quebrado}) sobre un acorde, se denota adjuntando @code{\arpeggio} al
+quebrado) sobre un acorde, se denota adjuntando @code{\arpeggio} al
 acorde:
 
 @lilypond[verbatim,quote,relative=1]

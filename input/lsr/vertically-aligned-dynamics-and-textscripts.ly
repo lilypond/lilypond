@@ -5,6 +5,20 @@
 \header {
   lsrtags = "tweaks-and-overrides, spacing"
 
+  texidoces = "
+Mediante el establecimiento de la propiedad @code{Y-extent} a un valor
+adecuado, todos los objetos @code{DynamicLineSpanner} (reguladores e
+indicaciones dinámicas textuales) se pueden alinear con un punto de
+referencia común, independientemente de sus dimensiones.  De esta
+manera, todos los elementos estarán alineados verticalmente,
+produciendo así un resultado más satisfactorio.
+
+Se usa una idea similar para alinear las inscripciones de texto a lo
+largo de su línea de base.
+
+"
+  doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
+
   texidoc = "
 By setting the @code{Y-extent} property to a suitable value, all
 @code{DynamicLineSpanner} objects (hairpins and dynamic texts) can be

@@ -5,6 +5,13 @@
 \header {
   lsrtags = "repeats, tweaks-and-overrides"
 
+  texidoces = "
+Se puede imprimir una línea divisoria de la forma @code{|:} al
+principio de la pieza, sobreescribiendo la propiedad correspondiente:
+
+"
+  doctitlees = "Imprimir puntos de repetición al prinicpio de la pieza"
+
   texidoc = "
 A @code{|:} bar line can be printed at the beginning of a piece, by
 overriding the relevant property:

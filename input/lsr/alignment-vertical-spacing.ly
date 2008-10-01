@@ -14,9 +14,9 @@ Ajustando @code{alignment-extra-space} o
 @code{fixed-alignment-extra-space} se puede ampliar verticalmente un
 sistema individual.
 
-Por razones técnicas, se debe usar @code{\overrideProperty} para
+Por razones técnicas, se debe usar @code{\\overrideProperty} para
 cambiar estas propiedades dentro de un pentagrama; aún se debe usar
-@code{\override} dentro de un bloque @code{\context} para las
+@code{\\override} dentro de un bloque @code{\\context} para las
 sobreescrituras globales.
 
 "

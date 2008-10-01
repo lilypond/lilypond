@@ -2,6 +2,14 @@
 %% This file is in the public domain.
 \version "2.11.61"
 \header {
+  texidoces = "
+Las marcas de cesura se pueden crear sobreescribiendo la propiedad
+@code{'text} del objeto @code{BreathingSign}.  También está disponible
+una marca de cesura curva.
+
+"
+  doctitlees = "Insertar una cesura"
+
   lsrtags = "expressive-marks,tweaks-and-overrides"
   texidoc = "
 Caesura marks can be created by overriding the @code{'text}

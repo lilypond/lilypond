@@ -1,6 +1,5 @@
 creating-text-spanners.ly
 creating-real-parenthesized-dynamics.ly
-ottava-text.ly
 embedding-native-postscript-in-a--markup-block.ly
 center-text-below-hairpin-dynamics.ly
 demonstrating-all-headers.ly
@@ -15,10 +14,11 @@ combining-dynamics-with-markup-texts.ly
 vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly
 aligning-marks-with-various-notation-objects.ly
 markup-lines.ly
-piano-template-with-centered-lyrics.ly
+ottava-text.ly
 creating-simultaneous-rehearsal-marks.ly
 multi--measure-rest-markup.ly
 three-sided-box.ly
+piano-template-with-centered-lyrics.ly
 utf-8.ly
 blanking-staff-lines-using-the--whiteout-command.ly
 printing-marks-on-every-staff.ly

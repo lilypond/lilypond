@@ -14,6 +14,12 @@
 * Glossary: (lilypond/music-glossary).  Glossary of music terms.
 @end direntry
 
+@ifnottex
+@node Top
+@top Music Glossary
+@end ifnottex
+
+
 @ifhtml
 This document is also available in
 @uref{source/Documentation/user/music-glossary.pdf,PDF}
@@ -58,40 +64,24 @@ Copyright @copyright{} 1999--2007 by the authors
 @omflanguage English
 @end ignore
 
-@ifnottex
-@node Top
-@top Music glossary
-@end ifnottex
-
 
 @ifnottex
 
 This glossary was brought you by
 
-@table @code
-@item Adrian Mariano
-Italian glossary,
-@item Bjoern Jacke
-German glossary,
-@item Christian Mondrup
-Original author of LilyPond glossary, Danish glossary,
-@item David González
-Spanish glossary,
-@item François Pinard
-Original glossary of GNU music project, French glossary,
-@item Han-Wen Nienhuys
-Dutch glossary,
-@item Heikki Junes
-Finnish glossary translations,
-@item Jan Nieuwenhuizen
-Dutch glossary,
-@item Kurtis Kroon
-English glossary,
-@item Mats Bengtsson
-Swedish glossary,
-@item Neil Jerram
-English glossary translations.
-@end table
+@multitable {Jan Nieuwenhuizen} {Original glossary of GNU music project, French glossary,}
+@item Adrian Mariano @tab Italian glossary,
+@item Bjoern Jacke @tab German glossary,
+@item Christian Mondrup @tab Original author of LilyPond glossary, Danish glossary,
+@item David González @tab Spanish glossary,
+@item François Pinard @tab Original glossary of GNU music project, French glossary,
+@item Han-Wen Nienhuys @tab Dutch glossary,
+@item Heikki Junes @tab Finnish glossary translations,
+@item Jan Nieuwenhuizen @tab Dutch glossary,
+@item Kurtis Kroon @tab English glossary,
+@item Mats Bengtsson @tab Swedish glossary,
+@item Neil Jerram @tab English glossary translations.
+@end multitable
 @*
 Copyright 1999--2007 by the authors
 
@@ -112,6 +102,7 @@ This is the Music Glossary (MG) for GNU LilyPond version @version{}.
 For more information about how this fits with the other
 documentation, see @rlearning{About the documentation}.
 
+@shortcontents
 
 @c arrowref
 @macro aref{word}
@@ -8285,7 +8276,7 @@ the lilypond-user discussion list.
 @c -iss/-ess endings for Swedish per Mats Bengtsson
 @c @columnfractions .105 .145 .125 .125 .125 .125 .125 .125 -->
 
-@multitable {g-sharp} {sol sostenido} {sol diesis} {sol dièse} {Gis} {gis} {gis} {giss} {gis}
+@multitable {@strong{e-sharp} = f} {sol sostenido} {sol bemolle} {sol bémol} {Gis} {gis} {gis} {giss} {gis}
 @headitem EN
   @tab ES @tab I @tab F @tab D
   @tab NL @tab DK @tab S @tab FI

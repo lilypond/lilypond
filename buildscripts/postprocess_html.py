@@ -34,21 +34,18 @@ header = r"""
 
 footer = '''
 <div class="footer">
-<p>
+<p class="footer_version">
 %(footer_name_version)s
-<br>
-<address>
-%(footer_report_errors)s </address>
-<br>
-%(footer_suggest_docs)s
-<br>
+</p>
+<p class="footer_report">
+%(footer_report_links)s
 </p>
 </div>
 '''
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
-footer_report_errors = _doc ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.')
 # ugh, must not have "_doc" in strings because it is naively replaced with "_" in hacked gettext process
-footer_suggest_docs = _doc ('Your <a href="%(suggest_Docs_url)s">suggestions for the documentation</a> are welcome.')
+footer_report_links = _doc ('Your <a href="%(suggest_Docs_url)s">suggestions for the documentation</a> are welcome, please report errors to our <a href="%(mail_address_url)s">bug list</a>.')
+
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
 suggest_Docs_url = 'http://lilypond.org/web/devel/participating/documentation-adding'
@@ -126,9 +123,16 @@ body_tag_re = re.compile ('(?i)<body([^>]*)>')
 html_tag_re = re.compile ('(?i)<html>')
 doctype_re = re.compile ('(?i)<!DOCTYPE')
 doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
-css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" href="[^">]*?lilypond.css">')
+css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" ([^>]*)href="[^">]*?lilypond.*\.css"([^>]*)>')
 end_head_tag_re = re.compile ('(?i)</head>')
-css_link = '<link rel="stylesheet" type="text/css" href="%sDocumentation/lilypond.css">\n'
+css_link = """    <link rel="stylesheet" type="text/css" title="Patrick McCarty's design" href="%(rel)sDocumentation/lilypond-mccarty.css">
+    <link rel="alternate stylesheet" type="text/css" href="%(rel)sDocumentation/lilypond.css" title="Andrew Hawryluk's design">
+    <link rel="alternate stylesheet" type="text/css" href="%(rel)sDocumentation/lilypond-blue.css" title="Kurt Kroon's blue design">
+    <!--[if lte IE 7]>
+    <link href="%(rel)sDocumentation/lilypond-ie-fixes.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+"""
+
 
 def add_header (s, prefix):
     """Add header (<body>, doctype and CSS)"""
@@ -147,7 +151,7 @@ def add_header (s, prefix):
 
         if css_re.search (s) == None:
             depth = (prefix.count ('/') - 1) * '../'
-            s = end_head_tag_re.sub ((css_link % depth) + '</head>', s)
+            s = end_head_tag_re.sub ((css_link % {'rel': depth}) + '</head>', s)
     return s
 
 title_tag_re = re.compile ('.*?<title>(.*?)</title>', re.DOTALL)
@@ -311,8 +315,7 @@ def process_html_files (package_name = '',
     # so only one '%' formatting pass is needed later
     for e in subst:
         subst[e]['footer_name_version'] = subst[e]['footer_name_version'] % subst[e]
-        subst[e]['footer_report_errors'] = subst[e]['footer_report_errors'] % subst[e]
-        subst[e]['footer_suggest_docs'] = subst[e]['footer_suggest_docs'] % subst[e]
+        subst[e]['footer_report_links'] = subst[e]['footer_report_links'] % subst[e]
 
     for prefix, ext_list in pages_dict.items ():
         for lang_ext in ext_list:

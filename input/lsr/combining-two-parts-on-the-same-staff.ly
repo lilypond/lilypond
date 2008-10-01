@@ -7,7 +7,7 @@
 
   texidoces = "
 La herramienta de combinación de partes ( instrucción
-@code{\partcombine}) permite la combinación de varias partes
+@code{\\partcombine}) permite la combinación de varias partes
 diferentes sobre el mismo pentagrama.  Las indicaciones textuales
 tales como \"solo\" o \"a2\" se añaden de forma predeterminada;
 para quitarlas, sencillamente establezca la proopiedad
@@ -20,7 +20,7 @@ polifónica estándar.
 
 Este fragmento de código presenta las tres formas en que se pueden
 imprimir dos partes sobre un solo pentagrama: polifonía estándar,
-@code{\partcombine} sin textos, y @code{\partcombine} con
+@code{\\partcombine} sin textos, y @code{\\partcombine} con
 textos.
 
 "

@@ -7,13 +7,13 @@
 
 doctitlees = "Armaduras de tonalidad no tradicionales"
 texidoces = "
-La muy utilizada instrucción @code{\key} establece la propiedad
+La muy utilizada instrucción @code{\\key} establece la propiedad
 @code{keySignature} property, dentro del contexto @code{Staff}.
 
 Para crear armaduras de tonalidad no estándar, ajuste esta propiedad
 directamente. El formato de esta instrucción es una lista:
 
-@code{ \set Staff.keySignature = #`(((octava . paso) . alteración)
+@code{ \\set Staff.keySignature = #`(((octava . paso) . alteración)
 ((octava . paso) . alteración) ...) } donde, para cada elemento dentro
 de la lista, @code{octava} especifica la octava (siendo cero la octava
 desde el Do central hasta el Si por encima), @code{paso} especifica la

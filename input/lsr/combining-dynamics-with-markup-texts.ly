@@ -8,7 +8,7 @@
   texidoces = "
 Ciertas indicaciones dinámicas pueden llevar textos (como \"più
 forte\" o \"piano subito\"). Se pueden producir usando un
-bloque @code{\markup}.
+bloque @code{\\markup}.
 
 "
   doctitlees = "Combinar indicaciones dinámicas con marcados textuales"

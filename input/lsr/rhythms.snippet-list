@@ -17,7 +17,7 @@ changing-time-signatures-inside-a-polymetric-section-using-scaledurations.ly
 modifying-tuplet-bracket-length.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 making-an-object-invisible-with-the-transparent-property.ly
-permitting-line-breaks-within-beamed-tuplets.ly
+merging-multi-measure-rests-in-a-polyphonic-part.ly
 automatic-beam-subdivisions.ly
 changing-the-tuplet-number.ly
 entering-several-tuplets-using-only-one--times-command.ly
@@ -27,7 +27,7 @@ changing-form-of-multi--measure-rests.ly
 rhythmic-slashes.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 three-sided-box.ly
-merging-multi-measure-rests-in-a-polyphonic-part.ly
+permitting-line-breaks-within-beamed-tuplets.ly
 skips-in-lyric-mode.ly
 engraving-ties-manually.ly
 stemlets.ly

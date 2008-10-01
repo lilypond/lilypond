@@ -6,15 +6,15 @@
 La propiedad @code{measureLength}, junto con
 @code{measurePosition}, determina cuándo es necesario dibujar una
 línea divisoria.  Sin embargo, al utilizar
-@code{\scaleDurations}, el escalado proporcional de las
+@code{\\scaleDurations}, el escalado proporcional de las
 duraciones hace difícil introducir cambios de compás.  En este
 caso se debe establecer manualmente el valor de
 @code{measureLength} utilizando la función @code{ly:make-moment}.
 El segundo argumento debe ser el mismo que el segundo argumento de
-@code{\scaleDurations}.
+@code{\\scaleDurations}.
 
 "
-  doctitlees = "Modificar el compás dentro de una sección polimétrica utilizando @code{\scaleDurations}"
+  doctitlees = "Modificar el compás dentro de una sección polimétrica utilizando @code{\\scaleDurations}"
 
   lsrtags = "rhythms,contexts-and-engravers"
   texidoc = "The @code{measureLength} property, together with

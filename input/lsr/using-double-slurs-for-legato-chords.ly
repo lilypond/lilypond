@@ -10,7 +10,7 @@ Algunos compositores escriben dos ligaduras cuando quieren acordes
 legato.  Esto se puede conseguir estableciendo @code{doubleSlurs}.
 
 "
-  doctitlees = "Utilizar ligaduras dobes para acordes legato"
+  doctitlees = "Utilizar ligaduras dobles para acordes legato"
 
   texidoc = "
 Some composers write two slurs when they want legato chords.  This can

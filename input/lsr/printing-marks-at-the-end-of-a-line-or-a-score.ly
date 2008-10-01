@@ -5,6 +5,19 @@
 \header {
   lsrtags = "text"
 
+  texidoces = "
+Las marcas se pueden imprimir al final de la línea actual, en vez de
+al comienzo de la línea siguiente.  Esto es útil principalmente cuando
+se tiene que añadir una marca al final de la partitura (donde no hay
+línea siguiente).
+
+En tales casos, el extremo derecho de la marca se tiene que alinear
+con la última línea divisoria, como muestra la segunda línea de este
+ejemplo.
+
+"
+  doctitlees = "Imprimir marcas al final de la línea o de la partitura"
+
   texidoc = "
 Marks can be printed at the end of the current line, instead of the
 beginning of the following line. This is particularly useful when a

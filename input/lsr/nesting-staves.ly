@@ -9,7 +9,7 @@
 Se puede utilizar la propiedad
 @code{systemStartDelimiterHierarchy} para crear grupos de
 pentagramas anidados de forma más compleja. La instrucción
-@code{\set StaffGroup.systemStartDelimiterHierarchy} toma una
+@code{\\set StaffGroup.systemStartDelimiterHierarchy} toma una
 lista alfabética del número de pentagramas producidos. Se puede
 proporcionar antes de cada pentagrama un delimitador de comienzo
 de sistema. Se debe encerrar entre corchetes y admite tantos

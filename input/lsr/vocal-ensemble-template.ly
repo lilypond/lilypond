@@ -5,6 +5,23 @@
 \header {
   lsrtags = "vocal-music, template"
 
+  texidoces = "
+He aquí una partitura vocal estándar para cuatro voces SATB. Con
+grupos mayores, suele ser útil incluir una sección que aparezca en
+todas las partes.  Por ejemplo, el compás y la armadura casi siempre
+son los mismos para todas. Como en la plantilla \"Himno\", las cuatro
+voces se reagrupan en sólo dos pentagramas.
+
+"
+  doctitlees = "Plantilla de conjunto vocal"
+  
+  texidocde = "
+Dieses Beispiel ist für vierstimmigen Gesang (SATB). Bei größeren 
+Stücken ist es oft sinnvoll, eine allgemeine Variable zu bestimmen, 
+die in allen Stimmen eingefügt wird. Taktart und Vorzeichen etwa 
+sind fast immer gleich in allen Stimmen.
+"
+
   texidoc = "
 Here is a standard four-part SATB vocal score. With larger ensembles,
 it is often useful to include a section which is included in all parts.
