@@ -1840,7 +1840,349 @@ er ist @code{-5}, versuchen wir es also mit @code{-7}.
 @node Outside staff objects
 @subsection Outside staff objects
 
-@untranslated
+Objekte außerhalb des Notensystems werden automatisch gesetzt,
+um Kollisionen zu vermeiden.  Objekten mit einem geringeren
+Prioritätswert der Eigenschaft @code{outside-staff-priority}
+werden näher an das System gesetzt, und andere Objekte außerhalb
+des Systems werden dann soweit vom System entfernt gesetzt, dass
+Zusammenstöße vermieden werden.  Die
+@code{outside-staff-priority}-Eigenschaft ist im
+@code{grob-interface} definiert und ist also eine Eigenschaft
+von allen Layout-Objekten.  Standardmäßig ist sie für alle Objekte
+auf falsch (@code{#f}) gesetzt; dieser Wert wird in einen numerischen
+Wert dem Objekt entsprechend geändert, wenn das Objekt für die
+Notenausgabe erstellt wird.  Die Tabelle unten zeigt die 
+Standardwerte für die meistbenutzten @code{outside-staff}-Objekte,
+die den Voreinstellungen nach im
+@code{Staff}- oder @code{Voice}-Kontext gesetzt werden.
+
+@multitable @columnfractions .3 .3 .3
+@headitem Layout-Objekt           
+  @tab Priorität     
+  @tab Kontrolliert Position von:
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Text über Ganztaktpausen
+@item @code{TextScript}
+  @tab @code{450}
+  @tab Textbeschriftung
+@item @code{OttavaBracket}
+  @tab @code{400}
+  @tab Ottava (Oktavierungsklammern)
+@item @code{TextSpanner}
+  @tab @code{350}
+  @tab Text-Strecker
+@item @code{DynamicLineSpanner}
+  @tab @code{250}
+  @tab Alle Dynamik-Bezeichnungen
+@item @code{VoltaBracketSpanner}
+  @tab @code{100}
+  @tab Volta-Klammern
+@item @code{TrillSpanner}
+  @tab @code{50}
+  @tab Triller-Strecker
+@end multitable
+
+Hier ein Beispiel, das die Standardpositionierung von einigen
+Objekten zeigt.
+
+@cindex Text-Strecker
+@cindex Text-Spanner
+@funindex \startTextSpan
+@funindex \stopTextSpan
+@cindex Ottava-Klammer
+@cindex Oktavierungsklammer
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+% Start Ottava Bracket
+\ottava #1
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+\ottava #0
+c, c c c
+@end lilypond
+
+Dieses Beispiel zeigt auch, wie man Text-Strecker erstellt, d.h.
+Text mit Bindestrichen, der sich über eine bestimmte Länge
+erstreckt.  Der Strecker beginnt mit dem
+@code{\startTextSpan}-Befehl und endet mit dem
+@code{\stopTextSpan}-Befehl, und das Format des Textes
+wird mit dem @code{\override TextSpanner}-Befehl bestimmt.
+Mehr Einzelheiten siehe @ruser{Text spanners}.
+
+Im Beispiel wird auch gezeigt, wie Oktavierungsklammern
+(Ottava) erstellt werden.
+
+Beachten Sie, dass Taktnummern, Metronombezeichnungen
+und Übungszeichen nicht gezeigt werden.  Sie werden
+standardmäßig im @code{Score}-(Partitur)-Kontext
+erstellt und ihre @code{outside-staff-priority} wird
+in Bezug auf die Layout-Objekte, die im @code{Staff}-Kontext
+erstellt werden, ignoriert.  Wenn Sie Taktnummern,
+Metronombezeichnungen oder Übungszeichen entsprechend
+ihrer Außersystem-Priorität setzen wollen, müssen Sie
+die entsprechenden Engraver (@code{Bar_number_engraver},
+@code{Metronome_mark_engraver} oder @code{Mark_engraver})
+vom @code{Score}-Kontext entfernen und dem
+@code{Staff}-Kontext hinzufügen.  Wenn die Engraver so
+geändert werden, erhalten sie folgenden Werte für
+@code{outside-staff-priority}:
+
+@multitable @columnfractions .3 .3
+@headitem Layout-Objekt           @tab Priorität
+@item @code{RehearsalMark}        @tab @code{1500}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{BarNumber}            @tab @code{ 100}
+@end multitable
+
+Wenn die Standardwerte der @code{outside-staff-priority} nicht
+die Positionierung hervorrufen, die Sie wünschen, kann die
+Priorität eines jeden Objektes geändert werden.  Als Beispiel
+wollen wir zeigen, wie sich die Oktavierungsklammer unter
+den Textstrecker des vorigen Beispiels setzen lässt.  Wir müssen
+nur die Priorität des
+@code{OttavaBracket}-Objektes in der IR oder der Tabelle oben
+herausfinden und einen kleineren Wert angeben als der Wert, den
+das @code{TextSpanner}-(Strecker)-Objekt bekommt, wobei noch daran
+zu denken ist, dass @code{OttavaBracket} im @code{Staff}-Kontext
+erstellt wird:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+%Place following Ottava Bracket below Text Spanners
+\once \override Staff.OttavaBracket #'outside-staff-priority = #340
+% Start Ottava Bracket
+\ottava #1
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+\ottava #0
+c, c c c
+@end lilypond
+
+Eine Änderung der @code{outside-staff-priority} kann auch dazu
+benutzt werden, die vertikale Plazierung von individuellen Objekten
+zu kontrollieren, auch wenn das Ergebnis nicht immer optimal
+ist.  Im nächsten Beispiel soll @qq{Text3} oberhalb von @qq{Text4}
+gesetzt werden, das Beispiel wurde behandelt in
+@ref{Automatic behavior}.  Der Wert der Priorität muss also für
+die Eigenschaft @code{TextScript} entweder in der IR oder in der
+Tabelle oben festgestellt werden und dann die Priorität für
+@qq{Text3} höher eingestellt werden:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+\once \override TextScript #'outside-staff-priority = #500
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+Damit wird zwar @qq{Text3} ganz richtig über @qq{Text4}
+platziert, aber auch über @qq{Text2}, und @qq{Text4}
+wird jetzt weiter unten gesetzt.  Eigentlich sollten ja alle
+diese Anmerkungen gleichweit vom System entfernt sein.
+Dazu muss offensichtlich horizontal etwas Platz gemacht
+werden.  Das kann erreicht werden mit dem
+@code{textLengthOn}-(Textlänge an)-Befehl.
+
+@subheading \textLengthOn
+
+@funindex \textLengthOn
+@cindex Noten, durch Text gespreizt
+
+Standardmäßig wird Text, der mit dem Beschriftungsbefehl
+@code{\markup} bzw. Äquivalenten erstellt wird, kein
+zusätzlicher Platz in Bezug auf die Positionierung der Noten
+zugestanden.  Der @code{\textLengthOn}-Befehl ändert
+dieses Verhalten, so dass die Noten gespreizt werden, wenn
+die Breite des Textes es erfordert:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\textLengthOn  % Cause notes to space out to accommodate text
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond  
+
+Dieses Verhalten wird mit dem
+@code{\textLengthOff}-Befehl rückgängig gemacht.  Erinnern Sie
+sich, dass @code{\once} nur mit
+@code{\override}, @code{\set}, @code{\revert} oder @code{unset}
+funktioniert, der Befehl kann also nicht zusammen mit
+@code{\textLengthOn} benutzt werden.
+
+Textbeschriftung vermeidet auch Noten, die über das System hinausstehen.
+Wenn das nicht gewünscht ist, kann die automatische Verschiebung
+nach oben hin auch vollständig ausgeschaltet werden, indem die
+Priorität auf @code{#f} gesetzt wird.  Hier ein Beispiel, wie
+eine Textbeschriftung mit diesen Noten reagiert:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+% This markup is short enough to fit without collision
+c2^"Tex"
+c''2
+R1
+% This is too long to fit, so it is displaced upwards
+c,,2^"Text"
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+c,,2^"Long Text   "
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+\textLengthOn  % and turn on textLengthOn
+c,,2^"Long Text   "  % Spaces at end are honored
+c''2
+@end lilypond
+
+
+@subheading Dynamics
+
+Dynamikbezeichnung wird üblicherweise unter dem System
+gesetzt, kann aber auch nach oben mit dem Befehl
+@code{dynamicUp} gezwungen werden.  Die Bezeichnung
+wird vertikal relativ zu der Note positioniert, an die sie angefügt
+wurde.  Sie wird vertikal variabel gesetzt in Bezug zu 
+Innersystemobjekten wie Bögen oder Taktnummern. Damit
+können oft recht gute Resultate erreicht werden, wie im
+folgenden Beispiel:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\clef "bass"
+\key aes \major
+\time 9/8
+\dynamicUp
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+ees,2.~\)\mf ees4 r8 |
+@end lilypond
+
+Wenn aber Noten und Dynamikzeichen sehr dicht beieinander
+stehen, positioniert die automatische Kollisionsvermeidung
+später kommende Dynamikzeichen weiter weg, was allerdings
+nicht immer die beste Möglichkeit ist, wie in dem folgenden,
+etwas gewollten Beispiel zu sehen ist:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Wenn eine ähnliche Situation in @qq{echter} Musik auftaucht,
+kann es nötig sein, die Noten etwas zu spreizen, damit die
+Dynamikzeichen alle auf der selben vertikalen Position
+gesetzt werden können.  Dieses Verhalten war im Falle von
+Textbeschriftungen möglich mit dem @code{\textLengthOn}-Befehl,
+aber es gibt keinen entsprechenden Befehl für Dynamik.  Wir
+müssen also unsere eigenen Befehle mit @code{\override}
+konstruieren.
+
+@subheading Grob sizing
+
+@cindex Grob, Größenveränderung
+@cindex Größenveränderung von grobs
+@cindex @code{X-offset}
+@cindex @code{Y-offset}
+@cindex @code{X-extent}
+@cindex @code{Y-extent}
+
+Zuallererst müssen wir lernen, wie die Größe von Grobs verändert
+wird.  Alle Grobs besitzen einen Referenzpunkt, der
+benutzt wird, um ihre Position in Relation zu ihnen übergeordneten
+Objekten zu bestimmen.  Dieser Punkt innerhalb des Grobs wird dann
+auf einer horizontalen Position (@code{X-offset}) und einer
+vertikalen Position (@code{Y-offset}) ausgerichtet, immer bezüglich
+des übergeordneten Objektes.  Eine horizontale Strecke wird
+durch ein Zahlenpaar angegeben (@code{X-extent}), welche
+die linke und rechte Grenze relativ zum übergeordneten Objekt
+bezeichnen.  Die vertikale Strecke wir genauso durch ein
+Zahlenpaar (@code{Y-extent}) definiert.  Diese Eigenschaften
+gehören zu allen Grobs, die das
+@code{grob-interface} unterstützen.
+
+@cindex @code{extra-spacing-width}
+
+Standardmäßig haben Außersystemobjekte eine Länge von Null,
+so dass sie sich in horizontaler Richtung überlappen können.  Das
+geschieht, indem dem linken Rand Unendlich zugewiesen wird
+und dem rechten Rand minus Undendlich (der Code der 
+@code{extra-spacing-width}-(zusätzliche Positionierungslänge)-Eigenschaft
+lautet: @code{'(+inf.0 . -inf.0)}).
+Damit sich diese Objekte also horizontal nicht überschneiden, muss
+der Wert von @code{extra-spacing-width} auf
+@code{'(0 . 0)} gesetzt werden, sodass die wirkliche Länge eines
+Objektes zur Geltung kommt.  Mit diesem Befehl wird das für
+Dynamik-Zeichen erledigt:
+
+@example
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+@end example
+
+@noindent
+Schauen wir uns an, wie es mit dem vorigen Beispiel funktioniert:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Damit werden die Dynamik-Zeichen also wirklich nebeneinander
+gesetzt, aber es gibt noch zwei Probleme.  Die Zeichen sollten
+etwas weiter außeinander stehen und es wäre gut, wenn sie alle
+den gleichen Abstand zum System hätte.  Das erste Problem ist
+einfach behoben.  Anstatt der @code{extra-spacing-width}-Eigenschaft
+Null zuzuweisen, können wir auch einen etwas größeren Wert
+wählen.  Die Einheit wird gemessen in dem Abstand zwischen zwei
+Notenlinien, es scheint also gut, den rechten und linken
+Rand eine halbe Einheit zu vergrößern:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 staff space
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Das sieht schon besser aus, aber es wäre noch besser, wenn die
+Dynamik-Zeichen alle an einer Linie ausgerichtet wären, anstatt
+höher und tiefer zu sitzen.  Das kann mit der
+@code{staff-padding}-Eigenschaft erreicht werden,
+die wir uns im folgenden Abschnitt genauer anschauen werden.
+
 
 
 @node Collisions of objects
