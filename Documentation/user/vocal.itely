@@ -126,9 +126,11 @@ between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 \addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
-The lyric tie is implemented with the Unicode character U+203F, so be
-sure to have a font (Like DejaVuLGC) installed that includes this
-glyph.
+@noindent
+The lyric tie is implemented with the Unicode character
+@code{U+203F}; therefore a font that includes this glyph
+(such as DejaVuLGC) has to be used.  More explanations about
+text and non-text fonts can be found in @ref{Fonts}.
 
 
 To enter lyrics with characters from non-English languages, or with
@@ -180,6 +182,9 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 
 @seealso
+
+Notation Reference:
+@ref{Fonts}.
 
 Internals Reference:
 @rinternals{LyricText},

@@ -1245,7 +1245,7 @@ alternate families, shapes, series and sizes:
   \key d \major
   \override  Voice.TextScript #'font-shape = #'italic
   \override  Voice.TextScript #'font-series = #'bold
-  d''2.^\markup "Allegro"
+  d'2.^\markup "Allegro"
   r4
 @end lilypond
 
