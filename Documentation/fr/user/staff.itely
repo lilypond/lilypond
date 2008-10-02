@@ -34,7 +34,7 @@ seulement.
 @menu
 * Instantiating new staves::    
 * Grouping staves::             
-* Deeper nested staff groups::  
+* Nested staff groups::  
 @end menu
 
 @node Instantiating new staves
@@ -133,8 +133,8 @@ en profondeur,
 >>
 @end lilypond
 
-@node Deeper nested staff groups
-@unnumberedsubsubsec Deeper nested staff groups
+@node Nested staff groups
+@unnumberedsubsubsec Nested staff groups
 
 @untranslated
 

@@ -34,7 +34,7 @@ with either a bracket or a brace.
 @menu
 * Instantiating new staves::
 * Grouping staves::
-* Deeper nested staff groups::
+* Nested staff groups::
 @end menu
 
 
@@ -265,8 +265,8 @@ Internals Reference:
 @rinternals{SystemStartSquare}.
 
 
-@node Deeper nested staff groups
-@unnumberedsubsubsec Deeper nested staff groups
+@node Nested staff groups
+@unnumberedsubsubsec Nested staff groups
 
 @cindex staff, nested
 @cindex staves, nested
@@ -440,8 +440,8 @@ affects the spacing of ledger lines as well.
 { a4 b c d }
 @end lilypond
 
-The width of a staff can be modified.  The unit is one staff
-space.  The spacing of objects inside the staff is not affected by
+The width of a staff can be modified.  The units are staff
+spaces.  The spacing of objects inside the staff is not affected by
 this setting.
 
 @lilypond[verbatim,quote,relative=1]
@@ -452,7 +452,7 @@ this setting.
 @end lilypond
 
 Further details about the properties of @code{StaffSymbol} can be
-found here: @rinternals{staff-symbol-interface}.
+found in @rinternals{staff-symbol-interface}.
 
 @funindex \startStaff
 @funindex \stopStaff
@@ -1088,12 +1088,16 @@ Internals Reference:
 @cindex fragments
 @cindex cue notes
 
-Fragments of other parts can be inserted directly into a music
-expression; this is called @emph{quotation}.  Before a part can be
-quoted, the @code{\addQuote} command must be used to initialize
-the quoted fragment.  This command must be used in the toplevel
-scope.  The first argument is an identifying string, and the
-second is a music expression:
+It is very common for one voice to double the some of the music from                     
+another voice.  For example, the first and second violins may play the                    
+same notes during a passage of music.  In LilyPond this is accomplished                   
+by letting one voice @emph{quote} the other voice without having to
+re-enter it.
+                                                                       
+Before a part can be quoted, the @code{\addQuote} command must be used                   
+to initialize the quoted fragment.  This command must be used in the                      
+toplevel scope.  The first argument is an identifying string, and the                     
+second is a music expression: 
 
 @example
 flute = \relative c'' @{
@@ -1102,10 +1106,12 @@ flute = \relative c'' @{
 \addQuote "flute" @{ \flute @}
 @end example
 
-The @code{\quoteDuring} command is used to indicate when the
-quotation should take place.  The corresponding measures from the
-quotation are inserted into the music expression.  The syntax is
-similar to @code{\addQuote}:
+The @code{\quoteDuring} command is used to indicate the point where the
+quotation begins.  It is followed by two arguments: the name of the
+quoted voice, as defined with @code{\addQuote}, and a music expression
+that indicates the duration of the quote, usually spacer rests or
+multi-measure rests.  The corresponding music from the quoted voice is
+inserted into the music expression:
 
 @lilypond[verbatim,quote]
 flute = \relative c'' {
