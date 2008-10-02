@@ -867,7 +867,7 @@ using specific markup commands.
 @cindex decorating text
 @cindex framing text
 
-Some markup commands allow to decorate text elements
+Some markup commands allow decoration of text elements
 with graphics, as demonstrated in the following example.
 
 @lilypond[quote,verbatim]
@@ -895,8 +895,8 @@ with graphics, as demonstrated in the following example.
 @cindex padding around text
 @cindex text padding
 
-Some commands may require to increase the padding around
-the text: this is achieved with some specific commands
+Some commands may require an increase in the padding around
+the text; this is achieved with some specific commands
 exhaustively described in @ref{Align}.
 
 @lilypond[quote,verbatim]
@@ -933,7 +933,7 @@ Flute quartet keeps very uneven time."
 
 Other graphic elements or symbols may be printed
 without requiring any text.  As with any markup
-expression, such objects can be combined together:
+expression, such objects can be combined.
 
 @lilypond[quote,verbatim]
 \markup {
