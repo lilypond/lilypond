@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 576140f04b84d2c75be3905f2d998e90038c50c5
+    Translation of GIT committish: bc494bf964f01a1327bc7c6e3c70d0cb8d897ecb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -32,6 +32,12 @@
 @end ignore
 
 @c Translators: Francisco Vila
+
+@ifnottex
+@node Top
+@top GNU LilyPond: Manual de utilización del programa
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+@end ifnottex
 
 @ifhtml
 Este documento está disponible también en formato
@@ -151,14 +157,10 @@ Free Documentation License''.
 @end ifnottex
 
 @ifnottex
-@node Top
-@top GNU LilyPond: utilización del programa
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
-
 El presente documento es el manual de utilización del programa GNU
-LilyPond, versión @version{}.
-Para ver más información acerca de la relación entre éste y el resto
-de los documentos, consulte @rlearning{About the documentation}.
+LilyPond, versión @version{}.  Para ver más información acerca de la
+relación entre éste y el resto de los documentos, consulte
+@rlearning{About the documentation}.
 
 @cindex página web
 @cindex URL

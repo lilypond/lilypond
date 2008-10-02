@@ -116,8 +116,8 @@ Word counts (excluding lilypond snippets) are given for each file.
 23    user/dedication.itely
 409   user/macros.itexi
 177   index.html.in
-3657  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
-11046 total
+3740  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
+11129 total
 
 -2- Introduction and beginning of Application Usage
 411   user/preface.itely

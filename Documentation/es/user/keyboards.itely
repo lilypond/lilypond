@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: bc494bf964f01a1327bc7c6e3c70d0cb8d897ecb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -9,14 +9,19 @@
 
 @c \version "2.11.61"
 
-@node Keyboard and other many-stringed instruments
-@section Keyboard and other many-stringed instruments
+@node Keyboard and other multi-staff instruments
+@section Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{keyboard-headword.ly}
 
 Esta sección se ocupa de varios aspectos de la notación musical que
-son exclusivos de los instrumentos de teclado y otros instrumentos con
-muchas cuerdas, como el arpa.
+son exclusivos de los instrumentos de teclado y otros instrumentos
+cuya notación se realiza sobre varios pentagramas, como el arpa o el
+vibráfono.  A los efectos de nomenclatura, en esta sección se
+denominan abreviadamente @qq{teclados} a todo este grupo de
+instrumentos de varios pentagramas, aunque algunos de ellos no tienen
+teclado.
+
 
 @menu
 * Common notation for keyboards::
