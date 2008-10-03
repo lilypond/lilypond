@@ -478,10 +478,10 @@ f1 d2 r
 The size of the characters can also be altered in different ways:
 @itemize
 @item
-the font size can be set to an absolute value,
+the font size can be set to predefined standard sizes,
 
 @item
-the font size can be set to predefined standard sizes,
+the font size can be set to an absolute value,
 
 @item
 the font size can also be changed relatively to its previous value.
