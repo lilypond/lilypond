@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: bc494bf964f01a1327bc7c6e3c70d0cb8d897ecb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1464,7 +1464,7 @@ de las líneas divisorias.
 @seealso
 
 Referencia de la notación:
-@ruser{Keyboard and other many-stringed instruments},
+@ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
 
 

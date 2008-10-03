@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 726453e7d62a4c11b9bf74d80d76b6c9724fe2f8
+    Translation of GIT committish: 93025d413c94192619727c51fb07d3b3e631d8a4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -129,8 +129,16 @@
 	</tr>
       </tbody>
     </table>
-	<p><strong>NOTA</strong>: como en todas las páginas HTML de
-	esta documentación, en la parte de abajo tiene enlaces a las
-	traducciones de esta página a otros idiomas.</p>
+    <p>
+      Toda la documentación que puede leer desde estas páginas
+      está disponible para su <strong>descarga</strong>.
+      <a href="http://download.linuxaudio.org/lilypond/binaries/documentation/lilypond-@TOPLEVEL_VERSION@-1.documentation.tar.bz2">Descargar
+      el tarball</a>.
+    </p>
+    <p>Como en todas las páginas HTML de esta documentación, en la
+      parte de abajo tiene enlaces a
+      las <strong>traducciones</strong> de esta página a otros
+      idiomas.
+    </p>
   </body>
 </html>

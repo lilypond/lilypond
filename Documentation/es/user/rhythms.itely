@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 8ca660d5575d9749325d099f89c218a6340ee837
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -919,8 +919,8 @@ estilo numérico:
 \time 2/2 c1
 @end lilypond
 
-Las indicaciones de compás de la música antigua se tratan en
-@ref{Ancient time signatures}.
+Las indicaciones de compás de la música mensural se tratan en
+@ref{Mensural time signatures}.
 
 @predefined
 
@@ -992,7 +992,7 @@ Glosario musical:
 @rglos{time signature}
 
 Referencia de la notación:
-@ref{Ancient time signatures},
+@ref{Mensural time signatures},
 @ref{Time administration}.
 
 Fragmentos de código:
