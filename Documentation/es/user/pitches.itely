@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: c19fa7187fe8c72fba0ff16108255429d0c14573
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -354,7 +354,7 @@ Manual de aprendizaje:
 
 Referencia de la notación:
 @ref{Automatic accidentals},
-@ref{Annotational accidentals (musica ficta)},
+@ref{Annotational accidentals (@emph{musica ficta})},
 @ref{Note names in other languages}.
 
 Fragmentos de código:
@@ -805,7 +805,7 @@ c2 c
 @end lilypond
 
 Están contempladas claves adicionales que se describen bajo
-@ref{Ancient clefs}.
+@ref{Mensural clefs} y @ref{Gregorian clefs}.
 
 @cindex transpositoras, claves
 @cindex clave transpositora
@@ -837,7 +837,8 @@ c2 c
 @seealso
 
 Referencia de la notación:
-@ref{Ancient clefs}.
+@ref{Mensural clefs},
+@ref{Gregorian clefs}.
 
 Fragmentos de código:
 @rlsr{Pitches}.
