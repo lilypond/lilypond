@@ -116,8 +116,8 @@ Word counts (excluding lilypond snippets) are given for each file.
 23    user/dedication.itely
 409   user/macros.itexi
 177   index.html.in
-3740  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
-11129 total
+3746  po/lilypond-doc.pot (translate to po/<MY_LANGUAGE>.po)
+11135 total
 
 -2- Introduction and beginning of Application Usage
 411   user/preface.itely
@@ -143,7 +143,7 @@ Word counts (excluding lilypond snippets) are given for each file.
 1097  user/expressive.itely
 556   user/repeats.itely
 1276  user/simultaneous.itely
-1704  user/staff.itely
+1767  user/staff.itely
 902   user/editorial.itely
 2432  user/text.itely
 76    user/specialist.itely -- Specialist notation
@@ -162,7 +162,7 @@ Word counts (excluding lilypond snippets) are given for each file.
 5218  user/programming-interface.itely -- Interfaces for programmers
 1155  user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-63372 total
+63435 total
 
 -5- Application usage
 3194  user/lilypond-book.itely -- LilyPond-book
