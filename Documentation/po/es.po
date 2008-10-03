@@ -33,7 +33,9 @@ msgid ""
 "\">bug list</a>."
 msgstr ""
 "Se agradecen las <a href=\"%(suggest_Docs_url)s\">sugerencias para la "
-"documentación</a>. Informe de los fallos a través de la lista en español <a href=\"http://es.groups.yahoo.com/group/lilypond-es/\">lilypond-es</a>, o en inglés a través de <a href=\"%(mail_address_url)s\">la lista oficial de fallos</a>.""
+"documentación</a>. Informe de los fallos a través de la lista en español "
+"<a href=\"http://es.groups.yahoo.com/group/lilypond-es/\">lilypond-es</a>, "
+"o en inglés a través de <a href=\"%(mail_address_url)s\">la lista oficial de fallos</a>."
 
 #: postprocess_html.py:59
 #, python-format
