@@ -107,9 +107,9 @@ within which music can be printed.
 
 Two functions are available for changing the paper size:
 @code{set-default-paper-size} and @code{set-paper-size}.
-@code{set-default-paper-size} may be placed in a @code{\paper}
-block or in the toplevel scope, and @code{set-paper-size} must be
-placed in a @code{\paper} block:
+@code{set-default-paper-size} must be placed in the toplevel
+scope, and @code{set-paper-size} must be placed in a @code{\paper}
+block:
 
 @example
 #(set-default-paper-size "a4")
@@ -443,6 +443,16 @@ will decide whether to start with an odd or even number.  This
 will result in the first page number remaining as is or being
 increased by one.  Default: @code{##f}.
 
+@ignore
+
+FIXME: this variable is used, but I don't know what it does. -pm
+@item blank-after-score-page-force
+@funindex blank-after-score-page-force
+
+Default: @code{2}.
+
+@end ignore
+
 @item blank-last-page-force
 @funindex blank-last-page-force
 
@@ -457,21 +467,11 @@ score.  This is not used by @code{ly:optimal-breaking} since it will
 never consider blank pages in the middle of a score.  Default:
 @code{5}.
 
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
-
-TODO.  Default: @code{2}.
-
 @item first-page-number
 @funindex first-page-number
 
 The value of the page number on the first page.  Default:
 @code{#1}.
-
-@item packed
-@funindex packed
-
-TODO
 
 @item page-breaking-between-system-padding
 @funindex page-breaking-between-system-padding
@@ -485,7 +485,7 @@ page-breaker will put fewer systems on each page.  Default: unset.
 @item page-count
 @funindex page-count
 
-TODO
+The number of pages to be used for a score.  Default: unset.
 
 @item page-limit-inter-system-space
 @funindex page-limit-inter-system-space
