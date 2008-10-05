@@ -4,8 +4,8 @@ transposing-pitches-with-minimum-accidentals-smart-transpose.ly
 ottava-text.ly
 tweaking-clef-properties.ly
 preventing-extra-naturals-from-being-automatically-added.ly
-ambitus-with-multiple-voices.ly
 generating-random-notes.ly
+ambitus-with-multiple-voices.ly
 makam-example.ly
 dodecaphonic-style-accidentals-for-each-note-including-naturals.ly
 preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly

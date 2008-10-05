@@ -1,6 +1,5 @@
 how-to-change-fret-diagram-position.ly
 flamenco-notation.ly
-adding-fingerings-to-tablatures.ly
 placement-of-right-hand-fingerings.ly
 fingerings,-string-indications,-and-right-hand-fingerings.ly
 polyphony-in-tablature.ly
@@ -11,8 +10,9 @@ laissez-vibrer-ties.ly
 controlling-the-placement-of-chord-fingerings.ly
 allowing-fingerings-to-be-printed-inside-the-staff.ly
 customizing-fretboard-fret-diagrams.ly
+stem-and-beam-behavior-in-tablature.ly
 faking-a-hammer-in-tablatures.ly
 fret-diagrams-explained-and-developed.ly
 modern-tab-text-clef.ly
-stem-and-beam-behavior-in-tablature.ly
+adding-fingerings-to-tablatures.ly
 customizing-markup-fret-diagrams.ly

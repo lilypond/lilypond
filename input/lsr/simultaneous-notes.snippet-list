@@ -1,8 +1,8 @@
 changing-partcombine-texts.ly
 additional-voices-to-avoid-collisions.ly
-forcing-horizontal-shift-of-notes.ly
+clusters.ly
 changing-a-single-notes-size-in-a-chord.ly
 combining-two-parts-on-the-same-staff.ly
-clusters.ly
+forcing-horizontal-shift-of-notes.ly
 suppressing-warnings-for-clashing-note-columns.ly
 displaying-complex-chords.ly
