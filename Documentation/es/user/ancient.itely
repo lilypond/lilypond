@@ -162,7 +162,7 @@ continuación introducir directamente las notas sin la necesidad de
 preocuparnos de los detalles sobre cómo personalizar un contexto.
 Véanse uno de los contextos predefinidos @code{VaticanaVoice},
 @code{VaticanaStaff}, @code{MensuralVoice}, y
-@code{MensuralStaff}. 
+@code{MensuralStaff}.
 
 @itemize
 @item @ref{Gregorian chant contexts},

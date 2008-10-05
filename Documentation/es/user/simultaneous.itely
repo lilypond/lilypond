@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: b1dea6f22a0a2f3d64bac14b38a2393879ed4b07
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -53,10 +53,10 @@ articulaciones, como si fueran simples notas.
 @end lilypond
 
 Se puede usar el modo relativo para la altura de las notas de los
-acordes; aún se usa como referencia la nota precedente dentro del
-mismo acorde para las alturas relativas, pero cuando el acorde
-termina, la nota de referencia para el modo relativo es la primera
-nota de este acorde, no la última nota del acorde.
+acordes.  La octava de cada nota se determina utilizando como
+referencia la nota precedente, excepto en el caso de la primera nota
+de un acorde: la referencia para la primera nota es la @emph{primera}
+nota del acorde anterior.
 
 Para ver más información sobre los acordes, consulte @ref{Chord
 notation}.
@@ -118,6 +118,8 @@ dos acordes.  En caso contrario aparecerán excesivamente estrechos.
 Los clusters no llevan plica y por sí mismos no pueden indicar las
 duraciones.  Los racimos separados necesitarían silencios de
 separación entre ellos.
+
+Los clusters no producen ninguna salida MIDI.
 
 @node Multiple voices
 @subsection Multiple voices
@@ -244,6 +246,7 @@ voz tres, que tiene las plicas hacia arriba tal y como queremos.
 >>
 @end lilypond
 
+@noindent
 A menudo se utilizan silencios espaciadores para evitar la aparición
 de un número excesivo de silencios, como se ha podido ver en el
 ejemplo anterior.
@@ -474,7 +477,7 @@ desactivado), mientras que las voces interiores (tres y cuatro) tienen
 @code{\shiftOnnn} definen niveles de desplazamiento más grandes.
 
 Sólo se combinan las notas si tienen la plica en direcciones opuestas
-(o sea en las @code{Voice}s 1 y 2).
+(por ejemplo, en las @code{Voice}s 1 y 2).
 
 @predefined
 
@@ -640,6 +643,8 @@ Referencia de funcionamiento interno:
 
 @knownissues
 
+@code{\partcombine} sólo admite dos voces.
+
 Si @code{printPartCombineTexts} está establecido, cuando las dos voces
 tocan y terminan las mismas notas, el combinador de partes puede
 tipografiar @code{a2} más de una vez en el mismo compás.
@@ -649,12 +654,19 @@ tipografiar @code{a2} más de una vez en el mismo compás.
 @code{\partcombine} no puede estar dentro de @code{\relative}.
 
 Internamente, el @code{\partcombine} interpreta los dos argumentos
-como @code{Voice}s llamadas @code{one} y @code{two}, y después decide
-cuándo se pueden combinar las partes.  Como consecuencia, si los
-argumentos cambian a contextos de @rinternals{Voice} con nombres
-diferentes, los eventos que contienen se ignorarán.
+como @code{Voice}s y decide cuándo se pueden combinar las dos partes.
+Cuando tienen distintas duraciones, no se combinan y reciben los
+nombres @code{one} y @code{two}.  Como consecuencia, si los argumentos
+cambian a contextos de @rinternals{Voice} con nombres diferentes, los
+eventos que contienen se ignorarán.  De forma similar, la combinación
+de partes no está pensada para que funcione con la letra de las
+canciones; cuando una de las voces recibe un nombre explícito con el
+objeto de adjuntarle una letra, la combinación de partes deja de
+funcionar.
 
-@c IIRC in users list someone pointed out more issues. TODO: lookup FV
+@code{\partcombine} observa solamente los tiempos de ataque de las
+notas.  No puede determinar si una nota iniciada previamente está
+sonando o no, lo que origina diversos problemas.
 
 @node Writing music in parallel
 @unnumberedsubsubsec Writing music in parallel
