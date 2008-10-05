@@ -298,11 +298,10 @@ several music pieces, as described in
 }
 @end lilypond
 
-Using a specific syntax, text blocks can be spread
-over multiple pages, making it possible to print
-text documents or books (and therefore to
-use LilyPond as a word processor).  This syntax is described in
-@ref{Multi-page markup}.
+Separate text blocks can be spread over multiple pages,
+making it possible to print text documents or books entirely
+within LilyPond.  This feature, and the specific syntax it
+requires, are described in @ref{Multi-page markup}.
 
 @predefined
 
@@ -354,7 +353,7 @@ using the @code{\markup} mode specific syntax.
 @funindex \markup
 
 A @code{\markup} block is used to typeset text with an extensible
-specific syntax called @qq{markup mode}.
+syntax called @qq{markup mode}.
 
 @cindex markup expressions
 @cindex markup syntax
@@ -365,7 +364,7 @@ The markup syntax is similar to LilyPond's usual syntax: a
 and therefore does not need to be enclosed with braces.
 
 Unlike simple @qq{quoted text} indications, @code{\markup} blocks
-may contain nested expressions or specific commands,
+may contain nested expressions or markup commands,
 entered using the backslash @code{\} character.
 Such commands only affect the first following expression.
 
@@ -403,7 +402,7 @@ to be enclosed with double quotes or preceded by a command.
 The way markup expressions are defined affects how these
 expressions will be stacked, centered and aligned; in the
 following example, the second @code{\markup} expression is
-not treated differently from the first one :
+treated the same as the first one:
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { \center-column { a bbb c } }
@@ -490,13 +489,13 @@ the font size can also be changed relatively to its previous value.
 @noindent
 The following example demonstrates these three methods:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=1]
 f1_\markup {
   \tiny espressivo
   \large e
   \normalsize intenso
 }
-a,^\markup {
+a^\markup {
   \fontsize #5 Sinfonia
   \fontsize #2 da
   \fontsize #3 camera
@@ -574,8 +573,8 @@ easily be solved by concatenating the text elements together:
 }
 @end lilypond
 
-An exhaustive list of font-switching, font-size
-and font-families related commands can be found in @ref{Font}.
+An exhaustive list of font switching, and custom font usage
+commands can be found in @ref{Font}.
 
 Defining custom font sets is also possible, as explained in
 @ref{Fonts}.
@@ -622,10 +621,9 @@ Installed files:
 @cindex text, aligning
 @cindex aligning text
 
-This subsection discusses how to place text in markup mode,
-inside a @code{\markup} block.  Markup objects can also
-be moved as a whole, using the syntax described in
-@rlearning{Moving objects}.
+This subsection discusses how to place text in markup mode.
+Markup objects can also be moved as a whole, using the syntax
+described in @rlearning{Moving objects}.
 
 @c Padding commands should be mentioned on this page, but
 @c most of these require \box to be more clearly illustrated. -vv
@@ -642,13 +640,13 @@ example, there is no difference
 between the first and the second markup.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-a1-\markup { poco }
-e'
-a,-\markup { \left-align poco }
-e'
-a,-\markup { \center-align { poco } }
-e'
-a,-\markup { \right-align poco }
+d1-\markup { poco }
+f
+d-\markup { \left-align poco }
+f
+d-\markup { \center-align { poco } }
+f
+d-\markup { \right-align poco }
 @end lilypond
 
 @funindex \halign
@@ -670,7 +668,7 @@ a,-\markup { \halign #2 poco }
 Some objects may have alignment procedures of their own,
 and therefore are not affected by these commands.  It is
 possible to move such markup objects as a whole, as shown
-for instance in @ref{Text marks},
+for instance in @ref{Text marks}.
 
 @cindex text, vertical alignment
 @cindex vertical text alignment
@@ -848,7 +846,7 @@ Installed files:
 @cindex drawing graphic objects
 
 Various graphic objects may be added to a score,
-using specific markup commands.
+using markup commands.
 
 @funindex \box
 @funindex \circle
@@ -888,7 +886,7 @@ with graphics, as demonstrated in the following example.
 @cindex text padding
 
 Some commands may require an increase in the padding around
-the text; this is achieved with some specific commands
+the text; this is achieved with some markup commands
 exhaustively described in @ref{Align}.
 
 @lilypond[quote,verbatim]
@@ -1002,7 +1000,7 @@ Installed files:
 Various musical notation elements may be added
 to a score, inside a markup object.
 
-Notes and accidentals can be entered using specific
+Notes and accidentals can be entered using markup
 commands:
 
 @lilypond[quote,verbatim,fragment,relative=2]
@@ -1126,7 +1124,7 @@ Installed files:
 @unnumberedsubsubsec Multi-page markup
 
 Although standard markup objects are not breakable, a
-specific syntax allows to enter lines of text that can
+specific syntax makes it possible to enter lines of text that can
 spread over multiple pages:
 
 @lilypond[quote,verbatim]
@@ -1143,7 +1141,7 @@ spread over multiple pages:
 }
 @end lilypond
 
-This specific syntax accepts a list of markups, that can be
+This syntax accepts a list of markups, that can be
 @itemize
 @item
 the result of a markup list command,
