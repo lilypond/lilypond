@@ -591,7 +591,7 @@ example.
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \remove "Clef_engraver"
+    \override Clef #'transparent = ##t
     fontSize = #-3
     \override StaffSymbol #'staff-space = #(magstep -3)
     \override StaffSymbol #'thickness = #(magstep -3)
@@ -631,7 +631,7 @@ more information about @code{\RemoveEmptyStaffContext}, see
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \remove "Clef_engraver"
+    \override Clef #'transparent = ##t
     fontSize = #-3
     \override StaffSymbol #'staff-space = #(magstep -3)
     \override StaffSymbol #'thickness = #(magstep -3)
@@ -961,7 +961,7 @@ instrument names and short instrument names are centered by
 default.  To center multi-line instrument names,
 @code{\center-column} must be used:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
   \new Staff {
     \set Staff.instrumentName = "Flute"
@@ -969,7 +969,7 @@ default.  To center multi-line instrument names,
   }
   \new Staff {
     \set Staff.instrumentName = \markup \center-column {
-      Clarinetti
+      Clarinet
       \line { "in B" \smaller \flat }
     }
     c4 b c2
@@ -987,13 +987,13 @@ these settings, see @ref{Horizontal dimensions}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
-  indent = 2.5\cm
+  indent = 3.0\cm
   short-indent = 1.5\cm
 }
 
 \relative c'' <<
   \new Staff {
-    \set Staff.instrumentName = "Flute"
+    \set Staff.instrumentName = "Alto Flute in G"
     \set Staff.shortInstrumentName = "Fl."
     f2 g4 f \break
     g4 f g2
@@ -1035,10 +1035,10 @@ If an instrument @emph{switch} is needed,
 @code{\instrumentSwitch} to create a detailed list of the
 necessary changes for the switch.  The
 @code{\addInstrumentDefinition} command has two arguments: an
-identifying string, and an alist of context properties and values
-to be used for the instrument.  It must be placed in the toplevel
-scope.  @code{\instrumentSwitch} is used in the music expression
-to declare the instrument switch:
+identifying string, and an association list of context properties
+and values to be used for the instrument.  It must be placed in
+the toplevel scope.  @code{\instrumentSwitch} is used in the music
+expression to declare the instrument switch:
 
 @lilypond[verbatim,quote,ragged-right]
 \addInstrumentDefinition #"contrabassoon"
@@ -1222,7 +1222,7 @@ The previous section explains how to create quotations.  The
 notes into a part.  The syntax is as follows:
 
 @example
-  \cueDuring #@var{partname} #@var{voice} @var{music}
+\cueDuring #@var{partname} #@var{voice} @var{music}
 @end example
 
 This command copies the corresponding measures from @var{partname}
