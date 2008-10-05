@@ -55,13 +55,29 @@ on entering numbers, lists, strings, and symbols in Scheme.}
 This section describes what contexts are, and how to modify them.
 
 @menu
-* Contexts explained::          
-* Creating contexts::           
-* Modifying context plug-ins::  
-* Changing context default settings::  
-* Defining new contexts::       
+* Contexts explained::
+* Creating contexts::
+* Modifying context plug-ins::
+* Changing context default settings::
+* Defining new contexts::
 * Aligning contexts::
 @end menu
+
+@seealso
+
+Learning Manual:
+@rlearning{Contexts and engravers}.
+
+Installed files:
+@file{ly/@/engraver@/-init@/.ly},
+@file{ly/@/performer@/-init@/.ly}.
+
+Snippets:
+@rlsr{Contexts and engravers}.
+
+Internals Reference:
+@rinternals{Contexts},
+@rinternals{Engravers and performers}.
 
 
 @node Contexts explained
@@ -2611,12 +2627,35 @@ fis^\markup { \rotate #30 "an F-Sharp" }
 @node Advanced tweaks
 @section Advanced tweaks
 
+This section discusses various approaches to fine tuning the
+appearance of the printed score.
+
 @menu
 * Aligning objects::
 * Vertical grouping of grobs::
 * Modifying stencils::
 * Modifying shapes::
 @end menu
+
+@seealso
+
+Learning Manual:
+@rlearning{Tweaking output},
+@rlearning{Other sources of information}.
+
+Notation Reference:
+@ref{Explaining the Internals Reference},
+@ref{Modifying properties},
+@ref{Interfaces for programmers}.
+
+Installed Files:
+@file{scm/@/define@/-grobs@/.scm}.
+
+Snippets:
+@rlsr{Tweaks and overrides}.
+
+Internals Reference:
+@rinternals{All layout objects}.
 
 @node Aligning objects
 @subsection Aligning objects
