@@ -11,11 +11,10 @@ body {
   padding: 0;
   height: 100%;
   font-size: 100%;
-  line-height: 1.125em;
+  line-height: 1.125;
   color: black;
   background-color: white;
 }
-
 
 /***********************************************************/
 /*                      HEADERS                            */
@@ -23,9 +22,8 @@ body {
 
 .chapter, .section, .subsection, .subsubsection,
 .appendix, .appendixsec, .appendixsubsec,
-.unnumbered, .unnumberedsec, .unnumberedsubsubsec, 
+.unnumbered, .unnumberedsec, .unnumberedsubsec, .unnumberedsubsubsec,
 .subheading, .subsubheading {
-  line-height: 1.125em;
   color: #204a87;
   border-bottom: 1px dashed black;
   padding-bottom: 0.15em;
@@ -36,7 +34,6 @@ body {
 .settitle {
   background: #b1d281;
   font-size: 2em;
-  line-height: 1.125em;
   text-align: center;
   margin: 0;
   padding: 0.4em 0.5em;
@@ -52,7 +49,7 @@ body {
   font-size: 1.6em;
 }
 
-.subsection, .appendixsubsec {
+.subsection, .appendixsubsec, .unnumberedsubsec {
   font-size: 1.4em;
 }
 
@@ -99,7 +96,7 @@ a:hover {
 blockquote {
   width: 96%;
   padding: 0;
-  border: 1px solid #7b925a;
+  border: 1px solid #708a4b;
   border-left: 5px solid #a3ca6d;
   margin: 1em auto;
 }
@@ -135,6 +132,7 @@ blockquote blockquote {
 table.cartouche {
   background: #f5f5dc; /* beige */
   width: 85%;
+  border-collapse: collapse;
   padding: 0 0.5em;
   border: 2px solid #8f5902;
   margin: 0 auto 1em;
@@ -185,7 +183,7 @@ p {
 #languages {
   background-color: #f5f5dc; /* beige */
   padding: 0.5em 1em;
-  border-top: 1px solid #7b925a;
+  border-top: 1px solid #8fa77f;
   margin: 0;
 }
 
@@ -221,7 +219,7 @@ div#tocframe {
   z-index: 100;
   list-style-type: none;
   font-size: 0.83em;
-  line-height: 1.4em;
+  line-height: 1.4;
 }
 
 @media screen {
@@ -230,13 +228,24 @@ div#tocframe {
   }
 }
 
+div#tocframe p.toc_uplink {
+  font-size: 1em;
+  line-height: 1.125;
+  background: #c9ccc4;
+  padding: 0.25em 1em;
+  border-bottom: 1px solid #8a8c87;
+  margin: 0;
+}
+
 div#tocframe h4 {
   font-size: 1em;
-  font-weight: normal;
-  color: #344;
-  background-color: #babdb6;
-  padding: 2px 0 1px 1em;
-  border-bottom: 1px solid #788;
+  line-height: 1.125;
+  font-weight: bold;
+  font-style: italic;
+  /* background: #c9ccc4; */
+  /* padding: 0.25em 1em; */
+  padding: 0.75em 0.5em 0 0.5em;
+  /* border-bottom: 1px solid #8a8c87; */
   margin: 0;
 }
 
@@ -249,7 +258,7 @@ div#tocframe h4 {
 }
 
 #tocframe ul.toc {
-  padding: 1em 0.5em;
+  padding: 0.25em 0.5em 1em 0.5em;
   list-style-type: none;
   margin: 0;
 }
@@ -289,16 +298,23 @@ li.toc_current ul {
 
 .nav_table {
   width: 100%;
-  background: #babdb6;
-  font-size: 0.8em;
+  background: #c9ccc4;
+  font-size: 0.83em;
+  line-height: 1.125;
+  border-collapse: collapse;
   padding: 0;
   border: 0;
-  border-bottom: 1px solid #788;
+  border-bottom: 1px solid #8a8c87;
   margin: 0;
 }
 
-.nav_table tr, .nav_table td, .nav_table a {
+.nav_table tr, .nav_table a {
   padding: 0;
+  margin: 0;
+}
+
+.nav_table td {
+  padding: 0.25em;
   margin: 0;
 }
 
@@ -313,7 +329,6 @@ div.header {
 
 div.header h1 {
   font-size: 2em;
-  line-height: 1em;
   padding: 0.25em;
   margin: 0;
 }
@@ -352,16 +367,14 @@ table .title {
 .footer {
   background: #c6e7b0;
   font-size: 0.8em;
-  text-indent: 1em;
   border: 0;
-  padding: 0.4em 0;
+  padding: 0.2em 0;
   margin: 0;
 }
 
 .footer p {
-  line-height: 1.5;
-  padding: 0;
-  margin: 0 0.25em;
+  padding: 0 1.25em;
+  margin: 0.4em 0;
 }
 
 table.menu {
