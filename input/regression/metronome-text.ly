@@ -31,5 +31,7 @@ Score.hideTempoNote, one can hide the duration=count in the tempo mark.
   \tempo 8=80 c1
   \tempo "Allegro" 8=80 c1
   \tempo 8=80 c1
-
+  
+  % Unsetting the count using only text
+  \tempo "no note (text-only)" c1
 }
