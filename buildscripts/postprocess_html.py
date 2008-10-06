@@ -115,16 +115,18 @@ def hack_urls (s, prefix):
         s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
     elif 'input/lsr' in prefix:
         s = user_ref_re.sub ('href="source/Documentation/user/lilypond\\1', s)
-    elif 'input/regression' in prefix or 'Documentation/topdocs' in prefix:
-        # fix the link from the regtest pages to the doc index (rewrite the prefix
-        # name to obtain the relative path of the doc index page)
+    
+    # we also need to replace in the lsr, which is already processed above!
+    if 'input/' in prefix or 'Documentation/topdocs' in prefix:
+        # fix the link from the regtest, lsr and topdoc pages to the doc index 
+        # (rewrite prefix to obtain the relative path of the doc index page)
         rel_link = re.sub (r'out-www/.*$', '', prefix)
         rel_link = re.sub (r'[^/]*/', '../', rel_link)
-        if 'Documentation/topdocs' in prefix:
-            targetfile = "index"
+        if 'input/regression' in prefix:
+            indexfile = "Documentation/devel"
         else:
-            targetfile = "Documentation/devel"
-        s = docindex_link_re.sub ('href="' + rel_link + targetfile + '.html\"', s)
+            indexfile = "index"
+        s = docindex_link_re.sub ('href="' + rel_link + indexfile + '.html\"', s)
 
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):
