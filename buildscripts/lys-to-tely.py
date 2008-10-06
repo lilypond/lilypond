@@ -59,6 +59,7 @@ template = '''\input texinfo
 @end ignore
 
 @node Top, , , (dir)
+@top %%(title)s
 
 %s
 
