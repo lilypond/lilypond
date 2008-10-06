@@ -253,6 +253,7 @@ multiple voices on the same staff."
   fontSize = #-4
   \override Stem #'length-fraction = #(magstep -4)
   \override Beam #'length-fraction = #(magstep -4)
+  \override Beam #'thickness = #0.35
 }
 
 \context {
