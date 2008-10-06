@@ -37,8 +37,8 @@ be required for some double-stopped or divisi passages.
 * Snap (Bartók) pizzicato::
 @end menu
 
-@unnumberedsubsubsec References for unfretted strings
 @node References for unfretted strings
+@unnumberedsubsubsec References for unfretted strings
 
 Most of the notation which is useful for orchestral strings
 and other bowed instruments is covered elsewhere:
@@ -171,4 +171,3 @@ Notation Reference:
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {snap-pizzicato-markup-bartok-pizzicato.ly}
-
