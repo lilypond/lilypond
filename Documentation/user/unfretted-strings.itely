@@ -1,4 +1,4 @@
-﻿@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
     Translation of GIT committish: FILL-IN-HEAD-COMMITTISH
 
@@ -34,7 +34,7 @@ be required for some double-stopped or divisi passages.
 * References for unfretted strings::
 * Bowing indications::
 * Harmonics::
-* Snap (Bartók) pizzicato::
+* Snap (Bartok) pizzicato::
 @end menu
 
 @node References for unfretted strings
@@ -159,7 +159,7 @@ Notation Reference:
 @ref{Special note heads},
 @ref{References for unfretted strings}.
 
-@node Snap (Bartók) pizzicato
+@node Snap (Bartok) pizzicato
 @unnumberedsubsubsec Snap (Bartók) pizzicato
 
 @cindex pizzicato, Bartók
