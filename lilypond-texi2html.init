@@ -620,9 +620,29 @@ sub lilypond_print_toc_div ($$)
   if (@lines) {
   
     print $fh "\n\n<div id=\"tocframe\">\n";
+    
+    # Remove the leading "GNU LilyPond --- " from the manual title
+    my $topname = $Texi2HTML::NAME{'Top'};
+    $topname =~ s/^GNU LilyPond(:| &[mn]dash;) //;
+    
+    # construct the top-level Docs index (relative path and including language!)
+    my $lang = $Texi2HTML::THISDOC{current_lang};
+    if ($lang and $lang ne "en") {
+      $lang .= ".";
+    } else {
+      $lang = "";
+    }
+    my $reldir = "";
+    $reldir = "../" if ($Texi2HTML::Config::SPLIT eq 'section');
+    my $uplink = $reldir."index.${lang}html";
+
+    print $fh "<p class=\"toc_uplink\"><a href=\"$uplink\" 
+         title=\"Documentation Index\">&lt;&lt; Back to 
+         Documentation Index</a></p>\n";
+
     print $fh '<h4 class="toc_header"> ' . &$anchor('',
                                     $Texi2HTML::HREF{'Top'},
-                                    $Texi2HTML::NAME{'Top'},
+                                    $topname,
                                     'title="Start of the manual"'
                                    ) . "</h4>\n";
     foreach my $line (@lines) {
