@@ -317,7 +317,7 @@ supported are @code{vaticana}, @code{medicaea}, @code{hufnagel}, and
 Internals Reference: @rinternals{Custos}.
 
 Examples:
-@rlsr{Ancient}.
+@rlsr{Ancient notation}.
 
 @c {{{2 Figured bass support
 @node Figured bass support
@@ -1314,7 +1314,7 @@ Notation Reference: @ref{Breath marks}.
 
 Internals Reference: @rinternals{BreathingSign}.
 
-Examples: @rlsr{Ancient}.
+Examples: @rlsr{Ancient notation}.
 
 
 
