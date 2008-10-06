@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 93025d413c94192619727c51fb07d3b3e631d8a4
+    Translation of GIT committish: f39d52df6c54f4e8f4ba8dab7ae0949b5e37b017
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -883,8 +883,8 @@ instrucciones de marcado específicas.
 @cindex decorar texto
 @cindex enmarcar texto
 
-Ciertas instrucciones de marcado permiten decorar los elementos de
-texto con gráficos, como se muestra en el ejemplo siguiente.
+Ciertas instrucciones de marcado permiten la decoración de elementos
+de texto con gráficos, como se muestra en el ejemplo siguiente.
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
@@ -911,8 +911,8 @@ texto con gráficos, como se muestra en el ejemplo siguiente.
 @cindex relleno alrededor del texto
 @cindex texto, relleno de
 
-Algunas instrucciones pueden requerir que se aumente el relleno
-alrededor del texto: esto se puede conseguir con algunas instrucciones
+Algunas instrucciones pueden requerir un aumento del relleno alrededor
+del texto: esto se puede conseguir con algunas instrucciones
 específicas descritas exhaustivamente en @ref{Align}.
 
 @lilypond[quote,verbatim]
@@ -949,7 +949,7 @@ Flute quartet keeps very uneven time."
 
 Se pueden imprimir otros símbolos o elementos gráficos sin que se
 requiera ningún otro texto.  De igual manera que en el caso de las
-expresiones de marcado, dichos objetos se pueden combinar entre sí:
+expresiones de marcado, dichos objetos se pueden combinar:
 
 @lilypond[quote,verbatim]
 \markup {
@@ -1273,7 +1273,7 @@ series y tamaños alternativos:
   \key d \major
   \override  Voice.TextScript #'font-shape = #'italic
   \override  Voice.TextScript #'font-series = #'bold
-  d''2.^\markup "Allegro"
+  d'2.^\markup "Allegro"
   r4
 @end lilypond
 
