@@ -339,7 +339,7 @@ Baroque period; see @ref{Figured bass}.
 * Mensural flags::
 * Mensural rests::
 * Mensural accidentals and key signatures::
-* Annotational accidentals (@emph{musica ficta})::
+* Annotational accidentals (musica ficta)::
 * White mensural ligatures::
 @end menu
 
@@ -797,7 +797,7 @@ the use of key signatures.
 Internals Reference: @rinternals{KeySignature}.
 
 @c {{{2 Annotational accidentals (musica ficta)
-@node Annotational accidentals (@emph{musica ficta})
+@node Annotational accidentals (musica ficta)
 @unnumberedsubsubsec Annotational accidentals (@emph{musica ficta})
 
 In European music from before about 1600, singers were expected to
