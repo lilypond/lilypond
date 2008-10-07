@@ -109,6 +109,7 @@ $Texi2HTML::Config::paragraph          = \&makeinfo_like_paragraph;
 $Texi2HTML::Config::complex_format_map->{'example'} = {
   'begin' => q{"<blockquote><pre class=\"example\">"},
   'end' => q{"</pre></blockquote>\n"},
+  'style' => 'code',
  };
 
 %Texi2HTML::config::misc_pages_targets = (
