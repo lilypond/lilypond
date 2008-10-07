@@ -11,6 +11,8 @@
 @node Unfretted string instruments
 @section Unfretted string instruments
 
+@lilypondfile[quote]{unfretted-strings-headword.ly}
+
 @cindex orchestral strings
 @cindex strings, writing for
 
