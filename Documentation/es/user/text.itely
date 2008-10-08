@@ -494,7 +494,6 @@ el modo de marcado:
 @funindex \fontsize
 @funindex \smaller
 @funindex \larger
-@funindex \bigger
 @funindex \magnify
 
 El tamaño de los caracteres también se puede alterar de distintas

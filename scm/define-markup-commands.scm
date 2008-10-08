@@ -1673,27 +1673,6 @@ any sort of property supported by @rinternals{font-interface} and
 ;; fonts.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-builtin-markup-command (bigger layout props arg)
-  (markup?)
-  font
-  ()
-  "Increase the font size relative to current setting.
-
-@lilypond[verbatim,quote]
-\\markup {
-  \\huge {
-    huge
-    \\hspace #2
-    \\bigger {
-      bigger
-    }
-    \\hspace #2
-    huge
-  }
-}
-@end lilypond"
-  (interpret-markup layout props
-   `(,fontsize-markup 1 ,arg)))
 
 (define-builtin-markup-command (smaller layout props arg)
   (markup?)
@@ -1721,7 +1700,7 @@ any sort of property supported by @rinternals{font-interface} and
   (markup?)
   font
   ()
-  "Copy of the @code{\\bigger} command.
+  "Increase the font size relative to current setting.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1731,7 +1710,8 @@ any sort of property supported by @rinternals{font-interface} and
   larger
 }
 @end lilypond"
-  (interpret-markup layout props (make-bigger-markup arg)))
+  (interpret-markup layout props
+   `(,fontsize-markup 1 ,arg)))
 
 (define-builtin-markup-command (finger layout props arg)
   (markup?)

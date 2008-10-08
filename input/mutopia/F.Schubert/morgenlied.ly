@@ -53,7 +53,7 @@ modernAccidentals = {
 melody =    \relative c'' \repeat volta 2 \new Voice = "singer" {
     \time 6/8
     \autoBeamOff
-    s1*0^\markup { \bold \large\bigger\bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
+    s1*0^\markup { \bold \large\larger\larger { \hspace #-3.0 Lieblich, etwas geschwind } }
   R2.
   r4 r8 c4 g8 |
   e4 c8
@@ -162,7 +162,7 @@ pianoLH =  \relative c'' \repeat volta 2 {
 	   \new PianoStaff << 
 	       \set PianoStaff.instrumentName = \markup {
 		   \bold
-		   \bigger\bigger\bigger\bigger \huge "2.  " }
+		   \larger\larger\larger\larger \huge "2.  " }
 	       \new Staff \pianoRH
 	       \new Staff \pianoLH
 	   >> 

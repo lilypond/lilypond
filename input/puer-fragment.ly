@@ -28,9 +28,9 @@ cantus = \new VaticanaVoice = "cantus"  {
     \column {
       " " " " " " " " "VII" " "
       {
-	\bigger \bigger \bigger \bigger
-	\bigger \bigger \bigger \bigger
-	\bigger \bigger \bigger \bigger
+	\larger \larger \larger \larger
+	\larger \larger \larger \larger
+	\larger \larger \larger \larger
 	"P"
       }
     }

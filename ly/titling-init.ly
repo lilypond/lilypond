@@ -35,13 +35,13 @@ bookTitleMarkup = \markup {
     \fill-line { \fromproperty #'header:dedication }
     \override #'(baseline-skip . 3.5)
     \column {
-      \huge \bigger \bold
+      \huge \larger \bold
       \fill-line {
-        \bigger \fromproperty #'header:title
+        \larger \fromproperty #'header:title
       }
       \fill-line {
         \large \smaller \bold
-        \bigger \fromproperty #'header:subtitle
+        \larger \fromproperty #'header:subtitle
       }
       \fill-line {
         \smaller \bold

@@ -471,7 +471,6 @@ f1 d2 r
 @funindex \fontsize
 @funindex \smaller
 @funindex \larger
-@funindex \bigger
 @funindex \magnify
 
 The size of the characters can also be altered in different ways:

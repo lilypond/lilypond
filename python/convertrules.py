@@ -2817,9 +2817,10 @@ def conv (str):
     str = re.sub (r'\\include(\s+)"gregorian-init.ly"', r'\\include\1"gregorian.ly"', str)
     return str
 
-@rule ((2, 11, 62), "makam-init.ly -> makam.ly")
+@rule ((2, 11, 62), "makam-init.ly -> makam.ly, \\bigger -> \\larger")
 def conv (str):
     str = re.sub (r'\\include(\s+)"makam-init.ly"', r'\\include\1"makam.ly"', str)
+    str = re.sub (r"\\bigger", r"\\larger", str)
     return str
 
 # Guidelines to write rules (please keep this at the end of this file)
