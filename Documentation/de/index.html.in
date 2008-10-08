@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 9700b86dcfbe60138b4a3f83d98578bcddfbbc08
+    Translation of GIT committish: 550152ed5d5015d13abf2af83b2e040f996a66a4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -75,7 +75,9 @@ als <a class="title" href="user/lilypond-learning.de.pdf">PDF</a>)
 
         <li>
   <a  class="title" href="user/lilypond-internals/index.html">Referenz der Interna (IR)</a>
-  (auf <a class="title" href="user/lilypond-internals-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb)
+  (auf <a class="title" href="user/lilypond-internals-big-page.html">einer gro&szlig;en Seite</a> ~ 1 Mb
+  als <a class="title" href="user/lilypond-internals.pdf">PDF</a>)
+
       <br>(Definitionen, wie die Standardeinstellungen ver&auml;ndert k&ouml;nnen.)</li>
          
    </ul>
@@ -133,7 +135,14 @@ als <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
         </tr>
       </tbody>
     </table>
-    <p><strong>Anmerkung</strong>: Wie auf allen HTML-Seiten dieser Dokumentation finden
+    <p>
+     Die gesamte Dokumentation, die Sie auf dieser Seite finden, gibt
+     es auch zum <strong>Herunterladen</strong>.
+     <a href="http://download.linuxaudio.org/lilypond/binaries/documentation/lilypond-@TOPLEVEL_VERSION@-1.documentation.tar.bz2">Laden
+     Sie sich das Tar-komprimierte Paket herunter</a>
+    </p>
+    <p> 
+     <strong>Anmerkung</strong>: Wie auf allen HTML-Seiten dieser Dokumentation finden
 	sich am unteren Ende Links zu &Uuml;bersetzungen in anderen Sprachen.
     </p>
   </body>
