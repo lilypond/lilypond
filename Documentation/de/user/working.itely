@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
+    Translation of GIT committish: 550152ed5d5015d13abf2af83b2e040f996a66a4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,7 +13,7 @@
 @chapter Working on LilyPond projects
 
 Dieses Kapitel erklärt, wie bestimmte häufige Probleme zu 
-lösen oder ganz zu vermeiden sind. Wenn Sie schon 
+lösen oder ganz zu vermeiden sind.  Wenn Sie schon 
 Programmiererfahrung mitbringen, erscheinen diese Hinweise 
 vielleicht überflüssig, aber es wird dennoch empfohlen, dieses Kapitel 
 zu lesen.
@@ -36,24 +36,24 @@ Aber wie geht man das am besten an?
 
 Solange LilyPond Ihre Dateien versteht und die Noten so setzt, 
 wie Sie das wollen, spielt es eigentlich keine Rolle, wie Ihre 
-Dateien aussehen. Es gibt aber trotzdem ein paar Dinge, die man 
+Dateien aussehen.  Es gibt aber trotzdem ein paar Dinge, die man 
 beim Schreiben von LilyPond-Code berücksichtigen sollte.
 
 @itemize @bullet
-@item Was ist, wenn Sie einen Fehler machen? Die Struktur einer 
+@item Was ist, wenn Sie einen Fehler machen?  Die Struktur einer 
 LilyPond-Datei kann es erleichtern (oder erschweren), bestimmte 
 Fehler zu finden.
 
 @item Was ist, wenn Sie Ihre Dateien mit jemandem austauschen 
-wollen? Oder Ihre Dateien nach einige Jahren noch einmal überarbeiten 
-wollen? Manche LilyPond-Dateien versteht man auf den ersten Blick, 
+wollen?  Oder Ihre Dateien nach einige Jahren noch einmal überarbeiten 
+wollen?  Manche LilyPond-Dateien versteht man auf den ersten Blick, 
 über anderen muss man eine Stunde grübeln, um die Struktur zu ahnen.
 
 @item Was ist, wenn sie Ihre Dateien auf eine neuere LilyPond-Version 
-aktualisieren wollen? Die Syntax der Eingabesprache verändert sich 
-allmählich mit Verbesserungen im Programm. Die meisten Veränderungen 
+aktualisieren wollen?  Die Syntax der Eingabesprache verändert sich 
+allmählich mit Verbesserungen im Programm.  Die meisten Veränderungen 
 können automatisch durch @code{convert-ly} gelöst werden, aber 
-bestimmte Änderungen brauchen Handarbeit. LilyPond-Dateien können 
+bestimmte Änderungen brauchen Handarbeit.  LilyPond-Dateien können 
 strukturiert werden, damit sie einfacher aktualisierbar sind.
 @end itemize
 
@@ -74,23 +74,23 @@ Hier einige Vorschläge, wie Sie Probleme vermeiden oder lösen können:
 @itemize @bullet
 @item @strong{Schreiben Sie immer mit @code{\version} die 
 Versionsnummer 
-in jede Datei}. Beachten Sie, dass in allen Vorlagen die Versionsnummer  
-@code{\version "2.11.61"} eingetragen ist. Es empfiehlt sich, in alle 
+in jede Datei}.  Beachten Sie, dass in allen Vorlagen die Versionsnummer  
+@code{\version "2.11.61"} eingetragen ist.  Es empfiehlt sich, in alle 
 Dateien, unabhängig von ihrer Größe, den @code{\version}-Befehl 
-einzufügen. Persönliche Erfahrung hat gezeigt, dass es ziemlich 
+einzufügen.  Persönliche Erfahrung hat gezeigt, dass es ziemlich 
 frustrierend sein kann zu erinnern, welche Programmversion man etwa 
-vor einem Jahr verwendet hat. Auch @code{convert-ly} benötigt die 
+vor einem Jahr verwendet hat.  Auch @code{convert-ly} benötigt die 
 Versionsnummer.
 
 @item @strong{Benutzen Sie Überprüfungen}: @ruser{Octave checks}, und
 @ruser{Bar and bar number checks}.  Wenn Sie hier und da diese
 Überprüfungen einfügen, finden Sie einen möglichen Fehler weit
-schneller. Wie oft aber ist @qq{hier und da}?  Das hängt von der
-Komplexität der Musik ab. Bei einfachen Stücken reicht es vielleicht
+schneller.  Wie oft aber ist @qq{hier und da}?  Das hängt von der
+Komplexität der Musik ab.  ei einfachen Stücken reicht es vielleicht
 ein- oder zweimal, in sehr komplexer Musik sollte man sie vielleicht
 in jeden Takt einfügen.
 
-@item @strong{Ein Takt pro Textzeile}. Wenn irgendetwas kompliziertes 
+@item @strong{Ein Takt pro Textzeile}.  Wenn irgendetwas kompliziertes 
 vorkommt, entweder in der Musik selber oder in der Anpassung der 
 Ausgabe,
 empfiehlt es sich oft, nur einen Takt pro Zeile zu schreiben. 
@@ -112,13 +112,13 @@ Probleme entstehen durch ungerade Anzahl von  @code{@{} and
 @code{@}}-Klammern.
 
 @item @strong{Schreiben Sie Tondauerangaben} am Anfang von 
-Abschnitten und Bezeichnern. Wenn Sie beispielsweise 
+Abschnitten und Bezeichnern.  Wenn Sie beispielsweise 
  @code{c4 d e} am Anfang eines Abschnittes schreiben, 
 ersparen Sie sich viele Probleme, wenn Sie ihre Musik 
 eines Tages umarrangieren wollen.
 
 @item @strong{Trennen Sie Einstellungen} von den eigentlichen 
-Noten. Siehe auch @ref{Saving typing with variables and functions} 
+Noten.  Siehe auch @ref{Saving typing with variables and functions} 
 und
 @ref{Style sheets}.
 
@@ -135,15 +135,15 @@ LilyPond-Eingabe einer gedruckten Partitur):
 
 @item Schreiben Sie ein System ihrer Quelle nach dem anderen 
 (aber trotzdem nur einen Takt pro Textzeile) und überprüfen 
-Sie jedes System, nachdem Sie es fertig kopiert haben. Mit dem 
+Sie jedes System, nachdem Sie es fertig kopiert haben.  Mit dem 
 @code{showLastLength}-Befehl können Sie den Übersetzungsprozess 
 beschleunigen. Siehe auch 
 @ruser{Skipping corrected music}.
 
 @item Definieren Sie @code{mBreak = @{ \break @}} und schreiben Sie
  @code{\mBreak} in der Quelldatei immer dann, wenn im Manuskript 
-ein Zeilenumbruch vorkommt. Das macht es einfacher, die gesetzte 
-Zeile mit den ursprünglichen Noten zu vergleichen. Wenn Sie die 
+ein Zeilenumbruch vorkommt.  Das macht es einfacher, die gesetzte 
+Zeile mit den ursprünglichen Noten zu vergleichen.  Wenn Sie die 
 Partitur fertig gestellt haben, könne Sie  @code{mBreak = @{ @}}, 
 also leer definieren, um diese manuellen Zeilenumbrüche zu entfernen. 
 Damit kann dann LilyPond selber entscheiden, wohin es passende 
@@ -161,20 +161,20 @@ unumgänglich, dass Sie ihre LilyPond-Dateien klar strukturieren.
 @itemize @bullet
 
 @item @strong{Verwenden Sie Variablen für jede Stimme}, innerhalb 
-der Definition sollte so wenig Struktur wie möglich sein. Die 
+der Definition sollte so wenig Struktur wie möglich sein.  Die 
 Struktur des @code{\score}-Abschnittes verändert sich am ehesten, 
-während die @code{violin}-Definition sich wahrscheinlich mit einer 
+während die @code{violine}-Definition sich wahrscheinlich mit einer 
 neuen Programmversion nicht verändern wird.
 
 @example
-violin = \relative c'' @{
+violine = \relative c'' @{
 g4 c'8. e16
 @}
 ...
 \score @{
   \new GrandStaff @{
     \new Staff @{
-      \violin
+      \violine
     @}
   @}
 @}
@@ -182,7 +182,7 @@ g4 c'8. e16
 
 @item @strong{Trennen Sie Einstellungen von den Noten}.  Diese 
 Empfehlung wurde schon im Abschnitt @ref{General suggestions} gegeben, 
-aber für große Projekte ist es unumgänglich. Muss z. B. die 
+aber für große Projekte ist es unumgänglich.  Muss z. B. die 
 Definition für @code{fdannp} verändert werden, so braucht 
 man es nur einmal vorzunehmen und die Noten in der Geigenstimme, 
 @code{violin}, bleiben unberührt.
@@ -252,11 +252,11 @@ violin = \relative c'' {
 @end lilypond
 
 Die Variablen haben in diesem Beispiel deutlich die 
-Tipparbeit erleichtert. Aber es lohnt sich, sie zu 
+Tipparbeit erleichtert.  Aber es lohnt sich, sie zu 
 einzusetzen, auch wenn man sie nur einmal anwendet, 
 denn sie vereinfachen die Struktur. 
 Hier ist das vorangegangene Beispiel ohne 
-Variablen. Es ist sehr viel komplizierter zu lesen, 
+Variablen.  Es ist sehr viel komplizierter zu lesen, 
 besonders die letzte Zeile. 
 
 @example
@@ -270,6 +270,9 @@ violin = \relative c'' @{
   @}
 @}
 @end example
+
+@c TODO Replace the following with a better example  -td
+@c Skylining handles this correctly without padText
 
 Bis jetzt wurde nur statische Substitution vorgestellt 
 -- wenn LilyPond den Befehl @code{\padText} findet, wird 
@@ -297,23 +300,23 @@ padText =
 
 Die Benutzung von Variablen hilft auch, viele Schreibarbeit zu 
 vermeiden, wenn die Eingabesyntax von LilyPond sich verändert 
-(siehe auch @ref{Updating old files}). Wenn nur eine einzige 
+(siehe auch @ref{Updating old files}).  Wenn nur eine einzige 
 Definition (etwa @code{\dolce}) für alle Dateien verwendet wird 
 (vgl. @ref{Style sheets}), muss nur diese einzige Definition 
-verändert werden, wenn sich die Syntax ändert. Alle Verwendungen 
+verändert werden, wenn sich die Syntax ändert.  Alle Verwendungen 
 des Befehles beziehen sich dann auf die neue Definition.
 
 @node Style sheets
 @subsection Style sheets
 
 Die Ausgabe, die LilyPond erstellt, kann sehr stark modifiziert 
-werden, siehe @ref{Tweaking output} für Einzelheiten. Aber wie 
+werden, siehe @ref{Tweaking output} für Einzelheiten.  Aber wie 
 kann man diese Änderungen auf eine ganze Serie von Dateien 
-anwenden? Oder die Einstellungen von den Noten trennen? Das 
+anwenden?  Oder die Einstellungen von den Noten trennen?  Das 
 Verfahren ist ziemlich einfach.
 
-Hier ist ein Beispiel. Es ist nicht schlimm, wenn Sie nicht auf 
-Anhieb die Abschnitte mit den ganzen @code{#()} verstehen. Das 
+Hier ist ein Beispiel.  Es ist nicht schlimm, wenn Sie nicht auf 
+Anhieb die Abschnitte mit den ganzen @code{#()} verstehen.  Das 
 wird im Kapitel @ref{Advanced tweaks with Scheme} erklärt.
 
 @lilypond[quote,verbatim,ragged-right]
@@ -337,12 +340,12 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 Es treten einige Probleme mit überlappenden Symbolen auf. Sie 
 werden beseitigt mit den Tricks aus dem Kapitel @ref{Moving objects}.
 Aber auch die @code{mpdolce} und @code{tempoMark}-Definitionen 
-können verbessert werden. Sie produzieren das Ergebnis, das 
+können verbessert werden.  Sie produzieren das Ergebnis, das 
 gewünscht ist, aber es wäre schön, sie auch in anderen Stücken 
-verwenden zu können. Man könnte sie natürlich einfach kopieren 
-und in die anderen Dateien einfügen, aber das ist lästig. Die 
+verwenden zu können.  Man könnte sie natürlich einfach kopieren 
+und in die anderen Dateien einfügen, aber das ist lästig.  Die 
 Definitionen verbleiben auch in der Notendatei und diese @code{#()} 
-sehen nicht wirklich schön aus. Sie sollen in einer anderen 
+sehen nicht wirklich schön aus.  Sie sollen in einer anderen 
 Datei versteckt werden:
 
 @example
@@ -397,14 +400,14 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 Das sieht schon besser aus, aber es sind noch einige Verbesserungen 
 möglich. 
 Das Glissando ist schwer zu sehen, also soll es etwas dicker erscheinen 
-und dichter an den Notenköpfen gesetzt werden. Das Metronom-Zeichen 
-soll über dem Schlüssel erscheinen, nicht über der ersten Note. Und 
+und dichter an den Notenköpfen gesetzt werden.  Das Metronom-Zeichen 
+soll über dem Schlüssel erscheinen, nicht über der ersten Note.  Und 
 schließlich kann unser Kompositionsprofessor @qq{C}-Taktangaben 
 überhaupt nicht leiden, also 
 müssen sie in @qq{4/4} verändert werden.
 
 Diese Veränderungen sollten Sie aber nicht in der @file{music.ly}-Datei 
-vornehmen. Ersetzen Sie die @file{definitions.ly}-Datei hiermit:
+vornehmen.  Ersetzen Sie die @file{definitions.ly}-Datei hiermit:
 
 @example
 %%%  definitions.ly
@@ -465,11 +468,11 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 }
 @end lilypond
 
-Das sieht schon besser aus! Aber angenommen Sie möchten dieses 
-Stück jetzt veröffentlichen. Ihr Kompositionsprofessor mag 
+Das sieht schon besser aus!  Aber angenommen Sie möchten dieses 
+Stück jetzt veröffentlichen.  Ihr Kompositionsprofessor mag 
 die @qq{C}-Taktangaben nicht, aber Sie finden sie irgendwie 
-schöner. Also kopieren Sie die Datei @file{definitions.ly} nach 
-@file{web-publish.ly} und verändern diese. Weil die Noten 
+schöner.  Also kopieren Sie die Datei @file{definitions.ly} nach 
+@file{web-publish.ly} und verändern diese.  Weil die Noten 
 in einer PDF-Datei auf dem Bildschirm angezeigt werden sollen, 
 bietet es sich auch an, die gesamte Ausgabe zu vergrößern.
 
@@ -532,7 +535,7 @@ tempoMark = #(define-music-function (parser location markp) (string?)
 
 In der Notendatei muss jetzt nur noch @code{\include "definitions.ly"}
 durch @code{\include "web-publish.ly"} ausgetauscht werden. 
-Das könnte man natürlich noch weiter vereinfachen. Also 
+Das könnte man natürlich noch weiter vereinfachen.  Also 
 eine Datei @file{definitions.ly}, die nur die Definitionen 
 von @code{mpdolce} und @code{tempoMark} enthält, eine Datei 
 @file{web-publish.ly}, die alle die Änderungen für den 
@@ -549,9 +552,9 @@ Der Anfang der @file{music.ly}-Datei würde dann so aussehen:
 @end example
 
 Durch diese Herangehensweise kann auch bei der Erstellung 
-von nur einer Ausgabeversion Arbeit gespart werden. Ich 
+von nur einer Ausgabeversion Arbeit gespart werden.  Ich 
 benutze ein halbes Dutzend verschiedener Stilvorlagen 
-für meine Projekte. Jede Notationsdatei fängt an mit 
+für meine Projekte.  Jede Notationsdatei fängt an mit 
 @code{\include "../global.ly"}, welches folgenden Inhalt hat:
 
 
@@ -578,21 +581,21 @@ für meine Projekte. Jede Notationsdatei fängt an mit
 @node Updating old files
 @subsection Updating old files
 
-Die Syntax von LilyPond verändert sich ab und zu. Wenn LilyPond 
+Die Syntax von LilyPond verändert sich ab und zu.  Wenn LilyPond 
 besser wird, muss auch die Syntax (Eingabesprache) entsprechend 
-angepasst werden. Teilweise machen diese Veränderungen die 
+angepasst werden.  Teilweise machen diese Veränderungen die 
 Eingabesprache einfacher lesbar, teilweise dienen sie dazu, neue 
 Eigenschaften des Programmes benutzbar zu machen.
 
 LilyPond stellt ein Programm bereit, das Aktualisierungen 
-vereinfacht: @code{convert-ly}. Einzelheiten zur Programmbenutzung 
+vereinfacht: @code{convert-ly}.  Einzelheiten zur Programmbenutzung 
 finden sich in @rprogram{Updating files with convert-ly}.
 
 Leider kann @code{convert-ly} nicht alle Veränderungen der Syntax
-berücksichtigen. Hier werden einfache @qq{Suchen und
+berücksichtigen.  Hier werden einfache @qq{Suchen und
 Ersetzen}-Veränderungen vorgenommen (wie etwa @code{raggedright} zu
-becoming @code{ragged-right}), aber einige Veränderungen sind zu
-kompliziert. Die Syntax-Veränderungen, die das Programm nicht
+@code{ragged-right}), aber einige Veränderungen sind zu
+kompliziert.  Die Syntax-Veränderungen, die das Programm nicht
 berücksichtigt, sind im Kapitel @rprogram{Updating files with
 convert-ly} aufgelistet.
 
@@ -609,7 +612,7 @@ verändern, das muss manuell vorgenommen werden.
 @subsection Troubleshooting (taking it all apart)
 
 Früher oder später werden Sie in die Lage kommen, 
-dass LilyPond Ihre Datei nicht kompilieren will. Die 
+dass LilyPond Ihre Datei nicht kompilieren will.  Die 
 Information, die LilyPond während der Übersetzung 
 gibt, können Ihnen helfen, den Fehler zu finden, aber 
 in vielen Fällen müssen Sie nach der Fehlerquelle 
@@ -617,11 +620,11 @@ auf die Suche gehen.
 
 Die besten Hilfsmittel sind in diesem Fall das Zeilen- 
 und Blockkommentar (angezeigt durch @code{%} bzw. 
-@code{%@{ ... %@}}). Wenn Sie nicht bestimmen können, 
+@code{%@{ ... %@}}).  Wenn Sie nicht bestimmen können, 
 wo sich das Problem befindet, beginnen Sie damit, große 
-Teile des Quelltextes auszukommentieren. Nachdem Sie 
+Teile des Quelltextes auszukommentieren.  Nachdem Sie 
 einen Teil auskommentiert haben, versuchen Sie, die Datei 
-erneut zu übersetzen. Wenn es jetzt funktioniert, muss 
+erneut zu übersetzen.  Wenn es jetzt funktioniert, muss 
 sich das Problem innerhalb der Kommentare befinden. 
 Wenn es nicht funktioniert, müssen Sie weitere Teile 
 auskommentieren bis sie eine Version haben, die funktioniert.
@@ -642,7 +645,7 @@ In Extremfällen bleibt nur noch solch ein Beispiel übrig:
 @noindent
 (also eine Datei ohne Noten).
 
-Geben Sie nicht auf, wenn das vorkommen sollte. Nehmen 
+Geben Sie nicht auf, wenn das vorkommen sollte.  Nehmen 
 Sie das Kommentarzeichen von einem Teil wieder weg, sagen 
 wir der Bassstimme, und schauen Sie, ob es funktioniert. 
 Wenn nicht, dann kommentieren Sie die gesamte Bassstimme 
@@ -670,8 +673,8 @@ Eine andere nützliche Technik zur Problemlösung ist es,
 @subsection Minimal examples
 
 Ein Minimalbeispiel ist eine Beispieldatei, die so klein wie 
-möglich ist. Diese Beispiele sind sehr viel einfacher zu 
-verstehen als die langen Originaldateien. Minimalbeispiele 
+möglich ist.  Diese Beispiele sind sehr viel einfacher zu 
+verstehen als die langen Originaldateien.  Minimalbeispiele 
 werden benutzt, um
 
 
@@ -679,13 +682,13 @@ werden benutzt, um
 @item Fehlerberichte zu erstellen,
 @item eine Hilfeanfrage an die E-Mail-Liste zu schicken,
 @item Ein Beispiel zur @uref{http://lsr@/.dsi@/.unimi@/.it/,LilyPond
-Schnipselsammlung}hinzuzufügen.
+Schnipselsammlung} hinzuzufügen.
 @end itemize
 
 Um ein Beispiel zu konstruieren, das so klein wie möglich ist, 
-gibt es eine einfache Regel: Alles nicht Notwendige entfernen. 
+gibt es eine einfache Regel:  Alles nicht Notwendige entfernen. 
 Wenn Sie unnötige Teile einer Datei entfernen, bietet es sich an, 
-sie auszukommentieren und nicht gleich zu löschen. Auf diese Weise 
+sie auszukommentieren und nicht gleich zu löschen.  Auf diese Weise 
 können Sie eine Zeile leicht wieder mit aufnehmen, sollten Sie sie 
 doch brauchen, anstatt sie von Anfang an neu zu schreiben.
 
@@ -712,15 +715,15 @@ Zweck des Beispieles sind.
 @section Scores and parts
 
 Orchesternoten werden alle zweimal gesetzt. Erstens als Stimmen für 
-die Musiker, und dann als große Partitur für den Dirigenten. Mit 
+die Musiker, und dann als große Partitur für den Dirigenten.  Mit 
 Variablen 
 kann hier doppelte Arbeit erspart werden. Die Musik muss nur einmal 
-eingegeben werden und wird in einer Variable abgelegt. Der Inhalt 
+eingegeben werden und wird in einer Variable abgelegt.  Der Inhalt 
 dieser 
 Variable wird dann benutzt, um sowohl die Stimme als auch die Partitur 
 zu erstellen.
 
-Es bietet sich an, die Noten in eigenen Dateien zu speichern. Sagen wir 
+Es bietet sich an, die Noten in eigenen Dateien zu speichern.  Sagen wir 
 beispielsweise, dass in der Datei @file{Horn-Noten.ly} die folgenden 
 Noten eines Duetts für Horn und Fagott gespeichert sind:
 
@@ -755,12 +758,12 @@ Die Zeile
 
 @noindent
 setzt den Inhalt der Datei @file{Horn-Noten.ly} an die Stelle des 
-Befehls in die aktuelle Datei. Damit besteht also eine Definition 
+Befehls in die aktuelle Datei.  Damit besteht also eine Definition 
 für @code{HornNoten}, so dass die Variable verwendet werden kann. 
 Der Befehl @code{\transpose f@tie{}c'} zeigt an, dass das Argument, 
 also @code{\HornNoten}, um eine Quinte nach oben transponiert wird.
-Klingendes @q{f} wird also als @code{c'} notiert. Das entspricht 
-der Notation eines Waldhorn in F. Die Transposition zeigt die folgende 
+Klingendes @q{f} wird also als @code{c'} notiert.  Das entspricht 
+der Notation eines Waldhorns in F.  Die Transposition zeigt die folgende 
 Ausgabe:
 
 @lilypond[quote,ragged-right]
@@ -770,13 +773,13 @@ Ausgabe:
 }
 @end lilypond
 
-In Musik für mehrere Instrumente kommt es oft vor, dass eine Stimme 
-für mehrere Takte nicht spielt. Das wird mit einer besonderen Pause 
+In der Musik für mehrere Instrumente kommt es oft vor, dass eine Stimme 
+für mehrere Takte nicht spielt.  Das wird mit einer besonderen Pause 
 angezeigt, dem Pausenzeichen für mehrere Takte (engl. multi-measure 
-rest). Sie wird mit dem @emph{großen} Buchstaben @samp{R} eingegeben, 
+rest).  Sie wird mit dem @emph{großen} Buchstaben @samp{R} eingegeben, 
 gefolgt von einer Dauer (@code{1}@tie{}für eine Ganze, @code{2}@tie{}
-für eine Halbe usw.). Indem man die Dauer multipliziert, können längere  
-Pausen erstellt werden. Z. B. dauert diese Pause drei Takte eines 
+für eine Halbe usw.).  Indem man die Dauer multipliziert, können längere  
+Pausen erstellt werden.  Z. B. dauert diese Pause drei Takte eines 
 2/4-Taktes:
 
 @example
@@ -807,7 +810,7 @@ zu der Musik des Beispiels gesetzt wird, erhält man folgendes Ergebnis:
 
 Die Partitur wird erstellt, indem alle Noten zusammengesetzt werden. 
 Angenommen, die andere Stimme trägt den Namen @code{FagottNoten} 
- und ist in der Datei @file{Fagott-Noten.ly} gespeichert. Die
+ und ist in der Datei @file{Fagott-Noten.ly} gespeichert.  Die
 Partitur sieht dann folgendermaßen aus:
 
 @example
@@ -837,11 +840,4 @@ Und mit LilyPond übersetzt:
 >>
 @end lilypond
 
-Tiefer gehende Information darüber, wie Stimmauszüge und Partituren 
-erstellt werden, finden sich im Notationshandbuch, siehe 
-@ref{Scores and parts}.
-
-Das Setzen der Variablen, die das Verhalten von LilyPond beeinflussen 
-(@q{properties}), wird im Kapitel
-@ref{Modifying context properties} besprochen.
 
