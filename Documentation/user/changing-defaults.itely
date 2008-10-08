@@ -782,8 +782,8 @@ in ossia,
 @c TODO Better example needed.  Ref LM, and expand on it.
 
 @cindex ossia
-@findex alignAboveContext
-@findex alignBelowContext
+@funindex alignAboveContext
+@funindex alignBelowContext
 
 @lilypond[quote,ragged-right]
 ossia = { f4 f f f }
@@ -798,16 +798,63 @@ ossia = { f4 f f f }
 }
 @end lilypond
 
+@cindex nested contexts
+@cindex contexts, nested
+
+@funindex \accepts
+@funindex \denies
+
+Contexts like @code{PianoStaff} can contain other contexts
+nested within them.  Contexts which are acceptable for nesting
+are defined by the @qq{accepts} list of a context.  Contexts
+which are not in this list are placed below the outer context
+in the printed score.
+For example, the @code{PianoStaff} context is defined by default
+to accept @code{Staff} and @code{FiguredBass} contexts within
+it, but not (for example) a @code{Lyrics} context.  So in the
+following structure the lyrics are placed below the piano staff
+rather than between the two staves:
+
+@lilypond[verbatim,quote,relative=1]
+\new PianoStaff
+<<
+  \new Staff { e4 d c2 }
+  \addlyrics { Three blind mice }
+  \new Staff {
+    \clef "bass"
+    { c,1 }
+  }
+>>
+@end lilypond
+
+The @qq{accepts} list of a context can be modified to include
+additional nested contexts, so if we wanted the lyrics to appear
+between the two staves we could use:
+
+@lilypond[verbatim,quote,relative=1]
+\new PianoStaff \with { \accepts Lyrics }
+<<
+  \new Staff { e4 d c2 }
+  \addlyrics { Three blind mice }
+  \new Staff {
+    \clef "bass"
+    { c,1 }
+  }
+>>
+@end lilypond
+
+The opposite of @code{\accepts} is @code{\denies}; this removes a
+context from the @qq{accepts} list.
 
 @node Explaining the Internals Reference
 @section Explaining the Internals Reference
 
 
 @menu
-* Navigating the program reference::  
-* Layout interfaces::           
-* Determining the grob property::  
-* Naming conventions::          
+* Navigating the program reference::
+* Layout interfaces::
+* Determining the grob property::
+* Naming conventions::
 @end menu
 
 @node Navigating the program reference
@@ -1746,17 +1793,18 @@ up or down based on the stem direction (like slurs or accents).
 
 @c TODO Add table showing these
 
-@strong{Context layout}
+@strong{Context layout order}
 
-Contexts are positioned in a system from top to bottom in the
-order in which they are encountered.  Note, however, that a
-context will be created implicitly if a command is encountered
-when there is no suitable context available to contain it.
+Contexts are normally positioned in a system from top to bottom
+in the order in which they are encountered.  Note, however, that
+a context will be created implicitly if a command is encountered
+when there is no suitable context available to contain it.  When
+contexts are nested, the outer context will exclude inner contexts
+which are not included in its @qq{accepts} list; excluded contexts
+will be repositioned below the outer context.
 
-@c TODO Add example ?
-
-The default order in which contexts are laid out can be changed,
-see @ref{Aligning contexts}
+The default order in which contexts are laid out and the
+@qq{accepts} list can be changed, see @ref{Aligning contexts}.
 
 @strong{Articulation direction indicators}
 
