@@ -3,7 +3,7 @@
 % on melodies from Bellini's "Norma"                              %
 %*****************************************************************%
 
-\version "2.11.61"
+\version "2.11.51"
 
 #(set-global-staff-size 15)
 \paper{
@@ -104,7 +104,7 @@ bass =  \relative c {
     e,8\fp[ e'] e,[ e'] e,[ \sfol <c''-1> <a'-2> c,]  | % m. 1
 
     e,,8\fp[ e'] e,[ e'] e,[ \sfod \FO #'0.2 #'-0.2 <b''-1>  % beg m. 2
-	\sfol \FO #'0.3 #'0.0 <e-2> b]  | % end m. 2
+	\sfol \FO #'0.3 #'0.0 <e-1> b]  | % end m. 2
 
     e,,8 e' gis e e, e' gis_\dim e 	| % m. 3
 
