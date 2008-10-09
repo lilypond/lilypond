@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 3121682025660b6c85fbf3f22bb9cd8396699ad1
+    Translation of GIT committish: 550152ed5d5015d13abf2af83b2e040f996a66a4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -831,7 +831,9 @@ oder @code{font-shape}. Andere sind besondere Werte,
 die an Eigenschaften übergeben werden können, wie
 @code{italic}. Im Unterschied hierzu gibt es auch beliebige
 Zeichenketten, die immer mit Anführungszeichen, also
-als @code{"Zeichenkette"} auftreten.
+als @code{"Zeichenkette"} auftreten. Für weitere
+Einzelheiten zu Zeichenketten und Werten, siehe 
+@ref{Scheme tutorial}.
 
 Gut, der @code{\override}-Befehl, mit dem der Gesangstext
 kursiv gesetzt wird, lautet:
@@ -960,6 +962,10 @@ wenn sie in einem @code{\override}-Befehl benutzt werden.
   Apostroph-Raute ( @code{'#}) angeführt.
   @tab @code{'#(#t #t #f)}
 @end multitable
+
+@seealso
+
+Handbuch zum Lernen: @ref{Scheme tutorial}.
 
 
 @node Appearance of objects
@@ -2199,219 +2205,270 @@ die wir uns im folgenden Abschnitt genauer anschauen werden.
 
 Es wird vielleicht eine Überraschung sein, aber LilyPond ist nicht 
 perfekt. Einige Notationselemente können sich überschneiden. Das 
-ist nicht schön, kann aber (in den meisten Fällen) sehr einfach
-korrigiert werden.
+ist nicht schön, aber zum Glück sehr selten.  Normalerweise müssen
+die Objekte zur Klarheit oder aus ästhetischen Gründen verschoben
+werden -- sie könnten besser aussehen, wenn sie etwas zusätzlichen
+Platz erhalten.
 
-@c  FIXME: find a better example for 5.1 Moving Objects.  -gp
-@c  yes, I want this TODO to be visible to end-users.  It's better
-@c  than having nothing at all.
-TODO: Mit den neuen Abstandseigenschaften seit Version 2.12 sind die
-jeweiligen Beispiele nicht mehr relevant. Sie zeigen jedoch immer noch 
-machtvolle Eigenschaften von LilyPond und verbleiben deshalb in der 
-Dokumentation, bis jemand bessere Beispiel zur Verfügung stellt.
+Es gibt im Grunde drei Herangehensweisen, überlappende Notation
+zu verbessern.  Man sollte sie in der folgenden Reihenfolge 
+anwenden:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@enumerate
+@item
+Die @strong{Richtung} eines der überlappenden Objekte kann 
+geändert werden, indem die vordefinierten Befehle für
+Innersystemobjekte verwendet werden, wie beschrieben in
+@ref{Within-staff objects}.  Hälse, Bögen, Balken, Dynamik-Zeichen
+und Triolen können auf diese Weise einfach umgeordnet
+werden.  Beschränkt ist diese Methode insofern, als es nur
+zwei Möglichkeiten zur Veränderung gibt: oben oder unten.
 
-@cindex Abstände füllen
+@item
+Die @strong{Objekteigenschaft}, die LilyPond benutzt um die
+Layout-Objekte zu platzieren, können mit dem 
+@code{\override}-Befehl positioniert werden.  Die Vorteile
+von Änderungen dieser Art sind a) dass einige Objekte
+automatisch verschoben werden, wenn es nötig ist Platz zu
+schaffen und b) ein einziges @code{\override} sich auf
+alle Fälle eines Objekttyps bezieht.  Zu diesen Eigenschaften
+gehören:
 
-Die einfachste Lösung ist es, Abstände zwischen Objekt und Note zu vergrößern 
- (genauso auch für Fingersätze oder Dynamikzeichen). In 
-LilyPond wird das durch Veränderung der @code{padding} (Füllungs)-Eigenschaft
-erreicht, ihre Maßeinheit sind Notenzeilenabstände. Für die meisten 
-Objekte ist der Wert etwa 1.0 oder weniger (das unterscheidet sich 
-von Objekt zu Objekt). Hier soll der Abstand vergrößert werden, also
-scheint 1.5 eine gute Wahl.
+@itemize
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'padding = #1.5
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+@item
+@code{direction} (Richtung)
 
-Das sieht besser aus, ist aber noch nicht groß genug. Nach einigen
-Experimenten wird darum 2.3 genommen für diesen Fall. Diese Zahl
-ist aber nur das Resultat einigen Probierens und persönlicher
-Geschmack. Probieren Sie selber ein wenig herum und entscheiden 
-Sie nach eigenem Geschmack.
+Das wurde schon detailliert behandelt, siehe
+@ref{Within-staff objects}.
 
-Die @code{staff-padding}-Eigenschaft ist der vorigen sehr ähnlich. 
- @code{padding} entscheidet über den minimalen Abstand zwischen einem
-Objekt und dem nächsten anderen Objekt (meistens eine Note oder 
-Notenzeile); @code{staff-padding} entscheidet über den minimalen
-Abstand zwischen einem Objekt und dem Notensystem. Das ist nur ein 
-kleiner Unterschied, aber hier wird das Verhalten demonstriert:
+@item
+@code{padding}, @code{left-padding},
+@code{right-padding}, @code{staff-padding} (Verschiebung)
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-\break
-c'4^"piu mosso" b a b
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-\once \override TextScript #'staff-padding = #4.6
-c4^"piu mosso" fis a g
-@end lilypond
+@cindex left-padding-Eigenschaft
+@cindex Padding-Eigenschaft
+@cindex right-padding-Eigenschaft
+@cindex staff-padding-Eigenschaft
+@cindex Verschieben (padding)
+@cindex Füllung (padding)
+Wenn ein Objekt platziert wird, bestimmt der Wert seiner
+@code{padding}-(Füllungs)-Eigenschaft die Größe des
+Abstandes, der zwischen dem Objekt selber und dem
+Objekt, relativ zu welchem es positioniert wird, gelassen
+werden muss.  Dabei zählt der @code{padding}-Wert
+des Objektes, das platziert werden soll, der @code{padding}-Wert
+des Objektes, das schon gesetzt wurde, wird hingegegen
+ignoriert.  Abstände mit @code{padding} können zu 
+allen Objekten hinzugefügt werden, die das
+@code{side-position-interface} unterstützen.
 
-@cindex Abstand, zusätzlicher
-@cindex extra-offset
 
-Eine andere Lösung ermöglicht vollständige Kontrolle über die Positionierung
-eines Objektes sowohl horizontal als auch vertikal. Das wird mit der 
-@code{extra-offset} (Zusätzlicher-Abstand)-Eigenschaft erreicht. Das 
-ist etwas komplizierter und kann andere Probleme mit sich ziehen. Wenn 
-Objekte mit dieser Eigenschaft verschoben werden, heißt das, dass 
-LilyPond sie erst setzt, nachdem alle anderen Objekte positioniert 
-worden sind. Deshalb können sich die Objekte am Ende überlagern.
+Anstelle von @code{padding} wird die Position von
+Versetzungszeichengruppen durch die Eigenschaften
+@code{left-padding} und @code{right-padding} bestimmt.
+Diese Eigenschaften werden im
+@code{AccidentalPlacement}-(Versetzungszeichen-Positionierungs)-Objekt
+gefunden, das sich innerhalb des @strong{Staff}-Kontexts
+befindet.  Während des Notensatzes werden die Notenköpfe
+zuerst gesetzt und dann die Versetzungszeichen, wenn denn
+welche gesetzt werden,  durch die @code{right-padding}-Eigenschaft
+auf die linke Seite der Notenköpfe positioniert, um die Entfernung
+von den Notenköpfen zu bestimmen.  Also nur die
+@code{right-padding}-(Verschiebung nach rechts)-Eigenschaft des
+@code{AccidentalPlacement}-Objekts hat Einfluss auf die
+Positionierung der Versetzungszeichen.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( 1.0 . -1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+Die @code{staff-padding}-(Verschiebung zum System)-Eigenschaft
+ist sehr ähnlich wie die @code{padding}-Eigenschaft:
+@code{padding} bestimmt den Minimalabstand zwischen
+einem Objekt, das das @code{side-position-interface} 
+unterstützt, und dem nächsten anderen Objekt (normalerweise
+die Note oder Notenlinie); @code{staff-padding} dagegen
+wirkt nur auf Objekte die immer außerhalb des Notensystems
+sind -- damit wird der minimale Abstand bestimmt, der
+zwischen dem Objekt und dem Notensystem gelassen werden 
+soll.  @code{staff-padding} hat also @strong{keinen Einfluss}
+auf Objekte, die relativ zu einer Note positioniert werden, sondern
+nur auf solche, die zum System relativ stehen. Wenn es mit einem
+anderen Objekt eingesetzt wird, erhält man keine Fehlermeldung, aber
+der Befehl hat auch keine Auswirkungen.
 
-Bei Verwendung von @code{extra-offset} bestimmt die erste Zahl über die
-horizontale Verschiebung (nach links ist negativ), die zweite Zahl 
-bestimmt die vertikale Verschiebung (nach oben ist positiv). Nach einigen 
-Experimenten wurden hier folgende Werte für gut befunden:
+Um herauszufinden, welche @code{padding}-Eigenschaft für
+das bestimmte Objekt nötig, ist, das Sie verschieben wollen,
+müssen Sie in der IR nach den Objekt-Eigenschaften schauen.
+Dabei sollten Sie bedenken, dass sich die @code{padding}-Eigenschaften
+nicht unbedingt in dem Objekt selber befinden, schauen Sie
+also auch in Objekten nach, die offensichtlich Ähnlichkeiten
+haben.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-\once \override TextScript #'extra-offset = #'( -1.6 . 1.0 )
-e4^\markup{ \italic ritenuto } g b e
-@end lilypond
+Alle @code{padding}-Werte werden in Notenlinienabständen 
+gemessen.  Für die meisten Objekte ist der Wert ungefähr auf
+1.0 oder weniger gesetzt (das variiert von Objekt zu Objekt).
+Der Wert kann geändert werden, wenn ein größerer (oder
+kleinerer) Abstand gewünscht wird.
 
-@noindent
-Auch diese Zahlen sind nur Resultat einigen Herumprobierens und Vergleichens 
-der Ergebnisse. Sie wollen den Text vielleicht etwas höher oder etwas mehr 
-nach links setzen. Versuchen Sie es selber und vergleichen Sie das Ergebnis.
+@item
+@code{self-alignment-X} (Selbstpositionierung)
 
-Eine letzte Warnung: in diesem Kapitel haben wir den Befehl 
+@cindex self-alignment-X-Eigenschaft
+@cindex Selbstpositionierung von Objekten
+@cindex Ausrichtung von Objekten
+Diese Eigenschaft kann benutzt werden, um ein Objekt
+nach links, rechts oder zentriert an dem Referenzpunkt des Objekts
+auszurichten, an das es verknüpft ist.  Es kann bei allen
+Objekten benutzt werden, die das @code{self-alignment-interface}
+unterstützen.  Das sind üblicherweise Objekte, die Text
+enthalten.  Die möglichen Werte der Eigenschaft sind @code{LEFT},
+@code{RIGHT} oder @code{CENTER}.  Alternativ kann ein
+numerischer Wert zwischen @code{-1} und @code{+1} 
+bestimmt werden: @code{-1} heißt linksbündig, @code{+1}
+rechtsbündig und Zahlen dazwischen bewegen den Text
+schrittweise von links nach rechts.  Zahlen größer als
+@code{1} können angegeben werdne, um den Text
+noch weiter nach links zu bewegen, oder weniger als @code{-1},
+um ihn weiter nach rechts zu schieben.  Eine Änderung
+um @code{1} des Wertes entspricht einer Bewegung um 
+die halbe Textbreite.
 
-@example
-\once \override TextScript @dots{}
-@end example
+@item
+@code{extra-spacing-width} (zusätzliche Breite)
 
-@noindent 
-benutzt. Dieser Befehl verändert die Anzeige des Textes für die nächste 
-Note. Wenn die Note keinen Text zugeordnet hat, wird auch nichts 
-verändert (und es wird @strong{nicht} nach dem nächsten Text gesucht). 
-Um das Verhalten zu verändern, so dass alles, was nach dem Befehl
-kommt, verändert wird, müssen Sie den Befehl @code{\once} weglassen. 
-Um die Veränderung zu stoppen, benutzen Sie den Befehl @code{\revert}.
-Das wird genauer im Kapitel
-@ruser{The \override command} erklärt.
+@cindex extra-spacing-width-Eigenschaft
+Diese Eigenschaft steht für alle Objekte zur Verfügung, die
+das @code{item-interface} unterstützen.  Es braucht zwei
+Zahlen als Argument, die erste wird zur rechten Ausdehnung,
+die zweite zur linken Ausdehnung hinzugerechnet.  Negative
+Zahlen verschieben die Ausdehnung nach rechts, positive nach
+links, um also ein Objekt zu verbreitern, muss die erste
+Zahl negativ und die zweite positiv sein.  Allerdings beachten
+nicht alle Objekte beide Zahlen.  Das 
+@code{accidental}-(Versetzungszeichen)-Objekt etwa beachtet
+nur erste Zahl für die linke Ausdehnung.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
-  % temporary code to break this example:
-  \override TextScript #'outside-staff-priority = ##f
-c4^"piu mosso" b
-\once \override TextScript #'padding = #4.6
-  a4 b
-c4^"piu mosso" d e f
-\once \override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\break
-\override TextScript #'padding = #4.6
-c4^"piu mosso" d e f
-c4^"piu mosso" d e f
-\revert TextScript #'padding
-c4^"piu mosso" d e f
-@end lilypond
+@item
+@code{staff-position} (Notensystempositionierung)
 
-@seealso
+@cindex staff-position-Eigenschaft
+@code{staff-position} ist eine Eigenschaft des
+@code{staff-symbol-referencer-interface}, die von Objekten unterstützt
+wird, die relativ zum Notensystem (engl. staff) positioniert werden.
+Hiermit wird die vertikale Position eines Objekts relativ zur
+Mittellinie des Systems in halben Notenlinienabständen angegeben.
+Das ist sehr nützlich, um Zusammenstöße zwischen Layout-Objekten
+wie Ganztaktpausen, Bögen und Noten in verschiedenen Stimmen
+zu lösen.
 
-@ruser{The \override command}, @ref{Common tweaks}.
+@item
+@code{force-hshift} (vertikale Verschiebung erzwingen)
+
+@cindex force-hshift-Eigenschaft
+Eng beeinander stehende Noten in einem Akkord oder Noten, die zum
+gleichen Zeitpunkt in unterschiedlichen Stimmen stehen, werden
+in zwei oder manchmal auch mehr Kolumnen gesetzt, um Kollisionen
+zu umgehen.  Diese Kolumnen werden Notenkolumnen genannt;
+ein @code{NoteColumn}-Objekt wird erstellt um die Noten in den
+Kolumnen zu setzen.
+
+Die @code{force-hshift}-(erzwinge horizontale Verschiebung)-Eigenschaft
+ist eine Eigenschaft von @code{NoteColumn} (bzw. vom
+@code{note-column-interface}).  Eine Veränderung dieser Eigenschaft
+macht es möglich, eine Notenkolumne zu verschieben, dabei gilt als
+Einheit die Breite einer Kolumne, also die Breite des Notenkopfes der
+ersten Stimme.  Diese Eigenschaft kann in Situationen benutzt werden,
+in denen die normalen @code{\shiftOn}-Befehle (siehe auch
+@ref{Explicitly instantiating voices}) das Problem nicht beseitigen.
+Diese Eigenschaft ist besser in solchen Fällen zu verwenden als die
+@code{extra-offset}-Eigenschaft, weil man die richtige Entfernung nicht
+in Notenlinienabständen ausrechnen muss.  Wenn eine Note in eine
+Notenkolumne oder aus ihr heraus geschoben wird, werden auch andere
+Funktionen beeinflusst, wie etwa die Verschmelzung von Notenköpfen.
+
+@end itemize
+
+@item
+Zu guter Letzt, wenn alles andere nicht funktioniert, können Objekte auch
+manuell positioniert werden, entweder vertikal in Bezug auf die
+Mittellinie des Systems, oder indem sie einen beliebigen Abstand weit
+auf eine neue Position verschoben werden.  Der Nachteil ist, dass die
+richtigen Werte für eine gute Position manuell ausprobiert werden müssen,
+meistens durch Herantasten an den richtigen Wert, und das für jedes
+einzelne Objekt extra.  Und weil diese Verschiebungen erst vorgenommen
+werden, wenn LilyPond alle anderen Objekte gesetzt hat, ist man als
+Notensetzer selber dafür verantwortlich, ob es Zusammenstöße gibt.
+Am schwerwiegendsten ist aber die Tatsache, dass die
+Verschiebungskoordinaten wahrscheinlich neu errechnent oder 
+ausprobiert werden müssen, wenn sich an den Noten und deren
+Layout später irgend etwas ändert.  Die Eigenschaften, die für diese
+Arte der manuellen Verschiebung verwendet werden können, sind:
+
+@table @code
+@item extra-offset (zusätzlicher Abstand)
+@cindex extra-offset-Eigenschaft
+Diese Eigenschaft gehört zu jedem Layout-Objekt, das das
+@code{grob-interface} unterstützt.  Sie braucht ein Zahlenpaar,
+das die exakte Verschiebung in horizontaler und vertikaler Richtung
+bezeichnet.  Negative Zahlen verschieben das Objekt nach links oder
+unten.  Die Einheit sind Notenlinienabstände.  Die zusätzliche
+Positionierung wird vorgenommen, nachdem alle anderen Objekte
+platziert sind, weshalb ein Objekt irgendwohin verschoben werden
+kann, ohne den restlichen Satz zu beeinflussen.
+
+@item positions (Position)
+@cindex positions-Eigenschaft
+Diese Eigenschaft ist am sinnvollsten, um die Steigung und die
+Höhe von Balken, Bögen und Triolenklammern anzupassen.
+Sie braucht ein Zahlenpaar, das die Position des rechten und linken
+Endes relativ zur Mittellinie des Notensystems bestimmt.  Die
+Einheit sind Notenlinienabstände.  Bögen allerdings können nicht
+beliebig weit weg positioniert werden.  LilyPond erstellt zunächst eine
+Liste an möglichen Positionen für den Bogen und findet normalerweise
+die Version, die @qq{am besten aussieht}.  Wenn die 
+@code{positions}-Eigenschaft verändert worden ist, wird der
+Bogen aus der Liste gewählt, der der gewünschten Position am
+nächsten kommt.
+@end table
+
+@end enumerate
+
+Ein bestimmtes Objekt hat vielleicht nicht alle dieser Eigenschaften.
+Darum ist es nötig, in der IR nachzuschlagen, welche Eigenschaften
+ein bestimmtes Objekt unterstützt.
+
+Hier ist eine Liste an Objekten, die am wahrscheinlichsten an einer
+Kollision beteiligt sind, daneben findet sich die Bezeichnung des
+Objektes, mit der Sie es in der IR finden, um zu bestimmen,
+welche Eigenschaften benutzt werden können, um es zu verschieben.
+
+@multitable @columnfractions .5 .5
+@headitem Objekttyp           @tab Objektbezeichnung
+@item Articulationszeichen             @tab @code{Script}
+@item Balken                     @tab @code{Beam}
+@item Dynamikzeichen (vertikal)     @tab @code{DynamicLineSpanner}
+@item Dynamikzeichen (horizontal)   @tab @code{DynamicText}
+@item Fingersatz                @tab @code{Fingering}
+@item Übungs-/Textmarken    @tab @code{RehearsalMark}
+@item Legatobögen                     @tab @code{Slur}
+@item Text z. B. @code{^"text"}  @tab @code{TextScript}
+@item Bindebögen                      @tab @code{Tie}
+@item N-tolen                   @tab @code{TupletBracket}
+@end multitable
 
 
 @node Fixing overlapping notation
 @subsection Fixing overlapping notation
 
-Im Kapitel @ref{Moving objects} wurde gezeigt, wie man Texte 
-(@code{TextScript}-Objekte) verschiebt. Mit der gleichen 
-Technik können auch andere Objektklassen verschoben werden, 
-@code{TextScript} muss dann nur durch den Namen des Objektes 
-ersetzt werden.
+Hier soll nun gezeigt werden, wie die Eigenschaften, die im
+vorigen Abschnitt vorgestellt wurden, bei der Problemlösung
+mit sich überschneidenden Notationselementen eingesetzt
+werden können.
 
-Um den Objektnamen zu finden, siehe die @q{@strong{see also}}-Hinweise 
-am Ende des jeweiligen Abschnittes. Zum Beispiel am Ende des
-Kapitels  @ruser{Dynamics} findet sich:
+@subheading padding property
+@cindex padding (Verschiegungs-Eigenschaft)
 
-@quotation
-@seealso
-
-Programmreferenz: @rinternals{DynamicText}, @rinternals{Hairpin}.
-Vertikale Positionierung dieser Symbole wird mit
-@rinternals{DynamicLineSpanner} erreicht.
-@end quotation
-
-@noindent
-Um also Dynamik-Zeichen zu verschieben, muss
-
-@example
-\override DynamicLineSpanner #'padding = #2.0
-@end example
-
-benutzt werden. Es ist nicht genügend Platz, um jedes Objekt aufzulisten,
-aber die gebräuchlichsten finden sich hier:
-
-@multitable @columnfractions .33 .66
-@headitem Objekttyp           @tab Objektbezeichnung
-@item Dynamikzeichen (vertikal)     @tab @code{DynamicLineSpanner}
-@item Dynamikzeichen (horizontal)   @tab @code{DynamicText}
-@item Bindebögen                      @tab @code{Tie}
-@item Phrasierungsbögen                     @tab @code{Slur}
-@item Artikulationszeichen             @tab @code{Script}
-@item Fingersatz                @tab @code{Fingering}
-@item Text, z. B. @code{^"text"}  @tab @code{TextScript}
-@item Übungs-/Textmarken    @tab @code{RehearsalMark}
-@end multitable
-
-
-@node Real music example
-@subsection Real music example
-
-@untranslated
-
-
-@c DEPRECATED SECTION
-@node Common tweaks
-@section Common tweaks
-
-Bestimmte Korrekturen sind so häufig, dass für sie schon fertige 
-angepasste Befehle bereitgestellt sind, so etwa 
- @code{\slurUp} um einen Bindebogen oberhalb anzuzeigen oder 
-@code{\stemDown} um den Notenhals nach unten zu zwingen. Diese 
-Befehle sind im Teil Alles über die Notation unter dem
-entsprechenden Abschnitt erklärt.
-
-Eine vollständige Liste aller Veränderungen, die für jeden Objekttypen 
-(etwa Bögen oder Balken) zur Verfügung stehen, ist in der Programmreferenz
-dargestellt. Viele Layoutobjekte benutzen jedoch gleiche Eigenschaften, 
-die benutzt werden können, um eigene Einstellungen vorzunehmen.
-
-@itemize @bullet
-
-@cindex padding
-@cindex Füllung
-
-@item
-@code{padding}-Eigenschaft kann gesetzt werden, um den Abstand zwischen 
-Symbolen über oder unter den Noten zu vergrößern oder zu verkleinern. 
-Das gilt für alle Objekte, die ein @code{side-position-interface} 
-besitzen, also unterscheiden, auf welcher Seite der Note sie sich befinden.
+Die @code{padding}-(Verschiebungs-)Eigenschaft kann benutzt
+werden, um den Abstand zwischen Symbolen zu vergößern (oder
+zu verkleinern), die über oder unter den Noten gesetzt werden.
 
 @lilypond[quote,fragment,relative=1,verbatim]
 c2\fermata
@@ -2430,28 +2487,158 @@ c1
 d1
 @end lilypond
 
-Im zweiten Beispiel ist es sehr wichtig zu wissen, welcher Kontext 
-für bestimmte Objekte zuständig ist. Weil das 
- @code{MetronomeMark}-Objekt vom @code{Score}-Kontext gesetzt 
-wird, werden Veränderungen innerhalb des @code{Voice}-Kontextes 
-nicht berücksichtigt. Genauere Details im Kapitel
-@ruser{The \override command}.
+Im zweiten Beispiel können Sie sehen, wie wichtig es ist den richtigen
+Kontext anzugeben.  Weil das @code{MetronomeMark}-Objekt
+sich im @code{Score}-Kontext befindet, werden Eigenschaftsänderungen
+im @code{Voice}-Kontext einfach ignoriert.  Für mehr Einzelheiten siehe
+@ruser{Modifying properties}.
 
-@cindex extra-offset
-@cindex zusätzlicher Abstand
-@cindex Abstand, zusätzlicher
+Wenn die @code{padding}-Eigenschaft eines Objektes erhöht wird, das
+sich in einem Stapel von Objekten befindet, die nach ihrer
+Außersystempriorität (@code{outside-staff-priority}) positioniert werden,
+werden das Objekt und alle,  die sich außerhalb davon befinden,
+entsprechend verschoben.
 
-@item
-Die @code{extra-offset}-Eigenschaft verschiebt Objekte, hier ist ein 
-Zahlenpaar zur Angabe der Positionierung erforderlich. Die erste Nummer bestimmt 
-die horizontale Bewegung, eine positive Zahl bewegt das Objekt nach rechts.
-Die zweite Zahl bestimmt die vertikale Bewegung, eine positive Zahl bewegt 
-das Objekt nach oben. Die 
-@code{extra-offset}-Eigenschaft läuft auf unterster Ebene ab: Die 
-Formatierungsmaschine ist sich der Veränderungen nicht bewusst.
+@subheading left-padding and right-padding
+@cindex left-padding-Eigenschaft (Verschiebung nach links)
+@cindex Verschiebung nach rechts oder links
+@cindex right-padding-Eigenschaft (Verschiebung nach rechts)
 
-Im folgenden Beispiel wird die zweite Fingersatzbezeichnung etwas nach 
-links verschoben und 1,8 Notenzeilenabstände nach unten:
+Die @code{right-padding}-Eigenschaft wirkt sich auf den Abstand
+zwischen einem Versetzungszeichen und der Note, auf das sie sich
+bezieht, aus.  Sie wird nicht sehr oft benötigt, aber das folgende
+Beispiel zeigt eine Situation, wo man sie braucht.  Das Beispiel
+stellt eine Situation dar, in der in einem Akkord sowohl H als auch
+B vorkommen sollen.  Damit keine Ambiguität ensteht, sollen beide
+Noten ein Zeichen haben, also ein B und ein Auflösungszeichen.
+Hier einige Notationsversuche:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+<b bes>
+<b! bes>
+<b? bes>
+@end lilypond
+
+@noindent
+Keiner davon funktioniert, und der zweite und dritte weist 
+hässliche Zusammenstöße zwischen den Zeichen auf.
+
+Eine Möglichkeit, das Gewünschte zu erhalten, ist es den
+Stencil des Versetzungszeichens zu ersetzen mit einer
+Textbeschriftung (Markup), die sowohl das B als auch das
+Aulösungszeichen enthält:
+
+@lilypond[quote,ragged-right,verbatim]
+naturalplusflat = \markup { \natural \flat }
+\relative c'' {
+  \once \override Accidental
+    #'stencil = #ly:text-interface::print
+  \once \override Accidental #'text = #naturalplusflat
+  \once \override Score.AccidentalPlacement #'right-padding = #1.5
+  <b bes>
+}
+@end lilypond
+
+@noindent
+Dazu ist aber ein @code{\override}-Befehl für den Stencil des
+Versetzungszeichens nötig, der bisher nicht behandelt wurde.
+Der Typ des Stencils muss eine Prozedur sein, die hier geändert
+wurde, um den Inhalt der @code{text}-Eigenschaft des
+@code{Accidental} (Versetzungszeichen)-Objekts zu setzen,
+die dann so definiert wird, dass sie ein Auflösungszeichen gefolgt
+von einem B enthält.  Diese werden dann mit @code{right-padding}
+weiter nach rechts verschoben.
+
+
+@subheading staff-padding property
+@cindex staff-padding-Eigenschaft
+
+@code{staff-padding} (Verschiebung zum Notensystem) kann 
+verwendet werden um Objekte wie Dynamikzeichen an einer
+Grundlinie auf einer bestimmten Höhe über dem System 
+auszurichten, sodass sie nicht von der Position der Note abhängen,
+an die sie angehängt sind.  Diese Verschiebung ist keine Eigenschaft
+von @code{DynamicText}, sondern von @code{DynamicLineSpanner}.
+Das liegt daran, dass die Grundlinie sich gleicherweise auf 
+@strong{alle} Dynamikzeichen beziehen soll, also auch auf die,
+die als Strecker erstellt wurden.  Hier also die Lösung, die Dynamikzeichen
+aus dem Beispiel des vorigen Abschnitts auszurichten:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 unit
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+% Align dynamics to a base line 2 units above staff
+\override DynamicLineSpanner #'staff-padding = #2
+a4\f b\mf c\mp b\p
+@end lilypond
+
+
+@subheading self-alignment-X property
+@cindex self-alignment-X-Eigenschaft
+
+Das nächste Beispiel zeigt, wie man den Zusammenstoß
+einer Fingersatzbezeichnung mit einem Notenhals
+verhindern kann, indem die rechte Ecke an dem
+Referenzpunkt der abhängigen Note angeordnet wird:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=3]
+\voiceOne
+< a \2 >
+\once \override StringNumber #'self-alignment-X = #RIGHT
+< a \2 >
+@end lilypond
+
+
+@subheading staff-position property
+@cindex staff-position-Eigenschaft
+@cindex Notensystem-Position-Eigenschaft
+
+Vieltaktpausen in einer Stimmen können mit Noten in anderen
+Stimmen kollidieren.  Da diese Pausen zentriert zwischen den
+Taktlinien gesetzt werden, würde es für LilyPond eine recht große
+Anstrengung bedeuten herauszufinden, welche Noten mit ihnen
+zusammenstoßen könnten, denn alle Kollisionsvermeidung
+für Noten und Pausen funktioniert nur für Noten bzw. Pausen, die
+zur selben Zeit auftreten.  Hier ein typisches Beispiel für eine
+Kollision dieser Art:
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<< {c c c c} \\ {R1} >>
+@end lilypond
+
+Die beste Lösung ist es, die Ganztaktpause nach unten zu
+schieben, denn die Pause ist in der zweiten Stimme.  Per
+Standardeinstellung für die zweite Stimme (@code{\voiceTwo},
+also die zweite Stimme in der
+@code{<<@{...@} \\ @{...@}>>}-Konstruktion) wird die
+Position auf dem System (@code{staff-position}) auf -4
+für @code{MultiMeasureRest}, in unserem Beispiel muss
+es also bspw. auf die Position @code{-8} gesetzt werden, 
+d.h. vier halbe Notenlinienabstände weiter nach unten:
+
+@lilypond[quote,verbatim,fragment,ragged-right, relative=1]
+<<
+  {c c c c}
+\\
+  \override MultiMeasureRest #'staff-position = #-8
+  {R1}
+>>
+@end lilypond
+
+Das ist besser, als etwa @code{extra-offset} zu benutzen, denn
+in unserem Fall wird die Hilfslinie der Pause automatisch gesetzt.
+
+@subheading extra-offset property
+@cindex extra-offset-Eigenschaft
+@cindex Zusätzlicher Abstand, Positionierung
+
+Die @code{extra-offset}-Eigenschaft bietet vollständige Kontrolle
+über die Positionierung von Objekten in horizontaler und vertikaler
+Richtung.
+
+Im Beispiel unten ist das zweite Fingersatzzeichen (@code{Fingering}) etwas nach
+links und 1,8 Notenlinienabstände nach unten verschoben:
 
 @lilypond[quote,fragment,relative=1,verbatim]
 \stemUp
@@ -2461,70 +2648,584 @@ f-5
 f-5
 @end lilypond
 
-@item
-Die Verwendung der @code{transparent}-Eigenschaft druckt das entsprechende Objekt 
-mit @qq{unsichtbarer Druckerschwärze}: Das Objekt wird nicht angezeigt, aber 
-sein Verhalten bleibt bestehen. Das Objekt nimmt weiterhin Platz ein, es nimmt 
-teil an Überschneidungen und deren Auflösung durch das Programm, Bögen und Balken 
-können daran angebunden werden.
 
-@cindex transparente Objekte
-@cindex Entfernen von Objekten
-@cindex Verstecken von Objekten
-@cindex unsichtbare Objekte
-Das nächste Beispiel zeigt, wie man unterschiedliche Stimmen mit 
-Bindebögen verbinden kann. Normalerweise können Bindebögen nur 
-zwei Noten der selben Stimme verbinden. Indem aber ein Bogen in einer 
-anderen Stimme erstellt wird,
+@subheading positions property
+@cindex positions-Eigenschaft
 
-@lilypond[quote,fragment,relative=2]
-<< {
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+Die @code{positions}-Eigenschaft erlaubt die Kontrolle von Position und
+Steigung von Balken, Legato- und Phrasierungsbögen sowie Triolenklammern.
+Hier ein Beispiel, in der ein unschöner Phrasierungsbogen auftritt, weil
+er den Bogen des Vorschlags vermeidet:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4  \acciaccatura e8\( d8 c ~c d c d\)
 @end lilypond
 
 @noindent
-und dann der erste Hals nach oben unsichtbar gemacht wird, scheint der 
-Bindebogen die Stimme zu wechseln:
+Man könnte einfach den Phrasierungsbogen oberhalb der Noten setzen, und
+das wäre auch die beste Lösung:
 
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<< {
-  \once \override Stem #'transparent = ##t
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\phrasingSlurUp
+\acciaccatura e8\( d8 c ~c d c d\)
 @end lilypond
 
-Damit der Hals den Bogen nicht zu sehr verkleinert, wird seine 
-Länge (@code{length}) auf den Wert @code{8} gesetzt:
+@noindent
+aber wenn es einen Grund geben sollte, warum das nicht geht, könnte
+man das linke Ende des Phrasierungsbogens etwas nach unten verschieben,
+indem man die @code{positions}-Eigenschaft einsetzt.  Damit
+verschwindet auch die etwas unschöne Form:
 
-
-@lilypond[quote,fragment,relative=2,verbatim]
-<< {
-  \once \override Stem #'transparent = ##t
-  \once \override Stem #'length = #8
-  b8~ b8\noBeam
-} \\ {
-  b[ g8]
-} >>
+@lilypond[quote,verbatim,fragment,ragged-right,relative=1]
+r4
+\once \override PhrasingSlur #'positions = #'(-4 . -3)
+\acciaccatura
+e8\( d8 c ~c d c d\)
 @end lilypond
 
-@end itemize
+Hier noch ein weiteres Beispiel aus der Einleitung von Chopins
+Prelude Op. 28 Nr. 2, das untere System.  Wie zu sehen ist,
+stößt der Balken mit den oberen Noten zusammen:
 
-@cindex Veränderungen von Abständen
-@cindex Optimierung von Abständen
-@cindex Abstände
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+\clef "bass"
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+<< {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
 
-Abstände in LilyPond werden in Notenzeilenabständen
-(@code{staff-space}) gemessen, während die meisten Dicke-Eigenschaften 
-auf mit der Notenliniendicke korrespondieren. Eine Eigenschaften 
-verhalten sich anders, etwa die Dicke von Balken ist an die 
-Notenzeilenabstände gekoppelt. Mehr Information findet sich 
-im relevanten Teil der Programmreferenz.
+@noindent
+Das kann manuell gelöst werden, indem beide Enden des Balkens
+von ihrer Position 2 Notenlinienabstände über der Mittellinie
+hochgeschoben werden, etwa auf 3:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+{
+  \clef "bass"
+  <<
+    \override Beam #'positions = #'(3 . 3)
+    {b,8 ais, b, g,}
+  \\
+    {e, g e, g}
+  >>
+  << {b,8 ais, b, g,} \\ {e, g e, g} >>
+}
+@end lilypond
+
+@noindent
+Hier ist zu beobachten, dass die Veränderung sich auch auf die
+weiteren Achtelbalken der ersten Stimme auwirkt, während sie keine
+Auswirkung auf die Balken der zweiten Stimme hat.
+
+@subheading force-hshift-Eigenschaft
+@cindex force-hshift-Eigenschaft
+@cindex Vertikale Verschiebung erzwingen
+@c FIXME: formatting stuff  (ie not important right now IMO)
+@c @a nchor Chopin finally corrected TODOgp
+
+An diesem Punkt können wir den letzten Feinschliff an unserem
+Chopin-Beispiel vornhemen, das wir behandelt haben in
+@ref{I'm hearing Voices}.  Wir hatten es in folgende Form
+gebracht:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      <ees c>2
+      des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+@noindent
+Die unteren zwei Noten des ersten Akkords (also diein der
+dritten Stimme) sollten nicht aus der Notenkolumne der
+oberen zwei Noten weggeschoben werden.  Um das zu
+korrigieren, setzen wir @code{force-hshift}, das eine
+Eigenschaft von
+@code{NoteColumn} ist, für diese Noten auf Null.
+Die untere Note des zweiten Akkordes wird am besten
+direkt rechts von den oberen Noten gesetzt.  Das erreichen
+wir, indem wir @code{force-hshift} für diese Note auf
+0.5 setzen, also eine halbe Notenkopfbreite nach rechts von
+der Kolumne der oberen Noten aus.
+
+Hier das Endergebnis:
+
+@lilypond[quote,verbatim,fragment,ragged-right]
+\new Staff \relative c'' {
+  \key aes \major
+  <<
+    { c2 aes4. bes8 } \\
+    { aes2 f4 fes   } \\
+    { \voiceFour
+      \once \override NoteColumn #'force-hshift = #0 <ees c>2
+      \once \override NoteColumn #'force-hshift = #0.5 des2
+    }
+  >> |
+  <c ees aes c>1 |
+}
+@end lilypond
+
+
+@node Real music example
+@subsection Real music example
+
+Das Kapitel zu Optimierungen soll mit einem komplizierten Beispiel
+beendet werden, in dem verschiedene Optimierungen vorgenommen
+werden müssen, bis das Ergebnis gut ausssieht.  Das Beispiel wurde
+ganz bewusst gewählt um die Benutzung der Notationsreferenz
+zu zeigen, wenn ungewöhnliche Notationsprobleme gelöst werden
+müssen.  Es ist nicht repräsentativ für normale Notationsprojekte,
+lassen Sie sich also nicht durch dieses Beispiel entmutigen!  Zum
+Glück sind Probleme wie die hier gezeigten nicht sehr häufig.
+
+Das Beispiel stammt aus Chopins Premiére Ballade, Op. 23, Takte
+6--9, der Übergang vom Lento der Einleitung zum Moderato.
+Hier zunächst der Satz, wie er aussehen soll, allerdings ohne
+Dynamik, Fingersatz und Pedalbezeichnung, um das Beispiel nicht
+zu kompliziert zu machen.
+
+@c The following should appear as music without code
+@lilypond[quote,ragged-right]
+rhMusic = \relative c'' {
+  r2
+  c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
+  bes2.^\markup {\bold "Moderato"} r8
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Reposition the c2 to the right of the merged note
+    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    % Move the c2 out of the main note column so the merge will work
+    \shiftOnn c2}
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+  \\
+    {s4 fis4.}
+  >>
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Die erste Überlegung ist, dass das System für die rechte Hand
+im dritten Takt vier Stimmen braucht.  Das sind die fünf
+Achtelnoten mit Balken, das übergebundene C, die Halbe D, die
+mit der Achtel D verschmolzen ist, und die punktierte Viertel
+Fis, die auch mit einer Achtelnote verschmolzen ist.  Alles
+andere ist eine einzige Stimme, es ist also am einfachsten, die
+Stimmen nur zeitweise zu erstellen, wenn sie auftreten.  Wenn
+Sie vergessen haben, wie man das anstellt, schauen Sie sich
+nochmal den Abschnitt @ref{I'm hearing Voices} an.  Wir
+wollen anfange, indem wir die Noten in zwei Variablen
+notieren und dann die Systemstruktur in einer
+@code{\score}-Umgebung erstellen.  Das ist, was LilyPond
+erstellt:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4. g8 |
+  bes1~ |
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8 d fis bes a | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2 |
+  <d g, d>1 |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Alle Noten sind richtig, aber die Positionierung sehr
+verbesserungsbedürftig.  Der Bindebogen stößt mit
+der veränderten Taktart zusammen, die Balkung im
+dritten Takt ist falsch, die Noten werden nicht 
+verschmolzen und einige Notationselemente fehlen ganz.
+Behandeln wir zunächst die einfacheren Dinge.  Der
+Balken kann durch eine manuelle Begrenzung einfach
+korrigiert werden, und auch der Legatobogen der linken
+Hand und der Phrasierungsbogen der rechten Hand
+sind schnell gesetzt, denn sie wurden schon in der
+Übung erklärt.  Damit haben wir folgendes Notenbild:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  bes1~ |
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1) |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Der erste Takt stimmt jetzt schon.  Der zweite Takt enthält ein
+Arpeggio und wird mit einer doppelten Taktlinie beschlossen.
+Wie können wir diese notieren, denn sie sind im Handbuch zum
+Lernen nicht vorgekommen?  Hier brauchen wir jetzt die
+Notationsreferenz.  Ein Blick in den Index zeigt uns die
+Einträge für @qq{Arpeggio} und @qq{Taktlinien}: ein
+Arpeggio also erstellt man mit dem Befehl @code{\arpeggio}
+hinter einem Akkord und eine doppelte Taktlinie wird mit dem
+Befehl @code{\bar "||"} erstellt.  Das ist einfach.  Als nächstes
+muss der Zusammenstoß des Bindebogens mit der Taktartbezeichnung
+gelöst werden.  Das geht am besten, indem wir den Bogen nach
+oben verschieben.  Wie man Objekte verschiebt wurde schon
+behandelt in @ref{Moving objects}, wo stand, dass Objekte
+die
+relativ zum System positioniert werden, verschoben werden 
+können, indem ihre @code{staff-position}-Eigenschaft
+geändert wird, die in halben Notenlienienabständen relativ
+zur Mittellinie angegeben wird.  Dieser @code{\override}-Befehl
+also, direkt vor die erste übergebundene Note gestellt, verschiebt
+den Bindebogen (@code{tie}) 3,5 halbe Notenlinienabstände
+über die Mittellinie:
+
+@code{\once \override Tie #'staff-position = #3.5}
+
+Damit ist auch der zweite Takt vollständig:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2. r8
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+In Takt drei beginnt der Moderato-Abschnitt.  In der
+Übung wurde behandelt, wie man fetten Text mit dem
+@code{\markup}-Befehl eingibt, es ist also einfach, das
+@qq{Moderato} hinzuzufügen.  Wie aber werden Noten
+verschmolzen?  Hier nehmen wir wieder die Notationsreferenz
+zu Hilfe.  Die Suche nach @qq{Verschmelzen} (engl. merge)
+im Index führt uns zu den Befehlen um Noten mit
+unterschiedlichen Köpfen und unterschiedlichen Punkten
+zu verschmelzen in @ruser{Collision resolution}.  In unserem
+Beispiel müssen sowohl unterschiedliche Köpfe also auch
+unterschiedliche Punktierung verschmolzen werden, wir
+brauchen also die Befehle
+
+@example
+\mergeDifferentlyHeadedOn
+\mergeDifferentlyDottedOn
+@end example
+
+@noindent
+aus der Notationsreferenz, die wir an den Beginn unseres
+Abschnittes stellen und
+
+@example
+\mergeDifferentlyHeadedOff
+\mergeDifferentlyDottedOff
+@end example
+
+@noindent
+um das Verhalten wieder auszuschalten. Das sieht so aus:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    {c,8~ c2 | }
+  \\
+    {s8 d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Mit diesen Veränderungen wurden die beiden Fis-Noten 
+verschmolzen, aber nicht die zwei Ds.  Warum nicht?  Die
+Antwort befindet sich im gleicher Abschnitt der Notationsreferenz:
+Noten, die verschmolzen werden, müssen Hälse in entgegengesetzte
+Richtungen aufweisen und zwei Noten können nicht verschmolzen
+werden, wenn eine dritte Noten in der gleichen Kolumne
+stört.  In unserem Fall weisen beide Hälse nach oben und es
+befindet sich zur gleichen Zeit auch noch eine dritte Note, das C.
+Wie die Richtung von Hälsen geändert wird, wissen wir schon:
+mit @code{\stemDown}, und in der Notationsreferenz findet
+sich auch Information, wie das C verschoben werden kann: mit
+dem @code{\shift}-Befehl.  Aber welcher von ihnen?  Das C
+befindet sich in der zweiten Stimme, die @qq{shift off} hat,
+die zwei Ds sind in den Stimmen eins und drei, die @qq{shift
+off} bzw. @qq{shift on} haben.  Das C muss also noch eine
+Stufe weiter verschoben werden mit @code{\shiftOnn}, damit
+es die Verschmelzung der Ds nicht stört.  Das sieht jetzt so
+aus:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2 c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
+  % Start polyphonic section of four voices
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Move the c2 out of the main note column so the merge will work
+    {c,8~ \shiftOnn c2 | }
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown d2 | }
+  \\
+    {s4 fis4. | }
+  >>
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
+Fast schon geschafft.  Nur noch ein Problem ist übrig: Der Hals nach
+unten des verschmolzenen sollte nicht da sein, und das C sähe
+besser auf der rechten Seite des Ds aus.  Beides können wir mit den
+gelernten Optimierungsmethoden erreichen. Den Hals machen
+wir durchsichtig und das C verschieben wir mit der
+@code{force-hshift}-Eigenschaft.  Hier ist das Endergebnis:
+
+@lilypond[quote,verbatim,ragged-right]
+rhMusic = \relative c'' {
+  r2
+  c4.\( g8 |
+  \once \override Tie #'staff-position = #3.5
+  bes1~ |
+  \bar "||"
+  \time 6/4
+  bes2.^\markup {\bold "Moderato"} r8
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
+  <<
+    {c,8[ d fis bes a] | }
+  \\
+    % Reposition the c2 to the right of the merged note
+    {c,8~ \once \override NoteColumn #'force-hshift = #1.0
+    % Move the c2 out of the main note column so the merge will work
+    \shiftOnn c2}
+  \\
+    % Stem on the d2 must be down to permit merging
+    {s8 \stemDown \once \override Stem #'transparent = ##t d2}
+  \\
+    {s4 fis4.}
+  >>
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
+  g2.\)
+}
+
+lhMusic = \relative c' {
+  r2 <c g ees>2( |
+  <d g, d>1)\arpeggio |
+  r2. d,,4 r4 r |
+  r4
+}
+
+\score {
+  \new PianoStaff <<
+    \new Staff = "RH"  <<
+      \key g \minor
+      \rhMusic
+    >>
+    \new Staff = "LH" <<
+      \key g \minor
+      \clef "bass"
+      \lhMusic
+    >>
+  >>
+}
+@end lilypond
+
 
 @node Further tweaking
 @section Further tweaking
@@ -2540,120 +3241,410 @@ im relevanten Teil der Programmreferenz.
 @node Other uses for tweaks
 @subsection Other uses for tweaks
 
-@untranslated
+@cindex Transparente Objekte
+@cindex Entfernen von Objekten
+@cindex Verstecken von Objekten
+@cindex Unsichtbare Objekte
+@cindex transparent-Eigenschaft, Benutzung
+@cindex Objekte, unsichtbar machen
+@cindex Objekte, entfernen
+@cindex Noten zwischen Stimmen überbinden
+@cindex Überbinden von Noten zwischen Stimmen
+
+@subheading Tying notes across voices
+
+Das nächste Beispiel zeigt, wie man Noten von verschiedenen
+Stimmen miteinander verknüpfen kann, indem man Bindebögen
+für Überbindungen benutzt.  Normalerweise können nur zwei
+Noten der gleichen Stimme übergebunden werden.  Wenn
+man zwei Stimmen benutzt, wobei die überbundenen Noten
+sich in der selben befinden,
+
+@lilypond[quote,fragment,relative=2]
+<< { b8~ b8\noBeam }
+\\ { b[ g8] }
+>>
+@end lilypond
+
+@noindent
+und dann den ersten Hals nach oben unsichtbar macht,
+sieht es so aus, als ober die Überbindung zwischen
+den Stimmen stattfindet:
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \once \override Stem #'transparent = ##t
+    b8~ b8\noBeam
+  }
+\\
+  { b[ g8] }
+>>
+@end lilypond
+
+Um sicherzugehen, dass der unsichtbare Hals den Bindebogen
+nicht zu sehr verkleinert, kann er verlängert werden, indem
+seine Länge (@code{length}) auf den Wert @code{8}
+gesetzt wird:
+
+@lilypond[quote,fragment,relative=2,verbatim]
+<<
+  {
+    \once \override Stem #'transparent = ##t
+    \once \override Stem #'length = #8
+    b8~ b8\noBeam
+  }
+\\
+  { b[ g8] }
+>>
+@end lilypond
+
+@subheading Simulating a fermata in MIDI
+
+@cindex stencil-Eigenschaft, Benutzung
+@cindex Fermate, Benutzung in MIDI
+@cindex MIDI: Fermate erstellen
+
+Für Objekte außerhalb des Notensystems ist es normalerweise
+besser, die @code{stencil}-Eigenschaft anstelle der
+@code{transparent}-Eigenschaft zu verändern, wenn man
+sie vom fertigen Notensatz entfernen will.  Indem die
+@code{stencil}-Eigenschaft auf falsch (@code{#f}) gesetzt
+wird, wird das entsprechende Objekt vollständig entfernt.
+Das bedeutet, dass es die Positionierung der anderen Objekte
+nicht beeinflusst.
+
+Auf diese Art kann etwa das Tempo geändert werden, damit
+in der MIDI-Ausgabe eine Fermate zu hören ist, ohne dass
+im Notensatz etwas von diesen Tempoänderungen zu sehen
+ist.  Die Metronombezeichnung soll auch nicht die Position
+von Text an der gleichen Stelle oder die Abstände zwischen
+zwei Systemen beeinflussen.  Darum ist es am besten, 
+@code{stencil} auf @code{#f} zu setzen.  Im Beispiel wird
+der Unterschied zwischen einem unsichtbaren Objekt und
+einem entfernten Objekt gezeigt:
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \relative c'' {
+    % Visible tempo marking
+    \tempo 4=120
+    a4 a a
+    \once \override Score.MetronomeMark #'transparent = ##t
+    % Invisible tempo marking to lengthen fermata in MIDI
+    \tempo 4=80
+    a\fermata
+    % New tempo for next section
+    \tempo 4=100
+    a a a a
+  }
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \relative c'' {
+    % Visible tempo marking
+    \tempo 4=120
+    a4 a a
+    \once \override Score.MetronomeMark #'stencil = ##f
+    % Invisible tempo marking to lengthen fermata in MIDI
+    \tempo 4=80
+    a\fermata
+    % New tempo for next section
+    \tempo 4=100
+    a a a a
+  }
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+@noindent
+Mit beiden Methoden wird die Tempobezeichnung entfernt, mit
+der die Fermate verlängert wird, und beide beeinflussen die
+MIDI-Ausgabe wie gewünscht.  Die unsichtbare Metronombezeichnung
+schiebt aber die folgende Bezeichnung in die Höhe, während
+das im zweiten Beispiel, in dem der @code{stencil} entfernt
+wurde, nicht passiert.
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
 
-@untranslated
+@cindex Variablen, Benutzung zur Optimierung
+@cindex Optimierung mit Variablen
+
+@code{\override}-Befehle sind oft lang und mühsam zu
+tippen, und sie müssen immer absolut richtig sein.  Wenn
+derselbe Befehl mehrere Male benutzt werden muss, lohnt
+es sich oft schon, eine Variable zu definieren, in der er
+sich befindet.  Als Beispiel sollen einige Worte im
+Gesangstext fett und kursiv hervorgehoben werden.
+Die Befehle @code{\italic} und @code{\bold} funktionieren
+im Gesangstext-Kontext nur, wenn sie gleichzeitig
+noch in eine @code{\markup}-Umgebung eingeschlossen
+werden, was es mühsam macht, sie zu tippen.  Als
+Alternative versuchen wir, einen Befehl mit
+@code{\override} und @code{\revert} zu konstruieren.
+
+@example
+@code{\override Lyrics . LyricText #'font-shape = #'italic}
+@code{\override Lyrics . LyricText #'font-series = #'bold}
+
+@code{\revert Lyrics . LyricText #'font-shape}
+@code{\revert Lyrics . LyricText #'font-series}
+@end example
+
+Das wäre natürlich noch viel mühsamer.  Also setzen wir
+anstatt dessen zwei Variablen, die diese Befehlsketten
+enthalten.  Die Namen können natürlich auch kürzer sein,
+um noch weniger schreiben zu müssen.  Die Benutzung der Befehle
+ist im Notenbeispiel gezeigt.
+
+@lilypond[quote,verbatim]
+emphasize = {
+  \override Lyrics . LyricText #'font-shape = #'italic
+  \override Lyrics . LyricText #'font-series = #'bold
+}
+normal = {
+  \revert Lyrics . LyricText #'font-shape
+  \revert Lyrics . LyricText #'font-series
+}
+
+global = { \time 4/4 \partial 4 \key c \major}
+SopranoMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
+TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
+BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
+VerseOne   = \lyrics { E -- | ter -- nal \emphasize Fa -- ther, \normal | strong to save, }
+VerseTwo   = \lyricmode { O | \emphasize Christ, \normal whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { O | \emphasize Ho -- ly Spi -- rit, \normal | who didst brood }
+VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and pow'r }
+
+\score {
+  \new ChoirStaff <<
+    \new Staff <<
+      \clef "treble"
+      \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
+      \new Voice = "Alto" { \voiceTwo \AltoMusic }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne   }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo   }
+      \new Lyrics \lyricsto "Soprano" { \VerseThree }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour  }
+    >>
+    \new Staff <<
+      \clef "bass"
+      \new Voice = "Tenor" { \voiceOne \TenorMusic }
+      \new Voice = "Bass"  { \voiceTwo \BassMusic  }
+    >>
+  >>
+}
+@end lilypond
+
 
 @node Other sources of information
 @subsection Other sources of information
 
 Die Programmreferenz enthält sehr viel Information über LilyPond, aber 
 noch mehr Information findet sich in den internen 
-LilyPond-Dateien.
+LilyPond-Dateien.  Um sie erforschen zu können, müssen Sie erst
+das richtige Verzeichnis auf Ihrem System finden.  Die Position
+hängt a) davon ab, ob Ihre LilyPond-Installation mit der vorkompilierten
+Version von der LilyPond-Internetseite vorgenommen wurde oder Sie
+die Version durch Ihren Paketmanager installiert haben (also
+z. B. in einer Linux-Distribution oder unter fink oder cygwin
+installiert), und b) auf welchem Betriebssystem Sie das Programm
+benutzen:
 
-Eine Standardeinstellungen (wie die Definitionen für den Kopf (@code{\header} 
-sind als @code{.ly}-Datei gespeichert. Andere Einstellungen 
-(wie die Definition für Beschriftung (@code{markup}) sind 
-als @code{.scm} (Scheme)-Datei gespeichert. Eine nähere Erklärung 
-geht über den Rahmen dieses Handbuches hinaus. Der Hinweis 
-scheint aber angebracht, dass es grundlegende technische 
-Kenntnis und sehr viel Zeit  erfordert, diese Dateien zu verstehen.
+@strong{Von lilypond.org heruntergeladen}
 
 @itemize @bullet
+@item Linux
 
-@item Linux: @file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+Wechseln Sie in das Verzeichnis
+@file{@var{INSTALL_VERZ}/lilypond/usr/share/lilypond/current/}
 
-@item OS X:
-@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}.
-Um diese Ordner anzuschauen, wechseln Sie entweder mit @code{cd} im Terminal 
-zu der Adresse oder klicken Sie mit der rechten Maustaste auf das LilyPond-Symbol 
-und wählen Sie @q{Show Package Contents}.
+@item MacOS X
 
-@item Windows: @file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+Wechseln Sie in das Verzeichnis
+@file{@var{INSTALL_VERZ}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+indem Sie entweder mit dem Befehl @code{cd} vom Terminal aus
+in das Verzeichnis wechseln, oder mit Control-Klick auf das
+LilyPond-Programmsymbol gehen und @qq{Show Package Contents}
+auswählen.
+
+@item Windows
+
+Wechseln Sie mit dem Windows Explorer ins Verzeichnis
+@file{@var{INSTALL_VERZ}/LilyPond/usr/share/lilypond/current/}
 
 @end itemize
 
-Die @file{ly/} und @file{scm/}-Ordner sind von besonderem Interesse.
-Dateien wie @file{ly/property-init.ly} und
-@file{ly/declarations-init.ly} definieren alle häufig vorkommenden Veränderungen.
+@strong{Mit einem Paket-Manager installiert oder selber aus
+den Quellen kompiliert}
+
+Wechseln Sie in das Verzeichnis
+@file{@var{PREFIX}/share/lilypond/@var{X.Y.Z}/}, wobei
+@var{PREFIX} bei Ihrem Paket-Manager oder dem
+@code{configure}-Skript gesetzt wird, und @var{X.Y.Z}
+die LilyPond-Versionsnummer.
+
+@smallspace
+
+In diesem Ordner sind die zwei interessanten Unterordner:
+
+@itemize
+@item @file{ly/} - beinhaltet Dateien im LilyPond-Format
+@item @file{scm/} - beinhaltet Dateien im Scheme-Format
+@end itemize
+
+Schauen wir uns zuerst einige Dateien in @file{ly/} an.
+Öffnen Sie @file{ly/property-init.ly} in einem Texteditor.
+Der, den Sie normalerweise für @code{.ly}-Dateien benutzen,
+genügt.  Diese Datei enthält die Definitionen aller vordefinierten
+Befehle für LilyPond, wie etwa @code{\stemUp} und
+@code{\slurDotted}.  Sie können sehen, dass es sich um
+nichts mehr handelt als Definitionen von Variablen, die eine
+oder mehrere @code{\override}-Befehle enthalten.  Der
+Befehl @code{/tieDotted} etwa wird folgendermaßen definiert:
+
+@example
+tieDotted = @{
+  \override Tie #'dash-period = #0.75
+  \override Tie #'dash-fraction = #0.1
+@}
+@end example
+
+Wenn Sie diese Voreinstellungen der vordefinierten Befehl nicht
+mögen, können Sie sie ganz einfach umdefinieren, genauso wie
+jede andere Variable auch, indem Sie sie an den Anfang Ihrer
+Quelldatei schreiben.
+
+Hier sind die wichtisgsten Dateien, die sich im Ordner
+@file{ly/} befinden:
+
+@multitable @columnfractions .4 .6
+@headitem Dateiname
+  @tab Inhalt
+@item @file{ly/engraver-init.ly}
+  @tab Definitionen von Engraver-Kontexten
+@item @file{ly/paper-defaults.ly}
+  @tab Specifikationen von Voreinstellungen für Papiermaße
+@item @file{ly/performer-init.ly}
+  @tab Definitionen von Performer-Kontexten
+@item @file{ly/property-init.ly}
+  @tab Definitionen aller vordefinierten Befehle
+@end multitable
+
+Andere Einstellungen (wie die Definitionen von Beschriftungsbefehlen)
+sind in @code{.scm}-(Scheme)-Dateien gespeichert.  Die
+Scheme-Programmiersprache wird benutzt, um eine
+programmierbare Schnittstelle zu den internen Operationen von
+LilyPond zu haben.  Eine weitere Erklärung dieser Dateien ist
+im Moment außerhalb des Rahmens dieses Handbuchs, denn
+sie erfordern einige Kenntnis der Scheme-Sprache.  Die Warnung
+ist hier angebracht, dass des ein gutes technisches Verständnis
+oder sehr viel Zeit braucht, um Scheme und diese
+Dateien zu verstehen (siehe auch @ref{Scheme tutorial}).
+
+Wenn Sie sich mit Scheme auskennen, sind hier mögliche
+interessante Dateien:
+
+@multitable @columnfractions .4 .6
+@headitem Dateiname
+  @tab Inhalt
+@item @file{scm/auto-beam.scm}
+  @tab Sub-Balken-Voreinstellungen
+@item @file{scm/define-grobs.scm}
+  @tab Voreinstellungen für Grob-Eigenschaften
+@item @file{scm/define-markup-commands.scm}
+  @tab Definition aller Markup-Beschriftungsbefehle
+@item @file{scm/midi.scm}
+  @tab Voreinstellung für die MIDI-Ausgabe
+@item @file{scm/output-lib.scm}
+  @tab Einstellungen mit Einfluss auf die Darstellung von Bunddiagrammen, Farben, Versetzungszeichen, Taktlinien usw.
+@item @file{scm/parser-clef.scm}
+  @tab Definitionen der unterstützten Schlüssel
+@item @file{scm/script.scm}
+  @tab Voreinstellungen for Artikulationszeichen
+@end multitable
 
 
 @node Avoiding tweaks with slower processing
 @subsection Avoiding tweaks with slower processing
 
 LilyPond kann einige zusätzliche Tests durchführen, während 
-die Noten gesetzt werden. Dadurch braucht das Programm länger, 
+die Noten gesetzt werden.  Dadurch braucht das Programm länger, 
 um den Notensatz zu produzieren, aber üblicherweise werden 
-weniger nachträgliche Anpassungen nötig sein.
+weniger nachträgliche Anpassungen nötig sein.  Wenn eine
+Textsilbe oder eine Beschriftung aus dem Rand der Partitur
+ragt, wird durch diese Tests die Zeile gerade so weit komprimiert,
+dass sie sich innerhalb der Ränder befindet.
 
 @example
-%%  Um sicher zu gehen, dass Texte und Liedtext 
-%%  innerhalb der Papierränder bleiben
-\override Score.PaperColumn #'keep-inside-line = ##t 
+\new Score \with @{
+ %  Um sicher zu gehen, dass Texte und Liedtext 
+ %  innerhalb der Papierränder bleiben
+ \override PaperColumn #'keep-inside-line = ##t
+ \override NonMusicalPaperColumn #'keep-inside-line = ##t
+@} @{
+   ...
+@}
 @end example
 
 
 @node Advanced tweaks with Scheme
 @subsection Advanced tweaks with Scheme
 
-Es wurde schon gezeigt, wie die LilyPond-Ausgabe sehr stark verändert 
-werden kann, indem man Befehle wie 
-@code{\override TextScript #'extra-offset = ( 1 . -1)} benutzt. Aber 
-noch mehr Einfluss auf die Formatierung kann durch den Einsatz von 
-Scheme genommen werden. Eine vollständige Erklärung findet sich in der 
- @ref{Scheme tutorial} und den
-@ruser{Interfaces for programmers}.
+Auch wenn viele Sachen mit @code{\override} und @code{\tweak}
+möglich sind, gibt es eine sehr viel mächtigere Möglichkeit, die
+Arbeitsweise von LilyPond mit Hilfe der programmierbaren Schnittstelle
+zu beeinflussen.  Code, der in der Scheme-Programmiersprache
+geschrieben ist, kann direkt in die interne Satzmaschine von LilyPond
+eingefügt werden.  Natürlich brauchen Sie dazu wenigstens ein
+grundlegendes Verständnis von Scheme.  Eine Einleitung finden
+Sie in der @ref{Scheme tutorial}.
 
-Scheme kann benutzt werden, um einfach nur Befehle zu @qq{überschreiben} 
-(@code{\override}):
+Zur Illustration der vielen Möglichkeiten soll gezeigt werden, dass eine
+Eigenschaft nicht nur auf eine Konstante, sondern auch auf eine
+Scheme-Prozedur gesetzt werden kann, die dann jedes Mal
+aufgerufen wird, wenn die Eigenschaft von LilyPond benutzt
+wird.  Die Eigenschaft kann damit dynamisch auf einen Wert
+gesetzt werden, der durch die Prozedur jedes Mal neu bestimmt
+wird.  In diesem Beispiel wird die Farbe der Notenköpfe entsprechend
+zu ihrer Position innerhalb der Tonleiter gesetzt.
 
 @lilypond[quote,verbatim,ragged-right]
-padText = #(define-music-function (parser location padding) (number?)
-#{
-  \once \override TextScript #'padding = #$padding
-#})
+#(define (color-notehead grob)
+  "Color the notehead according to its position on the staff."
+  (let ((mod-position (modulo (ly:grob-property grob 'staff-position) 7)))
+    (case mod-position
+      ;;   Return rainbow colors
+      ((1) (x11-color 'red    ))  ; for C
+      ((2) (x11-color 'orange ))  ; for D
+      ((3) (x11-color 'yellow ))  ; for E
+      ((4) (x11-color 'green  ))  ; for F
+      ((5) (x11-color 'blue   ))  ; for G
+      ((6) (x11-color 'purple ))  ; for A
+      ((0) (x11-color 'violet ))  ; for B
+    )
+  )
+)
 
-\relative c''' {
-  c4^"piu mosso" b a b
-  \padText #1.8
-  c4^"piu mosso" d e f
-  \padText #2.6
-  c4^"piu mosso" fis a g
+\relative c' {
+  % Arrange to obtain color from color-notehead procedure
+  \override NoteHead #'color = #color-notehead
+  c2 c' | 
+  b4 g8 a b4 c | 
+  c,2 a' | 
+  g1 |
+}
+\addlyrics {
+  Some -- where o -- ver the Rain -- bow, way up high,
 }
 @end lilypond
 
-Hiermit können aber auch neue Befehle erstellt werden:
-
-@lilypond[quote,verbatim,ragged-right]
-tempoMark = #(define-music-function (parser location padding marktext)
-                                    (number? string?)
-#{
-  \once \override Score . RehearsalMark #'padding = $padding
-  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
-  \mark \markup { \bold $marktext }
-#})
-
-\relative c'' {
-  c2 e
-  \tempoMark #3.0 #"Allegro"
-  g c
-}
-@end lilypond
-
-Sogar ganze musikalische Ausdrücke können eingefügt werden:
-
-@lilypond[quote,verbatim,ragged-right]
-pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
-#{
-  $x e8 a b $y b a e
-#})
-
-\relative c''{
-  \pattern c8 c8\f
-  \pattern {d16 dis} { ais16-> b\p }
-}
-@end lilypond
-
+Weiter Beispiele, die die Benutzung dieser programmierbaren
+Schnittstelle zeigen, finden sich in @ref{Tweaking with Scheme}.

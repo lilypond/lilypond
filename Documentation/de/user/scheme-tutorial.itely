@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 79583ed701a443510826b8f22f20fd6e7d5eccbe
+    Translation of GIT committish: 550152ed5d5015d13abf2af83b2e040f996a66a4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -22,12 +22,12 @@
 
 LilyPond verwendet die Scheme-Programmiersprache sowohl als Teil 
 der Eingabesyntax als auch als internen Mechanismus, um Programmmodule 
-zusammenzufügen. Dieser Abschnitt ist ein sehr kurzer Überblick über 
-die Dateneingabe mit Scheme. Wenn Sie mehr über Scheme wissen wollen,
+zusammenzufügen.  Dieser Abschnitt ist ein sehr kurzer Überblick über 
+die Dateneingabe mit Scheme.  Wenn Sie mehr über Scheme wissen wollen,
 gehen Sie zu @uref{http://@/www@/.schemers@/.org}.
 
 Das Grundlegendste an einer Sprache sind Daten: Zahlen, Zeichen, 
-Zeichenketten, Listen usw. Hier ist eine Liste der Datentypen, die für 
+Zeichenketten, Listen usw.  Hier ist eine Liste der Datentypen, die für 
 LilyPond-Eingabedateien relevant sind.
 
 @table @asis
@@ -111,38 +111,38 @@ wie @code{(* 3 4)} wird durch seinen Wert @code{12} ersetzt. Ähnlich
 verhält es sich mit Variablen. Nachdem eine Variable definiert ist:
 
 @example
-twelve = #12
+zwoefl = #12
 @end example
 
 @noindent
 kann man sie in Ausdrücken weiterverwenden:
 
 @example
-twentyFour = #(* 2 twelve)
+vierundzwanzig = #(* 2 zwoelf)
 @end example
 
 @noindent
-Die 24 wird in der Variablen @code{twentyFour} gespeichert.
+Die 24 wird in der Variablen @code{vierundzwanzig} gespeichert.
 Die gleiche Zuweisung kann auch vollständig in Scheme geschrieben 
 werden:
 
 @example
-#(define twentyFour (* 2 twelve))
+#(define vierundzwanzig (* 2 zwoelf))
 @end example
 
 Der @emph{Name} einer Variable ist auch ein Ausdruck, genauso wie 
 eine Zahl oder eine Zeichenkette. Er wird wie folgt eingegeben:
 
 @example
-#'twentyFour
+#'vierundzwanzig
 @end example
 
 @funindex #'symbol
 @cindex Zitieren in Scheme
 
 Das Apostroph @code{'} verhindert, dass bei der Scheme-Auswertung
- @code{twentyFour} durch @code{24} ersetzt wird. Anstatt dessen erhalten 
- wir die Bezeichnung @code{twentyFour}.
+ @code{vierundzwanzig} durch @code{24} ersetzt wird. Anstatt dessen erhalten 
+ wir die Bezeichnung @code{vierundzwanzig}.
 
 Diese Syntax wird sehr oft verwendet, weil es manche
 Einstellungsveränderungen erfordern, dass Scheme-Werte einer 
@@ -156,14 +156,14 @@ Diese Anweisung verändert die Erscheinung der Notenhälse. Der Wert
 @code{2.6} wird der Variable @code{thickness} (Dicke) eines 
 @code{Stem}-(Hals)-Objektes gleichgesetzt. 
 @code{thickness} wird relativ zu den Notenlinien errechnet, in diesem 
-Fall sind die Hälse also 2,6 mal so dick wie die Notenlinien. Dadurch 
+Fall sind die Hälse also 2,6 mal so dick wie die Notenlinien.  Dadurch 
 werden Hälse fast zweimal so dick dargestellt, wie sie normalerweise sind. 
 Um zwischen Variablen zu unterscheiden, die in den Quelldateien direkt 
-definiert werden (wie @code{twentyFour} weiter oben), und zwischen denen, 
+definiert werden (wie @code{vierundzwanzig} weiter oben), und zwischen denen, 
 die für interne Objekte zuständig sind, werden hier die ersteren 
 @qq{Bezeichner} genannt, die letzteren dagegen @qq{Eigenschaften}.
 Das Hals-Objekt hat also eine @code{thickness}-Eigenschaft, während 
-@code{twentyFour} ein Bezeichner ist.
+@code{vierundzwanzig} ein Bezeichner ist.
 
 @cindex Eigenschaften versus Bezeichner
 @cindex Bezeichner versus Eigenschaften
@@ -220,5 +220,79 @@ Symbolliste und eine Liste von Listen:
 #'((1) (2))
 @end example
 
+
+
+@menu
+* Tweaking with Scheme::        
+@end menu
+
+@node Tweaking with Scheme
+@appendixsec Tweaking with Scheme
+
+Wir haben gesehen wie LilyPond-Eingabe massiv beeinflusst
+werden kann, indem Befehle wie etwa
+@code{\override TextScript #'extra-offset = ( 1 . -1)}
+benutzt werden.  Aber es wurde gezeigt, dass Scheme noch
+mächtiger ist.  Eine bessere Erklärung findet sich in der@ref{Scheme tutorial} und in
+@ruser{Interfaces for programmers}.
+
+Scheme kann auch in einfachen @code{\override}-Befehlen
+benutzt werden:
+
+TODO Find a simple example
+@c This isn't a valid example with skylining
+@c It works fine without padText  -td
+
+@ignore
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+#{
+  \once \override TextScript #'padding = #$padding
+#})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+@end ignore
+
+Es kann auch benutzt werden, um Befehle zu erstellen:
+
+@c Check this is a valid example with skylining
+@c It is - 'padding still works
+
+@lilypond[quote,verbatim,ragged-right]
+tempoMark = #(define-music-function (parser location padding marktext)
+                                    (number? string?)
+#{
+  \once \override Score . RehearsalMark #'padding = $padding
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $marktext }
+#})
+
+\relative c'' {
+  c2 e
+  \tempoMark #3.0 #"Allegro"
+  g c
+}
+@end lilypond
+
+Sogar ganze Musikausdrücke können eingefügt werden:
+
+@lilypond[quote,verbatim,ragged-right]
+pattern = #(define-music-function (parser location x y) (ly:music? ly:music?)
+#{
+  $x e8 a b $y b a e
+#})
+
+\relative c''{
+  \pattern c8 c8\f
+  \pattern {d16 dis} { ais16-> b\p }
+}
+@end lilypond
 
 
