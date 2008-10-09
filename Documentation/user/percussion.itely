@@ -12,7 +12,7 @@
 @section Percussion
 
 @menu
-* Common notation for percussion::  
+* Common notation for percussion::
 @end menu
 
 @node Common notation for percussion
@@ -22,13 +22,13 @@ Rhythmic music is primarily used for percussion and drum notation, but it can
 also be used to show the rhythms of melodies.
 
 @menu
-* References for percussion::   
-* Basic percussion notation::   
-* Drum rolls::                  
-* Pitched percussion::          
-* Percussion staves::           
-* Custom percussion staves::    
-* Ghost notes::                 
+* References for percussion::
+* Basic percussion notation::
+* Drum rolls::
+* Pitched percussion::
+* Percussion staves::
+* Custom percussion staves::
+* Ghost notes::
 @end menu
 
 @node References for percussion
@@ -147,7 +147,7 @@ Snippets: @rlsr{Percussion}.
 @unnumberedsubsubsec Pitched percussion
 
 Certain pitched percussion instruments (e.g. xylophone,
-vibraphone, and timpani) are written using with normal staffs.
+vibraphone, and timpani) are written using normal staves.
 This is covered in other sections of the manual.
 
 @seealso
@@ -396,12 +396,12 @@ woodstaff = {
   % This is neccessary; if not entered, the barline wuld be too short!
   \override Staff.BarLine #'bar-size = #3
 }
- 
+
 \new DrumStaff {
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
 
   % with this you load your new drum style table
-  \woodstaff 
+  \woodstaff
 
   \drummode {
     \time 2/4
@@ -411,27 +411,25 @@ woodstaff = {
 }
 @end lilypond
 
-@seealso
-
 Note that in this special case the length of the barline must
 altered with @code{\override Staff.BarLine #'bar-size #number}.
-Otherwise it would be too short. And You have also to define the
-positions of the to stafflines.  For more information about these
+Otherwise it would be too short.  And you have also to define the
+positions of the two stafflines.  For more information about these
 delicate things have a look at @ref{Staff symbol}.
 
 A tambourine, entered with @q{tamb}:
 
 @lilypond[quote,verbatim]
 tambustaff = {
-  \override Staff.StaffSymbol #'line-positions = #'( 0 )   
+  \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
   \set DrumStaff.instrumentName = "Tambourine"
 }
 
 \new DrumStaff {
-  \tambustaff 
+  \tambustaff
   % broken
-  % \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+  % \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
 
   \drummode {
     \time 6/8
@@ -442,7 +440,7 @@ tambustaff = {
     tamb2.*5/6 \startTrillSpan s8 \stopTrillSpan |
   }
 }
-@end lilypond 
+@end lilypond
 
 Music for Tam-Tam (entered with @q{tt}):
 
@@ -450,18 +448,18 @@ Music for Tam-Tam (entered with @q{tt}):
 #(define mydrums '((tamtam default #t 0)))
 
 tamtamstaff = {
-  \override Staff.StaffSymbol #'line-positions = #'( 0 )   
+  \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
   \set DrumStaff.instrumentName = "Tamtam"
 }
 
 \new DrumStaff {
   \tamtamstaff
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
 
   \drummode {
-    tt 1 \pp \laissezVibrer 
-  } 
+    tt 1 \pp \laissezVibrer
+  }
 }
 @end lilypond
 
@@ -472,12 +470,12 @@ Two different bells, entered with @q{cb} (cowbell) and @q{rb} (ridebell)
                    (cowbell  default #t -2)))
 
 bellstaff = {
-  \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)  
-  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) 
+  \override DrumStaff.StaffSymbol #'line-positions = #'(-2 3)
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
   \override Staff.BarLine #'bar-size = #3
   \set DrumStaff.instrumentName = "Different Bells"
 }
- 
+
 \new DrumStaff {
   \bellstaff
   \drummode {
@@ -501,12 +499,12 @@ global = {
   \time 3/8 s4.
   \time 2/4 s2
 }
- 
+
 drumsA = {
   \context DrumVoice <<
     { \global }
     { \drummode {
-        \autoBeamOff 
+        \autoBeamOff
         \stemDown sn8 \stemUp tamb s8 |
         sn4 \stemDown sn4 |
         \stemUp tamb8 \stemDown sn8 \stemUp sn16 \stemDown sn \stemUp sn8 |
@@ -522,12 +520,12 @@ drumsB = {
     s4 bd8 s2*2 s4 bd8 s4 bd8 s8
   }
 }
- 
+
 \layout {
   indent = #40
-} 
+}
 
-\score { 
+\score {
   \new StaffGroup <<
     \new DrumStaff {
       \set DrumStaff.instrumentName = \markup {
@@ -539,13 +537,13 @@ drumsB = {
       }
       \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
       \drumsA
-    } 
+    }
 
    \new DrumStaff {
      \set DrumStaff.instrumentName = "Grosse Caisse"
      \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
      \drumsB }
-  >> 
+  >>
 }
 @end lilypond
 
