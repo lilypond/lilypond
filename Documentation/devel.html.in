@@ -12,28 +12,15 @@
     <meta name="description"
           content="Top-level index to developers documentation for
                    LilyPond @TOPLEVEL_VERSION@">
-    <style type="text/css">
-    .navigation         { background-color: #e8ffe8;
-   	                  padding: 2; border: #c0ffc0 1px solid;
-			  text-align: center;
-                          font-weight: bold;
-                          font-family: avantgarde, sans-serif;
-                          font-size: 110%; }
-      a.title { font-weight: bold; font-size: 110%; }
-      ul { margin-left: 1em; padding: 0pt; border: 0pt; }
-      ul li { margin-top: 0.2em; }
-      td.left-column { padding-right: 1em; }
-      td.right-column { padding-left: 1em; }
-      hr { border:0; height:1; color: #000000; background-color: #000000; }
-    </style> 
   </head>
   
   <body>
-	<div class="navigation">
-	  <h1>LilyPond developers resources</h1>
-	</div>
-    <div align="center" class="titlepage">
 
+    <div class="header">
+      <h1>LilyPond developers resources</h1>
+    </div>
+
+    <div class="subheader">
       <p>
 	<strong>Version @TOPLEVEL_VERSION@</strong>
 	<br>
@@ -41,7 +28,7 @@
       </p>
     </div>
 
-    <table align="center">
+    <table id="navigation">
       <tbody>
         <tr>
           <td class="left-column">
@@ -50,43 +37,41 @@
 	  href="../input/regression/collated-files.html">Regression
 	  tests</a> (~ 5 Mb, in <a class="title"
 	  href="../input/regression/collated-files.pdf">PDF</a>)
-	<br>(general tests)
+        <br>(general tests)</li>
       <li><a class="title"
 	  href="../input/regression/musicxml/collated-files.html">MusicXML regression
 	  tests</a> (in <a class="title"
 	  href="../input/regression/musicxml/collated-files.pdf">PDF</a>)
-	<br>(musicxml2ly tests)
+        <br>(musicxml2ly tests)</li>
           </ul></td>
 	  <td class="right-column">
           <ul>
       <li><a class="title" href="http://lilypond.org/test">Regression tests results</a>
-	<br>(for comparison between releases)
+      <br>(for comparison between releases)</li>
       <li><a class="title" href="bibliography/index.html">Bibliography</a>
-        <br>(on background information)
+      <br>(on background information)</li>
           </ul></td>
         </tr>
         <tr>
           <td valign="baseline" class="left-column">
-          &nbsp;
 	<ul>
 	    <li><a class="title" href="http://lilypond.org/web/devel">lilypond.org development page</a>
-              <br>(for all contributors)
+            <br>(for all contributors)</li>
             <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git">lilypond.git repository</a>
-              <br>(official sources)
+            <br>(official sources)</li>
             <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=gub">GUB Readme</a>
-	      <br>(about Grand Unified Binaries packages)
+            <br>(about Grand Unified Binaries packages)</li>
 	</ul>
     </td><td class="right-column">
-          &nbsp;
 	<ul>
 	    <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation%2Fuser%2FREADME.txt;hb=master">Documentation Readme</a>
-	      <br>(for documentation editors)
+            <br>(for documentation editors)</li>
             <li><a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=README;hb=web">lilypond.org Readme</a>
 and <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=TRANSLATION;hb=web">Translation</a>
-              <br>(how to translate and build lilypond.org website)
+<br>(how to translate and build lilypond.org website)</li>
             <li>
 	      <a class="title" href="http://git.sv.gnu.org/gitweb/?p=lilypond.git;a=blob_plain;f=Documentation%2FTRANSLATION;hb=lilypond%2Ftranslation">Documentation translation</a>
-	      <br>(how to translate documentation)
+              <br>(how to translate documentation)</li>
 	</ul>
 	</td>
         </tr>

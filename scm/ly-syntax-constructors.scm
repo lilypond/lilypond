@@ -97,6 +97,8 @@
   (context-spec-music
    (make-sequential-music
     (list
+     (make-property-unset 'tempoUnitDuration)
+     (make-property-unset 'tempoUnitCount)
      (make-property-set 'tempoText text)))
    'Score))
 

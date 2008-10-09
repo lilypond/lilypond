@@ -33,12 +33,12 @@ aber hiermit kann auch der Rhythmus einer Melodie dargestellt werden.
 @end menu
 
 @node References for percussion
-@subsubsection References for percussion
+@unnumberedsubsubsec References for percussion
 
 @untranslated
 
 @node Basic percussion notation
-@subsubsection Basic percussion notation
+@unnumberedsubsubsec Basic percussion notation
 
 @cindex Percussion
 @cindex Drums
@@ -67,7 +67,7 @@ Programmreferenz:
 
 
 @node Percussion staves
-@subsubsection Percussion staves
+@unnumberedsubsubsec Percussion staves
 
 @cindex Perkussion
 @cindex Schlagzeug
@@ -286,7 +286,7 @@ wird sidestick für diesen Zweck benutzt.
 
 
 @node Ghost notes
-@subsubsection Ghost notes
+@unnumberedsubsubsec Ghost notes
 
 Geisternoten für Schlagzeug und Perkussion können mit dem 
 Klammer- (@code{\parenthesize})-Befehl, beschrieben in @ref{Parentheses}, 

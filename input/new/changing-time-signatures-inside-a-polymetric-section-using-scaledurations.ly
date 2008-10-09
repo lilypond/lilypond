@@ -1,4 +1,4 @@
-\version "2.11.48"
+\version "2.11.61"
 \header {
   lsrtags = "rhythms,contexts-and-engravers"
   texidoc = "The @code{measureLength} property, together with

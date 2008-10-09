@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 0380ecf564c664ec8979142a95c918ce09f3ab6a
+    Translation of GIT committish: bf1e35f1dee87dc6c6537e52cda6c2ed9add6fb4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -33,6 +33,11 @@
 
 @c Translators: Francisco Vila
 
+@ifnottex
+@node Top
+@top GNU LilyPond: Manual de aprendizaje
+@end ifnottex
+
 @ifhtml
 Este documento también está disponible como
 @uref{source/Documentation/user/lilypond-learning.es.pdf,PDF} y como
@@ -54,15 +59,15 @@ Este documento también está disponible como
 @author El equipo de desarrollo de LilyPond
 
 
-Copyright @copyright{} 1999--2007 por los autores
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
+Copyright @copyright{} 1999--2008 por los autores
 
 @emph{La traducción de la siguiente nota de copyright se ofrece como
 cortesía para las personas de habla no inglesa, pero únicamente la
 nota en inglés tiene validez legal.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
 
 @quotation
 Se otorga permiso para copiar, distribuir y/o modificar este documento
@@ -88,15 +93,15 @@ Para LilyPond versión @version{}
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2007 por los autores
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
+Copyright @copyright{} 1999--2008 por los autores
 
 @emph{La traducción de la siguiente nota de copyright se ofrece como
 cortesía para las personas de habla no inglesa, pero únicamente la
 nota en inglés tiene validez legal.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
 
 @quotation
 Se otorga permiso para copiar, distribuir y/o modificar este documento
@@ -121,15 +126,15 @@ Free Documentation License''.
 @ifnottex
 Este archivo es la documentación de GNU LilyPond orientada a quienes empiezan con el programa.
 
-Copyright @copyright{} 1999--2007 por los autores
-
-@emph{The translation of the following copyright notice is provided
-for courtesy to non-English speakers, but only the notice in English
-legally counts.}
+Copyright @copyright{} 1999--2008 por los autores
 
 @emph{La traducción de la siguiente nota de copyright se ofrece como
 cortesía para las personas de habla no inglesa, pero únicamente la
 nota en inglés tiene validez legal.}
+
+@emph{The translation of the following copyright notice is provided
+for courtesy to non-English speakers, but only the notice in English
+legally counts.}
 
 @quotation
 Se otorga permiso para copiar, distribuir y/o modificar este documento
@@ -152,10 +157,6 @@ Free Documentation License''.
 
 @c TRANSLATE ME
 @ifnottex
-@node Top
-@top GNU LilyPond: manual de aprendizaje
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
-
 Éste es el manual de aprendizaje de GNU LilyPond, versión @version{}.
 Para ver más información acerca de la relación entre éste y el resto
 de los documentos, consulte @ref{About the documentation}.

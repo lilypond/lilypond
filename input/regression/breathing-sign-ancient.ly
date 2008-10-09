@@ -9,7 +9,7 @@ finalis, the latter three looking similar to bar glyphs.
 
 " }
 
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 
 \context VaticanaStaff {
   \relative c' {

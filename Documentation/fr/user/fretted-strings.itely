@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -380,7 +380,7 @@ Référence du programme : @rinternals{StrokeFinger}
 @end menu
 
 @node Banjo tablatures
-@subsubsection Banjo tablatures
+@unnumberedsubsubsec Banjo tablatures
 
 @cindex Tablatures de banjo
 

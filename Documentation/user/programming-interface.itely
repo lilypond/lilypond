@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -22,8 +22,9 @@ not familiar with Scheme, you may wish to read our
 * Building complicated functions::  
 * Markup programmer interface::  
 * Contexts for programmers::    
-* Scheme procedures as properties::  
-* TODO moved into scheme::      
+* Scheme procedures as properties::
+* Using Scheme code instead of \tweak::  
+* Difficult tweaks::
 @end menu
 
 
@@ -1366,16 +1367,8 @@ to @var{proc}, the outer ensures that result of the function is
 returned, rather than the @code{simple-closure} object.
 
 
-@node TODO moved into scheme
-@section TODO moved into scheme
-
-@menu
-* Using Scheme code instead of \tweak::  
-* Difficult tweaks::            
-@end menu
-
 @node Using Scheme code instead of \tweak
-@subsection Using Scheme code instead of @code{\tweak}
+@section Using Scheme code instead of @code{\tweak}
 
 The main disadvantage of @code{\tweak} is its syntactical
 inflexibility.  For example, the following produces a syntax error.
@@ -1404,7 +1397,7 @@ F = #(let ((m (make-music 'ArticulationEvent
              (acons 'font-size -3
                     (ly:music-property m 'tweaks)))
        m)
- 
+
 \relative c'' @{
   c4^\F c4_\F
 @}
@@ -1422,7 +1415,7 @@ written back with @code{set!}.  The last element of the
 
 
 @node Difficult tweaks
-@subsection Difficult tweaks
+@section Difficult tweaks
 
 There are a few classes of difficult adjustments.
 

@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4be1308672c6f8efbe660c9eddc0a6a167c9ad31
+    Translation of GIT committish: f2dfe5301630aa53a9558b33d1a97595b4724911
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -733,12 +733,11 @@ de los interfaces, y descubrir qué objetos usan estas propiedades de
 interface.
 
 Mire de nuevo la página del RFI que describe a LyricText.  Al final de
-la página hay una lista de enlaces (en las versiones de html del RFI)
-a los interfaces que LyricText contempla.  La lista tiene siete
-elementos, entre ellos @code{font-interface}.  Al seguir este enlace
-llegamos a las propiedades asociadas con este interface, que también
-son propiedades de todos los objetos que lo llevan, entre ellos
-LyricText.
+la página hay una lista de enlaces a los interfaces que LyricText
+contempla.  La lista tiene siete elementos, entre ellos
+@code{font-interface}.  Al seguir este enlace llegamos a las
+propiedades asociadas con este interface, que también son propiedades
+de todos los objetos que lo llevan, entre ellos LyricText.
 
 Ahora vemos todas las propiedades ajustables por el usuario que
 controlan las tipografías, entre ellas @code{font-shape(symbol)},
@@ -771,13 +770,15 @@ apóstrofes antes de @code{thickness} en el ejemplo anterior y en
 @code{font-shape}.  Los dos son también símbolos.  Los símbolos son
 nombres especiales que son conocidos por LilyPond internamente.
 Algunos de ellos son nombres de propiedades, como @code{thickness} o
-@code{font-shape}, otros son en efecto valores especiales que se les
-puede dar a las propiedades, como @code{italic}.  Observe la
-distinción entre esto y las cadenas de texto arbitrarias, que
-aparecerían entrecomilladas como @code{"a text string"}.
+@code{font-shape}, otros se utilizan como valores que se les puede dar
+a las propiedades, como @code{italic}.  Observe la distinción entre
+esto y las cadenas de texto arbitrarias, que aparecerían
+entrecomilladas como @code{"a text string"}.  Para ver más detalles
+relacionados con los símbolos y las cadenas, consulte @ref{Scheme
+tutorial}.
 
-De acuerdo, entonces la instrucción @code{\override} que necesitamos
-para imprimir la letra en cursiva sería
+Así pues, la instrucción @code{\override} que necesitamos para
+imprimir la letra en cursiva sería
 
 @example
 \override LyricText #'font-shape = #'italic
@@ -831,6 +832,11 @@ final y la llave de cierre.}
 escriba siempre espacios antes y después del punto que separa el
 nombre del contexto y el nombre del objeto.}
 
+@seealso
+
+Manual de aprendizaje:
+@ref{Scheme tutorial}.
+
 @node Types of properties
 @subsection Types of properties
 
@@ -857,14 +863,14 @@ en la instrucción @code{\override}.
   @tab Un número decimal positivo (en unidades de espacios de pentagrama)
   @tab @code{2.5}, @code{0.34}
 @item Dirección
-  @tab Una constante válida de dirección o su equivalente numérico
+  @tab Una constante válida de dirección o su equivalente numérico (se permiten valores decimales entre -1 y 1)
   @tab @code{LEFT}, @code{CENTER}, @code{UP},
        @code{1}, @code{-1}
 @item Entero
   @tab Un número entero positivo
   @tab @code{3}, @code{1}
 @item Lista
-  @tab Un conjunto de elementos entre paréntesis separados por espacios y precedido de un apóstrofe
+  @tab Un conjunto de valores separados por espacios, encerrado entre paréntesis y precedido de un apóstrofe
   @tab @code{'(left-edge staff-bar)}, @code{'(1)},
        @code{'(1.0 0.25 0.5)}
 @item Marcado
@@ -884,13 +890,18 @@ en la instrucción @code{\override}.
   @tab Cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofe
   @tab @code{'italic}, @code{'inside}
 @item Desconocido
-  @tab Un procedimiento o @code{#f} (para no producir ninguna acción)
+  @tab Un procedimiento o @code{#f} para no producir ninguna acción
   @tab @code{bend::print}, @code{ly:text-interface::print},
        @code{#f}
 @item Vector
   @tab Una lista de tres elementos encerrados entre paréntesis y precedida de apóstrofe-almohadilla, @code{'#}.
   @tab @code{'#(#t #t #f)}
 @end multitable
+
+@seealso
+
+Manual de aprendizaje:
+@ref{Scheme tutorial}.
 
 @node Appearance of objects
 @section Appearance of objects
@@ -919,13 +930,14 @@ que no se impriman?
 Antes de enredarnos con esto, recordemos que las propiedades de los
 objetos se agrupan en lo que hemos llamado @emph{interfaces} (véase
 @ref{Properties found in interfaces}).  Esto es simplemente agrupar
-las propiedades que normalmente se necesitan juntas: si una de ellas
-se necesita para un objeto, también las otras.  Así, ciertos objetos
-necesitan las propiedades de algunos interfaces, otros necesitan las
-de otros interfaces.  Los interfaces que contienen las propiedades que
-un determinado grob necesita se encuentran relacionadas en el manual
-RFI al final de la página que describe dicho grob, y esas propiedades
-se pueden ver mirando dichos interfaces.
+las propiedades que se pueden usar juntas para trucar un objeto
+gráfico: si una de ellas se necesita para un objeto, también las
+otras.  Así, ciertos objetos usan las propiedades de algunos
+interfaces, otros usan las de otros interfaces.  Los interfaces que
+contienen las propiedades que un determinado grob necesita se
+encuentran relacionadas en el manual RFI al final de la página que
+describe dicho grob, y esas propiedades se pueden ver mirando dichos
+interfaces.
 
 Hemos explicado cómo encontrar información sobre los grobs en
 @ref{Properties of layout objects}.  Usando el mismo enfoque, vamos al

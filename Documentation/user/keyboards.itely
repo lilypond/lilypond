@@ -6,27 +6,32 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
-@node Keyboard instruments
-@section Keyboard instruments
+@node Keyboard and other multi-staff instruments
+@section Keyboard and other multi-staff instruments
 
 @lilypondfile[quote]{keyboard-headword.ly}
 
-This section discusses several aspects of music notation that are unique
-to keyboard instruments.
+This section discusses several aspects of music notation that are
+unique to keyboard instruments and other instruments notated on
+many staves, such as harps and vibraphones.  For the purposes of
+this section this entire group of multi-staff instruments is called
+@qq{keyboards} for short, even though some of them do not have a
+keyboard.
 
 @menu
 * Common notation for keyboards::
 * Piano::
 * Accordion::
+* Harp::
 @end menu
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
 
-This section discusses notation issues that may arise for most keyboard
-instruments.
+This section discusses notation issues that may arise for most
+many-stringed instruments.
 
 @menu
 * References for keyboards::
@@ -45,6 +50,7 @@ instruments.
 @cindex staves, keyed instruments
 @cindex keyboard instrument staves
 @cindex keyed instrument staves
+
 @funindex PianoStaff
 
 Keyboard instruments are usually notated with Piano staves.  These
@@ -141,6 +147,7 @@ objects}.
 @cindex notes, cross-staff
 @cindex cross-staff beams
 @cindex beams, cross-staff
+
 @funindex \change
 @funindex change
 
@@ -207,6 +214,7 @@ Internals Reference:
 @cindex changing staff automatically
 @cindex automatic staff changes
 @cindex staff changes, automatic
+
 @funindex \autochange
 @funindex autochange
 @funindex PianoStaff
@@ -237,6 +245,7 @@ in advance.
 
 @cindex relative music and autochange
 @cindex autochange and relative music
+
 @funindex \relative
 @funindex relative
 
@@ -300,8 +309,10 @@ staff based on the first note named in the chord construct.
 @cindex line, cross-staff
 @cindex line, staff-change
 @cindex follow voice
+@cindex voice, following
 @cindex staff switching
 @cindex cross-staff
+
 @funindex followVoice
 @funindex \showStaffSwitch
 @funindex showStaffSwitch
@@ -352,6 +363,7 @@ Internals Reference:
 @cindex chords, cross-staff
 @cindex cross-staff chords
 @cindex cross staff chords
+
 @funindex Stem
 @funindex cross-staff
 @funindex length
@@ -416,11 +428,14 @@ piano.
 @cindex piano pedals
 @cindex pedals, piano
 @cindex sustain pedal
+@cindex pedal, sustain
 @cindex sostenuto pedal
+@cindex pedal, sostenuto
 @cindex una corda
 @cindex tre corde
 @cindex sos.
 @cindex U.C.
+
 @funindex \sustainOn
 @funindex sustainOn
 @funindex \sustainOff
@@ -454,6 +469,7 @@ c4\unaCorda d e g
 @cindex pedal indication, mixed
 @cindex pedal sustain style
 @cindex sustain pedal style
+
 @funindex pedalSustainStyle
 @funindex mixed
 @funindex bracket
@@ -512,6 +528,7 @@ This section discusses notation that is unique to the accordion.
 
 @node Discant symbols
 @unnumberedsubsubsec Discant symbols
+
 @cindex accordion discant symbols
 @cindex discant symbols, accordion
 @cindex accordion shifts
@@ -533,3 +550,27 @@ come into use to simplify the performance instructions.
 
 Snippets:
 @rlsr{Keyboards}.
+
+
+@node Harp
+@subsection Harp
+
+TBC
+
+@ignore
+Some possibilities:
+- glissandi
+- tremolo (for bisbigliando)
+- natural harmonics
+- directional arpeggio and non-arpeggio
+- workaroung for keeping both staves visible in an orchestral
+  score,
+http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
+and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+
+An LSR snippet could be used to demonstrate the main items; in the
+case of glissandi, it would be desirable to have a demonstration
+of different styles.
+
+@end ignore
+

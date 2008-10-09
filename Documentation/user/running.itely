@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 
 @node Running LilyPond
@@ -42,8 +42,8 @@ as @code{midi2ly}) which are only available on the command-line.
 By @q{command-line}, we mean the command line in the operating system.
 Windows users might be more familiar with the terms @q{DOS shell} or
 @q{command shell}; MacOS@tie{}X users might be more familiar with the terms
-@q{terminal} or @q{console}.  They should also consult @ref{MacOS X
-on the command-line}.
+@q{terminal} or @q{console}.  They should also consult @ref{Setup
+for MacOS X}.
 
 Describing how to use this part of an operating system is outside the
 scope of this manual; please consult other documentation on this topic
@@ -51,15 +51,15 @@ if you are unfamiliar with the command-line.
 
 @menu
 * Invoking lilypond::
-* Command line options::
+* Command line options for lilypond::
 * Environment variables::
 @end menu
 
 @node Invoking lilypond
-@subsection Invoking lilypond
+@subsection Invoking @command{lilypond}
 
-@cindex Invoking LilyPond
-@cindex command line options
+@cindex Invoking @command{lilypond}
+@cindex command line options for @command{lilypond}
 @cindex options, command line
 @cindex switches
 
@@ -99,8 +99,8 @@ will output @var{base}@file{-violin.pdf} and
 @var{base}@file{-cello-1.pdf}.
 
 
-@node Command line options
-@subsection Command line options
+@node Command line options for lilypond
+@subsection Command line options for @command{lilypond}
 
 The following options are supported:
 
@@ -168,7 +168,7 @@ This option sets the default paper-size,
 
 @noindent
 Note that the string must be enclosed in escaped quotes ( @code{\"} ).
-
+@c Match " in previous line to help context-sensitive editors
 
 @item safe
 Do not trust the @code{.ly} input.
@@ -473,7 +473,7 @@ above the indicated position.
 
 
 @node Updating files with convert-ly
-@section Updating with @command{convert-ly}
+@section Updating files with @command{convert-ly}
 
 @cindex Updating a LilyPond file
 @cindex convert-ly
@@ -499,7 +499,13 @@ MacOS@tie{}X users may execute this command under the menu entry
 If there are no changes to myfile.ly and file called myfile.ly.NEW
 is created, then myfile.ly is already updated.
 
-@subsection Command line options
+@menu
+* Command line options for convert-ly::
+* Problems with convert-ly::
+@end menu
+
+@node Command line options for convert-ly
+@subsection Command line options for @command{convert-ly}
 
 @command{convert-ly} always converts up to the last syntax change handled by
 it.  This means that the @code{\version} number left in the file is
@@ -556,11 +562,6 @@ available version.
 @item -h, --help
 Print usage help.
 @end table
-
-
-@menu
-* Problems with convert-ly::    
-@end menu
 
 
 @node Problems with convert-ly

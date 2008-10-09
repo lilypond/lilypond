@@ -23,10 +23,14 @@ testnotes = { \autoBeamOff c'8 d'16 c'32 d'64 \acciaccatura {c'8} d'64 c''8 d''1
 #(define (inverted-flag stem-grob)
   (let* ((dir (if (eqv? (ly:grob-property stem-grob 'direction) UP) "d" "u"))
          (flag (retrieve-glyph-flag "" dir "" stem-grob))
+         (line-thickness (ly:staff-symbol-line-thickness stem-grob))
+         (stem-thickness (ly:grob-property stem-grob 'thickness))
+         (stem-width (* line-thickness stem-thickness))
          (stroke-style (ly:grob-property stem-grob 'stroke-style))
          (stencil (if (null? stroke-style) flag
-                         (add-stroke-glyph flag stem-grob dir stroke-style ""))))
-    (ly:stencil-rotate-absolute stencil 180 0 0)))
+                         (add-stroke-glyph flag stem-grob dir stroke-style "")))
+         (rotated-flag (ly:stencil-rotate-absolute stencil 180 0 0)))
+    (ly:stencil-translate rotated-flag (cons (- (/ stem-width 2))  0))))
 
 {
   \override Score.RehearsalMark #'self-alignment-X = #LEFT

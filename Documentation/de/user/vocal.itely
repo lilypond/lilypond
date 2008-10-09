@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -15,45 +15,44 @@
 
 
 @menu
-* Common notation for vocals::
+* Entering lyrics::
 * Aligning lyrics to a melody::
-* Placement of lyrics::
+* Specific uses of lyrics::
 * Stanzas::
 @end menu
 
-@node Common notation for vocals
-@subsection Common notation for vocals
+@node Entering lyrics
+@subsection Entering lyrics
 
 @untranslated
 
 
 @menu
-* References for vocal music::
+* Lyrics explained::
 * Setting simple songs::
-* Entering lyrics::
 * Working with lyrics and variables::
+* References for vocal music::
 @end menu
 
-@node References for vocal music
-@subsubsection References for vocal music
+
+@node Lyrics explained
+@unnumberedsubsubsec Lyrics explained
 
 @untranslated
 
 
 @node Setting simple songs
-@subsubsection Setting simple songs
+@unnumberedsubsubsec Setting simple songs
 
 @untranslated
-
-
-@node Entering lyrics
-@subsubsection Entering lyrics
-
-@untranslated
-
 
 @node Working with lyrics and variables
-@subsubsection Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
+
+@untranslated
+
+@node References for vocal music
+@unnumberedsubsubsec References for vocal music
 
 @untranslated
 
@@ -75,49 +74,49 @@
 @end menu
 
 @node Automatic syllable durations
-@subsubsection Automatic syllable durations
+@unnumberedsubsubsec Automatic syllable durations
 
 @untranslated
 
 
 @node Manual syllable durations
-@subsubsection Manual syllable durations
+@unnumberedsubsubsec Manual syllable durations
 
 @untranslated
 
 
 @node Multiple syllables to one note
-@subsubsection Multiple syllables to one note
+@unnumberedsubsubsec Multiple syllables to one note
 
 @untranslated
 
 
 @node Multiple notes to one syllable
-@subsubsection Multiple notes to one syllable
+@unnumberedsubsubsec Multiple notes to one syllable
 
 @untranslated
 
 
 @node Skipping notes
-@subsubsection Skipping notes
+@unnumberedsubsubsec Skipping notes
 
 @untranslated
 
 
 @node Extenders and hyphens
-@subsubsection Extenders and hyphens
+@unnumberedsubsubsec Extenders and hyphens
 
 @untranslated
 
 
 @node Lyrics and repeats
-@subsubsection Lyrics and repeats
+@unnumberedsubsubsec Lyrics and repeats
 
 @untranslated
 
 
-@node Placement of lyrics
-@subsection Placement of lyrics
+@node Specific uses of lyrics
+@subsection Specific uses of lyrics
 
 @untranslated
 
@@ -131,31 +130,31 @@
 @end menu
 
 @node Divisi lyrics
-@subsubsection Divisi lyrics
+@unnumberedsubsubsec Divisi lyrics
 
 @untranslated
 
 
 @node Lyrics independent of notes
-@subsubsection Lyrics independent of notes
+@unnumberedsubsubsec Lyrics independent of notes
 
 @untranslated
 
 
 @node Chants
-@subsubsection Chants
+@unnumberedsubsubsec Chants
 
 @untranslated
 
 
 @node Spacing out syllables
-@subsubsection Spacing out syllables
+@unnumberedsubsubsec Spacing out syllables
 
 @untranslated
 
 
 @node Centering lyrics between staves
-@subsubsection Centering lyrics between staves
+@unnumberedsubsubsec Centering lyrics between staves
 
 @untranslated
 
@@ -176,25 +175,25 @@
 @end menu
 
 @node Adding stanza numbers
-@subsubsection Adding stanza numbers
+@unnumberedsubsubsec Adding stanza numbers
 
 @untranslated
 
 
 @node Adding dynamics marks to stanzas
-@subsubsection Adding dynamics marks to stanzas
+@unnumberedsubsubsec Adding dynamics marks to stanzas
 
 @untranslated
 
 
 @node Adding singers' names to stanzas
-@subsubsection Adding singers' names to stanzas
+@unnumberedsubsubsec Adding singers' names to stanzas
 
 @untranslated
 
 
 @node Stanzas with different rhythms
-@subsubsection Stanzas with different rhythms
+@unnumberedsubsubsec Stanzas with different rhythms
 
 @untranslated
 
@@ -202,13 +201,13 @@
 @subsubheading Ignoring melismata
 @subsubheading Switching to an alternative melody
 @node Printing stanzas at the end
-@subsubsection Printing stanzas at the end
+@unnumberedsubsubsec Printing stanzas at the end
 
 @untranslated
 
 
 @node Printing stanzas at the end in multiple columns
-@subsubsection Printing stanzas at the end in multiple columns
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns
 
 @untranslated
 

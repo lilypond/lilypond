@@ -11,49 +11,49 @@ body {
   padding: 0;
   height: 100%;
   font-size: 100%;
-  line-height: 1.125em;
+  line-height: 1.125;
   color: black;
   background-color: white;
 }
-
 
 /***********************************************************/
 /*                      HEADERS                            */
 /***********************************************************/
 
-.chapter, .section, .subsection,
+.chapter, .section, .subsection, .subsubsection,
 .appendix, .appendixsec, .appendixsubsec,
-.unnumberedsubsubsec, .subsubheading {
-  color: #248;
+.unnumbered, .unnumberedsec, .unnumberedsubsec, .unnumberedsubsubsec,
+.subheading, .subsubheading {
+  color: #204a87;
   border-bottom: 1px dashed black;
-  padding-bottom: 0.3em;
-  margin-top: 1em;
+  padding-bottom: 0.15em;
+  margin-top: 0.6em;
   margin-bottom: 1em;
 }
 
 .settitle {
-  background-color: #be6;
+  background: #b1d281;
   font-size: 2em;
   text-align: center;
   margin: 0;
-  padding: 0.75em;
-  border: 1px solid #7a2;
+  padding: 0.4em 0.5em;
+  border: 1px solid #7b925a;
   border-width: 0 0 1px 0;
 }
 
-.chapter {
+.chapter, .appendix, .unnumbered {
   font-size: 1.8em;
 }
 
-.section {
+.section, .appendixsec, .unnumberedsec {
   font-size: 1.6em;
 }
 
-.subsection {
+.subsection, .appendixsubsec, .unnumberedsubsec {
   font-size: 1.4em;
 }
 
-.unnumberedsubsubsec {
+.subheading, .subsubsection, .unnumberedsubsubsec {
   font-size: 1.25em;
 }
 
@@ -62,24 +62,31 @@ body {
   font-weight: bold;
 }
 
+.chapheading {
+  text-indent: -999em;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+
 /***********************************************************/
 /*                       LINKS                             */
 /***********************************************************/
 
 a:link {
-  color: #344;
+  color: #3465a4;
 }
 
 a:visited {
-  color: #850;
+  color: #8f5902;
 }
 
 a:active {
-  color: #7d1;
+  color: #73d216;
 }
 
 a:hover {
-  color: #c71;
+  color: #ce5c00;
 }
 
 /***********************************************************/
@@ -89,8 +96,8 @@ a:hover {
 blockquote {
   width: 96%;
   padding: 0;
-  border: 1px solid #7a2;
-  border-left: 5px solid #9c4;
+  border: 1px solid #708a4b;
+  border-left: 5px solid #a3ca6d;
   margin: 1em auto;
 }
 
@@ -103,7 +110,7 @@ blockquote blockquote {
   border: none;
 }
 
-.verbatim, .example .example {
+.verbatim, .example .example, .lisp {
   font-size: 1em;
   padding: 1em;
   margin: 0;
@@ -114,19 +121,20 @@ blockquote blockquote {
   margin: 0;
 }
 
-hr {
+#main hr {
   height: 0;
   padding: 0;
   border: 0;
-  margin: 1em 0 0 0;
+  margin: 0;
   text-indent: -999em;
 }
 
 table.cartouche {
-  background: #eee;
+  background: #f5f5dc; /* beige */
   width: 85%;
+  border-collapse: collapse;
   padding: 0 0.5em;
-  border: 2px solid #8e3;
+  border: 2px solid #8f5902;
   margin: 0 auto 1em;
 }
 
@@ -155,7 +163,12 @@ div#main {
 }
 
 div#main li {
-  padding-right: 1em;
+  padding: 0 1em 0.5em 0;
+}
+
+div#main ul {
+  margin: 0;
+  padding-left: 3em;
 }
 
 h1, h2, h3, h4, p, table, address, dt {
@@ -163,8 +176,14 @@ h1, h2, h3, h4, p, table, address, dt {
   padding-right: 1em;
 }
 
+p {
+  margin: 1em 0;
+}
+
 #languages {
-  padding: 1em;
+  background-color: #f5f5dc; /* beige */
+  padding: 0.5em 1em;
+  border-top: 1px solid #8fa77f;
   margin: 0;
 }
 
@@ -173,6 +192,14 @@ pre.menu-comment {
   padding-top: 1em;
   padding-bottom: 0;
   margin: 0;
+}
+
+#main .contents li {
+  padding-bottom: 0;
+}
+
+#main .contents > ul {
+  margin-bottom: 1em;
 }
 
 /***********************************************************/
@@ -188,11 +215,11 @@ div#tocframe {
   padding: 0;
   margin: 0;
   overflow: auto;
-  background-color: #eee;
+  background-color: #f5f5dc; /* beige */
   z-index: 100;
   list-style-type: none;
   font-size: 0.83em;
-  line-height: 1.4em;
+  line-height: 1.4;
 }
 
 @media screen {
@@ -201,30 +228,24 @@ div#tocframe {
   }
 }
 
-/* This is an interesting debate.
- * In div#main, I think links should be
- * underlined, but it would be safe to
- * take text-decoration away from links in
- * div#tocframe.  I like the hover underline
- * effect though.
- *
-#tocframe a:link, #tocframe a:visited {
-  text-decoration: none;
+div#tocframe p.toc_uplink {
+  font-size: 1em;
+  line-height: 1.125;
+  background: #c9ccc4;
+  padding: 0.25em 1em;
+  border-bottom: 1px solid #8a8c87;
+  margin: 0;
 }
-
-#tocframe a:hover {
-  text-decoration: underline;
-}
-  */
 
 div#tocframe h4 {
   font-size: 1em;
-  font-weight: normal;
-  color: #344;
-  background-color: #bbb;
-  padding: 2px 0 1px 1em;
-  border-top: 5px solid #677;
-  border-bottom: 1px solid #788;
+  line-height: 1.125;
+  font-weight: bold;
+  font-style: italic;
+  /* background: #c9ccc4; */
+  /* padding: 0.25em 1em; */
+  padding: 0.75em 0.5em 0 0.5em;
+  /* border-bottom: 1px solid #8a8c87; */
   margin: 0;
 }
 
@@ -237,7 +258,7 @@ div#tocframe h4 {
 }
 
 #tocframe ul.toc {
-  padding: 1em 0.5em;
+  padding: 0.25em 0.5em 1em 0.5em;
   list-style-type: none;
   margin: 0;
 }
@@ -271,40 +292,50 @@ li.toc_current ul {
   background: transparent;
 }
 
-
 /***********************************************************/
 /*                     NAVIGATION                          */
 /***********************************************************/
 
 .nav_table {
   width: 100%;
-  background-color: #bbb;
-  font-size: 0.8em;
+  background: #c9ccc4;
+  font-size: 0.83em;
+  line-height: 1.125;
+  border-collapse: collapse;
   padding: 0;
   border: 0;
-  border-top: 5px solid #677;
-  border-bottom: 1px solid #788;
+  border-bottom: 1px solid #8a8c87;
+  margin: 0;
+}
+
+.nav_table tr, .nav_table a {
+  padding: 0;
+  margin: 0;
+}
+
+.nav_table td {
+  padding: 0.25em;
   margin: 0;
 }
 
 div.header {
-  background-color: #be6;
+  background: #b1d281;
   text-align: center;
   padding: 0.5em;
+  border-bottom: 1px solid #7b925a;
   margin: 0;
   height: auto;
 }
 
 div.header h1 {
-  padding: 0.5em;
+  font-size: 2em;
+  padding: 0.25em;
   margin: 0;
 }
 
 div.subheader {
   background-color: #ddd;
   padding: 0;
-  border-top: 5px solid #899;
-  border-bottom: 1px solid #9aa;
   margin: 0;
   text-align: center;
 }
@@ -326,7 +357,7 @@ table#navigation td {
 
 table#navigation ul {
   padding-left: 0.5em;
-  margin-bottom: 1em;
+  margin: 0;
 }
 
 table .title {
@@ -334,19 +365,20 @@ table .title {
 }
 
 .footer {
-  background-color: #dfa;
-  border: 0;
-  border-top: 1px solid #8a5;
-  border-bottom: 5px solid #ac7;
-  padding: 0.4em 0;
+  background: #c6e7b0;
   font-size: 0.8em;
-  text-indent: 1em;
+  border: 0;
+  padding: 0.2em 0;
+  margin: 0;
 }
 
 .footer p {
-  line-height: 1.5;
-  padding: 0;
-  margin: 0 0.25em;
+  padding: 0 1.25em;
+  margin: 0.4em 0;
+}
+
+table.menu {
+  margin: 0 0 1em;
 }
 
 /***********************************************************/

@@ -6,86 +6,171 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Unfretted string instruments
 @section Unfretted string instruments
 
-This section includes extra information for writing for unfretted
-string instruments.
+@lilypondfile[quote]
+{unfretted-headword.ly}
+
+@cindex orchestral strings
+@cindex strings, writing for
+
+This section provides information and references which are helpful
+when writing for unfretted string instruments, principally
+orchestral strings.
 
 @menu
-* Common notation for unfretted strings::  
-* Bowed instruments::           
-* Plucked instruments::         
+* Common notation for unfretted strings::
 @end menu
 
 @node Common notation for unfretted strings
 @subsection Common notation for unfretted strings
 
+There is little specialist notation for unfretted string
+instruments.  The music is notated on a single staff, and
+usually only a single voice is required.  Two voices might
+be required for some double-stopped or divisi passages.
+
 @menu
-* References for unfretted strings::  
+* References for unfretted strings::
+* Bowing indications::
+* Harmonics::
+* Snap (Bartok) pizzicato::
 @end menu
 
 @node References for unfretted strings
-@subsubsection References for unfretted strings
+@unnumberedsubsubsec References for unfretted strings
 
-@c TODO Add refs to fingerings, \thumb
-@c TODO Add multiple fingering indications?
-TBC
+Most of the notation which is useful for orchestral strings
+and other bowed instruments is covered elsewhere:
 
-@c TODO Decide whether to resurrect Bowed instruments subsection
-@c and if so which of the above should go there
+@itemize
 
-@node Bowed instruments
-@subsection Bowed instruments
+@item Texual indications such as @qq{pizz.} and @qq{arco} are
+added as simple text -- see @ref{Text scripts}.
 
-@menu
-* References for bowed strings::  
-@end menu
+@item Fingerings, including the thumb indication, are described
+in @ref{Fingering instructions}.
 
-@node References for bowed strings
-@subsubsection References for bowed strings
+@item Double stopping is normally indicated by writing a chord,
+see @ref{Chorded notes}.  Directives for playing chords may be
+added, see @ref{Arpeggio}.
 
-@c link to slurs, articulation (for \upbow \downbow).  maybe
-@c an example as well.
-@c TODO Add snippet showing pizzicato markings
+@item A template for a string quartet can be found in
+@rlearning{String quartet}.  Others are shown in the snippets.
 
-@cindex artificial harmonics
+@end itemize
 
-Artificial harmonics are notated with a different note head style.  They
-are entered by marking the harmonic pitch with @code{\harmonic}.
+@seealso
+Learning Manual:
+@rlearning{String quartet}.
 
-@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
-<c g'\harmonic>4
+Notation Reference:
+@ref{Text scripts},
+@ref{Fingering instructions},
+@ref{Chorded notes},
+@ref{Arpeggio}.
+
+Snippets:
+@rlsr{Unfretted strings}.
+
+@node Bowing indications
+@unnumberedsubsubsec Bowing indications
+
+@funindex \upbow
+@funindex \downbow
+
+@cindex bowing indications
+@cindex up bow indication
+@cindex down bow indication
+
+Bowing indications are created as articulations, which are
+described in @ref{Articulations and ornamentations}.  The
+bowing commands, @code{\upbow} and @code{\downbow}, are used with
+slurs as follows:
+
+@lilypond[verbatim,quote,relative=2]
+c4(\downbow d) e(\upbow f)
 @end lilypond
 
 
-@node Plucked instruments
-@subsection Plucked instruments
+@seealso
 
+Notation Reference:
+@ref{Articulations and ornamentations},
+@ref{Slurs}.
 
-@menu
-* Harp::                        
-@end menu
+@node Harmonics
+@unnumberedsubsubsec Harmonics
 
-@node Harp
-@subsubsection Harp
+@funindex \harmonic
 
-TBC
+@strong{@i{Natural harmonics}}
 
-Some possibilities:
-- glissandi
-- tremolo (for bisbigliando)
-- natural harmonics
-- directional arpeggio and non-arpeggio
-- workaroung for keeping both staves visible in an orchestral
-  score,
-http://lists.gnu.org/archive/html/lilypond-user/2007-08/msg00386.html
-and http://lsr.dsi.unimi.it/LSR/Item?u=1&id=312
+@cindex natural harmonics
+@cindex harmonics, natural
 
-An LSR snippet could be used to demonstrate the main items; in the
-case of glissandi, it would be desirable to have a demonstration
-of different styles.
+Natural harmonics can be notated in several ways.  A diamond-shaped
+note head generally means to touch the string where you would stop
+the note if it were not a diamond.
 
+@warning{Harmonics @strong{must} be defined inside a chord
+construct even if there is only a single note.}
 
+@c TODO If the default for harmonicDots is changed, change this
+Dotted harmonics indicated with @code{\harmonic} do not show the
+dots.  The context property @code{harmonicDots} should be set if
+dots are required.
+
+@lilypond[verbatim,quote,relative=2]
+<d\harmonic>4 <e\harmonic>2.
+\set harmonicDots = ##t
+<d\harmonic>4 <e\harmonic>2.
+@end lilypond
+
+Alternatively a normal note head is shown at the pitch to be
+sounded together with a small circle to indicate it should be
+played as a harmonic:
+
+@lilypond[verbatim,quote,relative=2]
+d2^\flageolet d_\flageolet
+@end lilypond
+
+A smaller circle may be created, see the snippet list in
+@ref{References for unfretted strings}.
+
+@strong{@i{Artificial harmonics}}
+
+@cindex artificial harmonics
+@cindex harmonics, artifical
+
+Artificial harmonics are notated with two notes, one with a normal
+note head indicating the stopped position and one with an open
+diamond note head to indicate the harmonic position.
+
+@lilypond[verbatim,quote,relative=1]
+<e a\harmonic>2  <c g'\harmonic>
+@end lilypond
+
+@seealso
+Music Glossary:
+@rglos{harmonics}.
+
+Notation Reference:
+@ref{Special note heads},
+@ref{References for unfretted strings}.
+
+@node Snap (Bartok) pizzicato
+@unnumberedsubsubsec Snap (Bartók) pizzicato
+
+@cindex pizzicato, Bartók
+@cindex pizzicato, snap
+@cindex Bartók pizzicato
+@cindex snap pizzicato
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{snap-pizzicato-markup-bartok-pizzicato.ly}

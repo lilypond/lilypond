@@ -111,13 +111,7 @@ Line_interface::make_zigzag_line (Grob *me,
       total.add_stencil (moved_squiggle);
     }
 
-  Box b;
-  b.add_point (Offset (0, 0));
-  b.add_point (dz);
-  b[X_AXIS].widen (thick / 2);
-  b[Y_AXIS].widen (thick / 2);
-
-  return Stencil (b, total.expr ());
+  return total;
 }
 
 

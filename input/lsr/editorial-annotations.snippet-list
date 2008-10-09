@@ -1,11 +1,11 @@
-measure-counter.ly
 creating-blank-staves.ly
-controlling-the-placement-of-chord-fingerings.ly
-making-some-staff-lines-thicker-than-the-others.ly
-applying-note-head-styles-depending-on-the-step-of-the-scale.ly
-embedding-native-postscript-in-a--markup-block.ly
+measure-counter.ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
+making-some-staff-lines-thicker-than-the-others.ly
 grid-lines--emphasizing-rhythms-and-notes-synchronization.ly
+embedding-native-postscript-in-a--markup-block.ly
+applying-note-head-styles-depending-on-the-step-of-the-scale.ly
+controlling-the-placement-of-chord-fingerings.ly
 changing-a-single-notes-size-in-a-chord.ly
 adding-fingerings-to-a-score.ly
 grid-lines--changing-their-appearance.ly

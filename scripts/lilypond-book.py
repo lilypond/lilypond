@@ -45,6 +45,7 @@ import fontextract
 import langdefs
 global _;_=ly._
 
+ly.require_python_version ()
 
 # Lilylib globals.
 program_version = '@TOPLEVEL_VERSION@'

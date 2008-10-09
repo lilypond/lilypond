@@ -9,6 +9,7 @@ import langdefs
 import buildlib
 
 verbose = 0
+use_colors = False
 lang = 'C'
 C = lang
 
@@ -35,7 +36,7 @@ def do_file (file_name, lang_codes, buildlib):
     
     original = dir_lang (file_name, '', lang_dir_index)
     translated_contents = open (file_name).read ()
-    (diff_string, error) = buildlib.check_translated_doc (original, translated_contents, color=not update_mode)
+    (diff_string, error) = buildlib.check_translated_doc (original, translated_contents, color=use_colors and not update_mode)
 
     if error:
         sys.stderr.write ('warning: %s: %s' % (file_name, error))
@@ -62,7 +63,7 @@ This script is licensed under the GNU GPL.
 ''')
 
 def do_options ():
-    global lang, verbose, update_mode
+    global lang, verbose, update_mode, use_colors
 
     p = optparse.OptionParser (usage="check-translation [--language=LANG] [--verbose] FILE...",
                                description="This script is licensed under the GNU GPL.")
@@ -70,11 +71,16 @@ def do_options ():
                   action='store',
                   default='site',
                   dest="language")
+    p.add_option ("--no-color",
+                  action='store_false',
+                  default=True,
+                  dest="color",
+                  help="do not print ANSI-cooured output")
     p.add_option ("--verbose",
                   action='store_true',
                   default=False,
                   dest="verbose",
-                  help="the GIT directory to merge.")
+                  help="print details, including executed shell commands")
     p.add_option ('-u', "--update",
                   action='store_true',
                   default=False,
@@ -84,6 +90,7 @@ def do_options ():
     (options, files) = p.parse_args ()
     verbose = options.verbose
     lang = options.language
+    use_colors = options.color
     update_mode = options.update_mode
     
     return files

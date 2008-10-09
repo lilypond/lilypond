@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 4be1308672c6f8efbe660c9eddc0a6a167c9ad31
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Templates
 @appendix Templates

@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -444,8 +444,6 @@ Notationsreferenz:
 @node The Internals Reference manual
 @section The Internals Reference manual
 
-@untranslated
-
 @menu
 * Properties of layout objects::  
 * Properties found in interfaces::  
@@ -455,22 +453,521 @@ Notationsreferenz:
 @node Properties of layout objects
 @subsection Properties of layout objects
 
-@untranslated
+@cindex Eigenschaften von Layout-Objekten
+@cindex Eigenschaften von Grobs
+@cindex Grobs, Eigenschaften von
+@cindex Layout-Objekte, Eigenschaften von
+@cindex Property (Layout-Objekte, Grobs)
+
+Angenommen, in Ihrer Partitur tritt ein Legatobogen
+auf, der Ihrer Meinung nach zu dünn ausgefallen ist.
+Sie würden ihn gerne etwas schwerer gezeichnet 
+sehen. Wie gehen Sie vor? Von den Anmerkungen in
+früheren Abschnitten wissen Sie schon, dass LilyPond
+sehr flexibel ist und eine derartige Modifikation
+möglich sein sollte, und Sie erraten vielleicht,
+dass ein @code{\override}-Befehl angebracht ist.
+Aber gibt es eine Eigenschaft für die Dicke eines
+Legatobogens (engl. slur), und wenn es sie gibt,
+auf welche Weise lässt sie sich verändern? Hier 
+kommt die Referenz der Interna zur Geltung. Dort
+finden sich alle Informationen, um den beschriebenen
+und alle anderen @code{\override}-Befehle zu
+konstruieren.
+
+Bevor Sie jetzt in die Referenz der Interna wechseln, ist
+eine Warnung angebracht. Es handelt sich um ein
+@strong{Referenz}dokument, was heißt, dass es sehr
+wenig oder gar keine Erklärungen enthält: seine Aufgabe
+ist es, Information klar und genau darzustellen. Das
+bedeutet, dass es auf den ersten Blick entmutigend
+wirkt. Die Einführung und Erklärung in diesem Abschnitt
+wird Ihnen aber schnell ermöglichen, genau die Information
+aus der Referenz zu entnehmen, die Sie benötigen.
+@c For German users
+Beachten Sie, dass die Referenz der Interna nur auf Englisch
+existiert. Um die Eigenschaftsbezeichnung eines bestimmten
+Objektes zu finden, können Sie das Glossar (siehe
+@rglosnamed{Top,Musikglossar})
+ verwenden, in dem
+die englischen Begriffe in viele andere Sprachen übersetzt sind.
+
+@cindex Override-Beispiel
+@cindex Referenz der Interna, Benutzung
+@cindex IR (Referenz der Interna), Benutzung
+
+Das Vorgehen soll an einem konkreten Beispiel einer echten
+Komposition demonstriert werden. Hier das Beispiel:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion
+  }
+}
+@end lilypond 
+
+Angenommen also, wir wollen die Legatobögen etwas
+dicker setzten. Ist das möglich? Die Legatobögen sind mit
+Sicherheit ein Layout-Objekt, die Frage muss also lauten:
+@qq{Gibt es eine Eigenschaft von Legatobögen, die die
+Dicke bestimmt?} Um diese Frage zu beantworten, müssen
+wir in der Referenz der Interna ( kurz IR) nachschauen.
+
+Die IR für die LilyPond-Version, die Sie benutzen, findet sich
+auf der LilyPond-Webseite unter der Adresse 
+@uref{http://lilypond.org}. Gehen Sie zur Dokumentationsseite
+und klicken Sie auf den Link zur Referenz der Interna.
+@c Addition for German users
+Die Sprache ändert sich ab hier nach englisch. Für diese Übung
+sollten Sie die HTML-Version benutzen, nicht die
+@qq{auf einer großen Seite} oder die PDF-Version.
+Damit Sie die nächsten Absätze verstehen können, müssen Sie
+genauso vorgehen, während Sie weiterlesen.
+
+Unter der Überschrift @strong{Top} befinden sich fünf Links.
+Wählen Sie den Link zum @emph{Backend}, wo sich die Information
+über Layout-Objekte befindet. Hier, unter der Überschrift
+@strong{Backend}, wählen Sie den Link @emph{All layout objects}.
+Die Seite, die sich öffnet, enthält ein Liste aller Layout-Objekte,
+die in Ihrerer LilyPond-Version benutzt werden, in alphabetischer
+Ordnung. Wählen Sie den Link @emph{Slur} und die Eigenschaften
+der Legatobögen (engl. slur) werden aufgelistet.
+
+Eine alternative Methode, auf diese Seite zu gelangen, ist von
+der Notationsreferenz aus. Auf einer der Seiten zu Legatobögen
+findet sich ein Link zur Referenz der Interna. Dieser Link führt
+Sie direkt auf diese Seite. Wenn Sie aber eine Ahnung haben, 
+wie die Bezeichnung des Layout-Objektes lauten könnte, das sie
+ändern wollen, ist es oft schneller, direkt zur IR zu gehen und 
+dort nachzuschlagen.
+
+Aus der Slur-Seite in der IR könne wir entnehmen, dass
+Legatobögen (Slur-Objekte) durch den Slur_engraver erstellt
+werden. Dann werden die Standardeinstellungen aufgelistet.
+Beachten Sie, dass diese @strong{nicht} in alphabetischer Reihenfolge
+geordnet sind. Schauen Sie sich die Liste an, ob sie eine Eigenschaft
+enthält, mit der die Dicke von Legatobögen kontrolliert werden kann.
+Sie sollten folgendes finden:
+
+@example
+@code{thickness} (number)
+     @code{1.2}
+     Line thickness, generally measured in @code{line-thickness}
+@end example
+
+Das sieht ganz danach aus, als ob damit die Dicke geändert
+werden kann. Es bedeutet, dass der Wert von
+@code{thickness} einfach eine Zahl (@emph{number}) ist,
+dass der Standardwert 1.2 ist, und dass die Einheit
+für die Dicke eine andere Eigenschaft mit der
+Bezeichnung @code{line-thickness} ist.
+
+Wie schon früher gesagt, gibt es wenig bis gar keine Erklärungen
+in der IR, aber wir haben schon genug Informationen, um 
+zu versuchen, die Dicke eines Legatobogens zu ändern. Die
+Bezeichnung des Layout-Objekts ist offensichtlich
+@code{Slur} und die Bezeichnung der Eigenschaft, die geändert
+werden soll
+@code{thickness}. Der neue Wert sollte etwas mehr als 1.2 sein,
+denn der Bogen soll ja dicker werden.
+
+Den benötigten @code{\override}-Befehl können wir jetzt einfach
+konstruieren, indem wir die Werte für die Bezeichnungen in den
+Modellbefehl einfügen und den Kontext auslassen. Setzen wir
+einmal einen sehr großen Wert für die Dicke um zu sehen, ob der
+Befehl auch funktioniert. Also:
+
+@example
+\override Slur #'thickness = #5.0
+@end example 
+
+Vergessen Sie nicht das Rautenzeichen und Apostroph
+(@code{#'}) vor der Eigenschaftsbezeichnung und das
+Rautenzeichen vor dem neuen Wert!
+
+Die nächste Frage ist nun: @qq{Wohin soll dieser Befehl geschrieben
+werden?} Solange wir uns noch im Lernstadium befinden, ist
+die beste Antwort: @qq{Innerhalb der Noten, vor den ersten
+Legatobogen und nahe bei ihm.} Also etwa so:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    % Increase thickness of all following slurs from 1.2 to 5.0
+    \override Slur #'thickness = #5.0
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion
+  }
+}
+@end lilypond 
+
+@noindent
+und wirklich wird der Legatobogen dicker.
+
+Das ist also die grundlegende Herangehensweise, 
+@code{\override}-Befehl zu formulieren. Es gibt einige
+zusätzliche Komplikationen, denen wir uns später widmen
+werden, aber Sie haben jetzt das Handwerkszeug, um Ihre
+eigenen Befehle zu konstruieren -- wenn Sie auch noch etwas
+Übung benötigen. Die sollen Sie durch die folgenden Übungen
+erhalten.
+
+@subheading Finding the context
+@cindex Kontext, Finden
+
+Manchmal muss dennoch der Kontext spezifiziert werden.
+Welcher aber ist der richtige Kontext? Wir könnten raten,
+dass Legatobögen sich im @code{Voice}-Kontext befinden,
+denn sie sind immer einzelnen Melodielinien zugewiesen.
+Aber wir können uns dessen nicht sicher sein. Um unsere
+Annahme zu überprüfen, gehen wir wieder zu der Seite im
+IR, die die Legatobögen beschreibt und die Überschrift
+@emph{Slur} hat. Dort steht: @qq{Slur objects are created 
+by: Slur engraver}. Legatobögen werden also in dem Kontext
+erstellt, in dem sich der @code{Slur_engraver} befindet. 
+Folgen Sie dem Link zu der @code{Slur_engraver}-Seite.
+Unten auf der Seite steht, dass der @code{Slur_engraver}
+sich in fünf Stimmen-Kontexten befindet, unter anderem
+auch im normalen @code{Voice}-Kontext. Unsere Annahme
+war also richtig. Und weil @code{Voice} einer der Kontexte
+der untersten Ebene ist, welcher eindeutig schon dadurch
+definiert ist, dass wir Noten eingeben, kann er an dieser Stelle
+auch weggelassen werden.
+
+@subheading Overriding once only
+
+@cindex Override nur einmal
+@cindex once override
+@funindex \once
+
+Im Beispiel oben wurden @emph{alle} Legatobögen dicker
+gesetzt. Vielleicht wollen Sie aber nur den ersten Bogen
+dicker haben. Das können Sie mit dem @code{\once}-Befehl
+erreichen. Er wird direkt vor den @code{\override}-Befehl
+gesetzt und bewirkt, dass nur der Bogen geändert wird, der
+@strong{unmittelbar an der nächsten Note beginnt.} Wenn
+die nächste Note keinen Bogenbeginn hat, dann passiert
+gar nichts -- der Befehl wird nicht gespeichert, sondern einfach
+vergessen. Der Befehl, mit @code{\once} zusammen benutzt,
+muss also wie folgt positioniert werden:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8
+    % Increase thickness of immediately following slur only
+    \once \override Slur #'thickness = #5.0
+    b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion
+  }
+}
+@end lilypond 
+
+@noindent
+Jetzt bezieht er sich nur noch auf den ersten Legatobogen.
+
+Der @code{\once}-Befehl kann übrigens auch vor einem @code{\set}-Befehl
+eingesetzt werden.
+
+@subheading Reverting
+
+@cindex Revert
+@cindex Rückgängig machen
+@cindex Wiederherstellen von Standardeinstellungen
+@cindex Standardeinstellungen, Wiederherstellen
+@funindex \revert
+
+Eine weitere Möglichkeit: nur die beiden ersten Legatobögen sollen
+dicker gesetzt werden. Gut, wir könnten jetzt zwei Befehle benutzen,
+jeden mit dem @code{\once}-Präfix und direkt vor die entsprechende
+Note gestellt, an welcher der Bogen beginnt:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8
+    % Increase thickness of immediately following slur only
+    \once \override Slur #'thickness = #5.0
+    b[( g]) g |
+    % Increase thickness of immediately following slur only
+    \once \override Slur #'thickness = #5.0
+    g[( e]) e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion
+  }
+}
+@end lilypond 
+
+@noindent
+Wir könnten aber auch den @code{\once}-Befehl weglassen und anstelle 
+dessen später den @code{\revert}-Befehl einsetzen, um die
+@code{thickness}-Eigenschaft wieder auf ihren Standardwert zurückzusetzen:
+
+@lilypond[quote,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8
+    % Increase thickness of all following slurs from 1.2 to 5.0
+    \override Slur #'thickness = #5.0
+    b[( g]) g |
+    g[( e])
+    % Revert thickness of all following slurs to default of 1.2
+    \revert Slur #'thickness
+    e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    The man who feels love's sweet e -- mo -- tion
+  }
+}
+@end lilypond
+
+@noindent
+Der @code{\revert}-Befehl kann benutzt werden, um eine beliebige
+Eigenschaft, die mit @code{\override} geändert worden ist, wieder in 
+ihre Standardeinstellungen zurückzuversetzen. In unserem Beispiel können
+Sie die Methode benutzen, die Ihnen lieber ist, beide haben das gleiche
+Resultat.
+
+Damit endet die Einleitung in die Referenz der Interna (IR) und die
+grundlegenden Optimierungsmethoden. Einige Beispiele folgen in späteren
+Abschnitten dieses Kapitel, einerseits um Sie mit weiteren Möglichkeiten
+der IR bekanntzumachen, andererseits um Ihnen mehr Übungsmöglichkeiten
+zu geben, die relevante Information dort zu finden. Die Beispiele werden
+Schritt für Schritt immer weniger Erklärungen beinhalten.
+
 
 @node Properties found in interfaces
 @subsection Properties found in interfaces
 
-@untranslated
+@cindex Interface-Eigenschaften
+@cindex Eigenschaften von Interfaces
+@cindex Schnittstellen, Eigenschaften von
+@cindex Eigenschaften von Schnittstellen
+
+Der Text unseres Beispiels soll jetzt kursiv gesetzt werden. Was für
+ein @code{\override}-Befehl wird dazu benötigt? Schauen wir
+uns zunächst das Inhaltsverzeichnis in der IR an: @qq{All layout objects},
+wie auch schon zuvor. Welches Objekt könnte die Darstellung des
+Textes (engl. lyrics) beeinflussen? Es gibt den Eintrag @code{LyricText},
+das hört sich schon sehr gut an. Ein Klick hierauf zeigt alle Eigenschaften
+an, die verändert werden können. Dazu gehört 
+@code{font-series} und @code{font-size}, aber nichts, womit man kursiven
+Text erreichen könnte. Das liegt daran, dass die Schnitteigenschaft allen
+Schrift-Objekten gemeinsam ist. Sie findet sich also nicht in jedem einzlenen
+Layout-Objekt aufgelistet, sondern ist mit anderen ähnlichen Eigenschaften
+zusammen in einem @strong{Interface} -- einer Schnittstelle -- verortet;
+in diesem Fall das
+@code{font-interface}.
+
+Jetzt müssen wir also lernen, wie wir Eigenschaften von Schnittstellen finden
+und wie wir herausfinden, welche Objekte diese Schnittstelleneigenschaften
+benutzen.
+
+Schauen Sie sich noch einmal die Seite in der IR an, die @code{LyricText}
+beschreibt. Unten auf der Seite ist eine klickbare Liste (in der HTML-Version
+der IR) an Eigenschaften, die von @code{LyricText} unterstützt
+werden. Diese Liste enthält sieben Einträge, darunter auch
+@code{font-interface}. Ein Klick hierauf bringt uns zu den Eigenschaften,
+die mit dieser Schnittstelle verbunden sind, also auch @code{LyricText}.
+
+Jetzt sehen wir alle die Eigenschaften, die der Benutzer verändern kann,
+um die Schriftartendarstellung zu beeinflussen. Dazu gehört nun auch
+@code{font-shape(symbol)}, wobei @code{symbol} auf die Werte
+@code{upright} (gerade), @code{italics} (kursiv) oder @code{caps}
+(Kapitälchen) gesetzt werden kann.
+
+Sie werden gemerkt haben, dass @code{font-series} und @code{font-size}
+hier auch aufgelistet sind. Es stellt sich die Frage, warum diese
+allgemeinen Schriftarteigenschaften @code{font-series} und
+@code{font-size} sowohl unter der Überschrift
+@code{LyricText} als unter dem @code{font-interface} aufgelistet 
+sind, aber @code{font-shape} befindet sich nur im 
+@code{font-interface}? Die Antwort ist: Die globalen Einstellungen 
+von @code{font-series} und @code{font-size} werden geändert, wenn
+ein @code{LyricText}-Objekt erstellt wird, aber @code{font-shape} 
+wird davon nicht beeinflusst. Die zusätzlichen Einträge unter der
+Überschrift @code{LyricText} beinhalten dann die Werte der
+Standardeinstellungen dieser zwei Eigenschaften, wenn es sich
+um ein @code{LyricText}-Objekt handelt. Andere Objekte,
+die auch das @code{font-interface} unterstützen, setzen diese
+Eigenschaften anders, wenn sie erstellt werden.
+
+Versuchen wir nun einen @code{\override}-Befehl zu konstruieren,
+der den Gesantext kursiv setzt. Das Objekt hat die Bezeichnung
+@code{LyricText}, die Eigenschaft ist @code{font-shape} 
+und der Wert @code{italic}. Wie vorher schon lassen wir den
+Kontext aus.
+
+Am Rande sei angemerkt, dass die Werte der @code{font-shape}-Eigenschaft
+mit einem Apostroph (@code{'}) gekennzeichnet werden
+müssen, weil es sich um Symbole handelt. Aus dem gleichen
+Grund mussten auch für @code{thickness} weiter oben im
+Text ein Apostroph gesetzt werden. Symbole sind besondere
+Bezeichnungen, die LilyPond intern bekannt sind. Einige
+sind Bezeichnungen von Eigenschaften, wie eben @code{thickness}
+oder @code{font-shape}. Andere sind besondere Werte,
+die an Eigenschaften übergeben werden können, wie
+@code{italic}. Im Unterschied hierzu gibt es auch beliebige
+Zeichenketten, die immer mit Anführungszeichen, also
+als @code{"Zeichenkette"} auftreten.
+
+Gut, der @code{\override}-Befehl, mit dem der Gesangstext
+kursiv gesetzt wird, lautet:
+
+@example
+\override LyricText #'font-shape = #'italic
+@end example
+
+@noindent
+und er muss direkt vor den Text gesetzt werden, auf den er sich
+bezieht, etwa so:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 6/8
+  {
+    r4 b8 b[( g]) g |
+    g[( e]) e d[( f]) a |
+    a g
+  }
+  \addlyrics {
+    \override LyricText #'font-shape = #'italic
+    The man who feels love's sweet e -- mo -- tion
+  }
+}
+@end lilypond
+
+@noindent
+Jetzt wird der Text kursiv gesetzt.
+
+@subheading Specifying the context in lyric mode
+@cindex context, specifying in lyric mode
+
+Bei Gesangstexten funktioniert der @code{\override}-Befehl
+nicht mehr, wenn Sie den Kontext im oben dargestellten
+Format angeben.  Eine Silbe wird im Gesangtextmodus
+(lyricmode) entweder von einem Leerzeichen, einer
+neuen Zeile oder einer Zahl beendet.  Alle anderen
+Zeichen werden als Teil der Silbe integriert.  Aus diesem 
+Grund muss auch vor der schließenden Klammer
+@code{@}} ein Leerzeichen gesetzt oder eine neue
+Zeile begonnen werden.  Genauso müssen Leerzeichen
+vor und nach einem Punkt benutzt werden, um die
+Kontext-Bezeichnung von der Objekt-Bezeichnung zu 
+trennen, denn sonst würden beide Bezeichnungen als
+ein Begriff interpretiert und von LilyPond nicht verstanden 
+werden.  Der Befehl muss also lauten:
+
+@example
+\override Lyrics . LyricText #'font-shape = #'italic
+@end example
+
+@warning{Innerhalb von Gesangstext muss immer ein
+Leerzeichen zwischen der letzten Silbe und der schließenden
+Klammer gesetzt werden.}
+
+@warning{Innerhalb von @code{\override}-Befehlen in
+Gesangstexten müssen Leerzeichen um Punkte zwischen
+Kontext- und Objektbezeichnungen gesetzt werden.}
+
 
 @node Types of properties
 @subsection Types of properties
 
-@untranslated
+@cindex Eigenschaftsarten
+
+Bis jetzt hatten wir es mit zwei Arten von Eigenschaften zu
+tun: @code{number} (Zahl) und @code{symbol}.  Damit
+ein Befehl funktioniert, muss der Wert einer Eigenschaft
+vom richtigen Typ sein und die Regeln befolgen, die
+für diesen Typ gelten.  Der Eigenschaftstyp ist in der
+IR in Klammern hinter der Eigenschaftsbezeichnung
+angegeben.  Hier eine Liste der Typen, die Sie vielleicht
+benötigen werden, mit den Regeln, die für den jeweiligen
+Typ gelten und einigen Beispielen. Sie müssen immer
+ein Rautenzeichen (@code{#}) vor den Typeintrag setzen,
+wenn sie in einem @code{\override}-Befehl benutzt werden.
+
+@multitable @columnfractions .2 .45 .35
+@headitem Eigenschaftstyp           
+  @tab Regeln
+  @tab Beispiele
+@item Boolesch
+  @tab Entweder wahr oder falsch, dargestellt als #t oder #f
+  @tab @code{#t}, @code{#f}
+@item Dimension (in Notenlinienabständen)
+  @tab Eine positive Dezimalzahl (in Notenlinienabstand-Einheiten)
+  @tab @code{2.5}, @code{0.34}
+@item Richtung
+  @tab Eine gültige Richtungskonstante oder das numerische Äquivalent
+  @tab @code{LEFT}, @code{CENTER}, @code{UP},
+       @code{1}, @code{-1}
+@item Integer
+  @tab Eine positive ganze Zahl
+  @tab @code{3}, @code{1}
+@item Liste
+  @tab Eine eingeklammerte Anzahl von Einträgen, mit Klammern getrennt
+  und angeführt von einem Apostroph
+  @tab @code{'(left-edge staff-bar)}, @code{'(1)},
+       @code{'(1.0 0.25 0.5)}
+@item Textbeschriftung (markup)
+  @tab Beliebige gültige Beschriftung
+  @tab @code{\markup @{ \italic "cresc." @}}
+@item Moment
+  @tab Ein Bruch einer ganzen Note, mit der make-moment-Funktion
+  konstruiert
+  @tab @code{(ly:make-moment 1 4)},
+       @code{(ly:make-moment 3 8)}
+@item Zahl
+  @tab Eine beliebige positive oder negative Dezimalzahl
+  @tab @code{3.5}, @code{-2.45}
+@item Paar (Zahlenpaar)
+  @tab Zwei Zahlen getrennt von @qq{Leerzeichen . Leerzeichen}, eingeklammert
+  und angeführt von einem Apostroph
+  @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
+@item Symbol
+  @tab Eine beliebige Anzahl von Symbolen, die für die Eigenschaft 
+  gültig sind, angeführt von einem Apostroph
+  @tab @code{'italic}, @code{'inside}
+@item Unbekannt
+  @tab Eine Prozedur oder @code{#f} (um keine Aktion hervorzurufen)
+  @tab @code{bend::print}, @code{ly:text-interface::print},
+       @code{#f}
+@item Vektor
+  @tab Eine Liste mit drei Einträgen, eingeklammert und mit
+  Apostroph-Raute ( @code{'#}) angeführt.
+  @tab @code{'#(#t #t #f)}
+@end multitable
+
 
 @node Appearance of objects
 @section Appearance of objects
 
-@untranslated
+In diesem Abschnitt wollen wir zeigen, wie die Kenntnisse der
+vorigen Abschnitte in der Praxis angewandt werden können,
+um das Aussehen des Musiksatzes zu beeinflussen.
 
 @menu
 * Visibility and color of objects::  
@@ -478,25 +975,575 @@ Notationsreferenz:
 * Length and thickness of objects::  
 @end menu
 
+
 @node Visibility and color of objects
 @subsection Visibility and color of objects
 
-@untranslated
+In Unterrichtsmaterial für den Musikunterricht wird oft
+eine Partitur dargestellt, in der bestimmte Notationselemente
+fehlen, so dass der Schüler die Aufgabe bekommt, die 
+nachzutragen.  Ein einfaches Beispiel ist etwa, die
+Taktlinien zu entfernen, damit der Schüler sie selber zeichnen
+kann.  Aber die Tatklinien werden normalerweise automatisch
+eingefügt.  Wie verhindern wir, dass sie ausgegeben werden?
+
+Bevor wir uns hieran machen, sei daran erinnert, dass
+Objekteigenschaften in sogenannten @emph{Schnittstellen}
+-- engl. interface -- gruppiert sind, siehe auch
+@ref{Properties found in interfaces}.  Das dient ganz einfach
+dazu, die Eigenschaften zusammenzufassen, die üblicherweise
+zusammen benötigt werden -- wenn eine davon für ein Objekt
+gilt, dann auch die anderen.  Manche Objekte brauchen die
+Eigenschaften von der einen Schnittstelle, andere von einer 
+anderen.  Die Schnittstellen, die die Eigenschaften von einem
+bestimmten Grob beinhalten, sind in der IR unten auf der
+Seite aufgelistet, die dieses Grob beschreibt.  Die Eigenschaften
+können betrachtet werden, indem die Seite der entsprechenden
+Schnittstelle geöffnet wird.
+
+Zu Information, wie man Eigenschaften von Grobs findet, siehe
+@ref{Properties of layout objects}.  Wir benutzen also jetzt
+die selbe Methode um in der IR das Layout-Objekt zu finden,
+dass für die Tatklinien zuständig ist. Über die Überschriften
+@emph{Backend} und @emph{All layout objects} kommen
+wir zu einem Layout-Objekt mit der Bezeichnung
+@code{BarLine} (engl. TaktLinie).  Seine Eigenschaften 
+beinhalten zwei, die über die Sichtbarkeit entscheiden:
+@code{break-visibility} und @code{stencil}.  
+@code{BarLine} unterstützt auch einige Schnittstellen,
+unter anderem @code{grob-interface}, wo wir eine
+@code{transparent} und eine @code{color}-Eigenschaft
+finden.  Alle können die Sichtbarkeit von Taktlinien (und
+natürlich auch die Sichtbarkeit von vielen anderen Objekten)
+beeinflussen.  Schauen wir uns diese Eigenschaften eine
+nach der anderen an.
+
+@subheading stencil
+@cindex Stencil-Eigenschaft
+@cindex Matrizen-Eigenschaft
+
+Diese Eigenschaft kontrolliert die Erscheinung der Taktlinien,
+indem sie das Symbol bestimmt, das ausgegeben werden soll.
+Wie bei vielen anderen Eigenschaften auch, kann sie so
+eingestellt werden, dass sie nichts ausgibt, indem ihr Wert
+auf @code{#f} (falsch) gesetzt wird.  Ein Versuch also,
+wie vorher, indem wir den impliziten Kontext (@code{Voice})
+auslassen:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override BarLine #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Die Taktlinien werden aber immer noch angezeigt.  Was ist da
+falsch gelaufen?  Gehen Sie zurück zur IR und schauen Sie auf 
+die Seite, die die Eigenschafter für @code{BarLine} angibt.
+Oben auf der Seite steht: @qq{Barline objects are created
+by: Bar_engraver}.  Schauen Sie sich die
+@code{Bar_engraver}-Seite an.  Unten auf der Seite steht
+eine Liste der Kontexte, in denen der Takt-Engraver
+funktioniert.  Alle Kontexte sind @code{Staff}-Typen (also
+Notensystem-Typen).  Der Grund, warum der
+@code{\override}-Befehl nicht funktioniert hat, liegt
+also darin, dass das Taktlinie-Objekt (@code{BarLine}) sich nicht
+im @code{Voice}-Kontextbefindet.  Wenn der Kontext
+falsch angegeben wird, bewirkt der Befehl einfach gar
+nichts.  Keine Fehlermeldung wird ausgegeben und auch
+nichts in die Log-Datei geschrieben.  Versuchen wir also,
+den richtigen Kontext mitanzugeben:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Jetzt sind die Taktlinien wirklich verschwunden.
+
+@subheading break-visibility
+
+@cindex break-visibility-Eigenschaft
+@cindex Unsichtbar machen (break-visibility)
+
+Aus der Beschreibung der Eigenschaften für @code{BarLine}
+in der IR geht hervor, dass die @code{break-visibility}-Eigenschaft
+einen Vektor mit drei Booleschen Werten benötigt. Diese
+kontrollieren jeweils, ob die Taktlinien am Ende einer Zeile,
+in der Mitte einer Zeile und am Anfang einer Zeile ausgegeben
+werden.  Wenn also alle Taktlinien unsichtbar sein sollen, wie in
+unserem Beispiel, brauchen wir den Wert @code{'#(#f #f #f)}.
+Versuchen wir es also, und berücksichtigen wir auch den
+@code{Staff}-Kontext.  Beachten Sie auch, dass Sie @code{#'#}
+vor der öffnenden Klammer schreiben müssen: 
+@code{'#} wird benötigt als Teil des Wertes, um einen Vektor zu
+signalisieren, und das erste @code{#} wird benötigt, um
+den Wert in einem @code{\override}-Befehl anzuführen.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'break-visibility = #'#(#f #f #f)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Auch auf diesem Weg gelingt es, die Taktlinien unsichtbar zu machen.
+
+@subheading transparent
+@cindex transparent-Eigenschaft
+@cindex Durchsichtig machen (transparent)
+
+Aus den Eigenschaftsdefinitionen auf der @code{grob-interface}-Seite
+in der IR geht hervor, dass die @code{transparent}-Eigenschaft
+boolesch ist.  Mit @code{#t} (wahr) wird also ein Grob durchsichtig
+gemacht.  Im unserem Beispiel soll jetzt die Taktart durchsichtig
+gemacht werden, anstatt die Taktlinien durchsichtig zu machen.
+Wir brauchen also wieder die Grob-Bezeichnung für die Taktart.
+Auf der @qq{All layout objects}-Seite in der IR müssen wir die
+Eigenschaften des @code{TimeSignature}-Layout-Objekts suchen
+Das Objekt wird vom @code{Time_signature_engraver} erstellt,
+der sich auch im @code{Staff}-Kontext befindet und genauso das
+@code{grob-interface} unterstützt, wie Sie sich
+überzeugen können.  Der Befehl, um die Taktangabe unsichtbar zu
+machen, ist also:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature #'transparent = ##t
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Die Taktangabe ist verschwunden, aber mit diesem Befehl wird ein
+freier Platz gelassen, wo sich die Taktangabe eigentlich befinden
+würde.  Das braucht man vielleicht für eine Schulaufgabe, in der
+die richtige Taktangabe eingefügt werden soll, aber in anderen
+Fällen ist diese Lücke nicht schön.  Um auch die Lücke zu entfernen,
+muss die Matrize (stencil) der Taktangabe auf @code{#f} (falsch)
+gesetzt werden:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.TimeSignature #'stencil = ##f
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Und der Unterschied wird deutlich: hiermit wird das gesamte Objekt
+entfernt, während man mit @code{transparent} ein Objekt
+unsichtbar machen kann, es aber an seinem Platz gelassen wird.
+
+@subheading color
+@cindex color property
+
+Abschließend wollen wir die Taktlinien unsichtbar machen, indem
+wir sie weiß einfärben.  (Es gibt hier eine Schwierigkeit: die weiße
+Taktlinie übermalt manchmal die Taktlinienen, wo sie sie kreuzt, 
+manchmal aber auch nicht.  Sie können in den Beispielen unten
+sehen, dass das nicht vorhersagbar ist.  Die Einzelheiten dazu, warum
+das passiert und wie sie es kontrollieren können, werden dargestellt
+in @ruser{Painting objects white}.  Im Moment wollen wir lernen, wie
+man mit Farbe arbeitet, akzeptieren Sie bitte an dieser Stelle die
+Beschränkung.)
+
+Das @code{grob-interface} bestimmt, dass der Wert der Farb-Eigenschaft
+eine Liste ist, aber es gibt keine Erklärung, was für eine Liste das
+sein soll.  Die Liste, die benötigt wird, ist eine Liste mit Werten in
+internen Einheiten, aber damit Sie nicht wissen müssen, wie diese
+aussehen, gibt es mehrere Wege, Farben anzugeben.  Der erste
+Weg ist es, @qq{normale} Farben zu benutzen, wie sie in der
+Tabelle in @ruser{List of colors} aufgelistet sind.  Beachten Sie,
+dass die Bezeichnungen auf English sind.  Um die Taktlinien auf
+weiß zu setzen, können Sie schreiben:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #white
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+und die Taktlinien verschwinden in der Tat.  Beachten Sie,
+dass @emph{white} nicht mit einem Apostroph angeführt
+wird -- es ist kein Symbol, sondern eine @emph{Funktion}.
+Wenn sie aufgerufen wird, stellt sie eine Liste mit internen
+Werten zu Verfügung, mit welcher die Farbe auf weiß
+gestellt wird.  Die anderen Farben in der Liste sind auch
+Funktionen.  Um sich zu überzeugen, dass der Befehl auch
+wirklich funktioniert, können Sie die Farbe auf eine der
+anderen Funktionen dieser Liste abändern.
+
+@cindex Farben, X11
+@cindex X11-Farben
+
+Die zweite Art die Farbe zu ändern geschieht, indem die Liste
+der X11-Farbbezeichnungen einzusetzen, siehe die zweite Liste
+in @ruser{List of colors}.  Diesen Farben muss jedoch eine
+andere Funktion vorangestellt werden, die die X11-Farbbezeichnungen
+in interne Werte konvertiert: 
+@code{x11-color}.  Das geschieht wie folgt:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #(x11-color 'white)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+In diesem Fall hat die Funktion @code{x11-color} ein Symbol
+als Argument, darum muss dem Symbol ein Apostroph vorangestellt
+und beide zusammen in Klammern gesetzt werden.
+
+@cindex RGB-Farben
+@cindex Farben, RGB
+
+Es gibt noch eine dritte Funktion, die RGB-Werte in die
+internen Werte übersetzt -- die @code{rgb-color}-Funktion.  Sie
+braucht drei Argumente, um die Stärke von Rot, Grün und
+Blau darzustellen. Die Werte befinden sich zwischen 
+0 und 1.  Um also die Farbe Rot darzustellen, muss der
+Wert der Funktion lauten: @code{(rgb-color 1 0 0)}, weiß
+würde sein: @code{(rgb-color 1 1 1)}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.BarLine #'color = #(rgb-color 1 1 1)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+Schließlich gibt es noch eine Grauskala, die zu den X11-Farben
+gehört.  Sie reicht von schwarz (@code{'grey0'}) bis
+weiß (@code{'grey100}), in Einserschritten.  Wir wollen das
+illustrieren, indem alle Layout-Objekte im Beispiel
+verschiede Grauschattierungen erhalten:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+{
+  \time 12/16
+  \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
+  \override Staff.TimeSignature #'color = #(x11-color 'grey60)
+  \override Staff.Clef          #'color = #(x11-color 'grey60)
+  \override Voice.NoteHead      #'color = #(x11-color 'grey85)
+  \override Voice.Stem          #'color = #(x11-color 'grey85)
+  \override Staff.BarLine       #'color = #(x11-color 'grey10)
+  c4 b8 c d16 c d8 |
+  g, a16 b8 c d4 e16 |
+  e8
+}
+@end lilypond
+
+@noindent
+Beachten Sie die Kontexte, die mit jedem einzelnen Layout-Objekt
+verbunden sind.  Es ist wichtig, den richtigen Kontext einzusetzen,
+damit die Befehle funktionieren.  Denken Sie daran, dass der 
+Kontext sich daran orientiert, wo sich der entsprechende
+Engraver befindet.  Den Standardkontext für Engraver finden
+Sie, indem Sie beim Layout-Objekt beginnen, zum Engraver
+gehen, der es produziert und auf der Seite des Engravers in der
+IR finden Sie Information, in welchem Kontext sich der
+Engraver normalerweise befindet.
+
 
 @node Size of objects
 @subsection Size of objects
 
-@untranslated
+Als Startpunkt wollen wir wieder ein früheres Beispiel
+wählen, siehe @ref{Nesting music expressions}. Hier wurde
+ein neues Notensystem erstellt, wie man es für ein @rglos{ossia}
+braucht.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+       \relative g' {
+         r4 g8 g c4 c8 d |
+         e4 r8
+         <<
+           { f c c }
+           \new Staff \with {
+             alignAboveContext = "main" }
+           { f8 f c }
+         >>
+         r4 |
+       }
+     }
+@end lilypond
+
+Ossia-Systeme werden normalerweise ohne Schlüssel und Taktangabe
+geschrieben, und sie werden etwas kleiner als das Hauptsystem gesetzt.
+Wie man Schlüssel und Taktangabe entfernt, wissen wir schon:
+wir setzen den Stencil von beiden auf @code{#f}:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+      }
+      {
+        \override Staff.Clef #'stencil = ##f
+        \override Staff.TimeSignature #'stencil = ##f
+        { f8 f c }
+      }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+wobei ein zusätzliches Klammerpaar nach der @code{\with}-Konstruktion
+erforderlich ist um sicherzugehen, dass die Modifikation und 
+die Noten sich auch auf das Ossia-System beziehen.
+
+Was für einen Unterschied macht es, ob man den @code{Staff}-Kontext
+mit @code{\with} verändert, oder ob man die Stencils mit 
+@code{\override} beeinflusst?  Der größte Unterschied liegt
+darin, dass Änderungen, die mit @code{\with} eingeführt werden,
+während der Erstellung des Kontextes miterzeugt werden und
+als @strong{Standardeinstellungen} für diesen Kontext während seiner
+gesamten Dauer gelten, während @code{\set}- oder @code{\override}-Befehle
+dynamisch in die Noten eingebettet werden -- sie führen die
+Änderungen synchron mit einem bestimmten Zeitpunkt in 
+der Musik aus.  Wenn die Änderungen mit  @code{\unset}
+oder @code{\revert} rückgängig gemacht werden, werden
+wieder die Standardwerte eingesetzt, die also die sind, die
+mit einer @code{\with}-Konstruktion definiert wurden, oder
+wenn hier keine definiert worden sind, die normalen
+Standardwerte.
+
+Manche Kontexteigenschaften können nur ein einer
+@code{\with}-Konstruktion verändert werden.  Das sind
+Eigenschaften, die nicht sinnvoll mitten im System geändert
+werden können.  @code{alignAboveContext} (Orientierung
+über dem Kontext) und die Parallele,
+@code{alignBelowContext} (Orientierung unter dem Kontext)
+sind zwei derartige Eigenschaften -- wenn das Notensystem
+einmal erstellt wurde, ist die Orientierung schon bestimmt
+und es wäre nicht sinnvoll, sie später zu ändern.
+
+Die Standardwerte für Layout-Objekt-Eigenschaften können
+auch in der @code{\with}-Konstruktion gesetzt werden.
+Benutzen Sie einfach den normalen @code{\override}-Befehl
+ohne den Kontext, denn der Kontext ist eindeutig definiert
+durch die Stelle, an welcher sich @code{\with} befindet.
+Wenn an dieser Stelle ein Kontext angegeben wird, produziert LilyPond
+eine Fehlermeldung.
+
+Das obige Beispiel könnte also auch so aussehen:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        % Don't print clefs in this staff
+        \override Clef #'stencil = ##f
+        % Don't print time signatures in this staff
+        \override TimeSignature #'stencil = ##f
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Nun können wir daran gehen, auch wirklich die
+Größe der Objekte zu ändern.
+
+Manche Layout-Objekte werden aus Glyphen erstellt,
+die sich in einer Schriftartdatei befinden.  Dazu gehören
+die Notenköpfe, Versetzungszeichen, Text, Schlüssel,
+Taktbezeichnung, Dynamik und Gesangstext.  Ihre
+Größe wird verändert, indem die
+@code{font-size}- (Schriftgröße)-Eigenschaft geändert wird, wie
+wir bald sehen werden.  Andere Layout-Objekte, wie
+Bögen -- oder allgemein Strecker-Objekte -- werden
+individuell gezeichnet, es gibt dazu also keine 
+@code{font-size}, die mit ihnen verknüpft wäre.
+Weitere Eigenschaften wie die Länge von Hälsen und
+Taktlinien, Dicke von Balken und anderen Linien und 
+der Abstand der Notenlinien voneinander müssen auf
+spezielle Weise verändert werden.
+
+In unserem Ossia-Beispiel wollen wir zuerst die
+Schriftgröße verändern.  Das ist auf zwei Arten möglich. 
+Entweder wir ändern die Schriftgröße für jede Objektart
+mit einem eigenen Befehl, etwa:
+
+@example
+\override NoteHead #'font-size = #-2
+@end example
+
+@noindent
+oder wir ändern die Größe aller Schriftobjekte, indem wir
+den Wert einer besonderen Eigenschaft, @code{fontSize},
+mit dem @code{\set}-Befehl bestimmen oder sie in 
+eine @code{\with}-Konstruktion (ohne @code{\set} einschließen.
+
+@example
+\set fontSize = #-2
+@end example
+
+Beide Beispiele reduzieren die Schriftgröße um zwei Schritte
+im Vergleich zum vorigen Wert, wobei jeder Schritt die
+Schriftgröße um etwa 12% verändert.
+
+Setzen wir das also in unserem Ossia-Beispiel ein:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        % Reduce all font sizes by ~24%
+        fontSize = #-2
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+Das sieht aber immer noch nicht richtig aus.  Die Notenköpfe
+und Fähnchen sind kleiner, aber die Hälse im Vergleich
+dazu zu lang und die Notenlinien zu weit auseinander.
+Sie müssen auch proportional zur Schriftart verkleinert
+werden.  Der nächste Abschnitt behandelt diese Anpassung.
 
 @node Length and thickness of objects
 @subsection Length and thickness of objects
 
-@untranslated
+@cindex Entfernungen
+@cindex Dicke
+@cindex Länge
+@cindex magstep
+@cindex Größe, verändern
+@cindex Notenhalslänge, verändern
+@cindex Hälse, Länge verändern
+@cindex Notenlinien, Länge verändern
+
+Abstände und Längen werden in LilyPond üblicherweise
+in Notenlinienabständen (engl. staff-spaces) gemessen. 
+Das ist der Abstand zwischen zwei Notenlinien im System.
+Die meisten Dicken (engl. thickness) dagegen werden in
+einer internen Einheit Linien-Dicke (engl. line-thickness)
+gemessen.  Die Linien von Dynamikklammern zum Beispiel
+haben standardmäßig eine Dicke von einer Einheit
+@code{line-thickness}, während die Dicke eines
+Notenhalses 1,3 ist.  Beachten Sie jedoch, dass sich
+manche Dicken anders verhalten: die Dicke von
+Balken etwa wird in Notenlinienabständen gemessen.
+
+Wie also werden Längen skaliert um der Schriftgröße
+zu entsprechen?  Das kann mit einer besonderen Funktion
+@code{magstep} vorgenommen werden, die genau für
+diesen Zweck vorhanden ist.  Sie nimmt ein Argument auf,
+die Änderung der Schriftgröße (#-2 im obigen Beispiel)
+und gibt einen Skalierungsfaktor aus, der dazu dient,
+Objekte proportionell zueinander zu verändern.  So wird
+sie benutzt:
+
+@lilypond[quote,verbatim,fragment,ragged-right,relative=2]
+\new Staff ="main" {
+  \relative g' {
+    r4 g8 g c4 c8 d |
+    e4 r8
+    <<
+      { f c c }
+      \new Staff \with {
+        alignAboveContext = "main"
+        \override Clef #'stencil = ##f
+        \override TimeSignature #'stencil = ##f
+        fontSize = #-2
+        % Reduce stem length and line spacing to match
+        \override StaffSymbol #'staff-space = #(magstep -2)
+      }
+        { f8 f c }
+    >>
+    r4 |
+  }
+}
+@end lilypond
+
+@noindent
+Da die Länge eines Halses und viele andere Längeneigenschaften
+relativ zum Wert des Notenlinienabstands (@code{staff-space})
+errechnet werden, werden sie auch automatisch verkleinert.
+Das wirkt sich jedoch nur auf die vertikale Skalierung des Ossias
+aus -- die horizontale Skala ist durch das Layout des Haupsystems
+bestimmt und wird also von diesen Größenänderungen nicht
+betroffen.  Wenn natürlich die Größe der gesamten Noten reduziert
+würde, würde sich auch die horizontalen Abstände ändern.  Dass
+wird später im Layout-Abschnitt betrachtet.
+
+Mit dieser Änderung ist unser Ossia fertig.  Die Größen und Längen
+aller anderen Objekte können auf analoge Weise geändert
+werden.
+
+Für kleine Größenänderungen, wie in dem obigen Beispiel,
+braucht die Dicke der verschiedenen Linien, wie Taktlinien,
+Notenlinien, Balken, Dynamikklammern usw. normalerweise
+keine spezielle Anpassung.  Wenn die Dicke eines bestimmten
+Layout-Objektes angepasst werden muss, kann man das erreichen,
+indem die entsprechende @code{thickness}-Eigenschaft des
+Objekts mit @code{\override} verändert wird.  Ein Beispiel,
+wie man die Dicke von Bögen ändert, wurde schon gezeigt,
+siehe @ref{Properties of layout objects}.  Die Dicke aller
+gezeichneten Objekte (die also nicht aus einer Schriftart 
+stammen) können auf gleiche Weise geändert werden.
+
 
 @node Placement of objects
 @section Placement of objects
-
-@untranslated
 
 @menu
 * Automatic behavior::          
@@ -507,17 +1554,635 @@ Notationsreferenz:
 @node Automatic behavior
 @subsection Automatic behavior
 
-@untranslated
+Es gibt Objekte der Notation, die zum Notensystem gehören, und
+andere, die außerhalb des Systems gesetzt werden müssen.  Sie
+werden @code{within-staff}-Objekte bzw.
+@code{outside-staff}-Objekte genannt.
+
+@code{within-staff}-Objekte werden innerhalb des Notensystems
+(engl. staff) gesetzt: Notenköpfe, Hälse, Versetzungszeichen
+usw.  Ihre Position ist üblicherweise durch die notierte Musik
+bestimmt -- sie werden vertikal auf bestimmten Linien notiert
+oder sind an andere Objekte gebunden, die vertikal festgelegt
+sind.  Kollisionen von Notenköpfen, Hälsen und Versetzungszeichen
+werden normalerweise automatisch vermieden.  Es gibt 
+Befehle, um dieses automatische Verhalten zu verändern, wie
+unten gezeigt werden soll.
+
+Objekte, die außerhalb des Notensystems gesetzt werden, sind
+unter Anderem Übungsmarkierungen, Text und Dynamikzeichen.
+LilyPonds Regel für ihre vertikale Positionierung lautet, sie so nah wie
+möglich am Notensystem zu setzen, aber nicht so nah, dass
+sie mit anderen Objekten kollidieren.  Dabei wird die
+@code{outside-staff-priority}-(Priorität außerhalb des Notensystems)-Eigenschaft
+eingesetzt, um die Reihenfolge zu bestimmen, in denen Objekte gesetzt werden 
+sollen.
+
+Zuerst werden alle Innersystemobjekte von LilyPond gesetzt.
+Dann werden die Objekte außerhalb des Systems nach
+ihrer 
+@code{outside-staff-priority} geordnet.  Die @code{outside-staff}-Objekte
+werden dann nacheinander gesetzt, mit der niedrigsten
+Priorität beginnend, und so gesetzt, dass sie nicht mit anderen
+Objekten kollidieren, die schon gesetzt wurden.  Wenn also zwei
+@code{outside-staff}-Objekte um den selben Platz streiten,
+wird das mit der geringeren @code{outside-staff-priority} näher
+am System gesetzt werden.  Wenn zwei Objekte die selbe Priorität
+haben, wird das näher am System gesetzt, welches zuerst
+auftritt.
+
+Im folgenden Beispiel haben alle Textbeschriftungen die gleiche
+Priorität (weil sie nicht explizit gesetzt worden ist).  Beachten Sie,
+dass @qq{Text3} wieder dicht am System gesetzt wurde, weil
+er unter @qq{Text2} passt.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+Notensysteme werden in den Standardeinstellungen auch so dicht
+beeinander gesetzt wie es möglich ist (mit einem minimalen Abstand).
+Wenn Noten sehr weit aus einem System herausragen, zwingen sie
+das nächste System weiter weg, wenn eine Kollision drohen würde.
+Im nächsten Beispiel sehen Sie, wie Noten auf zwei Systemen
+@qq{ineinander greifen}.
+
+@lilypond[quote,ragged-right,verbatim]
+<<
+  \new Staff {
+    \relative c' { c a, }
+  }
+  \new Staff {
+    \relative c'''' { c a, }
+  }
+>>
+@end lilypond 
+
 
 @node Within-staff objects
 @subsection Within-staff objects
 
-@untranslated
+Es wurde schon gezeigt, wie die Befehle @code{\voiceXXX} die Richtung
+von Bögen, Fingersatz und allen anderen Objekten beeinflusst,
+die von der Richtung der Notenhälsen abhängen.  Diese Befehle
+sind nötig, wenn polyphone Musik geschrieben wird, damit sich 
+die einzelnen Melodielinien klar abzeichnen.  Es kann aber von Zeit
+zu Zeit nötig sein, dieses automatische Verhalten zu verändern.  Das
+kann entweder für ganze Abschnitte, aber genauso auch nur für eine
+einzelne Note vorgenommen werden.  Die Eigenschaft, die die Richtung
+bestimmt, ist die @code{direction}-Eigenschaft jedes Layout-Objekts.
+Es soll erst erklärt werden, was sie bewirkt und dann eine Anzahl
+an fertigen Befehlen für die üblicheren Situationen präsentiert werden,
+mit denen Sie gleich loslegen können.
+
+Manche Layout-Objekte, wie Legato- und Bindebögen, biegen sich
+oder zeigen entweder nach oben oder nach unten, andere, wie
+Hälse und Fähnchen, verändern auch die Position rechts oder links,
+je nach der Richtung, in die sie zeigen.  Das wird automatisch 
+berücksichtigt, wenn die @code{direction}-Eigenschaft verändert
+wird.
+
+Das folgende Beispiel zeigt im ersten Takt die Standardeinstellung
+für Hälse, die bei hohen Noten nach unten zeigen und bei tiefen
+noten nach oben. Im nächsten Takt werden alle Hälse nach unten
+gezwungen, im dritten Takt nach oben, und im vierten wird wieder
+der Standard eingestellt.
+
+@lilypond[quote,verbatim,relative=2]
+a4 g c a
+\override Stem #'direction = #DOWN
+a g c a
+\override Stem #'direction = #UP
+a g c a
+\revert Stem #'direction
+a g c a
+@end lilypond
+
+Hier werden die Konstanten @code{DOWN} und @code{UP}
+eingesetzt.  Sie haben die Werte @code{-1} bwz. @code{+1}, und
+diese numerischen Werte können ebenso benutzt werden.  Auch
+der Wert @code{0} kann in manchen Fällen benutzt werden.  Er
+bedeutet für die Hälse das gleiche wie @code{UP}, für einige
+andere Objekte jedoch @qq{zentiert}.  Es gibt hierzu die Konstante
+@code{CENTER}, die den Wert @code{0} hat.
+
+Es gibt aber einfachere Befehle, die normalerweise benutzt werden.
+Hier eine Tabelle der häufigsten.
+
+@multitable @columnfractions .2 .2 .25 .35
+@headitem Runter/Links
+  @tab Rauf/Rechts
+  @tab Rückgängig
+  @tab Wirkung
+@item @code{\arpeggioArrowDown}
+  @tab @code{\arpeggioArrowUp}
+  @tab @code{\arpeggioNormal}
+  @tab Arpeggio mit Pfeil nach unten, oben oder ohne Pfeil
+@item @code{\dotsDown}
+  @tab @code{\dotsUp}
+  @tab @code{\dotsNeutral}
+  @tab Richtung der Verschiebung eines Punktes, um Notenlinien zu vermeiden
+@item @code{\dynamicDown}
+  @tab @code{\dynamicUp}
+  @tab @code{\dynamicNeutral}
+  @tab Position der Dynamik-Bezeichnung relativ zum System
+@item @code{\phrasingSlurDown}
+  @tab @code{\phrasingSlurUp}
+  @tab @code{\phrasingSlurNeutral}
+  @tab Befehl für Richtung von Phrasierungsbögen
+@item @code{\slurDown}
+  @tab @code{\slurUp}
+  @tab @code{\slurNeutral}
+  @tab Befehl für Richtung von Legatobögen
+@item @code{\stemDown}
+  @tab @code{\stemUp}
+  @tab @code{\stemNeutral}
+  @tab Befehl für Richtung von Hälsen
+@item @code{\textSpannerDown}
+  @tab @code{\textSpannerUp}
+  @tab @code{\textSpannerNeutral}
+  @tab Position von Textbeschrifungen, die als Strecker eingegeben werden
+@item @code{\tieDown}
+  @tab @code{\tieUp}
+  @tab @code{\tieNeutral}
+  @tab Befehl für Richtung von Bindebögen
+@item @code{\tupletDown}
+  @tab @code{\tupletUp}
+  @tab @code{\tupletNeutral}
+  @tab Befehl für Richtung von Klammern/Zahlen der N-tolen
+@end multitable
+
+Diese vordefinierten Befehl können allerdings @strong{nicht}
+zusammen mit @code{\once} benutzt werden.  Wenn Sie die
+Wirkung eines Befehl auf eine einzige Noten begrenzen wollen,
+müssen Sie den entsprechenden
+@code{\once \override}-Befehl benutzen oder den definierten
+Befehl, gefolgt von dem entsprechenden neutralisierenden
+@code{xxxNeutral}-Befehl nach der Note.
+
+@subheading Fingering
+@cindex Fingersatz, Positionierung
+
+Die Positionierung von Fingersatz wird beeinflusst vom Wert
+seiner @code{direction}-Eigenschaft, aber es gibt auch hier
+besondere Befehle, mit denen der Fingersatz von einzelnen
+Noten in Akkorden kontrolliert werden kann, wobei mögliche
+Positionen über, unter der Note und rechts bzw. links von
+ihr sind.
+
+Zunächst die Wirkungsweise von @code{direction} auf
+den Fingersatz: im ersten Takt der Standard, dann
+die Wirkung von @code{DOWN} (runter) und @code{UP}
+(hinauf).
+
+@lilypond[quote,verbatim,relative=2]
+c-5 a-3 f-1 c'-5
+\override Fingering #'direction = #DOWN
+c-5 a-3 f-1 c'-5
+\override Fingering #'direction = #UP
+c-5 a-3 f-1 c'-5
+@end lilypond
+
+So kann die Fingersatzposition für einzelne Noten
+kontrolliert werden, aber das funktioniert nicht für Akkorde.
+Anstelle dessen wird der Fingersatz automatisch entweder
+über oder unter dem Akkord gesetzt:
+
+@lilypond[quote,verbatim,relative=2]
+<c-5 g-3>
+<c-5 g-3 e-2>
+<c-5 g-3 e-2 c-1>
+@end lilypond
+
+Bessere Kontrolle über die Positionierung von Fingersatz für
+einzelne Noten in einem Akkord ist mit dem
+@code{\set fingeringOrientations}-Befehl möglich.  Die Syntax
+lautet:
+
+@example
+@code{\set fingeringOrientations = #'([up] [left/right] [down])}
+@end example
+
+@noindent
+@code{\set}wird benutzt, weil @code{fingeringOrientations} eine
+Eigenschaft des @code{Voice}-Kontextes ist, erstellt und eingesetzt
+vom @code{New_fingering_engraver}.
+
+Die Eigenschaft kann als Wert eine Liste mit einem bis drei Eintragen
+haben.  Damit wird bestimmt, ob Fingersatz oberhalb gesetzt
+werden kann (wenn @code{up} in der Liste auftaucht), darunter
+(wenn@code{down} auftaucht), links (wenn @code{left} auftaucht)
+oder rechts (wenn @code{right} auftaucht).  Wenn andererseits
+ein Wert nicht auftaucht, wir auch kein Fingersatz in dieser Richtung
+gesetzt.  LilyPond nimmt diese Beschränkung als Bedingung und
+errechnet die besten Positionen für die Noten des nächsten Akkordes.
+Die seitliche Positionierung kann nur auf einer Seite des Akkordes
+geschehen, nicht auf beiden gleichzeitig, es kann also nur entweder
+@code{left} oder @code{right} auftreten, nicth beide gleichzeitig.
+
+Damit eine einzelne Note mit diesem Befehl beeinflusst werden
+kann, muss sie als ein @qq{Ein-Noten-Akkord} geschrieben
+werden, indem einfache spitze Klammern um die Note positioniert
+werden.
+
+Hier ein paar Beispiele:
+
+@lilypond[quote,verbatim,relative=1]
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond 
+
+@noindent
+Wenn die Fingersatzbezeichnung zu gedrungen aussieht,
+kann auch die Schriftgröße (@code{font-size}) verringert
+werden.  Der Standardwert kann aus dem
+@code{Fingering}-Objekt in der IR entnommen werden,
+er ist @code{-5}, versuchen wir es also mit @code{-7}.
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\override Fingering #'font-size = #-7
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left down)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(up left)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+\set fingeringOrientations = #'(right)
+<f-2>
+< c-1  e-2 g-3 b-5 > 4
+@end lilypond
+
+
+
 
 @node Outside staff objects
 @subsection Outside staff objects
 
-@untranslated
+Objekte außerhalb des Notensystems werden automatisch gesetzt,
+um Kollisionen zu vermeiden.  Objekten mit einem geringeren
+Prioritätswert der Eigenschaft @code{outside-staff-priority}
+werden näher an das System gesetzt, und andere Objekte außerhalb
+des Systems werden dann soweit vom System entfernt gesetzt, dass
+Zusammenstöße vermieden werden.  Die
+@code{outside-staff-priority}-Eigenschaft ist im
+@code{grob-interface} definiert und ist also eine Eigenschaft
+von allen Layout-Objekten.  Standardmäßig ist sie für alle Objekte
+auf falsch (@code{#f}) gesetzt; dieser Wert wird in einen numerischen
+Wert dem Objekt entsprechend geändert, wenn das Objekt für die
+Notenausgabe erstellt wird.  Die Tabelle unten zeigt die 
+Standardwerte für die meistbenutzten @code{outside-staff}-Objekte,
+die den Voreinstellungen nach im
+@code{Staff}- oder @code{Voice}-Kontext gesetzt werden.
+
+@multitable @columnfractions .3 .3 .3
+@headitem Layout-Objekt           
+  @tab Priorität     
+  @tab Kontrolliert Position von:
+@item @code{MultiMeasureRestText}
+  @tab @code{450}
+  @tab Text über Ganztaktpausen
+@item @code{TextScript}
+  @tab @code{450}
+  @tab Textbeschriftung
+@item @code{OttavaBracket}
+  @tab @code{400}
+  @tab Ottava (Oktavierungsklammern)
+@item @code{TextSpanner}
+  @tab @code{350}
+  @tab Text-Strecker
+@item @code{DynamicLineSpanner}
+  @tab @code{250}
+  @tab Alle Dynamik-Bezeichnungen
+@item @code{VoltaBracketSpanner}
+  @tab @code{100}
+  @tab Volta-Klammern
+@item @code{TrillSpanner}
+  @tab @code{50}
+  @tab Triller-Strecker
+@end multitable
+
+Hier ein Beispiel, das die Standardpositionierung von einigen
+Objekten zeigt.
+
+@cindex Text-Strecker
+@cindex Text-Spanner
+@funindex \startTextSpan
+@funindex \stopTextSpan
+@cindex Ottava-Klammer
+@cindex Oktavierungsklammer
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+% Start Ottava Bracket
+\ottava #1
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+\ottava #0
+c, c c c
+@end lilypond
+
+Dieses Beispiel zeigt auch, wie man Text-Strecker erstellt, d.h.
+Text mit Bindestrichen, der sich über eine bestimmte Länge
+erstreckt.  Der Strecker beginnt mit dem
+@code{\startTextSpan}-Befehl und endet mit dem
+@code{\stopTextSpan}-Befehl, und das Format des Textes
+wird mit dem @code{\override TextSpanner}-Befehl bestimmt.
+Mehr Einzelheiten siehe @ruser{Text spanners}.
+
+Im Beispiel wird auch gezeigt, wie Oktavierungsklammern
+(Ottava) erstellt werden.
+
+Beachten Sie, dass Taktnummern, Metronombezeichnungen
+und Übungszeichen nicht gezeigt werden.  Sie werden
+standardmäßig im @code{Score}-(Partitur)-Kontext
+erstellt und ihre @code{outside-staff-priority} wird
+in Bezug auf die Layout-Objekte, die im @code{Staff}-Kontext
+erstellt werden, ignoriert.  Wenn Sie Taktnummern,
+Metronombezeichnungen oder Übungszeichen entsprechend
+ihrer Außersystem-Priorität setzen wollen, müssen Sie
+die entsprechenden Engraver (@code{Bar_number_engraver},
+@code{Metronome_mark_engraver} oder @code{Mark_engraver})
+vom @code{Score}-Kontext entfernen und dem
+@code{Staff}-Kontext hinzufügen.  Wenn die Engraver so
+geändert werden, erhalten sie folgenden Werte für
+@code{outside-staff-priority}:
+
+@multitable @columnfractions .3 .3
+@headitem Layout-Objekt           @tab Priorität
+@item @code{RehearsalMark}        @tab @code{1500}
+@item @code{MetronomeMark}        @tab @code{1000}
+@item @code{BarNumber}            @tab @code{ 100}
+@end multitable
+
+Wenn die Standardwerte der @code{outside-staff-priority} nicht
+die Positionierung hervorrufen, die Sie wünschen, kann die
+Priorität eines jeden Objektes geändert werden.  Als Beispiel
+wollen wir zeigen, wie sich die Oktavierungsklammer unter
+den Textstrecker des vorigen Beispiels setzen lässt.  Wir müssen
+nur die Priorität des
+@code{OttavaBracket}-Objektes in der IR oder der Tabelle oben
+herausfinden und einen kleineren Wert angeben als der Wert, den
+das @code{TextSpanner}-(Strecker)-Objekt bekommt, wobei noch daran
+zu denken ist, dass @code{OttavaBracket} im @code{Staff}-Kontext
+erstellt wird:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+% Set details for later Text Spanner
+\override TextSpanner #'bound-details #'left #'text
+    = \markup { \small \bold Slower }
+% Place dynamics above staff
+\dynamicUp
+%Place following Ottava Bracket below Text Spanners
+\once \override Staff.OttavaBracket #'outside-staff-priority = #340
+% Start Ottava Bracket
+\ottava #1
+c' \startTextSpan
+% Add Dynamic Text
+c\pp
+% Add Dynamic Line Spanner
+c\<
+% Add Text Script
+c^Text
+c c
+% Add Dynamic Text
+c\ff c \stopTextSpan
+% Stop Ottava Bracket
+\ottava #0
+c, c c c
+@end lilypond
+
+Eine Änderung der @code{outside-staff-priority} kann auch dazu
+benutzt werden, die vertikale Plazierung von individuellen Objekten
+zu kontrollieren, auch wenn das Ergebnis nicht immer optimal
+ist.  Im nächsten Beispiel soll @qq{Text3} oberhalb von @qq{Text4}
+gesetzt werden, das Beispiel wurde behandelt in
+@ref{Automatic behavior}.  Der Wert der Priorität muss also für
+die Eigenschaft @code{TextScript} entweder in der IR oder in der
+Tabelle oben festgestellt werden und dann die Priorität für
+@qq{Text3} höher eingestellt werden:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+c2^"Text1"
+c^"Text2"
+\once \override TextScript #'outside-staff-priority = #500
+c^"Text3"
+c^"Text4"
+@end lilypond
+
+Damit wird zwar @qq{Text3} ganz richtig über @qq{Text4}
+platziert, aber auch über @qq{Text2}, und @qq{Text4}
+wird jetzt weiter unten gesetzt.  Eigentlich sollten ja alle
+diese Anmerkungen gleichweit vom System entfernt sein.
+Dazu muss offensichtlich horizontal etwas Platz gemacht
+werden.  Das kann erreicht werden mit dem
+@code{textLengthOn}-(Textlänge an)-Befehl.
+
+@subheading \textLengthOn
+
+@funindex \textLengthOn
+@cindex Noten, durch Text gespreizt
+
+Standardmäßig wird Text, der mit dem Beschriftungsbefehl
+@code{\markup} bzw. Äquivalenten erstellt wird, kein
+zusätzlicher Platz in Bezug auf die Positionierung der Noten
+zugestanden.  Der @code{\textLengthOn}-Befehl ändert
+dieses Verhalten, so dass die Noten gespreizt werden, wenn
+die Breite des Textes es erfordert:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\textLengthOn  % Cause notes to space out to accommodate text
+c2^"Text1"
+c^"Text2"
+c^"Text3"
+c^"Text4"
+@end lilypond  
+
+Dieses Verhalten wird mit dem
+@code{\textLengthOff}-Befehl rückgängig gemacht.  Erinnern Sie
+sich, dass @code{\once} nur mit
+@code{\override}, @code{\set}, @code{\revert} oder @code{unset}
+funktioniert, der Befehl kann also nicht zusammen mit
+@code{\textLengthOn} benutzt werden.
+
+Textbeschriftung vermeidet auch Noten, die über das System hinausstehen.
+Wenn das nicht gewünscht ist, kann die automatische Verschiebung
+nach oben hin auch vollständig ausgeschaltet werden, indem die
+Priorität auf @code{#f} gesetzt wird.  Hier ein Beispiel, wie
+eine Textbeschriftung mit diesen Noten reagiert:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+% This markup is short enough to fit without collision
+c2^"Tex"
+c''2
+R1
+% This is too long to fit, so it is displaced upwards
+c,,2^"Text"
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+c,,2^"Long Text   "
+c''2
+R1
+% Turn off collision avoidance
+\once \override TextScript #'outside-staff-priority = ##f
+\textLengthOn  % and turn on textLengthOn
+c,,2^"Long Text   "  % Spaces at end are honored
+c''2
+@end lilypond
+
+
+@subheading Dynamics
+
+Dynamikbezeichnung wird üblicherweise unter dem System
+gesetzt, kann aber auch nach oben mit dem Befehl
+@code{dynamicUp} gezwungen werden.  Die Bezeichnung
+wird vertikal relativ zu der Note positioniert, an die sie angefügt
+wurde.  Sie wird vertikal variabel gesetzt in Bezug zu 
+Innersystemobjekten wie Bögen oder Taktnummern. Damit
+können oft recht gute Resultate erreicht werden, wie im
+folgenden Beispiel:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=1]
+\clef "bass"
+\key aes \major
+\time 9/8
+\dynamicUp
+bes4.~\f\< \( bes4 bes8 des4\ff\> c16 bes\! |
+ees,2.~\)\mf ees4 r8 |
+@end lilypond
+
+Wenn aber Noten und Dynamikzeichen sehr dicht beieinander
+stehen, positioniert die automatische Kollisionsvermeidung
+später kommende Dynamikzeichen weiter weg, was allerdings
+nicht immer die beste Möglichkeit ist, wie in dem folgenden,
+etwas gewollten Beispiel zu sehen ist:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Wenn eine ähnliche Situation in @qq{echter} Musik auftaucht,
+kann es nötig sein, die Noten etwas zu spreizen, damit die
+Dynamikzeichen alle auf der selben vertikalen Position
+gesetzt werden können.  Dieses Verhalten war im Falle von
+Textbeschriftungen möglich mit dem @code{\textLengthOn}-Befehl,
+aber es gibt keinen entsprechenden Befehl für Dynamik.  Wir
+müssen also unsere eigenen Befehle mit @code{\override}
+konstruieren.
+
+@subheading Grob sizing
+
+@cindex Grob, Größenveränderung
+@cindex Größenveränderung von grobs
+@cindex @code{X-offset}
+@cindex @code{Y-offset}
+@cindex @code{X-extent}
+@cindex @code{Y-extent}
+
+Zuallererst müssen wir lernen, wie die Größe von Grobs verändert
+wird.  Alle Grobs besitzen einen Referenzpunkt, der
+benutzt wird, um ihre Position in Relation zu ihnen übergeordneten
+Objekten zu bestimmen.  Dieser Punkt innerhalb des Grobs wird dann
+auf einer horizontalen Position (@code{X-offset}) und einer
+vertikalen Position (@code{Y-offset}) ausgerichtet, immer bezüglich
+des übergeordneten Objektes.  Eine horizontale Strecke wird
+durch ein Zahlenpaar angegeben (@code{X-extent}), welche
+die linke und rechte Grenze relativ zum übergeordneten Objekt
+bezeichnen.  Die vertikale Strecke wir genauso durch ein
+Zahlenpaar (@code{Y-extent}) definiert.  Diese Eigenschaften
+gehören zu allen Grobs, die das
+@code{grob-interface} unterstützen.
+
+@cindex @code{extra-spacing-width}
+
+Standardmäßig haben Außersystemobjekte eine Länge von Null,
+so dass sie sich in horizontaler Richtung überlappen können.  Das
+geschieht, indem dem linken Rand Unendlich zugewiesen wird
+und dem rechten Rand minus Undendlich (der Code der 
+@code{extra-spacing-width}-(zusätzliche Positionierungslänge)-Eigenschaft
+lautet: @code{'(+inf.0 . -inf.0)}).
+Damit sich diese Objekte also horizontal nicht überschneiden, muss
+der Wert von @code{extra-spacing-width} auf
+@code{'(0 . 0)} gesetzt werden, sodass die wirkliche Länge eines
+Objektes zur Geltung kommt.  Mit diesem Befehl wird das für
+Dynamik-Zeichen erledigt:
+
+@example
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+@end example
+
+@noindent
+Schauen wir uns an, wie es mit dem vorigen Beispiel funktioniert:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+\override DynamicText #'extra-spacing-width = #'(0 . 0)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Damit werden die Dynamik-Zeichen also wirklich nebeneinander
+gesetzt, aber es gibt noch zwei Probleme.  Die Zeichen sollten
+etwas weiter außeinander stehen und es wäre gut, wenn sie alle
+den gleichen Abstand zum System hätte.  Das erste Problem ist
+einfach behoben.  Anstatt der @code{extra-spacing-width}-Eigenschaft
+Null zuzuweisen, können wir auch einen etwas größeren Wert
+wählen.  Die Einheit wird gemessen in dem Abstand zwischen zwei
+Notenlinien, es scheint also gut, den rechten und linken
+Rand eine halbe Einheit zu vergrößern:
+
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+\dynamicUp
+% Extend width by 1 staff space
+\override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
+a4\f b\mf c\mp b\p
+@end lilypond
+
+@noindent
+Das sieht schon besser aus, aber es wäre noch besser, wenn die
+Dynamik-Zeichen alle an einer Linie ausgerichtet wären, anstatt
+höher und tiefer zu sitzen.  Das kann mit der
+@code{staff-padding}-Eigenschaft erreicht werden,
+die wir uns im folgenden Abschnitt genauer anschauen werden.
+
 
 
 @node Collisions of objects

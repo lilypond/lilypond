@@ -108,7 +108,7 @@ or figure for each example to see the corresponding input file.
 
 @ifnottex
 @node Top
-@top LilyPond Snippet List
+@top GNU LilyPond --- Snippets List
 
 This document shows a selected set of LilyPond snippets from the
 @uref{http://lsr@/.dsi@/.unimi@/.it,LilyPond Snippet Repository}

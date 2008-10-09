@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -1499,7 +1499,7 @@ interpretar dichas indicaciones:
 
 Al tipografiar música, la dirección y colocación de muchos elementos
 es cuestión de elección.  Por ejemplo, las plicas de las notas se
-pueden dirigir hacia arriba o hacia abajo; la lestra, las indicaciones
+pueden dirigir hacia arriba o hacia abajo; la letra, las indicaciones
 dinámicas y otras marcas expresivas se pueden colocar encima o debajo
 del pentagrama; el texto se pude alinear a la izquierda, a la derecha
 o centrado; etc.  La mayoría de estas elecciones pueden dejarse que

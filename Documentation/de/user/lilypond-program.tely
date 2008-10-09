@@ -55,7 +55,7 @@ verfügbar.
 @author Das LilyPond-Entwicklerteam
 
 
-Copyright @copyright{} 1999--2007 bei den Autoren
+Copyright @copyright{} 1999--2008 bei den Autoren
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -90,7 +90,7 @@ Für LilyPond Version @version{}
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2007 bei den Autoren
+Copyright @copyright{} 1999--2008 bei den Autoren
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -123,7 +123,7 @@ Free Documentation License''.
 @ifnottex
 Diese Datei dokumentiert die Programmbenutzung von GNU LilyPond.
 
-Copyright 1999--2007 bei den Autoren
+Copyright 1999--2008 bei den Autoren
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English

@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 4d5a7de63d4f5d4d94d9339e20a46840e0498031
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 
 @node Fundamental concepts
@@ -776,12 +776,11 @@ color de la cabeza, la plica y las barras, y el estilo de la cabeza,
 de forma que las voces se puedan distinguir fácilmente.  La voz uno
 está establecida a rombos rojos, la voz dos a triángulos azules, la
 voz tres a círculos verdes con aspas, y la voz cuatro (que no se
-utiliza aquí) a aspas color magenta.  @code{\voiceNeutralStyle} (also
-not used here) reverts the style back to the default.
-Veremos más adelante cómo el usuario puede crear instrucciones como
-éstas.  Véase
-@ref{Visibility and color of objects} y
-@ref{Using variables for tweaks}.
+utiliza aquí) a aspas color magenta.  @code{\voiceNeutralStyle} (que
+tampoco se usa aquí) devuelve todo al estilo predeterminado.  Veremos
+más adelante cómo el usuario puede crear instrucciones como éstas.
+Véase @ref{Visibility and color of objects} y @ref{Using variables for
+tweaks}.
 
 @cindex polifonía y modo relativo
 @cindex relativo, modo, polifonía y

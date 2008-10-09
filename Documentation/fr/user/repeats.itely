@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
@@ -14,19 +14,50 @@
 @node Repeats
 @section Repeats
 
-@lilypondfile[ragged-right,line-width=16\cm,staffsize=16,quote]
-{repeats-headword.ly}
+@lilypondfile[quote]{repeats-headword.ly}
 
+@cindex reprises
+@cindex répétitions
 La répétition est une notion essentielle en musique, et il existe de
-nombreuses façons de mettre en œuvre et noter ce concept.
+nombreuses façons de mettre en œuvre et noter ce concept.  LilyPond
+prend en charge les types de répétition suivants :
+
+@table @code
+@item volta
+Le passage répété n'est pas développé , mais il est encadré par des
+barres de reprises, et peut se terminer par plusieurs fins
+alternatives --- ou @emph{volte} --- imprimées de gauche à droite sous
+des crochets.  Lorsque la répétition commence au début de la pièce,
+aucune barre de reprise n'est gravée au début de la partition.  Il
+s'agit de la notation courante des reprises avec fins alternatives.
+
+@item unfold
+La musique répétée est développée dans la partition autant de fois
+qu'indiqué.  Ceci est particulièrement utile pour de la musique
+répétitive.
+
+@item percent
+Des barres obliques ou signes de pourcentage indiquent la répétition
+de temps ou de mesures, imprimés sous la forme de signes de
+pourcentage.
+
+@item tremolo
+Ce type permet de réaliser des trémolos sous forme de liens de croches.
+@end table
 
 @menu
-* Writing repeats::             
+* Long repeats::             
 * Other repeats::               
 @end menu
 
-@node Writing repeats
-@subsection Writing repeats
+@node Long repeats
+@subsection Long repeats
+
+Cette section présente la syntaxe des répétitions longues ---
+c'est-à-dire plusieurs mesures.  Ces répétitions peuvent prendre deux
+formes : encadrées par des barres de reprises, ou bien développées
+dans la partition.  Les barres et autres signe de reprise peuvent être
+contrôlés manuellement.
 
 @menu
 * Repeat types::                
@@ -34,48 +65,30 @@ nombreuses façons de mettre en œuvre et noter ce concept.
 * Manual repeat commands::      
 @end menu
 
+@cindex barres de reprise
+@cindex reprise
+@cindex répétition avec barres de reprise
+@cindex volta
+@cindex fois, pre
+@cindex première fois
+@cindex seconde fois
+@funindex \repeat
+
 
 @node Repeat types
 @unnumberedsubsubsec Repeat types
 
-@cindex reprises et répétitions
-
 On peut indiquer des répétitions des façons suivantes :
 
 @table @code
-@item unfold
-La musique qui doit être répétée sera entièrement imprimée (et jouée).
-Ceci est particulièrement utile dans de la musique répétitive.  Ce type
-de reprise est le seul pris en compte dans le rendu MIDI.
-
-@item volta
-Le passage répété ne sera pas écrit explicitement, mais il sera encadré
-sur la partition par des barres de reprises, et peut se terminer par
-plusieurs fins alternatives, imprimées de gauche à droite sous des
-crochets.  Il s'agit là de la notation courante des reprises avec des
-fins alternatives.  Ces dernières, par défaut, ne sont pas jouées dans
-le rendu MIDI.
-
-@item tremolo
-Pour réaliser des trémolos.  Ceux-ci, par défaut, ne sont pas joués dans
-le rendu MIDI.
-
-@item percent
-Pour répéter des temps ou des mesures, imprimés sous la forme de signes de
-pourcentage.  Ceux-ci, par défaut, ne sont pas joués dans le rendu MIDI.
-Les répétitions indiquées par ces symboles doivent être déclarées dans
-un contexte @code{Voice}.
-
+@item bar
+baz
 @end table
-
 
 @node Repeat syntax
 @unnumberedsubsubsec Repeat syntax
 
 @cindex volta
-@cindex première fois
-@cindex seconde fois
-@funindex \repeat
 
 Tous les différents types de reprise se spécifient dans
 LilyPond avec une même construction syntaxique, qui est :

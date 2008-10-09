@@ -1,16 +1,34 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: c5692ebfd28493444a1669cd550b2430bb2ba29a
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Notation manual tables
 @appendix Notation manual tables
+
+@c Please do not delete the following @ignore block.
+@ignore
+Note for editors and translators: In the following menu, two entries
+are needed to link to a pair of automatically generated sections.
+Please keep them and, if using emacs, do not run
+texinfo-all-menus-update without manually restoring them back. These
+menu entries are:
+
+* Text markup commands::
+* Text markup list commands::
+
+and they should go just after
+* Note head styles::
+
+and just before
+* List of articulations::
+@end ignore
 
 @menu
 * Chord name chart::
@@ -20,6 +38,8 @@
 * List of colors::
 * The Feta font::
 * Note head styles::
+* Text markup commands::
+* Text markup list commands::
 * List of articulations::
 * Percussion notes::
 * All context properties::

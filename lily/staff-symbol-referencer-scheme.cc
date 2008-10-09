@@ -37,3 +37,13 @@ LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
   bool on_line = st ? Staff_symbol::on_line (g, pos) : false;
   return scm_from_bool (on_line);
 }
+
+LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
+           1, 0, 0, (SCM grob),
+           "Returns the line-thickness of the staff associated with @var{grob}.")
+{
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  Grob *g = unsmob_grob (grob);
+  Real thickness = Staff_symbol_referencer::line_thickness (g);
+  return scm_from_double (thickness);
+}

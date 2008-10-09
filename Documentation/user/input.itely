@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 @node General input and output
 @chapter General input and output
@@ -498,14 +498,14 @@ Note that the music expression must come before the @code{\header}.
 }
 @end lilypond
 
-@funindex printallheaders
+@funindex print-all-headers
 @noindent
 You may change this behavior (and print all the headers when defining
 @code{\header} inside @code{\score}) by using
 
 @example
 \paper@{
-  printallheaders=##t
+  print-all-headers = ##t
 @}
 @end example
 

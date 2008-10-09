@@ -1,14 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: c8d082d075de595c18d05e894ae765f89fc0cb46
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
-
+@c \version "2.11.61"
 
 @node Converting from other formats
 @chapter Converting from other formats
@@ -21,9 +20,11 @@ ejemplo secuenciadores con interfaz gráfico y comvertidores de XML.
 Consulte el @uref{http://@/lilypond@/.org,website} para ver más
 detalles.
 
-Son programas distintos a lilypond propiamente dicho, y se ejecutan
-desde la línea de órdenes; consulte @ref{Command-line usage} para ver
-más información.
+Son programas distintos a @command{lilypond} propiamente dicho, y se
+ejecutan desde la línea de órdenes; consulte @ref{Command-line usage}
+para ver más información.  Si tiene MacOS 10.3 o 10.4 y tiene
+problemas para ejecutar alguno de estos guiones,
+p.ej. @code{convert-ly}, consulte @ref{Setup for MacOS X}.
 
 
 @knownissues
@@ -35,7 +36,7 @@ informes de fallo casi con certeza no se resolverán a medio plazo.
 @menu
 * Invoking midi2ly::            Importar archivos MIDI.
 * Invoking musicxml2ly::        Importar archivos MusicXML.
-* Invoking abc2ly::             Importar archivos ABC.      
+* Invoking abc2ly::             Importar archivos ABC.
 * Invoking etf2ly::             Importar archivos de Finale.
 * Generating LilyPond files::   Interfaces gráficos, transcriptores y programas de composición algorítmica.
 @end menu
@@ -107,15 +108,15 @@ mediante @code{:1}.
 Escribir la salida en @var{archivo}.
 
 @item -s, --start-quant=@var{DURACIÓN}
-Cuantizar el inicio de las notas a DURACIÓN.
+Cuantizar el inicio de las notas a @var{DURACIÓN}.
 
 @item -t, --allow-tuplet=@var{DURACIÓN}*@var{NUMERADOR}/@var{DENOMINADOR}
 Permitir duraciones de grupos especiales @var{DURACIÓN}*@var{NUMERADOR}/@var{DENOMINADOR}.
 
-@item -V, --verbose
+@item -v, --verbose
 Ser prolijo en comentarios.
 
-@item -v, --version
+@item -V, --version
 Imprimir el número de la versión.
 
 @item -w, --warranty
@@ -137,28 +138,73 @@ pedal.
 @node Invoking musicxml2ly
 @section Invoking @code{musicxml2ly}
 
-@uref{http://@/www.@/recordare@/.com/xml@/.html,MusicXML} es un
+@cindex MusicXML
+
+@uref{http://@/www.@/musicxml@/.org/,MusicXML} es un
 dialecto del XML para representar notación musical.
 
-@command{musicxml2ly} extrae las notas de archivos de MusicXML parte a
-parte, y los escribe en un archivo .ly.  Se invoca a través de la
-línea de órdenes.
+@command{musicxml2ly} extrae las notas, articulaciones, estructura de
+la partitura, letra, etc., de archivos de MusicXML parte a parte, y
+los escribe en un archivo .ly.  Se invoca a través de la línea de
+órdenes.
+
+La invocación desde la línea de órdenes se hace como sigue:
+
+@example
+musicxml2ly [@var{opción}]@dots{} @var{archivo_xml}
+@end example
 
 Observe que por @q{línea de órdenes}, nos referimos a la línea de
 órdenes del sistema operativo.  Consulte @ref{Converting from other
 formats}, para obtener más información acerca de esto.
 
+Si el nombre de archivo proporcionado es @file{-},
+@command{musicxml2ly} lee la entrada desde la entrada estándar.
+
 @command{musicxml2ly} contempla las siguientes opciones:
 
 @table @code
+@item -a, --absolute
+convertir las alturas en modo absoluto.
+
 @item -h,--help
 mostrar un resumen de la utilización y las opciones.
+
+@item -l, --language=IDIOMA
+utilizar un archivo de idioma distinto 'IDIOMA.ly' y los
+correspondientes nombres de nota, p.ej. 'deutsch' para deutsch.ly y
+los nombres de nota en alemán.
+
+@item --lxml
+usar el paquete de Python lxml.etree para el análisis de XML; usa
+menos memoria y tiempo de CPU.
+
+@item --nd --no-articulation-directions
+no convertir las direcciones (@code{^}, @code{_} o @code{-}) para las
+articulaciones, dinámica, etc.
+
+@item --no-beaming
+no convertir la información de las barras, en vez de ello usar el
+barrado automático de LilyPond.
+
 @item -o,--output=@var{archivo}
-fijar el nombre del archivo de salida como @var{archivo}. (de forma
-predeterminada: imprimir salida a través de stdout)
+fijar el nombre del archivo de salida como @var{archivo}. Si
+@var{archivo} es @file{-}, la salida se imprime sobre stdout, la
+salida estándar.  Si no se da, se usa @var{archivo_xml}@file{.ly}.
+
+@item -r,--relative
+convertir las alturas en modo relativo (predeterminado).
+
+@item -v,--verbose
+ser prolijo.
+
 @item -v,--version
 imprimir la información de la versión.
+
+@item -z,--compressed
+el archivo de entrada es un archivo MusicXML comprimido en zip.
 @end table
+
 
 
 @node Invoking abc2ly
@@ -170,7 +216,7 @@ ABC es un formato bastante simple basado en ASCII.  Se encuentra
 descrito en el sitio web de ABC:
 
 @quotation
-@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/abc2mtex/@/abc@/.txt}.
+@uref{http://@/www@/.walshaw@/.plus@/.com/@/abc/@/learn@/.html}.
 @end quotation
 
 @command{abc2ly} convierte ABC en LilyPond.  Se invoca de la siguiente
@@ -183,11 +229,15 @@ abc2ly [@var{opción}]@dots{} @var{archivo_abc}
 @command{abc2ly} contempla las siguientes opciones:
 
 @table @code
+@item -b,--beams=None
+preservar la noción de ABC de las barras
 @item -h,--help
 esta ayuda
 @item -o,--output=@var{archivo}
 fijar el nombre del archivo de salida como @var{archivo}.
-@item -v,--version
+@item -s,--strict
+ser estricto respecto al éxito
+@item --version
 imprimir la infomación de la versión.
 @end table
 
@@ -253,9 +303,9 @@ formats}, para obtener más información acerca de esto.
 @table @code
 @item -h,--help
 esta ayuda
-@item -o,--output=ARCHIVO
-fijar el nombre del archivo de salida como ARCHIVO
-@item -v,--version
+@item -o,--output=@var{ARCHIVO}
+fijar el nombre del archivo de salida como @var{ARCHIVO}
+@item --version
 información de la versión
 @end table
 
@@ -288,16 +338,23 @@ convertidor monofónico de MIDI a LilyPond en tiempo real.
 @uref{http://nicolas@/.sceaux@/.free@/.fr/lilypond/lyqi@/.html,lyqi},
 un modo principal para Emacs.
 @item
-@uref{http://@/www@/.nongnu@/.org/@/xml2ly/, xml2ly}, que importa
-@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+@uref{http://@/www@/.nongnu@/.org/@/xml2ly/,xml2ly}, que importa
+@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}.
 @item
 @uref{http://@/noteedit@/.berlios@/.de,NoteEdit} que importa
-@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}
+@uref{http://@/www@/.musicxml@/.com/xml@/.html,MusicXML}.
 @item
 @uref{http://@/www@/.rosegardenmusic@/.com,Rosegarden}, que importa
-MIDI
+MIDI.
 @item
 @uref{http://@/common-lisp@/.net/project/fomus/,FOMUS},
-una biblioteca de LISP para generar notación musical
+una biblioteca de LISP para generar notación musical.
+@item
+@uref{http://vsr.informatik.tu-chemnitz.de/staff/jan/nted/nted.xhtml},
+contempla experimentalmente la exportación para LilyPond.
+@item
+@uref{http://www.tuxguitar.com.ar/}, puede exportar a LilyPond.
+@item
+@uref{http://musescore.org} también puede exportar a LilyPond.
 @end itemize
 

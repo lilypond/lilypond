@@ -17,6 +17,11 @@
 (read-enable 'positions)
 (debug-enable 'debug)
 
+(define-public PLATFORM
+  (string->symbol
+   (string-downcase
+    (car (string-tokenize (utsname:sysname (uname)))))))
+
 (define scheme-options-definitions
   `(
 
@@ -55,6 +60,10 @@ ensure that all refs to parsed objects are dead.  This is an internal option, an
     (include-eps-fonts #t "Include fonts in separate-system EPS files.")
     (job-count #f "Process in parallel") 
     (log-file #f "redirect output to log FILE.log")
+    (midi-extension ,(if (eq? PLATFORM 'windows)
+			 "mid"
+			 "midi")
+		    "set the default file extension for MIDI")
 
     (old-relative #f
 		  "relative for simultaneous music works
@@ -179,22 +188,6 @@ on errors, and print a stack trace.")
     (primitive-load file-name)
     (if (ly:get-option 'verbose)
 	(ly:progress "]"))))
-
-;; Cygwin
-;; #(CYGWIN_NT-5.1 Hostname 1.5.12(0.116/4/2) 2004-11-10 08:34 i686)
-;;
-;; Debian
-;; #(Linux hostname 2.4.27-1-686 #1 Fri Sep 3 06:28:00 UTC 2004 i686)
-;;
-;; Mingw
-;; #(Windows XP HOSTNAME build 2600 5.01 Service Pack 1 i686)
-;;
-
-;; ugh, code dup.
-(define-public PLATFORM
-  (string->symbol
-   (string-downcase
-    (car (string-tokenize (vector-ref (uname) 0) char-set:letter)))))
 
 (define-public DOS
   (let ((platform (string-tokenize

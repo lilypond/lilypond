@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 @node Expressive marks
 @section Expressive marks
@@ -300,20 +300,21 @@ aligned with dynamics, see @ref{New dynamic marks}.
 
 @funindex DynamicLineSpanner
 
+
 Vertical positioning of dynamics is handled by
 @rinternals{DynamicLineSpanner}.
+@funindex \dynamicUp
+@funindex dynamicUp
+@funindex \dynamicDown
+@funindex dynamicDown
+@funindex \dynamicNeutral
+@funindex dynamicNeutral
 
 
 @predefined
 
-@funindex \dynamicUp
-@funindex dynamicUp
 @code{\dynamicUp},
-@funindex \dynamicDown
-@funindex dynamicDown
 @code{\dynamicDown},
-@funindex \dynamicNeutral
-@funindex dynamicNeutral
 @code{\dynamicNeutral},
 @code{\crescTextCresc},
 @code{\dimTextDim},
@@ -349,11 +350,11 @@ Vertical positioning of dynamics is handled by
 
 @seealso
 
-@c TODO: Add hairpin to glossary.
-
 Music Glossary:
+@rglos{al niente},
 @rglos{crescendo},
-@rglos{decrescendo}.
+@rglos{decrescendo},
+@rglos{hairpin}.
 
 Learning Manual:
 @rlearning{Articulation and dynamics}.
@@ -534,6 +535,9 @@ Phrasing slurs must be used to print more than one slur at once.
 For details, see @ref{Phrasing slurs}.
 
 @cindex slur style
+@cindex solid slur
+@cindex dotted slur
+@cindex dashed slur
 @cindex slur, solid
 @cindex slur, dotted
 @cindex slur, dashed
@@ -561,20 +565,16 @@ c4( e g2)
 g4( e c2)
 @end lilypond
 
+@funindex \slurUp
+@funindex slurUp
 
 @predefined
 
-@funindex \slurUp
 @code{\slurUp},
-@funindex \slurDown
 @code{\slurDown},
-@funindex \slurNeutral
 @code{\slurNeutral},
-@funindex \slurDashed
 @code{\slurDashed},
-@funindex \slurDotted
 @code{\slurDotted},
-@funindex \slurSolid
 @code{\slurSolid}.
 
 
@@ -677,6 +677,7 @@ Internals Reference:
 @unnumberedsubsubsec Breath marks
 
 @cindex breath marks
+@cindex pause mark
 @funindex \breathe
 @funindex breathe
 
@@ -748,10 +749,9 @@ command is @emph{required} when writing falls and doits.
 
 @seealso
 
-@c TODO: add falls and doits to glossary.
-@c Music Glossary:
-@c @rglos{falls},
-@c @rglos{doits}.
+Music Glossary:
+@rglos{fall},
+@rglos{doit}.
 
 Snippets:
 @rlsr{Expressive marks}.
@@ -764,9 +764,9 @@ This section explains how to create various expressive marks that
 follow a linear path: glissandos, arpeggios, and trills.
 
 @menu
-* Glissando::                   
-* Arpeggio::                    
-* Trills::                      
+* Glissando::
+* Arpeggio::
+* Trills::
 @end menu
 
 @node Glissando
@@ -804,10 +804,6 @@ Notation Reference:
 Snippets:
 @rlsr{Expressive marks}.
 
-@c FIXME: I need to figure out what's up with these.  -gp
-@c @lsr{expressive,glissando.ly},
-@c @lsr{expressive,line-styles.ly}
-
 Internals Reference:
 @rinternals{Glissando}.
 
@@ -824,6 +820,7 @@ supported.
 @cindex arpeggio
 @cindex broken chord
 @cindex chord, broken
+
 @funindex \arpeggio
 @funindex arpeggio
 @funindex \arpeggioArrowUp
@@ -855,6 +852,7 @@ Different types of arpeggios may be written.
 
 @cindex arpeggio symbols, special
 @cindex special arpeggio symbols
+
 @funindex \arpeggioBracket
 @funindex arpeggioBracket
 @funindex \arpeggioParenthesis
@@ -931,6 +929,7 @@ cross-staff arpeggios.
 @unnumberedsubsubsec Trills
 
 @cindex trills
+
 @funindex \trill
 @funindex trill
 @funindex \startTrillSpan

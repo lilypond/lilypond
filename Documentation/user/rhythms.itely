@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @ignore
 GDP TODO list
@@ -59,7 +59,7 @@ This section discusses rhythms, rests, durations, beaming and bars.
 @end menu
 
 @node Durations
-@subsubsection Durations
+@unnumberedsubsubsec Durations
 
 @cindex durations, of notes
 @cindex note durations
@@ -183,7 +183,7 @@ rests from 128th to maxima (8 x whole) may be printed.
 
 
 @node Tuplets
-@subsubsection Tuplets
+@unnumberedsubsubsec Tuplets
 
 @cindex tuplets
 @cindex triplets
@@ -287,7 +287,7 @@ placed within tuplet brackets.
 
 
 @node Scaling durations
-@subsubsection Scaling durations
+@unnumberedsubsubsec Scaling durations
 
 @cindex scaling durations
 @cindex durations, scaling
@@ -361,7 +361,7 @@ Snippets:
 
 
 @node Ties
-@subsubsection Ties
+@unnumberedsubsubsec Ties
 
 @cindex tie
 @funindex ~
@@ -521,7 +521,7 @@ Rests are entered as part of the music in music expressions.
 @end menu
 
 @node Rests
-@subsubsection Rests
+@unnumberedsubsubsec Rests
 @cindex rest
 @cindex rest, entering durations
 @cindex maxima
@@ -602,7 +602,7 @@ are rests from 128th to maxima (8 x whole).
 
 
 @node Invisible rests
-@subsubsection Invisible rests
+@unnumberedsubsubsec Invisible rests
 
 @cindex skip
 @cindex invisible rest
@@ -664,7 +664,7 @@ Internals Reference: @rinternals{SkipMusic}
 
 
 @node Full measure rests
-@subsubsection Full measure rests
+@unnumberedsubsubsec Full measure rests
 
 @cindex multi-measure rests
 @cindex full-measure rests
@@ -852,7 +852,7 @@ Multi-measure rests do not take part in rest collisions.
 @end menu
 
 @node Time signature
-@subsubsection Time signature
+@unnumberedsubsubsec Time signature
 
 @cindex time signature
 @cindex meter
@@ -905,8 +905,8 @@ changed to a numeric style:
 @end lilypond
 
 
-Ancient time signatures are covered in
-@ref{Ancient time signatures}.
+Mensural time signatures are covered in
+@ref{Mensural time signatures}.
 
 @predefined
 
@@ -994,7 +994,7 @@ Music Glossary:
 @rglos{time signature}
 
 Notation Reference:
-@ref{Ancient time signatures},
+@ref{Mensural time signatures},
 @ref{Time administration}.
 
 Snippets:
@@ -1006,7 +1006,7 @@ Internals Reference:
 
 
 @node Upbeats
-@subsubsection Upbeats
+@unnumberedsubsubsec Upbeats
 
 @cindex anacrusis
 @cindex upbeat
@@ -1072,7 +1072,7 @@ beginning of a piece.  If you use it after the beginning, some
 odd warnings may occur.
 
 @node Unmetered music
-@subsubsection Unmetered music
+@unnumberedsubsubsec Unmetered music
 
 @funindex \cadenzaOn
 @funindex \cadenzaOff
@@ -1141,7 +1141,7 @@ to indicate where breaks can occur.
 
 
 @node Polymetric notation
-@subsubsection Polymetric notation
+@unnumberedsubsubsec Polymetric notation
 
 @cindex double time signatures
 @cindex signatures, polymetric
@@ -1267,7 +1267,7 @@ individual staves than would be normal without the different
 time signatures.
 
 @node Automatic note splitting
-@subsubsection Automatic note splitting
+@unnumberedsubsubsec Automatic note splitting
 
 @cindex notes, splitting
 @cindex splitting notes
@@ -1320,7 +1320,7 @@ split rests.
 
 
 @node Showing melody rhythms
-@subsubsection Showing melody rhythms
+@unnumberedsubsubsec Showing melody rhythms
 
 Sometimes you might want to show only the rhythm of a melody.  This
 can be done with the rhythmic staff.  All pitches of notes on such a
@@ -1448,7 +1448,7 @@ Internals Reference:
 @end menu
 
 @node Automatic beams
-@subsubsection Automatic beams
+@unnumberedsubsubsec Automatic beams
 
 By default, beams are inserted automatically:
 
@@ -1587,7 +1587,7 @@ Beams can collide with note heads and accidentals in other voices
 
 
 @node Setting automatic beam behavior
-@subsubsection Setting automatic beam behavior
+@unnumberedsubsubsec Setting automatic beam behavior
 
 @funindex autoBeamSettings
 @funindex (end * * * *)
@@ -1795,7 +1795,7 @@ Snippets:
 
 
 @node Manual beams
-@subsubsection Manual beams
+@unnumberedsubsubsec Manual beams
 
 @cindex beams, manual
 @funindex ]
@@ -1848,7 +1848,7 @@ TODO -- no difference based on stemLeftBeamCount in this example
 @snippets
 
 @node Feathered beams
-@subsubsection Feathered beams
+@unnumberedsubsubsec Feathered beams
 
 @cindex beams, feathered
 @funindex \featherDurations
@@ -1928,7 +1928,7 @@ Snippets:
 @end menu
 
 @node Bar lines
-@subsubsection Bar lines
+@unnumberedsubsubsec Bar lines
 
 @cindex bar lines
 @funindex \bar
@@ -1990,11 +1990,11 @@ with the end of a measure the specified bar line is inserted at that
 point in the printed output.  Such insertions do not affect
 the calculation and placement of subsequent automatic bar lines.
 
-The simple bar line and four types of double bar line are available
+The simple bar line and five types of double bar line are available
 for manual insertion:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|." d
+f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
 @end lilypond
 
 @noindent
@@ -2005,10 +2005,10 @@ f1 \bar ":" g \bar "dashed" a
 @end lilypond
 
 @noindent
-and three types of repeat bar line:
+and five types of repeat bar line:
 
 @lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-f1 \bar "|:" g \bar ":|:" a \bar ":|" b
+f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
 @end lilypond
 
 @cindex repeats
@@ -2083,7 +2083,7 @@ properties).
 
 
 @node Bar numbers
-@subsubsection Bar numbers
+@unnumberedsubsubsec Bar numbers
 
 @cindex bar numbers
 @cindex measure numbers
@@ -2245,7 +2245,7 @@ c1 c c c
 
 
 @node Bar and bar number checks
-@subsubsection Bar and bar number checks
+@unnumberedsubsubsec Bar and bar number checks
 
 @cindex bar check
 @funindex barCheckSynchronize
@@ -2324,7 +2324,7 @@ Snippets:
 
 
 @node Rehearsal marks
-@subsubsection Rehearsal marks
+@unnumberedsubsubsec Rehearsal marks
 
 @cindex rehearsal marks
 @cindex mark, rehearsal
@@ -2454,7 +2454,7 @@ Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 @end menu
 
 @node Grace notes
-@subsubsection Grace notes
+@unnumberedsubsubsec Grace notes
 
 @funindex \grace
 @cindex ornaments
@@ -2665,7 +2665,7 @@ expressions.  Nesting or juxtaposing grace sections is not
 supported, and might produce crashes or other errors.
 
 @node Aligning to cadenzas
-@subsubsection Aligning to cadenzas
+@unnumberedsubsubsec Aligning to cadenzas
 
 @cindex cadenza
 @cindex cadenza, aligning to
@@ -2711,7 +2711,7 @@ Snippets:
 
 
 @node Time administration
-@subsubsection Time administration
+@unnumberedsubsubsec Time administration
 
 @cindex time administration
 @cindex timing (within the score)

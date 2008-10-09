@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: c51cf4f12e36e3887eb5ec5b222b63bf745415f3
+    Translation of GIT committish: bc494bf964f01a1327bc7c6e3c70d0cb8d897ecb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @ignore
 Tutorial guidelines:  (different from policy.txt!)
@@ -1464,7 +1464,7 @@ de las líneas divisorias.
 @seealso
 
 Referencia de la notación:
-@ruser{Keyboard instruments},
+@ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
 
 

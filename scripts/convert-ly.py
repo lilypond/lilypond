@@ -21,6 +21,8 @@ import re
 import lilylib as ly
 global _;_=ly._
 
+ly.require_python_version ()
+
 import convertrules
 
 lilypond_version_re_str = '\\\\version *\"([0-9.]+)"'

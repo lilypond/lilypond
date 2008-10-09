@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 
 @node Simultaneous notes
@@ -53,10 +53,10 @@ articulations, just like simple notes:
 <c e g>2 <c f a>4-> <e g c>-.
 @end lilypond
 
-Relative mode can be used for pitches in chords; the preceding pitch
-into the same chord is still used as a reference for relative pitches,
-but when a chord is completed, the reference pitch for relative mode
-is the first note of this chord --not the last note of the chord.
+Relative mode can be used for pitches in chords. The octave of each                      
+pitch is chosen using the preceding pitch as a reference except in the                   
+case of the first pitch in a chord: the reference for the first pitch is                 
+the @emph{first} pitch of the preceding chord.  
 
 For more information about chords, see @ref{Chord notation}.
 
@@ -127,6 +127,7 @@ Clusters do not have a stem and cannot indicate durations by
 themselves.  Separate clusters would need a separating rest between
 them.
 
+Clusters do not produce MIDI output.  
 
 @node Multiple voices
 @subsection Multiple voices
@@ -248,7 +249,8 @@ becomes voice three which has the stems up as desired.
 >>
 @end lilypond
 
-Spacer rests are often used to avoid too many rests, as seen in the
+@noindent
+Spacer rests are often used to avoid having too many rests, as seen in the
 example above.
 
 In all but simplest works it is advisable to create explicit
@@ -471,7 +473,7 @@ two) have @code{\shiftOff}, while the inner voices (three and
 four) have @code{\shiftOn}.  @code{\shiftOnn} and
 @code{\shiftOnnn} define further shift levels.
 
-Notes are only merged if they have opposing stem directions (i.e., in
+Notes are only merged if they have opposing stem directions (e.g. in
 @code{Voice} 1 and 2).
 
 
@@ -635,6 +637,8 @@ Internals Reference:
 
 @knownissues
 
+@code{\partcombine} can only accept two voices. 
+
 When @code{printPartCombineTexts} is set, if the two voices play
 the same notes on and off, the part combiner may typeset @code{a2}
 more than once in a measure.
@@ -644,12 +648,17 @@ more than once in a measure.
 @code{\partcombine} cannot be inside @code{\relative}.
 
 Internally, the @code{\partcombine} interprets both arguments as
-@code{Voice}s named @code{one} and @code{two}, and then decides
-when the parts can be combined.  Consequently, if the arguments
-switch to differently named @rinternals{Voice} contexts, the
-events in those will be ignored.
+@code{Voice}s and decides when the parts can be combined.  When they have
+different durations they cannot be combined and are given the names
+@code{one} and @code{two}.  Consequently, if the arguments switch to
+differently named @rinternals{Voice} contexts, the events in those will
+be ignored.  Likewise, partcombining isn't designed to work with lyrics;
+when one of the voices is explicitly named in order to attach lyrics to
+it, the partcombining stops working.
 
-@c IIRC in users list someone pointed out more issues. TODO: lookup FV
+@code{\partcombine} only observes onset times of notes. It cannot
+determine whether a previously started note is playing or not, leading
+to various problems.
 
 
 @node Writing music in parallel

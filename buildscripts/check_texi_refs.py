@@ -361,9 +361,9 @@ not followed by punctuation\n" % (file, line, name))
     new_name = name
 
     if type != 'ref' and type == manual and not commented_out:
-        fixed = False
-        bad_ref = True
         if useful_fix:
+            fixed = False
+            bad_ref = True
             stdout.write ("\n%s: %d: `%s': external %s x-ref should be internal\n"
                           % (file, line, name, type))
             if options.auto_fix or yes_prompt ("Fix this?"):

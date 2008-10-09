@@ -253,6 +253,7 @@ multiple voices on the same staff."
   fontSize = #-4
   \override Stem #'length-fraction = #(magstep -4)
   \override Beam #'length-fraction = #(magstep -4)
+  \override Beam #'thickness = #0.35
 }
 
 \context {
@@ -513,6 +514,7 @@ automatically when an output definition (a @code{\score} or
   decrescendoSpanner = #'hairpin
   
   defaultBarType = #"|"
+  doubleRepeatType = #":|:"
   barNumberVisibility = #first-bar-number-invisible
   automaticBars = ##t
   
@@ -717,15 +719,15 @@ context."
   clefPosition = #0
 }
 
-%% TODO: Gregorian Chant contexts should be moved to gregorian-init.ly,
+%% TODO: Gregorian Chant contexts should be moved to gregorian.ly,
 %% but this does not work (is this a bug or intended behaviour?):
 %%
 %% If I try to do so, I get "error: unknown escaped string:
 %% `\VaticanaStaff'" in params-init.ly.  If I also move
 %% "\context { \Vaticana*Context }" from params-init.ly to the end
-%% of gregorian-init.ly, then I get "error: parse error, unexpected
+%% of gregorian.ly, then I get "error: parse error, unexpected
 %% TRANSLATOR: \context { \VaticanaStaff }" in
-%% gregorian-init.ly. --jr
+%% gregorian.ly. --jr
 
 \context {
   \Voice

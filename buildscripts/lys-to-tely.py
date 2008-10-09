@@ -43,7 +43,7 @@ name = "ly-doc"
 title = "Ly Doc"
 template = '''\input texinfo
 @setfilename %%(name)s.info
-@settitle %%(name)s
+@settitle %%(title)s
 
 @documentencoding utf-8
 @iftex
@@ -59,6 +59,7 @@ template = '''\input texinfo
 @end ignore
 
 @node Top, , , (dir)
+@top %%(title)s
 
 %s
 
