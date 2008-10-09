@@ -85,8 +85,8 @@ Two variations on the default double repeat bar line are now available.
 
 @item
 Four automatic accidentals rules have been added: @code{neo-modern},
-@code{neo-modern-cautionary}, @code{dodecaphonic} and @{teaching}.  The following
-example illustrates @code{neo-modern} rule.
+@code{neo-modern-cautionary}, @code{dodecaphonic} and @code{teaching}.
+The following example illustrates @code{neo-modern} rule.
 @lilypond[]
 notes = {
   <<
