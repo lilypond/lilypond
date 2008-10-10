@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 2b4361a39e7259c0987dd9e005744a7995bff789
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -135,7 +135,8 @@ Gloario musical:
 
 Referencia de la notación:
 @ref{Direction and placement},
-@ref{List of articulations}.
+@ref{List of articulations},
+@ref{Trills}.
 
 Archivos instalados:
 @file{scm/@/script@/.scm}.
@@ -646,7 +647,7 @@ c4\( g' c,( b) | c1\)
 @cindex phrasing slurs, simultaneous
 @cindex phrasing slurs, multiple
 
-No se pueden tener varias ligaduras de fraseo simultáneas.
+No se pueden tener varias ligaduras de fraseo simultáneas o solapadas.
 
 @predefined
 
@@ -802,7 +803,7 @@ Referencia de funcionamiento interno:
 
 @knownissues
 
-La impresión de texto sobre la línea (como @emph{gliss.}) no está
+La impresión de texto sobre la línea (como @notation{gliss.}) no está
 contemplada.
 
 
