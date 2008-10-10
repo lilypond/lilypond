@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f39d52df6c54f4e8f4ba8dab7ae0949b5e37b017
+    Translation of GIT committish: 635c9ec04620eaf1303e3ab3c04c8a7d6e0a9fe4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -224,9 +224,8 @@ correspondiente como se esplica en @ref{Music notation inside markup}:
 Estos objetos se tipografían solamente sobre el pentagrama superior de
 la partitura; dependiendo de si están especificados al final o en
 medio de un compás, se colocarán sobre la línea divisoria o entre las
-notas.  Si se especifican al principio de la partitura o en un salto
-de línea, las llamadas se imprimen al principio de la línea (o de la
-línea siguiente, en el caso de un salto de línea).
+notas.  Si se especifican en un salto de línea, las llamadas se
+imprimen al principio de la línea siguiente.
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 \mark "Allegro"
@@ -304,11 +303,10 @@ piezas, tal y como se describe en @ref{Multiple scores in a book}.
 }
 @end lilypond
 
-Usando una sintaxis específica, los bloques de texto se pueden
-repartir entre varias páginas, posibilitando la impresión de
-documentos de texto o libros (y por tanto para usar LilyPond como un
-editor de textos).  Esta sintaxis se describe en @ref{Multi-page
-markup}.
+Los bloques de texto independientes pueden abarcar varias páginas,
+posibilitando la impresión de documentos de texto o libros
+íntegramente desde LilyPond.  Esta funcionalidad y la sintaxis que
+requiere se describen en @ref{Multi-page markup}.
 
 @predefined
 
@@ -361,7 +359,7 @@ usando la sintaxis específica del modo de @code{\markup}.
 @funindex \markup
 
 Se usa un bloque @code{\markup} para tipografiar texto con una
-sintaxis ampliable específica que se denomina @qq{modo de marcado}.
+sintaxis ampliable que se denomina @qq{modo de marcado}.
 
 @cindex marcado, expresiones de
 @cindex marcado, sintaxis
@@ -373,7 +371,7 @@ tanto no necesita estar encerrada entre llaves.
 
 A diferencia de las indicaciones de @qq{texto entrecomillado} simples,
 los bloques @code{\markup} pueden contener expresiones anidadas o
-instrucciones específicas, que se introducen utilizando el carácter de
+instrucciones de marcado, que se introducen utilizando el carácter de
 barra invertida @code{\} . Estas instrucciones sólo afectan a la
 expresión que sigue inmediatamente.
 
@@ -397,34 +395,27 @@ Un bloque @code{\markup} puede contener también cadenas de texto entre
 comillas.  Dichas cadenas se tratan como expresiones de texto mínimas,
 y por tanto cualquier instrucción de marcado o carácter especial (como
 @code{\} y @code{#}) se imprimen literalmente sin afectar al formateo
-del texto.  Esta sintaxis permite incluso imprimir comillas dobles si
-se preceden por barra invertida:
+del texto.  Se puede hacer que se impriman las propias comillas si se
+les antepone una barra invertida.
 
 @lilypond[quote,verbatim,fragment,relative=1]
 d1^"\italic markup..."
-d_\markup \italic "... prints \"italic\" letters!"
+d_\markup { \italic "... prints \"italic\" letters!" }
 d d
 @end lilypond
 
-La forma en que están definidas las expresiones de marcado afectan a
-la manera en que se apilan, se centran o se alinean al usar las
-instrucciones descritas en @ref{Text alignment}.
-
-@lilypond[quote,verbatim,fragment,relative=1]
-c1^\markup { \column { a bbbb \line { c d } } }
-c1^\markup { \center-column { a bbbb c } }
-c1^\markup { \line { a b c } }
-@end lilypond
-
-No se conservan como independientes aquellas listas de palabras que no
-estén encerradas entre comillas o precedidas de una instrucción
-previa.  En el ejemplo siguiente, las dos primeras expresiones
-@code{\markup} son equivalentes:
+Para que se traten como una expresión distinta, es necesario que las
+listas de palabras estén encerradas entre comillas o precedidas de una
+instrucción.  La forma en que están definidas las expresiones de
+marcado afecta a cómo se apilan, se centran y se alinean estas
+expresiones; en el ejemplo siguiente, la segunda expresión
+@code{\markup} se trata igual que la primera:
 
 @lilypond[quote,verbatim,fragment,relative=1]
 c1^\markup { \center-column { a bbb c } }
 c1^\markup { \center-column { a { bbb c } } }
 c1^\markup { \center-column { a \line { bbb c } } }
+c1^\markup { \center-column { a "bbb c" } }
 @end lilypond
 
 Los marcados se pueden almacenar dentro de variables.  Estas variables
@@ -453,9 +444,6 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Text}.
 
-Referencia de funcionamiento interno:
-@rinternals{TextScript}.
-
 Archivos de inicio:
 @file{scm/@/markup@/.scm}.
 
@@ -478,16 +466,15 @@ Está contemplado de forma básica el cambio de la fuente tipográfica en
 el modo de marcado:
 
 @lilypond[quote,verbatim,relative=2]
-{
-  d1^\markup {
-    \bold { Più mosso }
-    \italic { non troppo \underline Vivo }
-  }
-  r2 r4 r8
-  d,_\markup { \italic quasi \smallCaps Tromba }
-  f1 d2 r
+d1^\markup {
+  \bold { Più mosso }
+  \italic { non troppo \underline Vivo }
 }
+r2 r4 r8
+d,_\markup { \italic quasi \smallCaps Tromba }
+f1 d2 r
 @end lilypond
+
 
 @cindex fuente tipográfica, tamaño de
 @cindex texto, tamaño de
@@ -501,11 +488,11 @@ maneras:
 
 @itemize
 @item
-el tamaño de la tipografía se puede definir a un valor absoluto,
+el tamaño de la tipografía se puede definir a una serie de tamaños
+estándar predefinidos,
 
 @item
-las instrucciones predefinidas permiten seleccionar fácilmente los
-tamaños estándar,
+el tamaño de la tipografía se puede establecer a un valor absoluto,
 
 @item
 el tamaño de la tipografía también se puede cambiar de forma relativa
@@ -515,21 +502,23 @@ respecto de su valor anterior.
 @noindent
 El ejemplo siguiente ejemplifica estos tres métodos:
 
-@lilypond[quote,verbatim,relative=2]
-{
-  f1^\markup { \fontsize #5 Sinfonia }
-  a,_\markup {
-    \tiny espressivo
-    \large e
-    \normalsize intenso
-  }
-  bes^\markup { (con
-    \larger grande
-    \smaller emozione
-    \magnify #0.6 { e sentimento } )
-  }
-  d c2 r8 c bes a g1
+@lilypond[quote,verbatim,relative=1]
+f1_\markup {
+  \tiny espressivo
+  \large e
+  \normalsize intenso
 }
+a^\markup {
+  \fontsize #5 Sinfonia
+  \fontsize #2 da
+  \fontsize #3 camera
+}
+bes^\markup { (con
+  \larger grande
+  \smaller emozione
+  \magnify #0.6 { e sentimento } )
+}
+d c2 r8 c bes a g1
 @end lilypond
 
 @cindex subíndice
@@ -598,9 +587,8 @@ elementos de texto:
 }
 @end lilypond
 
-Se puede encontrar una lista exhaustiva de instrucciones de cambio de
-tipografía, de tamaño y relativas a las familias tipográficas en
-@ref{Font}.
+Se puede encontrar una lista exhaustiva de instrucciones de cambio y
+utilización personalizada de las fuentes tipográficas en @ref{Font}.
 
 También es posible definir conjuntos personalizados de fuentes, tal y
 como se explica en @ref{Fonts}.
@@ -613,12 +601,16 @@ como se explica en @ref{Fonts}.
 @funindex \normalsize
 @funindex \large
 @funindex \huge
+@funindex \smaller
+@funindex \larger
 @code{\teeny},
 @code{\tiny},
 @code{\small},
 @code{\normalsize},
 @code{\large},
-@code{\huge}.
+@code{\huge},
+@code{\smaller},
+@code{\larger}.
 
 @seealso
 
@@ -644,10 +636,9 @@ Archivos de inicio:
 @cindex texto alineación de
 @cindex alinear texto
 
-Esta subsección trata sobre cómo colocar texto en el modo de marcado,
-dentro de un bloque @code{\markup} block.  Los objetos de marcado
-también se pueden mover como un todo, usando la sintaxis que se
-describe en @rlearning{Moving objects}.
+Esta subsección trata sobre cómo colocar texto en el modo de marcado.
+Los objetos de marcado también se pueden mover como un todo, usando la
+sintaxis que se describe en @rlearning{Moving objects}.
 
 @c Padding commands should be mentioned on this page, but
 @c most of these require \box to be more clearly illustrated. -vv
@@ -664,13 +655,13 @@ izquierdo: en el ejemplo siguiente, no existe diferencia entre los
 marcados primero y segundo.
 
 @lilypond[quote,verbatim,fragment,relative=1]
-a1-\markup { poco }
-e'
-a,-\markup { \left-align poco }
-e'
-a,-\markup { \center-align { poco } }
-e'
-a,-\markup { \right-align poco }
+d1-\markup { poco }
+f
+d-\markup { \left-align poco }
+f
+d-\markup { \center-align { poco } }
+f
+d-\markup { \right-align poco }
 @end lilypond
 
 @funindex \halign
@@ -692,7 +683,7 @@ a,-\markup { \halign #2 poco }
 Ciertos objetos pueden poseer sus propios procedimientos de
 alineación, y por tanto no resultan afectados por estas instrucciones.
 Es posible mover estos objetos de marcado como un todo, como se
-muestra por ejemplo en @ref{Text marks},
+muestra por ejemplo en @ref{Text marks}.
 
 @cindex texto, alineación vertical
 @cindex vertical, alineación de texto
@@ -871,7 +862,7 @@ Archivos de inicio:
 @cindex dibujar objetos gráficos
 
 Se puede añadir diversos objetos gráficos a una partitura, utilizando
-instrucciones de marcado específicas.
+instrucciones de marcado.
 
 @funindex \box
 @funindex \circle
@@ -911,8 +902,8 @@ de texto con gráficos, como se muestra en el ejemplo siguiente.
 @cindex texto, relleno de
 
 Algunas instrucciones pueden requerir un aumento del relleno alrededor
-del texto: esto se puede conseguir con algunas instrucciones
-específicas descritas exhaustivamente en @ref{Align}.
+del texto: esto se puede conseguir con algunas instrucciones de
+marcado descritas exhaustivamente en @ref{Align}.
 
 @lilypond[quote,verbatim]
 \markup \fill-line {
@@ -1028,7 +1019,7 @@ Se pueden añadir a la partitura diversos elementos de notación
 musical, dentro de un objeto de marcado.
 
 Las notas y las alteraciones se pueden escribir utilizando
-instrucciones específicas:
+instrucciones de marcado:
 
 @lilypond[quote,verbatim,fragment,relative=2]
 a2 a^\markup {
@@ -1155,8 +1146,8 @@ Archivos de inicio:
 @unnumberedsubsubsec Multi-page markup
 
 Aunque los objetos de marcado estándar no se pueden dividir, una
-sintaxis específica permita introducir líneas de texto que pueden
-repartirse sobre varias páginas:
+sintaxis específica hace posible la introducción de líneas de texto
+que pueden abarcar varias páginas:
 
 @c KEEP LY
 @lilypond[quote,verbatim]
@@ -1173,8 +1164,7 @@ repartirse sobre varias páginas:
 }
 @end lilypond
 
-Esta sintaxis específica acepta una lista de elementos de marcado, que
-pueden ser
+Esta sintaxis acepta una lista de elementos de marcado, que pueden ser
 @itemize
 @item
 el resultado de una instrucción de lista de marcado,
