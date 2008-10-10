@@ -530,8 +530,10 @@ c2( d)
 @cindex ligaduras de expresión, varias
 @cindex ligaduras de expresión simultáneas
 
-Se deben usar ligaduras de fraseo para imprimir más de una ligadura de
-expresión al mismo tiempo.  Para ver más detalles, consulte
+No están permitidas las ligaduras de expresión simultáneas o
+solapadas, pero una ligadura de fraseo se puede solapar con una
+ligadura de expresión.  Esto hace posible imprimir dos ligaduras
+distintas al mismo tiempo.  Para ver más detalles, consulte
 @ref{Phrasing slurs}.
 
 @cindex ligadura de expresión, estilo
