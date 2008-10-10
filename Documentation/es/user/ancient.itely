@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 167c2e035ba4ee6067fdfbc9b5bc9ed8d220bddb
+    Translation of GIT committish: 635c9ec04620eaf1303e3ab3c04c8a7d6e0a9fe4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -311,7 +311,7 @@ Referencia de funcionamiento interno:
 @rinternals{Custos}.
 
 Fragmentos de código:
-@rlsr{Ancient}.
+@rlsr{Ancient notation}.
 
 
 @node Figured bass support
@@ -331,7 +331,7 @@ barroco: véase @ref{Figured bass}.
 * Mensural flags::
 * Mensural rests::
 * Mensural accidentals and key signatures::
-* Annotational accidentals (@emph{musica ficta})::
+* Annotational accidentals (musica ficta)::
 * White mensural ligatures::
 @end menu
 
@@ -798,7 +798,7 @@ Referencia de funcionamiento interno:
 @cindex alteraciones accidentales
 
 
-@node Annotational accidentals (@emph{musica ficta})
+@node Annotational accidentals (musica ficta)
 @unnumberedsubsubsec Annotational accidentals (@emph{musica ficta})
 
 En la música europea de hasta aprox. 1600, se esperaba de los
@@ -1312,7 +1312,7 @@ Referencia de funcionamiento interno:
 @rinternals{BreathingSign}.
 
 Fragmentos de código:
-@rlsr{Ancient}.
+@rlsr{Ancient notation}.
 
 
 @node Gregorian square neume ligatures

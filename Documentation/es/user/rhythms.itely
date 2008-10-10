@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f39d52df6c54f4e8f4ba8dab7ae0949b5e37b017
+    Translation of GIT committish: 635c9ec04620eaf1303e3ab3c04c8a7d6e0a9fe4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -789,32 +789,9 @@ las advertencias correspondientes de comprobación de compás.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {positioning-multi--measure-rests.ly}
 
-@c TODO -- convert to snippet -- submitted to Neil
-Los elementos de marcado aplicados a un silencio multicompás se
-centran encima o debajo de éste.  Los elementos de marcado extensos
-que se adjuntan a silencios multicompás no producen la expansión del
-compás.  Para expandir un silencio multicompás de forma que quepa todo
-el marcado, utilice un silencio de separación con un marcado aplicado
-antes del silencio multicompás:
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{multi--measure-rest-markup.ly}
 
-@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
-\compressFullBarRests
-\textLengthOn
-s1*0^\markup { [MAJOR GENERAL] }
-R1*19
-s1*0_\markup { \italic { Cue: ... it is yours } }
-s1*0^\markup { A }
-R1*30^\markup { [MABEL] }
-\textLengthOff
-c4^\markup { CHORUS } d f c
-@end lilypond
-
-@noindent
-Observe que el silencio separador produce la inserción de un compás.
-El texto aplicado a un siencio sparador de esta forma se alinea por la
-izquierda a la posición en que la nota estaría situada dentro del
-compás, pero si la longitud del compás está determinada por la
-longitud del texto, éste aparecerá centrado.
 
 @seealso
 
@@ -886,7 +863,7 @@ La indicación de compás se imprime al comienzo de una pieza y siempre
 que hay un cambio de compás.  Si se produce un cambio al final de una
 línea, se imprime una indicación de advertencia en dicho lugar.  Se
 puede modificar este comportamiento predeterminado, véase
-@ref{Visibility of objects}.
+@c ref{Controlling visibility of objects}.
 
 @lilypond[quote,ragged-right,fragment,verbatim,relative=2]
 \time 2/4
@@ -937,11 +914,25 @@ que normalmente tiene el alias @code{Score}.  La modificación del
 valor de @code{timeSignatureFraction} hace que se imprima la nueva
 indicación de compás sin que cambien las otras propieadades.  La
 propiedad @code{measureLength} determina dónde se deben insertar
-líneas divisorias, y con @code{beatLength}, cómo se deben generar las
-barras de corchea automáticas.
+líneas divisorias, y con @code{beatLength} y @code{beatGrouping}, cómo
+se deben generar las barras de corchea automáticas.
 
-@c TODO Add example of using beatLength.
-@c beatLength is broken - see bug 511
+@lilypond[quote,verbatim,relative=2]
+\time 3/4 % auto beam on 1/4 note groups
+a16 a a a a a a a a a a a a a a a
+\time 12/16 % no defined auto-beaming for this time sig
+a16 a a a a a a a a a a a a a a a
+\time 3/4
+a16 a a a a a a a a a a a a a a a
+\set Score.timeSignatureFraction = #'(12 16) %keep 3/4 beaming
+                                             % due to beatLength
+a16 a a a a a a a a a a a a a a a
+\set Score.beatLength = #(ly:make-moment 1 8) %beam on 1/8 notes
+a16 a a a a a a a a a a a a a a a
+\set Score.beatLength = #(ly:make-moment 1 16)
+\set Score.beatGrouping = #'(3 4 2 3) %beam on 3/16, 7/16, 9/16, 12/16
+a16 a a a a a a a a a a a a a a a
+@end lilypond
 
 @c End of snippet
 
@@ -1002,11 +993,6 @@ Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator}.
 
-@knownissues
-
-El barrado automático no utiliza la agrupación de compases
-especificada con @code{set-time-signature}.
-
 
 @node Upbeats
 @unnumberedsubsubsec Upbeats
@@ -1050,12 +1036,26 @@ Esto se traduce internamente a
 
 La propiedad @code{measurePosition} contiene un número racional que
 indica qué parte del compás ha transcurrido hasta el momento.  Observe
-que es un número negativo; @code{\partial 4} se traduce internamente
-con el significado de @qq{queda un valor de negra en este compás}.
+que se establece a un número negativo por parte de la instrucción
+@code{\partial}: es decir, @code{\partial 4} se traduce internamente a
+@code{-4}, con el significado de @qq{queda un valor de negra en este
+compás}.
+
+@seealso
+
+Glosario musical:
+@rglos{anacrusis}.
+
+Referencia de la notación:
+@ref{Grace notes}.
+
+Fragmentos de código:
+@rlsr{Rhythms}.
+
+Referencia de funcionamiento interno:
+@rinternals{Timing_translator}.
 
 @knownissues
-
-@cindex grace notes, in anacruses
 
 El uso de @code{\partial} está previsto solamente para el comienzo de
 una pieza.  Si se emplea después del comienzo se obtendrán varias
@@ -1109,10 +1109,10 @@ d4 e d c
 @seealso
 
 Glosario musical:
-@rglos{cadenza}
+@rglos{cadenza}.
 
 Referencia de la notación:
-@ref{Visibility of objects}
+@c ref{Visibility of objects}
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1233,35 +1233,8 @@ contexto de @code{Staff}.
 
 @snippets
 
-@c TODO -- Convert to snippet. -- Sent to Neil 8/14/08
-
-@strong{Compases alternantes}
-
-Los compases dobles que se alternan regularmente no están contemplados
-explícitamente, pero se pueden falsificar.  En el ejemplo siguiente,
-el compás doble se crea mediante texto de marcado, mientras que el
-compás real se establece de la manera usual con @code{\time}.
-
-@lilypond[verbatim,ragged-right]
-% Create 9/8 split into 2/4 + 5/8
-tsMarkup = \markup {
-  \override #'(baseline-skip . 2) \number {
-    \column { "2" "4" }
-    \vcenter "+"
-    \bracket \column { "5" "8" }
-  }
-}
-
-{
-  \override Staff.TimeSignature #'stencil =
-    #ly:text-interface::print
-  \override Staff.TimeSignature #'text = #tsMarkup
-  \time 9/8
-  c'2 \bar ":" c'4 c'4.
-  c'2 \bar ":" c'4 c'4.
-}
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{compound-time-signatures.ly}
 
 @seealso
 
@@ -1275,8 +1248,6 @@ Referencia de la notación:
 
 Fragmentos de código:
 @rlsr{Rhythms}.
-@c Is this still permitted?
-@c @lsr{contemporary,compound-time-signature}
 
 Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
@@ -2694,11 +2665,6 @@ anterior
 << \new Staff { e4 \bar "|:" \grace c16 d2. }
    \new Staff { c4 \bar "|:" \grace s16 d2. } >>
 @end lilypond
-
-Las instrucciones predefinidas, como @code{\voiceOne}, que están
-orientadas a la realización de cambios en el comportamiento de la
-notación, pueden no ser efectivas si se escriben inmediatamente antes
-de la nota de adorno; se deben escribir después de ella.
 
 Las secciones de adorno sólo se deben usar dentro de expresiones de
 música secuenciales.  No están contemplados el anidado ni la

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: f39d52df6c54f4e8f4ba8dab7ae0949b5e37b017
+    Translation of GIT committish: 635c9ec04620eaf1303e3ab3c04c8a7d6e0a9fe4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -595,7 +595,7 @@ en ejemplo siguiente.
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \remove "Clef_engraver"
+    \override Clef #'transparent = ##t
     fontSize = #-3
     \override StaffSymbol #'staff-space = #(magstep -3)
     \override StaffSymbol #'thickness = #(magstep -3)
@@ -636,7 +636,7 @@ información sobre @code{\RemoveEmptyStaffContext}, consulte
 <<
   \new Staff = ossia \with {
     \remove "Time_signature_engraver"
-    \remove "Clef_engraver"
+    \override Clef #'transparent = ##t
     fontSize = #-3
     \override StaffSymbol #'staff-space = #(magstep -3)
     \override StaffSymbol #'thickness = #(magstep -3)
@@ -967,7 +967,7 @@ instrumento y los nombres cortos aparecen centrados de forma
 predeterminada.  Para centrar nombres de instrumento de varias líneas,
 se debe utilizar @code{\center-column}:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,indent=1.5\cm,relative=2]
 <<
   \new Staff {
     \set Staff.instrumentName = "Flute"
@@ -975,7 +975,7 @@ se debe utilizar @code{\center-column}:
   }
   \new Staff {
     \set Staff.instrumentName = \markup \center-column {
-      Clarinetti
+      Clarinet
       \line { "in B" \smaller \flat }
     }
     c4 b c2
@@ -994,13 +994,13 @@ consulte @ref{Horizontal dimensions}.
 
 @lilypond[verbatim,quote,ragged-right]
 \layout {
-  indent = 2.5\cm
+  indent = 3.0\cm
   short-indent = 1.5\cm
 }
 
 \relative c'' <<
   \new Staff {
-    \set Staff.instrumentName = "Flute"
+    \set Staff.instrumentName = "Alto Flute in G"
     \set Staff.shortInstrumentName = "Fl."
     f2 g4 f \break
     g4 f g2
@@ -1230,7 +1230,7 @@ La sección anterior explica la forma de crear citas.  La instrucción
 guía en una particella.  La sintaxis es como sigue:
 
 @example
-  \cueDuring #@var{nombre_de_la_parte} #@var{voz} @var{música}
+\cueDuring #@var{nombre_de_la_parte} #@var{voz} @var{música}
 @end example
 
 Esta instrucción copa los compases correspondientes a partir de
