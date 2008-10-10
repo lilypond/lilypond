@@ -261,28 +261,19 @@ For typesetting custodes, just put a @rinternals{Custos_engraver} into the
 and change the style of the custos with an @code{\override} if
 desired, as shown in the following example:
 
-@example
-\layout @{
-  \context @{
-    \Staff
-    \consists Custos_engraver
-    Custos \override #'style = #'mensural
-  @}
-@}
-@end example
-
-The result looks like this
-
 @lilypond[quote,ragged-right]
 \score {
-{
-  a'1
-  \override Staff.Custos #'style = #'mensural
-  \break
-  g'
-}
-\layout {
-  \context { \Staff \consists Custos_engraver }
+  \relative c'' {
+    a1
+    \break
+    g
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists Custos_engraver
+      \override Custos #'style = #'mensural
+    }
   }
 }
 @end lilypond
