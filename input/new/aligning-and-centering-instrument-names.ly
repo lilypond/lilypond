@@ -10,12 +10,15 @@ first and the following systems, respectively."
   doctitle = "Aligning and centering instrument names"
 }
 
-\paper { left-margin = 3\cm }
+\paper {
+  left-margin = 3\cm
+}
+
 \score {
   \new StaffGroup <<
     \new Staff {
       \override Staff.InstrumentName #'self-alignment-X = #LEFT
-      \set Staff . instrumentName = \markup \left-column {
+      \set Staff.instrumentName = \markup \left-column {
         "Left aligned"
         "instrument name"
       }
@@ -27,7 +30,7 @@ first and the following systems, respectively."
     \new Staff {
       \override Staff.InstrumentName #'self-alignment-X = #CENTER
       \set Staff.instrumentName = \markup \center-column {
-        "Centered"
+        Centered
         "instrument name"
       }
       \set Staff.shortInstrumentName = #"Centered"

@@ -74,10 +74,10 @@ music = \relative c' { c4 d e g }
 
 \score {
   \new Staff {
-    \transpose c ais \music
-    \naturalizeMusic \transpose c ais \music
-    \transpose c deses \music
-    \naturalizeMusic \transpose c deses \music
+    \transpose c ais { \music }
+    \naturalizeMusic \transpose c ais { \music }
+    \transpose c deses { \music }
+    \naturalizeMusic \transpose c deses { \music }
   }
   \layout { }
 }

@@ -10,11 +10,13 @@ mark is also available.
 }
 
 \relative c'' {
-  \override BreathingSign #'text =
-    #(make-musicglyph-markup "scripts.caesura.straight")
+  \override BreathingSign #'text = \markup {
+    \musicglyph #"scripts.caesura.straight"
+  }
   c8 e4. \breathe g8. e16 c4
 
-  \override BreathingSign #'text =
-    #(make-musicglyph-markup "scripts.caesura.curved")
+  \override BreathingSign #'text = \markup {
+    \musicglyph #"scripts.caesura.curved"
+  }
   g8 e'4. \breathe g8. e16 c4
 }

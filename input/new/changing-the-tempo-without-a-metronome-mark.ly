@@ -3,8 +3,7 @@
 \header {
   lsrtags = "staff-notation"
   texidoc = "To change the tempo in MIDI output without printing
-anything, make the metronome mark invisible, as in the following
-example:"
+anything, make the metronome mark invisible:"
 
   doctitle = "Changing the tempo without a metronome mark"
 }
@@ -15,10 +14,10 @@ example:"
     c4 e g b
     c4 b d c
     \set Score.tempoHideNote = ##t
-    \tempo 4 =96
+    \tempo 4 = 96
     d,4 fis a cis
     d4 cis e d
   }
-  \midi { }
   \layout { }
+  \midi { }
 }

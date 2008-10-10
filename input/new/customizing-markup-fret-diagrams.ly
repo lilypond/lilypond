@@ -4,7 +4,7 @@
   lsrtags = "fretted-strings,tweaks-and-overrides"
 
   texidoc = "Fret diagram properties can be set through
-@code{fret-diagram-details}.  For markup fret diagrams, overrides
+@code{'fret-diagram-details}.  For markup fret diagrams, overrides
 can be applied to the @code{Voice.TextScript} object or directly
 to the markup.
 "
@@ -17,10 +17,10 @@ to the markup.
   \new Voice = "mel" {
     \textLengthOn
     % Set global properties of fret diagram
-    \override Voice.TextScript #'size = #'1.2
-    \override Voice.TextScript #'fret-diagram-details
+    \override TextScript #'size = #'1.2
+    \override TextScript #'fret-diagram-details
                                   #'finger-code = #'in-dot
-    \override Voice.TextScript #'fret-diagram-details
+    \override TextScript #'fret-diagram-details
                                   #'dot-color = #'white
 
     %% C major for guitar, no barre, using defaults

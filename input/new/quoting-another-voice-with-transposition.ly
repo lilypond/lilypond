@@ -31,7 +31,9 @@ quoteTest = {
 
 {
   \set Staff.instrumentName =
-    \markup \center-column { Horn \line { in F } }
+    \markup {
+      \center-column { Horn \line { in F } }
+    }
   \quoteTest
   \transpose c' d' << \quoteTest s4_"up a tone" >>
 }

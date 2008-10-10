@@ -1,4 +1,4 @@
-vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly
+chant-or-psalms-notation.ly
 single-staff-template-with-notes-and-lyrics.ly
 adding-ambitus-per-voice.ly
 single-staff-template-with-notes,-lyrics,-chords-and-frets.ly
@@ -8,13 +8,13 @@ lyrics-alignment.ly
 vocal-ensemble-template-with-automatic-piano-reduction.ly
 ambitus-with-multiple-voices.ly
 how-to-put-ties-between-syllables-in-lyrics.ly
-vertically-aligning-ossias-and-lyrics.ly
+piano-template-with-melody-and-lyrics.ly
+vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly
 single-staff-template-with-notes,-lyrics,-and-chords.ly
 formatting-lyrics-syllables.ly
-piano-template-with-melody-and-lyrics.ly
+vertically-aligning-ossias-and-lyrics.ly
 vertically-centered-common-lyrics.ly
-skips-in-lyric-mode.ly
-chant-or-psalms-notation.ly
+demo-midiinstruments.ly
 vocal-ensemble-template.ly
 adjusting-lyrics-vertical-spacing.ly
-demo-midiinstruments.ly
+skips-in-lyric-mode.ly

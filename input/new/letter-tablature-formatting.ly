@@ -30,9 +30,10 @@ music = \relative c {
     \clef "G_8"
     \music
   }
-  \new TabStaff \with {
+  \new TabStaff \with { 
     tablatureFormat = #letter-tablature-format
-  } {
+  }
+  {
     \music
   }
 >>

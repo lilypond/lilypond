@@ -10,11 +10,13 @@ but they will not change the tempo in MIDI output."
 
 \relative c' {
   \tempo \markup {
-    (
-    \smaller \general-align #Y #DOWN \note #"16." #1
-    =
-    \smaller \general-align #Y #DOWN \note #"8" #1
-    )
+    \concat {
+      (
+      \smaller \general-align #Y #DOWN \note #"16." #1
+      " = "
+      \smaller \general-align #Y #DOWN \note #"8" #1
+      )
+    }
   }
   c1
   c4 c' c,2

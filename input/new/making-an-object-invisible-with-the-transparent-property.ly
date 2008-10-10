@@ -2,7 +2,7 @@
 \header {
   lsrtags = "rhythms,tweaks-and-overrides"
   texidoc = "
-Setting the @code{transparent} property will cause an object to be
+Setting the @code{'transparent} property will cause an object to be
 printed in \"invisible ink\": the object is not printed, but all its
 other behavior is retained.  The object still takes up space, it takes
 part in collisions, and slurs, ties and beams can be attached to it.
@@ -25,7 +25,9 @@ flag from interfering with tie positioning, the stem is extended.
     \once \override Stem #'transparent = ##t
     \once \override Stem #'length = #8
     g8 ~ g\noBeam
-  } \\ {
+  }
+  \\
+  {
     b8 g g e
   } >>
 }

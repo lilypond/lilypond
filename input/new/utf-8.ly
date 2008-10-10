@@ -51,7 +51,7 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative  {
+\relative c' {
   c2 d
   e2 f
   g2 f
