@@ -22,7 +22,7 @@
 
 
 \version "2.11.61"
-
+#(set-global-staff-size 15)
 
 %%%
 %%% Abreviations
@@ -38,8 +38,8 @@ udbetc     = \markup { \line { \musicglyph #"scripts.upbow" " " \musicglyph #"sc
 
 fermaTa    = \markup \musicglyph #"scripts.ufermata"
 
-accel   = \markup \tiny \italic \bold "accel. ..."
-ritar   = \markup \tiny \italic \bold "ritar. ..."
+accel   = \markup \tiny \italic \bold "accel..."
+ritar   = \markup \tiny \italic \bold "ritar..."
 
 ignore     = \override NoteColumn #'ignore-collision = ##t
 
@@ -103,27 +103,6 @@ noflag         = \once \override Stem #'flag-style = #'no-flag
 
 
 %%%
-%%% Paper
-%%%
-
-#(set-global-staff-size 20)
-%#(set-default-paper-size "a4" 'landscape)
-
-\paper {
-  between-system-padding = 9
-}
-
-
-%%%
-%%% Header
-%%%
-
-\header {
-  meter       = "lentement (circa 8 minutes)"
-}
-
-
-%%%
 %%% Instruments
 %%%
 
@@ -138,9 +117,9 @@ ViolinSolo = \relative c' {
 
 
   %% Measure 1
-  \time 11/4
+  \time 25/8
   \mark \default
-  r2 ^\markup \colmark { \italic "fatigué" } r4
+  r2 ^\markup \colmark { \italic "fatigué" " " \bold "lentement"} r4 r r8
   <<
     { \shift d2 \glissando ^\markup \colmark { \quatre \dubetc \svib } \shifta e1 } \\
     { d2 \open \mf \< ~ \aniente d1  \! \> r4 r ^\markup \colmark { " " \fermaTa } \! }
@@ -163,7 +142,7 @@ ViolinSolo = \relative c' {
     { \shift d2 \glissando ^\markup \colmark { \quatre \dubetc \pvib \norm } \shifta e1 \glissando d2 } \\
     { d2 \open \mf \< ~ d1 ~ d2 \ff  ~ d1 \> ~ d2 ^\markup \colmark { " " " " \svib } ~ d4 \pp}
   >>
-
+  \break
 
   %% Measure 4
   \time 4/4
@@ -171,6 +150,47 @@ ViolinSolo = \relative c' {
   \tupletDown
   \times 2/3 { d4 ^\markup \colmark { \quatre \db \accel } d d }
   \times 2/3 { d4 ^\markup \colmark { " " \db " " \sulp } d d }
+
+
+
+  %% Measure 5
+  \time 5/4
+  \tupletbp \times 2/3 { d8 \mf \< ^\markup \colmark { \quatre \db \norm } d _\open d }
+  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db \sulp } d _\open d }
+  \tupletbp \times 2/3 { d16 ^\markup \colmark { " " \db \norm } d _\open d d d _\open d }
+  d2 \ff ^\markup \colmark { " " \pvib } \>
+
+
+  %% Measure 6
+  \time 5/8
+  \once \override Beam #'grow-direction = #RIGHT  % \featherDurations #(ly:make-moment 2 3)
+  { d16 \staccato
+    [ d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato]
+  }
+  \break
+
+
+  %% Measure 7
+  \time 7/4
+  \tupletbp \times 2/3 { d16 ^\markup \colmark { \quatre } d _\open d d d _\open d }
+  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db } d _\open d }
+  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db " " \sulp } d _\open d }
+  \times 2/3 { d4 ^\markup \colmark { \quatre \db \ritar \norm } d d }
+  \times 2/3 { d4 ^\markup \colmark { " " \db " " \sulp } d d \ppp ~ }
+
+
+  %% Measure 8
+  d4 ^\markup \colmark { " " " " \pvib \norm }
+  deh2 d dih \<
+
+
+  %% Measure 9
+  <<
+    { \shift d2 \glissando ^\markup \colmark { \quatre } \shifta e1 } \\
+    { d2 \open ~ d1  ^\markup \colmark { " " " " \mvib } }
+  >>
+  \breathe r4 \!
+
 }
 
 
@@ -181,23 +201,20 @@ ViolinSolo = \relative c' {
 \score {
 
   <<
-    \relative c' <<
-      \new Staff {
-        \set Staff.midiInstrument = "violin"
-        \ViolinSolo
-      }
+    \relative <<
+      \new Staff \ViolinSolo
     >>
+
     \override Score.Rest #'transparent = ##t
     \set Score.defaultBarType          = "empty"
   >>
 
   \layout  {
-    indent = 0.0
+    indent       = 0.0
     \context {
       \Staff
       \remove "Time_signature_engraver"
       \remove "Bar_number_engraver"
     }
   }
-  \midi { }
 }
