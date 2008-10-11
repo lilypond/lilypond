@@ -2221,32 +2221,34 @@ A meter that includes a triplet subdivision within the beat: see
 @ref{compound meter}.
 
 @item
-A time signature that additively combines two or more unequal meters, e.g.
+A time signature that additively combines two or more unequal meters, e.g.,
 "3/8 + 2/8" instead of "5/8".  Sometimes called additive time signatures.
 
-TODO: Verify / fix the Scheme code to generate additive time signatures.
-
 @lilypond[fragment,line-width=13.0\cm]
-#(define (compound-time grob one two num)
-  (interpret-markup
-   (ly:grob-layout grob)
-   '(((baseline-skip . 2)
-      (word-space . 1.5)
-      (font-family . number)))
-   (markup
-    #:line ( #:column (one num) "+" #:column (two num) ))))
+#(define (compound-time grob one two three num)
+  (grob-interpret-markup grob
+    (markup
+      #:override '(baseline-skip . 0)
+      #:number
+      #:line (
+        #:left-column (one num)
+        #:vcenter "+"
+        #:left-column (two num)
+        #:vcenter "+"
+        #:left-column (three num)))))
 
-  \relative c' {
-    \key f \major
-    #(set-time-signature 8 8 '(3 2 3))
-    \override Staff.TimeSignature  #'stencil
-      = #(lambda (grob) (compound-time grob "3" "2" "3" "8"))
-    #(override-auto-beam-setting '(end 1 8 8 8) 3 8)
-    #(override-auto-beam-setting '(end 1 8 8 8) 5 8)
-    \set Staff.beatGrouping = #'(3 2 3)
-
-   c8 d e f4 d8 c bes | c4 g'8 e c f4. \bar "||"
-  }
+\relative c' {
+  \key f \major
+  #(set-time-signature 8 8 '(3 2 3))
+  \override Staff.TimeSignature #'stencil = #(lambda (grob)
+    (compound-time grob "3" "2" "3" "8"))
+  #(override-auto-beam-setting '(end 1 8 8 8) 3 8)
+  #(override-auto-beam-setting '(end 1 8 8 8) 5 8)
+  
+  c8 d e f4 d8 c bes
+  c4 g'8 e c f4.
+  \bar "||"
+}
 @end lilypond
 
 @end enumerate
@@ -4862,7 +4864,7 @@ to the tonic scale degree.
 
 @seealso
 
-@ref{scale degree, @ref{semitone}.
+@ref{scale degree}, @ref{semitone}.
 
 
 @node ledger line
