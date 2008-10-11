@@ -119,7 +119,7 @@ noflag         = \once \override Stem #'flag-style = #'no-flag
 %%%
 
 \header {
-  meter       = "lentement"
+  meter       = "lentement (circa 8 minutes)"
 }
 
 
@@ -171,47 +171,6 @@ ViolinSolo = \relative c' {
   \tupletDown
   \times 2/3 { d4 ^\markup \colmark { \quatre \db \accel } d d }
   \times 2/3 { d4 ^\markup \colmark { " " \db " " \sulp } d d }
-  \break
-
-
-  %% Measure 5
-  \time 5/4
-  \tupletbp \times 2/3 { d8 \mf \< ^\markup \colmark { \quatre \db " " \norm } d _\open d }
-  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db " "\sulp } d _\open d }
-  \tupletbp \times 2/3 { d16 ^\markup \colmark { " " \db " " \norm } d _\open d d d _\open d }
-  d2 \ff ^\markup \colmark { " " " " \pvib } \>
-
-
-  %% Measure 6
-  \time 5/8
-  \once \override Beam #'grow-direction = #RIGHT  % \featherDurations #(ly:make-moment 2 3)
-  { d16 \staccato
-    [ d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato d \staccato]
-  }
-
-
-  %% Measure 7
-  \time 7/4
-  \tupletbp \times 2/3 { d16 ^\markup \colmark { \quatre } d _\open d d d _\open d }
-  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db } d _\open d }
-  \tupletbp \times 2/3 { d8 ^\markup \colmark { " " \db " " \sulp } d _\open d }
-  \times 2/3 { d4 ^\markup \colmark { \quatre \db \ritar \norm } d d }
-  \times 2/3 { d4 ^\markup \colmark { " " \db " " \sulp } d d \ppp ~ }
-
-
-  %% Measure 8
-  d4 ^\markup \colmark { " " " " \pvib \norm }
-  deh2 d dih \<
-
-
-  %% Measure 9
-  <<
-    %% \override Glissando #'style = #'trill
-    { \shift d2 \glissando ^\markup \colmark { \quatre } \shifta e1 } \\
-    { d2 \open ~ d1  ^\markup \colmark { " " " " \mvib } }
-  >>
-  \breathe r4 \!
-
 }
 
 
