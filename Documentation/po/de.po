@@ -5100,7 +5100,7 @@ msgstr "Ktrfgt"
 #. @node in Documentation/de/user/staff.itely
 #. @section in Documentation/de/user/staff.itely
 msgid "Staff notation"
-msgstr "Notation innerhalb eines Systems"
+msgstr "Notation auf Systemen"
 
 #. @node in Documentation/user/staff.itely
 #. @subsection in Documentation/user/staff.itely
