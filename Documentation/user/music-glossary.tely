@@ -14,12 +14,6 @@
 * Glossary: (lilypond/music-glossary).  Glossary of music terms.
 @end direntry
 
-@ifnottex
-@node Top
-@top Music Glossary
-@end ifnottex
-
-
 @ifhtml
 This document is also available in
 @uref{source/Documentation/user/music-glossary.pdf,PDF}
@@ -64,24 +58,103 @@ Copyright @copyright{} 1999--2008 by the authors
 @omflanguage English
 @end ignore
 
+@ifnottex
+@node Top
+@top Music glossary
+@end ifnottex
+
 
 @ifnottex
 
-This glossary was brought you by
+This glossary was brought you by:
 
-@multitable {Jan Nieuwenhuizen} {Original glossary of GNU music project, French glossary,}
-@item Adrian Mariano @tab Italian glossary,
-@item Bjoern Jacke @tab German glossary,
-@item Christian Mondrup @tab Original author of LilyPond glossary, Danish glossary,
-@item David González @tab Spanish glossary,
-@item François Pinard @tab Original glossary of GNU music project, French glossary,
-@item Han-Wen Nienhuys @tab Dutch glossary,
-@item Heikki Junes @tab Finnish glossary translations,
-@item Jan Nieuwenhuizen @tab Dutch glossary,
-@item Kurtis Kroon @tab English glossary,
-@item Mats Bengtsson @tab Swedish glossary,
-@item Neil Jerram @tab English glossary translations.
-@end multitable
+@itemize
+
+@item @b{Christian Mondrup}: Original author of LilyPond glossary, Danish,
+@item @b{François Pinard}: Original glossary of GNU music project, French,
+
+@item @b{Han-Wen Nienhuys}: Dutch,
+@item @b{Jan Nieuwenhuizen}: Dutch,
+
+@item @b{Neil Jerram}: English,
+@item @b{Kurtis Kroon}: English,
+
+@item @b{Heikki Junes}: Finnish,
+
+@item @b{Bjoern Jacke}: German,
+
+@item @b{Adrian Mariano}: Italian,
+
+@item @b{David González}: Spanish,
+
+@item @b{Mats Bengtsson}: Swedish,
+
+@end itemize
+
+with additional contributions: thanks to all who have contributed.
+
+@ignore
+
+The list is rather long ...
+
+@itemize
+
+@item Danish:
+@itemize
+@item Rune Zedeler, @emph{pace}
+@item Eyolf Østrem
+@end itemize
+
+@item Dutch:
+@itemize
+@item Alard de Boer
+@end itemize
+
+@item English:
+@itemize
+@item Trevor Bača
+@item Trevor Daniels
+@item Andrew Hawryluk
+@item Ian Hulin
+@item Kieren MacMillan
+@item Patrick McCarty
+@item Ralph Palmer
+@item Carl D. Sorensen
+@item Anh Hai Trinh
+@end itemize
+
+@item Finnish:
+@itemize
+@item Risto Vääräniemi
+@end itemize
+
+@item German:
+@itemize
+@item Orm Finnendahl
+@item Reinhold Kainhofer
+@item Werner Lemberg
+@item Till Rettig
+@item Thomas Scharkowski
+@end itemize
+
+@item Italian
+@itemize
+@item Andrea Valle
+@end itemize
+
+@item Spanish
+@itemize
+@item Francisco Vila
+@end itemize
+
+@item Swedish
+@itemize
+@item Simon Dahlbacka
+@end itemize
+
+@end itemize
+@end ignore
+
 @*
 Copyright 1999--2008 by the authors
 
@@ -102,7 +175,6 @@ This is the Music Glossary (MG) for GNU LilyPond version @version{}.
 For more information about how this fits with the other
 documentation, see @rlearning{About the documentation}.
 
-@shortcontents
 
 @c arrowref
 @macro aref{word}
@@ -120,6 +192,7 @@ documentation, see @rlearning{About the documentation}.
 * Pitch names::
 @end menu
 
+
 @node Musical terms A-Z
 @chapter Musical terms A-Z
 
@@ -135,6 +208,7 @@ Languages in this order.
 @item S - Swedish
 @item FI - Finnish
 @end itemize
+
 
 @menu
 * A::
@@ -182,6 +256,7 @@ Languages in this order.
 * C clef::
 * cadence::
 * cadenza::
+* caesura::
 * canon::
 * cent::
 * central C::
@@ -338,7 +413,7 @@ Languages in this order.
 * movement::
 * multi-measure rest::
 * natural::
-* neighbour tones::
+* neighbor tones::
 * ninth::
 * non-legato::
 * note::
@@ -481,7 +556,7 @@ Languages in this order.
 
 @seealso
 
-@ref{Pitch names}
+@ref{Pitch names}.
 
 
 @node a due
@@ -512,7 +587,7 @@ or groups of players (@q{desks}).
 
 @seealso
 
-@ref{Pitch names}
+None yet.
 
 
 @node accelerando
@@ -531,6 +606,10 @@ FI: accelerando, kiihdyttäen.
 
 Increase tempo
 
+@seealso
+
+None yet.
+
 
 @node accent
 @section accent
@@ -545,6 +624,10 @@ S: accent,
 FI: aksentti, korostus.
 
 The stress of one tone over others.
+
+@seealso
+
+None yet.
 
 
 @node accessory
@@ -580,11 +663,24 @@ DK: løst fortegn,
 S: tillfälligt förtecken,
 FI: tilapäinen etumerkki.
 
-An accidental has the effect of an @ref{alteration} of a note.  A
-sharp raises a tone by a @ref{semitone}, a double sharp raises it by a
-@ref{whole tone}, a flat lowers it by a semitone and a double flat
-lowers it by a whole tone.  A natural cancels the effect of a previous
-accidental, or a sharp or flat in the key signature.
+An accidental alters a note by:
+
+@itemize
+
+@item Raising its pitch:
+@itemize
+@item A @notation{double sharp}, by two semitones (a whole tone)
+@item A @notation{sharp}, by one semitone
+@end itemize
+
+@item Lowering its pitch:
+@itemize
+@item A @notation{flat}, by one semitone
+@item A @notation{double flat}, by two semitones (a whole tone)
+@end itemize
+
+@item Canceling the effects of the key signature or previous accidentals.
+@end itemize
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -599,6 +695,10 @@ accidental, or a sharp or flat in the key signature.
   }
 >>
 @end lilypond
+
+@seealso
+
+@ref{alteration}, @ref{semitone}, @ref{whole tone}.
 
 
 @node adagio
@@ -617,13 +717,17 @@ FI: adagio, hitaasti.
 
 @itemize
 
-@item Slow tempo, slower -- especially in even meter -- than
-@ref{andante} and faster than @ref{largo}.
+@item Slow tempo, slower -- especially in even meter -- than @notation{andante}
+and faster than @notation{largo}.
 
 @item A movement in slow tempo, especially the second (slow) movement
-of @ref{sonata}s, symphonies, etc.
+of sonatas, symphonies, etc.
 
 @end itemize
+
+@seealso
+
+@ref{andante}, @ref{largo}, @ref{sonata}.
 
 
 @node al niente
@@ -665,8 +769,8 @@ text markup, rather than as part of the @notation{decrescendo} text:
 @end lilypond
 
 Since one does not crescendo @emph{to} nothing, it is not correct to use
-@notation{al niente} with the word @notation{crescendo}.  Instead, one
-should use @emph{dal niente} (@notation{@b{from} nothing}).
+@notation{al niente} with @notation{crescendo}.  Instead, one should use
+@emph{dal niente} (@notation{@b{from} nothing}).
 
 @seealso
 
@@ -685,8 +789,12 @@ DK: allegro,
 S: allegro,
 FI: allegro, nopeasti.
 
-[Italian: cheerful.]  Quick tempo.  Also used as a title for pieces in a quick
-tempo, especially the first and last movements of a @ref{sonata}.
+[Italian: @q{cheerful}.]  Quick tempo.  Also used as a title for pieces in a quick
+tempo, especially the first and last movements of a sonata.
+
+@seealso
+
+@ref{sonata}.
 
 
 @node alteration
@@ -702,7 +810,11 @@ S: ?,
 FI: ?.
 
 An alteration is the modification, raising or lowering, of a note's
-pitch.  It is established by an @ref{accidental}.
+pitch.  It is established by an accidental.
+
+@seealso
+
+@ref{accidental}.
 
 
 @node alto
@@ -720,7 +832,11 @@ FI: altto, matala naisääni.
 A female voice of low range (@emph{contralto}).  Originally the alto
 was a high male voice (hence the name), which by the use of falsetto
 reached the height of the female voice.  This type of voice is also
-known as @ref{countertenor}.
+known as countertenor.
+
+@seealso
+
+@ref{countertenor}.
 
 
 @node alto clef
@@ -759,6 +875,10 @@ Denotes a range of pitches for a given voice in a part of music.  It may
 also denote the pitch range that a musical instrument is capable of playing.
 Sometimes anglicized to @emph{ambit} (pl. @emph{ambits}).
 
+@seealso
+
+None yet.
+
 
 @node anacrusis
 @section anacrusis
@@ -776,10 +896,6 @@ An anacrusis (also known as pickup or upbeat) is an incomplete measure
 of music before a section of music. It also refers to the initial
 note(s) of a melody occurring in that incomplete measure.
 
-@seealso
-
-@ref{measure}, @ref{meter}.
-
 @lilypond[fragment,line-width=13.0\cm]
 \key f \major
 \time 4/4
@@ -787,6 +903,10 @@ note(s) of a melody occurring in that incomplete measure.
   \partial 4 f4 | bes4. a8 bes4 c |
   bes( a) g f | bes4. a8 bes4 c | f,2. \bar "||" }
 @end lilypond
+
+@seealso
+
+@ref{measure}, @ref{meter}.
 
 
 @node ancient minor scale
@@ -806,7 +926,7 @@ Also called @q{natural minor scale}.
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
 \relative c'' {
-a1 b c d e f g a }
+  a1 b c d e f g a }
 @end lilypond
 
 @seealso
@@ -826,7 +946,13 @@ DK: andante,
 S: andante,
 FI: andante, käyden.
 
+[Italian: present participle of @emph{andare}, @q{to walk}.]
+
 Walking tempo/character.
+
+@seealso
+
+None yet.
 
 
 @node appoggiatura
@@ -889,6 +1015,10 @@ An appoggiatura may have more notes preceding the main note.
 }
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node arpeggio
 @section arpeggio
@@ -901,6 +1031,8 @@ NL: gebroken akoord,
 DK: arpeggio, akkordbrydning,
 S: arpeggio,
 FI: arpeggio, murtosointu.
+
+[Italian: @q{harp-like, played like a harp}.]
 
 @lilypond[fragment,line-width=13.0\cm]
  \context PianoStaff <<
@@ -922,6 +1054,10 @@ FI: arpeggio, murtosointu.
 >>
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node articulation
 @section articulation
@@ -939,6 +1075,10 @@ Articulation refers to notation which indicates how a note or notes
 should be played.  Slurs, accents, staccato, and legato are all
 examples of articulation.
 
+@seealso
+
+None yet.
+
 
 @node ascending interval
 @section ascending interval
@@ -953,6 +1093,10 @@ S: stigande intervall,
 FI: nouseva intervalli.
 
 A distance between a starting lower note and a higher ending note.
+
+@seealso
+
+None yet.
 
 
 @node augmented interval
@@ -1015,6 +1159,10 @@ emulate engraving. This required more skill than did engraving.
 
 @end itemize
 
+@seealso
+
+None yet.
+
 
 @node B
 @section B
@@ -1063,6 +1211,15 @@ DK: taktstreg,
 S: taktstreck,
 FI: tahtiviiva.
 
+A vertical line through the staff (or through multiple staves) that
+separates measures.  Used very infrequently during the Renaissance (mostly
+in secular music, or in sacred music to indicate congruences between parts
+in otherwise-unmetered music).
+
+@seealso
+
+@ref{measure}.
+
 
 @node baritone
 @section baritone
@@ -1076,10 +1233,13 @@ DK: baryton,
 S: baryton,
 FI: baritoni, keskikorkuinen miesääni.
 
-The male voice intermediate between the @ref{bass} and the
-@ref{tenor}.
+The male voice intermediate in pitch between the bass and the tenor.
 
 @c F: clef de troisième ligne dropped
+
+@seealso
+
+@ref{bass}, @ref{tenor}.
 
 
 @node baritone clef
@@ -1188,9 +1348,9 @@ DK: (takt)slag,
 S: taktslag,
 FI: aika-arvo.
 
-Note value used for counting, most often half-, fourth-, and eighth
-notes. The base counting value and the number of them per measure is
-indicated at the start of the music.
+Note value used for counting, most often half-, fourth-, and eighth notes.
+The base counting value and the number of them in each measure is indicated
+at the start of the music by the @notation{time signature}.
 
 @lilypond[fragment,line-width=13.0\cm]
 \key g \major
@@ -1199,6 +1359,10 @@ indicated at the start of the music.
 \time 3/8
 \relative c'' { g8 d' c | b c a | g4. \bar "||"}
 @end lilypond
+
+@seealso
+
+@ref{time signature}.
 
 
 @node beat repeat
@@ -1250,6 +1414,10 @@ Angular brackets for connecting parts in an orchestral or choral score:
   \relative c \context Staff = SB { \clef bass c1 \bar "|." } >>
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node bracket
 @section bracket
@@ -1284,6 +1452,10 @@ A family of blown musical instruments made of brass, all using a cup
 formed mouth piece.  The brass instruments commonly used in a symphony
 orchestra are trumpet, trombone, french horn, and tube.
 
+@seealso
+
+None yet.
+
 
 @node breath mark
 @section breath mark
@@ -1299,18 +1471,25 @@ FI: hengitysmerkki.
 
 Indication of where to breathe in vocal and wind instrument parts.
 
+@seealso
+
+@ref{caesura}.
+
 
 @node breve
 @section breve
 
-ES: cuadrada, breve,
-I: breve,
-F: brève,
-D: Brevis,
-NL: brevis,
-DK: brevis,
-S: brevis,
-FI: brevis, kaksoiskokonuotti.
+@itemize
+@item US: breve, double-whole note,
+@item ES: cuadrada, breve,
+@item I: breve,
+@item F: brève,
+@item D: Brevis,
+@item NL: brevis,
+@item DK: brevis,
+@item S: brevis,
+@item FI: brevis, kaksoiskokonuotti.
+@end itemize
 
 Note value twice as long as a whole note.  Mainly used in pre-1650 music. 
 The shortest note value generally used in white mensural notation, hence the
@@ -1342,7 +1521,7 @@ name, which originally meant @q{of short duration}.
 
 @seealso
 
-@ref{Pitch names}
+@ref{Pitch names}.
 
 
 @node C clef
@@ -1377,6 +1556,10 @@ lines.
   }
 >>
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node cadence
@@ -1414,6 +1597,32 @@ chance to exhibit their technical skill and -- not last -- their
 ability to improvise.  Since the middle of the 19th century, however,
 most cadenzas have been written down by the composer.
 
+@seealso
+
+None yet.
+
+
+@node caesura
+@section caesura
+
+ES: cesura,
+I: cesura,
+F: césura,
+D: Zäsur,
+NL: ?,
+DK: ?,
+S: ?,
+FI: ?.
+
+[Latin: from the supine of @emph{caedere} @q{to cut down}.]
+
+The break between two musical phrases, sometimes (but not always) marked by a
+rest or a breath mark.
+
+@seealso
+
+@ref{breath mark}.
+
 
 @node canon
 @section canon
@@ -1446,11 +1655,11 @@ FI: sentti, puolisävelaskeleen sadasosa tasavireisessä
 viritysjärjestelmässä.
 
 Logarithmic unit of measurement.  1@tie{}cent is 1/1200 of an octave
-(1/100 of an equally tempered @ref{semitone}).
+(1/100 of an equally tempered semitone).
 
 @seealso
 
-@ref{equal temperament}.
+@ref{equal temperament}, @ref{semitone}.
 
 
 @node central C
@@ -1480,7 +1689,8 @@ may be extended with more thirds. Four-tone @emph{seventh chords} and
 five-tone @emph{ninth} major chords are most often used as dominants
 (functional harmony).  Chords having no third above the lower notes to
 define their mood are a special case called @q{open chords}.  The lack of
-the middle third means their quality is ambivalent: neither major nor minor.
+the middle third means their quality is ambivalent -- neither major nor
+minor.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -1524,12 +1734,16 @@ DK: kromatisk skala,
 S: kromatisk skala,
 FI: kromaattinen asteikko.
 
-A scale consisting of all 12 @ref{semitone}s.
+A scale consisting of all 12 semitones.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
 \relative c' { c1 cis d dis e f fis g gis a ais b c }
 @end lilypond
+
+@seealso
+
+@ref{semitone}.
 
 
 @node chromaticism
@@ -1544,7 +1758,11 @@ DK: kromatik,
 S: kromatik,
 FI: kromatiikka.
 
-Use of tones extraneous to a @ref{diatonic scale} (minor, major).
+Using tones extraneous to a diatonic scale (minor, major).
+
+@seealso
+
+@ref{diatonic scale}.
 
 
 @node church mode
@@ -1575,10 +1793,6 @@ NL: sleutel,
 DK: nøgle,
 S: klav,
 FI: avain, nuottiavain.
-
-@seealso
-
-@ref{C clef}, @ref{F clef}, @ref{G clef}.
 
 The clef indicates which lines of the staff correspond to which
 pitches.  The three clef symbols in common use are:
@@ -1833,6 +2047,10 @@ major chord.
 }
 @end lilypond
 
+@seealso
+
+@ref{C clef}, @ref{F clef}, @ref{G clef}.
+
 
 @node cluster
 @section cluster
@@ -1872,6 +2090,10 @@ pitch contained in the cluster would be notated as an ordinary note.
 \makeClusters { <c e> <b f'> <b g'> <c g> <f e> }
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node comma
 @section comma
@@ -1897,11 +2119,11 @@ same note derived from some other tuning method.
 @node common meter
 @section common meter
 
-@ref{common time}
+Another name for @ref{common time}.
 
 @seealso
 
-@ref{meter}.
+@ref{common time}, @ref{meter}.
 
 
 @node common time
@@ -1916,7 +2138,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-4/4 time.  The symbol, which resembles a capital letter C, derives from
+4/4 time.  The symbol, which resembles a capital letter C, comes from
 mensural notation.
 
 @seealso
@@ -2002,15 +2224,17 @@ A meter that includes a triplet subdivision within the beat: see
 A time signature that additively combines two or more unequal meters, e.g.
 "3/8 + 2/8" instead of "5/8".  Sometimes called additive time signatures.
 
+TODO: Verify / fix the Scheme code to generate additive time signatures.
+
 @lilypond[fragment,line-width=13.0\cm]
-#(define (compound-time grob one two three num)
+#(define (compound-time grob one two num)
   (interpret-markup
    (ly:grob-layout grob)
    '(((baseline-skip . 2)
       (word-space . 1.5)
       (font-family . number)))
    (markup
-    #:line ( #:column (one) "+" #:column (two num) "+" #:column (three)))))
+    #:line ( #:column (one num) "+" #:column (two num) ))))
 
   \relative c' {
     \key f \major
@@ -2029,7 +2253,7 @@ A time signature that additively combines two or more unequal meters, e.g.
 
 @seealso
 
-@ref{compound meter}, @ref{meter}.
+@ref{compound meter}, @ref{meter}, @ref{polymetric time signature}.
 
 
 @node concert pitch
@@ -2048,32 +2272,35 @@ The pitch at which the piano and other nontransposing instruments play: such
 instruments are said to be @q{in C}.  The following list includes some (but not
 all) instruments that play in concert pitch:
 
-@itemize
+@c Let's see how easy (or hard) it is to put bulleted lists in tables.
 
-@item Woodwinds
+@multitable {alto trombone} {tenor trombone} {bass trombone}
+@headitem Woodwinds @tab Brass @tab Strings
+
+@item
 @itemize
 @item flute
 @item oboe
 @item bassoon
 @end itemize
 
-@item Brass
+@tab
+
 @itemize
 @item alto trombone
 @item tenor trombone
 @item bass trombone
 @end itemize
 
-@item Strings
+@tab
+
 @itemize
 @item violin
 @item viola
 @item violincello
 @end itemize
 
-@item piano
-
-@end itemize
+@end multitable
 
 The trombones are a special case: although they are said to be @q{in F} (alto or
 bass) or @q{in B-flat} (tenor), this refers to their fundamental note, not to
@@ -2110,13 +2337,17 @@ DK: trinvis bevægelse,
 S: stegvis rörelse,
 FI: asteittainen liike.
 
-Progressing melodically by intervals of a second.  The opposite of a
-@ref{disjunct movement}.
+Progressing melodically by intervals of a second, as contrasted with
+@emph{disjunct movement}.
 
 @lilypond[fragment,line-width=13.0\cm]
 \key g \major \time 4/4
 \relative c'' { g4 g g a | b2 a | g4 b a a | g1 \bar "||" }
 @end lilypond
+
+@seealso
+
+@ref{disjunct movement}.
 
 
 @node consonance
@@ -2163,6 +2394,10 @@ of their working methods were superior and could well be adopted by
 music typesetters.
 
 @c Copying music required more skill than engraving.  Flagged for NPOV
+
+@seealso
+
+None yet.
 
 
 @node counterpoint
@@ -2223,6 +2458,10 @@ has been one of the most popular polyphonic composition methods.
 >>
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node countertenor
 @section countertenor
@@ -2261,6 +2500,10 @@ Increasing volume.  Indicated by a rightwards opening horizontal wedge
 \relative c'' { g4 \< a b c | d1\! \bar "|." }
 @end lilypond
 
+@seealso
+
+@ref{decrescendo}, @ref{hairpin}.
+
 
 @node cue-notes
 @section cue-notes
@@ -2277,6 +2520,10 @@ FI: vihjenuotit.
 In a separate part notes belonging to another part with the purpose of
 hinting when to start playing.  Usually printed in a smaller type.
 
+@seealso
+
+None yet.
+
 
 @node custos
 @section custos
@@ -2290,17 +2537,16 @@ DK: ?,
 S: ?,
 FI: ?.
 
-A custos (plural: custodes) is a staff symbol that appears at the end
-of a staff line with monophonic musical contents (i.e., with a single
-voice).  It anticipates the pitch of the first note of the following
-line and thus helps the player or singer to manage line breaks during
-performance, thus enhancing readability of a score.
+A custos (plural: custodes) is a staff symbol that appears at the end of a
+staff line with monophonic musical contents (i.e., with a single voice).  It
+anticipates the pitch of the first note of the following line and thus helps
+the player or singer to manage line breaks during performance, which
+enhances the readability of a score.
 
-Custodes were frequently used in music notation until the 16th
-century.  There were different appearences for different notation
-styles.  Nowadays, they have survived only in special forms of musical
-notation such as via the Editio Vaticana dating back to the beginning
-of the 20th century
+Custodes were frequently used in music notation until the 16th century. 
+There were different appearences for different notation styles.  Nowadays,
+they have survived only in special forms of musical notation such as the
+@emph{Editio Vaticana}, dating from the beginning of the 20th century
 
 @lilypond
 \score {
@@ -2321,6 +2567,10 @@ of the 20th century
   }
 }
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node D
@@ -2356,6 +2606,10 @@ FI: da capo, alusta.
 
 Abbreviated @notation{D.C.}.  Indicates that the piece is to be repeated from
 the beginning to the end or to a certain place marked @emph{fine}.
+
+@seealso
+
+None yet.
 
 
 @node dal niente
@@ -2407,6 +2661,10 @@ another place frequently near the beginning marked by a sign
 }
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node decrescendo
 @section decrescendo
@@ -2429,6 +2687,10 @@ wedge (hairpin) or the abbreviation @notation{decresc.}.
 }
 @end lilypond
 
+@seealso
+
+@ref{crescendo}, @ref{diminuendo}, @ref{hairpin}.
+
 
 @node descending interval
 @section descending interval
@@ -2444,6 +2706,10 @@ FI: laskeva intervalli.
 
 A distance between a starting higher note and a lower ending note.
 
+@seealso
+
+None yet.
+
 
 @node diatonic scale
 @section diatonic scale
@@ -2457,11 +2723,11 @@ DK: diatonisk skala,
 S: diatonisk skala,
 FI: diatoninen asteikko.
 
-A scale consisting of 5@w{ }@ref{whole tone}s and 2@w{ }@ref{semitone}s (S).
-Scales played on the white keys of a piano keybord are diatonic; and these
-scales are sometimes called, somewhat inaccurately, @q{church modes}).
+A scale consisting of 5@w{ }whole tones and 2@w{ }semitones (S). Scales
+played on the white keys of a piano keybord are diatonic.  These scales
+are sometimes called, somewhat inaccurately, @q{church modes}).
 
-These @q{modes} are used in Gregorian chant and in pre-baroque early music
+These @emph{modes} are used in Gregorian chant and in pre-baroque early music
 but also to some extent in newer jazz music.
 
 @lilypond[fragment,notime,ragged-right]
@@ -2593,7 +2859,7 @@ the 6th and 7th tone.
     b^"~~ S" c d e^"~~ S" f g a
   }
  \lyrics {
-    "Ancient minor"
+    "Ancient (or Natural) minor"
   }
 >>
 @end lilypond
@@ -2643,6 +2909,10 @@ the 6th and 7th tone.
   }
 >>
 @end lilypond
+
+@seealso
+
+@ref{semitone}, @ref{whole tone}.
 
 
 @node didymic comma
@@ -2699,9 +2969,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-@c TODO: add definition
-
-This is a placeholder for diminution (wrt mensural notation).
+This is a stub for diminution (@emph{wrt} mensural notation).
 
 @seealso
 
@@ -2737,8 +3005,8 @@ DK: springende bevægelse,
 S: hoppande rörelse,
 FI: melodian hyppivä liike.
 
-Progressing melodically by intervals larger than a major second, as
-opposed to @ref{conjunct movement}.
+Progressing melodically by intervals larger than a major second, as contrasted
+with conjunct movement.
 
 @lilypond[fragment,ragged-right]
 \key a \major
@@ -2749,11 +3017,19 @@ opposed to @ref{conjunct movement}.
   fis2 d4. \bar "||" }
 @end lilypond
 
+@seealso
+
+@ref{conjunct movement}.
+
 
 @node dissonance
 @section dissonance
 
-@ref{dissonant interval}.
+Another name for @ref{dissonant interval}.
+
+@seealso
+
+@ref{dissonant interval}, @ref{harmony}.
 
 
 @node dissonant interval
@@ -2785,7 +3061,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[Latin: @q{division}: pl. @emph{divisiones}] In Gregorian chant, a
+[Latin: @q{division}; pl. @emph{divisiones}] In Gregorian chant, a
 vertical stroke through part or all of the staff that serves to
 structure a chant into phrases and sections.  There are four types:
 
@@ -2841,7 +3117,11 @@ DK: dominant,
 S: dominant,
 FI: dominantti, huippusointu.
 
-The fifth @ref{scale degree} in @ref{functional harmony}.
+The fifth @emph{scale degree} in @emph{functional harmony}.
+
+@seealso
+
+@ref{functional harmony}, @ref{scale degree}.
 
 
 @node dominant ninth chord
@@ -2960,6 +3240,10 @@ FI: kaksoistahtiviiva.
 
 Indicates the end of a section within a movement.
 
+@seealso
+
+None yet.
+
 
 @node double dotted note
 @section double dotted note
@@ -3042,6 +3326,10 @@ S: dubbeldrill,
 FI: kaksoistrilli.
 
 A simultaneous trill on two notes, usually in the distance of a third.
+
+@seealso
+
+None yet.
 
 
 @node duple meter
@@ -3141,7 +3429,7 @@ indicate this information are called dynamic marks.
 
 @seealso
 
-@ref{church mode}.
+@ref{church mode}, @ref{diatonic scale}.
 
 
 @node eighth note
@@ -3198,12 +3486,12 @@ DK: ?,
 S: ?,
 FI: ?.
 
-More properly synalepha [New Lat. > Gr. συναλοιφη, from Greek συναλοιφην @q{to
-smear together}].
+More properly @emph{synalepha} [New Lat. > Gr. @emph{συναλοιφη}, from Greek
+@emph{συναλοιφην} @q{to smear together}].
 
 The singing of several syllables on a single note.  Elision may be indicated
-by a lyric tie, which is looks like (and serves the same function) as a
-musical tie.
+by a lyric tie, which looks like (and serves the same function) as a musical
+tie.
 
 @seealso
 
@@ -3237,6 +3525,10 @@ drafting or engineering drawing, using similar tools.
 The traditional process of music printing is done through cutting in a
 plate of metal.  Now also the term for the art of music typesetting.
 
+@seealso
+
+None yet.
+
 
 @node enharmonic
 @section enharmonic
@@ -3266,6 +3558,10 @@ names but equal pitch.
 >>
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node equal temperament
 @section equal temperament
@@ -3279,12 +3575,12 @@ DK: ligesvævende temperatur,
 S: liksvävande temperatur,
 FI: tasavireinen.
 
-Tuning system dividing the octave into 12 equal @ref{semitone}s
-(precisely 100 @ref{cent}s).
+A tuning system that divides the octave into 12 equal semitones (each of
+which is precisely equal to 100 cents).
 
 @seealso
 
-@ref{temperament}.
+@ref{cent}, @ref{semitone}, @ref{temperament}.
 
 
 @node expression mark
@@ -3303,11 +3599,16 @@ Performance indications concerning:
 
 @itemize
 
-@item volume, dynamics (for example @ref{forte}, @ref{crescendo}),
+@item volume, dynamics (for example, @notation{forte},
+@notation{crescendo}),
 
-@item tempo (for example @ref{andante}, @ref{allegro}).
+@item tempo (for example, @notation{andante}, @notation{allegro}).
 
 @end itemize
+
+@seealso
+
+@ref{allegro}, @ref{andante}, @ref{crescendo}, @ref{forte}.
 
 
 @node extender line
@@ -3322,8 +3623,8 @@ DK: ?,
 S: ?,
 FI: ?.
 
-The generic term for a line (or dash) of arbitrary length that extends
-text (without indicating the musical @emph{function} of that text).
+The generic term (in LilyPond) for a line (or dash) of arbitrary length that
+extends text (without indicating the musical @emph{function} of that text).
 
 Used in many contexts, for example:
 
@@ -3362,8 +3663,8 @@ by the given number of octaves.
 
 @seealso
 
-@ref{melisma}, @ref{sul G}, @ref{thorough bass}, @ref{octave mark}, @ref{octave
-marking}.
+@ref{melisma}, @ref{sul G}, @ref{thorough bass}, @ref{octave mark},
+@ref{octave marking}.
 
 
 @node F
@@ -3401,8 +3702,8 @@ The position between the dots of the key symbol is the line of the F
 below central@w{ }C.  Used on the third, fourth and fifth note line. 
 A digit@w{ }8 above the clef symbol indicates that the notes must be
 played an octave higher (for example, bass recorder) while 8@w{ }below
-the clef symbol indicates playing an octave lower (for example, on
-double bass @ref{strings}).
+the clef symbol indicates playing an octave lower (for example, on the
+Double Bass).
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -3432,9 +3733,7 @@ double bass @ref{strings}).
 
 @seealso
 
-@ref{baritone clef}
-
-@c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
+@ref{baritone clef}, @ref{strings}.
 
 
 @node fall
@@ -3482,6 +3781,8 @@ Internals Reference: @ruser{Manual beams}
 @node fermata
 @section fermata
 
+@c F:  'point d'orgue' on a note, 'point d'arret' on a rest.
+
 ES: calderón,
 I: corona,
 F: point d'orgue, point d'arrêt,
@@ -3499,6 +3800,10 @@ Prolonged note or rest of indefinite duration.
   a4 b c2^\fermata \bar "|."
 }
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node fifth
@@ -3532,9 +3837,11 @@ FI: kenraalibasso, numeroitu basso.
 
 Also called @q{thorough bass}.
 
-A method of indicating an accompaniment part by the bass notes only, together
-with figures designating the chief @ref{interval}s and @ref{chord}s to be played
-above the bass notes.
+A method of indicating an accompaniment part by the bass notes only,
+together with figures designating the chief intervals and chords to be
+played above the bass notes.
+
+TODO: Make the upper clef smaller, since it's usually "realized" in performance.
 
 @lilypond[fragment,line-width=13.0\cm]
 \context GrandStaff <<
@@ -3561,6 +3868,10 @@ above the bass notes.
 >>
 @end lilypond
 
+@seealso
+
+@ref{chord}, @ref{interval}.
+
 
 @node fingering
 @section fingering
@@ -3574,7 +3885,12 @@ DK: fingersætning,
 S: fingersättning,
 FI: sormitus.
 
-The methodical use of fingers in the playing of instruments.
+Figures to the side or above the note that methodically indicate which
+fingers to use while playing a passage.
+
+@seealso
+
+None yet.
 
 
 @node flag
@@ -3589,20 +3905,23 @@ DK: fane,
 S: flagga,
 FI: lippu, viiri.
 
-Ornament at the end of the stem of a note used for notes with values
-less than a quarter note.  The number of flags determines the
-@ref{note value}.
+Ornament at the end of the stem of a note used for notes with values less
+than a quarter note.  The number of flags determines the note value.
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
 %\override Score.TextScript #'font-style = #'large
 \relative c'' {
-  g8_"1/8" s8
-  g16_"1/16" s8
-  g32_"1/32" s8
-  g64_"1/64" s8
+  g8_"8th" s8
+  g16_"16th" s8
+  g32_"32nd" s8
+  g64_"64th" s8
 }
 @end lilypond
+
+@seealso
+
+@ref{note value}.
 
 
 @node flageolet
@@ -3681,6 +4000,11 @@ Abbreviated @notation{@b{f}}.  Variants include:
 @item @emph{fortissimo}, very loud (notated @notation{@b{ff}}).
 @end itemize
 
+@seealso
+
+None yet.
+
+
 @node fourth
 @section fourth
 
@@ -3736,9 +4060,9 @@ DK: ?,
 S: ?,
 FI: ?.
 
-Analogous to Frenched scores (@emph{q.v}), a Frenched staff has unneeded
-measures or sections removed.  This would be useful for producing, for example,
-an @emph{ossia} staff.
+[Pl. @emph{Frenched staves}] Analogous to Frenched scores (@emph{q.v}), a
+Frenched staff has unneeded measures or sections removed.  This is useful
+for producing, for example, an @emph{ossia} staff.
 
 @seealso
 
@@ -3748,16 +4072,7 @@ an @emph{ossia} staff.
 @node Frenched staves
 @section Frenched staves
 
-ES: pentagramas a la francesa,
-I: ?,
-F: ?,
-D: ?,
-NL: ?,
-DK: ?,
-S: ?,
-FI: ?.
-
-The plural of @ref{Frenched staff}, @emph{q.v.}.
+Plural of @ref{Frenched staff}.
 
 
 @node fugue
@@ -3789,11 +4104,15 @@ DK: funktionsanalyse, funktionsharmonik,
 S: funktionslära,
 FI: harmoniajärjestelmä.
 
-A system of harmonic analysis.  It is based on the idea that, in a
-given key, there are only three functionally different chords: tonic
-(T, the chord on the first note of the scale), subdominant (S, the
-chord on the fourth note), and dominant (D, the chord on the fifth
-note).  Others are considered to be variants of the base chords.
+A system of harmonic analysis.
+
+It is based on the idea that, in a given key, there are only three
+functionally different chords: tonic (T, the chord on the first note of the
+scale), subdominant (S, the chord on the fourth note), and dominant (D, the
+chord on the fifth note).  Others are considered to be variants of the base
+chords.
+
+TODO: what does the @q{p} mean in Sp, Dp, Tp?
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -3805,6 +4124,10 @@ note).  Others are considered to be variants of the base chords.
   T Sp Dp S D Tp \markup{ D\translate #(cons -2 0) {"|"}  } }
 >>
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node G
@@ -3838,11 +4161,11 @@ DK: g-nøgle,
 S: g-klav,
 FI: G-avain.
 
-A clef symbol indicating the G above middle@w{ }C.  Used on the first
-and second note lines.  A digit 8 above the clef symbol indicates that
-the notes must be played an octave higher while 8 below the clef
-symbol indicates playing or singing an octave lower (most tenor parts
-in choral scores are notated like that).
+A clef symbol that indicates G above middle@w{ }C.  Used on the first and
+second note lines.  A digit 8 above the clef symbol indicates that the notes
+must be played an octave higher while 8 below the clef symbol indicates
+playing or singing an octave lower (used most frequently to notate the tenor
+part in modern choral scores).
 
 @lilypond[fragment,notime,ragged-right]
 <<
@@ -3870,6 +4193,10 @@ in choral scores are notated like that).
 >>
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node glissando
 @section glissando
@@ -3884,6 +4211,10 @@ S: glissando,
 FI: glissando, liukuen.
 
 Letting the pitch slide fluently from one note to the other.
+
+@seealso
+
+None yet.
 
 
 @node grace notes
@@ -3938,7 +4269,11 @@ DK: grave,
 S: grave,
 FI: grave, raskaasti.
 
-Slow, solemn.
+[Italian] Slow, solemn.
+
+@seealso
+
+None yet.
 
 
 @node gruppetto
@@ -3994,15 +4329,17 @@ dynamic marks.
 @node half note
 @section half note
 
-UK: minim,
-ES: blanca,
-I: minima,
-F: blanche,
-D: Halbe, halbe Note,
-NL: halve noot,
-DK: halvnode,
-S: halvnot,
-FI: puolinuotti.
+@itemize
+@item UK: minim,
+@item ES: blanca,
+@item I: minima,
+@item F: blanche,
+@item D: Halbe, halbe Note,
+@item NL: halve noot,
+@item DK: halvnode,
+@item S: halvnot,
+@item FI: puolinuotti.
+@end itemize
 
 @seealso
 
@@ -4012,15 +4349,17 @@ FI: puolinuotti.
 @node half rest
 @section half rest
 
-UK: minim rest,
-ES: silencio de blanca,
-I: pausa di minima,
-F: demi-pause,
-D: halbe Pause,
-NL: halve, rust,
-DK: halvnodespause,
-S: halvpaus,
-FI: puolitauko.
+@itemize
+@item UK: minim rest,
+@item ES: silencio de blanca,
+@item I: pausa di minima,
+@item F: demi-pause,
+@item D: halbe Pause,
+@item NL: halve, rust,
+@item DK: halvnodespause,
+@item S: halvpaus,
+@item FI: puolitauko.
+@end itemize
 
 @seealso
 
@@ -4040,8 +4379,6 @@ S: (harmonisk) kadens,
 FI: harmoninen kadenssi.
 
 A sequence of chords that terminates a musical phrase or section.
-
-@ref{functional harmony}.
 
 @lilypond[fragment,ragged-right]
 \context PianoStaff <<
@@ -4065,6 +4402,10 @@ A sequence of chords that terminates a musical phrase or section.
 >>
 
 @end lilypond
+
+@seealso
+
+@ref{functional harmony}.
 
 
 @node harmonics
@@ -4090,6 +4431,10 @@ while it is being bowed or plucked.
 For instruments of the violin family, there are two types of harmonics:
 natural harmonics, which are those played on the open string; and
 artificial harmonics, which are produced on stopped strings.
+
+@seealso
+
+None yet.
 
 
 @node harmony
@@ -4135,7 +4480,11 @@ Dissonances:
 }
 @end lilypond
 
-Three note harmony @ref{chord}.
+For harmony that uses three or more notes, see @ref{chord}.
+
+@seealso
+
+@ref{chord}.
 
 
 @node hemiola
@@ -4150,13 +4499,13 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[From Greek: in Latin, @emph{sesquialtera}] The ratio 3:2. Refers to
-the use of three notes of equal value in the time normally occupied by
-of two notes of equal value.  The resulting rhythm can be expressed in
-modern terms as a substitution (for example) of a bar in 3/2 for one
-of 6/4, or of a bar in 3/4 for one of 6/8.  During the Baroque era,
-hemiola is most frequently as a special effect (or @emph{affect}) at
-cadences.
+[Greek: in Latin, @emph{sesquialtera}] The ratio 3:2.
+
+Most frequently, a proportion (@emph{q.v.}) of three notes of equal value in the
+time normally occupied by two.  The resulting rhythm can be expressed in modern
+terms as a substitution (for example) of a bar in 3/2 for one of 6/4, or of a
+bar in 3/4 for one of 6/8.  During the Baroque era, hemiola is most frequently
+as a special effect (or @emph{affect}) at cadences.
 
 For example, this phrase in 6/4 time
 
@@ -4180,7 +4529,7 @@ and is therefore a polymeter (second definition) of considerable antiquity.
 
 @seealso
 
-@ref{mensural notation}, @ref{meter}, @ref{polymeter}.
+@ref{mensural notation}, @ref{meter}, @ref{polymeter}, @ref{proportion}.
 
 
 @node homophony
@@ -4195,10 +4544,12 @@ DK: homofoni,
 S: homofoni,
 FI: homofonia, yksiäänisyys.
 
-Music in which one voice leads melodically followed by the other
-voices more or less in the same rhythm.  In contrast to
-@ref{polyphony}.
+Music in which one voice leads melodically supported by the other voices in
+the same rhythm (more or less).  In contrast to @emph{polyphony}.
 
+@seealso
+
+@ref{polyphony}.
 
 @node hymn meter
 @section hymn meter
@@ -4212,23 +4563,19 @@ DK: ?,
 S: ?,
 FI: ?.
 
-A group or list of numbers that indicate the number of syllables in a
-line of a hymn's verse.  Different hymnals have different ways of noting
-the hymn meter -- consider a hymn having four lines in two couplets that
-alternate between eight and seven syllables.  The @emph{English Hymnal}
-notes this as 87.@w{ }87.  Other hymnals may note it as 8787, 87.87, or
-8@w{ }7@w{ }8@w{ }7.
+A group or list of numbers that indicate the number of syllables in a line
+of a hymn's verse.  Different hymnals have different ways of noting the hymn
+meter: for example, consider a hymn that has four lines in two couplets
+alternating regularly between eight and seven syllables.  The @emph{English
+Hymnal} notes this as 87.@w{ }87.  Other hymnals may note it as 8787, 87.87,
+or 8@w{ }7@w{ }8@w{ }7.
 
 Some frequently-used hymn meters have traditional names:
 
 @itemize
-
 @item 66.86 is called Short Meter (abbreviated SM or S.M.)
-
 @item 86.86 is called Common Meter (CM or C.M.)
-
 @item 88.88 is called Long Meter (LM or L.M.)
-
 @end itemize
 
 Some hymns and their tunes are doubled versions of a simpler meter: for
@@ -4236,15 +4583,14 @@ easier reading, a hymn with a meter of 87.87.87.87 is usually written
 87.87D.  The traditional names above also have doubled versions:
 
 @itemize
-
 @item 66.86.66.86 is Double Short Meter (DSM or D.S.M.)
-
 @item 86.86.86.86 is Double Common Meter (DCM or D.C.M.)
-
 @item 88.88.88.88 is Double Long Meter (DLM or D.L.M.)
-
 @end itemize
 
+@seealso
+
+None yet.
 
 
 @node interval
@@ -4259,11 +4605,11 @@ DK: interval,
 S: intervall,
 FI: intervalli, kahden sävelen korkeusero.
 
-Difference in pitch between two notes.  Intervals may be perfect,
-minor, major, diminished, or augmented.  The augmented fourth and the
-diminished fifth are identical (@ref{enharmonic}) and are called
-@emph{tritonus} because they consist of three @ref{whole tone}s.  The
-addition of such two intervals forms an octave.
+Difference in pitch between two notes.  Intervals may be perfect, minor,
+major, diminished, or augmented.  The augmented fourth and the diminished
+fifth are identical (or @emph{enharmonic}) and are called @emph{tritonus}
+because they consist of three whole tones.  The addition of such two
+intervals forms an octave.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -4325,6 +4671,10 @@ addition of such two intervals forms an octave.
 >>
 @end lilypond
 
+@seealso
+
+@ref{enharmonic}, @ref{whole tone}.
+
 
 @node inversion
 @section inversion
@@ -4338,12 +4688,13 @@ DK: ?,
 S: ?,
 FI: ?.
 
-When the bass is not the same as the root, the chord is inverted. The number
-of inversions that a chord can have is one fewer than the number of
-constituent notes. Triads, for example, (having three constituent notes) can
-have three positions, two of which are inversions:
+When a chord sounds with a bass note that differs from the root of the
+chord, it is said to be @emph{inverted}. The number of inversions that a
+chord can have is one fewer than the number of constituent notes.  For
+example, triads (which have three constituent notes) can have three
+positions, two of which are inversions:
 
-@table @code
+@table @dfn
 @item Root position
 The root note is in the bass, and above that are the third and the fifth. A
 triad built on the first scale degree, for example, is marked @notation{I}.
@@ -4362,6 +4713,10 @@ creates an interval of a sixth and a fourth above the bass note, and so is
 marked as @notation{I6/4} or @notation{Ic}. Second inversion is the most
 unstable chord position.
 @end table
+
+@seealso
+
+None yet.
 
 
 @node inverted interval
@@ -4388,6 +4743,10 @@ The difference between an interval and an octave.
 }
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node just intonation
 @section just intonation
@@ -4404,6 +4763,8 @@ FI: puhdas viritys.
 Tuning system in which the notes are obtained by adding and subtracting
 natural fifths and thirds.
 
+@seealso
+
 @ref{temperament}.
 
 
@@ -4419,12 +4780,12 @@ DK: toneart,
 S: tonart,
 FI: tonaliteetti.
 
-According to the 12@w{ }tones of the @ref{chromatic scale} there are
+According to the 12@w{ }tones of the @emph{chromatic scale} there are
 12@w{ }keys, one on@w{ }c, one on c-sharp, etc.
 
 @seealso
 
-@ref{key signature}.
+@ref{chromatic scale}, @ref{key signature}.
 
 
 @node key signature
@@ -4442,6 +4803,8 @@ FI: sävellajiosoitus.
 The sharps or flats appearing at the beginning of each staff indicating the
 key of the music.
 
+@seealso
+
 @ref{accidental}.
 
 
@@ -4457,8 +4820,12 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[From French, @q{Let vibrate}].  Most frequently associated with harp
+[French: @q{Let vibrate}.]  Most frequently associated with harp
 parts. Marked @notation{l.v.} in the score.
+
+@seealso
+
+None yet.
 
 
 @node largo
@@ -4473,8 +4840,8 @@ DK: largo,
 S: largo,
 FI: largo, hitaasti, leveästi.
 
-Very slow in tempo, usually combined with great expressiveness. 
-@emph{Larghetto} is less slow than largo.
+[Italian: @q{wide}.] Very slow in tempo, usually combined with great
+expressiveness. @emph{Larghetto} is less slow than largo.
 
 
 @node leading note
@@ -4489,9 +4856,13 @@ DK: ledetone,
 S: ledton,
 FI: johtosävel.
 
-The seventh @ref{scale degree}, a @ref{semitone} below the tonic; so
+The seventh @emph{scale degree}, a @emph{semitone} below the tonic; so
 called because of its strong tendency to @q{lead up} (resolve upwards)
 to the tonic scale degree.
+
+@seealso
+
+@ref{scale degree, @ref{semitone}.
 
 
 @node ledger line
@@ -4513,6 +4884,10 @@ A ledger line is an extension of the staff.
 \relative c'' { a,1 s c'' }
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node legato
 @section legato
@@ -4527,8 +4902,8 @@ S: legato,
 FI: legato, sitoen.
 
 To be performed (a) without any perceptible interruption between the
-notes, unlike (b) @emph{leggiero} or @emph{non-legato}, (c)
-@emph{portato}, and (d) @ref{staccato}.
+notes, unlike (b) @notation{leggiero} or @notation{non-legato}, (c)
+@notation{portato}, or (d) @notation{staccato}.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -4547,6 +4922,10 @@ notes, unlike (b) @emph{leggiero} or @emph{non-legato}, (c)
   }
 >>
 @end lilypond
+
+@seealso
+
+@ref{staccato}.
 
 
 @node legato curve
@@ -4579,10 +4958,10 @@ FI: ligatuura.
 
 A ligature is a coherent graphical symbol that represents at least two
 distinct notes.  Ligatures originally appeared in the manuscripts of
-Gregorian chant notation roughly since the 9th century to denote ascending
-or descending sequences of notes.  In early notation, ligatures were used
-for monophonic tunes (Gregorian chant) and very soon denoted also the way of
-performance in the sense of articulation. With the invention of the metric
+Gregorian chant notation around the 9th century to denote ascending or
+descending sequences of notes.  In early notation, ligatures were used for
+monophonic tunes (Gregorian chant) and very soon denoted also the way of
+performance in the sense of articulation.  With the invention of the metric
 system of the white mensural notation, the need for ligatures to denote such
 patterns disappeared.
 
@@ -4605,7 +4984,12 @@ S: liljedamm,
 FI: liljalampi.
 
 A pond with lilies floating in it.
+
 Also, the name of a music typesetting program.
+
+@seealso
+
+None yet.
 
 
 @node line
@@ -4637,7 +5021,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[From Italian, @q{place}].  Instruction to play the following passage at the
+[Italian: @q{place}.]  Instruction to play the following passage at the
 written pitch.  Cancels octave mark (q.v.).
 
 @seealso
@@ -4665,28 +5049,31 @@ FI: pitkä appoggiatura, pitkä etuhele.
 @node longa
 @section longa
 
-ES: longa,
-I: longa,
-F: longa,
-D: Longa,
-NL: longa,
-DK: longa,
-S: longa,
-FI: longa.
+@itemize
+@item US: long, longa, 
+@item ES: longa,
+@item I: longa,
+@item F: longa,
+@item D: Longa,
+@item NL: longa,
+@item DK: longa,
+@item S: longa,
+@item FI: longa.
+@end itemize
 
-Note value: double length of @ref{breve}.
+Note value: double length of @notation{breve}.
 
 @lilypond[fragment,notime,ragged-right]
 \set Score.automaticBars = ##f
 \relative c'' {
   \override NoteHead #'style = #'mensural
-  g\longa
+  g\longa g\breve
 }
 @end lilypond
 
 @seealso
 
-@ref{note value}.
+@ref{breve}, @ref{note value}.
 
 
 @node lyric tie
@@ -4719,6 +5106,12 @@ NL: liedtekst,
 DK: ?,
 S: ?,
 FI: sanoitus.
+
+@c Definition?
+
+@seealso
+
+None yet.
 
 
 @node major
@@ -4767,11 +5160,14 @@ DK: middeltonetemperatur,
 S: medeltonstemperatur,
 FI: keskisävelviritys.
 
-Temperament yielding acoustically pure thirds by decreasing the
-natural fifth by 16@w{ }@ref{cent}s.  Due to the non-circular
-character of this @ref{temperament} only a limited set of keys are
-playable. Used for tuning keyboard instruments for performance of
-pre-1650 music.
+Temperament yielding acoustically pure thirds by decreasing the natural
+fifth by 16@w{ }cents.  Due to the non-circular character of this
+temperament only a limited set of keys are playable.  Used for tuning
+keyboard instruments for performance of pre-1650 music.
+
+@seealso
+
+@ref{cent}, @ref{temperament}.
 
 
 @node measure
@@ -4786,12 +5182,13 @@ DK: takt,
 S: takt,
 FI: tahti.
 
-A group of @ref{beat}s (units of musical time) the first of which
-bears an accent.  Such groups in numbers of two or more recur
-consistently throughout the composition and are marked from each other
-by bar-lines.
+A group of beats (units of musical time) the first of which bears an accent.
+Such groups in numbers of two or more recur consistently throughout the
+composition and are separated from each other by bar lines.
 
-@ref{meter}.
+@seealso
+
+@ref{bar line}, @ref{beat}, @ref{meter}.
 
 
 @node measure repeat
@@ -4818,14 +5215,15 @@ FI: keskisävel.
 
 @item The third @b{scale degree}.
 
-@item A @ref{chord} having its base tone a third from that of another
+@item A @emph{chord} having its base tone a third from that of another
 chord.  For example, the tonic chord may be replaced by its lower
 mediant (variant tonic).
 
 @end itemize
 
 @seealso
-@ref{functional harmony}, @ref{relative key}.
+
+@ref{chord}, @ref{functional harmony}, @ref{relative key}.
 
 
 @node melisma
@@ -4840,8 +5238,12 @@ DK: ?,
 S: ?,
 FI: melisma, laulettavan tavun sävelkuvio.
 
-A melisma (plural, from Greek: melismata) is a group of notes or tones
-sung on one syllable, especially as applied to liturgical chant.
+A melisma (Greek: plural @emph{melismata}) is a group of notes or tones sung
+on one syllable, especially as applied to liturgical chant.
+
+@seealso
+
+None yet.
 
 
 @node melisma line
@@ -4965,7 +5367,7 @@ frequently used prior to the 20th Century.
 
 @itemize
 
-  @item simple: groups of two.
+  @item simple: subdivided in groups of two.
 
     @itemize
 
@@ -4975,7 +5377,7 @@ frequently used prior to the 20th Century.
 
     @end itemize
 
-  @item compound: groups of three.
+  @item compound: subdivided in groups of three.
 
     @itemize
 
@@ -5028,6 +5430,11 @@ Simple quintuple meter (B. Marcello, 1686-1739):
   r4 cis8 bis ais4 dis c8 ais |
   aes4 bes8 aes ges4 aes f8 es \bar "||"}
 @end lilypond
+
+(Aside: this is an example of @emph{Augenmusik}: the accidentals are thus in
+the source, with sharps in the accompaniment where the voice has flats and
+@emph{vice versa}.)
+
 
 Compound duple meter (unknown):
 
@@ -5083,11 +5490,11 @@ DK: me@-tro@-nom,
 S: me@-tro@-nom,
 FI: metronomi.
 
-Device indicating the exact tempo of a piece.
+Device used to indicate the exact tempo of a piece.
 
 Invented ca. 1812 by Dietrich Nikolaus Winkler of Amsterdam, but takes its name
 from Johann Nepomuk Mälzel, who copied the device, added a scale of tempo
-divisions, and patented it as a "metronome".  The inevitable lawsuit that
+divisions, and patented it as a @q{metronome}.  The inevitable lawsuit that
 followed acknowledged Winkler as the creator, but by then Mälzel had already
 sold many of them, and people had taken to calling it a Mälzel Metronome.
 
@@ -5159,6 +5566,10 @@ Used to qualify other indications, such as:
 
 @end itemize
 
+@seealso
+
+None yet.
+
 
 @node mezzo-soprano
 @section mezzo-soprano
@@ -5202,6 +5613,10 @@ First C below the 440 Hz A.
   \clef treble c s
 }
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node minor
@@ -5279,6 +5694,10 @@ Moving from one @ref{key} to another.  For example, the second subject
 of a @ref{sonata form} movement modulates to the dominant key if the
 key is major and to the @ref{relative key} if the key is minor.
 
+@seealso
+
+None yet.
+
 
 @node mordent
 @section mordent
@@ -5337,6 +5756,10 @@ theme or subject.
 }
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node movement
 @section movement
@@ -5353,6 +5776,10 @@ FI: osa.
 Greater musical works like @ref{symphony} and @ref{sonata} most often
 consist of several -- more or less -- independant pieces called
 movements.
+
+@seealso
+
+None yet.
 
 
 @node multi-measure rest
@@ -5405,8 +5832,8 @@ FI: palautusmerkki.
 @ref{accidental}.
 
 
-@node neighbour tones
-@section neighbour tones
+@node neighbor tones
+@section neighbor tones
 
 @seealso
 
@@ -5457,6 +5884,10 @@ which produces the sound.  However, a clear distinction between the terms tone
 and @ref{note} is strongly recommended.  Briefly, one sees a note,
 and hears a tone.
 
+@seealso
+
+None yet.
+
 
 @node note head
 @section note head
@@ -5470,12 +5901,15 @@ DK: nodehovede,
 S: nothuvud,
 FI: nuotin pää.
 
-A head-like sign which indicates pitch by its position on a
-@ref{staff} provided with a @ref{clef}, and duration
-by a variety of shapes such as hollow or black heads with or without
-@ref{stem}s, @ref{flag}s, etc.  For percussion
-instruments (often having no defined pitch) the note head may indicate the
-instrument.
+A head-like sign which indicates pitch by its position on a @notation{staff}
+provided with a @notation{clef}, and duration by a variety of shapes such as
+hollow or black heads with or without @notation{stems}, @notation{flags}, etc. 
+For percussion instruments (often having no defined pitch) the note head may
+indicate the instrument.
+
+@seealso
+
+@ref{clef}, @ref{flag}, @ref{staff}, @ref{stem}.
 
 
 @node note names
@@ -5498,11 +5932,11 @@ DK nodeværdi,
 S: notvärde,
 FI: nuotin aika-arvo.
 
-Note values (durations) are measured as fractions, normally 1/2, of
-the next higher note value.  The longest duration normally used is
-called @emph{brevis}, but sometimes (mostly in pre-baroque music) the
-double-length note value @emph{longa} or the quadruple-length note
-value @emph{maxima} are used.
+Note values (durations) are measured as fractions -- normally half -- of the
+next higher note value.  The longest duration in current use is the
+@emph{breve}, but sometimes (especially music from the Baroque or earlier) the
+double-length note value @emph{longa} or the quadruple-length note value
+@emph{maxima} are used.
 
 @c TODO -- add maxima to this example, in a way that doesn't break it.
 
@@ -5562,6 +5996,10 @@ dotted notes are also frequently used.
   g8 g g g g4 \bar "||"
 }
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node octavation
@@ -5760,6 +6198,10 @@ Ossia (otherwise) marks an alternative.  It is an added staff or piano
 score, usually only a few measures long, which presents another version
 of the music, for example for small hands.
 
+@seealso
+
+None yet.
+
 
 @node part
 @section part
@@ -5855,6 +6297,10 @@ kettledrums (I: @emph{timpani}, D: @emph{Pauken}), snare drum, bass drum,
 tambourine, cymbals, chinese gong (tam-tam), triangle, celesta, glockenspiel,
 and xylophone.
 
+@seealso
+
+None yet.
+
 
 @node perfect interval
 @section perfect interval
@@ -5887,6 +6333,10 @@ FI: fraasi, lause.
 
 A natural division of the melodic line, comparable to a sentence of speech.
 
+@seealso
+
+@ref{caesura}.
+
 
 @node phrasing
 @section phrasing
@@ -5900,8 +6350,12 @@ DK: frasering,
 S: fra@-se@-ring,
 FI: fraseeraus, jäsentäminen.
 
-The clear rendering in musical performance of the @ref{phrase}s of
-the melody.  Phrasing may be indicated by a @ref{slur}.
+The clear rendering in musical performance of the @notation{phrases} of the
+melody.  Phrasing may be indicated by a @notation{slur}.
+
+@seealso
+
+@ref{phrase}, @ref{slur}.
 
 
 @node piano
@@ -5918,6 +6372,10 @@ FI, piano, hiljaa.
 
 @emph{piano} (@b{p}) soft, @emph{pianissimo} (@b{pp}) very soft,
 @emph{mezzo piano} (@b{mp}) medium soft.
+
+@seealso
+
+None yet.
 
 
 @node pickup
@@ -5982,6 +6440,10 @@ FI: pizzicato, näppäillen.
 A technique for stringed instruments, abbr. @emph{pizz}.  To play by plucking
 the strings.
 
+@seealso
+
+None yet.
+
 
 @node polymeter
 @section polymeter
@@ -5997,7 +6459,8 @@ FI: ?.
 
 @itemize
 
-@item The simultaneous use of two or more meters, in two or more parts.
+@item The @emph{simultaneous} use of two or more meters, in two or more
+parts.
 
 @item The @emph{successive} use of different meters in one or more parts.
 
@@ -6020,7 +6483,8 @@ DK: ?,
 S: ?,
 FI: ?.
 
-Using two or more metric frameworks simultaneously or in alternation.
+Characterized by @emph{polymeter}: using two or more metric frameworks
+simultaneously or in alternation.
 
 @seealso
 
@@ -6061,11 +6525,19 @@ FI: polyfonia, moniäänisyys.
 Music written in a combination of several simultaneous voices (parts)
 of a more or less pronounced individuality.
 
+@seealso
+
 @ref{counterpoint}.
 
 
 @node portato
 @section portato
+
+[Italian: past participle of @emph{portare}, @q{to carry}]
+
+A stroke in which each of several notes is separated slightly within a slur,
+without changing the bow's direction. It is used for passages of a
+@notation{cantabile} character.
 
 @seealso
 
@@ -6084,8 +6556,14 @@ DK: presto,
 S: presto,
 FI: presto, hyvin nopeasti.
 
+[Italian]
+
 Very quick, i.e., quicker than @ref{allegro}; @emph{prestissimo}
 denotes the highest possible degree of speed.
+
+@seealso
+
+None yet.
 
 
 @node proportion
@@ -6100,16 +6578,96 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[From Latin @emph{proportio}]  In mensural notation, a ratio that expresses the
-relationship between the note values that follow with those that precede; or
-between the note values of a passage and the @q{normal} relationship of note
-values to the metrical pulse.
+[Latin: @emph{proportio}.] Described in great detail by Gaffurius, in
+@emph{Practica musicae} (published in Milan in 1496).  In mensural notation,
+proportion is:
+
+@enumerate
+
+@item A ratio that expresses the relationship between the note values that
+follow with those that precede;
+
+@item A ratio between the note values of a passage and the @q{normal}
+relationship of note values to the metrical pulse.  (A special case of the
+first definition.)
+
+@end enumerate
+
+The most common proportions are:
+
+@itemize
+@item 2:1 (or simply 2), expressed by a vertical line through the
+mensuration sign (the origin of the @q{cut-time} time signature), or by
+turning the sign backwards
+@item 3:1 (or simply 3)
+@item 3:2 (@emph{sesquialtera})
+@end itemize
+
+To @q{cancel} any of these, the inverse proportion is applied.  Thus:
+
+@itemize
+@item 1:2 cancels 2:1
+@item 1:3 cancels 3:1
+@item 2:3 cancels 3:2
+@item and so on.
+@end itemize
+
+Gaffurius enumerates five basic types of major:minor proportions and their
+inverses:
+
+@enumerate
+@item Multiplex, if the major number is an exact multiple of the minor (2:1,
+3:1, 4:2, 6:3); and its inverse, Submultiplex (1:2, 1:3, 2:4, 3:6)
+
+@item Epimoria or Superparticular [orig. @emph{Epimoria seu Superparticularis}],
+if the major number is one more than the minor (3:2, 4:3, 5:4); and its
+inverse, Subsuperparticular (2:3, 3:4, 4:5)
+
+@item Superpartiens, if the major number is one less than twice the minor
+(5:3, 7:4, 9:5, 11:6); and its inverse, subsuperpartiens (3:5, 4:7, 5:9, 6:11)
+
+@item Multiplexsuperparticular, if the major number is one more than twice the
+minor (5:2, 7:3, 9:4); and its inverse, Submultiplexsuperparticular (2:5, 3:7,
+4:9)
+
+@item Multiplexsuperpartiens, if the major number is one less than some other
+multiple (usually three or four) of the minor (8:3, 11:4, 14:5, 11:3); and its
+inverse, Submultiplexsuperpartiens (3:8, 4:11, 5:14, 3:11)
+
+@end enumerate
+
+He then continues to subdivide each type in various ways.  For the multiplex
+proportions, for example, he indicates how many times greater the major number
+is than the minor:
+
+@itemize
+
+@item If two times greater, the proportion is @emph{dupla}.  If inverted, it's
+called @emph{subdupla}.  Examples: 2:1, 4:2, and 6:3.
+
+@item If three, @emph{tripla}; and its inversion, @emph{subtripla}.  Example:
+3:1, 6:2, and 9:3.
+
+@item If four, @emph{quadrupla}; and its inversion, @emph{subquadrupla}. 
+Example: 4:1, 8:2, and 12:3
+
+@end itemize
+
+Other proportions were possible, but whether they were frequently used is
+another question:
+
+@itemize
+
+@item 33:9, @emph{triplasuperbipartientetertias}
+@item 51:15, @emph{triplasuperbipartientequintas}
+
+@end itemize
 
 @c TODO: add an example or two.  O => 4/3, and its modern equivalent
 
 @seealso
 
-@ref{mensural notation}
+@ref{mensural notation}.
 
 
 @node Pythagorean comma
@@ -6173,9 +6731,9 @@ first element is the root note (or simply @q{root}) of the chord, the second
 note is the @q{third} of the chord, and the last note is the @q{fifth} of
 the chord. These are described below:
 
-@multitable @columnfractions .10 .35 .35 .20
-
-@headitem Chord name @tab Component intervals
+@multitable {Chord name} {Component intervals} {Example} {C, CM, Cma, Cmaj, CΔ}
+@headitem Chord name
+  @tab Component intervals
   @tab Example
   @tab Symbol
 @item major triad @tab major third/perfect fifth
@@ -6293,7 +6851,9 @@ DK: rallentando,
 S: rallentando,
 FI: rallerdando, hidastuen.
 
-Abbreviation "rall.".
+[Italian] A performance indication, abbreviated "rall.".
+
+@seealso
 
 @ref{ritardando}.
 
@@ -6310,7 +6870,7 @@ DK: paralleltoneart,
 S: parallelltonart,
 FI: rinnakkaissävellaji.
 
-@ref{major} and @ref{minor} @ref{key}s with the same @ref{key signature}.
+Major and minor keys that have the same key signature.
 
 @lilypond[fragment,notime,line-width=13.0\cm]
 \set Score.automaticBars = ##f
@@ -6326,10 +6886,14 @@ FI: rinnakkaissävellaji.
 \set Score.automaticBars = ##f
 %\override Score.TextScript #'font-style = #'large
 \relative c' {
-  \key es \major
+  \key c \minor
   c1_"c minor" d es f g a! b! c \bar "||"
 }
 @end lilypond
+
+@seealso
+
+@ref{key}, @ref{key signature}, @ref{major}, @ref{minor}.
 
 
 @node repeat
@@ -6351,6 +6915,10 @@ FI: toisto.
   \repeat volta 2 {g4 g d' d | e e d2 | c4 c b b | a a g2 }
 }
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node rest
@@ -6401,6 +6969,10 @@ metrical unit (beat).
 
 @end itemize
 
+@seealso
+
+None yet.
+
 
 @node ritardando
 @section ritardando
@@ -6416,6 +6988,10 @@ FI: ritardando, hidastuen,
 
 Gradually slackening in speed.  Mostly abbreviated to rit.@: or ritard.
 
+@seealso
+
+None yet.
+
 
 @node ritenuto
 @section ritenuto
@@ -6430,6 +7006,10 @@ S: ritenuto,
 FI: ritenuto, hidastaen.
 
 Immediate reduction of speed.
+
+@seealso
+
+None yet.
 
 
 @node scale
@@ -6495,7 +7075,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[From Italian, @emph{scordare}, @q{to mistune}.]  Unconventional
+[Italian: @emph{scordare}, @q{to mistune}.]  Unconventional
 tuning of stringed instruments, particularly lutes or violins.  Used
 to:
 
@@ -6519,6 +7099,10 @@ available on open strings
 Tunings that could be called @var{scordatura} first appeared early in
 the 16th Century and became commonplace in the 17th.
 
+@seealso
+
+None yet.
+
 
 @node score
 @section score
@@ -6535,6 +7119,10 @@ FI: partituuri.
 A copy of orchestral, choral, or chamber music showing what each
 instrument is to play, each voice to sing, having each part arranged
 one underneath the other on different staves @ref{staff}.
+
+@seealso
+
+None yet.
 
 
 @node second
@@ -6553,6 +7141,10 @@ The @ref{interval} between two neigbouring tones of a scale.  A
 @ref{diatonic scale} consists of alternating @ref{semitone}s and
 @ref{whole tone}s, hence the size of a se@-cond depends on the scale
 degrees in question.
+
+@seealso
+
+None yet.
 
 
 @node semitone
@@ -6661,7 +7253,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[From It, @q{in the same manner}] Performance direction: the music thus marked
+[Italian: @q{in the same manner}.] Performance direction: the music thus marked
 is to be played in the same manner (i.e. with the same articulations, dynamics,
 etc.) as the music that precedes it.
 
@@ -6699,7 +7291,7 @@ that does not include triplet subdivision of the beat.
 @item I: semicroma
 @item F: double croche
 @item D: Sechzehntel, Sechzehntelnote
-@item NL: zes@-ti@-ende noot
+@item NL: zestiende noot
 @item DK: sekstendedelsnode
 @item S: sextondelsnot
 @item FI: kuudestoistaosanuotti
@@ -6811,6 +7403,10 @@ A slur above or below a group of notes indicates that they are to be
 played @ref{legato}, e.g., with one stroke of the violin bow or with
 one breath in singing.
 
+@seealso
+
+None yet.
+
 
 @node solmization
 @section solmization
@@ -6825,11 +7421,13 @@ S: solmisation,
 FI: suhteelliset laulunimet.
 
 General term for systems of designating the degrees of the
-@ref{scale}, not by letters, but by syllables (@emph{do} (@emph{ut}),
+@notation{scale}, not by letters, but by syllables (@emph{do} (@emph{ut}),
 @emph{re}, @emph{mi}, @emph{fa}, @emph{sol}, @emph{la}, @emph{si}
 (@emph{ti})).
 
-@ref{scale degree}.
+@seealso
+
+@ref{scale}, @ref{scale degree}.
 
 
 @node sonata
@@ -6849,6 +7447,10 @@ composition for piano or for some other instrument with piano
 accompaniment, which consists of three or four independant pieces,
 called movements.
 
+@seealso
+
+None yet.
+
 
 @node sonata form
 @section sonata form
@@ -6862,19 +7464,23 @@ DK: sonateform,
 S: sonatform,
 FI: sonaattimuoto.
 
-A form used frequently for single movements of the @ref{sonata},
-@ref{symphony}, quartet, etc.  A movement written in sonata form falls
-into three sections called @emph{exposition}, @emph{development} and
-@emph{recapitulation}.  In the exposition the composer introduces some
-musical ideas, consisting of a number of themes; in the development
-section the composer @q{develops} this material, and in the
-recapitulation the composer repeats the exposition, with certain
-modifications.  The exposition contains a number of themes that fall
-into two groups, often called first and second subject.  Other
-melodies occurring in each group are considered as continuations of
-these two.  The second theme is in another key, normally in the key of
-the @ref{dominant} if the @ref{tonic} is @ref{major}, and in the
-@ref{relative key} if the tonic is @ref{minor}.
+A form used frequently for single movements of the @emph{sonata},
+@emph{symphony}, quartet, etc.  A movement written in sonata form falls into
+three sections called @notation{exposition}, @notation{development} and
+@notation{recapitulation}.  In the exposition the composer introduces some
+musical ideas, consisting of a number of themes; in the development section the
+composer @emph{develops} this material, and in the recapitulation the composer
+repeats the exposition, with certain modifications.  The exposition contains a
+number of themes that fall into two groups, often called first and second
+subject.  Other melodies occurring in each group are considered as continuations
+of these two.  The second theme is in another key, normally in the key of the
+@notation{dominant} if the @notation{tonic} is @notation{major}, and in the
+@notation{relative key} if the tonic is @notation{minor}.
+
+@seealso
+
+@ref{dominant}, @ref{major}, @ref{minor}, @ref{relative key}, @ref{sonata},
+@ref{symphony}, @ref{tonic}.
 
 
 @node song texts
@@ -6898,6 +7504,10 @@ S: sopran,
 FI: sopraano, korkea naisääni.
 
 The highest female voice.
+
+@seealso
+
+None yet.
 
 
 @node staccato
@@ -6925,6 +7535,10 @@ below the note head.
 }
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node staff
 @section staff
@@ -6942,6 +7556,10 @@ A staff (plural: staves) is a series of (normally five) horizontal
 lines upon and between which the musical notes are written, thus
 indicating (in connection with a @ref{clef}) their pitch.  Staves for
 @ref{percussion} instruments may have fewer lines.
+
+@seealso
+
+None yet.
 
 
 @node staves
@@ -6981,6 +7599,10 @@ whole note.
 }
 @end lilypond
 
+@seealso
+
+None yet.
+
 
 @node stringendo
 @section stringendo
@@ -6994,7 +7616,7 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[It, @q{pressing}].  Pressing, urging, or hastening the time, as to a
+[Italian: @q{pressing}.]  Pressing, urging, or hastening the time, as to a
 climax.
 
 @seealso
@@ -7017,6 +7639,10 @@ FI: jouset.
 A family of stringed musical instruments played with a bow.  Strings
 commonly used in a symphony orchestra are violin, viola, violoncello,
 and double bass.
+
+@seealso
+
+None yet.
 
 
 @node strong beat
@@ -7048,9 +7674,11 @@ DK: subdominant,
 S: subdominant,
 FI: subdominantti, alidominantti.
 
-The fourth @ref{scale degree}.
+The fourth @notation{scale degree}.
 
-@ref{functional harmony}.
+@seealso
+
+@ref{functional harmony}, @ref{scale degree}.
 
 
 @node submediant
@@ -7065,7 +7693,11 @@ DK: Submediant,
 S: submediant,
 FI: alikeskisävel.
 
-The sixth @ref{scale degree}.
+The sixth @notation{scale degree}.
+
+@seealso
+
+@ref{functional harmony}, @ref{scale degree}, @ref{superdominant}.
 
 
 @node subtonic
@@ -7081,6 +7713,10 @@ S: subtonika,
 FI: subtoonika, alitoonika.
 
 The seventh @ref{scale degree}.
+
+@seealso
+
+@ref{functional harmony}, @ref{scale degree}.
 
 
 @node sul G
@@ -7098,6 +7734,10 @@ FI: ?.
 Indicates that the indicated passage (or note) should be played on the
 G string.
 
+@seealso
+
+None yet.
+
 
 @node superdominant
 @section superdominant
@@ -7112,6 +7752,10 @@ S: superdominant,
 FI: ylidominantti.
 
 The sixth @ref{scale degree}.
+
+@seealso
+
+@ref{functional harmony}, @ref{scale degree}, @ref{submediant}.
 
 
 @node supertonic
@@ -7128,6 +7772,10 @@ FI: ylitoonika.
 
 The second @ref{scale degree}.
 
+@seealso
+
+@ref{functional harmony}, @ref{scale degree}.
+
 
 @node symphony
 @section symphony
@@ -7141,7 +7789,12 @@ DK: symfoni,
 S: symfoni,
 FI: sinfonia.
 
-A symphony may be defined as a @ref{sonata} for orchestra.
+A symphony may be defined as a @emph{sonata} for orchestra.
+
+@seealso
+
+@ref{sonata}.
+
 
 
 @node syncopation
@@ -7172,6 +7825,10 @@ contradiction between the underlaying (normal) pulse and the actual
   e c'4 e,8 c'4 e,8 c' ( | c2)
 }
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node syntonic comma
@@ -7213,8 +7870,12 @@ DK: system,
 S: system,
 FI: nuottijärjestelmä.
 
-The collection of staves (@ref{staff}), two or more, as used for writing
+The collection of staves (@notation{staff}), two or more, as used for writing
 down of keyboard, chamber, choral, or orchestral music.
+
+@seealso
+
+@ref{staff}.
 
 
 @node temperament
@@ -7232,6 +7893,8 @@ FI: viritysjärjestelmä.
 Systems of tuning in which the intervals deviate from the acoustically
 pure intervals.
 
+@seealso
+
 @ref{meantone temperament}, @ref{equal temperament}.
 
 
@@ -7247,10 +7910,15 @@ DK: tempobetegelse,
 S: tempobeteckning,
 FI: tempomerkintä.
 
-The rate of speed of a composition or a section thereof, ranging from
-the slowest to the quickest, as is indicated by tempo marks as
-@ref{largo}, @ref{adagio}, @ref{andante}, @ref{allegro}, and
-@ref{presto}.
+The rate of speed of a composition or a section thereof, ranging from the
+slowest to the quickest, as is indicated by tempo marks as @notation{largo},
+@notation{adagio}, @notation{andante}, @notation{allegro}, and
+@notation{presto}.
+
+@seealso
+
+@ref{adagio}, @ref{allegro}, @ref{andante}, @ref{largo}, @ref{presto}.
+
 
 
 @node tenor
@@ -7265,7 +7933,11 @@ DK: tenor,
 S: tenor,
 FI: tenori, korkea miesääni.
 
-The highest male voice (apart from @ref{countertenor}).
+The highest @q{natural} male voice (apart from @notation{countertenor}).
+
+@seealso
+
+@ref{countertenor}.
 
 
 @node tenth
@@ -7300,6 +7972,10 @@ FI: viiva, tenuto.
 An indication that a particular note should be held for the whole
 length, although this can vary depending on the composer and era.
 
+@seealso
+
+None yet.
+
 
 @node third
 @section third
@@ -7327,7 +8003,7 @@ FI: terssi.
 @item I: biscroma
 @item F: triple croche
 @item D: Zweiunddreissigstel, Zweiunddreissigstelnote
-@item NL: twee-endertig@-ste (32e) noot
+@item NL: twee@-endertig@-ste (32e) noot
 @item DK: toogtredivtedelsnode
 @item S: trettiotvåondelsnot
 @item FI: kolmaskymmeneskahdesosanuotti
@@ -7347,7 +8023,7 @@ FI: terssi.
 @item I: pausa di biscroma
 @item F: huitième de soupir
 @item D: Zweiunddreissigstel@-pause
-@item NL: twee-endertig@-ste (32e) rust
+@item NL: twee@-endertig@-ste (32e) rust
 @item DK: toogtredivtedelspause
 @item S: trettiotvåondelspaus
 @item FI: kolmaskymmeneskahdesosatauko
@@ -7435,6 +8111,10 @@ Tone is a primary building material of music.
 
 @c Music from the 20th century may be based on atonal sounds. Meh, not so much
 
+@seealso
+
+None yet.
+
 
 @node tonic
 @section tonic
@@ -7448,11 +8128,11 @@ DK: tonika,
 S: tonika,
 FI: toonika.
 
-The first @ref{scale degree}.
+The first @notation{scale degree}.
 
 @seealso
 
-@ref{functional harmony}.
+@ref{functional harmony}, @ref{scale degree}.
 
 
 @node transposing instrument
@@ -7527,6 +8207,10 @@ relative pitches.
   }
 }
 @end lilypond
+
+@seealso
+
+None yet.
 
 
 @node treble clef
@@ -7736,6 +8420,10 @@ Playing of the same notes or the same melody by various instruments
 (voices) or by the whole orchestra (choir), either at exactly the same
 pitch or in a different octave.
 
+@seealso
+
+None yet.
+
 
 @node upbeat
 @section upbeat
@@ -7768,27 +8456,24 @@ FI: ääni, lauluääni.
 
 @itemize
 
-@item Human voices:
+  @item Human voices:
 
-@itemize
+    @itemize
+      @item @ref{soprano}
+      @item @ref{mezzo-soprano}
+      @item @ref{contralto}
+      @item @ref{tenor}
+      @item @ref{baritone}
+      @item @ref{bass}
+    @end itemize
 
-@item @ref{soprano}
-
-@item @ref{mezzo-soprano}
-
-@item @ref{contralto}
-
-@item @ref{tenor}
-
-@item @ref{baritone}
-
-@item @ref{bass}
+  @item A melodic layer or part of a polyphonic composition.
 
 @end itemize
 
-@item A melodic layer or part of a polyphonic composition.
+@seealso
 
-@end itemize
+None yet.
 
 
 @node volta
@@ -7803,9 +8488,13 @@ DK: ?,
 S: ?,
 FI: ?.
 
-[From Italian, @q{time} (instance, not duration)].  An ending, such as a first
+[Italian: @q{time} (instance, not duration).]  An ending, such as a first
 or second ending.  LilyPond extends this idea to any number, and allows any text
-(not just a number) -- to serve as the @q{volta} text.
+(not just a number) -- to serve as the @notation{volta} text.
+
+@seealso
+
+None yet.
 
 
 @node weak beat
@@ -7903,6 +8592,10 @@ instruments are actually made from metal.  The woodwind instruments
 commonly used in a symphony orchestra are flute, oboe, clarinet,
 saxophone, and bassoon.
 
+@seealso
+
+None yet.
+
 
 @node Duration names notes and rests
 @chapter Duration names notes and rests
@@ -7951,8 +8644,8 @@ saxophone, and bassoon.
   @tab brevispaus
 @item @strong{FI} @tab longa-nuotti
   @tab longa-tauko
-  @tab brevis-nuotti, kaksoiskokonuotti
-  @tab brevis-tauko, kaksoiskokotauko
+  @tab brevis-nuotti, kaksoiskoko@-nuotti
+  @tab brevis-tauko, kaksoiskoko@-tauko
 
 @end multitable
 
@@ -8047,10 +8740,10 @@ saxophone, and bassoon.
   @tab fjärdedelspaus
   @tab åttondelsnot
   @tab åttondelspaus
-@item @strong{FI} @tab neljäsosanuotti
-  @tab neljäsosatauko
-  @tab kahdeksasosanuotti
-  @tab kahdeksasosatauko
+@item @strong{FI} @tab neljäsosa@-nuotti
+  @tab neljäsosa@-tauko
+  @tab kahdeksasosa@-nuotti
+  @tab kahdeksasosa@-tauko
 
 @end multitable
 
@@ -8101,8 +8794,8 @@ the lilypond-user discussion list.
 @item @strong{DE} @tab Sechzehntelnote
   @tab Sechzehntelpause
   @tab 16tel-Note
-@item @strong{NL} @tab zestiende noot
-  @tab zestiende rust
+@item @strong{NL} @tab zes@-ti@-ende noot
+  @tab zes@-ti@-ende rust
   @tab 16e noot
 @item @strong{DK} @tab sekstendedelsnode
   @tab sekstendedelspause
@@ -8110,8 +8803,8 @@ the lilypond-user discussion list.
 @item @strong{SE} @tab sextondelsnot
   @tab sextondelspaus
   @tab -
-@item @strong{FI} @tab kuudestoistaosanuotti
-  @tab kuudestoistaosatauko
+@item @strong{FI} @tab kuudes@-toistaosa@-nuotti
+  @tab kuudes@-toistaosa@-tauko
   @tab 16-osanuotti
 
 @end multitable
@@ -8136,20 +8829,20 @@ the lilypond-user discussion list.
 @item @strong{FR} @tab triple croche
   @tab huitième de soupir
   @tab -
-@item @strong{DE} @tab Zweiunddreißigstelnote
-  @tab Zweiunddreißigstelpause
+@item @strong{DE} @tab Zweiunddreißig@-stelnote
+  @tab Zweiunddreißig@-stelpause
   @tab 32tel-Note
-@item @strong{NL} @tab tweeendertigste noot
-  @tab tweeendertigste rust
+@item @strong{NL} @tab twee@-endertigste noot
+  @tab twee@-endertigste rust
   @tab 32e noot
 @item @strong{DK} @tab toogtredivtedelsnode
   @tab toogtredivtedelspause
   @tab -
-@item @strong{SE} @tab trettiotvåondelsnot
-  @tab trettiotvåondelspaus
+@item @strong{SE} @tab trettio@-tvåondelsnot
+  @tab trettio@-tvåondelspaus
   @tab -
-@item @strong{FI} @tab kolmaskymmeneskahdesosanuotti
-  @tab kolmaskymmeneskahdesosatauko
+@item @strong{FI} @tab kolmas@-kymmenes@-kahdesosa@-nuotti
+  @tab kolmas@-kymmenes@-kahdesosa@-tauko
   @tab 32-osanuotti
 
 @end multitable
@@ -8180,14 +8873,14 @@ the lilypond-user discussion list.
 @item @strong{NL} @tab vierenzestigste noot
   @tab vierenzestigste rust
   @tab 64e noot
-@item @strong{DK} @tab fireogtredsindstyvendedelsnode
-  @tab fireogtredsindstyvendedelspause
+@item @strong{DK} @tab fireog@-tredsindstyven@-dedelsnode
+  @tab fireog@-tredsindstyven@-dedelspause
   @tab -
 @item @strong{SE} @tab sextiofjärdedelsnot
   @tab sextiofjärdedelspaus
   @tab -
-@item @strong{FI} @tab kuudeskymmenesneljäsosanuotti
-  @tab kuudeskymmenesneljäsosatauko
+@item @strong{FI} @tab kuudes@-kymmenes@-neljäsosa@-nuotti
+  @tab kuudes@-kymmenes@-neljäsosa@-tauko
   @tab 64-osanuotti
 
 @end multitable
@@ -8211,19 +8904,19 @@ the lilypond-user discussion list.
   @tab -
 @item @strong{FR} @tab quintuple croche
   @tab trente-deuxième de soupir  @tab -
-@item @strong{DE} @tab Hundertundachtundzwanzigstel
-  @tab Hundertundachtundzwanzigstel  @tab 128tel-Note
-@item @strong{NL} @tab honderdachtentwintigste noot
-  @tab honderdachtentwintigste rust
+@item @strong{DE} @tab Hundert@-achtundzwanzigstel@-note
+  @tab Hundert@-achtundzwanzigstel@-pause  @tab 128tel-Note
+@item @strong{NL} @tab honderd@-acht@-en@-twintigste noot
+  @tab honderd@-acht@-en@-twintigste rust
   @tab 128e noot
-@item @strong{DK} @tab hundredeotteogtyvendedelsnode
-  @tab hundredeotteogtyvendedelspause
+@item @strong{DK} @tab hundrede@-otte@-og@-tyvendedels@-node
+  @tab hundrede@-otte@-og@-tyvendedels@-pause
   @tab -
 @item @strong{SE} @tab hundratjugoåttondelsnot
   @tab hundratjugoåttondelspaus
   @tab -
-@item @strong{FI} @tab sadaskahdeskymmeneskahdeksasosanuotti
-  @tab sadaskahdeskymmeneskahdeksasosatauko
+@item @strong{FI} @tab sadas@-kahdes@-kymmenes@-kahdeksasosa@-nuotti
+  @tab sadas@-kahdes@-kymmenes@-kahdeksasosa@-tauko
   @tab 128-osanuotti
 
 @end multitable
@@ -8246,19 +8939,19 @@ the lilypond-user discussion list.
   @tab -
 @item @strong{FR} @tab sextuple croche
   @tab soixante-quatrième de soupir  @tab -
-@item @strong{DE} @tab Zweihundertundsechsundfünfzigstelnote
-  @tab Zweihundertundsechsundfünfzigstel  @tab 256tel-Note
-@item @strong{NL} @tab tweehonderdzesenvijftigste noot
-  @tab tweehonderdzesenvijftigste rust
+@item @strong{DE} @tab Zweihundert@-sechsundfünfzigstel@-note
+  @tab Zweihundert@-sechsundfünfzigstelpause  @tab 256tel-Note
+@item @strong{NL} @tab tweehonderd@-zesenvijftigste noot
+  @tab tweehonderd@-zesenvijftigste rust
   @tab 256e noot
-@item @strong{DK} @tab tohundredeseksoghalvtredsendedelsnode
-  @tab tohundredeseksoghalvtredsendedelspause
+@item @strong{DK} @tab tohundrede@-seks@-og@-halvtredsendedels@-node
+  @tab tohundrede@-seks@-og@-halvtredsendedels@-pause
   @tab -
-@item @strong{SE} @tab tvåhundrafemtiosjättedelsnot
-  @tab tvåhundrafemtiosjättedelspaus
+@item @strong{SE} @tab tvåhundra@-femtiosjättedelsnot
+  @tab tvåhundra@-femtiosjättedelspaus
   @tab -
-@item @strong{FI} @tab kahdessadasviideskymmeneskuudesosanuotti
-  @tab kahdessadasviideskymmeneskuudesosatauko
+@item @strong{FI} @tab kahdes@-sadas@-viides@-kymmenes@-kuudesosa@-nuotti
+  @tab kahdes@-sadas@-viides@-kymmenes@-kuudesosa@-tauko
   @tab 256-osanuotti
 
 @end multitable
@@ -8276,7 +8969,7 @@ the lilypond-user discussion list.
 @c -iss/-ess endings for Swedish per Mats Bengtsson
 @c @columnfractions .105 .145 .125 .125 .125 .125 .125 .125 -->
 
-@multitable {@strong{e-sharp} = f} {sol sostenido} {sol bemolle} {sol bémol} {Gis} {gis} {gis} {giss} {gis}
+@multitable {g-sharp} {sol sostenido} {sol diesis} {sol dièse} {Gis} {gis} {gis} {giss} {gis}
 @headitem EN
   @tab ES @tab I @tab F @tab D
   @tab NL @tab DK @tab S @tab FI
@@ -8340,16 +9033,16 @@ WSOY, 1976.
 @item Leuchtmann, Horst, ed. @cite{Polyglottes Wörterbuch der musikalischen
 Terminologie}. Kassel, 1980.
 
-@item Randall, Don, ed. @cite{The New Harvard Dictionary of Music}.
-Cambridge: Belknap Press (Harvard University Press), 1986.
-
-@item Riemann, Hugo. @cite{Musik-lexicon}. Berlin, 1929.
-
 @item Hornby, Albert Sydney. @cite{Oxford Advanced Learner's Dictionary of
 Current English}, 3rd ed. London: Oxford University Press, 1974.
 
 @item Porter, Noah. @cite{Webster's Revised Unabridged Dictionary}.
 Springfield, Massachusetts: G. & C. Merriam Company, 1913.
+
+@item Randall, Don, ed. @cite{The New Harvard Dictionary of Music}.
+Cambridge: Belknap Press (Harvard University Press), 1986.
+
+@item Riemann, Hugo. @cite{Musik-lexicon}. Berlin, 1929.
 
 @end itemize
 
