@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
+    Translation of GIT committish: 47df71eb9aa3217537cd902ef0161ec3bef88ec5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,20 +13,26 @@
 
 @lilypondfile[quote]{pitches-headword.ly}
 
-This section discusses how to specify the pitch of notes.
+Dieser Abschnitt zeigt, wie man die Tonhöhe notieren kann.
+Es gibt drei Stufen in diesem Prozess: Eingabe,
+Veränderung und Ausgabe.
 
 @menu
-* Writing pitches::             
-* Changing multiple pitches::   
-* Displaying pitches::          
-* Note heads::                  
+* Writing pitches::
+* Changing multiple pitches::
+* Displaying pitches::
+* Note heads::
 @end menu
 
 
 @node Writing pitches
 @subsection Writing pitches
 
-Into text.
+Dieser Abschnitt zeigt, wie man Tonhöhen notiert.  Es gibt
+zwei verschiedene Möglichkeiten, Noten in bestimmten
+Oktaven zu notieren: den absoluten und den relativen
+Modus.  In den meisten Fällen eignet sich der relative
+Modus besser.
 
 @menu
 * Absolute octave entry::       
@@ -39,49 +45,56 @@ Into text.
 @unnumberedsubsubsec Absolute octave entry
 
 @cindex Tonhöhenbezeichnungen
+@cindex Absoluter Modus: Tonhöhen
+@cindex Absolute Spezifikation von Oktaven
 
-
-Tonhöhenbezeichnungen werden durch Kleinbuchstaben von
-@code{a} bis @code{g} angegeben.@footnote{Die Benutzung deutscher 
+Tonhöhenbezeichnungen werden durch Kleinbuchstaben
+von@tie{}@code{a} bis@tie{}@code{g} angegeben.  Dabei
+wird ein aus dem Englischen entlehntes Modell benutzt, das sich
+vom Deutschen dadurch unterscheidet, dass@tie{}@code{b}
+für die Note @qq{H} steht.  Die Benutzung deutscher 
 Notenbezeichnungen mit der Unterscheidung von b und h ist 
-auch möglich, siehe @ref{Note names in other languages}.}
-Eine aufsteigende C-Dur-Tonleiter wird wie folgt notiert:
+auch möglich, siehe @ref{Note names in other languages}.
+Die Notenbezeichnungen @code{c} bis @code{b}
+werden in der Oktave unter dem zweigestrichenen C
+gesetzt.
 
-@lilypond[quote,fragment,verbatim,ragged-right]
+@c don't use c' here.
+@lilypond[quote,fragment,verbatim]
 \clef bass
-c d e f g a b c'
+c d e f
+g a b c
+d e f g
 @end lilypond
 
-Die Notenbezeichnung @code{c} schreibt als Note ein kleines 
-C, eine Oktave unter dem eingestrichenen C.
-
-@lilypond[quote,fragment,verbatim,ragged-right]
-\clef treble
-c1
-\clef bass
-c1
-@end lilypond
-
+@cindex Oktavwechsel: Tonhöhe
+@cindex Wechsel der Oktave
+@cindex Tonhöhe: Wechsel der Oktave
 @funindex '
 @funindex ,
 
-Zusätzliche Oktavbestimmung wird mit einer Anzahl von 
-Apostrophen (@q{'}) oder Kommas (@q{,}) vorgenommen. 
-Jeder Apostroph erhöht die Note um eine Oktave, jedes 
-Komma erniedrigt sie um eine Oktave.
+Andere Oktaven können erreicht werden, indem man ein
+Apostroph@tie{}(@code{'}) oder ein Komma@tie{}(@code{,})
+benutzt.  Jedes@tie{}@code{'} erhöht die Tonhöhe um
+eine Oktave, jedes@tie{}@code{,} erniedrigt sie um eine
+Oktave.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[verbatim,quote,fragment]
 \clef treble
-c' c'' e' g d'' d' d c
+c' c'' e' g
+d'' d' d c
 \clef bass
-c, c,, e, g d,, d, d c
+c, c,, e, g
+d,, d, d c
 @end lilypond
 
-Eine alternative Methode gibt am Anfang die Oktave vor, 
-innerhalb derer die Noten gesetzt werden, dabei werden 
-unter Umständen weniger Oktavangaben (@code{'} oder @code{,})
-benötigt. Siehe auch 
-@ref{Relative octave entry}.
+@seealso
+
+Musikglossar:
+@rglos{Pitch names}.
+
+Schnipsel:
+@rlsr{Pitches}.
 
 
 @node Relative octave entry
@@ -89,79 +102,141 @@ benötigt. Siehe auch
 
 @cindex Relativ
 @cindex Relative Oktavbestimmung
+@cindex Noteneingabe: relative Oktavbestimmung
 @funindex \relative
 
-Oktaven werden angegeben, indem man @code{'} oder @code{,}
-an die Notenbezeichnung hängt. Wenn Sie schon existierende 
-Musik kopieren, passiert es schnell, eine Note aus Versehen 
-in die falsche Oktave zu setzen, und der Fehler ist schwer zu 
-finden. Der relative Oktaven-Modus verhindert solche Fehler,
-indem mögliche Fehler stark vergrößert werden: ein einziger 
-Oktavierungsfehler wirkt sich auf den gesamten Rest des Stückes aus.
-
-Die Syntax des Befehls lautet:
+Wenn Oktaven im absoluten Modus notiert, passiert es
+schnell, eine Note auf der falschen Oktave zu notieren.  Mit
+dem relativen Modus kommen solche Fehler seltener vor, weil
+man die Oktave nur noch sehr selten spezifizieren muss.
+Hinzu kommt, dass im absoluten Modus ein einzelner Fehler
+schwer zu finden ist, während er im relativen Modus den
+ganzen Rest des Stückes um eine Oktave verschiebt.
 
 @example
-\relative @var{Referenzoktave} @var{musikalischer Ausdruck}
+\relative @var{Anfangstonhöhe} @var{musikalischer Ausdruck}
 @end example
 
-@noindent
-oder:
+Im relativen Modus wird angenommen, dass sich jede folgende
+Note so dicht wie möglich bei der nächsten befindet.  Das bedeutet,
+dass die Oktave jeder Tonhöhe innerhalb eines @var{musikalischen
+Ausdrucks} wie folgt errechnet wird:
 
-@example
-\relative @var{musikalischer Ausdruck}
-@end example
+@itemize
+@item
+Wenn kein Oktavänderungszeichen an einer Tonhöhe benutzt wird,
+wird ihre Oktave so errechnet, dass das Intervall zur vorigen
+Noten weniger als eine Quinte ist.  Das Intervall wird errechnet,
+ohne Versetzungszeichen zu berücksichtigen.
 
-@noindent
-Das eingestrichene C (@code{c'}) wird als Referenzoktave angenommen, 
-wenn sie nicht extra angegeben wird.
+@item
+Ein Oktavänderungszeichen@tie{}@code{'} oder@tie{}@code{,}
+kann hinzugefügt werden, um eine Tonhöhe explizit um eine
+Oktave zu erhöhen bzw. zu erniedrigen, relativ zu der Tonhöhe,
+die ohne das Oktavänderungszeichen errechnet wurde.
 
-Die Oktave von Noten, die im musikalischen Ausdruck notiert sind, 
-wird wie folgt erschlossen: Wenn keine Oktavversetzungszeichen 
-benutzt werden, wird als Intervall zwischen der Noten und der 
-vorhergehenden immer eine Quarte oder kleiner angenommen. Dieser 
-Abstand wird ohne Rücksicht auf Alterationen bestimmt. Eine 
-übermäßige Quarte ist also ein kleineres Intervall als eine 
-verminderte Quinte, auch wenn beide sechs Halbtöne groß sind.
+@item
+Mehrfache Oktavänderungszeichen können benutzt werden.  Die
+Zeichen@code{''}@tie{}und@tie{}@code{,,} ändern zum Beispiel
+die Tonhöhe um zwei Oktaven.
 
-Die Oktavversetzungszeichen @code{'} und @code{,} können 
-hinzugefügt werden, um die Tonhöhe um eine Oktave zu erhöhen 
-oder zu erniedrigen. Wenn der relative Modus beginnt, kann 
-ein Referenzton angegeben werden, der als die vorhergehende Note 
-für die erste Tonhöhe des musikalischen Ausdrucks verwendet 
-wird. Wenn dieser Referenzton nicht angeben wird, wird das 
-eingestrichene C verwendet.
+@item
+Die Tonhöhe der ersten Note ist relativ zu
+@code{@var{Anfangstonhöhe}}.  Die @var{Anfangstonhöhe} wird
+im absoluten Modus gesetzt, und als Empfehlung gilt, eine
+Oktave von C zu nehmen.
+
+@end itemize
 
 So funktioniert der relative Modus:
 
-@lilypond[quote,fragment,ragged-right,verbatim]
-\relative c'' {
-  b c d c b c bes a
+@lilypond[verbatim,quote]
+\relative c {
+  \clef bass
+  c d e f
+  g a b c
+  d e f g
 }
 @end lilypond
 
 Oktavversetzungen müssen für alle Intervalle angezeigt werden, 
 die größer als eine Quarte sind.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,verbatim]
 \relative c'' {
-  c g c f, c' a, e''
+  c g c f,
+  c' a, e'' c
+}
+@end lilypond
+
+Eine Sequenz ohne ein einziges Oktavänderungszeichen kann
+aber trotzdem weite Intervalle umfassen:
+
+@lilypond[verbatim,quote]
+\relative c {
+  c f b e
+  a d g c
 }
 @end lilypond
 
 Wenn der vorherige Ausdruck ein Akkord ist, wird die erste Note 
 des Akkordes benutzt, um die erste Note des nächsten Akkordes zu 
-bestimmen.
+bestimmen.  Innerhalb von Akkorden ist die nächste Note immer
+relativ zur vorherigen.  Betrachten Sie das folgende Beispiel
+aufmerksam, insbesondere die @code{c}-Noten.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,verbatim]
 \relative c' {
-  c <c e g>
-  <c' e g>
-  <c, e' g>
+  c
+  <c e g>
+  <c' e g'>
+  <c, e, g''>
 }
 @end lilypond
 
-Die Tonhöhe nach @code{\relative} muss eine Notenbezeichnung enthalten.
+Wie oben erklärt wurde, wird die Oktave einer Tonhöhe nur 
+nach ihrer Notenbezeichnung errechnet, unabhängig von allen
+Versetzungszeichen.  Darum wird ein Eisis auf ein H (notiert als @code{b})
+folgend höher gesetzt, während ein Feses tiefer gesetzt wird.
+Anders gesagt wird eine doppelterhöhte Quarte wird als
+kleineres Intervall angesehen als eine doppelterniedrigte
+Quinte, unabhängig von der Anzahl an Halbtönen, die jedes
+Intervall enthält.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 fis
+  c2 ges
+  b2 eisis
+  b2 feses
+}
+@end lilypond
+
+
+@seealso
+
+Musickgossar:
+@rglos{fifth},
+@rglos{interval},
+@rglos{Pitch names}.
+
+Notationsreferenz:
+@ref{Octave checks}.
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{RelativeOctaveMusic}.
+
+
+@cindex Relativer Oktavenmodus und Transposition
+@cindex Transposition und relativer Modus
+@funindex \transpose
+@funindex \chordmode
+@funindex \relative
+
+@knownissues
 
 Die relative Veränderung wirkt sich nicht auf 
 Transposition (@code{\transpose}),
@@ -170,24 +245,53 @@ aus.  Um den relativen Modus innerhalb von transponierter Musik zu
 verwenden, muss ein zusätzliches @code{\relative} innerhalb der 
 Klammern des @code{\transpose}-Befehls gesetzt werden.
 
+@c DEPRECATED
+Wenn keine @var{Anfangstonhöhe} für @code{\relative} angegeben
+wird, wird@tie{}@code{c'} angenommen.  Das ist aber eine
+veraltete Option, die in späteren Programmversionen verschwinden kann.
+Darum wird von der Benutzung abgeraten.
+
 
 @node Accidentals
 @unnumberedsubsubsec Accidentals
 
-@cindex Notenbezeichnungen, Deutsch
-@cindex Notenbezeichnungen, Standard
-@cindex Vorzeichen, Deutsch
 @cindex Versetzungszeichen
+@cindex Tonart
+@cindex Schlüssel
 @cindex Akzidentien
 
-Ein Kreuz wird eingegeben, indem man @code{-is} an die 
+@warning{Neue Benutzer sind manchmal verwirrt, wie
+Versetzungszeichen und Vorzeichen/Tonarten funktionieren.
+In LilyPond sind Notenbezeichnungen die wirkliche
+Tonhöhe, erst durch Vorzeichen wird bestimmt, wie diese
+Tonhöhe dann im Notenbild dargestellt wird. Eine
+einfache Tonhöhe wie etwa@tie{}@code{c} bedeutet also
+immer das eingestrichene C ohne Versetzungszeichen, egal
+was für Vorzeichen/Tonart oder Schlüssel gesetzt sind.
+Mehr Information dazu in @rlearning{Accidentals and key
+signatures}.}
+
+@cindex Notenbezeichnungen, Deutsch
+@cindex Notenbezeichnungen, Standard
+@cindex Versetzungszeichen, Deutsch
+@cindex Kreuz
+@cindex B
+@cindex Doppelkreuz
+@cindex Doppel-B
+@cindex Auflösungszeichen
+@cindex wirkliche Tonhöhe
+
+
+Ein @notation{Kreuz} wird eingegeben, indem man @code{-is} an die 
 Notenbezeichnung hängt, ein b durch @code{-es}. Doppelkreuze 
 und Doppel-Bs werden durch Hinzufügen von @code{-isis} und 
-@code{-eses} hinter die Notenbezeichnung erzeugt.
+@code{-eses} hinter die Notenbezeichnung erzeugt. Diese
+Syntax leitet sich von den holländischen Notenbezeichnungen
+ab. Um andere Bezeichnungen für Versetzungszeichen zu
+benutzung, siehe @ref{Note names in other languages}.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-a2 ais a aes
-a2 aisis a aeses
+@lilypond[quote,verbatim,relative=2]
+ais1 aes aisis aeses
 @end lilypond
 
 @noindent
@@ -196,6 +300,7 @@ Auch die deutschen Varianten @code{as} für @code{aes} und
 Deutschen ist aber @code{bes} die einzige Version für den Ton
 B, während his als @code{bis} geschrieben werden muss. Das kann
 aber auch verändert werden, siehe @ref{Note names in other languages}.
+
 
 @lilypond[fragment,quote,ragged-right,verbatim,relative=2]
 a2 as e es
@@ -211,18 +316,6 @@ nicht alterierte Notenbezeichnung eingegeben wird.
 a4 aes a2
 @end lilypond
 
-Die Sequenz @code{d e f} wird interpretiert als: @qq{Setze eine
- D-Noten, eine E-Note und eine F-Note,} unabhängig von den 
- Vorzeichen der Tonart. Mehr Information über den Unterschied 
- zwischen musikalischem Inhalt und der Präsentation dieses 
- Inhalts siehe @rlearning{Accidentals and key signatures}.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative]
-\key d \major
-d e f g
-d e fis g
-@end lilypond
-
 
 @cindex Vierteltöne
 @cindex Vorzeichen, Vierteltöne
@@ -232,13 +325,11 @@ d e fis g
 Versetzungszeichen für Vierteltöne werden durch Anhängen der Endungen 
 @code{-eh} (Erniedrigung) und @code{-ih} (Erhöhung) an den 
 Tonhöhenbuchstaben erstellt. Das Beispiel zeigt eine in Vierteltönen 
-aufsteigende Serie vom kleinen C.
+aufsteigende Serie vom eingestrichenen C.
 
 @lilypond[verbatim,quote,relative=2]
 ceseh1 ces ceh c cih cis cisih
 @end lilypond
-
-Mikrotöne werden auch in die MIDI-Dateien geschrieben.
 
 
 @cindex Versetzungszeichen, Erinnerung
@@ -263,40 +354,67 @@ Zeichen kann man sich auch Auflösungszeichen ausgeben lassen.
 cis cis cis! cis? c c? c! c
 @end lilypond
 
+@cindex Versetzungszeichen an übergebundener Note
+@cindex Überbindung, Versetzungszeichen
 
-@commonprop
+Versetzungzeichen von übergebundenen Noten werden nur
+dann gesetzt, wenn ein neues System begonnen wird:
 
-Den Satzregeln für den Notensatz folgend wird ein Auflösungszeichen 
-dann ausgegeben, wenn ein vorhergehendes Versetzungszeichen rückgängig 
-gemacht werden soll. Um dieses Verhalten zu ändern, muss 
-@code{\set Staff.extraNatural = ##f} eingesetzt werden.
-
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
-ceses4 ces cis c
-\set Staff.extraNatural = ##f
-ceses4 ces cis c
+@lilypond[verbatim,quote,relative=2]
+cis1 ~ cis ~
+\break
+cis
 @end lilypond
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{preventing-extra-naturals-from-being-automatically-added.ly}
 
 @seealso
 
-Die automatische Setzung von Versetzungszeichen kann auf viele Arten
-beeinflusst werden. Mehr Information dazu siehe @ref{Automatic
-accidentals}.
+Musikglossar:
+@rglos{sharp},
+@rglos{flat},
+@rglos{double sharp},
+@rglos{double flat},
+@rglos{Pitch names},
+@rglos{quarter tone}.
 
-Programmreferenz: @rinternals{LedgerLineSpanner},
-@rinternals{NoteHead}.
+Handbuch zum Lernen:
+@rlearning{Accidentals and key signatures}.
 
+Notationsreferenz:
+@ref{Automatic accidentals},
+@ref{Annotational accidentals (musica ficta)},
+@ref{Note names in other languages}.
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{Accidental_engraver},
+@rinternals{Accidental},
+@rinternals{AccidentalCautionary},
+@rinternals{accidental-interface}.
+
+
+@cindex Versetzungszeichen, Viertelton
+@cindex Vierteltonversetzungszeichen
 
 @knownissues
 
-Es gibt keine allgemein anerkannten Standards für die 
-Notation von Dreiviertelton-Erniedrigungszeichen. LilyPonds
-Symbol entspricht also keinem Standard.
+Es gibt keine allgemeinen Regeln für die Notation von
+Vierteltönen, die Symbole von LilyPond folgen also 
+keinem Standard.
 
 
 @node Note names in other languages
 @unnumberedsubsubsec Note names in other languages
+
+@cindex Notenbezeichungen, andere Sprachen
+@cindex Tonhöhenbezeichnungen, andere Sprachen
+@cindex Sprache, Tonhöhenbezeichnungn in anderer
 
 Es gibt vordefinierte Bezeichnungen für die Notenbezeichnungen in anderen 
 Sprachen als Englisch. Um sie zu benutzen, muss nur die 
@@ -306,134 +424,198 @@ Notendefinitionen für die deutsche Sprache am Anfang der Datei
 hinzu. In der Tabelle sind die existierenden Definitionen
 mit den dazugehörigen Notenbezeichnungen dargestellt.
 
+@smallexample
+@multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@headitem Sprache
+  @tab Notenbezeichnung
+  @tab sharp @tab flat @tab double sharp @tab double flat
+@item nederlands.ly
+  @tab c d e f g a bes b
+  @tab -is @tab -es @tab -isis @tab -eses
+@item arabic.ly
+  @tab do re mi fa sol la sib si
+  @tab -d @tab -b @tab -dd @tab -bb
+@item catalan.ly
+  @tab do re mi fa sol la sib si
+  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+@item deutsch.ly
+  @tab c d e f g a b h
+  @tab -is @tab -es @tab -isis @tab -eses
+@item english.ly
+  @tab c d e f g a bf b
+  @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
+    @tab -ff/-flatflat
+@item espanol.ly
+  @tab do re mi fa sol la sib si
+  @tab -s @tab -b @tab -ss @tab -bb
+@item italiano.ly
+  @tab do re mi fa sol la sib si
+  @tab -d @tab -b @tab -dd @tab -bb
+@item norsk.ly
+  @tab c d e f g a b h
+  @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
+    @tab -essess/-eses
+@item portugues.ly
+  @tab do re mi fa sol la sib si
+  @tab -s @tab -b @tab -ss @tab -bb
+@item suomi.ly
+  @tab c d e f g a b h
+  @tab -is @tab -es @tab -isis @tab -eses
+@item svenska.ly
+  @tab c d e f g a b h
+  @tab -iss @tab -ess @tab -ississ @tab -essess
+@item vlaams.ly
+  @tab do re mi fa sol la sib si
+  @tab -k @tab -b @tab -kk @tab -bb
+@end multitable
+@end smallexample
 
-@c  Should this be made into a multitable?
-@cindex Notenbezeichnungen, andere Sprachen
-@example
-               Notenbezeichnungen              Kreuz       B         Doppelkreuz   Doppel-B
-
-nederlands.ly  c   d   e   f   g   a   bes b   -is         -es       -isis         -eses
-english.ly     c   d   e   f   g   a   bf  b   -s/-sharp   -f/-flat  -ss/-x/       -ff/
-                                                                     -sharpsharp   -flatflat
-deutsch.ly     c   d   e   f   g   a   b   h   -is         -es       -isis         -eses
-norsk.ly       c   d   e   f   g   a   b   h   -iss/-is    -ess/-es  -ississ/-isis -essess/-eses
-svenska.ly     c   d   e   f   g   a   b   h   -iss        -ess      -ississ       -essess
-italiano.ly    do  re  mi  fa  sol la  sib si  -d          -b        -dd           -bb
-catalan.ly     do  re  mi  fa  sol la  sib si  -d/-s       -b        -dd/-ss       -bb
-espanol.ly     do  re  mi  fa  sol la  sib si  -s          -b        -ss           -bb
-@end example
 
 @noindent
 Auf Holländisch, Deutsch, Norwegisch und Schwedisch (u. a.) werden die 
 Erniedrigungen von @q{a} wie @code{aes} und @code{aeses} zu
 @code{as} und @code{ases} (oder auch @code{asas}) zusammengezogen.
-In manchen Sprachen sind nur diese Kurzformen definiert (das gilt auch für die 
-Endungen der Vierteltöne).
+In manchen Sprachen sind nur diese Kurzformen definiert.
 
-@noindent
+@lilypond[verbatim,quote,relative=2]
+a2 as e es a ases e eses
+@end lilypond
+
+
+@cindex Mikrotöne
+@cindex Halbkreuz
+@cindex Halb-B
+@cindex sesqui-Kreuz
+@cindex sesqui-B
+
 Bestimmte Musik verwendet Alterationen, die Bruchteile von den 
-@qq{üblichen} Kreuzen oder Bs sind. Die Notenbezeichnungen für 
+@qq{normalen} Kreuzen oder Bs sind. Die Notenbezeichnungen für 
 Vierteltöne für die verschiedenen Sprachen sind in der folgenden 
 Tabelle aufgeführt. Die Präfixe @qq{Semi-} und @qq{Sesqui-} bedeuten 
-@qq{halb} bzw. @qq{eineinhalb}. Für Norwegisch, Schwedisch, Katalanisch 
-und Spanisch sind noch keine eigenen Namen definiert.
-@c What about Turkish Maquam music and similar microtonal systems?
-@c
-@c Note that the term "three-quarter-sharp/-flat" used in lilypond's source code 
-@c is actually misleading since the alteration is in fact one and a half
-@c of a regular sharp/flat. Whence the naming "sesqui-sharp/-flat" used below.
+@qq{halb} bzw. @qq{eineinhalb}. Für alle anderen
+Sprachen sind noch keine eigenen Namen definiert.
 
-@example
-               Notenbezeichnungen              Semi-   Semi-  Sesqui-  Sesqui-
-                                               kreuz   B      Kreuz    B
+@smallexample
+@multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ississ/-isis} {-ississ/-isis}
+@headitem Sprache
+  @tab Notenbezeichnung
+  @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 
-nederlands.ly  c   d   e   f   g   a   bes b   -ih     -eh    -isih    -eseh
-english.ly     c   d   e   f   g   a   bf  b   -qs     -qf    -tqs     -tqf
-deutsch.ly     c   d   e   f   g   a   b   h   -ih     -eh    -isih    -eseh
-norsk.ly       c   d   e   f   g   a   b   h   
-svenska.ly     c   d   e   f   g   a   b   h   
-italiano.ly    do  re  mi  fa  sol la  sib si  -sd     -sb    -dsd     -bsb
-catalan.ly     do  re  mi  fa  sol la  sib si  
-espanol.ly     do  re  mi  fa  sol la  sib si  
-@end example
+@item nederlands.ly
+  @tab c d e f g a bes b
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item arabic.ly
+  @tab do re mi fa sol la sib si
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item deutsch.ly
+  @tab c d e f g a b h
+  @tab -ih @tab -eh @tab -isih @tab -eseh
+@item english.ly
+  @tab c d e f g a bf b
+  @tab -qs @tab -qf @tab -tqs @tab -tqf
+@item italiano.ly
+  @tab do re mi fa sol la sib si
+  @tab -sd @tab -sb @tab -dsd @tab -bsb
+@item portugues.ly
+  @tab do re mi fa sol la sib si
+  @tab -sqt @tab -bqt @tab -stqt @tab -btqt
+@end multitable
+@end smallexample
+
+@seealso
+
+Musikglossar:
+@rglos{Pitch names}.
+
+Schnipsel:
+@rlsr{Pitches}.
 
 
 @node Changing multiple pitches
 @subsection Changing multiple pitches
 
+Dieser Abschnitt zeigt, wie man Tonhöhen beeinflusst.
+
 @menu
-* Octave checks::               
-* Transpose::                   
+* Octave checks::
+* Transpose::
 @end menu
 
 @node Octave checks
 @unnumberedsubsubsec Octave checks
 
 @cindex Oktavenüberprüfung
+@cindex Oktavierungskorrektur
+@cindex Kontroll-Tonhöhe
+@funindex =
+@funindex \octaveCheck
+@funindex controlpitch
 
-Durch Oktavenüberprüfung können Fehler einfacher entdeckt werden:
-nach einer Note kann @code{=}@var{Apostrophe} geschrieben werden, 
-womit angezeigt wird, was ihre wirkliche Oktave sein soll. Im 
-folgenden Beispiel
+Im relativen Modus geschieht es recht häufig, dass ein
+Oktavänderungszeichen vergessen wird. Oktavenüberprüfungen
+machen es einfacher, solche Fehler zu entdecken und zu
+korrigieren. Sie geben eine Warnung aus und korrigieren
+die Oktave, wenn eine Note in einer unerwarteten Oktave
+gefunden wird.
 
-@example
-\relative c'' @{ c='' b=' d,='' @}
-@end example
+Um die Oktave einer Note zu überprfüfen, muss die absolute
+Oktave nach dem @code{=}-Symbol angegeben werden.  Im
+folgenden Beispiel wird eine Warnung (und eine Tonhöhenänderung)
+generiert, weil die zweite Note als absolute Oktave
+ein @code{d''} anstelle von @code{d'} notiert ist, 
+wie es die Oktavierungskorrektur markiert.
 
-@noindent
-erzeugt das @code{d} eine Warnung, weil ein @code{d''} erwartet
-wird (denn  zwischen @code{b'} und @code{d''} befindet sich nur eine Terz), 
-aber ein @code{d'} ist notiert. In der Notenausgabe wird die 
-Oktave zu  @code{d''} korrigiert und die nächste Note wird 
-relativ zu  @code{d''} anstelle von @code{d'} errechnet.
-
-Es gibt auch eine Oktavenüberprüfung, die keine sichtbare Ausgabe 
-erzeugt. Die Syntax:
-
-@example
-\octaveCheck @var{Tonhöhe}
-@end example
-
-Hierdurch wird überprüft, dass die @var{Tonhöhe} (ohne Apostroph) 
-der @var{Tonhöhe} (mit Apostroph) entspricht. Wenn sie 
-sich nicht entsprechen, wird eine Warnung ausgegeben und die 
-Oktave wird korrigiert. Die @var{Tonhöhe} wird nicht als 
-Note gesetzt.
-
-Im nächsten Beispiel erzeugt die erste Überprüfung keine Warnung, 
-weil das @code{e} (im relativen Modus) innerhalb einer Quarte 
-zum @code{a'} liegt. Die zweite Überprüfung aber erzeugt eine 
-Warnung, weil das @code{e} mehr als eine Quarte vom 
-@code{b'} entfernt ist. Die Warnung wird ausgegeben und die Oktave wird 
-korrigiert, so dass auch die folgenden Noten wieder in der 
-richtigen Oktave gesetzt werden.
-
-
-@example
-\relative c' @{
-  e
-  \octaveCheck a'
-  \octaveCheck b'
-@}
-@end example
-
-Die Oktave einer Note, der eine Oktavüberprüfung angefügt wurde, 
-wird in Hinsicht auf die vorherige Note bestimmt. Im nächsten 
-Fragment ist die letzte Note ein @code{a'}. 
-Die Oktavenüberprüfung stellt fest, dass zwischen e' und kleinem
-b eine Quarte Abstand ist und dass die folgende Note, ein a', sich
-wieder innerhalb einer Quarte vom e' aus befindet. Die Überprüfung
-gibt also einen Erfolgswert zurück und die Notenausgabe wird nicht
-verändert.
-
-
-@lilypond[quote,ragged-right,verbatim,fragment]
-\relative c' {
-  e
-  \octaveCheck b
-  a
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 d='4 d
+  e2 f
 }
 @end lilypond
+
+Die Oktave von einer Note kann auch mit dem
+@code{\octaveCheck}@tie{}@var{Kontrolltonhöhe}-Befehl
+überprüft werden.  @var{Kontrollhöhe} wird im absoluten
+Modus eingegeben.  Dabei wird überprüft, ob das
+Intervall zwischen der vorherigen Note und der
+@var{Kontrolltonhöhe} nicht größer als eine Quarte ist
+(die normale Berechnung im relativen Modus).  Wenn diese
+Überprüfung einen Fehler ausgibt, wird eine Warnung
+gemeldet, aber die vorigen Note wird nicht verändert.
+Folgende Noten sind dann relativ zur @var{Kontrolltonhöhe}.
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c2 d
+  \octaveCheck c'
+  e2 f
+}
+@end lilypond
+
+Vergleichen Sie die zwei Takte im nächsten Beispiel.  Die
+erste und dritte @code{\octaveCheck}-Überprüfung gibt
+einen Fehler aus, die zweite dagegen ist erfolgreich:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  c4 f g f
+
+  c4
+  \octaveCheck c'
+  f
+  \octaveCheck c'
+  g
+  \octaveCheck c'
+  f
+}
+@end lilypond
+
+@seealso
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{RelativeOctaveCheck}.
 
 
 @node Transpose
@@ -441,159 +623,222 @@ verändert.
 
 @cindex Transposition
 @cindex Transponieren
+@cindex Noten, transponieren
+@cindex Tonhöhen, transponieren
 @funindex \transpose
 
 Ein musikalischer Ausdruck kann mit dem Befehl @code{\transpose}
 transponiert werden. Die Syntax lautet:
-@example
-\transpose @var{von} @var{nach} @var{mus. Ausdruck}
-@end example
-
-Das bedeutet, dass der @var{mus. Ausdruck} um das Intervall zwischen den 
-Tonhöhen @var{von} und @var{nach} transponiert wird: Jede Note, die die 
-Tonhöhe @var{von} hat, wird in die Tonhöhe @var{nach} umgewandelt.
-
-So kann z. B. ein Stück in D-Dur, wenn es für den Sänger etwas zu
-tief ist, mit dem Befehl
 
 @example
-\transpose d e @dots{}
+\transpose @var{vonTonhöhe} @var{nachTonhöhe} @var{mus. Ausdruck}
 @end example
 
 @noindent
-nach E-Dur transponiert werden.
+Das bedeutet, dass der @var{mus. Ausdruck} um das Intervall zwischen den 
+Tonhöhen @var{vonTonhöhe} und @var{nachTonhöhe} transponiert wird: Jede Note, die die 
+Tonhöhe @var{vonTonhöhe} hat, wird in die Tonhöhe @var{nachTonhöhe} umgewandelt, und alle anderen
+Noten um das gleiche Intervall.  Beide Tonhöhen
+werden im absoluten Modus eingegeben.
 
-Oder eine Violinstimme, die so notiert wird, wie sie erklingt, 
-soll von einer A-Klarinette gespielt werden. Hier ist ein 
-klingendes A als C notiert, so dass alles also eine kleine
-Terz tiefer erklingt, als es notiert ist. Für die Erzeugung der 
-Klarinettenstimme muss folgender Befehl verwendet werden:
+So kann z. B. ein Stück in D-Dur, wenn es für den Sänger etwas zu
+tief ist, nach E-Dur transponiert werden.  Dabei
+werden auch die Vorzeichen entsprechend angepasst:
 
-@example
-\transpose a c @dots{}
-@end example
-
-@code{\transpose} unterscheidet enharmonische Verwechslungen: sowohl 
-@code{\transpose c cis} als auch @code{\transpose c des} transponieren 
-die Musik einen Halbton nach oben. Aber die erste Version gibt als 
-Versetzungszeichen Kreuze aus, die zweite dagegen B-Versetzungszeichen.
-
-@lilypond[quote,ragged-right,verbatim]
-mus = { \key d \major cis d fis g }
-\new Staff {
-  \clef "F" \mus
-  \clef "G"
-  \transpose c g' \mus
-  \transpose c f' \mus
+@lilypond[verbatim,quote]
+\transpose d e {
+  \relative c' {
+    \key d \major
+    d4 fis a d
+  }
 }
 @end lilypond
 
+@cindex Transponierende Instrumente
+@cindex Instrumente, transponierende
+
+Wenn eine Stimme, die in C notiert ist, von einer A-Klarinette
+gespielt werden soll (für die A als C notiert wird,
+aber eine kleine Terz tiefer erklingt als es notiert
+ist), kann die entpsrechende Stimme wie folgt erstellt
+werden:
+
+@lilypond[verbatim,quote]
+\transpose a c' {
+  \relative c' {
+    \key c \major
+    c4 d e g
+  }
+}
+@end lilypond
+
+@noindent
+Beachten Sie, dass @w{@code{\key c \major}} explizit
+angegeben werden muss.  Wenn hier keine Tonart angemerkt
+würde, würde die Noten zwar transponiert, aber keine
+Vorzeichen angezeigt werden.
+
+@code{\transpose} unterscheidet enharmonische Verwechslungen: sowohl 
+@w{@code{\transpose c cis}} als auch @w{@code{\transpose c des}} transponieren 
+die Musik einen Halbton nach oben.  Aber die erste Version gibt als 
+Versetzungszeichen Kreuze aus, die zweite dagegen B-Versetzungszeichen.
+
+@lilypond[quote,ragged-right,verbatim]
+music = \relative c' { c d e f }
+\new Staff {
+  \transpose c cis { \music }
+  \transpose c des { \music }
+}
+@end lilypond
+
+@cindex transponierende Instrumente
+@cindex Instrumente, transponierende
+
 @code{\transpose} kann auch benutzt werden, um die geschriebenen 
-Noten eines transponierenden Instruments zu notieren. Tonhöhen in 
-LilyPond werden üblicherweise notiert, wie sie erklingen, aber 
-man kann auch eine andere Tonart verwenden. Noten einer 
-B-Trompete, die mit einem klingenden D anfangen, könnte man also 
+Noten eines transponierenden Instruments zu notieren. Im vorigen Beispiel wurde die Tonhöhen so eingegeben,
+wie sie erklingen (also in C), aber man kann genauso
+gut auch andersherum aus einer Stimme, die für ein
+transponierendes Instrument in einem anderen Ton als
+C geschrieben wurde, eine Partitur in C erstellen.
+Die Noten einer B-Trompete, die mit einem notierten E
+(also einem klingenden D) anfangen, könnte man also 
 auch so eingeben:
 
 @example
-\transpose c bes @{ e4 @dots{} @}
+musicInBflat = @{ e4 @dots{} @}
+\transpose c bes, \musicInBflat
 @end example
 
-Um die Noten dann wiederum als Trompetenstimme zu drucken (also einen 
-Ganzton tiefer, als sie erklingen), setzt man einfach um sie herum 
-eine weitere Transposition:
+@noindent
+Um die Noten dann in F zu setzen (um sie etwa für ein
+Horn zu arrangieren), könnte man die schon geschriebenen
+Noten wieder mit einem weiteren @code{\transpose}
+umgeben:
 
 @example
-\transpose bes c @{ \transpose c bes @{ e4 @dots{} @} @}
+musicInBflat = @{ e4 @dots{} @}
+\transpose f c' @{ \transpose c bes, \musicInBflat @}
 @end example
 
+@noindent
+Für mehr Information zu transponierenden Instrumenten
+siehe auch @ref{Instrument transpositions}.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{transposing-pitches-with-minimum-accidentals-smart-transpose.ly}
 
 @seealso
 
-Programmreferenz:
-@rinternals{TransposedMusic}.
+Notationsreferenz:
+@ref{Instrument transpositions}.
 
-Beispiel:
+Schnipsel:
 @rlsr{Pitches}.
 
+Referenz der Interna:
+@rinternals{TransposedMusic}.
+
+@funindex \transpose
+@funindex \chordmode
+@funindex \relative
 
 @knownissues
 
-Wenn Sie sowohl  @code{\transpose} als auch @code{\relative} 
-benutzen wollen, muss die @code{\transpose}-Umgebung sich 
-außerhalb der @code{\relative}-Umgebung befinden, da 
-@code{\relative} keine Auswirkungen auf Noten hat, die sich 
-innerhalb von @code{\transpose} befinden.
+Der relative Modus wirkt nicht in @code{\transpose},
+@code{\chordmode} oder @code{\relative}.
+Um auch im relativen Modus transponieren
+zu können, muss ein @code{\relative} innerhalb des
+@code{\tranpose} zusätzlich gesetzt werden.
 
 
 @node Displaying pitches
 @subsection Displaying pitches
 
+Dieser Abschnitt zeigt, wie die Ausgabe von Tonhöhen
+verändern werden kann.
+
 @menu
-* Clef::                        
-* Key signature::               
-* Ottava brackets::             
-* Instrument transpositions::   
-* Automatic accidentals::       
-* Ambitus::                     
+* Clef::
+* Key signature::
+* Ottava brackets::
+* Instrument transpositions::
+* Automatic accidentals::
+* Ambitus::
 @end menu
 
 @node Clef
 @unnumberedsubsubsec Clef
 
 @funindex \clef
-
-Der Schlüssel zeigt eine bestimme Systemlinie an und markiert die 
-Tonhöhe, mit der sie korrespondiert. Ein Schlüssel wird mit dem 
-@code{\clef}-Befehl gesetzt.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-{ c''2 \clef alto g'2 }
-@end lilypond
-
-@cindex Notenschlüssel
-@cindex Schlüssel
-@cindex Violinschlüssel
+@cindex G-Schlüssel
+@cindex C-Schlüssel
+@cindex F-Schlüssel
 @cindex Sopranschlüssel
+@cindex Violinschlüssel
 @cindex Altschlüssel
 @cindex Bratschenschlüssel
 @cindex Tenorschlüssel
 @cindex Bassschlüssel
-@cindex Franz. Violinschlüssel
-@cindex C-Schlüssel
+@cindex Französischer Violinschlüssel
 @cindex Mezzosopranschlüssel
+@cindex Sopranschlüssel in C
 @cindex Baritonschlüssel
-@cindex Subbasschlüssel
+@cindex Subbassschlüssel
+@cindex Schlüssel
+@cindex Notenschlüssel
+@cindex Alte Schlüssel
+@cindex Schlüssel Alter Musik
+@cindex Schlüssel, C
+@cindex Schlüssel, G
+@cindex Schlüssel, F
 
-Unterstützt sind folgende Schlüssel:
+Der Schlüssel kann verändert werden. Das eingestrichene
+C wird in jedem Beispiel gezeigt:
 
-@multitable @columnfractions .33 .66
-@headitem Schlüssel @tab Lage
-@item @code{treble} (Violinschlüssel) @tab
-G-Schlüssel auf der zweiten Linie
-@item @code{alto, C} (Bratschenschlüssel) @tab
-C-Schlüssel auf der dritten Linie
-@item @code{tenor} (Tenorschlüssel) @tab
-C-Schlüssel auf der vierten Linie
-@item @code{bass, F} (Bassschlüssel) @tab
-F-Schlüssel auf der vierten Linie
-@item @code{french} (Franz. Violinschlüssel)@tab
-G-Schlüssel auf der ersten Linie
-@item @code{soprano} (Sopranschlüssel) @tab
-C-Schlüssel auf der ersten Linie
-@item @code{mezzosoprano}(Mezzosopranschlüssel)  @tab
-C-Schlüssel auf der zweiten Linie
-@item @code{baritone} (Baritonschlüssel) @tab
-C-Schlüssel auf der fünften Linie
-@item @code{varbaritone} (Bariton-F-Schlüssel) @tab
-F-Schlüssel auf der dritten Linie
-@item @code{subbass} (Kontrabassschlüssel) @tab
-F-Schlüssel auf der fünften Linie
-@item @code{percussion} @tab
-Schlagzeugschlüssel
-@item @code{tab} @tab
-Tabulaturschlüssel
-@end multitable
+@lilypond[verbatim,quote,relative=1]
+\clef treble
+c2 c
+\clef alto
+c2 c
+\clef tenor
+c2 c
+\clef bass
+c2 c
+@end lilypond
+
+Andere Schlüssel sind u. A.:
+
+@lilypond[verbatim,quote,relative=1]
+\clef french
+c2 c
+\clef soprano
+c2 c
+\clef mezzosoprano
+c2 c
+\clef baritone
+c2 c
+
+\break
+
+\clef varbaritone
+c2 c
+\clef subbass
+c2 c
+\clef percussion
+c2 c
+\clef tab
+c2 c
+@end lilypond
+
+Weitere unterstützte Schlüssel sind beschrieben in @ref{Mensural clefs}
+und @ref{Gregorian clefs}.
+
+@cindex transposing clefs
+@cindex clef, transposing
+@cindex octave transposition
+@cindex choral tenor clef
 
 Indem @code{_8} oder @code{^8} an die jeweilige Schlüsselbezeichnung 
 angehängt wird, wird der Schlüssel um eine Oktave nach oben oder unten 
@@ -601,49 +846,34 @@ transponiert, mit @code{_15} oder @code{^15} um zwei Oktaven.
 Die Schlüsselbezeichnung muss in Anführungszeichen gesetzt werden, 
 wenn sie Unterstriche oder Zahlen enthält, siehe Beispiel:
 
-@cindex Tenorschlüssel, Chor
-@lilypond[quote,ragged-right,verbatim,fragment,relative=1]
-\clef "G_8" c4
+@lilypond[verbatim,quote,relative=2]
+\clef treble
+c2 c
+\clef "treble_8"
+c2 c
+\clef "bass^15"
+c2 c
 @end lilypond
 
+@snippets
 
-@commonprop
-
-Dem Befehl @code{\clef "treble_8"} entspricht die entsprechende separate 
-Einstellung von @code{clefGlyph},
-@code{clefPosition} (womit y- und x-Position des Schlüssel bestimmt werden),
-@code{middleCPosition} und @code{clefOctavation}. Ein Schlüssel wird 
-immer dann ausgegeben, wenn eine dieser Eigenschaften sich ändert. Im 
-nächsten Beispiel werden Möglichkeiten gezeigt, die Eigenschaften manuell 
-zu setzen.
-
-@lilypond[quote,ragged-right,verbatim]
-{
-  \set Staff.clefGlyph = #"clefs.F"
-  \set Staff.clefPosition = #2
-  c'4
-  \set Staff.clefGlyph = #"clefs.G"
-  c'4
-  \set Staff.clefGlyph = #"clefs.C"
-  c'4
-  \set Staff.clefOctavation = #7
-  c'4
-  \set Staff.clefOctavation = #0
-  \set Staff.clefPosition = #0
-  c'4
-  \clef "bass"
-  c'4
-  \set Staff.middleCPosition = #4
-  c'4
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{tweaking-clef-properties.ly}
 
 
 @seealso
 
-Handbuch: @ref{Grace notes}.
+Notationsreferenz: @ref{Mensural clefs},
+@ref{Gregorian clefs}.
 
-Programmreferenz: @rinternals{Clef}.
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{Clef_engraver},
+@rinternals{Clef},
+@rinternals{OctavateEight},
+@rinternals{clef-interface}.
 
 
 @node Key signature
@@ -653,15 +883,26 @@ Programmreferenz: @rinternals{Clef}.
 @cindex Vorzeichen
 @funindex \key
 
-Die Vorzeichen zeigen die Tonart an, in welcher ein Stück notiert ist. 
+@c duplicated in Key signature and Accidentals
+@warning{Neue Benutzer sind manchmal verwirrt, wie
+Versetzungszeichen und Vorzeichen/Tonarten funktionieren.
+In LilyPond sind Notenbezeichnungen die wirkliche
+Tonhöhe, erst durch Vorzeichen wird bestimmt, wie diese
+Tonhöhe dann im Notenbild dargestellt wird. Eine
+einfache Tonhöhe wie etwa@tie{}@code{c} bedeutet also
+immer das eingestrichene C ohne Versetzungszeichen, egal
+was für Vorzeichen/Tonart oder Schlüssel gesetzt sind.
+Mehr Information dazu in @rlearning{Accidentals and key
+signatures}.}
+
+Die Vorzeichen zeigen die Tonart an, in welcher ein Stück notiert ist.
 Es handelt sich um eine Anzahl von Alterationszeichen (Kreuzen oder 
 Bs) am Beginn jedes Notensystems.
 
-Das Setzen und Ändern von Tonarteinstellungen wird mit dem 
-@code{\key}-Befehl vorgenommen.
+Die Tonart kann geändert werden:
 
 @example
-@code{\key} @var{Tonhöhe} @var{Art}
+@code{\key} @var{Tonhöhe} @var{Modus}
 @end example
 
 @funindex \minor
@@ -676,105 +917,1495 @@ Das Setzen und Ändern von Tonarteinstellungen wird mit dem
 @funindex \dorian
 @cindex Kirchentonarten
 @cindex Modus
+@cindex Dur
+@cindex Moll
+@cindex Ionisch
+@cindex Lokrisch
+@cindex Äolisch
+@cindex Mixolydisch
+@cindex Aeolisch
+@cindex Dorisch
+@cindex Lydisch
+@cindex Phrygisch
 
-Der Wert @var{Art} sollte entweder @code{\major} oder @code{\minor} 
+Der Wert @var{Modus} sollte entweder @code{\major} oder @code{\minor} 
 sein, um Moll oder Dur der @var{Tonhöhe} zu erhalten. Es können auch 
 Modusbezeichnungen für Kirchentonarten verwendet werden: @code{\ionian} 
 (Ionisch), @code{\locrian} (Locrisch), @code{\aeolian} (Aeolisch), 
 @code{\mixolydian} (Mixolydisch), @code{\lydian} (Lydisch),
 @code{\phrygian} (Phrygisch) und @code{\dorian} (Dorisch).
 
-Dieser Befehl ändert die Kontexteigenschaft 
-@code{Staff.keySignature}. Vorzeichen, die nicht dem Standard entsprechen, 
-können manuell mit dieser Eigenschaft eingegeben werden.
-
-Versetzungszeichen und Vorzeichen können am Anfang etwas verwirrend sein, 
-da unveränderte Noten je nach Tonart ein Auflösungszeichen bekommen 
-können (Beispiel). Mehr Information in den Abschnitten  @ref{Accidentals} 
-oder @rlearning{Accidentals and key signatures}.
-
-@lilypond[quote,ragged-right,verbatim,relative=2,fragment]
+@lilypond[verbatim,quote,relative=2]
 \key g \major
-f1
+fis1
+f
 fis
 @end lilypond
 
+@snippets
 
-@commonprop
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{preventing-natural-signs-from-being-printed-when-the-key-signature-changes.ly}
 
-Ein Auflösungszeichen wird gesetzt, um vorhergehende Vorzeichen 
-rückgängig zu machen. Das kann aber unterdrückt werden, indem 
-die @code{Staff.printKeyCancellation}-Eigenschaft angepasst wird.
-
-@lilypond[quote,fragment,ragged-right,fragment,verbatim,relative=2]
-\key d \major
-a b cis d
-\key g \minor
-a bes c d
-\set Staff.printKeyCancellation = ##f
-\key d \major
-a b cis d
-\key g \minor
-a bes c d
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
 
 
 @seealso
 
-Programmreferenz: @rinternals{KeyCancellation},
-@rinternals{KeySignature}.
+Musikglossar:
+@rglos{church mode},
+@rglos{scordatura}.
+
+Handbuch zum Lernen:
+@rlearning{Accidentals and key signatures}.
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{KeyChangeEvent},
+@rinternals{Key_engraver},
+@rinternals{Key_performer},
+@rinternals{KeyCancellation},
+@rinternals{KeySignature},
+@rinternals{key-cancellation-interface},
+@rinternals{key-signature-interface}.
 
 
 @node Ottava brackets
 @unnumberedsubsubsec Ottava brackets
 
-@untranslated
+@cindex ottava
+@cindex 15ma
+@cindex 8va
+@cindex 8ve
+@cindex Oktavierung
+@funindex set-octavation
+
+@notation{Oktavierungsklammern} zeigen eine zusätzliche
+Transposition von einer Oktave an:
+
+@lilypond[verbatim,quote,relative=2]
+a'2 b
+\ottava #1
+a b
+\ottava #0
+a b
+@end lilypond
+
+Die @code{ottava}-(Oktavierungs)-Funktion kann auch die
+Werte -1 (für 8va bassa),
+2@tie{}(für 15ma), und -2 (für 15ma bassa) als Argumente
+haben.
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{ottava-text.ly}
+
+
+@seealso
+
+Musikglossar:
+@rglos{octavation}.
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{Ottava_spanner_engraver},
+@rinternals{OttavaBracket},
+@rinternals{ottava-bracket-interface}.
+
 
 @node Instrument transpositions
 @unnumberedsubsubsec Instrument transpositions
 
-@untranslated
+@cindex Transposition, MIDI
+@cindex Transposition, Instrumente
+@cindex Transponierendes Instrument
+@cindex MIDI
+@cindex MIDI-Transposition
+@funindex \transposition
+
+Wenn man Noten setzt, die von transponierenden Instrumenten
+gespielt werden, sind oft einige Stimmen auf einer
+anderen Tonhöhe notiert als dem Kammerton.  In diesem
+Fall muss die Tonart des transponierenden Instruments
+gekennzeichnet werden, weil sonst die MIDI-Ausgabe
+und Stichnoten in anderen Stimmen falsche Tonhöhen
+produzieren.  Mehr Information zu Stichnoten in
+@ref{Quoting other voices}.
+
+@example
+\transposition @var{Tonhöhe}
+@end example
+
+Die Tonhöhe, die für @code{\transposition} benutzt
+wird, muss mit dem wirklichen Ton übereinstimmen,
+der erklingt, wenn das Instrument ein @code{c'}
+in seiner Stimme spielt.  Die Tonhöhe wird im
+absoluten Modus angegeben, ein Instrument also,
+dass einen Ton höher erklingt als es notiert wird,
+muss folgenden Befehl benutzen:
+@w{@code{\transposition d'}}.  @code{\transposition}
+sollte @emph{nur} dann benutzt werden, wenn sie nicht
+@emph{nicht} in C notiert werden.
+
+Hier einige Noten für Geige und B-Klarinette: die
+Stimmen (Noten und Vorzeichen) sind so notiert, wie sie
+in der Partitur erscheinen.  Die zwei Instrumente
+spielen unisono.
+
+@lilypond[verbatim,quote]
+\new GrandStaff <<
+  \new Staff = "violin" {
+    \relative c'' {
+      \set Staff.instrumentName = "Vln"
+      \set Staff.midiInstrument = "violin"
+      % not strictly necessary, but a good reminder
+      \transposition c'
+
+      \key c \major
+      g4( c8) r c r c4
+    }
+  }
+  \new Staff = "clarinet" {
+    \relative c'' {
+      \set Staff.instrumentName = \markup { Cl (B\flat) }
+      \set Staff.midiInstrument = "clarinet"
+      \transposition bes
+
+      \key d \major
+      a4( d8) r d r d4
+    }
+  }
+>>
+@end lilypond
+
+Die @code{\transposition} kann während eines Stückes
+geändert werden.  Ein Klarinetist zum Beispiel kann
+zwischen B- und A-Klarinette wechseln.
+
+@lilypond[verbatim,quote,relative=2]
+\set Staff.instrumentName = "Cl (A)"
+\key a \major
+\transposition a
+c d e f
+\textLengthOn
+s1*0^\markup { Switch to B\flat clarinet }
+R1
+
+\key bes \major
+\transposition bes
+c2 g
+@end lilypond
+
+
+@seealso
+
+Musikglossar:
+@rglos{concert pitch},
+@rglos{transposing instrument}.
+
+Notationsreferenz:
+@ref{Quoting other voices}, @ref{Transpose}.
+
+Schnipsel:
+@rlsr{Pitches}.
 
 
 @node Automatic accidentals
 @unnumberedsubsubsec Automatic accidentals
 
-@untranslated
+@cindex Akzidentien
+@cindex Versetzungszeichen, Standard
+@cindex Versetzungszeichenstil
+@cindex Automatische Versetzungszeichen
+@cindex Versetzungszeichen, automatisch
+@cindex Standard-Versetzungszeichenstil
+@funindex set-accidental-style
+@funindex voice
+
+Es gibt viele unterschiedliche Regeln, wie Versetzungszeichen
+notiert werden.  LilyPond hat eine Funktion, mit der
+spezifiziert werden kann, welcher Stil benutzt werden
+soll.  Diese Funktion kann man wie folgt benutzen:
+
+@example
+\new Staff <<
+  #(set-accidental-style 'voice)
+  @{ @dots{} @}
+>>
+@end example
+
+Der Versetzungszeichenstil bezieht sich auf das aktuelle
+Notensystem in der Standardeinstellung (eine Ausnahme
+bilden die Stile @code{piano} und @code{piano-cautionary},
+die weiter unten erklärt werden).  Die Funktion kann aber
+auch ein zweites Argument erhalten, mit der spezifiziert
+wird, auf welchen Bereich sich der neue Stil erstreckt.
+Um etwa den neuen Stil in allen Systemen einer
+Stimmbruppe (@code{StaffGroup}) zu benutzen, müsste der Befehl so aussehen:
+
+@example
+#(set-accidental-style 'voice 'StaffGroup)
+@end example
+
+Folgende Versetzungszeichenstile sind unterstützt.
+Um jeden Stil zu erklären, wird folgendes Beispiel
+benützt:
+
+@funindex default
+
+@lilypond[verbatim,quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'default)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'default)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+Die letzten Zeilen des Beispiels könnten auch mit folgendem
+Code ersetzt werden, solange der gleiche Versetzungszeichenstil
+in beiden Systemen benutzt werden soll:
+
+@example
+\new PianoStaff @{
+  <<
+    \context Staff = "up" @{
+      %%% change the next line as desired:
+      #(set-accidental-style 'default 'Score)
+      \musicA
+    @}
+    \context Staff = "down" @{
+      \musicB
+    @}
+  >>
+@}
+@end example
+
+
+@c don't use verbatim in this table.
+@table @code
+@item default (Standard)
+
+@cindex Standard-Versetzungszeichenstil
+@cindex Versetzungszeichenstil, Standard
+@funindex default
+
+Das ist das Standardverhalten.  Es entspricht der
+Konvention für Notation von Musik des 18. Jahrhunderts:
+Versetzungszeichen werden bis zum Taktende erinnert, in
+dem sie gesetzt wurden, und nur in ihrer eigenen
+Oktave.  Im nächsten Beispiel wird also kein
+Auslösungszeichen vor dem@tie{}@code{b} (H) im zweiten
+Takt oder dem letzen@tie{}@code{c} gesetzt:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'default)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'default)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item voice (Stimme)
+
+@cindex Versetzungszeichenstil, Stimme
+@cindex Stimme-Versetzungszeichenstil
+@cindex Voice-Versetzungszeichenstil
+@cindex moderner Versetzungszeichenstil
+@cindex Versetzungszeichenstil modern
+@cindex Versetzungszeichenstil, modern-cautionary
+@cindex modern-Warnung-Versetzungszeichenstil
+@funindex voice
+
+Das normale Verhalten ist es, die Versetzungszeichen
+auf der Notensystemebene zu erinnern.  In diesem
+Stil aber werden Versetzungszeichen individuell für
+jede Stimme errechnet.  Abgesehen davon gelten die
+Regeln des Standardstiles (@code{default}).
+
+Das hat zur Folge, dass Versetzungszeichen von einer
+Stimme in der anderen nicht aufgelöst werden, was oft
+ein unerwünschtes Ergebnis ist: im folgenden Beispiel
+kann man schwer sagen, ob das zweite @code{a} unalteriert
+oder erhöht gespielt werden soll.  Die @code{voice}-Option
+sollte also nur benutzt werden, wenn die Stimmen 
+separat von unterschiedlichen Musikern gelesen werden.
+Wenn das System nur von einem Musiker benutzt wird
+(etwa der Dirigent oder ein Klavierspieler), dann
+sind die Stile @code{modern} oder @code{modern-cautionary}
+besser.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'voice)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'voice)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern (Modern)
+
+@cindex Versetzungszeichen, moderne Stile
+@cindex Moderner Stil, Versetzungszeichen
+@funindex modern
+
+Dieser Stil orientiert sich an den üblichen Regeln für
+das 20. Jahrhundert.  Die gleichen Versetzungszeichen
+wie im Standardstil werden gesetzt, allerdings mit zwei
+Ausnahmen, die Uneindeutigkeiten verhindern sollen: nach
+vorübergehenden Versetzungszeichen werden Auflösungszeichen
+auch im folgenden Takt gesetzt (für Noten innerhalb der
+selben Oktave) und im gleichen Takt für Noten in
+unterschiedlichen Oktaven.  Daher kommen also die Auflösungszeichen
+vor dem H und dem C im zweiten Takt des oberen Systems:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern-cautionary (Modern mit Warnungen)
+
+@cindex Versetzungszeichen, moderner Stil mit Warnungen
+@cindex moderner Versetzungszeichenstil
+@cindex moderner Verseztungszeichenstil mit Warnungen
+@funindex modern-cautionary
+
+Dieser Stil ähnelt @code{modern}, aber die @qq{zusätzlichen}
+Versetzungszeichen (die normalerweise nicht gesetzt werden)
+werden als Warnungen gesetzt.  In der Standardeinstellung werden
+sie in Klammern gesetzt, aber sie können auch in kleinerer
+Größe gesetzt werden, wenn man die @code{cautionary-style}-Eigenschaft
+von @code{AccidentalSuggestion} definiert.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item modern-voice (Modern für Stimmeen)
+
+@cindex Versetzungszeichenstil, modern
+@cindex Versetzungszeichen pro Stimme
+@cindex moderner Versetzungszeichenstil
+@cindex moderne Versetzungszeichen
+@cindex Stimmen, Versetzungszeichen für
+@funindex modern-voice
+
+Diese Regel wird für vielstimmige Noten benutzt, die sowohl von
+unterschiedlichen Spielern für jede Stimme als auch von einem Spieler
+für alle Stimmen benutzt.  Versetzungszeichen werden für jede
+Stimme gesetzt, aber sie @emph{werden} über die Stimme hinweg
+aufgelöst innerhalb des selben Notensystems.  Das @code{a} im letzten
+Takt ist also aufgelöst, weil die vorigen Auflösung in einer anderen
+Stimme stattgefunden hatte, und das @code{d} im unteren System ist
+aufgelöst wegen eines Versetzunszeichens in einer anderen Stimme im
+vorigen Takt:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-voice)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-voice)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@cindex Versetzungszeichenstil, modern mit Warnung für Stimmen
+@cindex Stimmen, Versetzungszeichenstil mit Warnung für Stimmen
+@cindex moderner Versetzungszeichensitl mit Warnungen für Stimmen
+@funindex modern-voice-cautionary
+
+@item modern-voice-cautionary (modern mit Warnungen für einzelne Stimmen)
+
+Dieser Stil ist der gleiche wie @code{modern-voice}, nur dass hier
+die zusätzlichen Versetzungszeichen (die nicht vom @code{voice}-Stil
+gesetzt werden) als Warnungsversetzungszeichen gesetzt werden.
+Obwohl alle Versetzungszeichen, die mit @code{default} gesetzt werden,
+auch mit diesem Stil gesetzt werden, sind manche Warnungsversetzungszeichen.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'modern-voice-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'modern-voice-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item piano (Klavier)
+
+@cindex Versetzungszeichenstil, piano
+@cindex Versetzungszeichen für Klavier
+@cindex Klavier-Versetzungszeichenstil
+@cindex Piano-Versetzungszeichenstil
+@funindex piano
+
+Dieser Stil orientiert sich an den Regeln im 20. Jahrhundert für die
+Notation von Klaviermusik.  Er ist sehr ähnlich mit dem modernen
+Stil, aber Versetzungszeichen werden auch über Notensysteme hinweg
+für die selbe Akkolade (@code{GrandStaff} oder @code{PianoStaff}) aufgelöst.
+
+Dieser Versetzungszeichenstil wirkt sich standardmäßig auf die gesamte
+Akkolade (@code{GrandStaff} oder @code{PianoStaff}) aus.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'piano)
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item piano-cautionary (Klavier mit Warnungen)
+
+@funindex piano-cautionary
+@cindex Versetzungszeichen, piano cautionary
+@cindex Warnungsversetzungszeichen für Klavier
+@cindex Klavier: Warnungsversetzungszeichen
+@cindex Versetzungszeichenstil Klavier mit Warnungen
+
+Dieser Stil verhält sich wie @code{piano}, aber die zusätzlichen
+Versetzungszeichen werden als Warnungen ausgegeben:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'piano-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item neo-modern
+
+@funindex neo-modern
+@cindex neo-moderner Versetzungszeichenstil
+@cindex Versetzungszeichenstil, neo-modern
+
+Dieser Stil richtet sich nach den Regeln für moderne Musik:
+Versetzungszeichen werden mit im @code{modern}-Stil gesetzt, aber
+sie werden nochmal gesetzt, wenn die gleiche Note später im selben
+Takt auftritt -- außer die Note wird unmittelbar wiederholt.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item neo-modern-cautionary (neo-modern mit Warnungen)
+
+@funindex neo-modern-cautionary
+@cindex neo-modern-cautionary-Versetzungszeichenstil
+@cindex Versetzungszeichenstil neo-modern mit Warnungen
+@cindex Warnungsversetzungszeichen, neo-modern
+
+Dieser Stil ähnelt @code{neo-modern}, aber die zusätzlichen
+Versetzungszeichen werden als Warnungen gesetzt.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'neo-modern-cautionary)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'neo-modern-cautionary)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item dodecaphonic (Zwölftonmusik)
+
+@funindex dodecaphonic
+@cindex dodekaphoner Versetzungszeichenstil
+@cindex Zwölftonmusik, Versetzungszeichenstil
+@cindex Versetzungszeichenstil, Zwölftonmusik
+
+Dieser Stil orientiert sich an der Notation von sog. Zwölftonmusik,
+der Stil wurde Anfang des 20. Jahrhunderts in Gebrauch genommen.
+In diesem Stil erhält @emph{jede} Note ein Versetzungszeichen, wozu
+auch Auflösungszeichen zählen.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'dodecaphonic)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'dodecaphonic)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+@item teaching (didaktisch)
+
+@funindex teaching
+@cindex teaching-Versetzungszeichenstil
+@cindex Versetzungszeichenstil teaching
+@cindex didaktischer Versetzungszeichenstil
+
+Dieser Stil ist für Lernende bestimmt: der Stil orientiert sich
+am  @code{modern}-Stil, aber die Alterationen, die sich durch die
+Tonart ergeben, werden zusätzlich als Warnungsversetzungszeichen
+gesetzt.  Eine Ausnahme sind direkt wiederholte Noten.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicA
+    }
+    \context Staff = "down" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+
+@item no-reset (nicht zurücksetzen)
+
+@funindex no-reset
+@cindex Versetzungszeichenstil, no reset
+@cindex Versetzungszeichenstil: nicht zurücksetzen
+
+Das ist der gleiche Stil wie @code{default}, aber die Versetzungszeichen
+dauern für @qq{immer} an, nicht nur im aktuellen Takt:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'no-reset)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'no-reset)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+@item forget (vergessen)
+
+@funindex forget
+@cindex forget-Versetzungszeichenstil
+@cindex Versetzungszeichenstil forget
+@cindex Versetzungszeichenstil Vergessen
+
+Das ist das Gegenteil von @code{no-reset}: Versetzungszeichen
+werden überhaupt nicht erinnert und folgerichtig werden alle
+Versetzungszeichen entsprechend der Tonart gesetzt, unabhängig
+vom Kontext der Noten.  Anders als @code{dodecaphonic} werden nie
+Auflösungszeichen gesetzt:
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      #(set-accidental-style 'forget)
+      \musicA
+    }
+    \context Staff = "down" {
+      #(set-accidental-style 'forget)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+@end table
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{dodecaphonic-style-accidentals-for-each-note-including-naturals.ly}
+
+
+@seealso
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{Accidental},
+@rinternals{Accidental_engraver},
+@rinternals{GrandStaff} and
+@rinternals{PianoStaff},
+@rinternals{Staff},
+@rinternals{AccidentalSuggestion},
+@rinternals{AccidentalPlacement},
+@rinternals{accidental-suggestion-interface}.
+
+
+@cindex Versetzungszeichen und gleichzeitige Noten
+@cindex simultane Noten und Versetzungszeichen
+@cindex Akkorde: Versetzungszeichen
+@cindex gleichzeitige Noten: Versetzungszeichen
+@cindex Versetzungszeichen in Akkorden
+
+@knownissues
+
+Gleichzeitig erklingende Noten müssen im sequenziellen Modus eingegeben
+werden.  Das bedeutet, dass die Versetzungszeichen von Noten in
+Akkorden so gesetzt werden, als ob die Noten nacheinander auftreten,
+in der Reihenfolge, in der sie im Quelltext erscheinen.  Das ist ein
+Problem, wenn Versetzungzeichen in einem AKkord voneinander abhängen,
+was im Standard-Stil nicht vorkommt.  Das Problem kann gelöst werden,
+indem man manuell@tie{}@code{!} oder@tie{}@code{?} für die problematischen
+Noten schreibt.
+
 
 @node Ambitus
 @unnumberedsubsubsec Ambitus
 
-@untranslated
+@cindex Ambitus
+@cindex Stimmumfang
+
+Der Begriff @notation{ambitus} (Pl. ambitus) beschreibt den
+Stimmumfang einer Stimme.  Er kann auch die Töne bedeuten, die
+ein Musikinstrument zu spielen in der Lage ist.  Ambitus werden
+in Chorpartituren gesetzt, damit die Sänger schnell wissen, ob
+sie die Stimme meistern können.
+
+Ambitus werden zu Beginn des Stückes nahe des ersten Schlüssels
+notiert.  Der Stimmumfang wird durch zwei Notenköpfe dargestellt,
+die die tiefste und höchste Note der Stimme repräsentieren.
+Versetzungszeichen werden nur gesetzt, wenn sie nicht durch die
+Tonart definiert werden.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Ambitus_engraver"
+  }
+}
+
+\relative c'' {
+  aes c e2
+  cis,1
+}
+@end lilypond
+
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{adding-ambitus-per-voice.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{ambitus-with-multiple-voices.ly}
+
+
+@seealso
+
+Musikglossar:
+@rglos{ambitus}.
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{Ambitus_engraver},
+@rinternals{Voice},
+@rinternals{Staff},
+@rinternals{Ambitus},
+@rinternals{AmbitusAccidental},
+@rinternals{AmbitusLine},
+@rinternals{AmbitusNoteHead},
+@rinternals{ambitus-interface}.
+
+
+@knownissues
+
+Es gibt keine Kollisionskontrolle bei mehreren Ambitus in einem System.
 
 
 @node Note heads
 @subsection Note heads
 
-@untranslated
+Dieser Abschnitt zeigt, wie man Notenköpfe ändern kann.
 
 @menu
-* Special note heads::          
-* Easy notation note heads::    
-* Shape note heads::            
-* Improvisation::               
+* Special note heads::
+* Easy notation note heads::
+* Shape note heads::
+* Improvisation::
 @end menu
 
 @node Special note heads
 @unnumberedsubsubsec Special note heads
 
-@untranslated
+@cindex Notenköpfe, besondere
+@cindex besondere Notenköpfe
+@cindex Notenköpfe, Kreuz
+@cindex Notenköpfe, Raute
+@cindex Noten, parlato
+@cindex Notenköpfe, Flageolett
+@cindex Notenköpfe, Gitarre
+@cindex Kreuznotenköpfe
+@cindex Rautennotenköpfe
+@cindex Parlato-Notenköpfe
+@cindex Gitarrennotenköpfe
+@cindex Flageolett-Notenköpfe
+@cindex Stile, Notenköpfe
+@funindex cross
+
+Notenköpfe können verändert werden:
+
+@lilypond[verbatim,quote,relative=2]
+c4 b a b
+\override NoteHead #'style = #'cross
+c4 b a b
+\revert NoteHead #'style
+c4 d e f
+@end lilypond
+
+Es gibt einen definierten Befehl für die Raute, der nur innerhalb
+von Akkorden benutzt werden kann:
+
+@lilypond[verbatim,quote,relative=2]
+<c f\harmonic>2 <d a'\harmonic>4 <c g'\harmonic>
+@end lilypond
+
+@noindent
+Alle möglichen Notenkopf-Stile finden sich in
+@ref{Note head styles}.
+
+@seealso
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Notationsreferenz:
+@ref{Note head styles},
+@ref{Chorded notes}.
+
+Referenz der Interna:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{Ledger_line_engraver},
+@rinternals{NoteHead},
+@rinternals{LedgerLineSpanner},
+@rinternals{note-head-interface},
+@rinternals{ledger-line-spanner-interface}.
+
 
 @node Easy notation note heads
 @unnumberedsubsubsec Easy notation note heads
 
-@untranslated
+@cindex Notenköpfe, Übung
+@cindex Notenköpfe zum Lernen
+@cindex Übungszwecke, Notenköpfe
+@cindex Noteknöpfe, einfache Notation
+@cindex pädagogische Notenköpfe
+@cindex Hal Leonard
+@cindex Anfänger, Notenlernen
+@cindex Notenköpfe für Anfänger
+
+Die @qq{einfachen Notenköpfe} haben die Bezeichnung der Note
+im Kopf gedruckt.  Das wird eingesetzt, um die Notation beizubringen.
+Damit die Buchstaben noch lesbar sind, müssen sie sehr groß
+gesetzt werden.  Wie man eine größere Schriftart einstellt, findet
+sich in @ref{Setting the staff size}.
+
+@lilypond[verbatim,quote]
+#(set-global-staff-size 26)
+\relative c' {
+  \easyHeadsOn
+  c2 e4 f
+  g1
+  \easyHeadsOff
+  c,1
+}
+@end lilypond
+
+@predefined
+
+@funindex \easyHeadsOn
+@funindex \easyHeadsOff
+@code{\easyHeadsOn}, @code{\easyHeadsOff}
+
+@seealso
+
+Notationsreferenz:
+@ref{Setting the staff size}.
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}.
+
 
 @node Shape note heads
 @unnumberedsubsubsec Shape note heads
 
-@untranslated
+@cindex Notenköpfe, Formen
+@cindex Notation, Aiken
+@cindex Notenköpfe, sacred harp
+@cindex Form-Notenköpfe
+@cindex Aiken-Notenköpfe
+@cindex sacred harp-Notenköpfe
+@funindex \key
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+
+In dieser Notation haben die Notenköpfe eine Form, die ihrer
+harmonischen Funktion innherhalb der Tonleiter entspricht.  Die
+Notation war sehr beliebt in amerikanischen Liederbüchern des
+19. Jahrhunderts.  Auf diese Weise können die Formen benutzt
+werden:
+
+@lilypond[verbatim,quote,relative=2]
+\aikenHeads
+c, d e f g a b c
+\sacredHarpHeads
+c, d e f g a b c
+@end lilypond
+
+Die unterschiedlichen Formen richten sich nach der Stufe in der
+Skala, wobei der Grundton der Skala aus dem @code{\key}-Befehl
+entnommen wird.
+
+@predefined
+
+@funindex \aikenHeads
+@funindex \sacredHarpHeads
+@code{\aikenHeads}, @code{\sacredHarpHeads}
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{applying-note-head-styles-depending-on-the-step-of-the-scale.ly}
+
+@noindent
+Alle Notenkopfstile finden sich in @ref{Note head styles}.
+
+@seealso
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Notationsreferenz:
+@ref{Note head styles}.
+
+Referenz der Interna:
+@rinternals{note-event},
+@rinternals{Note_heads_engraver},
+@rinternals{NoteHead},
+@rinternals{note-head-interface}.
+
 
 @node Improvisation
 @unnumberedsubsubsec Improvisation
 
-@untranslated
+@cindex Improvisation
+@cindex schräge Notenköpfe
+@cindex Notenköpfe, Improvisation
+@cindex Strichnotenköpfe
+@cindex Striche: Notenköpfe
+
+Improvisation wird manchmal angezeigt, indem schräge Notenköpfe
+gesetzt werden, wenn der Spieler eine beliebige Tonhöhe wählen kann
+aber den vorgegebenen Rhythmus spielen soll. Sie können wie folgt
+benutzt werden:
+
+@lilypond[verbatim,quote,relative=2]
+\new Voice \with {
+  \consists "Pitch_squash_engraver"
+} {
+  e8 e g a a16( bes) a8 g
+  \improvisationOn
+  e8 ~
+  e2 ~ e8 f4 f8 ~
+  f2
+  \improvisationOff
+  a16( bes) a8 g e
+}
+@end lilypond
+
+
+@predefined
+
+@funindex \improvisationOn
+@funindex \improvisationOff
+
+@code{\improvisationOn}, @code{\improvisationOff}
+
+@seealso
+
+Schnipsel:
+@rlsr{Pitches}.
+
+Referenz der Interna:
+@rinternals{Pitch_squash_engraver},
+@rinternals{Voice},
+@rinternals{RhythmicStaff}.
+
+
