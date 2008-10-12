@@ -53,21 +53,26 @@ are discussed in this section, while others are explained elsewhere:
 @item
 Most styles of vocal music use written text as lyrics.  An introduction
 to this notation is to be found in @rlearning{Setting simple songs}.
+
 @item
 Vocal music is likely to require the use of @code{markup} mode, either
 for lyrics of for other text elements (character's names, etc.).
 This syntax is described in @ref{Text markup introduction}.
+
 @item
 Lead sheets may be printed by combining vocal parts and @q{chord mode};
 this syntax is explained in @ref{Chord notation}.
+
 @item
 @q{Ambitus} may be added at the beginning of vocal staves, as explained
 in @ref{Ambitus}.
+
 @item
-Vocal parts may be printed using traditional clefs, as shown in @ref{Clefs}.
+Vocal parts may be printed using traditional clefs, as shown in @ref{Clef}.
+
 @item
 Ancient vocal music is supported, as explained in @ref{Ancient notation}.
-@item
+@end itemize
 
 
 @node Opera
