@@ -48,7 +48,7 @@ This section discusses simultaneous notes inside the same voice.
 @funindex >
 @funindex <...>
 
-A chord is formed by a enclosing a set of pitches between @code{<}
+A chord is formed by enclosing a set of pitches between @code{<}
 and @code{>}.  A chord may be followed by a duration and/or a set
 of articulations, just like simple notes:
 
