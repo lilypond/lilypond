@@ -19,7 +19,7 @@ voltaMusic = \relative c'' {
 
 <<
   \new StaffGroup <<
-    \context Staff \voltaMusic
+    \new Staff \voltaMusic
     \new Staff \voltaMusic
   >>
   \new StaffGroup <<

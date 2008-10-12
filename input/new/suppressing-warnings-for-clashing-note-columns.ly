@@ -15,8 +15,11 @@ to @code{#t}.
 
 ignore = \override NoteColumn #'ignore-collision = ##t
 
-\relative c' <<
-  \ignore
-  { \stemDown f2 g } \\
-  { c2 c, }
->>
+\relative c' {
+  <<
+    \ignore
+    { \stemDown f2 g }
+    \\
+    { c2 c, }
+  >>
+}

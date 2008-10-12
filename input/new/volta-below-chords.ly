@@ -12,7 +12,10 @@ staff, volte can be put under chords."
       c1
       c1
     }
-    \new Staff \with { \consists "Volta_engraver" } {
+    \new Staff \with {
+      \consists "Volta_engraver"
+    }
+    {
       \repeat volta 2 { c'1 }
       \alternative { c' }
     }

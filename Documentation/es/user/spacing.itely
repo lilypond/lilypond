@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 635c9ec04620eaf1303e3ab3c04c8a7d6e0a9fe4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -69,9 +69,9 @@ que se puede imprimir la música.
 Existen dos funciones para cambiar el tamaño del papel:
 @code{set-default-paper-size} (establecer tamaño de página
 predeterminado) y @code{set-paper-size} (establecer tamaño de página).
-@code{set-default-paper-size} se puede poner en un bloque
-@code{\paper} en el ámbito de nivel superior, y @code{set-paper-size}
-se debe poner en un bloque @code{\paper}:
+@code{set-default-paper-size} se debe poner en el ámbito del nivel
+superior, y @code{set-paper-size} se debe poner en un bloque
+@code{\paper}:
 
 @example
 #(set-default-paper-size "a4")
@@ -407,20 +407,10 @@ Esto no se usa por parte de @code{ly:optimal-breaking} porque éste
 nunca considera la posibilidad de tener páginas en blanco en mitad de
 una partitura.  Predeterminado: @code{5}.
 
-@item blank-after-score-page-force
-@funindex blank-after-score-page-force
-
-HACER.  Predeterminado: @code{2}.
-
 @item first-page-number
 @funindex first-page-number
 
 Valor del número de la primera página.  Predeterminado: @code{#1}.
-
-@item packed
-@funindex packed
-
-HACER
 
 @item page-breaking-between-system-padding
 @funindex page-breaking-between-system-padding
@@ -435,7 +425,8 @@ establecido.
 @item page-count
 @funindex page-count
 
-HACER
+Número de páginas que usar para una partitura. Predeterminado: sin
+fijar.
 
 @item page-limit-inter-system-space
 @funindex page-limit-inter-system-space

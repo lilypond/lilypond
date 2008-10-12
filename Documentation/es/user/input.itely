@@ -1156,7 +1156,7 @@ para los conjuntos de caracteres que se utilizan en prácticamente
 todos los idiomas modernos y también en muchos otros.  Unicode se
 puede implementar utilizando varios esquemas de codificación
 distintos.  LilyPond usa la codificación UTF-8 (UTF son las siglas de
-@emmph{Unicode Transformation Format}, o formato de transformación de
+@emph{Unicode Transformation Format}, o formato de transformación de
 Unicode) que representa todos los caracteres comunes de Latin en un
 solo byte, y representa otros caracteres usando un formato de longitud
 variable de hasta cuatro bytes.

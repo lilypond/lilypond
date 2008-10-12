@@ -17,9 +17,9 @@ This section lists various expressive marks that can be
 created in a score.
 
 @menu
-* Attached to notes::           
-* Curves::                      
-* Lines::                       
+* Attached to notes::
+* Curves::
+* Lines::
 @end menu
 
 
@@ -31,9 +31,9 @@ attached to notes: articulations, ornamentations, and dynamics.
 Methods to create new dynamic markings are also discussed.
 
 @menu
-* Articulations and ornamentations::  
-* Dynamics::                    
-* New dynamic marks::           
+* Articulations and ornamentations::
+* Dynamics::
+* New dynamic marks::
 @end menu
 
 @node Articulations and ornamentations
@@ -130,7 +130,8 @@ Music Glossary:
 
 Notation Reference:
 @ref{Direction and placement},
-@ref{List of articulations}.
+@ref{List of articulations},
+@ref{Trills}.
 
 Installed Files:
 @file{scm/@/script@/.scm}.
@@ -531,8 +532,9 @@ c2( d)
 @cindex slurs, multiple
 @cindex slurs, simultaneous
 
-Phrasing slurs must be used to print more than one slur at once.
-For details, see @ref{Phrasing slurs}.
+Simultaneous or overlapping slurs are not permitted, but a phrasing
+slur can overlap a slur.  This permits two slurs to be printed at
+once.  For details, see @ref{Phrasing slurs}.
 
 @cindex slur style
 @cindex solid slur
@@ -648,7 +650,7 @@ c4\( g' c,( b) | c1\)
 @cindex phrasing slurs, simultaneous
 @cindex phrasing slurs, multiple
 
-Simultaneous phrasing slurs are not permitted.
+Simultaneous or overlapping phrasing slurs are not permitted.
 
 
 @predefined
@@ -705,12 +707,14 @@ divisiones, are supported.  For details, see @ref{Divisiones}.
 
 @seealso
 
+Music Glossary: 
+@rglos{caesura}.
+
 Notation Reference:
 @ref{Divisiones}.
 
 Snippets:
 @rlsr{Expressive marks}.
-@c @lsr{expressive,breathing-sign.ly}.
 
 Internals Reference:
 @rinternals{BreathingSign}.
@@ -810,7 +814,7 @@ Internals Reference:
 
 @knownissues
 
-Printing text over the line (such as @emph{gliss.}) is not
+Printing text over the line (such as @notation{gliss.}) is not
 supported.
 
 

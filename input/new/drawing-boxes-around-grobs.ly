@@ -20,5 +20,7 @@ arbitrary grob.
   b8
   
   \revert Stem #'stencil
-  c4. c4 \mark "F" c1
+  c4. c4
+  \mark "F"
+  c1
 }

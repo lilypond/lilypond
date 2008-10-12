@@ -3,8 +3,7 @@
 \header {
   lsrtags = "keyboards, tweaks-and-overrides"
   texidoc = "The appearance of pedal brackets may be altered in
-different ways, using the relevant properties as shown in the
-following example."
+different ways."
   doctitle = "Fine-tuning pedal brackets"
 }
 

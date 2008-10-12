@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 167c2e035ba4ee6067fdfbc9b5bc9ed8d220bddb
+    Translation of GIT committish: 6c367cb1ca6f8c7c0eef6cf0d9405df713495ab5
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -253,28 +253,19 @@ Para tipografiar las custodias, simplemente coloque un grabador
 custos con una instrucción @code{\override} si lo desea, como se
 muestra en el ejemplo siguiente:
 
-@example
-\layout @{
-  \context @{
-    \Staff
-    \consists Custos_engraver
-    Custos \override #'style = #'mensural
-  @}
-@}
-@end example
-
-El resultado tendrá este aspecto:
-
 @lilypond[quote,ragged-right]
 \score {
-{
-  a'1
-  \override Staff.Custos #'style = #'mensural
-  \break
-  g'
-}
-\layout {
-  \context { \Staff \consists Custos_engraver }
+  \relative c'' {
+    a1
+    \break
+    g
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists Custos_engraver
+      \override Custos #'style = #'mensural
+    }
   }
 }
 @end lilypond
@@ -311,7 +302,7 @@ Referencia de funcionamiento interno:
 @rinternals{Custos}.
 
 Fragmentos de código:
-@rlsr{Ancient}.
+@rlsr{Ancient notation}.
 
 
 @node Figured bass support
@@ -331,7 +322,7 @@ barroco: véase @ref{Figured bass}.
 * Mensural flags::
 * Mensural rests::
 * Mensural accidentals and key signatures::
-* Annotational accidentals (@emph{musica ficta})::
+* Annotational accidentals (musica ficta)::
 * White mensural ligatures::
 @end menu
 
@@ -798,7 +789,7 @@ Referencia de funcionamiento interno:
 @cindex alteraciones accidentales
 
 
-@node Annotational accidentals (@emph{musica ficta})
+@node Annotational accidentals (musica ficta)
 @unnumberedsubsubsec Annotational accidentals (@emph{musica ficta})
 
 En la música europea de hasta aprox. 1600, se esperaba de los
@@ -1312,7 +1303,7 @@ Referencia de funcionamiento interno:
 @rinternals{BreathingSign}.
 
 Fragmentos de código:
-@rlsr{Ancient}.
+@rlsr{Ancient notation}.
 
 
 @node Gregorian square neume ligatures

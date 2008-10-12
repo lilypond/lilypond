@@ -5,7 +5,7 @@
 @code{ChoirStaff}, @code{InnerChoirStaff}, @code{InnerStaffGroup}
 or @code{StaffGroup}, the bracket and the starting bar line will not
 be displayed as standard behavior.  This can be changed by overriding
-the relevant properties, as demonstrated in this example.
+the relevant properties.
 
 Note that in contexts such as @code{PianoStaff} and @code{GrandStaff}
 where the systems begin with a brace instead of a bracket, another
@@ -14,7 +14,7 @@ property has to be set, as shown on the second system in the example.
   doctitle = "Display bracket with only one staff in a system"
 }
 
-\markup \column {
+\markup \left-column {
   \score {
     \new StaffGroup <<
       % Must be lower than the actual number of staff lines
