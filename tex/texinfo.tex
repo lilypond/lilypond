@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2008-04-18.10}
+\def\texinfoversion{2008-10-12.17}
 %
 % Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -3874,11 +3874,11 @@ end
 \def\dosynindex#1#2#3{%
   % Only do \closeout if we haven't already done it, else we'll end up
   % closing the target index.
-  \expandafter \ifx\csname donesynindex#2\endcsname \undefined
+  \expandafter \ifx\csname donesynindex#2\endcsname \relax
     % The \closeout helps reduce unnecessary open files; the limit on the
     % Acorn RISC OS is a mere 16 files.
     \expandafter\closeout\csname#2indfile\endcsname
-    \expandafter\let\csname\donesynindex#2\endcsname = 1
+    \expandafter\let\csname donesynindex#2\endcsname = 1
   \fi
   % redefine \fooindfile:
   \expandafter\let\expandafter\temp\expandafter=\csname#3indfile\endcsname
@@ -7747,10 +7747,9 @@ end
 
 \message{localization,}
 
-% @documentlanguage is usually given very early, just after
-% @setfilename.  If done too late, it may not override everything
-% properly.  Single argument is the language (de) or locale (de_DE)
-% abbreviation.  It would be nice if we could set up a hyphenation file.
+% For single-language documents, @documentlanguage is usually given very
+% early, just after @documentencoding.  Single argument is the language
+% (de) or locale (de_DE) abbreviation.
 %
 {
   \catcode`\_ = \active
@@ -7785,9 +7784,36 @@ end
 }
 %
 \newhelp\nolanghelp{The given language definition file cannot be found or
-is empty.  Maybe you need to install it?  In the current directory
-should work if nowhere else does.}
+is empty.  Maybe you need to install it?  Putting it in the current
+directory should work if nowhere else does.}
 
+% This macro is called from txi-??.tex files; the first argument is the
+% \language name to set (without the "\lang@" prefix), the second and
+% third args are \{left,right}hyphenmin.
+% 
+% The language names to pass are determined when the format is built.
+% See the etex.log file created at that time, e.g.,
+% /usr/local/texlive/2008/texmf-var/web2c/pdftex/etex.log.
+% 
+% With TeX Live 2008, etex now includes hyphenation patterns for all
+% available languages.  This means we can support hyphenation in
+% Texinfo, at least to some extent.  (This still doesn't solve the
+% accented characters problem.)
+% 
+\catcode`@=11
+\def\txisetlanguage#1#2#3{%
+  % do not set the language if the name is undefined in the current TeX.
+  \expandafter\ifx\csname lang@#1\endcsname \relax
+    \message{no patterns for #1}%
+  \else
+    \global\language = \csname lang@#1\endcsname
+  \fi
+  % but there is no harm in adjusting the hyphenmin values regardless.
+  \global\lefthyphenmin = #2\relax
+  \global\righthyphenmin = #3\relax
+}
+
+% Helpers for encodings.
 % Set the catcode of characters 128 through 255 to the specified number.
 %
 \def\setnonasciicharscatcode#1{%
