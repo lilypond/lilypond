@@ -51,8 +51,8 @@ code is easy.  The general form of these functions is
 
 @example
 function =
-#(define-music-function (parser location @var{var1} @var{var2}... )
-                        (@var{var1-type?} @var{var2-type?}...)
+#(define-music-function (parser location @var{var1} @var{var2}...@var{vari}... )
+                        (@var{var1-type?} @var{var2-type?}...@var{vari-type?}...)
   #@{
     @emph{...music...}
   #@})
@@ -62,10 +62,10 @@ function =
 where
 
 @multitable @columnfractions .33 .66
-@item @var{argi}         @tab @var{i}th variable
-@item @var{argi-type?}   @tab type of variable
+@item @var{vari}         @tab @var{i}th variable
+@item @var{vari-type?}   @tab type of @var{i}th variable
 @item @var{...music...}  @tab normal LilyPond input, using
-  variables as @code{#$var1}.
+ variables as @code{#$var1}, etc.
 @end multitable
 
 There following input types may be used as variables
@@ -74,7 +74,7 @@ other documentation specifically about Scheme for more
 variable types.
 
 @multitable @columnfractions .33 .66
-@headitem Input type          @tab @var{argi-type?} notation
+@headitem Input type          @tab @var{vari-type?} notation
 @item Integer                 @tab @code{integer?}
 @item Float (decimal number)  @tab @code{number?}
 @item Text string             @tab @code{string?}
@@ -83,9 +83,9 @@ variable types.
 @item A pair of variables     @tab @code{pair?}
 @end multitable
 
-The @code{parser} and @code{location} argument are mandatory,
+The @code{parser} and @code{location} arguments are mandatory,
 and are used in some advanced situations.  The @code{parser}
-argument is used to access to the value of another LilyPond
+argument is used to gain access to the value of another LilyPond
 variable.  The @code{location} argument
 is used to set the @q{origin} of the music expression that is built
 by the music function, so that in case of a syntax error LilyPond
