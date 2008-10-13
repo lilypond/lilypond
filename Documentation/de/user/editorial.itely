@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
+    Translation of GIT committish: 7c57f1469e057f25f5d7a7b75c18f33bb4e5bed9
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,6 +13,10 @@
 
 @lilypondfile[quote]{editorial-headword.ly}
 
+Dieser Abschnitt zeigt die verschiedenen Möglichkeiten, die
+Erscheinung der Noten zu ändern und analytische bzw. pädagogische
+Anmerkungen anzubringen.
+
 @menu
 * Inside the staff::            
 * Outside the staff::           
@@ -22,6 +26,8 @@
 @node Inside the staff
 @subsection Inside the staff
 
+Dieser Abschnitt zeigt, wie man Elemente hervorhebt, die sich
+innerhalb des Notensystems befinden.
 
 @menu
 * Selecting notation font size::  
@@ -35,7 +41,107 @@
 @node Selecting notation font size
 @unnumberedsubsubsec Selecting notation font size
 
-@untranslated
+@cindex Font, Größe ändern für Notation
+@cindex Schriftgröße (Notation) ändern
+@cindex Auswahl von Schriftgröße (Notation)
+@cindex Noten, Schriftgröße
+@cindex Notenköpfe
+@funindex fontSize
+@funindex font-size
+@funindex magstep
+@funindex \huge
+@funindex \large
+@funindex \normalsize
+@funindex \small
+@funindex \tiny
+@funindex \teeny
+@funindex huge
+@funindex large
+@funindex normalsize
+@funindex small
+@funindex tiny
+@funindex teeny
+
+Die Schriftgröße von Notationselementen kann geändert werden.
+Damit wird allerdings nicht die Größe von veränderlichen
+Symbolen, wie Balken oder Bögen, geändert.
+
+@warning{Für Schriftgröße von Text, siehe
+@ref{Selecting font and font size}.}
+
+@lilypond[verbatim,quote,relative=2]
+\huge
+c4.-> d8---3
+\large
+c4.-> d8---3
+\normalsize
+c4.-> d8---3
+\small
+c4.-> d8---3
+\tiny
+c4.-> d8---3
+\teeny
+c4.-> d8---3
+@end lilypond
+
+Intern wird hiermit die @code{fontSize}-Eigenschaft gesetzt.  Sie
+wird für alle Layout-Objekte definiert.  Der Wert von
+@code{font-size} ist eine Zahl, die die Größe relativ zur Standardgröße
+für die aktuelle Systemhöhe angibt.  Jeder Vergrößerungsschritt bedeutet
+etwa eine Vergrößerung um 12% der Schriftgröße.  Mit sechs Schritten wird
+die Schriftgröße exakt verdoppelt.  Die Scheme-Funktion @code{magstep}
+wandelt einen Wert von @code{font-size} in einen Skalierungsfaktor um.
+Die @code{font-size}-Eigenschaft kann auch direkt gesetzt werden, so dass
+sie sich nur auf bestimmte Layoutobjekte bezieht.
+
+@lilypond[verbatim,quote,relative=2]
+\set fontSize = #3
+c4.-> d8---3
+\override NoteHead #'font-size = #-4
+c4.-> d8---3
+\override Script #'font-size = #2
+c4.-> d8---3
+\override Stem #'font-size = #-5
+c4.-> d8---3
+@end lilypond
+
+@cindex Standard-Schriftgröße (Notation)
+@cindex Schriftgröße (Notation), Standard
+@funindex font-interface
+@funindex font-size
+
+Schriftgrößenänderungen werden erreicht, indem man die Design-Schriftgröße
+nimmt, die der gewünschten am nächsten kommt, und sie dann skaliert.  Die
+Standard-Schriftgröße (für @code{font-size = #0}) hängt von der
+Standard-Systemhöhe ab. Für ein Notensystem von 20pt wird eine Schriftgröße
+von 10pt ausgewählt.
+
+Die @code{font-size}-Eigenschaft kann nur für die Layoutobjekte gesetzt
+werden, die Schrift-Dateien benutzen.  Das sind die, welche die
+@code{font-interface}-Layoutschnittstelle unterstützen.
+
+@predefined
+
+@funindex \teeny
+@code{\teeny},
+@funindex \tiny
+@code{\tiny},
+@funindex \small
+@code{\small},
+@funindex \normalsize
+@code{\normalsize},
+@funindex \large
+@code{\large},
+@funindex \huge
+@code{\huge}.
+
+@seealso
+
+Schnipsel:
+@rlsr{Editorial annotations}.
+
+Referenz der Interna:
+@rinternals{font-interface}.
 
 
 @node Fingering instructions
@@ -43,83 +149,288 @@
 
 @cindex Fingersatz
 @cindex Fingerwechsel
+@cindex Griff: Fingersatz
+@funindex \finger
+@funindex finger
 
 Fingersatzanweisungen können folgenderweise notiert werden:
-@example
 @var{Note}-@var{Zahl}
-@end example
+
+@lilypond[verbatim,quote,relative=2]
+c4-1 d-2 f-4 e-3
+@end lilypond
+
 Für Fingerwechsel muss eine Textbeschriftung (markup) benutzt werden:
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-c4-1 c-2 c-3 c-4
-c^\markup { \finger "2 - 3" }
+@lilypond[quote,verbatim,relative=2]
+c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @end lilypond
+
+@cindex thumb-script
+@cindex Fingersatz: Daumen-Zeichen
+@funindex \thumb
+@funindex thumb
 
 Mit dem Daumen-Befehl (@code{\thumb}) können die Noten bezeichnet 
 werden, die mit dem 
 Daumen (etwa auf dem Cello) gespielt werden sollen.
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-<a_\thumb a'-3>8 <b_\thumb b'-3>
+
+@lilypond[verbatim,quote,relative=2]
+<a_\thumb a'-3>2 <b_\thumb b'-3>
 @end lilypond
+
+@cindex Fingersatz: Akkorde
+@cindex Akkorde: Fingersatz
 
 Fingersätze für Akkorde können auch zu einzelnen Noten des 
 Akkordes hinzugefügt werden, indem sie innerhalb der Akkord-Klammer 
 direkt an die Noten angefügt werden.
-@lilypond[quote,verbatim,ragged-right,fragment,relative=2]
-< c-1 e-2 g-3 b-5 >4
+
+@lilypond[verbatim,quote,relative=2]
+<c-1 e-2 g-3 b-5>2 <d-1 f-2 a-3 c-5>
 @end lilypond
 
+Fingersatzanweisungen können manuell oberhalb des Systems gesetzt werden, siehe
+@ref{Direction and placement}.
 
-@commonprop
+@snippets
 
-Eine bessere Kontrolle über die Position der Fingersätze in Akkorden 
-lässt sich mit der Eigenschaft @code{fingeringOrientations} herstellen:
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{controlling-the-placement-of-chord-fingerings.ly}
 
-@lilypond[quote,verbatim,ragged-right,fragment,relative=1]
-\set fingeringOrientations = #'(left down)
-<c-1 es-2 g-4 bes-5 > 4
-\set fingeringOrientations = #'(up right down)
-<c-1 es-2 g-4 bes-5 > 4
-@end lilypond
-
-Mit dieser Funktion können Fingersatzbezeichnungen auch bei einstimmiger 
-Musik sehr nah in die Notenköpfe gerückt werden.
-
-@lilypond[verbatim,ragged-right,quote,fragment]
-\set fingeringOrientations = #'(right)
-<es'-2>4
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{allowing-fingerings-to-be-printed-inside-the-staff.ly}
 
 @seealso
 
-Programmreferenz:
-@rinternals{Fingering}.
+Notationsreferenz:
+@ref{Direction and placement}.
 
-Beispiele:
+Schnipsel:
 @rlsr{Editorial annotations}.
+
+Referenz der Interna:
+@rinternals{FingeringEvent},
+@rinternals{fingering-event},
+@rinternals{Fingering_engraver},
+@rinternals{New_fingering_engraver},
+@rinternals{Fingering}.
 
 
 @node Hidden notes
 @unnumberedsubsubsec Hidden notes
 
-@untranslated
+@cindex Noten verstecken
+@cindex Verstecken von Noten
+@cindex Noten, unsichtbar
+@cindex unsichtbare Noten
+@cindex durchsichtige Noten
+@cindex Noten, durchsichtig
+@cindex transparent, Noten
+@funindex \hideNotes
+@funindex hideNotes
+@funindex \unHideNotes
+@funindex unHideNotes
+
+Versteckte (oder unsichtbare oder transparente) Noten können sinnvoll sein,
+wenn man Notation für den Theorieunterricht oder Kompositionsübungen
+erstellen will.
+
+@lilypond[verbatim,quote,relative=2]
+c4 d
+\hideNotes
+e4 f
+\unHideNotes
+g a
+\hideNotes 
+b
+\unHideNotes
+c
+@end lilypond
+
+Notationsobjekte, die an die unsichtbaren Noten angefügt sind, sind weiterhin
+sichtbar.
+
+@lilypond[verbatim,quote,relative=2]
+c4( d)
+\hideNotes
+e4(\p f)--
+@end lilypond
+
+
+@predefined
+
+@code{\hideNotes}, @code{\unHideNotes}
+
+@seealso
+
+Schnipsel:
+@rlsr{Editorial annotations}.
+
+Referenz der Interna:
+@rinternals{Note_spacing_engraver},
+@rinternals{NoteSpacing}.
 
 
 @node Coloring objects
 @unnumberedsubsubsec Coloring objects
 
-@untranslated
+@cindex Objekte, farbig
+@cindex Farbe
+@cindex Einfärben von Objekten
+@cindex Noten, farbig
+@cindex farbige Noten
+@cindex X11-Farben
+@cindex with-color
+@funindex color
+@funindex \with-color
+@funindex with-color
+@funindex x11-color
+
+Einzelnen Objekten können einfach eigene Farben zugewiesen werden.
+Gültige Farben-Bezeichnungen sind aufgelistet in @ref{List of colors}.
+
+@lilypond[verbatim,quote,relative=2]
+\override NoteHead #'color = #red
+c4 c
+\override NoteHead #'color = #(x11-color 'LimeGreen)
+d
+\override Stem #'color = #blue
+e
+@end lilypond
+
+Die ganze Farbpalette, die für X11 definiert ist, kann mit der
+Scheme-Funktion @code{x11-color} benutzt werden.  Diese Funktion
+hat ein Argument: entweder ein Symbol in der Form @var{'FooBar}
+oder eine Zeichenkette in der Form @code{"FooBar"}.  Die erste
+Form ist schneller zu schreiben und effizienter.  Mit der zweiten
+Form ist es allerdings möglich, auch Farbbezeichnungen einzusetzen,
+die aus mehr als einem Wort bestehen.
+
+Wenn @code{x11-color} die angegebene Farbbezeichnung nicht kennt, wird
+Schwarz eingesetzt.
+
+@lilypond[verbatim,quote,relative=2]
+\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\set Staff.instrumentName = \markup {
+  \with-color #(x11-color 'navy) "Clarinet"
+}
+
+gis8 a
+\override Beam #'color = #(x11-color "medium turquoise")
+gis a
+\override Accidental #'color = #(x11-color 'DarkRed)
+gis a
+\override NoteHead #'color = #(x11-color "LimeGreen")
+gis a
+% this is deliberate nonsense; note that the stems remain black
+\override Stem #'color = #(x11-color 'Boggle)
+b2 cis
+@end lilypond
+
+@cindex RGB-Farbe
+@cindex Farbe, RGB
+@funindex rgb-color
+
+Exakte RGB-Farben können mit Hilfe der Scheme-Funktion @code{rgb-color}
+definiert werden.
+
+@lilypond[verbatim,quote,relative=2]
+\override Staff.StaffSymbol #'color = #(x11-color 'SlateBlue2)
+\set Staff.instrumentName = \markup {
+  \with-color #(x11-color 'navy) "Clarinet"
+}
+  
+\override Stem #'color = #(rgb-color 0 0 0)
+gis8 a
+\override Stem #'color = #(rgb-color 1 1 1)
+gis8 a
+\override Stem #'color = #(rgb-color 0 0 0.5) 
+gis4 a
+@end lilypond
+
+@seealso
+
+Notationsreferenz:
+@ref{List of colors}, @ref{The
+tweak command}.
+
+Schnipsel:
+@rlsr{Editorial annotations}.
+
+@cindex x11-Farbe
+@cindex farbige Noten in Akkorden
+@cindex Noten, farbige in Akkorden
+@cindex Akkorde: farbige Noten
+@funindex x11-color
+
+@knownissues
+Eine X11-Farbe hat nicht notwendigerweise exakt denselben Farbton wie
+eine ähnlich genannte normale Farbe.
+
+Nicht alle X11-Farben lassen sich am Webbrowser erkennen, d. h. der
+Unterschied etwa zwischen @code{'LimeGreen} und @code{'ForestGreen} wird
+eventuell nicht dargestellt.  Für die Benutzung im Internet wird
+die Benutzung von einfachen Farben nahegelegt (z. B. @code{#blue},
+@code{#green}, @code{#red}).
+
+Noten in Akkorden können nicht mit @code{\override} eingefärbt werden,
+dazu muss @code{\tweak} benutzt werden. Siehe auch @ref{The tweak command}.
+
 
 
 @node Parentheses
 @unnumberedsubsubsec Parentheses
 
-@untranslated
+@cindex Geisternoten
+@cindex Noten in Klammern
+@cindex Klammern um Noten
+@cindex editorische Noten
+@funindex \parenthesize
+@funindex parenthesize
+
+Objekte können in Klammern gesetzt werden, indem vor ihnen der Befehl
+@code{\parenthesize} geschrieben wird.  Wenn ein Akkord in Klammern gesetzt
+wird, wirkt sich das auf jede Noten im Akkord aus.  Innerhalb von einem
+Akkord gesetzte Befehle wirken sich auf einzelne Noten aus.
+
+@lilypond[verbatim,quote,relative=2]
+c2 \parenthesize d
+c2 \parenthesize <c e g>
+c2 <c \parenthesize e g>
+@end lilypond
+
+Auch andere Objekte als Noten können in Klammern gesetzt werden.
+
+@lilypond[verbatim,quote,relative=2]
+c2-\parenthesize -. d
+c2 \parenthesize r
+@end lilypond
+
+@seealso
+
+Schnipsel:
+@rlsr{Editorial annotations}.
+
+Referenz der Interna:
+@rinternals{Parenthesis_engraver},
+@rinternals{ParenthesesItem},
+@rinternals{parentheses-interface}.
+
+@knownissues
+
+Wenn man einen Akkord einklammert, wird um jede Note eine eigene Klammer
+gesetzt, anstatt den gesamten Akkord in eine große Klammer zu fassen.
+
 
 
 @node Stems
 @unnumberedsubsubsec Stems
+
+@cindex Hals
+@cindex Hals, unsichtbar
+@cindex Notenhals, unsichtbar
+@cindex unsichtbarer Notenhals
 
 Immer, wenn das Programm eine Note findet, wird automatisch 
 ein Notenhals (@rinternals{Stem}) -Objekt erzeugt. Auch 
@@ -136,24 +447,36 @@ gemacht.
 @code{\stemNeutral} (Hälse je nach Notenposition).
 
 
-@commonprop
+@snippets
 
-Um die Richtung der Hälse zu ändern, können die Befehle
+@cindex Hals, Richtung von
+@cindex Notenhals, Richtung von
+@cindex Hals nach oben
+@cindex Hals nach unten
+@cindex Hals neutral
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
-a4 b c b
-\override Stem #'neutral-direction = #up
-a4 b c b
-\override Stem #'neutral-direction = #down
-a4 b c b
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{default-direction-of-stems-on-the-center-line-of-the-staff.ly}
 
-@noindent benutzt werden.
+@seealso
+Notationsreferenz:
+@ref{Direction and placement}.
+
+Schnipsel:
+@rlsr{Editorial annotations}.
+
+Referenz der Interna:
+@rinternals{Stem_engraver},
+@rinternals{Stem},
+@rinternals{stem-interface}.
+
 
 
 @node Outside the staff
 @subsection Outside the staff
 
+Dieser Abschnitt zeigt, wie man Elemente im System von
+außerhalb des Systems hervorhebt.
 
 @menu
 * Balloon help::                
@@ -164,16 +487,207 @@ a4 b c b
 @node Balloon help
 @unnumberedsubsubsec Balloon help
 
-@untranslated
+@cindex Ballon
+@cindex Blase
+@cindex Erklärungsblase
+@cindex Notation, Erklärungen
+@cindex Anmerkung, Blase
+@cindex Hilfe, Blase
+@cindex Textblasen
+@funindex \balloonGrobText
+@funindex \balloonText
+@funindex Balloon_engraver
+@funindex balloonGrobText
+@funindex balloonText
+
+Notationselemente können bezeichnet und markiert werden, indem um sie eine
+rechteckige Blase gezeichnet wird.  Dies ist vor allem dazu da, Notation
+zu erklären.
+
+@lilypond[verbatim,quote,relative=2]
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  a8 
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
+  r
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+}
+@end lilypond
+
+Es gibt zwei Funktionen, @code{balloonGrobText} und
+@code{balloonText}; die erste wird auf gleiche Art wie ein
+@w{@code{\once \override}} eingesetzt umd Text an einen Grob zu
+hängen, die zweite funktioniert wie ein @code{\tweak} und
+wird üblicherweise innerhalb von Akkorden eingesetzt, um Text
+an einzelne Noten zu hängen.
+
+Textblasen beeinflussen normalerweise die Positionierung der Notation,
+aber das kann geändert werden.
+
+@lilypond[verbatim,quote,relative=2]
+\new Voice \with { \consists "Balloon_engraver" }
+{
+  \balloonLengthOff
+  \balloonGrobText #'Stem #'(3 . 4) \markup { "I'm a Stem" }
+  a8 
+  \balloonGrobText #'Rest #'(-4 . -4) \markup { "I'm a rest" }
+  r
+  \balloonLengthOn
+  <c, g'-\balloonText #'(-2 . -2) \markup { "I'm a note head" } c>2. 
+}
+@end lilypond
+
+
+@predefined
+
+@funindex balloonLengthOn
+@funindex balloonLengthOff
+@funindex \balloonLengthOn
+@funindex \balloonLengthOff
+
+@code{\balloonLengthOn}, @code{\balloonLengthOff}
+
+@seealso
+
+Schnipsel:
+@rlsr{Editorial annotations}.
+
+Referenz der Interna:
+@rinternals{Balloon_engraver},
+@rinternals{BalloonTextItem},
+@rinternals{balloon-interface}.
 
 
 @node Grid lines
 @unnumberedsubsubsec Grid lines
 
-@untranslated
+@cindex Gitterlinien
+@cindex Linien, Gitter
+@cindex vertikale Linien zwischen Systemen
+@cindex Linien zwischen Systemen
+@funindex Grid_point_engraver
+@funindex Grid_line_span_engraver
+@funindex gridInterval
+
+Vertikale Linien können zwischen Systemen gesetzt werden, die mit den
+Noten synchronisiert sind.
+
+Der @code{Grid_point_engraver} muss benutzt werden, um die Endpunkte
+der Linien zu definieren, und der @code{Grid_line_span_engraver} wird
+benutzt, um dann die Linien zu setzen.  Der Standard ist, dass die
+Gitterlinien unter den Noten und zur linken Seite des Notenkopfes
+gesetzt werden.  Sie reichen von der Mitte eines Systems bis zur
+Mitte des anderen.  Mit @code{gridInterval} wird die Dauer zwischen
+den Linien festgesetzt.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Staff
+    \consists "Grid_point_engraver" 
+    gridInterval = #(ly:make-moment 1 4)
+  }
+  \context {
+    \Score
+    \consists "Grid_line_span_engraver"
+  }
+}
+
+\score {
+  \new ChoirStaff <<
+    \new Staff \relative c'' {
+      \stemUp
+      c4. d8 e8 f g4
+    }
+    \new Staff \relative c {
+      \clef bass
+      \stemDown
+      c4 g' f e
+    }
+  >>
+}
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{grid-lines--changing-their-appearance.ly}
+
+
+@seealso
+
+Schnipsel:
+@rlsr{Editorial annotations}.
+
+Referenz der Interna:
+@rinternals{Grid_line_span_engraver},
+@rinternals{Grid_point_engraver},
+@rinternals{GridLine},
+@rinternals{GridPoint},
+@rinternals{grid-line-interface},
+@rinternals{grid-point-interface}.
 
 
 @node Analysis brackets
 @unnumberedsubsubsec Analysis brackets
 
-@untranslated
+@cindex Klammern
+@cindex Phrasierungsklammern
+@cindex Klammern, Analyse
+@cindex Analyse
+@cindex musikwissenschaftliche Analyse
+@cindex Notengruppenklammer
+@cindex horizontale Kklammer
+@cindex Musikanalyse
+@funindex Horizontal_bracket_engraver
+@funindex \startGroup
+@funindex startGroup
+@funindex \stopGroup
+@funindex stopGroup
+
+Klammern über dem System werden in der Musikanalyse benutzt, um
+strukturelle Einheiten der Musik zu markieren.  Einfache
+horizontale Klammern werden von LilyPond unterstützt.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+\relative c'' {
+  c2\startGroup
+  d\stopGroup
+}
+@end lilypond
+
+Analysis brackets may be nested.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
+}
+\relative c'' {
+  c4\startGroup\startGroup
+  d4\stopGroup
+  e4\startGroup
+  d4\stopGroup\stopGroup
+}
+@end lilypond
+
+@seealso
+
+Schnipsel:
+@rlsr{Editorial annotations}.
+
+Referenz der Interna:
+@rinternals{Horizontal_bracket_engraver},
+@rinternals{HorizontalBracket},
+@rinternals{horizontal-bracket-interface},
+@rinternals{Staff}.
+
