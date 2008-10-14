@@ -927,26 +927,316 @@ no es válido.  Hay que usar las funciones @code{make-line-markup},
 @node How markups work internally
 @subsection How markups work internally
 
-@untranslated
+En un elemento de marcado como
+
+@example
+\raise #0.5 "ejemplo de texto"
+@end example
+
+@noindent
+@code{\raise} se representa en realidad por medio de la función
+@code{raise-markup}.  La expresión de marcado se almacena como
+
+@example
+(list raise-markup 0.5 (list simple-markup "ejemplo de texto"))
+@end example
+
+Cuando el marcado se convierte en objetos imprimibles (Stencils o
+sellos), se llama la función @code{raise-markup} como
+
+@example
+(apply raise-markup
+       @var{\objeto de marcado}
+       @var{lista de listas asociativas de propiedades}
+       0.5
+       @var{el marcado "ejemplo de texto"})
+@end example
+
+Primero la función @code{raise-markup} crea el sello para la cadena
+@code{ejemplo de texto}, y después eleva el sello Stencil en 0.5
+espacios de pentagrama.  Este es un ejemplo bastante simple; en el
+resto de la sección podrán verse ejemplos más complejos, así como en
+@file{scm/@/define@/-markup@/-commands@/.scm}.
 
 
 @node New markup command definition
 @subsection New markup command definition
 
-@untranslated
+Las instrucciones de marcado nuevas se pueden definir con el macro de
+Scheme @code{define-markup-command}.
+
+@lisp
+(define-markup-command (@var{nombre-de-la-instruccion} @var{layout} @var{props} @var{arg1} @var{arg2} ...)
+            (@var{arg1-type?} @var{arg2-type?} ...)
+  ..command body..)
+@end lisp
+
+Los argumentos son
+
+@table @var
+@item argi
+@var{i}-ésimo argumento de la instrucción
+@item argi-type?
+predicado de tipo para el argumento @var{i}-ésimo
+@item layout
+la definición de @q{presentación}
+@item props
+lista de listas asociativas, que contiene todas las propiedades
+activas.
+@end table
+
+Como ejemplo sencillo, mostramos cómo añadir una instrucción
+@code{\smallcaps}, que selecciona una tipografía de versalitas.
+Normalmente podríamos seleccionar la tipografía de versalitas,
+
+@example
+\markup @{ \override #'(font-shape . caps) Texto-en-versalitas @}
+@end example
+
+@noindent
+Esto selecciona la tipografía de versalitas mediante el
+establecimiento de la propiedad @code{font-shape} a @code{#'caps} para
+la interpretación de @code{Texto-en-versalitas}.
+
+Para poner lo anterior disponible como la instrucción
+@code{\smallcaps}, tenemos que definir una función utilizando
+@code{define-markup-command}.  La instrucción ha de tomar un argumento
+del tipo @code{markup}.  Por tanto, el inicio de la definición ha de
+ser
+
+@example
+(define-markup-command (smallcaps layout props argument) (markup?)
+@end example
+
+@noindent
+
+Lo que aparece a continuación es el contenido de la instrucción:
+debemos interpretar el @code{argument} como un marcado, es decir:
+
+@example
+(interpret-markup layout @dots{} argument)
+@end example
+
+@noindent
+Esta interpretación tiene que añadir @code{'(font-shape . caps)} a las
+propiedades activas, por lo que sustituimos lo siguiente por los
+@dots{} en el ejemplo anterior:
+
+@example
+(cons (list '(font-shape . caps) ) props)
+@end example
+
+@noindent
+La variable @code{props} es una lista de a-listas, y se lo anteponemos
+haciendo la operación cons de una lista con el ajuste adicional.
+
+Supongamos que estamos tipografiando un recitativo de una ópera y nos
+gustaría definir una instrucción que presente los nombres de los
+personajes de una forma personalizada.  Queremos que los nombres se
+impriman con versalitas y se desplacen un poco a la izquierda y hacia
+arriba.  Definimos una instrucción @code{\character} que toma en
+cuenta la traslación necesaria y utiliza la instrucción
+@code{\smallcaps} recién definida:
+
+@example
+#(define-markup-command (character layout props nombre) (string?)
+  "Imprimir el nombre del personaje en versalitas, desplazado a la izquierda y hacia
+  arriba.  Sintaxis: \\character #\"nombre\""
+  (interpret-markup layout props
+   (markup #:hspace 0 #:translate (cons -3 1) #:smallcaps nombre)))
+@end example
+
+Esta es una complicación que requiere una explicación: los textos por
+encima y por debajo del pentagrama se mueven verticalmente de forma
+que estén a una cierta distancia (la propiedad @code{padding}) del
+pentagrama y de las notas.  Para asegurar que este mecanismo no anula
+el efecto de nuestro @code{#:translate}, añadimos una cadena vacía
+(@code{#:hspace 0}) antes del texto trasladado.  Ahora el
+@code{#:hspace 0} se pone encima de las notas, y el @code{nombre} se
+mueve en relación a dicha cadena vacía.  El efecto neto es que el
+texto se mueve hacia la izquierda y hacia arriba.
+
+El resultado final es como sigue:
+
+@example
+@{
+  c''^\markup \character #"Cleopatra"
+  e'^\markup \character #"Giulio Cesare"
+@}
+@end example
+
+@lilypond[quote,ragged-right]
+#(define-markup-command (smallcaps layout props str) (string?)
+  "Print the string argument in small caps.  Syntax: \\smallcaps #\"string\""
+  (interpret-markup layout props
+   (make-line-markup
+    (map (lambda (s)
+          (if (= (string-length s) 0)
+              s
+              (markup #:large (string-upcase (substring s 0 1))
+                      #:translate (cons -0.6 0)
+                      #:tiny (string-upcase (substring s 1)))))
+         (string-split str #\Space)))))
+
+#(define-markup-command (character layout props name) (string?)
+  "Print the character name in small caps, translated to the left and
+  top.  Syntax: \\character #\"name\""
+  (interpret-markup layout props
+   (markup #:hspace 0 #:translate (cons -3 1) #:smallcaps name)))
+
+{
+  c''^\markup \character #"Cleopatra" c'' c'' c''
+  e'^\markup \character #"Giulio Cesare" e' e' e'
+}
+@end lilypond
+
+Hemos usado la forma de fuente tipográfica @code{caps}, pero
+supongamos que nuestra fuente no tiene la variante de versalitas.  En
+ese caso tenemos que hacer una falsa fuente de mayúsculas pequeñas
+haciendo que la cadena en mayúsculas tenga la primera legra un poco
+mayor:
+
+@example
+#(define-markup-command (smallcaps layout props str) (string?)
+  "Print the string argument in small caps."
+  (interpret-markup layout props
+   (make-line-markup
+    (map (lambda (s)
+          (if (= (string-length s) 0)
+              s
+              (markup #:large (string-upcase (substring s 0 1))
+                      #:translate (cons -0.6 0)
+                      #:tiny (string-upcase (substring s 1)))))
+         (string-split str #\Space)))))
+@end example
+
+La instrucción @code{smallcaps} primero divide su argumento de cadena
+en unidades o palabras separadas por espacios (@code{(string-split str
+#\Space)}); para cada unidad o palabra, se construye un marcado con la
+primera letra agrandada y en mayúscula (@code{#:large (string-upcase
+(substring s 0 1))}), y un segundo marcado construido con las letras
+siguientes reducidas de tamaño y en mayúsculas (@code{#:tiny
+(string-upcase (substring s 1))}).  Como LilyPond introduce un espacio
+entre los marcados de una misma línea, el segundo marcado se traslada
+a la izquierda (@code{#:translate (cons -0.6 0) ...}).  Después, los
+marcados construidos para cada palabra se ponen en una línea mediante
+@code{(make-line-markup ...)}.  Finalmente, el marcado resultante se
+pasa a la función @code{interpret-markup}, con los argumentos
+@code{layout} y @code{props}.
+
+Nota: ahora existe una instrucción interna @code{\smallCaps} que se
+puede usar para poner texto en versalitas.  Consulte @ref{Text markup
+commands}, para ver más detalles.
+
+@knownissues
+
+Actualmente las combinaciones de argumentos que hay disponibles
+(después de los argumentos estándar @var{layout} y @var{props}) para
+una instrucción de marcado definida con @code{define-markup-command}
+se limitan a la siguiente lista:
+
+@table @asis
+@item (ningún argumento)
+@itemx @var{list}
+@itemx @var{markup}
+@itemx @var{markup markup}
+@itemx @var{scm}
+@itemx @var{scm markup}
+@itemx @var{scm scm}
+@itemx @var{scm scm markup}
+@itemx @var{scm scm markup markup}
+@itemx @var{scm markup markup}
+@itemx @var{scm scm scm}
+@end table
+
+@noindent
+En la tabla de arriba, @var{scm} representa los tipos de datos nativos
+de Scheme como @q{number} (número) o @q{string} (cadena).
+
+Como ejemplo, no es posible usar una instrucción de marcado
+@code{fulanito} con cuatro argumentos definida como
+
+@example
+#(define-markup-command (fulanito layout props
+                         num1    str1    num2    str2)
+                        (number? string? number? string?)
+  ...)
+@end example
+
+@noindent
+Si la aplicamos como, digamos,
+
+@example
+\markup \fulanito #1 #"mengano" #2 #"zutano"
+@end example
+
+@cindex Scheme signature
+@cindex signature, Scheme
+@noindent
+@command{lilypond} protesta diciendo que no puede analizar
+@code{fulanito} debido a su firma de Scheme desconocida.
 
 
 @node New markup list command definition
 @subsection New markup list command definition
 
-@untranslated
+Las instrucciones de listas de marcado se definen con el macro de
+Scheme @code{define-markup-list-command}, que es similar al macro
+@code{define-markup-command} descrito en @ref{New markup command
+definition}, excepto que donde éste devuelve un sello único, aquél
+devuelve una lista de sellos.
+
+En el siguiente ejemplo se define una instrucción de lista de marcado
+@code{\paragraph}, que devuelve una lista de líneas justificadas,
+estando la primera de ellas sangrada.  La anchura del sangrado se toma
+del argumento @code{props}.
+
+@example
+#(define-markup-list-command (paragraph layout props args) (markup-list?)
+   (let ((indent (chain-assoc-get 'par-indent props 2)))
+     (interpret-markup-list layout props 
+       (make-justified-lines-markup-list (cons (make-hspace-markup indent)
+                                               args)))))
+@end example
+
+Aparte de los argumentos usuales @code{layout} y @code{props}, la
+instrucción de lista de marcados @code{paragraph} toma un argumento de
+lista de marcados, llamado @code{args}.  El predicado para listas de
+marcados es @code{markup-list?}.
+
+Em primer lugar, la función toma el ancho del sangrado, una propiedad
+llamada aquí @code{par-indent}, de la lista de propiedades
+@code{props}.  Si no se encuentra la propiedad, el valor
+predeterminado es @code{2}.  Después, se hace una lista de líneas
+justificadas usando la función
+@code{make-justified-lines-markup-list}, que está relacionada con la
+instrucción incorporada de lista de marcados @code{\justified-lines}.
+Se añade un espacio horizontal al principio usando la función
+@code{make-hspace-markup}.  Finalmente, la lista de marcados se
+interpreta usando la función @code{interpret-markup-list}.
+
+Esta nueva instrucción de lista de marcados se puede usar como sigue:
+
+@example
+\markuplines @{
+  \paragraph @{
+    El arte de la tipografía musical se llama  \italic @{grabado (en plancha).@}
+    El término deriva del proceso tradicional de impresión de música.
+    hace sólo algunas décadas, las partituras se hacían cortando y estampando
+    la música en una plancha de zinc o lata en una imagen invertida.
+  @}
+  \override-lines #'(par-indent . 4) \paragraph @{
+    La plancha se tenía que entintar, y las depresiones causadas por los cortes
+    y estampados retienen la tinta.  Se formaba una imagen presionando el papel
+    contra la plancha.  El estampado y cortado se hacía completamente
+    a mano.
+  @}
+@}
+@end example
 
 
 @node Contexts for programmers
 @section Contexts for programmers
-
-@untranslated
-
 
 @menu
 * Context evaluation::
@@ -956,7 +1246,27 @@ no es válido.  Hay que usar las funciones @code{make-line-markup},
 @node Context evaluation
 @subsection Context evaluation
 
-@untranslated
+@cindex código, llamadas durante la interpretación
+@funindex \applyContext
+
+Se pueden modificar los contextos durante la interpretación con código
+de Scheme.  La sintaxis para esto es
+
+@example
+\applyContext @var{función}
+@end example
+
+@var{función} debe ser una función de Scheme que toma un único
+argumento, que es el contexto al que aplicarla.  El código siguiente
+imprime el número del compás actual sobre la salida estándar durante
+la compilación:
+
+@example
+\applyContext
+  #(lambda (x)
+    (format #t "\nSe nos ha llamado en el compás número ~a.\n"
+     (ly:context-property x 'currentBarNumber)))
+@end example
 
 
 @node Running a function on all layout objects
