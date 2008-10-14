@@ -305,7 +305,98 @@ Scheme.
 @node Input variables and Scheme
 @subsection Input variables and Scheme
 
-@untranslated
+El formato de entrada contempla la noción de variables: en el ejemplo
+siguiente, se asigna una expresión musical a una variable con el
+nombre @code{traLaLa}.
+
+@example
+traLaLa = @{ c'4 d'4 @}
+@end example
+
+@noindent
+
+También existe una forma de ámbito léxico: en el ejemplo siguiente, el
+bloque @code{\layout} también contiene una variable @code{traLaLa},
+que es independiente de la @code{\traLaLa} exterior.
+
+@example
+traLaLa = @{ c'4 d'4 @}
+\layout @{ traLaLa = 1.0 @}
+@end example
+@c
+De hecho, cada archivo de entrada es un ámbito léxico, y todos los
+bloques @code{\header}, @code{\midi} y @code{\layout} son ámbitos
+anidados dentro de dicho ámbito de nivel superior.
+
+Tanto el ámbito léxico como las variables están implementados en el
+sistema de módulos GUILE.  Se adjunta un módulo anónimo de Scheme a
+cada ámbito.  Una asignación de la forma
+@example
+traLaLa = @{ c'4 d'4 @}
+@end example
+
+@noindent
+se convierte internamente a una definición de Scheme
+@example
+(define traLaLa @var{Scheme value of `@code{... }'})
+@end example
+
+Esto supone que las variables de entrada y las variables de Scheme se
+pueden intermezclar con libertad.  En el ejemplo siguiente, se
+almacena un fragmento musical en la variable @code{traLaLa}, y se
+dupplica utilizando Scheme.  El resultado se importa en un bloque
+@code{\score} por medio de una segunda variable @code{twice}:
+
+@lilypond[verbatim]
+traLaLa = { c'4 d'4 }
+
+%% dummy action to deal with parser lookahead
+#(display "this needs to be here, sorry!")
+
+#(define newLa (map ly:music-deep-copy
+  (list traLaLa traLaLa)))
+#(define twice
+  (make-sequential-music newLa))
+
+{ \twice }
+@end lilypond
+
+@c Due to parser lookahead
+
+En este ejemplo, la asignación se produce después de que el analizador
+sintáctico ha verificado que no ocurre nada interesante después de
+@code{traLaLa = @{ ... @}}.  Sin el argumento mudo del ejemplo, la
+definición @code{newLa} se ejecuta antes de que se defina
+@code{traLaLa}, conduciendo a un error de sintaxis.
+
+El ejemplo anterior muestra cómo @q{exportar} expresiones musicales
+desde la entrada hasta el intérprete de Scheme.  También es posible lo
+contrario.  Envolviendo un valor de Scheme en la función
+@code{ly:export}, un valor de Scheme se interpreta como si hubiera
+sido introducido en sintaxis de LilyPond.  En vez de definir
+@code{\twice}, el ejemplo anterior podría también haberse escrito como
+@example
+@dots{}
+@{ #(ly:export (make-sequential-music (list newLa))) @}
+@end example
+
+El sódigo de Scheme se evalúa tan pronto como el analizador sintáctico
+lo encuentra.  Para definir código de Scheme en un macro (para
+llamarlo con posterioridad), use @ref{Void functions}, o bien
+
+@example
+#(define (nopc)
+  (ly:set-option 'point-and-click #f))
+
+...
+#(nopc)
+@{ c'4 @}
+@end example
+
+@knownissues
+
+No es posible mezclar variables de Scheme y de LilyPond con la opción
+@code{--safe}.
 
 
 @node Internal music representation
