@@ -47,7 +47,50 @@ LilyPond.
 @node Overview of music functions
 @subsection Overview of music functions
 
-@untranslated
+Es fácil hacer una función que sustituya a una variable en código de
+LilyPond.  La forma general de estas funciones es:
+
+@example
+funcion =
+#(define-music-function (analizador posicion @var{var1} @var{var2}... )
+                        (@var{var1-type?} @var{var2-type?}...)
+  #@{
+    @emph{...música...}
+  #@})
+@end example
+
+@noindent
+donde
+
+@multitable @columnfractions .33 .66
+@item @var{argi}         @tab @var{i}-ésima variable
+@item @var{argi-type?}   @tab tipo de variable
+@item @var{...música...}  @tab entrada normal de LilyPond, usando las variables como @code{#$var1}.
+@end multitable
+
+Los siguientes tipos de entrada se pueden usar como variables en una
+función musical.  Esta lista no es exhaustiva; consulte otros lugares
+de la documentación específica de Scheme para ver otros tipos de
+variables.
+
+@multitable @columnfractions .33 .66
+@headitem Tipo de entrada       @tab notación de @var{argi-type?}
+@item Entero                    @tab @code{integer?}
+@item Flotante (número decimal) @tab @code{number?}
+@item Cadena de texto           @tab @code{string?}
+@item Marcado                   @tab @code{markup?}
+@item Expresión musical         @tab @code{ly:music?}
+@item Pareja de variables          @tab @code{pair?}
+@end multitable
+
+Los argumentos @code{analizador} y @code{posicion} son obligatorios, y
+se usan en ciertas situaciones avanzadas.  El argumento
+@code{analizador} se usa para acceder al valor de otra variable de
+LilyPond.  El argumento @code{posicion} se usa para establecer el
+@q{origen} de la expresión musical que construye la función musical,
+de forma que en caso de producirse un error de sintaxis LilyPond pueda
+informar al usuario de un lugar adecuado donde buscar en el archivo de
+entrada.
 
 
 @node Simple substitution functions
