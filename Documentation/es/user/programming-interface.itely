@@ -402,13 +402,58 @@ No es posible mezclar variables de Scheme y de LilyPond con la opción
 @node Internal music representation
 @subsection Internal music representation
 
-@untranslated
+Cuando se analiza sintácticamente una expresión musical, se convierte
+en un conjunto de objetos musicales de Scheme.  La propiedad que
+define a un objeto musical es que tiene una cierta duración.  El
+tiempo es un número racional que mide la longitud de un fragmento de
+música en unidades del valor de una redonda.
+
+Un objeto musical tiene tres clases de tipos:
+@itemize
+@item
+nombre musical: cada expresión musical tiene un nombre.  Por ejemplo,
+una nota conduce a un evento @rinternals{NoteEvent}, y
+@code{\simultaneous} conduce a @rinternals{SimultaneousMusic}.  Hay
+una lista de todas las expresiones que están disponibles en el Manual
+de referencia de funcionamiento interno, bajo @rinternals{Music
+expressions}.
+
+@item
+@q{typo} o intterface: cada nombre de música tiene varios @q{tipos} o
+interfaces, por ejemplo una nota es un @code{event}, pero también es
+un @code{note-event}, un @code{rhythmic-event} y un
+@code{melodic-event}.  Todas las clases musicales se encuentran
+relacionadas en la Referencia de funcionamiento interno bajo
+@rinternals{Music classes}.
+
+@item
+Objeto de C++: cada objeto musical está representado por un objeto de
+la clase de C++ @code{Music}.
+@end itemize
+
+La información real de una expresión musical se almacena en forma de
+propiedades.  Por ejemplo, un evento @rinternals{NoteEvent} tiene
+propiedades @code{pitch} y @code{duration} que almacenan la altura y
+duración de la nota.  Hay una lista completa de las propiedades que
+están disponibles en la Referencia de funcionamiento interno, bajo
+@rinternals{Music properties}.
+
+Una expresión musical compuesta es un objeto musical que contiene
+otros objetos musicales en sus propiedades.  Se puede almacernar una
+lista de objetos en la propiedad @code{elements} de un objeto musical,
+o un solo objeto musical @q{hijo} en la propiedad @code{element}.  Por
+ejemplo, @rinternals{SequentialMusic} tiene sus hijos en
+@code{elements}, y @rinternals{GraceMusic} tiene su elemento único en
+@code{element}.  El cuerpo de una repetición se almacena en la
+propiedad @code{element} de @rinternals{RepeatedMusic}, y las
+alternativas en @code{elements}.
 
 
 @node Building complicated functions
 @section Building complicated functions
 
-@untranslated
+Esta sección explica cómo reunir la información necesaria para crear
+funciones musicales complejas.
 
 
 @menu
@@ -421,19 +466,215 @@ No es posible mezclar variables de Scheme y de LilyPond con la opción
 @node Displaying music expressions
 @subsection Displaying music expressions
 
-@untranslated
+@cindex interno, almacenamiento
+@funindex \displayMusic
+
+Si se está escribiendo una función musical puede ser muy instructivo
+examinar cómo se almacena internamente una expresión musical.  Esto se
+puede hacer con la función musical @code{\displayMusic}:
+
+@example
+@{
+  \displayMusic @{ c'4\f @}
+@}
+@end example
+
+@noindent
+imprime lo siguiente:
+
+@example
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 0 0))
+                (make-music
+                  'AbsoluteDynamicEvent
+                  'text
+                  "f")))))
+@end example
+
+De forma predeterminada, LilyPond imprime estos mensajes en la consola
+junto al resto de los mensajes.  Para discernir entre estos mensajes y
+guardar el resultado de @code{\display@{MATERIAL@}}, redirija la
+salida hacia un archivo.
+
+@example
+lilypond archivo.ly >resultado.txt
+@end example
+
+Con la aplicación de un poco de formato, la inforamción anterior es
+fácil de leer:
+
+@example
+(make-music 'SequentialMusic
+  'elements (list (make-music 'EventChord
+                    'elements (list (make-music 'NoteEvent
+                                      'duration (ly:make-duration 2 0 1 1)
+                                      'pitch (ly:make-pitch 0 0 0))
+                                    (make-music 'AbsoluteDynamicEvent
+                                      'text "f")))))
+@end example
+
+Una secuencia musical @code{@{ ... @}} tiene el nombre
+@code{SequentialMusic}, y sus expresiones internas se almacenan como
+una lista en su propiedad @code{'elements}.  Una nota se representa
+como una expresión @code{EventChord} que contiene un objeto
+@code{NoteEvent} (que almacena las propiedades de duración y altura) y
+cualquier otra información adicional (en este caso, un evento
+@code{AbsoluteDynamicEvent} con una porpiedad de texto @code{"f"}.
 
 
 @node Music properties
 @subsection Music properties
 
-@untranslated
+El objeto @code{NoteEvent} es el primer objeto de la propiedad
+@code{'elements} de @code{someNote}.
+
+@example
+unaNota = c'
+\displayMusic \unaNota
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch 0 0 0))))
+@end example
+
+La función @code{display-scheme-music} es la función utilizada por
+@code{\displayMusic} para imprimir la representación de Scheme de una
+expresión musical.
+
+@example
+#(display-scheme-music (first (ly:music-property unaNota 'elements)))
+===>
+(make-music
+  'NoteEvent
+  'duration
+  (ly:make-duration 2 0 1 1)
+  'pitch
+  (ly:make-pitch 0 0 0))
+@end example
+
+Después se accede a la altura de la nota a través de la propiedad
+@code{'pitch} del objeto @code{NoteEvent}:
+
+@example
+#(display-scheme-music
+   (ly:music-property (first (ly:music-property unaNota 'elements))
+                      'pitch))
+===>
+(ly:make-pitch 0 0 0)
+@end example
+
+La altura de la nota se puede cambiar estableciendo el valor de esta
+propiedad 'pitch:
+
+@funindex \displayLilyMusic
+
+@example
+#(set! (ly:music-property (first (ly:music-property unaNota 'elements))
+                          'pitch)
+       (ly:make-pitch 0 1 0)) ;; fijar la altura a d'.
+\displayLilyMusic \unaNota
+===>
+d'
+@end example
 
 
 @node Doubling a note with slurs (example)
 @subsection Doubling a note with slurs (example)
 
-@untranslated
+Supongamos que queremos crear una función que traduce una entrada como
+@code{a} a algo como @code{a( a)}.  Empezamos examinando la
+representación interna de la música con la que queremos terminar.
+
+@example
+\displayMusic@{ a'( a') @}
+===>
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))
+                (make-music
+                  'SlurEvent
+                  'span-direction
+                  -1)))
+        (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))
+                (make-music
+                  'SlurEvent
+                  'span-direction
+                  1)))))
+@end example
+
+Las malas noticias son que las espresiones @code{SlurEvent} se deben
+añadir @q{dentro} de la nota (o más concretamente, dentro de la
+expresión @code{EventChord}).
+
+Ahora observamos la entrada:
+
+@example
+(make-music
+  'SequentialMusic
+  'elements
+  (list (make-music
+          'EventChord
+          'elements
+          (list (make-music
+                  'NoteEvent
+                  'duration
+                  (ly:make-duration 2 0 1 1)
+                  'pitch
+                  (ly:make-pitch 0 5 0))))))
+@end example
+
+Así pues, en nuestra función, tenemos que clonar esta expresión (de
+forma que tengamos dos notas para construir la secuencia), añadir
+@code{SlurEvents} a la propiedad @code{'elements} de cada una de
+ellas, y por último hacer una secuencia @code{SequentialMusic} con los
+dos @code{EventChords}.
+
+@example
+doubleSlur = #(define-music-function (parser location note) (ly:music?)
+         "Return: @{ note ( note ) @}.
+         `note' is supposed to be an EventChord."
+         (let ((note2 (ly:music-deep-copy note)))
+           (set! (ly:music-property note 'elements)
+                 (cons (make-music 'SlurEvent 'span-direction -1)
+                       (ly:music-property note 'elements)))
+           (set! (ly:music-property note2 'elements)
+                 (cons (make-music 'SlurEvent 'span-direction 1)
+                       (ly:music-property note2 'elements)))
+           (make-music 'SequentialMusic 'elements (list note note2))))
+@end example
 
 
 @node Adding articulation to notes (example)
