@@ -52,7 +52,7 @@ LilyPond.  La forma general de estas funciones es:
 
 @example
 funcion =
-#(define-music-function (analizador posicion @var{var1} @var{var2}... )
+#(define-music-function (parser location @var{var1} @var{var2}... )
                         (@var{var1-type?} @var{var2-type?}...)
   #@{
     @emph{...música...}
@@ -83,10 +83,10 @@ variables.
 @item Pareja de variables          @tab @code{pair?}
 @end multitable
 
-Los argumentos @code{analizador} y @code{posicion} son obligatorios, y
+Los argumentos @code{parser} y @code{location} son obligatorios, y
 se usan en ciertas situaciones avanzadas.  El argumento
-@code{analizador} se usa para acceder al valor de otra variable de
-LilyPond.  El argumento @code{posicion} se usa para establecer el
+@code{parser} se usa para acceder al valor de otra variable de
+LilyPond.  El argumento @code{location} se usa para establecer el
 @q{origen} de la expresión musical que construye la función musical,
 de forma que en caso de producirse un error de sintaxis LilyPond pueda
 informar al usuario de un lugar adecuado donde buscar en el archivo de
@@ -96,45 +96,206 @@ entrada.
 @node Simple substitution functions
 @subsection Simple substitution functions
 
-@untranslated
+He aquí un ejemplo sencillo:
+
+@lilypond[quote,verbatim,ragged-right]
+padText = #(define-music-function (parser location padding) (number?)
+  #{
+    \once \override TextScript #'padding = #$padding
+  #})
+
+\relative c''' {
+  c4^"piu mosso" b a b
+  \padText #1.8
+  c4^"piu mosso" d e f
+  \padText #2.6
+  c4^"piu mosso" fis a g
+}
+@end lilypond
+
+También se pueden sustituir las expresiones musicales:
+
+@lilypond[quote,verbatim,ragged-right]
+custosNote = #(define-music-function (parser location note)
+                                     (ly:music?)
+  #{
+    \once \override Voice.NoteHead #'stencil =
+      #ly:text-interface::print
+    \once \override Voice.NoteHead #'text =
+      \markup \musicglyph #"custodes.mensural.u0"
+    \once \override Voice.Stem #'stencil = ##f
+    $note
+  #})
+
+{ c' d' e' f' \custosNote g' }
+@end lilypond
+
+Se pueden usar más de una variable:
+
+@lilypond[quote,verbatim,ragged-right]
+tempoMark = #(define-music-function (parser location padding marktext)
+                                    (number? string?)
+#{
+  \once \override Score . RehearsalMark #'padding = $padding
+  \once \override Score . RehearsalMark #'extra-spacing-width = #'(+inf.0 . -inf.0)
+  \mark \markup { \bold $marktext }
+#})
+
+\relative c'' {
+c2 e
+\tempoMark #3.0 #"Allegro"
+g c
+}
+@end lilypond
 
 
 @node Paired substitution functions
 @subsection Paired substitution functions
 
-@untranslated
+Algunas instrucciones @code{\override} requieren un par de números
+(llamados en Scheme una @code{célula cons}).  Para pasar estos números
+a una función, usamos una variable @code{pair?} o bien insertamos el
+@code{cons} en la función musical.
+
+@quotation
+@example
+manualBeam =
+#(define-music-function (parser location beg-end)
+                        (pair?)
+#@{
+  \once \override Beam #'positions = #$beg-end
+#@})
+
+\relative @{
+  \manualBeam #'(3 . 6) c8 d e f
+@}
+@end example
+@end quotation
+
+@noindent
+o bien
+
+@lilypond[quote,verbatim,ragged-right]
+manualBeam =
+#(define-music-function (parser location beg end)
+                        (number? number?)
+#{
+  \once \override Beam #'positions = #(cons $beg $end)
+#})
+
+\relative {
+  \manualBeam #3 #6 c8 d e f
+}
+@end lilypond
 
 
 @node Mathematics in functions
 @subsection Mathematics in functions
 
-@untranslated
+Las funciones musicales pueden contar con programación de Scheme
+además de la simple sustitución:
+
+@lilypond[quote,verbatim,ragged-right]
+AltOn = #(define-music-function (parser location mag) (number?)
+  #{ \override Stem #'length = #$(* 7.0 mag)
+     \override NoteHead #'font-size =
+       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag))) #})
+
+AltOff = {
+  \revert Stem #'length
+  \revert NoteHead #'font-size
+}
+
+{ c'2 \AltOn #0.5 c'4 c'
+  \AltOn #1.5 c' c' \AltOff c'2 }
+@end lilypond
+
+@noindent
+Este ejemplo se puede reescribir de forma que pase expresiones
+musicales:
+
+@lilypond[quote,verbatim,ragged-right]
+withAlt = #(define-music-function (parser location mag music) (number? ly:music?)
+  #{ \override Stem #'length = #$(* 7.0 mag)
+     \override NoteHead #'font-size =
+       #$(inexact->exact (* (/ 6.0 (log 2.0)) (log mag)))
+     $music
+     \revert Stem #'length
+     \revert NoteHead #'font-size #})
+
+{ c'2 \withAlt #0.5 {c'4 c'}
+  \withAlt #1.5 {c' c'} c'2 }
+@end lilypond
 
 
 @node Void functions
 @subsection Void functions
 
-@untranslated
+Una función musical debe devolver una expresión musical, per a veces
+podemos necesitar una función en la que no hay música en juego (como
+la desactivación de la funcionalidad Apuntar y Pulsar).  Para hacerlo,
+devolvemos una expresión musical @code{void} (vacía).
+
+Este es el motivo por el que la forma que se devuelve es
+@code{(make-music ...)}.  Con el valor de la propiedad @code{'void}
+establecido a @code{#t}, le decimos al analizador que descarte la
+expresión musical devuelta.  así, la parte importante de la función
+musical vacía es el proceso realizado por la función, no la expresión
+musical que se devuelve.
+
+@example
+noPointAndClick =
+#(define-music-function (parser location) ()
+   (ly:set-option 'point-and-click #f)
+   (make-music 'SequentialMusic 'void #t))
+...
+\noPointAndClick   % desactivar la funcionalidad Apuntar y Pulsar.
+@end example
 
 
 @node Functions without arguments
 @subsection Functions without arguments
 
-@untranslated
+En casi todos los casos, una función sin argumentos se debe escribir
+con una variable:
+
+@example
+dolce = \markup@{ \italic \bold dolce @}
+@end example
+
+Sin embargo, en raras ocasiones puede ser de utilidad crear una
+función musical sin argumentos:
+
+@example
+displayBarNum =
+#(define-music-function (parser location) ()
+   (if (eq? #t (ly:get-option 'display-bar-numbers))
+       #@{ \once \override Score.BarNumber #'break-visibility = ##f #@}
+       #@{#@}))
+@end example
+
+Para la imresión real de los números de compás donde se llama a esta
+función, invoque a @command{lilypond} con
+
+@example
+lilypond -d display-bar-numbers ARCHIVO.ly
+@end example
 
 
 @node Overview of available music functions
 @subsection Overview of available music functions
 
-@untranslated
-
+@c fixme ; this should be move somewhere else?
+Las siguientes instrucciones son funciones musicales:
 
 @include identifiers.tely
+
+
 @node Programmer interfaces
 @section Programmer interfaces
 
-@untranslated
-
+Esta sección contiene información sobre cómo mezclar LilyPond y
+Scheme.
 
 @menu
 * Input variables and Scheme::
