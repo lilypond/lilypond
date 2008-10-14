@@ -100,10 +100,13 @@ c4(\downbow d) e(\upbow f)
 @end lilypond
 
 @noindent
-and the following example shows how an open D string is indicated:
+and the following example shows three ways in which an open A
+string on a violin might be indicated:
 
-@lilypond[verbatim,quote,relative=1]
-d1 \open ^\markup { \teeny "IV" }
+@lilypond[verbatim,quote,relative=2]
+a4 \open 
+a^\markup { \teeny "II" } 
+a2^\markup { \small "sul A" }
 @end lilypond
 
 @predefined
