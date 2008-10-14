@@ -1569,6 +1569,7 @@ player that supports pitch bend.)
 @item Dynamic marks
 @item Crescendi, decrescendi over multiple notes
 @item Tempo changes entered with a tempo marking
+@item Lyrics
 @end itemize
 
 @unnumberedsubsubsec Unsupported in MIDI
@@ -1585,8 +1586,6 @@ The following items of notation have no effect on the MIDI output:
 @item Crescendi, decrescendi over a single note
 @item Tremolos entered with @q{@code{:}[@var{number}]}
 @item Figured bass
-@c TODO Check Lyrics
-@item Lyrics
 @end itemize
 
 
