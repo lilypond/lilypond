@@ -1177,11 +1177,33 @@ is known but which is not available in the editor being used, enter
 #(ly:export (ly:wide-char->utf-8 #x03BE))
 @end example
 
+as an articulation mark or within a @code{\markup} block,
 where in this example @code{x03BE} is the hexadecimal code for the
 Unicode U+03BE character, which has the Unicode name @qq{Greek Small
 Letter Xi}.  Any Unicode hexadecimal code may be substituted, and
 if all special characters are entered in this format it is not
 necessary to save the input file in UTF-8 format.
+
+Here are three ways of entering a UTF-8 code:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    c2^#(ly:export (ly:wide-char->utf-8 #x03EE))
+    c2_\markup { \tiny { #(ly:export (ly:wide-char->utf-8 #x03B1)) " to "
+                         #(ly:export (ly:wide-char->utf-8 #x03C9)) } }
+  }
+}
+\markup { "Copyright 2008" #(ly:export (ly:wide-char->utf-8 #x00a9)) }
+@end lilypond
+
+To enter the copyright sign in the copyright notice use:
+
+@example
+\header @{
+  copyright = \markup @{ #(ly:export (ly:wide-char->utf-8 #x00a9)) "2008" @}
+@}
+@end example
 
 @knownissues
 
