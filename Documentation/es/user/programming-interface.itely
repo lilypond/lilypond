@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+    Translation of GIT committish: 1c1a90eaa67cdb75cd62c80fc11cd20635e68f93
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1194,7 +1194,7 @@ del argumento @code{props}.
 @example
 #(define-markup-list-command (paragraph layout props args) (markup-list?)
    (let ((indent (chain-assoc-get 'par-indent props 2)))
-     (interpret-markup-list layout props 
+     (interpret-markup-list layout props
        (make-justified-lines-markup-list (cons (make-hspace-markup indent)
                                                args)))))
 @end example
@@ -1272,23 +1272,259 @@ la compilación:
 @node Running a function on all layout objects
 @subsection Running a function on all layout objects
 
-@untranslated
+
+@cindex código, llamar sobre objetos de presentación
+@funindex \applyOutput
+
+
+La manera más versátil de realizar el ajuste fino de un objeto es
+@code{\applyOutput}.  Su sintaxis es
+
+@example
+\applyOutput @var{contexto} @var{proc}
+@end example
+
+@noindent
+donde @var{proc} es una función de Scheme, que toma tres argumentos.
+
+Al interpretarse, la función @var{proc} se llama para cada objeto de
+presentación que se encuentra en el contexto @var{contexto}, con los
+siguientes argumentos:
+
+@itemize
+@item el propio objeto de presentación,
+@item el contexto en que se creó el objeto de presentación, y
+@item el contexto en que se procesa @code{\applyOutput}.
+@end itemize
+
+Además, la causa del objeto de presentación, es decir el objeto o
+expresión musical que es responsable de haberlo creado, está en la
+propiedad @code{cause} del objeto.  Por ejemplo, para la cabeza de una
+nota, éste es un evento @rinternals{NoteHead}, y para un objeto
+@rinternals{Stem} (plica), éste es un objeto @rinternals{Stem}.
+@c Impossible - changed to Stem --FV
+
+He aquí una función que usar para @code{\applyOutput}; borra las
+cabezas de las notas que están sobre la línea central:
+
+@example
+(define (blanker grob grob-origin context)
+ (if (and (memq (ly:grob-property grob 'interfaces)
+                note-head-interface)
+          (eq? (ly:grob-property grob 'staff-position) 0))
+     (set! (ly:grob-property grob 'transparent) #t)))
+@end example
 
 
 @node Scheme procedures as properties
 @section Scheme procedures as properties
 
-@untranslated
+Las propiedades (como el grosor, la dirección, etc.) se pueden
+establecer a valores fijos con \override, p. ej.
 
+@example
+\override Stem #'thickness = #2.0
+@end example
+
+Las propiedades pueden fijarse también a un procedimiento de scheme,
+
+@lilypond[fragment,verbatim,quote,relative=2]
+\override Stem #'thickness = #(lambda (grob)
+    (if (= UP (ly:grob-property grob 'direction))
+        2.0
+        7.0))
+c b a g b a g b
+@end lilypond
+
+@noindent
+En este caso, el procedimiento se ejecuta tan pronto como el valor de
+la propiedad se reclama durante el proceso de formateo.
+
+Casi todo el motor de tipografiado está manejado por estos
+@emph{callbacks}.  Entre las propiedades que usan normalmente
+@emph{callbacks} están
+
+@table @code
+@item stencil
+  La rutina de impresión, que construye un dibujo para el símbolo
+@item X-offset
+  La rutina que establece la posición horizontal
+@item X-extent
+  La rutina que calcula la anchura de un objeto
+@end table
+
+El procedimiento siempre toma un argumento único, que es el grob (el
+objeto gráfico).
+
+Si se deben llamar rutinas con varios argumentos, el grob actual se
+puede insertar con una cerradura de grob.  He aquí un ajuste
+procedente de @code{AccidentalSuggestion},
+
+@example
+(X-offset .
+  ,(ly:make-simple-closure
+    `(,+
+        ,(ly:make-simple-closure
+           (list ly:self-alignment-interface::centered-on-x-parent))
+      ,(ly:make-simple-closure
+           (list ly:self-alignment-interface::x-aligned-on-self)))))
+@end example
+
+@noindent
+En este ejemplo, tanto
+@code{ly:self-alignment-interface::x-aligned-on-self} como
+@code{ly:self-alignment-interface::centered-on-x-parent} se llaman con
+el grob como argumento.  El resultado se añade con la función
+@code{+}.  Para asegurar que esta adición se ejecuta adecuadamente,
+todo ello se encierra dentro de @code{ly:make-simple-closure}.
+
+De hecho, usar un solo procedimiento como valor de una propiedad
+equivale a
+
+@example
+(ly:make-simple-closure (ly:make-simple-closure (list @var{proc})))
+@end example
+
+@noindent
+El @code{ly:make-simple-closure} interior aporta el grob como
+argumento de @var{proc}, el exterior asegura que el resultado de la
+función es lo que se devuelve, en lugar del objeto
+@code{simple-closure}.
 
 
 @node Using Scheme code instead of \tweak
 @section Using Scheme code instead of @code{\tweak}
 
-@untranslated
+La principal desventaja de @code{\tweak} es su inflexibilidad
+sintáctica.  Por ejemplo, lo siguiente produce un error de sintaxis.
 
+@example
+F = \tweak #'font-size #-3 -\flageolet
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+En otras palabras, @code{\tweak} no se comporta como una articulación
+en cuando a la sintaxis; concretamente, no se puede adjuntar con
+@code{^} y @code{_}.
+
+Usando Scheme, se puede dar un rodeo a este problema.  La ruta hacia
+el resultado se da en @ref{Adding articulation to notes (example)},
+especialmente cómo usar @code{\displayMusic} como guía de ayuda.
+
+@example
+F = #(let ((m (make-music 'ArticulationEvent
+                          'articulation-type "flageolet")))
+       (set! (ly:music-property m 'tweaks)
+             (acons 'font-size -3
+                    (ly:music-property m 'tweaks)))
+       m)
+
+\relative c'' @{
+  c4^\F c4_\F
+@}
+@end example
+
+@noindent
+Aquí, las propiedades @code{tweaks} del objeto flageolet @code{m}
+(creado con @code{make-music}) se extraen con
+@code{ly:music-property}, se antepone un nuevo par clave-valor para
+cambiar el tamaño de la tipografía a la lista de propiedades con la
+función de Scheme @code{acons}, y finalmente el resultado se escribe
+de nuevo con @code{set!}.  El último elemento del bloque @code{let} es
+el valor de retorno, el propio @code{m}.
 
 @node Difficult tweaks
 @section Difficult tweaks
 
-@untranslated
+Hay un cierto número de tipos de ajustes difíciles.
+
+@itemize
+
+@item
+Un tipo de ajuste difícil es la apariencia de los objetos de
+extensión, como las ligaduras de expresión y de unión.  Inicialmente,
+sólo se crea uno de estos objetos, y pueden ajustarse con el mecanismo
+normal.  Sin embargo, en ciertos casos los objetos extensores cruzan
+los saltos de línea.  Si esto ocurre, estos objetos se clonan.  Se
+crea un objeto distinto por cada sistema en que se encuentra.  Éstos
+son clones del objeto original y heredan todas sus propiedades,
+incluidos los @code{\override}s.
+
+En otras palabras, un @code{\override} siempre afecta a todas las
+piezas de un objeto de extensión fragmentado.  Para cambiar sólo una
+parte de un extensor en el salto de línea, es necesario inmiscuirse en
+el proceso de formateado.  El @emph{callback}
+@code{after-line-breaking} contiene el procedimiento Scheme que se
+llama después de que se han determinado los saltos de línea, y los
+objetos de presentación han sido divididos sobre los distintos
+sistemas.
+
+En el ejemplo siguiente, definimos un procedimiento
+@code{my-callback}.  Este procedimiento
+
+@itemize
+@item
+determina si hemos sido divididos por los saltos de línea
+@item
+en caso afirmativo, reúne todos los objetos divididos
+@item
+comprueba si somos el último de los objetos divididos
+@item
+en caso afirmativo, establece @code{extra-offset}.
+@end itemize
+
+Este procedimiento se instala en @rinternals{Tie} (ligadura de unión),
+de forma que la última parte de la ligadura dividida se traslada hacia
+arriba.
+
+@lilypond[quote,verbatim,ragged-right]
+#(define (my-callback grob)
+  (let* (
+         ; have we been split?
+         (orig (ly:grob-original grob))
+
+         ; if yes, get the split pieces (our siblings)
+         (siblings (if (ly:grob? orig)
+                     (ly:spanner-broken-into orig) '() )))
+
+   (if (and (>= (length siblings) 2)
+             (eq? (car (last-pair siblings)) grob))
+     (ly:grob-set-property! grob 'extra-offset '(-2 . 5)))))
+
+\relative c'' {
+  \override Tie #'after-line-breaking =
+  #my-callback
+  c1 ~ \break c2 ~ c
+}
+@end lilypond
+
+@noindent
+Al aplicar este truco, la nueva función de callback
+@code{after-line-breaking} también debe llamar a la antigua
+@code{after-line-breaking}, si existe.  Por ejemplo, si se usa con
+@code{Hairpin}, se debe llamar también a
+@code{ly:hairpin::after-line-breaking}.
+
+
+@item Algunos objetos no se pueden cambiar con @code{\override} por
+razones técnicas.  Son ejemplos @code{NonMusicalPaperColumn} y
+@code{PaperColumn}.  Se pueden cambiar con la función
+@code{\overrideProperty} que funciona de forma similar a @code{\once
+\override}, pero usa una sintaxis distinta.
+
+@example
+\overrideProperty
+#"Score.NonMusicalPaperColumn"  % Nombre del grob
+#'line-break-system-details     % Nombre de la propiedad
+#'((next-padding . 20))         % Valor
+@end example
+
+Observe, sin embargo, que @code{\override}, aplicado a
+@code{NoteMusicalPaperColumn} y a @code{PaperColumn}, aún funciona
+como se espera dentro de los bloques @code{\context.
+
+@end itemize
