@@ -680,14 +680,178 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 @node Adding articulation to notes (example)
 @subsection Adding articulation to notes (example)
 
-@untranslated
+La manera fácil de añadir articulación a las notas es fundir dos
+expresiones musicales en un contexto único, como está explicado en
+@ref{Creating contexts}.  Sin embargo, suponga que queremos escribir
+una función musical que haga esto.
+
+Una @code{$variable} dentro de la notación @code{#@{...#@}} es como
+usar una @code{\variable} normal en la notación clásica de LilyPond.
+Sabemos que
+
+@example
+@{ \musica -. -> @}
+@end example
+
+@noindent
+no funciona en LilyPond.  Podemos evitar este problema adjuntando la
+articulación a una nota de mentira,
+
+@example
+@{ << \musica s1*0-.-> @}
+@end example
+
+@noindent
+pero a los efectos de este ejemplo, aprenderemos ahora cómo hacerlo en
+Scheme.  Comenzamos examinando nuestra entrada y la salida deseada:
+
+@example
+%  entrada
+\displayMusic c4
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch -1 0 0))))
+=====
+%  salida deseada
+\displayMusic c4->
+===>
+(make-music
+  'EventChord
+  'elements
+  (list (make-music
+          'NoteEvent
+          'duration
+          (ly:make-duration 2 0 1 1)
+          'pitch
+          (ly:make-pitch -1 0 0))
+        (make-music
+          'ArticulationEvent
+          'articulation-type
+          "marcato")))
+@end example
+
+Vemos que una nota (@code{c4}) se representa como una expresión
+@code{EventChord}, con una expresión @code{NoteEvent} en su lista de
+elementos.  Para añadir una articulación marcato, se debe añadir una
+expresión @code{ArticulationEvent} a la propiedad elementos de la
+expresión @code{EventChord}.
+
+Para construir esta función, empezamos con
+
+@example
+(define (add-marcato event-chord)
+  "Añadir una ArticulationEvent de marcato a los elementos de `event-chord',
+  que se ssupone que es una expresión EventChord."
+  (let ((result-event-chord (ly:music-deep-copy event-chord)))
+    (set! (ly:music-property result-event-chord 'elements)
+          (cons (make-music 'ArticulationEvent
+                  'articulation-type "marcato")
+                (ly:music-property result-event-chord 'elements)))
+    result-event-chord))
+@end example
+
+La primera línea es la forma de definir una función en Scheme: el
+nombre de la función es @code{add-marcato}, y tiene una variable
+llamada @code{event-chord}.  En Scheme, el tipo de variable suele
+quedar claro a partir de su nombre (¡esto también es una buena
+práctica en otros lenguajes de programación!).
+
+@example
+"Añadir una ArticulationEvent de marcato..."
+@end example
+
+@noindent
+es una descripción de lo que hace la función.  No es estrictamente
+necesario, pero como los nombres de variable claros, es una buena
+práctica.
+
+@example
+(let ((result-event-chord (ly:music-deep-copy event-chord)))
+@end example
+
+@code{let} se usa para declarar variables locales.  Aquí usamos una
+variable local, llamada @code{result-event-chord}, a la que le damos
+el valor @code{(ly:music-deep-copy event-chord)}.
+@code{ly:music-deep-copy} es una función específica de LilyPond, como
+todas las funciones que comienzan por @code{ly:}.  Se usa para hacer
+una copia de una expresión musical.  Aquí, copiamos @code{event-chord}
+(el parámetro de la función).  Recuerde que el propósito es añadir un
+marcato a una expresión @code{EventChord}.  Es mejor no modificar el
+@code{EventChord} que se dio como argumento, porque podría utilizarse
+en algún otro lugar.
+
+Ahora tenemos un @code{result-event-chord}, que es una expresión
+@code{NoteEventChord} y es una copia de @code{event-chord}.  Añadimos
+el marcato a su propiedad lista de elementos.
+
+@example
+(set! place new-value)
+@end example
+
+Aquí, lo que queremos establecer (el @q{place}) es la propiedad
+@q{elements} de la expresión @code{result-event-chord}.
+
+@example
+(ly:music-property result-event-chord 'elements)
+@end example
+
+@code{ly:music-property} es la función que se usa para acceder a las
+propiedades musicales (los @code{'elements}, @code{'duration},
+@code{'pitch}, etc., que vemos en la salida de @code{\displayMusic}
+más arriba).  El nuevo valor es la anterior propiedad elements, con un
+elemento adicional: la expresión @code{ArticulationEvent}, que
+copiamos a partir de la salida de @code{\displayMusic},
+
+@example
+(cons (make-music 'ArticulationEvent
+        'articulation-type "marcato")
+      (ly:music-property result-event-chord 'elements))
+@end example
+
+@code{cons} se usa para añadir un elemento a una lsita sin modificar
+la lista original.  Esto es lo que queremos: la misma lista que antes,
+más la nueva expresión @code{ArticulationEvent}.  El orden dentro de
+la propiedad elements no es importante aquí.
+
+Finalmente, una vez añadida la articulación marcato a su propiedad
+@code{elements}, podemos devolver @code{result-event-chord}, de aquí
+la última línea de la función.
+
+Ahora transformamos la función @code{add-marcato} en una función
+musical,
+
+@example
+addMarcato = #(define-music-function (parser location event-chord)
+                                     (ly:music?)
+    "Add a marcato ArticulationEvent to the elements of `event-chord',
+    which is supposed to be an EventChord expression."
+    (let ((result-event-chord (ly:music-deep-copy event-chord)))
+      (set! (ly:music-property result-event-chord 'elements)
+            (cons (make-music 'ArticulationEvent
+                    'articulation-type "marcato")
+                  (ly:music-property result-event-chord 'elements)))
+      result-event-chord))
+@end example
+
+Podemos verificar que esta función musical funciona correctamente,
+
+@example
+\displayMusic \addMarcato c4
+@end example
 
 
 @node Markup programmer interface
 @section Markup programmer interface
 
-@untranslated
-
+Los marcados están implementados como funciones de Scheme especiales
+que producen un elemento Stencil (sello) dado un número de argumentos.
 
 @menu
 * Markup construction in Scheme::
@@ -699,7 +863,65 @@ doubleSlur = #(define-music-function (parser location note) (ly:music?)
 @node Markup construction in Scheme
 @subsection Markup construction in Scheme
 
-@untranslated
+@cindex marcado, definir instrucciones de
+
+El macro @code{markup} construye expresiones de marcado en Scheme,
+proporcionando una sintaxis similar a la de LilyPond.  Por ejemplo:
+
+@example
+(markup #:column (#:line (#:bold #:italic "hola" #:raise 0.4 "mundo")
+                  #:larger #:line ("fulano" "fulanito" "menganito")))
+@end example
+
+@noindent
+equivale a:
+@example
+\markup \column @{ \line @{ \bold \italic "hola" \raise #0.4 "mundo" @}
+                  \larger \line @{ fulano fulanito menganito @} @}
+@end example
+
+@noindent
+Este ejemplo muestra las principales reglas de traducción entre la
+sitaxis del marcado normal de LilyPond y la sintaxis del marcado de
+Scheme.
+
+@quotation
+@multitable @columnfractions .3 .3
+@item @b{LilyPond} @tab @b{Scheme}
+@item @code{\markup marcado1} @tab @code{(markup marcado1)}
+@item @code{\markup @{ marcado1 marcado2 ... @}} @tab
+        @code{(markup marcado1 marcado2 ... )}
+@item @code{\instruccion} @tab @code{#:instruccion}
+@item @code{\variable} @tab @code{variable}
+@item @code{\center-column @{ ... @}} @tab @code{#:center-column ( ... )}
+@item @code{cadena} @tab @code{"cadena"}
+@item @code{#argumento-de-scheme} @tab @code{argumento-de-scheme}
+@end multitable
+@end quotation
+
+Todo el lenguaje Scheme está accesible dentro del macro @code{markup}.
+Por ejemplo, podemos usar llamadas a funciones dentro de @code{markup}
+para así manipular cadenas de caracteres.  Esto es útil si se están
+definiendo instrucciones de marcado nuevas (véase @ref{New markup
+command definition}).
+
+@knownissues
+
+El argumento markup-list de instrucciones como @code{#:line},
+@code{#:center} y @code{#:column} no pueden se una variable o el
+resultado de la llamada a una función.
+
+@lisp
+(markup #:line (funcion-que-devuelve-marcados))
+@end lisp
+
+@noindent
+no es válido.  Hay que usar las funciones @code{make-line-markup},
+@code{make-center-markup} o @code{make-column-markup} en su lugar:
+
+@lisp
+(markup (make-line-markup (funcion-que-devuelve-marcados)))
+@end lisp
 
 
 @node How markups work internally
