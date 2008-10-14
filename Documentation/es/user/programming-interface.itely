@@ -7,12 +7,14 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.61"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
 
-@untranslated
-
+Se pueden realizar trucos avanzados mediante el uso de Scheme.  Si no
+está familizarizado con Scheme, le conviene leer nuestro tutorial de
+Scheme, @rlearning{Scheme tutorial}.
 
 @menu
 * Music functions::
@@ -21,14 +23,16 @@
 * Markup programmer interface::
 * Contexts for programmers::
 * Scheme procedures as properties::
-* TODO moved into scheme::
+* Using Scheme code instead of \tweak::
+* Difficult tweaks::
 @end menu
+
 
 @node Music functions
 @section Music functions
 
-@untranslated
-
+Esta sección trata sobre cómo crear funciones musicales dentro de
+LilyPond.
 
 @menu
 * Overview of music functions::
@@ -209,28 +213,14 @@
 @untranslated
 
 
-@node TODO moved into scheme
-@section TODO moved into scheme
-
-@untranslated
-
-
-@menu
-* Using Scheme code instead of \tweak::
-* Difficult tweaks::
-@end menu
 
 @node Using Scheme code instead of \tweak
-@subsection Using Scheme code instead of @code{\tweak}
+@section Using Scheme code instead of @code{\tweak}
 
 @untranslated
 
 
 @node Difficult tweaks
-@subsection Difficult tweaks
+@section Difficult tweaks
 
 @untranslated
-
-
-
-@c -- SKELETON FILE --
