@@ -275,7 +275,7 @@ example, the first note -- the @code{d} -- is the closest D to
 middle C.
 
 By adding (or removing) quotes @code{'} or commas @code{,} from
-the @w{@code{\relative c' @{}} command, we can change the starting
+the @code{\relative c' @{} command, we can change the starting
 octave:
 
 @lilypond[verbatim,quote]
