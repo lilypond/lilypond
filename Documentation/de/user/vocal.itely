@@ -15,11 +15,59 @@
 
 
 @menu
+* Common notation for vocal music::
 * Entering lyrics::
 * Aligning lyrics to a melody::
 * Specific uses of lyrics::
 * Stanzas::
 @end menu
+
+
+
+@node Common notation for vocal music
+@subsection Common notation for vocal music
+
+@untranslated
+
+@menu
+* References for vocal music and lyrics::
+* Opera::
+* Song books::
+* Chants::
+* Spoken music::
+* Ancient vocal music::
+@end menu
+
+
+@node References for vocal music and lyrics
+@unnumberedsubsubsec References for vocal music and lyrics
+
+@untranslated
+
+@node Opera
+@unnumberedsubsubsec Opera
+
+@untranslated
+
+@node Song books
+@unnumberedsubsubsec Song books
+
+@untranslated
+
+@node Spoken music
+@unnumberedsubsubsec Spoken music
+
+@untranslated
+
+@node Chants
+@unnumberedsubsubsec Chants
+
+@untranslated
+
+@node Ancient vocal music
+@unnumberedsubsubsec Ancient vocal music
+
+@untranslated
 
 @node Entering lyrics
 @subsection Entering lyrics
@@ -31,7 +79,6 @@
 * Lyrics explained::
 * Setting simple songs::
 * Working with lyrics and variables::
-* References for vocal music::
 @end menu
 
 
@@ -48,11 +95,6 @@
 
 @node Working with lyrics and variables
 @unnumberedsubsubsec Working with lyrics and variables
-
-@untranslated
-
-@node References for vocal music
-@unnumberedsubsubsec References for vocal music
 
 @untranslated
 
@@ -124,7 +166,6 @@
 @menu
 * Divisi lyrics::
 * Lyrics independent of notes::
-* Chants::
 * Spacing out syllables::
 * Centering lyrics between staves::
 @end menu
@@ -137,12 +178,6 @@
 
 @node Lyrics independent of notes
 @unnumberedsubsubsec Lyrics independent of notes
-
-@untranslated
-
-
-@node Chants
-@unnumberedsubsubsec Chants
 
 @untranslated
 

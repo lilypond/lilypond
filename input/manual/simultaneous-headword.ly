@@ -6,7 +6,7 @@
   line-width=17\cm
   indent=0\cm
 }
- 
+
 \layout {
   \context { \Score
     \override PaperColumn #'keep-inside-line = ##t
@@ -24,14 +24,14 @@
 \layout {
    \context {
       \Score
-      \override SpacingSpanner #'base-shortest-duration = 
-         #(ly:make-moment 1 18) 
+      \override SpacingSpanner #'base-shortest-duration =
+         #(ly:make-moment 1 18)
       \override NonMusicalPaperColumn #'line-break-system-details =
          #'((alignment-offsets . (0 -12)))
    }
 }
 
-trillflat = 
+trillflat =
   \once \override TrillSpanner #'bound-details #'left #'text =
     #(markup #:translate-scaled '(-0.05 . -1)
              #:concat (#:musicglyph "scripts.trill"
@@ -85,6 +85,7 @@ trillflat =
          af''8. ]
 
          |
+         \break
 
          \trillflat
          af''4. \startTrillSpan
@@ -118,9 +119,9 @@ trillflat =
 
          \key ef \major
          c'''8. [
-         cs'''8. \f ] \stopTrillSpan 
+         cs'''8. \f ] \stopTrillSpan
          r8.
-         
+
       }
 
       % RH voice 2

@@ -1171,22 +1171,38 @@ portuguese = \lyricmode {
 @end lilypond
 
 To enter a single character for which the Unicode escape sequence
-is known but which is not available in the editor being used, enter
+is known but which is not available in the editor being used, use
+@code{\char ##xhhhh} within a @code{\markup} block, where
+@code{hhhh} is the hexadecimal code for the character required.
+For example, @code{\char ##x03BE} enters the Unicode U+03BE
+character, which has the Unicode name @qq{Greek Small Letter Xi}.
+Any Unicode hexadecimal code may be substituted, and if all special
+characters are entered in this format it is not necessary to save
+the input file in UTF-8 format.  Of course, a font containing all
+such encoded characters must be installed and available to LilyPond.
+
+The following example shows UTF-8 coded characters being used in
+four places -- in a rehearsal mark, as articulation text, in lyrics
+and as stand-alone text below the score:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    c1 \mark \markup { \char ##x03EE }
+    c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
+  }
+  \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
+}
+\markup { "Copyright 2008" \char ##x00A9 }
+@end lilypond
+
+To enter the copyright sign in the copyright notice use:
 
 @example
-#(ly:export (ly:wide-char->utf-8 #x03BE))
+\header @{
+  copyright = \markup @{ \char ##x00A9 "2008" @}
+@}
 @end example
-
-where in this example @code{x03BE} is the hexadecimal code for the
-Unicode U+03BE character, which has the Unicode name @qq{Greek Small
-Letter Xi}.  Any Unicode hexadecimal code may be substituted, and
-if all special characters are entered in this format it is not
-necessary to save the input file in UTF-8 format.
-
-@knownissues
-
-The @code{ly:export} format may be used in text within @code{\mark} or
-@code{\markup} commands but not in lyrics.
 
 @node Displaying LilyPond notation
 @subsection Displaying LilyPond notation
@@ -1547,6 +1563,7 @@ player that supports pitch bend.)
 @item Dynamic marks
 @item Crescendi, decrescendi over multiple notes
 @item Tempo changes entered with a tempo marking
+@item Lyrics
 @end itemize
 
 @unnumberedsubsubsec Unsupported in MIDI
@@ -1563,8 +1580,6 @@ The following items of notation have no effect on the MIDI output:
 @item Crescendi, decrescendi over a single note
 @item Tremolos entered with @q{@code{:}[@var{number}]}
 @item Figured bass
-@c TODO Check Lyrics
-@item Lyrics
 @end itemize
 
 

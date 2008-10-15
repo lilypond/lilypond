@@ -17,11 +17,119 @@ This section explains how to typeset vocal music, and make sure
 that the lyrics will be aligned with the notes of their melody.
 
 @menu
+* Common notation for vocal music::
 * Entering lyrics::
 * Aligning lyrics to a melody::
 * Specific uses of lyrics::
 * Stanzas::
 @end menu
+
+
+@node Common notation for vocal music
+@subsection Common notation for vocal music
+
+This section discusses issues related to vocal music in general, and
+to some particular styles of vocal music.
+
+@menu
+* References for vocal music and lyrics::
+* Opera::
+* Song books::
+* Chants::
+* Spoken music::
+* Ancient vocal music::
+@end menu
+
+
+@node References for vocal music and lyrics
+@unnumberedsubsubsec References for vocal music and lyrics
+
+@c TODO: split this section in two parts? -vv
+
+Various issues may arise when engraving vocal music.  Some of these
+are discussed in this section, while others are explained elsewhere:
+
+@itemize
+@item
+Most styles of vocal music use written text as lyrics.  An introduction
+to this notation is to be found in @rlearning{Setting simple songs}.
+
+@item
+Vocal music is likely to require the use of @code{markup} mode, either
+for lyrics of for other text elements (character's names, etc.).
+This syntax is described in @ref{Text markup introduction}.
+
+@item
+Lead sheets may be printed by combining vocal parts and @q{chord mode};
+this syntax is explained in @ref{Chord notation}.
+
+@item
+@q{Ambitus} may be added at the beginning of vocal staves, as explained
+in @ref{Ambitus}.
+
+@item
+Vocal parts may be printed using traditional clefs, as shown in @ref{Clef}.
+
+@item
+Ancient vocal music is supported, as explained in @ref{Ancient notation}.
+@end itemize
+
+
+@node Opera
+@unnumberedsubsubsec Opera
+
+@c TODO
+TBC
+
+@c add characters names snippet -vv
+
+@node Song books
+@unnumberedsubsubsec Song books
+
+@c TODO
+TBC
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+@seealso
+Notation Reference:
+@ref{Chord notation}.
+
+@node Spoken music
+@unnumberedsubsubsec Spoken music
+@cindex parlato
+@cindex Sprechgesang
+Such effects as @q{parlato} or @q{Sprechgesang} require perfomers to speak
+without pitch but still with rhythm; these are notated by cross
+note heads, as demonstrated in @ref{Special note heads}.
+
+@c TODO add "marking-notes-on-spoken-parts" snippet -vv
+@c add "showing the rhythm of a melody" snip
+@c add "one staff-line notation"
+@c add "improvisation" ref
+@c add "lyrics independents of notes" ref
+
+@node Chants
+@unnumberedsubsubsec Chants
+
+@c TODO Add text from lsr and -user
+TBC
+
+@node Ancient vocal music
+@unnumberedsubsubsec Ancient vocal music
+
+@c TODO
+TBC
+
+@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
+@c and "Transcription of Ancient music with incipit" snippet. -vv
+
+@seealso
+Notation Reference:
+@ref{Ancient notation}.
+
 
 @node Entering lyrics
 @subsection Entering lyrics
@@ -32,7 +140,6 @@ that the lyrics will be aligned with the notes of their melody.
 * Lyrics explained::
 * Setting simple songs::
 * Working with lyrics and variables::
-* References for vocal music::
 @end menu
 
 
@@ -190,7 +297,7 @@ Internals Reference:
 @rinternals{LyricText},
 @rinternals{LyricSpace}.
 
-
+@c FIXME: this title has to be changed (possible confusion with LM) -vv
 @node Setting simple songs
 @unnumberedsubsubsec Setting simple songs
 
@@ -321,20 +428,6 @@ remains empty.
 Internals Reference:
 @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.
-
-
-@node References for vocal music
-@unnumberedsubsubsec References for vocal music
-
-TBC
-@c TODO Add @refs
-
-@c Nope -- this section is to be removed.
-@c With a vengeance :-) -vv
-
-@q{Parlato} is spoken without pitch but still with rhythm; it is
-notated by cross note heads.  This is demonstrated in
-@ref{Special note heads}.
 
 
 @node Aligning lyrics to a melody
@@ -687,7 +780,6 @@ differing ways.  Such variations can still be captured with
 @menu
 * Divisi lyrics::
 * Lyrics independent of notes::
-* Chants::
 * Spacing out syllables::
 * Centering lyrics between staves::
 @end menu
@@ -780,13 +872,6 @@ the implicit melismata get ignored.
 @c Conclusion: do not use devnull for lyrics -FV
 
 @c this clarifies http://code.google.com/p/lilypond/issues/detail?id=248
-
-
-@node Chants
-@unnumberedsubsubsec Chants
-
-@c TODO Add text from lsr and -user
-TBC
 
 @node Spacing out syllables
 @unnumberedsubsubsec Spacing out syllables

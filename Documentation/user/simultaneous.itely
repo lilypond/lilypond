@@ -31,6 +31,7 @@ This section discusses simultaneous notes inside the same voice.
 
 @menu
 * Chorded notes::
+* Simultaneous expressions::
 * Clusters::
 @end menu
 
@@ -40,23 +41,25 @@ This section discusses simultaneous notes inside the same voice.
 
 @cindex chords
 @cindex brackets, angle
+@cindex angle brackets
 @cindex relative pitch in chords
+
 @funindex <
 @funindex >
 @funindex <...>
 
-A chord is formed by a enclosing a set of pitches between @code{<} and
-@code{>}.  A chord may be followed by a duration and/or a set of
-articulations, just like simple notes:
+A chord is formed by enclosing a set of pitches between @code{<}
+and @code{>}.  A chord may be followed by a duration and/or a set
+of articulations, just like simple notes:
 
 @lilypond[verbatim,quote,relative=1]
 <c e g>2 <c f a>4-> <e g c>-.
 @end lilypond
 
-Relative mode can be used for pitches in chords. The octave of each                      
-pitch is chosen using the preceding pitch as a reference except in the                   
-case of the first pitch in a chord: the reference for the first pitch is                 
-the @emph{first} pitch of the preceding chord.  
+Relative mode can be used for pitches in chords. The octave of each
+pitch is chosen using the preceding pitch as a reference except in
+the case of the first pitch in a chord: the reference for the first
+pitch is the @emph{first} pitch of the preceding chord.
 
 For more information about chords, see @ref{Chord notation}.
 
@@ -74,14 +77,42 @@ Notation Reference:
 Snippets:
 @rlsr{Simultaneous notes}.
 
-@ignore
-@knownissues
+@node Simultaneous expressions
+@unnumberedsubsubsec Simultaneous expressions
 
-For some reason, music expressions like @code{<< @{ g8 e8 @} a4 >>}
-that should automatically turn into chords, appear split in two
-staves.  To avoid this, use explicit chords instead as in
-@code{<g a>8 <e a>8}.
-@end ignore
+One or more music expressions enclosed in double angle brackets are
+taken to be simultaneous.  If the first expression begins with a
+single note or if the whole simultaneous expression appears
+explicitly within a single voice, the whole expression is placed on
+a single staff; otherwise the elements of the simultaneous
+expression are placed on separate staves.
+
+The following examples show simultaneous expressions on one staff:
+
+@lilypond[quote,verbatim,relative=2]
+\new Voice {  % explicit single voice
+  << {a4 b g2} {d4 g c,2} >>
+}
+@end lilypond
+
+@lilypond[quote,verbatim,relative=2]
+% single first note
+a << {a4 b g}  {d4 g c,} >>
+@end lilypond
+
+This can be useful if the simultaneous sections have identical
+rhythms, but attempts to attach notes with different durations
+to the same stem will cause errors.
+
+The following example shows how simultaneous expressions can
+generate multiple staves implicitly:
+
+@lilypond[quote,verbatim,relative=2]
+% no single first note
+<< {a4 b g2}  {d4 g2 c,4} >>
+@end lilypond
+
+Here different rhythms cause no problems.
 
 
 @node Clusters
@@ -89,13 +120,14 @@ staves.  To avoid this, use explicit chords instead as in
 
 @cindex cluster
 @cindex note cluster
+
 @funindex \makeClusters
 @funindex makeClusters
 
-A cluster indicates a continuous range of pitches to be played.  They
-can be denoted as the envelope of a set of notes.  They are entered by
-applying the function @code{\makeClusters} to a sequence of chords,
-e.g.,
+A cluster indicates a continuous range of pitches to be played.
+They can be denoted as the envelope of a set of notes.  They are
+entered by applying the function @code{\makeClusters} to a sequence
+of chords, e.g.,
 
 @lilypond[quote,relative=2,verbatim]
 \makeClusters { <g b>2 <c g'> }
@@ -124,10 +156,11 @@ Clusters look good only if they span at least two chords; otherwise
 they appear too narrow.
 
 Clusters do not have a stem and cannot indicate durations by
-themselves.  Separate clusters would need a separating rest between
-them.
+themselves, but the length of the printed cluster is determined by
+the durations of the defining chords.  Separate clusters need a
+separating rest between them.
 
-Clusters do not produce MIDI output.  
+Clusters do not produce MIDI output.
 
 @node Multiple voices
 @subsection Multiple voices
@@ -151,6 +184,7 @@ multiple staves.
 @cindex polyphony, single-staff
 @cindex voice
 @cindex lyrics assigned to one voice
+
 @funindex \voiceOne
 @funindex voiceOne
 @funindex \voiceOne ... \voiceFour
@@ -158,7 +192,9 @@ multiple staves.
 @funindex \oneVoice
 @funindex oneVoice
 
-The basic structure of code needed to achieve multiple, independent
+@strong{@i{Explicitly instantiating voices}}
+
+The basic structure needed to achieve multiple independent
 voices in a single staff is illustrated in the following example:
 
 @lilypond[quote,relative=3,verbatim]
@@ -170,27 +206,33 @@ voices in a single staff is illustrated in the following example:
 >>
 @end lilypond
 
-Here, voices are instantiated explicitly and are given a name. The
-@code{\voiceOne} ... @code{\voiceFour} commands set up the voices so
-that first and third voices get stems up, second and fourth voices get
-stems down, third and fourth voice note heads are horizontally
-shifted, and rests in the respective voices are automatically moved to
-avoid collisions.  Using the @code{\oneVoice} command, all the voice
-settings are put back to the neutral directions typical of a
-single-voice passage.
+Here, voices are instantiated explicitly and are given names. The
+@code{\voiceOne} ... @code{\voiceFour} commands set up the voices
+so that first and third voices get stems up, second and fourth
+voices get stems down, third and fourth voice note heads are
+horizontally shifted, and rests in the respective voices are
+automatically moved to avoid collisions.  The @code{\oneVoice}
+command returns all the voice settings to the neutral default
+directions.
 
-We can make a voice to be in the same @code{Voice} context before
-and after a temporary polyphonic passage.  For example, the following
-construct keeps a voice alive throughout the polyphonic section.  Said
-voice is the first one inside of the two-voice section, and the extra
-voice is the second one.
+@strong{@i{Temporary polyphonic passages}}
+
+A temporary polyphonic passage can be created with the following
+construct:
 
 @example
-<< @{ \voiceOne ... @} \new Voice @{ \voiceTwo ... @} >> \oneVoice
+<< @{ \voiceOne ... @}
+  \new Voice @{ \voiceTwo ... @}
+>> \oneVoice
 @end example
 
-Using the name given when created, this allows lyrics to be assigned
-to one consistent voice.
+Here, the first expression within a temporary polyphonic passage is
+placed into the @code{Voice} context which was in use immediately
+before the polyphonic passage, and that same @code{Voice} context
+continues after the temporary section.  Other expressions within
+the angle brackets are assigned to distinct temporary voices.
+This allows lyrics to be assigned to one continuing voice before,
+during and after a polyphonic section:
 
 @lilypond[quote, verbatim, relative=2]
 <<
@@ -203,11 +245,11 @@ to one consistent voice.
       }
       \new Voice {
         \voiceTwo
-        e d
+        d2
       }
     >>
     \oneVoice
-    e
+    e4
   }
   \new Lyrics \lyricsto "melody" {
   This is my song.
@@ -215,13 +257,20 @@ to one consistent voice.
 >>
 @end lilypond
 
-Here, the @code{\voiceOne} and @code{\voiceTwo} commands help to make clear what
-settings does each voice receive.
+Here, the @code{\voiceOne} and @code{\voiceTwo} commands are
+required to define the settings of each voice.
 
-The @code{<<@{...@} \\ @{...@}>>} construction, where the two (or
-more) voices are separated by double backslashes, can be used as a
-simplified method to print multiple voices in a single staff.  Our
-first example could be typeset as follows:
+@strong{@i{The double backslash construct}}
+
+The @code{<< @{...@} \\ @{...@} >>} construct, where the two (or
+more) expressions are separated by double backslashes, behaves
+differently to the similar construct without the double backslashes:
+@emph{all} the expressions within this contruct are assigned
+to new @code{Voice} contexts.  These new @code{Voice} contexts
+are created implicitly and are given the fixed names @code{"1"},
+@code{"2"}, etc.
+
+The first example could be typeset as follows:
 
 @lilypond[quote,relative=3,verbatim]
 <<
@@ -231,38 +280,37 @@ first example could be typeset as follows:
 >>
 @end lilypond
 
-This syntax is simpler and can be used where it does not matter that
-temporary voices are created and then discarded.  These implicitly
-created voices are given the settings equivalent to the effect of the
-@code{\voiceOne} ... @code{\voiceFour} commands, in the order in which
-they appear in the code.  In the following example, the intermediate
-voice has stems up, therefore we enter it in the third place, so it
-becomes voice three which has the stems up as desired.
+This syntax can be used where it does not matter that temporary
+voices are created and then discarded.  These implicitly created
+voices are given the settings equivalent to the effect of the
+@code{\voiceOne} ... @code{\voiceFour} commands, in the order in
+which they appear in the code.
+
+In the following example, the intermediate voice has stems up,
+therefore we enter it in the third place, so it becomes voice
+three, which has the stems up as desired.  Spacer rests are
+used to avoid printing doubled rests.
 
 @lilypond[quote,relative=3,verbatim]
 <<
-  { r8 g g  g g f16 es f8 d }
+  { r8 g g  g g f16 ees f8 d }
   \\
-  { es,8 r es r d r d r }
+  { ees,8 r ees r d r d r }
   \\
   { d'8 s c s bes s a s }
 >>
 @end lilypond
 
-@noindent
-Spacer rests are often used to avoid having too many rests, as seen in the
-example above.
-
-In all but simplest works it is advisable to create explicit
-@code{Voice} contexts using the @code{\new} and @code{\context}
-commands as it is explained in @rlearning{Contexts and engravers} and
+In all but the simplest works it is advisable to create explicit
+@code{Voice} contexts as explained in @rlearning{Contexts and engravers} and
 @rlearning{Explicitly instantiating voices}.
+
+@strong{@i{Identical rhythms}}
 
 In the special case that we want to typeset parallel pieces of music
 that have the same rhythm, we can combine them into a single
 @code{Voice} context, thus forming chords.  To achieve this, enclose
-them in a simple simultaneous music construction and make it to be an
-explicit voice:
+them in a simple simultaneous music construct within an explicit voice:
 
 @lilypond[quote,relative=2,verbatim]
 \new Voice <<
@@ -323,8 +371,8 @@ easily identified:
 >>
 @end lilypond
 
-To revert the standard presentation, the @code{\voiceNeutralstyle}
-command is used.
+The @code{\voiceNeutralstyle} command is used to revert to the
+standard presentation.
 
 @predefined
 
@@ -376,9 +424,11 @@ Snippets:
 @funindex \mergeDifferentlyHeadedOff
 @funindex mergeDifferentlyHeadedOff
 
-Note heads with equal durations are automatically merged, while
-note heads with unequal durations are not merged.  Rests opposite
-a stem are shifted vertically.
+The note heads of notes in different voices with the same pitch,
+same note head and opposite stem direction are automatically
+merged, but notes with different note heads or the same stem
+direction are not.  Rests opposite a stem in a different voice
+are shifted vertically.
 
 @lilypond[quote,verbatim,relative=2]
 <<
@@ -396,7 +446,7 @@ a stem are shifted vertically.
 >>
 @end lilypond
 
-Note heads with different note heads may be merged, with the
+Notes with different note heads may be merged, with the
 exception of half-note heads and quarter-note heads:
 
 @lilypond[quote,verbatim,relative=2]
@@ -437,14 +487,14 @@ Note heads with different dots may be merged:
 @end lilypond
 
 
-The collision on the second measure happens because
-@code{\mergeDifferentlyHeadedOn} cannot successfully complete the
-merge when three or more notes line up in the same column -- in
-fact, you will obtain a warning for this reason.  To allow the
-merge to work properly, apply a @code{\shift} to the note that
-should not be merged.  Here, @code{\shiftOn} is applied to move
-the top @code{g} out of the column, and
-@code{\mergeDifferentlyHeadedOn} works properly.
+The half note and eighth note at the start of the second measure
+are incorrectly merged because @code{\mergeDifferentlyHeadedOn}
+cannot successfully complete the merge when three or more notes
+line up in the same column, and in this case a warning is given.
+To allow the merge to work properly a @code{\shift} must be applied
+to the note that should not be merged.  Here, @code{\shiftOn} is
+applied to move the top @notation{g} out of the column, and
+@code{\mergeDifferentlyHeadedOn} then works properly.
 
 @lilypond[quote,relative=2,verbatim]
 <<
@@ -522,9 +572,11 @@ or a shorter note, and a downstem half note, the eighth note stem
 gets a slightly wrong offset because of the different width of the
 half note head symbol.
 
-@c investigate! Sometimes it works, sometimes not. --FV
+@ignore
+@c TODO investigate! Sometimes it works, sometimes not. --FV
 The requirements for successfully merging different note heads that
 are at the same time differently dotted are not clear.
+@end ignore
 
 There is no support for chords where the same note occurs with
 different accidentals in the same chord.  In this case, it is

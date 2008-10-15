@@ -33,6 +33,7 @@ examinando el método más simple, y poco a poco iremos aumentando la
 complejidad.
 
 @menu
+* Common notation for vocal music::
 * Entering lyrics::  
 * Aligning lyrics to a melody::  
 * Specific uses of lyrics::         
@@ -64,6 +65,58 @@ Para hacer que la letra evite las líneas divisorias también, utilice
 @}
 @end example
 
+
+@node Common notation for vocal music
+@subsection Common notation for vocal music
+
+@untranslated
+
+
+@menu
+* References for vocal music and lyrics::
+* Opera::
+* Song books::
+* Chants::
+* Spoken music::
+* Ancient vocal music::
+@end menu
+
+
+@node References for vocal music and lyrics
+@unnumberedsubsubsec References for vocal music and lyrics
+
+@untranslated
+
+@node Opera
+@unnumberedsubsubsec Opera
+
+@untranslated
+
+@node Song books
+@unnumberedsubsubsec Song books
+
+@untranslated
+
+@node Spoken music
+@unnumberedsubsubsec Spoken music
+
+@c TODO Add @refs
+
+@q{Parlato} es texto hablado sin notas pero con ritmo; su notación se
+realiza mediante cabezas de nota en forma de cruz.  Esto queda demostrado en
+@ref{Special note heads}.
+
+@node Chants
+@unnumberedsubsubsec Chants
+
+@untranslated
+
+@node Ancient vocal music
+@unnumberedsubsubsec Ancient vocal music
+
+@untranslated
+
+
 @node Entering lyrics
 @subsection Entering lyrics
 
@@ -71,7 +124,6 @@ Para hacer que la letra evite las líneas divisorias también, utilice
 * Lyrics explained::
 * Setting simple songs::
 * Working with lyrics and variables::
-* References for vocal music::
 @end menu
 
 
@@ -316,16 +368,6 @@ El código de entrada definitivo sería algo como
 @c TODO: document \new Staff << Voice \lyricsto >> bug
 Referencia de funcionamiento interno:
 @rinternals{LyricCombineMusic}, @rinternals{Lyrics}.
-
-@node References for vocal music
-@unnumberedsubsubsec References for vocal music
-
-@c TODO Add @refs
-
-@q{Parlato} es texto hablado sin notas pero con ritmo; su notación se
-realiza mediante cabezas de nota en forma de cruz.  Esto queda demostrado en
-@ref{Special note heads}.
-
 
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
@@ -631,8 +673,7 @@ mediante @code{\lyricsto}.
 
 @menu
 * Divisi lyrics::               
-* Lyrics independent of notes::  
-* Chants::                      
+* Lyrics independent of notes::                    
 * Spacing out syllables::       
 * Centering lyrics between staves::  
 @end menu
@@ -710,11 +751,6 @@ lyr = \lyricmode { I like my cat! }
   c' c' c' c' c' c' c' c' }
 >>
 @end lilypond
-
-@node Chants
-@unnumberedsubsubsec Chants
-
-@untranslated
 
 
 @node Spacing out syllables

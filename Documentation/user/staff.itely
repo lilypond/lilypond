@@ -877,31 +877,11 @@ d4 g e c
 
 @c perhaps also an example of how to move it horizontally?
 
-@c TODO add snippet when ready
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {changing-the-tempo-without-a-visible-metronome-mark.ly}
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-tempo-without-a-metronome-mark.ly}
 
-To change the tempo in the MIDI output without printing anything,
-make the metronome marking invisible
-
-@example
-\once \override Score.MetronomeMark #'transparent = ##t
-@end example
-
-@c TODO add snippet when ready
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {creating-metronome-marks-in-markup-mode.ly}
-
-To print other metronome markings, use these markup commands
-
-@lilypond[verbatim,quote,relative=1]
-c4^\markup {
-  (
-  \smaller \general-align #Y #DOWN \note #"16." #1
-  =
-  \smaller \general-align #Y #DOWN \note #"8" #1
-  ) }
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-metronome-marks-in-markup-mode.ly}
 
 For more details, see @ref{Formatting text}.
 
@@ -1258,7 +1238,7 @@ The name of the cued instrument can be printed by setting the
 oboe = \relative c''' {
   g4 r8 e16 f e4 d
 }
-\addQuote oboe { \oboe }
+\addQuote "oboe" { \oboe }
 
 \new Staff \relative c'' <<
   \new CueVoice \with {
@@ -1286,7 +1266,7 @@ from a part but may be restored at a later time.
 flute = \relative c''' {
   r2 cis2 r2 dis2
 }
-\addQuote flute { \flute }
+\addQuote "flute" { \flute }
 
 \new Voice \relative c'' {
   \killCues {

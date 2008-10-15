@@ -32,6 +32,7 @@ Plusieurs solutions existent pour ajouter des paroles ; nous les
 examinerons par degré croissant de complexité.
 
 @menu
+* Common notation for vocal music::
 * Entering lyrics::  
 * Aligning lyrics to a melody::  
 * Specific uses of lyrics::         
@@ -62,6 +63,53 @@ Pour que les paroles évitent également les barres de mesure, ajoutez
 @end example
 
 
+@node Common notation for vocal music
+@subsection Common notation for vocal music
+
+@untranslated
+
+@menu
+* References for vocal music and lyrics::
+* Opera::
+* Song books::
+* Chants::
+* Spoken music::
+* Ancient vocal music::
+@end menu
+
+@node References for vocal music and lyrics
+@unnumberedsubsubsec References for vocal music and lyrics
+
+@untranslated
+
+@node Opera
+@unnumberedsubsubsec Opera
+
+@untranslated
+
+@node Song books
+@unnumberedsubsubsec Song books
+
+@untranslated
+
+@node Spoken music
+@unnumberedsubsubsec Spoken music
+
+Le @emph{parlato} est du texte scandé en rythme, mais sans hauteurs
+définies ; il est indiqué par des notes en croix, à l'instar des
+percussions --- voir @ref{Special note heads}.
+
+@node Chants
+@unnumberedsubsubsec Chants
+
+@untranslated
+
+@node Ancient vocal music
+@unnumberedsubsubsec Ancient vocal music
+
+@untranslated
+
+
 @node Entering lyrics
 @subsection Entering lyrics
 
@@ -69,7 +117,6 @@ Pour que les paroles évitent également les barres de mesure, ajoutez
 * Lyrics explained::
 * Setting simple songs::
 * Working with lyrics and variables::
-* References for vocal music::
 @end menu
 
 
@@ -307,17 +354,6 @@ Le résultat donnera ainsi quelque chose comme
 
 Référence du programme : @rinternals{LyricCombineMusic},
 @rinternals{Lyrics}.  
-
-
-@node References for vocal music
-@unnumberedsubsubsec References for vocal music
-
-@c TODO Add @refs
-
-Le @emph{parlato} est du texte scandé en rythme, mais sans hauteurs
-définies ; il est indiqué par des notes en croix, à l'instar des
-percussions --- voir @ref{Special note heads}.
-
 
 
 @node Aligning lyrics to a melody
@@ -624,8 +660,7 @@ La commande @code{\lyricsto} permet de prendre en compte ces variantes.
 
 @menu
 * Divisi lyrics::               
-* Lyrics independent of notes::  
-* Chants::                      
+* Lyrics independent of notes::                
 * Spacing out syllables::       
 * Centering lyrics between staves::  
 @end menu
@@ -704,10 +739,6 @@ lyr = \lyricmode { I like my cat! }
 >>
 @end lilypond
 
-@node Chants
-@unnumberedsubsubsec Chants
-
-@untranslated
 @ifnothtml
 @englishref
 @end ifnothtml

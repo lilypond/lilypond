@@ -81,20 +81,38 @@ Snippets:
 
 @funindex \upbow
 @funindex \downbow
+@funindex \open
 
 @cindex bowing indications
 @cindex up bow indication
 @cindex down bow indication
+@cindex open string indication
+@cindex string, indicating open
 
 Bowing indications are created as articulations, which are
-described in @ref{Articulations and ornamentations}.  The
-bowing commands, @code{\upbow} and @code{\downbow}, are used with
-slurs as follows:
+described in @ref{Articulations and ornamentations}.
+
+The bowing commands, @code{\upbow} and @code{\downbow}, are used
+with slurs as follows:
 
 @lilypond[verbatim,quote,relative=2]
 c4(\downbow d) e(\upbow f)
 @end lilypond
 
+@noindent
+and the following example shows three ways in which an open A
+string on a violin might be indicated:
+
+@lilypond[verbatim,quote,relative=2]
+a4 \open 
+a^\markup { \teeny "II" } 
+a2^\markup { \small "sul A" }
+@end lilypond
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open}.
 
 @seealso
 
