@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 7c57f1469e057f25f5d7a7b75c18f33bb4e5bed9
+    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -882,32 +882,11 @@ d4 g e c
 
 @c perhaps also an example of how to move it horizontally?
 
-@c TODO add snippet when ready
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {changing-the-tempo-without-a-visible-metronome-mark.ly}
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-tempo-without-a-metronome-mark.ly}
 
-Para cambiar el tempo en la salida MIDI sin imprimir nada en la
-partitura, haga invisible la indicación metronómica:
-
-@example
-\once \override Score.MetronomeMark #'transparent = ##t
-@end example
-
-@c TODO add snippet when ready
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {creating-metronome-marks-in-markup-mode.ly}
-
-Para imprimir otras indicaciones de metrónomo, utilice estas
-instrucciones de marcado:
-
-@lilypond[verbatim,quote,relative=1]
-c4^\markup {
-  (
-  \smaller \general-align #Y #DOWN \note #"16." #1
-  =
-  \smaller \general-align #Y #DOWN \note #"8" #1
-  ) }
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-metronome-marks-in-markup-mode.ly}
 
 Para ver más detalles, consulte @ref{Formatting text}.
 
@@ -1297,7 +1276,7 @@ de una particella pero posiblemente se deban reponer más tarde.
 flute = \relative c''' {
   r2 cis2 r2 dis2
 }
-\addQuote flute { \flute }
+\addQuote "flute" { \flute }
 
 \new Voice \relative c'' {
   \killCues {

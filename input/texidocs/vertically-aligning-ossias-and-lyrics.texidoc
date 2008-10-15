@@ -1,0 +1,7 @@
+  texidoces = "
+Este fragmento de código muestra el uso de las propiedades de
+contexto @code{alignBelowContext} y @code{alignAboveContext} para
+controlar la posición de la letra y los compases de ossia.
+
+"
+  doctitlees = "Alineación vertical de la letra y los compases de ossia"

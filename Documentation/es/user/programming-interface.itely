@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 1c1a90eaa67cdb75cd62c80fc11cd20635e68f93
+    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -51,9 +51,9 @@ Es fácil hacer una función que sustituya a una variable en código de
 LilyPond.  La forma general de estas funciones es:
 
 @example
-funcion =
-#(define-music-function (parser location @var{var1} @var{var2}... )
-                        (@var{var1-type?} @var{var2-type?}...)
+function =
+#(define-music-function (parser location @var{var1} @var{var2}...@var{vari}... )
+                        (@var{var1-type?} @var{var2-type?}...@var{vari-type?}...)
   #@{
     @emph{...música...}
   #@})
@@ -63,9 +63,9 @@ funcion =
 donde
 
 @multitable @columnfractions .33 .66
-@item @var{argi}         @tab @var{i}-ésima variable
-@item @var{argi-type?}   @tab tipo de variable
-@item @var{...música...}  @tab entrada normal de LilyPond, usando las variables como @code{#$var1}.
+@item @var{vari}         @tab @var{i}-ésima variable
+@item @var{vari-type?}   @tab tipo de la @var{i}-ésima variable
+@item @var{...música...}  @tab entrada normal de LilyPond, usando las variables como @code{#$var1}, etc.
 @end multitable
 
 Los siguientes tipos de entrada se pueden usar como variables en una
@@ -74,7 +74,7 @@ de la documentación específica de Scheme para ver otros tipos de
 variables.
 
 @multitable @columnfractions .33 .66
-@headitem Tipo de entrada       @tab notación de @var{argi-type?}
+@headitem Tipo de entrada       @tab notación de @var{vari-type?}
 @item Entero                    @tab @code{integer?}
 @item Flotante (número decimal) @tab @code{number?}
 @item Cadena de texto           @tab @code{string?}
@@ -83,14 +83,13 @@ variables.
 @item Pareja de variables          @tab @code{pair?}
 @end multitable
 
-Los argumentos @code{parser} y @code{location} son obligatorios, y
-se usan en ciertas situaciones avanzadas.  El argumento
-@code{parser} se usa para acceder al valor de otra variable de
-LilyPond.  El argumento @code{location} se usa para establecer el
-@q{origen} de la expresión musical que construye la función musical,
-de forma que en caso de producirse un error de sintaxis LilyPond pueda
-informar al usuario de un lugar adecuado donde buscar en el archivo de
-entrada.
+Los argumentos @code{parser} y @code{location} son obligatorios, y se
+usan en ciertas situaciones avanzadas.  El argumento @code{parser} se
+usa para tener acceso al valor de otra variable de LilyPond.  El
+argumento @code{location} se usa para establecer el @q{origen} de la
+expresión musical que construye la función musical, de forma que en
+caso de producirse un error de sintaxis LilyPond pueda informar al
+usuario de un lugar adecuado donde buscar en el archivo de entrada.
 
 
 @node Simple substitution functions
