@@ -765,8 +765,8 @@ antes, omitiremos el contexto.
 
 Como nota aparte, aunque una nota importante, observe que a causa de
 que los valores de @code{font-shape} son símbolos, deben ir precedidos
-de un apóstrofe, @code{'}.  Esa es la razón por la que se necesitan
-apóstrofes antes de @code{thickness} en el ejemplo anterior y en
+de un apóstrofo, @code{'}.  Esa es la razón por la que se necesitan
+apóstrofos antes de @code{thickness} en el ejemplo anterior y en
 @code{font-shape}.  Los dos son también símbolos.  Los símbolos son
 nombres especiales que son conocidos por LilyPond internamente.
 Algunos de ellos son nombres de propiedades, como @code{thickness} o
@@ -870,7 +870,7 @@ en la instrucción @code{\override}.
   @tab Un número entero positivo
   @tab @code{3}, @code{1}
 @item Lista
-  @tab Un conjunto de valores separados por espacios, encerrado entre paréntesis y precedido de un apóstrofe
+  @tab Un conjunto de valores separados por espacios, encerrado entre paréntesis y precedido de un apóstrofo
   @tab @code{'(left-edge staff-bar)}, @code{'(1)},
        @code{'(1.0 0.25 0.5)}
 @item Marcado
@@ -884,17 +884,17 @@ en la instrucción @code{\override}.
   @tab Cualquier valor decimal positivo o negativo
   @tab @code{3.5}, @code{-2.45}
 @item Pareja (de números)
-  @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofe
+  @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofo
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Símbolo
-  @tab Cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofe
+  @tab Cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofo
   @tab @code{'italic}, @code{'inside}
 @item Desconocido
   @tab Un procedimiento o @code{#f} para no producir ninguna acción
   @tab @code{bend::print}, @code{ly:text-interface::print},
        @code{#f}
 @item Vector
-  @tab Una lista de tres elementos encerrados entre paréntesis y precedida de apóstrofe-almohadilla, @code{'#}.
+  @tab Una lista de tres elementos encerrados entre paréntesis y precedida de apóstrofo-almohadilla, @code{'#}.
   @tab @code{'#(#t #t #f)}
 @end multitable
 
@@ -1112,7 +1112,7 @@ poner las líneas divisorias de color blanco, escribimos:
 
 @noindent
 y de nuevo podemos comprobar que las barras de compás no son visibles.
-Observe que @emph{white} no viene precedido de un apóstrofe: no es un
+Observe que @emph{white} no viene precedido de un apóstrofo: no es un
 símbolo, sino una @emph{función}.  Cuando se invoca, proporciona la
 lista de valores internos que se requieren para establecer el color a
 blanco.  Los otros colores de la lista normal también son funciones.
@@ -1140,7 +1140,7 @@ internos, @code{x11-color}, de la siguiente manera:
 
 @noindent
 Observe que en este caso la función @code{x11-color} toma un símbolo
-como argumento, así que el símbolo debe ir precedido de un apóstrofe y
+como argumento, así que el símbolo debe ir precedido de un apóstrofo y
 los dos deben ir entre paréntesis.
 
 @cindex rgb, colores

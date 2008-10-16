@@ -19,9 +19,7 @@ Cette section dispense des informations supplémentaires et utiles à
 l'écriture pour les cordes frottées.
 
 @menu
-* Common notation for unfretted strings::
-* Bowed instruments::
-* Plucked instruments::
+* Common notation for unfretted strings::  
 @end menu
 
 @node Common notation for unfretted strings
@@ -30,7 +28,10 @@ l'écriture pour les cordes frottées.
 @untranslated
 
 @menu
-* References for unfretted strings::
+* References for unfretted strings::  
+* Bowing indications::          
+* Harmonics::                   
+* Snap (Bartók) pizzicato::     
 @end menu
 
 @node References for unfretted strings
@@ -38,17 +39,13 @@ l'écriture pour les cordes frottées.
 
 @untranslated
 
-@node Bowed instruments
-@subsection Bowed instruments
+@node Bowing indications
+@unnumberedsubsubsec Bowing indications
 
 @untranslated
 
-@menu
-* References for bowed strings::
-@end menu
-
-@node References for bowed strings
-@unnumberedsubsubsec References for bowed strings
+@node Harmonics
+@unnumberedsubsubsec Harmonics
 
 @cindex harmoniques
 
@@ -57,21 +54,11 @@ artificiels, lorsque l'instrumentiste effleure simplement la corde pour
 une note donnée.  Le son émis sera un harmonique, que l'on peut indiquer
 par @code{\harmonic}.
 
-@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
-<c g'\harmonic>4
+@lilypond[verbatim,quote,relative=1]
+<e a\harmonic>2  <c g'\harmonic>
 @end lilypond
 
-@node Plucked instruments
-@subsection Plucked instruments
+@node Snap (Bartók) pizzicato
+@unnumberedsubsubsec Snap (Bartók) pizzicato
 
 @untranslated
-
-@menu
-* Harp::
-@end menu
-
-@node Harp
-@unnumberedsubsubsec Harp
-
-@untranslated
-

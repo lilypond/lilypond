@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 550152ed5d5015d13abf2af83b2e040f996a66a4
+    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1217,24 +1217,39 @@ portuguese = \lyricmode {
 
 Para introducir un caracter aislado para el que se conoce la secuencia
 de escape de Unicode pero no está disponible en el editor que se está
-usando, escriba
+usando, use @code{\char ##xhhhh} dentro de un bloque @code{\markup},
+donde @code{hhhh} es el código hexadecimal del carácter en cuestión.
+Por ejemplo, @code{\char ##x03BE} inserta el carácter Unicode U+03BE,
+que tiene el nombre Unicode @qq{Letra griega Xi pequeña}.  Se puede
+sustituir cualquier código hexadecimal Unicode, y si todos los
+caracteres especiales se escriben en este formato no es necesario
+guardar el archivo de entrada en formato UTF-8.  Por supuesto, debe
+estar instalada y estar disponible para Lilypond una fuente
+tipográfica que contenga codificados todos estos caracteres.
+
+El ejemplo siguiente muestra caracteres codificados en UTF-8 que se
+usan en cuatro lugares: en una llamada de ensayo, como texto de
+articulación, en la letra y como texto independiente bajo la
+partitura:
+
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    c1 \mark \markup { \char ##x03EE }
+    c1_\markup { \tiny { \char ##x03B1 " to " \char ##x03C9 } }
+  }
+  \addlyrics { O \markup { \concat{ Ph \char ##x0153 be! } } }
+}
+\markup { "Copyright 2008" \char ##x00A9 }
+@end lilypond
+
+Para escribir el símbolo de copyright en la nota de créditos, utilice:
 
 @example
-#(ly:export (ly:wide-char->utf-8 #x03BE))
+\header @{
+  copyright = \markup @{ \char ##x00A9 "2008" @}
+@}
 @end example
-
-donde en este ejemplo @code{x03BE} es el código hexadecimal del
-carácter Unicode U+03BE, que tiene el nombre Unicode @qq{Letra griega
-Xi pequeña}.  Cualquier código exadecimal de Unicode se puede
-sustituir de esta forma y si todos los caracteres especiales se
-introducen en eeste formato no es necesario guardar el archivo de
-entrada en el formato UTF-8.
-
-@knownissues
-
-El formato @code{ly:export} se puede usar en textos dentro de
-instrucciones @code{\mark} o @code{\markup} pero no en la letra de las
-canciones.
 
 
 @node Displaying LilyPond notation
@@ -1598,13 +1613,14 @@ Los siguientes elementos de notación se reflejan en la salida MIDI:
 @itemize
 @item Alturas
 @item Cuartos de tono (véase @ref{Accidentals}. La reproducción necesita un reproductor que contemple la curvatura de tono o @emph{pitch bend}.)
-@item Chords entered as chord names
-@item Rhythms entered as note durations, including tuplets
-@item Tremolos entered without @q{@code{:}[@var{number}]}
-@item Ties
-@item Dynamic marks
-@item Crescendi, decrescendi over multiple notes
-@item Tempo changes entered with a tempo marking
+@item Acordes escritos como nombres de acorde
+@item Ritmos escritos como duraciones de las notas, incluidos los grupos de valoración especial
+@item Trémolos escritos sin @q{@code{:}[@var{número}]}
+@item Ligaduras de unión
+@item Matices o indicaciones de dinámica
+@item Crescendi y decrescendi sobre varias notas
+@item Cambios de tempo insertados con una marca metronómica
+@item Letra de las canciones
 @end itemize
 
 @unnumberedsubsubsec Unsupported in MIDI
@@ -1622,8 +1638,6 @@ salida MIDI:
 @item Crescendi y decrescendi sobre una nota única
 @item Trémolos introducidos con @q{@code{:}[@var{número}]}
 @item Bajo cifrado
-@c TODO Check Lyrics
-@item Letra de las canciones
 @end itemize
 
 

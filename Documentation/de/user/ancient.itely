@@ -13,7 +13,13 @@
 @node Ancient notation
 @section Ancient notation
 
-@untranslated
+@lilypondfile[quote]{ancient-headword.ly}
+
+@cindex Vaticana, Editio
+@cindex Medicaea, Editio
+@cindex Hufnagel
+@cindex Petrucci
+@cindex Mensuralnotation
 
 @menu
 * Introduction to ancient notation::

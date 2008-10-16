@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 635c9ec04620eaf1303e3ab3c04c8a7d6e0a9fe4
+    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -88,22 +88,41 @@ Fragmentos de código:
 
 @funindex \upbow
 @funindex \downbow
+@funindex \open
 
 @cindex arco, indicaciones de
 @cindex arco arriba, indicación
 @cindex arco abajo, indicación
 @cindex arriba, arco
 @cindex abajo, arco
+@cindex al aire, indicación de cuerda
+@cindex cuerda al aire, indicación de
 
 Las indicaciones de arco se crean como articulaciones, que se
-describen en @ref{Articulations and ornamentations}.  Las
-instrucciones de arco @code{\upbow} (arco arriba) y @code{\downbow}
-(arco abajo) se usan con ligaduras de expresión de la siguiente
-manera:
+describen en @ref{Articulations and ornamentations}.
+
+Las instrucciones de arco @code{\upbow} (arco arriba) y
+@code{\downbow} (arco abajo) se usan con ligaduras de expresión de la
+siguiente manera:
 
 @lilypond[verbatim,quote,relative=2]
 c4(\downbow d) e(\upbow f)
 @end lilypond
+
+@noindent
+y el ejemplo siguiente muestra tres formas distintas de indicar un La
+sobre una cuerda al aire del violín:
+
+@lilypond[verbatim,quote,relative=2]
+a4 \open 
+a^\markup { \teeny "II" } 
+a2^\markup { \small "sul A" }
+@end lilypond
+
+@predefined
+@code{\downbow},
+@code{\upbow},
+@code{\open}.
 
 @seealso
 

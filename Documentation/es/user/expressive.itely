@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 2b4361a39e7259c0987dd9e005744a7995bff789
+    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -701,6 +701,9 @@ detalles, consulte @ref{Divisiones}.
 {inserting-a-caesura.ly}
 
 @seealso
+
+Glosario musical:
+@rglos{caesura}.
 
 Referencia de la notación:
 @ref{Divisiones}.
