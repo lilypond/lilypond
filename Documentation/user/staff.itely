@@ -28,8 +28,7 @@ performance marks to single staves.
 @subsection Displaying staves
 
 This section describes the different methods of creating and
-grouping staves, which are marked at the beginning of each line
-with either a bracket or a brace.
+grouping staves.
 
 @menu
 * Instantiating new staves::
@@ -79,7 +78,7 @@ For details, see @ref{Percussion staves}.
 modern Gregorian chant.  It does not show bar lines.
 
 @lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f }
+\new GregorianTranscriptionStaff { c4 d e f e d }
 @end lilypond
 
 @code{RhythmicStaff} creates a single-line staff that only
@@ -380,6 +379,8 @@ The lines of a staff belong to the @code{StaffSymbol} grob.
 @code{StaffSymbol} properties can be modified to change the
 appearance of a staff, but they must be modified before the staff
 is created.
+
+@c FIXME most of this section should be moved to NR 5.3 or moved to LSR -td
 
 The number of staff lines may be changed.  The clef position and
 the position of middle C may need to be modified to fit the new
