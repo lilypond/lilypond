@@ -1,6 +1,6 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 635c9ec04620eaf1303e3ab3c04c8a7d6e0a9fe4
+    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -49,7 +49,7 @@ llave o un corchete.
 @cindex pentagrama único
 @cindex percusión, pauta de
 @cindex pauta de percusión
-@cindex Gregoriano, canto, pauta de transcripción de
+@cindex gregoriano, canto, pauta de transcripción de
 @cindex rítmica, pauta
 @cindex tablatura, pauta de
 
@@ -77,7 +77,7 @@ instrucción @code{\drummode}.  Para ver más detalles, consulte
 
 @c FIXME: remove when mentioned in NR 2.8
 @code{GregorianTranscriptionStaff} crea una pauta para la notación
-moderna de canto Gregoriano.  No muestra líneas divisorias.
+moderna de canto gregoriano.  No muestra líneas divisorias.
 
 @lilypond[verbatim,quote,relative=2]
 \new GregorianTranscriptionStaff { c4 d e f }
@@ -882,32 +882,11 @@ d4 g e c
 
 @c perhaps also an example of how to move it horizontally?
 
-@c TODO add snippet when ready
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {changing-the-tempo-without-a-visible-metronome-mark.ly}
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing-the-tempo-without-a-metronome-mark.ly}
 
-Para cambiar el tempo en la salida MIDI sin imprimir nada en la
-partitura, haga invisible la indicación metronómica:
-
-@example
-\once \override Score.MetronomeMark #'transparent = ##t
-@end example
-
-@c TODO add snippet when ready
-@c @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
-@c {creating-metronome-marks-in-markup-mode.ly}
-
-Para imprimir otras indicaciones de metrónomo, utilice estas
-instrucciones de marcado:
-
-@lilypond[verbatim,quote,relative=1]
-c4^\markup {
-  (
-  \smaller \general-align #Y #DOWN \note #"16." #1
-  =
-  \smaller \general-align #Y #DOWN \note #"8" #1
-  ) }
-@end lilypond
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{creating-metronome-marks-in-markup-mode.ly}
 
 Para ver más detalles, consulte @ref{Formatting text}.
 
@@ -1297,7 +1276,7 @@ de una particella pero posiblemente se deban reponer más tarde.
 flute = \relative c''' {
   r2 cis2 r2 dis2
 }
-\addQuote flute { \flute }
+\addQuote "flute" { \flute }
 
 \new Voice \relative c'' {
   \killCues {

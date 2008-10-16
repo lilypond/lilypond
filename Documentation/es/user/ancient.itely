@@ -180,7 +180,7 @@ Véanse uno de los contextos predefinidos @code{VaticanaVoice},
 
 Una ligadura es un símbolo gráfico que representa al menos dos notas
 distintas.  Las ligaduras aparecieron originalmente en los manuscritos
-de la notación del Canto Gregoriano para denotar secuencias de notas
+de la notación del canto gregoriano para denotar secuencias de notas
 ascendentes o descendentes en la misma sílaba. Se usan también en
 notación mensural.
 
@@ -242,7 +242,7 @@ ayudando al intérprete con los saltos de línea durante la ejecución.
 Las custodias se utilizaron mucho en la notación musical hasta el
 siglo XVII.  En nuestros días, sobreviven sólo en algunas formas
 particulares de notación musical como las ediciones contemporáneas de
-Canto Gregoriano como la @emph{Editio Vaticana}.  Hay distintos glifos
+canto gregoriano como la @emph{Editio Vaticana}.  Hay distintos glifos
 para el custos que se utilizan en las diferentes variaciones de estilo
 notacional.
 
@@ -668,7 +668,7 @@ mensurales siempre se alinea verticalmente con una línea de la pauta.
 
 No existe un estilo particular de corchete para la notación neo-mensural.
 
-No existen corchetes en la notación del Canto Gregoriano.
+No existen corchetes en la notación del canto gregoriano.
 
 @seealso
 
@@ -719,7 +719,7 @@ estilo predeterminado.
 Consulte @rlsr{Pitches,rests} para ver un cuadro de todos los
 silencios.
 
-No hay silencios en la notación del Canto Gregoriano; en su lugar, se
+No hay silencios en la notación del canto gregoriano; en su lugar, se
 utilizan @ref{Divisiones}.
 
 @seealso
@@ -953,7 +953,7 @@ grabadores de ligaduras.
 
 El contexto predefinido de voz @code{VaticanaVoiceContext} y el de
 pauta @code{VaticanaStaffContext} se pueden utilizar para grabar una
-pieza de Canto Gregoriano en el estilo de la Editio Vaticana.  Estos
+pieza de canto gregoriano en el estilo de la Editio Vaticana.  Estos
 contextos establecen a unos valores iniciales adecuados todas las
 propiedades relevantes de los contextos y de los objetos gráficos, de
 forma que pueda inmediatamente comenzar a escribir el canto en sí,
@@ -1198,7 +1198,7 @@ Referencia de funcionamiento interno:
 
 Una @emph{divisio} (en plural: @emph{divisiones}, que en latín
 significa @q{división}) es un símbolo del contexto del pentagrama que
-se usa para estructurar la música Gregoriana en frases y secciones.
+se usa para estructurar la música gregoriana en frases y secciones.
 El significado musical de @emph{divisio minima}, @emph{divisio maior}
 y @emph{divisio maxima} se podrían caracterizar como una pausa corta,
 media y larga (respectivamente), algo así como las marcas de

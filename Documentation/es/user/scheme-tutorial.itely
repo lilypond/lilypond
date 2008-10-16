@@ -140,7 +140,7 @@ un número o una cadena.  Se introduce como
 @funindex #'symbol
 @cindex comillas en Scheme
 
-El apóstrofe @code{'} evita que el intérprete de Scheme sustituya
+El apóstrofo @code{'} evita que el intérprete de Scheme sustituya
 @code{veintiCuatro} por @code{24}.  En vez de esto, obtenemos el
 nombre @code{veintiCuatro}.
 
@@ -174,7 +174,7 @@ derecho) se introducen como @code{parejas}.  Una pareja@footnote{En la
 terminología de Scheme, la pareja se llama @code{cons}, y sus dos
 elementos se llaman @code{car} y @code{cdr} respectivamente.}  se
 introduce como @code{(primero . segundo)} y, como los símbolos, se deben
-preceder de un apóstrofe:
+preceder de un apóstrofo:
 
 @example
 \override TextScript #'extra-offset = #'(1 . 2)
@@ -195,7 +195,7 @@ ejemplo
 @end example
 
 Una lista se escribe encerrando sus elementos entre paréntesis, y
-añadiendo un apóstrofe.  Por ejemplo,
+añadiendo un apóstrofo.  Por ejemplo,
 
 @example
 #'(1 2 3)
@@ -207,11 +207,11 @@ Todo el tiempo hemos estado usando listas.  Un cálculo, como @code{(+
 números 1 y@tie{}2).  Normalmente, las listas se interpretan como
 cálculos, y el intérprete de Scheme sustituye el resultado del
 cálculo.  Para escribir una lista, detenemos la evaluación.  Esto se
-hace precediendo la lista por un apóstrofe @code{'}.  Así, para los
-cálculos no usamos ningún apóstrofe.
+hace precediendo la lista por un apóstrofo @code{'}.  Así, para los
+cálculos no usamos ningún apóstrofo.
 
-Dentro de una lista o pareja precedida de apóstrofe, no hay necesidad
-de escribir ningún apóstrofe más.  Lo siguiente es una pareja de
+Dentro de una lista o pareja precedida de apóstrofo, no hay necesidad
+de escribir ningún apóstrofo más.  Lo siguiente es una pareja de
 símbolos, una lista de símbolos y una lista de listas respectivamente:
 
 @example

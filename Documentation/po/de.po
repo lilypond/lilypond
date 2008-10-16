@@ -2,14 +2,14 @@
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Till Rettig <till.rettig@gmx.de>, 2007,2008
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-06 22:02+0200\n"
-"PO-Revision-Date: 2008-09-24 21:30+0300\n"
+"PO-Revision-Date: 2008-10-11 16:35+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -23,14 +23,15 @@ msgstr ""
 "Diese Seite ist für %(package_name)s-%(package_version)s (%(branch_str)s)."
 
 #: postprocess_html.py:47
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Your <a href=\"%(suggest_Docs_url)s\">suggestions for the documentation</a> "
 "are welcome, please report errors to our <a href=\"%(mail_address_url)s"
 "\">bug list</a>."
 msgstr ""
 "Ihre <a href=\"%(suggest_Docs_url)s\">Vorschläge für die Dokumentation</a> "
-"sind willkommen."
+"sind willkommen. Bitte melden Sie Probleme und Fehler an unsere <a·href=\"%(mail_address_url)s"
+"\">Fehler-Liste</a>."
 
 #: postprocess_html.py:59
 #, python-format
@@ -154,7 +155,6 @@ msgid "Top"
 msgstr "Top"
 
 #. @top in Documentation/user/lilypond-learning.tely
-#, fuzzy
 msgid "GNU LilyPond --- Learning Manual"
 msgstr "GNU LilyPond -- Das Handbuch zum Lernen"
 
@@ -439,7 +439,7 @@ msgstr "barA"
 #. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 msgid "foo"
-msgstr ""
+msgstr "foo"
 
 #. @node in Documentation/user/tutorial.itely
 #. @chapter in Documentation/user/tutorial.itely
@@ -3164,7 +3164,6 @@ msgid "ADDENDUM: How to use this License for your documents"
 msgstr "Anhang: Wie kann die Lizenz für eigene Dokumente verwendet werden"
 
 #. @top in Documentation/user/lilypond-program.tely
-#, fuzzy
 msgid "GNU LilyPond --- Application Usage"
 msgstr "GNU LilyPond -- Die Programmbenutzung"
 
@@ -3249,7 +3248,7 @@ msgstr "Außerhalb des Quellbaums übersetzen"
 
 #. @unnumberedsubsubsec in Documentation/user/install.itely
 msgid "Useful @command{make} variables"
-msgstr ""
+msgstr "Nützliche @command{make}-Variablen"
 
 #. @node in Documentation/user/install.itely
 #. @subsection in Documentation/user/install.itely
@@ -3318,18 +3317,16 @@ msgstr "Setup für bestimmte Betriebssysteme"
 #. @subsection in Documentation/user/setup.itely
 #. @node in Documentation/es/user/setup.itely
 #. @subsection in Documentation/es/user/setup.itely
-#, fuzzy
 msgid "Setup for MacOS X"
-msgstr "Anmerkungen für MacOS X"
+msgstr "Einrichtung für MacOS X"
 
 #. @subsubheading in Documentation/user/setup.itely
 #. @subsubheading in Documentation/es/user/setup.itely
 msgid "Using Python scripts on MacOS 10.3 or 10.4"
-msgstr ""
+msgstr "Benutzung von Python-Skripten unter MacOS 10.3 oder 10.4"
 
 #. @subsubheading in Documentation/user/setup.itely
 #. @subsubheading in Documentation/es/user/setup.itely
-#, fuzzy
 msgid "MacOS X on the command line"
 msgstr "MacOS X auf der Kommandozeile"
 
@@ -3465,21 +3462,18 @@ msgstr "lilypond aufrufen"
 
 #. @subsection in Documentation/user/running.itely
 #. @subsection in Documentation/es/user/running.itely
-#, fuzzy
 msgid "Invoking @command{lilypond}"
-msgstr "@command{lilypond-book} aufrufen"
+msgstr "@command{lilypond} aufrufen"
 
 #. @node in Documentation/user/running.itely
 #. @node in Documentation/es/user/running.itely
-#, fuzzy
 msgid "Command line options for lilypond"
-msgstr "Optionen auf der Kommandozeile"
+msgstr "Optionen von lilypond auf der Kommandozeile"
 
 #. @subsection in Documentation/user/running.itely
 #. @subsection in Documentation/es/user/running.itely
-#, fuzzy
 msgid "Command line options for @command{lilypond}"
-msgstr "Optionen auf der Kommandozeile"
+msgstr "Optionen auf der Kommandozeile für @command{lilypond}"
 
 #. @node in Documentation/user/running.itely
 #. @subsection in Documentation/user/running.itely
@@ -3512,21 +3506,18 @@ msgstr "Dateien mit convert-ly aktualisieren"
 
 #. @section in Documentation/user/running.itely
 #. @section in Documentation/es/user/running.itely
-#, fuzzy
 msgid "Updating files with @command{convert-ly}"
 msgstr "Dateien mit @command{convert-ly} aktualisieren"
 
 #. @node in Documentation/user/running.itely
 #. @node in Documentation/es/user/running.itely
-#, fuzzy
 msgid "Command line options for convert-ly"
-msgstr "Optionen auf der Kommandozeile"
+msgstr "Optionen von convert-ly auf der Kommandozeile"
 
 #. @subsection in Documentation/user/running.itely
 #. @subsection in Documentation/es/user/running.itely
-#, fuzzy
 msgid "Command line options for @command{convert-ly}"
-msgstr "Dateien mit @command{convert-ly} aktualisieren"
+msgstr "Optionen von @command{convert-ly} auf der Kommandozeile"
 
 #. @node in Documentation/user/running.itely
 #. @node in Documentation/fr/user/running.itely
@@ -3851,14 +3842,12 @@ msgid "Generating LilyPond files"
 msgstr "LilyPond-Dateien erstellen"
 
 #. @top in Documentation/user/lilypond.tely
-#, fuzzy
 msgid "GNU LilyPond --- Notation Reference"
-msgstr "GNU LilyPond -- Das Notationsprogramm"
+msgstr "GNU LilyPond -- Die Notationsreferenz"
 
 #. @chapheading in Documentation/user/lilypond.tely
-#, fuzzy
 msgid "The music typesetter"
-msgstr "GNU LilyPond -- Das Notensatzprogramm"
+msgstr "Das Notensatzprogramm"
 
 #. @node in Documentation/user/lilypond.tely
 #. @appendix in Documentation/user/lilypond.tely
@@ -4313,9 +4302,8 @@ msgid "pipeSymbol"
 msgstr "pipeSymbol"
 
 #. Documentation/user/rhythms.itely:2731 (variable)
-#, fuzzy
 msgid "MyCadenza"
-msgstr "Kadenz"
+msgstr "MeineKadenz"
 
 #. @node in Documentation/user/rhythms.itely
 #. @section in Documentation/user/rhythms.itely
@@ -4736,9 +4724,8 @@ msgstr "Portato"
 
 #. @rglos in Documentation/user/expressive.itely
 #. @rglos in Documentation/es/user/expressive.itely
-#, fuzzy
 msgid "al niente"
-msgstr "halbe Note"
+msgstr "al niente"
 
 #. @rglos in Documentation/user/expressive.itely
 #. @rglos in Documentation/es/user/expressive.itely
@@ -4792,13 +4779,12 @@ msgstr "Glissando zu unbestimmter Tonhöhe"
 #. @rglos in Documentation/user/expressive.itely
 #. @rglos in Documentation/es/user/expressive.itely
 msgid "fall"
-msgstr ""
+msgstr "Glissando nach unten"
 
 #. @rglos in Documentation/user/expressive.itely
 #. @rglos in Documentation/es/user/expressive.itely
-#, fuzzy
 msgid "doit"
-msgstr "doits"
+msgstr "doit"
 
 #. @node in Documentation/user/expressive.itely
 #. @subsection in Documentation/user/expressive.itely
@@ -5114,7 +5100,7 @@ msgstr "Ktrfgt"
 #. @node in Documentation/de/user/staff.itely
 #. @section in Documentation/de/user/staff.itely
 msgid "Staff notation"
-msgstr "Notation innerhalb eines Systems"
+msgstr "Notation auf Systemen"
 
 #. @node in Documentation/user/staff.itely
 #. @subsection in Documentation/user/staff.itely
@@ -5171,9 +5157,8 @@ msgstr "Akkolade"
 #. @unnumberedsubsubsec in Documentation/fr/user/staff.itely
 #. @node in Documentation/es/user/staff.itely
 #. @unnumberedsubsubsec in Documentation/es/user/staff.itely
-#, fuzzy
 msgid "Nested staff groups"
-msgstr "Tief verschachtelte Notensysteme"
+msgstr "Verschachtelte Notensysteme"
 
 #. @node in Documentation/user/staff.itely
 #. @subsection in Documentation/user/staff.itely
@@ -5595,9 +5580,8 @@ msgstr "Schriftarten"
 #. @unnumberedsubsubsec in Documentation/user/text.itely
 #. @node in Documentation/es/user/text.itely
 #. @unnumberedsubsubsec in Documentation/es/user/text.itely
-#, fuzzy
 msgid "Fonts explained"
-msgstr "Was sind Umgebungen?"
+msgstr "Was sind Schriftarten"
 
 #. @node in Documentation/user/text.itely
 #. @unnumberedsubsubsec in Documentation/user/text.itely
@@ -5715,9 +5699,8 @@ msgstr "Eingabe von Text"
 #. @unnumberedsubsubsec in Documentation/es/user/vocal.itely
 #. @node in Documentation/de/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/de/user/vocal.itely
-#, fuzzy
 msgid "Lyrics explained"
-msgstr "Was sind Umgebungen?"
+msgstr "Was ist Gesangtext"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
@@ -5827,7 +5810,7 @@ msgstr "Gesangtext und Wiederholungen"
 #. @node in Documentation/de/user/vocal.itely
 #. @subsection in Documentation/de/user/vocal.itely
 msgid "Specific uses of lyrics"
-msgstr ""
+msgstr "Besonderheiten der Gesangtextnotation"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
@@ -5991,15 +5974,14 @@ msgstr "keine doppelten Fähnchen"
 
 #. Documentation/user/keyboards.itely:391 (comment)
 msgid "prevent beaming as needed"
-msgstr ""
+msgstr "Balken verhindern"
 
 #. @node in Documentation/user/keyboards.itely
 #. @section in Documentation/user/keyboards.itely
 #. @node in Documentation/es/user/keyboards.itely
 #. @section in Documentation/es/user/keyboards.itely
-#, fuzzy
 msgid "Keyboard and other multi-staff instruments"
-msgstr "Tasteninstrumente"
+msgstr "Tasteninstrumente und andere Instrumente mit mehreren Systemen"
 
 #. @node in Documentation/user/keyboards.itely
 #. @subsection in Documentation/user/keyboards.itely
@@ -6156,25 +6138,22 @@ msgstr "Hinweise für ungebundene Saiteninstrumente"
 
 #. @node in Documentation/user/unfretted-strings.itely
 #. @unnumberedsubsubsec in Documentation/user/unfretted-strings.itely
-#, fuzzy
 msgid "Bowing indications"
-msgstr "Tempobezeichnung"
+msgstr "Bezeichnung des Bogens"
 
 #. @node in Documentation/user/unfretted-strings.itely
 #. @unnumberedsubsubsec in Documentation/user/unfretted-strings.itely
-#, fuzzy
 msgid "Harmonics"
-msgstr "Harmonien"
+msgstr "Flageolett"
 
 #. @rglos in Documentation/user/unfretted-strings.itely
-#, fuzzy
 msgid "harmonics"
-msgstr "Harmonien"
+msgstr "Flageolett"
 
 #. @node in Documentation/user/unfretted-strings.itely
 #. @unnumberedsubsubsec in Documentation/user/unfretted-strings.itely
 msgid "Snap (Bartók) pizzicato"
-msgstr ""
+msgstr "Bartók-Pizzicato"
 
 #. Documentation/user/fretted-strings.itely:223 (variable)
 msgid "melodia"
@@ -6373,53 +6352,40 @@ msgid "down"
 msgstr "unten"
 
 #. Documentation/user/percussion.itely:385 (comment)
-#, fuzzy
 msgid "These lines define the position of the woodblocks in the stave;"
-msgstr ""
-"Diese Zeilen definieren die Position der Holzblöcke auf dem System, sie "
-"können geändert werden"
+msgstr "Diese Zeilen definieren die Position der Holzblöcke auf dem System"
 
 #. Documentation/user/percussion.itely:386 (comment)
 msgid "if you like, you can change it or you can use special note heads"
-msgstr ""
+msgstr "Wenn Sie wollen, können Sie das ändern oder besondere Notenkönpfe benutzen"
 
 #. Documentation/user/percussion.itely:387 (comment)
 msgid "for the woodblocks."
-msgstr ""
+msgstr "für die Holzblöcke"
 
 #. Documentation/user/percussion.itely:391 (variable)
-#, fuzzy
 msgid "woodstaff"
-msgstr "System"
+msgstr "System für Holz"
 
 #. Documentation/user/percussion.itely:392 (comment)
-#, fuzzy
 msgid "This defines a staff with only two lines."
-msgstr ""
-"Definiert ein System mit zwei Linien. Auch die Position der zwei Linien wird "
-"festgelegt"
+msgstr "Definiert ein System mit zwei Linien."
 
 #. Documentation/user/percussion.itely:393 (comment)
-#, fuzzy
 msgid "It also defines the positions of the two lines."
-msgstr ""
-"Definiert ein System mit zwei Linien. Auch die Position der zwei Linien wird "
-"festgelegt"
+msgstr "Auch die Position der zwei Linien wird festgelegt"
 
 #. Documentation/user/percussion.itely:396 (comment)
-#, fuzzy
 msgid "This is neccessary; if not entered, the barline wuld be too short!"
-msgstr "notwendig. Wenn nicht angegeben, wird die Taktlinie zu kurz!"
+msgstr "Das ist notwendig. Wenn nicht angegeben, wird die Taktlinie zu kurz!"
 
 #. Documentation/user/percussion.itely:403 (comment)
-#, fuzzy
 msgid "with this you load your new drum style table"
-msgstr "neue Trommelstil-Tabelle laden"
+msgstr "jetzt neue Trommelstil-Tabelle laden"
 
 #. Documentation/user/percussion.itely:425 (variable)
-#, fuzzy
 msgid "tambustaff"
-msgstr "System"
+msgstr "Tambu-System"
 
 #. Documentation/user/percussion.itely:433 (comment)
 msgid "broken"
@@ -6430,28 +6396,20 @@ msgid "\\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) "
 msgstr "\\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) "
 
 #. Documentation/user/percussion.itely:440 (comment)
-#, fuzzy
 msgid "the trick with the scaled duration and the shorter rest"
-msgstr ""
-"Trick mit der skalierten Dauer und der kürzeren Pause ist nötig,damit die "
-"Trillerspannweite richtig endet"
+msgstr "Trick mit der skalierten Dauer und der kürzeren Pause"
 
 #. Documentation/user/percussion.itely:441 (comment)
-#, fuzzy
 msgid "is neccessary for the correct ending of the trill-span!"
-msgstr ""
-"Trick mit der skalierten Dauer und der kürzeren Pause ist nötig,damit die "
-"Trillerspannweite richtig endet"
+msgstr "ist·nötig,damit·die·Trillerspannweite·richtig·endet"
 
 #. Documentation/user/percussion.itely:452 (variable)
-#, fuzzy
 msgid "tamtamstaff"
-msgstr "System"
+msgstr "tamtam-System"
 
 #. Documentation/user/percussion.itely:474 (variable)
-#, fuzzy
 msgid "bellstaff"
-msgstr "System"
+msgstr "Glocken-System"
 
 #. Documentation/user/percussion.itely:505 (variable)
 msgid "drumsA"
@@ -6763,9 +6721,8 @@ msgid "Displaying figured bass"
 msgstr "Generalbass anzeigen"
 
 #. Documentation/user/ancient.itely:830 (variable)
-#, fuzzy
 msgid "ficta"
-msgstr "Quinte"
+msgstr "ficta"
 
 #. @node in Documentation/user/ancient.itely
 #. @section in Documentation/user/ancient.itely
@@ -6782,17 +6739,15 @@ msgstr "Notation von alter Musik"
 #. @subsection in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @subsection in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Overview of the supported styles"
-msgstr "Überblick über Textbeschriftungsbefehle"
+msgstr "Überblick über die unterstützten Stile"
 
 #. @node in Documentation/user/ancient.itely
 #. @subsection in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @subsection in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Ancient notation---common features"
-msgstr "Vorlagen für alte Notation"
+msgstr "Alte Notation -- Allgemeines"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
@@ -6831,17 +6786,15 @@ msgstr "Custodes"
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Figured bass support"
-msgstr "Generalbass"
+msgstr "Unterstützung für Generalbass"
 
 #. @node in Documentation/user/ancient.itely
 #. @subsection in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @subsection in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Typesetting mensural music"
-msgstr "Das Kopieren von existierender Musik"
+msgstr "Mesurale Musik setzen"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
@@ -6858,57 +6811,50 @@ msgstr "Mensural-Kontexte"
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Mensural clefs"
-msgstr "Mensural-Kontexte"
+msgstr "Mensurale Schlüssel"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Mensural time signatures"
-msgstr "Arabische Taktarten"
+msgstr "Mensurale Taktartenbezeichnungen"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Mensural note heads"
-msgstr "Besondere Notenköpfe"
+msgstr "Mensurale Notenköpfe"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Mensural flags"
-msgstr "Mensural-Kontexte"
+msgstr "Mensurale Fähnchen"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Mensural rests"
-msgstr "Mensural-Kontexte"
+msgstr "Mensurale Pausen"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Mensural accidentals and key signatures"
-msgstr "Versetzungszeichen und Tonartbezeichnung (Vorzeichen)"
+msgstr "Mensurale Versetzungszeichen und Tonartbezeichnung"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Annotational accidentals (@emph{musica ficta})"
-msgstr "Vorgeschlagene Versetzungszeichen"
+msgstr "Vorgeschlagene Versetzungszeichen (@emph{musica ficta})"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
@@ -6925,9 +6871,8 @@ msgstr "Weiße Mensuralligaturen"
 #. @subsection in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @subsection in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Typesetting Gregorian chant"
-msgstr "Gregorianischen Choral transkribieren"
+msgstr "Gregorianischen Choral setzen"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
@@ -6944,17 +6889,15 @@ msgstr "Gregorianische Gesangs-Kontexte"
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Gregorian clefs"
-msgstr "Gregorianische Gesangs-Kontexte"
+msgstr "Gregorianische Schlüssel"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Gregorian accidentals and key signatures"
-msgstr "Versetzungszeichen und Tonartbezeichnung (Vorzeichen)"
+msgstr "Gregorianische Versetzungszeichen und Tonartbezeichnung"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
@@ -6971,22 +6914,20 @@ msgstr "Divisiones"
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Gregorian articulation signs"
-msgstr "Artikulationszeichen Alter Musik"
+msgstr "Artikulationszeichen des Gregorianischen Chorals"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
 msgid "Augmentum dots (@emph{morae})"
-msgstr ""
+msgstr "Augmentationspunkte (@emph{morae})"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Gregorian square neume ligatures"
 msgstr "Ligaturen der gregorianischen Quadratnotation"
 
@@ -6995,7 +6936,7 @@ msgstr "Ligaturen der gregorianischen Quadratnotation"
 #. @node in Documentation/es/user/ancient.itely
 #. @subsection in Documentation/es/user/ancient.itely
 msgid "Working with ancient music---scenarios and solutions"
-msgstr ""
+msgstr "Musiksatz Alter Musik in der Praxis -- Szenarien und Lösungen"
 
 #. @node in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
@@ -7504,9 +7445,8 @@ msgid "this time the text will be closer to the staff"
 msgstr "jetzt ist der Text näher am System"
 
 #. Documentation/user/spacing.itely:1721 (comment)
-#, fuzzy
 msgid "by setting outside-staff-priority to a non-number,"
-msgstr "indem outside-staff-priority auf Nicht-Zahl gesetzt wird, "
+msgstr "indem outside-staff-priority auf Nicht-Zahl gesetzt wird,"
 
 #. Documentation/user/spacing.itely:1722 (comment)
 msgid "we disable the automatic collision avoidance"
@@ -7572,25 +7512,22 @@ msgstr "Seitenformatierung"
 #. @unnumberedsubsubsec in Documentation/user/spacing.itely
 #. @node in Documentation/es/user/spacing.itely
 #. @unnumberedsubsubsec in Documentation/es/user/spacing.itely
-#, fuzzy
 msgid "Vertical dimensions"
-msgstr "Vertikale Abstände"
+msgstr "Vertikale Dimensionen"
 
 #. @node in Documentation/user/spacing.itely
 #. @unnumberedsubsubsec in Documentation/user/spacing.itely
 #. @node in Documentation/es/user/spacing.itely
 #. @unnumberedsubsubsec in Documentation/es/user/spacing.itely
-#, fuzzy
 msgid "Horizontal dimensions"
-msgstr "Horizontale Abstände"
+msgstr "Horizontale Dimensionen"
 
 #. @node in Documentation/user/spacing.itely
 #. @unnumberedsubsubsec in Documentation/user/spacing.itely
 #. @node in Documentation/es/user/spacing.itely
 #. @unnumberedsubsubsec in Documentation/es/user/spacing.itely
-#, fuzzy
 msgid "Other layout variables"
-msgstr "Weitere Gitarrenprobleme"
+msgstr "Weitere Layout-Variablen"
 
 #. @node in Documentation/user/spacing.itely
 #. @section in Documentation/user/spacing.itely
@@ -7877,35 +7814,30 @@ msgid "Changing spacing"
 msgstr "Abstände verändern"
 
 #. Documentation/user/changing-defaults.itely:1926 (comment)
-#, fuzzy
 msgid "increase the length of the tie"
-msgstr "Taktnummer um Faktor zwei vergrößern"
+msgstr "Länge des Bindebogens vergrößern"
 
 #. Documentation/user/changing-defaults.itely:1935 (comment)
-#, fuzzy
 msgid "increase the length of the rest bar"
-msgstr "Taktnummer um Faktor zwei vergrößern"
+msgstr "Länge des Pausentaktes vergrößern"
 
 #. Documentation/user/changing-defaults.itely:1943 (comment)
-#, fuzzy
 msgid "increase the length of the hairpin"
-msgstr "Taktnummer um Faktor zwei vergrößern"
+msgstr "Länge der Crescendo-Klammer vergrößern"
 
 #. Documentation/user/changing-defaults.itely:1971 (comment)
-#, fuzzy
 msgid "default"
-msgstr "Standardstil"
+msgstr "Standard"
 
 #. Documentation/user/changing-defaults.itely:1974 (comment)
 #. Documentation/user/changing-defaults.itely:1987 (comment)
-#, fuzzy
 msgid "not effective alone"
-msgstr "Auswahl der Schriftart"
+msgstr "allein keine Wirkung"
 
 #. Documentation/user/changing-defaults.itely:1978 (comment)
 #. Documentation/user/changing-defaults.itely:1991 (comment)
 msgid "effective only when both overrides are present"
-msgstr ""
+msgstr "gilt nur, wenn beide \"override\" vorhanden sind"
 
 #. Documentation/user/changing-defaults.itely:2372 (comment)
 msgid "Remove bar line at the end of the current line"
@@ -7917,50 +7849,47 @@ msgstr "Versuche alle Tonarten zu entfernen"
 
 #. Documentation/user/changing-defaults.itely:2837 (comment)
 msgid "move horizontally left"
-msgstr ""
+msgstr "horizontal nach links verschieben"
 
 #. Documentation/user/changing-defaults.itely:2839 (comment)
 msgid "move vertically up"
-msgstr ""
+msgstr "vertikal hochschieben"
 
 #. Documentation/user/changing-defaults.itely:2840 (comment)
-#, fuzzy
 msgid "third finger"
-msgstr "Fingersatz der rechten Hand"
+msgstr "dritter Finger"
 
 #. Documentation/user/changing-defaults.itely:2886 (comment)
 msgid "the RehearsalMark will be centered above the Clef"
-msgstr ""
+msgstr "RehearsalMark zentrieren über dem Schlüssel"
 
 #. Documentation/user/changing-defaults.itely:2892 (comment)
 msgid "the RehearsalMark will be centered above the TimeSignature"
-msgstr ""
+msgstr "RehearsalMark zentrieren über der Taktart (TimeSignature)"
 
 #. Documentation/user/changing-defaults.itely:2906 (comment)
 msgid "The RehearsalMark will be centered above the KeySignature"
-msgstr ""
+msgstr "RehearsalMark zentrieren über der Tonart (KeySignature)"
 
 #. Documentation/user/changing-defaults.itely:2913 (comment)
 #. Documentation/user/changing-defaults.itely:2929 (comment)
 #. Documentation/user/changing-defaults.itely:2936 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the left edge of the KeySignature"
-msgstr ""
+msgstr "RehearsalMark mit der linken Ecke von KeySignature ausrichten"
 
 #. Documentation/user/changing-defaults.itely:2918 (comment)
 msgid ""
 "The RehearsalMark will be aligned with the right edge of the KeySignature"
-msgstr ""
+msgstr "RehearsalMark mit der rechten Ecke von KeySignature ausrichten"
 
 #. Documentation/user/changing-defaults.itely:2930 (comment)
-#, fuzzy
 msgid "and then shifted right by 3.5 staff-spaces"
-msgstr "Breite um einen Linienabstand vergrößern"
+msgstr "nach rechts um 3,5 Linienabstände verschieben"
 
 #. Documentation/user/changing-defaults.itely:2937 (comment)
-#, fuzzy
 msgid "and then shifted left by 2 staff-spaces"
-msgstr "Breite um einen Linienabstand vergrößern"
+msgstr "nach links um 2 Linienabstände verschieben"
 
 #. Documentation/user/changing-defaults.itely:2986 (variable)
 msgid "XinO"
@@ -8232,17 +8161,16 @@ msgstr "Strecker"
 
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 msgid "Using the @code{spanner-interface}"
-msgstr ""
+msgstr "Das @code{spanner-interface} benutzen"
 
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 msgid "Using the @code{line-spanner-interface}"
-msgstr ""
+msgstr "Das @code{line-spanner-interface} benutzen"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
-#, fuzzy
 msgid "Visibility of objects"
-msgstr "Sichtbarkeit und Farbe von Objekten"
+msgstr "Sichtbarkeit von Objekten"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
@@ -8328,30 +8256,30 @@ msgstr "Umgebungen ausrichten"
 #. @node in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 msgid "Setting @code{X-offset} and @code{Y-offset} directly"
-msgstr ""
+msgstr "@code{X-offset} und @code{Y-offset} direkt setzen"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 msgid "Using the @code{side-position-interface}"
-msgstr ""
+msgstr "Das @code{side-position-interface} benutzen"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 msgid "Using the @code{self-alignment-interface}"
-msgstr ""
+msgstr "Das @code{self-alignment-interface} benutzen"
 
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 msgid "Using the @code{aligned-on-parent} procedures"
-msgstr ""
+msgstr "Die @code{aligned-on-parent}-Prozeduren benutzen"
 
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 msgid "Using the @code{centered-on-parent} procedures"
-msgstr ""
+msgstr "Die @code{centered-on-parent}-Prozeduren benutzen"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @unnumberedsubsubsec in Documentation/user/changing-defaults.itely
 msgid "Using the @code{break-aligned-interface}"
-msgstr ""
+msgstr "Das @{break-aligned-interface} benutzen"
 
 #. @node in Documentation/user/changing-defaults.itely
 #. @subsection in Documentation/user/changing-defaults.itely
@@ -8411,7 +8339,7 @@ msgstr "traLaLa"
 
 #. Documentation/user/programming-interface.itely:352 (comment)
 msgid "dummy action to deal with parser lookahead"
-msgstr ""
+msgstr "Belanglose Aktion um Vorausschau des Parsers zu umgehen"
 
 #. @node in Documentation/user/programming-interface.itely
 #. @chapter in Documentation/user/programming-interface.itely
@@ -9217,7 +9145,6 @@ msgid "Using Scheme code instead of tweak"
 msgstr ""
 
 #. @top in Documentation/es/user/lilypond-learning.tely
-#, fuzzy
 msgid "GNU LilyPond: Manual de aprendizaje"
 msgstr "GNU LilyPond -- Das Handbuch zum Lernen"
 
@@ -9256,17 +9183,14 @@ msgid "baritone"
 msgstr ""
 
 #. @top in Documentation/es/user/lilypond-program.tely
-#, fuzzy
 msgid "GNU LilyPond: Manual de utilización del programa"
 msgstr "GNU LilyPond -- Die Programmbenutzung"
 
 #. @top in Documentation/es/user/lilypond.tely
-#, fuzzy
 msgid "GNU LilyPond: Manual de referencia de la notación"
-msgstr "GNU LilyPond -- Das Handbuch zum Lernen"
+msgstr "GNU LilyPond -- Die Notationsreferenz"
 
 #. @chapheading in Documentation/es/user/lilypond.tely
-#, fuzzy
 msgid "El tipografiador de música"
 msgstr "GNU LilyPond -- Das Notensatzprogramm"
 
@@ -9300,7 +9224,7 @@ msgstr "Enden von Streckern verändern"
 #. @node in Documentation/de/user/programming-interface.itely
 #. @section in Documentation/de/user/programming-interface.itely
 msgid "TODO moved into scheme"
-msgstr ""
+msgstr "TODO nach Scheme verschoben"
 
 #. @top in Documentation/de/user/lilypond-learning.tely
 msgid "GNU LilyPond -- Handbuch zum Lernen"

@@ -234,7 +234,7 @@ automáticos son adecuados.
 @cindex alturas
 @cindex notas
 @cindex relativo, modo
-@cindex apóstrofe
+@cindex apóstrofo
 @cindex comilla simple
 @cindex coma
 @cindex alteraciones y modo relativo
@@ -332,7 +332,7 @@ de una nota situada en cualquier otro lugar del mismo.
 
 Para añadir intervalos mayores de tres espacios de pentagrama, podemos
 elevar la @notation{octava} añadiendo una comilla simple @code{'} (o
-apóstrofe) a continuación del nombre de la nota.  También podemos
+apóstrofo) a continuación del nombre de la nota.  También podemos
 bajar la octava escribiendo una coma @code{,} a continuación del
 nombre de la nota.
 
@@ -2079,7 +2079,7 @@ He aquí una escala que abarca cuatro octavas:
 @end lilypond
 
 Como puede ver, escribir una melodía en clave de Sol implica escribir
-gran cantidad de apóstrofes @q{'} .  Consideremos este fragmento de
+gran cantidad de apóstrofos @q{'} .  Consideremos este fragmento de
 Mozart:
 
 @lilypond[verbatim,quote]
@@ -2091,7 +2091,7 @@ Mozart:
 }
 @end lilypond
 
-Todos estos apóstrofes hacen casi ilegible el código de entrada y será
+Todos estos apóstrofos hacen casi ilegible el código de entrada y será
 origen de numerosos errores.  Con @code{\relative}, el ejemplo
 anterior es mucho más fácil de leer:
 
