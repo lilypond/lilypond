@@ -439,7 +439,7 @@ under @rinternals{Music properties}.
 A compound music expression is a music object that contains other
 music objects in its properties.  A list of objects can be stored in
 the @code{elements} property of a music object, or a single @q{child}
-music object in the @code{element} object.  For example,
+music object in the @code{element} property.  For example,
 @rinternals{SequentialMusic} has its children in @code{elements},
 and @rinternals{GraceMusic} has its single argument in
 @code{element}.  The body of a repeat is stored in the @code{element}
