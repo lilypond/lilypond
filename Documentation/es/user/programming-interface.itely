@@ -1524,6 +1524,6 @@ razones técnicas.  Son ejemplos @code{NonMusicalPaperColumn} y
 
 Observe, sin embargo, que @code{\override}, aplicado a
 @code{NoteMusicalPaperColumn} y a @code{PaperColumn}, aún funciona
-como se espera dentro de los bloques @code{\context.
+como se espera dentro de los bloques @code{\context}.
 
 @end itemize
