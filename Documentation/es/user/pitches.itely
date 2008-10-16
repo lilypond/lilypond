@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 7c57f1469e057f25f5d7a7b75c18f33bb4e5bed9
+    Translation of GIT committish: fa9bb5b46a6aafc291353cd653e36472b7a721c4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -338,6 +338,9 @@ cis
 
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
 
 @seealso
 
