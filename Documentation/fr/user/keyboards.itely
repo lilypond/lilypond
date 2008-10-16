@@ -12,13 +12,14 @@
 @c Translators: Valentin Villenave
 @c Translation checkers: Jean-Charles Malahieude, John Mandereau
 
-@node Keyboard instruments
-@section Keyboard instruments
+@node Keyboard and other multi-staff instruments
+@section Keyboard and other multi-staff instruments
 
 @menu
 * Common notation for keyboards::  
 * Piano::                       
 * Accordion::                   
+* Harp::                        
 @end menu
 
 @node Common notation for keyboards
@@ -314,3 +315,8 @@ Dans ce manuel : @ref{Ties} @qq{laissez vibrer}.
 @ifnothtml
 @englishref
 @end ifnothtml
+
+@node Harp
+@subsection Harp
+
+@untranslated
