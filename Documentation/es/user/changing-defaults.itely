@@ -2782,12 +2782,179 @@ situar el objeto encima o debajo del padre de acuerdo con el valor de
 @node Using the @code{self-alignment-interface}
 @unnumberedsubsubsec Using the @code{self-alignment-interface}
 
-@untranslated
+@emph{Auto-alineación horizontal de los objetos}
+
+La alineación horizontal de un objeto que contempla el interface
+@code{self-alignment-interface} está controlada por el valor de la
+propiedad @code{self-alignment-X}, siempre y cuando la propiedad
+@code{X-offset} de este objeto esté establecida a
+@code{ly:self-alignment-interface::x-aligned-on-self}.  Se le puede
+dar a @code{self-alignment-X} cualquier valor real, en unidades de la
+mitad de la extensión X total del objeto.  Los valores negativos
+mueven el objeto a la derecha, los positivos hacia la izquierda.  Un
+valor de @code{0} centra el objeto sobre el punto de referencia de su
+padre, un valor de @code{-1} alinea el borde izquierdo del objeto
+sobre el punto de referencia de su padre, y un valor de @code{1}
+alinea el borde derecho del objeto sobre el punto de referencia de su
+padre.  Se pueden usar los símbolos @code{LEFT}, @code{CENTER} y
+@code{RIGHT} en sustitución de los valores @code{-1, 0, 1},
+respectivamente.
+
+Normalmente se usaría la instrucción @code{\override} para modificar
+el valor de @code{self-alignment-X}, pero se puede usar la instrucción
+@code{\tweak} para alinear varias anotaciones por separado sobre una
+sola nota:
+
+@lilypond[quote,verbatim,relative=1]
+a'
+-\tweak #'self-alignment-X #-1
+^"left-aligned"
+-\tweak #'self-alignment-X #0
+^"center-aligned"
+-\tweak #'self-alignment-X #RIGHT
+^"right-aligned"
+-\tweak #'self-alignment-X #-2.5
+^"aligned further to the right"
+@end lilypond
+
+@emph{Auto-alineación vertical de los objetos}
+
+Los objetos se pueden alinear verticalmente en una forma análoga a la
+alineación horizontal si la propiedad @code{Y-offset} está establecida
+a @code{ly:self-alignment-interface::y-aligned-on-self}.  Sin embargo,
+a menudo se encuentran implicados otros mecanismos en la alineación
+vertical: el valor de @code{Y-offset} es tan sólo una variable que se
+tiene en cuenta.  Esto puede hacer que ajustar el valor de ciertos
+objetos sea una tarea dificultosa.  Las unidades son sólo la mitad de
+las dimensiones verticales del objeto, que suele ser bastante pequeño,
+por lo que pueden requerirse números bastante grandes.  Un valor de
+@code{-1} alinea el borde inferior del objeto con el punto de
+referencia del objeto padre, un valor de @code{0} alinea el centro del
+objeto con el punto de referencia del padre, y un valor de @code{1}
+alinea el borde superior del objeto con el punto de referencia del
+padre.  Se pueden usar los símbolos @code{DOWN}, @code{CENTER},
+@code{UP} en sustitución de @code{-1, 0, 1} respectivamente.
+
+@emph{Auto-alineación de objetos en las dos direcciones}
+
+Estableciendo tanto @code{X-offset} como @code{Y-offset}, se puede
+alinear un objeto en las dos direcciones simultáneamente.
+
+El ejemplo siguiente muestra cómo ajustar una digitación de forma que
+se acerque a la cabeza de la nota.
+
+@lilypond[quote,verbatim,relative=2]
+a
+-\tweak #'self-alignment-X #0.5  % move horizontally left
+-\tweak #'Y-offset #ly:self-alignment-interface::y-aligned-on-self
+-\tweak #'self-alignment-Y #-1  % move vertically up
+-3  % third finger
+@end lilypond
+
+@ignore
+@unnumberedsubsubsec Using the @code{aligned-on-parent} procedures
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+The @code{aligned-on-parent} procedures are used in the same way
+as the @code{aligned-on-self} procedures, they difference being
+that they permit an object to be aligned with the @emph{edges} of
+the parent rather than the parent's reference point.  The following
+example shows the difference:
+
+@c TODO Add example
+
+@lilypond[verbatim,quote]
+@end lilypond
+
+@end ignore
+
+@ignore
+@unnumberedsubsubsec Using the @code{centered-on-parent} procedures
+
+@c Cannot document as they do not seem to operate consistently on all objects -td
+@c TODO investigate further
+
+@end ignore
+
+@c TODO The align-interface, BassFigureAlignment and VerticalAlignment
+
 
 @node Using the @code{break-aligned-interface}
 @unnumberedsubsubsec Using the @code{break-aligned-interface}
 
-@untranslated
+Las letras de ensayo se pueden alinear con objetos de notación
+distintos a las barras de compás.  Estos objetos son @code{ambitus},
+@code{breathing-sign}, @code{clef}, @code{custos}, @code{staff-bar},
+@code{left-edge}, @code{key-cancellation}, @code{key-signature} y
+@code{time-signature}.
+
+De forma predeterminada, las letras de ensayo se centran
+horizontalmente sobre el objeto:
+
+@lilypond[verbatim,quote,relative=1]
+e1
+% the RehearsalMark will be centered above the Clef
+\override Score.RehearsalMark #'break-align-symbols = #'(clef)
+\key a \major
+\clef treble
+\mark "↓"
+e
+% the RehearsalMark will be centered above the TimeSignature
+\override Score.RehearsalMark #'break-align-symbols = #'(time-signature)
+\key a \major
+\clef treble
+\time 3/4
+\mark "↓"
+e2.
+@end lilypond
+
+La alineación de la letra de enzayo con relación al objeto de notación
+se puede cambiar, como se ve en el ejemplo siguiente.  En una
+partitura con varios pentagramas, este ajuste se debe hacer para todos
+los pentagramas.
+
+@lilypond[verbatim,quote,relative=1]
+% The RehearsalMark will be centered above the KeySignature
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\key a \major
+\clef treble
+\time 4/4
+\mark "↓"
+e1
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+\once \override Score.KeySignature #'break-align-anchor-alignment = #LEFT
+\mark "↓"
+\key a \major
+e
+% The RehearsalMark will be aligned with the right edge of the KeySignature
+\once \override Score.KeySignature #'break-align-anchor-alignment = #RIGHT
+\key a \major
+\mark "↓"
+e
+@end lilypond
+
+La letra de ensayo también se puede desplazar al borde derecho o
+izquierdo en una medida arbitraria.  Las unidades son espacios de
+pentagrama:
+
+@lilypond[verbatim,quote,relative=1]
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+% and then shifted right by 3.5 staff-spaces
+\override Score.RehearsalMark #'break-align-symbols = #'(key-signature)
+\once \override Score.KeySignature #'break-align-anchor = #3.5
+\key a \major
+\mark "↓"
+e
+% The RehearsalMark will be aligned with the left edge of the KeySignature
+% and then shifted left by 2 staff-spaces
+\once \override Score.KeySignature #'break-align-anchor = #-2
+\key a \major
+\mark "↓"
+e
+@end lilypond
+
 
 @node Vertical grouping of grobs
 @subsection Vertical grouping of grobs
@@ -2801,10 +2968,64 @@ Normalmente sólo existe un @code{VerticalAlignment} por cada
 partitura, pero cada @code{Staff}, @code{Lyrics}, etc. tiene su propio
 @code{VerticalAxisGroup}.
 
+
 @node Modifying stencils
 @subsection Modifying stencils
 
-@untranslated
+Todos los objetos de presentación tienen una propiedad @code{stencil}
+que es parte del @code{grob-interface}.  De forma predeterminada, esta
+propiedad suele estar establecida a una función específica del objeto
+que está hecha a medida para disponer el símbolo que lo representa en
+la salida.  Por ejemplo, el ajuste estándar para la propiedad
+@code{stencil} del objeto @code{MultiMeasureRest} es
+@code{ly:multi-measure-rest::print}.
+
+El símbolo estándar de cualquier objeto se puede sustituir modificando
+la propiedad @code{stencil} para que haga referencia a un
+procedimiento diferente escrito especialmente.  Esto requiere un alto
+nivel de conocimiento del funcionamiento interno de LilyPond, pero hay
+una forma más fácil que a menudo puede dar resultados adecuados.
+
+El procedimiento es establecer la propiedad @code{stencil} al
+procedimiento que imprime texto (@code{ly:text-interface::print}) y
+añadir una propiedad @code{text} al objeto ajustada para que contenga
+el texto de marcado que produce el símbolo requerido.  Debido a la
+flexibilidad del marcado, se pueden conseguir muchas cosas; en
+particular, consulte @ref{Graphic notation inside markup}.
+
+El ejemplo siguiente muestra esto cambiando el símbolo de la cabeza de
+la nota a unas aspas dentro de una circunferencia.
+
+@lilypond[verbatim,quote]
+XinO = {
+  \once \override NoteHead  #'stencil = #ly:text-interface::print
+  \once \override NoteHead #'text = \markup {
+    \combine
+      \halign #-0.7 \draw-circle #0.85 #0.2 ##f
+      \musicglyph #"noteheads.s2cross"
+  }
+}
+\relative c'' {
+  a a \XinO a a
+}
+@end lilypond
+
+Cualquiera de los glifos de la fuente tipográfica Feta se puede pasar
+a la instrucción de marcado @code{\musicglyph}: véase @ref{The Feta
+font}.
+
+@c TODO Add inserting eps files or ref to later
+
+@c TODO Add inserting Postscript or ref to later
+
+@seealso
+
+Referencia de la notación:
+@ref{Graphic notation inside markup},
+@ref{Formatting text},
+@ref{Text markup commands},
+@ref{The Feta font}.
+
 
 @node Modifying shapes
 @subsection Modifying shapes
@@ -2816,4 +3037,72 @@ partitura, pero cada @code{Staff}, @code{Lyrics}, etc. tiene su propio
 @node Modifying ties and slurs
 @unnumberedsubsubsec Modifying ties and slurs
 
-@untranslated
+Las ligaduras de unión, de expresión y de fraseo se trazan como curvas
+de Bézier de tercer orden.  Si la forma de la ligadura calculada
+automáticamente no resulta óptima, se puede modificar su forma
+manualmente mediante la especificación explícita de los cuatro puntos
+de control necesarios para definir una curva de Bézier de tercer
+orden.
+
+Las curvas Bézier de tercer orden o cúbicas están definidas por cuatro
+puntos de control.  El primer y cuarto puntos de control son
+exactamente los puntos extremos de comienzo y de final de la curva.
+Los dos puntos de contros intermedios definen la forma.  Se pueden
+encontrar en la web animaciones que muestran cómo se traza la curva,
+pero la descripción siguiente puede ser de ayuda.  La curva comienza a
+partir del primer punto de control dirigiéndose directamente hacia el
+segundo, curvándose progresivamente para dirigirse hacia el tercero y
+continuando la curva hacia el cuarto, llegando a éste en viaje directo
+desde el tercer punto de control.  La curva está contenida enteramente
+dentro del cuadrilátero definido por los cuatro puntos de control.
+
+He aquí un ejemplo de un caso en que la ligadura no es óptima, y donde
+@code{\tieDown} no sirve de ayuda.
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  { e1 ~ e }
+\\
+  { r4 <g c,> <g c,> <g c,> }
+>>
+@end lilypond
+
+Una forma de mejorar esta ligadura es modificar manualmente sus puntos
+de control como sigue.
+
+Las coordenadas de los puntos de control de Bézier se especifican en
+unidades de espacios de pentagrama.  La coordenada@tie{}X está en
+relación con el punto de referencia de la nota a la que está unida la
+ligadura, y la coordenada@tie{}Y está en relación con la línea central
+del pentagrama.  Las coordenadas se introducen como una lista de
+cuatro parejas de números decimales (reales).  Un enfoque es estimar
+las coordenadas de los dos puntos extremos, y luego tratar de adivinar
+los dos puntos intermedios.  Los valores óptimos se encuentran por
+ensayo y error.
+
+Es útil recordar que una curva simétrica necesita puntos de contros
+simétricos, y que las curvas de Bézier tienen la útil propiedad de que
+las transformaciones de la curva tales como la traslación, rotación y
+escalado se pueden obtener aplicando la misma transformación a los
+puntos de control de la curva.
+
+Para el ejemplo anterior, la sobreescritura siguiente da una ligadura
+satisfactoria:
+
+@lilypond[verbatim,quote,relative=1]
+<<
+  \once \override Tie
+    #'control-points = #'((1 . -1) (3 . 0.6) (12.5 . 0.6) (14.5 . -1))
+  { e1 ~ e1 }
+\\
+  { r4 <g c,> <g c,> <g c,>4  }
+>>
+@end lilypond
+
+@knownissues
+
+No es posible modificar la forma de las ligaduras de unión o de
+expresión cambiando la propiedad @code{control-points} si hay más de
+una en el mismo mom ento musical, ni siquiera usando la instrucción
+@code{\tweak}.
+
