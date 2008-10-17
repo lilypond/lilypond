@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
+    Translation of GIT committish: 7f5cef855d798bc0bc9d415c13a1e3d2bd84cd87
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,63 +13,25 @@
 @node Vocal music
 @section Vocal music
 
-Puesto que los archivos de entrada de LilyPond son de texto, hay un
-par de cuestiones dignas de consideración cuando se trabaja con música
-vocal:
+@c TODO: inspirational headword
 
-@itemize
-@item
-Los textos de las canciones se deben introducir como texto, no como
-notas.  Por ejemplo, la entrada@tie{}@code{d} se debe interpretar como
-una sílaba de una sola letra, no como la nota@tie{}Re.
-
-@item
-Los textos de las canciones se deben alinear con las notas respectivas
-de la melodía.
-@end itemize
-
-Existen varias formas diferentes de definir la letra; comenzaremos
-examinando el método más simple, y poco a poco iremos aumentando la
-complejidad.
+Esta sección explica cómo tipografiar música vocal, y cómo asegurarse
+de que la letra se alinea con las notas de su melodía correspondiente.
 
 @menu
 * Common notation for vocal music::
-* Entering lyrics::  
-* Aligning lyrics to a melody::  
-* Specific uses of lyrics::         
-* Stanzas::                     
+* Entering lyrics::
+* Aligning lyrics to a melody::
+* Specific uses of lyrics::
+* Stanzas::
 @end menu
-
-
-@snippets
-
-Las comprobaciones que aseguran que las indicaciones textuales y las
-letras se encuentran dentro de los márgenes es una tarea computacional
-relativamente grande.  Para acelerar el procesado, lilypond no realiza
-estos cálculos por defecto; para activarlos, utilice
-
-@example
-\override Score.PaperColumn #'keep-inside-line = ##t
-@end example
-
-Para hacer que la letra evite las líneas divisorias también, utilice
-
-@example
-\layout @{
-  \context @{
-    \Lyrics
-      \consists "Bar_engraver"
-      \consists "Separating_line_group_engraver"
-      \override BarLine #'transparent = ##t
-  @}
-@}
-@end example
 
 
 @node Common notation for vocal music
 @subsection Common notation for vocal music
 
-@untranslated
+Esta sección trata sobre asuntos relacinados con la música vocal en
+general y con ciertos estilos concretos de música vocal.
 
 
 @menu
@@ -85,40 +47,113 @@ Para hacer que la letra evite las líneas divisorias también, utilice
 @node References for vocal music and lyrics
 @unnumberedsubsubsec References for vocal music and lyrics
 
-@untranslated
+@c TODO: split this section in two parts? -vv
+
+Pueden surgir varias cuestiones al tipografiar música vocal.  Algunas
+se discuten en esta sección, pero otras están tratadas en otros
+lugares del manual:
+
+@itemize
+@item
+Casi todos los estilos de música vocal utilizan texto escrito como
+letra.  Hay una introducción a esta notación en @rlearning{Setting
+simple songs}.
+
+@item
+La música vocal probablemente requiere el uso del modo de marcado o
+@code{markup}, ya sea para la letra o para otros elementos de texto
+(nombres de los personajes, etc.).  Esta sintaxis está descrita en
+@ref{Text markup introduction}.
+
+@item
+Las hojas guía de acordes o @emph{Lead sheets} se pueden imprimir
+combinando partes vocales y el @q{modo de acordes}; esta sintaxis se
+explica en @ref{Chord notation}.
+
+@item
+Los @q{ambitus} o indicaciones de tesitura vocal se pueden añadir al
+principio de los pentagramas vocales, como se explica en
+@ref{Ambitus}.
+
+@item
+Las partes vocales se pueden imprimir utilizando las claves
+tradicionales, como se muestra en @ref{Clef}.
+
+@item
+Está contemplada la música vocal en estilo de notación antiguo, como
+se explica en @ref{Ancient notation}.
+@end itemize
+
 
 @node Opera
 @unnumberedsubsubsec Opera
 
-@untranslated
+@c TODO
+Continuará...
+
+@c add characters names snippet -vv
 
 @node Song books
 @unnumberedsubsubsec Song books
 
-@untranslated
+@c TODO
+Continuaará...
+
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
+
+@seealso
+Referencia de la notación:
+@ref{Chord notation}.
+
 
 @node Spoken music
 @unnumberedsubsubsec Spoken music
 
+@cindex parlato
+@cindex Sprechgesang
+
 @c TODO Add @refs
 
-@q{Parlato} es texto hablado sin notas pero con ritmo; su notación se
-realiza mediante cabezas de nota en forma de cruz.  Esto queda demostrado en
-@ref{Special note heads}.
+Los efectos como el @q{parlato} o el @q{Sprechgesang} requieren de los
+intérpretes que hablen sin altura determinada pero con su ritmo; su
+notación se realiza mediante cabezas de nota en forma de aspas, como
+se muestra en @ref{Special note heads}.
+
+@c TODO add "marking-notes-on-spoken-parts" snippet -vv
+@c add "showing the rhythm of a melody" snip
+@c add "one staff-line notation"
+@c add "improvisation" ref
+@c add "lyrics independents of notes" ref
+
 
 @node Chants
 @unnumberedsubsubsec Chants
 
-@untranslated
+@c TODO Add text from lsr and -user
+Continuará...
+
 
 @node Ancient vocal music
 @unnumberedsubsubsec Ancient vocal music
 
-@untranslated
+@c TODO
+Continuará...
+
+@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
+@c and "Transcription of Ancient music with incipit" snippet. -vv
+
+@seealso
+
+Referencia de la notación:
+@ref{Ancient notation}.
 
 
 @node Entering lyrics
 @subsection Entering lyrics
+
+@c TODO add one sentence here. -vv
 
 @menu
 * Lyrics explained::
@@ -625,7 +660,22 @@ se deben insertar a mano.
 @node Skipping notes
 @unnumberedsubsubsec Skipping notes
 
-@untranslated
+Se puede conseguir que una línea de letra progrese más lentamente que
+la melodía, mediante la inserción de desplazamientos o @code{\skip}s
+en la letra.  Por cada @code{\skip}, el texto se retrasa en una nota.
+La instrucción @code{\skip} debe ir seguida de una duración válida,
+pero esta duración se ignora cuando se usa @code{\skip} en las letras.
+
+Por ejemplo,
+
+@lilypond[verbatim,ragged-right,quote]
+\relative c' { c c g' }
+\addlyrics {
+  twin -- \skip 4
+  kle
+}
+@end lilypond
+
 
 @node Extenders and hyphens
 @unnumberedsubsubsec Extenders and hyphens
@@ -662,10 +712,13 @@ Referencia de funcionamiento interno: @rinternals{LyricExtender},
 @node Lyrics and repeats
 @unnumberedsubsubsec Lyrics and repeats
 
-@untranslated
+@c TODO New section.  Add text
+Continuará...
 
 @node Specific uses of lyrics
 @subsection Specific uses of lyrics
+
+@c FIXME This whole section is to be reorganized. -vv
 
 A menudo se aplican a una melodía distintos versos de una canción de
 formas ligeramente distintas.  Tales variantes pueden aún captarse
@@ -796,10 +849,13 @@ completa, establezca la propiedad dentro del @q{layout} o disposición.
 }
 @end lilypond
 
+
 @node Centering lyrics between staves
 @unnumberedsubsubsec Centering lyrics between staves
 
-@untranslated
+@c TODO Add text from -user
+Continuará...
+
 
 @node Stanzas
 @subsection Stanzas
@@ -1147,4 +1203,3 @@ text = \lyricmode {
 Referencia de funcionamiento interno:
 @rinternals{LyricText},
 @rinternals{StanzaNumber}.
-
