@@ -2583,17 +2583,59 @@ pero difiere el método de hacerlo.
 @node Rotating layout objects
 @unnumberedsubsubsec Rotating layout objects
 
-@untranslated
+@cindex rotating objects
+@cindex objects, rotating
+
+Todos los objetos de presentación que contemplan el interface
+@code{grob-interface} se pueden rotar estableciendo su propiedad
+@code{rotation}.  Acepta una lista de tres elementos: el ángulo de la
+rotación en sentido antihorario, y las coordenadas x e y del punto con
+relación al punto de referencia del objeto, alrededor del que se va a
+realizar la rotación.  El ángulo de rotación se pespecifica en grados
+y las coordenadas en espacios de pentagrama.
+
+El ángulo de rotación y las coordenadas del punto de rotación se deben
+determinar por ensayo y error.
+
+@cindex reguladores en ángulo
+@cindex ángulo, reguladores en
+
+Solamente en ciertas ocasiones es útil la rotación de objetos de
+presentación; el ejemplo siguiente muestra una situación en que puede
+serlo:
+
+@lilypond[quote,verbatim,relative=1]
+g4\< e' d' f\!
+\override Hairpin #'rotation = #'(20 -1 0)
+g,,4\< e' d' f\!
+@end lilypond
 
 @node Rotating markup
 @unnumberedsubsubsec Rotating markup
 
-@untranslated
+Todos los textos de marcado se pueden rotar para que se dispongan en
+cualquier ángulo predeciéndolos de la instrucción @code{\rotate}.  La
+instrucción acepta dos argumentos: el ángulo de rotación en grados en
+sentido antihorario, y el texto que rotar.  Los límites que ocupa el
+texto no se rotan: toman su valor a partir de los extremos de las
+coordenadas x e y del texto rotado.  En el ejemplo siguiente la
+propiedad @code{outside-staff-priority} del texto se establece a
+@code{#f} para desactivar la evitación automática de colisiones, lo
+que empuja al texto a una posición muy alta.
+
+@lilypond[quote,verbatim,relative=1]
+\override TextScript #'outside-staff-priority = ##f
+g4^\markup { \rotate #30 "a G" }
+b^\markup { \rotate #30 "a B" }
+des^\markup { \rotate #30 "a D-Flat" }
+fis^\markup { \rotate #30 "an F-Sharp" }
+@end lilypond
 
 @node Advanced tweaks
 @section Advanced tweaks
 
-@untranslated
+Esta sección trata sobre distintos enfoques en la realización de
+ajustes finos a la apariencia de la partitura impresa.
 
 @menu
 * Aligning objects::
@@ -2602,11 +2644,70 @@ pero difiere el método de hacerlo.
 * Modifying shapes::
 @end menu
 
+@seealso
+
+Manual de aprendizaje:
+@rlearning{Tweaking output},
+@rlearning{Other sources of information}.
+
+Referencia de la notación:
+@ref{Explaining the Internals Reference},
+@ref{Modifying properties},
+@ref{Interfaces for programmers}.
+
+Archivos de inicio:
+@file{scm/@/define@/-grobs@/.scm}.
+
+Fragmentos de código:
+@rlsr{Tweaks and overrides}.
+
+Referencia de funcionamiento interno:
+@rinternals{All layout objects}.
+
 
 @node Aligning objects
 @subsection Aligning objects
 
-@untranslated
+Los objetos gráficos que soportan el interface
+@code{self-alignment-interface} y/o el @code{side-position-interface}
+se pueden alinear contra un objeto colocado previamente, de diversas
+maneras.  Para ver una lista de estos objetos, consulte
+@rinternals{self-alignment-interface} y
+@rinternals{side-position-interface}.
+
+Todos los objetos gráficos tienen un punto de referencia, una
+extensión horizontal y una extensión vertical.  La extensión
+horizontal es una pareja de números que dan los desplazamientos a
+partir del punto de referencia de los bordes izquierdo y derecho,
+siendo negativos los desplazamientos hacia la izquierda.  La extensión
+vertical es una pareja de números que dan el desplazamiento a partir
+del punto de referencia hasta los bordes inferior y superior, siendo
+negativos los deplazamientos hacia abajo.
+
+La posición de un objeto sobre el pentagrama viene dada por los
+valores de las propiedades @code{X-offset} e @code{Y-offset}.  El
+valor de @code{X-offset} da el desplazamiento desde la coordenada x
+del punto de referencia del objeto padre, y el valor de
+@code{Y-offset} da el desplazamiento a partir de la línea central del
+pentagrama.  Los valores de @code{X-offset} y @code{Y-offset} se
+pueden establecer directamente o se puede dejar que se calculen por
+parte de procedimientos para conseguir una alineación con el objeto
+padre de distintas maneras.
+
+@warning{Muchos objetos tienen consideraciones de posicionamiento
+especiales que hacen que se ignore o se modifique cualquier ajuste
+realizado a @code{X-offset} o a @code{Y-offset}, a pesar de que el
+objeto contemple el interface @code{self-alignment-interface}.}
+
+Por ejemplo, una alteración accidental se puede reposicionar
+verticalmente estableciendo @code{Y-offset} pero los cambios a
+@code{X-offset} no tienen ningún efecto.
+
+Las letras de ensayo se pueden alinear con objetos divisibles como
+líneas divisorias, claves, armaduras e indicaciones de compás.  Hay
+propiedades especiales que se encuentran en
+@code{break-aligned-interface} para el posicionamiento de las letras
+de ensayo sobre dichos objetos.
 
 @menu
 * Setting @code{X-offset} and @code{Y-offset} directly::
@@ -2618,12 +2719,65 @@ pero difiere el método de hacerlo.
 @node Setting @code{X-offset} and @code{Y-offset} directly
 @unnumberedsubsubsec Setting @code{X-offset} and @code{Y-offset} directly
 
-@untranslated
+Se pueden dar valores numéricos a las propiedades @code{X-offset} y
+@code{Y-offset} de muchos objetos.  El ejemplo siguiente muestra tres
+notas con una digitación en su posición predeterminada y con los
+valores @code{X-offset} y @code{Y-offset} modificados.
+
+@lilypond[verbatim,quote,relative=2]
+a-3
+a
+-\tweak #'X-offset #0
+-\tweak #'Y-offset #0
+-3
+a
+-\tweak #'X-offset #-1
+-\tweak #'Y-offset #1
+-3
+@end lilypond
+
+@c TODO write more
 
 @node Using the @code{side-position-interface}
 @unnumberedsubsubsec Using the @code{side-position-interface}
 
-@untranslated
+Un objeto que contempla el @code{side-position-interface} se puede
+colocar junto a su objeto padre de forma que los bordes especificados
+de los dos objetos se toquen.  El objeto se puede situar encima,
+debajo, a la derecha o a la izquierda del objeto padre.  El padre no
+se puede especificar; ciene determinado por el orden de los elementos
+en el flujo de entrada.  Casi todos los objetos tienen la cabeza de la
+nota asociada como padre.
+
+Los valores de las propiedades @code{side-axis} y @code{direction}
+determinan dónde colocar el objeto, como sigue:
+
+@c TODO add an example of each to the table
+
+@multitable @columnfractions .3 .3 .3
+@headitem @code{side-axis}  @tab @code{direction}  @tab
+@headitem propiedad         @tab propiedad         @tab colocación
+
+@item     @code{0}          @tab @code{-1}         @tab izquierda
+@item     @code{0}          @tab @code{1}          @tab derecha
+@item     @code{1}          @tab @code{-1}         @tab debajo
+@item     @code{1}          @tab @code{1}          @tab encima
+
+@end multitable
+
+Si @code{side-axis} es @code{0}, @code{X-offset} se debe establecer al
+procedimiento @code{ly:side-position-interface::x-aligned-side}.  Este
+procedimiento devuelve el calor correcto de @code{X-offset} para
+situar el objeto al lado izquierdo o derecho del padre de acuerdo con
+el valor de @code{direction}.
+
+Si @code{side-axis} es @code{1}, @code{Y-offset} se debe establecer al
+procedimiento @code{ly:side-position-interface::y-aligned-side}.  Este
+procedimiento devuelve el valor correcto de @code{Y-offset} para
+situar el objeto encima o debajo del padre de acuerdo con el valor de
+@code{direction}.
+
+@c TODO Add examples
 
 @node Using the @code{self-alignment-interface}
 @unnumberedsubsubsec Using the @code{self-alignment-interface}
