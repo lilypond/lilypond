@@ -1609,17 +1609,19 @@ followed after the affected note by the corresponding
 @subheading Fingering
 @cindex fingering, placement
 
-The placement of fingering is also affected by the value
-of its @code{direction} property, but there are special
+The placement of fingering on single notes can also be controlled
+by the @code{direction} property, but changing @code{direction}
+has no effect on chords.  As we shall see, there are special
 commands which allow the fingering of individual notes
 of chords to be controlled, with the fingering being placed
 above, below, to the left or to the right of each note.
 
-First, here's the effect of @code{direction} on fingering,
-the first bar shows the default, then the effect of specifying
-@code{DOWN} and @code{UP}:
+First, here's the effect of @code{direction} on the fingering
+attached to single notes.  The first bar shows the default
+behaviour, and the following two bars shows the effect of
+specifying @code{DOWN} and @code{UP}:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c-5 a-3 f-1 c'-5
 \override Fingering #'direction = #DOWN
 c-5 a-3 f-1 c'-5
@@ -1627,22 +1629,43 @@ c-5 a-3 f-1 c'-5
 c-5 a-3 f-1 c'-5
 @end lilypond
 
-This is how to control fingering on single notes, but the 
-@code{direction}
-property is ignored for chords.  Instead, by default, the
-fingering is automatically placed both above and below the 
+However, overriding the @code{direction} property is not the
+easiest way of manually setting the fingering above or below
+the notes; using @code{_} or @code{^} instead of @code{-} before
+the fingering number is usually preferable.  Here is the previous
+example using this method:
+
+@lilypond[quote,verbatim,relative=2]
+c-5 a-3 f-1 c'-5
+c_5 a_3 f_1 c'_5
+c^5 a^3 f^1 c'^5
+@end lilypond
+
+The @code{direction} property is ignored for chords, but the
+directional prefixes, @code{_} and @code{^} do work.  By default,
+the fingering is automatically placed both above and below the
 notes of a chord, as shown:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 <c-5 g-3>
 <c-5 g-3 e-2>
 <c-5 g-3 e-2 c-1>
 @end lilypond
 
-Greater control over the placement of fingering of the 
-individual notes in a chord is possible by using
-the @code{\set fingeringOrientations} command.  The format of
-this command is
+@noindent
+but this may be overriden to manually force all or any of the
+individual fingering numbers above or below:
+
+@lilypond[quote,verbatim,relative=2]
+<c-5 g-3 e-2 c-1>
+<c^5 g_3 e_2 c_1>
+<c^5 g^3 e^2 c_1>
+@end lilypond
+
+Even greater control over the placement of fingering of the
+individual notes in a chord is possible by using the
+@code{\set fingeringOrientations} command.  The format of this
+command is:
 
 @example
 @code{\set fingeringOrientations = #'([up] [left/right] [down])}
@@ -1654,20 +1677,20 @@ property of the @code{Voice} context, created and used by the
 @code{New_fingering_engraver}.
 
 The property may be set to a list of one to three values.
-It controls whether fingerings may be placed above (if 
+It controls whether fingerings may be placed above (if
 @code{up} appears in the list), below (if @code{down} appears),
 to the left (if @code{left} appears, or to the right
 (if @code{right} appears).  Conversely, if a location is not
-listed, no fingering is placed there.  LilyPond takes these 
+listed, no fingering is placed there.  LilyPond takes these
 constraints and works out the best placement for the fingering
 of the notes of the following chords.  Note that @code{left} and
 @code{right} are mutually exclusive -- fingering may be placed
 only on one side or the other, not both.
 
-To control the placement of the fingering of a single note 
-using this command it is necessary to write it as a single 
-note chord by placing angle brackets round it.
-  
+@warning{To control the placement of the fingering of a single
+note using this command it is necessary to write it as a single
+note chord by placing angle brackets round it.}
+
 Here are a few examples:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
@@ -1686,7 +1709,7 @@ Here are a few examples:
 \set fingeringOrientations = #'(right)
 <f-2>
 < c-1  e-2 g-3 b-5 > 4
-@end lilypond 
+@end lilypond
 
 @noindent
 If the fingering seems a little crowded the @code{font-size}

@@ -13,7 +13,7 @@ melodía y la letra, y el acompañamiento de piano por debajo.
   doctitlees = "Plantilla de piano con melodía y letra"
   
   texidocde = "
-as nächste Beispiel ist typisch für ein Lied: Im oberen System die 
+Das nächste Beispiel ist typisch für ein Lied: Im oberen System die 
 Melodie mit Text, darunter Klavierbegleitung.
 "
 

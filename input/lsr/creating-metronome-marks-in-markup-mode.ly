@@ -3,6 +3,14 @@
 \version "2.11.62"
 
 \header {
+  texidoces = "
+Se pueden crear indicaciones metronómicas nuevas en modo de
+marcado, pero no cambian el tempo en la salida MIDI.
+
+"
+  doctitlees = "Crear indicaciones metronómicas en modo de marcado"
+
+
   lsrtags = "staff-notation"
   texidoc = "New metronome marks can be created in markup mode,
 but they will not change the tempo in MIDI output."

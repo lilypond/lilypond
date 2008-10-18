@@ -3,6 +3,14 @@
 \version "2.11.62"
 
 \header {
+  texidoces = "
+Para cambiar el tempo en la salida MIDI sin
+imprimir nada, hacemos invisible la indicación metronómica:
+
+"
+
+  doctitlees = "Cambiar el tempo sin indicación metronómica"
+
   lsrtags = "staff-notation"
   texidoc = "To change the tempo in MIDI output without printing
 anything, make the metronome mark invisible:"

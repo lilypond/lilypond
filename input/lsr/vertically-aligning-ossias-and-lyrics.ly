@@ -5,6 +5,14 @@
 \header {
   lsrtags = "vocal-music, tweaks-and-overrides, spacing"
 
+  texidoces = "
+Este fragmento de código muestra el uso de las propiedades de
+contexto @code{alignBelowContext} y @code{alignAboveContext} para
+controlar la posición de la letra y los compases de ossia.
+
+"
+  doctitlees = "Alineación vertical de la letra y los compases de ossia"
+
   texidoc = "
 This snippet demonstrates the use of the context properties
 @code{alignBelowContext} and @code{alignAboveContext} to control the

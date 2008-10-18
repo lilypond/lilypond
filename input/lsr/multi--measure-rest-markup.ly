@@ -3,6 +3,23 @@
 \version "2.11.62"
 
 \header {
+texidoces = "
+Los elementos de marcado aplicados a un silencio multicompás se
+centran encima o debajo de éste.  Los elementos de marcado extensos
+que se adjuntan a silencios multicompás no producen la expansión del
+compás.  Para expandir un silencio multicompás de forma que quepa todo
+el marcado, utilice un silencio de separación con un marcado aplicado
+antes del silencio multicompás.
+
+Observe que el silencio separador produce la inserción de un compás.
+El texto aplicado a un siencio sparador de esta forma se alinea por la
+izquierda a la posición en que la nota estaría situada dentro del
+compás, pero si la longitud del compás está determinada por la
+longitud del texto, éste aparecerá centrado.
+
+"
+
+doctitlees = "Marcado de silencios multicompás"
   lsrtags = "rhythms, text"
   texidoc = "Markups attached to a multi-measure rest will be
 centered above or below it.  Long markups attached to multi-measure

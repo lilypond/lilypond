@@ -326,7 +326,7 @@ comma @code{,} to the note name.
 To change a note by two (or more!) octaves, we use multiple
 @code{''} or @code{,,} -- but be careful that you use two single
 quotes @code{''} and not one double quote @code{"}@tie{}!  The
-initial value in @w{@code{\relative c'}} may also be modified like
+initial value in @code{@w{\relative c'}} may also be modified like
 this.
 @c " - keeps quotes in order for context-sensitive editor -td
 
@@ -591,11 +591,11 @@ comments:
 @cindex files, tips for constructing
 
 LilyPond input must be surrounded by @{ @} marks or a
-@w{@code{\relative c'' @{ ... @}}}, as we saw in @ref{Working on
+@code{@w{\relative c'' @{ ... @}}}, as we saw in @ref{Working on
 input files}.  For the rest of this manual, most examples will
 omit this.  To replicate the examples, you may copy and paste the
 displayed input, but you @strong{must} add the
-@w{@code{\relative c'' @{ @}}} like this:
+@code{@w{\relative c'' @{ @}}} like this:
 
 @example
 \relative c'' @{
@@ -605,9 +605,9 @@ displayed input, but you @strong{must} add the
 
 Why omit the braces?  Most examples in this manual can be inserted
 into the middle of a longer piece of music.  For these examples,
-it does not make sense to add @w{@code{\relative c'' @{ @}}} --
+it does not make sense to add @code{@w{\relative c'' @{ @}}} --
 you should not place a @code{\relative} inside another
-@code{\relative}!  If we included @w{@code{\relative c'' @{ @}}}
+@code{\relative}!  If we included @code{@w{\relative c'' @{ @}}}
 around every example, you would not be able to copy a small
 documentation example and paste it inside a longer piece of your
 own.  Most people want to add material to an existing piece, so we

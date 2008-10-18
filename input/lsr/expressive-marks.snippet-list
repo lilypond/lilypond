@@ -11,6 +11,7 @@ line-arrows.ly
 hiding-the-extender-line-for-text-dynamics.ly
 vertically-aligning-dynamics-across-multiple-notes.ly
 horizontally-aligning-custom-dynamics-e.g.-sempre-pp,-piu-f,-subito-p.ly
+breathing-signs.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 controlling-the-vertical-ordering-of-scripts.ly
 inserting-a-caesura.ly

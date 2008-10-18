@@ -1664,6 +1664,7 @@ property (modified with @code{\set}) was created.
 * Input modes::
 * Direction and placement::
 * Distances and measurements::
+* Staff symbol properties::
 * Spanners::
 * Visibility of objects::
 * Line styles::
@@ -1918,6 +1919,46 @@ Learning Manual:
 Notation Reference:
 @ref{Page formatting},
 @ref{Setting the staff size}.
+
+
+@node Staff symbol properties
+@subsection Staff symbol properties
+
+@cindex adjusting staff symbol
+@cindex drawing staff symbol
+@cindex staff symbol, setting of
+
+@c TODO Extend or remove this section.  See also NR 1.6.2 Staff symbol
+@c      Need to think of uses for these properties.  Eg 'line-positions
+@c      is used in a snippet to thicken centre line.
+@c      If retained, add @ref to here in 1.6.2  -td
+
+The vertical position of staff lines and the number of staff lines
+can be defined at the same time.  As the following example shows,
+note positions are not influenced by the staff line positions.
+
+@warning{The @code{'line-positions} property overrides the
+@code{'line-count} property.  The number of staff lines is
+implicitly defined by the number of elements in the list of values
+for @code{'line-positions}.}
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'line-positions = #'(7 3 0 -4 -6 -7)
+}
+{ a4 e' f b | d1 }
+@end lilypond
+
+The width of a staff can be modified.  The units are staff
+spaces.  The spacing of objects inside the staff is not affected by
+this setting.
+
+@lilypond[verbatim,quote,relative=1]
+\new Staff \with {
+  \override StaffSymbol #'width = #23
+}
+{ a4 e' f b | d1 }
+@end lilypond
 
 
 @node Spanners
