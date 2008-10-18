@@ -380,8 +380,6 @@ The lines of a staff belong to the @code{StaffSymbol} grob.
 appearance of a staff, but they must be modified before the staff
 is created.
 
-@c FIXME most of this section should be moved to NR 5.3 or moved to LSR -td
-
 The number of staff lines may be changed.  The clef position and
 the position of middle C may need to be modified to fit the new
 staff.  For an explanation, refer to the snippet section in
@@ -392,22 +390,6 @@ staff.  For an explanation, refer to the snippet section in
   \override StaffSymbol #'line-count = #3
 }
 { d4 d d d }
-@end lilypond
-
-The vertical position of staff lines and the number of staff lines
-can be defined at the same time.  As the following example shows,
-note positions are not influenced by the staff line positions.
-
-@warning{The @code{'line-positions} property overrides the
-@code{'line-count} property.  The number of staff lines is
-implicitly defined by the number of elements in the list of values
-for @code{'line-positions}.}
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'line-positions = #'(7 3 0 -4 -6 -7)
-}
-{ a4 e' f b | d1 }
 @end lilypond
 
 Staff line thickness can be modified.  The thickness of ledger
@@ -439,17 +421,6 @@ affects the spacing of ledger lines as well.
   \override StaffSymbol #'staff-space = #1.5
 }
 { a4 b c d }
-@end lilypond
-
-The width of a staff can be modified.  The units are staff
-spaces.  The spacing of objects inside the staff is not affected by
-this setting.
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'width = #23
-}
-{ a4 e' f b | d1 }
 @end lilypond
 
 Further details about the properties of @code{StaffSymbol} can be
