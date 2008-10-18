@@ -2069,9 +2069,10 @@ with @code{\set Timing.defaultBarType = }@var{bartype}.
 
 @seealso
 
-Notation Reference: @ref{Line breaking}, @ref{Repeats},
-@c FIXME: node name changed, but is subject to further changes.
-@c @ref{System start delimiters}.
+Notation Reference: 
+@ref{Line breaking}, 
+@ref{Repeats},
+@ref{Grouping staves}.
 
 Snippets:
 @rlsr{Rhythms}.
