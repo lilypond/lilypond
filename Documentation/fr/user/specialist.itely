@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Specialist notation
 @chapter Specialist notation

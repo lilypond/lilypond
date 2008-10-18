@@ -1,4 +1,4 @@
-\version "2.11.48"
+\version "2.11.61"
 \header {
   lsrtags = "rhythms,contexts-and-engravers"
   texidoc = "The @code{measureLength} property, together with
@@ -28,10 +28,10 @@ second argument must be the same as the second argument of
   \new Staff {
     \scaleDurations #'(8 . 5) {
       \time 6/8
-      \set Timing.measureLength = #(ly:make-moment 3 5)
+      \set Timing.measureLength = #(ly:make-moment 6 5)
       b8 b b b b b
       \time 2/4
-      \set Timing.measureLength = #(ly:make-moment 2 5)
+      \set Timing.measureLength = #(ly:make-moment 4 5)
       b4 b
     }
   }

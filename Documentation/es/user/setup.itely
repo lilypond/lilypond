@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: b258483467822a7fee6ec2d060e67e209e456582
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Setup
 @chapter Setup
@@ -17,9 +17,9 @@ LilyPond y otros programas.  Este capítulo se puede tratar tranquilamente como 
 lea solamente las secciones que le interesen.
 
 @menu
-* Setup for specific Operating Systems::  
-* Text editor support::         
-* Point and click::             
+* Setup for specific Operating Systems::
+* Text editor support::
+* Point and click::
 @end menu
 
 
@@ -30,24 +30,51 @@ Esta sección explica cómo realizar puestas a punto adicionales para sistemas o
 específicos.
 
 @menu
-* MacOS X on the command-line::  
+* Setup for MacOS X::
 @end menu
 
+@node Setup for MacOS X
+@subsection Setup for MacOS X
 
-@node MacOS X on the command-line
-@subsection MacOS X on the command-line
+@subsubheading Using Python scripts on MacOS 10.3 or 10.4
 
-Los «scripts» (guiones como lilypond-book, convert-ly, abc2ly e incluso
-el propio lilypond) van incluidos dentro del archivo de aplicación .app de MacOS X. Se pueden ejecutar a partir de
-la línea de órdenes invocándolos directamente, p.ej.
+Los archivos binarios de LilyPond para MacOS X no incluyen Python,
+pero se necesita Python 2.4 o posterior por parte de
+@command{convert-ly}.  Por ello, si usamos MacOS 10.3 o 10.4, debemos
+instalar una versión de Python más reciente desde
+@uref{http://python.org/download/}, y luego editar la primera línea de
+@command{convert-ly} y @command{lilypond-book} como sigue: si el
+binario de Python que hemos instalado está en nuestro @var{PATH}, la
+primera línea debe ser
+
+@example
+#!/usr/bin/env python
+@end example
+
+@noindent
+en caso contrario, debe ser
+
+@example
+#!@var{/path/to/newly_installed/python}
+@end example
+
+
+@subsubheading MacOS X on the command line
+
+Los «scripts» (guiones como @command{lilypond-book},
+@command{convert-ly}, @command{abc2ly} e incluso el propio
+@command{lilypond}) van incluidos dentro del archivo de aplicación
+.app de MacOS X. Se pueden ejecutar a partir de la línea de órdenes
+invocándolos directamente, p.ej.
 
 @example
 @var{ruta/hacia}/LilyPond.app/Contents/Resources/bin/lilypond
 @end example
 
 @noindent
-Lo mismo vale para otros scripts de ese directorio, incluidos los guiones
-lilypond-book, convert-ly, abc2ly, etc.
+Lo mismo vale para otros scripts de ese directorio, incluidos los
+guiones @command{lilypond-book}, @command{convert-ly},
+@command{abc2ly}, etc.
 
 Como alternativa, puede crear scripts que añadan la ruta
 automáticamente.  Cree un directorio para guardar estos guiones,
@@ -100,11 +127,12 @@ Fíjese en que @var{ruta/hacia} será por lo general @code{/Applications/}.
 Existe apoyo por parte de varios editores de texto para LilyPond.
 
 @menu
-* Emacs mode::                  
-* Vim mode::                    
-* jEdit::                       
-* TexShop::                     
-* TextMate::                    
+* Emacs mode::
+* Vim mode::
+* jEdit::
+* TexShop::
+* TextMate::
+* LilyKDE::
 @end menu
 
 @node Emacs mode
@@ -197,6 +225,23 @@ svn co http://macromates.com/svn/Bundles/trunk/Bundles/Lilypond.tmbundle/
 @end example
 
 
+@node LilyKDE
+@subsection LilyKDE
+
+@uref{http://lilykde.googlecode.com/,LilyKDE} es un plugin o
+complemento para el editor de texto de KDE,
+@uref{http://kate-editor.org/,Kate}.  Tiene un potente Asistente de
+Partitura para preparar rápidamente un documento de LilyPond, y un
+visor de PDF incluido.
+
+LilyKDE puede utilizar
+@uref{http://www.volny.cz/smilauer/rumor/,Rumor}, de manera que se
+puede introducir la música tocando sobre un teclado MIDI.
+
+Otras posibilidades son el enguionado de la letra y la ejecución de
+LilyPond sobre varios archivos de una sola vez desde dentro del
+administrador de archivos de KDE.
+
 
 @node Point and click
 @section Point and click
@@ -232,28 +277,29 @@ y lanza un navegador de web para el resto.  Comprueba la variable de entorno
 @item emacs
   esto invoca a
 @example
-emacsclient --no-wait +@var{line}:@var{column} @var{file}
+emacsclient --no-wait +@var{línea}:@var{columna} @var{archivo}
 @end example
 @item vim
   esto invoca a
 @example
-gvim --remote +:@var{line}:norm@var{char} @var{file}
+gvim --remote +:@var{línea}:norm@var{carácter} @var{archivo}
 @end example
 
 @item nedit
 esto invoca a
 @example
-  nc -noask +@var{line} @var{file}'
+  nc -noask +@var{línea} @var{archivo}'
 @end example
 @end table
 
-La variable de entorno @code{LYEDITOR} se utiliza para sobreescribir esto. Contiene
-la instrucción de línea de órdenes para abrir el editor, donde @code{%(file)s},
-@code{%(column)s}, @code{%(line)s} se sustituye por el archivo, columna y
-línea respectivamente. El ajuste
+La variable de entorno @code{LYEDITOR} se utiliza para sobreescribir
+esto. Contiene la instrucción de línea de órdenes para abrir el
+editor, donde @code{%(archivo)s}, @code{%(columna)s} y
+@code{%(línea)s} se sustituyen por el archivo, columna y línea
+respectivamente. El ajuste
 
 @example
-emacsclient --no-wait +%(line)s:%(column)s %(file)s
+emacsclient --no-wait +%(línea)s:%(columna)s %(archivo)s
 @end example
 
 @noindent
@@ -268,14 +314,27 @@ reducir el tamaño de los archivos PDF y PS, la posibilidad de apuntar y pulsar 
 escribiendo
 
 @example
-#(ly:set-option 'point-and-click #f)
+\pointAndClickOff
 @end example
 
 @noindent
-dentro de un archivo @file{.ly}.  De forma alternativa, puede pasarlo como una opción de
-la linea de órdenes
+dentro de un archivo @file{.ly}.  Se puede activar explícitamente la
+posibilidad de apuntar y pulsar con
 
 @example
-lilypond -dno-point-and-click file.ly
+\pointAndClickOn
 @end example
+
+De forma alternativa, puede desactivar la posibilidad de apuntar y
+pulsar con una opción de la línea de órdenes:
+
+@example
+lilypond -dno-point-and-click archivo.ly
+@end example
+
+@warning{Recuerde desactivar siempre la posibilidad Apuntar y pulsar
+en cualquier archivo de LilyPond que vaya a ser distribuido, para
+evitar incluir información de rutas de archivo relativas a su equipo
+dentro del archivo .pdf, lo que puede plantear un problema de
+seguridad.}
 

@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 23542761090f167ad42dbff7ef11d44a9c1374ac
+    Translation of GIT committish: f2dfe5301630aa53a9558b33d1a97595b4724911
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Tweaking output
 @chapter Tweaking output
@@ -17,22 +17,22 @@ configurable; prácticamente todos los fragmentos de la salida se pueden cambiar
 
 
 @menu
-* Tweaking basics::             
-* The Internals Reference manual::  
-* Appearance of objects::       
-* Placement of objects::        
-* Collisions of objects::       
-* Further tweaking::            
+* Tweaking basics::
+* The Internals Reference manual::
+* Appearance of objects::
+* Placement of objects::
+* Collisions of objects::
+* Further tweaking::
 @end menu
 
 @node Tweaking basics
 @section Tweaking basics
 
 @menu
-* Introduction to tweaks::      
-* Objects and interfaces::      
-* Naming conventions of objects and properties::  
-* Tweaking methods::            
+* Introduction to tweaks::
+* Objects and interfaces::
+* Naming conventions of objects and properties::
+* Tweaking methods::
 @end menu
 
 @node Introduction to tweaks
@@ -127,14 +127,15 @@ sección @ref{Contexts and engravers}.  En este lugar, para más fácil
 referencia, presentamos una lista de los tipos de objetos y
 propiedades más comunes, junto con las convenciones según las cuales
 reciben su nombre, y un par de ejemplos de nombres reales.  Hemos
-utilizado una «A» mayúscula para denotar cualquier carácter alfabético
-en mayúsculas, y «aaa» para cualquier número de caracteres alfabéticos
-en minúscula.  Otros caracteres se utilizan literalmente como están.
+utilizado una @q{A} mayúscula para denotar cualquier carácter
+alfabético en mayúsculas, y @q{aaa} para cualquier número de
+caracteres alfabéticos en minúscula.  Otros caracteres se utilizan
+literalmente como están.
 
 @multitable @columnfractions .33 .33 .33
 @headitem Objeto o tipo de propiedad
   @tab Convención de nomenclatura
-  @tab Ejemplo
+  @tab Ejemplos
 @item Contextos
   @tab Aaaa o AaaaAaaaAaaa
   @tab Staff, GrandStaff
@@ -185,17 +186,16 @@ modificar, y cuál debe ser su nuevo valor.  Veamos cómo se hace.
 La sintaxis genérica de esta instrucción es:
 
 @example
-\override @emph{contexto}.@emph{objeto_de_presentación}
-  #'@emph{propiedad_de_presentación} = #@emph{valor}
+\override @var{Contexto}.@var{ObjetoDePresentación}  #'@var{propiedad-de-presentación} = #@var{valor}
 @end example
 
 @noindent
 Esto establecerá la propiedad de nombre
-@emph{propiedad_de_presentación} del objeto de presentación con el
-nombre @emph{objeto_de_presentación}, que es miembro del contexto
-@emph{contexto}, al valor @emph{valor}.
+@var{propiedad-de-presentación} del objeto de presentación con el
+nombre @var{ObjetoDePresentación}, que es miembro del contexto
+@var{Contexto}, al valor @var{valor}.
 
-El @emph{contexto} se puede omitir (y normalmente así es) cuando el
+El @var{contexto} se puede omitir (y normalmente así es) cuando el
 contexto requerido se encuentra implicado sin ambigüedad y es uno de
 los contextos del nivel más bajo, es decir: @code{Voice},
 @code{ChordNames} o @code{Lyrics}, y lo omitiremos en muchos de los
@@ -235,12 +235,12 @@ valor predeterminado original; observe que no es a su valor previo si
 se han utilizado varias instrucciones @code{\override}.
 
 @example
-\revert @emph{contexto}.@emph{objeto_de_presentación} #'@emph{propiedad_de_presentación}
+\revert @var{Contexto}.@var{ObjetoDePresentación} #'@var{propiedad-de-presentación}
 @end example
 
-Una vez más, igual que @emph{contexto} dentro de la instrucción
+Una vez más, igual que @var{Contexto} dentro de la instrucción
 @code{\override}, con frecuencia no es necesario especificar el
-@emph{contexto}.  Se omitirá en muchos de los ejemplos siguientes.
+@var{Contexto}.  Se omitirá en muchos de los ejemplos siguientes.
 Aquí devolvemos el color de la cabeza al valor predeterminado para las
 dos últimas notas:
 
@@ -294,9 +294,9 @@ en el mismo momento musical, como las notas de un acorde.  El uso de
 del acorde, mientras que @code{\tweak} afecta solamente al siguiente
 elemento del flujo de entrada.
 
-He aquí un ejemplo.  Suponga que queremos cambiar el tamaño de la nota
-intermedia (el Mi) en un acorde de Do mayor.  En primer lugar, veamos
-lo que haría @code{\once \override}:
+He aquí un ejemplo.  Suponga que queremos cambiar el tamaño de la
+cabeza de la nota intermedia (el Mi) en un acorde de Do mayor.  En
+primer lugar, veamos lo que haría @code{\once \override}:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
   <c e g>4
@@ -306,18 +306,18 @@ lo que haría @code{\once \override}:
 @end lilypond
 
 Vemos que la sobreescritura con override afecta a @emph{todas} las
-notas del acorde.  Esto es así porque todas las notas de un acorde
-ocurren en el mismo @emph{momento musical}, y la acción de
-@code{\once} es aplicar la sobreescritura a todos los objetos de
+cabezas de las notas del acorde.  Esto es así porque todas las notas
+de un acorde ocurren en el mismo @emph{momento musical}, y la acción
+de @code{\once} es aplicar la sobreescritura a todos los objetos de
 presentación del tipo especificado que ocurren en el mismo momento
 musical que la propia instrucción de sobreescritura @code{\override}.
 
-LA instrucción @code{\tweak} opera de una forma distinta.  Actúa sobre
-el elemento inmediatamente siguiente dentro del flujo de entrada.
-Sin embargo, es efectivo solamente sobre objetos que se crean
-directamente a partir del flujo de entrada, en esencia las cabezas y
-las articulaciones (los objetos como las plicas y las alteraciones se
-crean con posterioridad y no se pueden trucar de esta forma).  Es más,
+La instrucción @code{\tweak} opera de una forma distinta.  Actúa sobre
+el elemento inmediatamente siguiente dentro del flujo de entrada.  Sin
+embargo, es efectivo solamente sobre objetos que se crean directamente
+a partir del flujo de entrada, en esencia las cabezas y las
+articulaciones; los objetos como las plicas y las alteraciones se
+crean con posterioridad y no se pueden trucar de esta forma.  Es más,
 cuando se aplica a las cabezas de las notas, éstas @emph{deben} estar
 dentro de un acorde, es decir, dentro de ángulos simples, así que para
 trucar una sola nota la instrucción @code{\tweak} se debe colocar
@@ -336,10 +336,10 @@ Observe que la sintaxis de @code{\tweak} no es igual que la de
 presentación se deben especificar; de hecho, generaría un error
 hacerlo.  Los dos están implícitos por el siguiente elemento del flujo
 de entrada.  Así que la sintaxis genérica de la instrucción
-@code{\tweak} es, simplemente:
+@code{\tweak} es, simplemente,
 
 @example
-\tweak #'@emph{propiedad_de_presentación} = #@emph{valor}
+\tweak #'@var{propiedad-de-presentación} = #@var{valor}
 @end example
 
 Una instrucción @code{\tweak} también se puede usar para modificar
@@ -351,6 +351,7 @@ a ^Black
   -\tweak #'color #green _Green
 @end lilypond
 
+@noindent
 Observe que la instrucción @code{\tweak} debe venir precedida de una
 marca de articulación como si ella misma fuera una articulación.
 
@@ -383,9 +384,6 @@ tresillo corto.
 }
 @end lilypond
 
-Encontrará más detalles de la instrucción @code{\tweak} en
-@ruser{The tweak command}.
-
 Si los grupos anidados no comienzan en el mismo momento, su apariencia
 se puede modificar de la forma usual mediante instrucciones
 @code{\override}:
@@ -405,15 +403,21 @@ se puede modificar de la forma usual mediante instrucciones
 }
 @end lilypond
 
+@seealso
+
+Referencia de la notación:
+@ruser{The tweak command}.
+
+
 @node The Internals Reference manual
 @section The Internals Reference manual
 
 @cindex Internals Reference
 
 @menu
-* Properties of layout objects::  
-* Properties found in interfaces::  
-* Types of properties::         
+* Properties of layout objects::
+* Properties found in interfaces::
+* Types of properties::
 @end menu
 
 @node Properties of layout objects
@@ -450,7 +454,7 @@ con tan sólo algo de práctica.
 Utilicemos un ejemplo concreto con un sencillo fragmento de música
 real:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -476,7 +480,7 @@ El RFI de la versión de LilyPond que está usando se puede encontrar en
 la página web de LilyPond en @uref{http://lilypond.org}.  Vaya a la
 página de la documentación y siga el enlace Manual de Referencia de
 Funcionamiento Interno (RFI).  Para nuestros propósitos pedagógicos
-sería mejor que utilizase la versión html, no la @q{en una sola
+sería mejor que utilizase la versión en HTML, no la @q{en una sola
 página} ni el PDF.  Para que los siguientes párrafos tengan algún
 sentido deberá consultarlo realmente al tiempo que lee.
 
@@ -490,12 +494,13 @@ presentación que se usan en su versión de LilyPond, en orden
 alfabético.  Siga el enlace Slur (ligadura de expresión), y aparecerán
 relacionadas las propiedades de las ligaduras de expresión o Slurs.
 
-(Una forma alternativa de encontrar esta página es a partir de la
+Una forma alternativa de encontrar esta página es a partir de la
 Referencia de la Notación.  En una de las páginas que tratan de las
 ligaduras de expresión podrá encontrar un enlace al manual de
 referencia del funcionamiento interno.  Este enlace le llevará
-directamente a esta página, aunque con frecuencia es más fácil ir
-directamente al RFI y buscar allí.)
+directamente a esta página, aunque si tiene una idea del nombre del
+objeto de presentación que pretende trucar, le resultará más fácil ir
+directamente al RFI y buscar allí.
 
 Esta página sobre las ligaduras de expresión dentro del manual RFI nos
 dice en primer lugar que los objetos Slur se crean por el grabador
@@ -542,7 +547,7 @@ Aunque nos falta seguridad y estamos todavía aprendiendo, la mejor
 respuesta es: @q{Dentro de la música, antes de la primera ligadura y
 cerca de ella.}  Hagámoslo así:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -608,7 +613,7 @@ encuentre alguna ligadura, sino que simplemente se ignora.  Así pues,
 la instrucción que lleva @code{\once} se debe reposicionar de la forma
 siguiente:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -643,7 +648,7 @@ una de ellas precedida por el prefijo @code{\once}, situadas
 inmediatamente antes de cada una de las notas en que comienzan las
 ligaduras:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -668,7 +673,7 @@ instrucción @code{\revert} (restablecer) para devolver la propiedad
 del grosor, @code{thickness}, a su valor predeterminado después de la
 segunda ligadura:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -728,12 +733,11 @@ de los interfaces, y descubrir qué objetos usan estas propiedades de
 interface.
 
 Mire de nuevo la página del RFI que describe a LyricText.  Al final de
-la página hay una lista de enlaces (en las versiones de html del RFI)
-a los interfaces que LyricText contempla.  La lista tiene siete
-elementos, entre ellos @code{font-interface}.  Al seguir este enlace
-llegamos a las propiedades asociadas con este interface, que también
-son propiedades de todos los objetos que lo llevan, entre ellos
-LyricText.
+la página hay una lista de enlaces a los interfaces que LyricText
+contempla.  La lista tiene siete elementos, entre ellos
+@code{font-interface}.  Al seguir este enlace llegamos a las
+propiedades asociadas con este interface, que también son propiedades
+de todos los objetos que lo llevan, entre ellos LyricText.
 
 Ahora vemos todas las propiedades ajustables por el usuario que
 controlan las tipografías, entre ellas @code{font-shape(symbol)},
@@ -761,18 +765,20 @@ antes, omitiremos el contexto.
 
 Como nota aparte, aunque una nota importante, observe que a causa de
 que los valores de @code{font-shape} son símbolos, deben ir precedidos
-de un apóstrofe, @code{'}.  Esa es la razón por la que se necesitan
-apóstrofes antes de @code{thickness} en el ejemplo anterior y en
+de un apóstrofo, @code{'}.  Esa es la razón por la que se necesitan
+apóstrofos antes de @code{thickness} en el ejemplo anterior y en
 @code{font-shape}.  Los dos son también símbolos.  Los símbolos son
 nombres especiales que son conocidos por LilyPond internamente.
 Algunos de ellos son nombres de propiedades, como @code{thickness} o
-@code{font-shape}, otros son en efecto valores especiales que se les
-puede dar a las propiedades, como @code{italic}.  Observe la
-distinción entre esto y las cadenas de texto arbitrarias, que
-aparecerían entrecomilladas como @code{"a text string"}.
+@code{font-shape}, otros se utilizan como valores que se les puede dar
+a las propiedades, como @code{italic}.  Observe la distinción entre
+esto y las cadenas de texto arbitrarias, que aparecerían
+entrecomilladas como @code{"a text string"}.  Para ver más detalles
+relacionados con los símbolos y las cadenas, consulte @ref{Scheme
+tutorial}.
 
-De acuerdo, entonces la instrucción @code{\override} que necesitamos
-para imprimir la letra en cursiva sería
+Así pues, la instrucción @code{\override} que necesitamos para
+imprimir la letra en cursiva sería
 
 @example
 \override LyricText #'font-shape = #'italic
@@ -782,7 +788,7 @@ para imprimir la letra en cursiva sería
 y debe colocarse justo delante de, y cerca de, la letra a la que debe
 afectar, como esto:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -826,6 +832,11 @@ final y la llave de cierre.}
 escriba siempre espacios antes y después del punto que separa el
 nombre del contexto y el nombre del objeto.}
 
+@seealso
+
+Manual de aprendizaje:
+@ref{Scheme tutorial}.
+
 @node Types of properties
 @subsection Types of properties
 
@@ -852,14 +863,14 @@ en la instrucción @code{\override}.
   @tab Un número decimal positivo (en unidades de espacios de pentagrama)
   @tab @code{2.5}, @code{0.34}
 @item Dirección
-  @tab Una constante válida de dirección o su equivalente numérico
-  @tab @code{#LEFT}, @code{#CENTER}, @code{#UP},
+  @tab Una constante válida de dirección o su equivalente numérico (se permiten valores decimales entre -1 y 1)
+  @tab @code{LEFT}, @code{CENTER}, @code{UP},
        @code{1}, @code{-1}
 @item Entero
   @tab Un número entero positivo
   @tab @code{3}, @code{1}
 @item Lista
-  @tab Un conjunto de elementos entre paréntesis separados por espacios y precedido de un apóstrofe
+  @tab Un conjunto de valores separados por espacios, encerrado entre paréntesis y precedido de un apóstrofo
   @tab @code{'(left-edge staff-bar)}, @code{'(1)},
        @code{'(1.0 0.25 0.5)}
 @item Marcado
@@ -873,19 +884,24 @@ en la instrucción @code{\override}.
   @tab Cualquier valor decimal positivo o negativo
   @tab @code{3.5}, @code{-2.45}
 @item Pareja (de números)
-  @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofe
+  @tab Dos números separados por un @q{espacio . espacio}, encerrado entre paréntesis y precedido de un apóstrofo
   @tab @code{'(2 . 3.5)}, @code{'(0.1 . -3.2)}
 @item Símbolo
-  @tab Cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofe
+  @tab Cualquiera del conjunto de símbolos permitidos para esa propiedad, precedido de un apóstrofo
   @tab @code{'italic}, @code{'inside}
 @item Desconocido
-  @tab Un procedimiento o @code{#f} (para no producir ninguna acción)
+  @tab Un procedimiento o @code{#f} para no producir ninguna acción
   @tab @code{bend::print}, @code{ly:text-interface::print},
        @code{#f}
 @item Vector
-  @tab Una lista de tres elementos encerrados entre paréntesis y precedida de una almohadilla, @code{#}.
-  @tab @code{#(#t #t #f)}
+  @tab Una lista de tres elementos encerrados entre paréntesis y precedida de apóstrofo-almohadilla, @code{'#}.
+  @tab @code{'#(#t #t #f)}
 @end multitable
+
+@seealso
+
+Manual de aprendizaje:
+@ref{Scheme tutorial}.
 
 @node Appearance of objects
 @section Appearance of objects
@@ -895,9 +911,9 @@ cuantos ejemplos que muestran cómo se pueden usar los trucos para
 cambiar el aspecto de la música impresa.
 
 @menu
-* Visibility and color of objects::  
-* Size of objects::             
-* Length and thickness of objects::  
+* Visibility and color of objects::
+* Size of objects::
+* Length and thickness of objects::
 @end menu
 
 @node Visibility and color of objects
@@ -914,13 +930,14 @@ que no se impriman?
 Antes de enredarnos con esto, recordemos que las propiedades de los
 objetos se agrupan en lo que hemos llamado @emph{interfaces} (véase
 @ref{Properties found in interfaces}).  Esto es simplemente agrupar
-las propiedades que normalmente se necesitan juntas: si una de ellas
-se necesita para un objeto, también las otras.  Así, ciertos objetos
-necesitan las propiedades de algunos interfaces, otros necesitan las
-de otros interfaces.  Los interfaces que contienen las propiedades que
-un determinado grob necesita se encuentran relacionadas en el manual
-RFI al final de la página que describe dicho grob, y esas propiedades
-se pueden ver mirando dichos interfaces.
+las propiedades que se pueden usar juntas para trucar un objeto
+gráfico: si una de ellas se necesita para un objeto, también las
+otras.  Así, ciertos objetos usan las propiedades de algunos
+interfaces, otros usan las de otros interfaces.  Los interfaces que
+contienen las propiedades que un determinado grob necesita se
+encuentran relacionadas en el manual RFI al final de la página que
+describe dicho grob, y esas propiedades se pueden ver mirando dichos
+interfaces.
 
 Hemos explicado cómo encontrar información sobre los grobs en
 @ref{Properties of layout objects}.  Usando el mismo enfoque, vamos al
@@ -945,7 +962,7 @@ que como otras muchas propiedades, se puede establecer de forma que no
 imprima nada ajustando su valor a @code{#f}.  Vamos a probarlo, como
 antes, omitiendo el Contexto implícito, @code{Voice}:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 12/16
   \override BarLine #'stencil = ##f
@@ -970,7 +987,7 @@ simplemente no funciona.  No se produce ningún mensaje de error, y no
 se registra nada en el archivo log de registro.  Vamos a intentar
 corregirlo escribiendo el contexto correcto:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'stencil = ##f
@@ -992,12 +1009,12 @@ valores booleanos.  Controlan respectivamente si las barras de compás
 se imprimen al final de una línea, en mitad de una línea, y al
 principio de las líneas.  Para nuestro ejemplo, queremos que todas las
 barras de compás se supriman, por lo que el valor que necesitamos es
-@code{#(#f #f #f)}.  Vamos a probarlo, recordando incluir el contexto
-de @code{Staff}.  Observa también que al escribir este valor tenemos
-dos símbolos de almohadilla antes del paréntesis de apertura.  Se
-necesita uno como parte del valor para introducir un vector, y se
-necesita otro más, como siempre, para preceder el propio valor dentro
-de la instrucción @code{\override}.
+@code{'#(#f #f #f)}.  Vamos a probarlo, recordando incluir el contexto
+de @code{Staff}.  Observe también que al escribir este valor tenemos
+@code{#'#} antes del paréntesis de apertura.  Se necesita @code{'#}
+como parte del valor para introducir un vector, y el primer símbolo de
+almohadilla @code{#} se necesita, como siempre, para preceder el valor
+en sí dentro de la instrucción @code{\override}.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1028,7 +1045,7 @@ del contexto de @code{Staff} y también contempla el interface
 @code{grob-interface}.  Así pues, la instrucción que hace transparente
 a la indicación de compás es:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
@@ -1046,7 +1063,7 @@ en otras circunstancias esta separación podría no ser deseable.  En
 vez de eso, para quitarla, el stencil o «sello» de la indicación de
 compás se debe establecer al valor @code{#f}:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
@@ -1064,18 +1081,26 @@ lo dejamos donde está, pero lo hacemos invisible.
 @subheading color
 @cindex color, propiedad
 
-Para finalizar, podríamos hacer invisibles las barras de compás
-pintándolas de color blanco.  El interface @code{grob-interface}
-especifica que la propiedad del color es una lista, pero no hay
-ninguna explicación sobre lo que debe ir en esa lista.  La lista que
-requiere es realmente una lista de valores en unidades internas, pero
-para evitar tener que saber cuáles son, se ofrecen varias vías para la
-especificación de los colores.  La primera forma es utilizar uno de
-los colores @q{normales} que están relacionados en la primera tabla de
-la @ruser{List of colors}.  Para poner las líneas divisorias de color
-blanco, escribimos:
+Para finalizar, intentemos hacer invisibles las barras de compás
+pintándolas de color blanco (hay un problema relacionado, que consiste
+en que la línea divisoria blanca puede tapar o no tapar las líneas del
+pentagrama a las que cruza.  Podrá observar en algunos de los ejemplos
+que aparecen a continuación, que esto sucede de forma impredecible.
+Los detalles sobre por qué esto ocurre así, y cómo controlarlo, se
+estudian en @ruser{Painting objects white}; de momento estamos
+estudiando el color, por lo que le rogamos que acepte esta limitación
+por ahora).
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+El interface @code{grob-interface} especifica que la propiedad del
+color es una lista, pero no hay ninguna explicación sobre lo que debe
+ir en esa lista.  La lista que requiere es realmente una lista de
+valores en unidades internas, pero para evitar tener que saber cuáles
+son, se ofrecen varias vías para la especificación de los colores.  La
+primera forma es utilizar uno de los colores @q{normales} que están
+relacionados en la primera tabla de la @ruser{List of colors}.  Para
+poner las líneas divisorias de color blanco, escribimos:
+
+@lilypond[quote,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'color = #white
@@ -1087,7 +1112,7 @@ blanco, escribimos:
 
 @noindent
 y de nuevo podemos comprobar que las barras de compás no son visibles.
-Observe que @emph{white} no viene precedido de un apóstrofe: no es un
+Observe que @emph{white} no viene precedido de un apóstrofo: no es un
 símbolo, sino una @emph{función}.  Cuando se invoca, proporciona la
 lista de valores internos que se requieren para establecer el color a
 blanco.  Los otros colores de la lista normal también son funciones.
@@ -1103,7 +1128,7 @@ colors}.  Sin embargo, éstos deben ir precedidos de otra función, que
 convierte los nombres de colores de X11 en la lista de valores
 internos, @code{x11-color}, de la siguiente manera:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
@@ -1115,7 +1140,7 @@ internos, @code{x11-color}, de la siguiente manera:
 
 @noindent
 Observe que en este caso la función @code{x11-color} toma un símbolo
-como argumento, así que el símbolo debe ir precedido de un apóstrofe y
+como argumento, así que el símbolo debe ir precedido de un apóstrofo y
 los dos deben ir entre paréntesis.
 
 @cindex rgb, colores
@@ -1128,7 +1153,7 @@ valores entre 0 y 1.  Por lo tanto, para establecer el color a rojo el
 valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
 @code{(rgb-color 1 1 1)}:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
@@ -1144,7 +1169,7 @@ hasta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar esto
 estableciendo todos los objetos de presentación de nuestro ejemplo a
 varias gradaciones de gris:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
@@ -1177,7 +1202,7 @@ Empezaremos examinando de nuevo un ejemplo anterior (véase
 @ref{Nesting music expressions}) que nos mostraba cómo introducir un
 pentagrama temporal, como en un @rglos{ossia}.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \new Staff ="main" {
        \relative g' {
          r4 g8 g c4 c8 d |
@@ -1198,7 +1223,7 @@ por lo normal se imprimen más pequeños que el pentagrama principal.
 Ya sabemos cómo quitar la clave y el compás: simplemente establecemos
 el sello de cada uno de ellos a @code{#f}, como sigue:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
     r4 g8 g c4 c8 d |
@@ -1256,7 +1281,7 @@ contexto en este lugar.
 
 Así pues, podemos reemplazar el ejemplo anterior con
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
     r4 g8 g c4 c8 d |
@@ -1320,7 +1345,7 @@ reduce o aumenta el tamaño aproximadamente en un 12%.
 
 Vamos a probarlo en nuestro ejemplo del ossia:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
     r4 g8 g c4 c8 d |
@@ -1377,7 +1402,7 @@ propósito.  Toma un argumento, el cambio de tamaño de la tipografía
 para reducir otros objetos en la misma proporción.  Se usa de la
 siguiente forma:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
     r4 g8 g c4 c8 d |
@@ -1432,9 +1457,9 @@ tipografía) se pueden cambiar de la misma forma.
 @section Placement of objects
 
 @menu
-* Automatic behaviour::         
-* Within-staff objects::        
-* Outside staff objects::       
+* Automatic behaviour::
+* Within-staff objects::
+* Outside staff objects::
 @end menu
 
 
@@ -1482,7 +1507,7 @@ prioridad (pues no se ha establecido explícitamente).  Observe que
 @q{Text3} se posiciona de nuevo automáticamente cerca del pentagrama,
 acomodado por debajo de @q{Text2}.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c2^"Text1"
 c^"Text2"
 c^"Text3"
@@ -1539,7 +1564,7 @@ todas las plicas forzadas hacia abajo, cuatro notas con las plicas
 forzadas hacia arriba, y por último cuatro notas devueltas al
 comportamiento predeterminado.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 a4 g c a
 \override Stem #'direction = #DOWN
 a g c a
@@ -1563,7 +1588,7 @@ están disponibles instrucciones predefinidas equivalentes más
 sencillas.  Aquí podemos ver una tabla de las más comunes.  Se
 menciona el significado de cada una allí donde no es obvio.
 
-@multitable @columnfractions .2 .2 .2 .4
+@multitable @columnfractions .2 .2 .25 .35
 @headitem Abajo o Izquierda
   @tab Arriba o Derecha
   @tab Anular
@@ -1626,7 +1651,7 @@ digitaciones; el primer compás muestra el comportamiento
 predeterminado, y después el efecto de especificar @code{DOWN} y
 @code{UP}:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c-5 a-3 f-1 c'-5
 \override Fingering #'direction = #DOWN
 c-5 a-3 f-1 c'-5
@@ -1639,7 +1664,7 @@ propiedad @code{direction} se ignora para los acordes.  En su lugar,
 de forma predeterminada las digitaciones se colocan automáticamente
 encima y debajo de las notas del acorde, como se muestra aquí:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 <c-5 g-3>
 <c-5 g-3 e-2>
 <c-5 g-3 e-2 c-1>
@@ -1794,7 +1819,7 @@ c, c c c
 @end lilypond
 
 Este ejemplo también muestra cómo crear textos con extensión (Text
-Spanners) : textos con líneas extensoras por encima de una sección de
+Spanners): textos con líneas extensoras por encima de una sección de
 música.  El extensor abarca desde la instrucción @code{\startTextSpan}
 hasta la instrucción @code{\stopTextSpan}, y el formado del texto se
 define por medio de la instrucción @code{\override TextSpanner}.  Para
@@ -1867,7 +1892,7 @@ bajo el epígrafe Comportamiento Automático de más arriba (véase
 prioridad de @code{TextScript} en el RFI o en las tablas de arriba, y
 aumentar la prioridad de @qq{Text3} hasta un valor superior:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c2^"Text1"
 c^"Text2"
 \once \override TextScript #'outside-staff-priority = #500
@@ -1895,7 +1920,7 @@ música.  La instrucción @code{\textLengthOn} invierte este
 comportamiento, ocasionando que las notas resulten tan espaciadas como
 sea necesario para acomodar el texto:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
 c^"Text2"
@@ -1914,7 +1939,7 @@ desplazamiento automático hacia arriba se puede desactivar mediante el
 establecimiento de la prioridad a @code{#f}.  He aquí un ejemplo que
 muestra cómo el texto de marcado interactúa con tales notas.
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 % This markup is short enough to fit without collision
 c2^"Tex"
 c''2
@@ -1961,7 +1986,7 @@ las marcas dinámicas posteriores más lejos, aunque este puede no ser
 el lugar óptimo, como muestra el siguiente ejemplo más bien
 artificial:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \dynamicUp
 a4\f b\mf c\mp b\p
 @end lilypond
@@ -2017,7 +2042,7 @@ instrucción que lo hace para las indicaciones dinámicas:
 @noindent
 Veamos si funciona en nuestro ejemplo anterior:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \dynamicUp
 \override DynamicText #'extra-spacing-width = #'(0 . 0)
 a4\f b\mf c\mp b\p
@@ -2034,7 +2059,7 @@ son el espacio entre dos líneas de pentagrama, así que al mover el
 límite izquierdo media unidad a la izquierda y el límite derecho media
 unidad hacia la derecha, deberíamos conseguirlo:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 staff space
 \override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
@@ -2053,9 +2078,9 @@ que se estudia en la sección siguiente.
 @section Collisions of objects
 
 @menu
-* Moving objects::              
-* Fixing overlapping notation::  
-* Real music example::          
+* Moving objects::
+* Fixing overlapping notation::
+* Real music example::
 @end menu
 
 @node Moving objects
@@ -2090,6 +2115,7 @@ cambios a este tipo de propiedad son: a) que algún otro objeto se
 moverá automáticamente si es necesario, para dejarle sitio, y b) una
 única sobreescritura se puede aplicar a todas las instancias del mismo
 tipo de objeto.  Entre tales propiedades se encuentran:
+
 @itemize
 
 @item
@@ -2121,10 +2147,14 @@ En lugar de con @code{padding}, la colocación de los grupos de
 alteraciones se controla con @code{left-padding} y
 @code{right-padding}.  Estas propiedades se encontrarán en el objeto
 @code{AccidentalPlacement} que, observe, vive dentro del contexto de
-@strong{staff}.  Como las alteraciones accidentales siempre se
-posicionan según las cabezas de las notas y a su izquierda, solamente
-tiene algún efecto la propiedad de relleno por la derecha
-@code{right-padding}.
+@strong{staff}.  Durante el proceso tipográfico, las cabezas de las
+notas se componen tipográficamente en primer lugar, y después las
+alteraciones, si existen, se añaden a la izquierda de las cabezas
+utilizando la propiedad de relleno por la derecha @code{right-padding}
+para determinar la separación entre la alteración y la cabeza.  así
+pues, sólo la propiedad de relleno por la derecha @code{right-padding}
+del objeto @code{AccidentalPlacement} tiene efecto sobre la colocación
+de las alteraciones.
 
 La propiedad @code{staff-padding} está estrechamente relacionada con
 la propiedad @code{padding}: @code{padding} controla la separación
@@ -2326,8 +2356,8 @@ Observe en el segundo ejemplo la gran importancia que tiene saber qué
 contexto maneja un determinado objeto.  Puesto que el objeto
 @code{MetronomeMark} se maneja dentro del contexto @code{Score}, los
 cambios de propiedades en el contexto @code{Voice} pasarán
-inadvertidos.  Para ver más detalles, consulte @ruser{The
-\override command}.
+inadvertidos.  Para ver más detalles, consulte @ruser{Modifying
+properties}.
 
 Si la propiedad de relleno @code{padding} de un objeto se incrementa
 cuando dicho objeto se encuentra en una pila de objetos que se están
@@ -2348,7 +2378,7 @@ natural y un Si bemol.  Para evitar la ambigüedad querríamos preceder
 las notas con un becuadro y un bemol.  Aquí vienen varios intentos de
 hacerlo así:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 <b bes>
 <b! bes>
 <b? bes>
@@ -2396,7 +2426,7 @@ dinámicas, entre ellas las que se han creado como objetos de
 extensión.  Así que ésta es la forma de alinear las indicaciones de
 matiz en el ejemplo de la sección anterior:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 unit
 \override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
@@ -2624,8 +2654,8 @@ rhMusic = \relative c'' {
   bes1~ |
   \bar "||"
   \time 6/4
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
   bes2.^\markup {\bold "Moderato"} r8
   <<
     {c,8[ d fis bes a] | }
@@ -2640,8 +2670,8 @@ rhMusic = \relative c'' {
   \\
     {s4 fis4.}
   >>
-  \revert Staff.NoteCollision #'merge-differently-headed
-  \revert Staff.NoteCollision #'merge-differently-dotted
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
   g2.\)
 }
 
@@ -2840,26 +2870,26 @@ Vayamos ahora al tercer compás y comienzo de la sección Moderato.  El
 tutorial nos enseñó cómo escribir texto en negrita mediante la
 instrucción @code{\markup}, por lo que añadir @q{Moderato} en negrita
 es fácil.  Pero ahora ¿cómo fundimos notas que están en distintas
-voces?  El índice de la Referencia de la Notación no menciona la
-mezcla de notas, pero una búsqueda de texto por la palabra @q{fusión}
-o @q{mezcla} nos lleva rápidamente a las sobreescrituras necesarias
-para mezclar o fusionar notas con distinta cabeza y con o sin puntillo
-en @ruser{Collision resolution}.  En nuestro ejemplo tenemos que
-fusionar ambos tipos de nota en el transcurso de la sección polifónica
-del compás 3; por tanto, en virtud de la información que aparece en la
-Referencia de la Notación, escribimos
+voces?  Aquí es donde debemos volver a buscar ayuda en el manual de
+Referencia de la notación. Al buscar la palabra @qq{merge} (mezcla) en
+el índice de la Referencia de la notación llegamos rápidamente a las
+instrucciones para mezclar notas con distinta cabeza y con o sin
+puntillo, en @ruser{Collision resolution}.  En nuestro ejemplo tenemos
+que fusionar ambos tipos de nota en el transcurso de la sección
+polifónica del compás 3; por tanto, en virtud de la información que
+aparece en la Referencia de la Notación, escribimos
 
 @example
-\override Staff.NoteCollision #'merge-differently-headed = ##t
-\override Staff.NoteCollision #'merge-differently-dotted = ##t
+\mergeDifferentlyHeadedOn
+\mergeDifferentlyDottedOn
 @end example
 
 @noindent
 al principio de la sección, y
 
 @example
-\revert Staff.NoteCollision #'merge-differently-headed
-\revert Staff.NoteCollision #'merge-differently-dotted
+\mergeDifferentlyHeadedOff
+\mergeDifferentlyDottedOff
 @end example
 
 @noindent
@@ -2873,8 +2903,8 @@ rhMusic = \relative c'' {
   \bar "||"
   \time 6/4
   bes2.^\markup {\bold "Moderato"} r8
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
     {c,8[ d fis bes a] | }
@@ -2885,8 +2915,8 @@ rhMusic = \relative c'' {
   \\
     {s4 fis4. | }
   >>
-  \revert Staff.NoteCollision #'merge-differently-headed
-  \revert Staff.NoteCollision #'merge-differently-dotted  
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
   g2.\)
 }
 
@@ -2936,8 +2966,8 @@ rhMusic = \relative c'' {
   \bar "||"
   \time 6/4
   bes2.^\markup {\bold "Moderato"} r8
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
   % Start polyphonic section of four voices
   <<
     {c,8[ d fis bes a] | }
@@ -2950,8 +2980,8 @@ rhMusic = \relative c'' {
   \\
     {s4 fis4. | }
   >>
-  \revert Staff.NoteCollision #'merge-differently-headed
-  \revert Staff.NoteCollision #'merge-differently-dotted
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
   g2.\)
 }
 
@@ -2993,8 +3023,8 @@ rhMusic = \relative c'' {
   \bar "||"
   \time 6/4
   bes2.^\markup {\bold "Moderato"} r8
-  \override Staff.NoteCollision #'merge-differently-headed = ##t
-  \override Staff.NoteCollision #'merge-differently-dotted = ##t
+  \mergeDifferentlyHeadedOn
+  \mergeDifferentlyDottedOn
   <<
     {c,8[ d fis bes a] | }
   \\
@@ -3008,8 +3038,8 @@ rhMusic = \relative c'' {
   \\
     {s4 fis4.}
   >>
-  \revert Staff.NoteCollision #'merge-differently-headed
-  \revert Staff.NoteCollision #'merge-differently-dotted
+  \mergeDifferentlyHeadedOff
+  \mergeDifferentlyDottedOff
   g2.\)
 }
 
@@ -3040,11 +3070,11 @@ lhMusic = \relative c' {
 @section Further tweaking
 
 @menu
-* Other uses for tweaks::       
-* Using variables for tweaks::  
-* Other sources of information::  
-* Avoiding tweaks with slower processing::  
-* Advanced tweaks with Scheme::  
+* Other uses for tweaks::
+* Using variables for tweaks::
+* Other sources of information::
+* Avoiding tweaks with slower processing::
+* Advanced tweaks with Scheme::
 @end menu
 
 @node Other uses for tweaks
@@ -3102,7 +3132,7 @@ valor de longitud @code{length} a @code{8},
 >>
 @end lilypond
 
-@subheading Simulating a fermata
+@subheading Simulating a fermata in MIDI
 
 @cindex sello, uso de la propiedad
 @cindex fermata, realización en MIDI
@@ -3119,9 +3149,10 @@ Por ejemplo, si quisiéramos cambiar la indicación metronómica con el
 propósito de simular un calderón en la salida MIDI, seguramente no
 querríamos que la indicación metronómica apareciese en la salida
 impresa, y no querríamos influir sobre la separación entre los dos
-sistemas o entre las notas del pentagrama.  Por lo tanto, establecer
-su propiedad @code{stencil} al valor @code{#f} sería la mejor manera.
-Mostramos aquí el efecto de los dos métodos:
+sistemas ni sobre la colocación de las anotaciones adyacentes sobre el
+pentagrama.  Por lo tanto, establecer su propiedad @code{stencil} al
+valor @code{#f} sería la mejor manera.  Mostramos aquí el efecto de
+los dos métodos:
 
 @lilypond[quote,verbatim,ragged-right]
 \score {
@@ -3130,12 +3161,30 @@ Mostramos aquí el efecto de los dos métodos:
     \tempo 4=120
     a4 a a
     \once \override Score.MetronomeMark #'transparent = ##t
-    % Invisible tempo marking to lengthen fermata note in MIDI
+    % Invisible tempo marking to lengthen fermata in MIDI
     \tempo 4=80
     a\fermata
-    \once \override Score.MetronomeMark #'stencil = ##f
-    % Invisible tempo marking to restore tempo in MIDI
+    % New tempo for next section
+    \tempo 4=100
+    a a a a
+  }
+  \layout { }
+  \midi { }
+}
+@end lilypond
+
+@lilypond[quote,verbatim,ragged-right]
+\score {
+  \relative c'' {
+    % Visible tempo marking
     \tempo 4=120
+    a4 a a
+    \once \override Score.MetronomeMark #'stencil = ##f
+    % Invisible tempo marking to lengthen fermata in MIDI
+    \tempo 4=80
+    a\fermata
+    % New tempo for next section
+    \tempo 4=100
     a a a a
   }
   \layout { }
@@ -3144,11 +3193,11 @@ Mostramos aquí el efecto de los dos métodos:
 @end lilypond
 
 @noindent
-Ambos métodos quitan la indicación metronómica de la salida impresa, y
-los dos afectan al tempo del MIDI tal y como queríamos, pero la
-primera indicación de metrónomo (la transparente) aún influye sobre la
-separación de las notas, mientras que la segunda (sin «sello») no
-influye.
+Ambos métodos quitan de la salida impresa la indicación metronómica
+que alarga el calderón, y los dos afectan al tempo del MIDI tal y como
+queríamos, pero la indicación metronómica transparente de la primera
+línea fuerza una colocación muy alta de la indicación de tempo que
+sigue, meintras que la segunda (con el sello suprimido) no lo hace.
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
@@ -3159,9 +3208,10 @@ correcta.  Si las mismas sobreescrituras se van a utilizar muchas
 veces, podría merecer la pena definir variables para guardarlas.
 Suponga que queremos realzar ciertas palabras de la letra de una
 canción imprimiéndolas en cursiva y negrita.  Las instrucciones
-@code{\italic} y @code{\bold} no funcionan dentro de la letra de las
-canciones, así que tenemos de usar en su lugar las siguientes
-instrucciones @code{\override} y @code{\revert}:
+@code{\italic} y @code{\bold} sólo funcionan dentro de la letra de las
+canciones si están incluidas dentro de un @code{\markup}, lo que las
+hace tediosas de escribir.  ¿Podríamos, como alternativa, utilizar las
+instrucciones @code{\override} y @code{\revert}?
 
 @example
 @code{\override Lyrics . LyricText #'font-shape = #'italic}
@@ -3171,41 +3221,42 @@ instrucciones @code{\override} y @code{\revert}:
 @code{\revert Lyrics . LyricText #'font-series}
 @end example
 
-Estas instrucciones serían extremadamente tediosas de escribir si
-hubiera muchas palabras que quisiéramos subrayar.  Entonces, en vez de
-esto las definimos como dos variables, y las usamos de la siguiente
-forma:
+Estas instrucciones también serían extremadamente tediosas de escribir
+si hubiera muchas palabras que quisiéramos subrayar.  Entonces, en vez
+de esto las definimos como dos variables, y las usamos de la siguiente
+forma, aunque normalmente quizá elegiríamos unos nombres de variable
+más cortos para que fueran más rápidos de teclear:
 
 @lilypond[quote,verbatim]
-emph = {
+emphasize = {
   \override Lyrics . LyricText #'font-shape = #'italic
   \override Lyrics . LyricText #'font-series = #'bold
 }
-norm = {
+normal = {
   \revert Lyrics . LyricText #'font-shape
   \revert Lyrics . LyricText #'font-series
 }
 
 global = { \time 4/4 \partial 4 \key c \major}
-SopMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
+SopranoMusic   = \relative c' { c4 | e4. e8 g4  g  | a a g }
 AltoMusic  = \relative c' { c4 | c4. c8 e4  e  | f f e }
 TenorMusic = \relative c  { e4 | g4. g8 c4. b8 | a8 b c d e4 }
 BassMusic  = \relative c  { c4 | c4. c8 c4  c  | f8 g a b c4 }
-VerseOne   = \lyrics { E -- | ter -- nal \emph Fa -- ther, \norm | strong to save, }
-VerseTwo   = \lyricmode { O | \emph Christ, \norm whose voice the | wa -- ters heard, }
-VerseThree = \lyricmode { O | \emph Ho -- ly Spi -- rit, \norm | who didst brood }
-VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
+VerseOne   = \lyrics { E -- | ter -- nal \emphasize Fa -- ther, \normal | strong to save, }
+VerseTwo   = \lyricmode { O | \emphasize Christ, \normal whose voice the | wa -- ters heard, }
+VerseThree = \lyricmode { O | \emphasize Ho -- ly Spi -- rit, \normal | who didst brood }
+VerseFour  = \lyricmode { O | \emphasize Tri -- ni -- ty \normal of | love and pow'r }
 
 \score {
   \new ChoirStaff <<
     \new Staff <<
       \clef "treble"
-      \new Voice = "Sop"  { \voiceOne \global \SopMusic }
+      \new Voice = "Soprano"  { \voiceOne \global \SopranoMusic }
       \new Voice = "Alto" { \voiceTwo \AltoMusic }
-      \new Lyrics \lyricsto "Sop" { \VerseOne   }
-      \new Lyrics \lyricsto "Sop" { \VerseTwo   }
-      \new Lyrics \lyricsto "Sop" { \VerseThree }
-      \new Lyrics \lyricsto "Sop" { \VerseFour  }
+      \new Lyrics \lyricsto "Soprano" { \VerseOne   }
+      \new Lyrics \lyricsto "Soprano" { \VerseTwo   }
+      \new Lyrics \lyricsto "Soprano" { \VerseThree }
+      \new Lyrics \lyricsto "Soprano" { \VerseFour  }
     >>
     \new Staff <<
       \clef "bass"
@@ -3217,51 +3268,71 @@ VerseFour  = \lyricmode { O | \emph Tri -- ni -- ty \norm of | love and pow'r }
 @end lilypond
 
 
-
 @node Other sources of information
 @subsection Other sources of information
 
 La documentación del manual de Referencia de Funcionamiento Interno
 contiene montañas de información sobre LilyPond, pero se puede obtener
 más información aún leyendo los archivos internos de LilyPond.  Para
-echarles un vistazo, en primer lugar busque la carpeta correspondiente
-a su sistema, de la siguiente forma:
+echarles un vistazo, en primer lugar debe buscar la carpeta
+correspondiente a su sistema.  La ubicación de esta carpeta depende
+(a) de si consiguió el programa LilyPond descargando un binario
+precompilado desde el sitio web lilypond.org o si lo instaló mediante
+un gestor de paquetes (es decir, distribuido con Linux, o instalado
+bajo fink o cygwin) o fue compilado a partir de la fuente, y (b) de
+qué sistema operativo está utilizando:
 
-@strong{Linux}
+
+@strong{Descargado de lilypond.org}
+
+@itemize @bullet
+@item Linux
 
 Diríjase a
-@file{@var{installdir}/lilypond/usr/share/lilypond/current/}
+@file{@var{CARPETA_DE_INSTALACIÓN}/lilypond/usr/share/lilypond/current/}
 
-@strong{MacOS X}
+@item MacOS X
 
 Diríjase a
-@file{@var{installdir}/LilyPond.app/Contents/Resources/share/lilypond/current/}
+@file{@var{CARPETA_DE_INSTALACIÓN}/LilyPond.app/Contents/Resources/share/lilypond/current/}
 bien haciendo @code{cd} hacia este directorio desde el Terminal, o
 bien manteniendo pulsada la tecla de Control y haciendo click sobre la
 aplicación de LilyPond, y allí eligiendo @q{Mostrar el contenido del
 paquete}.
 
-@strong{Windows}
+@item Windows
 
 Mediante el Explorador de Windows, diríjase a
-@file{@var{installdir}/LilyPond/usr/share/lilypond/current/}
+@file{@var{CARPETA_DE_INSTALACIÓN}/LilyPond/usr/share/lilypond/current/}
+
+@end itemize
+
+@strong{Instalado mediante un gestor de paquetes o compilado a partir de la fuente}
+
+Diríjase a
+@file{@var{PREFIJO}/share/lilypond/@var{X.Y.Z}/}, donde @var{PREFIJO}
+se encuentra determinado por su administrador de paquetes o guión
+@code{configure}, y @var{X.Y.Z} es el número de la versión de
+LilyPond.
+
+@smallspace
 
 Dentro de esta carpeta, las dos subcarpetas interesantes son
 
 @itemize
-@item @file{../ly/ } - contiene archivos en formato LilyPond
-@item @file{../scm/} - contiene archivos en formato Scheme
+@item @file{ly/} - contiene archivos en formato LilyPond
+@item @file{scm/} - contiene archivos en formato Scheme
 @end itemize
 
-Vamos a comenzar observando algunos archivos que están en
-@file{../ly/}.  Abra @file{../ly/property-init.ly} con un editor de
-textos.  El mismo que usaría normalmente para los archivos @code{.ly}
-servirá perfectamente.  Este archivo contiene las definiciones de
-todas las instrucciones incorporadas como estándar dentro de LilyPond,
-como por ejemplo @code{\stemUp} y @code{\slurDotted}.  Podrá ver que
-no son nada más que definiciones de variables que contienen una o
-varias instrucciones @code{\override}.  Por ejemplo, @code{/tieDotted}
-está definido de tal forma que su valor es:
+Vamos a comenzar observando algunos archivos que están en @file{ly/}.
+Abra @file{ly/property-init.ly} con un editor de textos.  El mismo que
+usaría normalmente para los archivos @code{.ly} servirá perfectamente.
+Este archivo contiene las definiciones de todas las instrucciones
+incorporadas como estándar dentro de LilyPond, como por ejemplo
+@code{\stemUp} y @code{\slurDotted}.  Podrá ver que no son nada más
+que definiciones de variables que contienen una o varias instrucciones
+@code{\override}.  Por ejemplo, @code{/tieDotted} está definido de tal
+forma que su valor es:
 
 @example
 tieDotted = @{
@@ -3275,18 +3346,18 @@ incorporadas se pueden redefinir con facilidad como cualquier otra
 variable, al principio de su archivo de código de entrada.
 
 Los siguientes son los archivos más útiles que se encuentran en
-@file{../ly/}:
+@file{ly/}:
 
 @multitable @columnfractions .4 .6
 @headitem Archivo
   @tab Contenido
-@item @file{../ly/engraver-init.ly}
+@item @file{ly/engraver-init.ly}
   @tab Definiciones de Contextos de grabadores
-@item @file{../ly/paper-defaults.ly}
+@item @file{ly/paper-defaults.ly}
   @tab especificaciones de valores predeterminados relacionados con el papel
-@item @file{../ly/performer-init.ly}
+@item @file{ly/performer-init.ly}
   @tab Definiciones de Contextos de interpretación
-@item @file{../ly/property-init.ly}
+@item @file{ly/property-init.ly}
   @tab Definiciones de todas las instrucciones incorporadas que son comunes
 @end multitable
 
@@ -3307,19 +3378,19 @@ interesarle son:
 @multitable @columnfractions .4 .6
 @headitem Archivo
   @tab Contenido
-@item @file{../scm/auto-beam.scm}
+@item @file{scm/auto-beam.scm}
   @tab Valores predeterminados de sub-barrado
-@item @file{../scm/define-grobs.scm}
+@item @file{scm/define-grobs.scm}
   @tab valores predeterminados de las propiedades de grobs
-@item @file{../scm/define-markup-commands.scm}
+@item @file{scm/define-markup-commands.scm}
   @tab Especificar todas las instrucciones de marcado
-@item @file{../scm/midi.scm}
+@item @file{scm/midi.scm}
   @tab Ajustes predeterminados para la salida MIDI
-@item @file{../scm/output-lib.scm}
+@item @file{scm/output-lib.scm}
   @tab Ajustes que afectan al aspecto de los trastes, colores, alteraciones, lineas divisorias, etc.
-@item @file{../scm/parser-clef.scm}
+@item @file{scm/parser-clef.scm}
   @tab Definiciones de las claves contempladas
-@item @file{../scm/script.scm}
+@item @file{scm/script.scm}
   @tab Ajustes predeterminados para las articulaciones
 @end multitable
 
@@ -3392,9 +3463,9 @@ notas un color que depende de su posición dentro del pentagrama.
 \relative c' {
   % Arrange to obtain color from color-notehead procedure
   \override NoteHead #'color = #color-notehead
-  c2 c' | 
-  b4 g8 a b4 c | 
-  c,2 a' | 
+  c2 c' |
+  b4 g8 a b4 c |
+  c,2 a' |
   g1 |
 }
 \addlyrics {

@@ -25,7 +25,7 @@ tagline = \markup {
 }
 
 #(define (print-all-headers layout props arg)
-  (if (eq? (ly:output-def-lookup layout 'printallheaders) #t)
+  (if (eq? (ly:output-def-lookup layout 'print-all-headers) #t)
    (interpret-markup layout props arg)
    empty-stencil))
 
@@ -35,13 +35,13 @@ bookTitleMarkup = \markup {
     \fill-line { \fromproperty #'header:dedication }
     \override #'(baseline-skip . 3.5)
     \column {
-      \huge \bigger \bold
+      \huge \larger \bold
       \fill-line {
-        \bigger \fromproperty #'header:title
+        \larger \fromproperty #'header:title
       }
       \fill-line {
         \large \smaller \bold
-        \bigger \fromproperty #'header:subtitle
+        \larger \fromproperty #'header:subtitle
       }
       \fill-line {
         \smaller \bold

@@ -7,12 +7,13 @@ STEPMAKE_TEMPLATES=documentation texinfo tex
 LOCALSTEPMAKE_TEMPLATES=lilypond ly
 LILYPOND_BOOK_FLAGS=--extra-options '-e "(ly:set-option (quote internal-type-checking) \#t)"'
 README_TOP_FILES= DEDICATION THANKS
-EXTRA_DIST_FILES= texinfo.css lilypond.css lilypond-ie-fixes.css TRANSLATION
+EXTRA_DIST_FILES= TRANSLATION
 
 include $(depth)/make/stepmake.make
 
 HTML_PAGE_NAMES= index devel translations
 OUT_HTML_FILES= $(HTML_PAGE_NAMES:%=$(outdir)/%.html)
+OUT_CSS_FILES= $(CSS_FILES:%.css=$(outdir)/%.css)
 
 default: local-doc
 
@@ -29,6 +30,11 @@ OUT_TXT_FILES = $(addprefix $(outdir)/, $(addsuffix .txt, $(README_TOP_FILES)))
 txt-to-html:
 	$(foreach a, $(README_TOP_FILES), cp $(top-src-dir)/$(a) $(outdir)/$(a).txt && ) true
 	$(PYTHON) $(step-bindir)/text2html.py $(OUT_TXT_FILES)
+
+$(OUT_HTML_FILES): $(OUT_CSS_FILES)
+
+$(outdir)/%.css: %.css
+	ln -f $< $@
 
 po-update:
 	make -C po po-update
@@ -53,6 +59,10 @@ new-lang:
 	@echo "***  Please add a language definition for $(ISOLANG) in python/langdefs.py  ***"
 
 CHECKED_FILES = $(ISOLANG)/index.html.in $(shell find $(ISOLANG)/user/ -maxdepth 1 -name '*.*te??')
+
+ifneq ($(NO_COLOR),)
+CHECK_TRANSLATION_FLAGS = --no-color
+endif
 
 TELY_FILES = $(call src-wildcard,$(ISOLANG)/user/*.tely)
 skeleton-update:
@@ -86,10 +96,10 @@ fix-xrefs:
 	$(DOCUMENTS_INCLUDES) $(buildscript-dir)/manuals_definitions.py
 
 check-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py $(CHECKED_FILES)
+	$(PYTHON) $(buildscript-dir)/check_translation.py $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
 
 update-translation:
-	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(CHECKED_FILES)
+	$(PYTHON) $(buildscript-dir)/check_translation.py --update $(CHECK_TRANSLATION_FLAGS) $(CHECKED_FILES)
 
 translation-status:
 	make -C po out=www messages

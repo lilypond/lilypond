@@ -7,39 +7,34 @@
 
 ;; metronome marks
 (define-public (format-metronome-markup text dur count context)
-  (let* ((hide_note (eq? #t (ly:context-property context 'tempoHideNote)))
-	 (note-mark (if (and (not hide_note) (ly:duration? dur))
+  (let* ((hide-note (eq? #t (ly:context-property context 'tempoHideNote)))
+	 (note-mark (if (and (not hide-note) (ly:duration? dur))
                       (make-smaller-markup
 		       (make-note-by-number-markup (ly:duration-log dur)
 						   (ly:duration-dot-count dur)
 						   1))
-		      #f))
-         (note-markup (if (and note-mark (number? count) (> count 0) )
+		      (make-null-markup)))
+         (note-markup (if (and (not hide-note) (number? count) (> count 0) )
                         (make-concat-markup (list
                           (make-general-align-markup Y DOWN note-mark)
                           (make-simple-markup " ")
                           (make-simple-markup  "=")
                           (make-simple-markup " ")
                           (make-simple-markup (number->string count))))
-                        #f))
+                      #f))
          (text-markup (if (not (null? text))
                         (make-bold-markup text)
                         #f)))
     (if text-markup
-      (if note-markup
+      (if (and note-markup (not hide-note))
         (make-line-markup (list text-markup
           (make-concat-markup (list (make-simple-markup "(")
                                     note-markup
                                     (make-simple-markup ")")))))
-        (make-line-markup (list text-markup))
-      )
+        (make-line-markup (list text-markup)))
       (if note-markup
         (make-line-markup (list note-markup))
-        #f
-      )
-    )
-  )
-)
+        (make-null-markup)))))
 
 (define-public (format-mark-alphabet mark context)
   (make-bold-markup (make-markalphabet-markup (1- mark))))

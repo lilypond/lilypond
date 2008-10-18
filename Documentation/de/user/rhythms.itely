@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Rhythms
 @section Rhythms
@@ -36,7 +36,7 @@ This section discusses rhythms, durations, and bars.
 @end menu
 
 @node Durations
-@subsubsection Durations
+@unnumberedsubsubsec Durations
 
 @cindex Dauer
 @cindex Notenlänge
@@ -127,7 +127,7 @@ Programmreferenz: @rinternals{Dots}, and @rinternals{DotColumn}.
 
 
 @node Tuplets
-@subsubsection Tuplets
+@unnumberedsubsubsec Tuplets
 
 @cindex N-tolen
 @cindex Triolen
@@ -283,7 +283,7 @@ Programmreferenz: @rinternals{TupletBracket},
 
 
 @node Scaling durations
-@subsubsection Scaling durations
+@unnumberedsubsubsec Scaling durations
 
 Die Dauer von Längen kann mit einem Bruch multipliziert werden, 
 indem hinter die Note  @qq{*@var{N/M}} (oder @qq{*@var{N}} wenn @var{M=1}) 
@@ -308,7 +308,7 @@ Abschnitt @ref{Tuplets}
 
 
 @node Ties
-@subsubsection Ties
+@unnumberedsubsubsec Ties
 
 @cindex Bindebogen
 @cindex Überbindung
@@ -447,7 +447,7 @@ Legatobogen zu verwenden.
 @end menu
 
 @node Rests
-@subsubsection Rests
+@unnumberedsubsubsec Rests
 @cindex Pausen
 
 @funindex \rest
@@ -486,7 +486,7 @@ Programmreferenz: @rinternals{Rest}.
 
 
 @node Invisible rests
-@subsubsection Invisible rests
+@unnumberedsubsubsec Invisible rests
 
 @cindex Skip
 @cindex Überspringen von Zeichen
@@ -534,7 +534,7 @@ Programmreferenz: @rinternals{SkipMusic}.
 
 
 @node Full measure rests
-@subsubsection Full measure rests
+@unnumberedsubsubsec Full measure rests
 
 @untranslated
 
@@ -552,7 +552,7 @@ Programmreferenz: @rinternals{SkipMusic}.
 @end menu
 
 @node Time signature
-@subsubsection Time signature
+@unnumberedsubsubsec Time signature
 
 @cindex Taktangabe
 @cindex Metrum
@@ -641,7 +641,7 @@ mit @code{set-time-signature} erzeugt werden.
 
 
 @node Upbeats
-@subsubsection Upbeats
+@unnumberedsubsubsec Upbeats
 
 @cindex Auftakt
 @cindex Takte verkürzen
@@ -692,7 +692,7 @@ auftreten.
 
 
 @node Unmetered music
-@subsubsection Unmetered music
+@unnumberedsubsubsec Unmetered music
 
 @cindex Kadenz
 @funindex \cadenzaOn
@@ -729,13 +729,13 @@ einfügen, um anzuzeigen, wo umgebrochen werden darf.
 
 
 @node Polymetric notation
-@subsubsection Polymetric notation
+@unnumberedsubsubsec Polymetric notation
 
 @untranslated
 
 
 @node Automatic note splitting
-@subsubsection Automatic note splitting
+@unnumberedsubsubsec Automatic note splitting
 
 Lange Noten können automatisch in übergebundene Noten aufgeteilt werden. 
 Dieses Verhalten erreicht man, indem der  @rinternals{Note_heads_engraver} 
@@ -782,7 +782,7 @@ Programmreferenz:
 
 
 @node Showing melody rhythms
-@subsubsection Showing melody rhythms
+@unnumberedsubsubsec Showing melody rhythms
 
 Manchmal soll nur der Rhythmus einer Melodie dargestellt werden. Das 
 erreicht man mit einem Schlagzeug-Notensystem. Alle Tonhöhen werden 
@@ -812,7 +812,7 @@ Programmreferenz:
 @end menu
 
 @node Automatic beams
-@subsubsection Automatic beams
+@unnumberedsubsubsec Automatic beams
 
 LilyPond setzt Balken (engl. beam) automatisch.
 
@@ -840,13 +840,13 @@ Programmreferenz: @rinternals{Beam}.
 
 
 @node Setting automatic beam behavior
-@subsubsection Setting automatic beam behavior
+@unnumberedsubsubsec Setting automatic beam behavior
 
 @untranslated
 
 
 @node Manual beams
-@subsubsection Manual beams
+@unnumberedsubsubsec Manual beams
 
 @cindex Balken, manuell
 @funindex ]
@@ -934,7 +934,7 @@ Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 
 
 @node Feathered beams
-@subsubsection Feathered beams
+@unnumberedsubsubsec Feathered beams
 
 @untranslated
 
@@ -951,7 +951,7 @@ Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 @end menu
 
 @node Bar lines
-@subsubsection Bar lines
+@unnumberedsubsubsec Bar lines
 
 @cindex Taktlinien
 @funindex \bar
@@ -1042,13 +1042,13 @@ Programmreferenz: @rinternals{BarLine} (auf Partitur
 
 
 @node Bar numbers
-@subsubsection Bar numbers
+@unnumberedsubsubsec Bar numbers
 
 @untranslated
 
 
 @node Bar and bar number checks
-@subsubsection Bar and bar number checks
+@unnumberedsubsubsec Bar and bar number checks
 
 @cindex Taktüberprüfung
 @funindex barCheckSynchronize
@@ -1111,7 +1111,7 @@ nicht mit dem Wert 123 übereinstimmt.
 
 
 @node Rehearsal marks
-@subsubsection Rehearsal marks
+@unnumberedsubsubsec Rehearsal marks
 
 @untranslated
 
@@ -1127,7 +1127,7 @@ nicht mit dem Wert 123 übereinstimmt.
 @end menu
 
 @node Grace notes
-@subsubsection Grace notes
+@unnumberedsubsubsec Grace notes
 
 @funindex \grace
 @cindex Verzierungen
@@ -1342,13 +1342,13 @@ zu Fehlermeldungen oder Abstürzen kommen.
 
 
 @node Aligning to cadenzas
-@subsubsection Aligning to cadenzas
+@unnumberedsubsubsec Aligning to cadenzas
 
 @untranslated
 
 
 @node Time administration
-@subsubsection Time administration
+@unnumberedsubsubsec Time administration
 
 @untranslated
 

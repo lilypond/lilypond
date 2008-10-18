@@ -1,4 +1,4 @@
-\version "2.11.26"
+\version "2.11.61"
 \header {
   lsrtags = "spacing"
   texidoc = "Page labels may be placed inside music or at top-level,
@@ -8,7 +8,8 @@ and referred to in markups."
 
 #(set-default-paper-size "a6")
 
-#(define-markup-command (toc-line layout props label text) (symbol? markup?)
+#(define-markup-command (toc-line layout props label text)
+  (symbol? markup?)
   (interpret-markup layout props
    (markup #:fill-line (text #:page-ref label "8" "?"))))
 
@@ -32,15 +33,18 @@ and referred to in markups."
 
   \label #'firstScore
   \score {
-    {
-      c'2 c'
-      \mark \markup { A (page \concat { \page-ref #'markA "0" "?" ) } } \label #'markA
-      c'2 c'
+    \new Staff \relative c' {
+      c2 c
+      \mark \markup {
+        A (page \concat { \page-ref #'markA "0" "?" ) }
+      } \label #'markA
+      c2 c
       \pageBreak
       \mark "B" \label #'markB
-      d'2 d'
-      d'2 d'
-      \once \override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible
+      d2 d
+      d2 d
+      \once \override Score.RehearsalMark #'break-visibility =
+        #begin-of-line-invisible
       \mark "C" \label #'markC
     }
     \header { piece = "First score" }

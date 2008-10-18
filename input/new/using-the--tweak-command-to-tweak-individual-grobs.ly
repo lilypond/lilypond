@@ -1,4 +1,4 @@
-\version "2.11.23"
+\version "2.11.61"
 \header {
   lsrtags = "tweaks-and-overrides"
   texidoc = "
@@ -13,7 +13,7 @@ are some examples of available tweaks.
   \set fingeringOrientations = #'(right)
   <
     \tweak #'font-size #3 c
-    \tweak #'color #red  d-\tweak #'font-size #8 -4
+    \tweak #'color #red d-\tweak #'font-size #8 -4
     \tweak #'style #'cross g
     \tweak #'duration-log #2 a
   >2

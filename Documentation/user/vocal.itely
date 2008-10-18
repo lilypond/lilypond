@@ -6,151 +6,160 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 @node Vocal music
 @section Vocal music
 
-@c TODO: CLARIFY
-@c TODO: delete this comment block
-@c http://code.google.com/p/lilypond/issues/detail?id=248
-@c Done, see @node Lyrics independent of notes ----FV
+@c TODO: inspirational headword
 
-@c http://code.google.com/p/lilypond/issues/detail?id=329
-@c Done, see @node Working with lyrics and variables ----FV
-
-@c partially done, needs improvement, see Switching to an alternative melody ----FV
-@ignore
-
-> I think the issue here is that changing the associatedVoice
-> happens one step
-> later than expected.  I could be wrong, but I don't think this
-> is obviously
-> documented.
-
-If you read section "Switching the melody associated with a lyrics
-line"
-it indeed says "Again, the command must be one syllable too
-early,..."!
-One problem with the current formulation is that the "Again"
-refers to what's described 2 subsections earlier in "Lyrics to
-multiple notes of a melisma", which isn't obvious unless you have
-read all the sections
-sequentially.
-
-
-@c Done in @node Extenders and hyphens ---FV
-@c also done (duplicated) in @node Multiple notes to one syllable --FV
-I don't know who's working on the vocal music right now, but I
-found something that should be clarified in NR 2.1.2.4.
-
-It should be made clear that __ is used to crate a lyric extender,
-and _ is used to add a note to a melisma, so both __ and _ are
-used.  The example shows it, but there is no description of the
-lyrics extender in this section.
-@end ignore
-
-
-Since LilyPond input files are text, there are two issues to consider
-when working with vocal music:
-
-@itemize
-@item
-Song texts must be interpreted as text, not notes.  For example, the
-input@tie{}@code{d} should be interpreted as a one letter syllable,
-not the note@tie{}D.
-
-@item
-Song texts must be aligned with the notes of their melody.
-@end itemize
-
-To address the first issue, the fundamental method is the special mode
-opened by @code{\lyricmode} that interprets its contents as text.
-This mode is implicit by some abbreviated methods, as we will see.
-
-Aligning of text with melodies can be made automatically, but if you
-specify the durations of the syllables it can also be made manually.
-Lyrics aligning and typesetting are prepared with the help of skips,
-hyphens and extender lines.
-
-All these methods and their combinations lead to a few different ways
-to define lyrics; we shall begin by examining the simplest method, and
-gradually increase complexity.
+This section explains how to typeset vocal music, and make sure
+that the lyrics will be aligned with the notes of their melody.
 
 @menu
-* Common notation for vocals::
+* Common notation for vocal music::
+* Entering lyrics::
 * Aligning lyrics to a melody::
-* Placement of lyrics::
+* Specific uses of lyrics::
 * Stanzas::
 @end menu
 
 
-@node Common notation for vocals
-@subsection Common notation for vocals
+@node Common notation for vocal music
+@subsection Common notation for vocal music
+
+This section discusses issues related to vocal music in general, and
+to some particular styles of vocal music.
 
 @menu
-* References for vocal music::
-* Setting simple songs::
-* Entering lyrics::
-* Working with lyrics and variables::
+* References for vocal music and lyrics::
+* Opera::
+* Song books::
+* Chants::
+* Spoken music::
+* Ancient vocal music::
 @end menu
 
-@node References for vocal music
-@subsubsection References for vocal music
 
+@node References for vocal music and lyrics
+@unnumberedsubsubsec References for vocal music and lyrics
+
+@c TODO: split this section in two parts? -vv
+
+Various issues may arise when engraving vocal music.  Some of these
+are discussed in this section, while others are explained elsewhere:
+
+@itemize
+@item
+Most styles of vocal music use written text as lyrics.  An introduction
+to this notation is to be found in @rlearning{Setting simple songs}.
+
+@item
+Vocal music is likely to require the use of @code{markup} mode, either
+for lyrics of for other text elements (character's names, etc.).
+This syntax is described in @ref{Text markup introduction}.
+
+@item
+Lead sheets may be printed by combining vocal parts and @q{chord mode};
+this syntax is explained in @ref{Chord notation}.
+
+@item
+@q{Ambitus} may be added at the beginning of vocal staves, as explained
+in @ref{Ambitus}.
+
+@item
+Vocal parts may be printed using traditional clefs, as shown in @ref{Clef}.
+
+@item
+Ancient vocal music is supported, as explained in @ref{Ancient notation}.
+@end itemize
+
+
+@node Opera
+@unnumberedsubsubsec Opera
+
+@c TODO
 TBC
-@c TODO Add @refs
 
-@q{Parlato} is spoken without pitch but still with rhythm; it is
-notated by cross note heads.  This is demonstrated in
-@ref{Special note heads}.
+@c add characters names snippet -vv
 
+@node Song books
+@unnumberedsubsubsec Song books
 
-@node Setting simple songs
-@subsubsection Setting simple songs
+@c TODO
+TBC
 
-@cindex \addlyrics
+@snippets
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{simple-lead-sheet.ly}
 
-The easiest way to add lyrics to a melody is to append
+@seealso
+Notation Reference:
+@ref{Chord notation}.
 
-@example
-\addlyrics @{ @var{the lyrics} @}
-@end example
+@node Spoken music
+@unnumberedsubsubsec Spoken music
+@cindex parlato
+@cindex Sprechgesang
+Such effects as @q{parlato} or @q{Sprechgesang} require perfomers to speak
+without pitch but still with rhythm; these are notated by cross
+note heads, as demonstrated in @ref{Special note heads}.
 
-@noindent
-to a melody.  Here is an example,
+@c TODO add "marking-notes-on-spoken-parts" snippet -vv
+@c add "showing the rhythm of a melody" snip
+@c add "one staff-line notation"
+@c add "improvisation" ref
+@c add "lyrics independents of notes" ref
 
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
-@end lilypond
+@node Chants
+@unnumberedsubsubsec Chants
 
-More stanzas can be added by adding more
-@code{\addlyrics} sections
+@c TODO Add text from lsr and -user
+TBC
 
-@lilypond[ragged-right,verbatim,fragment,quote]
-\time 3/4
-\relative c' { c2 e4 g2. }
-\addlyrics { play the game }
-\addlyrics { speel het spel }
-\addlyrics { joue le jeu }
-@end lilypond
+@node Ancient vocal music
+@unnumberedsubsubsec Ancient vocal music
 
-The command @code{\addlyrics} cannot handle polyphony settings.  For these
-cases you should use @code{\lyricsto} and @code{\lyricmode}, as will be
-introduced in @ref{Entering lyrics}.
+@c TODO
+TBC
 
+@c Add "Printing both the ancient and the modern clef in vocal music" snippet,
+@c and "Transcription of Ancient music with incipit" snippet. -vv
+
+@seealso
+Notation Reference:
+@ref{Ancient notation}.
 
 
 @node Entering lyrics
-@subsubsection Entering lyrics
+@subsection Entering lyrics
+
+@c TODO add one sentence here. -vv
+
+@menu
+* Lyrics explained::
+* Setting simple songs::
+* Working with lyrics and variables::
+@end menu
+
+
+@node Lyrics explained
+@unnumberedsubsubsec Lyrics explained
 
 @cindex lyrics
 @funindex \lyricmode
 @cindex punctuation
 @cindex spaces, in lyrics
 @cindex quotes, in lyrics
+
+@c FIXME: this section is to be rewritten.
+Since LilyPond input files are text, there is at least one
+issue to consider when working with vocal music: 
+song texts must be interpreted as text, not notes.  For example, the
+input@tie{}@code{d} should be interpreted as a one letter syllable,
+not the note@tie{}D.
+Therefore, a special lyric mode has to be used, either explicitely
+or using some abbreviated methods.
 
 Lyrics are entered in a special input mode, which can be introduced
 by the keyword @code{\lyricmode}, or by using @code{\addlyrics} or
@@ -224,9 +233,11 @@ between syllables, or use tilde  symbol (@code{~}) to get a lyric tie.
 \addlyrics { pu- ro~y~ho- nes- to }
 @end lilypond
 
-The lyric tie is implemented with the Unicode character U+203F, so be
-sure to have a font (Like DejaVuLGC) installed that includes this
-glyph.
+@noindent
+The lyric tie is implemented with the Unicode character
+@code{U+203F}; therefore a font that includes this glyph
+(such as DejaVuLGC) has to be used.  More explanations about
+text and non-text fonts can be found in @ref{Fonts}.
 
 
 To enter lyrics with characters from non-English languages, or with
@@ -279,12 +290,54 @@ verseOne = \lyricmode @{ Joy to the world the Lord is come @}
 
 @seealso
 
+Notation Reference:
+@ref{Fonts}.
+
 Internals Reference:
 @rinternals{LyricText},
 @rinternals{LyricSpace}.
 
+@c FIXME: this title has to be changed (possible confusion with LM) -vv
+@node Setting simple songs
+@unnumberedsubsubsec Setting simple songs
+
+@cindex \addlyrics
+
+The easiest way to add lyrics to a melody is to append
+
+@example
+\addlyrics @{ @var{the lyrics} @}
+@end example
+
+@noindent
+to a melody.  Here is an example,
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative c' { c2 e4 g2. }
+\addlyrics { play the game }
+@end lilypond
+
+More stanzas can be added by adding more
+@code{\addlyrics} sections
+
+@lilypond[ragged-right,verbatim,fragment,quote]
+\time 3/4
+\relative c' { c2 e4 g2. }
+\addlyrics { play the game }
+\addlyrics { speel het spel }
+\addlyrics { joue le jeu }
+@end lilypond
+
+The command @code{\addlyrics} cannot handle polyphony settings.  For these
+cases you should use @code{\lyricsto} and @code{\lyricmode}, as will be
+introduced in @ref{Lyrics explained}.
+
+@c TODO: one additional section may be needed here,
+@c such as "advanced lyric syntax" or whatever -vv
+
 @node Working with lyrics and variables
-@subsubsection Working with lyrics and variables
+@unnumberedsubsubsec Working with lyrics and variables
 
 @cindex lyrics, variables
 
@@ -338,7 +391,7 @@ The final input would resemble
 @end example
 
 @ignore
-
+@c FIXME
 http://code.google.com/p/lilypond/issues/detail?id=329
 The problem cannot be reproduced.
 The following has no sense, because the issue seems to be fixed.
@@ -384,6 +437,12 @@ Internals Reference:
 @funindex \addlyrics
 @funindex \lyricsto
 
+@c FIXME: this stuff is to be rewritten. -vv
+
+Aligning of text with melodies can be made automatically, but if you
+specify the durations of the syllables it can also be made manually.
+Lyrics aligning and typesetting are prepared with the help of skips,
+hyphens and extender lines.
 
 Lyrics are printed by interpreting them in the context called
 @rinternals{Lyrics}.
@@ -417,7 +476,7 @@ explicitly, using @code{\lyricmode}
 @end menu
 
 @node Automatic syllable durations
-@subsubsection Automatic syllable durations
+@unnumberedsubsubsec Automatic syllable durations
 
 @cindex automatic syllable durations
 @cindex lyrics and melodies
@@ -479,7 +538,7 @@ is the same as
 @end example
 
 @node Manual syllable durations
-@subsubsection Manual syllable durations
+@unnumberedsubsubsec Manual syllable durations
 
 Lyrics can also be entered without @code{\addlyrics} or
 @code{\lyricsto}.  In this case,
@@ -523,7 +582,7 @@ Internals Reference:
 
 
 @node Multiple syllables to one note
-@subsubsection Multiple syllables to one note
+@unnumberedsubsubsec Multiple syllables to one note
 
 
 @funindex _
@@ -555,7 +614,7 @@ Internals Reference:
 
 
 @node Multiple notes to one syllable
-@subsubsection Multiple notes to one syllable
+@unnumberedsubsubsec Multiple notes to one syllable
 
 @cindex melisma
 @cindex melismata
@@ -569,6 +628,9 @@ single syllable; such vocalises are called melismas, or melismata.
 
 You can define melismata entirely in the lyrics, by entering @code{_}
 for every extra note that has to be added to the the melisma.
+
+@c FIXME: clarify: __ is used to crate a lyric extender,
+@c _ is used to add a note to a melisma, so both __ and _ are needed.
 
 @c verbose! --FV
 @c duplicated: TODO fix
@@ -617,8 +679,7 @@ In addition, notes are considered a melisma if they are manually
 beamed, and automatic beaming (see @ref{Setting automatic beam
 behavior}) is switched off.
 
-@c TODO: there might be some more relevant place for
-@c the following link (?)
+@c FIXME: this now links to LM -vv
 
 @cindex SATB
 @cindex choral score
@@ -643,11 +704,13 @@ Melismata are not detected automatically, and extender lines must be
 inserted by hand.
 
 @node Skipping notes
-@subsubsection Skipping notes
+@unnumberedsubsubsec Skipping notes
 
 Making a lyric line run slower than the melody can be achieved by
 inserting @code{\skip}s into the lyrics.  For every @code{\skip}, 
-the text will be delayed another note.
+the text will be delayed another note.  The @code{\skip} command
+must be followed by a valid duration, but this is ignored when
+@code{\skip} is used in lyrics.
 
 For example,
 
@@ -661,7 +724,7 @@ For example,
 
 
 @node Extenders and hyphens
-@subsubsection Extenders and hyphens
+@unnumberedsubsubsec Extenders and hyphens
 
 @cindex melisma
 @cindex extender
@@ -699,14 +762,16 @@ Internals Reference:
 @rinternals{LyricHyphen}
 
 @node Lyrics and repeats
-@subsubsection Lyrics and repeats
+@unnumberedsubsubsec Lyrics and repeats
 
 @c TODO New section.  Add text
 TBC
 
 
-@node Placement of lyrics
-@subsection Placement of lyrics
+@node Specific uses of lyrics
+@subsection Specific uses of lyrics
+
+@c FIXME This whole section is to be reorganized. -vv
 
 Often, different stanzas of one song are put to one melody in slightly
 differing ways.  Such variations can still be captured with
@@ -715,7 +780,6 @@ differing ways.  Such variations can still be captured with
 @menu
 * Divisi lyrics::
 * Lyrics independent of notes::
-* Chants::
 * Spacing out syllables::
 * Centering lyrics between staves::
 @end menu
@@ -723,7 +787,7 @@ differing ways.  Such variations can still be captured with
 
 
 @node Divisi lyrics
-@subsubsection Divisi lyrics
+@unnumberedsubsubsec Divisi lyrics
 
 You can display alternate (or divisi) lyrics by naming voice
 contexts and attaching lyrics to those specific contexts.
@@ -769,7 +833,7 @@ section.
 
 
 @node Lyrics independent of notes
-@subsubsection Lyrics independent of notes
+@unnumberedsubsubsec Lyrics independent of notes
 
 @cindex Devnull context
 
@@ -809,15 +873,8 @@ the implicit melismata get ignored.
 
 @c this clarifies http://code.google.com/p/lilypond/issues/detail?id=248
 
-
-@node Chants
-@subsubsection Chants
-
-@c TODO Add text from lsr and -user
-TBC
-
 @node Spacing out syllables
-@subsubsection Spacing out syllables
+@unnumberedsubsubsec Spacing out syllables
 
 @cindex Spacing lyrics
 @cindex Lyrics, increasing space between
@@ -859,11 +916,13 @@ layout.
 }
 @end lilypond
 
-@snippets
-@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
-{aligning-lyrics.ly}
+@c @snippets
+@c This snippet has been renamed to "lyrics-alignment.ly"
+@c update as soon as lsr/is updated -vv
+@c @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+@c {lyrics-alignment.ly}
 
-
+@c TODO: move to LSR -vv
 @snippets
 
 Checking to make sure that text scripts and lyrics are within the margins is
@@ -900,7 +959,7 @@ To make lyrics avoid bar lines as well, use
 
 
 @node Centering lyrics between staves
-@subsubsection Centering lyrics between staves
+@unnumberedsubsubsec Centering lyrics between staves
 
 @c TODO Add text from -user
 TBC
@@ -919,7 +978,7 @@ TBC
 
 
 @node Adding stanza numbers
-@subsubsection Adding stanza numbers
+@unnumberedsubsubsec Adding stanza numbers
 
 @cindex stanza number
 
@@ -974,7 +1033,7 @@ stanzaOneThree =  {
 @end ignore
 
 @node Adding dynamics marks to stanzas
-@subsubsection Adding dynamics marks to stanzas
+@unnumberedsubsubsec Adding dynamics marks to stanzas
 
 Stanzas differing in loudness may be indicated by putting a
 dynamics mark before each stanza.  In LilyPond, everything coming in
@@ -1000,7 +1059,7 @@ text = {
 @end lilypond
 
 @node Adding singers' names to stanzas
-@subsubsection Adding singers' names to stanzas
+@unnumberedsubsubsec Adding singers' names to stanzas
 
 @cindex singer name
 @cindex name of singer
@@ -1022,7 +1081,7 @@ the line, just like instrument names.  They are created by setting
 @end lilypond
 
 @node Stanzas with different rhythms
-@subsubsection Stanzas with different rhythms
+@unnumberedsubsubsec Stanzas with different rhythms
 
 @subsubheading Ignoring melismata
 
@@ -1126,6 +1185,7 @@ This is achieved with
 Here, @code{alternative} is the name of the @code{Voice} context
 containing the triplet.
 
+@c FIXME: make this easier to understand -vv
 This command must be one syllable too early, before @q{Ty} in this
 case.  In other words, changing the associatedVoice happens one step
 later than expected.  This is for technical reasons, and it is not a
@@ -1148,7 +1208,7 @@ The underlay is switched back to the starting situation by assigning
 
 
 @node Printing stanzas at the end
-@subsubsection Printing stanzas at the end
+@unnumberedsubsubsec Printing stanzas at the end
 
 Sometimes it is appropriate to have one stanza set
 to the music, and the rest added in verse form at
@@ -1193,7 +1253,7 @@ its fleece was white as snow.
 
 
 @node Printing stanzas at the end in multiple columns
-@subsubsection Printing stanzas at the end in multiple columns
+@unnumberedsubsubsec Printing stanzas at the end in multiple columns
 
 When a piece of music has many verses, they are often printed in
 multiple columns across the page.  An outdented verse number often

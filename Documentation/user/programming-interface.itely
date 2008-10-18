@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 @node Interfaces for programmers
 @chapter Interfaces for programmers
@@ -22,8 +22,9 @@ not familiar with Scheme, you may wish to read our
 * Building complicated functions::  
 * Markup programmer interface::  
 * Contexts for programmers::    
-* Scheme procedures as properties::  
-* TODO moved into scheme::      
+* Scheme procedures as properties::
+* Using Scheme code instead of \tweak::  
+* Difficult tweaks::
 @end menu
 
 
@@ -50,8 +51,8 @@ code is easy.  The general form of these functions is
 
 @example
 function =
-#(define-music-function (parser location @var{var1} @var{var2}... )
-                        (@var{var1-type?} @var{var2-type?}...)
+#(define-music-function (parser location @var{var1} @var{var2}...@var{vari}... )
+                        (@var{var1-type?} @var{var2-type?}...@var{vari-type?}...)
   #@{
     @emph{...music...}
   #@})
@@ -61,10 +62,10 @@ function =
 where
 
 @multitable @columnfractions .33 .66
-@item @var{argi}         @tab @var{i}th variable
-@item @var{argi-type?}   @tab type of variable
+@item @var{vari}         @tab @var{i}th variable
+@item @var{vari-type?}   @tab type of @var{i}th variable
 @item @var{...music...}  @tab normal LilyPond input, using
-  variables as @code{#$var1}.
+ variables as @code{#$var1}, etc.
 @end multitable
 
 There following input types may be used as variables
@@ -73,7 +74,7 @@ other documentation specifically about Scheme for more
 variable types.
 
 @multitable @columnfractions .33 .66
-@headitem Input type          @tab @var{argi-type?} notation
+@headitem Input type          @tab @var{vari-type?} notation
 @item Integer                 @tab @code{integer?}
 @item Float (decimal number)  @tab @code{number?}
 @item Text string             @tab @code{string?}
@@ -82,9 +83,9 @@ variable types.
 @item A pair of variables     @tab @code{pair?}
 @end multitable
 
-The @code{parser} and @code{location} argument are mandatory,
+The @code{parser} and @code{location} arguments are mandatory,
 and are used in some advanced situations.  The @code{parser}
-argument is used to access to the value of another LilyPond
+argument is used to gain access to the value of another LilyPond
 variable.  The @code{location} argument
 is used to set the @q{origin} of the music expression that is built
 by the music function, so that in case of a syntax error LilyPond
@@ -359,7 +360,7 @@ traLaLa = { c'4 d'4 }
 { \twice }
 @end lilypond
 
-Due to parser lookahead
+@c Due to parser lookahead
 
 In this example, the assignment happens after parser has verified that
 nothing interesting happens after @code{traLaLa = @{ ... @}}.  Without
@@ -373,8 +374,9 @@ wrapping a Scheme value in the function @code{ly:export}, a Scheme
 value is interpreted as if it were entered in LilyPond syntax.
 Instead of defining @code{\twice}, the example above could also have
 been written as
+
 @example
-@dots{}
+...
 @{ #(ly:export (make-sequential-music (list newLa))) @}
 @end example
 
@@ -437,7 +439,7 @@ under @rinternals{Music properties}.
 A compound music expression is a music object that contains other
 music objects in its properties.  A list of objects can be stored in
 the @code{elements} property of a music object, or a single @q{child}
-music object in the @code{element} object.  For example,
+music object in the @code{element} property.  For example,
 @rinternals{SequentialMusic} has its children in @code{elements},
 and @rinternals{GraceMusic} has its single argument in
 @code{element}.  The body of a repeat is stored in the @code{element}
@@ -864,14 +866,14 @@ The @code{markup} macro builds markup expressions in Scheme while
 providing a LilyPond-like syntax.  For example,
 @example
 (markup #:column (#:line (#:bold #:italic "hello" #:raise 0.4 "world")
-                  #:bigger #:line ("foo" "bar" "baz")))
+                  #:larger #:line ("foo" "bar" "baz")))
 @end example
 
 @noindent
 is equivalent to:
 @example
 \markup \column @{ \line @{ \bold \italic "hello" \raise #0.4 "world" @}
-                  \bigger \line @{ foo bar baz @} @}
+                  \larger \line @{ foo bar baz @} @}
 @end example
 
 @noindent
@@ -1366,16 +1368,8 @@ to @var{proc}, the outer ensures that result of the function is
 returned, rather than the @code{simple-closure} object.
 
 
-@node TODO moved into scheme
-@section TODO moved into scheme
-
-@menu
-* Using Scheme code instead of \tweak::  
-* Difficult tweaks::            
-@end menu
-
 @node Using Scheme code instead of \tweak
-@subsection Using Scheme code instead of @code{\tweak}
+@section Using Scheme code instead of @code{\tweak}
 
 The main disadvantage of @code{\tweak} is its syntactical
 inflexibility.  For example, the following produces a syntax error.
@@ -1404,7 +1398,7 @@ F = #(let ((m (make-music 'ArticulationEvent
              (acons 'font-size -3
                     (ly:music-property m 'tweaks)))
        m)
- 
+
 \relative c'' @{
   c4^\F c4_\F
 @}
@@ -1422,7 +1416,7 @@ written back with @code{set!}.  The last element of the
 
 
 @node Difficult tweaks
-@subsection Difficult tweaks
+@section Difficult tweaks
 
 There are a few classes of difficult adjustments.
 

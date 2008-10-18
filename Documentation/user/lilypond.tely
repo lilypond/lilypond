@@ -66,6 +66,13 @@ Distributions will want to install lilypond.info in postinstall, doing:
 @omflanguage English
 @end ignore
 
+@ifnottex
+@node Top
+@top GNU LilyPond --- Notation Reference
+@chapheading The music typesetter
+@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
+@end ifnottex
+
 
 @ifhtml
 This document is also available as a
@@ -87,7 +94,7 @@ This document is also available as a
 @titlefont{Notation Reference}
 @author The LilyPond development team
 
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2008 by the authors
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -104,7 +111,7 @@ For LilyPond version @version{}
 @end titlepage
 
 @copying
-Copyright @copyright{} 1999--2007 by the authors
+Copyright @copyright{} 1999--2008 by the authors
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -119,7 +126,7 @@ Free Documentation License''.
 @ifnottex
 This file documents GNU LilyPond.
 
-Copyright 1999--2007 by the authors
+Copyright 1999--2008 by the authors
 
 @quotation
 Permission is granted to copy, distribute and/or modify this document
@@ -132,10 +139,6 @@ Free Documentation License''.
 @end ifnottex
 
 @ifnottex
-@node Top
-@top GNU LilyPond --- The music typesetter
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
-
 This is the Notation Reference (NR) for GNU LilyPond version @version{}.
 For more information about how this fits with the other
 documentation, see @rlearning{About the documentation}.

@@ -1,4 +1,4 @@
-\version "2.11.53"
+\version "2.11.61"
 
 \header {
   lsrtags = "fretted-strings,tweaks-and-overrides"
@@ -17,9 +17,9 @@ and tweaking fret diagrams."
   \new Voice = "mel" {
     \textLengthOn
     % Set global properties of fret diagram
-    \override Voice.TextScript #'size = #1.2
-    \override Voice.TextScript #'fret-diagram-details #'finger-code = #'below-string
-    \override Voice.TextScript #'fret-diagram-details #'dot-color = #'black
+    \override TextScript #'size = #1.2
+    \override TextScript #'fret-diagram-details #'finger-code = #'below-string
+    \override TextScript #'fret-diagram-details #'dot-color = #'black
     
     %% A chord for ukelele
     a'2^\markup {

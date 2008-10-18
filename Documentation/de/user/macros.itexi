@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: a88c1b861df238ad1c000e6a86926e6f19f2fedd
+    Translation of GIT committish: 2881ea603b63e4e335dc1104b0c22c71f373b20d
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -198,40 +198,40 @@
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-big-page,Benutzerhandbuch}
+@ref{\TEXT\,,,lilypond-big-page,Notationsreferenz}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-big-page,Benutzerhandbuch}
+@ref{\TEXT\,,\DISPLAY\,lilypond-big-page,Notationsreferenz}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program-big-page,Programmbenutzung}
+@ref{\TEXT\,,,lilypond-program-big-page,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-program-big-page,Programmbenutzung}
+@ref{\TEXT\,,\DISPLAY\,lilypond-program-big-page,Anwendungsbenutzung}
 @end macro
 
 @macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets-big-page,Beispiele}
+@ref{\TEXT\,,,lilypond-snippets-big-page,Schnipsel}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,lilypond-snippets-big-page,Beispiele}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets-big-page,Schnipsel}
 @end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals-big-page,Programmreferenz}
+@ref{\TEXT\,,,lilypond-internals-big-page,Referenz der Interna}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-internals-big-page,Programmreferenz}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals-big-page,Referenz der Interna}
 @end macro
 
 @end ifset
@@ -261,40 +261,40 @@
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond,Benutzerhandbuch}
+@ref{\TEXT\,,,lilypond,Notationsreferenz}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond,Benutzerhandbuch}
+@ref{\TEXT\,,\DISPLAY\,lilypond,Notationsreferenz}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program,Programmbenutzung}
+@ref{\TEXT\,,,lilypond-program,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-program,Programmbenutzung}
+@ref{\TEXT\,,\DISPLAY\,lilypond-program,Anwendungsbenutzung}
 @end macro
 
 @macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets,Beispiele}
+@ref{\TEXT\,,,lilypond-snippets,Schnipsel}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Beispiele}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Schnipsel}
 @end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Programmreferenz}
+@ref{\TEXT\,,,lilypond-internals,Referenz der Interna}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Programmreferenz}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referenz der Interna}
 @end macro
 
 @end ifclear
@@ -327,40 +327,40 @@
 
 @macro ruser{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond.de,Benutzerhandbuch}
+@ref{\TEXT\,,,lilypond.de,Notationsreferenz}
 @end macro
 
 @macro rusernamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond.de,Benutzerhandbuch}
+@ref{\TEXT\,,\DISPLAY\,lilypond.de,Notationsreferenz}
 @end macro
 
 @macro rprogram{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-program.de,Programmbenutzung}
+@ref{\TEXT\,,,lilypond-program.de,Anwendungsbenutzung}
 @end macro
 
 @macro rprogramnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-program.de,Programmbenutzung}
+@ref{\TEXT\,,\DISPLAY\,lilypond-program.de,Anwendungsbenutzung}
 @end macro
 
 @macro rlsr{TEXT}
-@ref{\TEXT\,,,lilypond-snippets,Beispiele}
+@ref{\TEXT\,,,lilypond-snippets,Schnipsel}
 @end macro
 
 @macro rlsrnamed{TEXT,DISPLAY}
-@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Beispiele}
+@ref{\TEXT\,,\DISPLAY\,lilypond-snippets,Schnipsel}
 @end macro
 
 @macro rinternals{TEXT}
 @vindex \TEXT\
-@ref{\TEXT\,,,lilypond-internals,Programmreferenz}
+@ref{\TEXT\,,,lilypond-internals,Referenz der Interna}
 @end macro
 
 @macro rinternalsnamed{TEXT,DISPLAY}
 @vindex \TEXT\
-@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Programmreferenz}
+@ref{\TEXT\,,\DISPLAY\,lilypond-internals,Referenz der Interna}
 @end macro
 
 @end iftex

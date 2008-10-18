@@ -1,4 +1,4 @@
-\version "2.11.35"
+\version "2.11.61"
 
 \header {
   lsrtags = "expressive-marks,keyboards,template"
@@ -10,19 +10,18 @@ right here, you don't have to do the tweaking yourself.
   doctitle = "Piano template with centered dynamics"
 }
 
-upper = \relative c'' {
-  \clef treble
+global = {
   \key c \major
   \time 4/4
-  
+}
+
+upper = \relative c'' {
+  \clef treble
   a4 b c d
 }
 
 lower = \relative c {
   \clef bass
-  \key c \major
-  \time 4/4
-  
   a2 c
 }
 
@@ -31,54 +30,51 @@ dynamics = {
 }
 
 pedal = {
-  s2\sustainDown s\sustainUp
+  s2\sustainOn s\sustainOff
 }
 
 \score {
-  \new PianoStaff <<
-    \new Staff = "upper" \upper
-    \new Dynamics = "dynamics" \dynamics
-    \new Staff = "lower" <<
-      \clef bass
-      \lower
-    >>
+  \new PianoStaff = "PianoStaff_pf" <<
+    \new Staff = "Staff_pfUpper" \upper
+    \new Dynamics = "Dynamics_pf" \dynamics
+    \new Staff = "Staff_pfLower" << \lower >>
     \new Dynamics = "pedal" \pedal
   >>
+
   \layout {
+    % define Dynamics context
     \context {
       \type "Engraver_group"
       \name Dynamics
-      % So that \cresc works, for example.
       \alias Voice
       \consists "Output_property_engraver"
-      
-      \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
-      \override DynamicLineSpanner #'Y-offset = #0
-      pedalSustainStrings = #'("Ped." "*Ped." "*")
-      pedalUnaCordaStrings = #'("una corda" "" "tre corde")
-      
       \consists "Piano_pedal_engraver"
       \consists "Script_engraver"
-      \consists "Dynamic_engraver"
+      \consists "New_dynamic_engraver"
+      \consists "Dynamic_align_engraver"
       \consists "Text_engraver"
-      
+      \consists "Skip_event_swallow_translator"
+      \consists "Axis_group_engraver"
+
+      pedalSustainStrings = #'("Ped." "*Ped." "*")
+      pedalUnaCordaStrings = #'("una corda" "" "tre corde")
+      \override DynamicLineSpanner #'Y-offset = #0
       \override TextScript #'font-size = #2
       \override TextScript #'font-shape = #'italic
-      
-      \consists "Skip_event_swallow_translator"
-      
-      \consists "Axis_group_engraver"
+      \override VerticalAxisGroup #'minimum-Y-extent = #'(-1 . 1)
     }
+    % modify PianoStaff context to accept Dynamics context
     \context {
       \PianoStaff
       \accepts Dynamics
     }
   }
 }
+
 \score {
-  \new PianoStaff <<
-    \new Staff = "upper" << \upper \dynamics \pedal >>
-    \new Staff = "lower" << \lower \dynamics \pedal >>
+  \new PianoStaff = "PianoStaff_pf" <<
+    \new Staff = "Staff_pfUpper" << \global \upper \dynamics \pedal >>
+    \new Staff = "Staff_pfLower" << \global \lower \dynamics \pedal >>
   >>
   \midi { }
 }

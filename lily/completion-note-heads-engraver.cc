@@ -14,6 +14,7 @@ using namespace std;
 #include "item.hh"
 #include "output-def.hh"
 #include "pitch.hh"
+#include "pqueue.hh"
 #include "rhythmic-head.hh"
 #include "score-engraver.hh"
 #include "spanner.hh"
@@ -27,6 +28,18 @@ using namespace std;
 /*
   TODO: make matching rest engraver.
 */
+struct Pending_tie
+{
+  Moment when_;
+  Stream_event* tie_event_;
+  Pending_tie() { tie_event_ = 0; }
+};
+
+int compare(Pending_tie const &a, Pending_tie const &b)
+{
+  return compare(a.when_, b.when_);
+}
+
 
 /*
   How does this work?
@@ -47,10 +60,15 @@ class Completion_heads_engraver : public Engraver
 {
   vector<Item*> notes_;
   vector<Item*> prev_notes_;
-  vector<Grob*> ties_;
 
+  // Must remember notes for explicit ties.
+  vector<Item*> tie_note_candidates_;
+  vector<Stream_event*> tie_note_candidate_events_;
+  vector<Grob*> ties_;
+  PQueue<Pending_tie> pending_ties_;
   vector<Stream_event*> note_events_;
 
+  Stream_event *current_tie_event_;
   Moment note_end_mom_;
   bool is_first_;
   Rational left_to_do_;
@@ -64,16 +82,19 @@ public:
 
 protected:
   virtual void initialize ();
+  void make_tie (Grob *, Grob *);
   void start_translation_timestep ();
   void process_music ();
   void stop_translation_timestep ();
   DECLARE_TRANSLATOR_LISTENER (note);
+  DECLARE_TRANSLATOR_LISTENER (tie);
 };
 
 void
 Completion_heads_engraver::initialize ()
 {
   is_first_ = false;
+  current_tie_event_ = 0;
 }
 
 IMPLEMENT_TRANSLATOR_LISTENER (Completion_heads_engraver, note);
@@ -88,6 +109,14 @@ Completion_heads_engraver::listen_note (Stream_event *ev)
 
   note_end_mom_ = max (note_end_mom_, (now + musiclen));
   do_nothing_until_ = Rational (0, 0);
+}
+
+IMPLEMENT_TRANSLATOR_LISTENER (Completion_heads_engraver, tie);
+void
+Completion_heads_engraver::listen_tie (Stream_event *ev)
+{
+  is_first_ = true;
+  current_tie_event_ = ev;
 }
 
 /*
@@ -128,6 +157,14 @@ Completion_heads_engraver::process_music ()
   if (!is_first_ && !left_to_do_)
     return;
 
+  if (current_tie_event_)
+    {
+      Pending_tie pending;
+      pending.when_ = note_end_mom_;
+      pending.tie_event_ = current_tie_event_;
+      pending_ties_.insert (pending);
+    }
+  
   is_first_ = false;
 
   Moment now = now_mom ();
@@ -174,17 +211,25 @@ Completion_heads_engraver::process_music ()
 	event->unprotect ();
       notes_.push_back (note);
     }
-
+  
+  if (pending_ties_.size ()
+      && pending_ties_.front().when_ == now_mom())
+    {
+      for (vsize i = 0; i < tie_note_candidate_events_.size(); i++)
+	for (vsize j = 0; j < note_events_.size(); j++)
+	  {
+	    Pitch *p =  unsmob_pitch (note_events_[j]->get_property ("pitch"));
+	    Pitch *p_last
+	      = unsmob_pitch (tie_note_candidate_events_[j]->get_property ("pitch"));
+	    if (p && p_last && *p == *p_last)
+	      make_tie (tie_note_candidates_[i], notes_[j]);
+	  }
+    }
+      
   if (prev_notes_.size () == notes_.size ())
     {
       for (vsize i = 0; i < notes_.size (); i++)
-	{
-	  Grob *p = make_spanner ("Tie", SCM_EOL);
-	  Tie::set_head (p, LEFT, prev_notes_[i]);
-	  Tie::set_head (p, RIGHT, notes_[i]);
-
-	  ties_.push_back (p);
-	}
+	make_tie (prev_notes_[i], notes_[i]);
     }
 
   left_to_do_ -= note_dur.get_length ();
@@ -193,11 +238,19 @@ Completion_heads_engraver::process_music ()
   /*
     don't do complicated arithmetic with grace notes.
   */
-  if (orig
-      && now_mom ().grace_part_)
+  if (orig && now_mom ().grace_part_)
     left_to_do_ = Rational (0, 0);
 }
 
+void
+Completion_heads_engraver::make_tie (Grob *left, Grob *right)
+{
+  Grob *p = make_spanner ("Tie", SCM_EOL);
+  Tie::set_head (p, LEFT, left);
+  Tie::set_head (p, RIGHT, right);
+  ties_.push_back (p);
+}
+				     
 void
 Completion_heads_engraver::stop_translation_timestep ()
 {
@@ -212,8 +265,16 @@ void
 Completion_heads_engraver::start_translation_timestep ()
 {
   Moment now = now_mom ();
+  while (pending_ties_.size() && pending_ties_.front().when_ < now)
+    {
+      pending_ties_.delmin();
+    }
+  current_tie_event_ = 0;
   if (note_end_mom_.main_part_ <= now.main_part_)
     {
+      tie_note_candidate_events_ = note_events_;
+      tie_note_candidates_ = prev_notes_;
+
       note_events_.clear ();
       prev_notes_.clear ();
     }

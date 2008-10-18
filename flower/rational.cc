@@ -61,12 +61,26 @@ Rational::Rational ()
   num_ = den_ = 1;
 }
 
-Rational::Rational (int n, int d)
+Rational::Rational (I64 n, I64 d)
 {
   sign_ = ::sign (n) * ::sign (d);
   num_ = ::abs (n);
   den_ = ::abs (d);
   normalize ();
+}
+
+Rational::Rational (I64 n)
+{
+  sign_ = ::sign (n);
+  num_ = ::abs (n);
+  den_ = 1;
+}
+
+Rational::Rational (U64 n)
+{
+  sign_ = 1;
+  num_ = n;
+  den_ = 1;
 }
 
 Rational::Rational (int n)
@@ -112,18 +126,18 @@ Rational::mod_rat (Rational div) const
 /*
   copy & paste from scm_gcd (GUILE).
  */
-static int
-gcd (long u, long v) 
+static I64
+gcd (I64 u, I64 v)
 {
-  long result = 0;
+  I64 result = 0;
   if (u == 0)
     result = v;
   else if (v == 0)
     result = u;
   else
     {
-      long k = 1;
-      long t;
+      I64 k = 1;
+      I64 t;
       /* Determine a common factor 2^k */
       while (!(1 & (u | v)))
 	{
@@ -176,7 +190,7 @@ Rational::normalize ()
     }
   else
     {
-      int g = gcd (num_, den_);
+      I64 g = gcd (num_, den_);
 
       num_ /= g;
       den_ /= g;
@@ -199,7 +213,7 @@ Rational::compare (Rational const &r, Rational const &s)
     return 0;
   else if (r.sign_ == 0)
     return 0;
-  return r.sign_ * ::sign (int (r.num_ * s.den_) - int (s.num_ * r.den_));
+  return r.sign_ * ::sign ((I64) (r.num_ * s.den_) - (I64) (s.num_ * r.den_));
 }
 
 int
@@ -224,9 +238,9 @@ Rational::operator += (Rational r)
     *this = r;
   else
     {
-      int lcm = (den_ / gcd (r.den_, den_)) * r.den_;
-      int n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
-      int d = lcm;
+      I64 lcm = (den_ / gcd (r.den_, den_)) * r.den_;
+      I64 n = sign_ * num_ * (lcm / den_) + r.sign_ * r.num_ * (lcm / r.den_);
+      I64 d = lcm;
       sign_ = ::sign (n) * ::sign (d);
       num_ = ::abs (n);
       den_ = ::abs (d);
@@ -258,8 +272,8 @@ Rational::Rational (double x)
 	easily.
       */
 
-      num_ = (unsigned int) (mantissa * FACT);
-      den_ = (unsigned int) FACT;
+      num_ = (U64) (mantissa * FACT);
+      den_ = (U64) FACT;
       normalize ();
       if (expt < 0)
 	den_ <<= -expt;
@@ -279,7 +293,7 @@ Rational::Rational (double x)
 void
 Rational::invert ()
 {
-  int r (num_);
+  I64 r (num_);
   num_ = den_;
   den_ = r;
 }

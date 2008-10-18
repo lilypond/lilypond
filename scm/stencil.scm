@@ -99,6 +99,19 @@
    (cons (- out-radius) out-radius)
    (cons (- out-radius) out-radius))))
 
+(define-public (make-oval-stencil x-radius y-radius thickness fill)
+  "Make an oval from two Bezier curves, of x radius @var{x-radius}, 
+    y radius @code{y-radius},
+    and thickness @var{thickness} with fill defined by @code{fill}."
+  (let*
+      ((x-out-radius (+ x-radius (/ thickness 2.0))) 
+       (y-out-radius (+ y-radius (/ thickness 2.0))) )
+    
+  (ly:make-stencil
+   (list 'oval x-radius y-radius thickness fill) 
+   (cons (- x-out-radius) x-out-radius)
+   (cons (- y-out-radius) y-out-radius))))
+
 (define-public (make-ellipse-stencil x-radius y-radius thickness fill)
   "Make an ellipse of x radius @var{x-radius}, y radius @code{y-radius},
     and thickness @var{thickness} with fill defined by @code{fill}."
@@ -151,6 +164,24 @@ encloses the contents.
     (ly:stencil-add
      stencil
      (ly:stencil-translate circle
+			   (cons
+			    (interval-center x-ext)
+			    (interval-center y-ext))))))
+
+(define-public (oval-stencil stencil thickness x-padding y-padding)
+  "Add an oval around @code{stencil}, padded by the padding pair, 
+   producing a new stencil."
+  (let* ((x-ext (ly:stencil-extent stencil X))
+	 (y-ext (ly:stencil-extent stencil Y))
+         (x-length (+ (interval-length x-ext) x-padding thickness))
+         (y-length (+ (interval-length y-ext) y-padding thickness))
+         (x-radius (* 0.707 x-length) )
+         (y-radius (* 0.707 y-length) )
+	 (oval (make-oval-stencil x-radius y-radius thickness #f)))
+
+    (ly:stencil-add
+     stencil
+     (ly:stencil-translate oval
 			   (cons
 			    (interval-center x-ext)
 			    (interval-center y-ext))))))

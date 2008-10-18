@@ -9,6 +9,7 @@
 #ifndef RATIONAL_HH
 #define RATIONAL_HH
 
+#include "flower-proto.hh"
 #include "std-string.hh"
 #include <limits.h>
 
@@ -26,7 +27,7 @@ class Rational
      0 if *this is zero.
   */
   int sign_;
-  unsigned int num_, den_;
+  U64 num_, den_;
   void normalize ();
   void copy (Rational const &);
 
@@ -34,10 +35,10 @@ public:
   void set_infinite (int sign);
   bool is_infinity () const;
   void invert ();
-  int numerator () const { return sign_ * num_; }
-  int denominator () const { return den_; }
-  int num () const { return numerator (); }
-  int den () const { return denominator (); }
+  I64 numerator () const { return sign_ * num_; }
+  I64 denominator () const { return den_; }
+  I64 num () const { return numerator (); }
+  I64 den () const { return denominator (); }
 
   Rational trunc_rat () const;
   Rational div_rat (Rational) const;
@@ -55,7 +56,9 @@ public:
   */
   Rational ();
   Rational (int);
-  explicit Rational (int, int);
+  Rational (I64);
+  Rational (U64);
+  explicit Rational (I64, I64);
   explicit Rational (double);
   Rational (Rational const &r) { copy (r);}
   Rational &operator = (Rational const &r)
@@ -99,6 +102,6 @@ ostream &
 operator << (ostream &, Rational);
 #endif
 
-const Rational infinity_rat (INT_MAX);
+const Rational infinity_rat (U64_MAX);
 
 #endif // RATIONAL_HH

@@ -83,7 +83,7 @@ Repeat_acknowledge_engraver::process_music ()
     }
 
   if (start && end)
-    s = ":|:";
+    s = robust_scm2string (get_property ("doubleRepeatType"), ":|:");
   else if (start)
     s = "|:";
   else if (end)
@@ -116,6 +116,7 @@ ADD_TRANSLATOR (Repeat_acknowledge_engraver,
 		"",
 
 		/* read */
+		"doubleRepeatType "
 		"repeatCommands "
 		"whichBar ",
 

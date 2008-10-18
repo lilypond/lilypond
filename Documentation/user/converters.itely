@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Converting from other formats
 @chapter Converting from other formats
@@ -18,8 +18,11 @@ There are other tools that produce LilyPond input, for example GUI
 sequencers and XML converters.  Refer to the
 @uref{http://@/lilypond@/.org,website} for more details.
 
-These are separate programs from @command{lilypond} itself, and are run
-on the command-line; see @ref{Command-line usage} for more information.
+These are separate programs from @command{lilypond} itself, and are
+run on the command line; see @ref{Command-line usage} for more
+information.  If you have MacOS 10.3 or 10.4 and you have trouble
+running some of these scripts, e.g. @code{convert-ly}, see @ref{Setup
+for MacOS X}.
 
 
 @knownissues
@@ -309,7 +312,7 @@ These tools include
 
 @itemize
 @item
-@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}, a graphical score editor.
+@uref{http://@/www@/.denemo@/.org/,Denemo}, a graphical score editor.
 @item
 @uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor}, a realtime
 monophonic MIDI to LilyPond converter.

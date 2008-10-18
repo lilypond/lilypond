@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 
 @node Pitches
@@ -18,10 +18,10 @@ This section discusses how to specify the pitch of notes.  There
 are three steps to this process: input, modification, and output.
 
 @menu
-* Writing pitches::             
-* Changing multiple pitches::   
-* Displaying pitches::          
-* Note heads::                  
+* Writing pitches::
+* Changing multiple pitches::
+* Displaying pitches::
+* Note heads::
 @end menu
 
 
@@ -33,10 +33,10 @@ different ways to place notes in octaves: absolute and relative
 mode.  In most cases, relative mode will be more convenient.
 
 @menu
-* Absolute octave entry::       
-* Relative octave entry::       
-* Accidentals::                 
-* Note names in other languages::  
+* Absolute octave entry::
+* Relative octave entry::
+* Accidentals::
+* Note names in other languages::
 @end menu
 
 
@@ -336,6 +336,9 @@ cis
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {preventing-extra-naturals-from-being-automatically-added.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{makam-example.ly}
+
 @seealso
 
 Music Glossary:
@@ -351,14 +354,14 @@ Learning Manual:
 
 Notation Reference:
 @ref{Automatic accidentals},
-@ref{Annotational accidentals},
+@ref{Annotational accidentals (musica ficta)},
 @ref{Note names in other languages}.
 
 Snippets:
 @rlsr{Pitches}.
 
 Internals Reference:
-@rinternals{Accidental_engraver}, 
+@rinternals{Accidental_engraver},
 @rinternals{Accidental},
 @rinternals{AccidentalCautionary},
 @rinternals{accidental-interface}.
@@ -504,8 +507,8 @@ Snippets:
 This section discusses how to modify pitches.
 
 @menu
-* Octave checks::               
-* Transpose::                   
+* Octave checks::
+* Transpose::
 @end menu
 
 @node Octave checks
@@ -721,12 +724,12 @@ To use relative mode within transposed music, an additional
 This section discusses how to alter the output of pitches.
 
 @menu
-* Clef::                        
-* Key signature::               
-* Ottava brackets::             
-* Instrument transpositions::   
-* Automatic accidentals::       
-* Ambitus::                     
+* Clef::
+* Key signature::
+* Ottava brackets::
+* Instrument transpositions::
+* Automatic accidentals::
+* Ambitus::
 @end menu
 
 
@@ -755,16 +758,16 @@ This section discusses how to alter the output of pitches.
 @cindex clef, C
 @cindex clef, F
 @cindex clef, treble
-@cindex clef, violin 
-@cindex clef, alto 
+@cindex clef, violin
+@cindex clef, alto
 @cindex clef, tenor
-@cindex clef, bass 
-@cindex clef, french 
-@cindex clef, soprano 
-@cindex clef, mezzosoprano 
-@cindex clef, baritone 
-@cindex clef, varbaritone 
-@cindex subbass clef, subbass 
+@cindex clef, bass
+@cindex clef, french
+@cindex clef, soprano
+@cindex clef, mezzosoprano
+@cindex clef, baritone
+@cindex clef, varbaritone
+@cindex subbass clef, subbass
 
 The clef may be altered.  Middle C is shown in every example.
 
@@ -803,7 +806,8 @@ c2 c
 c2 c
 @end lilypond
 
-Further supported clefs are described under @ref{Ancient clefs}.
+Further supported clefs are described under @ref{Mensural clefs}
+and @ref{Gregorian clefs}.
 
 @cindex transposing clefs
 @cindex clef, transposing
@@ -835,7 +839,7 @@ c2 c
 @seealso
 
 Notation Reference:
-@ref{Ancient clefs}.
+@ref{Mensural clefs}, @ref{Gregorian clefs}.
 
 Snippets:
 @rlsr{Pitches}.
@@ -1624,7 +1628,7 @@ musicB = {
 
 @item piano-cautionary
 
-@funindex piano-cautionary 
+@funindex piano-cautionary
 @cindex accidentals, piano cautionary
 @cindex cautionary accidentals, piano
 @cindex piano cautionary accidentals
@@ -1853,6 +1857,68 @@ musicB = {
 @end lilypond
 
 
+@item teaching
+
+@funindex teaching
+@cindex teaching accidental style
+@cindex accidental style, teaching
+
+This rule is intended for students, and makes it easy to create
+scale sheets with automagically created cautionary accidentals.
+Accidentals are printed like with @code{modern}, but cautionary
+accidentals are added for all sharp or flat tones specified by the
+key signature, except if the note is immediately repeated.
+
+@lilypond[quote]
+musicA = {
+  <<
+    \relative c' {
+      cis'8 fis, d'4 <a cis>8 f bis4 |
+      cis2. <c, g'>4 |
+    }
+    \\
+    \relative c' {
+      ais'2 cis, |
+      fis8 b a4 cis2 |
+    }
+  >>
+}
+
+musicB = {
+  \clef bass
+  \new Voice {
+    \voiceTwo \relative c' {
+      <fis, a cis>4
+      \change Staff = up
+      cis'
+      \change Staff = down
+      <fis, a>
+      \change Staff = up
+      dis' |
+      \change Staff = down
+      <fis, a cis>4 gis <f a d>2 |
+    }
+  }
+}
+
+\new PianoStaff {
+  <<
+    \context Staff = "up" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicA
+    }
+    \context Staff = "down" {
+      \key fis \minor
+      #(set-accidental-style 'teaching)
+      \musicB
+    }
+  >>
+}
+@end lilypond
+
+
+
 @item no-reset
 
 @funindex no-reset
@@ -2079,10 +2145,10 @@ ambitus.
 This section suggests ways of altering note heads.
 
 @menu
-* Special note heads::          
-* Easy notation note heads::    
-* Shape note heads::            
-* Improvisation::               
+* Special note heads::
+* Easy notation note heads::
+* Shape note heads::
+* Improvisation::
 @end menu
 
 @node Special note heads

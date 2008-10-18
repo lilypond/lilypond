@@ -79,6 +79,10 @@ def copy_ly (srcdir, name, tags):
 						  os.path.splitext (name)[0] + '.texidoc')
 	if os.path.exists (texidoc_translations_path):
 		texidoc_translations = open (texidoc_translations_path).read ()
+		# Since we want to insert the translations verbatim using a 
+		# regexp, \\ is understood as ONE escaped backslash. So we have
+		# to escape those backslashes once more...
+		texidoc_translations = texidoc_translations.replace ('\\', '\\\\')
 		s = begin_header_re.sub ('\\g<0>\n' + texidoc_translations, s, 1)
 
 	if in_dir in srcdir:

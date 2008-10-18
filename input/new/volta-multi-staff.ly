@@ -1,4 +1,4 @@
-\version "2.11.36"
+\version "2.11.61"
 \header {
   lsrtags = "repeats,staff-notation"
   texidoc = "By adding the @code{Volta_engraver} to the relevant
@@ -19,7 +19,7 @@ voltaMusic = \relative c'' {
 
 <<
   \new StaffGroup <<
-    \context Staff \voltaMusic
+    \new Staff \voltaMusic
     \new Staff \voltaMusic
   >>
   \new StaffGroup <<

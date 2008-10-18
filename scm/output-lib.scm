@@ -226,6 +226,8 @@ centered, X==1 is at the right, X == -1 is at the left."
 ;; How should a  bar line behave at a break? 
 (define bar-glyph-alist
   '((":|:" . (":|" . "|:"))
+    (":|.|:" . (":|" . "|:"))
+    (":|.:" . (":|" . "|:"))
     ("||:" . ("||" . "|:"))
     ("dashed" . ("dashed" . '())) 
     ("|" . ("|" . ()))
@@ -239,6 +241,7 @@ centered, X==1 is at the right, X == -1 is at the left."
     (":|" . (":|" . ()))
     ("||" . ("||" . ()))
     (".|." . (".|." . ()))
+    ("|.|" . ("|.|" . ()))
     ("" . ("" . ""))
     (":" . (":" . ""))
     ("." . ("." . ()))

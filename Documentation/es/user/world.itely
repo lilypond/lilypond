@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -11,8 +11,9 @@
 @node World music
 @section World music
 
-@untranslated
-
+El propósito de esta sección es remarcar los problemas de notación que
+son de relevancia a las tradiciones musicales distintas a la
+occidental.
 
 @menu
 * Arabic music::
@@ -21,8 +22,7 @@
 @node Arabic music
 @subsection Arabic music
 
-@untranslated
-
+Esta sección destaca asuntos relativos a la música árabe.
 
 @menu
 * References for Arabic music::
@@ -33,41 +33,360 @@
 * Further reading::
 @end menu
 
+
 @node References for Arabic music
-@unnumberedsubsubsec References for Arabic music 
+@unnumberedsubsubsec References for Arabic music
 
-@untranslated
+@cindex árabe, música
+@cindex medios, intervalos
+@cindex maqam
+@cindex maqams
+
+La música árabe ha sido principalmente una tradición oral hasta el
+momento.  Cuando se transcribe la música, se suele hacer en la forma
+de un esbozo sobre el que los intérpretes deben improvisar
+ampliamente.  En una medida creciente, se está adoptando la notación
+occidental con ciertas variantes para preservar y transmitir la música
+árabe.
+
+Algunos elementos de la notación musical occidental como la
+transcripción de acordes o las particellas independientes, no se
+necesitan para tipografiar las piezas árabes, más tradicionales.  Sin
+embargo hay ciertos problemas, como la necesidad de indicar intervalos
+que tienen una medida intermedia entre el semitono y el tono, además
+de los intervalos mayores y menores de la música occidental.  También
+existe la necesidad de agrupar e indicar los numerosos maqams (modos)
+que forman parte de la música árabe.
+
+Por lo general la notación musical árabe no trata de indicar con
+precisión los elementos microtonales que se encuentran presentes en la
+práctica musical.
+
+Son de relevancia para la música árabe ciertos asuntos que se
+encuentran cubiertos en otras partes del manual:
+
+@itemize
+@item Los nombres de las notas y sus alteraciones (entre ellos, cuartos de
+tono) se pueden realizar como se estudia en @ref{Note names in other
+languages}.
+
+@item Las armaduras adicionales también pueden realizarse como se describe
+en @ref{Key signature}.
+
+@item Los compases complejos pueden requerir agrupaciones manuales de las
+notas tal y como se describe en @ref{Manual beams}.
+
+@item Los @notation{takasim} o improvisaciones libres desde el punto de
+vista rítmico se pueden escribir omitiendo las barras de compás como
+aparece en @ref{Unmetered music}.
+
+@end itemize
+
+@seealso
+
+Referencia de la notación:
+@ref{Note names in other languages},
+@ref{Key signature},
+@ref{Manual beams}.
+
+Fragmentos de código:
+@rlsr{World music}.
 
 
-@node Arabic note names 
-@unnumberedsubsubsec Arabic note names 
+@node Arabic note names
+@unnumberedsubsubsec Arabic note names
 
-@untranslated
+
+@cindex Arabic note names
+
+Los nombres árabes tradicionales de las notas pueden llegar a ser
+bastante largos y no son adecuados para la escritura musical, y por
+ello no se utilizan.  Los nombres ingleses de las notas no son muy
+familiares dentro de la educación musical árabe, por lo que en su
+lugar se utilizan los nombres italo-franco-españoles o del solfeo
+(@code{do, re, mi, fa, sol, la, si}).  También se pueden utilizar los
+modificadores (alteraciones), como se estudia en @ref{Note names in
+other languages}.
+
+Por ejemmplo, así es como puede ser la notación de la escala árabe
+@notation{rast}:
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative do' {
+  do re misb fa sol la sisb do sisb la sol fa misb re do
+}
+@end lilypond
+
+
+@cindex Arabic semi-flat symbol
+@cindex Semi-flat symbol appearance
+
+El símbolo del semi-bemol no coincide con el símbolo que se utiliza en
+la notación árabe.  Se puede usar el símbolo @code{\dwn} definido en
+@code{arabic.ly} precediendo a un bemol como vía alternativa si es
+importante usar el símbolo árabe específico del semi-bemol.  El
+aspecto del síimbolo del semi-bemol dentro de la armadura no se puede
+alterar mediante este método.
+
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\relative do' {
+  \set Staff.extraNatural = ##f
+  dod dob dosd \dwn dob dobsb dodsd do do
+}
+@end lilypond
+
+
+@seealso
+
+Referencia de la notación:
+@ref{Note names in other languages}.
+
+Fragmentos de código:
+@rlsr{World music}.
 
 
 @node Arabic key signatures
-@unnumberedsubsubsec Arabic key signatures 
+@unnumberedsubsubsec Arabic key signatures
 
-@untranslated
+@cindex Arabic key signatures
+
+Además de las armaduras de tonalidad mayores y menores, están
+definidas en @code{arabic.ly} las siguientes tonalidades:
+@notation{bayati}, @notation{rast}, @notation{sikah}, @notation{iraq}
+y @notation{kurd}.  Estas armaduras de tonalidad definen una pequeña
+cantidad de grupos de maqam, en contraste con los numerosos maqams que
+son de uso común.
+
+En general, un maqam usa la armadura de su grupo o la de un grupo
+vecino, y las alteraciones que difieren se van marcando a lo largo de
+la música.
+
+Por ejemplo, para indicar la armadura de una pieza en el maqam
+muhayer:
+
+@example
+\key re \bayati
+@end example
+
+Aquí, @var{re} es la altura predeterminada del maqam muhayer, y
+@var{bayati} es el nombre del maqam básico dentro del grupo.
+
+Al tiempo que la armadura indica el grupo, el título suele indicar el
+maqam específico, y así en este ejemplo el nombra del maqam muhayer
+debe aparecer en el título.
+
+Se pueden indicar de la misma forma otros maqams dentro del mismo
+grupo bayati, como aparece en la tabla a continuación: bayati,
+hussaini, saba y ushaq.  Todos ellos son variantes del maqam básico y
+más común dentro del grupo, que es bayati.  Normalmente se diferencian
+del maqam básico en su tectacordo superior, o en ciertos detalles de
+discurso que no cambian su naturaleza fundamental como parientes.
+
+El otro maqam del grupo (Nawa) se relaciona con el bayati a través de
+una modulación que se indica en la tabla entre paréntesis para
+aquellos maqams que son modulaciones de su maqam básico.  Los maqams
+árabes admiten sólo modulaciones limitadas, a causa de la naturaleza
+de los instrumentos musicales árabes.  El Nawa se puede indicar de la
+siguiente forma:
+
+@example
+\key sol \bayati
+@end example
+
+En la música árabe, el mismo término que se utiliza para indicar un
+grupo de maqam, como bayati, es también un maqam que normalmente es el
+más importante del grupo, y podemos verlo como el maqam básico.
+
+A continuación presentamos una posibilidad de agrupación que asigna
+los maqams más comunes a armaduras de tonalidad:
+
+@multitable @columnfractions 0.1 0.1 0.1 0.6
+@headitem grupo de maqam
+  @tab tono
+  @tab final
+  @tab otros maqams del grupo (final)
+@item ajam
+  @tab major
+  @tab sib
+  @tab jaharka (fa)
+@item bayati
+  @tab bayati
+  @tab re
+  @tab hussaini, muhayer, saba, ushaq, nawa (sol)
+@item hijaz
+  @tab kurd
+  @tab re
+  @tab shahnaz, shad arban (sol), hijazkar (do)
+@item iraq
+  @tab iraq
+  @tab sisb
+  @tab -
+@item kurd
+  @tab kurd
+  @tab re
+  @tab hijazkar kurd (do)
+@item nahawand
+  @tab minor
+  @tab do
+  @tab busalik (re), farah faza (sol)
+@item nakriz
+  @tab minor
+  @tab do
+  @tab nawa athar, hisar (re)
+@item rast
+  @tab rast
+  @tab do
+  @tab mahur, yakah (sol)
+@item sikah
+  @tab sikah
+  @tab misb
+  @tab huzam
+@end multitable
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{non-traditional-key-signatures.ly}
+
+@seealso
+
+Referencia de la notación:
+@ref{Key signature}.
+
+Manual de aprendizaje:
+@rlearning{Accidentals and key signatures}.
+
+Referencia de funcionamiento interno:
+@rinternals{KeySignature}.
+
+Fragmentos de código:
+@rlsr{World music},
+@rlsr{Pitches}.
 
 
 @node Arabic time signatures
-@unnumberedsubsubsec Arabic time signatures 
+@unnumberedsubsubsec Arabic time signatures
 
-@untranslated
+@cindex árabes, armaduras
+@cindex Semai, forma
+@cindex taqasim
+
+Ciertas formas clásicas de música árabe y turca como el
+@notation{Semai} utilizan compases poco comunes como el 10/8.  Ello
+puede derivar en una agrupación automática de las notas muy distinta a
+la de las partituras impresas existentes, donde las notas pueden no
+estar agrupadas sobre el pulso, sino de una forma difícil de emular
+ajustando el barrado automático.  Este comportamiento se puede
+sobreescribir desactivando el barrado automático e indicándolo
+manualmente.  Cuando no es problema la coincidencia con partituras
+impresas existentes, aún podemos ajustar el comportamiento del barrado
+y/o utilizar compases compuestos.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{compound-time-signatures.ly}
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{arabic-improvisation.ly}
+
+@seealso
+
+Referencia de la notación:
+@ref{Manual beams},
+@ref{Automatic beams},
+@ref{Unmetered music},
+@ref{Automatic accidentals},
+@ref{Setting automatic beam behavior},
+@ref{Time signature}.
+
+Fragmentos de código:
+@rlsr{World music}.
 
 
 @node Arabic music example
-@unnumberedsubsubsec Arabic music example 
+@unnumberedsubsubsec Arabic music example
 
-@untranslated
+@cindex árabe, ejemplo de música
+@cindex árabe, plantilla de música
+@cindex plantilla música árabe
+
+A continuación aparece una plantilla que emplea también el comienzo de
+un Semai turco muy común en la educación musical árabe con el objeto
+de ilustrar algunas de las peculiaridades de la notación árabe, como
+los intervalos intermedios y los modos poco usuales que tratamos en
+esta sección.
+
+@lilypond[quote,verbatim]
+\include "arabic.ly"
+\score {
+  \relative re' {
+    \set Staff.extraNatural = ##f
+    \set Staff.autoBeaming = ##f
+    \key re \bayati
+    \time 10/8
+
+    re4 re'8 re16 [misb re do] sisb [la sisb do] re4 r8
+    re16 [misb do re] sisb [do] la [sisb sol8] la [sisb] do [re] misb
+    fa4 fa16 [misb] misb8. [re16] re8 [misb] re  [do] sisb
+    do4 sisb8 misb16 [re do sisb] la [do sisb la] la4 r8
+  }
+  \header {
+    title = "Semai Muhayer"
+    composer = "Jamil Bek"
+  }
+}
+@end lilypond
+
+@seealso
+
+Fragmentos de código:
+@rlsr{World music}
+
 
 
 @node Further reading
 @unnumberedsubsubsec Further reading
 
-@untranslated
+@enumerate
 
+@item
+The music of the Arabs, de Habib Hassan Touma [Amadeus Press, 1996],
+contiene un tratado de los maqams y sus formas de agrupación.
 
+También existen varios sitios web que explican los maqams, y algunos
+de ellos ofrecen ejemplos de audio, como:
 
-@c -- SKELETON FILE --
+@itemize @bullet
+@item
+@uref{http://www.maqamworld.com/}
+@item
+@uref{http://www.turath.org/}
+@end itemize
+
+Existen ciertas variantes en los detalles sobre la forma en que se
+agrupan los maqams, a pesar del relativo acuerdo existente acerca de
+los criterios de agrupación de maqams en función de los tetracordos
+inferiores comunes, o por medio de la modulación.
+
+@item
+No es completamente consistente, incluso a veces dentro del mismo
+texto, la forma en que se deben especificar las armaduras para los
+maqams concretos.  Sin embargo, es usual utilizar una armadura por
+grupo, más que una armadura distinta para cada maqam concreto.
+
+Varios métodos de los siguientes autores contienen ejemplos de
+composiciones turcas y árabes, principalmente.
+
+@itemize @bullet
+@item
+Charbel Rouhana
+@item
+George Farah
+@item
+Ibrahim Ali Darwish Al-masri
+@end itemize
+@end enumerate

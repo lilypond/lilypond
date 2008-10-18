@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @ifclear INSTALL
 @node Install
@@ -47,22 +47,43 @@ darwin-x86  - MacOS X intel
 freebsd-64  - FreeBSD 6.x, x86_64
 freebsd-x86 - FreeBSD 4.x, x86
 linux-64    - Any GNU/Linux distribution, x86_64
-linux-arm   - Any GNU/Linux distribution, arm
 linux-ppc   - Any GNU/Linux distribution, powerpc
 linux-x86   - Any GNU/Linux distribution, x86
 mingw       - Windows x86
 @end example
 
+@knownissues
 
-@c TRANSLATORS:
-@c   Please **do not** translate anything below this line.  Users
-@c   should not be compiling LilyPond themselves; if they really 
-@c   want to do so, they should be able to read the English docs,
-@c   because they'll probably need to ask questions in English
-@c   on the -devel list.   -gp
+If you have MacOS 10.3 or 10.4 and you would like to use Python
+scripts such as @command{convert-ly} and @command{lilypond-book}, see
+@ref{Setup for MacOS X,,,lilypond-program,Application Usage}.
+
 
 @node Compiling from source
 @section Compiling from source
+
+@ignore
+You can also compile LilyPond directly from the source code. This
+requires that you can read English, so this section is not
+translated.  If you really want to compile LilyPond, see
+@iftex
+@c DO NOT translate the following line at all.
+@ref{Compiling from source,,,lilypond-program,Application Usage}.
+@end iftex
+@ifhtml
+@c Please translate the following line (but not the .html file name)
+the @uref{Compiling-from-source.html,documentation in English}.
+@end ifhtml
+@end ignore
+
+@c TRANSLATORS:
+@c   Please **do not** translate anything below this line.  Users
+@c   should not be compiling LilyPond themselves; if they really
+@c   want to do so, they should be able to read the English docs,
+@c   because they'll probably need to ask questions in English
+@c   on the -devel list.   -gp
+@c Instead, please uncomment and translate the paragraph above,
+@c and remove all stuff (menu, nodes, contents) below this line.
 
 @menu
 * Downloading source code::     

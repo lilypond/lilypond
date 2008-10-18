@@ -1053,7 +1053,7 @@ def musicxml_words_to_lily_event (words):
             "medium": '',
             "large": '\\large',
             "x-large": '\\huge',
-            "xx-large": '\\bigger\\huge'
+            "xx-large": '\\larger\\huge'
         }.get (size, '')
         if font_size:
             event.markup += font_size

@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: a88c1b861df238ad1c000e6a86926e6f19f2fedd
+    Translation of GIT committish: 4be1308672c6f8efbe660c9eddc0a6a167c9ad31
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -10,7 +10,7 @@
 
 @c   ***** Displaying text *****
 
-@c we need this since @q{\} doesn't work with makeinfo 4.8 --
+@c we need this since @q{\} doesn't work with makeinfo 4.11 --
 @c say @q{@bs{}} instead
 @macro bs
 \\

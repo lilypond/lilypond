@@ -97,6 +97,16 @@ Arpeggio::print (SCM smob)
   Font_metric *fm = Font_interface::get_default_font (me);
   Stencil squiggle = fm->find_by_name ("scripts.arpeggio");
 
+  /*
+    Compensate for rounding error which may occur when a chord
+    reaches the center line, resulting in an extra squiggle
+    being added to the arpeggio stencil.  This value is appreciably
+    larger than the rounding error, which is in the region of 1e-16
+    for a global-staff-size of 20, but small enough that it does not
+    interfere with smaller staff sizes.
+  */
+  const Real epsilon = 1e-3;
+
   Stencil arrow;
   if (dir)
     {
@@ -104,9 +114,10 @@ Arpeggio::print (SCM smob)
       heads[dir] -= dir * arrow.extent (Y_AXIS).length ();
     }
 
-  for (Real y = heads[LEFT]; y < heads[RIGHT];
-       y += squiggle.extent (Y_AXIS).length ())
-    mol.add_at_edge (Y_AXIS, UP, squiggle, 0.0);
+  while (mol.extent (Y_AXIS).length () + epsilon < heads.length ())
+    {
+      mol.add_at_edge (Y_AXIS, UP, squiggle, 0.0);
+    }
 
   mol.translate_axis (heads[LEFT], Y_AXIS);
   if (dir)

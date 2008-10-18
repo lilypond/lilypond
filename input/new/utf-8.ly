@@ -1,4 +1,4 @@
-\version "2.10.0"
+\version "2.11.61"
 
 %% Edit this file using a Unicode aware editor, such as GVIM, GEDIT, Emacs
 
@@ -51,7 +51,7 @@ portuguese = \lyricmode {
   à vo -- cê uma can -- ção legal
 }
 
-\relative  {
+\relative c' {
   c2 d
   e2 f
   g2 f

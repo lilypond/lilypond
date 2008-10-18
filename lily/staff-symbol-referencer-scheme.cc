@@ -30,10 +30,20 @@ LY_DEFINE (ly_position_on_line_p, "ly:position-on-line?",
            "Return whether @var{pos} is on a line of the staff associated with the the grob @var{sg} (even on an extender line).")
 {
   LY_ASSERT_SMOB (Grob, sg, 1);
-  LY_ASSERT_TYPE (scm_is_number, spos, 1);
+  LY_ASSERT_TYPE (scm_is_number, spos, 2);
   Grob *g = unsmob_grob (sg);
   Grob *st = Staff_symbol_referencer::get_staff_symbol (g);
   int pos = scm_to_int (spos);
   bool on_line = st ? Staff_symbol::on_line (g, pos) : false;
   return scm_from_bool (on_line);
+}
+
+LY_DEFINE (ly_staff_symbol_line_thickness, "ly:staff-symbol-line-thickness",
+           1, 0, 0, (SCM grob),
+           "Returns the line-thickness of the staff associated with @var{grob}.")
+{
+  LY_ASSERT_SMOB (Grob, grob, 1);
+  Grob *g = unsmob_grob (grob);
+  Real thickness = Staff_symbol_referencer::line_thickness (g);
+  return scm_from_double (thickness);
 }

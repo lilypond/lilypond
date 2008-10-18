@@ -1,5 +1,5 @@
 /*
-  fflower-proto.hh -- typenames in flowerlib
+  flower-proto.hh -- typenames in flowerlib
 
   (c) 1996--2007 Han-Wen Nienhuys
 */
@@ -10,6 +10,7 @@
 char const *flower_version_str0 ();
 
 typedef unsigned char Byte;
+typedef long long I64;
 struct String_convert;
 
 #include "std-string.hh"
@@ -35,8 +36,12 @@ typedef short I16;
 typedef unsigned short U16;
 typedef unsigned U32;
 typedef int I32;
-typedef long long I64;
+typedef unsigned long long U64;
 
+/* We should really use LLONG_MAX; unfortunately, this appears not to
+   be defined for the gub x-compiler.
+*/
+const U64 U64_MAX = (~0ULL);
 
 struct File_storage;
 struct Mapped_file_storage;

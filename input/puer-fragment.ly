@@ -1,4 +1,4 @@
-\version "2.11.51"
+\version "2.11.61"
 \header {
     title	= "Puer natus est nobis"
     subtitle	= "Antiphona ad introitum VII"
@@ -17,7 +17,7 @@ ligature (not demonstrated in this example)."
 }
 
 #(set-global-staff-size 26)
-\include "gregorian-init.ly"
+\include "gregorian.ly"
 
 %%% N.B.: Yes, I know, the formatting of the following looks awful,
 %%% but this is intentional for editorial purposes (simplifies some
@@ -28,9 +28,9 @@ cantus = \new VaticanaVoice = "cantus"  {
     \column {
       " " " " " " " " "VII" " "
       {
-	\bigger \bigger \bigger \bigger
-	\bigger \bigger \bigger \bigger
-	\bigger \bigger \bigger \bigger
+	\larger \larger \larger \larger
+	\larger \larger \larger \larger
+	\larger \larger \larger \larger
 	"P"
       }
     }

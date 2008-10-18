@@ -6,7 +6,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.57"
+@c \version "2.11.61"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau
@@ -34,7 +34,7 @@ seulement.
 @menu
 * Instantiating new staves::    
 * Grouping staves::             
-* Deeper nested staff groups::  
+* Nested staff groups::  
 @end menu
 
 @node Instantiating new staves
@@ -133,8 +133,8 @@ en profondeur,
 >>
 @end lilypond
 
-@node Deeper nested staff groups
-@unnumberedsubsubsec Deeper nested staff groups
+@node Nested staff groups
+@unnumberedsubsubsec Nested staff groups
 
 @untranslated
 

@@ -1,12 +1,12 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 040cf95639670e25ca0857187cbbe468a7eb248c
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Repeats
 @section Repeats
@@ -58,9 +58,9 @@ explícitas, que se usan para escribir música repetitiva.  También se
 pueden controlar manualmente los signos de repetición.
 
 @menu
-* Normal repeats::              
-* Manual repeat marks::         
-* Written-out repeats::  
+* Normal repeats::
+* Manual repeat marks::
+* Written-out repeats::
 @end menu
 
 @cindex repeticiones normales
@@ -133,7 +133,7 @@ e |
 o bien
 
 @lilypond[verbatim,quote,relative=2]
-\partial 4 
+\partial 4
 \repeat volta 4 { e4 | c2 d | e2 f | }
 \alternative {
   { \partial 4*3 g4 g g }
@@ -410,8 +410,8 @@ sola nota hasta dos compases representadas por barras inclinadas o
 símbolos de porcentaje, y trémolos.
 
 @menu
-* Percent repeats::             
-* Tremolo repeats::             
+* Percent repeats::
+* Tremolo repeats::
 @end menu
 
 @node Percent repeats

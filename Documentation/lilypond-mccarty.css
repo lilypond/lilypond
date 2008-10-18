@@ -1,0 +1,393 @@
+/**********************************************************/
+/*                  PAGE-WIDE SETTINGS                    */
+/**********************************************************/
+
+html {
+  height: 100%;
+}
+
+body {
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  font-size: 100%;
+  line-height: 1.125;
+  color: black;
+  background-color: white;
+}
+
+/***********************************************************/
+/*                      HEADERS                            */
+/***********************************************************/
+
+.chapter, .section, .subsection, .subsubsection,
+.appendix, .appendixsec, .appendixsubsec,
+.unnumbered, .unnumberedsec, .unnumberedsubsec, .unnumberedsubsubsec,
+.subheading, .subsubheading {
+  color: #204a87;
+  border-bottom: 1px dashed black;
+  padding-bottom: 0.15em;
+  margin-top: 0.6em;
+  margin-bottom: 1em;
+}
+
+.settitle {
+  background: #b1d281;
+  font-size: 2em;
+  text-align: center;
+  margin: 0;
+  padding: 0.4em 0.5em;
+  border: 1px solid #7b925a;
+  border-width: 0 0 1px 0;
+}
+
+.chapter, .appendix, .unnumbered {
+  font-size: 1.8em;
+}
+
+.section, .appendixsec, .unnumberedsec {
+  font-size: 1.6em;
+}
+
+.subsection, .appendixsubsec, .unnumberedsubsec {
+  font-size: 1.4em;
+}
+
+.subheading, .subsubsection, .unnumberedsubsubsec {
+  font-size: 1.25em;
+}
+
+.subsubheading {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+.chapheading {
+  text-indent: -999em;
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+/***********************************************************/
+/*                       LINKS                             */
+/***********************************************************/
+
+a:link {
+  color: #3465a4;
+}
+
+a:visited {
+  color: #8f5902;
+}
+
+a:active {
+  color: #73d216;
+}
+
+a:hover {
+  color: #ce5c00;
+}
+
+/***********************************************************/
+/*                  BLOCK FORMATTING                       */
+/***********************************************************/
+
+blockquote {
+  width: 96%;
+  padding: 0;
+  border: 1px solid #708a4b;
+  border-left: 5px solid #a3ca6d;
+  margin: 1em auto;
+}
+
+blockquote p {
+  padding: 1em;
+  margin: 0;
+}
+
+blockquote blockquote {
+  border: none;
+}
+
+.verbatim, .example .example, .lisp {
+  font-size: 1em;
+  padding: 1em;
+  margin: 0;
+}
+
+.example {
+  padding: 0;
+  margin: 0;
+}
+
+#main hr {
+  height: 0;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  text-indent: -999em;
+}
+
+table.cartouche {
+  background: #f5f5dc; /* beige */
+  width: 85%;
+  border-collapse: collapse;
+  padding: 0 0.5em;
+  border: 2px solid #8f5902;
+  margin: 0 auto 1em;
+}
+
+table.cartouche p {
+  padding: 1em;
+  margin: 0;
+}
+
+table.cartouche td {
+  border: none;
+}
+
+/***********************************************************/
+/*                    MAIN CONTENT                         */
+/***********************************************************/
+
+div#main {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 27%;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+}
+
+div#main li {
+  padding: 0 1em 0.5em 0;
+}
+
+div#main ul {
+  margin: 0;
+  padding-left: 3em;
+}
+
+h1, h2, h3, h4, p, table, address, dt {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+p {
+  margin: 1em 0;
+}
+
+#languages {
+  background-color: #f5f5dc; /* beige */
+  padding: 0.5em 1em;
+  border-top: 1px solid #8fa77f;
+  margin: 0;
+}
+
+pre.menu-comment {
+  font-size: 1em;
+  padding-top: 1em;
+  padding-bottom: 0;
+  margin: 0;
+}
+
+#main .contents li {
+  padding-bottom: 0;
+}
+
+#main .contents > ul {
+  margin-bottom: 1em;
+}
+
+/***********************************************************/
+/*                    TOC SIDEBAR                          */
+/***********************************************************/
+
+div#tocframe {
+  position: absolute;
+  top: 0;
+  right: 73%;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+  overflow: auto;
+  background-color: #f5f5dc; /* beige */
+  z-index: 100;
+  list-style-type: none;
+  font-size: 0.83em;
+  line-height: 1.4;
+}
+
+@media screen {
+  body > div#tocframe {
+    position: fixed
+  }
+}
+
+div#tocframe p.toc_uplink {
+  font-size: 1em;
+  line-height: 1.125;
+  background: #c9ccc4;
+  padding: 0.25em 1em;
+  border-bottom: 1px solid #8a8c87;
+  margin: 0;
+}
+
+div#tocframe h4 {
+  font-size: 1em;
+  line-height: 1.125;
+  font-weight: bold;
+  font-style: italic;
+  /* background: #c9ccc4; */
+  /* padding: 0.25em 1em; */
+  padding: 0.75em 0.5em 0 0.5em;
+  /* border-bottom: 1px solid #8a8c87; */
+  margin: 0;
+}
+
+#tocframe .contents {
+  background-color: transparent;
+  list-style-type: none;
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+#tocframe ul.toc {
+  padding: 0.25em 0.5em 1em 0.5em;
+  list-style-type: none;
+  margin: 0;
+}
+
+#tocframe ul.toc ul.toc {
+  padding: 0;
+  margin: 0;
+}
+
+#tocframe ul.toc li {
+  padding: 0;
+  margin: 0;
+}
+
+#tocframe ul.toc > li {
+  font-size: 1em;
+}
+
+#tocframe ul.toc li li {
+  padding-left: 1em;
+}
+
+li.toc_current {
+  font-weight: bold;
+  font-style: italic;
+}
+
+li.toc_current ul {
+  font-weight: normal;
+  font-style: normal;
+  background: transparent;
+}
+
+/***********************************************************/
+/*                     NAVIGATION                          */
+/***********************************************************/
+
+.nav_table {
+  width: 100%;
+  background: #c9ccc4;
+  font-size: 0.83em;
+  line-height: 1.125;
+  border-collapse: collapse;
+  padding: 0;
+  border: 0;
+  border-bottom: 1px solid #8a8c87;
+  margin: 0;
+}
+
+.nav_table tr, .nav_table a {
+  padding: 0;
+  margin: 0;
+}
+
+.nav_table td {
+  padding: 0.25em;
+  margin: 0;
+}
+
+div.header {
+  background: #b1d281;
+  text-align: center;
+  padding: 0.5em;
+  border-bottom: 1px solid #7b925a;
+  margin: 0;
+  height: auto;
+}
+
+div.header h1 {
+  font-size: 2em;
+  padding: 0.25em;
+  margin: 0;
+}
+
+div.subheader {
+  background-color: #ddd;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+
+div.subheader p {
+  padding: 0.5em;
+  margin: 0;
+}
+
+table#navigation {
+  line-height: 1.5;
+  padding: 0;
+  margin: 1em auto;
+}
+
+table#navigation td {
+  padding: 0.5em 0.75em;
+}
+
+table#navigation ul {
+  padding-left: 0.5em;
+  margin: 0;
+}
+
+table .title {
+  font-weight: bold;
+}
+
+.footer {
+  background: #c6e7b0;
+  font-size: 0.8em;
+  border: 0;
+  padding: 0.2em 0;
+  margin: 0;
+}
+
+.footer p {
+  padding: 0 1.25em;
+  margin: 0.4em 0;
+}
+
+table.menu {
+  margin: 0 0 1em;
+}
+
+/***********************************************************/
+/*               OVERRIDES FOR PRINTING                    */
+/***********************************************************/
+
+@media print {
+  /* Hide the sidebar: */
+  body { padding-left: 0; }
+  #tocframe { display: none; }
+  .nav_table { display: none; }
+}

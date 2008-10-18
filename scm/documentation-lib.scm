@@ -26,8 +26,8 @@
   (display
    (string-append
     "\n@node "
-    (node-name node)
-    "\n\n"
+    (if (= level 0) "Top" (node-name node))
+    "\n"
     (if (appendix? node)
         (texi-appendix-section-command level)
         (texi-section-command level))

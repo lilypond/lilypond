@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 2ac76a5b0a5572cb259f22751764acfe431bfff2
+    Translation of GIT committish: dfae8d829c653d1c011f8823cd51d09c33400b66
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Changing defaults
 @chapter Changing defaults
@@ -992,7 +992,7 @@ Aquí @var{nombre} es el nombre de un objeto gráfico, como @code{Stem}
 o @code{NoteHead}, y @var{propiedad} es una variable interna del
 sistema de formateo (@q{propiedad del grob} o @q{propiedad de
 disposición}).  Este último es un símbolo, y por ello debe ir
-precedido de un apóstrofe.  La subsección @ref{Modifying properties}
+precedido de un apóstrofo.  La subsección @ref{Modifying properties}
 explica cómo se deben cumplimentar los conceptos @var{nombre},
 @var{propiedad} y @var{valor}.  Aquí sólo nos ocuparemos de la
 funcionalidad des esta instrucción.
@@ -1499,8 +1499,8 @@ interpretar dichas indicaciones:
 
 Al tipografiar música, la dirección y colocación de muchos elementos
 es cuestión de elección.  Por ejemplo, las plicas de las notas se
-pueden dirigir hacia arriba o hacia abajo; la lestra, las indicaciones
-dinámicas y otrase marcas expresivas se pueden colocar encima o debajo
+pueden dirigir hacia arriba o hacia abajo; la letra, las indicaciones
+dinámicas y otras marcas expresivas se pueden colocar encima o debajo
 del pentagrama; el texto se pude alinear a la izquierda, a la derecha
 o centrado; etc.  La mayoría de estas elecciones pueden dejarse que
 LilyPond las determine automáticamente, pero en ciertos casos puede

@@ -1,7 +1,8 @@
 #!@PYTHON@
 
 """
-Postprocess HTML files.
+Postprocess HTML files:
+add footer, tweak links, add language selection menu.
 """
 import re
 import os
@@ -32,23 +33,19 @@ header = r"""
 """
 
 footer = '''
-<div style="background-color: #e8ffe8; padding: 2; border: #c0ffc0 1px solid;">
-<p>
-<font size="-1">
+<div class="footer">
+<p class="footer_version">
 %(footer_name_version)s
-<br>
-<address>
-%(footer_report_errors)s </address>
-<br>
-%(footer_suggest_docs)s
-</font>
+</p>
+<p class="footer_report">
+%(footer_report_links)s
 </p>
 </div>
 '''
 footer_name_version = _doc ('This page is for %(package_name)s-%(package_version)s (%(branch_str)s).')
-footer_report_errors = _doc ('Report errors to <a href="%(mail_address_url)s">%(mail_address)s</a>.')
 # ugh, must not have "_doc" in strings because it is naively replaced with "_" in hacked gettext process
-footer_suggest_docs = _doc ('Your <a href="%(suggest_Docs_url)s">suggestions for the documentation</a> are welcome.')
+footer_report_links = _doc ('Your <a href="%(suggest_Docs_url)s">suggestions for the documentation</a> are welcome, please report errors to our <a href="%(mail_address_url)s">bug list</a>.')
+
 
 mail_address = 'http://post.gmane.org/post.php?group=gmane.comp.gnu.lilypond.bugs'
 suggest_Docs_url = 'http://lilypond.org/web/devel/participating/documentation-adding'
@@ -102,6 +99,9 @@ snippets_ref_re = re.compile (r'href="(\.\./)?lilypond-snippets')
 user_ref_re = re.compile ('href="(?:\.\./)?lilypond\
 (-internals|-learning|-program|(?!-snippets))')
 
+docindex_link_re = re.compile (r'href="index.html"')
+
+
 ## Windows does not support symlinks.
 # This function avoids creating symlinks for splitted HTML manuals
 # Get rid of symlinks in GNUmakefile.in (local-WWW-post)
@@ -115,6 +115,18 @@ def hack_urls (s, prefix):
         s = snippets_ref_re.sub ('href="source/input/lsr/lilypond-snippets', s)
     elif 'input/lsr' in prefix:
         s = user_ref_re.sub ('href="source/Documentation/user/lilypond\\1', s)
+    
+    # we also need to replace in the lsr, which is already processed above!
+    if 'input/' in prefix or 'Documentation/topdocs' in prefix:
+        # fix the link from the regtest, lsr and topdoc pages to the doc index 
+        # (rewrite prefix to obtain the relative path of the doc index page)
+        rel_link = re.sub (r'out-www/.*$', '', prefix)
+        rel_link = re.sub (r'[^/]*/', '../', rel_link)
+        if 'input/regression' in prefix:
+            indexfile = "Documentation/devel"
+        else:
+            indexfile = "index"
+        s = docindex_link_re.sub ('href="' + rel_link + indexfile + '.html\"', s)
 
     source_path = os.path.join (os.path.dirname (prefix), 'source')
     if not os.path.islink (source_path):
@@ -126,11 +138,21 @@ body_tag_re = re.compile ('(?i)<body([^>]*)>')
 html_tag_re = re.compile ('(?i)<html>')
 doctype_re = re.compile ('(?i)<!DOCTYPE')
 doctype = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">\n'
+css_re = re.compile ('(?i)<link rel="stylesheet" type="text/css" ([^>]*)href="[^">]*?lilypond.*\.css"([^>]*)>')
+end_head_tag_re = re.compile ('(?i)</head>')
+css_link = """    <link rel="stylesheet" type="text/css" title="Patrick McCarty's design" href="%(rel)sDocumentation/lilypond-mccarty.css">
+    <link rel="alternate stylesheet" type="text/css" href="%(rel)sDocumentation/lilypond.css" title="Andrew Hawryluk's design">
+    <link rel="alternate stylesheet" type="text/css" href="%(rel)sDocumentation/lilypond-blue.css" title="Kurt Kroon's blue design">
+    <!--[if lte IE 7]>
+    <link href="%(rel)sDocumentation/lilypond-ie-fixes.css" rel="stylesheet" type="text/css">
+    <![endif]-->
+"""
 
-def add_header (s):
-    """Add header (<body> and doctype)"""
+
+def add_header (s, prefix):
+    """Add header (<body>, doctype and CSS)"""
     if header_tag_re.search (s) == None:
-        body = '<body bgcolor="white" text="black" \\1>'
+        body = '<body\\1>'
         (s, n) = body_tag_re.subn (body + header, s, 1)
         if not n:
             (s, n) = html_tag_re.subn ('<html>' + header, s, 1)
@@ -141,7 +163,11 @@ def add_header (s):
 
         if doctype_re.search (s) == None:
             s = doctype + s
-        return s
+
+        if css_re.search (s) == None:
+            depth = (prefix.count ('/') - 1) * '../'
+            s = end_head_tag_re.sub ((css_link % {'rel': depth}) + '</head>', s)
+    return s
 
 title_tag_re = re.compile ('.*?<title>(.*?)</title>', re.DOTALL)
 AT_web_title_re = re.compile ('@WEB-TITLE@')
@@ -187,9 +213,11 @@ def find_translations (prefix, lang_ext):
                 missing.append (e)
     return available, missing
 
-online_links_re = re.compile ('''(href|src)=['"]([^/][.]*[^.:'"]*)\
-([.]html|[.]png)(#[^"']*|)['"]''')
-offline_links_re = re.compile ('''href=['"]([^/][.]*[^.:'"]*)([.]html)(#[^"']*|)['"]''')
+online_links_re = re.compile ('''(href|src)=['"]\
+((?!Compiling-from-source.html")[^/][.]*[^.:'"]*)\
+([.]html)(#[^"']*|)['"]''')
+offline_links_re = re.compile ('href=[\'"]\
+((?!Compiling-from-source.html")[^/][.]*[^.:\'"]*)([.]html)(#[^"\']*|)[\'"]')
 big_page_name_re = re.compile ('''(.+?)-big-page''')
 
 def process_i18n_big_page_links (match, prefix, lang_ext):
@@ -205,7 +233,7 @@ def process_i18n_big_page_links (match, prefix, lang_ext):
 def process_links (s, prefix, lang_ext, file_name, missing, target):
     page_flavors = {}
     if target == 'online':
-        # Strip .html, .png suffix for auto language selection (content
+        # Strip .html, suffix for auto language selection (content
         # negotiation).  The menu must keep the full extension, so do
         # this before adding the menu.
         page_flavors[file_name] = \
@@ -302,8 +330,7 @@ def process_html_files (package_name = '',
     # so only one '%' formatting pass is needed later
     for e in subst:
         subst[e]['footer_name_version'] = subst[e]['footer_name_version'] % subst[e]
-        subst[e]['footer_report_errors'] = subst[e]['footer_report_errors'] % subst[e]
-        subst[e]['footer_suggest_docs'] = subst[e]['footer_suggest_docs'] % subst[e]
+        subst[e]['footer_report_links'] = subst[e]['footer_report_links'] % subst[e]
 
     for prefix, ext_list in pages_dict.items ():
         for lang_ext in ext_list:
@@ -314,7 +341,7 @@ def process_html_files (package_name = '',
 
             s = s.replace ('%', '%%')
             s = hack_urls (s, prefix)
-            s = add_header (s)
+            s = add_header (s, prefix)
 
             ### add footer
             if footer_tag_re.search (s) == None:

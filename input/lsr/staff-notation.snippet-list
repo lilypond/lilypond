@@ -9,6 +9,7 @@ tweaking-clef-properties.ly
 removing-the-first-empty-line.ly
 quoting-another-voice.ly
 volta-multi-staff.ly
+changing-the-tempo-without-a-metronome-mark.ly
 modern-tab-text-clef.ly
 non-traditional-key-signatures.ly
 measure-counter.ly
@@ -21,5 +22,7 @@ use-square-bracket-at-the-start-of-a-staff-group.ly
 quoting-another-voice-with-transposition.ly
 letter-tablature-formatting.ly
 inserting-score-fragments-above-a-staff,-as-markups.ly
+tick-bar-lines.ly
+creating-metronome-marks-in-markup-mode.ly
 volta-below-chords.ly
 nesting-staves.ly

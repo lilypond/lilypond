@@ -8,7 +8,7 @@ heavily mutilated Edition Peters Morgenlied by Schubert"
 
 }
 
-\version "2.11.51"
+\version "2.11.61"
 
 ignoreMelisma =	\set ignoreMelismata = ##t
 ignoreMelismaOff = \unset ignoreMelismata 
@@ -34,7 +34,7 @@ modernAccidentals = {
 melody =    \relative c'' \repeat volta 2 \context Voice = "singer" {
   \time 6/8
   \autoBeamOff
-  s1*0^\markup {  \bigger { \hspace #-3.0 Lieblich, etwas geschwind } }
+  s1*0^\markup {  \larger { \hspace #-3.0 Lieblich, etwas geschwind } }
   R2.
   r4 r8 c4 g8 |
   \acciaccatura { f16 }  e4 c8
@@ -131,7 +131,7 @@ pianoLH =  \relative c'' \repeat volta 2\new Voice {
 	 \new PianoStaff << 
 	   \set PianoStaff.instrumentName = \markup {
 	     \bold
-	     \bigger\bigger\bigger\bigger
+	     \larger\larger\larger\larger
 	     \huge
 	     "2."
 	   }

@@ -1,4 +1,4 @@
-\version "2.11.33"
+\version "2.11.61"
 \header {
   lsrtags = "pitches"
   texidoc = "This example uses some Scheme code to enforce enharmonic
@@ -74,10 +74,10 @@ music = \relative c' { c4 d e g }
 
 \score {
   \new Staff {
-    \transpose c ais \music
-    \naturalizeMusic \transpose c ais \music
-    \transpose c deses \music
-    \naturalizeMusic \transpose c deses \music
+    \transpose c ais { \music }
+    \naturalizeMusic \transpose c ais { \music }
+    \transpose c deses { \music }
+    \naturalizeMusic \transpose c deses { \music }
   }
   \layout { }
 }

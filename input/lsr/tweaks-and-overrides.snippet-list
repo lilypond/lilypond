@@ -1,3 +1,4 @@
+dotted-harmonics.ly
 forcing-horizontal-shift-of-notes.ly
 display-bracket-with-only-one-staff-in-a-system.ly
 rhythmic-slashes.ly
@@ -21,6 +22,7 @@ fine-tuning-pedal-brackets.ly
 controlling-the-vertical-ordering-of-scripts.ly
 inserting-a-caesura.ly
 vertically-aligning-ossias-and-lyrics.ly
+customizing-fretboard-fret-diagrams.ly
 changing-properties-for-individual-grobs.ly
 vertically-aligned-dynamics-and-textscripts.ly
 mensurstriche-layout-bar-lines-between-the-staves.ly
@@ -37,6 +39,6 @@ caesura-railtracks-with-fermata.ly
 changing-form-of-multi--measure-rests.ly
 time-signature-in-parentheses.ly
 changing-a-single-notes-size-in-a-chord.ly
-customizing-fretboard-fret-diagrams.ly
+using-postscript-to-generate-special-note-head-shapes.ly
 creating-simultaneous-rehearsal-marks.ly
 nesting-staves.ly

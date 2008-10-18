@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 1de1bd7dd269ff09fc7566c2e240555347f52b65
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 
 @c Note: keep this node named so that `info lilypond-book' brings you here.
@@ -29,7 +29,9 @@ que coincidan con los ajustes de su documento.
 
 Es un programa distinto a @command{lilypond} propiamente dicho, y se
 ejecuta sobre la línea de órdenes; para ver más información, consulte
-@ref{Command-line usage}.
+@ref{Command-line usage}.  Si tiene MacOS 10.3 o 10.4 y experimenta
+algún problema al ajecutar @code{lilypond-book}, consulte @ref{Setup
+for MacOS X}.
 
 Este procedimiento se puede aplicar a documentos de @LaTeX{}, HTML,
 Texinfo o DocBook.
@@ -46,12 +48,12 @@ Texinfo o DocBook.
 @cindex @LaTeX{}, música dentro de
 
 @menu
-* An example of a musicological document::  
-* Integrating music and text::  
-* Music fragment options::      
-* Invoking lilypond-book::      
-* Filename extensions::         
-* Alternate methods of mixing text and music::  
+* An example of a musicological document::
+* Integrating music and text::
+* Music fragment options::
+* Invoking lilypond-book::
+* Filename extensions::
+* Alternate methods of mixing text and music::
 @end menu
 
 
@@ -171,10 +173,10 @@ Aquí vamos a explicar cómo integrar LilyPond con algunos otros
 formatos de salida.
 
 @menu
-* LaTeX::                       
-* Texinfo::                     
-* HTML::                        
-* DocBook::                     
+* LaTeX::
+* Texinfo::
+* HTML::
+* DocBook::
 @end menu
 
 @node LaTeX
@@ -526,7 +528,7 @@ elemento @code{programlisting}, en que el lenguaje se establece como
     <programlisting language="lilypond" role="fragment verbatim staffsize=16 ragged-right relative=2">
 \context Staff \with @{
   \remove Time_signature_engraver
-  \remove Clef_engraver@} 
+  \remove Clef_engraver@}
   @{ c4( fis) @}
     </programlisting>
   </textobject>
@@ -578,6 +580,11 @@ También es la opción predeterminada para el entorno @code{lilypond} si
 está establecida la opción @code{fragment}, y no se especifica la
 anchura de la línea explícitamente.
 
+@item noragged-right
+Para fragmentos de una sola línea, permitir que la longitud del
+pentagrama se amplíe hasta igualar la anchura de la línea, es decir,
+se añade @code{ragged-right = ##f} al fragmento de LilyPond.
+
 @c does this option still exist in lilypond? -jm
 @item packed
 Producir líneas con el espaciado empaquetado, es decir, se añade
@@ -600,7 +607,7 @@ trata de adivinar un valor predeterminado para los entornos
 
 @item notime
 No imprimir la indicación de compás, y desactivar las indicaciones
-temporales de la música (armadura y líneas divisorias).
+temporales de la música (indicación del compás y líneas divisorias).
 
 @item fragment
 Hacer que @command{lilypond-book} añada algunos códigos necesarios
@@ -645,7 +652,12 @@ al fragmento musical.
 Usar el modo de octava relativa.  De forma predeterminada, las notas
 se especifican con relación al Do@tie{}central.  El argumento entero
 opcional especifica la octava de la nota inicial, donde el valor
-predeterminado @code{1} es el Do central.
+predeterminado @code{1} es el Do central.  La opción @code{relative}
+sólo funciona cuando está establecida la opción @code{fragment}, de
+manera que @code{fragment} viene implicada automáticamente por
+@code{relative}, independientemenre de la presencia de @code{fragment}
+o de @code{nofragment} en la fuente.
+
 @end table
 
 LilyPond utiliza también @command{lilypond-book} para producir su
@@ -730,6 +742,14 @@ La mayoría de los documentos de prueba de LilyPond (en el directorio
 @file{input} de la distribución) son pequeños archivos @file{.ly} que
 tienen exactamente este aspecto.
 
+Por motivos de localización de idioma, si el documento de Texinfo
+contiene @code{@@documentlanguage @var{LANG}} y la cabecera de
+@file{loquesea@/.ly} contiene un campo @code{texidoc@var{LANG}}, y
+@command{lilypond} se ejecuta con
+@option{--header=@/texidoc@var{LANG}}, entonces se incluirá
+@file{loquesea@/.texidoc@var{LANG}} en lugar de
+@file{loquesea@/.texidoc}.
+
 @item lilyquote
 (Sólo para la salida de Texinfo.)  Esta opción es similar a quote,
 pero se pone dentro del bloque de cita solamente el fragmento de
@@ -737,6 +757,20 @@ música (y el bloque preformateado que se da en la opción
 @code{verbatim}).  Esta opción es útil si queremos citar
 (@code{quote}) el fragmento musical pero no el bloque de documentación
 @code{texidoc}.
+
+@item doctitle
+(Sólo para la salida de Texinfo.) Esta opción funciona de forma
+parecida a la opción @code{texidoc}: si @command{lilypond} se llama
+con la opción @option{--header=@/doctitle}, y el archivo que procesar
+se llama @file{loquesea@/.ly} y contiene un campo @code{doctitle} en
+el bloque @code{\header}, crea un archivo @file{loquesea@/.doctitle}.
+Cuando se usa la opción @code{doctitle}, el contenido de
+@file{loquesea@/.doctitle}, que debería ser una línea única de
+@var{texto}, se inserta en el documento de Texinfo como
+@code{@@lydoctitle @var{texto}}.  @code{@@lydoctitle} debe ser un
+macro definido en el documento de Texinfo.  La misma indicación
+referida al procesado de @code{texidoc} con idiomas localizados se
+aplica a @code{doctitle}.
 
 @item printfilename
 Si un archivo de entrada de LilyPond se incluye con
@@ -748,7 +782,8 @@ parte del directorio de la ruta del archivo.
 @item fontload
 Esta opción incluye las fuentes tipográficas en todos los archivos EPS
 generados para este fragmento.  Se debe usar si el fragmento usa
-cualquier tipografía que LaTeX no es capaz de encontrar por sí solo.
+cualquier tipografía que @LaTeX{} no es capaz de encontrar por sí
+solo.
 
 @end table
 
@@ -760,10 +795,6 @@ cualquier tipografía que LaTeX no es capaz de encontrar por sí solo.
 extensiones: @file{.tex}, @file{.texi}, @file{.html} o @file{.xml},
 dependiendo del formato de salida.  Todos los archivos @file{.tex},
 @file{.texi} y @file{.xml} necesitan un procesado posterior.
-
-@command{lilypond-book} también puede crear un archivo
-@file{.psfonts}, que se requiere por parte de @command{dvips} para
-producir archivos PostScript y PDF.
 
 @subheading Format-specific instructions
 
@@ -796,9 +827,9 @@ Para producir una salida PDF por medio de
 @LaTeX{}/@command{dvips}/@command{ps2pdf}, debe hacer
 
 @example
-lilypond-book --psfonts miarchivo.lytex
+lilypond-book miarchivo.lytex
 latex miarchivo.tex
-dvips -o -h miarchivo.psfonts -Ppdf miarchivo.dvi
+dvips -Ppdf miarchivo.dvi
 ps2pdf miarchivo.ps
 @end example
 
@@ -807,7 +838,7 @@ El archivo @file{.dvi} creado por este proceso no contiene las cabezas
 de las notas.  Esto es normal; si sigue las instrucciones, las cabezas
 aparecerán en los archivos @file{.ps} y @file{.pdf}.
 
-La ejecución de @command{dvips} dará como resultado algunas
+La ejecución de @command{dvips} puede dar como resultado algunas
 advertencias sobre las fuentes tipográficas; son inocuas y se pueden
 ignorar.  Si está ejecutando @command{latex} en modo de dos columnas,
 recuerde añadir @code{-t landscape} a las opciones de @command{dvips}.
@@ -886,27 +917,51 @@ cd out
 ...
 @end example
 
+@itemx --skip-lily-check
+Evitar el fracaso si no se encuentra ninguna salida de lilypond.  Se
+usa para la documentación de LilyPond en formato Info sin imágenes.
+
+@itemx --skip-png-check
+Evitar el fracaso si no se encuentran las imágenes PNG de los archivos
+EPS.  Se usa para la documentación de LilyPond en formato Info sin
+imágenes.
+
+@itemx --lily-output-dir=@var{directorio}
+Escribir archivos lily-XXX en el directorio @var{directorio}, enlazar
+en el directorio de @code{--output}.  Use esta opción para ahorrar
+tiempo de construcción para documentos de distintos directorios que
+comparten muchos fragmentos idénticos de código.
+
+@itemx --info-images-dir=@var{directorio}
+Dar formato a la salida de Texinfo de manera que Info busque las
+imágenes de música en @var{directorio}.
+
+@itemx --latex-program=@var{prog}
+Ejecutar el propgrama @command{prog} en vez de @command{latex}.  Esto
+es útil si nuestro documento se procesa con @command{xelatex}, por
+ejemplo.
+
 @itemx --left-padding=@var{cantidad}
 Rellenar las cajas EPS en esta medida, alrededor. @var{cantidad} se
 mide en milímetros, y es 3.0 como valor predeterminado.  Esta opción
 se debe usar si las líneas de música están muy pegadas al margen
 derecho.
 
-El ancho de los sistemas que están muy ajustados dentro de su
-rectángulo puede variar, debido a los elementos de notación que están
-pegados al margen izquierdo, como los números de compás y el nombre
-del instrumento.  Esta opción acorta todas las líneas y las mueve a la
+El ancho de un sistema que está muy ajustado dentro de su rectángulo
+puede variar, debido a los elementos de notación que están pegados al
+margen izquierdo, como los números de compás y el nombre del
+instrumento.  Esta opción acorta todas las líneas y las mueve a la
 derecha en la misma medida.
 
 
-@item -P @var{proceso}
+@item -P @var{instrucción}
 @itemx --process=@var{instrucción}
 Procesar los fragmentos de LilyPond utilizando @var{instrucción}.  La
 instrucción predeterminada es @code{lilypond}.  @code{lilypond-book} no
 obedecerá a @code{--filter} y a @code{--process} al mismo tiempo.
 
 @item --pdf
-Crear archivos PDF para su uso con PDFLaTeX.
+Crear archivos PDF para su uso con PDF@LaTeX{}.
 
 @itemx --psfonts
 Extraer todas las tipografías PostScript en
@@ -974,13 +1029,13 @@ Esta sección presenta métodos para integrar texto y música distintos
 del método automatizado con @command{lilypond-book}.
 
 @menu
-* Many quotes from a large score::  
-* Inserting LilyPond output into OpenOffice.org::  
-* Inserting LilyPond output into other programs::  
+* Many quotes from a large score::
+* Inserting LilyPond output into OpenOffice.org::
+* Inserting LilyPond output into other programs::
 @end menu
 
 @node Many quotes from a large score
-@subsection Many quotes from a large score
+@unnumberedsubsec Many quotes from a large score
 
 Si tiene que citar muchos fragmentos extraídos de una partitura grade,
 puede también usar la capacidad de recorte de sistemas, véase
@@ -988,7 +1043,7 @@ puede también usar la capacidad de recorte de sistemas, véase
 
 
 @node Inserting LilyPond output into OpenOffice.org
-@subsection Inserting LilyPond output into OpenOffice.org
+@unnumberedsubsec Inserting LilyPond output into OpenOffice.org
 
 @cindex OpenOffice.org
 
@@ -998,7 +1053,7 @@ OpenOffice.org con
 
 
 @node Inserting LilyPond output into other programs
-@subsection Inserting LilyPond output into other programs
+@unnumberedsubsec Inserting LilyPond output into other programs
 
 Para insertar la salida de LilyPond dentro de otros programas, use
 @code{lilypond} en vez de @code{lilypond-book}.  Cada ejemplo debe
@@ -1023,9 +1078,11 @@ utilice las siguientes opciones:
 @{ c1 @}
 @end example
 
-Para obtener un archivo EPS que sea útil, utilice
+Para obtener un archivo @file{EPS} que sea útil, utilice
 
 @example
 lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts miarchivo.ly
-@end example
 
+@file{PNG}:
+lilypond -dbackend=eps -dno-gs-load-fonts -dinclude-eps-fonts --png miarchivo.ly
+@end example

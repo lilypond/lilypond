@@ -1,19 +1,22 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 6f45665792b1f7394123246f47f9e55163624f3c
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 
 @node Wind instruments
 @section Wind instruments
 
-@untranslated
+@lilypondfile[quote]{wind-headword.ly}
+
+Esta sección incluye ciertos elementos de notación musical que afloran
+al escribir para instrumentos de viento.
 
 @menu
 * Common notation for wind instruments::
@@ -23,7 +26,8 @@
 @node Common notation for wind instruments
 @subsection Common notation for wind instruments
 
-@untranslated
+Esta sección trata algunos asuntos que son comunes a casi todos los
+instrumentos de viento.
 
 @menu
 * References for wind instruments::
@@ -33,17 +37,70 @@
 @node References for wind instruments
 @unnumberedsubsubsec References for wind instruments
 
-@untranslated
+@cindex viento, instrumentos
+
+Muchas cuestiones de la notación para instrumentos de viento tienen
+que ver con las respiraciones y los golpes de lengua:
+
+@itemize
+@item Las respiraciones se pueden especificar mediante silencios o marcas de respiración, véase @ref{Breath marks}.
+@item La ejecución ligada se indica mediante ligaduras de expresión, véase @ref{Slurs}.
+@item Los distintos golpes de lengua, desde legato hasta staccato pasando por non legato, se presentan por lo general mediante articulaciones, en ocasiones combinadas con ligaduras de expresión, véase @ref{Articulations and ornamentations} y @ref{List of articulations}.
+@item El frullato se indica generalmente mediante una indicación de trémolo y una marca textual sobre la nota.  Véase @ref{Tremolo repeats}.
+@end itemize
+
+También existen otros aspectos de la notación musical que son de
+aplicación a los instrumentos de viento:
+
+@itemize
+@item Muchos instrumentos de viento son transpositores, véase @ref{Instrument transpositions}.
+@item El portamento es característico del trombón, pero otros instrumentos de viento pueden realizar glissandos con llaves o válvulas.  Véase @ref{Glissando}.
+@item Los glissandos de serie armónica, que son posibles en todos los metales pero bastante específicos de las trompas, se escriben en general como notas de adorno, véase @ref{Grace notes}.
+@item Las inflexiones de tono al final de una nota se tratan en @ref{Falls and doits}.
+@item Los golpes de llave o de válvula se suelen indicar con el estilo @code{cross} (aspas) de cabezas de nota, véase @ref{Special note heads}.
+@item Los instrumentos de viento-madera pueden sobreinflar las notas graves para producir armónicos.  Éstos se muestran por medio de la articulación @code{flageolet}.  Véase @ref{List of articulations}.
+@item El uso de sordinas para los metales se suele indicar mediante marcas de texto, pero en los lugares donde se suceden muchos cambios rápidos es mejor utilizar las articulaciones @code{stopped} (tapado) y @code{open} (abierto).  Véase @ref{Articulations and ornamentations} y @ref{List of articulations}.
+@item Las trompas tapadas se indican por medio de la articulación @code{stopped}.  Véase @ref{Articulations and ornamentations}.
+@end itemize
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{changing--flageolet-mark-size.ly}
+
+@seealso
+
+Referencia de la notación:
+@ref{Breath marks},
+@ref{Slurs},
+@ref{Articulations and ornamentations},
+@ref{List of articulations},
+@ref{Tremolo repeats},
+@ref{Instrument transpositions},
+@ref{Glissando},
+@ref{Grace notes},
+@ref{Falls and doits},
+@ref{Special note heads}.
+
+Snippets:
+@rlsr{Winds}
+
 
 @node Fingerings
 @unnumberedsubsubsec Fingerings
 
-@untranslated
+@c TODO add link to LSR snippet by Libero Mureddo once he has added
+@c it (after August 15th).
+Todos los instrumentos de viento aparte del trombón requieren el uso
+de los distintos dedos para producir cada nota.
+
+[REDACTAR]
 
 @node Bagpipes
 @subsection Bagpipes
 
-@untranslated
+Esta sección contiene información adicional de utilidad para la
+escritura para gaita.
 
 @menu
 * Bagpipe definitions::
@@ -51,7 +108,19 @@
 @end menu
 
 @node Bagpipe definitions
-@subsubsection Bagpipe definitions
+@unnumberedsubsubsec Bagpipe definitions
+
+@cindex gaita
+@cindex gaita escocesa de las tierras altas
+@cindex mordentes
+@cindex notas de adorno
+@funindex \taor
+@funindex taor
+@funindex \hideKeySignature
+@funindex hideKeySignature
+@funindex \showKeySignature
+@funindex showKeySignature
+
 LilyPond contiene definiciones especiales para la música de gaita escocesa de las
 tierras altas; para usarlas, escriba
 
@@ -89,9 +158,15 @@ Se puede indicar esto mediante @code{cflat} o @code{fflat}. De forma parecida, e
 sol agudo piobaireachd se puede escribir @code{gflat} cuando aparece en música
 ligera.
 
-@node Bagpipe example
-@subsubsection Bagpipe example
+@seealso
+Fragmentos de código:
+@rlsr{Winds}.
 
+@node Bagpipe example
+@unnumberedsubsubsec Bagpipe example
+
+@cindex gaita, ejemplo de
+@cindex Amazing Grace, ejemplo de gaita
 
 La conocida melodía Amazing Grace tiene este aspecto en notación de
 gaita.
@@ -133,3 +208,6 @@ gaita.
 }
 @end lilypond
 
+@seealso
+Fragmentos de código:
+@rlsr{Winds}.

@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 007d0b5b94c36f9d9e228309d5b0e6a67ae27ebc
+    Translation of GIT committish: a4836ce5ec9488d795344735f2febc880fbb6a2f
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @c Translators: Valentin Villenave, Jean-Charles Malahieude
 @c Translation checkers: John Mandereau

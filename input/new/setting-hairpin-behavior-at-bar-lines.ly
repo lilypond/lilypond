@@ -1,9 +1,9 @@
-\version "2.11.46"
+\version "2.11.61"
 \header {
   lsrtags = "expressive-marks"
   texidoc = "If the note which ends a hairpin falls on a downbeat,
 the hairpin stops at the bar line immediately preceding.  This behavior
-can be controlled by overriding the @code{to-barline} property.
+can be controlled by overriding the @code{'to-barline} property.
 "
   doctitle = "Setting hairpin behavior at bar lines"
 }

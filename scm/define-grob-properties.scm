@@ -607,8 +607,8 @@ be?")
      (stencil ,ly:stencil? "The symbol to print.")
      (stencils ,list? "Multiple stencils, used as intermediate
 value.")
-     (strict-grace-spacing ,boolean? "If set, grace notes
-are not spaced separately, but put before musical columns.")
+     (strict-grace-spacing ,boolean? "If set, main notes are spaced
+normally, then grace notes are put left of the musical columns fot the main notes.")
      (strict-note-spacing ,boolean? "If set, unbroken columns
 with non-musical material (clefs, bar lines, etc.) are not spaced
 separately, but put before musical columns.")
@@ -861,7 +861,7 @@ than a whole rest.")
 
      ;; However, such a list would consist of a couple of dozens of
      ;; entries, since head prefixes may be combined in many ways.  If
-     ;; the macros in `gregorian-init.ly' would directly set prefix-set,
+     ;; the macros in `gregorian.ly' would directly set prefix-set,
      ;; all the head prefixes could be junked; however, such macros
      ;; would be quite numerous, I guess.  --jr
 

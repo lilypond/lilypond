@@ -244,7 +244,7 @@ size. SZ is in points"
     
     (cond
      ((not is-paper?)
-      (ly:warning (_ "This is not a \\layout {} object, ~S" module)))
+      (ly:warning (_ "This is not a \\layout {} object, ~S") module))
      ((pair? entry)
 
       (set! entry (eval (cdr entry) module))
@@ -256,7 +256,7 @@ size. SZ is in points"
       (module-define! module 'landscape 
 		      (if landscape? #t #f)))
      (else
-      (ly:warning (_ "Unknown papersize: ~a" name))))))
+      (ly:warning (_ "Unknown paper size: ~a") name)))))
 
 (define-safe-public (set-default-paper-size name . rest)
   (internal-set-paper-size

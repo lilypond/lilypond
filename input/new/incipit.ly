@@ -1,4 +1,4 @@
-\version "2.11.39"
+\version "2.11.61"
 \header {
   lsrtags = "staff-notation,ancient-notation"
   texidoc = "Incipits can be added using the instrument name grob, but
@@ -62,7 +62,7 @@ global = {
 }
 
 discantusIncipit = <<
-  \new MensuralVoice = discantusIncipit <<
+  \new MensuralVoice = "discantusIncipit" <<
     \repeat unfold 9 { s1 \noBreak }
     {
       \clef "neomensural-c1"
@@ -99,7 +99,7 @@ discantusLyrics = \lyricmode {
 }
 
 altusIncipit = <<
-  \new MensuralVoice = altusIncipit <<
+  \new MensuralVoice = "altusIncipit" <<
     \repeat unfold 9 { s1 \noBreak }
     {
       \clef "neomensural-c3"
@@ -135,7 +135,7 @@ altusLyrics = \lyricmode {
 }
 
 tenorIncipit = <<
-  \new MensuralVoice = tenorIncipit <<
+  \new MensuralVoice = "tenorIncipit" <<
     \repeat unfold 9 { s1 \noBreak }
     {
       \clef "neomensural-c4"
@@ -172,7 +172,7 @@ tenorLyrics = \lyricmode {
 }
 
 bassusIncipit = <<
-  \new MensuralVoice = bassusIncipit <<
+  \new MensuralVoice = "bassusIncipit" <<
     \repeat unfold 9 { s1 \noBreak }
     {
       \clef "bass"
@@ -211,27 +211,28 @@ bassusLyrics = \lyricmode {
     \new StaffGroup = choirStaff <<
       \new Voice = "discantusNotes" <<
         \global
-        \set Staff.instrumentName = "Discantus"
+        \set Staff.instrumentName = #"Discantus"
         \incipit \discantusIncipit
         \discantusNotes
       >>
       \new Lyrics = "discantusLyrics" \lyricsto discantusNotes { \discantusLyrics }
       \new Voice = "altusNotes" <<
         \global
-        \set Staff.instrumentName = "Altus"
+        \set Staff.instrumentName = #"Altus"
         \incipit \altusIncipit
         \altusNotes
       >>
       \new Lyrics = "altusLyrics" \lyricsto altusNotes { \altusLyrics }
       \new Voice = "tenorNotes" <<
         \global
-        \set Staff.instrumentName = "Tenor"
+        \set Staff.instrumentName = #"Tenor"
         \incipit \tenorIncipit
         \tenorNotes
       >>
       \new Lyrics = "tenorLyrics" \lyricsto tenorNotes { \tenorLyrics }
       \new Voice = "bassusNotes" <<
-        \set Staff.instrumentName = "Bassus"
+        \global
+        \set Staff.instrumentName = #"Bassus"
         \incipit \bassusIncipit
         \bassusNotes
       >>
@@ -268,7 +269,7 @@ bassusLyrics = \lyricmode {
       %% overall spacing if you comment in the following command.
       %%\remove "Forbid_line_break_engraver"
     }
-    indent=6\cm
+    indent = 6\cm
     incipit-width = 4\cm
   }
 }

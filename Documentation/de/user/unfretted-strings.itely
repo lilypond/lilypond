@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @node Unfretted string instruments
 @section Unfretted string instruments
@@ -15,9 +15,7 @@
 @untranslated
 
 @menu
-* Common notation for unfretted strings::
-* Bowed instruments::
-* Plucked instruments::
+* Common notation for unfretted strings::  
 @end menu
 
 @node Common notation for unfretted strings
@@ -26,25 +24,25 @@
 @untranslated
 
 @menu
-* References for unfretted strings::
+* References for unfretted strings::  
+* Bowing indications::          
+* Harmonics::                   
+* Snap (Bartók) pizzicato::     
 @end menu
 
 @node References for unfretted strings
-@subsubsection References for unfretted strings
+@unnumberedsubsubsec References for unfretted strings
 
 @untranslated
 
-@node Bowed instruments
-@subsection Bowed instruments
+@node Bowing indications
+@unnumberedsubsubsec Bowing indications
 
 @untranslated
 
-@menu
-* References for bowed strings::
-@end menu
+@node Harmonics
+@unnumberedsubsubsec Harmonics
 
-@node References for bowed strings
-@subsubsection References for bowed strings
 
 @cindex Flageolett
 
@@ -52,21 +50,11 @@ Flageolett-Töne werden mit einem anderen Notenkopfstil notiert.
 Sie werden eingegeben, indem die Flageolettnote mit dem
 Befehl @code{\harmonic} markiert wird.
 
-@lilypond[ragged-right,verbatim,quote,fragment,relative=1]
-<c g'\harmonic>4
+@lilypond[verbatim,quote,relative=1]
+<e a\harmonic>2  <c g'\harmonic>
 @end lilypond
 
-@node Plucked instruments
-@subsection Plucked instruments
+@node Snap (Bartók) pizzicato
+@unnumberedsubsubsec Snap (Bartók) pizzicato
 
 @untranslated
-
-@menu
-* Harp::
-@end menu
-
-@node Harp
-@subsubsection Harp
-
-@untranslated
-

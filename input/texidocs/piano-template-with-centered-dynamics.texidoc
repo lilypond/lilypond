@@ -6,3 +6,10 @@ que hacer este trucaje por nuestra cuenta.
 
 "
   doctitlees = "Plantilla de piano con matices centrados"
+  
+  texidocde = "
+In der meisten Klaviernotation werden die Dynamikzeichen zwischen 
+den beiden Systemen zentriert. Für LilyPond muss man die Einstellungen 
+etwas anpassen, aber Sie können ja das angepasste Beispiel von hier 
+kopieren.
+"

@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 4f64fbb128ccedeaa5fdc9748d0bd408f095757c
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @c Translation status: post-GDP
 
@@ -29,16 +29,22 @@ LilyPond.
 
 
 @menu
-* Engraving::                   
-* Automated engraving::         
-* What symbols to engrave?::    
-* Music representation::        
-* Example applications::        
+* Engraving::
+* Automated engraving::
+* What symbols to engrave?::
+* Music representation::
+* Example applications::
 @end menu
 
 
 @node Engraving
 @unnumberedsubsec Engraving
+
+@cindex grabado
+@cindex typografía musical
+@cindex musical, tipografía
+@cindex plancha, grabado en
+@cindex musical, grabado
 
 El arte de la tipografía musical se conoce como @emph{grabado (en
 plancha)}.  El término deriva del proceso tradicional de la impresión
@@ -195,6 +201,7 @@ music = {
 
 @cindex ritmos regulares
 @cindex espaciado regular
+@cindex regular, espaciado
 
 Cada uno de los dos compases de este fragmento tiene solamente notas
 de duración constante.  El espaciado debería reflejarlo.
@@ -207,8 +214,6 @@ deberían juntarse, todo ello dependiendo de las posiciones combinadas
 de las notas.  Los dos compases de arriba están impresos con esta
 corrección y los de abajo sin ella, formando grupos de notas pegadas
 con plica abajo/@/plica arriba.
-
-@cindex tipografía
 
 Los músicos están normalmente más concentrados en tocar que en
 estudiar el aspecto de una partitura, y por ello las pequeñeces sobre
@@ -252,6 +257,9 @@ y de las que tanto nos gusta tocar.
 @node Automated engraving
 @unnumberedsubsec Automated engraving
 
+@cindex grabado automatizado
+@cindex automático, grabado
+
 ¿Cómo nos las arreglamos para implementar la tipografía? Si un
 artesano necesita más de diez años para convertirse en un auténtico
 maestro ¿cómo vamos a poder nosotros, simples «hackers», escribir un
@@ -291,7 +299,10 @@ usuario.
 tanto necesitamos un enfoque flexible para las reglas.  El lenguaje
 C++ fuerza un cierto método para agrupar las reglas que no encaja bien
 con la manera de funcionar de la notación musical.
+
 @end itemize
+
+@cindex Scheme, lenguaje de programación
 
 Estos problemas se han solucionado integrando un intérprete del
 lenguaje Scheme y reescribiendo parte del código de LilyPond en
@@ -320,6 +331,10 @@ direcciones hacia arriba (o hacia la derecha).
    \stemUp <e g b>4^>-\arpeggio
 }
 @end lilypond
+
+@cindex partitura, dar formato a
+@cindex formato, dar a una partitura
+@cindex formateado, reglas de
 
 @noindent
 El proceso de formatear una partitura consiste en leer y escribir las
@@ -401,6 +416,9 @@ altera durante el transcurso del fragmento musical.
 
 @cindex grabado
 @cindex tipografía
+@cindex grabador
+@cindex plug-in
+@cindex complemento (plugin)
 
 El proceso de formateo toma las decisiones sobre dónde colocar los
 símbolos.  Sin embargo esto sólo se puede hacer una vez que se ha
@@ -563,6 +581,10 @@ conseguimos una notación completa.
 \score { \topVoice }
 @end lilypond
 
+@cindex polifonía
+@cindex grabar varias voces
+@cindex contextos
+
 Este sistema funciona bien para la música monofónica, pero ¿y con la
 polifonía?  En notación polifónica muchas voces pueden compartir el
 mismo pentagrama.
@@ -600,6 +622,9 @@ Referencia de funcionamiento interno:
 
 @node Music representation
 @unnumberedsubsec Music representation
+
+@cindex sintaxis
+@cindex recursivas, estructuras
 
 Idealmente el formato de entrada para cualquier sistema de formateo de
 alto nivel es una descripción abstracta del contenido.  En este caso,
@@ -708,6 +733,9 @@ fuente.
 @node Example applications
 @unnumberedsubsec Example applications
 
+@cindex sencillos, ejemplos
+@cindex ejemplos sencillos
+
 Escribimos LilyPond como un experimento de cómo condensar el arte del
 grabado de música dentro de un programa de ordenador.  Gracias a todo
 este duro trabajo, el programa ahora se puede usar para hacer trabajos
@@ -757,14 +785,21 @@ en algo muy sencillo.
 
 Esta sección explica la distintas partes de la documentación.
 
+@cindex Manual de aprendizaje
+@cindex Glosario musical
+@cindex Referencia de la notación
+@cindex Utilización del programa
+@cindex Fragmentos de código
+@cindex Referencia de funcionamiento interno
 
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
+@c This is actually a limitation of texi2html. -jm
 @menu
-* About the Learning Manual::  este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
-* About the Music Glossary::  este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
+* About the Learning Manual::   este manual es una introducción a LilyPond que porporciona explicaciones en profundidad sobre cómo crear notación.
+* About the Music Glossary::    este manual explica términos musicales y aporta traducciones de términos a otros idiomas.
 * About the Notation Reference::  este manual es la porción más importante de la documentación.  Proporciona información detallada sobre la creación de notación.  Este libro da por supuesto que el lector ya conoce el material básico cubierto en el Manual de aprendizaje y que está familiarizado con los términos musicales ingleses presentados en el Glosario musical.
 * About the Application Usage::  trata sobre los programas concretos y los asuntos específicos de distintos sistemas operativos.
-* About the Snippet List::  es una colección de ejemplos breves de LilyPond.
+* About the Snippet List::      es una colección de ejemplos breves de LilyPond.
 * About the Internals Reference::  este documento proporciona información sobre la programación interna de LilyPond, que es necesaria para construir los trucos.
 * Other documentation::         existen algunas otras porciones de la documentación, como las Noticias y los archivos históricos de las listas de correo.
 @end menu
@@ -772,6 +807,8 @@ Esta sección explica la distintas partes de la documentación.
 
 @node About the Learning Manual
 @unnumberedsubsec About the Learning Manual
+
+@cindex Manual de aprendizaje
 
 Este libro explica cómo empezar a aprender LilyPond, así como algunos
 conceptos clave en términos sencillos.  Se recomienda leer estos
@@ -830,20 +867,26 @@ siquiera a tocar el Scheme.
 @node About the Music Glossary
 @unnumberedsubsec About the Music Glossary
 
+@cindex Glosario musical
 @cindex frase idiomática
 @cindex jerga
 @cindex terminología
 @cindex idomas extranjeros
 @cindex idiomas
 
-@ref{Top,Music glossary,,music-glossary}: explica términos musicales e
-incluye traducciones a varios idiomas.  Si no está familiarizado con
-la notación o la terminología musicales (especialmente si no es un
+@rglosnamed{Top,Glosario musical}: explica términos musicales e incluye
+traducciones a varios idiomas.  Si no está familiarizado con la
+notación o la terminología musicales (especialmente si no es un
 anglófono nativo), es muy recomendable que consulte el glosario.
 
 
 @node About the Notation Reference
 @unnumberedsubsec About the Notation Reference
+
+@cindex Referencia de la notación
+@cindex apéndices
+@cindex referencia, cuadros de
+@cindex cuadros de referencia
 
 Este libro explica todas las instrucciones de LilyPond que producen
 notación impresa.  Da por supuesto que el lector está familiarizado
@@ -919,6 +962,9 @@ un índice completo.
 @node About the Application Usage
 @unnumberedsubsec About the Application Usage
 
+@cindex Utilización del programa
+@cindex integrar LilyPond con otros programas
+
 Este libro explica la manera de ejecutar el programa y cómo integrar
 la notación de LilyPond con otros programas.
 
@@ -959,13 +1005,15 @@ convierten una amplia variedad de formatos de música al formato
 @unnumberedsubsec About the Snippet List
 
 @cindex snippets (fragmentos de código)
+@cindex fragmentos de código (snippets)
 @cindex LSR
+@cindex LilyPond Snippet Repository
 
-@c FIXME: check on kainhofer.
-@rlsrnamed{Top,LilyPond Snippet List}:
-presenta un conjunto seleccionado de pfragmentos de código de LilyPond
-procedentes del @uref{http://lsr@/.dsi@/.unimi@/.it,Repositorio de
-Fragmentos de Código} (LSR).  Se encuentra en el dominio público.
+@rlsrnamed{Top,Lista de fragmentos de código de LilyPond}: presenta un conjunto
+seleccionado de pfragmentos de código de LilyPond procedentes del
+@uref{http://lsr@/.dsi@/.unimi@/.it,Repositorio de Fragmentos de
+Código} (LSR).  Todos los fragmentos se encuentran en el dominio
+público.
 
 Observe que este documento no es un subconjunto exacto de LSR.  El LSR
 ejecuta una versión estable de LilyPond, por lo que cualquier
@@ -981,17 +1029,9 @@ enlazados desde la parte @strong{Véase también}.
 @node About the Internals Reference
 @unnumberedsubsec About the Internals Reference
 
-@c zzz
+@cindex Referencia de funcionamiento interno
 
-@itemize
-@item
-La
-@iftex
-Referencia de Funcionamiento Interno
-@end iftex
-@ifnottex
-@ref{Top,Internals Reference,,lilypond-internals}
-@end ifnottex
+@rinternalsnamed{Top,Referencia de funcionamiento interno}:
 es un conjunto de páginas HTML con una tupida red de enlaces cruzados,
 que documentan al detalle el meollo de todas y cada una de las clases,
 objetos y funciones de LilyPond.  Se produce directamente a partir de
@@ -1007,57 +1047,64 @@ subsección @b{Véase también}, que hace referencia a la documentación
 generada.  En el documento HTML, estas subsecciones llevan enlaces que
 se pueden seguir, pulsando sobre ellos.
 
-@end itemize
 
 @node Other documentation
 @unnumberedsubsec Other documentation
 
-Existen algunos otros lugares que pueden resultar muy valiosos.
+Existen algunos otros lugares que pueden resultar muy valiosos como
+fuente de información.
 
-Cuando ya sea un usuario con experiencia podrá usar el manual como
-referencia: hay un índice muy completo@footnote{Si está buscando algo
-y no lo encuentra en el manual, eso se considera un @emph{bug}
-(fallo).  En este caso le rogamos que envíe un informe de fallo.},
-pero el documento también está disponible en
-@iftex
-una sola página HTML,
-@end iftex
+@itemize
+
+@item
 @ifhtml
-@uref{source/Documentation/user/lilypond-big-page.html,una sola página enorme},
+@ifset bigpage
+@uref{../topdocs/NEWS.html,News}:
+@end ifset
+@ifclear bigpage
+@uref{../../topdocs/NEWS.html,News}:
+@end ifclear
 @end ifhtml
-en la que es fácil buscar cualquier cosa utilizando la función de búsqueda de su
-navegador de web.
- 
+@ifnothtml
+Noticias:
+@end ifnothtml
+es un resumen de los cambios importantes y las posibilidades nuevas de
+LilyPond desde la versión anterior.
 
-En todos los documentos HTML que tienen fragmentos de música
-incrustados, la entrada de LilyPond que se utilizó para producir dicha
-imagen se puede ver pulsando con el ratón sobre la imagen.
+@item @uref{http://lists.gnu.org/archive/html/lilypond-user/, Los archivos de la
+lista de correo de usuarios lilypond-user}: es una recopilación de
+todos los mensajes de correo que se han enviado a la lista de
+usuarios.  Hay muchas preguntas que se han formulado varias veces; muy
+probablemente, si tiene alguna pregunta, la respuesta puede
+encontrarse en estos archivos.
 
-La localización exacta de los archivos de documentación que hemos
-mencionado puede variar de un sistema a otro.  En ocasiones este
-manual hace referencia a archivos de inicialización y de ejemplo.  A
-lo largo del manual, nos referimos a archivos de entrada por su ruta
-relativa respecto de directorio de nivel más alto de los archivos de
-código fuente.  Por ejemplo, @file{input/@/lsr/@/carpeta/@/bla@/.ly}
-puede referirse al archivo
+@item @uref{http://lists.gnu.org/archive/html/lilypond-devel/, Los
+archivos de la lista de correo de desarrollo lilypond-devel}: es una
+recopilación de todos los mensajes de correo que se han enviado a la
+lista de los desarrolladores.  Aquí la discusión tiene un carácter más
+técnico; si tiene una pregunta avanzada relacionada con el
+funcionamiento interno de lilypond, la respuesta puede estar en estos
+archivos.
+
+@item Fragmentos de música incrustados: en todos los documentos en HTML que
+tienen fragmentos de música incluidos, el código de entrada exacto de
+LilyPond que se utilizó para producir dicha imagen se puede ver
+pulsando sobre ella.
+
+@item Archivos de inicio: La localización exacta de los archivos de
+documentación que hemos mencionado puede variar de un sistema a otro.
+En ocasiones este manual hace referencia a archivos de inicialización
+y de ejemplo.  A lo largo del manual, nos referimos a archivos de
+entrada por su ruta relativa respecto de directorio de nivel más alto
+de los archivos de código fuente.  Por ejemplo,
+@file{input/@/lsr/@/carpeta/@/bla@/.ly} puede referirse al archivo
 @file{lilypond@/2.x.y/@/input/@/lsr/@/carpeta/@/bla@/.ly}.  En los
-paquetes binarios para la plataforma Unix, normalmente la
+paquetes binarios para la plataforma UNIX, normalmente la
 documentación y los ejemplos se encuentran en algún lugar dentro de
 @file{/usr/@/share/@/doc/@/lilypond/}. Los archivos de inicialización,
 como por ejemplo @file{scm/@/lily@/.scm}, o
 @file{ly/@/engraver@/-init@/.ly}, se encuentran normalmente en el
-directorio @file{/usr/@/share/@/lilypond/}.
+directorio @file{/usr/@/share/@/lilypond/}. Para ver más detalles,
+consulte @ref{Other sources of information}.
 
-@cindex ajustar la salida
-@cindex variables
-@cindex propiedades
-@cindex funcionamiento interno de lilypond
-@cindex documentación interna
-@cindex Scheme
-@cindex extender lilypond
-@cindex índice
-
-Por último, este y el resto de los manuales están disponibles en línea
-tanto como archivos PDF como en HTML en el sitio web, que encontrará
-en @uref{http://@/www@/.lilypond@/.org/}.
-
+@end itemize

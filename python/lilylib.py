@@ -68,6 +68,14 @@ def stderr_write (s):
 
 progress = stderr_write
 
+def require_python_version ():
+    if sys.hexversion < 0x02040000:
+        stderr_write ("Python 2.4 or newer is required to run this program.\n\
+Please upgrade Python from http://python.org/download/, and if you use MacOS X,\n\
+please read 'Setup for MacOS X' in Application Usage.")
+        os.system ("open http://python.org/download/")
+        sys.exit (2)
+
 # Modified version of the commands.mkarg(x), which always uses 
 # double quotes (since Windows can't handle the single quotes:
 def mkarg(x):

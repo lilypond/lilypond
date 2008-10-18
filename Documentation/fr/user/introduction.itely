@@ -7,7 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
 @c Translators: Ludovic Sardain, John Mandereau
 @c Translation checkers: Jean-Charles Malahieude, Jean-Yves Baudais
@@ -69,7 +69,7 @@ désagréables à jouer.
 
 @c introduce illustrating aspects of engraving, font...
 Les images ci-dessous illustrent la différence entre la gravure
-traditionelle et l'impression typique par ordinateur, et la troisème
+traditionelle et l'impression typique par ordinateur, et la troisième
 image montre comment LilyPond mime l'aspect traditionnel.  L'image de
 gauche est une numérisation d'un symbole bémol d'une édition publiée
 en 2000.  Celle du centre montre un bémol d'une gravure à la main de

@@ -12,29 +12,14 @@
     <meta name="description"
           content="Top-level index to the standard documentation for
                    LilyPond @TOPLEVEL_VERSION@">
-    <style type="text/css">
-    .navigation         { background-color: #e8ffe8;
-   	                  padding: 2; border: #c0ffc0 1px solid;
-			  text-align: center;
-                          font-weight: bold;
-                          font-family: avantgarde, sans-serif;
-                          font-size: 110%; }
-      a.title { font-weight: bold; font-size: 110%; }
-      ul { margin-left: 1em; padding: 0pt; border: 0pt; }
-      ul li { margin-top: 0.2em; }
-      td.left-column { padding-right: 1em; }
-      td.right-column { padding-left: 1em; }
-      hr { border:0; height:1; color: #000000; background-color: #000000; }
-    </style> 
   </head>
   
   <body>
-        
-	<div class="navigation">
-	  <h1>LilyPond documentation</h1>
-	</div>
-    <div align="center" class="titlepage">
+    <div class="header">
+      <h1>LilyPond documentation</h1>
+    </div>
 
+    <div class="subheader">
       <p>
 	<strong>Version @TOPLEVEL_VERSION@</strong>
 	<br>
@@ -42,7 +27,7 @@
       </p>
     </div>
 
-    <table align="center">
+    <table id="navigation">
       <tbody>
         <tr>
           <td class="left-column">
@@ -52,110 +37,110 @@
 href="user/lilypond-learning/index.html">Learning Manual</a>
 (in <a class="title" href="user/lilypond-learning-big-page.html">one big page</a> ~ 1.5 MB,
 in <a class="title" href="user/lilypond-learning.pdf">PDF</a>)
-	      <br>(start here)
+              <br>(start here)</li>
 
 	   <li><a class="title"
 href="user/music-glossary/index.html">Music Glossary</a>
 (in <a class="title" href="user/music-glossary-big-page.html">one big page</a> ~ 500 kB,
 in <a class="title" href="user/music-glossary.pdf">PDF</a>)
 
-     <br>(for non-English users)
+     <br>(for non-English users)</li>
 	</ul>
 	  </td>
 	  <td class="right-column">
 	  <ul>
 	          <li>
 	    <a class="title" href="topdocs/NEWS.html">News</a>
- 	    <br>(changes since the previous major release)
+            <br>(changes since the previous major release)</li>
 
 <li><a class="title" href="../examples.html">Examples</a>
-     <br>(see some examples)
+     <br>(see some examples)</li>
 
 	  </ul>
 	  </td>
         </tr>
         <tr>
           <td valign="baseline" class="left-column">
-          &nbsp;
 	  <ul>
 	    <li>
 <a class="title" href="user/lilypond/index.html">Notation
 Reference</a>
 (in <a class="title" href="user/lilypond-big-page.html">one big page</a> ~ 4 MB,
 in <a class="title" href="user/lilypond.pdf">PDF</a>)
-     <br>(writing music in LilyPond)
+     <br>(writing music in LilyPond)</li>
 
        <li>
  <a  class="title"
 href="user/lilypond-internals/index.html">Internals Reference</a>
  (in <a class="title" href="user/lilypond-internals-big-page.html">one big page</a> ~ 1 MB,
   in <a class="title" href="user/lilypond-internals.pdf">PDF</a>)
-     <br>(definitions for tweaking)
+     <br>(definitions for tweaking)</li>
 
   </ul>
 	  </td>
 	  <td valign="baseline" class="right-column">
-          &nbsp;
 	  <ul>
               <li>
 	    <a class="title"
 href="user/lilypond-program/index.html">Application Usage</a>
 (in <a class="title" href="user/lilypond-program-big-page.html">one big page</a>,
 in <a class="title" href="user/lilypond-program.pdf">PDF</a>)
-	    <br>(how to install and run the program)
+            <br>(how to install and run the program)</li>
 
 <li><a class="title"href="../input/lsr/lilypond-snippets/index.html">Snippets List</a>
 (in <a class="title" href="../input/lsr/lilypond-snippets-big-page.html">one big page</a> ~ 2MB,
 in <a class="title" href="user/lilypond-snippets.pdf">PDF</a>)
-     <br>(Short tricks, tips, and examples)
+     <br>(Short tricks, tips, and examples)</li>
 
 	</ul>
 
     </td>
         <tr>
           <td valign="baseline" class="left-column">
-          &nbsp;
 	<ul>
             <li><a class="title"  href="devel.html">Developers resources</a>
-              <br>(documentation for developers and contributors)
+              <br>(documentation for developers and contributors)</li>
 	</ul>
     </td><td class="right-column">
-          &nbsp;
 	<ul>
           <li><a class="title"  href="translations.html">Translations status</a>
-          <br>(see translations progress)
+          <br>(see translations progress)</li>
 	</ul>
 	  </td>
         </tr>
         <tr>
           <td valign="baseline" class="left-column">
-          &nbsp;
 	<ul>
 
             <li> <a class="title"  href="http://lilypond.org/">lilypond.org</a>
-              <br>(the website)
+              <br>(the website)</li>
             <li>
 	      <a class="title" href="http://www.gnu.org/copyleft/gpl.html">License</a>
-	      <br> (the GNU GPL) 
+              <br>(the GNU GPL)</li>
 
 	</ul>
     </td><td class="right-column">
-          &nbsp;
     <ul>
         <li><a class="title"  href="THANKS.html">Thankyous</a>
-        <br>(to our contributors)
+        <br>(to our contributors)</li>
 
         <li><a class="title"  href="DEDICATION.html">Dedication</a>
-        <br>(by Jan and Han-Wen)
+        <br>(by Jan and Han-Wen)</li>
 
 	  </ul>
 	  </td>
         </tr>
       </tbody>
     </table>
-    <p><strong>NOTE</strong>: like every HTML page in this
-      documentation, you can find at bottom links to translations of
-      this page in other languages.
+    <p>
+      All the documentation you read from this page is available for <strong>download</strong>.
+      <a href="http://download.linuxaudio.org/lilypond/binaries/documentation/lilypond-@TOPLEVEL_VERSION@-1.documentation.tar.bz2">Download
+	the tarball</a>.
+    </p>
+    <p>
+      Like every HTML page in this documentation, you can find at
+      bottom links to <strong>translations</strong> of this page in
+      other languages.
     </p>
   </body>
 </html>

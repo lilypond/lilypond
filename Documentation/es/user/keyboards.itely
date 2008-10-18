@@ -1,56 +1,147 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f02e10cde760bb4981b73742f0fb5a867e1d3d33
+    Translation of GIT committish: bc494bf964f01a1327bc7c6e3c70d0cb8d897ecb
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.51"
+@c \version "2.11.61"
 
-@node Keyboard instruments
-@section Keyboard instruments
+@node Keyboard and other multi-staff instruments
+@section Keyboard and other multi-staff instruments
+
+@lilypondfile[quote]{keyboard-headword.ly}
+
+Esta sección se ocupa de varios aspectos de la notación musical que
+son exclusivos de los instrumentos de teclado y otros instrumentos
+cuya notación se realiza sobre varios pentagramas, como el arpa o el
+vibráfono.  A los efectos de nomenclatura, en esta sección se
+denominan abreviadamente @qq{teclados} a todo este grupo de
+instrumentos de varios pentagramas, aunque algunos de ellos no tienen
+teclado.
+
 
 @menu
-* Common notation for keyboards::  
-* Piano::                       
-* Accordion::                   
+* Common notation for keyboards::
+* Piano::
+* Accordion::
+* Harp::
 @end menu
 
 @node Common notation for keyboards
 @subsection Common notation for keyboards
 
+Esta sección trata aspectos de notación que pueden aparecer en casi
+todos los instrumentos que tengan muchas cuerdas.
+
 @menu
-* References for keyboards::    
-* Changing staff manually::     
-* Changing staff automatically::  
-* Staff-change lines::          
-* Cross-staff stems::           
+* References for keyboards::
+* Changing staff manually::
+* Changing staff automatically::
+* Staff-change lines::
+* Cross-staff stems::
 @end menu
 
 @node References for keyboards
 @unnumberedsubsubsec References for keyboards
 
-@untranslated
-@ifnothtml
-@englishref
-@end ifnothtml
+@cindex piano, pentagramas de
+@cindex pentagramas de piano
+@cindex pentagramas de instrumentos de teclado
+@cindex teclado, pentagramas para instrumentos de
+@cindex tecla, pentagramas para instrumentos de
 
-Los sistemas de piano son dos pentagramas normales agrupados mediante
-una llave.  Los pentagramas son hasta cierto punto independientes,
-pero a veces las voces pueden cruzarse entre los dos pentagramas.
-También se utiliza esta notación para otros instrumentos de teclado y
-para el arpa.  El @code{PianoStaff} está preparado
-especialmente para manejar este comportamiento de cruce de
-pentagramas.  En esta sección trataremos el @code{PianoStaff}
-y alguna que otra peculiaridad pianística.
+@funindex PianoStaff
+
+La notación de los instrumentos de teclado se suele realizar con
+sistemas de piano.  Éstos son dos pentagramas normales agrupados
+mediante una llave.  También se utiliza esta notación para otros
+instrumentos de teclado.  La música de órgano se escribe normalmente
+con dos pentagramas dentro de un grupo @code{PianoStaff} y un tercer
+pentagrama normal para los pedales.
+
+Los pentagramas son hasta cierto punto independientes, pero a veces
+las voces pueden cruzarse entre los dos pentagramas.  Esta sección
+trata técnicas de notación que son particulares de la música de
+teclado.
+
+En otros lugares se tratan varios problemas comunes de la música de
+teclado:
+
+@itemize
+
+@item La música para teclado suele contener varias voces y el número de
+éstas puede variar ampliamente; esto se describe en @ref{Collision
+resolution}.
+
+@item La música para teclado se puede escribir en paralelo, como se describe
+en @ref{Writing music in parallel}.
+
+@item Las digitaciones se indican como puede verse en @ref{Fingering instructions}.
+
+@item Las indicaciones de pedal de órgano se insertan como articulaciones,
+véase @ref{List of articulations}.
+
+@item Las líneas verticales de rejilla se pueden mostrar como se describe en @ref{Grid lines}.
+
+@item La música para teclado incluye con frecuencia ligaduras
+@notation{Laissez vibrer} así como ligaduras sobre arpegios y
+trémolos, descritos en @ref{Ties}.
+
+@item La colocación de arpegios a través de varias voces y pentagramas se
+cubre en @ref{Arpeggio}.
+
+@item Las indicaciones de trémolo se describen en @ref{Tremolo repeats}.
+
+@item Varios de los trucos que pueden ser necesarios en música para teclado
+se muestran en @rlearning{Real music example}.
+
+@item Las notas ocultas se pueden usar para producir ligaduras de unión que
+se cruzan entre voces, como se explica en @rlearning{Other uses for
+tweaks}.
+
+@end itemize
+
+@seealso
+
+Manual de aprendizaje:
+@rlearning{Real music example},
+@rlearning{Other uses for tweaks}.
+
+Referencia de la notación:
+@c @ref{Grouping staves},
+@ref{Instrument names},
+@ref{Collision resolution},
+@ref{Writing music in parallel},
+@ref{Fingering instructions},
+@ref{List of articulations},
+@ref{Grid lines},
+@ref{Ties},
+@ref{Arpeggio},
+@ref{Tremolo repeats}.
+
+Referencia de funcionamiento interno:
+@rinternals{PianoStaff}.
+
+Fragmentos de código:
+@rlsr{Keyboards}.
 
 @knownissues
 
+@cindex teclado, matices centrados para música de
+@cindex dinámica, indicaciones de, centradas para música de teclado
+@cindex piano, dinámica centrada para música de
+@cindex centrar indicaciones dinámicas en música para piano
+
+@funindex staff-padding
+
 Los matices no se colocan centrados, pero se pueden utilizar ciertas
-alternativas.  Consulte la plantilla @q{piano con matices centrados}
-que está en @rlearning{Piano templates}.
+alternativas.  Una opción es la plantilla @q{piano con matices
+centrados} que está en @rlearning{Piano templates}; otra opción es
+aumentar el relleno (@code{staff-padding}) de los matices como se
+estudia en @rlearning{Moving objects}.
 
 
 @node Changing staff manually
@@ -58,101 +149,166 @@ que está en @rlearning{Piano templates}.
 
 @cindex manual, cambio de pentagrama
 @cindex pentagrama, cambios manuales de
+@cindex cambbio manual de pentagrama
+@cindex cruzado, pentagrama, notas de
+@cindex notes de pentagrama cruzado
+@cindex barras de pentagrama cruzado
+@cindex cruzado, pentagrama, barras de
+
+@funindex \change
+@funindex change
 
 Las voces se pueden cambiar de pentagrama manualmente usando la instrucción
+
 @example
-\change Staff = @var{nombre_del_pentagrama} @var{música}
+\change Staff = @var{nombre_del_pentagrama}
 @end example
 
 @noindent
 La cadena @var{nombre_del_pentagrama} es el nombre del pentagrama.
 Cambia la voz actual de su pentagrama en curso al pentagrama de nombre
-@var{nombre_del_pentagrama}.  Por lo común @var{nombre_del_pentagrama}
-es @code{"up"} o @code{"down"}.  El @code{Staff} referido debe
-existir previamente, por ello normalmente la preparación de una
-partitura empezará por la preparación de los pentagramas,
+@var{nombre_del_pentagrama}.  Los valores más corrientes para
+@var{nombre_del_pentagrama} son @code{"arriba"} y @code{"abajo"}, o
+bien @code{"MD"} y @code{"MI"}.
 
-@example
-<<
-  \new Staff = "up" @{
-    \skip 1 * 10  % @emph{mantener vivo el pentagrama}
-    @}
-  \new Staff = "down" @{
-    \skip 1 * 10  % @emph{ídem}
-    @}
+Las notas de pentagrama cruzado reciben la barra automáticamente:
+
+@lilypond[verbatim,quote]
+\new PianoStaff <<
+  \new Staff = "up" {
+    <e' c'>8
+    \change Staff = "down"
+    g8 fis g
+    \change Staff = "up"
+    <g'' c''>8
+    \change Staff = "down"
+    e8 dis e
+    \change Staff = "up"
+  }
+  \new Staff = "down" {
+    \clef bass
+    % keep staff alive
+    s1
+  }
 >>
-@end example
+@end lilypond
 
+Si el barrado necesita algún trucaje, efectúe en primer lugar los
+cambios en las direcciones de las plicas.  Las posiciones de las
+barras se miden posteriormente a partir del centro del peentagrama que
+está más cerca de la barra.  Para ver un ejemplo sencillo de trucaje
+de las barras, consulte @rlearning{Fixing overlapping notation}.
 
-y la @code{Voice} se inserta con posterioridad
+@seealso
 
-@example
-\context Staff = down
-  \new Voice @{ @dots{} \change Staff = up @dots{} @}
-@end example
+Manual de aprendizaje:
+@rlearning{Fixing overlapping notation}.
+
+Referencia de la notación:
+@ref{Stems},
+@ref{Automatic beams}.
+
+Fragmentos de código:
+@rlsr{Keyboards}.
+
+Referencia de funcionamiento interno:
+@rinternals{Beam},
+@rinternals{ContextChange}.
 
 
 @node Changing staff automatically
 @unnumberedsubsubsec Changing staff automatically
-@cindex Cambio automático de pentagrama
+
+@cindex cambio automático de pentagrama
+@cindex automático, cambio de pentagrama
+@cindex pentagrama, cambio automático de
+
+@funindex \autochange
+@funindex autochange
+@funindex PianoStaff
 
 Se puede hacer que las voces cambien automáticamente entre los
 pentagramas inferior y superior.  La sintaxis para conseguir esto es
 
-@quotation
 @example
 \autochange @dots{}@var{música}@dots{}
 @end example
-@end quotation
 
 @noindent
-Esto creará dos pentagramas dentro del PianoStaff actual, llamados
-@code{up} (arriba) y @code{down} (abajo).  El pentagrama inferior
-estará en clave de Fa por omisión.
+Esto creará dos pentagramas dentro del grupo actual de pentagramas
+(normalmente un @code{PianoStaff}), llamados @code{"up"} (arriba) y
+@code{"down"} (abajo).  El pentagrama inferior estará en clave de Fa
+de forma predeterminada.  El cambiador automático hace el cambio
+basándose en la altura (el Do@tie{}central es el punto de inflexión),
+y se adelanta saltando sobre los silencios para hacer cambios por
+adelantado.
 
-Una sección marcada @code{\relative} que se encuentra fuera de
-@code{\autochange} no tiene efecto sobre las notas de la @var{música},
-por tanto, en caso necesario escriba @code{\relative} dentro de
-@code{\autochange}, como en
-
-@quotation
-@example
-\autochange \relative @dots{} @dots{}
-@end example
-@end quotation
-
-
-El cambiador automático hace el cambio basándose en la altura (el Do
-central es el punto de inflexión), y se adelanta saltando sobre los
-silencios para hacer cambios por adelantado.  He aquí un ejemplo
-práctico
-
-@lilypond[quote,verbatim,ragged-right]
-\new PianoStaff
-  \autochange \relative c'
-  {
-    g4 a b c d r4 a g
+@lilypond[quote,verbatim]
+\new PianoStaff {
+  \autochange {
+    g4 a b c'
+    d'4 r a g
   }
+}
 @end lilypond
 
+@cindex relativo, modo, autocambiador y
+@cindex autocambiador y el modo relativo
+
+@funindex \relative
+@funindex relative
+
+Una sección marcada @code{\relative} que se encuentra fuera de
+@code{\autochange} no tiene efecto sobre las notas de la música; por
+tanto, en caso necesario escriba @code{\relative} dentro de
+@code{\autochange}.
+
+Si se necesita más control sobre los pentagramas individuales, se
+pueden crear manualmente con los nombres @code{"up"} y @code{"down"}.
+Entonces, la instrucción @code{\autochange} alternará su voz entre los
+pentagramas existentes.  Por ejemplo, esto es necesario para colocar
+una armadura de tonalidad en el pentagrama inferior:
+
+@lilypond[quote,verbatim]
+\new PianoStaff <<
+  \new Staff = "up" {
+    \new Voice = "melOne" {
+      \key g \major
+      \autochange \relative c' {
+        g8 b a c b d c e
+        d8 r fis, g a2
+      }
+    }
+  }
+  \new Staff = "down" {
+    \key g \major
+    \clef bass
+  }
+>>
+@end lilypond
 
 @seealso
 
-En este manual: @ref{Inside the staff}.
+Referencia de la notación:
+@ref{Changing staff manually}.
 
-Referencia del programa: @rinternals{AutoChangeMusic}.
+Fragmentos de código:
+@rlsr{Keyboards}.
 
-
+Referencia de funcionamiento interno:
+@rinternals{AutoChangeMusic}.
 
 @knownissues
+
+@cindex acordes, división entre pentagramas con \autochange
 
 Los cambios de pentagrama pueden no acabar en lugares óptimos.  Para
 conseguir una salida de alta calidad es mejor especificar manualmente
 los cambios de pentagrama.
 
-
-@code{\autochange} no puede estar dentro de @code{\times}.
-
+Los acordes no se dividen entre los pentagramas; se asignan a un
+pentagrama en función de la primera nota nombrada dentro de la
+construcción del acorde.
 
 @node Staff-change lines
 @unnumberedsubsubsec Staff-change lines
@@ -160,35 +316,52 @@ los cambios de pentagrama.
 @cindex seguimiento de voz
 @cindex pentagrama, cambio
 @cindex cruce de pentagramas
+@cindex pentagrama, línea de cambio de
+@cindex cruzado, línea de pentagrama
+@cindex línea de seguimiento de pentagrama
+@cindex línea de cambio de pentagrama
+@cindex seguimiento de voz
+@cindex voz, seguimiento de
+@cindex pentagrama, cambio de
+@cindex cruzado, pentagrama
 
 @funindex followVoice
+@funindex \showStaffSwitch
+@funindex showStaffSwitch
+@funindex \hideStaffSwitch
+@funindex hideStaffSwitch
 
-Cuando una voz cambia a otro pentagrama, se puede imprimir automáticamente una línea
-que conecte las notas.  Esto se activa estableciendo
-@code{followVoice} a verdadero
+Cuando una voz cambia a otro pentagrama, se puede imprimir
+automáticamente una línea que conecte las notas:
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[quote,verbatim,relative=1]
 \new PianoStaff <<
-  \new Staff="one" {
-    \set followVoice = ##t
+  \new Staff = "one" {
+    \showStaffSwitch
     c1
-    \change Staff=two
+    \change Staff = "two"
     b2 a
   }
-  \new Staff="two" { \clef bass \skip 1*2 }
+  \new Staff = "two" {
+    \clef bass
+    s1*2
+  }
 >>
 @end lilypond
 
-@seealso
-
-Referencia de funcionamiento interno: @rinternals{VoiceFollower}.
-
 @predefined
 
-@funindex \showStaffSwitch
 @code{\showStaffSwitch},
-@funindex \hideStaffSwitch
 @code{\hideStaffSwitch}.
+
+@seealso
+
+Fragmentos de código:
+@rlsr{Keyboards}.
+
+Referencia de funcionamiento interno:
+@rinternals{Note_head_line_engraver},
+@rinternals{VoiceFollower}.
 
 
 @node Cross-staff stems
@@ -198,120 +371,211 @@ Referencia de funcionamiento interno: @rinternals{VoiceFollower}.
 @cindex pentagrama cruzado, plica de
 @cindex distancia entre pentagramas en música de piano
 
-Los acordes que cruzan pentagramas se pueden producir mediante el incremento de la longitud
-de la plica en el pentagrama inferior, de manera que alcance a la plica que está en el pentagrama
-superior, y viceversa.
+@cindex cruzado, notas de pentagrama
+@cindex cruzado, plicas de pentagrama
+@cindex cruzado, acordes de pentagrama
+@cindex notas de pentagrama cruzado
+@cindex plicas de pentagrama cruzado
+@cindex acordes de pentagrama cruzado
 
-@lilypond[ragged-right,verbatim,quote]
-stemExtend = {
-  \once \override Stem #'length = #10
-  \once \override Stem #'cross-staff = ##t
-}
-noFlag = \once \override Stem #'flag-style = #'no-flag
+@funindex Stem
+@funindex cross-staff
+@funindex length
+@funindex flag-style
+
+Se pueden hacer acordes que cruzan los pentagramas:
+
+@lilypond[verbatim,quote]
 \new PianoStaff <<
   \new Staff {
-    \stemDown \stemExtend
-    f'4
-    \stemExtend \noFlag
-    f'8
+    \relative c' {
+      f8 e4 d8 d f e4
+    }
   }
   \new Staff {
-    \clef bass
-    a4 a8
+    \relative c' {
+      << {
+        \clef bass
+        % stems may overlap the other staff
+        \override Stem #'cross-staff = ##t
+        % extend the stems to reach other other staff
+        \override Stem #'length = #12
+        % do not print extra flags
+        \override Stem #'flag-style = #'no-flag
+        % prevent beaming as needed
+        a8 g4 f8 f bes\noBeam g4
+      }
+      \\
+      {
+        f,2 bes4 c
+      } >>
+    }
   }
 >>
 @end lilypond
 
+@snippets
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{indicating-cross-staff-chords-with-arpeggio-bracket.ly}
+
+@seealso
+
+Fragmentos de código:
+@rlsr{Keyboards}.
+
+Referencia de funcionamiento interno:
+@rinternals{Stem}.
 
 @node Piano
 @subsection Piano
 
+Esta sección trata de aspectos de la notación directamente
+relacionados con el piano.
+
 @menu
-* Piano pedals::                
+* Piano pedals::
 @end menu
 
 @node Piano pedals
 @unnumberedsubsubsec Piano pedals
-@cindex Pedales
 
-El piano tiene pedales que alteran la forma en que se produce el
-sonido.  Generalmente un piano tiene tres pedales: derecho, una corda
-y tonal (en inglés: sustain, una corda y sostenuto).
+@cindex piano, pedales de
+@cindex pedales de piano
+@cindex pedal forte
+@cindex pedal derecho
+@cindex pedal sostenuto
+@cindex derecho, pedal
+@cindex forte, pedal
+@cindex sostenuto, pedal
+@cindex una corda
+@cindex tre corde
+@cindex sos.
+@cindex U.C.
 
+@funindex \sustainOn
+@funindex sustainOn
+@funindex \sustainOff
+@funindex sustainOff
+@funindex \sostenutoOn
+@funindex sostenutoOn
+@funindex \sostenutoOff
+@funindex sostenutoOff
+@funindex \unaCorda
+@funindex unaCorda
+@funindex \treCorde
+@funindex treCorde
 
-Se puede expresar una instrucción de pedal de piano adjuntando
-@code{\sustainOn}, @code{\sustainOff}, @code{\unaCorda},
-@code{\treCorde}, @code{\sostenutoOn} y @code{\sostenutoOff} a una
-nota o acorde
+En general, los pianos tienen tres pedales que alteran la forma de
+producir el sonido: el pedal de mantenimiento (pedal
+@notation{derecho} o pedal @notation{forte}), el pedal
+@notation{sostenuto} (@notation{sos.}, pedal central) y el pedal
+@notation{una corda} (@notation{U.C.}, pedal izquierdo).  Los pedales
+de mantenimiento como el pedal derecho del piano se encuentran también
+en el vibráfono y en la celesta.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-c'4\sustainOn c'4\sustainOff
+@lilypond[quote,verbatim,relative=2]
+c4\sustainOn d e g
+<c, f a>1\sustainOff
+c4\sostenutoOn e g c,
+<bes d f>1\sostenutoOff
+c4\unaCorda d e g
+<d fis a>1\treCorde
 @end lilypond
 
-Es posible modificar lo que se imprime estableciendo @code{pedal@var{X}Strings},
-donde @var{X} es uno de los tipos de pedal: @code{Sustain},
-@code{Sostenuto} o @code{UnaCorda}.  Consulte
-@rinternals{SustainPedal} dentro de la referencia del programa para más
-información.
+@cindex pedal, estilos de indicación
+@cindex pedal, indicación textual
+@cindex pedal, indicación por corchete
+@cindex pedal, indicación mixta
+@cindex pedal de mantenimiento, estilo de
+@cindex mantenimiento, pedal, estilos de
 
-Los pedales se pueden indicar también mediante una secuencia de corchetes, estableciendo la
-propiedad @code{pedalSustainStyle} a objetos corchete
+@funindex pedalSustainStyle
+@funindex mixed
+@funindex bracket
+@funindex text
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\set Staff.pedalSustainStyle = #'bracket
-c\sustainOn d e
-b\sustainOff\sustainOn
-b g \sustainOff a \sustainOn \bar "|."
-@end lilypond
+Existen tres estilos de indicaciones de pedal: textual, corchete y
+mixta.  El pedal derecho y el pedal de una corda utilizan el estilo
+textual de forma predeterminada, mientras que el pedal sostenuto
+utiliza el método mixto de forma predeterminada.
 
-Un tercer estilo de notación de pedal es una mezcla de texto y corchetes,
-que se obtiene estableciendo la propiedad @code{pedalSustainStyle} a
-@code{mixed}
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
+c4\sustainOn g c2\sustainOff
 \set Staff.pedalSustainStyle = #'mixed
-c\sustainOn d e
-b\sustainOff\sustainOn
-b g \sustainOff a \sustainOn \bar "|."
+c4\sustainOn g c d
+d\sustainOff\sustainOn g, c2\sustainOff
+\set Staff.pedalSustainStyle = #'bracket
+c4\sustainOn g c d
+d\sustainOff\sustainOn g, c2
+\bar "|."
 @end lilypond
 
-El estilo por defecto @q{*Ped.} para los pedales derecho y una corda corresponde al
-estilo @code{#'text}.  El pedal tonal usa el estilo @code{mixed} por
-defecto.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-c\sostenutoOn d e c, f g a\sostenutoOff
-@end lilypond
-
-Para hacer un ajuste fino del aspecto de un corchete de pedal, se
-pueden modificar las propiedades @code{edge-width}, @code{edge-height}
-y @code{shorten-pair} de los objetos @code{PianoPedalBracket} (véase
-@rinternals{PianoPedalBracket} en la Referencia del programa).  Por
-ejemplo, el corchete se puede extender hasta el borde derecho de la
-cabeza de la nota
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\override Staff.PianoPedalBracket #'shorten-pair = #'(0 . -1.0)
-c\sostenutoOn d e c, f g a\sostenutoOff
-@end lilypond
+La colocación de las instrucciones de pedal se corresponden con el
+movimiento físico del pedal derecho en el transcurso de la ejecución.
+La pedalización hasta la barra final de compás se indica mediante la
+omisión de la instrucción final de levantar el pedal.
 
 @seealso
 
-Referencia de la notación: @ref{Ties} (laissez vibrer).
+Referencia de la notación:
+@ref{Ties}.
 
+Fragmentos de código:
+@rlsr{Keyboards}.
+
+Referencia de funcionamiento interno:
+@rinternals{SustainPedal},
+@rinternals{SustainPedalLineSpanner},
+@rinternals{SustainEvent},
+@rinternals{SostenutoPedal},
+@rinternals{SostenutoPedalLineSpanner},
+@rinternals{SostenutoEvent},
+@rinternals{UnaCordaPedal},
+@rinternals{UnaCordaPedalLineSpanner},
+@rinternals{UnaCordaEvent},
+@rinternals{PianoPedalBracket},
+@rinternals{Piano_pedal_engraver}.
 
 @node Accordion
 @subsection Accordion
 
+@cindex acordeón
+
+Esta sección se ocupa de la notación que es exclusiva del acordeón.
+
 @menu
-* Discant symbols::             
+* Discant symbols::
 @end menu
 
 @node Discant symbols
 @unnumberedsubsubsec Discant symbols
 
-@untranslated
-@ifnothtml
-@englishref
-@end ifnothtml
+@cindex acordeón, signos de discanto
+@cindex discanto, signos de, del acordeón
+@cindex acordeón, cambios en el
+@cindex acordeón, signos de cambio en el
 
+Los acordeones se suelen construir con más de un conjunto de lengüetas
+que pueden estar al unísono, una octava por encima, o una octava por
+debajo de la altura escrita.  Cada fabricante de acordeones utiliza
+distintos nombres para los @notation{cambios} que seleccionan las
+distintas combinaciones de lengüetas, como @notation{oboe},
+@notation{musette} o @notation{bandoneón}, de manera que se ha venido
+en usar un sistema de signos para simplificar las instrucciones de
+ejecución.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{accordion-discant-symbols.ly}
+
+@seealso
+
+Fragmentos de código:
+@rlsr{Keyboards}.
+
+
+@node Harp
+@subsection Harp
+
+Continuará...

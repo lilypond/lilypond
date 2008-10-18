@@ -30,6 +30,7 @@
 	    embedded-ps
 	    named-glyph
 	    no-origin
+            oval
 	    placebox
 	    polygon
 	    repeat-slash
@@ -197,6 +198,14 @@
 
 (define (no-origin)
   "")
+
+(define (oval x-radius y-radius thick fill)
+  (ly:format
+   "~a ~4f ~4f ~4f draw_oval"
+   (if fill
+     "true"
+     "false")
+   x-radius y-radius thick))
 
 (define (placebox x y s) 
   (ly:format

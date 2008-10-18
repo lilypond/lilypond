@@ -1,4 +1,4 @@
-\version "2.11.23"
+\version "2.11.61"
 \header {
   lsrtags = "tweaks-and-overrides"
   texidoc = "
@@ -20,5 +20,7 @@ arbitrary grob.
   b8
   
   \revert Stem #'stencil
-  c4. c4 \mark "F" c1
+  c4. c4
+  \mark "F"
+  c1
 }

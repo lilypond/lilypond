@@ -177,6 +177,8 @@ non-hairpin decrescendo, i.e., @samp{dim.}.")
 
 This variable is read by @rinternals{Timing_translator} at
 @rinternals{Score} level.")
+     (doubleRepeatType ,string? "Set the default bar line for double
+repeats.")
      (doubleSlurs ,boolean? "If set, two slurs are created for every
 slurred note, one above and one below the chord.")
      (drumPitchTable ,hash-table? "A table mapping percussion

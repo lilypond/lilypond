@@ -230,7 +230,7 @@ in LilyPond-include-path."
 
 (defun LilyPond-running ()
   "Check the currently running LilyPond compiling jobs."
-  (let ((process-names (list "lilypond" "tex" "2dvi" "2ps" "2midi" 
+  (let ((process-names (list "lilypond" "tex" "2ps" "2midi"
 			     "book" "latex"))
 	(running nil))
     (while (setq process-name (pop process-names))
@@ -324,12 +324,6 @@ in LilyPond-include-path."
 
 (defcustom LilyPond-lilypond-command "lilypond"
   "Command used to compile LY files."
-  :group 'LilyPond
-  :type 'string)
-
-(defcustom LilyPond-dvi-command "xdvi"
-  "Command used to display DVI files."
-
   :group 'LilyPond
   :type 'string)
 
@@ -430,8 +424,6 @@ in LilyPond-include-path."
   ;; could then be mapped to define-key and menu.
   `(
     ("LilyPond" . (,(concat LilyPond-lilypond-command " %s") "%s" "%l" "View"))
-    ("TeX" . ("tex '\\nonstopmode\\input %t'" "%t" "%d" "ViewDVI"))
-    ("2Dvi" . (,(concat LilyPond-lilypond-command " -b tex %s") "%s" "%d" "LaTeX"))
     ("2PS" . (,(concat LilyPond-lilypond-command " -f ps %s") "%s" "%p" "ViewPS"))
     ("2Gnome" . (,(concat LilyPond-lilypond-command " -b gnome %s")))
 
@@ -441,7 +433,6 @@ in LilyPond-include-path."
     ;; refreshes when kicked USR1
     ("View" . (,(concat LilyPond-pdf-command " %f")))
     ("ViewPDF" . (,(concat LilyPond-pdf-command " %f")))
-    ("ViewDVI" . (,(concat LilyPond-dvi-command " %d")))
     ("ViewPS" . (,(concat LilyPond-ps-command " %p")))
 
     ;; The following are refreshed in LilyPond-command:
@@ -562,12 +553,6 @@ Must be the car of an entry in `LilyPond-command-alist'."
   (LilyPond-command (LilyPond-command-menu "LilyPond") 'LilyPond-get-master-file)
 )
 
-(defun LilyPond-command-formatdvi ()
-  "Format the dvi output of the current document."
-  (interactive)
-  (LilyPond-command (LilyPond-command-menu "2Dvi") 'LilyPond-get-master-file)
-)
-
 (defun LilyPond-command-formatps ()
   "Format the ps output of the current document."
   (interactive)
@@ -638,8 +623,7 @@ Must be the car of an entry in `LilyPond-command-alist'."
 	       (base (cadr l)))
 	  (LilyPond-command-expand
 	   (concat (substring string 0 b)
-		   dir
-		   base
+		   (shell-quote-argument (concat dir base))
 		   (let ((entry (assoc (substring string b e)
 				       LilyPond-expand-alist)))
 		     (if entry (cdr entry) ""))
@@ -704,7 +688,7 @@ command."
 			    (while (LilyPond-running)
 			      (message "Starts playing midi once it is built.")
 			      (sit-for 0 100))))))
-	      (if (member name (list "LilyPond" "TeX" "2Midi" "2PS" "2Dvi" 
+	      (if (member name (list "LilyPond" "TeX" "2Midi" "2PS"
 				     "Book" "LaTeX"))
 		  (if (setq jobs (LilyPond-running))
 		      (progn
@@ -762,7 +746,6 @@ command."
   (define-key LilyPond-mode-map "\C-c\C-k" 'LilyPond-kill-jobs)
   (define-key LilyPond-mode-map "\C-c\C-c" 'LilyPond-command-master)
   (define-key LilyPond-mode-map "\C-cm" 'LilyPond-command-formatmidi)
-  (define-key LilyPond-mode-map "\C-c\C-d" 'LilyPond-command-formatdvi)
   (define-key LilyPond-mode-map "\C-c\C-f" 'LilyPond-command-formatps)
   (define-key LilyPond-mode-map "\C-c\C-g" 'LilyPond-command-formatgnome)
   (define-key LilyPond-mode-map "\C-c\C-s" 'LilyPond-command-view)
@@ -981,8 +964,6 @@ command."
 ;;; Some kind of mapping which includes :keys might be more elegant
 ;;; Put keys to LilyPond-command-alist and fetch them from there somehow.
 	  '([ "LilyPond" LilyPond-command-lilypond t])
-	  '([ "TeX" (LilyPond-command (LilyPond-command-menu "TeX") 'LilyPond-get-master-file) ])
-	  '([ "2Dvi" LilyPond-command-formatdvi t])
 	  '([ "2PS" LilyPond-command-formatps t])
 	  '([ "2Midi" LilyPond-command-formatmidi t])
 	  '([ "Book" (LilyPond-command (LilyPond-command-menu "Book") 'LilyPond-get-master-file) ])
@@ -1103,8 +1084,7 @@ COMMANDS
 \\{LilyPond-mode-map}
 VARIABLES
 
-LilyPond-command-alist\t\talist from name to command
-LilyPond-dvi-command\t\tcommand to display dvi files -- bit superfluous"
+LilyPond-command-alist\t\talist from name to command"
   (interactive)
   ;; set up local variables
   (kill-all-local-variables)
@@ -1199,7 +1179,7 @@ LilyPond-dvi-command\t\tcommand to display dvi files -- bit superfluous"
 (defun LilyPond-guile ()
   (interactive)
   (require 'ilisp)
-  (guile "lilyguile" (LilyPond-command-expand (cadr (assoc "2Dvi" LilyPond-command-alist))
+  (guile "lilyguile" (LilyPond-command-expand (cadr (assoc "LilyPond" LilyPond-command-alist))
                                               (funcall 'LilyPond-get-master-file)))
   (comint-default-send (ilisp-process) "(define-module (*anonymous-ly-0*))")
   (comint-default-send (ilisp-process) "(set! %load-path (cons \"/usr/share/ilisp/\" %load-path))")

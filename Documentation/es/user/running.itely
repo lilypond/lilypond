@@ -1,18 +1,20 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 6bcad9cdc487270910758b1ee39cf3c8aee1015e
+    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.61"
+
 
 @node Running LilyPond
 @chapter Running LilyPond
 
-@untranslated
-
+Este capítulo detalla los aspectos técnicos de la ejecución de
+LilyPond.
 
 @menu
 * Normal usage::
@@ -22,70 +24,670 @@
 * Reporting bugs::
 @end menu
 
+
 @node Normal usage
 @section Normal usage
 
-@untranslated
+Casi todos los usuarios ejecutan LilyPond por medio de un interfaz
+gráfico; consulte @rlearning{First steps} si no lo ha leído aún.
 
 
 @node Command-line usage
 @section Command-line usage
 
-@untranslated
+Esta sección contiene información adicional sobre el uso de LilyPond
+en la línea de órdenes.  Esta forma puede ser preferible para pasarle
+al programa algunas opciones adicionales.  Además, existen algunos
+programas complementarios @q{de apoyo} (como @code{midi2ly}) que sólo
+están disponibles en la línea de órdenes.
 
+Al hablar de la @q{línea de órdenes}, nos referimos a la consola del
+sistema operativo.  Los usuarios de Windows posiblemente estén más
+familiarizados con los términos @q{ventana de MS-DOS} o @q{línea de
+comandos}; Los usuarios de MacOS@tie{}X puede que estén más
+familiarizados con los términos @q{terminal} o @q{consola}.  Éstos
+deberían consultar también el apartado @ref{Setup for MacOS X}.
+
+La descripción del uso de esta parte de los sistemas operativos se
+sale del ámbito de este manuual; le rogamos que consulte otros
+documentos sobre este tema si no le resulta familiar la línea de
+órdenes.
 
 @menu
 * Invoking lilypond::
-* Command line options::
+* Command line options for lilypond::
 * Environment variables::
 @end menu
 
 @node Invoking lilypond
-@subsection Invoking lilypond
+@subsection Invoking @command{lilypond}
 
-@untranslated
+@cindex invocar @command{lilypond}
+@cindex opciones de la línea de órdenes para @command{lilypond}
+@cindex órdenes, opciones de la línea de
+
+El ejecutable @command{lilypond} se puede llamar desde la línea de
+órdenes de la siguiente manera:
+
+@example
+lilypond [@var{opción}]@dots{} @var{archivo}@dots{}
+@end example
+
+Cuando se invoca con un nombre de archivo sin extensión, se prueba en
+primer lugar con la extensión @file{.ly}.  Para leer la entrada desde
+stdin, utilice un guión (@code{-}) en sustitución de @var{archivo}.
+
+Cuando se procesa @file{archivo.ly}, la salida resultante son los
+archivos @file{archivo.ps} y @file{archivo.pdf}.  Se pueden
+especificar varios archivos; cada uno de ellos se procesará de forma
+independiente@footnote{El estado de GUILE no se restablece después de
+procesar un archivo @code{.ly}, por lo que debe tener cuidado de no
+modificar ningún valor predeterminado desde dentro de Scheme.}.
+
+Si @file{archivo.ly} contiene más de un bloque @code{\score}, el resto
+de las partituras se obtendrán como salida en archivos numerados,
+empezando por @file{archivo-1.pdf}.  además, el valor de
+@code{output-suffix} (sufijo de salida) se insertará entre el nombre
+base y el número.  Un archivo de entrada que contenga
+
+@example
+#(define output-suffix "violin")
+\book @{ @dots{} @}
+#(define output-suffix "cello")
+\book @{ @dots{} @}
+@end example
+
+@noindent
+producirá como salida @var{base}@file{-violin.pdf} y
+@var{base}@file{-cello-1.pdf}.
 
 
-@node Command line options
-@subsection Command line options
+@node Command line options for lilypond
+@subsection Command line options for @command{lilypond}
 
-@untranslated
+Están contempladas las siguientes opciones:
 
+@table @code
+
+@item -e,--evaluate=@var{expresión}
+Evaluar la @var{expresión} de Scheme antes de analizar los archivos
+@file{.ly}.  Se pueden pasar varias opciones @code{-e}, que se
+evaluarán en secuencia.
+
+La expresión se evaluará en el módulo @code{guile-user}, de manera que
+si quiere usar definiciones dentro de @var{expresión}, debe utilizar
+
+@example
+lilypond -e '(define-public a 42)'
+@end example
+
+@noindent
+en la línea de órdenes, e incluir
+
+@example
+#(use-modules (guile-user))
+@end example
+
+@noindent
+al principio del archivo @code{.ly}.
+
+@item -f,--format=@var{formato}
+Qué formatos se tienen que escribir.  Como @code{formato} se puede
+elegir entre @code{svg}, @code{ps}, @code{pdf}, @code{png}, @code{tex}
+y @code{dvi}.
+
+Ejemplo: @code{lilypond -fpng @var{archivo}.ly}
+
+@item -d,--define-default=@var{variable}=@var{valor}
+Establece la opción interna del programa @var{variable} al valor de
+Scheme @var{valor}.  Si no se proporciona ningún @var{valor}, se usa
+@var{#t}.  Para desactivar una opción se puede anteponer @code{no-} a
+la @var{variable}, p.ej.:
+
+@cindex apuntar y pulsar, línea de órdenes
+
+@example
+-dno-point-and-click
+@end example
+
+@noindent
+es lo mismo que
+@example
+-dpoint-and-click='#f'
+@end example
+
+A continuación veremos algunas opciones interesantes.
+
+@table @samp
+@item help
+La ejecución de @code{lilypond -dhelp} imprimirá todas las opciones
+@code{-d} que están disponibles.
+
+@item paper-size
+Esta opción establece el tamaño predeterminado del papel,
+@example
+-dpaper-size=\"letter\"
+@end example
+
+@noindent
+Observe que la cadena se debe incluir dentro de comillas escapadas
+( @code{\"} ).
+
+@c Match " in previous line to help context-sensitive editors
+
+@item safe
+No confiar en la entrada @code{.ly}.
+
+Cuando el proceso de tipografía de LilyPond se encuentra disponible a
+través de un servidor web, @b{SE DEBEN} pasar las opciones
+@code{--safe} (seguro) o @code{--jail} (jaula).  La opción
+@code{--safe} evita que el código de Scheme en línea arme un desastre,
+por ejemplo
+
+@quotation
+@verbatim
+#(system "rm -rf /")
+{
+  c4^#(ly:export (ly:gulp-file "/etc/passwd"))
+}
+@end verbatim
+@end quotation
+
+La opción @code{-dsafe} funciona evaluando las expresiones en línea de
+Scheme dentro de un módulo especial seguro.  Este módulo seguro deriva
+del módulo GUILE @file{safe-r5rs}, pero añade ciertas funciones del
+API de LilyPond.  Estas funciones se relacionan en
+@file{scm/@/safe@/-lily@/.scm}.
+
+Además, el modo seguro prohíbe las directivas @code{\include} e
+inhabilita el uso de barras invertidas en las cadenas de @TeX{}.
+
+En el modo seguro, no es posible la importación de variables de
+LilyPond dentro de Scheme.
+
+@code{-dsafe} @emph{no} detecta la sobreutilización de recursos.  Aún
+es posible hacer que el programa se cuelgue indefinidamente, por
+ejemplo alimentándo el backend con estructuras de datos cíclicas.  Por
+tanto, si se está utilizando LilyPond sobre un servidor web accesible
+públicamente, el proceso debe limitarse tanto en el uso de CPU como de
+memoria.
+
+El modo seguro impide que muchos fragmentos útiles de código de
+LilyPond se puedan compilar.  La opción @code{--jail} es una
+alternativa más segura, pero su preparación requiere más trabajo.
+
+@item backend
+el formato de salida que usar para el back-end o extremo final.
+Para el @code{formato} se puede elegir entre
+@table @code
+@item tex
+para una salida en @TeX{} con destino a su proceso por parte de
+La@TeX{}.  Si el archivo @file{file.textmetrics} está presente, se lee
+para determinar las dimensiones del texto.
+@item texstr
+volcar cadenas de texto en un archivo @file{.texstr}, que se puede
+procesar con (La)@TeX{}, dando como resultado un archivo
+@code{.textmetrics} que contiene las dimensiones de las cadenas de
+texto.  @strong{Arvertencia:} esta funcionalidad no está disponible
+actualmente debido a la profunda reestructuración del código fuente.
+@item ps
+para PostScript.
+
+@cindex PostScript, salida
+
+Los archivos PostScript incluyen las tipografías TTF, Type1 y OTF.  No
+se seleccionan subconjuntos de estas tipografías.  Cuando se usan
+conjuntos de caracteres orientales, esto puede dar lugar a archivos
+enormes.
+
+@item eps
+ para obtener PostScript encapsulado.  Esto vuelca cada una de las
+páginas/sistemas como un archivo @file{EPS} distinto, sin tipografías,
+y como un solo archivo @file{EPS} encuadernado con todas las
+páginas/sistemas con las tipografías incluidas.
+
+Este modo se usa de forma predeterminada por parte de
+@command{lilypond-book}.
+
+@item svg
+ para obtener SVG (gráficos vectoriales escalables).  Vuelca cada
+página como un archivo @file{SVG} distinto, con las tipografías
+incrustadas.
+@cindex SVG (gráficos vectoriales escalables)
+  Se necesita un visor de SVG que contemple las tipografías
+incrustadas, o un visor de SVG que pueda sustituir las tipografías
+incrustadas por tipografías OTF.  Bajo UNIX, puede usar
+@uref{http://www.inkscape.org,Inkscape} (versión 0.42 o posterior),
+después de copiar las tipografías OTF del directorio de LilyPond (que
+normalmente es @file{/usr/share/lilypond/VERSIÓN/fonts/otf/}) al
+directorio @file{~/.fonts/}.
+@item scm
+ para obtener un volcado de las instrucciones internas de dibujo
+basadas en Scheme, en bruto.
+@cindex Scheme, volcado de
+@end table
+
+Ejemplo: @code{lilypond -dbackend=svg @var{archivo}.ly}
+
+@cindex salida, establecer el formato de
+
+@item preview
+Generar un archivo de salida que contenga solamente los títulos de
+cabecera y el primer sistema de la primera página.
+
+@item print-pages
+Generar las páginas completas, el ajuste predeterminado.
+@code{-dno-print-pages} es útil en combinación con @code{-dpreview}.
+
+@end table
+
+
+
+@item -h,--help
+Mostrar un resumen de las formas de utilización.
+
+@item -H,--header=@var{CAMPO}
+Volcar un campo de cabecera al archivo @file{NOMBREBASE.@var{CAMPO}}
+
+@item --include, -I=@var{directorio}
+Añadir el @var{directorio} a la ruta de búsqueda de archivos de
+entrada.
+@cindex archivos, búsqueda de
+@cindex búsqueda, ruta de
+
+@item -i,--init=@var{archivo}
+Establecer el archivo de inicio a @var{archivo} (predeterminado:
+@file{init.ly}).
+
+@item -o,--output=@var{ARCHIVO}
+Establecer el nombre del archivo de salida predeterminado a
+@var{ARCHIVO}.  Se añade el sufijo correspondiente (es decir,
+@code{.pdf} para PDF, @code{.tex} para TeX, etc.).
+
+@item --ps
+Generar PostScript.
+
+@item --dvi
+Generar archivos DVI files.  En este caso se debe especificar el
+backend @TeX{}, es decir: @code{-dbackend=tex}.
+
+@item --png
+Generar imágenes de las páginas en formato PNG.  Esto implica
+@code{--ps}.  La resolución en PPP de la imagen se puede establecer
+con
+@example
+-dresolution=110
+@end example
+
+@item --pdf
+Generar PDF.  Implica @code{--ps}.
+
+
+
+@item -j,--jail=@var{usuario},@var{grupo},@var{jaula},@var{directorio}
+Ejecutar @command{lilypond} en una jaula de chroot.
+
+La opción @code{--jail} (jaula) proporciona una alternativa más
+flexible a la opción @code{--safe} cuando el proceso de tipografía de
+LilyPond está disponible a través de un servidor web o cuando LilyPond
+ejecuta archivos fuente procedentes del exterior.
+
+La opción @code{--jail} funciona cambiando la raíz de
+@command{lilypond} a @var{jaula} justo antes de comenzar el proceso de
+compilación en sí.  Entonces se cambian el usuario y el grupo a los
+que se han dado en la opción, y el directorio actual se cambia a
+@var{directorio}.  Esta instalación garantiza que no es posible, al
+menos en teoría, escapar de la jaula.  Observe que para que funcione
+@code{--jail} se debe ejecutar @command{lilypond} como root, lo que
+normalmente se puede hacer de una forma segura utilizando
+@command{sudo}.
+
+La instalación de una jaula es un asunto algo delicado, pues debemos
+asegurarnos de que LilyPond puede encontrar @emph{dentro de la jaula}
+todo lo que necesita para poder compilar la fuente.  Una configuración
+típica consta de los siguientes elementos:
+
+@table @asis
+@item Preparar un sistema de archivos separado
+Se debe crear un sistema de archivos separado para LilyPond, de forma
+que se pueda montar con opciones seguras como @code{noexec},
+@code{nodev} y @code{nosuid}.  De esta forma, es imposible ejecutar
+programas o escribir directamente a un dispositivo desde LilyPond.  Si
+no quiere crear una partición separada, tan sólo tiene que crear un
+archivo de un tamaño razonable y usarlo para montar un dispositivo
+loop.  El sistema de archivos separado garantiza también que LilyPond
+nunca pueda escribir en un espacio mayor del que se le permita.
+
+@item Preparar un usuario separado
+Se debe usar un usuario y grupo separados (digamos
+@code{lily}/@code{lily}) con bajos privilegios para ejecutar LilyPond
+dentro de la jaula.  Debería existir un solo directorio con permisos
+de escritura para este usuario, y debe pasarse en el valor
+@var{directorio}.
+
+@item Preparar la jaula
+LilyPond necesita leer algunos archivos mientras se ejecuta.  Todos
+estos archivos se deben copiar dentro de la jaula, bajo la misma ruta
+en que aparecen en el sistema de archivos real de root.  Todo el
+contenido de la instalación de LilyPond (por ejemplo
+@file{/usr/share/lilypond}) se debe copiar.
+
+Si surgen problemas, la forma más sencilla de rastrearlos es ejecutar
+LilyPond usando @command{strace}, lo que le permitirá determinar qué
+archivos faltan.
+
+@item Ejecutar LilyPond
+Dentro de una jaula montada con @code{noexec} es imposible ejecutar
+ningún programa externo.  Por tanto, LilyPond se debe ejecutar con un
+backend que no necesite tal programa.  Como ya mencionamos, también se
+debe ejecutar con privilegios del superusuario (que por supuesto
+perderá inmediatamente), posiblemente usando @command{sudo}.  Es buena
+idea limitar el número de segundos de tiempo de CPU que LilyPond puede
+usar (p.ej., usando @command{ulimit -t}), y, si su sistema operativo
+lo contempla, el tamaño de la memoria que se puede reservar.
+@end table
+
+
+@item -v,--version
+Mostrar la información de la versión.
+
+@item -V,--verbose
+Ser prolijo: mostrar las rutas completas de todos los archivos que se
+leen, y dar información cronométrica.
+
+@item -w,--warranty
+Mostrar la garantía con que viene GNU LilyPond (¡no viene con
+@strong{NINGUNA GARANTÍA}!).
+@end table
 
 @node Environment variables
 @subsection Environment variables
 
-@untranslated
+
+@cindex LANG
+@cindex LILYPOND_DATADIR
+
+@command{lilypond} reconoce las siguientes variables de entorno:
+@table @code
+@item LILYPOND_DATADIR
+Especifica un directorio en el que los mensajes de localización y de
+datos se buscarán de forma predeterminada.  El directorio debe
+contener subdirectorios llamados @file{ly/}, @file{ps/}, @file{tex/},
+etc.
+
+@item LANG
+Selecciona el idioma de los mensajes de advertencia.
+
+@item LILYPOND_GC_YIELD
+Con esta variable se puede ajustar la huella y el desempeño de
+memoria.  Es un porcentaje que ajusta el comportamiento de la
+administración de memoria.  Con valores más altos, el programa usa más
+memoria; con valores más bajos, usa más tiempo de CPU.  El valor
+predeterminado es @code{70}.
+
+@end table
 
 
 @node Error messages
 @section Error messages
 
-@untranslated
+@cindex error, mensajes de
+@cindex mensajes de error
+
+Pueden aparecer distintos mensajes de error al compilar un archivo:
+
+@table @emph
+
+@item Advertencia
+@cindex advertencia
+Algo tiene un aspecto sospechoso.  Si estamos pidiendo algo fuera de
+lo común, entenderemos el mensaje y podremos ignorarlo.  Sin embargo,
+las advertencias suelen indicar que algo va mal con el archivo de
+entrada.
+
+@item Error
+@cindex error
+Algo va claramente mal.  El paso actual de procesamiento (análisis,
+interpretación o formateo visual) se dará por terminado, pero el
+siguiente paso se saltará.
+
+@item Error fatal
+@cindex error fatal
+@cindex fatal, error
+Algo va claramente mal, y LilyPond no puede seguir.  Rara vez sucede
+esto.  La causa más frecuente son las tipografías mal instaladas.
+
+@item Error de Scheme
+@cindex traza de Scheme
+@cindex llamadas, traza de
+@cindex Scheme, error de
+@cindex error de Scheme
+Los errores que ocurren al ejecutar código de Schheme se interceptan
+por parte del intérprete de Scheme.  Si se está ejecutando con las
+opciones @code{-V} o @code{--verbose} (prolijo) entonces se imprime
+una traza de llamadas de la función ofensiva.
+
+@item Error de programación
+@cindex error de programación
+@cindex programación, error de
+Ha habido algún tipo de inconsistencia interna.  Estos mensajes de
+error están orientados a ayudar a los programadores y a los
+depuradores.  Normalmente se pueden ignorar.  En ocasiones aparecen en
+cantidades tan grandes que pueden entorpecer la visión de otros
+mensajes de salida.
+
+@item Abortado (volcado de core)
+Esto señala un error de programación serio que ha causado la
+interrupción abrupta del programa.  Estos errores se consideran
+críticos.  Si se topa con uno, envíe un informe de fallo.
+@end table
+
+@cindex error, formato de los mensajes de
+
+Se los errores y advertencias se pueden ligar a un punto del archivo
+de entrada, los mensajes tienen la forma siguiente:
+
+@example
+@var{archivo}:@var{línea}:@var{columna}: @var{mensaje}
+@var{línea de entrada problemática}
+@end example
+
+Se inserta un salto de línea en la línea problemática para indicar la
+columna en que se encontró el error. Por ejemplo,
+
+@example
+prueba.ly:2:19: error: no es una duración: 5
+  @{ c'4 e'
+           5 g' @}
+@end example
+
+Estas posiciones son la mejor suposición de LilyPond sobre dónde se ha
+producido el mensaje de error, pero (por su propia naturaleza) las
+advertencias y errores se producen cuando ocurre algo inesperado.  Si
+no ve un error en la línea que se indica del archivo de entrada, trate
+de comprobar una o dos líneas por encima de la posición indicada.
 
 
 @node Updating files with convert-ly
-@section Updating with @command{convert-ly}
+@section Updating files with @command{convert-ly}
 
-@untranslated
+@cindex actualización de un archivo de LilyPond
+@cindex version
+@cindex versión de los archivos
+@cindex convert-ly
 
+La sintaxis del lenguaje de entrada de LilyPond se modifica de forma
+habitual para simplificarla o mejorarla de distintas maneras.  Como
+efecto secundario, el intérprete de LilyPond a menudo ya no es
+compatible con los archivos de entrada antiguos.  Para poner remedio a
+esto se puede utilizar el programa @command{convert-ly} para manejar
+casi todos los cambios de sintaxis entre versiones de LilyPond.
 
-@subsection Command line options
+Utiliza los enunciados @code{\version} de los archivos de entrada para
+detectar el número de versión antiguo.  En casi todos los casos, para
+actualizar el archivo de entrada basta con ejecutar
+
+@example
+convert-ly -e miarchivo.ly
+@end example
+
+@noindent
+Los usuarios de MacOS@tie{}X pueden ejecutar esta instrucción bajo el
+menú @code{Compilar > Actualizar sintaxis}.
+
+Si no hay cambios en miarchivo.ly y se crea el archivo llamado
+miarchivo.ly.NEW, entonces miarchivo.ly ya está actualizado.
+
 @menu
+* Command line options for convert-ly::
 * Problems with convert-ly::
 @end menu
+
+@node Command line options for convert-ly
+@subsection Command line options for @command{convert-ly}
+
+@command{convert-ly} convierte siempre al últimmo cambio de sintaxis
+que puede manejar.  Eesto supone que el número de @code{\version} que
+aparece en el archivo convertido suele ser más bajo que la versión del
+propio programa @command{convert-ly}.
+
+Para actualizar fragmentos de LilyPond en archivos de texinfo, use
+
+@example
+convert-ly --from=... --to=... --no-version *.itely
+@end example
+
+Para ver los cambios en la sintaxis de LilyPond entre dos versiones,
+use
+
+@example
+convert-ly --from=... --to=... -s
+@end example
+
+Para actualizar muchos archivos de una vez, combine @code{convert-ly}
+con las instrucciones estándar de UNIX.  Este ejemplo actualiza todos
+los archivos @code{.ly} del directorio actual:
+
+@example
+for f in *.ly; do convert-ly -e $f; done;
+@end example
+
+En general, el programa se invoca de la manera siguiente:
+
+@example
+convert-ly [@var{opción}]@dots{} @var{archivo}@dots{}
+@end example
+
+
+Se pueden dar las siguientes opciones:
+
+@table @code
+@item -e,--edit
+Hace una edición en línea del archivo de entrada.  Sobreescribe a
+@code{--output}.
+
+@item -f,--from=@var{versión_de_origen}
+Establece la versión desde la que convertir.  Si no aparece esta
+opción, @command{convert-ly} tratará de adivinarla, basándose en el
+enunciado @code{\version} del archivo.
+
+@item -n,--no-version
+Normalmente @command{convert-ly} añade un indicador @code{\version} a
+la salida.  La especificación de esta opción lo suprime.
+
+@item -s, --show-rules
+Mostrar todas las conversiones conocidas y salir.
+
+@item --to=@var{versión_final}
+Fijar la versión de destino de la conversión.  De forma predeterminada
+se convierte a la última versión disponible.
+
+@item -h, --help
+Imprimir la ayuda de la utilización.
+@end table
+
 
 @node Problems with convert-ly
 @subsection Problems with @code{convert-ly}
 
-@untranslated
+No se manejan todos los cambios en el lenguaje.  Sólo se puede
+especificar una opción de salida.  La actualización automática de
+Scheme y los interfaces Scheme de LilyPond es bastante improbable;
+prepárese para trucar el código de Scheme a mano.
+
+@verbatim
+Hay algunas cosas que convert-ly no puede manejar.  He aquí una lista
+de aquellas limitaciones que han dado lugar a protestas de la
+comunidad.
+
+Se ha escogido esta estructura de informe de fallo porque convert-ly
+tiene una estructura que no permite implementar de forma progresiva
+todos los cambios necesarios.  Así pues esto es sólo una lista de
+deseos, y se incluye aquí como referencia.
+
+1.6->2.0:
+ No siempre convierte el bajo cifrado correctamente, específicamente cosas como {<
+>}.  El comentario de Mats sobre cómo solventar el problema:
+   Para poder ejecutar convert-ly
+   sobre él, primero sustituí todas las apariciones de '{<' a algo mudo como '{#'
+   y de forma similar sustituí '>}' con '&}'.  Después de la conversión, pude
+   volver a cambiarlos de '{ #' a '{ <' y de '& }' a '> }'.
+ No convierte todos los marcados de texto correctamente.  En sintaxis antigua,
+ se podían agrupar varios marcados entre paréntesis, p.ej.
+   -#'((bold italic) "cadena")
+   Esto se convierte incorrectamente en
+   -\markup{{\bold italic} "cadena"}
+   en vez del correcto
+   -\markup{\bold \italic "cadena"}
+2.0->2.2:
+ No maneja \partcombine
+ No hace \addlyrics => \lyricsto, esto rompe algunas partituras con varias estrofas.
+2.0->2.4:
+ \magnify no se cambia por \fontsize.
+    - \magnify #m => \fontsize #f, donde f = 6ln(m)/ln(2)
+ remove-tag no se cambia.
+    - \applyMusic #(remove-tag '. . .) => \keepWithTag #'. . .
+ first-page-number no se cambia.
+    - first-page-number no => print-first-page-number = ##f
+ Los saltos de línea en las cadenas de cabecera no se convierten.
+    - \\\\  como salto de línea en las cadenas de \header  => \markup \center-align <
+      "Primera línea" "Segunda línea" >
+ Los terminadores de crescendo y decrescendo no se convierten.
+    - \rced => \!
+    - \rc => \!
+2.2->2.4:
+ \turnOff (usado en \set Staff.VoltaBracket = \turnOff) no se convierte
+adecuadamente.
+2.4.2->2.5.9
+ \markup{ \center-align <{ ... }> } se tendría que convertir en:
+ \markup{ \center-align {\line { ... }} }
+ pero ahora, falta el \line.
+2.4->2.6
+ Los caracteres especiales de LaTeX como $~$ en el texto no se convierten a UTF8.
+2.8
+ \score{} ahora debe empezar con una expresión musical.  Cualquier otra cosa
+ (en particular, \header{}) debe ir después de la música.
+@end verbatim
 
 
 @node Reporting bugs
 @section Reporting bugs
 
-@untranslated
+@cindex bugs (fallos)
+@cindex fallos (bugs)
+@cindex informes de fallo
 
+Si tiene una entrada que produce una interrupción abrupta o una salida
+errónea, entonces eso es un bug (fallo).  Hay una lista de los fallos
+actuales en nuestro rastreador de fallos de Google Code:
 
+@uref{http://code.google.com/p/lilypond/issues/list}
 
-@c -- SKELETON FILE --
+Si descubre un error que no está en la lista, le rogramos que envíe un
+informe del fallo siguiendo las instrucciones que aparecen en
+
+@uref{http://lilypond.org/web/devel/participating/bugs}
+
+Le rogamos, asimismo, que para los informes prepare y envíe ejemplos
+mínimos de los fallos.  No tenemos los recursos para investigar
+informes que no sean lo más pequeños posible.
