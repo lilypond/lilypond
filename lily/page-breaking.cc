@@ -253,7 +253,7 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
 
   SCM book = book_->self_scm ();
   int first_page_number
-    = robust_scm2int (book_->paper_->c_variable ("part-first-page-number"), 1);
+    = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   bool last_part = ly_scm2bool (book_->paper_->c_variable ("part-is-last"));
   SCM ret = SCM_EOL;
   SCM label_page_table = book_->top_paper ()->c_variable ("label-page-table");

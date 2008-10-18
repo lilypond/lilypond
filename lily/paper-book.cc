@@ -110,7 +110,6 @@ Paper_book::add_performance (SCM s)
 
 void
 Paper_book::output_aux (SCM output_channel,
-			bool is_first,
 			bool is_last,
 			int *first_page_number,
 			int *first_performance_number)
@@ -128,27 +127,22 @@ Paper_book::output_aux (SCM output_channel,
 
   if (scm_is_pair (bookparts_))
     {
-      bool is_first_part = is_first;
       for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
 	if (Paper_book *pbookpart = unsmob_paper_book (scm_car (p)))
 	  {
 	    bool is_last_part = (is_last && !scm_is_pair (scm_cdr (p)));
 	    pbookpart->output_aux (output_channel,
-				   is_first_part,
 				   is_last_part,
 				   first_page_number,
 				   first_performance_number);
-	    is_first_part = false;
 	  }
     }
   else
     {
       if (scores_ == SCM_EOL)
 	return;
-      paper_->set_variable (ly_symbol2scm ("part-first-page-number"),
+      paper_->set_variable (ly_symbol2scm ("first-page-number"),
 			    scm_long2num (*first_page_number));
-      paper_->set_variable (ly_symbol2scm ("part-is-first"),
-			    ly_bool2scm (is_first));
       paper_->set_variable (ly_symbol2scm ("part-is-last"),
 			    ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
@@ -162,7 +156,6 @@ Paper_book::output (SCM output_channel)
   int first_page_number = robust_scm2int (paper_->c_variable ("first-page-number"), 1);
   int first_performance_number = 0;
   output_aux (output_channel,
-	      true,
 	      true,
 	      &first_page_number,
 	      &first_performance_number);

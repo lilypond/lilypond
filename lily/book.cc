@@ -130,17 +130,23 @@ Book::set_parent (Book *parent)
   /* If this part is the first child of parent, copy its header */
   if (ly_is_module (parent->header_) && (scm_is_null (parent->bookparts_)))
     {
-      header_ = ly_make_anonymous_module (false);
-      ly_module_copy (header_, parent->header_);
+      SCM tmp_header = ly_make_anonymous_module (false);
+      ly_module_copy (tmp_header, parent->header_);
+      if (ly_is_module (header_))
+        ly_module_copy (tmp_header, header_);
+      header_ = tmp_header;
     }
 }
 
+/* Before an explicit \bookpart is encountered, scores are added to the book.
+ * But once a bookpart is added, the previous scores shall be collected into
+ * a new bookpart.
+ */
 void
-Book::add_bookpart ()
+Book::add_scores_to_bookpart ()
 {
   if (scm_is_pair (scores_))
     {
-      warning ("add_bookpart");
       /* If scores have been added to this book, add them to a child 
        * book part */
       Book *part = new Book;
@@ -155,7 +161,7 @@ Book::add_bookpart ()
 void
 Book::add_bookpart (SCM b)
 {
-  add_bookpart ();
+  add_scores_to_bookpart ();
   Book *part = unsmob_book (b);
   part->set_parent (this);
   bookparts_ = scm_cons (b, bookparts_);
@@ -182,6 +188,53 @@ Book::process (Output_def *default_paper,
 	       Output_def *default_layout)
 {
   return process (default_paper, default_layout, 0);
+}
+
+void
+Book::process_bookparts (Paper_book *output_paper_book, Output_def *paper, Output_def *layout)
+{
+  add_scores_to_bookpart ();
+  for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
+    {
+      if (Book *book = unsmob_book (scm_car (p)))
+        {
+          Paper_book *paper_book_part = book->process (paper, layout, output_paper_book);
+          if (paper_book_part)
+            output_paper_book->add_bookpart (paper_book_part->self_scm ());
+        }
+    }
+}
+
+void
+Book::process_score (SCM s, Paper_book *output_paper_book, Output_def *layout)
+{
+  if (Score *score = unsmob_score (scm_car (s)))
+    {
+      SCM outputs = score
+	->book_rendering (output_paper_book->paper_, layout);
+	      
+      while (scm_is_pair (outputs))
+	{
+	  Music_output *output = unsmob_music_output (scm_car (outputs));
+		  
+	  if (Performance *perf = dynamic_cast<Performance *> (output))
+	    output_paper_book->add_performance (perf->self_scm ());
+	  else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
+	    {
+	      if (ly_is_module (score->get_header ()))
+		output_paper_book->add_score (score->get_header ());
+	      output_paper_book->add_score (pscore->self_scm ());
+	    }
+		  
+	  outputs = scm_cdr (outputs);
+	}
+    }
+  else if (Text_interface::is_markup_list (scm_car (s))
+	   || unsmob_page_marker (scm_car (s)))
+    output_paper_book->add_score (scm_car (s));
+  else
+    assert (0);
+    
 }
 
 /* Concatenate all score or book part outputs into a Paper_book
@@ -214,51 +267,16 @@ Book::process (Output_def *default_paper,
   if (scm_is_pair (bookparts_))
     {
       /* Process children book parts */
-      add_bookpart ();
-      for (SCM p = scm_reverse (bookparts_); scm_is_pair (p); p = scm_cdr (p))
-	{
-	  if (Book *book = unsmob_book (scm_car (p)))
-	    {
-	      Paper_book *paper_book_part = book
-		->process (paper, default_layout, paper_book);
-	      if (paper_book_part)
-		paper_book->add_bookpart (paper_book_part->self_scm ());
-	    }
-	}
+      process_bookparts (paper_book, paper, default_layout);
     }
   else
     {
       /* Process scores */
-      /* Render in order of parsing.  */
+  /* Render in order of parsing.  */
       for (SCM s = scm_reverse (scores_); scm_is_pair (s); s = scm_cdr (s))
-	{
-	  if (Score *score = unsmob_score (scm_car (s)))
-	    {
-	      SCM outputs = score
-		->book_rendering (paper_book->paper_, default_layout);
-	      
-	      while (scm_is_pair (outputs))
-		{
-		  Music_output *output = unsmob_music_output (scm_car (outputs));
-		  
-		  if (Performance *perf = dynamic_cast<Performance *> (output))
-		    paper_book->add_performance (perf->self_scm ());
-		  else if (Paper_score *pscore = dynamic_cast<Paper_score *> (output))
-		    {
-		      if (ly_is_module (score->get_header ()))
-			paper_book->add_score (score->get_header ());
-		      paper_book->add_score (pscore->self_scm ());
-		    }
-		  
-		  outputs = scm_cdr (outputs);
-		}
-	    }
-	  else if (Text_interface::is_markup_list (scm_car (s))
-		   || unsmob_page_marker (scm_car (s)))
-	    paper_book->add_score (scm_car (s));
-	  else
-	    assert (0);
-	}
+        {
+          process_score (s, paper_book, default_layout);
+        }
     }
 
   return paper_book;

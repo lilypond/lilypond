@@ -32,16 +32,24 @@ public:
   VIRTUAL_COPY_CONSTRUCTOR(Book, Book);
   Book ();
   void add_score (SCM);
-  void add_bookpart ();
   void add_bookpart (SCM);
-  void set_parent (Book *parent);
-  bool error_found ();
   Paper_book *process (Output_def *def_paper,
 		       Output_def *def_layout);
   Paper_book *process (Output_def *default_paper,
 		       Output_def *default_layout,
 		       Paper_book *parent_part);
   void set_keys ();
+
+protected:
+  void set_parent (Book *parent);
+  void add_scores_to_bookpart ();
+  bool error_found ();
+  void process_score (SCM score,
+		      Paper_book *output_paper_book,
+		      Output_def *layout);
+  void process_bookparts (Paper_book *output_paper_book,
+			  Output_def *paper,
+			  Output_def *layout);
 };
 
 DECLARE_UNSMOB (Book, book);

@@ -52,15 +52,16 @@ public:
   Stencil book_title ();
   Stencil score_title (SCM);
   
+  void classic_output (SCM output_channel);
+  void output (SCM output_channel);
+
+protected:
   void classic_output_aux (SCM output,
 			   int *first_performance_number);
-  void classic_output (SCM output_channel);
   void output_aux (SCM output_channel,
-		   bool is_first,
 		   bool is_last,
 		   int *first_page_number,
 		   int *first_performance_number);
-  void output (SCM output_channel);
 };
 
 DECLARE_UNSMOB (Paper_book, paper_book)
