@@ -1,7 +1,7 @@
 measure-counter.ly
 creating-blank-staves.ly
 controlling-the-placement-of-chord-fingerings.ly
-making-some-staff-lines-thicker-than-the-others.ly
+marking-notes-of-spoken-parts-with-a-cross-on-the-stem.ly
 applying-note-head-styles-depending-on-the-step-of-the-scale.ly
 embedding-native-postscript-in-a--markup-block.ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
@@ -14,3 +14,5 @@ allowing-fingerings-to-be-printed-inside-the-staff.ly
 using-postscript-to-generate-special-note-head-shapes.ly
 blanking-staff-lines-using-the--whiteout-command.ly
 analysis-brackets-above-the-staff.ly
+coloring-notes-depending-on-their-pitch.ly
+making-some-staff-lines-thicker-than-the-others.ly

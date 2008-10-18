@@ -5,6 +5,22 @@
 \header {
   lsrtags = "staff-notation, tweaks-and-overrides, breaks"
 
+  texidoces = "
+El primer pentagrama vacío también se puede suprimir de la
+partitura estableciendo la propiedad @code{remove-first} de
+@code{VerticalAxisGroup}.  Esto se puede hacer globalmente dentro
+del bloque @code{\\layout}, o localmente dentro del pentagrama
+concreto que se quiere suprimir.  En este último caso, tenemos que
+especificar el contexto (@code{Staff} se aplica sólo al pentagrama
+actual) delante de la propiedad.
+
+El pentagrama inferior del segundo grupo no se elimina, porque el
+ajuste sólo se aplica al pentagrama concreto dentro del que se
+escribe.
+
+"
+  doctitlees = "Quitar la primera línea vacía"
+
   texidoc = "
 The first empty staff can also be removed from the score by setting the
 @code{VerticalAxisGroup} property @code{remove-first}. This can be done
