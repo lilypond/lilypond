@@ -285,17 +285,16 @@ returns the program of the instrument
 ;;
 
 (define-public (write-performances-midis performances basename . rest)
+  (let ((midi-ext (ly:get-option 'midi-extension)))
   (let
       loop
     ((perfs performances)
      (count (if (null? rest) 0 (car rest))))
-
-
     (if (pair?  perfs)
 	(begin
 	  (ly:performance-write
 	   (car perfs)
 	   (if (> count 0)
-	       (format #f "~a-~a.midi" basename count)
-	       (format #f "~a.midi" basename)))
+	       (format #f "~a-~a.~a" basename count midi-ext)
+	       (format #f "~a.~a" basename midi-ext)))
 	  (loop (cdr perfs) (1+ count))))))
