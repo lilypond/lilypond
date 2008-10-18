@@ -44,14 +44,14 @@ A simple line.
         (y (cdr dest)))
     (make-line-stencil th 0 0 x y)))
 
-(define-builtin-markup-command (draw-circle layout props radius thickness fill)
+(define-builtin-markup-command (draw-circle layout props radius thickness filled)
   (number? number? boolean?)
   graphic
   ()
   "
 @cindex drawing circles within text
 
-A circle of radius @var{radius}, thickness @var{thickness} and
+A circle of radius @var{radius} and thickness @var{thickness},
 optionally filled.
 
 @lilypond[verbatim,quote]
@@ -61,7 +61,7 @@ optionally filled.
   \\draw-circle #2 #0 ##t
 }
 @end lilypond"
-  (make-circle-stencil radius thickness fill))
+  (make-circle-stencil radius thickness filled))
 
 (define-builtin-markup-command (triangle layout props filled)
   (boolean?)
@@ -182,7 +182,7 @@ Create a beam with the specified parameters.
 @cindex underlining text
 
 Underline @var{arg}.  Looks at @code{thickness} to determine line
-thickness and y offset.
+thickness and y-offset.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -244,7 +244,7 @@ Draw a box with rounded corners of dimensions @var{xext} and
 @end verbatim
 creates a box extending horizontally from -0.3 to 1.8 and
 vertically from -0.3 up to 1.8, with corners formed from a
-circle of diameter@tie{}0 (i.e. sharp corners).
+circle of diameter@tie{}0 (i.e., sharp corners).
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -327,7 +327,7 @@ Provide a white background for @var{arg}.
 @end lilypond"
   (stencil-whiteout (interpret-markup layout props arg)))
 
-(define-builtin-markup-command (pad-markup layout props padding arg)
+(define-builtin-markup-command (pad-markup layout props amount arg)
   (number? markup?)
   align
   ()
@@ -344,7 +344,7 @@ Add space around a markup object.
   }
   \\hspace #2
   \\box {
-    \\pad-around #1 {
+    \\pad-markup #1 {
       padded
     }
   }
@@ -357,8 +357,8 @@ Add space around a markup object.
 
     (ly:make-stencil
      (ly:stencil-expr stil)
-     (interval-widen xext padding)
-     (interval-widen yext padding))))
+     (interval-widen xext amount)
+     (interval-widen yext amount))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; space
@@ -386,15 +386,7 @@ Create a box of the same height as the space in the current font."
   "
 @cindex creating horizontal spaces in text
 
-This produces an invisible object taking horizontal space.  For example,
-
-@example 
-\\markup @{ A \\hspace #2.0 B @}
-@end example
-
-@noindent
-puts extra space between A and@tie{}B, on top of the space that is
-normally inserted before elements on a line.
+Create an invisible object taking up horizontal space @var{amount}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -703,7 +695,7 @@ Like simple-markup, but use tie characters for @q{~} tilde symbols.
 	(/ (+ (car text-widths) (car (cdr text-widths))) 2))
      (get-fill-space word-count line-width (cdr text-widths))))))
 
-(define-builtin-markup-command (fill-line layout props markups)
+(define-builtin-markup-command (fill-line layout props args)
   (markup-list?)
   align
   ((text-direction RIGHT)
@@ -730,7 +722,7 @@ If there are no arguments, return an empty stencil.
   }
 }
 @end lilypond"
-  (let* ((orig-stencils (interpret-markup-list layout props markups))
+  (let* ((orig-stencils (interpret-markup-list layout props args))
 	 (stencils
 	  (map (lambda (stc)
 		 (if (ly:stencil-empty? stc)
@@ -785,7 +777,7 @@ If there are no arguments, return an empty stencil.
   ((word-space)
    (text-direction RIGHT))
   "Put @var{args} in a horizontal line.  The property @code{word-space}
-determines the space between each markup in @var{args}.
+determines the space between markups in @var{args}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -809,7 +801,7 @@ determines the space between each markup in @var{args}.
 @cindex concatenating text
 @cindex ligatures in text
 
-Concatenate @var{args} in a horizontal line, without spaces inbetween.
+Concatenate @var{args} in a horizontal line, without spaces in between.
 Strings and simple markups are concatenated on the input level, allowing
 ligatures.  For example, @code{\\concat @{ \"f\" \\simple #\"i\" @}} is
 equivalent to @code{\"fi\"}.
@@ -918,7 +910,7 @@ equivalent to @code{\"fi\"}.
   "
 @cindex justifying text
 
-Like wordwrap, but with lines stretched to justify the margins.
+Like @code{\\wordwrap}, but with lines stretched to justify the margins.
 Use @code{\\override #'(line-width . @var{X})} to set the line width;
 @var{X}@tie{}is the number of staff spaces.
 
@@ -994,16 +986,16 @@ the line width, where @var{X} is the number of staff spaces.
 \\markup {
   \\override #'(line-width . 40)
   \\wordwrap-string #\"Lorem ipsum dolor sit amet, consectetur
-    adipisicing elit, sed do eiusmod tempor incididunt ut labore
-    et dolore magna aliqua.
-    
-    
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.
-    
-    
-    Excepteur sint occaecat cupidatat non proident, sunt in culpa
-    qui officia deserunt mollit anim id est laborum\"
+      adipisicing elit, sed do eiusmod tempor incididunt ut labore
+      et dolore magna aliqua.
+
+
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat.
+
+
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa
+      qui officia deserunt mollit anim id est laborum\"
 }
 @end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
@@ -1020,16 +1012,16 @@ the line width, where @var{X} is the number of staff spaces.
 \\markup {
   \\override #'(line-width . 40)
   \\justify-string #\"Lorem ipsum dolor sit amet, consectetur
-    adipisicing elit, sed do eiusmod tempor incididunt ut labore
-    et dolore magna aliqua.
-    
-    
-    Ut enim ad minim veniam, quis nostrud exercitation ullamco
-    laboris nisi ut aliquip ex ea commodo consequat.
-    
-    
-    Excepteur sint occaecat cupidatat non proident, sunt in culpa
-    qui officia deserunt mollit anim id est laborum\"
+      adipisicing elit, sed do eiusmod tempor incididunt ut labore
+      et dolore magna aliqua.
+
+
+      Ut enim ad minim veniam, quis nostrud exercitation ullamco
+      laboris nisi ut aliquip ex ea commodo consequat.
+
+
+      Excepteur sint occaecat cupidatat non proident, sunt in culpa
+      qui officia deserunt mollit anim id est laborum\"
 }
 @end lilypond"
   (stack-lines DOWN 0.0 baseline-skip
@@ -1044,10 +1036,10 @@ the line width, where @var{X} is the number of staff spaces.
 @lilypond[verbatim,quote]
 \\header {
   title = \"My title\"
-  descr = \"Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-  nisi ut aliquip ex ea commodo consequat.\"
+  description = \"Lorem ipsum dolor sit amet, consectetur adipisicing
+    elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.\"
 }
 
 \\paper {
@@ -1078,10 +1070,10 @@ the line width, where @var{X} is the number of staff spaces.
 @lilypond[verbatim,quote]
 \\header {
   title = \"My title\"
-  descr = \"Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-  sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-  nisi ut aliquip ex ea commodo consequat.\"
+  description = \"Lorem ipsum dolor sit amet, consectetur adipisicing
+    elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+    aliqua.  Ut enim ad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.\"
 }
 
 \\paper {
@@ -1089,7 +1081,7 @@ the line width, where @var{X} is the number of staff spaces.
     \\column {
       \\fill-line { \\fromproperty #'header:title }
       \\null
-      \\justify-field #'header:descr
+      \\justify-field #'header:description
     }
   }
 }
@@ -1103,7 +1095,7 @@ the line width, where @var{X} is the number of staff spaces.
         (justify-string-markup layout props m)
         empty-stencil)))
 
-(define-builtin-markup-command (combine layout props m1 m2)
+(define-builtin-markup-command (combine layout props arg1 arg2)
   (markup? markup?)
   align
   ()
@@ -1128,8 +1120,8 @@ curly braces as an argument; the follow example will not compile:
     \\arrow-head #Y #DOWN ##f
 }
 @end lilypond"
-  (let* ((s1 (interpret-markup layout props m1))
-	 (s2 (interpret-markup layout props m2)))
+  (let* ((s1 (interpret-markup layout props arg1))
+	 (s2 (interpret-markup layout props arg2)))
     (ly:stencil-add s1 s2)))
 
 ;;
@@ -1143,8 +1135,8 @@ curly braces as an argument; the follow example will not compile:
 @cindex stacking text in a column
 
 Stack the markups in @var{args} vertically.  The property
-@code{baseline-skip} determines the space between each
-markup in @var{args}.
+@code{baseline-skip} determines the space between markups
+in @var{args}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1167,18 +1159,25 @@ markup in @var{args}.
   "
 @cindex changing direction of text columns
 
-Make a column of args, going up or down, depending on the setting
-of the @code{#'direction} layout property.
+Make a column of @var{args}, going up or down, depending on the
+setting of the @code{direction} layout property.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\override #'(direction . 1) {
+  \\override #`(direction . ,UP) {
     \\dir-column {
       going up
     }
   }
+  \\hspace #1
   \\dir-column {
     going down
+  }
+  \\hspace #1
+  \\override #'(direction . 1) {
+    \\dir-column {
+      going up
+    }
   }
 }
 @end lilypond"
@@ -1498,7 +1497,7 @@ Add padding @var{amount} around @var{arg} in the X@tie{}direction.
   (markup?)
   other
   ()
-  "Make the argument transparent.
+  "Make @var{arg} transparent.
   
 @lilypond[verbatim,quote]
 \\markup {
@@ -1619,13 +1618,10 @@ returns an empty markup.
   "
 @cindex overriding properties within text markup
 
-Add the first argument in to the property list.  Properties may be
-any sort of property supported by @rinternals{font-interface} and
-@rinternals{text-interface}, for example
-
-@example
-\\override #'(font-family . married) \"bla\"
-@end example
+Add the argument @var{new-prop} to the property list.  Properties
+may be any property supported by @rinternals{font-interface},
+@rinternals{text-interface} and
+@rinternals{instrument-specific-markup-interface}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1654,7 +1650,7 @@ any sort of property supported by @rinternals{font-interface} and
   (string?)
   other
   ()
-  "Read the contents of a file, and include it verbatim.
+  "Read the contents of file @var{name}, and include it verbatim.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1678,7 +1674,7 @@ any sort of property supported by @rinternals{font-interface} and
   (markup?)
   font
   ()
-  "Decrease the font size relative to current setting.
+  "Decrease the font size relative to the current setting.
   
 @lilypond[verbatim,quote]
 \\markup {
@@ -1700,7 +1696,7 @@ any sort of property supported by @rinternals{font-interface} and
   (markup?)
   font
   ()
-  "Increase the font size relative to current setting.
+  "Increase the font size relative to the current setting.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1717,7 +1713,8 @@ any sort of property supported by @rinternals{font-interface} and
   (markup?)
   font
   ()
-  "Set the argument as small numbers.
+  "Set @var{arg} as small numbers.
+
 @lilypond[verbatim,quote]
 \\markup {
   \\finger {
@@ -1734,7 +1731,8 @@ any sort of property supported by @rinternals{font-interface} and
   font
   ()
   "Use @var{size} as the absolute font size to display @var{arg}.
-Adjust baseline skip and word space accordingly.
+Adjusts @code{baseline-skip} and @code{word-space} accordingly.
+
 @lilypond[verbatim,quote]
 \\markup {
   default text font size
@@ -1762,7 +1760,9 @@ Adjust baseline skip and word space accordingly.
   ((font-size 0)
    (word-space 1)
    (baseline-skip 2))
-  "Add @var{increment} to the font-size.  Adjust baseline skip accordingly.
+  "Add @var{increment} to the font-size.  Adjusts @code{baseline-skip}
+accordingly.
+
 @lilypond[verbatim,quote]
 \\markup {
   default
@@ -1828,7 +1828,7 @@ Use @code{\\fontsize} otherwise.
   (markup?)
   font
   ()
-  "Switch to the sans serif family.
+  "Switch to the sans serif font family.
   
 @lilypond[verbatim,quote]
 \\markup {
@@ -1846,8 +1846,8 @@ Use @code{\\fontsize} otherwise.
   font
   ()
   "Set font family to @code{number}, which yields the font used for
-time signatures and fingerings.  This font only contains numbers and
-some punctuation.  It doesn't have any letters.
+time signatures and fingerings.  This font contains numbers and
+some punctuation; it has no letters.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -1991,7 +1991,7 @@ fonts which support the @code{caps} font shape."
   (interpret-markup layout (prepend-alist-chain 'font-shape 'caps props) arg))
 
 ;; Poor man's caps
-(define-builtin-markup-command (smallCaps layout props text)
+(define-builtin-markup-command (smallCaps layout props arg)
   (markup?)
   font
   ()
@@ -2035,9 +2035,9 @@ Note: @code{\\smallCaps} does not support accented characters.
 					    currents current-is-lower)
 					 prev-result)))))))
   (interpret-markup layout props
-    (if (string? text)
-	(make-small-caps (string->list text) (list) #f (list))
-	text)))
+    (if (string? arg)
+	(make-small-caps (string->list arg) (list) #f (list))
+	arg)))
 
 (define-builtin-markup-command (caps layout props arg)
   (markup?)
@@ -2133,7 +2133,8 @@ done in a different font.  The recommended font for this is bold and italic.
   (markup?)
   font
   ()
-  "Set font shape to @code{upright}.  This is the opposite of @code{italic}.
+  "Set @code{font-shape} to @code{upright}.  This is the opposite
+of @code{italic}.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2155,7 +2156,7 @@ done in a different font.  The recommended font for this is bold and italic.
   (markup?)
   font
   ()
-  "Switch to medium font series (in contrast to bold).
+  "Switch to medium font-series (in contrast to bold).
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2247,7 +2248,7 @@ normal text font, no matter what font was used earlier.
   ()
   music
   ()
-  "Draw a semi sharp symbol.
+  "Draw a semisharp symbol.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2351,7 +2352,7 @@ Draw @var{arg} in color specified by @var{color}.
 ;; glyphs
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define-builtin-markup-command (arrow-head layout props axis direction filled)
+(define-builtin-markup-command (arrow-head layout props axis dir filled)
   (integer? ly:dir? boolean?)
   graphic
   ()
@@ -2376,7 +2377,7 @@ Use the filled head if @var{filled} is specified.
 			 "close"
 			 "open")
 		     axis
-		     direction)))
+		     dir)))
     (ly:font-get-glyph
      (ly:paper-get-font layout (cons '((font-encoding . fetaMusic))
 				     props))
@@ -2433,12 +2434,12 @@ the possible glyphs.
   (integer?)
   other
   ()
-  "Produce a single character.  For example, @code{\\char #65} produces the 
-letter @q{A}.
+  "Produce a single character.  Characters encoded in hexadecimal
+format require the prefix @code{#x}.
 
 @lilypond[verbatim,quote]
 \\markup {
-  \\char #65
+  \\char #65 \\char ##x00a9
 }
 @end lilypond"
   (ly:text-interface::interpret-markup layout props (ly:wide-char->utf-8 num)))
@@ -2615,7 +2616,7 @@ figured bass notation.
 @cindex notes within text by log and dot-count
 
 Construct a note symbol, with stem.  By using fractional values for
-@var{dir}, you can obtain longer or shorter stems.
+@var{dir}, longer or shorter stems can be obtained.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2887,8 +2888,7 @@ Set @var{arg} in superscript with a normal font size.
   "  
 @cindex superscript text
 
-Raising and lowering texts can be done with @code{\\super} and
-@code{\\sub}:
+Set @var{arg} in superscript.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2915,16 +2915,8 @@ Raising and lowering texts can be done with @code{\\super} and
   "
 @cindex translating text
   
-This translates an object.  Its first argument is a cons of numbers.
-
-@example
-A \\translate #(cons 2 -3) @{ B C @} D
-@end example
-
-This moves @q{B C} 2@tie{}spaces to the right, and 3 down, relative to its
-surroundings.  This command cannot be used to move isolated scripts
-vertically, for the same reason that @code{\\raise} cannot be used for
-that.
+Translate @var{arg} relative to its surroundings.  @var{offset}
+is a pair of numbers representing the displacement in the X and Y axis.
 
 @lilypond[verbatim,quote]
 \\markup {
@@ -2972,7 +2964,7 @@ Set @var{arg} in subscript.
   "
 @cindex setting subscript in standard font size
 
-Set @var{arg} in subscript, in a normal font size.
+Set @var{arg} in subscript with a normal font size.
 
 @lilypond[verbatim,quote]
 \\markup {
