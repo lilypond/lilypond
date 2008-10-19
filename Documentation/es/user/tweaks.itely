@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f2dfe5301630aa53a9558b33d1a97595b4724911
+    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1640,16 +1640,17 @@ nota afectada por la instrucción @code{\xxxNeutral} correspondiente.
 @subheading Fingering
 @cindex digitación, colocación
 
-La colocación de las digitaciones también resulta afectada por el
-valor de su propiedad @code{direction}, pero existen instrucciones
-especiales que permiten controlar las digitaciones de notas
-individuales, situando la digitación encima, debajo, a la izquierda o
-a la derecha de cada nota.
+La colocación de las digitaciones se puede controlar también por el
+valor de su propiedad @code{direction}, pero los cambios en
+@code{direction} no afectan a los acordes.  Como veremos, existen
+instrucciones especiales que permiten controlar las digitaciones de
+notas individuales, situando la digitación encima, debajo, a la
+izquierda o a la derecha de cada nota.
 
 En primer lugar, he aquí el efecto de @code{direction} sobre las
-digitaciones; el primer compás muestra el comportamiento
-predeterminado, y después el efecto de especificar @code{DOWN} y
-@code{UP}:
+digitaciones aplicadas a notas sueltas; el primer compás muestra el
+comportamiento predeterminado, y los dos compases siguientes muestran
+el efecto de especificar @code{DOWN} y @code{UP}:
 
 @lilypond[quote,verbatim,relative=2]
 c-5 a-3 f-1 c'-5
@@ -1659,10 +1660,22 @@ c-5 a-3 f-1 c'-5
 c-5 a-3 f-1 c'-5
 @end lilypond
 
-Así es como se controla la digitación sobre notas aisladas, pero la
-propiedad @code{direction} se ignora para los acordes.  En su lugar,
-de forma predeterminada las digitaciones se colocan automáticamente
-encima y debajo de las notas del acorde, como se muestra aquí:
+Sin embargo, la sobreescritura de la propiedad @code{direction} no es
+la manera más sencilla de poner manualmente las digitaciones encima o
+debajo de las notas; suele ser preferible utilizar @code{_} o @code{^}
+en lugar de @code{-} antes de la digitación.  He aquí el ejemplo
+anterior usando este método:
+
+@lilypond[quote,verbatim,relative=2]
+c-5 a-3 f-1 c'-5
+c_5 a_3 f_1 c'_5
+c^5 a^3 f^1 c'^5
+@end lilypond
+
+La propiedad @code{direction} se ignora para los acordes, pero los
+prefijos direccionales @code{_} y @code{^} funcionan.  De forma
+predeterminada las digitaciones se colocan automáticamente encima y
+debajo de las notas del acorde, como se muestra aquí:
 
 @lilypond[quote,verbatim,relative=2]
 <c-5 g-3>
@@ -1670,8 +1683,19 @@ encima y debajo de las notas del acorde, como se muestra aquí:
 <c-5 g-3 e-2 c-1>
 @end lilypond
 
-Es posible tener un mayor control sobre la situación exacta de las
-digitaciones mediante la utilización de la instrucción @code{\set
+@noindent
+pero esto se puede sobreescribir para forzar manualmente que todos o
+cualquiera de los números de digitación individuales están encima o
+debajo:
+
+@lilypond[quote,verbatim,relative=2]
+<c-5 g-3 e-2 c-1>
+<c^5 g_3 e_2 c_1>
+<c^5 g^3 e^2 c_1>
+@end lilypond
+
+Es posible tener un control incluso mayor sobre la situación exacta de
+las digitaciones mediante la utilización de la instrucción @code{\set
 fingeringOrientations}.  El formato de esta instrucción es
 
 @example
@@ -1694,9 +1718,9 @@ digitación de las notas de los acordes que siguen.  Observe que
 @code{left} y @code{right} son mutuamente excluyentes: las
 digitaciones pueden situarse en un lado o en el otro, no en los dos.
 
-Para controlar la colocación de la digitación de una sola nota usando
-esta instrucción es necesario escribirla como un acorde de una sola
-nota encerrándola entre ángulos simples.
+@warning{Para controlar la colocación de la digitación de una sola
+nota usando esta instrucción es necesario escribirla como un acorde de
+una sola nota encerrándola entre ángulos simples.}
 
 Aquí podemos ver algunos ejemplos:
 

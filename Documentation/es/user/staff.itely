@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
+    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -28,8 +28,7 @@ indicaciones de interpretación específicas a pentagramas individuales.
 @subsection Displaying staves
 
 Esta sección describe los distintos métodos de creación de pentagramas
-y grupos de ellos, que se indican al comienzo de cada línea con una
-llave o un corchete.
+y grupos de ellos.
 
 @menu
 * Instantiating new staves::
@@ -80,7 +79,7 @@ instrucción @code{\drummode}.  Para ver más detalles, consulte
 moderna de canto gregoriano.  No muestra líneas divisorias.
 
 @lilypond[verbatim,quote,relative=2]
-\new GregorianTranscriptionStaff { c4 d e f }
+\new GregorianTranscriptionStaff { c4 d e f e d }
 @end lilypond
 
 @code{RhythmicStaff} crea una pauta de una sola línea que sólo muestra
@@ -398,23 +397,6 @@ consulte la sección de fragmentos de código en @ref{Clef}.
 { d4 d d d }
 @end lilypond
 
-Se pueden definir al mismo tiempo la posición vertical de las líneas
-de la pauta y su número.  Como muestra el ejemplo siguiente, las
-posiciones de las notas no resultan influidas por las posiciones de
-las líneas de la pauta.
-
-@warning{La propiedad @code{'line-positions} sobreescribe a la
-propiedad @code{'line-count}.  El número de líneas de la pauta queda
-definido implícitamente por el número de elementos de la lista de
-valores de @code{'line-positions}.}
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'line-positions = #'(7 3 0 -4 -6 -7)
-}
-{ a4 e' f b | d1 }
-@end lilypond
-
 Se puede modificar el grosor de las líneas de la pauta.  El grosor de
 las líneas adicionales y las plicas también resultan afectados, pues
 dependen del grosor de las líneas de la pauta.
@@ -444,17 +426,6 @@ ajuste afecta también al espaciado de las líneas adicionales.
   \override StaffSymbol #'staff-space = #1.5
 }
 { a4 b c d }
-@end lilypond
-
-Se puede modificar el ancho del pentagrama.  Las unidades son espacios
-de pentagrama.  El espaciado de los objetos dentro del pentagrama no
-resulta afectado por este ajuste.
-
-@lilypond[verbatim,quote,relative=1]
-\new Staff \with {
-  \override StaffSymbol #'width = #23
-}
-{ a4 e' f b | d1 }
 @end lilypond
 
 Hay más detalles sobre las proopiedades de @code{StaffSymbol} en

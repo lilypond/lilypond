@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
+    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -374,8 +374,9 @@ contrario.  Envolviendo un valor de Scheme en la función
 @code{ly:export}, un valor de Scheme se interpreta como si hubiera
 sido introducido en sintaxis de LilyPond.  En vez de definir
 @code{\twice}, el ejemplo anterior podría también haberse escrito como
+
 @example
-@dots{}
+...
 @{ #(ly:export (make-sequential-music (list newLa))) @}
 @end example
 

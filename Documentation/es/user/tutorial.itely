@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: bc494bf964f01a1327bc7c6e3c70d0cb8d897ecb
+    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -293,7 +293,7 @@ anterior, la primera nota (@code{d}) es el Re más cercano al Do
 central.
 
 Añadiendo (o eliminando) comillas simples @code{'} o comas @code{,} de
-la instrucción @w{@code{\relative c' @{}}, podemos cambiar la octava
+la instrucción @code{@w{\relative c' @{}}, podemos cambiar la octava
 de inicio:
 
 @lilypond[verbatim,quote]
@@ -348,7 +348,7 @@ nombre de la nota.
 Para subir o bajar una nota en dos (¡o más!) octavas, utilizamos
 varias @code{''} ó @code{,,} (pero tenga cuidado de utilizar dos
 comillas simples @code{''} ¡y no una comilla doble @code{"}@tie{}!)
-El valor inicial de @w{@code{\relative c'}} también puede modificarse
+El valor inicial de @code{@w{\relative c'}} también puede modificarse
 de esta forma.
 @c " - keeps quotes in order for context-sensitive editor -td
 
@@ -630,11 +630,11 @@ fragmento muestra algunos posibles usos para los comentarios:
 @cindex archivos, consejos para construir
 
 Como ya vimos en @ref{Working on input files}, el código de entrada de
-LilyPond debe estar rodeado de llaves @{ @} o de @w{@code{\relative
+LilyPond debe estar rodeado de llaves @{ @} o de @code{@w{\relative
 c'' @{ ... @}}}.  Durante el resto del presente manual, la mayor parte
 de los ejemplos omitirán las llaves.  Para reproducir los ejemplos,
 deberá copiar y pegar la entrada que se muestra, pero @strong{deberá}
-escribir el @w{@code{\relative c'' @{ @}}}, de la siguiente forma:
+escribir el @code{@w{\relative c'' @{ @}}}, de la siguiente forma:
 
 @example
 \relative c'' @{
@@ -644,13 +644,13 @@ escribir el @w{@code{\relative c'' @{ @}}}, de la siguiente forma:
 
 ¿Por qué omitir las llaves? Casi todos los ejemplos del presente
 manual se pueden insertar en medio de un fragmento mayor de música.
-Para estos ejemplos no tiene ningún sentido añadir @w{@code{\relative
+Para estos ejemplos no tiene ningún sentido añadir @code{@w{\relative
 c'' @{ @}}} (¡no debería poner un @code{\relative} dentro de otro
-@code{\relative}!); si hubiésemos incluido @w{@code{\relative c'' @{ @}}}
-rodeando a cada uno de los ejemplos, usted no podría copiar un ejemplo
-pequeño procedente de la documentación y pegarlo dentro de su propia
-pieza.  La mayoría querrá insertar el código dentro de una pieza más
-grande, por eso hemos formateado el manual de esta manera.
+@code{\relative}!); si hubiésemos incluido @code{@w{\relative c'' @{
+@}}} rodeando a cada uno de los ejemplos, usted no podría copiar un
+ejemplo pequeño procedente de la documentación y pegarlo dentro de su
+propia pieza.  La mayoría querrá insertar el código dentro de una
+pieza más grande, por eso hemos formateado el manual de esta manera.
 
 
 
