@@ -12,7 +12,8 @@
 
 ;;;;;;;;;;;;;;;;;;
 
-(define-public ((marked-up-headfoot what-odd what-even) layout scopes page-number last?)
+(define-public ((marked-up-headfoot what-odd what-even)
+                layout scopes page-number is-book-last-page is-part-last-page)
 
   "Read variables WHAT-ODD, WHAT-EVEN from LAYOUT, and interpret them
 as markup. The PROPS argument will include variables set in SCOPES and
@@ -41,7 +42,8 @@ page:last?, page:page-number-string and page:page-number
 		 (cons 'header:tagline
 		       (ly:modules-lookup scopes 'tagline
 					  (ly:output-def-lookup layout 'tagline)))
-		 (cons 'page:last? last?)
+		 (cons 'page:last? is-book-last-page)
+		 (cons 'page:part-last? is-part-last-page)
 		 (cons 'page:page-number-string
 		       (number->string page-number))
 		 (cons 'page:page-number page-number)))

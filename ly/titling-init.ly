@@ -69,14 +69,33 @@ scoreTitleMarkup = \markup { \column {
 }
 }
 
+%% Book first page and last page predicates
 #(define (first-page layout props arg)
+  (define (ancestor layout)
+    "Return the topmost layout ancestor"
+    (let ((parent (ly:output-def-parent layout)))
+       (if (not (ly:output-def? parent))
+           layout
+           (ancestor parent))))
   (if (= (chain-assoc-get 'page:page-number props -1)
-         (ly:output-def-lookup layout 'first-page-number))
+         (ly:output-def-lookup (ancestor layout) 'first-page-number))
       (interpret-markup layout props arg)
       empty-stencil))
 
 #(define (last-page layout props arg)
   (if (chain-assoc-get 'page:last? props #f)
+   (interpret-markup layout props arg)
+   empty-stencil))
+
+%% Part first page and last page predicates
+#(define (part-first-page layout props arg)
+  (if (= (chain-assoc-get 'page:page-number props -1)
+         (ly:output-def-lookup layout 'first-page-number))
+      (interpret-markup layout props arg)
+      empty-stencil))
+
+#(define (part-last-page layout props arg)
+  (if (chain-assoc-get 'page:part-last? props #f)
    (interpret-markup layout props arg)
    empty-stencil))
 

@@ -212,6 +212,7 @@ Page_breaking::systems ()
 Real
 Page_breaking::page_height (int page_num, bool last) const
 {
+  bool last_part = ly_scm2bool (book_->paper_->c_variable ("part-is-last"));
   SCM mod = scm_c_resolve_module ("scm page");
   SCM calc_height = scm_c_module_lookup (mod, "calc-printable-height");
   SCM make_page = scm_c_module_lookup (mod, "make-page");
@@ -222,7 +223,8 @@ Page_breaking::page_height (int page_num, bool last) const
   SCM page = scm_apply_0 (make_page, scm_list_n (
                   book_->self_scm (),
                   ly_symbol2scm ("page-number"), scm_from_int (page_num),
-                  ly_symbol2scm ("is-last"), scm_from_bool (last),
+                  ly_symbol2scm ("is-last"), scm_from_bool (last_part && last),
+                  ly_symbol2scm ("is-part-last"), scm_from_bool (last),
                   SCM_UNDEFINED));
   SCM height = scm_apply_1 (calc_height, page, SCM_EOL);
   return scm_to_double (height) - page_top_space_;
@@ -264,14 +266,15 @@ Page_breaking::make_pages (vector<vsize> lines_per_page, SCM systems)
     {
       SCM page_num = scm_from_int (i + first_page_number);
       bool last_from_part = (i == lines_per_page.size () - 1);
-      SCM last_from_book = scm_from_bool (last_part && last_from_part);
+      bool last_from_book = (last_part && last_from_part);
       SCM rag = scm_from_bool (ragged () || (last_from_part && ragged_last ()));
       SCM line_count = scm_from_int (lines_per_page[i]);
       SCM lines = scm_list_head (systems, line_count);
       SCM page = scm_apply_0 (make_page,
-			      scm_list_n (book, lines, page_num,
-					  rag, last_from_book, SCM_UNDEFINED));
-
+			      scm_list_n (book, lines, page_num, rag,
+					  scm_from_bool (last_from_book),
+					  scm_from_bool (last_from_part),
+					  SCM_UNDEFINED));
       /* collect labels */
       for (SCM l = lines ; scm_is_pair (l)  ; l = scm_cdr (l))
 	{
