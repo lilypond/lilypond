@@ -2,14 +2,14 @@
 # Copyright (C) 2006 Han-Wen Nienhuys, Jan Nieuwenhuizen
 # This file is distributed under the same license as the lilypond package.
 # Till Rettig <till.rettig@gmx.de>, 2007,2008
-#
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-16 23:37+0200\n"
-"PO-Revision-Date: 2008-10-11 16:35+0300\n"
+"PO-Revision-Date: 2008-10-19 10:10+0300\n"
 "Last-Translator: Till Rettig <till.rettig@gmx.de>\n"
 "Language-Team: de\n"
 "MIME-Version: 1.0\n"
@@ -4238,29 +4238,27 @@ msgstr "Zurück zum Standard"
 
 #. Documentation/user/rhythms.itely:931 (comment)
 msgid "auto beam on 1/4 note groups\t"
-msgstr ""
+msgstr "autom. Balken für 1/4-Notengruppen\t"
 
 #. Documentation/user/rhythms.itely:933 (comment)
 msgid "no defined auto-beaming for this time sig"
-msgstr ""
+msgstr "für diese Taktart keine autom. Balken definiert"
 
 #. Documentation/user/rhythms.itely:937 (comment)
 msgid "keep 3/4 beaming "
-msgstr ""
+msgstr "3/4-Balken behalten"
 
 #. Documentation/user/rhythms.itely:938 (comment)
-#, fuzzy
 msgid "due to beatLength"
-msgstr "und Textlänge berücksichtigen"
+msgstr "aufgrund von beatLength"
 
 #. Documentation/user/rhythms.itely:940 (comment)
-#, fuzzy
 msgid "beam on 1/8 notes"
-msgstr "Ende RH-Noten"
+msgstr "Balken für 1/8-Noten"
 
 #. Documentation/user/rhythms.itely:943 (comment)
 msgid "beam on 3/16, 7/16, 9/16, 12/16"
-msgstr ""
+msgstr "Balken für 3/16, 7/16, 9/16, 12/16"
 
 #. Documentation/user/rhythms.itely:1103 (comment)
 msgid "Show all bar numbers"
@@ -4812,7 +4810,7 @@ msgstr "Atemzeichen"
 #. @rglos in Documentation/user/expressive.itely
 #. @rglos in Documentation/es/user/expressive.itely
 msgid "caesura"
-msgstr ""
+msgstr "Zäsur"
 
 #. @node in Documentation/user/expressive.itely
 #. @unnumberedsubsubsec in Documentation/user/expressive.itely
@@ -5001,19 +4999,16 @@ msgid "Tremolo repeats"
 msgstr "Tremolo-Wiederholung"
 
 #. Documentation/user/simultaneous.itely:93 (comment)
-#, fuzzy
 msgid "explicit single voice"
-msgstr "Stimmen explizit beginnen"
+msgstr "explizit eine Stimme"
 
 #. Documentation/user/simultaneous.itely:99 (comment)
-#, fuzzy
 msgid "single first note"
-msgstr "Notation auf einem System"
+msgstr "einzelne erste Note"
 
 #. Documentation/user/simultaneous.itely:111 (comment)
-#, fuzzy
 msgid "no single first note"
-msgstr "Erste Stimme einrichten"
+msgstr "keine einzelne erste Note"
 
 #. Documentation/user/simultaneous.itely:617 (variable)
 msgid "instrumentOne"
@@ -5064,9 +5059,8 @@ msgstr "Noten mit Akkorden"
 #. @unnumberedsubsubsec in Documentation/user/simultaneous.itely
 #. @node in Documentation/es/user/simultaneous.itely
 #. @unnumberedsubsubsec in Documentation/es/user/simultaneous.itely
-#, fuzzy
 msgid "Simultaneous expressions"
-msgstr "Gleichzeitig erscheinende Noten"
+msgstr "Gleichzeitige Ausdrücke"
 
 #. @node in Documentation/user/simultaneous.itely
 #. @unnumberedsubsubsec in Documentation/user/simultaneous.itely
@@ -5772,9 +5766,8 @@ msgstr "Notation von Gesang"
 #. @subsection in Documentation/es/user/vocal.itely
 #. @node in Documentation/de/user/vocal.itely
 #. @subsection in Documentation/de/user/vocal.itely
-#, fuzzy
 msgid "Common notation for vocal music"
-msgstr "Übliche Notation für Gesang"
+msgstr "Übliche Notation für Vokalmusik"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
@@ -5784,9 +5777,8 @@ msgstr "Übliche Notation für Gesang"
 #. @unnumberedsubsubsec in Documentation/es/user/vocal.itely
 #. @node in Documentation/de/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/de/user/vocal.itely
-#, fuzzy
 msgid "References for vocal music and lyrics"
-msgstr "Referenz für Musiktexte"
+msgstr "Referenz für Vokalmusik und Gesangstext"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
@@ -5796,9 +5788,8 @@ msgstr "Referenz für Musiktexte"
 #. @unnumberedsubsubsec in Documentation/es/user/vocal.itely
 #. @node in Documentation/de/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/de/user/vocal.itely
-#, fuzzy
 msgid "Opera"
-msgstr "oben"
+msgstr "Oper"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
@@ -5808,9 +5799,8 @@ msgstr "oben"
 #. @unnumberedsubsubsec in Documentation/es/user/vocal.itely
 #. @node in Documentation/de/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/de/user/vocal.itely
-#, fuzzy
 msgid "Song books"
-msgstr "Lieder"
+msgstr "Liederhefte"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
@@ -5820,9 +5810,8 @@ msgstr "Lieder"
 #. @unnumberedsubsubsec in Documentation/es/user/vocal.itely
 #. @node in Documentation/de/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/de/user/vocal.itely
-#, fuzzy
 msgid "Spoken music"
-msgstr "Das Kopieren von existierender Musik"
+msgstr "Gesprochene Musik"
 
 #. @node in Documentation/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/user/vocal.itely
@@ -5843,9 +5832,8 @@ msgstr "Hymnen"
 #. @unnumberedsubsubsec in Documentation/es/user/vocal.itely
 #. @node in Documentation/de/user/vocal.itely
 #. @unnumberedsubsubsec in Documentation/de/user/vocal.itely
-#, fuzzy
 msgid "Ancient vocal music"
-msgstr "Schlüssel Alter Musik"
+msgstr "Alte Vokalmusik"
 
 #. @node in Documentation/user/vocal.itely
 #. @subsection in Documentation/user/vocal.itely
@@ -6315,7 +6303,6 @@ msgstr "Flageolett"
 
 #. @node in Documentation/user/unfretted-strings.itely
 #. @node in Documentation/es/user/unfretted-strings.itely
-#, fuzzy
 msgid "Snap (Bartok) pizzicato"
 msgstr "Bartók-Pizzicato"
 
@@ -6570,9 +6557,8 @@ msgid "broken"
 msgstr "broken"
 
 #. Documentation/user/percussion.itely:432 (comment)
-#, fuzzy
 msgid "\\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)"
-msgstr "\\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums) "
+msgstr "\\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)"
 
 #. Documentation/user/percussion.itely:438 (comment)
 msgid "the trick with the scaled duration and the shorter rest"
@@ -7036,9 +7022,8 @@ msgstr "Mensurale Versetzungszeichen und Tonartbezeichnung"
 
 #. @node in Documentation/user/ancient.itely
 #. @node in Documentation/es/user/ancient.itely
-#, fuzzy
 msgid "Annotational accidentals (musica ficta)"
-msgstr "Vorgeschlagene Versetzungszeichen (@emph{musica ficta})"
+msgstr "Vorgeschlagene Versetzungszeichen (musica ficta)"
 
 #. @unnumberedsubsubsec in Documentation/user/ancient.itely
 #. @unnumberedsubsubsec in Documentation/es/user/ancient.itely
@@ -9380,9 +9365,8 @@ msgid "How LilyPond files work"
 msgstr "Wie eine LilyPond-Datei funktioniert"
 
 #. @subheading in Documentation/de/user/tweaks.itely
-#, fuzzy
 msgid "force-hshift-Eigenschaft"
-msgstr "force-hshift (vertikale Verschiebunseigenschaft)"
+msgstr "force-hshift-Eigenschaft"
 
 #. @node in Documentation/de/user/templates.itely
 #. @appendixsec in Documentation/de/user/templates.itely
