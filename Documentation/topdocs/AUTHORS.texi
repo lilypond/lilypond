@@ -1,9 +1,9 @@
 \input texinfo @c -*-texinfo-*-
+@documentencoding utf-8
+@documentlanguage en
 @setfilename AUTHORS.info
 @settitle AUTHORS - who did what on GNU LilyPond-
 
-@documentencoding utf-8
-@documentlanguage en
 
 @node Top
 @top
