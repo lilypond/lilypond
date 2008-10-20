@@ -21,14 +21,7 @@ needs to be inserted with an example in a snippet.
 1.2.3.4 Polymetric notation
 Quite extensive changes. Could you please check through.  Divided
 into three
-sections.  Necessarily uses tweaks.  I've also left an @lsr under
-@seealso
-Snippets - is this permitted or is @lsr now verboten?  This
-snippet is too
-long to include, but seems relevant.
-A snippet "grouping beats" hasn't yet appeared (only sent to vv a
-couple of
-days ago).  Text left in Snippets: with TODO.
+sections.  Necessarily uses tweaks.
 @end ignore
 
 @node Rhythms
@@ -917,6 +910,10 @@ Mensural time signatures are covered in
 
 @c TODO Send as snippet called "setting measure and beat lengths"
 @c      when example is added
+
+@c This example seems rather obscure.  Perhaps the effect of
+@c changing the three variables could be separated out  -td
+
 @code{\time} sets the properties @code{timeSignatureFraction},
 @code{beatLength}, and @code{measureLength} in the @code{Timing}
 context, which is normally aliased to @code{Score}.  Changing the
@@ -952,7 +949,7 @@ a16 a a a a a a a a a a a a a a a
 @cindex grouping beats
 @cindex measure sub-grouping
 
-@c TODO Sent as snippet called "grouping beats" 25 Mar 08
+@c TODO Sent as snippet called "Conducting signs, measure grouping signs" 18 Oct 08  -td
 Options to group beats within a bar are available through the
 Scheme function @code{set-time-signature}, which takes three
 arguments: the number of beats, the beat length, and the internal
@@ -1349,7 +1346,7 @@ Guitar chord charts often show the strumming rhythms.  This can
 be done with the @code{Pitch_squash_engraver} and
 @code{\improvisationOn}.
 
- 
+
 @lilypond[quote,verbatim]
 <<
   \new ChordNames {
@@ -1375,58 +1372,9 @@ be done with the @code{Pitch_squash_engraver} and
 @code{\improvisationOff}.
 
 @snippets
-@c TODO -- Convert to snippet;
-@c     tag for both Rhythms and Guitar? Move to @seealso?
 
-For guitar music, it is possible to show strum rhythms, along
-with melody notes, chord names, and fret diagrams.
-
-
-@lilypond[quote,verbatim]
-\include "predefined-guitar-fretboards.ly"
-<<
-  \new ChordNames {
-    \chordmode {
-      c1 f g c
-    }
-  }
-
-  \new FretBoards {
-    \chordmode {
-      c1 f g c
-    }
-  }
-
-  
-  \new Voice \with {
-    \consists Pitch_squash_engraver
-  } \relative c'' {
-    \improvisationOn
-    c4 c8 c c4 c8 c
-    f4 f8 f f4 f8 f
-    g4 g8 g g4 g8 g
-    c4 c8 c c4 c8 c
-  }
-
-
-  \new Voice = "melody" {
-    \relative c'' {
-      \improvisationOff
-      c2 e4 e4 
-      f2. r4
-      g2. a4
-      e4 c2.
-    }
-  }
- 
-  \new Lyrics {
-    \lyricsto "melody" {
-      This is my song.
-      I like to sing.
-    }
-  }
->>
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{guitar-strum-rhythms.ly}
 
 @seealso
 
@@ -1487,7 +1435,9 @@ c16 c8
 
 @snippets
 
-@c TODO -- convert to snippet
+@c TODO -- convert to snippet called "Grouping beats"
+@c         Added to lsr 18 Oct 08  -td
+
 Beaming patterns may be altered with the @code{beatGrouping} property,
 
 @lilypond[quote,verbatim,relative=2]
@@ -1498,7 +1448,11 @@ c8[^"(2+3)" c16 c8]
 c8[^"(3+2)" c16 c8]
 @end lilypond
 
-@c TODO  convert to snippet
+@funindex subdivideBeams
+
+@c TODO  convert to snippet called "Sub-dividing beams"
+@c   Added to lsr 18 Oct 08
+
 The beams of consecutive 16th (or shorter) notes are, by default,
 not sub-divided.  That is, the three (or more) beams stretch
 unbroken over entire groups of notes.  This behavior can
@@ -1522,7 +1476,6 @@ c32[ c c c c c c c]
 \set Score.beatLength = #(ly:make-moment 1 16)
 c32[ c c c c c c c]
 @end lilypond
-@funindex subdivideBeams
 
 @noindent
 For more information about @code{make-moment}, see
@@ -1532,10 +1485,13 @@ For more information about @code{make-moment}, see
 @cindex break, line
 @cindex line breaks
 
-@c TODO  convert to snippet
+@c TODO  convert to snippet called "Beams across line breaks"
+@c  This snippet exists but doesn't show the effect - replaced it
+@c  with this 18 Oct 08, but this also will not break
+
 Line breaks are normally forbidden when beams cross bar lines.
 This behavior can be changed by setting the @code{breakable}
-property: @code{\override Beam #'breakable = ##t}.
+property:
 
 @lilypond[relative=2,verbatim,quote]
 \override Beam #'breakable = ##t
@@ -1547,7 +1503,9 @@ c8 \repeat unfold 15 { c[ c] } c
 @cindex kneed beams
 @cindex auto-knee-gap
 
-@c TODO convert to snippet
+@c TODO convert to snippet called "Changing beam knee gap"
+@c   Added to lsr 18 Oct 08
+
 Kneed beams are inserted automatically when a large gap is
 detected between the note heads.  This behavior can be tuned
 through the @code{auto-knee-gap} property.  A kneed beam is
@@ -1565,8 +1523,8 @@ f8 f''8 f8 f''8
 
 @seealso
 
-Notation Reference: 
-@ref{Manual beams}, 
+Notation Reference:
+@ref{Manual beams},
 @ref{Setting automatic beam behavior}.
 
 Installed Files:
@@ -1589,13 +1547,21 @@ Beams can collide with note heads and accidentals in other voices
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
+@funindex autoBeaming
 @funindex autoBeamSettings
 @funindex (end * * * *)
 @funindex (begin * * * *)
+
 @cindex automatic beams, tuning
 @cindex tuning automatic beaming
+@cindex automatic beam generation
+@cindex autobeam
+@cindex lyrics and beaming
 
-@c [TODO: use \applyContext]
+
+@warning{If beams are used to indicate melismata in songs, then automatic
+beaming should be switched off with @code{\autoBeamOff} and the beams
+indicated manually.}
 
 In normal time signatures, automatic beams can start on any note
 but can end in only a few positions within the measure: beams can
@@ -1607,9 +1573,9 @@ defined in @file{scm/@/auto@/-beam@/.scm}.
 
 In order to add a rule to the list, use
 @example
-#(override-auto-beam-setting 
+#(override-auto-beam-setting
   '(beam-limit beam-numerator  beam-denominator
-     time-signature-numerator time-signature-denominator) 
+     time-signature-numerator time-signature-denominator)
   moment-numerator moment-denominator [context])
 @end example
 
@@ -1619,18 +1585,18 @@ In order to add a rule to the list, use
 defined, either @code{begin} or @code{end}.
 
 @item @code{beam-numerator/beam-denominator} is the beam duration
-for which you want to add a rule.  A beam is considered to have 
-the duration of its shortest note.  Set @code{beam-numerator} and 
+for which you want to add a rule.  A beam is considered to have
+the duration of its shortest note.  Set @code{beam-numerator} and
 @code{beam-denominator} to @code{'*'} to
 have this rule apply beams of any duration.
 
 @item @code{time-signature-numerator/time-signature-denominator}
 is the time signature to which
-this rule should apply.  Set @code{time-signature-numerator} and 
+this rule should apply.  Set @code{time-signature-numerator} and
 @code{time-signature-denominator} to @code{'*'}
 to have this rule apply in any time signature.
 
-@item @code{monent-numerator/moment-denominator} is the position 
+@item @code{monent-numerator/moment-denominator} is the position
 in the bar at which the beam should
 begin or end.
 
@@ -1679,22 +1645,48 @@ e8 e f f e e d d
 c8 c d d d
 @end lilypond
 
-Existing auto-beam rules are removed by using
+When multiple voices are used the @code{Staff} context must be
+specified:
+
+@lilypond[quote,verbatim,relative=2]
+\time 7/8
+% rhythm 3-1-1-2
+% Context not specified - does not work correctly
+#(override-auto-beam-setting '(end * * 7 8) 3 8)
+#(override-auto-beam-setting '(end * * 7 8) 4 8)
+#(override-auto-beam-setting '(end * * 7 8) 5 8)
+<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+
+% Works correctly with context specified
+#(override-auto-beam-setting '(end * * 7 8) 3 8 'Staff)
+#(override-auto-beam-setting '(end * * 7 8) 4 8 'Staff)
+#(override-auto-beam-setting '(end * * 7 8) 5 8 'Staff)
+<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+@end lilypond
+
+@c TODO Add example using Score for multiple staves?
+
+@warning{If any unexpected beam behavior occurs, check the default
+automatic beam settings in @file{scm/@/auto@/-beam@/.scm} for
+possible interference, because the beam endings defined there will
+still apply in addition to your own.}
+
+Any unwanted or conflicting default endings must be reverted for
+your time signature(s).  Existing auto-beam rules are removed by
+using
 
 @example
-#(revert-auto-beam-setting 
+#(revert-auto-beam-setting
   '(beam-limit beam-numerator  beam-denominator
-     time-signature-numerator time-signature-denominator) 
+     time-signature-numerator time-signature-denominator)
   moment-numerator moment-denominator [context])
 @end example
 
 @noindent
-@code{beam-limit}, @code{beam-numerator}, @code{beam-denominator}, 
+@code{beam-limit}, @code{beam-numerator}, @code{beam-denominator},
 @code{time-signature-numerator}, @code{time-signature-denominator},
 @code{moment-numerator}, @code{moment-denominator} and @code{context}
-are the same as above.  Note that the default auto-beaming rules are 
-specified in @file{scm/@/auto@/-beam@/.scm},
-so you can revert rules that you did not explicitly create.
+are the same as above.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
@@ -1718,59 +1710,72 @@ a a a a
 a a a a
 @end lilypond
 
+@snippets
 
+@c TODO Add to LSR with name "Beam grouping in 7/8 time"
+@c      Added 19 Oct 08
+There are no default automatic beam groupings specified for 7/8
+time, so if automatic beams are required the grouping must be
+specified.  For example, to group all beams 2-3-2 in 7/8 time,
+specify beam endings at 2/8 and 5/8:
 
-@c TODO:  old material -- not covered by above stuff, I think.
-If automatic beams should end on every quarter in 5/4 time, specify
-all endings
-@example
-#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
-#(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
-#(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
-#(override-auto-beam-setting '(end * * * *) 5 4 'Staff)
-@dots{}
-@end example
+@lilypond[quote,verbatim,relative=2]
+\time 7/8
+% rhythm 2-3-2
+a8 a a a a a a
+#(override-auto-beam-setting '(end * * 7 8) 2 8)
+#(override-auto-beam-setting '(end * * 7 8) 5 8)
+a8 a a a a a a
+@end lilypond
 
-The same syntax can be used to specify beam starting points.  In this
+@ignore
+@c TODO Fix this example and convert to @lilypond
+@c   Seems like setting beam starting points is no longer
+@c   necessary, and/or has no effect.  Remove mention?
+
+The same syntax can be used to specify beam starting points.
+
+@c TODO Does this example add anything?
+
+In this
 example, automatic beams can only end on a dotted quarter note
 @example
 #(override-auto-beam-setting '(end * * * *) 3 8)
 #(override-auto-beam-setting '(end * * * *) 1 2)
 #(override-auto-beam-setting '(end * * * *) 7 8)
 @end example
+
 In 4/4 time signature, this means that automatic beams could end only on
 3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
 3/8, has passed within the measure).
 
-If any unexpected beam behavior occurs, check the default automatic beam
-settings in @file{scm/@/auto@/-beam@/.scm}
-for possible interference, because the beam
-endings defined there will still apply on top of your own overrides.  Any
-unwanted endings in the default vales must be reverted for your time
-signature(s).
+@end ignore
 
-For example, to typeset @code{(3 4 3 2)}-beam endings in 12/8, begin
-with
+@c TODO Convert to snippet called "Reverting default beam endings"
+@c      Added to lsr 19 Oct 08
 
-@example
-%%% revert default values in scm/auto-beam.scm regarding 12/8 time
+To typeset beams grouped @code{3-4-3-2} in 12/8 it is necessary
+first to override the default beam endings in 12/8, and then to
+set up the new beaming endings:
+
+@lilypond[verbatim,quote,relative=2]
+\time 12/8
+
+% Default beaming
+a8 a a a a a a a a a a a
+
+% Revert default values in scm/auto-beam.scm for 12/8 time
 #(revert-auto-beam-setting '(end * * 12 8) 3 8)
 #(revert-auto-beam-setting '(end * * 12 8) 3 4)
 #(revert-auto-beam-setting '(end * * 12 8) 9 8)
+a8 a a a a a a a a a a a
 
-%%% your new values
-#(override-auto-beam-setting '(end 1 8 12 8) 3 8)
-#(override-auto-beam-setting '(end 1 8 12 8) 7 8)
-#(override-auto-beam-setting '(end 1 8 12 8) 10 8)
-@end example
-
-@cindex automatic beam generation
-@cindex autobeam
-@funindex autoBeaming
-@cindex lyrics
-
-If beams are used to indicate melismata in songs, then automatic
-beaming should be switched off with @code{\autoBeamOff}.
+% Set new values for beam endings
+#(override-auto-beam-setting '(end * * 12 8) 3 8)
+#(override-auto-beam-setting '(end * * 12 8) 7 8)
+#(override-auto-beam-setting '(end * * 12 8) 10 8)
+a8 a a a a a a a a a a a
+@end lilypond
 
 
 @predefined
@@ -1854,10 +1859,6 @@ g a]
 @cindex beams, feathered
 @funindex \featherDurations
 
-@c TODO This section relies on overrides.  We need to either add
-@c      a predefined, move this to snippets (whole section), or violate
-@c      policy for this section.
-
 Feathered beams are used to indicate that a small group of notes
 should be played at an increasing (or decreasing) tempo, without
 changing the overall tempo of the piece.  The extent of the
@@ -1877,8 +1878,6 @@ show the extent of the beam and the braces show
 which notes are to have their durations modified.  Normally
 these would delimit the same group of notes, but this is not
 required: the two commands are independent.
-
-@c TODO -- eliminate "Talking through code"
 
 In the following example the eight 16th notes occupy exactly the
 same time as a half note, but the first note is one half as long
@@ -1900,10 +1899,7 @@ the last four 32nd notes are at a constant tempo.
 
 @noindent
 The spacing in the printed output represents the
-note durations only approximately, but the midi output is exact.
-
-@c TODO -- resolve whether or not midi is capitalized -- policy 
-@c  decision needed
+note durations only approximately, but the MIDI output is exact.
 
 @knownissues
 
@@ -1949,21 +1945,17 @@ double bar line is usually placed at the end of a piece:
 e4 d c2 \bar "|."
 @end lilypond
 
-@c TODO -- make this warning more clear.  What does it mean?
-@warning{An incorrect duration can lead to poorly formatted
-music.}
-
-@c TODO -- check this.  I think this behavior no longer happens
-@c with completion_heads_engraver, but it may with note_heads_engraver
-@c Make an example showing the problem
-
 It is not invalid if the final note in a measure does not
 end on the automatically entered bar line: the note is assumed
 to carry over into the next measure.  But if a long sequence
 of such carry-over measures appears the music can appear compressed
 or even flowing off the page.  This is because automatic line
 breaks happen only at the end of complete measures, i.e., where
-the end of a note coincides with the end of a measure.
+all notes end before the end of a measure.
+
+@warning{An incorrect duration can cause line breaks to be
+inhibited, leading to a line of highly compressed music or
+music which flows off the page.}
 
 @cindex line breaks
 @cindex bar lines, invisible
@@ -2375,7 +2367,9 @@ c1 \mark \default
 c1 \mark \default
 \set Score.markFormatter = #format-mark-box-numbers
 c1 \mark \default
+\set Score.markFormatter = #format-mark-circle-numbers
 c1 \mark \default
+\set Score.markFormatter = #format-mark-circle-letters
 c1
 @end lilypond
 
@@ -2428,11 +2422,11 @@ For common tweaks to the positioning of rehearsal marks, see
 
 @seealso
 
-This manual: 
-@ref{The Feta font}, 
+Notation Reference:
+@ref{The Feta font},
 @ref{Formatting text}.
 
-Installed Files: 
+Installed Files:
 @file{scm/@/translation@/-functions@/.scm} contains
 the definition of @code{format-mark-numbers} and
 @code{format-mark-letters}.  They can be used as inspiration for
@@ -2442,8 +2436,6 @@ Snippets:
 @rlsr{Rhythms}.
 
 Internals Reference: @rinternals{RehearsalMark}.
-
-Examples: @c @lsr{parts,rehearsal-mark-numbers.ly}
 
 @node Special rhythmic concerns
 @subsection Special rhythmic concerns
@@ -2638,9 +2630,9 @@ Internals Reference: @rinternals{GraceMusic}.
 
 @knownissues
 
-A multi-note beamed @emph{acciaccatura} is printed without a slash,
+A multi-note beamed @i{acciaccatura} is printed without a slash,
 and looks exactly the same as a multi-note beamed
-@emph{appoggiatura}.
+@i{appoggiatura}.
 @c TODO Add link to LSR snippet to add slash when available
 
 Grace note synchronization can also lead to surprises.  Staff
