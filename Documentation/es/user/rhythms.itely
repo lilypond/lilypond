@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
+    Translation of GIT committish: 5f6b41e0a22a8c235def146b97f5d48e67fd30f6
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1376,57 +1376,9 @@ rasgueado.  Esto se puede hacer con el grabador
 @code{\improvisationOff}.
 
 @snippets
-@c TODO -- Convert to snippet;
-@c     tag for both Rhythms and Guitar? Move to @seealso?
 
-Para la música de guitarra, es posible mostrar los ritmos de rasgueo,
-además de las notas de la melodía, acordes y diagramas de posiciones.
-
-@lilypond[quote,verbatim]
-\include "predefined-guitar-fretboards.ly"
-<<
-  \new ChordNames {
-    \chordmode {
-      c1 f g c
-    }
-  }
-
-  \new FretBoards {
-    \chordmode {
-      c1 f g c
-    }
-  }
-
-
-  \new Voice \with {
-    \consists Pitch_squash_engraver
-  } \relative c'' {
-    \improvisationOn
-    c4 c8 c c4 c8 c
-    f4 f8 f f4 f8 f
-    g4 g8 g g4 g8 g
-    c4 c8 c c4 c8 c
-  }
-
-
-  \new Voice = "melody" {
-    \relative c'' {
-      \improvisationOff
-      c2 e4 e4
-      f2. r4
-      g2. a4
-      e4 c2.
-    }
-  }
-
-  \new Lyrics {
-    \lyricsto "melody" {
-      This is my song.
-      I like to sing.
-    }
-  }
->>
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{guitar-strum-rhythms.ly}
 
 @seealso
 
@@ -1500,6 +1452,11 @@ c8[^"(2+3)" c16 c8]
 c8[^"(3+2)" c16 c8]
 @end lilypond
 
+@funindex subdivideBeams
+
+@c TODO  convert to snippet called "Sub-dividing beams"
+@c   Added to lsr 18 Oct 08
+
 De forma predeterminada, las barras de semicorchea o notas más cortas
 no se subdividen.  Esto es, el grupo de tres o más barras se amplía
 sin romperse sobre grupos enteros de notas.  Este comportamiento se
@@ -1537,7 +1494,6 @@ administration}.
 Normalmente están prohibidos los saltos de línea cuando las barras
 atraviesan a la línea divisoria.  Este comportamiento se puede
 modificar ajustando la propiedad @code{breakable}:
-@code{\override Beam #'breakable = ##t}.
 
 @lilypond[relative=2,verbatim,quote]
 \override Beam #'breakable = ##t
@@ -1592,13 +1548,20 @@ alteraciones accidentales de las otras voces.
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
+@funindex autoBeaming
 @funindex autoBeamSettings
 @funindex (end * * * *)
 @funindex (begin * * * *)
+
 @cindex barras automáticas, ajuste fino
 @cindex ajuste fino de las barras automáticas
+@cindex automáticas, generación de barras
+@cindex barras automáticas
+@cindex letra y barrado
 
-@c [TODO: use \applyContext]
+@warning{Si se usan barras para indicar los melismas en las canciones,
+el barrado automático debe desactivarse con @code{\autoBeamOff} e
+indicar los barrados manualmente.}
 
 En compases de tipo normal, las barras automáticas pueden comenzar en
 cualquier nota pero solamente pueden terminar en algunas poriciones
@@ -1684,8 +1647,35 @@ e8 e f f e e d d
 c8 c d d d
 @end lilypond
 
-También podemos eliminar una regla de fin de barrado previamente
-establecida usando
+Si se usan varias voces, se debe especificar el contexto @code{Staff}:
+
+@lilypond[quote,verbatim,relative=2]
+\time 7/8
+% rhythm 3-1-1-2
+% Context not specified - does not work correctly
+#(override-auto-beam-setting '(end * * 7 8) 3 8)
+#(override-auto-beam-setting '(end * * 7 8) 4 8)
+#(override-auto-beam-setting '(end * * 7 8) 5 8)
+<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+
+% Works correctly with context specified
+#(override-auto-beam-setting '(end * * 7 8) 3 8 'Staff)
+#(override-auto-beam-setting '(end * * 7 8) 4 8 'Staff)
+#(override-auto-beam-setting '(end * * 7 8) 5 8 'Staff)
+<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+@end lilypond
+
+@c TODO Add example using Score for multiple staves?
+
+@warning{Si se produce un comportamiento inesperado de las barras,
+compruebe la existencia de una posible interferencia en los ajustes
+predeterminados del barrado automático que están en
+@file{scm/@/auto@/-beam@/.scm}, porque los finales de barra definidos
+aquí aún son válidos además de los suyos.}
+
+Debemos revertir cualquer final predeterminado indeseado o
+conflictivo, para nuestro compás concreto.  Podemos eliminar una regla
+de barrado automático previamente establecida usando
 
 @example
 #(revert-auto-beam-setting
@@ -1698,9 +1688,7 @@ establecida usando
 @code{límite-barra}, @code{numerador-barra}, @code{denominador-barra},
 @code{numerador-compás}, @code{denominador-compás},
 @code{numerador-momento}, @code{denominador-momento} y @code{contexto}
-son los mismos que antes.  Observe que las reglas predeteminadas se
-especifican en @file{scm/@/auto@/-beam@/.scm}, así que podemos
-revertir las reglas que no hayamos creado explícitamente.
+son los mismos que antes.
 
 @lilypond[quote,verbatim,relative=2]
 \time 4/4
@@ -1724,20 +1712,36 @@ a a a a
 a a a a
 @end lilypond
 
-@c TODO:  old material -- not covered by above stuff, I think.
-Si las barras automáticas han de terminar en cada negra de un compás
-de 5/4 time, especifique todas las terminaciones
-@example
-#(override-auto-beam-setting '(end * * * *) 1 4 'Staff)
-#(override-auto-beam-setting '(end * * * *) 1 2 'Staff)
-#(override-auto-beam-setting '(end * * * *) 3 4 'Staff)
-#(override-auto-beam-setting '(end * * * *) 5 4 'Staff)
-@dots{}
-@end example
+@snippets
 
-Se puede usar la misma sintaxis para especificar los puntos de inicio
-de las barras.  En este ejemplo, las barras automáticas sólo pueden
+@c TODO Add to LSR with name "Beam grouping in 7/8 time"
+@c      Added 19 Oct 08
+There are no default automatic beam groupings specified for 7/8
+time, so if automatic beams are required the grouping must be
+specified.  For example, to group all beams 2-3-2 in 7/8 time,
+specify beam endings at 2/8 and 5/8:
+
+@lilypond[quote,verbatim,relative=2]
+\time 7/8
+% rhythm 2-3-2
+a8 a a a a a a
+#(override-auto-beam-setting '(end * * 7 8) 2 8)
+#(override-auto-beam-setting '(end * * 7 8) 5 8)
+a8 a a a a a a
+@end lilypond
+
+@ignore
+@c TODO Fix this example and convert to @lilypond
+@c   Seems like setting beam starting points is no longer
+@c   necessary, and/or has no effect.  Remove mention?
+
+Se puede usar la misma sintaxis para especificar los puntos de inicio de las barras.
+
+@c TODO Does this example add anything?
+
+  En este ejemplo, las barras automáticas sólo pueden
 terminar sobre una negra con puntillo:
+
 @example
 #(override-auto-beam-setting '(end * * * *) 3 8)
 #(override-auto-beam-setting '(end * * * *) 1 2)
@@ -1747,37 +1751,34 @@ En el compás de 4/4, esto significa que las barras automáticas sólo
 pueden terminar sobre 3/8 y sobre el cuarto pulso del compás (después
 de que 3/4, esto es, 2 veces 3/8, han transcurrido del compás).
 
-Si se produce cualquier comportamiento inesperado de las barras,
-compruebe los ajustes de barrado automático predeterminados que están
-en @file{scm/@/auto@/-beam@/.scm} en busca de una posible
-interferencia, porque los finales de barra que están allí definidos
-aún se aplicarán encima de sus propias sobreescrituras.  Cualquier
-final no deseado en los valores predeterminados se debe revertir para
-nuestro compás concreto.
+@end ignore
 
-Por ejemplo, para tipografiar finales de barra de @code{(3 4 3 2)} en
-un 12/8, comience por
+@c TODO Convert to snippet called "Reverting default beam endings"
+@c      Added to lsr 19 Oct 08
 
-@example
-%%% revertir los valores predeterminados de scm/auto-beam.scm repecto al compás de 12/8
+Para tipografiar finales de barra de @code{(3 4 3 2)} en un 12/8, es
+necesario sobreescribir en primer lugar los finales de barra
+predeterminados en 12/8, y después preparar los finales de barra
+nuevos:
+
+@lilypond[verbatim,quote,relative=2]
+\time 12/8
+
+% Default beaming
+a8 a a a a a a a a a a a
+
+% Revert default values in scm/auto-beam.scm for 12/8 time
 #(revert-auto-beam-setting '(end * * 12 8) 3 8)
 #(revert-auto-beam-setting '(end * * 12 8) 3 4)
 #(revert-auto-beam-setting '(end * * 12 8) 9 8)
+a8 a a a a a a a a a a a
 
-%%% sus nuevos valores
-#(override-auto-beam-setting '(end 1 8 12 8) 3 8)
-#(override-auto-beam-setting '(end 1 8 12 8) 7 8)
-#(override-auto-beam-setting '(end 1 8 12 8) 10 8)
-@end example
-
-@cindex automática, generación de barras
-@cindex auto-barrado
-@funindex autoBeaming
-@cindex letra
-
-Si se usan barras para indicar melismas en canciones, entonces el
-barrado automático se debe inhabilitar con @code{\autoBeamOff}.
-
+% Set new values for beam endings
+#(override-auto-beam-setting '(end * * 12 8) 3 8)
+#(override-auto-beam-setting '(end * * 12 8) 7 8)
+#(override-auto-beam-setting '(end * * 12 8) 10 8)
+a8 a a a a a a a a a a a
+@end lilypond
 
 @predefined
 
@@ -1947,21 +1948,19 @@ se suele poner una doble barra de cierre al final de la pieza:
 e4 d c2 \bar "|."
 @end lilypond
 
-@c TODO -- make this warning more clear.  What does it mean?
-@warning{Una duración incorrecta lleva a un formato defectuoso en la
-música.}
-
-@c TODO -- check this.  I think this behavior no longer happens
-@c with completion_heads_engraver, but it may with note_heads_engraver
-@c Make an example showing the problem
-
 No deja de ser válida la última nota de un compás si no termina sobre
 la línea divisoria automática: se supone que la nota se prolonga sobre
 el compás siguiente.  Pero una secuencia larga de dichos compases
 prolongados puede hacer que la música aparezca comprimida o incluso
 que se salga de la página.  Esto es a causa de que los saltos de línea
 automáticos solamente se producen al final de compases completos, es
-decir, cuando el final de una nota coincide con el final del compás.
+decir, cuando todas las notas han finalizado antes de que el compás
+termine.
+
+@warning{Una duración incorrecta puede hacer que se trate de evitar la
+producción de saltos de línea, dando como resultado una línea de
+música con una compresión exagerada o música que se sale de la
+página.}
 
 @cindex línea, saltos
 @cindex líneas divisorias invisibles
@@ -2381,7 +2380,9 @@ c1 \mark \default
 c1 \mark \default
 \set Score.markFormatter = #format-mark-box-numbers
 c1 \mark \default
+\set Score.markFormatter = #format-mark-circle-numbers
 c1 \mark \default
+\set Score.markFormatter = #format-mark-circle-letters
 c1
 @end lilypond
 
@@ -2396,7 +2397,7 @@ Podemos utilizar @code{format-mark-barnumbers},
 @code{format-mark-circle-barnumbers} para obtener números de compás en
 lugar de números o letras secuenciales.
 
-Otros estilos de marca de ensayo se pueden especificar de forma
+Se pueden especificar otros estilos de letra de ensayo de forma
 manual:
 
 @example
@@ -2430,7 +2431,7 @@ c1
 Consulte @ref{The Feta font} para ver una lista de los símbolos que se
 pueden imprimir con @code{\musicglyph}.
 
-Para ver formas comunes de trucar la colocación de las marcas de
+Para ver formas comunes de trucar la colocación de las letras de
 ensayo, consulte @ref{Text marks}.
 
 @seealso
@@ -2449,8 +2450,6 @@ Fragmentos de código:
 
 Referencia de funcionamiento interno:
 @rinternals{RehearsalMark}.
-
-@c Ejemplos: @c @lsr{parts,rehearsal-mark-numbers.ly}
 
 
 @node Special rhythmic concerns
@@ -2649,9 +2648,9 @@ Referencia de funcionamiento interno:
 
 @knownissues
 
-Una @emph{acciaccatura} de varias notas con una barra se imprime sin
+Una @i{acciaccatura} de varias notas con una barra se imprime sin
 tachar, y tiene exactamente la misma apariencia que una
-@emph{appoggiatura} de varias notas con barra.
+@i{appoggiatura} de varias notas con barra.
 @c TODO Add link to LSR snippet to add slash when available
 
 La sincronización de las notas de adorno también puede acarrear
