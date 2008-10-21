@@ -393,7 +393,7 @@ woodstaff = {
   % It also defines the positions of the two lines.
   \override Staff.StaffSymbol #'line-positions = #'(-2 3)
 
-  % This is neccessary; if not entered, the barline wuld be too short!
+  % This is neccessary; if not entered, the barline would be too short!
   \override Staff.BarLine #'bar-size = #3
 }
 
@@ -420,6 +420,8 @@ delicate things have a look at @ref{Staff symbol}.
 A tambourine, entered with @q{tamb}:
 
 @lilypond[quote,verbatim]
+#(define mydrums '((tambourine default #t 0)))
+
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
@@ -428,8 +430,7 @@ tambustaff = {
 
 \new DrumStaff {
   \tambustaff
-  % broken
-  % \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
 
   \drummode {
     \time 6/8

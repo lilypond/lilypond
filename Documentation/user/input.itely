@@ -1284,6 +1284,7 @@ For more information on output formats, see @rprogram{Invoking lilypond}.
 
 
 @funindex skipTypesetting
+@funindex showFirstLength
 @funindex showLastLength
 
 When entering or copying music, usually only the music near the end (where
@@ -1301,7 +1302,9 @@ showLastLength = R1*5
 in your source file.  This will render only the last 5 measures
 (assuming 4/4 time signature) of every @code{\score} in the input
 file.  For longer pieces, rendering only a small part is often an order
-of magnitude quicker than rendering it completely
+of magnitude quicker than rendering it completely.  When working on the
+beginning of a score you have already typeset (e.g. to add a new part),
+the @code{showFirstLength} property may be useful as well.
 
 Skipping parts of a score can be controlled in a more fine-grained
 fashion with the property @code{Score.skipTypesetting}.  When it is

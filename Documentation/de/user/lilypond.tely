@@ -5,10 +5,10 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
-@setfilename lilypond.info
-@settitle GNU LilyPond Benutzerhandbuch
 @documentencoding UTF-8
 @documentlanguage de
+@setfilename lilypond.info
+@settitle GNU LilyPond Benutzerhandbuch
 
 @include macros.itexi
 

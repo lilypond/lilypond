@@ -128,7 +128,7 @@ ViolinSolo = \relative c' {
 
   %% Measure 2
   \time 7/4
-  \set Score.repeatCommands = #'((volta "¹) n.      ²) s.p."))
+  \set Score.repeatCommands = #'((volta "1) n.      2) s.p."))
   <<
     { \shift d2 \glissando ^\markup \colmark { \quatre \udbetc } \shifta e1 } \\
     { d2 \open \mf \< ~ d1 \! \> ~ d4 ^\markup \colmark { " " \fermaTa } \! }
@@ -214,6 +214,9 @@ ViolinSolo = \relative c' {
     \context {
       \Staff
       \remove "Time_signature_engraver"
+    }
+    \context {
+      \Score
       \remove "Bar_number_engraver"
     }
   }

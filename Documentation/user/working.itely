@@ -129,8 +129,8 @@ piece of existing sheet music),
 @item Enter one manuscript (the physical copy) system at a time (but still
 only one bar per line of text), and
 check each system when you finish it.  You may use the
-@code{showLastLength} command to speed up processing -- see
-@ruser{Skipping corrected music}.
+@code{showLastLength} or @code{showFirstLength} properties to speed up
+processing -- see @ruser{Skipping corrected music}.
 
 @item Define @code{mBreak = @{ \break @}} and insert @code{\mBreak}
 in the input file whenever the manuscript has a line break.  This
