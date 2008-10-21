@@ -6,9 +6,9 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@documentencoding UTF-8
 @setfilename lilypond-program.info
 @settitle GNU LilyPond -- utilisation des programmes
-@documentencoding UTF-8
 
 @include macros.itexi
 
