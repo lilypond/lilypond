@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: de -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 541aafa12474496930f99f617890a944c3db4989
+    Translation of GIT committish: 270753f1475f23809437eadd7cbbb5a2abddb7b3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1335,6 +1335,7 @@ Para ver más información sobre los formatos de salida, consulte
 @subsection Skipping corrected music
 
 @funindex skipTypesetting
+@funindex showFirstLength
 @funindex showLastLength
 
 Al escribir o copiar música, normalmente sólo es interesante de ver y
@@ -1349,11 +1350,14 @@ showLastLength = R1*5
 @end verbatim
 
 @noindent
-en nuestro archivo fuente.  Esto hará que se tracens sólo los últimos
+en nuestro archivo fuente.  Esto hará que se tracen sólo los últimos
 cinco compases (suponniendo un compás de 4/4) de cada una de las
 partituras @code{\score} del archivo de entrada.  Para piezas largas,
 el tipografiado de únicamente una parte pequeña es con frecuencia un
-orden de magnitud más rápido que el de la obra completa.
+orden de magnitud más rápido que el de la obra completa.  Si estamos
+trabajando sobre el principio de una partitura que ya hemos
+tipografiado (p.ej., para añadir una parte instrumental nueva),
+también puede ser útil la propiedad @code{showFirstLength}.
 
 Este mecanismo de pasar por alto partes de un partitura se puede
 controlar con un grano más fino mediante la propiedad

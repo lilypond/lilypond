@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 18daa1ddf0bd723417c3f17b9dc25d6620a0d215
+    Translation of GIT committish: 2d70503b922db3a192f3dbd38ab5ea2c9fb184db
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -439,6 +439,8 @@ sobre estos delicados asuntos, consulte @ref{Staff symbol}.
 Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}:
 
 @lilypond[quote,verbatim]
+#(define mydrums '((tambourine default #t 0)))
+
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
@@ -447,8 +449,7 @@ tambustaff = {
 
 \new DrumStaff {
   \tambustaff
-  % broken
-  % \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
 
   \drummode {
     \time 6/8
