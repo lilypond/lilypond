@@ -1124,7 +1124,7 @@ list.
 @cindex color, X11
 @cindex X11 colors
 
-@funindex x22-color
+@funindex x11-color
 
 The second way of changing the color is to use the list of
 X11 color names in the second list in @ruser{List of colors}.
