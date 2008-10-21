@@ -60,10 +60,15 @@ and constructing Tweaks.
 @node Objects and interfaces
 @subsection Objects and interfaces
 
-@cindex objects
-@cindex grobs
-@cindex spanners
-@cindex interfaces
+@cindex object
+@cindex grob
+@cindex spanner
+@cindex interface
+@cindex properties, object
+@cindex object properties
+@cindex layout object
+@cindex object, layout
+@cindex interface
 
 Tweaking involves modifying the internal operation and structures
 of the LilyPond program, so we must first introduce some terms
@@ -85,13 +90,13 @@ notational elements such as bar lines,
 note heads, ties, dynamics, etc.  Every object has its own set of
 property values.
 
-Some types of object are given special names.  Objects which
-represent items of notation on the printed output such as
- note heads, stems, slurs, ties, fingering, clefs, etc are called
-@q{Layout objects}, often known as @q{Graphical Objects}, or
-@q{Grobs} for short.  These are still objects in the generic sense
-above, and so they too all have properties associated with them,
-such as their position, size, color, etc.
+Some types of object are given special names.  Objects which represent
+items of notation on the printed output such as note heads, stems,
+slurs, ties, fingering, clefs, etc are called @q{Layout objects},
+often known as @q{Graphical Objects}, or @q{Grobs} for short.  These
+are still objects in the generic sense above, and so they too all have
+properties associated with them, such as their position, size, color,
+etc.
 
 Some layout objects are still more specialized.  Phrasing slurs,
 crescendo hairpins, ottava marks, and many other grobs are not
@@ -100,25 +105,28 @@ ending point, and maybe other properties concerned with their
 shape.  Objects with an extended shape like these are called
 @q{Spanners}.
 
-It remains to explain what @q{Interfaces} are.  Many objects,
-even though they are quite different, share common features 
-which need to be processed in the same way.
-For example, all grobs have a color, a size, a position, etc,
-and all these properties are processed in the same way during
-LilyPond's
-interpretation of the input file.  To simplify these internal
-operations these common actions and properties are grouped 
-together in an object called a @code{grob-interface}.  There
-are many other groupings of common properties like this, each 
-one given a name ending in @code{interface}.  In total there
-are over 100 such interfaces.  We shall see later why this is
-of interest and use to the user.
+It remains to explain what @q{Interfaces} are.  Many objects, even
+though they are quite different, share common features which need to
+be processed in the same way.  For example, all grobs have a color, a
+size, a position, etc, and all these properties are processed in the
+same way during LilyPond's interpretation of the input file.  To
+simplify these internal operations these common actions and properties
+are grouped together in an object called a @code{grob-interface}.
+There are many other groupings of common properties like this, each
+one given a name ending in @code{interface}.  In total there are over
+100 such interfaces.  We shall see later why this is of interest and
+use to the user.
 
 These, then, are the main terms relating to objects which we 
 shall use in this chapter.
 
 @node Naming conventions of objects and properties
 @subsection Naming conventions of objects and properties
+
+@cindex naming conventions for objects
+@cindex naming conventions for properties
+@cindex objects, naming conventions
+@cindex properties, naming conventions
 
 We met some object naming conventions previously, in 
 @ref{Contexts and engravers}.  Here for reference is a list
@@ -162,17 +170,21 @@ properties.
 @node Tweaking methods
 @subsection Tweaking methods
 
+@cindex tweaking methods
+
 @strong{\override command}
 
 @cindex override command
-@funindex \override
+@cindex override syntax
 
-We have already met the commands @code{\set} and @code{\with},
-used to change the properties of @strong{contexts} and to remove
-and add @strong{engravers}, in
-@ref{Modifying context properties}, and @ref{Adding
-and removing engravers}.  We now must meet some more important
-commands.
+@funindex \override
+@funindex override
+
+We have already met the commands @code{\set} and @code{\with}, used to
+change the properties of @strong{contexts} and to remove and add
+@strong{engravers}, in @ref{Modifying context properties}, and
+@ref{Adding and removing engravers}.  We now must meet some more
+important commands.
 
 The command to change the properties of @strong{layout objects} is
 @code{\override}.  Because this command has to modify
@@ -185,14 +197,14 @@ how this is done.
 The general syntax of this command is:
 
 @example
-\override @var{Context}.@var{LayoutObject} #'@var{layout-property} = #@var{value}
+\override @var{Context}.@var{LayoutObject} #'@var{layout-property} =
+#@var{value}
 @end example
 
 @noindent
-This will set the property with the name @var{layout-property}
-of the layout object with the name
-@var{LayoutObject}, which is a member of the @var{Context}
-context, to the value @var{value}.
+This will set the property with the name @var{layout-property} of the
+layout object with the name @var{LayoutObject}, which is a member of
+the @var{Context} context, to the value @var{value}.
 
 The @var{Context} can be omitted (and usually is) when the
 required context is unambiguously implied and is one of lowest
@@ -224,7 +236,9 @@ a b c
 @strong{\revert command}
 
 @cindex revert command
+
 @funindex \revert
+@funindex revert
 
 Once overridden, the property retains its new value until it is
 overridden again or a @code{\revert} command is encountered.
@@ -254,6 +268,9 @@ b c
 
 @strong{\once prefix}
 
+@funindex \once
+@funindex once
+
 Both the @code{\override} and the @code{\set} commands may be
 prefixed by @code{\once}.  This causes the following
 @code{\override} or @code{\set} command to be effective only
@@ -272,7 +289,9 @@ a b c
 @strong{\overrideProperty command}
 
 @cindex overrideProperty command
+
 @funindex \overrideProperty
+@funindex overrideProperty
 
 There is another form of the override command,
 @code{\overrideProperty}, which is occasionally required.
@@ -283,7 +302,9 @@ We mention it here for completeness, but for details see
 @strong{\tweak command}
 
 @cindex tweak command
+
 @funindex \tweak
+@funindex tweak
 
 The final tweaking command which is available is @code{\tweak}.
 This should be used to change the properties of objects which
@@ -358,6 +379,7 @@ articulation mark as if it were an articulation itself.
 @cindex bracket, tuplet
 @cindex tuplet bracket
 @cindex triplet bracket
+
 @funindex TupletBracket
 
 The @code{\tweak} command must also be used to change the 
@@ -424,6 +446,7 @@ Notation Reference:
 @cindex properties of grobs
 @cindex grobs, properties of
 @cindex layout objects, properties of
+@cindex Internals Reference manual
 
 Suppose you have a slur in a score which, to your mind,
 appears too thin and you'd like to draw it a little heavier.
@@ -561,7 +584,9 @@ still need some practice.  This is provided in the examples
 which follow.
 
 @subheading Finding the context
+
 @cindex context, finding
+@cindex context, identifying correct
 
 But first, what if we had needed to specify the Context?  
 What should it be?  We could guess that slurs are in
@@ -583,19 +608,18 @@ location.
 
 @cindex overriding once only
 @cindex once override
-@funindex \once
 
-As you can see, @emph{all} the slurs are thicker in the
-final example above.  But what if we
-wanted just the first slur to be thicker?  This is achieved
-with the @code{\once} command.  Placed immediately before
-the @code{\override} command it causes it to change only the
-slur which begins on the @strong{immediately following} note.
-If the
-immediately following note does not begin a slur the command
-has no effect at all -- it is not remembered until a slur
-is encountered, it is simply discarded.  So the command with
-@code{\once} must be
+@funindex \once
+@funindex once
+
+As you can see, @emph{all} the slurs are thicker in the final example
+above.  But what if we wanted just the first slur to be thicker?  This
+is achieved with the @code{\once} command.  Placed immediately before
+the @code{\override} command it causes it to change only the slur
+which begins on the @strong{immediately following} note.  If the
+immediately following note does not begin a slur the command has no
+effect at all -- it is not remembered until a slur is encountered, it
+is simply discarded.  So the command with @code{\once} must be
 repositioned as follows:
 
 @lilypond[quote,verbatim,relative=2]
@@ -624,8 +648,10 @@ command.
 @subheading Reverting
 
 @cindex revert
-@cindex default properties, reverting
+@cindex default properties, reverting to
+
 @funindex \revert
+@funindex revert
 
 Finally, what if we wanted just the first two slurs to be
 heavier?  Well, we could use two commands, each preceded by
@@ -652,9 +678,8 @@ the slurs begin:
 @end lilypond 
 
 @noindent
-or we could omit the @code{\once} command and use the
-@code{\revert} command
-to return the @code{thickness} property to its default value
+or we could omit the @code{\once} command and use the @code{\revert}
+command to return the @code{thickness} property to its default value
 after the second slur:
 
 @lilypond[quote,verbatim,relative=2]
@@ -693,21 +718,20 @@ contain progressively fewer words of guidance and explanation.
 @node Properties found in interfaces
 @subsection Properties found in interfaces
 
+@cindex interface
 @cindex interface properties
 @cindex properties in interfaces
 
-Suppose now that we wish to print the lyrics in italics.  What
-form of @code{\override} command do we need to do this?
-We first look in the IR page listing @q{All layout objects}, as
-before, and look for an object that might control lyrics.  We
-find @code{LyricText}, which looks right.  Clicking on this shows
-the settable properties for lyric text.  These include the 
-@code{font-series} and @code{font-size}, but nothing that might
-give an italic shape.   
-This is because the shape property is one that is common to all
-font objects, so, rather than including it in every layout
-object, it is grouped together with other similar common
-properties and placed in an @strong{Interface}, the
+Suppose now that we wish to print the lyrics in italics.  What form of
+@code{\override} command do we need to do this?  We first look in the
+IR page listing @q{All layout objects}, as before, and look for an
+object that might control lyrics.  We find @code{LyricText}, which
+looks right.  Clicking on this shows the settable properties for lyric
+text.  These include the @code{font-series} and @code{font-size}, but
+nothing that might give an italic shape.  This is because the shape
+property is one that is common to all font objects, so, rather than
+including it in every layout object, it is grouped together with other
+similar common properties and placed in an @strong{Interface}, the
 @code{font-interface}.
 
 So now we need to learn how to find the properties of interfaces,
@@ -724,19 +748,17 @@ Now we see all the user-settable properties which control fonts,
 including @code{font-shape(symbol)}, where @code{symbol} can be
 set to @code{upright}, @code{italics} or @code{caps}.
 
-You will notice that @code{font-series} and @code{font-size}
-are also listed there.
-This immediately raises the question: Why are the common font
-properties @code{font-series} and @code{font-size} listed under
-@code{LyricText} as well as under the interface
-@code{font-interface} but @code{font-shape} is not?  The answer
-is that @code{font-series} and @code{font-size} are changed
-from their global default values when a @code{LyricText} object
-is created, but @code{font-shape} is not.  The entries in
-@code{LyricText} then tell you the values for those two
-properties which apply to @code{LyricText}.  Other objects
-which support @code{font-interface} will set these
-properties differently when they are created.
+You will notice that @code{font-series} and @code{font-size} are also
+listed there.  This immediately raises the question: Why are the
+common font properties @code{font-series} and @code{font-size} listed
+under @code{LyricText} as well as under the interface
+@code{font-interface} but @code{font-shape} is not?  The answer is
+that @code{font-series} and @code{font-size} are changed from their
+global default values when a @code{LyricText} object is created, but
+@code{font-shape} is not.  The entries in @code{LyricText} then tell
+you the values for those two properties which apply to
+@code{LyricText}.  Other objects which support @code{font-interface}
+will set these properties differently when they are created.
 
 Let's see if we can now construct the @code{\override} command
 to change the lyrics to italics.  The object is @code{LyricText},
@@ -785,7 +807,9 @@ lyrics which it should affect, like this:
 and the lyrics are all printed in italics.
 
 @subheading Specifying the context in lyric mode
+
 @cindex context, specifying in lyric mode
+@cindex lyric mode, specifying context
 
 In the case of lyrics, if you try specifying the context in the 
 format given earlier the command will fail.  A syllable
@@ -817,7 +841,7 @@ Learning Manual: @ref{Scheme tutorial}.
 @node Types of properties
 @subsection Types of properties
 
-@cindex Property types
+@cindex property types
 
 So far we have seen two types of property: @code{number} and
 @code{symbol}.  To be valid, the value given to a property
@@ -920,21 +944,20 @@ particular grob are listed in the IR at the bottom of the page
 describing that grob, and those properties may be viewed by looking at
 those interfaces.
 
-We explained how to find information about grobs in 
-@ref{Properties of layout objects}.  Using the same approach,
-we go to the IR to find the layout object which prints
-bar lines.  Going via @emph{Backend} and @emph{All layout objects}
-we find there
-is a layout object called @code{BarLine}.  Its properties include
-two that control its visibility: @code{break-visibility} and
-@code{stencil}.  Barline also supports a number of interfaces,
-including the @code{grob-interface}, where we find the
-@code{transparent} and the @code{color} properties.  All
-of these can affect the visibility of bar lines (and, of course,
-by extension, many other layout objects too.)  Let's consider
-each of these in turn.
+We explained how to find information about grobs in @ref{Properties of
+layout objects}.  Using the same approach, we go to the IR to find the
+layout object which prints bar lines.  Going via @emph{Backend} and
+@emph{All layout objects} we find there is a layout object called
+@code{BarLine}.  Its properties include two that control its
+visibility: @code{break-visibility} and @code{stencil}.  Barline also
+supports a number of interfaces, including the @code{grob-interface},
+where we find the @code{transparent} and the @code{color} properties.
+All of these can affect the visibility of bar lines (and, of course,
+by extension, many other layout objects too.)  Let's consider each of
+these in turn.
 
 @subheading stencil
+
 @cindex stencil property
 
 This property controls the appearance of the bar lines by specifying
@@ -953,19 +976,17 @@ the implied Context, @code{Voice}:
 }
 @end lilypond
 
-The bar lines are still printed.  What is wrong?  Go back to the
-IR and look again at the page giving the properties of BarLine.
-At the top of the page it says @qq{Barline objects are created
-by: Bar_engraver}.  Go to the @code{Bar_engraver} page.
-At the bottom
-it gives a list of Contexts in which the bar engraver operates.
-All of them are of the type @code{Staff}, so the reason the
-@code{\override} command failed to work as expected is because
-@code{Barline} is not in the default @code{Voice} context.
-If the context
-is specified wrongly, the command simply does not work.  No
-error message is produced, and nothing is logged in the log
-file.  Let's try correcting it by adding the correct context:
+The bar lines are still printed.  What is wrong?  Go back to the IR
+and look again at the page giving the properties of BarLine.  At the
+top of the page it says @qq{Barline objects are created by:
+Bar_engraver}.  Go to the @code{Bar_engraver} page.  At the bottom it
+gives a list of Contexts in which the bar engraver operates.  All of
+them are of the type @code{Staff}, so the reason the @code{\override}
+command failed to work as expected is because @code{Barline} is not in
+the default @code{Voice} context.  If the context is specified
+wrongly, the command simply does not work.  No error message is
+produced, and nothing is logged in the log file.  Let's try correcting
+it by adding the correct context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -984,18 +1005,16 @@ Now the bar lines have vanished.
 @cindex break-visibility property
 
 We see from the @code{BarLine} properties in the IR that the
-@code{break-visibility} property requires a vector of three
-booleans.
-These control respectively whether bar lines are printed at
-the end of a line, in the middle of lines, and at the beginning
-of lines.  For our example we want all bar lines to be suppressed,
-so the value we need is @code{'#(#f #f #f)}.
-Let's try that, remembering
-to include the @code{Staff} context.  Note also that in writing
-this value we have @code{#'#} before the opening bracket.
-The @code{'#} is required as part of the value to introduce a
-vector, and the first @code{#} is required, as always, to precede
-the value itself in the @code{\override} command.
+@code{break-visibility} property requires a vector of three booleans.
+These control respectively whether bar lines are printed at the end of
+a line, in the middle of lines, and at the beginning of lines.  For
+our example we want all bar lines to be suppressed, so the value we
+need is @code{'#(#f #f #f)}.  Let's try that, remembering to include
+the @code{Staff} context.  Note also that in writing this value we
+have @code{#'#} before the opening bracket.  The @code{'#} is required
+as part of the value to introduce a vector, and the first @code{#} is
+required, as always, to precede the value itself in the
+@code{\override} command.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1010,20 +1029,19 @@ the value itself in the @code{\override} command.
 And we see this too removes all the bar lines.
 
 @subheading transparent
-@cindex transparent property
 
-We see from the properties specified in the @code{grob-interface}
-page in the IR that the @code{transparent} property is a boolean.
-This
-should be set to @code{#t} to make the grob transparent.
-In this next example let us make the time signature invisible
-rather than the bar lines.
-To do this we need to find the grob name for the time signature.
-Back to
-the @q{All layout objects} page in the IR to find the properties
-of the @code{TimeSignature} layout object.  This is produced by
-the @code{Time_signature_engraver} which you can check also lives
-in the @code{Staff} context and also supports the
+@cindex transparent property
+@cindex transparency
+
+We see from the properties specified in the @code{grob-interface} page
+in the IR that the @code{transparent} property is a boolean.  This
+should be set to @code{#t} to make the grob transparent.  In this next
+example let us make the time signature invisible rather than the bar
+lines.  To do this we need to find the grob name for the time
+signature.  Back to the @q{All layout objects} page in the IR to find
+the properties of the @code{TimeSignature} layout object.  This is
+produced by the @code{Time_signature_engraver} which you can check
+also lives in the @code{Staff} context and also supports the
 @code{grob-interface}.  So the command to make the time signature
 transparent is:
 
@@ -1061,6 +1079,7 @@ removes the object entirely; making the object @code{transparent}
 leaves it where it is, but makes it invisible.
 
 @subheading color
+
 @cindex color property
 
 Finally let us try making the bar lines invisible by coloring
@@ -1105,6 +1124,8 @@ list.
 @cindex color, X11
 @cindex X11 colors
 
+@funindex x22-color
+
 The second way of changing the color is to use the list of
 X11 color names in the second list in @ruser{List of colors}.
 However, these must be preceded by another function, which
@@ -1128,6 +1149,8 @@ an apostrophe and the two enclosed in brackets.
 
 @cindex rgb colors
 @cindex color, rgb
+
+@funindex rgb-color
 
 There is yet a third function, one which converts RGB values into
 internal colors -- the @code{rgb-color} function.  This takes
@@ -1180,6 +1203,11 @@ found.
 
 @node Size of objects
 @subsection Size of objects
+
+@cindex changing size of objects
+@cindex size of objects
+@cindex objects, size of
+@cindex objects, changing size of
 
 Let us begin by looking again at the earlier example 
 see @ref{Nesting music expressions}) which showed
@@ -1246,13 +1274,12 @@ their default values, which will be the ones set in the
 @code{\with} clause, or if none have been set there, the normal
 default values.
 
-Some context properties
-can be modified only in @code{\with} clauses.  These are those
-properties which cannot sensibly be changed after the context 
-has been created.  @code{alignAboveContext} and its partner,
-@code{alignBelowContext}, are two such properties -- once the
-staff has been created its alignment is decided and it would
-make no sense to try to change it later.
+Some context properties can be modified only in @code{\with} clauses.
+These are those properties which cannot sensibly be changed after the
+context has been created.  @code{alignAboveContext} and its partner,
+@code{alignBelowContext}, are two such properties -- once the staff
+has been created its alignment is decided and it would make no sense
+to try to change it later.
 
 The default values of layout object properties can also be set
 in @code{\with} clauses.  Simply use the normal @code{\override}
@@ -1286,20 +1313,17 @@ So we could replace the example above with
 
 Finally we come to changing the size of layout objects.
 
-Some layout objects are created as glyphs selected from
-a typeface font.  These include note heads, accidentals, markup, 
-clefs, time signatures, dynamics and lyrics.  
-Their size is changed by modifying the
-@code{font-size} property, as we shall shortly see.  Other
-layout objects such as slurs and ties -- in general, spanner
-objects -- are drawn individually, so there is no 
-@code{font-size}
-associated with them.  These objects generally derive their
-size from the objects to which they are attached, so usually
-there is no need to change their size manually.  Still other 
-properties such as the length of stems and bar lines, thickness 
-of beams and other lines, and the separation of staff lines all 
-need to be modified in special ways. 
+Some layout objects are created as glyphs selected from a typeface
+font.  These include note heads, accidentals, markup, clefs, time
+signatures, dynamics and lyrics.  Their size is changed by modifying
+the @code{font-size} property, as we shall shortly see.  Other layout
+objects such as slurs and ties -- in general, spanner objects -- are
+drawn individually, so there is no @code{font-size} associated with
+them.  These objects generally derive their size from the objects to
+which they are attached, so usually there is no need to change their
+size manually.  Still other properties such as the length of stems and
+bar lines, thickness of beams and other lines, and the separation of
+staff lines all need to be modified in special ways.
 
 Returning to the ossia example, let us first change the font-size.
 We can do this in two ways.  We can either change the size of the
@@ -1354,9 +1378,9 @@ sub-section discusses how this is done.
 @node Length and thickness of objects
 @subsection Length and thickness of objects
 
-@cindex Distances
-@cindex Thickness
-@cindex Length
+@cindex distances
+@cindex thickness
+@cindex length
 @cindex magstep
 @cindex size, changing
 @cindex stem length, changing
@@ -1402,15 +1426,14 @@ objects in proportion.  It is used like this:
 @end lilypond
 
 @noindent
-Since the length of stems and many other length-related properties
-are always calculated relative to the
-value of the @code{staff-space} property these are automatically
-scaled down in length too.  Note that this affects only the
-vertical scale of the ossia -- the horizontal scale is determined
-by the layout of the main music in order to remain synchronized 
-with it, so it is not affected by any of these changes in size.
-Of course, if the scale of all the main music were changed in this
-way then the horizontal spacing would be affected.  This is 
+Since the length of stems and many other length-related properties are
+always calculated relative to the value of the @code{staff-space}
+property these are automatically scaled down in length too.  Note that
+this affects only the vertical scale of the ossia -- the horizontal
+scale is determined by the layout of the main music in order to remain
+synchronized with it, so it is not affected by any of these changes in
+size.  Of course, if the scale of all the main music were changed in
+this way then the horizontal spacing would be affected.  This is
 discussed later in the layout section.
 
 This, then, completes the creation of an ossia.  The sizes and
@@ -1433,12 +1456,17 @@ from a font) may be changed in the same way.
 @menu
 * Automatic behavior::          
 * Within-staff objects::        
-* Outside staff objects::       
+* Outside-staff objects::       
 @end menu
 
 
 @node Automatic behavior
 @subsection Automatic behavior
+
+@cindex within-staff objects
+@cindex outside-staff objects
+@cindex objects, within-staff
+@cindex objects, outside-staff
 
 There are some objects in musical notation that belong to
 the staff and there are other objects that should be 
@@ -1527,12 +1555,16 @@ either up or down; others like stems and flags also move to
 right or left when they point up or down.  This is controlled
 automatically when @code{direction} is set.
 
-The following example shows in bar 1 the default behavior of 
-stems, 
-with those on high notes pointing down and those on low notes
-pointing up, followed by four notes with all stems forced down, 
-four notes with all stems forced up, and finally four notes
-reverted back to the default behavior.
+@cindex down
+@cindex up
+@cindex center
+@cindex neutral
+
+The following example shows in bar 1 the default behavior of stems,
+with those on high notes pointing down and those on low notes pointing
+up, followed by four notes with all stems forced down, four notes with
+all stems forced up, and finally four notes reverted back to the
+default behavior.
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a
@@ -1551,10 +1583,9 @@ may also be used in some cases.  It is simply treated as meaning
 @code{UP} for stems, but for some objects it means @q{center}.
 There is a constant, @code{CENTER} which has the value @code{0}.
 
-However, these explicit overrides are not usually used, as there
-are simpler equivalent predefined commands available.  
-Here is a table of the commonest.  The meaning of each is stated
-where it is not obvious.
+However, these explicit overrides are not usually used, as there are
+simpler equivalent predefined commands available.  Here is a table of
+the commonest.  The meaning of each is stated where it is not obvious.
 
 @multitable @columnfractions .2 .2 .25 .35
 @headitem Down/Left
@@ -1607,21 +1638,21 @@ followed after the affected note by the corresponding
 @code{\xxxNeutral} command.
 
 @subheading Fingering
-@cindex fingering, placement
 
-The placement of fingering on single notes can also be controlled
-by the @code{direction} property, but changing @code{direction}
-has no effect on chords.  As we shall see, there are special
+@cindex fingering, placement
+@cindex fingering, chords
+
+The placement of fingering is also affected by the value
+of its @code{direction} property, but there are special
 commands which allow the fingering of individual notes
 of chords to be controlled, with the fingering being placed
 above, below, to the left or to the right of each note.
 
-First, here's the effect of @code{direction} on the fingering
-attached to single notes.  The first bar shows the default
-behaviour, and the following two bars shows the effect of
-specifying @code{DOWN} and @code{UP}:
+First, here's the effect of @code{direction} on fingering,
+the first bar shows the default, then the effect of specifying
+@code{DOWN} and @code{UP}:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c-5 a-3 f-1 c'-5
 \override Fingering #'direction = #DOWN
 c-5 a-3 f-1 c'-5
@@ -1629,43 +1660,21 @@ c-5 a-3 f-1 c'-5
 c-5 a-3 f-1 c'-5
 @end lilypond
 
-However, overriding the @code{direction} property is not the
-easiest way of manually setting the fingering above or below
-the notes; using @code{_} or @code{^} instead of @code{-} before
-the fingering number is usually preferable.  Here is the previous
-example using this method:
+This is how to control fingering on single notes, but the
+@code{direction} property is ignored for chords.  Instead, by default,
+the fingering is automatically placed both above and below the notes
+of a chord, as shown:
 
-@lilypond[quote,verbatim,relative=2]
-c-5 a-3 f-1 c'-5
-c_5 a_3 f_1 c'_5
-c^5 a^3 f^1 c'^5
-@end lilypond
-
-The @code{direction} property is ignored for chords, but the
-directional prefixes, @code{_} and @code{^} do work.  By default,
-the fingering is automatically placed both above and below the
-notes of a chord, as shown:
-
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 <c-5 g-3>
 <c-5 g-3 e-2>
 <c-5 g-3 e-2 c-1>
 @end lilypond
 
-@noindent
-but this may be overriden to manually force all or any of the
-individual fingering numbers above or below:
-
-@lilypond[quote,verbatim,relative=2]
-<c-5 g-3 e-2 c-1>
-<c^5 g_3 e_2 c_1>
-<c^5 g^3 e^2 c_1>
-@end lilypond
-
-Even greater control over the placement of fingering of the
-individual notes in a chord is possible by using the
-@code{\set fingeringOrientations} command.  The format of this
-command is:
+Greater control over the placement of fingering of the 
+individual notes in a chord is possible by using
+the @code{\set fingeringOrientations} command.  The format of
+this command is
 
 @example
 @code{\set fingeringOrientations = #'([up] [left/right] [down])}
@@ -1677,20 +1686,20 @@ property of the @code{Voice} context, created and used by the
 @code{New_fingering_engraver}.
 
 The property may be set to a list of one to three values.
-It controls whether fingerings may be placed above (if
+It controls whether fingerings may be placed above (if 
 @code{up} appears in the list), below (if @code{down} appears),
 to the left (if @code{left} appears, or to the right
 (if @code{right} appears).  Conversely, if a location is not
-listed, no fingering is placed there.  LilyPond takes these
+listed, no fingering is placed there.  LilyPond takes these 
 constraints and works out the best placement for the fingering
 of the notes of the following chords.  Note that @code{left} and
 @code{right} are mutually exclusive -- fingering may be placed
 only on one side or the other, not both.
 
-@warning{To control the placement of the fingering of a single
-note using this command it is necessary to write it as a single
-note chord by placing angle brackets round it.}
-
+To control the placement of the fingering of a single note 
+using this command it is necessary to write it as a single 
+note chord by placing angle brackets round it.
+  
 Here are a few examples:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
@@ -1709,7 +1718,7 @@ Here are a few examples:
 \set fingeringOrientations = #'(right)
 <f-2>
 < c-1  e-2 g-3 b-5 > 4
-@end lilypond
+@end lilypond 
 
 @noindent
 If the fingering seems a little crowded the @code{font-size}
@@ -1735,7 +1744,7 @@ try @code{-7}:
 <f-2>
 < c-1  e-2 g-3 b-5 > 4
 @end lilypond
-
+@c START HERE
 @node Outside staff objects
 @subsection Outside staff objects
 
