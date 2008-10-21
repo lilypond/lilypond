@@ -1744,9 +1744,9 @@ try @code{-7}:
 <f-2>
 < c-1  e-2 g-3 b-5 > 4
 @end lilypond
-@c START HERE
-@node Outside staff objects
-@subsection Outside staff objects
+
+@node Outside-staff objects
+@subsection Outside-staff objects
 
 Outside-staff objects are automatically placed to avoid collisions.
 Objects with the lower value of the @code{outside-staff-priority}
@@ -1792,9 +1792,13 @@ Here is an example showing the default placement of some of
 these.
 
 @cindex text spanner
-@funindex \startTextSpan
-@funindex \stopTextSpan
 @cindex ottava bracket
+
+@funindex \startTextSpan
+@funindex startTextSpan
+@funindex \stopTextSpan
+@funindex stopTextSpan
+
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
@@ -1828,18 +1832,24 @@ For more details see @ruser{Text spanners}.
 
 It also shows how ottava brackets are created.
 
-Note that bar numbers, metronome marks and rehearsal marks
-are not shown. By default these are created in the
-@code{Score} context and their @code{outside-staff-priority}
-is ignored relative to the layout objects which are created
-in the @code{Staff} context.
-If you wish to place bar numbers, metronome marks or rehearsal
-marks in accordance with the value of their
-@code{outside-staff-priority} the @code{Bar_number_engraver},
-@code{Metronome_mark_engraver} or @code{Mark_engraver} respectively
-should be removed from the @code{Score} context and placed in the
-top @code{Staff} context.  If this is done, these marks will be
-given the following default @code{outside-staff-priority} values:
+@cindex tweaking bar number placement
+@cindex bar numbers, tweaking placement
+@cindex tweaking metronome mark placement
+@cindex metronome mark, tweaking placement
+@cindex tweaking rehearsal mark placement
+@cindex rehearsal marks, tweaking placement
+
+Note that bar numbers, metronome marks and rehearsal marks are not
+shown. By default these are created in the @code{Score} context and
+their @code{outside-staff-priority} is ignored relative to the layout
+objects which are created in the @code{Staff} context.  If you wish to
+place bar numbers, metronome marks or rehearsal marks in accordance
+with the value of their @code{outside-staff-priority} the
+@code{Bar_number_engraver}, @code{Metronome_mark_engraver} or
+@code{Mark_engraver} respectively should be removed from the
+@code{Score} context and placed in the top @code{Staff} context.  If
+this is done, these marks will be given the following default
+@code{outside-staff-priority} values:
 
 @multitable @columnfractions .3 .3
 @headitem Layout Object           @tab Priority
@@ -1848,14 +1858,14 @@ given the following default @code{outside-staff-priority} values:
 @item @code{BarNumber}            @tab @code{ 100}
 @end multitable
 
-If the default values of @code{outside-staff-priority} do not
-give you the placing you want, the priority of any of the objects
-may be overridden.  Suppose we would
-like the ottava bracket to be placed below the text spanner in the
-example above.  All we need to do is to look up the priority of
-@code{OttavaBracket} in the IR or in the tables above, and reduce
-it to a value lower than that of a @code{TextSpanner}, remembering
-that @code{OttavaBracket} is created in the @code{Staff} context:
+If the default values of @code{outside-staff-priority} do not give you
+the placing you want, the priority of any of the objects may be
+overridden.  Suppose we would like the ottava bracket to be placed
+below the text spanner in the example above.  All we need to do is to
+look up the priority of @code{OttavaBracket} in the IR or in the
+tables above, and reduce it to a value lower than that of a
+@code{TextSpanner}, remembering that @code{OttavaBracket} is created
+in the @code{Staff} context:
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
@@ -1899,19 +1909,22 @@ c^"Text3"
 c^"Text4"
 @end lilypond
 
-This certainly lifts @qq{Text3} above @qq{Text4} but it also
-lifts it above @qq{Text2}, and @qq{Text4} now drops down.
-Perhaps this is not so good.  What we would really like to do
-is to position all the annotation at the same distance above
-the staff?  To do this, we clearly
-will need to space the notes out horizontally to make more
+This certainly lifts @qq{Text3} above @qq{Text4} but it also lifts it
+above @qq{Text2}, and @qq{Text4} now drops down.  Perhaps this is not
+so good.  What we would really like to do is to position all the
+annotation at the same distance above the staff.  To do this, we
+clearly will need to space the notes out horizontally to make more
 room for the text.  This is done using the @code{textLengthOn}
 command.
 
 @subheading \textLengthOn
 
-@funindex \textLengthOn
 @cindex notes, spreading out with text
+
+@funindex \textLengthOn
+@funindex textLengthOn
+@funindex \textLengthOff
+@funindex textLengthOff
 
 By default, text produced by markup takes up no horizontal space
 as far as laying out the music is concerned.  The @code{\textLengthOn}
@@ -1930,6 +1943,8 @@ The command to revert to the default behavior is
 @code{\textLengthOff}.  Remember @code{\once} only works with
 @code{\override}, @code{\set}, @code{\revert} or @code{unset},
 so cannot be used with @code{\textLengthOn}.
+
+@cindex markup text, allowing collisions
 
 Markup text will also avoid notes which project above the staff.
 If this is not desired, the automatic displacement upwards may
@@ -1960,6 +1975,9 @@ c''2
 
 @subheading Dynamics
 
+@cindex tweaking dynamics placement
+@cindex dynamics, tweaking placement
+
 Dynamic markings will normally be positioned beneath the
 staff, but may be positioned above with the @code{dynamicUp}
 command.  They will be positioned vertically relative to the
@@ -1989,14 +2007,13 @@ a4\f b\mf c\mp b\p
 @end lilypond
 
 @noindent
-Should a similar situation arise in @q{real} music, it may
-be preferable to space out the notes
-a little further, so the dynamic markings can all fit at the
-same vertical distance from the staff.  We were able to do this
-for markup text by using the @code{\textLengthOn} command, but there
-is no equivalent command for dynamic marks.  So we shall have to
-work out how to do this using @code{\override} commands.
-
+Should a similar situation arise in @q{real} music, it may be
+preferable to space out the notes a little further, so the dynamic
+markings can all fit at the same vertical distance from the staff.  We
+were able to do this for markup text by using the @code{\textLengthOn}
+command, but there is no equivalent command for dynamic marks.  So we
+shall have to work out how to do this using @code{\override} commands.
+@c START HERE
 @subheading Grob sizing
 
 @cindex grob sizing
