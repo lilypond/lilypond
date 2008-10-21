@@ -63,6 +63,16 @@ which scares away people.
 @end ignore
 
 @item
+In addition to the already existing @code{showLastLength} property,
+@code{showFirstLength} can now be set as well, rendering only the first
+measures of a piece.  Both properties may be set at the same time:
+@lilypond[]
+showFirstLength = R1*2
+showLastLength = R1*3
+\relative c' { c1 d e f g a b c }
+@end lilypond
+
+@item
 The file extension for MIDI can be set using the command-line
 program default @code{midi-extension}.  For Windows, the default
 extension has been changed to @code{.mid}.
