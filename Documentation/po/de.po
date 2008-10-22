@@ -5396,7 +5396,7 @@ msgstr "Anmerkungen"
 #. @node in Documentation/de/user/editorial.itely
 #. @subsection in Documentation/de/user/editorial.itely
 msgid "Inside the staff"
-msgstr "Innerhalt des Systems"
+msgstr "Innerhalb des Systems"
 
 #. @node in Documentation/user/editorial.itely
 #. @unnumberedsubsubsec in Documentation/user/editorial.itely
