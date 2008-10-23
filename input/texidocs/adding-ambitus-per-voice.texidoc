@@ -4,3 +4,10 @@ Se puede añadir un ámbito por cada voz. En este caso, el ámbito se
 debe desplazar manualmente para evitar colisiones.
 
 "
+
+texidocde = "
+Ambitus können pro Stimme gesetzt werden. In diesem Fall müssen sie
+manual verschoben werden, um Zusammenstöße zu verhindern.
+
+"
+doctitlede = "Ambitus pro Stimme hinzufügen"

@@ -21,3 +21,27 @@ correspondencia entre las funciones armónicas y los estilos de cabezas
 de nota.
 
 "
+
+texidocde = "
+Die @code{shapeNoteStyles}-(NotenFormenStile)-Eigenschaft kann benutzt
+werden, um verschiedene Notenstile für jeden Schritt der Tonleiter
+zudefinieren (vorgegeben von der Tonart oder der \"tonic\" (Tonika)-Eigneschaft.
+Diese Eigenschaft braucht eine Anzahl von Symbolen, welche vollständig
+arbiträr sein können (geometrische Ausdrücke wie
+@code{triangle} (Dreieck), @code{cross} (Kreuz) und @code{xcircle} (X-Kreis)
+sind erlaubt) oder basierend auf einer alten amerikanischen Notensatztradition
+(einige lateinische Notenbezeichnungen sind auch erlaubt).
+
+Um alte amerikanische Liederbücher zu imitieren, gibt es einige vordefinierte
+Notenstile wie etwa
+@code{\\aikenHeads} (im Stil von Aiken) oder @code{\\sacredHarpHeads} (im
+Stil der Sacred Harp-Tradition).
+
+Dieses Beispiel zeigt andere Wege, um die unterschiedliche geformten
+Noten zu erhalten, und zeigt, wie man eine Melodie transponieren kann,
+ohne dass das Verhältnis zwischen den harmonischen Funktionen und
+dem Notenstil verloren geht.
+
+"
+
+  doctitlede = "Notenkopfstile besierend auf der Tonleiterstufe erstellen"

@@ -34,3 +34,38 @@ cambios manuales preservan el posicionamiento relativo estándar de
 las claves y las notas, pero no lo hacen en la segunda línea.
 
 "
+
+doctitlede = "Eigenschaften des Schlüssels optimieren"
+
+texidocde = "Der Befehl @code{\\clef \"treble_8\"} ist gleichbedeutend
+mit einem expliziten Setzen der Eigenschaften von @code{clefGlyph},
+@code{clefPosition} (welche die vertikale Position des Schlüssels
+bestimmt), @code{middleCPosition} und @code{clefOctavation}.  Ein
+Schlüssel wird ausgegeben, wenn eine der Eigenschaften außer
+@code{middleCPosition} sich ändert.
+
+Eine Änderung des Schriftzeichens (Glyph), der Schlüsselposition oder
+der Oktavierung selber ändert noch nicht die Position der darauf
+folgenden Noten auf dem System: das geschieht nur, wenn auch die
+Position des eingestrichenen Cs (middleCPosition) angegeben wird.
+Die Positionsparameter sind relativ zur Mittellinie des Systems,
+dabei versetzen positive Zahlen die Position nach oben, jeweils eine
+Zahl für jede Linie plus Zwischenraum.  Der @code{clefOctavation}-Wert
+ist normalerweise auf 7, -7, 15 oder -15 gesetzt, aber auch andere
+Werte sind gültig.
+
+Wenn ein Schlüsselwechsel an einem Zeilenwechsel geschieht, wird das
+neue Symbol sowohl am Ende der alten Zeilen als auch am Anfang der
+neuen Zeile ausgegeben.  Wenn der Warnungs-Schlüssel am Ende der
+alten Zeile nicht erforderlich ist, kann er unterdrückt werden,
+indem die @code{explicitClefVisibility} des @code{Staff}-Kontextes
+auf den Wert @code{end-of-line-invisible} gesetzt wird.  Das
+Standardverhalten kann mit @code{\\unset Staff.explicitClefVisibility}
+wieder hergestellt werden.
+
+Die folgenden Beispiele zeigen die Möglichkeiten, wenn man diese
+Eigenschaften manuell setzt.  Auf der ersten Zeile erhalten die manuellen
+Änderungen die ursprüngliche relative Positionierung von Schlüssel und
+Noten, auf der zweiten Zeile nicht.
+"
+
