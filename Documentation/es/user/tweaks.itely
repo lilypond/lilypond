@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d55b57ad8de3eb22a691db9f229d22805859c5a8
+    Translation of GIT committish: 3755aa13ed2824ad712403d7d72adaa051d82bc7
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1700,18 +1700,19 @@ nota afectada por la instrucción @code{\xxxNeutral} correspondiente.
 @cindex digitación, colocación
 @cindex digitación de acordes
 
-La colocación de las digitaciones está afectada también por el valor
-de su propiedad @code{direction}, pero existen instrucciones
-especiales que permiten controlar las digitaciones de notas
-individuales, situando la digitación encima, debajo, a la izquierda o
-a la derecha de cada nota.
+La colocación de las digitaciones sobre notas sueltas también se puede
+controlar mediante la propiedad @code{direction}, pero los cambios
+sobre @code{direction} no tienen ningún efecto sobre las notas de los
+acordes.  Como veremos, existen instrucciones especiales que permiten
+controlar las digitaciones de notas individuales, situando la
+digitación encima, debajo, a la izquierda o a la derecha de cada nota.
 
 En primer lugar, he aquí el efecto de @code{direction} sobre las
-digitaciones; se muestra en el primer compás el comportamiento
-predeterminado, y después el efecto de especificar @code{DOWN} y
-@code{UP}:
+digitaciones aplicadas a notas sueltas.  Se muestra en el primer
+compás el comportamiento predeterminado, y en los dos comases
+siguiente el efecto de especificar @code{DOWN} y @code{UP}:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 c-5 a-3 f-1 c'-5
 \override Fingering #'direction = #DOWN
 c-5 a-3 f-1 c'-5
@@ -1719,20 +1720,42 @@ c-5 a-3 f-1 c'-5
 c-5 a-3 f-1 c'-5
 @end lilypond
 
-Así es como se controlan las digitaciones sobre notas sueltas, pero la
-propiedad @code{direction} se ignora en los acordes.  En su lugar, de
-forma predeterminada, las digitaciones se sitúan tanto encima como
-debajo de las notas del acorde, como se muestra aquí:
+Sin embargo, la sobreescritura de la propiedad @code{direction} no es
+la forma más sencilla de especificar manualmente la digitación por
+encima o por debajo de las notas; suele ser preferible usar @code{_} o
+@code{^} en lugar de @code{-}, antes del número de la digitación.
+Este es el ejemplo anterior utilizando este método:
 
-@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
+c-5 a-3 f-1 c'-5
+c_5 a_3 f_1 c'_5
+c^5 a^3 f^1 c'^5
+@end lilypond
+
+La propiedad @code{direction} se ignora para los acordes, pero los
+prefijos direccionales @code{_} y @code{^} sí funcionan.  De forma
+predeterminada, las digitaciones se colocan automáticamente encima y
+debajo de las notas de un acorde, como se muestra aquí:
+
+@lilypond[quote,verbatim,relative=2]
 <c-5 g-3>
 <c-5 g-3 e-2>
 <c-5 g-3 e-2 c-1>
 @end lilypond
 
-Es posible ejercer un mayor control sobre la situación exacta de las
+@noindent
+pero se puede forzar de manera que todos o algunos de los números de
+digitación estén por encima o por debajo:
+
+@lilypond[quote,verbatim,relative=2]
+<c-5 g-3 e-2 c-1>
+<c^5 g_3 e_2 c_1>
+<c^5 g^3 e^2 c_1>
+@end lilypond
+
+Es posible ejercer un control aún mayor sobre la colocación de las
 digitaciones mediante la utilización de la instrucción @code{\set
-fingeringOrientations}.  El formato de esta instrucción es
+fingeringOrientations}.  El formato de esta instrucción es:
 
 @example
 @code{\set fingeringOrientations = #'([up] [left/right] [down])}
@@ -1754,9 +1777,9 @@ digitación de las notas de los acordes que siguen.  Observe que
 @code{left} y @code{right} son mutuamente excluyentes: las
 digitaciones pueden situarse en un lado o en el otro, no en los dos.
 
-Para controlar la colocación de la digitación de una sola nota usando
-esta instrucción es necesario escribirla como un acorde de una sola
-nota encerrándola entre ángulos simples.
+@warning{Para controlar la colocación de la digitación de una sola
+nota usando esta instrucción es necesario escribirla como un acorde de
+una sola nota encerrándola entre ángulos simples.}
 
 Aquí podemos ver algunos ejemplos:
 
@@ -1803,10 +1826,9 @@ objeto @code{Fingering} del RFI que es @code{-5}, así que probaremos
 < c-1  e-2 g-3 b-5 > 4
 @end lilypond
 
-@c START HERE
 
-@node Outside staff objects
-@subsection Outside staff objects
+@node Outside-staff objects
+@subsection Outside-staff objects
 
 Los objetos fuera-del-pentagrama se colocan automáticamente para
 evitar las colisiones.  Los objetos que tienen el valor más bajo de la
@@ -1853,9 +1875,12 @@ He aquí un ejemplo que muestra la situación predeterminada de algunos
 de ellos.
 
 @cindex texto, extensiones de
-@funindex \startTextSpan
-@funindex \stopTextSpan
 @cindex octava alta y baja, corchete de
+
+@funindex \startTextSpan
+@funindex startTextSpan
+@funindex \stopTextSpan
+@funindex stopTextSpan
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
@@ -1888,6 +1913,13 @@ define por medio de la instrucción @code{\override TextSpanner}.  Para
 ver más detalles, consulte @ruser{Text spanners}.
 
 También muestra la manera de crear corchetes de octava alta y baja.
+
+@cindex trucar la situación de los números de compás
+@cindex números de compás, ajustar posición
+@cindex trucar la situación de marcas metronómicas
+@cindex metrónomo, situación de las indicaciones de
+@cindex trucar la situación de las letras de ensayo
+@cindex ensayo, letras, trucar la colocación
 
 Observe que los números de compás, las indicaciones metronómicas y las
 mercas de ensayo no se muestran. De forma predeterminada, se crean
@@ -1973,8 +2005,12 @@ hacer sitio para el texto.  Esto se hace empleando la instrucción
 
 @subheading \textLengthOn
 
-@funindex \textLengthOn
 @cindex notas, espaciar junto al texto
+
+@funindex \textLengthOn
+@funindex textLengthOn
+@funindex \textLengthOff
+@funindex textLengthOff
 
 De forma predeterminada, el texto producido mediante marcado no ocupa
 ningún espacio horizontal en cuanto se refiere a la disposición de la
@@ -1994,6 +2030,8 @@ La instrucción para volver al comportamiento predeterminado es
 @code{\textLengthOff}.  Recuerde que @code{\once} funciona solamente
 con @code{\override}, @code{\set}, @code{\revert} o @code{unset}, así
 que no se puede usar con @code{\textLengthOn}.
+
+@cindex marcado, texto de, permitir las colisiones en
 
 El texto de marcado también evita las notas que se proyectan por
 encima del pentagrama.  Si esto no es lo que deseamos, el
@@ -2024,6 +2062,10 @@ c''2
 
 
 @subheading Dynamics
+
+@cindex trucar la colocación de los matices
+@cindex dinámica, trucar la colocación de las indicaciones de
+@cindex matices, trucar la colocación
 
 Las indicaciones de matiz dinámico normalmente se colocarán por debajo
 del pentagrama, pero se pueden posicionar por encima con la
@@ -2062,7 +2104,7 @@ marcado utilizando la instrucción @code{\textLengthOn}, pero no existe
 una instrucción equivalente para las indicaciones de matiz dinámico.
 Por tanto, tendremos que averiguar cómo hacerlo utilizando
 instrucciones @code{\override}.
-
+@c START HERE
 @subheading Grob sizing
 
 @cindex grob, cambio de tamaño de un
