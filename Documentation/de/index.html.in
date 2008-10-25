@@ -1,6 +1,6 @@
 <html>
 <!--
-    Translation of GIT committish: 550152ed5d5015d13abf2af83b2e040f996a66a4
+    Translation of GIT committish: b6d70bb967c980446372dab1d29ed8b40608b7c4
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -27,11 +27,7 @@
 	<strong>@DATE@</strong>
       </p>
       
-      <p>
-      <strong>Achtung:</strong> Diese &Uuml;bersetzung befindet sich noch in der Entwicklung, <br>
-      die englische Version (Link unten auf der Seite) bietet die
-      vollst&auml;ndige Fassung der Dokumentation.
-      </p>
+      
     </div>
 
     <table id="navigation">
@@ -41,7 +37,7 @@
 	  <ul>
 	    <li>
 	    <a class="title" href="user/lilypond-learning/index.de.html">Handbuch zum Lernen (LM)</a>
-	    (auf <a class="title" href="user/lilypond-learning-big-page.html">einer gro&szlig;en Seite</a> ~ 1.5 MB,
+	    (auf <a class="title" href="user/lilypond-learning-big-page.de.html">einer gro&szlig;en Seite</a> ~ 1.5 MB,
 als <a class="title" href="user/lilypond-learning.de.pdf">PDF</a>)
               <br>(F&uuml;r den ersten Anfang.)</li>
 
@@ -71,7 +67,10 @@ als <a class="title" href="user/lilypond-learning.de.pdf">PDF</a>)
 <a class="title" href="user/lilypond/index.de.html">Notationsreferenz (NR)</a>
  (auf <a class="title" href="user/lilypond-big-page.html">einer gro&szlig;en Seite</a> ~ 4 MB,
  als <a class="title" href="user/lilypond.de.pdf">PDF</a>)
-       <br>(Notation mit LilyPond setzen.)</li>
+       <br>(Notation mit LilyPond setzen.)
+       <br>(<strong>Achtung:</strong> dieses Dokument ist erst teilweise auf deutsch &uuml;bersetzt,<br>
+       die vollständige Version liegt auf Englisch vor, siehe Link unten auf
+       der Seite.)</li>
 
         <li>
   <a  class="title" href="user/lilypond-internals/index.html">Referenz der Interna (IR)</a>
