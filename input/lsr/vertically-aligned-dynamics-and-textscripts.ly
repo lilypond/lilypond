@@ -20,7 +20,7 @@ largo de su línea de base.
   doctitlees = "Indicaciones dinámicas y textuales alineadas verticalmente"
 
   texidoc = "
-By setting the @code{Y-extent} property to a suitable value, all
+By setting the @code{'Y-extent} property to a suitable value, all
 @code{DynamicLineSpanner} objects (hairpins and dynamic texts) can be
 aligned to a common reference point, regardless of their actual extent.
 This way, every element will be vertically aligned, thus producing a

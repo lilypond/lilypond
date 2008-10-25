@@ -43,7 +43,7 @@ positioning of lyrics and ossias.
       } {
         \times 4/6 {
           \override TextScript #'padding = #3
-          c8^"ossia above" d e d e f
+          c8[^"ossia above" d e d e f]
         }
       }
     >>

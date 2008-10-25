@@ -31,6 +31,37 @@ De esta forma se selecciona el mayor número de notas enarmónicas
 naturales.
 
 "
+
+doctitlede = "Noten mit minimaler Anzahl an Versetzungszeichen transponieren."
+
+texidocde = "Dieses Beispiel benutzt Scheme-Code, um enharmonische
+Verwechslungen für Noten zu erzwingen, damit nur eine minimale Anzahl
+an Versetzungszeichen ausgegeben wird.  In diesem Fall gelten die
+folgenden Regeln:
+
+@itemize
+@item
+Doppelte Versetzungszeichen sollen entfernt werden
+
+@item
+His -> C
+
+@item
+Eis -> F
+
+@item
+Ces -> B
+
+@item
+Fes -> E
+
+@end itemize
+
+Auf diese Art werden am meisten natürliche Tonhöhen als enharmonische
+Variante gewählt.
+"
+
+
   lsrtags = "pitches"
   texidoc = "This example uses some Scheme code to enforce enharmonic
 modifications for notes in order to have the minimum number of

@@ -5,6 +5,19 @@
 \header {
   lsrtags = "expressive-marks, unfretted-strings"
 
+  texidoces = "
+El pizzicato de chasquido (también llamado \"Pizzicato
+de Bartók\") es un \"pizzicato fuerte en que la cuerda se pulsa
+verticalmente produciendo un chasquido y rebotando en el diapasón del
+instrumento\" (Wikipedia).  Se denota mediante una circunferencia con
+una línea vertical corta que parte del centro de aquélla hacia
+fuera. Aunque Lilypond no tiene ninguna instrucción predefinida para
+crear esta marca, es fácil hacer la definición y colocarla
+directamente en el archivo de lilypond.
+
+"
+  doctitlees = "Marca de pizzicato de chasquido (\"pizzicato de Bartók\")"
+
   texidoc = "
 A snap-pizzicato (also known as \"Bartok pizzicato\") is a \"strong
 pizzicato where the string is plucked vertically by snapping and
