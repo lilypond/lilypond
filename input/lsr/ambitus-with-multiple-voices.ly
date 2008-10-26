@@ -13,6 +13,12 @@ pentagramas con varias voces.
 
 "
 
+texidocde = "
+Indem man den @code{Ambitus_engraver} im @code{Staff}-Kontext
+hinzufügt, erhält man einen einzigen Ambitus pro System, auch in dem
+Fall, dass mehrere Stimmen sich im gleichen System befinden.
+"
+  doctitlede = "Ambitus mit vielen Stimmen"
 
   texidoc = "
 Adding the @code{Ambitus_engraver} to the @code{Staff} context creates

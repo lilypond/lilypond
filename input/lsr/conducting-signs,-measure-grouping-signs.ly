@@ -6,14 +6,14 @@
   lsrtags = "rhythms"
 
   texidoc = "
-The Scheme function @code{set-time-signature}, in combination with the
-@code{Measure_grouping_engraver}, creates measure grouping signs. Such
-signs ease reading rhythmically complex modern music. In the following
-example, the 9/8 measure is subdivided into 2, 2, 2 and 3 beats. This
-is passed to @code{set-time-signature} as the third argument @code{(2 2
-2 3)}.
-
-
+Options to group beats within a bar are available through the Scheme
+function @code{set-time-signature}, which takes three arguments: the
+number of beats, the beat length, and the internal grouping of beats in
+the measure.  If the @code{Measure_grouping_engraver} is included, the
+function will also create @code{MeasureGrouping} signs.  Such signs
+ease reading rhythmically complex modern music.  In the example, the
+9/8 measure is subdivided in 2, 2, 2 and 3.  This is passed to
+@code{set-time-signature} as the third argument: @code{'(2 2 2 3)}:
 
 "
   doctitle = "Conducting signs, measure grouping signs"

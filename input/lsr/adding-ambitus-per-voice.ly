@@ -12,6 +12,13 @@ debe desplazar manualmente para evitar colisiones.
 
 "
 
+texidocde = "
+Ambitus können pro Stimme gesetzt werden. In diesem Fall müssen sie
+manual verschoben werden, um Zusammenstöße zu verhindern.
+
+"
+doctitlede = "Ambitus pro Stimme hinzufügen"
+
   texidoc = "
 Ambitus can be added per voice. In this case, the ambitus must be moved
 manually to prevent collisions. 

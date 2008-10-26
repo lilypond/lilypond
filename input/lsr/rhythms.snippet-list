@@ -1,3 +1,5 @@
+changing-beam-knee-gap.ly
+reverting-default-beam-endings.ly
 adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rythms..ly
 printing-music-with-different-time-signatures.ly
 beams-across-line-breaks.ly
@@ -8,10 +10,12 @@ rest-styles.ly
 chant-or-psalms-notation.ly
 controlling-tuplet-bracket-visibility.ly
 heavily-customized-polymetric-time-signatures.ly
+grouping-beats.ly
 positioning-multi--measure-rests.ly
 using-ties-with-arpeggios.ly
 changing-text-and-spanner-styles-for-text-dynamics.ly
 forcing-rehearsal-marks-to-start-from-a-given-letter-or-number.ly
+sub-dividing-beams.ly
 compound-time-signatures.ly
 changing-time-signatures-inside-a-polymetric-section-using-scaledurations.ly
 modifying-tuplet-bracket-length.ly
@@ -19,11 +23,13 @@ printing-metronome-and-rehearsal-marks-below-the-staff.ly
 making-an-object-invisible-with-the-transparent-property.ly
 permitting-line-breaks-within-beamed-tuplets.ly
 automatic-beam-subdivisions.ly
+beam-grouping-in-7-8-time.ly
 changing-the-tuplet-number.ly
 entering-several-tuplets-using-only-one--times-command.ly
 conducting-signs,-measure-grouping-signs.ly
 skips-in-lyric-mode-2.ly
 changing-form-of-multi--measure-rests.ly
+guitar-strum-rhythms.ly
 rhythmic-slashes.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 three-sided-box.ly
@@ -31,4 +37,3 @@ merging-multi-measure-rests-in-a-polyphonic-part.ly
 skips-in-lyric-mode.ly
 engraving-ties-manually.ly
 stemlets.ly
-guitar-strum-rhythms.ly

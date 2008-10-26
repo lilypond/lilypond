@@ -30,6 +30,29 @@ exátona:
 
 "
 
+doctitlede = "Untypische Tonarten"
+
+texidocde = "
+Der üblicherweise benutzte @code{\\key}-Befehl setzt die
+@code{keySignature}-Eigenschaft im @code{Staff}-Kontext.
+
+Um untypische Tonartenvorzeichen zu erstellen, muss man diese Eigenschaft
+direkt setzen.  Das Format für den Befehl ist eine Liste:
+
+@code{ \\set Staff.keySignature = #`(((Oktave . Schritt) . Alteration) ((Oktave
+. Schritt) . Alteration) ...) } wobei für jedes Element in der Liste
+@code{Oktave} die Oktave angibt (0 ist die Oktave vom eingestrichenen C bis
+zum eingestrichenen H), @code{Schritt} gibt die Note innerhalb der Oktave an
+(0 heißt C und 6 heißt H), und @code{Alteration} ist @code{,SHARP ,FLAT ,DOUBLE-SHARP}
+usw. (Beachte das beginnende Komma.)
+
+Alternativ kann auch für jedes Element der Liste mit dem allgemeineren
+Format @code{(Schritt . Alteration)} bestimmt werden, wobei dann die
+Einstellungen für alle Oktaven gelten.
+
+Hier ein Beispiel einer möglichen Tonart für eine Ganztonleiter:
+"
+
   texidoc = "
 The commonly used @code{\\key} command sets the @code{keySignature}
 property, in the @code{Staff} context.

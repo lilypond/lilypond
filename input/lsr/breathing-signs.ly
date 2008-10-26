@@ -19,20 +19,20 @@ ticks, vees and \"railroad tracks\" (caesura).
   << { g4 as g } \\ { es4 bes es } >> |
   % Modern notation:
   % by default, \breathe uses the rcomma, just as if saying:
-  % \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.rcomma")
+  % \override BreathingSign #'text = #(make-musicglyph-markup "scripts.rcomma")
   << { g4 as g } \\ { es4 \breathe bes es } >> |
   
   % rvarcomma and lvarcomma are variations of the default rcomma and lcomma
   % N.B.: must use Staff context here, since we start a Voice below
-  \override Staff.BreathingSign  #'text = #(make-musicglyph-markup "scripts.rvarcomma")
+  \override Staff.BreathingSign #'text = \markup { \musicglyph #"scripts.rvarcomma" }
   << { g4 as g } \\ { es4 \breathe bes es } >> |
   
   % vee
-  \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.upbow")
+  \override BreathingSign #'text = \markup { \musicglyph #"scripts.upbow" }
   es8[ d es f g] \breathe f |
   
   % caesura
-  \override BreathingSign  #'text = #(make-musicglyph-markup "scripts.caesura.curved")
-  es8[ d] \breathe  es[ f g f] |
+  \override BreathingSign #'text = \markup { \musicglyph #"scripts.caesura.curved" }
+  es8[ d] \breathe es[ f g f] |
   es2 r4 \bar "||"
 }
