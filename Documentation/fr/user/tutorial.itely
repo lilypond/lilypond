@@ -67,13 +67,16 @@ LilyPond.
 @subsection Compiling a file
 
 @cindex compilation
+@cindex exemple, premier
+@cindex premier exemple
 
 Pour créer une partition avec LilyPond, on écrit un fichier texte,
 appelé fichier source, qui décrit la notation musicale. La
 @emph{compilation} de ce fichier source par LilyPond produit un
 fichier graphique imprimable, et si on le désire un fichier MIDI qui
-peut être joué par un séquenceur.  Voici un premier exemple simple de
-fichier source LilyPond.
+peut être joué par un séquenceur.  
+
+Voici un premier exemple simple de fichier source LilyPond.
 
 @example
 @{
@@ -82,7 +85,7 @@ fichier source LilyPond.
 @end example
 
 @noindent
-Le compilation de cette partition donnera quelque chose de sembable à
+La compilation de ce fichier donnera quelque chose de sembable à
 l'image ci-dessous.
 
 @c  in this case we don't want verbatim
@@ -107,9 +110,10 @@ Pour plus d'informations sur l'affichage des exemples de cette
 documentation, consultez @ref{How to read the manual}.}
 
 
-@cindex casse, prise en compte de
+@cindex casse, prise en compte de la
 @cindex prise en compte de la casse
 @cindex sensibilité à la casse
+
 De plus, LilyPond est @strong{sensible à la casse} : le code
 @w{@code{@{ c d e @}}} est valide, alors que @w{@code{@{ C D E @}}}
 produira un message d'erreur.
@@ -122,6 +126,13 @@ produira un message d'erreur.
 @cindex PDF
 @cindex partition, lire
 @cindex lire la partition
+@cindex éditeurs de texte
+@cindex LilyPond et MacOS X
+@cindex MacOS X et LilyPond
+@cindex LilyPond et Windows
+@cindex Windows et LilyPond
+@cindex LilyPond et Unix
+@cindex Unix et LilyPond
 
 Dans cette section nous expliquerons quelles commandes exécuter et
 comment voir ou imprimer le résultat produit par LilyPond.
@@ -130,7 +141,7 @@ Notez qu'il existe plusieurs éditeurs de texte disponibles avec un bon
 support de LilyPond ; consultez @rprogram{Text editor support}.
 
 @warning{Le premier démarrage de LilyPond peut prendre une minute ou
-deux, afin de faire la liste des polices du système.  LilyPond démarre
+deux, afin de générer la liste des polices du système.  LilyPond démarre
 en principe plus rapidement lors des exécutions suivantes.}
 
 
@@ -213,9 +224,12 @@ non.
 @node Simple notation
 @subsection Simple notation
 
+@cindex simple, notation
+@cindex notation simple
+
 Il y a certains éléments graphiques de notation que LilyPond ajoute
 automatiquement.  Dans l'exemple suivant, nous n'avons fourni que
-quatre hauteurs, mais LilyPond a ajouté une clé, un chiffre de mesure
+quatre hauteurs, mais LilyPond a ajouté une clef, un chiffre de mesure
 et du rythme.
 
 @lilypond[verbatim,quote]
@@ -231,6 +245,18 @@ explicitement.
 
 
 @subheading Hauteurs
+
+@cindex hauteurs
+@cindex mode relatif
+@cindex apostrophe
+@cindex virgule
+@cindex altérations et mode relatif
+@cindex mode relatif et altérations
+
+@funindex \relative
+@funindex relative
+@funindex '
+@funindex ,
 
 Glossaire musical : @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
@@ -255,7 +281,7 @@ gamme.
 La note de départ est le @notation{do central}.  Chacune des notes qui
 suivent est placée à l'octave la plus proche de la note précédente ---
 en d'autres termes, le premier @samp{c} est le do central, entre la
-clé de sol et la clé de fa, puis est suivi par le ré le plus proche,
+clef de sol et la clef de fa, puis est suivi par le ré le plus proche,
 et ainsi de suite.  On peut bien sûr créer des mélodies avec de plus
 grands intervalles, toujours avec le mode @code{\relative} :
 
@@ -285,7 +311,7 @@ central :
 Le mode d'octaves relatives peut être déroutant au début, mais c'est
 souvent la façon la plus économique de saisir les hauteurs en
 utilisant le clavier de l'ordinateur de façon classique.  Détaillons
-sur un exemple le calcul des octaves relatives.  En partant d'un si
+dans un exemple le calcul des octaves relatives.  En partant d'un si
 sur la troisième ligne de la clé de sol, un do, un ré ou un mi sans
 indication d'octave particulière seront placés juste au-dessus du si,
 c'est-à-dire au plus à une quarte ascendante du si, alors qu'un la, un
@@ -320,13 +346,22 @@ hauteur d'une octave --- au nom de la note.
 
 @noindent
 Pour déplacer une note deux octaves (ou davantage !) plus haut ou plus
-bas, il suffit de mettre deux (ou davantage) de @code{'} ou ou @code{,} ---
+bas, il suffit de mettre deux (ou davantage) @code{'} ou @code{,} ---
 attention cependant à bien mettre deux apostrophes @code{''}, et non
 un guillemet @code{"}@tie{}!  C'est de cette même manière que l'on
 peut modifier la valeur de départ de @code{\relative c'}.
 
 
 @subheading Durées et rythme
+
+@cindex note, durée
+@cindex durées
+@cindex rhythmes
+@cindex ronde
+@cindex blanche
+@cindex noire
+@cindex note pointée
+@cindex spécification des durées
 
 Glossaire musical : @rglos{beam}, @rglos{duration},
 @rglos{whole note}, @rglos{half note}, @rglos{quarter note},
@@ -335,7 +370,7 @@ Glossaire musical : @rglos{beam}, @rglos{duration},
 La @notation{durée} d'une note est indiquée par un nombre qui suit sa
 hauteur : @samp{1} pour une @notation{ronde}, @samp{2} pour une
 @notation{blanche}, @samp{4} pour une @notation{noire} et ainsi de
-suite.  Les @notation{crochets} et @notation{liens} sont ajoutées
+suite.  Les @notation{crochets} et @notation{liens} sont ajoutés
 automatiquement.
 
 Si aucune durée n'est indiquée pour une note, la dernière durée entrée
@@ -351,7 +386,8 @@ est une noire.
 @end lilypond
 
 Une @notation{note pointée} s'obtient en ajoutant un point @code{.}  à
-la valeur rythmique.  Le point doit être précédé d'un nombre de durée.
+la valeur rythmique.  Le point doit être précédé d'un nombre spécifiant
+la durée de base.
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -363,10 +399,13 @@ la valeur rythmique.  Le point doit être précédé d'un nombre de durée.
 
 @subheading Silences
 
+@cindex silences
+@cindex notation des silences
+
 Glossaire musical : @rglos{rest}.
 
 On saisit un @notation{silence} tout comme une note, mais avec la
-lettre @samp{r}.
+lettre @samp{r} (pour @emph{rest}).
 
 @lilypond[verbatim,quote]
 \relative c'' {
@@ -377,6 +416,11 @@ lettre @samp{r}.
 
 
 @subheading Métrique
+
+@cindex métrique
+
+@funindex \time
+@funindex time
 
 Glossaire musical : @rglos{time signature}.
 
@@ -396,6 +440,15 @@ peut être définie à l'aide de la commande @code{\time} :
 
 
 @subheading Clef
+
+@cindex clef
+@cindex clé
+@cindex sol, clef de
+@cindex ut, clef d'
+@cindex fa, clef de
+
+@funindex \clef
+@funindex clef
 
 Glossaire musical : @rglos{clef}.
 
@@ -440,6 +493,9 @@ Manuel de notation : @ruser{Writing pitches},
 @node Working on input files
 @subsection Working on input files
 
+@cindex accolades
+@funindex { ... }
+
 Le traitement des fichiers source de LilyPond est semblable à celui du
 code de nombreux langages de programmation.  La casse est prise
 en compte, et les caractères considérés comme espaces ont généralement
@@ -451,15 +507,18 @@ Expliquons tous ces termes :
 
 @itemize
 
+@item @strong{La casse} :
 @cindex casse, prise en compte de
 @cindex prise en compte de la casse
 @cindex sensibilité à la casse
-@item @strong{La casse} :
 LilyPond est sensible à la casse, c'est à dire qu'une lettre capitale
 n'a pas la même valeur qu'une lettre minuscule.  Les notes, par
-exemple, doivent être entrées en minuscules : @code{@{ c d e @}} est
+exemple, doivent être entrées en minuscule : @code{@{ c d e @}} est
 un code valide, alors que @code{@{ C D E @}} produira un message
 d'erreur.
+
+@cindex espaces multiples, insensibilité
+@cindex insensibilité aux espaces multiples
 
 @item @strong{Les espaces multiples} :
 LilyPond ne tient pas compte du nombre d'espaces, ou de retours à la
@@ -482,6 +541,8 @@ soit des doubles espaces :
 @}
 @end example
 
+@cindex expressions
+
 @item @strong{Expressions musicales} :
 Tout morceau saisi dans LilyPond doit être placé entre @strong{@{
 accolades @}}.  Ces caractères indiquent à LilyPond que ce bloc de
@@ -497,6 +558,10 @@ compte également comme une seule expression musicale.
 @cindex commentaire de fin de ligne
 @cindex commentaire-bloc
 @cindex bloc de commentaire
+
+@funindex %
+@funindex %@{ ... %@}
+
 @item @strong{Les commentaires} :
 un commentaire est une indication pour tout lecteur humain d'un
 fichier source de musique ; il est ignoré par l'ordinateur, et n'a
@@ -509,11 +574,11 @@ référence.
 
 @example
 a4 a a a
-% ce commentaire fait référence aux sis
+% ce commentaire fait référence aux si
 b2 b
 @end example
 
-Le bloc de commentaire, qui peut occuper plusieurs lignes voire toute
+Le bloc de commentaire, qui peut occuper plusieurs lignes, voire toute
 une section : tout ce qui se trouve entre @code{%@{} et @code{%@}} est
 ignoré.  Les blocs de commentaires ne peuvent s'imbriquer, ce qui
 signifie que vous ne pouvez pas placer un commentaire-bloc à
@@ -541,6 +606,16 @@ quelques usages possibles des commentaires :
 
 @node How to read the manual
 @subsection How to read the manual
+
+@cindex bien lire le manuel
+@cindex manuel, lecture
+@cindex compulser le manuel
+@cindex exemples cliquables
+@cindex cliquables, exemples
+@cindex conseils de construction des fichiers
+@cindex squelettes
+@cindex construction des fichiers, conseils
+@cindex fichiers, conseils de construction
 
 Comme nous l'avons vu dans @ref{Working on input files}, un code
 LilyPond doit être encadré par des accolades @{ @} ou bien par
@@ -625,6 +700,22 @@ Cette section présente la notation courante dont on a besoin pour
 
 @subheading Accidentals
 
+@cindex dièse
+@cindex double dièse
+@cindex dièse, double
+@cindex bémol
+@cindex double bémol
+@cindex bémol, double
+
+@funindex es
+@funindex b
+@funindex is
+@funindex d
+@funindex eses
+@funindex bb
+@funindex isis
+@funindex dd
+
 Glossaire musical : @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
 
@@ -650,10 +741,23 @@ languages}.
 cis1 ees fisis, aeses
 @end lilypond
 
+@subheading Key signatures
+
 @cindex armure, définition de l'
 @cindex armure, altérations à l'
 @cindex altérations à l'armure
-@subheading Key signatures
+@cindex majeur
+@cindex mineur
+
+@funindex \key
+@funindex key
+@funindex \major
+@funindex major
+@funindex \minor
+@funindex minor
+
+Glossaire musical : @rglos{key signature}, @rglos{major},
+@rglos{minor}.
 
 L'armure est déterminée par la commande @code{\key}, suivie d'une
 hauteur puis de @code{\major} (majeur) ou @code{\minor} (mineur).
@@ -686,7 +790,7 @@ mise en forme.  L'altération d'une note --- @notation{bémol},
 et relève donc du contenu musical.  La gravure ou non d'une altération
 accidentelle --- un @emph{signe} bémol, bécarre ou dièse --- devant la
 note correspondante est une question qui relève de la mise en forme.
-La gravure une partition suit des règles, en particulier des règles
+La gravure d'une partition suit des règles, en particulier des règles
 d'indication des altérations accidentelles.  Les hauteurs de note, en
 revanche, relèvent de ce que vous voulez entendre ; et, dans la mesure
 où la musique que vous entrez est censée être celle que vous voulez
@@ -737,6 +841,11 @@ Glossaire musical : @rglos{Pitch names}.
 @cindex prolongation, liaisons de
 @cindex durée, liaisons de
 @cindex tenue, liaisons de
+
+@funindex ~
+@funindex ( ... )
+@funindex \( ... \)
+
 @subheading Ties
 
 Glossaire musical : @rglos{tie}.
@@ -752,13 +861,16 @@ c4 ~ c8 a8 ~ a2
 
 @cindex liaisons d'articulation
 @cindex articulation, liaisons d'
+
 @subheading Slurs
 
 @c Le terme de "slur" a deux sens en français : articulation et phrasé.
 @c Je garde ici le terme "legato", tel qu'il apparaît dans le texte original,
 @c car c'est celui qui me semble le plus couramment employé.
+@c slur = "il zon" (articulation). jcm
+@c phrasing slur = "ils ont des chapeaux ronds" (phrase). jcm
 
-Glossaire musical : @rglos{slur}.
+Glossaire musical : @rglos{slur}, @rglos{phrasing}.
 
 Une liaison d'articulation ou @emph{legato} peut englober
 plusieurs notes.  Les notes de départ et d'arrivée sont suivies
@@ -775,7 +887,7 @@ d4( c16) cis( d e c cis d) e( d4)
 
 De plus longues liaisons, dites de phrasé, sont délimitées par @code{\(} et
 @code{\)}.  Il est possible d'avoir en même temps des legatos et des
-phrasés, mais pas plusieurs liaisons de phrasé ou de legato à la fois.
+phrasés, mais pas plusieurs liaisons de phrasé ou de @emph{legato} à la fois.
 
 @lilypond[verbatim,quote,relative=2]
 a8(\( ais b c) cis2 b'2 a4 cis,\)
@@ -791,9 +903,9 @@ Glossaire musical : @rglos{articulation}, @rglos{slur}, @rglos{tie}.
 Une liaison d'articulation ou de phrasé ressemble à une liaison de
 prolongation, mais n'a pas la même signification.  Alors qu'une
 liaison de prolongation ne peut relier que deux notes de même hauteur,
-le legato indique une articulation de plusieurs notes, éventuellement
-en grand nombre.  Les liaisons de tenue peuvent être enchâssées dans
-un legato ou un phrasé.
+le @emph{legato} indique une articulation de plusieurs notes, 
+éventuellement en grand nombre.  Les liaisons de tenue peuvent être 
+enchâssées dans un @emph{legato} ou un phrasé.
 
 @lilypond[verbatim,quote,relative=2]
 c2~( c8 fis fis4 ~ fis2 g2)
@@ -824,6 +936,9 @@ c-. c-- c-> c-^ c-+ c-_
 @cindex doigtés
 @subheading Fingerings
 
+@funindex ^
+@funindex _
+
 Glossaire musical : @rglos{fingering}.
 
 De même, des indications de doigté peuvent être ajoutées à une note en
@@ -834,7 +949,7 @@ c-3 e-5 b-2 a-1
 @end lilypond
 
 Articulations et doigtés sont habituellement placés automatiquement,
-mais vous pouvez indiquer une direction en utilisant @samp{^} (en
+mais vous pouvez spécifier leur positionnement en utilisant @samp{^} (en
 haut) ou @samp{_} (en bas).  Vous pouvez aussi utiliser plusieurs
 articulations sur la même note.  Dans la plupart des cas, cependant,
 il est bon de laisser LilyPond déterminer l'emplacement de
@@ -845,6 +960,19 @@ c_-^1 d^. f^4_2-> e^-_+
 @end lilypond
 
 @subheading Dynamics
+
+@funindex \f
+@funindex \ff
+@funindex \mp
+@funindex \p
+@funindex \mf
+@funindex \pp
+@funindex \<
+@funindex <
+@funindex \>
+@funindex >
+@funindex \!
+@funindex !
 
 Glossaire musical : @rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
@@ -881,6 +1009,13 @@ Manuel de notation : @ruser{Articulations and ornamentations},
 @node Adding text
 @subsection Adding text
 
+@cindex texte, ajout de
+@cindex ajout de texte
+@cindex étiquette
+
+@funindex \markup
+@funindex markup
+
 On peut ajouter du texte à une partition :
 
 @lilypond[verbatim,quote,relative=2]
@@ -904,7 +1039,18 @@ Manuel de notation : @ruser{Writing text}.
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
+@cindex lihature
+@cindex ligatures automatiques
 @cindex ligatures manuelles
+@cindex ligatures explicites
+
+@funindex [ ... ]
+@funindex [
+@funindex ]
+@funindex \autoBeamOff
+@funindex autoBeamOff
+@funindex \autoBeamOn
+@funindex autoBeamOn
 
 Glossaire musical : @rglos{beam}.
 
@@ -924,7 +1070,7 @@ d'un crochet fermant @code{]}.
 a8[ ais] d[ ees r d] a b
 @end lilypond
 
-Pour désactiver les barres de ligature automatqiues pour des passages
+Pour désactiver les barres de ligature automatiques pour des passages
 entiers, utilisez la commande @code{\autoBeamOff}, et utilisez
 @code{\autoBeamOn} pour les réactiver.
 
@@ -943,10 +1089,14 @@ Manuel de notation : @ruser{Automatic beams}, @ruser{Manual beams}.
 @node Advanced rhythmic commands
 @subsection Advanced rhythmic commands
 
+@subheading Partial measure
+
 @cindex levée
 @cindex anacrouse
 @cindex mesure incomplète
-@subheading Partial measure
+
+@funindex \partial
+@funindex partial
 
 Glossaire musical : @rglos{anacrusis}.
 
@@ -959,9 +1109,13 @@ et @code{\partial 8} d'une croche.
 f8 c2 d
 @end lilypond
 
+@subheading Tuplets
+
 @cindex nolets
 @cindex triolets
-@subheading Tuplets
+
+@funindex \times
+@funindex times
 
 Glossaire musical : @rglos{note value}, @rglos{triplet}.
 
@@ -979,11 +1133,19 @@ donc de 2/3 pour les triolets :
 \times 2/3 { d4 a8 }
 @end lilypond
 
+@subheading Grace notes
+
 @cindex notes d'ornement
 @cindex ornementation
 @cindex appoggiature
 @cindex acciaccature
-@subheading Grace notes
+
+@funindex \grace
+@funindex grace
+@funindex \acciaccatura
+@funindex acciaccatura
+@funindex \appoggiatura
+@funindex acciaccatura
 
 Glossaire musical : @rglos{grace notes}, @rglos{acciaccatura},
 @rglos{appoggiatura}.
@@ -1056,8 +1218,9 @@ combinée à deux notes :
 { { a4 g } f g }
 @end lilypond
 
-@cindex expression
 @subheading Analogy: mathematical expressions
+
+@cindex expression
 
 Ce mécanisme est similaire aux formules mathématiques : une grosse
 formule est créée en assemblant plusieurs petites formules.  De telles
@@ -1086,6 +1249,20 @@ de la musique polyphonique.
 
 
 @subheading Simultaneous music expressions: multiple staves
+
+@cindex portées multiples
+@cindex polyphonie
+@cindex combinaison d'expressions en parallèle
+@cindex parallèles, expressions
+@cindex expressions parallèles
+@cindex hauteur relative et musique simultanée
+@cindex musique simultanée et hauteur relative
+@cindex hauteur relative et expressions parallèles
+@cindex expressions parallèles et hauteur relative
+
+@funindex <<
+@funindex >>
+@funindex << ... >>
 
 Glossaire musical : @rglos{polyphony}.
 
@@ -1135,6 +1312,22 @@ sont produites.
 @node Multiple staves
 @subsection Multiple staves
 
+@cindex multiples portées
+@cindex portées multiples
+@cindex contexte
+@cindex contexte de notation
+@cindex notation, contexte
+
+@funindex \new Staff
+@funindex new Staff
+@funindex Staff
+@funindex \new
+@funindex new
+@funindex Score
+@funindex Voice
+@funindex Lyrics
+@funindex ChordNames
+
 Comme nous l'avons vu dans @ref{Music expressions explained}, un
 fichier d'entrée LilyPond est fait d'expressions musicales.  Si la
 partition commence par plusieurs expressions simultanées, LilyPond
@@ -1178,7 +1371,7 @@ mathématiques.  La formule @math{(4+5)} est une expression, donc
 
 Les chiffres de métrique indiqués sur une portée affectent toutes les
 autres portées@footnote{Ce comportement peut être modifié si
-nécessaire, voir @ruser{Polymetric notation}.}.  En revanche l'armure
+nécessaire, voir @ruser{Polymetric notation}}.  En revanche l'armure
 d'une portée n'affecte @emph{pas} les autres portées.  Ces
 caractéristiques par défaut se justifient par le fait que
 l'utilisation d'instruments transpositeurs est bien plus fréquente que
@@ -1201,6 +1394,15 @@ la musique polyrythmique.
 @cindex portée pour piano
 @cindex piano, portée pour
 @cindex clavier, portée pour
+@cindex chœur, système pour
+@cindex système pour chœur
+@cindex système
+@cindex portées, regroupement de
+@cindex regroupement de portées
+
+@funindex PianoStaff
+@funindex GrandStaff
+@funindex ChoirStaff
 
 Glossaire musical : @rglos{brace}.
 
@@ -1230,7 +1432,7 @@ Voici un bref exemple :
 
 @seealso
 
-Manuel de notation : @ruser{Keyboard instruments},
+Manuel de notation : @ruser{Keyboard and other multi-staff instruments},
 @ruser{Displaying staves}.
 
 
@@ -1238,6 +1440,11 @@ Manuel de notation : @ruser{Keyboard instruments},
 @subsection Combining notes into chords
 
 @cindex accords, notes simultanées
+@cindex accords et durée
+
+@funindex <
+@funindex >
+@funindex < ... >
 
 Glossaire musical : @rglos{chord}.
 
@@ -1252,7 +1459,7 @@ r4 <c e g>4 <c f a>2
 @end lilypond
 
 Beaucoup d'éléments de notation que l'on peut attacher à une note
-simple, comme une liaison, un crochet indiquat un début ou fin de
+simple, comme une liaison, un crochet indiquant un début ou une fin de
 lien, un signe d'articulation, peuvent être également attachés à un
 accord : il faut ajouter ces indications après les hauteurs et la
 durée, donc @emph{à l'extérieur} des angles.
@@ -1268,6 +1475,14 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 
 @cindex polyphonie
 @cindex voix multiples sur une portée
+@cindex silence invisible
+@cindex invisible, silence
+
+@funindex << ... \\ ... >>
+@funindex <<
+@funindex \\
+@funindex >>
+
 Quand différentes lignes mélodiques sont combinées sur une seule et même
 portée, elles sont imprimées comme des voix polyphoniques ; chaque voix
 a ses propre hampes@footnote{familièrement appelées queues de note.},
@@ -1275,7 +1490,7 @@ liaisons et ligatures, la voix supérieure ayant les hampes vers le haut,
 la voix inférieure vers le bas.
 
 On réalise ce type de partition en entrant chaque voix comme une
-séquence, @emph{i.e.} avec @code{@{...@}}, puis en combinant
+séquence, autrement dit avec @code{@{...@}}, puis en combinant
 simultanément les voix et en les séparant par @code{\\}.
 
 @lilypond[verbatim,quote,relative=2]
@@ -1289,7 +1504,7 @@ Pour l'écriture de musique polyphonique, les silences invisibles
 s'avèrent bien pratiques : ce sont des silences qui ne s'impriment pas.
 Ils sont utiles pour remplir des voix qui, temporairement, ne jouent
 rien.  Voici le même exemple que ci-dessus, avec un silence invisible
-@code{s} à la place d'un silence normal @code{r} :
+@code{s} (pour @emph{skip}) à la place d'un silence normal @code{r} :
 
 @lilypond[verbatim,quote,relative=2]
 <<
@@ -1338,6 +1553,9 @@ Cette section présente l'écriture vocale et les partitions de variété.
 @cindex paroles
 @cindex chansons
 
+@funindex \addlyrics
+@funindex addlyrics
+
 Glossaire musical : @rglos{lyrics}.
 
 Prenons une mélodie toute simple, la comptine @emph{Girls and boys
@@ -1381,6 +1599,10 @@ produisent en même temps.
 @cindex ligne d'extension
 @cindex trait d'union (paroles)
 @cindex caractère souligné (paroles)
+@cindex paroles, alignement des
+@cindex alignement des paroles
+@cindex paroles, mot de plusieurs syllabes
+
 Glossaire musical : @rglos{melisma}, @rglos{extender line}.
 
 La ligne suivante de la comptine précédente est @emph{The moon doth
@@ -1541,6 +1763,9 @@ Manuel de notation : @ruser{Vocal music}.
 @node Lyrics to multiple staves
 @subsection Lyrics to multiple staves
 
+@cindex paroles et portées mutiples
+@cindex portées multiples et paroles
+
 La méthode simple d'ajout de paroles avec @code{\addlyrics} peut être
 également utilisée pour placer des paroles sous plusieurs portées.
 L'exemple suivant est extrait de @emph{Judas Macchabée} de Händel.
@@ -1577,8 +1802,6 @@ détaillé plus loin dans @ref{Organizing pieces with variables}.
 
 Manuel de notation : @ruser{Vocal music}.
 
-
-
 @node Final touches
 @section Final touches
 
@@ -1597,6 +1820,16 @@ du manuel.
 
 @node Organizing pieces with variables
 @subsection Organizing pieces with variables
+
+@cindex variables
+@cindex variables, definition
+@cindex identificateurs
+@cindex macros
+@cindex assignation de variables
+@cindex utilisation de variables
+@cindex variables, utilisation de
+@cindex variables, caractères autorisés dans les
+@cindex caractères autorisés dans les variables
 
 Lorsque l'on combine tous les éléments étudiés précédemment pour
 écrire des partitions plus longues, les expressions musicales prennent
@@ -1681,7 +1914,19 @@ ci-dessus.
 @node Version number
 @subsection Version number
 
-@cindex versions
+@cindex version
+@cindex versionage
+@cindex numéro de version
+@cindex version, numéro de
+@cindex mise à jour
+@cindex future mise à jour
+@cindex mise à jour de fichiers
+@cindex fichiers, mise à jour de
+
+@funindex \version
+@funindex version
+@funindex convert-ly
+
 La déclaration @code{\version} stipule le numéro de la version de
 LilyPond pour laquelle le fichier a été écrit :
 
@@ -1696,15 +1941,22 @@ Cette instruction permet de faciliter les mises à jour futures de
 LilyPond.  Les changements de syntaxe au fil des versions sont gérés
 avec un programme dédié, @command{convert-ly}, qui utilise la valeur
 de @code{\version} pour déterminer les règles de conversion à
-appliquer au fichier source.  Pour plus d'informations, consultez voir
+appliquer au fichier source.  Pour plus d'informations, consultez 
 @rprogram{Updating files with convert-ly}.
 
 
 @node Adding titles
 @subsection Adding titles
 
+@cindex titre
+@cindex en-têtes
+@cindex bloc d'en-tête
+
+@funindex \header
+@funindex header
+
 On indique les informations bibliographiques --- nom du morceau, du
-compositeur, numéro d'opus... --- dans un bloc à part, le bloc
+compositeur, numéro d'opus@dots{} --- dans un bloc à part, le bloc
 d'en-tête @code{\header}, qui existe indépendamment de l'expression
 musicale principale.  Le bloc @code{\header} est habituellement placé
 en début de fichier, après le numéro de version.
@@ -1729,6 +1981,12 @@ sur les titres à la section @ruser{Creating titles}.
 
 @node Absolute note names
 @subsection Absolute note names
+
+@cindex notes, nom des
+@cindex absolu, mode
+@cindex mode absolu
+@cindex hauteurs, valeurs absolues
+@cindex noms de note absolus
 
 Jusqu'ici nous n'avons utilisé que le mode @code{\relative} pour
 définir les hauteurs de notes.  Si c'est souvent le moyen le plus
@@ -1796,7 +2054,7 @@ facile à lire et à saisir.
 Si d'aventure vous faites une erreur d'octaviation, le mode
 @code{\relative} la mettra en évidence : toutes les notes suivantes
 seront placées à la mauvaise octave.  En mode de hauteurs absolues,
-une erreur isolée ne serait pas autant visible, donc serait plus
+une erreur isolée ne serait pas autant visible, et serait donc plus
 difficile à dénicher.
 
 Cependant, le mode de hauteurs absolues reste utile pour les musiques
@@ -1836,4 +2094,4 @@ documentation}.  Les sources de documentation et d'information sur
 LilyPond sont vastes, il est normal pour un débutant de ne pas savoir
 où chercher ; si vous passez quelques minutes à lire attentivement
 cette section, vous vous épargnerez certainement la frustration causée
-par des heures de recherche infructueuses.
+par des heures de recherches infructueuses.
