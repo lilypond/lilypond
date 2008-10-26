@@ -30,11 +30,11 @@ The default font families for text can be overridden with
      (/ myStaffSize 20)))
 }
 
-\relative {
-  c'^\markup {
+\relative c'' {
+  c4^\markup {
     roman: foo \bold bla \italic bar \italic \bold baz 
   }
-  c'_\markup {
+  c'4_\markup {
     \override #'(font-family . sans)
     {
       sans: foo \bold bla \italic bar \italic \bold baz

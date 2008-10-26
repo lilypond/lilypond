@@ -13,6 +13,16 @@ anteriores.  Esto se puede evitar estableciendo al valor \"falso\" la
 propiedad @code{printKeyCancellation} del contexto @code{Staff}.
 
 "
+
+doctitlede = "Auflösungzeichen nicht setzen, wenn die Tonart wechselt"
+
+texidocde = "
+Wenn die Tonart wechselt, werden automatisch Auflösungszeichen ausgegeben,
+um Versetzungszeichen der vorherigen Tonart aufzulösen.  Das kann
+verhindert werden, indem die @code{printKeyCancellation}-Eigenschaft
+im @code{Staff}-Kontext auf \"false\" gesetzt wird.
+"
+
   texidoc = "
 When the key signature changes, natural signs are automatically printed
 to cancel any accidentals from previous key signatures.  This may be

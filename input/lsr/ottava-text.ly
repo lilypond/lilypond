@@ -13,6 +13,19 @@ del corchete, ajuste @code{ottavation} despues de invocar a
 @code{set-octavation}.
 "
   doctitlees = "Texto de octava alta y baja"
+  
+  
+texidocde = "
+Intern setzt die @code{set-octavation}-Funktion die Eigenschaften
+@code{ottavation} (etwa auf den Wert @code{\"8va\"} oder @code{\"8vb\"})
+und @code{middleCPosition}.  Um den Text der Oktavierungsklammer zu
+ändern, kann @code{ottavation} manuell gesetzt werden, nachdem
+@code{set-octavation} benützt wurde.
+
+"
+
+doctitlede = "Ottava-Text"
+
   texidoc = "
 Internally, the @code{set-octavation} function sets the properties
 @code{ottavation} (for example, to @code{\"8va\"} or @code{\"8vb\"})

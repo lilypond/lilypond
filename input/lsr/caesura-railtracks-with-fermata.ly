@@ -15,15 +15,15 @@ visualmente satisfactoria.
   doctitlees = "Cesura tipo \"vías del tren\" con calderón"
 
   texidoc = "
-A caesura is sometimes denoted with a double \"railtracks\" breath mark
+A caesura is sometimes denoted by a double \"railtracks\" breath mark
 with a fermata sign positioned above. This snippet should present an
-optically pleasing combination of railtracks and a fermata.
+optically pleasing combination of railtracks and fermata.
 
 "
   doctitle = "Caesura (\"railtracks\") with fermata"
 } % begin verbatim
-{
-  c''2.
+\relative c'' {
+  c2.
   % construct the symbol
   \override BreathingSign #'text = \markup {
     \line {
@@ -32,9 +32,9 @@ optically pleasing combination of railtracks and a fermata.
       \musicglyph #"scripts.ufermata"
     }
   }
-  \breathe c''4
+  \breathe c4
   % set the breathe mark back to normal
   \revert BreathingSign #'text
-  c''2. \breathe c''4
+  c2. \breathe c4
   \bar "|."
 }

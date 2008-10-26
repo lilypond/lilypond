@@ -3,19 +3,18 @@
 \version "2.11.62"
 
 \header {
-  lsrtags = "rhythms, breaks"
+  lsrtags = "rhythms"
 
   texidoc = "
-By default, beams can't be printed across line breaks.  This behavior
-can be overridden by setting the @code{breakable} property. 
+Line breaks are normally forbidden when beams cross bar lines. This
+behavior can be changed as shown: 
 
 "
   doctitle = "Beams across line breaks"
 } % begin verbatim
-\layout { ragged-right = ##t }
 \relative c'' {
-  \override Score.Beam #'breakable = ##t
-  \time 3/16
-  c16[ d e \break
-  f16] r r 
+  \override Beam #'breakable = ##t
+  c8 c[ c] c[ c] c[ c] c[ \break  
+  c8] c[ c] c[ c] c[ c] c
 }
+

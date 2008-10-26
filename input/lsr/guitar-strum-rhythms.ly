@@ -3,6 +3,13 @@
 \version "2.11.62"
 
 \header {
+  texidoces = "
+Para la música de guitarra, es posible mostrar los ritmos de rasgueo,
+además de las notas de la melodía, acordes y diagramas de posiciones.
+
+"
+  doctitlees = "Ritmos rasgueados de guitarra"
+
   lsrtags = "rhythms,fretted-strings"
   texidoc = "
 For guitar music, it is possible to show strum rhythms, along
