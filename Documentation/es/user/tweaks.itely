@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 3755aa13ed2824ad712403d7d72adaa051d82bc7
+    Translation of GIT committish: d27a40fb87cb6737bb5c7b0b277b72d5a7dbc699
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -2104,15 +2104,11 @@ marcado utilizando la instrucción @code{\textLengthOn}, pero no existe
 una instrucción equivalente para las indicaciones de matiz dinámico.
 Por tanto, tendremos que averiguar cómo hacerlo utilizando
 instrucciones @code{\override}.
-@c START HERE
+
 @subheading Grob sizing
 
 @cindex grob, cambio de tamaño de un
 @cindex escala de los grobs
-@cindex @code{X-offset}
-@cindex @code{Y-offset}
-@cindex @code{X-extent}
-@cindex @code{Y-extent}
 
 En primer lugar debemos aprender cómo se especifica el tamaño de los
 grobs.  Todos los grobs tienen un punto de referencia definido dentro
@@ -2190,6 +2186,12 @@ que se estudia en la sección siguiente.
 @node Moving objects
 @subsection Moving objects
 
+@cindex mover objetos superpuestos
+@cindex mover objetos que colisionan
+@cindex moving grobs que colisionan
+@cindex objetos que colisionan, mover
+@cindex grobs, mover, que colisionan
+
 Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos elementos
 de notación se pueden superponer, lo que es una lástima, pero en
 realidad es bastante poco frecuente.  Normalmente la necesidad de
@@ -2233,10 +2235,12 @@ objects}.
 izquierda), @code{right-padding} (relleno por la derecha),
 @code{staff-padding} (relleno de pentagrama)
 
+@cindex relleno
 @cindex left-padding, propiedad
 @cindex padding, propiedad
 @cindex right-padding, propiedad
 @cindex staff-padding, propiedad
+
 Según un objeto se está colocando, el valor de su propiedad de relleno
 @code{padding} especifica el espacio intermedio que se debe dejar
 entre él mismo y el límite más próximo del objeto contra el que se
@@ -2288,6 +2292,7 @@ Se puede sobreescribir si se necesita una separación intermedia mayor
 @code{self-alignment-X} (Auto-alineamiento en el eje X)
 
 @cindex self-alignment-X, propiedad
+
 Esta propiedad se puede usar para alinear el objeto a la izquierda, a
 la derecha, o centrarlo con respecto al punto de referencia del objeto
 «padre».  Se puede usar con todos los objetos que contemplan el
@@ -2308,6 +2313,7 @@ longitud total del propio texto.
 @code{extra-spacing-width} (anchura de separación adicional)
 
 @cindex extra-spacing-width, propiedad
+
 Esta propiedad está disponible para todos los objetos que contemplan
 el interface @code{item-interface}.  Toma dos números, el primero se
 suma al límite izquierdo y el segundo se suma al límite derecho.  Los
@@ -2321,6 +2327,7 @@ ostentan los dos números.  Por ejemplo, el objeto @code{Accidental}
 @code{staff-position} (posición de pentagrama)
 
 @cindex staff-position, propiedad
+
 @code{staff-position} es una propiedad del interface
 @code{staff-symbol-referencer-interface}, que está contemplado por los
 objetos que se colocan con relación al pentagrama.  Especifica la
@@ -2371,7 +2378,9 @@ de posicionamiento manual son:
 
 @table @code
 @item extra-offset (desplazamiento adicional)
+
 @cindex extra-offset, propiedad
+
 Esta propiedad se aplica a cualquier objeto de presentación que
 contemple el @code{grob-interface}.  Toma una pareja de números que
 especifican el desplazamiento adicional en las direcciones horizontal
@@ -2382,7 +2391,9 @@ tipográfica de los objetos ha terminado, así que un objeto puede ser
 reposicionado a cualquier lugar sin afectar a ninguna otra cosa.
 
 @item positions (posiciones)
+
 @cindex positions, propiedad
+
 Ésta es de la mayor utilidad para ajustar manualmente la inclinación y
 la altura de las barras de corchea, ligaduras de expresión y corchetes
 de grupos de valoración especial.  Toma una pareja de números que dan
@@ -2432,8 +2443,10 @@ en la sección anterior, para resolver problemas de notación que se
 superpone.
 
 @subheading padding property
-@cindex relleno, propiedad
-@cindex padding, propiedad
+
+@cindex relleno
+@cindex arreglar notación que se superpone
+@cindex superpuesta, notación
 
 La propiedad @code{padding} se puede ajustar para aumentar (o
 disminuir) la distancia entre símbolos impresos encima o debajo de las
@@ -2471,6 +2484,7 @@ de él.
 
 
 @subheading left-padding and right-padding
+
 @cindex left-padding, propiedad
 @cindex right-padding, propiedad
 
@@ -2518,7 +2532,9 @@ sobreescribiendo @code{right-padding}.
 @noindent
 
 @subheading staff-padding property
-@cindex staff-padding, propiedad
+
+@cindex alineación de objetos sobre la línea base
+@cindex objetos, alineación sobre la línea base
 
 @code{staff-padding} se puede usar para alinear objetos como matices
 dinámicos a lo largo de una línea de base a una altura fija sobre el
@@ -2541,7 +2557,6 @@ a4\f b\mf c\mp b\p
 
 
 @subheading self-alignment-X property
-@cindex self-alignment-X, propiedad
 
 El ejemplo siguiente muestra cómo esto puede resolver la colisión
 entre un objeto de digitación de cuerda y la plica de una nota
@@ -2556,7 +2571,8 @@ de la nota «padre»:
 @end lilypond
 
 @subheading staff-position property
-@cindex staff-position, propiedad
+
+@cindex objeto, colisión dentro del pentagrama
 
 Los silencios multi-compás en una voz pueden chocar con las notas en
 otra voz.  Puesto que estos silencios se tipografían centrados entre
@@ -2590,7 +2606,11 @@ Esto es mejor que utilizar, por ejemplo, @code{extra-offset}, porque
 la línea adicional por encima del silencio se inserta automáticamente.
 
 @subheading extra-offset property
-@cindex extra-offset, propiedad
+
+@cindex posicionar objetos
+@cindex posicionar grobs
+@cindex objetos, posicionar
+@cindex grobs, posicionar
 
 La propiedad @code{extra-offset} da un completo control sobre el
 posicionamiento de un objeto tanto vertical como horizontalmente.
@@ -2608,7 +2628,13 @@ f-5
 
 
 @subheading positions property
-@cindex positions, propiedad
+
+@cindex controlar manualmente grupos especiales, ligaduras y barras
+@cindex manual, control, de grupos especiales, ligaduras y barras
+@cindex grupos especiales, barras de, control manual
+@cindex ligaduras de expresión, control manual
+@cindex ligaduras de fraseo, control manual
+@cindex barras de corchea, control manual
 
 La propiedad @code{positions} permite controlar manualmente la
 posición e inclinación de los tresillos, ligaduras de expresión y de
@@ -2631,7 +2657,7 @@ r4
 @end lilypond
 
 @noindent
-pero si por algún motivo no pudiéramos hacerlo, la otra alternativa
+Pero si por algún motivo no pudiéramos hacerlo, la otra alternativa
 sería mover el extremo izquierdo de la ligadura de fraseo un poco
 hacia abajo usando la propiedad @code{positions}.  Esto también
 resuelve la forma algo indecente de la ligadura.
@@ -2679,7 +2705,7 @@ segundo bloque de corcheas, pero no a ninguna de las barras de la
 segunda voz.
 
 @subheading force-hshift property
-@cindex force-hshift, propiedad
+
 @c FIXME: formatting stuff  (ie not important right now IMO)
 @c @a nchor Chopin finally corrected TODOgp
 
@@ -3188,8 +3214,10 @@ lhMusic = \relative c' {
 @cindex objetos, hace invisibles
 @cindex eliminar objetos
 @cindex objetos, eliminar
+@cindex objetos, ocultar
 @cindex ocultar objetos
 @cindex invisibles, objetos
+@cindex objetos invisibles
 @cindex ligar notas entre voces distintas
 
 @subheading Tying notes across voices
@@ -3305,6 +3333,10 @@ sigue, meintras que la segunda (con el sello suprimido) no lo hace.
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
+
+@cindex variables, uso de, para trucos
+@cindex usar variables para hacer trucos
+@cindex trucos, usar variables para hacer
 
 Las instrucciones de sobreescritura son con frecuencia largas y
 tediosas de escribir, y se tienen que escribir de forma absolutamente
