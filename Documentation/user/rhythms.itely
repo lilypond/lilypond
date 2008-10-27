@@ -1601,7 +1601,7 @@ will be sub-divided at intervals defined by the current value of
 @code{beatLength} by reducing the multiple beams to just one beam
 between the sub-groups.
 
-@code{beatLength) must be
+@code{beatLength} must be
 set to a fraction giving the duration of the beam sub-group
 using the @code{make-moment} function, as shown here:
 
