@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-27 12:40+0100\n"
-"PO-Revision-Date: 2008-10-19 01:05+0200\n"
+"PO-Revision-Date: 2008-10-27 17:26+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español\n"
 "MIME-Version: 1.0\n"
@@ -2153,8 +2153,7 @@ msgstr "Aumentar solamente el grosor de la ligadura siguiente"
 
 #. Documentation/user/tweaks.itely:694 (comment)
 msgid "Revert thickness of all following slurs to default of 1.2"
-msgstr ""
-"Devolver el grosor de las ligaduras siguientes al valor predeterminado 1.2"
+msgstr "Devolver el grosor de las ligaduras siguientes al valor predeterminado 1.2"
 
 #. Documentation/user/tweaks.itely:1302 (comment)
 msgid "Don't print clefs in this staff"
@@ -2170,8 +2169,7 @@ msgstr "Reducir el tamaño de la fuente en un 24% aprox."
 
 #. Documentation/user/tweaks.itely:1418 (comment)
 msgid "Reduce stem length and line spacing to match"
-msgstr ""
-"Reducir la longitud de la plica y el espaciado de la línea en coincidencia"
+msgstr "Reducir la longitud de la plica y el espaciado de la línea en coincidencia"
 
 #. Documentation/user/tweaks.itely:1828 (comment)
 #. Documentation/user/tweaks.itely:1895 (comment)
@@ -2213,8 +2211,7 @@ msgstr "Detener el corchete de octava"
 
 #. Documentation/user/tweaks.itely:1900 (comment)
 msgid "Place following Ottava Bracket below Text Spanners"
-msgstr ""
-"Situar el corchete de octava ulterior por debajo de los extensores de texto"
+msgstr "Situar el corchete de octava ulterior por debajo de los extensores de texto"
 
 #. Documentation/user/tweaks.itely:1959 (comment)
 msgid "Cause notes to space out to accommodate text"
@@ -2582,7 +2579,6 @@ msgstr "Digitaciones"
 #. @subsection in Documentation/user/tweaks.itely
 #. @node in Documentation/es/user/tweaks.itely
 #. @subsection in Documentation/es/user/tweaks.itely
-#, fuzzy
 msgid "Outside-staff objects"
 msgstr "Objetos fuera del pentagrama"
 
@@ -2641,8 +2637,7 @@ msgstr "la propiedad padding (relleno)"
 #. @subheading in Documentation/es/user/tweaks.itely
 #. @subheading in Documentation/de/user/tweaks.itely
 msgid "left-padding and right-padding"
-msgstr ""
-"left-padding y right-padding (relleno por la izquierda y por la derecha)"
+msgstr "left-padding y right-padding (relleno por la izquierda y por la derecha)"
 
 #. @subheading in Documentation/user/tweaks.itely
 #. @subheading in Documentation/es/user/tweaks.itely
@@ -4252,16 +4247,15 @@ msgstr "Retornar al estilo predeterminado"
 
 #. Documentation/user/rhythms.itely:916 (comment)
 msgid "Change time signature but keep 3/4 beaming"
-msgstr ""
+msgstr "Cambio de compás manteniendo las barras del 3/4"
 
 #. Documentation/user/rhythms.itely:917 (comment)
-#, fuzzy
 msgid "due to unchanged beatLength"
-msgstr "debido a beatLength"
+msgstr "debido a que beatLength no cambia"
 
 #. Documentation/user/rhythms.itely:921 (comment)
 msgid "Lose 3/4 beaming now beatLength has changed to 16"
-msgstr ""
+msgstr "Se pierden las barras de 3/4 pues beatLength ha cambiado a 16"
 
 #. Documentation/user/rhythms.itely:1044 (comment)
 msgid "Show all bar numbers"
@@ -4272,18 +4266,16 @@ msgid "Now each staff has its own time signature."
 msgstr "Ahora cada pentagrama tiene un compás distinto"
 
 #. Documentation/user/rhythms.itely:1571 (comment)
-#, fuzzy
 msgid "auto beam on 1/4 note groups"
-msgstr "barra automática sobre grupos de 1/4 (negra)\t"
+msgstr "barra automática sobre grupos de 1/4 (negra)"
 
 #. Documentation/user/rhythms.itely:1573 (comment)
 msgid "no defined auto-beaming for this time sig"
 msgstr "ningún barrado automático se define para este compás"
 
 #. Documentation/user/rhythms.itely:1577 (comment)
-#, fuzzy
 msgid "keep 3/4 beaming"
-msgstr "mantenemos el barrado del 3/4 "
+msgstr "mantener el barrado del 3/4 "
 
 #. Documentation/user/rhythms.itely:1578 (comment)
 msgid "due to beatLength"
@@ -4291,7 +4283,7 @@ msgstr "debido a beatLength"
 
 #. Documentation/user/rhythms.itely:1580 (comment)
 msgid "beam on 1/8 notes"
-msgstr "poner barras a las corcheas"
+msgstr "barras sobre las corcheas"
 
 #. Documentation/user/rhythms.itely:1583 (comment)
 msgid "beam on 3/16, 7/16, 9/16, 12/16"
@@ -4307,8 +4299,7 @@ msgstr "Establecer longitud de barra del subgrupo a semicorchea"
 
 #. Documentation/user/rhythms.itely:1730 (comment)
 msgid "end 1/16 beams for all time signatures at the 1/16 moment"
-msgstr ""
-"finalizar barras de semicorchea para todos los compases en el momento 1/16"
+msgstr "finalizar barras de semicorchea para todos los compases en el momento 1/16"
 
 #. Documentation/user/rhythms.itely:1734 (comment)
 msgid "end 1/32 beams for all time signatures at the 1/16 moment"
@@ -4322,15 +4313,15 @@ msgstr ""
 
 #. Documentation/user/rhythms.itely:1759 (comment)
 msgid "rhythm 3-1-1-2"
-msgstr ""
+msgstr "ritmo 3-1-1-2"
 
 #. Documentation/user/rhythms.itely:1760 (comment)
 msgid "Context not specified - does not work correctly"
-msgstr ""
+msgstr "Contexto sin especificar: no funciona correctamente"
 
 #. Documentation/user/rhythms.itely:1766 (comment)
 msgid "Works correctly with context specified"
-msgstr ""
+msgstr "Funciona correctamente con el contexto especificado"
 
 #. Documentation/user/rhythms.itely:1802 (comment)
 msgid "undo a rule ending 1/16 beams in 4/4 time at 1/4 moment"
@@ -4348,20 +4339,19 @@ msgstr "esto sí"
 
 #. Documentation/user/rhythms.itely:1832 (comment)
 msgid "rhythm 2-3-2"
-msgstr ""
+msgstr "ritmo 2-3-2"
 
 #. Documentation/user/rhythms.itely:1871 (comment)
-#, fuzzy
 msgid "Default beaming"
-msgstr "Comportamiento predeterminado"
+msgstr "Barrado predeterminado"
 
 #. Documentation/user/rhythms.itely:1874 (comment)
 msgid "Revert default values in scm/auto-beam.scm for 12/8 time"
-msgstr ""
+msgstr "Revertir los valores predeterminados en scm/auto-beam.scm para el 12/8"
 
 #. Documentation/user/rhythms.itely:1880 (comment)
 msgid "Set new values for beam endings"
-msgstr ""
+msgstr "Establecer nuevos valores para finales de barra"
 
 #. Documentation/user/rhythms.itely:2002 (comment)
 msgid "revert to non-feathered beams"
@@ -4379,8 +4369,7 @@ msgstr "Imprimir el número de compás cada dos compases"
 
 #. Documentation/user/rhythms.itely:2258 (comment)
 msgid "Prevent bar numbers at the end of a line and permit them elsewhere"
-msgstr ""
-"No poner números de compás al final de la línea, pero sí en otros lugares"
+msgstr "No poner números de compás al final de la línea, pero sí en otros lugares"
 
 #. Documentation/user/rhythms.itely:2262 (comment)
 #. Documentation/user/rhythms.itely:2288 (comment)
@@ -5463,8 +5452,7 @@ msgstr "Formateo de las notas de aviso"
 
 #. Documentation/user/editorial.itely:321 (comment)
 msgid "this is deliberate nonsense; note that the stems remain black"
-msgstr ""
-"esto no tiene sentido, intencionalmente. Observe que las plicas siguen negras"
+msgstr "esto no tiene sentido, intencionalmente. Observe que las plicas siguen negras"
 
 #. @node in Documentation/user/editorial.itely
 #. @section in Documentation/user/editorial.itely
@@ -6396,9 +6384,8 @@ msgstr "armónicos"
 
 #. @node in Documentation/user/unfretted-strings.itely
 #. @node in Documentation/es/user/unfretted-strings.itely
-#, fuzzy
 msgid "Snap (Bartok) pizzicato"
-msgstr "Pizzicato de Bartók (Snap)"
+msgstr "Pizzicato de Bartok (Snap)"
 
 #. @unnumberedsubsubsec in Documentation/user/unfretted-strings.itely
 #. @node in Documentation/fr/user/unfretted-strings.itely
@@ -6634,10 +6621,8 @@ msgid "It also defines the positions of the two lines."
 msgstr "También define las posiciones de las dos líneas."
 
 #. Documentation/user/percussion.itely:396 (comment)
-#, fuzzy
 msgid "This is neccessary; if not entered, the barline would be too short!"
-msgstr ""
-"Esto es necesario; si no se pone, la línea divisoria sería demasiado corta."
+msgstr "Esto es necesario; si no se pone, la línea divisoria sería demasiado corta."
 
 #. Documentation/user/percussion.itely:403 (comment)
 msgid "with this you load your new drum style table"
@@ -7711,8 +7696,7 @@ msgstr "esta vez el texto estará más cerca del pentagrama"
 
 #. Documentation/user/spacing.itely:1721 (comment)
 msgid "by setting outside-staff-priority to a non-number,"
-msgstr ""
-"ajustando el valor de outside-staff-priority a algo que no sea un número,"
+msgstr "ajustando el valor de outside-staff-priority a algo que no sea un número,"
 
 #. Documentation/user/spacing.itely:1722 (comment)
 msgid "we disable the automatic collision avoidance"
@@ -8140,13 +8124,11 @@ msgstr "la RehearsalMark se centra sobre la armadura"
 #. Documentation/user/changing-defaults.itely:3002 (comment)
 #. Documentation/user/changing-defaults.itely:3018 (comment)
 #. Documentation/user/changing-defaults.itely:3025 (comment)
-msgid ""
-"The RehearsalMark will be aligned with the left edge of the KeySignature"
+msgid "The RehearsalMark will be aligned with the left edge of the KeySignature"
 msgstr "la RehearsalMark se alinea por la izquierda con la armadura"
 
 #. Documentation/user/changing-defaults.itely:3007 (comment)
-msgid ""
-"The RehearsalMark will be aligned with the right edge of the KeySignature"
+msgid "The RehearsalMark will be aligned with the right edge of the KeySignature"
 msgstr "la RehearsalMark se alinea por la derecha con la armadura"
 
 #. Documentation/user/changing-defaults.itely:3019 (comment)
@@ -8429,9 +8411,8 @@ msgstr "Distancias y medidas"
 #. @subsection in Documentation/user/changing-defaults.itely
 #. @node in Documentation/es/user/changing-defaults.itely
 #. @subsection in Documentation/es/user/changing-defaults.itely
-#, fuzzy
 msgid "Staff symbol properties"
-msgstr "Propiedades de disposición"
+msgstr "Propiedades del símbolo del pentagrama"
 
 # fuzzy. FVD
 #. @node in Documentation/user/changing-defaults.itely
@@ -9563,11 +9544,3 @@ msgstr "Notas al pie"
 msgid "Table of Contents"
 msgstr "Índice general"
 
-#~ msgid "broken"
-#~ msgstr "roto"
-
-#~ msgid "\\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)"
-#~ msgstr "\\set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)"
-
-#~ msgid "Laissez vibrer ties"
-#~ msgstr "Ligaduras Laissez vibrer"
