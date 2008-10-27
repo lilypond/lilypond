@@ -130,16 +130,16 @@ Word counts (excluding lilypond snippets) are given for each file.
 
 -3- Learning manual
 10318 user/fundamental.itely -- Fundamental concepts
-12616 user/tweaks.itely -- Tweaking output
+12705 user/tweaks.itely -- Tweaking output
 3007  user/working.itely -- Working on LilyPond files
 483   user/templates.itely -- Templates
-26424 total
+26513 total
 
 -4- Notation reference
 680   user/lilypond.tely
 91    user/notation.itely -- Musical notation
 3147  user/pitches.itely
-6058  user/rhythms.itely
+6527  user/rhythms.itely
 1110  user/expressive.itely
 556   user/repeats.itely
 1452  user/simultaneous.itely
@@ -162,7 +162,7 @@ Word counts (excluding lilypond snippets) are given for each file.
 5202  user/programming-interface.itely -- Interfaces for programmers
 1155  user/notation-appendices.itely -- Notation manual tables
 250   user/cheatsheet.itely -- Cheat sheet
-63040 total
+63509 total
 
 -5- Application usage
 3194  user/lilypond-book.itely -- LilyPond-book
