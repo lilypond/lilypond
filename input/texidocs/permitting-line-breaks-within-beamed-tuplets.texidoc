@@ -6,3 +6,12 @@ valoración especial unido por una barra.  Observe que estos grupos
 sincopados se deben barrar manualmente.
 
 "
+
+  texidocde = "
+Dieses künstliche Beispiel zeigt, wie sowohl automatische als auch
+manuelle Zeilenumbrüche innerhalb einer N-tole mit Balken erlaubt
+werden können.  Diese unregelmäßige Bebalkung muss allerdings manuell
+gesetzt werden.
+
+"
+  doctitlede = "Zeilenumbrüche bei N-tolen mit Balken erlauben"

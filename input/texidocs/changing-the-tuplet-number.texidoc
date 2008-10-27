@@ -8,3 +8,12 @@ puede imprimr un quebrado en la forma numerador:denominador del número
 del grupo, o eliminar el número.
 
 "
+
+texidocde = "
+Standardmäßig wird nur der Zähler des N-tolen-Bruchs über der Klammer
+dargestellt, wie er dem @code{\\times}-Befehl übergeben wird.
+Man kann aber auch Zähler/Nenner ausgeben lassen, oder die Zahl
+vollständig unterdrücken.
+
+"
+  doctitlede = "Die Zahl der N-tole verändern"
