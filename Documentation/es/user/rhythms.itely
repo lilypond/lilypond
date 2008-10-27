@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 5f6b41e0a22a8c235def146b97f5d48e67fd30f6
+    Translation of GIT committish: e26be005f47a083ede9324ffe4a6ec93f2be3121
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -221,11 +221,11 @@ grupo especial, véase @ref{Scaling durations}.
 @code{\tupletDown},
 @code{\tupletNeutral}.
 
-
 @snippets
 
 @cindex grupos especiales, formato de
 @cindex tresillos, formato de
+
 @funindex tupletNumberFormatFunction
 @funindex tupletSpannerDuration
 
@@ -265,7 +265,9 @@ Referencia de funcionamiento interno:
 @rinternals{TimeScaledMusic}.
 
 @knownissues
+
 @cindex adorno, notas de, dentro de corchetes de grupo especial
+
 Cuando la primera nota de un pentagrama es una nota de adorno (un
 mordente de una nota) seguida de un grupo de valoración especial, la
 nota de adorno se debe situar antes de la instrucción @code{\times}
@@ -514,6 +516,7 @@ expresiones musicales.
 @cindex maxima
 @cindex longa
 @cindex breve
+
 @funindex \rest
 @funindex r
 @funindex \maxima
@@ -706,6 +709,7 @@ R1*2 |
 
 @cindex multicompás, silencios, expansión de
 @cindex multicompás, silencios, contracción de
+
 @funindex \expandFullBarRests
 @funindex \compressFullBarRests
 
@@ -748,13 +752,11 @@ R2.*10^\markup { \italic "ad lib." }
 R2.^\fermataMarkup
 @end lilypond
 
-@warning{
-Los elementos de marcado que se añaden a un silencio
+@warning{Los elementos de marcado que se añaden a un silencio
 multicompás son objetos del tipo @code{MultiMeasureRestText}, no
 @code{TextScript}.  Las sobreescrituras de propiedades deben ir
 dirigidas hacia el objeto correcto, o se ignorarán.  Véase el ejemplo
-siguiente.
-}
+siguiente.}
 
 @lilypond[quote,verbatim,fragment]
 % This fails, as the wrong object name is specified
@@ -865,7 +867,7 @@ La indicación de compás se imprime al comienzo de una pieza y siempre
 que hay un cambio de compás.  Si se produce un cambio al final de una
 línea, se imprime una indicación de advertencia en dicho lugar.  Se
 puede modificar este comportamiento predeterminado, véase
-@c ref{Controlling visibility of objects}.
+@ref{Controlling visibility of objects}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4
@@ -908,70 +910,24 @@ Las indicaciones de compás de la música mensural se tratan en
 
 @snippets
 
-@c TODO Send as snippet called "setting measure and beat lengths"
-@c      when example is added
-@code{\time} establece las propiedades @code{timeSignatureFraction},
-@code{beatLength} y @code{measureLength} en el contexto @code{Timing},
-que normalmente tiene el alias @code{Score}.  La modificación del
-valor de @code{timeSignatureFraction} hace que se imprima la nueva
-indicación de compás sin que cambien las otras propieadades.  La
-propiedad @code{measureLength} determina dónde se deben insertar
-líneas divisorias, y con @code{beatLength} y @code{beatGrouping}, cómo
-se deben generar las barras de corchea automáticas.
+La instrucción @code{\time} establece las propiedades
+@code{timeSignatureFraction}, @code{beatLength} y @code{measureLength}
+en el contexto @code{Timing}, que normalmente tiene el alias
+@code{Score}.  La modificación del valor de
+@code{timeSignatureFraction} hace que se imprima la nueva indicación
+de compás sin que cambien las otras propiedades:
 
 @lilypond[quote,verbatim,relative=2]
-\time 3/4 % auto beam on 1/4 note groups
-a16 a a a a a a a a a a a a a a a
-\time 12/16 % no defined auto-beaming for this time sig
-a16 a a a a a a a a a a a a a a a
 \time 3/4
-a16 a a a a a a a a a a a a a a a
-\set Score.timeSignatureFraction = #'(12 16) %keep 3/4 beaming
-                                             % due to beatLength
-a16 a a a a a a a a a a a a a a a
-\set Score.beatLength = #(ly:make-moment 1 8) %beam on 1/8 notes
-a16 a a a a a a a a a a a a a a a
-\set Score.beatLength = #(ly:make-moment 1 16)
-\set Score.beatGrouping = #'(3 4 2 3) %beam on 3/16, 7/16, 9/16, 12/16
-a16 a a a a a a a a a a a a a a a
+a16 a a a a a a a a a a a
+% Change time signature but keep 3/4 beaming
+% due to unchanged beatLength
+\set Score.timeSignatureFraction = #'(12 . 16)
+a16 a a a a a a a a a a a
+\time 12/16
+% Lose 3/4 beaming now beatLength has changed to 16
+a16 a a a a a a a a a a a
 @end lilypond
-
-@c End of snippet
-
-@cindex measure groupings
-@cindex beats, grouping
-@cindex grouping beats
-@cindex measure sub-grouping
-
-@c TODO Sent as snippet called "grouping beats" 25 Mar 08
-Las opciones para agrupar partes de un compás están disponibles a
-través de la funcción de Scheme @code{set-time-signature}, que toma
-tres argumentos: el número de pulsos, longitud del pulso, y agrupación
-interna de los pulsos en el compás.  Si el grabador
-@rinternals{Measure_grouping_engraver} está incluido, la función
-también creará símbolos de @rinternals{MeasureGrouping}.  Tales
-símbolos facilitan la lectura de música moderna rítmicamente compleja.
-En el ejemplo, el compás de 9/8 se subdivide en 2 + 2 + 2 + 3.  Esto
-se pasa a @code{set-time-signature} como tercer argumento: @code{'(2 2
-2 3)}:
-
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    #(set-time-signature 9 8 '(2 2 2 3))
-    g8[ g] d[ d] g[ g] a8[( bes g]) |
-    #(set-time-signature 5 8 '(3 2))
-    a4. g4
-  }
-  \layout {
-    \context {
-      \Staff
-      \consists "Measure_grouping_engraver"
-    }
-  }
-}
-@end lilypond
-@c TODO End of snippet called "grouping beats"
 
 @cindex compuesto, indicaciones de compás
 @cindex compás compuesto, indicaciones de
@@ -1416,12 +1372,22 @@ automáticamente:
 Cuando estas decisiones automáticas no son lo bastante buenas, se
 pueden escribir los barrados de forma explícita; véase @ref{Manual
 beams}.  También es posible definir patrones de barrado que difieran
-de los ajustes por defecto; véase @ref{Setting automatic beam
-behavior}.  Las reglas de barrado predeterminadas están definidas en
-el archivo @file{scm/@/auto@/-beam@/.scm}.
+de los ajustes por defecto.  Las reglas de barrado predeterminadas
+están definidas en el archivo @file{scm/@/auto@/-beam@/.scm}.  Si no
+hay definidas reglas de barrado para el tipo de compás en uso, el
+barrado se controla mediante los valores de tres propiedades de
+contexto, @code{measureLength}, @code{beatLength} y
+@code{beatGrouping}.  Tanto las reglas de barrado como las propiedades
+de contexto se pueden sobreescribir, véase @ref{Setting automatic beam
+behavior}.
 
 @cindex autoBeamOn
 @cindex autoBeamOff
+
+@warning{Si se usan barras para indicar los melismas de las canciones,
+entonces se debe desactivar el barrado automático con
+@code{\autoBeamOff} e indicar las barras manualmente.}
+
 
 @noindent
 El barrado automático se puede habilitar o desactivar con las
@@ -1441,55 +1407,13 @@ c16 c8
 
 @snippets
 
-Los patrones de barrado se pueden alterar con la propiedad
-@code{beatGrouping}:
-
-@lilypond[quote,verbatim,relative=2]
-\time 5/16
-\set beatGrouping = #'(2 3)
-c8[^"(2+3)" c16 c8]
-\set beatGrouping = #'(3 2)
-c8[^"(3+2)" c16 c8]
-@end lilypond
-
-@funindex subdivideBeams
-
-@c TODO  convert to snippet called "Sub-dividing beams"
-@c   Added to lsr 18 Oct 08
-
-De forma predeterminada, las barras de semicorchea o notas más cortas
-no se subdividen.  Esto es, el grupo de tres o más barras se amplía
-sin romperse sobre grupos enteros de notas.  Este comportamiento se
-puede modificar para que se subdividan las barras en subgrupos
-ajustando la propiedad @code{subdivideBeams}.  Cuando está estblecida,
-varias barras se verán subdivididas a intervalos definidos por el
-valor actual @code{beatLength} reduciendo las barras múltiples a una
-sola entre los subgrupos.  Observe que @code{beatLength} reside dentro
-del contexto de @code{Score} y tiene un valor predeterminado de negra.
-Se debe ajustar para que sea una fracción que dé como resultado la
-duración del subgrupo de barras usando la función @code{make-moment},
-como se muestra aquí:
-
-@lilypond[quote,relative=2,verbatim]
-c32[ c c c c c c c]
-\set subdivideBeams = ##t
-c32[ c c c c c c c]
-% Set beam sub-group length to an eighth note
-\set Score.beatLength = #(ly:make-moment 1 8)
-c32[ c c c c c c c]
-% Set beam sub-group length to a sixteenth note
-\set Score.beatLength = #(ly:make-moment 1 16)
-c32[ c c c c c c c]
-@end lilypond
-@funindex subdivideBeams
-
-@noindent
-Para más información sobre @code{make-moment}, véase @ref{Time
-administration}.
-
 @funindex divisible
 @cindex salto de línea
 @cindex línea, saltos de
+
+@c TODO  convert to snippet called "Beams across line breaks"
+@c  This snippet exists but doesn't show the effect - replaced it
+@c  with this 18 Oct 08
 
 Normalmente están prohibidos los saltos de línea cuando las barras
 atraviesan a la línea divisoria.  Este comportamiento se puede
@@ -1504,6 +1428,9 @@ c8 \repeat unfold 15 { c[ c] } c
 @cindex barras en ángulo
 @cindex dobladas, barras
 @cindex auto-knee-gap
+
+@c TODO convert to snippet called "Changing beam knee gap"
+@c   Added to lsr 18 Oct 08
 
 Cuando se detecta un salto muy grande entre las cabezas de las notas,
 se inserta automáticamente una barra doblada o en ángulo.  Este
@@ -1559,46 +1486,253 @@ alteraciones accidentales de las otras voces.
 @cindex barras automáticas
 @cindex letra y barrado
 
-@warning{Si se usan barras para indicar los melismas en las canciones,
-el barrado automático debe desactivarse con @code{\autoBeamOff} e
-indicar los barrados manualmente.}
+La colocación de barras automáticas viene determinada por las reglas
+descritas en @ref{Automatic beams}.  Existen dos formas mutuamente
+excluyentes de modificar estas reglas.  La primera es modificar la
+agrupación de los pulsos y se aplica a compases poco usuales, es
+decir, aquellos para los que no ha reglas predefinidas que definen los
+puntos de final de las barras.  El segundo método, la modificación de
+los puntos finales de las barras, se debe usar para aquellos compases
+para los que existen reglas predefinidas de final de barra.  Hay
+reglas predefinidas para los compases de 3/2, 3/4, 4/4, 2/4, 4/8,
+4/16, 6/8, 9/8 y 12/8.
+
+@i{@strong{Modificar las agrupaciones de pulsos}}
+
+Si no hay definida ninguna regla de final de barra para el tipo de
+compás en uso, el barrado se controla mediante tres propiedades de
+contexto: @code{measureLength}, @code{beatLength} y
+@code{beatGrouping}.  Estas propiedades se deben establecer en los
+contextos @code{Score}, @code{Staff} o @code{Voice} para delimitar el
+ámbito de su efecto.
+
+Dichas propiedades determinan el barrado de la siguiente forma:
+
+Las barras pueden dar comienzo en cualquier lugar (excepto si ya hay
+una barra activa).  Las barras terminan en un tiempo determinado por
+los valores de @code{beatGrouping} y @code{beatLength}, com se ve a
+continuación:
+
+@itemize
+
+@item
+Si @code{beatGrouping} y @code{beatLength} con consistentes con
+@code{measureLength}, se utiliza @code{beatGrouping} para determinar
+los puntos finales de las barras.
+
+@item
+Si @code{beatGrouping} y @code{beatLength} no concuerdan con
+@code{measureLength}, se usa @code{beatLength} para determinar los
+puntos finales de las barras.
+
+@end itemize
+
+De forma predeterminada, estas propiedades se derivan del compás
+establecido por la instrucción @code{\time}.  La longitud
+@code{measureLength} es, de forma predeterminada, exactamente la misma
+que la longitud del compás dado por la indicación de compás, y la
+longitud predeterminada del pulso @code{beatLength} viene dada por el
+denominador del compás.
+
+Tanto @code{measureLength} como @code{beatLength} son @i{momentos},
+unidades de duración musical.  Las cantidades del tipo @i{moment} se
+crean por la función de Scheme @code{ly:make-moment}.  Para ver más
+información sobre esta función, consulte @ref{Time administration}.
+
+@code{beatGrouping} es una lista de enteros que dan el número de
+pulsos en cada grupo.
+
+@snippets
+
+@c TODO -- convert to snippet called "Grouping beats"
+@c         Added to lsr 18 Oct 08  -td
+
+Se pueden alterar los patrones de barrado con la propiedad
+@code{beatGrouping}:
+
+@lilypond[quote,verbatim,relative=2]
+\time 5/16
+\set beatGrouping = #'(2 3)
+c8[^"(2+3)" c16 c8]
+\set beatGrouping = #'(3 2)
+c8[^"(3+2)" c16 c8]
+@end lilypond
+
+@c TODO Convert to snippet called "Specifying context with beatGrouping"
+
+Especificando el contexto, el efecto de @code{beatGrouping} puede
+limitarse al contexto especificado, y sobreescribirse los valores
+establecidos en contextos de niveles más altos:
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff <<
+    \time 7/8
+    \new Voice {
+      \relative c'' {
+        \set Staff.beatGrouping = #'(2 3 2)
+        a8 a a a a a a
+      }
+    }
+    \new Voice {
+      \relative c' {
+        \voiceTwo
+        \set Voice.beatGrouping = #'(1 3 3)
+        f8 f f f f f f
+      }
+    }
+  >>
+}
+@end lilypond
+
+
+@c TODO Send as snippet?
+
+La propiedad @code{measureLength} determina dónde se deben insertar
+líneas divisorias y, con @code{beatLength} y @code{beatGrouping}, cómo
+se deben generar las barras autoomáticas para compases para los que no
+hay ninguna regla definida para los finales de barra.
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4 % auto beam on 1/4 note groups
+a16 a a a a a a a a a a a a a a a
+\time 12/16 % no defined auto-beaming for this time sig
+a16 a a a a a a a a a a a a a a a
+\time 3/4
+a16 a a a a a a a a a a a a a a a
+\set Score.timeSignatureFraction = #'(12 . 16) %keep 3/4 beaming
+                                             % due to beatLength
+a16 a a a a a a a a a a a a a a a
+\set Score.beatLength = #(ly:make-moment 1 8) %beam on 1/8 notes
+a16 a a a a a a a a a a a a a a a
+\set Score.beatLength = #(ly:make-moment 1 16)
+\set Score.beatGrouping = #'(3 4 2 3) %beam on 3/16, 7/16, 9/16, 12/16
+a16 a a a a a a a a a a a a a a a
+@end lilypond
+
+
+@c End of snippet
+
+@funindex subdivideBeams
+
+@c TODO  convert to snippet called "Sub-dividing beams"
+@c   Added to lsr 18 Oct 08
+
+Las barras de semicorcheas (o notas más breves) seguidas no se
+subdividen de forma predeterminada.  Esto es: las tres (o más) barras
+se prolongan, sin dividirse, sobre grupos completos de notas.  Este
+comportamiento se puede modificar para que las barras se subdividan en
+subgrupos mediante el establecimiento de la propiedad
+@code{subdivideBeams}.  Cuando está establecida, las diversas barras
+se subdividen a intervalos definidos por el valor actual de la
+longitud del pulso @code{beatLength} reduciendo las barras múltiples a
+una sola entre los subgrupos.
+
+@code{beatLength} se debe establecer al valor de una fracción que da
+la duración el subgrupo de barras utilizando la función
+@code{make-moment}, como se muestra aquí:
+
+@lilypond[quote,relative=2,verbatim]
+c32[ c c c c c c c]
+\set subdivideBeams = ##t
+c32[ c c c c c c c]
+% Set beam sub-group length to an eighth note
+\set Score.beatLength = #(ly:make-moment 1 8)
+c32[ c c c c c c c]
+% Set beam sub-group length to a sixteenth note
+\set Score.beatLength = #(ly:make-moment 1 16)
+c32[ c c c c c c c]
+@end lilypond
+
+@cindex compases, agrupaciones de
+@cindex pulsos, agrupar
+@cindex agrupación de pulsos
+@cindex compases, subgrupos dentro de
+
+@c TODO Sent as snippet called "Conducting signs, measure grouping signs" 18 Oct 08  -td
+Hay disponibles unas opciones para agrupar los pulsos dentro de un
+compás a través de la función de Scheme @code{set-time-signature}, que
+acepta tres argumentos: el número de pulsos, la longitud del pulso, y
+el agrupamiento interno de los pulsos dentro del compás.  Si se
+incluye el grabador @rinternals{Measure_grouping_engraver}, la función
+crea también símbolos de @rinternals{MeasureGrouping}.  Dichos
+símbolos facilitan la lectura de la música moderna de cierta
+complejidad rítmica.  En el ejemplo, el compás de 9/8 se subdivide en
+2, 2, 2 and 3.  Esto se pasa a la función @code{set-time-signature}
+como tercer argumento: @code{'(2 2 2 3)}:
+
+@lilypond[quote,ragged-right,verbatim]
+\score {
+  \relative c'' {
+    #(set-time-signature 9 8 '(2 2 2 3))
+    g8[ g] d[ d] g[ g] a8[( bes g]) |
+    #(set-time-signature 5 8 '(3 2))
+    a4. g4
+  }
+  \layout {
+    \context {
+      \Staff
+      \consists "Measure_grouping_engraver"
+    }
+  }
+}
+@end lilypond
+@c TODO End of snippet called "grouping beats"
+
+
+@strong{@i{Modificar los puntos finales de las barras}}
 
 En compases de tipo normal, las barras automáticas pueden comenzar en
 cualquier nota pero solamente pueden terminar en algunas poriciones
-dentro del compás: las barras pueden terminar sobre una parte, o sobre
-duraciones que estén especificadas por las propiedades de
-@code{autoBeamSettings}.  Las propiedades de @code{autoBeamSettings}
-consisten en un a lista de reglas que especifican dónde pueden
-comenzar y teminar las barras.  Las reglas predeterminadas de
+dentro del compás, concretamente en las duraciones que estén
+especificadas por las propiedades de @code{autoBeamSettings}.  Estas
+propiedades consisten en una lista de reglas que especifican dónde
+pueden terminar las barras.  Las reglas predeterminadas de
 @code{autoBeamSettings} están definidas en
 @file{scm/@/auto@/-beam@/.scm}.
 
-Para poder añadir una regla a la lista, utilice
+@strong{Se debe} usar este método para los compases corrientes, y
+también es particularmente apropiado para otros muchos compases si la
+indicación de compás cambia con frecuencia.  A causa de que las reglas
+se pueden escribir de forma que se apliquen a un tipo de compás
+específico, sólo se tienen que determinar una vez con reglas para cada
+tipo de compás.  Intentar conseguir el mismo resultado modificando el
+agrupamiento de los pulsos requeriría la inserción de instrucciones
+@code{\set} a cada cambio de compás, a no ser que los valores
+predeterminados de ese tipo de compás fuesen apropiados.
+
+Para añadir una regla a la lista, utilice
+
 @example
 #(override-auto-beam-setting
-  '(límite-barra numerador-barra denominador-barra
-     numerador-compás denominador-compás)
-  numerador-momento denominador-momento [contexto])
+  '(beam-limit
+    beam-numerator  beam-denominator
+    time-signature-numerator time-signature-denominator)
+  moment-numerator moment-denominator [context])
 @end example
+
+@noindent
+donde:
 
 @itemize
 
 @item @code{límite-barra} es el tipo de límte de barra automática que se
-define, @code{begin} o bien @code{end}.
+define.  Puede ser @code{begin} o @code{end}, pero sólo es efectivo
+@code{end}.
 
 @item @code{numerador-barra/denominador-barra} es la duración de la barra
-para la que quiere añadir una regla.  Se considera que una barra tiene
+a la que se quiere aplicar la regla.  Se considera que una barra tiene
 la duración de su nota más breve.  Ajuste @code{numerador-barra} y
-@code{denominador-barra} a @code{'*'} para que esto se aplique a las
-barras de cualquier duración.
+@code{denominador-barra} a un asterisco @code{'*'} para que la regla
+se aplique a las barras de cualquier duración.
 
-@item @code{numerador-compás/denominador-compás} es la indicación de compás
-al que se aplica esta regla.  Ajuste @code{numerador-compás} y
-@code{denominador-compás} a @code{'*'} para hacer que esta regla se
-aplique a cualquier tipo de compás.
+@item @code{numerador-compás/denominador-compás} especifica la indicación de compás
+a que se aplica esta regla.  Si @code{numerador-compás} y
+@code{denominador-compás} tienen el valor de un asterisco @code{'*'},
+esta regla se aplica a cualquier tipo de compás.
 
 @item @code{numerador-momento/denominador-momento} es la posición dentro del
-compás en que la barra debe comenzar o acabar.
+compás en que la barra debe terminar.
 
 @item @code{contexto} es opcional, y especifica el contexto en que se debe
 hacer el cambio.  El valor predeterminado es @code{'Voice}.
@@ -1619,8 +1753,8 @@ a8 a a a a a a a
 a8 a a a a a a a
 @end lilypond
 
-Podemos forzar los ajustes de las barras para que sólo tengan efecto
-sobre barras cuya nota más breve es una cierta duración:
+Podemos forzar los ajustes de las barras para que tengan efecto sólo
+sobre las barras cuya nota más breve sea de una cierta duración:
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4
@@ -1633,8 +1767,8 @@ a32 a a a a16 a a a a a |
 a32 a a a a16 a a a a a |
 @end lilypond
 
-Podemos forzar los ajustes de las barras para que sólo tengan efecto
-en ciertos tipos de compás:
+Podemos forzar los ajustes de las barras para que tengan efecto
+solamente en ciertos tipos de compás:
 
 @lilypond[quote,verbatim,relative=2]
 \time 5/8
@@ -1647,7 +1781,9 @@ e8 e f f e e d d
 c8 c d d d
 @end lilypond
 
-Si se usan varias voces, se debe especificar el contexto @code{Staff}:
+En caso de usar varias voces, se debe especificar el contexto
+@code{Staff} si queremos aplicar el barrado a todas las voces del
+pentagrama:
 
 @lilypond[quote,verbatim,relative=2]
 \time 7/8
@@ -1679,8 +1815,9 @@ de barrado automático previamente establecida usando
 
 @example
 #(revert-auto-beam-setting
-  '(beam-limit beam-numerator  beam-denominator
-     time-signature-numerator time-signature-denominator)
+  '(beam-limit
+    beam-numerator  beam-denominator
+    time-signature-numerator time-signature-denominator)
   moment-numerator moment-denominator [context])
 @end example
 
@@ -2068,7 +2205,7 @@ cualquier momento con @code{\set Timing.defaultBarType =
 @seealso
 
 Referencia de la notación:
-@ref{Line breaking}, 
+@ref{Line breaking},
 @ref{Repeats},
 @ref{Grouping staves}.
 
@@ -2076,10 +2213,11 @@ Referencia de la notación:
 Fragmentos de código:
 @rlsr{Rhythms}.
 
-Referencia de funcionamiento interno: @rinternals{BarLine} (creada al
-nivel de @rinternals{Staff} (pentagrama)), @rinternals{SpanBar} (a
-través de los pentagramas), @rinternals{Timing_translator} (para las
-propiedades del contador de tiempo Timing).
+Referencia de funcionamiento interno:
+
+@rinternals{BarLine} (creada al nivel de @rinternals{Staff} (pentagrama)),
+@rinternals{SpanBar} (a través de los pentagramas),
+@rinternals{Timing_translator} (para las propiedades del contador de tiempo Timing).
 
 
 @node Bar numbers
@@ -2679,7 +2817,6 @@ yuxtaposición de secciones de adorno, y podría producir caídas u otros
 errores.
 
 
-
 @node Aligning to cadenzas
 @unnumberedsubsubsec Aligning to cadenzas
 
@@ -2747,6 +2884,7 @@ Se usan las siguientes propiedades de @code{Timing} para seguir la
 pista del tiempo dentro de la partitura.
 
 @cindex compás, número de
+@cindex número de compás
 
 @table @code
 @item currentBarNumber

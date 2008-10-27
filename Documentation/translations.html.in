@@ -38,7 +38,7 @@ translations.template.html.in; DO NOT EDIT !-->
   is finished.
 </p>
 
- <p><i>Last updated Mon Oct 27 11:16:48 UTC 2008
+ <p><i>Last updated Mon Oct 27 16:09:50 UTC 2008
 </i></p>
 <table align="center" border="2">
  <tr align="center">
@@ -366,7 +366,7 @@ translations.template.html.in; DO NOT EDIT !-->
   </td>
   <td>Francisco Vila<br>
    <span style="background-color: #1fff1f">translated</span><br>
-   <span style="background-color: #68ff28">partially up to date</span><br>
+   <span style="background-color: #1fff1f">up to date</span><br>
   </td>
  </tr>
  <tr align="left">
