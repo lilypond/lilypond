@@ -508,7 +508,10 @@ toplevel_expression:
 		Output_def * od = $1;
 
 		if ($1->c_variable ("is-paper") == SCM_BOOL_T)
+		{
 			id = ly_symbol2scm ("$defaultpaper");
+			init_papers (PARSER, od);
+		}
 		else if ($1->c_variable ("is-midi") == SCM_BOOL_T)
 			id = ly_symbol2scm ("$defaultmidi");
 		else if ($1->c_variable ("is-layout") == SCM_BOOL_T)
@@ -654,6 +657,7 @@ context_def_spec_body:
 book_block:
 	BOOK '{' book_body '}' 	{
 		$$ = $3;
+		unstack_paper (PARSER);
 	}
 	;
 
@@ -666,6 +670,7 @@ book_body:
 		$$->origin ()->set_spot (@$);
 		$$->paper_ = dynamic_cast<Output_def*> (unsmob_output_def (PARSER->lexer_->lookup_identifier ("$defaultpaper"))->clone ());
 		$$->paper_->unprotect ();
+		stack_paper (PARSER, $$->paper_);
 		$$->header_ = PARSER->lexer_->lookup_identifier ("$defaultheader"); 
 	}
 	| BOOK_IDENTIFIER {
@@ -676,6 +681,7 @@ book_body:
 	| book_body paper_block {
 		$$->paper_ = $2;
 		$2->unprotect ();
+		set_paper (PARSER, $2);
 	}
 	| book_body bookpart_block {
 		Book *bookpart = $2;
