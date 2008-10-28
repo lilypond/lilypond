@@ -1393,41 +1393,11 @@ c16 c8
 @cindex break, line
 @cindex line breaks
 
-@c TODO  convert to snippet called "Beams across line breaks"
-@c  This snippet exists but doesn't show the effect - replaced it
-@c  with this 18 Oct 08
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beams-across-line-breaks.ly}
 
-Line breaks are normally forbidden when beams cross bar lines.
-This behavior can be changed by setting the @code{breakable}
-property:
-
-@lilypond[relative=2,verbatim,quote]
-\override Beam #'breakable = ##t
-c8 \repeat unfold 15 { c[ c] } c
-@end lilypond
-
-@cindex beams and line breaks
-@cindex beams, kneed
-@cindex kneed beams
-@cindex auto-knee-gap
-
-@c TODO convert to snippet called "Changing beam knee gap"
-@c   Added to lsr 18 Oct 08
-
-Kneed beams are inserted automatically when a large gap is
-detected between the note heads.  This behavior can be tuned
-through the @code{auto-knee-gap} property.  A kneed beam is
-drawn if the gap is larger than the value of
-@code{auto-knee-gap} plus the width of the beam object (which
-depends on the duration of the notes and the slope of the beam).
-By default @code{auto-knee-gap} is set to 5.5 staff spaces.
-
-@lilypond[fragment,quote,verbatim]
-f8 f''8 f8 f''8
-\override Beam #'auto-knee-gap = #6
-f8 f''8 f8 f''8
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-beam-knee-gap.ly}
 
 @seealso
 
@@ -1519,18 +1489,8 @@ beats in each group.
 
 @snippets
 
-@c TODO -- convert to snippet called "Grouping beats"
-@c         Added to lsr 18 Oct 08  -td
-
-Beaming patterns may be altered with the @code{beatGrouping} property,
-
-@lilypond[quote,verbatim,relative=2]
-\time 5/16
-\set beatGrouping = #'(2 3)
-c8[^"(2+3)" c16 c8]
-\set beatGrouping = #'(3 2)
-c8[^"(3+2)" c16 c8]
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{grouping-beats.ly}
 
 @c TODO Convert to snippet called "Specifying context with beatGrouping"
 
@@ -1589,67 +1549,16 @@ a16 a a a a a a a a a a a a a a a
 
 @funindex subdivideBeams
 
-@c TODO  convert to snippet called "Sub-dividing beams"
-@c   Added to lsr 18 Oct 08
-
-The beams of consecutive 16th (or shorter) notes are, by default,
-not sub-divided.  That is, the three (or more) beams stretch
-unbroken over entire groups of notes.  This behavior can
-be modified to sub-divide the beams into sub-groups by setting
-the property @code{subdivideBeams}.  When set, multiple beams
-will be sub-divided at intervals defined by the current value of
-@code{beatLength} by reducing the multiple beams to just one beam
-between the sub-groups.
-
-@code{beatLength} must be
-set to a fraction giving the duration of the beam sub-group
-using the @code{make-moment} function, as shown here:
-
-@lilypond[quote,relative=2,verbatim]
-c32[ c c c c c c c]
-\set subdivideBeams = ##t
-c32[ c c c c c c c]
-% Set beam sub-group length to an eighth note
-\set Score.beatLength = #(ly:make-moment 1 8)
-c32[ c c c c c c c]
-% Set beam sub-group length to a sixteenth note
-\set Score.beatLength = #(ly:make-moment 1 16)
-c32[ c c c c c c c]
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{sub-dividing-beams.ly}
 
 @cindex measure groupings
 @cindex beats, grouping
 @cindex grouping beats
 @cindex measure sub-grouping
 
-@c TODO Sent as snippet called "Conducting signs, measure grouping signs" 18 Oct 08  -td
-Options to group beats within a bar are available through the
-Scheme function @code{set-time-signature}, which takes three
-arguments: the number of beats, the beat length, and the internal
-grouping of beats in the measure.  If the
-@rinternals{Measure_grouping_engraver} is included, the function
-will also create @rinternals{MeasureGrouping} signs.  Such signs
-ease reading rhythmically complex modern music.  In the example,
-the 9/8 measure is subdivided in 2, 2, 2 and 3.  This is passed to
-@code{set-time-signature} as the third argument: @code{'(2 2 2 3)}:
-
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    #(set-time-signature 9 8 '(2 2 2 3))
-    g8[ g] d[ d] g[ g] a8[( bes g]) |
-    #(set-time-signature 5 8 '(3 2))
-    a4. g4
-  }
-  \layout {
-    \context {
-      \Staff
-      \consists "Measure_grouping_engraver"
-    }
-  }
-}
-@end lilypond
-@c TODO End of snippet called "grouping beats"
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{conducting-signs,-measure-grouping-signs.ly}
 
 
 @strong{@i{Modifying the beam end points}}
@@ -1820,27 +1729,10 @@ a a a a
 
 @snippets
 
-@c TODO Add to LSR with name "Beam grouping in 7/8 time"
-@c      Added 19 Oct 08
-There are no default automatic beam groupings specified for 7/8
-time, so if automatic beams are required the grouping must be
-specified.  For example, to group all beams 2-3-2 in 7/8 time,
-specify beam endings at 2/8 and 5/8:
-
-@lilypond[quote,verbatim,relative=2]
-\time 7/8
-% rhythm 2-3-2
-a8 a a a a a a
-#(override-auto-beam-setting '(end * * 7 8) 2 8)
-#(override-auto-beam-setting '(end * * 7 8) 5 8)
-a8 a a a a a a
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beam-grouping-in-7-8-time.ly}
 
 @ignore
-@c   Seems like setting beam starting points is no longer
-@c   necessary, and/or has no effect.  Remove mention?
-
-The same syntax can be used to specify beam starting points.
 
 @c TODO Does this example add anything?
 
@@ -1858,31 +1750,8 @@ In 4/4 time signature, this means that automatic beams could end only on
 
 @end ignore
 
-@c TODO Convert to snippet called "Reverting default beam endings"
-@c      Added to lsr 19 Oct 08
-
-To typeset beams grouped @code{3-4-3-2} in 12/8 it is necessary
-first to override the default beam endings in 12/8, and then to
-set up the new beaming endings:
-
-@lilypond[verbatim,quote,relative=2]
-\time 12/8
-
-% Default beaming
-a8 a a a a a a a a a a a
-
-% Revert default values in scm/auto-beam.scm for 12/8 time
-#(revert-auto-beam-setting '(end * * 12 8) 3 8)
-#(revert-auto-beam-setting '(end * * 12 8) 3 4)
-#(revert-auto-beam-setting '(end * * 12 8) 9 8)
-a8 a a a a a a a a a a a
-
-% Set new values for beam endings
-#(override-auto-beam-setting '(end * * 12 8) 3 8)
-#(override-auto-beam-setting '(end * * 12 8) 7 8)
-#(override-auto-beam-setting '(end * * 12 8) 10 8)
-a8 a a a a a a a a a a a
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{reverting-default-beam-endings.ly}
 
 
 @predefined
@@ -1959,6 +1828,9 @@ g a]
 
 
 @snippets
+
+@c TODO Add snippet "Flat flags and beam nibs" when available
+@c Added to LSR 27 Oct 08
 
 @node Feathered beams
 @unnumberedsubsubsec Feathered beams
@@ -2740,6 +2612,7 @@ Internals Reference: @rinternals{GraceMusic}.
 A multi-note beamed @i{acciaccatura} is printed without a slash,
 and looks exactly the same as a multi-note beamed
 @i{appoggiatura}.
+
 @c TODO Add link to LSR snippet to add slash when available
 
 Grace note synchronization can also lead to surprises.  Staff
