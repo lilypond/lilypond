@@ -394,9 +394,9 @@ file listed below.  For example, to use English notes names, add
 The available language files and the note names they define are:
 
 @quotation
-@multitable {nederlands.ly} {do re mi fa sol la sib si}
+@multitable {@file{nederlands.ly}} {@code{do re mi fa sol la sib si}}
 @headitem Language File
-  @tab Note names
+  @tab Note Names
 @item @file{nederlands.ly}
   @tab @code{c d e f g a bes b}
 @item @file{arabic.ly}
@@ -428,7 +428,7 @@ The available language files and the note names they define are:
 and the accidental suffixes they define are:
 
 @quotation
-@multitable {nederlands.ly} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@file{nederlands.ly}} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
 @headitem Language File
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @file{nederlands.ly}
@@ -486,7 +486,7 @@ mean @q{half} and @q{one and a half}, respectively.  For the other
 languages, no special names have been defined yet.
 
 @quotation
-@multitable {nederlands.ly} {-iss/-is} {-ess/-es} {-ississ/-isis} {-ississ/-isis}
+@multitable {@file{nederlands.ly}} {-iss/-is} {-ess/-es} {-ississ/-isis} {-ississ/-isis}
 @headitem Language File
   @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 
