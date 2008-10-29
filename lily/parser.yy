@@ -508,10 +508,7 @@ toplevel_expression:
 		Output_def * od = $1;
 
 		if ($1->c_variable ("is-paper") == SCM_BOOL_T)
-		{
 			id = ly_symbol2scm ("$defaultpaper");
-			init_papers (PARSER, od);
-		}
 		else if ($1->c_variable ("is-midi") == SCM_BOOL_T)
 			id = ly_symbol2scm ("$defaultmidi");
 		else if ($1->c_variable ("is-layout") == SCM_BOOL_T)
