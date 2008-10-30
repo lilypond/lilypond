@@ -394,33 +394,33 @@ file listed below.  For example, to use English notes names, add
 The available language files and the note names they define are:
 
 @quotation
-@multitable {@file{nederlands.ly}} {@code{do re mi fa sol la sib si}}
+@multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
 @headitem Language File
   @tab Note Names
 @item @file{nederlands.ly}
-  @tab @code{c d e f g a bes b}
+  @tab c d e f g a bes b
 @item @file{arabic.ly}
-  @tab @code{do re mi fa sol la sib si}
+  @tab do re mi fa sol la sib si
 @item @file{catalan.ly}
-  @tab @code{do re mi fa sol la sib si}
+  @tab do re mi fa sol la sib si
 @item @file{deutsch.ly}
-  @tab @code{c d e f g a b h}
+  @tab c d e f g a b h
 @item @file{english.ly}
-  @tab @code{c d e f g a bf b}
+  @tab c d e f g a bf b
 @item @file{espanol.ly}
-  @tab @code{do re mi fa sol la sib si}
+  @tab do re mi fa sol la sib si
 @item @file{italiano.ly}
-  @tab @code{do re mi fa sol la sib si}
+  @tab do re mi fa sol la sib si
 @item @file{norsk.ly}
-  @tab @code{c d e f g a b h}
+  @tab c d e f g a b h
 @item @file{portugues.ly}
-  @tab @code{do re mi fa sol la sib si}
+  @tab do re mi fa sol la sib si
 @item @file{suomi.ly}
-  @tab @code{c d e f g a b h}
+  @tab c d e f g a b h
 @item @file{svenska.ly}
-  @tab @code{c d e f g a b h}
+  @tab c d e f g a b h
 @item @file{vlaams.ly}
-  @tab @code{do re mi fa sol la sib si}
+  @tab do re mi fa sol la sib si
 @end multitable
 @end quotation
 
@@ -428,7 +428,7 @@ The available language files and the note names they define are:
 and the accidental suffixes they define are:
 
 @quotation
-@multitable {@file{nederlands.ly}} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
 @headitem Language File
   @tab sharp @tab flat @tab double sharp @tab double flat
 @item @file{nederlands.ly}
@@ -486,7 +486,7 @@ mean @q{half} and @q{one and a half}, respectively.  For the other
 languages, no special names have been defined yet.
 
 @quotation
-@multitable {@file{nederlands.ly}} {-iss/-is} {-ess/-es} {-ississ/-isis} {-ississ/-isis}
+@multitable {@file{nederlands.ly}} {@b{semi-sharp}} {@b{semi-flat}} {@b{sesqui-sharp}} {@b{sesqui-flat}}
 @headitem Language File
   @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
 
