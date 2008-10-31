@@ -3353,7 +3353,7 @@ Within this directory the two interesting subdirectories are
 Let's begin by looking at some files in @file{ly/}.
 Open @file{ly/property-init.ly} in a text editor.  The one
 you normally use for @code{.ly} files will be fine.  This file
-contains the definitions of all the standard LilyPond built-in
+contains the definitions of all the standard LilyPond predefined
 commands, such as @code{\stemUp} and @code{\slurDotted}.  You will
 see that these are nothing more than definitions of variables
 containing one or a group of @code{\override} commands.  For
@@ -3366,7 +3366,7 @@ tieDotted = @{
 @}
 @end example
 
-If you do not like the default values these built-in commands can
+If you do not like the default values these predefined commands can
 be redefined easily, just like any other variable, at the
 head of your input file.
 
@@ -3378,12 +3378,14 @@ The following are the most useful files to be found in
   @tab Contents
 @item @file{ly/engraver-init.ly}
   @tab Definitions of engraver Contexts
-@item @file{ly/paper-defaults.ly}
+@item @file{ly/paper-defaults-init.ly}
   @tab Specifications of paper-related defaults
 @item @file{ly/performer-init.ly}
   @tab Definitions of performer Contexts
 @item @file{ly/property-init.ly}
-  @tab Definitions of all common built-in commands
+  @tab Definitions of all common predefined commands
+@item @file{ly/spanner-init.ly}
+  @tab Definitions of spanner-related predefined commands
 @end multitable
 
 Other settings (such as the definitions of markup commands) are
