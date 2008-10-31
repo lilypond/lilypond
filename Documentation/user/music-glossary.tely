@@ -569,7 +569,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kahdelle.
 
 Abbreviated @notation{a2} or @notation{a 2}.
 
@@ -740,7 +740,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: häviten olemattomiin.
 
 [Italian: @q{to nothing}.]  Used with @notation{decrescendo} to indicate
 that the sound should fade away to nothing.
@@ -807,7 +807,7 @@ D: Alteration,
 NL: verhoging of verlaging,
 DK: ?,
 S: ?,
-FI: ?.
+FI: muunnettu.
 
 An alteration is the modification, raising or lowering, of a note's
 pitch.  It is established by an accidental.
@@ -1126,7 +1126,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: aika-arvojen pidentäminen.
 
 @c TODO: add definition.
 
@@ -1429,7 +1429,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: sulkumerkki.
 
 @seealso
 
@@ -1612,7 +1612,7 @@ D: Zäsur,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: välimerkki.
 
 [Latin: from the supine of @emph{caedere} @q{to cut down}.]
 
@@ -2136,7 +2136,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: C-merkintä.
 
 4/4 time.  The symbol, which resembles a capital letter C, comes from
 mensural notation.
@@ -2192,7 +2192,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kolmijakoinen tahtilaji.
 
 A meter that includes a triplet subdivision within the beat, such as
 6/8, 9/8, 12/8.
@@ -2212,7 +2212,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: yhdistetty tahtilajiosoitus.
 
 @enumerate
 
@@ -2268,7 +2268,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: konserttikorkeus.
 
 The pitch at which the piano and other nontransposing instruments play: such
 instruments are said to be @q{in C}.  The following list includes some (but not
@@ -2537,7 +2537,7 @@ D: Notenzeiger, Custos,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: vihje.
 
 A custos (plural: custodes) is a staff symbol that appears at the end of a
 staff line with monophonic musical contents (i.e., with a single voice).  It
@@ -2624,7 +2624,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: tyhjästä ilmaantuen.
 
 [Italian: @q{from nothing}.]  Used with @notation{crescendo} to indicate
 that the sound should gradually increase from nothing.
@@ -2969,7 +2969,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: aika-arvojen tihennys.
 
 This is a stub for diminution (@emph{wrt} mensural notation).
 
@@ -2988,7 +2988,7 @@ D: Weiser, Zeiger,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: suora.
 
 @seealso
 
@@ -3061,7 +3061,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: jäsennysmerkki.
 
 [Latin: @q{division}; pl. @emph{divisiones}] In Gregorian chant, a
 vertical stroke through part or all of the staff that serves to
@@ -3097,7 +3097,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: nousu.
 
 Indicator for a indeterminately rising pitch bend.  Compare with
 @emph{glissando}, which has determinate starting and ending pitches.
@@ -3308,7 +3308,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kaksois-aika-arvomerkintä.
 
 @seealso
 
@@ -3395,7 +3395,7 @@ D: Dynamik, Lautstärke,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: äänen voimakkuusvaihtelu, dynamiikka.
 
 The aspect of music relating to degrees of loudness, or changes from
 one degree to another.  The terms, abbreviations, and symbols used to
@@ -3486,7 +3486,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: tavujen yhdistäminen yhteen ääneen.
 
 More properly @emph{synalepha} [New Lat. > Gr. @emph{συναλοιφη}, from Greek
 @emph{συναλοιφην} @q{to smear together}].
@@ -3623,7 +3623,7 @@ D: Fülllinie,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: pidennysviiva.
 
 The generic term (in LilyPond) for a line (or dash) of arbitrary length that
 extends text (without indicating the musical @emph{function} of that text).
@@ -3748,7 +3748,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: lasku.
 
 Indicator for a indeterminately falling pitch bend.  Compare with
 @emph{glissando}, which has determinate starting and ending pitches.
@@ -3768,7 +3768,7 @@ D: gespreizter Balken,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kiilapalkki.
 
 A type of beam used to indicate that a small group of notes should be
 played at an increasing or decreasing tempo -- depending on the
@@ -3936,7 +3936,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: flageolet-ääni.
 
 An articulation for string players that means the note or passage is to
 be played in harmonics.
@@ -4034,7 +4034,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: partituuri francesan tapaan.
 
 A @q{condensed} score, produced by omitting staves for instruments that are not
 playing at the moment, and by moving up additional systems from following pages
@@ -4060,7 +4060,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: karsittu nuotinnus.
 
 [Pl. @emph{Frenched staves}] Analogous to Frenched scores (@emph{q.v}), a
 Frenched staff has unneeded measures or sections removed.  This is useful
@@ -4420,7 +4420,7 @@ D: Flageolett-Töne,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: harmoniset äänet, huiluäänet.
 
 The general class of pitches produced by sounding the second or higher
 harmonic of a tone producer: string, column of air, and so on.
@@ -4499,7 +4499,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: 3/2 -suhde.
 
 [Greek: in Latin, @emph{sesquialtera}] The ratio 3:2.
 
@@ -4563,7 +4563,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: säkeiden tavumäärät.
 
 A group or list of numbers that indicate the number of syllables in a line
 of a hymn's verse.  Different hymnals have different ways of noting the hymn
@@ -4688,7 +4688,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: käännös.
 
 When a chord sounds with a bass note that differs from the root of the
 chord, it is said to be @emph{inverted}. The number of inversions that a
@@ -4820,7 +4820,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: antaa väristä.
 
 [French: @q{Let vibrate}.]  Most frequently associated with harp
 parts. Marked @notation{l.v.} in the score.
@@ -5021,7 +5021,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kirjoitetussa äänenkorkeudessa.
 
 [Italian: @q{place}.]  Instruction to play the following passage at the
 written pitch.  Cancels octave mark (q.v.).
@@ -5088,7 +5088,7 @@ D: Textbindung,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: sidonta sanoituksessa.
 
 @c TODO: add languages
 
@@ -5260,7 +5260,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: melismaviiva.
 
 @seealso
 
@@ -5287,7 +5287,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: mensuraalinuotinnus.
 
 A system of duration notation whose principles were first established in the
 mid-13th century, and that (with various changes) remained in use until about
@@ -5544,7 +5544,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kohtalaisen, melko.
 
 [Italian: @q{medium}.]
 
@@ -6457,7 +6457,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: monia tahtiosoituksia sisältävä.
 
 @itemize
 
@@ -6483,7 +6483,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: monia tahtiosoituksia yhtäaikaa tai peräkkäin sisältävä.
 
 Characterized by @emph{polymeter}: using two or more metric frameworks
 simultaneously or in alternation.
@@ -6503,7 +6503,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: vaihtelevan tahtiosoitusmerkintä.
 
 A time signature that indicates regularly alternating polymetric time.
 
@@ -6578,7 +6578,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: suhde.
 
 [Latin: @emph{proportio}.] Described in great detail by Gaffurius, in
 @emph{Practica musicae} (published in Milan in 1496).  In mensural notation,
@@ -6725,7 +6725,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: laatu.
 
 The quality of a triad is determined by the precise arrangement of its
 intervals.  Tertian triads can be described as a series of three notes.  The
@@ -6815,7 +6815,7 @@ D: Viertelton,
 NL: kwart toon,
 DK: ?,
 S: kvartston,
-FI: ?.
+FI: neljännessävelaskel.
 
 An interval equal to half a semitone.
 
@@ -7075,7 +7075,7 @@ D: Skordatur,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: epätavallinen viritys.
 
 [Italian: @emph{scordare}, @q{to mistune}.]  Unconventional
 tuning of stringed instruments, particularly lutes or violins.  Used
@@ -7253,7 +7253,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: samoin.
 
 [Italian: @q{in the same manner}.] Performance direction: the music thus marked
 is to be played in the same manner (i.e. with the same articulations, dynamics,
@@ -7274,7 +7274,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kaksijakoinen tahtiosoitus.
 
 A meter in which the basic beat is subdivided in two: that is, a meter
 that does not include triplet subdivision of the beat.
@@ -7616,7 +7616,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: kiihdyttäen, nopeuttaen.
 
 [Italian: @q{pressing}.]  Pressing, urging, or hastening the time, as to a
 climax.
@@ -7731,7 +7731,7 @@ D: auf G, auf der G-Saite,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: G-kielellä.
 
 Indicates that the indicated passage (or note) should be played on the
 G string.
@@ -8147,7 +8147,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: transponoitava soitin.
 
 Instruments whose notated pitch is different from their sounded pitch.  Except
 for those whose notated and sounding pitches differ by one or more octaves (to
@@ -8488,7 +8488,7 @@ D: ?,
 NL: ?,
 DK: ?,
 S: ?,
-FI: ?.
+FI: yksi kertauksen maaleista.
 
 [Italian: @q{time} (instance, not duration).]  An ending, such as a first
 or second ending.  LilyPond extends this idea to any number, and allows any text
