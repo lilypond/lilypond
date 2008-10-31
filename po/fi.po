@@ -1002,7 +1002,7 @@ msgstr ""
 "Tämä on ilmaisohjelmisto. Siihen sovelletaan GNU General Public License\n"
 "ja olet tervetullut muuttamaan ohjelmaa ja/tai levittämään siitä kopioita\n"
 "tietyillä ehdoilla. Suorita `%s --warranty' saadaksesi lisää\n"
-" tietoa."
+" tietoa.\n"
 
 #: main.cc:122
 msgid ""
