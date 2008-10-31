@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: e26be005f47a083ede9324ffe4a6ec93f2be3121
+    Translation of GIT committish: 770ccfb9bd8536d7fb570a5c25ce874a461486f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1411,42 +1411,12 @@ c16 c8
 @cindex salto de línea
 @cindex línea, saltos de
 
-@c TODO  convert to snippet called "Beams across line breaks"
-@c  This snippet exists but doesn't show the effect - replaced it
-@c  with this 18 Oct 08
 
-Normalmente están prohibidos los saltos de línea cuando las barras
-atraviesan a la línea divisoria.  Este comportamiento se puede
-modificar ajustando la propiedad @code{breakable}:
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beams-across-line-breaks.ly}
 
-@lilypond[relative=2,verbatim,quote]
-\override Beam #'breakable = ##t
-c8 \repeat unfold 15 { c[ c] } c
-@end lilypond
-
-@cindex barras y saltos de línea
-@cindex barras en ángulo
-@cindex dobladas, barras
-@cindex auto-knee-gap
-
-@c TODO convert to snippet called "Changing beam knee gap"
-@c   Added to lsr 18 Oct 08
-
-Cuando se detecta un salto muy grande entre las cabezas de las notas,
-se inserta automáticamente una barra doblada o en ángulo.  Este
-comportamiento se puede afinar a través de la propiedad
-@code{auto-knee-gap}.  Se dibuja una barra doblada si el salto es
-mayor que el valor de @code{auto-knee-gap} más el ancho del propio
-objeto barra (que depende de la duración de las notas y la inclinación
-de la barra).  De forma predeterminada @code{auto-knee-gap} está
-establecido al valor de 5.5 espacios de pentagrama.
-
-@lilypond[fragment,quote,verbatim]
-f8 f''8 f8 f''8
-\override Beam #'auto-knee-gap = #6
-f8 f''8 f8 f''8
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-beam-knee-gap.ly}
 
 @seealso
 
@@ -1544,19 +1514,8 @@ pulsos en cada grupo.
 
 @snippets
 
-@c TODO -- convert to snippet called "Grouping beats"
-@c         Added to lsr 18 Oct 08  -td
-
-Se pueden alterar los patrones de barrado con la propiedad
-@code{beatGrouping}:
-
-@lilypond[quote,verbatim,relative=2]
-\time 5/16
-\set beatGrouping = #'(2 3)
-c8[^"(2+3)" c16 c8]
-\set beatGrouping = #'(3 2)
-c8[^"(3+2)" c16 c8]
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{grouping-beats.ly}
 
 @c TODO Convert to snippet called "Specifying context with beatGrouping"
 
@@ -1615,69 +1574,16 @@ a16 a a a a a a a a a a a a a a a
 
 @funindex subdivideBeams
 
-@c TODO  convert to snippet called "Sub-dividing beams"
-@c   Added to lsr 18 Oct 08
-
-Las barras de semicorcheas (o notas más breves) seguidas no se
-subdividen de forma predeterminada.  Esto es: las tres (o más) barras
-se prolongan, sin dividirse, sobre grupos completos de notas.  Este
-comportamiento se puede modificar para que las barras se subdividan en
-subgrupos mediante el establecimiento de la propiedad
-@code{subdivideBeams}.  Cuando está establecida, las diversas barras
-se subdividen a intervalos definidos por el valor actual de la
-longitud del pulso @code{beatLength} reduciendo las barras múltiples a
-una sola entre los subgrupos.
-
-@code{beatLength} se debe establecer al valor de una fracción que da
-la duración el subgrupo de barras utilizando la función
-@code{make-moment}, como se muestra aquí:
-
-@lilypond[quote,relative=2,verbatim]
-c32[ c c c c c c c]
-\set subdivideBeams = ##t
-c32[ c c c c c c c]
-% Set beam sub-group length to an eighth note
-\set Score.beatLength = #(ly:make-moment 1 8)
-c32[ c c c c c c c]
-% Set beam sub-group length to a sixteenth note
-\set Score.beatLength = #(ly:make-moment 1 16)
-c32[ c c c c c c c]
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{sub-dividing-beams.ly}
 
 @cindex compases, agrupaciones de
 @cindex pulsos, agrupar
 @cindex agrupación de pulsos
 @cindex compases, subgrupos dentro de
 
-@c TODO Sent as snippet called "Conducting signs, measure grouping signs" 18 Oct 08  -td
-Hay disponibles unas opciones para agrupar los pulsos dentro de un
-compás a través de la función de Scheme @code{set-time-signature}, que
-acepta tres argumentos: el número de pulsos, la longitud del pulso, y
-el agrupamiento interno de los pulsos dentro del compás.  Si se
-incluye el grabador @rinternals{Measure_grouping_engraver}, la función
-crea también símbolos de @rinternals{MeasureGrouping}.  Dichos
-símbolos facilitan la lectura de la música moderna de cierta
-complejidad rítmica.  En el ejemplo, el compás de 9/8 se subdivide en
-2, 2, 2 and 3.  Esto se pasa a la función @code{set-time-signature}
-como tercer argumento: @code{'(2 2 2 3)}:
-
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    #(set-time-signature 9 8 '(2 2 2 3))
-    g8[ g] d[ d] g[ g] a8[( bes g]) |
-    #(set-time-signature 5 8 '(3 2))
-    a4. g4
-  }
-  \layout {
-    \context {
-      \Staff
-      \consists "Measure_grouping_engraver"
-    }
-  }
-}
-@end lilypond
-@c TODO End of snippet called "grouping beats"
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{conducting-signs,-measure-grouping-signs.ly}
 
 
 @strong{@i{Modificar los puntos finales de las barras}}
@@ -1851,71 +1757,29 @@ a a a a
 
 @snippets
 
-@c TODO Add to LSR with name "Beam grouping in 7/8 time"
-@c      Added 19 Oct 08
-There are no default automatic beam groupings specified for 7/8
-time, so if automatic beams are required the grouping must be
-specified.  For example, to group all beams 2-3-2 in 7/8 time,
-specify beam endings at 2/8 and 5/8:
-
-@lilypond[quote,verbatim,relative=2]
-\time 7/8
-% rhythm 2-3-2
-a8 a a a a a a
-#(override-auto-beam-setting '(end * * 7 8) 2 8)
-#(override-auto-beam-setting '(end * * 7 8) 5 8)
-a8 a a a a a a
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beam-grouping-in-7-8-time.ly}
 
 @ignore
-@c TODO Fix this example and convert to @lilypond
-@c   Seems like setting beam starting points is no longer
-@c   necessary, and/or has no effect.  Remove mention?
-
-Se puede usar la misma sintaxis para especificar los puntos de inicio de las barras.
 
 @c TODO Does this example add anything?
 
-  En este ejemplo, las barras automáticas sólo pueden
-terminar sobre una negra con puntillo:
-
+In this
+example, automatic beams can only end on a dotted quarter note
 @example
 #(override-auto-beam-setting '(end * * * *) 3 8)
 #(override-auto-beam-setting '(end * * * *) 1 2)
 #(override-auto-beam-setting '(end * * * *) 7 8)
 @end example
-En el compás de 4/4, esto significa que las barras automáticas sólo
-pueden terminar sobre 3/8 y sobre el cuarto pulso del compás (después
-de que 3/4, esto es, 2 veces 3/8, han transcurrido del compás).
+
+In 4/4 time signature, this means that automatic beams could end only on
+3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
+3/8, has passed within the measure).
 
 @end ignore
 
-@c TODO Convert to snippet called "Reverting default beam endings"
-@c      Added to lsr 19 Oct 08
-
-Para tipografiar finales de barra de @code{(3 4 3 2)} en un 12/8, es
-necesario sobreescribir en primer lugar los finales de barra
-predeterminados en 12/8, y después preparar los finales de barra
-nuevos:
-
-@lilypond[verbatim,quote,relative=2]
-\time 12/8
-
-% Default beaming
-a8 a a a a a a a a a a a
-
-% Revert default values in scm/auto-beam.scm for 12/8 time
-#(revert-auto-beam-setting '(end * * 12 8) 3 8)
-#(revert-auto-beam-setting '(end * * 12 8) 3 4)
-#(revert-auto-beam-setting '(end * * 12 8) 9 8)
-a8 a a a a a a a a a a a
-
-% Set new values for beam endings
-#(override-auto-beam-setting '(end * * 12 8) 3 8)
-#(override-auto-beam-setting '(end * * 12 8) 7 8)
-#(override-auto-beam-setting '(end * * 12 8) 10 8)
-a8 a a a a a a a a a a a
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{reverting-default-beam-endings.ly}
 
 @predefined
 
@@ -1992,6 +1856,8 @@ g a]
 
 @snippets
 
+@c TODO Add snippet "Flat flags and beam nibs" when available
+@c Added to LSR 27 Oct 08
 
 @node Feathered beams
 @unnumberedsubsubsec Feathered beams
@@ -2789,6 +2655,7 @@ Referencia de funcionamiento interno:
 Una @i{acciaccatura} de varias notas con una barra se imprime sin
 tachar, y tiene exactamente la misma apariencia que una
 @i{appoggiatura} de varias notas con barra.
+
 @c TODO Add link to LSR snippet to add slash when available
 
 La sincronización de las notas de adorno también puede acarrear
