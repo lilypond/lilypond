@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: fa9bb5b46a6aafc291353cd653e36472b7a721c4
+    Translation of GIT committish: 770ccfb9bd8536d7fb570a5c25ce874a461486f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -387,58 +387,82 @@ no se ajustan a ningún estándar.
 @cindex idioma, nombres de nota en otros
 @cindex idioma, alturas en otros
 
-Existen conjuntos predefinidos de nombres de notas para algunos
-idiomas aparte del inglés.  Para usarlos, incluya el archivo de inicio
-específico del idioma.  Por ejemplo, para usar los nombres de las
-notas en español, escriba @code{\include "espanol.ly"} al principio
-del archivo de entrada.  Los archivos de idioma disponibles y los
-nombres de las notas que definen son los siguientes:
+Existen conjuntos predefinidos de nombres de notas y sus alteraciones
+para algunos idiomas aparte del inglés.  Para usarlos, incluya el
+archivo de inicio específico del idioma según aparece relacionado más
+abajo.  Por ejemplo, para usar los nombres de las notas en español,
+escriba @code{@w{\include "espanol.ly"}} al principio del archivo de
+entrada.
 
-@smallexample
-@multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
-@headitem Language
-  @tab Note names
-  @tab sharp @tab flat @tab double sharp @tab double flat
-@item nederlands.ly
+Los archivos de idioma disponibles y los nombres de las notas que
+definen son los siguientes:
+
+@quotation
+@multitable {@file{nederlands.ly}} {do re mi fa sol la sib si}
+@headitem Archivo de idioma
+  @tab Nombre de las notas
+@item @file{nederlands.ly}
   @tab c d e f g a bes b
-  @tab -is @tab -es @tab -isis @tab -eses
-@item arabic.ly
+@item @file{arabic.ly}
   @tab do re mi fa sol la sib si
-  @tab -d @tab -b @tab -dd @tab -bb
-@item catalan.ly
+@item @file{catalan.ly}
   @tab do re mi fa sol la sib si
-  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
-@item deutsch.ly
+@item @file{deutsch.ly}
   @tab c d e f g a b h
-  @tab -is @tab -es @tab -isis @tab -eses
-@item english.ly
+@item @file{english.ly}
   @tab c d e f g a bf b
+@item @file{espanol.ly}
+  @tab do re mi fa sol la sib si
+@item @file{italiano.ly}
+  @tab do re mi fa sol la sib si
+@item @file{norsk.ly}
+  @tab c d e f g a b h
+@item @file{portugues.ly}
+  @tab do re mi fa sol la sib si
+@item @file{suomi.ly}
+  @tab c d e f g a b h
+@item @file{svenska.ly}
+  @tab c d e f g a b h
+@item @file{vlaams.ly}
+  @tab do re mi fa sol la sib si
+@end multitable
+@end quotation
+
+@noindent
+y los sufijos de las alteraciones correspondientes que definen son:
+
+@quotation
+@multitable {@file{nederlands.ly}} {-s/-sharp} {-ess/-es} {-ss/-x/-sharpsharp} {-essess/-eses}
+@headitem Archivo de idioma
+  @tab sharp @tab flat @tab double sharp @tab double flat
+@item @file{nederlands.ly}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @file{arabic.ly}
+  @tab -d @tab -b @tab -dd @tab -bb
+@item @file{catalan.ly}
+  @tab -d/-s @tab -b @tab -dd/-ss @tab -bb
+@item @file{deutsch.ly}
+  @tab -is @tab -es @tab -isis @tab -eses
+@item @file{english.ly}
   @tab -s/-sharp @tab -f/-flat @tab -ss/-x/-sharpsharp
     @tab -ff/-flatflat
-@item espanol.ly
-  @tab do re mi fa sol la sib si
+@item @file{espanol.ly}
   @tab -s @tab -b @tab -ss @tab -bb
-@item italiano.ly
-  @tab do re mi fa sol la sib si
+@item @file{italiano.ly}
   @tab -d @tab -b @tab -dd @tab -bb
-@item norsk.ly
-  @tab c d e f g a b h
+@item @file{norsk.ly}
   @tab -iss/-is @tab -ess/-es @tab -ississ/-isis
     @tab -essess/-eses
-@item portugues.ly
-  @tab do re mi fa sol la sib si
+@item @file{portugues.ly}
   @tab -s @tab -b @tab -ss @tab -bb
-@item suomi.ly
-  @tab c d e f g a b h
+@item @file{suomi.ly}
   @tab -is @tab -es @tab -isis @tab -eses
-@item svenska.ly
-  @tab c d e f g a b h
+@item @file{svenska.ly}
   @tab -iss @tab -ess @tab -ississ @tab -essess
-@item vlaams.ly
-  @tab do re mi fa sol la sib si
+@item @file{vlaams.ly}
   @tab -k @tab -b @tab -kk @tab -bb
 @end multitable
-@end smallexample
+@end quotation
 
 En holandés, @code{aes} se contrae como @code{as}, pero las dos formas
 se aceptan en LilyPond.  De forma similar, se aceptan tanto @code{es}
@@ -459,39 +483,32 @@ a2 as e es a ases e eses
 
 @noindent
 Algunas músicas utilizan microtonos cuyas alteraciones son fracciones
-de un sostenido o bemol @q{normales}.  Los nombres de nota para cuartos
-de tono que se definen en los distintos archivos de idioma se encuentran
-listados en la tabla siguiente.  Aquí los prefijos @q{semi-} y @q{sesqui-} significan
-@q{medio} y @q{uno y medio} respectivamente.  Para el noruego,
-sueco, catalán y español no se ha definido aún ningún nombre especial.
+de un sostenido o bemol @q{normales}.  Los nombres de nota para
+cuartos de tono que se definen en los distintos archivos de idioma se
+encuentran listados en la tabla siguiente.  Aquí los prefijos
+@q{semi-} y @q{sesqui-} significan @q{medio} y @q{uno y medio}
+respectivamente.  Para los idiomas noruego, sueco, catalán y español
+no se ha definido aún ningún nombre especial.
 
-@smallexample
-@multitable {nederlands.ly} {do re mi fa sol la sib si} {-iss/-is} {-ess/-es} {-ississ/-isis} {-ississ/-isis}
-@headitem Language
-  @tab Note names
-  @tab semi-sharp @tab semi-flat @tab sesqui-sharp @tab sesqui-flat
+@quotation
+@multitable {@file{nederlands.ly}} {@b{semi-sostenido}} {@b{semi-bemol}} {@b{sesqui-sostenido}} {@b{sesqui-bemol}}
+@headitem Archivo de idioma
+  @tab semi-sostenido @tab semi-bemol @tab sesqui-sostenido @tab sesqui-bemol
 
-@item nederlands.ly
-  @tab c d e f g a bes b
+@item @file{nederlands.ly}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item arabic.ly
-  @tab do re mi fa sol la sib si
+@item @file{arabic.ly}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item deutsch.ly
-  @tab c d e f g a b h
+@item @file{deutsch.ly}
   @tab -ih @tab -eh @tab -isih @tab -eseh
-@item english.ly
-  @tab c d e f g a bf b
+@item @file{english.ly}
   @tab -qs @tab -qf @tab -tqs @tab -tqf
-@item italiano.ly
-  @tab do re mi fa sol la sib si
+@item @file{italiano.ly}
   @tab -sd @tab -sb @tab -dsd @tab -bsb
-@item portugues.ly
-  @tab do re mi fa sol la sib si
+@item @file{portugues.ly}
   @tab -sqt @tab -bqt @tab -stqt @tab -btqt
 @end multitable
-@end smallexample
-
+@end quotation
 
 @seealso
 
