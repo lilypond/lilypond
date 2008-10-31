@@ -1153,7 +1153,8 @@ before the closing @code{>}.}
 <e-\rightHandFinger #2 > 
 <g-\rightHandFinger #3 > 
 <c-\rightHandFinger #4 >
-<c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+<c,-\rightHandFinger #1 e-\rightHandFinger #2
+  g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 For convenience, you can abbreviate @code{\rightHandFinger} to something
