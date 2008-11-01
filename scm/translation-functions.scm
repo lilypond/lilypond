@@ -236,9 +236,9 @@
   (define (note-pitch a)
     (ly:event-property a 'pitch))
 
-  (define (note-pitch<? a b)
-    (ly:pitch<? (note-pitch a)
-		(note-pitch b)))
+  (define (note-pitch>? a b)
+    (ly:pitch<? (note-pitch b)
+		(note-pitch a)))
 
   (define (note-finger ev)
     (let* ((articulations (ly:event-property ev 'articulations))
@@ -339,6 +339,6 @@
 			   specified-frets))
 			   
 	       )))
-   (sort notes note-pitch<?))
+   (sort notes note-pitch>?))
 
   string-fret-fingering-tuples)

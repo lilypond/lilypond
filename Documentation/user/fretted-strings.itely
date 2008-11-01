@@ -1036,25 +1036,6 @@ note need be manually placed on a string; the rest of
 the notes will then be placed appropriately by the @code{FretBoards}
 context.
 
-@lilypond[quote,ragged-right,verbatim]
-<<
-  \context ChordNames {
-     \chordmode { 
-       c1 c 
-     }
-  }
-  \context FretBoards {
-    < c g c' e' g'> 1
-    < c g\4 c' e' g'> 1
-  }
-  \context Staff {
-    \clef "treble_8"
-    < c g c' e' g'> 1
-    < c g c' e' g'> 1
-  }  
->>
-@end lilypond
-
 @cindex fret diagrams, adding fingerings
 @cindex fingerings, adding to fret diagrams
 
