@@ -163,7 +163,7 @@ Line thickness is given by @var{th}, fret & string spacing by
          (- size th)))))
 
 (define (draw-dots layout props string-count fret-count
-                   fret-range size finger-code
+                   size finger-code
                    dot-position dot-radius dot-thickness dot-list orientation)
   "Make dots for fret diagram."
 
@@ -246,7 +246,7 @@ Line thickness is given by @var{th}, fret & string spacing by
         labeled-dot-stencil
         (ly:stencil-add
          (draw-dots
-          layout props string-count fret-count fret-range size finger-code
+          layout props string-count fret-count size finger-code
           dot-position dot-radius dot-thickness restlist orientation)
          labeled-dot-stencil))))
 
@@ -522,6 +522,7 @@ indications per string.
          (dot-list (cdr (assoc 'dot-list parameters)))
          (xo-list (cdr (assoc 'xo-list parameters)))
          (fret-range (cdr (assoc 'fret-range parameters)))
+         (fret-count (1+ (- (cadr fret-range) (car fret-range))))
          (barre-list (cdr (assoc 'barre-list parameters)))
          (barre-type
           (assoc-get 'barre-type details 'curved))
@@ -541,7 +542,7 @@ indications per string.
         (set! fret-diagram-stencil
 	      (ly:stencil-add
 	       fret-diagram-stencil
-	       (draw-dots layout props string-count fret-count fret-range
+	       (draw-dots layout props string-count fret-count 
 			  size finger-code dot-position dot-radius
 			  th dot-list orientation))))
     (if (= (car fret-range) 1)
