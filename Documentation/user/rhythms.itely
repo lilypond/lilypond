@@ -1406,7 +1406,7 @@ Notation Reference:
 @ref{Setting automatic beam behavior}.
 
 Installed Files:
-@file{scm/auto-beam.scm}.
+@file{scm/@/auto@/-beam@/.scm}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -1443,9 +1443,11 @@ exclusive ways in which these rules may be modified.  The
 first, modifying the grouping of beats, applies to uncommon time
 signatures, i.e. those for which there are no predefined rules
 defining the beam end points.  The second method, modifying the
-beam end points, must be used for those time signatures for which
-beam ending rules are pre-defined.  There are predefined rules for
-time signatures of 3/2, 3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 and 12/8.
+specification of the beam end points, can be used for any time
+signature.  This second method @strong{must} be used for those time
+signatures for which beam ending rules are pre-defined, unless
+these have all been reverted.  There are predefined rules for time
+signatures of 3/2, 3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 and 12/8.
 
 @i{@strong{Modifying the grouping of beats}}
 
@@ -1473,11 +1475,21 @@ the end points of beams.
 
 @end itemize
 
-By default these properties are derived from the time signature set
-by the @code{\time} command.  The @code{measureLength} is, by
-default, exactly the same length as the measure length given by the
-time signature, and the default @code{beatLength} is given by the
-denominator of the time signature.
+@warning{These three properties are effective @strong{only} if
+there are no beam-ending rules defined for the time signature in
+force, or if these beam-ending rules have all been reverted.}
+
+By default the @code{measureLength} and @code{beatLength} are
+derived from the time signature set by the @code{\time} command.
+The @code{measureLength} is set to be exactly the same length as
+the measure length given by the time signature, and the
+@code{beatLength} is set to be the same as one over the denominator
+of the time signature.
+
+The default value of @code{beatGrouping} is taken from a table in
+@file{scm/@/music@/-functions@/.scm}.  To find this, see
+@rlearning{Other sources of information}.  It defines the beat
+grouping for 5/8, 6/8, 8/8, 9/8 and 12/8 time signatures.
 
 Both @code{measureLength} and @code{beatLength} are @i{moments},
 units of musical duration.  A quantity of type @i{moment} is
@@ -1495,7 +1507,7 @@ beats in each group.
 @c TODO Convert to snippet called "Specifying context with beatGrouping"
 
 By specifying the context, the effect of @code{beatGrouping} can be
-limited to the context specified, and values set in higher-level
+limited to the context specified, and the values set in higher-level
 contexts overridden:
 
 @lilypond[quote,verbatim]
@@ -1525,7 +1537,7 @@ contexts overridden:
 The property @code{measureLength} determines where bar lines
 should be inserted and, with @code{beatLength} and
 @code{beatGrouping}, how automatic beams should be generated
-for time signatures for which no beam end rules are defined.
+for time signatures for which no beam-ending rules are defined.
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4 % auto beam on 1/4 note groups
@@ -1563,22 +1575,19 @@ a16 a a a a a a a a a a a a a a a
 
 @strong{@i{Modifying the beam end points}}
 
-In normal time signatures, automatic beams can start on any note but
-can end at only a few positions within the measure, namely at
+In common time signatures, automatic beams can start on any note
+but can end at only a few positions within the measure, namely at
 durations specified by the properties in @code{autoBeamSettings}.
 These properties consist of a list of rules defining where beams can
 end.  The default @code{autoBeamSettings} rules are defined in
-@file{scm/@/auto@/-beam@/.scm}.
+@file{scm/@/auto@/-beam@/.scm}.  To find this, see
+@rlearning{Other sources of information}.
 
-This method @strong{must} be used for the common time signatures,
-and is also particularly suitable for many other time signatures
-if the time signature of the measures changes frequently.  Because
-the rules can be written to apply to a specific time signature they
-need to be set up only once with rules for each time signature.
-Attempting to achieve the same result by modifying the beat grouping
-would require the insertion of @code{\set} commands every time the
-time signature changed, unless the default values in that time
-signature were suitable.
+This method @strong{must} be used for the time signatures for which
+beam-ending rules are defined by default, unless these have all
+been reverted.  It is also particularly suitable for many other time
+signatures if the time signature of the measures changes frequently,
+or if the beaming should be different for different beam durations.
 
 In order to add a rule to the list, use
 
