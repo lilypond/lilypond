@@ -1617,6 +1617,34 @@ class DrumStaff (Staff):
 class RhythmicStaff (Staff):
     def __init__ (self, command = "RhythmicStaff"):
         Staff.__init__ (self, command)
+        
+class Score ():
+    def __init__ (self):
+        self.contents = None
+        self.create_midi = False
+
+    def set_contents (self, contents):
+        self.contents = contents
+    
+    def set_part_information (self, part_id, staves_info):
+        if self.contents:
+          self.contents.set_part_information (part_id, staves_info)
+
+    def print_ly (self, printer):
+        printer.dump ("\\score {");
+        printer.newline ()
+        if self.contents:
+            self.contents.print_ly (printer);
+        printer.dump ("\\layout {}");
+        printer.newline ()
+        if not self.create_midi:
+            printer.dump ("% To create MIDI output, uncomment the following line:");
+            printer.newline ();
+            printer.dump ("% ");
+        printer.dump ("\\midi {}");
+        printer.newline ()
+        printer.dump ("}");
+        printer.newline ()
 
 
 def test_pitch ():
