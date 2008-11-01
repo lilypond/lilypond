@@ -22,6 +22,7 @@ modifying-tuplet-bracket-length.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 making-an-object-invisible-with-the-transparent-property.ly
 permitting-line-breaks-within-beamed-tuplets.ly
+flat-flags-and-beam-nibs.ly
 automatic-beam-subdivisions.ly
 beam-grouping-in-7-8-time.ly
 changing-the-tuplet-number.ly
