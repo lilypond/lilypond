@@ -6,7 +6,8 @@
   lsrtags = "rhythms"
 
   texidoc = "
-Beaming patterns may be altered with the @code{beatGrouping} property:
+Beaming patterns may be altered with the @code{beatGrouping} property: 
+
 "
   doctitle = "Grouping beats"
 } % begin verbatim

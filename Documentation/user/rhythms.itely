@@ -8,15 +8,6 @@
 
 @c \version "2.11.61"
 
-@ignore
-GDP TODO list
-
-1.2.3.4 Polymetric notation
-Quite extensive changes. Could you please check through.  Divided
-into three
-sections.  Necessarily uses tweaks.
-@end ignore
-
 @node Rhythms
 @section Rhythms
 
@@ -1084,31 +1075,37 @@ to indicate where breaks can occur.
 @node Polymetric notation
 @unnumberedsubsubsec Polymetric notation
 
+@c This section necessarily uses \set
+@c This is acceptable  -td
+
 @cindex double time signatures
 @cindex signatures, polymetric
 @cindex polymetric signatures
 @cindex meter, polymetric
 
-Polymetric notation is supported, either explicitly or through
-clever use of markup features.
+Polymetric notation is supported, either explicitly or by modifying
+the visible time signature symbol and scaling the note durations.
 
-@strong{Staves with different time signatures, equal measure lengths}
+@strong{@i{Staves with different time signatures, equal measure lengths}}
 
 This notation can be created by setting a common time signature
 for each staff but replacing the symbol manually by setting
 @code{timeSignatureFraction} to the desired fraction and scaling
 the printed durations in each staff to the common time
-signature.  This is done with @code{\scaleDurations}, which
-is used in a similar way to @code{\times}, but does not create
-a tuplet bracket, see @ref{Scaling durations}.
+signature; see @ref{Time signature}.  The scaling is done with
+@code{\scaleDurations}, which is used in a similar way to
+@code{\times}, but does not create a tuplet bracket; see
+@ref{Scaling durations}.
 
 In this example, music with the time signatures of 3/4, 9/8, and
 10/8 are used in parallel.  In the second staff, shown durations
 are multiplied by 2/3, as 2/3 * 9/8 = 3/4, and in the third
 staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
+It will often be necessary to insert beams manually, as the
+duration scaling affects the autobeaming rules.
 
 @lilypond[quote,verbatim,fragment]
-\relative c' { <<
+\relative c' <<
   \new Staff {
     \time 3/4
     c4 c c |
@@ -1118,7 +1115,7 @@ staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
     \scaleDurations #'(2 . 3)
-      \repeat unfold 6 { c8[ c c] }
+    \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
@@ -1126,16 +1123,17 @@ staff, shown durations are multiplied by 3/5, as 3/5 * 10/8 = 3/4.
     \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c4. \times 2/3 { c8 c c } c4
+      c4. c4. \times 2/3 { c8[ c c] } c4
     }
   }
->> }
+>>
 @end lilypond
 
-@strong{Staves with different time signatures, unequal bar lengths}
+@strong{@i{Staves with different time signatures, unequal bar lengths}}
 
 Each staff can be given its own independent time signature by
-moving the @code{Timing_translator} to the @code{Staff} context.
+moving the @code{Timing_translator} and the
+@code{Default_bar_line_engraver} to the @code{Staff} context.
 
 @lilypond[quote,verbatim]
 \layout {
@@ -1188,7 +1186,9 @@ Music Glossary:
 @rglos{polymetric time signature},
 @rglos{meter}.
 
-Notation Reference: @ref{Scaling durations}
+Notation Reference:
+@ref{Time signature},
+@ref{Scaling durations}.
 
 Snippets:
 @rlsr{Rhythms}.
@@ -1196,6 +1196,7 @@ Snippets:
 Internals Reference:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
+@rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 
 @knownissues

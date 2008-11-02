@@ -308,7 +308,10 @@ def staff_attributes_to_lily_staff (mxl_attr):
 
 
 def extract_score_structure (part_list, staffinfo):
+    score = musicexp.Score ()
     structure = musicexp.StaffGroup (None)
+    score.set_contents (structure)
+    
     if not part_list:
         return structure
 
@@ -436,7 +439,7 @@ def extract_score_structure (part_list, staffinfo):
         return staves[0]
     for i in staves:
         structure.append_staff (i)
-    return structure
+    return score
 
 
 def musicxml_duration_to_lily (mxl_note):
@@ -2423,14 +2426,14 @@ def convert (filename, options):
     parts = tree.get_typed_children (musicxml.Part)
     (voices, staff_info) = get_all_voices (parts)
 
-    score_structure = None
+    score = None
     mxl_pl = tree.get_maybe_exist_typed_child (musicxml.Part_list)
     if mxl_pl:
-        score_structure = extract_score_structure (mxl_pl, staff_info)
+        score = extract_score_structure (mxl_pl, staff_info)
         part_list = mxl_pl.get_named_children ("score-part")
 
     # score information is contained in the <work>, <identification> or <movement-title> tags
-    update_score_setup (score_structure, part_list, voices)
+    update_score_setup (score, part_list, voices)
     # After the conversion, update the list of settings for the \layout block
     update_layout_information ()
 
@@ -2467,7 +2470,7 @@ def convert (filename, options):
     printer.newline ()
     printer.dump ("% The score definition")
     printer.newline ()
-    score_structure.print_ly (printer)
+    score.print_ly (printer)
     printer.newline ()
 
     return voices

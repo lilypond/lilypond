@@ -16,6 +16,15 @@ del grupo, o eliminar el número.
 
 "
 
+texidocde = "
+Standardmäßig wird nur der Zähler des N-tolen-Bruchs über der Klammer
+dargestellt, wie er dem @code{\\times}-Befehl übergeben wird.
+Man kann aber auch Zähler/Nenner ausgeben lassen, oder die Zahl
+vollständig unterdrücken.
+
+"
+  doctitlede = "Die Zahl der N-tole verändern"
+
   texidoc = "
 By default, only the numerator of the tuplet number is printed over the
 tuplet bracket, i.e., the denominator of the argument to the
