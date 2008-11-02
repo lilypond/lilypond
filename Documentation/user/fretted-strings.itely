@@ -949,7 +949,8 @@ Notation Reference:
 @ref{Predefined fretboard diagrams}.
 
 Installed Files:
-@file{ly/predefined-guitar-fretboards.ly}.
+@file{ly/predefined-guitar-fretboards.ly},
+@file{ly/predefined-guitar-ninth-fretboards.ly}.
 
 Snippets:
 @rlsr{Fretted strings}.
