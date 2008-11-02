@@ -1359,11 +1359,11 @@ entered explicitly; see @ref{Manual beams}.  It is also possible
 to define beaming patterns that differ from the defaults.  The
 default beaming rules for most common time signatures are defined
 in @file{scm/@/auto@/-beam@/.scm}.  If there are no beaming rules
-defined for the time signature being used the beaming is controlled
-by the values of three context properties, @code{measureLength},
-@code{beatLength} and @code{beatGrouping}.  Both the beaming rules
-and the context properties can be overridden, see
-@ref{Setting automatic beam behavior}.
+defined for a particular beam's duration in the time signature being
+used, its beaming is controlled by the values of three context
+properties, @code{measureLength}, @code{beatLength} and
+@code{beatGrouping}.  Both the beaming rules and the context
+properties can be overridden, see @ref{Setting automatic beam behavior}.
 
 @cindex autoBeamOn
 @cindex autoBeamOff
@@ -1447,14 +1447,16 @@ signatures, i.e. those for which there are no predefined rules
 defining the beam end points.  The second method, modifying the
 specification of the beam end points, can be used for any time
 signature.  This second method @strong{must} be used for those time
-signatures for which beam ending rules are pre-defined, unless
-these have all been reverted.  There are predefined rules for time
-signatures of 3/2, 3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 and 12/8.
+signatures and beam durations combinations for which beam ending
+rules are pre-defined, unless these have all been reverted.  There
+are predefined rules for time signatures of 3/2, 3/4, 4/4, 2/4,
+4/8, 4/16, 6/8, 9/8 and 12/8.
 
 @i{@strong{Modifying the grouping of beats}}
 
-If there are no beam-ending rules defined for the time signature
-in use the beaming is controlled by three context properties:
+If there are no beam-ending rules defined for the beam duration of a
+particular beam in the time signature in use, its beaming is
+controlled by three context properties:
 @code{measureLength}, @code{beatLength} and @code{beatGrouping}.
 These properties may be set in the @code{Score}, @code{Staff} or
 @code{Voice} contexts to delimit their scope.
@@ -1477,9 +1479,10 @@ the end points of beams.
 
 @end itemize
 
-@warning{These three properties are effective @strong{only} if
-there are no beam-ending rules defined for the time signature in
-force, or if these beam-ending rules have all been reverted.}
+@warning{These three properties become effective for a particular
+beam @strong{only} if there are no beam-ending rules predefined for
+that beam's duration in the time signature in use, or if these
+beam-ending rules have all been reverted.}
 
 By default the @code{measureLength} and @code{beatLength} are
 derived from the time signature set by the @code{\time} command.
