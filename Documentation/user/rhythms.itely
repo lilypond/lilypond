@@ -892,24 +892,25 @@ Mensural time signatures are covered in
 
 @snippets
 
-@c TODO Send as snippet called "Changing the time signature without affecting the beat length"
+@c TODO Replace by snippet called "Changing the time signature without affecting the beaming"
+@c      Submitted to LSR 2 Nov 08
 
 The @code{\time} command sets the properties
-@code{timeSignatureFraction}, @code{beatLength}, and
-@code{measureLength} in the @code{Timing} context, which is
+@code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
+and @code{measureLength} in the @code{Timing} context, which is
 normally aliased to @code{Score}.  Changing the value of
 @code{timeSignatureFraction} causes the new time signature symbol
-to be printed without changing the other properties:
+to be printed without changing any of the other properties:
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
 a16 a a a a a a a a a a a
-% Change time signature but keep 3/4 beaming
-% due to unchanged beatLength
+% Change time signature symbol but keep 3/4 beaming
+% due to unchanged underlying time signature
 \set Score.timeSignatureFraction = #'(12 . 16)
 a16 a a a a a a a a a a a
 \time 12/16
-% Lose 3/4 beaming now beatLength has changed to 16
+% Lose 3/4 beaming now \time has been changed
 a16 a a a a a a a a a a a
 @end lilypond
 
@@ -1505,32 +1506,8 @@ beats in each group.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {grouping-beats.ly}
 
-@c TODO Convert to snippet called "Specifying context with beatGrouping"
-
-By specifying the context, the effect of @code{beatGrouping} can be
-limited to the context specified, and the values set in higher-level
-contexts overridden:
-
-@lilypond[quote,verbatim]
-\score {
-  \new Staff <<
-    \time 7/8
-    \new Voice {
-      \relative c'' {
-        \set Staff.beatGrouping = #'(2 3 2)
-        a8 a a a a a a
-      }
-    }
-    \new Voice {
-      \relative c' {
-        \voiceTwo
-        \set Voice.beatGrouping = #'(1 3 3)
-        f8 f f f f f f
-      }
-    }
-  >>
-}
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{specifying-context-with-beatgrouping.ly}
 
 
 @c TODO Send as snippet?
@@ -1839,8 +1816,8 @@ g a]
 
 @snippets
 
-@c TODO Add snippet "Flat flags and beam nibs" when available
-@c Added to LSR 27 Oct 08
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{flat-flags-and-beam-nibs.ly}
 
 @node Feathered beams
 @unnumberedsubsubsec Feathered beams
