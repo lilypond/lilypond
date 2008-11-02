@@ -434,7 +434,7 @@ tambustaff = {
 
   \drummode {
     \time 6/8
-    \repeat "unfold" 2 { tamb8. tamb16 tamb8 tamb tamb tamb | }
+    tamb8. tamb16 tamb8 tamb tamb tamb |
     tamb4. tamb8 tamb tamb |
     % the trick with the scaled duration and the shorter rest
     % is neccessary for the correct ending of the trill-span!
@@ -481,8 +481,8 @@ bellstaff = {
   \bellstaff
   \drummode {
     \time 2/4
-    \repeat "unfold" 2 { rb8 rb cb cb16 rb-> ~ |
-                         rb16 rb8 rb16 cb8 cb | }
+    rb8 rb cb cb16 rb-> ~ |
+    rb16 rb8 rb16 cb8 cb |
   }
 }
 @end lilypond
@@ -568,16 +568,18 @@ However, the default @code{\drummode} does not include the
 @lilypond[quote,ragged-right,verbatim,fragment]
 \new DrumStaff \with {
   \consists "Parenthesis_engraver"
-} <<
-  \context DrumVoice  = "1"  { s1 *2 }
-  \context DrumVoice  = "2" { s1 *2 }
+}
+<<
+  \context DrumVoice  = "1" { s1 }
+  \context DrumVoice  = "2" { s1 }
   \drummode {
     <<
       {
         hh8[ hh] <hh sn> hh16
         < \parenthesize sn > hh
         < \parenthesize sn > hh8 <hh sn> hh
-      } \\ {
+      } \\
+      {
         bd4 r4 bd8 bd r8 bd
       }
     >>
