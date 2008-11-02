@@ -60,6 +60,15 @@ des Programmes erklärt.
 @node Compiling a file
 @subsection Compiling a file
 
+@cindex Kompilieren
+@cindex erstes Beispiel
+@cindex Beispiel, erstes
+@cindex Übersetzen von Quelltext
+@cindex Groß- und Kleinschreibung
+@cindex Quelltext, übersetzen
+@cindex Großbuchstaben
+@cindex Kleinbuchstaben
+
 @qq{Kompilation} ist der Begriff, der benutzt wird, um eine
 Lilypond-Eingabedatei mit dem Programm LilyPond in eine
 Notenausgabe umzuwandeln, die ausgedruckt werden kann. 
@@ -99,9 +108,6 @@ immer daran denken, sie in den eigenen Dateien zu benutzen!
 Mehr Informationen zu der Darstellung der Beispiele in diesem
 Handbuch gibt der Abschnitt @ref{How to read the manual}.}
 
-@cindex Groß- und Kleinschreibung
-@cindex Großbuchstaben
-@cindex Kleinbuchstaben
 Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @w{@code{ @{ c d e @}}} ist zulässiger Code,
 @w{@code{ @{ C D E @}}} dagegen resultiert in einer Fehlermeldung.
@@ -114,6 +120,13 @@ Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @cindex Noten anzeigen
 @cindex Anzeigen der Noten
 @cindex Ansicht von Noten
+@cindex Editoren
+@cindex Texteditoren
+@cindex LilyPond unter MacOS X
+@cindex Windows, LilyPond starten
+@cindex MacOS X, LilyPond starten
+@cindex Unix, LilyPond starten
+@cindex Starten von LilyPond
 
 In diesem Kapitel zeigen wir, welche Kommandos
 eingegeben werden müssen, um ein Notenbild zu erzeugen, und wie 
@@ -212,6 +225,9 @@ Standardprogrammen Ihres Betriebssystemes anschauen können.
 @node Simple notation
 @subsection Simple notation
 
+@cindex einfache Notation
+@cindex Notation, einfach
+
 LilyPond fügt einige Bestandteile des Notenbildes automatisch hinzu. Im
 nächsten Beispiel sind nur vier Tonhöhen angegeben, aber LilyPond setzt
 trotzdem einen Schlüssel, eine Taktangabe und Notendauern.
@@ -227,6 +243,19 @@ Diese Einstellungen können verändert werden, aber in den meisten Fällen
 sind die automatischen Werte durchaus brauchbar.
 
 @subheading Pitches
+
+@cindex Tonhöhen
+@cindex relativer Modus
+@cindex Apostroph
+@cindex Komma
+@cindex Versetzungszeichen und relativer Modus
+@cindex relativer Modus und Versetzungszeichen
+
+@funindex \relative
+@funindex relative
+@funindex '
+@funindex ,
+
 
 Glossar: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
@@ -343,6 +372,14 @@ verändert werden.
 
 @subheading Durations (rhythms)
 
+@cindex Notendauern
+@cindex Dauern
+@cindex Rhythmus
+@cindex Ganze Noten
+@cindex Halbe Noten
+@cindex Viertelnoten
+@cindex punktierte Noten
+
 Glossar: @rglos{beam}, @rglos{duration},
 @rglos{whole note}, @rglos{half note}, @rglos{quarter note},
 @rglos{dotted note}.
@@ -380,6 +417,10 @@ angegeben werden.
 
 @subheading Rests
 
+@cindex Pausen
+@cindex schreiben von Pausen
+@cindex notieren von Pausen
+
 Eine @notation{Pause} wird genauso wie eine Noten eingegeben; ihre
 Bezeichnung ist @code{r}@tie{}:
 
@@ -392,6 +433,11 @@ Bezeichnung ist @code{r}@tie{}:
 
 
 @subheading Time signature
+
+@cindex Taktart
+
+@funindex \time
+@funindex time
 
 Glossar: @rglos{time signature}.
 
@@ -411,6 +457,15 @@ Die @notation{Taktart} kann mit dem
 
 
 @subheading Clef
+
+@cindex Schlüssel
+@cindex Alt
+@cindex Sopran
+@cindex Tenor
+@cindex Bass
+
+@funindex \clef
+@funindex clef
 
 Glossar: @rglos{time signature}.
 
@@ -453,6 +508,10 @@ Benutzerhandbuch: @ruser{Writing pitches},
 
 @node Working on input files
 @subsection Working on input files
+
+
+
+
 
 LilyPonds Quelldateien ähneln Dateien in den meisten
 Programmiersprachen: Es ist auf Groß- und Kleinschreibung
