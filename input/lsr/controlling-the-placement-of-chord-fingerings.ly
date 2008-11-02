@@ -28,6 +28,7 @@ The placement of fingering numbers can be controlled precisely.
   <c-1 e-3 a-5>4
   \set fingeringOrientations = #'(left)
   <c-1>2
-  \set fingeringOrientations = #'(right)
+  \set fingeringOrientations = #'(down)
   <e-3>2
 }
+

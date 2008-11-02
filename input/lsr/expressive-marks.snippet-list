@@ -3,6 +3,7 @@ adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rythms..ly
 changing-the-appearance-of-a-slur-from-solid-to-dotted-or-dashed.ly
 creating-arpeggios-across-notes-in-different-voices.ly
 creating-cross-staff-arpeggios-in-other-contexts.ly
+double-glissando.ly
 printing-hairpins-using-al-niente-notation.ly
 laissez-vibrer-ties.ly
 contemporary-glissando.ly
@@ -26,10 +27,10 @@ snap-pizzicato-markup-bartok-pizzicato.ly
 combining-dynamics-with-markup-texts.ly
 creating-slurs-across-voices.ly
 caesura-railtracks-with-fermata.ly
-changing-the-breath-mark-symbol.ly
+adjusting-the-shape-of-falls-and-doits.ly
 modifying-default-values-for-articulation-shorthand-notation.ly
 creating-simultaneous-rehearsal-marks.ly
 setting-hairpin-behavior-at-bar-lines.ly
 changing--flageolet-mark-size.ly
 piano-template-with-centered-dynamics.ly
-adjusting-the-shape-of-falls-and-doits.ly
+changing-the-breath-mark-symbol.ly
