@@ -5,10 +5,14 @@
 \header {
   lsrtags = "rhythms, ancient-notation, tweaks-and-overrides"
 
- doctitlees = "Estilos de silencios"
- texidoces = "
+  doctitlees = "Estilos de silencios"
+  texidoces = "
 Los silencios se pueden imprimir en distintos estilos.
+"
 
+  doctitlede = "Pausenstile"
+  texidocde = "
+Pausen können in verschiedenen Stilen dargestellt werden.
 "
 
   texidoc = "

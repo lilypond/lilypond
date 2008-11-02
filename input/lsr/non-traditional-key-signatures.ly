@@ -5,16 +5,16 @@
 \header {
   lsrtags = "pitches, staff-notation"
 
-doctitlees = "Armaduras de tonalidad no tradicionales"
-texidoces = "
+  doctitlees = "Armaduras de tonalidad no tradicionales"
+  texidoces = "
 La muy utilizada instrucción @code{\\key} establece la propiedad
 @code{keySignature} property, dentro del contexto @code{Staff}.
 
 Para crear armaduras de tonalidad no estándar, ajuste esta propiedad
-directamente. El formato de esta instrucción es una lista:
+directamente.  El formato de esta instrucción es una lista:
 
-@code{ \\set Staff.keySignature = #`(((octava . paso) . alteración)
-((octava . paso) . alteración) ...) } donde, para cada elemento dentro
+@code{\\set Staff.keySignature = #`(((octava . paso) . alteración)
+((octava . paso) . alteración) ...)} donde, para cada elemento dentro
 de la lista, @code{octava} especifica la octava (siendo cero la octava
 desde el Do central hasta el Si por encima), @code{paso} especifica la
 nota dentro de la octava (cero significa Do y 6 significa Si), y
@@ -27,28 +27,26 @@ alteración debe estar en todas las octavas.
 
 He aquí un ejemplo de una posible armadura para generar una escala
 exátona:
-
 "
 
-doctitlede = "Untypische Tonarten"
-
-texidocde = "
+  doctitlede = "Untypische Tonarten"
+  texidocde = "
 Der üblicherweise benutzte @code{\\key}-Befehl setzt die
 @code{keySignature}-Eigenschaft im @code{Staff}-Kontext.
 
 Um untypische Tonartenvorzeichen zu erstellen, muss man diese Eigenschaft
-direkt setzen.  Das Format für den Befehl ist eine Liste:
+direkt setzen.  Das Format für den Befehl ist eine Liste: @code{ \\set
+Staff.keySignature = #`(((Oktave . Schritt) . Alteration) ((Oktave
+. Schritt) . Alteration) ...)} wobei für jedes Element in der Liste
+@code{Oktave} die Oktave angibt (0@tie{}ist die Oktave vom
+eingestrichenen@tie{}C bis zum eingestrichenen@tie{}H), @code{Schritt} gibt
+die Note innerhalb der Oktave an (0@tie{}heißt@tie{}C und
+6@tie{}heißt@tie{}H), und @code{Alteration} ist @code{,SHARP ,FLAT
+,DOUBLE-SHARP} usw.  (Beachte das beginnende Komma.)
 
-@code{ \\set Staff.keySignature = #`(((Oktave . Schritt) . Alteration) ((Oktave
-. Schritt) . Alteration) ...) } wobei für jedes Element in der Liste
-@code{Oktave} die Oktave angibt (0 ist die Oktave vom eingestrichenen C bis
-zum eingestrichenen H), @code{Schritt} gibt die Note innerhalb der Oktave an
-(0 heißt C und 6 heißt H), und @code{Alteration} ist @code{,SHARP ,FLAT ,DOUBLE-SHARP}
-usw. (Beachte das beginnende Komma.)
-
-Alternativ kann auch für jedes Element der Liste mit dem allgemeineren
-Format @code{(Schritt . Alteration)} bestimmt werden, wobei dann die
-Einstellungen für alle Oktaven gelten.
+Alternativ kann auch jedes Element der Liste mit dem allgemeineren Format
+@code{(Schritt . Alteration)} gesetzt werden, wobei dann die Einstellungen
+für alle Oktaven gelten.
 
 Hier ein Beispiel einer möglichen Tonart für eine Ganztonleiter:
 "

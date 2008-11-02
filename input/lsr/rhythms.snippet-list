@@ -35,6 +35,7 @@ rhythmic-slashes.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 three-sided-box.ly
 merging-multi-measure-rests-in-a-polyphonic-part.ly
+specifying-context-with-beatgrouping.ly
 skips-in-lyric-mode.ly
 engraving-ties-manually.ly
 stemlets.ly
