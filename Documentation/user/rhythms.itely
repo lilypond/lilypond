@@ -1513,31 +1513,57 @@ beats in each group.
 {specifying-context-with-beatgrouping.ly}
 
 
-@c TODO Send as snippet?
+@c Added to input/new 3 Nov 08
+@c TODO When available, change to:
+@ignore
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{using-beatlength-and-beatgrouping.ly}
+@end ignore
 
+@c start new snippet
 The property @code{measureLength} determines where bar lines
 should be inserted and, with @code{beatLength} and
 @code{beatGrouping}, how automatic beams should be generated
-for time signatures for which no beam-ending rules are defined.
+for beam durations and time signatures for which no beam-ending
+rules are defined.  This example shows several ways of controlling
+beaming by setting these properties.  The explanations are shown
+as comments in the code.
 
 @lilypond[quote,verbatim,relative=2]
-\time 3/4 % auto beam on 1/4 note groups
-a16 a a a a a a a a a a a a a a a
-\time 12/16 % no defined auto-beaming for this time sig
-a16 a a a a a a a a a a a a a a a
 \time 3/4
-a16 a a a a a a a a a a a a a a a
-\set Score.timeSignatureFraction = #'(12 . 16) %keep 3/4 beaming
-                                             % due to beatLength
-a16 a a a a a a a a a a a a a a a
-\set Score.beatLength = #(ly:make-moment 1 8) %beam on 1/8 notes
-a16 a a a a a a a a a a a a a a a
+% The default in 3/4 time is to beam in three groups
+% each of a quarter note length
+a16 a a a a a a a a a a a
+
+\time 12/16
+% No auto-beaming is defined for 12/16
+a16 a a a a a a a a a a a
+
+\time 3/4
+a16 a a a a a a a a a a a
+% Change time signature symbol, but retain underlying 3/4 beaming
+\set Score.timeSignatureFraction = #'(12 . 16)
+a16 a a a a a a a a a a a
+
+% The 3/4 time default grouping of (1 1 1) and beatLength of 1/8
+% are not consistent with a measureLength of 3/4, so the beams
+% are grouped at beatLength intervals
+\set Score.beatLength = #(ly:make-moment 1 8)
+a16 a a a a a a a a a a a
+
+% Specify beams in groups of (3 3 2 3) 1/16th notes
+% 3+3+2+3=11, and 11*1/16<>3/4, so beatGrouping does not apply,
+% and beams are grouped at beatLength (1/16) intervals
 \set Score.beatLength = #(ly:make-moment 1 16)
-\set Score.beatGrouping = #'(3 4 2 3) %beam on 3/16, 7/16, 9/16, 12/16
-a16 a a a a a a a a a a a a a a a
+\set Score.beatGrouping = #'(3 3 2 3)
+a16 a a a a a a a a a a a
+
+% Specify beams in groups of (3 4 2 3) 1/16th notes
+% 3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies
+\set Score.beatLength = #(ly:make-moment 1 16)
+\set Score.beatGrouping = #'(3 4 2 3)
+a16 a a a a a a a a a a a
 @end lilypond
-
-
 @c End of snippet
 
 @funindex subdivideBeams
