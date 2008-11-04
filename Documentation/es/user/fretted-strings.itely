@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 46e221e7e08ee0e17dd6977a46acec8dabf63944
+    Translation of GIT committish: 770ccfb9bd8536d7fb570a5c25ce874a461486f0
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -1172,11 +1172,12 @@ antes del ángulo de cierre @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
-<c-\rightHandFinger #1 >4
-<e-\rightHandFinger #2 >
-<g-\rightHandFinger #3 >
+<c-\rightHandFinger #1 >4 
+<e-\rightHandFinger #2 > 
+<g-\rightHandFinger #3 > 
 <c-\rightHandFinger #4 >
-<c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+<c,-\rightHandFinger #1 e-\rightHandFinger #2
+  g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 Por brevedad, se puede escribir @code{\rightHandFinger} como algo más

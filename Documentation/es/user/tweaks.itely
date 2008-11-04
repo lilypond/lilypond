@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: d27a40fb87cb6737bb5c7b0b277b72d5a7dbc699
+    Translation of GIT committish: 9b6add29eb85dc6cd860593a2c8826a366f8a719
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -3464,11 +3464,11 @@ Vamos a comenzar observando algunos archivos que están en @file{ly/}.
 Abra @file{ly/property-init.ly} con un editor de textos.  El mismo que
 usaría normalmente para los archivos @code{.ly} servirá perfectamente.
 Este archivo contiene las definiciones de todas las instrucciones
-incorporadas como estándar dentro de LilyPond, como por ejemplo
-@code{\stemUp} y @code{\slurDotted}.  Podrá ver que no son nada más
-que definiciones de variables que contienen una o varias instrucciones
-@code{\override}.  Por ejemplo, @code{/tieDotted} está definido de tal
-forma que su valor es:
+estándar predefinidas de LilyPond, como por ejemplo @code{\stemUp} y
+@code{\slurDotted}.  Podrá ver que no son nada más que definiciones de
+variables que contienen una o varias instrucciones @code{\override}.
+Por ejemplo, @code{/tieDotted} está definido de tal forma que su valor
+es:
 
 @example
 tieDotted = @{
@@ -3478,7 +3478,7 @@ tieDotted = @{
 @end example
 
 Si no le gustan los valores predeterminados, estas instrucciones
-incorporadas se pueden redefinir con facilidad como cualquier otra
+predefinidas se pueden redefinir con facilidad como cualquier otra
 variable, al principio de su archivo de código de entrada.
 
 Los siguientes son los archivos más útiles que se encuentran en
@@ -3489,12 +3489,14 @@ Los siguientes son los archivos más útiles que se encuentran en
   @tab Contenido
 @item @file{ly/engraver-init.ly}
   @tab Definiciones de Contextos de grabadores
-@item @file{ly/paper-defaults.ly}
+@item @file{ly/paper-defaults-init.ly}
   @tab especificaciones de valores predeterminados relacionados con el papel
 @item @file{ly/performer-init.ly}
   @tab Definiciones de Contextos de interpretación
 @item @file{ly/property-init.ly}
-  @tab Definiciones de todas las instrucciones incorporadas que son comunes
+  @tab Definiciones de todas las instrucciones predefinidas que son comunes
+@item @file{ly/spanner-init.ly}
+  @tab Definiciones de las instrucciones predefinidas relacionadas con los objetos de extensión
 @end multitable
 
 Otros ajustes (como las definiciones de las instrucciones de marcado)

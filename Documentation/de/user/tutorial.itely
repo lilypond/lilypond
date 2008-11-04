@@ -60,6 +60,15 @@ des Programmes erklärt.
 @node Compiling a file
 @subsection Compiling a file
 
+@cindex Kompilieren
+@cindex erstes Beispiel
+@cindex Beispiel, erstes
+@cindex Übersetzen von Quelltext
+@cindex Groß- und Kleinschreibung
+@cindex Quelltext, übersetzen
+@cindex Großbuchstaben
+@cindex Kleinbuchstaben
+
 @qq{Kompilation} ist der Begriff, der benutzt wird, um eine
 Lilypond-Eingabedatei mit dem Programm LilyPond in eine
 Notenausgabe umzuwandeln, die ausgedruckt werden kann. 
@@ -99,9 +108,6 @@ immer daran denken, sie in den eigenen Dateien zu benutzen!
 Mehr Informationen zu der Darstellung der Beispiele in diesem
 Handbuch gibt der Abschnitt @ref{How to read the manual}.}
 
-@cindex Groß- und Kleinschreibung
-@cindex Großbuchstaben
-@cindex Kleinbuchstaben
 Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @w{@code{ @{ c d e @}}} ist zulässiger Code,
 @w{@code{ @{ C D E @}}} dagegen resultiert in einer Fehlermeldung.
@@ -114,6 +120,13 @@ Zusätzlich unterscheidet LilyPond @strong{Groß- und Kleinschreibung}.
 @cindex Noten anzeigen
 @cindex Anzeigen der Noten
 @cindex Ansicht von Noten
+@cindex Editoren
+@cindex Texteditoren
+@cindex LilyPond unter MacOS X
+@cindex Windows, LilyPond starten
+@cindex MacOS X, LilyPond starten
+@cindex Unix, LilyPond starten
+@cindex Starten von LilyPond
 
 In diesem Kapitel zeigen wir, welche Kommandos
 eingegeben werden müssen, um ein Notenbild zu erzeugen, und wie 
@@ -212,6 +225,9 @@ Standardprogrammen Ihres Betriebssystemes anschauen können.
 @node Simple notation
 @subsection Simple notation
 
+@cindex einfache Notation
+@cindex Notation, einfach
+
 LilyPond fügt einige Bestandteile des Notenbildes automatisch hinzu. Im
 nächsten Beispiel sind nur vier Tonhöhen angegeben, aber LilyPond setzt
 trotzdem einen Schlüssel, eine Taktangabe und Notendauern.
@@ -227,6 +243,19 @@ Diese Einstellungen können verändert werden, aber in den meisten Fällen
 sind die automatischen Werte durchaus brauchbar.
 
 @subheading Pitches
+
+@cindex Tonhöhen
+@cindex relativer Modus
+@cindex Apostroph
+@cindex Komma
+@cindex Versetzungszeichen und relativer Modus
+@cindex relativer Modus und Versetzungszeichen
+
+@funindex \relative
+@funindex relative
+@funindex '
+@funindex ,
+
 
 Glossar: @rglos{pitch}, @rglos{interval},
 @rglos{scale}, @rglos{middle C}, @rglos{octave},
@@ -343,6 +372,14 @@ verändert werden.
 
 @subheading Durations (rhythms)
 
+@cindex Notendauern
+@cindex Dauern
+@cindex Rhythmus
+@cindex Ganze Noten
+@cindex Halbe Noten
+@cindex Viertelnoten
+@cindex punktierte Noten
+
 Glossar: @rglos{beam}, @rglos{duration},
 @rglos{whole note}, @rglos{half note}, @rglos{quarter note},
 @rglos{dotted note}.
@@ -380,6 +417,10 @@ angegeben werden.
 
 @subheading Rests
 
+@cindex Pausen
+@cindex schreiben von Pausen
+@cindex notieren von Pausen
+
 Eine @notation{Pause} wird genauso wie eine Noten eingegeben; ihre
 Bezeichnung ist @code{r}@tie{}:
 
@@ -392,6 +433,11 @@ Bezeichnung ist @code{r}@tie{}:
 
 
 @subheading Time signature
+
+@cindex Taktart
+
+@funindex \time
+@funindex time
 
 Glossar: @rglos{time signature}.
 
@@ -411,6 +457,15 @@ Die @notation{Taktart} kann mit dem
 
 
 @subheading Clef
+
+@cindex Schlüssel
+@cindex Alt
+@cindex Sopran
+@cindex Tenor
+@cindex Bass
+
+@funindex \clef
+@funindex clef
 
 Glossar: @rglos{time signature}.
 
@@ -445,7 +500,7 @@ Hier ist ein kleines Beispiel, dass all diese Definitionen beinhaltet:
 @end lilypond
 
 @seealso
-Benutzerhandbuch: @ruser{Writing pitches},
+Notationsreferenz: @ruser{Writing pitches},
 @ruser{Writing rhythms}, @ruser{Writing rests},
 @ruser{Time signature}, @ruser{Clef}.
 
@@ -453,6 +508,21 @@ Benutzerhandbuch: @ruser{Writing pitches},
 
 @node Working on input files
 @subsection Working on input files
+
+@cindex geschweifte Klammern
+@cindex Klammern, geschweift
+@cindex Kommentare
+@cindex Zeilenkommentare
+@cindex Block-Kommentare
+@cindex Groß- und Kleinschreibung
+@cindex Ausdrücke
+@cindex Großbuchstaben
+@cindex Kleinbuchstaben
+
+@funindex { ... }
+@funindex %
+@funindex %@{ ... %@}
+
 
 LilyPonds Quelldateien ähneln Dateien in den meisten
 Programmiersprachen: Es ist auf Groß- und Kleinschreibung
@@ -465,9 +535,6 @@ Wenn das jetzt unverständlich erscheint, sind hier die  Erklärungen:
 
 @itemize
 
-@cindex Groß- und Kleinschreibung
-@cindex Kleinbuchstaben
-@cindex Großbuchstaben
 @item
 @strong{Groß- und Kleinschreibung:}
 Die Bedeutung eines Zeichens verändert sich, je
@@ -508,9 +575,6 @@ Ein LilyPond-Befehl gefolgt von einem einfachen Ausdruck
 in Klammern (wie etwa @code{\relative @{ @}}) 
 wird auch als ein einzelner Musikausdruck gewertet.
 
-@cindex Kommentare
-@cindex Zeilenkommentare
-@cindex Blockkommentare
 @item 
 @strong{Kommentare:}
 Ein Kommentar ist eine Bemerkung für den menschlichen Leser
@@ -557,14 +621,25 @@ mögliche Anwendung von Kommentaren:
 @node How to read the manual
 @subsection How to read the manual
 
+@cindex Handbuch, Lesen
+@cindex Wie soll das Handbuch gelesen werden
+@cindex Lesen des Handbuchs
+@cindex Beispiele, klickbar
+@cindex klickbare Beispiele
+@cindex Vorlagen
+@cindex Templates
+@cindex Dateien konstruieren, Hinweise
+@cindex Konstruieren von Dateien, Hinweise
+@cindex Hinweise zur Konstruktion von Dateien
+
 LilyPond-Code muss immer von  @{ @} Zeichen oder einem 
-@w{@code{\relative c'' @{ ... @}}} umgeben sein, wie
+@code{@w{\relative c'' @{ ... @}}} umgeben sein, wie
 gezeigt in @ref{Working on input files}.
 Im Rest dieses Handbuchs werden die meisten Beispiel allerdings darauf
 verzichten. Um sie zu reproduzieren, können Sie den entsprechenden 
 Quellcode kopieren und in eine Textdatei einfügen, aber Sie 
 @strong{müssen} dabei
-@w{@code{\relative c'' @{ @}}} einfügen, wie hier gezeigt:
+@code{@w{\relative c'' @{ @}}} einfügen, wie hier gezeigt:
 
 @example
 \relative c'' @{
@@ -572,14 +647,14 @@ Quellcode kopieren und in eine Textdatei einfügen, aber Sie
 @}
 @end example
 
-Warum werden die Klammern hier meist weggelassen? Die meisten
+Warum werden die Klammern hier meist weggelassen?  Die meisten
 der Beispiele können in ein längeres Musikstück hineinkopiert
 werden, und dann ist es natürlich nicht sinnvoll, wenn auch noch
-@w{@code{\relative c'' @{ @}}} dazukommt; ein @code{\relative} darf
+@code{@w{\relative c'' @{ @}}} dazukommt; ein @code{\relative} darf
 nicht innerhalb eines anderen @code{\relative} gesetzt werden,
 deshalb wird es hier weggelassen, damit die Beispiele auch innerhalb
-eines anderen Kontextes funktionieren. Wenn bei jedem 
-Beispiel @w{@code{\relative c'' @{ @}}} eingesetzt würde,
+eines anderen Kontextes funktionieren.  Wenn bei jedem 
+Beispiel @code{@w{\relative c'' @{ @}}} eingesetzt würde,
 könnten Sie die kleinen Beispiele der Dokumentation
 nicht einfach zu Ihrem eigenen Notentext hinzufügen. 
 Die meisten Benutzer wollen 
@@ -641,6 +716,16 @@ die für eine Stimme auf einem System gebraucht werden.
 @subheading Accidentals
 @cindex Versetzungszeichen
 @cindex Akzidentien
+@cindex Kreuz
+@cindex Doppelkreuz
+@cindex B
+@cindex Doppel-B
+
+@funindex es
+@funindex is
+@funindex eses
+@funindex isis
+
 
 Glossar: @rglos{sharp}, @rglos{flat}, @rglos{double sharp},
 @rglos{double flat}, @rglos{accidental}.
@@ -663,9 +748,23 @@ Sprachen zu benutzen, siehe @ruser{Note names in other languages}.
 cis1 ees fisis, aeses
 @end lilypond
 
+
+@subheading Key signatures
+
 @cindex Tonart, Einstellung von
 @cindex Vorzeichen
-@subheading Key signatures
+@cindex Dur
+@cindex Moll
+@cindex Vorzeichen und Versetzungszeichen
+@cindex Inhalt & Darstellung
+@cindex Darstellung & Inhalt
+
+@funindex \key
+@funindex key
+@funindex \major
+@funindex major
+@funindex \minor
+@funindex minor
 
 Glossar: @rglos{key signature}, @rglos{major},
 @rglos{minor}.
@@ -742,7 +841,7 @@ anhand von unterschiedlichen Regeln ausgegeben werden können.
 
 @seealso
 
-Benutzerhandbuch: @ruser{Note names in other languages},
+Notationsreferenz: @ruser{Note names in other languages},
 @ruser{Accidentals}, @ruser{Automatic accidentals},
 @ruser{Key signature}.
 
@@ -752,7 +851,17 @@ Glossar: @rglos{Pitch names}.
 @node Ties and slurs
 @subsection Ties and slurs
 
+@cindex Legatobögen
+@cindex Bögen, Legato
 @cindex Bindebögen
+@cindex Phrasierungsbögen
+@cindex Legatobögen, Phrasierung
+
+@funindex ~
+@funindex ( ... )
+@funindex \( ... \)
+
+
 @subheading Ties
 
 Glossar: @rglos{tie}.
@@ -765,7 +874,7 @@ g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
 
-@cindex Legatobögen
+
 @subheading Slurs
 
 Glossar: @rglos{slur}.
@@ -777,9 +886,6 @@ Beginn- und Endnote werden mit @q{(} beziehungsweise @q{)} markiert.
 @lilypond[verbatim,quote,fragment,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
-
-@cindex Phrasierungsbögen
-@cindex Legatobögen, Phrasierung
 
 @subheading Phrasing slurs
 
@@ -816,17 +922,18 @@ c2~( c8 fis fis4 ~ fis2 g2)
 
 @seealso
 
-Benutzerhandbuch: @ruser{Ties}, @ruser{Slurs},
+Notationsreferenz: @ruser{Ties}, @ruser{Slurs},
 @ruser{Phrasing slurs}.
 
 
 @node Articulation and dynamics
 @subsection Articulation and dynamics
 
+@subheading Articulations
+
 @cindex Artikulation
 @cindex Akzente
 @cindex Staccato
-@subheading Articulations
 
 Glossar: @rglos{articulation}.
 
@@ -837,8 +944,12 @@ Glossar: @rglos{articulation}.
 c-. c-- c-> c-^ c-+ c-_
 @end lilypond
 
-@cindex Fingersatz
 @subheading Fingerings
+
+@cindex Fingersatz
+
+@funindex ^
+@funindex _
 
 Glossar: @rglos{fingering}.
 
@@ -863,6 +974,24 @@ c_-^1 d^. f^4_2-> e^-_+
 
 @subheading Dynamics
 
+@cindex Dynamik
+@cindex Crescendo
+@cindex Lautstärke
+@cindex Decrescendo
+
+@funindex \f
+@funindex \ff
+@funindex \mp
+@funindex \p
+@funindex \mf
+@funindex \pp
+@funindex \<
+@funindex <
+@funindex \>
+@funindex >
+@funindex \!
+@funindex !
+
 Glossar: @rglos{dynamics}, @rglos{crescendo},
 @rglos{decrescendo}.
 
@@ -873,11 +1002,6 @@ die Note hängt:
 @lilypond[verbatim,quote,relative=2]
 c\ff c\mf c\p c\pp
 @end lilypond
-
-@cindex Lautstärke
-@cindex Dynamik
-@cindex Decrescendo
-@cindex Crescendo
 
 @notation{Crescendi} und @notation{Decrescendi} werden mit dem 
 Befehl @code{\<}
@@ -891,12 +1015,21 @@ c2\< c2\ff\> c2 c2\!
 
 @seealso
 
-Benutzerhandbuch: @ruser{Articulations and ornamentations},
+Notationsreferenz: @ruser{Articulations and ornamentations},
 @ruser{Fingering instructions}, @ruser{Dynamics}.
 
 
 @node Adding text
 @subsection Adding text
+
+@cindex Text, einfügen
+@cindex Einfügen von Text
+@cindex Hinzufügen von Text
+@cindex Textbeschriftung
+@cindex markup
+
+@funindex  \markup
+@funindex markup
 
 Text können Sie auf folgende Art in die Partitur einfügen:
 
@@ -916,13 +1049,25 @@ a1_\markup{
 
 @seealso
 
-Benutzerhandbuch: @ruser{Writing text}.
+Notationsreferenz: @ruser{Writing text}.
 
 
 @node Automatic and manual beams
 @subsection Automatic and manual beams
 
 @cindex Balken, manuell
+@cindex automatische Balken
+@cindex Balken, automatisch
+@cindex manuelle Balken
+
+@funindex [ ... ]
+@funindex [
+@funindex ]
+@funindex \autoBeamOff
+@funindex autoBeamOff
+@funindex \autoBeamOn
+@funindex autoBeamOn
+
 Alle @notation{Balken} werden automatisch gesetzt:
 
 @lilypond[verbatim,quote,relative=2]
@@ -954,14 +1099,17 @@ a8 c b4 d8. c16 b4
 
 @seealso
 
-Benutzerhandbuch: @ruser{Automatic beams}, @ruser{Manual beams}.
+Notationsreferenz: @ruser{Automatic beams}, @ruser{Manual beams}.
+
 
 @node Advanced rhythmic commands
 @subsection Advanced rhythmic commands
 
+@subheading Partial measure
 
 @cindex Auftakt
-@subheading Partial measure
+@funindex \partial
+@funindex partial
 
 Ein @notation{Auftakt} wird mit dem Befehl @code{\partial}
 eingegeben. Darauf folgt die Länge des Auftaktes: @code{\partial 4}
@@ -972,10 +1120,15 @@ heißt eine Viertelnote Auftakt und @code{\partial 8} eine Achtelnote.
 f8 c2 d
 @end lilypond
 
+
+@subheading Tuplets
+
 @cindex N-tolen
 @cindex Triolen
 @cindex Rhythmische Aufteilungen
-@subheading Tuplets
+
+@funindex \times
+@funindex times
 
 Glossar: @rglos{note value}, @rglos{triplet}.
 
@@ -993,10 +1146,18 @@ also hat eine Triole 2/3 als Bruch:
 \times 2/3 { d4 a8 }
 @end lilypond
 
+@subheading Grace notes
+
 @cindex Verzierungen
 @cindex Vorschlag
 @cindex Vorhalt
-@subheading Grace notes
+
+@funindex \grace
+@funindex grace
+@funindex \acciaccatura
+@funindex acciaccatura
+@funindex \appoggiatura
+@funindex acciaccatura
 
 Glossar: @rglos{grace notes}, @rglos{acciaccatura},
 @rglos{appoggiatura}.
@@ -1013,7 +1174,7 @@ c2 \acciaccatura b16 c2
 
 @seealso
 
-Benutzerhandbuch: @ruser{Grace notes}, @ruser{Tuplets},
+Notationsreferenz: @ruser{Grace notes}, @ruser{Tuplets},
 @ruser{Upbeats}.
 
 
@@ -1039,10 +1200,12 @@ das Vorkommen von mehr als einer Stimme pro System.
 @end menu
 
 
-@cindex Musikalischer Ausdruck
-@cindex Ausdruck
 @node Music expressions explained
 @subsection Music expressions explained
+
+@cindex Musikalischer Ausdruck
+@cindex Ausdruck
+@cindex zusammengesetzter musikalischer Ausdruck
 
 In LilyPond-Quelldateien wird Musik durch  @emph{musikalische
 Ausdrücke} dargestellt. Eine einzelne Note ist ein musikalischer
@@ -1101,6 +1264,19 @@ werden. Das wird benötigt für komplexe Musik mit vielen Stimmen.
 
 @subheading Simultaneous music expressions: multiple staves
 
+@cindex mehrere Systeme
+@cindex Notensysteme, mehrere
+@cindex Polyphonie
+@cindex Mehrstimmigkeit
+@cindex parallele Ausdrücke
+@cindex Ausdrücke, parallel
+@cindex relative Noten und simulatane Musik
+@cindex gleichzeitige Noten und relativer Modus
+
+@funindex <<
+@funindex >>
+@funindex << ... >>
+
 Glossar: @rglos{polyphony}.
 
 
@@ -1156,6 +1332,21 @@ folgende Beispiel beginnt mit einer Note:
 
 @node Multiple staves
 @subsection Multiple staves
+
+@cindex mehrere Systeme
+@cindex Systeme, mehrere
+@cindex Kontext
+@cindex Notationskontext
+
+@funindex \new Staff
+@funindex new Staff
+@funindex Staff
+@funindex \new
+@funindex new
+@funindex Score
+@funindex Voice
+@funindex Lyrics
+@funindex ChordNames
 
 Wie wir in @ref{Music expressions explained} gesehen haben, sind
 LilyPond-Quelldateien aus musikalischen Ausdrücken konstruiert.
@@ -1222,13 +1413,20 @@ als Partituren mit unterschiedlichen Taktarten.
 @subsection Staff groups
 
 @cindex Akkolade
-@cindex Klaviersysteme
+@cindex System für Klavier
+@cindex Notensystem für Klavier
+@cindex Notensystem für Chor
+@cindex Partitur für Chor
 @cindex Systemwechsel, manuell
 @cindex Wechsel zwischen Systemen, manuell
 @cindex Stimmwechsel zwischen Systemen, manuell
 @cindex Chorpartitur
 @cindex Klaviersystem
 @cindex Partitur
+
+@funindex PianoStaff
+@funindex GrandStaff
+@funindex ChoirStaff
 
 Glossar: @rglos{brace}.
 
@@ -1268,7 +1466,9 @@ oder auch zwischen System gesetzt werden.
 
 @seealso
 
-Benutzerhandbuch: @ruser{Keyboard instruments},
+Notationsreferenz:
+@ruser{Keyboard and other multi-staff
+instruments},
 @ruser{Displaying staves}.
 
 
@@ -1276,6 +1476,11 @@ Benutzerhandbuch: @ruser{Keyboard instruments},
 @subsection Combining notes into chords
 
 @cindex Akkorde
+@cindex Notendauer in Akkorden
+
+@funindex <
+@funindex >
+@funindex < ... >
 
 Glossar: @rglos{chord}.
 
@@ -1311,6 +1516,15 @@ r4 <c e g>8( <c e g>\> <c e g>4 <c f a>\!)
 @cindex Mehrstimmigkeit
 @cindex mehrere Stimmen
 @cindex Stimmen, mehrere in einem System
+@cindex unsichtbare Noten
+@cindex Platzhalternoten
+@cindex Noten, unsichtbar
+
+@funindex << ... \\ ... >>
+@funindex <<
+@funindex \\
+@funindex >>
+
 Wenn unterschiedliche Melodien oder Stimmen in einem System
 kombiniert werden sollen, werden sie als @qq{polyphone Stimmen}
 realisiert: Jede Stimme hat eigene Hälse, Balken und Legatobögen,
@@ -1361,11 +1575,17 @@ kombiniert werden.
 
 @seealso
 
-Benutzerhandbuch: @ruser{Simultaneous notes}.
+Notationsreferenz: 
+@ruser{Simultaneous notes}.
 
 
 @node Songs
 @section Songs
+
+@cindex Gesangstext, schreiben
+
+@funindex \addlyrics
+@funindex addlyrics
 
 In diesem Kapitel wird in die Kombination von Musik mit
 Text eingeführt und die Erstellung einfacher Song-Blätter
@@ -1424,12 +1644,17 @@ Text und Noten gleichzeitig gesetzt werden.
 @node Aligning lyrics to a melody
 @subsection Aligning lyrics to a melody
 
-Glossar: @rglos{melisma}, @rglos{extender line}.
 
+@cindex Gesangstext, Ausrichten
+@cindex Ausrichten von Gesangstext
+@cindex Worte mit mehreren Silben
+@cindex mehrere Silben in Gesangstext
 @cindex Melisma
 @cindex Unterstrich
 @cindex Bindestrich
 @cindex Fülllinie
+
+Glossar: @rglos{melisma}, @rglos{extender line}.
 
 Die nächste Zeile des Kinderliedes lautet:
 @notation{The moon doth shine as bright as day}. So sieht es 
@@ -1595,11 +1820,13 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden mus.
 
 @seealso
 
-Benutzerhandbuch: @ruser{Vocal music}.
+Notationsreferenz: @ruser{Vocal music}.
 
 
 @node Lyrics to multiple staves
 @subsection Lyrics to multiple staves
+
+@cindex Gesangstext auf mehreren Systemen
 
 Die einfache Lösung mit @code{\addlyrics} kann benutzt werden, um 
 Text zu einem oder mehreren Systemen zu setzen. Hier ein Beispiel
@@ -1635,7 +1862,7 @@ von Variablen wird erklärt im Abschnitt @ref{Organizing pieces with variables}.
 
 @seealso
 
-Benutzerhandbuch: @ruser{Vocal music}.
+Notationsreferenz: @ruser{Vocal music}.
 
 
 @node Final touches
@@ -1656,6 +1883,15 @@ Gleichzeitig dient es als Einleitung zum Rest des Handbuches.
 
 @node Organizing pieces with variables
 @subsection Organizing pieces with variables
+
+@cindex Variable
+@cindex Bezeichner
+@cindex Makro
+@cindex Variablen zuweisen
+@cindex Variablen benutzen
+@cindex Zuweisen von Variablen
+@cindex Variable, erlaubte Zeichen
+@cindex Zeichen, in Variablen erlaubt
 
 Wenn alle die Elemente, die angesprochen wurden, zu größeren Dateien
 zusammengefügt werden, werden auch die musikalischen Ausdrücke sehr
@@ -1743,7 +1979,16 @@ Benutzung der eben definierten Bezeichner:
 @node Version number
 @subsection Version number
 
+@cindex Update
+@cindex Neue Version
+@cindex Dateien aktualisieren
+@cindex Aktualisieren von Dateien
 @cindex Versionsnummern
+
+@funindex \version
+@funindex version
+@funindex convert-ly
+
 Der @code{\version}-Befehl zeigt an, welche LilyPond-Version
 für eine bestimmte Quelldatei benutzt worden ist:
 
@@ -1763,6 +2008,14 @@ müssen. Für Einzelheiten, siehe @rprogram{Updating files with convert-ly}.
 
 @node Adding titles
 @subsection Adding titles
+
+@cindex Titel
+@cindex header
+@cindex Kopf
+@cindex Titelei
+
+@funindex \header
+@funindex header
 
 Titel, Komponist, Opusnummern und ähnliche Information werden in
 einer @code{\header}-Umgebung eingefügt. Diese Umgebung befindet sich
@@ -1789,6 +2042,11 @@ sich im Kapitel @ruser{Creating titles}.
 
 @node Absolute note names
 @subsection Absolute note names
+
+@cindex Notenbezeichnungen
+@cindex absoluter Modus
+@cindex absolute Werte für Tonhöhen
+@cindex Tonhöhen, absolute Werte
 
 Bis jetzt haben wir immer @code{\relative} benutzt, um Tonhöhen zu
 bestimmen. Das ist die einfachste Eingabeweise für die meiste Musik.
