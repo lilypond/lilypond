@@ -106,6 +106,7 @@
     ((end 1 32 9 8) . ,(ly:make-moment 5 8))
     ((end 1 32 9 8) . ,(ly:make-moment 6 8))
     ((end 1 32 9 8) . ,(ly:make-moment 7 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 8 8))
 
     ((end 1 32 12 8) . ,(ly:make-moment 1 8))
     ((end 1 32 12 8) . ,(ly:make-moment 2 8))
@@ -114,6 +115,7 @@
     ((end 1 32 12 8) . ,(ly:make-moment 5 8))
     ((end 1 32 12 8) . ,(ly:make-moment 6 8))
     ((end 1 32 12 8) . ,(ly:make-moment 7 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 8 8))
     ((end 1 32 12 8) . ,(ly:make-moment 9 8))
     ((end 1 32 12 8) . ,(ly:make-moment 10 8))
     ((end 1 32 12 8) . ,(ly:make-moment 11 8))
