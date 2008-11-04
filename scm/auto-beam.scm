@@ -90,34 +90,32 @@
     ((end * * 4 16) . ,(ly:make-moment 1 8))
 
     ;; in 6 8, 9 8 and 12 8 time:
-    ;;   end beams every 3 8 ths
+    ;;   use beatGrouping for all except 1 32nd notes
     ;;   end beams with 32nd notes every 1 8 note
 
-    ((end * * 6 8) . ,(ly:make-moment 3 8))
     ((end 1 32 6 8) . ,(ly:make-moment 1 8))
-    ((end 1 32 6 8) . ,(ly:make-moment 1 4))
-    ((end 1 32 6 8) . ,(ly:make-moment 1 2))
+    ((end 1 32 6 8) . ,(ly:make-moment 2 8))
+    ((end 1 32 6 8) . ,(ly:make-moment 3 8))
+    ((end 1 32 6 8) . ,(ly:make-moment 4 8))
     ((end 1 32 6 8) . ,(ly:make-moment 5 8))
 
-    ((end * * 9 8) . ,(ly:make-moment 3 8))
-    ((end * * 9 8) . ,(ly:make-moment 3 4))
     ((end 1 32 9 8) . ,(ly:make-moment 1 8))
-    ((end 1 32 9 8) . ,(ly:make-moment 1 4))
-    ((end 1 32 9 8) . ,(ly:make-moment 1 2))
+    ((end 1 32 9 8) . ,(ly:make-moment 2 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 3 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 4 8))
     ((end 1 32 9 8) . ,(ly:make-moment 5 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 6 8))
     ((end 1 32 9 8) . ,(ly:make-moment 7 8))
-    ((end 1 32 9 8) . ,(ly:make-moment 1 1))
 
-    ((end * * 12 8) . ,(ly:make-moment 3 8))
-    ((end * * 12 8) . ,(ly:make-moment 3 4))
-    ((end * * 12 8) . ,(ly:make-moment 9 8))
     ((end 1 32 12 8) . ,(ly:make-moment 1 8))
-    ((end 1 32 12 8) . ,(ly:make-moment 1 4))
-    ((end 1 32 12 8) . ,(ly:make-moment 1 2))
+    ((end 1 32 12 8) . ,(ly:make-moment 2 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 3 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 4 8))
     ((end 1 32 12 8) . ,(ly:make-moment 5 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 6 8))
     ((end 1 32 12 8) . ,(ly:make-moment 7 8))
-    ((end 1 32 12 8) . ,(ly:make-moment 1 1))
-    ((end 1 32 12 8) . ,(ly:make-moment 5 4))
+    ((end 1 32 12 8) . ,(ly:make-moment 9 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 10 8))
     ((end 1 32 12 8) . ,(ly:make-moment 11 8))
     ))
 
