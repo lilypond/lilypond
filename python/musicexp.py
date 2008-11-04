@@ -1618,7 +1618,7 @@ class RhythmicStaff (Staff):
     def __init__ (self, command = "RhythmicStaff"):
         Staff.__init__ (self, command)
         
-class Score ():
+class Score:
     def __init__ (self):
         self.contents = None
         self.create_midi = False
