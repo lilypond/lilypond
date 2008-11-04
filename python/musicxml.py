@@ -71,7 +71,7 @@ class Xml_node:
 
         p = self
         while p:
-            sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()])))
+            sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items ()])))
             p = p.get_parent ()
         
     def get_typed_children (self, klass):
@@ -1044,7 +1044,7 @@ def lxml_demarshal_node (node):
     for c in py_node._children:
 	c._parent = py_node
 
-    for (k,v) in node.items ():
+    for (k, v) in node.items ():
         py_node.__dict__[k] = v
         py_node._attribute_dict[k] = v
 
@@ -1054,14 +1054,14 @@ def minidom_demarshal_node (node):
     name = node.nodeName
 
     klass = get_class (name)
-    py_node = klass()
+    py_node = klass ()
     py_node._name = name
     py_node._children = [minidom_demarshal_node (cn) for cn in node.childNodes]
     for c in py_node._children:
 	c._parent = py_node
 
     if node.attributes:
-	for (nm, value) in node.attributes.items():
+	for (nm, value) in node.attributes.items ():
 	    py_node.__dict__[nm] = value
             py_node._attribute_dict[nm] = value
             
@@ -1074,10 +1074,10 @@ def minidom_demarshal_node (node):
 
 
 if __name__  == '__main__':
-        import lxml.etree
+    import lxml.etree
         
-        tree = lxml.etree.parse ('beethoven.xml')
-        mxl_tree = lxml_demarshal_node (tree.getroot ())
-        ks = class_dict.keys()
-        ks.sort()
-        print '\n'.join (ks)
+    tree = lxml.etree.parse ('beethoven.xml')
+    mxl_tree = lxml_demarshal_node (tree.getroot ())
+    ks = class_dict.keys ()
+    ks.sort ()
+    print '\n'.join (ks)
