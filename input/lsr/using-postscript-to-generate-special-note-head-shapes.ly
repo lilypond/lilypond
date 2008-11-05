@@ -13,6 +13,7 @@ This example shows how a parallelogram-shaped note head is generated.
 "
   doctitle = "Using PostScript to generate special note head shapes"
 } % begin verbatim
+
 parallelogram =
   #(ly:make-stencil (list 'embedded-ps
     "gsave

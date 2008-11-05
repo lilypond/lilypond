@@ -26,6 +26,7 @@ main lyrics.
 "
   doctitle = "Transcription of Ancient music with incipit"
 } % begin verbatim
+
 global = {
   \set Score.skipBars = ##t
   \key g \major

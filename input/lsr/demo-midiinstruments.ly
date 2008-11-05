@@ -14,6 +14,7 @@ composition? Solution: A LilyPond demo file.
 "
   doctitle = "Demo MidiInstruments"
 } % begin verbatim
+
 \header {
   title = "Demo of all midi sounds"
   arranger = "Myself "

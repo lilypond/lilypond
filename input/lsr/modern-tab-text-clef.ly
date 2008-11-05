@@ -12,6 +12,7 @@ Use a markup text to replace the (TAB) clef glyph with a modern font.
   doctitle = "Modern TAB text clef"
 } % begin verbatim
 
+
 TAB = \markup {
   \raise #1.5
   \sans

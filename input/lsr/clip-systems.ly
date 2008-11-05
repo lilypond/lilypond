@@ -30,6 +30,7 @@ are generated.
   doctitle = "Clip systems"
 } % begin verbatim
 
+
 #(ly:set-option 'clip-systems)
 #(set! output-count 1)
 

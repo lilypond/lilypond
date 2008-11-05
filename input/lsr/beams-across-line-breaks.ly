@@ -5,6 +5,14 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+Normalmente están prohibidos los saltos de línea si las barras
+atraviesan las líneas divisorias.  Se puede cambiar este
+comportamiento como se muestra aquí:
+
+"
+  doctitle = "Barras que atraviesan saltos de línea"
+
   texidoc = "
 Line breaks are normally forbidden when beams cross bar lines. This
 behavior can be changed as shown: 
@@ -12,6 +20,7 @@ behavior can be changed as shown:
 "
   doctitle = "Beams across line breaks"
 } % begin verbatim
+
 \relative c'' {
   \override Beam #'breakable = ##t
   c8 c[ c] c[ c] c[ c] c[ \break  

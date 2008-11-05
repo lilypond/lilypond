@@ -19,6 +19,7 @@ overriding the relevant property:
 "
   doctitle = "Printing a repeat sign at the beginning of a piece"
 } % begin verbatim
+
 \relative c'' {
   \once \override Score.BreakAlignment #'break-align-orders =
         #(make-vector 3 '(instrument-name

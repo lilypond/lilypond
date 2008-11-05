@@ -19,6 +19,7 @@ aren't always the same length.
 "
   doctitle = "Chant or psalms notation"
 } % begin verbatim
+
 stemOn = { \override Staff.Stem #'transparent = ##f }
 stemOff = { \override Staff.Stem #'transparent = ##t }
 

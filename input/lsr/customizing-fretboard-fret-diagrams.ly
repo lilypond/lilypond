@@ -27,6 +27,7 @@ therefore can be omitted in property overrides.
   doctitle = "Customizing fretboard fret diagrams"
 } % begin verbatim
 
+
 \include "predefined-guitar-fretboards.ly"
 \storePredefinedDiagram \chordmode { c' }
                         #guitar-tuning

@@ -40,9 +40,6 @@ directly into the lilypond file.
   doctitle = "Snap-pizzicato markup (\"Bartok pizzicato\")"
 } % begin verbatim
 
-% Definition of the snappizz markup to print snap-pizzicato articulations.
-% These are also known as "Bartok pizzicato" and are denotes by a circle with a
-% vertical line from the center of the circle upwards:
 #(define-markup-command (snappizz layout props) ()
   (interpret-markup layout props
     (markup #:stencil
@@ -51,23 +48,18 @@ directly into the lilypond file.
           (make-circle-stencil 0.7 0.1 #f)
           (ly:make-stencil
             (list 'draw-line 0.1 0 0.1 0 1)
-            '(-0.1 . 0.1) '(0.1 . 1)
-          )
-        )
-        0.7 X
-      )
-    )
-  )
-)
-snappizzicato = \markup \snappizz
+            '(-0.1 . 0.1) '(0.1 . 1)))
+        0.7 X))))
+
+snapPizzicato = \markup \snappizz
 
 % now it can be used as \snappizzicato after the note/chord
-% Note, that a direction (-, ^ or _) is REQUIRED!
-\relative c'{
-   c4^\snappizzicato
-%    < c e g>\snappizzicato  % This does NOT work
-   < c' e g>-\snappizzicato
-   < c' e g>^\snappizzicato
-   < c, e g>_\snappizzicato
+% Note that a direction (-, ^ or _) is required.
+\relative c' {
+  c4^\snapPizzicato
+  % This does NOT work:
+  %<c e g>\snapPizzicato
+  <c' e g>-\snapPizzicato
+  <c' e g>^\snapPizzicato
+  <c, e g>_\snapPizzicato
 }
-

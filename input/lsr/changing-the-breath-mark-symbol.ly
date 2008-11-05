@@ -21,6 +21,7 @@ text.
 "
   doctitle = "Changing the breath mark symbol"
 } % begin verbatim
+
 \relative c'' {
   c2
   \override BreathingSign #'text = \markup { \musicglyph #"scripts.rvarcomma" }

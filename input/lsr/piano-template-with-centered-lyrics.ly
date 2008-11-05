@@ -25,6 +25,7 @@ centered between the staves of a piano staff.
 "
   doctitle = "Piano template with centered lyrics"
 } % begin verbatim
+
 upper = \relative c'' {
   \clef treble
   \key c \major

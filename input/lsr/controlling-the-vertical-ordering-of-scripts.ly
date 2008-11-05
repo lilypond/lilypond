@@ -33,6 +33,7 @@ comes first.
 "
   doctitle = "Controlling the vertical ordering of scripts"
 } % begin verbatim
+
 \relative c''' {
   \once \override TextScript #'script-priority = #-100
   a2^\prall^\markup { \sharp }

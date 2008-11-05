@@ -13,6 +13,7 @@ appropriate glyph.
 "
   doctitle = "Flute slap notation"
 } % begin verbatim
+
 slap =
 #(define-music-function (parser location music) (ly:music?)
 #{\override NoteHead #'stencil = #ly:text-interface::print

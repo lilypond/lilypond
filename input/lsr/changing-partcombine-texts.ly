@@ -20,6 +20,7 @@ the solo and unison sections may be changed:
 "
   doctitle = "Changing partcombine texts"
 } % begin verbatim
+
 \new Staff <<
   \set Staff.soloText = #"girl"
   \set Staff.soloIIText = #"boy"

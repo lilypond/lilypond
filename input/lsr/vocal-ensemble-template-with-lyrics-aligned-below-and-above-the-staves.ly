@@ -28,6 +28,7 @@ using @code{alignAboveContext} and @code{alignBelowContext}.
 "
   doctitle = "Vocal ensemble template with lyrics aligned below and above the staves"
 } % begin verbatim
+
 global = {
   \key c \major
   \time 4/4

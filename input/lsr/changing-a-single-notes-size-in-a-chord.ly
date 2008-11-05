@@ -34,6 +34,7 @@ notehead).
 "
   doctitle = "Changing a single note's size in a chord"
 } % begin verbatim
+
 \layout { ragged-right = ##t }
 \relative {
   <\tweak #'font-size #+2 c e g c \tweak #'font-size #-2 e>1^\markup { A tiny e }_\markup { A big c }

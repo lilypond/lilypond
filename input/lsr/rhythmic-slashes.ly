@@ -21,6 +21,7 @@ the appropriate duration).
 "
   doctitle = "Rhythmic slashes"
 } % begin verbatim
+
 % Macro to print single slash
 rs = {
   \once \override Rest #'stencil = #ly:percent-repeat-item-interface::beat-slash

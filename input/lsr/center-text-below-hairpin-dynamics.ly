@@ -23,6 +23,7 @@ printed, using some Scheme code.
 "
   doctitle = "Center text below hairpin dynamics"
 } % begin verbatim
+
 hairpinWithCenteredText = #(define-music-function (parser location text) (markup?)
 #{
   \override Voice.Hairpin #'stencil = #(lambda (grob)

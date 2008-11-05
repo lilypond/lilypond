@@ -24,6 +24,7 @@ itself.
 "
   doctitle = "How to change fret diagram position"
 } % begin verbatim
+
 harmonies = \chordmode
 {
   a8:13

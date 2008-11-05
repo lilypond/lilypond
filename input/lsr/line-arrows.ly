@@ -15,6 +15,7 @@ texto y de línea (como el Glissando).
   doctitle = "Line arrows"
 } % begin verbatim
 
+
 \relative c'' {
   \override TextSpanner #'bound-padding = #1.0
   \override TextSpanner #'style = #'line

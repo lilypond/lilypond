@@ -77,9 +77,11 @@ whole-tone scale:
 "
   doctitle = "Non-traditional key signatures"
 } % begin verbatim
+
 \relative c' {
-  \set Staff.keySignature = #`(((0 .  3) . ,SHARP) ((0 . 5) . ,FLAT) ((0 . 6) . ,FLAT))
+  \set Staff.keySignature = #`(((0 . 3) . ,SHARP)
+                               ((0 . 5) . ,FLAT)
+                               ((0 . 6) . ,FLAT))
   c4 d e fis
   aes4 bes c2
 }
-

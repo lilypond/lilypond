@@ -15,6 +15,7 @@ Accidentals only show up if they are not part of the key signature.
 "
   doctitle = "Ambitus"
 } % begin verbatim
+
 \layout {
   ragged-right = ##t
   \context {

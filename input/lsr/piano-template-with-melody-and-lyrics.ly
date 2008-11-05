@@ -24,6 +24,7 @@ with piano accompaniment underneath.
 "
   doctitle = "Piano template with melody and lyrics"
 } % begin verbatim
+
 melody = \relative c'' {
   \clef treble
   \key c \major

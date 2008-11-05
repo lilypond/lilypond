@@ -19,6 +19,7 @@ chord changes.
 "
   doctitle = "Showing chords at changes"
 } % begin verbatim
+
 harmonies = \chordmode {
   c1:m c:m \break c:m c:m d
 }

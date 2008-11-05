@@ -44,6 +44,7 @@ This snippet shows how to achieve such notation rules.
   doctitle = "Dodecaphonic-style accidentals for each note including naturals"
 } % begin verbatim
 
+
 \score {
   \new Staff {
     #(set-accidental-style 'dodecaphonic)

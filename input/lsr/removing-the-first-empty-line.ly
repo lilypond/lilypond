@@ -36,6 +36,7 @@ written.
 "
   doctitle = "Removing the first empty line"
 } % begin verbatim
+
 \layout {
   \context { 
     \RemoveEmptyStaffContext 

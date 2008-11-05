@@ -25,6 +25,7 @@ emphasized, using the @code{line-positions} property of the
 "
   doctitle = "Making some staff lines thicker than the others"
 } % begin verbatim
+
 {
   \override Staff.StaffSymbol #'line-positions = #'(-4 -2 -0.2 0 0.2 2 4)
   d'4 e' f' g'

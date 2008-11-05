@@ -21,6 +21,7 @@ positioning of lyrics and ossias.
 "
   doctitle = "Vertically aligning ossias and lyrics"
 } % begin verbatim
+
 \paper {
   ragged-right = ##t
 }

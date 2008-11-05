@@ -10,6 +10,7 @@ dots.  To override this behavior, set the context property
   doctitle = "Dotted harmonics"
 } % begin verbatim
 
+
 \relative c''' {
   \time 3/4
   \key f \major

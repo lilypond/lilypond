@@ -31,6 +31,7 @@ The same idea is used to align the text scripts along their baseline.
 "
   doctitle = "Vertically aligned dynamics and textscripts"
 } % begin verbatim
+
 music = \relative c'' {
   c2\p^\markup { gorgeous } c\f^\markup { fantastic }
   c4\p c\f\> c c\!\p

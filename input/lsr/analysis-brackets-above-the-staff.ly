@@ -21,6 +21,7 @@ staff instead.
 "
   doctitle = "Analysis brackets above the staff"
 } % begin verbatim
+
 \layout {
   \context {
     \Voice

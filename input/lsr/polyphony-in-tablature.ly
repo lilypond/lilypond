@@ -19,6 +19,7 @@ staff.
 "
   doctitle = "Polyphony in tablature"
 } % begin verbatim
+
 upper = \relative c' {
   \time 12/8
   \key e \minor

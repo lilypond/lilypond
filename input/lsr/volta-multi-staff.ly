@@ -9,6 +9,7 @@ one in a score."
   doctitle = "Volta multi-staff"
 } % begin verbatim
 
+
 voltaMusic = \relative c'' {
   \repeat volta 2 {
     c1

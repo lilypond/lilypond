@@ -32,6 +32,7 @@ property in the @code{Staff} context.
 "
   doctitle = "Preventing natural signs from being printed when the key signature changes"
 } % begin verbatim
+
 \relative c' {
   \key d \major
   a4 b cis d

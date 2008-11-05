@@ -18,6 +18,7 @@ When put together, chord names, a melody, and lyrics form a lead sheet:
 "
   doctitle = "Simple lead sheet"
 } % begin verbatim
+
 <<
   \chords { c2 g:sus4 f e }
   \relative c'' {

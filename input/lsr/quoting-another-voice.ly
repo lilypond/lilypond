@@ -23,6 +23,7 @@ since @code{rest-event} is not in @code{quotedEventTypes}."
   doctitle = "Quoting another voice"
 } % begin verbatim
 
+
 quoteMe = \relative c' {
   fis4 r16 a8.-> b4\ff c
 }

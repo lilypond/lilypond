@@ -22,6 +22,7 @@ LilyPond's support for ancient notation.
 "
   doctitle = "Ancient fonts"
 } % begin verbatim
+
 upperStaff = \new VaticanaStaff = "upperStaff" <<
   \context VaticanaVoice <<
     \transpose c c {

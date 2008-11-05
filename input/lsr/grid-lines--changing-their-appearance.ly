@@ -19,6 +19,7 @@ properties.
 "
   doctitle = "Grid lines: changing their appearance"
 } % begin verbatim
+
 \layout {
  \context {
    \Staff

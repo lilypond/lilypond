@@ -23,6 +23,7 @@ number indicates the direction (1 = up, -1 = down).
 "
   doctitle = "Engraving ties manually"
 } % begin verbatim
+
 \relative c' {
   <c e g>2 ~ <c e g>
   \override TieColumn #'tie-configuration =

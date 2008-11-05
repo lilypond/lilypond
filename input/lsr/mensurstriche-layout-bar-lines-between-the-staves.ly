@@ -25,6 +25,7 @@ the @code{transparent} property.
 "
   doctitle = "Mensurstriche layout (bar lines between the staves)"
 } % begin verbatim
+
 global = {
   \override Staff.BarLine #'transparent = ##t
   s1 s

@@ -12,6 +12,7 @@ The default font families for text can be overridden with
 "
   doctitle = "Changing the default text font family"
 } % begin verbatim
+
 \paper {
   % change for other default global staff size. 
   myStaffSize = #20

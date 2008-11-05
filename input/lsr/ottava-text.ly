@@ -37,6 +37,7 @@ and @code{middleCPosition}.  To override the text of the bracket, set
 "
   doctitle = "Ottava text"
 } % begin verbatim
+
 {
   \ottava #1
   \set Staff.ottavation = #"8"

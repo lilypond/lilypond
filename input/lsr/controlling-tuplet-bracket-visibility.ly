@@ -16,6 +16,7 @@ bracket), @code{#f} (never print a bracket) or @code{#'if-no-beam}
 "
   doctitle = "Controlling tuplet bracket visibility"
 } % begin verbatim
+
 music = \relative c'' {
   \times 2/3 { c16[ d e } f8]
   \times 2/3 { c8 d e }

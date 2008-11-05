@@ -22,6 +22,7 @@ This default number of ten may be changed by overriding the
   doctitle = "Changing form of multi-measure rests"
 } % begin verbatim
 
+
 \relative c'' {
   \compressFullBarRests
   R1*2 | R1*5 | R1*9

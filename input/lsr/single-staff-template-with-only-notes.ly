@@ -28,6 +28,7 @@ add notes, and you're finished!
 "
   doctitle = "Single staff template with only notes"
 } % begin verbatim
+
 melody = \relative c' {
   \clef treble
   \key c \major

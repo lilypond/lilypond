@@ -28,6 +28,7 @@ voices.
 "
   doctitle = "Ambitus with multiple voices"
 } % begin verbatim
+
 \new Staff \with {
   \consists "Ambitus_engraver"
   }

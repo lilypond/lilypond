@@ -12,6 +12,7 @@ marks and measure numbers.
   doctitle = "Drawing circles around various objects"
 } % begin verbatim
 
+
 \relative c' {
   c1
   \set Score.markFormatter =

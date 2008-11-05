@@ -26,6 +26,7 @@ can also be used for ordinary consecutive notes.
 "
   doctitle = "Using ties with arpeggios"
 } % begin verbatim
+
 \relative c' {
   \set tieWaitForNote = ##t
   \grace { c16[ ~ e ~ g] ~ } <c, e g>2

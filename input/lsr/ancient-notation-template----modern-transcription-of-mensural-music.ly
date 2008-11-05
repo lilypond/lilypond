@@ -42,6 +42,7 @@ on the staves.
 "
   doctitle = "Ancient notation template -- modern transcription of mensural music"
 } % begin verbatim
+
 global = {
   \set Score.skipBars = ##t
 

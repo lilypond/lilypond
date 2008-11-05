@@ -23,6 +23,7 @@ white box will not overlap any other grob.
 "
   doctitle = "Blanking staff lines using the \\whiteout command"
 } % begin verbatim
+
 \layout { ragged-right = ##f }
 \relative c' {
   \override TextScript #'extra-offset = #'(2 . 4)

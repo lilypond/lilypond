@@ -10,6 +10,7 @@ are some examples of available tweaks.
   doctitle = "Using the @code{\\tweak} command to tweak individual grobs"
 } % begin verbatim
 
+
 \relative c' {
   \time 2/4
   \set fingeringOrientations = #'(right)

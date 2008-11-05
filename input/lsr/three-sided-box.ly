@@ -12,6 +12,7 @@ around some text (or other markup).
 "
   doctitle = "Three-sided box"
 } % begin verbatim
+
 % New command to add a three sided box, with sides north, west and south
 % Based on the box-stencil command defined in scm/stencil.scm
 % Note that you use ";" to comment a line in Scheme

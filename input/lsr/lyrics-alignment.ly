@@ -25,6 +25,7 @@ well.
 "
   doctitle = "Lyrics alignment"
 } % begin verbatim
+
 \layout { ragged-right = ##f }
 \relative c'' {
   c1

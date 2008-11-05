@@ -42,6 +42,7 @@ note needs to be canceled.  To change this behavior, set the
 "
   doctitle = "Preventing extra naturals from being automatically added"
 } % begin verbatim
+
 \relative c'' {
   aeses4 aes ais a
   \set Staff.extraNatural = ##f

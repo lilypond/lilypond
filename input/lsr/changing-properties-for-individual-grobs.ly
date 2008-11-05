@@ -13,6 +13,7 @@ arguments.
 "
   doctitle = "Changing properties for individual grobs"
 } % begin verbatim
+
 \layout {
   ragged-right = ##t
 }

@@ -23,6 +23,7 @@ a variable using the Scheme function @code{context-spec-music}.
 "
   doctitle = "Additional voices to avoid collisions"
 } % begin verbatim
+
 voiceFive = #(context-spec-music (make-voice-props-set 4) 'Voice)
 \relative c'' {
   \time 3/4 \key d \minor \partial 2

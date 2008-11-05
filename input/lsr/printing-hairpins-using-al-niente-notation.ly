@@ -21,6 +21,7 @@ setting the @code{circled-tip} property of the @code{Hairpin} object to
 "
   doctitle = "Printing hairpins using al niente notation"
 } % begin verbatim
+
 \relative c'' {
   \override Hairpin #'circled-tip = ##t
   c2\< c\!

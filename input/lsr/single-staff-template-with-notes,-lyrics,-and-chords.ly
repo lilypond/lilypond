@@ -24,6 +24,7 @@ chords.
 "
   doctitle = "Single staff template with notes, lyrics, and chords"
 } % begin verbatim
+
 melody = \relative c' {
   \clef treble
   \key c \major

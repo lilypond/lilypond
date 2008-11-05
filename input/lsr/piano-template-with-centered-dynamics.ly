@@ -28,6 +28,7 @@ right here, you don't have to do the tweaking yourself.
   doctitle = "Piano template with centered dynamics"
 } % begin verbatim
 
+
 global = {
   \key c \major
   \time 4/4

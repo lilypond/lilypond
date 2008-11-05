@@ -26,6 +26,7 @@ manually to prevent collisions.
 "
   doctitle = "Adding ambitus per voice"
 } % begin verbatim
+
 \new Staff <<
   \new Voice \with {
     \consists "Ambitus_engraver"

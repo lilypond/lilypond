@@ -20,6 +20,7 @@ multi-measure rest with a different print function:
 "
   doctitle = "Isolated percent repeats"
 } % begin verbatim
+
 \relative c'' {
   \override MultiMeasureRest #'stencil
      = #ly:multi-measure-rest::percent

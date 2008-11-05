@@ -13,6 +13,7 @@ or underscores (@code{_}) are available.So for example:
 "
   doctitle = "Skips in lyric mode (2)"
 } % begin verbatim
+
 <<
   \relative c'' { a4 b c d }
   \new Lyrics \lyricmode { a4 "" _ gap }

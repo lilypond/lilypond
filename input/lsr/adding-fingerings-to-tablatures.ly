@@ -12,6 +12,7 @@ and @code{\\finger}.
 "
   doctitle = "Adding fingerings to tablatures"
 } % begin verbatim
+
 one = \markup { \finger 1 }
 two = \markup { \finger 2 }
 threeTwo = \markup {

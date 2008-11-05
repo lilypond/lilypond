@@ -14,6 +14,7 @@ changed by scaling the properties @code{'staff-space} and
 "
   doctitle = "Changing the staff size"
 } % begin verbatim
+
 <<
   \new Staff {
     \relative c'' {

@@ -90,6 +90,7 @@ In this manner, the most natural enharmonic notes are chosen.
   doctitle = "Transposing music with minimum accidentals"
 } % begin verbatim
 
+
 #(define  (naturalize-pitch p)
   (let* ((o (ly:pitch-octave p))
          (a (* 4 (ly:pitch-alteration p)))

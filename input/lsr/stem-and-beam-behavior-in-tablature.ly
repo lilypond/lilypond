@@ -20,6 +20,7 @@ example.
 "
   doctitle = "Stem and beam behavior in tablature"
 } % begin verbatim
+
 \new TabStaff {
   \relative c {
     g16 b d g b d g b

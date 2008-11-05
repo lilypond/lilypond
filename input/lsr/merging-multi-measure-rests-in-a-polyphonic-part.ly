@@ -13,6 +13,7 @@ can be printed on the same staff line, using the following setting.
 "
   doctitle = "Merging multi-measure rests in a polyphonic part"
 } % begin verbatim
+
 normalPos= \revert MultiMeasureRest #'staff-position
 
 {

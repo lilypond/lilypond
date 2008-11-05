@@ -19,6 +19,7 @@ score.
 "
   doctitle = "Adding the current date to a score"
 } % begin verbatim
+
 % first, define a variable to hold the formatted date:
 date = #(strftime "%d-%m-%Y" (localtime (current-time)))
 

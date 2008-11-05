@@ -5,6 +5,19 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+Se insertan automáticamente barras en ángulo cuando se detecta un
+intervalo muy grande entre las notas.  Se puede hacer un ajuste
+fino de este comportamiento a través de la propiedad
+@code{auto-knee-gap}.  Se traza una barra doblada si el salto es
+mayor que el valor de @code{auto-knee-gap} más el ancho del objeto
+barra (que depende de la duración de las notas y de la inclinación
+de la barra).  De forma predeterminada @code{auto-knee-gap} está
+establecido a 5.5 espacios de pentagrama.
+
+"
+  doctitlees = "Cambiar el salto de las barras en ángulo"
+
   texidoc = "
 Kneed beams are inserted automatically when a large gap is detected
 between the note heads.  This behavior can be tuned through the
@@ -17,6 +30,7 @@ spaces.
 "
   doctitle = "Changing beam knee gap"
 } % begin verbatim
+
 {
   f8 f''8 f8 f''8
   \override Beam #'auto-knee-gap = #6

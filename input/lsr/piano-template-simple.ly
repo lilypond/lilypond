@@ -24,6 +24,7 @@ Here is a simple piano staff with some notes.
 "
   doctitle = "Piano template (simple)"
 } % begin verbatim
+
 upper = \relative c'' {
   \clef treble
   \key c \major

@@ -31,6 +31,7 @@ length.
 "
   doctitle = "Ancient notation template -- modern transcription of gregorian music"
 } % begin verbatim
+
 \include "gregorian.ly"
 
 chant = \relative c' {

@@ -5,6 +5,24 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+Las barras de semicorcheas (o notas más breves) seguidas no se
+subdividen de forma predeterminada.  Esto es: las tres (o más)
+barras se prolongan, sin dividirse, sobre grupos completos de
+notas.  Este comportamiento se puede modificar para que las barras
+se subdividan en subgrupos mediante el establecimiento de la
+propiedad @code{subdivideBeams}.  Cuando está establecida, las
+diversas barras se subdividen a intervalos definidos por el valor
+actual de la longitud del pulso @code{beatLength} reduciendo las
+barras múltiples a una sola entre los subgrupos.  Observe que el
+valor predeterminado de @code{beatLength} es de una negra si no
+está establecido explícitamente.  Se debe establecer al valor de
+una fracción que da la duración el subgrupo de barras utilizando
+la función @code{make-moment}, como se muestra aquí:
+
+"
+  doctitlees = "Subdivisión de las barras de semicorchea"
+
   texidoc = "
 The beams of consecutive 16th (or shorter) notes are, by default, not
 sub-divided.  That is, the three (or more) beams stretch unbroken over
@@ -22,6 +40,7 @@ using the @code{make-moment} function, as shown here:
 "
   doctitle = "Sub-dividing beams"
 } % begin verbatim
+
 \relative c'' {
   c32[ c c c c c c c]
   \set subdivideBeams = ##t

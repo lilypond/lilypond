@@ -9,6 +9,7 @@ added with the @code{\\tocItem} command."
   doctitle = "Table of contents"
 } % begin verbatim
 
+
 #(set-default-paper-size "a6")
 
 \book {

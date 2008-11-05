@@ -18,6 +18,7 @@ flag from interfering with tie positioning, the stem is extended.
   doctitle = "Making an object invisible with the transparent property"
 } % begin verbatim
 
+
 \relative c'' {
   \time 2/4
   << {

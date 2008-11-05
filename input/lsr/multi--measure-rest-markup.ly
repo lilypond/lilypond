@@ -35,6 +35,7 @@ centered."
   doctitle = "Multi-measure rest markup"
 } % begin verbatim
 
+
 \relative c' {
   \compressFullBarRests
   \textLengthOn

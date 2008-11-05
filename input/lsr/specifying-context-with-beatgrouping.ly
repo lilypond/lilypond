@@ -12,6 +12,7 @@ been set in higher-level contexts can be overridden:
   doctitle = "Specifying context with beatGrouping"
 } % begin verbatim
 
+
 \score {
   \new Staff <<
     \time 7/8

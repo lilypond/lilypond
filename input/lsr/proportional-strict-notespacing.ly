@@ -13,6 +13,7 @@ the note that occurs at the same time. This may cause collisions.
 "
   doctitle = "Proportional strict notespacing"
 } % begin verbatim
+
 \paper {
   ragged-right = ##t
 }

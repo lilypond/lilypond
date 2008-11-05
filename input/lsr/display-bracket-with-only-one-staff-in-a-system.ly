@@ -32,6 +32,7 @@ property has to be set, as shown on the second system in the example.
   doctitle = "Display bracket with only one staff in a system"
 } % begin verbatim
 
+
 \markup \left-column {
   \score {
     \new StaffGroup <<

@@ -16,6 +16,7 @@ respectively, the tick size and its vertical placement.
 "
   doctitle = "Tick bar lines"
 } % begin verbatim
+
 {
   % Use 'bar-size to control the height of the tick,
   % and 'extra-offset to determine its position.

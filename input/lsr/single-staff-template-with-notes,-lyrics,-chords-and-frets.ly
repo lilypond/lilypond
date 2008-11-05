@@ -20,6 +20,7 @@ fret diagrams.
 "
   doctitle = "Single staff template with notes, lyrics, chords and frets"
 } % begin verbatim
+
 % Define the fret diagrams to be used
 cFretDiagram = \markup {
   \fret-diagram #"6-x;5-3-3;4-2-2;3-o;2-1-1;1-o;"

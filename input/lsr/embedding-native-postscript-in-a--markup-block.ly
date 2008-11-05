@@ -19,6 +19,7 @@ block.
 "
   doctitle = "Embedding native PostScript in a \\markup block"
 } % begin verbatim
+
 % PostScript is a registered trademark of Adobe Systems Inc.
 
 \relative c'' {

@@ -22,6 +22,7 @@ to the markup.
   doctitle = "Customizing markup fret diagrams"
 } % begin verbatim
 
+
 <<
   \chords { c1 c c d }
   

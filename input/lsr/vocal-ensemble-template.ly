@@ -32,6 +32,7 @@ regrouped on only two staves.
 "
   doctitle = "Vocal ensemble template"
 } % begin verbatim
+
 global = {
   \key c \major
   \time 4/4

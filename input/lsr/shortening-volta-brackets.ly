@@ -24,6 +24,7 @@ lasts one measure, which is a duration of 3/4.
 "
   doctitle = "Shortening volta brackets"
 } % begin verbatim
+
 \relative c'' {
   \time 3/4
   c4 c c

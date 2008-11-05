@@ -23,6 +23,7 @@ transposed using @code{\\transpose}.  In this case, all the pitches
   doctitle = "Quoting another voice with transposition"
 } % begin verbatim
 
+
 \addQuote clarinet {
   \transposition bes
   \repeat unfold 8 { d'16 d' d'8 }

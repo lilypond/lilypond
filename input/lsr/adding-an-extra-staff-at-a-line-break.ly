@@ -32,6 +32,7 @@ is also required (see the example).
 "
   doctitle = "Adding an extra staff at a line break"
 } % begin verbatim
+
 \score {
   \new StaffGroup \relative c'' {
     \new Staff

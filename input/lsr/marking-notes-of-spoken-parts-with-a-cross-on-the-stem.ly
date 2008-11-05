@@ -15,6 +15,7 @@ invisible stems of rests.
   doctitle = "Marking notes of spoken parts with a cross on the stem"
 } % begin verbatim
 
+
 speakOn = {
   \override Stem #'stencil = #(lambda (grob)
   (ly:stencil-combine-at-edge

@@ -15,6 +15,7 @@ Beam positions may be controlled manually, by overriding the
 "
   doctitle = "Manually controlling beam positions"
 } % begin verbatim
+
 \relative c' {
   \time 2/4
   % from upper staffline (position 4) to center (position 0)

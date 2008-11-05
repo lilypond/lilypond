@@ -30,6 +30,7 @@ context.
 "
   doctitle = "Indicating cross-staff chords with arpeggio bracket"
 } % begin verbatim
+
 \paper { ragged-right = ##t }
 
 \new PianoStaff <<

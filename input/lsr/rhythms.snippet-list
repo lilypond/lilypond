@@ -1,6 +1,7 @@
 changing-beam-knee-gap.ly
 reverting-default-beam-endings.ly
 adding-beams,-slurs,-ties-etc.-when-using-tuplet-and-non-tuplet-rythms..ly
+changing-the-time-signature-without-affecting-the-beaming.ly
 printing-music-with-different-time-signatures.ly
 beams-across-line-breaks.ly
 manually-controlling-beam-positions.ly
@@ -22,7 +23,7 @@ modifying-tuplet-bracket-length.ly
 printing-metronome-and-rehearsal-marks-below-the-staff.ly
 making-an-object-invisible-with-the-transparent-property.ly
 permitting-line-breaks-within-beamed-tuplets.ly
-flat-flags-and-beam-nibs.ly
+merging-multi-measure-rests-in-a-polyphonic-part.ly
 automatic-beam-subdivisions.ly
 beam-grouping-in-7-8-time.ly
 changing-the-tuplet-number.ly
@@ -33,8 +34,9 @@ changing-form-of-multi--measure-rests.ly
 guitar-strum-rhythms.ly
 rhythmic-slashes.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
+using-beatlength-and-beatgrouping.ly
 three-sided-box.ly
-merging-multi-measure-rests-in-a-polyphonic-part.ly
+flat-flags-and-beam-nibs.ly
 specifying-context-with-beatgrouping.ly
 skips-in-lyric-mode.ly
 engraving-ties-manually.ly

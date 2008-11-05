@@ -21,6 +21,7 @@ the staves by setting the property @code{PianoStaff.connectArpeggios}.
 "
   doctitle = "Creating cross-staff arpeggios in a piano staff"
 } % begin verbatim
+
 \new PianoStaff \relative c'' <<
   \set PianoStaff.connectArpeggios = ##t
   \new Staff {

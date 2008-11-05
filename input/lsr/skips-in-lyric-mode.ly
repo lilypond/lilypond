@@ -13,6 +13,7 @@ mode. In other situations, for example, when entering lyrics, using the
 "
   doctitle = "Skips in lyric mode"
 } % begin verbatim
+
 <<
   \relative { a'1 a }
   \new Lyrics \lyricmode { \skip 1 bla1 }

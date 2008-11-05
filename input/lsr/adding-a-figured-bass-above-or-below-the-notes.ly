@@ -35,6 +35,7 @@ to the whole score.
 "
   doctitle = "Adding a figured bass above or below the notes"
 } % begin verbatim
+
 bass = { \clef bass g4 b, c d e d8 c d2}
 continuo = \figuremode {
          < _ >4 < 6 >8   

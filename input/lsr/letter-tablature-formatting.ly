@@ -10,6 +10,7 @@ numbers."
   doctitle = "Letter tablature formatting"
 } % begin verbatim
 
+
 #(define (letter-tablature-format str context event)
   (let*
       ((tuning (ly:context-property context 'stringTunings))

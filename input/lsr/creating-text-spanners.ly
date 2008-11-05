@@ -22,6 +22,7 @@ indications or octavations.  Override some properties of the
   doctitle = "Creating text spanners"
 } % begin verbatim
 
+
 \paper { ragged-right = ##f }
 
 \relative c'' {

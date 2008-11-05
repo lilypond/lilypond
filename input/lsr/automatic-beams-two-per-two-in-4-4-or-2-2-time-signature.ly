@@ -25,6 +25,7 @@ changes the beaming to quarter note beats.
 "
   doctitle = "Automatic beams two per two in 4/4 or 2/2 time signature"
 } % begin verbatim
+
 % Automatic beams two per two in 4/4 or 2/2 time signature
 %              _____
 % Default     | | | |

@@ -18,6 +18,7 @@ This snippet shows how to bring the lyrics line closer to the staff.
 "
   doctitle = "Adjusting lyrics vertical spacing"
 } % begin verbatim
+
 % Default layout:
 <<
   \new Staff \new Voice = melody \relative c' {

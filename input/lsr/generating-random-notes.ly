@@ -25,6 +25,7 @@ get different random note patterns, just change this number.
 "
   doctitle = "Generating random notes"
 } % begin verbatim
+
 \score {
   { #(let ((random-state (seed->random-state (current-time))))
     (ly:export

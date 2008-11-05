@@ -15,6 +15,7 @@ The number of lines in a staff may changed by overriding the
 "
   doctitle = "Changing the number of lines in a staff"
 } % begin verbatim
+
 upper = \relative c'' {
   c4 d e f
 }

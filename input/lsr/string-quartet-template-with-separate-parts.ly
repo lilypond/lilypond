@@ -59,6 +59,7 @@ Do not forget to remove specified comments when using separate files!
 "
   doctitle = "String quartet template with separate parts"
 } % begin verbatim
+
 %%%%% piece.ly
 %%%%% (This is the global definitions file)
 

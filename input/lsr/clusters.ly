@@ -19,6 +19,7 @@ played.
 "
   doctitle = "Clusters"
 } % begin verbatim
+
 \layout {
   ragged-right = ##t 
 }

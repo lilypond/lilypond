@@ -47,6 +47,7 @@ staff: standard polyphony, @code{\\partcombine} without texts, and
 "
   doctitle = "Combining two parts on the same staff"
 } % begin verbatim
+
 musicUp = \relative c'' {
   \time 4/4
   a4 c4.( g8) a4 |

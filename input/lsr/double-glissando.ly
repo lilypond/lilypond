@@ -12,6 +12,7 @@ hidden voice.
 "
   doctitle = "Double glissando"
 } % begin verbatim
+
 \relative c {
   \clef bass
   <<

@@ -18,6 +18,7 @@ with melody notes, chord names, and fret diagrams.
   doctitle = "Guitar strum rhythms"
 } % begin verbatim
 
+
 \include "predefined-guitar-fretboards.ly"
 <<
   \new ChordNames {

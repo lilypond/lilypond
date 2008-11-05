@@ -10,6 +10,7 @@ arbitrary grob.
   doctitle = "Drawing boxes around grobs"
 } % begin verbatim
 
+
 \relative c'' {
   \override TextScript #'stencil =
     #(make-stencil-boxer 0.1 0.3 ly:text-interface::print)

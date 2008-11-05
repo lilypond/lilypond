@@ -24,6 +24,7 @@ of the @code{DynamicLineSpanner} object.
 "
   doctitle = "Vertically aligning dynamics across multiple notes"
 } % begin verbatim
+
 \relative c' {
   \override DynamicLineSpanner #'staff-padding = #4
   c2\p f\mf

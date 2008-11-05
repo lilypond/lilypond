@@ -5,12 +5,20 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+Los patrones de barrado se pueden alterar con la propiedad
+@code{beatGrouping}:
+
+"
+  doctitlees = "Agrupar los pulsos"
+
   texidoc = "
 Beaming patterns may be altered with the @code{beatGrouping} property: 
 
 "
   doctitle = "Grouping beats"
 } % begin verbatim
+
 \relative c'' {
   \time 5/16
   \set beatGrouping = #'(2 3)

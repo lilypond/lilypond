@@ -5,6 +5,15 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+Para tipografiar las barras agrupadas en la forma @code{3-4-3-2}
+en 12/8, en primer lugar tenemos que sobreescribir los finales de
+barra predeterminados en 12/8, y después preparar los finales de
+barra nuevos:
+
+"
+  doctitlees = "Alteración de los finales de barra predeterminados"
+
   texidoc = "
 To typeset beams grouped @code{3-4-3-2} in 12/8 it is necessary first
 to override the default beam endings  in 12/8, and then to set up the
@@ -13,6 +22,7 @@ new beaming endings:
 "
   doctitle = "Reverting default beam endings"
 } % begin verbatim
+
 \relative c'' {
   \time 12/8
 

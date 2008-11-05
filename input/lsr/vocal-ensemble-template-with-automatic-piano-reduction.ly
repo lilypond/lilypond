@@ -35,6 +35,7 @@ reduction.
 "
   doctitle = "Vocal ensemble template with automatic piano reduction"
 } % begin verbatim
+
 global = {
   \key c \major
   \time 4/4

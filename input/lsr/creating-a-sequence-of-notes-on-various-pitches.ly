@@ -29,6 +29,7 @@ throughout Mars, from Gustav Holst's The Planets.
 "
   doctitle = "Creating a sequence of notes on various pitches"
 } % begin verbatim
+
 #(define (make-note-req p d)
   (make-music 'NoteEvent
    'duration d

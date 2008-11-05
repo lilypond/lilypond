@@ -20,6 +20,7 @@ right-hand fingering.
 "
   doctitle = "Fingerings, string indications, and right-hand fingerings"
 } % begin verbatim
+
 #(define RH rightHandFinger)
 
 \relative c {

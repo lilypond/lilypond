@@ -31,6 +31,7 @@ tuplets have to be beamed manually.
 "
   doctitle = "Permitting line breaks within beamed tuplets"
 } % begin verbatim
+
 \layout {
   \context {
     \Voice

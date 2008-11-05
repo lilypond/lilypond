@@ -20,6 +20,7 @@ special notations for specific chords.
 "
   doctitle = "Chord name exceptions"
 } % begin verbatim
+
 % modify maj9 and 6(add9)
 % Exception music is chords with markups
 chExceptionMusic = {

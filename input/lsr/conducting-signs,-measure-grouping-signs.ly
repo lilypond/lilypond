@@ -5,6 +5,22 @@
 \header {
   lsrtags = "rhythms"
 
+  texidoces = "
+Las opciones para agrupar los pulsos de un compás están a nuestra
+disposición a través de la función de Scheme
+@code{set-time-signature}, que acepta tres argumentos: el número
+de pulsos, la longitud del pulso, y la agrupación interna de los
+pulsos dentro del compás.  Si se incluye el grabador
+@code{Measure_grouping_engraver}, la función crea también símbolos
+de agrupación @code{MeasureGrouping}.  Dichos símbolos facilitan
+la lectura de la música moderna de cierta complejidad rítmica.  En
+el ejemplo, el compás de 9/8 se subdivide en 2, 2, 2 y 3.  Esto se
+pasa a la función @code{set-time-signature} como tercer argumento:
+@code{'(2 2 2 3)}:
+
+"
+doctitlees = "Símbolos de dirección, símbolos de agrupación de compás"
+
   texidoc = "
 Options to group beats within a bar are available through the Scheme
 function @code{set-time-signature}, which takes three arguments: the
@@ -18,6 +34,7 @@ ease reading rhythmically complex modern music.  In the example, the
 "
   doctitle = "Conducting signs, measure grouping signs"
 } % begin verbatim
+
 \score {
   \relative c'' {
     #(set-time-signature 9 8 '(2 2 2 3))

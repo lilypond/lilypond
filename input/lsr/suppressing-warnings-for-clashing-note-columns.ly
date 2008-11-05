@@ -15,6 +15,7 @@ to @code{#t}.
   doctitle = "Suppressing warnings for clashing note columns"
 } % begin verbatim
 
+
 ignore = \override NoteColumn #'ignore-collision = ##t
 
 \relative c' {

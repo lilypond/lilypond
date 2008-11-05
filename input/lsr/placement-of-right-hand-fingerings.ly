@@ -21,6 +21,7 @@ in the following example.
 "
   doctitle = "Placement of right-hand fingerings"
 } % begin verbatim
+
 #(define RH rightHandFinger)
 
 \relative c {

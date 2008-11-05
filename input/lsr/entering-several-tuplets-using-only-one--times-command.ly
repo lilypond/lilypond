@@ -52,6 +52,7 @@ administration\".
 "
   doctitle = "Entering several tuplets using only one \\times command"
 } % begin verbatim
+
 \relative c' {
   \time 2/4
   \set tupletSpannerDuration = #(ly:make-moment 1 4)
