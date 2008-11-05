@@ -1,6 +1,4 @@
-depth = ../..
-
-SUBDIRS = revised
+depth = ../../..
 
 STEPMAKE_TEMPLATES=documentation
 EXTRA_DIST_FILES=README
