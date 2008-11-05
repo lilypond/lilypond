@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-10-27 12:40+0100\n"
-"PO-Revision-Date: 2008-10-22 22:31+0200\n"
+"PO-Revision-Date: 2008-11-06 00:17+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan-AT-wanadoo-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -1564,7 +1564,7 @@ msgstr "Initialisation de la première voix"
 #. Documentation/user/simultaneous.itely:783 (variable)
 #. Documentation/user/percussion.itely:497 (variable)
 msgid "global"
-msgstr "glogal"
+msgstr "global"
 
 #. Documentation/user/fundamental.itely:1243 (variable)
 msgid "SopOneMusic"
