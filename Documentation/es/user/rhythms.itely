@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @ignore
-    Translation of GIT committish: 770ccfb9bd8536d7fb570a5c25ce874a461486f0
+    Translation of GIT committish: 89aae81e3a3c5fd6fa2635418c1d2c7acce8aa61
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -910,22 +910,25 @@ Las indicaciones de compás de la música mensural se tratan en
 
 @snippets
 
+@c TODO Replace by snippet called "Changing the time signature without affecting the beaming"
+@c      Submitted to LSR 2 Nov 08
+
 La instrucción @code{\time} establece las propiedades
-@code{timeSignatureFraction}, @code{beatLength} y @code{measureLength}
-en el contexto @code{Timing}, que normalmente tiene el alias
-@code{Score}.  La modificación del valor de
+@code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping} y
+@code{measureLength} en el contexto @code{Timing}, que normalmente
+tiene el alias @code{Score}.  La modificación del valor de
 @code{timeSignatureFraction} hace que se imprima la nueva indicación
-de compás sin que cambien las otras propiedades:
+de compás sin que cambie ninguna de las demás propiedades:
 
 @lilypond[quote,verbatim,relative=2]
 \time 3/4
 a16 a a a a a a a a a a a
-% Change time signature but keep 3/4 beaming
-% due to unchanged beatLength
+% Change time signature symbol but keep 3/4 beaming
+% due to unchanged underlying time signature
 \set Score.timeSignatureFraction = #'(12 . 16)
 a16 a a a a a a a a a a a
 \time 12/16
-% Lose 3/4 beaming now beatLength has changed to 16
+% Lose 3/4 beaming now \time has been changed
 a16 a a a a a a a a a a a
 @end lilypond
 
@@ -1093,13 +1096,17 @@ para indicar dónde se pueden producir los saltos.
 @node Polymetric notation
 @unnumberedsubsubsec Polymetric notation
 
+@c This section necessarily uses \set
+@c This is acceptable  -td
+
 @cindex double time signatures
 @cindex signatures, polymetric
 @cindex polymetric signatures
 @cindex meter, polymetric
 
-Está contemplada la notación polimétrica, ya sea explícitamente o a
-través de un uso inteligente de las posibilidades de marcado.
+Está contemplada la notación polimétrica, ya sea explícitamente o
+mediante la modificación de la indicación visible del compás y el
+escalado de la duración de las notas.
 
 @strong{Pentagramas con distintas indicaciones de compás, compases de
 igual longitud}
@@ -1108,19 +1115,21 @@ Se puede crear esta notación estableciendo una indicación de compás
 común para cada pentagrama per sustituyendo el símbolo manualmente
 mediante el establecimiento de @code{timeSignatureFraction} a la
 fracción deseada y escalando las duraciones impresas en cada
-pentagrama a la indicación de compás común.  Esto se hace con
-@code{\scaleDurations}, que se usa de una forma similar a
-@code{\times}, pero no crea un corchete de grupo especial, véase
-@ref{Scaling durations}.
+pentagrama a la indicación de compás común; véase @ref{Time
+signature}.  El escalado se hace con @code{\scaleDurations}, que se
+usa de una forma similar a @code{\times}, pero no crea un corchete de
+grupo especial, véase @ref{Scaling durations}.
 
 En este ejemplo, se usa en paralelo música con compases de 3/4, 9/8 y
 10/8.  En el segundo pentagrama, las duraciones mostradas se
 multiplican por 2/3, pues 2/3 * 9/8 = 3/4, y en el tercer pentagrama,
 las duraciones que se muestran están multiplicadas por 3/5, pues 3/5 *
-10/8 = 3/4.
+10/8 = 3/4.  Con frecuencia se hace necesario insertar las barras de
+forma manual, pues el escalado de las duraciones afecta a las reglas
+de barrado automático.
 
 @lilypond[quote,verbatim,fragment]
-\relative c' { <<
+\relative c' <<
   \new Staff {
     \time 3/4
     c4 c c |
@@ -1130,7 +1139,7 @@ las duraciones que se muestran están multiplicadas por 3/5, pues 3/5 *
     \time 3/4
     \set Staff.timeSignatureFraction = #'(9 . 8)
     \scaleDurations #'(2 . 3)
-      \repeat unfold 6 { c8[ c c] }
+    \repeat unfold 6 { c8[ c c] }
   }
   \new Staff {
     \time 3/4
@@ -1138,18 +1147,18 @@ las duraciones que se muestran están multiplicadas por 3/5, pues 3/5 *
     \scaleDurations #'(3 . 5) {
       \repeat unfold 2 { c8[ c c] }
       \repeat unfold 2 { c8[ c] } |
-      c4. c4. \times 2/3 { c8 c c } c4
+      c4. c4. \times 2/3 { c8[ c c] } c4
     }
   }
->> }
+>>
 @end lilypond
 
-@strong{Pentagramas con distinas indicaciones de compás y longitudes
-de compás distintas}
+@strong{@i{Pentagramas con distinas indicaciones de compás y
+longitudes de compás distintas}}
 
 Se puede dar a cada pentagrama su propia indicación de compás
-independiente trasladando el grabador @code{Timing_translator} al
-contexto de @code{Staff}.
+independiente trasladando los grabadores @code{Timing_translator} y
+@code{Default_bar_line_engraver} al contexto de @code{Staff}.
 
 @lilypond[quote,verbatim]
 \layout {
@@ -1202,7 +1211,8 @@ Glosario musical:
 @rglos{meter}.
 
 Referencia de la notación:
-@ref{Scaling durations}
+@ref{Time signature},
+@ref{Scaling durations}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1210,6 +1220,7 @@ Fragmentos de código:
 Referencia de funcionamiento interno:
 @rinternals{TimeSignature},
 @rinternals{Timing_translator},
+@rinternals{Default_bar_line_engraver},
 @rinternals{Staff}.
 
 @knownissues
@@ -1374,12 +1385,12 @@ pueden escribir los barrados de forma explícita; véase @ref{Manual
 beams}.  También es posible definir patrones de barrado que difieran
 de los ajustes por defecto.  Las reglas de barrado predeterminadas
 están definidas en el archivo @file{scm/@/auto@/-beam@/.scm}.  Si no
-hay definidas reglas de barrado para el tipo de compás en uso, el
-barrado se controla mediante los valores de tres propiedades de
-contexto, @code{measureLength}, @code{beatLength} y
-@code{beatGrouping}.  Tanto las reglas de barrado como las propiedades
-de contexto se pueden sobreescribir, véase @ref{Setting automatic beam
-behavior}.
+hay definidas reglas de barrado para una duración dada de la barra en
+el tipo de compás en uso, el barrado se controla mediante los valores
+de tres propiedades de contexto, @code{measureLength},
+@code{beatLength} y @code{beatGrouping}.  Tanto las reglas de barrado
+como las propiedades de contexto se pueden sobreescribir, véase
+@ref{Setting automatic beam behavior}.
 
 @cindex autoBeamOn
 @cindex autoBeamOff
@@ -1425,7 +1436,7 @@ Referencia de la notación:
 @ref{Setting automatic beam behavior}.
 
 Archivos instalados:
-@file{scm/auto-beam.scm}.
+@file{scm/@/auto@/-beam@/.scm}.
 
 Fragmentos de código:
 @rlsr{Rhythms}.
@@ -1461,20 +1472,22 @@ descritas en @ref{Automatic beams}.  Existen dos formas mutuamente
 excluyentes de modificar estas reglas.  La primera es modificar la
 agrupación de los pulsos y se aplica a compases poco usuales, es
 decir, aquellos para los que no ha reglas predefinidas que definen los
-puntos de final de las barras.  El segundo método, la modificación de
-los puntos finales de las barras, se debe usar para aquellos compases
-para los que existen reglas predefinidas de final de barra.  Hay
-reglas predefinidas para los compases de 3/2, 3/4, 4/4, 2/4, 4/8,
-4/16, 6/8, 9/8 y 12/8.
+puntos de final de las barras.  El segundo método, modificar la
+especificación de los puntos finales de las barras, se puede usar para
+cualquier tipo de compás. Este segundo método @strong{se debe} usar
+para aquellos compases y combinaciones de duración de barras para los
+que existen reglas predefinidas de final de barra, a no ser que se
+hayan revertido. Hay reglas predefinidas para los compases de 3/2,
+3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 y 12/8.
 
 @i{@strong{Modificar las agrupaciones de pulsos}}
 
-Si no hay definida ninguna regla de final de barra para el tipo de
-compás en uso, el barrado se controla mediante tres propiedades de
-contexto: @code{measureLength}, @code{beatLength} y
-@code{beatGrouping}.  Estas propiedades se deben establecer en los
-contextos @code{Score}, @code{Staff} o @code{Voice} para delimitar el
-ámbito de su efecto.
+Si no hay definida ninguna regla de final de barra para la duración de
+una barra en particular dentro del tipo de compás en uso, su barrado
+se controla mediante tres propiedades de contexto:
+@code{measureLength}, @code{beatLength} y @code{beatGrouping}.  Estas
+propiedades se deben establecer en los contextos @code{Score},
+@code{Staff} o @code{Voice} para delimitar el ámbito de su efecto.
 
 Dichas propiedades determinan el barrado de la siguiente forma:
 
@@ -1497,12 +1510,24 @@ puntos finales de las barras.
 
 @end itemize
 
-De forma predeterminada, estas propiedades se derivan del compás
-establecido por la instrucción @code{\time}.  La longitud
-@code{measureLength} es, de forma predeterminada, exactamente la misma
-que la longitud del compás dado por la indicación de compás, y la
-longitud predeterminada del pulso @code{beatLength} viene dada por el
-denominador del compás.
+
+@warning{Estas tres propiedades se hacen efectivas para una barra
+concreta @strong{solamente} si no hay reglas de final de barra
+predefinidas para esa duración de barra en el tipo de compás en uso, o
+si todas esas reglas de final de barra se han revertido.}
+
+De forma predeterminada, las propiedades the @code{measureLength} y
+@code{beatLength} se derivan del compás establecido por la instrucción
+@code{\time}.  La longitud @code{measureLength} está establecida de
+forma que sea exactamente la misma que la longitud del compás dado por
+la indicación de compás, y la longitud del pulso @code{beatLength}
+tiene un valor dado igual a una parte de compás (1/n, siendo n el
+denominador del compás).
+
+El valor predeterminado de @code{beatGrouping} se toma de una tabla
+que está en @file{scm/@/music@/-functions@/.scm}.  Para localizarla,
+véase @rlearning{Other sources of information}.  Define la agrupación
+de pulsos para los compases de 5/8, 6/8, 8/8, 9/8 y 12/8.
 
 Tanto @code{measureLength} como @code{beatLength} son @i{momentos},
 unidades de duración musical.  Las cantidades del tipo @i{moment} se
@@ -1517,59 +1542,60 @@ pulsos en cada grupo.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {grouping-beats.ly}
 
-@c TODO Convert to snippet called "Specifying context with beatGrouping"
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{specifying-context-with-beatgrouping.ly}
 
-Especificando el contexto, el efecto de @code{beatGrouping} puede
-limitarse al contexto especificado, y sobreescribirse los valores
-establecidos en contextos de niveles más altos:
+@c Added to input/new 3 Nov 08
+@c TODO When available, change to:
+@ignore
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{using-beatlength-and-beatgrouping.ly}
+@end ignore
 
-@lilypond[quote,verbatim]
-\score {
-  \new Staff <<
-    \time 7/8
-    \new Voice {
-      \relative c'' {
-        \set Staff.beatGrouping = #'(2 3 2)
-        a8 a a a a a a
-      }
-    }
-    \new Voice {
-      \relative c' {
-        \voiceTwo
-        \set Voice.beatGrouping = #'(1 3 3)
-        f8 f f f f f f
-      }
-    }
-  >>
-}
-@end lilypond
-
-
-@c TODO Send as snippet?
-
+@c start new snippet
 La propiedad @code{measureLength} determina dónde se deben insertar
 líneas divisorias y, con @code{beatLength} y @code{beatGrouping}, cómo
-se deben generar las barras autoomáticas para compases para los que no
-hay ninguna regla definida para los finales de barra.
+se deben generar las barras autoomáticas para las duraciones de barra
+y compases para los que no hay ninguna regla definida para los finales
+de barra. Este ejemplo muestra distintas dormas de controlar el
+barrado mediante el establecimiento de estas propiedades. Las
+explicaciones están en forma de comentarios dentro del código.
 
 @lilypond[quote,verbatim,relative=2]
-\time 3/4 % auto beam on 1/4 note groups
-a16 a a a a a a a a a a a a a a a
-\time 12/16 % no defined auto-beaming for this time sig
-a16 a a a a a a a a a a a a a a a
 \time 3/4
-a16 a a a a a a a a a a a a a a a
-\set Score.timeSignatureFraction = #'(12 . 16) %keep 3/4 beaming
-                                             % due to beatLength
-a16 a a a a a a a a a a a a a a a
-\set Score.beatLength = #(ly:make-moment 1 8) %beam on 1/8 notes
-a16 a a a a a a a a a a a a a a a
+% The default in 3/4 time is to beam in three groups
+% each of a quarter note length
+a16 a a a a a a a a a a a
+
+\time 12/16
+% No auto-beaming is defined for 12/16
+a16 a a a a a a a a a a a
+
+\time 3/4
+a16 a a a a a a a a a a a
+% Change time signature symbol, but retain underlying 3/4 beaming
+\set Score.timeSignatureFraction = #'(12 . 16)
+a16 a a a a a a a a a a a
+
+% The 3/4 time default grouping of (1 1 1) and beatLength of 1/8
+% are not consistent with a measureLength of 3/4, so the beams
+% are grouped at beatLength intervals
+\set Score.beatLength = #(ly:make-moment 1 8)
+a16 a a a a a a a a a a a
+
+% Specify beams in groups of (3 3 2 3) 1/16th notes
+% 3+3+2+3=11, and 11*1/16<>3/4, so beatGrouping does not apply,
+% and beams are grouped at beatLength (1/16) intervals
 \set Score.beatLength = #(ly:make-moment 1 16)
-\set Score.beatGrouping = #'(3 4 2 3) %beam on 3/16, 7/16, 9/16, 12/16
-a16 a a a a a a a a a a a a a a a
+\set Score.beatGrouping = #'(3 3 2 3)
+a16 a a a a a a a a a a a
+
+% Specify beams in groups of (3 4 2 3) 1/16th notes
+% 3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies
+\set Score.beatLength = #(ly:make-moment 1 16)
+\set Score.beatGrouping = #'(3 4 2 3)
+a16 a a a a a a a a a a a
 @end lilypond
-
-
 @c End of snippet
 
 @funindex subdivideBeams
@@ -1595,17 +1621,15 @@ especificadas por las propiedades de @code{autoBeamSettings}.  Estas
 propiedades consisten en una lista de reglas que especifican dónde
 pueden terminar las barras.  Las reglas predeterminadas de
 @code{autoBeamSettings} están definidas en
-@file{scm/@/auto@/-beam@/.scm}.
+@file{scm/@/auto@/-beam@/.scm}. Para localizarlo, consulte
+@rlearning{Other sources of information}.
 
-@strong{Se debe} usar este método para los compases corrientes, y
-también es particularmente apropiado para otros muchos compases si la
-indicación de compás cambia con frecuencia.  A causa de que las reglas
-se pueden escribir de forma que se apliquen a un tipo de compás
-específico, sólo se tienen que determinar una vez con reglas para cada
-tipo de compás.  Intentar conseguir el mismo resultado modificando el
-agrupamiento de los pulsos requeriría la inserción de instrucciones
-@code{\set} a cada cambio de compás, a no ser que los valores
-predeterminados de ese tipo de compás fuesen apropiados.
+@strong{Se debe} usar este método para los tipos de compás para los
+que existen reglas de final de barra definidas de forma
+predeterminada, a no ser que todas ellas se hayan revertido. También
+es particularmente apropiado para otros muchos compases si la
+indicación de compás cambia con frecuencia, o si el barrado debe ser
+distinto para las distintas duraciones de barra. 
 
 Para añadir una regla a la lista, utilice
 
@@ -1707,8 +1731,6 @@ pentagrama:
 << {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
 @end lilypond
 
-@c TODO Add example using Score for multiple staves?
-
 @warning{Si se produce un comportamiento inesperado de las barras,
 compruebe la existencia de una posible interferencia en los ajustes
 predeterminados del barrado automático que están en
@@ -1760,26 +1782,38 @@ a a a a
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {beam-grouping-in-7-8-time.ly}
 
-@ignore
-
-@c TODO Does this example add anything?
-
-In this
-example, automatic beams can only end on a dotted quarter note
-@example
-#(override-auto-beam-setting '(end * * * *) 3 8)
-#(override-auto-beam-setting '(end * * * *) 1 2)
-#(override-auto-beam-setting '(end * * * *) 7 8)
-@end example
-
-In 4/4 time signature, this means that automatic beams could end only on
-3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
-3/8, has passed within the measure).
-
-@end ignore
-
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {reverting-default-beam-endings.ly}
+
+@c TODO Convert to snippet called "Beam endings in Score context"
+@c Submitted to LSR 3 Nov 08
+
+Las reglas de final de barra especificadas en el contexto Score se
+aplican a todos los pentagramas, pero se pueden modificar tanto en los
+niveles de Staff como de Voice:
+
+@lilypond[quote,verbatim,relative=2]
+  \time 5/4
+  % Set default beaming for all staves
+  #(override-auto-beam-setting '(end * * 5 4) 3 8 'Score)
+  #(override-auto-beam-setting '(end * * 5 4) 7 8 'Score)
+  <<
+    \new Staff {
+      c8 c c c c c c c c c
+    }
+    \new Staff {
+      % Modify beaming for just this staff
+      #(override-auto-beam-setting '(end * * 5 4) 6 8 'Staff)
+      #(revert-auto-beam-setting '(end * * 5 4) 7 8 'Staff)
+      c8 c c c c c c c c c
+    }
+    \new Staff {
+      % Inherit beaming from Score context
+      c8 c c c c c c c c c
+    }
+  >>
+@end lilypond
+
 
 @predefined
 
@@ -1856,8 +1890,8 @@ g a]
 
 @snippets
 
-@c TODO Add snippet "Flat flags and beam nibs" when available
-@c Added to LSR 27 Oct 08
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{flat-flags-and-beam-nibs.ly}
 
 @node Feathered beams
 @unnumberedsubsubsec Feathered beams

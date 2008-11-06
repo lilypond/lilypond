@@ -1,0 +1,8 @@
+  texidoces = "
+Mediante la especificación del contexto, el efecto de
+@code{beatGrouping} puede limitarse al contexto especificado, y
+sobreescribirse los valores establecidos en contextos de niveles más
+altos:
+
+"
+  doctitlees = "Especificar el contexto con beatGrouping"
