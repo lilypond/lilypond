@@ -369,8 +369,8 @@ Punktierung.}
 Ein Bindebogen wird mit der 
 Tilde @code{~} (AltGr++) notiert.
 
-@lilypond[quote,verbatim]
-e' ~ e'
+@lilypond[quote,verbatim,relative=2]
+a2 ~ a
 @end lilypond
 
 @noindent
@@ -571,8 +571,8 @@ Note befinden würde.  Damit wird die manuelle Formatierung von mehrstimmiger Mu
 sehr viel einfacher, da die Formatierungsfunktion zur automatischen 
 Auflösung von Zusammenstößen diese Pausen nicht mit einbezieht.
 
-@lilypond[quote,verbatim]
-a'4\rest d'4\rest
+@lilypond[quote,verbatim,relative=2]
+a4\rest d4\rest
 @end lilypond
 
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
@@ -623,7 +623,7 @@ Die @code{s}-Syntax steht nur im Noten- oder Akkordmodus zur Verfügung. In
 anderen Situationen, z. B. innerhalb eines Liedtextes, muss @code{\skip} 
 benutzt werden.  @code{\skip} benötigt eine explizite Dauerangabe.
 
-@lilypond[quote,verbatim,relativ=2]
+@lilypond[quote,verbatim,relative=2]
 <<
   {
     a2 \skip2 a2 a2
@@ -639,7 +639,7 @@ benutzt werden.  @code{\skip} benötigt eine explizite Dauerangabe.
 Die Überspringung mit @code{s} erstellt @code{Staff} und
 @code{Voice}-Kontext, wenn es erforderlich ist, genauso wie Noten und Pausen.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,fragment]
 s1 s s
 @end lilypond
 
@@ -647,7 +647,7 @@ Der Überspringungsbefehl (@code{\skip}) ist einfach ein leerer Platzhalter.
 Durch ihn wird 
 überhaupt nichts gesetzt, auch keine transparenten Objekte.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,fragment]
 % This is valid input, but does nothing
 \skip 1 \skip1 \skip 1
 @end lilypond
@@ -1002,7 +1002,7 @@ Referenz der Interna:
 @funindex \partial
 
 Verkleinerte Takte, wie etwa ein Auftakt, werden mit dem
-Befehl @ocd{\partial} notiert, dessen Syntax lautet:
+Befehl @code{\partial} notiert, dessen Syntax lautet:
 
 @example
 \partial @var{Dauer}
