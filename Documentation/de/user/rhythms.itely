@@ -899,7 +899,7 @@ Taktangaben werden zu Beginn eines Stückes gesetzt und immer dann,
 wenn sich die Taktart ändert.  Wenn eine Änderung am Ende einer
 Zeile geschieht, wird eine warnende Taktangabe am Ende der Zeile
 ausgegeben.  Dieses Verhalten kann verändert werdenm, siehe
-@ref{Visibility and color of objects}.
+@ref{Controlling visibility of objects}.
 
 @lilypond[quote,verbatim,relative=2]
 \time 2/4
@@ -1101,7 +1101,7 @@ Glossar:
 @rglos{cadenza}.
 
 Notationsreferenz:
-@c ref{Controlling visibility of objects}.
+@ref{Visibility and color of objects}.
 
 Schnipsel:
 @rlsr{Rhythms}.
