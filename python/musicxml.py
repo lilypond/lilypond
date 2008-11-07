@@ -528,6 +528,13 @@ class Musicxml_voice:
             return self._lyrics
 
 
+def graces_to_aftergraces (pending_graces):
+    for gr in pending_graces:
+        gr._when = gr._prev_when
+        gr._measure_position = gr._prev_measure_position
+        gr._after_grace = True
+
+
 class Part (Music_xml_node):
     def __init__ (self):
         Music_xml_node.__init__ (self)
@@ -540,7 +547,7 @@ class Part (Music_xml_node):
             n = n._parent
 
         return n.get_named_child ('part-list')
-        
+       
     def interpret (self):
 	"""Set durations and starting points."""
         """The starting point of the very first note is 0!"""
@@ -615,10 +622,7 @@ class Part (Music_xml_node):
 		    if n.get_name() == 'backup':
 			dur = - dur
                         # reset all graces before the backup to after-graces:
-                        for n in pending_graces:
-                            n._when = n._prev_when
-                            n._measure_position = n._prev_measure_position
-                            n._after_grace = True
+                        graces_to_aftergraces (pending_graces)
                         pending_graces = []
 		    if n.get_maybe_exist_typed_child (Grace):
 			dur = Rational (0)
@@ -630,7 +634,7 @@ class Part (Music_xml_node):
 
                         rest._is_whole_measure = True
 
-                if (dur > Rational (0) 
+                if (dur > Rational (0)
                     and n.get_maybe_exist_typed_child (Chord)):
                     now = last_moment
                     measure_position = last_measure_position
@@ -676,10 +680,7 @@ class Part (Music_xml_node):
                         n.instrument_name = part_list.get_instrument (instrument.id)
 
             # reset all graces at the end of the measure to after-graces:
-            for n in pending_graces:
-                n._when = n._prev_when
-                n._measure_position = n._prev_measure_position
-                n._after_grace = True
+            graces_to_aftergraces (pending_graces)
             pending_graces = []
             # Incomplete first measures are not padded, but registered as partial
             if is_first_measure:
