@@ -10,3 +10,14 @@ gráficas de la agrupación de compases; véase el fragmento de código
 apropiado en la base de datos).
 
 "
+
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+texidocde = "
+Ungerade Taktarten werden (wie etwa \"5/8\") werden oft als zusammengesetzte
+Taktarten interpretiert (bspw. \"3/8 + 2/8\"), in welchen zwei oder mehr
+Teiltakte unterschieden werden.  LilyPond kann derartige Noten produzieren,
+indem entsprechende Taktarten gesetzt werden und die automatische
+Bebalkung angepasst wird.
+
+"
+  doctitlede = "Zusammengesetzte Taktarten"
