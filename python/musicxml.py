@@ -613,12 +613,17 @@ class Part (Music_xml_node):
     # modify attributes so that only those applying to the given staff remain
     def extract_attributes_for_staff (part, attr, staff):
         attributes = copy.copy (attr)
-        attributes._children = copy.copy (attr._children)
+        attributes._children = [];
         attributes._dict = attr._dict.copy ()
-        for c in attributes._children:
-            if hasattr (c, 'number') and c.number != staff:
-                attributes._children.remove (c)
-        return attributes
+        # copy only the relevant children over for the given staff
+        for c in attr._children:
+            if (not (hasattr (c, 'number') and (c.number != staff)) and
+                not (isinstance (c, Hash_text))):
+                attributes._children.append (c)
+        if not attributes._children:
+            return None
+        else:
+            return attributes
 
     def extract_voices (part):
 	voices = {}
@@ -680,8 +685,9 @@ class Part (Music_xml_node):
                 # assign these only to the voices they really belongs to!
                 for (s, vids) in staff_to_voice_dict.items ():
                     staff_attributes = part.extract_attributes_for_staff (n, s)
-                    for v in vids:
-                        voices[v].add_element (staff_attributes)
+                    if staff_attributes:
+                        for v in vids:
+                            voices[v].add_element (staff_attributes)
                 continue
 
             if isinstance (n, Partial) or isinstance (n, Barline):
