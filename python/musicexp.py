@@ -582,8 +582,8 @@ class RepeatedMusic:
             self.music = SequentialMusic ()
             self.music.elements = music
         else:
-            warning (_ ("unable to set the music %(music)s for the repeat %(repeat)s" % \
-                            {'music':music, 'repeat':self}))
+            warning (_ ("unable to set the music %(music)s for the repeat %(repeat)s") % \
+                            {'music':music, 'repeat':self})
     def add_ending (self, music):
         self.endings.append (music)
     def print_ly (self, printer):
