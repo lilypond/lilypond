@@ -1623,7 +1623,8 @@ class LilyPondVoiceBuilder:
         diff = moment - current_end
         
         if diff < Rational (0):
-            error_message (_ ('Negative skip %s') % diff)
+            error_message (_ ('Negative skip %s (from position %s to %s)') % 
+                             (diff, current_end, moment))
             diff = Rational (0)
 
         if diff > Rational (0) and not (self.ignore_skips and moment == 0):
