@@ -166,7 +166,7 @@ The notes are printed as tablature, by using @code{TabStaff} and
 
 
 When no string is specified for a note, the note is assigned to
-the lowest string that can generate the note with a fret number
+the highest string that can generate the note with a fret number
 greater than or equal to the value of @code{minimumFret}.
 The default value for @code{minimumFret} is 0.
 
