@@ -165,7 +165,7 @@ default: $(ALL_GEN_FILES) \
 .PHONY: tree-regen
 
 # FIXME: temporary hack: must regenerate after building fonts
-tree-regen:
+tree-regen: $(ALL_GEN_FILES)
 	${MAKE} -C $(top-build-dir) link-mf-tree
 
 ##
