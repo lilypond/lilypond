@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2008-10-27 12:40+0100\n"
-"PO-Revision-Date: 2008-10-27 17:26+0100\n"
+"POT-Creation-Date: 2008-11-07 09:57+0100\n"
+"PO-Revision-Date: 2008-11-07 10:09+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español\n"
 "MIME-Version: 1.0\n"
@@ -663,6 +663,7 @@ msgstr "Indicación de compás"
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "time signature"
 msgstr "indicación de compás"
 
@@ -890,6 +891,7 @@ msgstr "Ligaduras de unión"
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "tie"
 msgstr "ligadura de unión"
 
@@ -1084,6 +1086,7 @@ msgstr "Compás parcial"
 #. @rglos in Documentation/fr/user/tutorial.itely
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "anacrusis"
 msgstr "anacrusa"
 
@@ -1108,6 +1111,7 @@ msgstr "Grupos especiales"
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "note value"
 msgstr "figura"
 
@@ -1117,6 +1121,7 @@ msgstr "figura"
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "triplet"
 msgstr "tresillo"
 
@@ -1141,6 +1146,7 @@ msgstr "Notas de adorno"
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "grace notes"
 msgstr "notas de adorno"
 
@@ -1150,6 +1156,7 @@ msgstr "notas de adorno"
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "acciaccatura"
 msgstr "acciaccatura"
 
@@ -1159,6 +1166,7 @@ msgstr "acciaccatura"
 #. @rglos in Documentation/es/user/tutorial.itely
 #. @rglos in Documentation/es/user/rhythms.itely
 #. @rglos in Documentation/de/user/tutorial.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "appoggiatura"
 msgstr "appoggiatura"
 
@@ -2331,7 +2339,7 @@ msgstr "normal"
 msgid "SopranoMusic"
 msgstr "musicaSoprano"
 
-#. Documentation/user/tweaks.itely:3485 (comment)
+#. Documentation/user/tweaks.itely:3487 (comment)
 msgid "Arrange to obtain color from color-notehead procedure"
 msgstr "Truco para obtener color a partir del procedimiento color-notehead"
 
@@ -3897,7 +3905,7 @@ msgstr "Índice de instrucciones de LilyPond"
 msgid "Musical notation"
 msgstr "Notación musical"
 
-#. Documentation/user/pitches.itely:654 (variable)
+#. Documentation/user/pitches.itely:668 (variable)
 #. Documentation/user/input.itely:997 (variable)
 #. Documentation/user/input.itely:1016 (variable)
 #. Documentation/user/input.itely:1053 (variable)
@@ -3905,15 +3913,15 @@ msgstr "Notación musical"
 msgid "music"
 msgstr "musica"
 
-#. Documentation/user/pitches.itely:1031 (comment)
+#. Documentation/user/pitches.itely:1045 (comment)
 msgid "not strictly necessary, but a good reminder"
 msgstr "no es imprescindible pero es bueno recordarlo"
 
-#. Documentation/user/pitches.itely:1123 (variable)
+#. Documentation/user/pitches.itely:1137 (variable)
 msgid "musicA"
 msgstr "musicaA"
 
-#. Documentation/user/pitches.itely:1137 (variable)
+#. Documentation/user/pitches.itely:1151 (variable)
 msgid "musicB"
 msgstr "musicaB"
 
@@ -4159,244 +4167,196 @@ msgstr "Cabezas de notas con formas diversas"
 msgid "Improvisation"
 msgstr "Improvisación"
 
-#. Documentation/user/rhythms.itely:294 (comment)
+#. Documentation/user/rhythms.itely:285 (comment)
 msgid "Alter durations to triplets"
 msgstr "Alterar la duración de los tresillos"
 
-#. Documentation/user/rhythms.itely:296 (comment)
-#. Documentation/user/rhythms.itely:321 (comment)
+#. Documentation/user/rhythms.itely:287 (comment)
+#. Documentation/user/rhythms.itely:312 (comment)
 msgid "Normal durations"
 msgstr "Duraciones normales"
 
-#. Documentation/user/rhythms.itely:298 (comment)
+#. Documentation/user/rhythms.itely:289 (comment)
 msgid "Double the duration of chord"
 msgstr "Duplicar la duración del acorde"
 
-#. Documentation/user/rhythms.itely:300 (comment)
+#. Documentation/user/rhythms.itely:291 (comment)
 msgid "Duration of quarter, appears like sixteenth"
 msgstr "Duración de negra, aparece como semicorchea"
 
-#. Documentation/user/rhythms.itely:323 (comment)
+#. Documentation/user/rhythms.itely:314 (comment)
 msgid "Scale music by *2/3"
 msgstr "Escalar la música en un factor 2/3"
 
-#. Documentation/user/rhythms.itely:327 (comment)
+#. Documentation/user/rhythms.itely:318 (comment)
 msgid "Scale music by *2"
 msgstr "Escalar la música en un factor de 2"
 
-#. Documentation/user/rhythms.itely:412 (comment)
+#. Documentation/user/rhythms.itely:403 (comment)
 msgid "First alternative: following note is tied normally"
 msgstr "Primera alternativa: la nota siguiente se liga normalmente"
 
-#. Documentation/user/rhythms.itely:414 (comment)
+#. Documentation/user/rhythms.itely:405 (comment)
 msgid "Second alternative: following note has a repeated tie"
 msgstr "Segunda alternativa, la nota siguiente lleva una ligadura repetida"
 
-#. Documentation/user/rhythms.itely:531 (comment)
+#. Documentation/user/rhythms.itely:522 (comment)
 msgid "These two lines are just to prettify this example"
 msgstr "Estas dos líneas son solamente para embellecer el ejemplo"
 
-#. Documentation/user/rhythms.itely:534 (comment)
+#. Documentation/user/rhythms.itely:525 (comment)
 msgid "Print a maxima rest, equal to four breves"
 msgstr "Imprimir un silencio de máxima, equivalente a cuatro breves"
 
-#. Documentation/user/rhythms.itely:536 (comment)
+#. Documentation/user/rhythms.itely:527 (comment)
 msgid "Print a longa rest, equal to two breves"
 msgstr "Imprimir un silencio de longa, igual a dos breves"
 
-#. Documentation/user/rhythms.itely:538 (comment)
+#. Documentation/user/rhythms.itely:529 (comment)
 msgid "Print a breve rest"
 msgstr "Imprimir un silencio de breve"
 
-#. Documentation/user/rhythms.itely:640 (comment)
+#. Documentation/user/rhythms.itely:631 (comment)
 msgid "This is valid input, but does nothing"
 msgstr "Esto es una entrada válida, pero no hace nada"
 
-#. Documentation/user/rhythms.itely:666 (comment)
-#. Documentation/user/rhythms.itely:719 (comment)
+#. Documentation/user/rhythms.itely:657 (comment)
+#. Documentation/user/rhythms.itely:710 (comment)
 msgid "Rest measures contracted to single measure"
 msgstr "Compases en silencio contraídos a un solo compás"
 
-#. Documentation/user/rhythms.itely:715 (comment)
+#. Documentation/user/rhythms.itely:706 (comment)
 msgid "Default behavior"
 msgstr "Comportamiento predeterminado"
 
-#. Documentation/user/rhythms.itely:722 (comment)
+#. Documentation/user/rhythms.itely:713 (comment)
 msgid "Rest measures expanded"
 msgstr "Compases de silencio expandidos"
 
-#. Documentation/user/rhythms.itely:755 (comment)
+#. Documentation/user/rhythms.itely:746 (comment)
 msgid "This fails, as the wrong object name is specified"
 msgstr "Esto no funciona, se ha especificado un nombre de objeto equivocado"
 
-#. Documentation/user/rhythms.itely:758 (comment)
+#. Documentation/user/rhythms.itely:749 (comment)
 msgid "This is correct and works"
 msgstr "Esto es correcto y funciona"
 
-#. Documentation/user/rhythms.itely:880 (comment)
+#. Documentation/user/rhythms.itely:871 (comment)
 msgid "Default style"
 msgstr "Estilo predeterminado"
 
-#. Documentation/user/rhythms.itely:883 (comment)
+#. Documentation/user/rhythms.itely:874 (comment)
 msgid "Change to numeric style"
 msgstr "Cambiar al estilo numérico"
 
-#. Documentation/user/rhythms.itely:887 (comment)
+#. Documentation/user/rhythms.itely:878 (comment)
 msgid "Revert to default style"
 msgstr "Retornar al estilo predeterminado"
 
-#. Documentation/user/rhythms.itely:916 (comment)
-msgid "Change time signature but keep 3/4 beaming"
-msgstr "Cambio de compás manteniendo las barras del 3/4"
-
-#. Documentation/user/rhythms.itely:917 (comment)
-msgid "due to unchanged beatLength"
-msgstr "debido a que beatLength no cambia"
-
-#. Documentation/user/rhythms.itely:921 (comment)
-msgid "Lose 3/4 beaming now beatLength has changed to 16"
-msgstr "Se pierden las barras de 3/4 pues beatLength ha cambiado a 16"
-
-#. Documentation/user/rhythms.itely:1044 (comment)
+#. Documentation/user/rhythms.itely:1017 (comment)
 msgid "Show all bar numbers"
 msgstr "Mostrar todos los números de compás"
 
-#. Documentation/user/rhythms.itely:1154 (comment)
+#. Documentation/user/rhythms.itely:1134 (comment)
 msgid "Now each staff has its own time signature."
 msgstr "Ahora cada pentagrama tiene un compás distinto"
 
-#. Documentation/user/rhythms.itely:1571 (comment)
-msgid "auto beam on 1/4 note groups"
-msgstr "barra automática sobre grupos de 1/4 (negra)"
-
-#. Documentation/user/rhythms.itely:1573 (comment)
-msgid "no defined auto-beaming for this time sig"
-msgstr "ningún barrado automático se define para este compás"
-
-#. Documentation/user/rhythms.itely:1577 (comment)
-msgid "keep 3/4 beaming"
-msgstr "mantener el barrado del 3/4 "
-
-#. Documentation/user/rhythms.itely:1578 (comment)
-msgid "due to beatLength"
-msgstr "debido a beatLength"
-
-#. Documentation/user/rhythms.itely:1580 (comment)
-msgid "beam on 1/8 notes"
-msgstr "barras sobre las corcheas"
-
-#. Documentation/user/rhythms.itely:1583 (comment)
-msgid "beam on 3/16, 7/16, 9/16, 12/16"
-msgstr "barras de semicorchea sobre 3/16, 7/16, 9/16, 12/16"
-
-#. Documentation/user/rhythms.itely:1612 (comment)
-msgid "Set beam sub-group length to an eighth note"
-msgstr "Establecer longitud de barra del subgrupo a corchea"
-
-#. Documentation/user/rhythms.itely:1615 (comment)
-msgid "Set beam sub-group length to a sixteenth note"
-msgstr "Establecer longitud de barra del subgrupo a semicorchea"
-
-#. Documentation/user/rhythms.itely:1730 (comment)
+#. Documentation/user/rhythms.itely:1585 (comment)
 msgid "end 1/16 beams for all time signatures at the 1/16 moment"
 msgstr "finalizar barras de semicorchea para todos los compases en el momento 1/16"
 
-#. Documentation/user/rhythms.itely:1734 (comment)
+#. Documentation/user/rhythms.itely:1589 (comment)
 msgid "end 1/32 beams for all time signatures at the 1/16 moment"
 msgstr "finalizar barras de fusa para todos los compases en el momento 1/16"
 
-#. Documentation/user/rhythms.itely:1744 (comment)
+#. Documentation/user/rhythms.itely:1599 (comment)
 msgid "end beams of all durations in 5/8 time signature at the 2/8 moment"
 msgstr ""
 "finalizar barras para cualquier duración en el compás de 5/8, en el momento "
 "2/8"
 
-#. Documentation/user/rhythms.itely:1759 (comment)
+#. Documentation/user/rhythms.itely:1614 (comment)
 msgid "rhythm 3-1-1-2"
 msgstr "ritmo 3-1-1-2"
 
-#. Documentation/user/rhythms.itely:1760 (comment)
+#. Documentation/user/rhythms.itely:1615 (comment)
 msgid "Context not specified - does not work correctly"
 msgstr "Contexto sin especificar: no funciona correctamente"
 
-#. Documentation/user/rhythms.itely:1766 (comment)
+#. Documentation/user/rhythms.itely:1621 (comment)
 msgid "Works correctly with context specified"
 msgstr "Funciona correctamente con el contexto especificado"
 
-#. Documentation/user/rhythms.itely:1802 (comment)
+#. Documentation/user/rhythms.itely:1654 (comment)
 msgid "undo a rule ending 1/16 beams in 4/4 time at 1/4 moment"
 msgstr ""
 "deshacer regla de finalizar barras de semicorchea en compás 4/4 en el "
 "momento 1/4"
 
-#. Documentation/user/rhythms.itely:1815 (comment)
+#. Documentation/user/rhythms.itely:1667 (comment)
 msgid "this won't revert it!"
 msgstr "¡esto no lo devuelve a su valor anterior!"
 
-#. Documentation/user/rhythms.itely:1817 (comment)
+#. Documentation/user/rhythms.itely:1669 (comment)
 msgid "this will"
 msgstr "esto sí"
 
-#. Documentation/user/rhythms.itely:1832 (comment)
-msgid "rhythm 2-3-2"
-msgstr "ritmo 2-3-2"
+#. Documentation/user/rhythms.itely:1689 (comment)
+msgid "Set default beaming for all staves"
+msgstr "Establecer el barrado predeterminado para todos los pentagramas"
 
-#. Documentation/user/rhythms.itely:1871 (comment)
-msgid "Default beaming"
-msgstr "Barrado predeterminado"
+#. Documentation/user/rhythms.itely:1697 (comment)
+msgid "Modify beaming for just this staff"
+msgstr "Modificar el barrado sólo para este pentagrama"
 
-#. Documentation/user/rhythms.itely:1874 (comment)
-msgid "Revert default values in scm/auto-beam.scm for 12/8 time"
-msgstr "Revertir los valores predeterminados en scm/auto-beam.scm para el 12/8"
+#. Documentation/user/rhythms.itely:1703 (comment)
+msgid "Inherit beaming from Score context"
+msgstr "Heredar el barrado del contexto Score"
 
-#. Documentation/user/rhythms.itely:1880 (comment)
-msgid "Set new values for beam endings"
-msgstr "Establecer nuevos valores para finales de barra"
-
-#. Documentation/user/rhythms.itely:2002 (comment)
+#. Documentation/user/rhythms.itely:1827 (comment)
 msgid "revert to non-feathered beams"
 msgstr "volver a usar barras continuas"
 
-#. Documentation/user/rhythms.itely:2225 (comment)
-#. Documentation/user/rhythms.itely:2241 (comment)
+#. Documentation/user/rhythms.itely:2050 (comment)
+#. Documentation/user/rhythms.itely:2066 (comment)
 msgid "Permit first bar number to be printed"
 msgstr "Habilitar la impresión del número del primer compás"
 
-#. Documentation/user/rhythms.itely:2242 (comment)
-#. Documentation/user/rhythms.itely:2290 (comment)
+#. Documentation/user/rhythms.itely:2067 (comment)
+#. Documentation/user/rhythms.itely:2115 (comment)
 msgid "Print a bar number every second measure"
 msgstr "Imprimir el número de compás cada dos compases"
 
-#. Documentation/user/rhythms.itely:2258 (comment)
+#. Documentation/user/rhythms.itely:2083 (comment)
 msgid "Prevent bar numbers at the end of a line and permit them elsewhere"
 msgstr "No poner números de compás al final de la línea, pero sí en otros lugares"
 
-#. Documentation/user/rhythms.itely:2262 (comment)
-#. Documentation/user/rhythms.itely:2288 (comment)
+#. Documentation/user/rhythms.itely:2087 (comment)
+#. Documentation/user/rhythms.itely:2113 (comment)
 msgid "Increase the size of the bar number by 2"
 msgstr "Aumentar en 2 el tamaño del número de compás"
 
-#. Documentation/user/rhythms.itely:2266 (comment)
+#. Documentation/user/rhythms.itely:2091 (comment)
 msgid "Draw a box round the following bar number(s)"
 msgstr "Pintar una caja rodeando al siguiente(s) número de compás"
 
-#. Documentation/user/rhythms.itely:2271 (comment)
+#. Documentation/user/rhythms.itely:2096 (comment)
 msgid "Draw a circle round the following bar number(s)"
 msgstr "Rodear con un círculo el siguiente(s) número de compás"
 
-#. Documentation/user/rhythms.itely:2293 (comment)
+#. Documentation/user/rhythms.itely:2118 (comment)
 msgid "Center-align bar numbers"
 msgstr "Alinear números de compás al centro"
 
-#. Documentation/user/rhythms.itely:2296 (comment)
+#. Documentation/user/rhythms.itely:2121 (comment)
 msgid "Right-align bar numbers"
 msgstr "Alinear números de compás a la derecha"
 
-#. Documentation/user/rhythms.itely:2399 (variable)
+#. Documentation/user/rhythms.itely:2224 (variable)
 msgid "pipeSymbol"
 msgstr "simboloTubo"
 
-#. Documentation/user/rhythms.itely:2786 (variable)
+#. Documentation/user/rhythms.itely:2612 (variable)
 msgid "MyCadenza"
 msgstr "miCadencia"
 
@@ -4436,26 +4396,31 @@ msgstr "Duraciones"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "breve"
 msgstr "breve"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "longa"
 msgstr "longa"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "Duration names notes and rests"
 msgstr "Nombre de las duraciones de notas y silencios"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "tuplet"
 msgstr "grupo especial"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "polymetric"
 msgstr "polimétrica"
 
@@ -4473,6 +4438,7 @@ msgstr "Escalar las duraciones"
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/fr/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "laissez vibrer"
 msgstr "laissez vibrer"
 
@@ -4511,6 +4477,7 @@ msgstr "Silencios de compás completo"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "multi-measure rest"
 msgstr "silencios multicompás"
 
@@ -4549,6 +4516,7 @@ msgstr "Música sin compasear"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "cadenza"
 msgstr "cadenza"
 
@@ -4565,11 +4533,13 @@ msgstr "Notación polimétrica"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "polymetric time signature"
 msgstr "compás polimétrico"
 
 #. @rglos in Documentation/user/rhythms.itely
 #. @rglos in Documentation/es/user/rhythms.itely
+#. @rglos in Documentation/de/user/rhythms.itely
 msgid "meter"
 msgstr "metro"
 
@@ -5294,6 +5264,8 @@ msgstr "pentagramas"
 #. @unnumberedsubsubsec in Documentation/fr/user/staff.itely
 #. @node in Documentation/es/user/staff.itely
 #. @unnumberedsubsubsec in Documentation/es/user/staff.itely
+#. @node in Documentation/de/user/staff.itely
+#. @unnumberedsubsubsec in Documentation/de/user/staff.itely
 msgid "Grouping staves"
 msgstr "Agrupar pentagramas"
 
@@ -6384,6 +6356,8 @@ msgstr "armónicos"
 
 #. @node in Documentation/user/unfretted-strings.itely
 #. @node in Documentation/es/user/unfretted-strings.itely
+#. @node in Documentation/de/user/unfretted-strings.itely
+#. @unnumberedsubsubsec in Documentation/de/user/unfretted-strings.itely
 msgid "Snap (Bartok) pizzicato"
 msgstr "Pizzicato de Bartok (Snap)"
 
@@ -6391,8 +6365,6 @@ msgstr "Pizzicato de Bartok (Snap)"
 #. @node in Documentation/fr/user/unfretted-strings.itely
 #. @unnumberedsubsubsec in Documentation/fr/user/unfretted-strings.itely
 #. @unnumberedsubsubsec in Documentation/es/user/unfretted-strings.itely
-#. @node in Documentation/de/user/unfretted-strings.itely
-#. @unnumberedsubsubsec in Documentation/de/user/unfretted-strings.itely
 msgid "Snap (Bartók) pizzicato"
 msgstr "Pizzicato de Bartók (Snap)"
 
