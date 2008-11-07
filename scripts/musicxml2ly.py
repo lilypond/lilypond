@@ -1763,8 +1763,10 @@ def musicxml_voice_to_lily_voice (voice):
             if a:
                 voice_builder.add_partial (a)
             continue
+
         is_chord = n.get_maybe_exist_named_child ('chord')
-        if not is_chord:
+        is_after_grace = (isinstance (n, musicxml.Note) and n.is_after_grace ());
+        if not is_chord and not is_after_grace:
             try:
                 voice_builder.jumpto (n._when)
             except NegativeSkip, neg:
@@ -1857,15 +1859,31 @@ def musicxml_voice_to_lily_voice (voice):
             ev_chord = musicexp.ChordEvent()
             voice_builder.add_music (ev_chord, n._duration)
 
+        # For grace notes:
         grace = n.get_maybe_exist_typed_child (musicxml.Grace)
-        if grace:
+        if n.is_grace ():
+            is_after_grace = ev_chord.has_elements () or n.is_after_grace ();
+            is_chord = n.get_maybe_exist_typed_child (musicxml.Chord)
+
             grace_chord = None
-            if n.get_maybe_exist_typed_child (musicxml.Chord) and ev_chord.grace_elements:
-                grace_chord = ev_chord.grace_elements.get_last_event_chord ()
-            if not grace_chord:
-                grace_chord = musicexp.ChordEvent ()
-                ev_chord.append_grace (grace_chord)
-            if hasattr (grace, 'slash'):
+
+            # after-graces and other graces use different lists; Depending on
+            # whether we have a chord or not, obtain either a new ChordEvent or 
+            # the previous one to create a chord
+            if is_after_grace:
+                if ev_chord.after_grace_elements and n.get_maybe_exist_typed_child (musicxml.Chord):
+                    grace_chord = ev_chord.after_grace_elements.get_last_event_chord ()
+                if not grace_chord:
+                    grace_chord = musicexp.ChordEvent ()
+                    ev_chord.append_after_grace (grace_chord)
+            elif n.is_grace ():
+                if ev_chord.grace_elements and n.get_maybe_exist_typed_child (musicxml.Chord):
+                    grace_chord = ev_chord.grace_elements.get_last_event_chord ()
+                if not grace_chord:
+                    grace_chord = musicexp.ChordEvent ()
+                    ev_chord.append_grace (grace_chord)
+
+            if hasattr (grace, 'slash') and not is_after_grace:
                 # TODO: use grace_type = "appoggiatura" for slurred grace notes
                 if grace.slash == "yes":
                     ev_chord.grace_type = "acciaccatura"
@@ -1926,7 +1944,7 @@ def musicxml_voice_to_lily_voice (voice):
                 frac = (1,1)
                 if mod:
                     frac = mod.get_fraction ()
-                
+
                 tuplet_events.append ((ev_chord, tuplet_event, frac))
 
             # First, close all open slurs, only then start any new slur
@@ -2020,7 +2038,7 @@ def musicxml_voice_to_lily_voice (voice):
             for a in ornaments:
                 for ch in a.get_all_children ():
                     ev = musicxml_articulation_to_lily_event (ch)
-                    if ev: 
+                    if ev:
                         ev_chord.append (ev)
 
             dynamics = notations.get_named_children ('dynamics')

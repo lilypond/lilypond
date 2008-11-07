@@ -706,6 +706,7 @@ class Layout:
 class ChordEvent (NestedMusic):
     def __init__ (self):
         NestedMusic.__init__ (self)
+        self.after_grace_elements = None
         self.grace_elements = None
         self.grace_type = None
     def append_grace (self, element):
@@ -713,6 +714,16 @@ class ChordEvent (NestedMusic):
             if not self.grace_elements:
                 self.grace_elements = SequentialMusic ()
             self.grace_elements.append (element)
+    def append_after_grace (self, element):
+        if element:
+            if not self.after_grace_elements:
+                self.after_grace_elements = SequentialMusic ()
+            self.after_grace_elements.append (element)
+
+    def has_elements (self):
+        return [e for e in self.elements if
+               isinstance (e, NoteEvent) or isinstance (e, RestEvent)] != []
+
 
     def get_length (self):
         l = Rational (0)
@@ -739,6 +750,9 @@ class ChordEvent (NestedMusic):
         other_events = [e for e in self.elements if
                 not isinstance (e, RhythmicEvent)]
 
+        if self.after_grace_elements:
+            printer ('\\afterGrace {')
+
         if self.grace_elements and self.elements:
             if self.grace_type:
                 printer ('\\%s' % self.grace_type)
@@ -746,6 +760,15 @@ class ChordEvent (NestedMusic):
                 printer ('\\grace')
             # don't print newlines after the { and } braces
             self.grace_elements.print_ly (printer, False)
+        elif self.grace_elements: # no self.elements!
+            warning (_ ("Grace note with no following music: %s") % self.grace_elements)
+            if self.grace_type:
+                printer ('\\%s' % self.grace_type)
+            else:
+                printer ('\\grace')
+            self.grace_elements.print_ly (printer, False)
+            printer ('{}')
+
         # Print all overrides and other settings needed by the 
         # articulations/ornaments before the note
         for e in other_events:
@@ -776,6 +799,10 @@ class ChordEvent (NestedMusic):
 
         for e in other_events:
             e.print_after_note (printer)
+
+        if self.after_grace_elements:
+            printer ('}')
+            self.after_grace_elements.print_ly (printer, False)
 
         self.print_comment (printer)
             
