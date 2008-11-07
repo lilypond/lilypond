@@ -236,7 +236,6 @@ Fractional values are allowed.")
      (force-hshift ,number? "This specifies a manual shift for notes
 in collisions.  The unit is the note head width of the first voice
 note.  This is used by @rinternals{note-collision-interface}.")
-     (forced ,boolean? "Manually forced accidental.")
      (fraction ,number-pair? "Numerator and denominator of a time
 signature object.")
      (french-beaming ,boolean? "Use French beaming style for this
@@ -729,6 +728,7 @@ the grob where this is set in.")
 in addition to notes and stems.")
 
      (figures ,ly:grob-array? "Figured bass objects for continuation line.")
+     (forced ,boolean? "Manually forced accidental.")
 
      (glyph-name ,string? "The glyph name within the font.")
      (grace-spacing ,ly:grob? "A run of grace notes.")
