@@ -892,27 +892,8 @@ Mensural time signatures are covered in
 
 @snippets
 
-@c TODO Replace by snippet called "Changing the time signature without affecting the beaming"
-@c      Submitted to LSR 2 Nov 08
-
-The @code{\time} command sets the properties
-@code{timeSignatureFraction}, @code{beatLength}, @code{beatGrouping}
-and @code{measureLength} in the @code{Timing} context, which is
-normally aliased to @code{Score}.  Changing the value of
-@code{timeSignatureFraction} causes the new time signature symbol
-to be printed without changing any of the other properties:
-
-@lilypond[quote,verbatim,relative=2]
-\time 3/4
-a16 a a a a a a a a a a a
-% Change time signature symbol but keep 3/4 beaming
-% due to unchanged underlying time signature
-\set Score.timeSignatureFraction = #'(12 . 16)
-a16 a a a a a a a a a a a
-\time 12/16
-% Lose 3/4 beaming now \time has been changed
-a16 a a a a a a a a a a a
-@end lilypond
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-the-time-signature-without-affecting-the-beaming.ly}
 
 @cindex compound time signatures
 @cindex time signature, compound
@@ -1512,59 +1493,8 @@ beats in each group.
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {specifying-context-with-beatgrouping.ly}
 
-
-@c Added to input/new 3 Nov 08
-@c TODO When available, change to:
-@ignore
 @lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
 {using-beatlength-and-beatgrouping.ly}
-@end ignore
-
-@c start new snippet
-The property @code{measureLength} determines where bar lines
-should be inserted and, with @code{beatLength} and
-@code{beatGrouping}, how automatic beams should be generated
-for beam durations and time signatures for which no beam-ending
-rules are defined.  This example shows several ways of controlling
-beaming by setting these properties.  The explanations are shown
-as comments in the code.
-
-@lilypond[quote,verbatim,relative=2]
-\time 3/4
-% The default in 3/4 time is to beam in three groups
-% each of a quarter note length
-a16 a a a a a a a a a a a
-
-\time 12/16
-% No auto-beaming is defined for 12/16
-a16 a a a a a a a a a a a
-
-\time 3/4
-a16 a a a a a a a a a a a
-% Change time signature symbol, but retain underlying 3/4 beaming
-\set Score.timeSignatureFraction = #'(12 . 16)
-a16 a a a a a a a a a a a
-
-% The 3/4 time default grouping of (1 1 1) and beatLength of 1/8
-% are not consistent with a measureLength of 3/4, so the beams
-% are grouped at beatLength intervals
-\set Score.beatLength = #(ly:make-moment 1 8)
-a16 a a a a a a a a a a a
-
-% Specify beams in groups of (3 3 2 3) 1/16th notes
-% 3+3+2+3=11, and 11*1/16<>3/4, so beatGrouping does not apply,
-% and beams are grouped at beatLength (1/16) intervals
-\set Score.beatLength = #(ly:make-moment 1 16)
-\set Score.beatGrouping = #'(3 3 2 3)
-a16 a a a a a a a a a a a
-
-% Specify beams in groups of (3 4 2 3) 1/16th notes
-% 3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies
-\set Score.beatLength = #(ly:make-moment 1 16)
-\set Score.beatGrouping = #'(3 4 2 3)
-a16 a a a a a a a a a a a
-@end lilypond
-@c End of snippet
 
 @funindex subdivideBeams
 
