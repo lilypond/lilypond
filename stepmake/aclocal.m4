@@ -1032,7 +1032,9 @@ AC_DEFUN(STEPMAKE_PYTHON_DEVEL, [
     AC_CHECK_PROGS(PYTHON_CONFIG, python-config, no)
 
     if test -z "$PYTHON_CFLAGS" -a "$PYTHON_CONFIG" != "no"; then
-	PYTHON_CFLAGS=`$PYTHON_CONFIG --cflags`
+        # Clean out junk: http://bugs.python.org/issue3290
+	# Python headers may need some -f* flags, leave them in.
+	PYTHON_CFLAGS=`$PYTHON_CONFIG --cflags | sed -e 's/ -\(W\|D\|O\)\(\w\|-\)\+//g'`
 	PYTHON_LDFLAGS=`$PYTHON_CONFIG --ldflags`
     fi
     
