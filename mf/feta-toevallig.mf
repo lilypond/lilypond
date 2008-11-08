@@ -266,6 +266,14 @@ fet_endchar;
 draw_shifted_too;
 
 
+fet_beginchar ("Arrowed Sharp (arrow down)", "sharp.arrowboth");
+	draw_sharp (true, true);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
 fet_beginchar ("1/2 Sharp", "sharp.slashslash.stem");
 	save stem, stemwidth;
 	save outer_space, interbeam;
@@ -605,6 +613,14 @@ fet_endchar;
 draw_shifted_too;
 
 
+fet_beginchar ("Natural", "natural.arrowboth");
+	draw_natural (true, true);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
 %
 % Dedicated to my mom.    (3/10/97)
 %
@@ -812,6 +828,19 @@ draw_shifted_too;
 
 fet_beginchar ("Arrowed Flat (down-arrow)", "flat.arrowdown");
 	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, false, true);
+	penlabels (range 0 thru 23);
+
+	remember_pic := currentpicture;
+
+	draw_staff (-2, 2, 0.0);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
+fet_beginchar ("Arrowed Flat (down-arrow)", "flat.arrowboth");
+	draw_arrowed_meta_flat(0, 0.8 staff_space#, 0.31 staff_space, true, true);
 	penlabels (range 0 thru 23);
 
 	remember_pic := currentpicture;
