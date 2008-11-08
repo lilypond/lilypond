@@ -44,6 +44,11 @@ AC_ARG_ENABLE(relocation,
     [  --enable-relocation     compile with dynamic relocation.  Default: off],
     [reloc_b=$enableval])
 
+rpath_b=no
+AC_ARG_ENABLE(rpath,
+    [  --enable-rpath          hardcode runtime library path.  Default: off],
+    [rpath_b=$enableval])
+
 LINK_GXX_STATICALLY=no
 AC_ARG_ENABLE(static-gxx,
     [  --enable-static-gxx     link libstdc++.a statically. Default: off],
@@ -60,7 +65,7 @@ if test "$NCSB_DIR" != "" ;  then
   NCSB_SOURCE_FILES=""
   for f in c059013l c059016l c059033l c059036l; do
     if test ! -f "$NCSB_DIR/$f.pfb"; then
-      AC_MSG_WARN($NCSB_DIR does not contain $f.pfb.)
+      STEPMAKE_WARN($NCSB_DIR does not contain $f.pfb.)
     else
       NCSB_SOURCE_FILES="$NCSB_DIR/$f.pfb $NCSB_SOURCE_FILES"
     fi
@@ -151,10 +156,19 @@ if test "$gui_b" = "yes"; then
     STEPMAKE_GTK2(gtk+-2.0, REQUIRED, 2.4.0)
 fi
 
+AC_MSG_CHECKING(whether to enable dynamic relocation)
 if test "$reloc_b" = "yes"; then
     AC_DEFINE(ARGV0_RELOCATION)
 fi
+AC_MSG_RESULT($reloc_b)
 
+AC_MSG_CHECKING(for rpath linkage)
+if test "$rpath_b" = "yes"; then
+    LDFLAGS="$LDFLAGS -Wl,-rpath -Wl,\\\$\$ORIGIN"
+elif test "$rpath_b" != "no"; then
+    LDFLAGS="$LDFLAGS -Wl,-rpath -Wl,$rpath_b"
+fi
+AC_MSG_RESULT($rpath_b)
 
 HOST_ARCH=`$CC -dumpmachine`
 AC_SUBST(HOST_ARCH)
@@ -179,9 +193,12 @@ STEPMAKE_PROGS(TEXI2HTML, texi2html, OPTIONAL, 1.79)
 
 AC_DEFINE_UNQUOTED(FLOWER_VERSION, "${FULL_FLOWER_VERSION}")
 
-
 # must also have local.make if configure fails.
 touch local.make
+
+if test "$reloc_b$rpath_b" = "yesno"; then
+    STEPMAKE_WARN([Using --enable-relocation without --enable-rpath.  LilyPond may have trouble finding libraries.])
+fi
 
 # Gather requirements and generate output.
 STEPMAKE_END
