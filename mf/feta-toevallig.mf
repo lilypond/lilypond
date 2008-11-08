@@ -171,17 +171,33 @@ def draw_meta_sharp (expr width, offset) =
 enddef;
 
 
-fet_beginchar ("Sharp", "sharp");
+def draw_sharp(expr arrowup, arrowdown) =
 	save stem, stemx, stemwidth;
 	save outer_space, interbeam;
+	save stemlength, extendleft, extendright, height, depth;
 
 	stemwidth# := stafflinethickness# + .05 staff_space#;
 	define_whole_blacker_pixels (stemwidth);
 
 	interbeam := 1.05 staff_space_rounded;
 
-	set_char_box (0, 1.1 staff_space#,
-		      1.5 staff_space#, 1.5 staff_space#);
+	stemlength# := 1.5 staff_space#;
+	define_pixels (stemlength);
+
+	height# = stemlength#;
+	depth#  = stemlength#;
+	extendright# = 0;
+	extendleft# = 0;
+	if arrowup:
+		height# := height# + 1.2 staff_space#;
+		extendright# := extendright# + 1.5 stafflinethickness#;
+	fi;
+	if arrowdown:
+		depth# := depth# + 1.2 staff_space#;
+		extendleft# := extendleft# + 1.5 stafflinethickness#;
+	fi;
+	define_pixels(extendleft, extendright);
+	set_char_box (extendleft#, 1.1 staff_space#, depth#, height#);
 
 	stem := 7 / 16 * w;
 	stemx := hround stem;
@@ -193,23 +209,57 @@ fet_beginchar ("Sharp", "sharp");
 	draw_meta_sharp (w, -.5 interbeam);
 	draw_meta_sharp (w, -.5 interbeam + vround interbeam);
 
+	% expand the charbox so that it encloses the whole arrow; this mustn't
+        % happen earlier because some commands above still rely on the old width
+	w := w + extendright;
+
 	pickup pencircle scaled stemwidth;
 
 	lft x5 = lft x6 = outer_space;
 	lft x7 = lft x8 = outer_space + stemx;
-	bot y5 = -d;
+	bot y5 = -stemlength;
 	top y6 = vround (1.5 staff_space - stem * beamslope);
 	bot y7 = -top y6 + feta_space_shift;
-	top y8 = h;
+	top y8 = stemlength;
 
-	labels (5, 6, 7, 8);	
+	labels (5, 6, 7, 8);
 
 	draw_gridline (z5, z6, stemwidth);
 	draw_gridline (z7, z8, stemwidth);
 
+	if arrowup:
+		draw_arrow (z8, stemwidth, up,
+			    +(stafflinethickness/2 + stemwidth/2), false);
+	fi;
+	if arrowdown:
+		draw_arrow (z5, stemwidth, up,
+			    +(stafflinethickness/2 + stemwidth/2), true);
+	fi;
+
 	remember_pic := currentpicture;
 
 	draw_staff (-2, 2, 0);
+enddef;
+
+
+fet_beginchar ("Sharp", "sharp");
+	draw_sharp (false, false);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
+fet_beginchar ("Arrowed Sharp (arrow up)", "sharp.arrowup");
+	draw_sharp (true, false);
+fet_endchar;
+
+
+draw_shifted_too;
+
+
+fet_beginchar ("Arrowed Sharp (arrow down)", "sharp.arrowdown");
+	draw_sharp (false, true);
 fet_endchar;
 
 
