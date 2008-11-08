@@ -27,7 +27,7 @@
 * References for unfretted strings::  
 * Bowing indications::          
 * Harmonics::                   
-* Snap (Bartók) pizzicato::     
+* Snap (Bartok) pizzicato::     
 @end menu
 
 @node References for unfretted strings
@@ -54,7 +54,7 @@ Befehl @code{\harmonic} markiert wird.
 <e a\harmonic>2  <c g'\harmonic>
 @end lilypond
 
-@node Snap (Bartók) pizzicato
-@unnumberedsubsubsec Snap (Bartók) pizzicato
+@node Snap (Bartok) pizzicato
+@unnumberedsubsubsec Snap (Bartok) pizzicato
 
 @untranslated

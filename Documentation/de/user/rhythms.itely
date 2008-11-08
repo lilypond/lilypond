@@ -1,6 +1,6 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: d0614c27e88dc7bd3993f3744a388749ba93b267
+    Translation of GIT committish: 18b8ce48199720c79c5a34ea16814d9015d20e78
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -13,7 +13,8 @@
 
 @lilypondfile[quote]{rhythms-headword.ly}
 
-This section discusses rhythms, durations, and bars.
+Dieser Abschnitt erklärt die Eingabe von Rhythmen, Pausen,
+Dauern, Bebalkung und Takten.
 
 @menu
 * Writing rhythms::             
@@ -44,7 +45,7 @@ This section discusses rhythms, durations, and bars.
 @funindex \breve
 @funindex \maxima
 
-Im Noten-, Akkord- und Liedtextmodus werden Notenlängen (Dauern) durch 
+Notenlängen (Dauern) werden durch 
 Zahlen und Punkte notiert: Dauern werden als reziproke Werte geschrieben. 
 Zum Beispiel wird eine Viertelnote mit @code{4} notiert (weil sie eine 
 1/4-Note ist), eine halbe Note mit @code{2} (weil sie eine 1/2-Note ist). 
@@ -52,78 +53,112 @@ Noten, die länger als eine Ganze sind, müssen mit @code{\longa}
 (für die Longa, also vier Ganze) und 
 @code{\breve} (für die Brevis, auch Doppelganze genannt) notiert werden.
 
-@example
-c'\breve
-c'1 c'2 c'4 c'8 c'16 c'32 c'64 c'64
-r\longa r\breve
-r1 r2 r4 r8 r16 r32 r64 r64
-@end example
-
-@lilypond[quote]
-\score {
-\relative c'' {
-    a\breve*1/2 \autoBeamOff
-    a1 a2 a4 a8 a16 a32 a64 a64
-   \bar "empty"
-   \break
-    r\longa*1/4 r\breve *1/2
-    r1 r2 r4 r8 r16 r32 r64 r64
-  }
-  \layout {
-    ragged-right = ##t
-    indent=0\mm
-    \context {
-      \Score
-        \remove "Bar_number_engraver"
-    }
-    \context {
-      \Staff
-        \remove "Clef_engraver"
-        \override StaffSymbol #'transparent = ##t
-        \override TimeSignature #'transparent = ##t
-        \override BarLine #'transparent = ##t
-        \consists "Pitch_squash_engraver"
-    }
-  }
-}
+@c Two 64th notes are needed to obtain beams
+@lilypond[quote,ragged-right,verbatim,fragment,relative=2]
+\time 8/1
+c\longa c\breve c1 c2
+c4 c8 c16 c32 c64 c64
 @end lilypond
+
+@noindent
+Hier die selben Notendauern ohne die Balken.
+
+@c not strictly "writing rhythms"; more of a "displaying" thing,
+@c but it's ok here.  -gp
+@lilypond[quote,verbatim,relative=2]
+\time 8/1
+\autoBeamOff
+c\longa c\breve c1 c2
+c4 c8 c16 c32 c64 c64
+@end lilypond
+
+Eine Note mit der vierfacheen Dauer einer Brevis kann mit dem
+Befehl @code{\maxima} eingegeben werden, aber ihre Darstellung
+ist nur für die Alte Musiknotation unterstützt.  Zu Einzelheiten
+siehe @ref{Ancient notation}.
 
 Wenn die Dauer hinter einer Notenbezeichnung nicht angegeben ist, 
-wird die Dauer der vorhergehenden Note eingesetzt. Der Standardwert 
+wird die Dauer der vorhergehenden Note eingesetzt.  Der Standardwert 
 für die erste Note ist eine Viertel.
 
-@lilypond[quote,ragged-right,verbatim,fragment]
-{ a a a2 a a4 a a1 a }
+@lilypond[quote,verbatim,relative=2]
+a a a2 a a4 a a1 a
 @end lilypond
-
 
 @funindex .
 @cindex Punktierung
+@cindex Noten, punktiert
 
 Um punktierte Notendauern zu erhalten, muss einfach nur ein Punkt 
-(@code{.}) hinter die Zahl der Dauer gesetzt werden. Zwei Punkte 
-ergeben eine doppelte Punktierung.
+(@code{.}) hinter die Zahl der Dauer gesetzt werden.  Zwei Punkte 
+ergeben eine doppelte Punktierung, usw.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-a'4 b' c''4. b'8 a'4. b'4.. c''8.
+@lilypond[quote,verbatim,relative=2]
+a4 b c4. b8 a4. b4.. c8.
 @end lilypond
+
+Manche Notenlängen können nicht mit binären Dauern und Punkten
+dargestellt werden, sie können nur erreicht werden, indem man
+Noten überbindet.  Für Einzelheiten siehe @ref{Ties}.
+
+Wie den Silben von Gesangtext eigene Dauern zu gewiesen werden 
+können und wie man sie an den Noten ausrichtet ist erklärt in
+@ref{Vocal music}.
+
+Optional können Noten streng proportional nach ihrer exakten
+Dauer gesetzt werden.  Zu Einzelheiten hierzu und weiteren
+Einstellungen für proportionale Notation siehe
+@ref{Proportional notation}.
+
+@funindex \dotsUp
+@funindex \dotsDown
+@funindex \dotsNeutral
+
+Punkte werden normalerweise nach oben verschoben, damit sie die Notenlinien 
+nicht berühren.  Fertige Befehle können eingesetzt werden, um
+eine bestimmte Richtung manuell zu erzwingen, zu Einzelheiten
+siehe @ref{Direction and placement}.
 
 @predefined
 
-Punkte werden normalerweise nach oben verschoben, damit sie die Notenlinien 
-nicht berühren. Das gilt aber nicht für mehrstimmige Passagen. Mit den 
-folgenden Befehlen kann ein anderes Verhalten der Punktierung erreicht werden.
-
-@funindex \dotsUp
-@code{\dotsUp} (Der Punkt wird nach oben verschoben.),
-@funindex \dotsDown
-@code{\dotsDown} (Der Punkt wird nach unten verschoben.),
-@funindex \dotsNeutral (Wiederherstellung des Standards.)
+@code{\autoBeamOff},
+@code{\dotsUp},
+@code{\dotsDown},
 @code{\dotsNeutral}.
 
 @seealso
 
-Programmreferenz: @rinternals{Dots}, and @rinternals{DotColumn}.
+Glossar:
+@rglos{breve},
+@rglos{longa},
+@rglos{note value},
+@rglos{Duration names notes and rests}.
+
+Notationsreferenz:
+@ref{Automatic beams},
+@ref{Ties},
+@ref{Writing rhythms},
+@ref{Writing rests},
+@ref{Vocal music},
+@ref{Ancient notation},
+@ref{Proportional notation}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{Dots},
+@rinternals{DotColumn}.
+
+
+@knownissues
+
+@c Deliberately duplicated in Durations and Rests.  -gp
+Es gibt keine grundlegende Grenze für die Dauer von Pausen
+(sowohl kürzer als auch länger), aber die Anzahl an Symbolen
+ist begrenzt: Einzelne Pausen können von 128stel bis zur
+Maxima (8 Ganze) gesetzt werden.
+
 
 
 @node Tuplets
@@ -143,168 +178,176 @@ Ausdruck erstellt, indem dessen Tondauern mit einem Bruch multipliziert werden.
 
 @noindent
 Die Dauer eines @var{musikalischen Ausdrucks} wird mit dem Bruch multipliziert. 
-Der Nenner des Bruchs wird über den Noten ausgegeben, optional mit einer 
-eckigen Klammer, die die Noten einfasst. Die üblichste Aufteilung ist die 
+Der Nenner des Bruchs wird über (oder unter) den Noten ausgegeben,
+optional mit einer eckigen Klammer, die die Noten einfasst.
+Die üblichste Aufteilung ist die 
 Triole, in welcher drei Noten die Länge von zwei haben, der Wert jeder 
 einzelnen Note ist also 2/3 der notierten Länge.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-g'4 \times 2/3 {c'4 c' c'} d'4 d'4
+@lilypond[quote,verbatim,relative=2]
+a2 \times 2/3 { b4 b b }
+c4 c \times 2/3 { b4 a g }
 @end lilypond
 
-Diese Brüche können auch ineinander geschachtelt werden, etwa so:
+@funindex \tupletUp
+@funindex \tupletDown
+@funindex \tupletNeutral
 
-@lilypond[fragment,ragged-right,verbatim,relative=2]
-\override TupletNumber #'text = #tuplet-number::calc-fraction-text
-\times 4/6 {
-  a4 a
-  \times 3/5 { a a a a a }
-}
+Die automatische Platzierung der Triolenklammer über oder unter
+den Noten kann manuell geändert werden mit definierten Befehlen,
+siehe @ref{Direction and placement}.
+
+
+N-tolen können ineinander geschachtelt werden:
+
+@lilypond[quote,verbatim,relative=2]
+\autoBeamOff
+c4 \times 4/5 { f8 e f \times 2/3 { e[ f g] } } f4 |
 @end lilypond
+
+Wenn man die Eigenschaften von N-tolen verändern will, die zum
+selben musikalischen Zeitpunkt beginnen, muss @code{\tweak}
+eingesetzt werden.
+
+Um die Dauern von Noten zu ändern, ohne die N-tolen-Klammern
+zu setzen, siehe @ref{Scaling durations}.
 
 @predefined
 
-@funindex \tupletUp
 @code{\tupletUp},
-@funindex \tupletDown
 @code{\tupletDown},
-@funindex \tupletNeutral
 @code{\tupletNeutral}.
 
 
-@commonprop
+@snippets
+
+@cindex N-tole, Formatierung
+@cindex Triole, Formatierung
+@cindex Formatierung von Triolen
 
 @funindex tupletNumberFormatFunction
-@cindex Formatierung von Brüchen
-@cindex Formatierung von Triolen
-@cindex N-tolen, Formatierung
+@funindex tupletSpannerDuration
 
-Der Wert von @code{tupletSpannerDuration} definiert, wie lange jede 
-Klammer dauert. Mit entsprechender Einstellung kann man beliebig 
-viele Triolen schreiben, aber nur einmal den Befehl @code{\times}
-benutzen. Im nächsten Beispiel etwa werden zwei Triolen gedruckt, 
-@code{\times} aber nur einmal benutzt. Das gilt natürlich auch für alle 
-anderen Brüche.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{entering-several-tuplets-using-only-one--times-command.ly}
 
-@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
-\set tupletSpannerDuration = #(ly:make-moment 1 4)
-\times 2/3 { c8 c c c c c }
-@end lilypond
+@funindex TupletNumber
 
-@noindent
-Mehr Information zu @code{make-moment} findet sich im Abschnitt 
-@ref{Time administration}.
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-the-tuplet-number.ly}
 
-Die Formatierung der Nummer wird durch die Eigenschaft @code{text} 
-in @code{TupletNumber} bestimmt. Die Standardeinstellung gibt nur 
-den Nenner aus, aber wenn @code{TupletNumber} auf den Wert 
-@code{tuplet-number::calc-fraction-text}
-gestellt wird, wird @var{Zähler}:@var{Nenner} ausgegeben.
-
-Um gar keine Nummern anzeigen zu lassen, kann folgender Code benutzt
- werden:
-
-@lilypond[quote,fragment,relative=2,ragged-right,verbatim]
-\times 2/3 { c8 c c } \times 2/3 { c8 c c }
-\override TupletNumber #'transparent = ##t
-\times 2/3 { c8 c c } \times 2/3 { c8 c c }
-@end lilypond
-
-Mit der  @code{\tweak}-Funktion können die Zahlen von geschachtelten Brüchen 
-eingestellt werden, die  zur gleichen Zeit beginnen. Im Beispiel unten 
-wird mit @code{\tweak} definiert, dass für die äußere Klammer der Bruch
-ausgegeben wird, für die innere aber nur der Nenner.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff {
-  \tweak #'text #tuplet-number::calc-fraction-text
-  \times 4/3 {
-     \tweak #'text #tuplet-number::calc-denominator-text
-     \times 2/3 { c'8[ c'8 c'8] }
-     \times 2/3 { c'8[ c'8 c'8] }
-     \times 2/3 { c'8[ c'8 c'8] }
-  }
-}
-@end lilypond
-
-Im nächsten Beispiel werden @code{\tweak} und @code{\override} 
-zusammen verwendet, um die Darstellung der Klammer 
-(@code{TupletBracket}) zu bestimmen. Mit dem ersten @code{\tweak} 
-wird die Klammer der äußeren Triole über dem Notensystem platziert. 
-Das zweite @code{\tweak} platziert die erste der drei inneren Klammern 
-unter dem System (von der Klammer wird hier nur der Nenner des
-Bruchs dargestellt). Dieses Paar von @code{\tweak}-Einstellungen wirkt 
-sich jedoch nur auf die äußere und die @emph{erste} innere Klammer 
-aus, weil nur sie zur gleichen Zeit beginnen. Mit dem @code{\override}-Befehl 
-kann die Richtung der zweiten und dritten @code{TupletBracket} 
-verändert werden, in 
-diesem Fall wird sie unter das Notensystem geschrieben.
-
-@lilypond[quote,ragged-right,verbatim]
-\new Staff {
-  \tweak #'text #tuplet-number::calc-fraction-text
-  \tweak #'direction #up
-  \times 4/3 {
-     \tweak #'direction #down
-     \times 2/3 { c'8[ c'8 c'8] }
-     \override TupletBracket #'direction = #down
-     \times 2/3 { c'8[ c'8 c'8] }
-     \times 2/3 { c'8[ c'8 c'8] }
-  }
-}
-@end lilypond
-
-Die Klammern können so eingestellt werden, dass sie bis zu 
-einem Taktvorspann oder bis zur nächsten Note reichen.
-
-@lilypond[ragged-right]
-\new RhythmicStaff {
-  \set tupletFullLength = ##t
-  \time 4/4
-  \times 4/5 {
-    c4 c1
-  }
-  \set tupletFullLengthNote = ##t
-  \time 2/4
-  \times 2/3 {
-    c4 c c 
-  }
-  \time 3/4
-  c4 
-}
-@end lilypond
-
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{permitting-line-breaks-within-beamed-tuplets.ly}
 
 @seealso
 
-Programmreferenz: @rinternals{TupletBracket},
-@rinternals{TupletNumber} und @rinternals{TimeScaledMusic}.
+Glossar:
+@rglos{triplet},
+@rglos{tuplet},
+@rglos{polymetric}.
+
+Handbuch zum Lernen:
+@rlearning{Tweaking methods}.
+
+Notationrreferenz:
+@ref{Time administration},
+@ref{Scaling durations},
+@ref{The tweak command},
+@ref{Polymetric notation}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{TupletBracket},
+@rinternals{TupletNumber},
+@rinternals{TimeScaledMusic}.
+
+@knownissues
+@cindex grace notes within tuplet brackets
+Wenn die erste Noten eines Systems ein Vorschlag (eine Verzierung)
+ist, die von einer N-tole gefolgt ist, muss der Vorschlag
+vor den @code{\times}-Befehl gesetzt werden um Fehler zu
+vermeiden.  Überall sonst können Vorschläge innerhalb von
+N-tolen gesetzt werden.
 
 
 
 @node Scaling durations
 @unnumberedsubsubsec Scaling durations
 
-Die Dauer von Längen kann mit einem Bruch multipliziert werden, 
-indem hinter die Note  @qq{*@var{N/M}} (oder @qq{*@var{N}} wenn @var{M=1}) 
-geschrieben wird. Das beeinflusst nicht die Erscheinung der Note oder 
-Pause im Druckbild. Die Werte können auch kombiniert werden, etwa 
-@qq{*M*N}.
+@cindex Dauern skalieren
+@cindex Skalieren von Dauern
+
+Die Dauer von einzelnen Noten, Pausen oder Akkorden kann mit einem Bruch multipliziert werden, 
+indem hinter die Notendauer @qq{*@var{N/M}} (oder @qq{*@var{N}} wenn @var{M} 1 ist) 
+geschrieben wird.  Die Erscheinung der Noten oder Pausen wird
+dadurch nicht beeinflusst, die neue Dauer wird aber dazu
+benutzt, ihre Position im Takt zu errechnen und die neue
+Dauer in der MIDI-Ausgabe einzusetzen. Die Faktoren, mit
+denen multipliziert wird, können auch kombiniert werden, etwa 
+@qq{*L*M*/N}.
 
 Im nächsten Beispiel nehmen die drei ersten Noten genau zwei Schläge ein, 
 aber es wird keine Triolenklammer über ihnen ausgegeben.
 
-@lilypond[quote,ragged-right,fragment,relative=2,verbatim]
+@lilypond[quote,relative=2,verbatim]
 \time 2/4
+% Alter durations to triplets
 a4*2/3 gis4*2/3 a4*2/3
-a4 a4 a4*2
+% Normal durations
+a4 a4
+% Double the duration of chord
+<a d>4*2
+% Duration of quarter, appears like sixteenth
 b16*4 c4
 @end lilypond
 
+Die Dauer von unsichtbaren Noten kann auch mit einem Faktor
+beeinflusst werden.  Das ist sinnvoll, wenn man viele Takte
+überspringen muss, etwa @code{s1*23}.
+
+@cindex Musik komprimieren
+@cindex Komprimieren von Noten
+@cindex Noten komprimieren
+@funindex \scaleDurations
+
+Längere Notenabschnitte können auf die gleiche Art durch Multiplikation
+mit einem Bruch komprimiert werden, als ob jede Note, jeder
+Akkord oder jede Pause mit dem Bruch multipliziert würde.
+Damit bleibt das Aussehen der Musik unverändert, aber die
+interne Dauer der Noten wird mit dem Bruch multipliziert.
+Die Leerzeichen um den Punkt im Beispiel sind notwendig.
+Hier ein Beispiel, das zeigt, wie Noten komprimiert und
+ausgedehnt werden kann:
+
+@lilypond[quote,relative=2,verbatim]
+\time 2/4
+% Normal durations
+<c a>4 c8 a
+% Scale music by *2/3
+\scaleDurations #'(2 . 3) {
+  <c a f>4. c8 a f
+}
+% Scale music by *2
+\scaleDurations #'(2 . 1) {
+  <c' a>4 c8 b
+}
+@end lilypond
+
+@noindent
+Eine Anwendung für diesen Befehl ist polymetrische Notation,
+siehe @ref{Polymetric notation}.
 
 @seealso
 
-Abschnitt @ref{Tuplets}
+Notationsreferenz:
+@ref{Tuplets},
+@ref{Invisible rests},
+@ref{Polymetric notation}.
+
+Schnipsel:
+@rlsr{Rhythms}.
 
 
 @node Ties
@@ -315,117 +358,144 @@ Abschnitt @ref{Tuplets}
 @funindex ~
 
 Ein Bindebogen verbindet zwei benachbarte Noten der selben 
-Tonhöhe. Als Resultat wird die Dauer der Notenlänge verlängert. 
-Bindebögen dürfen nicht mit Legatobögen verwechselt werden, durch 
+Tonhöhe.  Als Resultat wird die Dauer der Notenlänge verlängert.
+ 
+@warning{Bindebögen dürfen nicht mit Legatobögen verwechselt werden, durch 
 die die Vortragsart bezeichnet wird, noch mit Phrasierungsbögen, 
-die musikalische Phrasen anzeigen. Eine Bindebogen wird mit der 
+die musikalische Phrasen anzeigen.  Ein Bindebogen ist nur eine
+Art, die Tondauer zu verlängern, ähnlich etwa wie die
+Punktierung.}
+
+Ein Bindebogen wird mit der 
 Tilde @code{~} (AltGr++) notiert.
 
-@lilypond[quote,ragged-right,fragment,verbatim]
-e' ~ e' <c' e' g'> ~ <c' e' g'>
-@end lilypond
-
-Wenn ein Bindebogen an einen Akkord gehängt wird, werden alle Noten 
-dieses Akkordes übergebunden. Wenn kein Notenkopf passt, wird auch 
-kein Bogen erzeugt. Noten in Akkorden können auch einzeln übergebunden 
-werden, indem sie innerhalb des Akkordes hinter die entsprechende Note 
-geschrieben werden.
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=1]
-<c~ e g~ b> <c e g b>
-@end lilypond
-
-Ein Bindebogen ist nur eine andere Art, die Notendauer zu verlängern, 
-ähnlich wie die Punktierung. Im nächsten Beispiel sind zwei Arten gezeigt, 
-die gleiche Notenlänge zu notieren:
-
-@lilypond[quote,fragment,ragged-right]
-\time 3/4 c'2. c'2 ~ c'4
+@lilypond[quote,verbatim,relative=2]
+a2 ~ a
 @end lilypond
 
 @noindent
-Bindebögen werden verwendet, wenn die Note entweder über die Taktgrenze 
-hinausragt, oder wenn Punktierung nicht benutzt werden kann, um die 
-Verlängerung anzuzeigen. Wenn man Überbindungen verwendet, sollten 
-größere Notenwerte an die Unterteilungen des Taktes angepasst werden.
+Bindebögen werden eingesetzt, wenn die Note entweder über eine
+Taktlinie hinüberreicht, oder wenn die entsprechende Dauer der
+Note nicht mit Punktierung erreicht werden kann.  Bindebögen
+sollten auch benutzt werden, wenn Notenwerte über die
+inneren Unterteilungen von Takten hinüberreichen:
 
-@lilypond[fragment,quote,ragged-right]
-\relative {
-  r8 c8 ~ c2 r4 | r8^"not" c2 ~ c8 r4
+@lilypond[quote]
+\relative c' {
+  r8 c8 ~ c2 r4 |
+  r8^"not" c2 ~ c8 r4
 }
 @end lilypond
 
-Wenn sehr viele Noten über die Taktgrenzen hinüber angebunden 
-werden müssen, ist es oft einfacher, die automatische Aufteilung 
-von Noten einzusetzen (siehe @ref{Automatic note splitting}). Mit 
-dieser Funktion werden automatisch lange Noten aufgeteilt und über 
-die Taktgrenze übergebunden.
+Wenn viele Noten über Taktlinien gebunden werden müssen, kann
+es einfacher sein, automatische Notenaufteilung einzustellen,
+wie beschrieben in @ref{Automatic note
+splitting}.  Mit diesem Mechanismus werden lange Noten
+automatisch aufgeteilt, wenn sie über Taktgrenzen reichen.
+
+@cindex Bindebögen und Akkorde
+@cindex Überbindungen und Akkorde
+@cindex Akkorde und Überbindungen
+
+Wenn ein Bindebogen an einen Akkord gehängt wird, werden alle Noten 
+dieses Akkordes übergebunden.  Wenn kein Notenkopf passt, wird auch 
+kein Bogen erzeugt.  Noten in Akkorden können auch einzeln übergebunden 
+werden, indem sie innerhalb des Akkordes hinter die entsprechende Note 
+geschrieben werden.
+
+@lilypond[quote,verbatim,relative=1]
+<c e g> ~ <c e g>
+<c~ e g~ b> <c e g b>
+@end lilypond
 
 @funindex \repeatTie
-
-Wenn die zweite Variante einer Wiederholung mit einer Überbindung 
-anfängt, muss der Bindebogen wiederholt werden. Dass geschieht durch 
-den Befehl @code{\repeatTie}.
-
-@lilypond[fragment,quote,ragged-right,relative=2]
-r <c e g>\repeatTie
-@end lilypond
-
+@cindex Bindebögen wiederholen
+@cindex Wiederholung und Bindebögen
+@cindex Überbindung und Wiederholungen
+@cindex Volta-Klammern und Wiederholungen
 @cindex Volta und Überbindung
-@cindex Wiederholung und Überbindung
 
-@commonprop
+Wenn die zweite Variante einer Wiederholung mit einer übergebundenen
+Note anfängt, muss der Bindebogen wie folgt notiert werden:
 
-Bindebögen werden teilweise verwendet, um Arpeggien auszuschreiben. 
-In diesem Fall müssen mehrere übergebundene Noten nacheinander 
-erscheinen. Das ist möglich, indem die @code{tieWaitForNote}-Eigenschaft 
-auf wahr (##t) gesetzt wird. Diese Funktion ist auch nützlich, um 
-ein Tremolo an einen Akkord zu binden. Siehe das Beispiel:
-
-@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
-\set tieWaitForNote = ##t
-\grace { c16[~ e~ g]~ } <c, e g>2
-\repeat tremolo 8 { c32~ c'~ } <c c,>1
-e8~ c~ a~ f~ <e' c a f>2
+@lilypond[quote,relative=2,verbatim]
+\repeat volta 2 { c g <c e>2 ~ }
+\alternative {
+  % First alternative: following note is tied normally
+  { <c e>2. r4 }
+  % Second alternative: following note has a repeated tie
+  { <c e>2\repeatTie d4 c } }
 @end lilypond
 
-Bindebögen können manuell gesetzt werden, indem die 
-@code{tie-configuration}-Eigenschaft verändert wird. 
-Die erste Zahl zeigt den Abstand von der Mitte des 
-Notensystems in Notenlinienzwischenräumen, die zweite 
-die Richtung (1=nach oben, -1=nach unten).
+@cindex Laissez vibrer
+@cindex Ausklingen lassen, Bögen
+@cindex Bögen, laissez vibrer
+@cindex Ausklingen lassen
+@funindex \laissezVibrer
 
-@lilypond[fragment,verbatim,relative=1,ragged-right,quote]
-<c e g>2~ <c e g> |
-\override TieColumn #'tie-configuration =
-  #'((0.0 . 1) (-2.0 . 1) (-4.0 . 1))
-<c e g>~ <c e g> |
+So genannte @notation{laissez vibrer}-Bögen werden verwendet um anzuzeigen, dass 
+man die Musik ausklingen lassen soll. Sie werden in der Klavier-, Harfen-, 
+anderer Saiteninstrument- und Schlagzeugnotation verwendet. Sie können folgendermaßen notiert werden:
+
+@lilypond[quote,verbatim,relative=1]
+<c f g>1\laissezVibrer
 @end lilypond
 
+@cindex ties, placement
+@funindex \tieUp
+@funindex \tieDown
+@funindex \tieNeutral
+
+Die vertikale Position von Bindebögen kann kontrolliert werden,
+siehe die vordefinierten Befehle unten oder für Einzelheiten
+@ref{Direction and placement}.
+
+@cindex Bindebögen, Ausehen
+@cindex Bindebögen, gestrichelt
+@cindex Bindebögen, gepunktet
+@cindex Bindebögen, durchgehend
+@funindex \tieDotted
+@funindex \tieDashed
+@funindex \tieSolid
+
+Durchgehende, gepunktete oder gestrichelte Bindebögen können
+spezifiziert werden, siehe die vordefinieren Befehle.
 
 @predefined
 
-
-@funindex \tieUp
 @code{\tieUp},
-@funindex \tieDown
 @code{\tieDown},
-@funindex \tieNeutral
 @code{\tieNeutral},
-@funindex \tieDotted
 @code{\tieDotted},
-@funindex \tieDashed
 @code{\tieDashed},
-@funindex \tieSolid
 @code{\tieSolid}.
 
 
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{using-ties-with-arpeggios.ly}
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{engraving-ties-manually.ly}
+
 @seealso
 
-Im Handbuch: @ref{Automatic note splitting}.
+Glossar:
+@rglos{tie},
+@rglos{laissez vibrer}.
 
-Programmreferenz: @rinternals{Tie}.
+Notationsreferenz:
+@ref{Automatic note splitting}.
 
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{LaissezVibrerTie},
+@rinternals{LaissezVibrerTieColumn},
+@rinternals{TieColumn},
+@rinternals{Tie}.
 
 @knownissues
 
@@ -440,6 +510,9 @@ Legatobogen zu verwenden.
 @node Writing rests
 @subsection Writing rests
 
+Pausen werden als Teil der musikalischen Ausdrücke zusammen mit
+den Noten notiert.
+
 @menu
 * Rests::                       
 * Invisible rests::             
@@ -449,15 +522,41 @@ Legatobogen zu verwenden.
 @node Rests
 @unnumberedsubsubsec Rests
 @cindex Pausen
+@cindex Pausendauern
+@cindex Maxima
+@cindex Longa
+@cindex Brevis
 
 @funindex \rest
 @funindex r
+@funindex \maxima
+@funindex \longa
+@funindex \breve
 
 Pausen werden wie Noten eingegeben, ihre Bezeichnung ist @code{r}.
+Dauern, die länger als eine Ganze sind, haben die gezeigten
+vordefinierten Befehle:
 
-@lilypond[fragment,quote,ragged-right,verbatim]
-r1 r2 r4 r8
+@c \time 16/1 is used to avoid spurious bar lines
+@c and long tracts of empty measures
+@lilypond[quote,verbatim]
+\new Staff {
+  % These two lines are just to prettify this example
+  \time 16/1
+  \override Staff.TimeSignature #'stencil = ##f
+  % Print a maxima rest, equal to four breves
+  r\maxima
+  % Print a longa rest, equal to two breves
+  r\longa
+  % Print a breve rest
+  r\breve
+  r1 r2 r4 r8 r16 r32 r64 r128
+}
 @end lilypond
+
+@cindex Pausen, mehrtaktig
+@cindex Ganztaktpausen
+@cindex Mehrtaktpausen
 
 Pausen, die ganze Takte ausfüllen und in der Taktmitte zentriert 
 werden sollen, müssen als mehrtaktige Pausen eingegeben werden. 
@@ -468,21 +567,36 @@ Takte verwendet werden, Näheres im Abschnitt
 Um die vertikale Position einer Pause explizit festzulegen, 
 kann eine Note eingegeben werden, gefolgt vom Befehl @code{\rest}. 
 Die Pause wird dann an die Stelle gesetzt, wo sich sonst die 
-Note befinden würde.
-
-@lilypond[fragment,quote,ragged-right,verbatim]
-a'4\rest d'4\rest
-@end lilypond
-
-@noindent
-Damit wird die manuelle Formatierung von mehrstimmiger Musik 
+Note befinden würde.  Damit wird die manuelle Formatierung von mehrstimmiger Musik 
 sehr viel einfacher, da die Formatierungsfunktion zur automatischen 
 Auflösung von Zusammenstößen diese Pausen nicht mit einbezieht.
 
+@lilypond[quote,verbatim,relative=2]
+a4\rest d4\rest
+@end lilypond
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{rest-styles.ly}
 
 @seealso
 
-Programmreferenz: @rinternals{Rest}.
+Notationsreferenz:
+@ref{Full measure rests}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{Rest}.
+
+
+@knownissues
+
+@c Deliberately duplicated in Durations and Rests.  -gp
+Es gibt keine gundlegende Grenze für die Dauer von Pausen (sowohl
+kürzer als auch länger), aber die Anzahl von Symbolen ist
+begrenzt: Es gibt Zeichen für Pausen von einer 128 bis zu einer
+Maxima (8 Ganze).
 
 
 @node Invisible rests
@@ -491,52 +605,266 @@ Programmreferenz: @rinternals{Rest}.
 @cindex Skip
 @cindex Überspringen von Zeichen
 @cindex Unsichtbare Pausen
+@cindex Pausen, unsichtbar
 @cindex Platzhalternoten
 @funindex \skip
 @funindex s
 
 Eine unsichtbare Pause (auch als @qq{skip} oder Überspringung bezeichnet) 
-kann wie eine Note eingegeben werden, die Notationsbezeichnung ist @code{s}. 
-Man kann aber auch die Dauer extra angeben mit @code{\skip @var{Dauer}}.
+kann wie eine Note eingegeben werden, die Notationsbezeichnung ist @code{s}.
 
-@lilypond[fragment,quote,ragged-right,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 a4 a4 s4 a4 \skip 1 a4
 @end lilypond
 
+@cindex Gesangstext, überspringen
+
 Die @code{s}-Syntax steht nur im Noten- oder Akkordmodus zur Verfügung. In 
 anderen Situationen, z. B. innerhalb eines Liedtextes, muss @code{\skip} 
-benutzt werden.
+benutzt werden.  @code{\skip} benötigt eine explizite Dauerangabe.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,verbatim,relative=2]
 <<
-  \relative { a'2 a2 }
-  \new Lyrics \lyricmode { \skip 2 bla2 }
+  {
+    a2 \skip2 a2 a2
+  }
+  \new Lyrics {
+    \lyricmode {
+      foo2 \skip 1 bla2
+    }
+  }
 >>
+@end lilypond
+
+Die Überspringung mit @code{s} erstellt @code{Staff} und
+@code{Voice}-Kontext, wenn es erforderlich ist, genauso wie Noten und Pausen.
+
+@lilypond[quote,verbatim,fragment]
+s1 s s
 @end lilypond
 
 Der Überspringungsbefehl (@code{\skip}) ist einfach ein leerer Platzhalter. 
 Durch ihn wird 
 überhaupt nichts gesetzt, auch keine transparenten Objekte.
 
-Die Überspringung mit @code{s} hingegen erstellt  @rinternals{Staff} und
-@rinternals{Voice} wenn es erforderlich ist, genauso wie Noten und Pausen. 
-Das folgende Beispiel etwa setzt ein leeres Notensystem:
-
-@lilypond[quote,ragged-right,verbatim]
-{ s4 }
+@lilypond[quote,verbatim,fragment]
+% This is valid input, but does nothing
+\skip 1 \skip1 \skip 1
 @end lilypond
-
-Das Fragment @code{@{ \skip 4 @}} würde nur eine leere Seite produzieren.
 
 @seealso
 
-Programmreferenz: @rinternals{SkipMusic}.
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{SkipMusic}
+
 
 
 @node Full measure rests
 @unnumberedsubsubsec Full measure rests
 
-@untranslated
+@cindex Ganztaktpausen
+@cindex Mehrtaktpausen
+@cindex Pausen, Ganztakt-
+@cindex Pausen, Mehrtakt-
+@funindex R
+
+Pausen für einen oder mehrere ganze Takte werden wie
+Noten eingegeben, wobei die Bezeichnung ein Großbuchstabe
+@code{R} ist:
+
+@lilypond[quote,verbatim,relative=2]
+% Rest measures contracted to single measure
+\compressFullBarRests
+R1*4
+R1*24
+R1*4
+b2^"Tutti" b4 a4
+@end lilypond
+
+Die Dauer von Ganztaktpausen wird genauso angegeben wie die
+Dauer von Noten.  Die Dauer einer Ganztaktpause muss immer
+eine ganze Anzahl an Taktlängen sein, weshalb Punktierungen
+und Brüche recht häufig eingesetzt werden müssen.
+
+@lilypond[quote,verbatim]
+\compressFullBarRests
+\time 2/4
+R1 | R2 |
+\time 3/4
+R2. | R2.*2 |
+\time 13/8
+R1*13/8 | R1*13/8*12 |
+\time 10/8
+R4*5*4 |
+@end lilypond
+
+Eine Ganztaktpause wird abhängig von der Taktart entweder als
+Ganze oder Brevis-Pause gesetzt, zentriert im Takt.
+
+@lilypond[quote,verbatim]
+\time 4/4
+R1 |
+\time 6/4
+R1*3/2 |
+\time 8/4
+R1*2 |
+@end lilypond
+@funindex \expandFullBarRests
+@funindex \compressFullBarRests
+@cindex Mehrtaktpausen, ausschreiben
+@cindex Pausen, mehrere Takte ausschreiben
+@cindex Pausen, mehrere Takte komprimieren
+@cindex Mehrtaktpausen, komprimieren
+
+In den Standardeinstellungen werden mehrtaktige Pausen
+ausgeschrieben gesetzt, sodass sie die entsprechende Anzahl von
+Takten einnehmen.  Alternativ kann die mehrtaktige Pause
+aber auch nur in einem Takt angezeigt werden, der ein
+Mehrtaktpausensymbol geinhaltet, wobei die Anzahl der Takte
+der Pausendauer über dem Pausenzeichen ausgegeben wird:
+
+@lilypond[quote,verbatim]
+% Default behavior
+\time 3/4 r2. | R2.*2 |
+\time 2/4 R2 |
+\time 4/4
+% Rest measures contracted to single measure
+\compressFullBarRests
+r1 | R1*17 | R1*4 |
+% Rest measures expanded
+\expandFullBarRests
+\time 3/4
+R2.*2 |
+@end lilypond
+
+
+@cindex Text über Mehrtaktpausen
+@cindex Mehrtaktpausen, Text hinzufügen
+@cindex Beschriftung über Mehrtaktpausen
+@cindex Mehrtaktpausen, Beschriftung
+@cindex Fermate über Mehrtaktpausen
+@cindex Mehrtaktpause mit Fermate
+
+Textbeschriftung kann Mehrtaktpausen mit @code{\markup}
+hinzugefügt werden.  Ein 
+vordefinierte Befehl @code{\fermataMarkup} fügt eine
+Fermate ein.
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+\compressFullBarRests
+\time 3/4
+R2.*10^\markup { \italic "ad lib." }
+R2.^\fermataMarkup
+@end lilypond
+
+@warning{
+Beschriftungen, die an Mehrtaktpausen gehängt werden, sind
+Objekte vom Typ @code{MultiMeasureRestText}, nicht vom Typ
+@code{TextScript}.  Änderungen etwa mit @code{\override}
+müssen auf das richtige Objekt gerichtet werden, damit sie
+nicht ignoriert werden.  Siehe auch das folgende Beispiel.
+}
+
+@lilypond[quote,ragged-right,verbatim,fragment]
+% This fails, as the wrong object name is specified
+\override TextScript #'padding = #5
+R1^"wrong"
+% This is correct and works
+\override MultiMeasureRestText #'padding = #5
+R1^"right"
+@end lilypond
+
+Wenn eine Mehrtaktpause direkt auf einen Auftakt mit @code{\partial}
+folgt, werden möglicherweise daraus resultierende
+Taktprüfungswarnungen nicht angezeigt.
+
+@predefined
+@code{\textLengthOn},
+@code{\textLengthOff},
+@code{\fermataMarkup},
+@code{\compressFullBarRests},
+@code{\expandFullBarRests}.
+
+@snippets
+
+@cindex Kirchenpausen
+@cindex Pausen, Kirchenstil
+@cindex Balkenpausen, mehrtaktig
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-form-of-multi--measure-rests.ly}
+
+@cindex Mehrtaktpausen, Positionierung
+@cindex Position von Mehrtaktpausen
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{positioning-multi--measure-rests.ly}
+
+@c TODO -- convert to snippet -- submitted to Neil
+Markups attached to a multi-measure rest will be centered above or
+below it.  Long markups attached to multi-measure rests do not cause
+the measure to expand. To expand a multi-measure rest to fit the markup,
+use a spacer rest with an attached markup before the multi-measure rest:
+
+@lilypond[quote,verbatim,relative=2]
+\compressFullBarRests
+\textLengthOn
+s1*0^\markup { [MAJOR GENERAL] }
+R1*19
+s1*0_\markup { \italic { Cue: ... it is yours } }
+s1*0^\markup { A }
+R1*30^\markup { [MABEL] }
+\textLengthOff
+c4^\markup { CHORUS } d f c
+@end lilypond
+
+@noindent
+Note that the spacer rest causes a bar to be inserted.
+Text attached to a spacer rest in this way is left-aligned to the
+position where the note would be placed in the measure, but if the
+measure length is determined by the length of the text, the text will
+appear to be centered.
+
+@seealso
+
+Glossar:
+@rglos{multi-measure rest}.
+
+Notationsreferenz:
+@ref{Durations},
+@ref{Text},
+@ref{Formatting text},
+@ref{Text scripts}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{MultiMeasureRest},
+@rinternals{MultiMeasureRestNumber},
+@rinternals{MultiMeasureRestText}.
+
+
+@knownissues
+
+Wenn man versucht, mit Fingersatz (etwa @code{R1*10-4} Zahlen
+über Ganztaktpausen zu setzen, kann die Zahl des Fingersatzes
+(4) mit der Taktanzahl (10) zusammenstoßen.
+
+@cindex Zusammenfalten von Pausen
+@cindex Pausen, Zusammenfalten
+
+Es gibt keine Möglichkeit, normale Pausen automatisch zu
+Ganztaktpausen zu reduzieren.
+
+@cindex Pausen, Zusammenstöße
+
+Ganztaktpausen werden bei der Vermeidung von Zusammenstößen nicht
+berücksichtigt.
+
 
 
 @node Displaying rhythms
@@ -558,86 +886,108 @@ Programmreferenz: @rinternals{SkipMusic}.
 @cindex Metrum
 @funindex \time
 
-Taktangaben zeigen das Metrum eines Stückes an: eine 
-regelmäßige Folge von betonten und unbetonten Zeiten. 
-Es wird angezeigt als ein Bruch vor Beginn der Noten.
+Taktangaben könne wie folgt erstellt werden.
 
-Die Taktangabe wird mit dem @code{\time}-Befehl gesetzt.
-
-@lilypond[quote,ragged-right,fragment,verbatim]
-\time 2/4 c'2 \time 3/4 c'2.
+@lilypond[quote,verbatim]
+\time 2/4 c'2
+\time 3/4 c'2.
 @end lilypond
 
-@commonprop
+@cindex Taktangabe, Sichtbarkeit
 
-Das Symbol, das angezeigt wird, kann durch die 
-@code{style}-Eigenschaft angepasst werden. Wenn man 
-es auf den Wert @code{#'()} setzt, wird auch für 
-4/4- und 2/2-Takte ein Bruch angezeigt.
+Taktangaben werden zu Beginn eines Stückes gesetzt und immer dann,
+wenn sich die Taktart ändert.  Wenn eine Änderung am Ende einer
+Zeile geschieht, wird eine warnende Taktangabe am Ende der Zeile
+ausgegeben.  Dieses Verhalten kann verändert werdenm, siehe
+@ref{Controlling visibility of objects}.
 
-@lilypond[fragment,quote,ragged-right,verbatim]
-\time 4/4 c'1
-\time 2/2 c'1
-\override Staff.TimeSignature #'style = #'()
-\time 4/4 c'1
-\time 2/2 c'1
+@lilypond[quote,verbatim,relative=2]
+\time 2/4
+c2 c
+\break
+c c
+\break
+\time 4/4
+c c c c
 @end lilypond
 
-Es gibt noch sehr viel mehr Optionen für das Layout. 
-Siehe den Abschnitt @ref{Ancient time
-signatures} für weitere Beispiele.
+@funindex \numericTimeSignature
+@funindex \defaultTimeSignature
+@cindex Stil von Taktangaben
+@cindex Taktangaben-Stile
 
-Der Befehl @code{\time} stellt die Eigenschaften 
-@code{timeSignatureFraction}, @code{beatLength} 
-und @code{measureLength} im @code{Timing}-Kontext ein, 
-der normalerweise zu den Eigenschaften aller System 
-(@rinternals{Score}-Ebene) gehört. Die Eigenschaft 
-@code{measureLenght} bestimmt, wo Taktlinien eingefügt werden, 
-und wie automatische Balken gesetzt werden. Ein Verändern 
-der Eigenschaften von @code{timeSignatureFraction} gibt 
-das neue Symbol an dieser Stelle aus.
+Das Symbol für die Taktarten 2/2 und 4/4 kann in ein Zahlensymbol
+umgewandelt werden:
 
-Auf weitere Optionen kann man über die Scheme-Funktion
-@code{set-time-signature} zugreifen. In Kombination mit
-@rinternals{Measure_grouping_engraver} werden hiermit 
-@rinternals{MeasureGrouping}-Zeichen erzeugt. Solche 
-Zeichen erleichtern es, rhythmisch komplexe moderne Musik 
-zu lesen. Im nächsten Beispiel ist der 9/8-Takt in 2, 2, 2 
-und 3 Achtel unterteilt. Das wird im dritten Argument an 
-@code{set-time-signature} weitergegeben @code{(2 2 2 3)}.
-
-@lilypond[quote,ragged-right,verbatim]
-\score {
-  \relative c'' {
-    #(set-time-signature 9 8 '(2 2 2 3))
-    g8[ g] d[ d] g[ g] a8[( bes g]) |
-    #(set-time-signature 5 8 '(3 2))
-    a4. g4
-  }
-  \layout {
-    \context {
-      \Staff
-      \consists "Measure_grouping_engraver"
-    }
-  }
-}
+@lilypond[quote,verbatim,relative=2]
+% Default style
+\time 4/4 c1
+\time 2/2 c1
+% Change to numeric style
+\numericTimeSignature
+\time 4/4 c1
+\time 2/2 c1
+% Revert to default style
+\defaultTimeSignature
+\time 4/4 c1
+\time 2/2 c1
 @end lilypond
+
+Symbole für Modus und Proprietas der mensuralen Notation
+werden behandelt unter
+@ref{Ancient time signatures}.
+
+@predefined
+
+@code{\numericTimeSignature},
+@code{\defaultTimeSignature}.
+
+@snippets
+
+@c TODO Send as snippet called "Changing the time signature without affecting the beat length"
+
+The @code{\time} command sets the properties
+@code{timeSignatureFraction}, @code{beatLength}, and
+@code{measureLength} in the @code{Timing} context, which is
+normally aliased to @code{Score}.  Changing the value of
+@code{timeSignatureFraction} causes the new time signature symbol
+to be printed without changing the other properties:
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4
+a16 a a a a a a a a a a a
+% Change time signature but keep 3/4 beaming
+% due to unchanged beatLength
+\set Score.timeSignatureFraction = #'(12 . 16)
+a16 a a a a a a a a a a a
+\time 12/16
+% Lose 3/4 beaming now beatLength has changed to 16
+a16 a a a a a a a a a a a
+@end lilypond
+
+@cindex compound time signatures
+@cindex time signature, compound
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{compound-time-signatures.ly}
 
 
 @seealso
 
-Programmreferenz:
-@rinternals{TimeSignature} und
-@rinternals{Timing_translator}.
+Glossar:
+@rglos{time signature}
 
-Beispiele:
+Notationsreferenz:
+@ref{Ancient time signatures},
+@ref{Time administration}.
+
+Schnipsel:
 @rlsr{Rhythms}.
 
+Referenz der Interna:
+@rinternals{TimeSignature},
+@rinternals{Timing_translator}.
 
-@knownissues
-
-Automatische Balken richten sich nicht nach den Taktunterteilungen, die 
-mit @code{set-time-signature} erzeugt werden.
 
 
 @node Upbeats
@@ -645,22 +995,26 @@ mit @code{set-time-signature} erzeugt werden.
 
 @cindex Auftakt
 @cindex Takte verkürzen
+@cindex partieller Takt
+@cindex halber Takt
+@cindex Taktlänge ändern
+@funindex measurePosition
 @funindex \partial
 
-Verkleinerte Takte, wie etwa ein Auftakt, werden wie folgt notiert:
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\partial 16*5 c16 cis d dis e | a2. c,4 | b2
-@end lilypond
-
-Die Syntax für den Befehl lautet:
+Verkleinerte Takte, wie etwa ein Auftakt, werden mit dem
+Befehl @code{\partial} notiert, dessen Syntax lautet:
 
 @example
 \partial @var{Dauer}
 @end example
 
-wobei @code{Dauer} eine rhythmische Länge ist, die vor dem nächsten Taktstrich 
-eingefügt wird.
+wobei @var{Dauer} die rhythmische Länger der Noten darstellt,
+die vor dem ersten vollständigen Takt gesetzt werden sollen:
+
+@lilypond[quote,verbatim,relative=2]
+\partial 4 e4 |
+a2. c,4 |
+@end lilypond
 
 Das wird intern übersetzt nach:
 
@@ -668,23 +1022,27 @@ Das wird intern übersetzt nach:
 \set Timing.measurePosition = -@var{Länge der Dauer}
 @end example
 
-Die Eigenschaft @code{measurePosition} enthält eine rationale Zahl, 
-die darstellt, wie groß der Abstand zum Taktanfang ist. Deshalb ist 
+Die Eigenschaft @code{measurePosition} (Takt-Position) enthält
+eine rationale Zahl, 
+die anezigt, wie groß der Abstand zum Taktanfang ist. Deshalb ist 
 sie eine negative Zahl; @code{\partial 4} wird also intern übersetzt 
 zu: @qq{Eine Viertel bleibt übrig vom ganzen Takt.}
 
+@seealso
+
+Glossar:
+@rglos{anacrusis}.
+
+Notationsreferenz:
+@ref{Grace notes}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{Timing_translator}.
+
 @knownissues
-
-Dieser Befehl berücksichtigt keine Verzierungen/Vorschläge am Anfang der 
-Noten. Wenn ein Stück mit einem Vorschlag anfängt, muss der Befehl 
-@code{\partial} @emph{nach} dem Vorschlag kommen:
-
-@lilypond[verbatim,quote,ragged-right,relative,fragment]
-\grace f16
-\partial 4
-g4
-a2 g2
-@end lilypond
 
 @code{\partial} ist nur für den Anfang eines Stückes vorgesehen. Wenn der 
 Befehl innerhalb eines Stückes verwendet wird, können seltsame Warnungen 
@@ -695,16 +1053,21 @@ auftreten.
 @unnumberedsubsubsec Unmetered music
 
 @cindex Kadenz
+@cindex Taktlinen, ausschalten
+@cindex Taktnummern, ausschalten
+@cindex Noten ohne Takt
+@cindex Taktart, Noten ohne
+@cindex Metrum, Noten ohne
 @funindex \cadenzaOn
 @funindex \cadenzaOff
 
 Taktlinien und Taktzahlen werden automatisch erzeugt. Für Musik 
-ohne Meter hingegen (etwa Kadenzen) ist das allerdings nicht 
+ohne Metrum hingegen (etwa Kadenzen) ist das jedoch nicht 
 erwünscht. Mit den Befehlen @code{\cadenzaOn} und 
 @code{\cadenzaOff} kann dieses Verhalten ausgeschaltet und 
 wieder angeschaltet werden.
 
-@lilypond[verbatim,quote,ragged-right,relative=2,fragment]
+@lilypond[verbatim,quote,relative=2,fragment]
 c4 d e d
 \cadenzaOn
 c4 c d8 d d f4 g4.
@@ -713,12 +1076,41 @@ c4 c d8 d d f4 g4.
 d4 e d c
 @end lilypond
 
+Taktnummerierung wird am Ende der Kadenz wieder aufgenommen, als
+ob es die Kadenz nicht gegeben hätte:
+
+@lilypond[verbatim,relative=2,fragment]
+% Show all bar numbers
+\override Score.BarNumber #'break-visibility = #all-visible
+c4 d e d
+\cadenzaOn
+c4 c d8 d d f4 g4.
+\cadenzaOff
+\bar "|"
+d4 e d c
+@end lilypond
+
+@predefined
+
+@code{\cadenzaOn},
+@code{\cadenzaOff}.
+
+@seealso
+
+Glossar:
+@rglos{cadenza}.
+
+Notationsreferenz:
+@ref{Visibility and color of objects}.
+
+Schnipsel:
+@rlsr{Rhythms}.
 
 @knownissues
 
 LilyPond fügt Zeilen- und Seitenumbrüche nur an einer Taktlinie 
 ein. Wenn die Kadenz nicht vor einem Umbruch endet, müssen Sie 
-selber unsichtbare Taktlinien 
+selber unsichtbare Taktlinien mit
 
 @example
 \bar ""
@@ -731,39 +1123,183 @@ einfügen, um anzuzeigen, wo umgebrochen werden darf.
 @node Polymetric notation
 @unnumberedsubsubsec Polymetric notation
 
-@untranslated
+@cindex doppelte Taktartensymbole
+@cindex Taktarten, polymetrisch
+@cindex polymetrische Taktarten
+@cindex Metrum, polymetrisch
+@cindex Unterteilte Taktarten
+
+Polymetrische Notation ist unterstützt, entweder direkt oder
+mit einem Textbeschriftungs-Trick.
+
+@strong{Systeme mit unterschiedlichen Taktarten, gleiche
+Taktlänge}
+
+Diese Art der Notation kann erstellt werden, indem für jedes
+System eine identische Taktart eingestellt wird, aber manuell
+für jeden Takt durch Einstellung von @code{timeSignatureFraction}
+auf den gewünschten Bruch geändert und dann die Länge der
+Noten entsprechenden skaliert wird.  Letzteres geschieht mit dem Befehl
+@code{\scaleDurations}, der auf ähnliche Weise wie @code{\times}
+benutzt wird, aber keine Klammer über den Noten ausgibt. Siehe
+auch @ref{Scaling durations}.
+
+In diesem Beispiel werden Noten mit den Taktarten 3/4, 9/8 und
+10/8 parallel benutzt.  Im zweiten System werden die gezeigten
+Dauern mit 2/3 multipliziert, da 2/3x9/8=3/4, und im dritten
+System werden die gezeigten Dauern mit 3/5 multipliziert, da
+3/5x10/8=3/4.
+
+@lilypond[quote,verbatim,fragment]
+\relative c' { <<
+  \new Staff {
+    \time 3/4
+    c4 c c |
+    c c c |
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(9 . 8)
+    \scaleDurations #'(2 . 3)
+      \repeat unfold 6 { c8[ c c] }
+  }
+  \new Staff {
+    \time 3/4
+    \set Staff.timeSignatureFraction = #'(10 . 8)
+    \scaleDurations #'(3 . 5) {
+      \repeat unfold 2 { c8[ c c] }
+      \repeat unfold 2 { c8[ c] } |
+      c4. c4. \times 2/3 { c8 c c } c4
+    }
+  }
+>> }
+@end lilypond
+
+@strong{Systeme mit unterschiedlichen Taktarten, unterschiedliche
+Taktlänge}
+
+Jedes System kann auch eine eigene unabhängige Taktart erhalten.
+Dazu muss der @code{Timing_translator} in den @code{Staff}-Kontext
+verschoben werden.
+
+@lilypond[quote,verbatim]
+\layout {
+  \context {
+    \Score
+    \remove "Timing_translator"
+    \remove "Default_bar_line_engraver"
+  }
+  \context {
+    \Staff
+    \consists "Timing_translator"
+    \consists "Default_bar_line_engraver"
+  }
+}
+
+% Now each staff has its own time signature.
+
+\relative c' <<
+  \new Staff {
+    \time 3/4
+    c4 c c |
+    c c c |
+  }
+  \new Staff {
+    \time 2/4
+    c4 c |
+    c c |
+    c c |
+  }
+  \new Staff {
+    \time 3/8
+    c4. |
+    c8 c c |
+    c4. |
+    c8 c c |
+  }
+>>
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{compound-time-signatures.ly}
+
+
+@seealso
+
+Glossar:
+@rglos{polymetric},
+@rglos{polymetric time signature},
+@rglos{meter}.
+
+Notationreferenz:
+@ref{Scaling durations}
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Intera:
+@rinternals{TimeSignature},
+@rinternals{Timing_translator},
+@rinternals{Staff}.
+
+@knownissues
+
+Wenn unterschiedliche Taktarten paralell benutzt werden, werden
+Noten auf demselben musikalischen Moment horizontal auf die
+gleiche Position gesetzt.  Die unterschiedlichen Taktlinien
+führen allerdings dazu, dass die Noten nicht ganz so regelmäßig
+gesetzt werden, wie es ohne unterschiedliche Taktarten der
+Fall wäre.
+
 
 
 @node Automatic note splitting
 @unnumberedsubsubsec Automatic note splitting
 
-Lange Noten können automatisch in übergebundene Noten aufgeteilt werden. 
+@cindex Noten, aufteilen
+@cindex Aufteilen von Noten
+@cindex automatisches Aufteilen von Noten
+
+Lange Noten, die über Taktlinien hinüberreichen, können
+automatisch in übergebundene Noten aufgeteilt werden. 
 Dieses Verhalten erreicht man, indem der  @rinternals{Note_heads_engraver} 
 mit dem @rinternals{Completion_heads_engraver} ausgetauscht wird. 
 Im nächsten Beispiel werden Noten, die über die Taktlinie dauern, aufgeteilt 
 und übergebunden.
 
-@lilypond[quote,fragment,verbatim,relative=1,line-width=12\cm]
+@lilypond[quote,verbatim,relative=1]
 \new Voice \with {
   \remove "Note_heads_engraver"
   \consists "Completion_heads_engraver"
-} {
-  c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2
 }
+
+{ c2. c8 d4 e f g a b c8 c2 b4 a g16 f4 e d c8. c2 }
 @end lilypond
 
-Dieser Notationsformatierer (eng. engraver) teilt alle Noten 
+Dieser Engraver teilt alle Noten 
 auf, die über eine Taktlinie dauern und fügt Bindebögen hinzu. 
 Er kann unter Anderem dann nützlich sein, wenn man komplexe 
 Partituren auf Fehler überprüfen möchte: Wenn die Takte nicht 
 vollständig gefüllt sind, zeigt die Überbindung genau an, wie viele 
 Notenwerte noch in dem jeweiligen Takt fehlen.
 
-Wenn Sie wollen, dass auch Zeilenumbrüche an den Stellen, an denen 
-automatisch Noten aufgeteilt wurden, stattfinden, müssen Sie auch 
-den Formatierer  @rinternals{Forbid_line_break_engraver}  mit 
-dem @code{\remove}-Befehl entfernen.
+@seealso
 
+Glossar: @rglos{tie}
+
+Handbuch zum Lernen:
+@rlearning{Engravers explained},
+@rlearning{Adding and removing engravers}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{Note_heads_engraver},
+@rinternals{Completion_heads_engraver},
+@rinternals{Forbid_line_break_engraver}.
 
 @knownissues
 
@@ -775,31 +1311,79 @@ trotzdem keine Triolen etc.
 @code{Completion_heads_engraver} wirkt sich nur auf Noten aus; 
 Pausen werden nicht aufgeteilt.
 
-@seealso
-
-Programmreferenz:
-@rinternals{Completion_heads_engraver}.
 
 
 @node Showing melody rhythms
 @unnumberedsubsubsec Showing melody rhythms
 
 Manchmal soll nur der Rhythmus einer Melodie dargestellt werden. Das 
-erreicht man mit einem Schlagzeug-Notensystem. Alle Tonhöhen werden 
+erreicht man mit einem Rhythmus-Notensystem. Alle Tonhöhen werden 
 auf eine Linie reduziert und das System hat auch nur eine einzige 
 Linie.
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-\new RhythmicStaff {
-  \time 4/4
-  c4 e8 f g2 | r4 g r2 | g1:32 | r1 |
-}
+@lilypond[quote,relative=1,verbatim]
+<<
+  \new RhythmicStaff {
+    \new Voice = "myRhythm" {
+      \time 4/4
+      c4 e8 f g2
+      r4 g g f
+      g1
+    }
+  }
+  \new Lyrics {
+    \lyricsto "myRhythm" {
+      This is my song
+      I like to sing
+    }
+  }
+>>
 @end lilypond
+
+Akkordnotation für Gitarren bezeichnet auch oft zusätzlich den
+geschlagenen Rhythmus.  Das kann notiert werden unter Verwendung
+des @code{Pitch_squash_engraver} und indem  Tonhöhenimprovisation
+eingeschaltet wird mit @code{\improvisationOn}.
+
+@lilypond[quote,verbatim]
+<<
+  \new ChordNames {
+    \chordmode {
+      c1 f g c
+    }
+  }
+
+  \new Voice \with {
+    \consists Pitch_squash_engraver
+  } \relative c'' {
+    \improvisationOn
+    c4 c8 c c4 c8 c
+    f4 f8 f f4 f8 f
+    g4 g8 g g4 g8 g
+    c4 c8 c c4 c8 c
+  }
+>>
+@end lilypond
+
+@predefined
+@code{\improvisationOn},
+@code{\improvisationOff}.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{guitar-strum-rhythms.ly}
 
 @seealso
 
-Programmreferenz:
-@rinternals{RhythmicStaff}.
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{RhythmicStaff},
+@rinternals{Pitch_squash_engraver}.
+
+
 
 @node Beams
 @subsection Beams
@@ -811,38 +1395,476 @@ Programmreferenz:
 * Feathered beams::             
 @end menu
 
+
 @node Automatic beams
 @unnumberedsubsubsec Automatic beams
 
 LilyPond setzt Balken (engl. beam) automatisch.
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\time 2/4 c8 c c c \time 6/8 c c c c8. c16 c8
+@cindex Balken, manuell
+@cindex manuelle Balken
+
+@lilypond[quote,verbatim,relative=2]
+\time 2/4 c8 c c c
+\time 6/8 c c c c8. c16 c8
 @end lilypond
 
 Wenn diese automatischen Entscheidungen nicht gut genug sind, können 
-die Balken auch explizit eingegeben werden. Es können auch bestimmte 
-Balkenmuster, die sich vom Standard unterscheiden, definiert werden. 
-Hierzu siehe den Abschnitt @ref{Setting automatic beam behavior} 
-für Einzelheiten.
+die Balken auch explizit eingegeben werden, siehe
+@ref{Manual beams}.  Es können auch bestimmte 
+Balkenmuster, die sich vom Standard unterscheiden, definiert werden.
+Die Standard-Regeln für die gebräuchlichsten Taktarten sind
+in der Datei @file{scm/@/auto@/-beam@/.scm} definiert.  Wenn
+dort keine Balkenregeln für die aktuelle Taktart vorhanden
+sind, wird die Bebalkung geregelt von drei Kontexteigenschaften:
+@code{measureLength}, @code{beatLength} und @code{beatGrouping}.
+Sowohl die Balkenregeln als auch diese Kontexteigenschaften
+können geändert werden, siehe @ref{Setting automatic beam behavior}.
 
-Einzelne Noten können mit dem Befehl @code{\noBeam} markiert werden, 
-damit sie nicht mit einem Balken versehen werden.
+@cindex autoBeamOn
+@cindex autoBeamOff
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
-\time 2/4 c8 c\noBeam c c
+@warning{Wenn Balken eingesetzt werden, um Melismen in Gesang
+anzuzeigen, müssen die automatische Bebalkung ausgeschaltet werden
+mit dem Befehl @code{\autoBeamOff} und die Balken mit der Hand
+eingegeben werden.}
+
+@noindent
+Automatische Bebalkung kann mit dem Befehl @code{\autoBeamOff}
+aufgehoben werden und mit dem Befehl @code{\autoBeamOn} wieder
+eingeschaltet werden.
+
+@lilypond[quote,relative=1,verbatim]
+c4 c8 c8. c16 c8. c16 c8
+\autoBeamOff
+c4 c8 c8. c16 c8.
+\autoBeamOn
+c16 c8
 @end lilypond
 
+@predefined
+@code{\autoBeamOff},
+@code{\autoBeamOn}.
+
+@snippets
+
+@funindex breakable
+@cindex Zeilenumbruch, Balken
+@cindex Balken und Zeilenumbrüche
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beams-across-line-breaks.ly}
+
+@cindex Balken mit Knie
+@cindex weit außeinander liegende Balken
+@cindex auto-knee-gap
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{changing-beam-knee-gap.ly}
 
 @seealso
 
-Programmreferenz: @rinternals{Beam}.
+Notationsreferenz:
+@ref{Manual beams},
+@ref{Setting automatic beam behavior}.
+
+Installierte Dateien:
+@file{scm/auto-beam.scm}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{Beam}.
+
+
+@knownissues
+
+Automatische Bebalkung von weit außeinander liegenden Noten
+(wobei der Balken als Knie erscheint) kann nicht mit versteckten
+Systemen benutzt werden.  Siehe @ref{Hiding staves}.
+
+Balken können mit Notenköpfen und Versetzungszeichen in anderen
+Stimmen zusammenstoßen.
+
 
 
 @node Setting automatic beam behavior
 @unnumberedsubsubsec Setting automatic beam behavior
 
-@untranslated
+@funindex autoBeaming
+@funindex autoBeamSettings
+@funindex (end * * * *)
+@funindex (begin * * * *)
+
+@cindex Automatische Balken, einstellen
+@cindex Einstellungen der Bebalkung
+@cindex autobeam
+@cindex Verändern von automatischer Bebalkung
+@cindex Bebalkung, automatisch, Einstellungen
+@cindex Text und Balken
+@cindex Gesangstext und Balken
+
+Die Position und Länge der automatischen Balken wird bestimmt
+von bestimmten Regeln, wie beschrieben in @ref{Automatic beams}.
+Es gibt zwei einander ausschließende Arten, diese Regeln zu
+verändern.  Mit der ersten Art verändert man Gruppen von
+Noten, die einer bestimmten Taktart entsprechend mit Balken
+versehen werden.  Das muss manuell getan werden für die Taktarten,
+für welche keine fertigen Regeln definiert worden sind.  Die
+zweite Methode verändert die Endpunkte der Balken und muss
+eingesetzt werden für die Taktarten, für welche schon Regeln
+definiert worden sind.  Regeln sind definiert für die Taktarten
+3/2, 3/4, 4/4, 2/4, 4/8, 4/16, 6/8, 9/8 und 12/8.
+
+@i{@strong{Die Gruppierung von Noten verändern}}
+
+Wenn keine Regeln für die Beendung von Balken für die aktuelle
+Taktart vorhanden sind, wird die Bebalkung von drei 
+Kontext-Eigenschaften kontrolliert:
+@code{measureLength}, @code{beatLength} und @code{beatGrouping}.
+Diese Eigenschaften können in den @code{Score}, @code{Staff} oder
+@code{Voice}-Kontexten gesetzt werden, um ihre Wirkungsweise zu
+begrenzen.
+
+Durch sie werden die Balken wie folgt bestimmt:
+
+Balken können überall beginnen (außer ein Balken ist schon aktiv).
+Balken enden zu den Werten, die @code{beatGrouping} und
+@code{beatLength} bestimmten, nach folgenden Regeln:
+
+@itemize
+
+@item Wenn @code{beatGrouping} und @code{beatLength} den gleichen
+Wert wie @code{measureLength} haben, wird @code{beatGrouping}
+benutzt, um die Endpunkte der Balken zu bestimmen.
+
+@item  Wenn @code{beatGrouping} und @code{beatLength} nicht mit
+@code{measureLength} übereinstimmen, wird @code{beatLength}
+benutzt, um die Endpunkte der Balken zu bestimmen.
+
+@end itemize
+
+Standardmäßig werden diese Eigenschaften durch die Taktart bestimmt,
+die mit @code{\time} gesetzt wurde.  Die @code{measureLength}
+(Taktlänge) hat standardmäßig genau die gleiche Länge wie die
+Taktlänge, die durch @code{\time} bestimmt wurde, und der
+Standardwert für @code{beatLength} (Schlag-Länge) wird durch
+den Nenner des Taktart-Bruches bestimmt.
+
+Sowohl @code{measureLength} als auch @code{beatLength} sind
+@i{Momente}, Einheiten musikalischer Dauer.  Eine Größe der
+Art @i{Moment} wird durch die Scheme-Funktion
+@code{ly:make-moment} erstellt.  Für mehr Information zu dieser
+Funktion siehe @ref{Time administration}.
+
+@code{beatGrouping} ist eine Liste an Integren, die die Anzahl
+von Zählzeiten für jede Gruppe darstellen.
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{grouping-beats.ly}
+
+@c TODO Convert to snippet called "Specifying context with beatGrouping"
+
+By specifying the context, the effect of @code{beatGrouping} can be
+limited to the context specified, and values set in higher-level
+contexts overridden:
+
+@lilypond[quote,verbatim]
+\score {
+  \new Staff <<
+    \time 7/8
+    \new Voice {
+      \relative c'' {
+        \set Staff.beatGrouping = #'(2 3 2)
+        a8 a a a a a a
+      }
+    }
+    \new Voice {
+      \relative c' {
+        \voiceTwo
+        \set Voice.beatGrouping = #'(1 3 3)
+        f8 f f f f f f
+      }
+    }
+  >>
+}
+@end lilypond
+
+
+@c TODO Send as snippet?
+
+The property @code{measureLength} determines where bar lines
+should be inserted and, with @code{beatLength} and
+@code{beatGrouping}, how automatic beams should be generated
+for time signatures for which no beam end rules are defined.
+
+@lilypond[quote,verbatim,relative=2]
+\time 3/4 % auto beam on 1/4 note groups
+a16 a a a a a a a a a a a a a a a
+\time 12/16 % no defined auto-beaming for this time sig
+a16 a a a a a a a a a a a a a a a
+\time 3/4
+a16 a a a a a a a a a a a a a a a
+\set Score.timeSignatureFraction = #'(12 . 16) %keep 3/4 beaming
+                                             % due to beatLength
+a16 a a a a a a a a a a a a a a a
+\set Score.beatLength = #(ly:make-moment 1 8) %beam on 1/8 notes
+a16 a a a a a a a a a a a a a a a
+\set Score.beatLength = #(ly:make-moment 1 16)
+\set Score.beatGrouping = #'(3 4 2 3) %beam on 3/16, 7/16, 9/16, 12/16
+a16 a a a a a a a a a a a a a a a
+@end lilypond
+
+
+@c End of snippet
+
+@funindex subdivideBeams
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{sub-dividing-beams.ly}
+
+@cindex measure groupings
+@cindex beats, grouping
+@cindex grouping beats
+@cindex measure sub-grouping
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{conducting-signs,-measure-grouping-signs.ly}
+
+
+@strong{@i{Die Endpunkte von Balken bestimmen}}
+
+In normalen Taktarten können automatisch gesetzte Balken an jeder
+Note beginnen, aber nur an einigen bestimmten Positionen innerhalb
+des Taktes beendet werden.  Diese Positionen werden durch die
+Eigenschaften in @code{autoBeamSettings} bestimmt.  Sie bestehen
+aus einer Liste an Regeln, die bestimmen, wo Balken enden können.
+Die Standardeinstellungen dieser automatischen Einstellungen 
+befinden sich in der Datei @file{scm/@/auto@/-beam@/.scm}.
+
+Diese Methode @strong{muss} benutzt werden, wenn die Einstellungen
+für die Balken in üblichen Taktarten verändert werden sollen, und
+sie ist auch in vielen anderen Taktarten gut anzuwenden, wenn
+die Taktart sich oft ändert.  Weil die Regeln so formuliert werden
+können, dass sie sich auf eine bestimmte Taktart beziehen, müssen
+sie nur einmal für jede Taktart definiert werden.  Wenn man das
+selbe Ergebnis zu erreichen versucht, indem man die Zählzeiten
+gruppiert, müsste man einen @code{\set}-Befehl nach jedem
+Taktwechsel benutzen, wenn nicht die Standardwerte für die
+Taktart passend sind.
+
+Um eine neue Regel zu der Liste hinzuzufügen, muss folgende
+Syntax verwendet werden:
+
+@example
+#(override-auto-beam-setting
+  '(Balken-Limit
+    Balken-Zähler Balken-Nenner
+    Taktart-Zähler Taktart-Nenner)
+  Moment-Zähler Moment-Nenner [Kontext])
+@end example
+
+@noindent
+wobei
+
+@itemize
+
+@item @code{Balken-Limit} die Art der Balkenbegrenzung ist.  Das
+kann entweder der Wert @code{begin} (Anfang) oder @code{end}
+(Ende) sein, aber nur @code{end} hat eine Auswirkung.
+
+@item @code{Balken-Zähler/Balken-Nenner} ist die Balken-Dauer,
+auf die die Regel sich bezieht.  Ein Balken hat per Definition
+die Dauer seiner kürzesten Note.  Wenn sowohl
+@code{Balken-Zähler} als auch @code{Balken-Nenner} auf
+ @code{'*'} gesetzt werden, gilt die Regel für alle Dauern.
+
+@item @code{Taktart-Zähler/Taktart-Nenner} bestimmen die
+Taktart, auf die die Regel sich bezieht. Wenn @code{Taktart-Zähler}
+und @code{Taktart-Nenner} auf @code{'*'} gesetzt werden, gilt
+die Regel für alle Taktarten.
+
+@item @code{Moment-Zähler/Moment-Nenner} ist die Position im
+Takt, an welcher der Balken aufhören soll.
+
+@item @code{Kontext} ist optional und bestimmt den Kontext, in
+welchem die Änderungen vorgenommen werden sollen.  Der
+Standard ist @code{'Voice}.
+
+@code{#(score-override-auto-beam-setting '(A B C D) E F)} ist
+gleichbedeutend mit
+@code{#(override-auto-beam-setting '(A B C D) E F 'Score)}.
+
+@end itemize
+
+Wenn beispielsweise die automatischen Balken immer auf der ersten
+Viertel enden sollen, unabhängig von der Taktart oder Dauer
+des Balkens, kann
+
+@lilypond[quote,verbatim,relative=2]
+a8 a a a a a a a
+#(override-auto-beam-setting '(end * * * *) 1 4)
+a8 a a a a a a a
+@end lilypond
+
+@noindent
+benutzt werden.
+
+Balkenregeln können aber auch auf Notengruppen beschränkt werden,
+deren kürzeste Note einen bestimmten Wert hat:
+
+@lilypond[quote,verbatim,relative=2]
+\time 2/4
+% end 1/16 beams for all time signatures at the 1/16 moment
+#(override-auto-beam-setting '(end 1 16 * *) 1 16)
+a16 a a a a a a a |
+a32 a a a a16 a a a a a |
+% end 1/32 beams for all time signatures at the 1/16 moment
+#(override-auto-beam-setting '(end 1 32 * *) 1 16)
+a32 a a a a16 a a a a a |
+@end lilypond
+
+Balkenregeln können so definiert werden, dass sie nur in bestimmten
+Taktarten angewendet werden:
+
+@lilypond[quote,verbatim,relative=2]
+\time 5/8
+% end beams of all durations in 5/8 time signature at the 2/8 moment
+#(override-auto-beam-setting '(end * * 5 8) 2 8)
+c8 c d d d
+\time 4/4
+e8 e f f e e d d
+\time 5/8
+c8 c d d d
+@end lilypond
+
+Wenn mehrfache Stimmen benutzt werden, muss der @code{Staff}-Kontext
+angegeben werden, wenn die Balkenregeln auf alle Stimmen im System
+angewendet werden sollen:
+
+@lilypond[quote,verbatim,relative=2]
+\time 7/8
+% rhythm 3-1-1-2
+% Context not specified - does not work correctly
+#(override-auto-beam-setting '(end * * 7 8) 3 8)
+#(override-auto-beam-setting '(end * * 7 8) 4 8)
+#(override-auto-beam-setting '(end * * 7 8) 5 8)
+<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+
+% Works correctly with context specified
+#(override-auto-beam-setting '(end * * 7 8) 3 8 'Staff)
+#(override-auto-beam-setting '(end * * 7 8) 4 8 'Staff)
+#(override-auto-beam-setting '(end * * 7 8) 5 8 'Staff)
+<< {a8 a a a16 a a a a8 a} \\ {f4. f8 f f f} >>
+@end lilypond
+
+@c TODO Add example using Score for multiple staves?
+@c Hmm.  Not sure it works correctly.  Needs more investigation.
+
+@warning{Wenn eine unerwartete Bebalkung auftritt, schauen Sie
+zuerste die Balkeneinstellungen in @file{scm/@/auto@/-beam@/.scm} 
+nach, ob sich hier Überschneidungen ergeben, weil die
+Balkenenden, die dort definiert sind, auch noch weiterhin
+wirksam sind zusätzlich zu den von Ihnen definierten.}
+
+Jede ungewollte oder störende Balkenbeendigung aus den Standard-Eingesllungen
+muss für Ihre Taktart rückgängig gemacht werden.  Existierende
+automatische Bebalkungsregeln werden entfernt mit folgender
+Syntax:
+
+@example
+#(revert-auto-beam-setting
+  '(Balken-Limit
+    Balken-Zähler Balken-Nenner
+    Taktart-Zähler Taktart-Nenner)
+  Moment-Zähler Moment-Nenner [Kontext])
+@end example
+
+@noindent
+wobei @code{Balken-Limit}, @code{Balken-Zähler}, @code{Balken-Nenner},
+@code{Taktart-Zähler}, @code{Taktart-Nenner}, @code{Moment-Zähler},
+@code{Moment-Nenner} sowie @code{Kontext} die gleichen sind
+wie oben erklärt.
+
+@lilypond[quote,verbatim,relative=2]
+\time 4/4
+a16 a a a a a a a a a a a a a a a
+% undo a rule ending 1/16 beams in 4/4 time at 1/4 moment
+#(revert-auto-beam-setting '(end 1 16 4 4) 1 4)
+a16 a a a a a a a a a a a a a a a
+@end lilypond
+
+Die Regel in einer @code{revert-auto-beam-setting}-Definition
+muss exakt der ursprünglichen Regel entsprechen.  Dabei werden
+keine Platzhalter akzeptiert.
+
+@lilypond[quote,verbatim,relative=2]
+\time 1/4
+#(override-auto-beam-setting '(end 1 16 1 4) 1 8)
+a16 a a a
+#(revert-auto-beam-setting '(end 1 16 * *) 1 8) % this won't revert it!
+a a a a
+#(revert-auto-beam-setting '(end 1 16 1 4) 1 8) % this will
+a a a a
+@end lilypond
+
+@snippets
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{beam-grouping-in-7-8-time.ly}
+
+
+@ignore
+@c   Seems like setting beam starting points is no longer
+@c   necessary, and/or has no effect.  Remove mention?
+
+The same syntax can be used to specify beam starting points.
+
+@c TODO Does this example add anything?
+
+In this
+example, automatic beams can only end on a dotted quarter note
+@example
+#(override-auto-beam-setting '(end * * * *) 3 8)
+#(override-auto-beam-setting '(end * * * *) 1 2)
+#(override-auto-beam-setting '(end * * * *) 7 8)
+@end example
+
+In 4/4 time signature, this means that automatic beams could end only on
+3/8 and on the fourth beat of the measure (after 3/4, that is 2 times
+3/8, has passed within the measure).
+
+@end ignore
+
+@lilypondfile[verbatim,lilyquote,ragged-right,texidoc,doctitle]
+{reverting-default-beam-endings.ly}
+
+
+@predefined
+
+@funindex \autoBeamOff
+@code{\autoBeamOff},
+@funindex \autoBeamOn
+@code{\autoBeamOn}.
+
+
+@knownissues
+
+Wenn eine Partitur aufhört, während ein automatischer Balken noch
+nicht geschlossen ist und noch Noten erwartet, wird dieser letzte
+Balken überhaupt nicht ausgegeben.  Das gilt auch für polyphone
+Stimmen, die mit @code{<< @dots{} \\ @dots{} >>} gesetzt wurden.
+Wenn eine polyphone Stimme endet, während ein Balken noch Noten
+erwartet, wird dieser Balken nicht gesetzt.
+
+@seealso
+
+Schnipsel:
+@rlsr{Rhythms}.
+
 
 
 @node Manual beams
@@ -854,89 +1876,114 @@ Programmreferenz: @rinternals{Beam}.
 
 In einigen Fällen kann es nötig sein, den automatischen Algorithmus 
 für die Balken zu überschreiben. Die automatischen Balken werden 
-beispielsweise nicht über Pausen oder Taktlinien hinweg gesetzt. 
+beispielsweise nicht über Pausen oder Taktlinien hinweg gesetzt, und
+in Gesang werden die Balken oft nach dem Rhythmus des Textes und
+nicht dem der Musik gesetzt. 
 Manuell definierte Balken werden mit den Zeichen @code{[} und 
 @code{]} (AltGr+8 bzw. 9) markiert.
 
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
+@lilypond[quote,relative=1,verbatim]
 {
   r4 r8[ g' a r8] r8 g[ | a] r8
 }
 @end lilypond
 
 
-@commonprop
+Einzelne Noten können mit dem Befehl @code{\noBeam} markiert werden, 
+damit sie nicht mit einem Balken versehen werden.
+
+@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+\time 2/4 c8 c\noBeam c c
+@end lilypond
 
 @funindex stemLeftBeamCount
 @funindex stemRightBeamCount
 
-LilyPond kann die Balkengruppen innerhalb eines größeren Balkens
-selber bestimmen, aber dabei können teilweise seltsame Ergebnisse 
-entstehen. Mit den Eigenschaften @code{stemLeftBeamCount} und 
-@code{stemRightBeamCount} können diese Unterteilungen manuell
-eingestellt werden. Wenn eine dieser Eigenschaften gesetzt ist, 
-wird es nur einmal verwendet und dann wieder zum Standard zurück 
-geschaltet.
+Noch bessere manuelle Kontrolle über die Balken kann durch Setzen
+der Eigenschaften @code{stemLeftBeamCount} und
+@code{stemRightBeamCount} erreicht werden.  Sie bestimmen
+die Anzahl von Balken, die rechts und links vom Hals der nächsten
+Note gesetzt werden sollen.  Wenn eine Eigenschaften gesetzt ist,
+wird ihr Wert nur einmal eingesetzt und dann wieder auf Null gesetzt.
+Im folgenden Beispiel hat das letzte @code{f} nur einen Balken
+an seiner linken Seite (der als Achtelbalken der gesamten
+Gruppe gewertet wird).
 
-
-@lilypond[quote,ragged-right,fragment,relative=1,verbatim]
-{
-   f8[ r16
-      f g a]
-   f8[ r16
-   \set stemLeftBeamCount = #1
-      f g a]
-}
+@lilypond[quote,relative=2,verbatim]
+a8[ r16 f g a]
+a8[ r16
+\set stemLeftBeamCount = #2
+\set stemRightBeamCount = #1
+f
+\set stemLeftBeamCount = #1
+g a]
 @end lilypond
 
-Die Eigenschaft @code{subdivideBeams} kann benutzt werden, um alle 
-16tel-Balken oder kleinere Werte zu bestimmten Taktzeiten zu 
-unterteilen. Diese Zeiten werden mit der @code{beatLength}-Eigenschaft 
-gesetzt.
-
-@lilypond[fragment,quote,relative=2,verbatim]
-c16[ c c c c c c c]
-\set subdivideBeams = ##t
-c16[ c c c c c c c]
-\set Score.beatLength = #(ly:make-moment 1 8)
-c16[ c c c c c c c]
-@end lilypond
-@funindex subdivideBeams
-
-@noindent
-Zu mehr Information über @code{make-moment} siehe
-@ref{Time administration}.
-
-Zeilenumbrüche sind normalerweise verboten, wenn Balken sich über 
-die Taktlinien erstrecken. Das kann aber durch Setzen von 
-@code{breakable} verändert werden.
-
-@funindex breakable
-
-@cindex Balken und Zeilenumbrüche
-@cindex Balken zwischen Systemen
-@funindex auto-knee-gap
-
-
-Balken mit Hälsen nach oben und unten werden automatisch eingesetzt, 
-wenn ein großer Abstand zwischen Notenköpfen gefunden wird. Die Größe 
-des Wertes kann mit dem 
-@code{auto-knee-gap}-Objekt eingestellt werden.
-
-@knownissues
-
-Automatisch erstellte Balken zwischen Systemen können nicht zusammen 
-mit automatisch versteckten Systemen verwendet werden. Siehe auch
- @ref{Hiding staves}.
-
-@c Is this still true with skyline spacing stuff? -J.Mandereau
-Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 
 
 @node Feathered beams
 @unnumberedsubsubsec Feathered beams
 
-@untranslated
+@cindex Balken, gespreizt
+@cindex gespreizte Balken
+@funindex \featherDurations
+
+Gespreizte Balken werden teilweise eingesetzt um anzuzeigen, dass
+kleine Notengruppen in beschleunigendem oder verlangsamendem Tempo
+gespielt werden sollen, ohne dass sich das Tempo des Stückes
+verändert.  Die Reichweite der gespreizten Balken muss manuell
+mit @code{[} und @code{]} angegeben werden und die Spreizung wird
+kontrolliert, indem der Balken-Eigenschaft @code{grow-direction}
+eine Richtung zugewiesen wird.
+
+Wenn die Anordnung der Noten und die MIDI-Ausgabe das Ritardando
+oder Accelerando, wie es die Spreizung angibt, reflektieren soll,
+müssen die Noten als ein musikalischer Ausdruck notiert werden,
+der von geschweiften Klammern umgeben ist und dem ein
+@code{featheredDurations}-(gespreizteDauern)-Befehl vorangestellt
+ist, der das Verhaltnis der ersten und letzten Dauer definiert.
+
+Die eckigen Klammern geben die Reichweite des Balkens an und die
+geschweiften Klammern zeigen, auf welche Noten sich die Veränderung
+der Dauern auswirkt.  Normalerweise bezieht sich das auf die
+selbe Notengruppe, aber das ist nicht unbedingt erforderlich: beide
+Befehle sind unabhängig voneinander.
+
+Im folgenden Beispiel nehmen die acht 16-Noten exakt die gleiche
+Zeit ein wie eine halbe Note, aber die erste Note ist halb so lang
+wie die letzte der Gruppe, und die Noten dazwischen werden stufenweise
+verlängert.  Die ersten vier 32-Noten beschleunigen stufenweise
+das Tempo, während die darauffolgenden vier 32-Noten ein
+gleichmäßiges Tempo haben.
+
+@lilypond[relative=1,verbatim,quote]
+\override Beam #'grow-direction = #LEFT
+\featherDurations #(ly:make-moment 2 1)
+{ c16[ c c c c c c c] }
+\override Beam #'grow-direction = #RIGHT
+\featherDurations #(ly:make-moment 2 3)
+{ c32[ d e f] }
+% revert to non-feathered beams
+\override Beam #'grow-direction = #'()
+{ g32[ a b c] }
+@end lilypond
+
+@noindent
+Die Platzierung der Noten im Druckbild entspricht den Notendauern
+nur annähernd, aber die MIDI-Ausgabe ist exakt.
+
+@knownissues
+
+Der @code{\featherDurations}-Befehl funktioniert nur mit kurzen
+Notenabschnitten, und wenn die Zahlen in den Brüchen klein
+sind.
+
+@seealso
+
+Snippets:
+@rlsr{Rhythms}.
+
+
 
 
 @node Bars
@@ -958,45 +2005,108 @@ Balken vermeiden nicht andere Objekte, wie etwa Text und Versetzungszeichen.
 @cindex Doppellinie
 @cindex Wiederholungszeichen
 
-Taktlinien trennen die Takte voneinander, werden aber auch verwendet, 
+Taktlinien trennen Takte voneinander, werden aber auch verwendet, 
 um Wiederholungen anzuzeigen. Normalerweise werden sie automatisch 
-eingefügt. Zeilenumbrüche können nur an Taktlinien stattfinden.
+nach Vorgabe der aktuellen Taktart eingefügt.
 
-Besondere Taktlinien-Arten können mit dem @code{\bar}-Befehl erzwungen 
-werden.
+Die einfachen, automatisch eingefügten Taktlinien können mit dem
+@code{\bar}-Befehl geändert werden.  Eine doppelte Taktlinie etwa
+wird normalerweise am Ende eines Stückes gesetzt:
 
-@lilypond[quote,ragged-right,relative=2,fragment,verbatim]
-c4 \bar "|:" c4
+@lilypond[quote,relative=1,verbatim]
+e4 d c2 \bar "|."
 @end lilypond
 
-Folgende Taktlinienarten sind vorhanden:
+Es ist kein Fehler, wenn die letzte Note in einem Takt nicht
+zur automatische eingefügten Taktlinie aufhört: es wird angenommen,
+dass die Note im nächsten Takt weitergeht.  Wenn aber eine ganze
+Reihe solcher überlappenden Takte auftritt, können die Noten
+gedrungen aussehen oder sogar über den Seitenrand hinausragen.  Das
+kommt daher, dass Zeilenumbrüche nur dann vorgenommen werden, wenn
+ein vollständiger Takt auftritt, also ein Takt, an dem alle Noten
+vor dem Taktstrich zu Ende sind.
 
-@c @lilypondfile[ragged-right,quote]{bar-lines.ly}
+@warning{Eine falsche Dauer kann bewirken, dass Zeilenumbrüche
+verhindert werden, woraus resultiert, dass die Noten entweder
+sehr stark gedrängt auf der Zeile notiert werden, oder die Zeile
+über den Seitenrand hinausragt.}
 
-Als letztes ist @code{"||:"} notiert, das sich ähnlich wie 
-@code{"|:"} verhält. Es gibt jedoch nur an Zeilenenden eine doppelte 
-Taktlinie aus und fängt die Wiederholungslinie erst in der nächsten 
-Zeile an.
+@cindex Zeilenumbrüche
+@cindex unsichtbare Taktlinien
+@cindex Taktlinien, unsichtbar
 
-Um einen Zeilenumbruch an einer Stelle zu erlauben, wo keine sichtbare 
-Taktlinie ist, kann man 
+Zeilenumbrüche werden erlaubt, wenn eine Taktlinie manuell eingefügt
+wird, auch, wenn es sich um keinen vollständigen Takt handelt.  Um
+einen Zeilenumbruch zu erlauben, ohne die Taktlinie auszugeben,
+kann
 
 @example
 \bar ""
 @end example
 
 @noindent
-benutzen. Damit wird eine unsichtbare Taktlinie an dieser Stelle eingefügt 
-und damit ein Zeilenumbruch erlaubt (ohne dass sich die Anzahl der Takte 
-erhöhen würde).
+benutzt werden.  Damit wird eine unsichtbare Taktlinie an dieser Stelle eingefügt 
+und damit ein Zeilenumbruch erlaubt (aber nicht erzwungen), ohne 
+dass sich die Anzahl der Takte erhöhen würde.  Um einen
+Zeilenumbruch zu erzwingen, siehe
+@ref{Line breaking}.
+
+Diese Art von Taktlinien und auch andere besondere Taktlinien
+können manuell an jeder Stelle in der Partitur eingefügt werden.
+Wenn sie mit dem Ende eines Taktes übereinstimmen, wird die
+automatische Taktlinie durch die manuelle ersetzt.  Diese
+manuellen Einfügungen haben keine Auswirkung auf die Zählung und
+Position der folgenden automatischen Taktlinien.
+
+Manuell können die einfache Taktlinie und zusätzlich fünf Arten
+einer doppelten Taktlinie gesetzt werden:
+
+@lilypond[quote,relative=1,verbatim]
+f1 \bar "|" g \bar "||" a \bar ".|" b \bar ".|." c \bar "|.|" d \bar "|." e
+@end lilypond
+
+Zusätzlich gibt es noch punktierte und gestrichelte Taktlinien:
+
+@lilypond[quote,relative=1,verbatim]
+f1 \bar ":" g \bar "dashed" a
+@end lilypond
+
+@noindent
+und fünf unterschiedliche Wiederholungstaktlinien:
+
+@lilypond[quote,relative=1,verbatim]
+f1 \bar "|:" g \bar ":|:" a \bar ":|.|:" b \bar ":|.:" c \bar ":|" d
+@end lilypond
+
+@cindex Wiederholungen
+
+Auch wenn die Taktlinien, die Wiederholungen angeben, manuell
+eingefügt werden können, wird die Wiederholung dadurch nicht von
+LilyPond erkannt.  Wiederholte Stellen werden besser notiert, indem
+man die Wiederholguns-Befehle einsetzt, die automatische die
+richtigen Taktlinien setzen.  Das ist beschrieben in@ref{Repeats}.
+
+Zusätzlich kann noch @code{"||:"} verwendet werden, dass sich
+genauso wie @code{"|:"} verhält, außer bei Zeilenumbrüchen, wo eine
+doppelte Taktlinie am Ende der Zeile ausgegeben wird und eine
+öffnende Wiederholungslinie am Anfang der nächsten Zeile.
+
+@lilypond[quote,relative=2,verbatim]
+\override Score.RehearsalMark #'padding = #3
+c c c c
+\bar "||:"
+c c c c \break
+\bar "||:"
+c c c c
+@end lilypond
 
 In Partituren mit vielen Systemen wird ein @code{\bar}-Befehl in einem 
 System automatisch auf alle anderen Systeme angewendet. Die resultierenden 
 Taktlinien sind miteinander verbunden innerhalb einer Gruppe 
- (@code{StaffGroup}) oder einem Klaviersystem (@code{PianoStaff} 
-bzw. (@code{GrandStaff}).
+(@code{StaffGroup} bzw. @code{InnerStaffGroup}) oder einem 
+Klaviersystem (@code{PianoStaff} bzw. (@code{GrandStaff}).
 
-@lilypond[quote,ragged-right,fragment,verbatim]
+@lilypond[quote,fragment,verbatim]
 <<
   \new StaffGroup <<
     \new Staff {
@@ -1011,10 +2121,9 @@ bzw. (@code{GrandStaff}).
 @end lilypond
 
 
-@commonprop
+@snippets
 
 @funindex whichBar
-@funindex repeatCommands
 @funindex defaultBarType
 
 Der Befehl @code{\bar }@var{Taktart} ist eine Kurzform von:
@@ -1022,29 +2131,191 @@ Der Befehl @code{\bar }@var{Taktart} ist eine Kurzform von:
 @code{whichBar} auf einen Wert gesetzt wird, wird eine 
 Taktlinie dieses Typs erzeugt.
 
-Eine Taktlinie wird auch durch Setzen der 
- @code{whichBar}-Eigenschaft erzeugt. Am Anfang eines Taktes 
-wird sie auf den Wert von @code{Timing.defaultBarType} 
-gesetzt. Der Inhalt des @code{repeatCommands}-Befehls 
-wird benutzt, um Standardtaktlinien zu überschreiben.
-
-Sie sollten jedoch Wiederholungen mit dem @code{\repeat}-Befehl 
-erzeugen. Siehe Abschnitt @ref{Repeats}.
-
+Die automatische erzeugte Taktlinie ist @code{"|"}.  Das kann
+jederzeit durch den Befehl @code{\set Timing.defaultBarType = }
+@var{Takstrichart} geändert werden.
 
 @seealso
 
-Im Handbuch: @ref{Repeats}, @ref{System start delimiters}.
+Notationsreferenz:
+@ref{Line breaking},
+@ref{Repeats},
+@ref{Grouping staves}.
 
-Programmreferenz: @rinternals{BarLine} (auf Partitur 
-(@rinternals{Staff})-Ebene erstellt), 
-@rinternals{SpanBar} (zwischen Systemen).
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{BarLine} (created at
+@rinternals{Staff} level), @rinternals{SpanBar} (across
+staves), @rinternals{Timing_translator} (for Timing
+properties).
+
 
 
 @node Bar numbers
 @unnumberedsubsubsec Bar numbers
 
-@untranslated
+@cindex Taktnummern
+@cindex Nummierung von Takten
+@funindex currentBarNumber
+
+Taktnummern werden standardmäßig zu Beginn eines jeden Systems
+ausgegeben, ausgenommen ist die erste Zeile.  Die Zahl selber
+wird in der @code{currentBarNumber}-Eigenschaft gespeichert, die
+normalerweise für jeden Takt aktualisiert wird.  Sie kann aber auch
+manuell gesetzt werden:
+
+@lilypond[verbatim,quote,fragment,relative=1]
+c1 c c c
+\break
+\set Score.currentBarNumber = #50
+c1 c c c
+@end lilypond
+
+
+@snippets
+
+@funindex barNumberVisibility
+@cindex Taktnummern, regelmäßiger Abstand
+
+Taktnummern können in regelmäßigem Abstand ausgegeben werden,
+anstatt dass sie nur am Beginn des Systems erscheinen.  Um das
+zu erreichen, muss die Standardeinstellung verändert werden, um
+zu erlauben, dass Taktnummern an anderen Stellen als dem
+Beginn von Systemen ausgegeben werden.  Das wird mit der
+Eigenschaft @code{break-visibility} von @code{BarNumber} vorgenommen.
+Sie braucht drei Werte, die auf @code{#t} (wahr) oder @code{#f}
+(falsch) gestellt werden können, womit angegeben wird, ob die
+Taktnummer an der entprechenden Stelle sichtbar ist.  Die
+Reihenfolge der Werte ist: @var{Ende der Zeile}, @var{Mitte
+der Zeile} und @var{Beginn der Zeile}.  Im folgenden
+Beispiel werden die Taktlinien überall ausgegeben:
+
+@lilypond[verbatim,quote,relative=1]
+\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
+\set Score.currentBarNumber = #11
+\bar ""  % Permit first bar number to be printed
+c1 c c c
+\break
+c c c c
+@end lilypond
+
+@c  All the rest of these examples will be added to LSR
+@c  and moved into the Snippets.  -gp
+
+Im nächsten Beispiel werden die Taktnummern nur für jeden
+zweiten Takt gesetzt, außer am Ende der Zeile:
+
+@lilypond[verbatim,quote,relative=1]
+\override Score.BarNumber #'break-visibility = #'#(#f #t #t)
+\set Score.currentBarNumber = #11
+\bar ""  % Permit first bar number to be printed
+% Print a bar number every second measure
+\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
+c1 c c c c
+\break
+c c c c c
+@end lilypond
+
+@cindex Taktnummer, Form
+@cindex Aussehen von Taktnummern
+
+The size of the bar number may be changed.  This is illustrated
+in the following example, which also shows how to enclose bar
+numbers in boxes and circles, and shows an alternative way
+of specifying @code{#(#f #t #t)} for @code{break-visibility}.
+
+@lilypond[verbatim,quote,relative=1]
+% Prevent bar numbers at the end of a line and permit them elsewhere
+\override Score.BarNumber #'break-visibility
+  = #end-of-line-invisible
+
+% Increase the size of the bar number by 2
+\override Score.BarNumber #'font-size = #2
+\repeat unfold 3 { c1 } \bar "|"
+
+% Draw a box round the following bar number(s)
+\override Score.BarNumber  #'stencil
+  = #(make-stencil-boxer 0.1 0.25 ly:text-interface::print)
+\repeat unfold 3 { c1 } \bar "|"
+
+% Draw a circle round the following bar number(s)
+\override Score.BarNumber  #'stencil
+  = #(make-stencil-circler 0.1 0.25 ly:text-interface::print)
+\repeat unfold 4 { c1 } \bar "|."
+@end lilypond
+
+@cindex Ausrichtung von Taktlinien
+@cindex Taktlinien, Ausrichtung
+
+Bar numbers by default are left-aligned to their parent object.
+This is usually the left edge of a line or, if numbers are printed
+within a line, the left bar line of the measure.  The numbers may also
+be positioned directly on the bar line or right-aligned to the
+bar line:
+
+@lilypond[verbatim,quote,relative=1]
+\set Score.currentBarNumber = #111
+\override Score.BarNumber #'break-visibility = #'#(#t #t #t)
+% Increase the size of the bar number by 2
+\override Score.BarNumber #'font-size = #2
+% Print a bar number every second measure
+\set Score.barNumberVisibility = #(every-nth-bar-number-visible 2)
+c1 c1
+% Center-align bar numbers
+\override Score.BarNumber #'self-alignment-X = #0
+c1 c1
+% Right-align bar numbers
+\override Score.BarNumber #'self-alignment-X = #-1
+c1 c1
+@end lilypond
+
+Bar numbers can be removed entirely by removing the
+@code{Bar_number_engraver} from the @code{Score} context.
+
+@lilypond[verbatim,quote]
+\layout {
+  \context {
+    \Score
+    \remove "Bar_number_engraver"
+  }
+}
+\relative c''{
+  c4 c c c \break
+  c4 c c c
+}
+@end lilypond
+
+
+@seealso
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{BarNumber}.
+
+@knownissues
+
+Taktnummern können mit der oberen Ecke der Klammer zu Beginn des
+Systems zusammenstoßen.  Um das zu verhindert, kann die
+@code{padding}-Eigenschaft von @code{BarNumer} verwendet werden,
+um die Zahl zu verschieben.
+
+Taktnummern werden nur an Taktzahlen ausgegeben. Um eine Taktzahl
+auch am Anfang eines Stückes zu erhalten, muss eine leere
+Taktlinie manuell eingefügt werden, und für die aktuelle
+Taktzahl (@code{currentBarNumber} muss ein anderer Wert als
+@code{1} angegeben werden:
+
+@lilypond[verbatim,quote,relative=1]
+\set Score.currentBarNumber = #50
+\bar ""
+c1 c c c
+c1 c c c
+\break
+@end lilypond
 
 
 @node Bar and bar number checks
@@ -1066,7 +2337,7 @@ in einer Fehlermeldung.
 \time 3/4 c2 e4 | g2 |
 @end example
 
-Taktüberprüfungen können auch in Liedtexten verwendet werden:
+Taktüberprüfungen können auch in Gesangstexten verwendet werden:
 
 @example
 \lyricmode @{
@@ -1075,23 +2346,36 @@ Taktüberprüfungen können auch in Liedtexten verwendet werden:
 @}
 @end example
 
-Eine Taktüberprüfung gilt als nicht bestanden, wenn die Notenwerte 
-nicht stimmen. Besonders in mehrstimmiger komplizierter Musik können 
-solche falschen Notenwerte die ganze Partitur durcheinander bringen. 
+Besonders in mehrstimmiger komplizierter Musik können 
+falschen Notenwerte die ganze Partitur durcheinander bringen. 
 Es lohnt sich also, die Fehlersuche damit zu beginnen, nicht bestandene 
 Taktüberprüfungen zu kontrollieren.
+
+Wenn aufeinander folgende Taktüberprüfungen mit dem gleichen
+Abstand Fehler produzieren, wird eventuell nur die erste Warnung
+ausgegeben.  Damit wird die Warnung auf den Ursprung de Fehlers
+fokussiert.
 
 @funindex |
 @funindex pipeSymbol
 
-Es ist auch möglich, die Bedeutung des Symbols @code{|} umzudefinieren. 
+Es ist auch möglich, die Bedeutung des Symbols @code{|} 
+umzudefinieren, so dass hiermit eine andere Aktion als eine
+Taktüberprüfung erreicht wird. 
 Das geschieht, indem man der Pipe (@code{pipeSymbol} einen musikalischen 
-Ausdruck zuweist:
+Ausdruck zuweist.  Im nächsten Beispiel wird @code{|} dazu
+verwendet, eine doppelte Taktlinie auszugeben, woimmer man
+das Zeichen auchsetzt.  Gleichzeitig hört das Zeichen auf,
+als Taktüberprüfung zu funktionieren.
 
-@lilypond[quote,ragged-right,verbatim]
+@lilypond[quote,verbatim]
 pipeSymbol = \bar "||"
-
-{ c'2 c' | c'2 c' }
+{
+  c'2 c'2 |
+  c'2 c'2
+  c'2 | c'2
+  c'2 c'2
+}
 @end lilypond
 
 
@@ -1110,10 +2394,137 @@ Eine Warnung wird ausgegeben, wenn der interne Zähler
 nicht mit dem Wert 123 übereinstimmt.
 
 
+
 @node Rehearsal marks
 @unnumberedsubsubsec Rehearsal marks
 
-@untranslated
+@cindex Übungszeichen
+@cindex Abschnitte markieren
+@funindex \mark
+
+Übungszeichen können mit dem @code{\mark}-Befehl ausgegeben werden:
+
+@lilypond[quote,verbatim,relative=2]
+c1 \mark \default
+c1 \mark \default
+c1 \mark #8
+c1 \mark \default
+c1 \mark \default
+@end lilypond
+
+@noindent
+Der Buchstabe@tie{}@qq{I} wird ausgelassen, was den allgemeinen
+Notensatzregeln entspricht. Wenn Sie dennoch den Buchstaben
+@qq{I} benutzen, wollen, müssen Sie
+
+@example
+\set Score.markFormatter = #format-mark-alphabet
+@end example
+
+@noindent
+benutzen.
+
+Das Zeichen wird automatisch erhöht, wenn Sie @code{\mark
+\default} schreiben, aber Sie können auch eine beliebige
+Ganzzahl als Argument angeben.  Der Wert, der gesetzt werden
+soll, wird in der Eigenschaft @code{rehearsalMark} gespeichert.
+
+@cindex Übungszeichen formatieren
+@cindex Stil von Übungszeichen
+@cindex Übungszeichenstil
+@cindex Art der Übungszeichen
+@cindex Zeichen, Übung: Formatierung
+
+Der Stil der Übungszeichen wird von der Eigenschaft @code{markFormatter} definiert.  Das ist eine Funktion, die
+das aktuelle Zeichen und den aktuellen Kontext als Argument
+annimmt.  Sie gibt dann ein Textbeschriftungsobjekt aus.  Im
+folgenden Beispiel ist @code{markFormatter} so definiert, dass
+eine Zahl ausgegeben wird.  In den folgenden Takten
+werden dann andere mögliche Einstellungen gezeigt.
+
+@lilypond[quote,verbatim,relative=2]
+\set Score.markFormatter = #format-mark-numbers
+c1 \mark \default
+c1 \mark \default
+\set Score.markFormatter = #format-mark-box-numbers
+c1 \mark \default
+\set Score.markFormatter = #format-mark-circle-numbers
+c1 \mark \default
+\set Score.markFormatter = #format-mark-circle-letters
+c1
+@end lilypond
+
+Die Datei @file{scm/@/translation@/-functions@/.scm} beinhaltet
+die Definitionen für @code{format-mark-numbers} (erstelle-Zeichen-Nummern),
+@code{format-mark-box-numbers} (erstelle-Zeichen-Kasten-Nummern),
+@code{format-mark-letters} (erstelle-Zeichen-Buchstaben) und
+@code{format-mark-box-letters} (erstelle-Zeichen-Kasten-Buchstaben).  Sie können als Anleitung
+für eigene Formatierungsfunktionen dienen.
+
+Die Funktionen @code{format-mark-barnumbers},
+@code{format-mark-box-barnumbers}und
+@code{format-mark-circle-barnumbers} könenn eingesetzt werden,
+um Taktnummern anstelle der fortlaufenden Zahlen bzw. Buchstaben
+zu erhalten.
+
+Andere Übungszeichenstile können auch manuell gesetzt werden:
+
+@example
+\mark "A1"
+@end example
+
+@noindent
+@code{Score.markFormatter} hat keine Auswirkungen auf solcherart
+definierte Zeichen.  Man kann aber auch mit @code{\markup}
+Textbeschriftungsobjekte zu dem selbstdefinierten Zeichen
+hinzufügen:
+
+@example
+\mark \markup@{ \box A1 @}
+@end example
+
+@cindex Segno
+@cindex Coda
+@cindex D.S al Fine
+@cindex Dal Segno
+
+Musikbuchstaben (wie etwa das Segno-Zeichen) können mit dem Befehl
+@code{\musicglyph} als ein
+@code{\mark}-Zeichen definierte werden:
+
+@lilypond[quote,verbatim,relative=1]
+c1 \mark \markup { \musicglyph #"scripts.segno" }
+c1 \mark \markup { \musicglyph #"scripts.coda" }
+c1 \mark \markup { \musicglyph #"scripts.ufermata" }
+c1
+@end lilypond
+
+@noindent
+Siehe @ref{The Feta font}, wo alle Symbole gezeigt sind, die
+mit dem Befehl @code{\musicglyph} ausgegeben werden können.
+
+Übliche Veränderungen der Positionierung von Übungszeichen finden
+sich in
+@ref{Formatting text}.
+
+@seealso
+
+Notationsreferenz:
+@ref{The Feta font},
+@ref{Formatting text}.
+
+Installierte Dateien:
+@file{scm/@/translation@/-functions@/.scm} beinhaltet die Definition
+von @code{format-mark-numbers} und
+@code{format-mark-letters}.  Sie können als Anleitung für eigene
+Funktionen benutzt werden.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{RehearsalMark}.
+
 
 
 @node Special rhythmic concerns
@@ -1134,178 +2545,187 @@ nicht mit dem Wert 123 übereinstimmt.
 @cindex Ziernoten
 @cindex Vorhalt
 @cindex Vorschlag
+@cindex Ornamente
 
-Verzierungen sind ausgeschriebene Ornamente. Die üblichste ist der 
-Vorschlag. Er wird durch eine verkleinerte Note mit Schrägstrich 
-und Bogen notiert. Der Vorhalt dagegen ist eine Verzierung, die 
+Verzierungen sind ausgeschriebene Verzierungen.  Sie werden in
+einer kleineren Schriftgröße gesetzt und nehmen keine logische
+Zeit im Takt ein.
+
+@lilypond[quote,relative=2,verbatim]
+c4 \grace c16 c4
+\grace { c16[ d16] } c2
+@end lilypond
+
+LilyPond hat auch Unterstützung für zwei besondere Verzierungen,
+den Vorschlag und den Vorhalt.  Der Vorschlag wird durch eine 
+verkleinerte Note mit Schrägstrich 
+und Bogen notiert.  Der Vorhalt dagegen ist eine Verzierung, die 
 einen bestimmten Notenwert der Hauptnote für sich beansprucht. 
-Er wird als verkleinerte Note ohne Schrägstrich notiert. 
-Der Vorschlag wird mit dem Befehl @code{\acciaccatura} und der Vorhalt 
-mit @code{\appoggiatura} eingegeben.
+Er wird als verkleinerte Note ohne Schrägstrich notiert.
 
-@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-b4 \acciaccatura d8 c4 \appoggiatura e8 d4
+@lilypond[quote,relative=2,verbatim]
+\grace c8 b4
+\acciaccatura d8 c4
+\appoggiatura e8 d4
 \acciaccatura { g16[ f] } e4
 @end lilypond
 
-Bei beiden handelt es sich um spezielle Formen des @code{\grace} 
-(engl. Verzierung)-Befehl. Wenn dieser Befehl einem musikalischen 
-Ausdruck vorgestellt wird, wird ein neuer Ausdruck geschaffen, 
-der in kleineren Noten gesetzt wird und von der logischen Zeit 
-innerhalb des Taktes keinen Raum beansprucht.
+Die Position von Verzierungen ist zwischen Notensystemen 
+synchronisiert.  Im nächsten Beispiel stehen im einen
+System zwei 16-Noten für jede 8-Note des zweiten Systems:
 
-@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-c4 \grace c16 c4
-\grace { c16[ d16] } c2 c4
-@end lilypond
-
-@noindent
-Anders als @code{\acciaccatura} oder @code{\appoggiatura} setzt 
-der @code{\grace}-Befehl keinen Bogen.
-
-@cindex Zeitberechnung, intern
-
-Programmintern wird die Zeitberechnung für Verzierungen in einer 
-zweiten Zählebene vorgenommen. Jeder Zeitpunkt beinhaltet zwei 
-rationale Zahlen: die eine steht für die logische Zeit, die andere 
-für die @qq{Verzierungszeit}. Das obere Beispiel ist hier 
-mit den entsprechenden Zeitwerten angezeigt:
-
-@lilypond[quote,ragged-right]
-<<
-  \relative c''{
-    c4 \grace c16 c4 \grace {
-    c16[ d16] } c2 c4
-  }
-  \new Lyrics \lyricmode {
-    \override LyricText #'font-family = #'typewriter
-
-    \markup { (0,0) } 4
-    \grace { \markup {
-      ( \fraction 1 4 , \fraction -1 16 ) } 16 }
-    \markup { (\fraction 1 4 , 0 ) } 4
-    \grace {
-      \markup { (\fraction 2 4 , \fraction "-1" 8 ) } 16
-      \markup { (\fraction 2 4 , \fraction "-1" 16 ) } 16
-    }
-    \markup { ( \fraction 2 4 , 0 ) }
-  }
->>
-@end lilypond
-
-Die Position von Verzierungen wird zwischen den Systemen synchronisiert. 
-Im folgenden Beispiel sind jeweils zwei Sechzehntel gegen jede Achtel 
-gesetzt:
-
-@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
-<< \new Staff { e4 \grace { c16[ d e f] } e4 }
-   \new Staff { c4 \grace { g8[ b] } c4 } >>
+@lilypond[quote,relative=2,verbatim]
+<< \new Staff { e2 \grace { c16[ d e f] } e2 }
+   \new Staff { c2 \grace { g8[ b] } c2 } >>
 @end lilypond
 
 @funindex \afterGrace
 
-Eine Verzierung kann auch auf eine Note folgend gesetzt werden. Dazu wird 
-der @code{\afterGrace}-Befehl benutzt. Er nimmt zwei Argumente: die 
-Hauptnote und die Verzierungen, die nach der Hauptnote erscheinen sollen.
+@cindex Verzierung, danach
+@cindex Nachschlag
 
-@lilypond[ragged-right, verbatim,relative=2,fragment]
-c1 \afterGrace d1 { c16[ d] } c4
+Wenn Sie eine Note mit einer Verzierung abschließen wollen, müssen
+Sie den @code{\afterGrace}-Befehl benutzen.  Er benötigt zwei
+Argumente: die Hauptnote und die Verzierung, die nach der
+Hauptnote folgen soll:
+
+@lilypond[quote,verbatim,relative=2]
+c1 \afterGrace d1 { c16[ d] } c1
 @end lilypond
 
-Damit wird die Verzierung im Abstand von 3/4 der Länge der Hauptnote 
-gesetzt. Dieser Bruch kann durch Setzen von 
-@code{afterGraceFraction} verändert werden:
+Damit wird die Verzierung mit einem Abstand von der Hauptnote
+gesetzt, der 3/4 der Dauer der Hauptnote entspricht.  Dieser
+Standard kann durch Definition von @code{afterGraceFraction}
+verändert werden.  Das nächste Beispiel zeigt, wie sich
+der Abstand verändert, wenn der Wert 3/4, 15/16 und 1/2 der
+Hauptnote beträgt.
 
-@example
-#(define afterGraceFraction (cons 7 8))
-@end example
+@lilypond[quote,verbatim,relative=2]
+<<
+  \new Staff {
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+  \new Staff {
+    #(define afterGraceFraction (cons 15 16))
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+  \new Staff {
+    #(define afterGraceFraction (cons 1 2))
+    c1 \afterGrace d1 { c16[ d] } c1
+  }
+>>
+@end lilypond
 
-@noindent
-Hier wurde die Position auf das vorletzte Achtel der Notenlänge gesetzt.
+Der Abstand zwischen der Hauptnote und der Verzierung kann auch
+mit unsichtbaren Noten beeinflusst werden.  Im nächsten Beispiel
+wird die Verzierung mit einem Abstand von 7/8 zur Hauptnote
+gesetzt.
 
-Der gleiche Effekt kann auch manuell erreicht werden:
-
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \new Voice {
   << { d1^\trill_( }
-     { s2 \grace { c16[ d] } } >>
-  c4)
+     { s2 s4. \grace { c16[ d] } } >>
+  c1)
 }
 @end lilypond
 
-@noindent
-Indem die Dauer der unsichtbaren Note (hier eine Halbe) wird der 
-Abstand zwischen Hauptnote und Verzierung angepasst.
-
 Ein @code{\grace}-Notenabschnitt wird nach besonderen Satzregeln 
 gesetzt, um z. B. kleinere Noten zu benutzen und die Richtung der 
-Hälse einzustellen. Veränderungen am Layout müssen also innerhalb 
-des Verzierungsausdrucks gesetzt werden, damit sie auch eine Auswirkung haben.
+Hälse einzustellen.  Veränderungen am Layout müssen also innerhalb 
+des Verzierungsausdrucks gesetzt werden, damit sie auch eine Auswirkung haben.  Die Veränderungen müssen auch innerhalb des
+Verzierungsausdrucks rückgängig gemacht werden.  In diesem
+Fall wird die Richtung der Hälse geändert und dann wieder der
+Standard eingestellt:
 
-@lilypond[quote,ragged-right,fragment,verbatim,relative=2]
+@lilypond[quote,verbatim,relative=2]
 \new Voice {
   \acciaccatura {
     \stemDown
     f16->
     \stemNeutral
   }
-  g4
+  g4 e c2
 }
 @end lilypond
 
-@noindent
-Diese Einstellungen müssen auch innerhalb der Verzierungsebene wieder 
-rückgängig gemacht werden.
-
-Das Layout der Verzierungsausdrücke kann mit der Funktion 
- @code{add-grace-property} verändert werden. Im folgenden Beispiel 
-wird die Richtung der Notenhälse neutralisiert, so dass sie nicht 
-unbedingt in nach oben zeigen.
-
-@example
-\new Staff @{
-  #(add-grace-property 'Voice 'Stem 'direction '())
-  @dots{}
-@}
-@end example
-
-@noindent
-Eine andere Option ist es, die Variablen @code{startGraceMusic},
-@code{stopGraceMusic}, @code{startAcciaccaturaMusic},
-@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic} und
-@code{stopAppoggiaturaMusic} zu vermeiden. Mehr Information findet sich 
-in der Datei @file{ly/@/grace@/-init@/.ly}.
-
-@noindent
-Der Schrägstrich durch den Notenhals der Vorschläge kann auch in anderen 
-Situation erreicht werden mit 
-@code{\override Stem  #'stroke-style = #"grace"}.
+@cindex Hals, mit Schrägstrich
+@cindex durchgestrichener Hals
+@cindex Notenhals, durchgestrichen
 
 
-@commonprop
+@snippets
 
-Verzierungen könne gezwungen werden, den Hauptnoten entsprechend aufgeteilt 
-zu werden.
+The slash through the stem found in @emph{acciaccatura}s can be applied
+in other situations:
 
-@lilypond[verbatim,quote,relative=2]
-<<
-  \override Score.SpacingSpanner #'strict-grace-spacing = ##t
-  \new Staff {
-    c4
-    \afterGrace c4 { c16[ c8 c16] }
-    c4 r
-  }
-  \new Staff {
-    c16 c c c c c c c c4 r
-  }
->>
+@lilypond[quote,verbatim,relative=2]
+\relative c'' {
+  \override Stem #'stroke-style = #"grace"
+  c8( d2) e8( f4)
+}
 @end lilypond
 
+The layout of grace expressions can be changed throughout the
+music using the function @code{add-grace-property}.  The following
+example undefines the @code{Stem} direction for this grace, so
+that stems do not always point up.
+
+@lilypond[quote,verbatim,relative=2]
+\relative c'' {
+  \new Staff {
+    #(add-grace-property 'Voice 'Stem 'direction ly:stem::calc-direction)
+    #(remove-grace-property 'Voice 'Stem 'direction)
+    \new Voice {
+       \acciaccatura { f16 } g4
+       \grace { d16[ e] } f4
+       \appoggiatura { a,32[ b c d] } e2
+    }
+  }
+}
+@end lilypond
+
+Another option is to change the variables @code{startGraceMusic},
+@code{stopGraceMusic}, @code{startAcciaccaturaMusic},
+@code{stopAcciaccaturaMusic}, @code{startAppoggiaturaMusic},
+@code{stopAppoggiaturaMusic}.  The default values of these can be
+seen in the file @code{ly/@/grace@/-init@/.ly}.  By redefining
+them other effects may be obtained.
+
+Grace notes may be forced to align with regular notes
+in other staves:
+
+@lilypond[verbatim,quote]
+\relative c'' {
+  <<
+    \override Score.SpacingSpanner #'strict-grace-spacing = ##t
+    \new Staff {
+      c4
+      \afterGrace c4 { c16[ c8 c16] }
+      c4 r
+    }
+    \new Staff {
+      c16 c c c c c c c c4 r
+    }
+  >>
+}
+@end lilypond
 
 
 @seealso
 
-Programmreferenz: @rinternals{GraceMusic}.
+Glossar:
+@rglos{grace notes},
+@rglos{acciaccatura},
+@rglos{appoggiatura}.
+
+Installierte Dateien:
+@file{ly/@/grace@/-init@/.ly}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{GraceMusic}.
 
 
 @knownissues
@@ -1314,12 +2734,17 @@ Eine Partitur, die mit einem @code{\grace}-Ausdruck beginnt, benötigt
 eine explizit gesetzte neue Stimme (@code{\new Voice}), sonst werden 
 Hauptnote und Verzierung auf verschiedenen Systemen gesetzt.
 
+Ein Vorschlag (@emph{acciaccatura}) mit mehreren Noten und 
+Balken wird ohne den Schrägstrich gesetzt und sieht einem
+Vorhalt (@emph{appoggiatura}) sehr ähnlich.
+@c TODO Add link to LSR snippet to add slash when available
+
 Die Synchronisation von Verzierungen kann auch zu Überraschungen führen. 
 Auch andere Symbole der Systeme, wie Vorzeichen, Taktlinien usw., werden 
 synchronisiert. Vorsicht ist geboten, wenn nur in bestimmten Systemen 
 Verzierungen vorkommen:
 
-@lilypond[quote,ragged-right,relative=2,verbatim,fragment]
+@lilypond[quote,relative=2,verbatim]
 << \new Staff { e4 \bar "|:" \grace c16 d4 }
    \new Staff { c4 \bar "|:" d4 } >>
 @end lilypond
@@ -1344,11 +2769,136 @@ zu Fehlermeldungen oder Abstürzen kommen.
 @node Aligning to cadenzas
 @unnumberedsubsubsec Aligning to cadenzas
 
-@untranslated
+@cindex Kadenz, Ausrichten an
+@cindex Ausrichten an Kadenz
+
+In Orchesterpartituren stellen Kadenzen ein besonderes Problem dar:
+Wenn in der Partitur ein Instrument eine Kadenz spielt, die notiert
+wird, müssen die anderen Stimmen genau die entsprechende Anzahl Noten
+überspringen, damit sie nicht zu früh oder zu spät einsetzen.
+
+Eine Lösung ist es, die Funktionen @code{mmrest-of-length} oder
+@code{skip-of-length} zu benutzen.  Diese Scheme-Funktionen
+brauchen einen definierten Notenabschnitt (eine Variable)
+als Argument und produzieren entweder Ganztaktpausen oder leere
+Takte, die genauso lang sind wie der Notenabschnitt.
+
+@lilypond[verbatim,quote]
+MyCadenza = \relative c' {
+  c4 d8 e f g g4
+  f2 g4 g
+}
+
+\new GrandStaff <<
+  \new Staff {
+    \MyCadenza c'1
+    \MyCadenza c'1
+  }
+  \new Staff {
+    #(ly:export (mmrest-of-length MyCadenza))
+    c'1
+    #(ly:export (skip-of-length MyCadenza))
+    c'1
+  }
+>>
+@end lilypond
+
+@seealso
+
+Glossar:
+@rglos{cadenza}.
+
+Schnipsel:
+@rlsr{Rhythms}.
+
 
 
 @node Time administration
 @unnumberedsubsubsec Time administration
 
-@untranslated
+@cindex Verwaltung der Zeiteinheiten
+@cindex Zeit (in der Partitur)
+@cindex Noten ohne Takt
+@cindex Takt, Noten ohne
+@cindex Noten ohne Metrum
+@cindex Metrum, Noten ohne
+
+@funindex currentBarNumber
+@funindex measurePosition
+@funindex measureLength
+
+Die Zeit in einer Partitur wird vom @code{Timing_translator}
+verwaltet, der sich in den Standardeinstellungen im @code{Score}-Kontext
+befindet.  Eine Parallelbezeichnung, @code{Timing}, wird
+dem Kontext hinzugefügt, in dem sich @code{Timing_translator}
+befindet.
+
+Die folgenden Eigenschaften von @code{Timing} werden eingesetzt,
+um die Zeit in Partituren zu verwalten.
+
+@cindex Taktnummer
+
+@table @code
+@item currentBarNumber (aktuelle Taktnummer)
+Die gerade aktuelle Taktzahl.  Für ein Beispiel, das die Benutzung
+dieser Eigenschaft zeigt, siehe @ref{Bar numbers}.
+
+@item measureLength (Taktlänge)
+Die Länge der Takte mit der aktuellen Taktart.  In einem 4/4-Takt
+ist sie 1, in einem 6/8-Takt 3/4.  Dieser Wert bestimmt, wann
+eine Taktlinie gezogen wird und wie automatische Balken erstellt
+werden sollen.
+
+@item measurePosition (Taktposition)
+Der Schlag im Takt zum aktuellen Moment.  Dieser Wert wird
+zurückgesetzt, indem @code{measureLength} (die Taktlänge) abgezogen
+wird, wenn der Wert von @code{measureLength} erreicht oder
+überschritten wird.  Wenn das passiert, wird der Zähler
+@code{currentBarNumber} (aktuelle Taktnummer) erhöht.
+
+@item timing (Zeitberechnung)
+Wenn auf wahr gesetzt, werden die oben genannten Variablen
+zu jedem Zeitpunkt aktualisiert.  Wenn auf falsch gesetzt,
+bleibt der Engraver unendlich lange im aktuellen Takt.
+
+@end table
+
+Zeitverwaltung kann geändert werden, indem man diese Variablen
+direkt beeinflusst.  Im nächsten Beispiel wird die normale
+Taktart mit 4/4 angegeben, aber @code{measureLength} wird
+auf 5/4 gesetzt.  An der Stelle 4/8 des dritten Taktes wird die
+Taktposition (@code{measurePosition}) um 1/8 auf 5/8 erhöht, so
+dass der Takt im Ergebnis 1/8 kürzer ist.  Die nächste Taktlinie
+wird dann auch bei 9/8 gezogen und nicht bei 5/4.
+
+@lilypond[quote,verbatim,relative=1]
+\set Score.measureLength = #(ly:make-moment 5 4)
+c1 c4
+c1 c4
+c4 c4
+\set Score.measurePosition = #(ly:make-moment 5 8)
+b4 b4 b8
+c4 c1
+@end lilypond
+
+@noindent
+Wie das Beispiel zeigt, erstellt @code{ly:make-moment n m} 
+die Dauer Zähler/Nenner einer ganzen Note.  Zum Beispiel heißt
+@code{ly:make-moment 1 8} die Dauer einer Achtelnote, und
+@code{ly:make-moment 7 16} die Dauer von sieben Sechszehntelnoten.
+
+
+@seealso
+
+Notationsreferenz:
+@ref{Bar numbers}, @ref{Unmetered music}
+
+Schnipsel:
+@rlsr{Rhythms}.
+
+Referenz der Interna:
+@rinternals{Timing_translator},
+@rinternals{Score}
+
+
 
