@@ -44,6 +44,80 @@ enddef;
 
 fet_begingroup ("accidentals");
 
+%
+% Draw an arrow
+%
+% * "stemslant" gives the direction of the stem's left boundary
+%   (needed for brushed stems, equals "up" for straight stems)
+% * "extend" is used to make the stem longer or shorter (if negative);
+%   different kinds of accidentals need different values here
+%
+def draw_arrow (expr attach, stemwidth, stemslant, extend, pointingdown) =
+begingroup;
+	save htip;  % tip height
+	save wwing; % wing "radius"
+	save angle_wing_bot, angle_wing_top, angle_tip;
+	save upshift;
+	clearxy;
+
+	wwing:=0.26 stemwidth;
+	htip:=staff_space*0.85 + stafflinethickness - wwing;
+
+	% "flip" is used to reflect the arrow vertically if arrow points downward
+	transform flip;
+	if pointingdown:
+		flip=identity reflectedabout (origin, right);
+	else:
+		flip=identity;
+	fi;
+
+	z1=attach shifted ((-stemwidth/2),0);
+	upshift:=max(0, wwing + 0.1 staff_space + extend);
+	z2=z1 shifted (((unitvector stemslant) scaled upshift) transformed flip);
+
+	z7=attach shifted ((stemwidth/2),0);
+	z6=z7 shifted (((unitvector (-xpart stemslant, ypart stemslant))
+			scaled upshift) transformed flip);
+	(z2-z3)= (0.38 staff_space, 0.05 htip) transformed flip;
+	(z6-z5)=(-0.38 staff_space, 0.05 htip) transformed flip;
+
+	z4 =attach shifted ((-0.2 stemwidth, upshift+htip) transformed flip);
+	z4'=attach shifted (( 0.2 stemwidth, upshift+htip) transformed flip);
+
+	% angle_wing_bot is the angle at which the arc from z2 to z3a enters z3a
+	% angle_wing_top is the angle at which the arc from z3b to z4 leaves z3b
+	% angle_tip is the angle at which the arc from z4 to z4' leaves z4
+	angle_wing_bot=30;
+	angle_wing_top=55;
+	angle_tip=68;
+
+	z3a=z3 shifted ((((dir angle_wing_bot) rotated (-90))
+			 scaled wwing) transformed flip);
+	z3b=z3 shifted ((((dir angle_wing_top) rotated 90)
+			 scaled wwing) transformed flip);
+
+	z5a=z5 shifted ((((dir (180-angle_wing_bot)) rotated 90)
+			 scaled wwing) transformed flip);
+	z5b=z5 shifted ((((dir (180-angle_wing_top)) rotated (-90))
+			 scaled wwing) transformed flip);
+
+	% Draw the arrow
+	pickup pencircle scaled 1;
+	fill z1
+	     -- z2{stemslant transformed flip}
+	     .. {(-dir angle_wing_bot) transformed flip}z3a
+	     .. z3b{(dir angle_wing_top) transformed flip}
+	     .. z4{(dir angle_tip) transformed flip}
+	     .. z4'{(dir (-angle_tip)) transformed flip}
+	     ..{(dir (-angle_wing_top)) transformed flip}z5b
+	     ..z5a{(-dir (-angle_wing_bot)) transformed flip}
+	     ..z6{((-stemslant) reflectedabout (origin, up)) transformed flip}
+	     -- z7
+	     --cycle;
+
+	labels(range 0 thru 7,4',3a,3b,5a,5b);
+endgroup;
+enddef;
 
 save remember_pic;
 picture remember_pic;
