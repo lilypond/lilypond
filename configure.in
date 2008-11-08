@@ -164,7 +164,7 @@ AC_MSG_RESULT($reloc_b)
 
 AC_MSG_CHECKING(for rpath linkage)
 if test "$rpath_b" = "yes"; then
-    LDFLAGS="$LDFLAGS -Wl,-rpath -Wl,\\\$\$ORIGIN"
+    LDFLAGS="$LDFLAGS -Wl,-rpath -Wl,\\\$\$ORIGIN/../lib"
 elif test "$rpath_b" != "no"; then
     LDFLAGS="$LDFLAGS -Wl,-rpath -Wl,$rpath_b"
 fi
