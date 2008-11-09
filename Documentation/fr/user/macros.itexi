@@ -8,6 +8,10 @@
 
 @include version.itexi
 
+@c don't replace quotes with directed quotes
+@set txicodequoteundirected
+@set txicodequotebacktick
+
 @c   ***** Displaying text *****
 
 @c we need this since @q{\} doesn't work with makeinfo 4.11 --

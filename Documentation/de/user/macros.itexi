@@ -9,6 +9,9 @@
 
 @include version.itexi
 
+@c don't replace quotes with directed quotes
+@set txicodequoteundirected
+@set txicodequotebacktick
 
 @c   ***** Displaying text *****
 

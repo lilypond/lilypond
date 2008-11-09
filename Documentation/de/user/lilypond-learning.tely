@@ -12,15 +12,7 @@
 
 @include macros.itexi
 
-@iftex
 @afourpaper
-@c don't replace quotes with directed quotes
-@tex
-\gdef\SETtxicodequoteundirected{Foo}
-\gdef\SETtxicodequotebacktick{Bla}
-@end tex
-@end iftex
-
 
 @c don't remove this comment.
 @ignore

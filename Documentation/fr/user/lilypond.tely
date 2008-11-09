@@ -12,14 +12,7 @@
 
 @include macros.itexi
 
-@iftex
 @afourpaper
-@c don't replace quotes with directed quotes
-@tex
-\gdef\SETtxicodequoteundirected{Foo}
-\gdef\SETtxicodequotebacktick{Bla}
-@end tex
-@end iftex
 
 @c @direntry has not been added yet, as Emacs and standalone Info have
 @c no i18n support -JM
