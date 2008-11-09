@@ -689,7 +689,7 @@ Dauer von Noten.  Die Dauer einer Ganztaktpause muss immer
 eine ganze Anzahl an Taktlängen sein, weshalb Punktierungen
 und Brüche recht häufig eingesetzt werden müssen.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,fragment,verbatim]
 \compressFullBarRests
 \time 2/4
 R1 | R2 |
@@ -704,7 +704,7 @@ R4*5*4 |
 Eine Ganztaktpause wird abhängig von der Taktart entweder als
 Ganze oder Brevis-Pause gesetzt, zentriert im Takt.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,fragment]
 \time 4/4
 R1 |
 \time 6/4
@@ -726,7 +726,7 @@ aber auch nur in einem Takt angezeigt werden, der ein
 Mehrtaktpausensymbol geinhaltet, wobei die Anzahl der Takte
 der Pausendauer über dem Pausenzeichen ausgegeben wird:
 
-@lilypond[quote,verbatim]
+@lilypond[quote,fragment,verbatim]
 % Default behavior
 \time 3/4 r2. | R2.*2 |
 \time 2/4 R2 |
@@ -888,7 +888,7 @@ berücksichtigt.
 
 Taktangaben könne wie folgt erstellt werden.
 
-@lilypond[quote,verbatim]
+@lilypond[quote,verbatim,relative=2]
 \time 2/4 c'2
 \time 3/4 c'2.
 @end lilypond

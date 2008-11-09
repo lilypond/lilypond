@@ -259,7 +259,7 @@ c4\< c\! d\> e\!
 In manchen Situationen kann auch der @code{\espressivo}-Befehl 
 geeignet sein, ein An- und Abschwellen einer Note anzuzeigen.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c2 b4 a
 g1\espressivo
 @end lilypond
@@ -506,8 +506,8 @@ Ein Legatobogen (engl. slur) zeigt an, dass die Noten
 @emph{legato} gespielt werden sollen. Er wird mit Klammern 
 hinter den Notenwerten notiert.
 
-@lilypond[quote,relative=2,verbatim]
-f( g a) a8 b(
+@lilypond[verbatim,quote,relative=2]
+f4( g a) a8 b(
 a4 g2 f4)
 <c e>2( <b d>2)
 @end lilypond
@@ -695,7 +695,7 @@ Referenz der Interna:
 
 Atemzeichen werden mit dem Befehl @code{\breathe} eingegeben.
 
-@lilypond[quote,relative=2,verbatim]
+@lilypond[verbatim,quote,relative=2]
 c2. \breathe d4
 @end lilypond
 
@@ -853,7 +853,7 @@ Ein @notation{Arpeggio} als Zeichen, dass ein Akkord gebrochen gespielt werden s
 kann mit dem Befehl @code{\arpeggio} hinter der
 Akkord-Konstruktion erzeugt werden.
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[verbatim,quote,relative=1]
 <c e g c>1\arpeggio
 @end lilypond
 
@@ -881,7 +881,7 @@ her:
 
 Besondere Arpeggios mit Klammern können erstellt werden:
 
-@lilypond[quote,relative=1,verbatim]
+@lilypond[verbatim,quote,relative=1]
 <c e g c>2
 \arpeggioBracket
 <c e g c>2\arpeggio
@@ -996,7 +996,7 @@ mit dem Befehl @code{pitchedTrill} notiert werden.  Das erste
 Argument ist die Hauptnote, das zweite die Note, auf der getrillert
 wird.  Sie wird als Note ohne Hals in Klammern ausgegeben.
 
-@lilypond[verbatim,relative=1,quote]
+@lilypond[verbatim,quote,relative=1]
 \pitchedTrill e2\startTrillSpan fis
 d\stopTrillSpan
 @end lilypond

@@ -162,7 +162,7 @@ c4-1 d-2 f-4 e-3
 
 Für Fingerwechsel muss eine Textbeschriftung (markup) benutzt werden:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 c4-1 d-2 f-4 c^\markup { \finger "2 - 3" }
 @end lilypond
 

@@ -60,7 +60,7 @@ werden in der Oktave unter dem zweigestrichenen C
 gesetzt.
 
 @c don't use c' here.
-@lilypond[quote,fragment,verbatim]
+@lilypond[verbatim,quote,fragment]
 \clef bass
 c d e f
 g a b c
@@ -162,7 +162,7 @@ So funktioniert der relative Modus:
 Oktavversetzungen müssen für alle Intervalle angezeigt werden, 
 die größer als eine Quarte sind.
 
-@lilypond[quote,verbatim]
+@lilypond[verbatim,quote]
 \relative c'' {
   c g c f,
   c' a, e'' c
@@ -185,7 +185,7 @@ bestimmen.  Innerhalb von Akkorden ist die nächste Note immer
 relativ zur vorherigen.  Betrachten Sie das folgende Beispiel
 aufmerksam, insbesondere die @code{c}-Noten.
 
-@lilypond[quote,verbatim]
+@lilypond[verbatim,quote]
 \relative c' {
   c
   <c e g>
@@ -290,7 +290,7 @@ Syntax leitet sich von den holländischen Notenbezeichnungen
 ab. Um andere Bezeichnungen für Versetzungszeichen zu
 benutzung, siehe @ref{Note names in other languages}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[verbatim,quote,relative=2]
 ais1 aes aisis aeses
 @end lilypond
 

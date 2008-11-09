@@ -744,7 +744,7 @@ deutsche Benutzer kein Problem. Es ist aber möglich, die Namen für die
 @notation{Versetzungszeichen} in anderen
 Sprachen zu benutzen, siehe @ruser{Note names in other languages}.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 cis1 ees fisis, aeses
 @end lilypond
 
@@ -774,7 +774,7 @@ Befehl @code{\key}, gefolgt von einer Notenbezeichnung und
 @code{\major} (für Dur) oder @code{\minor}
 (für Moll).
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \key d \major
 a1
 \key c \minor
@@ -811,7 +811,7 @@ den Ton eingeben, den man @emph{hören} will.
 
 In diesem Beispiel
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \key d \major
 d cis fis
 @end lilypond
@@ -826,7 +826,7 @@ auf die erste Linie des Systems.} Im Gegenteil, er heißt vielmehr:
 In der Tonart As-Dur @emph{bekommt} sie ein Versetzungszeichen:
 
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 \key aes \major
 e
 @end lilypond
@@ -869,7 +869,7 @@ Glossar: @rglos{tie}.
 Ein @notation{Bindebogen} wird geschrieben, indem man eine Tilde @code{~} 
 an die erste der zu verbindenden Noten hängt.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 g4~ g c2~
 c4 ~ c8 a8 ~ a2
 @end lilypond
@@ -883,7 +883,7 @@ Ein @notation{Legatobogen} ist ein Bogen, der sich über mehrere Noten
 erstreckt. Seine 
 Beginn- und Endnote werden mit @q{(} beziehungsweise @q{)} markiert.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 d4( c16) cis( d e c cis d) e( d4)
 @end lilypond
 
@@ -898,7 +898,7 @@ Phrasierungsbögen gleichzeitig vorkommen, aber es kann nicht mehr
 als jeweils einen Legato- und einen Phrasierungsbogen gleichzeitig
 geben.
 
-@lilypond[verbatim,quote,fragment,relative=2]
+@lilypond[verbatim,quote,relative=2]
 a8(\( ais b c) cis2 b'2 a4 cis,\)
 @end lilypond
 
@@ -1665,7 +1665,7 @@ notiert aus:
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
+    d4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c b a d4 b8 g4.
   }
   \addlyrics {
@@ -1690,14 +1690,14 @@ betroffenen Noten zu notieren, zu Einzelheiten siehe
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
+    d4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c( b) a d4 b8 g4.
   }
   \addlyrics {
     Girls and boys come out to play,
     The moon doth shine as bright as day;
   }
->> 
+>>
 @end lilypond
 
 Die Wörter orientieren sich jetzt richtig an den Noten,
@@ -1732,7 +1732,7 @@ für jede Note, die übersprungen werden soll, ein Unterstrich
   \relative c'' {
     \key g \major
     \time 6/8
-    d4 b8 c4 a8 d4 b8 g4 
+    d4 b8 c4 a8 d4 b8 g4
     g8 a4 b8 c[ b] a d4 b8 g4.
   }
   \addlyrics {
@@ -1755,11 +1755,11 @@ aus Purcells @notation{Dido and Æneas}:
   \relative c'' {
     \key g \minor
     \time 3/2
-    g2 a bes bes( a) 
+    g2 a bes bes( a)
     b c4.( bes8 a4. g8 fis4.) g8 fis1
   }
   \addlyrics {
-    When I am laid, 
+    When I am laid,
     am laid __ in earth,
   }
 >>
@@ -1775,17 +1775,17 @@ zeigt, mit denen Text an den Noten ausgerichtet werden kann:
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
     \key g \major
     \time 3/4
     \partial 4
-    d4 g4 g a8( b) g4 g4 
+    d4 g4 g a8( b) g4 g4
     b8( c) d4 d e4 c2
   }
   \addlyrics {
-    A -- way in a __ man -- ger, 
+    A -- way in a __ man -- ger,
     no __ crib for a bed, __
   }
 >>
@@ -1803,13 +1803,13 @@ in Figaros Arie @notation{Largo al factotum} gesungen werden mus.
 
 @c no ragged-right here because otherwise the hyphens get lost,
 @c but the example is long enough to avoid looking strange.
-@lilypond[verbatim,quote]
+@lilypond[verbatim,quote,noragged-right]
 <<
   \relative c' {
     \clef bass
     \key c \major
     \time 6/8
-    c4.~ c8 d b c([ d)] b c d b c
+    c4.~ c8 d b c([ d]) b c d b c
   }
   \addlyrics {
     Lar -- go_al fac -- to -- tum del -- la cit -- tà
@@ -1838,7 +1838,7 @@ aus Händels @notation{Judas Maccabäus}:
     \key f \major
     \time 6/8
     \partial 8
-    c8 c([ bes)] a a([ g)] f f'4. b, c4.~ c4
+    c8 c([ bes]) a a([ g]) f f'4. b, c4.~ c4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn, __
@@ -1847,7 +1847,7 @@ aus Händels @notation{Judas Maccabäus}:
     \key f \major
     \time 6/8
     \partial 8
-    r8 r4. r4 c8 a'([ g)] f f([ e)] d e([ d)] c bes'4
+    r8 r4. r4 c8 a'([ g]) f f([ e]) d e([ d]) c bes'4
   }
   \addlyrics {
     Let flee -- cy flocks the hills a -- dorn,
