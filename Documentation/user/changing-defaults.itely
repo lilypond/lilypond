@@ -540,51 +540,38 @@ with ordering dependencies.
 @node Changing context default settings
 @subsection Changing context default settings
 
-The adjustments of the previous subsections (
-@ref{The set command}, @ref{Modifying context plug-ins}, and
-@ref{Overview of modifying properties}) can also be entered
-separately from the music in the @code{\layout} block,
+The context settings which are to be used by default in
+@code{Score}, @code{Staff} and @code{Voice} contexts may be specified
+in a @code{\layout} block, as illustrated in the following example.
+The @code{\layout} block should be placed within the @code{\score}
+block to which it is to apply, but outside any music.
 
-@example
-\layout @{
-  @dots{}
-  \context @{
-    \Staff
+Note that the @code{\set} command itself and the context must be
+omitted when the context default values are specified in this way:
 
-    \set fontSize = #-2
-    \override Stem #'thickness = #4.0
-    \remove "Time_signature_engraver"
-  @}
-@}
-@end example
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Really small, thicker stems, no time signature" a a a
+    a a a a
+  }
+  \layout {
+    \context {
+      \Staff
+      fontSize = #-4
+      \override Stem #'thickness = #4.0
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
 
-The @code{\Staff} command brings in the existing definition of the
-staff context so that it can be modified.
+In this example, the @code{\Staff} command specifies that the
+subsequent specifications are to be applied to all staves within
+this score block.
 
-The statements
-@example
-\set fontSize = #-2
-\override Stem #'thickness = #4.0
-\remove "Time_signature_engraver"
-@end example
-
-@noindent
-affect all staves in the score.  Other contexts can be modified
-analogously.
-
-The @code{\set} keyword is optional within the @code{\layout} block, so
-
-@example
-\context @{
-  @dots{}
-  fontSize = #-2
-@}
-@end example
-
-@noindent
-will also work.
-
-
+Modifications can be made to the @code{Score} context or all
+@code{Voice} contexts in a similar way.
 
 @knownissues
 

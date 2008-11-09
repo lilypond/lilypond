@@ -721,7 +721,7 @@ By adding chord names and lyrics we obtain a lead sheet.
      \time 2/4
      c4 c g' g a a g2
    }
-   \addlyrics { twin kle twin kle lit tle star }
+   \addlyrics { twin -- kle twin -- kle lit -- tle star }
 >>
 @end lilypond
 
