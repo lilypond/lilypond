@@ -55,8 +55,8 @@ struct Line_details {
     page_penalty_ = 0;
     turn_penalty_ = 0;
     title_ = false;
-    compressed_lines_count_ = 0;
-    compressed_nontitle_lines_count_ = 0;
+    compressed_lines_count_ = 1;
+    compressed_nontitle_lines_count_ = 1;
   }
 
   Line_details (Prob *pb)
@@ -74,8 +74,8 @@ struct Line_details {
     page_penalty_ = robust_scm2double (pb->get_property ("page-break-penalty"), 0);
     turn_penalty_ = robust_scm2double (pb->get_property ("page-turn-penalty"), 0);
     title_ = to_boolean (pb->get_property ("is-title"));
-    compressed_lines_count_ = 0;
-    compressed_nontitle_lines_count_ = 0;
+    compressed_lines_count_ = 1;
+    compressed_nontitle_lines_count_ = title_ ? 0 : 1;
   }
 };
 
