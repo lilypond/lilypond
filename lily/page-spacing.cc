@@ -154,13 +154,13 @@ Page_spacer::solve (vsize page_count)
   if (extra_systems)
     {
       ret.systems_per_page_.back () += extra_systems;
-      ret.demerits_ += 200000;
+      ret.demerits_ += BAD_SPACING_PENALTY;
     }
   if (extra_pages)
     {
-      ret.force_.insert (ret.force_.end (), extra_pages, 200000);
+      ret.force_.insert (ret.force_.end (), extra_pages, BAD_SPACING_PENALTY);
       ret.systems_per_page_.insert (ret.systems_per_page_.end (), extra_pages, 0);
-      ret.demerits_ += 200000;
+      ret.demerits_ += BAD_SPACING_PENALTY;
     }
 
 
@@ -209,7 +209,7 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 
 	  /* we may have to deal with single lines that are taller than a page */
 	  if (isinf (space.force_) && page_start == line)
-	    space.force_ = -200000;
+	    space.force_ = -BAD_SPACING_PENALTY;
 
 	  Real dem = fabs (space.force_) + (prev ? prev->demerits_ : 0);
 	  Real penalty = 0;
