@@ -61,7 +61,7 @@ texinfo_with_menus_re = re.compile (r"^(\*) +([^:\n]+)::.*?$|^@(include|menu|end
 
 texinfo_re = re.compile (r"^@(include|node|(?:unnumbered|appendix)(?:(?:sub){0,2}sec)?|top|chapter|(?:sub){0,2}section|(?:major|chap|(?:sub){0,2})heading) *(.+?)$|@(rglos){(.+?)}", re.M)
 
-ly_string_re = re.compile (r'^([a-zA-Z]+)[\t ]*=|%+[\t ]*(.*)$')
+ly_string_re = re.compile (r'^([a-zA-Z]+)[\t ]*=|%+[\t ]*(.*)$|\\(?:new|context)\s+(?:[a-zA-Z]*?(?:Staff(?:Group)?|Voice|FiguredBass|FretBoards|Names|Devnull))\s+=\s+"?([a-zA-Z]+)"?\s+')
 verbatim_ly_re = re.compile (r'@lilypond\[.*?verbatim')
 
 def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, output_file=None, scan_ly=False):
@@ -83,7 +83,7 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                 elif lines[i].startswith ('@end lilypond'):
                     in_verb_ly_block = False
                 elif in_verb_ly_block:
-                    for (var, comment) in ly_string_re.findall (lines[i]):
+                    for (var, comment, context_id) in ly_string_re.findall (lines[i]):
                         if var:
                             output_file.write ('# ' + printedfilename + ':' + \
                                                str (i + 1) + ' (variable)\n_(r"' + var + '")\n')
@@ -91,6 +91,10 @@ def process_texi (texifilename, i_blurb, n_blurb, write_skeleton, topfile, outpu
                             output_file.write ('# ' + printedfilename + ':' + \
                                                str (i + 1) + ' (comment)\n_(r"' + \
                                                comment.replace ('"', '\\"') + '")\n')
+                        elif context_id:
+                            output_file.write ('# ' + printedfilename + ':' + \
+                                               str (i + 1) + ' (context id)\n_(r"' + \
+                                               context_id + '")\n')
 
         # process Texinfo node names and section titles
         if write_skeleton:
