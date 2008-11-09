@@ -36,13 +36,12 @@ compress_lines (const vector<Line_details> &orig)
 	  compressed.extent_[UP] = old.extent_[UP] + orig[i].extent_.length () + old.padding_;
 	  compressed.space_ += old.space_;
 	  compressed.inverse_hooke_ += old.inverse_hooke_;
-	  compressed.title_ = old.title_;
 
-	  /* we don't need the force_ field for the vertical spacing,
-	     so we use force_ = n to signal that the line was compressed,
-	     reducing the number of lines by n (and force_ = 0 otherwise).
-	     This makes uncompression much easier. */
-	  compressed.force_ = old.force_ + 1;
+	  compressed.compressed_lines_count_ = old.compressed_lines_count_ + 1;
+	  compressed.compressed_nontitle_lines_count_ =
+	    old.compressed_nontitle_lines_count_ + (compressed.title_ ? 0 : 1);
+
+	  compressed.title_ = compressed.title_ && old.title_;
 	  ret.back () = compressed;
 	}
       else
@@ -68,7 +67,7 @@ uncompress_solution (vector<vsize> const &systems_per_page,
     {
       int compressed_count = 0;
       for (vsize j = start_sys; j < start_sys + systems_per_page[i]; j++)
-	compressed_count += (int)compressed[j].force_;
+	compressed_count += compressed[j].compressed_lines_count_;
 
       ret.push_back (systems_per_page[i] + compressed_count);
       start_sys += systems_per_page[i];
@@ -795,6 +794,13 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
     }
 
   return finalize_spacing_result (configuration, best);
+}
+
+Page_spacing_result space_systems_with_fixed_number_per_page (vsize configuration_index,
+							      int systems_per_page,
+							      vsize first_page_num)
+{
+  return Page_spacing_result ();
 }
 
 Page_spacing_result
