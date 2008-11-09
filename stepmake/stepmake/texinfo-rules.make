@@ -28,16 +28,16 @@ $(outdir)/%.info: $(outdir)/%.texi $(outdir)/$(INFO_IMAGES_DIR).info-images-dir-
 
 ifeq (,$(findstring texi2html,$(MISSING_OPTIONAL)))
 $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
-	$(TEXI2HTML) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $<
+	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) -D bigpage --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
-	$(TEXI2HTML) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
+	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$@ $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 $(outdir)/%/index.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.xref-map $(outdir)/version.itexi
 	mkdir -p $(dir $@)
-	$(TEXI2HTML) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
+	$(TEXI2HTML) --I=$(src-dir) --I=$(outdir) --output=$(dir $@) --prefix=index --split=section $(TEXI2HTML_INIT) $<
 	cp $(top-src-dir)/Documentation/lilypond*.css $(dir $@)
 
 else # Rules using makeinfo follow
