@@ -11,7 +11,8 @@ DOMAIN=lilypond-doc
 DOC_PO_SOURCES = postprocess_html.py texi-gettext.py translations-status.py
 TELY_FILES = $(shell ls $(depth)/Documentation/user/lilypond*.tely)
 TELY_FILES += $(foreach l, $(LANGS), $(shell ls $(depth)/Documentation/$(l)/user/lilypond*.tely))
-TELY_FILES += $(shell ls $(depth)/input/lsr/*.ly)
+LSR_LYS := $(shell ls $(depth)/input/lsr/*.ly)
+TELY_FILES += $(LSR_LYS:%.ly=../%.ly)
 
 messages: $(outdir)/messages
 
