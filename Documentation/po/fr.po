@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: fr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-09 01:15+0100\n"
-"PO-Revision-Date: 2008-11-09 00:34+0100\n"
+"PO-Revision-Date: 2008-11-09 13:14+0100\n"
 "Last-Translator: Jean-Charles Malahieude <lolyfan-AT-wanadoo-DOT-fr>\n"
 "Language-Team: Français <lilypond-user-fr@gnu.org>\n"
 "MIME-Version: 1.0\n"
@@ -1447,21 +1447,18 @@ msgstr "Après le tutoriel"
 
 #. Documentation/user/fundamental.itely:325 (context id)
 #. Documentation/user/fundamental.itely:368 (context id)
-#, fuzzy
 msgid "singer"
-msgstr "doigté"
+msgstr "chanteur"
 
 #. Documentation/user/fundamental.itely:326 (context id)
 #. Documentation/user/fundamental.itely:369 (context id)
-#, fuzzy
 msgid "vocal"
-msgstr "gamme"
+msgstr "vocal"
 
 #. Documentation/user/fundamental.itely:329 (context id)
 #. Documentation/user/fundamental.itely:372 (context id)
-#, fuzzy
 msgid "piano"
-msgstr "Piano"
+msgstr "piano"
 
 #. Documentation/user/fundamental.itely:330 (context id)
 #. Documentation/user/fundamental.itely:363 (variable)
@@ -1498,9 +1495,8 @@ msgstr "texte"
 
 #. Documentation/user/fundamental.itely:443 (context id)
 #. Documentation/user/staff.itely:535 (context id)
-#, fuzzy
 msgid "main"
-msgstr "mineur"
+msgstr "principal"
 
 #. Documentation/user/fundamental.itely:632 (comment)
 msgid "Voice \\\"1\\\"                  Voice \\\"2\\\""
@@ -1613,7 +1609,7 @@ msgstr "Initialisation de la première voix"
 #. Documentation/user/keyboards.itely:327 (context id)
 #. Documentation/user/fretted-strings.itely:241 (context id)
 msgid "one"
-msgstr ""
+msgstr "un"
 
 #. Documentation/user/fundamental.itely:1242 (variable)
 #. Documentation/user/fundamental.itely:2646 (variable)
@@ -1640,14 +1636,12 @@ msgid "SopTwoLyrics"
 msgstr "SopDeuxParoles"
 
 #. Documentation/user/fundamental.itely:1255 (context id)
-#, fuzzy
 msgid "SopOne"
-msgstr "SopUnMusique"
+msgstr "SopUn"
 
 #. Documentation/user/fundamental.itely:1264 (context id)
-#, fuzzy
 msgid "SopTwo"
-msgstr "SopDeuxMusique"
+msgstr "SopDeux"
 
 #. Documentation/user/fundamental.itely:1296 (variable)
 #. Documentation/user/fundamental.itely:2864 (variable)
@@ -1694,30 +1688,26 @@ msgid "VerseFour"
 msgstr "CoupletQuatre"
 
 #. Documentation/user/fundamental.itely:1314 (context id)
-#, fuzzy
 msgid "Sop"
-msgstr "Sommaire"
+msgstr "Sop"
 
 #. Documentation/user/fundamental.itely:1315 (context id)
 #. Documentation/user/tweaks.itely:3283 (context id)
 #. Documentation/user/input.itely:915 (context id)
-#, fuzzy
 msgid "Alto"
-msgstr "ZoomOui"
+msgstr "Alto"
 
 #. Documentation/user/fundamental.itely:1323 (context id)
 #. Documentation/user/tweaks.itely:3291 (context id)
 #. Documentation/user/input.itely:917 (context id)
-#, fuzzy
 msgid "Tenor"
-msgstr "TenorMusique"
+msgstr "Tenor"
 
 #. Documentation/user/fundamental.itely:1324 (context id)
 #. Documentation/user/tweaks.itely:3292 (context id)
 #. Documentation/user/input.itely:922 (context id)
-#, fuzzy
 msgid "Bass"
-msgstr "Barres de mesure"
+msgstr "Basse"
 
 #. Documentation/user/fundamental.itely:1350 (variable)
 #. Documentation/user/fundamental.itely:1402 (variable)
@@ -1735,9 +1725,8 @@ msgstr "coupletparoles"
 #. Documentation/user/fundamental.itely:1428 (context id)
 #. Documentation/user/fundamental.itely:1489 (context id)
 #. Documentation/user/vocal.itely:820 (context id)
-#, fuzzy
 msgid "verse"
-msgstr "coupletnotes"
+msgstr "couplet"
 
 #. Documentation/user/fundamental.itely:1407 (variable)
 #. Documentation/user/fundamental.itely:1469 (variable)
@@ -1761,14 +1750,12 @@ msgstr "refrainparolesB"
 
 #. Documentation/user/fundamental.itely:1436 (context id)
 #. Documentation/user/fundamental.itely:1509 (context id)
-#, fuzzy
 msgid "refrainB"
-msgstr "refrainnotesB"
+msgstr "refrainB"
 
 #. Documentation/user/fundamental.itely:1501 (context id)
-#, fuzzy
 msgid "refrainA"
-msgstr "refrainnotesA"
+msgstr "refrainA"
 
 #. Documentation/user/fundamental.itely:1655 (comment)
 msgid "start of single compound music expression"
@@ -1920,27 +1907,23 @@ msgstr "combinaison en parallèle du ChoirStaff et du PianoStaff"
 
 #. Documentation/user/fundamental.itely:2687 (context id)
 #. Documentation/user/fundamental.itely:2689 (context id)
-#, fuzzy
 msgid "sopranos"
-msgstr "sopranoMusique"
+msgstr "soprani"
 
 #. Documentation/user/fundamental.itely:2692 (context id)
 #. Documentation/user/fundamental.itely:2694 (context id)
-#, fuzzy
 msgid "altos"
-msgstr "altoMusique"
+msgstr "alti"
 
 #. Documentation/user/fundamental.itely:2697 (context id)
 #. Documentation/user/fundamental.itely:2699 (context id)
-#, fuzzy
 msgid "tenors"
-msgstr "tenorMusique"
+msgstr "tenors"
 
 #. Documentation/user/fundamental.itely:2702 (context id)
 #. Documentation/user/fundamental.itely:2704 (context id)
-#, fuzzy
 msgid "basses"
-msgstr "basseMusique"
+msgstr "basses"
 
 #. Documentation/user/fundamental.itely:2707 (comment)
 msgid "end ChoirStaff"
@@ -1967,9 +1950,8 @@ msgid "PianoStaff and Pedal Staff must be simultaneous"
 msgstr "système pianistique et portée de pédalier simultanés"
 
 #. Documentation/user/fundamental.itely:2884 (context id)
-#, fuzzy
 msgid "ManualOne"
-msgstr "Barres de ligature manuelles"
+msgstr "ManuelUn"
 
 #. Documentation/user/fundamental.itely:2885 (comment)
 msgid "set time signature and key"
@@ -1980,9 +1962,8 @@ msgid "end ManualOne Staff context"
 msgstr "fin du contexte de portée ManuelUn"
 
 #. Documentation/user/fundamental.itely:2890 (context id)
-#, fuzzy
 msgid "ManualTwo"
-msgstr "MusiqueManuelDeux"
+msgstr "ManuelDeux"
 
 #. Documentation/user/fundamental.itely:2894 (comment)
 msgid "end ManualTwo Staff context"
@@ -1993,13 +1974,12 @@ msgid "end PianoStaff context"
 msgstr "fin du contexte PianoStaff"
 
 #. Documentation/user/fundamental.itely:2896 (context id)
-#, fuzzy
 msgid "PedalOrgan"
-msgstr "MusiquePedalierOrgue"
+msgstr "PedalierOrgue"
 
 #. Documentation/user/fundamental.itely:2900 (comment)
 msgid "end PedalOrgan Staff context"
-msgstr "fin du contexte de portée PedalOrgan"
+msgstr "fin du contexte de portée PedalierOrgue"
 
 #. Documentation/user/fundamental.itely:2902 (comment)
 msgid "end Score context"
@@ -2456,7 +2436,7 @@ msgstr "mgMusique"
 #. Documentation/user/tweaks.itely:3079 (context id)
 #. Documentation/user/input.itely:928 (context id)
 msgid "RH"
-msgstr ""
+msgstr "MD"
 
 #. Documentation/user/tweaks.itely:2776 (context id)
 #. Documentation/user/tweaks.itely:2825 (context id)
@@ -2466,7 +2446,7 @@ msgstr ""
 #. Documentation/user/tweaks.itely:3083 (context id)
 #. Documentation/user/input.itely:934 (context id)
 msgid "LH"
-msgstr ""
+msgstr "MG"
 
 #. Documentation/user/tweaks.itely:3000 (comment)
 #. Documentation/user/tweaks.itely:3057 (comment)
@@ -2511,9 +2491,8 @@ msgstr "sopranoMusique"
 
 #. Documentation/user/tweaks.itely:3282 (context id)
 #. Documentation/user/input.itely:913 (context id)
-#, fuzzy
 msgid "Soprano"
-msgstr "sopranoMusique"
+msgstr "Soprano"
 
 #. Documentation/user/tweaks.itely:3487 (comment)
 msgid "Arrange to obtain color from color-notehead procedure"
@@ -4455,9 +4434,8 @@ msgid "Now each staff has its own time signature."
 msgstr "Chaque portée dispose désormais de sa propre métrique."
 
 #. Documentation/user/rhythms.itely:1256 (context id)
-#, fuzzy
 msgid "myRhythm"
-msgstr "Rythme"
+msgstr "monRythme"
 
 #. Documentation/user/rhythms.itely:1585 (comment)
 msgid "end 1/16 beams for all time signatures at the 1/16 moment"
@@ -4503,18 +4481,16 @@ msgid "this will"
 msgstr "ceci est conforme"
 
 #. Documentation/user/rhythms.itely:1689 (comment)
-#, fuzzy
 msgid "Set default beaming for all staves"
-msgstr "pas de ligature automatique définie pour cette métrique"
+msgstr "définition des règles de ligature pour toutes les portées"
 
 #. Documentation/user/rhythms.itely:1697 (comment)
 msgid "Modify beaming for just this staff"
-msgstr ""
+msgstr "changement des règles de ligature seulement pour cette portée"
 
 #. Documentation/user/rhythms.itely:1703 (comment)
-#, fuzzy
 msgid "Inherit beaming from Score context"
-msgstr "fin du contexte Score"
+msgstr "héritage des règles de ligature du contexte Score"
 
 #. Documentation/user/rhythms.itely:1827 (comment)
 msgid "revert to non-feathered beams"
@@ -5947,17 +5923,15 @@ msgstr "mauvais : il manque les durées"
 
 #. Documentation/user/vocal.itely:515 (comment)
 msgid "correct"
-msgstr "excellent"
+msgstr "correct"
 
 #. Documentation/user/vocal.itely:664 (context id)
-#, fuzzy
 msgid "lala"
 msgstr "global"
 
 #. Documentation/user/vocal.itely:802 (context id)
-#, fuzzy
 msgid "splitpart"
-msgstr "partie"
+msgstr "partieSeparee"
 
 #. Documentation/user/vocal.itely:847 (variable)
 msgid "voice"
@@ -5968,13 +5942,12 @@ msgid "lyr"
 msgstr "paroles"
 
 #. Documentation/user/vocal.itely:1053 (context id)
-#, fuzzy
 msgid "tune"
-msgstr "nolet"
+msgstr "melodie"
 
 #. Documentation/user/vocal.itely:1101 (context id)
 msgid "lahlah"
-msgstr ""
+msgstr "lala"
 
 #. Documentation/user/vocal.itely:1112 (comment)
 msgid "applies to \\\"fas\\\""
@@ -6361,14 +6334,13 @@ msgid "keep staff alive"
 msgstr "maintient la portée active"
 
 #. Documentation/user/keyboards.itely:265 (context id)
-#, fuzzy
 msgid "melOne"
-msgstr "ligne"
+msgstr "melodieUn"
 
 #. Documentation/user/keyboards.itely:333 (context id)
 #. Documentation/user/fretted-strings.itely:242 (context id)
 msgid "two"
-msgstr ""
+msgstr "deux"
 
 #. Documentation/user/keyboards.itely:385 (comment)
 msgid "stems may overlap the other staff"
@@ -6597,14 +6569,12 @@ msgid "melodia"
 msgstr "melodie"
 
 #. Documentation/user/fretted-strings.itely:243 (context id)
-#, fuzzy
 msgid "shared"
-msgstr "dièse"
+msgstr "partage"
 
 #. Documentation/user/fretted-strings.itely:244 (context id)
-#, fuzzy
 msgid "solo"
-msgstr "couleur"
+msgstr "solo"
 
 #. Documentation/user/fretted-strings.itely:321 (variable)
 msgid "mynotes"
@@ -7165,16 +7135,15 @@ msgstr "Gravure de la basse chiffrée"
 
 #. Documentation/user/ancient.itely:355 (context id)
 msgid "discantus"
-msgstr ""
+msgstr "discantus"
 
 #. Documentation/user/ancient.itely:821 (variable)
 msgid "ficta"
 msgstr "ficta"
 
 #. Documentation/user/ancient.itely:973 (context id)
-#, fuzzy
 msgid "cantus"
-msgstr "Chants"
+msgstr "cantus"
 
 #. @node in Documentation/user/ancient.itely
 #. @section in Documentation/user/ancient.itely
