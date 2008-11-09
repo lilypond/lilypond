@@ -3,7 +3,7 @@
 % Load plain if necessary, i.e., if running under initex.
 \expandafter\ifx\csname fmtname\endcsname\relax\input plain\fi
 %
-\def\texinfoversion{2008-10-16.09}
+\def\texinfoversion{2008-11-07.12}
 %
 % Copyright (C) 1985, 1986, 1988, 1990, 1991, 1992, 1993, 1994, 1995,
 % 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006,
@@ -926,6 +926,7 @@ where each line of input produces a line of output.}
   {%
     \makevalueexpandable  % we want to expand any @value in FILE.
     \turnoffactive        % and allow special characters in the expansion
+    \indexnofonts         % Allow `@@' and other weird things in file names.
     \edef\temp{\noexpand\input #1 }%
     %
     % This trickery is to read FILE outside of a group, in case it makes
@@ -2489,6 +2490,7 @@ end
 {
   \catcode`\-=\active \catcode`\_=\active
   \catcode`\'=\active \catcode`\`=\active
+  \global\let'=\rq \global\let`=\lq  % default definitions
   %
   \global\def\code{\begingroup
     \catcode\rquoteChar=\active \catcode\lquoteChar=\active
@@ -2749,8 +2751,20 @@ end
 \def\quotedblbase{{\ecfont \char"12}}
 \def\quotesinglbase{{\ecfont \char"0D}}
 %
+% This positioning is not perfect (see the ogonek LaTeX package), but
+% we have the precomposed glyphs for the most common cases.
+% ogonek is also used with other letters in Lithuanian (IOU), but using
+% the precomposed glyphs for those is not so easy since they aren't in
+% the same EC font.
+\def\ogonek#1{{\ecfont \setbox0=\hbox{#1}\ifdim\ht0=1ex\accent"0C #1%
+  \else\ooalign{\unhbox0\crcr\hidewidth\char"0C \hidewidth}\fi}}
+\def\Aogonek{{\ecfont \char"81}}
+\def\Eogonek{{\ecfont \char"86}}
+\def\aogonek{{\ecfont \char"A1}}
+\def\eogonek{{\ecfont \char"A6}}
+%
 \def\ecfont{%
-  % We can't distinguish serif/sanserif and italic/slanted, but this
+  % We can't distinguish serif/sans and italic/slanted, but this
   % is used for crude hacks anyway (like adding French and German
   % quotes to documents typeset with CM, where we lose kerning), so
   % hopefully nobody will notice/care.
@@ -5970,7 +5984,7 @@ end
 % we're doing normal filling.  So, when using \aboveenvbreak and
 % \afterenvbreak, temporarily make \parskip 0.
 %
-\envdef\quotation{%
+\def\quotationstart{%
   {\parskip=0pt \aboveenvbreak}% because \aboveenvbreak inserts \parskip
   \parindent=0pt
   %
@@ -5984,6 +5998,17 @@ end
   \fi
   \parsearg\quotationlabel
 }
+
+\envdef\quotation{%
+  \setnormaldispenv
+  \quotationstart
+}
+
+\envdef\smallquotation{%
+  \setsmalldispenv
+  \quotationstart
+}
+\let\Esmallquotation = \Equotation
 
 % We have retained a nonzero parskip for the environment, since we're
 % doing normal filling.
@@ -6025,12 +6050,6 @@ end
 % [Knuth] p. 380
 \def\uncatcodespecials{%
   \def\do##1{\catcode`##1=\other}\dospecials}
-%
-% [Knuth] pp. 380,381,391
-% Disable Spanish ligatures ?` and !` of \tt font
-\begingroup
-  \catcode`\`=\active\gdef`{\relax\lq}
-\endgroup
 %
 % Setup for the @verb command.
 %
@@ -6081,7 +6100,7 @@ end
 \def\codequoteleft{%
   \expandafter\ifx\csname SETtxicodequotebacktick\endcsname\relax
     \expandafter\ifx\csname SETcodequotebacktick\endcsname\relax
-      `%
+      \relax`% the \relax disables the `! and `? ligatures
     \else \char'22 \fi
   \else \char'22 \fi
 }
@@ -6175,8 +6194,8 @@ end
 \def\doverbatiminclude#1{%
   {%
     \makevalueexpandable
-    \def\@{@}% we want to use \indexnofonts, but then verbatim ends prematurely
     \setupverbatim
+    \indexnofonts       % Allow `@@' and other weird things in file names.
     \input #1
     \afterenvbreak
   }%
@@ -8016,7 +8035,7 @@ directory should work if nowhere else does.}
 % Latin2 (ISO-8859-2) character definitions.
 \def\lattwochardefs{%
   \gdef^^a0{~}
-  \gdef^^a1{\missingcharmsg{LATIN CAPITAL LETTER A WITH OGONEK}}
+  \gdef^^a1{\Aogonek}
   \gdef^^a2{\u{}}
   \gdef^^a3{\L}
   \gdef^^a4{\missingcharmsg{CURRENCY SIGN}}
@@ -8033,8 +8052,8 @@ directory should work if nowhere else does.}
   \gdef^^af{\dotaccent Z}
   %
   \gdef^^b0{\textdegree}
-  \gdef^^b1{\missingcharmsg{LATIN SMALL LETTER A WITH OGONEK}}
-  \gdef^^b2{\missingcharmsg{OGONEK}}
+  \gdef^^b1{\aogonek}
+  \gdef^^b2{\ogonek{ }}
   \gdef^^b3{\l}
   \gdef^^b4{\'{}}
   \gdef^^b5{\v l}
@@ -8059,7 +8078,7 @@ directory should work if nowhere else does.}
   \gdef^^c7{\cedilla C}
   \gdef^^c8{\v C}
   \gdef^^c9{\'E}
-  \gdef^^ca{\missingcharmsg{LATIN CAPITAL LETTER E WITH OGONEK}}
+  \gdef^^ca{\Eogonek}
   \gdef^^cb{\"E}
   \gdef^^cc{\v E}
   \gdef^^cd{\'I}
@@ -8093,7 +8112,7 @@ directory should work if nowhere else does.}
   \gdef^^e7{\cedilla c}
   \gdef^^e8{\v c}
   \gdef^^e9{\'e}
-  \gdef^^ea{\missingcharmsg{LATIN SMALL LETTER E WITH OGONEK}}
+  \gdef^^ea{\eogonek}
   \gdef^^eb{\"e}
   \gdef^^ec{\v e}
   \gdef^^ed{\'\i}
@@ -8322,10 +8341,14 @@ directory should work if nowhere else does.}
   \DeclareUnicodeCharacter{0101}{\=a}
   \DeclareUnicodeCharacter{0102}{\u{A}}
   \DeclareUnicodeCharacter{0103}{\u{a}}
+  \DeclareUnicodeCharacter{0104}{\Aogonek}
+  \DeclareUnicodeCharacter{0105}{\aogonek}
   \DeclareUnicodeCharacter{0106}{\'C}
   \DeclareUnicodeCharacter{0107}{\'c}
   \DeclareUnicodeCharacter{0108}{\^C}
   \DeclareUnicodeCharacter{0109}{\^c}
+  \DeclareUnicodeCharacter{0118}{\Eogonek}
+  \DeclareUnicodeCharacter{0119}{\eogonek}
   \DeclareUnicodeCharacter{010A}{\dotaccent{C}}
   \DeclareUnicodeCharacter{010B}{\dotaccent{c}}
   \DeclareUnicodeCharacter{010C}{\v{C}}
@@ -8472,6 +8495,8 @@ directory should work if nowhere else does.}
   \DeclareUnicodeCharacter{0232}{\=Y}
   \DeclareUnicodeCharacter{0233}{\=y}
   \DeclareUnicodeCharacter{0237}{\dotless{j}}
+
+  \DeclareUnicodeCharacter{02DB}{\ogonek{ }}
 
   \DeclareUnicodeCharacter{1E02}{\dotaccent{B}}
   \DeclareUnicodeCharacter{1E03}{\dotaccent{b}}
@@ -9009,7 +9034,14 @@ directory should work if nowhere else does.}
 @catcode`@# = @other
 @catcode`@% = @other
 
-
+@c Finally, make ` and ' active, so that txicodequoteundirected and
+@c txicodequotebacktick work right in, e.g., @w{@code{`foo'}}.  If we
+@c don't make ` and ' active, @code will not get them as active chars.
+@c Do this last of all since we use ` in the previous @catcode assignments.
+@c (not ready yet, sigh)
+@c atcode`@'=@active @let'@rq
+@c atcode`@`=@active @let`@lq
+ 
 @c Local variables:
 @c eval: (add-hook 'write-file-hooks 'time-stamp)
 @c page-delimiter: "^\\\\message"
