@@ -101,6 +101,9 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
   ragged_ = to_boolean (pb->paper_->c_variable ("ragged-bottom"));
   ragged_last_ = to_boolean (pb->paper_->c_variable ("ragged-last-bottom"));
   page_top_space_ = robust_scm2double (pb->paper_->c_variable ("page-top-space"), 0);
+  systems_per_page_ = robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0);
+  max_systems_per_page_ = robust_scm2int (pb->paper_->c_variable ("max-systems-per-page"), 0);
+
   create_system_list ();
   find_chunks_and_breaks (is_break);
 }
@@ -119,6 +122,18 @@ bool
 Page_breaking::ragged_last () const
 {
   return ragged_last_;
+}
+
+int
+Page_breaking::systems_per_page () const
+{
+  return systems_per_page_;
+}
+
+int
+Page_breaking::max_systems_per_page () const
+{
+  return max_systems_per_page_;
 }
 
 Real
@@ -682,19 +697,17 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   return ret;
 }
 
-// If systems_per_page is positive, we don't really try to space on N pages;
+// If systems_per_page_ is positive, we don't really try to space on N pages;
 // we just put the requested number of systems on each page and penalize
 // if the result doesn't have N pages.
 Page_spacing_result
-Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize first_page_num,
-					 int systems_per_page)
+Page_breaking::space_systems_on_n_pages (vsize configuration, vsize n, vsize first_page_num)
 {
   Page_spacing_result ret;
 
-  if (systems_per_page > 0)
+  if (systems_per_page_ > 0)
     {
-      Page_spacing_result ret = space_systems_with_fixed_number_per_page (configuration, first_page_num,
-									  systems_per_page);
+      Page_spacing_result ret = space_systems_with_fixed_number_per_page (configuration, first_page_num);
       ret.demerits_ += (ret.force_.size () == n) ? 0 : BAD_SPACING_PENALTY;
       return ret;
     }
@@ -740,19 +753,17 @@ Page_breaking::blank_page_penalty () const
   return robust_scm2double (book_->paper_->lookup_variable (penalty_sym), 0.0);
 }
 
-// If systems_per_page is positive, we don't really try to space on N
+// If systems_per_page_ is positive, we don't really try to space on N
 // or N+1 pages; see the comment to space_systems_on_n_pages.
 Page_spacing_result
-Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, vsize first_page_num,
-						     int systems_per_page)
+Page_breaking::space_systems_on_n_or_one_more_pages (vsize configuration, vsize n, vsize first_page_num)
 {
   Page_spacing_result n_res;
   Page_spacing_result m_res;
 
-  if (systems_per_page > 0)
+  if (systems_per_page_ > 0)
     {
-      Page_spacing_result ret = space_systems_with_fixed_number_per_page (configuration, first_page_num,
-									  systems_per_page);
+      Page_spacing_result ret = space_systems_with_fixed_number_per_page (configuration, first_page_num);
       ret.demerits_ += (ret.force_.size () == n || ret.force_.size () == (n-1)) ? 0 : BAD_SPACING_PENALTY;
       return ret;
     }
@@ -821,8 +832,7 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
 
 Page_spacing_result
 Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
-							 vsize first_page_num,
-							 int systems_per_page)
+							 vsize first_page_num)
 {
   Page_spacing_result res;
   Page_spacing space (page_height (first_page_num, false), page_top_space_);
@@ -838,7 +848,7 @@ Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
       space.resize (page_height (first_page_num + page, false));
 
       int system_count_on_this_page = 0;
-      while (system_count_on_this_page < systems_per_page
+      while (system_count_on_this_page < systems_per_page_
 	     && line < cached_line_details_.size ())
 	{
 	  Line_details const &cur_line = cached_line_details_[line];

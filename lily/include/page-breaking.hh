@@ -101,6 +101,8 @@ public:
   bool ragged_last () const;
   bool is_last () const;
   bool ends_score () const;
+  int systems_per_page () const;
+  int max_systems_per_page () const;
   Real page_height (int page_number, bool last) const;
   Real page_top_space () const;
   vsize system_count () const;
@@ -129,16 +131,13 @@ protected:
   vsize current_configuration_count () const;
   Line_division current_configuration (vsize configuration_index) const;
   Page_spacing_result space_systems_on_n_pages (vsize configuration_index,
-						vsize n, vsize first_page_num,
-						int systems_per_page=0);
+						vsize n, vsize first_page_num);
   Page_spacing_result space_systems_on_n_or_one_more_pages (vsize configuration_index, vsize n,
-							    vsize first_page_num,
-							    int systems_per_page=0);
+							    vsize first_page_num);
   Page_spacing_result space_systems_on_best_pages (vsize configuration_index,
 						   vsize first_page_num);
   Page_spacing_result space_systems_with_fixed_number_per_page (vsize configuration_index,
-								vsize first_page_num,
-								int systems_per_page);
+								vsize first_page_num);
   Page_spacing_result pack_systems_on_least_pages (vsize configuration_index,
 						   vsize first_page_num);
   vsize min_page_count (vsize configuration_index, vsize first_page_num);
@@ -155,6 +154,8 @@ private:
   vector<Constrained_breaking> line_breaking_;
   bool ragged_;
   bool ragged_last_;
+  int systems_per_page_;
+  int max_systems_per_page_;
   Real page_top_space_;
   vsize system_count_;
 
