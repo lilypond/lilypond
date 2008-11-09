@@ -39,7 +39,6 @@ Optimal_page_breaking::solve ()
   vsize max_sys_count = max_system_count (0, end);
   vsize first_page_num = robust_scm2int (book_->paper_->c_variable ("first-page-number"), 1);
   SCM forced_page_count = book_->paper_->c_variable ("page-count");
-  int systems_per_page = robust_scm2int (book_->paper_->c_variable ("systems-per-page"), 0);
 
   set_to_ideal_line_configuration (0, end);
 
@@ -55,8 +54,8 @@ Optimal_page_breaking::solve ()
       /* find out the ideal number of pages */
       message (_ ("Finding the ideal number of pages..."));
   
-      if (systems_per_page > 0)
-	best = space_systems_with_fixed_number_per_page (0, first_page_num, systems_per_page);
+      if (systems_per_page () > 0)
+	best = space_systems_with_fixed_number_per_page (0, first_page_num);
       else
 	best = space_systems_on_best_pages (0, first_page_num);
 
@@ -75,7 +74,7 @@ Optimal_page_breaking::solve ()
 	 ideal line spacing doesn't fit on PAGE_COUNT pages */
       /* TODO: the interaction between systems_per_page and page_count needs to
 	 be considered. */
-      best = space_systems_on_n_pages (0, page_count, first_page_num, systems_per_page);
+      best = space_systems_on_n_pages (0, page_count, first_page_num);
       min_sys_count = page_count;
     }
 
@@ -99,9 +98,9 @@ Optimal_page_breaking::solve ()
 	  Page_spacing_result cur;
 
 	  if (min_p_count == page_count || scm_is_integer (forced_page_count))
-	    cur = space_systems_on_n_pages (i, page_count, first_page_num, systems_per_page);
+	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
 	  else
-	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num, systems_per_page);
+	    cur = space_systems_on_n_or_one_more_pages (i, page_count-1, first_page_num);
 
 	  if (cur.demerits_ < best_for_this_sys_count.demerits_ || isinf (best_for_this_sys_count.demerits_))
 	    {
@@ -143,7 +142,7 @@ Optimal_page_breaking::solve ()
 	  if (min_p_count > page_count)
 	    continue;
 	  else
-	    cur = space_systems_on_n_pages (i, page_count, first_page_num, systems_per_page);
+	    cur = space_systems_on_n_pages (i, page_count, first_page_num);
 
 	  if (cur.demerits_ < best.demerits_ || isinf (best.demerits_))
 	    {
