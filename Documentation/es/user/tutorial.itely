@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
+    Translation of GIT committish: 9c728939dbd36dc81bf0afb29bc5fe22b66d675c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -820,7 +820,7 @@ primera línea del pentagrama.}  Más bien significa: @qq{hay una nota
 Mi natural.}  En la tonalidad de La bemol mayor, @emph{lleva} una
 alteración accidental:
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \key aes \major
 e
 @end lilypond
