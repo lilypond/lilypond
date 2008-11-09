@@ -796,11 +796,44 @@ Page_breaking::space_systems_on_best_pages (vsize configuration, vsize first_pag
   return finalize_spacing_result (configuration, best);
 }
 
-Page_spacing_result space_systems_with_fixed_number_per_page (vsize configuration_index,
-							      int systems_per_page,
-							      vsize first_page_num)
+Page_spacing_result
+Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
+							 int systems_per_page,
+							 vsize first_page_num)
 {
-  return Page_spacing_result ();
+  Page_spacing_result res;
+  Page_spacing space (page_height (first_page_num, false), page_top_space_);
+  vsize line = 0;
+  vsize page = 0;
+  vsize page_first_line = 0;
+
+  cache_line_details (configuration);
+  while (line < cached_line_details_.size ())
+    {
+      page++;
+      space.clear ();
+      space.resize (page_height (first_page_num + page, false));
+
+      int system_count_on_this_page = 0;
+      while (system_count_on_this_page < systems_per_page
+	     && line < cached_line_details_.size ())
+	{
+	  space.append_system (cached_line_details_[line]);
+	  system_count_on_this_page += cached_line_details_[line].compressed_nontitle_lines_count_;
+	  line++;
+	}
+
+      res.systems_per_page_.push_back (line - page_first_line);
+      res.force_.push_back (space.force_);
+      res.penalty_ += cached_line_details_[line-1].page_penalty_;
+      page_first_line = line;
+    }
+
+  /* Recalculate forces for the last page because we know now that is
+     was really the last page. */
+  space.resize (page_height (first_page_num + page, true));
+  res.force_.back () = space.force_;
+  return finalize_spacing_result (configuration, res);
 }
 
 Page_spacing_result
