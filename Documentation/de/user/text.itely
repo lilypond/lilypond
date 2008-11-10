@@ -293,9 +293,10 @@ Eine @code{\markup}-Umgebung kann auch für sich alleine existieren,
 außerhalb einer @code{\score}-Umgebung, als ein Ausdruck auf der
 höchsten Ebene.
 
+@c KEEP LY
 @lilypond[verbatim,quote]
 \markup {
-  Tomorrow, and tomorrow, and tomorrow...
+  Morgen, morgen, und morgen...
 }
 @end lilypond
 
