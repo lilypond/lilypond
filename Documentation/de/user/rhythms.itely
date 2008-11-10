@@ -1100,8 +1100,8 @@ d4 e d c
 Glossar:
 @rglos{cadenza}.
 
-Notationsreferenz:
-@ref{Visibility and color of objects}.
+@c Notationsreferenz:
+@c ref{Controlling visibility of objects}.
 
 Schnipsel:
 @rlsr{Rhythms}.
