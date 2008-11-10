@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2008-11-09 17:44+0100\n"
-"PO-Revision-Date: 2008-11-10 13:53+0100\n"
+"PO-Revision-Date: 2008-11-10 17:28+0100\n"
 "Last-Translator: Francisco Vila <francisco.vila@hispalinux.es>\n"
 "Language-Team: Español\n"
 "MIME-Version: 1.0\n"
@@ -11714,11 +11714,11 @@ msgstr "Deshabilite la línea siguiente para ver las cabezas mientras escribe la
 
 #. input/lsr/score-for-diatonic-accordion.ly:87 (comment)
 msgid "The beam between 8th-notes is used to draw the push-line"
-msgstr "La barra entre las corcheas se usa para trazar la «push-line»"
+msgstr "La barra entre las corcheas se usa para trazar la línea de cerrar"
 
 #. input/lsr/score-for-diatonic-accordion.ly:88 (comment)
 msgid "How to fast write the push-lines: "
-msgstr "Cuán rápido escribir las «push-lines»: "
+msgstr "Cuán rápido escribir las líneas de cerrar:"
 
 #. input/lsr/score-for-diatonic-accordion.ly:89 (comment)
 msgid "1. write repeatedly 'c c c c c c c c |' for the whole length of the song "
@@ -11734,11 +11734,11 @@ msgstr "3. compilar"
 
 #. input/lsr/score-for-diatonic-accordion.ly:92 (comment)
 msgid "4. Mark the positions on which push/pull changes. "
-msgstr "4. Marcar las posiciones en las que cambia el push/pull"
+msgstr "4. Marcar las posiciones en las que cambia el abrir o cerrar"
 
 #. input/lsr/score-for-diatonic-accordion.ly:93 (comment)
 msgid "In the score-picture click on the position the push- or pull-part starts "
-msgstr "En la imagen de la partitura pulse sobre la posición en que inician las partes push o pull"
+msgstr "En la imagen de la partitura pulse sobre la posición en que inician las partes de abrir o cerrar"
 
 #. input/lsr/score-for-diatonic-accordion.ly:94 (comment)
 msgid "(on the noteHead, the cursor will change to a hand-icon)."
@@ -11750,11 +11750,11 @@ msgstr "El cursor sobre la fuente salta a esta posición."
 
 #. input/lsr/score-for-diatonic-accordion.ly:96 (comment)
 msgid "a) If a push-part starts there, replace the 'c' by an 'e['"
-msgstr "a) Si en ese lugar empieza una parte de push, cambie la 'c' por 'e['"
+msgstr "a) Si en ese lugar empieza una parte de cerrar, cambie la 'c' por 'e['"
 
 #. input/lsr/score-for-diatonic-accordion.ly:97 (comment)
 msgid "b) If a pull-part starts there, replace the 'c' by an 's'"
-msgstr "b) Si en ese lugar empieza una parte de pull, cambie la 'c' por una 's'"
+msgstr "b) Si en ese lugar empieza una parte de abrir, cambie la 'c' por una 's'"
 
 #. input/lsr/score-for-diatonic-accordion.ly:98 (comment)
 msgid "5. Switch into 'overwrite-mode' by pressing the 'ins' key. "
@@ -11762,11 +11762,11 @@ msgstr "5. Cambie al modo de sobreescritura de texto pulsando la tecla 'ins'."
 
 #. input/lsr/score-for-diatonic-accordion.ly:99 (comment)
 msgid "6. For the pull-parts overwrite the 'c' with 's' "
-msgstr "6. Para las partes de pull sobreescriba la 'c' con 's' "
+msgstr "6. Para las partes de abrir sobreescriba la 'c' con 's' "
 
 #. input/lsr/score-for-diatonic-accordion.ly:100 (comment)
 msgid "7. For every push-part replace the last 'c' with 'e]' "
-msgstr "7. Para cada parte de push cambie la última 'c' por una 'e]' "
+msgstr "7. Para cada parte de cerrar cambie la última 'c' por una 'e]' "
 
 #. input/lsr/score-for-diatonic-accordion.ly:101 (comment)
 msgid "8. Switch into 'insert-mode' again "
@@ -11795,7 +11795,7 @@ msgstr "1. Ponga debajo una copia de la melodía de piano"
 msgid ""
 "2. Separate piano melody into pull- and push-parts according to the "
 "staffTabLine you've already made      "
-msgstr "2. Separe la melodía de piano en partes de pull y de push de acuerdo con la staffTabLine que ha preparado"
+msgstr "2. Separe la melodía de piano en partes de abrir y de cerrar de acuerdo con la staffTabLine que ha preparado"
 
 #. input/lsr/score-for-diatonic-accordion.ly:116 (comment)
 msgid ""
@@ -11826,7 +11826,7 @@ msgstr "AcordeonTabDosCSibM"
 
 #. input/lsr/score-for-diatonic-accordion.ly:122 (comment)
 msgid "pull 1"
-msgstr "pull 1"
+msgstr "abrir 1"
 
 #. input/lsr/score-for-diatonic-accordion.ly:123 (comment)
 msgid "<f' bes'>8 <f' a'>8 <d' bes'>8 | "
@@ -11834,7 +11834,7 @@ msgstr ""
 
 #. input/lsr/score-for-diatonic-accordion.ly:125 (comment)
 msgid "push 2"
-msgstr ""
+msgstr "cerrar 2"
 
 #. input/lsr/score-for-diatonic-accordion.ly:126 (comment)
 msgid "<g' c''>4 <f' d''> <g' ees''> <f' a'> | "
@@ -11842,7 +11842,7 @@ msgstr ""
 
 #. input/lsr/score-for-diatonic-accordion.ly:128 (comment)
 msgid "pull 3"
-msgstr ""
+msgstr "abrir 3"
 
 #. input/lsr/score-for-diatonic-accordion.ly:129 (comment)
 msgid "<f' bes'>2 r8 }"
@@ -12235,51 +12235,51 @@ msgstr "Aquí volvemos a la clave normal:"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:22 (comment)
 msgid "The default in 3/4 time is to beam in three groups"
-msgstr ""
+msgstr "De forma predeterminada, en 3/4 el barrado se hace en tres grupos"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:23 (comment)
 msgid "each of a quarter note length"
-msgstr ""
+msgstr "de una negra de longitud cada uno"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:27 (comment)
 msgid "No auto-beaming is defined for 12/16"
-msgstr ""
+msgstr "No hay ningún barrado automático definido para 12/16"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:31 (comment)
 msgid "Change time signature symbol, but retain underlying 3/4 beaming"
-msgstr ""
+msgstr "Cambiar el símbolo de compás, manteniendo el barrado subyacente de 3/4"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:35 (comment)
 msgid "The 3/4 time default grouping of (1 1 1) and beatLength of 1/8"
-msgstr ""
+msgstr "El agrupamiento predeterminado de (1 1 1) y beatLength de 1/8 del compás 3/4"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:36 (comment)
 msgid "are not consistent with a measureLength of 3/4, so the beams"
-msgstr ""
+msgstr "no son consistentes con una longitud de compás measureLength de 3/4, por ello las barras"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:37 (comment)
 msgid "are grouped at beatLength intervals"
-msgstr ""
+msgstr "se agrupan a intervalos de beatLength"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:41 (comment)
 msgid "Specify beams in groups of (3 3 2 3) 1/16th notes"
-msgstr ""
+msgstr "Especificar barras en grupos de (3 3 2 3) semicorcheas"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:42 (comment)
 msgid "3+3+2+3=11, and 11*1/16<>3/4, so beatGrouping does not apply,"
-msgstr ""
+msgstr "3+3+2+3=11, y 11*1/16<>3/4, así que no es de aplicación beatGrouping"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:43 (comment)
 msgid "and beams are grouped at beatLength (1/16) intervals"
-msgstr ""
+msgstr "y las barras se agrupan a intervalos de beatLength (semicorcheas)"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:48 (comment)
 msgid "Specify beams in groups of (3 4 2 3) 1/16th notes"
-msgstr ""
+msgstr "Especificat barras en grupos de (3 4 2 3) semicorcheas"
 
 #. input/lsr/using-beatlength-and-beatgrouping.ly:49 (comment)
 msgid "3+4+2+3=12, and 12*1/16=3/4, so beatGrouping applies"
-msgstr ""
+msgstr "3+4+2+3=12, y 12*1/16=3/4, así pues beatGrouping es de aplicación"
 
 #. input/lsr/using-postscript-to-generate-special-note-head-shapes.ly:17 (variable)
 msgid "parallelogram"
@@ -12295,23 +12295,23 @@ msgstr "cabezasNormales"
 
 #. input/lsr/utf-8.ly:34 (comment)
 msgid "end verbatim - this comment is a hack to prevent texinfo.tex"
-msgstr ""
+msgstr "final del bloque literal. Este comentario es un truco para evitar que texinfo.tex"
 
 #. input/lsr/utf-8.ly:35 (comment)
 msgid "from choking on non-European UTF-8 subsets"
-msgstr ""
+msgstr "proteste respecto a los subconjuntos de UTF-8 no europeos"
 
 #. input/lsr/utf-8.ly:36 (comment)
 msgid "Cyrillic font"
-msgstr ""
+msgstr "Fuente cirílica"
 
 #. input/lsr/utf-8.ly:37 (variable)
 msgid "bulgarian"
-msgstr ""
+msgstr "bulgaro"
 
 #. input/lsr/utf-8.ly:41 (variable)
 msgid "hebrew"
-msgstr ""
+msgstr "hebreo"
 
 # fuzzy. FVD
 #. input/lsr/utf-8.ly:45 (variable)
@@ -12320,11 +12320,11 @@ msgstr "japones"
 
 #. input/lsr/utf-8.ly:52 (comment)
 msgid "\\\"a legal song to you\\\""
-msgstr ""
+msgstr "\\\"una canción legal para ti\\\""
 
 #. input/lsr/utf-8.ly:53 (variable)
 msgid "portuguese"
-msgstr ""
+msgstr "portugues"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:19 (variable)
 msgid "leftbrace"
@@ -12344,7 +12344,7 @@ msgstr "elevarLetra"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:36 (variable)
 msgid "skipFour"
-msgstr ""
+msgstr "saltoCuatro"
 
 #. input/lsr/vertically-centered-common-lyrics.ly:38 (variable)
 msgid "lyricsA"
@@ -12404,11 +12404,11 @@ msgstr "esté más cerca del pentagrama"
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:73 (comment)
 msgid "we could remove the line about this with the line below, since we want"
-msgstr ""
+msgstr "podríamos quitar la línea anterior y sustituirla por la siguiente, pues queremos"
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:74 (comment)
 msgid "the alto lyrics to be below the alto Voice anyway."
-msgstr ""
+msgstr "que la letra de la contralto esté debajo de la voz de contralto de todas formas."
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:75 (comment)
 msgid "\\new Lyrics \\lyricsto altos \\altoWords"
@@ -12416,7 +12416,7 @@ msgstr ""
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:84 (comment)
 msgid "again, we could replace the line above this with the line below."
-msgstr ""
+msgstr "de nuevo podríamos sustituir la línea anterior con la línea siguiente."
 
 #. input/lsr/vocal-ensemble-template-with-lyrics-aligned-below-and-above-the-staves.ly:85 (comment)
 msgid "\\new Lyrics \\lyricsto basses \\bassWords"
