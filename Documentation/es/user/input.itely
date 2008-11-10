@@ -1430,8 +1430,8 @@ Para crear un MIDI a partir de una pieza de música, escriba un bloque
 
 Si hay un bloque @code{\midi} dentro de un @code{\score} que no tenga
 ningún bloque @code{\layout}, solamente se producirá MIDI.  Si se
-necesita también una notación impresa, también debe haber un bloque
-@code{\layout}
+necesita una notación impresa, debe haber también un bloque
+@code{\layout}:
 
 @example
 \score @{

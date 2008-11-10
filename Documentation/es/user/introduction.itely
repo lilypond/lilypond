@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -749,15 +749,20 @@ este duro trabajo, el programa ahora se puede usar para hacer trabajos
 Añadiendo los nombres de acordes y la letra, obtenemos una hoja guía
 de acordes (lead sheet).
 
+@c KEEP LY
 @lilypond[quote,ragged-right]
 <<
    \chords { c2 c f2 c }
-   \new Staff \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
-   \new Lyrics \lyricmode { twin4 kle twin kle lit tle star2 }
+   \new Staff
+   \relative c' {
+     \time 2/4
+     c4 c g' g a a g2
+   }
+   \addlyrics { cam -- pa -- ni -- ta del lu -- gar }
 >>
 @end lilypond
 
-También se pueden imprimir notación polifónica y música para piano.
+También se puede imprimir notación polifónica y música para piano.
 El ejemplo siguiente combina algunas otras construcciones exóticas.
 
 @lilypondfile[quote,ragged-right]{screech-boink.ly}
