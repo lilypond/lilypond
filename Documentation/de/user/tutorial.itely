@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 579452b61befcfd488fe53eda9a4b7166edca3d8
+    Translation of GIT committish: 9c728939dbd36dc81bf0afb29bc5fe22b66d675c
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -826,7 +826,7 @@ auf die erste Linie des Systems.} Im Gegenteil, er heißt vielmehr:
 In der Tonart As-Dur @emph{bekommt} sie ein Versetzungszeichen:
 
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \key aes \major
 e
 @end lilypond

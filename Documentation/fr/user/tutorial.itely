@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: d7a9cbdc480e5b327ec53f287f22995e7a9c1a0f
+   Translation of GIT committish: 9c728939dbd36dc81bf0afb29bc5fe22b66d675c
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -813,7 +813,7 @@ la première ligne de la portée.}  Cela signifie plutôt : @qq{Ici se
 trouve une note dont la hauteur est un mi naturel.}  Avec une armure
 de la bémol majeur, ce mi est flanqué d'un bécarre accidentel :
 
-@lilypond[verbatim,quote,relative=2]
+@lilypond[verbatim,quote,relative=1]
 \key aes \major
 e
 @end lilypond
