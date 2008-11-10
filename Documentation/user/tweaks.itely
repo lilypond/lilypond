@@ -225,6 +225,8 @@ this chapter will be directed to presenting examples of how it is
 used.  Here is a simple example to change the color of the
 note head:
 
+@cindex color property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c d
 \override NoteHead #'color = #red
@@ -256,6 +258,8 @@ Again, just like @var{Context} in the @code{\override} command,
 in many of the following examples.  Here we revert the color
 of the note head to the default value for the final two notes:
 
+@cindex color property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c d
 \override NoteHead #'color = #red
@@ -277,6 +281,8 @@ prefixed by @code{\once}.  This causes the following
 during the current musical moment before the property reverts
 back to its default value.  Using the same example, we can
 change the color of a single note like this:
+
+@cindex color property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 c d
@@ -317,6 +323,8 @@ Here's an example.  Suppose we wish to change the size of the
 middle note head (the E) in a C major chord.  Let's first see what
 @code{\once \override} would do:
 
+@cindex font-size property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
   <c e g>4
   \once \override NoteHead #'font-size = #-3
@@ -345,6 +353,8 @@ note.
 So to return to our example, the size of the middle note of
 a chord would be changed in this way:
 
+@cindex font-size property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
   <c e g>4
   <c \tweak #'font-size #-3 e g>4
@@ -363,6 +373,9 @@ item in the input stream.  So the general syntax of the
 
 A @code{\tweak} command can also be used to modify just one in
 a series of articulations, as shown here:
+
+@cindex color property, example
+@cindex tweak example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a ^Black
@@ -393,6 +406,10 @@ specifies that the long tuplet bracket is to be placed above the
 notes and the second one specifies that the tuplet number is to be
 printed in red on the first short tuplet bracket.
 
+@cindex tweak example
+@cindex direction property, example
+@cindex color property, example
+
 @lilypond[quote,ragged-right,verbatim,fragment,relative=2]
 \tweak #'direction #up
 \times 4/3 {
@@ -406,6 +423,10 @@ printed in red on the first short tuplet bracket.
 If nested tuplets do not begin at the same moment, their
 appearance may be modified in the usual way with
 @code{\override} commands:
+
+@cindex text property, example
+@cindex tuplet-number example
+@cindex transparent property, example
 
 @c NOTE Tuplet brackets collide if notes are high on staff
 @c See issue 509
@@ -470,6 +491,7 @@ yourself with just a little practice.
 
 @cindex override example
 @cindex Internals Reference, example of using
+@cindex addlyrics example
 
 Let's use a concrete example with a simple fragment of real
 music:
@@ -557,6 +579,9 @@ placed?}  While you are unsure and learning, the best
 answer is, @q{Within the music, before the first slur and
 close to it.}  Let's do that:
 
+@cindex Slur example
+@cindex thickness property, example
+
 @lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
@@ -622,6 +647,9 @@ effect at all -- it is not remembered until a slur is encountered, it
 is simply discarded.  So the command with @code{\once} must be
 repositioned as follows:
 
+@cindex Slur example
+@cindex thickness property, example
+
 @lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
@@ -658,6 +686,9 @@ heavier?  Well, we could use two commands, each preceded by
 @code{\once} placed immediately before each of the notes where
 the slurs begin:
 
+@cindex Slur example
+@cindex thickness property, example
+
 @lilypond[quote,verbatim,relative=2]
 {
   \time 6/8
@@ -681,6 +712,9 @@ the slurs begin:
 or we could omit the @code{\once} command and use the @code{\revert}
 command to return the @code{thickness} property to its default value
 after the second slur:
+
+@cindex Slur example
+@cindex thickness property, example
 
 @lilypond[quote,verbatim,relative=2]
 {
@@ -787,6 +821,10 @@ in italics should be
 @noindent
 and this should be placed just in front of and close to the
 lyrics which it should affect, like this:
+
+@cindex font-shape property, example
+@cindex italic example
+@cindex LyricText example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -966,6 +1004,9 @@ with many other properties, it can be set to print nothing by
 setting its value to @code{#f}.  Let's try it, as before, omitting
 the implied Context, @code{Voice}:
 
+@cindex BarLine example
+@cindex stencil property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -987,6 +1028,9 @@ the default @code{Voice} context.  If the context is specified
 wrongly, the command simply does not work.  No error message is
 produced, and nothing is logged in the log file.  Let's try correcting
 it by adding the correct context:
+
+@cindex BarLine example
+@cindex stencil property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1015,6 +1059,9 @@ have @code{#'#} before the opening bracket.  The @code{'#} is required
 as part of the value to introduce a vector, and the first @code{#} is
 required, as always, to precede the value itself in the
 @code{\override} command.
+
+@cindex BarLine example
+@cindex break-visibility property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1045,6 +1092,9 @@ also lives in the @code{Staff} context and also supports the
 @code{grob-interface}.  So the command to make the time signature
 transparent is:
 
+@cindex TimeSignature example of overriding
+@cindex transparent property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1062,6 +1112,9 @@ an exercise for the student to fill it in, but in other
 circumstances a gap might be undesirable.  To remove it, the
 stencil for the time signature should be set to @code{#f}
 instead:
+
+@cindex TimeSignature, example of overriding
+@cindex stencil property, example
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1101,6 +1154,9 @@ of the @q{normal} colors listed in the first table in
 @ruser{List of colors}.  To set the bar lines to white
 we write:
 
+@cindex BarLine, example of overriding
+@cindex color property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1132,6 +1188,9 @@ However, these must be preceded by another function, which
 converts X11 color names into the list of internal values,
 @code{x11-color}, like this:
 
+@cindex BarLine, example of overriding
+@cindex color property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1159,6 +1218,9 @@ blue colors.  These take values in the range 0 to 1.  So to
 set the color to red the value should be @code{(rgb-color 1 0 0)}
 and to white it should be @code{(rgb-color 1 1 1)}:
 
+@cindex BarLine, example of overriding
+@cindex color property, example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
@@ -1174,6 +1236,15 @@ X11 set of colors.  These range from black, @code{'grey0'},
 to white, @code{'grey100}, in steps of 1.  Let's illustrate
 this by setting all the layout objects in our example to
 various shades of grey:
+
+@cindex StaffSymbol, example of overriding
+@cindex TimeSignature, example of overriding
+@cindex Clef, example of overriding
+@cindex NoteHead, example of overriding
+@cindex Stem, example of overriding
+@cindex BarLine, example of overriding
+@cindex color property, example
+@cindex x11-color, example of using
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
@@ -1213,6 +1284,9 @@ Let us begin by looking again at the earlier example
 see @ref{Nesting music expressions}) which showed
 how to introduce a new temporary staff, as in an @rglos{ossia}.
 
+@cindex alignAboveContext property, example
+@cindex @code{\with} example
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
        \relative g' {
@@ -1233,6 +1307,12 @@ Ossia are normally written without clef and time signature, and
 are usually printed slightly smaller than the main staff.  We
 already know now how to remove the clef and time signature --
 we simply set the stencil of each to @code{#f}, as follows:
+
+@cindex alignAboveContext property, example
+@cindex @code{\with} example
+@cindex stencil property, example
+@cindex Clef, example of overriding
+@cindex TimeSignature, example of overriding
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
@@ -1260,9 +1340,9 @@ where the extra pair of braces after the @code{\with} clause are
 required to ensure the enclosed overrides and music are applied
 to the ossia staff.
 
-But what is the difference between modifying the staff context by 
+But what is the difference between modifying the staff context by
 using @code{\with} and modifying the stencils of the clef and the
-time signature with \override?  The main difference is that 
+time signature with \override?  The main difference is that
 changes made in a @code{\with} clause are made at the time the
 context is created, and remain in force as the @strong{default}
 values for the duration of that context, whereas
@@ -1270,7 +1350,7 @@ values for the duration of that context, whereas
 music are dynamic -- they make changes synchronized with
 a particular point in the music.  If changes are unset or
 reverted using @code{\unset} or @code{\revert} they return to
-their default values, which will be the ones set in the 
+their default values, which will be the ones set in the
 @code{\with} clause, or if none have been set there, the normal
 default values.
 
@@ -1289,6 +1369,11 @@ If fact, an error will be generated if a context is specified
 in this location.
 
 So we could replace the example above with
+
+@cindex alignAboveContext property, example
+@cindex @code{\with} example
+@cindex Clef, example of overriding
+@cindex TimeSignature, example of overriding
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
@@ -1348,6 +1433,11 @@ step reduces or increases the size by approximately 12%.
 
 Let's try it in our ossia example:
 
+@cindex alignAboveContext property, example
+@cindex @code{\with} example
+@cindex Clef, example of overriding
+@cindex TimeSignature, example of overriding
+
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
@@ -1369,7 +1459,7 @@ Let's try it in our ossia example:
 }
 @end lilypond
 
-This is still not quite right.  The note heads and flags are 
+This is still not quite right.  The note heads and flags are
 smaller, but the stems are too long in proportion and the
 staff lines are spaced too widely apart.  These need to be
 scaled down in proportion to the font reduction.  The next
@@ -1402,6 +1492,14 @@ This can be done with the help of a special function called
 one argument, the change in font size (#-2 in the example above)
 and returns a scaling factor suitable for reducing other
 objects in proportion.  It is used like this:
+
+@cindex alignAboveContext property, example
+@cindex @code{\with} example
+@cindex Clef, example of overriding
+@cindex TimeSignature, example of overriding
+@cindex fontsize property, example
+@cindex StaffSymbol, example
+@cindex magstep, example of using
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
@@ -1441,22 +1539,22 @@ lengths of all other objects may be modified in analogous ways.
 
 For small changes in scale, as in the example above, the
 thickness of the various drawn lines such as bar lines,
-beams, hairpins, slurs, etc does not usually require global 
+beams, hairpins, slurs, etc does not usually require global
 adjustment.  If the thickness of any particular layout object
 needs to be adjusted this can be best achieved by overriding its
 @code{thickness} property.  An example of changing the thickness
 of slurs was shown above in @ref{Properties of layout objects}.
 The thickness of all drawn objects (i.e., those not produced
-from a font) may be changed in the same way. 
+from a font) may be changed in the same way.
 
 
 @node Placement of objects
 @section Placement of objects
 
 @menu
-* Automatic behavior::          
-* Within-staff objects::        
-* Outside-staff objects::       
+* Automatic behavior::
+* Within-staff objects::
+* Outside-staff objects::
 @end menu
 
 
