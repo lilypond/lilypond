@@ -10,10 +10,10 @@ $(outdir)/%-big-page.html: $(outdir)/%.texi $(XREF_MAPS_DIR)/%.$(ISOLANG).xref-m
 else # Rules using makeinfo follow
 $(outdir)/%/index.html: $(outdir)/%.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) -P $(outdir) --output=$(outdir)/$* --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) -P $(outdir) --output=$(outdir)/$* --css-include=$(top-src-dir)/Documentation/texinfo.css --html $<
 
 $(outdir)/%-big-page.html: $(outdir)/%.texi
-	$(MAKEINFO) -P $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) -P $(outdir) --output=$@ --css-include=$(top-src-dir)/Documentation/texinfo.css --html --no-split --no-headers $< 
 endif
 
 $(outdir)/%.pdftexi: $(outdir)/%.texi

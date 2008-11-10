@@ -78,11 +78,11 @@ $(outdir)/lilypond-learning-big-page.html: $(OUT_PNG_IMAGES)
 
 $(outdir)/lilypond.xml: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(outdir) --output=$@ --docbook $<
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ --docbook $<
 
 $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) --output=$(outdir)/lilypond-internals --docbook $<
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(outdir)/lilypond-internals --docbook $<
 
 $(outdir)/lilypond.pdf $(outdir)/lilypond-learning.pdf: $(OUT_PDF_IMAGES)
 
