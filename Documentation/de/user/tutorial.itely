@@ -1204,7 +1204,7 @@ das Vorkommen von mehr als einer Stimme pro System.
 @subsection Music expressions explained
 
 @cindex Musikalischer Ausdruck
-@cindex Ausdruck
+@cindex Ausdruck, musikalischer
 @cindex zusammengesetzter musikalischer Ausdruck
 
 In LilyPond-Quelldateien wird Musik durch  @emph{musikalische
@@ -1605,6 +1605,9 @@ gezeigt.
 @cindex Lieder
 @cindex Liedtext
 
+@funindex \addlyrics
+@funindex addlyrics
+
 Glossar: @rglos{lyrics}.
 
 Hier ist der Beginn eines einfachen Kinderliedes, 
@@ -1827,6 +1830,7 @@ Notationsreferenz: @ruser{Vocal music}.
 @subsection Lyrics to multiple staves
 
 @cindex Gesangstext auf mehreren Systemen
+@cindex Mehrere Systeme und Gesangstext
 
 Die einfache Lösung mit @code{\addlyrics} kann benutzt werden, um 
 Text zu einem oder mehreren Systemen zu setzen. Hier ein Beispiel

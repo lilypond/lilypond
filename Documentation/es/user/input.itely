@@ -1423,19 +1423,19 @@ Para crear un MIDI a partir de una pieza de música, escriba un bloque
 
 @example
 \score @{
-  @var{...music...}
+  @var{...música...}
   \midi @{ @}
 @}
 @end example
 
-If there is a @code{\midi} block in a @code{\score} with no
-@code{\layout} block, only MIDI output will be produced.  When
-notation is needed too, a @code{\layout} block must be also be
-present.
+Si hay un bloque @code{\midi} dentro de un @code{\score} que no tenga
+ningún bloque @code{\layout}, solamente se producirá MIDI.  Si se
+necesita una notación impresa, debe haber también un bloque
+@code{\layout}:
 
 @example
 \score @{
-  @var{...music...}
+  @var{...música...}
   \midi @{ @}
   \layout @{ @}
 @}

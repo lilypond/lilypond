@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: b728a774df08af22da737f01e0bf1fb17ab81618
+    Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -171,10 +171,10 @@ aguda, y la afinación normal es la afinación estándar de guitarra (con
 
 @cindex traste
 
-Cuando no se especifica ninguna cuerda, se selecciona la primera
-cuerda que produce la nota con un número de traste mayor o igual que
-el valor de @code{minimumFret} (traste mínimo).  El valor por defecto
-de @code{minimumFret} es cero:
+Si se especifica ninguna cuerda para una nota, se le asigna la cuerda
+más aguda que produce la nota con un número de traste mayor o igual
+que el valor de @code{minimumFret} (traste mínimo).  El valor
+predeterminado de @code{minimumFret} es cero.
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup <<

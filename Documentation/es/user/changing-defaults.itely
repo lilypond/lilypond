@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
+Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -490,52 +490,40 @@ compás independiente.
 @node Changing context default settings
 @subsection Changing context default settings
 
-Los ajustes de las secciones previas ( @ref{The set command},
-@ref{Modifying context plug-ins} y @ref{Overview of modifying
-properties}) también se pueden escribir separados de la música dentro
-del bloque @code{\layout}:
+Los ajustes de contexto que están preparados para usarse de forma
+predeterminada en los contextos @code{Score}, @code{Staff} y
+@code{Voice}, se pueden especificar dentro de un bloque
+@code{\layout}, como se ilustra en el ejemplo siguiente.  El bloque
+@code{\layout} se debe colocar dentro del bloque @code{\score} en que
+se quiere que haga efecto, pero fuera de la música.
 
-@example
-\layout @{
-  @dots{}
-  \context @{
-    \Staff
+Observe que la propia instrucción @code{\set} y el contexto se deben
+omitir cuando se especifican de esta manera los valores de contexto
+predeterminados:
 
-    \set fontSize = #-2
-    \override Stem #'thickness = #4.0
-    \remove "Time_signature_engraver"
-  @}
-@}
-@end example
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Really small, thicker stems, no time signature" a a a
+    a a a a
+  }
+  \layout {
+    \context {
+      \Staff
+      fontSize = #-4
+      \override Stem #'thickness = #4.0
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
 
-La instrucción @code{\Staff} recupera la definición existente del
-contexto de pentagrama de manera que se pueda modificar.
+En este ejemplo, la instrucción @code{\Staff} especifica que los
+ajustes siguientes se apliquen a todos los pentagramas dentro del
+bloque de partitura.
 
-Los enunciados
-@example
-\set fontSize = #-2
-\override Stem #'thickness = #4.0
-\remove "Time_signature_engraver"
-@end example
-
-@noindent
-afectan a todos los pentagramas de la partitura.  Otros contextos se
-pueden modificar de forma análoga.
-
-La palabra clave @code{\set} es opcional dentro del bloque
-@code{\layout}, y así
-
-@example
-\context @{
-  @dots{}
-  fontSize = #-2
-@}
-@end example
-
-@noindent
-también funciona.
-
-
+Se pueden realizar de forma similar modificaciones al contexto
+@code{Score} o a todos los contextos @code{Voice}.
 
 @knownissues
 
@@ -2356,29 +2344,25 @@ objeto se imprime al final, dentro, o al principio de la línea.  O,
 para ser más exactos: antes del salto de línea, si no hay salto, o
 después del salto.
 
-Como alternativa se pueden especificar siete de las ocho combinaciones
-mediante funciones predefinidas cuya definición está en
+Como alternativa se puede especificar cualquiera de las ocho
+combinaciones mediante funciones predefinidas cuya definición está en
 @file{scm/output-lib.scm}, donde las tres últimas columnas indican si
 los objetos de presentación serán visibles en las posiciones que se
 muestran en el encabezamiento de cada columna:
 
-@multitable @columnfractions .40 .15 .1 .1 .1
-@c TODO check these more carefully
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {yes} {yes} {yes}
 @headitem Forma                   @tab Forma                  @tab Antes del @tab Si no hay    @tab Después del
 @headitem de función              @tab de vector              @tab salto     @tab salto        @tab salto
 
-@item @code{all-invisible}           @tab @code{'#(#f #f #f)} @ @ @tab no     @tab no       @tab no
-@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}     @tab no     @tab no       @tab sí
-@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}     @tab sí     @tab no       @tab no
 @item @code{all-visible}             @tab @code{'#(#t #t #t)}     @tab sí     @tab sí       @tab sí
-@c The center-visible function is not defined
-@c @item @code{center-visible}       @tab @code{'#(#f #t #f)}     @tab no     @tab sí       @tab no
+@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}     @tab no     @tab no       @tab sí
+@item @code{center-visible}          @tab @code{'#(#f #t #f)}     @tab no     @tab sí       @tab no
+@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}     @tab sí     @tab no       @tab no
 @item @code{begin-of-line-invisible} @tab @code{'#(#t #t #f)}     @tab sí     @tab sí       @tab no
-@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}     @tab no     @tab sí       @tab sí
 @item @code{center-invisible}        @tab @code{'#(#t #f #t)}     @tab sí     @tab no       @tab sí
+@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}     @tab no     @tab sí       @tab sí
+@item @code{all-invisible}           @tab @code{'#(#f #f #f)}     @tab no     @tab no       @tab no
 @end multitable
-
-La función @code{center-visible} no está predefinida.
 
 Los ajustes predeterminados de @code{break-visibility} dependen del
 objeto de presentación.  La tabla siguiente muestra todos los objetos
