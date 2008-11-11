@@ -805,7 +805,7 @@ class BarLine (Music):
 
         if self.bar_number > 0 and (self.bar_number % 10) == 0:
             printer.dump ("\\barNumberCheck #%d " % self.bar_number)
-        else:
+        elif self.bar_number > 0:
             printer.print_verbatim (' %% %d' % self.bar_number)
         printer.newline ()
 
