@@ -1556,17 +1556,23 @@ class LilyPondVoiceBuilder:
         self.pending_multibar = Rational (0)
         self.ignore_skips = False
         self.has_relevant_elements = False
+        self.measure_length = (4, 4)
 
     def _insert_multibar (self):
         r = musicexp.MultiMeasureRest ()
-        r.duration = musicexp.Duration()
-        r.duration.duration_log = 0
-        r.duration.factor = self.pending_multibar
+        lenfrac = Rational (self.measure_length[0], self.measure_length[1])
+        r.duration = rational_to_lily_duration (lenfrac)
+        r.duration.factor *= self.pending_multibar / lenfrac
         self.elements.append (r)
         self.begin_moment = self.end_moment
         self.end_moment = self.begin_moment + self.pending_multibar
         self.pending_multibar = Rational (0)
-        
+
+    def set_measure_length (self, mlen):
+        if (mlen != self.measure_length) and self.pending_multibar:
+            self._insert_multibar ()
+        self.measure_length = mlen
+
     def add_multibar_rest (self, duration):
         self.pending_multibar += duration
 
@@ -1697,6 +1703,13 @@ def musicxml_step_to_lily (step):
     else:
 	return None
 
+def measure_length_from_attributes (attr, current_measure_length):
+    mxl = attr.get_named_attribute ('time')
+    if mxl:
+        return attr.get_time_signature ()
+    else:
+        return current_measure_length
+
 def musicxml_voice_to_lily_voice (voice):
     tuplet_events = []
     modes_found = {}
@@ -1729,6 +1742,8 @@ def musicxml_voice_to_lily_voice (voice):
     voice_builder = LilyPondVoiceBuilder ()
     figured_bass_builder = LilyPondVoiceBuilder ()
     chordnames_builder = LilyPondVoiceBuilder ()
+    current_measure_length = (4, 4)
+    voice_builder.set_measure_length (current_measure_length)
 
     for n in voice._elements:
         if n.get_name () == 'forward':
@@ -1791,6 +1806,10 @@ def musicxml_voice_to_lily_voice (voice):
 
             for a in musicxml_attributes_to_lily (n):
                 voice_builder.add_command (a)
+            measure_length = measure_length_from_attributes (n, current_measure_length)
+            if current_measure_length != measure_length:
+                current_measure_length = measure_length
+                voice_builder.set_measure_length (current_measure_length)
             continue
 
         if isinstance (n, musicxml.Barline):
