@@ -103,6 +103,7 @@ Page_breaking::Page_breaking (Paper_book *pb, Break_predicate is_break)
   page_top_space_ = robust_scm2double (pb->paper_->c_variable ("page-top-space"), 0);
   systems_per_page_ = robust_scm2int (pb->paper_->c_variable ("systems-per-page"), 0);
   max_systems_per_page_ = robust_scm2int (pb->paper_->c_variable ("max-systems-per-page"), 0);
+  min_systems_per_page_ = robust_scm2int (pb->paper_->c_variable ("min-systems-per-page"), 0);
 
   create_system_list ();
   find_chunks_and_breaks (is_break);
@@ -136,6 +137,12 @@ Page_breaking::max_systems_per_page () const
   return max_systems_per_page_;
 }
 
+int
+Page_breaking::min_systems_per_page () const
+{
+  return min_systems_per_page_;
+}
+
 Real
 Page_breaking::page_top_space () const
 {
@@ -146,6 +153,25 @@ vsize
 Page_breaking::system_count () const
 {
   return system_count_;
+}
+
+bool
+Page_breaking::too_many_lines (int line_count) const
+{
+  return max_systems_per_page () > 0 && line_count > max_systems_per_page ();
+}
+
+bool
+Page_breaking::too_few_lines (int line_count) const
+{
+  return line_count < min_systems_per_page ();
+}
+
+Real
+Page_breaking::line_count_penalty (int line_count) const
+{
+  // TODO: also check min_systems_per_page (once we support it in Page_spacer)
+  return too_many_lines (line_count) ? BAD_SPACING_PENALTY : 0;
 }
 
 /* translate indices into breaks_ into start-end parameters for the line breaker */
@@ -646,6 +672,7 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
   Real cur_rod_height = 0;
   Real cur_spring_height = 0;
   Real cur_page_height = page_height (first_page_num, false);
+  int line_count = 0;
 
   cache_line_details (configuration);
   for (vsize i = 0; i < cached_line_details_.size (); i++)
@@ -656,11 +683,14 @@ Page_breaking::min_page_count (vsize configuration, vsize first_page_num)
       Real next_spring_height = cur_spring_height + cached_line_details_[i].space_;
       Real next_height = next_rod_height + (ragged () ? next_spring_height : 0);
 
+      line_count += cached_line_details_[i].compressed_nontitle_lines_count_;
 
       if ((next_height > cur_page_height && cur_rod_height > 0)
+	  || too_many_lines (line_count)
 	  || (i > 0
 	      && cached_line_details_[i-1].page_permission_ == ly_symbol2scm ("force")))
 	{
+	  line_count = cached_line_details_[i].compressed_nontitle_lines_count_;
 	  cur_rod_height = ext_len;
 	  cur_spring_height = cached_line_details_[i].space_;
 	  cur_page_height = page_height (first_page_num + ret, false);
@@ -1028,6 +1058,8 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
   vector<Real> page2_force;
   Page_spacing page1 (page1_height, page_top_space_);
   Page_spacing page2 (page2_height, page_top_space_);
+  int page1_line_count = 0;
+  int page2_line_count = 0;
 
   page1_force.resize (cached_line_details_.size () - 1, infinity_f);
   page2_force.resize (cached_line_details_.size () - 1, infinity_f);
@@ -1037,13 +1069,22 @@ Page_breaking::space_systems_on_2_pages (vsize configuration, vsize first_page_n
     {
       page1.append_system (cached_line_details_[i]);
       page2.prepend_system (cached_line_details_[cached_line_details_.size () - 1 - i]);
-      page1_force[i] = (ragged1 && page1.force_ < 0 && i > 0) ? infinity_f : page1.force_;
+      page1_line_count += cached_line_details_[i].compressed_nontitle_lines_count_;
+      page2_line_count += cached_line_details_[cached_line_details_.size () - 1 - i].compressed_nontitle_lines_count_;
+
+      // NOTE: we treat max-systems-per-page and min-systems-per-page as soft
+      // constraints. That is, we penalize harshly when they don't happen
+      // but we don't completely reject.
+      page1_force[i] = line_count_penalty (page1_line_count) 
+	+ (ragged1 && page1.force_ < 0 && i > 0) ? infinity_f : page1.force_;
 
       if (ragged2)
 	page2_force[page2_force.size () - 1 - i] =
 	  (page2.force_ < 0 && i + 1 < page1_force.size ()) ? infinity_f : 0;
       else
 	page2_force[page2_force.size () - 1 - i] = page2.force_;
+
+      page2_force[page2_force.size () - 1 - i] += line_count_penalty (page2_line_count);
     }
 
   /* find the position that minimises the sum of the page forces */
