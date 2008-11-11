@@ -1,6 +1,6 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 4a527608c5ff2ce31e596495d00dce181dc1b9ea
+    Translation of GIT committish: 6f84d7b264bf1faa8d9c586bbf06c762ae53183a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -8,7 +8,7 @@
 
 @documentencoding UTF-8
 @setfilename lilypond.info
-@settitle GNU LilyPond -- manuel de notation
+@settitle GNU LilyPond -- Manuel de notation
 
 @include macros.itexi
 
@@ -27,6 +27,11 @@
 @end ignore
 
 @c Translators: John Mandereau, Jean-Charles Malahieude
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- Manuel de notation
+@end ifnottex
 
 @ifhtml
 Ce document est également disponible au format
@@ -120,9 +125,6 @@ Free Documentation License''.
 
 
 @ifnottex
-@node Top
-@top GNU LilyPond --- manuel de notation
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Ce document constitue le manuel de notation de GNU LilyPond
 @version{}.  Pour connaître la place qu'occupe ce manuel dans la
