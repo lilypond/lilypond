@@ -259,15 +259,27 @@ class Measure_element (Music_xml_node):
 	    return None
 
     def is_first (self):
-	cn = self._parent.get_typed_children (self.__class__)
-	cn = [c for c in cn if c.get_voice_id () == self.get_voice_id ()]
+        # Look at all measure elements (previously we had self.__class__, which
+        # only looked at objects of the same type!
+	cn = self._parent.get_typed_children (Measure_element)
+        # But only look at the correct voice; But include Attributes, too, which
+        # are not tied to any particular voice
+	cn = [c for c in cn if (c.get_voice_id () == self.get_voice_id ()) or isinstance (c, Attributes)]
 	return cn[0] == self
 
 class Attributes (Measure_element):
     def __init__ (self):
 	Measure_element.__init__ (self)
 	self._dict = {}
+        self._original_tag = None
 
+    def is_first (self):
+	cn = self._parent.get_typed_children (self.__class__)
+        if self._original_tag:
+            return cn[0] == self._original_tag
+        else:
+            return cn[0] == self
+    
     def set_attributes_from_previous (self, dict):
 	self._dict.update (dict)
         
@@ -615,6 +627,7 @@ class Part (Music_xml_node):
         attributes = copy.copy (attr)
         attributes._children = [];
         attributes._dict = attr._dict.copy ()
+        attributes._original_tag = attr
         # copy only the relevant children over for the given staff
         for c in attr._children:
             if (not (hasattr (c, 'number') and (c.number != staff)) and

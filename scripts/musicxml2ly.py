@@ -1559,6 +1559,7 @@ class LilyPondVoiceBuilder:
         self.measure_length = (4, 4)
 
     def _insert_multibar (self):
+        layout_information.set_context_item ('Score', 'skipBars = ##t')
         r = musicexp.MultiMeasureRest ()
         lenfrac = Rational (self.measure_length[0], self.measure_length[1])
         r.duration = rational_to_lily_duration (lenfrac)
@@ -1792,25 +1793,6 @@ def musicxml_voice_to_lily_voice (voice):
             except NegativeSkip, neg:
                 voice_builder.correct_negative_skip (n._when)
                 n.message (_ ("Negative skip found: from %s to %s, difference is %s") % (neg.here, neg.dest, neg.dest - neg.here))
-            
-        if isinstance (n, musicxml.Attributes):
-            if n.is_first () and n._measure_position == Rational (0):
-                try:
-                    number = int (n.get_parent ().number)
-                except ValueError:
-                    number = 0
-                if number > 0:
-                    voice_builder.add_bar_check (number)
-                    figured_bass_builder.add_bar_check (number)
-                    chordnames_builder.add_bar_check (number)
-
-            for a in musicxml_attributes_to_lily (n):
-                voice_builder.add_command (a)
-            measure_length = measure_length_from_attributes (n, current_measure_length)
-            if current_measure_length != measure_length:
-                current_measure_length = measure_length
-                voice_builder.set_measure_length (current_measure_length)
-            continue
 
         if isinstance (n, musicxml.Barline):
             barlines = musicxml_barline_to_lily (n)
@@ -1821,19 +1803,18 @@ def musicxml_voice_to_lily_voice (voice):
                     voice_builder.add_command (a)
             continue
 
-        if not n.__class__.__name__ == 'Note':
-            n.message (_ ('unexpected %s; expected %s or %s or %s') % (n, 'Note', 'Attributes', 'Barline'))
-            continue
-
+        # Continue any multimeasure-rests before trying to add bar checks!
+        # Don't handle new MM rests yet, because for them we want bar checks!
         rest = n.get_maybe_exist_typed_child (musicxml.Rest)
-        if (rest
-            and rest.is_whole_measure ()):
-
+        if (rest and rest.is_whole_measure ()
+                 and voice_builder.pending_multibar > Rational (0)):
             voice_builder.add_multibar_rest (n._duration)
             continue
 
-        if n.is_first () and n._measure_position == Rational (0):
-            try: 
+
+        # print a bar check at the beginning of each measure!
+        if n.is_first () and n._measure_position == Rational (0) and n != voice._elements[0]:
+            try:
                 num = int (n.get_parent ().number)
             except ValueError:
                 num = 0
@@ -1842,6 +1823,24 @@ def musicxml_voice_to_lily_voice (voice):
                 figured_bass_builder.add_bar_check (num)
                 chordnames_builder.add_bar_check (num)
 
+        # Start any new multimeasure rests
+        if (rest and rest.is_whole_measure ()):
+            voice_builder.add_multibar_rest (n._duration)
+            continue
+
+        if isinstance (n, musicxml.Attributes):
+            for a in musicxml_attributes_to_lily (n):
+                voice_builder.add_command (a)
+            measure_length = measure_length_from_attributes (n, current_measure_length)
+            if current_measure_length != measure_length:
+                current_measure_length = measure_length
+                voice_builder.set_measure_length (current_measure_length)
+            continue
+
+        if not n.__class__.__name__ == 'Note':
+            n.message (_ ('unexpected %s; expected %s or %s or %s') % (n, 'Note', 'Attributes', 'Barline'))
+            continue
+        
         main_event = musicxml_note_to_lily_main_event (n)
         if main_event and not first_pitch:
             first_pitch = main_event.pitch
