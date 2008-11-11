@@ -26,6 +26,7 @@ should appear; see also the \"Volta multi staff\" snippet.
 "
   doctitle = "Adding volta brackets to additional staves"
 } % begin verbatim
+
 <<
   \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }
   \new Staff { \repeat volta 2 { c'1 } \alternative { c' } }

@@ -19,6 +19,7 @@ markup.
 "
   doctitle = "Changing chord separator"
 } % begin verbatim
+
 \chords {
   c:7sus4
   \set chordNameSeparator

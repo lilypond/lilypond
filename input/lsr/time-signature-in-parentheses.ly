@@ -11,6 +11,7 @@ The time signature can be enclosed within parentheses.
 "
   doctitle = "Time signature in parentheses"
 } % begin verbatim
+
 \relative c'' {
   \override Staff.TimeSignature #'stencil = #(lambda (grob)
     (bracketify-stencil (ly:time-signature::print grob) Y 0.1 0.2 0.1))

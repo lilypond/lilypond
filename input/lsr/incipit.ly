@@ -15,6 +15,7 @@ keeping separate the instrument name definition and the incipit definition."
   doctitle = "Incipit"
 } % begin verbatim
 
+
 incipit =
 #(define-music-function (parser location incipit-music) (ly:music?)
   #{

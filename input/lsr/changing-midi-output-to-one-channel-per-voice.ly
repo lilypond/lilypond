@@ -37,6 +37,7 @@ two MIDI channels are created, each with a different
 "
   doctitle = "Changing MIDI output to one channel per voice"
 } % begin verbatim
+
 \score {
   \new Staff <<
     \new Voice \relative c''' {

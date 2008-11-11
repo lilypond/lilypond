@@ -21,6 +21,7 @@ context.
 "
   doctitle = "Use square bracket at the start of a staff group"
 } % begin verbatim
+
 \score {
   \new StaffGroup { << 
   \set StaffGroup.systemStartDelimiter = #'SystemStartSquare

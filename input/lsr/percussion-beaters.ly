@@ -14,6 +14,7 @@ demonstrated in this example.
 "
   doctitle = "Percussion beaters"
 } % begin verbatim
+
 stick = \markup { 
   \with-dimensions #'(0 . 5) #'(0 . 5) 
   \postscript #"

@@ -14,12 +14,13 @@ cancelar.
   doctitlees = "Permitir que las digitaciones se impriman dentro del pentagrama"
 
   texidoc = "
-By default, fingering numbers will be printed outside the staff. 
-However, this behavior can be canceled.
+By default, vertically oriented fingerings are positioned outside the
+staff.  However, this behavior can be canceled.
 
 "
   doctitle = "Allowing fingerings to be printed inside the staff"
 } % begin verbatim
+
 \relative c' {
   <c-1 e-2 g-3 b-5>2
   \once \override Fingering #'staff-padding = #'()

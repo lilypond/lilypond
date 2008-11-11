@@ -15,6 +15,7 @@ line.
 "
   doctitle = "Positioning segno and coda (with line break)"
 } % begin verbatim
+
 { 
   \clef treble
   \key g \major

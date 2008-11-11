@@ -16,6 +16,7 @@ staff, volte can be put under chords."
   doctitle = "Volta under chords"
 } % begin verbatim
 
+
 \score {
   <<
     \chords {

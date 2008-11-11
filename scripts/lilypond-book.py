@@ -840,6 +840,8 @@ def verbatim_html (s):
 
 ly_var_def_re = re.compile (r'^([a-zA-Z]+)[\t ]*=', re.M)
 ly_comment_re = re.compile (r'(%+[\t ]*)(.*)$', re.M)
+ly_context_id_re = re.compile ('\\\\(?:new|context)\\s+(?:[a-zA-Z]*?(?:Staff\
+(?:Group)?|Voice|FiguredBass|FretBoards|Names|Devnull))\\s+=\\s+"?([a-zA-Z]+)"?\\s+')
 
 def ly_comment_gettext (t, m):
     return m.group (1) + t (m.group (2))
@@ -857,6 +859,10 @@ def verb_ly_gettext (s):
     for v in ly_var_def_re.findall (s):
         s = re.sub (r"(?m)(^|[' \\#])%s([^a-zA-Z])" % v,
                     "\\1" + t (v) + "\\2",
+                    s)
+    for id in ly_context_id_re.findall (s):
+        s = re.sub (r'(\s+|")%s(\s+|")' % id,
+                    "\\1" + t (id) + "\\2",
                     s)
     return s
 

@@ -25,6 +25,7 @@ To create blank staves, generate empty measures then remove the
 "
   doctitle = "Creating blank staves"
 } % begin verbatim
+
 #(set-global-staff-size 20)
 
 \score {

@@ -2,6 +2,22 @@
 %% This file is in the public domain.
 \version "2.11.62"
 \header {
+  texidoces = "
+Si hay un solo pentagrama en un de los tipos de sistema
+@code{ChoirStaff}, @code{InnerChoirStaff}, @code{InnerStaffGroup}
+o @code{StaffGroup}, el comportamiento predeterminado es que no se
+imprima el corchete en la barra inicial.  Esto se puede cambiar
+sobreescribiendo las propiedades adecuadas.
+
+Observe que en contextos como @code{PianoStaff} y
+@code{GrandStaff} en que los sistemas empiezan con una llave en
+lugar de un corchete, se debe establecer el valor de una propiedad
+distinta, como se ve en el segundo sistema del ejemplo.
+
+"
+  doctitlees = "Mostrar corchete o llave en grupos de un solo pentagrama"
+
+
   lsrtags = "staff-notation,tweaks-and-overrides"
   texidoc = "If there is only one staff in one of the staff types
 @code{ChoirStaff}, @code{InnerChoirStaff}, @code{InnerStaffGroup}
@@ -15,6 +31,7 @@ property has to be set, as shown on the second system in the example.
 "
   doctitle = "Display bracket with only one staff in a system"
 } % begin verbatim
+
 
 \markup \left-column {
   \score {

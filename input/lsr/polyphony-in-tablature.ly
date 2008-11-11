@@ -5,6 +5,13 @@
 \header {
   lsrtags = "fretted-strings"
 
+  texidoces = "
+La polifonía se crea de la misma forma en un @code{TabStaff} que
+en una pauta normal.
+
+"
+  doctitlees = "Polifonía en tablaturas"
+
   texidoc = "
 Polyphony is created the same way in a @code{TabStaff} as in a regular
 staff.
@@ -12,6 +19,7 @@ staff.
 "
   doctitle = "Polyphony in tablature"
 } % begin verbatim
+
 upper = \relative c' {
   \time 12/8
   \key e \minor

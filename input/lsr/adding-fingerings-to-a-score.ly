@@ -11,6 +11,7 @@ Fingering instructions can be entered using a simple syntax.
 "
   doctitle = "Adding fingerings to a score"
 } % begin verbatim
+
 \relative c'' {
   c4-1 d-2 f-4 e-3
 }

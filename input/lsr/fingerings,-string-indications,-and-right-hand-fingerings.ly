@@ -5,6 +5,14 @@
 \header {
   lsrtags = "fretted-strings"
 
+  texidoces = "
+En este ejemplo se combinan las digitaciones de la mano izquierda,
+indicaciones del número de cuerda y digitaciones de la mano
+derecha.
+
+"
+  doctitlees = "Digitaciones, indicación del número de cuerda y digitaciones de mano derecha"
+
   texidoc = "
 This example combines left-hand fingering, string indications, and
 right-hand fingering.
@@ -12,6 +20,7 @@ right-hand fingering.
 "
   doctitle = "Fingerings, string indications, and right-hand fingerings"
 } % begin verbatim
+
 #(define RH rightHandFinger)
 
 \relative c {

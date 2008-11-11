@@ -11,6 +11,7 @@ A demonstration of all headers.
 "
   doctitle = "Demonstrating all headers"
 } % begin verbatim
+
 \header {
   copyright = "copyright"
   title = "title"

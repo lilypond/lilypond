@@ -12,6 +12,7 @@ The default font families for text can be overridden with
 "
   doctitle = "Changing the default text font family"
 } % begin verbatim
+
 \paper {
   % change for other default global staff size. 
   myStaffSize = #20
@@ -30,11 +31,11 @@ The default font families for text can be overridden with
      (/ myStaffSize 20)))
 }
 
-\relative {
-  c'^\markup {
+\relative c'' {
+  c4^\markup {
     roman: foo \bold bla \italic bar \italic \bold baz 
   }
-  c'_\markup {
+  c'4_\markup {
     \override #'(font-family . sans)
     {
       sans: foo \bold bla \italic bar \italic \bold baz

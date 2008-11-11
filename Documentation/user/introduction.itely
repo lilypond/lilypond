@@ -716,8 +716,12 @@ By adding chord names and lyrics we obtain a lead sheet.
 @lilypond[quote,ragged-right]
 <<
    \chords { c2 c f2 c }
-   \new Staff \relative c' { \time 2/4 c4 c g'4 g a4 a g2 }
-   \new Lyrics \lyricmode { twin4 kle twin kle lit tle star2 }
+   \new Staff
+   \relative c' {
+     \time 2/4
+     c4 c g' g a a g2
+   }
+   \addlyrics { twin -- kle twin -- kle lit -- tle star }
 >>
 @end lilypond
 

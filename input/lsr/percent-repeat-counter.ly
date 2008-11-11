@@ -20,6 +20,7 @@ convenient property is switched, as shown in this example:
 "
   doctitle = "Percent repeat counter"
 } % begin verbatim
+
 \relative c'' {
   \set countPercentRepeats = ##t
   \repeat percent 4 { c1 }

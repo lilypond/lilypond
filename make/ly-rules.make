@@ -8,15 +8,24 @@ $(outdir)/%.latex:  %.doc
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) $(LILYPOND_BOOK_FLAGS) $<
 
 
+# This allows -j make option while making sure only one lilypond-book instance
+# is running at the same time
+define CHAIN_RULE
+$(i)
+$(i): 
+endef
+
+$(eval $(firstword $(MASTER_TEXI_FILES)): $(foreach i, $(wordlist 2, $(words $(MASTER_TEXI_FILES)), $(MASTER_TEXI_FILES)),$(CHAIN_RULE)))
 
 # don't do ``cd $(outdir)'', and assume that $(outdir)/.. is the src dir.
 # it is not, for --srcdir builds
-$(outdir)/%.texi: %.tely $(outdir)/version.itexi
+$(outdir)/%.texi: %.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
 
 
-$(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi
+$(outdir)/%.texi: $(outdir)/%.tely $(outdir)/version.itexi $(DOCUMENTATION_LOCALE_TARGET)
 	$(PYTHON) $(LILYPOND_BOOK) $(LILYPOND_BOOK_INCLUDES) --process='$(LILYPOND_BOOK_PROCESS) $(LILYPOND_BOOK_INCLUDES) $(LILYPOND_BOOK_LILYPOND_FLAGS)' --output=$(outdir) --format=$(LILYPOND_BOOK_FORMAT) $(LILYPOND_BOOK_FLAGS) $<
+
 
 $(outdir)/%.html.omf: %.tely
 	$(call GENERATE_OMF,html)

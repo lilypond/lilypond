@@ -2,13 +2,13 @@
 %% This file is in the public domain.
 \version "2.11.62"
 \header {
-  texidoces = "Los pasajes citados tienen en cuenta la
-transposición de la fuente tanto como la del destino.  En este
-ejemplo, todos los instrumentos interpreta una nota con el sonido
-del Do central; el destino de un instrumento transpositor en Fa.
-La parte de destino se puede transponer utilizando
-@code{\\transpose}.  En este caso se transportan todas las notas
-(incluidas las citadas).
+  texidoces = "
+Los pasajes citados tienen en cuenta la transposición de la fuente
+tanto como la del destino.  En este ejemplo, todos los
+instrumentos interpreta una nota con el sonido del Do central; el
+destino de un instrumento transpositor en Fa.  La parte de destino
+se puede transponer utilizando @code{\\transpose}.  En este caso
+se transportan todas las notas (incluidas las citadas).
 
 "
 
@@ -22,6 +22,7 @@ transposed using @code{\\transpose}.  In this case, all the pitches
 "
   doctitle = "Quoting another voice with transposition"
 } % begin verbatim
+
 
 \addQuote clarinet {
   \transposition bes

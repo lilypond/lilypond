@@ -22,7 +22,7 @@ lugar.
 
   texidoc = "
 The vertical ordering of scripts is controlled with the
-@code{script-priority} property. The lower this number, the closer it
+@code{'script-priority} property. The lower this number, the closer it
 will be put to the note. In this example, the @code{TextScript} (the
 sharp symbol) first has the lowest priority, so it is put lowest in the
 first example. In the second, the prall trill (the @code{Script}) has
@@ -33,6 +33,7 @@ comes first.
 "
   doctitle = "Controlling the vertical ordering of scripts"
 } % begin verbatim
+
 \relative c''' {
   \once \override TextScript #'script-priority = #-100
   a2^\prall^\markup { \sharp }

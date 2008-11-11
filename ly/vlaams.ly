@@ -58,3 +58,5 @@ pitchnamesVlaams = #`(
 )
 
 pitchnames = \pitchnamesVlaams
+
+#(ly:parser-set-note-names parser pitchnames)

@@ -21,6 +21,7 @@ are staff spaces.
 "
   doctitle = "Forcing horizontal shift of notes"
 } % begin verbatim
+
 \relative c' <<
   {
     <d g>2 <d g>

@@ -21,6 +21,7 @@ the @code{Score} context.
 "
   doctitle = "Creating cross-staff arpeggios in other contexts"
 } % begin verbatim
+
 \score {
   \new StaffGroup {
     \set Score.connectArpeggios = ##t

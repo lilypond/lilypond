@@ -25,6 +25,7 @@ the different notations.
 "
   doctitle = "Stemlets"
 } % begin verbatim
+
 \paper { ragged-right = ##f }
 
 {

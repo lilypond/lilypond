@@ -4,6 +4,8 @@
 
 # huh ? these are for documentation?!
 TELY_FILES := $(call src-wildcard,*.tely)
+MASTER_TEXI_FILES := $(sort $(TELY_FILES:%.tely=$(outdir)/%.texi))\
+ $(OUT_MASTER_TEXI_FILES)
 
 OMF_FILES += $(foreach format, html pdf, $(foreach f, $(TELY_FILES), $(outdir)/$(f:.tely=.$(format)).omf))
 

@@ -20,6 +20,7 @@ To add bar line indications in the @code{ChordNames} context, add the
 "
   doctitle = "Adding bar lines to ChordNames context"
 } % begin verbatim
+
 \new ChordNames \with {
   \override BarLine #'bar-size = #4
   \consists "Bar_engraver"

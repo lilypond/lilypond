@@ -12,6 +12,7 @@ using @code{'tie-configuration}.
 "
   doctitle = "Laissez vibrer ties"
 } % begin verbatim
+
 \relative c' {
   <c e g>4\laissezVibrer r <c f g>\laissezVibrer r
   <c d f g>4\laissezVibrer r <c d f g>4.\laissezVibrer r8

@@ -25,6 +25,7 @@ of multi-measure rests can be controlled as follows:
   doctitle = "Positioning multi-measure rests"
 } % begin verbatim
 
+
 \relative c'' {
   % Multi-measure rests by default are set under the second line
   R1

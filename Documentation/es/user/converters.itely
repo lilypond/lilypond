@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-program.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 88f1608ae6fd17b05344bafb2f0721aafdac657b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -330,7 +330,7 @@ Entre ellas se encuentran las siguientes:
 
 @itemize
 @item
-@uref{http://@/denemo@/.sourceforge@/.net/,Denemo}, editor de partituras gráfico.
+@uref{http://@/www@/.denemo@/.org/,Denemo}, editor de partituras gráfico.
 @item
 @uref{http://www@/.volny@/.cz/smilauer/rumor/rumor@/.html,Rumor},
 convertidor monofónico de MIDI a LilyPond en tiempo real.

@@ -7,6 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.62"
 
 @node Percussion
 @section Percussion
@@ -90,7 +91,7 @@ down = \drummode { bassdrum4 snare8 bd r bd sn4 }
 @end lilypond
 Das Beispiel zeigt ausdrücklich definierte mehrstimmige Notation. Die 
 Kurznotation für mehrstimmige Musik, wie sie im Abschnitt 
-@ref{Basic polyphony} beschrieben wird, kann auch verwendet werden, 
+@ref{Simultaneous expressions} beschrieben wird, kann auch verwendet werden, 
 wenn die @rinternals{DrumVoice} (Schlagzeugstimmen) am Anfang explizit 
 initialisiert werden.
 
@@ -131,7 +132,7 @@ mus = \drummode {
        \remove Bar_engraver
        \remove Time_signature_engraver
        \override Stem #'transparent = ##t
-       \override Stem #'Y-extent-callback = ##f
+       \override Stem #'Y-extent = ##f
        \override VerticalAxisGroup #'minimum-Y-extent = #'(-4.0 . 5.0)
      } \mus
      \new Lyrics \nam
@@ -163,7 +164,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
     \remove Bar_engraver
     \remove Time_signature_engraver
     \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
+    \override Stem #'Y-extent = ##f
     \override StaffSymbol #'line-count = #2
     \override StaffSymbol #'staff-space = #2
     \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.0 . 4.0)
@@ -193,7 +194,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
     %% this sucks; it will lengthen stems.
     \override StaffSymbol #'staff-space = #2
     \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
+    \override Stem #'Y-extent = ##f
   } \mus
   \new Lyrics {
     \override LyricText #'font-family = #'typewriter
@@ -219,7 +220,7 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
     %% this sucks; it will lengthen stems.
     \override StaffSymbol #'staff-space = #2
     \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
+    \override Stem #'Y-extent = ##f
   } \mus
   \new Lyrics {
     \override LyricText #'font-family = #'typewriter
@@ -242,7 +243,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
     \override StaffSymbol #'line-count = #1
     \remove Time_signature_engraver
     \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
+    \override Stem #'Y-extent = ##f
   } \mus
   \new Lyrics {
     \override LyricText #'font-family = #'typewriter

@@ -12,6 +12,7 @@ a score, or in a document generated with @code{lilypond-book}.
   doctitle = "Outputting the version number"
 } % begin verbatim
 
+
 \score {
   \new Lyrics {
     \override Score.RehearsalMark #'self-alignment-X = #LEFT

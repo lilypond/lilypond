@@ -22,6 +22,7 @@ context:
 "
   doctitle = "Creating arpeggios across notes in different voices"
 } % begin verbatim
+
 \new Staff \with {
   \consists "Span_arpeggio_engraver"
 }

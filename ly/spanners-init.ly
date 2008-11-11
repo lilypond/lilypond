@@ -21,30 +21,27 @@ stopTrillSpan = #(make-span-event 'TrillSpanEvent STOP)
 % STOP: junkme!
 cresc =  {
   #(ly:export (make-event-chord (list cr)))
-  \set crescendoText = \markup { \italic "cresc." }
-  \set crescendoSpanner = #'text
+  \once \set crescendoText = \markup { \italic "cresc." }
+  \once \set crescendoSpanner = #'text
 }
 
 
 dim =  {
   #(ly:export (make-event-chord (list decr)))
-
-  \set decrescendoText = \markup { \italic "dim." }
-  \set decrescendoSpanner = #'text
+  \once \set decrescendoText = \markup { \italic "dim." }
+  \once \set decrescendoSpanner = #'text
 }
 
 enddim =  {
   #(ly:export (make-event-chord (list enddecr)))
-  \unset decrescendoText 
-  \unset decrescendoSpanner 
+%  \unset decrescendoText 
+%  \unset decrescendoSpanner 
 }
 
-% ah, this is handy: maybe drop resetting of properties in
-% dynamic-engraver ?
 endcresc =  {
   #(ly:export (make-event-chord (list endcr)))
-  \unset crescendoText 
-  \unset crescendoSpanner 
+%  \unset crescendoText 
+%  \unset crescendoSpanner 
 }
 
 %%%%%%%%%%%%%%%%

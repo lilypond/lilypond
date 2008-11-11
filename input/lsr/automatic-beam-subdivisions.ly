@@ -21,6 +21,7 @@ specified in @code{beatLength}).
 "
   doctitle = "Automatic beam subdivisions"
 } % begin verbatim
+
 \score {
   \new Staff \relative c'' {
     << {

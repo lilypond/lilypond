@@ -20,6 +20,7 @@ they may also be printed on every staff.
 "
   doctitle = "Printing marks on every staff"
 } % begin verbatim
+
 {
   \new Score \with {
     \remove "Mark_engraver"

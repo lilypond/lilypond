@@ -45,6 +45,7 @@ draw the rectangle over the hairpin.
   doctitle = "Broken crescendo hairpin"
 } % begin verbatim
 
+
 \relative c' {
   << {
     \dynamicUp

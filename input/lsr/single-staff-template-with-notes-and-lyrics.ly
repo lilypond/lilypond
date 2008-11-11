@@ -34,6 +34,7 @@ beaming, change or comment out the relevant line.
 "
   doctitle = "Single staff template with notes and lyrics"
 } % begin verbatim
+
 melody = \relative c' {
   \clef treble
   \key c \major

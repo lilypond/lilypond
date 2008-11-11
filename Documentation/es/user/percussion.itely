@@ -1,13 +1,13 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 18daa1ddf0bd723417c3f17b9dc25d6620a0d215
+    Translation of GIT committish: 0b6448e57eeda9258410753c9b1a42ed0897fe2b
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@c \version "2.11.61"
+@c \version "2.11.62"
 
 @node Percussion
 @section Percussion
@@ -244,7 +244,7 @@ mus = \drummode {
        \remove Bar_engraver
        \remove Time_signature_engraver
        \override Stem #'transparent = ##t
-       \override Stem #'Y-extent-callback = ##f
+       \override Stem #'Y-extent = ##f
        \override VerticalAxisGroup #'minimum-Y-extent = #'(-4.0 . 5.0)
      } \mus
      \new Lyrics \nam
@@ -277,7 +277,7 @@ mus = \drummode { timh ssh timl ssl cb s16 }
     \remove Bar_engraver
     \remove Time_signature_engraver
     \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
+    \override Stem #'Y-extent = ##f
     \override StaffSymbol #'line-count = #2
     \override StaffSymbol #'staff-space = #2
     \override VerticalAxisGroup #'minimum-Y-extent = #'(-3.0 . 4.0)
@@ -307,7 +307,7 @@ mus = \drummode { cgh cgho cghm ssh cgl cglo cglm ssl s16 }
     %% this sucks; it will lengthen stems.
     \override StaffSymbol #'staff-space = #2
     \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
+    \override Stem #'Y-extent = ##f
   } \mus
   \new Lyrics {
     \override LyricText #'font-family = #'typewriter
@@ -333,7 +333,7 @@ mus = \drummode { boh boho bohm ssh bol bolo bolm ssl s16 }
     %% this sucks; it will lengthen stems.
     \override StaffSymbol #'staff-space = #2
     \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
+    \override Stem #'Y-extent = ##f
   } \mus
   \new Lyrics {
     \override LyricText #'font-family = #'typewriter
@@ -357,7 +357,7 @@ mus = \drummode { tri trio trim gui guis guil cb cl tamb cab mar hc s16 }
     \override StaffSymbol #'line-count = #1
     \remove Time_signature_engraver
     \override Stem #'transparent = ##t
-    \override Stem #'Y-extent-callback = ##f
+    \override Stem #'Y-extent = ##f
   } \mus
   \new Lyrics {
     \override LyricText #'font-family = #'typewriter
@@ -439,6 +439,8 @@ sobre estos delicados asuntos, consulte @ref{Staff symbol}.
 Una pandereta, escrita mediante @q{tamb} (@emph{tambourine}:
 
 @lilypond[quote,verbatim]
+#(define mydrums '((tambourine default #t 0)))
+
 tambustaff = {
   \override Staff.StaffSymbol #'line-positions = #'( 0 )
   \override Staff.BarLine #'bar-size = #3
@@ -447,12 +449,11 @@ tambustaff = {
 
 \new DrumStaff {
   \tambustaff
-  % broken
-  % \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
+  \set DrumStaff.drumStyleTable = #(alist->hash-table mydrums)
 
   \drummode {
     \time 6/8
-    \repeat "unfold" 2 { tamb8. tamb16 tamb8 tamb tamb tamb | }
+    tamb8. tamb16 tamb8 tamb tamb tamb |
     tamb4. tamb8 tamb tamb |
     % the trick with the scaled duration and the shorter rest
     % is neccessary for the correct ending of the trill-span!
@@ -460,6 +461,7 @@ tambustaff = {
   }
 }
 @end lilypond
+
 
 Música para gong, introducida con @q{tt} (tam-tam):
 
@@ -500,8 +502,8 @@ bellstaff = {
   \bellstaff
   \drummode {
     \time 2/4
-    \repeat "unfold" 2 { rb8 rb cb cb16 rb-> ~ |
-                         rb16 rb8 rb16 cb8 cb | }
+    rb8 rb cb cb16 rb-> ~ |
+    rb16 rb8 rb16 cb8 cb |
   }
 }
 @end lilypond
@@ -591,16 +593,18 @@ en @ref{Parentheses}.  Sin embargo, el modo por defecto
 @lilypond[quote,ragged-right,verbatim,fragment]
 \new DrumStaff \with {
   \consists "Parenthesis_engraver"
-} <<
-  \context DrumVoice  = "1"  { s1 *2 }
-  \context DrumVoice  = "2" { s1 *2 }
+}
+<<
+  \context DrumVoice  = "1" { s1 }
+  \context DrumVoice  = "2" { s1 }
   \drummode {
     <<
       {
         hh8[ hh] <hh sn> hh16
         < \parenthesize sn > hh
         < \parenthesize sn > hh8 <hh sn> hh
-      } \\ {
+      } \\
+      {
         bd4 r4 bd8 bd r8 bd
       }
     >>

@@ -18,6 +18,7 @@ modify what material they cover.
 "
   doctitle = "Modifying tuplet bracket length"
 } % begin verbatim
+
 \new RhythmicStaff {
   % Set tuplets to be extendable...
   \set tupletFullLength = ##t

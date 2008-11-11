@@ -166,7 +166,7 @@ The notes are printed as tablature, by using @code{TabStaff} and
 
 
 When no string is specified for a note, the note is assigned to
-the lowest string that can generate the note with a fret number
+the highest string that can generate the note with a fret number
 greater than or equal to the value of @code{minimumFret}.
 The default value for @code{minimumFret} is 0.
 
@@ -939,6 +939,8 @@ predefined fret diagram, the interface properties belong to
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {customizing-fretboard-fret-diagrams.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{defining-predefined-fretboards-for-other-instruments.ly}
 
 @seealso
 
@@ -949,7 +951,8 @@ Notation Reference:
 @ref{Predefined fretboard diagrams}.
 
 Installed Files:
-@file{ly/predefined-guitar-fretboards.ly}.
+@file{ly/predefined-guitar-fretboards.ly},
+@file{ly/predefined-guitar-ninth-fretboards.ly}.
 
 Snippets:
 @rlsr{Fretted strings}.
@@ -1035,25 +1038,6 @@ manually assigning a note to a string.  In many cases, only one
 note need be manually placed on a string; the rest of 
 the notes will then be placed appropriately by the @code{FretBoards}
 context.
-
-@lilypond[quote,ragged-right,verbatim]
-<<
-  \context ChordNames {
-     \chordmode { 
-       c1 c 
-     }
-  }
-  \context FretBoards {
-    < c g c' e' g'> 1
-    < c g\4 c' e' g'> 1
-  }
-  \context Staff {
-    \clef "treble_8"
-    < c g c' e' g'> 1
-    < c g c' e' g'> 1
-  }  
->>
-@end lilypond
 
 @cindex fret diagrams, adding fingerings
 @cindex fingerings, adding to fret diagrams
@@ -1153,7 +1137,8 @@ before the closing @code{>}.}
 <e-\rightHandFinger #2 > 
 <g-\rightHandFinger #3 > 
 <c-\rightHandFinger #4 >
-<c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+<c,-\rightHandFinger #1 e-\rightHandFinger #2
+  g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 For convenience, you can abbreviate @code{\rightHandFinger} to something

@@ -23,7 +23,8 @@
 @subsection Displaying staves
 
 @menu
-* System start delimiters::     
+* System start delimiters:: 
+* Grouping staves::    
 * Staff symbol::                
 * Hiding staves::               
 @end menu
@@ -119,6 +120,11 @@ Anfangsklammern können tief einander verschachtelt werden.
   \new Staff { c1 }
 >>
 @end lilypond
+
+@node Grouping staves
+@unnumberedsubsubsec Grouping staves
+
+@untranslated
 
 
 @node Staff symbol

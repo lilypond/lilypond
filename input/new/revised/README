@@ -1,0 +1,3 @@
+This directory contains snippet files which are already part of lilypond but
+have been revised.  They should be contributed to the LSR so that they in
+turn are (automatically) included in lilypond again.

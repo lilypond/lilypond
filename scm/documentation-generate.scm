@@ -70,7 +70,7 @@
 		  "(lilypond/lilypond-internals.info)")
   "
 
-@include macros.texi
+@include macros.itexi
 
 @ignore
 @omftitle LilyPond internals

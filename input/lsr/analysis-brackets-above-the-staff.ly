@@ -21,15 +21,15 @@ staff instead.
 "
   doctitle = "Analysis brackets above the staff"
 } % begin verbatim
+
 \layout {
- \context {
-   \Voice
-   \consists "Horizontal_bracket_engraver"
- }
+  \context {
+    \Voice
+    \consists "Horizontal_bracket_engraver"
+  }
 }
 \relative c'' {
- \once \override HorizontalBracket #'direction = #UP
- c2\startGroup
- d\stopGroup
+  \once \override HorizontalBracket #'direction = #UP
+  c2\startGroup
+  d2\stopGroup
 }
-

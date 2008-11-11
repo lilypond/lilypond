@@ -23,6 +23,8 @@
 addChordShape =
 #(define-music-function (parser location key-symbol shape-string)
    (symbol? string?)
+   "Add chord shape @code{shape-string} to the @code{base-chord-shapes}
+alist with the key @code{key-symbol}."
    (set! base-chord-shapes 
            (acons key-symbol shape-string base-chord-shapes))
    (make-music 'SequentialMusic 'void #t))
@@ -38,6 +40,9 @@ addChordShape =
 storePredefinedDiagram =
 #(define-music-function (parser location chord tuning terse-definition)
   (ly:music? list? string?)
+  "Add predefined fret diagram defined by fret-diagram-terse definition
+string @code{terse-definition} for the chord pitches @code{chord} and
+the stringTuning @code{tuning}."
   (let* ((pitches (event-chord-pitches 
                     (car (extract-named-music chord 'EventChord))))
          (hash-key (cons tuning pitches)))

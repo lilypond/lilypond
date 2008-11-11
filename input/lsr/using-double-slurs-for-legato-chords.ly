@@ -19,6 +19,7 @@ be achieved by setting @code{doubleSlurs}.
 "
   doctitle = "Using double slurs for legato chords"
 } % begin verbatim
+
 \relative c' {
   \set doubleSlurs = ##t
   <c e>4( <d f> <c e> <d f>)

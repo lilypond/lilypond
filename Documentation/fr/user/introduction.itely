@@ -44,6 +44,10 @@ architecture.
 @node Engraving
 @unnumberedsubsec Engraving
 
+@cindex gravure
+@cindex typographie musicale
+@cindex musique et typographie
+
 L'art de la typographie musicale se nomme la @emph{gravure}.  Ce terme
 est issu du processus traditionnel d'impression musicale.  Il y a
 seulement quelques dizaines d'années, on faisait les partitions en
@@ -257,6 +261,9 @@ aimons tant lire et jouer.
 @node Automated engraving
 @unnumberedsubsec Automated engraving
 
+@cindex gravure automatisée
+@cindex automatisée, gravure
+
 Comment pouvons-nous implémenter la typographie ? Si les artisans ont
 besoin de plus de dix ans pour devenir de vrais maîtres, comment nous,
 simples programmeurs, pourrions-nous jamais écrire un programme pour
@@ -277,6 +284,7 @@ programme étaient figées par les développeurs.  Ceci s'est avéré
 insatisfaisant pour plusieurs raisons :
 
 @itemize 
+
 @item Quand Lilypond fait des erreurs,
 les utilisateurs ont besoin de contredire les décisions de formatage.
 Les utilisateurs doivent donc avoir accès au moteur de formatage.  Par
@@ -294,7 +302,10 @@ définitions du modèle typographique doivent également être accessibles
 donc nous avons besoin d'une approche souple des règles.  Le language
 C++ oblige à une certaine méthode de groupage des règles qui ne
 convient pas bien au fonctionnement de la notation musicale.
+
 @end itemize
+
+@cindex langage de programmation Scheme
 
 Ces problèmes ont été résolus en intégrant un interpréteur pour le
 language de programmation Scheme, et en réécrivant des parties de
@@ -323,6 +334,10 @@ haut (droite).
    \stemUp <e g b>4^>-\arpeggio
 }
 @end lilypond
+
+@cindex partition, formatage
+@cindex formatage d'une partition
+@cindex formatage, règles de
 
 @noindent
 Le processus de formatage d'une partition consiste à lire et écrire
@@ -405,6 +420,8 @@ musique.
 
 @cindex gravure
 @cindex typographie
+@cindex graveur
+@cindex greffon
 
 Le processus de formatage décide où placer les symboles.  Cependant,
 cela ne peut être fait qu'à partir du moment où il a été décidé
@@ -568,6 +585,10 @@ métrique, et les armures, nous obtenons un jeu de notation complet.
 \score { \topVoice }
 @end lilypond
 
+@cindex polyphonie
+@cindex graver plusieurs voix
+@cindex contextes
+
 Ce système fonctionne bien pour de la musique monodique, mais qu'en
 est-il de la polyphonie ? En notation polyphonique, plusieurs voix
 peuvent partager une portée.
@@ -607,6 +628,9 @@ Référence du programme: @rinternals{Contexts}.
 
 @node Music representation
 @unnumberedsubsec Music representation
+
+@cindex syntaxe
+@cindex structures recursives
 
 Idéalement, le format d'entrée pour n'importe quel système de
 formatage est une description abstraite du contenu.  Dans ce cas-ci,
@@ -653,11 +677,6 @@ f4
 Des accord peuvent être construits avec @code{<<} et @code{>>} autour
 des notes.
 
-@c < > is not a music expression,
-@c so we use <<>> iso. <> to drive home the point of
-@c expressions.  Don't change this back --hwn.
-
-@c FIXME: change this.  I can explain it better.  -gp
 @example
 <<c4 d4 e4>>
 @end example
@@ -691,7 +710,7 @@ en utilisant <<, @code{\\}, et >>
 \new Voice { << g2 \\ { f4 <<c d e>> } >> }
 @end lilypond
 
-De telles strucutres récursives peuvent être spécifiées formellement
+De telles structures récursives peuvent être spécifiées formellement
 et de manière ordonnée dans une grammaire indépendante de tout
 contexte.  Le code d'analyse est aussi générée à partir de cette
 grammaire.  Autrement dit, la syntaxe de LilyPond est définie
@@ -710,6 +729,8 @@ moins de 10% du code source.
 
 @node Example applications
 @unnumberedsubsec Example applications
+
+@cindex examples simples
 
 Nous avons conçu LilyPond comme une expérimentation visant à
 concentrer l'art de la gravure musicale dans un logiciel.  Grâce à
@@ -833,6 +854,13 @@ musique et du texte dans les documents.
 
 Cette partie présente les différents volumes de la documentation.
 
+@cindex Manuel d'initiation
+@cindex Glossaire musical
+@cindex Manuel de notation
+@cindex Utilisation des programmes
+@cindex Exemples de code
+@cindex Référence des propriétés internes
+
 @c leave these lines wrapping around.  It's some texinfo 4.12 thing. -gp
 @c This is actually a limitation of texi2html. -jm
 @menu
@@ -906,6 +934,7 @@ d'utilisateurs n'ont jamais touché à Scheme.
 @node About the Music Glossary
 @unnumberedsubsec About the Music Glossary
 
+@cindex Glossaire musical
 @cindex jargon
 @cindex terminologie
 @cindex langues étrangères
@@ -922,6 +951,11 @@ les parties non encore traduites de la documentation.
 @node About the Notation Reference
 @unnumberedsubsec About the Notation Reference
 
+@cindex Manuel de notation
+@cindex annexes
+@cindex références, tables de
+@cindex tables de références
+
 Ce manuel détaille toutes les commandes LilyPond produisant une notation
 musicale.  La lecture de cet ouvrage requiert une bonne compréhension des
 concepts exposés dans le manuel d'initiation.
@@ -930,7 +964,7 @@ concepts exposés dans le manuel d'initiation.
 
 @c Normalement, il est impossible d'utiliser deux points en français,
 @c car une référence externe doit se terminer par un signe de
-@c ponctuation dans la format Info.  Cependant, Info
+@c ponctuation dans le format Info.  Cependant, Info
 @c n'internationalise pas encore des documents Info, donc nous n'en
 @c avons rien à faire pour l'instant. -jm
 @item
@@ -993,6 +1027,9 @@ LilyPond.
 @node About the Application Usage
 @unnumberedsubsec About the Application Usage
 
+@cindex Utilisation des programmes
+@cindex intégration de LilyPond avec d'autres programmes
+
 Ce manuel explique l'exécution des programmes et l'intégration de
 partitions LilyPond dans d'autres programmes.
 
@@ -1029,7 +1066,9 @@ et convertissent divers formats de musique vers le format @code{.ly}.
 @unnumberedsubsec About the Snippet List
 
 @cindex snippets
+@cindex extraits de code
 @cindex LSR
+@cindex LilyPond Snippet Repository
 
 @rlsrnamed{Top,Exemples de code} :
 il s'agit d'une sélection de petits exemples montrant des trucs,

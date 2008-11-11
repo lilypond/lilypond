@@ -12,6 +12,7 @@ To format individual syllables in lyrics, use @code{\\markup @{ ....
 "
   doctitle = "Formatting lyrics syllables"
 } % begin verbatim
+
 % Tip taken from http://lists.gnu.org/archive/html/lilypond-user/2007-12/msg00215.html
 \header {
   title = "Markup can be used inside lyrics!"

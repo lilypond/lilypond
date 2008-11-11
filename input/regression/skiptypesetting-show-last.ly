@@ -12,7 +12,5 @@ showLastLength = R1*3
 }
 
 {
-  c1 c1
-  c1 c1
-  c1 c1
+  c1 d e f g a
 }

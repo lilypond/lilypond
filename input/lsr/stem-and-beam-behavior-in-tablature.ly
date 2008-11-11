@@ -5,6 +5,13 @@
 \header {
   lsrtags = "fretted-strings"
 
+  texidoces = "
+La dirección de las plicas se contola de la misma forma en la
+tablatura que en la notación tradicional. Las barras se pueden
+poner horizontales, como se muestra en este ejemplo.
+
+"
+  doctitlees = "Comportamiento de las plicas y las barras de corchea en tablaturas"
   texidoc = "
 The direction of stems is controlled the same way in tablature as in
 traditional notation. Beams can be made horizontal, as shown in this
@@ -13,6 +20,7 @@ example.
 "
   doctitle = "Stem and beam behavior in tablature"
 } % begin verbatim
+
 \new TabStaff {
   \relative c {
     g16 b d g b d g b

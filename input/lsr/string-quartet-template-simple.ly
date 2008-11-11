@@ -25,6 +25,7 @@ This template demonstrates a simple string quartet. It also uses a
 "
   doctitle = "String quartet template (simple)"
 } % begin verbatim
+
 global= {
   \time 4/4
   \key c \major

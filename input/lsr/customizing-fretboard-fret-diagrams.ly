@@ -3,6 +3,18 @@
 \version "2.11.62"
 
 \header {
+  texidoces = "
+Se pueden establecer las propiedades de los diagramas de
+posiciones de acordes por medio de @code{'fret-diagram-details}.
+Para los diagramas de posiciones de FretBoard, se aplican los
+overrides (sobreescrituras) al objeto @code{FretBoards.FretBoard}.
+Como @code{Voice}, @code{FretBoards} es un contexto del nivel
+inferior, y por tanto se puede omitir su nombre en la
+sobreescritura de propiedades.
+
+"
+  doctitlees = "Personalizar los diagramas de posiciones"
+
   lsrtags = "fretted-strings,tweaks-and-overrides"
 
   texidoc = "Fret diagram properties can be set through
@@ -14,6 +26,7 @@ therefore can be omitted in property overrides.
 "
   doctitle = "Customizing fretboard fret diagrams"
 } % begin verbatim
+
 
 \include "predefined-guitar-fretboards.ly"
 \storePredefinedDiagram \chordmode { c' }

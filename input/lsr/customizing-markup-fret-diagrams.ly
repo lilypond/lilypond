@@ -3,6 +3,15 @@
 \version "2.11.62"
 
 \header {
+  texidoces = "
+Se pueden establecer las propiedades de los diagramas de
+posiciones a través de @code{'fret-diagram-details}.  Para los
+diagramas de posiciones de marcado, se pueden aplicar overrides
+(sobreescrituras) al objeto @code{Voice.TextScript} o directamente al elemento de marcado.
+
+"
+ doctitlees = "Personalizar diagramas de posiciones de marcado"
+
   lsrtags = "fretted-strings,tweaks-and-overrides"
 
   texidoc = "Fret diagram properties can be set through
@@ -12,6 +21,7 @@ to the markup.
 "
   doctitle = "Customizing markup fret diagrams"
 } % begin verbatim
+
 
 <<
   \chords { c1 c c d }

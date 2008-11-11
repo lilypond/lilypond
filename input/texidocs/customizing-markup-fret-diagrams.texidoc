@@ -1,0 +1,8 @@
+  texidoces = "
+Se pueden establecer las propiedades de los diagramas de
+posiciones a través de @code{'fret-diagram-details}.  Para los
+diagramas de posiciones de marcado, se pueden aplicar overrides
+(sobreescrituras) al objeto @code{Voice.TextScript} o directamente al elemento de marcado.
+
+"
+ doctitlees = "Personalizar diagramas de posiciones de marcado"

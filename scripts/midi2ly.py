@@ -36,7 +36,6 @@ global _;_=ly._
 ## CONSTANTS
 
 
-output_name = ''
 LINE_BELL = 60
 scale_steps = [0, 2, 4, 5, 7, 9, 11]
 global_options = None
@@ -947,16 +946,16 @@ def main():
         g = strip_extension (g, '.MID')
         (outdir, outbase) = ('','')
 
-        if not output_name:
+        if not global_options.output:
             outdir = '.'
             outbase = os.path.basename (g)
             o = os.path.join (outdir, outbase + '-midi.ly')
-        elif output_name[-1] == os.sep:
-            outdir = output_name
+        elif global_options.output[-1] == os.sep:
+            outdir = global_options.output
             outbase = os.path.basename (g)
             os.path.join (outdir, outbase + '-gen.ly')
         else:
-            o = output_name
+            o = global_options.output
             (outdir, outbase) = os.path.split (o)
 
         if outdir != '.' and outdir != '':

@@ -39,6 +39,7 @@ commands such as @code{\\dynamicUp} or @code{\\dynamicDown}.
 "
   doctitle = "Creating \"real\" parenthesized dynamics"
 } % begin verbatim
+
 \paper { ragged-right = ##t }
 
 parenF = #(make-dynamic-script (markup #:line (#:normal-text #:italic

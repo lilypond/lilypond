@@ -8,6 +8,7 @@ and referred to in markups."
   doctitle = "Page label"
 } % begin verbatim
 
+
 #(set-default-paper-size "a6")
 
 #(define-markup-command (toc-line layout props label text)

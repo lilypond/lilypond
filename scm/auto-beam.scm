@@ -26,16 +26,16 @@
     ;; in 3 2 time:
     ;;   end beams each 1 2 note
     ;;   end beams with 16th notes each 1 4 note
-    ;;   end beams with 32th notes each 1 8 note
+    ;;   end beams with 32nd notes each 1 8 note
 
     ((end * * 3 2) . ,(ly:make-moment 1 2))
     ((end * * 3 2) . ,(ly:make-moment 2 2))
-    
+
     ((end 1 16 3 2) . ,(ly:make-moment 1 4))
     ((end 1 16 3 2) . ,(ly:make-moment 1 2))
     ((end 1 16 3 2) . ,(ly:make-moment 3 4))
     ((end 1 16 3 2) . ,(ly:make-moment 5 4))
-    
+
     ((end 1 32 3 2) . ,(ly:make-moment 1 8))
     ((end 1 32 3 2) . ,(ly:make-moment 1 4))
     ((end 1 32 3 2) . ,(ly:make-moment 3 8))
@@ -51,7 +51,7 @@
 
     ((end 1 16 3 4) . ,(ly:make-moment 1 4))
     ((end 1 16 3 4) . ,(ly:make-moment 1 2))
-    
+
     ((end 1 32 3 4) . ,(ly:make-moment 1 8))
     ((end 1 32 3 4) . ,(ly:make-moment 1 4))
     ((end 1 32 3 4) . ,(ly:make-moment 3 8))
@@ -62,16 +62,16 @@
 
     ;; in common time:
     ;;   end beams each 1 2 note
-    ;;   end beams with 32th notes each 1 8 note
+    ;;   end beams with 32nd notes each 1 8 note
     ;;   end beams with 1 8 triplets each 1 4 note
 
     ((end * * 4 4) . ,(ly:make-moment 1 2))
     ((end 1 12 4 4) . ,(ly:make-moment 1 4))
     ((end 1 12 4 4) . ,(ly:make-moment 3 4))
-    
+
     ((end 1 16 4 4) . ,(ly:make-moment 1 4))
     ((end 1 16 4 4) . ,(ly:make-moment 3 4))
-    
+
     ((end 1 32 4 4) . ,(ly:make-moment 1 8))
     ((end 1 32 4 4) . ,(ly:make-moment 1 4))
     ((end 1 32 4 4) . ,(ly:make-moment 3 8))
@@ -79,43 +79,46 @@
     ((end 1 32 4 4) . ,(ly:make-moment 3 4))
     ((end 1 32 4 4) . ,(ly:make-moment 7 8))
 
-    ((end * * 2 4) . #f) ;; switch-off at-any-beat feature
     ((end * * 2 4) . ,(ly:make-moment 1 4))
     ((end 1 32 2 4) . ,(ly:make-moment 1 8))
     ((end 1 32 2 4) . ,(ly:make-moment 3 8))
 
-    ((end * * 4 8) . #f) ;; switch-off at-any-beat feature
     ((end * * 4 8) . ,(ly:make-moment 1 4))
     ((end 1 32 4 8) . ,(ly:make-moment 1 8))
     ((end 1 32 4 8) . ,(ly:make-moment 3 8))
 
-    ((end * * 4 16) . #f) ;; switch-off at-any-beat feature
     ((end * * 4 16) . ,(ly:make-moment 1 8))
 
-    ((end * * 6 8) . #f) ;; switch-off at-any-beat feature
-    ((end * * 6 8) . ,(ly:make-moment 3 8))
+    ;; in 6 8, 9 8 and 12 8 time:
+    ;;   use beatGrouping for all except 1 32nd notes
+    ;;   end beams with 32nd notes every 1 8 note
+
     ((end 1 32 6 8) . ,(ly:make-moment 1 8))
-    ((end 1 32 6 8) . ,(ly:make-moment 1 4))
-    ((end 1 32 6 8) . ,(ly:make-moment 1 2))
+    ((end 1 32 6 8) . ,(ly:make-moment 2 8))
+    ((end 1 32 6 8) . ,(ly:make-moment 3 8))
+    ((end 1 32 6 8) . ,(ly:make-moment 4 8))
     ((end 1 32 6 8) . ,(ly:make-moment 5 8))
 
-    ((end * * 9 8) . #f) ;; switch-off at-any-beat feature
-    ((end * * 9 8) . ,(ly:make-moment 3 8))
-    ((end * * 9 8) . ,(ly:make-moment 3 4))
     ((end 1 32 9 8) . ,(ly:make-moment 1 8))
-    ((end 1 32 9 8) . ,(ly:make-moment 1 4))
-    ((end 1 32 9 8) . ,(ly:make-moment 1 2))
+    ((end 1 32 9 8) . ,(ly:make-moment 2 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 3 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 4 8))
     ((end 1 32 9 8) . ,(ly:make-moment 5 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 6 8))
     ((end 1 32 9 8) . ,(ly:make-moment 7 8))
-    ((end 1 32 9 8) . ,(ly:make-moment 1 1))
-    ((end 1 32 9 8) . ,(ly:make-moment 9 8))
+    ((end 1 32 9 8) . ,(ly:make-moment 8 8))
 
-    ((end * * 12 8) . #f) ;; switch-off at-every-beat
-    ((end * * 12 8) . ,(ly:make-moment 3 8))
-    ((end * * 12 8) . ,(ly:make-moment 3 4))
-    ((end * * 12 8) . ,(ly:make-moment 9 8))
-    ((end * * 12 8) . ,(ly:make-moment 2 1))
     ((end 1 32 12 8) . ,(ly:make-moment 1 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 2 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 3 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 4 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 5 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 6 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 7 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 8 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 9 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 10 8))
+    ((end 1 32 12 8) . ,(ly:make-moment 11 8))
     ))
 
 (define (override-property-setting context property setting value)

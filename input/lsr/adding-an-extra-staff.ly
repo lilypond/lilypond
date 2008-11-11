@@ -19,6 +19,7 @@ piece.
 "
   doctitle = "Adding an extra staff"
 } % begin verbatim
+
 \score {
   <<
     \new Staff \relative c'' { c1 c c c c }

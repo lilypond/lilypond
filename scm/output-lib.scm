@@ -205,19 +205,17 @@ centered, X==1 is at the right, X == -1 is at the left."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; break visibility
 
-(define-public begin-of-line-visible
-  #(#f #f #t))
-(define-public end-of-line-visible
-  #(#t #f #f))
-(define-public end-of-line-invisible
-  #(#f #t #t))
+(define-public all-visible             #(#t #t #t))
+(define-public begin-of-line-invisible #(#t #t #f))
+(define-public center-invisible        #(#t #f #t))
+(define-public end-of-line-invisible   #(#f #t #t))
+(define-public begin-of-line-visible   #(#f #f #t))
+(define-public center-visible          #(#f #t #f))
+(define-public end-of-line-visible     #(#t #f #f))
+(define-public all-invisible           #(#f #f #f))
+
 (define-public spanbar-begin-of-line-invisible
   #(#t #f #f))
-(define-public all-visible #(#t #t #t))
-(define-public all-invisible #(#f #f #f))
-(define-public begin-of-line-invisible
-  #(#t #t #f))
-(define-public center-invisible #(#t #f #t))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Bar lines.

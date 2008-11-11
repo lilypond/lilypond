@@ -1,23 +1,43 @@
-  doctitle = "Applying note head styles depending on the step of the scale"
   doctitlees = "Aplicar estilos de cabeza según la nota de la escala"
   texidoces = "
 La propiedad @code{shapeNoteStyles} se puede usar para definir varios
 estilos de cabezas de nota para cada grado de la escala (según esté
-establecido por la armadura o por la propiedad \"tonic\"). Esta
+establecido por la armadura o por la propiedad \"tonic\").  Esta
 propiedad requiere un conjunto de símbolos, que pueden ser puramente
 arbitrarios (se permiten expresiones geométricas como @code{triangle},
 triángulo, @code{cross}, aspas, y @code{xcircle}, círculo con aspas) o
 basados en una antigua tradición americana de grabado (ciertos nombres
 de nota latinos trambién se permiten).
 
-Dicho esto, para imitar antiguos cancioneros americanos, existen
-varios estilos predefinidos de cabezas de nota disponibles a través de
+Dicho esto, para imitar antiguos cancioneros americanos, existen varios
+estilos predefinidos de cabezas de nota disponibles a través de
 instrucciones de abreviatura como @code{\\aikenHeads} o
 @code{\\sacredHarpHeads}.
 
-Este ejemplo muestra distintas formas de obtener cabezas de notas con
-forma, y muestra la capacidad de transportar una melodía sin perder la
-correspondencia entre las funciones armónicas y los estilos de cabezas
-de nota.
+Este ejemplo muestra distintas formas de obtener cabezas de notas con forma,
+y muestra la capacidad de transportar una melodía sin perder la
+correspondencia entre las funciones armónicas y los estilos de cabezas de
+nota.
+
+"
+
+  doctitlede = "Notenkopfstile besierend auf der Tonleiterstufe erstellen"
+  texidocde = "
+Die @code{shapeNoteStyles}-(NotenFormenStile)-Eigenschaft kann benutzt
+werden, um verschiedene Notenstile für jeden Schritt der Tonleiter
+zudefinieren (vorgegeben von der Tonart oder der @q{tonic}
+(Tonika)-Eigneschaft.  Diese Eigenschaft braucht eine Anzahl von Symbolen,
+welche beliebig sein können (geometrische Ausdrücke wie @code{triangle}
+(Dreieck), @code{cross} (Kreuz) und @code{xcircle} (X-Kreis) sind erlaubt)
+oder basierend auf einer alten amerikanischen Notensatztradition (einige
+lateinische Notenbezeichnungen sind auch erlaubt).
+
+Um alte amerikanische Liederbücher zu imitieren, gibt es einige
+vordefinierte Notenstile wie etwa @code{\\aikenHeads} (im Stil von Aiken)
+oder @code{\\sacredHarpHeads} (im Stil der Sacred Harp-Tradition).
+
+Dieses Beispiel zeigt, wie man unterschiedlich geformte Noten erhält und
+eine Melodie transponieren kann, ohne dass das Verhältnis zwischen den
+harmonischen Funktionen und dem Notenstil verloren geht.
 
 "

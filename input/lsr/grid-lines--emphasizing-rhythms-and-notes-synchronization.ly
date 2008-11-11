@@ -23,6 +23,7 @@ this snippet.
 "
   doctitle = "Grid lines: emphasizing rhythms and notes synchronization"
 } % begin verbatim
+
 %% sets of grid
 \layout {
  \context {

@@ -57,7 +57,7 @@ notags_files = []
 end_header_re = re.compile ('(\\header {.+?doctitle = ".+?})\n', re.M | re.S)
 
 def mark_verbatim_section (ly_code):
-	return end_header_re.sub ('\\1 % begin verbatim\n', ly_code, 1)
+	return end_header_re.sub ('\\1 % begin verbatim\n\n', ly_code, 1)
 
 # '% LSR' comments are to be stripped
 lsr_comment_re = re.compile (r'\s*%+\s*LSR.*')

@@ -20,6 +20,7 @@ adjust the shape of falls and doits.
 "
   doctitle = "Adjusting the shape of falls and doits"
 } % begin verbatim
+
 \relative c'' {
   \override Score.SpacingSpanner #'shortest-duration-space = #4.0
   c2-\bendAfter #+5

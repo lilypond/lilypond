@@ -13,6 +13,7 @@ arguments.
 "
   doctitle = "Changing properties for individual grobs"
 } % begin verbatim
+
 \layout {
   ragged-right = ##t
 }
@@ -40,5 +41,5 @@ arguments.
 \relative c' {
   <d f g b>2
   \applyOutput #'Voice #mc-squared
-  <d f g b>
+  <d f g b>2
 }

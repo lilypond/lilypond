@@ -71,7 +71,7 @@ class Xml_node:
 
         p = self
         while p:
-            sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items()])))
+            sys.stderr.write ('  In: <%s %s>\n' % (p._name, ' '.join (['%s=%s' % item for item in p._attribute_dict.items ()])))
             p = p.get_parent ()
         
     def get_typed_children (self, klass):
@@ -613,12 +613,17 @@ class Part (Music_xml_node):
     # modify attributes so that only those applying to the given staff remain
     def extract_attributes_for_staff (part, attr, staff):
         attributes = copy.copy (attr)
-        attributes._children = copy.copy (attr._children)
+        attributes._children = [];
         attributes._dict = attr._dict.copy ()
-        for c in attributes._children:
-            if hasattr (c, 'number') and c.number != staff:
-                attributes._children.remove (c)
-        return attributes
+        # copy only the relevant children over for the given staff
+        for c in attr._children:
+            if (not (hasattr (c, 'number') and (c.number != staff)) and
+                not (isinstance (c, Hash_text))):
+                attributes._children.append (c)
+        if not attributes._children:
+            return None
+        else:
+            return attributes
 
     def extract_voices (part):
 	voices = {}
@@ -680,8 +685,9 @@ class Part (Music_xml_node):
                 # assign these only to the voices they really belongs to!
                 for (s, vids) in staff_to_voice_dict.items ():
                     staff_attributes = part.extract_attributes_for_staff (n, s)
-                    for v in vids:
-                        voices[v].add_element (staff_attributes)
+                    if staff_attributes:
+                        for v in vids:
+                            voices[v].add_element (staff_attributes)
                 continue
 
             if isinstance (n, Partial) or isinstance (n, Barline):
@@ -1044,7 +1050,7 @@ def lxml_demarshal_node (node):
     for c in py_node._children:
 	c._parent = py_node
 
-    for (k,v) in node.items ():
+    for (k, v) in node.items ():
         py_node.__dict__[k] = v
         py_node._attribute_dict[k] = v
 
@@ -1054,14 +1060,14 @@ def minidom_demarshal_node (node):
     name = node.nodeName
 
     klass = get_class (name)
-    py_node = klass()
+    py_node = klass ()
     py_node._name = name
     py_node._children = [minidom_demarshal_node (cn) for cn in node.childNodes]
     for c in py_node._children:
 	c._parent = py_node
 
     if node.attributes:
-	for (nm, value) in node.attributes.items():
+	for (nm, value) in node.attributes.items ():
 	    py_node.__dict__[nm] = value
             py_node._attribute_dict[nm] = value
             
@@ -1074,10 +1080,10 @@ def minidom_demarshal_node (node):
 
 
 if __name__  == '__main__':
-        import lxml.etree
+    import lxml.etree
         
-        tree = lxml.etree.parse ('beethoven.xml')
-        mxl_tree = lxml_demarshal_node (tree.getroot ())
-        ks = class_dict.keys()
-        ks.sort()
-        print '\n'.join (ks)
+    tree = lxml.etree.parse ('beethoven.xml')
+    mxl_tree = lxml_demarshal_node (tree.getroot ())
+    ks = class_dict.keys ()
+    ks.sort ()
+    print '\n'.join (ks)

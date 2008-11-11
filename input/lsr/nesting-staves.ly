@@ -37,6 +37,7 @@ staves. The possibilities are @code{SystemStartBar},
 "
   doctitle = "Nesting staves"
 } % begin verbatim
+
 \new StaffGroup
 \relative c'' <<
   \set StaffGroup.systemStartDelimiterHierarchy

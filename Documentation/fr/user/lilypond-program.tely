@@ -1,25 +1,18 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @ignore
-    Translation of GIT committish: 9c6e7a4df574fb28fa9043e585c97a20ca13f10b
+    Translation of GIT committish: 6f84d7b264bf1faa8d9c586bbf06c762ae53183a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
-@setfilename lilypond-program.info
-@settitle GNU LilyPond -- utilisation des programmes
 @documentencoding UTF-8
+@setfilename lilypond-program.info
+@settitle GNU LilyPond -- Utilisation des programmes
 
 @include macros.itexi
 
-@iftex
 @afourpaper
-@c don't replace quotes with directed quotes
-@tex
-\gdef\SETtxicodequoteundirected{Foo}
-\gdef\SETtxicodequotebacktick{Bla}
-@end tex
-@end iftex
 
 @c don't remove this comment.
 @ignore
@@ -31,6 +24,11 @@
 @end ignore
 
 @c Translators: John Mandereau, Jean-Charles Malahieude
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- Utilisation des programmes
+@end ifnottex
 
 @ifhtml
 Ce document est également disponible au format
@@ -124,9 +122,6 @@ Free Documentation License''.
 
 
 @ifnottex
-@node Top
-@top GNU LilyPond --- utilisation des programmes
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Ce document constitue le manuel d'utilisation des programmes de GNU
 LilyPond @version{}.  Pour connaître le rôle de ce manuel dans la

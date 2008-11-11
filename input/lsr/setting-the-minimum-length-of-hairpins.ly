@@ -20,6 +20,7 @@ If hairpins are too short, they can be lengthened by modifying the
 "
   doctitle = "Setting the minimum length of hairpins"
 } % begin verbatim
+
 \relative c'' {
   c4\< c\! d\> e\!
   \override Hairpin #'minimum-length = #5

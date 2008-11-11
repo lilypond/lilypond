@@ -15,6 +15,7 @@ extender attributed to that number right before the number.
 "
   doctitle = "Manually break figured bass extenders for only some numbers"
 } % begin verbatim
+
 bassfigures = \figuremode { 
   \set useBassFigureExtenders = ##t
   <6 4>4 <6 4\!> <6 4\!> <6 4\!> |  <6\! 4\!>  <6 4> <6 4\!> <6 4>

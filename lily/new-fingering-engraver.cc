@@ -262,8 +262,6 @@ New_fingering_engraver::position_scripts (SCM orientations,
       f->set_property ("direction", scm_from_int (hordir));
     }
 
-  int finger_prio = 200;
-
   Direction d = DOWN;
   Drul_array< vector<Finger_tuple> > vertical (down, up);
   do
@@ -272,6 +270,7 @@ New_fingering_engraver::position_scripts (SCM orientations,
 	{
 	  Finger_tuple ft = vertical[d][i];
 	  Grob *f = ft.script_;
+	  int finger_prio = robust_scm2int (f->get_property ("script-priority"), 200);
 	  f->set_parent (ft.head_, X_AXIS);
 	  f->set_property ("script-priority",
 			   scm_from_int (finger_prio + d * ft.position_));

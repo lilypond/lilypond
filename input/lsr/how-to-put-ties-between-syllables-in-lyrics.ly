@@ -11,6 +11,7 @@ This can be achieved by separating those syllables by tildes.
 "
   doctitle = "How to put ties between syllables in lyrics"
 } % begin verbatim
+
 \lyrics {
   wa~o~a 
 }

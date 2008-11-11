@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 46e221e7e08ee0e17dd6977a46acec8dabf63944
+    Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -19,7 +19,7 @@ exclusivos de los instrumentos de cuerda con trastes.
 
 @cindex tablatura
 @cindex guitarra, tablatura de
-@cindex tablatura de banj
+@cindex tablatura de banjo
 @cindex banjo, tablatura de
 
 @menu
@@ -171,10 +171,10 @@ aguda, y la afinación normal es la afinación estándar de guitarra (con
 
 @cindex traste
 
-Cuando no se especifica ninguna cuerda, se selecciona la primera
-cuerda que produce la nota con un número de traste mayor o igual que
-el valor de @code{minimumFret} (traste mínimo).  El valor por defecto
-de @code{minimumFret} es cero:
+Si se especifica ninguna cuerda para una nota, se le asigna la cuerda
+más aguda que produce la nota con un número de traste mayor o igual
+que el valor de @code{minimumFret} (traste mínimo).  El valor
+predeterminado de @code{minimumFret} es cero.
 
 @lilypond[quote,ragged-right,verbatim]
 \new StaffGroup <<
@@ -961,6 +961,8 @@ predefinido, las propiedades de interface pertenecen a
 @lilypondfile[verbatim,lilyquote,texidoc,doctitle]
 {customizing-fretboard-fret-diagrams.ly}
 
+@lilypondfile[verbatim,lilyquote,texidoc,doctitle]
+{defining-predefined-fretboards-for-other-instruments.ly}
 
 @seealso
 
@@ -970,8 +972,9 @@ Referencia de la notación:
 @ref{Chord mode overview},
 @ref{Predefined fretboard diagrams}.
 
-Installed Files:
-@file{ly/predefined-guitar-fretboards.ly}.
+Archivos de inicio:
+@file{ly/predefined-guitar-fretboards.ly},
+@file{ly/predefined-guitar-ninth-fretboards.ly}.
 
 Fragmentos de código:
 @rlsr{Fretted strings}.
@@ -1056,25 +1059,6 @@ aceptable.  Esto se puede remediar generalmente mediante la asignación
 manual de una nota a una cuerda.  En muchos casos sólo hay que colocar
 manualmente una nota sobre una cuerda; el resto de las notas se
 situará en el lugar adecuado por parte del contexto @code{FretBoards}.
-
-@lilypond[quote,ragged-right,verbatim]
-<<
-  \context ChordNames {
-     \chordmode {
-       c1 c
-     }
-  }
-  \context FretBoards {
-    < c g c' e' g'> 1
-    < c g\4 c' e' g'> 1
-  }
-  \context Staff {
-    \clef "treble_8"
-    < c g c' e' g'> 1
-    < c g c' e' g'> 1
-  }
->>
-@end lilypond
 
 @cindex trastes, añadir digitaciones a diagramas de
 @cindex digitaciones, añadir, a diagramas de trastes
@@ -1172,11 +1156,12 @@ antes del ángulo de cierre @code{>}.}
 
 @lilypond[quote,verbatim,relative=0]
 \clef "treble_8"
-<c-\rightHandFinger #1 >4
-<e-\rightHandFinger #2 >
-<g-\rightHandFinger #3 >
+<c-\rightHandFinger #1 >4 
+<e-\rightHandFinger #2 > 
+<g-\rightHandFinger #3 > 
 <c-\rightHandFinger #4 >
-<c,-\rightHandFinger #1 e-\rightHandFinger #2 g-\rightHandFinger #3 c-\rightHandFinger #4 >1
+<c,-\rightHandFinger #1 e-\rightHandFinger #2
+  g-\rightHandFinger #3 c-\rightHandFinger #4 >1
 @end lilypond
 
 Por brevedad, se puede escribir @code{\rightHandFinger} como algo más

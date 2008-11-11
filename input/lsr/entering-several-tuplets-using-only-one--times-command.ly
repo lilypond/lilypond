@@ -22,6 +22,20 @@ Para ver más inforamción sobre @code{make-moment}, véase
 
 "
 
+  texidocde = "
+Die Eigenschaft @code{tupletSpannerDuration} bestimmt, wie lange jede
+der N-tolen innerhalb der Klammern nach dem @code{\\times}-Befehl
+dauert.  Auf diese Art können etwa viele Triolen nacheinander mit nur
+einem @code{\\times}-Befehl geschrieben werden.
+
+Im Beispiel sind zwei Triolen zu sehen, obwohl @code{\\times} nur
+einmal geschrieben wurde.
+
+Mehr Information über @code{make-moment} gibt es in \"Verwaltung der Zeiteinheiten\". 
+
+"
+  doctitlede = "Mehrere Triolen notieren, aber nur einmal \\times benutzen"
+
   texidoc = "
 The property @code{tupletSpannerDuration} sets how long each of the
 tuplets contained within the brackets after @code{\\times} should last.
@@ -38,6 +52,7 @@ administration\".
 "
   doctitle = "Entering several tuplets using only one \\times command"
 } % begin verbatim
+
 \relative c' {
   \time 2/4
   \set tupletSpannerDuration = #(ly:make-moment 1 4)

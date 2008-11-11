@@ -22,6 +22,7 @@ depending on the @code{figuredBassAlterationDirection} and
 "
   doctitle = "Changing the positions of figured bass alterations"
 } % begin verbatim
+
 \figures {
   <6\+> <5+> <6 4-> r
   \set figuredBassAlterationDirection = #RIGHT

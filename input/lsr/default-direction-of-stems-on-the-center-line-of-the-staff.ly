@@ -20,6 +20,7 @@ by the @code{Stem} property @code{neutral-direction}.
 "
   doctitle = "Default direction of stems on the center line of the staff"
 } % begin verbatim
+
 \relative c'' {
   a4 b c b
   \override Stem #'neutral-direction = #up

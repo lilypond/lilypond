@@ -21,6 +21,7 @@ following way:
 "
   doctitle = "Hiding the extender line for text dynamics"
 } % begin verbatim
+
 \relative c'' {
   \override DynamicTextSpanner #'dash-period = #-1.0
   \crescTextCresc

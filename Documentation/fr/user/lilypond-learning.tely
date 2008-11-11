@@ -1,26 +1,18 @@
 \input texinfo @c -*- coding: utf-8; mode: texinfo; -*-
 @ignore
-    Translation of GIT committish: 9c6e7a4df574fb28fa9043e585c97a20ca13f10b
+    Translation of GIT committish: 6f84d7b264bf1faa8d9c586bbf06c762ae53183a
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
-@setfilename lilypond-learning.info
-@settitle GNU LilyPond -- manuel d'initiation
 @documentencoding UTF-8
+@setfilename lilypond-learning.info
+@settitle GNU LilyPond -- Manuel d'initiation
 
 
 @include macros.itexi
 
-@iftex
 @afourpaper
-@c don't replace quotes with directed quotes
-@tex
-\gdef\SETtxicodequoteundirected{Foo}
-\gdef\SETtxicodequotebacktick{Bla}
-@end tex
-@end iftex
-
 
 @c don't remove this comment.
 @ignore
@@ -32,6 +24,11 @@
 @end ignore
 
 @c Translators: John Mandereau, Jean-Charles Malahieude
+
+@ifnottex
+@node Top
+@top GNU LilyPond --- Manuel d'initiation
+@end ifnottex
 
 @ifhtml
 Ce document est également disponible au format
@@ -58,7 +55,7 @@ Ce document est également disponible au format
 @author L'équipe de développement de LilyPond
 
 
-Copyright @copyright{} 1999--2008 by the authors
+Copyright @copyright{} 1999--2008 par les auteurs
 
 @emph{The translation of the following copyright notice is provided
 for courtesy to non-English speakers, but only the notice in English
@@ -151,9 +148,6 @@ Free Documentation License''.
 @end ifnottex
 
 @ifnottex
-@node Top
-@top GNU LilyPond --- manuel d'initiation
-@c HJJ: Info needs `@top', which is a synonym for `@unnumbered' in TeX.
 
 Ce document constitue le manuel d'initiation à GNU LilyPond
 @version{}.  Pour connaître la place qu'occupe ce manuel dans la

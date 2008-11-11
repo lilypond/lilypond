@@ -19,6 +19,7 @@ hidden note and cadenza timing.
 "
   doctitle = "Contemporary glissando"
 } % begin verbatim
+
 \relative c'' {
   \time 3/4
   \override Glissando #'style = #'zigzag

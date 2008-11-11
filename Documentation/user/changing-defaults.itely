@@ -540,51 +540,38 @@ with ordering dependencies.
 @node Changing context default settings
 @subsection Changing context default settings
 
-The adjustments of the previous subsections (
-@ref{The set command}, @ref{Modifying context plug-ins}, and
-@ref{Overview of modifying properties}) can also be entered
-separately from the music in the @code{\layout} block,
+The context settings which are to be used by default in
+@code{Score}, @code{Staff} and @code{Voice} contexts may be specified
+in a @code{\layout} block, as illustrated in the following example.
+The @code{\layout} block should be placed within the @code{\score}
+block to which it is to apply, but outside any music.
 
-@example
-\layout @{
-  @dots{}
-  \context @{
-    \Staff
+Note that the @code{\set} command itself and the context must be
+omitted when the context default values are specified in this way:
 
-    \set fontSize = #-2
-    \override Stem #'thickness = #4.0
-    \remove "Time_signature_engraver"
-  @}
-@}
-@end example
+@lilypond[quote,verbatim]
+\score {
+  \relative c'' {
+    a4^"Really small, thicker stems, no time signature" a a a
+    a a a a
+  }
+  \layout {
+    \context {
+      \Staff
+      fontSize = #-4
+      \override Stem #'thickness = #4.0
+      \remove "Time_signature_engraver"
+    }
+  }
+}
+@end lilypond
 
-The @code{\Staff} command brings in the existing definition of the
-staff context so that it can be modified.
+In this example, the @code{\Staff} command specifies that the
+subsequent specifications are to be applied to all staves within
+this score block.
 
-The statements
-@example
-\set fontSize = #-2
-\override Stem #'thickness = #4.0
-\remove "Time_signature_engraver"
-@end example
-
-@noindent
-affect all staves in the score.  Other contexts can be modified
-analogously.
-
-The @code{\set} keyword is optional within the @code{\layout} block, so
-
-@example
-\context @{
-  @dots{}
-  fontSize = #-2
-@}
-@end example
-
-@noindent
-will also work.
-
-
+Modifications can be made to the @code{Score} context or all
+@code{Voice} contexts in a similar way.
 
 @knownissues
 
@@ -2399,28 +2386,24 @@ object is printed at the end of, within the body of, or at the
 beginning of a line.  Or to be more precise, before a line break,
 where there is no line break, or after a line break.
 
-Alternatively, seven of the eight combinations may be specified
+Alternatively, these eight combinations may be specified
 by pre-defined functions, defined in @file{scm/output-lib.scm},
 where the last three columns indicate whether the layout objects
 will be visible in the positions shown at the head of the columns:
 
-@multitable @columnfractions .40 .15 .1 .1 .1
-@c TODO check these more carefully
+@multitable {@code{begin-of-line-invisible}} {@code{'#(#t #t #t)}} {yes} {yes} {yes}
 @headitem Function                   @tab Vector                  @tab Before @tab At no    @tab After
 @headitem form                       @tab form                    @tab break  @tab break    @tab break
 
-@item @code{all-invisible}           @tab @code{'#(#f #f #f)} @ @ @tab no     @tab no       @tab no
-@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}     @tab no     @tab no       @tab yes
-@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}     @tab yes    @tab no       @tab no
 @item @code{all-visible}             @tab @code{'#(#t #t #t)}     @tab yes    @tab yes      @tab yes
-@c The center-visible function is not defined
-@c @item @code{center-visible}       @tab @code{'#(#f #t #f)}     @tab no     @tab yes      @tab no
+@item @code{begin-of-line-visible}   @tab @code{'#(#f #f #t)}     @tab no     @tab no       @tab yes
+@item @code{center-visible}          @tab @code{'#(#f #t #f)}     @tab no     @tab yes      @tab no
+@item @code{end-of-line-visible}     @tab @code{'#(#t #f #f)}     @tab yes    @tab no       @tab no
 @item @code{begin-of-line-invisible} @tab @code{'#(#t #t #f)}     @tab yes    @tab yes      @tab no
-@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}     @tab no     @tab yes      @tab yes
 @item @code{center-invisible}        @tab @code{'#(#t #f #t)}     @tab yes    @tab no       @tab yes
+@item @code{end-of-line-invisible}   @tab @code{'#(#f #t #t)}     @tab no     @tab yes      @tab yes
+@item @code{all-invisible}           @tab @code{'#(#f #f #f)}     @tab no     @tab no       @tab no
 @end multitable
-
-The @code{center-visible} function is not pre-defined.
 
 The default settings of @code{break-visibility} depend on the
 layout object.  The following table shows all the layout objects

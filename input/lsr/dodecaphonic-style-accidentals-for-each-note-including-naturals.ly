@@ -17,6 +17,18 @@ notación.
 
 "
 
+ texidocde = "
+ In Werken des fürhen 20. Jahrhundert, angefangen mit Schönberg, Berg
+ und Webern (die zweite Wiener Schule), wird jeder Ton der 
+ Zwölftonleiter als gleichwertig erachtet, ohne hierarchische
+ Ordnung.  Deshalb wird in dieser Musik für jede Note ein Versetzungszeichen
+ ausgegeben, auch für unalterierte Tonhöhen, um das neue Verständnis
+ der Musiktheorie und Musiksprache zu verdeutlichen.
+ 
+ Dieser Schnipsel zeigt, wie derartige Notationsregeln zu erstellen sind.
+ "
+ 
+doctitlede = "Versetzungszeichen für jede Note im Stil der Zwölftonmusik"
 
   lsrtags = "pitches"
   texidoc = "In early 20th century works, starting with Schoenberg,
@@ -31,6 +43,7 @@ This snippet shows how to achieve such notation rules.
 
   doctitle = "Dodecaphonic-style accidentals for each note including naturals"
 } % begin verbatim
+
 
 \score {
   \new Staff {

@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: 85b54e04be6730bd0781f3135ee741010e099fd8
+    Translation of GIT committish: 270753f1475f23809437eadd7cbbb5a2abddb7b3
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -132,9 +132,9 @@ de música ya impresa),
 
 @item Introduzca un sistema del manuscrito (la copia física) cada vez (pero mantenga
 la práctica de escribir un compás por línea de texto), y compruebe
-cada sistema cuando lo haya terminado.  Puede usar la instrucción
-@code{showLastLength} para acelerar el proceso -- ver @ruser{Skipping
-corrected music} -- .
+cada sistema cuando lo haya terminado.  Puede usar las instrucciones
+@code{showLastLength} o @code{showFirstLength} para acelerar el
+proceso -- ver @ruser{Skipping corrected music} -- .
 
 @item Defina @code{mBreak = @{ \break @}} e inserte @code{\mBreak}
 dentro del archivo de entrada donde el manuscrito tenga un saldo de línea.  De esta forma

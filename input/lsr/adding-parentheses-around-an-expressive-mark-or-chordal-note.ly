@@ -21,6 +21,7 @@ objects in parentheses.  The associated grob is
 "
   doctitle = "Adding parentheses around an expressive mark or chordal note"
 } % begin verbatim
+
 \relative c' {
   c2-\parenthesize ->
   \override ParenthesesItem #'padding = #0.1

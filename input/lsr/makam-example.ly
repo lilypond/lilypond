@@ -22,6 +22,7 @@ for details of pitch names and alterations."
   doctitle = "Makam example"
 } % begin verbatim
 
+
 % Initialize makam settings
 \include "makam.ly"
 

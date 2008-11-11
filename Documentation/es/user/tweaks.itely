@@ -1,7 +1,7 @@
-@c -*- coding: utf-8; mode: texinfo; -*-
+@c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond.tely
 @ignore
-    Translation of GIT committish: f2dfe5301630aa53a9558b33d1a97595b4724911
+    Translation of GIT committish: 9b6add29eb85dc6cd860593a2c8826a366f8a719
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -61,10 +61,14 @@ fundamentales para comprender y construir los trucos.
 @node Objects and interfaces
 @subsection Objects and interfaces
 
-@cindex objetos
-@cindex grobs
-@cindex selectores
-@cindex interfaces
+@cindex objeto
+@cindex grob
+@cindex objeto de extensión
+@cindex interfaz
+@cindex propiedades de objetos
+@cindex objeto, propiedades de
+@cindex layout (disposición), objeto de
+@cindex objeto de disposición (layout)
 
 El trucaje consiste en modificar el funcionamiento y estructura
 interna del programa LilyPond, por lo que en primer lugar
@@ -122,6 +126,11 @@ que vamos a utilizar en este capítulo.
 @node Naming conventions of objects and properties
 @subsection Naming conventions of objects and properties
 
+@cindex nomemclatura, convenciones de, para objetos
+@cindex nomemclatura, convenciones de, para propiedades
+@cindex objetos, convenciones de nomenclatura
+@cindex propiedades, convenciones de nomenclatura
+
 Ya hemos visto ciertas convenciones de nomenclatura de objetos, en la
 sección @ref{Contexts and engravers}.  En este lugar, para más fácil
 referencia, presentamos una lista de los tipos de objetos y
@@ -164,10 +173,15 @@ propiedad.
 @node Tweaking methods
 @subsection Tweaking methods
 
+@cindex trucaje, métodos de
+
 @strong{La instrucción \override}
 
 @cindex override, instrucción
+@cindex override (sobreescritura), sintaxis de
+
 @funindex \override
+@funindex override
 
 Ya hemos visto las instrucciones @code{\set} y @code{\with}, que se
 usan para cambiar las propiedades de los @strong{contextos} y para
@@ -186,7 +200,8 @@ modificar, y cuál debe ser su nuevo valor.  Veamos cómo se hace.
 La sintaxis genérica de esta instrucción es:
 
 @example
-\override @var{Contexto}.@var{ObjetoDePresentación}  #'@var{propiedad-de-presentación} = #@var{valor}
+\override @var{Contexto}.@var{ObjetoDePresentación}  #'@var{propiedad-de-presentación} =
+#@var{valor}
 @end example
 
 @noindent
@@ -225,7 +240,9 @@ a b c
 @strong{La instrucción \revert}
 
 @cindex revert, instrucción
+
 @funindex \revert
+@funindex revert
 
 Una vez sobreescrita, la propiedad retiene su nuevo valor hasta que
 se sobreescribe de nuevo o se encuentra una instrucción
@@ -256,6 +273,9 @@ b c
 
 @strong{El prefijo \once}
 
+@funindex \once
+@funindex once
+
 Tanto la instrucción @code{\override} como @code{\set} se pueden
 preceder por @code{\once}.  Esto ocasiona que la siguiente instrucción
 @code{\override} o @code{\set} sea efectiva solamente durante el
@@ -274,7 +294,9 @@ a b c
 @strong{La instrucción \overrideProperty}
 
 @cindex overrideProperty, instrucción
+
 @funindex \overrideProperty
+@funindex overrideProperty
 
 Hay otra forma para la instrucción de sobreescritura,
 @code{\overrideProperty}, que ocasionalmente es necesaria.  La
@@ -285,7 +307,9 @@ detalles consulte @ruser{Difficult tweaks}.
 @strong{La instrucción \tweak}
 
 @cindex tweak, instrucción
+
 @funindex \tweak
+@funindex tweak
 
 La última instrucción de trucaje que está disponible es @code{\tweak}.
 Se debe utilizar para cambiar las propiedades de objetos que suceden
@@ -360,6 +384,7 @@ marca de articulación como si ella misma fuera una articulación.
 @cindex corchete del grupo especial
 @cindex grupo especial, corchete de
 @cindex tresillo, corchete de
+
 @funindex TupletBracket
 
 La instrucción @code{\tweak} también se debe usar para cambiar la
@@ -427,6 +452,7 @@ Referencia de la notación:
 @cindex propiedades de los grobs
 @cindex grobs, propiedades de
 @cindex presentación, propiedades de los objetos de
+@cindex Referencia de funcionamiento interno
 
 Suponga que tiene una partitura con una ligadura de expresión que para
 su gusto es demasiado fina y quiere trazarla un poco más gruesa. ¿Cómo
@@ -575,7 +601,9 @@ práctica).  La cual vendrá proporcionada por los ejemplos que vienen a
 continuación.
 
 @subheading Finding the context
+
 @cindex contexto, encontrar
+@cindex contexto, buscar, correcto
 
 Pero en primer lugar ¿qué habría pasado si hubiésemos tenido que
 especificar el contexto? ¿Cuál sería?  Podemos suponer que las
@@ -599,7 +627,9 @@ este lugar concreto.
 
 @cindex sobreescritura por una sola vez
 @cindex once override
+
 @funindex \once
+@funindex once
 
 Como puede ver, @emph{todas} las ligaduras son más gruesas en el
 último ejemplo.  Pero ¿y si quisiéramos que solamente la primera
@@ -639,8 +669,10 @@ la instrucción @code{\set}.
 @subheading Reverting
 
 @cindex revert
-@cindex predeterminadas, devolver a las propiedades
+@cindex predeterminadas, recuperar las propiedades
+
 @funindex \revert
+@funindex revert
 
 Finalmente ¿y si quisiéramos que solamente las dos primeras ligaduras
 fuesen más gruesas?  En fin; podríamos usar dos instrucciones, cada
@@ -710,6 +742,7 @@ explicación.
 @node Properties found in interfaces
 @subsection Properties found in interfaces
 
+@cindex interface
 @cindex propiedades de los interfaces
 @cindex interfaces, propiedades
 
@@ -788,7 +821,7 @@ imprimir la letra en cursiva sería
 y debe colocarse justo delante de, y cerca de, la letra a la que debe
 afectar, como esto:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 6/8
   {
@@ -807,7 +840,9 @@ afectar, como esto:
 y toda la letra se imprime en cursiva.
 
 @subheading Specifying the context in lyric mode
+
 @cindex contexto, especificación en modo letra
+@cindex letra, modo, especificar el contexto en
 
 En el caso de la letra, si intenta especificar el contexto en el
 formato que acabamos de dar, la instrucción no funcionará.  Una
@@ -954,6 +989,7 @@ también la de muchos otros objetos de presentación).  Vamos a
 considerar cada uno de ellos por orden.
 
 @subheading stencil
+
 @cindex stencil (sello), propiedad
 
 Esta propiedad controla la apariencia de las barras de compás mediante
@@ -962,7 +998,7 @@ que como otras muchas propiedades, se puede establecer de forma que no
 imprima nada ajustando su valor a @code{#f}.  Vamos a probarlo, como
 antes, omitiendo el Contexto implícito, @code{Voice}:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override BarLine #'stencil = ##f
@@ -987,7 +1023,7 @@ simplemente no funciona.  No se produce ningún mensaje de error, y no
 se registra nada en el archivo log de registro.  Vamos a intentar
 corregirlo escribiendo el contexto correcto:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'stencil = ##f
@@ -1029,7 +1065,9 @@ en sí dentro de la instrucción @code{\override}.
 Y podemos ver que esto también quita todas las líneas divisorias.
 
 @subheading transparent
+
 @cindex transparente, propiedad
+@cindex transparencia
 
 En la relación de propiedades que se especifican en la página del
 @code{grob-interface} del RFI podemos ver que la propiedad
@@ -1045,7 +1083,7 @@ del contexto de @code{Staff} y también contempla el interface
 @code{grob-interface}.  Así pues, la instrucción que hace transparente
 a la indicación de compás es:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.TimeSignature #'transparent = ##t
@@ -1063,7 +1101,7 @@ en otras circunstancias esta separación podría no ser deseable.  En
 vez de eso, para quitarla, el stencil o «sello» de la indicación de
 compás se debe establecer al valor @code{#f}:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.TimeSignature #'stencil = ##f
@@ -1079,6 +1117,7 @@ quitamos el objeto por completo; al hacer el objeto @code{transparent}
 lo dejamos donde está, pero lo hacemos invisible.
 
 @subheading color
+
 @cindex color, propiedad
 
 Para finalizar, intentemos hacer invisibles las barras de compás
@@ -1100,7 +1139,7 @@ primera forma es utilizar uno de los colores @q{normales} que están
 relacionados en la primera tabla de la @ruser{List of colors}.  Para
 poner las líneas divisorias de color blanco, escribimos:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'color = #white
@@ -1122,13 +1161,15 @@ una de las otras funciones de la lista.
 @cindex colores de X11
 @cindex X11, colores de
 
+@funindex x11-color
+
 La segunda forma de cambiar el color es utilizar la lista de nombres
 de colores de X11 que aparecen en la segunda lista de @ruser{List of
 colors}.  Sin embargo, éstos deben ir precedidos de otra función, que
 convierte los nombres de colores de X11 en la lista de valores
 internos, @code{x11-color}, de la siguiente manera:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'color = #(x11-color 'white)
@@ -1146,6 +1187,8 @@ los dos deben ir entre paréntesis.
 @cindex rgb, colores
 @cindex color, rgb
 
+@funindex rgb-color
+
 Aún hay una tercera función, que convierte valores RGB en colores
 internos: la función @code{rgb-color}.  Toma tres argumentos que dan
 las intensidades de rojo, verde y azul.  Cada uno de ellos puede tomar
@@ -1153,7 +1196,7 @@ valores entre 0 y 1.  Por lo tanto, para establecer el color a rojo el
 valor debe ser @code{(rgb-color 1 0 0)} y para blanco debe ser
 @code{(rgb-color 1 1 1)}:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.BarLine #'color = #(rgb-color 1 1 1)
@@ -1169,7 +1212,7 @@ hasta el blanco, @code{'grey100}, en pasos de 1.  Vamos a ilustrar esto
 estableciendo todos los objetos de presentación de nuestro ejemplo a
 varias gradaciones de gris:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 {
   \time 12/16
   \override Staff.StaffSymbol   #'color = #(x11-color 'grey30)
@@ -1198,11 +1241,16 @@ normalmente el grabador.
 @node Size of objects
 @subsection Size of objects
 
+@cindex cambiar el tamaño de los objetos
+@cindex tamaño de los objetos
+@cindex objetos, tamaño de
+@cindex objetos, cambiar el tamaño de
+
 Empezaremos examinando de nuevo un ejemplo anterior (véase
 @ref{Nesting music expressions}) que nos mostraba cómo introducir un
 pentagrama temporal, como en un @rglos{ossia}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
        \relative g' {
          r4 g8 g c4 c8 d |
@@ -1223,7 +1271,7 @@ por lo normal se imprimen más pequeños que el pentagrama principal.
 Ya sabemos cómo quitar la clave y el compás: simplemente establecemos
 el sello de cada uno de ellos a @code{#f}, como sigue:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
     r4 g8 g c4 c8 d |
@@ -1281,7 +1329,7 @@ contexto en este lugar.
 
 Así pues, podemos reemplazar el ejemplo anterior con
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
     r4 g8 g c4 c8 d |
@@ -1345,7 +1393,7 @@ reduce o aumenta el tamaño aproximadamente en un 12%.
 
 Vamos a probarlo en nuestro ejemplo del ossia:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
     r4 g8 g c4 c8 d |
@@ -1402,7 +1450,7 @@ propósito.  Toma un argumento, el cambio de tamaño de la tipografía
 para reducir otros objetos en la misma proporción.  Se usa de la
 siguiente forma:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \new Staff ="main" {
   \relative g' {
     r4 g8 g c4 c8 d |
@@ -1459,12 +1507,17 @@ tipografía) se pueden cambiar de la misma forma.
 @menu
 * Automatic behaviour::
 * Within-staff objects::
-* Outside staff objects::
+* Outside-staff objects::
 @end menu
 
 
 @node Automatic behaviour
 @subsection Automatic behaviour
+
+@cindex dentro del pentagrama, objetos
+@cindex fuera del pentagrama, objetos
+@cindex objetos dentro del pentagrama
+@cindex objetos fuera del pentagrama
 
 Hay ciertos objetos en notación musical que pertenecen al pentagrama y
 otros cuyo lugar se sitúa fuera del pentagrama.  Reciben el nombre de
@@ -1507,7 +1560,7 @@ prioridad (pues no se ha establecido explícitamente).  Observe que
 @q{Text3} se posiciona de nuevo automáticamente cerca del pentagrama,
 acomodado por debajo de @q{Text2}.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
 c^"Text2"
 c^"Text3"
@@ -1557,6 +1610,11 @@ mueven a la derecha o a la izquierda cuando apuntan hacia arriba o
 hacia abajo.  Esto se controla automáticamente cuando está establecida
 la propiedad @code{direction}.
 
+@cindex abajo
+@cindex arriba
+@cindex centro
+@cindex neutro
+
 El ejemplo siguiente muestra en el compás 1 el comportamiento
 predeterminado de las plicas, con las de las notas agudas apuntando
 hacia abajo y las graves hacia arriba, seguidas de cuatro notas con
@@ -1564,7 +1622,7 @@ todas las plicas forzadas hacia abajo, cuatro notas con las plicas
 forzadas hacia arriba, y por último cuatro notas devueltas al
 comportamiento predeterminado.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 a4 g c a
 \override Stem #'direction = #DOWN
 a g c a
@@ -1638,18 +1696,21 @@ equivalente, o usar la instrucción predefinida, seguida después de la
 nota afectada por la instrucción @code{\xxxNeutral} correspondiente.
 
 @subheading Fingering
-@cindex digitación, colocación
 
-La colocación de las digitaciones también resulta afectada por el
-valor de su propiedad @code{direction}, pero existen instrucciones
-especiales que permiten controlar las digitaciones de notas
-individuales, situando la digitación encima, debajo, a la izquierda o
-a la derecha de cada nota.
+@cindex digitación, colocación
+@cindex digitación de acordes
+
+La colocación de las digitaciones sobre notas sueltas también se puede
+controlar mediante la propiedad @code{direction}, pero los cambios
+sobre @code{direction} no tienen ningún efecto sobre las notas de los
+acordes.  Como veremos, existen instrucciones especiales que permiten
+controlar las digitaciones de notas individuales, situando la
+digitación encima, debajo, a la izquierda o a la derecha de cada nota.
 
 En primer lugar, he aquí el efecto de @code{direction} sobre las
-digitaciones; el primer compás muestra el comportamiento
-predeterminado, y después el efecto de especificar @code{DOWN} y
-@code{UP}:
+digitaciones aplicadas a notas sueltas.  Se muestra en el primer
+compás el comportamiento predeterminado, y en los dos comases
+siguiente el efecto de especificar @code{DOWN} y @code{UP}:
 
 @lilypond[quote,verbatim,relative=2]
 c-5 a-3 f-1 c'-5
@@ -1659,10 +1720,22 @@ c-5 a-3 f-1 c'-5
 c-5 a-3 f-1 c'-5
 @end lilypond
 
-Así es como se controla la digitación sobre notas aisladas, pero la
-propiedad @code{direction} se ignora para los acordes.  En su lugar,
-de forma predeterminada las digitaciones se colocan automáticamente
-encima y debajo de las notas del acorde, como se muestra aquí:
+Sin embargo, la sobreescritura de la propiedad @code{direction} no es
+la forma más sencilla de especificar manualmente la digitación por
+encima o por debajo de las notas; suele ser preferible usar @code{_} o
+@code{^} en lugar de @code{-}, antes del número de la digitación.
+Este es el ejemplo anterior utilizando este método:
+
+@lilypond[quote,verbatim,relative=2]
+c-5 a-3 f-1 c'-5
+c_5 a_3 f_1 c'_5
+c^5 a^3 f^1 c'^5
+@end lilypond
+
+La propiedad @code{direction} se ignora para los acordes, pero los
+prefijos direccionales @code{_} y @code{^} sí funcionan.  De forma
+predeterminada, las digitaciones se colocan automáticamente encima y
+debajo de las notas de un acorde, como se muestra aquí:
 
 @lilypond[quote,verbatim,relative=2]
 <c-5 g-3>
@@ -1670,9 +1743,19 @@ encima y debajo de las notas del acorde, como se muestra aquí:
 <c-5 g-3 e-2 c-1>
 @end lilypond
 
-Es posible tener un mayor control sobre la situación exacta de las
+@noindent
+pero se puede forzar de manera que todos o algunos de los números de
+digitación estén por encima o por debajo:
+
+@lilypond[quote,verbatim,relative=2]
+<c-5 g-3 e-2 c-1>
+<c^5 g_3 e_2 c_1>
+<c^5 g^3 e^2 c_1>
+@end lilypond
+
+Es posible ejercer un control aún mayor sobre la colocación de las
 digitaciones mediante la utilización de la instrucción @code{\set
-fingeringOrientations}.  El formato de esta instrucción es
+fingeringOrientations}.  El formato de esta instrucción es:
 
 @example
 @code{\set fingeringOrientations = #'([up] [left/right] [down])}
@@ -1694,9 +1777,9 @@ digitación de las notas de los acordes que siguen.  Observe que
 @code{left} y @code{right} son mutuamente excluyentes: las
 digitaciones pueden situarse en un lado o en el otro, no en los dos.
 
-Para controlar la colocación de la digitación de una sola nota usando
-esta instrucción es necesario escribirla como un acorde de una sola
-nota encerrándola entre ángulos simples.
+@warning{Para controlar la colocación de la digitación de una sola
+nota usando esta instrucción es necesario escribirla como un acorde de
+una sola nota encerrándola entre ángulos simples.}
 
 Aquí podemos ver algunos ejemplos:
 
@@ -1743,8 +1826,9 @@ objeto @code{Fingering} del RFI que es @code{-5}, así que probaremos
 < c-1  e-2 g-3 b-5 > 4
 @end lilypond
 
-@node Outside staff objects
-@subsection Outside staff objects
+
+@node Outside-staff objects
+@subsection Outside-staff objects
 
 Los objetos fuera-del-pentagrama se colocan automáticamente para
 evitar las colisiones.  Los objetos que tienen el valor más bajo de la
@@ -1791,9 +1875,12 @@ He aquí un ejemplo que muestra la situación predeterminada de algunos
 de ellos.
 
 @cindex texto, extensiones de
-@funindex \startTextSpan
-@funindex \stopTextSpan
 @cindex octava alta y baja, corchete de
+
+@funindex \startTextSpan
+@funindex startTextSpan
+@funindex \stopTextSpan
+@funindex stopTextSpan
 
 @lilypond[quote,fragment,ragged-right,verbatim,relative=1]
 % Set details for later Text Spanner
@@ -1826,6 +1913,13 @@ define por medio de la instrucción @code{\override TextSpanner}.  Para
 ver más detalles, consulte @ruser{Text spanners}.
 
 También muestra la manera de crear corchetes de octava alta y baja.
+
+@cindex trucar la situación de los números de compás
+@cindex números de compás, ajustar posición
+@cindex trucar la situación de marcas metronómicas
+@cindex metrónomo, situación de las indicaciones de
+@cindex trucar la situación de las letras de ensayo
+@cindex ensayo, letras, trucar la colocación
 
 Observe que los números de compás, las indicaciones metronómicas y las
 mercas de ensayo no se muestran. De forma predeterminada, se crean
@@ -1892,7 +1986,7 @@ bajo el epígrafe Comportamiento Automático de más arriba (véase
 prioridad de @code{TextScript} en el RFI o en las tablas de arriba, y
 aumentar la prioridad de @qq{Text3} hasta un valor superior:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 c2^"Text1"
 c^"Text2"
 \once \override TextScript #'outside-staff-priority = #500
@@ -1911,8 +2005,12 @@ hacer sitio para el texto.  Esto se hace empleando la instrucción
 
 @subheading \textLengthOn
 
-@funindex \textLengthOn
 @cindex notas, espaciar junto al texto
+
+@funindex \textLengthOn
+@funindex textLengthOn
+@funindex \textLengthOff
+@funindex textLengthOff
 
 De forma predeterminada, el texto producido mediante marcado no ocupa
 ningún espacio horizontal en cuanto se refiere a la disposición de la
@@ -1920,7 +2018,7 @@ música.  La instrucción @code{\textLengthOn} invierte este
 comportamiento, ocasionando que las notas resulten tan espaciadas como
 sea necesario para acomodar el texto:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \textLengthOn  % Cause notes to space out to accommodate text
 c2^"Text1"
 c^"Text2"
@@ -1933,13 +2031,15 @@ La instrucción para volver al comportamiento predeterminado es
 con @code{\override}, @code{\set}, @code{\revert} o @code{unset}, así
 que no se puede usar con @code{\textLengthOn}.
 
+@cindex marcado, texto de, permitir las colisiones en
+
 El texto de marcado también evita las notas que se proyectan por
 encima del pentagrama.  Si esto no es lo que deseamos, el
 desplazamiento automático hacia arriba se puede desactivar mediante el
 establecimiento de la prioridad a @code{#f}.  He aquí un ejemplo que
 muestra cómo el texto de marcado interactúa con tales notas.
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 % This markup is short enough to fit without collision
 c2^"Tex"
 c''2
@@ -1962,6 +2062,10 @@ c''2
 
 
 @subheading Dynamics
+
+@cindex trucar la colocación de los matices
+@cindex dinámica, trucar la colocación de las indicaciones de
+@cindex matices, trucar la colocación
 
 Las indicaciones de matiz dinámico normalmente se colocarán por debajo
 del pentagrama, pero se pueden posicionar por encima con la
@@ -1986,7 +2090,7 @@ las marcas dinámicas posteriores más lejos, aunque este puede no ser
 el lugar óptimo, como muestra el siguiente ejemplo más bien
 artificial:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 a4\f b\mf c\mp b\p
 @end lilypond
@@ -2005,10 +2109,6 @@ instrucciones @code{\override}.
 
 @cindex grob, cambio de tamaño de un
 @cindex escala de los grobs
-@cindex @code{X-offset}
-@cindex @code{Y-offset}
-@cindex @code{X-extent}
-@cindex @code{Y-extent}
 
 En primer lugar debemos aprender cómo se especifica el tamaño de los
 grobs.  Todos los grobs tienen un punto de referencia definido dentro
@@ -2042,7 +2142,7 @@ instrucción que lo hace para las indicaciones dinámicas:
 @noindent
 Veamos si funciona en nuestro ejemplo anterior:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 \override DynamicText #'extra-spacing-width = #'(0 . 0)
 a4\f b\mf c\mp b\p
@@ -2059,7 +2159,7 @@ son el espacio entre dos líneas de pentagrama, así que al mover el
 límite izquierdo media unidad a la izquierda y el límite derecho media
 unidad hacia la derecha, deberíamos conseguirlo:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 staff space
 \override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
@@ -2085,6 +2185,12 @@ que se estudia en la sección siguiente.
 
 @node Moving objects
 @subsection Moving objects
+
+@cindex mover objetos superpuestos
+@cindex mover objetos que colisionan
+@cindex moving grobs que colisionan
+@cindex objetos que colisionan, mover
+@cindex grobs, mover, que colisionan
 
 Aunque pueda sorprenderle, LilyPond no es perfecto.  Ciertos elementos
 de notación se pueden superponer, lo que es una lástima, pero en
@@ -2129,10 +2235,12 @@ objects}.
 izquierda), @code{right-padding} (relleno por la derecha),
 @code{staff-padding} (relleno de pentagrama)
 
+@cindex relleno
 @cindex left-padding, propiedad
 @cindex padding, propiedad
 @cindex right-padding, propiedad
 @cindex staff-padding, propiedad
+
 Según un objeto se está colocando, el valor de su propiedad de relleno
 @code{padding} especifica el espacio intermedio que se debe dejar
 entre él mismo y el límite más próximo del objeto contra el que se
@@ -2184,6 +2292,7 @@ Se puede sobreescribir si se necesita una separación intermedia mayor
 @code{self-alignment-X} (Auto-alineamiento en el eje X)
 
 @cindex self-alignment-X, propiedad
+
 Esta propiedad se puede usar para alinear el objeto a la izquierda, a
 la derecha, o centrarlo con respecto al punto de referencia del objeto
 «padre».  Se puede usar con todos los objetos que contemplan el
@@ -2204,6 +2313,7 @@ longitud total del propio texto.
 @code{extra-spacing-width} (anchura de separación adicional)
 
 @cindex extra-spacing-width, propiedad
+
 Esta propiedad está disponible para todos los objetos que contemplan
 el interface @code{item-interface}.  Toma dos números, el primero se
 suma al límite izquierdo y el segundo se suma al límite derecho.  Los
@@ -2217,6 +2327,7 @@ ostentan los dos números.  Por ejemplo, el objeto @code{Accidental}
 @code{staff-position} (posición de pentagrama)
 
 @cindex staff-position, propiedad
+
 @code{staff-position} es una propiedad del interface
 @code{staff-symbol-referencer-interface}, que está contemplado por los
 objetos que se colocan con relación al pentagrama.  Especifica la
@@ -2267,7 +2378,9 @@ de posicionamiento manual son:
 
 @table @code
 @item extra-offset (desplazamiento adicional)
+
 @cindex extra-offset, propiedad
+
 Esta propiedad se aplica a cualquier objeto de presentación que
 contemple el @code{grob-interface}.  Toma una pareja de números que
 especifican el desplazamiento adicional en las direcciones horizontal
@@ -2278,7 +2391,9 @@ tipográfica de los objetos ha terminado, así que un objeto puede ser
 reposicionado a cualquier lugar sin afectar a ninguna otra cosa.
 
 @item positions (posiciones)
+
 @cindex positions, propiedad
+
 Ésta es de la mayor utilidad para ajustar manualmente la inclinación y
 la altura de las barras de corchea, ligaduras de expresión y corchetes
 de grupos de valoración especial.  Toma una pareja de números que dan
@@ -2328,8 +2443,10 @@ en la sección anterior, para resolver problemas de notación que se
 superpone.
 
 @subheading padding property
-@cindex relleno, propiedad
-@cindex padding, propiedad
+
+@cindex relleno
+@cindex arreglar notación que se superpone
+@cindex superpuesta, notación
 
 La propiedad @code{padding} se puede ajustar para aumentar (o
 disminuir) la distancia entre símbolos impresos encima o debajo de las
@@ -2367,6 +2484,7 @@ de él.
 
 
 @subheading left-padding and right-padding
+
 @cindex left-padding, propiedad
 @cindex right-padding, propiedad
 
@@ -2378,7 +2496,7 @@ natural y un Si bemol.  Para evitar la ambigüedad querríamos preceder
 las notas con un becuadro y un bemol.  Aquí vienen varios intentos de
 hacerlo así:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 <b bes>
 <b! bes>
 <b? bes>
@@ -2414,7 +2532,9 @@ sobreescribiendo @code{right-padding}.
 @noindent
 
 @subheading staff-padding property
-@cindex staff-padding, propiedad
+
+@cindex alineación de objetos sobre la línea base
+@cindex objetos, alineación sobre la línea base
 
 @code{staff-padding} se puede usar para alinear objetos como matices
 dinámicos a lo largo de una línea de base a una altura fija sobre el
@@ -2426,7 +2546,7 @@ dinámicas, entre ellas las que se han creado como objetos de
 extensión.  Así que ésta es la forma de alinear las indicaciones de
 matiz en el ejemplo de la sección anterior:
 
-@lilypond[quote,verbatim,relative=2]
+@lilypond[quote,fragment,ragged-right,verbatim,relative=2]
 \dynamicUp
 % Extend width by 1 unit
 \override DynamicText #'extra-spacing-width = #'(-0.5 . 0.5)
@@ -2437,7 +2557,6 @@ a4\f b\mf c\mp b\p
 
 
 @subheading self-alignment-X property
-@cindex self-alignment-X, propiedad
 
 El ejemplo siguiente muestra cómo esto puede resolver la colisión
 entre un objeto de digitación de cuerda y la plica de una nota
@@ -2452,7 +2571,8 @@ de la nota «padre»:
 @end lilypond
 
 @subheading staff-position property
-@cindex staff-position, propiedad
+
+@cindex objeto, colisión dentro del pentagrama
 
 Los silencios multi-compás en una voz pueden chocar con las notas en
 otra voz.  Puesto que estos silencios se tipografían centrados entre
@@ -2486,7 +2606,11 @@ Esto es mejor que utilizar, por ejemplo, @code{extra-offset}, porque
 la línea adicional por encima del silencio se inserta automáticamente.
 
 @subheading extra-offset property
-@cindex extra-offset, propiedad
+
+@cindex posicionar objetos
+@cindex posicionar grobs
+@cindex objetos, posicionar
+@cindex grobs, posicionar
 
 La propiedad @code{extra-offset} da un completo control sobre el
 posicionamiento de un objeto tanto vertical como horizontalmente.
@@ -2504,7 +2628,13 @@ f-5
 
 
 @subheading positions property
-@cindex positions, propiedad
+
+@cindex controlar manualmente grupos especiales, ligaduras y barras
+@cindex manual, control, de grupos especiales, ligaduras y barras
+@cindex grupos especiales, barras de, control manual
+@cindex ligaduras de expresión, control manual
+@cindex ligaduras de fraseo, control manual
+@cindex barras de corchea, control manual
 
 La propiedad @code{positions} permite controlar manualmente la
 posición e inclinación de los tresillos, ligaduras de expresión y de
@@ -2527,7 +2657,7 @@ r4
 @end lilypond
 
 @noindent
-pero si por algún motivo no pudiéramos hacerlo, la otra alternativa
+Pero si por algún motivo no pudiéramos hacerlo, la otra alternativa
 sería mover el extremo izquierdo de la ligadura de fraseo un poco
 hacia abajo usando la propiedad @code{positions}.  Esto también
 resuelve la forma algo indecente de la ligadura.
@@ -2575,7 +2705,7 @@ segundo bloque de corcheas, pero no a ninguna de las barras de la
 segunda voz.
 
 @subheading force-hshift property
-@cindex force-hshift, propiedad
+
 @c FIXME: formatting stuff  (ie not important right now IMO)
 @c @a nchor Chopin finally corrected TODOgp
 
@@ -3084,8 +3214,10 @@ lhMusic = \relative c' {
 @cindex objetos, hace invisibles
 @cindex eliminar objetos
 @cindex objetos, eliminar
+@cindex objetos, ocultar
 @cindex ocultar objetos
 @cindex invisibles, objetos
+@cindex objetos invisibles
 @cindex ligar notas entre voces distintas
 
 @subheading Tying notes across voices
@@ -3201,6 +3333,10 @@ sigue, meintras que la segunda (con el sello suprimido) no lo hace.
 
 @node Using variables for tweaks
 @subsection Using variables for tweaks
+
+@cindex variables, uso de, para trucos
+@cindex usar variables para hacer trucos
+@cindex trucos, usar variables para hacer
 
 Las instrucciones de sobreescritura son con frecuencia largas y
 tediosas de escribir, y se tienen que escribir de forma absolutamente
@@ -3328,11 +3464,11 @@ Vamos a comenzar observando algunos archivos que están en @file{ly/}.
 Abra @file{ly/property-init.ly} con un editor de textos.  El mismo que
 usaría normalmente para los archivos @code{.ly} servirá perfectamente.
 Este archivo contiene las definiciones de todas las instrucciones
-incorporadas como estándar dentro de LilyPond, como por ejemplo
-@code{\stemUp} y @code{\slurDotted}.  Podrá ver que no son nada más
-que definiciones de variables que contienen una o varias instrucciones
-@code{\override}.  Por ejemplo, @code{/tieDotted} está definido de tal
-forma que su valor es:
+estándar predefinidas de LilyPond, como por ejemplo @code{\stemUp} y
+@code{\slurDotted}.  Podrá ver que no son nada más que definiciones de
+variables que contienen una o varias instrucciones @code{\override}.
+Por ejemplo, @code{/tieDotted} está definido de tal forma que su valor
+es:
 
 @example
 tieDotted = @{
@@ -3342,7 +3478,7 @@ tieDotted = @{
 @end example
 
 Si no le gustan los valores predeterminados, estas instrucciones
-incorporadas se pueden redefinir con facilidad como cualquier otra
+predefinidas se pueden redefinir con facilidad como cualquier otra
 variable, al principio de su archivo de código de entrada.
 
 Los siguientes son los archivos más útiles que se encuentran en
@@ -3353,12 +3489,14 @@ Los siguientes son los archivos más útiles que se encuentran en
   @tab Contenido
 @item @file{ly/engraver-init.ly}
   @tab Definiciones de Contextos de grabadores
-@item @file{ly/paper-defaults.ly}
+@item @file{ly/paper-defaults-init.ly}
   @tab especificaciones de valores predeterminados relacionados con el papel
 @item @file{ly/performer-init.ly}
   @tab Definiciones de Contextos de interpretación
 @item @file{ly/property-init.ly}
-  @tab Definiciones de todas las instrucciones incorporadas que son comunes
+  @tab Definiciones de todas las instrucciones predefinidas que son comunes
+@item @file{ly/spanner-init.ly}
+  @tab Definiciones de las instrucciones predefinidas relacionadas con los objetos de extensión
 @end multitable
 
 Otros ajustes (como las definiciones de las instrucciones de marcado)

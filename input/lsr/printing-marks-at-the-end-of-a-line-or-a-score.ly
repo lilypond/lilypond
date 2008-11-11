@@ -30,6 +30,7 @@ final bar line, as demonstrated on the second line of this example.
 "
   doctitle = "Printing marks at the end of a line or a score"
 } % begin verbatim
+
 \relative c'' {  
   \override Score.RehearsalMark #'break-visibility = #begin-of-line-invisible
   g2 c

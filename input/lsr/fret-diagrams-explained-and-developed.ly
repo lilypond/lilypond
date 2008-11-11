@@ -9,6 +9,7 @@ and tweaking fret diagrams."
   doctitle = "Fret diagrams explained and developed"
 } % begin verbatim
 
+
 <<
   \chords {
     a2 a

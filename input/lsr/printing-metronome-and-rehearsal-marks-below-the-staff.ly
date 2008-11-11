@@ -24,6 +24,7 @@ of @code{MetronomeMark} or @code{RehearsalMark} appropriately.
 "
   doctitle = "Printing metronome and rehearsal marks below the staff"
 } % begin verbatim
+
 \layout { ragged-right = ##f }
 
 {

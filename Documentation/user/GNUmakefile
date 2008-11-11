@@ -14,11 +14,9 @@ OUT_PDF_IMAGES=$(IMAGES:%.png=$(outdir)/%.pdf) $(addprefix $(outdir)/,$(PDF_ILLU
 
 OUT_PNG_IMAGES=$(OUT_PDF_IMAGES:%.pdf=%.png)
 
+OUT_MASTER_TEXI_FILES = $(outdir)/lilypond-internals.texi
 OUT_TEXI_FILES=$(ITEXI_FILES:%.itexi=$(outdir)/%.texi)\
  $(ITELY_FILES:%.itely=$(outdir)/%.texi)
-
-MASTER_TEXI_FILES = $(TELY_FILES:%.tely=$(outdir)/%.texi)\
- $(outdir)/lilypond-internals.texi
 
 HTML_FILES = $(TELY_FILES:%.tely=$(outdir)/%-big-page.html)\
  $(outdir)/lilypond-internals-big-page.html
@@ -30,6 +28,8 @@ PDF_FILES = $(TELY_FILES:%.tely=$(outdir)/%.pdf)\
 MAIN_INFO_DOC = lilypond
 INFO_DOCS = lilypond lilypond-internals music-glossary lilypond-program lilypond-learning
 INFO_FILES = $(INFO_DOCS:%=$(outdir)/%.info)
+
+TEXI2PDF_FLAGS = -I $(top-src-dir)/Documentation/user
 
 ifeq ($(out),www)
 INFO_IMAGES_DIR = lilypond
@@ -63,8 +63,6 @@ extra-local-help:
   xml	      update Docbook xml documentation\n\
 "
 
-$(outdir)/lilypond.texi: $(outdir)/lilypond-internals.texi
-
 #
 # Split manuals in HTML
 #
@@ -80,11 +78,11 @@ $(outdir)/lilypond-learning-big-page.html: $(OUT_PNG_IMAGES)
 
 $(outdir)/lilypond.xml: $(outdir)/lilypond.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) -I$(outdir) --output=$@ --docbook $<
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$@ --docbook $<
 
 $(outdir)/lilypond-internals/lilypond-internals.xml: $(outdir)/lilypond-internals.texi
 	mkdir -p $(dir $@)
-	$(MAKEINFO) --output=$(outdir)/lilypond-internals --docbook $<
+	$(MAKEINFO) -I$(src-dir) -I$(outdir) --output=$(outdir)/lilypond-internals --docbook $<
 
 $(outdir)/lilypond.pdf $(outdir)/lilypond-learning.pdf: $(OUT_PDF_IMAGES)
 

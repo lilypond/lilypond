@@ -7,11 +7,18 @@
 
   texidoces = "
 Los símbolos específicos de acordeón discanto se escriben mediante
-@code{\\markup}. Se puede trucar la colocación vertical de los
+@code{\\markup}.  Se puede trucar la colocación vertical de los
 símbolos modificando los argumentos de @code{\\raise}.
 
 "
   doctitlees = "Símbolos de acordeón discanto"
+  
+  doctitlede = "Symbole für Akkordeon-Diskantregister"
+  texidocde = "
+Diskantregister für Akkordeon können mit @code{\\markup} dargestellt werden.
+Die vertikale Position der einzelnen Elemente werden mit @code{\\raise}
+angepasst.
+"
 
   texidoc = "
 Accordion discant-specific symbols are added using @code{\\markup}. The
@@ -23,12 +30,15 @@ vertical placement of the symbols can be tweaked by changing the
 "
   doctitle = "Accordion-discant symbols"
 } % begin verbatim
+
 discant = \markup {
   \musicglyph #"accordion.accDiscant"
 }
 dot = \markup {
   \musicglyph #"accordion.accDot"
 }
+
+\layout { ragged-right = ##t }
 
 % 16 voets register
 accBasson = ^\markup {
@@ -168,11 +178,13 @@ accViolin = ^\markup {
   c4 d\accVCello e f
   c4 d\accHarmon e f
   c4 d\accTrombon e f
+  \break
   c4 d\accOrgan e f
   c4 d\accMaster e f
   c4 d\accAccord e f
   c4 d\accMusette e f
   c4 d\accCeleste e f
+  \break
   c4 d\accOboe e f
   c4 d\accClarin e f
   c4 d\accPiccolo e f

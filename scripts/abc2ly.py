@@ -928,8 +928,7 @@ def get_bar_acc(note, octave, state):
         return(UNDEF)
 
 def clear_bar_acc(state):
-    for k in state.in_acc:
-        del state.in_acc[k]
+    state.in_acc = {}
 
 
 # if we are parsing a beam, close it off

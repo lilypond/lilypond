@@ -1,7 +1,14 @@
   texidoces = "
 Los símbolos específicos de acordeón discanto se escriben mediante
-@code{\\markup}. Se puede trucar la colocación vertical de los
+@code{\\markup}.  Se puede trucar la colocación vertical de los
 símbolos modificando los argumentos de @code{\\raise}.
 
 "
   doctitlees = "Símbolos de acordeón discanto"
+  
+  doctitlede = "Symbole für Akkordeon-Diskantregister"
+  texidocde = "
+Diskantregister für Akkordeon können mit @code{\\markup} dargestellt werden.
+Die vertikale Position der einzelnen Elemente werden mit @code{\\raise}
+angepasst.
+"

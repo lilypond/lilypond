@@ -5,22 +5,14 @@
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
 @end ignore
-@setfilename lilypond-program.info
-@settitle GNU LilyPond Programmbenutzung
 @documentencoding UTF-8
 @documentlanguage de
+@setfilename lilypond-program.info
+@settitle GNU LilyPond Programmbenutzung
 
 @include macros.itexi
 
-@iftex
 @afourpaper
-@c don't replace quotes with directed quotes
-@tex
-\gdef\SETtxicodequoteundirected{Foo}
-\gdef\SETtxicodequotebacktick{Bla}
-@end tex
-@end iftex
-
 
 @c don't remove this comment.
 @ignore

@@ -14,6 +14,15 @@ sincopados se deben barrar manualmente.
 
 "
 
+  texidocde = "
+Dieses künstliche Beispiel zeigt, wie sowohl automatische als auch
+manuelle Zeilenumbrüche innerhalb einer N-tole mit Balken erlaubt
+werden können.  Diese unregelmäßige Bebalkung muss allerdings manuell
+gesetzt werden.
+
+"
+  doctitlede = "Zeilenumbrüche bei N-tolen mit Balken erlauben"
+
   texidoc = "
 This artificial example shows how both manual and automatic line breaks
 may be permitted to within a beamed tuplet. Note that such off-beat
@@ -22,6 +31,7 @@ tuplets have to be beamed manually.
 "
   doctitle = "Permitting line breaks within beamed tuplets"
 } % begin verbatim
+
 \layout {
   \context {
     \Voice

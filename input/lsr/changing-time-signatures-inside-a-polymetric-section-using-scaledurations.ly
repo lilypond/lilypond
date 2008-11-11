@@ -27,6 +27,7 @@ second argument must be the same as the second argument of
   doctitle = "Changing time signatures inside a polymetric section using @code{\\scaleDurations}"
 } % begin verbatim
 
+
 \layout {
   \context {
     \Score

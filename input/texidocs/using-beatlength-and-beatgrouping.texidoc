@@ -1,0 +1,11 @@
+  texidoces = "
+La propiedad @code{measureLength} determina dónde se deben insertar
+líneas divisorias y, con @code{beatLength} y @code{beatGrouping}, cómo
+se deben generar las barras autoomáticas para las duraciones de barra
+y compases para los que no hay ninguna regla definida para los finales
+de barra. Este ejemplo muestra distintas dormas de controlar el
+barrado mediante el establecimiento de estas propiedades. Las
+explicaciones están en forma de comentarios dentro del código.
+
+"
+  doctitlees = "Utilización de beatLength y beatGrouping"

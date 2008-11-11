@@ -32,6 +32,7 @@ the default + symbol, assign the value @code{trill} to the variable
 "
   doctitle = "Modifying default values for articulation shorthand notation"
 } % begin verbatim
+
 \relative c'' { c1-+ }
 dashPlus = "trill"
 \relative c'' { c1-+ }

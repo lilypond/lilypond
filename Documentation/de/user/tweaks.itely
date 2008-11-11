@@ -2718,7 +2718,7 @@ Hier ist zu beobachten, dass die Veränderung sich auch auf die
 weiteren Achtelbalken der ersten Stimme auwirkt, während sie keine
 Auswirkung auf die Balken der zweiten Stimme hat.
 
-@subheading force-hshift-Eigenschaft
+@subheading force-hshift property
 @cindex force-hshift-Eigenschaft
 @cindex Vertikale Verschiebung erzwingen
 @c FIXME: formatting stuff  (ie not important right now IMO)
