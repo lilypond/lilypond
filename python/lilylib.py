@@ -34,9 +34,6 @@ if os.environ.has_key ('LILYPOND_DATADIR') :
     while datadir[-1] == os.sep:
 	datadir= datadir[:-1]
 
-sys.path.insert (0, os.path.join (datadir, 'python'))
-
-
 # Python 2.5 only accepts strings with proper Python internal encoding
 # (i.e. ASCII or Unicode) when writing to stdout/stderr, so we must
 # use ugettext iso gettext, and encode the string when writing to
