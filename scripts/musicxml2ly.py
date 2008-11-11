@@ -1761,31 +1761,6 @@ def musicxml_voice_to_lily_voice (voice):
             if a:
                 voice_builder.add_partial (a)
             continue
-
-        if isinstance (n, musicxml.Direction):
-            for a in musicxml_direction_to_lily (n):
-                if a.wait_for_note ():
-                    voice_builder.add_dynamics (a)
-                else:
-                    voice_builder.add_command (a)
-            continue
-
-        if isinstance (n, musicxml.Harmony):
-            for a in musicxml_harmony_to_lily (n):
-                if a.wait_for_note ():
-                    voice_builder.add_dynamics (a)
-                else:
-                    voice_builder.add_command (a)
-            for a in musicxml_harmony_to_lily_chordname (n):
-                pending_chordnames.append (a)
-            continue
-
-        if isinstance (n, musicxml.FiguredBass):
-            a = musicxml_figured_bass_to_lily (n)
-            if a:
-                pending_figured_bass.append (a)
-            continue
-
         is_chord = n.get_maybe_exist_named_child ('chord')
         if not is_chord:
             try:
@@ -1826,6 +1801,31 @@ def musicxml_voice_to_lily_voice (voice):
         # Start any new multimeasure rests
         if (rest and rest.is_whole_measure ()):
             voice_builder.add_multibar_rest (n._duration)
+            continue
+
+
+        if isinstance (n, musicxml.Direction):
+            for a in musicxml_direction_to_lily (n):
+                if a.wait_for_note ():
+                    voice_builder.add_dynamics (a)
+                else:
+                    voice_builder.add_command (a)
+            continue
+
+        if isinstance (n, musicxml.Harmony):
+            for a in musicxml_harmony_to_lily (n):
+                if a.wait_for_note ():
+                    voice_builder.add_dynamics (a)
+                else:
+                    voice_builder.add_command (a)
+            for a in musicxml_harmony_to_lily_chordname (n):
+                pending_chordnames.append (a)
+            continue
+
+        if isinstance (n, musicxml.FiguredBass):
+            a = musicxml_figured_bass_to_lily (n)
+            if a:
+                pending_figured_bass.append (a)
             continue
 
         if isinstance (n, musicxml.Attributes):
