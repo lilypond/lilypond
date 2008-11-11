@@ -193,10 +193,15 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 		      breaker_->page_top_space ());
   Page_spacing_node &cur = state_.at (line, page);
   bool ragged = ragged_ || (ragged_last_ && last);
+  int line_count = 0;
 
   for (vsize page_start = line+1; page_start > page && page_start--;)
     {
       Page_spacing_node const *prev = page > 0 ? &state_.at (page_start-1, page-1) : 0;
+      line_count += lines_[page_start].compressed_nontitle_lines_count_;
+
+      if (breaker_->too_many_lines (line_count))
+	break;
 
       space.prepend_system (lines_[page_start]);
       if (page_start < line && (isinf (space.force_) || (space.force_ < 0 && ragged)))
@@ -207,7 +212,9 @@ Page_spacer::calc_subproblem (vsize page, vsize line)
 	  if (line == lines_.size () - 1 && ragged && last && space.force_ > 0)
 	    space.force_ = 0;
 
-	  /* we may have to deal with single lines that are taller than a page */
+	  /* we may have to deal with single lines that are taller than a page, in
+	     which case we can't make the force infinite, but we should make
+	     it very large. */
 	  if (isinf (space.force_) && page_start == line)
 	    space.force_ = -BAD_SPACING_PENALTY;
 
