@@ -1909,19 +1909,35 @@ def musicxml_voice_to_lily_voice (voice):
                 
                 tuplet_events.append ((ev_chord, tuplet_event, frac))
 
-            slurs = [s for s in notations.get_named_children ('slur')
-                if s.get_type () in ('start','stop')]
-            if slurs:
-                if len (slurs) > 1:
-                    error_message (_ ('cannot have two simultaneous slurs'))
+            # First, close all open slurs, only then start any new slur
+            # TODO: Record the number of the open slur to dtermine the correct
+            #       closing slur!
+            endslurs = [s for s in notations.get_named_children ('slur')
+                if s.get_type () in ('stop')]
+            if endslurs and not inside_slur:
+                endslurs[0].message (_ ('Encountered closing slur, but no slur is open'))
+            elif endslurs:
+                if len (endslurs) > 1:
+                    endslurs[0].message (_ ('Cannot have two simultaneous (closing) slurs'))
                 # record the slur status for the next note in the loop
                 if not grace:
-                    if slurs[0].get_type () == 'start':
-                        inside_slur = True
-                    elif slurs[0].get_type () == 'stop':
-                        inside_slur = False
-                lily_ev = musicxml_spanner_to_lily_event (slurs[0])
+                    inside_slur = False
+                lily_ev = musicxml_spanner_to_lily_event (endslurs[0])
                 ev_chord.append (lily_ev)
+
+            startslurs = [s for s in notations.get_named_children ('slur')
+                if s.get_type () in ('start')]
+            if startslurs and inside_slur:
+                startslurs[0].message (_ ('Cannot have a slur inside another slur'))
+            elif startslurs:
+                if len (startslurs) > 1:
+                    startslurs[0].message (_ ('Cannot have two simultaneous slurs'))
+                # record the slur status for the next note in the loop
+                if not grace:
+                    inside_slur = True
+                lily_ev = musicxml_spanner_to_lily_event (startslurs[0])
+                ev_chord.append (lily_ev)
+
 
             if not grace:
                 mxl_tie = notations.get_tie ()
