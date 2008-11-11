@@ -143,7 +143,7 @@ Paper_book::output_aux (SCM output_channel,
 	return;
       paper_->set_variable (ly_symbol2scm ("first-page-number"),
 			    scm_long2num (*first_page_number));
-      paper_->set_variable (ly_symbol2scm ("part-is-last"),
+      paper_->set_variable (ly_symbol2scm ("is-last-bookpart"),
 			    ly_bool2scm (is_last));
       /* Generate all stencils to trigger font loads.  */
       *first_page_number += scm_ilength (pages ());

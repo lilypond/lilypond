@@ -17,7 +17,6 @@ difference with the book last page.
 
   %% book paper, which is inherited by all children bookparts
   \paper {
-    id = "\nbook level paper\n"
     ragged-last-bottom = ##t
     %% Page footer: add a different part-tagline at part last page
     oddFooterMarkup = \markup {

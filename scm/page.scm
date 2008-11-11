@@ -137,7 +137,7 @@
 
 
 (define (page-headfoot layout scopes number sym separation-symbol dir
-		       is-book-last-page is-part-last-page)
+		       is-last-bookpart is-bookpart-last-page)
   
   "Create a stencil including separating space."
 
@@ -146,7 +146,7 @@
 	 (stencil (ly:make-stencil "" '(0 . 0) '(0 . 0)))
 	 (head-stencil
 	  (if (procedure? header-proc)
-	      (header-proc layout scopes number is-book-last-page is-part-last-page)
+	      (header-proc layout scopes number is-last-bookpart is-bookpart-last-page)
 	      #f)))
     
     (if (and (number? sep)
@@ -197,8 +197,8 @@
        (layout (ly:paper-book-paper paper-book))
        (scopes (ly:paper-book-scopes paper-book))
        (number (page-page-number page))
-       (is-book-last-page (page-property page 'is-last))
-       (is-part-last-page (page-property page 'is-part-last)))
+       (is-last-bookpart (page-property page 'is-last-bookpart))
+       (is-bookpart-last-page (page-property page 'is-bookpart-last-page)))
        
       (page-headfoot layout scopes number
 		(if (= dir UP)
@@ -207,7 +207,7 @@
 		(if (= dir UP)
 		    'head-separation
 		    'foot-separation)
-		dir is-book-last-page is-part-last-page)))
+		dir is-last-bookpart is-bookpart-last-page)))
 
 (define (page-header page)
   (page-header-or-footer page UP))
