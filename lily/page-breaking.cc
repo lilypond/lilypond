@@ -861,15 +861,18 @@ Page_breaking::space_systems_with_fixed_number_per_page (vsize configuration,
 	}
 
       res.systems_per_page_.push_back (line - page_first_line);
-      res.force_.push_back (space.force_);
+
+      // Don't say that the force is infinite even if it is: if we were told to
+      // put a certain number of systems on a page then we will, even if it's bad.
+      res.force_.push_back (min (space.force_, BAD_SPACING_PENALTY));
       res.penalty_ += cached_line_details_[line-1].page_penalty_;
       page_first_line = line;
     }
 
   /* Recalculate forces for the last page because we know now that is
-     was really the last page. */
+     really the last page. */
   space.resize (page_height (first_page_num + page, true));
-  res.force_.back () = space.force_;
+  res.force_.back () = min(space.force_, BAD_SPACING_PENALTY);
   return finalize_spacing_result (configuration, res);
 }
 
@@ -958,7 +961,7 @@ Page_breaking::finalize_spacing_result (vsize configuration, Page_spacing_result
     {
       Real f = res.force_[i];
       if (isinf (f) && res.systems_per_page_[i] == 1)
-	f = 20000;
+	f = BAD_SPACING_PENALTY;
 
       page_force += f * f;
     }
