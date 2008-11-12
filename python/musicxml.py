@@ -551,6 +551,8 @@ class Part (Music_xml_node):
                 # and should not change the current measure position!
                 if isinstance (n, FiguredBass):
                     n._divisions = factor.denominator ()
+                    n._when = now
+                    n._measure_position = measure_position
                     continue
 
                 if isinstance (n, Hash_text):
