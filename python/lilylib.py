@@ -18,21 +18,6 @@ import optparse
 # Users of python modules should include this snippet
 # and customize variables below.
 
-# We'll suffer this path init stuff as long as we don't install our
-# python packages in <prefix>/lib/pythonx.y (and don't kludge around
-# it as we do with teTeX on Red Hat Linux: set some environment var
-# (PYTHONPATH) in profile)
-
-# If set, LILYPOND_DATADIR must take prevalence
-# if datadir is not set, we're doing a build and LILYPOND_DATADIR
-
-datadir = '@local_lilypond_datadir@'
-if not os.path.isdir (datadir):
-    datadir = '@lilypond_datadir@'
-if os.environ.has_key ('LILYPOND_DATADIR') :
-    datadir = os.environ['LILYPOND_DATADIR']
-    while datadir[-1] == os.sep:
-	datadir= datadir[:-1]
 
 # Python 2.5 only accepts strings with proper Python internal encoding
 # (i.e. ASCII or Unicode) when writing to stdout/stderr, so we must
