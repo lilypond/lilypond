@@ -758,14 +758,14 @@ d cis fis
 No note has a printed accidental, but you must still add
 @code{is} and type @code{cis} and @code{fis} in the input file.
 
-The code @code{e} does not mean @qq{print a black dot just on
-the first line of the staff.}  Rather, it means @qq{there is a
-note with pitch E-natural.}  In the key of A-flat major, it
+The code @code{b} does not mean @qq{print a black dot just on
+the middle line of the staff.}  Rather, it means @qq{there is a
+note with pitch B-natural.}  In the key of A-flat major, it
 @emph{does} get an accidental:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,relative=2]
 \key aes \major
-e
+b
 @end lilypond
 
 Adding all alterations explicitly might require a little more

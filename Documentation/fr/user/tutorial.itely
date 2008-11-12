@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: fr -*-
 @c This file is part of lilypond.tely
 @ignore
-   Translation of GIT committish: 9c728939dbd36dc81bf0afb29bc5fe22b66d675c
+   Translation of GIT committish: f413550b658b43fbea690fc060f872bce6bbc885
 
    When revising a translation, copy the HEAD committish of the
    version that you are working on.  See TRANSLATION for details.
@@ -808,14 +808,14 @@ d cis fis
 aucune note n'a d'altération accidentelle, et pourtant vous devrez
 entrer le @code{is} pour les notes @code{cis} et @code{fis}.
 
-Le code @code{e} ne veut pas dire @qq{Imprimez-moi un point noir sur
-la première ligne de la portée.}  Cela signifie plutôt : @qq{Ici se
-trouve une note dont la hauteur est un mi naturel.}  Avec une armure
-de la bémol majeur, ce mi est flanqué d'un bécarre accidentel :
+Le code @code{b} ne veut pas dire @qq{Imprimez-moi un point noir sur
+la troisième ligne de la portée.}  Cela signifie plutôt : @qq{Ici se
+trouve une note dont la hauteur est un si naturel.}  Avec une armure
+de la bémol majeur, ce si est flanqué d'un bécarre accidentel :
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,relative=2]
 \key aes \major
-e
+b
 @end lilypond
 
 Ajouter explicitement toutes les altérations demande un peu plus

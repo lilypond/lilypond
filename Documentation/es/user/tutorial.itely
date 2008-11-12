@@ -1,7 +1,7 @@
 @c -*- coding: utf-8; mode: texinfo; documentlanguage: es -*-
 @c This file is part of lilypond-learning.tely
 @ignore
-    Translation of GIT committish: 470afe4ab29825194827f7dfcf031addb68771ce
+    Translation of GIT committish: f413550b658b43fbea690fc060f872bce6bbc885
 
     When revising a translation, copy the HEAD committish of the
     version that you are working on.  See TRANSLATION for details.
@@ -815,14 +815,14 @@ d cis fis
 ninguna nota lleva una alteración impresa, pero de todas formas usted
 debe añadir el @code{is} a @code{cis} y a @code{fis}.
 
-El texto @code{e} no significa @qq{imprimir una bolita negra en la
-primera línea del pentagrama.}  Más bien significa: @qq{hay una nota
-Mi natural.}  En la tonalidad de La bemol mayor, @emph{lleva} una
+El texto @code{b} no significa @qq{imprimir una bolita negra en la
+tercera línea del pentagrama.}  Más bien significa: @qq{hay una nota
+Si natural.}  En la tonalidad de La bemol mayor, @emph{lleva} una
 alteración accidental:
 
-@lilypond[verbatim,quote,relative=1]
+@lilypond[verbatim,quote,relative=2]
 \key aes \major
-e
+b
 @end lilypond
 
 Poner todas las alteraciones de forma explícita puede que requiera
