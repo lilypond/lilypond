@@ -15,7 +15,7 @@ las líneas sean más cortas, como en este fragmento de código.
   doctitlees = "Líneas de rejilla: destacar ritmos y la relación temporal entre notas"
 
   texidoc = "
-Regular vertical lines can be drawn between staves to show notes
+Regular vertical lines can be drawn between staves to show note
 synchronization; however, in case of monophonic music, you may want to
 make the second stave invisible, and make the lines shorter like in
 this snippet.
@@ -24,62 +24,50 @@ this snippet.
   doctitle = "Grid lines: emphasizing rhythms and notes synchronization"
 } % begin verbatim
 
-%% sets of grid
-\layout {
- \context {
-   \Staff
-   \consists "Grid_point_engraver"
-   gridInterval = #(ly:make-moment 1 8)
-%% lines length
-   \override GridPoint #'Y-extent = #'(6 . 0)
- }
- \context {
-   \StaffGroup
-   \remove "System_start_delimiter_engraver"
- }
+\score {
+  \new ChoirStaff {
+    \relative c'' <<
+      \new Staff {
+        \time 12/8
+        \stemUp
+        c4. d8 e8 f g4 f8 e8. d16 c8
+      }
+      \new Staff {
+        % hides staff and notes so that only the grid lines are visible
+        \hideNotes
+        \override Staff.BarLine #'transparent = ##t
+        \override Staff.StaffSymbol #'line-count = #0
+        \override Staff.TimeSignature #'transparent = ##t
+        \override Staff.Clef #'transparent = ##t
+        
+        % dummy notes to force regular note spacing
+        \once  \override Score.GridLine #'thickness = #4.0
+        c8 c c
+        \once  \override Score.GridLine #'thickness = #3.0
+        c8 c c
+        \once  \override Score.GridLine #'thickness = #4.0
+        c8 c c
+        \once  \override Score.GridLine #'thickness = #3.0
+        c8 c c
+      }
+    >>
+  }
+  \layout {
+    \context {
+      \Score
+      \consists "Grid_line_span_engraver"
+      % center grid lines horizontally below note heads
+      \override NoteColumn #'X-offset = #-0.5
+    }
+    \context {
+      \Staff
+      \consists "Grid_point_engraver"
+      gridInterval = #(ly:make-moment 1 8)
+      % set line length and positioning:
+      % two staff spaces above center line on hidden staff
+      % to four spaces below center line on visible staff
+      \override GridPoint #'Y-extent = #'(2 . -4)
+    }
+    ragged-right = ##t
+  }
 }
-
-\layout {
- ragged-right = ##t
-}
-\new Score
-\with {
- \consists "Grid_line_span_engraver"
-%% centers grid lines  horizontally below noteheads
- \override NoteColumn #'X-offset = #-0.5
-}
-
-\new ChoirStaff <<
- \new Staff
- {
-   \time 12/8
-   \stemUp
-   \relative {
-   c'4. d8 e8 f g4 f8 e8.[ d16 c8] }
- }
- \new Staff
- {
-%% making sure the lines will be placed outside the Staff
-   \override Score.GridLine #'extra-offset = #'( 0.0 . -4.0 )
-
-%% hides staff and notes so that only the grid lines are visible
-   \override NoteHead #'transparent = ##t
-   \override NoteHead #'no-ledgers = ##t
-   \override Stem #'transparent = ##t
-   \override Beam #'transparent = ##t
-   \override Staff.BarLine #'transparent = ##t
-   \override Staff.StaffSymbol #'line-count = #0
-   \override Staff.TimeSignature #'transparent = ##t
-   \override Staff.Clef #'transparent = ##t
-
-% you have to put 'dummy' notes here to force regular grid spacing...
- \once  \override Score.GridLine #'thickness = #4.0
- c8   c8   c8
- \once  \override Score.GridLine #'thickness = #3.0
- c8   c8   c8
- \once  \override Score.GridLine #'thickness = #4.0
- c8   c8   c8
- \once  \override Score.GridLine #'thickness = #3.0
- c8   c8   c8
- }
->>

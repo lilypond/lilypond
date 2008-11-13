@@ -11,6 +11,14 @@ Los patrones de barrado se pueden alterar con la propiedad
 
 "
   doctitlees = "Agrupar los pulsos"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+texidocde = "
+Balkengruppen können mit der @code{beatGrouping}-Eigenschaft geändert
+werden:
+
+"
+  doctitlede = "Notengruppen"
 
   texidoc = "
 Beaming patterns may be altered with the @code{beatGrouping} property: 

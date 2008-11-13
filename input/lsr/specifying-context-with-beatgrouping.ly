@@ -3,6 +3,15 @@
 \version "2.11.62"
 
 \header {
+  texidoces = "
+Mediante la especificación del contexto, el efecto de
+@code{beatGrouping} puede limitarse al contexto especificado, y
+sobreescribirse los valores establecidos en contextos de niveles más
+altos:
+
+"
+  doctitlees = "Especificar el contexto con beatGrouping"
+
   lsrtags = "rhythms"
   texidoc = "
 By specifying the context, the effect of @code{beatGrouping} can be

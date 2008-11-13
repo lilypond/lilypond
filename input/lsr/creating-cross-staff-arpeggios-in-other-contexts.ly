@@ -12,6 +12,16 @@ contextos distintos a @code{PianoStaff} si se incluye el grabador
 
 "
   doctitlees = "Creación de arpegios que se cruzan entre pentagramas dentro de otros contextos"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+ texidocde = "
+In einem Klaviersystem (@code{PianoStaff}) ist es möglich, ein Arpeggio
+zwischen beiden Systemen zu verbinden, indem die
+@code{PianoStaff.connectArpeggios}-Eigenschaft gesetzt wird.
+ 
+
+"
+  doctitlede = "Arpeggio zwischen Systemen in einem Klaviersystem erstellen"
 
   texidoc = "
 Cross-staff arpeggios can be created in contexts other than

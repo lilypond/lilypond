@@ -17,6 +17,19 @@ establecido a 5.5 espacios de pentagrama.
 
 "
   doctitlees = "Cambiar el salto de las barras en ángulo"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+texidocde = "
+Balken mit Hälsen in unterschiedliche Richtungen werden automatisch
+erstellt, wenn ein großer Sprung zwischen Tonhöhen gefunden wird.  Dieses
+Verhalten kann durch die @code{auto-knee-gap}-Eigenschaft beeinflusst
+werden.  Ein derartiger Knie-Balken wird erstellt, wenn der Abstand größer
+ist als der Wert von @code{auto-knee-gap} plus der Dicke des Balkens
+(was von der Notendauer und der Neigung des Balkens abhängt).  Der
+Standardwert von @code{auto-knee-gap} ist 5.5 Notensystemabstände.
+
+"
+  doctitlede = "Balken für weit außeinander liegende Noten ändern"
 
   texidoc = "
 Kneed beams are inserted automatically when a large gap is detected

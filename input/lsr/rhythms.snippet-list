@@ -36,6 +36,7 @@ rhythmic-slashes.ly
 automatic-beams-two-per-two-in-4-4-or-2-2-time-signature.ly
 using-beatlength-and-beatgrouping.ly
 three-sided-box.ly
+beam-endings-in-score-context.ly
 flat-flags-and-beam-nibs.ly
 specifying-context-with-beatgrouping.ly
 skips-in-lyric-mode.ly

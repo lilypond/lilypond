@@ -12,6 +12,15 @@ modificando la propiedad @code{minimum-length} del objeto
 
 "
   doctitlees = "Ajustar la longitud mínima de los reguladores"
+  
+%% Translation of GIT committish :<6ce7f350682dfa99af97929be1dec6b9f1cbc01a>
+texidocde = "
+Wenn Crescendo-Klammern zu kurz sind, können sie verlängert werden, indem
+die @code{minimum-length}-Eigenschaft des @code{Hairpin}-Objektes
+verändert wird. 
+
+"
+  doctitlede = "Die Mindestlänge von Crescendo-Klammern bestimmen"
 
   texidoc = "
 If hairpins are too short, they can be lengthened by modifying the

@@ -2,6 +2,24 @@
 %% This file is in the public domain.
 \version "2.11.62"
 \header {
+  texidoces = "
+
+Se pueden añadir diagramas de posiciones predefinidas para
+instrumentos nuevos además de los estándar que se usan para la
+guitarra.  Este archivo muestra cómo se hace, definiendo una afinación
+nueva y unas cuantas posiciones para el cuatro venezolano.
+
+Este archivo también muestra cómo se pueden incluir las digitaciones
+en los acordes que se usan como puntos de referencia para la búsqueda
+de acordes en la tabla, y mostrarse en el diagrama de posiciones y la
+tablatura @code{TabStaff}, pero no en la música.
+
+Estas posiciones no se pueden transportar porque contienen información
+de las cuerdas.  Hay planes para corregir esto en un futuro.
+
+"
+  doctitlees = "Definición de posiciones predefinidas para otros instrumentos"
+
   lsrtags = "fretted-strings"
   texidoc = "Predefined fret diagrams can be added for new instruments
 in addition to the standards used for guitar.  This file shows how
