@@ -32,9 +32,9 @@
 @end ifnottex
 
 @ifhtml
-Este documento está disponible también en formato
+Este documento también está disponible en formato
 @uref{source/Documentation/user/lilypond-program.es.pdf,PDF} y como
-@uref{source/Documentation/user/lilypond-program-big-page.html,una sola página} [en inglés].
+@uref{source/Documentation/user/lilypond-program-big-page.html,una sola página}.
 @end ifhtml
 
 
@@ -150,16 +150,17 @@ Free Documentation License''.
 
 @ifnottex
 El presente documento es el manual de utilización del programa GNU
-LilyPond, versión @version{}.  Para ver más información acerca de la
+LilyPond, versión @version{}.  Para ver más información sobre la
 relación entre éste y el resto de los documentos, consulte
 @rlearning{About the documentation}.
 
+@cindex web, página
 @cindex página web
 @cindex URL
 
-Se puede ampliar información en
-@uref{http://@/www@/.lilypond@/.org/}.  La página web incluye copias en línea
-de esta documentación y otras.
+Se puede encontrar más información en
+@uref{http://@/www@/.lilypond@/.org/}.  La página web incluye copias
+en línea de la presente documentación y de otras.
 
 @menu
 * Install::                        Cómo instalarlo o compilarlo.
