@@ -174,7 +174,7 @@ string."""
         error_file_write ('\n'
                           + _ ("Error while converting")
                           + '\n'
-                          + _ ("Stopping at last succesful rule")
+                          + _ ("Stopping at last successful rule")
                           + '\n')
 
     return (last_conversion, str)
