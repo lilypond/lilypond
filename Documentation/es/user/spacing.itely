@@ -7,6 +7,7 @@
     version that you are working on.  See TRANSLATION for details.
 @end ignore
 
+@c \version "2.11.64"
 
 @node Spacing issues
 @chapter Spacing issues
@@ -519,8 +520,8 @@ longitud horizontal natural.  Predeterminado: @code{##f}.
 Si la partitura sólo tiene un sistema, el valor predeterminado es
 @code{##t}.
 
-@item systemSeparatorMarkup
-@funindex systemSeparatorMarkup
+@item system-separator-markup
+@funindex system-separator-markup
 
 Objeto de marcado que se inserta entre los sistemas.  Se suele usar
 para partituras orquestales.  Predeterminado: sin establecer.
@@ -535,7 +536,7 @@ valor predeterminado apropiado, por ejemplo
     \relative { c1 \break c1 }
   }
   \paper {
-    systemSeparatorMarkup = \slashSeparator
+    system-separator-markup = \slashSeparator
   }
 }
 @end lilypond

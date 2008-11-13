@@ -1,24 +1,25 @@
-\version "2.11.51"
+\version "2.11.64"
 
 \header {
-
   texidoc = "System separators may be defined as markups in the
-@code{systemSeparator} field of the paper block.  They are centered
-between the boundary staves of each system."
-
+@code{system-separator-markup} field of the paper block.  They are
+centered between the boundary staves of each system."
 }
 
 \paper {
-  systemSeparatorMarkup = \slashSeparator
-
+  system-separator-markup = \slashSeparator
 }
-foobar = \relative { c1 c \break c c  \break c c }
-\book
-{
+
+foobar = \relative c' {
+  c1 c \break
+  c1 c \break
+  c1 c
+}
+\book {
   \score {
-     \new GrandStaff <<
-       \new Staff \foobar 
-       \new Staff \foobar 
-     >>
+    \new GrandStaff <<
+      \new Staff \foobar 
+      \new Staff \foobar 
+    >>
   }
 }

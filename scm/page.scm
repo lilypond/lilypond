@@ -254,7 +254,7 @@
        ;; TODO: naming paper-height/paper-width not analogous to TeX.
        
        (system-xoffset (ly:output-def-lookup layout 'horizontal-shift 0.0))
-       (system-separator-markup (ly:output-def-lookup layout 'systemSeparatorMarkup))
+       (system-separator-markup (ly:output-def-lookup layout 'system-separator-markup))
        (system-separator-stencil (if (markup? system-separator-markup)
 				     (interpret-markup layout
 						       (layout-extract-page-properties layout)
